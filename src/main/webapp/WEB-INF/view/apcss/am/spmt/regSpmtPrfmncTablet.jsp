@@ -25,40 +25,36 @@
 			</div>
 			<div class="box-body">
 				<!--[pp] 검색 -->
+				<!--[APC] START -->			
+					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
+				<!--[APC] END -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 8%">
 						<col style="width: 10%">
-						<col style="width: 10%">
-						<col style="width: 10%">
-						<col style="width: 10%">
-						<col style="width: 10%">
-						<col style="width: 10%">
-						<col style="width: 10%">
+						<col style="width: 4%">
+						<col style="width: 5%">
+						<col style="width: 5%">
 						<col style="width: 10%">
 						<col style="width: 10%">
 					</colgroup>
 					<tbody>
-						<tr>
-							<th scope="row" class="th_bg">APC명</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
-							</td>
-							<td colspan="6"></td>
-						</tr>
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>출하지시번호</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-spmtCmndnoIndct" name="srch-inp-spmtCmndnoIndct" uitype="text" maxlength="25" class="form-control input-sm-ast inpt_data_reqed input-sm"></sbux-input>
 								<sbux-input id="srch-inp-spmtCmndno" name="srch-inp-spmtCmndno" uitype="hidden"></sbux-input>
 							</td>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-button id="btnSrchSpmtCmndno" name="btnSrchSpmtCmndno" uitype="modal" text="찾기" class="btn btn-xs btn-outline-dark" target-id="modal-spmtCmnd" onclick="fn_choiceSpmtCmnd"></sbux-button>
 								<p class="ad_input_row">
 									<sbux-checkbox id="srch-chk-spmtCmndno" name="srch-chk-spmtCmndno" uitype="normal" text="고정" class="check"></sbux-checkbox>
 								</p>
 							</td>
-							<td colspan="5"></td>
+							<td colspan="4"></td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>포장번호/순번</th>
@@ -161,13 +157,13 @@
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-vhclno" name="srch-inp-vhclno" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-button id="btnSrchVhclNo" name="btnSrchVhclNo" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vhcl" onclick="fn_choiceVhcl"></sbux-button>
 								<p class="ad_input_row">
 									<sbux-checkbox id="srch-chk-vhclno" name="srch-chk-vhclno" uitype="normal" text="고정" class="check"></sbux-checkbox>
 								</p>
 							</td>
-							<td colspan="5"></td>
+							<td colspan="4"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -180,7 +176,7 @@
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-spmtTrgtDsctn" style="height:200px;"></div>
+					<div id="sb-area-spmtTrgtDsctn" style="height:130px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 
@@ -216,7 +212,7 @@
 	var spmtGdsList = [];
 
 	window.addEventListener('DOMContentLoaded', function(e) {
-		SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
+		SBUxMethod.set("srch-inp-apcNm", gv_selectedApcNm);
 
 		fn_createSpmtTrgtDsctnGrid();
 	})
@@ -244,9 +240,9 @@
             {caption: ['중량'], 		ref: 'spmtWght', 		width: '80px', 	type: 'output', 	style: 'text-align: right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
             {caption: ['품종'], 		ref: 'vrtyNm', 			width: '100px', type: 'output', 	style: 'text-align: center'},
-            {caption: ['규격'], 		ref: 'spcfctNm', 		width: '100px', type: 'output', 	style: 'text-align: center'},
+            {caption: ['규격'], 		ref: 'spcfctNm', 		width: '60px', 	type: 'output', 	style: 'text-align: center'},
             {caption: ['상품명'], 	ref: 'spmtPckgUnitNm', 	width: '100px', type: 'output', 	style: 'text-align: center'},
-            {caption: ['상품등급'], 	ref: 'gdsGrdNm', 		width: '100px', type: 'output', 	style: 'text-align: center'},
+            {caption: ['상품등급'], 	ref: 'gdsGrdNm', 		width: '70px', 	type: 'output', 	style: 'text-align: center'},
             {caption: ['거래처'], 	ref: 'cnptNm', 			width: '100px', type: 'output', 	style: 'text-align: center'},
             {caption: ['운송회사'], 	ref: 'trsprtCoNm',		width: '100px', type: 'output', 	style: 'text-align: center'},
             {caption: ['차량번호'], 	ref: 'vhclno', 			width: '100px', type: 'output', 	style: 'text-align: center'},
@@ -293,7 +289,7 @@
 				, trsprtCoNm 		: SBUxMethod.get('srch-inp-trsprtCoNm')
 				, vhclno 			: SBUxMethod.get('srch-inp-vhclno')
 				, delYn 			: 'N'
-				, apcCd				: gv_apcCd
+				, apcCd				: gv_selectedApcCd
 				, spmtYmd			: gfn_dateToYmd(new Date())
 				, spmtCmndno		: SBUxMethod.get('srch-inp-spmtCmndno')
 				, pckgno			: SBUxMethod.get('srch-inp-pckgno')
@@ -529,7 +525,7 @@
 
 	// 차량 선택 팝업 호출
 	const fn_choiceVhcl = function() {
-		popVhcl.init(gv_apcCd, gv_apcNm, fn_setVhcl);
+		popVhcl.init(gv_selectedApcCd, gv_selectedApcNm, fn_setVhcl);
 	}
 
 	const fn_setVhcl = function(vhcl) {
@@ -544,7 +540,7 @@
 			regSpmtList	: regSpmtList
 		}
 
-    	popSpmtCmnd.init(gv_apcCd, gv_apcNm, searchData, fn_setSpmtCmnd);
+    	popSpmtCmnd.init(gv_selectedApcCd, gv_selectedApcNm, searchData, fn_setSpmtCmnd);
 	}
 	const fn_setSpmtCmnd = function(spmtCmnd) {
 		if (!gfn_isEmpty(spmtCmnd)) {
@@ -603,7 +599,7 @@
 			spmtGdsList	: spmtGdsList
 		}
 
-		popGdsInvntr.init(gv_apcCd, gv_apcNm, searchData, fn_setGdsInvntr);
+		popGdsInvntr.init(gv_selectedApcCd, gv_selectedApcNm, searchData, fn_setGdsInvntr);
 	}
 	const fn_setGdsInvntr = function(gdsInvntr) {
 		if (!gfn_isEmpty(gdsInvntr)) {

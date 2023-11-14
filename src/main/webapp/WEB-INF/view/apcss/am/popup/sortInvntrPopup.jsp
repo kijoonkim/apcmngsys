@@ -50,6 +50,7 @@
 									id="sortInvntr-dtp-sortYmdFrom"
 									name="sortInvntr-dtp-sortYmdFrom"
 									uitype="popup"
+									date-format="yyyy-mm-dd"
 									class="form-control input-sm sbux-pik-group-apc"
 									onchange="popSortInvntr.dtpChange"
 								></sbux-datepicker>
@@ -60,6 +61,7 @@
 									id="sortInvntr-dtp-sortYmdTo"
 									name="sortInvntr-dtp-sortYmdTo"
 									uitype="popup"
+									date-format="yyyy-mm-dd"
 									class="form-control input-sm sbux-pik-group-apc"
 									onchange="popSortInvntr.dtpChange"
 								></sbux-datepicker>

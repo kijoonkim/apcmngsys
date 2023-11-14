@@ -49,10 +49,10 @@
 					<tr>
 						<th scope="row" class="th_bg"><span class="data_required" ></span>매출일자</th>
 						<td class="td_input" style="border-right: hidden;">
-							<sbux-datepicker id="srch-dtp-slsYmdFrom" name="srch-dtp-slsYmdFrom" uitype="popup" class="form-control input-sm sbux-pik-group-apc" onchange="fn_dtpChange(srch-dtp-slsYmdFrom)"></sbux-datepicker>
+							<sbux-datepicker id="srch-dtp-slsYmdFrom" name="srch-dtp-slsYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc" onchange="fn_dtpChange(srch-dtp-slsYmdFrom)"></sbux-datepicker>
 						</td>
 						<td class="td_input" style="border-right: hidden;">
-							<sbux-datepicker id="srch-dtp-slsYmdTo" name="srch-dtp-slsYmdTo" uitype="popup" class="form-control input-sm sbux-pik-group-apc" onchange="fn_dtpChange(srch-dtp-slsYmdTo)"></sbux-datepicker>
+							<sbux-datepicker id="srch-dtp-slsYmdTo" name="srch-dtp-slsYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc" onchange="fn_dtpChange(srch-dtp-slsYmdTo)"></sbux-datepicker>
 						</td>
 						<td class="td_input" style="border-right: hidden;"></td>
 						<th scope="row" class="th_bg">확정여부</th>
@@ -104,10 +104,10 @@
 								<h5 style="float:left; color:black;">매출생성일자</h5>
 							</td>
 							<td class="td_input" style="border-right:hidden; border-left:hidden" >
-								<sbux-datepicker id="dtl-dtp-slsYmdFrom" name="dtl-dtp-slsYmdFrom" uitype="popup" class="form-control input-sm sbux-pik-group-apc" onchange="fn_dtlDtpChange(dtl-dtp-slsYmdFrom)"></sbux-datepicker>
+								<sbux-datepicker id="dtl-dtp-slsYmdFrom" name="dtl-dtp-slsYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc" onchange="fn_dtlDtpChange(dtl-dtp-slsYmdFrom)"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right:hidden; border-left:hidden" >
-								<sbux-datepicker id="dtl-dtp-slsYmdTo" name="dtl-dtp-slsYmdTo" uitype="popup" class="form-control input-sm sbux-pik-group-apc" onchange="fn_dtlDtpChange(dtl-dtp-slsYmdTo)"></sbux-datepicker>
+								<sbux-datepicker id="dtl-dtp-slsYmdTo" name="dtl-dtp-slsYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc" onchange="fn_dtlDtpChange(dtl-dtp-slsYmdTo)"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right:hidden;">
 								<sbux-button

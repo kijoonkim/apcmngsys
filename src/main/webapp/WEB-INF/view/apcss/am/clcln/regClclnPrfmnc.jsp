@@ -108,6 +108,7 @@
 									id="srch-dtp-clclnYmdFrom"
 									name="srch-dtp-clclnYmdFrom"
 									uitype="popup"
+									date-format="yyyy-mm-dd"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									onchange="fn_dtpChange(srch-dtp-clclnYmdFrom)"
 								></sbux-datepicker>
@@ -117,6 +118,7 @@
 									id="srch-dtp-clclnYmdTo"
 									name="srch-dtp-clclnYmdTo"
 									uitype="popup"
+									date-format="yyyy-mm-dd"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									onchange="fn_dtpChange(srch-dtp-clclnYmdTo)"
 								></sbux-datepicker>
@@ -223,6 +225,7 @@
 										id="srch-dtp-clclnYmd"
 										name="srch-dtp-clclnYmd"
 										uitype="popup"
+										date-format="yyyy-mm-dd"
 										class="form-control input-sm sbux-pik-group-apc"
 									></sbux-datepicker></td>
 								<td class="td_input" style="border-right:hidden;">
@@ -354,10 +357,10 @@
             	format : {type:'number', rule:'#,###'}
             },
             {caption: ["중량"], ref: 'wght', type:'output',  width:'100px',   style:'text-align:right',
-            	format : {type:'number', rule:'#,### kg'}
+            	format : {type:'number', rule:'#,### Kg'}
             },
             {caption: ["계산금액"], ref: 'rkngAmt', type:'output',  width:'100px',   style:'text-align:right',
-            	format : {type:'number', rule:'#,###'}, typeinfo : {maxlength : 10}
+            	format : {type:'number', rule:'#,### 원'}, typeinfo : {maxlength : 10}
             },
             {
 				caption: ["확정금액"],
@@ -372,7 +375,7 @@
 	                maxlength: 10,
 	                oneclickedit: true
                 },
-                format : {type:'number', rule:'#,###'},
+                format : {type:'number', rule:'#,### 원'},
                 typeinfo : {maxlength : 10}
 
 			},

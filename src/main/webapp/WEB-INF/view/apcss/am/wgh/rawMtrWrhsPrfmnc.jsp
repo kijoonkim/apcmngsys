@@ -49,10 +49,10 @@
 						<tr>
 							<th scope="row" class="th_bg">입고일자</th>
 							<td class="td_input"style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-startPrdctnYmd" name="srch-dtp-startPrdctnYmd" class="form-control pull-right input-sm" onchange="fn_dtpChange(srch-dtp-startPrdctnYmd)"></sbux-datepicker>
+								<sbux-datepicker uitype="popup" id="srch-dtp-startPrdctnYmd" name="srch-dtp-startPrdctnYmd" date-format="yyyy-mm-dd" class="form-control pull-right input-sm" onchange="fn_dtpChange(srch-dtp-startPrdctnYmd)"></sbux-datepicker>
 							</td>
 							<td class="td_input"style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-endPrdctnYmd" name="srch-dtp-endPrdctnYmd" class="form-control pull-right input-sm" onchange="fn_dtpChange(srch-dtp-endPrdctnYmd)"></sbux-datepicker>
+								<sbux-datepicker uitype="popup" id="srch-dtp-endPrdctnYmd" name="srch-dtp-endPrdctnYmd" date-format="yyyy-mm-dd" class="form-control pull-right input-sm" onchange="fn_dtpChange(srch-dtp-endPrdctnYmd)"></sbux-datepicker>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<th scope="row" class="th_bg">품목/품종</th>
@@ -385,28 +385,18 @@
 	const fn_setGrdRawMtrWrhsPrfmnc = async function(pageSize, pageNo) {
 		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-startPrdctnYmd");		// 입고시작일자
    		let wrhsYmdTo = SBUxMethod.get("srch-dtp-endPrdctnYmd");		// 입고종료일자
-  		let wrhsSeCd = fn_getChkbox(jsonWrhsSeCd, SBUxMethod.get("dtl-chk-wrhsSeCd"));
-  		let gdsSeCd = fn_getChkbox(jsonGdsSeCd, SBUxMethod.get("dtl-chk-gdsSeCd"));
-  		let trsprtSeCd = fn_getChkbox(jsonTrsprtSeCd, SBUxMethod.get("dtl-chk-trsprtSeCd"));
 
   		// optional
   		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");	// 생산자
-  		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");	// 창고
-  		let vhclno = SBUxMethod.get("srch-inp-vhclno");	// 차량번호
   		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let vrtyCd = vrtyCds.length > 0 ? vrtyCds.join(',') : "";
 		const postJsonPromise = gfn_postJSON("/am/wrhs/selectRawMtrWrhsPrfmncList.do", {
 			apcCd: gv_selectedApcCd,
 			wrhsYmdFrom: wrhsYmdFrom,
 			wrhsYmdTo: wrhsYmdTo,
-			wrhsSeCd: wrhsSeCd,
-			gdsSeCd: gdsSeCd,
-			trsprtSeCd: trsprtSeCd,
-			warehouseSeCd: warehouseSeCd,
 			prdcrCd: prdcrCd,
 			vrtyCd: vrtyCd,
 			itemCd: itemCd,
-			vhclno: vhclno,
           	// pagination
   	  		pagingYn : 'Y',
   			currentPageNo : pageNo,

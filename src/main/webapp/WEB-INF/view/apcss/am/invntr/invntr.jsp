@@ -47,7 +47,7 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>기준일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-crtrYmd" name="srch-dtp-crtrYmd" class="form-control pull-right input-sm"/>
+								<sbux-datepicker uitype="popup" id="srch-dtp-crtrYmd" name="srch-dtp-crtrYmd" date-format="yyyy-mm-dd" class="form-control pull-right input-sm"/>
 							</td>
 							<td colspan="2">&nbsp;</td>
 							<th scope="row" class="th_bg">생산자</th>
@@ -275,7 +275,8 @@
 	    SBGridProperties.columns = [
 	        {caption: ["입고번호","입고번호"],		ref: 'wrhsno',      type:'output', hidden: true},
 	        {caption: ["팔레트번호","팔레트번호"],	ref: 'pltno',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["입고일자","입고일자"],		ref: 'wrhsYmd',      type:'output',  width:'90px',    style:'text-align:center'},
+	        {caption: ["입고일자","입고일자"],		ref: 'wrhsYmd',      type:'output',  width:'90px',    style:'text-align:center',
+	        	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 	        {caption: ["생산자","생산자"],			ref: 'prdcrNm',      type:'output',  width:'90px',    style:'text-align:center'},
 	        {caption: ["품목","품목"],				ref: 'itemNm',      type:'output',  width:'90px',    style:'text-align:center'},
 	        {caption: ["품종","품종"],				ref: 'vrtyNm',      type:'output',  width:'90px',    style:'text-align:center'},
@@ -442,7 +443,8 @@
 	    SBGridProperties.columns = [
 	        {caption: ["선별번호","선별번호"],		ref: 'sortno',      	type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["등급","등급"],				ref: 'grdNm',      		type:'output',  width:'90px',    style:'text-align:center'},
-	        {caption: ["투입일자","투입일자"],		ref: 'inptYmd',      	type:'output',  width:'105px',    style:'text-align:center'},
+	        {caption: ["투입일자","투입일자"],		ref: 'inptYmd',      	type:'output',  width:'105px',    style:'text-align:center',
+	        	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 	        {caption: ["설비","설비"],				ref: 'fcltNm',      	type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["생산자","생산자"],			ref: 'prdcrNm',      	type:'output',  width:'90px',    style:'text-align:center'},
 	        {caption: ["품목","품목"],				ref: 'itemNm',     		type:'output',  width:'90px',    style:'text-align:center'},
@@ -490,7 +492,7 @@
 
 		const postJsonPromise2 = gfn_postJSON(url, {
 			apcCd				: gv_selectedApcCd
-		  ,	inptYmd				: crtrYmd
+		  ,	crtrYmd				: crtrYmd
 		  ,	itemCd				: itemCd
 		  ,	vrtyCd				: vrtyCd
 		  ,	spcfctCd			: spcfctCd
@@ -582,7 +584,8 @@
 	    SBGridProperties.columns = [
 	        {caption: ["포장번호","포장번호"],		ref: 'pckgno',      	type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["순번","순번"],				ref: 'pckgSn',      	type:'output',  width:'55px',    style:'text-align:center'},
-	        {caption: ["포장일자","포장일자"],		ref: 'pckgYmd',      	type:'output',  width:'105px',    style:'text-align:center'},
+	        {caption: ["포장일자","포장일자"],		ref: 'pckgYmd',      	type:'output',  width:'105px',    style:'text-align:center',
+	        	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 	        {caption: ["설비","설비"],				ref: 'fcltNm',      	type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["생산자","생산자"],			ref: 'prdcrNm',      	type:'output',  width:'90px',    style:'text-align:center'},
 	        {caption: ["품목","품목"],				ref: 'itemNm',      	type:'output',  width:'90px',    style:'text-align:center'},

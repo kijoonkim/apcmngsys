@@ -58,10 +58,10 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>입고일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-wrhsYmdFrom" name="srch-dtp-wrhsYmdFrom" class="form-control pull-right input-sm input-sm-ast" onchange="fn_dtpChange(srch-dtp-wrhsYmdFrom)">
+								<sbux-datepicker uitype="popup" id="srch-dtp-wrhsYmdFrom" name="srch-dtp-wrhsYmdFrom" date-format="yyyy-mm-dd" class="form-control pull-right input-sm input-sm-ast" onchange="fn_dtpChange(srch-dtp-wrhsYmdFrom)">
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-wrhsYmdTo" name="srch-dtp-wrhsYmdTo" class="form-control pull-right input-sm input-sm-ast" onchange="fn_dtpChange(srch-dtp-wrhsYmdTo)">
+								<sbux-datepicker uitype="popup" id="srch-dtp-wrhsYmdTo" name="srch-dtp-wrhsYmdTo" date-format="yyyy-mm-dd" class="form-control pull-right input-sm input-sm-ast" onchange="fn_dtpChange(srch-dtp-wrhsYmdTo)">
 							</td>
 							<td>&nbsp;</td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>품목/품종</th>
@@ -128,7 +128,7 @@
 					<tr>
 						<th scope="row" class="th_bg"><span class="data_required"></span>지시일자</th>
 						<td class="td_input" style="border-right: hidden;">
-							<sbux-datepicker uitype="popup" id="srch-dtp-cmndYmd" name="srch-dtp-cmndYmd" class="form-control pull-right input-sm input-sm-ast" onchange="fn_dtpChange(srch-dtp-cmndYmd)"/>
+							<sbux-datepicker uitype="popup" id="srch-dtp-cmndYmd" name="srch-dtp-cmndYmd" date-format="yyyy-mm-dd" class="form-control pull-right input-sm input-sm-ast" onchange="fn_dtpChange(srch-dtp-cmndYmd)"/>
 						</td>
 						<td>&nbsp;</td>
 						<th scope="row" class="th_bg"><span class="data_required"></span>투입설비</th>
@@ -283,18 +283,18 @@
 	    SBGridProperties.explorerbar = 'sortmove';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.columns = [
-	        {caption: ["지시번호","지시번호"], 		ref: 'sortCmndno',  	type:'output',  	width:'130px',    style:'text-align:center'},
-	        {caption: ["지시일자","지시일자"],  	ref: 'sortCmndYmd', 	type:'output',  	width:'130px',    style:'text-align:center'},
+	        {caption: ["지시번호","지시번호"], 	ref: 'sortCmndno',  	type:'output',  	width:'130px',    style:'text-align:center'},
+	        {caption: ["지시일자","지시일자"],  	ref: 'sortCmndYmd', 	type:'output',  	width:'130px',    style:'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 	        {caption: ["투입설비","투입설비"],  	ref: 'fcltNm',    		type:'output',  	width:'130px',    style:'text-align:center'},
-	        {caption: ["생산자","생산자"],  		ref: 'prdcrNm',    		type:'output',  	width:'130px',    style:'text-align:center'},
-	        {caption: ["품종","품종"],  			ref: 'vrtyNm',    		type:'output',  	width:'130px',    style:'text-align:center'},
-	        {caption: ["창고","창고"],  			ref: 'warehouseSeNm',	type:'output',  	width:'130px',    style:'text-align:center'},
-	        {caption: ["팔레트번호","팔레트번호"],  ref: 'pltno',    		type:'output',  	width:'130px',    style:'text-align:center'},
-	        {caption: ["지시","수량"],  			ref: 'cmndQntt',    	type:'output',  	width:'100px',    style:'text-align:right', typeinfo: {mask : {alias : '#', repeat: '*', unmaskvalue : true}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["지시","중량"],  			ref: 'cmndWght',    	type:'output',  	width:'100px',    style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-	        {caption: ["비고","비고"],  			ref: 'rmrk',    		type:'output',  	width:'130px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000})},
-	        {caption: ["APC코드"],  		ref: 'apcCd',    hidden:true},
-	        {caption: ["순번"],  			ref: 'sortCmndSn',    hidden:true},
+	        {caption: ["생산자","생산자"],  	ref: 'prdcrNm',    		type:'output',  	width:'130px',    style:'text-align:center'},
+	        {caption: ["품종","품종"],  		ref: 'vrtyNm',    		type:'output',  	width:'130px',    style:'text-align:center'},
+	        {caption: ["창고","창고"],  		ref: 'warehouseSeNm',	type:'output',  	width:'130px',    style:'text-align:center'},
+	        {caption: ["팔레트번호","팔레트번호"], ref: 'pltno',    		type:'output',  	width:'130px',    style:'text-align:center'},
+	        {caption: ["지시","수량"],  		ref: 'cmndQntt',    	type:'output',  	width:'100px',    style:'text-align:right', typeinfo: {mask : {alias : '#', repeat: '*', unmaskvalue : true}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["지시","중량"],  		ref: 'cmndWght',    	type:'output',  	width:'100px',    style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
+	        {caption: ["비고","비고"],  		ref: 'rmrk',    		type:'output',  	width:'130px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000})},
+	        {caption: ["APC코드"],  			ref: 'apcCd',    		hidden:true},
+	        {caption: ["순번"],  				ref: 'sortCmndSn',    	hidden:true},
 	    ];
 
 	    grdSortCmnd = _SBGrid.create(SBGridProperties);

@@ -75,21 +75,21 @@
 					<colgroup>
 						<col style="width: 7%">
 						<col style="width: 6%">
+						<col style="width: 1%">
 						<col style="width: 2%">
 						<col style="width: 2%">
 						<col style="width: 2%">
 						<col style="width: 2%">
 						<col style="width: 2%">
 						<col style="width: 3%">
-						<col style="width: 5%">
-						<col style="width: 2%">
+						<col style="width: 9%">
 						<col style="width: 10%">
-						<col style="width: 23%">
+						<col style="width: 20%">
 					</colgroup>
 					<tbody>
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>생산자</th>
-							<td colspan="4" class="td_input" style="border-right: hidden;">
+							<td colspan="6" class="td_input" style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
 									id="srch-inp-prdcrNm"
@@ -113,12 +113,12 @@
 									onclick="fn_choicePrdcr"
 								></sbux-button>
 							</td>
-							<td colspan="5" style="border-left: hidden;">
+							<td colspan="3" style="border-left: hidden;">
 							</td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>품목/품종</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
 										<sbux-select 
@@ -133,7 +133,7 @@
 									</div>
 								</div>
 							</td>
-							<td colspan="3"class="td_input" style="border-right: hidden;">
+							<td colspan="4" class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
 										<sbux-select 
@@ -148,7 +148,7 @@
 									</div>
 								</div>
 							</td>
-							<td colspan="2"class="td_input" style="border-right: hidden;">
+							<td colspan="3"class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
 									<sbux-checkbox 
 										uitype="normal"
@@ -160,23 +160,24 @@
 									/>
 								</p>
 							</td>
-							<td style="border-right: hidden;"></td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>입고일자</th>
-							<td colspan="6"class="td_input" style="border-right: hidden;">
+							<td colspan="6" class="td_input" style="border-right: hidden;">
 								<sbux-datepicker 
 									uitype="popup" 
 									id="srch-dtp-wrhsYmd" 
-									name="srch-dtp-wrhsYmd" 
-									class="form-control pull-right input-sm"
+									name="srch-dtp-wrhsYmd"
+									date-format="yyyy-mm-dd"
+									class="form-control pull-right sbux-pik-group-apc input-sm"
+									style="width:100%;"
 								/>
 							</td>
 							<td colspan="5" style="border-left: hidden;">&nbsp;</td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>입고수량/중량</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
 									id="srch-inp-bxQntt"
@@ -188,7 +189,7 @@
 									onchange="fn_onChangeBxQntt(this)"
 								/>
 							</td>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
+							<td colspan="4" class="td_input" style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
 									id="srch-inp-wghtAvg"
@@ -225,12 +226,14 @@
 									onchange="fn_onChangeWrhsWght(this)"
 								/>
 							</td>
-							<td style="border-right: hidden;">Kg</td>
-							<td colspan="3">&nbsp;</td>
+							<td style="border-right: hidden;">
+								<label class="bold">Kg</label>
+							</td>
+							<td>&nbsp;</td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>입고구분</th>
-							<td colspan="8" class="td_input" style="border-right:hidden;">
+							<td colspan="11" class="td_input">
 								<p class="ad_input_row">
 									<sbux-radio
 										id="srch-rdo-wrhsSeCd"
@@ -244,11 +247,10 @@
 									/>
 								</p>
 							</td>
-							<td colspan="3">&nbsp;</td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>상품구분</th>
-							<td colspan="8" class="td_input" style="border-right:hidden;">
+							<td colspan="11" class="td_input">
 								<p class="ad_input_row">
 									<sbux-radio
 										id="srch-rdo-gdsSeCd"
@@ -262,11 +264,10 @@
 									/>
 								</p>
 							</td>
-							<td colspan="3">&nbsp;</td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg" style="border-right: hidden;"><span class="data_required"></span>운송구분</th>
-							<td colspan="8" class="td_input" >
+							<td colspan="11" class="td_input">
 								<p class="ad_input_row">
 									<sbux-radio
 										id="srch-rdo-trsprtSeCd"
@@ -280,18 +281,16 @@
 									/>
 								</p>
 							</td>
-							<td colspan="3" style="border-left:hidden;">&nbsp;</td>
 						</tr>
 	 					<tr>
 						 	<th scope="row" class="th_bg"><span class="data_required" ></span>입고등급</th>
-					 		<td colspan="10" class="td_input" style="border-right: hidden;">
+					 		<td colspan="11" class="td_input">
 					 			<jsp:include page="../../am/popup/apcStdGrdSelect.jsp"></jsp:include>
 					 		</td>
-					 		<td>&nbsp;</td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg">박스종류</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
 										<sbux-select
@@ -305,7 +304,7 @@
 									</div>
 								</div>
 							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
 									<sbux-checkbox 
 										uitype="normal"
@@ -317,11 +316,11 @@
 									/>
 								</p>
 							</td>
-							<td colspan="8">&nbsp;</td>
+							<td colspan="6">&nbsp;</td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg">입고창고</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
 										<sbux-select 
@@ -335,7 +334,7 @@
 									</div>
 								</div>
 							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
 									<sbux-checkbox 
 										uitype="normal"
@@ -347,7 +346,7 @@
 									/>
 								</p>
 							</td>
-							<td colspan="8">&nbsp;</td>
+							<td colspan="6">&nbsp;</td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>생산연도</th>
@@ -358,7 +357,8 @@
 									name="srch-dtp-prdctnYr"
 									date-format="yyyy"
 									datepicker-mode="year"
-									class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"
+									style="width:100%;"
+									class="form-control pull-right sbux-pik-group-apc input-sm-ast inpt_data_reqed input-sm"
 								/>
 							</td>
 							<td colspan="5" style="border-left: hidden;">&nbsp;</td>
@@ -376,7 +376,7 @@
 
 				<div class="sbt-wrap-body">
 					<div class="sbt-grid">
-						<div id="sb-area-grdRawMtrWrhs" style="height:220px;"></div>
+						<div id="sb-area-grdRawMtrWrhs" style="height:165px;"></div>
 					</div>
 				</div>
 			</div>

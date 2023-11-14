@@ -225,12 +225,12 @@
 		}
 		if(gfn_diffDate(outordrYmdTo, cmndYmd) < 0){
 			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");//W0001{0}
-			SBUxMethod.set("srch-dtp-cmndYmd",outordrYmdTo);
+			SBUxMethod.set("srch-dtp-cmndYmd", outordrYmdTo);
 			return;
 		}
 		if(gfn_diffDate(outordrYmdTo, dudtYmd) < 0){
 			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");//W0001{0}
-			SBUxMethod.set("srch-dtp-dudtYmd",outordrYmdTo);
+			SBUxMethod.set("srch-dtp-dudtYmd", outordrYmdTo);
 			return;
 		}
 
