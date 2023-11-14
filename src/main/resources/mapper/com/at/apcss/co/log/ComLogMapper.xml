@@ -385,26 +385,46 @@
   	<selectKey keyProperty="hstrySn" resultType="String" order="BEFORE">
   		SELECT SQ_COM_MENU_LOG_HSTRY.NEXTVAL FROM DUAL
   	</selectKey>
-			INSERT INTO TB_COM_MENU_LOG_HSTRY	/* com.at.apcss.co.log.mapper.ComLogMapper.insertMenuHstry */
-			VALUES (
-			#{menuId}
-			,#{menuNm}
-			,#{userId}
-			,#{userNm}
-			,#{userType}
-			,sysdate
-			,#{lgnScsYn}
-			,#{prslType}
-			,#{userIp}
-			,sysdate
-			,#{sysFrstInptUserId}
-			,#{sysFrstInptPrgrmId}
-			,sysdate
-			,#{sysLastChgUserId}
-			,#{sysLastChgPrgrmId}
-			,#{hstrySn}
-			,#{apcCd}
-			,#{flfmtTaskSeCd})
+		INSERT /* com.at.apcss.co.log.mapper.ComLogMapper.insertMenuHstry */
+			INTO TB_COM_MENU_LOG_HSTRY (
+			  HSTRY_SN
+			, MENU_ID
+			, MENU_NM
+			, USER_ID
+			, USER_NM
+			, USER_TYPE
+			, PRSL_DT
+			, LGN_SCS_YN
+			, PRSL_TYPE
+			, USER_IP
+			, APC_CD
+			, FLFMT_TASK_SE_CD
+			, SYS_FRST_INPT_DT
+			, SYS_FRST_INPT_USER_ID
+			, SYS_FRST_INPT_PRGRM_ID
+			, SYS_LAST_CHG_DT
+			, SYS_LAST_CHG_USER_ID
+			, SYS_LAST_CHG_PRGRM_ID	
+		) VALUES (
+			  #{hstrySn}
+			, #{menuId}
+			, #{menuNm}
+			, #{userId}
+			, #{userNm}
+			, #{userType}
+			, sysdate
+			, #{lgnScsYn}
+			, #{prslType}
+			, #{userIp}
+			, #{apcCd}
+			, #{flfmtTaskSeCd}
+			, sysdate
+			, #{sysFrstInptUserId}
+			, #{sysFrstInptPrgrmId}
+			, sysdate
+			, #{sysLastChgUserId}
+			, #{sysLastChgPrgrmId}
+		)
     </insert>
 
 </mapper>
