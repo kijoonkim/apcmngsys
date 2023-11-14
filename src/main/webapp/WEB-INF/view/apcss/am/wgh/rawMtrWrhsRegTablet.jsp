@@ -168,7 +168,8 @@
 									uitype="popup" 
 									id="srch-dtp-wrhsYmd" 
 									name="srch-dtp-wrhsYmd" 
-									class="form-control pull-right input-sm"
+									class="form-control pull-right sbux-pik-group-apc input-sm"
+									style="width:100%;"
 								/>
 							</td>
 							<td colspan="5" style="border-left: hidden;">&nbsp;</td>
@@ -224,7 +225,9 @@
 									onchange="fn_onChangeWrhsWght(this)"
 								/>
 							</td>
-							<td style="border-right: hidden;">Kg</td>
+							<td style="border-right: hidden;">
+								<label class="bold">Kg</label>
+							</td>
 							<td>&nbsp;</td>
 						</tr>
 						<tr>
@@ -353,7 +356,8 @@
 									name="srch-dtp-prdctnYr"
 									date-format="yyyy"
 									datepicker-mode="year"
-									class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"
+									style="width:100%;"
+									class="form-control pull-right sbux-pik-group-apc input-sm-ast inpt_data_reqed input-sm"
 								/>
 							</td>
 							<td colspan="5" style="border-left: hidden;">&nbsp;</td>

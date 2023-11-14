@@ -73,23 +73,23 @@
 					<colgroup>
 						<col style="width: 7%">
 						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 6%">
+						<col style="width: 1%">
+						<col style="width: 2%">
+						<col style="width: 2%">
+						<col style="width: 2%">
+						<col style="width: 2%">
+						<col style="width: 2%">
+						<col style="width: 2%">
+						<col style="width: 1%">
+						<col style="width: 19%">
+						<col style="width: 20%">
 					</colgroup>
 					<tbody>
 						<tr>
 							<th scope="row" class="th_bg">
 								<span class="data_required" ></span>선별기
 							</th>
-							<td colspan="2" class="td_input"  style="border-right:hidden ;">
+							<td colspan="6" class="td_input"  style="border-right:hidden;">
 								<sbux-select
 									id="dtl-slt-fcltCd"
 									name="dtl-slt-fcltCd"
@@ -99,23 +99,23 @@
 									jsondata-ref="jsonComFclt"
 								></sbux-select>
 							</td>
-							<td style="border-right:hidden ;">
+							<td colspan="5" style="border-right:hidden;">
 								<p class="ad_input_row">
 									<sbux-checkbox
 										id="dtl-chk-fxngFclt"
 										name="dtl-chk-fxngFclt"
 										uitype="normal"
+										text="고정"
+										class="check"
 									></sbux-checkbox>
-									<label class="check_label" for="dtl-chk-fxngFclt" >고정</label>
 								</p>
 							</td>
-							<td colspan="5" class="td_input"></td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg">
 								<span class="data_required" ></span>팔레트번호
 							</th>
-							<td colspan="2" class="td_input" style="border-right:hidden ;">
+							<td colspan="6" class="td_input" style="border-right:hidden;">
 								<sbux-input
 									id="dtl-inp-pltno"
 									name="dtl-inp-pltno"
@@ -124,7 +124,7 @@
 									autocomplete="off"
 								></sbux-input>
 							</td>
-							<td class="td_input" style="border-right:hidden ;">
+							<td colspan="2" class="td_input" style="border-right:hidden;">
 								<sbux-button
 									id="dtl-btn-rawMtrInvntr"
 									name="dtl-btn-rawMtrInvntr"
@@ -134,11 +134,11 @@
 									onclick="fn_choiceRawMtrInvntr"
 								></sbux-button>
 						    </td>
-						    <td colspan="5" class="td_input"></td>
+						    <td colspan="3"></td>
 			            </tr>
 			            <tr>
 							<th scope="row" class="th_bg">재고정보</th>
-							<td colspan="3" class="td_input" style="border-right:hidden ;">
+							<td colspan="6" class="td_input" style="border-right:hidden;">
 								<sbux-input id="dtl-inp-wrhsno" name="dtl-inp-wrhsno" uitype="hidden"></sbux-input>
 								<sbux-input id="dtl-inp-invntrQntt" name="dtl-inp-invntrQntt" uitype="hidden"></sbux-input>
 								<sbux-input id="dtl-inp-invntrWght" name="dtl-inp-invntrWght" uitype="hidden"></sbux-input>
@@ -147,13 +147,14 @@
 									name="dtl-lbl-invntr"
 									uitype="normal"
 									text=""
+									class="bold"
 								></sbux-label>
 							</td>
-						    <td colspan="5" class="td_input"></td>
+						    <td colspan="5"></td>
 			            </tr>
 						<tr>
 							<th scope="row" class="th_bg">투입지시번호</th>
-							<td colspan="2" class="td_input" style="border-right:hidden;">
+							<td colspan="6" class="td_input" style="border-right:hidden;">
 								<sbux-input id="dtl-inp-sortCmndno" name="dtl-inp-sortCmndno" uitype="hidden"></sbux-input>
 								<sbux-input id="dtl-inp-sortCmndSn" name="dtl-inp-sortCmndSn" uitype="hidden"></sbux-input>
 								<sbux-input
@@ -164,7 +165,7 @@
 									autocomplete="off"
 								></sbux-input>
 							</td>
-							<td class="td_input" style="border-right:hidden ;">
+							<td colspan="2" class="td_input" style="border-right:hidden;">
 								<sbux-button
 									id="dtl-btn-sortCmnd"
 									name="dtl-btn-sortCmnd"
@@ -175,13 +176,13 @@
 									onclick="fn_choiceSortCmnd"
 								></sbux-button>
 						    </td>
-						    <td colspan="5" class="td_input"></td>
+						    <td colspan="3"></td>
 					    </tr>
 						<tr>
 							<th scope="row" class="th_bg">
 								<span class="data_required" ></span>투입일자
 							</th>
-							<td colspan="2" class="td_input" style="border-right:hidden ;">
+							<td colspan="6" class="td_input" style="border-right:hidden;">
 								<sbux-datepicker
 									id="dtl-dtp-inptYmd"
 									name="dtl-dtp-inptYmd"
@@ -191,14 +192,13 @@
 									style="width:100%;"
 								></sbux-datepicker>
 						    </td>
-							<td style="border-right:hidden;"></td>
-							<td colspan="5" class="td_input"></td>
+							<td colspan="5"></td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg">
 								<span class="data_required" ></span>투입수량/중량
 							</th>
-							<td class="td_input" style="border-right:hidden ;">
+							<td colspan="2" class="td_input" style="border-right:hidden;">
 								<sbux-input
 									id="dtl-inp-inptQntt"
 									name="dtl-inp-inptQntt"
@@ -211,7 +211,7 @@
 									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 								></sbux-input>
 							</td>
-							<td class="td_input" style="border-right:hidden ;">
+							<td colspan="4" class="td_input" style="border-right:hidden;">
 								<sbux-input
 									id="dtl-inp-inptWght"
 									name="dtl-inp-inptWght"
@@ -223,14 +223,13 @@
 									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 								></sbux-input>
 							</td>
-							<td style="border-right:hidden ;">
+							<td colspan="5" class="td_input">
 								<label class="bold">Kg</label>
 							</td>
-							<td colspan="5"></td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg">품목/품종</th>
-							<td class="td_input" style="border-right:hidden ;">
+							<td colspan="2" class="td_input" style="border-right:hidden;">
 								<sbux-input id="dtl-inp-itemCd" name="dtl-inp-itemCd" uitype="hidden"></sbux-input>
 								<sbux-input
 									id="dtl-inp-itemNm"
@@ -242,7 +241,7 @@
 									readonly
 								></sbux-input>
 							</td>
-							<td class="td_input" style="border-right:hidden ;">
+							<td colspan="4" class="td_input" style="border-right:hidden;">
 								<sbux-input id="dtl-inp-vrtyCd" name="dtl-inp-vrtyCd" uitype="hidden"></sbux-input>
 								<sbux-input
 									id="dtl-inp-vrtyNm"
@@ -254,12 +253,11 @@
 									readonly
 								></sbux-input>
 							</td>
-							<td style="border-right:hidden;">
 							<td colspan="5"></td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg">생산자</th>
-							<td class="td_input" style="border-right:hidden ;">
+							<td colspan="6" class="td_input" style="border-right:hidden;">
 								<sbux-input
 									id="dtl-inp-prdcrNm"
 									name="dtl-inp-prdcrNm"
@@ -269,7 +267,7 @@
 									readonly
 								></sbux-input>
 							</td>
-							<td class="td_input" style="border-right:hidden ;">
+							<td colspan="3" class="td_input" style="border-right:hidden;">
 								<sbux-input
 									id="dtl-inp-prdcrCd"
 									name="dtl-inp-prdcrCd"
@@ -279,42 +277,42 @@
 									readonly
 								></sbux-input>
 							</td>
-							<td style="border-right:hidden;">
-							<td colspan="5"></td>
+							<td colspan="2"></td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg">입고일자/창고</th>
-							<td class="td_input" style="border-right:hidden;">
+							<td colspan="2" class="td_input" style="border-right:hidden;">
 								<sbux-label
 									id="dtl-lbl-wrhsYmd"
 									name="dtl-lbl-wrhsYmd"
 									uitype="normal"
+									class="bold"
 									mask="{'alias':'yyyy/mm/dd','autoUnmask':true}"
 								></sbux-label>
 							</td>
-							<td class="td_input" style="border-right:hidden;">
+							<td colspan="4" class="td_input" style="border-right:hidden;">
 								<sbux-label
 									id="dtl-lbl-warehouseSeNm"
 									name="dtl-lbl-warehouseSeNm"
 									uitype="normal"
 									text=""
+									class="bold"
 								></sbux-label>
 							</td>
-							<td style="border-right:hidden;">
 							<td colspan="5"></td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg">박스종류</th>
-							<td colspan="2" class="td_input" style="border-right:hidden ;">
+							<td colspan="2" class="td_input" style="border-right:hidden;">
 								<sbux-label
 									id="dtl-lbl-bxKndNm"
 									name="dtl-lbl-bxKndNm"
 									uitype="normal"
 									text=""
+									class="bold"
 								></sbux-label>
 							</td>
-							<td style="border-right:hidden ;">
-							<td colspan="5"></td>
+							<td colspan="9"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -330,7 +328,7 @@
 							</li>
 						</ul>
 					</div>
-					<div id="sb-area-grdSortInpt" style="height:250px;"></div>
+					<div id="sb-area-grdSortInpt" style="height:175px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 			</div>
@@ -354,7 +352,7 @@
     	<jsp:include page="../../am/popup/rawMtrInvntrPopup.jsp"></jsp:include>
     </div>
 
-	<!-- 선별지시번호 선택 Modal -->sortCmndnoPopup
+	<!-- 선별지시번호 선택 Modal -->
     <div>
         <sbux-modal
         	id="modal-sortCmndno"

@@ -229,7 +229,8 @@
 									id="dtl-dtp-wghYmd" 
 									name="dtl-dtp-wghYmd" 
 									uitype="popup" 
-									class="form-control input-sm"
+									class="form-control sbux-pik-group-apc input-sm"
+									style="width:100%;"
 								></sbux-datepicker>
 							</td>
 							<td colspan="12"></td>
@@ -431,7 +432,8 @@
 									name="dtl-dtp-prdctnYr"
 									date-format="yyyy"
 									datepicker-mode="year"
-									class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"
+									class="form-control pull-right sbux-pik-group-apc input-sm-ast inpt_data_reqed input-sm"
+									style="width:100%;"
 								/>
 							</td>
 							<td colspan="12" class="td_input"></td>
