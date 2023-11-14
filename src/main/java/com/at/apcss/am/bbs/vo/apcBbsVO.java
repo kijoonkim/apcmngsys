@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 public class apcBbsVO extends ComVO{
 
+	private String apcCd;
 	private String msgKey;
 	private String msgCn;
 	private String msgKnd;

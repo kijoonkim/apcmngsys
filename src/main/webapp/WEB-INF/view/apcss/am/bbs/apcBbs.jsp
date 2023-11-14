@@ -88,7 +88,10 @@
          	<div id="body-modal-bbsNewArticlePopup">
     			<jsp:include page="bbsNewArticlePopup.jsp"></jsp:include>
     		</div>
-
+			<sbux-modal id="modal-bbsChildCmntModal" name="modal-bbsChildCmntModal" uitype="small" header-title="답글" body-html-id="body-modal-bbsChildCmntModal" footer-is-close-button="false" header-is-close-button="false" style="width:500px"></sbux-modal>
+         	<div id="body-modal-bbsChildCmntModal">
+    			<jsp:include page="bbsChildCmntPopup.jsp"></jsp:include>
+    		</div>
 
         </div>
     </div>
@@ -107,7 +110,7 @@
     	fn_createGrid();
 
     	gfn_setComCdSBSelect(
-    			['srch-select-bbsSeCd', 'dtl-select-bbsSeCd'],
+    			['srch-select-bbsSeCd', 'dtl-select-bbsSeCd','dtl-select-newbbsSeCd'],
     			jsonComBbsSeCd,
 			'BBS_SE_CD');
     	fn_search();
@@ -138,10 +141,6 @@
 		  	'showgoalpageui' : true
 	    };
         SBGridProperties.columns = [
-            {caption : ["<input type='checkbox' onchange='fn_checkAll(this);'>"],
-                ref: 'checked', type: 'checkbox',   style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-            },
 //             {caption: ["번호"],	ref: 'bbsNo',      type:'output',  width:'10%',    style:'text-align:center'},
             {caption: ["유형"],  	ref: 'bbsSeCdNm',    type:'output',  width:'10%',    style:'text-align:center'},
             {caption: ["제목"], 	ref: 'bbsTitle',     	type:'output',  width:'60%',    style:'text-align:left'},
@@ -203,9 +202,12 @@
 		let bbsSeCd = SBUxMethod.get("srch-select-bbsSeCd");
 		//let bbsNo = SBUxMethod.get("srch-input-bbsNo");
 		let bbsTitle = SBUxMethod.get("srch-input-bbsTitle");
+		let apcCd = gv_apcCd;
 
        // const postJsonPromise = gfn_postJSON("/co/msg/selectComMsgList.do", {
         const postJsonPromise = gfn_postJSON("/am/bbs/selectBbsList.do", {
+
+        	apcCd : apcCd,
         	bbsSeCd: bbsSeCd,
         	//bbsNo: bbsNo,
         	bbsTitle: bbsTitle,
