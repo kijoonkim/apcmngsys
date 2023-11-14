@@ -167,7 +167,8 @@
 								<sbux-datepicker 
 									uitype="popup" 
 									id="srch-dtp-wrhsYmd" 
-									name="srch-dtp-wrhsYmd" 
+									name="srch-dtp-wrhsYmd"
+									date-format="yyyy-mm-dd"
 									class="form-control pull-right sbux-pik-group-apc input-sm"
 									style="width:100%;"
 								/>

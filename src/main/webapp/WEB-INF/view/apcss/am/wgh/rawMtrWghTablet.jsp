@@ -131,7 +131,7 @@
 									onclick="fn_choicePrdcr"
 								></sbux-button>
 							</td>
-							<td colspan="9" style="border-left: hidden;">&nbsp;</td>
+							<td colspan="9"></td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>품목/품종</th>
@@ -228,7 +228,8 @@
 								<sbux-datepicker
 									id="dtl-dtp-wghYmd" 
 									name="dtl-dtp-wghYmd" 
-									uitype="popup" 
+									uitype="popup"
+									date-format="yyyy-mm-dd"
 									class="form-control sbux-pik-group-apc input-sm"
 									style="width:100%;"
 								></sbux-datepicker>
@@ -237,7 +238,7 @@
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg" style="border-right: hidden;"><span class="data_required"></span>차량번호/성명</th>
-							<td colspan="2" class="td_input" class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
 									id="dtl-inp-vhclno"
@@ -296,7 +297,7 @@
 									onchange="fn_onChangeEmptVhclWght"
 								></sbux-input>
 							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="text-align: right; border-right: hidden;">
 								<label class="bold">감량 %</label>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
@@ -321,7 +322,7 @@
 									></sbux-checkbox>
 								</p>
 							</td>
-							<td colspan="2" style="border-right: hidden;" class="td_input">
+							<td colspan="2" class="td_input" style="text-align: right; border-right: hidden;">
 								<label class="bold">감량 Kg</label>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
@@ -330,10 +331,11 @@
 									id="dtl-inp-rdcdWght" 
 									name="dtl-inp-rdcdWght" 
 									class="form-control input-sm" 
+									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 									readonly
 								></sbux-input>
 							</td>
-							<td class="td_input" style="border-right: hidden;">
+							<td class="td_input" style="text-align: right; border-right: hidden;">
 								<label class="bold">실중량 Kg</label>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
@@ -342,6 +344,7 @@
 									id="dtl-inp-actlWght" 
 									name="dtl-inp-actlWght" 
 									class="form-control input-sm" 
+									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 									readonly
 								></sbux-input>
 							</td>
@@ -363,7 +366,7 @@
 									</div>
 								</div>
 							</td>
-							<td colspan="16" class="td_input" >
+							<td colspan="16" class="td_input">
 								<p class="ad_input_row">
 									<sbux-checkbox 
 										id="dtl-chk-fxngWarehouseSeCd" 
@@ -376,7 +379,7 @@
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg" style="border-right: hidden;">팔레트/박스</th>
-						 	<td colspan="2" style="border-right: hidden;">
+						 	<td colspan="2" class="td_input" style="border-right: hidden;">
 						 		<sbux-button
 									id="dtl-btn-wrhsPltBx"
 									name="dtl-btn-wrhsPltBx"
@@ -407,7 +410,7 @@
 									readonly
 								></sbux-input>
 							</td>
-							<td colspan="7" class="td_input" ><label class="bold">Kg</label></td>
+							<td colspan="7" class="td_input"><label class="bold">Kg</label></td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg">입고중량</th>
@@ -436,7 +439,7 @@
 									style="width:100%;"
 								/>
 							</td>
-							<td colspan="12" class="td_input"></td>
+							<td colspan="12"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -1422,6 +1425,11 @@
 	 */
 	const fn_onChangeRdcdRt = function() {
 		// 감량(%) >> 감량, 실중량, 입고중량
+		if (parseFloat(SBUxMethod.get("dtl-inp-rdcdRt")) > 100) {
+			alert("감량률이 100% 보다 큽니다.");
+			SBUxMethod.set("dtl-inp-rdcdRt", "");
+			return;
+		}
 		fn_setWght();
 	}
 	

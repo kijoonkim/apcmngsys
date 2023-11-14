@@ -75,7 +75,7 @@
 						<tr>
 							<th scope="row" class="th_bg" ><span class="data_required" ></span>계량일자</th>
 							<td colspan="3" class="td_input" style="border-right:hidden;" >
-								<sbux-datepicker id="dtl-dtp-wghYmd" name="dtl-dtp-wghYmd" uitype="popup" class="form-control input-sm input-sm-ast"></sbux-datepicker>
+								<sbux-datepicker id="dtl-dtp-wghYmd" name="dtl-dtp-wghYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast"></sbux-datepicker>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<th scope="row" class="th_bg" ><span class="data_required" ></span>생산자</th>
@@ -1416,6 +1416,11 @@
 	 */
 	const fn_onChangeRdcdRt = function() {
 		// 감량(%) >> 감량, 실중량, 입고중량
+		if (parseFloat(SBUxMethod.get("dtl-inp-rdcdRt")) > 100) {
+			alert("감량률이 100% 보다 큽니다.");
+			SBUxMethod.set("dtl-inp-rdcdRt", "");
+			return;
+		}
 		fn_setWght();
 	}
 

@@ -92,7 +92,7 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>입고일자</th>
 							<td colspan="6" class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-wrhsYmd" name="srch-dtp-wrhsYmd" class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"/>
+								<sbux-datepicker uitype="popup" id="srch-dtp-wrhsYmd" name="srch-dtp-wrhsYmd" date-format="yyyy-mm-dd" class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"/>
 							</td>
 							<td colspan="9" style="border-right: hidden;">&nbsp;</td>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>생산자</th>

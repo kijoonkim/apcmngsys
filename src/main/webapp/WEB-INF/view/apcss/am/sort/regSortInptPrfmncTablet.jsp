@@ -836,7 +836,5 @@
 			SBUxMethod.set("dtl-lbl-invntr", invntrInfo);
 		}
 	}
-
-
 </script>
 </html>

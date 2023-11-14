@@ -192,12 +192,12 @@
 						<tr>
 							<th class="ta_r th_bg"><span class="data_required"></span>수량/중량</th>
 							<td class="td_input" style="border-right: hidden;">
-									<sbux-input uitype="text" id="dtl-inp-planQntt" name="dtl-inp-planQntt" class="form-control input-sm"
+									<sbux-input uitype="text" id="dtl-inp-planQntt" name="dtl-inp-planQntt" class="form-control input-sm" maxlength="13"
 									autocomplete="off"
 									mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"/>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-									<sbux-input uitype="text" id="dtl-inp-planWght" name="dtl-inp-planWght" class="form-control input-sm input-sm-ast inpt_data_reqed"
+									<sbux-input uitype="text" id="dtl-inp-planWght" name="dtl-inp-planWght" class="form-control input-sm input-sm-ast inpt_data_reqed" maxlength="13"
 									autocomplete="off"
 									mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"/>
 							</td>

@@ -125,7 +125,7 @@
 							<td>&nbsp;</td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>수량</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-qntt" name="srch-inp-qntt" uitype="text" class="form-control input-sm" mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"></sbux-input>
+								<sbux-input id="srch-inp-qntt" name="srch-inp-qntt" uitype="text" maxlength="7" class="form-control input-sm" mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"></sbux-input>
 							</td>
 							<td colspan="2"></td>
 						</tr>
