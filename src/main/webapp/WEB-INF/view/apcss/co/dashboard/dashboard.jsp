@@ -10,8 +10,8 @@
 <section class="content container-fluid">
 	<div class="box box-solid">
 		<div class="box-header" style="text-align:right;" >
-<%--			<h3 class="box-title" style="line-height: 30px; float:left;"><sbux-label id="lbl-apcNm" name="lbl-apcNm" style="font-weight:bold;"></sbux-label></h3>--%>
-<%--			 <span style="display:inline-block;">--%>
+			<h3 class="box-title" style="line-height: 30px; float:left;"><sbux-label id="lbl-apcNm" name="lbl-apcNm" style="font-weight:bold;"></sbux-label></h3>
+			 <span style="display:inline-block;">
 <%--            <h5 style="float:left; margin:9px 16px 0 0; color:black;">품목</h5>--%>
 <%--            <sbux-select--%>
 <%--                id="slt-itemCd"--%>
@@ -23,7 +23,7 @@
 <%--                class="form-control input-sm input-sm-ast inpt_data_reqed"--%>
 <%--                style="width:170px; float:left; margin-left:auto;"--%>
 <%--            ></sbux-select>--%>
-            <button type="button" class="btn btn-sm btn-outline-danger" style="float:left; margin-left:20px;">조회</button>
+            <button type="button" class="btn btn-sm btn-outline-danger" style="float:left; margin-left:20px;" onclick="fn_search()">조회</button>
             </span>
 
 		</div>
@@ -222,7 +222,6 @@
 		};
 		chartWrhs = new sb.chart("#chart-area-wrhs", chartConfig).render();
 	};
-
 	const createChartSort = async function (){
 		var chartConfig = {
 			global: { // 전역 설정들
@@ -338,6 +337,17 @@
 		};
 		chartSpmt = new sb.chart("#chart-area-spmt", chartConfig).render();
 	};
+	function fn_search(){
+		 chartDataSort = []
+		 chartDataWrhs = []
+		 chartDataSpmt = []
+		$('#dayPrcsSttnTable > colgroup > col').not(':first').remove();
+		var resetData = $("#dayPrcsSttnTable > tbody > tr");
+		for(let i  = 0 ; i < resetData.length; i++){
+		$(resetData[i]).children().not(':first').remove();
+		}
+		postJsonDashboard();
+	}
 
 </script>
 </body>
