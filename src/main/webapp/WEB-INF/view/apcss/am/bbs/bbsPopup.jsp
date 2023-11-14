@@ -12,8 +12,13 @@
 
 	#cmntList .cmntHd{
 		text-align:center;
-		border:5px;
 		height:50px;
+		border: 1px solid #e8f1f9;
+		font-weight: bold;
+	}
+	#cmnt{
+		border: 1px solid #e8f1f9;
+		padding: 10px;
 	}
 </style>
 <body>
@@ -38,6 +43,7 @@
 		                        <div class="sbt-wrap-body">
 
 		                            <sbux-input id="dtl-input-orngBbsNo" name="dtl-input-orngBbsNo" uitype="hidden"></sbux-input>
+		                            <sbux-input id="dtl-input-orngCmntNo" name="dtl-input-orngCmntNo" uitype="hidden"></sbux-input>
 		                            <sbux-input id="dtl-input-orngChildCmntNo" name="dtl-input-orngChildCmntNo" uitype="hidden"></sbux-input>
 		                            <div class="box-body">
 			                            <table class="table table-bordered tbl_fixed">
@@ -97,10 +103,11 @@
 			                                    </td>
 			                                </tr>
 			                              </table>
-			                              <table class="table table-bordered tbl_fixed" id="cmntList" >
+			                              <table  class="table table-bordered tbl_fixed" id="cmntList" >
 				                              <colgroup>
 			                                    <col style="width:10%">
 			                                    <col style="width:50%">
+			                                    <col style="width:10%">
 			                                    <col style="width:10%">
 				                              </colgroup>
 			                              </table>
@@ -154,7 +161,8 @@
 	async function fn_bbsDelete(){
 		let bbsNo = SBUxMethod.get("dtl-input-bbsNo");
 		const postJsonPromise = gfn_postJSON("/am/bbs/deleteBbs.do", {
-			bbsNo : bbsNo
+			 apcCd : gv_apcCd
+			,bbsNo : bbsNo
 		});
 		const data = await postJsonPromise;
 
@@ -215,8 +223,10 @@
 	}
 
 	async function fn_callselectComment(bbsNo){
+		let apcCd = gv_apcCd;
 		const postJsonPromise = gfn_postJSON("/am/bbs/selectBbsCmntList.do", {
-        	bbsNo: bbsNo
+			apcCd: apcCd
+        	,bbsNo: bbsNo
 		});
 		const data = await postJsonPromise;
 		SBUxMethod.set("dtl-input-cmntCn", "");
@@ -241,25 +251,41 @@
 			}
 
 			$("#cmntList").append("<tr id=cmnt>");
-			$("#cmntList").append("<td id=cmnt style=text-align:center>"+ bbsCmnt.user  +"</td>");
-			$("#cmntList").append("<td id=cmnt style=border-left:20px>"+bbsCmnt.cmntCn+"</td>");
-			if('${loginVO.userId}' == item.sysFrstInptUserId){
-				$("#cmntList").append("<td id=cmnt>"+"<button id=btnDeleteCmnt name=btnDeleteCmnt class=btn btn-xs btn-outline-dark style=width:100% onclick=fn_deleteComment("+bbsCmnt.cmntNo+")>삭제</button></td>");
+			if(item.cmntChildNo == "1"){
+				$("#cmntList").append("<td id=cmnt style=text-align:center>"+ bbsCmnt.user  +"</td>");
+				$("#cmntList").append("<td id=cmnt style=border-left:20px>"+bbsCmnt.cmntCn+"</td>");
+				$("#cmntList").append("<td id=cmnt>"+"<button id=bbsChildCmntModal name=bbsChildCmntModal class=btn btn-xs  style=width:100% onclick=fn_childComment("+bbsCmnt.cmntNo+","+bbsCmnt.cmntChildNo+")>답글</button></td>");
+				if('${loginVO.userId}' == item.sysFrstInptUserId){
+					$("#cmntList").append("<td id=cmnt>"+"<button id=btnDeleteCmnt name=btnDeleteCmnt class=btn btn-xs  style=width:100% onclick=fn_deleteComment("+bbsCmnt.cmntNo+")>삭제</button></td>");
+				}
+
+
+			}else if(item.cmntChildNo !="1"){
+				$("#cmntList").append("<td id=cmnt style=text-align:center>"+ " " +"</td>");
+				$("#cmntList").append("<td id=cmnt style=border-left:20px>"+bbsCmnt.user+" : "+bbsCmnt.cmntCn+"</td>");
+				if('${loginVO.userId}' == item.sysFrstInptUserId){
+					$("#cmntList").append("<td id=cmnt>"+"<button id=btnDeleteCmnt name=btnDeleteCmnt class=btn btn-xs  style=width:100% onclick=fn_deleteComment("+bbsCmnt.cmntNo+")>삭제</button></td>");
+				}
 			}
+
+
+
 
 			$("#cmntList").append("</tr>");
 		});
 
 	}
 
-	async function fn_childComment(childNo){
+	async function fn_childComment(cmntNo,cmntChildNo){
+		SBUxMethod.set("dtl-input-orngCmntNo",cmntNo);
+		SBUxMethod.set("dtl-input-orngChildCmntNo",cmntChildNo);
 		SBUxMethod.openModal('modal-bbsChildCmntModal');
-		SBUxMethod.set("dtl-input-orngChildCmntNo",childNo);
+
 	}
 
 	async function fn_deleteComment(cmntNo){
 		let orngbbsNo = SBUxMethod.get("dtl-input-orngBbsNo");
-		let postJsonPromise = gfn_postJSON("/am/bbs/deleteCmntBbs.do", { bbsNo : orngbbsNo, cmntNo : cmntNo});
+		let postJsonPromise = gfn_postJSON("/am/bbs/deleteCmntBbs.do", { apcCd : gv_apcCd, bbsNo : orngbbsNo, cmntNo : cmntNo});
 		const data = await postJsonPromise;
 		remove_Comment();
 		fn_selectComment(orngbbsNo);
@@ -269,10 +295,12 @@
 	async function fn_regComment(){
 		let orngbbsNo = SBUxMethod.get("dtl-input-orngBbsNo");
         let cmntCn = SBUxMethod.get("dtl-input-cmntCn");
+        let apcCd = gv_apcCd;
 		let postJsonPromise = gfn_postJSON("/am/bbs/insertBbsCmnt.do", {
+			apcCd : apcCd,
 			bbsNo : orngbbsNo,
 			cmntCn : cmntCn,
-			cmntChildNo : 1,
+			cmntChildNo : 1
 			});
 		const data = await postJsonPromise;
 		fn_selectComment(orngbbsNo)
