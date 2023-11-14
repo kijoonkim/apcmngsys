@@ -59,10 +59,10 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>생산일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-pckgYmdFrom" name="srch-dtp-pckgYmdFrom" uitype="popup" class="form-control input-sm sbux-pik-group-apc input-sm-ast" onchange="fn_dtpChange(srch-dtp-pckgYmdFrom)"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-pckgYmdFrom" name="srch-dtp-pckgYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast" onchange="fn_dtpChange(srch-dtp-pckgYmdFrom)"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-pckgYmdTo" name="srch-dtp-pckgYmdTo" uitype="popup" class="form-control input-sm sbux-pik-group-apc input-sm-ast" onchange="fn_dtpChange(srch-dtp-pckgYmdTo)"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-pckgYmdTo" name="srch-dtp-pckgYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast" onchange="fn_dtpChange(srch-dtp-pckgYmdTo)"></sbux-datepicker>
 							</td>
 							<td class="td_input"></td>
 
@@ -212,7 +212,7 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>출하일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="dtl-dtp-spmtYmd" name="dtl-dtp-spmtYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc input-sm-ast" onchange="fn_dtpChange(dtl-dtp-spmtYmd)"></sbux-datepicker>
+								<sbux-datepicker id="dtl-dtp-spmtYmd" name="dtl-dtp-spmtYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast" onchange="fn_dtpChange(dtl-dtp-spmtYmd)"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 							<td class="td_input" style="border-right: hidden;">

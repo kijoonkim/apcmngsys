@@ -59,10 +59,10 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>선별일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-sortYmdFrom" name="srch-dtp-sortYmdFrom" uitype="popup" class="form-control input-sm" onchange="fn_dtpChange(srch-dtp-sortYmdFrom)"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-sortYmdFrom" name="srch-dtp-sortYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm" onchange="fn_dtpChange(srch-dtp-sortYmdFrom)"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-sortYmdTo" name="srch-dtp-sortYmdTo" uitype="popup" class="form-control input-sm" onchange="fn_dtpChange(srch-dtp-sortYmdTo)"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-sortYmdTo" name="srch-dtp-sortYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm" onchange="fn_dtpChange(srch-dtp-sortYmdTo)"></sbux-datepicker>
 							</td>
 							<td></td>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>품목/품종</th>
@@ -144,6 +144,7 @@
 									id="dtl-dtp-pckgYmd"
 									name="dtl-dtp-pckgYmd"
 									uitype="popup"
+									date-format="yyyy-mm-dd"
 									class="form-control input-sm"
 									onchange="fn_dtpChangePckg(dtl-dtp-pckgYmd)"
 								></sbux-datepicker>

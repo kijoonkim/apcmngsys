@@ -264,7 +264,7 @@
 	        {caption: ["중량"],		ref: 'pckgWght',		type: 'output',  width: '80px',    	style: 'text-align: right',		sortable: false,
 	        	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
 	        {caption: ["창고"],		ref: 'warehouseSeNm',	type: 'output',  width: '140px',    style: 'text-align: center',	sortable: false},
-	        {caption: ["비고"],		ref: 'rmrk',      		type: 'output',  width: '105px', 									sortable: false},
+	        {caption: ["비고"],		ref: 'rmrk',      		type: 'output',  width: '300px', 									sortable: false},
 	        {caption: ["순번"],		ref: 'pckgSn',			hidden: true},
 	        {caption: ["상품구분코드"],	ref: 'pckgSeCd',		hidden: true},
 	        {caption: ["품목코드"],	ref: 'itemCd',			hidden: true},

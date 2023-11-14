@@ -159,6 +159,7 @@
 									id="srch-dtp-inptYmd"
 									name="srch-dtp-inptYmd"
 									uitype="popup"
+									date-format="yyyy-mm-dd"
 									class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
 									onchange="fn_dtpChange"
 									style="width:100%;"

@@ -187,6 +187,7 @@
 									id="dtl-dtp-inptYmd"
 									name="dtl-dtp-inptYmd"
 									uitype="popup"
+									date-format="yyyy-mm-dd"
 									class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"
 									onchange="fn_dtpChange"
 									style="width:100%;"
@@ -287,7 +288,7 @@
 									name="dtl-lbl-wrhsYmd"
 									uitype="normal"
 									class="bold"
-									mask="{'alias':'yyyy/mm/dd','autoUnmask':true}"
+									mask="{'alias':'yyyy-mm-dd','autoUnmask':true}"
 								></sbux-label>
 							</td>
 							<td colspan="4" class="td_input" style="border-right:hidden;">
