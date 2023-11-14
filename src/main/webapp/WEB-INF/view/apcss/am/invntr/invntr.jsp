@@ -490,7 +490,7 @@
 
 		const postJsonPromise2 = gfn_postJSON(url, {
 			apcCd				: gv_selectedApcCd
-		  ,	inptYmd				: crtrYmd
+		  ,	crtrYmd				: crtrYmd
 		  ,	itemCd				: itemCd
 		  ,	vrtyCd				: vrtyCd
 		  ,	spcfctCd			: spcfctCd
