@@ -229,7 +229,7 @@
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>입고구분</th>
-							<td colspan="11" class="td_input" style="border-right:hidden;">
+							<td colspan="11" class="td_input">
 								<p class="ad_input_row">
 									<sbux-radio
 										id="srch-rdo-wrhsSeCd"
@@ -246,7 +246,7 @@
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>상품구분</th>
-							<td colspan="11" class="td_input" style="border-right:hidden;">
+							<td colspan="11" class="td_input">
 								<p class="ad_input_row">
 									<sbux-radio
 										id="srch-rdo-gdsSeCd"
@@ -263,7 +263,7 @@
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg" style="border-right: hidden;"><span class="data_required"></span>운송구분</th>
-							<td colspan="11" class="td_input" >
+							<td colspan="11" class="td_input">
 								<p class="ad_input_row">
 									<sbux-radio
 										id="srch-rdo-trsprtSeCd"
@@ -280,7 +280,7 @@
 						</tr>
 	 					<tr>
 						 	<th scope="row" class="th_bg"><span class="data_required" ></span>입고등급</th>
-					 		<td colspan="11" class="td_input" style="border-right: hidden;">
+					 		<td colspan="11" class="td_input">
 					 			<jsp:include page="../../am/popup/apcStdGrdSelect.jsp"></jsp:include>
 					 		</td>
 						</tr>
