@@ -17,28 +17,28 @@ public interface ComAuthrtMapper {
 	 * @param comAuthVO
 	 * @return
 	 */
-	public ComAuthrtVO selectComAuthrt(ComAuthrtVO comAuthVO);
+	public ComAuthrtVO selectComAuthrt(ComAuthrtVO comAuthVO) throws Exception;
 	
 	/**
 	 * 권한정보 등록
 	 * @param comAuthVO
 	 * @return
 	 */
-	public int insertComAuthrt(ComAuthrtVO comAuthVO);
+	public int insertComAuthrt(ComAuthrtVO comAuthVO) throws Exception;
 	
 	/**
 	 * 권한정보 변경
 	 * @param comAuthVO
 	 * @return
 	 */
-	public int updateComAuthrt(ComAuthrtVO comAuthVO);
+	public int updateComAuthrt(ComAuthrtVO comAuthVO) throws Exception;
 	
 	/**
 	 * 권한정보 삭제
 	 * @param comAuthVO
 	 * @return
 	 */
-	public int deleteComAuthrt(ComAuthrtVO comAuthVO);
+	public int deleteComAuthrt(ComAuthrtVO comAuthVO) throws Exception;
 	
 	
 	/**
@@ -46,7 +46,7 @@ public interface ComAuthrtMapper {
 	 * @param comAuthVO
 	 * @return List<>
 	 */
-	public List<ComAuthrtVO> selectComAuthrtList(ComAuthrtVO comAuthVO);
+	public List<ComAuthrtVO> selectComAuthrtList(ComAuthrtVO comAuthVO) throws Exception;
 	
 	/**
 	 * 권한메뉴 단건 조회
@@ -61,14 +61,61 @@ public interface ComAuthrtMapper {
 	 * @param comAuthrtMenuVO
 	 * @return
 	 */
-	public List<ComAuthrtMenuVO> selectComAuthrtMenuList(ComAuthrtMenuVO comAuthMenuVO);
+	public List<ComAuthrtMenuVO> selectComAuthrtMenuList(ComAuthrtMenuVO comAuthMenuVO) throws Exception;
+	
+	
+	/**
+	 * 권한 화면 조회
+	 * @param comAuthVO
+	 * @return
+	 */
+	public ComAuthrtUiVO selectComAuthrtUi(ComAuthrtUiVO comAuthUiVO) throws Exception;
 	
 	/**
 	 * 권한 화면 목록 조회
 	 * @param comAuthVO
 	 * @return
 	 */
-	public List<ComAuthrtUiVO> selectComAuthrtUiList(ComAuthrtUiVO comAuthUiVO);
+	public List<ComAuthrtUiVO> selectComAuthrtUiList(ComAuthrtUiVO comAuthUiVO) throws Exception;
+	
+	/**
+	 * 사용자별 화면UI 권한 조회 
+	 * @param comAuthUiVO
+	 * @return
+	 */
+	public List<ComAuthrtUiVO> selectUserAuthrtUiList(ComAuthrtUiVO comAuthUiVO) throws Exception;
+	
+	/**
+	 * 화면UI 권한 등록
+	 * @param comAuthUiVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertComAuthrtUi(ComAuthrtUiVO comAuthUiVO) throws Exception;
+	
+	/**
+	 * 화면UI 권한 변경
+	 * @param comAuthUiVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateComAuthrtUi(ComAuthrtUiVO comAuthUiVO) throws Exception;
+	
+	/**
+	 * 화면UI 권한 변경 : delYn >> Y
+	 * @param comAuthUiVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateComAuthrtUiForDelY(ComAuthrtUiVO comAuthUiVO) throws Exception;
+	
+	/**
+	 * 화면UI 권한 삭제
+	 * @param comAuthUiVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteComAuthrtUi(ComAuthrtUiVO comAuthUiVO) throws Exception;
 	
 	/**
 	 * 권한 메뉴트리 목록 조회

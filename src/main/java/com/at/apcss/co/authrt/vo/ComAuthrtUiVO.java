@@ -8,10 +8,15 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ComAuthrtUiVO extends ComUiVO {
+	private String userId;
 	private String authrtId;
 	private String authrtNm;
 	private String authrtType;
 	private String authrtRmrk;
+	
 	private String aplcnType;
+	private String aplcnTypeNm;
 	private String indctYn;
+	private String apcCd;
+	private String useYn;
 }

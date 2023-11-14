@@ -86,41 +86,16 @@ public class MainController extends BaseController {
 					}
 				}
 			}
-			/*
-			List<ComMenuVO> resultList = comMenuService.selectTopMenuList(new ComMenuVO());
-			if (resultList != null && !resultList.isEmpty()) {
-				for ( ComMenuVO rslt : resultList ) {
-
-					ComMenuJsonVO menu = new ComMenuJsonVO();
-					menu.setId(rslt.getMenuId());
-					menu.setPid(rslt.getUpMenuId());
-					menu.setOrder(rslt.getIndctSeq());
-					menu.setText(rslt.getMenuNm());
-					//menu.setLink(rslt.getPageUrl() == null ? ComConstants.CON_BLANK : rslt.getPageUrl());
-					menu.setTopMenuNm(rslt.getUpMenuNm() == null ? ComConstants.CON_BLANK : rslt.getUpMenuNm());
-					menu.setUrl(rslt.getPageUrl() == null ? ComConstants.CON_BLANK : rslt.getPageUrl());
-					menu.setValue(rslt.getUpMenuNm() == null ? ComConstants.CON_BLANK : rslt.getUpMenuNm());
-					ObjectMapper mapper = new ObjectMapper();
-					String jsonString = mapper.writeValueAsString(menu);
-					System.out.println(jsonString);
-					menuList.add(jsonString);
-				}
-			}
-			 */
-
 
 		} catch (Exception e) {
 
 		}
 
 		model.addAttribute("topMenuList", menuList);
-
 		model.addAttribute("reportDbName", getReportDbName());
 		model.addAttribute("reportUrl", getReportUrl());
 		model.addAttribute("reportType", getReportType());
 		model.addAttribute("reportPath", getReportPath());
-
-		//model.addAttribute("comApcList", request.getSession().getAttribute("comApcList"));
 
 		return "main/main";
 	}
