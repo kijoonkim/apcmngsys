@@ -303,7 +303,6 @@
             })
         })
             .then((response) => response.json())
-            .then((data) => console.log(data))
             .catch((err) => console.log(err))
 
     }
@@ -717,8 +716,6 @@
     }
 
 </script>
-</html>[0].text);
-    }
-
+</html>
 </script>
 </html>

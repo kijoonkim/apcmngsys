@@ -84,6 +84,13 @@ public interface ComAuthrtService {
 	 */
 	public HashMap<String, Object> insertComAuthrtMenuList(ComAuthrtVO comAuthrtVO) throws Exception;
 
+	/**
+	 * 화면UI 권한 등록
+	 * @param comAuthrtVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertComAuthrtUi(ComAuthrtMenuVO comAuthrtMenuVO) throws Exception;
 
 	/**
 	 * 권한별 메뉴정보를 등록한다.
@@ -171,6 +178,15 @@ public interface ComAuthrtService {
 	 */
 	public List<ComAuthrtVO> selectComAuthrtListByUserId(ComAuthrtVO comAuthrtVO) throws Exception;
 
+	/**
+	 * 화면권한 조회 by userId, menuId
+	 * @param userId
+	 * @param menuId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ComAuthrtUiVO> selectUserAuthrtUiList(String userId, String menuId) throws Exception;
+	
 	/**
 	 * 권한 사용자 목록 등록
 	 * @param comAuthrtVO

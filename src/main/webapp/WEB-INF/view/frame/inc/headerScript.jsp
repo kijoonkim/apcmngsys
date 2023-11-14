@@ -15,6 +15,7 @@
     <script src="/resource/sbux/SBUx.js"></script>
     <script src="/resource/script/common.js"></script>
     <script src="/resource/script/comDate.js"></script>
+    <script src="/resource/script/comAuthrt.js"></script>
     <script src="/resource/script/comApcUtil.js"></script>
     <script src="/resource/script/comApcGrd.js"></script>
 
@@ -91,6 +92,7 @@
 	<script type="text/javascript">
 		const comUiJson = ${comUiJson};
 		gfn_setSysPrgrmId(comUiJson.menuId);
+		
 	<c:choose>
 		<c:when test="${loginVO != null && loginVO.id != null}">
 		const gv_apcCd = '${loginVO.apcCd}';
@@ -111,6 +113,5 @@
 		gv_selectedApcSeCd = gv_apcSeCd;
 		gv_selectedUserType = gv_userType;
 	</script>
-
 
 <sbux-progress name="main-loading" uitype="loading" openlayer-title="Loading..." show-openlayer="true" animation="true" animation-type="fadeOut" ></sbux-progress>
