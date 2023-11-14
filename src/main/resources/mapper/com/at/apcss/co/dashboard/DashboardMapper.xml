@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.at.apcss.co.dashboard.mapper.MainDashboardMapper">
+	<resultMap type="com.at.apcss.co.dashboard.vo.DashboardVO" id="resultMap">
+		<association property="wrhsSttn" resultMap="WrhsSttn"/>
+		<association property="prdctnSttn" resultMap="PrdctnSttn"/>
+		<association property="spmtPrfmnc" resultMap="SpmtPrfmnc" />
+	</resultMap>
+
+	<resultMap type="com.at.apcss.co.dashboard.vo.DashboardVO$WrhsSttn" id="WrhsSttn">
+		<result property="wsDate" column="ws_wsDate" />
+		<result property="wgt" column="ws_wgt" />
+	</resultMap>
+
+	<resultMap type="com.at.apcss.co.dashboard.vo.DashboardVO$PrdctnSttn" id="PrdctnSttn">
+		<result property="psDate" column="ps_psDate" />
+		<result property="sort" column="ps_sort" />
+		<result property="pckg" column="ps_pckg" />
+	</resultMap>
+
+	<resultMap type="com.at.apcss.co.dashboard.vo.DashboardVO$SpmtPrfmnc" id="SpmtPrfmnc">
+		<result property="spDate" column="sp_spDate" />
+		<result property="wgt" column="sp_wgt" />
+	</resultMap>
+
+	<resultMap type="com.at.apcss.co.dashboard.vo.DashboardVO$DayPrcsSttn"	id="DayPrcsSttn">
+		<result property="dpDate" column="DP_DATE" />
+		<result property="itemCd" column="ITEM_CD" />
+		<result property="itemNm" column="ITEM_NM"/>
+		<result property="wgt1" column="wgt1" />
+		<result property="wgt2" column="wgt2" />
+		<result property="wgt3" column="wgt3" />
+		<result property="wgt4" column="wgt4" />
+		<result property="wgt5" column="wgt5" />
+	</resultMap>
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.co.dashboard.DashboardMapper.selectDashboardInfoList   -->
+    <!-- DESC : 대시보드 입고,출고,생산 현황조회                                       	-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2023.11.14  	손민성         	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+	<select id="selectDashboardInfoList" parameterType="com.at.apcss.co.dashboard.vo.DashboardVO" resultMap="resultMap" >
+SELECT ws.wsDate AS ws_wsDate,ws.wgt AS ws_wgt, ps.psDate AS ps_psDate,  ps.sort AS ps_sort, ps.pckg AS ps_pckg, sp.spDate AS sp_spDate, sp.wgt AS sp_wgt
+FROM (
+SELECT  wsDate, SUM(wgt) AS wgt
+FROM   (SELECT  TO_CHAR(ADD_MONTHS(SYSDATE,-8),'YYYYMM') AS wsDate, 0 AS wgt FROM DUAL
+
+        UNION ALL
+
+        SELECT  TO_CHAR(ADD_MONTHS(SYSDATE,-7),'YYYYMM') AS wsDate, 0 AS wgt FROM DUAL
+
+        UNION ALL
+
+        SELECT  TO_CHAR(ADD_MONTHS(SYSDATE,-6),'YYYYMM') AS wsDate, 0 AS wgt FROM DUAL
+
+        UNION ALL
+
+        SELECT  TO_CHAR(ADD_MONTHS(SYSDATE,-5),'YYYYMM') AS wsDate, 0 AS wgt FROM DUAL
+
+        UNION ALL
+
+        SELECT  TO_CHAR(ADD_MONTHS(SYSDATE,-4),'YYYYMM') AS wsDate, 0 AS wgt FROM DUAL
+
+        UNION ALL
+
+        SELECT  TO_CHAR(ADD_MONTHS(SYSDATE,-3),'YYYYMM') AS wsDate, 0 AS wgt FROM DUAL
+
+        UNION ALL
+
+        SELECT  TO_CHAR(ADD_MONTHS(SYSDATE,-2),'YYYYMM') AS wsDate, 0 AS wgt FROM DUAL
+
+        UNION ALL
+
+        SELECT  TO_CHAR(ADD_MONTHS(SYSDATE,-1),'YYYYMM') AS wsDate, 0 AS wgt FROM DUAL
+
+        UNION ALL
+
+        SELECT  TO_CHAR(SYSDATE,'YYYYMM') AS wsDate, 0 AS wgt FROM DUAL
+
+        UNION ALL
+
+        SELECT  SUBSTR(WRHS_YMD,1,6) AS wsDate, WRHS_WGHT AS wgt
+
+        FROM    USRAM.TB_RAW_MTR_WRHS_PRFMNC
+
+        WHERE   DEL_YN = 'N'
+        <if test='gv_apcCd != null and gv_apcCd !=""'>
+	       AND     APC_CD =#{gv_apcCd}
+        </if>
+        AND     SUBSTR(WRHS_YMD,1,6) >= TO_CHAR(ADD_MONTHS(SYSDATE,-8),'YYYYMM'))
+
+GROUP BY wsDate
+
+ORDER BY wsDate
+) as ws
+JOIN
+(
+SELECT  psDate, SUM(wgt1) AS sort, SUM(wgt2) AS pckg
+
+FROM   (SELECT  TO_CHAR(ADD_MONTHS(SYSDATE,-8),'YYYYMM') AS psDate, 0 AS wgt1, 0 AS wgt2 FROM DUAL
+
+        UNION ALL
+
+        SELECT  TO_CHAR(ADD_MONTHS(SYSDATE,-7),'YYYYMM') AS psDate, 0 AS wgt1, 0 AS wgt2 FROM DUAL
+
+        UNION ALL
+
+        SELECT  TO_CHAR(ADD_MONTHS(SYSDATE,-6),'YYYYMM') AS psDate, 0 AS wgt1, 0 AS wgt2 FROM DUAL
+
+        UNION ALL
+
+        SELECT  TO_CHAR(ADD_MONTHS(SYSDATE,-5),'YYYYMM') AS psDate, 0 AS wgt1, 0 AS wgt2 FROM DUAL
+
+        UNION ALL
+
+        SELECT  TO_CHAR(ADD_MONTHS(SYSDATE,-4),'YYYYMM') AS psDate, 0 AS wgt1, 0 AS wgt2 FROM DUAL
+
+        UNION ALL
+
+        SELECT  TO_CHAR(ADD_MONTHS(SYSDATE,-3),'YYYYMM') AS psDate, 0 AS wgt1, 0 AS wgt2 FROM DUAL
+
+        UNION ALL
+
+        SELECT  TO_CHAR(ADD_MONTHS(SYSDATE,-2),'YYYYMM') AS psDate, 0 AS wgt1, 0 AS wgt2 FROM DUAL
+
+        UNION ALL
+
+        SELECT  TO_CHAR(ADD_MONTHS(SYSDATE,-1),'YYYYMM') AS psDate, 0 AS wgt1, 0 AS wgt2 FROM DUAL
+
+        UNION ALL
+
+        SELECT  TO_CHAR(SYSDATE,'YYYYMM') AS psDate, 0 AS wgt1, 0 AS wgt2 FROM DUAL
+
+        UNION ALL
+
+        SELECT  SUBSTR(INPT_YMD,1,6) AS psDate, SORT_WGHT AS wgt1, 0 AS wgt2
+
+        FROM    USRAM.TB_SORT_PRFMNC
+
+        WHERE  DEL_YN = 'N'
+         <if test='gv_apcCd != null and gv_apcCd !=""'>
+	    	AND   APC_CD =#{gv_apcCd}
+        </if>
+        AND     SUBSTR(INPT_YMD,1,6) >= TO_CHAR(ADD_MONTHS(SYSDATE,-8),'YYYYMM')
+
+        UNION ALL
+
+        SELECT  SUBSTR(PCKG_YMD,1,6) AS psDate, 0 AS wgt1, PCKG_WGHT AS wgt2
+
+        FROM    USRAM.TB_PCKG_PRFMNC
+
+        WHERE   DEL_YN = 'N'
+
+         <if test='gv_apcCd != null and gv_apcCd !=""'>
+	      	  AND     APC_CD =#{gv_apcCd}
+        </if>
+        AND     SUBSTR(PCKG_YMD,1,6) >= TO_CHAR(ADD_MONTHS(SYSDATE,-8),'YYYYMM'))
+
+GROUP BY psDate
+
+ORDER BY psDate
+) as ps ON ws.wsDate = ps.psDate
+JOIN
+(
+SELECT  spDate, SUM(wgt) AS wgt
+
+FROM   (SELECT  TO_CHAR(ADD_MONTHS(SYSDATE,-8),'YYYYMM') AS spDate, 0 AS wgt FROM DUAL
+
+        UNION ALL
+
+        SELECT  TO_CHAR(ADD_MONTHS(SYSDATE,-7),'YYYYMM') AS spDate, 0 AS wgt FROM DUAL
+
+        UNION ALL
+
+        SELECT  TO_CHAR(ADD_MONTHS(SYSDATE,-6),'YYYYMM') AS spDate, 0 AS wgt FROM DUAL
+
+        UNION ALL
+
+        SELECT  TO_CHAR(ADD_MONTHS(SYSDATE,-5),'YYYYMM') AS spDate, 0 AS wgt FROM DUAL
+
+        UNION ALL
+
+        SELECT  TO_CHAR(ADD_MONTHS(SYSDATE,-4),'YYYYMM') AS spDate, 0 AS wgt FROM DUAL
+
+        UNION ALL
+
+        SELECT  TO_CHAR(ADD_MONTHS(SYSDATE,-3),'YYYYMM') AS spDate, 0 AS wgt FROM DUAL
+
+        UNION ALL
+
+        SELECT  TO_CHAR(ADD_MONTHS(SYSDATE,-2),'YYYYMM') AS spDate, 0 AS wgt FROM DUAL
+
+        UNION ALL
+
+        SELECT  TO_CHAR(ADD_MONTHS(SYSDATE,-1),'YYYYMM') AS spDate, 0 AS wgt FROM DUAL
+
+        UNION ALL
+
+        SELECT  TO_CHAR(SYSDATE,'YYYYMM') AS spDate, 0 AS wgt FROM DUAL
+
+        UNION ALL
+
+        SELECT  SUBSTR(SPMTNO,3,6) AS spDate, SPMT_WGHT AS wgt
+
+        FROM    USRAM.TB_SPMT_PRFMNC_DTL
+
+        WHERE   DEL_YN = 'N'
+         <if test='gv_apcCd != null and gv_apcCd !=""'>
+	      	  AND     APC_CD =#{gv_apcCd}
+        </if>
+
+        AND     SUBSTR(SPMTNO,1,6) >= TO_CHAR(ADD_MONTHS(SYSDATE,-8),'YYYYMM'))
+
+GROUP BY spDate
+
+ORDER BY spDate
+) as sp ON ps.psDate = sp.spDate
+	</select>
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.co.dashboard.DashboardMapper.selectdayPrcsSttnList   -->
+    <!-- DESC : 일일 작업량 조회                                                   	-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2023.11.14  	손민성  	     	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+	<select id="selectdayPrcsSttnList" parameterType="com.at.apcss.co.dashboard.vo.DashboardVO" resultMap="DayPrcsSttn">
+
+SELECT  dpDate AS DP_DATE, itemCd AS ITEM_CD,FN_GET_ITEM_NM(itemCd) AS ITEM_NM, SUM(wgt1) AS wgt1, SUM(wgt2) AS wgt2, SUM(wgt3) AS wgt3, SUM(wgt4) AS wgt4, SUM(wgt5) AS wgt5
+
+FROM   (
+
+		SELECT  TO_CHAR(SYSDATE, 'YYYYMMDD') AS dpDate, ITEM_CD AS itemCd, 0 AS wgt1, 0 AS wgt2, 0 AS wgt3, 0 AS wgt4, 0 AS wgt5
+
+        FROM    USRAM.TB_APC_ITEM_CRTR
+
+        WHERE   DEL_YN = 'N'
+          <if test='gv_apcCd != null and gv_apcCd !=""'>
+	      	  AND     APC_CD =#{gv_apcCd}
+        </if>
+
+        UNION ALL
+
+        SELECT  TO_CHAR(SYSDATE, 'YYYYMMDD') AS dpDate, ITEM_CD AS itemCd, WRHS_WGHT AS wgt1, 0 AS wgt2, 0 AS wgt3, 0 AS wgt4, 0 AS wgt5
+
+        FROM    USRAM.TB_RAW_MTR_INVNTR
+
+        WHERE   WRHS_YMD = TO_CHAR(SYSDATE, 'YYYYMMDD') AND DEL_YN = 'N'
+         <if test='gv_apcCd != null and gv_apcCd !=""'>
+	      	  AND     APC_CD =#{gv_apcCd}
+        </if>
+
+        UNION ALL
+
+        SELECT  TO_CHAR(SYSDATE, 'YYYYMMDD') AS dpDate, ITEM_CD, 0 AS wgt1, SORT_WGHT AS wgt2, 0 AS wgt3, 0 AS wgt4, 0 AS wgt5
+
+        FROM    USRAM.TB_SORT_INVNTR
+
+        WHERE   INPT_YMD = TO_CHAR(SYSDATE, 'YYYYMMDD') AND DEL_YN = 'N'
+         <if test='gv_apcCd != null and gv_apcCd !=""'>
+	      	  AND     APC_CD =#{gv_apcCd}
+        </if>
+
+        UNION ALL
+
+        SELECT  TO_CHAR(SYSDATE, 'YYYYMMDD') AS dpDate, ITEM_CD, 0 AS wgt1, 0 AS wgt2, PCKG_WGHT AS wgt3, 0 AS wgt4, 0 AS wgt5
+
+        FROM    USRAM.TB_GDS_INVNTR
+
+        WHERE   PCKG_YMD = TO_CHAR(SYSDATE, 'YYYYMMDD') AND DEL_YN = 'N'
+         <if test='gv_apcCd != null and gv_apcCd !=""'>
+	      	  AND     APC_CD =#{gv_apcCd}
+        </if>
+
+        UNION ALL
+
+        SELECT  TO_CHAR(SYSDATE, 'YYYYMMDD') AS dpDate, ITEM_CD, 0 AS wgt1, 0 AS wgt2, 0 AS wgt3, OUTORDR_WGHT AS wgt4, 0 AS wgt5
+
+        FROM    USRAM.TB_OUTORDR_INFO
+
+        WHERE   RCPT_CFMTN_YMD = TO_CHAR(SYSDATE, 'YYYYMMDD') AND DEL_YN = 'N'
+         <if test='gv_apcCd != null and gv_apcCd !=""'>
+	      	  AND     APC_CD =#{gv_apcCd}
+        </if>
+
+        UNION ALL
+
+        SELECT  TO_CHAR(SYSDATE, 'YYYYMMDD') AS dpDate, ITEM_CD, 0 AS wgt1, 0 AS wgt2, 0 AS wgt3, 0 AS wgt4, SPMT_WGHT AS wgt5
+
+        FROM    USRAM.TB_SPMT_PRFMNC_DTL
+
+        WHERE   SUBSTR(SPMTNO,3,6) = TO_CHAR(SYSDATE, 'YYYYMMDD') AND DEL_YN = 'N'
+         <if test='gv_apcCd != null and gv_apcCd !=""'>
+	      	  AND     APC_CD =#{gv_apcCd}
+        </if>
+        )
+
+GROUP BY dpDate, itemCd
+ORDER BY itemCd
+	</select>
+
+
+
+</mapper>

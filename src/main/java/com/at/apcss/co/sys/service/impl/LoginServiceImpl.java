@@ -1,6 +1,8 @@
 package com.at.apcss.co.sys.service.impl;
 
 import java.util.Map;
+import java.util.Optional;
+import java.util.OptionalInt;
 
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 
@@ -28,7 +30,7 @@ public class LoginServiceImpl extends EgovAbstractServiceImpl implements LoginSe
 	public LoginVO selectUser(String userId) {
 
 		LoginVO vo = new LoginVO();
-		vo.setUserId(userId);
+		vo.setId(userId);
 
 		LoginVO resultVO;
 		try {
@@ -52,6 +54,11 @@ public class LoginServiceImpl extends EgovAbstractServiceImpl implements LoginSe
 			LoginVO resultVO = new LoginVO();
 			resultVO.setLgnRslt(ComConstants.ERR_USER_NONE);
 			return resultVO;
+		}
+		if(chkVO.getLckYn().equals("Y")){
+//			LoginVO resultVO = new LoginVO();
+//			resultVO.setLckYn("Y");
+			return chkVO;
 		}
 
 		// 1. 입력한 비밀번호를 암호화한다.
@@ -203,6 +210,21 @@ public class LoginServiceImpl extends EgovAbstractServiceImpl implements LoginSe
 	public LoginVO onepassLogin(String id) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void updateFailCount(LoginVO id) throws Exception {
+		loginMapper.updateFailCount(id);
+	}
+
+	@Override
+	public void updateUserLck(LoginVO resultVO) throws Exception {
+		loginMapper.updateUserLck(resultVO);
+	}
+
+	@Override
+	public void updateResetFailCount(LoginVO resultVO) throws Exception {
+		loginMapper.updateResetFailCount(resultVO);
 	}
 
 }

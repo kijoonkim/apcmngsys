@@ -33,4 +33,10 @@ public interface LoginMapper {
 	public LoginVO searchId(LoginVO vo) throws Exception;
 
 	public LoginVO searchPassword(LoginVO vo) throws Exception;
+
+	void updateFailCount(LoginVO id) throws Exception;
+
+	void updateUserLck(LoginVO resultVO) throws Exception;
+
+	void updateResetFailCount(LoginVO resultVO) throws Exception;
 }

@@ -102,4 +102,15 @@ public interface LoginService {
 	 */
     LoginVO onepassLogin(String id) throws Exception;
 
+	/**
+	 * 로그인 실패 횟수를 저장한다.
+	 * @param id
+	 * @return void
+	 * @exception Exception
+	 */
+	void updateFailCount(LoginVO id) throws Exception;
+
+	void updateUserLck(LoginVO resultVO) throws Exception;
+
+	void updateResetFailCount(LoginVO resultVO) throws Exception;
 }

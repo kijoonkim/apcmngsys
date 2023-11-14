@@ -2,6 +2,7 @@ package com.at.apcss.co.sys.web;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -122,12 +123,12 @@ public class LoginController extends BaseController {
 
 //				comLogService.insertMenuHstry(comLogVo);
 
+		//반환은 받았는데 ID가 없다 >
 		if (resultVO != null && StringUtils.hasText(resultVO.getId())) {
-
 			// 010. 계정잠김여부
 			if (ComConstants.CON_YES.equals(resultVO.getLckYn())) {		// 잠금상태
 				model.addAttribute("loginCode", ComConstants.ERR_USER_LOCKED);
-				model.addAttribute("loginMessage", null);
+				model.addAttribute("loginMessage",messageSource.getMessage("fail.common.login.lck", request.getLocale()));
 				//실패 이력저장
 				comLogVo.setPrslType("L3");
 				comLogService.insertMenuHstry(comLogVo);
@@ -212,19 +213,32 @@ public class LoginController extends BaseController {
 			comLogVo.setUserType(userType);
 			comLogVo.setPrslType("L1");
 			comLogService.insertMenuHstry(comLogVo);
+			loginService.updateResetFailCount(resultVO);
 
 			return "redirect:/actionMain.do";
 		} else {
 
 			if (resultVO != null) {
 				if (ComConstants.ERR_LOGIN_FAILED.equals(resultVO.getLgnRslt())) {
-					// fail count 증가
+					LoginVO loginVo = loginService.selectUser(loginVO.getId());
+					if(loginVo.getLckYn().equals("N")){
+						loginService.updateFailCount(loginVO);
+						if(loginVo.getLgnFailNmtm() == 4){
+							loginService.updateUserLck(loginVo);
+						}
+					}
+
+					model.addAttribute("loginCode", ComConstants.ERR_LOGIN_FAILED);
+					model.addAttribute("loginMessage", messageSource.getMessage("fail.common.login", request.getLocale()));
+				}else if(ComConstants.ERR_USER_NONE.equals(resultVO.getLgnRslt())){
+					//계정이없을때 분기점
+					model.addAttribute("loginCode",ComConstants.ERR_USER_NONE);
+					model.addAttribute("loginMessage", messageSource.getMessage("fail.common.login.notFound",request.getLocale()));
 
 				}
 			}
 
-			model.addAttribute("loginCode", ComConstants.ERR_LOGIN_FAILED);
-			model.addAttribute("loginMessage", messageSource.getMessage("fail.common.login", request.getLocale()));
+
 			//실패 이력저장
 			comLogVo.setPrslType("L3");
 			comLogService.insertMenuHstry(comLogVo);
@@ -347,10 +361,15 @@ public class LoginController extends BaseController {
 		comLogVo.setSysLastChgPrgrmId(menuId);
 
 		comLogVo.setPrslType("L2");
-		LoginVO loginVo =(LoginVO) request.getSession().getAttribute("loginVO");
-		comLogVo.setUserNm(loginVo.getName());
-		comLogVo.setUserType(loginVo.getUserType());
-		comLogVo.setApcCd(loginVo.getApcCd());
+		try{
+			LoginVO loginVo =(LoginVO) request.getSession().getAttribute("loginVO");
+			comLogVo.setUserNm(loginVo.getName());
+			comLogVo.setUserType(loginVo.getUserType());
+			comLogVo.setApcCd(loginVo.getApcCd());
+		}catch (Exception e){
+			return "redirect:/main.do";
+		}
+
 
 		comLogService.insertMenuHstry(comLogVo);
 
@@ -362,5 +381,4 @@ public class LoginController extends BaseController {
 
 		return "redirect:/main.do";
 	}
-
 }
