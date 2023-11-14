@@ -36,6 +36,7 @@ public class ComConstants {
 
 	/* properties column name */
 	public final static String PROP_COL_AUTHRT_ID = "authrtId";
+	public final static String PROP_COL_MENU_ID = "menuId";
 
 
 	public final static String RESULT_STATUS_OK = "S";

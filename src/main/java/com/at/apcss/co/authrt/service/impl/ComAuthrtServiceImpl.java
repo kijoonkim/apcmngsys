@@ -36,7 +36,7 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 
 
 	@Override
-	public ComAuthrtVO selectComAuthrt(ComAuthrtVO comAuthrtVO) {
+	public ComAuthrtVO selectComAuthrt(ComAuthrtVO comAuthrtVO) throws Exception {
 
 		ComAuthrtVO rtnVO = comAuthrtMapper.selectComAuthrt(comAuthrtVO);
 
@@ -44,7 +44,7 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 	}
 
 	@Override
-	public ComAuthrtVO selectComAuthrt(String authrtId) {
+	public ComAuthrtVO selectComAuthrt(String authrtId) throws Exception {
 
 		ComAuthrtVO comAuthrtVO = new ComAuthrtVO();
 		comAuthrtVO.setAuthrtId(authrtId);
@@ -55,7 +55,7 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 	}
 
 	@Override
-	public List<ComAuthrtVO> selectComAuthrtList(ComAuthrtVO comAuthrtVO) {
+	public List<ComAuthrtVO> selectComAuthrtList(ComAuthrtVO comAuthrtVO) throws Exception {
 
 		List<ComAuthrtVO> rtnList = comAuthrtMapper.selectComAuthrtList(comAuthrtVO);
 
@@ -94,7 +94,7 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 	}
 
 	@Override
-	public List<ComAuthrtMenuVO> selectComAuthrtMenuList(ComAuthrtMenuVO comAuthrtMenuVO) {
+	public List<ComAuthrtMenuVO> selectComAuthrtMenuList(ComAuthrtMenuVO comAuthrtMenuVO) throws Exception {
 
 		List<ComAuthrtMenuVO> rtnList = comAuthrtMapper.selectComAuthrtMenuList(comAuthrtMenuVO);
 
@@ -102,7 +102,7 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 	}
 
 	@Override
-	public List<ComAuthrtUiVO> selectComAuthrtUiList(ComAuthrtUiVO comAuthrtUiVO) {
+	public List<ComAuthrtUiVO> selectComAuthrtUiList(ComAuthrtUiVO comAuthrtUiVO) throws Exception {
 
 		List<ComAuthrtUiVO> rtnList = comAuthrtMapper.selectComAuthrtUiList(comAuthrtUiVO);
 
@@ -1283,6 +1283,77 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 			//				oprtrPckgPrfmncTrsmYn 생산작업자포장실적전송유무
 		}
 
+		return null;
+	}
+
+	@Override
+	public List<ComAuthrtUiVO> selectUserAuthrtUiList(String userId, String menuId) throws Exception {
+		
+		ComAuthrtUiVO comAuthrtUiVO = new ComAuthrtUiVO();
+		
+		comAuthrtUiVO.setUserId(userId);
+		comAuthrtUiVO.setMenuId(menuId);
+		
+		List<ComAuthrtUiVO> userAuthrtUiList = comAuthrtMapper.selectUserAuthrtUiList(comAuthrtUiVO);
+		
+		return userAuthrtUiList;
+	}
+
+
+	@Override
+	public HashMap<String, Object> insertComAuthrtUi(ComAuthrtMenuVO comAuthrtMenuVO) throws Exception {
+
+		String authrtId = comAuthrtMenuVO.getAuthrtId();
+		String menuId = comAuthrtMenuVO.getMenuId();
+		
+		
+		if (!StringUtils.hasText(authrtId)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "권한ID");
+		}
+		if (!StringUtils.hasText(menuId)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "메뉴ID");
+		}
+		
+		List<ComAuthrtUiVO> comAuthrtUiList = comAuthrtMenuVO.getComAuthrtUiList();
+		
+		if (comAuthrtUiList == null || comAuthrtUiList.isEmpty()) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "변경대상");
+		}
+		
+		for ( ComAuthrtUiVO authrtUi : comAuthrtUiList ) {
+			
+			authrtUi.setAuthrtId(authrtId);
+			authrtUi.setMenuId(menuId);
+			
+			ComAuthrtUiVO chkInfo =	comAuthrtMapper.selectComAuthrtUi(authrtUi);
+			
+			ComAuthrtUiVO comAuthrtUiVO = new ComAuthrtUiVO();
+			BeanUtils.copyProperties(comAuthrtMenuVO, comAuthrtUiVO);
+
+			BeanUtils.copyProperties(authrtUi, comAuthrtUiVO,
+						ComConstants.PROP_COL_AUTHRT_ID,
+						ComConstants.PROP_COL_MENU_ID,
+						ComConstants.PROP_SYS_FRST_INPT_DT,
+						ComConstants.PROP_SYS_FRST_INPT_USER_ID,
+						ComConstants.PROP_SYS_FRST_INPT_PRGRM_ID,
+						ComConstants.PROP_SYS_LAST_CHG_DT,
+						ComConstants.PROP_SYS_LAST_CHG_USER_ID,
+						ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID
+					);
+			
+			if (ComConstants.CON_YES.equals(comAuthrtUiVO.getUseYn())) {
+				if (chkInfo != null && StringUtils.hasText(chkInfo.getAuthrtId())) {
+					comAuthrtMapper.updateComAuthrtUi(comAuthrtUiVO);
+				} else {
+					comAuthrtMapper.insertComAuthrtUi(comAuthrtUiVO);
+				}
+			} else {
+				if (chkInfo != null && StringUtils.hasText(chkInfo.getAuthrtId())) {
+					comAuthrtMapper.updateComAuthrtUiForDelY(comAuthrtUiVO);
+				}
+			}
+		}
+		
 		return null;
 	}
 }

@@ -33,14 +33,23 @@ public class ComAuthrtMenuVO extends ComVO {
 	private String userId;
 	private String authrtType;
 	private String authrtRmrk;
-	private List<String> authrtIdList;
 	private String prsnaInfoYn;
 
+	private List<String> authrtIdList;
 	public List<String> getAuthrtIdList() {
 		return this.authrtIdList == null ? null : authrtIdList.stream().collect(Collectors.toList());
 	}
 
 	public void setAuthrtIdList(List<String> authrtIdList) {
 		this.authrtIdList = authrtIdList == null ? null : authrtIdList.stream().collect(Collectors.toList());
+	}
+	
+	private List<ComAuthrtUiVO> comAuthrtUiList;	
+	public List<ComAuthrtUiVO> getComAuthrtUiList() {
+		return this.comAuthrtUiList == null ? null : comAuthrtUiList.stream().collect(Collectors.toList());
+	}
+
+	public void setComAuthrtUiList(List<ComAuthrtUiVO> comAuthrtUiList) {
+		this.comAuthrtUiList = comAuthrtUiList == null ? null : comAuthrtUiList.stream().collect(Collectors.toList());
 	}
 }
