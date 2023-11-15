@@ -92,6 +92,20 @@ public interface SpmtPrfmncService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertSpmtPrfmncList(List<SpmtPrfmncVO> spmtPrfmnc) throws Exception;
+	/**
+	 * 출하반품 등록
+	 * @param List<SpmtPrfmncVO>
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertRtnSpmtPrfmncList(List<SpmtPrfmncVO> spmtPrfmnc) throws Exception;
+	/**
+	 * 출하반품 취소
+	 * @param List<SpmtPrfmncVO>
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteRtnSpmtPrfmncList(List<SpmtPrfmncVO> spmtPrfmnc) throws Exception;
 
 	/**
 	 * 출하실적 삭제

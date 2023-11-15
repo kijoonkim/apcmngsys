@@ -232,7 +232,7 @@ public class GdsInvntrVO extends ComVO {
 	 * 운송구분코드
 	 */
 	private String trsprtSeCd;
-	
+
 	/**
 	 * 생산연도
 	 */
@@ -259,17 +259,26 @@ public class GdsInvntrVO extends ComVO {
 	private String stdGrdCd;
 
 	/*
-	 * 변경이력 
+	 * 변경이력
 	 */
-	
+
 	private int chgBfrQntt;
 	private double chgBfrWght;
 	private int chgAftrQntt;
 	private double chgAftrWght;
 	private String chgRsnCd;
 	private String chgRmrk;
-	
-	
+
+	/*
+	 * 반품수량
+	 * */
+	private int rtnGdsQntt;
+	/*
+	 * 반품중량
+	 * */
+	private double rtnGdsWght;
+
+
 	/**
 	 * 표준등급
 	 */

@@ -78,6 +78,53 @@ public class SpmtPrfmncController extends BaseController {
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
+	// 출하반품 등록
+	@PostMapping(value = "/am/spmt/insertRtnSpmtPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertRtnSpmtPrfmncList(@RequestBody List<SpmtPrfmncVO> SpmtPrfmncList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+
+			for (SpmtPrfmncVO spmtPrfmncVO : SpmtPrfmncList) {
+				spmtPrfmncVO.setSysFrstInptUserId(getUserId());
+				spmtPrfmncVO.setSysFrstInptPrgrmId(getPrgrmId());
+				spmtPrfmncVO.setSysLastChgUserId(getUserId());
+				spmtPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
+				spmtPrfmncVO.setOrgnPckgno(spmtPrfmncVO.getPckgno());
+				spmtPrfmncVO.setOrgnPckgSn(spmtPrfmncVO.getPckgSn());
+				spmtPrfmncVO.setOrgnSpmtno(spmtPrfmncVO.getSpmtno());
+			}
+
+			spmtPrfmncService.insertRtnSpmtPrfmncList(SpmtPrfmncList);
+
+		}catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
+	// 출하반품 취소
+	@PostMapping(value = "/am/spmt/deleteRtnSpmtPrfmnCnclList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteRtnSpmtPrfmnCnclList(@RequestBody List<SpmtPrfmncVO> SpmtPrfmncList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+
+			for (SpmtPrfmncVO spmtPrfmncVO : SpmtPrfmncList) {
+				spmtPrfmncVO.setSysFrstInptUserId(getUserId());
+				spmtPrfmncVO.setSysFrstInptPrgrmId(getPrgrmId());
+				spmtPrfmncVO.setSysLastChgUserId(getUserId());
+				spmtPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
+			}
+
+			spmtPrfmncService.deleteRtnSpmtPrfmncList(SpmtPrfmncList);
+
+		}catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
 
 	// 출하실적 조회
 	@PostMapping(value = "/am/spmt/selectSpmtPrfmncDtlList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
