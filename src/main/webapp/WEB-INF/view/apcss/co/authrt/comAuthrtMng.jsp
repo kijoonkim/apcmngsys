@@ -403,22 +403,22 @@ let lv_prvMenuId = "";
 	    SBGridProperties.explorerbar = 'sortmove';
 	    SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: ["명칭"],		ref: 'entyNm',		type:'output',		width:'120px',	style:'text-align:left'},
-            {caption: ["개체종류"],	ref: 'entyTypeNm',  type:'output',  	width:'80px',   style:'text-align:center'},
-            {caption: ["표시"],		ref: 'indctYn',    	type:'checkbox', 	width:'40px',   style:'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-            },
-            {caption: ["유형"],	ref: 'aplcnType',	type:'combo',		width:'100px',   style:'text-align:center; background:#FFF8DC;',
-            	typeinfo: {ref:'jsonAplcnType', label:'cdVlNm', value:'cdVl', displayui : false, oneclickedit: true}
-            },
             {caption: ["적용"],		ref: 'useYn',    	type:'checkbox', 	width:'40px',   style:'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
-            {caption: ["화면ID"],		ref: 'menuId',		type:'output',  hidden: true},
-            {caption: ["권한ID"],		ref: 'authrtId',    type:'output',  hidden: true},
-            {caption: ["개체ID"],		ref: 'entyId',		type:'output',  hidden: true},
-            {caption: ["개체유형"],		ref: 'entyType',    type:'output',  hidden: true},
-            {caption: ["APC코드"],		ref: 'apcCd',       type:'output',  hidden: true},
+        	{caption: ["명칭"],		ref: 'entyNm',		type:'output',		width:'120px',	style:'text-align:left'},
+            {caption: ["개체종류"],	ref: 'entyTypeNm',  type:'output',  	width:'80px',   style:'text-align:center'},
+            {caption: ["유형"],		ref: 'aplcnType',	type:'combo',		width:'100px',   style:'text-align:center; background:#FFF8DC;',
+            	typeinfo: {ref:'jsonAplcnType', label:'cdVlNm', value:'cdVl', displayui : false, oneclickedit: true}
+            },
+            {caption: ["권한유무"],	ref: 'indctYn',    	type:'checkbox', 	width:'40px',   style:'text-align:center',
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+            },
+            {caption: ["화면ID"],	ref: 'menuId',		type:'output',  hidden: true},
+            {caption: ["권한ID"],	ref: 'authrtId',    type:'output',  hidden: true},
+            {caption: ["개체ID"],	ref: 'entyId',		type:'output',  hidden: true},
+            {caption: ["개체유형"],	ref: 'entyType',    type:'output',  hidden: true},
+            {caption: ["APC코드"],	ref: 'apcCd',       type:'output',  hidden: true},
         ];
         grdComAuthrtUi = _SBGrid.create(SBGridProperties);
     }
