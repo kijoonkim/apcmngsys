@@ -4,6 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+    <title>title : SBUx2.6</title>
 </head>
 <body>
 	<section>
@@ -42,7 +43,7 @@
 			                                <tr>
 			                                    <th scope="row">구분</th>
 			                                    <td colspan="8">
-			                                    	<sbux-select id="dtl-select-bbsSeCd" name="dtl-select-bbsSeCd" uitype="single"
+			                                    	<sbux-select id="dtl-select-newbbsSeCd" name="dtl-select-newbbsSeCd" uitype="single"
 			                                    		jsondata-ref="jsonComBbsSeCd"
 			                                    		unselected-text="선택"
 		                                    		></sbux-select>
@@ -51,13 +52,13 @@
 			                                <tr>
 			                                    <th scope="row">제목</th>
 			                                    <td colspan="8">
-			                                        <sbux-input id="dtl-input-bbsTitle" name="dtl-input-bbsTitle" uitype="text" required style="width:100%"></sbux-input>
+			                                        <sbux-input id="dtl-input-newbbsTitle" name="dtl-input-newbbsTitle" uitype="text" required style="width:100%"></sbux-input>
 			                                    </td>
 			                                </tr>
 			                                <tr>
 			                                    <th scope="row">내용</th>
 			                                    <td colspan="8">
-			                                        <sbux-textarea  rows="10" cols="110"  id="dtl-input-bbsSubject" name="dtl-input-bbsSubject"  uitype="normal"></sbux-textarea>
+			                                        <sbux-textarea  rows="10" cols="110"  id="dtl-input-newbbsSubject" name="dtl-input-newbbsSubject"  uitype="normal"></sbux-textarea>
 			                                    </td>
 			                                </tr>
 
@@ -83,28 +84,30 @@
 	}
 
 	function newArticle_clear(){
-		SBUxMethod.set("dtl-input-bbsTitle","");
-		SBUxMethod.set("dtl-input-bbsSubject","");
+		SBUxMethod.set("dtl-input-newbbsTitle","");
+		SBUxMethod.set("dtl-input-newbbsSubject","");
 	}
 	async function fn_ArticleCreate(){
-		let bbsSeCd = SBUxMethod.get("dtl-select-bbsSeCd");
-		let bbsTitle = SBUxMethod.get("dtl-input-bbsTitle");
-		let bbsSubject = SBUxMethod.get("dtl-input-bbsSubject");
-		if (!SBUxMethod.get("dtl-select-bbsSeCd")) {
+		let bbsSeCd = SBUxMethod.get("dtl-select-newbbsSeCd");
+		let bbsTitle = SBUxMethod.get("dtl-input-newbbsTitle");
+		let bbsSubject = SBUxMethod.get("dtl-input-newbbsSubject");
+		let apcCd = gv_apcCd;
+		if (!SBUxMethod.get("dtl-select-newbbsSeCd")) {
             alert("구분코드를 선택하세요.");
             return;
         }
-		if (!SBUxMethod.get("dtl-input-bbsTitle")) {
+		if (!SBUxMethod.get("dtl-input-newbbsTitle")) {
             alert("제목을 입력하세요.");
             return;
         }
 
-        if (!SBUxMethod.get("dtl-input-bbsSubject")) {
+        if (!SBUxMethod.get("dtl-input-newbbsSubject")) {
             alert("내용을 입력하세요.");
             return;
         }
 		const postJsonPromise = gfn_postJSON("/am/bbs/insertBbs.do", {
-			bbsSeCd : bbsSeCd
+			apcCd : apcCd
+			, bbsSeCd : bbsSeCd
 			, bbsTitle : bbsTitle
 			, bbsSubject : bbsSubject
 		});

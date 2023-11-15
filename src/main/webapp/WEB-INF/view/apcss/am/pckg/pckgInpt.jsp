@@ -97,6 +97,7 @@
 									id="srch-dtp-pckgYmdFrom"
 									name="srch-dtp-pckgYmdFrom"
 									uitype="popup"
+									date-format="yyyy-mm-dd"
 									class="form-control input-sm"
 									onchange="fn_dtpChange(srch-dtp-pckgYmdFrom)"
 								></sbux-datepicker>
@@ -106,6 +107,7 @@
 									id="srch-dtp-pckgYmdTo"
 									 name="srch-dtp-pckgYmdTo"
 									 uitype="popup"
+									 date-format="yyyy-mm-dd"
 									 class="form-control input-sm"
 									 onchange="fn_dtpChange(srch-dtp-pckgYmdTo)"
 								 ></sbux-datepicker>

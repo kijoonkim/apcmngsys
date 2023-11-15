@@ -122,4 +122,11 @@ public interface ComMenuService {
 	public int multiSaveComUiList(List<ComUiVO> comUiList) throws Exception;
 
 
+	/**
+	 * 유형별 메뉴 목록 조회
+	 * @param comMenuVO
+	 * @return
+	 */
+	public List<ComMenuVO> selectMenuListByType(ComMenuVO comMenuVO) throws Exception;
+
 }

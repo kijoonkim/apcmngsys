@@ -49,10 +49,10 @@
 						<tr>
 							<th scope="row" class="th_bg">입고일자</th>
 							<td class="td_input"style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-startPrdctnYmd" name="srch-dtp-startPrdctnYmd" class="form-control pull-right input-sm" onchange="fn_dtpChange(srch-dtp-startPrdctnYmd)"></sbux-datepicker>
+								<sbux-datepicker uitype="popup" id="srch-dtp-startPrdctnYmd" name="srch-dtp-startPrdctnYmd" date-format="yyyy-mm-dd" class="form-control pull-right input-sm" onchange="fn_dtpChange(srch-dtp-startPrdctnYmd)"></sbux-datepicker>
 							</td>
 							<td class="td_input"style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-endPrdctnYmd" name="srch-dtp-endPrdctnYmd" class="form-control pull-right input-sm" onchange="fn_dtpChange(srch-dtp-endPrdctnYmd)"></sbux-datepicker>
+								<sbux-datepicker uitype="popup" id="srch-dtp-endPrdctnYmd" name="srch-dtp-endPrdctnYmd" date-format="yyyy-mm-dd" class="form-control pull-right input-sm" onchange="fn_dtpChange(srch-dtp-endPrdctnYmd)"></sbux-datepicker>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<th scope="row" class="th_bg">품목/품종</th>

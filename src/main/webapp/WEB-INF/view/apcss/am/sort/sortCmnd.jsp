@@ -62,10 +62,10 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>지시일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-strtCmndYmd" name="srch-dtp-strtCmndYmd" class="form-control pull-right input-sm" onchange="fn_dtpChange(srch-dtp-strtCmndYmd)">
+								<sbux-datepicker uitype="popup" id="srch-dtp-strtCmndYmd" name="srch-dtp-strtCmndYmd" date-format="yyyy-mm-dd" class="form-control pull-right input-sm" onchange="fn_dtpChange(srch-dtp-strtCmndYmd)">
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-endCmndYmd" name="srch-dtp-endCmndYmd" class="form-control pull-right input-sm" onchange="fn_dtpChange(srch-dtp-endCmndYmd)">
+								<sbux-datepicker uitype="popup" id="srch-dtp-endCmndYmd" name="srch-dtp-endCmndYmd" date-format="yyyy-mm-dd" class="form-control pull-right input-sm" onchange="fn_dtpChange(srch-dtp-endCmndYmd)">
 							</td>
 							<td>&nbsp;</td>
 							<th scope="row" class="th_bg">품목/품종</th>

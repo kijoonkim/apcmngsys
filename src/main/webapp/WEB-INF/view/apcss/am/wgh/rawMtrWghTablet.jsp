@@ -30,13 +30,6 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button 
-						id="btnDocRawMtrWgh" 
-						name="btnDocRawMtrWgh" 
-						uitype="normal" 
-						text="계량확인서" 
-						class="btn btn-sm btn-primary"
-					></sbux-button>
-					<sbux-button 
 						id="btnReset" 
 						name="btnReset" 
 						uitype="normal" 
@@ -81,21 +74,24 @@
 					<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 1%">
+						<col style="width: 2%">
+						<col style="width: 2%">
+						<col style="width: 2%">
+						<col style="width: 2%">
+						<col style="width: 2%">
+						<col style="width: 2%">
+						<col style="width: 1%">
 						<col style="width: 4%">
-						<col style="width: 1%">
-						<col style="width: 1%">
-						<col style="width: 1%">
-						<col style="width: 1%">
-						<col style="width: 1%">
-						<col style="width: 3%">
 						<col style="width: 3%">
 						<col style="width: 2%">
-						<col style="width: 3%">
-						<col style="width: 5%">
 						<col style="width: 2%">
+						<col style="width: 2%">
+						<col style="width: 8%">
 						<col style="width: 5%">
+						<col style="width: 8%">
 						<col style="width: 5%">
-						<col style="width: 22%">
 					</colgroup>
 					<tbody>
 						<tr>
@@ -113,7 +109,7 @@
     								autocomplete-select-callback="fn_onSelectPrdcrNm"
    								></sbux-input>
 							</td>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
 									id="dtl-inp-prdcrIdentno"
@@ -135,7 +131,7 @@
 									onclick="fn_choicePrdcr"
 								></sbux-button>
 							</td>
-							<td colspan="7" style="border-left: hidden;">&nbsp;</td>
+							<td colspan="9"></td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>품목/품종</th>
@@ -169,7 +165,7 @@
 									</div>
 								</div>
 							</td>
-							<td colspan="3"class="td_input"  style="border-right: hidden;">
+							<td colspan="3" class="td_input"  style="border-right: hidden;">
 								<p class="ad_input_row">
 									<sbux-checkbox
 										id="dtl-chk-fxngItem" 
@@ -179,11 +175,11 @@
 									></sbux-checkbox>
 								</p>
 							</td>
-							<td colspan="4" style="border-right: hidden;"></td>
+							<td colspan="9"></td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>입고구분</th>
-							<td colspan="15" class="td_input">
+							<td colspan="18" class="td_input">
 								<sbux-radio 
 									id="dtl-rdo-wrhsSeCd" 
 									name="dtl-rdo-wrhsSeCd" 
@@ -198,7 +194,7 @@
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>상품구분</th>
-							<td colspan="15" class="td_input">
+							<td colspan="18" class="td_input">
 								<sbux-radio 
 									id="dtl-rdo-gdsSeCd" 
 									name="dtl-rdo-gdsSeCd" 
@@ -213,7 +209,7 @@
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>운송구분</th>
-							<td colspan="15" class="td_input">
+							<td colspan="18" class="td_input">
 								<sbux-radio 
 									id="dtl-rdo-trsprtSeCd" 
 									name="dtl-rdo-trsprtSeCd" 
@@ -232,19 +228,17 @@
 								<sbux-datepicker
 									id="dtl-dtp-wghYmd" 
 									name="dtl-dtp-wghYmd" 
-									uitype="popup" 
-									class="form-control input-sm"
+									uitype="popup"
+									date-format="yyyy-mm-dd"
+									class="form-control sbux-pik-group-apc input-sm"
+									style="width:100%;"
 								></sbux-datepicker>
 							</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td colspan="5"></td>
+							<td colspan="12"></td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg" style="border-right: hidden;"><span class="data_required"></span>차량번호/성명</th>
-							<td class="td_input" class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
 									id="dtl-inp-vhclno"
@@ -256,7 +250,7 @@
     								autocomplete-select-callback="fn_onSelectVhclno"
    								></sbux-input>
 							</td>
-							<td colspan="4" class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-button 
 									id="btnSrchVhclNo" 
 									name="btnSrchVhclNo" 
@@ -266,7 +260,7 @@
 									onclick="fn_choiceVhcl"
 								></sbux-button>
 							</td>
-							<td colspan="2"class="td_input"  style="border-right: hidden;">
+							<td colspan="4"class="td_input"  style="border-right: hidden;">
 								<sbux-input 
 									uitype="text" 
 									id="dtl-inp-drvrNm" 
@@ -275,10 +269,11 @@
 									readonly
 								></sbux-input>
 							</td>
+							<td colspan="10"></td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>전체/공차중량</th>
-							<td class="td_input"  style="border-right: hidden;">
+							<td colspan="2" class="td_input"  style="border-right: hidden;">
 								<sbux-input 
 									uitype="text" 
 									id="dtl-inp-wholWght" 
@@ -290,7 +285,7 @@
 									onchange="fn_onChangeWholWght"
 								></sbux-input>
 							</td>
-							<td colspan="3"class="td_input"  style="border-right: hidden;">
+							<td colspan="4"class="td_input"  style="border-right: hidden;">
 								<sbux-input 
 									uitype="text" 
 									id="dtl-inp-emptVhclWght" 
@@ -302,10 +297,10 @@
 									onchange="fn_onChangeEmptVhclWght"
 								></sbux-input>
 							</td>
-							<td colspan="2"class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="text-align: right; border-right: hidden;">
 								<label class="bold">감량 %</label>
 							</td>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input 
 									uitype="text" 
 									id="dtl-inp-rdcdRt" 
@@ -317,7 +312,7 @@
 									onchange="fn_onChangeRdcdRt"
 								></sbux-input>
 							</td>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
 									<sbux-checkbox 
 										id="dtl-chk-fxngRdcdRt" 
@@ -327,8 +322,7 @@
 									></sbux-checkbox>
 								</p>
 							</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td style="border-right: hidden;" class="td_input">
+							<td colspan="2" class="td_input" style="text-align: right; border-right: hidden;">
 								<label class="bold">감량 Kg</label>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
@@ -337,11 +331,11 @@
 									id="dtl-inp-rdcdWght" 
 									name="dtl-inp-rdcdWght" 
 									class="form-control input-sm" 
+									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 									readonly
 								></sbux-input>
 							</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td class="td_input" style="border-right: hidden;">
+							<td class="td_input" style="text-align: right; border-right: hidden;">
 								<label class="bold">실중량 Kg</label>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
@@ -350,6 +344,7 @@
 									id="dtl-inp-actlWght" 
 									name="dtl-inp-actlWght" 
 									class="form-control input-sm" 
+									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 									readonly
 								></sbux-input>
 							</td>
@@ -357,7 +352,7 @@
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg" ><span class="data_required"></span>입고창고</th>
-							<td class="td_input"  style="border-right: hidden;">
+							<td colspan="2" class="td_input"  style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
 										<sbux-select 
@@ -371,7 +366,7 @@
 									</div>
 								</div>
 							</td>
-							<td colspan="14"class="td_input" >
+							<td colspan="16" class="td_input">
 								<p class="ad_input_row">
 									<sbux-checkbox 
 										id="dtl-chk-fxngWarehouseSeCd" 
@@ -384,7 +379,7 @@
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg" style="border-right: hidden;">팔레트/박스</th>
-						 	<td style="border-right: hidden;">
+						 	<td colspan="2" class="td_input" style="border-right: hidden;">
 						 		<sbux-button
 									id="dtl-btn-wrhsPltBx"
 									name="dtl-btn-wrhsPltBx"
@@ -394,7 +389,7 @@
 									onclick="fn_choiceWrhsPltBx"
 								></sbux-button>
 						 	</td>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
+							<td colspan="4" class="td_input" style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
 									id="dtl-inp-pltWght"
@@ -405,7 +400,7 @@
 								></sbux-input>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;"><label class="bold">Kg</label></td>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
 									id="dtl-inp-bxWght"
@@ -415,11 +410,11 @@
 									readonly
 								></sbux-input>
 							</td>
-							<td colspan="8" class="td_input" ><label class="bold">Kg</label></td>
+							<td colspan="7" class="td_input"><label class="bold">Kg</label></td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg">입고중량</th>
-							<td class="td_input"  style="border-right: hidden;">
+							<td colspan="2" class="td_input"  style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
 									id="dtl-inp-wrhsWght"
@@ -429,7 +424,7 @@
 									readonly
 								></sbux-input>
 							</td>
-							<td colspan="14" class="td_input" ><label class="bold">Kg</label></td>
+							<td colspan="16" class="td_input" ><label class="bold">Kg</label></td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg">생산연도</th>
@@ -440,10 +435,11 @@
 									name="dtl-dtp-prdctnYr"
 									date-format="yyyy"
 									datepicker-mode="year"
-									class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"
+									class="form-control pull-right sbux-pik-group-apc input-sm-ast inpt_data_reqed input-sm"
+									style="width:100%;"
 								/>
 							</td>
-							<td colspan="9" class="td_input" ></td>
+							<td colspan="12"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -454,13 +450,22 @@
 						<ul class="ad_tbl_count">
 							<li>
 								<span>계량등록 내역</span>
-								<span style="font-size:12px">(조회건수 <span id="cnt-wgh">0</span>건)</span>
+								<span style="font-size:12px">(조회건수 <span id="cnt-wgh">0</span>건, 기준일자 : 
+									<sbux-label
+										id="crtr-ymd"
+										name="crtr-ymd"
+										uitype="normal"
+										text=""
+										class="bold"
+										mask = "{'alias': 'yyyy-mm-dd', 'autoUnmask': true}"
+									></sbux-label>)
+								</span>
 							</li>
 						</ul>
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdWghPrfmnc" style="width:100%;height:170px;"></div>
+					<div id="sb-area-grdWghPrfmnc" style="width:100%;height:130px;"></div>
 				</div>
 
 				<!--[pp] //검색결과 -->
@@ -726,21 +731,10 @@
    const fn_setGrdWghPrfmnc = async function() {
 
  		let wghYmd = SBUxMethod.get("dtl-dtp-wghYmd");		// 계량일자
- 		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");	// 생산자
- 		let itemCd = SBUxMethod.get("dtl-slt-itemCd");		// 품목
- 		let vrtyCd = SBUxMethod.get("dtl-slt-vrtyCd");		// 품종
- 		let wrhsSeCd = SBUxMethod.get("dtl-rdo-wrhsSeCd");	// 입고구분
- 		let gdsSeCd = SBUxMethod.get("dtl-rdo-gdsSeCd");	// 상품구분
 
 		const postJsonPromise = gfn_postJSON("/am/wgh/selectWghPrfmncList.do", {
 			apcCd: gv_selectedApcCd,
 			wghYmd: wghYmd,
-			prdcrCd: prdcrCd,
-			itemCd: itemCd,
-			vrtyCd: vrtyCd,
-			wrhsSeCd: wrhsSeCd,
-			gdsSeCd: gdsSeCd,
-// 			trsprtSeCd: trsprtSeCd,
 
          	// pagination
  	  		pagingYn : 'N',
@@ -804,6 +798,7 @@
          	
          	grdWghPrfmnc.refresh();
          	document.querySelector('#cnt-wgh').innerText = totalRecordCount;
+          	SBUxMethod.set("crtr-ymd", wghYmd);
 
          } catch (e) {
      		if (!(e instanceof Error)) {
@@ -1352,8 +1347,8 @@
 	 
 	const fn_setVhcl = function(vhcl) {
 		if (!gfn_isEmpty(vhcl)) {
-			SBUxMethod.set("srch-inp-vhclno", vhcl.vhclno);
-			SBUxMethod.set("inp-drvrNm", vhcl.drvrNm);
+			SBUxMethod.set("dtl-inp-vhclno", vhcl.vhclno);
+			SBUxMethod.set("dtl-inp-drvrNm", vhcl.drvrNm);
 		}
 	}
 	
@@ -1434,6 +1429,11 @@
 	 */
 	const fn_onChangeRdcdRt = function() {
 		// 감량(%) >> 감량, 실중량, 입고중량
+		if (parseFloat(SBUxMethod.get("dtl-inp-rdcdRt")) > 100) {
+			alert("감량률이 100% 보다 큽니다.");
+			SBUxMethod.set("dtl-inp-rdcdRt", "");
+			return;
+		}
 		fn_setWght();
 	}
 	

@@ -163,7 +163,19 @@
 				<!--[pp] 검색결과 -->
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
-						<li><span>상품입고내역</span></li>
+						<li>
+							<span>상품입고내역</span>
+							<span style="font-size:12px">(기준일자 : 
+								<sbux-label
+									id="crtr-ymd"
+									name="crtr-ymd"
+									uitype="normal"
+									text=""
+									class="bold"
+									mask = "{'alias': 'yyyy-mm-dd', 'autoUnmask': true}"
+								></sbux-label>)
+							</span>
+						</li>
 					</ul>
 				</div>
                 <div class="sbt-wrap-body">
@@ -264,7 +276,7 @@
 	        {caption: ["중량"],		ref: 'pckgWght',		type: 'output',  width: '80px',    	style: 'text-align: right',		sortable: false,
 	        	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
 	        {caption: ["창고"],		ref: 'warehouseSeNm',	type: 'output',  width: '140px',    style: 'text-align: center',	sortable: false},
-	        {caption: ["비고"],		ref: 'rmrk',      		type: 'output',  width: '105px', 									sortable: false},
+	        {caption: ["비고"],		ref: 'rmrk',      		type: 'output',  width: '300px', 									sortable: false},
 	        {caption: ["순번"],		ref: 'pckgSn',			hidden: true},
 	        {caption: ["상품구분코드"],	ref: 'pckgSeCd',		hidden: true},
 	        {caption: ["품목코드"],	ref: 'itemCd',			hidden: true},
@@ -293,12 +305,6 @@
 		jsonGdsWrhs = [];
 		let apcCd = gv_selectedApcCd;
 		let pckgYmd = SBUxMethod.get("srch-dtp-pckgYmd");
-		let gdsSeCd = SBUxMethod.get("srch-rdo-gdsSeCd");
-		let prchsptNm = SBUxMethod.get("srch-inp-prchsptNm");
-		let itemCd = SBUxMethod.get("srch-inp-itemCd");
-		let vrtyCd = SBUxMethod.get("srch-inp-vrtyCd");
-		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
-		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");
 		
 		if (gfn_isEmpty(pckgYmd)){
 			gfn_comAlert("W0002", "입고일자");		//	W0002	{0}을/를 입력하세요.
@@ -307,8 +313,6 @@
 		
 		let gdsInvntrVO = {apcCd 				: apcCd
 						 , pckgYmd 				: pckgYmd
-						 , itemCd 				: itemCd
-						 , vrtyCd 				: vrtyCd
 						 , pagingYn 			: 'Y'
 						 , currentPageNo 		: currentPageNo
 						 , recordCountPerPage 	: recordCountPerPage};
@@ -350,6 +354,7 @@
 				grdGdsWrhs.setPageTotalCount(0);
 				grdGdsWrhs.rebuild();
 			}
+          	SBUxMethod.set("crtr-ymd", pckgYmd);
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);

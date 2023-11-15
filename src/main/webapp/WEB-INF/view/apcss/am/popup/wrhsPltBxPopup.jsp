@@ -19,6 +19,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+    <title>title : SBUx2.6</title>
 </head>
 <body>
 	<section>

@@ -192,12 +192,12 @@
 						<tr>
 							<th class="ta_r th_bg"><span class="data_required"></span>수량/중량</th>
 							<td class="td_input" style="border-right: hidden;">
-									<sbux-input uitype="text" id="dtl-inp-planQntt" name="dtl-inp-planQntt" class="form-control input-sm"
+									<sbux-input uitype="text" id="dtl-inp-planQntt" name="dtl-inp-planQntt" class="form-control input-sm" maxlength="13"
 									autocomplete="off"
 									mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"/>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-									<sbux-input uitype="text" id="dtl-inp-planWght" name="dtl-inp-planWght" class="form-control input-sm input-sm-ast inpt_data_reqed"
+									<sbux-input uitype="text" id="dtl-inp-planWght" name="dtl-inp-planWght" class="form-control input-sm input-sm-ast inpt_data_reqed" maxlength="13"
 									autocomplete="off"
 									mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"/>
 							</td>
@@ -213,7 +213,9 @@
 				</table>
 				<div class="ad_tbl_top2">
 					<ul class="ad_tbl_count">
-						<li><span>원물입고 계획</span></li>
+						<li>
+							<span>원물입고 계획</span>
+						</li>
 					</ul>
 					<div class="ad_tbl_toplist">
 						<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
@@ -391,9 +393,7 @@
 	        {caption: ["창고구분"],		ref: 'warehouseSeCd',   hidden: true},
 	        {caption: ["엑셀유무"],		ref: 'excelYn',   hidden: true},
 	    ];
-
 	    grdWrhsPlan = _SBGrid.create(SBGridProperties);
-
 	}
 
 

@@ -10,6 +10,9 @@ public class ComConstants {
 	public final static String ERR_USER_LOCKED = "USER_LOCKED";
 	public final static String ERR_LOGIN_FAILED = "LOGIN_FAILED";
 
+	public final static String CON_SYS_ID_CO = "CO";
+	public final static String CON_SYS_ID_AM = "AM";
+	
 	public final static String PROP_SYS_PRGRM_ID = "sysPrgrmId";
 
 	public final static String PAGINATION_MAP = "paginationMap";
@@ -36,6 +39,7 @@ public class ComConstants {
 
 	/* properties column name */
 	public final static String PROP_COL_AUTHRT_ID = "authrtId";
+	public final static String PROP_COL_MENU_ID = "menuId";
 
 
 	public final static String RESULT_STATUS_OK = "S";

@@ -35,7 +35,7 @@ public interface ComUserService {
 	 * @param comUserList
 	 * @return
 	 */
-	public HashMap<String, Object> updateUserStts(List<ComUserVO> comUserList) throws Exception;
+	public HashMap<String, Object> updateUserSttsList(List<ComUserVO> comUserList) throws Exception;
 	
 	/**
 	 * 사용자 상태를 승인한다.

@@ -1,9 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
+	<title>title : SBUx2.6</title>
 </head>
 <body>
 	<section>
@@ -32,10 +33,12 @@
 		</table>
 
 		<div class="ad_tbl_toplist">
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 			<sbux-button id="btnLogCntnHstry7" name="btnLogCntnHstry" uitype="normal" text="접속이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 			<sbux-button id="btnLogMenuHstry7" name="btnLogMenuHstry" uitype="normal" text="화면열람이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 			<sbux-button id="btnLogTrsmHstry7" name="btnLogTrsmHstry" uitype="normal" text="송수신이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 			<sbux-button id="btnLogBatchHstry7" name="btnLogBatchHstry" uitype="normal" text="배치실행이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+			</c:if>
 			<sbux-button id="btnRawMtrChgHstry7" name="btnRawMtrChgHstry" uitype="normal" text="원물재고변경이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 			<sbux-button id="btnSortInvntrChgHstry7" name="btnSortInvntrChgHstry" uitype="normal" text="선별재고변경이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 			<sbux-button id="btnGdsInvntrChgHstry7" name="btnGdsInvntrChgHstry" uitype="normal" text="상품재고변경이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>

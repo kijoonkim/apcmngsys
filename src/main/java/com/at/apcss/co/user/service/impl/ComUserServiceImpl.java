@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.at.apcss.co.sys.service.LoginService;
+import com.at.apcss.co.sys.vo.LoginVO;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +44,8 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 
 	@Autowired
 	private ComUserMapper comUserMapper;
+	@Autowired
+	private LoginService loginService;
 
 	@Resource(name = "comAuthrtService")
 	private ComAuthrtService comAuthrtService;
@@ -74,7 +78,7 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 	}
 
 	@Override
-	public HashMap<String, Object> updateUserStts(List<ComUserVO> comUserList) throws Exception {
+	public HashMap<String, Object> updateUserSttsList(List<ComUserVO> comUserList) throws Exception {
 		HashMap<String, Object> rtnObj = new HashMap<>();
 		
 		for ( ComUserVO comUserVO : comUserList ) {
@@ -207,6 +211,9 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 
 	@Override
 	public int updComUserPwd(ComUserVO comUserVO) throws Exception {
+		LoginVO loginVo = new LoginVO();
+		loginVo.setId(comUserVO.getUserId());
+		loginService.updateResetFailCount(loginVo);
 		return comUserMapper.updComUserPwd(comUserVO);
 	}
 

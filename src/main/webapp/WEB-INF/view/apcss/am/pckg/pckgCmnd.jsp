@@ -61,10 +61,10 @@
 						<tr>
 							<th scope="row"  class="th_bg"style="border-right:hidden ;"><span class="data_required" ></span>지시일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-cmndYmdFrom" name="srch-dtp-cmndYmdFrom" class="form-control pull-right input-sm input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-cmndYmdFrom)"/>
+								<sbux-datepicker uitype="popup" id="srch-dtp-cmndYmdFrom" name="srch-dtp-cmndYmdFrom" date-format="yyyy-mm-dd" class="form-control pull-right input-sm input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-cmndYmdFrom)"/>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-cmndYmdTo" name="srch-dtp-cmndYmdTo" class="form-control pull-right input-sm input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-cmndYmdTo)"/>
+								<sbux-datepicker uitype="popup" id="srch-dtp-cmndYmdTo" name="srch-dtp-cmndYmdTo" date-format="yyyy-mm-dd" class="form-control pull-right input-sm input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-cmndYmdTo)"/>
 							</td>
 							<td>&nbsp;</td>
 							<th scope="row" class="th_bg">생산설비</th>

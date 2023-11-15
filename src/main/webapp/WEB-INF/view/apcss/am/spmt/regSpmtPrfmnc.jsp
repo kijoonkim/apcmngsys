@@ -59,10 +59,10 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>생산일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-pckgYmdFrom" name="srch-dtp-pckgYmdFrom" uitype="popup" class="form-control input-sm sbux-pik-group-apc input-sm-ast" onchange="fn_dtpChange(srch-dtp-pckgYmdFrom)"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-pckgYmdFrom" name="srch-dtp-pckgYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast" onchange="fn_dtpChange(srch-dtp-pckgYmdFrom)"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-pckgYmdTo" name="srch-dtp-pckgYmdTo" uitype="popup" class="form-control input-sm sbux-pik-group-apc input-sm-ast" onchange="fn_dtpChange(srch-dtp-pckgYmdTo)"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-pckgYmdTo" name="srch-dtp-pckgYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast" onchange="fn_dtpChange(srch-dtp-pckgYmdTo)"></sbux-datepicker>
 							</td>
 							<td class="td_input"></td>
 
@@ -212,7 +212,7 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>출하일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="dtl-dtp-spmtYmd" name="dtl-dtp-spmtYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc input-sm-ast" onchange="fn_dtpChange(dtl-dtp-spmtYmd)"></sbux-datepicker>
+								<sbux-datepicker id="dtl-dtp-spmtYmd" name="dtl-dtp-spmtYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast" onchange="fn_dtpChange(dtl-dtp-spmtYmd)"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 							<td class="td_input" style="border-right: hidden;">
@@ -273,7 +273,19 @@
 				</table>
 				<div class="ad_tbl_top2">
 					<ul class="ad_tbl_count">
-						<li><span>출하 내역</span></li>
+						<li>
+							<span>출하 내역</span>
+							<span style="font-size:12px">(기준일자 : 
+								<sbux-label
+									id="crtr-ymd"
+									name="crtr-ymd"
+									uitype="normal"
+									text=""
+									class="bold"
+									mask = "{'alias': 'yyyy-mm-dd', 'autoUnmask': true}"
+								></sbux-label>)
+							</span>
+						</li>
 					</ul>
 					<div class="ad_tbl_toplist">
 						<sbux-button id="btnDocSpmt" name="btnDocSpmt" uitype="normal" text="송품장" class="btn btn-sm btn-primary" onclick="fn_docSpmt"></sbux-button>
@@ -1096,17 +1108,10 @@
     }
 
 	const fn_setGrdSmptPrfmnc = async function(){
-		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");
-		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
-		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
-		let gdsSeCd = SBUxMethod.get("srch-rdo-gdsSeCd");
 		let spmtYmd = SBUxMethod.get("dtl-dtp-spmtYmd");
 
 		const postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncDtlList.do", {
 			apcCd		: gv_selectedApcCd,
-			vrtyCd		: vrtyCd,
-			spcfctCd 	: spcfctCd,
-			gdsSeCd 	: gdsSeCd,
 			spmtYmd		: spmtYmd
   		});
         const data = await postJsonPromise;
@@ -1153,13 +1158,12 @@
           		jsonSpmtPrfmnc.push(gdsSpmtPrfmnc);
   			});
           	grdSpmtPrfmnc.refresh();
-
+          	SBUxMethod.set("crtr-ymd", spmtYmd);
 		}catch (e) {
 
 			if (!(e instanceof Error)) {
 				e = new Error(e);
 			}
-
 			console.error("failed", e.message);
 		}
 	}

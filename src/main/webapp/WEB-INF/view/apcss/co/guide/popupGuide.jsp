@@ -603,7 +603,7 @@
 // 			regSpmtList	: regSpmtList
 // 		}
 		
-    	popSpmtCmnd.init(gv_apcCd, gv_apcNm, null, fn_setSpmtCmnd);
+    	popSpmtCmnd.init(gv_selectedApcCd, gv_selectedApcNm, null, fn_setSpmtCmnd);
 	}
 
 	/**
@@ -730,7 +730,7 @@
 	 * @description 원물재고선택팝업 호출
 	 */
 	 const fn_modalRawMtrInvntr = function() {
-		 popRawMtrInvntr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setRawMtrInvntr);
+		 popRawMtrInvntr.init({apcCd : gv_selectedApcCd, apcNm : gv_selectedApcNm}, fn_setRawMtrInvntr);
 	}
 
 	/**
@@ -759,7 +759,7 @@
 // 			spmtGdsList	: spmtGdsList
 // 		}
 		
-		popGdsInvntr.init(gv_apcCd, gv_apcNm, null, fn_setGdsInvntr);
+		popGdsInvntr.init(gv_selectedApcCd, gv_selectedApcNm, null, fn_setGdsInvntr);
 	}
 
 	/**

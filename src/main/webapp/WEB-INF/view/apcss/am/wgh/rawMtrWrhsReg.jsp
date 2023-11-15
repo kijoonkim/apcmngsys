@@ -92,7 +92,7 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>입고일자</th>
 							<td colspan="6" class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-wrhsYmd" name="srch-dtp-wrhsYmd" class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"/>
+								<sbux-datepicker uitype="popup" id="srch-dtp-wrhsYmd" name="srch-dtp-wrhsYmd" date-format="yyyy-mm-dd" class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"/>
 							</td>
 							<td colspan="9" style="border-right: hidden;">&nbsp;</td>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>생산자</th>
@@ -368,7 +368,16 @@
 					<ul class="ad_tbl_count">
 						<li>
 							<span>원물입고 내역</span>
-							<span style="font-size:12px">(조회건수 <span id="cnt-wrhs">0</span>건)</span>
+							<span style="font-size:12px">(조회건수 <span id="cnt-wrhs">0</span>건, 기준일자 : 
+								<sbux-label
+									id="crtr-ymd"
+									name="crtr-ymd"
+									uitype="normal"
+									text=""
+									class="bold"
+									mask = "{'alias': 'yyyy-mm-dd', 'autoUnmask': true}"
+								></sbux-label>)
+							</span>
 						</li>
 					</ul>
 					<div class="ad_tbl_toplist">
@@ -1026,25 +1035,10 @@
 	const fn_setGrdRawMtrWrhs = async function(pageSize, pageNo) {
 
    		let wrhsYmd = SBUxMethod.get("srch-dtp-wrhsYmd");		// 입고일자
-  		let wrhsSeCd = SBUxMethod.get("srch-rdo-wrhsSeCd");		// 입고구분
-  		let gdsSeCd = SBUxMethod.get("srch-rdo-gdsSeCd");		// 상품구분
-  		let trsprtSeCd = SBUxMethod.get("srch-rdo-trsprtSeCd");	// 운송구분
-
-  		// optional
-  		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");	// 생산자
-
-  		let itemCd = SBUxMethod.get("srch-slt-itemCd");	// 품목
-  		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");	// 품종
 
 		const postJsonPromise = gfn_postJSON("/am/wrhs/selectRawMtrWrhsList.do", {
 			apcCd: gv_selectedApcCd,
 			wrhsYmd: wrhsYmd,
-			//wrhsSeCd: wrhsSeCd,
-			//gdsSeCd: gdsSeCd,
-			//trsprtSeCd: trsprtSeCd,
-			prdcrCd: prdcrCd,
-			itemCd: itemCd,
-			vrtyCd: vrtyCd,
 
           	// pagination
   	  		pagingYn : 'Y',
@@ -1115,6 +1109,7 @@
           	}
 
           	document.querySelector('#cnt-wrhs').innerText = totalRecordCount;
+          	SBUxMethod.set("crtr-ymd", wrhsYmd);
 
           } catch (e) {
       		if (!(e instanceof Error)) {
@@ -1146,17 +1141,16 @@
  		// 입고일자
  		SBUxMethod.set("srch-dtp-wrhsYmd", gfn_dateToYmd(new Date()));
 
- 		// 입고구분
- 		SBUxMethod.set("srch-rdo-wrhsSeCd", "3");
- 		// 상품구분
- 		SBUxMethod.set("srch-rdo-gdsSeCd", "1");
- 		// 운송구분
- 		SBUxMethod.set("srch-rdo-trsprtSeCd", "1");
-
  		// 품목
  		SBUxMethod.set("srch-slt-itemCd", null);
  		// 품종
  		SBUxMethod.set("srch-slt-vrtyCd", null);
+
+ 		// 생산자
+		SBUxMethod.set("srch-inp-prdcrCd", "");
+		SBUxMethod.set("srch-inp-prdcrNm", "");
+		SBUxMethod.set("srch-inp-prdcrIdentno", "");
+		SBUxMethod.attr("srch-inp-prdcrNm", "style", "");	//skyblue
 
  		fn_clearInptForm();
 
@@ -1170,6 +1164,13 @@
  		SBUxMethod.set("srch-inp-wrhsWght", "");
  		// 평균
  		SBUxMethod.set("srch-inp-wghtAvg", "");
+
+ 		// 입고구분
+ 		SBUxMethod.set("srch-rdo-wrhsSeCd", "3");
+ 		// 상품구분
+ 		SBUxMethod.set("srch-rdo-gdsSeCd", "1");
+ 		// 운송구분
+ 		SBUxMethod.set("srch-rdo-trsprtSeCd", "1");
 
  		// 팔레트번호
  		SBUxMethod.set("srch-inp-pltno", "");
@@ -1197,12 +1198,6 @@
 
  		// 계량번호
  		SBUxMethod.set("srch-inp-wghno", "");
-
- 		// 생산자
-		SBUxMethod.set("srch-inp-prdcrCd", "");
-		SBUxMethod.set("srch-inp-prdcrNm", "");
-		SBUxMethod.set("srch-inp-prdcrIdentno", "");
-		SBUxMethod.attr("srch-inp-prdcrNm", "style", "");	//skyblue
  	}
 
 	/** ui event */

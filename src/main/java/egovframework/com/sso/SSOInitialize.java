@@ -9,6 +9,8 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import com.ubintis.api.ApiLogService;
@@ -31,6 +33,9 @@ public class SSOInitialize {
 	private final static Logger LOGGER = Logger.getLogger( LoggerFactory.LogName );
 	
 	private static final String BC = com.ubintis.cert.bouncycastle.jce.provider.BouncyCastleProvider.PROVIDER_NAME;
+	
+	@Autowired
+	Environment env;
 	
 	@PostConstruct
 	private void init() {
@@ -62,8 +67,8 @@ public class SSOInitialize {
 		 * 1. Agent Properties File Load
 		 */
 		
-		String webinfPath = System.getProperty( "spring.webinf.path" );
-		
+		//String webinfPath = System.getProperty( "spring.webinf.path" );
+		String webinfPath = env.getProperty("spring.webinf.path");
 //		String webinfPath = servletContext.getRealPath( "/WEB-INF" );
 		
 		AgentConfig agentConfig = AgentConfig.getInstance( webinfPath );

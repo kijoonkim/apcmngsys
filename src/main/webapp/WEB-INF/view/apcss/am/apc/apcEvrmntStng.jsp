@@ -1,8 +1,25 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%
+ /**
+  * @Class Name : apcEvmntStng.jsp
+  * @Description : APC환경설정 화면
+  * @author SI개발부
+  * @since 2023.05.30
+  * @version 1.0
+  * @Modification Information
+  * @
+  * @ 수정일       	수정자      	수정내용
+  * @ ----------	----------	---------------------------
+  * @ 2023.05.30   	김호			최초 생성
+  * @see
+  *
+  */
+%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<meta charset="UTF-8">
+    <title>title : APC환경설정</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -11,10 +28,17 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>	<!-- APC환경설정 -->
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+					<sbux-button 
+						id="btnSave" 
+						name="btnSave" 
+						uitype="normal" 
+						text="저장" 
+						class="btn btn-sm btn-outline-danger" 
+						onclick="fn_save"
+					></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -175,12 +199,12 @@
 							</td>
 						</tr>
 						<tr>
-							<th class="ta_r th_bg" scope="row">규격/감량율 관리</th>
+							<th class="ta_r th_bg" scope="row">규격/감량률 관리</th>
 							<td class="td_input" colspan="2">
-								<sbux-button id="btnSpcfct" name="btnSpcfct" uitype="modal" text="품목별 규격/감량율 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-spcfct" onclick="fn_modal('btnSpcfct')"></sbux-button>
+								<sbux-button id="btnSpcfct" name="btnSpcfct" uitype="modal" text="품목별 규격/감량률 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-spcfct" onclick="fn_modal('btnSpcfct')"></sbux-button>
 							</td>
 							<td colspan="6" style="color:#999">
-								선택한 품목별로 APC에서 관리하는 규격/품목별 감량율을 등록하세요.
+								선택한 품목별로 APC에서 관리하는 규격/품목별 감량률을 등록하세요.
 							</td>
 						</tr>
 						<tr>
@@ -529,9 +553,9 @@
     <div id="body-modal-item">
     	<jsp:include page="../apc/itemMngPopup.jsp"></jsp:include>
     </div>
-    <!-- 규격/감량율 등록 Modal -->
+    <!-- 규격/감량률 등록 Modal -->
     <div>
-        <sbux-modal id="modal-spcfct" name="modal-spcfct" uitype="middle" header-title="규격/감량율 등록" body-html-id="body-modal-spcfct" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-spcfct" name="modal-spcfct" uitype="middle" header-title="규격/감량률 등록" body-html-id="body-modal-spcfct" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-spcfct">
     	<jsp:include page="../apc/spcfctMngPopup.jsp"></jsp:include>
@@ -1330,7 +1354,6 @@
         }
 
 	}
-
-
 </script>
+<%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

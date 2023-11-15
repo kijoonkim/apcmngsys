@@ -267,41 +267,64 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.05.25  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectComAuthrtUiList" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtVO" resultType="com.at.apcss.co.authrt.vo.ComAuthrtVO" >
+    <select id="selectComAuthrtUiList" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtUiVO" resultType="com.at.apcss.co.authrt.vo.ComAuthrtUiVO" >
     	<![CDATA[
-			SELECT /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectComAuthrtUiList */
-				  CA.AUTHRT_ID  	AS AUTHRT_ID
-		        , CM.MENU_ID		AS MENU_ID
-				, AU.ENTY_ID		AS ENTY_ID
-				, AU.APLCN_TYPE 	AS APLCN_TYPE
-				, AU.INDCT_YN		AS INDCT_YN
-			  FROM
-			  	  TB_COM_AUTH CA
-				, TB_COM_MENU CM
-			  	, TB_COM_AUTH_UI AU
-			 WHERE CA.AUTHRT_ID = AU.AUTHRT_ID
-			   AND CM.MENU_ID = AU.MENU_ID
-			   AND CA.DEL_YN = 'N'
-			   AND CM.DEL_YN(+) = 'N'
+    		SELECT /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectComAuthrtUiList */
     	]]>
-		<if test='authrtId != null and authrtId != ""'>
-			   AND CA.AUTHRT_ID = #{authrtId}
-		</if>
-		<if test='authrtNm != null and authrtNm != ""'>
-			   AND CA.AUTHRT_NM LIKE '%' || #{authrtNm} || '%'
-		</if>
-		<if test='authrtType != null and authrtType != ""'>
-			   AND CA.AUTHRT_TYPE = #{authrtType}
-		</if>
-		<if test='authrtRmrk != null and authrtRmrk != ""'>
-			   AND CA.AUTHRT_RMRK LIKE '%' || #{authrtRmrk} || '%'
-		</if>
-		<if test='menuId != null and menuId != ""'>
-			AND CM.MENU_ID = #{menuId}
-		</if>
-		<if test='menuNm != null and menuNm != ""'>
-			AND CM.MENU_NM LIKE '%' || #{menuNm} || '%'
-		</if>
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, 
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+				  pt0.*
+				, (SELECT FN_GET_COM_CD_VL_NM('ENTY_TYPE', pt0.ENTY_TYPE) FROM DUAL)	AS ENTY_TYPE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('APLCN_TYPE', pt0.APLCN_TYPE) FROM DUAL)	AS APLCN_TYPE_NM
+    		  FROM (
+			SELECT
+				  AM.AUTHRT_ID	AS AUTHRT_ID
+				, SUBSTR(AM.AUTHRT_ID, 1, 4) AS APC_CD
+				, AM.MENU_ID	AS MENU_ID
+				, MN.MENU_NM	AS MENU_NM
+				, CU.ENTY_ID	AS ENTY_ID
+				, CU.ENTY_NM	AS ENTY_NM
+				, CU.ENTY_TYPE	AS ENTY_TYPE
+				, NVL2(UI.ENTY_ID, 'Y', 'N')	AS USE_YN
+				, UI.APLCN_TYPE	AS APLCN_TYPE
+				, NVL(UI.INDCT_YN, 'Y')			AS INDCT_YN
+			  FROM TB_COM_AUTH_MENU AM
+			  
+			  JOIN TB_COM_MENU MN
+			    ON MN.MENU_ID = AM.MENU_ID
+			   AND MN.DEL_YN = 'N'
+			  
+			  JOIN TB_COM_UI CU
+			    ON CU.MENU_ID = AM.MENU_ID
+			   AND CU.DEL_YN = 'N'
+			  
+			  LEFT JOIN TB_COM_AUTH_UI UI
+			    ON UI.AUTHRT_ID = AM.AUTHRT_ID
+			   AND UI.MENU_ID = AM.MENU_ID
+       		   AND UI.ENTY_ID = CU.ENTY_ID
+			   AND UI.DEL_YN = 'N'
+			   
+			 WHERE AM.AUTHRT_ID = #{authrtId}
+			   AND AM.MENU_ID = #{menuId}
+			   AND AM.DEL_YN = 'N'
+			   
+			 ORDER BY
+			 	  ENTY_ID
+    		  ) pt0
+    	]]>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
     </select>
 
 	<!-- ==============================================================================	-->
@@ -629,10 +652,6 @@
 			  	  ON UM.MENU_ID = MN.UP_MENU_ID
 			  	 AND UM.DEL_YN = 'N'
 
-			  	LEFT JOIN TB_COM_UI CU
-			  	  ON CU.MENU_ID = MN.MENU_ID
-			  	 AND CU.DEL_YN = 'N'
-
 				LEFT JOIN (
 					SELECT
 						  LISTAGG(CA.AUTHRT_ID, ',') WITHIN GROUP (ORDER BY CA.AUTHRT_ID) AS AUTHRT_ID
@@ -898,4 +917,205 @@
     	]]>
     </delete>
 
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectUserAuthrtUiList-->
+	<!-- DESC : 사용자별 화면UI 권한 목록 조회.                                         	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.10.25  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectUserAuthrtUiList" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtUiVO" resultType="com.at.apcss.co.authrt.vo.ComAuthrtUiVO">
+    	<![CDATA[
+    		SELECT /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectUserAuthrtUiList */
+    	]]>
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, 
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+				  pt0.*
+    		  FROM (
+			SELECT
+				  AU.USER_ID
+				, SUBSTR(AU.AUTHRT_ID, 1, 4) AS APC_CD
+				, AM.MENU_ID
+				, MN.MENU_NM
+				, CU.ENTY_ID
+				, CU.ENTY_TYPE
+				, NVL2(UI.ENTY_ID, 'Y', 'N')	AS USE_YN
+				, UI.APLCN_TYPE
+				, UI.INDCT_YN
+			  FROM TB_COM_AUTH_USER AU
+			  
+			  JOIN TB_COM_AUTH_MENU AM
+			    ON AM.AUTHRT_ID = AU.AUTHRT_ID
+			   AND AM.MENU_ID = #{menuId}
+			   AND AM.DEL_YN = 'N'
+			  
+			  JOIN TB_COM_MENU MN
+			    ON MN.MENU_ID = AM.MENU_ID
+			   AND MN.DEL_YN = 'N'
+			  
+			  JOIN TB_COM_UI CU
+			    ON CU.MENU_ID = AM.MENU_ID
+			   AND CU.DEL_YN = 'N'
+			  
+			  LEFT JOIN TB_COM_AUTH_UI UI
+			    ON UI.AUTHRT_ID = AM.AUTHRT_ID
+			   AND UI.MENU_ID = AM.MENU_ID
+       		   AND UI.ENTY_ID = CU.ENTY_ID
+			   AND UI.DEL_YN = 'N'
+			 WHERE AU.USER_ID = #{userId}
+			   AND AU.DEL_YN = 'N'
+			   
+			 ORDER BY
+			 	  MENU_ID
+			 	, ENTY_ID
+			 	, NVL2(UI.ENTY_ID, 9, 1)
+    		  ) pt0
+    	]]>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+    
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectComAuthrtUi		-->
+	<!-- DESC : 화면UI 권한 조회.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.10.25  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectComAuthrtUi" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtUiVO" resultType="com.at.apcss.co.authrt.vo.ComAuthrtUiVO" >
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectComAuthrtUiList */
+				  UI.AUTHRT_ID		AS AUTHRT_ID
+				, UI.MENU_ID		AS MENU_ID
+				, UI.ENTY_ID		AS ENTY_ID
+				, UI.APLCN_TYPE		AS APLCN_TYPE
+				, UI.INDCT_YN		AS INDCT_YN
+				, UI.DEL_YN			AS DEL_YN
+			  FROM TB_COM_AUTH_UI UI			   
+			 WHERE UI.AUTHRT_ID = #{authrtId}
+			   AND UI.MENU_ID = #{menuId}
+			   AND UI.ENTY_ID = #{entyId}
+    	]]>
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.insertComAuthrtUi		-->
+	<!-- DESC : 화면UI권한 등록.                                          				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.10.25  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertComAuthrtUi" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtUiVO">
+    	<![CDATA[
+			INSERT /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.insertComAuthrtUi */
+				INTO TB_COM_AUTH_UI (
+					  AUTHRT_ID
+					, MENU_ID
+					, ENTY_ID
+					, APLCN_TYPE
+					, INDCT_YN
+	    		  	, SYS_FRST_INPT_DT
+	    		  	, SYS_FRST_INPT_USER_ID
+	    		  	, SYS_FRST_INPT_PRGRM_ID
+	    		  	, SYS_LAST_CHG_DT
+	    		  	, SYS_LAST_CHG_USER_ID
+	    		  	, SYS_LAST_CHG_PRGRM_ID
+				) VALUES (
+					  #{authrtId}
+					, #{menuId}
+					, #{entyId}
+					, #{aplcnType}
+					, #{indctYn}
+					, SYSDATE
+	   			  	, #{sysFrstInptUserId}
+	   			  	, #{sysFrstInptPrgrmId}
+	   			  	, SYSDATE
+	   			  	, #{sysLastChgUserId}
+	   			  	, #{sysLastChgPrgrmId}
+				)
+    	]]>
+    </insert>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.updateComAuthrtUi		-->
+	<!-- DESC : 화면UI권한 변경.                                             			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.10.25  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateComAuthrtUi" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtUiVO">
+    	<![CDATA[
+			UPDATE /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.updateComAuthrtUi */
+	    		TB_COM_AUTH_UI
+			   SET
+			   	  APLCN_TYPE 	= #{aplcnType}
+	    	    , INDCT_YN 		= #{indctYn}
+	    	    , DEL_YN 		= 'N'
+	    	    , SYS_LAST_CHG_DT		= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+			 WHERE AUTHRT_ID = #{authrtId}
+			   AND MENU_ID = #{menuId}
+			   AND ENTY_ID = #{entyId}
+    	]]>
+    </update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.updateComAuthrtUiForDelY	-->
+	<!-- DESC : 화면UI권한 변경: set delYn Y.											-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.10.25  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateComAuthrtUiForDelY" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtUiVO">
+    	<![CDATA[
+			UPDATE /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.updateComAuthrtUiForDelY */
+	    		TB_COM_AUTH_UI
+			   SET
+			   	  DEL_YN 	= 'Y'
+	    	    , SYS_LAST_CHG_DT		= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+			 WHERE AUTHRT_ID = #{authrtId}
+			   AND MENU_ID = #{menuId}
+			   AND ENTY_ID = #{entyId}
+    	]]>
+    </update>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.deleteComAuthrtUi		-->
+	<!-- DESC : 화면UI권한 삭제.                                             			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.10.25  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <delete id="deleteComAuthrtUi" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtUiVO">
+    	<![CDATA[
+			DELETE /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.deleteComAuthrtUi */
+	    		TB_COM_AUTH_UI
+			 WHERE AUTHRT_ID = #{authrtId}
+			   AND MENU_ID = #{menuId}
+			   AND ENTY_ID = #{entyId}
+    	]]>
+    </delete>
+    
 </mapper>

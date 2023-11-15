@@ -31,9 +31,9 @@
 		</c:otherwise>
 	</c:choose>
 	<c:if test="${loginVO != null && loginVO.apcAdminType != null}">
-		gv_selectedApcCd = null;
-		gv_selectedApcNm = null;
-		gv_selectedApcSeCd = null;
+		//gv_selectedApcCd = null;
+		//gv_selectedApcNm = null;
+		//gv_selectedApcSeCd = null;
 	</c:if>
 		/**
 		 * @name
@@ -68,7 +68,6 @@
 				jsondata-ref="cjsonApcList"
 				jsondata-text="apcNm"
 				jsondata-value="apcCd"
-				unselected-text="전체"
 				class="form-control input-sm"
 				onchange="cfn_onChangeApc(this)"
 				style="max-width:150px;"

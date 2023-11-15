@@ -47,7 +47,7 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>작업일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-prfmncYmd" name="srch-dtp-prfmncYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-prfmncYmd" name="srch-dtp-prfmncYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td colspan="2" style="border-right: hidden;"></td>
 
@@ -77,7 +77,9 @@
 				<div id="sb-area-grdPrfmnc" style="height:270px;"></div>
 				<div class="ad_tbl_top2">
 					<ul class="ad_tbl_count">
-						<li><span>작업자별 실적 내역</span></li>
+						<li>
+							<span>작업자별 실적 내역</span>
+						</li>
 					</ul>
 				 	<div class="ad_tbl_toplist_datepk">
 				 		<table class="table table-bordered tbl_fixed">
@@ -172,7 +174,7 @@
      			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
 	         {caption: ["작업자수"],  	ref: 'oprtrQntt',   type:'output',  width:'120px', style: 'text-align:right',
         			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### 명'}},
-	         {caption: ["비고"],  		ref: 'rmrk',   		type:'output',  width:'120px', style: 'text-align:left'}
+	         {caption: ["비고"],  		ref: 'rmrk',   		type:'output',  width:'300px', style: 'text-align:left'}
 	    ];
 	    grdPrfmnc = _SBGrid.create(SBGridPrfmncProperties);
 	    grdPrfmnc.bind('click', fn_setGrdOprtrPrfmnc);
@@ -206,7 +208,7 @@
 				format : {type:'date', rule:'HH:mm', origin:'HHmmss'}},
 			{caption: ["작업시간"], ref: 'jobHr',   		type:'output',  width:'120px', style: 'text-align:right',
 	     		typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### 분'}},
-			{caption: ["비고"], 	 	ref: 'rmrk',   			type:'input',  	width:'120px', style: 'text-align:center'},
+			{caption: ["비고"], 	 	ref: 'rmrk',   			type:'input',  	width:'300px', style: 'text-align:center'},
 			{caption: ["apcCd"], 	 	ref: 'apcCd',   		hidden:true},
 			{caption: ["실적번호"], 	ref: 'prfmncno',   		hidden:true},
 			{caption: ["작업구분"], 	ref: 'prfmncSeCd',   	hidden:true},

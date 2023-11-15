@@ -574,6 +574,34 @@
 		]]>
 	</update>
 
+	<!-- =================================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.GdsInvntrMapper.updateGdsInvntrSpmtPrfmnc		-->
+	<!-- DESC : 변경재고 등록 - 반품등록                                    				-->
+	<!-- =================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	==================================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            	-->
+	<!-- =================================================================================	-->
+    <update id="updateGdsInvntrSpmtPrfmncRtn" parameterType="com.at.apcss.am.invntr.vo.GdsInvntrVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.invntr.mapper.GdsInvntrMapper.updateGdsInvntrSpmtPrfmncRtn */
+				TB_GDS_INVNTR
+			   SET
+			   	  SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+
+				, RTN_GDS_QNTT = #{rtnGdsQntt}
+				, RTN_GDS_WGHT = #{rtnGdsWght}
+				, INVNTR_QNTT = #{invntrQntt}
+				, INVNTR_WGHT = #{invntrWght}
+
+			 WHERE APC_CD = #{apcCd}
+			   AND PCKGNO = #{pckgno}
+			   AND PCKG_SN = #{pckgSn}
+		]]>
+	</update>
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateSortInvntrDsctnList	-->
 	<!-- DESC : 상품재고내역 변경.		                                       				-->

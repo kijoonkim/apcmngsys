@@ -79,13 +79,13 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 		// 010 apc 정보 확인
 		ApcEvrmntStngVO apcInfo = selectApcInfo(apcEvrmntStngVO);
 		if (apcInfo == null || !StringUtils.hasText(apcInfo.getApcCd())) {
-			return ComUtil.getResultMap("W0005", "APC코드");	// W0005	{0}이/가 없습니다.
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");	// W0005	{0}이/가 없습니다.
 		}
 
 		// 020 apc 환경설정 정보 확인
 		ApcEvrmntStngVO apcStngInfo = selectApcEvrmntStng(apcEvrmntStngVO);
 		if (apcStngInfo != null && StringUtils.hasText(apcStngInfo.getApcCd())) {
-			return ComUtil.getResultMap("W0009", "APC환경설정 정보");		// W0009	{0}이/가 있습니다.
+			return ComUtil.getResultMap(ComConstants.MSGCD_TARGET_EXIST, "APC환경설정 정보");		// W0009	{0}이/가 있습니다.
 		}
 
 		// 110 APC 환경설정정보 INSERT
@@ -98,7 +98,7 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 		apcEvrmntStngVO.setBrno(apcInfo.getBrno());				// 사업자등록번호
 
 
-		apcEvrmntStngVO.setApcSeCd(AmConstants.CON_APC_SE_CD_CORP);		// APC구분코드	2:농업법인
+		apcEvrmntStngVO.setApcSeCd(AmConstants.CON_APC_SE_CD_CORP);			// APC구분코드	2:농업법인
 		apcEvrmntStngVO.setClclnCrtrCd(AmConstants.CON_CLCLN_CRTR_SORT);	// 정산기준 2:선별완료
 
 		// 기본사용메뉴 set
@@ -107,14 +107,11 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 		apcEvrmntStngVO.setPltBxMngYn(ComConstants.CON_YES);				// 팔레트박스정보관리유무
 		apcEvrmntStngVO.setSortMngYn(ComConstants.CON_YES);					// 선별관리유무
 		apcEvrmntStngVO.setSortIdntyDocPblcnYn(ComConstants.CON_YES);		// 선별확인서발행유무
+		apcEvrmntStngVO.setSpmtCmndMngYn(ComConstants.CON_YES);				// 출하지시유무
 		apcEvrmntStngVO.setSpmtMngYn(ComConstants.CON_YES);					// 출하관리유무
 		apcEvrmntStngVO.setSpmtDocPblcnYn(ComConstants.CON_YES);			// 송품장발행유무
 
-		int insertedCnt = apcEvrmntStngMapper.insertApcEvrmntStngInit(apcEvrmntStngVO);
-
-		if (insertedCnt != 1) {
-			// error exception
-		}
+		apcEvrmntStngMapper.insertApcEvrmntStngInit(apcEvrmntStngVO);
 
 		// 120 APC 초기정보 등록
 		ComCdVO comCdMstVO = new ComCdVO();
@@ -183,7 +180,7 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 			comCdService.insertComCdDtl(comCdDtlVO);
 		}
 
-		// 124 상품코드 : 		공통코드	GDS_SE_CD
+		// 124 상품구분 : 		공통코드	GDS_SE_CD
 		comCdParam.setCdId(AmConstants.CON_CD_ID_GDS_SE_CD);
 		comCdDtlList = comCdService.selectComCdDtlList(comCdParam);
 		for ( ComCdVO orgnCdDtl : comCdDtlList ) {
@@ -215,7 +212,6 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 
 		apcStngInfo = selectApcEvrmntStng(authStngVO);
 		if (apcInfo == null || !StringUtils.hasText(apcInfo.getApcCd())) {
-			logger.error("Error on ApcEvrmntStngService#insertApcInitInfo call selectApcEvrmntStng");
 			logger.error(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC설정정보")));
 			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC설정정보")));	// W0005	{0}이/가 없습니다.
 		}
@@ -228,9 +224,9 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 				ComConstants.PROP_SYS_LAST_CHG_DT,
 				ComConstants.PROP_SYS_LAST_CHG_USER_ID,
 				ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
+		
 		rtnObj = comAuthrtService.insertApcNormalAuthrt(authStngVO);
 		if (rtnObj != null) {
-			logger.error("Error on ApcEvrmntStngService#insertApcInitInfo call ComAuthrtService#insertApcNormalAuthrt");
 			logger.error(getMessageForMap(rtnObj));
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}

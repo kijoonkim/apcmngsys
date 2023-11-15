@@ -4,6 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+    <title>title : SBUx2.6</title>
 </head>
 <body>
 	<section>
@@ -50,6 +51,7 @@
 									id="sortCmndno-dtp-sortCmndYmdFrom"
 									name="sortCmndno-dtp-sortCmndYmdFrom"
 									uitype="popup"
+									date-format="yyyy-mm-dd"
 									class="form-control input-sm sbux-pik-group-apc"
 									onchange="popSortCmndno.chkYmdFrom"
 								></sbux-datepicker>
@@ -60,6 +62,7 @@
 									id="sortCmndno-dtp-sortCmndYmdTo"
 									name="sortCmndno-dtp-sortCmndYmdTo"
 									uitype="popup"
+									date-format="yyyy-mm-dd"
 									class="form-control input-sm sbux-pik-group-apc"
 									onchange="popSortCmndno.chkYmdTo"
 								></sbux-datepicker>

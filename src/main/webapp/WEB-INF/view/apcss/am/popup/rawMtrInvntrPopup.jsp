@@ -19,6 +19,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+    <title>title : SBUx2.6</title>
 </head>
 <body>
 	<section>
@@ -86,6 +87,7 @@
 									id="rawMtrInvntr-dtp-wrhsYmdFrom"
 									name="rawMtrInvntr-dtp-wrhsYmdFrom"
 									uitype="popup"
+									date-format="yyyy-mm-dd"
 									class="form-control input-sm sbux-pik-group-apc"
 									onchange="popRawMtrInvntr.dtpChange"
 								></sbux-datepicker>
@@ -96,6 +98,7 @@
 									id="rawMtrInvntr-dtp-wrhsYmdTo"
 									name="rawMtrInvntr-dtp-wrhsYmdTo"
 									uitype="popup"
+									date-format="yyyy-mm-dd"
 									class="form-control input-sm sbux-pik-group-apc"
 									onchange="popRawMtrInvntr.dtpChange"
 								></sbux-datepicker>

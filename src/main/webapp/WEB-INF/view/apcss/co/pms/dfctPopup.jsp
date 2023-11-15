@@ -4,6 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
+    <title>title : 검토요청관리</title>
 </head>
 <body>
 	<section class="content container-fluid">

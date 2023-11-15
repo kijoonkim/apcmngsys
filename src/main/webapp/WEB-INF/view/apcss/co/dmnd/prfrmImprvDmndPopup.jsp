@@ -4,6 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+    <title>title : 프로그램 개선요청</title>
 </head>
 <body>
 	<section>

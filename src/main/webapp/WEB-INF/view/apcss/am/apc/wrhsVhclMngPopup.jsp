@@ -4,6 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+    <title>title : 입고차량정보 등록</title>
 </head>
 <body>
 	<section>

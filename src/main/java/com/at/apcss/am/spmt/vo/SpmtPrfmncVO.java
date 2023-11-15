@@ -168,7 +168,7 @@ public class SpmtPrfmncVO extends ComVO {
 	 * 출하포장단위코드
 	 */
 	private String spmtPckgUnitNm;
-	
+
 	/**
 	 * 출하지시수량
 	 */
@@ -231,4 +231,37 @@ public class SpmtPrfmncVO extends ComVO {
 	 * 매출확정여부
 	 */
 	private String cfmtnYn;
+	/**
+	 * 반품여부
+	 */
+	private String rtnGdsYn;
+	private String rtnGdsNm;
+	/**
+	 * 원출하번호
+	 */
+	private String orgnSpmtno;
+	/**
+	 * 원포장번호
+	 */
+	private String orgnPckgno;
+	/**
+	 * 원포장순번
+	 */
+	private int orgnPckgSn;
+	/**
+	 * 반품수량
+	 */
+	private int rtnGdsQntt;
+	/**
+	 * 반품중량
+	 */
+	private double rtnGdsWght;
+	/**
+	 * 반품가능수량
+	 */
+	private int rtnPsbleyQntt;
+	/**
+	 * 반품가능중량
+	 */
+	private double rtnPsbleyWght;
 }

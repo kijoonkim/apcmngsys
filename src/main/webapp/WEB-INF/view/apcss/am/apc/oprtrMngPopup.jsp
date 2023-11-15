@@ -4,6 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+    <title>title : 생산작업자 등록</title>
 </head>
 <body>
 	<section>

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.at.apcss.co.authrt.service.ComAuthrtService;
 import com.at.apcss.co.authrt.vo.ComAuthrtMenuVO;
+import com.at.apcss.co.authrt.vo.ComAuthrtUiVO;
 import com.at.apcss.co.authrt.vo.ComAuthrtUserVO;
 import com.at.apcss.co.authrt.vo.ComAuthrtVO;
 import com.at.apcss.co.constants.ComConstants;
@@ -211,11 +212,7 @@ public class ComAuthrtController extends BaseController{
 		HashMap<String, Object> resultMap = new HashMap<String,Object>();
 
 		try {
-
-			logger.debug("$$$$$$$$$$$$$$$$$$$");
-
-			// validation check
-
+			
 			comAuthrtVO.setSysFrstInptUserId(getUserId());
 			comAuthrtVO.setSysFrstInptPrgrmId(getPrgrmId());
 			comAuthrtVO.setSysLastChgUserId(getUserId());
@@ -291,7 +288,60 @@ public class ComAuthrtController extends BaseController{
 
 		return getSuccessResponseEntity(resultMap);
 	}
+	
+	/**
+	 * 화면UI 권한 목록 조회
+	 * @param comAuthrtUserVO
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/co/authrt/selectComAuthrtUiList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectComAuthrtUiList(@RequestBody ComAuthrtUiVO comAuthrtUiVO, HttpServletRequest request) throws Exception {
 
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		List<ComAuthrtUiVO> resultList;
+
+		try {
+			resultList = comAuthrtService.selectComAuthrtUiList(comAuthrtUiVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	/**
+	 * 화면UI권한 등록
+	 */
+	@PostMapping(value = "/co/authrt/insertComAuthrtUi.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertComAuthrtUi(@RequestBody ComAuthrtMenuVO comAuthrtMenuVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String,Object>();
+
+		try {
+			
+			comAuthrtMenuVO.setSysFrstInptUserId(getUserId());
+			comAuthrtMenuVO.setSysFrstInptPrgrmId(getPrgrmId());
+			comAuthrtMenuVO.setSysLastChgUserId(getUserId());
+			comAuthrtMenuVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String, Object> rtnObj = comAuthrtService.insertComAuthrtUi(comAuthrtMenuVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
 	/**
 	 * 권한 사용자 목록 조회
 	 * @param comAuthrtUserVO

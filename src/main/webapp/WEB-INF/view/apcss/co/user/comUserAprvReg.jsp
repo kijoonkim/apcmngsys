@@ -1,5 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%
+ /**
+  * @Class Name : comUserArvReg.jsp
+  * @Description : APC관리자승인등록 화면
+  * @author SI개발부
+  * @since 2023.06.30
+  * @version 1.0
+  * @Modification Information
+  * @
+  * @ 수정일       	수정자      	수정내용
+  * @ ----------	----------	---------------------------
+  * @ 2023.06.30   	신정철			최초 생성
+  * @see
+  *
+  */
+%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +39,7 @@
 			</div>
 			<div class="box-body">
 				<!--[APC] START -->
-					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
+					<%@ include file="../../../frame/inc/apcSelectAll.jsp" %>
 				<!--[APC] END -->
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_row tbl_fixed">
@@ -113,14 +128,13 @@
 	const fn_init = async function() {
 		await gfn_setComCdSBSelect('srch-slt-userStts', jsonComUserStts, 'USER_STTS');
 		SBUxMethod.set("srch-slt-userStts", "00");
-
 		fn_createGridUserAprv();
+		
+		fn_search();
 	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {
-		fn_createGridUserAprv();
 		fn_init();
-		fn_search();
 	});
 
 	const fn_createGridUserAprv = function() {
@@ -264,7 +278,7 @@
 			return;
 		}
 		
-    	const postJsonPromise = gfn_postJSON("/co/user/updateUserStts", userAprvList);
+    	const postJsonPromise = gfn_postJSON("/co/user/updateUserSttsList.do", userAprvList);
 		const data = await postJsonPromise;
         try {
         	if (_.isEqual("S", data.resultStatus)) {
@@ -300,7 +314,7 @@
 			return;
 		}
 		
-    	const postJsonPromise = gfn_postJSON("/co/user/updateUserStts", userAprvList);
+    	const postJsonPromise = gfn_postJSON("/co/user/updateUserSttsList.do", userAprvList);
 		const data = await postJsonPromise;
         try {
         	if (_.isEqual("S", data.resultStatus)) {
@@ -318,7 +332,7 @@
 	 * @description APC 선택 변경 event
 	 */
 	const fn_onChangeApc = async function() {
-		fn_search();
+		fn_init();
 	}
 
 </script>

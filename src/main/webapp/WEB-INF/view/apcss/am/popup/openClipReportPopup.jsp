@@ -22,6 +22,8 @@ String reportKey = request.getParameter("reportKey");
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
+    <title>title : SBUx2.6</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>

@@ -60,10 +60,10 @@
 						<tr>
 						<th scope="row" class="th_bg"><span class="data_required" ></span>입고일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-wrhsYmdFrom" name="srch-dtp-wrhsYmdFrom" uitype="popup" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-wrhsYmdFrom)"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-wrhsYmdFrom" name="srch-dtp-wrhsYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-wrhsYmdFrom)"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-wrhsYmdTo" name="srch-dtp-wrhsYmdTo" uitype="popup" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-wrhsYmdTo)"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-wrhsYmdTo" name="srch-dtp-wrhsYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-wrhsYmdTo)"></sbux-datepicker>
 							</td>
 							<td style="border-right: hidden;"></td>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>품목/품종</th>
@@ -165,7 +165,7 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>선별일자</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="dtl-dtp-inptYmd" name="dtl-dtp-inptYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"></sbux-datepicker>
+								<sbux-datepicker id="dtl-dtp-inptYmd" name="dtl-dtp-inptYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"></sbux-datepicker>
 							</td>
 							<td></td>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>설비</th>
@@ -820,7 +820,6 @@
 
           	totalRecordCount = jsonRawMtrInvntr.length;
           	document.querySelector('#cnt-rawMtrInvtr').innerText = totalRecordCount;
-
           } catch (e) {
       		if (!(e instanceof Error)) {
       			e = new Error(e);

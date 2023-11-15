@@ -26,19 +26,47 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>	<!-- 출하실적등록 -->
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>	<!-- 권한그룹관리 -->
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnCreate" name="btnCreate" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
-					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
-					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
-					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
+					<sbux-button 
+						id="btnCreate" 
+						name="btnCreate" 
+						uitype="normal" 
+						text="신규" 
+						class="btn btn-sm btn-outline-danger" 
+						onclick="fn_create"
+					></sbux-button>
+					<sbux-button 
+						id="btnSave" 
+						name="btnSave" 
+						uitype="normal" 
+						text="저장" 
+						class="btn btn-sm btn-outline-danger" 
+						onclick="fn_save"
+					></sbux-button>
+					<sbux-button 
+						id="btnDelete" 
+						name="btnDelete" 
+						uitype="normal" 
+						text="삭제" 
+						class="btn btn-sm btn-outline-danger" 
+						onclick="fn_delete"
+					></sbux-button>
+					<sbux-button 
+						id="btnSearch" 
+						name="btnSearch" 
+						uitype="normal" 
+						text="조회" 
+						class="btn btn-sm btn-outline-danger" 
+						onclick="fn_search"
+					></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
 				<!--[pp] 검색 -->
 				<!--[APC] START -->
-					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
+					<%@ include file="../../../frame/inc/apcSelectAll.jsp" %>
 				<!--[APC] END -->
 				<table class="table table-bordered tbl_fixed">
 				<caption>검색 조건 설정</caption>
@@ -75,7 +103,7 @@
 						<div class="ad_tbl_top"  style="width: 98%;">
 							<ul class="ad_tbl_count">
 								<li><span style="color: black;">권한그룹목록</span>
-									<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span></li>
+									<span style="font-size:12px">(조회건수 <span id="cnt-authrt">0</span>건)</span></li>
 							</ul>
 						</div>
 						<div>
@@ -130,25 +158,61 @@
 							</table>
 						</div>
 						<br />
-						<div class="ad_tbl_top2">
-							<ul class="ad_tbl_count">
-								<li>
-									<span style="color: black;">메뉴목록</span>
-								</li>
-							</ul>
-						 	<div class="ad_tbl_toplist">
-								<sbux-button id="btnSaveMenu" name="btnSaveMenu" uitype="normal" text="메뉴권한저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveMenu"></sbux-button>
+						<div class="row">
+							<div class="col-sm-5">
+								<div class="ad_tbl_top2">
+									<ul class="ad_tbl_count">
+										<li>
+											<span style="color: black;">메뉴목록</span>
+										</li>
+									</ul>
+								 	<div class="ad_tbl_toplist">
+										<sbux-button id="btnSaveMenu" name="btnSaveMenu" uitype="normal" text="메뉴권한저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveMenu"></sbux-button>
+									</div>
+								</div>
+								<div>
+									<div class="sbt-grid-wrap">
+				                        <div class="sbt-wrap-body">
+				                            <div class="sbt-grid">
+				                                <!-- SBGrid를 호출합니다. -->
+				                                <div id="sb-area-grdComAuthMenu" style="width:100%;height:352px;"></div>
+				                            </div>
+				                        </div>
+				                    </div>
+								</div>
 							</div>
-						</div>
-						<div>
-							<div class="sbt-grid-wrap">
-		                        <div class="sbt-wrap-body">
-		                            <div class="sbt-grid">
-		                                <!-- SBGrid를 호출합니다. -->
-		                                <div id="sb-area-grdComAuthMenu" style="width:100%;height:352px;"></div>
-		                            </div>
-		                        </div>
-		                    </div>
+							<div class="col-sm-7">
+								<sbux-input id="ui-inp-authrtId" name="ui-inp-authrtId" uitype="hidden"></sbux-input>
+								<sbux-input id="ui-inp-menuId" name="ui-inp-menuId" uitype="hidden"></sbux-input>
+								<div class="ad_tbl_top2">
+									<ul class="ad_tbl_count">
+										<li>
+											<span style="color: black;">UI권한</span>
+											<span id="span-authrtMenuNm" style="font-size:12px"></span>
+										</li>
+									</ul>
+								 	<div class="ad_tbl_toplist">
+										<sbux-button 
+											id="btn-saveUi" 
+											name="btn-saveUi" 
+											uitype="normal" 
+											text="UI권한저장" 
+											class="btn btn-sm btn-outline-danger" 
+											onclick="fn_saveComAuthrtUi"
+										></sbux-button>
+									</div>
+								</div>
+								<div>
+									<div class="sbt-grid-wrap">
+				                        <div class="sbt-wrap-body">
+				                            <div class="sbt-grid">
+				                                <!-- SBGrid를 호출합니다. -->
+				                                <div id="sb-area-grdComAuthrtUi" style="width:100%;height:352px;"></div>
+				                            </div>
+				                        </div>
+				                    </div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -165,39 +229,55 @@
 
 <script type="text/javascript">
 
+let lv_prvMenuId = "";
+
 	/* 공통코드 */
 	var jsonComSysId 		= [];	// 시스템유형	srch-slt-sysId		SYS_ID
     var jsonComAuthrtType 	= [];	// 권한유형	dtl-slt-authrtType	AUTHRT_TYPE
-
+	var jsonAplcnType		= [];	// 적용유형	APLCN_TYPE
+    
     /* SBGrid */
     var grdComAuth;			// 권한그룸 목록
     var grdComAuthMenu;		// 권한메뉴 목록
-
+	var grdComAuthrtUi;		// 화면UI권한 목록
+    
     /* SBGrid Data (JSON) */
     var jsonComAuth = [];
     var jsonComAuthMenu = [];
-
+    var jsonComAuthrtUi = [];
 
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
+		fn_init();
+	});
+	
+    /**
+     * @name fn_init
+     * @description initialize Form
+     * @function
+     */
+	const fn_init = async function() {
+		
+		await fn_initSBSelect();
 		fn_createGrdComAuth();
 		fn_createGrdComAuthMenu();
-
-		fn_initSBSelect();
-	});
-
+		fn_createGrdAuthrtUi();
+	}
+	
     /**
-     *
+     * @name fn_initSBSelect
+     * @description SBSelect 초기화
+     * @function
      */
     const fn_initSBSelect = async function() {
-
 
     	let rst = await Promise.all([
     		// 조회 SB select
     	 	gfn_setComCdSBSelect('srch-slt-sysId', jsonComSysId, 'SYS_ID'),	// 시스템유형
     	 	// 상세 SB select
     	 	gfn_setComCdSBSelect('dtl-slt-authrtType', jsonComAuthrtType, 'AUTHRT_TYPE'),	// 권한유형
-    	])
+    	 	fn_initComCd()
+    	]);
 
 	 	if(gv_userType == "10"){
 	 		jsonComAuthrtType = gfn_getJsonFilter(jsonComAuthrtType, 'value', ["20", "21"]);
@@ -206,10 +286,18 @@
 	 		jsonComAuthrtType = gfn_getJsonFilter(jsonComAuthrtType, 'value', ["10","20", "21", "30", "40"]);
 	 		SBUxMethod.refresh("dtl-slt-authrtType");
 	 	}
-
-
     }
 
+    /**
+     * @name fn_initComCd
+     * @description
+     * @function
+     */
+    const fn_initComCd = async function() {
+    	jsonAplcnType = await gfn_getComCdDtls("APLCN_TYPE");
+    }
+    
+    
     /**
      * @name fn_createGrdComAuth
      * @description 권한그룹 그리드 초기화
@@ -235,18 +323,18 @@
 		  	'showgoalpageui' : true
 	    };
         SBGridProperties.columns = [
-            {caption: ["권한ID"],		ref: 'authrtId',		type:'output',  width:'20%',    style:'text-align:left'},
+            {caption: ["권한ID"],	ref: 'authrtId',		type:'output',  width:'20%',    style:'text-align:left'},
             {caption: ["권한명"],		ref: 'authrtNm',    	type:'output',  width:'40%',    style:'text-align:left'},
-            {caption: ["권한유형"],		ref: 'authrtTypeNm',	type:'output',  width:'20%',    style:'text-align:left'},
+            {caption: ["권한유형"],	ref: 'authrtTypeNm',	type:'output',  width:'20%',    style:'text-align:left'},
             {caption: ["APC명"],		ref: 'apcNm',    		type:'output',  width:'20%',    style:'text-align:left'},
-            {caption: ["권한설명"],		ref: 'rmrk',        	type:'output',  hidden: true},
-            {caption: ["APC코드"],		ref: 'apcCd',        	type:'output',  hidden: true},
-            {caption: ["권한유형코드"],	ref: 'authrtType',      type:'output',  hidden: true}
+            {caption: ["권한설명"],	ref: 'rmrk',        	type:'output',  hidden: true},
+            {caption: ["APC코드"],	ref: 'apcCd',        	type:'output',  hidden: true},
+            {caption: ["권한유형코드"],ref: 'authrtType',      type:'output',  hidden: true}
         ];
 
         grdComAuth = _SBGrid.create(SBGridProperties);
-        grdComAuth.bind('click', 'fn_view');
-        grdComAuth.bind('beforepagechanged', 'fn_pagingGrdComAuth');
+        grdComAuth.bind('click', fn_view);
+        grdComAuth.bind('beforepagechanged', fn_pagingGrdComAuth);
     }
 
     const fn_pagingGrdComAuth = async function() {
@@ -264,6 +352,7 @@
         var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdComAuthMenu';
 	    SBGridProperties.id = 'grdComAuthMenu';
+	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.jsonref = 'jsonComAuthMenu';
         SBGridProperties.tree = {
             col: 0,
@@ -278,11 +367,13 @@
         };
 
         SBGridProperties.columns = [
-            {caption: ['메뉴목록'], ref: 'menuNm', width: '100%', type: 'output'},
+            {caption: ['메뉴목록'], ref: 'menuNm', width: '80%', type: 'output'},
             {caption: ["<input type='checkbox' onchange='fn_checkAllAuthMenu(this);'>"],
+            	width: '20%',
                 ref: 'useYn', type: 'checkbox',   style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
+            /*
             {caption: ['상세'], ref: 'entyList', width: '100%', type: 'output',
 				renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 					let result = "";
@@ -290,11 +381,49 @@
 					return result;
 				}
             }
+             */
         ];
 
         grdComAuthMenu = _SBGrid.create(SBGridProperties);
+        grdComAuthMenu.bind('click', fn_viewUi);
     }
 
+    /**
+     * @name fn_createGrdAuthrtUi
+     * @description 화면UI 그리드 초기화
+     * @function
+     */
+    const fn_createGrdAuthrtUi = function() {
+        var SBGridProperties = {};
+	    SBGridProperties.parentid = 'sb-area-grdComAuthrtUi';
+	    SBGridProperties.id = 'grdComAuthrtUi';
+	    SBGridProperties.jsonref = 'jsonComAuthrtUi';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.explorerbar = 'sortmove';
+	    SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.columns = [
+            {caption: ["명칭"],		ref: 'entyNm',		type:'output',		width:'120px',	style:'text-align:left'},
+            {caption: ["개체종류"],	ref: 'entyTypeNm',  type:'output',  	width:'80px',   style:'text-align:center'},
+            {caption: ["표시"],		ref: 'indctYn',    	type:'checkbox', 	width:'40px',   style:'text-align:center',
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+            },
+            {caption: ["유형"],	ref: 'aplcnType',	type:'combo',		width:'100px',   style:'text-align:center; background:#FFF8DC;',
+            	typeinfo: {ref:'jsonAplcnType', label:'cdVlNm', value:'cdVl', displayui : false, oneclickedit: true}
+            },
+            {caption: ["적용"],		ref: 'useYn',    	type:'checkbox', 	width:'40px',   style:'text-align:center',
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+            },
+            {caption: ["화면ID"],		ref: 'menuId',		type:'output',  hidden: true},
+            {caption: ["권한ID"],		ref: 'authrtId',    type:'output',  hidden: true},
+            {caption: ["개체ID"],		ref: 'entyId',		type:'output',  hidden: true},
+            {caption: ["개체유형"],		ref: 'entyType',    type:'output',  hidden: true},
+            {caption: ["APC코드"],		ref: 'apcCd',       type:'output',  hidden: true},
+        ];
+        grdComAuthrtUi = _SBGrid.create(SBGridProperties);
+    }
+    
+    
     const fn_create = function(){
 
     	if (!SBUxMethod.get("srch-slt-sysId")) {
@@ -325,7 +454,7 @@
      * @name fn_save
      * @description 저장
      */
-    function fn_save() {
+    const fn_save = async function() {
 
     	// check 권한명
         if (!SBUxMethod.get("dtl-inp-authrtNm")) {
@@ -359,14 +488,14 @@
 			fn_insertComAuthrt(gfn_comConfirm("Q0001", "등록"));	//	Q0001	{0} 하시겠습니까?
         } else {
         	fn_updateComAuthrt(gfn_comConfirm("Q0001", "변경"));	//	Q0001	{0} 하시겠습니까?
-        }
+		}
     }
 
  	/**
      * @name fn_delete
      * @description 삭제
      */
-    function fn_delete() {
+    const fn_delete = async function() {
     	let orgnAuthrtId = SBUxMethod.get("dtl-inp-orgnAuthrtId");
         if (!orgnAuthrtId) {
         	gfn_comAlert("W0001", "권한그룹");		//	W0001	{0}을/를 선택하세요.
@@ -411,6 +540,8 @@
      */
     const fn_setGrdComAuth = async function(pageSize, pageNo) {
 
+		fn_initComAuthrtUi();
+		
     	grdComAuth.clearStatus();
 
 		let sysId = SBUxMethod.get("srch-slt-sysId");
@@ -466,7 +597,7 @@
         		grdComAuth.rebuild();
         	}
 
-        	document.querySelector('#listCount').innerText = totalRecordCount;
+        	document.querySelector('#cnt-authrt').innerText = totalRecordCount;
 
         } catch (e) {
     		if (!(e instanceof Error)) {
@@ -476,6 +607,21 @@
         }
     }
 
+	/**
+     * @name fn_initGrdComAuthrtUi
+     * @description 화면UI권한 초기화
+     */
+	const fn_initComAuthrtUi = function() {
+		
+		lv_prvMenuId = "";
+		
+    	jsonComAuthrtUi.length = 0;
+    	grdComAuthrtUi.refresh();
+    	document.querySelector('#span-authrtMenuNm').innerText = "";
+		SBUxMethod.set('ui-inp-authrtId', "");
+		SBUxMethod.set('ui-inp-menuId', "");
+	}
+     
     /**
      * @name fn_setGrdComAuthMenu
      * @description 권한메뉴 조회
@@ -483,7 +629,10 @@
      * @param {string} authrtId	권한그룹id
      */
     const fn_setGrdComAuthMenu = async function(sysId, authrtId, authrtType) {
-     	grdComAuthMenu.clearStatus();
+		
+    	 fn_initComAuthrtUi();
+    	
+		grdComAuthMenu.clearStatus();
 
 		const postJsonPromise = gfn_postJSON("/co/authrt/selectComAuthrtMenuTreeList.do", {
          	sysId: sysId,
@@ -538,7 +687,60 @@
      		}
      		console.error("failed", e.message);
          }
-     }
+	}
+
+	/**
+     * @name fn_setGrdComAuthrtUi
+     * @description 화면UI 권한 조회
+     */
+    const fn_setGrdComAuthrtUi = async function() {
+		
+		const authrtId = SBUxMethod.get('ui-inp-authrtId');
+		const menuId = SBUxMethod.get('ui-inp-menuId');
+		
+		const postJsonPromise = gfn_postJSON("/co/authrt/selectComAuthrtUiList.do", {
+ 			menuId: menuId,
+          	authrtId: authrtId,
+          	// pagination
+  	  		pagingYn : 'N'
+  		});
+
+ 		const data = await postJsonPromise;
+
+  		try {
+
+          	/** @type {number} **/
+      		let totalRecordCount = 0;
+
+      		jsonComAuthrtUi.length = 0;
+          	data.resultList.forEach((item, index) => {
+  				const authrtUi = {
+					authrtId: item.authrtId,
+					apcCd: item.apcCd,
+					menuId: item.menuId,
+					menuNm: item.menuNm,
+					entyId: item.entyId,
+					entyNm: item.entyNm,
+					entyType: item.entyType,
+					entyTypeNm: item.entyTypeNm,
+					useYn: item.useYn,
+					aplcnType: item.aplcnType,
+					aplcnTypeNm: item.aplcnTypeNm,
+					indctYn: item.indctYn,
+  				}
+  				jsonComAuthrtUi.push(authrtUi);
+  			});
+          	
+		} catch (e) {
+      		if (!(e instanceof Error)) {
+      			e = new Error(e);
+      		}
+      		console.error("failed", e.message);
+		}
+		
+		grdComAuthrtUi.refresh();
+
+	}
 
     /**
      * @name fn_insertComAuthrt
@@ -677,6 +879,36 @@
     }
 
     /**
+     * @name fn_viewUi
+     * @description 화면UI 권한조회
+     */
+    const fn_viewUi = function () {
+
+        let nRow = grdComAuthMenu.getRow();
+        if (nRow < 1) {
+            return;
+        }
+
+        const rowData = grdComAuthMenu.getRowData(nRow);
+        
+        if (rowData.menuType != "02") {
+        	return;
+        }
+
+		if (lv_prvMenuId === rowData.menuId) {
+			return;
+		}
+		
+		document.querySelector('#span-authrtMenuNm').innerText = " : " + rowData.menuNm;
+		
+		SBUxMethod.set('ui-inp-authrtId', rowData.authrtId);
+		SBUxMethod.set('ui-inp-menuId', rowData.menuId);
+		lv_prvMenuId = rowData.menuId;
+		
+        fn_setGrdComAuthrtUi();
+    }
+    
+    /**
      * @name fn_clearForm
      * @description 상세정보 초기화
      */
@@ -776,6 +1008,63 @@
         } catch(e) {
         }
     }
+
+	/**
+     * @name fn_saveComAuthrtUi
+     * @description 화면UI 권한 저장
+     * @param {boolean} isConfirmed
+     */
+    const fn_saveComAuthrtUi = async function() {
+
+     	const allData = grdComAuthrtUi.getGridDataAll();
+
+     	const comAuthrtUiList = [];
+     	
+     	for ( let i = 0; i < allData.length; i++ ) {
+     		
+     		let item = allData[i];
+     		
+     		if (_.isEqual("Y", item.useYn) && gfn_isEmpty(item.aplcnType)) {
+     			gfn_comAlert("W0001", "적용유형");	//	W0001	{0}을/를 선택하세요.
+     			return;
+     		}
+     		
+     		const authrtUi = {
+         			authrtId: item.authrtId,
+         			apcCd: item.apcCd,
+         			menuId: item.menuId,
+         			entyId: item.entyId,
+         			entyType: item.entyType,
+         			useYn: item.useYn,
+         			aplcnType: item.aplcnType,
+         			indctYn: item.indctYn,
+         		}
+         		
+			comAuthrtUiList.push(authrtUi);
+     	}
+     	console.log(comAuthrtUiList);
+     	const authrtId = SBUxMethod.get("ui-inp-authrtId");
+     	const menuId = SBUxMethod.get("ui-inp-menuId");
+     	
+     	const postJsonPromise = gfn_postJSON("/co/authrt/insertComAuthrtUi.do", {
+     		'authrtId': authrtId,
+     		'menuId': menuId,
+     		'comAuthrtUiList': comAuthrtUiList
+     	});
+
+ 		const data = await postJsonPromise;
+
+         try {
+         	if (_.isEqual("S", data.resultStatus)) {
+         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+         		fn_setGrdComAuthrtUi();
+         	} else {
+         		gfn_comAlert(data.resultCode, data.resultMessage);
+         	}
+         } catch(e) {
+        	 gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+         }
+	}
 
 	/**
 	 * @name fn_addRow

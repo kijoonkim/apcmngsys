@@ -4,6 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+    <title>title : 거래처/발주수신 등록</title>
 </head>
 <body>
 	<section>
@@ -11,7 +12,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<p>
-						<span style="font-weight:bold;">상품 출하시 관리하고 있는 거래처 정보를 등록하세요.</span>
+						<span style="font-weight:bold;">상품 출하 시 관리하고 있는 거래처 정보를 등록하세요.</span>
 					</p>
 					<p>
 						<span style="color:black; font-weight:bold;">대형마트 발주서 접수관리는 발주정보를 자동으로 수집하기 위한 입력정보 입니다.</span>

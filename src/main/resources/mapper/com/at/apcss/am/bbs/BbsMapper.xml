@@ -40,6 +40,7 @@
 				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
 			  FROM TB_APC_BBS CM
 			 WHERE 1=1
+			 AND CM.APC_CD = #{apcCd}
 			 AND CM.BBS_NO = #{bbsNo}
 			 ORDER BY CM.SYS_LAST_CHG_DT DESC
     	]]>
@@ -89,6 +90,9 @@
 			<if test='bbsNo != null and bbsNo != ""'>
 				AND CM.BBS_NO LIKE #{bbsNo} || '%'
 			</if>
+			<if test='apcCd != null and apcCd != "" and apcCd != "0000"'>
+				AND (CM.APC_CD = #{apcCd} or CM.APC_CD = '0000')
+			</if>
 
 			<if test='bbsTitle != null and bbsTitle != ""'>
 				AND CM.BBS_TITLE LIKE '%' || #{bbsTitle} || '%'
@@ -103,7 +107,7 @@
 			</if>
 		</where>
 		<!-- Start 페이징 -->
-		ORDER BY CM.SYS_LAST_CHG_DT DESC
+		ORDER BY CM.APC_CD,CM.SYS_LAST_CHG_DT DESC
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		  ) pt0
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
@@ -126,7 +130,8 @@
 	    	INSERT /* com.at.apcss.am.bbs.mapper.BbsMngMapper.insertBbs */
 	    	  INTO TB_APC_BBS
 	    		(
-	    			BBS_NO
+	    		    APC_CD
+	    		  , BBS_NO
 	    		  , BBS_TITLE
 	    		  , BBS_SE_CD
 	    		  , BBS_SUBJECT
@@ -139,7 +144,8 @@
 	    		)
 	   		VALUES
 	   			(
-	   			    (SELECT NVL(MAX(BBS_NO),0)+1 FROM TB_APC_BBS)
+	   			  #{apcCd}
+	   			  , (SELECT NVL(MAX(BBS_NO),0)+1 FROM TB_APC_BBS)
 	   			  , #{bbsTitle}
 	   			  , #{bbsSeCd}
 	   			  , #{bbsSubject}
@@ -166,7 +172,8 @@
 	    	INSERT /* com.at.apcss.am.bbs.mapper.BbsMngMapper.insertBbs */
 	    	  INTO TB_APC_BBS_CMNT
 	    		(
-	    			BBS_NO
+	    		    APC_CD
+	    			, BBS_NO
 	    			, CMNT_SE_CD
 	    			, CMNT_NO
 	    			, CMNT_CHILD_NO
@@ -180,7 +187,8 @@
 	    		)
 	   		VALUES
 	   			(
-	   			    #{bbsNo}
+	   			  #{apcCd}
+	   			  , #{bbsNo}
 	   			  , #{cmntSeCd}
 	   			  , (select nvl(max(cmnt_no),0)+1 from tb_apc_bbs_cmnt where bbs_no = #{bbsNo})
 	   			  , #{cmntChildNo}
@@ -208,7 +216,8 @@
 	    	INSERT /* com.at.apcss.am.bbs.mapper.BbsMngMapper.insertBbs */
 	    	  INTO TB_APC_BBS_CMNT
 	    		(
-	    			BBS_NO
+	    			APC_CD
+	    			, BBS_NO
 	    			, CMNT_SE_CD
 	    			, CMNT_NO
 	    			, CMNT_CHILD_NO
@@ -222,10 +231,11 @@
 	    		)
 	   		VALUES
 	   			(
-	   			    #{bbsNo}
+	   			   #{apcCd}
+	   			  , #{bbsNo}
 	   			  , #{cmntSeCd}
 	   			  , #{cmntNo}
-	   			  , #{cmntChildNo}
+	   			  , (select nvl(max(cmnt_child_no),0)+1 from tb_apc_bbs_cmnt where bbs_no = #{bbsNo} and cmnt_child_no = #{cmntChildNo})
 	   			  , #{cmntCn}
 	   			  , #{sysFrstInptUserId}
 	   			  , #{sysFrstInptPrgrmId}
@@ -259,8 +269,9 @@
 				  , SYS_LAST_CHG_DT
 			  FROM TB_APC_BBS_CMNT CMT
 			 WHERE 1=1
+			 AND (CMT.APC_CD = #{apcCd} or CMT.APC_CD = '0000')
 			 AND CMT.BBS_NO = #{bbsNo}
-			 ORDER BY CMT.SYS_LAST_CHG_DT
+			  ORDER BY CMNT_NO, CMNT_CHILD_NO
     	]]>
     </select>
 
@@ -291,6 +302,7 @@
 	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 
 			 WHERE 1=1
+			   AND APC_CD = #{apcCd}
 			   AND BBS_NO	= #{bbsNo}
     	]]>
     </update>
@@ -308,6 +320,7 @@
 	    	DELETE /* com.at.apcss.am.bbs.mapper.BbsMngMapper.deleteBbs */
 	    		TB_APC_BBS
 			 WHERE 1=1
+			   AND APC_CD = #{apcCd}
 			   AND BBS_NO	= #{bbsNo}
     	]]>
     </delete>
@@ -325,6 +338,7 @@
 	    	DELETE /* com.at.apcss.am.bbs.mapper.BbsMngMapper.deleteBbs */
 	    		TB_APC_BBS_CMNT
 			 WHERE 1=1
+			   AND APC_CD = #{apcCd}
 			   AND BBS_NO	= #{bbsNo}
 			   AND CMNT_NO  = #{cmntNo}
     	]]>
@@ -342,6 +356,7 @@
 	    	DELETE /* com.at.apcss.am.bbs.mapper.BbsMngMapper.deleteBbs */
 	    		TB_APC_BBS_CMNT
 			 WHERE 1=1
+			   AND APC_CD = #{apcCd}
 			   AND BBS_NO	= #{bbsNo}
     	]]>
     </delete>

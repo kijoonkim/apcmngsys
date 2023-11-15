@@ -4,6 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+    <title>title : 품목/품종 등록</title>
 </head>
 <body>
 	<section>
@@ -19,7 +20,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearchItem" name="btnSearchItem" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchAll"></sbux-button>
-					<sbux-button id="btnSaveItem" name="btnSaveItem" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_sevaApcVrtyList"></sbux-button>
+					<sbux-button id="btnSaveItem" name="btnSaveItem" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveApcVrtyList"></sbux-button>
 					<sbux-button id="btnEndItem" name="btnEndItem" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-item')"></sbux-button>
 				</div>
 			</div>
@@ -521,7 +522,7 @@
     	}
 	}
 
-	const fn_sevaApcVrtyList = async function(){
+	const fn_saveApcVrtyList = async function(){
 
 		let gridData = grdApcVrty.getGridDataAll();
 		let saveList = [];

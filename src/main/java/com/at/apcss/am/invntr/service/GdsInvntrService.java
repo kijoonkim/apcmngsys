@@ -108,6 +108,22 @@ public interface GdsInvntrService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> updateGdsInvntrSpmtPrfmncCncl(GdsInvntrVO gdsInvntrVO) throws Exception;
+
+	/**
+	 * 상품재고 변경 : 반품등록
+	 * @param gdsInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateGdsInvntrSpmtPrfmncRtn(GdsInvntrVO gdsInvntrVO) throws Exception;
+
+	/**
+	 * 상품재고 변경 : 반품등록취소처리
+	 * @param gdsInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateGdsInvntrSpmtPrfmncRtnCncl(GdsInvntrVO gdsInvntrVO) throws Exception;
 	/**
 	 * 상품재고 이송처리
 	 * @param gdsInvntrVO
@@ -123,5 +139,5 @@ public interface GdsInvntrService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertGdsInvntrChgHstry(GdsInvntrVO gdsInvntrVO) throws Exception;
-	
+
 }

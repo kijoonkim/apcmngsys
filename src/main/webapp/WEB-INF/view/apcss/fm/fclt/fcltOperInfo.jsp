@@ -204,8 +204,15 @@
 						</tr>
 						<tr>
 							<th>APC 주소</th>
-							<td>
-								<sbux-input id="dtl-input-apcAddr" name="dtl-input-apcAddr" uitype="text" class="form-control input-sm" placeholder="주소  작성" ></sbux-input>
+							<td class="td_input" style="border-right:hidden;">
+								<div class="col-md-3">
+									<sbux-input id="dtl-input-apcZipCode" name="dtl-input-apcZipCode" uitype="text" class="form-control input-sm" placeholder="apc우편번호" readonly></sbux-input><br>
+									<sbux-input id="dtl-input-apcAddr" name="dtl-input-apcAddr" uitype="text" class="form-control input-sm" placeholder="apc주소" readonly></sbux-input><br>
+									<sbux-input id="dtl-input-apcDtlAddr" name="dtl-input-apcDtlAddr" uitype="text" class="form-control input-sm" placeholder="apc상세주소" readonly></sbux-input>
+								</div>
+								<div class="col-md-1">
+									<sbux-button id="srch-btn-addr" name="srch-btn-addr" uitype="modal" target-id="" onclick="fn_goPopup" text="주소찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+								</div>
 							</td>
 						</tr>
 						<tr>
@@ -255,7 +262,6 @@
 				</table>
 
 			</div>
-
 			</div>
 			<!--[pp] //검색결과 -->
 		</div>
@@ -865,6 +871,47 @@
 		if(inputValue != null || inputValue != ""){
 			SBUxMethod.set(input,inputValue.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'));
 		}
+	}
+
+
+	//팝업 실행
+	var fn_goPopup = function(){
+//	 	var pop = window.open("/member/jusoPopup.do","pop","width=570,height=420, scrollbars=yes, resizable=yes");
+		w = 520;
+		h = 620;
+		LeftPosition = (screen.width) ? (screen.width - w) / 2 : 0;
+		TopPosition = (screen.height) ? (screen.height - h) / 2 : 0;
+
+		settings = "height=" + h
+				   + ",width=" + w
+				   + ",top=" + TopPosition
+				   + ",left=" + LeftPosition
+				   + ",scrollbars=yes, resizable=yes";
+		//window.open( "/zipCode/zipCode.jsp", "zipCodeSearchWin", settings );
+		window.open( "/fm/popup/jusoPopup.do", "zipCodeSearchWin", settings );
+		//window.open( "/zip/searchRoad.action", "zipCodeSearchWin", settings );
+
+	}
+	//팝업 콜백
+	var jusoCallBack = function(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo){
+		/*
+			roadFullAddr 전체 도로명주소
+			roadAddrPart1 도로명주소(참고항목 제외)
+			roadAddrPart2 도로명주소 참고항목
+			addrDetail 상세주소
+			engAddr 도로명 주소 영문
+			jibunAddr 지번 정보
+			zipNo 우편번호
+		*/
+		if(addrDetail.length>30){
+			alert('상세주소가 너무 길어 다시 입력해야 합니다.');
+			return;
+		}
+		SBUxMethod.set("dtl-input-apcZipCode", zipNo);//우편번호
+		SBUxMethod.set("dtl-input-apcAddr", roadAddrPart1);//주소
+		SBUxMethod.set("dtl-input-apcDtlAddr", addrDetail);//상세주소
+		//console.log(roadFullAddr+" , "+roadAddrPart1+" , "+addrDetail+" , "+roadAddrPart2+" , "+engAddr+" , "+jibunAddr+" , "+zipNo);
+		//alert("성공");
 	}
 </script>
 </html>

@@ -20,6 +20,8 @@
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
 					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_del"></sbux-button>
+					<sbux-button id="btnRetrun" name="btnRetrun" uitype="normal" text="반품" class="btn btn-sm btn-outline-danger" onclick="fn_rtn"></sbux-button>
+					<sbux-button id="btnRtnCncl" name="btnRtnCncl" uitype="normal" text="반품취소" class="btn btn-sm btn-outline-danger" onclick="fn_rtnCncl"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -106,6 +108,24 @@
 								<sbux-button id="btnSrchVhclNo" name="btnSrchVhclNo" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vhcl" onclick="fn_choiceVhcl"></sbux-button>
 							</td>
 						</tr>
+						<tr>
+							<th scope="row" class="th_bg">반품여부</th>
+							<td class="td_input" style="border-right: hidden;">
+								<div class="fl_group fl_rpgroup">
+									<div class="dp_inline wd_180 va_m">
+										<sbux-select
+											id="srch-slt-rtnGdsYn"
+											name="srch-slt-rtnGdsYn"
+											uitype="single"
+											class="form-control input-sm"
+											unselected-text="전체"
+											jsondata-ref="jsonComRtnGdsYn"
+										></sbux-select>
+									</div>
+								</div>
+							</td>
+							<td colspan="9"></td>
+						</tr>
 					</tbody>
 				</table>
 				<!--[pp] //검색 -->
@@ -117,7 +137,7 @@
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-spmtPrfmnc" style="height:538px;"></div>
+					<div id="sb-area-spmtPrfmnc" style="height:508px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 
@@ -145,6 +165,13 @@
     <div id="body-modal-vhcl">
     	<jsp:include page="../../am/popup/vhclPopup.jsp"></jsp:include>
     </div>
+    <!-- 반품 Modal -->
+    <div>
+        <sbux-modal id="modal-rtn" name="modal-rtn" uitype="middle" header-title="반품 등록" body-html-id="body-modal-rtn" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-rtn">
+    	<jsp:include page="../../am/popup/rtnPopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">
 	var jsonSpmtPrfmnc		= [];
@@ -154,6 +181,10 @@
 	var jsonComVrty			= [];	// 품종
 	var jsonComWarehouse	= [];	// 창고
 	var jsonComTrsprtCoCd	= [];	// 운송사
+	var jsonComRtnGdsYn 	= [
+		{'value' : 'N', 'text' : '출하'},
+		{'value' : 'Y', 'text' : '반품'}
+	]
 
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
@@ -195,8 +226,6 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.allowcopy = true;
 		SBGridProperties.explorerbar = 'sortmove';
-		SBGridProperties.mergecells = 'byrestriccol';
-		SBGridProperties.datamergefalseskip = true;
     	SBGridProperties.paging = {
     			'type' : 'page',
     		  	'count' : 5,
@@ -209,31 +238,178 @@
         	{caption: ["선택","선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
+            {caption: ['반품여부','반품여부'], 	ref: 'rtnGdsNm',	width: '50px',	type: 'output',	style:'text-align: center'},
         	{caption: ['출하번호','출하번호'], 		ref: 'spmtno', 	width: '120px',	type: 'output',	style:'text-align: center'},
-            {caption: ['출하일자','출하일자'], 	ref: 'spmtYmd',		width: '100px',	type: 'output',	style:'text-align: center',
+            {caption: ['출하일자','출하일자'], 	ref: 'spmtYmd',		width: '80px',	type: 'output',	style:'text-align: center',
     		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
             {caption: ['브랜드','브랜드'], 		ref: 'brndNm', 		width: '100px',	type: 'output',	style:'text-align: center'},
-            {caption: ['거래처','거래처'], 		ref: 'cnptNm', 		width: '150px',	type: 'output',	style:'text-align: center'},
+            {caption: ['거래처','거래처'], 		ref: 'cnptNm', 		width: '130px',	type: 'output',	style:'text-align: center'},
             {caption: ['배송지','배송지'], 		ref: 'dldtn', 		width: '150px',	type: 'output',	style:'text-align: center'},
-            {caption: ['운송사','운송사'], 		ref: 'trsprtCoNm', 	width: '150px',	type: 'output',	style:'text-align: center'},
+            {caption: ['운송사','운송사'], 		ref: 'trsprtCoNm', 	width: '120px',	type: 'output',	style:'text-align: center'},
             {caption: ['차량번호','차량번호'], 	ref: 'vhclno',		width: '100px',	type: 'output',	style:'text-align: center'},
             {caption: ['운반비','운반비'], 		ref: 'trsprtCst', 	width: '100px',	type: 'output',	style:'text-align: right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### 원'}},
-            {caption: ['품목','품목'],			ref: 'itemNm', 		width: '80px',	type: 'output',	style:'text-align: center'},
-            {caption: ['품종','품종'],			ref: 'vrtyNm', 		width: '80px',	type: 'output',	style:'text-align: center'},
+            {caption: ['품목','품목'],			ref: 'itemNm', 		width: '70px',	type: 'output',	style:'text-align: center'},
+            {caption: ['품종','품종'],			ref: 'vrtyNm', 		width: '70px',	type: 'output',	style:'text-align: center'},
             {caption: ['규격','규격'], 			ref: 'spcfctNm', 	width: '100px',	type: 'output',	style:'text-align: center'},
-            {caption: ['출하','수량'], 		ref: 'spmtQntt', 	width: '80px',	type: 'output',	style:'text-align: right',
-            	format : {type:'number', rule:'#,###'}, merge: false},
-            {caption: ['출하','중량'], 		ref: 'spmtWght', 	width: '100px',	type: 'output',	style:'text-align: right',
-            	typeinfo : {mask : {alias : 'numeric'}, merge: false}, format : {type:'number', rule:'#,### Kg'}},
+            {caption: ['출하','수량'], 		ref: 'spmtQntt', 	width: '60px',	type: 'output',	style:'text-align: right',
+            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
+            {caption: ['출하','중량'], 		ref: 'spmtWght', 	width: '80px',	type: 'output',	style:'text-align: right',
+            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
+            {caption: ['반품','수량'], 		ref: 'rtnGdsQntt', 	width: '60px',	type: 'input',	style:'text-align: right',
+            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
+            {caption: ['반품','중량'], 		ref: 'rtnGdsWght', 	width: '80px',	type: 'output',	style:'text-align: right',
+            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
             {caption: ['비고','비고'], 	ref: 'rmrk',		width: '250px',	type: 'output',	style:'text-align: center'}
         ];
         grdSpmtPrfmnc = _SBGrid.create(SBGridProperties);
         grdSpmtPrfmnc.bind( "afterpagechanged" , "fn_pagingSmptPrfmnc" );
+        grdSpmtPrfmnc.bind('valuechanged', 'fn_grdRtnQnttValueChanged');
+        grdSpmtPrfmnc.bind('select','fn_setValue');
+        grdSpmtPrfmnc.bind('deselect','fn_delValue');
     }
 
+	const fn_setValue = function(){
+		let checkedYnCol = grdSpmtPrfmnc.getColRef("checkedYn");
+		let nCol = grdSpmtPrfmnc.getCol();
+		let nRow = grdSpmtPrfmnc.getRow();
+
+		if(nCol == checkedYnCol){
+
+			let grdRows = grdSpmtPrfmnc.getCheckedRows(checkedYnCol);
+			let rtnGdsQnttCol = grdSpmtPrfmnc.getColRef("rtnGdsQntt");
+			let rtnGdsWghtCol = grdSpmtPrfmnc.getColRef("rtnGdsWght");
+			let rtnGdsYn = grdSpmtPrfmnc.getRowData(nRow).rtnGdsYn
+			let rtnPsbleyQntt = grdSpmtPrfmnc.getRowData(nRow).rtnPsbleyQntt
+			let rtnPsbleyWght = grdSpmtPrfmnc.getRowData(nRow).rtnPsbleyWght
+
+			if(rtnPsbleyQntt == 0){
+				grdSpmtPrfmnc.setCellData(nRow, rtnGdsQnttCol, 0);
+				grdSpmtPrfmnc.setCellData(nRow, rtnGdsWghtCol, 0);
+			}
+
+			grdSpmtPrfmnc.setCellData(nRow, rtnGdsQnttCol, rtnPsbleyQntt);
+			grdSpmtPrfmnc.setCellData(nRow, rtnGdsWghtCol, rtnPsbleyWght);
+		}
+
+
+	}
+
+	const fn_delValue = function () {
+		let checkedYnCol = grdSpmtPrfmnc.getColRef("checkedYn");
+		let nCol = grdSpmtPrfmnc.getCol();
+		let nRow = grdSpmtPrfmnc.getRow();
+
+		if(nCol == checkedYnCol){
+
+			let rtnGdsQnttCol = grdSpmtPrfmnc.getColRef("rtnGdsQntt");
+			let rtnGdsWghtCol = grdSpmtPrfmnc.getColRef("rtnGdsWght");
+			let rtnGdsYn = grdSpmtPrfmnc.getRowData(nRow).rtnGdsYn;
+
+			if(rtnGdsYn != "Y"){
+				grdSpmtPrfmnc.setCellData(nRow, rtnGdsQnttCol, 0);
+				grdSpmtPrfmnc.setCellData(nRow, rtnGdsWghtCol, 0);
+			}
+
+		}
+	}
+
+	const fn_grdRtnQnttValueChanged = function(){
+
+    	let nRow = grdSpmtPrfmnc.getRow();
+		let nCol = grdSpmtPrfmnc.getCol();
+		let rtnGdsQnttCol = grdSpmtPrfmnc.getColRef("rtnGdsQntt");
+		let rtnGdsWghtCol = grdSpmtPrfmnc.getColRef("rtnGdsWght");
+
+
+		switch (nCol) {
+		case rtnGdsQnttCol:	// checkbox
+			fn_checkRtnQntt();
+			break;
+		default:
+			return;
+		}
+    }
+
+	const fn_checkRtnQntt = function(){
+		let nRow = grdSpmtPrfmnc.getRow();
+    	let nCol = grdSpmtPrfmnc.getCol();
+
+    	let rtnGdsYn = grdSpmtPrfmnc.getRowData(nRow).rtnGdsYn
+    	let checkedYnCol = grdSpmtPrfmnc.getColRef("checkedYn")
+    	let rtnGdsQnttCol = grdSpmtPrfmnc.getColRef("rtnGdsQntt");
+		let rtnGdsWghtCol = grdSpmtPrfmnc.getColRef("rtnGdsWght");
+
+		if(rtnGdsYn == "Y"){
+			gfn_comAlert("W0010", "반품등록", "실적") // W0010 이미 {0}된 {1} 입니다.
+			grdSpmtPrfmnc.setCellData(nRow, rtnGdsQnttCol, 0);
+			grdSpmtPrfmnc.setCellData(nRow, rtnGdsWghtCol, 0);
+			grdSpmtPrfmnc.setCellData(nRow, checkedYnCol, "N");
+			return;
+		}
+
+		let rtnPsbleyQntt = grdSpmtPrfmnc.getRowData(nRow).rtnPsbleyQntt
+		let rtnPsbleyWght = grdSpmtPrfmnc.getRowData(nRow).rtnPsbleyWght
+
+		if(rtnPsbleyQntt == 0){
+			gfn_comAlert("W0005", "반품가능수량") // W0005 {0}이/가 없습니다.
+			grdSpmtPrfmnc.setCellData(nRow, rtnGdsQnttCol, 0);
+			grdSpmtPrfmnc.setCellData(nRow, rtnGdsWghtCol, 0);
+			grdSpmtPrfmnc.setCellData(nRow, checkedYnCol, "N");
+			return;
+		}
+
+		let grdRows = grdSpmtPrfmnc.getCheckedRows(checkedYnCol);
+    	if(grdRows.length > 0){
+			let checkCnptCd = grdSpmtPrfmnc.getRowData(grdRows[0]).cnptCd
+			let cnptCd = grdSpmtPrfmnc.getRowData(nRow).cnptCd;
+			if(checkCnptCd != cnptCd){
+				gfn_comAlert("W0006", "이미 선택한 거래처", "선택한 거래처");	// W0006 {0}와/과 {1}이/가 서로 다릅니다.
+				grdSpmtPrfmnc.setCellData(nRow, rtnGdsQnttCol, 0);
+				grdSpmtPrfmnc.setCellData(nRow, rtnGdsWghtCol, 0);
+				grdSpmtPrfmnc.setCellData(nRow, checkedYnCol, "N");
+				return;
+			}
+    	}
+
+		let invntrQntt = grdSpmtPrfmnc.getRowData(nRow).invntrQntt;
+		let invntrWght = grdSpmtPrfmnc.getRowData(nRow).invntrWght;
+		let spmtQntt = grdSpmtPrfmnc.getRowData(nRow).spmtQntt;
+		let spmtWght = grdSpmtPrfmnc.getRowData(nRow).spmtWght;
+		let rtnGdsQntt = grdSpmtPrfmnc.getRowData(nRow).rtnGdsQntt;
+
+		grdSpmtPrfmnc.setCellData(nRow, checkedYnCol, "N");
+
+		if(rtnGdsQntt > rtnPsbleyQntt){
+			gfn_comAlert("W0008", "반품가능수량", "반품수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
+			grdSpmtPrfmnc.setCellData(nRow, rtnGdsQnttCol, 0);
+			grdSpmtPrfmnc.setCellData(nRow, rtnGdsWghtCol, 0);
+			grdSpmtPrfmnc.setCellData(nRow, checkedYnCol, "N");
+			return;
+		}
+
+		if(rtnGdsQntt > spmtQntt){
+			gfn_comAlert("W0008", "출하수량", "반품수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
+			grdSpmtPrfmnc.setCellData(nRow, rtnGdsQnttCol, 0);
+			grdSpmtPrfmnc.setCellData(nRow, rtnGdsWghtCol, 0);
+			grdSpmtPrfmnc.setCellData(nRow, checkedYnCol, "N");
+			return;
+		}
+
+		if(rtnGdsQntt <= spmtQntt){
+			grdSpmtPrfmnc.setCellData(nRow, rtnGdsWghtCol , Math.round(spmtWght / spmtQntt) * rtnGdsQntt);
+			grdSpmtPrfmnc.setCellData(nRow, checkedYnCol, "Y");
+		}
+
+		if(rtnGdsQntt == 0){
+			grdSpmtPrfmnc.setCellData(nRow, rtnGdsWghtCol, 0);
+			grdSpmtPrfmnc.setCellData(nRow, checkedYnCol, "N");
+		}
+
+	}
+
 	// 출하실적 목록 조회 (조회 버튼)
-    async function fn_search() {
+    const fn_search = async function() {
     	let recordCountPerPage = grdSpmtPrfmnc.getPageSize();  		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = 1;
     	grdSpmtPrfmnc.movePaging(currentPageNo);
@@ -242,7 +418,7 @@
 	let newJsonSpmtPrfmnc = [];
 
 	// 출하실적 목록 조회 호출
-	async function fn_callSelectSpmtPrfmncList(recordCountPerPage, currentPageNo){
+	const fn_callSelectSpmtPrfmncList = async function (recordCountPerPage, currentPageNo){
 		jsonSpmtPrfmnc = [];
 		let apcCd = gv_selectedApcCd;
 		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");
@@ -254,6 +430,7 @@
 		let vrtyCd = vrtyCds.length > 0 ? vrtyCds.join(',') : "";
 		let dldtn = SBUxMethod.get("srch-inp-dldtn");
 		let vhclno = SBUxMethod.get("srch-inp-vhclno");
+		let rtnGdsYn = SBUxMethod.get("srch-slt-rtnGdsYn");
 
 		if (gfn_isEmpty(spmtYmdFrom)){
 			gfn_comAlert("W0002", "출하일자");		//	W0002	{0}을/를 입력하세요.
@@ -274,6 +451,7 @@
 						  , warehouseSeCd 		: warehouseSeCd
 						  , dldtn 				: dldtn
 						  , vhclno 				: vhclno
+						  , rtnGdsYn			: rtnGdsYn
 						  , pagingYn 			: 'Y'
 						  , currentPageNo 		: currentPageNo
 						  , recordCountPerPage 	: recordCountPerPage};
@@ -285,13 +463,19 @@
 				let spmtPrfmnc = {
 					spmtYmd 		: item.spmtYmd
 				  , gdsNm 			: item.gdsNm
+				  , gdsCd 			: item.gdsCd
+				  , itemCd			: item.itemCd
 				  , itemNm 			: item.itemNm
+				  , vrtyCd 			: item.vrtyCd
 				  , vrtyNm 			: item.vrtyNm
+				  , spcfctCd 		: item.spcfctCd
 				  , spcfctNm 		: item.spcfctNm
 				  , brndNm 			: item.brndNm
 				  , cnptNm 			: item.cnptNm
+				  , cnptCd 			: item.cnptCd
 				  , dldtn 			: item.dldtn
 				  , trsprtCoNm 		: item.trsprtCoNm
+				  , trsprtCoCd 		: item.trsprtCoCd
 				  , vhclno 			: item.vhclno
 				  , trsprtCst 		: item.trsprtCst
 				  , spmtQntt		: item.spmtQntt
@@ -306,6 +490,12 @@
 				  , pckgno			: item.pckgno
 				  , pckgSn			: item.pckgSn
 				  , apcCd			: item.apcCd
+				  , rtnGdsYn		: item.rtnGdsYn
+				  , rtnGdsNm		: item.rtnGdsNm
+				  , rtnPsbleyQntt	: item.rtnPsbleyQntt
+				  , rtnPsbleyWght	: item.rtnPsbleyWght
+				  , rtnGdsQntt		: item.rtnGdsQntt
+				  , rtnGdsWght		: item.rtnGdsWght
 
 				}
 				jsonSpmtPrfmnc.push(Object.assign({}, spmtPrfmnc));
@@ -331,7 +521,7 @@
 	}
 
 	// 페이징
-    async function fn_pagingSmptPrfmnc(){
+    const fn_pagingSmptPrfmnc = async function (){
     	let recordCountPerPage = grdSpmtPrfmnc.getPageSize();   		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = grdSpmtPrfmnc.getSelectPageIndex();
     	fn_callSelectSpmtPrfmncList(recordCountPerPage, currentPageNo);
@@ -344,7 +534,7 @@
 		]);
 	}
 
-	function fn_selectItem(){
+	const fn_selectItem = function(){
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		if (gfn_isEmpty(itemCd)) {
 			vrtyCds = [];
@@ -396,7 +586,19 @@
     		let rowData  = grdSpmtPrfmnc.getRowData(nRow);
     		let cfmtnYn	= rowData.cfmtnYn;
 			let ddlnYn = rowData.ddlnYn;
+			let rtnGdsYn = rowData.rtnGdsYn;
+			let spmtQntt = rowData.spmtQntt;
+			let rtnPsbleyQntt = rowData.rtnPsbleyQntt;
 
+			if(spmtQntt != rtnPsbleyQntt){
+    			gfn_comAlert("W0010", "반품등록", "출하실적")				// W0010 이미 {0}된 {1} 입니다.
+				return;
+			}
+
+    		if(rtnGdsYn == "Y"){
+    			gfn_comAlert("W0011", "삭제 대상")				// W0011 {0}이/가 아닙니다.
+				return;
+    		}
 			if(ddlnYn =="Y"){
 				gfn_comAlert("W0012", "출하실적")				// W0012 마감등록 된 {0} 입니다.
 				return;
@@ -437,6 +639,121 @@
 			}
 		}
 	}
+
+	const fn_rtn = async function (){
+
+		let checkedYnCol = grdSpmtPrfmnc.getColRef("checkedYn")
+		let grdRows = grdSpmtPrfmnc.getCheckedRows(checkedYnCol);
+    	let rtnList = [];
+
+
+    	for(var i=0; i< grdRows.length; i++){
+    		let nRow = grdRows[i];
+    		let rowData  = grdSpmtPrfmnc.getRowData(nRow);
+    		let rtnGdsQntt = rowData.rtnGdsQntt;
+    		let rtnGdsWght = rowData.rtnGdsWght;
+    		let rtnPsbleyQntt = rowData.rtnPsbleyQntt;
+
+    		let ddlnYn = rowData.ddlnYn;
+    		let rtnGdsYn = rowData.rtnGdsYn;
+
+    		if(grdRows.length > 0){
+    			let checkCnptCd = grdSpmtPrfmnc.getRowData(grdRows[0]).cnptCd
+    			let cnptCd = grdSpmtPrfmnc.getRowData(nRow).cnptCd;
+    			if(checkCnptCd != cnptCd){
+    				gfn_comAlert("W0009", "거래처가 다른 실적");	// W0009 {0}이/가 있습니다.
+    				return;
+    			}
+        	}
+
+    		if(rtnPsbleyQntt == 0){
+    			gfn_comAlert("W0005", "반품가능수량") // W0005 {0}이/가 없습니다.
+    			return;
+    		}
+
+    		if(rtnGdsYn == "Y"){
+    			gfn_comAlert("W0011", "반품 대상")				// W0011 {0}이/가 아닙니다.
+				return;
+    		}
+
+			if(ddlnYn =="Y"){
+				gfn_comAlert("W0012", "출하실적")				// W0012 마감등록 된 {0} 입니다.
+				return;
+			}
+    		if(rtnGdsQntt == 0 || gfn_isEmpty(rtnGdsQntt)){
+    			gfn_comAlert("W0001", "반품수량");		//	W0001	{0}이/가 없습니다.
+    			return;
+    		}
+    		if(rtnGdsWght == 0|| gfn_isEmpty(rtnGdsWght)){
+    			gfn_comAlert("W0001", "반품중량");		//	W0001	{0}이/가 없습니다.
+    			return;
+    		}
+
+    		rtnList.push(grdSpmtPrfmnc.getRowData(nRow));
+    	}
+
+    	if(grdRows.length == 0){
+    		gfn_comAlert("W0003", "반품");			// W0003	{0}할 대상이 없습니다.
+    		return;
+    	}
+
+    	popRtn.init(rtnList);
+
+    	SBUxMethod.openModal('modal-rtn');
+
+	}
+
+	const fn_rtnCncl = async function(){
+		let grdRows = grdSpmtPrfmnc.getCheckedRows(1);
+    	let rtnCnclList = [];
+
+    	for(var i=0; i< grdRows.length; i++){
+    		let nRow = grdRows[i];
+    		let rowData  = grdSpmtPrfmnc.getRowData(nRow);
+			let ddlnYn = rowData.ddlnYn;
+
+			let rtnGdsYn = rowData.rtnGdsYn;
+
+			if(rtnGdsYn == "N"){
+				gfn_comAlert("W0011", "반품취소대상")				// W0011 {0}이/가 아닙니다.
+				return;
+			}
+
+			if(ddlnYn =="Y"){
+				gfn_comAlert("W0012", "반품실적")				// W0012 마감등록 된 {0} 입니다.
+				return;
+			}
+
+			rtnCnclList.push(grdSpmtPrfmnc.getRowData(nRow));
+
+    	}
+
+    	if(grdRows.length == 0){
+    		gfn_comAlert("W0003", "반품취소");			// W0003	{0}할 대상이 없습니다.
+    		return;
+    	}
+
+    	let regMsg = "반품취소 하시겠습니까?";
+		if(confirm(regMsg)){
+			const postJsonPromise = gfn_postJSON("/am/spmt/deleteRtnSpmtPrfmnCnclList.do", rtnCnclList);
+	    	const data = await postJsonPromise;
+
+	    	try{
+	    		if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+	        		fn_search();
+	        	} else {
+	        		alert(data.resultMessage);
+	        	}
+	        }catch (e) {
+	        	if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+			}
+		}
+	}
+
 
 	// 거래처 선택 팝업 호출
 	const fn_modalCnpt = function() {

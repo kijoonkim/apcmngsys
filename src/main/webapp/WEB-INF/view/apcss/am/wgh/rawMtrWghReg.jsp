@@ -75,7 +75,7 @@
 						<tr>
 							<th scope="row" class="th_bg" ><span class="data_required" ></span>계량일자</th>
 							<td colspan="3" class="td_input" style="border-right:hidden;" >
-								<sbux-datepicker id="dtl-dtp-wghYmd" name="dtl-dtp-wghYmd" uitype="popup" class="form-control input-sm input-sm-ast"></sbux-datepicker>
+								<sbux-datepicker id="dtl-dtp-wghYmd" name="dtl-dtp-wghYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast"></sbux-datepicker>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<th scope="row" class="th_bg" ><span class="data_required" ></span>생산자</th>
@@ -364,7 +364,16 @@
 					<ul class="ad_tbl_count">
 						<li>
 							<span>원물계량 내역</span>
-							<span style="font-size:12px">(조회건수 <span id="cnt-wgh">0</span>건)</span>
+							<span style="font-size:12px">(조회건수 <span id="cnt-wgh">0</span>건, 기준일자 : 
+								<sbux-label
+									id="crtr-ymd"
+									name="crtr-ymd"
+									uitype="normal"
+									text=""
+									class="bold"
+									mask = "{'alias': 'yyyy-mm-dd', 'autoUnmask': true}"
+								></sbux-label>)
+							</span>
 						</li>
 					</ul>
 				</div>
@@ -474,6 +483,7 @@
 	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {
+		
 		fn_init();
 
 		const elements = document.querySelectorAll(".srch-keyup-area");
@@ -887,24 +897,10 @@
 		prvRowNum = -1;
 
   		let wghYmd = SBUxMethod.get("dtl-dtp-wghYmd");			// 계량일자
-  		let prdcrCd = SBUxMethod.get("dtl-inp-prdcrCd");		// 생산자
-  		let itemCd = SBUxMethod.get("dtl-slt-itemCd");			// 품목
-  		let vrtyCd = SBUxMethod.get("dtl-slt-vrtyCd");			// 품종
-  		let wrhsSeCd = SBUxMethod.get("dtl-rdo-wrhsSeCd");		// 입고구분
-  		let gdsSeCd = SBUxMethod.get("dtl-rdo-gdsSeCd");		// 상품구분
-  		let trsprtSeCd = SBUxMethod.get("dtl-rdo-trsprtSeCd");	// 운송구분
-  		let vhclno = SBUxMethod.get("dtl-inp-vhclno");			// 차량번호
 
 		const postJsonPromise = gfn_postJSON("/am/wgh/selectWghPrfmncList.do", {
 			apcCd: gv_selectedApcCd,
 			wghYmd: wghYmd,
-			prdcrCd: prdcrCd,
-			itemCd: itemCd,
-			vrtyCd: vrtyCd,
-			wrhsSeCd: wrhsSeCd,
-			gdsSeCd: gdsSeCd,
-			trsprtSeCd: trsprtSeCd,
-			vhclno: vhclno,
 
           	// pagination
   	  		pagingYn : 'Y',
@@ -982,6 +978,7 @@
           	}
 
           	document.querySelector('#cnt-wgh').innerText = totalRecordCount;
+          	SBUxMethod.set("crtr-ymd", wghYmd);
 
           } catch (e) {
       		if (!(e instanceof Error)) {
@@ -1155,12 +1152,12 @@
 
 	/** ui event */
 
+	/**
+	 * @name fn_onChangeApc
+	 * @description APC 선택 변경 event
+	 */
 	const fn_onChangeApc = async function() {
-		jsonPltBxData = {};
-		fn_clearPrdcr();
-		fn_initSBSelect();
-		fn_getPrdcrs();
-		fn_clearForm();
+		fn_init();
 	}
 
 	/**
@@ -1424,6 +1421,11 @@
 	 */
 	const fn_onChangeRdcdRt = function() {
 		// 감량(%) >> 감량, 실중량, 입고중량
+		if (parseFloat(SBUxMethod.get("dtl-inp-rdcdRt")) > 100) {
+			alert("감량률이 100% 보다 큽니다.");
+			SBUxMethod.set("dtl-inp-rdcdRt", "");
+			return;
+		}
 		fn_setWght();
 	}
 

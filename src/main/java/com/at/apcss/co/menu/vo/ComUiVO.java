@@ -9,4 +9,5 @@ public class ComUiVO extends ComMenuVO {
 	private String entyId;
 	private String entyNm;
 	private String entyType;
+	private String entyTypeNm;
 }

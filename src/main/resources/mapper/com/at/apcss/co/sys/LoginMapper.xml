@@ -25,6 +25,7 @@
 		<result property="userStts" column="USER_STTS"/>
 		<result property="lgnFailNmtm" column="LGN_FAIL_NMTM"/>
 		<result property="endLgnIp" column="END_LGN_IP"/>
+		<result property="lckYn" column="LCK_YN"/>
 	</resultMap>
 
 
@@ -56,6 +57,7 @@
 				, CU.END_LGN_DT		AS END_LGN_DT
 				, CU.END_LGN_IP		AS END_LGN_IP
 				, CU.DEL_YN			AS DEL_YN
+				, CU.LCK_YN			AS LCK_YN
 			  FROM TB_COM_USER CU
 			 WHERE CU.USER_ID = #{id}
     	]]>
@@ -180,5 +182,46 @@
 			   AND CU.DEL_YN = 'N'
     	]]>
     </select>
-
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.sys.mapper.LoginMapper.updateFailCount   			-->
+	<!-- DESC : 실패횟수 저장                                           				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.13  	MS    	     	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updateFailCount" parameterType="com.at.apcss.co.sys.vo.LoginVO">
+		<selectKey keyProperty="lgnFailNmtm" resultType="int" order="BEFORE" >
+			SELECT LGN_FAIL_NMTM FROM TB_COM_USER WHERE USER_ID=#{id}
+		</selectKey>
+		UPDATE TB_COM_USER AS CU
+			SET LGN_FAIL_NMTM =#{lgnFailNmtm}+1
+			WHERE CU.USER_ID = #{id}
+	</update>
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.sys.mapper.LoginMapper.updateUserLck   			-->
+	<!-- DESC : 실패횟수 5회이상 계정잠금처리                                        				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.13  	MS    	     	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updateUserLck" parameterType="com.at.apcss.co.sys.vo.LoginVO">
+		UPDATE TB_COM_USER
+		SET LCK_YN = 'Y'
+		WHERE USER_ID = #{id}
+	</update>
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.sys.mapper.LoginMapper.updateResetFailCount   			-->
+	<!-- DESC : 로그인 성공시 실패카운트 초기화                                   				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.14  	MS    	     	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updateResetFailCount" parameterType="com.at.apcss.co.sys.vo.LoginVO">
+		UPDATE TB_COM_USER
+		SET LGN_FAIL_NMTM = 0
+		WHERE USER_ID = #{id}
+	</update>
 </mapper>

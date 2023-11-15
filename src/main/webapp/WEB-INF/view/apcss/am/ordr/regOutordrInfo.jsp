@@ -65,6 +65,7 @@
 									id="srch-dtp-outordrYmd"
 									name="srch-dtp-outordrYmd"
 									uitype="popup"
+									date-format="yyyy-mm-dd"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									onchange="fn_dtpChange(srch-dtp-outordrYmd)"
 									></sbux-datepicker>
