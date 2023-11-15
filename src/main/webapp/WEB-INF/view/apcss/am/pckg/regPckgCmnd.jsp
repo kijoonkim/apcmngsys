@@ -151,7 +151,19 @@
 				</table>
 				<div class="ad_tbl_top2">
 					<ul class="ad_tbl_count">
-						<li><span>포장지시 내역</span></li>
+						<li>
+							<span>포장지시 내역</span>
+							<span style="font-size:12px">(기준일자 : 
+								<sbux-label
+									id="crtr-ymd"
+									name="crtr-ymd"
+									uitype="normal"
+									text=""
+									class="bold"
+									mask = "{'alias': 'yyyy-mm-dd', 'autoUnmask': true}"
+								></sbux-label>)
+							</span>
+						</li>
 					</ul>
 					<div class="ad_tbl_toplist">
 						<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
@@ -475,7 +487,7 @@
 
     	const postJsonPromise = gfn_postJSON("/am/pckg/selectRegPckgCmndList.do", {
 			apcCd: gv_selectedApcCd,
-			pckgCmndYmd: pckgCmndYmd,
+			pckgCmndYmd: pckgCmndYmd
   		});
 
         const data = await postJsonPromise;
@@ -513,6 +525,7 @@
 
   			});
       		grdPckgCmnd.rebuild();
+          	SBUxMethod.set("crtr-ymd", pckgCmndYmd);
 	   } catch (e) {
 	 		if (!(e instanceof Error)) {
 	 			e = new Error(e);

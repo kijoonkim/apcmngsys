@@ -133,7 +133,19 @@
 				</table>
 				<div class="ad_tbl_top2">
 					<ul class="ad_tbl_count">
-						<li><span>입출 내역</span></li>
+						<li>
+							<span>입출 내역</span>
+							<span style="font-size:12px">(기준일자 : 
+								<sbux-label
+									id="crtr-ymd"
+									name="crtr-ymd"
+									uitype="normal"
+									text=""
+									class="bold"
+									mask = "{'alias': 'yyyy-mm-dd', 'autoUnmask': true}"
+								></sbux-label>)
+							</span>
+						</li>
 					</ul>
 					<div class="ad_tbl_toplist">
 						<sbux-button id="btnSave" name="btnSearch" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
@@ -295,7 +307,6 @@
 	      		pltBxMngList.setPageTotalCount(totalRecordCount);
 	      		pltBxMngList.rebuild();
 	      	}
-	      	document.querySelector('#listCount').innerText = totalRecordCount;
 	   } catch (e) {
 	 		if (!(e instanceof Error)) {
 	 			e = new Error(e);
@@ -398,7 +409,7 @@
 	      		grdPltWrhsSpmt.setPageTotalCount(totalRecordCount);
 	      		grdPltWrhsSpmt.rebuild();
 	      	}
-	      	document.querySelector('#listCount').innerText = totalRecordCount;
+          	SBUxMethod.set("crtr-ymd", cmndYmd);
 	      	
 	      	
 	   } catch (e) {

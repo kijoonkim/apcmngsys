@@ -324,7 +324,15 @@
 							<li>
 								<span>선별투입 내역</span>
 								<span style="font-size:12px">
-									(조회건수 <span id="cnt-inpt">0</span>건)
+									(조회건수 <span id="cnt-inpt">0</span>건, 기준일자 : 
+									<sbux-label
+										id="crtr-ymd"
+										name="crtr-ymd"
+										uitype="normal"
+										text=""
+										class="bold"
+										mask = "{'alias': 'yyyy-mm-dd', 'autoUnmask': true}"
+									></sbux-label>)
 								</span>
 							</li>
 						</ul>
@@ -658,15 +666,13 @@
     const fn_setGrdSortInpt = async function() {
 
 		let inptYmd = SBUxMethod.get("dtl-dtp-inptYmd");
-		let fcltCd = SBUxMethod.get("dtl-slt-fcltCd");
 
 		const postJsonPromise = gfn_postJSON("/am/sort/selectSortInptList.do", {
 			apcCd: gv_selectedApcCd,
 			inptYmd: inptYmd,
-			fcltCd: fcltCd,
 			sortCmptnYn: 'N',	// 선별미완료
           	// pagination
-  	  		pagingYn : 'N',
+  	  		pagingYn : 'N'
   			//currentPageNo : pageNo,
    		  	//recordCountPerPage : pageSize
   		});
@@ -712,9 +718,10 @@
   				}
 
           		jsonSortInpt.push(sortInpt);
-              	totalRecordCount = jsonSortInpt.length;
-              	document.querySelector('#cnt-inpt').innerText = totalRecordCount;
   			});
+          	totalRecordCount = jsonSortInpt.length;
+          	document.querySelector('#cnt-inpt').innerText = totalRecordCount;
+          	SBUxMethod.set("crtr-ymd", inptYmd);
         } catch (e) {
       		if (!(e instanceof Error)) {
       			e = new Error(e);

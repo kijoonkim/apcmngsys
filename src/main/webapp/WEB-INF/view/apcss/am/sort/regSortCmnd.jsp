@@ -140,7 +140,19 @@
 				</table>
 				<div class="ad_tbl_top2">
 					<ul class="ad_tbl_count">
-						<li><span>선별지시 내역</span></li>
+						<li>
+							<span>선별지시 내역</span>
+							<span style="font-size:12px">(기준일자 : 
+								<sbux-label
+									id="crtr-ymd"
+									name="crtr-ymd"
+									uitype="normal"
+									text=""
+									class="bold"
+									mask = "{'alias': 'yyyy-mm-dd', 'autoUnmask': true}"
+								></sbux-label>)
+							</span>
+						</li>
 					</ul>
 					<div class="ad_tbl_toplist">
 						<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
@@ -570,21 +582,11 @@
     }
 
     const fn_setGrdSortCmnd = async function(){
-    	let fcltCd	= SBUxMethod.get("srch-slt-inptFclt");
     	let sortCmndYmd = SBUxMethod.get("srch-dtp-cmndYmd");
-    	let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");			// 생산자
-  		let itemCd = SBUxMethod.get("srch-slt-itemCd");				// 품목
-  		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");				// 품종
-  		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");	// 창고
 
     	const postJsonPromise = gfn_postJSON("/am/sort/selectSortCmndList.do", {
 			apcCd: gv_selectedApcCd,
-			fcltCd: fcltCd,
-			sortCmndYmd: sortCmndYmd,
-			prdcrCd : prdcrCd,
-			itemCd : itemCd,
-			vrtyCd : vrtyCd,
-			warehouseSeCd:warehouseSeCd
+			sortCmndYmd: sortCmndYmd
   		});
         const data = await postJsonPromise;
   		try {
@@ -625,8 +627,7 @@
           		jsonSortCmnd.push(sortCmnd);
   			});
           	grdSortCmnd.refresh();
-
-
+          	SBUxMethod.set("crtr-ymd", sortCmndYmd);
 		}catch (e) {
 
 			if (!(e instanceof Error)) {
