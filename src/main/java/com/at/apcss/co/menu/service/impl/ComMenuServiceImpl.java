@@ -133,5 +133,11 @@ public class ComMenuServiceImpl implements ComMenuService {
 		return savedCnt;
 	}
 
+	@Override
+	public List<ComMenuVO> selectMenuListByType(ComMenuVO comMenuVO) throws Exception {
+		List<ComMenuVO> resultList = comMenuMapper.selectMenuListByType(comMenuVO);
+		return resultList;
+	}
+
 
 }

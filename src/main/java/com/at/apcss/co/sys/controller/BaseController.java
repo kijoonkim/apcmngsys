@@ -54,9 +54,6 @@ public abstract class BaseController {
 		reportUrl = env.getProperty("spring.report.url");
 		reportType = env.getProperty("spring.report.type");
 		reportPath = env.getProperty("spring.report.path");
-
-		System.out.println(String.format("reportUrl: %s", reportUrl));
-		System.out.println(String.format("reportPath: %s", reportPath));
 	}
 
 	/**

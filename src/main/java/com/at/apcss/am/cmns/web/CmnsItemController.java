@@ -105,7 +105,6 @@ public class CmnsItemController extends BaseController {
 	// APC 환경설정 - APC 품목 등록
 	@PostMapping(value = "/am/cmns/insertApcCmnsItem.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> insertApcCmnsItem(@RequestBody CmnsItemVO cmnsItemVO, HttpServletRequest request) throws Exception {
-		logger.debug("insertApcCmnsItem 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int insertedCnt =0;

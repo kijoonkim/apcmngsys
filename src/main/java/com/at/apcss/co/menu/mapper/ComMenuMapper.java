@@ -67,6 +67,13 @@ public interface ComMenuMapper {
 	public List<ComMenuVO> selectMenuList(ComMenuVO comMenuVO);
 
 	/**
+	 * 유형별 메뉴 목록 조회
+	 * @param comMenuVO
+	 * @return
+	 */
+	public List<ComMenuVO> selectMenuListByType(ComMenuVO comMenuVO);
+	
+	/**
 	 * 메뉴 삭제
 	 * @param comMenuVO
 	 * @return

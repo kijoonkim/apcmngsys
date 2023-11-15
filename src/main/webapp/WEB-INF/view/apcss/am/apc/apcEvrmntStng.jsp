@@ -1,5 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%
+ /**
+  * @Class Name : apcEvmntStng.jsp
+  * @Description : APC환경설정 화면
+  * @author SI개발부
+  * @since 2023.05.30
+  * @version 1.0
+  * @Modification Information
+  * @
+  * @ 수정일       	수정자      	수정내용
+  * @ ----------	----------	---------------------------
+  * @ 2023.05.30   	김호			최초 생성
+  * @see
+  *
+  */
+%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -11,10 +26,17 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>	<!-- APC환경설정 -->
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+					<sbux-button 
+						id="btnSave" 
+						name="btnSave" 
+						uitype="normal" 
+						text="저장" 
+						class="btn btn-sm btn-outline-danger" 
+						onclick="fn_save"
+					></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -1330,7 +1352,6 @@
         }
 
 	}
-
-
 </script>
+<%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

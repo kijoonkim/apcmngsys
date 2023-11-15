@@ -146,10 +146,10 @@ public class ComUserApiController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+	
 	// APC관리자승인등록 승인
 	@PostMapping(value = "/co/user/updateUserStts", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> updateUserStts(@RequestBody List<ComUserVO> comUserList, HttpServletRequest request) throws Exception {
-		logger.debug("updateUserStts 호출 <><><><> ");
 		
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		
@@ -162,7 +162,7 @@ public class ComUserApiController extends BaseController {
 				comUser.setSysLastChgUserId(getUserId());
 			}
 			
-			HashMap<String, Object> rtnObj = comUserService.updateUserStts(comUserList);
+			HashMap<String, Object> rtnObj = comUserService.updateUserSttsList(comUserList);
 			
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);

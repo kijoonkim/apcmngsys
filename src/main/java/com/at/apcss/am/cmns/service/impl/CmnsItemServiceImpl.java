@@ -90,37 +90,6 @@ public class CmnsItemServiceImpl implements CmnsItemService {
 		BeanUtils.copyProperties(cmnsItemVO, stdGrdVO);
 		stdGrdService.insertStdGrdAuto(stdGrdVO);
 		
-		/*
-		ComCdVO comCdVO = new ComCdVO();
-		comCdVO.setCdId("GDS_GRD");
-
-		List<ComCdVO> resultList = comCdService.selectComCdDtlList(comCdVO);
-		int gdsGrdSn=1;
-		for (ComCdVO comCd : resultList) {
-			StdGrdVO stdGrdVO = new StdGrdVO();
-
-			BeanUtils.copyProperties(cmnsItemVO, stdGrdVO);
-			stdGrdVO.setGrdKndNm(comCd.getCdVlNm());
-			stdGrdVO.setGrdSeCd("01");
-			stdGrdVO.setSn(gdsGrdSn);
-			stdGrdService.insertStdGrd(stdGrdVO);
-			gdsGrdSn++;
-		}
-
-		comCdVO.setCdId("STD_GRD");
-		resultList = comCdService.selectComCdDtlList(comCdVO);
-		int stdGrdSn = 1;
-		for (ComCdVO comCd : resultList) {
-			StdGrdVO stdGrdVO = new StdGrdVO();
-
-			BeanUtils.copyProperties(cmnsItemVO, stdGrdVO);
-			stdGrdVO.setGrdKndNm(comCd.getCdVlNm());
-			stdGrdVO.setGrdSeCd("03");
-			stdGrdVO.setSn(stdGrdSn);
-			stdGrdService.insertStdGrd(stdGrdVO);
-			gdsGrdSn++;
-		}
-		 */
 		return insertedCnt;
 	}
 

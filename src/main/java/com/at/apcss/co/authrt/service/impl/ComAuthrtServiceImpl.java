@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ import com.at.apcss.co.authrt.vo.ComAuthrtUserVO;
 import com.at.apcss.co.authrt.vo.ComAuthrtVO;
 import com.at.apcss.co.constants.ApcConstants;
 import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.menu.service.ComMenuService;
+import com.at.apcss.co.menu.vo.ComMenuVO;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.co.sys.util.ComUtil;
 import com.at.apcss.co.user.mapper.ComUserMapper;
@@ -34,7 +38,9 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 	@Autowired
 	private ComUserMapper comUserMapper;
 
-
+	@Resource(name = "comMenuService")
+	private ComMenuService comMenuService;
+	
 	@Override
 	public ComAuthrtVO selectComAuthrt(ComAuthrtVO comAuthrtVO) throws Exception {
 
@@ -747,6 +753,16 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 		authrtParam.setAuthrtType(ComConstants.CON_AUTHRT_TYPE_ADMIN);
 		List<ComAuthrtVO> adminAuthrtList = selectComAuthrtList(authrtParam);
 
+		List<String> authrtTypeList = new ArrayList<>();
+		ComMenuVO menuParam = new ComMenuVO();
+		menuParam.setSysId(ComConstants.CON_SYS_ID_CO);
+		
+		authrtTypeList.add(ComConstants.CON_AUTHRT_TYPE_ADMIN);
+		authrtTypeList.add(ComConstants.CON_AUTHRT_TYPE_USER);
+		menuParam.setAuthrtTypeList(authrtTypeList);
+		
+		List<ComMenuVO> apcAdminCoMenuList = comMenuService.selectMenuListByType(menuParam);
+		
 		// admin 권한메뉴 select
 		// 권한 delete && insert
 		for ( ComAuthrtVO authrt : adminAuthrtList ) {
@@ -760,6 +776,14 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 			authMenu.setSysLastChgPrgrmId(sysPrgrmId);
 			authMenu.setAuthrtId(authrtId);
 
+			// 시스템관리 메뉴 권한 등록
+			if (apcAdminCoMenuList != null && !apcAdminCoMenuList.isEmpty()) {
+				for ( ComMenuVO coMenu : apcAdminCoMenuList ) {
+					authMenu.setMenuId(coMenu.getMenuId());
+					insertComAuthrtMenu(authMenu);
+				}
+			}
+			
 			//	wghMngYn 계량정보관리유무	MENU_ID_WGH
 			for ( String menuId : ComConstants.MENU_ID_WGH ) {
 
@@ -805,11 +829,10 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 				}
 			}
 
-			//				rawMtrIdentTagPblcnYn 원물인식표발행유무
+			//	rawMtrIdentTagPblcnYn 원물인식표발행유무
 
 			//	pltBxMngYn 팔레트박스정보관리유무	MENU_ID_PLT_BX
 			for ( String menuId : ComConstants.MENU_ID_PLT_BX ) {
-
 				authMenu.setMenuId(menuId);
 				if (ComConstants.CON_YES.equals(apcEvrmntStngVO.getPltBxMngYn())) {
 					insertComAuthrtMenu(authMenu);
@@ -820,7 +843,6 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 
 			//	rawMtrWrhsPlanMngYn 원물입고계획관리유무	MENU_ID_RAW_MTR_WRHS_PLAN
 			for ( String menuId : ComConstants.MENU_ID_RAW_MTR_WRHS_PLAN ) {
-
 				authMenu.setMenuId(menuId);
 				if (ComConstants.CON_YES.equals(apcEvrmntStngVO.getRawMtrWrhsPlanMngYn())) {
 					insertComAuthrtMenu(authMenu);
@@ -831,7 +853,6 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 
 			//	gdsWrhsMngYn 상품입고관리유무		MENU_ID_GDS_WRHS
 			for ( String menuId : ComConstants.MENU_ID_GDS_WRHS ) {
-
 				authMenu.setMenuId(menuId);
 				if (ComConstants.CON_YES.equals(apcEvrmntStngVO.getGdsWrhsMngYn())) {
 					insertComAuthrtMenu(authMenu);
@@ -842,7 +863,6 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 
 			//	sortCmndMngYn 선별지시관리유무		MENU_ID_SORT_CMND
 			for ( String menuId : ComConstants.MENU_ID_SORT_CMND ) {
-
 				authMenu.setMenuId(menuId);
 				if (ComConstants.CON_YES.equals(apcEvrmntStngVO.getSortCmndMngYn())) {
 					insertComAuthrtMenu(authMenu);
@@ -851,11 +871,10 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 				}
 			}
 
-			//				sortCmndDocPblcnYn 선별지시서발행유무
+			//	sortCmndDocPblcnYn 선별지시서발행유무
 
 			//	pckgCmndMngYn 포장지시관리유무		MENU_ID_PCKG_CMND
 			for ( String menuId : ComConstants.MENU_ID_PCKG_CMND ) {
-
 				authMenu.setMenuId(menuId);
 				if (ComConstants.CON_YES.equals(apcEvrmntStngVO.getPckgCmndMngYn())) {
 					insertComAuthrtMenu(authMenu);
@@ -868,7 +887,6 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 
 			//	sortMngYn 선별관리유무		MENU_ID_SORT
 			for ( String menuId : ComConstants.MENU_ID_SORT ) {
-
 				authMenu.setMenuId(menuId);
 				if (ComConstants.CON_YES.equals(apcEvrmntStngVO.getSortMngYn())) {
 					insertComAuthrtMenu(authMenu);
@@ -879,7 +897,6 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 
 			//	sortMblUseYn 선별테블릿사용유무		MENU_ID_SORT_MBL
 			for ( String menuId : ComConstants.MENU_ID_SORT_MBL ) {
-
 				authMenu.setMenuId(menuId);
 				if (ComConstants.CON_YES.equals(apcEvrmntStngVO.getSortMblUseYn())) {
 					insertComAuthrtMenu(authMenu);
@@ -888,12 +905,11 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 				}
 			}
 
-			//				sortLabelPblcnYn 선별라벨발행유무
-			//				sortIdntyDocPblcnYn 선별확인서발행유무
+			//	sortLabelPblcnYn 선별라벨발행유무
+			//	sortIdntyDocPblcnYn 선별확인서발행유무
 
 			//	pckgMngYn 포장관리유무	MENU_ID_PCKG
 			for ( String menuId : ComConstants.MENU_ID_PCKG ) {
-
 				authMenu.setMenuId(menuId);
 				if (ComConstants.CON_YES.equals(apcEvrmntStngVO.getPckgMngYn())) {
 					insertComAuthrtMenu(authMenu);
@@ -904,7 +920,6 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 
 			//	pckgMblUseYn 포장테블릿사용유무		MENU_ID_PCKG_MBL
 			for ( String menuId : ComConstants.MENU_ID_PCKG_MBL ) {
-
 				authMenu.setMenuId(menuId);
 				if (ComConstants.CON_YES.equals(apcEvrmntStngVO.getPckgMblUseYn())) {
 					insertComAuthrtMenu(authMenu);
@@ -913,11 +928,10 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 				}
 			}
 
-			//				gdsLblPblcnYn 상품라벨발행유무
+			//	gdsLblPblcnYn 상품라벨발행유무
 
 			//	spmtCmndMngYn 출하지시관리유무		MENU_ID_SPMT_CMND
 			for ( String menuId : ComConstants.MENU_ID_SPMT_CMND ) {
-
 				authMenu.setMenuId(menuId);
 				if (ComConstants.CON_YES.equals(apcEvrmntStngVO.getSpmtCmndMngYn())) {
 					insertComAuthrtMenu(authMenu);
@@ -926,11 +940,10 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 				}
 			}
 
-			//				spmtCmndDocPblcnYn 출하지시서발행유무
+			//	spmtCmndDocPblcnYn 출하지시서발행유무
 
 			//	spmtMngYn 출하관리유무	MENU_ID_SPMT
 			for ( String menuId : ComConstants.MENU_ID_SPMT ) {
-
 				authMenu.setMenuId(menuId);
 				if (ComConstants.CON_YES.equals(apcEvrmntStngVO.getSpmtMngYn())) {
 					insertComAuthrtMenu(authMenu);
@@ -941,7 +954,6 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 
 			//	spmtMblUseYn 출하테블릿사용유무		MENU_ID_SPMT_MBL
 			for ( String menuId : ComConstants.MENU_ID_SPMT_MBL ) {
-
 				authMenu.setMenuId(menuId);
 				if (ComConstants.CON_YES.equals(apcEvrmntStngVO.getSpmtMblUseYn())) {
 					insertComAuthrtMenu(authMenu);
@@ -950,7 +962,7 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 				}
 			}
 
-//			slsMngYn 매출관리		MENU_ID_SLS
+			//	slsMngYn 매출관리		MENU_ID_SLS
 			for ( String menuId : ComConstants.MENU_ID_SLS ) {
 
 				authMenu.setMenuId(menuId);
@@ -961,7 +973,7 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 				}
 			}
 
-			//				spmtDocPblcnYn 송품장발행유무
+			//	spmtDocPblcnYn 송품장발행유무
 
 			//	clclnMngYn 정산관리유무		MENU_ID_CLCLN
 			for ( String menuId : ComConstants.MENU_ID_CLCLN ) {
@@ -1006,13 +1018,13 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 				}
 			}
 
-			//				outordrPckgCmndLnkgYn 발주정보포장지시연결유무
+			//	outordrPckgCmndLnkgYn 발주정보포장지시연결유무
 
-			//				trsmMngYn 전송관리유무
+			//	trsmMngYn 전송관리유무
 
-			//				sortDataTrsmYn 선별정보전송유무
+			//	sortDataTrsmYn 선별정보전송유무
 
-			//				clclnDataTrsmYn 정산자료전송유무
+			//	clclnDataTrsmYn 정산자료전송유무
 
 			//	oprtrUseYn 생산작업자사용유무	MENU_ID_OPRTR
 			for ( String menuId : ComConstants.MENU_ID_OPRTR ) {
@@ -1025,8 +1037,8 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 				}
 			}
 
-			//				oprtrSortPrfmncTrsmYn 생산작업자선별실적전송유무
-			//				oprtrPckgPrfmncTrsmYn 생산작업자포장실적전송유무
+			//	oprtrSortPrfmncTrsmYn 생산작업자선별실적전송유무
+			//	oprtrPckgPrfmncTrsmYn 생산작업자포장실적전송유무
 		}
 
 		// apc 권한 정보 조회 ##사용자
@@ -1137,7 +1149,7 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 				}
 			}
 
-			//				sortCmndDocPblcnYn 선별지시서발행유무
+			//	sortCmndDocPblcnYn 선별지시서발행유무
 
 			//	pckgCmndMngYn 포장지시관리유무		MENU_ID_PCKG_CMND
 			for ( String menuId : ComConstants.MENU_ID_PCKG_CMND ) {
@@ -1236,7 +1248,7 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 				}
 			}
 
-			//				spmtDocPblcnYn 송품장발행유무
+			//	spmtDocPblcnYn 송품장발행유무
 
 			//	clclnMngYn 정산관리유무		MENU_ID_CLCLN
 			for ( String menuId : ComConstants.MENU_ID_CLCLN ) {
