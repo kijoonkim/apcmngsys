@@ -77,7 +77,9 @@
 				<div id="sb-area-grdPrfmnc" style="height:270px;"></div>
 				<div class="ad_tbl_top2">
 					<ul class="ad_tbl_count">
-						<li><span>작업자별 실적 내역</span></li>
+						<li>
+							<span>작업자별 실적 내역</span>
+						</li>
 					</ul>
 				 	<div class="ad_tbl_toplist_datepk">
 				 		<table class="table table-bordered tbl_fixed">

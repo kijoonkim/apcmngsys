@@ -223,6 +223,16 @@
 					<ul class="ad_tbl_count">
 						<li>
 							<span>포장투입 내역</span>
+							<span style="font-size:12px">(기준일자 : 
+								<sbux-label
+									id="crtr-ymd"
+									name="crtr-ymd"
+									uitype="normal"
+									text=""
+									class="bold"
+									mask = "{'alias': 'yyyy-mm-dd', 'autoUnmask': true}"
+								></sbux-label>)
+							</span>
 						</li>
 					</ul>
 				</div>
@@ -338,7 +348,6 @@
 	// 포장투입 목록 조회 호출
 	const fn_setGrdPckgInpt = async function(){
 		jsonPckgInpt = [];
-		let fcltCd = SBUxMethod.get("srch-slt-fcltCd");
 		let inptYmd = SBUxMethod.get("srch-dtp-inptYmd");
 		if (gfn_isEmpty(inptYmd)){
 			gfn_comAlert("W0002", "투입일자");		//	W0002	{0}을/를 입력하세요.
@@ -348,7 +357,6 @@
 		let pckgInpt = {
 					apcCd: gv_selectedApcCd,
 					inptYmd: inptYmd,
-					fcltCd: fcltCd,
 					pckgCmptnYn: 'N',	// 포장미완료
 					pagingYn: 'N'
 				};
@@ -382,6 +390,7 @@
 				}
 				jsonPckgInpt.push(pckgInpt);
 			});
+          	SBUxMethod.set("crtr-ymd", inptYmd);
 
         } catch (e) {
     		if (!(e instanceof Error)) {

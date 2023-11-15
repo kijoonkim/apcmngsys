@@ -213,7 +213,9 @@
 				</table>
 				<div class="ad_tbl_top2">
 					<ul class="ad_tbl_count">
-						<li><span>원물입고 계획</span></li>
+						<li>
+							<span>원물입고 계획</span>
+						</li>
 					</ul>
 					<div class="ad_tbl_toplist">
 						<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
@@ -391,9 +393,7 @@
 	        {caption: ["창고구분"],		ref: 'warehouseSeCd',   hidden: true},
 	        {caption: ["엑셀유무"],		ref: 'excelYn',   hidden: true},
 	    ];
-
 	    grdWrhsPlan = _SBGrid.create(SBGridProperties);
-
 	}
 
 

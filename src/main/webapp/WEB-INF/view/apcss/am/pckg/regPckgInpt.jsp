@@ -717,7 +717,7 @@
           	grdSortInvntr.refresh({"combo":true});
           	totalRecordCount = jsonSortInvntr.length;
           	document.querySelector('#cnt-SortInvntr').innerText = totalRecordCount;
-
+          	
 		} catch (e) {
 			if (!(e instanceof Error)) {
       			e = new Error(e);

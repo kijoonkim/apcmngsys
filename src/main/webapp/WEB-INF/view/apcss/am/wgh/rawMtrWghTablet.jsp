@@ -450,7 +450,16 @@
 						<ul class="ad_tbl_count">
 							<li>
 								<span>계량등록 내역</span>
-								<span style="font-size:12px">(조회건수 <span id="cnt-wgh">0</span>건)</span>
+								<span style="font-size:12px">(조회건수 <span id="cnt-wgh">0</span>건, 기준일자 : 
+									<sbux-label
+										id="crtr-ymd"
+										name="crtr-ymd"
+										uitype="normal"
+										text=""
+										class="bold"
+										mask = "{'alias': 'yyyy-mm-dd', 'autoUnmask': true}"
+									></sbux-label>)
+								</span>
 							</li>
 						</ul>
 					</div>
@@ -722,16 +731,10 @@
    const fn_setGrdWghPrfmnc = async function() {
 
  		let wghYmd = SBUxMethod.get("dtl-dtp-wghYmd");		// 계량일자
- 		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");	// 생산자
- 		let itemCd = SBUxMethod.get("dtl-slt-itemCd");		// 품목
- 		let vrtyCd = SBUxMethod.get("dtl-slt-vrtyCd");		// 품종
 
 		const postJsonPromise = gfn_postJSON("/am/wgh/selectWghPrfmncList.do", {
 			apcCd: gv_selectedApcCd,
 			wghYmd: wghYmd,
-			prdcrCd: prdcrCd,
-			itemCd: itemCd,
-			vrtyCd: vrtyCd,
 
          	// pagination
  	  		pagingYn : 'N',
@@ -795,6 +798,7 @@
          	
          	grdWghPrfmnc.refresh();
          	document.querySelector('#cnt-wgh').innerText = totalRecordCount;
+          	SBUxMethod.set("crtr-ymd", wghYmd);
 
          } catch (e) {
      		if (!(e instanceof Error)) {
