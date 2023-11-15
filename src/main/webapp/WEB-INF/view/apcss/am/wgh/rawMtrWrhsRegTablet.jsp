@@ -1117,4 +1117,5 @@
 	}
  	
 </script>
+<%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
