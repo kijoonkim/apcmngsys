@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-    <title>title : SBUx2.6</title>
+    <title>title : 서류 발급</title>
 </head>
 <body>
 	<!-- <div id="div-rpt-clipReportPopup" class="box box-solid" style="position:absolute;top:50px;left:5px;right:5px;bottom:5px;">  -->

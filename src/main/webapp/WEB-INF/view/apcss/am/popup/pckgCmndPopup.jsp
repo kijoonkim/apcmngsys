@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-    <title>title : SBUx2.6</title>
+    <title>title : 포장지시번호 선택</title>
 </head>
 <body>
 	<section>

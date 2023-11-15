@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-    <title>title : SBUx2.6</title>
+    <title>title : 원물입고 팔레트/박스 입고등록</title>
 </head>
 <body>
 	<section>

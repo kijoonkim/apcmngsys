@@ -23,7 +23,7 @@ String reportKey = request.getParameter("reportKey");
 <html>
 <head>
 	<meta charset="UTF-8">
-    <title>title : SBUx2.6</title>
+    <title>title : 클립리포트 팝업</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
