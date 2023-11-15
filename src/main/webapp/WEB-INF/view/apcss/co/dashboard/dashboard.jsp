@@ -12,17 +12,6 @@
 		<div class="box-header" style="text-align:right;" >
 			<h3 class="box-title" style="line-height: 30px; float:left;"><sbux-label id="lbl-apcNm" name="lbl-apcNm" style="font-weight:bold;"></sbux-label></h3>
 			 <span style="display:inline-block;">
-<%--            <h5 style="float:left; margin:9px 16px 0 0; color:black;">품목</h5>--%>
-<%--            <sbux-select--%>
-<%--                id="slt-itemCd"--%>
-<%--                name="slt-itemCd"--%>
-<%--                uitype="single"--%>
-<%--                jsondata-ref="jsonComItemCd"--%>
-<%--                onchange="fn_searchItem"--%>
-<%--                unselected-text="선택"--%>
-<%--                class="form-control input-sm input-sm-ast inpt_data_reqed"--%>
-<%--                style="width:170px; float:left; margin-left:auto;"--%>
-<%--            ></sbux-select>--%>
             <button type="button" class="btn btn-sm btn-outline-danger" style="float:left; margin-left:20px;" onclick="fn_search()">조회</button>
             </span>
 
@@ -103,7 +92,7 @@
 	});
 	async function postJsonDashboard() {
 		let apcCd = gv_apcCd;
-		if(gv_userType == '01'){
+		if(gv_userType == '01' || gv_userType == '00'){
 			apcCd ='';
 		}
 
