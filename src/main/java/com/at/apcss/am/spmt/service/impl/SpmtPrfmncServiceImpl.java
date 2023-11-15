@@ -311,4 +311,77 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 		return resultList;
 	}
 
+	@Override
+	public HashMap<String, Object> insertRtnSpmtPrfmncList(List<SpmtPrfmncVO> spmtPrfmncList) throws Exception {
+		int insertedCnt =0;
+		HashMap<String, Object> resultMap;
+		String spmtno = cmnsTaskNoService.selectSpmtno(spmtPrfmncList.get(0).getApcCd(), spmtPrfmncList.get(0).getSpmtYmd());
+		spmtPrfmncList.get(0).setSpmtno(spmtno);
+		insertSpmtPrfmncCom(spmtPrfmncList.get(0));
+
+		for (SpmtPrfmncVO spmtPrfmncVO : spmtPrfmncList) {
+
+			spmtPrfmncVO.setSpmtno(spmtno);
+			insertedCnt += insertSpmtPrfmncDtl(spmtPrfmncVO);
+
+			GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
+			gdsInvntrVO.setApcCd(spmtPrfmncVO.getApcCd());
+			gdsInvntrVO.setPckgno(spmtPrfmncVO.getPckgno());
+			gdsInvntrVO.setPckgSn(spmtPrfmncVO.getPckgSn());
+			gdsInvntrVO.setRtnGdsQntt(spmtPrfmncVO.getRtnGdsQntt());
+			gdsInvntrVO.setRtnGdsWght(spmtPrfmncVO.getRtnGdsWght());
+			gdsInvntrVO.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
+			gdsInvntrVO.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
+
+			resultMap = gdsInvntrService.updateGdsInvntrSpmtPrfmncRtn(gdsInvntrVO);
+
+			if(resultMap != null) {
+				return resultMap;
+			}
+		}
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deleteRtnSpmtPrfmncList(List<SpmtPrfmncVO> spmtPrfmncList) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		int deletedCnt = 0;
+
+		List<SpmtPrfmncVO> deleteList = new ArrayList<>();
+
+
+		for (SpmtPrfmncVO spmtPrfmncVO : spmtPrfmncList) {
+
+				deleteSpmtPrfmncCom(spmtPrfmncVO);
+
+				deleteList = selectSpmtPrfmncDtl(spmtPrfmncVO);
+
+				for (SpmtPrfmncVO spmtPrfmnc : deleteList) {
+
+					spmtPrfmnc.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
+					spmtPrfmnc.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
+
+					deletedCnt += deleteSpmtPrfmncDtl(spmtPrfmnc);
+
+					GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
+					gdsInvntrVO.setApcCd(spmtPrfmnc.getApcCd());
+					gdsInvntrVO.setPckgno(spmtPrfmnc.getPckgno());
+					gdsInvntrVO.setPckgSn(spmtPrfmnc.getPckgSn());
+					gdsInvntrVO.setRtnGdsQntt(spmtPrfmnc.getRtnGdsQntt());
+					gdsInvntrVO.setRtnGdsWght(spmtPrfmnc.getRtnGdsWght());
+					gdsInvntrVO.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
+					gdsInvntrVO.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
+
+					gdsInvntrService.updateGdsInvntrSpmtPrfmncRtnCncl(gdsInvntrVO);
+				}
+
+		}
+		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+		return resultMap;
+
+	}
+
 }
