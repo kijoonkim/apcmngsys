@@ -4,11 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
-   	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
-	<%@ include file="../../../frame/inc/headerScript.jsp" %>
+    <title>title : 규격/감량률 등록</title>
 </head>
 <body>
 	<section>
@@ -19,7 +15,7 @@
 						<span style="font-weight:bold;">선택한 품목별로 APC에서 관리하는 규격을 등록하세요.</span>
 					</p>
 					<p>
-						<span style="color:black; font-weight:bold;">품목별 감량율 등록은 원물계량실적, 선별실적, 포장실적에 적용되는 감량율를 등록하세요.</span>
+						<span style="color:black; font-weight:bold;">품목별 감량률 등록은 원물계량실적, 선별실적, 포장실적에 적용되는 감량률을 등록하세요.</span>
 					</p>
 				</div>
 				<div style="margin-left: auto;">
@@ -65,7 +61,7 @@
 					<!--[pp] 검색 -->
 					<div class="ad_tbl_top"  style="width: 98%;">
 						<ul class="ad_tbl_count">
-							<li><span>품목별 감량율</span></li>
+							<li><span>품목별 감량률</span></li>
 						</ul>
 					</div>
 					<table class="table table-bordered tbl_row tbl_fixed">
@@ -80,7 +76,7 @@
 						</colgroup>
 						<tbody>
 							<tr>
-								<th scope="row">원물감량율</th>
+								<th scope="row">원물감량률</th>
 								<th>
 									<sbux-input id="spcfct-inp-rawMtrRdcdRt" name="spcfct-inp-rawMtrRdcdRt" uitype="text" class="form-control input-sm"
 									mask = "{ 'alias': 'currency', 'digits': 2, 'suffix': '%', 'prefix': '', 'autoUnmask': true }"
@@ -88,7 +84,7 @@
 									readonly
 									></sbux-input>
 								</th>
-								<th scope="row">선별감량율</th>
+								<th scope="row">선별감량률</th>
 								<th>
 									<sbux-input id="spcfct-inp-sortRdcdRt" name="spcfct-inp-sortRdcdRt" uitype="text" class="form-control input-sm"
 									mask = "{ 'alias': 'currency', 'digits': 2, 'suffix': '%' , 'prefix': '', 'autoUnmask': true }"

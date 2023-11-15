@@ -4,11 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
-   	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
-	<%@ include file="../../../frame/inc/headerScript.jsp" %>
+    <title>title : 출하운송회사 등록</title>
 </head>
 <body>
 	<section>
@@ -16,7 +12,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<p>
-						<span style="font-weight:bold;">상품출하시 운용하고 있는 운송사 정보를 등록하세요.</span>
+						<span style="font-weight:bold;">상품 출하 시 운용하고 있는 운송사 정보를 등록하세요.</span>
 					</p>
 					<p>
 						<span style="color:black; font-weight:bold;">출하처리 시 필요한 정보입니다.</span>
