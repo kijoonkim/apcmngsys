@@ -474,6 +474,7 @@
 	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {
+		
 		fn_init();
 
 		const elements = document.querySelectorAll(".srch-keyup-area");
@@ -1147,12 +1148,12 @@
 
 	/** ui event */
 
+	/**
+	 * @name fn_onChangeApc
+	 * @description APC 선택 변경 event
+	 */
 	const fn_onChangeApc = async function() {
-		jsonPltBxData = {};
-		fn_clearPrdcr();
-		fn_initSBSelect();
-		fn_getPrdcrs();
-		fn_clearForm();
+		fn_init();
 	}
 
 	/**
