@@ -15,100 +15,111 @@
   */
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<ul style="list-style:none;padding-left: 5px;">
-	<li style="float: left;margin: 0px 5px;padding-left: 5px;">
-		<!-- <span id="stdGrdSlt-spn-grdNm-1" style="margin-right: 5px;">등급1 : </span> -->
-		<sbux-label id="stdGrdSlt-lbl-knd-1" name="stdGrdSlt-lbl-knd-1" uitype="normal" style="font-weight: bold;font-size: 12px;" text="등급1">
-		</sbux-label>
-		<sbux-select
-			unselected-text="선택"
-			uitype="single"
-			id="stdGrdSlt-slt-knd-1"
-			name="stdGrdSlt-slt-knd-1"
-			class="input-sm input-sm-ast inpt_data_reqed"
-			jsondata-ref="gjsonStdGrdObj_1"
-			jsondata-text="grdNm"
-			jsondata-value="grdCd"
-			onchange="stdGrdSelect.setGrdJgmt"
-		/>
-	</li>
-	<li style="float: left;margin: 0px 5px;padding-left: 5px;">
-		<sbux-label id="stdGrdSlt-lbl-knd-2" name="stdGrdSlt-lbl-knd-2" uitype="normal" style="font-weight: bold;font-size: 12px;" text="등급2">
-		</sbux-label>
-		<sbux-select
-			unselected-text="선택"
-			uitype="single"
-			id="stdGrdSlt-slt-knd-2"
-			name="stdGrdSlt-slt-knd-2"
-			class="input-sm input-sm-ast inpt_data_reqed"
-			jsondata-ref="gjsonStdGrdObj_2"
-			jsondata-text="grdNm"
-			jsondata-value="grdCd"
-			onchange="stdGrdSelect.setGrdJgmt"
-		/>
-	</li>
-	<li style="float: left;margin: 0px 5px;padding-left: 5px;">
-		<sbux-label id="stdGrdSlt-lbl-knd-3" name="stdGrdSlt-lbl-knd-3" uitype="normal" style="font-weight: bold;font-size: 12px;" text="등급3">
-		</sbux-label>
-		<sbux-select
-			unselected-text="선택"
-			uitype="single"
-			id="stdGrdSlt-slt-knd-3"
-			name="stdGrdSlt-slt-knd-3"
-			class="input-sm input-sm-ast inpt_data_reqed"
-			jsondata-ref="gjsonStdGrdObj_3"
-			jsondata-text="grdNm"
-			jsondata-value="grdCd"
-			onchange="stdGrdSelect.setGrdJgmt"
-		/>
-	</li>
-	<li style="float: left;margin: 0px 5px;padding-left: 5px;">
-		<sbux-label id="stdGrdSlt-lbl-knd-4" name="stdGrdSlt-lbl-knd-4" uitype="normal" style="font-weight: bold;font-size: 12px;" text="등급4">
-		</sbux-label>
-		<sbux-select
-			unselected-text="선택"
-			uitype="single"
-			id="stdGrdSlt-slt-knd-4"
-			name="stdGrdSlt-slt-knd-4"
-			class="input-sm input-sm-ast inpt_data_reqed"
-			jsondata-ref="gjsonStdGrdObj_4"
-			jsondata-text="grdNm"
-			jsondata-value="grdCd"
-			onchange="stdGrdSelect.setGrdJgmt"
-		/>
-	</li>
-	<li style="float: left;margin: 0px 5px;padding-left: 5px;">
-		<sbux-label id="stdGrdSlt-lbl-knd-5" name="stdGrdSlt-lbl-knd-5" uitype="normal" style="font-weight: bold;font-size: 12px;" text="등급5">
-		</sbux-label>
-		<sbux-select
-			unselected-text="선택"
-			uitype="single"
-			id="stdGrdSlt-slt-knd-5"
-			name="stdGrdSlt-slt-knd-5"
-			class="input-sm input-sm-ast inpt_data_reqed"
-			jsondata-ref="gjsonStdGrdObj_5"
-			jsondata-text="grdNm"
-			jsondata-value="grdCd"
-			onchange="stdGrdSelect.setGrdJgmt"
-		/>
-	</li>
-	<li style="float: left;margin: 0px 5px;padding-left: 5px;">
-		<sbux-label id="stdGrdSlt-lbl-jgmt" name="stdGrdSlt-lbl-jgmt" uitype="normal" style="color: #3c6dbc;font-weight: bold;font-size: 12px;" text="판정등급 : ">
-		</sbux-label>
-		<sbux-select
-			unselected-text="선택"
-			uitype="single"
-			id="stdGrdSlt-slt-jgmt"
-			name="stdGrdSlt-slt-jgmt"
-			class="input-sm input-sm-ast"
-			readonly
-			jsondata-ref="gjsonStdGrdObjJgmt"
-			jsondata-text="grdNm"
-			jsondata-value="grdCd"
-		/>
-	</li>
-</ul>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>title : SBUx2.6</title>
+   	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
+	<%@ include file="../../../frame/inc/headerScript.jsp" %>
+</head>
+<body>
+	<ul style="list-style:none;padding-left: 5px;">
+		<li style="float: left;margin: 0px 5px;padding-left: 5px;">
+			<!-- <span id="stdGrdSlt-spn-grdNm-1" style="margin-right: 5px;">등급1 : </span> -->
+			<sbux-label id="stdGrdSlt-lbl-knd-1" name="stdGrdSlt-lbl-knd-1" uitype="normal" style="font-weight: bold;font-size: 12px;" text="등급1">
+			</sbux-label>
+			<sbux-select
+				unselected-text="선택"
+				uitype="single"
+				id="stdGrdSlt-slt-knd-1"
+				name="stdGrdSlt-slt-knd-1"
+				class="input-sm input-sm-ast inpt_data_reqed"
+				jsondata-ref="gjsonStdGrdObj_1"
+				jsondata-text="grdNm"
+				jsondata-value="grdCd"
+				onchange="stdGrdSelect.setGrdJgmt"
+			/>
+		</li>
+		<li style="float: left;margin: 0px 5px;padding-left: 5px;">
+			<sbux-label id="stdGrdSlt-lbl-knd-2" name="stdGrdSlt-lbl-knd-2" uitype="normal" style="font-weight: bold;font-size: 12px;" text="등급2">
+			</sbux-label>
+			<sbux-select
+				unselected-text="선택"
+				uitype="single"
+				id="stdGrdSlt-slt-knd-2"
+				name="stdGrdSlt-slt-knd-2"
+				class="input-sm input-sm-ast inpt_data_reqed"
+				jsondata-ref="gjsonStdGrdObj_2"
+				jsondata-text="grdNm"
+				jsondata-value="grdCd"
+				onchange="stdGrdSelect.setGrdJgmt"
+			/>
+		</li>
+		<li style="float: left;margin: 0px 5px;padding-left: 5px;">
+			<sbux-label id="stdGrdSlt-lbl-knd-3" name="stdGrdSlt-lbl-knd-3" uitype="normal" style="font-weight: bold;font-size: 12px;" text="등급3">
+			</sbux-label>
+			<sbux-select
+				unselected-text="선택"
+				uitype="single"
+				id="stdGrdSlt-slt-knd-3"
+				name="stdGrdSlt-slt-knd-3"
+				class="input-sm input-sm-ast inpt_data_reqed"
+				jsondata-ref="gjsonStdGrdObj_3"
+				jsondata-text="grdNm"
+				jsondata-value="grdCd"
+				onchange="stdGrdSelect.setGrdJgmt"
+			/>
+		</li>
+		<li style="float: left;margin: 0px 5px;padding-left: 5px;">
+			<sbux-label id="stdGrdSlt-lbl-knd-4" name="stdGrdSlt-lbl-knd-4" uitype="normal" style="font-weight: bold;font-size: 12px;" text="등급4">
+			</sbux-label>
+			<sbux-select
+				unselected-text="선택"
+				uitype="single"
+				id="stdGrdSlt-slt-knd-4"
+				name="stdGrdSlt-slt-knd-4"
+				class="input-sm input-sm-ast inpt_data_reqed"
+				jsondata-ref="gjsonStdGrdObj_4"
+				jsondata-text="grdNm"
+				jsondata-value="grdCd"
+				onchange="stdGrdSelect.setGrdJgmt"
+			/>
+		</li>
+		<li style="float: left;margin: 0px 5px;padding-left: 5px;">
+			<sbux-label id="stdGrdSlt-lbl-knd-5" name="stdGrdSlt-lbl-knd-5" uitype="normal" style="font-weight: bold;font-size: 12px;" text="등급5">
+			</sbux-label>
+			<sbux-select
+				unselected-text="선택"
+				uitype="single"
+				id="stdGrdSlt-slt-knd-5"
+				name="stdGrdSlt-slt-knd-5"
+				class="input-sm input-sm-ast inpt_data_reqed"
+				jsondata-ref="gjsonStdGrdObj_5"
+				jsondata-text="grdNm"
+				jsondata-value="grdCd"
+				onchange="stdGrdSelect.setGrdJgmt"
+			/>
+		</li>
+		<li style="float: left;margin: 0px 5px;padding-left: 5px;">
+			<sbux-label id="stdGrdSlt-lbl-jgmt" name="stdGrdSlt-lbl-jgmt" uitype="normal" style="color: #3c6dbc;font-weight: bold;font-size: 12px;" text="판정등급 : ">
+			</sbux-label>
+			<sbux-select
+				unselected-text="선택"
+				uitype="single"
+				id="stdGrdSlt-slt-jgmt"
+				name="stdGrdSlt-slt-jgmt"
+				class="input-sm input-sm-ast"
+				readonly
+				jsondata-ref="gjsonStdGrdObjJgmt"
+				jsondata-text="grdNm"
+				jsondata-value="grdCd"
+			/>
+		</li>
+	</ul>
+</body>
 
 <script type="text/javascript">
 
@@ -420,8 +431,5 @@ const stdGrdSelect = {
 		return result;
 	},
 }
-
 </script>
-
-
-
+</html>
