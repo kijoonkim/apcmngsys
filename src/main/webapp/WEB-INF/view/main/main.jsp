@@ -34,7 +34,7 @@
 
     let prvTabMenuId = "";
 
-    //const sysPrgrmId = "main";
+    //let sysPrgrmId = "main";
     //gfn_setSysPrgrmId(sysPrgrmId);
     //SBUx topmenu 컴포넌트의 json 데이터
 
@@ -475,7 +475,7 @@
 
         fn_setBreadcrumbs(menuId, tabObj.text);
 
-        if (sysPrgrmId !== menuId) {
+        if (prvTabMenuId !== menuId) {
             fn_afterSeletTab(menuId);
         }
 

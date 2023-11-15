@@ -1,5 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%
+ /**
+  * @Class Name : comAuthrtUserMng.jsp
+  * @Description : 사용자권한관리 화면
+  * @author SI개발부
+  * @since 2023.06.30
+  * @version 1.0
+  * @Modification Information
+  * @
+  * @ 수정일       	수정자      	수정내용
+  * @ ----------	----------	---------------------------
+  * @ 2023.06.30   	신정철			최초 생성
+  * @see
+  *
+  */
+%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +26,7 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>	<!-- 출하실적등록 -->
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>	<!-- 사용자권한관리 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_insert"></sbux-button>
@@ -22,7 +37,7 @@
 			<div class="box-body">
 				<!--[pp] 검색 -->
 				<!--[APC] START -->
-					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
+					<%@ include file="../../../frame/inc/apcSelectAll.jsp" %>
 				<!--[APC] END -->
 				<table class="table table-bordered tbl_fixed">
 				<caption>검색 조건 설정</caption>
