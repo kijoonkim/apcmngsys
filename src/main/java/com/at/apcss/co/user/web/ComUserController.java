@@ -103,5 +103,33 @@ public class ComUserController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+	
+	@PostMapping(value = "/co/user/updateUserSttsList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateUserSttsList(@RequestBody List<ComUserVO> comUserList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+
+			for ( ComUserVO user : comUserList ) {
+				user.setSysFrstInptUserId(getUserId());
+				user.setSysFrstInptPrgrmId(getPrgrmId());
+				user.setSysLastChgUserId(getUserId());
+				user.setSysLastChgPrgrmId(getPrgrmId());
+			}
+
+			HashMap<String, Object> rtnObj = comUserService.updateUserSttsList(comUserList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
 
 }

@@ -78,7 +78,7 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 	}
 
 	@Override
-	public HashMap<String, Object> updateUserStts(List<ComUserVO> comUserList) throws Exception {
+	public HashMap<String, Object> updateUserSttsList(List<ComUserVO> comUserList) throws Exception {
 		HashMap<String, Object> rtnObj = new HashMap<>();
 		
 		for ( ComUserVO comUserVO : comUserList ) {

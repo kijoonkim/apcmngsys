@@ -1,15 +1,9 @@
 package egovframework.com.config;
 
 import javax.annotation.PostConstruct;
-import javax.sql.DataSource;
-
-import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 /**
  * @ClassName : EgovConfigAppReport.java
@@ -73,9 +67,6 @@ public class EgovConfigAppReport {
 		reportUrl = env.getProperty("spring.report.url");
 		reportType = env.getProperty("spring.report.type");
 		reportPath = env.getProperty("spring.report.path");
-
-		System.out.println(String.format("reportUrl: %s", reportUrl));
-		System.out.println(String.format("reportPath: %s", reportPath));
 	}
 
 
