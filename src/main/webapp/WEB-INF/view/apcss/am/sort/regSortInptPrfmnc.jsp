@@ -337,7 +337,7 @@
     
 	<!-- clip report direct print area  -->
 	<div id="div-rpt-clipReportPrint" style="display:none;"></div>
-	
+</body>
 <script type="text/javascript">
 
 	const lv_paging = {
@@ -2139,5 +2139,5 @@
  		}
  	}
 </script>
-</body>
+<%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

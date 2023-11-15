@@ -1093,6 +1093,6 @@ let lv_prvMenuId = "";
     }
 
 </script>
-
 </body>
+<%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

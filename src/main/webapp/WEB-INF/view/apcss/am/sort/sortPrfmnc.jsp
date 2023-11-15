@@ -1,4 +1,3 @@
-
 <%
  /**
   * @Class Name : sortPrfmnc.jsp
@@ -881,4 +880,5 @@
 		})
 	})
 </script>
+<%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
