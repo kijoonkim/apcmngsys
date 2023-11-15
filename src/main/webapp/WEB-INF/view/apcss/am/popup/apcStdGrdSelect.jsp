@@ -19,7 +19,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-    <title>title : SBUx2.6</title>
+    <title>title : APC표준등급 부여</title>
 </head>
 <body>
 	<ul style="list-style:none;padding-left: 5px;">

@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-    <title>title : SBUx2.6</title>
+    <title>title : 원물운임비용등록</title>
 	<style type="text/css">
 		/* .sbgrid_inputbutton_button_st  {
 			 width:  19 px;

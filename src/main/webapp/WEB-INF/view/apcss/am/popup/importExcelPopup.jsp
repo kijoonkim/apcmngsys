@@ -19,7 +19,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-    <title>title : SBUx2.6</title>
+    <title>title : 엑셀 올리기</title>
 </head>
 <body>
 	<section>
