@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,25 +21,27 @@
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search()"></sbux-button>
 				</div>
 			</div>
-			
+
 			<div class="box-body">
 				<div id="tab_content">
+					<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 					<!-- 접속이력 탭 화면 -->
-				    <div id="LogCntnHstry">
-				    	<jsp:include page="../../co/log/comLogCntnHstry.jsp"></jsp:include>
-				    </div>
-					<!-- 화면열람이력 탭 화면 -->
-				    <div id="LogMenuHstry">
-				    	<jsp:include page="../../co/log/comLogMenuHstry.jsp"></jsp:include>
-				    </div>
-					<!-- 송수신이력 탭 화면 -->
-				    <div id="LogTrsmHstry">
-				    	<jsp:include page="../../co/log/comLogTrsmHstry.jsp"></jsp:include>
-				    </div>
-					<!-- 배치실행이력 탭 화면 -->
-				    <div id="LogBatchHstry">
-				    	<jsp:include page="../../co/log/comLogBatchHstry.jsp"></jsp:include>
-				    </div>
+					    <div id="LogCntnHstry">
+					    	<jsp:include page="../../co/log/comLogCntnHstry.jsp"></jsp:include>
+					    </div>
+						<!-- 화면열람이력 탭 화면 -->
+					    <div id="LogMenuHstry">
+					    	<jsp:include page="../../co/log/comLogMenuHstry.jsp"></jsp:include>
+					    </div>
+						<!-- 송수신이력 탭 화면 -->
+					    <div id="LogTrsmHstry">
+					    	<jsp:include page="../../co/log/comLogTrsmHstry.jsp"></jsp:include>
+					    </div>
+						<!-- 배치실행이력 탭 화면 -->
+					    <div id="LogBatchHstry">
+					    	<jsp:include page="../../co/log/comLogBatchHstry.jsp"></jsp:include>
+					    </div>
+					</c:if>
 				    <!-- 원물재고변경이력 탭 화면 -->
 				    <div id="RawMtrChgHstry">
 				    	<jsp:include page="../../co/log/rawMtrChgHstry.jsp"></jsp:include>
@@ -59,7 +61,7 @@
 </body>
 <script type="text/javascript">
 	var searchTarget = "logCntnHstry";
-	
+
 	$(function(){
 		$('.ad_tbl_toplist button').click(function(){
 			var btnName = $(this).attr('id').slice(0, $(this).attr('id').length-1);
@@ -76,13 +78,18 @@
 		    eval('tab'+btnName.slice(3)+'.init(gv_selectedApcCd, gv_selectedApcNm)');
 		    searchTarget = btnName.slice(3);
 		});
-		$('#LogCntnHstry [name=btnLogCntnHstry]').click();
+		var userType = '${loginVO.userType}';
+		if(userType == "00" || userType == "01"){
+			$('#LogCntnHstry [name=btnLogCntnHstry]').click();
+		}else{
+			$('#RawMtrChgHstry [name=btnRawMtrChgHstry]').click();
+		}
 	});
-	
+
 	window.addEventListener('DOMContentLoaded', function(e) {
-		
+
 	})
-	
+
 	// 이력 조회 (조회 버튼)
     async function fn_search() {
 		if(searchTarget == "LogCntnHstry"){
