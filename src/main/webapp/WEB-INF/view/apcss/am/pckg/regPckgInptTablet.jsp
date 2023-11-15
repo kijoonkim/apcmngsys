@@ -636,9 +636,8 @@
 			SBUxMethod.set('srch-inp-inptWght', pckgCmnd.cmndWght);
 			SBUxMethod.set('cmnd-inp-itemCd', pckgCmnd.itemCd);
 			SBUxMethod.set('cmnd-inp-vrtyCd', pckgCmnd.vrtyCd);
-
-
 		}
 	}
 </script>
+<%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
