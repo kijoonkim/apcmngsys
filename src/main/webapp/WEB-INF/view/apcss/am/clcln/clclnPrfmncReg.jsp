@@ -109,6 +109,7 @@
 									name="srch-dtp-clclnYmdFrom"
 									uitype="popup"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									onchange="fn_dtpChangeClclnYmd"
 								></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
@@ -117,6 +118,7 @@
 									name="srch-dtp-clclnYmdTo"
 									uitype="popup"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									onchange="fn_dtpChangeClclnYmd"
 								></sbux-datepicker>
 							</td>
 							<td></td>
@@ -771,7 +773,10 @@
  		SBUxMethod.set("srch-inp-prdcrCd", "");
  		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:''");
  	}
-
+ 	/**
+ 	 * @name fn_setPrdcrForm
+ 	 * @description 생산자 폼 Set
+ 	 */
 	const fn_setPrdcrForm = async function(prdcr) {
 
 		if (!gfn_isEmpty(prdcr.rprsVrtyCd)) {	// 대표품종
@@ -789,5 +794,20 @@
 		}
 	}
 
+	/**
+ 	 * @name fn_dtpChangeClclnYmd
+ 	 * @description 일자 역전 방지
+ 	 */
+	const fn_dtpChangeClclnYmd = function(){
+ 		let clclnYmdFrom = SBUxMethod.get("srch-dtp-clclnYmdFrom");
+ 		let clclnYmdTo = SBUxMethod.get("srch-dtp-clclnYmdTo");
+ 		if(gfn_diffDate(clclnYmdFrom, clclnYmdTo) < 0){
+ 			gfn_comAlert("W0014", "종료일자", "시작일자");		//	W0014	{0}이/가 {1} 보다 큽니다.
+ 			SBUxMethod.set("srch-dtp-clclnYmdFrom", gfn_dateToYmd(new Date()));
+ 			SBUxMethod.set("srch-dtp-clclnYmdTo", gfn_dateToYmd(new Date()));
+ 			return;
+ 		}
+ 	}
 </script>
+<%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
