@@ -140,7 +140,7 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 
 		GdsInvntrVO invntrInfo = selectGdsInvntr(gdsInvntrVO);
 
-		if (invntrInfo == null 
+		if (invntrInfo == null
 				|| !StringUtils.hasText(invntrInfo.getPckgno())
 				|| !ComConstants.CON_NONE.equals(invntrInfo.getDelYn())) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상품재고");
@@ -169,9 +169,9 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 			// error throw exception;
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
-		
+
 		gdsInvntrMapper.updateGdsInvntrSpmtPrfmnc(gdsInvntrVO);
-		
+
 		return null;
 	}
 
@@ -180,7 +180,7 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 
 		GdsInvntrVO invntrInfo = selectGdsInvntr(gdsInvntrVO);
 
-		if (invntrInfo == null 
+		if (invntrInfo == null
 				|| !StringUtils.hasText(invntrInfo.getPckgno())
 				|| !ComConstants.CON_NONE.equals(invntrInfo.getDelYn())) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상품재고정보");
@@ -209,7 +209,7 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 			// error throw exception;
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
-		
+
 		gdsInvntrMapper.updateGdsInvntrSpmtPrfmnc(gdsInvntrVO);
 
 		return null;
@@ -217,7 +217,7 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 
 	@Override
 	public HashMap<String, Object> multiSaveGdsInvntrList(List<GdsInvntrVO> gdsInvntrList) throws Exception {
-		
+
 		List<GdsInvntrVO> updateList = new ArrayList<>();
 		List<GdsInvntrVO> insertList = new ArrayList<>();
 
@@ -259,7 +259,7 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 				// error throw exception;
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
-			
+
 			// 상품재고 변경
 			gdsInvntrMapper.updateGdsInvntrChg(gdsInvntrVO);
 		}
@@ -272,7 +272,7 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 
 		GdsInvntrVO invntrInfo = selectGdsInvntr(gdsInvntrVO);
 
-		if (invntrInfo == null 
+		if (invntrInfo == null
 				|| !StringUtils.hasText(invntrInfo.getPckgno())
 				|| !ComConstants.CON_NONE.equals(invntrInfo.getDelYn())) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상품재고정보");
@@ -291,7 +291,7 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 		double trnsfWght = invntrInfo.getTrnsfWght() + gdsInvntrVO.getTrnsfWght();
 		gdsInvntrVO.setTrnsfQntt(trnsfQntt);
 		gdsInvntrVO.setTrnsfWght(trnsfWght);
-		
+
 		// 상품 재고변경 이력 등록 (이송)
 		gdsInvntrVO.setChgRsnCd(AmConstants.CON_INVNTR_CHG_RSN_CD_T1);
 		HashMap<String, Object> rtnObj = insertGdsInvntrChgHstry(gdsInvntrVO);
@@ -299,7 +299,7 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 			// error throw exception;
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
-		
+
 		gdsInvntrMapper.updateInvntrTrnsf(gdsInvntrVO);
 
 		return null;
@@ -315,10 +315,10 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 
 	@Override
 	public HashMap<String, Object> insertGdsInvntrChgHstry(GdsInvntrVO gdsInvntrVO) throws Exception {
-		
+
 		GdsInvntrVO invntrInfo = selectGdsInvntr(gdsInvntrVO);
 
-		if (invntrInfo == null 
+		if (invntrInfo == null
 				|| !StringUtils.hasText(invntrInfo.getPckgno())
 				|| !ComConstants.CON_NONE.equals(invntrInfo.getDelYn())
 				) {
@@ -331,13 +331,87 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 		chgHstryVO.setChgBfrWght(invntrInfo.getInvntrWght());
 		chgHstryVO.setChgAftrQntt(gdsInvntrVO.getInvntrQntt());
 		chgHstryVO.setChgAftrWght(gdsInvntrVO.getInvntrWght());
-		
+
 		if (!StringUtils.hasText(gdsInvntrVO.getWarehouseSeCd())
 				|| gdsInvntrVO.getWarehouseSeCd().equals(invntrInfo.getWarehouseSeCd())) {
 			chgHstryVO.setWarehouseSeCd(ComConstants.CON_BLANK);
 		}
-		
+
 		gdsInvntrMapper.insertGdsInvntrChgHstry(chgHstryVO);
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> updateGdsInvntrSpmtPrfmncRtn(GdsInvntrVO gdsInvntrVO) throws Exception {
+
+		GdsInvntrVO invntrInfo = selectGdsInvntr(gdsInvntrVO);
+
+		if (invntrInfo == null
+				|| !StringUtils.hasText(invntrInfo.getPckgno())
+				|| !ComConstants.CON_NONE.equals(invntrInfo.getDelYn())) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상품재고정보");
+		}
+
+		if (gdsInvntrVO.getRtnGdsWght() > invntrInfo.getSpmtWght()) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "출하량||반품량");		// W0008	{0} 보다 {1}이/가 큽니다.
+		}
+
+		// 재고량
+		int invntrQntt = invntrInfo.getInvntrQntt() + gdsInvntrVO.getRtnGdsQntt();
+		double invntrWght = invntrInfo.getInvntrWght() + gdsInvntrVO.getRtnGdsWght();
+		gdsInvntrVO.setInvntrQntt(invntrQntt);
+		gdsInvntrVO.setInvntrWght(invntrWght);
+
+		// 상품 재고변경 이력 등록 (반품등록)
+		gdsInvntrVO.setChgRsnCd(AmConstants.CON_INVNTR_CHG_RSN_CD_R1);
+		HashMap<String, Object> rtnObj = insertGdsInvntrChgHstry(gdsInvntrVO);
+		if (rtnObj != null) {
+			// error throw exception;
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+
+		gdsInvntrMapper.updateGdsInvntrSpmtPrfmncRtn(gdsInvntrVO);
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> updateGdsInvntrSpmtPrfmncRtnCncl(GdsInvntrVO gdsInvntrVO) throws Exception {
+
+		GdsInvntrVO invntrInfo = selectGdsInvntr(gdsInvntrVO);
+
+		if (invntrInfo == null
+				|| !StringUtils.hasText(invntrInfo.getPckgno())
+				|| !ComConstants.CON_NONE.equals(invntrInfo.getDelYn())) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상품재고");
+		}
+
+		if (gdsInvntrVO.getSpmtWght() > invntrInfo.getInvntrWght()) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "재고량||출하량");		// W0008	{0} 보다 {1}이/가 큽니다.
+		}
+
+		// 반품량
+		int rtnGdsQntt = invntrInfo.getRtnGdsQntt() - gdsInvntrVO.getRtnGdsQntt();
+		double rtnGdsWght = invntrInfo.getRtnGdsWght() - gdsInvntrVO.getRtnGdsWght();
+		gdsInvntrVO.setRtnGdsQntt(rtnGdsQntt);
+		gdsInvntrVO.setRtnGdsWght(rtnGdsWght);
+
+		// 재고량
+		int invntrQntt = invntrInfo.getInvntrQntt() - gdsInvntrVO.getRtnGdsQntt();
+		double invntrWght = invntrInfo.getInvntrWght() - gdsInvntrVO.getRtnGdsWght();
+		gdsInvntrVO.setInvntrQntt(invntrQntt);
+		gdsInvntrVO.setInvntrWght(invntrWght);
+
+		// 상품 재고변경 이력 등록 (반품취소)
+		gdsInvntrVO.setChgRsnCd(AmConstants.CON_INVNTR_CHG_RSN_CD_R2);
+		HashMap<String, Object> rtnObj = insertGdsInvntrChgHstry(gdsInvntrVO);
+		if (rtnObj != null) {
+			// error throw exception;
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+
+		gdsInvntrMapper.updateGdsInvntrSpmtPrfmncRtn(gdsInvntrVO);
 
 		return null;
 	}

@@ -52,91 +52,117 @@
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtPrfmncList */
-	    	       PD.SPMTNO						AS SPMTNO
-	    	     , PD.PCKG_SN                       AS PCKG_SN
-                 , PD.PCKGNO                        AS PCKGNO
- 			     , PC.APC_CD						AS APC_CD
-			     , PC.SPMT_YMD						AS SPMT_YMD
-			     , PD.BRND_NM						AS BRND_NM
-			     , PD.GDS_CD						AS GDS_CD
-			     , PD.ITEM_CD						AS ITEM_CD
-			     , PD.VRTY_CD						AS VRTY_CD
-			     , PD.SPCFCT_CD						AS SPCFCT_CD
-			     , PC.CNPT_CD						AS CNPT_CD
-			     , MAX(PC.DLDTN)					AS DLDTN
-			     , MAX(PC.TRSPRT_CO_CD)				AS TRSPRT_CO_CD
-			     , MAX(PC.VHCLNO)					AS VHCLNO
-			     , MAX(PC.TRSPRT_CST)				AS TRSPRT_CST
-			     , SUM(PD.SPMT_QNTT)				AS SPMT_QNTT
-			     , SUM(PD.SPMT_WGHT)				AS SPMT_WGHT
-			     , MAX(PC.RMRK)                     AS RMRK
-				 , (SELECT DDLN_YN
-                      FROM TB_DDLN_MNG X
-                     WHERE X.APC_CD = PC.APC_CD
-                       AND SUBSTR(PC.SPMT_YMD, 1,4) = X.CRTR_YR
-                       AND SUBSTR(PC.SPMT_YMD, 5,2) = X.CRTR_MM
-                   ) AS DDLN_YN
-                 , (SELECT CFMTN_YN
-                      FROM TB_SLS_PRFMNC X
-                     WHERE X.APC_CD = PC.APC_CD
-                       AND X.SPMTNO = PD.SPMTNO
-                       AND X.PCKGNO = PD.PCKGNO
-                       AND X.PCKG_SN = PD.PCKG_SN
-                   ) AS CFMTN_YN
-			  FROM TB_SPMT_PRFMNC_COM		PC
-			     , TB_SPMT_PRFMNC_DTL		PD
-			 WHERE PC.APC_CD = PD.APC_CD
-			   AND PC.SPMTNO = PD.SPMTNO
-			   AND PC.DEL_YN = 'N'
-			   AND PD.DEL_YN = 'N'
+		    	SELECT /* com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtPrfmncList */
+				       PD.SPMTNO						AS SPMTNO
+				     , PD.PCKG_SN                       AS PCKG_SN
+				     , PD.PCKGNO                        AS PCKGNO
+				     , PC.APC_CD						AS APC_CD
+				     , PC.SPMT_YMD						AS SPMT_YMD
+				     , PD.BRND_NM						AS BRND_NM
+				     , PD.GDS_CD						AS GDS_CD
+				     , PD.ITEM_CD						AS ITEM_CD
+				     , PD.VRTY_CD						AS VRTY_CD
+				     , PD.SPCFCT_CD						AS SPCFCT_CD
+				     , PC.CNPT_CD						AS CNPT_CD
+				     , PC.DLDTN					        AS DLDTN
+				     , PC.TRSPRT_CO_CD				    AS TRSPRT_CO_CD
+				     , PC.VHCLNO					    AS VHCLNO
+				     , PC.TRSPRT_CST				    AS TRSPRT_CST
+				     , CASE WHEN PC.RTN_GDS_YN = 'Y'
+                            THEN PD.SPMT_QNTT
+                            ELSE ''
+                            END AS RTN_GDS_QNTT
+                     , CASE WHEN PC.RTN_GDS_YN = 'Y'
+                            THEN PD.SPMT_WGHT
+                            ELSE ''
+                            END AS RTN_GDS_WGHT
+                     , CASE WHEN PC.RTN_GDS_YN = 'Y'
+                            THEN ''
+                            ELSE PD.SPMT_QNTT
+                            END AS SPMT_QNTT
+                     , CASE WHEN PC.RTN_GDS_YN = 'Y'
+                            THEN ''
+                            ELSE PD.SPMT_WGHT
+                            END AS SPMT_WGHT
+				     , PC.RMRK                          AS RMRK
+				     , NVL(PC.RTN_GDS_YN, 'N')          AS RTN_GDS_YN
+				     , DECODE(PC.RTN_GDS_YN, 'Y', '반품', '출하') AS RTN_GDS_NM
+				     , PD.ORGN_SPMTNO                   AS ORGN_SPMTNO
+				     , PD.ORGN_PCKGNO                   AS ORGN_PCKGNO
+				     , PD.ORGN_PCKG_SN                  AS ORGN_PCKG_SN
+				     , PD.SPMT_QNTT - NVL((SELECT SUM(SPMT_QNTT)
+				          FROM TB_SPMT_PRFMNC_DTL X
+				         WHERE PD.SPMTNO = X.ORGN_SPMTNO
+				           AND PD.PCKGNO = X.ORGN_PCKGNO
+				           AND PD.PCKG_SN = X.ORGN_PCKG_SN
+				           AND X.DEL_YN = 'N'
+				       ), 0) AS RTN_PSBLEY_QNTT
+				     , PD.SPMT_WGHT - NVL((SELECT SUM(SPMT_WGHT)
+				          FROM TB_SPMT_PRFMNC_DTL X
+				         WHERE PD.SPMTNO = X.ORGN_SPMTNO
+				           AND PD.PCKGNO = X.ORGN_PCKGNO
+				           AND PD.PCKG_SN = X.ORGN_PCKG_SN
+				           AND X.DEL_YN = 'N'
+				       ), 0) AS RTN_PSBLEY_WGHT
+				     , (SELECT DDLN_YN
+				          FROM TB_DDLN_MNG X
+				         WHERE X.APC_CD = PC.APC_CD
+				           AND SUBSTR(PC.SPMT_YMD, 1,4) = X.CRTR_YR
+				           AND SUBSTR(PC.SPMT_YMD, 5,2) = X.CRTR_MM
+				       ) AS DDLN_YN
+				     , (SELECT CFMTN_YN
+				          FROM TB_SLS_PRFMNC X
+				         WHERE X.APC_CD = PC.APC_CD
+				           AND X.SPMTNO = PD.SPMTNO
+				           AND X.PCKGNO = PD.PCKGNO
+				           AND X.PCKG_SN = PD.PCKG_SN
+				       ) AS CFMTN_YN
+				  FROM TB_SPMT_PRFMNC_COM		PC
+				     , TB_SPMT_PRFMNC_DTL		PD
+				 WHERE PC.APC_CD = PD.APC_CD
+				   AND PC.SPMTNO = PD.SPMTNO
+				   AND PC.DEL_YN = 'N'
+				   AND PD.DEL_YN = 'N'
 
 		]]>
-		<if test='apcCd != null and apcCd != ""'>
-			   AND PC.APC_CD = #{apcCd}
-		</if>
-		<if test='spmtYmdFrom != null and spmtYmdFrom != ""'>
-		   	   AND PC.SPMT_YMD <![CDATA[>=]]> #{spmtYmdFrom}
-		</if>
-		<if test='spmtYmdTo != null and spmtYmdTo != ""'>
-		   	   AND PC.SPMT_YMD <![CDATA[<=]]> #{spmtYmdTo}
-		</if>
-		<if test='cnptNm != null and cnptNm != ""'>
-			   AND (SELECT FN_GET_CNPT_NM(PC.CNPT_CD, PC.APC_CD) FROM DUAL) LIKE '%' ||  #{cnptNm} || '%'
-		</if>
-		<if test='cnptCd != null and cnptCd != ""'>
-			   AND PC.CNPT_CD = #{cnptCd}
-		</if>
-		<if test='trsprtCoCd != null and trsprtCoCd != ""'>
-		       AND PC.TRSPRT_CO_CD = #{trsprtCoCd}
-		</if>
-		<if test='itemCd != null and itemCd != ""'>
-		       AND PD.ITEM_CD = #{itemCd}
-		</if>
-		<if test='vrtyCd != null and vrtyCd != ""'>
-		       AND PD.VRTY_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{vrtyCd})))
-		</if>
-		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
-		       -- AND GI.WAREHOUSE_SE_CD = #{warehouseSeCd}
-		</if>
-		<if test='dldtn != null and dldtn != ""'>
-		       AND PC.DLDTN LIKE '%' ||  #{dldtn} || '%'
-		</if>
-		<if test='vhclno != null and vhclno != ""'>
-		       AND PC.VHCLNO LIKE '%' ||  #{vhclno} || '%'
-		</if>
+			<if test='apcCd != null and apcCd != ""'>
+				   AND PC.APC_CD = #{apcCd}
+			</if>
+			<if test='spmtYmdFrom != null and spmtYmdFrom != ""'>
+			   	   AND PC.SPMT_YMD <![CDATA[>=]]> #{spmtYmdFrom}
+			</if>
+			<if test='spmtYmdTo != null and spmtYmdTo != ""'>
+			   	   AND PC.SPMT_YMD <![CDATA[<=]]> #{spmtYmdTo}
+			</if>
+			<if test='cnptNm != null and cnptNm != ""'>
+				   AND (SELECT FN_GET_CNPT_NM(PC.CNPT_CD, PC.APC_CD) FROM DUAL) LIKE '%' ||  #{cnptNm} || '%'
+			</if>
+			<if test='cnptCd != null and cnptCd != ""'>
+				   AND PC.CNPT_CD = #{cnptCd}
+			</if>
+			<if test='trsprtCoCd != null and trsprtCoCd != ""'>
+			       AND PC.TRSPRT_CO_CD = #{trsprtCoCd}
+			</if>
+			<if test='rtnGdsYn != null and rtnGdsYn != ""'>
+			       AND NVL(PC.RTN_GDS_YN, 'N') = #{rtnGdsYn}
+			</if>
+			<if test='itemCd != null and itemCd != ""'>
+			       AND PD.ITEM_CD = #{itemCd}
+			</if>
+			<if test='vrtyCd != null and vrtyCd != ""'>
+			       AND PD.VRTY_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{vrtyCd})))
+			</if>
+			<if test='warehouseSeCd != null and warehouseSeCd != ""'>
+			       -- AND GI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+			</if>
+			<if test='dldtn != null and dldtn != ""'>
+			       AND PC.DLDTN LIKE '%' ||  #{dldtn} || '%'
+			</if>
+			<if test='vhclno != null and vhclno != ""'>
+			       AND PC.VHCLNO LIKE '%' ||  #{vhclno} || '%'
+			</if>
 		<![CDATA[
-		 	GROUP BY PD.SPMTNO
-		        , PC.SPMT_YMD
-		        , PD.PCKGNO
-		        , PD.PCKG_SN
-		        , PD.BRND_NM
-		        , PD.GDS_CD
-		        , PD.ITEM_CD
-		        , PD.VRTY_CD
-		        , PD.SPCFCT_CD
-		        , PC.APC_CD
-		        , PC.CNPT_CD
+		 			ORDER BY PC.SPMTNO, PD.PCKGNO, PD.PCKG_SN
 		]]>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
@@ -208,6 +234,7 @@
     		  ,	SPMT_SE_CD
     		  ,	SPMT_PRSN_DCLRNO
     		  ,	PLOR_CD
+    		  , RTN_GDS_YN
     		  , SYS_FRST_INPT_DT
     		  , SYS_FRST_INPT_USER_ID
     		  , SYS_FRST_INPT_PRGRM_ID
@@ -229,6 +256,7 @@
     		  ,	#{spmtSeCd}
     		  ,	#{spmtPrsnDclrno}
     		  ,	#{plorCd}
+    		  , #{rtnGdsYn}
     		  , SYSDATE
     		  , #{sysFrstInptUserId}
     		  , #{sysFrstInptPrgrmId}
@@ -267,6 +295,9 @@
     		  ,	SPMT_CMNDNO
     		  ,	SPMT_PCKG_UNIT_CD
     		  , OUTORDRNO
+    		  , ORGN_SPMTNO
+    		  , ORGN_PCKGNO
+    		  , ORGN_PCKG_SN
     		  , SYS_FRST_INPT_DT
     		  , SYS_FRST_INPT_USER_ID
     		  , SYS_FRST_INPT_PRGRM_ID
@@ -292,6 +323,9 @@
     		  ,	#{spmtCmndno}
     		  ,	#{spmtPckgUnitCd}
     		  , #{outordrno}
+    		  , #{orgnSpmtno}
+    		  , #{orgnPckgno}
+    		  , #{orgnPckgSn}
     		  , SYSDATE
     		  , #{sysFrstInptUserId}
     		  , #{sysFrstInptPrgrmId}

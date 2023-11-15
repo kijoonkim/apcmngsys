@@ -71,7 +71,7 @@ public class AmConstants {
      */
     public final static String CON_CD_ID_GDS_SE_CD = "GDS_SE_CD";
 
-    
+
     /**
      * 등급구분코드 : 입고등급 01
      */
@@ -90,12 +90,12 @@ public class AmConstants {
      * 상품등급
      */
     public final static String CON_CD_ID_GDS_GRD = "GDS_GRD";
-    
+
     /**
      * 표준등급
      */
     public final static String CON_CD_ID_STD_GRD = "STD_GRD";
-    
+
     /**
      * 재고변경사유코드 : C1 재고보정
      */
@@ -117,6 +117,14 @@ public class AmConstants {
      */
     public final static String CON_INVNTR_CHG_RSN_CD_S2 = "S2";
     /**
+     * 재고변경사유코드 : R1 반품
+     */
+    public final static String CON_INVNTR_CHG_RSN_CD_R1 = "R1";
+    /**
+     * 재고변경사유코드 : R2 반품취소
+     */
+    public final static String CON_INVNTR_CHG_RSN_CD_R2 = "R2";
+    /**
      * 재고변경사유코드 : T1 이송
      */
     public final static String CON_INVNTR_CHG_RSN_CD_T1 = "T1";
@@ -124,6 +132,6 @@ public class AmConstants {
      * 재고변경사유코드 : X1 폐기
      */
     public final static String CON_INVNTR_CHG_RSN_CD_X1 = "X1";
-    
-    
+
+
 }

@@ -102,6 +102,13 @@ public interface GdsInvntrMapper {
 	 * @throws Exception
 	 */
 	public int updateGdsInvntrSpmtPrfmnc(GdsInvntrVO gdsInvntrVO) throws Exception;
+	/**
+	 * 상품재고 변경 : 출하반품 처리
+	 * @param gdsInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateGdsInvntrSpmtPrfmncRtn(GdsInvntrVO gdsInvntrVO) throws Exception;
 
 	/**
 	 * 상품재고 표준등급 등록
@@ -134,5 +141,5 @@ public interface GdsInvntrMapper {
 	 * @throws Exception
 	 */
 	public int insertGdsInvntrChgHstry(GdsInvntrVO gdsInvntrVO) throws Exception;
-	
+
 }

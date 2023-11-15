@@ -81,14 +81,12 @@ public class MainController extends BaseController {
 						menu.setValue(rslt.getUpMenuNm() == null ? ComConstants.CON_BLANK : rslt.getUpMenuNm());
 						ObjectMapper mapper = new ObjectMapper();
 						String jsonString = mapper.writeValueAsString(menu);
-						System.out.println(jsonString);
 						menuList.add(jsonString);
 					}
 				}
 			}
-
 		} catch (Exception e) {
-
+			logger.error(e.getLocalizedMessage());
 		}
 
 		model.addAttribute("topMenuList", menuList);

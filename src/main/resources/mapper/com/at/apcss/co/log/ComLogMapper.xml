@@ -54,7 +54,7 @@
 					     , CMH.HSTRY_SN         AS HSTRY_SN
 					     , (SELECT FN_GET_APC_NM(CMH.APC_CD) FROM DUAL)	AS APC_NM
 					FROM TB_COM_MENU_LOG_HSTRY CMH
-				   WHERE CMH.PRSL_TYPE IN ('L1', 'L2', 'L2')
+				   WHERE CMH.PRSL_TYPE IN ('L1', 'L2', 'L3')
 		]]>
 			<if test='logYmdFrom != null and logYmdFrom != ""'>
 			   	     AND TO_CHAR(CMH.PRSL_DT, 'YYYYMMDD') <![CDATA[>=]]> #{logYmdFrom}
@@ -66,7 +66,6 @@
 			         AND CMH.USER_NM LIKE '%' ||  #{userNm} || '%'
 			</if>
     	<![CDATA[
-				ORDER BY CMH.HSTRY_SN
     		 	) pt0
     		 	ORDER BY pt0.HSTRY_SN DESC
 		]]>
@@ -185,6 +184,9 @@
 		<if test='logSeCd != null and logSeCd != ""'>
 		       AND CL.LOG_SE_CD = #{logSeCd}
 		</if>
+		<![CDATA[
+				ORDER BY CL.LOG_YMD DESC
+		]]>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		  ) pt0
@@ -242,7 +244,7 @@
 			  AND RCH.CHG_YMD <![CDATA[<=]]> #{chgYmdTo}
 		</if>
 		<![CDATA[
-		 	 ORDER BY RCH.CHG_YMD, RCH.CHG_SN, RCH.WRHSNO
+		 	 ORDER BY RCH.CHG_YMD DESC
     		  ) pt0
 		]]>
 		<!-- Start 페이징 -->
@@ -301,7 +303,7 @@
 				  	  AND SCH.CHG_YMD <![CDATA[<=]]> #{chgYmdTo}
 			</if>
 		<![CDATA[
-		 	 ORDER BY SCH.CHG_YMD, SCH.CHG_SN, SCH.SORTNO, SCH.SORT_SN
+		 	 ORDER BY SCH.CHG_YMD DESC
     		  ) pt0
 		]]>
 		<!-- Start 페이징 -->
@@ -360,7 +362,7 @@
 				  	  AND GCH.CHG_YMD <![CDATA[<=]]> #{chgYmdTo}
 			</if>
 		<![CDATA[
-			 	 ORDER BY GCH.CHG_YMD, GCH.CHG_SN, GCH.PCKGNO, GCH.PCKG_SN
+			 	 ORDER BY GCH.CHG_YMD DESC
 	    		  ) pt0
 		]]>
 		<!-- Start 페이징 -->
@@ -404,7 +406,7 @@
 			, SYS_FRST_INPT_PRGRM_ID
 			, SYS_LAST_CHG_DT
 			, SYS_LAST_CHG_USER_ID
-			, SYS_LAST_CHG_PRGRM_ID	
+			, SYS_LAST_CHG_PRGRM_ID
 		) VALUES (
 			  #{hstrySn}
 			, #{menuId}
