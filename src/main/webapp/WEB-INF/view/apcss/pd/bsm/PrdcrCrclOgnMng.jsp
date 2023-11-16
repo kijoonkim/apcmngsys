@@ -817,13 +817,13 @@ id,name 작명시
 id와 name 은 동일하게
 서치부분은 srch-input-컬럼명(카멜케이스 형식으로 ex)apcNm)
 상세부분은 dtl-input-컬럼명
-다른곳에서 그렇게 사용중
-가급적 지켜줘야 변경할 부분이 적어짐
+다른곳에서 그렇게 사용중입니다
+가급적 지켜줘야 변경할 부분이 적어집니다
 컬럼값이 없다면 고유값으로 명명할것
 
-팝업 추가시 id,name 값은 고유 값이 여야함 겹치면 안됨
-sb그리드 sbUx 에서는 id 가 없으면 name 값을 기준으로 작동함 고유값으로 해야함
-동일한 값으로 할시 문제가 발생함
+팝업 추가시 id,name 값은 고유 값이 여야함 겹치면 안됩니다.
+sb그리드 sbUx 에서는 id 가 없으면 name 값을 기준으로 작동함 고유값으로 해야합니다.
+동일한 값으로 할시 문제가 발생합니다.
 
 참조 사이트
 sbux
@@ -1198,8 +1198,8 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	//사업자번호 조회 팝업 콜백함수
 	const fn_setBrno = function(rowData) {
 		if (!gfn_isEmpty(rowData)) {
-			SBUxMethod.set("srch-input-brno", rowData.brno);
-			SBUxMethod.set("srch-input-corpNm", rowData.corpNm);
+			SBUxMethod.set("dtl-input-brno", rowData.brno);
+			SBUxMethod.set("dtl-input-corpNm", rowData.corpNm);
 		}
 	}
 
@@ -1212,10 +1212,10 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	//법인명,법인등록번호,사업자번호,경영체번호
 	const fn_setMngmstInfoId = function(rowData) {
 		if (!gfn_isEmpty(rowData)) {
-			SBUxMethod.set("srch-input-mngmstInfoId", rowData.mngmstInfoId);//경영체번호
-			SBUxMethod.set("srch-input-corpNm", rowData.corpNm);			//법인명
-			SBUxMethod.set("srch-input-brno", rowData.brno);				//사업자등록번호
-			SBUxMethod.set("srch-input-crno", rowData.crno);				//법인등록번호
+			SBUxMethod.set("dtl-input-mngmstInfoId", rowData.mngmstInfoId);//경영체번호
+			SBUxMethod.set("dtl-input-corpNm", rowData.corpNm);			//법인명
+			SBUxMethod.set("dtl-input-brno", rowData.brno);				//사업자등록번호
+			SBUxMethod.set("dtl-input-crno", rowData.crno);				//법인등록번호
 		}
 	}
 
