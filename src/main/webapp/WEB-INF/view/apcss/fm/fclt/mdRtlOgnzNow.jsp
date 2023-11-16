@@ -335,11 +335,11 @@ const fn_createOwnrAndOperGrid = function() {
 	};
     SBGridProperties.columns = [
     	{caption : ["구분","구분"], ref: 's0', type: 'output',  width:'160px', style: 'text-align:center'},
-    	{caption : ["소유자","민간"], ref: 's1', type: 'output',  width:'140px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["소유자","공공"], ref: 's2', type: 'output',  width:'140px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["운영자","농협"], ref: 's3', type: 'output',  width:'140px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["운영자","농업법인"], ref: 's4', type: 'output',  width:'140px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["합계","합계"], ref: 's5', type: 'output',  width:'140px', style: 'text-align:right', format : {type:'number', rule:'#,###'}}
+    	{caption : ["소유자","민간"], ref: 's1', type: 'output',  width:'120px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
+    	{caption : ["소유자","공공"], ref: 's2', type: 'output',  width:'120px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
+    	{caption : ["운영자","농협"], ref: 's3', type: 'output',  width:'120px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
+    	{caption : ["운영자","농업법인"], ref: 's4', type: 'output',  width:'120px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
+    	{caption : ["합계","합계"], ref: 's5', type: 'output',  width:'150px', style: 'text-align:right', format : {type:'number', rule:'#,###'}}
     ];
     grdOwnrAndOper = _SBGrid.create(SBGridProperties);
     
