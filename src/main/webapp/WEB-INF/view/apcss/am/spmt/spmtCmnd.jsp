@@ -332,10 +332,8 @@
 						, pagingYn 				: 'Y'
 						, currentPageNo 		: currentPageNo
 						, recordCountPerPage 	: recordCountPerPage};
-		console.log(spmtCmndVO)
     	let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtCmndList.do", spmtCmndVO);
         let data = await postJsonPromise;
-        console.log(data);
         try{
         	jsonSmptCmnd.length = 0;
         	data.resultList.forEach((item, index) => {
