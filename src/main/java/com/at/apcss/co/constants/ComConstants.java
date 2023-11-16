@@ -17,6 +17,11 @@ public class ComConstants {
 
 	public final static String PAGINATION_MAP = "paginationMap";
 
+	/**
+	 * SSO TOKEN : pni_token
+	 */
+	public final static String SYS_SSO_TOKEN = "pni_token";
+	
 	/* RESULT */
 	public final static String PROP_RESULT_STATUS = "resultStatus";
 	public final static String PROP_RESULT_CODE = "resultCode";
