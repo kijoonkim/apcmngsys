@@ -48,7 +48,6 @@
 							<th>
 								<sbux-input id="brno-inp-corpNm" name="brno-inp-corpNm" uitype="text" class="form-control input-sm" onkeyenter="enterKey();"></sbux-input>
 							</th>
-							<th colspan="3"></th>
 						</tr>
 					</tbody>
 				</table>

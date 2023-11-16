@@ -165,7 +165,7 @@
 			var corpNm = nvlScnd(SBUxMethod.get("mngmstInfoId-inp-corpNm"),'');
 			var crno = nvlScnd(SBUxMethod.get("mngmstInfoId-inp-crno"),'');
 
-	        const postJsonPromise = gfn_postJSON("/fm/popup/selectApcListPopup.do", {
+	        const postJsonPromise = gfn_postJSON("/fm/popup/selectMngmstInfoIdList.do", {
 
 	        	corpNm : corpNm, //검색 파라미터
 	        	crno : crno,

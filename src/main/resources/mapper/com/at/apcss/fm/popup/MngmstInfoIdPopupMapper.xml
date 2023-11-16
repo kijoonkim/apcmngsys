@@ -40,7 +40,7 @@
 		     , A.CRNO            	AS CRNO
 		     , A.RPRSV_FLNM         AS RPRSV_FLNM
 		  FROM TB_EV_APO A
-		 WHERE A.DEL_YN = 'N'
+		 WHERE 1=1
 		 ]]>
 		 <if test='corpNm != null and corpNm != ""'>
 				AND A.CORP_NM LIKE '%'||#{corpNm}||'%'
@@ -48,7 +48,7 @@
 		<if test='crno != null and crno != ""'>
 				AND A.CRNO LIKE '%'||#{crno}||'%'
 		</if>
-		 ORDER BY APC_NM ASC
+		 ORDER BY CORP_NM ASC
 
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>

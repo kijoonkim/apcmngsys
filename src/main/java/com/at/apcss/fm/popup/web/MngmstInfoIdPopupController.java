@@ -53,7 +53,8 @@ public class MngmstInfoIdPopupController extends BaseController {
 		try {
 
 			resultList = MngmstInfoIdPopupService.selectMngmstInfoIdList(vo);
-
+			System.out.println("========================================");
+			logger.debug("========================================");
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}

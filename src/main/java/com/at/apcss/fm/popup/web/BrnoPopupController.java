@@ -53,7 +53,8 @@ public class BrnoPopupController extends BaseController {
 		try {
 
 			resultList = BrnoPopupService.selectBrnoList(vo);
-
+			System.out.println("========================================");
+			logger.debug("========================================");
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}

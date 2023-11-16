@@ -36,12 +36,12 @@
     		   A.CORP_NM	AS CORP_NM
 		     , A.BRNO		AS BRNO
 		  FROM TB_EV_APO A
-		 WHERE A.DEL_YN = 'N'
+		 WHERE 1=1
 		 ]]>
-		 <if test='apcNm != null and apcNm != ""'>
-				AND A.APC_NM LIKE '%'||#{apcNm}||'%'
+		 <if test='brno != null and brno != ""'>
+				AND A.BRNO LIKE '%'||#{brno}||'%'
 		</if>
-		 ORDER BY APC_NM ASC
+		 ORDER BY CORP_NM ASC
 
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
