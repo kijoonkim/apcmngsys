@@ -81,4 +81,16 @@ public interface CnptMapper {
 	 * @throws Exception
 	 */
 	public int updateLgszMrkt(LgszMrktVO lgszMrktVO) throws Exception;
+	
+	/**
+	 * 대형마트 등록
+	 * 
+	 * @param CnptVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertLgszMrkt(LgszMrktVO lgszMrktVO) throws Exception;
+	
+	
+	
 }

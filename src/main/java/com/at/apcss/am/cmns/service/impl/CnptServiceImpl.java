@@ -1,5 +1,6 @@
 package com.at.apcss.am.cmns.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,9 @@ import com.at.apcss.am.cmns.mapper.CnptMapper;
 import com.at.apcss.am.cmns.service.CnptService;
 import com.at.apcss.am.cmns.vo.CnptVO;
 import com.at.apcss.am.cmns.vo.LgszMrktVO;
+import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : CnptServiceImpl.java
@@ -26,7 +30,7 @@ import com.at.apcss.am.cmns.vo.LgszMrktVO;
  * </pre>
  */
 @Service("cnptService")
-public class CnptServiceImpl implements CnptService {
+public class CnptServiceImpl extends BaseServiceImpl implements CnptService {
 	
 	@Autowired
 	private CnptMapper cnptMapper;
@@ -47,6 +51,20 @@ public class CnptServiceImpl implements CnptService {
 		return resultList;
 	}
 
+	@Override
+	public HashMap<String, Object> insertCnptList(List<CnptVO> cnptList) throws Exception {
+		
+		if (cnptList == null || cnptList.isEmpty()) {
+			ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "등록대상");	// W0005	{0}이/가 없습니다.
+		}
+		
+		for ( CnptVO cnptVO : cnptList ) {
+			cnptMapper.insertCnpt(cnptVO);
+		}
+		
+		return null;
+	}
+	
 	@Override
 	public int insertCnpt(CnptVO cnptVO) throws Exception {
 		
@@ -87,4 +105,18 @@ public class CnptServiceImpl implements CnptService {
 		return updatedCnt;
 	}
 
+	@Override
+	public HashMap<String, Object> insertLgszMrktList(List<LgszMrktVO> lgszMrktList) throws Exception {
+		
+		if (lgszMrktList == null || lgszMrktList.isEmpty()) {
+			ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "등록대상");	// W0005	{0}이/가 없습니다.
+		}
+		
+		for ( LgszMrktVO lgszMrktVO : lgszMrktList ) {
+			cnptMapper.insertLgszMrkt(lgszMrktVO);
+		}
+		
+		return null;
+	}
+	
 }
