@@ -191,6 +191,11 @@
 						text: "2023",
 						position: "outer-center"
 					}
+				},
+				y: {
+					tick: {
+					multiline: false,
+					}
 				}
 
 			},
@@ -249,6 +254,11 @@
 						text: "2023",
 						position: "outer-center"
 					}
+				},
+				y: {
+					tick: {
+					multiline: false,
+					}
 				}
 			},
 			tooltip: {
@@ -306,6 +316,11 @@
 					label: {
 						text: "2023",
 						position: "outer-center"
+					}
+				},
+				y: {
+					tick: {
+					multiline: false,
 					}
 				}
 			},
