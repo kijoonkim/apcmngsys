@@ -15,8 +15,9 @@ import org.springframework.util.StringUtils;
 import com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper;
 import com.at.apcss.am.apc.service.ApcEvrmntStngService;
 import com.at.apcss.am.apc.vo.ApcEvrmntStngVO;
+import com.at.apcss.am.cmns.service.CnptService;
 import com.at.apcss.am.cmns.service.PltBxService;
-import com.at.apcss.am.cmns.vo.PltBxVO;
+import com.at.apcss.am.cmns.vo.LgszMrktVO;
 import com.at.apcss.am.constants.AmConstants;
 import com.at.apcss.co.authrt.service.ComAuthrtService;
 import com.at.apcss.co.authrt.vo.ComAuthrtVO;
@@ -41,11 +42,14 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 	// 공통코드
 	@Resource(name = "comCdService")
 	private ComCdService comCdService;
-
+	
 	// 팔레트/박스
 	@Resource(name = "pltBxService")
 	private PltBxService pltBxService;
 
+	// 거래처 정보
+	@Resource(name = "cnptService")
+	private CnptService cnptService;
 
 
 	@Override
@@ -198,13 +202,37 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 			comCdService.insertComCdDtl(comCdDtlVO);
 		}
 
-		// 123 팔레트/박스		테이블		TB_PLT_BX_INFO
+		// 126 대형마켓	공통코드	LGSZ_MRKT_CD
+		List<LgszMrktVO> lgszMrktList = new ArrayList<>();
+		comCdParam.setCdId(AmConstants.CON_CD_ID_LGSZ_MRKT_CD);
+		comCdDtlList = comCdService.selectComCdDtlList(comCdParam);
+		for ( ComCdVO orgnCdDtl : comCdDtlList ) {
+			LgszMrktVO lgzMrktVO = new LgszMrktVO();
+			BeanUtils.copyProperties(apcEvrmntStngVO, lgzMrktVO);
+			lgzMrktVO.setLgszMrktCd(orgnCdDtl.getCdVl());
+			lgzMrktVO.setLgszMrktNm(orgnCdDtl.getCdVlNm());
+			lgzMrktVO.setOutordrInfoUrl(orgnCdDtl.getCdVlExpln());
+			
+			lgszMrktList.add(lgzMrktVO);
+		}
+		
+		if (!lgszMrktList.isEmpty()) {
+			rtnObj = cnptService.insertLgszMrktList(lgszMrktList);
+			if (rtnObj != null) {
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+		}
+		
+		
+		// 131 팔레트/박스		테이블		TB_PLT_BX_INFO
+		/*
 		PltBxVO pltBxVO = new PltBxVO();
 		BeanUtils.copyProperties(comCdMstVO, pltBxVO);
 		rtnObj = pltBxService.insertPltBxSample(pltBxVO);
 		if (rtnObj != null) {
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
+		 */
 
 		// 권한메뉴 set
 		ApcEvrmntStngVO authStngVO = new ApcEvrmntStngVO();

@@ -70,8 +70,13 @@ public class AmConstants {
      * APC 공통코드 : 상품구분 GDS_SE_CD
      */
     public final static String CON_CD_ID_GDS_SE_CD = "GDS_SE_CD";
+    /**
+     * APC 공통코드 : 대형마켓코드 LGSZ_MRKT_CD
+     */
+    public final static String CON_CD_ID_LGSZ_MRKT_CD = "LGSZ_MRKT_CD";
 
-
+    
+    
     /**
      * 등급구분코드 : 입고등급 01
      */
@@ -96,6 +101,11 @@ public class AmConstants {
      */
     public final static String CON_CD_ID_STD_GRD = "STD_GRD";
 
+    /**
+     * 선별등급
+     */
+    public final static String CON_CD_ID_SORT_GRD = "SORT_GRD";
+    
     /**
      * 재고변경사유코드 : C1 재고보정
      */

@@ -2,8 +2,6 @@ package com.at.apcss.co.sys.web;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +26,9 @@ import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.co.sys.service.LoginService;
 import com.at.apcss.co.sys.vo.LoginVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ubintis.api.ApiUserService;
+import com.ubintis.common.util.AddressUtil;
+import com.ubintis.common.util.StrUtil;
 
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -251,7 +252,31 @@ public class LoginController extends BaseController {
 	public String actionSSOLogin(HttpServletRequest request) throws Exception {
 
 		String id = request.getParameter("id");
-
+		String pniToken = StrUtil.NVL(request.getParameter(ComConstants.SYS_SSO_TOKEN));
+		
+		if (ComConstants.CON_BLANK.equals(pniToken)) {
+			pniToken = StrUtil.NVL(request.getSession().getAttribute(ComConstants.SYS_SSO_TOKEN));
+		}
+		
+		if (StringUtils.hasText(pniToken)) {			
+			String localIp = AddressUtil.getClientIp(request);
+			ApiUserService apiUserService = new ApiUserService();
+			String errorCode = apiUserService.executeUserData(pniToken, localIp);
+			
+			if (StringUtils.hasText(errorCode)) {
+				logger.error("@@@@ SSO 에이전트 오류 : {}", errorCode);
+				return "redirect:/login.do";
+			} else {
+				String userData = apiUserService.getUserData();
+				logger.error("@@@@ SSO 사용자 정보 : {}", userData);
+				
+				request.getSession().setAttribute(ComConstants.SYS_SSO_TOKEN, pniToken);
+			}	
+		} else {
+			logger.error("@@@@ SSO 토큰정보 없음");
+			return "redirect:/login.do";
+		}
+		
 		LoginVO loginVO = new LoginVO();
 		loginVO.setId(id);
 
