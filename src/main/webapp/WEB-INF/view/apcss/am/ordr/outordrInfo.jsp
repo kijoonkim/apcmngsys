@@ -263,11 +263,13 @@
 	    SBGridProperties.id = 'grdOutordrInfo';
 	    SBGridProperties.jsonref = 'jsonOutordrInfo';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.selectmode = 'free';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.allowcopy = true;
-		SBGridProperties.explorerbar = 'sortmove';
+		SBGridProperties.explorerbar = 'move';				// 개인화 컬럼 이동 가능
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
 		SBGridProperties.frozencols = 5;
     	SBGridProperties.paging = {
     			'type' : 'page',
@@ -277,66 +279,66 @@
     		  	'showgoalpageui' : true
     	    };
         SBGridProperties.columns = [
-        	{caption: ['선택'], 			ref: 'checked', 		width: '50px', 		type: 'checkbox',		style:'text-align: center',	sortable: false,
+        	{caption: ['선택'], 			ref: 'checked', 		width: '50px', 		type: 'checkbox',		style:'text-align: center',
         		typeinfo : {ignoreupdate: true}},
-            {caption: ['접수일자'], 		ref: 'rcptCfmtnYmd', 	width: '100px', 	type: 'output',			style:'text-align: center', sortable: false,
+            {caption: ['접수일자'], 		ref: 'rcptCfmtnYmd', 	width: '100px', 	type: 'output',			style:'text-align: center',
     		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
-            {caption: ['발주유형'], 		ref: 'outordrTypeNm', 	width: '70px', 		type: 'output',			style:'text-align: center', sortable: false},
-            {caption: ['접수여부'], 		ref: 'rcptYn', 			width: '70px', 		type: 'combo',			style:'text-align: center', sortable: false,
+            {caption: ['발주유형'], 		ref: 'outordrTypeNm', 	width: '70px', 		type: 'output',			style:'text-align: center'},
+            {caption: ['접수여부'], 		ref: 'rcptYn', 			width: '70px', 		type: 'combo',			style:'text-align: center',
             	typeinfo : {ref:'comboGridRcpYn', label:'label', value:'value'}},
-            {caption: ['발주번호'], 		ref: 'outordrno', 		width: '140px', 	type: 'output',			style:'text-align: center', sortable: false},
-            {caption: ['거래처명'], 		ref: 'apcCnptNm', 		width: '200px', 	type: 'output',			style:'text-align: center', sortable: false},
-            {caption: ['납기일자'], 		ref: 'wrhsYmd', 		width: '100px', 	type: 'output',			style:'text-align: center', sortable: false,
+            {caption: ['발주번호'], 		ref: 'outordrno', 		width: '140px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['거래처명'], 		ref: 'apcCnptNm', 		width: '200px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['납기일자'], 		ref: 'wrhsYmd', 		width: '100px', 	type: 'output',			style:'text-align: center',
     		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
-            {caption: ['발주일자'], 		ref: 'outordrYmd', 		width: '100px', 	type: 'output',			style:'text-align: center', sortable: false,
+            {caption: ['발주일자'], 		ref: 'outordrYmd', 		width: '100px', 	type: 'output',			style:'text-align: center',
         		format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
-            {caption: ['주문자'], 		ref: 'outordrPrsn', 	width: '100px', 	type: 'output',			style:'text-align: center', sortable: false},
-            {caption: ['공급자명'], 		ref: 'splyPrsn', 		width: '100px', 	type: 'output',			style:'text-align: center', sortable: false},
-            {caption: ['상품명'], 		ref: 'spmtPckgUnitNm', 	width: '150px', 	type: 'output',			style:'text-align: center', sortable: false},
-            {caption: ['상품코드'], 		ref: 'spmtPckgUnitCd', 	width: '100px', 	type: 'output',			style:'text-align: center', sortable: false},
-            {caption: ['배송지'], 		ref: 'dldtn', 			width: '100px', 	type: 'output',			style:'text-align: center', sortable: false},
-            {caption: ['품목'], 			ref: 'itemNm', 			width: '100px', 	type: 'output',			style:'text-align: center', sortable: false},
-            {caption: ['품종'], 			ref: 'vrtyNm', 			width: '100px', 	type: 'output',			style:'text-align: center', sortable: false},
-            {caption: ['규격'], 			ref: 'spcfctNm', 		width: '70px', 		type: 'output',			style:'text-align: center', sortable: false},
-            {caption: ['입수'], 			ref: 'bxGdsQntt', 		width: '100px', 	type: 'output',			style:'text-align: center', sortable: false},
-            {caption: ['발주수량'], 		ref: 'outordrQntt', 	width: '70px', 		type: 'output',			style:'text-align: right',  sortable: false,
+            {caption: ['주문자'], 		ref: 'outordrPrsn', 	width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['공급자명'], 		ref: 'splyPrsn', 		width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['상품명'], 		ref: 'spmtPckgUnitNm', 	width: '150px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['상품코드'], 		ref: 'spmtPckgUnitCd', 	width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['배송지'], 		ref: 'dldtn', 			width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['품목'], 			ref: 'itemNm', 			width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['품종'], 			ref: 'vrtyNm', 			width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['규격'], 			ref: 'spcfctNm', 		width: '70px', 		type: 'output',			style:'text-align: center'},
+            {caption: ['입수'], 			ref: 'bxGdsQntt', 		width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['발주수량'], 		ref: 'outordrQntt', 	width: '70px', 		type: 'output',			style:'text-align: right',
 				format : {type:'number', rule:'#,###'}},
-            {caption: ['낱개수량'], 		ref: 'pieceQntt', 		width: '70px', 		type: 'output',			style:'text-align: right',  sortable: false,
+            {caption: ['낱개수량'], 		ref: 'pieceQntt', 		width: '70px', 		type: 'output',			style:'text-align: right',
 				format : {type:'number', rule:'#,###'}},
-            {caption: ['단위'], 			ref: 'unitCd', 			width: '70px', 		type: 'output',			style:'text-align: center', sortable: false},
-            {caption: ['박스단가'], 		ref: 'bxUntprc', 		width: '100px', 	type: 'output',			style:'text-align: right',  sortable: false,
+            {caption: ['단위'], 			ref: 'unitCd', 			width: '70px', 		type: 'output',			style:'text-align: center'},
+            {caption: ['박스단가'], 		ref: 'bxUntprc', 		width: '100px', 	type: 'output',			style:'text-align: right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
-            {caption: ['발주단가'], 		ref: 'outordrUntprc', 	width: '100px', 	type: 'output',			style:'text-align: right',  sortable: false,
+            {caption: ['발주단가'], 		ref: 'outordrUntprc', 	width: '100px', 	type: 'output',			style:'text-align: right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
-            {caption: ['발주단위'], 		ref: 'outordrUnitCd', 	width: '70px', 		type: 'output',			style:'text-align: center', sortable: false},
-            {caption: ['LOT'], 			ref: 'lot', 			width: '100px', 	type: 'output',			style:'text-align: center', sortable: false},
-            {caption: ['세액'], 			ref: 'txAmt', 			width: '100px', 	type: 'output',			style:'text-align: right',  sortable: false,
+            {caption: ['발주단위'], 		ref: 'outordrUnitCd', 	width: '70px', 		type: 'output',			style:'text-align: center'},
+            {caption: ['LOT'], 			ref: 'lot', 			width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['세액'], 			ref: 'txAmt', 			width: '100px', 	type: 'output',			style:'text-align: right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
-            {caption: ['발주금액'], 		ref: 'outordrAmt', 		width: '100px', 	type: 'output',			style:'text-align: right',  sortable: false,
+            {caption: ['발주금액'], 		ref: 'outordrAmt', 		width: '100px', 	type: 'output',			style:'text-align: right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
-  	        {caption: ['재고수량'], 		ref: 'invntrQntt', 		width: '100px', 	type: 'output', 		style:'text-align:right',   sortable: false,
+  	        {caption: ['재고수량'], 		ref: 'invntrQntt', 		width: '100px', 	type: 'output', 		style:'text-align:right',
   				format : {type:'number', rule:'#,###'}},
-            {caption: ['출하수량'], 		ref: 'spmtQntt',		width: '100px', 	type: 'output', 		style:'text-align:right',   sortable: false,
+            {caption: ['출하수량'], 		ref: 'spmtQntt',		width: '100px', 	type: 'output', 		style:'text-align:right',
   				format : {type:'number', rule:'#,###'}},
-            {caption: ['출하지시수량'], 	ref: 'cmndQntt',		width: '100px', 	type: 'output', 		style:'text-align:right',   sortable: false,
+            {caption: ['출하지시수량'], 	ref: 'cmndQntt',		width: '100px', 	type: 'output', 		style:'text-align:right',
   				format : {type:'number', rule:'#,###'}},
-            {caption: ['지시수량'], 		ref: 'inptCmndQntt', 	width: '80px', 		type: 'input', 			style:'text-align:right; background:#FFF8DC;',	sortable: false,
+            {caption: ['지시수량'], 		ref: 'inptCmndQntt', 	width: '80px', 		type: 'input', 			style:'text-align:right; background:#FFF8DC;',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}, validate : gfn_chkByte.bind({byteLimit: 10})},
-            {caption: ['지시중량'], 		ref: 'inptCmndWght', 	width: '100px', 	type: 'output', 		style:'text-align:right',   sortable: false,
+            {caption: ['지시중량'], 		ref: 'inptCmndWght', 	width: '100px', 	type: 'output', 		style:'text-align:right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-            {caption: ['입고형태'], 		ref: 'wrhsType', 		width: '100px', 	type: 'output',			style:'text-align: center', sortable: false},
-            {caption: ['문서번호'], 		ref: 'docno', 			width: '100px', 	type: 'output',			style:'text-align: center', sortable: false},
-            {caption: ['도크정보'], 		ref: 'dockInfo', 		width: '100px', 	type: 'output',			style:'text-align: center', sortable: false},
-            {caption: ['센터구분'], 		ref: 'cntrSe', 			width: '70px', 		type: 'output',			style:'text-align: center', sortable: false},
-            {caption: ['바이어명'], 		ref: 'buyerNm', 		width: '100px', 	type: 'output',			style:'text-align: center', sortable: false},
-            {caption: ['센터입하일'], 		ref: 'cntrRcvdWrhsYmd', width: '100px', 	type: 'output',			style:'text-align: center', sortable: false,
+            {caption: ['입고형태'], 		ref: 'wrhsType', 		width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['문서번호'], 		ref: 'docno', 			width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['도크정보'], 		ref: 'dockInfo', 		width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['센터구분'], 		ref: 'cntrSe', 			width: '70px', 		type: 'output',			style:'text-align: center'},
+            {caption: ['바이어명'], 		ref: 'buyerNm', 		width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['센터입하일'], 		ref: 'cntrRcvdWrhsYmd', width: '100px', 	type: 'output',			style:'text-align: center',
     		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
-            {caption: ['센터명'], 		ref: 'cntrNm', 			width: '100px', 	type: 'output',			style:'text-align: center', sortable: false},
-            {caption: ['납품구분'], 		ref: 'dlvgdsSeCd', 		width: '70px', 		type: 'output',			style:'text-align: center', sortable: false},
-            {caption: ['기타'], 			ref: 'etc', 			width: '300px', 	type: 'output',			style:'text-align: center', sortable: false},
-            {caption: ['접수APC (농협)'], ref: 'rcptCfmtnApcNm', 	width: '200px', 	type: 'output',			style:'text-align: center', sortable: false},
-            {caption: ['출하지시번호'], 	ref: 'spmtCmndno', 		width: '140px', 	type: 'output',			style:'text-align: center', sortable: false},
-            {caption: ['출하일자'], 		ref: 'spmtYmd', 		width: '100px', 	type: 'output',			style:'text-align: center', sortable: false,
+            {caption: ['센터명'], 		ref: 'cntrNm', 			width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['납품구분'], 		ref: 'dlvgdsSeCd', 		width: '70px', 		type: 'output',			style:'text-align: center'},
+            {caption: ['기타'], 			ref: 'etc', 			width: '300px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['접수APC (농협)'], ref: 'rcptCfmtnApcNm', 	width: '200px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['출하지시번호'], 	ref: 'spmtCmndno', 		width: '140px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['출하일자'], 		ref: 'spmtYmd', 		width: '100px', 	type: 'output',			style:'text-align: center',
     		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
             {caption: ['지시일자'], 		ref: 'cmndYmd', 		hidden: true},
             {caption: ['발주유형'], 		ref: 'outordrType', 	hidden: true},
@@ -357,6 +359,23 @@
         grdOutordrInfo.bind('valuechanged', 'fn_grdCmndQnttValueChanged');
         grdOutordrInfo.bind('select', 'fn_setValue');
         grdOutordrInfo.bind('deselect', 'fn_delValue');
+    }
+
+	/**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+    const objMenuList = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",					//단축키
+            "callback": fn_excelDwnld,			//콜백함수명
+        }
+    };
+
+    // 엑셀 다운로드
+    function fn_excelDwnld() {
+    	grdOutordrInfo.exportLocalExcel("발주정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
 
 	// 출하지시 목록 조회 (조회 버튼)

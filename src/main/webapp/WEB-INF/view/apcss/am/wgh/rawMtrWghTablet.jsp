@@ -1006,7 +1006,8 @@
 	    SBGridProperties.id = 'grdWghPrfmnc';
 	    SBGridProperties.jsonref = 'jsonWghPrfmnc';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';	    
+	    SBGridProperties.selectmode = 'free';
+	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.mergecells = 'byrestriccol';

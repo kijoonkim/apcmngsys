@@ -377,8 +377,9 @@
 	    SBGridProperties.id = 'inptCmndDsctnList';
 	    SBGridProperties.jsonref = 'jsoninptCmndDsctnList';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.explorerbar = 'sortmove';
+	    SBGridProperties.selectmode = 'free';
+	    SBGridProperties.allowcopy = true;
+	    SBGridProperties.explorerbar = 'move';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.oneclickedit = true;
@@ -424,8 +425,9 @@
 	    SBGridProperties.id = 'inptCmndDsctnList';
 	    SBGridProperties.jsonref = 'jsoninptCmndDsctnList2';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.explorerbar = 'sortmove';
+	    SBGridProperties.selectmode = 'free';
+	    SBGridProperties.allowcopy = true;
+	    SBGridProperties.explorerbar = 'move';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.oneclickedit = true;
@@ -472,8 +474,9 @@
 	    SBGridProperties.id = 'inptCmndDsctnList';
 	    SBGridProperties.jsonref = 'jsoninptCmndDsctnList3';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.explorerbar = 'sortmove';
+	    SBGridProperties.selectmode = 'free';
+	    SBGridProperties.allowcopy = true;
+	    SBGridProperties.explorerbar = 'move';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.oneclickedit = true;

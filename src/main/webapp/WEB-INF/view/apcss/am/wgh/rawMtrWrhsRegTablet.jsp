@@ -506,8 +506,8 @@
 	    SBGridProperties.id = 'grdRawMtrWrhs';
 	    SBGridProperties.jsonref = 'jsonRawMtrWrhs';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.explorerbar = 'sortmove';
+	    SBGridProperties.selectmode = 'free';
+	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.paging = lv_paging;

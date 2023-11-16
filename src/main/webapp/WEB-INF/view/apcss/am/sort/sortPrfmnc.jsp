@@ -396,8 +396,11 @@
 	    SBGridProperties.id = 'grdSortPrfmnc';
 	    SBGridProperties.jsonref = 'jsonSortPrfmnc';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.explorerbar = 'sortmove';
+        SBGridProperties.selectmode = 'free';
+	    SBGridProperties.allowcopy = true;
+		SBGridProperties.explorerbar = 'move';				// 개인화 컬럼 이동 가능
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList1;	// 우클릭 메뉴 리스트
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.paging = {
 			'type' : 'page',
@@ -450,6 +453,62 @@
         grdSortPrfmnc.bind('click', fn_viewSortInpt);
         grdSortPrfmnc.bind('beforepagechanged', fn_pagingSortPrfmnc);
     }
+
+	/**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+    const objMenuList1 = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",					//단축키
+            "callback": fn_excelDwnld1,			//콜백함수명
+        },
+        "personalSave" : {
+        	"name": "개인화 저장",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "s",					//단축키
+            "callback": fn_personalSave,		//콜백함수명
+        },
+        "personalLoad" : {
+        	"name": "개인화 호출",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "l",					//단축키
+            "callback": fn_personalLoad,		//콜백함수명
+        },
+        "colHidden" : {
+        	"name": "열 숨기기",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "h",					//단축키
+            "callback": fn_colHidden,			//콜백함수명
+        },
+        "colShow" : {
+        	"name": "열 보이기",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "w",					//단축키
+            "callback": fn_colShow,				//콜백함수명
+        }
+    };
+
+    // 엑셀 다운로드
+    function fn_excelDwnld1() {
+    	grdSortPrfmnc.exportLocalExcel("선별실적", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+
+    // 개인화 저장
+    function fn_personalSave(){
+    	grdSortPrfmnc.savePersonalInfo("apcCd");
+   	}
+    // 개인화 호출
+    function fn_personalLoad(){
+    	grdSortPrfmnc.loadPersonalInfo("apcCd");
+   	}
+	// 열 숨기기
+    function fn_colHidden(){
+    	grdSortPrfmnc.setColHidden(grdSortPrfmnc.getCol(), true);
+   	}
+	// 열 보이기
+    function fn_colShow(){
+    	for(let i = grdSortPrfmnc.getFixedCols(); i < grdSortPrfmnc.getCols()-1; i++) {
+   			grdSortPrfmnc.setColHidden(i, false);
+    	}
+   	}
 
 
 
@@ -647,8 +706,11 @@
  	    SBGridProperties.id = 'grdSortInptPrfmnc';
  	    SBGridProperties.jsonref = 'jsonSortInptPrfmnc';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'byrow';
- 	    SBGridProperties.explorerbar = 'sortmove';
+        SBGridProperties.selectmode = 'free';
+	    SBGridProperties.allowcopy = true;
+		SBGridProperties.explorerbar = 'sortmove';			// 개인화 컬럼 이동 가능
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList2;	// 우클릭 메뉴 리스트
  	    SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
         	{caption: ["입고번호","입고번호"], 	ref: 'wrhsno',  	type:'output',  width:'100px',   style:'text-align:center'},
@@ -665,6 +727,23 @@
         ];
     	grdSortInptPrfmnc = _SBGrid.create(SBGridProperties);
 	}
+
+	/**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+    const objMenuList2 = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",					//단축키
+            "callback": fn_excelDwnld2,			//콜백함수명
+        }
+    };
+
+    // 엑셀 다운로드
+    function fn_excelDwnld2() {
+    	grdSortInptPrfmnc.exportLocalExcel("출하실적", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
 
 	const fn_viewSortInpt = async function() {
 		let nRow = grdSortPrfmnc.getRow();

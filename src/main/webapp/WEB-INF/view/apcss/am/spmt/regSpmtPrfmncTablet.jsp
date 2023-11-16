@@ -234,7 +234,8 @@
 	    SBGridProperties.id = 'grdSpmtTrgtDsctn';
 	    SBGridProperties.jsonref = 'jsonSpmtTrgtDsctn';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.selectmode = 'free';
+	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
             {caption: ['처리'], 		ref: 'delYn', 			width: '60px', 	type: 'button', 	style: 'text-align: center',

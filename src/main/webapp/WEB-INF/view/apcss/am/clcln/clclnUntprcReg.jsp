@@ -187,8 +187,12 @@
 	    SBGridProperties.id = 'grdClclnUntprc';
 	    SBGridProperties.jsonref = 'jsonClclnUntprc';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.selectmode = 'free';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.allowcopy = true;
+		SBGridProperties.explorerbar = 'move';				// 개인화 컬럼 이동 가능
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
         SBGridProperties.columns = [
 			{caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
 				userattr: {colNm: "checkedYn"},
@@ -238,6 +242,23 @@
 
         grdClclnUntprc = _SBGrid.create(SBGridProperties);
         grdClclnUntprc.bind('valuechanged', fn_grdClclnUntprcValueChanged);
+    }
+
+	/**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+    const objMenuList = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",					//단축키
+            "callback": fn_excelDwnld,			//콜백함수명
+        }
+    };
+
+    // 엑셀 다운로드
+    function fn_excelDwnld() {
+    	grdClclnUntprc.exportLocalExcel("정산단가", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
 
  	/**

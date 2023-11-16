@@ -700,9 +700,13 @@
 	    SBGridProperties.id = 'grdRawMtrWrhs';
 	    SBGridProperties.jsonref = 'jsonRawMtrWrhs';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.selectmode = 'free';
 	    SBGridProperties.explorerbar = 'sortmove';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.allowcopy = true;
+		SBGridProperties.explorerbar = 'move';				// 개인화 컬럼 이동 가능
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
 	    SBGridProperties.paging = lv_paging;
 
 	    SBGridProperties.columns = [
@@ -742,6 +746,62 @@
 	    // TODO 바인드 추가 확인할 것
 	    grdRawMtrWrhs.bind('click', fn_view);
 	}
+
+	/**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+    const objMenuList = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",					//단축키
+            "callback": fn_excelDwnld,			//콜백함수명
+        },
+        "personalSave" : {
+        	"name": "개인화 저장",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "s",					//단축키
+            "callback": fn_personalSave,		//콜백함수명
+        },
+        "personalLoad" : {
+        	"name": "개인화 호출",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "l",					//단축키
+            "callback": fn_personalLoad,		//콜백함수명
+        },
+        "colHidden" : {
+        	"name": "열 숨기기",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "h",					//단축키
+            "callback": fn_colHidden,			//콜백함수명
+        },
+        "colShow" : {
+        	"name": "열 보이기",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "w",					//단축키
+            "callback": fn_colShow,				//콜백함수명
+        }
+    };
+
+    // 엑셀 다운로드
+    function fn_excelDwnld() {
+    	grdRawMtrWrhs.exportLocalExcel("원물입고", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+
+    // 개인화 저장
+    function fn_personalSave(){
+    	grdRawMtrWrhs.savePersonalInfo("apcCd");
+   	}
+    // 개인화 호출
+    function fn_personalLoad(){
+    	grdRawMtrWrhs.loadPersonalInfo("apcCd");
+   	}
+	// 열 숨기기
+    function fn_colHidden(){
+    	grdRawMtrWrhs.setColHidden(grdRawMtrWrhs.getCol(), true);
+   	}
+	// 열 보이기
+    function fn_colShow(){
+    	for(let i = grdRawMtrWrhs.getFixedCols(); i < grdRawMtrWrhs.getCols()-1; i++) {
+   			grdRawMtrWrhs.setColHidden(i, false);
+    	}
+   	}
 
 
 	/**

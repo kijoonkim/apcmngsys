@@ -372,7 +372,8 @@
 	    SBGridProperties.id = 'grdWrhsPlan';
 	    SBGridProperties.jsonref = 'jsonWrhsPlan';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.selectmode = 'free';
+	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [

@@ -488,9 +488,13 @@
         SBGridPropertiesGdsInvntr.id = 'grdGdsInvntr';
         SBGridPropertiesGdsInvntr.jsonref = 'jsonGdsInvntr';
         SBGridPropertiesGdsInvntr.emptyrecords = '데이터가 없습니다.';
-        SBGridPropertiesGdsInvntr.selectmode = 'byrow';
+        SBGridPropertiesGdsInvntr.selectmode = 'free';
         SBGridPropertiesGdsInvntr.extendlastcol = 'scroll';
         SBGridPropertiesGdsInvntr.oneclickedit = true;
+        SBGridPropertiesGdsInvntr.allowcopy = true;
+        SBGridPropertiesGdsInvntr.explorerbar = 'move';				// 개인화 컬럼 이동 가능
+        SBGridPropertiesGdsInvntr.contextmenu = true;				// 우클린 메뉴 호출 여부
+        SBGridPropertiesGdsInvntr.contextmenulist = objMenuList1;	// 우클릭 메뉴 리스트
         SBGridPropertiesGdsInvntr.columns = [
         	{caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
@@ -537,8 +541,12 @@
         SBGridPropertiesSpmtPrfmnc.id = 'grdSpmtPrfmnc';
 	    SBGridPropertiesSpmtPrfmnc.jsonref = 'jsonSpmtPrfmnc';
 	    SBGridPropertiesSpmtPrfmnc.emptyrecords = '데이터가 없습니다.';
-	    SBGridPropertiesSpmtPrfmnc.selectmode = 'byrow';
+	    SBGridPropertiesSpmtPrfmnc.selectmode = 'free';
 	    SBGridPropertiesSpmtPrfmnc.extendlastcol = 'scroll';
+	    SBGridPropertiesSpmtPrfmnc.allowcopy = true;
+	    SBGridPropertiesSpmtPrfmnc.explorerbar = 'move';				// 개인화 컬럼 이동 가능
+	    SBGridPropertiesSpmtPrfmnc.contextmenu = true;					// 우클린 메뉴 호출 여부
+	    SBGridPropertiesSpmtPrfmnc.contextmenulist = objMenuList2;		// 우클릭 메뉴 리스트
 	    SBGridPropertiesSpmtPrfmnc.columns = [
         	{caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
@@ -565,6 +573,75 @@
 
         grdSpmtPrfmnc = _SBGrid.create(SBGridPropertiesSpmtPrfmnc);
     }
+
+	/**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+     const objMenuList1 = {
+		"excelDwnld": {
+			"name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+			"accesskey": "e",					//단축키
+			"callback": fn_excelDwnld1,			//콜백함수명
+		}
+	};
+     
+    const objMenuList2 = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",					//단축키
+            "callback": fn_excelDwnld2,			//콜백함수명
+        },
+        "personalSave" : {
+        	"name": "개인화 저장",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "s",					//단축키
+            "callback": fn_personalSave,		//콜백함수명
+        },
+        "personalLoad" : {
+        	"name": "개인화 호출",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "l",					//단축키
+            "callback": fn_personalLoad,		//콜백함수명
+        },
+        "colHidden" : {
+        	"name": "열 숨기기",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "h",					//단축키
+            "callback": fn_colHidden,			//콜백함수명
+        },
+        "colShow" : {
+        	"name": "열 보이기",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "w",					//단축키
+            "callback": fn_colShow,				//콜백함수명
+        }
+    };
+     
+  	// 엑셀 다운로드
+     function fn_excelDwnld1() {
+    	 grdGdsInvntr.exportLocalExcel("상품재고 내역", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+     }
+  	
+    // 엑셀 다운로드
+    function fn_excelDwnld2() {
+    	grdSpmtPrfmnc.exportLocalExcel("출하 내역", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+
+    // 개인화 저장
+    function fn_personalSave(){
+    	grdSpmtPrfmnc.savePersonalInfo("apcCd");
+   	}
+    // 개인화 호출
+    function fn_personalLoad(){
+    	grdSpmtPrfmnc.loadPersonalInfo("apcCd");
+   	}
+	// 열 숨기기
+    function fn_colHidden(){
+    	grdSpmtPrfmnc.setColHidden(grdSpmtPrfmnc.getCol(), true);
+   	}
+	// 열 보이기
+    function fn_colShow(){
+    	for(let i = grdSpmtPrfmnc.getFixedCols(); i < grdSpmtPrfmnc.getCols()-1; i++) {
+   			grdSpmtPrfmnc.setColHidden(i, false);
+    	}
+   	}
 
 	const fn_search = async function(){
 		let flag = true;

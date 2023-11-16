@@ -305,7 +305,8 @@
 	    SBGridProperties.id = 'grdPckgInpt';
 	    SBGridProperties.jsonref = 'jsonPckgInpt';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.selectmode = 'free';
+	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.clickeventarea = {fixed: false, empty: false};
         SBGridProperties.columns = [
