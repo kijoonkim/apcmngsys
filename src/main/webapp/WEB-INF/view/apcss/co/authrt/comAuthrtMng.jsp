@@ -89,7 +89,14 @@
 						<tr>
 							<th scope="row" class="th_bg">시스템구분</th>
 							<td class="td_input" colspan="3" style="border-right: hidden;">
-								<sbux-select class="form-control input-sm" id="srch-slt-sysId" name="srch-slt-sysId" uitype="single" jsondata-ref="jsonComSysId" unselected-text="선택"></sbux-select>
+								<sbux-select 
+									class="form-control input-sm" 
+									id="srch-slt-sysId" 
+									name="srch-slt-sysId" 
+									uitype="single" 
+									jsondata-ref="jsonComSysId" 
+									unselected-text="선택"
+								></sbux-select>
 							</td>
 							<th scope="row" class="th_bg">권한명</th>
 							<td class="td_input" colspan="3" style="border-right:hidden;">
@@ -279,13 +286,25 @@ let lv_prvMenuId = "";
     	 	fn_initComCd()
     	]);
 
-	 	if(gv_userType == "10"){
-	 		jsonComAuthrtType = gfn_getJsonFilter(jsonComAuthrtType, 'value', ["20", "21"]);
-	 		SBUxMethod.refresh("dtl-slt-authrtType");
-	 	}else if(gv_userType == "01"){
-	 		jsonComAuthrtType = gfn_getJsonFilter(jsonComAuthrtType, 'value', ["10","20", "21", "30", "40"]);
-	 		SBUxMethod.refresh("dtl-slt-authrtType");
-	 	}
+    	switch (gv_userType) {
+    	
+    		case "00":
+    			break;
+    		case "01":
+    			jsonComAuthrtType = gfn_getJsonFilter(jsonComAuthrtType, 'value', ["10", "20", "21", "30", "40"]);
+    			break;
+    		case "10":
+    			jsonComAuthrtType = gfn_getJsonFilter(jsonComAuthrtType, 'value', ["20", "21"]);
+    			jsonComSysId = gfn_getJsonFilter(jsonComSysId, 'value', ["AM"]);
+    			break;
+    		default:
+    			jsonComSysId.length = 0;
+    			jsonComAuthrtType.length = 0;
+    			break;
+    	}
+    	
+    	SBUxMethod.refresh("srch-slt-sysId");
+    	SBUxMethod.refresh("dtl-slt-authrtType");
     }
 
     /**

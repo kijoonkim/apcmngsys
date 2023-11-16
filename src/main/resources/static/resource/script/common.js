@@ -68,6 +68,15 @@ let gv_selectedApcSeCd = null;
 const gv_loadingOptions = {modelNm : "main-loading"};
 
 
+let gv_paging = {
+		'type' : 'page',
+	  	'count' : 5,
+	  	'size' : 50,
+	  	'sorttype' : 'page',
+	  	'showgoalpageui' : true
+    };
+
+
 /**
  * @description
  */
