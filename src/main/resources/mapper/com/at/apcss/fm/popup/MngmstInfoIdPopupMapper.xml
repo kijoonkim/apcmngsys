@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : MngmstInfoIdPopupMapper.xml                                    				-->
+<!-- DESC :  apc선택 팝업 정보 mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.10.03  	ljw        		Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.fm.popup.mapper.MngmstInfoIdPopupMapper">
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.popup.mapper.MngmstInfoIdPopupMapper.selectApcList		-->
+	<!-- DESC : apc목록 조회.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.10.03  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectMngmstInfoIdList" parameterType="com.at.apcss.fm.popup.vo.MngmstInfoIdPopupVO" resultType="com.at.apcss.fm.popup.vo.MngmstInfoIdPopupVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+    	<!-- End 페이징 -->
+
+		<![CDATA[
+    	SELECT /* com.at.apcss.fm.popup.mapper.MngmstInfoIdPopupMapper.selectMngmstInfoIdList */
+    		   A.CORP_NM            AS CORP_NM
+		     , A.MNGMST_INFO_ID		AS MNGMST_INFO_ID
+		     , A.MNGMST_YN			AS MNGMST_YN
+		     , A.BRNO            	AS BRNO
+		     , A.CRNO            	AS CRNO
+		     , A.RPRSV_FLNM         AS RPRSV_FLNM
+		  FROM TB_EV_APO A
+		 WHERE A.DEL_YN = 'N'
+		 ]]>
+		 <if test='corpNm != null and corpNm != ""'>
+				AND A.CORP_NM LIKE '%'||#{corpNm}||'%'
+		</if>
+		<if test='crno != null and crno != ""'>
+				AND A.CRNO LIKE '%'||#{crno}||'%'
+		</if>
+		 ORDER BY APC_NM ASC
+
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+
+</mapper>

@@ -23,57 +23,90 @@
     <select id="selectPrdcrCrclOgnMng" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO" resultType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.selectPrdcrCrclOgnMng */
-				  CM.TEST_NO
-				, CM.AA
-				, CM.BB
-				, CM.CC
-				, CM.DD
-				, CM.EE
-				, CM.FF
-				, CM.GG
-				, CM.HH
-				, CM.II
-				, CM.II_CODE
-				, CM.JJ
-				, CM.KK
-				, CM.LL
-				, CM.MM
-				, CM.NN
-				, CM.OO
-				, CM.PP
-				, CM.QQ
-				, CM.RR
-				, CM.SS
-				, CM.TT
-				, CM.UU
-				, CM.VV
-				, CM.WW
-				, CM.XX
-				, CM.YY
-				, CM.ZZ
-				, CM.DEL_YN		AS DEL_YN
+				  CM.APO_CD
+				, CM.APO_NM
+				, CM.APO_SE
+				, CM.APRV
+				, CM.BRNO
+				, CM.CORP_NM
+				, CM.CORP_SE_CD
+				, CM.CORP_DTL_SE_CD
+				, CM.NONGHYUP_CD
+				, CM.CORP_FNDN_DAY
+				, CM.CMPTN_INST
+				, CM.CTPV
+				, CM.SGG
+				, CM.ZIP
+				, CM.LOTNO_ADDR
+				, CM.LOTNO_DTL_ADDR
+				, CM.ROAD_NM_ADDR
+				, CM.ROAD_NM_DTL_ADDR
+				, CM.RPRSV_FLNM
+				, CM.RPRSV_TELNO
+				, CM.RPRSV_MOBLNO
+				, CM.RPRSV_EML
+				, CM.PIC_POSITION
+				, CM.PIC_FLNM
+				, CM.PIC_TELNO
+				, CM.PIC_MOBLNO
+				, CM.PIC_EML
+				, CM.FXNO
+				, CM.INVST_NOPE
+				, CM.INVST_EXPND_FRMER_NOPE
+				, CM.INVST_AMT
+				, CM.FRMER_INVST_AMT
+				, CM.RMK
+				, CM.PRDCR_GRP_INVST_AMT
+				, CM.LOCGOV_INVST_AMT
+				, CM.ETC_AMT
+				, CM.MNGMST_INFO_ID
+				, CM.MNGMST_YN
+				, CM.CRNO
+				, CM.ISO_HLD_YN
+				, CM.UO_BRNO
+				, CM.RGLLBR_NOPE
+				, CM.DW_NOPE
+				, CM.DLBRR_NOPE
+				, CM.JISO_AT
+
 				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
 				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
 				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
-				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_FRST_INPT_USER_ID) AS SYS_FRST_INPT_USER_ID_NM
+				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_FRST_INPT_USER_ID) AS SYS_FRST_INPT_USER_NM
 				, CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
+
 				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
 				, TO_CHAR(CM.SYS_LAST_CHG_DT,'YYYY-MM-DD')		AS SYS_LAST_CHG_DT_YMD
 				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
-				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_ID_NM
+				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_NM
 				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_PD_PrdcrCrclOgnVluIdctrMng CM
+			  FROM TB_EV_APO CM
 			 WHERE 1=1
-
     	]]>
-    		<if test='ccCode != null and ccCode != ""'>
-				AND CM.CC_CODE LIKE #{ccCode} || '%'
+    		<if test='cmptnInst != null and cmptnInst != ""'>
+				AND CM.CMPTN_INST LIKE #{cmptnInst} || '%'
 			</if>
-			<if test='iiCode != null and iiCode != ""'>
-				AND CM.II_CODE LIKE '%' || #{iiCode} || '%'
+			<if test='ctpv != null and ctpv != ""'>
+				AND CM.II_CODE LIKE '%' || #{ctpv} || '%'
 			</if>
-			<if test='testNo != null and testNo != ""'>
-				AND CM.TEST_NO LIKE '%' || #{testNo} || '%'
+			<if test='sgg != null and sgg != ""'>
+				AND CM.SGG LIKE '%' || #{sgg} || '%'
+			</if>
+			<if test='corpSeCd != null and corpSeCd != ""'>
+				AND CM.CORP_SE_CD LIKE #{corpSeCd} || '%'
+			</if>
+			<if test='corpDtlSeCd != null and corpDtlSeCd != ""'>
+				AND CM.CORP_DTL_SE_CD LIKE '%' || #{corpDtlSeCd} || '%'
+			</if>
+
+			<if test='brno != null and brno != ""'>
+				AND CM.BRNO LIKE #{brno} || '%'
+			</if>
+			<if test='corpNm != null and corpNm != ""'>
+				AND CM.CORP_NM LIKE '%' || #{corpNm} || '%'
+			</if>
+			<if test='apoSe != null and apoSe != ""'>
+				AND CM.APO_SE LIKE '%' || #{apoSe} || '%'
 			</if>
 		ORDER BY CM.SYS_LAST_CHG_DT DESC
     </select>
@@ -89,60 +122,93 @@
 	<!-- ==========================================================================	-->
     <select id="selectPrdcrCrclOgnMngList" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO" resultType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.selectPrdcrCrclOgnMngList */
-				  CM.TEST_NO
-				, CM.AA
-				, CM.BB
-				, CM.CC
-				, CM.CC_CODE
-				, CM.DD
-				, CM.DD_CODE
-				, CM.EE
-				, CM.FF
-				, CM.GG
-				, CM.HH
-				, CM.II
-				, CM.II_CODE
-				, CM.JJ
-				, CM.KK
-				, CM.LL
-				, CM.MM
-				, CM.NN
-				, CM.OO
-				, CM.PP
-				, CM.QQ
-				, CM.RR
-				, CM.SS
-				, CM.TT
-				, CM.UU
-				, CM.VV
-				, CM.WW
-				, CM.XX
-				, CM.YY
-				, CM.ZZ
-				, CM.DEL_YN		AS DEL_YN
+			SELECT /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.selectPrdcrCrclOgnMng */
+				  CM.APO_CD
+				, CM.APO_NM
+				, CM.APO_SE
+				, CM.APRV
+				, CM.BRNO
+				, CM.CORP_NM
+				, CM.CORP_SE_CD
+				, CM.CORP_DTL_SE_CD
+				, CM.NONGHYUP_CD
+				, CM.CORP_FNDN_DAY
+				, CM.CMPTN_INST
+				, CM.CTPV
+				, CM.SGG
+				, CM.ZIP
+				, CM.LOTNO_ADDR
+				, CM.LOTNO_DTL_ADDR
+				, CM.ROAD_NM_ADDR
+				, CM.ROAD_NM_DTL_ADDR
+				, CM.RPRSV_FLNM
+				, CM.RPRSV_TELNO
+				, CM.RPRSV_MOBLNO
+				, CM.RPRSV_EML
+				, CM.PIC_POSITION
+				, CM.PIC_FLNM
+				, CM.PIC_TELNO
+				, CM.PIC_MOBLNO
+				, CM.PIC_EML
+				, CM.FXNO
+				, CM.INVST_NOPE
+				, CM.INVST_EXPND_FRMER_NOPE
+				, CM.INVST_AMT
+				, CM.FRMER_INVST_AMT
+				, CM.RMK
+				, CM.PRDCR_GRP_INVST_AMT
+				, CM.LOCGOV_INVST_AMT
+				, CM.ETC_AMT
+				, CM.MNGMST_INFO_ID
+				, CM.MNGMST_YN
+				, CM.CRNO
+				, CM.ISO_HLD_YN
+				, CM.UO_BRNO
+				, CM.RGLLBR_NOPE
+				, CM.DW_NOPE
+				, CM.DLBRR_NOPE
+				, CM.JISO_AT
+
 				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
 				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
 				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
-				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_FRST_INPT_USER_ID) AS SYS_FRST_INPT_USER_ID_NM
+				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_FRST_INPT_USER_ID) AS SYS_FRST_INPT_USER_NM
 				, CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
+
 				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
 				, TO_CHAR(CM.SYS_LAST_CHG_DT,'YYYY-MM-DD')		AS SYS_LAST_CHG_DT_YMD
 				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
-				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_ID_NM
+				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_NM
 				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_PD_PrdcrCrclOgnVluIdctrMng CM
-			  WHERE 1=1
+			  FROM TB_EV_APO CM
+			 WHERE 1=1
     	]]>
-    		<if test='ccCode != null and ccCode != ""'>
-				AND CM.CC_CODE LIKE #{ccCode} || '%'
+    		<if test='cmptnInst != null and cmptnInst != ""'>
+				AND CM.CMPTN_INST LIKE #{cmptnInst} || '%'
 			</if>
-			<if test='iiCode != null and iiCode != ""'>
-				AND CM.II_CODE LIKE '%' || #{iiCode} || '%'
+			<if test='ctpv != null and ctpv != ""'>
+				AND CM.II_CODE LIKE '%' || #{ctpv} || '%'
 			</if>
-			<if test='testNo != null and testNo != ""'>
-				AND CM.TEST_NO LIKE '%' || #{testNo} || '%'
+			<if test='sgg != null and sgg != ""'>
+				AND CM.SGG LIKE '%' || #{sgg} || '%'
 			</if>
+			<if test='corpSeCd != null and corpSeCd != ""'>
+				AND CM.CORP_SE_CD LIKE #{corpSeCd} || '%'
+			</if>
+			<if test='corpDtlSeCd != null and corpDtlSeCd != ""'>
+				AND CM.CORP_DTL_SE_CD LIKE '%' || #{corpDtlSeCd} || '%'
+			</if>
+
+			<if test='brno != null and brno != ""'>
+				AND CM.BRNO LIKE #{brno} || '%'
+			</if>
+			<if test='corpNm != null and corpNm != ""'>
+				AND CM.CORP_NM LIKE '%' || #{corpNm} || '%'
+			</if>
+			<if test='apoSe != null and apoSe != ""'>
+				AND CM.APO_SE LIKE '%' || #{apoSe} || '%'
+			</if>
+		ORDER BY CM.SYS_LAST_CHG_DT DESC
     </select>
 
 
@@ -151,36 +217,47 @@
 	    	INSERT /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.insertPrdcrCrclOgnMng */
 	    	  INTO TB_PD_PrdcrCrclOgnVluIdctrMng
 	    		(
-	    			TEST_NO
-	    		  , AA
-	    		  , BB
-	    		  , CC
-	    		  , CC_CODE
-	    		  , DD
-	    		  , DD_CODE
-	    		  , EE
-	    		  , FF
-	    		  , GG
-	    		  , HH
-	    		  , II
-	    		  , II_CODE
-	    		  , JJ
-	    		  , KK
-	    		  , LL
-	    		  , MM
-	    		  , NN
-	    		  , OO
-	    		  , PP
-	    		  , QQ
-	    		  , RR
-	    		  , SS
-	    		  , TT
-	    		  , UU
-	    		  , VV
-	    		  , WW
-	    		  , XX
-	    		  , YY
-	    		  , ZZ
+	    			APO_SE
+	    		  , UO_BRNO
+	    		  , CORP_NM
+	    		  , CRNO
+	    		  , BRNO
+	    		  , MNGMST_INFO_ID
+	    		  , MNGMST_YN
+	    		  , NONGHYUP_CD
+	    		  , CMPTN_INST
+	    		  , CTPV
+	    		  , SGG
+	    		  , ZIP
+	    		  , LOTNO_ADDR
+	    		  , LOTNO_DTL_ADDR
+	    		  , ROAD_NM_ADDR
+	    		  , ROAD_NM_DTL_ADDR
+	    		  , CORP_SE_CD
+	    		  , CORP_DTL_SE_CD
+	    		  , CORP_FNDN_DAY
+	    		  , ISO_HLD_YN
+	    		  , INVST_NOPE
+	    		  , INVST_EXPND_FRMER_NOPE
+	    		  , INVST_AMT
+	    		  , FRMER_INVST_AMT
+	    		  , PRDCR_GRP_INVST_AMT
+	    		  , LOCGOV_INVST_AMT
+	    		  , ETC_AMT
+	    		  , RGLLBR_NOPE
+	    		  , DW_NOPE
+	    		  , DLBRR_NOPE
+	    		  , RPRSV_FLNM
+	    		  , RPRSV_TELNO
+	    		  , RPRSV_MOBLNO
+	    		  , RPRSV_EML
+	    		  , PIC_POSITION
+	    		  , PIC_FLNM
+	    		  , PIC_TELNO
+	    		  , PIC_MOBLNO
+	    		  , PIC_EML
+	    		  , FXNO
+	    		  , JISO_AT
 	    		  , SYS_FRST_INPT_DT
 	    		  , SYS_FRST_INPT_USER_ID
 	    		  , SYS_FRST_INPT_PRGRM_ID
@@ -190,36 +267,47 @@
 	    		)
 	   		VALUES
 	   			(
-	   			    (SELECT NVL(MAX(TEST_NO),0)+1 FROM TB_PD_PrdcrCrclOgnVluIdctrMng)
-	   			  , #{aa}
-	   			  , #{bb}
-	   			  , #{cc}
-	   			  , #{ccCode}
-	   			  , #{dd}
-	   			  , #{ddCode}
-	   			  , #{ee}
-	   			  , #{ff}
-	   			  , #{gg}
-	   			  , #{hh}
-	   			  , #{ii}
-	   			  , #{iiCode}
-	   			  , #{jj}
-	   			  , #{kk}
-	   			  , #{ll}
-	   			  , #{mm}
-	   			  , #{nn}
-	   			  , #{oo}
-	   			  , #{pp}
-	   			  , #{qq}
-	   			  , #{rr}
-	   			  , #{ss}
-	   			  , #{tt}
-	   			  , #{uu}
-	   			  , #{vv}
-	   			  , #{ww}
-	   			  , #{xx}
-	   			  , #{yy}
-	   			  , #{zz}
+	   			    #{apoSe}
+	   			  , #{uoBrno}
+	   			  , #{corpNm}
+	   			  , #{crno}
+	   			  , #{brno}
+	   			  , #{mngmstInfoId}
+	   			  , #{mngmstYn}
+	   			  , #{nonghyupCd}
+	   			  , #{cmptnInst}
+	   			  , #{ctpv}
+	   			  , #{sgg}
+	   			  , #{zip}
+	   			  , #{lotnoAddr}
+	   			  , #{lotnoDtlAddr}
+	   			  , #{roadNmAddr}
+	   			  , #{roadNmDtlAddr}
+	   			  , #{corpSeCd}
+	   			  , #{corpDtlSeCd}
+	   			  , #{corpFndnDay}
+	   			  , #{isoHldYn}
+	   			  , #{invstNope}
+	   			  , #{invstExpndFrmerNope}
+	   			  , #{invstAmt}
+	   			  , #{frmerInvstAmt}
+	   			  , #{prdcrGrpInvstAmt}
+	   			  , #{locgovInvstAmt}
+	   			  , #{etcAmt}
+	   			  , #{rgllbrNope}
+	   			  , #{dwNope}
+	   			  , #{dlbrrNope}
+	   			  , #{rprsvFlnm}
+	   			  , #{rprsvTelno}
+	   			  , #{rprsvMoblno}
+	   			  , #{rprsvEml}
+	   			  , #{picPosition}
+	   			  , #{picFlnm}
+	   			  , #{picTelno}
+	   			  , #{picMoblno}
+	   			  , #{picEml}
+	   			  , #{fxno}
+	   			  , #{jisoAt}
 	   			  , SYSDATE
 	   			  , #{sysFrstInptUserId}
 	   			  , #{sysFrstInptPrgrmId}
@@ -234,48 +322,65 @@
 	    	UPDATE /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.upatePrdcrCrclOgnMng */
 	    		TB_PD_PrdcrCrclOgnVluIdctrMng
 			   SET
-			 	  AA	= #{aa}
-			 	, BB 	= #{bb}
-			 	, CC 	= #{cc}
-			 	, CC_CODE 	= #{ccCode}
-			 	, DD 	= #{dd}
-			 	, DD_CODE 	= #{ddCode}
-			 	, EE 	= #{ee}
-			 	, FF 	= #{ff}
-			 	, GG 	= #{gg}
-			 	, HH 	= #{hh}
-			 	, II 	= #{ii}
-			 	, II_CODE 	= #{iiCode}
-			 	, JJ 	= #{jj}
-			 	, KK 	= #{kk}
-			 	, LL 	= #{ll}
-			 	, MM 	= #{mm}
-			 	, NN 	= #{nn}
-			 	, OO 	= #{oo}
-			 	, PP 	= #{pp}
-			 	, QQ 	= #{qq}
-			 	, RR 	= #{rr}
-			 	, SS 	= #{ss}
-			 	, TT 	= #{tt}
-			 	, UU 	= #{uu}
-			 	, VV 	= #{vv}
-			 	, WW 	= #{ww}
-			 	, XX 	= #{xx}
-			 	, YY 	= #{yy}
-			 	, ZZ 	= #{zz}
+			 	  	APO_SE					= #{apoSe}
+	    		  , UO_BRNO					= #{uoBrno}
+	    		  , CORP_NM					= #{corpNm}
+	    		  , CRNO					= #{crno}
+	    		  , BRNO					= #{brno}
+	    		  , MNGMST_INFO_ID			= #{mngmstInfoId}
+	    		  , MNGMST_YN				= #{mngmstYn}
+	    		  , NONGHYUP_CD				= #{nonghyupCd}
+	    		  , CMPTN_INST				= #{cmptnInst}
+	    		  , CTPV					= #{ctpv}
+	    		  , SGG						= #{sgg}
+	    		  , ZIP						= #{zip}
+	    		  , LOTNO_ADDR				= #{lotnoAddr}
+	    		  , LOTNO_DTL_ADDR			= #{lotnoDtlAddr}
+	    		  , ROAD_NM_ADDR			= #{roadNmAddr}
+	    		  , ROAD_NM_DTL_ADDR		= #{roadNmDtlAddr}
+	    		  , CORP_SE_CD				= #{corpSeCd}
+	    		  , CORP_DTL_SE_CD			= #{corpDtlSeCd}
+	    		  , CORP_FNDN_DAY			= #{corpFndnDay}
+	    		  , ISO_HLD_YN				= #{isoHldYn}
+	    		  , INVST_NOPE				= #{invstNope}
+	    		  , INVST_EXPND_FRMER_NOPE	= #{invstExpndFrmerNope}
+	    		  , INVST_AMT				= #{invstAmt}
+	    		  , FRMER_INVST_AMT			= #{frmerInvstAmt}
+	    		  , PRDCR_GRP_INVST_AMT		= #{prdcrGrpInvstAmt}
+	    		  , LOCGOV_INVST_AMT		= #{locgovInvstAmt}
+	    		  , ETC_AMT					= #{etcAmt}
+	    		  , RGLLBR_NOPE				= #{rgllbrNope}
+	    		  , DW_NOPE					= #{dwNope}
+	    		  , DLBRR_NOPE				= #{dlbrrNope}
+	    		  , RPRSV_FLNM				= #{rprsvFlnm}
+	    		  , RPRSV_TELNO				= #{rprsvTelno}
+	    		  , RPRSV_MOBLNO			= #{rprsvMoblno}
+	    		  , RPRSV_EML				= #{rprsvEml}
+	    		  , PIC_POSITION			= #{picPosition}
+	    		  , PIC_FLNM				= #{picFlnm}
+	    		  , PIC_TELNO				= #{picTelno}
+	    		  , PIC_MOBLNO				= #{picMoblno}
+	    		  , PIC_EML					= #{picEml}
+	    		  , FXNO					= #{fxno}
+	    		  , JISO_AT					= #{jisoAt}
     	]]>
-		<if test='delYn != null and delYn != ""'>
-				, DEL_YN 	= #{delYn}
-		</if>
     	<![CDATA[
 				, SYS_LAST_CHG_DT		= SYSDATE
 	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 
 			 WHERE 1=1
-			   AND TEST_NO	= #{testNo}
+			   AND APO_CD	= #{apoCd}
     	]]>
     </update>
+
+
+
+
+
+
+
+
 
 
 	<delete id="deletePrdcrCrclOgnMng" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO">
