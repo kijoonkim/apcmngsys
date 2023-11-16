@@ -147,21 +147,20 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 
 		// validation check
 		for ( ComUserVO user : comUserList ) {
+			
 			ComUserVO userInfo = selectComUser(user);
 
-			logger.debug("userInfo.getApcCd(): {}", userInfo.getApcCd());
-
 			if (userInfo == null || !StringUtils.hasText(userInfo.getUserId())) {
-				return ComUtil.getResultMap("W0005", "사용자정보");
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "사용자정보");
 			}
 			if (!StringUtils.hasText(userInfo.getApcCd())) {
-				return ComUtil.getResultMap("W0005", "APC코드");
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
 			}
 			if (ComConstants.CON_USER_STTS_VALID.equals(userInfo.getUserStts())) {
-				return ComUtil.getResultMap("W0010", "승인||사용자");	// W0010	이미 {0}된 {1} 입니다.
+				return ComUtil.getResultMap(ComConstants.MSGCD_ALEADY_DONE, "승인||사용자");	// W0010	이미 {0}된 {1} 입니다.
 			}
 			if (!ComConstants.CON_USER_TYPE_ADMIN.equals(userInfo.getUserType())) {
-				return ComUtil.getResultMap("W0011", "APC관리자");	// W0011	{0}이/가 아닙니다.
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_TARGET, "APC관리자");	// W0011	{0}이/가 아닙니다.
 			}
 
 			user.setApcCd(userInfo.getApcCd());
@@ -186,8 +185,6 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 
 			rtnObj = comAuthrtService.insertApcAuthrtId(comAuthrtVO);
 			if (rtnObj != null) {
-				logger.error("Error on ComUserService#insertUserAprvList call ComAuthrtService#insertApcAuthrtId");
-				logger.error(getMessageForMap(rtnObj));
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
 
@@ -200,7 +197,6 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 
 			rtnObj = apcEvrmntStngService.insertApcInitInfo(apcEvrmntStngVO);
 			if (rtnObj != null) {
-				logger.error("Error on ComUserService#insertUserAprvList call ApcEvrmntStngService#insertApcInitInfo");
 				logger.error(getMessageForMap(rtnObj));
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}

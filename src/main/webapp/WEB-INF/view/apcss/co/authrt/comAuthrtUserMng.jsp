@@ -151,6 +151,7 @@
     <div id="body-modal-comAuthUser">
     	<jsp:include page="../../co/popup/comAuthUserPopup.jsp"></jsp:include>
     </div>
+</body>
 <script type="text/javascript">
 
 	/* 공통코드 */
@@ -651,6 +652,5 @@
     }
 
 </script>
-
-</body>
+<%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

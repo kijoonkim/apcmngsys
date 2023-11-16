@@ -1,13 +1,24 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%
+ /**
+  * @Class Name : spmtPrfmnc.jsp
+  * @Description : 출하실적조회 화면
+  * @author SI개발부
+  * @since 2023.08.31
+  * @version 1.0
+  * @Modification Information
+  * @
+  * @ 수정일       	수정자      	수정내용
+  * @ ----------	----------	---------------------------
+  * @ 2023.08.31   	김호			최초 생성
+  * @see
+  *
+  */
+%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
-   	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
+	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
@@ -226,6 +237,9 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.allowcopy = true;
 		SBGridProperties.explorerbar = 'sortmove';
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
+		SBGridProperties.explorerbar = 'move'				// 개인화 컬럼 이동 가능
     	SBGridProperties.paging = {
     			'type' : 'page',
     		  	'count' : 5,
@@ -234,12 +248,11 @@
     		  	'showgoalpageui' : true
     	    };
         SBGridProperties.columns = [
-        	{caption: ['출하번호','출하번호'], 		ref: 'spmtno', 	hidden:true},
         	{caption: ["선택","선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
             {caption: ['반품여부','반품여부'], 	ref: 'rtnGdsNm',	width: '50px',	type: 'output',	style:'text-align: center'},
-        	{caption: ['출하번호','출하번호'], 		ref: 'spmtno', 	width: '120px',	type: 'output',	style:'text-align: center'},
+        	{caption: ['출하번호','출하번호'], 	ref: 'spmtno', 		width: '120px',	type: 'output',	style:'text-align: center'},
             {caption: ['출하일자','출하일자'], 	ref: 'spmtYmd',		width: '80px',	type: 'output',	style:'text-align: center',
     		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
             {caption: ['브랜드','브랜드'], 		ref: 'brndNm', 		width: '100px',	type: 'output',	style:'text-align: center'},
@@ -252,15 +265,15 @@
             {caption: ['품목','품목'],			ref: 'itemNm', 		width: '70px',	type: 'output',	style:'text-align: center'},
             {caption: ['품종','품종'],			ref: 'vrtyNm', 		width: '70px',	type: 'output',	style:'text-align: center'},
             {caption: ['규격','규격'], 			ref: 'spcfctNm', 	width: '100px',	type: 'output',	style:'text-align: center'},
-            {caption: ['출하','수량'], 		ref: 'spmtQntt', 	width: '60px',	type: 'output',	style:'text-align: right',
+            {caption: ['출하','수량'], 			ref: 'spmtQntt', 	width: '60px',	type: 'output',	style:'text-align: right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-            {caption: ['출하','중량'], 		ref: 'spmtWght', 	width: '80px',	type: 'output',	style:'text-align: right',
+            {caption: ['출하','중량'], 			ref: 'spmtWght', 	width: '80px',	type: 'output',	style:'text-align: right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-            {caption: ['반품','수량'], 		ref: 'rtnGdsQntt', 	width: '60px',	type: 'input',	style:'text-align: right',
+            {caption: ['반품','수량'], 			ref: 'rtnGdsQntt', 	width: '60px',	type: 'input',	style:'text-align: right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-            {caption: ['반품','중량'], 		ref: 'rtnGdsWght', 	width: '80px',	type: 'output',	style:'text-align: right',
+            {caption: ['반품','중량'], 			ref: 'rtnGdsWght', 	width: '80px',	type: 'output',	style:'text-align: right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-            {caption: ['비고','비고'], 	ref: 'rmrk',		width: '250px',	type: 'output',	style:'text-align: center'}
+            {caption: ['비고','비고'], 			ref: 'rmrk',		width: '250px',	type: 'output',	style:'text-align: center'}
         ];
         grdSpmtPrfmnc = _SBGrid.create(SBGridProperties);
         grdSpmtPrfmnc.bind( "afterpagechanged" , "fn_pagingSmptPrfmnc" );
@@ -268,6 +281,62 @@
         grdSpmtPrfmnc.bind('select','fn_setValue');
         grdSpmtPrfmnc.bind('deselect','fn_delValue');
     }
+
+	/**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+    const objMenuList = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",					//단축키
+            "callback": fn_excelDwnld,			//콜백함수명
+        },
+        "personalSave" : {
+        	"name": "개인화 저장",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "s",					//단축키
+            "callback": fn_personalSave,		//콜백함수명
+        },
+        "personalLoad" : {
+        	"name": "개인화 호출",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "l",					//단축키
+            "callback": fn_personalLoad,		//콜백함수명
+        },
+        "colHidden" : {
+        	"name": "열 숨기기",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "h",					//단축키
+            "callback": fn_colHidden,			//콜백함수명
+        },
+        "colShow" : {
+        	"name": "열 보이기",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "w",					//단축키
+            "callback": fn_colShow,				//콜백함수명
+        }
+    };
+
+     // 엑셀 다운로드
+    function fn_excelDwnld() {
+    	grdSpmtPrfmnc.exportLocalExcel("출하실적", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+
+    // 개인화 저장
+    function fn_personalSave(){
+    	grdSpmtPrfmnc.savePersonalInfo("apcCd");
+   	}
+    // 개인화 호출
+    function fn_personalLoad(){
+    	grdSpmtPrfmnc.loadPersonalInfo("apcCd");
+   	}
+	// 열 숨기기
+    function fn_colHidden(){
+    	grdSpmtPrfmnc.setColHidden(grdSpmtPrfmnc.getCol(), true);
+   	}
+	// 열 보이기
+    function fn_colShow(){
+    	for(let i = grdSpmtPrfmnc.getFixedCols(); i < grdSpmtPrfmnc.getCols()-1; i++) {
+   			grdSpmtPrfmnc.setColHidden(i, false);
+    	}
+   	}
 
 	const fn_setValue = function(){
 		let checkedYnCol = grdSpmtPrfmnc.getColRef("checkedYn");
@@ -784,4 +853,5 @@
 		})
 	})
 </script>
+<%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

@@ -17,6 +17,11 @@ public class ComConstants {
 
 	public final static String PAGINATION_MAP = "paginationMap";
 
+	/**
+	 * SSO TOKEN : pni_token
+	 */
+	public final static String SYS_SSO_TOKEN = "pni_token";
+	
 	/* RESULT */
 	public final static String PROP_RESULT_STATUS = "resultStatus";
 	public final static String PROP_RESULT_CODE = "resultCode";
@@ -85,8 +90,13 @@ public class ComConstants {
 	 * W0010	이미 {0}된 {1} 입니다.
 	 */
 	public final static String MSGCD_ALEADY_DONE = "W0010";		// W0010	이미 {0}된 {1} 입니다.
-
-
+	/**
+	 * W0011	{0}이/가 아닙니다.
+	 */
+	public final static String MSGCD_NOT_TARGET = "W0011";		//	W0011	{0}이/가 아닙니다.
+	/**
+	 * W0012	마감등록 된 {0} 입니다.
+	 */
 	public final static String MSGCD_ALEADY_CLOSE = "W0012";	// W0012	마감등록 된 {0} 입니다.
 
 	/* CODE 정보 */

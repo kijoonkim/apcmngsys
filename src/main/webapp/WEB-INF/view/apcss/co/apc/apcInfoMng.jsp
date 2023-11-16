@@ -1,13 +1,24 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%
+/**
+ * @Class Name : apcInfoMng.jsp
+ * @Description : APC정보관리 화면
+ * @author SI개발부
+ * @since 2023.08.23
+ * @version 1.0
+ * @Modification Information
+ * @
+ * @ 수정일       	수정자      	수정내용
+ * @ ----------	----------	---------------------------
+ * @ 2023.10.23   	김호			최초 생성
+ * @see
+ *
+ */
+%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
-   	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
+	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
@@ -15,7 +26,7 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- APC정보관리 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
@@ -290,8 +301,10 @@
         	} else {
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
-        } catch(e) {        	
+        } catch(e) {
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 	}
 </script>
+<%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

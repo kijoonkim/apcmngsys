@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-    <title>title : SBUx2.6</title>
+    <title>title : 원물입고등록 엑셀 올리기</title>
 </head>
 <body>
 	<section>

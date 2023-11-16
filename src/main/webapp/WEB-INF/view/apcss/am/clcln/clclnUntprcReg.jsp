@@ -443,6 +443,6 @@
 			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
 		}
 	}
-
 </script>
+<%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

@@ -32,7 +32,7 @@ public class ComMenuVO extends ComVO {
 	public List<String> getAuthrtTypeList() {
 		return this.authrtTypeList == null ? null : authrtTypeList.stream().collect(Collectors.toList());
 	}	
-	public void setAuthrtTypeList(List<String> authMenuIdList) {
+	public void setAuthrtTypeList(List<String> authrtTypeList) {
 		this.authrtTypeList = authrtTypeList == null ? null : authrtTypeList.stream().collect(Collectors.toList());
 	}
 }

@@ -1,5 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%
+/**
+ * @Class Name : gdsCd.jsp
+ * @Description : 상품코드조회 화면
+ * @author SI개발부
+ * @since 2023.10.23
+ * @version 1.0
+ * @Modification Information
+ * @
+ * @ 수정일       	수정자      	수정내용
+ * @ ----------	----------	---------------------------
+ * @ 2023.10.23   	김호			최초 생성
+ * @see
+ *
+ */
+%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -353,4 +368,5 @@
  		})
  	})
 </script>
+<%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

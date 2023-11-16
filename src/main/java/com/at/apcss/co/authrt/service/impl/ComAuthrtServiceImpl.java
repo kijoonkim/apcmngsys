@@ -383,10 +383,6 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 						ComConstants.PROP_SYS_LAST_CHG_USER_ID,
 						ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID
 					);
-			logger.debug("getAuthrtId : {}", comAuthrtUserVO.getAuthrtId());
-			//ComAuthrtUserVO orgnVO = selectComAuthrtUser(comAuthrtUserVO);
-			//boolean voExists = orgnVO != null && StringUtils.hasText(orgnVO.getAuthrtId());
-
 			insertComAuthrtUser(comAuthrtUserVO);
 		}
 
@@ -413,9 +409,6 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 						ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID
 					);
 
-			//ComAuthrtUserVO orgnVO = selectComAuthrtUser(comAuthrtUserVO);
-			//boolean voExists = orgnVO != null && StringUtils.hasText(orgnVO.getAuthrtId());
-
 			deleteComAuthrtUser(comAuthrtUserVO);
 		}
 
@@ -433,7 +426,6 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 		String apcCd = comAuthrtVO.getApcCd();
 		String userId = comAuthrtVO.getUserId();
 
-		logger.debug("apcCd {}", apcCd);
 		// APC 관리자 승인 등록 시
 		// 10. 해당 APC의 권한그룹 등록 (관리자 승인 시 1회)
 		// 11. 관리자 권한에 권한메뉴 등록 (업무지원 + APC 환경설정)
@@ -451,6 +443,7 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 		// 사용자 유형 확인
 		ComUserVO paramUser = new ComAuthrtUserVO();
 		paramUser.setUserId(userId);
+		
 		ComUserVO comUserVO = comUserMapper.selectComUser(paramUser);
 		if (comUserVO == null || !StringUtils.hasText(comUserVO.getUserId())) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "사용자정보");
@@ -472,14 +465,12 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 			HashMap<String, Object> resultMap = ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "사용자유형");
 			return resultMap;
 		}
-		logger.debug("authrtType: {}", authrtType);
 
 		// apc 권한 정보 조회
 		ComAuthrtVO authrtParam = new ComAuthrtVO();
 		authrtParam.setApcCd(apcCd);
 		List<ComAuthrtVO> authrtList = selectComAuthrtList(authrtParam);
 
-		logger.debug("authrtList.size(): {}", authrtList.size());
 		// 01. 해당 APC의 권한그룹 등록 (관리자 승인 시 1회)
 		// 권한그룹 등록 확인
 		if (ComConstants.CON_AUTHRT_TYPE_ADMIN.equals(authrtType)) {
@@ -516,7 +507,6 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 
 				// 등록 후 권한그룹 재조회
 				authrtList = selectComAuthrtList(authrtParam);
-				logger.debug("xx authrtList.size(): {}", authrtList.size());
 				// 관리자 권한에 권한메뉴 등록
 				String adminAuthrtId = ComConstants.CON_BLANK;
 				for ( ComAuthrtVO auth : authrtList ) {
@@ -526,7 +516,7 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 						break;
 					}
 				}
-				logger.debug("adminAuthrtId: {}", adminAuthrtId);
+				
 				if (StringUtils.hasText(adminAuthrtId)) {
 					ComAuthrtMenuVO newAuthrtMenuVO = new ComAuthrtMenuVO();
 					newAuthrtMenuVO.setSysFrstInptUserId(sysUserId);

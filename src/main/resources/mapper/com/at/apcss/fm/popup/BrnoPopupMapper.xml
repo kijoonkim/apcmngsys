@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : BrnoPopupMapper.xml                                    				-->
+<!-- DESC :  apc선택 팝업 정보 mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.10.03  	ljw        		Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.fm.popup.mapper.BrnoPopupMapper">
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.popup.mapper.BrnoPopupMapper.selectApcList		-->
+	<!-- DESC : apc목록 조회.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.10.03  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectBrnoList" parameterType="com.at.apcss.fm.popup.vo.BrnoPopupVO" resultType="com.at.apcss.fm.popup.vo.BrnoPopupVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+    	<!-- End 페이징 -->
+
+		<![CDATA[
+    	SELECT /* com.at.apcss.fm.popup.mapper.BrnoPopupMapper.selectBrnoList */
+    		   A.CORP_NM	AS CORP_NM
+		     , A.BRNO		AS BRNO
+		  FROM TB_EV_APO A
+		 WHERE 1=1
+		 ]]>
+		 <if test='brno != null and brno != ""'>
+				AND A.BRNO LIKE '%'||#{brno}||'%'
+		</if>
+		 ORDER BY CORP_NM ASC
+
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+
+</mapper>
