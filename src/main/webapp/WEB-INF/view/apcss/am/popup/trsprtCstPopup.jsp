@@ -187,13 +187,6 @@
 		    SBGridProperties.allowcopy = true;
 			SBGridProperties.scrollbubbling = false;
 		    SBGridProperties.dblclickeventarea = {fixed: false, empty: false};
-		    SBGridProperties.paging = {
-				'type' : 'page',
-			  	'count' : 5,
-			  	'size' : 20,
-			  	'sorttype' : 'page',
-			  	'showgoalpageui' : true
-		    };
 		    SBGridProperties.columns = [
 		        {caption: ["처리"],	 	ref: 'delYn',  		width:'70px',	type: 'button',			style: 'text-align: center', sortable: false,
 		        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
@@ -227,7 +220,6 @@
 
 		    ];
 		    grdTrsprtCstPop = _SBGrid.create(SBGridProperties);
-		    grdTrsprtCstPop.bind('afterpagechanged', this.paging);
 		    grdTrsprtCstPop.bind('dblclick', popTrsrptCst.choice);
 		    grdTrsprtCstPop.bind('valuechanged', this.setTrsprtCst);
 		},
@@ -339,33 +331,24 @@
 	        }
 		},
 		search: async function() {
-			// set pagination
 			grdTrsprtCstPop.rebuild();
-	    	let pageSize = grdTrsprtCstPop.getPageSize();
-	    	let pageNo = 1;
 
 	    	// grid clear
 	    	grdTrsprtCstPop.length = 0;
-	    	await this.setGrid(pageSize, pageNo);
+	    	await this.setGrid();
 		},
-		setGrid: async function(pageSize, pageNo) {
+		setGrid: async function() {
 	    	let apcCd 		= SBUxMethod.get("trsprtCst-inp-apcCd");
 	    	let trsprtYmd 	= SBUxMethod.get("trsprtCst-dtp-trsprtYmd");
 	    	let vhclno 		= SBUxMethod.get("trsprtCst-inp-vhclno");
 	        const postJsonPromise = gfn_postJSON("/am/cmns/selectRawMtrTrsprtCstList.do", {
 	        	apcCd		: apcCd,
 	        	trsprtYmd	: trsprtYmd,
-	        	vhclno		: vhclno,
-	        	// pagination
-		  		pagingYn : 'Y',
-				currentPageNo : pageNo,
-	 		  	recordCountPerPage : pageSize
+	        	vhclno		: vhclno
 			});
 
 	        const data = await postJsonPromise;
 			try {
-	    		let totalRecordCount = 0;
-
 	    		jsonTrsprtCstPop.length = 0;
 	        	data.resultList.forEach((item, index) => {
 					const trsprtCstVO = {
@@ -386,25 +369,10 @@
 						  , sn			: item.sn
 					}
 					jsonTrsprtCstPop.push(trsprtCstVO);
-
-					if (index === 0) {
-						totalRecordCount = item.totalRecordCount;
-					}
 				});
-
-	        	if (jsonTrsprtCstPop.length > 0) {
-	        		if(grdTrsprtCstPop.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-	        			grdTrsprtCstPop.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-	        			grdTrsprtCstPop.rebuild();
-					}else{
-						grdTrsprtCstPop.refresh();
-					}
-	        	} else {
-	        		grdTrsprtCstPop.setPageTotalCount(totalRecordCount);
-	        		grdTrsprtCstPop.rebuild();
-	        	}
+        		grdTrsprtCstPop.rebuild();
 	        	grdTrsprtCstPop.addRow(true, receivedData);
-	        	document.querySelector('#trsprtCst-pop-cnt').innerText = totalRecordCount;
+	        	document.querySelector('#trsprtCst-pop-cnt').innerText = jsonTrsprtCstPop.length-1;
 
 	        } catch (e) {
 	    		if (!(e instanceof Error)) {
@@ -412,12 +380,6 @@
 	    		}
 	    		console.error("failed", e.message);
 	        }
-	    },
-	    paging: function() {
-	    	let recordCountPerPage = grdTrsprtCstPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-	    	let currentPageNo = grdTrsprtCstPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-
-	    	popTrsrptCst.setGrid(recordCountPerPage, currentPageNo);
 	    },
 	    callSelectRgnTsprtCstList: async function() {
 			const apcCd = SBUxMethod.get("trsprtCst-inp-apcCd");

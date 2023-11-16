@@ -124,13 +124,6 @@
 		    SBGridProperties.allowcopy = true;
 		    SBGridProperties.scrollbubbling = false;
 		    SBGridProperties.dblclickeventarea = {fixed: false, empty: false};
-		    SBGridProperties.paging = {
-				'type' : 'page',
-			  	'count' : 5,
-			  	'size' : 20,
-			  	'sorttype' : 'page',
-			  	'showgoalpageui' : true
-		    };
 		    SBGridProperties.columns = [
 		    	{caption: ["포장일자"], 		ref: 'pckgYmd', 		width: '100px', type: 'output', style:'text-align:center',
 	            	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
@@ -151,7 +144,6 @@
 		        {caption: ["총재고중량"],		ref: 'totalInvntrWght', hidden: true}
 		    ];
 		    grdGdsInvntrPop = _SBGrid.create(SBGridProperties);
-		    grdGdsInvntrPop.bind('afterpagechanged', this.paging);
 		    grdGdsInvntrPop.bind('dblclick', popGdsInvntr.choice);
 		},
 		choice: function() {
@@ -168,15 +160,13 @@
 			let apcCd = SBUxMethod.get("gdsInvntr-inp-apcCd");
 
 			grdGdsInvntrPop.rebuild();
-	    	let pageSize = grdGdsInvntrPop.getPageSize();
-	    	let pageNo = 1;
 
 	    	// grid clear
 	    	jsonGdsInvntrPop.length = 0;
 	    	grdGdsInvntrPop.refresh();
-	    	this.setGrid(pageSize, pageNo);
+	    	this.setGrid();
 		},
-		setGrid: async function(pageSize, pageNo) {
+		setGrid: async function() {
 			jsonGdsInvntrPop = [];
 
 			let apcCd = SBUxMethod.get("gdsInvntr-inp-apcCd");
@@ -191,17 +181,12 @@
 					itemCd 				: itemCd,
 					vrtyCd 				: vrtyCd,
 					spcfctCd 			: spcfctCd,
-					gdsGrd 				: gdsGrd,
-					// pagination
-			  		pagingYn 			: 'Y',
-					currentPageNo 		: pageNo,
-		 		  	recordCountPerPage	: pageSize
+					gdsGrd 				: gdsGrd
 			}
 			let postJsonPromise = gfn_postJSON("/am/invntr/selectGdsInvntrList.do", gdsInvntr);
 		    let data = await postJsonPromise;
 
 		    try{
-		    	let totalRecordCount = 0;
 		    	jsonGdsInvntrPop.length = 0;
 		    	data.resultList.forEach((item, index) => {
 		    		
@@ -253,39 +238,14 @@
 						}
 						jsonGdsInvntrPop.push(gdsInvntr);
 		    		}
-
-					if (index === 0) {
-						totalRecordCount = item.totalRecordCount;
-					}
 				});
-
-		    	if (jsonGdsInvntrPop.length > 0) {
-	        		if(grdGdsInvntrPop.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-	        			grdGdsInvntrPop.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-	        			grdGdsInvntrPop.rebuild();
-					}else{
-						grdGdsInvntrPop.refresh();
-					}
-	        	} else {
-	        		grdGdsInvntrPop.setPageTotalCount(totalRecordCount);
-	        		grdGdsInvntrPop.rebuild();
-	        	}
-
-	        	//document.querySelector('#gdsInvntr-pop-cnt').innerText = totalRecordCount;
-
-	        	grdGdsInvntrPop.rebuild();
+        		grdGdsInvntrPop.rebuild();
 		    }catch (e) {
 				if (!(e instanceof Error)) {
 					e = new Error(e);
 				}
 		 		console.error("failed", e.message);
 		    }
-	    },
-	    paging: function() {
-	    	let recordCountPerPage = grdGdsInvntrPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-	    	let currentPageNo = grdGdsInvntrPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-
-	    	popGdsInvntr.setGrid(recordCountPerPage, currentPageNo);
 	    }
 	}
 </script>

@@ -179,13 +179,6 @@
 		    SBGridProperties.allowcopy = true;
 		    SBGridProperties.scrollbubbling = false;
 		    SBGridProperties.dblclickeventarea = {fixed: false, empty: false};
-		    SBGridProperties.paging = {
-				'type' : 'page',
-			  	'count' : 5,
-			  	'size' : 20,
-			  	'sorttype' : 'page',
-			  	'showgoalpageui' : true
-		    };
 		    SBGridProperties.columns = [
 		        {caption: ["지시번호","지시번호"],		ref: 'sortCmndnoIndct', type:'output',  width:'130px',	style:'text-align:center'},
 		        {caption: ["지시일자","지시일자"], 		ref: 'sortCmndYmd',     type:'output',  width:'100px',	style:'text-align:center',
@@ -214,7 +207,6 @@
             	{caption: ["입고번호"],	ref: 'wrhsno', 			type:'output',  hidden: true},
 		    ];
 		    grdSortCmndnoPop = _SBGrid.create(SBGridProperties);
-		    grdSortCmndnoPop.bind('afterpagechanged', this.paging);
 		    grdSortCmndnoPop.bind('dblclick', popSortCmndno.choice);
 		},
 		choice: function() {
@@ -228,22 +220,17 @@
 			}
 		},
 		search: async function() {
-			let apcCd = SBUxMethod.get("sortCmndno-inp-apcCd");
-
 			grdSortCmndnoPop.rebuild();
-	    	let pageSize = grdSortCmndnoPop.getPageSize();
-	    	let pageNo = 1;
 
 	    	// grid clear
 	    	jsonSortCmndnoPop.length = 0;
 	    	grdSortCmndnoPop.refresh();
-	    	this.setGrid(pageSize, pageNo);
+	    	this.setGrid();
 		},
-		setGrid: async function(pageSize, pageNo) {
+		setGrid: async function() {
 			jsonSortCmndnoPop = [];
 
 			let apcCd = SBUxMethod.get("sortCmndno-inp-apcCd");
-			//let sortCmndYmd = SBUxMethod.get("sortCmndno-dtp-sortCmndYmd");
 			let sortCmndYmdFrom = SBUxMethod.get("sortCmndno-dtp-sortCmndYmdFrom");
 			let sortCmndYmdTo = SBUxMethod.get("sortCmndno-dtp-sortCmndYmdTo");
 			let itemCd = SBUxMethod.get("sortCmndno-slt-itemCd");
@@ -251,23 +238,17 @@
 			let spcfctCd = SBUxMethod.get("sortCmndno-slt-spcfctCd");
 			let sortCmndno = {
 					apcCd 				: apcCd,
-					//sortCmndYmd 		: sortCmndYmd,
 					sortCmndYmdFrom		: sortCmndYmdFrom,
 					sortCmndYmdTo		: sortCmndYmdTo,
 
 					itemCd 				: itemCd,
 					vrtyCd 				: vrtyCd,
-					spcfctCd 			: spcfctCd,
-					// pagination
-			  		pagingYn 			: 'Y',
-					currentPageNo 		: pageNo,
-		 		  	recordCountPerPage	: pageSize
+					spcfctCd 			: spcfctCd
 			}
 			let postJsonPromise = gfn_postJSON("/am/sort/selectSortCmndList.do", sortCmndno);
 		    let data = await postJsonPromise;
 
 		    try{
-		    	let totalRecordCount = 0;
 		    	jsonSortCmndnoPop.length = 0;
 		    	data.resultList.forEach((item, index) => {
 					let sortCmndno = {
@@ -301,26 +282,7 @@
   						rmrk 			: item.rmrk
 					}
 					jsonSortCmndnoPop.push(sortCmndno);
-
-					if (index === 0) {
-						totalRecordCount = item.totalRecordCount;
-					}
 				});
-
-		    	if (jsonSortCmndnoPop.length > 0) {
-	        		if(grdSortCmndnoPop.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-	        			grdSortCmndnoPop.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-	        			grdSortCmndnoPop.rebuild();
-					}else{
-						grdSortCmndnoPop.refresh();
-					}
-	        	} else {
-	        		grdSortCmndnoPop.setPageTotalCount(totalRecordCount);
-	        		grdSortCmndnoPop.rebuild();
-	        	}
-
-	        	//document.querySelector('#sortCmndno-pop-cnt').innerText = totalRecordCount;
-
 	        	grdSortCmndnoPop.rebuild();
 		    }catch (e) {
 				if (!(e instanceof Error)) {
@@ -373,13 +335,7 @@
 	 			SBUxMethod.set("sortCmndno-dtp-sortCmndYmdTo", gfn_dateToYmd(new Date()));
 	 			return;
 	 		}
-		},
-	    paging: function() {
-	    	let recordCountPerPage = grdSortCmndnoPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-	    	let currentPageNo = grdSortCmndnoPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-
-	    	popSortCmndno.setGrid(recordCountPerPage, currentPageNo);
-	    }
+		}
 	}
 </script>
 </html>

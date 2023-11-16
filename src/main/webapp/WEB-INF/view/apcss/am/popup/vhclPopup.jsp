@@ -145,13 +145,6 @@
 		    SBGridProperties.allowcopy = true;
 		    SBGridProperties.scrollbubbling = false;
 		    SBGridProperties.dblclickeventarea = {fixed: false, empty: false};
-		    SBGridProperties.paging = {
-				'type' : 'page',
-			  	'count' : 5,
-			  	'size' : 20,
-			  	'sorttype' : 'page',
-			  	'showgoalpageui' : true
-		    };
 		    SBGridProperties.columns = [
 		    	{caption: ['차량번호'], 	ref: 'vhclno', 			width: '100px',	type: 'input', 		style:'text-align:center', 	sortable: false,
 		    		validate : gfn_chkByte.bind({byteLimit: 40})},
@@ -181,7 +174,6 @@
 			    {caption: ['은행명'], 	ref: 'bankNm', 			hidden : true}
 		    ];
 		    grdVhclPop = _SBGrid.create(SBGridProperties);
-		    grdVhclPop.bind('afterpagechanged', this.paging);
 		    grdVhclPop.bind('dblclick', popVhcl.choice);
 		},
 		choice: function() {
@@ -310,34 +302,25 @@
 	        }
 		},
 		search: async function() {
-			// set pagination
 			grdVhclPop.rebuild();
-	    	let pageSize = grdVhclPop.getPageSize();
-	    	let pageNo = 1;
 
 	    	// grid clear
 	    	jsonVhclPop.length = 0;
-	    	await this.setGrid(pageSize, pageNo);
+	    	await this.setGrid();
 		},
-		setGrid: async function(pageSize, pageNo) {
+		setGrid: async function() {
 
 	    	let apcCd = SBUxMethod.get("vhcl-inp-apcCd");
 			let vhclno = SBUxMethod.get("vhcl-inp-vhclno");
 
 	        const postJsonPromise = gfn_postJSON("/am/cmns/selectWrhsVhclList.do", {
 	        	apcCd: apcCd,
-	        	vhclno: vhclno,
-	        	// pagination
-		  		pagingYn : 'Y',
-				currentPageNo : pageNo,
-	 		  	recordCountPerPage : pageSize
+	        	vhclno: vhclno
 			});
 
 	        const data = await postJsonPromise;
 
 			try {
-	    		let totalRecordCount = 0;
-
 	    		jsonVhclPop.length = 0;
 	        	data.resultList.forEach((item, index) => {
 					const vhcl = {
@@ -354,27 +337,12 @@
 					    sysLastChgDt	: item.sysLastChgDt
 					}
 					jsonVhclPop.push(vhcl);
-
-					if (index === 0) {
-						totalRecordCount = item.totalRecordCount;
-					}
 				});
-
-	        	if (jsonVhclPop.length > 0) {
-	        		if(grdVhclPop.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-	        			grdVhclPop.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-	        			grdVhclPop.rebuild();
-					}else{
-						grdVhclPop.refresh();
-					}
-	        	} else {
-	        		grdVhclPop.setPageTotalCount(totalRecordCount);
-	        		grdVhclPop.rebuild();
-	        	}
+        		grdVhclPop.rebuild();
 
 	        	grdVhclPop.setCellDisabled(0, 0, grdVhclPop.getRows() - 1, grdVhclPop.getCols() - 1, true);
 
-	        	document.querySelector('#vhcl-pop-cnt').innerText = totalRecordCount;
+	        	document.querySelector('#vhcl-pop-cnt').innerText = jsonVhclPop.length;
 
 	        } catch (e) {
 	    		if (!(e instanceof Error)) {
@@ -382,12 +350,6 @@
 	    		}
 	    		console.error("failed", e.message);
 	        }
-	    },
-	    paging: function() {
-	    	let recordCountPerPage = grdVhclPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-	    	let currentPageNo = grdVhclPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-
-	    	popVhcl.setGrid(recordCountPerPage, currentPageNo);
 	    },
 	    searchInEdit: async function() {
 	    	this.createGrid();

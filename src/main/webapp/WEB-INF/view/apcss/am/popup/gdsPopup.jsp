@@ -128,13 +128,6 @@
 		    SBGridProperties.allowcopy = true;
 		    SBGridProperties.scrollbubbling = false;
 		    SBGridProperties.dblclickeventarea = {fixed: false, empty: false};
-		    SBGridProperties.paging = {
-				'type' : 'page',
-			  	'count' : 5,
-			  	'size' : 20,
-			  	'sorttype' : 'page',
-			  	'showgoalpageui' : true
-		    };
 		    SBGridProperties.columns = [
 	            {caption: ['품목'], 		ref: 'itemNm', 			width: '100px', 	type: 'output', 	style: 'text-align: center'},
 	            {caption: ['품종'], 		ref: 'vrtyNm', 			width: '100px', 	type: 'output', 	style: 'text-align: center'},
@@ -146,7 +139,6 @@
 	            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}}
 		    ];
 		    grdGds = _SBGrid.create(SBGridProperties);
-		    grdGds.bind('afterpagechanged', this.paging);
 		    grdGds.bind('dblclick', popGds.choice);
 		},
 		choice: function() {
@@ -155,34 +147,25 @@
 			popGds.close(rowData);
 		},
 		search: async function() {
-			// set pagination
 			grdGds.rebuild();
-	    	let pageSize = grdGds.getPageSize();
-	    	let pageNo = 1;
 
 	    	// grid clear
 	    	jsonGdsPop.length = 0;
-	    	await this.setGrid(pageSize, pageNo);
+	    	await this.setGrid();
 		},
-		setGrid: async function(pageSize, pageNo) {
+		setGrid: async function() {
 	    	let apcCd = SBUxMethod.get("gds-inp-apcCd");
 			let spmtPckgUnitNm = SBUxMethod.get("gds-inp-spmtPckgUnitNm");
 			let itemCd = SBUxMethod.get("gds-slt-itemCd");
 	        const postJsonPromise = gfn_postJSON("/am/cmns/selectSpmtPckgUnitList.do", {
 	        	apcCd				: apcCd,
 	        	spmtPckgUnitNm		: spmtPckgUnitNm,
-	        	itemCd				: itemCd,
-	        	// pagination
-		  		pagingYn 			: 'Y',
-				currentPageNo 		: pageNo,
-	 		  	recordCountPerPage	: pageSize
+	        	itemCd				: itemCd
 			});
 
 	        const data = await postJsonPromise;
 
 			try {
-	    		let totalRecordCount = 0;
-
 	    		jsonGdsPop.length = 0;
 	        	data.resultList.forEach((item, index) => {
 					const gds = {
@@ -199,27 +182,12 @@
 						ntslUntprc		: item.ntslUntprc
 					}
 					jsonGdsPop.push(gds);
-
-					if (index === 0) {
-						totalRecordCount = item.totalRecordCount;
-					}
 				});
-
-	        	if (jsonGdsPop.length > 0) {
-	        		if(grdGds.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-	        			grdGds.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-	        			grdGds.rebuild();
-					}else{
-						grdGds.refresh();
-					}
-	        	} else {
-	        		grdGds.setPageTotalCount(totalRecordCount);
-	        		grdGds.rebuild();
-	        	}
+        		grdGds.rebuild();
 
 	        	grdGds.setCellDisabled(0, 0, grdGds.getRows() - 1, grdGds.getCols() - 1, true);
 
-	        	document.querySelector('#gds-pop-cnt').innerText = totalRecordCount;
+	        	document.querySelector('#gds-pop-cnt').innerText = jsonGdsPop.length;
 
 	        } catch (e) {
 	    		if (!(e instanceof Error)) {
@@ -227,14 +195,7 @@
 	    		}
 	    		console.error("failed", e.message);
 	        }
-	    },
-	    paging: function() {
-	    	let recordCountPerPage = grdGds.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-	    	let currentPageNo = grdGds.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-
-	    	popGds.setGrid(recordCountPerPage, currentPageNo);
 	    }
 	}
-
 </script>
 </html>

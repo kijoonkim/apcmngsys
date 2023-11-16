@@ -106,13 +106,6 @@
 		    SBGridProperties.explorerbar = 'sortmove';
 		    SBGridProperties.extendlastcol = 'scroll';
 		    SBGridProperties.oneclickedit = true;
-		    SBGridProperties.paging = {
-				'type' : 'page',
-			  	'count' : 5,
-			  	'size' : 20,
-			  	'sorttype' : 'page',
-			  	'showgoalpageui' : true
-		    };
 		    SBGridProperties.columns = [
 	 	        {caption: ['거래처명'], 		ref: 'cnptNm',		width: '150px', type: 'output', style:'text-align:center'},
 	 	        {caption: ['유형'], 			ref: 'cnptTypeNm', 	width: '120px', type: 'output', style:'text-align:center'},
@@ -131,30 +124,21 @@
 			let rowData = grdCnpt.getRowData(nRow);
 			popCnpt.close(rowData);
 		},
-		
 		search: async function() {
-			// set pagination
 			grdCnpt.rebuild();
-	    	let pageSize = grdCnpt.getPageSize();
-	    	let pageNo = 1;
 
 	    	// grid clear
 	    	jsonCnptPopUp.length = 0;
-	    	await this.setGrid(pageSize, pageNo);
-			this.setGrid(pageSize, pageNo);
+	    	await this.setGrid();
 		},
-		setGrid: async function(pageSize, pageNo) {
+		setGrid: async function() {
 			jsonCnptPopUp = [];
 			
 			let cnptNm = SBUxMethod.get("cnpt-inp-cnptNm");
 			let apcCd = SBUxMethod.get("cnpt-inp-apcCd");
 			let postJsonPromise = gfn_postJSON("/am/cmns/selectCnptList.do", {
 				apcCd : apcCd,
-				cnptNm : cnptNm,
-				// pagination
-		  		pagingYn : 'Y',
-				currentPageNo : pageNo,
-	 		  	recordCountPerPage : pageSize
+				cnptNm : cnptNm
 	 		});
 		    let data = await postJsonPromise;                
 		    
@@ -173,23 +157,9 @@
 	 				  , apcCd 		: item.apcCd
 					}
 					jsonCnptPopUp.push(cnpt);
-					
-					if (index === 0) {
-						totalRecordCount = item.totalRecordCount;
-					}
 				});
-		    	
-	        	if (jsonCnptPopUp.length > 0) {
-	        		if(grdCnpt.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-	        			grdCnpt.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-	        			grdCnpt.rebuild();
-					}else{
-						grdCnpt.refresh();
-					}
-	        	} else {
-	        		grdCnpt.setPageTotalCount(totalRecordCount);
-	        		grdCnpt.rebuild();
-	        	}
+
+        		grdCnpt.rebuild();
 		    }catch (e) {
 				if (!(e instanceof Error)) {
 					e = new Error(e);
