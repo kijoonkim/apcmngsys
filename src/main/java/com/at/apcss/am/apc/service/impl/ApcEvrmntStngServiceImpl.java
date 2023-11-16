@@ -18,7 +18,6 @@ import com.at.apcss.am.apc.vo.ApcEvrmntStngVO;
 import com.at.apcss.am.cmns.service.CnptService;
 import com.at.apcss.am.cmns.service.PltBxService;
 import com.at.apcss.am.cmns.vo.LgszMrktVO;
-import com.at.apcss.am.cmns.vo.PltBxVO;
 import com.at.apcss.am.constants.AmConstants;
 import com.at.apcss.co.authrt.service.ComAuthrtService;
 import com.at.apcss.co.authrt.vo.ComAuthrtVO;
@@ -226,12 +225,14 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 		
 		
 		// 131 팔레트/박스		테이블		TB_PLT_BX_INFO
+		/*
 		PltBxVO pltBxVO = new PltBxVO();
 		BeanUtils.copyProperties(comCdMstVO, pltBxVO);
 		rtnObj = pltBxService.insertPltBxSample(pltBxVO);
 		if (rtnObj != null) {
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
+		 */
 
 		// 권한메뉴 set
 		ApcEvrmntStngVO authStngVO = new ApcEvrmntStngVO();
