@@ -12,6 +12,123 @@
 
 <mapper namespace="com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper">
 
+
+	<!-- ==========================================================================	-->
+	<!-- NAME :com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectMapSttn			-->
+	<!-- DESC : APC현황조회.                     	 								-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.16  	김호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectMapSttn" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+		<![CDATA[
+			SELECT pt0.CTPV_NM	/* com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectMapSttn */
+			     , CASE WHEN pt0.CTPV_CD = '11'
+			            THEN '11'
+			            WHEN pt0.CTPV_CD = '26'
+			            THEN '21'
+			            WHEN pt0.CTPV_CD = '27'
+			            THEN '22'
+			            WHEN pt0.CTPV_CD = '28'
+			            THEN '23'
+			            WHEN pt0.CTPV_CD = '29'
+			            THEN '24'
+			            WHEN pt0.CTPV_CD = '30'
+			            THEN '25'
+			            WHEN pt0.CTPV_CD = '31'
+			            THEN '26'
+			            WHEN pt0.CTPV_CD = '36'
+			            THEN '29'
+			            WHEN pt0.CTPV_CD = '41'
+			            THEN '31'
+			            WHEN pt0.CTPV_CD = '43'
+			            THEN '33'
+			            WHEN pt0.CTPV_CD = '44'
+			            THEN '34'
+			            WHEN pt0.CTPV_CD = '45'
+			            THEN '35'
+			            WHEN pt0.CTPV_CD = '46'
+			            THEN '36'
+			            WHEN pt0.CTPV_CD = '47'
+			            THEN '37'
+			            WHEN pt0.CTPV_CD = '48'
+			            THEN '38'
+			            WHEN pt0.CTPV_CD = '50'
+			            THEN '39'
+			            WHEN pt0.CTPV_CD = '51'
+			            THEN '32'
+			        END AS CTPV_CD
+			      , pt0.APC_QNTT
+			  FROM (
+			        SELECT CTPV_NM
+			             , CTPV_CD
+			             , COUNT(*) APC_QNTT
+			          FROM TB_TE_APC_OPER_PRSN_OTLN
+			         WHERE CTPV_CD IS NOT NULL
+		]]>
+		<if test='crtrYr != null and crtrYr != ""'>
+					  AND CRTR_YR = #{crtrYr}
+		</if>
+		<![CDATA[
+			        GROUP BY CTPV_CD, CTPV_NM
+			        ) pt0
+		]]>
+
+	</select>
+	<!-- ==========================================================================	-->
+	<!-- NAME :com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectCtpvAreaList		-->
+	<!-- DESC : APC지역목록조회.                     	 							-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.16  	김호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectCtpvAreaList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectCtpvAreaLis */
+				   AOO.CRTR_YR          AS CRTR_YR
+			     , AOO.APC_CD           AS APC_CD
+			     , AOO.APC_NM           AS APC_NM
+			     , AOO.APC_BRNO         AS APC_BRNO
+			     , AOO.OPER_OGNZ_CD     AS OPER_OGNZ_CD
+			     , AOO.OPER_OGNZ_NM     AS OPER_OGNZ_NM
+			     , AOO.OPER_OGNZ_BRNO   AS OPER_OGNZ_BRNO
+			     , AOO.CTPV_CD          AS CTPV_CD
+			     , AOO.CTPV_NM          AS CTPV_NM
+			     , AOO.SIGUN_CD         AS SIGUN_CD
+			     , AOO.SIGUN_NM         AS SIGUN_NM
+			     , AOO.MB               AS MB
+			     , AOO.OGNZ_TYPE_CD     AS OGNZ_TYPE_CD
+			     , AOO.OGNZ_TYPE        AS OGNZ_TYPE
+			     , AOO.TYPE_CD          AS TYPE_CD
+			     , AOO.TYPE_NM          AS TYPE_NM
+			     , AOO.OWNR             AS OWNR
+			     , AOO.LOCTN            AS LOCTN
+			     , AOO.RPRSV            AS RPRSV
+			     , AOO.PIC              AS PIC
+			     , AOO.PIC_JBPS         AS PIC_JBPS
+			     , AOO.CTTPC            AS CTTPC
+			     , AOO.EML              AS EML
+			     , AOO.TOT_TRMT_AMT     AS TOT_TRMT_AMT
+			     , AOO.GVRMNT_SPRT_YN   AS GVRMNT_SPRT_YN
+			     , AOO.RMRK             AS RMRK
+
+			  FROM TB_TE_APC_OPER_PRSN_OTLN AOO
+		   	 WHERE 1=1
+		]]>
+		<if test='crtrYr != null and crtrYr != ""'>
+			   AND AOO.CRTR_YR = #{crtrYr}
+		</if>
+		<if test='ctpvCd != null and ctpvCd != ""'>
+			   AND AOO.CTPV_CD = #{ctpvCd}
+		</if>
+		<![CDATA[
+			ORDER BY AOO.APC_CD
+		]]>
+
+	</select>
+
 	<!-- ==========================================================================	-->
 	<!-- NAME :com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectOwnrAndOperGridList-->
 	<!-- DESC : 개소수:소유자 및 운영자 테이블 단건조회.                     	 		-->
@@ -53,8 +170,8 @@
 			ORDER BY S0
 			]]>
     </select>
-    
-    
+
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectAllBdarGridList	-->
 	<!-- DESC : 산지유통시설 시설ㆍ장비 - 총 건춘면적 테이블 단건조회.             		-->
@@ -73,16 +190,16 @@
 			      , ROUND(SUM(S3),0)            AS V5
 			      , ROUND(SUM(S3) / SUM(A3),0)  AS V6
 			FROM  ( SELECT '1통합조직운영 APC'                                                 AS S0
-			              , CASE WHEN A.MB IS NOT NULL  THEN 
+			              , CASE WHEN A.MB IS NOT NULL  THEN
 			                     NVL(B.CSP_TOT_AREA,0) + NVL(B.STRG_PLC_PRC_PLC_AREA,0) + NVL(B.STRG_PLC_LWTP_STRG_AREA,0) + NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) +
-			                     NVL(B.STRG_PLC_CURN_AREA,0) + NVL(B.STRG_PLC_GNRL_STRG_AREA,0) + NVL(B.STRG_PLC_ETC_AREA,0) END AS S1                           
+			                     NVL(B.STRG_PLC_CURN_AREA,0) + NVL(B.STRG_PLC_GNRL_STRG_AREA,0) + NVL(B.STRG_PLC_ETC_AREA,0) END AS S1
 			              , CASE WHEN A.MB IS NOT NULL  THEN 1 END AS A1
-			              , CASE WHEN A.MB IS NULL      THEN 
+			              , CASE WHEN A.MB IS NULL      THEN
 			                     NVL(B.CSP_TOT_AREA,0) + NVL(B.STRG_PLC_PRC_PLC_AREA,0) + NVL(B.STRG_PLC_LWTP_STRG_AREA,0) + NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) +
-			                     NVL(B.STRG_PLC_CURN_AREA,0) + NVL(B.STRG_PLC_GNRL_STRG_AREA,0) + NVL(B.STRG_PLC_ETC_AREA,0) END AS S2                           
+			                     NVL(B.STRG_PLC_CURN_AREA,0) + NVL(B.STRG_PLC_GNRL_STRG_AREA,0) + NVL(B.STRG_PLC_ETC_AREA,0) END AS S2
 			              , CASE WHEN A.MB IS NULL      THEN 1 END AS A2
 			              , NVL(B.CSP_TOT_AREA,0) + NVL(B.STRG_PLC_PRC_PLC_AREA,0) + NVL(B.STRG_PLC_LWTP_STRG_AREA,0) + NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) +
-			                NVL(B.STRG_PLC_CURN_AREA,0) + NVL(B.STRG_PLC_GNRL_STRG_AREA,0) + NVL(B.STRG_PLC_ETC_AREA,0) AS S3                           
+			                NVL(B.STRG_PLC_CURN_AREA,0) + NVL(B.STRG_PLC_GNRL_STRG_AREA,0) + NVL(B.STRG_PLC_ETC_AREA,0) AS S3
 			              , 1  AS A3
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_FCLT_STTS B
@@ -92,16 +209,16 @@
 			        AND     A.APC_CD = B.APC_CD
 			        UNION ALL
 			        SELECT '2개별조직운영 APC' AS S0
-			              , CASE WHEN A.MB IS NOT NULL  THEN 
+			              , CASE WHEN A.MB IS NOT NULL  THEN
 			                     NVL(B.CSP_TOT_AREA,0) + NVL(B.STRG_PLC_PRC_PLC_AREA,0) + NVL(B.STRG_PLC_LWTP_STRG_AREA,0) + NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) +
-			                     NVL(B.STRG_PLC_CURN_AREA,0) + NVL(B.STRG_PLC_GNRL_STRG_AREA,0) + NVL(B.STRG_PLC_ETC_AREA,0) END AS S1                           
+			                     NVL(B.STRG_PLC_CURN_AREA,0) + NVL(B.STRG_PLC_GNRL_STRG_AREA,0) + NVL(B.STRG_PLC_ETC_AREA,0) END AS S1
 			              , CASE WHEN A.MB IS NOT NULL  THEN 1 END AS A1
-			              , CASE WHEN A.MB IS NULL      THEN 
+			              , CASE WHEN A.MB IS NULL      THEN
 			                     NVL(B.CSP_TOT_AREA,0) + NVL(B.STRG_PLC_PRC_PLC_AREA,0) + NVL(B.STRG_PLC_LWTP_STRG_AREA,0) + NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) +
-			                     NVL(B.STRG_PLC_CURN_AREA,0) + NVL(B.STRG_PLC_GNRL_STRG_AREA,0) + NVL(B.STRG_PLC_ETC_AREA,0) END AS S2                           
+			                     NVL(B.STRG_PLC_CURN_AREA,0) + NVL(B.STRG_PLC_GNRL_STRG_AREA,0) + NVL(B.STRG_PLC_ETC_AREA,0) END AS S2
 			              , CASE WHEN A.MB IS NULL      THEN 1 END AS A2
 			              , NVL(B.CSP_TOT_AREA,0) + NVL(B.STRG_PLC_PRC_PLC_AREA,0) + NVL(B.STRG_PLC_LWTP_STRG_AREA,0) + NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) +
-			                     NVL(B.STRG_PLC_CURN_AREA,0) + NVL(B.STRG_PLC_GNRL_STRG_AREA,0) + NVL(B.STRG_PLC_ETC_AREA,0) AS S3                           
+			                     NVL(B.STRG_PLC_CURN_AREA,0) + NVL(B.STRG_PLC_GNRL_STRG_AREA,0) + NVL(B.STRG_PLC_ETC_AREA,0) AS S3
 			              , 1  AS A3
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_FCLT_STTS B
@@ -113,8 +230,8 @@
 			ORDER BY S0
 			]]>
     </select>
-    
-    
+
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectLgstcsGdsGridList	-->
 	<!-- DESC : 산지유통시설 시설ㆍ장비 - 물류:상품화시설(건축면적) 테이블 단건조회.		-->
@@ -163,8 +280,8 @@
 			ORDER BY S0
 			]]>
     </select>
-    
-    
+
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectLwtpStrgGridList	-->
 	<!-- DESC : 산지유통시설 시설ㆍ장비 - 저온냉장고 테이블 단건조회.		-->
@@ -205,7 +322,7 @@
 			ORDER BY S0
 			]]>
     </select>
-    
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectPrprtnClngFcltGridList	-->
 	<!-- DESC : 산지유통시설 시설ㆍ장비 - 저온냉장고 테이블 단건조회.		-->
@@ -246,8 +363,8 @@
 			ORDER BY S0
 			]]>
     </select>
-    
-    
+
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectStrgFcltGridList	-->
 	<!-- DESC : 산지유통시설 시설ㆍ장비 - CA저장시설 테이블 단건조회.		-->
@@ -288,7 +405,7 @@
 			ORDER BY S0
 			]]>
     </select>
-    
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectFcltMsrmtEqpmntGridList	-->
 	<!-- DESC : 산지유통시설 시설ㆍ장비 - 측정장비설치 개소수 단건조회.		-->
@@ -311,7 +428,7 @@
 			              , CASE WHEN B.SORT_BRCK_MCHN   = 'Y'       THEN 1 END         AS S3
 			              , CASE WHEN B.COLOR_SORT       = 'Y'       THEN 1 END         AS S4
 			              , CASE WHEN B.MNFC_MCHN        IS NOT NULL THEN 1 END         AS S5
-			              
+
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A
 			              ,(SELECT  APC_CD
 			                      , MAX(SORT_MCHN_SPCFCT) AS SORT_MCHN_SPCFCT
@@ -322,8 +439,8 @@
 			                GROUP BY APC_CD) B
 			        WHERE   A.CRTR_YR = '2023'
 			        AND     A.CTPV_CD IS NOT NULL
-			        AND     A.APC_CD =  B.APC_CD(+)   
-			        AND     A.OGNZ_TYPE_CD NOT IN ('5') 
+			        AND     A.APC_CD =  B.APC_CD(+)
+			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
 			        UNION ALL
 			        SELECT '2개별조직운영 APC'                                          AS S0
 			              , 1                                                           AS S1
@@ -341,13 +458,13 @@
 			                GROUP BY APC_CD) B
 			        WHERE   A.CRTR_YR = '2023'
 			        AND     A.CTPV_CD IS NOT NULL
-			        AND     A.APC_CD  =  B.APC_CD(+)  
+			        AND     A.APC_CD  =  B.APC_CD(+)
 			        AND     A.OGNZ_TYPE_CD IN ('5'))
 			GROUP BY S0
 			ORDER BY S0
 			]]>
     </select>
-    
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectInvstAtmAllGridList	-->
 	<!-- DESC : 산지유통시설 시설ㆍ장비 - 투자금액: 전체 단건조회.		-->
@@ -362,7 +479,7 @@
 			      , SUM(S1)                                     AS V1
 			      , ROUND(SUM(S2)/1000000,0)                    AS V2
 			      , ROUND((SUM(S2)/SUM(S1))/1000000,0)          AS V3
-			      
+
 			FROM  ( SELECT '1통합조직운영 APC'                  AS S0
 			              , 1                                   AS S1
 			              , B.NE + B.LCLT_EXPND + B.SLF_BRDN    AS S2
@@ -375,7 +492,7 @@
 			                GROUP BY APC_CD) B
 			        WHERE   A.CRTR_YR = '2023'
 			        AND     A.CTPV_CD IS NOT NULL
-			        AND     A.APC_CD =  B.APC_CD(+)  
+			        AND     A.APC_CD =  B.APC_CD(+)
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
 			        UNION ALL
 			        SELECT '2개별조직운영 APC'                  AS S0
@@ -390,13 +507,13 @@
 			                GROUP BY APC_CD) B
 			        WHERE   A.CRTR_YR = '2023'
 			        AND     A.CTPV_CD IS NOT NULL
-			        AND     A.APC_CD =  B.APC_CD(+)  
+			        AND     A.APC_CD =  B.APC_CD(+)
 			        AND     A.OGNZ_TYPE_CD IN ('5'))
 			GROUP BY S0
 			ORDER BY S0
 			]]>
     </select>
-    
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectInvstAtmFundTypeGridList	-->
 	<!-- DESC : 산지유통시설 시설ㆍ장비 - 투자금액: 자금유형 단건조회.		-->
@@ -412,7 +529,7 @@
 			      , ROUND(SUM(S2)/1000000,0)            AS V2
 			      , ROUND(SUM(S3)/1000000,0)            AS V3
 			      , ROUND(SUM(S4)/1000000,0)            AS V4
-			      
+
 			FROM  ( SELECT '1통합조직운영 APC'                  AS S0
 			              , B.NE                                AS S1
 			              , B.LCLT_EXPND                        AS S2
@@ -427,7 +544,7 @@
 			                GROUP BY APC_CD) B
 			        WHERE   A.CRTR_YR = '2023'
 			        AND     A.CTPV_CD IS NOT NULL
-			        AND     A.APC_CD =  B.APC_CD(+)  
+			        AND     A.APC_CD =  B.APC_CD(+)
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
 			        UNION ALL
 			        SELECT '2개별조직운영 APC'                  AS S0
@@ -444,13 +561,13 @@
 			                GROUP BY APC_CD) B
 			        WHERE   A.CRTR_YR = '2023'
 			        AND     A.CTPV_CD IS NOT NULL
-			        AND     A.APC_CD =  B.APC_CD(+)  
+			        AND     A.APC_CD =  B.APC_CD(+)
 			        AND     A.OGNZ_TYPE_CD IN ('5'))
 			GROUP BY S0
 			ORDER BY S0
 			]]>
     </select>
-    
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectInvstAtmOwnrGridList	-->
 	<!-- DESC : 산지유통시설 시설ㆍ장비 - 투자금액: 소유자 단건조회.		-->
@@ -468,7 +585,7 @@
 			      , SUM(S3)                             AS V4
 			      , ROUND(SUM(S4)/1000000,0)            AS V5
 			      , ROUND((SUM(S4)/SUM(S3))/1000000,0)  AS V6
-			      
+
 			FROM  ( SELECT '1통합조직운영 APC'                        AS S0
 			              , CASE WHEN A.TYPE_CD = '1' THEN 1 END      AS S1
 			              , CASE WHEN A.TYPE_CD = '1' THEN B.AMT END  AS S2
@@ -478,10 +595,10 @@
 			              ,(SELECT  APC_CD
 			                      , SUM(NE+LCLT_EXPND+SLF_BRDN) AS AMT
 			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
-			                GROUP BY APC_CD) B 
+			                GROUP BY APC_CD) B
 			        WHERE   A.CRTR_YR = '2023'
 			        AND     A.CTPV_CD IS NOT NULL
-			        AND     A.APC_CD =  B.APC_CD(+)  
+			        AND     A.APC_CD =  B.APC_CD(+)
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
 			        UNION ALL
 			        SELECT '2개별조직운영 APC'                  AS S0
@@ -496,13 +613,13 @@
 			                GROUP BY APC_CD) B
 			        WHERE   A.CRTR_YR = '2023'
 			        AND     A.CTPV_CD IS NOT NULL
-			        AND     A.APC_CD =  B.APC_CD(+)  
+			        AND     A.APC_CD =  B.APC_CD(+)
 			        AND     A.OGNZ_TYPE_CD IN ('5'))
 			GROUP BY S0
 			ORDER BY S0
 			]]>
     </select>
-    
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectInvstAtmOperPrsnGridList	-->
 	<!-- DESC : 산지유통시설 시설ㆍ장비 - 투자금액: 소유자 단건조회.		-->
@@ -520,7 +637,7 @@
 			      , SUM(S3)                             AS V4
 			      , ROUND(SUM(S4)/1000000,0)            AS V5
 			      , ROUND((SUM(S4)/SUM(S3))/1000000,0)  AS V6
-			      
+
 			FROM  ( SELECT '1통합조직운영 APC'                          AS S0
 			              , CASE WHEN A.MB IS NOT NULL THEN 1 END       AS S1
 			              , CASE WHEN A.MB IS NOT NULL THEN B.AMT END   AS S2
@@ -533,7 +650,7 @@
 			                GROUP BY APC_CD) B
 			        WHERE   A.CRTR_YR = '2023'
 			        AND     A.CTPV_CD IS NOT NULL
-			        AND     A.APC_CD =  B.APC_CD(+)  
+			        AND     A.APC_CD =  B.APC_CD(+)
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
 			        UNION ALL
 			        SELECT '2개별조직운영 APC'                  AS S0
@@ -548,11 +665,11 @@
 			                GROUP BY APC_CD) B
 			        WHERE   A.CRTR_YR = '2023'
 			        AND     A.CTPV_CD IS NOT NULL
-			        AND     A.APC_CD =  B.APC_CD(+)  
+			        AND     A.APC_CD =  B.APC_CD(+)
 			        AND     A.OGNZ_TYPE_CD IN ('5'))
 			GROUP BY S0
 			ORDER BY S0
 			]]>
     </select>
-    
+
 </mapper>

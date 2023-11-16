@@ -14,7 +14,7 @@ public class MdRtlFcltVO extends ComVO {
 	private String s3;
 	private String s4;
 	private String s5;
-	
+
 	private String v0;
 	private String v1;
 	private String v2;
@@ -22,4 +22,33 @@ public class MdRtlFcltVO extends ComVO {
 	private String v4;
 	private String v5;
 	private String v6;
+
+	private String crtrYr;
+	private String ctpvCd;
+	private String ctpvNm;
+	private int apcQntt;
+	private String apcCd;
+	private String apcNm;
+	private String apcBrno;
+	private String operOgnzCd;
+	private String operOgnzNm;
+	private String operOgnzBrno;
+	private String sigunCd;
+	private String sigunNm;
+	private String mb;
+	private String ognzTypeCd;
+	private String ognzType;
+	private String typeCd;
+	private String typeNm;
+	private String ownr;
+	private String loctn;
+	private String rprsv;
+	private String pic;
+	private String picJbps;
+	private String cttpc;
+	private String eml;
+	private String totTrmtAmt;
+	private String gvrmntSprtYn;
+	private String rmrk;
+
 }
