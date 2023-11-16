@@ -14,4 +14,12 @@ public class MdRtlFcltVO extends ComVO {
 	private String s3;
 	private String s4;
 	private String s5;
+	
+	private String v0;
+	private String v1;
+	private String v2;
+	private String v3;
+	private String v4;
+	private String v5;
+	private String v6;
 }
