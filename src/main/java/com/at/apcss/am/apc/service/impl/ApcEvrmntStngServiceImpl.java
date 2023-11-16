@@ -233,7 +233,6 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
 
-		
 		// 권한메뉴 set
 		ApcEvrmntStngVO authStngVO = new ApcEvrmntStngVO();
 		BeanUtils.copyProperties(comCdMstVO, authStngVO);

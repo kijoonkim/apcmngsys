@@ -85,8 +85,13 @@ public class ComConstants {
 	 * W0010	이미 {0}된 {1} 입니다.
 	 */
 	public final static String MSGCD_ALEADY_DONE = "W0010";		// W0010	이미 {0}된 {1} 입니다.
-
-
+	/**
+	 * W0011	{0}이/가 아닙니다.
+	 */
+	public final static String MSGCD_NOT_TARGET = "W0011";		//	W0011	{0}이/가 아닙니다.
+	/**
+	 * W0012	마감등록 된 {0} 입니다.
+	 */
 	public final static String MSGCD_ALEADY_CLOSE = "W0012";	// W0012	마감등록 된 {0} 입니다.
 
 	/* CODE 정보 */
