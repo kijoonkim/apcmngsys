@@ -1,5 +1,6 @@
 package com.at.apcss.am.cmns.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.cmns.vo.CnptVO;
@@ -39,6 +40,15 @@ public interface CnptService {
 
 	/**
 	 * 거래처정보 등록
+	 * @param cnptVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertCnptList(List<CnptVO> cnptList) throws Exception;
+	
+	
+	/**
+	 * 거래처정보 등록
 	 * @param CnptVO
 	 * @return
 	 * @throws Exception
@@ -76,4 +86,13 @@ public interface CnptService {
 	 * @throws Exception
 	 */
 	public int updateLgszMrkt(LgszMrktVO lgszMrktVO) throws Exception;
+	
+	/**
+	 * 대형마켓 초기 등록
+	 * @param List<LgszMrktVO>
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertLgszMrktList(List<LgszMrktVO> lgszMrktList) throws Exception;
+	
 }

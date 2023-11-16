@@ -278,7 +278,7 @@
 			return;
 		}
 		
-    	const postJsonPromise = gfn_postJSON("/co/user/updateUserSttsList.do", userAprvList);
+    	const postJsonPromise = gfn_postJSON("/co/user/insertUserAprvList.do", userAprvList);
 		const data = await postJsonPromise;
         try {
         	if (_.isEqual("S", data.resultStatus)) {
@@ -314,7 +314,7 @@
 			return;
 		}
 		
-    	const postJsonPromise = gfn_postJSON("/co/user/updateUserSttsList.do", userAprvList);
+    	const postJsonPromise = gfn_postJSON("/co/user/insertUserAprvList.do", userAprvList);
 		const data = await postJsonPromise;
         try {
         	if (_.isEqual("S", data.resultStatus)) {
