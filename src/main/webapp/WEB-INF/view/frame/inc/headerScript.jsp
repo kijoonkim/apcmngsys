@@ -12,6 +12,8 @@
             }
         }
     </script>
+    <script src="/resource/sbux/assets/js/sbchart/sbchart.js"></script>
+    <link rel="stylesheet" href="/resource/sbux/assets/js/sbchart/sbchart.css">
     <script src="/resource/sbux/SBUx.js"></script>
     <script src="/resource/script/common.js"></script>
     <script src="/resource/script/comDate.js"></script>
@@ -92,7 +94,7 @@
 	<script type="text/javascript">
 		const comUiJson = ${comUiJson};
 		gfn_setSysPrgrmId(comUiJson.menuId);
-		
+
 	<c:choose>
 		<c:when test="${loginVO != null && loginVO.id != null}">
 		const gv_apcCd = '${loginVO.apcCd}';

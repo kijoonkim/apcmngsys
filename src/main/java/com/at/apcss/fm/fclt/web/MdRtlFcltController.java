@@ -1,6 +1,8 @@
 package com.at.apcss.fm.fclt.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.fm.fclt.service.MdRtlFcltService;
 import com.at.apcss.fm.fclt.vo.MdRtlFcltVO;
@@ -31,10 +34,43 @@ import com.at.apcss.fm.fclt.vo.MdRtlFcltVO;
  */
 @Controller
 public class MdRtlFcltController extends BaseController {
-	
+
 	// APC전수조사 대시보드
 	@Resource(name= "mdRtlFcltService")
 	private MdRtlFcltService mdRtlFcltService;
+
+	// APC현황
+	@PostMapping(value = "/fm/fclt/selectMapSttn.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectMapSttn(@RequestBody MdRtlFcltVO mdRtlFcltVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<MdRtlFcltVO> resultLsit = new ArrayList<>();
+		try {
+			resultLsit = mdRtlFcltService.selectMapSttn(mdRtlFcltVO);
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultLsit);
+		return getSuccessResponseEntity(resultMap);
+	}
+	// APC지역목록 조회
+	@PostMapping(value = "/fm/fclt/selectCtpvAreaList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectCtpvAreaList(@RequestBody MdRtlFcltVO mdRtlFcltVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<MdRtlFcltVO> resultLsit = new ArrayList<>();
+		try {
+			resultLsit = mdRtlFcltService.selectCtpvAreaList(mdRtlFcltVO);
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultLsit);
+		return getSuccessResponseEntity(resultMap);
+	}
 
 	// 대시보드 조회
 	@PostMapping(value = "/fm/fclt/selectFirstGridList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
@@ -49,4 +85,6 @@ public class MdRtlFcltController extends BaseController {
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
+
+
 }

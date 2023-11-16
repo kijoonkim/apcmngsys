@@ -14,12 +14,25 @@ import com.at.apcss.fm.fclt.vo.MdRtlFcltVO;
 public class MdRtlFcltServiceImpl implements MdRtlFcltService {
 	@Autowired
 	private MdRtlFcltMapper mdRtlFcltMapper;
+
+	@Override
+	public List<MdRtlFcltVO> selectMapSttn(MdRtlFcltVO mdRtlFcltVO) throws Exception {
+		List<MdRtlFcltVO> resultList = mdRtlFcltMapper.selectMapSttn(mdRtlFcltVO);
+		return resultList;
+	}
+
+	@Override
+	public List<MdRtlFcltVO> selectCtpvAreaList(MdRtlFcltVO mdRtlFcltVO) throws Exception {
+		List<MdRtlFcltVO> resultList = mdRtlFcltMapper.selectCtpvAreaList(mdRtlFcltVO);
+		return resultList;
+	}
+
 	@Override
 	public HashMap<String,Object> selectFirstGridList(MdRtlFcltVO mdRtlFcltVO) throws Exception {
-		
-		
+
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		
+
 		//개소수:소유자 및 운영자
 		List<MdRtlFcltVO> resultOwnrAndOper = mdRtlFcltMapper.selectOwnrAndOperGridList(mdRtlFcltVO);
 		//산지유통시설 시설ㆍ장비 - 총 건축면적
@@ -42,8 +55,8 @@ public class MdRtlFcltServiceImpl implements MdRtlFcltService {
 		List<MdRtlFcltVO> resultInvstAtmOwnr = mdRtlFcltMapper.selectInvstAtmOwnrGridList(mdRtlFcltVO);
 		//산지유통시설 시설ㆍ장비 - 투자금액:운영자
 		List<MdRtlFcltVO> resultInvstAtmOperPrsn = mdRtlFcltMapper.selectInvstAtmOperPrsnGridList(mdRtlFcltVO);
-		
-		
+
+
 		resultMap.put("resultOwnrAndOper", resultOwnrAndOper);
 		resultMap.put("resultAllBdar", resultAllBdar);
 		resultMap.put("resultLgstcsGds", resultLgstcsGds);
@@ -55,10 +68,10 @@ public class MdRtlFcltServiceImpl implements MdRtlFcltService {
 		resultMap.put("resultInvstAtmFundType", resultInvstAtmFundType);
 		resultMap.put("resultInvstAtmOwnr", resultInvstAtmOwnr);
 		resultMap.put("resultInvstAtmOperPrsn", resultInvstAtmOperPrsn);
-		
-		
+
+
 		return resultMap;
-		 
+
 	}
 
 }
