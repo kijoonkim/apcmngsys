@@ -119,6 +119,40 @@ public class StdGrdServiceImpl implements StdGrdService {
 			insertStdGrdDtl(gdsGrdDtlVO);
 		}
 
+		// 선별등급
+		comCdVO.setCdId(AmConstants.CON_CD_ID_SORT_GRD);
+
+		ComCdVO sortGrdInfo = comCdService.selectComCd(comCdVO);
+		if (sortGrdInfo == null || !StringUtils.hasText(sortGrdInfo.getCdId())) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "선별기본등급정보");
+		}
+		
+		stdGrdVO.setGrdSeCd(AmConstants.CON_CD_ID_GRD_SE_CD_SORT);
+		StdGrdVO sortReturnVO = stdGrdMapper.selectNewGrdKnd(stdGrdVO);
+		String sortGrdKnd = sortReturnVO.getGrdKnd();
+		
+		StdGrdVO sortGrdVO = new StdGrdVO();
+		BeanUtils.copyProperties(stdGrdVO, sortGrdVO);
+		sortGrdVO.setGrdKnd(sortGrdKnd);
+		sortGrdVO.setGrdKndNm(sortGrdInfo.getCdNm());
+		sortGrdVO.setGrdSeCd(AmConstants.CON_CD_ID_GRD_SE_CD_SORT);
+		sortGrdVO.setSn(1);
+		
+		// insert master : sort
+		insertStdGrd(sortGrdVO);
+		
+		sn = 0;
+		List<ComCdVO> sortGrdDtlList = comCdService.selectComCdDtlList(comCdVO);
+		for ( ComCdVO sortGrdDtlInfo : sortGrdDtlList ) {
+			sn++;
+			StdGrdDtlVO sortGrdDtlVO = new StdGrdDtlVO();
+			BeanUtils.copyProperties(sortGrdVO, sortGrdDtlVO);
+			
+			sortGrdDtlVO.setGrdNm(sortGrdDtlInfo.getCdVlNm());
+			sortGrdDtlVO.setSn(sn);
+			insertStdGrdDtl(sortGrdDtlVO);
+		}
+		
 		// 입고등급
 		comCdVO.setCdId(AmConstants.CON_CD_ID_STD_GRD);
 		List<ComCdVO> stdGrdList = comCdService.selectComCdDtlList(comCdVO);
