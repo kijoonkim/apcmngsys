@@ -11,11 +11,11 @@
 	<div class="box box-solid">
 		<div class="box-header" style="text-align:right;" >
 			<h3 class="box-title" style="line-height: 30px; float:left;"><sbux-label id="lbl-apcNm" name="lbl-apcNm" style="font-weight:bold;"></sbux-label></h3>
-			 <span style="display:inline-block;">
-            <button type="button" class="btn btn-sm btn-outline-danger" style="float:left; margin-left:20px;" onclick="fn_search()">조회</button>
+			<span style="display:inline-block;">
+            	<button type="button" class="btn btn-sm btn-outline-danger" style="float:left; margin-left:20px;" onclick="fn_search()">조회</button>
             </span>
-
 		</div>
+		
 		<!--==========그래프=============-->
 		<div class="box-body">
 			<div class="box box-solid" style="width:30%; height:395px; float:left; margin-right:5%;">
@@ -30,66 +30,31 @@
 				<h1 class="box-title" style="margin-top: 10px;margin-left: 10px;">출고 현황</h1>
 				<div id="chart-area-spmt" style="height: 345px;"></div>
 			</div>
-
 		</div>
+		<!--==========그래프=============-->
+		
+		<!--==========그리드=============-->
 		<div class="box-body">
-
-			<!-- 1번째 그리드-->
-			<table class="table table-bordered table-hover tbl_col tbl_row tbl_fixed"  id="dayPrcsSttnTable">
-				<colgroup>
-					<col style="width: 10%">
-				</colgroup>
-				<thead>
-				<tr>
-					<th colspan="100%"><p style="text-align:center;"><sbux-label id="lbl-today" name="lbl-today" style="font-weight:bold;"></sbux-label></th>
-				</tr>
-				</thead>
-				<tbody>
-				<tr>
-					<th>대표 품목</th>
-
-				</tr>
-				<tr>
-					<th>원물 입고</th>
-				</tr>
-				<tr>
-					<th>선별 실적</th>
-				</tr>
-				<tr>
-					<th>포장 실적</th>
-				</tr>
-				<tr>
-					<th>발주서 접수</th>
-				</tr>
-				<tr>
-					<th>출하 실적</th>
-				</tr>
-				</tbody>
-			</table>
+			<div class="table-responsive tbl_scroll_sm">
+				<div id="sb-area-grdDashboard" style="width:100%;height:250px;"></div>
+			</div>
 		</div>
+		<!--==========그리드=============-->
+		
 	</div>
 </section>
 
-
 <script type="text/javascript">
-
+	var jsonDashboard = [];
+	
 	//only document
 	window.addEventListener('DOMContentLoaded', function(e) {
 		var title = gv_apcNm + " 월별 실적 통계"
 		SBUxMethod.set("lbl-apcNm", title);
+		fn_createDashboardGrid();
 		postJsonDashboard();
-
-
-		let date = new Date();
-		let year  = date.getFullYear();
-		let month = ('0' + (date.getMonth() + 1)).slice(-2);
-		let day   = ('0' + date.getDate()).slice(-2);
-
-		let strYmd = year + "년 " + month + "월 " + day + "일 작업 실적";
-		SBUxMethod.set("lbl-today", strYmd);
-
-
 	});
+	
 	async function postJsonDashboard() {
 		let apcCd = gv_apcCd;
 		if(gv_userType == '01' || gv_userType == '00'){
@@ -99,35 +64,30 @@
 		let postJsonPromise = gfn_postJSON("/co/dashboard/selectStats.do", {'gv_apcCd': apcCd});
 		let data = await postJsonPromise;
 
+        try{
+        	jsonDashboard.length = 0;
+        	data.result[0].dayPrcsSttn.forEach((item, index) => {
+				let dashboard = {
+				    itemNm 		: item.itemNm
+				  , wgt1 		: item.wgt1
+				  , wgt2 		: item.wgt2
+				  , wgt3 		: item.wgt3
+				  , wgt4 		: item.wgt4
+				  , wgt5		: item.wgt5
+				}
+				jsonDashboard.push(dashboard);
+			});
+        	grdDashboard.rebuild();
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
 
-		//변수세팅 dayPrcsSttnTable
-		var itemQntt = data.result[0].dayPrcsSttn.length;
-		var widthSize = 90 / data.result[0].dayPrcsSttn.length;
-		var colEl = '<col style="width:' + widthSize + '%">';
-		var colgroupEl = $('#dayPrcsSttnTable').children('colgroup');
-		var tbodyTr = $("#dayPrcsSttnTable > tbody > tr");
-
+        
+        
 		for (let i = 0; i < data.result.length; i++) {
-			if (i == 0) {
-				//1.colgroup 세우기
-				for (let i = 0; i < itemQntt; i++) {
-					colgroupEl.append(colEl);
-				}
-				//2.메뉴들 탐색 >>
-				for (let i = 0; i < tbodyTr.length; i++) {
-					if (i == 0) { //2-1 품목 세팅
-						data.result[0].dayPrcsSttn.forEach(function (item, index) {
-							var bodyEl = '<th style="background-color: transparent;"><p style="text-align:center;font-weight:100;">' + item.itemNm + '</th>';
-							$(tbodyTr[0]).append((bodyEl));
-						})
-						continue;
-					}
-					data.result[0].dayPrcsSttn.forEach(function (item, index) {
-						var bodyEl = '<th style="background-color: transparent;"><p style="text-align:center;font-weight:100;">' + item['wgt' +i]+ '</th>';
-						$(tbodyTr[i]).append((bodyEl));
-					})
-				}
-			}
 			let nowData = data.result[i];
 			let date = dateGetMonth(nowData.wrhsSttn.wsDate);
 			chartDataWrhs.push({month:date, wrhs: nowData.wrhsSttn.wgt,wrhsLine: nowData.wrhsSttn.wgt});
@@ -154,6 +114,8 @@
 	var chartDataWrhs = []
 	var chartDataSort = []
 	var chartDataSpmt = []
+	
+	// 차트 생성
 	const createChartWrhs = async function (){
 		var chartConfig = {
 			global: { // 전역 설정들
@@ -341,18 +303,49 @@
 		};
 		chartSpmt = new sb.chart("#chart-area-spmt", chartConfig).render();
 	};
+
+	// 그리드 생성
+	function fn_createDashboardGrid() {
+		let date = new Date();
+		let year  = date.getFullYear();
+		let month = ('0' + (date.getMonth() + 1)).slice(-2);
+		let day   = ('0' + date.getDate()).slice(-2);
+
+		let strYmd = year + "년 " + month + "월 " + day + "일 작업 실적";
+		
+        var SBGridProperties = {};
+	    SBGridProperties.parentid = 'sb-area-grdDashboard';
+	    SBGridProperties.id = 'grdDashboard';
+	    SBGridProperties.jsonref = 'jsonDashboard';
+	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
+	    SBGridProperties.selectmode = 'free';
+	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.allowcopy = true;
+        SBGridProperties.columns = [
+        	{caption: [strYmd,"대표품목"], 	ref: 'itemNm', 	type: 'output', width: '17%',	style: 'text-align: center'},
+            {caption: [strYmd,'원물입고'], 	ref: 'wgt1', 	type: 'output',	width: '17%',	style: 'text-align: center'},
+            {caption: [strYmd,'선별실적'], 	ref: 'wgt2', 	type: 'output',	width: '17%',	style: 'text-align: center'},
+            {caption: [strYmd,'포장실적'], 	ref: 'wgt3',	type: 'output',	width: '17%',	style: 'text-align: center'},
+            {caption: [strYmd,'발주서 접수'], 	ref: 'wgt4', 	type: 'output',	width: '17%',	style: 'text-align: center'},
+            {caption: [strYmd,'출하실적'], 	ref: 'wgt5', 	type: 'output',	width: '17%',	style: 'text-align: center'}
+        ];
+        grdDashboard = _SBGrid.create(SBGridProperties);
+    }
+	
+	// 조회 버튼
 	function fn_search(){
-		 chartDataSort = []
-		 chartDataWrhs = []
-		 chartDataSpmt = []
-		$('#dayPrcsSttnTable > colgroup > col').not(':first').remove();
-		var resetData = $("#dayPrcsSttnTable > tbody > tr");
-		for(let i  = 0 ; i < resetData.length; i++){
-		$(resetData[i]).children().not(':first').remove();
-		}
+		chartDataSort = [];
+		chartDataWrhs = [];
+		chartDataSpmt = [];
+
+		grdDashboard.rebuild();
+
+    	// grid clear
+    	jsonDashboard.length = 0;
+		grdDashboard.refresh();
 		postJsonDashboard();
 	}
-
 </script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.at.apcss.fm.fclt.service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import com.at.apcss.fm.fclt.vo.MdRtlFcltVO;
 
@@ -19,6 +20,20 @@ import com.at.apcss.fm.fclt.vo.MdRtlFcltVO;
  * </pre>
  */
 public interface MdRtlFcltService {
+	/**
+	 * APC현황
+	 * @param MdRtlFcltVO
+	 * @return List<MdRtlFcltVO>
+	 * @throws Exception
+	 */
+	public List<MdRtlFcltVO> selectMapSttn(MdRtlFcltVO mdRtlFcltVO) throws Exception;
+	/**
+	 * APC지역목록조회
+	 * @param MdRtlFcltVO
+	 * @return List<MdRtlFcltVO>
+	 * @throws Exception
+	 */
+	public List<MdRtlFcltVO> selectCtpvAreaList(MdRtlFcltVO mdRtlFcltVO) throws Exception;
 	/**
 	 * 대시보드 목록을 조회한다.
 	 * @param mdRtlFcltVO
