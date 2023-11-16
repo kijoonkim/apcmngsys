@@ -315,7 +315,7 @@ const fn_createOwnrAndOperGrid = function() {
     SBGridProperties.selectmode = 'byrow';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.columns = [
-    	{caption : ["구분","구분"], ref: 's0', type: 'output',  width:'105px', style: 'text-align:center'},
+    	{caption : ["구분","구분"], ref: 's0', type: 'output',  width:'120px', style: 'text-align:center'},
     	{caption : ["소유자","민간"], ref: 's1', type: 'output',  width:'105px', style: 'text-align:center'},
     	{caption : ["소유자","공공"], ref: 's2', type: 'output',  width:'105px', style: 'text-align:center'},
     	{caption : ["운영자","농협"], ref: 's3', type: 'output',  width:'105px', style: 'text-align:center'},
@@ -323,6 +323,8 @@ const fn_createOwnrAndOperGrid = function() {
     	{caption : ["합계","합계"], ref: 's5', type: 'output',  width:'105px', style: 'text-align:center'}
     ];
     grdOwnrAndOper = _SBGrid.create(SBGridProperties);
+    
+    fn_cellSearchGrid();
 }
 
 const fn_createAllBdarGrid = function() {

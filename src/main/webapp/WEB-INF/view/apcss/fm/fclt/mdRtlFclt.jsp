@@ -77,7 +77,7 @@
 	});
 	
 	window.addEventListener('DOMContentLoaded', function(e) {
-		
+		fn_search();
 	})
 	
 	// 이력 조회 (조회 버튼)
