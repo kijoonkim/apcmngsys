@@ -154,13 +154,6 @@
 		    SBGridProperties.allowcopy = true;
 		    SBGridProperties.scrollbubbling = false;
 		    SBGridProperties.dblclickeventarea = {fixed: false, empty: false};
-		    SBGridProperties.paging = {
-				'type' : 'page',
-			  	'count' : 5,
-			  	'size' : 20,
-			  	'sorttype' : 'page',
-			  	'showgoalpageui' : true
-		    };
 		    SBGridProperties.columns = [
 		    	{caption: ['지시일자'], 	ref: 'cmndYmd', 		width: '80px',	type: 'output',	style:'text-align: center',
 	            	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
@@ -179,7 +172,6 @@
 	            {caption: ['비고'], 		ref: 'rmrk', 			width: '150px',	type: 'output'}
 		    ];
 		    grdSpmtCmndPop = _SBGrid.create(SBGridProperties);
-		    grdSpmtCmndPop.bind('afterpagechanged', this.paging);
 		    grdSpmtCmndPop.bind('dblclick', popSpmtCmnd.choice);
 		},
 		choice: function() {
@@ -193,18 +185,14 @@
 			}
 		},
 		search: async function() {
-			let apcCd = SBUxMethod.get("spmtCmnd-inp-apcCd");
-
 			grdSpmtCmndPop.rebuild();
-	    	let pageSize = grdSpmtCmndPop.getPageSize();
-	    	let pageNo = 1;
 
 	    	// grid clear
 	    	jsonSpmtCmndPop.length = 0;
 	    	grdSpmtCmndPop.refresh();
-	    	this.setGrid(pageSize, pageNo);
+	    	this.setGrid();
 		},
-		setGrid: async function(pageSize, pageNo) {
+		setGrid: async function() {
 			jsonSpmtCmndPop = [];
 
 			let apcCd = SBUxMethod.get("spmtCmnd-inp-apcCd");
@@ -217,17 +205,12 @@
 					cmndYmd 			: cmndYmd,
 					itemCd 				: itemCd,
 					vrtyCd 				: vrtyCd,
-					spcfctCd 			: spcfctCd,
-					// pagination
-			  		pagingYn 			: 'Y',
-					currentPageNo 		: pageNo,
-		 		  	recordCountPerPage	: pageSize
+					spcfctCd 			: spcfctCd
 			}
 			let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtCmndList.do", spmtCmnd);
 		    let data = await postJsonPromise;
 
 		    try{
-		    	let totalRecordCount = 0;
 		    	jsonSpmtCmndPop.length = 0;
 		    	data.resultList.forEach((item, index) => {
 
@@ -276,26 +259,7 @@
 							jsonSpmtCmndPop.push(spmtCmnd);
 			    		}
 		    		}
-
-					if (index === 0) {
-						totalRecordCount = item.totalRecordCount;
-					}
 				});
-
-		    	if (jsonSpmtCmndPop.length > 0) {
-	        		if(grdSpmtCmndPop.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-	        			grdSpmtCmndPop.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-	        			grdSpmtCmndPop.rebuild();
-					}else{
-						grdSpmtCmndPop.refresh();
-					}
-	        	} else {
-	        		grdSpmtCmndPop.setPageTotalCount(totalRecordCount);
-	        		grdSpmtCmndPop.rebuild();
-	        	}
-
-	        	//document.querySelector('#spmtCmnd-pop-cnt').innerText = totalRecordCount;
-
 	        	grdSpmtCmndPop.rebuild();
 		    }catch (e) {
 				if (!(e instanceof Error)) {
@@ -325,13 +289,7 @@
 				SBUxMethod.set("spmtCmnd-slt-vrtyCd", vrtyCd);
 			}
 			gfn_setApcSpcfctsSBSelect('spmtCmnd-slt-spcfctCd', jsonApcSpcfct, apcCd, itemCd)
-		},
-	    paging: function() {
-	    	let recordCountPerPage = grdSpmtCmndPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-	    	let currentPageNo = grdSpmtCmndPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-
-	    	popSpmtCmnd.setGrid(recordCountPerPage, currentPageNo);
-	    }
+		}
 	}
 </script>
 </html>

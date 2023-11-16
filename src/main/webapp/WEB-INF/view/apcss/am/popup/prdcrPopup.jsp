@@ -154,13 +154,6 @@
 		    SBGridProperties.scrollbubbling = false;
 		    SBGridProperties.frozencols = 2;
 		    SBGridProperties.dblclickeventarea = {fixed: false, empty: false};
-		    SBGridProperties.paging = {
-				'type' : 'page',
-			  	'count' : 5,
-			  	'size' : 20,
-			  	'sorttype' : 'page',
-			  	'showgoalpageui' : true
-		    };
 		    SBGridProperties.columns = [
 		    	{caption: ["처리"], 			ref: 'delYn', 			type: 'button', width: '50px', 	style: 'text-align:center', sortable: false,
 		        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
@@ -203,7 +196,6 @@
 		        {caption: ['ROW STATUS'], ref: 'rowSts', hidden : true},
 		    ];
 		    grdPrdcrPop = _SBGrid.create(SBGridProperties);
-		    grdPrdcrPop.bind('afterpagechanged', this.paging);
 		    grdPrdcrPop.bind('dblclick', popPrdcr.choice);
 		},
 		choice: function() {
@@ -334,35 +326,26 @@
 
 		},
 		search: async function(/** {boolean} */ isEditable) {
-			// set pagination
 			grdPrdcrPop.rebuild();
-	    	let pageSize = grdPrdcrPop.getPageSize();
-	    	let pageNo = 1;
 
 	    	// grid clear
 	    	jsonPrdcrPop.length = 0;
 	    	grdPrdcrPop.refresh();
-	    	this.setGrid(pageSize, pageNo, isEditable);
+	    	this.setGrid(isEditable);
 		},
-		setGrid: async function(pageSize, pageNo, isEditable) {
+		setGrid: async function(isEditable) {
 
 	    	let apcCd = SBUxMethod.get("prdcr-inp-apcCd");
 			let prdcrNm = SBUxMethod.get("prdcr-inp-prdcrNm");
 
 	        const postJsonPromise = gfn_postJSON("/am/cmns/selectPrdcrList.do", {
 	        	apcCd: apcCd,
-	        	prdcrNm: prdcrNm,
-	        	// pagination
-		  		pagingYn : 'Y',
-				currentPageNo : pageNo,
-	 		  	recordCountPerPage : pageSize
+	        	prdcrNm: prdcrNm
 			});
 
 	        const data = await postJsonPromise;
 
 			try {
-	    		let totalRecordCount = 0;
-
 	    		jsonPrdcrPop.length = 0;
 	        	data.resultList.forEach((item, index) => {
 					const prdcr = {
@@ -386,24 +369,9 @@
 					    apcCd 			: item.apcCd
 					}
 					jsonPrdcrPop.push(prdcr);
-
-					if (index === 0) {
-						totalRecordCount = item.totalRecordCount;
-					}
 				});
-
-	        	if (jsonPrdcrPop.length > 0) {
-	        		if(grdPrdcrPop.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-	        			grdPrdcrPop.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-	        			grdPrdcrPop.rebuild();
-					}else{
-						grdPrdcrPop.refresh();
-					}
-	        	} else {
-	        		grdPrdcrPop.setPageTotalCount(totalRecordCount);
-	        		grdPrdcrPop.rebuild();
-	        	}
-
+        		grdPrdcrPop.rebuild();
+        		
 	        	if (isEditable) {
 	        		grdPrdcrPop.setCellDisabled(0, 0, grdPrdcrPop.getRows() - 1, grdPrdcrPop.getCols() - 1, false);
 	        		let nRow = grdPrdcrPop.getRows();
@@ -413,7 +381,7 @@
 	        		grdPrdcrPop.setCellDisabled(0, 0, grdPrdcrPop.getRows() - 1, grdPrdcrPop.getCols() - 1, true);
 	        	}
 
-	        	document.querySelector('#prdcr-pop-cnt').innerText = totalRecordCount;
+	        	document.querySelector('#prdcr-pop-cnt').innerText = jsonPrdcrPop.length;
 
 	        } catch (e) {
 	    		if (!(e instanceof Error)) {
@@ -421,14 +389,7 @@
 	    		}
 	    		console.error("failed", e.message);
 	        }
-	    },
-	    paging: function() {
-	    	let recordCountPerPage = grdPrdcrPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-	    	let currentPageNo = grdPrdcrPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-
-	    	popPrdcr.setGrid(recordCountPerPage, currentPageNo);
 	    }
 	}
-
 </script>
 </html>

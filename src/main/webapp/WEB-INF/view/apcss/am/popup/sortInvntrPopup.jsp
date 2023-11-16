@@ -178,13 +178,6 @@
 		    SBGridProperties.allowcopy = true;
 		    SBGridProperties.scrollbubbling = false;
 		    SBGridProperties.dblclickeventarea = {fixed: false, empty: false};
-		    SBGridProperties.paging = {
-				'type' : 'page',
-			  	'count' : 5,
-			  	'size' : 20,
-			  	'sorttype' : 'page',
-			  	'showgoalpageui' : true
-		    };
 		    SBGridProperties.columns = [
 		    	{caption: ["선별번호","선별번호"],		ref: 'sortnoIndct',     type:'output',  width:'130px',	style:'text-align: center'},
 		        {caption: ["등급","등급"],				ref: 'grdNm',      		type:'output',  width:'90px',	style:'text-align: center'},
@@ -203,7 +196,6 @@
 		        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'300px',	style:'text-align: center'}
 		    ];
 		    grdSortInvntrPop = _SBGrid.create(SBGridProperties);
-		    grdSortInvntrPop.bind('beforepagechanged', this.paging);
 		    grdSortInvntrPop.bind('dblclick', popSortInvntr.choice);
 		},
 		choice: function() {
@@ -217,18 +209,14 @@
 			}
 		},
 		search: async function() {
-			let apcCd = SBUxMethod.get("sortInvntr-inp-apcCd");
-
 			grdSortInvntrPop.rebuild();
-	    	let pageSize = grdSortInvntrPop.getPageSize();
-	    	let pageNo = 1;
 
 	    	// grid clear
 	    	jsonSortInvntrPop.length = 0;
 	    	grdSortInvntrPop.refresh();
-	    	this.setGrid(pageSize, pageNo);
+	    	this.setGrid();
 		},
-		setGrid: async function(pageSize, pageNo) {
+		setGrid: async function() {
 			jsonSortInvntrPop = [];
 
 			let apcCd = SBUxMethod.get("sortInvntr-inp-apcCd");
@@ -239,22 +227,16 @@
 			let spcfctCd = SBUxMethod.get("sortInvntr-slt-spcfctCd");
 			let sortInvntr = {
 					apcCd 				: apcCd,
-					//crtrYmd 			: crtrYmd,
 					sortYmdFrom 		: sortYmdFrom,
 					sortYmdTo 			: sortYmdTo,
 					itemCd 				: itemCd,
 					vrtyCd 				: vrtyCd,
-					spcfctCd 			: spcfctCd,
-					// pagination
-			  		pagingYn 			: 'Y',
-					currentPageNo 		: pageNo,
-		 		  	recordCountPerPage	: pageSize
+					spcfctCd 			: spcfctCd
 			}
 			let postJsonPromise = gfn_postJSON("/am/invntr/selectSortInvntrDsctnList.do", sortInvntr);
 		    let data = await postJsonPromise;
 
 		    try{
-		    	let totalRecordCount = 0;
 		    	jsonSortInvntrPop.length = 0;
 		    	data.resultList.forEach((item, index) => {
 					let sortInvntr = {
@@ -285,26 +267,8 @@
 	       				rmrk			: item.rmrk
 					}
 					jsonSortInvntrPop.push(sortInvntr);
-
-					if (index === 0) {
-						totalRecordCount = item.totalRecordCount;
-					}
+					console.log(jsonSortInvntrPop);
 				});
-
-		    	if (jsonSortInvntrPop.length > 0) {
-	        		if(grdSortInvntrPop.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-	        			grdSortInvntrPop.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-	        			grdSortInvntrPop.rebuild();
-					}else{
-						grdSortInvntrPop.refresh();
-					}
-	        	} else {
-	        		grdSortInvntrPop.setPageTotalCount(totalRecordCount);
-	        		grdSortInvntrPop.rebuild();
-	        	}
-
-	        	//document.querySelector('#sortInvntr-pop-cnt').innerText = totalRecordCount;
-
 	        	grdSortInvntrPop.rebuild();
 		    }catch (e) {
 				if (!(e instanceof Error)) {
@@ -335,12 +299,6 @@
 			}
 			gfn_setApcSpcfctsSBSelect('sortInvntr-slt-spcfctCd', jsonApcSpcfct, apcCd, itemCd)
 		},
-	    paging: function() {
-	    	let recordCountPerPage = grdSortInvntrPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-	    	let currentPageNo = grdSortInvntrPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-
-	    	popSortInvntr.setGrid(recordCountPerPage, currentPageNo);
-	    },
 	    dtpChange : function(){
 			let sortYmdFrom = SBUxMethod.get("sortInvntr-dtp-sortYmdFrom");
 			let sortYmdTo = SBUxMethod.get("sortInvntr-dtp-sortYmdTo");

@@ -227,13 +227,6 @@
 		    SBGridProperties.allowcopy = true;
 		    SBGridProperties.scrollbubbling = false;
 		    SBGridProperties.dblclickeventarea = {fixed: false, empty: false};
-		    SBGridProperties.paging = {
-				'type' : 'page',
-			  	'count' : 5,
-			  	'size' : 20,
-			  	'sorttype' : 'page',
-			  	'showgoalpageui' : true
-		    };
 		    SBGridProperties.columns = [
 		        {caption: ["팔레트번호","팔레트번호"],	ref: 'pltno',      		type:'output',  width:'130px',   style:'text-align:center'},
 		        {caption: ["입고일자","입고일자"],		ref: 'wrhsYmd',      	type:'output',  width:'90px',    style:'text-align:center',
@@ -267,7 +260,6 @@
 			    {caption: ["등급명"], ref: 'grdNm',	type:'output', 	hidden: true},
 		    ];
 		    grdRawMtrInvntrPop = _SBGrid.create(SBGridProperties);
-		    grdRawMtrInvntrPop.bind('beforepagechanged', this.paging);
 		    grdRawMtrInvntrPop.bind('dblclick', this.choice);
 		},
 		choice: function() {
@@ -281,18 +273,14 @@
 			}
 		},
 		search: async function() {
-			let apcCd = SBUxMethod.get("rawMtrInvntr-inp-apcCd");
-
 			grdRawMtrInvntrPop.rebuild();
-	    	let pageSize = grdRawMtrInvntrPop.getPageSize();
-	    	let pageNo = 1;
 
 	    	// grid clear
 	    	jsonRawMtrInvntrPop.length = 0;
 	    	grdRawMtrInvntrPop.refresh();
-	    	this.setGrid(pageSize, pageNo);
+	    	this.setGrid();
 		},
-		setGrid: async function(pageSize, pageNo) {
+		setGrid: async function() {
 			jsonRawMtrInvntrPop = [];
 
 			let apcCd = SBUxMethod.get("rawMtrInvntr-inp-apcCd");
@@ -308,17 +296,12 @@
 					wrhsYmdTo: wrhsYmdTo,
 					itemCd: itemCd,
 					vrtyCd: vrtyCd,
-					spcfctCd: spcfctCd,
-					// pagination
-			  		pagingYn 			: 'Y',
-					currentPageNo 		: pageNo,
-		 		  	recordCountPerPage	: pageSize
+					spcfctCd: spcfctCd
 			}
 
 			let postJsonPromise = gfn_postJSON("/am/invntr/selectRawMtrInvntrList.do", rawMtrInvntr);
 		    let data = await postJsonPromise;
 		    try{
-		    	let totalRecordCount = 0;
 		    	jsonRawMtrInvntrPop.length = 0;
 		    	data.resultList.forEach((item, index) => {
 					let rawMtrInvntr = {
@@ -359,25 +342,8 @@
 	       				rmrk			: item.rmrk
 					}
 					jsonRawMtrInvntrPop.push(rawMtrInvntr);
-
-					if (index === 0) {
-						totalRecordCount = item.totalRecordCount;
-					}
 				});
-
-		    	if (jsonRawMtrInvntrPop.length > 0) {
-	        		if(grdRawMtrInvntrPop.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-	        			grdRawMtrInvntrPop.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-	        			grdRawMtrInvntrPop.rebuild();
-					}else{
-						grdRawMtrInvntrPop.refresh();
-					}
-	        	} else {
-	        		grdRawMtrInvntrPop.setPageTotalCount(totalRecordCount);
-	        		grdRawMtrInvntrPop.rebuild();
-	        	}
-
-	        	document.querySelector('#rawMtrInvntr-pop-cnt').innerText = totalRecordCount;
+	        	document.querySelector('#rawMtrInvntr-pop-cnt').innerText = jsonRawMtrInvntrPop.length;
 	        	grdRawMtrInvntrPop.rebuild();
 
 		    } catch (e) {
@@ -413,12 +379,7 @@
 				SBUxMethod.set("rawMtrInvntr-slt-vrtyCd", vrtyCd);
 			}
 		},
-	    paging: function() {
-	    	let recordCountPerPage = grdRawMtrInvntrPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-	    	let currentPageNo = grdRawMtrInvntrPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-
-	    	popRawMtrInvntr.setGrid(recordCountPerPage, currentPageNo);
-	    },dtpChange : function(){
+		dtpChange : function(){
 			let wrhsYmdFrom = SBUxMethod.get("rawMtrInvntr-dtp-wrhsYmdFrom");
 			let wrhsYmdTo = SBUxMethod.get("rawMtrInvntr-dtp-wrhsYmdTo");
 			if(gfn_diffDate(wrhsYmdFrom, wrhsYmdTo) < 0){
