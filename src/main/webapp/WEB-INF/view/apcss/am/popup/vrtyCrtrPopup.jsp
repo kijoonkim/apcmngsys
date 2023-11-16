@@ -106,13 +106,6 @@
 		    SBGridProperties.extendlastcol = 'scroll';
 		    SBGridProperties.scrollbubbling = false;
 		    SBGridProperties.oneclickedit = true;
-		    SBGridProperties.paging = {
-				'type' : 'page',
-			  	'count' : 5,
-			  	'size' : 20,
-			  	'sorttype' : 'page',
-			  	'showgoalpageui' : true
-		    };
 		    SBGridProperties.columns = [
 		    	{caption : ["선택"],
 	                ref: 'checked', type: 'checkbox', width: '50px', style: 'text-align:center', sortable: false,
@@ -141,16 +134,13 @@
 			popVrty.close(popVrty.callbackSelectFnc, data);
 		},
 		search: async function() {
-			// set pagination
 			grdVrty.rebuild();
-	    	let pageSize = grdVrty.getPageSize();
-	    	let pageNo = 1;
 	    	
 	    	// grid clear
 	    	jsonVrtyPopUp.length = 0;
-	    	await this.setGrid(pageSize, pageNo);
+	    	await this.setGrid();
 		},
-		setGrid: async function(pageSize, pageNo) {
+		setGrid: async function() {
 			jsonVrtyPopUp = [];
 	    	let apcCd = SBUxMethod.get("vrty-inp-apcCd");
 			let itemCd = this.itemCd;
@@ -158,11 +148,7 @@
 			const postJsonPromise = gfn_postJSON("/am/apc/selectVrtyList.do", {
 				apcCd: apcCd,
 				vrtyNm: vrtyNm,
-				itemCd: itemCd,
-				// pagination
-		  		pagingYn : 'Y',
-				currentPageNo : pageNo,
-	 		  	recordCountPerPage : pageSize
+				itemCd: itemCd
 	 		});
 			const data = await postJsonPromise;  
 		    try{
@@ -174,22 +160,8 @@
 						, vrtyNm : item.vrtyNm
 					}
 					jsonVrtyPopUp.push(vrty);
-		    		if (index === 0) {
-						totalRecordCount = item.totalRecordCount;
-					}
 				});
-		    	
-		    	if (jsonVrtyPopUp.length > 0) {
-	        		if(grdVrty.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-	        			grdVrty.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-	        			grdVrty.rebuild();
-					}else{
-						grdVrty.refresh();
-					}
-	        	} else {
-	        		grdVrty.setPageTotalCount(totalRecordCount);
-	        		grdVrty.rebuild();
-	        	}
+        		grdVrty.rebuild();
 		    }catch (e) {
 				if (!(e instanceof Error)) {
 					e = new Error(e);
@@ -197,12 +169,6 @@
         		gfn_comAlert(data.resultCode, data.resultMessage);
 		 		console.error("failed", e.message);
 		    }
-	    },
-	    paging: function() {
-	    	let recordCountPerPage = grdVrty.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-	    	let currentPageNo = grdVrty.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-
-	    	popVrty.setGrid(recordCountPerPage, currentPageNo);
 	    }
 	}
 

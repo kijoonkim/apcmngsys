@@ -151,13 +151,6 @@
 		    SBGridProperties.allowcopy = true;
 		    SBGridProperties.scrollbubbling = false;
 		    SBGridProperties.dblclickeventarea = {fixed: false, empty: false};
-		    SBGridProperties.paging = {
-				'type' : 'page',
-			  	'count' : 5,
-			  	'size' : 20,
-			  	'sorttype' : 'page',
-			  	'showgoalpageui' : true
-		    };
 		    SBGridProperties.columns = [
 		        {caption: ["지시번호","지시번호"],	ref: 'pckgCmndnoIndct', type:'output',  width:'130px',	style:'text-align:center'},
 		        {caption: ["생산설비","생산설비"],	ref: 'fcltNm',      	type:'output',  width:'100px',	style:'text-align:center'},
@@ -177,7 +170,6 @@
 		        {caption: ["비고","비고"],			ref: 'rmrk',      		type:'output',  width:'300px',	style:'text-align:center'},
 		    ];
 		    grdPckgCmndPop = _SBGrid.create(SBGridProperties);
-		    grdPckgCmndPop.bind('afterpagechanged', this.paging);
 		    grdPckgCmndPop.bind('dblclick', popPckgCmnd.choice);
 		},
 		choice: function() {
@@ -191,18 +183,14 @@
 			}
 		},
 		search: async function() {
-			let apcCd = SBUxMethod.get("pckgCmnd-inp-apcCd");
-
 			grdPckgCmndPop.rebuild();
-	    	let pageSize = grdPckgCmndPop.getPageSize();
-	    	let pageNo = 1;
 
 	    	// grid clear
 	    	jsonPckgCmndPop.length = 0;
 	    	grdPckgCmndPop.refresh();
-	    	this.setGrid(pageSize, pageNo);
+	    	this.setGrid();
 		},
-		setGrid: async function(pageSize, pageNo) {
+		setGrid: async function() {
 			jsonPckgCmndPop = [];
 
 			let apcCd = SBUxMethod.get("pckgCmnd-inp-apcCd");
@@ -215,17 +203,12 @@
 					pckgCmndYmd 		: pckgCmndYmd,
 					itemCd 				: itemCd,
 					vrtyCd 				: vrtyCd,
-					spcfctCd 			: spcfctCd,
-					// pagination
-			  		pagingYn 			: 'Y',
-					currentPageNo 		: pageNo,
-		 		  	recordCountPerPage	: pageSize
+					spcfctCd 			: spcfctCd
 			}
 			let postJsonPromise = gfn_postJSON("/am/pckg/selectPckgCmndList.do", pckgCmnd);
 		    let data = await postJsonPromise;
 
 		    try{
-		    	let totalRecordCount = 0;
 		    	jsonPckgCmndPop.length = 0;
 		    	data.resultList.forEach((item, index) => {
 					let pckgCmnd = {
@@ -256,26 +239,7 @@
 		      				rmrk			: item.rmrk
 					}
 					jsonPckgCmndPop.push(pckgCmnd);
-
-					if (index === 0) {
-						totalRecordCount = item.totalRecordCount;
-					}
 				});
-
-		    	if (jsonPckgCmndPop.length > 0) {
-	        		if(grdPckgCmndPop.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-	        			grdPckgCmndPop.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-	        			grdPckgCmndPop.rebuild();
-					}else{
-						grdPckgCmndPop.refresh();
-					}
-	        	} else {
-	        		grdPckgCmndPop.setPageTotalCount(totalRecordCount);
-	        		grdPckgCmndPop.rebuild();
-	        	}
-
-	        	//document.querySelector('#pckgCmnd-pop-cnt').innerText = totalRecordCount;
-
 	        	grdPckgCmndPop.rebuild();
 		    }catch (e) {
 				if (!(e instanceof Error)) {
@@ -305,13 +269,7 @@
 				SBUxMethod.set("pckgCmnd-slt-vrtyCd", vrtyCd);
 			}
 			gfn_setApcSpcfctsSBSelect('pckgCmnd-slt-spcfctCd', jsonApcSpcfct, apcCd, itemCd)
-		},
-	    paging: function() {
-	    	let recordCountPerPage = grdPckgCmndPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-	    	let currentPageNo = grdPckgCmndPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-
-	    	popPckgCmnd.setGrid(recordCountPerPage, currentPageNo);
-	    }
+		}
 	}
 </script>
 </html>

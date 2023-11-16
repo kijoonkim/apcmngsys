@@ -101,13 +101,6 @@
 		    SBGridProperties.allowcopy = true;
 		    SBGridProperties.scrollbubbling = false;
 		    SBGridProperties.dblclickeventarea = {fixed: false, empty: false};
-		    SBGridProperties.paging = {
-				'type' : 'page',
-			  	'count' : 5,
-			  	'size' : 20,
-			  	'sorttype' : 'page',
-			  	'showgoalpageui' : true
-		    };
 		    SBGridProperties.columns = [
 		        {caption: ["작업자명"], 	ref: 'flnm',  	type: 'output',  width:'90px',	style:'text-align:center',
 		        	typeinfo : {mask : {alias : 'k'}}},
@@ -124,7 +117,6 @@
 		        {caption: ["예금주명"], 	ref: 'dpstr',   type: 'output',  width:'90px',	style:'text-align:center'}
 		    ];
 		    grdOprtrPop = _SBGrid.create(SBGridProperties);
-		    grdOprtrPop.bind('afterpagechanged', this.paging);
 		    grdOprtrPop.bind('dblclick', popOprtr.choice);
 		},
 		choice: function() {
@@ -134,31 +126,23 @@
 		},
 		search: async function() {
 			grdOprtrPop.rebuild();
-	    	let pageSize = grdOprtrPop.getPageSize();
-	    	let pageNo = 1;
 
 	    	// grid clear
 	    	jsonOprtrPop.length = 0;
 	    	grdOprtrPop.refresh();
-	    	await this.setGrid(pageSize, pageNo);
+	    	await this.setGrid();
 		},
-		setGrid: async function(pageSize, pageNo) {
+		setGrid: async function() {
 			jsonOprtrPop = [];
 
 			let apcCd = this.prvApcCd;
 			let flnm = SBUxMethod.get("oprtr-inp-flnm");
 	    	let postJsonPromise = gfn_postJSON("/am/oprtr/selectOprtrList.do", {
 	        	apcCd: apcCd,
-	        	flnm : flnm,
-	        	// pagination
-		  		pagingYn : 'Y',
-				currentPageNo : pageNo,
-	 		  	recordCountPerPage : pageSize
+	        	flnm : flnm
 	 		});
 	        let data = await postJsonPromise;
 	        try{
-	    		let totalRecordCount = 0;
-	    		
 	    		jsonOprtrPop.length = 0;
 	        	data.resultList.forEach((item, index) => {
 					let oprtrVO = {
@@ -172,36 +156,15 @@
 					  , dpstr 	: 	item.dpstr
 					}
 					jsonOprtrPop.push(oprtrVO);
-
-					if (index === 0) {
-						totalRecordCount = item.totalRecordCount;
-					}
 				});
-
-		    	if (jsonOprtrPop.length > 0) {
-	        		if(grdOprtrPop.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-	        			grdOprtrPop.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-	        			grdOprtrPop.rebuild();
-					}else{
-						grdOprtrPop.refresh();
-					}
-	        	} else {
-	        		grdOprtrPop.setPageTotalCount(totalRecordCount);
-	        		grdOprtrPop.rebuild();
-	        	}
+        		grdOprtrPop.rebuild();
 	        }catch (e) {
 	    		if (!(e instanceof Error)) {
 	    			e = new Error(e);
 	    		}
 	    		console.error("failed", e.message);
 	        }
-		},
-	    paging: function() {
-	    	let recordCountPerPage = grdVhclPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-	    	let currentPageNo = grdVhclPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-
-	    	popOprtr.setGrid(recordCountPerPage, currentPageNo);
-	    }
+		}
 	}
 
 	const fnCustomOprtr = function(strValue) {

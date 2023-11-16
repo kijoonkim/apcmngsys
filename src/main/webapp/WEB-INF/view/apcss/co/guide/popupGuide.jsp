@@ -49,14 +49,17 @@
 								<sbux-button id="btnSrchItem" name="btnSrchItem" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-itemCrtr" onclick="fn_modalItem"></sbux-button>
 							</td>
 							<td></td>
-							<th scope="row" >품종선택</th>
+							<th scope="row" class="th_bg">품목선택</th>
 							<td class="td_input">
-								<sbux-input id="srch-inp-vrtyNm" name="srch-inp-vrtyNm" class="form-control input-sm" maxlength="33" uitype="text"></sbux-input>
+								<sbux-select unselected-text="전체" uitype="single" id="srch-slt-itemCd" name="srch-slt-itemCd" class="form-control input-sm" jsondata-ref="jsonComItem" onchange="fn_selectItem"></sbux-select>
 							</td>
 							<td class="td_input">
-								<sbux-button id="btnSrchVrty" name="btnSrchVrty" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vrty" onclick="fn_modalVrty"></sbux-button>
+								<sbux-input id="srch-inp-vrtyNm" name="srch-inp-vrtyNm" uitype="text" class="form-control input-sm" maxlength="33" show-clear-button="true" readonly></sbux-input>
+								<sbux-input id="srch-inp-vrtyCd" name="srch-inp-vrtyCd" uitype="hidden"></sbux-input>
 							</td>
-							<td></td>
+							<td class="td_input">
+								<sbux-button id="btnSrchVrty" name="btnSrchVrty" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vrty" onclick="fn_modalVrty"/>
+							</td>
 							<th scope="row" >생산자선택</th>
 							<td class="td_input">
 								<sbux-input
@@ -362,11 +365,16 @@
     </div>
 
 <script type="text/javascript">
-
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_getPrdcrs();
 		SBUxMethod.set("srch-dtp-trsprtYmd", gfn_dateToYmd(new Date()));
+		fn_initSBSelect();
 	})
+	
+	 const fn_initSBSelect = async function() {
+		// 검색 SB select
+	 	await gfn_setApcItemSBSelect('srch-slt-itemCd', jsonComItem, gv_selectedApcCd);		// 품목
+	}
 
 	// APC 선택 변경
 	const fn_onChangeApc = async function() {
@@ -378,7 +386,7 @@
 	/* Start */
 	var autoCompleteDataJson = [];
 	var jsonDataPrdcr = [];
-	var jsonPrdcr			= [];
+	var jsonPrdcr = [];
 	var jsonPrdcrAutocomplete = [];
 	/* End */
 
@@ -532,8 +540,23 @@
 	/* End */
 
 
+	/* 품종선택팝업 호출 필수 json  */
+	/* Start */
+	var jsonComItem	= [];
+	/* End */
+	
 	/* 품종선택팝업 호출 필수 function  */
 	/* Start */
+	/**
+	 * @name fn_selectItem
+	 * @description 품목콤보 선택 시 이벤트
+	 */
+    function fn_selectItem(){
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		SBUxMethod.set("srch-inp-vrtyNm", "");
+		SBUxMethod.set("srch-inp-vrtyCd", "");
+	}
+	
 	/**
 	 * @name fn_modalVrty
 	 * @description 품종선택팝업 호출
@@ -550,7 +573,8 @@
     const fn_setVrty = function(vrty) {
 		if (!gfn_isEmpty(vrty)) {
 			SBUxMethod.setValue('srch-slt-itemCd', vrty.itemCd);
-			SBUxMethod.set('scrh-inp-vrtyNm', vrty.vrtyNm);
+			SBUxMethod.set('srch-inp-vrtyNm', vrty.vrtyNm);
+			SBUxMethod.set('srch-inp-vrtyCd', vrty.vrtyCd);
 		}
 	}
 
@@ -558,15 +582,38 @@
 	 * @name fn_setVrtys
 	 * @description 복수 품종 callback
 	 */
-	const fn_setVrtys = function(vrtys) {
+	 const fn_setVrtys = function(vrtys) {
 		if (!gfn_isEmpty(vrtys)) {
-			var _vrtys = [];
+			var _vrtyCd = [];
+			var _vrtyNm = [];
+			var diff = false;
 			for(var i=0;i<vrtys.length;i++){
-				_vrtys.push(vrtys[i].vrtyNm);
+				if (vrtys[0].itemCd != vrtys[i].itemCd) {
+					diff = true;
+				}
+				_vrtyCd.push(vrtys[i].vrtyCd);
+				_vrtyNm.push(vrtys[i].vrtyNm);
 			}
-			SBUxMethod.set('scrh-inp-vrtyNm', _vrtys.join(','));
+			if (diff) {
+				SBUxMethod.set('srch-slt-itemCd', "");
+			} else {
+				SBUxMethod.set('srch-slt-itemCd', vrtys[0].itemCd);
+			}
+			SBUxMethod.set('srch-inp-vrtyCd', _vrtyCd.join(','));
+			SBUxMethod.set('srch-inp-vrtyNm', _vrtyNm.join(','));
 		}
 	}
+    
+ 	/**
+	 * @name 
+	 * @description 품종 input 삭제 버튼 이벤트
+	 */
+	 $(function(){
+			$(".glyphicon").on("click", function(){
+				SBUxMethod.set("srch-inp-vrtyNm", "");
+				SBUxMethod.set("srch-inp-vrtyCd", "");
+			})
+		})
 	/* End */
 
 
