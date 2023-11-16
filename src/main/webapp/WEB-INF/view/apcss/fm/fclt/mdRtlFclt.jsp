@@ -55,7 +55,7 @@
 	</section>
 </body>
 <script type="text/javascript">
-	var searchTarget = "logCntnHstry";
+	var searchTarget = "GdsInvntrChgHstry";
 	
 	$(function(){
 		$('.ad_tbl_toplist button').click(function(){
@@ -70,20 +70,20 @@
 		    $('#GdsInvntrChgHstry').hide();
 		    $('#'+btnName.slice(3)).show();
 		    $('#'+btnName.slice(3)+' [name='+btnName+']').css({'background-color':'#149FFF', 'border':'1px solid #149FFF', 'color': '#FFFFFF'});
-		    eval('tab'+btnName.slice(3)+'.init(gv_selectedApcCd, gv_selectedApcNm)');
+// 		    eval('tab'+btnName.slice(3)+'.init(gv_selectedApcCd, gv_selectedApcNm)');
 		    searchTarget = btnName.slice(3);
 		});
-		$('#LogCntnHstry [name=btnLogCntnHstry]').click();
+		$('#GdsInvntrChgHstry [name=btnGdsInvntrChgHstry]').click();
 	});
 	
 	window.addEventListener('DOMContentLoaded', function(e) {
-		
+		fn_search();
 	})
 	
 	// 이력 조회 (조회 버튼)
     async function fn_search() {
 		if(searchTarget == "LogCntnHstry"){
-			tabLogCntnHstry.search();
+			fn_cellSearchGrid();
 		} else if(searchTarget == "LogMenuHstry"){
 			tabLogMenuHstry.search();
 		} else if(searchTarget == "LogTrsmHstry"){
