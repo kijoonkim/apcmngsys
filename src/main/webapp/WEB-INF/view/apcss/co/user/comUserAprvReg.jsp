@@ -108,14 +108,6 @@
 
 <script type="text/javascript">
 
-	const lv_paging = {
-		'type' : 'page',
-	  	'count' : 5,
-	  	'size' : 20,
-	  	'sorttype' : 'page',
-	  	'showgoalpageui' : true
-    };
-
 	var jsonComUserStts	= [];	// 사용자상태	USER_STTS	srch-slt-userStts
 
 	var grdUserAprv;
@@ -147,7 +139,13 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.scrollbubbling = false;
-	    SBGridProperties.paging = lv_paging;
+	    SBGridProperties.paging = {
+			'type' : 'page',
+		  	'count' : 5,
+		  	'size' : 20,
+		  	'sorttype' : 'page',
+		  	'showgoalpageui' : true
+	    };
 	    SBGridProperties.explorerbar = 'sortmove';
 		SBGridProperties.columns = [
 	        {caption: ["선택"],			ref: 'checkedYn',	type:'checkbox', width:'50px',
@@ -167,18 +165,25 @@
 			{caption: ["apc코드"],		ref: 'apcCd',  		type:'output',  hidden: true}
 		];
 	    grdUserAprv = _SBGrid.create(SBGridProperties);
+	    grdUserAprv.bind( "afterpagechanged" , "fn_pagingUserAprv" );
 	}
 
-	const fn_search = async function() {
+// 	const fn_search = async function() {
 
-		grdUserAprv.rebuild();
+// 		grdUserAprv.rebuild();
 
-		// set pagination
-    	let pageSize = grdUserAprv.getPageSize();
-    	let pageNo = 1;
+// 		// set pagination
+//     	let pageSize = grdUserAprv.getPageSize();
+//     	let pageNo = 1;
+//     	fn_setGrdUserAprv(pageSize, pageNo);
+// 	}
 
-    	fn_setGrdUserAprv(pageSize, pageNo);
-	}
+    async function fn_search() {
+    	let recordCountPerPage = grdUserAprv.getPageSize();  		// 몇개의 데이터를 가져올지 설정
+    	let currentPageNo = 1;
+		grdUserAprv.movePaging(currentPageNo);
+//     	fn_setGrdUserAprv(recordCountPerPage, currentPageNo);
+    }
 
     /**
      * @name fn_setGrdUserAprv
@@ -186,7 +191,7 @@
      * @param {number} pageSize
      * @param {number} pageNo
      */
-	const fn_setGrdUserAprv = async function(pageSize, pageNo) {
+	const fn_setGrdUserAprv = async function(recordCountPerPage, currentPageNo) {
 		let apcCd = SBUxMethod.get("gsb-slt-apcCd");	//	사용자상태
         let userStts = SBUxMethod.get("srch-slt-userStts");	//	사용자상태
         let userNm = SBUxMethod.get("srch-inp-userNm");     // 	사용자명
@@ -197,8 +202,8 @@
 			userNm: userNm,
           	// pagination
   	  		pagingYn : 'Y',
-  			currentPageNo : pageNo,
-   		  	recordCountPerPage : pageSize
+  			currentPageNo : currentPageNo,
+   		  	recordCountPerPage : recordCountPerPage
   		});
 
         const data = await postJsonPromise;
@@ -223,7 +228,7 @@
   						eml: 		item.eml,
   						telno: 		item.telno,
   						jbttlNm: 	item.jbttlNm,
-  						tkcgTaskNm: item.tkcgTaskNm,
+  						tkcgTaskNm: item.tkcgTaskNm
   				}
           		jsonUserAprv.push(userAprv);
 
@@ -233,8 +238,8 @@
   			});
 
           	if (jsonUserAprv.length > 0) {
-          		if(grdUserAprv.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-          			grdUserAprv.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+          		if(grdUserAprv.getPageTotalCount() != data.resultList[0].totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+          			grdUserAprv.setPageTotalCount(data.resultList[0].totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
           			grdUserAprv.rebuild();
     				}else{
     					grdUserAprv.refresh();
@@ -242,9 +247,22 @@
 
           		grdUserAprv.setRow(2);
           	} else {
-          		grdUserAprv.setPageTotalCount(totalRecordCount);
+          		grdUserAprv.setPageTotalCount(0);
           		grdUserAprv.rebuild();
           	}
+          	
+//           	if(jsonSlsPrfmnc.length > 0){
+// 				if(grdSlsPrfmnc.getPageTotalCount() != data.resultList[0].totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+// 					grdSlsPrfmnc.setPageTotalCount(data.resultList[0].totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+// 					grdSlsPrfmnc.rebuild();
+// 				}else{
+// 					grdSlsPrfmnc.refresh();
+// 				}
+// 			}else{
+// 				grdSlsPrfmnc.setPageTotalCount(0);
+// 				grdSlsPrfmnc.rebuild();
+// 			}
+          	
           	document.querySelector('#cnt-userAprv').innerText = totalRecordCount;
 
           } catch (e) {
@@ -254,7 +272,13 @@
       		console.error("failed", e.message);
           }
 	}
-
+     
+  	// 페이징
+     async function fn_pagingUserAprv(){
+     	let recordCountPerPage = grdUserAprv.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+     	let currentPageNo = grdUserAprv.getSelectPageIndex();
+     	fn_setGrdUserAprv(recordCountPerPage, currentPageNo);
+     }
 	const fn_userAprv = async function() {
 
 		const userAprvList = [];
