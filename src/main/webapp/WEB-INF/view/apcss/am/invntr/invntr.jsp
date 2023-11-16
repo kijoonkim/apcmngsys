@@ -170,7 +170,9 @@
 							<sbux-button uitype="normal" id="srch-btn-gdsInvntrDsctn" name="srch-btn-gdsInvntrDsctn" class="btn btn-sm btn-outline-danger" text="상품재고 내역" onclick="fn_sample3()"></sbux-button>
 					</div>
                     <div class="sbt-grid">
-                        <div id="inptCmndDsctnGridArea" style="height:505px;"></div>
+                        <div id="rawMtrInvntrGridArea" style="height:505px;"></div>
+                        <div id="sortInvntrGridArea" style="height:505px;"></div>
+                        <div id="gdsInvntrGridArea" style="height:505px;"></div>
                     </div>
                	</div>
 			</div>
@@ -232,8 +234,9 @@
 		fn_initSBSelect();
 	});
 
-	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언
-	var jsoninptCmndDsctnList = []; // 그리드의 참조 데이터 주소 선언
+	var rawMtrInvntrGrid; // 그리드를 담기위한 객체 선언
+	var sortInvntrGrid; // 그리드를 담기위한 객체 선언
+	var gdsInvntrGrid; // 그리드를 담기위한 객체 선언
 	function fn_sample1(){
 		// "srch-slt-spcfctCd"
 		SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'true')
@@ -241,26 +244,29 @@
 		$("#srch-btn-rawmtrInvntrDsctn").css({"background-color":"#149FFF","color":"white"});
 		$("#srch-btn-sortInvntrDsctn").css({"background-color":"white","color":"black"});
 		$("#srch-btn-gdsInvntrDsctn").css({"background-color":"white","color":"black"});
-		_SBGrid.destroy('inptCmndDsctnList');
-		inptCmndDsctnList = [];
+		$("#rawMtrInvntrGridArea").show();
+		$("#sortInvntrGridArea").hide();
+		$("#gdsInvntrGridArea").hide();
 		fn_createGrid1();
 	}
 	function fn_sample2(){
 		$("#srch-btn-rawmtrInvntrDsctn").css({"background-color":"white","color":"black"});
 		$("#srch-btn-sortInvntrDsctn").css({"background-color":"#149FFF","color":"white"});
 		$("#srch-btn-gdsInvntrDsctn").css({"background-color":"white","color":"black"});
-		_SBGrid.destroy('inptCmndDsctnList');
-		SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'false')
-		inptCmndDsctnList = [];
+		SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'false');
+		$("#rawMtrInvntrGridArea").hide();
+		$("#sortInvntrGridArea").show();
+		$("#gdsInvntrGridArea").hide();
 		fn_createGrid2();
 	}
 	function fn_sample3(){
 		$("#srch-btn-rawmtrInvntrDsctn").css({"background-color":"white","color":"black"});
 		$("#srch-btn-sortInvntrDsctn").css({"background-color":"white","color":"black"});
 		$("#srch-btn-gdsInvntrDsctn").css({"background-color":"#149FFF","color":"white"});
-		_SBGrid.destroy('inptCmndDsctnList');
-		SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'false')
-		inptCmndDsctnList = [];
+		SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'false');
+		$("#rawMtrInvntrGridArea").hide();
+		$("#sortInvntrGridArea").hide();
+		$("#gdsInvntrGridArea").show();
 		fn_createGrid3();
 	}
 
@@ -268,12 +274,15 @@
 	function fn_createGrid1() {
 		checkSection = 1;
 	    var SBGridProperties = {};
-	    SBGridProperties.parentid = 'inptCmndDsctnGridArea';
-	    SBGridProperties.id = 'inptCmndDsctnList';
+	    SBGridProperties.parentid = 'rawMtrInvntrGridArea';
+	    SBGridProperties.id = 'rawMtrInvntrGrid';
 	    SBGridProperties.jsonref = 'jsonRawMtrInvntr';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.explorerbar = 'sortmove';
+	    SBGridProperties.selectmode = 'free';
+	    SBGridProperties.allowcopy = true;
+		SBGridProperties.explorerbar = 'sortmove';			// 개인화 컬럼 이동 가능
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList1;	// 우클릭 메뉴 리스트
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.paging = {
@@ -310,14 +319,78 @@
 	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'90px',    style:'text-align:center'}
 	    ];
 
-	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
-	    inptCmndDsctnList.bind( "beforepagechanged" , "fn_pagingGrd" );
+	    rawMtrInvntrGrid = _SBGrid.create(SBGridProperties);
+	    rawMtrInvntrGrid.bind( "beforepagechanged" , "fn_pagingGrd" );
 
 		fn_selectGridList();
 	}
 
+	/**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+    const objMenuList1 = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",					//단축키
+            "callback": fn_excelDwnld1,			//콜백함수명
+        },
+        "personalSave" : {
+        	"name": "개인화 저장",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "s",					//단축키
+            "callback": fn_personalSave1,		//콜백함수명
+        },
+        "personalLoad" : {
+        	"name": "개인화 호출",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "l",					//단축키
+            "callback": fn_personalLoad1,		//콜백함수명
+        },
+        "colHidden" : {
+        	"name": "열 숨기기",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "h",					//단축키
+            "callback": fn_colHidden1,			//콜백함수명
+        },
+        "colShow" : {
+        	"name": "열 보이기",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "w",					//단축키
+            "callback": fn_colShow1,			//콜백함수명
+        }
+    };
+
+    // 엑셀 다운로드
+    function fn_excelDwnld1() {
+   	 rawMtrInvntrGrid.exportLocalExcel("원물재고", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+
+    // 개인화 저장
+    function fn_personalSave1(){
+   	 rawMtrInvntrGrid.savePersonalInfo("apcCd");
+   	}
+    // 개인화 호출
+    function fn_personalLoad1(){
+   	 rawMtrInvntrGrid.loadPersonalInfo("apcCd");
+   	}
+	// 열 숨기기
+    function fn_colHidden1(){
+   	 rawMtrInvntrGrid.setColHidden(rawMtrInvntrGrid.getCol(), true);
+   	}
+	// 열 보이기
+    function fn_colShow1(){
+    	for(let i = rawMtrInvntrGrid.getFixedCols(); i < rawMtrInvntrGrid.getCols()-1; i++) {
+    		rawMtrInvntrGrid.setColHidden(i, false);
+    	}
+	}
+
 	//조회
     const fn_selectGridList = async function() {
+    	var inptCmndDsctnList;
+    	if(checkSection == 1 ){
+    		inptCmndDsctnList = rawMtrInvntrGrid;
+    	}else if(checkSection == 2){
+    		inptCmndDsctnList = sortInvntrGrid;
+    	}else if(checkSection == 3){
+    		inptCmndDsctnList = gdsInvntrGrid;
+    	}
     	inptCmndDsctnList.rebuild();
     	let pageSize = inptCmndDsctnList.getPageSize();
     	let pageNo = 1;
@@ -410,15 +483,15 @@
   				}
   			});
           	if (jsonRawMtrInvntr.length > 0) {
-          		if(inptCmndDsctnList.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-          			inptCmndDsctnList.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-          			inptCmndDsctnList.rebuild();
+          		if(rawMtrInvntrGrid.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+          			rawMtrInvntrGrid.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+          			rawMtrInvntrGrid.rebuild();
   				}else{
-  					inptCmndDsctnList.refresh();
+  					rawMtrInvntrGrid.refresh();
   				}
           	} else {
-          		inptCmndDsctnList.setPageTotalCount(totalRecordCount);
-          		inptCmndDsctnList.rebuild();
+          		rawMtrInvntrGrid.setPageTotalCount(totalRecordCount);
+          		rawMtrInvntrGrid.rebuild();
           	}
 
           } catch (e) {
@@ -430,18 +503,20 @@
     }
 	//원물재고 내역 조회 끝
 
-// 	var inptCmndDsctnList2; // 그리드를 담기위한 객체 선언
 	var jsonSortInvntr = []; // 그리드의 참조 데이터 주소 선언
 
 	function fn_createGrid2() {
 		checkSection = 2;
 	    var SBGridProperties = {};
-	    SBGridProperties.parentid = 'inptCmndDsctnGridArea';
-	    SBGridProperties.id = 'inptCmndDsctnList';
+	    SBGridProperties.parentid = 'sortInvntrGridArea';
+	    SBGridProperties.id = 'sortInvntrGrid';
 	    SBGridProperties.jsonref = 'jsonSortInvntr';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.explorerbar = 'sortmove';
+	    SBGridProperties.selectmode = 'free';
+	    SBGridProperties.allowcopy = true;
+		SBGridProperties.explorerbar = 'sortmove';			// 개인화 컬럼 이동 가능
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList2;	// 우클릭 메뉴 리스트
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.paging = {
@@ -477,11 +552,68 @@
 	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'105px',    style:'text-align:center'}
 	    ];
 
-	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
-	    inptCmndDsctnList.bind( "beforepagechanged" , "fn_pagingGrd" );
+	    sortInvntrGrid = _SBGrid.create(SBGridProperties);
+	    sortInvntrGrid.bind( "beforepagechanged" , "fn_pagingGrd" );
 
 	    fn_selectGridList();
 	}
+
+	/**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+    const objMenuList2 = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",					//단축키
+            "callback": fn_excelDwnld2,			//콜백함수명
+        },
+        "personalSave" : {
+        	"name": "개인화 저장",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "s",					//단축키
+            "callback": fn_personalSave2,		//콜백함수명
+        },
+        "personalLoad" : {
+        	"name": "개인화 호출",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "l",					//단축키
+            "callback": fn_personalLoad2,		//콜백함수명
+        },
+        "colHidden" : {
+        	"name": "열 숨기기",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "h",					//단축키
+            "callback": fn_colHidden2,			//콜백함수명
+        },
+        "colShow" : {
+        	"name": "열 보이기",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "w",					//단축키
+            "callback": fn_colShow2,			//콜백함수명
+        }
+    };
+     
+    // 엑셀 다운로드
+    function fn_excelDwnld2() {
+    	sortInvntrGrid.exportLocalExcel("선별재고", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+
+    // 개인화 저장
+    function fn_personalSave2(){
+    	sortInvntrGrid.savePersonalInfo("apcCd");
+   	}
+    // 개인화 호출
+    function fn_personalLoad2(){
+    	sortInvntrGrid.loadPersonalInfo("apcCd");
+   	}
+	// 열 숨기기
+    function fn_colHidden2(){
+    	sortInvntrGrid.setColHidden(sortInvntrGrid.getCol(), true);
+   	}
+	// 열 보이기
+    function fn_colShow2(){
+    	for(let i = sortInvntrGrid.getFixedCols(); i < sortInvntrGrid.getCols()-1; i++) {
+    		sortInvntrGrid.setColHidden(i, false);
+    	}
+	}
+	
 	const fn_callSelectGrid2List = async function(pageSize, pageNo) {
 		let crtrYmd = SBUxMethod.get("srch-dtp-crtrYmd");
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
@@ -551,15 +683,15 @@
   				}
   			});
           	if (jsonSortInvntr.length > 0) {
-          		if(inptCmndDsctnList.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-          			inptCmndDsctnList.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-          			inptCmndDsctnList.rebuild();
+          		if(sortInvntrGrid.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+          			sortInvntrGrid.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+          			sortInvntrGrid.rebuild();
   				}else{
-  					inptCmndDsctnList.refresh();
+  					sortInvntrGrid.refresh();
   				}
           	} else {
-          		inptCmndDsctnList.setPageTotalCount(totalRecordCount);
-          		inptCmndDsctnList.rebuild();
+          		sortInvntrGrid.setPageTotalCount(totalRecordCount);
+          		sortInvntrGrid.rebuild();
           	}
 
           } catch (e) {
@@ -571,18 +703,20 @@
     }
 	//선별재고 내역 조회 끝
 
-// 	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언
 	var jsonGdsInvntr = []; // 그리드의 참조 데이터 주소 선언
 
 	function fn_createGrid3() {
 		checkSection = 3;
 	    var SBGridProperties = {};
-	    SBGridProperties.parentid = 'inptCmndDsctnGridArea';
-	    SBGridProperties.id = 'inptCmndDsctnList';
+	    SBGridProperties.parentid = 'gdsInvntrGridArea';
+	    SBGridProperties.id = 'gdsInvntrGrid';
 	    SBGridProperties.jsonref = 'jsonGdsInvntr';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.explorerbar = 'sortmove';
+	    SBGridProperties.selectmode = 'free';
+	    SBGridProperties.allowcopy = true;
+		SBGridProperties.explorerbar = 'sortmove';			// 개인화 컬럼 이동 가능
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList3;	// 우클릭 메뉴 리스트
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.paging = {
@@ -619,10 +753,66 @@
 	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'105px',    style:'text-align:center'}
 	    ];
 
-	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
-	    inptCmndDsctnList.bind( "beforepagechanged" , "fn_pagingGrd" );
+	    gdsInvntrGrid = _SBGrid.create(SBGridProperties);
+	    gdsInvntrGrid.bind( "beforepagechanged" , "fn_pagingGrd" );
 
 	    fn_selectGridList();
+	}
+
+	/**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+    const objMenuList3 = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",					//단축키
+            "callback": fn_excelDwnld3,			//콜백함수명
+        },
+        "personalSave" : {
+        	"name": "개인화 저장",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "s",					//단축키
+            "callback": fn_personalSave3,		//콜백함수명
+        },
+        "personalLoad" : {
+        	"name": "개인화 호출",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "l",					//단축키
+            "callback": fn_personalLoad3,		//콜백함수명
+        },
+        "colHidden" : {
+        	"name": "열 숨기기",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "h",					//단축키
+            "callback": fn_colHidden3,			//콜백함수명
+        },
+        "colShow" : {
+        	"name": "열 보이기",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "w",					//단축키
+            "callback": fn_colShow3,				//콜백함수명
+        }
+    };
+     
+    // 엑셀 다운로드
+    function fn_excelDwnld3() {
+    	gdsInvntrGrid.exportLocalExcel("상품재고", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+
+    // 개인화 저장
+    function fn_personalSave3(){
+    	gdsInvntrGrid.savePersonalInfo("apcCd");
+   	}
+    // 개인화 호출
+    function fn_personalLoad3(){
+    	gdsInvntrGrid.loadPersonalInfo("apcCd");
+   	}
+	// 열 숨기기
+    function fn_colHidden3(){
+    	gdsInvntrGrid.setColHidden(gdsInvntrGrid.getCol(), true);
+   	}
+	// 열 보이기
+    function fn_colShow3(){
+    	for(let i = gdsInvntrGrid.getFixedCols(); i < gdsInvntrGrid.getCols()-1; i++) {
+    		gdsInvntrGrid.setColHidden(i, false);
+    	}
 	}
 
 	const fn_callSelectGrid3List = async function(pageSize, pageNo) {
@@ -695,15 +885,15 @@
   				}
   			});
           	if (jsonGdsInvntr.length > 0) {
-          		if(inptCmndDsctnList.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-          			inptCmndDsctnList.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-          			inptCmndDsctnList.rebuild();
+          		if(gdsInvntrGrid.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+          			gdsInvntrGrid.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+          			gdsInvntrGrid.rebuild();
   				}else{
-  					inptCmndDsctnList.refresh();
+  					gdsInvntrGrid.refresh();
   				}
           	} else {
-          		inptCmndDsctnList.setPageTotalCount(totalRecordCount);
-          		inptCmndDsctnList.rebuild();
+          		gdsInvntrGrid.setPageTotalCount(totalRecordCount);
+          		gdsInvntrGrid.rebuild();
           	}
 
           } catch (e) {
@@ -786,6 +976,14 @@
 
  // 공통코드 페이징
     const fn_pagingGrd = async function(){
+    	var inptCmndDsctnList;
+    	if(checkSection == 1 ){
+    		inptCmndDsctnList = rawMtrInvntrGrid;
+    	}else if(checkSection == 2){
+    		inptCmndDsctnList = sortInvntrGrid;
+    	}else if(checkSection == 3){
+    		inptCmndDsctnList = gdsInvntrGrid;
+    	}
     	let pageSize = inptCmndDsctnList.getPageSize();   			// 몇개의 데이터를 가져올지 설정
     	let pageNo = inptCmndDsctnList.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
     	if(checkSection == 1 ){

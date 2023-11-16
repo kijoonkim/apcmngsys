@@ -240,9 +240,13 @@
 		SBGridProperties.id = 'grdRawMtrInvntr';
 		SBGridProperties.jsonref = 'jsonRawMtrInvntr';
 		SBGridProperties.emptyrecords = '데이터가 없습니다.';
-		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.selectmode = 'free';
 		SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.oneclickedit = true;
+	    SBGridProperties.allowcopy = true;
+		SBGridProperties.explorerbar = 'move';				// 개인화 컬럼 이동 가능
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList1;	// 우클릭 메뉴 리스트
 		SBGridProperties.columns = [
 			{caption : ["선택","선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
@@ -292,7 +296,11 @@
 	    SBGridProperties.id = 'grdSortCmnd';
 	    SBGridProperties.jsonref = 'jsonSortCmnd';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.explorerbar = 'sortmove';
+	    SBGridProperties.selectmode = 'free';
+	    SBGridProperties.allowcopy = true;
+		SBGridProperties.explorerbar = 'sortmove';			// 개인화 컬럼 이동 가능
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList2;	// 우클릭 메뉴 리스트
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.columns = [
 	        {caption: ["지시번호","지시번호"], 	ref: 'sortCmndno',  	type:'output',  	width:'130px',    style:'text-align:center'},
@@ -311,6 +319,75 @@
 
 	    grdSortCmnd = _SBGrid.create(SBGridProperties);
 	}
+
+	/**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+     const objMenuList1 = {
+		"excelDwnld": {
+			"name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+			"accesskey": "e",					//단축키
+			"callback": fn_excelDwnld1,			//콜백함수명
+		}
+	};
+     
+    const objMenuList2 = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",					//단축키
+            "callback": fn_excelDwnld2,			//콜백함수명
+        },
+        "personalSave" : {
+        	"name": "개인화 저장",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "s",					//단축키
+            "callback": fn_personalSave,		//콜백함수명
+        },
+        "personalLoad" : {
+        	"name": "개인화 호출",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "l",					//단축키
+            "callback": fn_personalLoad,		//콜백함수명
+        },
+        "colHidden" : {
+        	"name": "열 숨기기",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "h",					//단축키
+            "callback": fn_colHidden,			//콜백함수명
+        },
+        "colShow" : {
+        	"name": "열 보이기",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "w",					//단축키
+            "callback": fn_colShow,				//콜백함수명
+        }
+    };
+
+    // 엑셀 다운로드
+    function fn_excelDwnld1() {
+    	grdRawMtrInvntr.exportLocalExcel("투입대상 내역", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+    
+    // 엑셀 다운로드
+    function fn_excelDwnld2() {
+    	grdSortCmnd.exportLocalExcel("선별지시 내역", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+
+    // 개인화 저장
+    function fn_personalSave(){
+    	grdSortCmnd.savePersonalInfo("apcCd");
+   	}
+    // 개인화 호출
+    function fn_personalLoad(){
+    	grdSortCmnd.loadPersonalInfo("apcCd");
+   	}
+	// 열 숨기기
+    function fn_colHidden(){
+    	grdSortCmnd.setColHidden(grdSortCmnd.getCol(), true);
+   	}
+	// 열 보이기
+    function fn_colShow(){
+    	for(let i = grdSortCmnd.getFixedCols(); i < grdSortCmnd.getCols()-1; i++) {
+   			grdSortCmnd.setColHidden(i, false);
+    	}
+   	}
 
 	const fn_search = async function(){
 		let flag = true;
