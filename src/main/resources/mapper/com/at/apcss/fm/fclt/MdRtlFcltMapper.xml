@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : MdRtlFcltMapper.xml                                    				-->
+<!-- DESC : APC 전수조사 대시보드 정보 mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.11.16  	김현호        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectFirstGridList				-->
+	<!-- DESC : 통합관리시스템활용 테이블 단건조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectFirstGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    	<![CDATA[
+			SELECT  S0
+			      , SUM(S1) AS S1
+			      , SUM(S2) AS S2
+			      , SUM(S3) AS S3
+			      , SUM(S4) AS S4
+			      , SUM(S5) AS S5
+			FROM  ( SELECT '1통합조직운영 APC'                   AS S0
+			              , CASE WHEN TYPE_CD = '1'   THEN 1 END AS S1
+			              , CASE WHEN TYPE_CD = '2'   THEN 1 END AS S2
+			              , CASE WHEN MB IS NOT NULL  THEN 1 END AS S3
+			              , CASE WHEN MB IS NULL      THEN 1 END AS S4
+			              , 1                                    AS S5
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN
+			        WHERE   CRTR_YR = '2023'
+			        AND     OGNZ_TYPE_CD NOT IN ('5')
+			        AND     CTPV_CD IS NOT NULL
+			        UNION ALL
+			        SELECT '2개별조직운영 APC'                   AS S0
+			              , CASE WHEN TYPE_CD = '1'   THEN 1 END AS S1
+			              , CASE WHEN TYPE_CD = '2'   THEN 1 END AS S2
+			              , CASE WHEN MB IS NOT NULL  THEN 1 END AS S3
+			              , CASE WHEN MB IS NULL      THEN 1 END AS S4
+			              , 1                                    AS S5
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN
+			        WHERE   CRTR_YR = '2023'
+			        AND     OGNZ_TYPE_CD IN ('5')
+			        AND     CTPV_CD IS NOT NULL)
+			GROUP BY S0
+			ORDER BY S0
+			]]>
+    </select>
+    
+</mapper>
