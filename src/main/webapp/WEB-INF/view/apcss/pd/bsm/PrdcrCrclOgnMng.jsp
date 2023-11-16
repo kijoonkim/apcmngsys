@@ -781,7 +781,7 @@
         	id="modal-brno"
         	name="modal-brno"
         	uitype="middle"
-        	header-title="통합조직,출자출하조직 선택"
+        	header-title="사업자번호 선택"
         	body-html-id="body-modal-brno"
         	footer-is-close-button="false"
         	style="width:1000px"
