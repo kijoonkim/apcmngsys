@@ -313,7 +313,8 @@
 	    SBGridProperties.id = 'grdOrdr';
 	    SBGridProperties.jsonref = 'jsonOrdr';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.selectmode = 'free';
+	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
         	{caption: ['선택'], 		ref: 'checkedYn', 		width: '40px',  type: 'checkbox'},

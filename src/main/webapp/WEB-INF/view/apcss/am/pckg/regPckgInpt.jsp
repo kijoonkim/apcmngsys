@@ -561,7 +561,8 @@
 	    SBGridProperties.id = 'grdSortInvntr';
 	    SBGridProperties.jsonref = 'jsonSortInvntr';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.selectmode = 'free';
+	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
 			{caption : ["선택","선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center', userattr: {colNm: "checkedYn"},
@@ -738,7 +739,8 @@
 	    SBGridProperties.id = 'grdPckgPrfmnc';
 	    SBGridProperties.jsonref = 'jsonPckgPrfmnc';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.selectmode = 'free';
+	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.extendlastcol = 'scroll';
 
         SBGridProperties.columns = [

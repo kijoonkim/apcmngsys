@@ -330,8 +330,11 @@
 	    SBGridProperties.id = 'inptCmndDsctnList';
 	    SBGridProperties.jsonref = 'jsoninptCmndDsctnList';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.explorerbar = 'sortmove';
+	    SBGridProperties.selectmode = 'free';
+	    SBGridProperties.allowcopy = true;
+		SBGridProperties.explorerbar = 'sortmove';			// 개인화 컬럼 이동 가능
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.paging = {
@@ -362,6 +365,62 @@
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
 	    inptCmndDsctnList.bind( "afterpagechanged" , "fn_pagingInptCmndDsctnList" );
 	}
+	
+	/**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+    const objMenuList = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",					//단축키
+            "callback": fn_excelDwnld,			//콜백함수명
+        },
+        "personalSave" : {
+        	"name": "개인화 저장",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "s",					//단축키
+            "callback": fn_personalSave,		//콜백함수명
+        },
+        "personalLoad" : {
+        	"name": "개인화 호출",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "l",					//단축키
+            "callback": fn_personalLoad,		//콜백함수명
+        },
+        "colHidden" : {
+        	"name": "열 숨기기",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "h",					//단축키
+            "callback": fn_colHidden,			//콜백함수명
+        },
+        "colShow" : {
+        	"name": "열 보이기",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "w",					//단축키
+            "callback": fn_colShow,				//콜백함수명
+        }
+    };
+     
+    // 엑셀 다운로드
+    function fn_excelDwnld() {
+    	inptCmndDsctnList.exportLocalExcel("입고실적", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+
+    // 개인화 저장
+    function fn_personalSave(){
+    	inptCmndDsctnList.savePersonalInfo("apcCd");
+   	}
+    // 개인화 호출
+    function fn_personalLoad(){
+    	inptCmndDsctnList.loadPersonalInfo("apcCd");
+   	}
+	// 열 숨기기
+    function fn_colHidden(){
+    	inptCmndDsctnList.setColHidden(inptCmndDsctnList.getCol(), true);
+   	}
+	// 열 보이기
+    function fn_colShow(){
+    	for(let i = inptCmndDsctnList.getFixedCols(); i < inptCmndDsctnList.getCols()-1; i++) {
+   			inptCmndDsctnList.setColHidden(i, false);
+    	}
+   	}
 
 	function fn_closeModal(modalId){
 		SBUxMethod.closeModal(modalId);

@@ -295,9 +295,13 @@
         SBGridPropertiesOrdr.id = 'grdSpmtCmndTrg';
         SBGridPropertiesOrdr.jsonref = 'jsonSpmtCmndTrg';
         SBGridPropertiesOrdr.emptyrecords = '데이터가 없습니다.';
-        SBGridPropertiesOrdr.selectmode = 'byrow';
+        SBGridPropertiesOrdr.selectmode = 'free';
         SBGridPropertiesOrdr.extendlastcol = 'scroll';
         SBGridPropertiesOrdr.oneclickedit = true;
+        SBGridPropertiesOrdr.allowcopy = true;
+        SBGridPropertiesOrdr.explorerbar = 'move';				// 개인화 컬럼 이동 가능
+        SBGridPropertiesOrdr.contextmenu = true;				// 우클린 메뉴 호출 여부
+        SBGridPropertiesOrdr.contextmenulist = objMenuList1;	// 우클릭 메뉴 리스트
         SBGridPropertiesOrdr.columns = [
         	{caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
@@ -331,8 +335,12 @@
         SBGridPropertiesSpmtCmnd.id = 'grdSpmtCmnd';
         SBGridPropertiesSpmtCmnd.jsonref = 'jsonSpmtCmnd';
         SBGridPropertiesSpmtCmnd.emptyrecords = '데이터가 없습니다.';
-        SBGridPropertiesSpmtCmnd.selectmode = 'byrow';
+        SBGridPropertiesSpmtCmnd.selectmode = 'free';
         SBGridPropertiesSpmtCmnd.extendlastcol = 'scroll';
+        SBGridPropertiesSpmtCmnd.allowcopy = true;
+        SBGridPropertiesSpmtCmnd.explorerbar = 'sortmove';			// 개인화 컬럼 이동 가능
+        SBGridPropertiesSpmtCmnd.contextmenu = true;				// 우클린 메뉴 호출 여부
+        SBGridPropertiesSpmtCmnd.contextmenulist = objMenuList2;	// 우클릭 메뉴 리스트
         SBGridPropertiesSpmtCmnd.columns = [
             {caption: ['지시일자'], 	ref: 'cmndYmd', 		width: '100px', type: 'output', style: 'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['납기일자'], 	ref: 'wrhsYmd', 		width: '100px', type: 'output', style: 'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
@@ -351,6 +359,75 @@
 
         grdSpmtCmnd = _SBGrid.create(SBGridPropertiesSpmtCmnd);
     }
+
+	/**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+     const objMenuList1 = {
+		"excelDwnld": {
+			"name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+			"accesskey": "e",					//단축키
+			"callback": fn_excelDwnld1,			//콜백함수명
+		}
+	};
+    	     
+    const objMenuList2 = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",					//단축키
+            "callback": fn_excelDwnld2,			//콜백함수명
+        },
+        "personalSave" : {
+        	"name": "개인화 저장",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "s",					//단축키
+            "callback": fn_personalSave,		//콜백함수명
+        },
+        "personalLoad" : {
+        	"name": "개인화 호출",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "l",					//단축키
+            "callback": fn_personalLoad,		//콜백함수명
+        },
+        "colHidden" : {
+        	"name": "열 숨기기",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "h",					//단축키
+            "callback": fn_colHidden,			//콜백함수명
+        },
+        "colShow" : {
+        	"name": "열 보이기",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "w",					//단축키
+            "callback": fn_colShow,				//콜백함수명
+        }
+    };
+
+    // 엑셀 다운로드
+    function fn_excelDwnld1() {
+    	grdSpmtCmndTrg.exportLocalExcel("출하지시대상 내역", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+    
+ 	// 엑셀 다운로드
+    function fn_excelDwnld2() {
+    	grdSpmtCmnd.exportLocalExcel("출하지시 내역", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+
+    // 개인화 저장
+    function fn_personalSave(){
+    	grdSpmtCmnd.savePersonalInfo("apcCd");
+   	}
+    // 개인화 호출
+    function fn_personalLoad(){
+    	grdSpmtCmnd.loadPersonalInfo("apcCd");
+   	}
+	// 열 숨기기
+    function fn_colHidden(){
+    	grdSpmtCmnd.setColHidden(grdSpmtCmnd.getCol(), true);
+   	}
+	// 열 보이기
+    function fn_colShow(){
+    	for(let i = grdSpmtCmnd.getFixedCols(); i < grdSpmtCmnd.getCols()-1; i++) {
+   			grdSpmtCmnd.setColHidden(i, false);
+    	}
+   	}
 
 
 	const fn_grdCmndQnttValueChanged = async function(){

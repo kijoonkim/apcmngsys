@@ -176,7 +176,8 @@
 	    SBGridPrfmncProperties.id = 'grdPrfmnc';
 	    SBGridPrfmncProperties.jsonref = 'jsonPrfmnc';
 	    SBGridPrfmncProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridPrfmncProperties.selectmode = 'byrow';
+	    SBGridPrfmncProperties.selectmode = 'free';
+	    SBGridPrfmncProperties.allowcopy = true;
 	    SBGridPrfmncProperties.extendlastcol = 'scroll';
 	    SBGridPrfmncProperties.columns = [
 	         {caption: ["작업구분"],	ref: 'prfmncSeNm',	type:'output',  width:'100px', style: 'text-align:center'},
@@ -201,9 +202,13 @@
 	    SBGridOptrtProperties.id = 'grdOptrtPrfmnc';
 	    SBGridOptrtProperties.jsonref = 'jsonOptrtPrfmnc';
 	    SBGridOptrtProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridOptrtProperties.selectmode = 'byrow';
+	    SBGridOptrtProperties.selectmode = 'free';
 	    SBGridOptrtProperties.extendlastcol = 'scroll';
 	    SBGridOptrtProperties.oneclickedit = true;
+	    SBGridOptrtProperties.allowcopy = true;
+	    SBGridOptrtProperties.explorerbar = 'move';				// 개인화 컬럼 이동 가능
+	    SBGridOptrtProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+	    SBGridOptrtProperties.contextmenulist = objMenuList;	// 우클릭 메뉴 리스트
 	    SBGridOptrtProperties.columns = [
 	    	{caption: ["처리"], 		ref: 'delYn',   	type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
@@ -235,6 +240,23 @@
 	    grdOptrtPrfmnc = _SBGrid.create(SBGridOptrtProperties);
 	    grdOptrtPrfmnc.bind('valuechanged', 'fn_grdHrValueChanged');
 	}
+
+	/**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+    const objMenuList = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",					//단축키
+            "callback": fn_excelDwnld,			//콜백함수명
+        }
+    };
+
+    // 엑셀 다운로드
+    function fn_excelDwnld() {
+    	grdOptrtPrfmnc.exportLocalExcel("작업자실적", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
 
 	const fn_reset = function(){
 		SBUxMethod.set("srch-dtp-prfmncYmd", gfn_dateToYmd(new Date()));

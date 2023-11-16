@@ -539,7 +539,8 @@
 		SBGridProperties.id = 'grdRawMtrInvntr';
 		SBGridProperties.jsonref = 'jsonRawMtrInvntr';
 		SBGridProperties.emptyrecords = '데이터가 없습니다.';
-		SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.selectmode = 'free';
+	    SBGridProperties.allowcopy = true;
 		SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.columns = [
 			{caption : ["선택","선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center', userattr: {colNm: "checkedYn"},
@@ -606,7 +607,8 @@
 		SBGridProperties.id = 'grdSortPrfmnc';
 		SBGridProperties.jsonref = 'jsonSortPrfmnc';
 		SBGridProperties.emptyrecords = '데이터가 없습니다.';
-		SBGridProperties.selectmode = 'free';
+	    SBGridProperties.selectmode = 'free';
+	    SBGridProperties.allowcopy = true;
 		SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.columns = [
         	{caption: ["처리"], 		ref: 'itemCd', 		type:'button', width:'60px', style: 'text-align:center',
