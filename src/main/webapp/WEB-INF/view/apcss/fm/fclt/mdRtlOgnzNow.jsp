@@ -16,185 +16,174 @@
 	<section class="content container-fluid">
 	<div class="box box-solid">
 		<div class="box-body">
-			<div class="row">
-				<div class="ad_tbl_toplist">
-					<sbux-button id="btnGdsInvntrChgHstry1" name="btnLogMap" uitype="normal" text="지도" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-					<sbux-button id="btnLogCntnHstry1" name="btnLogCntnHstry" uitype="normal" text="산지유통시설현황" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-					<sbux-button id="btnLogMenuHstry1" name="btnLogMenuHstry" uitype="normal" text="산지유통시설지역별현황" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-					<sbux-button id="btnLogTrsmHstry1" name="btnLogTrsmHstry" uitype="normal" text="정부지원산지유통시설현황" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-					<sbux-button id="btnLogBatchHstry1" name="btnLogBatchHstry" uitype="normal" text="정부지원산지유통시설지역별현황" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-					<sbux-button id="btnRawMtrChgHstry1" name="btnRawMtrChgHstry" uitype="normal" text="산지유통시설운영실적" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-					<sbux-button id="btnSortInvntrChgHstry1" name="btnSortInvntrChgHstry" uitype="normal" text="정부지원지역별운영실적" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+			<div class="box-header" style="display:flex; justify-content: flex-start;" >
+				<div>
+					<h3 class="box-title" style="line-height: 30px;"> 1. 산지유통시설현황</h3>
 				</div>
-				<div class="box-header" style="display:flex; justify-content: flex-start;" >
-					<div>
-						<h3 class="box-title" style="line-height: 30px;"> 1. 산지유통시설현황</h3>
-					</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="ad_tbl_top" style="margin-bottom: 30px;">
+					<ul class="ad_tbl_count" style="width: 100%">
+						<li>
+							<span style="font-size:15px; color:black;">1.1. 산지유통시설 개소수</span>
+							<br/>
+							<span style="font-size:12px">개소수 : 산지유통조직 유형</span>
+							<br/>
+							<span style="font-size:12px; text-align: right; display: block;">(단위:개소)</span>
+						</li>
+					</ul>
 				</div>
-				<div class="col-sm-6">
-					<div class="ad_tbl_top" style="margin-bottom: 30px;">
-						<ul class="ad_tbl_count" style="width: 100%">
-							<li>
-								<span style="font-size:15px; color:black;">1.1. 산지유통시설 개소수</span>
-								<br/>
-								<span style="font-size:12px">개소수 : 산지유통조직 유형</span>
-								<br/>
-								<span style="font-size:12px; text-align: right; display: block;">(단위:개소)</span>
-							</li>
-						</ul>
-					</div>
-					<div id="sb-area-grdMdRtlOgnz" style="height:206px;"></div>
-					<span style="font-size:8px;">*출자출하조직 또는 참영조직 중 전년도 선정에서 탈락한 조직 포함</span>
-					
-					<div class="ad_tbl_top" style="margin-bottom: 30px;">
-						<ul class="ad_tbl_count" style="width: 100%">
-							<li>
-								<br/>
-								<span style="font-size:12px">개소수:소유자 및 운영자</span>
-								<br/>
-								<span style="font-size:12px; text-align: right; display: block;">(단위:개소)</span>
-							</li>
-						</ul>
-					</div>
-					<div id="sb-area-grdOwnrAndOper" style="height:137px;"></div>
-					<span style="font-size:8px;">*민간: 농협, 농업법인, 재단버인 등 민간 사업자</span><br/>
-					<span style="font-size:8px;">*공공: 시ㆍ군 지방자치단체</span><br/>
-					<span style="font-size:8px;">ㅤ</span>
-					
-					<div class="ad_tbl_top" style="margin-bottom: 30px;">
-						<ul class="ad_tbl_count" style="width: 100%">
-							<li>
-								<br/>
-								<span style="font-size:12px">예냉시설</span>
-								<br/>
-								<span style="font-size:12px; text-align: right; display: block;">(단위:개소,m²)</span>
-							</li>
-						</ul>
-					</div>
-					<div id="sb-area-grdPrprtnClngFclt" style="height:137px;"></div>
-					<span style="font-size:8px;">*예냉시설:  수확 후 또는 운송 이전에 농산물의 품온을 짧은 시간 내에 적정온도로 냉각하는 시설</span>
-					
-					<div class="ad_tbl_top" style="margin-bottom: 30px;">
-						<ul class="ad_tbl_count" style="width: 100%">
-							<li>
-								<br/>
-								<span style="font-size:12px">CA 저장시설</span>
-								<br/>
-								<span style="font-size:12px; text-align: right; display: block;">(단위:개소,m²)</span>
-							</li>
-						</ul>
-					</div>
-					<div id="sb-area-grdStrgFclt" style="height:137px;"></div>
-					<span style="font-size:8px;">*CA저장 시설 : Controlled Atmosphere Storage(기체조절 저장고)로 장기저장 과일의 신선도 유지 시설</span>
-					
-					<div class="ad_tbl_top" style="margin-bottom: 30px;">
-						<ul class="ad_tbl_count" style="width: 100%">
-							<li>
-								<br/>
-								<span style="font-size:12px">선별기·측정장비 설치 개소 수</span>
-								<br/>
-								<span style="font-size:12px; text-align: right; display: block;">(단위:개소)</span>
-							</li>
-						</ul>
-					</div>
-					<div id="sb-area-grdFcltMsrmtEqpmnt" style="height:137px;"></div>
-					<span style="font-size:8px;">*선별기 : 선별(grading&sorting)시설 본체</span><br/>
-					<span style="font-size:8px;">*측정장비 : 당도·색택·내부손상 등 세부 품질 측정장비(선별기에 부착)</span><br/>
-					<span style="font-size:8px;">*반가공시설 : 신선편의처리, 마늘건조, 깐마늘, 고추건조 등</span>
+				<div id="sb-area-grdMdRtlOgnz" style="height:206px;"></div>
+				<span style="font-size:8px;">*출자출하조직 또는 참영조직 중 전년도 선정에서 탈락한 조직 포함</span>
+				
+				<div class="ad_tbl_top" style="margin-bottom: 30px;">
+					<ul class="ad_tbl_count" style="width: 100%">
+						<li>
+							<br/>
+							<span style="font-size:12px">개소수:소유자 및 운영자</span>
+							<br/>
+							<span style="font-size:12px; text-align: right; display: block;">(단위:개소)</span>
+						</li>
+					</ul>
 				</div>
-				<div class="col-sm-6">
-					<div class="ad_tbl_top" style="margin-bottom: 30px;">
-						<ul class="ad_tbl_count" style="width: 100%">
-							<li>
-								<span style="font-size:15px; color:black;">1.2. 산지유통시설 시설ㆍ장비</span>
-								<br/>
-								<span style="font-size:12px">총 건축면적</span>
-								<br/>
-								<span style="font-size:12px; text-align: right; display: block;">(단위:m²)</span>
-							</li>
-						</ul>
-					</div>
-					<div id="sb-area-grdAllBdar" style="height:137px;"></div>
-					<span style="font-size:8px;">*물류시설, 상품회사설, 저장고 등 건축면적의 합계</span><br/>
-					<span style="font-size:8px;">*면적 소수점 이하 미표기</span>
-					<div style="height: 50px"></div>
-					<div class="ad_tbl_top" style="margin-bottom: 30px;">
-						<ul class="ad_tbl_count" style="width: 100%">
-							<li>
-								<br/>
-								<span style="font-size:12px">물류ㆍ상품화 시설(건축면적)</span>
-								<br/>
-								<span style="font-size:12px; text-align: right; display: block;">(단위:m²)</span>
-							</li>
-						</ul>
-					</div>
-					<div id="sb-area-grdLgstcsGds" style="height:137px;"></div>
-					<span style="font-size:8px;">*물류ㆍ상품화 시설: 집출하, 선별, 포장, 신선편의, 반가공 등 처리시설</span><br/>
-					<span style="font-size:8px;">*전체면적: APC 전체 물류 및 상품화 시설</span><br/>
-					<span style="font-size:8px;">*평균면적: APC 개소당 물류 및 상품화 시설</span>
-					
-					<div class="ad_tbl_top" style="margin-bottom: 30px;">
-						<ul class="ad_tbl_count" style="width: 100%">
-							<li>
-								<br/>
-								<span style="font-size:12px">저온저장고</span>
-								<br/>
-								<span style="font-size:12px; text-align: right; display: block;">(단위:개소,m²)</span>
-							</li>
-						</ul>
-					</div>
-					<div id="sb-area-grdLwtpStrg" style="height:137px;"></div>
-					<span style="font-size:8px;">*면적 소수점 이하 미표기</span>
-					
-					<div class="ad_tbl_top" style="margin-bottom: 30px;">
-						<ul class="ad_tbl_count" style="width: 100%">
-							<li>
-								<span style="font-size:15px; color:black;">1.3.투자금액</span>
-								<br/>
-								<span style="font-size:12px">투자금액 : 전체</span>
-								<br/>
-								<span style="font-size:12px; text-align: right; display: block;">(단위:개소,백만원)</span>
-							</li>
-						</ul>
-					</div>
-					<div id="sb-area-grdInvstAtmAll" style="height:137px;"></div><br/>
-					
-					<div class="ad_tbl_top" style="margin-bottom: 30px;">
-						<ul class="ad_tbl_count" style="width: 100%">
-							<li>
-								<br/>
-								<span style="font-size:12px">투자금액 : 자금 유형</span>
-								<br/>
-								<span style="font-size:12px; text-align: right; display: block;">(단위:백만원)</span>
-							</li>
-						</ul>
-					</div>
-					<div id="sb-area-grdInvstAtmFundType" style="height:137px;"></div><br/>
-					
-					<div class="ad_tbl_top" style="margin-bottom: 30px;">
-						<ul class="ad_tbl_count" style="width: 100%">
-							<li>
-								<br/>
-								<span style="font-size:12px">투자금액 : 소유자</span>
-								<br/>
-								<span style="font-size:12px; text-align: right; display: block;">(단위:개소,백만원)</span>
-							</li>
-						</ul>
-					</div>
-					<div id="sb-area-grdInvstAtmOwnr" style="height:137px;"></div><br/>
-					
-					<div class="ad_tbl_top" style="margin-bottom: 30px;">
-						<ul class="ad_tbl_count" style="width: 100%">
-							<li>
-								<br/>
-								<span style="font-size:12px">투자금액 : 운영자</span>
-								<br/>
-								<span style="font-size:12px; text-align: right; display: block;">(단위:개소,백만원)</span>
-							</li>
-						</ul>
-					</div>
-					<div id="sb-area-grdInvstAtmOperPrsn" style="height:137px;"></div><br/>
+				<div id="sb-area-grdOwnrAndOper" style="height:137px;"></div>
+				<span style="font-size:8px;">*민간: 농협, 농업법인, 재단버인 등 민간 사업자</span><br/>
+				<span style="font-size:8px;">*공공: 시ㆍ군 지방자치단체</span><br/>
+				<span style="font-size:8px;">ㅤ</span>
+				
+				<div class="ad_tbl_top" style="margin-bottom: 30px;">
+					<ul class="ad_tbl_count" style="width: 100%">
+						<li>
+							<br/>
+							<span style="font-size:12px">예냉시설</span>
+							<br/>
+							<span style="font-size:12px; text-align: right; display: block;">(단위:개소,m²)</span>
+						</li>
+					</ul>
 				</div>
+				<div id="sb-area-grdPrprtnClngFclt" style="height:137px;"></div>
+				<span style="font-size:8px;">*예냉시설:  수확 후 또는 운송 이전에 농산물의 품온을 짧은 시간 내에 적정온도로 냉각하는 시설</span>
+				
+				<div class="ad_tbl_top" style="margin-bottom: 30px;">
+					<ul class="ad_tbl_count" style="width: 100%">
+						<li>
+							<br/>
+							<span style="font-size:12px">CA 저장시설</span>
+							<br/>
+							<span style="font-size:12px; text-align: right; display: block;">(단위:개소,m²)</span>
+						</li>
+					</ul>
+				</div>
+				<div id="sb-area-grdStrgFclt" style="height:137px;"></div>
+				<span style="font-size:8px;">*CA저장 시설 : Controlled Atmosphere Storage(기체조절 저장고)로 장기저장 과일의 신선도 유지 시설</span>
+				
+				<div class="ad_tbl_top" style="margin-bottom: 30px;">
+					<ul class="ad_tbl_count" style="width: 100%">
+						<li>
+							<br/>
+							<span style="font-size:12px">선별기·측정장비 설치 개소 수</span>
+							<br/>
+							<span style="font-size:12px; text-align: right; display: block;">(단위:개소)</span>
+						</li>
+					</ul>
+				</div>
+				<div id="sb-area-grdFcltMsrmtEqpmnt" style="height:137px;"></div>
+				<span style="font-size:8px;">*선별기 : 선별(grading&sorting)시설 본체</span><br/>
+				<span style="font-size:8px;">*측정장비 : 당도·색택·내부손상 등 세부 품질 측정장비(선별기에 부착)</span><br/>
+				<span style="font-size:8px;">*반가공시설 : 신선편의처리, 마늘건조, 깐마늘, 고추건조 등</span>
+			</div>
+			<div class="col-sm-6">
+				<div class="ad_tbl_top" style="margin-bottom: 30px;">
+					<ul class="ad_tbl_count" style="width: 100%">
+						<li>
+							<span style="font-size:15px; color:black;">1.2. 산지유통시설 시설ㆍ장비</span>
+							<br/>
+							<span style="font-size:12px">총 건축면적</span>
+							<br/>
+							<span style="font-size:12px; text-align: right; display: block;">(단위:m²)</span>
+						</li>
+					</ul>
+				</div>
+				<div id="sb-area-grdAllBdar" style="height:137px;"></div>
+				<span style="font-size:8px;">*물류시설, 상품회사설, 저장고 등 건축면적의 합계</span><br/>
+				<span style="font-size:8px;">*면적 소수점 이하 미표기</span>
+				<div style="height: 50px"></div>
+				<div class="ad_tbl_top" style="margin-bottom: 30px;">
+					<ul class="ad_tbl_count" style="width: 100%">
+						<li>
+							<br/>
+							<span style="font-size:12px">물류ㆍ상품화 시설(건축면적)</span>
+							<br/>
+							<span style="font-size:12px; text-align: right; display: block;">(단위:m²)</span>
+						</li>
+					</ul>
+				</div>
+				<div id="sb-area-grdLgstcsGds" style="height:137px;"></div>
+				<span style="font-size:8px;">*물류ㆍ상품화 시설: 집출하, 선별, 포장, 신선편의, 반가공 등 처리시설</span><br/>
+				<span style="font-size:8px;">*전체면적: APC 전체 물류 및 상품화 시설</span><br/>
+				<span style="font-size:8px;">*평균면적: APC 개소당 물류 및 상품화 시설</span>
+				
+				<div class="ad_tbl_top" style="margin-bottom: 30px;">
+					<ul class="ad_tbl_count" style="width: 100%">
+						<li>
+							<br/>
+							<span style="font-size:12px">저온저장고</span>
+							<br/>
+							<span style="font-size:12px; text-align: right; display: block;">(단위:개소,m²)</span>
+						</li>
+					</ul>
+				</div>
+				<div id="sb-area-grdLwtpStrg" style="height:137px;"></div>
+				<span style="font-size:8px;">*면적 소수점 이하 미표기</span>
+				
+				<div class="ad_tbl_top" style="margin-bottom: 30px;">
+					<ul class="ad_tbl_count" style="width: 100%">
+						<li>
+							<span style="font-size:15px; color:black;">1.3.투자금액</span>
+							<br/>
+							<span style="font-size:12px">투자금액 : 전체</span>
+							<br/>
+							<span style="font-size:12px; text-align: right; display: block;">(단위:개소,백만원)</span>
+						</li>
+					</ul>
+				</div>
+				<div id="sb-area-grdInvstAtmAll" style="height:137px;"></div><br/>
+				
+				<div class="ad_tbl_top" style="margin-bottom: 30px;">
+					<ul class="ad_tbl_count" style="width: 100%">
+						<li>
+							<br/>
+							<span style="font-size:12px">투자금액 : 자금 유형</span>
+							<br/>
+							<span style="font-size:12px; text-align: right; display: block;">(단위:백만원)</span>
+						</li>
+					</ul>
+				</div>
+				<div id="sb-area-grdInvstAtmFundType" style="height:137px;"></div><br/>
+				
+				<div class="ad_tbl_top" style="margin-bottom: 30px;">
+					<ul class="ad_tbl_count" style="width: 100%">
+						<li>
+							<br/>
+							<span style="font-size:12px">투자금액 : 소유자</span>
+							<br/>
+							<span style="font-size:12px; text-align: right; display: block;">(단위:개소,백만원)</span>
+						</li>
+					</ul>
+				</div>
+				<div id="sb-area-grdInvstAtmOwnr" style="height:137px;"></div><br/>
+				
+				<div class="ad_tbl_top" style="margin-bottom: 30px;">
+					<ul class="ad_tbl_count" style="width: 100%">
+						<li>
+							<br/>
+							<span style="font-size:12px">투자금액 : 운영자</span>
+							<br/>
+							<span style="font-size:12px; text-align: right; display: block;">(단위:개소,백만원)</span>
+						</li>
+					</ul>
+				</div>
+				<div id="sb-area-grdInvstAtmOperPrsn" style="height:137px;"></div><br/>
 			</div>
 		</div>
 	</div>
@@ -230,7 +219,7 @@ window.addEventListener('DOMContentLoaded', function(e) {
 	
 	
 	// 검색
-	fn_cellSearchGrid();
+	fn_cellMdRtlOgnzNowGrid();
 });
 //그리드 id, 그리드 json
 
@@ -342,8 +331,6 @@ const fn_createOwnrAndOperGrid = function() {
     	{caption : ["합계","합계"], ref: 's5', type: 'output',  width:'150px', style: 'text-align:right', format : {type:'number', rule:'#,###'}}
     ];
     grdOwnrAndOper = _SBGrid.create(SBGridProperties);
-    
-    fn_cellSearchGrid();
 }
 
 const fn_createAllBdarGrid = function() {
@@ -742,7 +729,7 @@ const fn_createInvstAtmOperPrsnGrid = function() {
     grdInvstAtmOperPrsn = _SBGrid.create(SBGridProperties);
 }
 
-const fn_cellSearchGrid = async function() {
+const fn_cellMdRtlOgnzNowGrid = async function() {
 	
 	const postJsonPromise = gfn_postJSON("/fm/fclt/selectFirstGridList.do", {s0 : ""});
 	

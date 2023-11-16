@@ -17,15 +17,6 @@
 	<div class="box box-solid">
 		<div class="box-body">
 			<div class="row">
-				<div class="ad_tbl_toplist">
-					<sbux-button id="btnGdsInvntrChgHstry6" name="btnLogMap" uitype="normal" text="지도" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-					<sbux-button id="btnLogCntnHstry6" name="btnLogCntnHstry" uitype="normal" text="산지유통시설현황" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-					<sbux-button id="btnLogMenuHstry6" name="btnLogMenuHstry" uitype="normal" text="산지유통시설지역별현황" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-					<sbux-button id="btnLogTrsmHstry6" name="btnLogTrsmHstry" uitype="normal" text="정부지원산지유통시설현황" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-					<sbux-button id="btnLogBatchHstry6" name="btnLogBatchHstry" uitype="normal" text="정부지원산지유통시설지역별현황" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-					<sbux-button id="btnRawMtrChgHstry6" name="btnRawMtrChgHstry" uitype="normal" text="산지유통시설운영실적" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-					<sbux-button id="btnSortInvntrChgHstry6" name="btnSortInvntrChgHstry" uitype="normal" text="정부지원지역별운영실적" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-				</div>
 			<div class="box-header" style="display:flex; justify-content: flex-start; width: 100%;" >
 				<div>
 					<h3 class="box-title" style="line-height: 30px;"> 2. 정부지원 지역별 운영실적</h3>
@@ -35,7 +26,7 @@
 					<div class="ad_tbl_top" style="margin-bottom: 30px;">
 						<ul class="ad_tbl_count" style="width: 100%">
 							<li>
-								<span style="font-size:12px">2.1. 운영조직 취급 및 APC 처리 실적</span>
+								<span style="font-size:15px; color:black;">2.1. 운영조직 취급 및 APC 처리 실적</span>
 								<br/>
 								<span style="font-size:12px">운영조직 취급실적</span>
 								<br/>
@@ -99,7 +90,7 @@
 					<div class="ad_tbl_top" style="margin-bottom: 30px;">
 						<ul class="ad_tbl_count" style="width: 100%">
 							<li>
-								<span style="font-size:12px">2.2. 지역별 운영조직 취급 및 APC 처리 실적</span>
+								<span style="font-size:15px; color:black;">2.2. 지역별 운영조직 취급 및 APC 처리 실적</span>
 								<br/>
 								<span style="font-size:12px">지역별 운영조직 취급실적</span>
 								<br/>
