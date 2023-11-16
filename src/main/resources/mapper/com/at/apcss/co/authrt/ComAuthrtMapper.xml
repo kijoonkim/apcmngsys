@@ -373,14 +373,23 @@
 				 WHERE MN.DEL_YN = 'N'
     	]]>
     	<choose>
-    		<when test='authrtType != null and authrtType != "" and authrtType == "00"'>
-				   AND MN.AUTHRT_TYPE IN ('00','10','20','21','30','40')
+    		<when test='authrtType != null and authrtType == "00"'>
+				   AND MN.AUTHRT_TYPE IN ('00', '10', '20', '21', '30', '40')
     		</when>
-    		<when test='authrtType != null and authrtType != "" and authrtType == "10"'>
-				   AND MN.AUTHRT_TYPE IN ('10','20','21','30','40')
+    		<when test='authrtType != null and authrtType == "10"'>
+				   AND MN.AUTHRT_TYPE IN ('10', '20', '21', '30', '40')
     		</when>
-    		<when test='authrtType != null and authrtType != "" and authrtType == "20"'>
-				   AND MN.AUTHRT_TYPE IN ('20')
+    		<when test='authrtType != null and authrtType == "20"'>
+				   AND MN.AUTHRT_TYPE IN ('20', '21', '30', '40')
+    		</when>
+    		<when test='authrtType != null and authrtType == "21"'>
+				   AND MN.AUTHRT_TYPE IN ('21', '30', '40')
+    		</when>
+    		<when test='authrtType != null and authrtType == "30"'>
+				   AND MN.AUTHRT_TYPE IN ('30', '40')
+    		</when>
+    		<when test='authrtType != null and authrtType == "40"'>
+				   AND MN.AUTHRT_TYPE IN ('40')
     		</when>
     	</choose>
     	<![CDATA[
