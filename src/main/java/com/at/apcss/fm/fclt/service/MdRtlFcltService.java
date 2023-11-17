@@ -49,4 +49,12 @@ public interface MdRtlFcltService {
 	 * @throws Exception
 	 */
 	public HashMap<String,Object> selectMdRtlFcltRgnNowGridList(MdRtlFcltVO mdRtlFcltVO) throws Exception;
+	
+	/**
+	 * 정부지원산지유통시설현황 목록을 조회한다.
+	 * @param mdRtlFcltVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String,Object> selectGvrngmtSprtMdRtlFcltGridList(MdRtlFcltVO mdRtlFcltVO) throws Exception;
 }

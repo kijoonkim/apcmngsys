@@ -192,4 +192,88 @@ public interface MdRtlFcltMapper {
 	 * @return
 	 */
 	public List<MdRtlFcltVO> selectRgnInvstOperPrsnGridList(MdRtlFcltVO mdRtlFcltVO);
+	
+	/**
+	 * 정부지원 - 개소수:산지유통조직 유형을 조회한다.
+	 * @param mdRtlFcltVO
+	 * @return
+	 */
+	public List<MdRtlFcltVO> selectBzeatCntMdRtlOgnzTypeGridList(MdRtlFcltVO mdRtlFcltVO);
+	
+	/**
+	 * 정부지원 - 개소수:소유자 및 운영자를 조회한다.
+	 * @param mdRtlFcltVO
+	 * @return
+	 */
+	public List<MdRtlFcltVO> selectBzeatCntOwnrAndOperGridList(MdRtlFcltVO mdRtlFcltVO);
+	
+	/**
+	 * 정부지원 - 총 건축면적을 조회한다.
+	 * @param mdRtlFcltVO
+	 * @return
+	 */
+	public List<MdRtlFcltVO> selectFcltEqpmntAllBdarGridList(MdRtlFcltVO mdRtlFcltVO);
+	
+	/**
+	 * 정부지원 - 물류, 상품화 시설(건축면적)을 조회한다.
+	 * @param mdRtlFcltVO
+	 * @return
+	 */
+	public List<MdRtlFcltVO> selectLgstcsGdsFcltBdarGridList(MdRtlFcltVO mdRtlFcltVO);
+	
+	/**
+	 * 정부지원 - 저온저장고를 조회한다.
+	 * @param mdRtlFcltVO
+	 * @return
+	 */
+	public List<MdRtlFcltVO> selectBzeatCntLwtpStrgGridList(MdRtlFcltVO mdRtlFcltVO);
+	
+	/**
+	 * 정부지원 - 예냉시설을 조회한다.
+	 * @param mdRtlFcltVO
+	 * @return
+	 */
+	public List<MdRtlFcltVO> selectBzeatCntPrprtnClngFcltGridList(MdRtlFcltVO mdRtlFcltVO);
+	
+	/**
+	 * 정부지원 - CA 저장시설을 조회한다.
+	 * @param mdRtlFcltVO
+	 * @return
+	 */
+	public List<MdRtlFcltVO> selectBzeatCntStrgFcltGridList(MdRtlFcltVO mdRtlFcltVO);
+	
+	/**
+	 * 정부지원 - 선별기, 측정장비 설치 개소 수를 조회한다.
+	 * @param mdRtlFcltVO
+	 * @return
+	 */
+	public List<MdRtlFcltVO> selectBzeatCntFcltMsrmtEqpmntGridList(MdRtlFcltVO mdRtlFcltVO);
+	
+	/**
+	 * 정부지원 - 투자금액: 전체를 조회한다.
+	 * @param mdRtlFcltVO
+	 * @return
+	 */
+	public List<MdRtlFcltVO> selectBzeatCntInvstAtmAllGridList(MdRtlFcltVO mdRtlFcltVO);
+	
+	/**
+	 * 정부지원 - 투자금액: 자금 유형을 조회한다.
+	 * @param mdRtlFcltVO
+	 * @return
+	 */
+	public List<MdRtlFcltVO> selectBzeatCntInvstAtmFundTypeGridList(MdRtlFcltVO mdRtlFcltVO);
+	
+	/**
+	 * 정부지원 - 투자금액: 소유자를 조회한다.
+	 * @param mdRtlFcltVO
+	 * @return
+	 */
+	public List<MdRtlFcltVO> selectBzeatCntInvstAtmOwnrGridList(MdRtlFcltVO mdRtlFcltVO);
+	
+	/**
+	 * 정부지원 - 투자금액: 운영자를 조회한다.
+	 * @param mdRtlFcltVO
+	 * @return
+	 */
+	public List<MdRtlFcltVO> selectBzeatCntInvstOperPrsnGridList(MdRtlFcltVO mdRtlFcltVO);
 }

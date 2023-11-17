@@ -118,4 +118,53 @@ public class MdRtlFcltServiceImpl implements MdRtlFcltService {
 
 	}
 	
+	
+	@Override
+	public HashMap<String,Object> selectGvrngmtSprtMdRtlFcltGridList(MdRtlFcltVO mdRtlFcltVO) throws Exception {
+		
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		
+		// 정부지원 산지유통시설 현황 - 개소수:산지유통조직 유형
+		List<MdRtlFcltVO> resultBzeatCntMdRtlOgnzType =  mdRtlFcltMapper.selectBzeatCntMdRtlOgnzTypeGridList(mdRtlFcltVO);
+		// 정부지원 산지유통시설 현황 - 개소수:소유자 및 운영자
+		List<MdRtlFcltVO> resultBzeatCntOwnrAndOper =  mdRtlFcltMapper.selectBzeatCntOwnrAndOperGridList(mdRtlFcltVO);
+		// 정부지원 산지유통시설 현황 - 총 건축면적
+		List<MdRtlFcltVO> resultFcltEqpmntAllBdar =  mdRtlFcltMapper.selectFcltEqpmntAllBdarGridList(mdRtlFcltVO);
+		// 정부지원 산지유통시설 현황 - 물류, 상품화 시설(건축면적)
+		List<MdRtlFcltVO> resultLgstcsGdsFcltBdar =  mdRtlFcltMapper.selectLgstcsGdsFcltBdarGridList(mdRtlFcltVO);
+		// 정부지원 산지유통시설 현황 - 저온저장고
+		List<MdRtlFcltVO> resultBzeatCntLwtpStrg =  mdRtlFcltMapper.selectBzeatCntLwtpStrgGridList(mdRtlFcltVO);
+		// 정부지원 산지유통시설 현황 - 예냉시설
+		List<MdRtlFcltVO> resultBzeatCntPrprtnClngFclt =  mdRtlFcltMapper.selectBzeatCntPrprtnClngFcltGridList(mdRtlFcltVO);
+		// 정부지원 산지유통시설 현황 - CA 저장시설
+		List<MdRtlFcltVO> resultBzeatCntStrgFclt =  mdRtlFcltMapper.selectBzeatCntStrgFcltGridList(mdRtlFcltVO);
+		// 정부지원 산지유통시설 현황 - 선별기, 측정장비 설치 개소 수
+		List<MdRtlFcltVO> resultBzeatCntFcltMsrmtEqpmnt =  mdRtlFcltMapper.selectBzeatCntFcltMsrmtEqpmntGridList(mdRtlFcltVO);
+		// 정부지원 산지유통시설 현황 - 투자금액:전체
+		List<MdRtlFcltVO> resultBzeatCntInvstAtmAll =  mdRtlFcltMapper.selectBzeatCntInvstAtmAllGridList(mdRtlFcltVO);
+		// 정부지원 산지유통시설 현황 - 투자금액:자금 유형
+		List<MdRtlFcltVO> resultBzeatCntInvstAtmFundType =  mdRtlFcltMapper.selectBzeatCntInvstAtmFundTypeGridList(mdRtlFcltVO);
+		// 정부지원 산지유통시설 현황 - 투자금액:소유자
+		List<MdRtlFcltVO> resultBzeatCntInvstAtmOwnr =  mdRtlFcltMapper.selectBzeatCntInvstAtmOwnrGridList(mdRtlFcltVO);
+		// 정부지원 산지유통시설 현황 - 투자금액:운영자
+		List<MdRtlFcltVO> resultBzeatCntInvstOperPrsn =  mdRtlFcltMapper.selectBzeatCntInvstOperPrsnGridList(mdRtlFcltVO);
+		
+		resultMap.put("resultBzeatCntMdRtlOgnzType", resultBzeatCntMdRtlOgnzType);
+		resultMap.put("resultBzeatCntOwnrAndOper", resultBzeatCntOwnrAndOper);
+		resultMap.put("resultFcltEqpmntAllBdar", resultFcltEqpmntAllBdar);
+		resultMap.put("resultLgstcsGdsFcltBdar", resultLgstcsGdsFcltBdar);
+		resultMap.put("resultBzeatCntLwtpStrg", resultBzeatCntLwtpStrg);
+		resultMap.put("resultBzeatCntPrprtnClngFclt", resultBzeatCntPrprtnClngFclt);
+		resultMap.put("resultBzeatCntStrgFclt", resultBzeatCntStrgFclt);
+		resultMap.put("resultBzeatCntFcltMsrmtEqpmnt", resultBzeatCntFcltMsrmtEqpmnt);
+		resultMap.put("resultBzeatCntInvstAtmAll", resultBzeatCntInvstAtmAll);
+		resultMap.put("resultBzeatCntInvstAtmFundType", resultBzeatCntInvstAtmFundType);
+		resultMap.put("resultBzeatCntInvstAtmOwnr", resultBzeatCntInvstAtmOwnr);
+		resultMap.put("resultBzeatCntInvstOperPrsn", resultBzeatCntInvstOperPrsn);
+		
+		return resultMap;
+		
+	}
+	
 }
