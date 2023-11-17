@@ -15,38 +15,38 @@
             	<button type="button" class="btn btn-sm btn-outline-danger" style="float:left; margin-left:20px;" onclick="fn_search()">조회</button>
             </span>
 		</div>
-		
+
 		<!--==========그래프=============-->
 		<div class="box-body">
-			<div class="box box-solid" style="width:30%; height:395px; float:left; margin-right:5%;">
+			<div class="box box-solid" style="width:30%; height:385px; float:left; margin-right:5%;">
 				<h1 class="box-title" style="margin-top: 10px;margin-left: 10px;">입고 현황</h1>
-				<div id="chart-area-wrhs" style="height: 345px;"></div>
+				<div id="chart-area-wrhs" style="height: 338px;"></div>
 			</div>
-			<div class="box box-solid" style="width:30%; height:395px; float:left; margin-right:5%;">
+			<div class="box box-solid" style="width:30%; height:385px; float:left; margin-right:5%;">
 				<h1 class="box-title" style="margin-top: 10px;margin-left: 10px;">생산 현황</h1>
-				<div id="chart-area-sort" style="height: 345px;"></div>
+				<div id="chart-area-sort" style="height: 338px;"></div>
 			</div>
-			<div class="box box-solid" style="width:30%; height:395px; float:right;">
+			<div class="box box-solid" style="width:30%; height:385px; float:right;">
 				<h1 class="box-title" style="margin-top: 10px;margin-left: 10px;">출고 현황</h1>
-				<div id="chart-area-spmt" style="height: 345px;"></div>
+				<div id="chart-area-spmt" style="height: 338px;"></div>
 			</div>
 		</div>
 		<!--==========그래프=============-->
-		
+
 		<!--==========그리드=============-->
 		<div class="box-body">
 			<div class="table-responsive tbl_scroll_sm">
-				<div id="sb-area-grdDashboard" style="width:100%;height:250px;"></div>
+				<div id="sb-area-grdDashboard" style="width:100%;height:260px;"></div>
 			</div>
 		</div>
 		<!--==========그리드=============-->
-		
+
 	</div>
 </section>
 
 <script type="text/javascript">
 	var jsonDashboard = [];
-	
+
 	//only document
 	window.addEventListener('DOMContentLoaded', function(e) {
 		var title = gv_apcNm + " 월별 실적 통계"
@@ -54,7 +54,7 @@
 		fn_createDashboardGrid();
 		postJsonDashboard();
 	});
-	
+
 	async function postJsonDashboard() {
 		let apcCd = gv_apcCd;
 		if(gv_userType == '01' || gv_userType == '00'){
@@ -85,8 +85,8 @@
     		console.error("failed", e.message);
         }
 
-        
-        
+
+
 		for (let i = 0; i < data.result.length; i++) {
 			let nowData = data.result[i];
 			let date = dateGetMonth(nowData.wrhsSttn.wsDate);
@@ -114,7 +114,7 @@
 	var chartDataWrhs = []
 	var chartDataSort = []
 	var chartDataSpmt = []
-	
+
 	// 차트 생성
 	const createChartWrhs = async function (){
 		var chartConfig = {
@@ -312,7 +312,7 @@
 		let day   = ('0' + date.getDate()).slice(-2);
 
 		let strYmd = year + "년 " + month + "월 " + day + "일 작업 실적";
-		
+
         var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdDashboard';
 	    SBGridProperties.id = 'grdDashboard';
@@ -332,7 +332,7 @@
         ];
         grdDashboard = _SBGrid.create(SBGridProperties);
     }
-	
+
 	// 조회 버튼
 	function fn_search(){
 		chartDataSort = [];
