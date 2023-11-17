@@ -16,7 +16,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 			
 				<div class="ad_tbl_toplist">
-					<sbux-button id="btnMap" name="btnMap" uitype="normal" text="지도" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+					<sbux-button id="btnMap" name="btnMap" uitype="normal" text="APC전수조사현황" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 					<sbux-button id="btnMdRtlOgnzNow" name="btnMdRtlOgnzNow" uitype="normal" text="산지유통시설현황" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 					<sbux-button id="btnMdRtlFcltRgnNow" name="btnMdRtlFcltRgnNow" uitype="normal" text="산지유통시설지역별현황" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 					<sbux-button id="btnGvrngmtSprtMdRtlFclt" name="btnGvrngmtSprtMdRtlFclt" uitype="normal" text="정부지원산지유통시설현황" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>

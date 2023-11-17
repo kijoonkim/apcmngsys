@@ -362,7 +362,7 @@ const fn_createAllBdarGrid = function() {
 			3: '#,###',
 			4: '#,###',
 			5: '#,###',
-			5: '#,###',
+			6: '#,###',
 		}
 	};
     SBGridProperties.columns = [

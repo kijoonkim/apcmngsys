@@ -124,9 +124,72 @@ public interface MdRtlFcltMapper {
 	public List<MdRtlFcltVO> selectInvstAtmOperPrsnGridList(MdRtlFcltVO mdRtlFcltVO);
 	
 	/**
-	 * 지역별 개소수: 운영자 조회한다.
+	 * 지역별 개소수: 산지유통조직 유형을 조회한다.
+	 * @param mdRtlFcltVO
+	 * @return
+	 */
+	public List<MdRtlFcltVO> selectMdRtlOgnzTypeGridList(MdRtlFcltVO mdRtlFcltVO);
+	
+	/**
+	 * 지역별 개소수: 운영자를 조회한다.
 	 * @param mdRtlFcltVO
 	 * @return
 	 */
 	public List<MdRtlFcltVO> selectRgnOperPrsnGridList(MdRtlFcltVO mdRtlFcltVO);
+	
+	/**
+	 * 물류·상품화 시설를 조회한다.
+	 * @param mdRtlFcltVO
+	 * @return
+	 */
+	public List<MdRtlFcltVO> selectLgstcsGdsFcltGridList(MdRtlFcltVO mdRtlFcltVO);
+	
+	/**
+	 * 저온냉장고를 조회한다.
+	 * @param mdRtlFcltVO
+	 * @return
+	 */
+	public List<MdRtlFcltVO> selectMdLwtpStrgGridList(MdRtlFcltVO mdRtlFcltVO);
+	
+	/**
+	 * 예냉시설을 조회한다.
+	 * @param mdRtlFcltVO
+	 * @return
+	 */
+	public List<MdRtlFcltVO> selectRgnPrprtnClngFcltGridList(MdRtlFcltVO mdRtlFcltVO);
+	
+	/**
+	 * CA저장고 조회한다.
+	 * @param mdRtlFcltVO
+	 * @return
+	 */
+	public List<MdRtlFcltVO> selectRgnStrgFcltGridList(MdRtlFcltVO mdRtlFcltVO);
+	
+	/**
+	 * 선별기·측정장비 설치 개소 수 조회한다.
+	 * @param mdRtlFcltVO
+	 * @return
+	 */
+	public List<MdRtlFcltVO> selectRgnFcltMsrmtEqpmntGridList(MdRtlFcltVO mdRtlFcltVO);
+	
+	/**
+	 * 지역별 투자금액 전체 조회한다.
+	 * @param mdRtlFcltVO
+	 * @return
+	 */
+	public List<MdRtlFcltVO> selectRgnInvstAtmAllGridList(MdRtlFcltVO mdRtlFcltVO);
+	
+	/**
+	 * 지역별 투자금액 소유자 조회한다.
+	 * @param mdRtlFcltVO
+	 * @return
+	 */
+	public List<MdRtlFcltVO> selectRgnInvstAtmOwnrGridList(MdRtlFcltVO mdRtlFcltVO);
+	
+	/**
+	 * 지역별 투자금액 운영자 조회한다.
+	 * @param mdRtlFcltVO
+	 * @return
+	 */
+	public List<MdRtlFcltVO> selectRgnInvstOperPrsnGridList(MdRtlFcltVO mdRtlFcltVO);
 }
