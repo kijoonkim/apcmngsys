@@ -35,10 +35,18 @@ public interface MdRtlFcltService {
 	 */
 	public List<MdRtlFcltVO> selectCtpvAreaList(MdRtlFcltVO mdRtlFcltVO) throws Exception;
 	/**
-	 * 대시보드 목록을 조회한다.
+	 * 산지유통시설현황 목록을 조회한다.
 	 * @param mdRtlFcltVO
 	 * @return
 	 * @throws Exception
 	 */
-	public HashMap<String,Object> selectFirstGridList(MdRtlFcltVO mdRtlFcltVO) throws Exception;
+	public HashMap<String,Object> selectMdRtlOgnzNowGridList(MdRtlFcltVO mdRtlFcltVO) throws Exception;
+	
+	/**
+	 * 산지유통시설지역별현황 목록을 조회한다.
+	 * @param mdRtlFcltVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String,Object> selectMdRtlFcltRgnNowGridList(MdRtlFcltVO mdRtlFcltVO) throws Exception;
 }

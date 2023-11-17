@@ -8,6 +8,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MdRtlFcltVO extends ComVO {
+	private String title;
+	private String subTitle;
+	
 	private String s0;
 	private String s1;
 	private String s2;
@@ -22,6 +25,7 @@ public class MdRtlFcltVO extends ComVO {
 	private String v4;
 	private String v5;
 	private String v6;
+	private String v7;
 
 	private String crtrYr;
 	private String ctpvCd;

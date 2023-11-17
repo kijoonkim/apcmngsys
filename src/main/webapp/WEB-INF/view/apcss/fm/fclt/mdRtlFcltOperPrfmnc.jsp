@@ -16,111 +16,100 @@
 	<section class="content container-fluid">
 	<div class="box box-solid">
 		<div class="box-body">
-			<div class="row">
-				<div class="ad_tbl_toplist">
-					<sbux-button id="btnGdsInvntrChgHstry5" name="btnLogMap" uitype="normal" text="지도" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-					<sbux-button id="btnLogCntnHstry5" name="btnLogCntnHstry" uitype="normal" text="산지유통시설현황" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-					<sbux-button id="btnLogMenuHstry5" name="btnLogMenuHstry" uitype="normal" text="산지유통시설지역별현황" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-					<sbux-button id="btnLogTrsmHstry5" name="btnLogTrsmHstry" uitype="normal" text="정부지원산지유통시설현황" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-					<sbux-button id="btnLogBatchHstry5" name="btnLogBatchHstry" uitype="normal" text="정부지원산지유통시설지역별현황" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-					<sbux-button id="btnRawMtrChgHstry5" name="btnRawMtrChgHstry" uitype="normal" text="산지유통시설운영실적" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-					<sbux-button id="btnSortInvntrChgHstry5" name="btnSortInvntrChgHstry" uitype="normal" text="정부지원지역별운영실적" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+			<div class="box-header" style="display:flex; justify-content: flex-start; width: 100%;" >
+				<div>
+					<h3 class="box-title" style="line-height: 30px;"> 1. 산지유통시설 운영실적</h3>
 				</div>
-				<div class="box-header" style="display:flex; justify-content: flex-start; width: 100%;" >
-					<div>
-						<h3 class="box-title" style="line-height: 30px;"> 1. 산지유통시설 운영실적</h3>
-					</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="ad_tbl_top" style="margin-bottom: 30px;">
+					<ul class="ad_tbl_count" style="width: 100%">
+						<li>
+							<span style="font-size:15px; color:black;">1.1. 운영조직 취급 및 APC 처리 실적</span>
+							<br/>
+							<span style="font-size:12px">운영조직 취급실적</span>
+							<br/>
+							<span style="font-size:12px; text-align: right; display: block;">(단위:백만원)</span>
+						</li>
+					</ul>
 				</div>
-				<div class="col-sm-6">
-					<div class="ad_tbl_top" style="margin-bottom: 30px;">
-						<ul class="ad_tbl_count" style="width: 100%">
-							<li>
-								<span style="font-size:12px">1.1. 운영조직 취급 및 APC 처리 실적</span>
-								<br/>
-								<span style="font-size:12px">운영조직 취급실적</span>
-								<br/>
-								<span style="font-size:12px; text-align: right; display: block;">(단위:백만원)</span>
-							</li>
-						</ul>
-					</div>
-					<div id="sb-area-grdOperOgnzTrmtPrfmnc" style="height:236px;"></div>
-					<span style="font-size:8px;">*조직화취급액 : 공동선별(수탁) 및 계약재배(매취) 금액</span>
-					
-					<div class="ad_tbl_top" style="margin-bottom: 30px;">
-						<ul class="ad_tbl_count" style="width: 100%">
-							<li>
-								<br/>
-								<span style="font-size:12px">운영조직 처리실적</span>
-								<br/>
-								<span style="font-size:12px; text-align: right; display: block;">(단위:백만원)</span>
-							</li>
-						</ul>
-					</div>
-					<div id="sb-area-grdOperOgnzPrcsPrfmnc" style="height:236px;"></div>
-					
-					<div class="ad_tbl_top" style="margin-bottom: 30px;">
-						<ul class="ad_tbl_count" style="width: 100%">
-							<li>
-								<br/>
-								<span style="font-size:12px">지역별 운영조직 취급실적(평균)</span>
-								<br/>
-								<span style="font-size:12px; text-align: right; display: block;">(단위:백만원)</span>
-							</li>
-						</ul>
-					</div>
-					<div id="sb-area-grdMdOperOgnzTrmtPrfmncAvg" style="height:311px;"></div>
-					
-					<div class="ad_tbl_top" style="margin-bottom: 30px;">
-						<ul class="ad_tbl_count" style="width: 100%">
-							<li>
-								<br/>
-								<span style="font-size:12px">지역별 APC 처리실적</span>
-								<br/>
-								<span style="font-size:12px; text-align: right; display: block;">(단위:백만원)</span>
-							</li>
-						</ul>
-					</div>
-					<div id="sb-area-grdMdApcPrcsPrfmnc" style="height:311px;"></div>
+				<div id="sb-area-grdOperOgnzTrmtPrfmnc" style="height:236px;"></div>
+				<span style="font-size:8px;">*조직화취급액 : 공동선별(수탁) 및 계약재배(매취) 금액</span>
+				
+				<div class="ad_tbl_top" style="margin-bottom: 30px;">
+					<ul class="ad_tbl_count" style="width: 100%">
+						<li>
+							<br/>
+							<span style="font-size:12px">운영조직 처리실적</span>
+							<br/>
+							<span style="font-size:12px; text-align: right; display: block;">(단위:백만원)</span>
+						</li>
+					</ul>
 				</div>
-				<div class="col-sm-6">
-					<div class="ad_tbl_top" style="margin-bottom: 30px;">
-						<ul class="ad_tbl_count" style="width: 100%">
-							<li>
-								<br/>
-								<span style="font-size:12px">산지유통시설 평균 처리실적</span>
-								<br/>
-								<span style="font-size:12px; text-align: right; display: block;">(단위:백만원)</span>
-							</li>
-						</ul>
-					</div>
-					<div id="sb-area-grdOperOgnzAvgTrmtPrfmnc" style="height:236px;"></div>
-					<span style="font-size:8px;">ㅤ</span>
-					
-					<div class="ad_tbl_top" style="margin-bottom: 30px;">
-						<ul class="ad_tbl_count" style="width: 100%">
-							<li>
-								<span style="font-size:12px">1.2. 지역별 운영조직 취급 및 APC 처리 실적</span>
-								<br/>
-								<span style="font-size:12px">지역별 운영조직 취급실적</span>
-								<br/>
-								<span style="font-size:12px; text-align: right; display: block;">(단위:백만원)</span>
-							</li>
-						</ul>
-					</div>
-					<div id="sb-area-grdMdOperOgnzTrmtPrfmnc" style="height:311px;"></div>
-					
-					<div class="ad_tbl_top" style="margin-bottom: 30px;">
-						<ul class="ad_tbl_count" style="width: 100%">
-							<li>
-								<br/>
-								<span style="font-size:12px">지역별 APC 처리실적(평균)</span>
-								<br/>
-								<span style="font-size:12px; text-align: right; display: block;">(단위:백만원)</span>
-							</li>
-						</ul>
-					</div>
-					<div id="sb-area-grdMdApcPrcsPrfmncAvg" style="height:311px;"></div>
+				<div id="sb-area-grdOperOgnzPrcsPrfmnc" style="height:236px;"></div>
+				
+				<div class="ad_tbl_top" style="margin-bottom: 30px;">
+					<ul class="ad_tbl_count" style="width: 100%">
+						<li>
+							<br/>
+							<span style="font-size:12px">지역별 운영조직 취급실적(평균)</span>
+							<br/>
+							<span style="font-size:12px; text-align: right; display: block;">(단위:백만원)</span>
+						</li>
+					</ul>
 				</div>
+				<div id="sb-area-grdMdOperOgnzTrmtPrfmncAvg" style="height:311px;"></div>
+				
+				<div class="ad_tbl_top" style="margin-bottom: 30px;">
+					<ul class="ad_tbl_count" style="width: 100%">
+						<li>
+							<br/>
+							<span style="font-size:12px">지역별 APC 처리실적</span>
+							<br/>
+							<span style="font-size:12px; text-align: right; display: block;">(단위:백만원)</span>
+						</li>
+					</ul>
+				</div>
+				<div id="sb-area-grdMdApcPrcsPrfmnc" style="height:311px;"></div>
+			</div>
+			<div class="col-sm-6">
+				<div class="ad_tbl_top" style="margin-bottom: 30px;">
+					<ul class="ad_tbl_count" style="width: 100%">
+						<li>
+							<br/>
+							<span style="font-size:12px">산지유통시설 평균 처리실적</span>
+							<br/>
+							<span style="font-size:12px; text-align: right; display: block;">(단위:백만원)</span>
+						</li>
+					</ul>
+				</div>
+				<div id="sb-area-grdOperOgnzAvgTrmtPrfmnc" style="height:236px;"></div>
+				<span style="font-size:8px;">ㅤ</span>
+				
+				<div class="ad_tbl_top" style="margin-bottom: 30px;">
+					<ul class="ad_tbl_count" style="width: 100%">
+						<li>
+							<span style="font-size:15px; color:black;">1.2. 지역별 운영조직 취급 및 APC 처리 실적</span>
+							<br/>
+							<span style="font-size:12px">지역별 운영조직 취급실적</span>
+							<br/>
+							<span style="font-size:12px; text-align: right; display: block;">(단위:백만원)</span>
+						</li>
+					</ul>
+				</div>
+				<div id="sb-area-grdMdOperOgnzTrmtPrfmnc" style="height:311px;"></div>
+				
+				<div class="ad_tbl_top" style="margin-bottom: 30px;">
+					<ul class="ad_tbl_count" style="width: 100%">
+						<li>
+							<br/>
+							<span style="font-size:12px">지역별 APC 처리실적(평균)</span>
+							<br/>
+							<span style="font-size:12px; text-align: right; display: block;">(단위:백만원)</span>
+						</li>
+					</ul>
+				</div>
+				<div id="sb-area-grdMdApcPrcsPrfmncAvg" style="height:311px;"></div>
 			</div>
 		</div>
 	</div>

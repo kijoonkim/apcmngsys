@@ -28,11 +28,12 @@ public class MdRtlFcltServiceImpl implements MdRtlFcltService {
 	}
 
 	@Override
-	public HashMap<String,Object> selectFirstGridList(MdRtlFcltVO mdRtlFcltVO) throws Exception {
-
+	public HashMap<String,Object> selectMdRtlOgnzNowGridList(MdRtlFcltVO mdRtlFcltVO) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-
+		
+		//개소수:소유자 및 운영자
+		List<MdRtlFcltVO> resultMdRtlOgnz = mdRtlFcltMapper.selectMdRtlOgnzGridList(mdRtlFcltVO);
 		//개소수:소유자 및 운영자
 		List<MdRtlFcltVO> resultOwnrAndOper = mdRtlFcltMapper.selectOwnrAndOperGridList(mdRtlFcltVO);
 		//산지유통시설 시설ㆍ장비 - 총 건축면적
@@ -57,6 +58,7 @@ public class MdRtlFcltServiceImpl implements MdRtlFcltService {
 		List<MdRtlFcltVO> resultInvstAtmOperPrsn = mdRtlFcltMapper.selectInvstAtmOperPrsnGridList(mdRtlFcltVO);
 
 
+		resultMap.put("resultMdRtlOgnz", resultMdRtlOgnz);
 		resultMap.put("resultOwnrAndOper", resultOwnrAndOper);
 		resultMap.put("resultAllBdar", resultAllBdar);
 		resultMap.put("resultLgstcsGds", resultLgstcsGds);
@@ -74,4 +76,17 @@ public class MdRtlFcltServiceImpl implements MdRtlFcltService {
 
 	}
 
+	@Override
+	public HashMap<String,Object> selectMdRtlFcltRgnNowGridList(MdRtlFcltVO mdRtlFcltVO) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		// 지역별 개소수 : 운영자
+		List<MdRtlFcltVO> resultRgnOperPrsn = mdRtlFcltMapper.selectRgnOperPrsnGridList(mdRtlFcltVO);
+
+		resultMap.put("resultRgnOperPrsn", resultRgnOperPrsn);
+		return resultMap;
+
+	}
+	
 }

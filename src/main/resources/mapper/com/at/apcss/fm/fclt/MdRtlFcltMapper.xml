@@ -124,11 +124,113 @@
 			   AND AOO.CTPV_CD = #{ctpvCd}
 		</if>
 		<![CDATA[
-			ORDER BY AOO.APC_CD
+			ORDER BY AOO.APC_NM
 		]]>
 
 	</select>
 
+	<!-- ==========================================================================	-->
+	<!-- NAME :com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectMdRtlOgnzGridList  -->
+	<!-- DESC : 운영조직 취급실적 테이블 단건조회.                     	 		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectMdRtlOgnzGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    	<![CDATA[
+						SELECT
+				    '통합조직 운영 APC' AS TITLE
+				  , '통합조직' AS SUB_TITLE
+				  , '통합조직_승인형' AS S0 
+			      , COUNT(1)    AS S1
+			FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN
+			WHERE   CRTR_YR         = '2023'
+			AND     CTPV_CD IS NOT NULL
+			AND     OGNZ_TYPE_CD    = '1'
+			UNION ALL
+			SELECT 
+				    '통합조직 운영 APC' AS TITLE
+				  , '통합조직' AS SUB_TITLE
+				  , '통합조직_육성형' AS S0
+			      ,COUNT(1)    AS S1
+			FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN
+			WHERE   CRTR_YR         = '2023'
+			AND     CTPV_CD IS NOT NULL
+			AND     OGNZ_TYPE_CD    = '2'
+			UNION ALL
+			SELECT 
+			  		'통합조직 운영 APC' AS TITLE
+				  ,'통합조직' AS SUB_TITLE
+				  ,'소계(1)' AS S0
+			      ,COUNT(1)    AS S1
+			FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN
+			WHERE   CRTR_YR         = '2023'
+			AND     CTPV_CD IS NOT NULL
+			AND     OGNZ_TYPE_CD  not  IN ('3','4','5') 
+			UNION ALL
+			SELECT  
+					 '통합조직 운영 APC' AS TITLE
+				  ,  '통합출자출하조직' AS SUB_TITLE
+				  ,  '통합출자출하조직_승인형' AS S0
+			      ,COUNT(1)    AS S1
+			FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN
+			WHERE   CRTR_YR         = '2023'
+			AND     CTPV_CD IS NOT NULL
+			AND     OGNZ_TYPE_CD    = '3'
+			UNION ALL
+			SELECT 
+					'통합조직 운영 APC' AS TITLE
+				  , '통합출자출하조직' AS SUB_TITLE
+				  , '통합출자출하조직_육성형' AS S0
+			      ,COUNT(1)    AS S1
+			FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN
+			WHERE   CRTR_YR         = '2023'
+			AND     CTPV_CD IS NOT NULL
+			AND     OGNZ_TYPE_CD    = '4'
+			UNION ALL
+			SELECT 
+			  		'통합조직 운영 APC' AS TITLE
+				  ,'통합출자출하조직' AS SUB_TITLE
+				  ,'소계(2)' AS S0
+			      ,COUNT(1)    AS S1
+			FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN
+			WHERE   CRTR_YR         = '2023'
+			AND     CTPV_CD IS NOT NULL
+			AND     OGNZ_TYPE_CD  not  IN ('1','2','5')
+			UNION ALL
+			SELECT 
+			  		'통합조직 합계(1+2)' AS TITLE
+				  ,'통합조직 합계(1+2)' AS SUB_TITLE
+				  ,'통합조직 합계(1+2)' AS S0
+			      ,COUNT(1)    AS S1
+			FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN
+			WHERE   CRTR_YR         = '2023'
+			AND     CTPV_CD IS NOT NULL
+			AND     OGNZ_TYPE_CD  not  IN ('5') 
+			UNION ALL
+			SELECT  
+			  	   '개별조직 합계' AS TITLE
+				  ,'개별조직 합계' AS SUB_TITLE
+				  ,'개별조직 합계' AS S0
+			      ,COUNT(1)    AS S1
+			FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN
+			WHERE   CRTR_YR         = '2023' 
+			AND     CTPV_CD IS NOT NULL
+			AND     OGNZ_TYPE_CD    IN ('5')
+			UNION ALL
+			SELECT  
+			  	   '전체 합계' AS TITLE
+				  ,'전체 합계' AS SUB_TITLE
+				  ,'전체 합계' AS S0
+			      ,COUNT(1)    AS S1
+			FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN
+			WHERE   CRTR_YR         = '2023' 
+			AND     CTPV_CD IS NOT NULL
+			AND     OGNZ_TYPE_CD    IN ('1','2','3','4','5')
+			]]>
+    </select>
+    
 	<!-- ==========================================================================	-->
 	<!-- NAME :com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectOwnrAndOperGridList-->
 	<!-- DESC : 개소수:소유자 및 운영자 테이블 단건조회.                     	 		-->
@@ -669,6 +771,39 @@
 			        AND     A.OGNZ_TYPE_CD IN ('5'))
 			GROUP BY S0
 			ORDER BY S0
+			]]>
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectRgnOperPrsnGridList	-->
+	<!-- DESC : 산지유통시설 지역별 현황 - 지역별 개소수 : 운영자 단건조회.		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectRgnOperPrsnGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    	<![CDATA[
+			SELECT  S0          AS V0
+			      , SUM(S1)     AS V1
+			      , SUM(S2)     AS V2
+			      , SUM(S3)     AS V3
+			      , SUM(S4)     AS V4
+			      , SUM(S5)     AS V5
+			      , SUM(S6)     AS V6
+			      , SUM(S7)     AS V7
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') AND A.MB IS NOT NULL THEN 1 END   AS S1
+			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') AND A.MB IS NULL THEN 1 END       AS S2
+			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') AND A.MB IS NOT NULL THEN 1 END       AS S3
+			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') AND A.MB IS NULL THEN 1 END           AS S4
+			              , CASE WHEN A.MB IS NOT NULL THEN 1 END                                   AS S5
+			              , CASE WHEN A.MB IS NULL THEN 1 END                                       AS S6
+			              , 1                                                                       AS S7
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A
+			        WHERE   A.CRTR_YR   = '2023'
+			        AND     A.CTPV_CD IS NOT NULL)
+			GROUP BY S0;      
 			]]>
     </select>
 
