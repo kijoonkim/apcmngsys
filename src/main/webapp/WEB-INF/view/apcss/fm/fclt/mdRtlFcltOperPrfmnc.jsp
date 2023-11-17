@@ -16,7 +16,7 @@
 	<section class="content container-fluid">
 	<div class="box box-solid">
 		<div class="box-body">
-			<div class="box-header" style="display:flex; justify-content: flex-start; width: 100%;" >
+			<div class="box-header" style="display:flex; justify-content: flex-start; width: 100%; padding-left:5px;" >
 				<div>
 					<h3 class="box-title" style="line-height: 30px;"> 1. 산지유통시설 운영실적</h3>
 				</div>
