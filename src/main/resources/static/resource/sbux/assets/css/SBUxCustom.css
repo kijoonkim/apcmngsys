@@ -64,3 +64,10 @@ select.form-control.input-sm.inpt_data_reqed {
 	margin-left: 4px !important;
 	width: 98% !important;
 }
+.tab-pane iframe {
+	overflow-x:hidden !important;
+	overflow:auto;
+	width:100%;
+	min-height:780px;
+	border:0px;
+}
