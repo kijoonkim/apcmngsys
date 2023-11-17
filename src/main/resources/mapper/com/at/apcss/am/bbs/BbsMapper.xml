@@ -235,7 +235,7 @@
 	   			  , #{bbsNo}
 	   			  , #{cmntSeCd}
 	   			  , #{cmntNo}
-	   			  , (select nvl(max(cmnt_child_no),0)+1 from tb_apc_bbs_cmnt where bbs_no = #{bbsNo} and cmnt_child_no = #{cmntChildNo})
+	   			  , (select nvl(max(cmnt_child_no),0)+1 from tb_apc_bbs_cmnt where bbs_no = #{bbsNo} and cmnt_no = #{cmntNo})
 	   			  , #{cmntCn}
 	   			  , #{sysFrstInptUserId}
 	   			  , #{sysFrstInptPrgrmId}
