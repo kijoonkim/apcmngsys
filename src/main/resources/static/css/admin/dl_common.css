@@ -506,7 +506,7 @@ input[type="text"]::-ms-clear{
 	-webkit-border-radius: 20px;
 	-moz-border-radius: 20px;
 	border-radius: 20px;
-	box-shadow: 5px 5px 15px rgba(10, 20, 42, 0.3);
+	box-shadow: none;
 }
 .box-header {
 	color: #1c54a2;
