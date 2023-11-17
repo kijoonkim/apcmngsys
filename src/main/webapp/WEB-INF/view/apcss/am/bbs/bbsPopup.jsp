@@ -4,7 +4,6 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-    <title>title : SBUx2.6</title>
 </head>
 <style>
 	table {
@@ -212,7 +211,7 @@
 
 	}
 
-	async function fn_callInit(){
+	async function fn_callInit(user){
 		SBUxMethod.hide("btnCancelBbsPopup");
 		SBUxMethod.hide("btnSaveBbsPopup");
 		SBUxMethod.show("btnUpdateBbsPopup");
@@ -221,6 +220,13 @@
 		SBUxMethod.attr("dtl-input-bbsSubject","readonly","true");
 		SBUxMethod.show("dtl-input-cmntCn");
 		SBUxMethod.show("btnInsertCmnt");
+		let apcCd = gv_apcCd;
+		if(apcCd == '0000' || user == '${loginVO.userId}'){
+			SBUxMethod.show("btnDeleteBbsPopup");
+		}else{
+			SBUxMethod.hide("btnDeleteBbsPopup");
+		}
+
 	}
 
 	async function fn_callselectComment(bbsNo){
@@ -311,5 +317,9 @@
 	function fn_selectComment(orngbbsNo){
 		fn_callselectComment(orngbbsNo);
 	}
+	const fn_callBackSelectComment = function(orngbbsNo) {
+		fn_callselectComment(orngbbsNo);
+	}
+
 </script>
 </html>
