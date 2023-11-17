@@ -17,7 +17,7 @@
 	<div class="box box-solid">
 		<div class="box-body">
 			<div class="row">
-			<div class="box-header" style="display:flex; justify-content: flex-start; width: 100%;" >
+			<div class="box-header" style="display:flex; justify-content: flex-start; width: 100%; padding-left:5px;" >
 				<div>
 					<h3 class="box-title" style="line-height: 30px;"> 2. 정부지원 지역별 운영실적</h3>
 				</div>

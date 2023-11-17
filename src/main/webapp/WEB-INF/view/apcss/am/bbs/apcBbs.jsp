@@ -10,75 +10,82 @@
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
-	<div class="sbt-A-wrap">
-        <div class="main">
-            <!--main content-->
-            <div class="content">
+	<section class="content container-fluid">
+
                 <!--full content-->
-                <div class="sbt-wrap-full">
+                <div class="box box-solid">
                 <div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>
 				</div>
 				<div style="margin-left: auto;">
 					<div class="sbt-search-button" style="text-align:right;">
-
-
-
-                            <sbux-label id="srch-label-bbsSeCd" name="srch-label-bbsSeCd" uitype="normal" text="구분"></sbux-label>
-                            <sbux-select id="srch-select-bbsSeCd" name="srch-select-bbsSeCd" uitype="single"
-                                jsondata-ref="jsonComBbsSeCd"
-                                unselected-text="전체"
-                                style="width:120px;">
-                              </sbux-select>
-
-
-                            <sbux-label id="srch-label-bbsTitle" name="srch.label.bbsTitle" uitype="normal" text="내용"></sbux-label>
-                            <sbux-input id="srch-input-bbsTitle" name="srch-input-bbsTitle" uitype="text"
-                                style="width:400px;margin-right: 20px;"
-                                placeholder="">
-                            </sbux-input>
-
-
-
                     <sbux-button id="btnCreate" name="btnCreate" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create" ></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
-					<!-- sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button-->
-					<!--sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button-->
 				</div>
 			</div>
                     <!--Button 영역-->
 
                     </div>
                     <!--조회 영역-->
-			        <div class="sbt-con-wrap">
-                        <form id="frm" name="frm" method="post">
-				        <div class="sbt-search-wrap">
-                            <div class="sbt-wrap-body-con">
-                                <div class="sbt-wrap-body">
-
-                        <li style="display:inline-block;float:left;width: 100%; vertical-align:top;">
-                            <div class="sbt-grid-wrap">
 
 
-                                    <h4 style="color: #1c54a2;"> ▶ 게시판목록 <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span></h2>
+				        <div class="box-body">
 
-                                <div class="sbt-wrap-body" style="height:100%">
-                                    <div class="sbt-grid">
-                                        <!-- SBGrid를 호출합니다. -->
-                                        <div id="sb-area-grdBbs" style="height:550px;"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
+										<table class="table table-bordered tbl_fixed">
+											<colgroup>
+												<col style="width:10%">
+												<col style="width:20%">
+												<col style="width:10%">
+												<col style="width:20%">
+												<col style="width:40%">
+											</colgroup>
+											<tr>
 
-                                </div>
-                            </div>
+												<th scope="row" class="th_bg">구분</th>
+												<td class="td_input" style="border-right: hidden;">
+					                            	<sbux-select id="srch-select-bbsSeCd" name="srch-select-bbsSeCd" uitype="single"
+					                                jsondata-ref="jsonComBbsSeCd"
+					                                unselected-text="전체"
+					                                style="width:120px;">
+					                              	</sbux-select>
+												</td>
+												<th scope="row" class="th_bg">검색</th>
+												<td class="td_input" style="border-right: hidden;">
+					                            	<sbux-input id="srch-input-bbsTitle" name="srch-input-bbsTitle" uitype="text"
+					                                style="width:400px;"
+					                                placeholder="">
+					                            	</sbux-input>
+												</td>
+											</tr>
+										</table>
+
+									<div class="ad_tbl_top">
+										<ul class="ad_tbl_count">
+											<li>
+												<span style="font-size:14px">게시판목록</span>
+												<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+											</li>
+										</ul>
+									</div>
+
+
+
+
+			                        <li style="display:inline-block;float:left;width: 100%; vertical-align:top;">
+			                            <div class="table-responsive tbl_scroll_sm mCustomScrollbar _mCS_2">
+
+			                                <div class="mCustomScrollBox mCS-dark-thin mCSB_horizontal mCSB_inside" style="height:100%">
+			                                    <div class="sbt-grid">
+			                                        <!-- SBGrid를 호출합니다. -->
+			                                        <div id="sb-area-grdBbs" style="height:550px;"></div>
+			                                    </div>
+			                                </div>
+			                            </div>
+			                        </li>
                         </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+
+         </section>
             <sbux-modal id="modal-bbsModal" name="modal-bbsModal" uitype="large" header-title="상세내용" body-html-id="body-modal-bbsModal" footer-is-close-button="false" header-is-close-button="false" callback-after-close="fn_callSearch" ></sbux-modal>
             <div id="body-modal-bbsModal">
     			<jsp:include page="bbsPopup.jsp"></jsp:include>
