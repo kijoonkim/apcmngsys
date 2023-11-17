@@ -72,13 +72,27 @@ public class MdRtlFcltController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	// 대시보드 조회
-	@PostMapping(value = "/fm/fclt/selectFirstGridList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> selectFirstGridList(@RequestBody MdRtlFcltVO mdRtlFcltVO, HttpServletRequest request) throws Exception {
+	// 산지유통시설현황 조회
+	@PostMapping(value = "/fm/fclt/selectMdRtlOgnzNowGridList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectMdRtlOgnzNowGridList(@RequestBody MdRtlFcltVO mdRtlFcltVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
-			resultMap = mdRtlFcltService.selectFirstGridList(mdRtlFcltVO);
+			resultMap = mdRtlFcltService.selectMdRtlOgnzNowGridList(mdRtlFcltVO);
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	// 산지유통시설지역별현황 조회
+	@PostMapping(value = "/fm/fclt/selectMdRtlFcltRgnNowGridList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectMdRtlFcltRgnNowGridList(@RequestBody MdRtlFcltVO mdRtlFcltVO, HttpServletRequest request) throws Exception {
+		
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			resultMap = mdRtlFcltService.selectMdRtlFcltRgnNowGridList(mdRtlFcltVO);
 		} catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
