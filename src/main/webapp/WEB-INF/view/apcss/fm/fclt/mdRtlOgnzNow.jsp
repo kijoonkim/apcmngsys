@@ -298,8 +298,8 @@ const fn_createMdRtlOgnzGrid = function() {
     SBGridProperties.columns = [
     	{caption : ["산지유통조직유형"], ref: 'title', type: 'output',  width:'160px', style: 'text-align:center'},
     	{caption : ["산지유통조직유형"], ref: 'subTitle', type: 'output',  width:'160px', style: 'text-align:center'},
-    	{caption : ["산지유통조직유형"], ref: 's0', type: 'output',  width:'160px', style: 'text-align:center'},
-    	{caption : ["APC 개소수"], ref: 's1', type: 'output',  width:'160px', style: 'text-align:center'}
+    	{caption : ["산지유통조직유형"], ref: 's0', type: 'output',  width:'200px', style: 'text-align:center'},
+    	{caption : ["APC 개소수"], ref: 's1', type: 'output',  width:'160px', style: 'text-align:right', format : {type:'number', rule:'#,###'}}
     ];
     grdMdRtlOgnz = _SBGrid.create(SBGridProperties);
 }
