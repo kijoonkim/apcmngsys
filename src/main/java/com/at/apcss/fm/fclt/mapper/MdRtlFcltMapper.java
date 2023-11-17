@@ -31,6 +31,7 @@ public interface MdRtlFcltMapper {
 	 * @throws Exception
 	 */
 	public List<MdRtlFcltVO> selectMapSttn(MdRtlFcltVO mdRtlFcltVO) throws Exception;
+	
 	/**
 	 * APC지역목록조회
 	 * @param MdRtlFcltVO
@@ -38,6 +39,13 @@ public interface MdRtlFcltMapper {
 	 * @throws Exception
 	 */
 	public List<MdRtlFcltVO> selectCtpvAreaList(MdRtlFcltVO mdRtlFcltVO) throws Exception;
+	
+	/**
+	 * 운영조직 취급실적을 조회한다
+	 * @param MdRtlFcltVO
+	 * @return
+	 */
+	public List<MdRtlFcltVO> selectMdRtlOgnzGridList(MdRtlFcltVO mdRtlFcltVO) throws Exception;
 	/**
 	 * 개소수:소유자 및 운영자 목록을 조회한다.
 	 * @param mdRtlFcltVO
@@ -114,4 +122,11 @@ public interface MdRtlFcltMapper {
 	 * @return
 	 */
 	public List<MdRtlFcltVO> selectInvstAtmOperPrsnGridList(MdRtlFcltVO mdRtlFcltVO);
+	
+	/**
+	 * 지역별 개소수: 운영자 조회한다.
+	 * @param mdRtlFcltVO
+	 * @return
+	 */
+	public List<MdRtlFcltVO> selectRgnOperPrsnGridList(MdRtlFcltVO mdRtlFcltVO);
 }

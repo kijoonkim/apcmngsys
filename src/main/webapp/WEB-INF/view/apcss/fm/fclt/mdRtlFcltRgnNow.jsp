@@ -279,14 +279,14 @@ const fn_createRgnOperPrsnGrid = function() {
     SBGridProperties.selectmode = 'byrow';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.columns = [
-    	{caption : ["구분","구분"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["통합조직 운영 APC","농 협"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["통합조직 운영 APC","농업법인"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["개발조직 운영 APC","농 협"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["개발조직 운영 APC","농업법인"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["소 개","농 협"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["소 개","농업법인"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["합계","합계"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'}
+    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'105px', style: 'text-align:center'},
+    	{caption : ["통합조직 운영 APC","농 협"], ref: 'v1', type: 'output',  width:'105px', style: 'text-align:center'},
+    	{caption : ["통합조직 운영 APC","농업법인"], ref: 'v2', type: 'output',  width:'105px', style: 'text-align:center'},
+    	{caption : ["개발조직 운영 APC","농 협"], ref: 'v3', type: 'output',  width:'105px', style: 'text-align:center'},
+    	{caption : ["개발조직 운영 APC","농업법인"], ref: 'v4', type: 'output',  width:'105px', style: 'text-align:center'},
+    	{caption : ["소 개","농 협"], ref: 'v5', type: 'output',  width:'105px', style: 'text-align:center'},
+    	{caption : ["소 개","농업법인"], ref: 'v6', type: 'output',  width:'105px', style: 'text-align:center'},
+    	{caption : ["합계","합계"], ref: 'v7', type: 'output',  width:'105px', style: 'text-align:center'}
     ];
     grdRgnOperPrsn = _SBGrid.create(SBGridProperties);
 }
@@ -442,6 +442,66 @@ const fn_createRgnInvstAtmOperPrsnGrid = function() {
     	{caption : ["농업법인","평균투자액"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'}
     ];
     grdRgnInvstOperPrsn = _SBGrid.create(SBGridProperties);
+}
+
+const fn_cellMdRtlFcltRgnNowGrid = async function() {
+	
+	const postJsonPromise = gfn_postJSON("/fm/fclt/selectMdRtlFcltRgnNowGridList.do", {s0 : ""});
+	
+	let data = await postJsonPromise;
+	try {
+		
+		mdRtlFcltRgnNowJsonLengthReset();
+		
+	  	data.resultRgnOperPrsn.forEach((item, index) => {
+	  		const rgnOperPrsn = {
+	  				  v0 : item.v0,
+	  				  v1 : item.v1,
+	  				  v2 : item.v2,
+	  				  v3 : item.v3,
+	  				  v4 : item.v4,
+	  				  v5 : item.v5,
+	  				  v6 : item.v6,
+	  				  v7 : item.v7
+			}
+	  		jsonRgnOperPrsn.push(rgnOperPrsn);
+	  	});
+	  	
+	  	mdRtlFcltRgnNowGridRebuild();
+	  		
+	  }	catch (e) {
+	 		if (!(e instanceof Error)) {
+	 			e = new Error(e);
+	 		}
+	 		console.error("failed", e.message);
+		}
+	  return true;
+}
+
+const mdRtlFcltRgnNowJsonLengthReset = function() {
+	jsonMdRtlOgnzType.length = 0;
+	jsonRgnOperPrsn.length = 0;
+	jsonLgstcsGdsFclt.length = 0;
+	jsonMdLwtpStrg.length = 0;
+	jsonRgnPrprtnClngFclt.length = 0;
+	jsonRgnStrgFclt.length = 0;
+	jsonRgnFcltMsrmtEqpmnt.length = 0;
+	jsonRgnInvstAtmAll.length = 0;
+	jsonRgnInvstAtmOwnr.length = 0;
+	jsonRgnInvstOperPrsn.length = 0;
+}
+
+const mdRtlFcltRgnNowGridRebuild = function() {
+	grdMdRtlOgnzType.rebuild();
+	grdRgnOperPrsn.rebuild();
+	grdLgstcsGdsFclt.rebuild();
+	grdMdLwtpStrg.rebuild();
+	grdRgnPrprtnClngFclt.rebuild();
+	grdRgnStrgFclt.rebuild();
+	grdRgnFcltMsrmtEqpmnt.rebuild();
+	grdRgnInvstAtmAll.rebuild();
+	grdRgnInvstAtmOwnr.rebuild();
+	grdRgnInvstOperPrsn.rebuild();
 }
 
 </script>

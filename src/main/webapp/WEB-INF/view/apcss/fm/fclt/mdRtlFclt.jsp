@@ -98,7 +98,7 @@
 		} else if(searchTarget == "MdRtlOgnzNow"){
 			fn_cellMdRtlOgnzNowGrid();
 		} else if(searchTarget == "MdRtlFcltRgnNow"){
-// 			tabLogTrsmHstry.search();
+			fn_cellMdRtlFcltRgnNowGrid();
 		} else if(searchTarget == "GvrngmtSprtMdRtlFclt"){
 // 			tabLogBatchHstry.search();
 		} else if(searchTarget == "GvrngmtSprtMdRtlFcltRgn"){

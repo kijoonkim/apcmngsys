@@ -33,7 +33,7 @@
 						</li>
 					</ul>
 				</div>
-				<div id="sb-area-grdMdRtlOgnz" style="height:206px;"></div>
+				<div id="sb-area-grdMdRtlOgnz" style="height:258px;"></div>
 				<span style="font-size:8px;">*출자출하조직 또는 참영조직 중 전년도 선정에서 탈락한 조직 포함</span>
 				
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
@@ -107,7 +107,7 @@
 				<div id="sb-area-grdAllBdar" style="height:137px;"></div>
 				<span style="font-size:8px;">*물류시설, 상품회사설, 저장고 등 건축면적의 합계</span><br/>
 				<span style="font-size:8px;">*면적 소수점 이하 미표기</span>
-				<div style="height: 50px"></div>
+				<div style="height: 101px"></div>
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
@@ -285,10 +285,12 @@ const fn_createMdRtlOgnzGrid = function() {
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
     SBGridProperties.selectmode = 'byrow';
     SBGridProperties.extendlastcol = 'scroll';
+    SBGridProperties.mergecells = 'bycolrec';
     SBGridProperties.columns = [
-    	{caption : ["산지유통조직유형"], ref: 'fcltType', type: 'output',  width:'160px', style: 'text-align:center'},
-    	{caption : ["APC 개소수"], ref: 'apcSe', type: 'output',  width:'160px', style: 'text-align:center'},
-    	{caption : ["비고"], ref: 'rmrk', type: 'output',  width:'160px', style: 'text-align:center'}
+    	{caption : ["산지유통조직유형"], ref: 'title', type: 'output',  width:'160px', style: 'text-align:center'},
+    	{caption : ["산지유통조직유형"], ref: 'subTitle', type: 'output',  width:'160px', style: 'text-align:center'},
+    	{caption : ["산지유통조직유형"], ref: 's0', type: 'output',  width:'160px', style: 'text-align:center'},
+    	{caption : ["APC 개소수"], ref: 's1', type: 'output',  width:'160px', style: 'text-align:center'}
     ];
     grdMdRtlOgnz = _SBGrid.create(SBGridProperties);
 }
@@ -731,13 +733,22 @@ const fn_createInvstAtmOperPrsnGrid = function() {
 
 const fn_cellMdRtlOgnzNowGrid = async function() {
 	
-	const postJsonPromise = gfn_postJSON("/fm/fclt/selectFirstGridList.do", {s0 : ""});
+	const postJsonPromise = gfn_postJSON("/fm/fclt/selectMdRtlOgnzNowGridList.do", {s0 : ""});
 	
 	let data = await postJsonPromise;
 	try {
 		
-		jsonLengthReset();
+		mdRtlOgnzNowJsonLengthReset();
 		
+	  	data.resultMdRtlOgnz.forEach((item, index) => {
+	  		const mdRtlOgnz = {
+	  				  title : item.title,
+	  				  subTitle : item.subTitle,
+	  				  s0 : item.s0,
+	  				  s1 : item.s1
+			}
+	  		jsonMdRtlOgnz.push(mdRtlOgnz);
+	  	});
 	  	data.resultOwnrAndOper.forEach((item, index) => {
 	  		const ownrAndOper = {
 	  				  s0 : item.s0,
@@ -867,7 +878,7 @@ const fn_cellMdRtlOgnzNowGrid = async function() {
 	  		jsonInvstAtmOperPrsn.push(invstAtmOperPrsn);
 	  	});
 	  	
-	  	gridRebuild();
+	  	mdRtlOgnzNowGridRebuild();
 	  		
 	  }	catch (e) {
 	 		if (!(e instanceof Error)) {
@@ -878,7 +889,8 @@ const fn_cellMdRtlOgnzNowGrid = async function() {
 	  return true;
 }
 
-const jsonLengthReset = function() {
+const mdRtlOgnzNowJsonLengthReset = function() {
+	jsonMdRtlOgnz.length = 0;
 	jsonOwnrAndOper.length = 0;
 	jsonAllBdar.length = 0;
 	jsonLgstcsGds.length = 0;
@@ -892,7 +904,8 @@ const jsonLengthReset = function() {
 	jsonInvstAtmOperPrsn.length = 0;
 }
 
-const gridRebuild = function() {
+const mdRtlOgnzNowGridRebuild = function() {
+	grdMdRtlOgnz.rebuild();
 	grdOwnrAndOper.rebuild();
 	grdAllBdar.rebuild();
 	grdLgstcsGds.rebuild();
