@@ -450,7 +450,7 @@
         */
         SBUxMethod.refresh('breadcrumb');
     }
-    
+
     const fn_setBreadcrumbsHome = function() {
     	menuJsonB.length = 0;
     	menuJsonB.push(
@@ -458,7 +458,7 @@
         );
     	SBUxMethod.refresh('breadcrumb');
     }
-   	 	
+
 
     //선택한 탭메뉴의 정보를 가져와 메뉴정보 설정
     function fn_setMenuInfo(args) {
@@ -469,13 +469,13 @@
         var menuId = tabId.substring(tabId.indexOf("_")+1);
 
         var menuInfo = _.find(sideJsonData, {id: menuId});
-        
+
         if (gfn_isEmpty(menuInfo)) {
         	// home
         	fn_setBreadcrumbsHome();
         	return;
         }
-        
+
         var upMenuNo = menuInfo.pid;
         var upMenuInfo = _.find(menuJson, {id: upMenuNo});
         var topMenuNo = upMenuInfo.pid;
@@ -656,8 +656,6 @@
                     ></sbux-tabs>
                     <div class="tab-content">
                         <iframe id="idxfrmJson" name="frmJson"
-                                style="overflow-x:hidden;overflow:auto;width:100%;min-height:780px;border:0px;"
-                                scrolling="auto"
                         ></iframe>
                     </div>
                 </div>
@@ -677,6 +675,8 @@
     //only document
     window.addEventListener('DOMContentLoaded', function(e) {
         initMain();
+        var iframe = document.getElementById('idxfrmJson');
+        iframe.scrolling = 'auto';
     });
     const fn_modalPopup = async function() {
 
@@ -703,7 +703,7 @@
 
     }
 
-    
+
     const initMain = async function() {
         var tabName = "TAB_CO_014";
         var menuNo = "CO_014";
