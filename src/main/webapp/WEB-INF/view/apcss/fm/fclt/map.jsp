@@ -15,15 +15,6 @@
 		<div class="box box-solid">
 			<div class="box-body">
 				<div class="row">
-					<div class="ad_tbl_toplist">
-						<sbux-button id="btnGdsInvntrChgHstry8" name="btnGdsInvntrChgHstry" uitype="normal" text="지도" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-						<sbux-button id="btnLogCntnHstry8" name="btnLogCntnHstry" uitype="normal" text="산지유통시설현황" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-						<sbux-button id="btnLogMenuHstry8" name="btnLogMenuHstry" uitype="normal" text="산지유통시설지역별현황" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-						<sbux-button id="btnLogTrsmHstry8" name="btnLogTrsmHstry" uitype="normal" text="정부지원산지유통시설현황" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-						<sbux-button id="btnLogBatchHstry8" name="btnLogBatchHstry" uitype="normal" text="정부지원산지유통시설지역별현황" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-						<sbux-button id="btnRawMtrChgHstry8" name="btnRawMtrChgHstry" uitype="normal" text="산지유통시설운영실적" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-						<sbux-button id="btnSortInvntrChgHstry8" name="btnSortInvntrChgHstry" uitype="normal" text="정부지원지역별운영실적" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-					</div>
 					<div class ="row">
 						<div class="col-sm-6">
 							<div class="ad_tbl_top">

@@ -81,10 +81,39 @@ public class MdRtlFcltServiceImpl implements MdRtlFcltService {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
+		// 지역별 개소수 : 산지유통조직유형
+		List<MdRtlFcltVO> resultMdRtlOgnzType =  mdRtlFcltMapper.selectMdRtlOgnzTypeGridList(mdRtlFcltVO);
 		// 지역별 개소수 : 운영자
 		List<MdRtlFcltVO> resultRgnOperPrsn = mdRtlFcltMapper.selectRgnOperPrsnGridList(mdRtlFcltVO);
+		// 산지유통시설 시설·장비 : 물류·상품화 시설
+		List<MdRtlFcltVO> resultLgstcsGdsFclt = mdRtlFcltMapper.selectLgstcsGdsFcltGridList(mdRtlFcltVO);
+		// 저온냉장고
+		List<MdRtlFcltVO> resultMdLwtpStrg = mdRtlFcltMapper.selectMdLwtpStrgGridList(mdRtlFcltVO);
+		// 예냉시설
+		List<MdRtlFcltVO> resultRgnPrprtnClngFclt = mdRtlFcltMapper.selectRgnPrprtnClngFcltGridList(mdRtlFcltVO);
+		// CA저장고
+		List<MdRtlFcltVO> resultRgnStrgFclt = mdRtlFcltMapper.selectRgnStrgFcltGridList(mdRtlFcltVO);
+		// 선별기·측정장비 설치 개소 수
+		List<MdRtlFcltVO> resultRgnFcltMsrmtEqpmnt = mdRtlFcltMapper.selectRgnFcltMsrmtEqpmntGridList(mdRtlFcltVO);
+		// 지역별 투자금액: 전체
+		List<MdRtlFcltVO> resultRgnInvstAtmAll = mdRtlFcltMapper.selectRgnInvstAtmAllGridList(mdRtlFcltVO);
+		// 지역별 투자금액: 소유자
+		List<MdRtlFcltVO> resultRgnInvstAtmOwnr = mdRtlFcltMapper.selectRgnInvstAtmOwnrGridList(mdRtlFcltVO);
+		// 지역별 투자금액: 운영자
+		List<MdRtlFcltVO> resultRgnInvstOperPrsn = mdRtlFcltMapper.selectRgnInvstOperPrsnGridList(mdRtlFcltVO);
 
+		resultMap.put("resultMdRtlOgnzType", resultMdRtlOgnzType);
 		resultMap.put("resultRgnOperPrsn", resultRgnOperPrsn);
+		resultMap.put("resultLgstcsGdsFclt", resultLgstcsGdsFclt);
+		resultMap.put("resultMdLwtpStrg", resultMdLwtpStrg);
+		resultMap.put("resultRgnPrprtnClngFclt", resultRgnPrprtnClngFclt);
+		resultMap.put("resultRgnStrgFclt", resultRgnStrgFclt);
+		resultMap.put("resultRgnFcltMsrmtEqpmnt", resultRgnFcltMsrmtEqpmnt);
+		resultMap.put("resultRgnInvstAtmAll", resultRgnInvstAtmAll);
+		resultMap.put("resultRgnInvstAtmOwnr", resultRgnInvstAtmOwnr);
+		resultMap.put("resultRgnInvstOperPrsn", resultRgnInvstOperPrsn);
+		
+		
 		return resultMap;
 
 	}
