@@ -78,7 +78,7 @@
         });
         const data = await postJsonPromise;
         SBUxMethod.set("dtl-input-orngChildCmntNo", "");
-        gfn_closeModal('modal-bbsChildCmntModal','fn_callselectComment('+bbsNo+')');
+        gfn_closeModal('modal-bbsChildCmntModal',fn_callBackSelectComment,bbsNo);
 
 
 
