@@ -102,9 +102,9 @@
 		} else if(searchTarget == "GvrngmtSprtMdRtlFclt"){
 			fn_cellGvrngmtSprtMdRtlFcltGrid();
 		} else if(searchTarget == "GvrngmtSprtMdRtlFcltRgn"){
-// 			tabRawMtrChgHstry.search();
+			fn_cellGvrngmtSprtMdRtlFcltRgnGrid();
 		} else if(searchTarget == "MdRtlFcltOperPrfmnc"){
-// 			tabSortInvntrChgHstry.search();
+			fn_cellMdRtlFcltOperPrfmncGrid();
 		} else if(searchTarget == "GvrngmtSprtRgnOperPrfmnc"){
 // 			tabLogMap.search();
 		}

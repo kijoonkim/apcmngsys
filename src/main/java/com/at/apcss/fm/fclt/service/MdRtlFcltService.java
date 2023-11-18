@@ -57,4 +57,20 @@ public interface MdRtlFcltService {
 	 * @throws Exception
 	 */
 	public HashMap<String,Object> selectGvrngmtSprtMdRtlFcltGridList(MdRtlFcltVO mdRtlFcltVO) throws Exception;
+	
+	/**
+	 * 정부지원산지유통시설지역별현황 목록을 조회한다.
+	 * @param mdRtlFcltVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String,Object> selectGvrngmtSprtMdRtlOgnzTypeGridList(MdRtlFcltVO mdRtlFcltVO) throws Exception;
+	
+	/**
+	 * 산지유통시설 운영실적 목록을 조회한다.
+	 * @param mdRtlFcltVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String,Object> selectMdRtlFcltOperPrfmncGridList(MdRtlFcltVO mdRtlFcltVO) throws Exception;
 }
