@@ -63,8 +63,6 @@
 					</div>
 					<div id="sb-area-grdRgnOperOgnzTrmtPrfmnc" style="height:311px;"></div>
 					
-					
-					
 					<div class="ad_tbl_top" style="margin-bottom: 30px;">
 						<ul class="ad_tbl_count" style="width: 100%">
 							<li>
@@ -90,7 +88,7 @@
 					</div>
 					<div id="sb-area-grdMdRtlFcltPrcsPrfmnc" style="height:311px;"></div>
 					
-					<div style="height: 440px;"></div>
+					<div style="height: 441px;"></div>
 					
 					<div class="ad_tbl_top" style="margin-bottom: 30px;">
 						<ul class="ad_tbl_count" style="width: 100%">
@@ -115,7 +113,6 @@
 						</ul>
 					</div>
 					<div id="sb-area-grdRgnOperOgnzApcPrcsPrfmncAvg" style="height:311px;"></div>
-					
 					
 				</div>
 			</div>
