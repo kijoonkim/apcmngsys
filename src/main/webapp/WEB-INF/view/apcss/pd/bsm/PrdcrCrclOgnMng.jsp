@@ -402,13 +402,13 @@
 							</td>
 						</tr>
 						<tr>
-							<th rowspan="8" scope="row" class="th_bg">조직형태</th>
-							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>법인구분</th>
-							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>법인형태</th>
-							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>법인설립일</th>
-							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>출자출하조직여부</th>
-							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>출자지수</th>
-							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>출자자중 농업인수</th>
+							<th rowspan="8" scope="row" class="th_bg th_border_right">조직형태</th>
+							<th colspan="2" scope="row" class="th_bg th_border_right"><span class="data_required" ></span>법인구분</th>
+							<th colspan="2" scope="row" class="th_bg th_border_right"><span class="data_required" ></span>법인형태</th>
+							<th colspan="2" scope="row" class="th_bg th_border_right"><span class="data_required" ></span>법인설립일</th>
+							<th colspan="2" scope="row" class="th_bg th_border_right"><span class="data_required" ></span>출자출하조직여부</th>
+							<th colspan="2" scope="row" class="th_bg th_border_right"><span class="data_required" ></span>출자지수</th>
+							<th colspan="2" scope="row" class="th_bg th_border_right"><span class="data_required" ></span>출자자중 농업인수</th>
 							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>출자금액(천원)</th>
 						</tr>
 						<tr>
@@ -458,8 +458,8 @@
 							<!-- 법인설립일 -->
 							<sbux-input
 									uitype="text"
-									id="dtl-input-invstNope"
-									name="dtl-input-invstNope"
+									id="dtl-input-corpFndnDay"
+									name="dtl-input-corpFndnDay"
 									class="form-control input-sm"
 									autocomplete="off"
 								></sbux-input>
@@ -528,13 +528,13 @@
 								</td>
 						</tr>
 						<tr>
-						<th colspan="12" style="text-align:center;" scope="row" class="th_bg">출자금세부현황</th>
-						<th rowspan="2" colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>농업인 출자 지분율</th>
+						<th colspan="12" style="text-align:center;" scope="row" class="th_bg  th_border_right">출자금세부현황</th>
+						<th rowspan="2" colspan="2" scope="row" class="th_bg th_border_left"><span class="data_required" ></span>농업인 출자 지분율</th>
 						</tr>
 						<tr>
-							<th colspan="3" scope="row" class="th_bg"><span class="data_required" ></span>농업인</th>
-							<th colspan="3" scope="row" class="th_bg"><span class="data_required" ></span>생산자단체</th>
-							<th colspan="3" scope="row" class="th_bg"><span class="data_required" ></span>지자체</th>
+							<th colspan="3" scope="row" class="th_bg th_border_right"><span class="data_required" ></span>농업인</th>
+							<th colspan="3" scope="row" class="th_bg th_border_right"><span class="data_required" ></span>생산자단체</th>
+							<th colspan="3" scope="row" class="th_bg th_border_right"><span class="data_required" ></span>지자체</th>
 							<th colspan="3" scope="row" class="th_bg"><span class="data_required" ></span>기타</th>
 						</tr>
 						<tr>
@@ -575,8 +575,8 @@
 							<!-- 기타 -->
 							<sbux-input
 									uitype="text"
-									id="dtl-input-etcAmt"
-									name="dtl-input-etcAmt"
+									id="dtl-input-etcInvstAmt"
+									name="dtl-input-etcInvstAmt"
 									class="form-control input-sm"
 									autocomplete="off"
 								></sbux-input>
@@ -587,9 +587,9 @@
 							<th colspan="14" scope="row" class="th_bg" style="text-align:center;">전체 종사자 수</th>
 						</tr>
 						<tr>
-							<th colspan="3" scope="row" class="th_bg"><span class="data_required" ></span>정규직</th>
-							<th colspan="3" scope="row" class="th_bg"><span class="data_required" ></span>파견직</th>
-							<th colspan="3" scope="row" class="th_bg"><span class="data_required" ></span>일용직</th>
+							<th colspan="3" scope="row" class="th_bg th_border_right"><span class="data_required" ></span>정규직</th>
+							<th colspan="3" scope="row" class="th_bg th_border_right"><span class="data_required" ></span>파견직</th>
+							<th colspan="3" scope="row" class="th_bg th_border_right"><span class="data_required" ></span>일용직</th>
 							<th colspan="5" scope="row" class="th_bg"><span class="data_required" ></span>합계</th>
 						</tr>
 						<tr>
@@ -639,11 +639,11 @@
 						<td>명</td>
 						</tr>
 						<tr>
-							<th colspan="7" scope="row" class="th_bg">대표자 정보</th>
+							<th colspan="7" scope="row" class="th_bg th_border_right">대표자 정보</th>
 							<th colspan="8" scope="row" class="th_bg">작성자 정보</th>
 						</tr>
 						<tr>
-							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>성명</th>
+							<th colspan="2" scope="row" class="th_bg" style="border-bottom: 1px solid white !important;"><span class="data_required" ></span>성명</th>
 							<td colspan="5">
 							<sbux-input
 									uitype="text"
@@ -653,7 +653,7 @@
 									autocomplete="off"
 								></sbux-input>
 								</td>
-							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>직위</th>
+							<th colspan="2" scope="row" class="th_bg" style="border-bottom: 1px solid white !important;"><span class="data_required" ></span>직위</th>
 							<td colspan="2">
 							<sbux-input
 									uitype="text"
@@ -720,7 +720,7 @@
 								</td>
 						</tr>
 						<tr>
-							<th colspan="2" scope="row" class="th_bg">이메일주소</th>
+							<th colspan="2" scope="row" class="th_bg th_border_right">이메일주소</th>
 							<td colspan="5">
 							<sbux-input
 									uitype="text"
@@ -758,8 +758,8 @@
 							<th colspan="7" scope="row" class="th_bg">품목농협 지소 여부</th>
 							<td colspan="8">
 							<sbux-select
-									id="dtl-input-jisoAt"
-									name="dtl-input-jisoAt"
+									id="dtl-input-itemNhBrofYn"
+									name="dtl-input-itemNhBrofYn"
 									uitype="single"
 									jsondata-ref="jsonDSON"
 									unselected-text="전체"
@@ -887,7 +887,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	        {caption: ["전화번호"], 		ref: 'rprsvTelno',   	type:'output',  width:'160px',    style:'text-align:center'},
 	        {caption: ["2차승인구분"], 	ref: 'ii',   	type:'output',  width:'160px',    style:'text-align:center'},
 	        {caption: ["참여조직여부"], 	ref: 'apoSe',   	type:'output',  width:'160px',    style:'text-align:center'},
-	        {caption: ["비고"], 			ref: 'rmk',   	type:'output',  width:'80px',    style:'text-align:center'},
+	        {caption: ["비고"], 			ref: 'rmrk',   	type:'output',  width:'80px',    style:'text-align:center'},
 
 	        {caption: ["상세내역"], 	ref: 'uoBrno',   	hidden : true},
 	        {caption: ["상세내역"], 	ref: 'crno',   	hidden : true},
@@ -910,7 +910,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	        {caption: ["상세내역"], 	ref: 'frmerInvstAmt',   	hidden : true},
 	        {caption: ["상세내역"], 	ref: 'prdcrGrpInvstAmt',   	hidden : true},
 	        {caption: ["상세내역"], 	ref: 'locgovInvstAmt',   	hidden : true},
-	        {caption: ["상세내역"], 	ref: 'etcAmt',   	hidden : true},
+	        {caption: ["상세내역"], 	ref: 'etcInvstAmt',   	hidden : true},
 	        {caption: ["상세내역"], 	ref: 'rgllbrNope',   	hidden : true},
 	        {caption: ["상세내역"], 	ref: 'dwNope',   	hidden : true},
 	        {caption: ["상세내역"], 	ref: 'dlbrrNope',   	hidden : true},
@@ -924,7 +924,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	        {caption: ["상세내역"], 	ref: 'picMoblno',   	hidden : true},
 	        {caption: ["상세내역"], 	ref: 'picEml',   	hidden : true},
 	        {caption: ["상세내역"], 	ref: 'fxno',   	hidden : true},
-	        {caption: ["상세내역"], 	ref: 'jisoAt',   	hidden : true}
+	        {caption: ["상세내역"], 	ref: 'itemNhBrofYn',   	hidden : true}
 	    ];
 
 	    grdPrdcrCrclOgnMng = _SBGrid.create(SBGridProperties);
@@ -989,7 +989,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 						,frmerInvstAmt: item.frmerInvstAmt
 						,prdcrGrpInvstAmt: item.prdcrGrpInvstAmt
 						,locgovInvstAmt: item.locgovInvstAmt
-						,etcAmt: item.etcAmt
+						,etcInvstAmt: item.etcInvstAmt
 						,rgllbrNope: item.rgllbrNope
 						,dwNope: item.dwNope
 						,dlbrrNope: item.dlbrrNope
@@ -1003,7 +1003,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 						,picMoblno: item.picMoblno
 						,picEml: item.picEml
 						,fxno: item.fxno
-						,jisoAt: item.jisoAt
+						,itemNhBrofYn: item.itemNhBrofYn
 				}
 				jsonPrdcrCrclOgnMng.push(PrdcrCrclOgnMngVO);
 			});
@@ -1029,7 +1029,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
     	let apoCd = SBUxMethod.get("dtl-input-apoCd");
 
     	//필수값 체크
-    	fn_
+    	//fn_checkRequiredInput();
 
     	if (gfn_isEmpty(apoCd)) {
     		// 신규 등록
@@ -1087,7 +1087,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 			,frmerInvstAmt: SBUxMethod.get('dtl-input-frmerInvstAmt')//
 			,prdcrGrpInvstAmt: SBUxMethod.get('dtl-input-prdcrGrpInvstAmt')//
 			,locgovInvstAmt: SBUxMethod.get('dtl-input-locgovInvstAmt')//
-			,etcAmt: SBUxMethod.get('dtl-input-etcAmt')//
+			,etcInvstAmt: SBUxMethod.get('dtl-input-etcInvstAmt')//
 			,rgllbrNope: SBUxMethod.get('dtl-input-rgllbrNope')//
 			,dwNope: SBUxMethod.get('dtl-input-dwNope')//
 			,dlbrrNope: SBUxMethod.get('dtl-input-dlbrrNope')//
@@ -1101,7 +1101,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 			,picMoblno: SBUxMethod.get('dtl-input-picMoblno')//
 			,picEml: SBUxMethod.get('dtl-input-picEml')//
 			,fxno: SBUxMethod.get('dtl-input-fxno')//
-			,jisoAt: SBUxMethod.get('dtl-input-jisoAt')//
+			,itemNhBrofYn: SBUxMethod.get('dtl-input-itemNhBrofYn')//
 		});
 
         const data = await postJsonPromise;
@@ -1155,7 +1155,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 			,frmerInvstAmt: SBUxMethod.get('dtl-input-frmerInvstAmt')//
 			,prdcrGrpInvstAmt: SBUxMethod.get('dtl-input-prdcrGrpInvstAmt')//
 			,locgovInvstAmt: SBUxMethod.get('dtl-input-locgovInvstAmt')//
-			,etcAmt: SBUxMethod.get('dtl-input-etcAmt')//
+			,etcInvstAmt: SBUxMethod.get('dtl-input-etcInvstAmt')//
 			,rgllbrNope: SBUxMethod.get('dtl-input-rgllbrNope')//
 			,dwNope: SBUxMethod.get('dtl-input-dwNope')//
 			,dlbrrNope: SBUxMethod.get('dtl-input-dlbrrNope')//
@@ -1169,7 +1169,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 			,picMoblno: SBUxMethod.get('dtl-input-picMoblno')//
 			,picEml: SBUxMethod.get('dtl-input-picEml')//
 			,fxno: SBUxMethod.get('dtl-input-fxno')//
-			,jisoAt: SBUxMethod.get('dtl-input-jisoAt')//
+			,itemNhBrofYn: SBUxMethod.get('dtl-input-itemNhBrofYn')//
    		});
 
 		const data = await postJsonPromise;
@@ -1268,7 +1268,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		SBUxMethod.set('dtl-input-frmerInvstAmt',rowData.frmerInvstAmt)//
 		SBUxMethod.set('dtl-input-prdcrGrpInvstAmt',rowData.prdcrGrpInvstAmt)//
 		SBUxMethod.set('dtl-input-locgovInvstAmt',rowData.locgovInvstAmt)//
-		SBUxMethod.set('dtl-input-etcAmt',rowData.etcAmt)//
+		SBUxMethod.set('dtl-input-etcInvstAmt',rowData.etcInvstAmt)//
 		SBUxMethod.set('dtl-input-rgllbrNope',rowData.rgllbrNope)//
 		SBUxMethod.set('dtl-input-dwNope',rowData.dwNope)//
 		SBUxMethod.set('dtl-input-dlbrrNope',rowData.dlbrrNope)//
@@ -1282,7 +1282,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		SBUxMethod.set('dtl-input-picMoblno',rowData.picMoblno)//
 		SBUxMethod.set('dtl-input-picEml',rowData.picEml)//
 		SBUxMethod.set('dtl-input-fxno',rowData.fxno)//
-		SBUxMethod.set('dtl-input-jisoAt',rowData.jisoAt)//
+		SBUxMethod.set('dtl-input-itemNhBrofYn',rowData.itemNhBrofYn)//
 
     }
 
@@ -1315,7 +1315,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		SBUxMethod.set('dtl-input-frmerInvstAmt',null)//
 		SBUxMethod.set('dtl-input-prdcrGrpInvstAmt',null)//
 		SBUxMethod.set('dtl-input-locgovInvstAmt',null)//
-		SBUxMethod.set('dtl-input-etcAmt',null)//
+		SBUxMethod.set('dtl-input-etcInvstAmt',null)//
 		SBUxMethod.set('dtl-input-rgllbrNope',null)//
 		SBUxMethod.set('dtl-input-dwNope',null)//
 		SBUxMethod.set('dtl-input-dlbrrNope',null)//
@@ -1329,10 +1329,10 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		SBUxMethod.set('dtl-input-picMoblno',null)//
 		SBUxMethod.set('dtl-input-picEml',null)//
 		SBUxMethod.set('dtl-input-fxno',null)//
-		SBUxMethod.set('dtl-input-jisoAt',null)//
+		SBUxMethod.set('dtl-input-itemNhBrofYn',null)//
     }
 
-
+	/* 주소 팝업 */
 	//팝업 실행
 	var fn_goPopup = function(){
 		w = 520;
@@ -1348,6 +1348,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		window.open( "/fm/popup/jusoPopup.do", "zipCodeSearchWin", settings );
 
 	}
+	/* 주소 팝업 */
 	//팝업 콜백
 	var jusoCallBack = function(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo){
 		/*
