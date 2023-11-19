@@ -139,7 +139,7 @@
 	<!-- ==========================================================================	-->
     <select id="selectMdRtlOgnzGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
     	<![CDATA[
-						SELECT
+			SELECT
 				    '통합조직 운영 APC' AS TITLE
 				  , '통합조직' AS SUB_TITLE
 				  , '통합조직_승인형' AS S0 
@@ -1129,6 +1129,1252 @@
 			        AND     A.APC_CD    =  B.APC_CD(+)
 			      )
 			GROUP BY S0
+			]]>
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectBzeatCntMdRtlOgnzTypeGridList	-->
+	<!-- DESC : 정부지원 산지유통시설 현황 -개소수: 개소수:산지유통조직 유형 단건조회.		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectBzeatCntMdRtlOgnzTypeGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    	<![CDATA[
+			SELECT '통합조직 운영 APC' AS TITLE,
+			        '통합조직' AS SUB_TITLE,
+			        '통합조직_승인형' AS S0,
+			        COUNT(1) AS S1 -- 통합조직_승인형
+			   FROM USRAM.TB_TE_APC_OPER_PRSN_OTLN
+			  WHERE CRTR_YR = '2023'
+			    AND OGNZ_TYPE_CD = '1'
+			    AND GVRMNT_SPRT_YN = 'Y'
+			    AND CTPV_CD IS NOT NULL
+			  UNION ALL
+			 SELECT '통합조직 운영 APC' AS TITLE,
+			        '통합조직' AS SUB_TITLE,
+			        '통합조직_육성형' AS S0,
+			        COUNT(1) AS S1 -- 통합조직_육성형
+			   FROM USRAM.TB_TE_APC_OPER_PRSN_OTLN
+			  WHERE CRTR_YR = '2023'
+			    AND OGNZ_TYPE_CD = '2'
+			    AND GVRMNT_SPRT_YN = 'Y'
+			    AND CTPV_CD IS NOT NULL
+			  UNION ALL
+			 SELECT '통합조직 운영 APC' AS TITLE,
+			        '통합조직' AS SUB_TITLE,
+			        '소계(1)' AS S0,
+			        COUNT(1) AS S1
+			   FROM USRAM.TB_TE_APC_OPER_PRSN_OTLN
+			  WHERE CRTR_YR = '2023'
+			    AND OGNZ_TYPE_CD IN ('1','2')
+			    AND GVRMNT_SPRT_YN = 'Y'
+			    AND CTPV_CD IS NOT NULL
+			  UNION ALL
+			 SELECT '통합조직 운영 APC' AS TITLE,
+			        '통합출자출하조직' AS SUB_TITLE,
+			        '통합출자출하조직_승인형' AS S0,
+			        COUNT(1) AS S1 -- 통합출자출하조직_승인형
+			   FROM USRAM.TB_TE_APC_OPER_PRSN_OTLN
+			  WHERE CRTR_YR = '2023'
+			    AND OGNZ_TYPE_CD = '3'
+			    AND GVRMNT_SPRT_YN = 'Y'
+			    AND CTPV_CD IS NOT NULL
+			  UNION ALL
+			 SELECT '통합조직 운영 APC' AS TITLE,
+			        '통합출자출하조직' AS SUB_TITLE,
+			        '통합출자출하조직_육성형' AS S0,
+			        COUNT(1) AS S1 -- 통합출자출하조직_육성형
+			   FROM USRAM.TB_TE_APC_OPER_PRSN_OTLN
+			  WHERE CRTR_YR = '2023'
+			    AND OGNZ_TYPE_CD = '4'
+			    AND GVRMNT_SPRT_YN = 'Y'
+			    AND CTPV_CD IS NOT NULL
+			  UNION ALL
+			   SELECT '통합조직 운영 APC' AS TITLE,
+			        '통합출자출하조직' AS SUB_TITLE,
+			        '소계(2)' AS S0,
+			        COUNT(1) AS S1 -- 통합조직_육성형
+			   FROM USRAM.TB_TE_APC_OPER_PRSN_OTLN
+			  WHERE CRTR_YR = '2023'
+			    AND OGNZ_TYPE_CD IN ('3','4')
+			    AND GVRMNT_SPRT_YN = 'Y'
+			    AND CTPV_CD IS NOT NULL
+			  UNION ALL
+			 SELECT '통합조직 합계' AS TITLE,
+			        '통합조직 합계' AS SUB_TITLE,
+			        '통합조직 합계' AS S0,
+			        COUNT(1) AS S1 -- 통합조직 합계
+			   FROM USRAM.TB_TE_APC_OPER_PRSN_OTLN
+			  WHERE CRTR_YR = '2023'
+			    AND OGNZ_TYPE_CD IN('1',
+			        '2',
+			        '3',
+			        '4')
+			    AND GVRMNT_SPRT_YN = 'Y'
+			    AND CTPV_CD IS NOT NULL
+			  UNION ALL
+			 SELECT '개별조직 합계' AS TITLE,
+			        '개별조직 합계' AS SUB_TITLE,
+			        '개별조직 합계' AS S0,
+			        COUNT(1) AS S1 -- 개별조직 합계
+			   FROM USRAM.TB_TE_APC_OPER_PRSN_OTLN
+			  WHERE CRTR_YR = '2023'
+			    AND OGNZ_TYPE_CD = '5'
+			    AND GVRMNT_SPRT_YN = 'Y'
+			    AND CTPV_CD IS NOT NULL
+			  UNION ALL
+			 SELECT '전체 합계' AS TITLE,
+			        '전체 합계' AS SUB_TITLE,
+			        '전체 합계' AS S0,
+			        COUNT(1) AS S1 -- 전체 합계
+			   FROM USRAM.TB_TE_APC_OPER_PRSN_OTLN
+			  WHERE CRTR_YR = '2023'
+			    AND GVRMNT_SPRT_YN = 'Y'
+			    AND CTPV_CD IS NOT NULL;
+			]]>
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectBzeatCntOwnrAndOperGridList	-->
+	<!-- DESC : 정부지원 산지유통시설 현황 -개소수: 개소수:소유자 및 운영자 단건조회.		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectBzeatCntOwnrAndOperGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    	<![CDATA[
+			SELECT  S0
+			      , SUM(S1) AS S1
+			      , SUM(S2) AS S2
+			      , SUM(S3) AS S3
+			      , SUM(S4) AS S4
+			      , SUM(S5) AS S5
+			FROM  ( SELECT '1통합조직운영 APC'                   AS S0
+			              , CASE WHEN TYPE_CD = '1'   THEN 1 END AS S1
+			              , CASE WHEN TYPE_CD = '2'   THEN 1 END AS S2
+			              , CASE WHEN MB IS NOT NULL  THEN 1 END AS S3
+			              , CASE WHEN MB IS NULL      THEN 1 END AS S4
+			              , 1                                    AS S5
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN
+			        WHERE   CRTR_YR = '2023'
+			        AND     GVRMNT_SPRT_YN = 'Y'
+			        AND     OGNZ_TYPE_CD NOT IN ('5')
+			        AND     CTPV_CD IS NOT NULL
+			        UNION ALL
+			        SELECT '2개별조직운영 APC'                   AS S0
+			              , CASE WHEN TYPE_CD = '1'   THEN 1 END AS S1
+			              , CASE WHEN TYPE_CD = '2'   THEN 1 END AS S2
+			              , CASE WHEN MB IS NOT NULL  THEN 1 END AS S3
+			              , CASE WHEN MB IS NULL      THEN 1 END AS S4
+			              , 1                                    AS S5
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN
+			        WHERE   CRTR_YR = '2023'
+			        AND     GVRMNT_SPRT_YN = 'Y'
+			        AND     OGNZ_TYPE_CD IN ('5')
+			        AND     CTPV_CD IS NOT NULL)
+			GROUP BY S0
+			ORDER BY S0
+			]]>
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectFcltEqpmntAllBdarGridList	-->
+	<!-- DESC : 정부지원 산지유통시설 현황 - 총 건축면적 단건조회.		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectFcltEqpmntAllBdarGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    	<![CDATA[
+			SELECT  S0                          AS V0
+			      , ROUND(SUM(S1),0)            AS V1
+			      , ROUND(SUM(S1) / SUM(A1),0)  AS V2
+			      , ROUND(SUM(S2),0)            AS V3
+			      , ROUND(SUM(S2) / SUM(A2),0)  AS V4
+			      , ROUND(SUM(S3),0)            AS V5
+			      , ROUND(SUM(S3) / SUM(A3),0)  AS V6
+			FROM  ( SELECT '1통합조직운영 APC'                                                 AS S0
+			              , CASE WHEN A.MB IS NOT NULL  THEN 
+			                     NVL(B.CSP_TOT_AREA,0) + NVL(B.STRG_PLC_PRC_PLC_AREA,0) + NVL(B.STRG_PLC_LWTP_STRG_AREA,0) + NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) +
+			                     NVL(B.STRG_PLC_CURN_AREA,0) + NVL(B.STRG_PLC_GNRL_STRG_AREA,0) + NVL(B.STRG_PLC_ETC_AREA,0) END AS S1                           
+			              , CASE WHEN A.MB IS NOT NULL  THEN 1 END AS A1
+			              , CASE WHEN A.MB IS NULL      THEN 
+			                     NVL(B.CSP_TOT_AREA,0) + NVL(B.STRG_PLC_PRC_PLC_AREA,0) + NVL(B.STRG_PLC_LWTP_STRG_AREA,0) + NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) +
+			                     NVL(B.STRG_PLC_CURN_AREA,0) + NVL(B.STRG_PLC_GNRL_STRG_AREA,0) + NVL(B.STRG_PLC_ETC_AREA,0) END AS S2                           
+			              , CASE WHEN A.MB IS NULL      THEN 1 END AS A2
+			              , NVL(B.CSP_TOT_AREA,0) + NVL(B.STRG_PLC_PRC_PLC_AREA,0) + NVL(B.STRG_PLC_LWTP_STRG_AREA,0) + NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) +
+			                NVL(B.STRG_PLC_CURN_AREA,0) + NVL(B.STRG_PLC_GNRL_STRG_AREA,0) + NVL(B.STRG_PLC_ETC_AREA,0) AS S3                           
+			              , 1  AS A3
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
+			                USRAM.TB_TE_APC_FCLT_STTS B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.GVRMNT_SPRT_YN = 'Y'
+			        AND     A.CTPV_CD IS NOT NULL
+			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
+			        AND     A.APC_CD = B.APC_CD
+			        UNION ALL
+			        SELECT '2개별조직운영 APC' AS S0
+			              , CASE WHEN A.MB IS NOT NULL  THEN 
+			                     NVL(B.CSP_TOT_AREA,0) + NVL(B.STRG_PLC_PRC_PLC_AREA,0) + NVL(B.STRG_PLC_LWTP_STRG_AREA,0) + NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) +
+			                     NVL(B.STRG_PLC_CURN_AREA,0) + NVL(B.STRG_PLC_GNRL_STRG_AREA,0) + NVL(B.STRG_PLC_ETC_AREA,0) END AS S1                           
+			              , CASE WHEN A.MB IS NOT NULL  THEN 1 END AS A1
+			              , CASE WHEN A.MB IS NULL      THEN 
+			                     NVL(B.CSP_TOT_AREA,0) + NVL(B.STRG_PLC_PRC_PLC_AREA,0) + NVL(B.STRG_PLC_LWTP_STRG_AREA,0) + NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) +
+			                     NVL(B.STRG_PLC_CURN_AREA,0) + NVL(B.STRG_PLC_GNRL_STRG_AREA,0) + NVL(B.STRG_PLC_ETC_AREA,0) END AS S2                           
+			              , CASE WHEN A.MB IS NULL      THEN 1 END AS A2
+			              , NVL(B.CSP_TOT_AREA,0) + NVL(B.STRG_PLC_PRC_PLC_AREA,0) + NVL(B.STRG_PLC_LWTP_STRG_AREA,0) + NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) +
+			                     NVL(B.STRG_PLC_CURN_AREA,0) + NVL(B.STRG_PLC_GNRL_STRG_AREA,0) + NVL(B.STRG_PLC_ETC_AREA,0) AS S3                           
+			              , 1  AS A3
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
+			                USRAM.TB_TE_APC_FCLT_STTS B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.GVRMNT_SPRT_YN = 'Y'
+			        AND     A.CTPV_CD IS NOT NULL
+			        AND     A.OGNZ_TYPE_CD IN ('5')
+			        AND     A.APC_CD = B.APC_CD)
+			GROUP BY S0
+			ORDER BY S0
+			]]>
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectLgstcsGdsFcltBdarGridList	-->
+	<!-- DESC : 정부지원 산지유통시설 현황 - 물류,상품화 시설(건축면적) 단건조회.		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectLgstcsGdsFcltBdarGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    	<![CDATA[
+			SELECT  S0                          AS V0
+			      , ROUND(SUM(S1),0)            AS V1 
+			      , ROUND(SUM(S1) / SUM(A1),0)  AS V2
+			      , ROUND(SUM(S2),0)            AS V3
+			      , ROUND(SUM(S2) / SUM(A2),0)  AS V4
+			      , ROUND(SUM(S3),0)            AS V5
+			      , ROUND(SUM(S3) / SUM(A3),0)  AS V6
+			FROM  ( SELECT '1통합조직운영 APC' AS S0
+			              , CASE WHEN A.MB IS NOT NULL THEN NVL(B.CSP_TOT_AREA,0) END AS S1
+			              , CASE WHEN A.MB IS NOT NULL THEN 1 END AS A1
+			              , CASE WHEN A.MB IS NULL     THEN NVL(B.CSP_TOT_AREA,0) END AS S2
+			              , CASE WHEN A.MB IS NULL     THEN 1 END AS A2
+			              , NVL(B.CSP_TOT_AREA,0) AS S3
+			              , 1 AS A3
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
+			                USRAM.TB_TE_APC_FCLT_STTS B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.GVRMNT_SPRT_YN = 'Y'
+			        AND     A.CTPV_CD IS NOT NULL
+			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
+			        AND     A.APC_CD =  B.APC_CD
+			        UNION ALL
+			        SELECT '2개별조직운영 APC' AS S0
+			              , CASE WHEN A.MB IS NOT NULL THEN NVL(B.CSP_TOT_AREA,0) END AS S1
+			              , CASE WHEN A.MB IS NOT NULL THEN 1 END AS A1
+			              , CASE WHEN A.MB IS NULL     THEN NVL(B.CSP_TOT_AREA,0) END AS S2
+			              , CASE WHEN A.MB IS NULL     THEN 1 END AS A2
+			              , NVL(B.CSP_TOT_AREA,0) AS S3
+			              , 1 AS A3
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
+			                USRAM.TB_TE_APC_FCLT_STTS B
+			        WHERE   A.CRTR_YR   = '2023'
+			        AND     A.GVRMNT_SPRT_YN = 'Y'
+			        AND     A.CTPV_CD IS NOT NULL
+			        AND     A.OGNZ_TYPE_CD IN ('5')
+			        AND     A.APC_CD    =  B.APC_CD)
+			GROUP BY S0
+			ORDER BY S0;       
+			]]>
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectBzeatCntLwtpStrgGridList	-->
+	<!-- DESC : 정부지원 산지유통시설 현황 - 저온저장고 단건조회.		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectBzeatCntLwtpStrgGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    	<![CDATA[
+			SELECT  S0                          AS V0
+			      , SUM(S1)                     AS V1
+			      , SUM(S2)                     AS V2
+			      , ROUND(SUM(S3),0)            AS V3
+			      , ROUND(SUM(S3) / SUM(S2),0)  AS V4
+			FROM  ( SELECT '1통합조직운영 APC'                                                  AS S0
+			              , 1                                                                   AS S1
+			              , CASE WHEN NVL(B.STRG_PLC_LWTP_STRG_AREA,0) > 0 THEN 1 END           AS S2
+			              , CASE WHEN A.MB IS NULL THEN NVL(B.STRG_PLC_LWTP_STRG_AREA,0) END    AS S3
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
+			                USRAM.TB_TE_APC_FCLT_STTS B
+			        WHERE   A.CRTR_YR   = '2023'
+			        AND     A.GVRMNT_SPRT_YN = 'Y'
+			        AND     A.CTPV_CD IS NOT NULL
+			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
+			        AND     A.APC_CD    =  B.APC_CD
+			        UNION ALL
+			        SELECT '2개별조직운영 APC'                                          AS S0
+			              , 1                                                                   AS S1
+			              , CASE WHEN NVL(B.STRG_PLC_LWTP_STRG_AREA,0) > 0 THEN 1 END           AS S2
+			              , CASE WHEN A.MB IS NULL THEN NVL(B.STRG_PLC_LWTP_STRG_AREA,0) END    AS S3
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
+			                USRAM.TB_TE_APC_FCLT_STTS B
+			        WHERE   A.CRTR_YR   = '2023'
+			        AND     A.GVRMNT_SPRT_YN = 'Y'
+			        AND     A.CTPV_CD IS NOT NULL
+			        AND     A.OGNZ_TYPE_CD IN ('5')
+			        AND     A.APC_CD    =  B.APC_CD)
+			GROUP BY S0
+			ORDER BY S0;       
+			]]>
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectBzeatCntPrprtnClngFcltGridList	-->
+	<!-- DESC : 정부지원 산지유통시설 현황 - 예냉시설 단건조회.		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectBzeatCntPrprtnClngFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    	<![CDATA[
+			SELECT  S0                          AS V0   -- 구분
+			      , SUM(S1)                     AS V1   -- APC 개소수
+			      , SUM(S2)                     AS V2   -- 예냉시설 개소수
+			      , ROUND(SUM(S3),0)            AS V3   -- 예냉시설 면적
+			      , ROUND(SUM(S3) / SUM(S2),0)  AS V4   -- 예냉시설 평균면적
+			FROM  ( SELECT '1통합조직운영 APC'                                              AS S0
+			              , 1                                                               AS S1
+			              , CASE WHEN NVL(B.STRG_PLC_PRC_PLC_AREA,0) > 0 THEN 1 END         AS S2
+			              , CASE WHEN A.MB IS NULL THEN NVL(B.STRG_PLC_PRC_PLC_AREA,0) END  AS S3
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
+			                USRAM.TB_TE_APC_FCLT_STTS B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.GVRMNT_SPRT_YN = 'Y'
+			        AND     A.CTPV_CD IS NOT NULL
+			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
+			        AND     A.APC_CD =  B.APC_CD
+			        UNION ALL
+			        SELECT '2개별조직운영 APC'                                          AS S0
+			              , 1                                                               AS S1
+			              , CASE WHEN NVL(B.STRG_PLC_PRC_PLC_AREA,0) > 0 THEN 1 END         AS S2
+			              , CASE WHEN A.MB IS NULL THEN NVL(B.STRG_PLC_PRC_PLC_AREA,0) END  AS S3
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
+			                USRAM.TB_TE_APC_FCLT_STTS B
+			        WHERE   A.CRTR_YR   = '2023'
+			        AND     A.GVRMNT_SPRT_YN = 'Y'
+			        AND     A.CTPV_CD IS NOT NULL
+			        AND     A.OGNZ_TYPE_CD IN ('5')
+			        AND     A.APC_CD    =  B.APC_CD)
+			GROUP BY S0
+			ORDER BY S0;   
+			]]>
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectBzeatCntStrgFcltGridList	-->
+	<!-- DESC : 정부지원 산지유통시설 현황 - CA 저장시설 단건조회.		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectBzeatCntStrgFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    	<![CDATA[
+			SELECT  S0                          AS V0
+			      , SUM(S1)                     AS V1
+			      , SUM(S2)                     AS V2
+			      , ROUND(SUM(S3),0)            AS V3
+			      , ROUND(SUM(S3) / SUM(S2),0)  AS V4
+			FROM  ( SELECT '1통합조직운영 APC'                                                  AS S0
+			              , 1                                                                   AS S1
+			              , CASE WHEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) > 0 THEN 1 END         AS S2
+			              , CASE WHEN A.MB IS NULL THEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) END  AS S3
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
+			                USRAM.TB_TE_APC_FCLT_STTS B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.GVRMNT_SPRT_YN = 'Y'
+			        AND     A.CTPV_CD IS NOT NULL
+			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
+			        AND     A.APC_CD =  B.APC_CD
+			        UNION ALL
+			        SELECT '2개별조직운영 APC'                                          AS S0
+			              , 1                                                                   AS S1
+			              , CASE WHEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) > 0 THEN 1 END         AS S2
+			              , CASE WHEN A.MB IS NULL THEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) END  AS S3
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
+			                USRAM.TB_TE_APC_FCLT_STTS B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.GVRMNT_SPRT_YN = 'Y'
+			        AND     A.CTPV_CD IS NOT NULL
+			        AND     A.OGNZ_TYPE_CD IN ('5')
+			        AND     A.APC_CD =  B.APC_CD)
+			GROUP BY S0
+			ORDER BY S0;
+			]]>
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectBzeatCntFcltMsrmtEqpmntGridList	-->
+	<!-- DESC : 정부지원 산지유통시설 현황 - 선별기, 측정장비 설치 개소 수 단건조회.		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectBzeatCntFcltMsrmtEqpmntGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    	<![CDATA[
+			SELECT  S0                          AS V0
+			      , SUM(S1)                     AS V1
+			      , SUM(S2)                     AS V2
+			      , SUM(S3)                     AS V3
+			      , SUM(S4)                     AS V4
+			      , SUM(S5)                     AS V5
+			FROM  ( SELECT '1통합조직운영 APC'                                          AS S0
+			              , 1                                                           AS S1
+			              , CASE WHEN B.SORT_MCHN_SPCFCT IS NOT NULL THEN 1 END         AS S2
+			              , CASE WHEN B.SORT_BRCK_MCHN IS NOT NULL THEN 1 END           AS S3
+			              , CASE WHEN B.COLOR_SORT IS NOT NULL THEN 1 END               AS S4
+			              , CASE WHEN B.MNFC_MCHN IS NOT NULL THEN 1 END                AS S5
+			              
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A
+			              ,(SELECT  APC_CD
+			                      , MAX(SORT_MCHN_SPCFCT) AS SORT_MCHN_SPCFCT
+			                      , MAX(SORT_BRCK_MCHN) AS SORT_BRCK_MCHN
+			                      , MAX(COLOR_SORT) AS COLOR_SORT
+			                      , MAX(MNFC_MCHN) AS MNFC_MCHN
+			                FROM    USRAM.TB_TE_APC_FCLT_STTS_DTL
+			                GROUP BY APC_CD) B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.GVRMNT_SPRT_YN = 'Y'
+			        AND     A.CTPV_CD IS NOT NULL
+			        AND     A.APC_CD =  B.APC_CD(+)   
+			        AND     A.OGNZ_TYPE_CD NOT IN ('5') 
+			        UNION ALL
+			        SELECT '2개별조직운영 APC'                                          AS S0
+			              , 1                                                           AS S1
+			              , CASE WHEN B.SORT_MCHN_SPCFCT IS NOT NULL THEN 1 END         AS S2
+			              , CASE WHEN B.SORT_BRCK_MCHN IS NOT NULL THEN 1 END           AS S3
+			              , CASE WHEN B.COLOR_SORT IS NOT NULL THEN 1 END               AS S4
+			              , CASE WHEN B.MNFC_MCHN IS NOT NULL THEN 1 END                AS S5
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A
+			              ,(SELECT  APC_CD
+			                      , MAX(SORT_MCHN_SPCFCT) AS SORT_MCHN_SPCFCT
+			                      , MAX(SORT_BRCK_MCHN) AS SORT_BRCK_MCHN
+			                      , MAX(COLOR_SORT) AS COLOR_SORT
+			                      , MAX(MNFC_MCHN) AS MNFC_MCHN
+			                FROM    USRAM.TB_TE_APC_FCLT_STTS_DTL
+			                GROUP BY APC_CD) B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.GVRMNT_SPRT_YN = 'Y'
+			        AND     A.CTPV_CD IS NOT NULL
+			        AND     A.APC_CD  =  B.APC_CD(+)  
+			        AND     A.OGNZ_TYPE_CD IN ('5'))
+			GROUP BY S0
+			ORDER BY S0;   
+			]]>
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectBzeatCntInvstAtmAllGridList	-->
+	<!-- DESC : 정부지원 산지유통시설 현황 - 투자금액: 전체 단건조회.		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectBzeatCntInvstAtmAllGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    	<![CDATA[
+			SELECT  S0                                          AS V0
+			      , SUM(S1)                                     AS V1
+			      , ROUND(SUM(S2)/1000000,0)                    AS V2
+			      , ROUND((SUM(S2)/SUM(S1))/1000000,0)          AS V3
+			      
+			FROM  ( SELECT '1통합조직운영 APC'                  AS S0
+			              , 1                                   AS S1
+			              , B.NE + B.LCLT_EXPND + B.SLF_BRDN    AS S2
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A
+			              ,(SELECT  APC_CD
+			                      , SUM(NE) AS NE
+			                      , SUM(LCLT_EXPND) AS LCLT_EXPND
+			                      , SUM(SLF_BRDN) AS SLF_BRDN
+			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
+			                GROUP BY APC_CD) B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.GVRMNT_SPRT_YN = 'Y'
+			        AND     A.CTPV_CD IS NOT NULL
+			        AND     A.APC_CD =  B.APC_CD(+)  
+			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
+			        UNION ALL
+			        SELECT '2개별조직운영 APC'                  AS S0
+			              , 1                                   AS S1
+			              , B.NE + B.LCLT_EXPND + B.SLF_BRDN    AS S2
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A
+			              ,(SELECT  APC_CD
+			                      , SUM(NE) AS NE
+			                      , SUM(LCLT_EXPND) AS LCLT_EXPND
+			                      , SUM(SLF_BRDN) AS SLF_BRDN
+			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
+			                GROUP BY APC_CD) B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.GVRMNT_SPRT_YN = 'Y'
+			        AND     A.CTPV_CD IS NOT NULL
+			        AND     A.APC_CD =  B.APC_CD(+)  
+			        AND     A.OGNZ_TYPE_CD IN ('5'))
+			GROUP BY S0
+			ORDER BY S0
+			]]>
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectBzeatCntInvstAtmFundTypeGridList	-->
+	<!-- DESC : 정부지원 산지유통시설 현황 - 투자금액: 자금유형 단건조회.		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectBzeatCntInvstAtmFundTypeGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    	<![CDATA[
+			SELECT  S0                                  AS V0
+			      , ROUND(SUM(S1)/1000000,0)            AS V1
+			      , ROUND(SUM(S2)/1000000,0)            AS V2
+			      , ROUND(SUM(S3)/1000000,0)            AS V3
+			      , ROUND(SUM(S4)/1000000,0)            AS V4 
+			      
+			FROM  ( SELECT '1통합조직운영 APC'                  AS S0
+			              , B.NE                                AS S1
+			              , B.LCLT_EXPND                        AS S2
+			              , B.SLF_BRDN                          AS S3
+			              , B.NE + B.LCLT_EXPND + B.SLF_BRDN    AS S4
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A
+			              ,(SELECT  APC_CD
+			                      , SUM(NE) AS NE
+			                      , SUM(LCLT_EXPND) AS LCLT_EXPND
+			                      , SUM(SLF_BRDN) AS SLF_BRDN
+			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
+			                GROUP BY APC_CD) B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.GVRMNT_SPRT_YN = 'Y'
+			        AND     A.CTPV_CD IS NOT NULL
+			        AND     A.APC_CD =  B.APC_CD(+)  
+			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
+			        UNION ALL
+			        SELECT '2개별조직운영 APC'                  AS S0
+			              , B.NE                                AS S1
+			              , B.LCLT_EXPND                        AS S2
+			              , B.SLF_BRDN                          AS S3
+			              , B.NE + B.LCLT_EXPND + B.SLF_BRDN    AS S4
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A
+			              ,(SELECT  APC_CD
+			                      , SUM(NE) AS NE
+			                      , SUM(LCLT_EXPND) AS LCLT_EXPND
+			                      , SUM(SLF_BRDN) AS SLF_BRDN
+			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
+			                GROUP BY APC_CD) B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.GVRMNT_SPRT_YN = 'Y'
+			        AND     A.CTPV_CD IS NOT NULL
+			        AND     A.APC_CD =  B.APC_CD(+)  
+			        AND     A.OGNZ_TYPE_CD IN ('5'))
+			GROUP BY S0
+			ORDER BY S0
+			]]>
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectBzeatCntInvstAtmOwnrGridList	-->
+	<!-- DESC : 정부지원 산지유통시설 현황 - 투자금액: 소유자 단건조회.		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectBzeatCntInvstAtmOwnrGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    	<![CDATA[
+			SELECT  S0                                  AS V0
+			      , SUM(S1)                             AS V1
+			      , ROUND(SUM(S2)/1000000,0)            AS V2
+			      , ROUND((SUM(S2)/SUM(S1))/1000000,0)  AS V3
+			      , SUM(S3)                             AS V4
+			      , ROUND(SUM(S4)/1000000,0)            AS V5
+			      , ROUND((SUM(S4)/SUM(S3))/1000000,0)  AS V6
+			      
+			FROM  ( SELECT '1통합조직운영 APC'                        AS S0
+			              , CASE WHEN A.TYPE_CD = '1' THEN 1 END      AS S1
+			              , CASE WHEN A.TYPE_CD = '1' THEN B.AMT END  AS S2
+			              , CASE WHEN A.TYPE_CD = '2' THEN 1 END      AS S3
+			              , CASE WHEN A.TYPE_CD = '2' THEN B.AMT END  AS S4
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A
+			              ,(SELECT  APC_CD
+			                      , SUM(NE+LCLT_EXPND+SLF_BRDN) AS AMT
+			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
+			                GROUP BY APC_CD) B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.GVRMNT_SPRT_YN = 'Y'
+			        AND     A.CTPV_CD IS NOT NULL
+			        AND     A.APC_CD =  B.APC_CD(+)  
+			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
+			        UNION ALL
+			        SELECT '2개별조직운영 APC'                  AS S0
+			              , CASE WHEN A.TYPE_CD = '1' THEN 1 END      AS S1
+			              , CASE WHEN A.TYPE_CD = '1' THEN B.AMT END  AS S2
+			              , CASE WHEN A.TYPE_CD = '2' THEN 1 END      AS S3
+			              , CASE WHEN A.TYPE_CD = '2' THEN B.AMT END  AS S4
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A
+			              ,(SELECT  APC_CD
+			                      , SUM(NE+LCLT_EXPND+SLF_BRDN) AS AMT
+			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
+			                GROUP BY APC_CD) B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.GVRMNT_SPRT_YN = 'Y'
+			        AND     A.CTPV_CD IS NOT NULL
+			        AND     A.APC_CD =  B.APC_CD(+)  
+			        AND     A.OGNZ_TYPE_CD IN ('5'))
+			GROUP BY S0
+			ORDER BY S0; 
+			]]>
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectBzeatCntInvstOperPrsnGridList	-->
+	<!-- DESC : 정부지원 산지유통시설 현황 - 투자금액: 운영자 단건조회.		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectBzeatCntInvstOperPrsnGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    	<![CDATA[
+			SELECT  S0                                  AS V0
+			      , SUM(S1)                             AS V1
+			      , ROUND(SUM(S2)/1000000,0)            AS V2
+			      , ROUND((SUM(S2)/SUM(S1))/1000000,0)  AS V3
+			      , SUM(S3)                             AS V4
+			      , ROUND(SUM(S4)/1000000,0)            AS V5
+			      , ROUND((SUM(S4)/SUM(S3))/1000000,0)  AS V6
+			      
+			FROM  ( SELECT '1통합조직운영 APC'                          AS S0
+			              , CASE WHEN A.MB IS NOT NULL THEN 1 END       AS S1
+			              , CASE WHEN A.MB IS NOT NULL THEN B.AMT END   AS S2
+			              , CASE WHEN A.MB IS NULL THEN 1 END           AS S3
+			              , CASE WHEN A.MB IS NULL THEN B.AMT END       AS S4
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A
+			              ,(SELECT  APC_CD
+			                      , SUM(NE+LCLT_EXPND+SLF_BRDN) AS AMT
+			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
+			                GROUP BY APC_CD) B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.GVRMNT_SPRT_YN = 'Y'
+			        AND     A.CTPV_CD IS NOT NULL
+			        AND     A.APC_CD =  B.APC_CD(+)  
+			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
+			        UNION ALL
+			        SELECT '2개별조직운영 APC'                  AS S0
+			              , CASE WHEN A.MB IS NOT NULL THEN 1 END       AS S1
+			              , CASE WHEN A.MB IS NOT NULL THEN B.AMT END   AS S2
+			              , CASE WHEN A.MB IS NULL THEN 1 END           AS S3
+			              , CASE WHEN A.MB IS NULL THEN B.AMT END       AS S4
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A
+			              ,(SELECT  APC_CD
+			                      , SUM(NE+LCLT_EXPND+SLF_BRDN) AS AMT
+			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
+			                GROUP BY APC_CD) B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.GVRMNT_SPRT_YN = 'Y'
+			        AND     A.CTPV_CD IS NOT NULL
+			        AND     A.APC_CD =  B.APC_CD(+)  
+			        AND     A.OGNZ_TYPE_CD IN ('5'))
+			GROUP BY S0
+			ORDER BY S0; 
+			]]>
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectGvrngmtSprtMdRtlOgnzTypeGridList	-->
+	<!-- DESC : 정부지원산지유통시설지역별현황 - 지역별 개소수 : 산지유통조직 유형 단건조회.		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectGvrngmtSprtMdRtlOgnzTypeGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    	<![CDATA[
+			SELECT  S0          AS V0
+			      , SUM(S1)     AS V1
+			      , SUM(S2)     AS V2
+			      , SUM(S3)     AS V3
+			      , SUM(S4)     AS V4
+			      , SUM(S5)     AS V5
+			      , SUM(S6)     AS V6
+			      , SUM(S7)     AS V7
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') AND A.TYPE_CD = '1' THEN 1 END    AS S1
+			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') AND A.TYPE_CD = '2' THEN 1 END    AS S2
+			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') AND A.TYPE_CD = '1' THEN 1 END        AS S3
+			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') AND A.TYPE_CD = '2' THEN 1 END        AS S4
+			              , CASE WHEN A.TYPE_CD = '1' THEN 1 END                                    AS S5
+			              , CASE WHEN A.TYPE_CD = '2' THEN 1 END                                    AS S6
+			              , 1                                                                       AS S7
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A
+			        WHERE   A.CRTR_YR   = '2023'
+			        AND     A.GVRMNT_SPRT_YN = 'Y'
+			        AND     A.CTPV_CD IS NOT NULL)
+			GROUP BY S0
+			]]>
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectGvrngmtSprtRgnOperPrsnGridList	-->
+	<!-- DESC : 정부지원산지유통시설지역별현황 - 지역별 개소수 : 운영자 단건조회.		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectGvrngmtSprtRgnOperPrsnGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    	<![CDATA[
+			SELECT  S0          AS V0
+			      , SUM(S1)     AS V1
+			      , SUM(S2)     AS V2
+			      , SUM(S3)     AS V3
+			      , SUM(S4)     AS V4
+			      , SUM(S5)     AS V5
+			      , SUM(S6)     AS V6
+			      , SUM(S7)     AS V7
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') AND A.MB IS NOT NULL THEN 1 END   AS S1
+			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') AND A.MB IS NULL THEN 1 END       AS S2
+			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') AND A.MB IS NOT NULL THEN 1 END       AS S3
+			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') AND A.MB IS NULL THEN 1 END           AS S4
+			              , CASE WHEN A.MB IS NOT NULL THEN 1 END                                   AS S5
+			              , CASE WHEN A.MB IS NULL THEN 1 END                                       AS S6
+			              , 1                                                                       AS S7
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A
+			        WHERE   A.CRTR_YR   = '2023'
+			        AND     A.GVRMNT_SPRT_YN = 'Y'
+			        AND     A.CTPV_CD IS NOT NULL)
+			GROUP BY S0
+			]]>
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectGvrngmtSprtLgstcsGdsFcltGridList	-->
+	<!-- DESC : 정부지원산지유통시설지역별현황 - 물류·상품화 시설 단건조회.		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectGvrngmtSprtLgstcsGdsFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    	<![CDATA[
+			SELECT  S0                                  AS V0
+			      , NVL(ROUND(SUM(S1),0),0)             AS V1
+			      , NVL(ROUND(SUM(S1)/SUM(S2),0),0)     AS V2
+			      , NVL(ROUND(SUM(S3),0),0)             AS V3
+			      , NVL(ROUND(SUM(S3)/SUM(S4),0),0)     AS V4
+			      , NVL(ROUND(SUM(S5),0),0)             AS V5
+			      , NVL(ROUND(SUM(S5)/SUM(S6),0),0)     AS V6
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') THEN 
+			                     NVL(B.CSP_TOT_AREA,0) +
+			                     NVL(B.STRG_PLC_PRC_PLC_AREA,0) +    
+			                     NVL(B.STRG_PLC_LWTP_STRG_AREA,0) +  
+			                     NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) +
+			                     NVL(B.STRG_PLC_CURN_AREA,0) +       
+			                     NVL(B.STRG_PLC_GNRL_STRG_AREA,0) +  
+			                     NVL(B.STRG_PLC_ETC_AREA,0) END                     AS S1
+			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') THEN 1 END        AS S2
+			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') THEN 
+			                     NVL(B.CSP_TOT_AREA,0) +
+			                     NVL(B.STRG_PLC_PRC_PLC_AREA,0) +    
+			                     NVL(B.STRG_PLC_LWTP_STRG_AREA,0) +  
+			                     NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) +
+			                     NVL(B.STRG_PLC_CURN_AREA,0) +       
+			                     NVL(B.STRG_PLC_GNRL_STRG_AREA,0) +  
+			                     NVL(B.STRG_PLC_ETC_AREA,0) END                     AS S3
+			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') THEN 1 END            AS S4
+			              , NVL(B.CSP_TOT_AREA,0) +
+			                NVL(B.STRG_PLC_PRC_PLC_AREA,0) +    
+			                NVL(B.STRG_PLC_LWTP_STRG_AREA,0) +  
+			                NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) +
+			                NVL(B.STRG_PLC_CURN_AREA,0) +       
+			                NVL(B.STRG_PLC_GNRL_STRG_AREA,0) +  
+			                NVL(B.STRG_PLC_ETC_AREA,0)                              AS S5
+			              , 1                                                       AS S6
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
+			                USRAM.TB_TE_APC_FCLT_STTS B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.GVRMNT_SPRT_YN = 'Y'
+			        AND     A.CTPV_CD IS NOT NULL
+			        AND     A.APC_CD =  B.APC_CD(+))
+			GROUP BY S0
+			]]>
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectGvrngmtSprtLwtpStrgGridList	-->
+	<!-- DESC : 정부지원산지유통시설지역별현황 - 저온저장고 단건조회.		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectGvrngmtSprtLwtpStrgGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    	<![CDATA[
+			SELECT  S0                                 AS V0
+			      , NVL(ROUND(SUM(S1),0),0)            AS V1
+			      , NVL(ROUND(SUM(S2),0),0)            AS V2
+			      , NVL(ROUND(SUM(S3),0),0)            AS V3
+			      , NVL(ROUND(SUM(S3)/SUM(S2),0),0)    AS V4
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			              , 1                                                                   AS S1
+			              , CASE WHEN NVL(B.STRG_PLC_LWTP_STRG_AREA,0) > 0 THEN 1 ELSE 0 END    AS S2
+			              , CASE WHEN NVL(B.STRG_PLC_LWTP_STRG_AREA,0) > 0 THEN 
+			                     NVL(B.STRG_PLC_LWTP_STRG_AREA,0) END                           AS S3
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
+			                USRAM.TB_TE_APC_FCLT_STTS B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.GVRMNT_SPRT_YN = 'Y'
+			        AND     A.CTPV_CD IS NOT NULL
+			        AND     A.APC_CD =  B.APC_CD(+))
+			GROUP BY S0
+			]]>
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectGvrngmtSprtPrprtnClngFcltGridList	-->
+	<!-- DESC : 정부지원산지유통시설지역별현황 - 예냉시설 단건조회.		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectGvrngmtSprtPrprtnClngFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    	<![CDATA[
+			SELECT  S0                                 AS V0
+			      , NVL(ROUND(SUM(S1),0),0)            AS V1
+			      , NVL(ROUND(SUM(S2),0),0)            AS V2
+			      , NVL(ROUND(SUM(S3),0),0)            AS V3
+			      , NVL(ROUND(SUM(S3)/SUM(S2),0),0)    AS V4
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			              , 1                                                                   AS S1
+			              , CASE WHEN NVL(B.STRG_PLC_PRC_PLC_AREA,0) > 0 THEN 1 ELSE 0 END      AS S2
+			              , CASE WHEN NVL(B.STRG_PLC_PRC_PLC_AREA,0) > 0 THEN 
+			                     NVL(B.STRG_PLC_PRC_PLC_AREA,0) END                             AS S3
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
+			                USRAM.TB_TE_APC_FCLT_STTS B
+			        WHERE   A.CRTR_YR   = '2023'
+			        AND     A.GVRMNT_SPRT_YN = 'Y'
+			        AND     A.CTPV_CD   IS NOT NULL
+			        AND     A.APC_CD    =  B.APC_CD(+))
+			GROUP BY S0
+			]]>
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectGvrngmtSprtStrgFcltGridList	-->
+	<!-- DESC : 정부지원산지유통시설지역별현황 - CA저장시설 단건조회.		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectGvrngmtSprtStrgFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    	<![CDATA[
+			SELECT  S0                              AS V0
+			      , NVL(ROUND(SUM(S1),0),0)         AS V1
+			      , NVL(ROUND(SUM(S2),0),0)         AS V2
+			      , NVL(ROUND(SUM(S3),0),0)         AS V3
+			      , NVL(ROUND(SUM(S3)/SUM(S2),0),0) AS V4
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			              , 1                                                                   AS S1
+			              , CASE WHEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) > 0 THEN 1 ELSE 0 END  AS S2
+			              , CASE WHEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) > 0 THEN 
+			                     NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) END                         AS S3
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
+			                USRAM.TB_TE_APC_FCLT_STTS B
+			        WHERE   A.CRTR_YR   = '2023'
+			        AND     A.GVRMNT_SPRT_YN = 'Y'
+			        AND     A.CTPV_CD   IS NOT NULL
+			        AND     A.APC_CD    =  B.APC_CD(+))
+			GROUP BY S0
+			]]>
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectGvrngmtSprtFcltMsrmtEqpmntGridList	-->
+	<!-- DESC : 정부지원산지유통시설지역별현황 - 선별기, 특정장비 설치 개소수 단건조회.		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectGvrngmtSprtFcltMsrmtEqpmntGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    	<![CDATA[
+			SELECT  S0                                 AS V0
+			      , NVL(ROUND(SUM(S1),0),0)            AS V1
+			      , NVL(ROUND(SUM(S2),0),0)            AS V2
+			      , NVL(ROUND(SUM(S3),0),0)            AS V3
+			      , NVL(ROUND(SUM(S3)/SUM(S2),0),0)    AS V4
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			              , 1                                                           AS S1
+			              , CASE WHEN B.SORT_MCHN_SPCFCT IS NOT NULL THEN 1 END         AS S2
+			              , CASE WHEN B.SORT_BRCK_MCHN = 'Y'         THEN 1 END         AS S3
+			              , CASE WHEN B.COLOR_SORT = 'Y'             THEN 1 END         AS S4
+			              , CASE WHEN B.MNFC_MCHN IS NOT NULL        THEN 1 END         AS S5
+			              
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
+			               (SELECT  APC_CD
+			                      , MAX(SORT_MCHN_SPCFCT) AS SORT_MCHN_SPCFCT
+			                      , MAX(SORT_BRCK_MCHN) AS SORT_BRCK_MCHN
+			                      , MAX(COLOR_SORT) AS COLOR_SORT
+			                      , MAX(MNFC_MCHN) AS MNFC_MCHN
+			                FROM    USRAM.TB_TE_APC_FCLT_STTS_DTL
+			                GROUP BY APC_CD) B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.GVRMNT_SPRT_YN = 'Y'
+			        AND     A.CTPV_CD IS NOT NULL
+			        AND     A.APC_CD = B.APC_CD(+))
+			GROUP BY S0
+			]]>
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectGvrngmtSprtRgnInvstAtmAllGridList	-->
+	<!-- DESC : 정부지원산지유통시설지역별현황 - 지역별 투자금액 전체 단건조회.		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectGvrngmtSprtRgnInvstAtmAllGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    	<![CDATA[
+			SELECT  S0                                          AS V0
+			      , NVL(SUM(S1),0)                              AS V1
+			      , NVL(ROUND(SUM(S2)/1000000,0),0)             AS V2
+			      , NVL(ROUND(SUM(S3)/1000000,0),0)             AS V3
+			      , NVL(ROUND(SUM(S4)/1000000,0),0)             AS V4
+			      , NVL(ROUND(SUM(S5)/1000000,0),0)             AS V5
+			      , NVL(ROUND((SUM(S5)/SUM(S1))/1000000,0),0)   AS V6
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			              , 1                               AS S1
+			              , B.NE                            AS S2
+			              , B.LCLT_EXPND                    AS S3
+			              , B.SLF_BRDN                      AS S4
+			              , B.NE+B.LCLT_EXPND+B.SLF_BRDN    AS S5
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
+			               (SELECT  APC_CD
+			                      , SUM(NE) AS NE
+			                      , SUM(LCLT_EXPND) AS LCLT_EXPND
+			                      , SUM(SLF_BRDN) AS SLF_BRDN
+			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
+			                GROUP BY APC_CD) B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.GVRMNT_SPRT_YN = 'Y'
+			        AND     A.CTPV_CD IS NOT NULL
+			        AND     A.APC_CD =  B.APC_CD(+))
+			GROUP BY S0
+			]]>
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectMdInvstAtmOwnrGridList	-->
+	<!-- DESC : 정부지원산지유통시설지역별현황 - 지역별 투자금액 : 소유자 단건조회.		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectMdInvstAtmOwnrGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    	<![CDATA[
+			SELECT  S0                                          AS V0
+			      , NVL(SUM(S1),0)                              AS V1
+			      , NVL(ROUND(SUM(S2)/1000000,0),0)             AS V2
+			      , CASE WHEN SUM(S1) > 0 THEN NVL(ROUND((SUM(S2)/SUM(S1))/1000000,0),0)   
+			             ELSE 0 END                             AS V3
+			      , NVL(SUM(S3),0)                              AS V4
+			      , NVL(ROUND(SUM(S4)/1000000,0),0)             AS V5
+			      , CASE WHEN SUM(S3) > 0 THEN NVL(ROUND((SUM(S4)/SUM(S3))/1000000,0),0) 
+			             ELSE 0 END                             AS V6   -- 공공 평균투자액
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			              , CASE WHEN A.TYPE_CD = '1' THEN 1 ELSE 0 END                                 AS S1
+			              , CASE WHEN A.TYPE_CD = '1' THEN B.NE + B.LCLT_EXPND + B.SLF_BRDN ELSE 0 END  AS S2
+			              , CASE WHEN A.TYPE_CD = '2' THEN 1 ELSE 0 END                                 AS S3
+			              , CASE WHEN A.TYPE_CD = '2' THEN B.NE + B.LCLT_EXPND + B.SLF_BRDN ELSE 0 END  AS S4
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
+			               (SELECT  APC_CD
+			                      , SUM(NE) AS NE
+			                      , SUM(LCLT_EXPND) AS LCLT_EXPND
+			                      , SUM(SLF_BRDN) AS SLF_BRDN
+			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
+			                GROUP BY APC_CD) B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.GVRMNT_SPRT_YN = 'Y'
+			        AND     A.CTPV_CD IS NOT NULL
+			        AND     A.APC_CD =  B.APC_CD(+)
+			      )
+			GROUP BY S0
+			]]>
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectMdInvstAtmOperPrsnGridList	-->
+	<!-- DESC : 정부지원산지유통시설지역별현황 - 지역별 투자금액 : 운영자 단건조회.		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectMdInvstAtmOperPrsnGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    	<![CDATA[
+			SELECT  S0                                          AS V0
+			      , NVL(SUM(S1),0)                              AS V1
+			      , NVL(ROUND(SUM(S2)/1000000,0),0)             AS V2
+			      , CASE WHEN SUM(S1) > 0 THEN NVL(ROUND((SUM(S2)/SUM(S1))/1000000,0),0)   
+			             ELSE 0 END                             AS V3
+			      , NVL(SUM(S3),0)                              AS V4
+			      , NVL(ROUND(SUM(S4)/1000000,0),0)             AS V5
+			      , CASE WHEN SUM(S3) > 0 THEN NVL(ROUND((SUM(S4)/SUM(S3))/1000000,0),0) 
+			             ELSE 0 END                             AS V6   -- 법인 평균투자액
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			              , CASE WHEN A.MB IS NOT NULL THEN 1 ELSE 0 END                                AS S1
+			              , CASE WHEN A.MB IS NOT NULL THEN B.NE + B.LCLT_EXPND + B.SLF_BRDN ELSE 0 END AS S2
+			              , CASE WHEN A.MB IS NULL THEN 1 ELSE 0 END                                    AS S3
+			              , CASE WHEN A.MB IS NULL THEN B.NE + B.LCLT_EXPND + B.SLF_BRDN ELSE 0 END     AS S4
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
+			               (SELECT  APC_CD
+			                      , SUM(NE) AS NE
+			                      , SUM(LCLT_EXPND) AS LCLT_EXPND
+			                      , SUM(SLF_BRDN) AS SLF_BRDN
+			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
+			                GROUP BY APC_CD) B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.GVRMNT_SPRT_YN = 'Y'
+			        AND     A.CTPV_CD IS NOT NULL
+			        AND     A.APC_CD =  B.APC_CD(+)
+			      )
+			GROUP BY S0
+			]]>
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectOperOgnzTrmtPrfmncGridList	-->
+	<!-- DESC : 산지유통시설운영실적 - 운영조직 취급실적 단건조회.		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectOperOgnzTrmtPrfmncGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    	<![CDATA[
+			SELECT  S0                              AS V0
+			      , ROUND(SUM(S1),0)                AS V1
+			      , ROUND(SUM(S1)/SUM(A1),0)        AS V2
+			      , ROUND(SUM(S2),0)                AS V3
+			      , ROUND(SUM(S2)/SUM(A1),0)        AS V4
+			FROM  ( SELECT '1통합조직 농협'         AS S0
+			              , B.RTL_OGNZ_TOT_TRMT_AMT AS S1
+			              , 1                       AS A1
+			              , B.RTL_OGNZ_OGNZ_SUM     AS S2
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
+			                USRAM.TB_TE_APC_OPER_PRFMNC B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.CTPV_CD IS NOT NULL  
+			        AND     A.OGNZ_TYPE_CD IN ('1','2','3','4')
+			        AND     A.MB IS NOT NULL 
+			        AND     A.APC_CD = B.APC_CD
+			        UNION ALL
+			        SELECT '2통합조직 농업법인'     AS S0
+			              , B.RTL_OGNZ_TOT_TRMT_AMT AS S1
+			              , 1                       AS A1
+			              , B.RTL_OGNZ_OGNZ_SUM     AS S2
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
+			                USRAM.TB_TE_APC_OPER_PRFMNC B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.CTPV_CD IS NOT NULL  
+			        AND     A.OGNZ_TYPE_CD IN ('1','2','3','4')
+			        AND     A.MB IS NULL 
+			        AND     A.APC_CD = B.APC_CD
+			        UNION ALL
+			        SELECT '3개별조직 농협'         AS S0
+			              , B.RTL_OGNZ_TOT_TRMT_AMT AS S1
+			              , 1                       AS A1
+			              , B.RTL_OGNZ_OGNZ_SUM     AS S2
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
+			                USRAM.TB_TE_APC_OPER_PRFMNC B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.CTPV_CD IS NOT NULL  
+			        AND     A.OGNZ_TYPE_CD IN ('5')
+			        AND     A.MB IS NOT NULL 
+			        AND     A.APC_CD = B.APC_CD
+			        UNION ALL
+			        SELECT '4개별조직 농업법인'     AS S0
+			              , B.RTL_OGNZ_TOT_TRMT_AMT AS S1
+			              , 1                       AS A1
+			              , B.RTL_OGNZ_OGNZ_SUM     AS S2
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
+			                USRAM.TB_TE_APC_OPER_PRFMNC B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.CTPV_CD IS NOT NULL  
+			        AND     A.OGNZ_TYPE_CD IN ('5')
+			        AND     A.MB IS NULL 
+			        AND     A.APC_CD = B.APC_CD )
+			GROUP BY S0
+			ORDER BY S0
+			]]>
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectOperOgnzPrcsPrfmncGridList	-->
+	<!-- DESC : 산지유통시설운영실적 - 운영조직 처리실적 단건조회.		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectOperOgnzPrcsPrfmncGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    	<![CDATA[
+			SELECT  S0                              AS V0
+			      , ROUND(SUM(S1),0)                AS V1
+			      , ROUND(SUM(S2),0)                AS V2
+			      , ROUND(SUM(S3),0)                AS V3
+			      , ROUND(SUM(S4),0)                AS V4
+			FROM  ( SELECT '1통합조직 농협'                 AS S0
+			              , B.APC_APC_TRMT_AMT              AS S1
+			              , B.APC_GNRL_TRMT_AMT             AS S2
+			              , B.APC_APC_OGNZ_CPRTN_SORT_TRST  AS S3
+			              , B.APC_APC_CTRT_EMSPAP           AS S4
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
+			                USRAM.TB_TE_APC_OPER_PRFMNC B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.CTPV_CD IS NOT NULL  
+			        AND     A.OGNZ_TYPE_CD IN ('1','2','3','4')
+			        AND     A.MB IS NOT NULL 
+			        AND     A.APC_CD = B.APC_CD
+			        UNION ALL
+			        SELECT '2통합조직 농업법인'     AS S0
+			              , B.APC_APC_TRMT_AMT              AS S1
+			              , B.APC_GNRL_TRMT_AMT             AS S2
+			              , B.APC_APC_OGNZ_CPRTN_SORT_TRST  AS S3
+			              , B.APC_APC_CTRT_EMSPAP           AS S4
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
+			                USRAM.TB_TE_APC_OPER_PRFMNC B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.CTPV_CD IS NOT NULL  
+			        AND     A.OGNZ_TYPE_CD IN ('1','2','3','4')
+			        AND     A.MB IS NULL 
+			        AND     A.APC_CD = B.APC_CD
+			        UNION ALL
+			        SELECT '3개별조직 농협'         AS S0
+			              , B.APC_APC_TRMT_AMT              AS S1
+			              , B.APC_GNRL_TRMT_AMT             AS S2
+			              , B.APC_APC_OGNZ_CPRTN_SORT_TRST  AS S3
+			              , B.APC_APC_CTRT_EMSPAP           AS S4
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
+			                USRAM.TB_TE_APC_OPER_PRFMNC B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.CTPV_CD IS NOT NULL  
+			        AND     A.OGNZ_TYPE_CD IN ('5')
+			        AND     A.MB IS NOT NULL 
+			        AND     A.APC_CD = B.APC_CD
+			        UNION ALL
+			        SELECT '4개별조직 농업법인'     AS S0
+			              , B.APC_APC_TRMT_AMT              AS S1
+			              , B.APC_GNRL_TRMT_AMT             AS S2
+			              , B.APC_APC_OGNZ_CPRTN_SORT_TRST  AS S3
+			              , B.APC_APC_CTRT_EMSPAP           AS S4
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
+			                USRAM.TB_TE_APC_OPER_PRFMNC B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.CTPV_CD IS NOT NULL  
+			        AND     A.OGNZ_TYPE_CD IN ('5')
+			        AND     A.MB IS NULL 
+			        AND     A.APC_CD = B.APC_CD )
+			GROUP BY S0
+			ORDER BY S0
+			]]>
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectOperOgnzAvgTrmtPrfmncGridList	-->
+	<!-- DESC : 산지유통시설운영실적 - 운영조직 평균 취급실적 단건조회.		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectOperOgnzAvgTrmtPrfmncGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    	<![CDATA[
+			SELECT  S0                              AS V0
+			      , ROUND(SUM(S1)/SUM(A1),0)        AS V1
+			      , ROUND(SUM(S2)/SUM(A1),0)        AS V2
+			      , ROUND(SUM(S3)/SUM(A1),0)        AS V3
+			      , ROUND(SUM(S4)/SUM(A1),0)        AS V4
+			FROM  ( SELECT '1통합조직 농협'                 AS S0
+			              , B.APC_APC_TRMT_AMT              AS S1
+			              , B.APC_GNRL_TRMT_AMT             AS S2
+			              , B.APC_APC_OGNZ_CPRTN_SORT_TRST  AS S3
+			              , B.APC_APC_CTRT_EMSPAP           AS S4
+			              , 1                               AS A1
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
+			                USRAM.TB_TE_APC_OPER_PRFMNC B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.CTPV_CD IS NOT NULL  
+			        AND     A.OGNZ_TYPE_CD IN ('1','2','3','4')
+			        AND     A.MB IS NOT NULL 
+			        AND     A.APC_CD = B.APC_CD
+			        UNION ALL
+			        SELECT '2통합조직 농업법인'             AS S0
+			              , B.APC_APC_TRMT_AMT              AS S1
+			              , B.APC_GNRL_TRMT_AMT             AS S2
+			              , B.APC_APC_OGNZ_CPRTN_SORT_TRST  AS S3
+			              , B.APC_APC_CTRT_EMSPAP           AS S4
+			              , 1                               AS A1
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
+			                USRAM.TB_TE_APC_OPER_PRFMNC B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.CTPV_CD IS NOT NULL  
+			        AND     A.OGNZ_TYPE_CD IN ('5')
+			        AND     A.MB IS NULL 
+			        AND     A.APC_CD = B.APC_CD
+			        UNION ALL
+			        SELECT '3개별조직 농협'         AS S0
+			              , B.APC_APC_TRMT_AMT              AS S1
+			              , B.APC_GNRL_TRMT_AMT             AS S2
+			              , B.APC_APC_OGNZ_CPRTN_SORT_TRST  AS S3
+			              , B.APC_APC_CTRT_EMSPAP           AS S4
+			              , 1                               AS A1
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
+			                USRAM.TB_TE_APC_OPER_PRFMNC B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.CTPV_CD IS NOT NULL  
+			        AND     A.OGNZ_TYPE_CD IN ('5')
+			        AND     A.MB IS NOT NULL 
+			        AND     A.APC_CD = B.APC_CD        
+			        UNION ALL
+			        SELECT '4개별조직 농업법인'     AS S0
+			              , B.APC_APC_TRMT_AMT              AS S1
+			              , B.APC_GNRL_TRMT_AMT             AS S2
+			              , B.APC_APC_OGNZ_CPRTN_SORT_TRST  AS S3
+			              , B.APC_APC_CTRT_EMSPAP           AS S4
+			              , 1                               AS A1
+			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
+			                USRAM.TB_TE_APC_OPER_PRFMNC B
+			        WHERE   A.CRTR_YR = '2023'
+			        AND     A.CTPV_CD IS NOT NULL  
+			        AND     A.OGNZ_TYPE_CD IN ('5')
+			        AND     A.MB IS NULL 
+			        AND     A.APC_CD = B.APC_CD )
+			GROUP BY S0
+			ORDER BY S0
 			]]>
     </select>
 

@@ -99,6 +99,48 @@ public class MdRtlFcltController extends BaseController {
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
+	
+	// 정부지원 산지유통시설 현황 조회
+	@PostMapping(value = "/fm/fclt/selectGvrngmtSprtMdRtlFcltGridList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectGvrngmtSprtMdRtlFcltGridList(@RequestBody MdRtlFcltVO mdRtlFcltVO, HttpServletRequest request) throws Exception {
+		
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			resultMap = mdRtlFcltService.selectGvrngmtSprtMdRtlFcltGridList(mdRtlFcltVO);
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	// 정부지원 산지유통시설 현황 조회
+	@PostMapping(value = "/fm/fclt/selectGvrngmtSprtMdRtlOgnzTypeGridList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectGvrngmtSprtMdRtlOgnzTypeGridList(@RequestBody MdRtlFcltVO mdRtlFcltVO, HttpServletRequest request) throws Exception {
+		
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			resultMap = mdRtlFcltService.selectGvrngmtSprtMdRtlOgnzTypeGridList(mdRtlFcltVO);
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	// 산지유통시설 운영실적 조회
+	@PostMapping(value = "/fm/fclt/selectMdRtlFcltOperPrfmncGridList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectMdRtlFcltOperPrfmncGridList(@RequestBody MdRtlFcltVO mdRtlFcltVO, HttpServletRequest request) throws Exception {
+		
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			resultMap = mdRtlFcltService.selectMdRtlFcltOperPrfmncGridList(mdRtlFcltVO);
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
 
 
 }

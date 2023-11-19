@@ -100,11 +100,11 @@
 		} else if(searchTarget == "MdRtlFcltRgnNow"){
 			fn_cellMdRtlFcltRgnNowGrid();
 		} else if(searchTarget == "GvrngmtSprtMdRtlFclt"){
-// 			tabLogBatchHstry.search();
+			fn_cellGvrngmtSprtMdRtlFcltGrid();
 		} else if(searchTarget == "GvrngmtSprtMdRtlFcltRgn"){
-// 			tabRawMtrChgHstry.search();
+			fn_cellGvrngmtSprtMdRtlFcltRgnGrid();
 		} else if(searchTarget == "MdRtlFcltOperPrfmnc"){
-// 			tabSortInvntrChgHstry.search();
+			fn_cellMdRtlFcltOperPrfmncGrid();
 		} else if(searchTarget == "GvrngmtSprtRgnOperPrfmnc"){
 // 			tabLogMap.search();
 		}
