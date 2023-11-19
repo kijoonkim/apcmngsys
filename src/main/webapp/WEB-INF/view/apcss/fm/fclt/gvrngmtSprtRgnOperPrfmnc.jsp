@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -41,25 +40,30 @@
 						<ul class="ad_tbl_count" style="width: 100%">
 							<li>
 								<br/>
-								<span style="font-size:12px">산지유통시설 처리실적</span>
+								<span style="font-size:12px">산지유통시설 평균 처리실적(평균)</span>
 								<br/>
 								<span style="font-size:12px; text-align: right; display: block;">(단위:백만원)</span>
 							</li>
 						</ul>
 					</div>
-					<div id="sb-area-grdMdRtlFcltPrcsPrfmnc" style="height:236px;"></div>
+					<div id="sb-area-grdMdRtlFcltPrcsPrfmncAvg" style="height:311px;"></div>
+					
+					<div style="height: 50px;"></div>
 					
 					<div class="ad_tbl_top" style="margin-bottom: 30px;">
 						<ul class="ad_tbl_count" style="width: 100%">
 							<li>
+								<span style="font-size:15px; color:black;">2.2. 지역별 운영조직 취급 및 APC 처리 실적</span>
 								<br/>
-								<span style="font-size:12px">지역별 운영조직 취급실적(평균)</span>
+								<span style="font-size:12px">지역별 운영조직 취급실적</span>
 								<br/>
 								<span style="font-size:12px; text-align: right; display: block;">(단위:백만원)</span>
 							</li>
 						</ul>
 					</div>
-					<div id="sb-area-grdRgnOperOgnzTrmtPrfmncAvg" style="height:311px;"></div>
+					<div id="sb-area-grdRgnOperOgnzTrmtPrfmnc" style="height:311px;"></div>
+					
+					
 					
 					<div class="ad_tbl_top" style="margin-bottom: 30px;">
 						<ul class="ad_tbl_count" style="width: 100%">
@@ -78,27 +82,27 @@
 						<ul class="ad_tbl_count" style="width: 100%">
 							<li>
 								<br/>
-								<span style="font-size:12px">산지유통시설 평균 처리실적(평균)</span>
+								<span style="font-size:12px">산지유통시설 처리실적</span>
 								<br/>
 								<span style="font-size:12px; text-align: right; display: block;">(단위:백만원)</span>
 							</li>
 						</ul>
 					</div>
-					<div id="sb-area-grdMdRtlFcltPrcsPrfmncAvg" style="height:236px;"></div>
-					<span style="font-size:8px;">ㅤ</span>
+					<div id="sb-area-grdMdRtlFcltPrcsPrfmnc" style="height:311px;"></div>
+					
+					<div style="height: 440px;"></div>
 					
 					<div class="ad_tbl_top" style="margin-bottom: 30px;">
 						<ul class="ad_tbl_count" style="width: 100%">
 							<li>
-								<span style="font-size:15px; color:black;">2.2. 지역별 운영조직 취급 및 APC 처리 실적</span>
 								<br/>
-								<span style="font-size:12px">지역별 운영조직 취급실적</span>
+								<span style="font-size:12px">지역별 운영조직 취급실적(평균)</span>
 								<br/>
 								<span style="font-size:12px; text-align: right; display: block;">(단위:백만원)</span>
 							</li>
 						</ul>
 					</div>
-					<div id="sb-area-grdRgnOperOgnzTrmtPrfmnc" style="height:311px;"></div>
+					<div id="sb-area-grdRgnOperOgnzTrmtPrfmncAvg" style="height:311px;"></div>
 					
 					<div class="ad_tbl_top" style="margin-bottom: 30px;">
 						<ul class="ad_tbl_count" style="width: 100%">
@@ -111,6 +115,8 @@
 						</ul>
 					</div>
 					<div id="sb-area-grdRgnOperOgnzApcPrcsPrfmncAvg" style="height:311px;"></div>
+					
+					
 				</div>
 			</div>
 		</div>
