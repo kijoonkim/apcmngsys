@@ -152,7 +152,7 @@
 				<div id="sb-area-grdGvrngmtSprtPrprtnClngFclt" style="height:312px;"></div>
 				<span style="font-size:8px;">*예냉시설:  수확 후 또는 운송 이전에 농산물의 품온을 짧은 시간 내에 적정온도로 냉각하는 시설</span>
 				
-				<div style="height: 480px;"></div>
+				<div style="height: 482px;"></div>
 				
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
