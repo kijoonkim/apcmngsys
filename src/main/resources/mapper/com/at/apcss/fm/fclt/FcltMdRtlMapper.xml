@@ -12,14 +12,32 @@
 
 <mapper namespace="com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper">
 
-
+	<!-- ==========================================================================	-->
+	<!-- NAME :com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectCrtrYnList			-->
+	<!-- DESC : 기준년도 목록 조회.                     	 							-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectCrtrYnList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+		<![CDATA[
+			SELECT
+				CRTR_YR
+			FROM
+				USRAM.TB_TE_APC_OPER_PRSN_OTLN
+			GROUP BY CRTR_YR
+			ORDER BY CRTR_YR DESC
+		]]>
+	</select>
+	
 	<!-- ==========================================================================	-->
 	<!-- NAME :com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMapSttn			-->
 	<!-- DESC : APC현황조회.                     	 								-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.11.16  	김호        	Initial Creation                            -->
+	<!-- 2023.11.16  	김호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
 	<select id="selectMapSttn" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
 		<![CDATA[
@@ -83,7 +101,7 @@
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.11.16  	김호        	Initial Creation                            -->
+	<!-- 2023.11.16  	김호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
 	<select id="selectCtpvAreaList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
 		<![CDATA[
@@ -133,7 +151,7 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME :com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMdRtlOgnzGridList  -->
-	<!-- DESC : 운영조직 취급실적 테이블 단건조회.                     	 		-->
+	<!-- DESC : 운영조직 취급실적 테이블 단건조회.                     	 			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
