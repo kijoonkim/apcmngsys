@@ -448,7 +448,7 @@
 					<ul class="ad_tbl_count">
 						<li>
 							<span>계량등록 내역</span>
-							<span style="font-size:12px">(조회건수 <span id="cnt-wgh">0</span>건, 기준일자 : 
+							<span style="font-size:12px">(기준일자 : 
 								<sbux-label
 									id="crtr-ymd"
 									name="crtr-ymd"
@@ -456,7 +456,7 @@
 									text=""
 									class="bold"
 									mask = "{'alias': 'yyyy-mm-dd', 'autoUnmask': true}"
-								></sbux-label>)
+								></sbux-label> , 조회건수 <span id="cnt-wgh">0</span>건)
 							</span>
 						</li>
 					</ul>
@@ -865,7 +865,12 @@
 	   	if (gfn_isEmpty(vhclno)) {
 	   		gfn_comAlert("W0002", "차량번호");		//	W0002	{0}을/를 입력하세요.
 	           return;
-	   	}
+	   	} else {
+    		if(!(/^\d{2,3}[가-힣]\d{4}/.exec(vhclno))){
+	    		gfn_comAlert("W0011", "차량번호");			//	W0001	{0}이/가 아닙니다.
+    			return;
+    		}
+    	}
 	
 	   	if (wholWght <= 0) {
 	   		gfn_comAlert("W0002", "전체중량");		//	W0002	{0}을/를 입력하세요.
