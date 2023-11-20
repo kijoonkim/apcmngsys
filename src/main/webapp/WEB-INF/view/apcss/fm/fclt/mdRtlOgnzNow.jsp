@@ -458,8 +458,8 @@ const fn_createLwtpStrgGrid = function() {
 	};
     SBGridProperties.columns = [
     	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'160px', style: 'text-align:center; padding-right:5px;'},
-    	{caption : ["설치현황","전체 개소수"], ref: 'v1', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["설치현황","선택 개소수"], ref: 'v2', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["APC 개소수","APC 개소수"], ref: 'v1', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["저온저장고 <br/> 개소수","저온저장고 <br/> 개소수"], ref: 'v2', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
     	{caption : ["저온저장시(면적)","전체면적"], ref: 'v3', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
     	{caption : ["저온저장시(면적)","평균면적"], ref: 'v4', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
@@ -496,8 +496,8 @@ const fn_createPrprtnClngFcltGrid = function() {
 	};
     SBGridProperties.columns = [
     	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'160px', style: 'text-align:center; padding-right:5px;'},
-    	{caption : ["설치현황","전체 개소수"], ref: 'v1', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["설치현황","설치 개소수"], ref: 'v2', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["APC 개소수","APC 개소수"], ref: 'v1', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["예냉시설 <br/> 개소수","예냉시설 <br/> 개소수"], ref: 'v2', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
     	{caption : ["예냉시설(면적)","전체면적"], ref: 'v3', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
     	{caption : ["예냉시설(면적)","평균면적"], ref: 'v4', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
@@ -573,11 +573,11 @@ const fn_createFcltMsrmtEqpmntGrid = function() {
 	};
     SBGridProperties.columns = [
     	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'160px', style: 'text-align:center; padding-right:5px;'},
-    	{caption : ["전체 <br/> 개소수","전체 <br/> 개소수"], ref: 'v1', type: 'output',  width:'120px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["APC개소수","APC개소수"], ref: 'v1', type: 'output',  width:'120px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
     	{caption : ["선별기 <br/> 설치 개소수","선별기 <br/> 설치 개소수"], ref: 'v2', type: 'output',  width:'120px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["측정장비 <br/> 설치 개소수","측정장비 <br/> 설치 개소수"], ref: 'v3', type: 'output',  width:'120px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["반가공 시설 <br/> 설치 개소수","반가공 시설 <br/> 설치 개소수"], ref: 'v4', type: 'output',  width:'120px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["로봇팔레타이저 <br/> 설치 개소수","로봇팔레타이저 <br/> 설치 개소수"], ref: 'v5', type: 'output',  width:'120px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
+    	{caption : ["당도선별기 <br/> 설치개소수","당도선별기 <br/> 설치개소수"], ref: 'v3', type: 'output',  width:'120px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["색택선별기 <br/> 설치개소수","색택선별기 <br/> 설치개소수"], ref: 'v4', type: 'output',  width:'120px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["가공설비 <br/> 설치개소수","가공설비 <br/> 설치개소수"], ref: 'v5', type: 'output',  width:'120px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdFcltMsrmtEqpmnt = _SBGrid.create(SBGridProperties);
 }
@@ -742,7 +742,7 @@ const fn_createInvstAtmOperPrsnGrid = function() {
 
 const fn_cellMdRtlOgnzNowGrid = async function() {
 	
-	const postJsonPromise = gfn_postJSON("/fm/fclt/selectMdRtlOgnzNowGridList.do", {s0 : ""});
+	const postJsonPromise = gfn_postJSON("/fm/fclt/selectMdRtlOgnzNowGridList.do", {crtrYn : "2023"});
 	
 	let data = await postJsonPromise;
 	try {

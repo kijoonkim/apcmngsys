@@ -657,7 +657,7 @@ const fn_createRgnInvstAtmOperPrsnGrid = function() {
 
 const fn_cellMdRtlFcltRgnNowGrid = async function() {
 	
-	const postJsonPromise = gfn_postJSON("/fm/fclt/selectMdRtlFcltRgnNowGridList.do", {s0 : ""});
+	const postJsonPromise = gfn_postJSON("/fm/fclt/selectMdRtlFcltRgnNowGridList.do", {crtrYn : "2023"});
 	
 	let data = await postJsonPromise;
 	try {

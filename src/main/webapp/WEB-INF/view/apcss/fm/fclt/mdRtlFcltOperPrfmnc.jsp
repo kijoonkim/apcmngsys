@@ -449,7 +449,7 @@ const fn_createMdApcPrcsPrfmncAvgGrid = function() {
 
 const fn_cellMdRtlFcltOperPrfmncGrid = async function() {
 	
-	const postJsonPromise = gfn_postJSON("/fm/fclt/selectMdRtlFcltOperPrfmncGridList.do", {s0 : ""});
+	const postJsonPromise = gfn_postJSON("/fm/fclt/selectMdRtlFcltOperPrfmncGridList.do", {crtrYn : "2023"});
 	
 	let data = await postJsonPromise;
 	try {

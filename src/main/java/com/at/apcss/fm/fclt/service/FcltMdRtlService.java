@@ -3,7 +3,7 @@ package com.at.apcss.fm.fclt.service;
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.fm.fclt.vo.MdRtlFcltVO;
+import com.at.apcss.fm.fclt.vo.FcltMdRtlVO;
 
 /**
  * APC전수조사관리 대시보드 Service 인터페이스
@@ -19,58 +19,58 @@ import com.at.apcss.fm.fclt.vo.MdRtlFcltVO;
  * 2023.11.15  김현호        최초 생성
  * </pre>
  */
-public interface MdRtlFcltService {
+public interface FcltMdRtlService {
 	/**
 	 * APC현황
-	 * @param MdRtlFcltVO
+	 * @param FcltMdRtlVO
 	 * @return List<MdRtlFcltVO>
 	 * @throws Exception
 	 */
-	public List<MdRtlFcltVO> selectMapSttn(MdRtlFcltVO mdRtlFcltVO) throws Exception;
+	public List<FcltMdRtlVO> selectMapSttn(FcltMdRtlVO fcltMdRtlVO) throws Exception;
 	/**
 	 * APC지역목록조회
-	 * @param MdRtlFcltVO
+	 * @param FcltMdRtlVO
 	 * @return List<MdRtlFcltVO>
 	 * @throws Exception
 	 */
-	public List<MdRtlFcltVO> selectCtpvAreaList(MdRtlFcltVO mdRtlFcltVO) throws Exception;
+	public List<FcltMdRtlVO> selectCtpvAreaList(FcltMdRtlVO fcltMdRtlVO) throws Exception;
 	/**
 	 * 산지유통시설현황 목록을 조회한다.
-	 * @param mdRtlFcltVO
+	 * @param fcltMdRtlVO
 	 * @return
 	 * @throws Exception
 	 */
-	public HashMap<String,Object> selectMdRtlOgnzNowGridList(MdRtlFcltVO mdRtlFcltVO) throws Exception;
+	public HashMap<String,Object> selectMdRtlOgnzNowGridList(FcltMdRtlVO fcltMdRtlVO) throws Exception;
 	
 	/**
 	 * 산지유통시설지역별현황 목록을 조회한다.
-	 * @param mdRtlFcltVO
+	 * @param fcltMdRtlVO
 	 * @return
 	 * @throws Exception
 	 */
-	public HashMap<String,Object> selectMdRtlFcltRgnNowGridList(MdRtlFcltVO mdRtlFcltVO) throws Exception;
+	public HashMap<String,Object> selectMdRtlFcltRgnNowGridList(FcltMdRtlVO fcltMdRtlVO) throws Exception;
 	
 	/**
 	 * 정부지원산지유통시설현황 목록을 조회한다.
-	 * @param mdRtlFcltVO
+	 * @param fcltMdRtlVO
 	 * @return
 	 * @throws Exception
 	 */
-	public HashMap<String,Object> selectGvrngmtSprtMdRtlFcltGridList(MdRtlFcltVO mdRtlFcltVO) throws Exception;
+	public HashMap<String,Object> selectGvrngmtSprtMdRtlFcltGridList(FcltMdRtlVO fcltMdRtlVO) throws Exception;
 	
 	/**
 	 * 정부지원산지유통시설지역별현황 목록을 조회한다.
-	 * @param mdRtlFcltVO
+	 * @param fcltMdRtlVO
 	 * @return
 	 * @throws Exception
 	 */
-	public HashMap<String,Object> selectGvrngmtSprtMdRtlOgnzTypeGridList(MdRtlFcltVO mdRtlFcltVO) throws Exception;
+	public HashMap<String,Object> selectGvrngmtSprtMdRtlOgnzTypeGridList(FcltMdRtlVO fcltMdRtlVO) throws Exception;
 	
 	/**
 	 * 산지유통시설 운영실적 목록을 조회한다.
-	 * @param mdRtlFcltVO
+	 * @param fcltMdRtlVO
 	 * @return
 	 * @throws Exception
 	 */
-	public HashMap<String,Object> selectMdRtlFcltOperPrfmncGridList(MdRtlFcltVO mdRtlFcltVO) throws Exception;
+	public HashMap<String,Object> selectMdRtlFcltOperPrfmncGridList(FcltMdRtlVO fcltMdRtlVO) throws Exception;
 }

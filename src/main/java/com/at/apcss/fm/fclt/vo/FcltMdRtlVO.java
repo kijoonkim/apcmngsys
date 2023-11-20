@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MdRtlFcltVO extends ComVO {
+public class FcltMdRtlVO extends ComVO {
 	private String title;
 	private String subTitle;
 	

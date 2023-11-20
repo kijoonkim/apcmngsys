@@ -6,56 +6,56 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper;
-import com.at.apcss.fm.fclt.service.MdRtlFcltService;
-import com.at.apcss.fm.fclt.vo.MdRtlFcltVO;
+import com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper;
+import com.at.apcss.fm.fclt.service.FcltMdRtlService;
+import com.at.apcss.fm.fclt.vo.FcltMdRtlVO;
 
-@Service("mdRtlFcltService")
-public class MdRtlFcltServiceImpl implements MdRtlFcltService {
+@Service("fcltMdRtlService")
+public class FcltMdRtlServiceImpl implements FcltMdRtlService {
 	@Autowired
-	private MdRtlFcltMapper mdRtlFcltMapper;
+	private FcltMdRtlMapper fcltMdRtlMapper;
 
 	@Override
-	public List<MdRtlFcltVO> selectMapSttn(MdRtlFcltVO mdRtlFcltVO) throws Exception {
-		List<MdRtlFcltVO> resultList = mdRtlFcltMapper.selectMapSttn(mdRtlFcltVO);
+	public List<FcltMdRtlVO> selectMapSttn(FcltMdRtlVO fcltMdRtlVO) throws Exception {
+		List<FcltMdRtlVO> resultList = fcltMdRtlMapper.selectMapSttn(fcltMdRtlVO);
 		return resultList;
 	}
 
 	@Override
-	public List<MdRtlFcltVO> selectCtpvAreaList(MdRtlFcltVO mdRtlFcltVO) throws Exception {
-		List<MdRtlFcltVO> resultList = mdRtlFcltMapper.selectCtpvAreaList(mdRtlFcltVO);
+	public List<FcltMdRtlVO> selectCtpvAreaList(FcltMdRtlVO fcltMdRtlVO) throws Exception {
+		List<FcltMdRtlVO> resultList = fcltMdRtlMapper.selectCtpvAreaList(fcltMdRtlVO);
 		return resultList;
 	}
 
 	@Override
-	public HashMap<String,Object> selectMdRtlOgnzNowGridList(MdRtlFcltVO mdRtlFcltVO) throws Exception {
+	public HashMap<String,Object> selectMdRtlOgnzNowGridList(FcltMdRtlVO fcltMdRtlVO) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		
 		//개소수:소유자 및 운영자
-		List<MdRtlFcltVO> resultMdRtlOgnz = mdRtlFcltMapper.selectMdRtlOgnzGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultMdRtlOgnz = fcltMdRtlMapper.selectMdRtlOgnzGridList(fcltMdRtlVO);
 		//개소수:소유자 및 운영자
-		List<MdRtlFcltVO> resultOwnrAndOper = mdRtlFcltMapper.selectOwnrAndOperGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultOwnrAndOper = fcltMdRtlMapper.selectOwnrAndOperGridList(fcltMdRtlVO);
 		//산지유통시설 시설ㆍ장비 - 총 건축면적
-		List<MdRtlFcltVO> resultAllBdar = mdRtlFcltMapper.selectAllBdarGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultAllBdar = fcltMdRtlMapper.selectAllBdarGridList(fcltMdRtlVO);
 		//산지유통시설 시설ㆍ장비 - 물류:상품화시설(건축면적)
-		List<MdRtlFcltVO> resultLgstcsGds = mdRtlFcltMapper.selectLgstcsGdsGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultLgstcsGds = fcltMdRtlMapper.selectLgstcsGdsGridList(fcltMdRtlVO);
 		//산지유통시설 시설ㆍ장비 - 저온냉장고
-		List<MdRtlFcltVO> resultLwtpStrg = mdRtlFcltMapper.selectLwtpStrgGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultLwtpStrg = fcltMdRtlMapper.selectLwtpStrgGridList(fcltMdRtlVO);
 		//산지유통시설 시설ㆍ장비 - 예냉시설
-		List<MdRtlFcltVO> resultPrprtnClngFclt = mdRtlFcltMapper.selectPrprtnClngFcltGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultPrprtnClngFclt = fcltMdRtlMapper.selectPrprtnClngFcltGridList(fcltMdRtlVO);
 		//산지유통시설 시설ㆍ장비 - CA저장시설
-		List<MdRtlFcltVO> resultStrgFclt = mdRtlFcltMapper.selectStrgFcltGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultStrgFclt = fcltMdRtlMapper.selectStrgFcltGridList(fcltMdRtlVO);
 		//산지유통시설 시설ㆍ장비 - 측정장비설치 개소수
-		List<MdRtlFcltVO> resultFcltMsrmtEqpmnt = mdRtlFcltMapper.selectFcltMsrmtEqpmntGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultFcltMsrmtEqpmnt = fcltMdRtlMapper.selectFcltMsrmtEqpmntGridList(fcltMdRtlVO);
 		//산지유통시설 시설ㆍ장비 - 투자금액:전체
-		List<MdRtlFcltVO> resultInvstAtmAll = mdRtlFcltMapper.selectInvstAtmAllGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultInvstAtmAll = fcltMdRtlMapper.selectInvstAtmAllGridList(fcltMdRtlVO);
 		//산지유통시설 시설ㆍ장비 - 투자금액:자금유형
-		List<MdRtlFcltVO> resultInvstAtmFundType = mdRtlFcltMapper.selectInvstAtmFundTypeGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultInvstAtmFundType = fcltMdRtlMapper.selectInvstAtmFundTypeGridList(fcltMdRtlVO);
 		//산지유통시설 시설ㆍ장비 - 투자금액:소유자
-		List<MdRtlFcltVO> resultInvstAtmOwnr = mdRtlFcltMapper.selectInvstAtmOwnrGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultInvstAtmOwnr = fcltMdRtlMapper.selectInvstAtmOwnrGridList(fcltMdRtlVO);
 		//산지유통시설 시설ㆍ장비 - 투자금액:운영자
-		List<MdRtlFcltVO> resultInvstAtmOperPrsn = mdRtlFcltMapper.selectInvstAtmOperPrsnGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultInvstAtmOperPrsn = fcltMdRtlMapper.selectInvstAtmOperPrsnGridList(fcltMdRtlVO);
 
 
 		resultMap.put("resultMdRtlOgnz", resultMdRtlOgnz);
@@ -77,30 +77,30 @@ public class MdRtlFcltServiceImpl implements MdRtlFcltService {
 	}
 
 	@Override
-	public HashMap<String,Object> selectMdRtlFcltRgnNowGridList(MdRtlFcltVO mdRtlFcltVO) throws Exception {
+	public HashMap<String,Object> selectMdRtlFcltRgnNowGridList(FcltMdRtlVO fcltMdRtlVO) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		// 지역별 개소수 : 산지유통조직유형
-		List<MdRtlFcltVO> resultMdRtlOgnzType =  mdRtlFcltMapper.selectMdRtlOgnzTypeGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultMdRtlOgnzType =  fcltMdRtlMapper.selectMdRtlOgnzTypeGridList(fcltMdRtlVO);
 		// 지역별 개소수 : 운영자
-		List<MdRtlFcltVO> resultRgnOperPrsn = mdRtlFcltMapper.selectRgnOperPrsnGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultRgnOperPrsn = fcltMdRtlMapper.selectRgnOperPrsnGridList(fcltMdRtlVO);
 		// 산지유통시설 시설·장비 : 물류·상품화 시설
-		List<MdRtlFcltVO> resultLgstcsGdsFclt = mdRtlFcltMapper.selectLgstcsGdsFcltGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultLgstcsGdsFclt = fcltMdRtlMapper.selectLgstcsGdsFcltGridList(fcltMdRtlVO);
 		// 저온냉장고
-		List<MdRtlFcltVO> resultMdLwtpStrg = mdRtlFcltMapper.selectMdLwtpStrgGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultMdLwtpStrg = fcltMdRtlMapper.selectMdLwtpStrgGridList(fcltMdRtlVO);
 		// 예냉시설
-		List<MdRtlFcltVO> resultRgnPrprtnClngFclt = mdRtlFcltMapper.selectRgnPrprtnClngFcltGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultRgnPrprtnClngFclt = fcltMdRtlMapper.selectRgnPrprtnClngFcltGridList(fcltMdRtlVO);
 		// CA저장고
-		List<MdRtlFcltVO> resultRgnStrgFclt = mdRtlFcltMapper.selectRgnStrgFcltGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultRgnStrgFclt = fcltMdRtlMapper.selectRgnStrgFcltGridList(fcltMdRtlVO);
 		// 선별기·측정장비 설치 개소 수
-		List<MdRtlFcltVO> resultRgnFcltMsrmtEqpmnt = mdRtlFcltMapper.selectRgnFcltMsrmtEqpmntGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultRgnFcltMsrmtEqpmnt = fcltMdRtlMapper.selectRgnFcltMsrmtEqpmntGridList(fcltMdRtlVO);
 		// 지역별 투자금액: 전체
-		List<MdRtlFcltVO> resultRgnInvstAtmAll = mdRtlFcltMapper.selectRgnInvstAtmAllGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultRgnInvstAtmAll = fcltMdRtlMapper.selectRgnInvstAtmAllGridList(fcltMdRtlVO);
 		// 지역별 투자금액: 소유자
-		List<MdRtlFcltVO> resultRgnInvstAtmOwnr = mdRtlFcltMapper.selectRgnInvstAtmOwnrGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultRgnInvstAtmOwnr = fcltMdRtlMapper.selectRgnInvstAtmOwnrGridList(fcltMdRtlVO);
 		// 지역별 투자금액: 운영자
-		List<MdRtlFcltVO> resultRgnInvstOperPrsn = mdRtlFcltMapper.selectRgnInvstOperPrsnGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultRgnInvstOperPrsn = fcltMdRtlMapper.selectRgnInvstOperPrsnGridList(fcltMdRtlVO);
 
 		resultMap.put("resultMdRtlOgnzType", resultMdRtlOgnzType);
 		resultMap.put("resultRgnOperPrsn", resultRgnOperPrsn);
@@ -120,35 +120,35 @@ public class MdRtlFcltServiceImpl implements MdRtlFcltService {
 	
 	
 	@Override
-	public HashMap<String,Object> selectGvrngmtSprtMdRtlFcltGridList(MdRtlFcltVO mdRtlFcltVO) throws Exception {
+	public HashMap<String,Object> selectGvrngmtSprtMdRtlFcltGridList(FcltMdRtlVO fcltMdRtlVO) throws Exception {
 		
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		
 		
 		// 정부지원 산지유통시설 현황 - 개소수:산지유통조직 유형
-		List<MdRtlFcltVO> resultBzeatCntMdRtlOgnzType =  mdRtlFcltMapper.selectBzeatCntMdRtlOgnzTypeGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultBzeatCntMdRtlOgnzType =  fcltMdRtlMapper.selectBzeatCntMdRtlOgnzTypeGridList(fcltMdRtlVO);
 		// 정부지원 산지유통시설 현황 - 개소수:소유자 및 운영자
-		List<MdRtlFcltVO> resultBzeatCntOwnrAndOper =  mdRtlFcltMapper.selectBzeatCntOwnrAndOperGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultBzeatCntOwnrAndOper =  fcltMdRtlMapper.selectBzeatCntOwnrAndOperGridList(fcltMdRtlVO);
 		// 정부지원 산지유통시설 현황 - 총 건축면적
-		List<MdRtlFcltVO> resultFcltEqpmntAllBdar =  mdRtlFcltMapper.selectFcltEqpmntAllBdarGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultFcltEqpmntAllBdar =  fcltMdRtlMapper.selectFcltEqpmntAllBdarGridList(fcltMdRtlVO);
 		// 정부지원 산지유통시설 현황 - 물류, 상품화 시설(건축면적)
-		List<MdRtlFcltVO> resultLgstcsGdsFcltBdar =  mdRtlFcltMapper.selectLgstcsGdsFcltBdarGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultLgstcsGdsFcltBdar =  fcltMdRtlMapper.selectLgstcsGdsFcltBdarGridList(fcltMdRtlVO);
 		// 정부지원 산지유통시설 현황 - 저온저장고
-		List<MdRtlFcltVO> resultBzeatCntLwtpStrg =  mdRtlFcltMapper.selectBzeatCntLwtpStrgGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultBzeatCntLwtpStrg =  fcltMdRtlMapper.selectBzeatCntLwtpStrgGridList(fcltMdRtlVO);
 		// 정부지원 산지유통시설 현황 - 예냉시설
-		List<MdRtlFcltVO> resultBzeatCntPrprtnClngFclt =  mdRtlFcltMapper.selectBzeatCntPrprtnClngFcltGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultBzeatCntPrprtnClngFclt =  fcltMdRtlMapper.selectBzeatCntPrprtnClngFcltGridList(fcltMdRtlVO);
 		// 정부지원 산지유통시설 현황 - CA 저장시설
-		List<MdRtlFcltVO> resultBzeatCntStrgFclt =  mdRtlFcltMapper.selectBzeatCntStrgFcltGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultBzeatCntStrgFclt =  fcltMdRtlMapper.selectBzeatCntStrgFcltGridList(fcltMdRtlVO);
 		// 정부지원 산지유통시설 현황 - 선별기, 측정장비 설치 개소 수
-		List<MdRtlFcltVO> resultBzeatCntFcltMsrmtEqpmnt =  mdRtlFcltMapper.selectBzeatCntFcltMsrmtEqpmntGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultBzeatCntFcltMsrmtEqpmnt =  fcltMdRtlMapper.selectBzeatCntFcltMsrmtEqpmntGridList(fcltMdRtlVO);
 		// 정부지원 산지유통시설 현황 - 투자금액:전체
-		List<MdRtlFcltVO> resultBzeatCntInvstAtmAll =  mdRtlFcltMapper.selectBzeatCntInvstAtmAllGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultBzeatCntInvstAtmAll =  fcltMdRtlMapper.selectBzeatCntInvstAtmAllGridList(fcltMdRtlVO);
 		// 정부지원 산지유통시설 현황 - 투자금액:자금 유형
-		List<MdRtlFcltVO> resultBzeatCntInvstAtmFundType =  mdRtlFcltMapper.selectBzeatCntInvstAtmFundTypeGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultBzeatCntInvstAtmFundType =  fcltMdRtlMapper.selectBzeatCntInvstAtmFundTypeGridList(fcltMdRtlVO);
 		// 정부지원 산지유통시설 현황 - 투자금액:소유자
-		List<MdRtlFcltVO> resultBzeatCntInvstAtmOwnr =  mdRtlFcltMapper.selectBzeatCntInvstAtmOwnrGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultBzeatCntInvstAtmOwnr =  fcltMdRtlMapper.selectBzeatCntInvstAtmOwnrGridList(fcltMdRtlVO);
 		// 정부지원 산지유통시설 현황 - 투자금액:운영자
-		List<MdRtlFcltVO> resultBzeatCntInvstOperPrsn =  mdRtlFcltMapper.selectBzeatCntInvstOperPrsnGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultBzeatCntInvstOperPrsn =  fcltMdRtlMapper.selectBzeatCntInvstOperPrsnGridList(fcltMdRtlVO);
 		
 		resultMap.put("resultBzeatCntMdRtlOgnzType", resultBzeatCntMdRtlOgnzType);
 		resultMap.put("resultBzeatCntOwnrAndOper", resultBzeatCntOwnrAndOper);
@@ -168,31 +168,31 @@ public class MdRtlFcltServiceImpl implements MdRtlFcltService {
 	}
 	
 	@Override
-	public HashMap<String,Object> selectGvrngmtSprtMdRtlOgnzTypeGridList(MdRtlFcltVO mdRtlFcltVO) throws Exception {
+	public HashMap<String,Object> selectGvrngmtSprtMdRtlOgnzTypeGridList(FcltMdRtlVO fcltMdRtlVO) throws Exception {
 		
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		
 		
 		// 정부지원산지유통시설지역별현황 - 지역별 개소수 : 산지유통조직 유형
-		List<MdRtlFcltVO> resultGvrngmtSprtMdRtlOgnzType =  mdRtlFcltMapper.selectGvrngmtSprtMdRtlOgnzTypeGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultGvrngmtSprtMdRtlOgnzType =  fcltMdRtlMapper.selectGvrngmtSprtMdRtlOgnzTypeGridList(fcltMdRtlVO);
 		// 정부지원산지유통시설지역별현황 - 지역별 개소수 : 운영자
-		List<MdRtlFcltVO> resultGvrngmtSprtRgnOperPrsn =  mdRtlFcltMapper.selectGvrngmtSprtRgnOperPrsnGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultGvrngmtSprtRgnOperPrsn =  fcltMdRtlMapper.selectGvrngmtSprtRgnOperPrsnGridList(fcltMdRtlVO);
 		// 정부지원산지유통시설지역별현황 - 물류·상품화 시설
-		List<MdRtlFcltVO> resultGvrngmtSprtLgstcsGdsFclt =  mdRtlFcltMapper.selectGvrngmtSprtLgstcsGdsFcltGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultGvrngmtSprtLgstcsGdsFclt =  fcltMdRtlMapper.selectGvrngmtSprtLgstcsGdsFcltGridList(fcltMdRtlVO);
 		// 정부지원산지유통시설지역별현황 - 저온저장고
-		List<MdRtlFcltVO> resultGvrngmtSprtLwtpStrg =  mdRtlFcltMapper.selectGvrngmtSprtLwtpStrgGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultGvrngmtSprtLwtpStrg =  fcltMdRtlMapper.selectGvrngmtSprtLwtpStrgGridList(fcltMdRtlVO);
 		// 정부지원산지유통시설지역별현황 - 예냉시설
-		List<MdRtlFcltVO> resultGvrngmtSprtPrprtnClngFclt =  mdRtlFcltMapper.selectGvrngmtSprtPrprtnClngFcltGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultGvrngmtSprtPrprtnClngFclt =  fcltMdRtlMapper.selectGvrngmtSprtPrprtnClngFcltGridList(fcltMdRtlVO);
 		// 정부지원산지유통시설지역별현황 - CA저장시설
-		List<MdRtlFcltVO> resultGvrngmtSprtStrgFclt =  mdRtlFcltMapper.selectGvrngmtSprtStrgFcltGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultGvrngmtSprtStrgFclt =  fcltMdRtlMapper.selectGvrngmtSprtStrgFcltGridList(fcltMdRtlVO);
 		// 정부지원산지유통시설지역별현황 - 선별기, 특정장비 설치 개소수
-		List<MdRtlFcltVO> resultGvrngmtSprtFcltMsrmtEqpmnt =  mdRtlFcltMapper.selectGvrngmtSprtFcltMsrmtEqpmntGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultGvrngmtSprtFcltMsrmtEqpmnt =  fcltMdRtlMapper.selectGvrngmtSprtFcltMsrmtEqpmntGridList(fcltMdRtlVO);
 		// 정부지원산지유통시설지역별현황 - 지역별 투자금액 전체
-		List<MdRtlFcltVO> resultGvrngmtSprtRgnInvstAtmAll =  mdRtlFcltMapper.selectGvrngmtSprtRgnInvstAtmAllGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultGvrngmtSprtRgnInvstAtmAll =  fcltMdRtlMapper.selectGvrngmtSprtRgnInvstAtmAllGridList(fcltMdRtlVO);
 		// 정부지원산지유통시설지역별현황 - 지역별 투자금액 : 소유자
-		List<MdRtlFcltVO> resultMdInvstAtmOwnr =  mdRtlFcltMapper.selectMdInvstAtmOwnrGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultMdInvstAtmOwnr =  fcltMdRtlMapper.selectMdInvstAtmOwnrGridList(fcltMdRtlVO);
 		// 정부지원산지유통시설지역별현황 - 지역별 투자금액 : 운영자
-		List<MdRtlFcltVO> resultMdInvstAtmOperPrsn =  mdRtlFcltMapper.selectMdInvstAtmOperPrsnGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultMdInvstAtmOperPrsn =  fcltMdRtlMapper.selectMdInvstAtmOperPrsnGridList(fcltMdRtlVO);
 		
 		resultMap.put("resultGvrngmtSprtMdRtlOgnzType", resultGvrngmtSprtMdRtlOgnzType);
 		resultMap.put("resultGvrngmtSprtRgnOperPrsn", resultGvrngmtSprtRgnOperPrsn);
@@ -209,25 +209,25 @@ public class MdRtlFcltServiceImpl implements MdRtlFcltService {
 		
 	}
 	@Override
-	public HashMap<String,Object> selectMdRtlFcltOperPrfmncGridList(MdRtlFcltVO mdRtlFcltVO) throws Exception {
+	public HashMap<String,Object> selectMdRtlFcltOperPrfmncGridList(FcltMdRtlVO fcltMdRtlVO) throws Exception {
 		
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		
 		
 		// 산지유통시설운영실적 - 운영조직 취급실적
-		List<MdRtlFcltVO> resultOperOgnzTrmtPrfmnc =  mdRtlFcltMapper.selectOperOgnzTrmtPrfmncGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultOperOgnzTrmtPrfmnc =  fcltMdRtlMapper.selectOperOgnzTrmtPrfmncGridList(fcltMdRtlVO);
 		// 산지유통시설운영실적 - 운영조직 처리실적
-		List<MdRtlFcltVO> resultOperOgnzPrcsPrfmnc =  mdRtlFcltMapper.selectOperOgnzPrcsPrfmncGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultOperOgnzPrcsPrfmnc =  fcltMdRtlMapper.selectOperOgnzPrcsPrfmncGridList(fcltMdRtlVO);
 		// 산지유통시설운영실적 - 운영조직 평균 취급실적
-		List<MdRtlFcltVO> resultOperOgnzAvgTrmtPrfmnc =  mdRtlFcltMapper.selectOperOgnzAvgTrmtPrfmncGridList(mdRtlFcltVO);
+		List<FcltMdRtlVO> resultOperOgnzAvgTrmtPrfmnc =  fcltMdRtlMapper.selectOperOgnzAvgTrmtPrfmncGridList(fcltMdRtlVO);
 //		// 산지유통시설운영실적 - 지역별 운영조직 취급실적
-//		List<MdRtlFcltVO> resultMdOperOgnzTrmtPrfmnc =  mdRtlFcltMapper.selectMdOperOgnzTrmtPrfmncGridList(mdRtlFcltVO);
+//		List<MdRtlFcltVO> resultMdOperOgnzTrmtPrfmnc =  fcltMdRtlMapper.selectMdOperOgnzTrmtPrfmncGridList(fcltMdRtlVO);
 //		// 산지유통시설운영실적 - 지역별 운영조직 취급실적(평균)
-//		List<MdRtlFcltVO> resultMdOperOgnzTrmtPrfmncAvg =  mdRtlFcltMapper.selectMdOperOgnzTrmtPrfmncAvgGridList(mdRtlFcltVO);
+//		List<MdRtlFcltVO> resultMdOperOgnzTrmtPrfmncAvg =  fcltMdRtlMapper.selectMdOperOgnzTrmtPrfmncAvgGridList(fcltMdRtlVO);
 //		// 산지유통시설운영실적 - 지역별 APC 처리실적
-//		List<MdRtlFcltVO> resultMdApcPrcsPrfmnc =  mdRtlFcltMapper.selectMdApcPrcsPrfmncGridList(mdRtlFcltVO);
+//		List<MdRtlFcltVO> resultMdApcPrcsPrfmnc =  fcltMdRtlMapper.selectMdApcPrcsPrfmncGridList(fcltMdRtlVO);
 //		// 산지유통시설운영실적 - 지역별 APC 처리실적(평균)
-//		List<MdRtlFcltVO> resultMdApcPrcsPrfmncAvg =  mdRtlFcltMapper.selectMdApcPrcsPrfmncAvgGridList(mdRtlFcltVO);
+//		List<MdRtlFcltVO> resultMdApcPrcsPrfmncAvg =  fcltMdRtlMapper.selectMdApcPrcsPrfmncAvgGridList(fcltMdRtlVO);
 		
 		
 		resultMap.put("resultOperOgnzTrmtPrfmnc", resultOperOgnzTrmtPrfmnc);

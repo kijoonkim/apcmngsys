@@ -753,7 +753,7 @@ const fn_createBzeatCntInvstAtmOperPrsnGrid = function() {
 }
 const fn_cellGvrngmtSprtMdRtlFcltGrid = async function() {
 	
-	const postJsonPromise = gfn_postJSON("/fm/fclt/selectGvrngmtSprtMdRtlFcltGridList.do", {s0 : ""});
+	const postJsonPromise = gfn_postJSON("/fm/fclt/selectGvrngmtSprtMdRtlFcltGridList.do", {crtrYn : "2023"});
 	
 	let data = await postJsonPromise;
 	try {
