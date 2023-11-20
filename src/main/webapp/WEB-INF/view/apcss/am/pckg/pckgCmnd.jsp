@@ -113,7 +113,7 @@
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdPckgCmnd" style="height:536px;"></div>
+					<div id="sb-area-grdPckgCmnd" style="height:544px;"></div>
 				</div>
 			</div>
 			<!--[pp] //검색결과 -->

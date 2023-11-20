@@ -204,7 +204,7 @@
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdPckgPrfmnc" style="width:100%;height:200px;"></div>
+					<div id="sb-area-grdPckgPrfmnc" style="width:100%;height:250px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 

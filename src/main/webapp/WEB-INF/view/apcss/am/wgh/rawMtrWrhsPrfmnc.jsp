@@ -177,7 +177,7 @@
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="inptCmndDsctnGridArea" style="height:495px;"></div>
+					<div id="inptCmndDsctnGridArea" style="height:508px;"></div>
 				</div>
 			</div>
 		</div>

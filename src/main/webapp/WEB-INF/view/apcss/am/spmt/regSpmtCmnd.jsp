@@ -117,7 +117,7 @@
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdSpmtCmndTrgtDsctn" style="height:200px;"></div>
+					<div id="sb-area-grdSpmtCmndTrgtDsctn" style="height:201px;"></div>
 				</div>
 				
 				<br>
@@ -192,7 +192,7 @@
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdSpmtCmndDsctn" style="height:200px;"></div>
+					<div id="sb-area-grdSpmtCmndDsctn" style="height:212px;"></div>
 				</div>
 			</div>
 		</div>
