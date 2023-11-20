@@ -64,7 +64,6 @@
 				</div>
 			</div>
 
-			<div></div>
 			<div class="box-body">
 				<!--[APC] START -->			
 					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
@@ -383,10 +382,8 @@
 					</ul>
 				</div>
 
-				<div class="sbt-wrap-body">
-					<div class="sbt-grid">
-						<div id="sb-area-grdRawMtrWrhs" style="height:165px;"></div>
-					</div>
+				<div class="table-responsive tbl_scroll_sm">
+					<div id="sb-area-grdRawMtrWrhs" style="height:165px;"></div>
 				</div>
 			</div>
 		</div>

@@ -106,12 +106,12 @@
 						<li><span>투입대상 내역</span></li>
 					</ul>
 				</div>
-				<div class="sbt-wrap-body">
-					<div class="sbt-grid">
-						<div id="sb-area-grdRawMtrInvntr" style="height:250px;"></div>
-					</div>
+				<div class="table-responsive tbl_scroll_sm">
+					<div id="sb-area-grdRawMtrInvntr" style="height:235px;"></div>
 				</div>
+
 				<br/>
+				
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
@@ -158,11 +158,9 @@
 						<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 					</div>
 				</div>
-                <div class="sbt-wrap-body">
-                    <div class="sbt-grid">
-                        <div id="sb-area-grdSortCmnd" style="height:230px;"></div>
-                    </div>
-               	</div>
+                <div class="table-responsive tbl_scroll_sm">
+                    <div id="sb-area-grdSortCmnd" style="height:230px;"></div>
+                </div>
 			</div>
 		</div>
 	</section>

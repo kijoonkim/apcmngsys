@@ -165,11 +165,10 @@
 						</tr>
 					</tbody>
 				</table>
-				<div class="sbt-wrap-body">
-					<div class="ad_tbl_top2">
-					 	<div class="ad_tbl_toplist_datepk">
-					 		<table class="table table-bordered tbl_fixed">
-					 			<caption>검색 조건 설정</caption>
+				<div class="ad_tbl_top2">
+				 	<div class="ad_tbl_toplist_datepk">
+				 		<table class="table table-bordered tbl_fixed">
+				 			<caption>검색 조건 설정</caption>
 							<colgroup>
 								<col style="width: 91px">
 								<col style="width: 91px">
@@ -200,15 +199,14 @@
 									</td>
 								</tr>
 							</tbody>
-					 		</table>
-						</div>
+				 		</table>
 					</div>
-                    <div class="sbt-grid">
-                        <div id="inptCmndDsctnGridArea" style="height:540px;"></div>
-                    </div>
-               	</div>
+				</div>
+                <div class="table-responsive tbl_scroll_sm">
+                    <div id="inptCmndDsctnGridArea" style="height:540px;"></div>
+                </div>
 			</div>
-				<!--[pp] //검색결과 -->
+			<!--[pp] //검색결과 -->
 		</div>
 	</section>
 	<!-- 사용자 선택 Modal -->

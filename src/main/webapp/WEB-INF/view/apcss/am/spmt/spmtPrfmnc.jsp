@@ -115,7 +115,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-vhclno" name="srch-inp-vhclno" uitype="text" maxlength="8" class="form-control pull-right input-sm"></sbux-input>
 							</td>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input">
 								<sbux-button id="btnSrchVhclNo" name="btnSrchVhclNo" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vhcl" onclick="fn_choiceVhcl"></sbux-button>
 							</td>
 						</tr>
@@ -135,7 +135,7 @@
 									</div>
 								</div>
 							</td>
-							<td colspan="9"></td>
+							<td colspan="10"></td>
 						</tr>
 					</tbody>
 				</table>

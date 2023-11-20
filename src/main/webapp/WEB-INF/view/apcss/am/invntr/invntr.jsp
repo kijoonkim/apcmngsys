@@ -141,7 +141,6 @@
 						</tr>
 
 						<tr>
-
 							<th scope="row" class="th_bg">입고구분</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select
@@ -163,18 +162,16 @@
 				</table>
 
 
-				<div class="sbt-wrap-body">
-					<div class="ad_tbl_toplist">
-							<sbux-button uitype="normal" id="srch-btn-rawmtrInvntrDsctn" name="srch-btn-rawmtrInvntrDsctn" class="btn btn-sm btn-outline-danger" text="원물재고 내역" onclick="fn_sample1()"></sbux-button>
-							<sbux-button uitype="normal" id="srch-btn-sortInvntrDsctn" name="srch-btn-sortInvntrDsctn" class="btn btn-sm btn-outline-danger" text="선별재고 내역" onclick="fn_sample2()"></sbux-button>
-							<sbux-button uitype="normal" id="srch-btn-gdsInvntrDsctn" name="srch-btn-gdsInvntrDsctn" class="btn btn-sm btn-outline-danger" text="상품재고 내역" onclick="fn_sample3()"></sbux-button>
-					</div>
-                    <div class="sbt-grid">
-                        <div id="rawMtrInvntrGridArea" style="height:505px;"></div>
-                        <div id="sortInvntrGridArea" style="height:505px;"></div>
-                        <div id="gdsInvntrGridArea" style="height:505px;"></div>
-                    </div>
-               	</div>
+				<div class="ad_tbl_toplist">
+						<sbux-button uitype="normal" id="srch-btn-rawmtrInvntrDsctn" name="srch-btn-rawmtrInvntrDsctn" class="btn btn-sm btn-outline-danger" text="원물재고 내역" onclick="fn_sample1()"></sbux-button>
+						<sbux-button uitype="normal" id="srch-btn-sortInvntrDsctn" name="srch-btn-sortInvntrDsctn" class="btn btn-sm btn-outline-danger" text="선별재고 내역" onclick="fn_sample2()"></sbux-button>
+						<sbux-button uitype="normal" id="srch-btn-gdsInvntrDsctn" name="srch-btn-gdsInvntrDsctn" class="btn btn-sm btn-outline-danger" text="상품재고 내역" onclick="fn_sample3()"></sbux-button>
+				</div>
+                <div class="table-responsive tbl_scroll_sm">
+                    <div id="rawMtrInvntrGridArea" style="height:505px;"></div>
+                    <div id="sortInvntrGridArea" style="height:505px;"></div>
+                    <div id="gdsInvntrGridArea" style="height:505px;"></div>
+                </div>
 			</div>
 		</div>
 	</section>

@@ -13,15 +13,15 @@
 <body>
 	<section>
 		<div class="box box-solid">
-		<div class="box-header" style="display:flex; justify-content: flex-start;" >
-			<div>
-				<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 출하지시등록 -->
+			<div class="box-header" style="display:flex; justify-content: flex-start;" >
+				<div>
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 출하지시등록 -->
+				</div>
+				<div style="margin-left: auto;">
+					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
+				</div>
 			</div>
-			<div style="margin-left: auto;">
-				<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>
-				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
-			</div>
-		</div>
 			<div class="box-body">
 				<!--[APC] START -->
 					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
@@ -116,8 +116,12 @@
 						<li><span>출하지시대상 내역</span></li>
 					</ul>
 				</div>
-				<div id="sb-area-grdSpmtCmndTrgtDsctn" style="height:200px;"></div>
+				<div class="table-responsive tbl_scroll_sm">
+					<div id="sb-area-grdSpmtCmndTrgtDsctn" style="height:200px;"></div>
+				</div>
+				
 				<br>
+				
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
@@ -151,7 +155,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="dtl-inp-cmndYmd" name="dtl-inp-cmndYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(dtl-inp-cmndYmd)"></sbux-datepicker>
 							</td>
-							<td colspan="2" class="td_input"  style="border-right: hidden;"></td>
+							<td colspan="2" class="td_input"></td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>운송회사</th>
@@ -187,7 +191,9 @@
 						<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 					</div>
 				</div>
-				<div id="sb-area-grdSpmtCmndDsctn" style="height:200px;"></div>
+				<div class="table-responsive tbl_scroll_sm">
+					<div id="sb-area-grdSpmtCmndDsctn" style="height:200px;"></div>
+				</div>
 			</div>
 		</div>
 	</section>

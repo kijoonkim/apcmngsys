@@ -63,7 +63,6 @@
 					></sbux-button>
 				</div>
 			</div>
-			<div></div>
 			<div class="box-body">
 				<!--[APC] START -->			
 					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
@@ -446,23 +445,21 @@
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
 				<div class="ad_tbl_top">
-					<div class="ad_tbl_top">
-						<ul class="ad_tbl_count">
-							<li>
-								<span>계량등록 내역</span>
-								<span style="font-size:12px">(조회건수 <span id="cnt-wgh">0</span>건, 기준일자 : 
-									<sbux-label
-										id="crtr-ymd"
-										name="crtr-ymd"
-										uitype="normal"
-										text=""
-										class="bold"
-										mask = "{'alias': 'yyyy-mm-dd', 'autoUnmask': true}"
-									></sbux-label>)
-								</span>
-							</li>
-						</ul>
-					</div>
+					<ul class="ad_tbl_count">
+						<li>
+							<span>계량등록 내역</span>
+							<span style="font-size:12px">(조회건수 <span id="cnt-wgh">0</span>건, 기준일자 : 
+								<sbux-label
+									id="crtr-ymd"
+									name="crtr-ymd"
+									uitype="normal"
+									text=""
+									class="bold"
+									mask = "{'alias': 'yyyy-mm-dd', 'autoUnmask': true}"
+								></sbux-label>)
+							</span>
+						</li>
+					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
 					<div id="sb-area-grdWghPrfmnc" style="width:100%;height:130px;"></div>

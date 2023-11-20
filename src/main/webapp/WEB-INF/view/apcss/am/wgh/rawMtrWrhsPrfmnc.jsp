@@ -34,8 +34,6 @@
 
 				</div>
 			</div>
-			<div>
-			</div>
 			<div class="box-body">
 				<!--[APC] START -->
 					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
@@ -173,16 +171,14 @@
 						</tr>
 					</tbody>
 				</table>
-					<div class="ad_tbl_top">
-						<ul class="ad_tbl_count">
-							<li><span>원물입고 내역</span></li>
-						</ul>
-					</div>
-					<div class="sbt-wrap-body">
-						<div class="sbt-grid">
-							<div id="inptCmndDsctnGridArea" style="height:495px;"></div>
-						</div>
-					</div>
+				<div class="ad_tbl_top">
+					<ul class="ad_tbl_count">
+						<li><span>원물입고 내역</span></li>
+					</ul>
+				</div>
+				<div class="table-responsive tbl_scroll_sm">
+					<div id="inptCmndDsctnGridArea" style="height:495px;"></div>
+				</div>
 			</div>
 		</div>
 	</section>

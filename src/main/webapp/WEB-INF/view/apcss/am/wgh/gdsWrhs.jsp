@@ -189,11 +189,9 @@
 						</li>
 					</ul>
 				</div>
-                <div class="sbt-wrap-body">
-                    <div class="sbt-grid">
-                        <div id="sb-area-grdGdsWrhs" style="height:500px;"></div>
-                    </div>
-               	</div>
+                <div class="table-responsive tbl_scroll_sm">
+                    <div id="sb-area-grdGdsWrhs" style="height:500px;"></div>
+                </div>
 				<!--[pp] //검색결과 -->
 				
 			</div>
