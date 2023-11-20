@@ -118,9 +118,11 @@
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdSortInvntr" style="width:100%;height:300px;"></div>
+					<div id="sb-area-grdSortInvntr" style="width:100%;height:235px;"></div>
 				</div>
-				<div style="height:5px"></div>
+				
+				<br/>
+
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
@@ -192,13 +194,13 @@
 					</tbody>
 				</table>
 				<!--[pp] //검색결과 -->
-				<div class="ad_tbl_top">
+				<div class="ad_tbl_top2">
 					<ul class="ad_tbl_count">
 						<li><span>포장실적 내역</span></li>
 					</ul>
 					<div class="ad_tbl_toplist">
-						<sbux-button id="btnDwnld" name="btnDwnld" uitype="normal" text="서식받기" class="btn btn-xs btn-outline-danger" onclick="fn_dwnld" ></sbux-button>
-						<sbux-button id="btnUpload" name="btnUpload" uitype="normal" text="올리기" class="btn btn-xs btn-outline-danger" onclick="fn_upload"></sbux-button>
+						<sbux-button id="btnDwnld" name="btnDwnld" uitype="normal" text="서식받기" class="btn btn-sm btn-outline-danger" onclick="fn_dwnld" ></sbux-button>
+						<sbux-button id="btnUpload" name="btnUpload" uitype="normal" text="올리기" class="btn btn-sm btn-outline-danger" onclick="fn_upload"></sbux-button>
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">

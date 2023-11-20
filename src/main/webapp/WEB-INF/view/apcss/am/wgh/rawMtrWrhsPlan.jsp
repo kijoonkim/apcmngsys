@@ -97,7 +97,9 @@
 						</tr>
 					</tbody>
 				</table>
-				<b>&nbsp;</b>
+				
+				<br/>
+				
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
@@ -236,10 +238,8 @@
 						<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 					</div>
 				</div>
-				<div class="sbt-wrap-body">
-					<div class="sbt-grid">
-						<div id="sb-area-wrhsPlan" style="height:405px;"></div>
-					</div>
+				<div class="table-responsive tbl_scroll_sm">
+					<div id="sb-area-wrhsPlan" style="height:405px;"></div>
 				</div>
 			</div>
 		</div>

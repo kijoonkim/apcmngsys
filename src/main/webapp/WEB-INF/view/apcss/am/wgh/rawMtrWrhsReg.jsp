@@ -187,7 +187,6 @@
 									/>
 								</p>
 							</td>
-<!-- 							<td colspan="4">&nbsp;</td> -->
 							<th scope="row" class="th_bg">운송구분</th>
 							<td colspan="3" class="td_input">
 								<p class="ad_input_row">
@@ -385,10 +384,8 @@
 						<sbux-button id="btnUld" name="btnUld" uitype="normal" text="올리기" class="btn btn-sm btn-outline-danger" onclick="fn_uld"></sbux-button>
 					</div>
 				</div>
-				<div class="sbt-wrap-body">
-					<div class="sbt-grid">
-						<div id="sb-area-grdRawMtrWrhs" style="height:410px;"></div>
-					</div>
+				<div class="table-responsive tbl_scroll_sm">
+					<div id="sb-area-grdRawMtrWrhs" style="height:410px;"></div>
 				</div>
 				<!-- <div class="exp-div-excel" style="display: none;width: 2000px;"> none block-->
 				<div class="exp-div-excel" style="display: none;width: 1000px;">

@@ -29,15 +29,15 @@
 <body>
 	<section>
 		<div class="box box-solid">
-		<div class="box-header" style="display:flex; justify-content: flex-start;" >
-			<div>
-				<h3 class="box-title" style="line-height: 30px;"> ▶ ${comMenuVO.menuNm}</h3><!-- 작업자실적등록 -->
-			</div>
+			<div class="box-header" style="display:flex; justify-content: flex-start;" >
+				<div>
+					<h3 class="box-title" style="line-height: 30px;"> ▶ ${comMenuVO.menuNm}</h3><!-- 작업자실적등록 -->
+				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회"class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 				</div>
-		</div>
+			</div>
 			<div class="box-body">
 				<!--[APC] START -->
 					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
@@ -66,7 +66,7 @@
 								<sbux-datepicker id="srch-dtp-prfmncYmd" name="srch-dtp-prfmncYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td colspan="2" style="border-right: hidden;"></td>
-
+	
 							<th scope="row" class="th_bg"><span class="data_required" ></span>작업구분</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select
@@ -82,15 +82,17 @@
 						</tr>
 					</tbody>
 				</table>
-
-
+	
+	
 				<!-- 1번째 그리드-->
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
 						<li><span>작업실적</span></li>
 					</ul>
 				</div>
-				<div id="sb-area-grdPrfmnc" style="height:270px;"></div>
+				<div class="table-responsive tbl_scroll_sm">
+					<div id="sb-area-grdPrfmnc" style="height:270px;"></div>
+				</div>
 				<div class="ad_tbl_top2">
 					<ul class="ad_tbl_count">
 						<li>

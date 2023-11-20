@@ -112,13 +112,11 @@
 						<li><span>지시 내역</span></li>
 					</ul>
 				</div>
-				<div class="sbt-wrap-body">
-					<div class="sbt-grid">
-						<div id="sb-area-grdPckgCmnd" style="height:536px;"></div>
-					</div>
+				<div class="table-responsive tbl_scroll_sm">
+					<div id="sb-area-grdPckgCmnd" style="height:536px;"></div>
 				</div>
 			</div>
-				<!--[pp] //검색결과 -->
+			<!--[pp] //검색결과 -->
 		</div>
 	</section>
 

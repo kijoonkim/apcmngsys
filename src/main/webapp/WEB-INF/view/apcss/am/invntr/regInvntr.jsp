@@ -24,7 +24,6 @@
 <body>
 	<section>
 		<div class="box box-solid">
-
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
 					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 재고정보등록 -->
@@ -151,11 +150,10 @@
 				</table>
 
 
-				<div class="sbt-wrap-body">
-					<div class="ad_tbl_top2 ad_tbl_top3">
-					 	<div class="ad_tbl_toplist_datepk">
-					 		<table class="table table-bordered tbl_fixed">
-					 			<caption>검색 조건 설정</caption>
+				<div class="ad_tbl_top2 ad_tbl_top3">
+				 	<div class="ad_tbl_toplist_datepk">
+				 		<table class="table table-bordered tbl_fixed">
+				 			<caption>검색 조건 설정</caption>
 							<colgroup>
 								<col style="width: 91px">
 								<col style="width: 91px">
@@ -168,9 +166,9 @@
 							</colgroup>
 							<tbody>
 								<tr>
-									<td class="td_input td_input_dtl"><sbux-button uitype="normal" id="srch-btn-rawmtrInvntrDsctn" name="srch-btn-rawmtrInvntrDsctn" class="btn btn-sm btn-outline-danger" text="원물재고 내역" onclick="fn_rawMtrInvntr()"></sbux-button></td>
-									<td class="td_input td_input_dtl"><sbux-button uitype="normal" id="srch-btn-sortInvntrDsctn" name="srch-btn-sortInvntrDsctn" class="btn btn-sm btn-outline-danger" text="선별재고 내역" onclick="fn_sortInvntr()"></sbux-button></td>
-									<td class="td_input td_input_dtl"><sbux-button uitype="normal" id="srch-btn-gdsInvntrDsctn" name="srch-btn-gdsInvntrDsctn" class="btn btn-sm btn-outline-danger" text="상품재고 내역" onclick="fn_gdsInvntr()"></sbux-button></td>
+									<td class="td_input td_input_dtl" style="border-left:hidden"><sbux-button uitype="normal" id="srch-btn-rawmtrInvntrDsctn" name="srch-btn-rawmtrInvntrDsctn" class="btn btn-sm btn-outline-danger" text="원물재고 내역" onclick="fn_rawMtrInvntr()"></sbux-button></td>
+									<td class="td_input td_input_dtl" style="border-left:hidden"><sbux-button uitype="normal" id="srch-btn-sortInvntrDsctn" name="srch-btn-sortInvntrDsctn" class="btn btn-sm btn-outline-danger" text="선별재고 내역" onclick="fn_sortInvntr()"></sbux-button></td>
+									<td class="td_input td_input_dtl" style="border-left:hidden"><sbux-button uitype="normal" id="srch-btn-gdsInvntrDsctn" name="srch-btn-gdsInvntrDsctn" class="btn btn-sm btn-outline-danger" text="상품재고 내역" onclick="fn_gdsInvntr()"></sbux-button></td>
 									<td style="border-left:hidden"></td>
 									<td style="border-left:hidden">
 										<h5 style="float:left; color:black;">재고구분</h5>
@@ -194,56 +192,55 @@
 									</td>
 								</tr>
 							</tbody>
-					 		</table>
-						</div>
+				 		</table>
 					</div>
-					<div class="exp-div-excel" style="display: none;width: 1000px;">
-						<div id="sbexp-area-grdExpRawMtr" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpSort" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpGds" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpItem" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpVrty" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpPrdcr" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpSpcfct" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpGdsGrd" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpWarehouseSe" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpWrhsSeCd" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpGdsSeCd" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpTrsprtSeCd" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpStdGrd" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpStdGrdDtl" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpSpmtPckgUnit" style="height:1px; width: 100%;"></div>
-						<sbux-select id="excel-slt-gdsGrd"
-								name="excel-slt-gdsGrd"
-								uitype="single"
-								unselected-text="전체"
-								class="form-control input-sm"
-								jsondata-ref="jsonExeclComGdsGrd"
-						></sbux-select>
-						<sbux-select id="excel-slt-trsprtSeCd"
-								name="excel-slt-trsprtSeCd"
-								uitype="single"
-								unselected-text="전체"
-								class="form-control input-sm"
-								jsondata-ref="jsonExeclComGdsGrd"
-						></sbux-select>
-						<sbux-select id="excel-slt-spmtPckgUnit"
-								name="excel-slt-spmtPckgUnit"
-								uitype="single"
-								unselected-text="전체"
-								class="form-control input-sm"
-								jsondata-ref="jsonExeclComSpmtPckgUnit"
-						></sbux-select>
-						<jsp:include page="../../am/popup/apcStdGrdSelect.jsp"></jsp:include>
-						<input type="file" id="btnFileUpload" name="btnFileUpload" style="visibility: hidden;" onchange="importExcelData(event)">
-					</div>
-               	</div>
-                    <div class="sbt-grid">
-                        <div id="inptCmndDsctnGridArea" style="height:524px;"></div>
-                    </div>
-               	</div>
-				<!--[pp] //검색결과 -->
-			</div>
+				</div>
+				<div class="exp-div-excel" style="display: none;width: 1000px;">
+					<div id="sbexp-area-grdExpRawMtr" style="height:1px; width: 100%;"></div>
+					<div id="sbexp-area-grdExpSort" style="height:1px; width: 100%;"></div>
+					<div id="sbexp-area-grdExpGds" style="height:1px; width: 100%;"></div>
+					<div id="sbexp-area-grdExpItem" style="height:1px; width: 100%;"></div>
+					<div id="sbexp-area-grdExpVrty" style="height:1px; width: 100%;"></div>
+					<div id="sbexp-area-grdExpPrdcr" style="height:1px; width: 100%;"></div>
+					<div id="sbexp-area-grdExpSpcfct" style="height:1px; width: 100%;"></div>
+					<div id="sbexp-area-grdExpGdsGrd" style="height:1px; width: 100%;"></div>
+					<div id="sbexp-area-grdExpWarehouseSe" style="height:1px; width: 100%;"></div>
+					<div id="sbexp-area-grdExpWrhsSeCd" style="height:1px; width: 100%;"></div>
+					<div id="sbexp-area-grdExpGdsSeCd" style="height:1px; width: 100%;"></div>
+					<div id="sbexp-area-grdExpTrsprtSeCd" style="height:1px; width: 100%;"></div>
+					<div id="sbexp-area-grdExpStdGrd" style="height:1px; width: 100%;"></div>
+					<div id="sbexp-area-grdExpStdGrdDtl" style="height:1px; width: 100%;"></div>
+					<div id="sbexp-area-grdExpSpmtPckgUnit" style="height:1px; width: 100%;"></div>
+					<sbux-select id="excel-slt-gdsGrd"
+							name="excel-slt-gdsGrd"
+							uitype="single"
+							unselected-text="전체"
+							class="form-control input-sm"
+							jsondata-ref="jsonExeclComGdsGrd"
+					></sbux-select>
+					<sbux-select id="excel-slt-trsprtSeCd"
+							name="excel-slt-trsprtSeCd"
+							uitype="single"
+							unselected-text="전체"
+							class="form-control input-sm"
+							jsondata-ref="jsonExeclComGdsGrd"
+					></sbux-select>
+					<sbux-select id="excel-slt-spmtPckgUnit"
+							name="excel-slt-spmtPckgUnit"
+							uitype="single"
+							unselected-text="전체"
+							class="form-control input-sm"
+							jsondata-ref="jsonExeclComSpmtPckgUnit"
+					></sbux-select>
+					<jsp:include page="../../am/popup/apcStdGrdSelect.jsp"></jsp:include>
+					<input type="file" id="btnFileUpload" name="btnFileUpload" style="visibility: hidden;" onchange="importExcelData(event)">
+				</div>
+                <div class="table-responsive tbl_scroll_sm">
+                    <div id="inptCmndDsctnGridArea" style="height:524px;"></div>
+                </div>
+           	</div>
+			<!--[pp] //검색결과 -->
+		</div>
 	</section>
 	<!-- 품종 선택 Modal -->
     <div>

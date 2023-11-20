@@ -20,6 +20,7 @@
 <head>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
+</head>
 <body>
 	<section class="content container-fluid">
 		<div class="box box-solid">
@@ -134,8 +135,8 @@
 					<div id="sb-area-grdClclnUntprc" style="width:100%;height:540px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
-				</div>
 			</div>
+		</div>
 	</section>
 
 </body>

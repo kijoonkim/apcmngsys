@@ -37,8 +37,6 @@
 				</div>
 			</div>
 
-			<div>
-			</div>
 			<div class="box-body">
 				<!--[APC] START -->
 					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
