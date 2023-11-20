@@ -605,11 +605,9 @@
 	 * @function
 	 */
 	const fn_setUsers = function(users) {
-		console.log("users", users);
 		if (gfn_isEmpty(users)) {
 			return;
 		}
-		console.log("111");
 
 		const orgnUsers = [];
 		const allData = grdComAuthUser.getGridDataAll();
@@ -622,7 +620,6 @@
 			let chkData = gfn_getJsonFilter(orgnUsers, "userId", item.userId);
 			if (gfn_isEmpty(chkData)) {
 				// addRow
-				console.log(item);
 				grdComAuthUser.addRow(true, {
 					userId: item.userId,
 					userNm: item.userNm,

@@ -310,13 +310,11 @@
    		  	recordCountPerPage : pageSize
   		});
 
-		console.log('test','test');
         let data = await postJsonPromise;
         newSortInptPrfmncGridData = [];
         sortInptPrfmncGridData = [];
 
   		try {
-			console.log('try','try');
           	/** @type {number} **/
       		let totalRecordCount = 0;
 
@@ -342,15 +340,11 @@
           				rmrk: item.rmrk
   				}
   				jsonComMsgList.push(sortPrfmncInq);
-          		console.log('sortPrfmncInq',sortPrfmncInq);
-          		console.log('jsonComMsgList',jsonComMsgList);
 
   				if (index === 0) {
   					totalRecordCount = item.totalRecordCount;
   				}
   			});
-			console.log('jsonComMsgList',jsonComMsgList);
-			console.log('jsonComMsgList.length',jsonComMsgList.length);
           	if (jsonComMsgList.length > 0) {
           		if(grdComMsgList.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
           			grdComMsgList.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting

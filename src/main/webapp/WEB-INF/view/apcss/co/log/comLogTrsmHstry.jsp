@@ -171,7 +171,6 @@
 		    		let totalRecordCount = 0;
 
 		    		jsonLogTrsmHstry.length = 0;
-		    		console.log(data);
 		        	data.resultList.forEach((item, index) => {
 						const log = {
 							prcsDt			: item.prcsDt,

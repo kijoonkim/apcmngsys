@@ -118,7 +118,6 @@
 				}
 				spmtTrsprtMngGridData.push(Object.assign({}, spmtTrsprt));
 			});
-        	console.log("spmtTrsprtMngGridData", spmtTrsprtMngGridData);
         	grdSpmtTrsprtCo.rebuild();
         	grdSpmtTrsprtCo.addRow(true);
         	grdSpmtTrsprtCo.setCellDisabled(grdSpmtTrsprtCo.getRows() -1, 0, grdSpmtTrsprtCo.getRows() -1, grdSpmtTrsprtCo.getCols() -1, true);

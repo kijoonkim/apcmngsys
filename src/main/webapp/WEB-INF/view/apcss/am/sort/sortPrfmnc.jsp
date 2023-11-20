@@ -559,7 +559,6 @@
   		let fcltCd = SBUxMethod.get("srch-slt-fcltCd");					// 선별기
   		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");	// 창고
   		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");				// 규격
-		console.log("vrtyCd",vrtyCd)
 		const postJsonPromise = gfn_postJSON("/am/sort/selectSortPrfmncList.do", {
 			apcCd: gv_selectedApcCd,
 			inptYmdFrom: inptYmdFrom,

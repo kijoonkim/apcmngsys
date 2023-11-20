@@ -289,8 +289,6 @@
 
     	var rowData = grdMenuTreeList.getRowData(nRow);
 
-    	console.log(rowData);
-
         if (rowData.menuType == "02") {
         	//alert("상위메뉴를 선택하세요.");
         	alert(gfn_getComMsg("W0001", "상위메뉴"));	//	W0001	{0}을/를 선택하세요.
@@ -612,7 +610,6 @@
         }
 
         var rowData = grdMenuTreeList.getRowData(nRow);
-        console.log(rowData);
 
         var sysIdInfo = _.find(jsonComSysId, {value: SBUxMethod.get("srch-slt-sysId")});
         SBUxMethod.set("dtl-input-sysNm", sysIdInfo.text);

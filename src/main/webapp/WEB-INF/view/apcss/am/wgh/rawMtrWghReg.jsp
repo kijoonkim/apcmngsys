@@ -843,9 +843,6 @@
     		//stdGrdList: stdGrd.stdGrdList
     	}
 
-    	console.log("save data");
-    	console.log(rawMtrWgh);
-
     	let postUrl = gfn_isEmpty(wghno) ? "/am/wgh/insertWghPrfmnc.do" : "/am/wgh/updateWghPrfmnc.do";
 
 		const postJsonPromise = gfn_postJSON(postUrl, rawMtrWgh);
@@ -1433,8 +1430,6 @@
 		}
 
 		SBUxMethod.openModal('modal-wrhsPltBx');
-		console.log("jsonWrhsPltBx");
-		console.log(jsonWrhsPltBx);
 		popWrhsPltBx.init(
 				{
 					apcCd: gv_selectedApcCd,
@@ -1451,8 +1446,6 @@
 	 * @description 팔레트/박스 선택 Callback
 	 */
 	const fn_setWrhsPltBx = function(_wrhsPltBx) {
-		console.log("_wrhsPltBx");
-		console.log(_wrhsPltBx);
 
 		if (!gfn_isEmpty(_wrhsPltBx)) {
 			jsonWrhsPltBx = gfn_cloneJson(_wrhsPltBx);

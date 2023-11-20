@@ -444,9 +444,6 @@
         	}
         } catch(e) {
         }
-
-        // 결과 확인 후 재조회
-        console.log("insert result", data);
     }
 
 	/**
@@ -483,9 +480,6 @@
         	}
         } catch(e) {
         }
-
-        // 결과 확인 후 재조회
-        console.log("update result", data);
     }
 
 
@@ -537,9 +531,6 @@
          	}
          } catch(e) {
          }
-
-         // 결과 확인 후 재조회
-         console.log("update result", data);
     }
 
     //상세정보 보기

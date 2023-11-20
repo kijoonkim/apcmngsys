@@ -176,8 +176,6 @@
     		return;
     	}
 
-		console.log(insertList);
-
     	/* const postJsonPromise = gfn_postJSON("/am/wrhs/insertRawMtrWrhsPlanList.do", insertList);
 
 		const data = await postJsonPromise;

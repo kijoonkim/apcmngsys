@@ -348,8 +348,6 @@
 		if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
     		return;
     	}
-
-		console.log(clclnUntprcList);
     	const postJsonPromise = gfn_postJSON("/am/clcln/updateClclnUntprcList.do", clclnUntprcList);
 		const data = await postJsonPromise;
 

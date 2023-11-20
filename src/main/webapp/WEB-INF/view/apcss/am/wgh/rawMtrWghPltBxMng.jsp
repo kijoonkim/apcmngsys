@@ -519,7 +519,6 @@
   					totalRecordCount = item.totalRecordCount;
   				}
   			});
-          	console.log("jsonPltWrhsSpmt", jsonPltWrhsSpmt);
 	      	if (jsonPltWrhsSpmt.length > 0) {
 	      		if(grdPltWrhsSpmt.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
 	      			grdPltWrhsSpmt.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
@@ -627,7 +626,6 @@
     		let nRow = grdRows[i];
     		deleteList.push(jsonPltWrhsSpmt[nRow-1]);
     	}
-		console.log(deleteList);
     	if(grdRows.length == 0){
     		gfn_comAlert("W0003", "삭제");			// W0003	{0}할 대상이 없습니다.
     		return;

@@ -1061,7 +1061,6 @@ let lv_prvMenuId = "";
          		
 			comAuthrtUiList.push(authrtUi);
      	}
-     	console.log(comAuthrtUiList);
      	const authrtId = SBUxMethod.get("ui-inp-authrtId");
      	const menuId = SBUxMethod.get("ui-inp-menuId");
      	
