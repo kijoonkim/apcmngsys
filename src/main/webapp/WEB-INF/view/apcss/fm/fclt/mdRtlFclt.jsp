@@ -16,35 +16,38 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 			
 				<div class="ad_tbl_toplist">
-					<sbux-button id="btnMap" name="btnMap" uitype="normal" text="APC전수조사현황" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-					<sbux-button id="btnMdRtlOgnzNow" name="btnMdRtlOgnzNow" uitype="normal" text="산지유통시설현황" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-					<sbux-button id="btnMdRtlFcltRgnNow" name="btnMdRtlFcltRgnNow" uitype="normal" text="산지유통시설지역별현황" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-					<sbux-button id="btnGvrngmtSprtMdRtlFclt" name="btnGvrngmtSprtMdRtlFclt" uitype="normal" text="정부지원산지유통시설현황" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-					<sbux-button id="btnGvrngmtSprtMdRtlFcltRgn" name="btnGvrngmtSprtMdRtlFcltRgn" uitype="normal" text="정부지원산지유통시설지역별현황" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+					<sbux-button id="btnMap" name="btnMap" uitype="normal" text="APC전수조사" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+					<sbux-button id="btnMdRtlOgnzNow" name="btnMdRtlOgnzNow" uitype="normal" text="산지유통시설" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+					<sbux-button id="btnMdRtlFcltRgnNow" name="btnMdRtlFcltRgnNow" uitype="normal" text="산지유통시설지역별" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+					<sbux-button id="btnGvrngmtSprtMdRtlFclt" name="btnGvrngmtSprtMdRtlFclt" uitype="normal" text="정부지원산지유통시설" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+					<sbux-button id="btnGvrngmtSprtMdRtlFcltRgn" name="btnGvrngmtSprtMdRtlFcltRgn" uitype="normal" text="정부지원산지유통시설지역별" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 					<sbux-button id="btnMdRtlFcltOperPrfmnc" name="btnMdRtlFcltOperPrfmnc" uitype="normal" text="산지유통시설운영실적" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 					<sbux-button id="btnGvrngmtSprtRgnOperPrfmnc" name="btnGvrngmtSprtRgnOperPrfmnc" uitype="normal" text="정부지원지역별운영실적" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 				</div>
-				
-				<table style="border: 0px; margin-bottom: 6px">
-					<tr>
-						<td style="width: 385px; text-align: right; line-height: 32px">
-						<span> 연도 : </span>
-						</td>
-						<td style="padding-left: 10px;">
-					<sbux-select
-						uitype="single"
-						id="srch-slt-crtrYr"
-						name="srch-slt-crtrYr"
-						class="form-control input-sm input-sm-ast"
-						jsondata-ref="jsonCrtrYr"
-						style="width: 200px"
-					/>
-					</td>
-					</tr>
-				</table>
-				
+					
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search()"></sbux-button>
+					<table style="border: 0px; margin-bottom: 6px">
+						<tr>
+							<td style="text-align: right; line-height: 32px">
+							<span> 연도 : </span>
+							</td>
+							<td style="padding-left: 10px; padding-right: 15px;">
+								<sbux-select
+									uitype="single"
+									id="srch-slt-crtrYr"
+									name="srch-slt-crtrYr"
+									class="form-control input-sm input-sm-ast"
+									jsondata-ref="jsonCrtrYr"
+									style="width: 200px"
+								/>
+							</td>
+							<td>
+								<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search()"></sbux-button>
+							</td>
+						</tr>
+					</table>
+				
+					
 				</div>
 			</div>
 			
