@@ -78,12 +78,12 @@
 
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
-			<div class="ad_tbl_top">
-				<ul class="ad_tbl_count">
-					<li><span>사용자 내역</span></li>
-				</ul>
-			</div>
-			<div id="sb-area-grdUserInfoChg" style="height:579px;"></div>
+				<div class="ad_tbl_top">
+					<ul class="ad_tbl_count">
+						<li><span>사용자 내역</span></li>
+					</ul>
+				</div>
+				<div id="sb-area-grdUserInfoChg" style="height:579px;"></div>
 			</div>
 		</div>
 </section>

@@ -42,7 +42,7 @@
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 4%">
+						<col style="width: 7%">
 						<col style="width: 6%">
 						<col style="width: 6%">
 						<col style="width: 3%">
@@ -59,43 +59,43 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<td  class="td_input" style="border-right:hidden;" >
+							<td class="td_input" style="border-right:hidden;" >
 								<sbux-radio id="selectType" name="selectType" uitype="normal" jsondata-ref="jsonSelectType" text-right-padding="10px"></sbux-radio>
 							</td>
-							<td colspan="3" style="border-right:hidden;">
-								<sbux-input id="srchKeyword" name="srchKeyword" uitype="text" onkeyenter="fn_KeyEnter()" style="width:200px" placeholder="코드 또는 코드명" ></sbux-input>
+							<td colspan="3" class="td_input" style="border-right:hidden;">
+								<sbux-input id="srchKeyword" name="srchKeyword" uitype="text" class="form-control input-sm" onkeyenter="fn_KeyEnter()" style="width:200px" placeholder="코드 또는 코드명" ></sbux-input>
 							</td>
 						</tr>
 					</tbody>
 				</table>
-				<br>
 				<div class="row">
 					<div class="col-sm-6">
-						<div class="ad_tbl_top">
+						<div class="ad_tbl_top2">
 							<ul class="ad_tbl_count">
-								<li><span>코드목록</span></li>
-								<li><span style="font-size: x-small; color:black;">조회건수&nbsp;&nbsp;<span id="listCount" style="color:black;"></span>건</span></li>
+								<li>
+									<span>코드목록</span>
+									<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+								</li>
 							</ul>
 						</div>
 						<div>
-							<div id="comCdGridArea" style="height:508px; width: 100%;"></div>
+							<div id="comCdGridArea" style="height:613px; width:100%;"></div>
 						</div>
 					</div>
 					<div class="col-sm-6">
-						<div class="ad_tbl_top">
+						<div class="ad_tbl_top2">
 							<ul class="ad_tbl_count">
 								<li><span>상세코드목록</span></li>
 							</ul>
 							<div class="ad_tbl_toplist">
-								<sbux-button id="btn_add" name="btn_add" uitype="normal" text="행추가" class="btn btn-xs btn-outline-danger" onclick="fn_addRow" ></sbux-button>&nbsp;
-								<sbux-button id="btn_del" name="btn_del" uitype="normal" text="행삭제" class="btn btn-xs btn-outline-danger" onclick="fn_deleteRow"></sbux-button>
+								<sbux-button id="btn_add" name="btn_add" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRow" ></sbux-button>&nbsp;
+								<sbux-button id="btn_del" name="btn_del" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRow"></sbux-button>
 							</div>
 						</div>
 						<div>
-							<div id="comCdDtlGridArea" style="height:508px; width: 100%;"></div>
+							<div id="comCdDtlGridArea" style="height:613px; width:100%;"></div>
 						</div>
 					</div>
-					<b>&nbsp;</b>
 				</div>
                 <!--Button 영역-->
                 <div class="sbt-search-button" style="text-align:right;">

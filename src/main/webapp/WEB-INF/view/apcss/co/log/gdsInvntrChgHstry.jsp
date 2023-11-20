@@ -44,7 +44,7 @@
 			<sbux-button id="btnGdsInvntrChgHstry7" name="btnGdsInvntrChgHstry" uitype="normal" text="상품재고변경이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 		</div>
 		<div class="table-responsive tbl_scroll_sm">
-			<div id="sb-area-gdsInvntrChgHstry" style="height:590px;"></div>
+			<div id="sb-area-gdsInvntrChgHstry" style="height:613px;"></div>
 		</div>
 	</section>
 </body>

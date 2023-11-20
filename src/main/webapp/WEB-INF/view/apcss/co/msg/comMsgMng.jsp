@@ -94,17 +94,18 @@
 						</tr>
 					</tbody>
 				</table>
-				<br>
 				<div class="row">
 					<div class="col-sm-6">
 						<div class="ad_tbl_top">
 							<ul class="ad_tbl_count">
-								<li><span>코드목록</span></li>
-								<li><span style="font-size: x-small; color:black;">조회건수&nbsp;&nbsp;<span id="listCount" style="color:black;"></span>건</span></li>
+								<li>
+									<span>코드목록</span>
+									<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+								</li>
 							</ul>
 						</div>
 						<div>
-							<div id="sb-area-grdComMsg" style="height:508px; width: 100%;"></div>
+							<div id="sb-area-grdComMsg" style="height:616px; width:100%;"></div>
 						</div>
 					</div>
 
