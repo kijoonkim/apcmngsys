@@ -102,7 +102,6 @@ public class SlsPrfmncController extends BaseController {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
-		int savedCnt = 0;
 		try {
 
 			for (SlsPrfmncVO slsPrfmncVO : slsPrfmncList) {
@@ -113,14 +112,12 @@ public class SlsPrfmncController extends BaseController {
 				slsPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
 
-			savedCnt = slsPrfmncService.saveSlsPrfmncCrtList(slsPrfmncList);
+			resultMap = slsPrfmncService.saveSlsPrfmncCrtList(slsPrfmncList);
 
 		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-
-		resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
-
 		return getSuccessResponseEntity(resultMap);
 	}
 
@@ -130,7 +127,6 @@ public class SlsPrfmncController extends BaseController {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
-		int deletedCnt = 0;
 		try {
 
 			for (SlsPrfmncVO slsPrfmncVO : slsPrfmncList) {
@@ -141,14 +137,12 @@ public class SlsPrfmncController extends BaseController {
 				slsPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
 
-			deletedCnt = slsPrfmncService.deleteSlsPrfmncCrtList(slsPrfmncList);
+			resultMap = slsPrfmncService.deleteSlsPrfmncCrtList(slsPrfmncList);
 
 		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-
-		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
-
 		return getSuccessResponseEntity(resultMap);
 	}
 
