@@ -24,7 +24,25 @@
 					<sbux-button id="btnMdRtlFcltOperPrfmnc" name="btnMdRtlFcltOperPrfmnc" uitype="normal" text="산지유통시설운영실적" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 					<sbux-button id="btnGvrngmtSprtRgnOperPrfmnc" name="btnGvrngmtSprtRgnOperPrfmnc" uitype="normal" text="정부지원지역별운영실적" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 				</div>
-			
+				
+				<table style="border: 0px; margin-bottom: 6px">
+					<tr>
+						<td style="width: 385px; text-align: right; line-height: 32px">
+						<span> 연도 : </span>
+						</td>
+						<td style="padding-left: 10px;">
+					<sbux-select
+						uitype="single"
+						id="srch-slt-crtrYr"
+						name="srch-slt-crtrYr"
+						class="form-control input-sm input-sm-ast"
+						jsondata-ref="jsonCrtrYr"
+						style="width: 200px"
+					/>
+					</td>
+					</tr>
+				</table>
+				
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search()"></sbux-button>
 				</div>
@@ -88,6 +106,8 @@
 	});
 	
 	window.addEventListener('DOMContentLoaded', function(e) {
+		fn_initSBSelect();
+		console.log('jsonCrtrYr : ',jsonCrtrYr);
 		fn_search();
 	})
 	
@@ -109,5 +129,14 @@
 // 			tabLogMap.search();
 		}
     }
+	
+	var jsonCrtrYr = [];	// 기준년도 검색
+	
+	const fn_initSBSelect = async function() {
+		let result = await Promise.all([
+			gfn_setCrtrYr('srch-slt-crtrYr', jsonCrtrYr, gv_selectedApcCd)		// 기준년도 목록
+		]);
+	}
+	
 </script>
 </html>

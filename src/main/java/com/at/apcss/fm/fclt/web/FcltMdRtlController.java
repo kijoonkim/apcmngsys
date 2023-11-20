@@ -38,6 +38,24 @@ public class FcltMdRtlController extends BaseController {
 	// APC전수조사 대시보드
 	@Resource(name= "fcltMdRtlService")
 	private FcltMdRtlService fcltMdRtlService;
+	
+	// 기준년도 목록 조회
+	@PostMapping(value = "/am/fclt/crtrYr", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectCrtrYnList(@RequestBody FcltMdRtlVO fcltMdRtlVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<FcltMdRtlVO> resultList = new ArrayList<>();
+		
+		try {
+			resultList = fcltMdRtlService.selectCrtrYnList(fcltMdRtlVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 
 	// APC현황
 	@PostMapping(value = "/fm/fclt/selectMapSttn.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
