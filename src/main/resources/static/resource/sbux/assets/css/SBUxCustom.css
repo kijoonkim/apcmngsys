@@ -71,3 +71,7 @@ select.form-control.input-sm.inpt_data_reqed {
 	min-height:780px;
 	border:0px;
 }
+.sbmaps-panel text{
+	font-size : 20px !important;
+	fill : black !important;
+}

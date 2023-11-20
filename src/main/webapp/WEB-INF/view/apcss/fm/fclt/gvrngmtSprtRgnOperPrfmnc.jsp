@@ -182,10 +182,10 @@ const fn_createGvrngmtSprtOperOgnzTrmtPrfmncGrid = function() {
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.columns = [
     	{caption : ["구분","구분"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["총취급액","총취급액 "], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["총취급액","평균취급액"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["조직화취급액","조직화취급액 "], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["조직화취급액","평균조직화취급액"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'}
+    	{caption : ["총취급액","총취급액 "], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
+    	{caption : ["총취급액","평균취급액"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
+    	{caption : ["조직화취급액","조직화취급액 "], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
+    	{caption : ["조직화취급액","평균조직화취급액"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'}
     ];
     grdGvrngmtSprtOperOgnzTrmtPrfmnc = _SBGrid.create(SBGridProperties);
 }
@@ -200,10 +200,10 @@ const fn_createMdRtlFcltPrcsPrfmncGrid = function() {
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.columns = [
     	{caption : ["구분","구분"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["APC취급액","APC취급액"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["일반취급액","일반취급액"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["조직화취급액","공동선별(수탁) "], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["조직화취급액","계약재배(매취)"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'}
+    	{caption : ["APC취급액","APC취급액"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
+    	{caption : ["일반취급액","일반취급액"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
+    	{caption : ["조직화취급액","공동선별(수탁) "], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
+    	{caption : ["조직화취급액","계약재배(매취)"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'}
     ];
     grdMdRtlFcltPrcsPrfmnc = _SBGrid.create(SBGridProperties);
 }
@@ -218,10 +218,10 @@ const fn_createMdRtlFcltPrcsPrfmncAvgGrid = function() {
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.columns = [
     	{caption : ["구분","구분"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["APC취급액","APC취급액"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["일반취급액","일반취급액"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["조직화취급액","공동선별(수탁)"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["조직화취급액","계약재배(매취)"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'}
+    	{caption : ["APC취급액","APC취급액"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
+    	{caption : ["일반취급액","일반취급액"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
+    	{caption : ["조직화취급액","공동선별(수탁)"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
+    	{caption : ["조직화취급액","계약재배(매취)"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'}
     ];
     grdMdRtlFcltPrcsPrfmncAvg = _SBGrid.create(SBGridProperties);
 }
@@ -236,12 +236,12 @@ const fn_createRgnOperOgnzTrmtPrfmncGrid = function() {
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.columns = [
     	{caption : ["구분","구분"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["총취급액","농협"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["총취급액","농업법인"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["총취급액","계"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["조직화취급액","농협"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["조직화취급액","농업법인"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["조직화취급액","계"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'}
+    	{caption : ["총취급액","농협"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
+    	{caption : ["총취급액","농업법인"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
+    	{caption : ["총취급액","계"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
+    	{caption : ["조직화취급액","농협"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
+    	{caption : ["조직화취급액","농업법인"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
+    	{caption : ["조직화취급액","계"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'}
     ];
     grdRgnOperOgnzTrmtPrfmnc = _SBGrid.create(SBGridProperties);
 }
@@ -256,12 +256,12 @@ const fn_createRgnOperOgnzTrmtPrfmncAvgGrid = function() {
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.columns = [
     	{caption : ["구분","구분"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["평균취급액","농협"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["평균취급액","농업법인"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["평균취급액","전체"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["평균조직화금액","농협"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["평균조직화금액","농업법인"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["평균조직화금액","전체"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'}
+    	{caption : ["평균취급액","농협"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
+    	{caption : ["평균취급액","농업법인"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
+    	{caption : ["평균취급액","전체"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
+    	{caption : ["평균조직화금액","농협"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
+    	{caption : ["평균조직화금액","농업법인"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
+    	{caption : ["평균조직화금액","전체"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'}
     ];
     grdRgnOperOgnzTrmtPrfmncAvg = _SBGrid.create(SBGridProperties);
 }
@@ -276,12 +276,12 @@ const fn_createRgnOperOgnzApcPrcsPrfmncGrid = function() {
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.columns = [
     	{caption : ["구분","구분"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["총취급액","농협"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["총취급액","농업법인"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["총취급액","계"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["조직화취급액","농협"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["조직화취급액","농업법인"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["조직화취급액","계"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'}
+    	{caption : ["총취급액","농협"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
+    	{caption : ["총취급액","농업법인"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
+    	{caption : ["총취급액","계"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
+    	{caption : ["조직화취급액","농협"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
+    	{caption : ["조직화취급액","농업법인"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
+    	{caption : ["조직화취급액","계"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'}
     ];
     grdRgnOperOgnzApcPrcsPrfmnc = _SBGrid.create(SBGridProperties);
 }
@@ -296,12 +296,12 @@ const fn_createRgnOperOgnzApcPrcsPrfmncAvgGrid = function() {
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.columns = [
     	{caption : ["구분","구분"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["평균취급액","농협"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["평균취급액","농업법인"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["평균취급액","전체"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["평균조직화금액","농협"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["평균조직화금액","농업법인"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["평균조직화금액","전체"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'}
+    	{caption : ["평균취급액","농협"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
+    	{caption : ["평균취급액","농업법인"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
+    	{caption : ["평균취급액","전체"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
+    	{caption : ["평균조직화금액","농협"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
+    	{caption : ["평균조직화금액","농업법인"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
+    	{caption : ["평균조직화금액","전체"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'}
     ];
     grdRgnOperOgnzApcPrcsPrfmncAvg = _SBGrid.create(SBGridProperties);
 }
