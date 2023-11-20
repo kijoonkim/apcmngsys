@@ -20,8 +20,13 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-button id="btn-srch-input-outordrInq" name="btn-srch-input-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
+					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchFcltList"></sbux-button>
+					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+					<!--
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchFcltList"></sbux-button>
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
+					-->
 				</div>
 			</div>
 			<div class="box-body">
@@ -31,23 +36,130 @@
 
 					<tbody>
 						<tr>
-							<th scope="row">생산유통통합조직</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-apcCd2" name="srch-inp-apcCd2" uitype="hidden" ></sbux-input>
-								<sbux-input id="srch-inp-apcNm2" name="srch-inp-apcNm2" uitype="text" class="form-control input-sm" placeholder="" readonly></sbux-input>
+							<th scope="row" class="th_bg" >신청년도</th>
+							<td colspan="3" class="td_input" style="border-right:hidden;" >
+								<sbux-select
+									id="srch-input-year"
+									name="srch-input-year"
+									uitype="single"
+									jsondata-ref="jsonDSON"
+									unselected-text="전체"
+									class="form-control input-sm"
+									onchange="fn_onChangeSrchItemCd(this)"
+								></sbux-select>
 							</td>
-							<td>
-								<sbux-button id="srch-btn-apc2" name="srch-btn-apc2" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-invstmntSpmt" onclick="fn_choiceInvstmntSpmt" />
+							<td style="border-right: hidden;"></td>
+							<th scope="row" class="th_bg" >관할기관</th>
+							<td colspan="3" class="td_input" style="border-right:hidden;" >
+								<sbux-select
+									id="srch-input-cmptnInst"
+									name="srch-input-cmptnInst"
+									uitype="single"
+									jsondata-ref="jsonDSON"
+									unselected-text="전체"
+									class="form-control input-sm"
+									onchange="fn_onChangeSrchItemCd(this)"
+								></sbux-select>
 							</td>
-							<th class="th_bg">전문품목</th>
-							<td class="td_input" style="border-right:hidden;">
-							    	<sbux-input id="srch-inp-itemCd1" name="srch-inp-itemCd1" uitype="hidden" class="form-control input-sm" placeholder="" readonly></sbux-input>
-									<sbux-input id="srch-inp-itemNm1" name="srch-inp-itemNm1" uitype="text" class="form-control input-sm" placeholder="" readonly></sbux-input>
+							<td style="border-right: hidden;"></td>
+							<th colspan="2" scope="row" class="th_bg" >시도</th>
+							<td colspan="2" class="td_input" style="border-right:hidden;">
+								<sbux-select
+									id="srch-input-ctpv"
+									name="srch-input-ctpv"
+									uitype="single"
+									jsondata-ref="jsonDSFA"
+									unselected-text="전체"
+									class="form-control input-sm"
+									onchange="fn_onChangeSrchItemCd(this)"
+								></sbux-select>
 							</td>
-							<td>
-									<sbux-button id="srch-btn-item1" name="srch-btn-item1" uitype="modal" target-id="modal-itemSelect" onclick="fn_modalItemSelect(1)" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+							<td colspan="2" class="td_input">
 							</td>
-							<td colspan="2" style="border-left: hidden;"></td>
+						</tr>
+						<tr>
+							<th scope="row" class="th_bg">법인구분</th>
+							<td colspan="3" class="td_input" style="border-right:hidden;">
+								<sbux-select
+									id="srch-input-corpSeCd"
+									name="srch-input-corpSeCd"
+									uitype="single"
+									jsondata-ref="jsonDSA"
+									unselected-text="전체"
+									class="form-control input-sm"
+									onchange="fn_onChangeSrchItemCd(this)"
+								></sbux-select>
+							</td>
+							<td class="td_input" style="border-right: hidden;" >
+							</td>
+							<th scope="row" class="th_bg">법인형태</th>
+							<td colspan="3" class="td_input" style="border-right:hidden;">
+									<sbux-select
+									id="srch-input-corpDtlSeCd"
+									name="srch-input-corpDtlSeCd"
+									uitype="single"
+									jsondata-ref="jsonDSA"
+									unselected-text="전체"
+									class="form-control input-sm"
+									onchange="fn_onChangeSrchItemCd(this)"
+								></sbux-select>
+							</td>
+							<td class="td_input" style="border-right: hidden;" >
+							</td>
+							<th colspan="2" scope="row" class="th_bg">통합조직여부</th>
+							<td colspan="2" class="td_input" style="border-right: hidden;">
+								<sbux-select
+									id="srch-input-ii"
+									name="srch-input-ii"
+									uitype="single"
+									jsondata-ref="jsonDSA"
+									unselected-text="전체"
+									class="form-control input-sm"
+									onchange="fn_onChangeSrchItemCd(this)"
+								></sbux-select>
+							</td>
+							<td colspan="2" class="td_input">
+							</td>
+						</tr>
+						<tr>
+							<th scope="row" class="th_bg">신청대상구분</th>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
+								<sbux-input
+									uitype="text"
+									id="srch-input-jj"
+									name="srch-input-jj"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+							<td class="td_input"  style="border-right: hidden;">
+							</td>
+							<th scope="row" class="th_bg">사업자번호</th>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
+								<sbux-select
+									id="srch-input-brno"
+									name="srch-input-brno"
+									uitype="single"
+									jsondata-ref="jsonDSA"
+									unselected-text="전체"
+									class="form-control input-sm"
+									onchange="fn_onChangeSrchItemCd(this)"
+								></sbux-select>
+							</td>
+							<td class="td_input">
+							</td>
+							<th colspan="2" scope="row" class="th_bg">법인명</th>
+							<td colspan="2" class="td_input" style="border-right:hidden;" >
+								<sbux-input
+									uitype="text"
+									id="srch-input-corpNm"
+									name="srch-input-corpNm"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+							<td colspan="2" class="td_input">
+
 						</tr>
 
 					</tbody>
@@ -59,62 +171,361 @@
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdInvShipOgnReqMng" style="height:350px; width: 100%;"></div>
 				</div>
+				<br>
+				<br>
+				<div>
+				>출자출하조직 조회
+				</div>
+				<div class="ad_section_top">
+					<!-- SBGrid를 호출합니다. -->
+					<div id="sb-area-grdInvShipOgnReqMng01" style="height:350px; width: 100%;"></div>
+				</div>
+				<br>
+				<br>
+				<table class="table table-bordered tbl_fixed">
+					<caption>출자출하조직 등록 및 신청</caption>
+					<colgroup>
+						<col style="width: 5%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+
+						<col style="width: 6%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+					</colgroup>
+					<tbody>
+						<tr>
+							<th rowspan="5" scope="row" class="th_bg th_border_right">법인형태</th>
+							<th colspan="2" scope="row" class="th_bg th_border_right">법인등록번호</th>
+							<th colspan="4" scope="row" class="th_bg th_border_right">사업자번호</th>
+							<th colspan="2" scope="row" class="th_bg th_border_right">업체명</th>
+							<th colspan="2" scope="row" class="th_bg th_border_right">법인구분</th>
+							<th colspan="2" scope="row" class="th_bg th_border_right">법인형태</th>
+							<th colspan="2" scope="row" class="th_bg">법인설립일</th>
+						</tr>
+						<tr>
+							<!-- 법인등록번호 -->
+							<td colspan="2" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-12"
+									name="dtl-input-12"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+							</td>
+							<!-- 사업자번호 -->
+							<td colspan="4" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-12"
+									name="dtl-input-12"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+							</td>
+							<!-- 업체명 -->
+							<td colspan="2" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-12"
+									name="dtl-input-12"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+							</td>
+							<!-- 법인구분 -->
+							<td colspan="2" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-12"
+									name="dtl-input-12"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+							</td>
+							<!-- 법인형태 -->
+							<td colspan="2" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-12"
+									name="dtl-input-12"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+							</td>
+							<!-- 법인설립일 -->
+							<td colspan="2" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-12"
+									name="dtl-input-12"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+							</td>
+						</tr>
+						<tr>
+							<th colspan="2" rowspan="2" scope="row" class="th_bg th_border_right">출자자수</th>
+							<th colspan="1" rowspan="2" scope="row" class="th_bg th_border_right">출자자중<br>농업인 수</th>
+							<th colspan="2" rowspan="2" scope="row" class="th_bg th_border_right">출자금액<br>(천원)</th>
+							<th colspan="8" scope="row" class="th_bg th_border_right">출자금액(천원)</th>
+							<th rowspan="2" scope="row" class="th_bg th_border_left">농업인출<br>자지분율</th>
+						</tr>
+						<tr>
+							<th colspan="2" scope="row" class="th_bg th_border_right">농업인</th>
+							<th colspan="2" scope="row" class="th_bg th_border_right">생산자단체</th>
+							<th colspan="2" scope="row" class="th_bg th_border_right">지자체</th>
+							<th colspan="2" scope="row" class="th_bg th_border_right">기타</th>
+						</tr>
+						<tr>
+							<!-- 출자자수 -->
+							<td colspan="2" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-12"
+									name="dtl-input-12"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+							</td>
+							<!-- 출자자중 농업인 수 -->
+							<td colspan="1" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-12"
+									name="dtl-input-12"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+							</td>
+							<!-- 출자금액 -->
+							<td colspan="2" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-12"
+									name="dtl-input-12"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+							</td>
+							<!-- 농업인 -->
+							<td colspan="2" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-12"
+									name="dtl-input-12"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+							</td>
+							<!-- 생산자단체 -->
+							<td colspan="2" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-12"
+									name="dtl-input-12"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+							</td>
+							<!-- 지자체 -->
+							<td colspan="2" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-12"
+									name="dtl-input-12"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+							</td>
+							<!-- 기타 -->
+							<td colspan="2" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-12"
+									name="dtl-input-12"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+							</td>
+							<!-- 농업인출 자지분율 -->
+							<td class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-12"
+									name="dtl-input-12"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+							</td>
+						</tr>
+						<tr>
+							<th colspan="5" scope="row" class="th_bg th_border_right">대표자명</th>
+							<th colspan="5" scope="row" class="th_bg th_border_right">전화번호</th>
+							<th colspan="5" scope="row" class="th_bg">팩스번호</th>
+						</tr>
+						<tr>
+							<!-- 대표자명 -->
+							<td colspan="5" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-12"
+									name="dtl-input-12"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+							</td>
+							<!-- 전화번호 -->
+							<td colspan="5" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-12"
+									name="dtl-input-12"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+							</td>
+							<!-- 팩스번호 -->
+							<td colspan="5" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-12"
+									name="dtl-input-12"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<br>
+				<div>
+				>산지유통활성화 지원 자금 신청현황
+				기존 보유금액 등을 감안하여 신규(또는 추가)로 필요한 금액 입력.
+				</div>
+
+				<table class="table table-bordered tbl_fixed" style="border: none">
+					<caption>산지유통활성화 지원 자금 신청현황</caption>
+					<colgroup>
+						<col style="width: 5%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+
+						<col style="width: 6%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+					</colgroup>
+					<tbody>
+						<tr>
+							<th colspan="3" scope="row" class="th_bg th_border_right">연도</th>
+							<th colspan="4" scope="row" class="th_bg">NH(농협) 자금 신청액</th>
+						</tr>
+						<tr>
+							<th colspan="3" scope="row" class="th_bg">2024 자금 신청액</th>
+							<td colspan="4" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-12"
+									name="dtl-input-12"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+							<td colspan="8" style="border: none"></td>
+						</tr>
+					</tbody>
+				</table>
+				<br>
+				<div>
+				*신청대상구분
+				</div>
+				<table class="table table-bordered tbl_fixed" style="border: none">
+					<caption>신청대상구분</caption>
+					<colgroup>
+						<col style="width: 5%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+
+						<col style="width: 6%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+					</colgroup>
+					<tbody>
+						<tr>
+							<th colspan="3" scope="row" class="th_bg">신청대상구분</th>
+							<td colspan="4" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-12"
+									name="dtl-input-12"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+							<td colspan="8" style="border: none"></td>
+						</tr>
+					</tbody>
+				</table>
+				<div>
+				*신청대상구분은 aT본사에서만 이용하는 란입니다.
+				</div>
 			</div>
 		</div>
 	</section>
-
-    <!-- 통합조직,출자출하조직 선택 Modal -->
-    <!-- 2023 09 22 ljw 통합조직 출자출하조직 리스트 팝업 생성 -->
-    <div>
-        <sbux-modal
-        	id="modal-invstmntSpmt"
-        	name="modal-invstmntSpmt"
-        	uitype="middle"
-        	header-title="통합조직,출자출하조직 선택"
-        	body-html-id="body-modal-invstmntSpmt"
-        	footer-is-close-button="false"
-        	style="width:1000px"
-       	></sbux-modal>
-    </div>
-    <div id="body-modal-invstmntSpmt">
-<%--     	<jsp:include page="../popup/InvstmntSpmtPopup.jsp"></jsp:include> --%>
-    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/InvstmntSpmtPopup.jsp"></jsp:include>
-    </div>
-
-
-    <!-- 품목 선택 Modal -->
-    <div>
-        <sbux-modal id="modal-itemSelect" name="modal-itemSelect" uitype="middle" header-title="품목 선택" body-html-id="body-modal-itemSelect" footer-is-close-button="false" style="width:600px"></sbux-modal>
-    </div>
-    <div id="body-modal-itemSelect">
-    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/ItemSelectPopup.jsp"></jsp:include>
-    </div>
 
 </body>
 <script type="text/javascript">
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_init();
-		/*
-		gfn_setComCdSBSelect(
-				'dtl-slt-frstApprv',
-				jsonDSFA,
-			'IOPD_COFM_CD');
-
-		gfn_setComCdSBSelect(
-				'dtl-slt-scndApprv',
-				jsonDSSA,
-			'IOPD_SED_COFM_CD');
-
-		gfn_setComCdSBSelect(
-				'dtl-slt-orgNm',
-				jsonDSON,
-			'IOPD_CMPTNT_ORG');
-
-		gfn_setComCdSBSelect(
-				'dtl-slt-athrt',
-				jsonDSA,
-			'IOPD_ATHRT'); */
 
 		const elements = document.querySelectorAll(".srch-keyup-area");
 
@@ -130,39 +541,14 @@
 		}
 	})
 
-	/**
-	 * 조회 조건 select combo 설정
-	 */
-	const fn_initSBSelect = async function() {
-		// 검색 SB select
-		let rst = await Promise.all([
 
-			gfn_setComCdSBSelect('dtl-slt-warehouseSeCd', 	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_selectedApcCd),			// 창고
-		 	gfn_setApcItemSBSelect('dtl-slt-itemCd', 		jsonApcItem, gv_selectedApcCd),	// 품목
-			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', 		jsonApcVrty, gv_selectedApcCd),	// 품종
-			gfn_setComCdSBSelect('dtl-rdo-gdsSeCd', 		jsonComGdsSeCd,  	'GDS_SE_CD', gv_selectedApcCd), 		// 상품구분 등록
-		]);
-
-		SBUxMethod.set("dtl-rdo-gdsSeCd", '1');
-	}
-
-
-	//설비 등록
 	var jsonInvShipOgnReqMng = []; // 그리드의 참조 데이터 주소 선언
-	var jsonComFcltGubun = [];
-
-	const fn_initSBSelectFclt = async function() {
-
-		let rst = await Promise.all([
-			gfn_setComCdSBSelect('grdInvShipOgnReqMng', 		jsonComFcltGubun, 	'FCLT_GUBUN') 		// 설비구분
-		])
-
-	}
-
+	var grdInvShipOgnReqMng;
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
 		fn_fcltMngCreateGrid();
+		fn_fcltMngCreateGrid01();
 	}
 
 	/* Grid 화면 그리기 기능*/
@@ -170,7 +556,7 @@
 
 
 
-		SBUxMethod.set("fclt-inp-apcNm", SBUxMethod.get("inp-apcNm"));
+		//SBUxMethod.set("fclt-inp-apcNm", SBUxMethod.get("inp-apcNm"));
 
 		let SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdInvShipOgnReqMng';
@@ -181,44 +567,15 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	    	{caption: ["일련번호"], 		ref: 'testNo',   	type:'input',  hidden : false},
-	    	{caption: ["구분"], 	ref: 'aa',   	type:'combo',  width:'100px',    style:'text-align:center;',
-				typeinfo : {ref:'jsonComFcltGubun', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
-// 	        {caption: ["사업자등록번호"], 	ref: 'bb',   type:'input',  width:'250px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
-	        {caption: ["통합조직"], 	ref: 'ii',   	type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["사업자등록번호"], 	ref: 'iiCode',   	type:'input',  width:'80px',    style:'text-align:center' ,  editable : false},
-	        {caption: ["전문품목"], 		ref: 'cc',   type:'output',  width:'200px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000})},
-	        {caption: ["전문품목 코드"], 	ref: 'ccCode',   	type:'input', width:'80px', style:'text-align:center' ,  editable : false},
-	        {caption: ["육성품목"], 	ref: 'dd',   	type:'output',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
-	        {caption: ["육성품목 코드"], 	ref: 'ddCode',   	type:'input',width:'80px', style:'text-align:center' ,  editable : false},
-	        {caption: ["선정여부"], 	ref: 'ee',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
-	        {caption: ["탈락사유"], 	ref: 'ff',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
-	        {caption: ["신청액"], 	ref: 'gg',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
-	        {caption: ["적용금리"], 	ref: 'hh',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
-// 	        {caption: ["통합조직"], 	ref: 'ii',   	type:'output',  width:'80px',    style:'text-align:center'},
-// 	        {caption: ["통합조직 코드"], 	ref: 'iiCode',   	type:'input', hidden:true},
-	        /*
-	        {caption: ["통합조직"], 		ref: 'ii',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
-	        	console.log(strValue);
-	        	if(strValue== null || strValue == ""){
-	        		console.log("통합조직 값없음");
-	        		return "<sbux-button type='button' uitype='modal' target-id='modal-itemSelect' class='btn btn-xs btn-outline-danger' text='찾기'  onClick='fn_GridPop(\"pop\", \"grdInvShipOgnReqMng\", " + nRow + ", " + nCol + ")'></sbux-button>"
-	        		//return " <button type='button' class='btn btn-xs btn-outline-danger'   onClick='fn_GridPop(\"pop\", \"grdInvShipOgnReqMng\", " + nRow + ", " + nCol + ")'>찾기</button>";
-	        		//return " <sbux-button type='button' uitype='modal' target-id='modal-itemSelect'  text='찾기'  onClick='fn_GridPop(\"pop\", \"grdInvShipOgnReqMng\", " + nRow + ", " + nCol + ")'></sbux-button>";
-	        	}else{
-	        		console.log("통합조직 값있음");
-	        		//return " <button type='button' class='btn btn-xs btn-outline-danger'   onClick='fn_GridPop(\"pop\", \"grdInvShipOgnReqMng\", " + nRow + ", " + nCol + ")'>찾기</button>";
-	        		return "<sbux-button type='button' uitype='modal' target-id='modal-itemSelect' class='btn btn-xs btn-outline-danger' text='찾기'  onClick='fn_GridPop(\"pop\", \"grdInvShipOgnReqMng\", " + nRow + ", " + nCol + ")'></sbux-button>";
-	        	}
-	        }},
-	        */
-	        {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
-	        	if(strValue== null || strValue == ""){
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdInvShipOgnReqMng\", " + nRow + ", " + nCol + ")'>추가</button>";
-	        	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdInvShipOgnReqMng\", " + nRow + ")'>삭제</button>";
-	        	}
-	        }}
+	    	{caption: ["seq"], 			ref: 'apoCd',   	hidden : true},
+	    	{caption: ["신청년도"], 		ref: 'year',   	type:'output',  width:'220px',    style:'text-align:center'},
+	    	{caption: ["통합조직여부"], 	ref: 'apoSe',   type:'output',  width:'220px',    style:'text-align:center'},
+	        {caption: ["시도"], 			ref: 'ctpv',   	type:'output',  width:'220px',    style:'text-align:center'},
+	        {caption: ["시군구"], 		ref: 'sgg',   	type:'output',  width:'220px',    style:'text-align:center'},
+	        {caption: ["법인명"], 		ref: 'corpNm',  type:'output',  width:'220px',    style:'text-align:center'},
+	        {caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'220px',    style:'text-align:center'},
+	        {caption: ["진행단계"], 		ref: 'aa',   	type:'output',  width:'220px',    style:'text-align:center'},
+	        {caption: ["비고"], 			ref: 'bb',   	type:'output',  width:'220px',    style:'text-align:center'},
 	    ];
 
 	    grdInvShipOgnReqMng = _SBGrid.create(SBGridProperties);
@@ -226,23 +583,80 @@
 	    	fn_initSBSelectFclt(),
 		    fn_searchFcltList()
 		])
-		grdInvShipOgnReqMng.refresh({"combo":true});
+		//grdInvShipOgnReqMng.refresh({"combo":true});
 	  	//클릭 이벤트 바인드
-	    grdInvShipOgnReqMng.bind('click','gridClick');
+	   	grdInvShipOgnReqMng.bind('click','fn_view');
+
+	}
+
+	var jsonInvShipOgnReqMng01 = []; // 그리드의 참조 데이터 주소 선언
+	var grdInvShipOgnReqMng01;
+
+	/* Grid 화면 그리기 기능*/
+	const fn_fcltMngCreateGrid01 = async function() {
+
+		//SBUxMethod.set("fclt-inp-apcNm", SBUxMethod.get("inp-apcNm"));
+
+		let SBGridProperties = {};
+	    SBGridProperties.parentid = 'sb-area-grdInvShipOgnReqMng01';
+	    SBGridProperties.id = 'grdInvShipOgnReqMng01';
+	    SBGridProperties.jsonref = 'jsonInvShipOgnReqMng01';
+	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
+	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.columns = [
+	    	{caption: ["seq"], 			ref: 'apoCd',   	hidden : true},
+	    	{caption: ["순번"], 				ref: 'aa',   	type:'output',  width:'50px',    style:'text-align:center'},
+	    	{caption: ["업체명"], 			ref: 'bb',   	type:'output',  width:'220px',    style:'text-align:center'},
+	    	{caption: ["대표자명"], 			ref: 'cc',   	type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["사업자번호"], 			ref: 'dd',   	type:'output',  width:'220px',    style:'text-align:center'},
+	        {caption: ["전화번호"], 			ref: 'ee',   	type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["법인형태"], 			ref: 'ff',  	type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["출자자수"], 			ref: 'gg',   	type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["출자자 중 농업인수"], 	ref: 'hh',   	type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["농업인 출자 지분율"], 	ref: 'ii',   	type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["2020~2022 대출액잔액"],ref: 'jj',   	type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["2023 상환예상액"], 	ref: 'kk',   	type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["2023 자금신청액"], 	ref: 'll',   	type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["2023 가용액"], 		ref: 'mm',   	type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["비고"], 				ref: 'nn',   	type:'output',  width:'120px',    style:'text-align:center'},
+	    ];
+
+	    grdInvShipOgnReqMng01 = _SBGrid.create(SBGridProperties);
+	    let rst = await Promise.all([
+	    	fn_initSBSelectFclt(),
+		    fn_searchFcltList()
+		])
+		//grdInvShipOgnReqMng01.refresh({"combo":true});
+	  	//클릭 이벤트 바인드
+	    //grdInvShipOgnReqMng01.bind('click','fn_view');
 
 	}
 
 
-
 	/* Grid Row 조회 기능*/
 	const fn_searchFcltList = async function(){
-		let ccCode = SBUxMethod.get("srch-inp-itemCd1");//전문품목
-		let iiCode = SBUxMethod.get("srch-inp-apcCd2");//통합조직
-		//let apcCd = SBUxMethod.get("inp-apcCd");
-    	//let postJsonPromise = gfn_postJSON("/pd/aom/selectInvShipOgnReqMng.do", {apcCd : apcCd});
-    	let postJsonPromise = gfn_postJSON("/pd/aom/selectInvShipOgnReqMngList.do", {
-    		ccCode : ccCode
-    		,iiCode : iiCode
+		let year = SBUxMethod.get("srch-input-year");//
+		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
+		let ctpv = SBUxMethod.get("srch-input-ctpv");//
+
+		let corpSeCd = SBUxMethod.get("srch-input-corpSeCd");//
+		let corpDtlSeCd = SBUxMethod.get("srch-input-corpDtlSeCd");//
+
+		let brno = SBUxMethod.get("srch-input-brno");//
+		let corpNm = SBUxMethod.get("srch-input-corpNm");//
+
+    	let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
+    		cmptnInst : cmptnInst
+    		,ctpv : ctpv
+
+    		,corpSeCd : corpSeCd
+    		,corpDtlSeCd : corpDtlSeCd
+
+    		,brno : brno
+    		,corpNm : corpNm
+
 		});
         let data = await postJsonPromise;
         try{
@@ -250,30 +664,20 @@
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
 				let InvShipOgnReqMngVO = {
-					testNo 		: item.testNo
-				  , aa 		: item.aa
-				  , bb 		: item.bb
-				  , cc 	: item.cc
-				  , ccCode 	: item.ccCode
-				  , dd 	: item.dd
-				  , ddCode 	: item.ddCode
-				  , ee 		: item.ee
-				  , ff 		: item.ff
-				  , gg 		: item.gg
-				  , hh 		: item.hh
-				  , ii 		: item.ii
-				  , iiCode 		: item.iiCode
-				  , delYn 		: item.delYn
+						apoSe: item.apoSe
+						,apoCd: item.apoCd
+						,ctpv: item.ctpv
+						,sgg: item.sgg
+						,corpNm: item.corpNm
+						,brno: item.brno
 				}
 				jsonInvShipOgnReqMng.push(InvShipOgnReqMngVO);
 			});
 
-
-
         	grdInvShipOgnReqMng.rebuild();
 
         	//비어 있는 마지막 줄 추가용도?
-        	grdInvShipOgnReqMng.addRow();
+        	//grdInvShipOgnReqMng.addRow();
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -283,97 +687,138 @@
 	}
 
 
+	/**
+     * 저장 버튼
+     */
+    const fn_save = async function() {
+    	console.log("******************fn_save**********************************");
 
-	/* Grid Row 저장 기능*/
-	const fn_saveFmList = async function(){
-		let gridData = grdInvShipOgnReqMng.getGridDataAll();
-		let saveList = [];
+    	let apoCd = SBUxMethod.get("dtl-input-apoCd");
 
-		for(var i=1; i<=gridData.length; i++ ){
+    	//필수값 체크
+    	//fn_checkRequiredInput();
 
-			let rowData = grdInvShipOgnReqMng.getRowData(i);
-			let rowSts = grdInvShipOgnReqMng.getRowStatus(i);
-			let bb = rowData.bb;
-			let aa = rowData.aa;
-			let delYn = rowData.delYn;
+    	if (gfn_isEmpty(apoCd)) {
+    		// 신규 등록
+			fn_subInsert(confirm("등록 하시겠습니까?"));
+    	} else {
+    		// 변경 저장
+    		fn_subUpdate(confirm("저장 하시겠습니까?"));
+    	}
+    }
 
-			if(delYn == 'N'){
+    const fn_checkRequiredInput = async function (){
+    	//레드닷 처리한 필수값들 확인
 
-				if (gfn_isEmpty(aa)) {
-		  			gfn_comAlert("W0002", "설비명");		//	W0002	{0}을/를 입력하세요.
-		            return;
-		  		}
+    	var val = SBUxMethod.get("dtl-input-trgtYr");
 
-				/* if (gfn_isEmpty(bb)) {
-		  			gfn_comAlert("W0001", "설비구분");		//	W0001	{0}을/를 선택하세요.
-		            return;
-		  		} */
+    	if(true){
+    		return false;
+    	}
 
-				if (rowSts === 3){
-					rowData.rowSts = "I";
-					saveList.push(rowData);
-				} else if (rowSts === 2){
-					rowData.rowSts = "U";
-					saveList.push(rowData);
-				} else {
-					continue;
-				}
-			}
-		}
-		if(saveList.length == 0){
-			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
-			return;
-		}
-
-		let regMsg = "저장 하시겠습니까?";
-		if(confirm(regMsg)){
-
-			//let postJsonPromise = gfn_postJSON("/co/cd/multiSaveComCdDtlList.do", saveList);
-			let postJsonPromise = gfn_postJSON("/pd/aom/multiSaveInvShipOgnReqMngList.do", saveList);
-	        let data = await postJsonPromise;
-	        try {
-	        	if (_.isEqual("S", data.resultStatus)) {
-	        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
-	        		fn_searchFcltList();
-	        	} else {
-	        		alert(data.resultMessage);
-	        	}
-	        } catch (e) {
-	    		if (!(e instanceof Error)) {
-	    			e = new Error(e);
-	    		}
-	    		console.error("failed", e.message);
-	        }
-
-		}
-	}
+    	return true;
+    }
 
 
-	/* Grid Row 추가 및 삭제 기능*/
-    function fn_procRow(gubun, grid, nRow, nCol) {
-        if (gubun === "ADD") {
-            if (grid === "grdInvShipOgnReqMng") {
-            	grdInvShipOgnReqMng.setCellData(nRow, nCol, "N", true);
-            	//grdInvShipOgnReqMng.setCellData(nRow, 5, gv_apcCd, true);
-            	grdInvShipOgnReqMng.addRow(true);
-            }
-        }
-        else if (gubun === "DEL") {
-            if (grid === "grdInvShipOgnReqMng") {
-            	if(grdInvShipOgnReqMng.getRowStatus(nRow) == 0 || grdInvShipOgnReqMng.getRowStatus(nRow) == 2){
-            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-            		if(confirm(delMsg)){
-            			var InvShipOgnReqMngVO = grdInvShipOgnReqMng.getRowData(nRow);
-            			fn_deleteRsrc(InvShipOgnReqMngVO);
-            			grdInvShipOgnReqMng.deleteRow(nRow);
-            		}
-            	}else{
-            		grdInvShipOgnReqMng.deleteRow(nRow);
-            	}
-            }
+    /**
+     * @param {boolean} isConfirmed
+     * 신규 등록
+     */
+    const fn_subInsert = async function (isConfirmed){
+		console.log("******************fn_subInsert**********************************");
+		if (!isConfirmed) return;
+
+   	 	const postJsonPromise = gfn_postJSON("/pd/aom/insertPrdcrCrclOgnReqMng.do", {
+   	 		apoCd: SBUxMethod.get('dtl-input-apoCd')//
+   	 		,intyYn: SBUxMethod.get('dtl-input-intyYn')//
+			,uoNm: SBUxMethod.get('dtl-input-uoNm')//
+			,uoBrno: SBUxMethod.get('dtl-input-uoBrno')//
+			,untyYr: SBUxMethod.get('dtl-input-untyYr')//
+		});
+
+        const data = await postJsonPromise;
+        console.log("insert result", data);
+
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		alert("처리 되었습니다.");
+        		fn_search();
+        	} else {
+        		alert(data.resultMessage);
+        	}
+        } catch(e) {
+
         }
     }
 
+
+    /**
+     * @param {boolean} isConfirmed
+     * 업데이트
+     */
+	const fn_subUpdate = async function (isConfirmed){
+		console.log("******************fn_subUpdate**********************************");
+		if (!isConfirmed) return;
+
+		const postJsonPromise = gfn_postJSON("/pd/aom/updatePrdcrCrclOgnReqMng.do", {
+			apoCd: SBUxMethod.get('dtl-input-apoCd')//
+			,intyYn: SBUxMethod.get('dtl-input-intyYn')//
+			,uoNm: SBUxMethod.get('dtl-input-uoNm')//
+			,uoBrno: SBUxMethod.get('dtl-input-uoBrno')//
+			,untyYr: SBUxMethod.get('dtl-input-untyYr')//
+  		});
+
+		const data = await postJsonPromise;
+		console.log("update result", data);
+
+		try {
+			if (_.isEqual("S", data.resultStatus)) {
+				alert("처리 되었습니다.");
+				fn_search();
+			} else {
+				alert(data.resultMessage);
+			}
+		} catch(e) {
+
+		}
+
+  }
+
+
+
+	//통합조직 리스트 그리드 클릭시 출자출하조직 리스트 조회 이벤트
+	function fn_view() {
+		console.log("******************fn_view**********************************");
+
+	    //데이터가 존재하는 그리드 범위 확인
+		var nCol = grdPrdcrCrclOgnReqMng.getCol();
+	    if (nCol < 1) {
+	        return;
+	    }
+	    var nRow = grdPrdcrCrclOgnReqMng.getRow();
+		if (nRow < 1) {
+	        return;
+		}
+		if(nRow == null){
+			nRow = 1;
+		}
+
+		//해당 로우 데이터로 출자출하조직 리스트 조회
+        let rowData = grdPrdcrCrclOgnReqMng.getRowData(nRow);
+		console.log(rowData);
+
+    }
+
+	//신규
+    function fn_create() {
+    	console.log("******************fn_create**********************************");
+    	SBUxMethod.set('dtl-input-intyYn',null)//
+    	SBUxMethod.set('dtl-input-uoNm',null)//
+    	SBUxMethod.set('dtl-input-uoBrno',null)//
+    	SBUxMethod.set('dtl-input-untyYr',null)//
+    }
+
+	//삭제
 	async function fn_deleteRsrc(InvShipOgnReqMngVO){
 		let postJsonPromise = gfn_postJSON("/pd/aom/deleteInvShipOgnReqMng.do", InvShipOgnReqMngVO);
         let data = await postJsonPromise;
@@ -389,137 +834,6 @@
     			e = new Error(e);
     		}
     		console.error("failed", e.message);
-		}
-
-	}
-
-
-	//통합조직,출자출하조직 팝업
-	const fn_choiceInvstmntSpmt = function() {
-		popInvstmntSpmt.init(gv_selectedApcCd, gv_selectedApcNm, fn_setInvstmntSpmt);
-	}
-	//통합조직 출자출하조직 팝업 콜백함수
-	const fn_setInvstmntSpmt = function(rowData) {
-		if (!gfn_isEmpty(rowData)) {
-			SBUxMethod.set("srch-inp-apcCd1", rowData.subCode);
-			SBUxMethod.set("srch-inp-apcNm1", rowData.subCodeNm);
-			SBUxMethod.set("srch-inp-apcCd2", rowData.mainCode);
-			SBUxMethod.set("srch-inp-apcNm2", rowData.mainCodeNm);
-		}
-	}
-
-
-	// 품목 선택 팝업 호출
-	const fn_modalItemSelect = function(sn) {
-		console.log("================fn_modalItemSelect================");
-		console.log(sn);
-		popItemSelect.init(sn,fn_setItem);
-	}
-	// 품목 선택 팝업 콜백 함수
-	const fn_setItem = function(itemVal) {
-		console.log("================fn_setItem================");
-		console.log(itemVal);
-		if (!gfn_isEmpty(itemVal)) {
-			SBUxMethod.set('srch-inp-itemCd' + itemVal.sn , itemVal.itemCd);
-			SBUxMethod.set('srch-inp-itemNm' + itemVal.sn , itemVal.itemNm);
-		}
-	}
-
-
-
-    function fn_GridPop(gubun, grid, nRow, nCol) {
-    	console.log("================fn_GridPop================");
-        if (gubun === "pop") {
-            if (grid === "grdInvShipOgnReqMng") {
-            	//부른 선택된 그리드 셀의 값을 N 으로 변경
-            	grdInvShipOgnReqMng.setCellData(nRow, nCol, "N", true);
-            }
-        }
-    }
-
-
-	let selGridRow;//선택한 행
-	let selGridCol;//선택한 열
-
-    //그리드 클릭이벤트
-    function gridClick(){
-		console.log("================gridClick================");
-		//grdInvShipOgnReqMng 그리드 객체
-        selGridRow = grdInvShipOgnReqMng.getRow();
-        selGridCol = grdInvShipOgnReqMng.getCol();
-
-
-        let delYnCol = grdInvShipOgnReqMng.getColRef('delYn');
-        let delYnValue = grdInvShipOgnReqMng.getCellData(selGridRow,delYnCol);
-
-        //임력할 데이터 인지 확인
-        //추가 행의 경우 DEL_YN을 N 로 변경한 빈 행임
-        //fn_procRow 의 ADD 확인
-        if(delYnValue != 'N'){
-        	return;
-        }
-
-        //cc 전문 품목 dd 육성 품목
-        let ccCol = grdInvShipOgnReqMng.getColRef('cc');
-        let ddCol = grdInvShipOgnReqMng.getColRef('dd');
-        let iiCol = grdInvShipOgnReqMng.getColRef('ii');
-
-        if(selGridRow == '-1'){
-			return;
-        } else {
-        	//선택한 데이터가 통합조직 일떄
-        	if (selGridCol == iiCol){
-        		//통합조직 선택 세팅
-        		//통합조직 팝업 객체 popInvstmntSpmt
-        		popInvstmntSpmt.init(gv_selectedApcCd, gv_selectedApcNm, fn_setGridInvstmntSpmt);
-        		//팝업창 오픈
-        		//통합조직 팝업창 id : modal-invstmntSpmt
-        		SBUxMethod.openModal('modal-invstmntSpmt');
-        	} else if (selGridCol == ccCol || selGridCol == ddCol){
-        		//품목 선택 세팅
-        		//품목 선택 팝업 객체 popItemSelect
-        		popItemSelect.init(selGridRow, fn_setGridItem);
-        		//팝업창 오픈
-        		//품목 팝업창 id : modal-itemSelect
-        		SBUxMethod.openModal('modal-itemSelect');
-        	}
-        }
-    }
-
- 	// 그리드의 통합조직 선택 팝업 콜백 함수
-	const fn_setGridInvstmntSpmt = function(rowData) {
-		console.log("================fn_setGridInvstmntSpmt================");
-		console.log(rowData);
-		if (!gfn_isEmpty(rowData)) {
-			//setCellData (행,열,입력 데이터,[refresh여부],[행 상태 정보 update로 변경])
-			//selGridRow 선택된 행 값
-			//getColRef(ref) ref의 인덱스 값 가져오기
-			let colRefIdx1 = grdInvShipOgnReqMng.getColRef('ii');//ii 통합조직 인덱스
-			let colRefIdx2 = grdInvShipOgnReqMng.getColRef('iiCode');//ii 통합조직 코드 인덱스
-
-			//그리드 값 세팅
-			grdInvShipOgnReqMng.setCellData(selGridRow,colRefIdx1,rowData.mainCodeNm,true);
-			grdInvShipOgnReqMng.setCellData(selGridRow,colRefIdx2,rowData.mainCode,true);
-		}
-	}
-
-	// 그리드의 품목 선택 팝업 콜백 함수
-	const fn_setGridItem = function(rowData) {
-		console.log("================fn_setGridItem================");
-		console.log(rowData);
-		if (!gfn_isEmpty(rowData)) {
-			//setCellData (행,열,입력 데이터,[refresh여부],[행 상태 정보 update로 변경])
-			//selGridRow : 선택된 행 값		selGridCol : 선택된 열 값
-			//getColRef(ref) ref의 인덱스 값 가져오기
-			let selRef = grdInvShipOgnReqMng.getRefOfCol(selGridCol);
-
-			//구분하기 편하기 위해 ref 값이 cc라면 코드값은 ccCode 로 설정
-			let colRefIdx1 = grdInvShipOgnReqMng.getColRef(selRef);//품목명 인덱스
-			let colRefIdx2 = grdInvShipOgnReqMng.getColRef(selRef+"Code");//품목코드 인덱스
-
-			//그리드 값 세팅
-			grdInvShipOgnReqMng.setCellData(selGridRow,colRefIdx1,rowData.itemNm,true);
-			grdInvShipOgnReqMng.setCellData(selGridRow,colRefIdx2,rowData.itemCd,true);
 		}
 	}
 

@@ -55,10 +55,10 @@
 				, CM.INVST_EXPND_FRMER_NOPE
 				, CM.INVST_AMT
 				, CM.FRMER_INVST_AMT
-				, CM.RMK
+				, CM.RMRK
 				, CM.PRDCR_GRP_INVST_AMT
 				, CM.LOCGOV_INVST_AMT
-				, CM.ETC_AMT
+				, CM.ETC_INVST_AMT
 				, CM.MNGMST_INFO_ID
 				, CM.MNGMST_YN
 				, CM.CRNO
@@ -67,7 +67,7 @@
 				, CM.RGLLBR_NOPE
 				, CM.DW_NOPE
 				, CM.DLBRR_NOPE
-				, CM.JISO_AT
+				, CM.ITEM_NH_BROF_YN
 
 				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
 				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
@@ -155,10 +155,10 @@
 				, CM.INVST_EXPND_FRMER_NOPE
 				, CM.INVST_AMT
 				, CM.FRMER_INVST_AMT
-				, CM.RMK
+				, CM.RMRK
 				, CM.PRDCR_GRP_INVST_AMT
 				, CM.LOCGOV_INVST_AMT
-				, CM.ETC_AMT
+				, CM.ETC_INVST_AMT
 				, CM.MNGMST_INFO_ID
 				, CM.MNGMST_YN
 				, CM.CRNO
@@ -167,7 +167,7 @@
 				, CM.RGLLBR_NOPE
 				, CM.DW_NOPE
 				, CM.DLBRR_NOPE
-				, CM.JISO_AT
+				, CM.ITEM_NH_BROF_YN
 
 				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
 				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
@@ -215,7 +215,7 @@
 	<insert id="insertPrdcrCrclOgnMng" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.insertPrdcrCrclOgnMng */
-	    	  INTO TB_PD_PrdcrCrclOgnVluIdctrMng
+	    	  INTO TB_EV_APO
 	    		(
 	    			APO_SE
 	    		  , UO_BRNO
@@ -243,7 +243,7 @@
 	    		  , FRMER_INVST_AMT
 	    		  , PRDCR_GRP_INVST_AMT
 	    		  , LOCGOV_INVST_AMT
-	    		  , ETC_AMT
+	    		  , ETC_INVST_AMT
 	    		  , RGLLBR_NOPE
 	    		  , DW_NOPE
 	    		  , DLBRR_NOPE
@@ -257,7 +257,7 @@
 	    		  , PIC_MOBLNO
 	    		  , PIC_EML
 	    		  , FXNO
-	    		  , JISO_AT
+	    		  , ITEM_NH_BROF_YN
 	    		  , SYS_FRST_INPT_DT
 	    		  , SYS_FRST_INPT_USER_ID
 	    		  , SYS_FRST_INPT_PRGRM_ID
@@ -293,7 +293,7 @@
 	   			  , #{frmerInvstAmt}
 	   			  , #{prdcrGrpInvstAmt}
 	   			  , #{locgovInvstAmt}
-	   			  , #{etcAmt}
+	   			  , #{etcInvstAmt}
 	   			  , #{rgllbrNope}
 	   			  , #{dwNope}
 	   			  , #{dlbrrNope}
@@ -307,7 +307,7 @@
 	   			  , #{picMoblno}
 	   			  , #{picEml}
 	   			  , #{fxno}
-	   			  , #{jisoAt}
+	   			  , #{itemNhBrofYn}
 	   			  , SYSDATE
 	   			  , #{sysFrstInptUserId}
 	   			  , #{sysFrstInptPrgrmId}
@@ -320,7 +320,7 @@
 	<update id="updatePrdcrCrclOgnMng" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO">
     	<![CDATA[
 	    	UPDATE /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.upatePrdcrCrclOgnMng */
-	    		TB_PD_PrdcrCrclOgnVluIdctrMng
+	    		TB_EV_APO
 			   SET
 			 	  	APO_SE					= #{apoSe}
 	    		  , UO_BRNO					= #{uoBrno}
@@ -348,7 +348,7 @@
 	    		  , FRMER_INVST_AMT			= #{frmerInvstAmt}
 	    		  , PRDCR_GRP_INVST_AMT		= #{prdcrGrpInvstAmt}
 	    		  , LOCGOV_INVST_AMT		= #{locgovInvstAmt}
-	    		  , ETC_AMT					= #{etcAmt}
+	    		  , ETC_INVST_AMT			= #{etcInvstAmt}
 	    		  , RGLLBR_NOPE				= #{rgllbrNope}
 	    		  , DW_NOPE					= #{dwNope}
 	    		  , DLBRR_NOPE				= #{dlbrrNope}
@@ -362,7 +362,7 @@
 	    		  , PIC_MOBLNO				= #{picMoblno}
 	    		  , PIC_EML					= #{picEml}
 	    		  , FXNO					= #{fxno}
-	    		  , JISO_AT					= #{jisoAt}
+	    		  , ITEM_NH_BROF_YN			= #{itemNhBrofYn}
     	]]>
     	<![CDATA[
 				, SYS_LAST_CHG_DT		= SYSDATE
@@ -385,7 +385,7 @@
 
 	<delete id="deletePrdcrCrclOgnMng" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO">
 		<![CDATA[
-		DELETE FROM TB_PD_PrdcrCrclOgnVluIdctrMng
+		DELETE FROM TB_EV_APO
 		 WHERE TEST_NO 	= #{testNo}
 		]]>
 	</delete>
