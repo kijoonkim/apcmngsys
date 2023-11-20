@@ -23,7 +23,7 @@
 								</ul>
 							</div>
 							<div class ="row">
-								<div id="mapchart" style="width:98%;height:575px"></div>
+								<div id="mapchart" style="width:98%;height:610px;"></div>
 							</div>
 						</div>
 						<div class="col-sm-6">
@@ -33,7 +33,7 @@
 								</ul>
 							</div>
 							<div class ="row">
-								<div id="sb-area-apcAreaList" style="width:95%;height:577px;"></div>
+								<div id="sb-area-apcAreaList" style="width:95%;height:610px;"></div>
 							</div>
 						</div>
 					</div>
