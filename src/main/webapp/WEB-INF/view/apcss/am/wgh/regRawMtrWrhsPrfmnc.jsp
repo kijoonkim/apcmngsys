@@ -789,24 +789,24 @@
 
 		let wrhsno = SBUxMethod.get("srch-inp-wrhsno");
     	// 항목 set
-    	let wrhsYmd = SBUxMethod.get("srch-dtp-wrhsYmd");		// 입고일자
- 		let wrhsSeCd = SBUxMethod.get("srch-rdo-wrhsSeCd");		// 입고구분
- 		let gdsSeCd = SBUxMethod.get("srch-rdo-gdsSeCd");		// 상품구분
- 		let trsprtSeCd = SBUxMethod.get("srch-rdo-trsprtSeCd");	// 운송구분
- 		let itemCd = SBUxMethod.get("srch-slt-itemCd");			// 품목
- 		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");			// 품종
-		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");		// 생산자
- 		let bxQntt = SBUxMethod.get("srch-inp-bxQntt");			// 수량
- 		let wrhsWght = SBUxMethod.get("srch-inp-wrhsWght");		// 중량
- 		let pltno = SBUxMethod.get("srch-inp-pltno");			// 팔레트번호
- 		let bxKnd = SBUxMethod.get("srch-slt-bxKnd");			// 박스종류
+    	let wrhsYmd = SBUxMethod.get("srch-dtp-wrhsYmd");				// 입고일자
+ 		let wrhsSeCd = SBUxMethod.get("srch-rdo-wrhsSeCd");				// 입고구분
+ 		let gdsSeCd = SBUxMethod.get("srch-rdo-gdsSeCd");				// 상품구분
+ 		let trsprtSeCd = SBUxMethod.get("srch-rdo-trsprtSeCd");			// 운송구분
+ 		let itemCd = SBUxMethod.get("srch-slt-itemCd");					// 품목
+ 		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");					// 품종
+		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");				// 생산자
+ 		let bxQntt = SBUxMethod.get("srch-inp-bxQntt");					// 수량
+ 		let wrhsWght = SBUxMethod.get("srch-inp-wrhsWght");				// 중량
+ 		let pltno = SBUxMethod.get("srch-inp-pltno");					// 팔레트번호
+ 		let bxKnd = SBUxMethod.get("srch-slt-bxKnd");					// 박스종류
  		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");	// 창고
- 		let vhclno = SBUxMethod.get("srch-inp-vhclno");			// 차량번호
- 		let trsprtCst = SBUxMethod.get("srch-inp-trsprtCst");	// 운임비용
- 		let rmrk = SBUxMethod.get("srch-inp-rmrk");				// 비고
- 		//let grdCd = SBUxMethod.get("srch-slt-grdCd");			// 등급
- 		let wghno = SBUxMethod.get("srch-inp-wghno");			// 계량번호
- 		let prdctnYr = SBUxMethod.get("srch-dtp-prdctnYr");		// 생산연도
+ 		let vhclno = SBUxMethod.get("srch-inp-vhclno");					// 차량번호
+ 		let trsprtCst = SBUxMethod.get("srch-inp-trsprtCst");			// 운임비용
+ 		let rmrk = SBUxMethod.get("srch-inp-rmrk");						// 비고
+ 		//let grdCd = SBUxMethod.get("srch-slt-grdCd");					// 등급
+ 		let wghno = SBUxMethod.get("srch-inp-wghno");					// 계량번호
+ 		let prdctnYr = SBUxMethod.get("srch-dtp-prdctnYr");				// 생산연도
 
     	// validation check
     	if (gfn_isEmpty(wrhsYmd)) {

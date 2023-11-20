@@ -146,6 +146,17 @@
 		    SBGridProperties.scrollbubbling = false;
 		    SBGridProperties.dblclickeventarea = {fixed: false, empty: false};
 		    SBGridProperties.columns = [
+		        {caption: ["처리"], 		ref: 'delYn', 			width: '70px',	type:'button', 		style: 'text-align:center', sortable: false,
+		        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+						if (!isEditable) {
+							return "";
+						}
+		            	if (gfn_isEmpty(strValue)){
+		            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='popVhcl.add(" + nRow + ", " + nCol + ")'>추가</button>";
+		            	} else {
+					        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='popVhcl.del(" + nRow + ")'>삭제</button>";
+		            	}
+			    }},
 		    	{caption: ['차량번호'], 	ref: 'vhclno', 			width: '100px',	type: 'input', 		style:'text-align:center', 	sortable: false,
 		    		validate : gfn_chkByte.bind({byteLimit: 40})},
 		        {caption: ['기사명'], 	ref: 'drvrNm', 			width: '100px', type: 'input', 		style:'text-align:center', 	sortable: false,
@@ -159,17 +170,6 @@
 		        {caption: ['비고'], 		ref: 'rmrk',			width: '200px', type: 'input', 									sortable: false,
 					validate : gfn_chkByte.bind({byteLimit: 1000})},
 		        {caption: ['최종처리일시'],	ref: 'sysLastChgDt',	width: '140px', type: 'output',		style:'text-align:center', 	sortable: false},
-		        {caption: ["처리"], 		ref: 'delYn', 			width: '70px',	type:'button', 		style: 'text-align:center', sortable: false,
-		        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-						if (!isEditable) {
-							return "";
-						}
-		            	if (gfn_isEmpty(strValue)){
-		            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='popVhcl.add(" + nRow + ", " + nCol + ")'>추가</button>";
-		            	} else {
-					        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='popVhcl.del(" + nRow + ")'>삭제</button>";
-		            	}
-			    }},
 			    {caption: ['APC코드'], 	ref: 'apcCd', 			hidden : true},
 			    {caption: ['은행명'], 	ref: 'bankNm', 			hidden : true}
 		    ];
@@ -264,7 +264,12 @@
 					if (gfn_isEmpty(rowData.vhclno)){
 						gfn_comAlert("W0002", "차량번호");		//	W0002	{0}을/를 입력하세요.
 			            return;
-					}
+					} else {
+			    		if(!(/^\d{2,3}[가-힣]\d{4}/.exec(rowData.vhclno))){
+				    		gfn_comAlert("W0011", "차량번호");			//	W0001	{0}이/가 아닙니다.
+			    			return;
+			    		}
+			    	}
 
 					if (rowSts === 3){
 						rowData.apcCd = apcCd;

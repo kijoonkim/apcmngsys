@@ -244,7 +244,9 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="dtl-inp-vhclno" name="dtl-inp-vhclno" uitype="text" class="form-control input-sm" maxlength="8" ></sbux-input>
 							</td>
-							<td colspan="2" class="td_input" ></td>
+							<td colspan="2" class="td_input">
+								<sbux-button id="btnSrchVhclNo" name="btnSrchVhclNo" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vhcl" onclick="fn_choiceVhcl"></sbux-button>
+							</td>
 							<th scope="row" class="th_bg">배송처</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="dtl-inp-dldtn" name="dtl-inp-dldtn" uitype="text" class="form-control input-sm"></sbux-input>
@@ -352,6 +354,13 @@
     </div>
     <div id="body-modal-cnpt">
     	<jsp:include page="../../am/popup/cnptPopup.jsp"></jsp:include>
+    </div>
+    <!-- 차량 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-vhcl" name="modal-vhcl" uitype="middle" header-title="차량 선택" body-html-id="body-modal-vhcl" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-vhcl">
+    	<jsp:include page="../../am/popup/vhclPopup.jsp"></jsp:include>
     </div>
 	<!-- 출하지시번호 선택 Modal -->
     <div>
@@ -1291,6 +1300,24 @@
 	}
 	/*
 	 * 거래처 팝업 필수 함수
+	 * 종료
+	 */
+	 
+ 	/**
+	 * 차량 팝업 필수 함수
+	 * 시작
+	 */
+	const fn_choiceVhcl = function() {
+		popVhcl.init(gv_selectedApcCd, gv_selectedApcNm, fn_setVhcl, SBUxMethod.get("dtl-inp-vhclno"));
+	}
+
+	const fn_setVhcl = function(vhcl) {
+		if (!gfn_isEmpty(vhcl)) {
+			SBUxMethod.set("dtl-inp-vhclno", vhcl.vhclno);   // callBack input
+		}
+	}
+	/*
+	 * 차량 팝업 필수 함수
 	 * 종료
 	 */
 
