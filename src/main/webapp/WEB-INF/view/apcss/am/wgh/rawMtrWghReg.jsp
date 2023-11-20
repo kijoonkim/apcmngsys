@@ -145,15 +145,15 @@
 							<td colspan="4" class="td_input" style="border-right:hidden;">
 								<p class="ad_input_row">
 									<sbux-radio id="dtl-rdo-wrhsSeCd_1" name="dtl-rdo-wrhsSeCd" uitype="normal" class="radio_label" value="3"></sbux-radio>
-									<sbux-label class="radio_label" for-id="dtl-rdo-wrhsSeCd_3" text="매취"></sbux-label>
+									<sbux-label class="radio_label bold" for-id="dtl-rdo-wrhsSeCd_3" text="매취"></sbux-label>
 								</p>
 								<p class="ad_input_row">
 									<sbux-radio id="dtl-rdo-wrhsSeCd_2" name="dtl-rdo-wrhsSeCd" uitype="normal" class="radio_label" value="2"></sbux-radio>
-									<sbux-label class="radio_label" for-id="dtl-rdo-wrhsSeCd_2" text="수탁"></sbux-label>
+									<sbux-label class="radio_label bold" for-id="dtl-rdo-wrhsSeCd_2" text="수탁"></sbux-label>
 								</p>
 								<p class="ad_input_row">
 									<sbux-radio id="dtl-rdo-wrhsSeCd_3" name="dtl-rdo-wrhsSeCd" uitype="normal" class="radio_label" value="1" checked></sbux-radio>
-									<sbux-label class="radio_label" for-id="dtl-rdo-wrhsSeCd_1" text="일반"></sbux-label>
+									<sbux-label class="radio_label bold" for-id="dtl-rdo-wrhsSeCd_1" text="일반"></sbux-label>
 								</p>
 							</td>
 							<th scope="row" class="th_bg">상품구분</th>
@@ -173,15 +173,15 @@
 							<td colspan="4" class="td_input" >
 								<p class="ad_input_row">
 									<sbux-radio id="dtl-rdo-trsprtSeCd_1" name="dtl-rdo-trsprtSeCd" uitype="normal" class="radio_label" value="1" checked></sbux-radio>
-									<sbux-label class="radio_label" for-id="dtl-rdo-trsprtSeCd_1" text="자가"></sbux-label>
+									<sbux-label class="radio_label bold" for-id="dtl-rdo-trsprtSeCd_1" text="자가"></sbux-label>
 								</p>
 								<p class="ad_input_row">
 									<sbux-radio id="dtl-rdo-trsprtSeCd_2" name="dtl-rdo-trsprtSeCd" uitype="normal" class="radio_label" value="2"></sbux-radio>
-									<sbux-label class="radio_label" for-id="dtl-rdo-trsprtSeCd_2" text="용역"></sbux-label>
+									<sbux-label class="radio_label bold" for-id="dtl-rdo-trsprtSeCd_2" text="용역"></sbux-label>
 								</p>
 								<p class="ad_input_row">
 									<sbux-radio id="dtl-rdo-trsprtSeCd_3" name="dtl-rdo-trsprtSeCd" uitype="normal" class="radio_label" value="3"></sbux-radio>
-									<sbux-label class="radio_label" for-id="dtl-rdo-trsprtSeCd_3" text="기타"></sbux-label>
+									<sbux-label class="radio_label bold" for-id="dtl-rdo-trsprtSeCd_3" text="기타"></sbux-label>
 								</p>
 							</td>
 						</tr>
@@ -444,7 +444,7 @@
 	var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
 	var jsonApcGrd			= [];	// 등급 		vrtyCd		검색
 	var jsonComWarehouse	= [];	// 창고 		warehouse	검색
-	var jsonComGdsSeCd		= [];	// 창고 		gdsSeCd		검색
+	var jsonComGdsSeCd		= [];	// 상품구분 	gdsSeCd		검색
 
     var jsonPrdcr			= [];
     var jsonPrdcrAutocomplete = [];
