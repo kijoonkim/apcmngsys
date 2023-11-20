@@ -223,7 +223,6 @@
         delMsg += "을 삭제 하시겠습니까?";
         if (confirm(delMsg)) {
             var params = "delKey=" + delList.join(",");
-            console.log("data ::::: " + params);
         }
     }
     //저장
@@ -250,7 +249,6 @@
         }
         if (confirm(saveMsg)) {
             var params = $('#frm1').serialize();
-            console.log("form data ::::: " + params);
         }
     }
     //목록 조회
@@ -340,7 +338,6 @@
     }
     function fn_setGridData(args) {
         var params = $('#frm').serialize();
-        console.log("form data ::::: " + params);
         /*
         datagrid.lockGrid(true);
         $.ajax({
