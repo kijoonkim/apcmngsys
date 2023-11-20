@@ -146,7 +146,6 @@
    		SBGridPropertiesStdGrd.selectmode = 'byrow';
    		SBGridPropertiesStdGrd.extendlastcol = 'scroll';
    		SBGridPropertiesStdGrd.oneclickedit = true;
-   		SBGridPropertiesStdGrd.frozenrows = 1
    		SBGridPropertiesStdGrd.columns = [
 	        {caption: ["처리"], 		ref: 'delYn',  type:'button',  width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
@@ -182,7 +181,6 @@
 	    SBGridPropertiesStdGrdDtl.selectmode = 'byrow';
 	    SBGridPropertiesStdGrdDtl.extendlastcol = 'scroll';
 	    SBGridPropertiesStdGrdDtl.oneclickedit = true;
-	    SBGridPropertiesStdGrdDtl.frozenrows = 1;
 	    SBGridPropertiesStdGrdDtl.columns = [
 			{caption: ["처리"], 		ref: 'delYn',  type:'button',  width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
@@ -213,7 +211,6 @@
 	    SBGridPropertiesStdGrdJgmt.selectmode = 'byrow';
 	    SBGridPropertiesStdGrdJgmt.extendlastcol = 'scroll';
 	    SBGridPropertiesStdGrdJgmt.oneclickedit = true;
-	    SBGridPropertiesStdGrdJgmt.frozenrows = 1;
 	    SBGridPropertiesStdGrdJgmt.columns = [
 			{caption: ["처리"], 		ref: 'delYn',  type:'button',  width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
