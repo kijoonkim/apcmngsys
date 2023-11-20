@@ -165,7 +165,6 @@
 // 		}
 
 		var isEqual1 = await chkEqualObj(jsonOprtr, newJsonOprtr);
-		console.log(isEqual1);
 		if (isEqual1){
 			alert("저장 할 내용이 없습니다.");
 			return;

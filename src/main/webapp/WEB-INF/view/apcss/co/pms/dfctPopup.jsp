@@ -219,7 +219,6 @@
 			try {
 	    		jsonDfctPopup.length = 0;
 	        	data.resultList.forEach((item, index) => {
-	        		console.log(item);
 					const dfctVO = {
 						prgrmId		: item.prgrmId,
 						dfctSn		: item.dfctSn,

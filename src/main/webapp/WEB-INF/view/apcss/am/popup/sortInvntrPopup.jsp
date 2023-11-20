@@ -267,7 +267,6 @@
 	       				rmrk			: item.rmrk
 					}
 					jsonSortInvntrPop.push(sortInvntr);
-					console.log(jsonSortInvntrPop);
 				});
 	        	grdSortInvntrPop.rebuild();
 		    }catch (e) {

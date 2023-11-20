@@ -431,7 +431,6 @@
 
 			const rowData = grdComUi.getRowData(grdRows[i]);
 			const rowSts = grdComUi.getRowStatus(grdRows[i]);
-			console.log(rowSts);
 			if (gfn_isEmpty(rowData.entyId)){
 				gfn_comAlert("W0002", "ID");			//	W0002	{0}을/를 입력하세요.
 	            return;

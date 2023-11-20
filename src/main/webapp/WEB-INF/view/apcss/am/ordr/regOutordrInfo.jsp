@@ -366,7 +366,6 @@
 			, outordrType : outordrType
   		});
         const data = await postJsonPromise;
-        console.log(data);
         try {
           	/** @type {number} **/
       		jsonOrdr.length = 0;
@@ -659,7 +658,6 @@
 	 */
 	const fn_setGdsNm = async function(gds) {
 		if (!gfn_isEmpty(gds)) {
-			console.log(gds);
 			SBUxMethod.set('srch-inp-gdsNm', gds.spmtPckgUnitNm);
 			SBUxMethod.set('srch-inp-gdsCd', gds.gdsCd);
 			SBUxMethod.set('srch-inp-spmtPckgUnitCd', gds.spmtPckgUnitCd);

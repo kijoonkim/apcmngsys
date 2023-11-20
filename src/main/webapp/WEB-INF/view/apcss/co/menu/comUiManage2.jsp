@@ -337,7 +337,6 @@
         var delMsg = "삭제 하시겠습니까?";
         if (confirm(delMsg)) {
             var params = "delId=" + delList.join(",");
-            console.log("data ::::: " + params);
         }
     }
     //저장

@@ -487,7 +487,6 @@
 	 */
 	const fn_getStdGrd = async function(_itemCd) {
 		gStdGrdObj.init(gv_selectedApcCd, _GRD_SE_CD_GDS, _itemCd);
-		console.log(gjsonStdGrdObjKnd);
 		/*
 		jsonStdGrdKnd.length = 0;
 		jsonStdGrdDtl.length = 0;
@@ -666,7 +665,6 @@
       		let totalRecordCount = 0;
 
       		jsonSortInvntr.length = 0;
-      		console.log(data)
           	data.resultList.forEach((item, index) => {
           		const sortInvntr = {
           				apcCd			: item.apcCd,
@@ -845,7 +843,6 @@
         grdPckgPrfmnc = _SBGrid.create(SBGridProperties);
         grdPckgPrfmnc.bind('valuechanged', fn_grdPckgPrfmncValueChanged);
 
-        console.log("add row");
 		let nRow = grdPckgPrfmnc.getRows();
 		grdPckgPrfmnc.addRow(true);
 		grdPckgPrfmnc.setCellDisabled(nRow, 0, nRow, grdPckgPrfmnc.getCols() - 1, true);
@@ -888,7 +885,6 @@
 		// 입고번호, 재고량, 투입량
 		const sortInvntrList = [];
 		const allInvntrData = grdSortInvntr.getGridDataAll();
-		console.log(allInvntrData);
 		let invntrInptQntt = 0;
 		let invntrInptWght = 0;
 
@@ -1134,7 +1130,6 @@
 	 * @description 규격 선택 변경 event
 	 */
 	const fn_onChangeSrchSpcfctCd = async function(obj) {
-		console.log(obj);
 		const spcfctCd = obj.value;
 		const itemCd = SBUxMethod.get("srch-slt-itemCd");
 		const vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
@@ -1350,16 +1345,12 @@
 					const spcfctInfo = _.find(jsonApcSpcfct, {spcfctCd: rowData.spcfctCd});
 					// 규격중량(단중) set
 	    			rowData.spcfctWght = spcfctInfo.wght;
-					console.log(spcfctInfo);
-					console.log(rowData.spcfctWght);
 
 				case "pckgQntt":
 				//case "pckgWght":
-					console.log(rowData.spcfctWght);
 					const spcfctWght = parseInt(rowData.spcfctWght) || 0;
 					const pckgQntt = parseInt(rowData.pckgQntt) || 0;
 					pckgWght = pckgQntt * spcfctWght;
-					console.log("spcfctWght", spcfctWght);
 					rowData.pckgQntt = pckgQntt;
 					rowData.pckgWght = pckgWght;
 
@@ -1533,9 +1524,6 @@
 	    		});
 	    	});
 		}
-	    
-	    console.log("jsonExpGdsGrd");
-	    console.log(jsonExpGdsGrd);
 	}
 	
 	const fn_createExpGrid = async function(_expObjList) {

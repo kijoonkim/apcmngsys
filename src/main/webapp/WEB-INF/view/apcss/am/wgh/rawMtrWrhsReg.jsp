@@ -1045,8 +1045,6 @@
 				});
 			});
 		}
-		console.log("stdGrdList");
-		console.log(stdGrdList);
 
 		const stdGrdObj = {
 				apcCd: rowData.apcCd,
@@ -1055,8 +1053,6 @@
 				stdGrdList: stdGrdList,
 				grdJgmt: {grdCd: rowData.grdCd}
 			}
-		console.log("stdGrdObj");
-		console.log(stdGrdObj);
 
 		stdGrdSelect.setStdGrd(rowData.apcCd, _GRD_SE_CD_WRHS, rowData.itemCd, stdGrdObj);
     }

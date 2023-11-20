@@ -338,8 +338,6 @@
 				pckgRdcdRt 		: pckgRdcdRt
 		}
 
-		console.log(itemVO);
-
 		if((resultItemVO.rawMtrRdcdRt == rawMtrRdcdRt && resultItemVO.sortRdcdRt == sortRdcdRt && resultItemVO.pckgRdcdRt == pckgRdcdRt) && spcfctList.length == 0){
 			gfn_comAlert("W0003", "저장");		//	W0003	{0}할 대상이 없습니다.
             return;

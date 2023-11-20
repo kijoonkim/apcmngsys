@@ -397,7 +397,6 @@
 		let gdsSeCd			= SBUxMethod.get("srch-slt-gdsSe");
 		let wrhsSeCd		= SBUxMethod.get("srch-slt-wrhsSeCd");
 		let invntrSeCd		= SBUxMethod.get("srch-slt-invntrSeCd");
-		console.log("vrtyCd", vrtyCd);
 
 		const postJsonPromise = gfn_postJSON("/am/trnsf/selectTrnsfInvntrList.do", {
 			  apcCd			: gv_selectedApcCd
@@ -516,8 +515,6 @@
     		deleteList.push(rowData);
 
     	}
-
-    	console.log("deleteList",deleteList)
 
     	if(grdRows.length == 0){
     		gfn_comAlert("W0003", "삭제");			// W0003	{0}할 대상이 없습니다.

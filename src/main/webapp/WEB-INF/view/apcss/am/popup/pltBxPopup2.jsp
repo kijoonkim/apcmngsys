@@ -119,7 +119,6 @@
 				this.search();
 			},
 			close: function(_pltBxData) {
-				console.log("_pltBxData", _pltBxData);
 				gfn_closeModal(this.modalId, this.callbackFnc, _pltBxData);
 			},
 			createPltGrid: function() {
@@ -280,7 +279,6 @@
 
 				const __pltData = [];
 				const __bxData = [];
-				console.log(typeof grdPltPltBxPop);
 				if (grdPltPltBxPop != null) {
 					// 팔레트
 					const pltAllData = grdPltPltBxPop.getGridDataAll();
@@ -301,7 +299,6 @@
 							}
 							pltQntt += parseInt(item.qntt) || 0;
 							pltWght += parseInt(item.kg) || 0;
-							console.log("plt", plt);
 							__pltData.push(plt);
 						}
 					});
