@@ -412,9 +412,11 @@
     	}
 
 		SBUxMethod.set('srch-inp-sortnoIndct', "");
+		SBUxMethod.attr("srch-inp-sortnoIndct", "readonly", "false");
 		SBUxMethod.set('srch-inp-sortno', "");
 		SBUxMethod.set('srch-inp-sortSn', "");
 		SBUxMethod.set('srch-inp-pckgCmndnoIndct', "");
+		SBUxMethod.attr("srch-inp-pckgCmndnoIndct", "readonly", "false");
 		SBUxMethod.set('srch-inp-pckgCmndno', "");
 		SBUxMethod.set('srch-inp-pckgCmndSn', "");
 		SBUxMethod.set("srch-dtp-inptYmd", gfn_dateToYmd(new Date()));
@@ -591,6 +593,7 @@
 			}
 
 			SBUxMethod.set('srch-inp-sortnoIndct', sortInvntr.sortnoIndct);
+			SBUxMethod.attr("srch-inp-sortnoIndct", "readonly", "true");
 			SBUxMethod.set('srch-inp-sortno', sortInvntr.sortno);
 			SBUxMethod.set('srch-inp-sortSn', sortInvntr.sortSn);
 			SBUxMethod.set('srch-inp-itemNm', sortInvntr.itemNm);
@@ -631,6 +634,7 @@
 			}
 
 			SBUxMethod.set('srch-inp-pckgCmndnoIndct', pckgCmnd.pckgCmndnoIndct);
+			SBUxMethod.attr("srch-inp-pckgCmndnoIndct", "readonly", "true");
 			SBUxMethod.set('srch-inp-pckgCmndno', pckgCmnd.pckgCmndno);
 			SBUxMethod.set('srch-inp-pckgCmndSn', pckgCmnd.pckgCmndSn);
 			SBUxMethod.set('srch-inp-inptQntt', pckgCmnd.cmndQntt);

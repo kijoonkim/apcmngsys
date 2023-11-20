@@ -394,8 +394,6 @@
 		let result = await Promise.all([
 		 	gfn_setComCdSBSelect('dtl-slt-fcltCd', jsonComFclt, 'SORT_FCLT_CD', gv_selectedApcCd),		// 설비
 	 	]);
-
-		//console.log(jsonComFclt);
 	}
 
 	/**
@@ -494,6 +492,7 @@
 		SBUxMethod.set("dtl-inp-sortCmndno", null);
 		SBUxMethod.set("dtl-inp-sortCmndSn", null);
 		SBUxMethod.set("dtl-inp-sortCmndnoIndct", null);
+		SBUxMethod.attr("dtl-inp-sortCmndnoIndct", "readonly", "false");
 
 		let nowYmd = gfn_dateToYmd(new Date());
 		SBUxMethod.set("dtl-dtp-inptYmd", nowYmd);
@@ -798,8 +797,6 @@
 		SBUxMethod.set("dtl-lbl-warehouseSeNm", _rawMtrInvntr.warehouseSeNm);
 		SBUxMethod.set("dtl-lbl-bxKndNm", _rawMtrInvntr.bxKndNm);
 
-		console.log("_rawMtrInvntr", _rawMtrInvntr)
-
 		let invntrInfo = " ";
 		invntrInfo += "수량: " + _rawMtrInvntr.invntrQntt
 				+ " 중량: " + _rawMtrInvntr.invntrWght + " kg "
@@ -819,6 +816,7 @@
 			SBUxMethod.set('dtl-inp-sortCmndnoIndct', sortCmnd.sortCmndnoIndct);
 			SBUxMethod.set('dtl-inp-inptQntt', sortCmnd.cmndQntt);
 			SBUxMethod.set('dtl-inp-inptWght', sortCmnd.cmndWght);
+			SBUxMethod.attr("dtl-inp-sortCmndnoIndct", "readonly", "true");
 
 
 			SBUxMethod.set("dtl-inp-pltno", sortCmnd.pltno);
