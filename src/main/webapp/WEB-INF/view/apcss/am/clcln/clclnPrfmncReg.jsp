@@ -20,6 +20,7 @@
 <head>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
+</head>
 <body>
 	<section class="content container-fluid">
 		<div class="box box-solid">
@@ -200,7 +201,7 @@
 					</tbody>
 				</table>
 				<!--[pp] 검색결과 -->
-				<div class="ad_tbl_top">
+				<div class="ad_tbl_top2">
 					<ul class="ad_tbl_count">
 						<li>
 							<span>정산 내역</span>
@@ -244,8 +245,8 @@
 					<div id="sb-area-grdClclnPrfmnc" style="width:100%;height:540px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
-				</div>
 			</div>
+		</div>
 	</section>
 
 	<!-- 생산자 선택 Modal -->

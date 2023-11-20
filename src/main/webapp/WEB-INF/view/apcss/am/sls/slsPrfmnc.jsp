@@ -103,17 +103,13 @@
 				<!--[pp] //검색 -->
 
 				<!--[pp] 검색결과 -->
+				<div class="ad_tbl_top">
+					<ul class="ad_tbl_count">
+						<li><span>매출 내역</span></li>
+					</ul>
+				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div class="ad_tbl_top">
-						<ul class="ad_tbl_count">
-							<li><span>매출 내역</span></li>
-						</ul>
-					</div>
-					<div class="ad_tbl_toplist">
-					</div>
-					<div class="table-responsive tbl_scroll_sm">
-						<div id="sb-area-slsPrfmnc" style="height:550px;"></div>
-					</div>
+					<div id="sb-area-slsPrfmnc" style="height:550px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 

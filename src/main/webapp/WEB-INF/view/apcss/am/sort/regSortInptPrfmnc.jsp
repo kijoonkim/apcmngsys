@@ -24,14 +24,14 @@
 <body>
 	<section class="content container-fluid">
 		<div class="box box-solid">
-		<div class="box-header" style="display:flex; justify-content: flex-start;" >
-			<div>
-				<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 선별실적등록 -->
-			</div>
-			<div style="margin-left: auto;">
-				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-dark" onclick="fn_search" text="조회"></sbux-button>
-				<sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-dark" onclick="fn_save" text="저장"></sbux-button>
-			</div>
+			<div class="box-header" style="display:flex; justify-content: flex-start;" >
+				<div>
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 선별실적등록 -->
+				</div>
+				<div style="margin-left: auto;">
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-dark" onclick="fn_search" text="조회"></sbux-button>
+					<sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-dark" onclick="fn_save" text="저장"></sbux-button>
+				</div>
 			</div>
 			<div class="box-body">
 				<!--[APC] START -->
@@ -140,9 +140,11 @@
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdRawMtrInvntr" style="height:250px;"></div>
+					<div id="sb-area-grdRawMtrInvntr" style="height:235px;"></div>
 				</div>
-				<div style="height:5px"></div>
+
+				<br/>
+				
 				<table class="table table-bordered tbl_fixed">
 					<caption>등록 조건 설정</caption>
 					<colgroup>
@@ -227,14 +229,14 @@
 									mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 								/>
 							</td>
-							<td style="border-right: hidden;">
+							<td class="td_input">
 								<label class="bold">Kg</label>
 							</td>
 						</tr>
 					</tbody>
 	            </table>
 
-				<div class="ad_tbl_top">
+				<div class="ad_tbl_top2">
 					<ul class="ad_tbl_count">
 						<li>
 							<span>선별등록 내역</span>
@@ -242,8 +244,8 @@
 						</li>
 					</ul>
 					<div class="ad_tbl_toplist">
-						<sbux-button id="btnDwnld" name="btnDwnld" uitype="normal" text="서식받기" class="btn btn-xs btn-outline-danger" onclick="fn_dwnld" ></sbux-button>
-						<sbux-button id="btnUpload" name="btnUpload" uitype="normal" text="올리기" class="btn btn-xs btn-outline-danger" onclick="fn_upload"></sbux-button>
+						<sbux-button id="btnDwnld" name="btnDwnld" uitype="normal" text="서식받기" class="btn btn-sm btn-outline-danger" onclick="fn_dwnld" ></sbux-button>
+						<sbux-button id="btnUpload" name="btnUpload" uitype="normal" text="올리기" class="btn btn-sm btn-outline-danger" onclick="fn_upload"></sbux-button>
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">

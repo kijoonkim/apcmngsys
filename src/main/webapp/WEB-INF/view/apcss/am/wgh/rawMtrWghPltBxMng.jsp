@@ -61,12 +61,12 @@
 						<li><span>팔레트/박스 재고현황</span></li>
 					</ul>
 				</div>
-				<div class="sbt-wrap-body">
-					<div class="sbt-grid">
-						<div id="inptCmndDsctnGridArea" style="height:213px;"></div>
-					</div>
+				<div class="table-responsive tbl_scroll_sm">
+					<div id="inptCmndDsctnGridArea" style="height:213px;"></div>
 				</div>
+				
 				<br>
+				
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
@@ -163,10 +163,8 @@
 					</div>
 				</div>
 				
-				<div class="sbt-wrap-body">
-					<div class="sbt-grid">
-						<div id="inptCmndDsctnGridArea2" style="height:233px;"></div>
-					</div>
+				<div class="table-responsive tbl_scroll_sm">
+					<div id="inptCmndDsctnGridArea2" style="height:233px;"></div>
 				</div>
 			</div>
 		</div>
