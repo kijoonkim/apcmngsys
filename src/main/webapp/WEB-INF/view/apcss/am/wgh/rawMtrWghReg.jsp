@@ -364,7 +364,7 @@
 					<ul class="ad_tbl_count">
 						<li>
 							<span>원물계량 내역</span>
-							<span style="font-size:12px">(조회건수 <span id="cnt-wgh">0</span>건, 기준일자 : 
+							<span style="font-size:12px">(기준일자 : 
 								<sbux-label
 									id="crtr-ymd"
 									name="crtr-ymd"
@@ -372,7 +372,7 @@
 									text=""
 									class="bold"
 									mask = "{'alias': 'yyyy-mm-dd', 'autoUnmask': true}"
-								></sbux-label>)
+								></sbux-label> , 조회건수 <span id="cnt-wgh">0</span>건)
 							</span>
 						</li>
 					</ul>
