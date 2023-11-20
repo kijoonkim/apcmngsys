@@ -607,7 +607,8 @@
 	}
 
 	const fn_del = async function(){
-		let grdRows = grdSpmtPrfmnc.getCheckedRows(1);
+		let checkedYnCol = grdSpmtPrfmnc.getColRef("checkedYn")
+		let grdRows = grdSpmtPrfmnc.getCheckedRows(checkedYnCol);
     	let deleteList = [];
 
     	for(var i=0; i< grdRows.length; i++){
@@ -733,7 +734,8 @@
 	}
 
 	const fn_rtnCncl = async function(){
-		let grdRows = grdSpmtPrfmnc.getCheckedRows(1);
+		let checkedYnCol = grdSpmtPrfmnc.getColRef("checkedYn")
+		let grdRows = grdSpmtPrfmnc.getCheckedRows(checkedYnCol);
     	let rtnCnclList = [];
 
     	for(var i=0; i< grdRows.length; i++){

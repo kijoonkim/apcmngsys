@@ -249,7 +249,7 @@
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdSortPrfmnc" style="height:200px;"></div>
+					<div id="sb-area-grdSortPrfmnc" style="height:250px;"></div>
 				</div>
 				<div class="exp-div-excel" style="display: none;width: 1000px;">
 					<div id="sbexp-area-grdExpSortPrfmnc" style="height:1px; width: 100%;"></div>

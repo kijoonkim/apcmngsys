@@ -62,7 +62,7 @@
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="inptCmndDsctnGridArea" style="height:213px;"></div>
+					<div id="inptCmndDsctnGridArea" style="height:243px;"></div>
 				</div>
 				
 				<br>
@@ -164,7 +164,7 @@
 				</div>
 				
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="inptCmndDsctnGridArea2" style="height:233px;"></div>
+					<div id="inptCmndDsctnGridArea2" style="height:243px;"></div>
 				</div>
 			</div>
 		</div>
