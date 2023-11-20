@@ -369,6 +369,13 @@
 					gfn_comAlert("W0005", "거래처") 	// W0005	{0}이/가 없습니다.
 					return;
 				}
+				
+				if(!gfn_isEmpty(vhclno)){
+					if(!(/^\d{2,3}[가-힣]\d{4}/.exec(vhclno))){
+			    		gfn_comAlert("W0011", "차량번호");			//	W0001	{0}이/가 아닙니다.
+		    			return;
+		    		}
+				}
 
 
 				if(spmtQntt == 0){
