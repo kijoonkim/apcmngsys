@@ -187,7 +187,7 @@
 							</div>
 						</div>
 						<div class ="row">
-							<div id="sb-area-grdComUi" style="width:100%;height:280px;"></div>
+							<div id="sb-area-grdComUi" style="width:100%;height:277px;"></div>
 						</div>
 					</div>
 				</div>
