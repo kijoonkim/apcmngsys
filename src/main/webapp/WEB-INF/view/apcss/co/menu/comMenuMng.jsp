@@ -72,7 +72,7 @@
 							</ul>
 						</div>
 						<div class ="row">
-							<div id="sb-area-grdMenuTree" style="width:95%;height:500px;"></div>
+							<div id="sb-area-grdMenuTree" style="width:95%;height:596px;"></div>
 						</div>
 					</div>
 					<div class="col-sm-8">
