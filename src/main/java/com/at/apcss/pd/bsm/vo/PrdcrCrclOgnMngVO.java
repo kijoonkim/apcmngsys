@@ -17,7 +17,7 @@ public class PrdcrCrclOgnMngVO extends ComVO{
 	private String corpNm;			//법인명
 	private String brno;			//사업자번호
 	private String apoSe;			//참여조직여부
-	private String rmk;				//비고
+	private String rmrk;				//비고
 
 	private String crno;			//법인등록번호
 	private String mngmstInfoId;	//경영체번호
@@ -42,7 +42,7 @@ public class PrdcrCrclOgnMngVO extends ComVO{
 	private String frmerInvstAmt;	//농업인 출자금액
 	private String prdcrGrpInvstAmt;//생산자단체 출자금액
 	private String locgovInvstAmt;	//지자체 출자금액
-	private String etcAmt;			//기타 출자금액
+	private String etcInvstAmt;			//기타 출자금액
 
 	private String rgllbrNope;		//정규직 종사자 수
 	private String dwNope;			//파견직 종사자 수
@@ -59,7 +59,7 @@ public class PrdcrCrclOgnMngVO extends ComVO{
 	private String picMoblno;		//작성자핸드폰번호
 	private String picEml;			//작성자이메일주소
 	private String fxno;			//팩스번호
-	private String jisoAt;			//품목농협지소여부
+	private String itemNhBrofYn;	//품목농협지소여부
 
 	private String uoBrno;			//통합조직사업자번호
 	private String uoNm;			//통합조직명

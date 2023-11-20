@@ -12,6 +12,8 @@
 .td_input { padding: 3px !important; }
 .td_input_dtl { padding: 3px 3px 3px 0px !important; }
 .th_bg { background-color: #e8f1f9;}
+.th_border_right{border-right: 1px solid #ffffff !important;}
+.th_border_left{border-left: 1px solid #ffffff !important;}
 .ad_tbl_top3{height: 43px !important;}
 .td_input .input-sm {
 	height: 28px;

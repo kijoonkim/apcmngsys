@@ -20,38 +20,170 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-button id="btn-srch-input-outordrInq" name="btn-srch-input-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
+					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchFcltList"></sbux-button>
+					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+					<!--
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchFcltList"></sbux-button>
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
+					 -->
 				</div>
 			</div>
 			<div class="box-body">
 				<!--[pp] 검색 -->
-				<table class="table table-bordered tbl_row tbl_fixed">
+				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
+					<colgroup>
+						<col style="width: 11%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 6%">
 
+						<col style="width: 11%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row">생산유통통합조직</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-apcCd2" name="srch-inp-apcCd2" uitype="hidden" ></sbux-input>
-								<sbux-input id="srch-inp-apcNm2" name="srch-inp-apcNm2" uitype="text" class="form-control input-sm" placeholder="" readonly></sbux-input>
+							<th scope="row" class="th_bg" >신청년도</th>
+							<td colspan="3" class="td_input" style="border-right:hidden;" >
+								<sbux-select
+									id="srch-input-year"
+									name="srch-input-year"
+									uitype="single"
+									jsondata-ref="jsonDSON"
+									unselected-text="전체"
+									class="form-control input-sm"
+									onchange="fn_onChangeSrchItemCd(this)"
+								></sbux-select>
 							</td>
-							<td>
-								<sbux-button id="srch-btn-apc2" name="srch-btn-apc2" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-invstmntSpmt" onclick="fn_choiceInvstmntSpmt" />
+							<td style="border-right: hidden;"></td>
+							<th scope="row" class="th_bg" >관할기관</th>
+							<td colspan="3" class="td_input" style="border-right:hidden;" >
+								<sbux-select
+									id="srch-input-cmptnInst"
+									name="srch-input-cmptnInst"
+									uitype="single"
+									jsondata-ref="jsonDSON"
+									unselected-text="전체"
+									class="form-control input-sm"
+									onchange="fn_onChangeSrchItemCd(this)"
+								></sbux-select>
 							</td>
-							<th class="th_bg">전문품목</th>
-							<td class="td_input" style="border-right:hidden;">
-							    	<sbux-input id="srch-inp-itemCd1" name="srch-inp-itemCd1" uitype="hidden" class="form-control input-sm" placeholder="" readonly></sbux-input>
-									<sbux-input id="srch-inp-itemNm1" name="srch-inp-itemNm1" uitype="text" class="form-control input-sm" placeholder="" readonly></sbux-input>
+							<td style="border-right: hidden;"></td>
+							<th colspan="2" scope="row" class="th_bg" >시도</th>
+							<td colspan="2" class="td_input" style="border-right:hidden;">
+								<sbux-select
+									id="srch-input-ctpv"
+									name="srch-input-ctpv"
+									uitype="single"
+									jsondata-ref="jsonDSFA"
+									unselected-text="전체"
+									class="form-control input-sm"
+									onchange="fn_onChangeSrchItemCd(this)"
+								></sbux-select>
 							</td>
-							<td>
-									<sbux-button id="srch-btn-item1" name="srch-btn-item1" uitype="modal" target-id="modal-itemSelect" onclick="fn_modalItemSelect(1)" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+							<td colspan="2" class="td_input">
 							</td>
-							<td colspan="2" style="border-left: hidden;"></td>
+						</tr>
+						<tr>
+							<th scope="row" class="th_bg">법인구분</th>
+							<td colspan="3" class="td_input" style="border-right:hidden;">
+								<sbux-select
+									id="srch-input-corpSeCd"
+									name="srch-input-corpSeCd"
+									uitype="single"
+									jsondata-ref="jsonDSA"
+									unselected-text="전체"
+									class="form-control input-sm"
+									onchange="fn_onChangeSrchItemCd(this)"
+								></sbux-select>
+							</td>
+							<td class="td_input" style="border-right: hidden;" >
+							</td>
+							<th scope="row" class="th_bg">법인형태</th>
+							<td colspan="3" class="td_input" style="border-right:hidden;">
+									<sbux-select
+									id="srch-input-corpDtlSeCd"
+									name="srch-input-corpDtlSeCd"
+									uitype="single"
+									jsondata-ref="jsonDSA"
+									unselected-text="전체"
+									class="form-control input-sm"
+									onchange="fn_onChangeSrchItemCd(this)"
+								></sbux-select>
+							</td>
+							<td class="td_input" style="border-right: hidden;" >
+							</td>
+							<th colspan="2" scope="row" class="th_bg">통합조직여부</th>
+							<td colspan="2" class="td_input" style="border-right: hidden;">
+								<sbux-select
+									id="srch-input-ii"
+									name="srch-input-ii"
+									uitype="single"
+									jsondata-ref="jsonDSA"
+									unselected-text="전체"
+									class="form-control input-sm"
+									onchange="fn_onChangeSrchItemCd(this)"
+								></sbux-select>
+							</td>
+							<td colspan="2" class="td_input">
+							</td>
+						</tr>
+						<tr>
+							<th scope="row" class="th_bg">신청대상구분</th>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
+								<sbux-input
+									uitype="text"
+									id="srch-input-jj"
+									name="srch-input-jj"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+							<td class="td_input"  style="border-right: hidden;">
+							</td>
+							<th scope="row" class="th_bg">사업자번호</th>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
+								<sbux-select
+									id="srch-input-brno"
+									name="srch-input-brno"
+									uitype="single"
+									jsondata-ref="jsonDSA"
+									unselected-text="전체"
+									class="form-control input-sm"
+									onchange="fn_onChangeSrchItemCd(this)"
+								></sbux-select>
+							</td>
+							<td class="td_input">
+							</td>
+							<th colspan="2" scope="row" class="th_bg">법인명</th>
+							<td colspan="2" class="td_input" style="border-right:hidden;" >
+								<sbux-input
+									uitype="text"
+									id="srch-input-corpNm"
+									name="srch-input-corpNm"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+							<td colspan="2" class="td_input">
+
 						</tr>
 
 					</tbody>
 				</table>
+				<!--[pp] //검색 -->
 
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
@@ -59,63 +191,620 @@
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrCrclOgnReqMng" style="height:350px; width: 100%;"></div>
 				</div>
+				<br>
+				<br>
+				<div>신청관리 내역등록</div>
+				<br>
+				<table class="table table-bordered tbl_fixed">
+					<caption>사용자관리 수정 화면</caption>
+					<colgroup>
+						<col style="width: 5%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+
+						<col style="width: 6%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+					</colgroup>
+					<tbody>
+						<tr>
+							<th colspan="2" scope="row" class="th_bg">법인명</th>
+							<sbux-input uitype="hidden" id="dtl-input-apoCd" name="dtl-input-apoCd" class="form-control input-sm" autocomplete="off"></sbux-input>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-corpNm"
+									name="dtl-input-corpNm"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+							</td>
+							<th colspan="2" scope="row" class="th_bg">작성자(전화번호,휴대폰)</th>
+							<td colspan="3" class="td_input" style="border-right:hidden;" >
+								<sbux-input
+									uitype="text"
+									id="dtl-input-picFlnm"
+									name="dtl-input-picFlnm"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+							</td>
+							<th colspan="2" scope="row" class="th_bg">경영체등록여부</th>
+							<td colspan="3" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-kk"
+									name="dtl-input-kk"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+							</td>
+						</tr>
+						<tr>
+							<th colspan="2" rowspan="2" scope="row" class="th_bg">
+								주소
+								<!--
+								<br>
+								<sbux-button id="srch-btn-addr" name="srch-btn-addr" uitype="modal" target-id="" onclick="fn_goPopup" text="주소찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+								 -->
+							</th>
+							<td class="td_input" style="border-right:hidden;">[지번 주소]</td>
+							<td colspan="6" class="td_input" style="border-right:hidden;">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-lotnoAddr"
+									name="dtl-input-lotnoAddr"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+							</td>
+							<td colspan="6" class="td_input" style="border-right:hidden;">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-lotnoDtlAddr"
+									name="dtl-input-lotnoDtlAddr"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+							</td>
+						</tr>
+						<tr>
+							<td class="td_input" style="border-right:hidden;">도로명 주소</td>
+							<td class="td_input" style="border-right:hidden;">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-zip"
+									name="dtl-input-zip"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+							</td>
+							<td colspan="5" class="td_input" style="border-right:hidden;">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-roadNmAddr"
+									name="dtl-input-roadNmAddr"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+							</td>
+							<td colspan="6" class="td_input" style="border-right:hidden;">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-roadNmDtlAddr"
+									name="dtl-input-roadNmDtlAddr"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+							</td>
+						</tr>
+						<tr>
+							<th colspan="5" scope="row" class="th_bg th_border_right">법인구분</th>
+							<th colspan="5" scope="row" class="th_bg th_border_right">법인형태</th>
+							<th colspan="5" scope="row" class="th_bg th_border_right">법인설립일</th>
+						</tr>
+						<tr>
+							<td colspan="5" class="td_input">
+							<!-- 법인구분 -->
+							<sbux-input
+									uitype="text"
+									id="dtl-input-corpSeCd"
+									name="dtl-input-corpSeCd"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+								</td>
+							<td colspan="5" class="td_input">
+							<!-- 법인형태 -->
+							<sbux-input
+									uitype="text"
+									id="dtl-input-corpDtlSeCd"
+									name="dtl-input-corpDtlSeCd"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+								</td>
+							<td colspan="5" class="td_input">
+							<!-- 법인설립일 -->
+							<sbux-input
+									uitype="text"
+									id="dtl-input-corpFndnDay"
+									name="dtl-input-corpFndnDay"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+								</td>
+						</tr>
+						<tr>
+							<th rowspan="2" colspan="2" scope="row" class="th_bg th_border_right">출자자수</th>
+							<th rowspan="2" colspan="2" scope="row" class="th_bg th_border_right">출자자중<br>농업인 수</th>
+							<th rowspan="2" colspan="2" scope="row" class="th_bg th_border_right">출자금액</th>
+							<th colspan="8" scope="row" class="th_bg th_border_right">출자금세부현황</th>
+							<th rowspan="2" scope="row" class="th_bg th_border_left">농업인출<br>자지분율</th>
+						</tr>
+						<tr>
+							<th colspan="2" scope="row" class="th_bg th_border_right">농업인</th>
+							<th colspan="2" scope="row" class="th_bg th_border_right">생산자단체</th>
+							<th colspan="2" scope="row" class="th_bg th_border_right">지자체</th>
+							<th colspan="2" scope="row" class="th_bg th_border_right">기타</th>
+						</tr>
+						<tr>
+							<td colspan="2" class="td_input">
+							<!-- 출자자수 -->
+							<sbux-input
+									uitype="text"
+									id="dtl-input-invstNope"
+									name="dtl-input-invstNope1"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+								</td>
+							<td colspan="2" class="td_input">
+							<!-- 출자자중 농업인수 -->
+							<sbux-input
+									uitype="text"
+									id="dtl-input-invstExpndFrmerNope"
+									name="dtl-input-invstExpndFrmerNope"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+								</td>
+							<td colspan="2" class="td_input">
+							<!-- 출자금액 -->
+							<sbux-input
+									uitype="text"
+									id="dtl-input-invstAmt"
+									name="dtl-input-invstAmt"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+								</td>
+							<td colspan="2" class="td_input">
+							<!-- 농업인 -->
+							<sbux-input
+									uitype="text"
+									id="dtl-input-frmerInvstAmt"
+									name="dtl-input-frmerInvstAmt"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+								</td>
+							<td colspan="2" class="td_input">
+							<!-- 생산자단체 -->
+							<sbux-input
+									uitype="text"
+									id="dtl-input-prdcrGrpInvstAmt"
+									name="dtl-input-prdcrGrpInvstAmt"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+								</td>
+							<td colspan="2" class="td_input">
+							<!-- 지자체 -->
+							<sbux-input
+									uitype="text"
+									id="dtl-input-locgovInvstAmt"
+									name="dtl-input-locgovInvstAmt"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+								</td>
+							<td colspan="2" class="td_input">
+							<!-- 기타 -->
+							<sbux-input
+									uitype="text"
+									id="dtl-input-etcInvstAmt"
+									name="dtl-input-etcInvstAmt"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+								</td>
+							<td class="td_input">
+							<!-- 농업인출 자지분율 -->
+							<!--
+							<sbux-input
+									uitype="text"
+									id="dtl-input-invstAmt"
+									name="dtl-input-invstAmt"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+								 -->
+								</td>
+						</tr>
+						<tr>
+							<th colspan="15" scope="row" class="th_bg" style="text-align:center;">전체 종사자 수</th>
+						</tr>
+						<tr>
+							<th colspan="4" scope="row" class="th_bg th_border_right">정규직</th>
+							<th colspan="4" scope="row" class="th_bg th_border_right">파견직</th>
+							<th colspan="4" scope="row" class="th_bg th_border_right">일용직</th>
+							<th colspan="3" scope="row" class="th_bg th_border_right">합계</th>
+						</tr>
+						<tr>
+							<td colspan="3">
+							<!-- 정규직 -->
+							<sbux-input
+										uitype="text"
+										id="dtl-input-rgllbrNope"
+										name="dtl-input-rgllbrNope"
+										class="form-control input-sm"
+										autocomplete="off"
+										readonly
+									></sbux-input>
+							</td>
+							<td>명</td>
+							<td colspan="3" style="border-right: hidden;">
+							<!-- 파견직 -->
+							<sbux-input
+										uitype="text"
+										id="dtl-input-dwNope"
+										name="dtl-input-dwNope"
+										class="form-control input-sm"
+										autocomplete="off"
+										readonly
+									></sbux-input>
+							</td>
+							<td>명</td>
+							<td colspan="3" style="border-right: hidden;">
+							<!-- 일용직 -->
+							<sbux-input
+										uitype="text"
+										id="dtl-input-dlbrrNope"
+										name="dtl-input-dlbrrNope"
+										class="form-control input-sm"
+										autocomplete="off"
+										readonly
+									></sbux-input>
+							</td>
+							<td>명</td>
+							<td colspan="2" style="border-right: hidden;">
+							<!-- 합계 -->
+							<sbux-input
+										uitype="text"
+										id="dtl-input-tot"
+										name="dtl-input-tot"
+										class="form-control input-sm"
+										autocomplete="off"
+										readonly
+									></sbux-input>
+							</td>
+							<td>명</td>
+						</tr>
+					</tbody>
+				</table>
+				<br>
+				<div>
+				*위 사항이 실제와 다를 경우, 기본정보관리에서 수정하시기 바랍니다.
+				<br>
+				<br>생산유통통합조직등록
+				<br>
+				<br>※사업신청 유의사항
+				<br>-신청관리 입력 시 생산유통통합조직이 총괄하여 2024년도 산지유통확설화사업 참여 출자 출하조직 정보 등록
+				<br>-사업관리 입력 시 출자출하조직 데이터는 출자출하조직 자체적으로 정보등록
+				<br>
+				<br>>사업신청
+				<br>가. 생산유통통합조직 여부
+				</div>
+				<br>
+				<table class="table table-bordered tbl_fixed">
+					<caption>생산유통통합조직 여부</caption>
+					<colgroup>
+						<col style="width: 5%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+
+						<col style="width: 6%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+					</colgroup>
+					<tbody>
+						<tr>
+							<th colspan="7" scope="row" class="th_bg">생산유통통합조직</th>
+							<td colspan="8" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-11"
+									name="dtl-input-11"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+						</tr>
+						<tr>
+							<th colspan="7" scope="row" class="th_bg">원물확보 시•군 및 시•도 개소 수</th>
+							<td colspan="8" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-22"
+									name="dtl-input-22"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+						</tr>
+						<tr>
+							<th colspan="7" scope="row" class="th_bg">출자출하조직 보유 여부</th>
+							<td colspan="8" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-isoHldYn"
+									name="dtl-input-isoHldYn"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<br>
+				<div>
+				> 전년도에 3개 시•군•구 또는 2개 시•도 이상에서 원물을 확보하고 원예농산물 취급액 100억원 이상, 조직화취급액 70억원 이상, 조직화 취급률 35% 이상의 요건을 갖춘 조직
+				</div>
+				<br>
+				<table class="table table-bordered tbl_fixed">
+					<caption>타 조직 통합여부</caption>
+					<colgroup>
+						<col style="width: 5%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+
+						<col style="width: 6%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+					</colgroup>
+					<tbody>
+						<tr>
+							<th colspan="5" rowspan="3" scope="row" class="th_bg">타 조직 통합 여부</th>
+							<td colspan="3" rowspan="3" class="td_input">
+								<sbux-select
+									id="dtl-input-intyYn"
+									name="dtl-input-intyYn"
+									uitype="single"
+									jsondata-ref="jsonDSA"
+									unselected-text="전체"
+									class="form-control input-sm"
+									onchange="fn_onChangeSrchItemCd(this)"
+								></sbux-select>
+							</td>
+							<th colspan="4" scope="row" class="th_bg">통합된 조직명</th>
+							<td colspan="3" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-uoNm"
+									name="dtl-input-uoNm"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+						</tr>
+						<tr>
+							<th colspan="4" scope="row" class="th_bg">통합된 조직 사업자번호</th>
+							<td colspan="3" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-uoBrno"
+									name="dtl-input-uoBrno"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+						</tr>
+						<tr>
+							<th colspan="4" scope="row" class="th_bg">통합년도</th>
+							<td colspan="3" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-untyYr"
+									name="dtl-input-untyYr"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<br>
+				<div>
+					산지유통활성지원 자금신청 현황
+					<br>
+					<br>* 기존 보유금액 등을 감안하여 신규(또는 추가)로 필요한 금액 입력.
+				</div>
+				<br>
+				<table class="table table-bordered tbl_fixed">
+					<caption>산지유통활성지원 자금신청 현황</caption>
+					<colgroup>
+						<col style="width: 5%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+
+						<col style="width: 6%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+					</colgroup>
+					<tbody>
+						<tr>
+							<th colspan="4" scope="row" class="th_bg th_border_right">구분</th>
+							<th colspan="4" scope="row" class="th_bg th_border_right">연도</th>
+							<th colspan="7" scope="row" class="th_bg">NH(농협) 자금 신청액</th>
+						</tr>
+						<tr>
+							<th colspan="4" scope="row" class="th_bg th_border_right">생산유통통합조직</th>
+							<th colspan="4" scope="row" class="th_bg">2024자금 신청액</th>
+							<td colspan="7" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-88"
+									name="dtl-input-88"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+						</tr>
+						<tr>
+							<th colspan="4" scope="row" class="th_bg th_border_right">출자출하조직</th>
+							<th colspan="4" scope="row" class="th_bg">2024 자금 신청액</th>
+							<td colspan="7" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-99"
+									name="dtl-input-99"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+						</tr>
+						<tr>
+							<th colspan="8" scope="row" class="th_bg">계</th>
+							<td colspan="7" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-10"
+									name="dtl-input-10"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div>
+				*신청대상구분
+				</div>
+				<table class="table table-bordered tbl_fixed" style="border: none">
+					<caption>신청대상구분</caption>
+					<colgroup>
+						<col style="width: 5%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+
+						<col style="width: 6%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+					</colgroup>
+					<tbody>
+						<tr>
+							<th colspan="3" scope="row" class="th_bg">신청대상구분</th>
+							<td colspan="4" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-12"
+									name="dtl-input-12"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+							<td colspan="8" style="border: none"></td>
+						</tr>
+					</tbody>
+				</table>
+				<div>
+				*신청대상구분은 aT본사에서만 이용하는 란입니다.
+				</div>
 			</div>
 		</div>
 	</section>
 
-    <!-- 통합조직,출자출하조직 선택 Modal -->
-    <!-- 2023 09 22 ljw 통합조직 출자출하조직 리스트 팝업 생성 -->
-    <div>
-        <sbux-modal
-        	id="modal-invstmntSpmt"
-        	name="modal-invstmntSpmt"
-        	uitype="middle"
-        	header-title="통합조직,출자출하조직 선택"
-        	body-html-id="body-modal-invstmntSpmt"
-        	footer-is-close-button="false"
-        	style="width:1000px"
-       	></sbux-modal>
-    </div>
-    <div id="body-modal-invstmntSpmt">
-<%--     	<jsp:include page="../popup/InvstmntSpmtPopup.jsp"></jsp:include> --%>
-    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/InvstmntSpmtPopup.jsp"></jsp:include>
-    </div>
 
-
-    <!-- 품목 선택 Modal -->
-    <div>
-        <sbux-modal id="modal-itemSelect" name="modal-itemSelect" uitype="middle" header-title="품목 선택" body-html-id="body-modal-itemSelect" footer-is-close-button="false" style="width:600px"></sbux-modal>
-    </div>
-    <div id="body-modal-itemSelect">
-    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/ItemSelectPopup.jsp"></jsp:include>
-    </div>
 
 </body>
 <script type="text/javascript">
 
 	window.addEventListener('DOMContentLoaded', function(e) {
+
 		fn_init();
-		/*
-		gfn_setComCdSBSelect(
-				'dtl-slt-frstApprv',
-				jsonDSFA,
-			'IOPD_COFM_CD');
 
-		gfn_setComCdSBSelect(
-				'dtl-slt-scndApprv',
-				jsonDSSA,
-			'IOPD_SED_COFM_CD');
-
-		gfn_setComCdSBSelect(
-				'dtl-slt-orgNm',
-				jsonDSON,
-			'IOPD_CMPTNT_ORG');
-
-		gfn_setComCdSBSelect(
-				'dtl-slt-athrt',
-				jsonDSA,
-			'IOPD_ATHRT'); */
-
+		/**
+		 * 엔터시 검색 이벤트
+		 */
 		const elements = document.querySelectorAll(".srch-keyup-area");
 
 		for (let i = 0; i < elements.length; i++) {
@@ -130,47 +819,23 @@
 		}
 	})
 
-	/**
-	 * 조회 조건 select combo 설정
-	 */
-	const fn_initSBSelect = async function() {
-		// 검색 SB select
-		let rst = await Promise.all([
-
-			gfn_setComCdSBSelect('dtl-slt-warehouseSeCd', 	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_selectedApcCd),			// 창고
-		 	gfn_setApcItemSBSelect('dtl-slt-itemCd', 		jsonApcItem, gv_selectedApcCd),	// 품목
-			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', 		jsonApcVrty, gv_selectedApcCd),	// 품종
-			gfn_setComCdSBSelect('dtl-rdo-gdsSeCd', 		jsonComGdsSeCd,  	'GDS_SE_CD', gv_selectedApcCd), 		// 상품구분 등록
-		]);
-
-		SBUxMethod.set("dtl-rdo-gdsSeCd", '1');
+	/* 초기화면 로딩 기능*/
+	const fn_init = async function() {
+		fn_fcltMngCreateGrid();
 	}
 
 
 	//설비 등록
 	var jsonPrdcrCrclOgnReqMng = []; // 그리드의 참조 데이터 주소 선언
-	var jsonComFcltGubun = [];
+	var grdPrdcrCrclOgnReqMng;
 
-	const fn_initSBSelectFclt = async function() {
-
-		let rst = await Promise.all([
-			gfn_setComCdSBSelect('grdPrdcrCrclOgnReqMng', 		jsonComFcltGubun, 	'FCLT_GUBUN') 		// 설비구분
-		])
-
-	}
-
-
-	/* 초기화면 로딩 기능*/
-	const fn_init = async function() {
-		fn_fcltMngCreateGrid();
-	}
 
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid = async function() {
 
 
 
-		SBUxMethod.set("fclt-inp-apcNm", SBUxMethod.get("inp-apcNm"));
+		//SBUxMethod.set("fclt-inp-apcNm", SBUxMethod.get("inp-apcNm"));
 
 		let SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdPrdcrCrclOgnReqMng';
@@ -181,44 +846,39 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	    	{caption: ["일련번호"], 		ref: 'testNo',   	type:'input',  hidden : false},
-	    	{caption: ["구분"], 	ref: 'aa',   	type:'combo',  width:'100px',    style:'text-align:center;',
-				typeinfo : {ref:'jsonComFcltGubun', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
-// 	        {caption: ["사업자등록번호"], 	ref: 'bb',   type:'input',  width:'250px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
-	        {caption: ["통합조직"], 	ref: 'ii',   	type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["사업자등록번호"], 	ref: 'iiCode',   	type:'input',  width:'80px',    style:'text-align:center' ,  editable : false},
-	        {caption: ["전문품목"], 		ref: 'cc',   type:'output',  width:'200px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000})},
-	        {caption: ["전문품목 코드"], 	ref: 'ccCode',   	type:'input', width:'80px', style:'text-align:center' ,  editable : false},
-	        {caption: ["육성품목"], 	ref: 'dd',   	type:'output',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
-	        {caption: ["육성품목 코드"], 	ref: 'ddCode',   	type:'input',width:'80px', style:'text-align:center' ,  editable : false},
-	        {caption: ["선정여부"], 	ref: 'ee',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
-	        {caption: ["탈락사유"], 	ref: 'ff',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
-	        {caption: ["신청액"], 	ref: 'gg',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
-	        {caption: ["적용금리"], 	ref: 'hh',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
-// 	        {caption: ["통합조직"], 	ref: 'ii',   	type:'output',  width:'80px',    style:'text-align:center'},
-// 	        {caption: ["통합조직 코드"], 	ref: 'iiCode',   	type:'input', hidden:true},
-	        /*
-	        {caption: ["통합조직"], 		ref: 'ii',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
-	        	console.log(strValue);
-	        	if(strValue== null || strValue == ""){
-	        		console.log("통합조직 값없음");
-	        		return "<sbux-button type='button' uitype='modal' target-id='modal-itemSelect' class='btn btn-xs btn-outline-danger' text='찾기'  onClick='fn_GridPop(\"pop\", \"grdPrdcrCrclOgnReqMng\", " + nRow + ", " + nCol + ")'></sbux-button>"
-	        		//return " <button type='button' class='btn btn-xs btn-outline-danger'   onClick='fn_GridPop(\"pop\", \"grdPrdcrCrclOgnReqMng\", " + nRow + ", " + nCol + ")'>찾기</button>";
-	        		//return " <sbux-button type='button' uitype='modal' target-id='modal-itemSelect'  text='찾기'  onClick='fn_GridPop(\"pop\", \"grdPrdcrCrclOgnReqMng\", " + nRow + ", " + nCol + ")'></sbux-button>";
-	        	}else{
-	        		console.log("통합조직 값있음");
-	        		//return " <button type='button' class='btn btn-xs btn-outline-danger'   onClick='fn_GridPop(\"pop\", \"grdPrdcrCrclOgnReqMng\", " + nRow + ", " + nCol + ")'>찾기</button>";
-	        		return "<sbux-button type='button' uitype='modal' target-id='modal-itemSelect' class='btn btn-xs btn-outline-danger' text='찾기'  onClick='fn_GridPop(\"pop\", \"grdPrdcrCrclOgnReqMng\", " + nRow + ", " + nCol + ")'></sbux-button>";
-	        	}
-	        }},
-	        */
-	        {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
-	        	if(strValue== null || strValue == ""){
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdPrdcrCrclOgnReqMng\", " + nRow + ", " + nCol + ")'>추가</button>";
-	        	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdPrdcrCrclOgnReqMng\", " + nRow + ")'>삭제</button>";
-	        	}
-	        }}
+	    	{caption: ["seq"], 			ref: 'apoCd',   	hidden : true},
+	    	{caption: ["신청년도"], 		ref: 'year',   	type:'output',  width:'220px',    style:'text-align:center'},
+	    	{caption: ["통합조직여부"], 	ref: 'apoSe',   type:'output',  width:'220px',    style:'text-align:center'},
+	        {caption: ["시도"], 			ref: 'ctpv',   	type:'output',  width:'220px',    style:'text-align:center'},
+	        {caption: ["시군구"], 		ref: 'sgg',   	type:'output',  width:'220px',    style:'text-align:center'},
+	        {caption: ["법인명"], 		ref: 'corpNm',  type:'output',  width:'220px',    style:'text-align:center'},
+	        {caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'220px',    style:'text-align:center'},
+	        {caption: ["진행단계"], 		ref: 'aa',   	type:'output',  width:'220px',    style:'text-align:center'},
+	        {caption: ["비고"], 			ref: 'bb',   	type:'output',  width:'220px',    style:'text-align:center'},
+
+	        {caption: ["상세내역"], 	ref: 'picFlnm',   		hidden : true},
+	        {caption: ["상세내역"], 	ref: 'lotnoAddr',   	hidden : true},
+	        {caption: ["상세내역"], 	ref: 'lotnoDtlAddr',   	hidden : true},
+	        {caption: ["상세내역"], 	ref: 'zip',   			hidden : true},
+	        {caption: ["상세내역"], 	ref: 'roadNmAddr',   	hidden : true},
+	        {caption: ["상세내역"], 	ref: 'roadNmDtlAddr',   hidden : true},
+	        {caption: ["상세내역"], 	ref: 'corpSeCd',   		hidden : true},
+	        {caption: ["상세내역"], 	ref: 'corpDtlSeCd',   	hidden : true},
+	        {caption: ["상세내역"], 	ref: 'corpFndnDay',   	hidden : true},
+	        {caption: ["상세내역"], 	ref: 'invstNope',   	hidden : true},
+	        {caption: ["상세내역"], 	ref: 'invstExpndFrmerNope',   hidden : true},
+	        {caption: ["상세내역"], 	ref: 'invstAmt',   		hidden : true},
+	        {caption: ["상세내역"], 	ref: 'frmerInvstAmt',   	hidden : true},
+	        {caption: ["상세내역"], 	ref: 'prdcrGrpInvstAmt',   	hidden : true},
+	        {caption: ["상세내역"], 	ref: 'locgovInvstAmt',   	hidden : true},
+	        {caption: ["상세내역"], 	ref: 'etcInvstAmt',   	hidden : true},
+	        {caption: ["상세내역"], 	ref: 'rgllbrNope',   	hidden : true},
+	        {caption: ["상세내역"], 	ref: 'dwNope',   		hidden : true},
+
+	        {caption: ["상세내역"], 	ref: 'intyYn',   	hidden : true},
+	        {caption: ["상세내역"], 	ref: 'uoNm',   		hidden : true},
+	        {caption: ["상세내역"], 	ref: 'uoBrno',   	hidden : true},
+	        {caption: ["상세내역"], 	ref: 'untyYr',   	hidden : true}
 	    ];
 
 	    grdPrdcrCrclOgnReqMng = _SBGrid.create(SBGridProperties);
@@ -226,23 +886,35 @@
 	    	fn_initSBSelectFclt(),
 		    fn_searchFcltList()
 		])
-		grdPrdcrCrclOgnReqMng.refresh({"combo":true});
+		//grdPrdcrCrclOgnReqMng.refresh({"combo":true});
 	  	//클릭 이벤트 바인드
-	    grdPrdcrCrclOgnReqMng.bind('click','gridClick');
-
+	    grdPrdcrCrclOgnReqMng.bind('click','fn_view');
 	}
 
 
 
 	/* Grid Row 조회 기능*/
 	const fn_searchFcltList = async function(){
-		let ccCode = SBUxMethod.get("srch-inp-itemCd1");//전문품목
-		let iiCode = SBUxMethod.get("srch-inp-apcCd2");//통합조직
-		//let apcCd = SBUxMethod.get("inp-apcCd");
-    	//let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMng.do", {apcCd : apcCd});
+		let year = SBUxMethod.get("srch-input-year");//
+		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
+		let ctpv = SBUxMethod.get("srch-input-ctpv");//
+
+		let corpSeCd = SBUxMethod.get("srch-input-corpSeCd");//
+		let corpDtlSeCd = SBUxMethod.get("srch-input-corpDtlSeCd");//
+
+		let brno = SBUxMethod.get("srch-input-brno");//
+		let corpNm = SBUxMethod.get("srch-input-corpNm");//
+
     	let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
-    		ccCode : ccCode
-    		,iiCode : iiCode
+    		cmptnInst : cmptnInst
+    		,ctpv : ctpv
+
+    		,corpSeCd : corpSeCd
+    		,corpDtlSeCd : corpDtlSeCd
+
+    		,brno : brno
+    		,corpNm : corpNm
+
 		});
         let data = await postJsonPromise;
         try{
@@ -250,30 +922,49 @@
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
 				let PrdcrCrclOgnReqMngVO = {
-					testNo 		: item.testNo
-				  , aa 		: item.aa
-				  , bb 		: item.bb
-				  , cc 	: item.cc
-				  , ccCode 	: item.ccCode
-				  , dd 	: item.dd
-				  , ddCode 	: item.ddCode
-				  , ee 		: item.ee
-				  , ff 		: item.ff
-				  , gg 		: item.gg
-				  , hh 		: item.hh
-				  , ii 		: item.ii
-				  , iiCode 		: item.iiCode
-				  , delYn 		: item.delYn
+						apoSe: item.apoSe
+						,apoCd: item.apoCd
+						,ctpv: item.ctpv
+						,sgg: item.sgg
+						,corpNm: item.corpNm
+						,brno: item.brno
+						,picFlnm: item.picFlnm
+
+						,lotnoAddr: item.lotnoAddr
+						,lotnoDtlAddr: item.lotnoDtlAddr
+						,zip: item.zip
+						,roadNmAddr: item.roadNmAddr
+						,roadNmDtlAddr: item.roadNmDtlAddr
+
+						,corpSeCd: item.corpSeCd
+						,corpDtlSeCd: item.corpDtlSeCd
+						,corpFndnDay: item.corpFndnDay
+
+						,invstNope: item.invstNope
+						,invstExpndFrmerNope: item.invstExpndFrmerNope
+						,invstAmt: item.invstAmt
+
+						,frmerInvstAmt: item.frmerInvstAmt
+						,prdcrGrpInvstAmt: item.prdcrGrpInvstAmt
+						,locgovInvstAmt: item.locgovInvstAmt
+						,etcInvstAmt: item.etcInvstAmt
+
+						,rgllbrNope: item.rgllbrNope
+						,dwNope: item.dwNope
+						,dlbrrNope: item.dlbrrNope
+
+						,intyYn: item.intyYn
+						,uoNm: item.uoNm
+						,uoBrno: item.uoBrno
+						,untyYr: item.untyYr
 				}
 				jsonPrdcrCrclOgnReqMng.push(PrdcrCrclOgnReqMngVO);
 			});
 
-
-
         	grdPrdcrCrclOgnReqMng.rebuild();
 
         	//비어 있는 마지막 줄 추가용도?
-        	grdPrdcrCrclOgnReqMng.addRow();
+        	//grdPrdcrCrclOgnReqMng.addRow();
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -283,244 +974,205 @@
 	}
 
 
+	/**
+     * 저장 버튼
+     */
+    const fn_save = async function() {
+    	console.log("******************fn_save**********************************");
 
-	/* Grid Row 저장 기능*/
-	const fn_saveFmList = async function(){
-		let gridData = grdPrdcrCrclOgnReqMng.getGridDataAll();
-		let saveList = [];
+    	let apoCd = SBUxMethod.get("dtl-input-apoCd");
 
-		for(var i=1; i<=gridData.length; i++ ){
+    	//필수값 체크
+    	//fn_checkRequiredInput();
 
-			let rowData = grdPrdcrCrclOgnReqMng.getRowData(i);
-			let rowSts = grdPrdcrCrclOgnReqMng.getRowStatus(i);
-			let bb = rowData.bb;
-			let aa = rowData.aa;
-			let delYn = rowData.delYn;
+    	if (gfn_isEmpty(apoCd)) {
+    		// 신규 등록
+			fn_subInsert(confirm("등록 하시겠습니까?"));
+    	} else {
+    		// 변경 저장
+    		fn_subUpdate(confirm("저장 하시겠습니까?"));
+    	}
+    }
 
-			if(delYn == 'N'){
+    const fn_checkRequiredInput = async function (){
+    	//레드닷 처리한 필수값들 확인
 
-				if (gfn_isEmpty(aa)) {
-		  			gfn_comAlert("W0002", "설비명");		//	W0002	{0}을/를 입력하세요.
-		            return;
-		  		}
+    	var val = SBUxMethod.get("dtl-input-trgtYr");
 
-				/* if (gfn_isEmpty(bb)) {
-		  			gfn_comAlert("W0001", "설비구분");		//	W0001	{0}을/를 선택하세요.
-		            return;
-		  		} */
+    	if(true){
+    		return false;
+    	}
 
-				if (rowSts === 3){
-					rowData.rowSts = "I";
-					saveList.push(rowData);
-				} else if (rowSts === 2){
-					rowData.rowSts = "U";
-					saveList.push(rowData);
-				} else {
-					continue;
-				}
+    	return true;
+    }
+
+
+    /**
+     * @param {boolean} isConfirmed
+     * 신규 등록
+     */
+    const fn_subInsert = async function (isConfirmed){
+		console.log("******************fn_subInsert**********************************");
+		if (!isConfirmed) return;
+
+   	 	const postJsonPromise = gfn_postJSON("/pd/aom/insertPrdcrCrclOgnReqMng.do", {
+   	 		apoCd: SBUxMethod.get('dtl-input-apoCd')//
+   	 		,intyYn: SBUxMethod.get('dtl-input-intyYn')//
+			,uoNm: SBUxMethod.get('dtl-input-uoNm')//
+			,uoBrno: SBUxMethod.get('dtl-input-uoBrno')//
+			,untyYr: SBUxMethod.get('dtl-input-untyYr')//
+		});
+
+        const data = await postJsonPromise;
+        console.log("insert result", data);
+
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		alert("처리 되었습니다.");
+        		fn_search();
+        	} else {
+        		alert(data.resultMessage);
+        	}
+        } catch(e) {
+
+        }
+    }
+
+
+    /**
+     * @param {boolean} isConfirmed
+     * 업데이트
+     */
+	const fn_subUpdate = async function (isConfirmed){
+		console.log("******************fn_subUpdate**********************************");
+		if (!isConfirmed) return;
+
+		const postJsonPromise = gfn_postJSON("/pd/aom/updatePrdcrCrclOgnReqMng.do", {
+			apoCd: SBUxMethod.get('dtl-input-apoCd')//
+			,intyYn: SBUxMethod.get('dtl-input-intyYn')//
+			,uoNm: SBUxMethod.get('dtl-input-uoNm')//
+			,uoBrno: SBUxMethod.get('dtl-input-uoBrno')//
+			,untyYr: SBUxMethod.get('dtl-input-untyYr')//
+  		});
+
+		const data = await postJsonPromise;
+		console.log("update result", data);
+
+		try {
+			if (_.isEqual("S", data.resultStatus)) {
+				alert("처리 되었습니다.");
+				fn_search();
+			} else {
+				alert(data.resultMessage);
 			}
+		} catch(e) {
+
 		}
-		if(saveList.length == 0){
-			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
+
+  }
+
+
+
+	//그리드 클릭시 상세보기 이벤트
+	function fn_view() {
+		console.log("******************fn_view**********************************");
+
+	    //데이터가 존재하는 그리드 범위 확인
+		var nCol = grdPrdcrCrclOgnReqMng.getCol();
+	    if (nCol < 1) {
+	        return;
+	    }
+	    var nRow = grdPrdcrCrclOgnReqMng.getRow();
+		if (nRow < 1) {
+	        return;
+		}
+		if(nRow == null){
+			nRow = 1;
+		}
+
+		//서치폼에서 클릭시 디테일폼에 데이터출력
+        let rowData = grdPrdcrCrclOgnReqMng.getRowData(nRow);
+
+		console.log(rowData);
+		SBUxMethod.set('dtl-input-apoCd',rowData.apoCd)//
+		SBUxMethod.set('dtl-input-corpNm',rowData.corpNm)//
+		SBUxMethod.set('dtl-input-picFlnm',rowData.picFlnm)//
+		SBUxMethod.set('dtl-input-lotnoAddr',rowData.lotnoAddr)//
+		SBUxMethod.set('dtl-input-lotnoDtlAddr',rowData.lotnoDtlAddr)//
+		SBUxMethod.set('dtl-input-zip',rowData.zip)//
+		SBUxMethod.set('dtl-input-roadNmAddr',rowData.roadNmAddr)//
+		SBUxMethod.set('dtl-input-roadNmDtlAddr',rowData.roadNmDtlAddr)//
+		SBUxMethod.set('dtl-input-corpSeCd',rowData.corpSeCd)//
+		SBUxMethod.set('dtl-input-corpDtlSeCd',rowData.corpDtlSeCd)//
+		SBUxMethod.set('dtl-input-corpFndnDay',rowData.corpFndnDay)//
+		SBUxMethod.set('dtl-input-invstNope',rowData.invstNope)//
+		SBUxMethod.set('dtl-input-invstExpndFrmerNope',rowData.invstExpndFrmerNope)//
+		SBUxMethod.set('dtl-input-invstAmt',rowData.invstAmt)//
+		SBUxMethod.set('dtl-input-frmerInvstAmt',rowData.frmerInvstAmt)//
+		SBUxMethod.set('dtl-input-prdcrGrpInvstAmt',rowData.prdcrGrpInvstAmt)//
+		SBUxMethod.set('dtl-input-locgovInvstAmt',rowData.locgovInvstAmt)//
+		SBUxMethod.set('dtl-input-etcInvstAmt',rowData.etcInvstAmt)//
+		SBUxMethod.set('dtl-input-rgllbrNope',rowData.rgllbrNope)//
+		SBUxMethod.set('dtl-input-dwNope',rowData.dwNope)//
+		SBUxMethod.set('dtl-input-dlbrrNope',rowData.dlbrrNope)//
+
+		SBUxMethod.set('dtl-input-intyYn',rowData.intyYn)//
+		SBUxMethod.set('dtl-input-uoNm',rowData.uoNm)//
+		SBUxMethod.set('dtl-input-uoBrno',rowData.uoBrno)//
+		SBUxMethod.set('dtl-input-untyYr',rowData.untyYr)//
+
+    }
+
+
+    function fn_create() {
+    	console.log("******************fn_create**********************************");
+    	SBUxMethod.set('dtl-input-intyYn',null)//
+    	SBUxMethod.set('dtl-input-uoNm',null)//
+    	SBUxMethod.set('dtl-input-uoBrno',null)//
+    	SBUxMethod.set('dtl-input-untyYr',null)//
+    }
+
+
+
+	/* 주소 팝업 */
+	//팝업 실행
+	var fn_goPopup = function(){
+		w = 520;
+		h = 620;
+		LeftPosition = (screen.width) ? (screen.width - w) / 2 : 0;
+		TopPosition = (screen.height) ? (screen.height - h) / 2 : 0;
+
+		settings = "height=" + h
+				   + ",width=" + w
+				   + ",top=" + TopPosition
+				   + ",left=" + LeftPosition
+				   + ",scrollbars=yes, resizable=yes";
+		window.open( "/fm/popup/jusoPopup.do", "zipCodeSearchWin", settings );
+
+	}
+	/* 주소 팝업 */
+	//팝업 콜백
+	var jusoCallBack = function(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo){
+		/*
+			roadFullAddr 전체 도로명주소
+			roadAddrPart1 도로명주소(참고항목 제외)
+			roadAddrPart2 도로명주소 참고항목
+			addrDetail 상세주소
+			engAddr 도로명 주소 영문
+			jibunAddr 지번 정보
+			zipNo 우편번호
+		*/
+		if(addrDetail.length>30){
+			alert('상세주소가 너무 길어 다시 입력해야 합니다.');
 			return;
 		}
-
-		let regMsg = "저장 하시겠습니까?";
-		if(confirm(regMsg)){
-
-			//let postJsonPromise = gfn_postJSON("/co/cd/multiSaveComCdDtlList.do", saveList);
-			let postJsonPromise = gfn_postJSON("/pd/aom/multiSavePrdcrCrclOgnReqMngList.do", saveList);
-	        let data = await postJsonPromise;
-	        try {
-	        	if (_.isEqual("S", data.resultStatus)) {
-	        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
-	        		fn_searchFcltList();
-	        	} else {
-	        		alert(data.resultMessage);
-	        	}
-	        } catch (e) {
-	    		if (!(e instanceof Error)) {
-	    			e = new Error(e);
-	    		}
-	    		console.error("failed", e.message);
-	        }
-
-		}
-	}
-
-
-	/* Grid Row 추가 및 삭제 기능*/
-    function fn_procRow(gubun, grid, nRow, nCol) {
-        if (gubun === "ADD") {
-            if (grid === "grdPrdcrCrclOgnReqMng") {
-            	grdPrdcrCrclOgnReqMng.setCellData(nRow, nCol, "N", true);
-            	//grdPrdcrCrclOgnReqMng.setCellData(nRow, 5, gv_apcCd, true);
-            	grdPrdcrCrclOgnReqMng.addRow(true);
-            }
-        }
-        else if (gubun === "DEL") {
-            if (grid === "grdPrdcrCrclOgnReqMng") {
-            	if(grdPrdcrCrclOgnReqMng.getRowStatus(nRow) == 0 || grdPrdcrCrclOgnReqMng.getRowStatus(nRow) == 2){
-            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-            		if(confirm(delMsg)){
-            			var PrdcrCrclOgnReqMngVO = grdPrdcrCrclOgnReqMng.getRowData(nRow);
-            			fn_deleteRsrc(PrdcrCrclOgnReqMngVO);
-            			grdPrdcrCrclOgnReqMng.deleteRow(nRow);
-            		}
-            	}else{
-            		grdPrdcrCrclOgnReqMng.deleteRow(nRow);
-            	}
-            }
-        }
-    }
-
-	async function fn_deleteRsrc(PrdcrCrclOgnReqMngVO){
-		let postJsonPromise = gfn_postJSON("/pd/aom/deletePrdcrCrclOgnReqMng.do", PrdcrCrclOgnReqMngVO);
-        let data = await postJsonPromise;
-
-        try{
-        	if(data.result > 0){
-        		alert("삭제 되었습니다.");
-        	}else{
-        		alert("삭제 도중 오류가 발생 되었습니다.");
-        	}
-        }catch (e) {
-        	if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-		}
-
-	}
-
-
-	//통합조직,출자출하조직 팝업
-	const fn_choiceInvstmntSpmt = function() {
-		popInvstmntSpmt.init(gv_selectedApcCd, gv_selectedApcNm, fn_setInvstmntSpmt);
-	}
-	//통합조직 출자출하조직 팝업 콜백함수
-	const fn_setInvstmntSpmt = function(rowData) {
-		if (!gfn_isEmpty(rowData)) {
-			SBUxMethod.set("srch-inp-apcCd1", rowData.subCode);
-			SBUxMethod.set("srch-inp-apcNm1", rowData.subCodeNm);
-			SBUxMethod.set("srch-inp-apcCd2", rowData.mainCode);
-			SBUxMethod.set("srch-inp-apcNm2", rowData.mainCodeNm);
-		}
-	}
-
-
-	// 품목 선택 팝업 호출
-	const fn_modalItemSelect = function(sn) {
-		console.log("================fn_modalItemSelect================");
-		console.log(sn);
-		popItemSelect.init(sn,fn_setItem);
-	}
-	// 품목 선택 팝업 콜백 함수
-	const fn_setItem = function(itemVal) {
-		console.log("================fn_setItem================");
-		console.log(itemVal);
-		if (!gfn_isEmpty(itemVal)) {
-			SBUxMethod.set('srch-inp-itemCd' + itemVal.sn , itemVal.itemCd);
-			SBUxMethod.set('srch-inp-itemNm' + itemVal.sn , itemVal.itemNm);
-		}
-	}
-
-
-
-    function fn_GridPop(gubun, grid, nRow, nCol) {
-    	console.log("================fn_GridPop================");
-        if (gubun === "pop") {
-            if (grid === "grdPrdcrCrclOgnReqMng") {
-            	//부른 선택된 그리드 셀의 값을 N 으로 변경
-            	grdPrdcrCrclOgnReqMng.setCellData(nRow, nCol, "N", true);
-            }
-        }
-    }
-
-
-	let selGridRow;//선택한 행
-	let selGridCol;//선택한 열
-
-    //그리드 클릭이벤트
-    function gridClick(){
-		console.log("================gridClick================");
-		//grdPrdcrCrclOgnReqMng 그리드 객체
-        selGridRow = grdPrdcrCrclOgnReqMng.getRow();
-        selGridCol = grdPrdcrCrclOgnReqMng.getCol();
-
-
-        let delYnCol = grdPrdcrCrclOgnReqMng.getColRef('delYn');
-        let delYnValue = grdPrdcrCrclOgnReqMng.getCellData(selGridRow,delYnCol);
-
-        //임력할 데이터 인지 확인
-        //추가 행의 경우 DEL_YN을 N 로 변경한 빈 행임
-        //fn_procRow 의 ADD 확인
-        if(delYnValue != 'N'){
-        	return;
-        }
-
-        //cc 전문 품목 dd 육성 품목
-        let ccCol = grdPrdcrCrclOgnReqMng.getColRef('cc');
-        let ddCol = grdPrdcrCrclOgnReqMng.getColRef('dd');
-        let iiCol = grdPrdcrCrclOgnReqMng.getColRef('ii');
-
-        if(selGridRow == '-1'){
-			return;
-        } else {
-        	//선택한 데이터가 통합조직 일떄
-        	if (selGridCol == iiCol){
-        		//통합조직 선택 세팅
-        		//통합조직 팝업 객체 popInvstmntSpmt
-        		popInvstmntSpmt.init(gv_selectedApcCd, gv_selectedApcNm, fn_setGridInvstmntSpmt);
-        		//팝업창 오픈
-        		//통합조직 팝업창 id : modal-invstmntSpmt
-        		SBUxMethod.openModal('modal-invstmntSpmt');
-        	} else if (selGridCol == ccCol || selGridCol == ddCol){
-        		//품목 선택 세팅
-        		//품목 선택 팝업 객체 popItemSelect
-        		popItemSelect.init(selGridRow, fn_setGridItem);
-        		//팝업창 오픈
-        		//품목 팝업창 id : modal-itemSelect
-        		SBUxMethod.openModal('modal-itemSelect');
-        	}
-        }
-    }
-
- 	// 그리드의 통합조직 선택 팝업 콜백 함수
-	const fn_setGridInvstmntSpmt = function(rowData) {
-		console.log("================fn_setGridInvstmntSpmt================");
-		console.log(rowData);
-		if (!gfn_isEmpty(rowData)) {
-			//setCellData (행,열,입력 데이터,[refresh여부],[행 상태 정보 update로 변경])
-			//selGridRow 선택된 행 값
-			//getColRef(ref) ref의 인덱스 값 가져오기
-			let colRefIdx1 = grdPrdcrCrclOgnReqMng.getColRef('ii');//ii 통합조직 인덱스
-			let colRefIdx2 = grdPrdcrCrclOgnReqMng.getColRef('iiCode');//ii 통합조직 코드 인덱스
-
-			//그리드 값 세팅
-			grdPrdcrCrclOgnReqMng.setCellData(selGridRow,colRefIdx1,rowData.mainCodeNm,true);
-			grdPrdcrCrclOgnReqMng.setCellData(selGridRow,colRefIdx2,rowData.mainCode,true);
-		}
-	}
-
-	// 그리드의 품목 선택 팝업 콜백 함수
-	const fn_setGridItem = function(rowData) {
-		console.log("================fn_setGridItem================");
-		console.log(rowData);
-		if (!gfn_isEmpty(rowData)) {
-			//setCellData (행,열,입력 데이터,[refresh여부],[행 상태 정보 update로 변경])
-			//selGridRow : 선택된 행 값		selGridCol : 선택된 열 값
-			//getColRef(ref) ref의 인덱스 값 가져오기
-			let selRef = grdPrdcrCrclOgnReqMng.getRefOfCol(selGridCol);
-
-			//구분하기 편하기 위해 ref 값이 cc라면 코드값은 ccCode 로 설정
-			let colRefIdx1 = grdPrdcrCrclOgnReqMng.getColRef(selRef);//품목명 인덱스
-			let colRefIdx2 = grdPrdcrCrclOgnReqMng.getColRef(selRef+"Code");//품목코드 인덱스
-
-			//그리드 값 세팅
-			grdPrdcrCrclOgnReqMng.setCellData(selGridRow,colRefIdx1,rowData.itemNm,true);
-			grdPrdcrCrclOgnReqMng.setCellData(selGridRow,colRefIdx2,rowData.itemCd,true);
-		}
+		SBUxMethod.set("dtl-input-zip", zipNo);//우편번호
+		SBUxMethod.set("dtl-input-lotnoAddr", jibunAddr);//지번주소
+		SBUxMethod.set("dtl-input-lotnoDtlAddr", addrDetail);//지번주소 상세주소
+		SBUxMethod.set("dtl-input-roadNmAddr", roadFullAddr);//도로명주소
+		SBUxMethod.set("dtl-input-roadNmDtlAddr", addrDetail);//도로명주소 상세주소
+		//console.log(roadFullAddr+" , "+roadAddrPart1+" , "+addrDetail+" , "+roadAddrPart2+" , "+engAddr+" , "+jibunAddr+" , "+zipNo);
+		//alert("성공");
 	}
 
 </script>
