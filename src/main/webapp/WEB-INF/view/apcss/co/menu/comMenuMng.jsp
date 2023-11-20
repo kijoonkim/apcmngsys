@@ -485,7 +485,8 @@
     	let menuType 		= SBUxMethod.get('dtl-select-menuType');	// 메뉴유형
     	let userType 		= SBUxMethod.get('dtl-select-userType');	// 사용자유형
     	let pageUrl 		= SBUxMethod.get('dtl-input-pageUrl');		// 화면URL
-    	let authrtType 		= SBUxMethod.get('dtl-input-authrtType');	// 권한유형
+    	let authrtType	 	= SBUxMethod.get("dtl-select-authrtType"); 	// 권한유형
+    	let prsnaInfoYn	 	= SBUxMethod.get("dtl-select-flfmtYn"); 	// 개인정보 사용유무
 
     	if (gfn_isEmpty(order)){
 	    	let orderArray = [];
@@ -505,7 +506,8 @@
 	  		  	menuType 	: menuType,
 	  		    userType 	: userType,
 	  		  	pageUrl 	: pageUrl,
-	  		    authrtType  : authrtType
+	  		  	authrtType  : authrtType,
+	  		  	prsnaInfoYn	: prsnaInfoYn
 		});
 
 		const data = await postJsonPromise;

@@ -25,6 +25,14 @@ import com.at.apcss.fm.fclt.vo.FcltMdRtlVO;
 public interface FcltMdRtlMapper {
 
 	/**
+	 * 기준년도 목록 조회
+	 * @param FcltMdRtlVO
+	 * @return List<MdRtlFcltVO>
+	 * @throws Exception
+	 */
+	public List<FcltMdRtlVO> selectCrtrYnList(FcltMdRtlVO mdRtlFcltVO) throws Exception;
+	
+	/**
 	 * APC현황
 	 * @param FcltMdRtlVO
 	 * @return List<MdRtlFcltVO>

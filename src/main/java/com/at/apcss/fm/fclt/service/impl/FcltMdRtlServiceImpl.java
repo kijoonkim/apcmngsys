@@ -16,6 +16,12 @@ public class FcltMdRtlServiceImpl implements FcltMdRtlService {
 	private FcltMdRtlMapper fcltMdRtlMapper;
 
 	@Override
+	public List<FcltMdRtlVO> selectCrtrYnList(FcltMdRtlVO fcltMdRtlVO) throws Exception {
+		List<FcltMdRtlVO> resultList = fcltMdRtlMapper.selectCrtrYnList(fcltMdRtlVO);
+		return resultList;
+	}
+	
+	@Override
 	public List<FcltMdRtlVO> selectMapSttn(FcltMdRtlVO fcltMdRtlVO) throws Exception {
 		List<FcltMdRtlVO> resultList = fcltMdRtlMapper.selectMapSttn(fcltMdRtlVO);
 		return resultList;
