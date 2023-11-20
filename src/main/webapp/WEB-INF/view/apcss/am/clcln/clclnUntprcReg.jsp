@@ -131,7 +131,7 @@
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdClclnUntprc" style="width:100%;height:540px;"></div>
+					<div id="sb-area-grdClclnUntprc" style="width:100%;height:579px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 				</div>

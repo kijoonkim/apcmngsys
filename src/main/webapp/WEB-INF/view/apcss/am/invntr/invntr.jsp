@@ -23,7 +23,7 @@
 </head>
 <body>
 	<section>
-		<div class="box box-solid">
+		<div class="box box-solid" style="height: 101%; background-color: #000;">
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
 					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 재고정보조회 -->

@@ -191,7 +191,7 @@
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdInvntrTrnsf" style="width:100%;height:500px;"></div>
+					<div id="sb-area-grdInvntrTrnsf" style="width:100%;height:580px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 			</div>
