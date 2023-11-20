@@ -105,8 +105,6 @@
 
 				jsonWrhsPltBxPop.length = 0;
 
-				console.log(_wrhsPltBx);
-
 				if (!gfn_isEmpty(_wrhsPltBx)
 						&& !gfn_isEmpty(_wrhsPltBx.wrhsPltBxData)
 						&& Array.isArray(_wrhsPltBx.wrhsPltBxData)) {
@@ -169,7 +167,6 @@
 				});
 		    },
 			close: function(_wrhsPltBx) {
-				console.log("_wrhsPltData", _wrhsPltBx);
 				gfn_closeModal(this.modalId, this.callbackFnc, _wrhsPltBx);
 			},
 			createGrid: function() {
@@ -434,7 +431,6 @@
 						case "pltKnd":	// 팔레트종류
 							const pltInfo = _.find(jsonApcPltWrhsPltBxPop, {pltBxCd: rowData.pltKnd});
 			    			// 단중, 단위 set
-			    			console.log();
 			    			rowData.pltUnitWght = parseFloat(pltInfo.cnvrsUnitWght) || 0;
 			    			rowData.pltWght = gfn_apcEstmtWght(parseFloat(rowData.pltUnitWght) || 0);
 			    			break;

@@ -320,26 +320,28 @@
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
 				<div class="ad_tbl_top">
-						<ul class="ad_tbl_count">
-							<li>
-								<span>선별투입 내역</span>
-								<span style="font-size:12px">(기준일자 : 
-									<sbux-label
-										id="crtr-ymd"
-										name="crtr-ymd"
-										uitype="normal"
-										text=""
-										class="bold"
-										mask = "{'alias': 'yyyy-mm-dd', 'autoUnmask': true}"
-									></sbux-label> , 조회건수 <span id="cnt-inpt">0</span>건)
-								</span>
-							</li>
-						</ul>
-					</div>
+					<ul class="ad_tbl_count">
+						<li>
+							<span>선별투입 내역</span>
+							<span style="font-size:12px">(기준일자 : 
+								<sbux-label
+									id="crtr-ymd"
+									name="crtr-ymd"
+									uitype="normal"
+									text=""
+									class="bold"
+									mask = "{'alias': 'yyyy-mm-dd', 'autoUnmask': true}"
+								></sbux-label> , 조회건수 <span id="cnt-inpt">0</span>건)
+							</span>
+						</li>
+					</ul>
+				</div>
+				<div class="table-responsive tbl_scroll_sm">
 					<div id="sb-area-grdSortInpt" style="height:175px;"></div>
 				</div>
-				<!--[pp] //검색결과 -->
 			</div>
+			<!--[pp] //검색결과 -->
+		</div>
 		</div>
 	</section>
 
@@ -394,8 +396,6 @@
 		let result = await Promise.all([
 		 	gfn_setComCdSBSelect('dtl-slt-fcltCd', jsonComFclt, 'SORT_FCLT_CD', gv_selectedApcCd),		// 설비
 	 	]);
-
-		//console.log(jsonComFclt);
 	}
 
 	/**
@@ -494,6 +494,7 @@
 		SBUxMethod.set("dtl-inp-sortCmndno", null);
 		SBUxMethod.set("dtl-inp-sortCmndSn", null);
 		SBUxMethod.set("dtl-inp-sortCmndnoIndct", null);
+		SBUxMethod.attr("dtl-inp-sortCmndnoIndct", "readonly", "false");
 
 		let nowYmd = gfn_dateToYmd(new Date());
 		SBUxMethod.set("dtl-dtp-inptYmd", nowYmd);
@@ -798,8 +799,6 @@
 		SBUxMethod.set("dtl-lbl-warehouseSeNm", _rawMtrInvntr.warehouseSeNm);
 		SBUxMethod.set("dtl-lbl-bxKndNm", _rawMtrInvntr.bxKndNm);
 
-		console.log("_rawMtrInvntr", _rawMtrInvntr)
-
 		let invntrInfo = " ";
 		invntrInfo += "수량: " + _rawMtrInvntr.invntrQntt
 				+ " 중량: " + _rawMtrInvntr.invntrWght + " kg "
@@ -819,6 +818,7 @@
 			SBUxMethod.set('dtl-inp-sortCmndnoIndct', sortCmnd.sortCmndnoIndct);
 			SBUxMethod.set('dtl-inp-inptQntt', sortCmnd.cmndQntt);
 			SBUxMethod.set('dtl-inp-inptWght', sortCmnd.cmndWght);
+			SBUxMethod.attr("dtl-inp-sortCmndnoIndct", "readonly", "true");
 
 
 			SBUxMethod.set("dtl-inp-pltno", sortCmnd.pltno);

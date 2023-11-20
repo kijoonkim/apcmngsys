@@ -506,6 +506,7 @@
 
 	async function fn_resetUnchecked() {
 		SBUxMethod.set('srch-inp-spmtCmndnoIndct', "");
+		SBUxMethod.attr("srch-inp-spmtCmndnoIndct", "readonly", "false");
 		SBUxMethod.set('srch-inp-spmtCmndno', "");
 		SBUxMethod.set('srch-inp-cmndQntt', "");
 		SBUxMethod.set('srch-inp-cmndWght', "");
@@ -529,6 +530,7 @@
 
 	async function fn_resetPckgno() {
 		SBUxMethod.set('srch-inp-pckgnoIndct', "");
+		SBUxMethod.attr("srch-inp-pckgnoIndct", "readonly", "false");
 		SBUxMethod.set('srch-inp-pckgno', "");
 		SBUxMethod.set('srch-inp-pckgSn', "");
 		SBUxMethod.set('srch-inp-spmtQntt', "");
@@ -573,6 +575,7 @@
 
 			if (spmtCmnd.cmndQntt > regQntt) {
 				SBUxMethod.set('srch-inp-spmtCmndnoIndct', spmtCmnd.spmtCmndnoIndct);
+				SBUxMethod.attr("srch-inp-spmtCmndnoIndct", "readonly", "true");
 				SBUxMethod.set('srch-inp-spmtCmndno', spmtCmnd.spmtCmndno);
 				SBUxMethod.set('srch-inp-cmndQntt', spmtCmnd.cmndQntt);
 				SBUxMethod.set('srch-inp-cmndWght', spmtCmnd.cmndWght);
@@ -621,6 +624,7 @@
 			let leftInvntrWght = gdsInvntr.invntrWght;															// 잔존재고중량
 
 			SBUxMethod.set('srch-inp-pckgnoIndct', gdsInvntr.pckgnoIndct);
+			SBUxMethod.attr("srch-inp-pckgnoIndct", "readonly", "true");
 			SBUxMethod.set('srch-inp-pckgno', gdsInvntr.pckgno);
 			SBUxMethod.set('srch-inp-pckgSn', gdsInvntr.pckgSn);
 

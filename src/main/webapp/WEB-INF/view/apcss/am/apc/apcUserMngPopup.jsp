@@ -168,10 +168,7 @@
         }
     }
 	const fn_pwReSet = async function(){
-    	console.log("비밀번호 초기화");
     	var nRow = userAuthMngDatagrid.getRow();
-    	console.log(nRow);
-
     }
 
 	const fn_updataUserList = async function(){

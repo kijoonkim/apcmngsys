@@ -536,9 +536,6 @@
 			});
 		},
 		dwnld: async function(){
-// 			console.log("운송구분: ", jsonExpTrsprtSeCd);
-// 			console.log("운송지역: ", jsonExpTrsprtRgnCd);
-// 			console.log("은행: ", jsonExpBankCd);
 // 			const itemCd = SBUxMethod.get("srch-slt-itemCd");			// 품목
 
 // 			if (gfn_isEmpty(itemCd)) {

@@ -288,7 +288,6 @@
         }
         if (confirm(saveMsg)) {
         	if(gubun === "C"){
-        		console.log("신규 ");
         		menuInsert();
         	}else{
         		updateMenu();

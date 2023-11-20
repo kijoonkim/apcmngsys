@@ -257,8 +257,6 @@
 				}
 			});
 
-        	console.log("totalRecordCount", totalRecordCount);
-
         	if (jsonBbsList.length > 0) {
 
         		if(grdBbsList.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
@@ -354,9 +352,6 @@
         	}
         } catch(e) {
         }
-
-        // 결과 확인 후 재조회
-        console.log("insert result", data);
     }
 
 	/**
@@ -385,9 +380,6 @@
         	}
         } catch(e) {
         }
-
-        // 결과 확인 후 재조회
-        console.log("update result", data);
     }
 
 
@@ -441,9 +433,6 @@
          	}
          } catch(e) {
          }
-
-         // 결과 확인 후 재조회
-         console.log("update result", data);
     }
 
 

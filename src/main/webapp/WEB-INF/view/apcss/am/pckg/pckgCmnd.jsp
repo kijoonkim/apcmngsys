@@ -396,8 +396,6 @@
 	 * @description 포장지시서 발행
 	 */
     const fn_cmndDocPckg = async function() {
-    	
-		console.log("xxxxx");
 		
     	const cmndNoList = [];
 		const allData = grdPckgCmnd.getGridDataAll();

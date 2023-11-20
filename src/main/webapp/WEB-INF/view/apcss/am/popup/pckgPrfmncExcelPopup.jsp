@@ -66,8 +66,6 @@
 		]);
 		grdExcelPckgPrfmncPopup.refresh({"combo":true});
 		grdExcelPckgPrfmncPopup.rebuild();
-
-		console.log("jsonEPSSpcfct",jsonEPSSpcfct);
 	}
 
 

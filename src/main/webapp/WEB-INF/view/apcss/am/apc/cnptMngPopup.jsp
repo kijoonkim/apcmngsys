@@ -144,7 +144,6 @@
 				cnptMngGridData.push(Object.assign({}, cnpt));
 				newCnptGridData.push(Object.assign({}, cnpt));
 			});
-        	console.log("cnptMngGridData", cnptMngGridData);
         	cnptMngDatagrid.rebuild();
          	cnptMngDatagrid.addRow();
         }catch (e) {
@@ -228,7 +227,6 @@
         let data = await postJsonPromise;
 
         try{
-        	console.log("data >>> "+ data.result);
        		return data.result;
 
         }catch (e) {
@@ -318,7 +316,6 @@
 				lgszMrktMngGridData.push(Object.assign({}, LgszMrkt));
 				newLgszMrktMngGridData.push(Object.assign({}, LgszMrkt));
 			});
-        	console.log("newLgszMrktMngGridData", newLgszMrktMngGridData);
         	lgszMrktMngDatagrid.rebuild();
         }catch (e) {
     		if (!(e instanceof Error)) {
