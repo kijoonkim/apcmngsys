@@ -280,13 +280,13 @@ const fn_createMdRtlOgnzTypeGrid = function() {
 	};
     SBGridProperties.columns = [
     	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["통합조직 운영 APC","민간"], ref: 'v1', type: 'output',  width:'100px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["통합조직 운영 APC","공공"], ref: 'v2', type: 'output',  width:'100px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["개발조직 운영 APC","민간"], ref: 'v3', type: 'output',  width:'100px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["개발조직 운영 APC","공공"], ref: 'v4', type: 'output',  width:'100px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["소 개","민간"], ref: 'v5', type: 'output',  width:'100px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["소 개","공공"], ref: 'v6', type: 'output',  width:'100px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["합계","합계"], ref: 'v7', type: 'output',  width:'190px', style: 'text-align:right', format : {type:'number', rule:'#,###'}}
+    	{caption : ["통합조직 운영 APC","민간"], ref: 'v1', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["통합조직 운영 APC","공공"], ref: 'v2', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["개발조직 운영 APC","민간"], ref: 'v3', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["개발조직 운영 APC","공공"], ref: 'v4', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["소 개","민간"], ref: 'v5', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["소 개","공공"], ref: 'v6', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["합계","합계"], ref: 'v7', type: 'output',  width:'190px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdMdRtlOgnzType = _SBGrid.create(SBGridProperties);
 }
@@ -324,13 +324,13 @@ const fn_createRgnOperPrsnGrid = function() {
 	};
     SBGridProperties.columns = [
     	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["통합조직 운영 APC","농 협"], ref: 'v1', type: 'output',  width:'100px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["통합조직 운영 APC","농업법인"], ref: 'v2', type: 'output',  width:'100px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["개발조직 운영 APC","농 협"], ref: 'v3', type: 'output',  width:'100px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["개발조직 운영 APC","농업법인"], ref: 'v4', type: 'output',  width:'100px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["소 개","농 협"], ref: 'v5', type: 'output',  width:'100px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["소 개","농업법인"], ref: 'v6', type: 'output',  width:'100px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["합계","합계"], ref: 'v7', type: 'output',  width:'190px', style: 'text-align:right', format : {type:'number', rule:'#,###'}}
+    	{caption : ["통합조직 운영 APC","농 협"], ref: 'v1', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["통합조직 운영 APC","농업법인"], ref: 'v2', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["개발조직 운영 APC","농 협"], ref: 'v3', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["개발조직 운영 APC","농업법인"], ref: 'v4', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["소 개","농 협"], ref: 'v5', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["소 개","농업법인"], ref: 'v6', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["합계","합계"], ref: 'v7', type: 'output',  width:'190px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdRgnOperPrsn = _SBGrid.create(SBGridProperties);
 }
@@ -367,12 +367,12 @@ const fn_createLgstcsGdsFcltGrid = function() {
 	};
     SBGridProperties.columns = [
     	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["통합조직 운영 APC","전체면적"], ref: 'v1', type: 'output',  width:'105px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["통합조직 운영 APC","평균면적"], ref: 'v2', type: 'output',  width:'105px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["개발조직 운영 APC","전체면적"], ref: 'v3', type: 'output',  width:'105px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["개발조직 운영 APC","평균면적"], ref: 'v4', type: 'output',  width:'105px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["전체","전체면적"], ref: 'v5', type: 'output',  width:'140px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["전체","평균면적"], ref: 'v6', type: 'output',  width:'140px', style: 'text-align:right', format : {type:'number', rule:'#,###'}}
+    	{caption : ["통합조직 운영 APC","전체면적"], ref: 'v1', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["통합조직 운영 APC","평균면적"], ref: 'v2', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["개발조직 운영 APC","전체면적"], ref: 'v3', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["개발조직 운영 APC","평균면적"], ref: 'v4', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["전체","전체면적"], ref: 'v5', type: 'output',  width:'140px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["전체","평균면적"], ref: 'v6', type: 'output',  width:'140px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdLgstcsGdsFclt = _SBGrid.create(SBGridProperties);
 }
@@ -407,10 +407,10 @@ const fn_createMdLwtpStrgGrid = function() {
 	};
     SBGridProperties.columns = [
     	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["설치현황","전체 개소수"], ref: 'v1', type: 'output',  width:'175px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["설치현황","설치 개소수"], ref: 'v2', type: 'output',  width:'175px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["저온저장시(면적)","전체면적"], ref: 'v3', type: 'output',  width:'175px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["저온저장시(면적)","평균면적"], ref: 'v4', type: 'output',  width:'175px', style: 'text-align:right', format : {type:'number', rule:'#,###'}}
+    	{caption : ["설치현황","전체 개소수"], ref: 'v1', type: 'output',  width:'175px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["설치현황","설치 개소수"], ref: 'v2', type: 'output',  width:'175px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["저온저장시(면적)","전체면적"], ref: 'v3', type: 'output',  width:'175px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["저온저장시(면적)","평균면적"], ref: 'v4', type: 'output',  width:'175px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdMdLwtpStrg = _SBGrid.create(SBGridProperties);
 }
@@ -445,10 +445,10 @@ const fn_createRgnPrprtnClngFcltGrid = function() {
 	};
     SBGridProperties.columns = [
     	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["설치현황","전체 개소수"], ref: 'v1', type: 'output',  width:'175px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["설치현황","설치 개소수"], ref: 'v2', type: 'output',  width:'175px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["예냉시설(면적)","전체면적"], ref: 'v3', type: 'output',  width:'175px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["예냉시설(면적)","평균면적"], ref: 'v4', type: 'output',  width:'175px', style: 'text-align:right', format : {type:'number', rule:'#,###'}}
+    	{caption : ["설치현황","전체 개소수"], ref: 'v1', type: 'output',  width:'175px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["설치현황","설치 개소수"], ref: 'v2', type: 'output',  width:'175px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["예냉시설(면적)","전체면적"], ref: 'v3', type: 'output',  width:'175px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["예냉시설(면적)","평균면적"], ref: 'v4', type: 'output',  width:'175px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdRgnPrprtnClngFclt = _SBGrid.create(SBGridProperties);
 }
@@ -483,10 +483,10 @@ const fn_createRgnStrgFcltGrid = function() {
 	};
     SBGridProperties.columns = [
     	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["설치현황","전체 개소수"], ref: 'v1', type: 'output',  width:'175px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["설치현황","설치 개소수"], ref: 'v2', type: 'output',  width:'175px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["예냉시설(면적)","전체면적"], ref: 'v3', type: 'output',  width:'175px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["예냉시설(면적)","평균면적"], ref: 'v4', type: 'output',  width:'175px', style: 'text-align:right', format : {type:'number', rule:'#,###'}}
+    	{caption : ["설치현황","전체 개소수"], ref: 'v1', type: 'output',  width:'175px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["설치현황","설치 개소수"], ref: 'v2', type: 'output',  width:'175px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["예냉시설(면적)","전체면적"], ref: 'v3', type: 'output',  width:'175px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["예냉시설(면적)","평균면적"], ref: 'v4', type: 'output',  width:'175px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdRgnStrgFclt = _SBGrid.create(SBGridProperties);
 }
@@ -521,10 +521,10 @@ const fn_createRgnFcltMsrmtEqpmntGrid = function() {
 	};
     SBGridProperties.columns = [
     	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'120px', style: 'text-align:center'},
-    	{caption : ["전체 개소수","전체 개소수"], ref: 'v1', type: 'output',  width:'160px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["설치 개소수","설치 개소수"], ref: 'v2', type: 'output',  width:'160px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["설치 면적","설치 면적"], ref: 'v3', type: 'output',  width:'160px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["평균 면적","평균 면적"], ref: 'v4', type: 'output',  width:'160px', style: 'text-align:right', format : {type:'number', rule:'#,###'}}
+    	{caption : ["전체 개소수","전체 개소수"], ref: 'v1', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["설치 개소수","설치 개소수"], ref: 'v2', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["설치 면적","설치 면적"], ref: 'v3', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["평균 면적","평균 면적"], ref: 'v4', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdRgnFcltMsrmtEqpmnt = _SBGrid.create(SBGridProperties);
 }
@@ -561,12 +561,12 @@ const fn_createRgnInvstAtmAllGrid = function() {
 	};
     SBGridProperties.columns = [
     	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["개소수","개소수"], ref: 'v1', type: 'output',  width:'105px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["투자금액","국비"], ref: 'v2', type: 'output',  width:'105px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["투자금액","지방비"], ref: 'v3', type: 'output',  width:'105px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["투자금액","자부담"], ref: 'v4', type: 'output',  width:'105px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["투자금액","계"], ref: 'v5', type: 'output',  width:'105px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["평균투자금액","평균투자금액"], ref: 'v6', type: 'output',  width:'105px', style: 'text-align:right', format : {type:'number', rule:'#,###'}}
+    	{caption : ["개소수","개소수"], ref: 'v1', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["투자금액","국비"], ref: 'v2', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["투자금액","지방비"], ref: 'v3', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["투자금액","자부담"], ref: 'v4', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["투자금액","계"], ref: 'v5', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["평균투자금액","평균투자금액"], ref: 'v6', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdRgnInvstAtmAll = _SBGrid.create(SBGridProperties);
 }
@@ -603,12 +603,12 @@ const fn_createRgnInvstAtmOwnrGrid = function() {
 	};
     SBGridProperties.columns = [
     	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["민간 APC","개소 수"], ref: 'v1', type: 'output',  width:'115px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["민간 APC","투자금액"], ref: 'v2', type: 'output',  width:'115px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["민간 APC","평균투자액"], ref: 'v3', type: 'output',  width:'115px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["공공 APC","개소 수"], ref: 'v4', type: 'output',  width:'115px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["공공 APC","투자금액"], ref: 'v5', type: 'output',  width:'115px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["공공 APC","평균투자액"], ref: 'v6', type: 'output',  width:'115px', style: 'text-align:right', format : {type:'number', rule:'#,###'}}
+    	{caption : ["민간 APC","개소 수"], ref: 'v1', type: 'output',  width:'115px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["민간 APC","투자금액"], ref: 'v2', type: 'output',  width:'115px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["민간 APC","평균투자액"], ref: 'v3', type: 'output',  width:'115px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["공공 APC","개소 수"], ref: 'v4', type: 'output',  width:'115px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["공공 APC","투자금액"], ref: 'v5', type: 'output',  width:'115px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["공공 APC","평균투자액"], ref: 'v6', type: 'output',  width:'115px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdRgnInvstAtmOwnr = _SBGrid.create(SBGridProperties);
 }
@@ -645,12 +645,12 @@ const fn_createRgnInvstAtmOperPrsnGrid = function() {
 	};
     SBGridProperties.columns = [
     	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'105px', style: 'text-align:center'},
-    	{caption : ["농 협","개소 수"], ref: 'v1', type: 'output',  width:'115px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["농 협","투자금액"], ref: 'v2', type: 'output',  width:'115px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["농 협","개소 수"], ref: 'v3', type: 'output',  width:'115px', style: 'text-align:right', merge: false, format : {type:'number', rule:'#,###'}},
-    	{caption : ["농업법인"," 개소 수 "], ref: 'v4', type: 'output',  width:'115px', style: 'text-align:right', merge: false, format : {type:'number', rule:'#,###'}},
-    	{caption : ["농업법인","투자금액"], ref: 'v5', type: 'output',  width:'115px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-    	{caption : ["농업법인","평균투자액"], ref: 'v6', type: 'output',  width:'115px', style: 'text-align:right', format : {type:'number', rule:'#,###'}}
+    	{caption : ["농 협","개소 수"], ref: 'v1', type: 'output',  width:'115px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["농 협","투자금액"], ref: 'v2', type: 'output',  width:'115px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["농 협","개소 수"], ref: 'v3', type: 'output',  width:'115px', style: 'text-align:right; padding-right:5px;', merge: false, format : {type:'number', rule:'#,###'}},
+    	{caption : ["농업법인"," 개소 수 "], ref: 'v4', type: 'output',  width:'115px', style: 'text-align:right; padding-right:5px;', merge: false, format : {type:'number', rule:'#,###'}},
+    	{caption : ["농업법인","투자금액"], ref: 'v5', type: 'output',  width:'115px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["농업법인","평균투자액"], ref: 'v6', type: 'output',  width:'115px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdRgnInvstOperPrsn = _SBGrid.create(SBGridProperties);
 }
