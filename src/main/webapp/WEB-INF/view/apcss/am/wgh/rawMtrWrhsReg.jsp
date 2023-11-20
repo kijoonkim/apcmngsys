@@ -385,7 +385,7 @@
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdRawMtrWrhs" style="height:410px;"></div>
+					<div id="sb-area-grdRawMtrWrhs" style="height:434px;"></div>
 				</div>
 				<!-- <div class="exp-div-excel" style="display: none;width: 2000px;"> none block-->
 				<div class="exp-div-excel" style="display: none;width: 1000px;">

@@ -239,7 +239,7 @@
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-wrhsPlan" style="height:405px;"></div>
+					<div id="sb-area-wrhsPlan" style="height:442px;"></div>
 				</div>
 			</div>
 		</div>

@@ -12,7 +12,7 @@
  * @ 2023.10.23   	김호			최초 생성
  * @see
  *
- */
+ **/
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -137,7 +137,7 @@
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdGdsCd" style="width:100%;height:500px;"></div>
+					<div id="sb-area-grdGdsCd" style="width:100%;height:508px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 			</div>

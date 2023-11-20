@@ -234,7 +234,7 @@
 								</li>
 							</ul>
 						</div>
-						<div id="sb-area-grdSortPrfmnc" style="height:540px;"></div>
+						<div id="sb-area-grdSortPrfmnc" style="height:544px;"></div>
 					</div>
 					<div class="col-sm-3">
 						<div class="ad_tbl_top">
@@ -245,7 +245,7 @@
 								</li>
 							</ul>
 						</div>
-						<div id="sb-area-grdSortInptPrfmnc" style="height:540px;"></div>
+						<div id="sb-area-grdSortInptPrfmnc" style="height:544px;"></div>
 					</div>
  				</div>
 

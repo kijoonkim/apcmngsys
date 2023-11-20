@@ -138,7 +138,7 @@
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdOptrtPrfmnc" style="height:270px;"></div>
+					<div id="sb-area-grdOptrtPrfmnc" style="height:271px;"></div>
 				</div>
 			</div>
 		</div>
