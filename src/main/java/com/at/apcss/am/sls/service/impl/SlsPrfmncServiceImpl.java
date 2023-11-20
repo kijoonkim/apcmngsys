@@ -3,13 +3,17 @@ package com.at.apcss.am.sls.service.impl;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.at.apcss.am.cmns.service.CmnsValidationService;
 import com.at.apcss.am.sls.mapper.SlsPrfmncMapper;
 import com.at.apcss.am.sls.service.SlsPrfmncService;
 import com.at.apcss.am.sls.vo.SlsPrfmncVO;
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.util.ComUtil;
 
 /**
@@ -32,6 +36,9 @@ public class SlsPrfmncServiceImpl implements SlsPrfmncService {
 
 	@Autowired
 	private SlsPrfmncMapper slsPrfmncMapper;
+	
+	@Resource(name = "cmnsValidationService")
+	private CmnsValidationService cmnsValidationService;
 
 	@Override
 	public SlsPrfmncVO selectSlsPrfmnc(SlsPrfmncVO slsPrfmncVO) throws Exception {
@@ -93,26 +100,45 @@ public class SlsPrfmncServiceImpl implements SlsPrfmncService {
 	}
 
 	@Override
-	public int saveSlsPrfmncCrtList(List<SlsPrfmncVO> slsPrfmncList) throws Exception {
+	public HashMap<String, Object> saveSlsPrfmncCrtList(List<SlsPrfmncVO> slsPrfmncList) throws Exception {
 
-		int updatedCnt = 0;
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		int savedCnt = 0;
 
 		for (SlsPrfmncVO slsPrfmncVO : slsPrfmncList) {
-			updatedCnt =+ updateSlsPrfmnc(slsPrfmncVO);
+			String ddlnYn = cmnsValidationService.selectChkDdlnYn(slsPrfmncVO.getApcCd(), slsPrfmncVO.getSpmtYmd());
+			
+			if("N".equals(ddlnYn)) {
+				savedCnt += updateSlsPrfmnc(slsPrfmncVO);
+			} else {
+				resultMap.put("errCd", ComConstants.MSGCD_ALEADY_CLOSE);
+				return resultMap;
+			}
 		}
-
-		return updatedCnt;
+		resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
+		return resultMap;
 	}
 
 	@Override
-	public int deleteSlsPrfmncCrtList(List<SlsPrfmncVO> slsPrfmncList) throws Exception {
+	public HashMap<String, Object> deleteSlsPrfmncCrtList(List<SlsPrfmncVO> slsPrfmncList) throws Exception {
 
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
 		int deletedCnt = 0;
+		
 		for (SlsPrfmncVO slsPrfmncVO : slsPrfmncList) {
-			deletedCnt += deleteSlsPrfmnc(slsPrfmncVO);
+			String ddlnYn = cmnsValidationService.selectChkDdlnYn(slsPrfmncVO.getApcCd(), slsPrfmncVO.getSpmtYmd());
+			
+			if("N".equals(ddlnYn)) {
+				deletedCnt += deleteSlsPrfmnc(slsPrfmncVO);
+			} else {
+				resultMap.put("errCd", ComConstants.MSGCD_ALEADY_CLOSE);
+				return resultMap;
+			}
 		}
-
-		return deletedCnt;
+		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+		return resultMap;
 	}
 
 }
