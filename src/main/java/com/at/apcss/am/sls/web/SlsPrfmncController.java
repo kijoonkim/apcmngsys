@@ -61,17 +61,16 @@ public class SlsPrfmncController extends BaseController {
 	@PostMapping(value = "/am/sls/insertSlsPrfmncCrt.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> insertSlsPrfmncCrt(@RequestBody SlsPrfmncVO slsPrfmncVO, HttpServletRequest request) throws Exception {
 
-		HashMap<String, Object> resultMap;
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		try {
 			slsPrfmncVO.setSysFrstInptUserId(getUserId());
 			slsPrfmncVO.setSysFrstInptPrgrmId(getPrgrmId());
 			slsPrfmncVO.setSysLastChgUserId(getUserId());
 			slsPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
-			resultMap = slsPrfmncService.insertSlsPrfmncCrt(slsPrfmncVO);
-			if (resultMap == null ) {
-				resultMap = new HashMap<String, Object>();
-				resultMap.put(ComConstants.PROP_RESULT_STATUS, "S");
+			HashMap<String, Object> rtnObj = slsPrfmncService.insertSlsPrfmncCrt(slsPrfmncVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
 			}
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
