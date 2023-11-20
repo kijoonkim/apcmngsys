@@ -147,7 +147,7 @@
 				</div>
 			</div>
 			<div class="table-responsive tbl_scroll_sm">
-				<div id="sb-area-slsPrfmnc" style="height:500px;"></div>
+				<div id="sb-area-slsPrfmnc" style="height:541px;"></div>
 			</div>
 				<!--[pp] //검색결과 -->
 			</div>

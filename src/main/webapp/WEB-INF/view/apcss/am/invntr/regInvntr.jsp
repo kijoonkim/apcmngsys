@@ -236,7 +236,7 @@
 					<input type="file" id="btnFileUpload" name="btnFileUpload" style="visibility: hidden;" onchange="importExcelData(event)">
 				</div>
                 <div class="table-responsive tbl_scroll_sm">
-                    <div id="inptCmndDsctnGridArea" style="height:524px;"></div>
+                    <div id="inptCmndDsctnGridArea" style="height:536px;"></div>
                 </div>
            	</div>
 			<!--[pp] //검색결과 -->

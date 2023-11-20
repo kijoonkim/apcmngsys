@@ -23,7 +23,7 @@
 </head>
 <body>
 	<section>
-		<div class="box box-solid" style="height: 101%; background-color: #000;">
+		<div class="box box-solid"">
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
 					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 재고정보조회 -->
@@ -168,9 +168,9 @@
 						<sbux-button uitype="normal" id="srch-btn-gdsInvntrDsctn" name="srch-btn-gdsInvntrDsctn" class="btn btn-sm btn-outline-danger" text="상품재고 내역" onclick="fn_sample3()"></sbux-button>
 				</div>
                 <div class="table-responsive tbl_scroll_sm">
-                    <div id="rawMtrInvntrGridArea" style="height:505px;"></div>
-                    <div id="sortInvntrGridArea" style="height:505px;"></div>
-                    <div id="gdsInvntrGridArea" style="height:505px;"></div>
+                    <div id="rawMtrInvntrGridArea" style="height:506px;"></div>
+                    <div id="sortInvntrGridArea" style="height:506px;"></div>
+                    <div id="gdsInvntrGridArea" style="height:506px;"></div>
                 </div>
 			</div>
 		</div>

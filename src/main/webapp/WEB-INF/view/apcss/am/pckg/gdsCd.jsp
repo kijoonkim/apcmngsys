@@ -12,7 +12,7 @@
  * @ 2023.10.23   	김호			최초 생성
  * @see
  *
- */
+ **/
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
