@@ -191,7 +191,7 @@
 								</p>
 							</td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>운송구분</th>
-							<td colspan="3">
+							<td colspan="3" class="td_input">
 								<p class="ad_input_row">
 									<sbux-radio
 										id="dtl-rdo-trsprtSeCd"
@@ -239,7 +239,7 @@
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-wrhsPlan" style="height:442px;"></div>
+					<div id="sb-area-wrhsPlan" style="height:448px;"></div>
 				</div>
 			</div>
 		</div>
