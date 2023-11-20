@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <!-- ==========================================================================	-->
-<!-- NAME : MdRtlFcltMapper.xml                                    				-->
+<!-- NAME : FcltMdRtlMapper.xml                                    				-->
 <!-- DESC : APC 전수조사 대시보드 정보 mapper                                     -->
 <!-- ==========================================================================	-->
 <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -10,20 +10,20 @@
 <!-- 2023.11.16  	김현호        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper">
+<mapper namespace="com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper">
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME :com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectMapSttn			-->
+	<!-- NAME :com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMapSttn			-->
 	<!-- DESC : APC현황조회.                     	 								-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectMapSttn" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+	<select id="selectMapSttn" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
 		<![CDATA[
-			SELECT pt0.CTPV_NM	/* com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectMapSttn */
+			SELECT pt0.CTPV_NM	/* com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMapSttn */
 			     , CASE WHEN pt0.CTPV_CD = '11'
 			            THEN '11'
 			            WHEN pt0.CTPV_CD = '26'
@@ -66,6 +66,7 @@
 			             , COUNT(*) APC_QNTT
 			          FROM TB_TE_APC_OPER_PRSN_OTLN
 			         WHERE CTPV_CD IS NOT NULL
+			         AND TOT_STTN_YN = 'Y'
 		]]>
 		<if test='crtrYr != null and crtrYr != ""'>
 					  AND CRTR_YR = #{crtrYr}
@@ -77,16 +78,16 @@
 
 	</select>
 	<!-- ==========================================================================	-->
-	<!-- NAME :com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectCtpvAreaList		-->
+	<!-- NAME :com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectCtpvAreaList		-->
 	<!-- DESC : APC지역목록조회.                     	 							-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectCtpvAreaList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+	<select id="selectCtpvAreaList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectCtpvAreaLis */
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectCtpvAreaLis */
 				   AOO.CRTR_YR          AS CRTR_YR
 			     , AOO.APC_CD           AS APC_CD
 			     , AOO.APC_NM           AS APC_NM
@@ -116,6 +117,7 @@
 
 			  FROM TB_TE_APC_OPER_PRSN_OTLN AOO
 		   	 WHERE 1=1
+		   	 AND TOT_STTN_YN = 'Y'
 		]]>
 		<if test='crtrYr != null and crtrYr != ""'>
 			   AND AOO.CRTR_YR = #{crtrYr}
@@ -130,14 +132,14 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME :com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectMdRtlOgnzGridList  -->
+	<!-- NAME :com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMdRtlOgnzGridList  -->
 	<!-- DESC : 운영조직 취급실적 테이블 단건조회.                     	 		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectMdRtlOgnzGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectMdRtlOgnzGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT
 				    '통합조직 운영 APC' AS TITLE
@@ -145,101 +147,155 @@
 				  , '통합조직_승인형' AS S0 
 			      , COUNT(1)    AS S1
 			FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN
-			WHERE   CRTR_YR         = '2023'
+			WHERE	1=1
+			]]>
+		<if test='crtrYr != null and crtrYr != ""'>
+			AND   	CRTR_YR         = #{crtrYr}
+		</if>
+		<![CDATA[
 			AND     CTPV_CD IS NOT NULL
 			AND     OGNZ_TYPE_CD    = '1'
+			AND 	TOT_STTN_YN = 'Y'
 			UNION ALL
 			SELECT 
 				    '통합조직 운영 APC' AS TITLE
 				  , '통합조직' AS SUB_TITLE
 				  , '통합조직_육성형' AS S0
-			      ,COUNT(1)    AS S1
+			      , COUNT(1)    AS S1
 			FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN
-			WHERE   CRTR_YR         = '2023'
+			WHERE   1=1
+			]]>
+		<if test='crtrYr != null and crtrYr != ""'>
+			AND   	CRTR_YR         = #{crtrYr}
+		</if>
+		<![CDATA[
 			AND     CTPV_CD IS NOT NULL
 			AND     OGNZ_TYPE_CD    = '2'
+			AND 	TOT_STTN_YN = 'Y'
 			UNION ALL
 			SELECT 
 			  		'통합조직 운영 APC' AS TITLE
 				  ,'통합조직' AS SUB_TITLE
 				  ,'소계(1)' AS S0
-			      ,COUNT(1)    AS S1
+			      , COUNT(1)    AS S1
 			FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN
-			WHERE   CRTR_YR         = '2023'
+			WHERE   1=1
+			]]>
+		<if test='crtrYr != null and crtrYr != ""'>
+			AND   	CRTR_YR         = #{crtrYr}
+		</if>
+		<![CDATA[
 			AND     CTPV_CD IS NOT NULL
-			AND     OGNZ_TYPE_CD  not  IN ('3','4','5') 
+			AND     OGNZ_TYPE_CD  not  IN ('3','4','5')
+			AND 	TOT_STTN_YN = 'Y'
 			UNION ALL
 			SELECT  
 					 '통합조직 운영 APC' AS TITLE
 				  ,  '통합출자출하조직' AS SUB_TITLE
 				  ,  '통합출자출하조직_승인형' AS S0
-			      ,COUNT(1)    AS S1
+			      , COUNT(1)    AS S1
 			FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN
-			WHERE   CRTR_YR         = '2023'
+			WHERE   1=1
+			]]>
+		<if test='crtrYr != null and crtrYr != ""'>
+			AND   	CRTR_YR         = #{crtrYr}
+		</if>
+		<![CDATA[
 			AND     CTPV_CD IS NOT NULL
 			AND     OGNZ_TYPE_CD    = '3'
+			AND 	TOT_STTN_YN = 'Y'
 			UNION ALL
 			SELECT 
 					'통합조직 운영 APC' AS TITLE
 				  , '통합출자출하조직' AS SUB_TITLE
 				  , '통합출자출하조직_육성형' AS S0
-			      ,COUNT(1)    AS S1
+			      , COUNT(1)    AS S1
 			FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN
-			WHERE   CRTR_YR         = '2023'
+			WHERE   1=1
+			]]>
+		<if test='crtrYr != null and crtrYr != ""'>
+			AND   	CRTR_YR         = #{crtrYr}
+		</if>
+		<![CDATA[
 			AND     CTPV_CD IS NOT NULL
 			AND     OGNZ_TYPE_CD    = '4'
+			AND 	TOT_STTN_YN = 'Y'
 			UNION ALL
 			SELECT 
 			  		'통합조직 운영 APC' AS TITLE
 				  ,'통합출자출하조직' AS SUB_TITLE
 				  ,'소계(2)' AS S0
-			      ,COUNT(1)    AS S1
+			      , COUNT(1)    AS S1
 			FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN
-			WHERE   CRTR_YR         = '2023'
+			WHERE   1=1
+			]]>
+		<if test='crtrYr != null and crtrYr != ""'>
+			AND   	CRTR_YR         = #{crtrYr}
+		</if>
+		<![CDATA[
 			AND     CTPV_CD IS NOT NULL
 			AND     OGNZ_TYPE_CD  not  IN ('1','2','5')
+			AND 	TOT_STTN_YN = 'Y'
 			UNION ALL
 			SELECT 
 			  		'통합조직 합계(1+2)' AS TITLE
 				  ,'통합조직 합계(1+2)' AS SUB_TITLE
 				  ,'통합조직 합계(1+2)' AS S0
-			      ,COUNT(1)    AS S1
+			      , COUNT(1)    AS S1
 			FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN
-			WHERE   CRTR_YR         = '2023'
+			WHERE   1=1
+			]]>
+		<if test='crtrYr != null and crtrYr != ""'>
+			AND   	CRTR_YR         = #{crtrYr}
+		</if>
+		<![CDATA[
 			AND     CTPV_CD IS NOT NULL
-			AND     OGNZ_TYPE_CD  not  IN ('5') 
+			AND     OGNZ_TYPE_CD  not  IN ('5')
+			AND 	TOT_STTN_YN = 'Y'
 			UNION ALL
 			SELECT  
 			  	   '개별조직 합계' AS TITLE
 				  ,'개별조직 합계' AS SUB_TITLE
 				  ,'개별조직 합계' AS S0
-			      ,COUNT(1)    AS S1
+			      , COUNT(1)    AS S1
 			FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN
-			WHERE   CRTR_YR         = '2023' 
+			WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			AND     CTPV_CD IS NOT NULL
 			AND     OGNZ_TYPE_CD    IN ('5')
+			AND 	TOT_STTN_YN = 'Y'
 			UNION ALL
 			SELECT  
 			  	   '전체 합계' AS TITLE
 				  ,'전체 합계' AS SUB_TITLE
 				  ,'전체 합계' AS S0
-			      ,COUNT(1)    AS S1
+			      , COUNT(1)    AS S1
 			FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN
-			WHERE   CRTR_YR         = '2023' 
+			WHERE   1=1
+			]]>
+		<if test='crtrYr != null and crtrYr != ""'>
+			AND   	CRTR_YR         = #{crtrYr}
+		</if>
+		<![CDATA[
 			AND     CTPV_CD IS NOT NULL
 			AND     OGNZ_TYPE_CD    IN ('1','2','3','4','5')
+			AND 	TOT_STTN_YN = 'Y'
 			]]>
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME :com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectOwnrAndOperGridList-->
+	<!-- NAME :com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectOwnrAndOperGridList-->
 	<!-- DESC : 개소수:소유자 및 운영자 테이블 단건조회.                     	 		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectOwnrAndOperGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectOwnrAndOperGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0
 			      , SUM(S1) AS S1
@@ -254,7 +310,12 @@
 			              , CASE WHEN MB IS NULL      THEN 1 END AS S4
 			              , 1                                    AS S5
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN
-			        WHERE   CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     OGNZ_TYPE_CD NOT IN ('5')
 			        AND     CTPV_CD IS NOT NULL
 			        UNION ALL
@@ -265,7 +326,12 @@
 			              , CASE WHEN MB IS NULL      THEN 1 END AS S4
 			              , 1                                    AS S5
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN
-			        WHERE   CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     OGNZ_TYPE_CD IN ('5')
 			        AND     CTPV_CD IS NOT NULL)
 			GROUP BY S0
@@ -275,14 +341,14 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectAllBdarGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectAllBdarGridList	-->
 	<!-- DESC : 산지유통시설 시설ㆍ장비 - 총 건춘면적 테이블 단건조회.             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectAllBdarGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectAllBdarGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                          AS V0
 			      , ROUND(SUM(S1),0)            AS V1
@@ -305,7 +371,12 @@
 			              , 1  AS A3
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_FCLT_STTS B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
 			        AND     A.APC_CD = B.APC_CD
@@ -324,7 +395,12 @@
 			              , 1  AS A3
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_FCLT_STTS B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.OGNZ_TYPE_CD IN ('5')
 			        AND     A.APC_CD = B.APC_CD)
@@ -335,14 +411,14 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectLgstcsGdsGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectLgstcsGdsGridList	-->
 	<!-- DESC : 산지유통시설 시설ㆍ장비 - 물류:상품화시설(건축면적) 테이블 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectLgstcsGdsGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectLgstcsGdsGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                          AS V0
 			      , ROUND(SUM(S1),0)            AS V1
@@ -360,7 +436,12 @@
 			              , 1 AS A3
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_FCLT_STTS B
-			        WHERE   A.CRTR_YR   = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
 			        AND     A.APC_CD    =  B.APC_CD
@@ -374,7 +455,12 @@
 			              , 1 AS A3
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_FCLT_STTS B
-			        WHERE   A.CRTR_YR   = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.OGNZ_TYPE_CD IN ('5')
 			        AND     A.APC_CD    =  B.APC_CD)
@@ -385,14 +471,14 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectLwtpStrgGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectLwtpStrgGridList	-->
 	<!-- DESC : 산지유통시설 시설ㆍ장비 - 저온냉장고 테이블 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectLwtpStrgGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectLwtpStrgGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                          AS V0
 			      , SUM(S1)                     AS V1
@@ -405,7 +491,12 @@
 			              , CASE WHEN A.MB IS NULL THEN NVL(B.STRG_PLC_LWTP_STRG_AREA,0) END    AS S3
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_FCLT_STTS B
-			        WHERE   A.CRTR_YR   = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
 			        AND     A.APC_CD    =  B.APC_CD
@@ -416,7 +507,12 @@
 			              , CASE WHEN A.MB IS NULL THEN NVL(B.STRG_PLC_LWTP_STRG_AREA,0) END    AS S3
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_FCLT_STTS B
-			        WHERE   A.CRTR_YR   = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.OGNZ_TYPE_CD IN ('5')
 			        AND     A.APC_CD    =  B.APC_CD)
@@ -426,14 +522,14 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectPrprtnClngFcltGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectPrprtnClngFcltGridList	-->
 	<!-- DESC : 산지유통시설 시설ㆍ장비 - 저온냉장고 테이블 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectPrprtnClngFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectPrprtnClngFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                          AS V0
 			      , SUM(S1)                     AS V1
@@ -446,7 +542,12 @@
 			              , CASE WHEN A.MB IS NULL THEN NVL(B.STRG_PLC_PRC_PLC_AREA,0) END  AS S3
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_FCLT_STTS B
-			        WHERE   A.CRTR_YR   = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
 			        AND     A.APC_CD    =  B.APC_CD
@@ -457,7 +558,12 @@
 			              , CASE WHEN A.MB IS NULL THEN NVL(B.STRG_PLC_PRC_PLC_AREA,0) END  AS S3
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_FCLT_STTS B
-			        WHERE   A.CRTR_YR   = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.OGNZ_TYPE_CD IN ('5')
 			        AND     A.APC_CD    =  B.APC_CD)
@@ -468,14 +574,14 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectStrgFcltGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectStrgFcltGridList	-->
 	<!-- DESC : 산지유통시설 시설ㆍ장비 - CA저장시설 테이블 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectStrgFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectStrgFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                          AS V0
 			      , SUM(S1)                     AS V1
@@ -488,7 +594,12 @@
 			              , CASE WHEN A.MB IS NULL THEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) END  AS S3
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_FCLT_STTS B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
 			        AND     A.APC_CD =  B.APC_CD
@@ -499,7 +610,12 @@
 			              , CASE WHEN A.MB IS NULL THEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) END  AS S3
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_FCLT_STTS B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.OGNZ_TYPE_CD IN ('5')
 			        AND     A.APC_CD =  B.APC_CD)
@@ -509,14 +625,14 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectFcltMsrmtEqpmntGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectFcltMsrmtEqpmntGridList	-->
 	<!-- DESC : 산지유통시설 시설ㆍ장비 - 측정장비설치 개소수 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectFcltMsrmtEqpmntGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectFcltMsrmtEqpmntGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                          AS V0
 			      , SUM(S1)                     AS V1
@@ -539,7 +655,12 @@
 			                      , MAX(MNFC_MCHN) AS MNFC_MCHN
 			                FROM    USRAM.TB_TE_APC_FCLT_STTS_DTL
 			                GROUP BY APC_CD) B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD =  B.APC_CD(+)
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
@@ -558,7 +679,12 @@
 			                      , MAX(MNFC_MCHN) AS MNFC_MCHN
 			                FROM    USRAM.TB_TE_APC_FCLT_STTS_DTL
 			                GROUP BY APC_CD) B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD  =  B.APC_CD(+)
 			        AND     A.OGNZ_TYPE_CD IN ('5'))
@@ -568,14 +694,14 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectInvstAtmAllGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectInvstAtmAllGridList	-->
 	<!-- DESC : 산지유통시설 시설ㆍ장비 - 투자금액: 전체 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectInvstAtmAllGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectInvstAtmAllGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                                          AS V0
 			      , SUM(S1)                                     AS V1
@@ -592,7 +718,12 @@
 			                      , SUM(SLF_BRDN) AS SLF_BRDN
 			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
 			                GROUP BY APC_CD) B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD =  B.APC_CD(+)
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
@@ -607,7 +738,12 @@
 			                      , SUM(SLF_BRDN) AS SLF_BRDN
 			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
 			                GROUP BY APC_CD) B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD =  B.APC_CD(+)
 			        AND     A.OGNZ_TYPE_CD IN ('5'))
@@ -617,14 +753,14 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectInvstAtmFundTypeGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectInvstAtmFundTypeGridList	-->
 	<!-- DESC : 산지유통시설 시설ㆍ장비 - 투자금액: 자금유형 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectInvstAtmFundTypeGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectInvstAtmFundTypeGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                                  AS V0
 			      , ROUND(SUM(S1)/1000000,0)            AS V1
@@ -644,7 +780,12 @@
 			                      , SUM(SLF_BRDN) AS SLF_BRDN
 			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
 			                GROUP BY APC_CD) B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD =  B.APC_CD(+)
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
@@ -661,7 +802,12 @@
 			                      , SUM(SLF_BRDN) AS SLF_BRDN
 			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
 			                GROUP BY APC_CD) B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD =  B.APC_CD(+)
 			        AND     A.OGNZ_TYPE_CD IN ('5'))
@@ -671,14 +817,14 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectInvstAtmOwnrGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectInvstAtmOwnrGridList	-->
 	<!-- DESC : 산지유통시설 시설ㆍ장비 - 투자금액: 소유자 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectInvstAtmOwnrGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectInvstAtmOwnrGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                                  AS V0
 			      , SUM(S1)                             AS V1
@@ -698,7 +844,12 @@
 			                      , SUM(NE+LCLT_EXPND+SLF_BRDN) AS AMT
 			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
 			                GROUP BY APC_CD) B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD =  B.APC_CD(+)
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
@@ -713,7 +864,12 @@
 			                      , SUM(NE+LCLT_EXPND+SLF_BRDN) AS AMT
 			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
 			                GROUP BY APC_CD) B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD =  B.APC_CD(+)
 			        AND     A.OGNZ_TYPE_CD IN ('5'))
@@ -723,14 +879,14 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectInvstAtmOperPrsnGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectInvstAtmOperPrsnGridList	-->
 	<!-- DESC : 산지유통시설 시설ㆍ장비 - 투자금액: 소유자 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectInvstAtmOperPrsnGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectInvstAtmOperPrsnGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                                  AS V0
 			      , SUM(S1)                             AS V1
@@ -750,7 +906,12 @@
 			                      , SUM(NE+LCLT_EXPND+SLF_BRDN) AS AMT
 			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
 			                GROUP BY APC_CD) B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD =  B.APC_CD(+)
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
@@ -765,7 +926,12 @@
 			                      , SUM(NE+LCLT_EXPND+SLF_BRDN) AS AMT
 			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
 			                GROUP BY APC_CD) B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD =  B.APC_CD(+)
 			        AND     A.OGNZ_TYPE_CD IN ('5'))
@@ -775,14 +941,14 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectMdRtlOgnzTypeGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMdRtlOgnzTypeGridList	-->
 	<!-- DESC : 산지유통시설 지역별 현황 - 지역별 개소수 : 산지유통조직 유형 단건조회.	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectMdRtlOgnzTypeGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectMdRtlOgnzTypeGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0          AS V0
 			      , SUM(S1)     AS V1
@@ -801,21 +967,26 @@
 			              , CASE WHEN A.TYPE_CD = '2' THEN 1 END                                    AS S6
 			              , 1                                                                       AS S7
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A
-			        WHERE   A.CRTR_YR   = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL)
 			GROUP BY S0
 		]]>
 	</select>
 	
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectRgnOperPrsnGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectRgnOperPrsnGridList	-->
 	<!-- DESC : 산지유통시설 지역별 현황 - 지역별 개소수 : 운영자 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectRgnOperPrsnGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectRgnOperPrsnGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0          AS V0
 			      , SUM(S1)     AS V1
@@ -834,21 +1005,26 @@
 			              , CASE WHEN A.MB IS NULL THEN 1 END                                       AS S6
 			              , 1                                                                       AS S7
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A
-			        WHERE   A.CRTR_YR   = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL)
 			GROUP BY S0;      
 			]]>
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectLgstcsGdsFcltGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectLgstcsGdsFcltGridList	-->
 	<!-- DESC : 산지유통시설 지역별 현황 - 산지우통시설 시설·장비 : 물류·상품화 시설 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectLgstcsGdsFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectLgstcsGdsFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                                  AS V0
 			      , NVL(ROUND(SUM(S1),0),0)             AS V1
@@ -886,7 +1062,12 @@
 			              , 1                                                       AS S6
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_FCLT_STTS B
-			        WHERE   A.CRTR_YR   = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD   IS NOT NULL
 			        AND     A.APC_CD    =  B.APC_CD(+))
 			GROUP BY S0
@@ -894,14 +1075,14 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectLgstcsGdsFcltGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectLgstcsGdsFcltGridList	-->
 	<!-- DESC : 산지유통시설 지역별 현황 - 저온저장고 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectMdLwtpStrgGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectMdLwtpStrgGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                                 AS V0
 			      , NVL(ROUND(SUM(S1),0),0)            AS V1
@@ -915,7 +1096,12 @@
 			                     NVL(B.STRG_PLC_LWTP_STRG_AREA,0) END                           AS S3
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_FCLT_STTS B
-			        WHERE   A.CRTR_YR   = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD   IS NOT NULL
 			        AND     A.APC_CD    =  B.APC_CD(+))
 			GROUP BY S0
@@ -923,14 +1109,14 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectRgnPrprtnClngFcltGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectRgnPrprtnClngFcltGridList	-->
 	<!-- DESC : 산지유통시설 지역별 현황 - 예냉시설 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectRgnPrprtnClngFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectRgnPrprtnClngFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                                 AS V0
 			      , NVL(ROUND(SUM(S1),0),0)            AS V1
@@ -944,7 +1130,12 @@
 			                     NVL(B.STRG_PLC_PRC_PLC_AREA,0) END                             AS S3
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_FCLT_STTS B
-			        WHERE   A.CRTR_YR   = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD   IS NOT NULL
 			        AND     A.APC_CD    =  B.APC_CD(+))
 			GROUP BY S0
@@ -952,14 +1143,14 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectRgnStrgFcltGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectRgnStrgFcltGridList	-->
 	<!-- DESC : 산지유통시설 지역별 현황 - CA저장고 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectRgnStrgFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectRgnStrgFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                              AS V0
 			      , NVL(ROUND(SUM(S1),0),0)         AS V1
@@ -973,7 +1164,12 @@
 			                     NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) END                         AS S3
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_FCLT_STTS B
-			        WHERE   A.CRTR_YR   = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD   IS NOT NULL
 			        AND     A.APC_CD    =  B.APC_CD(+))
 			GROUP BY S0
@@ -981,14 +1177,14 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectRgnFcltMsrmtEqpmntGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectRgnFcltMsrmtEqpmntGridList	-->
 	<!-- DESC : 산지유통시설 지역별 현황 - 선별기·측정장비 설치 개소 수 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectRgnFcltMsrmtEqpmntGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectRgnFcltMsrmtEqpmntGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                                 AS V0
 			      , NVL(ROUND(SUM(S1),0),0)            AS V1
@@ -1010,7 +1206,12 @@
 			                      , MAX(MNFC_MCHN) AS MNFC_MCHN
 			                FROM    USRAM.TB_TE_APC_FCLT_STTS_DTL
 			                GROUP BY APC_CD) B
-			        WHERE   A.CRTR_YR   = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD   IS NOT NULL
 			        AND     A.APC_CD    =  B.APC_CD(+))
 			GROUP BY S0
@@ -1018,14 +1219,14 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectRgnInvstAtmAllGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectRgnInvstAtmAllGridList	-->
 	<!-- DESC : 산지유통시설 지역별 현황 - 지역별 투자금액 전체 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectRgnInvstAtmAllGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectRgnInvstAtmAllGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                                          AS V0
 			      , NVL(SUM(S1),0)                              AS V1
@@ -1047,7 +1248,12 @@
 			                      , SUM(SLF_BRDN) AS SLF_BRDN
 			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
 			                GROUP BY APC_CD) B
-			        WHERE   A.CRTR_YR   = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD   IS NOT NULL
 			        AND     A.APC_CD    =  B.APC_CD(+))
 			GROUP BY S0
@@ -1055,14 +1261,14 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectRgnInvstAtmOwnrGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectRgnInvstAtmOwnrGridList	-->
 	<!-- DESC : 산지유통시설 지역별 현황 - 지역별 투자금액 소유자 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectRgnInvstAtmOwnrGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectRgnInvstAtmOwnrGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                                          AS V0
 			      , NVL(SUM(S1),0)                              AS V1
@@ -1085,7 +1291,12 @@
 			                      , SUM(SLF_BRDN) AS SLF_BRDN
 			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
 			                GROUP BY APC_CD) B
-			        WHERE   A.CRTR_YR   = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD   IS NOT NULL
 			        AND     A.APC_CD    =  B.APC_CD(+)
 			      )
@@ -1094,14 +1305,14 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectRgnInvstOperPrsnGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectRgnInvstOperPrsnGridList	-->
 	<!-- DESC : 산지유통시설 지역별 현황 - 지역별 투자금액 운영자 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectRgnInvstOperPrsnGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectRgnInvstOperPrsnGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                                          AS V0
 			      , NVL(SUM(S1),0)                              AS V1
@@ -1124,7 +1335,12 @@
 			                      , SUM(SLF_BRDN) AS SLF_BRDN
 			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
 			                GROUP BY APC_CD) B
-			        WHERE   A.CRTR_YR   = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD   IS NOT NULL
 			        AND     A.APC_CD    =  B.APC_CD(+)
 			      )
@@ -1133,21 +1349,26 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectBzeatCntMdRtlOgnzTypeGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectBzeatCntMdRtlOgnzTypeGridList	-->
 	<!-- DESC : 정부지원 산지유통시설 현황 -개소수: 개소수:산지유통조직 유형 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBzeatCntMdRtlOgnzTypeGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectBzeatCntMdRtlOgnzTypeGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT '통합조직 운영 APC' AS TITLE,
 			        '통합조직' AS SUB_TITLE,
 			        '통합조직_승인형' AS S0,
 			        COUNT(1) AS S1 -- 통합조직_승인형
 			   FROM USRAM.TB_TE_APC_OPER_PRSN_OTLN
-			  WHERE CRTR_YR = '2023'
+			  WHERE 1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			    AND OGNZ_TYPE_CD = '1'
 			    AND GVRMNT_SPRT_YN = 'Y'
 			    AND CTPV_CD IS NOT NULL
@@ -1157,7 +1378,12 @@
 			        '통합조직_육성형' AS S0,
 			        COUNT(1) AS S1 -- 통합조직_육성형
 			   FROM USRAM.TB_TE_APC_OPER_PRSN_OTLN
-			  WHERE CRTR_YR = '2023'
+			  WHERE 1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			    AND OGNZ_TYPE_CD = '2'
 			    AND GVRMNT_SPRT_YN = 'Y'
 			    AND CTPV_CD IS NOT NULL
@@ -1167,7 +1393,12 @@
 			        '소계(1)' AS S0,
 			        COUNT(1) AS S1
 			   FROM USRAM.TB_TE_APC_OPER_PRSN_OTLN
-			  WHERE CRTR_YR = '2023'
+			  WHERE 1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			    AND OGNZ_TYPE_CD IN ('1','2')
 			    AND GVRMNT_SPRT_YN = 'Y'
 			    AND CTPV_CD IS NOT NULL
@@ -1177,7 +1408,12 @@
 			        '통합출자출하조직_승인형' AS S0,
 			        COUNT(1) AS S1 -- 통합출자출하조직_승인형
 			   FROM USRAM.TB_TE_APC_OPER_PRSN_OTLN
-			  WHERE CRTR_YR = '2023'
+			  WHERE 1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			    AND OGNZ_TYPE_CD = '3'
 			    AND GVRMNT_SPRT_YN = 'Y'
 			    AND CTPV_CD IS NOT NULL
@@ -1187,7 +1423,12 @@
 			        '통합출자출하조직_육성형' AS S0,
 			        COUNT(1) AS S1 -- 통합출자출하조직_육성형
 			   FROM USRAM.TB_TE_APC_OPER_PRSN_OTLN
-			  WHERE CRTR_YR = '2023'
+			  WHERE 1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			    AND OGNZ_TYPE_CD = '4'
 			    AND GVRMNT_SPRT_YN = 'Y'
 			    AND CTPV_CD IS NOT NULL
@@ -1197,7 +1438,12 @@
 			        '소계(2)' AS S0,
 			        COUNT(1) AS S1 -- 통합조직_육성형
 			   FROM USRAM.TB_TE_APC_OPER_PRSN_OTLN
-			  WHERE CRTR_YR = '2023'
+			  WHERE 1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			    AND OGNZ_TYPE_CD IN ('3','4')
 			    AND GVRMNT_SPRT_YN = 'Y'
 			    AND CTPV_CD IS NOT NULL
@@ -1207,7 +1453,12 @@
 			        '통합조직 합계' AS S0,
 			        COUNT(1) AS S1 -- 통합조직 합계
 			   FROM USRAM.TB_TE_APC_OPER_PRSN_OTLN
-			  WHERE CRTR_YR = '2023'
+			  WHERE 1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			    AND OGNZ_TYPE_CD IN('1',
 			        '2',
 			        '3',
@@ -1220,7 +1471,12 @@
 			        '개별조직 합계' AS S0,
 			        COUNT(1) AS S1 -- 개별조직 합계
 			   FROM USRAM.TB_TE_APC_OPER_PRSN_OTLN
-			  WHERE CRTR_YR = '2023'
+			  WHERE 1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			    AND OGNZ_TYPE_CD = '5'
 			    AND GVRMNT_SPRT_YN = 'Y'
 			    AND CTPV_CD IS NOT NULL
@@ -1230,21 +1486,26 @@
 			        '전체 합계' AS S0,
 			        COUNT(1) AS S1 -- 전체 합계
 			   FROM USRAM.TB_TE_APC_OPER_PRSN_OTLN
-			  WHERE CRTR_YR = '2023'
+			  WHERE 1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			    AND GVRMNT_SPRT_YN = 'Y'
 			    AND CTPV_CD IS NOT NULL;
 			]]>
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectBzeatCntOwnrAndOperGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectBzeatCntOwnrAndOperGridList	-->
 	<!-- DESC : 정부지원 산지유통시설 현황 -개소수: 개소수:소유자 및 운영자 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBzeatCntOwnrAndOperGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectBzeatCntOwnrAndOperGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0
 			      , SUM(S1) AS S1
@@ -1259,7 +1520,12 @@
 			              , CASE WHEN MB IS NULL      THEN 1 END AS S4
 			              , 1                                    AS S5
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN
-			        WHERE   CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     GVRMNT_SPRT_YN = 'Y'
 			        AND     OGNZ_TYPE_CD NOT IN ('5')
 			        AND     CTPV_CD IS NOT NULL
@@ -1271,7 +1537,12 @@
 			              , CASE WHEN MB IS NULL      THEN 1 END AS S4
 			              , 1                                    AS S5
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN
-			        WHERE   CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     GVRMNT_SPRT_YN = 'Y'
 			        AND     OGNZ_TYPE_CD IN ('5')
 			        AND     CTPV_CD IS NOT NULL)
@@ -1281,14 +1552,14 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectFcltEqpmntAllBdarGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectFcltEqpmntAllBdarGridList	-->
 	<!-- DESC : 정부지원 산지유통시설 현황 - 총 건축면적 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectFcltEqpmntAllBdarGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectFcltEqpmntAllBdarGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                          AS V0
 			      , ROUND(SUM(S1),0)            AS V1
@@ -1311,7 +1582,12 @@
 			              , 1  AS A3
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_FCLT_STTS B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
@@ -1331,7 +1607,12 @@
 			              , 1  AS A3
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_FCLT_STTS B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.OGNZ_TYPE_CD IN ('5')
@@ -1342,14 +1623,14 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectLgstcsGdsFcltBdarGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectLgstcsGdsFcltBdarGridList	-->
 	<!-- DESC : 정부지원 산지유통시설 현황 - 물류,상품화 시설(건축면적) 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectLgstcsGdsFcltBdarGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectLgstcsGdsFcltBdarGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                          AS V0
 			      , ROUND(SUM(S1),0)            AS V1 
@@ -1367,7 +1648,12 @@
 			              , 1 AS A3
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_FCLT_STTS B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
@@ -1382,7 +1668,12 @@
 			              , 1 AS A3
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_FCLT_STTS B
-			        WHERE   A.CRTR_YR   = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.OGNZ_TYPE_CD IN ('5')
@@ -1393,14 +1684,14 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectBzeatCntLwtpStrgGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectBzeatCntLwtpStrgGridList	-->
 	<!-- DESC : 정부지원 산지유통시설 현황 - 저온저장고 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBzeatCntLwtpStrgGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectBzeatCntLwtpStrgGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                          AS V0
 			      , SUM(S1)                     AS V1
@@ -1413,7 +1704,12 @@
 			              , CASE WHEN A.MB IS NULL THEN NVL(B.STRG_PLC_LWTP_STRG_AREA,0) END    AS S3
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_FCLT_STTS B
-			        WHERE   A.CRTR_YR   = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
@@ -1425,7 +1721,12 @@
 			              , CASE WHEN A.MB IS NULL THEN NVL(B.STRG_PLC_LWTP_STRG_AREA,0) END    AS S3
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_FCLT_STTS B
-			        WHERE   A.CRTR_YR   = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.OGNZ_TYPE_CD IN ('5')
@@ -1436,14 +1737,14 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectBzeatCntPrprtnClngFcltGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectBzeatCntPrprtnClngFcltGridList	-->
 	<!-- DESC : 정부지원 산지유통시설 현황 - 예냉시설 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBzeatCntPrprtnClngFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectBzeatCntPrprtnClngFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                          AS V0   -- 구분
 			      , SUM(S1)                     AS V1   -- APC 개소수
@@ -1456,7 +1757,12 @@
 			              , CASE WHEN A.MB IS NULL THEN NVL(B.STRG_PLC_PRC_PLC_AREA,0) END  AS S3
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_FCLT_STTS B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
@@ -1468,7 +1774,12 @@
 			              , CASE WHEN A.MB IS NULL THEN NVL(B.STRG_PLC_PRC_PLC_AREA,0) END  AS S3
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_FCLT_STTS B
-			        WHERE   A.CRTR_YR   = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.OGNZ_TYPE_CD IN ('5')
@@ -1479,14 +1790,14 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectBzeatCntStrgFcltGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectBzeatCntStrgFcltGridList	-->
 	<!-- DESC : 정부지원 산지유통시설 현황 - CA 저장시설 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBzeatCntStrgFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectBzeatCntStrgFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                          AS V0
 			      , SUM(S1)                     AS V1
@@ -1499,7 +1810,12 @@
 			              , CASE WHEN A.MB IS NULL THEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) END  AS S3
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_FCLT_STTS B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
@@ -1511,7 +1827,12 @@
 			              , CASE WHEN A.MB IS NULL THEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) END  AS S3
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_FCLT_STTS B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.OGNZ_TYPE_CD IN ('5')
@@ -1522,14 +1843,14 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectBzeatCntFcltMsrmtEqpmntGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectBzeatCntFcltMsrmtEqpmntGridList	-->
 	<!-- DESC : 정부지원 산지유통시설 현황 - 선별기, 측정장비 설치 개소 수 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBzeatCntFcltMsrmtEqpmntGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectBzeatCntFcltMsrmtEqpmntGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                          AS V0
 			      , SUM(S1)                     AS V1
@@ -1552,7 +1873,12 @@
 			                      , MAX(MNFC_MCHN) AS MNFC_MCHN
 			                FROM    USRAM.TB_TE_APC_FCLT_STTS_DTL
 			                GROUP BY APC_CD) B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD =  B.APC_CD(+)   
@@ -1572,7 +1898,12 @@
 			                      , MAX(MNFC_MCHN) AS MNFC_MCHN
 			                FROM    USRAM.TB_TE_APC_FCLT_STTS_DTL
 			                GROUP BY APC_CD) B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD  =  B.APC_CD(+)  
@@ -1583,14 +1914,14 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectBzeatCntInvstAtmAllGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectBzeatCntInvstAtmAllGridList	-->
 	<!-- DESC : 정부지원 산지유통시설 현황 - 투자금액: 전체 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBzeatCntInvstAtmAllGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectBzeatCntInvstAtmAllGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                                          AS V0
 			      , SUM(S1)                                     AS V1
@@ -1607,7 +1938,12 @@
 			                      , SUM(SLF_BRDN) AS SLF_BRDN
 			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
 			                GROUP BY APC_CD) B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD =  B.APC_CD(+)  
@@ -1623,7 +1959,12 @@
 			                      , SUM(SLF_BRDN) AS SLF_BRDN
 			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
 			                GROUP BY APC_CD) B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD =  B.APC_CD(+)  
@@ -1634,14 +1975,14 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectBzeatCntInvstAtmFundTypeGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectBzeatCntInvstAtmFundTypeGridList	-->
 	<!-- DESC : 정부지원 산지유통시설 현황 - 투자금액: 자금유형 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBzeatCntInvstAtmFundTypeGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectBzeatCntInvstAtmFundTypeGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                                  AS V0
 			      , ROUND(SUM(S1)/1000000,0)            AS V1
@@ -1661,7 +2002,12 @@
 			                      , SUM(SLF_BRDN) AS SLF_BRDN
 			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
 			                GROUP BY APC_CD) B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD =  B.APC_CD(+)  
@@ -1679,7 +2025,12 @@
 			                      , SUM(SLF_BRDN) AS SLF_BRDN
 			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
 			                GROUP BY APC_CD) B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD =  B.APC_CD(+)  
@@ -1690,14 +2041,14 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectBzeatCntInvstAtmOwnrGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectBzeatCntInvstAtmOwnrGridList	-->
 	<!-- DESC : 정부지원 산지유통시설 현황 - 투자금액: 소유자 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBzeatCntInvstAtmOwnrGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectBzeatCntInvstAtmOwnrGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                                  AS V0
 			      , SUM(S1)                             AS V1
@@ -1717,7 +2068,12 @@
 			                      , SUM(NE+LCLT_EXPND+SLF_BRDN) AS AMT
 			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
 			                GROUP BY APC_CD) B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD =  B.APC_CD(+)  
@@ -1733,7 +2089,12 @@
 			                      , SUM(NE+LCLT_EXPND+SLF_BRDN) AS AMT
 			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
 			                GROUP BY APC_CD) B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD =  B.APC_CD(+)  
@@ -1744,14 +2105,14 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectBzeatCntInvstOperPrsnGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectBzeatCntInvstOperPrsnGridList	-->
 	<!-- DESC : 정부지원 산지유통시설 현황 - 투자금액: 운영자 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBzeatCntInvstOperPrsnGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectBzeatCntInvstOperPrsnGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                                  AS V0
 			      , SUM(S1)                             AS V1
@@ -1771,7 +2132,12 @@
 			                      , SUM(NE+LCLT_EXPND+SLF_BRDN) AS AMT
 			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
 			                GROUP BY APC_CD) B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD =  B.APC_CD(+)  
@@ -1787,7 +2153,12 @@
 			                      , SUM(NE+LCLT_EXPND+SLF_BRDN) AS AMT
 			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
 			                GROUP BY APC_CD) B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD =  B.APC_CD(+)  
@@ -1798,14 +2169,14 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectGvrngmtSprtMdRtlOgnzTypeGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectGvrngmtSprtMdRtlOgnzTypeGridList	-->
 	<!-- DESC : 정부지원산지유통시설지역별현황 - 지역별 개소수 : 산지유통조직 유형 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectGvrngmtSprtMdRtlOgnzTypeGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectGvrngmtSprtMdRtlOgnzTypeGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0          AS V0
 			      , SUM(S1)     AS V1
@@ -1824,7 +2195,12 @@
 			              , CASE WHEN A.TYPE_CD = '2' THEN 1 END                                    AS S6
 			              , 1                                                                       AS S7
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A
-			        WHERE   A.CRTR_YR   = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD IS NOT NULL)
 			GROUP BY S0
@@ -1832,14 +2208,14 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectGvrngmtSprtRgnOperPrsnGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectGvrngmtSprtRgnOperPrsnGridList	-->
 	<!-- DESC : 정부지원산지유통시설지역별현황 - 지역별 개소수 : 운영자 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectGvrngmtSprtRgnOperPrsnGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectGvrngmtSprtRgnOperPrsnGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0          AS V0
 			      , SUM(S1)     AS V1
@@ -1858,7 +2234,12 @@
 			              , CASE WHEN A.MB IS NULL THEN 1 END                                       AS S6
 			              , 1                                                                       AS S7
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A
-			        WHERE   A.CRTR_YR   = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD IS NOT NULL)
 			GROUP BY S0
@@ -1866,14 +2247,14 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectGvrngmtSprtLgstcsGdsFcltGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectGvrngmtSprtLgstcsGdsFcltGridList	-->
 	<!-- DESC : 정부지원산지유통시설지역별현황 - 물류·상품화 시설 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectGvrngmtSprtLgstcsGdsFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectGvrngmtSprtLgstcsGdsFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                                  AS V0
 			      , NVL(ROUND(SUM(S1),0),0)             AS V1
@@ -1911,7 +2292,12 @@
 			              , 1                                                       AS S6
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_FCLT_STTS B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD =  B.APC_CD(+))
@@ -1920,14 +2306,14 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectGvrngmtSprtLwtpStrgGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectGvrngmtSprtLwtpStrgGridList	-->
 	<!-- DESC : 정부지원산지유통시설지역별현황 - 저온저장고 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectGvrngmtSprtLwtpStrgGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectGvrngmtSprtLwtpStrgGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                                 AS V0
 			      , NVL(ROUND(SUM(S1),0),0)            AS V1
@@ -1941,7 +2327,12 @@
 			                     NVL(B.STRG_PLC_LWTP_STRG_AREA,0) END                           AS S3
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_FCLT_STTS B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD =  B.APC_CD(+))
@@ -1950,14 +2341,14 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectGvrngmtSprtPrprtnClngFcltGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectGvrngmtSprtPrprtnClngFcltGridList	-->
 	<!-- DESC : 정부지원산지유통시설지역별현황 - 예냉시설 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectGvrngmtSprtPrprtnClngFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectGvrngmtSprtPrprtnClngFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                                 AS V0
 			      , NVL(ROUND(SUM(S1),0),0)            AS V1
@@ -1971,7 +2362,12 @@
 			                     NVL(B.STRG_PLC_PRC_PLC_AREA,0) END                             AS S3
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_FCLT_STTS B
-			        WHERE   A.CRTR_YR   = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD   IS NOT NULL
 			        AND     A.APC_CD    =  B.APC_CD(+))
@@ -1980,14 +2376,14 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectGvrngmtSprtStrgFcltGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectGvrngmtSprtStrgFcltGridList	-->
 	<!-- DESC : 정부지원산지유통시설지역별현황 - CA저장시설 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectGvrngmtSprtStrgFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectGvrngmtSprtStrgFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                              AS V0
 			      , NVL(ROUND(SUM(S1),0),0)         AS V1
@@ -2001,7 +2397,12 @@
 			                     NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) END                         AS S3
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_FCLT_STTS B
-			        WHERE   A.CRTR_YR   = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD   IS NOT NULL
 			        AND     A.APC_CD    =  B.APC_CD(+))
@@ -2010,14 +2411,14 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectGvrngmtSprtFcltMsrmtEqpmntGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectGvrngmtSprtFcltMsrmtEqpmntGridList	-->
 	<!-- DESC : 정부지원산지유통시설지역별현황 - 선별기, 특정장비 설치 개소수 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectGvrngmtSprtFcltMsrmtEqpmntGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectGvrngmtSprtFcltMsrmtEqpmntGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                                 AS V0
 			      , NVL(ROUND(SUM(S1),0),0)            AS V1
@@ -2039,7 +2440,12 @@
 			                      , MAX(MNFC_MCHN) AS MNFC_MCHN
 			                FROM    USRAM.TB_TE_APC_FCLT_STTS_DTL
 			                GROUP BY APC_CD) B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD = B.APC_CD(+))
@@ -2048,14 +2454,14 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectGvrngmtSprtRgnInvstAtmAllGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectGvrngmtSprtRgnInvstAtmAllGridList	-->
 	<!-- DESC : 정부지원산지유통시설지역별현황 - 지역별 투자금액 전체 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectGvrngmtSprtRgnInvstAtmAllGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectGvrngmtSprtRgnInvstAtmAllGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                                          AS V0
 			      , NVL(SUM(S1),0)                              AS V1
@@ -2077,7 +2483,12 @@
 			                      , SUM(SLF_BRDN) AS SLF_BRDN
 			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
 			                GROUP BY APC_CD) B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD =  B.APC_CD(+))
@@ -2086,14 +2497,14 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectMdInvstAtmOwnrGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMdInvstAtmOwnrGridList	-->
 	<!-- DESC : 정부지원산지유통시설지역별현황 - 지역별 투자금액 : 소유자 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectMdInvstAtmOwnrGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectMdInvstAtmOwnrGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                                          AS V0
 			      , NVL(SUM(S1),0)                              AS V1
@@ -2116,7 +2527,12 @@
 			                      , SUM(SLF_BRDN) AS SLF_BRDN
 			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
 			                GROUP BY APC_CD) B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD =  B.APC_CD(+)
@@ -2126,14 +2542,14 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectMdInvstAtmOperPrsnGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMdInvstAtmOperPrsnGridList	-->
 	<!-- DESC : 정부지원산지유통시설지역별현황 - 지역별 투자금액 : 운영자 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectMdInvstAtmOperPrsnGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectMdInvstAtmOperPrsnGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                                          AS V0
 			      , NVL(SUM(S1),0)                              AS V1
@@ -2156,7 +2572,12 @@
 			                      , SUM(SLF_BRDN) AS SLF_BRDN
 			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
 			                GROUP BY APC_CD) B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD =  B.APC_CD(+)
@@ -2166,14 +2587,14 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectOperOgnzTrmtPrfmncGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectOperOgnzTrmtPrfmncGridList	-->
 	<!-- DESC : 산지유통시설운영실적 - 운영조직 취급실적 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectOperOgnzTrmtPrfmncGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectOperOgnzTrmtPrfmncGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                              AS V0
 			      , ROUND(SUM(S1),0)                AS V1
@@ -2186,7 +2607,12 @@
 			              , B.RTL_OGNZ_OGNZ_SUM     AS S2
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL  
 			        AND     A.OGNZ_TYPE_CD IN ('1','2','3','4')
 			        AND     A.MB IS NOT NULL 
@@ -2198,7 +2624,12 @@
 			              , B.RTL_OGNZ_OGNZ_SUM     AS S2
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL  
 			        AND     A.OGNZ_TYPE_CD IN ('1','2','3','4')
 			        AND     A.MB IS NULL 
@@ -2210,7 +2641,12 @@
 			              , B.RTL_OGNZ_OGNZ_SUM     AS S2
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL  
 			        AND     A.OGNZ_TYPE_CD IN ('5')
 			        AND     A.MB IS NOT NULL 
@@ -2222,7 +2658,12 @@
 			              , B.RTL_OGNZ_OGNZ_SUM     AS S2
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL  
 			        AND     A.OGNZ_TYPE_CD IN ('5')
 			        AND     A.MB IS NULL 
@@ -2233,14 +2674,14 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectOperOgnzPrcsPrfmncGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectOperOgnzPrcsPrfmncGridList	-->
 	<!-- DESC : 산지유통시설운영실적 - 운영조직 처리실적 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectOperOgnzPrcsPrfmncGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectOperOgnzPrcsPrfmncGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                              AS V0
 			      , ROUND(SUM(S1),0)                AS V1
@@ -2254,7 +2695,12 @@
 			              , B.APC_APC_CTRT_EMSPAP           AS S4
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL  
 			        AND     A.OGNZ_TYPE_CD IN ('1','2','3','4')
 			        AND     A.MB IS NOT NULL 
@@ -2267,7 +2713,12 @@
 			              , B.APC_APC_CTRT_EMSPAP           AS S4
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL  
 			        AND     A.OGNZ_TYPE_CD IN ('1','2','3','4')
 			        AND     A.MB IS NULL 
@@ -2280,7 +2731,12 @@
 			              , B.APC_APC_CTRT_EMSPAP           AS S4
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL  
 			        AND     A.OGNZ_TYPE_CD IN ('5')
 			        AND     A.MB IS NOT NULL 
@@ -2293,7 +2749,12 @@
 			              , B.APC_APC_CTRT_EMSPAP           AS S4
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL  
 			        AND     A.OGNZ_TYPE_CD IN ('5')
 			        AND     A.MB IS NULL 
@@ -2304,14 +2765,14 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.MdRtlFcltMapper.selectOperOgnzAvgTrmtPrfmncGridList	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectOperOgnzAvgTrmtPrfmncGridList	-->
 	<!-- DESC : 산지유통시설운영실적 - 운영조직 평균 취급실적 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectOperOgnzAvgTrmtPrfmncGridList" parameterType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO" resultType="com.at.apcss.fm.fclt.vo.MdRtlFcltVO">
+    <select id="selectOperOgnzAvgTrmtPrfmncGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                              AS V0
 			      , ROUND(SUM(S1)/SUM(A1),0)        AS V1
@@ -2326,7 +2787,12 @@
 			              , 1                               AS A1
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL  
 			        AND     A.OGNZ_TYPE_CD IN ('1','2','3','4')
 			        AND     A.MB IS NOT NULL 
@@ -2340,7 +2806,12 @@
 			              , 1                               AS A1
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL  
 			        AND     A.OGNZ_TYPE_CD IN ('5')
 			        AND     A.MB IS NULL 
@@ -2354,7 +2825,12 @@
 			              , 1                               AS A1
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL  
 			        AND     A.OGNZ_TYPE_CD IN ('5')
 			        AND     A.MB IS NOT NULL 
@@ -2368,7 +2844,12 @@
 			              , 1                               AS A1
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
-			        WHERE   A.CRTR_YR = '2023'
+			        WHERE   1=1
+			]]>
+				<if test='crtrYr != null and crtrYr != ""'>
+					AND   	A.CRTR_YR         = #{crtrYr}
+				</if>
+		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL  
 			        AND     A.OGNZ_TYPE_CD IN ('5')
 			        AND     A.MB IS NULL 
