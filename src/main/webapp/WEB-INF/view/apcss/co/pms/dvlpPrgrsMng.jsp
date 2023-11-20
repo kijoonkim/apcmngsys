@@ -46,31 +46,32 @@
 					<tbody>
 						<tr>
 							<th scope="row" class="th_bg" >기준일자</th>
-							<td colspan="" class="td_input" style="border-right:hidden;" >
+							<td class="td_input" style="border-right:hidden;" >
 								<sbux-datepicker id="srch-dtp-dvlpPlanYmd" name="srch-dtp-dvlpPlanYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<th scope="row" class="th_bg" >상태</th>
 							<td class="td_input" style="border-right:hidden;">
-								<sbux-select id="srch-slt-stts" name="srch-slt-stts" uitype="single" jsondata-ref="jsonComStts" unselected-text="전체" class="form-control input-sm"  ></sbux-select>
+								<sbux-select id="srch-slt-stts" name="srch-slt-stts" uitype="single" jsondata-ref="jsonComStts" unselected-text="전체" class="form-control input-sm"></sbux-select>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<th scope="row" class="th_bg">분류</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-clsf" name="srch-slt-clsf" uitype="single" jsondata-ref="jsonComClsf" unselected-text="전체" class="form-control input-sm"  ></sbux-select>
+								<sbux-select id="srch-slt-clsf" name="srch-slt-clsf" uitype="single" jsondata-ref="jsonComClsf" unselected-text="전체" class="form-control input-sm"></sbux-select>
 							</td>
+							<td colspan="2"></td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg">프로그램명</th>
 							<td colspan="2" class="td_input" style="border-right:hidden;">
-								<sbux-input id="srch-inp-prgrmNm" name="srch-inp-prgrmNm" uitype="text"></sbux-input>
+								<sbux-input id="srch-inp-prgrmNm" name="srch-inp-prgrmNm" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<th scope="row" class="th_bg">담당자</th>
 							<td  class="td_input" style="border-right:hidden;">
-								<sbux-select id="srch-slt-pic" name="srch-slt-pic" uitype="single" jsondata-ref="jsonComPic" unselected-text="전체" class="form-control input-sm" ></sbux-select>
+								<sbux-select id="srch-slt-pic" name="srch-slt-pic" uitype="single" jsondata-ref="jsonComPic" unselected-text="전체" class="form-control input-sm"></sbux-select>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td style="border-right: hidden;">&nbsp;</td>
@@ -80,11 +81,11 @@
 				<br>
 
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdDvlpPrgrs" style="width:100%;height:406px;"></div>
+					<div id="sb-area-grdDvlpPrgrs" style="width:100%;height:450px;"></div>
 				</div>
 				<br>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdDfct" style="width:100%;height:108px;"></div>
+					<div id="sb-area-grdDfct" style="width:100%;height:125px;"></div>
 				</div>
 			</div>
 				<!--[pp] //검색결과 -->

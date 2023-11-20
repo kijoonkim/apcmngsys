@@ -114,7 +114,7 @@
 							</ul>
 						</div>
 						<div>
-							<div id="sb-area-grdComAuth" style="width:100%;height:576px;"></div>
+							<div id="sb-area-grdComAuth" style="width:100%;height:579px;"></div>
 						</div>
 					</div>
 					<div class="col-sm-7">
@@ -164,7 +164,6 @@
 								</thead>
 							</table>
 						</div>
-						<br />
 						<div class="row">
 							<div class="col-sm-5">
 								<div class="ad_tbl_top2">
@@ -182,7 +181,7 @@
 				                        <div class="sbt-wrap-body">
 				                            <div class="sbt-grid">
 				                                <!-- SBGrid를 호출합니다. -->
-				                                <div id="sb-area-grdComAuthMenu" style="width:100%;height:352px;"></div>
+				                                <div id="sb-area-grdComAuthMenu" style="width:100%;height:382px;"></div>
 				                            </div>
 				                        </div>
 				                    </div>
@@ -214,7 +213,7 @@
 				                        <div class="sbt-wrap-body">
 				                            <div class="sbt-grid">
 				                                <!-- SBGrid를 호출합니다. -->
-				                                <div id="sb-area-grdComAuthrtUi" style="width:100%;height:352px;"></div>
+				                                <div id="sb-area-grdComAuthrtUi" style="width:100%;height:382px;"></div>
 				                            </div>
 				                        </div>
 				                    </div>

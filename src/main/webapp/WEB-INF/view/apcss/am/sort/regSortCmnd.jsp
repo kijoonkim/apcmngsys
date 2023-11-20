@@ -107,7 +107,7 @@
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdRawMtrInvntr" style="height:242px;"></div>
+					<div id="sb-area-grdRawMtrInvntr" style="height:235px;"></div>
 				</div>
 
 				<br/>
@@ -159,7 +159,7 @@
 					</div>
 				</div>
                 <div class="table-responsive tbl_scroll_sm">
-                    <div id="sb-area-grdSortCmnd" style="height:243px;"></div>
+                    <div id="sb-area-grdSortCmnd" style="height:250px;"></div>
                 </div>
 			</div>
 		</div>

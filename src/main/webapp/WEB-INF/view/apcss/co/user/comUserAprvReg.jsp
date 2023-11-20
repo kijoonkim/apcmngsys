@@ -89,7 +89,7 @@
 						</tr>
 					</tbody>
 				</table>
-					<div class="ad_tbl_top">
+					<div class="ad_tbl_top2">
 						<ul class="ad_tbl_count">
 							<li>
 								<span>승인요청목록</span>
@@ -100,7 +100,7 @@
 							<sbux-button id="btnAllSave" name="btnAllSave" uitype="normal" text="일괄승인" class="btn btn-sm btn-outline-danger" onclick="fn_allUserAprv()" ></sbux-button>
 						</div>
 					</div>
-					<div id="sb-area-grdUserAprv" style="height:576px; margin-top:8px;"></div>
+					<div id="sb-area-grdUserAprv" style="height:576px;"></div>
 				</div>
 			</div>
 	</section>

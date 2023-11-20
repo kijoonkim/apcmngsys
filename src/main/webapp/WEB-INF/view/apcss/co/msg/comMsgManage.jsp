@@ -156,7 +156,7 @@
                                 <tr>
                                     <th>등록프로그램</th>
                                     <td>
-                                        <sbux-input id="creProgram" name="creProgram" uitype="text" style="width:100%" eadonly></sbux-input>
+                                        <sbux-input id="creProgram" name="creProgram" uitype="text" style="width:100%" readonly></sbux-input>
                                     </td>
                                     <th>변경프로그램</th>
                                     <td>

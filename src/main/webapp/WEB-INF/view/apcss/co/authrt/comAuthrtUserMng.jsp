@@ -74,7 +74,7 @@
 							</ul>
 						</div>
 						<div>
-							<div id="sb-area-grdComAuth" style="width:100%;height:576px;"></div>
+							<div id="sb-area-grdComAuth" style="width:100%;height:579px;"></div>
 						</div>
 					</div>
 					<div class="col-sm-8">
@@ -118,7 +118,7 @@
 								</thead>
 							</table>
 						</div>
-						<div class="ad_tbl_top">
+						<div class="ad_tbl_top2">
 							<ul class="ad_tbl_count">
 								<li>
 									<span style="color: black;">사용자 목록</span>
@@ -126,7 +126,7 @@
 								</li>
 							</ul>
 						 	<div class="ad_tbl_toplist">
-						 		<sbux-button id="btnAddUser" name="btnAddUser" uitype="modal" text="사용자추가" class="btn btn-xs btn-outline-dark" target-id="modal-comAuthUser" onclick="fn_addUser()" disabled ></sbux-button>
+						 		<sbux-button id="btnAddUser" name="btnAddUser" uitype="modal" text="사용자추가" class="btn btn-sm btn-outline-dark" target-id="modal-comAuthUser" onclick="fn_addUser()" disabled ></sbux-button>
 							</div>
 						</div>
 						<div>
@@ -134,7 +134,7 @@
 		                        <div class="sbt-wrap-body">
 		                            <div class="sbt-grid">
 		                                <!-- SBGrid를 호출합니다. -->
-		                                <div id="sb-area-grdComAuthUser" style="width:100%;height:370px;"></div>
+		                                <div id="sb-area-grdComAuthUser" style="width:100%;height:468px;"></div>
 		                            </div>
 		                        </div>
 		                    </div>
