@@ -290,7 +290,7 @@
 						<sbux-button id="btnDocSpmt" name="btnDocSpmt" uitype="normal" text="송품장" class="btn btn-sm btn-primary" onclick="fn_docSpmt"></sbux-button>
 						<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 						<sbux-button id="btnDwnld" name="btnDwnld" uitype="normal" text="서식받기" class="btn btn-sm btn-outline-danger" onclick="fn_dwnld" ></sbux-button>
-						<sbux-button id="btnUp" name="btnUp" uitype="normal" text="올리기" class="btn btn-sm btn-outline-dark" onclick="fn_uld"></sbux-button>
+						<sbux-button id="btnUld" name="btnUld" uitype="normal" text="올리기" class="btn btn-sm btn-outline-dark" onclick="fn_uld"></sbux-button>
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
