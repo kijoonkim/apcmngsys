@@ -143,6 +143,8 @@ public class ComConstants {
 
 	public final static String[] MENU_ID_GDS_WRHS 					= {"AM_001_006"};				// 상품입고
 
+	public final static String[] MENU_ID_RAW_MTR_WRHS_PRCS 			= {"AM_001_009"};				// 원물입고재처리
+
 	public final static String[] MENU_ID_SORT_CMND 					= {"AM_002_001", "AM_002_002"};	// 선별지시
 	public final static String[] MENU_ID_SORT_CMND_DOC_PBLCN		= {};							// 선별지시서발행
 
