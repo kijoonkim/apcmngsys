@@ -18,23 +18,23 @@
 			<div class="row">
 			<div class="box-header" style="display:flex; justify-content: flex-start; width: 100%; padding-left:5px;" >
 				<div>
-					<h3 class="box-title" style="line-height: 30px;"> 2. 정부지원 지역별 운영실적</h3>
+					<h3 class="box-title" style="line-height: 30px;"> 6. 정부지원 지역별 운영실적</h3>
 				</div>
 			</div>
 				<div class="col-sm-6">
 					<div class="ad_tbl_top" style="margin-bottom: 30px;">
 						<ul class="ad_tbl_count" style="width: 100%">
 							<li>
-								<span style="font-size:15px; color:black;">2.1. 운영조직 취급 및 APC 처리 실적</span>
+								<span style="font-size:15px; color:black;">6.1. 운영조직 취급 및 APC 처리 실적</span>
 								<br/>
 								<span style="font-size:12px">운영조직 취급실적</span>
 								<br/>
-								<span style="font-size:12px; text-align: right; display: block;">(단위:백만원)</span>
+								<span style="font-size:11px; text-align: right; display: block; color:black; font-weight: normal;">(단위:백만원)</span>
 							</li>
 						</ul>
 					</div>
 					<div id="sb-area-grdGvrngmtSprtOperOgnzTrmtPrfmnc" style="height:311px;"></div>
-					<span style="font-size:8px;">*조직화취급액 : 공동선별(수탁) 및 계약재배(매취) 금액</span>
+					<span style="font-size:11px;">*조직화취급액 : 공동선별(수탁) 및 계약재배(매취) 금액</span>
 					
 					<div class="ad_tbl_top" style="margin-bottom: 30px;">
 						<ul class="ad_tbl_count" style="width: 100%">
@@ -42,7 +42,7 @@
 								<br/>
 								<span style="font-size:12px">산지유통시설 평균 처리실적(평균)</span>
 								<br/>
-								<span style="font-size:12px; text-align: right; display: block;">(단위:백만원)</span>
+								<span style="font-size:11px; text-align: right; display: block; color:black; font-weight: normal;">(단위:백만원)</span>
 							</li>
 						</ul>
 					</div>
@@ -53,11 +53,11 @@
 					<div class="ad_tbl_top" style="margin-bottom: 30px;">
 						<ul class="ad_tbl_count" style="width: 100%">
 							<li>
-								<span style="font-size:15px; color:black;">2.2. 지역별 운영조직 취급 및 APC 처리 실적</span>
+								<span style="font-size:15px; color:black;">6.2. 지역별 운영조직 취급 및 APC 처리 실적</span>
 								<br/>
 								<span style="font-size:12px">지역별 운영조직 취급실적</span>
 								<br/>
-								<span style="font-size:12px; text-align: right; display: block;">(단위:백만원)</span>
+								<span style="font-size:11px; text-align: right; display: block; color:black; font-weight: normal;">(단위:백만원)</span>
 							</li>
 						</ul>
 					</div>
@@ -69,7 +69,7 @@
 								<br/>
 								<span style="font-size:12px">지역별 APC 처리실적</span>
 								<br/>
-								<span style="font-size:12px; text-align: right; display: block;">(단위:백만원)</span>
+								<span style="font-size:11px; text-align: right; display: block; color:black; font-weight: normal;">(단위:백만원)</span>
 							</li>
 						</ul>
 					</div>
@@ -82,7 +82,7 @@
 								<br/>
 								<span style="font-size:12px">산지유통시설 처리실적</span>
 								<br/>
-								<span style="font-size:12px; text-align: right; display: block;">(단위:백만원)</span>
+								<span style="font-size:11px; text-align: right; display: block; color:black; font-weight: normal;">(단위:백만원)</span>
 							</li>
 						</ul>
 					</div>
@@ -96,7 +96,7 @@
 								<br/>
 								<span style="font-size:12px">지역별 운영조직 취급실적(평균)</span>
 								<br/>
-								<span style="font-size:12px; text-align: right; display: block;">(단위:백만원)</span>
+								<span style="font-size:11px; text-align: right; display: block; color:black; font-weight: normal;">(단위:백만원)</span>
 							</li>
 						</ul>
 					</div>
@@ -108,7 +108,7 @@
 								<br/>
 								<span style="font-size:12px">지역별 APC 처리실적(평균)</span>
 								<br/>
-								<span style="font-size:12px; text-align: right; display: block;">(단위:백만원)</span>
+								<span style="font-size:11px; text-align: right; display: block; color:black; font-weight: normal;">(단위:백만원)</span>
 							</li>
 						</ul>
 					</div>
@@ -181,7 +181,7 @@ const fn_createGvrngmtSprtOperOgnzTrmtPrfmncGrid = function() {
     SBGridProperties.selectmode = 'byrow';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.columns = [
-    	{caption : ["구분","구분"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
+    	{caption : ["구분","구분"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
     	{caption : ["총취급액","총취급액 "], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
     	{caption : ["총취급액","평균취급액"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
     	{caption : ["조직화취급액","조직화취급액 "], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
@@ -199,7 +199,7 @@ const fn_createMdRtlFcltPrcsPrfmncGrid = function() {
     SBGridProperties.selectmode = 'byrow';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.columns = [
-    	{caption : ["구분","구분"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
+    	{caption : ["구분","구분"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
     	{caption : ["APC취급액","APC취급액"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
     	{caption : ["일반취급액","일반취급액"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
     	{caption : ["조직화취급액","공동선별(수탁) "], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
@@ -217,7 +217,7 @@ const fn_createMdRtlFcltPrcsPrfmncAvgGrid = function() {
     SBGridProperties.selectmode = 'byrow';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.columns = [
-    	{caption : ["구분","구분"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
+    	{caption : ["구분","구분"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
     	{caption : ["APC취급액","APC취급액"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
     	{caption : ["일반취급액","일반취급액"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
     	{caption : ["조직화취급액","공동선별(수탁)"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
@@ -235,7 +235,7 @@ const fn_createRgnOperOgnzTrmtPrfmncGrid = function() {
     SBGridProperties.selectmode = 'byrow';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.columns = [
-    	{caption : ["구분","구분"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
+    	{caption : ["구분","구분"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
     	{caption : ["총취급액","농협"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
     	{caption : ["총취급액","농업법인"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
     	{caption : ["총취급액","계"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
@@ -255,7 +255,7 @@ const fn_createRgnOperOgnzTrmtPrfmncAvgGrid = function() {
     SBGridProperties.selectmode = 'byrow';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.columns = [
-    	{caption : ["구분","구분"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
+    	{caption : ["구분","구분"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
     	{caption : ["평균취급액","농협"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
     	{caption : ["평균취급액","농업법인"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
     	{caption : ["평균취급액","전체"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
@@ -275,7 +275,7 @@ const fn_createRgnOperOgnzApcPrcsPrfmncGrid = function() {
     SBGridProperties.selectmode = 'byrow';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.columns = [
-    	{caption : ["구분","구분"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
+    	{caption : ["구분","구분"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
     	{caption : ["총취급액","농협"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
     	{caption : ["총취급액","농업법인"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
     	{caption : ["총취급액","계"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
@@ -295,7 +295,7 @@ const fn_createRgnOperOgnzApcPrcsPrfmncAvgGrid = function() {
     SBGridProperties.selectmode = 'byrow';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.columns = [
-    	{caption : ["구분","구분"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center'},
+    	{caption : ["구분","구분"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
     	{caption : ["평균취급액","농협"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
     	{caption : ["평균취급액","농업법인"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
     	{caption : ["평균취급액","전체"], ref: 'fcltType', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;'},
