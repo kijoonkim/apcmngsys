@@ -236,7 +236,7 @@
 							<td colspan="12"></td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg" style="border-right: hidden;"><span class="data_required"></span>차량번호/성명</th>
+							<th scope="row" class="th_bg" style="border-right: hidden;"><span class="data_required"></span>차량번호/기사명</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
@@ -251,8 +251,8 @@
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-button 
-									id="btnSrchVhclNo" 
-									name="btnSrchVhclNo" 
+									id="btnSrchVhclno" 
+									name="btnSrchVhclno" 
 									class="btn btn-xs btn-outline-dark" 
 									text="찾기" uitype="modal" 
 									target-id="modal-vhcl" 
