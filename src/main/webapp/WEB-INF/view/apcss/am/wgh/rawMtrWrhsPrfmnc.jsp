@@ -227,6 +227,7 @@
 		 	gfn_setComCdSBSelect('dtl-chk-gdsSeCd', jsonGdsSeCd, 'GDS_SE_CD', gv_selectedApcCd),							// 상품구분
 		 	gfn_setComCdSBSelect('dtl-chk-trsprtSeCd', jsonTrsprtSeCd, 'TRSPRT_SE_CD'),										// 운송구분
 	 	]);
+		jsonWrhsSeCd = gfn_getJsonFilter(jsonWrhsSeCd, 'value', ["1", "2", "3"]);
 		jsonWrhsSeCd.forEach(e => e.checked = "checked");
 		SBUxMethod.refresh('dtl-chk-wrhsSeCd');
 		jsonGdsSeCd.forEach(e => e.checked = "checked");

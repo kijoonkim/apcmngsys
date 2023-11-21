@@ -61,6 +61,14 @@
 						onclick="fn_delete" 
 						text="삭제" 
 					></sbux-button>
+					<sbux-button
+						id="btnClose"
+						name="btnClose"
+						uitype="normal"
+						text="종료"
+						class="btn btn-sm btn-outline-danger"
+						onclick="fn_close"
+					></sbux-button>
 				</div>
 			</div>
 

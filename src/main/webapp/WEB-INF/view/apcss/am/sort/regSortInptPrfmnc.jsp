@@ -117,8 +117,8 @@
 							</td>
 							<td class="td_input">
 								<sbux-button
-									id="srch-btn-slt-prdcrNm"
-									name="srch-btn-slt-prdcrNm"
+									id="srch-btn-prdcrNm"
+									name="srch-btn-prdcrNm"
 									class="btn btn-xs btn-outline-dark"
 									text="찾기"
 									uitype="modal"

@@ -61,6 +61,14 @@
 						class="btn btn-sm btn-outline-danger"
 						onclick="fn_delete"
 					></sbux-button>
+					<sbux-button
+						id="btnClose"
+						name="btnClose"
+						uitype="normal"
+						text="종료"
+						class="btn btn-sm btn-outline-danger"
+						onclick="fn_close"
+					></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -153,7 +161,7 @@
 						    <td colspan="5"></td>
 			            </tr>
 						<tr>
-							<th scope="row" class="th_bg">투입지시번호</th>
+							<th scope="row" class="th_bg"><sbux-label id="dtl-lbl-sortCmndnoIndct" name="dtl-lbl-sortCmndnoIndct" uitype="normal" text="투입지시번호" class="bold"></sbux-label></th>
 							<td colspan="6" class="td_input" style="border-right:hidden;">
 								<sbux-input id="dtl-inp-sortCmndno" name="dtl-inp-sortCmndno" uitype="hidden"></sbux-input>
 								<sbux-input id="dtl-inp-sortCmndSn" name="dtl-inp-sortCmndSn" uitype="hidden"></sbux-input>
