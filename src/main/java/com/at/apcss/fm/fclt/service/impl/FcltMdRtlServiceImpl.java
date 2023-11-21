@@ -226,23 +226,56 @@ public class FcltMdRtlServiceImpl implements FcltMdRtlService {
 		List<FcltMdRtlVO> resultOperOgnzPrcsPrfmnc =  fcltMdRtlMapper.selectOperOgnzPrcsPrfmncGridList(fcltMdRtlVO);
 		// 산지유통시설운영실적 - 운영조직 평균 취급실적
 		List<FcltMdRtlVO> resultOperOgnzAvgTrmtPrfmnc =  fcltMdRtlMapper.selectOperOgnzAvgTrmtPrfmncGridList(fcltMdRtlVO);
-//		// 산지유통시설운영실적 - 지역별 운영조직 취급실적
-//		List<MdRtlFcltVO> resultMdOperOgnzTrmtPrfmnc =  fcltMdRtlMapper.selectMdOperOgnzTrmtPrfmncGridList(fcltMdRtlVO);
-//		// 산지유통시설운영실적 - 지역별 운영조직 취급실적(평균)
-//		List<MdRtlFcltVO> resultMdOperOgnzTrmtPrfmncAvg =  fcltMdRtlMapper.selectMdOperOgnzTrmtPrfmncAvgGridList(fcltMdRtlVO);
-//		// 산지유통시설운영실적 - 지역별 APC 처리실적
-//		List<MdRtlFcltVO> resultMdApcPrcsPrfmnc =  fcltMdRtlMapper.selectMdApcPrcsPrfmncGridList(fcltMdRtlVO);
-//		// 산지유통시설운영실적 - 지역별 APC 처리실적(평균)
-//		List<MdRtlFcltVO> resultMdApcPrcsPrfmncAvg =  fcltMdRtlMapper.selectMdApcPrcsPrfmncAvgGridList(fcltMdRtlVO);
+		// 산지유통시설운영실적 - 지역별 운영조직 취급실적
+		List<FcltMdRtlVO> resultMdOperOgnzTrmtPrfmnc =  fcltMdRtlMapper.selectMdOperOgnzTrmtPrfmncGridList(fcltMdRtlVO);
+		// 산지유통시설운영실적 - 지역별 운영조직 취급실적(평균)
+		List<FcltMdRtlVO> resultMdOperOgnzTrmtPrfmncAvg =  fcltMdRtlMapper.selectMdOperOgnzTrmtPrfmncAvgGridList(fcltMdRtlVO);
+		// 산지유통시설운영실적 - 지역별 APC 처리실적
+		List<FcltMdRtlVO> resultMdApcPrcsPrfmnc =  fcltMdRtlMapper.selectMdApcPrcsPrfmncGridList(fcltMdRtlVO);
+		// 산지유통시설운영실적 - 지역별 APC 처리실적(평균)
+		List<FcltMdRtlVO> resultMdApcPrcsPrfmncAvg =  fcltMdRtlMapper.selectMdApcPrcsPrfmncAvgGridList(fcltMdRtlVO);
 		
 		
 		resultMap.put("resultOperOgnzTrmtPrfmnc", resultOperOgnzTrmtPrfmnc);
 		resultMap.put("resultOperOgnzPrcsPrfmnc", resultOperOgnzPrcsPrfmnc);
 		resultMap.put("resultOperOgnzAvgTrmtPrfmnc", resultOperOgnzAvgTrmtPrfmnc);
-//		resultMap.put("resultMdOperOgnzTrmtPrfmnc", resultMdOperOgnzTrmtPrfmnc);
-//		resultMap.put("resultMdOperOgnzTrmtPrfmncAvg", resultMdOperOgnzTrmtPrfmncAvg);
-//		resultMap.put("resultMdApcPrcsPrfmnc", resultMdApcPrcsPrfmnc);
-//		resultMap.put("resultMdApcPrcsPrfmncAvg", resultMdApcPrcsPrfmncAvg);
+		resultMap.put("resultMdOperOgnzTrmtPrfmnc", resultMdOperOgnzTrmtPrfmnc);
+		resultMap.put("resultMdOperOgnzTrmtPrfmncAvg", resultMdOperOgnzTrmtPrfmncAvg);
+		resultMap.put("resultMdApcPrcsPrfmnc", resultMdApcPrcsPrfmnc);
+		resultMap.put("resultMdApcPrcsPrfmncAvg", resultMdApcPrcsPrfmncAvg);
+		
+		return resultMap;
+		
+	}
+	@Override
+	public HashMap<String,Object> selectGvrngmtSprtRgnOperPrfmncGridList(FcltMdRtlVO fcltMdRtlVO) throws Exception {
+		
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		
+		// 정부지원지역별운영실적 - 운영조직 취급실적
+		List<FcltMdRtlVO> resultGvrngmtSprtOperOgnzTrmtPrfmnc =  fcltMdRtlMapper.selectGvrngmtSprtOperOgnzTrmtPrfmncGridList(fcltMdRtlVO);
+		// 정부지원지역별운영실적 - 산지유통시설 처리실적
+		List<FcltMdRtlVO> resultMdRtlFcltPrcsPrfmnc =  fcltMdRtlMapper.selectMdRtlFcltPrcsPrfmncGridList(fcltMdRtlVO);
+		// 정부지원지역별운영실적 - 산지유통시설 처리실적(평균)
+		List<FcltMdRtlVO> resultMdRtlFcltPrcsPrfmncAvg =  fcltMdRtlMapper.selectMdRtlFcltPrcsPrfmncAvgcGridList(fcltMdRtlVO);
+		// 정부지원지역별운영실적 - 산지유통시설 처리실적(평균)
+		List<FcltMdRtlVO> resultRgnOperOgnzTrmtPrfmnc =  fcltMdRtlMapper.selectRgnOperOgnzTrmtPrfmncGridList(fcltMdRtlVO);
+		// 정부지원지역별운영실적 - 산지유통시설 처리실적(평균)
+		List<FcltMdRtlVO> resultRgnOperOgnzTrmtPrfmncAvg =  fcltMdRtlMapper.selectRgnOperOgnzTrmtPrfmncAvgGridList(fcltMdRtlVO);
+		// 정부지원지역별운영실적 - 산지유통시설 처리실적(평균)
+		List<FcltMdRtlVO> resultRgnOperOgnzApcPrcsPrfmnc =  fcltMdRtlMapper.selectRgnOperOgnzApcPrcsPrfmncGridList(fcltMdRtlVO);
+		// 정부지원지역별운영실적 - 산지유통시설 처리실적(평균)
+		List<FcltMdRtlVO> resultRgnOperOgnzApcPrcsPrfmncAvg =  fcltMdRtlMapper.selectRgnOperOgnzApcPrcsPrfmncAvgGridList(fcltMdRtlVO);
+		
+		
+		resultMap.put("resultGvrngmtSprtOperOgnzTrmtPrfmnc", resultGvrngmtSprtOperOgnzTrmtPrfmnc);
+		resultMap.put("resultMdRtlFcltPrcsPrfmnc", resultMdRtlFcltPrcsPrfmnc);
+		resultMap.put("resultMdRtlFcltPrcsPrfmncAvg", resultMdRtlFcltPrcsPrfmncAvg);
+		resultMap.put("resultRgnOperOgnzTrmtPrfmnc", resultRgnOperOgnzTrmtPrfmnc);
+		resultMap.put("resultRgnOperOgnzTrmtPrfmncAvg", resultRgnOperOgnzTrmtPrfmncAvg);
+		resultMap.put("resultRgnOperOgnzApcPrcsPrfmnc", resultRgnOperOgnzApcPrcsPrfmnc);
+		resultMap.put("resultRgnOperOgnzApcPrcsPrfmncAvg", resultRgnOperOgnzApcPrcsPrfmncAvg);
 		
 		return resultMap;
 		

@@ -215,7 +215,7 @@
 </body>
 <script type="text/javascript">
 
-window.addEventListener('DOMContentLoaded', function(e) {
+const fn_cellCreateGvrngmtSprtMdRtlFcltGrid = function() {
 	// 정부지원 산지유통시설 개소수 - 개소수 : 산지유통조직 유형
 	fn_createBzeatCntMdRtlOgnzTypeGrid();
 	// 정부지원 산지유통시설 개소수 - 개소수 : 소유자 및 운영자
@@ -240,9 +240,12 @@ window.addEventListener('DOMContentLoaded', function(e) {
 	fn_createBzeatCntInvstAtmOwnrGrid();
 	// 정부자원산지유통시설 시설 - 투자금액 : 운영자
 	fn_createBzeatCntInvstAtmOperPrsnGrid();
-});
-//그리드 id, 그리드 json
+	
+	fn_cellGvrngmtSprtMdRtlFcltGrid();
+}
 
+
+//그리드 id, 그리드 json
 //정부지원 산지유통시설 개소수 - 개소수 : 산지유통조직 유형
 var grdBzeatCntMdRtlOgnzType;
 //정부지원 산지유통시설 개소수 - 개소수 : 소유자 및 운영자
@@ -752,8 +755,9 @@ const fn_createBzeatCntInvstAtmOperPrsnGrid = function() {
     grdBzeatCntInvstOperPrsn = _SBGrid.create(SBGridProperties);
 }
 const fn_cellGvrngmtSprtMdRtlFcltGrid = async function() {
+	let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 	
-	const postJsonPromise = gfn_postJSON("/fm/fclt/selectGvrngmtSprtMdRtlFcltGridList.do", {crtrYn : "2023"});
+	const postJsonPromise = gfn_postJSON("/fm/fclt/selectGvrngmtSprtMdRtlFcltGridList.do", {crtrYr : crtrYr});
 	
 	let data = await postJsonPromise;
 	try {

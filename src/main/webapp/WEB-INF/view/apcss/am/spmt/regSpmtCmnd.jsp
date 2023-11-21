@@ -753,7 +753,11 @@
 			jsonSpmtCmndTrg[nRow-1].cmndYmd = cmndYmd
 			jsonSpmtCmndTrg[nRow-1].trsprtCoCd = trsprtCo
 			jsonSpmtCmndTrg[nRow-1].trsprtCoNm = jsonTrsprtCo.find(e => e.value == trsprtCo).label;
-			jsonSpmtCmndTrg[nRow-1].rmrk = rmrk;
+			if(gfn_isEmpty(rmrk)){
+				jsonSpmtCmndTrg[nRow-1].rmrk = '';								
+			}else{
+				jsonSpmtCmndTrg[nRow-1].rmrk = rmrk;				
+			}
 			jsonSpmtCmndTrg[nRow-1].cnptCd = jsonSpmtCmndTrg[nRow-1].apcCnptCd;
 			jsonSpmtCmndTrg[nRow-1].cmndQntt = jsonSpmtCmndTrg[nRow-1].inptCmndQntt;
 			jsonSpmtCmndTrg[nRow-1].cmndWght = jsonSpmtCmndTrg[nRow-1].inptCmndWght;

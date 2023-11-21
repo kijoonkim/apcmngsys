@@ -88,7 +88,7 @@
 </body>
 <script type="text/javascript">
 	var searchTarget = "Map";
-	
+	var newSearchTarget = "Map";
 	$(function(){
 		$('.ad_tbl_toplist button').click(function(){
 			var btnName = $(this).attr('id');
@@ -110,26 +110,53 @@
 	
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_initSBSelect();
-		console.log('jsonCrtrYr : ',jsonCrtrYr);
 		fn_search();
 	})
 	
 	// 이력 조회 (조회 버튼)
     async function fn_search() {
-		if(searchTarget == "Map"){
-// 			tabLogMenuHstry.search();
-		} else if(searchTarget == "MdRtlOgnzNow"){
-			fn_cellMdRtlOgnzNowGrid();
+		if(searchTarget == "MdRtlOgnzNow"){
+			if(searchTarget != newSearchTarget){
+				fn_cellCreateMdRtlOgnzNowGrid();
+			}else{
+				fn_cellMdRtlOgnzNowGrid();
+			}
+			newSearchTarget = searchTarget;
 		} else if(searchTarget == "MdRtlFcltRgnNow"){
-			fn_cellMdRtlFcltRgnNowGrid();
+			if(searchTarget != newSearchTarget){
+				fn_cellCreateMdRtlFcltRgnNowGrid();
+			}else{
+				fn_cellMdRtlFcltRgnNowGrid();
+			}
+			newSearchTarget = searchTarget;
 		} else if(searchTarget == "GvrngmtSprtMdRtlFclt"){
-			fn_cellGvrngmtSprtMdRtlFcltGrid();
+			if(searchTarget != newSearchTarget){
+				fn_cellCreateGvrngmtSprtMdRtlFcltGrid();
+			}else{
+				fn_cellGvrngmtSprtMdRtlFcltGrid();
+			}
+			newSearchTarget = searchTarget;
 		} else if(searchTarget == "GvrngmtSprtMdRtlFcltRgn"){
-			fn_cellGvrngmtSprtMdRtlFcltRgnGrid();
+			if(searchTarget != newSearchTarget){
+				fn_cellCreateGvrngmtSprtMdRtlFcltRgnGrid();
+			}else{
+				fn_cellGvrngmtSprtMdRtlFcltRgnGrid();
+			}
+			newSearchTarget = searchTarget;
 		} else if(searchTarget == "MdRtlFcltOperPrfmnc"){
-			fn_cellMdRtlFcltOperPrfmncGrid();
+			if(searchTarget != newSearchTarget){
+				fn_cellCreateMdRtlFcltOperPrfmncGrid();
+			}else{
+				fn_cellMdRtlFcltOperPrfmncGrid();
+			}
+			newSearchTarget = searchTarget;
 		} else if(searchTarget == "GvrngmtSprtRgnOperPrfmnc"){
-// 			tabLogMap.search();
+			if(searchTarget != newSearchTarget){
+				fn_cellCreateGvrngmtSprtRgnOperPrfmncGrid();
+			}else{
+				fn_cellGvrngmtSprtRgnOperPrfmncGrid();
+			}
+			newSearchTarget = searchTarget;
 		}
     }
 	

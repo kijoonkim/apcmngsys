@@ -159,6 +159,20 @@ public class FcltMdRtlController extends BaseController {
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
+	
+	// 정부지원 지역별 운영실적
+	@PostMapping(value = "/fm/fclt/selectGvrngmtSprtRgnOperPrfmncGridList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectGvrngmtSprtRgnOperPrfmncGridList(@RequestBody FcltMdRtlVO fcltMdRtlVO, HttpServletRequest request) throws Exception {
+		
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			resultMap = fcltMdRtlService.selectGvrngmtSprtRgnOperPrfmncGridList(fcltMdRtlVO);
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
 
 
 }

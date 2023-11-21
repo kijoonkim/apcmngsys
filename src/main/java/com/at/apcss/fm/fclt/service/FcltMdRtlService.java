@@ -80,4 +80,12 @@ public interface FcltMdRtlService {
 	 * @throws Exception
 	 */
 	public HashMap<String,Object> selectMdRtlFcltOperPrfmncGridList(FcltMdRtlVO fcltMdRtlVO) throws Exception;
+	
+	/**
+	 * 정부지원 지역별 운영실적 목록을 조회한다.
+	 * @param fcltMdRtlVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String,Object> selectGvrngmtSprtRgnOperPrfmncGridList(FcltMdRtlVO fcltMdRtlVO) throws Exception;
 }

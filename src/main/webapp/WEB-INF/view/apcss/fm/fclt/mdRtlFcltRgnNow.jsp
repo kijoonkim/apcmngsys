@@ -177,7 +177,7 @@
 </body>
 <script type="text/javascript">
 
-window.addEventListener('DOMContentLoaded', function(e) {
+const fn_cellCreateMdRtlFcltRgnNowGrid = function() {
 	// 지역별 개소수 : 산지유통조직 유형	
 	fn_createMdRtlOgnzTypeGrid();
 	// 지역별 개소수 : 운영자
@@ -198,9 +198,11 @@ window.addEventListener('DOMContentLoaded', function(e) {
 	fn_createRgnInvstAtmOwnrGrid();
 	// 지역별 투자금액 - 지역별 투자금액 : 운영자
 	fn_createRgnInvstAtmOperPrsnGrid();
-});
-//그리드 id, 그리드 json
+	
+	fn_cellMdRtlFcltRgnNowGrid();
+}
 
+//그리드 id, 그리드 json
 //지역별 개소수 : 산지유통조직 유형
 var grdMdRtlOgnzType;
 //지역별 개소수 : 운영자
@@ -656,8 +658,9 @@ const fn_createRgnInvstAtmOperPrsnGrid = function() {
 }
 
 const fn_cellMdRtlFcltRgnNowGrid = async function() {
+	let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 	
-	const postJsonPromise = gfn_postJSON("/fm/fclt/selectMdRtlFcltRgnNowGridList.do", {crtrYn : "2023"});
+	const postJsonPromise = gfn_postJSON("/fm/fclt/selectMdRtlFcltRgnNowGridList.do", {crtrYr : crtrYr});
 	
 	let data = await postJsonPromise;
 	try {
