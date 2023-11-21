@@ -24,6 +24,7 @@
 					<div class="ad_tbl_toplist">
 						<sbux-button id="btnSearchTrsprtCst" name="btnSearchTrsprtCst" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popTrsrptCst.search"></sbux-button>
 						<sbux-button id="btnSaveTrsprtCst" name="btnSaveTrsprtCst" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="popTrsrptCst.save"></sbux-button>
+						<sbux-button id="btnChoiceTrsprtCst" name="btnChoiceTrsprtCst" uitype="normal" text="선택" class="btn btn-sm btn-outline-danger" onclick="popTrsrptCst.choice"></sbux-button>
 						<sbux-button id="btnEndTrsprtCst" name="btnEndTrsprtCst" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="popTrsrptCst.close"></sbux-button>
 					</div>
 				</div>
@@ -225,8 +226,16 @@
 		},
 		choice: function() {
 			let nRow = grdTrsprtCstPop.getRow();
-			let rowData = grdTrsprtCstPop.getRowData(nRow);
-			popTrsrptCst.close(rowData);
+			if (nRow == -1) {
+				gfn_comAlert("W0003", "선택");		//	W0003	{0}할 대상이 없습니다.
+				return;
+			} else if (gfn_isEmpty(grdTrsprtCstPop.getCellData(nRow, grdTrsprtCstPop.getColRef("delYn")))) {
+				gfn_comAlert("W0003", "선택");		//	W0003	{0}할 대상이 없습니다.
+				return;
+			} else {
+				let rowData = grdTrsprtCstPop.getRowData(nRow);
+				popTrsrptCst.close(rowData);
+			}
 		},
 		add: function(nRow, nCol) {
 			grdTrsprtCstPop.setCellData(nRow, nCol, "N", true);
