@@ -634,6 +634,7 @@
 
         // 화면유형 : 01 -> 입력불가, 02 -> PAGE_URL 입력
         if(rowData.menuType == "01"){
+        	SBUxMethod.set("dtl-input-pageUrl", "");
         	SBUxMethod.attr("dtl-input-pageUrl", "readonly", "true");
         }else{
         	SBUxMethod.attr("dtl-input-pageUrl", "readonly", "false");
