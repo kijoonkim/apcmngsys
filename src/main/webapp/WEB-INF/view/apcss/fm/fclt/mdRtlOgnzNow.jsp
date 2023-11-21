@@ -200,7 +200,7 @@
 </body>
 <script type="text/javascript">
 
-window.addEventListener('DOMContentLoaded', function(e) {
+const fn_cellCreateMdRtlOgnzNowGrid = function() {
 	// 개소수 : 산지유통조직유형
 	fn_createMdRtlOgnzGrid();
 	// 개소수 : 소유자 및 운영자
@@ -226,10 +226,9 @@ window.addEventListener('DOMContentLoaded', function(e) {
 	// 투자금액 : 운영자
 	fn_createInvstAtmOperPrsnGrid();
 	
-	
-	// 검색
 	fn_cellMdRtlOgnzNowGrid();
-});
+}
+
 //그리드 id, 그리드 json
 
 //개소수 : 산지유통조직유형
@@ -741,8 +740,9 @@ const fn_createInvstAtmOperPrsnGrid = function() {
 }
 
 const fn_cellMdRtlOgnzNowGrid = async function() {
+	let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 	
-	const postJsonPromise = gfn_postJSON("/fm/fclt/selectMdRtlOgnzNowGridList.do", {crtrYn : "2023"});
+	const postJsonPromise = gfn_postJSON("/fm/fclt/selectMdRtlOgnzNowGridList.do", {crtrYn : crtrYr});
 	
 	let data = await postJsonPromise;
 	try {

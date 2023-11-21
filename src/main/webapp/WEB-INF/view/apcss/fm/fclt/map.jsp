@@ -109,8 +109,9 @@
 	}
 
 	const fn_apcSttn = async function(){
+		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 		const postJsonPromise = gfn_postJSON("/fm/fclt/selectMapSttn.do", {
-			crtrYr			: "2023"
+			crtrYr			: crtrYr
   		});
         const data = await postJsonPromise;
         try {
@@ -172,9 +173,9 @@
 		}else if(code == "32"){
 			ctpvCd = "51"
 		}
-
+		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 		const postJsonPromise = gfn_postJSON("/fm/fclt/selectCtpvAreaList.do", {
-					crtrYr	: "2023"
+					crtrYr	: crtrYr
 				  , ctpvCd	: ctpvCd
   		});
 		const data = await postJsonPromise;
