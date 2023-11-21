@@ -31,12 +31,12 @@
 					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>	<!-- APC환경설정 -->
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button 
-						id="btnSave" 
-						name="btnSave" 
-						uitype="normal" 
-						text="저장" 
-						class="btn btn-sm btn-outline-danger" 
+					<sbux-button
+						id="btnSave"
+						name="btnSave"
+						uitype="normal"
+						text="저장"
+						class="btn btn-sm btn-outline-danger"
 						onclick="fn_save"
 					></sbux-button>
 				</div>
@@ -352,7 +352,11 @@
 									<sbux-checkbox id="chk-gdsWrhsMngYn" name="chk-gdsWrhsMngYn" uitype="normal" text="상품입고관리" true-value="Y" false-value="N"></sbux-checkbox>
 								</p>
 							</td>
-							<td>&nbsp;</td>
+							<td>
+								<p class="ad_input_row">
+									<sbux-checkbox id="chk-rawMtrWrhsPrcsMngYn" name="chk-rawMtrWrhsPrcsMngYn" uitype="normal" text="원물입고재처리" true-value="Y" false-value="N"></sbux-checkbox>
+								</p>
+							</td>
 						</tr>
 						<tr>
 							<th>선별지시 관리</th>
@@ -707,6 +711,7 @@
         	SBUxMethod.set("chk-pltBxMngYn", resultVO.pltBxMngYn);
         	SBUxMethod.set("chk-rawMtrWrhsPlanMngYn", resultVO.rawMtrWrhsPlanMngYn);
         	SBUxMethod.set("chk-gdsWrhsMngYn", resultVO.gdsWrhsMngYn);
+        	SBUxMethod.set("chk-rawMtrWrhsPrcsMngYn", resultVO.rawMtrWrhsPrcsMngYn);
         	SBUxMethod.set("chk-sortCmndMngYn", resultVO.sortCmndMngYn);
         	SBUxMethod.set("chk-sortCmndDocPblcnYn", resultVO.sortCmndDocPblcnYn);
         	SBUxMethod.set("chk-pckgCmndMngYn", resultVO.pckgCmndMngYn);
@@ -1304,6 +1309,7 @@
 	  	  , pltBxMngYn 				: SBUxMethod.get("chk-pltBxMngYn")["chk-pltBxMngYn"]
 	  	  , rawMtrWrhsPlanMngYn 	: SBUxMethod.get("chk-rawMtrWrhsPlanMngYn")["chk-rawMtrWrhsPlanMngYn"]
 	  	  , gdsWrhsMngYn 			: SBUxMethod.get("chk-gdsWrhsMngYn")["chk-gdsWrhsMngYn"]
+	  	  , rawMtrWrhsPrcsMngYn 	: SBUxMethod.get("chk-rawMtrWrhsPrcsMngYn")["chk-rawMtrWrhsPrcsMngYn"]
 	  	  , sortCmndMngYn 			: SBUxMethod.get("chk-sortCmndMngYn")["chk-sortCmndMngYn"]
 	  	  , sortCmndDocPblcnYn 		: SBUxMethod.get("chk-sortCmndDocPblcnYn")["chk-sortCmndDocPblcnYn"]
 	  	  , pckgCmndMngYn 			: SBUxMethod.get("chk-pckgCmndMngYn")["chk-pckgCmndMngYn"]
