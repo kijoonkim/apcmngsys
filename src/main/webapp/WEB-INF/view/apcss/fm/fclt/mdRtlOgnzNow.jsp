@@ -535,8 +535,8 @@ const fn_createStrgFcltGrid = function() {
     	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'160px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
     	{caption : ["설치현황","전체 개소수"], ref: 'v1', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
     	{caption : ["설치현황","설치 개소수"], ref: 'v2', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["예냉시설(면적)","전체면적"], ref: 'v3', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["예냉시설(면적)","평균면적"], ref: 'v4', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
+    	{caption : ["CA저장시설(면적)","전체면적"], ref: 'v3', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["CA저장시설(면적)","평균면적"], ref: 'v4', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdStrgFclt = _SBGrid.create(SBGridProperties);
 }
@@ -649,7 +649,7 @@ const fn_createInvstAtmFundTypeGrid = function() {
     	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'160px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
     	{caption : ["국비","국비"], ref: 'v1', type: 'output',  width:'140px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
     	{caption : ["지방비","지방비"], ref: 'v2', type: 'output',  width:'140px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["지부당","지부당"], ref: 'v3', type: 'output',  width:'140px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["자부담","자부담"], ref: 'v3', type: 'output',  width:'140px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
     	{caption : ["합 계","합 계"], ref: 'v4', type: 'output',  width:'140px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdInvstAtmFundType = _SBGrid.create(SBGridProperties);
