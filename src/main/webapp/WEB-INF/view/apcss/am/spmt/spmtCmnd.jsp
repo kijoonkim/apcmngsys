@@ -31,7 +31,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnCmndDocSpmt" name="btnCmndDocSpmt" uitype="normal" class="btn btn-sm btn-primary" text="출하지시서" onclick="fn_cmndDocSpmt"></sbux-button>
-					<sbux-button id="btnReSet" name="btnReSet" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reSet"></sbux-button>
+					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>
 					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
 				</div>
@@ -428,7 +428,7 @@
 		}
 	}
 
-    const fn_reSet = function(){
+    const fn_reset = function(){
     	SBUxMethod.set("srch-dtp-cmndYmdFrom", gfn_dateFirstYmd(new Date()));
 		SBUxMethod.set("srch-dtp-cmndYmdTo", gfn_dateToYmd(new Date()));
 		SBUxMethod.set("srch-dtp-cmndYmdTo", gfn_dateToYmd(new Date()));

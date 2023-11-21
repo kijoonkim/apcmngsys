@@ -123,7 +123,7 @@
 								></sbux-select>
 							</td>
 							<td colspan="2" style="border-right: hidden;"></td>
-							<th scope="row" class="th_bg">지시번호</th>
+							<th scope="row" class="th_bg"><sbux-label id="srch-lbl-spmtCmndno" name="srch-lbl-spmtCmndno" uitype="normal" text="지시번호" class="bold"></sbux-label></th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="dtl-inp-spmtCmndno" name="dtl-inp-spmtCmndno" uitype="text" class="form-control input-sm" readOnly></sbux-input>
 								<sbux-input id="dtl-inp-outordrno" name="dtl-inp-outordrno" uitype="hidden" class="form-control input-sm" readOnly></sbux-input>
@@ -168,7 +168,7 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg">지시수량/중량</th>
+							<th scope="row" class="th_bg"><sbux-label id="dtl-lbl-cmndQnttWght" name="dtl-lbl-cmndQnttWght" uitype="normal" text="지시수량/중량" class="bold"></sbux-label></th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="dtl-inp-cmndQntt" name="dtl-inp-cmndQntt" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 							</td>
@@ -176,7 +176,7 @@
 								<sbux-input id="dtl-inp-cmndWght" name="dtl-inp-cmndWght" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								Kg
+								<sbux-label id="dtl-lbl-cmndWghtKg" name="dtl-lbl-cmndWghtKg" uitype="normal" text="Kg">
 							</td>
 							<th scope="row" class="th_bg">등급</th>
 							<td class="td_input" style="border-right: hidden;">
@@ -290,7 +290,7 @@
 						<sbux-button id="btnDocSpmt" name="btnDocSpmt" uitype="normal" text="송품장" class="btn btn-sm btn-primary" onclick="fn_docSpmt"></sbux-button>
 						<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 						<sbux-button id="btnDwnld" name="btnDwnld" uitype="normal" text="서식받기" class="btn btn-sm btn-outline-danger" onclick="fn_dwnld" ></sbux-button>
-						<sbux-button id="btnUp" name="btnUp" uitype="normal" text="올리기" class="btn btn-sm btn-outline-dark" onclick="fn_uld"></sbux-button>
+						<sbux-button id="btnUld" name="btnUld" uitype="normal" text="올리기" class="btn btn-sm btn-outline-dark" onclick="fn_uld"></sbux-button>
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">

@@ -56,8 +56,8 @@
 						onclick="fn_search"
 					></sbux-button>
 					<sbux-button
-						id="btnSave"
-						name="btnSave"
+						id="btnDelete"
+						name="btnDelete"
 						uitype="normal"
 						class="btn btn-sm btn-outline-danger"
 						text="삭제"

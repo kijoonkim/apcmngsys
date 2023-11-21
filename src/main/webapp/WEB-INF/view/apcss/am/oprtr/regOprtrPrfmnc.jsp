@@ -124,13 +124,13 @@
 									<sbux-spinner id="dtl-spn-jobEndHr" name="dtl-spn-jobEndHr" uitype="normal" data-type="time" time-format="HH:MM" ></sbux-spinner>
 								</td>
 								<td class="td_input" style="border-right:hidden;">
-								  <sbux-button id="btnHrRowSet" name="btnHrRowSet" uitype="normal" text="선택적용"class="btn btn-sm btn-outline-danger" onclick="fn_hrRowSet"></sbux-button>
+								  <sbux-button id="btnHrRowSet" name="btnHrRowSet" uitype="normal" text="선택적용" class="btn btn-sm btn-outline-danger" onclick="fn_hrRowSet"></sbux-button>
 								</td>
 								<td class="td_input" style="border-right:hidden;">
-								  <sbux-button id="btnHrAllSet" name="btnHrAllSet" uitype="normal" text="일괄적용"class="btn btn-sm btn-outline-danger" onclick="fn_hrAllSet"></sbux-button>
+								  <sbux-button id="btnHrAllSet" name="btnHrAllSet" uitype="normal" text="일괄적용" class="btn btn-sm btn-outline-danger" onclick="fn_hrAllSet"></sbux-button>
 								</td>
 								<td class="td_input" style="border-right:hidden;">
-								  <sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장"class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+								  <sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 								</td>
 							</tr>
 						</tbody>

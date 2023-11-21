@@ -117,8 +117,8 @@
 							</td>
 							<td class="td_input">
 								<sbux-button
-									id="srch-btn-slt-prdcrNm"
-									name="srch-btn-slt-prdcrNm"
+									id="srch-btn-prdcrNm"
+									name="srch-btn-prdcrNm"
 									class="btn btn-xs btn-outline-dark"
 									text="찾기"
 									uitype="modal"
@@ -245,7 +245,7 @@
 					</ul>
 					<div class="ad_tbl_toplist">
 						<sbux-button id="btnDwnld" name="btnDwnld" uitype="normal" text="서식받기" class="btn btn-sm btn-outline-danger" onclick="fn_dwnld" ></sbux-button>
-						<sbux-button id="btnUpload" name="btnUpload" uitype="normal" text="올리기" class="btn btn-sm btn-outline-danger" onclick="fn_upload"></sbux-button>
+						<sbux-button id="btnUld" name="btnUld" uitype="normal" text="올리기" class="btn btn-sm btn-outline-danger" onclick="fn_upload"></sbux-button>
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
