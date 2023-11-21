@@ -111,6 +111,7 @@
 			SBUxMethod.hide('btnCancelVhcl');
 			SBUxMethod.attr('btnSaveVhcl', 'disabled', true);
 			SBUxMethod.attr('btnSearchVhcl', 'disabled', false);
+			SBUxMethod.attr('btnChoiceVhcl', 'disabled', false);
 
 			if (!gfn_isEmpty(_callbackFnc) && typeof _callbackFnc === 'function') {
 				this.callbackFnc = _callbackFnc;
@@ -192,6 +193,7 @@
 			SBUxMethod.show('btnCancelVhcl');
 			SBUxMethod.attr('btnSaveVhcl', 'disabled', false);
 			SBUxMethod.attr('btnSearchVhcl', 'disabled', true);
+			SBUxMethod.attr('btnChoiceVhcl', 'disabled', true);
 
 			this.createGrid(true);
 			grdVhclPop.rebuild();
@@ -209,6 +211,7 @@
 			SBUxMethod.hide('btnCancelVhcl');
 			SBUxMethod.attr('btnSaveVhcl', 'disabled', true);
 			SBUxMethod.attr('btnSearchVhcl', 'disabled', false);
+			SBUxMethod.attr('btnChoiceVhcl', 'disabled', false);
 
 			this.createGrid();
 			this.search();

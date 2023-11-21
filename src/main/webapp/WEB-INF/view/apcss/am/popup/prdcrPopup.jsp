@@ -23,6 +23,7 @@
 					<sbux-button id="btnEditPrdcr" name="btnEditPrdcr" uitype="normal" text="편집" class="btn btn-sm btn-outline-danger" onclick="popPrdcr.edit"></sbux-button>
 					<sbux-button id="btnCancelPrdcr" name="btnCancelPrdcr" uitype="normal" text="취소" class="btn btn-sm btn-outline-danger" onclick="popPrdcr.cancel"></sbux-button>
 					<sbux-button id="btnSavePrdcr" name="btnSavePrdcr" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="popPrdcr.save" disabled></sbux-button>
+					<sbux-button id="btnChoicePrdcr" name="btnChoicePrdcr" uitype="normal" text="선택" class="btn btn-sm btn-outline-danger" onclick="popPrdcr.choice"></sbux-button>
 					<sbux-button id="btnEndPrdcr" name="btnEndPrdcr" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="popPrdcr.close"></sbux-button>
 				</div>
 			</div>
@@ -114,6 +115,7 @@
 			SBUxMethod.hide('btnCancelPrdcr');
 			SBUxMethod.attr('btnSavePrdcr', 'disabled', true);
 			SBUxMethod.attr('btnSearchPrdcr', 'disabled', false);
+			SBUxMethod.attr('btnChoicePrdcr', 'disabled', false);
 
 			if (!gfn_isEmpty(_callbackFnc) && typeof _callbackFnc === 'function') {
 				this.callbackFnc = _callbackFnc;
@@ -200,8 +202,13 @@
 		},
 		choice: function() {
 			let nRow = grdPrdcrPop.getRow();
-			let rowData = grdPrdcrPop.getRowData(nRow);
-			popPrdcr.close(rowData);
+			if (nRow == -1) {
+				gfn_comAlert("W0003", "선택");		//	W0003	{0}할 대상이 없습니다.
+				return;
+			} else {
+				let rowData = grdPrdcrPop.getRowData(nRow);
+				popPrdcr.close(rowData);
+			}
 		},
 		edit: async function() {
 
@@ -209,6 +216,7 @@
 			SBUxMethod.show('btnCancelPrdcr');
 			SBUxMethod.attr('btnSavePrdcr', 'disabled', false);
 			SBUxMethod.attr('btnSearchPrdcr', 'disabled', true);
+			SBUxMethod.attr('btnChoicePrdcr', 'disabled', true);
 
 			this.createGrid(true);
 			grdPrdcrPop.rebuild();
@@ -225,6 +233,7 @@
 			SBUxMethod.hide('btnCancelPrdcr');
 			SBUxMethod.attr('btnSavePrdcr', 'disabled', true);
 			SBUxMethod.attr('btnSearchPrdcr', 'disabled', false);
+			SBUxMethod.attr('btnChoicePrdcr', 'disabled', false);
 
 			this.createGrid();
 			this.search();
