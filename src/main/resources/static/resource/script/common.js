@@ -209,7 +209,7 @@ async function gfn_setComCdSBSelect(_targetIds, _jsondataRef, _cdId, _apcCd) {
 		});
 
 		if (Array.isArray(_targetIds)) {
-			
+
 			_targetIds.forEach((_targetId) => {
 				SBUxMethod.refresh(_targetId);
 			});
@@ -794,13 +794,13 @@ const gfn_getApcInfos = async function (_exclApcCd) {
  * @param {string} _exclApcCd	제외APC코드
  */
 const gfn_setApcInfoSBSelect = async function (_targetIds, _jsondataRef, _exclApcCd) {
-	const postJsonPromise = gfn_postJSON(URL_APC_INFO, {apcCd: _apcCd}, null, true);
+	const postJsonPromise = gfn_postJSON(URL_APC_INFO, {exclApcCd: _exclApcCd}, null, true);
 	const data = await postJsonPromise;
 
 	const sourceJson = [];
 	data.resultList.forEach((item) => {
-			item._apcCd 		= item.apcCd;
-			item._apcCd 		= item.apcNm;
+			item.cmnsCd 		= item.apcCd;
+			item.cmnsNm 		= item.apcNm;
 			sourceJson.push(item);
 		});
 	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);

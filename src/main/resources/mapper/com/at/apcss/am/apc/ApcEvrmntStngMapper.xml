@@ -141,6 +141,7 @@
 				, PLT_BX_MNG_YN
 				, RAW_MTR_WRHS_PLAN_MNG_YN
 				, GDS_WRHS_MNG_YN
+				, RAW_MTR_WRHS_PRCS_MNG_YN
 				, SORT_CMND_MNG_YN
 				, SORT_CMND_DOC_PBLCN_YN
 				, PCKG_CMND_MNG_YN
@@ -201,6 +202,7 @@
 				, #{pltBxMngYn}
 				, #{rawMtrWrhsPlanMngYn}
 				, #{gdsWrhsMngYn}
+				, #{rawMtrWrhsPrcsMngYn}
 				, #{sortCmndMngYn}
 				, #{sortCmndDocPblcnYn}
 				, #{pckgCmndMngYn}
@@ -274,6 +276,7 @@
 				, APC.PLT_BX_MNG_YN				AS PLT_BX_MNG_YN
 				, APC.RAW_MTR_WRHS_PLAN_MNG_YN	AS RAW_MTR_WRHS_PLAN_MNG_YN
 				, APC.GDS_WRHS_MNG_YN			AS GDS_WRHS_MNG_YN
+				, APC.RAW_MTR_WRHS_PRCS_MNG_YN	AS RAW_MTR_WRHS_PRCS_MNG_YN
 				, APC.SORT_CMND_MNG_YN			AS SORT_CMND_MNG_YN
 				, APC.SORT_CMND_DOC_PBLCN_YN	AS SORT_CMND_DOC_PBLCN_YN
 				, APC.PCKG_CMND_MNG_YN			AS PCKG_CMND_MNG_YN
@@ -334,6 +337,7 @@
 				, PLT_BX_MNG_YN 			= #{pltBxMngYn}
 				, RAW_MTR_WRHS_PLAN_MNG_YN 	= #{rawMtrWrhsPlanMngYn}
 				, GDS_WRHS_MNG_YN 			= #{gdsWrhsMngYn}
+				, RAW_MTR_WRHS_PRCS_MNG_YN 	= #{rawMtrWrhsPrcsMngYn}
 				, SORT_CMND_MNG_YN 			= #{sortCmndMngYn}
 				, SORT_CMND_DOC_PBLCN_YN 	= #{sortCmndDocPblcnYn}
 				, PCKG_CMND_MNG_YN 			= #{pckgCmndMngYn}
