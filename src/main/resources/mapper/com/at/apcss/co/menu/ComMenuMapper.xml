@@ -332,7 +332,7 @@
     	     , PRSNA_INFO_YN			= #{prsnaInfoYn}
     	 ]]>
     	<if test='pageUrl == ""'>
-    	     , PAGE_URL					= NULL
+    	     , PAGE_URL					= ''
     	</if>
     	<if test='pageUrl != null and pageUrl != ""'>
     	     , PAGE_URL					= #{pageUrl}

@@ -626,7 +626,8 @@
         SBUxMethod.set("dtl-input-order", rowData.order);
         SBUxMethod.set("dtl-select-menuType", rowData.menuType);
         SBUxMethod.set("dtl-select-userType", rowData.userType);
-        SBUxMethod.set("dtl-input-pageUrl", rowData.pageUrl);
+       	SBUxMethod.set("dtl-input-pageUrl", rowData.pageUrl);
+        
         SBUxMethod.set("dtl-select-delYn", rowData.delYn);	// 기본값 사용여부(N)
         SBUxMethod.set("dtl-select-flfmtYn", rowData.prsnaInfoYn);
         SBUxMethod.set("dtl-select-authrtType", rowData.authrtType);
@@ -673,7 +674,11 @@
     		SBUxMethod.set("dtl-input-pageUrl", "");
     		SBUxMethod.attr("dtl-input-pageUrl", "readonly","true");
     	} else {
-    		SBUxMethod.set("dtl-input-pageUrl", grdMenuTreeList.getRowData(grdMenuTreeList.getRow()).pageUrl);
+    		if(grdMenuTreeList.getRowData(grdMenuTreeList.getRow()).pageUrl == null ){
+    			SBUxMethod.set("dtl-input-pageUrl", "");
+    		}else{
+	    		SBUxMethod.set("dtl-input-pageUrl", grdMenuTreeList.getRowData(grdMenuTreeList.getRow()).pageUrl);
+    		}
     		SBUxMethod.attr("dtl-input-pageUrl", "readonly","false");
     	}
     }
