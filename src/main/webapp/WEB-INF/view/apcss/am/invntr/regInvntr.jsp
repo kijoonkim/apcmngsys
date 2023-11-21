@@ -188,7 +188,7 @@
 										<sbux-button id="btnDwnld" name="btnDwnld" uitype="normal" text="서식받기" class="btn btn-sm btn-outline-danger" onclick="fn_dwnld" style="float: right;">서식받기</sbux-button>
 									</td>
 									<td class="td_input" style="border-right:hidden; border-left:hidden" >
-										<sbux-button id="btnUp" name="btnUp" uitype="normal" text="올리기" class="btn btn-sm btn-outline-danger" onclick="fn_uld" style="float: right;"></sbux-button>
+										<sbux-button id="btnUld" name="btnUld" uitype="normal" text="올리기" class="btn btn-sm btn-outline-danger" onclick="fn_uld" style="float: right;"></sbux-button>
 									</td>
 								</tr>
 							</tbody>

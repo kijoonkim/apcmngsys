@@ -379,7 +379,6 @@
 					inptYmd 		: item.inptYmd
 				  , fcltNm 			: item.fcltNm
 				  , fcltCd 			: item.fcltCd
-				  , sortnoIndct 	: item.sortnoIndct
 				  , sortno 			: item.sortno
 				  , sortSn 			: item.sortSn
 				  , sortnoIndct		: item.sortno + "-" + item.sortSn

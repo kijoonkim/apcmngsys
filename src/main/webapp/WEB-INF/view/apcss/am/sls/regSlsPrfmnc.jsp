@@ -122,11 +122,11 @@
 							</td>
 							<td class="td_input" style="border-right:hidden;">
 								<sbux-button
-									id="srch-btn-cnpt1"
-									name="srch-btn-cnpt1"
+									id="btnInsertSls"
+									name="btnInsertSls"
 									uitype="normal"
 									text="매출생성"
-									onclick="fn_slsCreate"
+									onclick="fn_insertSls"
 									class="btn btn-xs btn-outline-dark"
 								></sbux-button>
 							</td>
@@ -413,7 +413,7 @@
 		}
     }
 
-	const fn_slsCreate = async function (){
+	const fn_insertSls = async function (){
 		let slsYmdFrom = SBUxMethod.get("dtl-dtp-slsYmdFrom")
 		let slsYmdTo = SBUxMethod.get("dtl-dtp-slsYmdTo")
 

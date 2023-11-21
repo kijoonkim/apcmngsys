@@ -75,24 +75,24 @@
 				, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
     		  FROM (
 	    	SELECT /* com.at.apcss.am.pckg.mapper.PckgInptMapper.selectPckgInptList */
-				  PI.APC_CD			AS APC_CD
-				, PI.SORTNO			AS SORTNO
-				, PI.SORT_SN		AS SORT_SN
-				, PI.INPT_SN		AS INPT_SN
-				, PI.PCKGNO			AS PCKGNO
-				, PI.PCKG_CMNDNO	AS PCKG_CMNDNO
-				, PI.INPT_YMD		AS INPT_YMD
-				, PI.QNTT			AS QNTT
-				, PI.WGHT			AS WGHT
-				, PI.RMRK			AS RMRK
-			    , PI.FCLT_CD		AS FCLT_CD
-			    , SI.RPRS_PRDCR_CD	AS RPRS_PRDCR_CD
-			    , SI.ITEM_CD		AS ITEM_CD
-			    , SI.VRTY_CD		AS VRTY_CD
-			    , SI.SPCFCT_CD		AS SPCFCT_CD
-			    , SI.GRD_CD			AS GRD_CD
-			    , SI.GDS_SE_CD      AS GDS_SE_CD
-			    , SI.PRDCTN_YR      AS PRDCTN_YR
+				  PI.APC_CD				AS APC_CD
+				, PI.SORTNO				AS SORTNO
+				, PI.SORT_SN			AS SORT_SN
+				, PI.INPT_SN			AS INPT_SN
+				, PI.PCKGNO				AS PCKGNO
+				, PI.PCKG_CMNDNO		AS PCKG_CMNDNO
+				, PI.INPT_YMD			AS INPT_YMD
+				, PI.QNTT				AS QNTT
+				, PI.WGHT				AS WGHT
+				, PI.RMRK				AS RMRK
+			    , PI.FCLT_CD			AS FCLT_CD
+			    , SI.RPRS_PRDCR_CD		AS RPRS_PRDCR_CD
+			    , SI.ITEM_CD			AS ITEM_CD
+			    , SI.VRTY_CD			AS VRTY_CD
+			    , SI.SPCFCT_CD			AS SPCFCT_CD
+			    , SI.GRD_CD				AS GRD_CD
+			    , SI.GDS_SE_CD      	AS GDS_SE_CD
+			    , SI.PRDCTN_YR      	AS PRDCTN_YR
 			    , SI.WAREHOUSE_SE_CD	AS WAREHOUSE_SE_CD
 			  FROM
 			  	  TB_PCKG_INPT_PRFMNC PI
