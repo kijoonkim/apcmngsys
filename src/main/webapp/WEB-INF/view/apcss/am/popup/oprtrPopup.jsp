@@ -20,6 +20,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearchOprtr" name="btnSearchOprtr" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popOprtr.search"></sbux-button>
+					<sbux-button id="btnChoiceOprtr" name="btnChoiceOprtr" uitype="normal" text="선택" class="btn btn-sm btn-outline-danger" onclick="popOprtr.choice"></sbux-button>
 					<sbux-button id="btnEndOprtr" name="btnEndOprtr" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-oprtr')"></sbux-button>
 				</div>
 			</div>
@@ -121,8 +122,13 @@
 		},
 		choice: function() {
 			let nRow = grdOprtrPop.getRow();
-			let rowData = grdOprtrPop.getRowData(nRow);
-			popOprtr.close(rowData);
+			if (nRow == -1) {
+				gfn_comAlert("W0003", "선택");		//	W0003	{0}할 대상이 없습니다.
+				return;
+			} else {
+				let rowData = grdOprtrPop.getRowData(nRow);
+				popOprtr.close(rowData);
+			}
 		},
 		search: async function() {
 			grdOprtrPop.rebuild();

@@ -12,6 +12,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearchGds" name="btnSearchGds" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popGds.search"></sbux-button>
+					<sbux-button id="btnChoiceGds" name="btnChoiceGds" uitype="normal" text="선택" class="btn btn-sm btn-outline-danger" onclick="popGds.choice"></sbux-button>
 					<sbux-button id="btnEndGds" name="btnEndGds" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="popGds.close"></sbux-button>
 				</div>
 			</div>
@@ -143,8 +144,13 @@
 		},
 		choice: function() {
 			let nRow = grdGds.getRow();
-			let rowData = grdGds.getRowData(nRow);
-			popGds.close(rowData);
+			if (nRow == -1) {
+				gfn_comAlert("W0003", "선택");		//	W0003	{0}할 대상이 없습니다.
+				return;
+			} else {
+				let rowData = grdGds.getRowData(nRow);
+				popGds.close(rowData);
+			}
 		},
 		search: async function() {
 			grdGds.rebuild();
