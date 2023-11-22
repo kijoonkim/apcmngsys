@@ -43,7 +43,7 @@ public class RgnTrsprtCstController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	@PostMapping(value = "/am/cmns/deleteRgnTrsprtCstList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> deleteRgnTrsprtCstList(@RequestBody RgnTrsprtCstVO rgnTrsprtCstVO, HttpServletRequest request) throws Exception {
 
@@ -66,12 +66,12 @@ public class RgnTrsprtCstController extends BaseController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<RgnTrsprtCstVO> updateList = new ArrayList<RgnTrsprtCstVO>();
 		try {
-			for ( var i=0; i<rgnTrsprtCstList.size(); i++ ) {
-				rgnTrsprtCstList.get(i).setSysFrstInptUserId(getUserId());
-				rgnTrsprtCstList.get(i).setSysFrstInptPrgrmId(getPrgrmId());
-				rgnTrsprtCstList.get(i).setSysLastChgUserId(getUserId());
-				rgnTrsprtCstList.get(i).setSysLastChgPrgrmId(getPrgrmId());
-				updateList.add(rgnTrsprtCstList.get(i));
+			for ( RgnTrsprtCstVO rgnTrsprtCstVO : rgnTrsprtCstList ) {
+				rgnTrsprtCstVO.setSysFrstInptUserId(getUserId());
+				rgnTrsprtCstVO.setSysFrstInptPrgrmId(getPrgrmId());
+				rgnTrsprtCstVO.setSysLastChgUserId(getUserId());
+				rgnTrsprtCstVO.setSysLastChgPrgrmId(getPrgrmId());
+				updateList.add(rgnTrsprtCstVO);
 			}
 
 			HashMap<String, Object> rtnObj = rgnTrsprtCstService.multiRgnTrsprtCst(updateList);
