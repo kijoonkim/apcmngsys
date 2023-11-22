@@ -158,7 +158,7 @@
 						</li>
 					</ul>
 					<div class="ad_tbl_toplist">
-						<sbux-button id="btnSave" name="btnSearch" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+						<sbux-button id="btnSave" name="btnSearch" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 						<sbux-button id="btnDel" name="btnSearch" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_del"></sbux-button>
 					</div>
 				</div>
@@ -188,7 +188,7 @@
 	
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-			gfn_setComCdSBSelect('srch-slt-wrhsSpmtSe', jsonWrhsSpmtSe, 'WRHS_SPMT_SE'),			// 창고
+			gfn_setComCdSBSelect('srch-slt-wrhsSpmtSe', jsonWrhsSpmtSe, 'WRHS_SPMT_SE_CD'),	// 창고
 			gfn_setComCdSBSelect('srch-slt-pltBxSe', jsonPltBxSe, 'PLT_BX_SE_CD'),			// 창고
 		]);
 		fn_search();
@@ -233,13 +233,13 @@
 	        {caption: ["대여업체"],		ref: 'pltCnptNm',      	type:'output',  width:'170px',    style:'text-align:center'},
 	        {caption: ["단중"],			ref: 'unitWght',      	type:'output',  width:'100px',    style:'text-align:right',
 	        	format : {type:'number', rule:'#,### Kg'}},
-	        {caption: ["전일재고수량"],		ref: 'bssInvntrQntt',   type:'output',  width:'100px',    style:'text-align:right',
+	        {caption: ["전일재고수량"],		ref: 'ystdBssInvntrQntt',   type:'output',  width:'100px',    style:'text-align:right',
 	        	format : {type:'number', rule:'#,###'}},
 	        {caption: ["입고수량"],		ref: 'wrhsQntt',      	type:'output',  width:'100px',    style:'text-align:right',
 	        	format : {type:'number', rule:'#,###'}},
 	        {caption: ["출고수량"],		ref: 'spmtQntt',      	type:'output',  width:'100px',    style:'text-align:right',
 	        	format : {type:'number', rule:'#,###'}},
-	        {caption: ["현재고수량"],		ref: 'invntrQntt',      type:'output',  width:'100px',    style:'text-align:right',
+	        {caption: ["현재고수량"],		ref: 'bssInvntrQntt',      type:'output',  width:'100px',    style:'text-align:right',
 	        	format : {type:'number', rule:'#,###'}},
 			{caption: ["비고"],			ref: 'rmrk',      		type:'output',  width:'170px',    style:'text-align:center'}
 	    ];
@@ -269,7 +269,6 @@
 	const fn_setPltBxMngList = async function(pageSize, pageNo){    	
     	const postJsonPromise = gfn_postJSON("/am/cmns/selectPltBxMngList.do", {
 			apcCd: gv_selectedApcCd,
-			
           	// pagination
   	  		pagingYn : 'N',
   			currentPageNo : pageNo,
@@ -295,18 +294,17 @@
           				bssInvntrQntt: item.bssInvntrQntt,
           				wrhsQntt: item.wrhsQntt,
           				spmtQntt: item.spmtQntt,
-          				invntrQntt: item.invntrQntt,
+          				ystdBssInvntrQntt : item.ystdBssInvntrQntt,
           				unitCd: item.unitCd,
           				rmrk: item.rmrk,
-          				pltCnptNm: item.pltCnptNm
+          				pltCnptNm: item.pltCnptNm,
 				}
       			jsonPltBxMngList.push(pckgCmnd);
-	
 				if (index === 0) {
   					totalRecordCount = item.totalRecordCount;
   				}
   			});
-	
+			
 	      	if (jsonPltBxMngList.length > 0) {
 	      		if(pltBxMngList.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
 	      			pltBxMngList.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
@@ -571,14 +569,26 @@
 			gfn_comAlert("W0001", "수량");		//	W0002	{0}을/를 선택하세요.
 			return;
 		}
+		console.log('wrhsSpmtSeCd',wrhsSpmtSeCd);
 		if(wrhsSpmtSeCd == '2'){
-			let invntrQntt = jsonPltBxMngList.find(e => e.pltBxCd == pltBxCd && e.pltBxSeCd == pltBxSeCd).invntrQntt;
-			if(invntrQntt < qntt){
-				await alert("현재고를 초과하여 수량을 입력할 수 없습니다. 현재고: "+invntrQntt);
-				SBUxMethod.set("srch-inp-qntt", 0);
-				return;
+			for(var i=0; i<jsonPltBxMngList.length; i++){
+				if(jsonPltBxMngList[i].pltBxCd == pltBxCd){
+					if(qntt > jsonPltBxMngList[i].bssInvntrQntt){
+					gfn_comAlert("W0008", "팔레트잔여수량", "입력한팔레트수량");//W0008{0} 보다 {1}이/가 큽니다.
+					SBUxMethod.set("srch-inp-qntt", 0);
+					return;
+					}
+				}
 			}
 		}
+// 		if(wrhsSpmtSeCd == '2'){
+// 			let invntrQntt = jsonPltBxMngList.find(e => e.pltBxCd == pltBxCd && e.pltBxSeCd == pltBxSeCd).invntrQntt;
+// 			if(invntrQntt < qntt){
+// 				await alert("현재고를 초과하여 수량을 입력할 수 없습니다. 현재고: "+invntrQntt);
+// 				SBUxMethod.set("srch-inp-qntt", 0);
+// 				return;
+// 			}
+// 		}
 		
 		let pltNm = jsonPltBxNm.find(e => e.value == pltBxCd).text;
 		let pltBxs = await gfn_getPltBxs(gv_selectedApcCd, pltBxSeCd);
@@ -598,6 +608,7 @@
 				,unitWght: unitWght
 				,rmrk: rmrk
 				,delYn: 'N'
+// 				,wrhsSpmtType: wrhsSpmtType
 				});
 	    	const data = await postJsonPromise;
 
