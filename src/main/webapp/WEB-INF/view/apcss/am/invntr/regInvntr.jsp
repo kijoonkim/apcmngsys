@@ -333,7 +333,6 @@
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 
 		if(gfn_isEmpty(itemCd)){
-
 			jsonComSpcfct.length = 0;
 			SBUxMethod.refresh("srch-slt-spcfctCd");
 			let rst = await Promise.all([
@@ -345,6 +344,7 @@
 			let rst = await Promise.all([
 				gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 				jsonComVrty, 				gv_selectedApcCd, itemCd),	// 품종
 				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',			jsonComSpcfct, 				gv_selectedApcCd, itemCd),	// 규격
+				gfn_setSpmtPckgUnitSBSelect('excel-slt-spmtPckgUnit', 	jsonExeclComSpmtPckgUnit, 	gv_selectedApcCd, itemCd),	// 포장구분
 				stdGrdSelect.setStdGrd(gv_selectedApcCd, _GRD_SE_CD_WRHS, itemCd)
 			]);
 		}
@@ -357,28 +357,34 @@
 			SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'false')
 		}
 
+
+
 	}
 
 	const fn_selectVrty = async function(){
 		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
-		let itemCd = "";
-		for( i=0; i<jsonComVrty.length; i++ ){
-			if(jsonComVrty[i].value == vrtyCd){
-				itemCd = jsonComVrty[i].mastervalue;
+
+		if(!gfn_isEmpty(vrtyCd)){
+			let itemCd = "";
+			for( i=0; i<jsonComVrty.length; i++ ){
+				if(jsonComVrty[i].value == vrtyCd){
+					itemCd = jsonComVrty[i].mastervalue;
+				}
+			}
+			SBUxMethod.set("srch-slt-itemCd", itemCd);
+			let rst = await Promise.all([
+				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 			jsonComSpcfct, 				gv_selectedApcCd, itemCd),	// 규격
+				gfn_setSpmtPckgUnitSBSelect('excel-slt-spmtPckgUnit', 	jsonExeclComSpmtPckgUnit, 	gv_selectedApcCd, itemCd),	// 포장구분
+				stdGrdSelect.setStdGrd(gv_selectedApcCd, _GRD_SE_CD_WRHS, itemCd)
+			])
+
+			if(checkSection == 1){
+				SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'true')
+			}else{
+				SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'false')
 			}
 		}
-		SBUxMethod.set("srch-slt-itemCd", itemCd);
-		let rst = await Promise.all([
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 			jsonComSpcfct, 				gv_selectedApcCd, itemCd),	// 규격
-			gfn_setSpmtPckgUnitSBSelect('excel-slt-spmtPckgUnit', 	jsonExeclComSpmtPckgUnit, 	gv_selectedApcCd, itemCd),	// 포장구분
-			stdGrdSelect.setStdGrd(gv_selectedApcCd, _GRD_SE_CD_WRHS, itemCd)
-		])
 
-		if(checkSection == 1){
-			SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'true')
-		}else{
-			SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'false')
-		}
 	}
 
 	const fn_changeInvntrSeCd = async function(){
@@ -637,9 +643,6 @@
 		let originInvntrQntt = rowData.originInvntrQntt;
 		let originInvntrWght = rowData.originInvntrWght;
 
-		if(invntrWght > 0){
-
-		}
 		if(invntrWght == 0){
 			inptCmndDsctnList.setCellData(nRow, invntrQnttQnttCol, 0);
 			inptCmndDsctnList.setCellData(nRow, checkedYnCol, "Y");
@@ -1509,12 +1512,18 @@
 		        unit: ""
 		    }
 		);
-
-
 		await fn_createExpGrid(expObjList); // fn_createExpGrid함수에 expObjList를 담아서 보내주는 코드
+		let xlsx = "";
+		if(invntrSeCd == "1"){
+			xlsx = "재고정보(원물).xlsx"
+		}else if(invntrSeCd == "2"){
+			xlsx = "재고정보(선별).xlsx"
+		}else if(invntrSeCd == "3"){
+			xlsx = "재고정보(상품).xlsx"
+		}
 
 		//exportExcel();
-	    gfn_exportExcelMulti("재고정보(샘플).xlsx", expObjList); // gfn_exportExcelMulti함수에 파일 이름, 오브젝트 리스트를 보내주는 코드
+	    gfn_exportExcelMulti(xlsx, expObjList); // gfn_exportExcelMulti함수에 파일 이름, 오브젝트 리스트를 보내주는 코드
 	}
 
 	const gfn_exportExcelMulti = function(_fileName, _objList) {
