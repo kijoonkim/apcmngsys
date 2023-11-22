@@ -32,7 +32,7 @@
 					<sbux-button id="btnCreate" name="btnCreate" uitype="normal" class="btn btn-sm btn-outline-danger" text="신규" onclick="fn_createComCdGridRow"></sbux-button>
                     <sbux-button id="btnDelete" name="btnDelete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="fn_deleteComCd"></sbux-button>
                     <sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_insertComCd"></sbux-button>
-                    <sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_selectComcdList"></sbux-button>
+                    <sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_selectComCdList"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -129,9 +129,10 @@
 	    SBGridProperties.jsonref = 'comCdgridData';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'free';
-	    SBGridProperties.explorerbar = 'sortmove';
+	    SBGridProperties.explorerbar = 'move';
 	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.clickeventarea = {fixed: true, empty: false};
+	    SBGridProperties.frozencols = 1;
+	    SBGridProperties.clickeventarea = {fixed: false, empty: false};
 	    SBGridProperties.entereditcell = true;			// enter키로 행 이동시 하위 셀 edit창 활성화 여부를 설정하는 속성입니다.
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.oneclickedit = true;
@@ -144,19 +145,19 @@
  		};
         SBGridProperties.columns = [
             {caption : ["<input type='checkbox' onchange='fn_checkAll(comCdgrid, this);'>"],
-                ref: 'checked', type: 'checkbox', width: '50px', style: 'text-align:center', sortable: false,
-                typeinfo : {ignoreupdate : true}
-            },
-            {caption: ["코드ID"],   ref: 'cdId',  	type:'input',  width:'150px',    style:'text-align:center'},
-            {caption: ["코드명"],   ref: 'cdNm',  	type:'input',  width:'150px',    style:'text-align:center'},
-            {caption: ["코드유형"], 	ref: 'cdType',   	type:'combo',  width:'150px',    style:'text-align:center',
-				typeinfo : {ref:'jsonComCdType', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
-            {caption: ["코드설명"], ref: 'cdExpln', type:'input',  width:'200px',    style:'text-align:center'}
+            	ref: 'checked', type: 'checkbox', width: '40px', style: 'text-align:center', typeinfo: {ignoreupdate : true}},
+            {caption: ["코드ID"],		ref: 'cdId',	type: 'input',		width: '150px',	style: 'text-align:center',
+            	validate : gfn_chkByte.bind({byteLimit: 20})},
+            {caption: ["코드명"],		ref: 'cdNm',	type: 'input',		width: '150px',	style: 'text-align:center',
+            	validate : gfn_chkByte.bind({byteLimit: 100})},
+            {caption: ["코드유형"],	ref: 'cdType',	type: 'combo',		width: '150px',	style: 'text-align:center',
+            	typeinfo: {ref:'jsonComCdType', displayui: false, itemcount: 10, label:'label', value:'value'}},
+            {caption: ["코드설명"],	ref: 'cdExpln',	type: 'input',		width: '200px',	style: 'text-align:center',
+            	validate : gfn_chkByte.bind({byteLimit: 1000})}
         ];
         window.comCdgrid = _SBGrid.create(SBGridProperties);
         comCdgrid.bind('click', 'fn_selectComCdDtlList');
-        comCdgrid.bind( "beforepagechanged" , "fn_pagingComCd" );
-
+        comCdgrid.bind( "afterpagechanged" , "fn_pagingComCd" );
     }
 
     var comCdDtlGridData = []; // 공통코드 상세 그리드의 참조 데이터 주소 선언
@@ -168,49 +169,51 @@
 	    SBGridProperties.jsonref = 'comCdDtlGridData';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'free';
-	    SBGridProperties.explorerbar = 'sortmove';
+	    SBGridProperties.explorerbar = 'move';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.frozencols = 1;
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.entereditcell = true;			// enter키로 행 이동시 하위 셀 edit창 활성화 여부를 설정하는 속성입니다.
 	    SBGridProperties.entertotab = true;
 	    SBGridProperties.oneclickedit = true;
-	    SBGridProperties.paging = {
-	    		  'type' : 'page',
-	    		  'count' : 5,
-	    		  'size' : 15,
-	    		  'sorttype' : 'page',
-	    		  'showgoalpageui' : true
- 		};
         SBGridProperties.columns = [
             {caption : ["<input type='checkbox' onchange='fn_checkAll(comCdDtlgrid, this);'>"],
-                ref: 'checked', type: 'checkbox', width : '50px', style: 'text-align:center', sortable: false,
-                typeinfo : {ignoreupdate : true}},
-            {caption: ["코드값"],       ref: 'cdVl',   		type:'input',   width:'150px',    style:'text-align:center'},
-            {caption: ["코드값명"],     ref: 'cdVlNm',    	type:'input',   width:'150px',    style:'text-align:center'},
-            {caption: ["코드값설명"],   ref: 'cdVlExpln',   type:'input',   width:'250px',    style:'text-align:center'},
-            {caption: ["Sort순서"],     ref: 'indctSeq',   	type:'input',   width:'100px',    style:'text-align:center'},
-            {caption: ["APC코드"],  	ref: 'apcCd', 		type:'input',   width:'0px',    style:'text-align:center', hidden : true},
-            {caption: ["코드ID"],  		ref: 'cdId', 		type:'input',   width:'0px',    style:'text-align:center', hidden : true},
-            {caption: ["행추가여부"],  	ref: 'addYn', 		type:'input',   width:'0px',    style:'text-align:center', hidden : true}
-
+            	ref: 'checked', type: 'checkbox', width: '40px', style: 'text-align:center', typeinfo : {ignoreupdate : true}},
+            {caption: ["코드값"],		ref: 'cdVl',		type: 'input',		width: '150px',	style: 'text-align:center',
+            	validate : gfn_chkByte.bind({byteLimit: 20})},
+            {caption: ["코드값명"],	ref: 'cdVlNm',		type: 'input',		width: '150px',	style: 'text-align:center',
+            	validate : gfn_chkByte.bind({byteLimit: 100})},
+            {caption: ["코드값설명"],	ref: 'cdVlExpln',	type: 'input',		width: '250px',	style: 'text-align:center',
+            	validate : gfn_chkByte.bind({byteLimit: 1000})},
+            {caption: ["Sort순서"],	ref: 'indctSeq',	type: 'input',		width: '100px',	style: 'text-align:center',
+            	typeinfo : {mask : {alias : 'numeric'}, maxlength: 10}, format : {type:'number'}},
+            {caption: ["상위코드값"],	ref: 'upCdVl',		type: 'input',		width: '100px',	style: 'text-align:center',
+            	validate : gfn_chkByte.bind({byteLimit: 20})},
+            {caption: ["코드숫자값"],	ref: 'cdNumVl',		type: 'input',		width: '100px',	style: 'text-align:center',
+            	typeinfo : {mask : {alias : 'numeric'}, maxlength: 10}, format : {type:'number'}},
+            {caption: ["코드문자값"],	ref: 'cdChrVl',		type: 'input',		width: '100px',	style: 'text-align:center',
+            	validate : gfn_chkByte.bind({byteLimit: 20})},
+            {caption: ["APC코드"],	ref: 'apcCd',		type: 'output',		hidden : true},
+            {caption: ["코드ID"],		ref: 'cdId',		type: 'output',		hidden : true},
+            {caption: ["행추가여부"],	ref: 'addYn',		type: 'output',		hidden : true}
         ];
         comCdDtlgrid = _SBGrid.create(SBGridProperties);
-        comCdDtlgrid.bind( "beforepagechanged" , "fn_pagingComCdDtl" );
-
     }
-
+    
   	//공통코드 목록 조회
-    async function fn_selectComcdList() {
-
+    async function fn_selectComCdList() {
+    	comCdgrid.rebuild();
     	let recordCountPerPage = comCdgrid.getPageSize();  							// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = 1;
 
-    	fn_callSelectComcdList(recordCountPerPage, currentPageNo);
+    	comCdgridData.length = 0;
+    	comCdgrid.clearStatus();
+    	fn_callSelectComCdList(recordCountPerPage, currentPageNo);
+		fn_clearComCdDtl();
     }
 
     // 공통코드 목록 조회 호출
-    async function fn_callSelectComcdList(recordCountPerPage, currentPageNo){
-    	comCdgrid.clearStatus();
+    async function fn_callSelectComCdList(recordCountPerPage, currentPageNo){
     	let selectType = SBUxMethod.get("selectType");
     	let cdId;
     	let cdNm;
@@ -219,102 +222,93 @@
     	}else if(selectType === 'NM'){
     		cdNm = SBUxMethod.get("srchKeyword");
     	}
-    	let newGridData = [];
-    	fetch("/co/cd/comCds", {
-  		  	method: "POST",
-  		  	async : "false",
-  		  	headers: {
-  		    	"Content-Type": "application/json",
-  		  	},
-  		  	body: JSON.stringify({
+    	
+    	const postJsonPromise = gfn_postJSON("/co/cd/comCds", {
+	  		cdId : cdId,
+	  		cdNm : cdNm,
 
-  		  		cdId: cdId,
-  		  		cdNm : cdNm,
-  		  		pagingYn : 'Y',
-  		  		currentPageNo : currentPageNo,
-  		  		recordCountPerPage : recordCountPerPage
+          	// pagination
+  	  		pagingYn : 'Y',
+  			currentPageNo : currentPageNo,
+   		  	recordCountPerPage : recordCountPerPage
+  		});
 
-  			}),
-  		})
-  		.then((response) => response.json())
-  		.then(
-				(data) => {
-					data.resultList.forEach((item, index) => {
-						let comCdList = {
-								cdId : item.cdId,
-								cdNm : item.cdNm,
-								cdType:item.cdType,
-								cdExpln : item.cdExpln,
-								delYn : item.delYn
-						}
-						newGridData.push(comCdList);
-					});
-					comCdgridData = newGridData;
-					if(comCdgridData.length > 0){
+        const data = await postJsonPromise;
+    	
+        try {
+      		let totalRecordCount = 0;
+      		comCdgridData.length = 0;
+          	data.resultList.forEach((item, index) => {
+  				const comCd = {
+						cdId : item.cdId,
+						cdNm : item.cdNm,
+						cdType : item.cdType,
+						cdExpln : item.cdExpln
+  				}
+  				comCdgridData.push(comCd);
 
-						if(comCdgrid.getPageTotalCount() != data.resultList[0].totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-							comCdgrid.setPageTotalCount(data.resultList[0].totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-							comCdgrid.rebuild();
-						}else{
-					    	comCdgrid.refresh()
-						}
-						$('#listCount').text(data.resultList[0].totalRecordCount);
-				    	comCdgrid.setCellDisabled(0, 1, comCdgrid.getRows() - 1, 1, true);
-					}else{
-						$('#listCount').text(0);
-						comCdgrid.setPageTotalCount(0);
-						comCdgrid.rebuild();
-					}
-				}
-  		);
+  				if (index === 0) {
+  					totalRecordCount = item.totalRecordCount;
+  				}
+  			});
+
+          	if (comCdgridData.length > 0) {
+          		if(comCdgrid.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+          			comCdgrid.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+          			comCdgrid.rebuild();
+  				}else{
+  					comCdgrid.refresh();
+  				}
+              	comCdgrid.setCellDisabled(0, 1, comCdgrid.getRows() - 1, 1, true);
+          	} else {
+          		comCdgrid.setPageTotalCount(totalRecordCount);
+          		comCdgrid.rebuild();
+          	}
+
+			document.querySelector('#listCount').innerText = totalRecordCount;
+
+          } catch (e) {
+      		if (!(e instanceof Error)) {
+      			e = new Error(e);
+      		}
+      		console.error("failed", e.message);
+          }
     }
 
  	// 공통코드 상세 목록 조회
     async function fn_selectComCdDtlList() {
-    	let recordCountPerPage = comCdDtlgrid.getPageSize();
-    	let currentPageNo = 1;
-
-    	fn_callSelectComCdDtlList(recordCountPerPage, currentPageNo);
-    	if(!(comCdgrid.getRowData(comCdgrid.getRow()).cdId === null || comCdgrid.getRowData(comCdgrid.getRow()).cdId === '')){
-	    	fn_callSelectComCdDtlList(recordCountPerPage, currentPageNo)
+    	if(!gfn_isEmpty(comCdgrid.getRowData(comCdgrid.getRow()).cdId)){
+	    	fn_callSelectComCdDtlList();
     	}else{
     		fn_clearComCdDtl();
     	}
     }
 
     // 공통코드 상세 목록 조회 호출
-    async function fn_callSelectComCdDtlList(recordCountPerPage, currentPageNo){
+    async function fn_callSelectComCdDtlList(){
     	let cdId = comCdgrid.getRowData(comCdgrid.getRow()).cdId;
-    	let newDtlGridData = [];
     	let postJsonPromise = gfn_postJSON("/co/cd/comCdDtls", {cdId : cdId}, null, true);
         let data = await postJsonPromise;
 
         try{
+        	comCdDtlGridData = [];
         	data.resultList.forEach((item, index) => {
 				let comCdDtlList = {
-						cdVl : item.cdVl,
-						cdVlNm : item.cdVlNm,
-						cdVlExpln : item.cdVlExpln,
-						indctSeq : item.indctSeq,
-						apcCd : item.apcCd,
-						cdId : item.cdId,
-						addYn : 'N'
+					cdVl : item.cdVl,
+					cdVlNm : item.cdVlNm,
+					cdVlExpln : item.cdVlExpln,
+					indctSeq : item.indctSeq,
+					apcCd : item.apcCd,
+					cdId : item.cdId,
+					upCdVl : item.upCdVl,
+					cdNumVl : item.cdNumVl,
+					cdChrVl : item.cdChrVl,
+					addYn : 'N'
 				}
-				newDtlGridData.push(comCdDtlList);
+				comCdDtlGridData.push(comCdDtlList);
 			});
-			comCdDtlGridData = newDtlGridData;
-			if(comCdDtlGridData.length > 0){
-
-				if(comCdDtlgrid.getPageTotalCount() != data.resultList[0].totalRecordCount){  // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-					comCdDtlgrid.setPageTotalCount(data.resultList[0].totalRecordCount); // 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-					comCdDtlgrid.rebuild();  // 페이지 load 이후 조회하는 형태로 처음 데이터 바인딩시 반드시 rebuild해줘야 합니다.
-				}else{
-			    	comCdDtlgrid.refresh()
-				}
-			}else{
-				comCdDtlgrid.rebuild();
-			}
-
+			comCdDtlgrid.rebuild();
+			comCdDtlgrid.setCellDisabled(0, 1, comCdDtlgrid.getRows() - 1, 1, true);
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -327,15 +321,10 @@
     async function fn_pagingComCd(){
     	let recordCountPerPage = comCdgrid.getPageSize();   		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = comCdgrid.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+    	let ref = "<input type='checkbox' onchange='fn_checkAll(comCdgrid, this);'>";
+    	comCdgrid.setCellData(0, comCdgrid.getColRef("checked"), ref, true, false);
     	fn_clearComCdDtl();
-    	fn_callSelectComcdList(recordCountPerPage, currentPageNo);
-    }
-
-    // 공통코드 상세 페이징
-    async function fn_pagingComCdDtl(){
-    	let recordCountPerPage = comCdDtlgrid.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-    	let currentPageNo = comCdDtlgrid.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-    	fn_callSelectComCdDtlList(recordCountPerPage, currentPageNo);
+    	fn_callSelectComCdList(recordCountPerPage, currentPageNo);
     }
 
     // 공통코드 상세 클리어
@@ -354,13 +343,12 @@
 
     //선택 삭제
     async function fn_deleteComCd() {
-
     	let delComCdList = [];
     	let delComCdDtlList = [];
         let comCdgridList = comCdgrid.getGridDataAll();
         let comCdDtlgridList = comCdDtlgrid.getGridDataAll();
-        let resultComCdCnt = 0;
-        let resultComCdDtlCnt = 0;
+        let comCdResult = 0;
+        let comCdDtlResult = 0;
         for (var i=0; i<comCdgridList.length; i++) {
             if (comCdgridList[i].checked === "true") {
             	delComCdList.push(comCdgridList[i]);
@@ -382,29 +370,21 @@
         if (confirm(delMsg)) {
 
         	if(delComCdList.length > 0){
-        		resultComCdCnt += await fn_callDeleteComCd(delComCdList);
+        		comCdResult += await fn_callDeleteComCd(delComCdList);
         	}
         	if(delComCdDtlList.length >0){
-        		resultComCdDtlCnt += await fn_callDeleteComCdDtl(delComCdDtlList);
+        		comCdDtlResult += await fn_callDeleteComCdDtl(delComCdDtlList);
         	}
 
-        	if(resultComCdCnt > 0){
-        		fn_selectComcdList();
+        	if(comCdResult > 0){
+        		fn_selectComCdList();
         	}
-
-        	if(resultComCdDtlCnt > 0){
-        		let recordCountPerPage = comCdDtlgrid.getPageSize();
-            	let currentPageNo = 1;
-            	if(!(comCdgrid.getRowData(comCdgrid.getRow()).cdId == null || comCdgrid.getRowData(comCdgrid.getRow()).cdId == '')){
-    	    		fn_callSelectComCdDtlList(recordCountPerPage, currentPageNo)
-	        	}else{
-	        		fn_clearComCdDtl();
-	        	}
+        	if(comCdDtlResult > 0){
+        		fn_selectComCdDtlList();
         	}
-        	if(resultComCdCnt + resultComCdDtlCnt > 0){
+        	if(comCdResult + comCdDtlResult > 0){
         		alert("삭제 되었습니다.");
         	}
-
         }
     }
 
@@ -425,11 +405,11 @@
     		if(comCdgrid.getRowData(i).checked === 'true'){
     			let cdId = comCdgrid.getRowData(i).cdId;
     			let cdNm = comCdgrid.getRowData(i).cdNm;
-    			if(cdId == null || cdId == ''){
+    			if(gfn_isEmpty(cdId)){
         			alert(i+"번째 행 코드ID는 필수 입력 값 입니다.");
         			return;
         		}
-        		if(cdNm == null || cdNm == ''){
+        		if(gfn_isEmpty(cdNm)){
         			alert(i+"번째 행 코드명는 필수 입력 값 입니다.");
         			return;
         		}
@@ -451,22 +431,21 @@
     		if(comCdDtlgrid.getRowData(i).checked === 'true'){
     			let cdVl = comCdDtlgrid.getRowData(i).cdVl;
     			let cdVlNm = comCdDtlgrid.getRowData(i).cdVlNm;
-    			if(cdVl == null || cdVl == ''){
+    			if(gfn_isEmpty(cdVl)){
         			alert(i+"번째 행 코드값는 필수 입력 값 입니다.");
         			return;
         		}
-        		if(cdVlNm == null || cdVlNm == ''){
+        		if(gfn_isEmpty(cdVlNm)){
         			alert(i+"번째 행 코드값명는 필수 입력 값 입니다.");
         			return;
         		}
 
-    			let check = await fn_duplicateCheckCdIdDtl(comCdDtlgrid.getRowData(i))
-    			if(check != 0){
-    				alert(i+"번째 행은 중복 된 코드ID 입니다.");
-    				return;
-    			}
-
 	    		if(comCdDtlgrid.getRowStatus(i) === 3 || comCdDtlgrid.getRowStatus(i) === 1){
+	    			let check = await fn_duplicateCheckCdIdDtl(comCdDtlgrid.getRowData(i))
+	    			if(check != 0){
+	    				alert(i+"번째 행은 중복 된 코드값 입니다.");
+	    				return;
+	    			}
 	    			addDtlList.push(comCdDtlgrid.getRowData(i))
 	    		}else if(comCdDtlgrid.getRowStatus(i) === 2){
 	    			updateDtlList.push(comCdDtlgrid.getRowData(i))
@@ -488,29 +467,21 @@
         	if(addListCnt > 0){
     			comCdResult += await fn_callInsertComCd(addList);
     		}
-
         	if(updateListCnt > 0){
         		comCdResult += await fn_callUpdateComCd(updateList);
         	}
-
         	if(addDtlListCnt > 0){
         		comCdDtlResult += await fn_callInsertComCdDtl(addDtlList)
         	}
         	if(updateDtlListCnt > 0){
         		comCdDtlResult += await fn_callUpdateComCdDtl(updateDtlList);
         	}
+        	
         	if(comCdResult > 0){
-        		fn_selectComcdList();
-        		fn_clearComCdDtl();
+        		fn_selectComCdList();
         	}
         	if(comCdDtlResult > 0){
-        		let recordCountPerPage = comCdDtlgrid.getPageSize();
-            	let currentPageNo = 1;
-            	if(!(comCdgrid.getRowData(comCdgrid.getRow()).cdId == null || comCdgrid.getRowData(comCdgrid.getRow()).cdId == '')){
-    	    		fn_callSelectComCdDtlList(recordCountPerPage, currentPageNo)
-	        	}else{
-	        		fn_clearComCdDtl();
-	        	}
+        		fn_selectComCdDtlList();
         	}
         	if(comCdResult + comCdDtlResult > 0){
         		alert("저장 되었습니다.");
@@ -599,9 +570,9 @@
     }
 
     // 공통코드 상세 등록
-    async function fn_callInsertComCdDtl(comCdList){
+    async function fn_callInsertComCdDtl(comCdDtlList){
 
-    	let postJsonPromise = gfn_postJSON("/co/cd/insertComCdDtlList.do", comCdList);
+    	let postJsonPromise = gfn_postJSON("/co/cd/insertComCdDtlList.do", comCdDtlList);
         let data = await postJsonPromise;
 
         try{
@@ -620,9 +591,9 @@
     }
 
  	// 공통코드 상세 수정
-    async function fn_callUpdateComCdDtl(comCdList){
+    async function fn_callUpdateComCdDtl(comCdDtlList){
 
-    	let postJsonPromise = gfn_postJSON("/co/cd/updateComCdList.do", comCdList);
+    	let postJsonPromise = gfn_postJSON("/co/cd/updateComCdDtlList.do", comCdDtlList);
         let data = await postJsonPromise;
 
         try{
@@ -642,9 +613,9 @@
     }
 
  	// 공통코드 상세 삭제
-    async function fn_callDeleteComCdDtl(comCdList){
+    async function fn_callDeleteComCdDtl(comCdDtlList){
 
-    	let postJsonPromise = gfn_postJSON("/co/cd/deleteComCdDtlList.do", comCdList);
+    	let postJsonPromise = gfn_postJSON("/co/cd/deleteComCdDtlList.do", comCdDtlList);
         let data = await postJsonPromise;
 
         try{
@@ -664,20 +635,20 @@
 
     // 공통코드 || 명 입력 후 엔터 이벤트(조회)
     function fn_KeyEnter(){
-    	fn_selectComcdList();
+    	fn_selectComCdList();
     }
 
     //그리드 체크박스 전체 선택
     function fn_checkAll(grid, obj) {
         var gridList = grid.getGridDataAll();
-        var checkedYn = obj.checked ? "Y" : "N";
+        var checkedYn = obj.checked ? "true" : "false";
         //체크박스 열 index
         var getColRef = grid.getColRef("checked");
         for (var i=0; i<gridList.length; i++) {
             grid.setCellData(i+1, getColRef, checkedYn, true, false);
         }
     }
-
+    
     //공통코드 상세 행 추가
     function fn_addRow() {
 		var cdId = comCdgrid.getRowData(comCdgrid.getRow()).cdId;

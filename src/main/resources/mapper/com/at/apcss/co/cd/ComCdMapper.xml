@@ -110,6 +110,9 @@
 			     , CD.CD_VL_NM		AS CD_VL_NM
 			     , CD.CD_VL_EXPLN	AS CD_VL_EXPLN
 			     , CD.INDCT_SEQ		AS INDCT_SEQ
+			     , CD.UP_CD_VL		AS UP_CD_VL
+			     , CD.CD_NUM_VL		AS CD_NUM_VL
+			     , CD.CD_CHR_VL		AS CD_CHR_VL
 			     , CD.DEL_YN		AS DEL_YN
 		]]>
 		<if test='apcCd != null and apcCd != ""'>
@@ -143,7 +146,7 @@
 
     <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.selectComBoCdDtlList			-->
-	<!-- DESC : 콤보박스 공통코드 상세 목록 조회.                                   -->
+	<!-- DESC : 콤보박스 공통코드 상세 목록 조회.                                   			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -161,7 +164,7 @@
 
     <!-- =========================================================================  -->
 	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.duplicateCheckCdId			-->
-	<!-- DESC : CD_ID 중복 체크.                                             		-->
+	<!-- DESC : CD_ID 중복 체크.                                             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -177,7 +180,7 @@
 
     <!-- =========================================================================  -->
 	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.insertComCd					-->
-	<!-- DESC : 공통코드 등록  		                                           		-->
+	<!-- DESC : 공통코드 등록  		                                           			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -216,7 +219,7 @@
 
     <!-- =========================================================================  -->
 	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.updateComCd					-->
-	<!-- DESC : 공통코드 수정  		                                           		-->
+	<!-- DESC : 공통코드 수정  		                                           			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -236,7 +239,7 @@
     </update>
     <!-- =========================================================================  -->
 	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.deleteComCd					-->
-	<!-- DESC : 공통코드 삭제  		                                           		-->
+	<!-- DESC : 공통코드 삭제  		                                           			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -269,7 +272,7 @@
 
     <!-- =========================================================================  -->
 	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.insertComCdDtl				-->
-	<!-- DESC : 공통코드 상세 등록  		                                        -->
+	<!-- DESC : 공통코드 상세 등록  		                                        		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -285,6 +288,9 @@
 			  , INDCT_SEQ
 			  , CD_VL_NM
 			  , CD_VL_EXPLN
+		      , UP_CD_VL
+		      , CD_NUM_VL
+		      , CD_CHR_VL
 			  , SYS_FRST_INPT_DT
 			  , SYS_FRST_INPT_USER_ID
 			  , SYS_FRST_INPT_PRGRM_ID
@@ -309,6 +315,9 @@
 			  , #{indctSeq}
 			  , #{cdVlNm}
 			  , #{cdVlExpln}
+		      , #{upCdVl}
+		      , #{cdNumVl}
+		      , #{cdChrVl}
 			  , SYSDATE
 			  , #{sysFrstInptUserId}
 			  , #{sysFrstInptPrgrmId}
@@ -320,7 +329,7 @@
     </insert>
 
 	<!-- =========================================================================  -->
-	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.updateComCdDtl					-->
+	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.updateComCdDtl				-->
 	<!-- DESC : 공통코드 상세 수정  		                                           		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -330,10 +339,12 @@
     <update id="updateComCdDtl" parameterType="com.at.apcss.co.cd.vo.ComCdVO">
     	<![CDATA[
     	UPDATE TB_COM_CD_DTL
-    	   SET CD_VL				 	= #{cdVl}
-    	     , CD_VL_NM 				= #{cdVlNm}
+    	   SET CD_VL_NM				 	= #{cdVlNm}
     	     , CD_VL_EXPLN 				= #{cdVlExpln}
     	     , INDCT_SEQ				= #{indctSeq}
+		     , UP_CD_VL 				= #{upCdVl}
+		     , CD_NUM_VL 				= #{cdNumVl}
+		     , CD_CHR_VL 				= #{cdChrVl}
     	     , SYS_LAST_CHG_DT 			= SYSDATE
     	     , SYS_LAST_CHG_USER_ID 	= #{sysLastChgUserId}
     	     , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
@@ -344,8 +355,8 @@
     </update>
 
     <!-- =========================================================================  -->
-	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.deleteComCdDtl					-->
-	<!-- DESC : 공통코드 삭제  		                                           		-->
+	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.deleteComCdDtl				-->
+	<!-- DESC : 공통코드 삭제  		                                           			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -362,7 +373,7 @@
 
 	<!-- =========================================================================  -->
 	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.updateComCdDtlDelYn			-->
-	<!-- DESC : 공통코드 상세 사용유무 수정  		                                           		-->
+	<!-- DESC : 공통코드 상세 사용유무 수정  		                                        -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -382,7 +393,7 @@
     </update>
 
 	<!-- =========================================================================  -->
-	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.updateComCdDtlDelYn			-->
+	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.comCdDtlDelYnAll				-->
 	<!-- DESC : 공통코드 상세 사용유무 전체변경  		                                        -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -402,7 +413,7 @@
     </update>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.selectFcltList			-->
+	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.selectFcltList				-->
 	<!-- DESC : APC별 설비 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->

@@ -37,5 +37,8 @@ public class ComCdVO extends ComVO {
 	private String delYn;
 	private String apcCd;
 	private String apcNm;
+	private String upCdVl;
+	private String cdNumVl;
+	private String cdChrVl;
 
 }
