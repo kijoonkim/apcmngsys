@@ -112,6 +112,7 @@ const gStdGrdObj = {
 							grdKnd: item.grdKnd,
 							grdKndNm: item.grdKndNm,
 							adtnRt: item.adtnRt,
+							stdGrdType: item.stdGrdType,
 							grdId: id,
 							jsonId: this.jsonPrefix + id
 						}
