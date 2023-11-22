@@ -926,13 +926,13 @@
             	grdWrhsVhcl.setCellDisabled(grdWrhsVhcl.getRows() -1, 0, grdWrhsVhcl.getRows() -1, grdWrhsVhcl.getCols() -1, true);
             }else if(grid === "grdSpmtTrsprtCo"){
 
-            	let apcCdCol = spmtTrsprtMngGridData.getColRef("apcCd");
-            	spmtTrsprtMngGridData.setCellData(nRow, nCol, "N", true);
-            	spmtTrsprtMngGridData.setCellData(nRow, apcCdCol, gv_apcCd, true);
+            	let apcCdCol = grdSpmtTrsprtCo.getColRef("apcCd");
+            	grdSpmtTrsprtCo.setCellData(nRow, nCol, "N", true);
+            	grdSpmtTrsprtCo.setCellData(nRow, apcCdCol, gv_apcCd, true);
             	grdSpmtTrsprtCo.addRow(true);
 
-            	spmtTrsprtMngGridData.setCellDisabled(0, 0, spmtTrsprtMngGridData.getRows() -1, spmtTrsprtMngGridData.getCols() -1, false);
-            	spmtTrsprtMngGridData.setCellDisabled(spmtTrsprtMngGridData.getRows() -1, 0, spmtTrsprtMngGridData.getRows() -1, spmtTrsprtMngGridData.getCols() -1, true);
+            	grdSpmtTrsprtCo.setCellDisabled(0, 0, grdSpmtTrsprtCo.getRows() -1, grdSpmtTrsprtCo.getCols() -1, false);
+            	grdSpmtTrsprtCo.setCellDisabled(grdSpmtTrsprtCo.getRows() -1, 0, grdSpmtTrsprtCo.getRows() -1, grdSpmtTrsprtCo.getCols() -1, true);
             }else if(grid === "grdOprtr"){
 
             	let apcCdCol = grdOprtr.getColRef("apcCd");
