@@ -861,7 +861,7 @@
 
             }else if (grid === "grdWarehouse") {
             	let apcCdCol = grdWarehouse.getColRef("apcCd");
-            	let warehouseSeCdCol = grdWarehouse.getColRef("warehouseSeCd");
+            	let warehouseSeCdCol = grdWarehouse.getColRef("cdId");
 
             	grdWarehouse.setCellData(nRow, nCol, "N", true);
             	grdWarehouse.setCellData(nRow, apcCdCol, gv_apcCd, true);
