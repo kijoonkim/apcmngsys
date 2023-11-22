@@ -91,6 +91,7 @@
 	        {caption: ["전화번호"], 		ref: 'telno',  		type:'input',  width:'145px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 11}), typeinfo : {mask : {alias : 'numeric'}}},
 	        {caption: ["팩스번호"], 		ref: 'fxno',  		type:'input',  width:'145px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {mask : {alias : 'numeric'}}},
 	        {caption: ["비고"], 			ref: 'rmrk',  		type:'input',  width:'320px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000})},
+	        {caption: ["APC코드"], 			ref: 'apcCd',  		hidden:true}
 	    ];
 	    window.grdSpmtTrsprtCo = _SBGrid.create(SBGridProperties);
 	    fn_callSelectSpmtTrsprtList();

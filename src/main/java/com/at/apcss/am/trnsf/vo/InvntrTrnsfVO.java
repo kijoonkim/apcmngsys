@@ -28,6 +28,7 @@ public class InvntrTrnsfVO extends ComVO {
 	 * APC코드
 	 */
 	private String apcCd;
+	private String apcNm;
 
 	/**
 	 * 이송일자
