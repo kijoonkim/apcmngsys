@@ -179,7 +179,7 @@ const fn_createOperOgnzTrmtPrfmncGrid = function() {
     SBGridProperties.id = 'grdOperOgnzTrmtPrfmnc';
     SBGridProperties.jsonref = 'jsonOperOgnzTrmtPrfmnc';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -217,7 +217,7 @@ const fn_createOperOgnzPrcsPrfmncGrid = function() {
     SBGridProperties.id = 'grdOperOgnzPrcsPrfmnc';
     SBGridProperties.jsonref = 'jsonOperOgnzPrcsPrfmnc';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -255,7 +255,7 @@ const fn_createOperOgnzAvgTrmtPrfmncGrid = function() {
     SBGridProperties.id = 'grdOperOgnzAvgTrmtPrfmnc';
     SBGridProperties.jsonref = 'jsonOperOgnzAvgTrmtPrfmnc';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -293,7 +293,7 @@ const fn_createMdOperOgnzTrmtPrfmncGrid = function() {
     SBGridProperties.id = 'grdMdOperOgnzTrmtPrfmnc';
     SBGridProperties.jsonref = 'jsonMdOperOgnzTrmtPrfmnc';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -335,7 +335,7 @@ const fn_createMdOperOgnzTrmtPrfmncAvgGrid = function() {
     SBGridProperties.id = 'grdMdOperOgnzTrmtPrfmncAvg';
     SBGridProperties.jsonref = 'jsonMdOperOgnzTrmtPrfmncAvg';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -377,7 +377,7 @@ const fn_createMdApcPrcsPrfmncGrid = function() {
     SBGridProperties.id = 'grdMdApcPrcsPrfmnc';
     SBGridProperties.jsonref = 'jsonMdApcPrcsPrfmnc';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -419,7 +419,7 @@ const fn_createMdApcPrcsPrfmncAvgGrid = function() {
     SBGridProperties.id = 'grdMdApcPrcsPrfmncAvg';
     SBGridProperties.jsonref = 'jsonMdApcPrcsPrfmncAvg';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',

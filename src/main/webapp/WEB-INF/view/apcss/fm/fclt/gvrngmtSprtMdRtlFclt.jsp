@@ -307,13 +307,13 @@ const fn_createBzeatCntMdRtlOgnzTypeGrid = function() {
     SBGridProperties.id = 'grdBzeatCntMdRtlOgnzType';
     SBGridProperties.jsonref = 'jsonBzeatCntMdRtlOgnzType';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.mergecells = 'bycolrec';
     SBGridProperties.columns = [
-    	{caption : ["산지유통조직유형"], ref: 'title', type: 'output',  width:'213px', style: 'text-align:center'},
-    	{caption : ["산지유통조직유형"], ref: 'subTitle', type: 'output',  width:'213px', style: 'text-align:center'},
-    	{caption : ["산지유통조직유형"], ref: 's0', type: 'output',  width:'213px', style: 'text-align:center'},
+    	{caption : ["산지유통조직유형"], ref: 'title', type: 'output',  width:'213px', style: 'text-align:center; background-color:#F5FBFF'},
+    	{caption : ["산지유통조직유형"], ref: 'subTitle', type: 'output',  width:'213px', style: 'text-align:center; background-color:#F5FBFF'},
+    	{caption : ["산지유통조직유형"], ref: 's0', type: 'output',  width:'213px', style: 'text-align:center; background-color:#F5FBFF'},
     	{caption : ["APC 개소수"], ref: 's1', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdBzeatCntMdRtlOgnzType = _SBGrid.create(SBGridProperties);
@@ -325,7 +325,7 @@ const fn_createBzeatCntOwnrAndOperGrid = function() {
     SBGridProperties.id = 'grdBzeatCntOwnrAndOper';
     SBGridProperties.jsonref = 'jsonBzeatCntOwnrAndOper';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -365,7 +365,7 @@ const fn_createFcltEqpmntAllBdarGrid = function() {
     SBGridProperties.id = 'grdFcltEqpmntAllBdar';
     SBGridProperties.jsonref = 'jsonFcltEqpmntAllBdar';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -407,7 +407,7 @@ const fn_createLgstcsGdsFcltBdarGrid = function() {
     SBGridProperties.id = 'grdLgstcsGdsFcltBdar';
     SBGridProperties.jsonref = 'jsonLgstcsGdsFcltBdar';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -449,7 +449,7 @@ const fn_createBzeatCntLwtpStrgGrid = function() {
     SBGridProperties.id = 'grdBzeatCntLwtpStrg';
     SBGridProperties.jsonref = 'jsonBzeatCntLwtpStrg';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -487,7 +487,7 @@ const fn_createBzeatCntPrprtnClngFcltGrid = function() {
     SBGridProperties.id = 'grdBzeatCntPrprtnClngFclt';
     SBGridProperties.jsonref = 'jsonBzeatCntPrprtnClngFclt';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -525,7 +525,7 @@ const fn_createBzeatCntStrgFcltGrid = function() {
     SBGridProperties.id = 'grdBzeatCntStrgFclt';
     SBGridProperties.jsonref = 'jsonBzeatCntStrgFclt';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -563,7 +563,7 @@ const fn_createBzeatCntFcltMsrmtEqpmntGrid = function() {
     SBGridProperties.id = 'grdBzeatCntFcltMsrmtEqpmnt';
     SBGridProperties.jsonref = 'jsonBzeatCntFcltMsrmtEqpmnt';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -603,7 +603,7 @@ const fn_createBzeatCntInvstAtmAllGrid = function() {
     SBGridProperties.id = 'grdBzeatCntInvstAtmAll';
     SBGridProperties.jsonref = 'jsonBzeatCntInvstAtmAll';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -639,7 +639,7 @@ const fn_createBzeatCntInvstAtmFundTypeGrid = function() {
     SBGridProperties.id = 'grdBzeatCntInvstAtmFundType';
     SBGridProperties.jsonref = 'jsonBzeatCntInvstAtmFundType';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -677,7 +677,7 @@ const fn_createBzeatCntInvstAtmOwnrGrid = function() {
     SBGridProperties.id = 'grdBzeatCntInvstAtmOwnr';
     SBGridProperties.jsonref = 'jsonBzeatCntInvstAtmOwnr';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -719,7 +719,7 @@ const fn_createBzeatCntInvstAtmOperPrsnGrid = function() {
     SBGridProperties.id = 'grdBzeatCntInvstOperPrsn';
     SBGridProperties.jsonref = 'jsonBzeatCntInvstOperPrsn';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
