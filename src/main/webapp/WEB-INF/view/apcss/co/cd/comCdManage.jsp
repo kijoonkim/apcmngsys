@@ -340,7 +340,7 @@
     async function fn_createComCdGridRow() {
     	// 공통코드 상세 비우기
     	fn_clearComCdDtl();
-    	comCdgrid.addRow(true);
+    	comCdgrid.addRow(true, {checked:'true'});
     	comCdgrid.setRow(comCdgrid.getGridDataAll().length);
     }
 
@@ -350,8 +350,7 @@
     	let deleteCdDtlList = [];
         let comCdgridList = comCdgrid.getGridDataAll();
         let comCdDtlgridList = comCdDtlgrid.getGridDataAll();
-        let comCdResult = 0;
-        let comCdDtlResult = 0;
+        
         for (var i=0; i<comCdgridList.length; i++) {
             if (comCdgridList[i].checked === "true") {
             	deleteCdList.push(comCdgridList[i]);
@@ -370,29 +369,28 @@
         }
 
     	let deleteList = {comCdList : deleteCdList, comCdDtlList : deleteCdDtlList};
-    	console.log(deleteList);
     	
         var delMsg = "삭제 하시겠습니까?";
         if (confirm(delMsg)) {
-//         	const postJsonPromise = gfn_postJSON("/co/cd/deleteWrhsVhclList.do", deleteList, this.prgrmId);
-// 			const data = await postJsonPromise;
-// 	        try {
-// 	        	if (_.isEqual("S", data.resultStatus)) {
-// 	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-// 		        	if (deleteCdList.length > 0) {
-// 	 	        		fn_selectComCdList();
-// 		        	} else {
-// 		        		fn_selectComCdDtlList();
-// 		        	}
-// 	        	} else {
-// 	        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-// 	        	}
-// 	        } catch(e) {
-// 	        	if (!(e instanceof Error)) {
-// 	    			e = new Error(e);
-// 	    		}
-// 	    		console.error("failed", e.message);
-// 	        }
+        	const postJsonPromise = gfn_postJSON("/co/cd/deleteComCdComCdDtlList.do", deleteList, this.prgrmId);
+			const data = await postJsonPromise;
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+		        	if (deleteCdList.length > 0) {
+	 	        		fn_selectComCdList();
+		        	} else {
+		        		fn_selectComCdDtlList();
+		        	}
+	        	} else {
+	        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	        	}
+	        } catch(e) {
+	        	if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        }
         }
     }
 
@@ -400,8 +398,8 @@
 
     //공통코드 및 공통코드 상세 저장
     async function fn_insertComCd() {
-    	const insertCdList = [];
-    	const insertCdDtlList = [];
+    	const saveCdList = [];
+    	const saveCdDtlList = [];
     	const comCdGridList = comCdgrid.getGridDataAll();
     	const comCdDtlGridList = comCdDtlgrid.getGridDataAll();
     	let comCdResult = 0;
@@ -427,10 +425,10 @@
 	    				return;
 	    			}
 					rowData.rowSts = "I";
-					insertCdList.push(rowData);
+					saveCdList.push(rowData);
 	    		} else if (rowSts === 2) {
 					rowData.rowSts = "U";
-					insertCdList.push(rowData);
+					saveCdList.push(rowData);
 	    		} else {
 					continue;
 	    		}
@@ -456,45 +454,45 @@
 	    				return;
 	    			}
 					rowData.rowSts = "I";
-					insertCdDtlList.push(rowData);
+					saveCdDtlList.push(rowData);
 	    		} else if (rowSts === 2) {
 					rowData.rowSts = "U";
-					insertCdDtlList.push(rowData);
+					saveCdDtlList.push(rowData);
 	    		} else {
 					continue;
 	    		}
     		}
     	}
 
-    	if ((insertCdList.length + insertCdDtlList.length) == 0 ) {
+    	if ((saveCdList.length + saveCdDtlList.length) == 0 ) {
             alert("저장 할 대상이 없습니다.");
             return;
         }
     	
-    	let insertList = {comCdList : insertCdList, comCdDtlList : insertCdDtlList};
-    	console.log(insertList);
+    	let saveList = {comCdList : saveCdList, comCdDtlList : saveCdDtlList};
     	
     	var saveMsg = "저장 하시겠습니까?";
         if (confirm(saveMsg)) {
-//         	const postJsonPromise = gfn_postJSON("/co/cd/multiVhclList.do", insertList, this.prgrmId);	// 프로그램id 추가
-// 			const data = await postJsonPromise;
-// 	        try {
-// 	        	if (_.isEqual("S", data.resultStatus)) {
-// 	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-// 		        	if (insertCdList.length > 0) {
-// 	 	        		fn_selectComCdList();
-// 		        	} else {
-// 		        		fn_selectComCdDtlList();
-// 		        	}
-// 	        	} else {
-// 	        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-// 	        	}
-// 	        } catch(e) {
-// 	        	if (!(e instanceof Error)) {
-// 	    			e = new Error(e);
-// 	    		}
-// 	    		console.error("failed", e.message);
-// 	        }
+        	const postJsonPromise = gfn_postJSON("/co/cd/multiSaveComCdComCdDtlList.do", saveList, this.prgrmId);	// 프로그램id 추가
+			const data = await postJsonPromise;
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+		        	if (saveCdList.length > 0) {
+	 	        		fn_selectComCdList();
+		        	} else {
+		        		fn_selectComCdDtlList();
+		        	}
+	        	} else {
+	        		alert(data.resultMessage);
+	        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	        	}
+	        } catch(e) {
+	        	if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        }
         }
     }
 
@@ -663,7 +661,7 @@
 			alert("공통코드를 선택 해주세요.");
 			return;
 		}
-    	comCdDtlgrid.addRow(true, ['false', '', '', '', '', '', '', '', '0000', cdId, 'Y']);
+    	comCdDtlgrid.addRow(true, ['true', '', '', '', '', '', '', '', '0000', cdId, 'Y']);
     }
     //공통코드 상세 선택된 행 삭제
     function fn_deleteRow() {

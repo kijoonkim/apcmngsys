@@ -132,6 +132,13 @@ public interface ComCdService {
 	public List<ComCdVO> selectFcltList(ComCdVO comCdVO) throws Exception;
 
 	/**
+	 * 공통코드 멀티 저장
+	 * @param comCdList
+	 * @return updated count
+	 */
+	public int multiSaveComCdList(List<ComCdVO> comCdList) throws Exception;
+	
+	/**
 	 * 공통코드 상세 멀티 저장
 	 * @param comCdList
 	 * @return updated count

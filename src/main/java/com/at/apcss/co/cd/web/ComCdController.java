@@ -260,5 +260,69 @@ public class ComCdController extends BaseController {
 		resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
 		return getSuccessResponseEntity(resultMap);
 	}
+	
+	// 공통코드 & 공통코드 상세 등록
+	@PostMapping(value = "/co/cd/multiSaveComCdComCdDtlList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> multiSaveComCdComCdDtlList(@RequestBody ComCdVO saveList, HttpServletRequest request) throws Exception {
+	
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+	
+		List<ComCdVO> saveCdList = saveList.getComCdList();
+		List<ComCdVO> saveCdDtlList = saveList.getComCdDtlList();
+		int savedCnt = 0;
+		
+		try {
+			for (ComCdVO comCd : saveCdList) {
+				comCd.setSysFrstInptPrgrmId(getPrgrmId());
+				comCd.setSysFrstInptUserId(getUserId());
+				comCd.setSysLastChgPrgrmId(getPrgrmId());
+				comCd.setSysLastChgUserId(getUserId());
+			}
+			for (ComCdVO comCdDtl : saveCdDtlList) {
+				comCdDtl.setSysFrstInptPrgrmId(getPrgrmId());
+				comCdDtl.setSysFrstInptUserId(getUserId());
+				comCdDtl.setSysLastChgPrgrmId(getPrgrmId());
+				comCdDtl.setSysLastChgUserId(getUserId());
+			}
+	
+			savedCnt += comCdService.multiSaveComCdList(saveCdList);
+			savedCnt += comCdService.multiSaveComCdDtlList(saveCdDtlList);
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
+		return getSuccessResponseEntity(resultMap);
+	}
 
+	// 공통코드 & 공통코드 상세 삭제
+	@PostMapping(value = "/co/cd/deleteComCdComCdDtlList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteComCdComCdDtlList(@RequestBody ComCdVO deleteList, HttpServletRequest request) throws Exception {
+	
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+	
+		List<ComCdVO> deleteCdList = deleteList.getComCdList();
+		List<ComCdVO> deleteCdDtlList = deleteList.getComCdDtlList();
+		int deletedCnt = 0;
+		
+		try {
+			for (ComCdVO comCd : deleteCdList) {
+				comCd.setSysFrstInptPrgrmId(getPrgrmId());
+				comCd.setSysFrstInptUserId(getUserId());
+				comCd.setSysLastChgPrgrmId(getPrgrmId());
+				deletedCnt += comCdService.deleteComCd(comCd);
+				comCd.setSysLastChgUserId(getUserId());
+			}
+			for (ComCdVO comCdDtl : deleteCdDtlList) {
+				comCdDtl.setSysFrstInptPrgrmId(getPrgrmId());
+				comCdDtl.setSysFrstInptUserId(getUserId());
+				comCdDtl.setSysLastChgPrgrmId(getPrgrmId());
+				comCdDtl.setSysLastChgUserId(getUserId());
+				deletedCnt += comCdService.deleteComCdDtl(comCdDtl);
+			}
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+		return getSuccessResponseEntity(resultMap);
+	}
 }

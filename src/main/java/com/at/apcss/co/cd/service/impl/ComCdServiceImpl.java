@@ -112,6 +112,20 @@ public class ComCdServiceImpl extends BaseServiceImpl implements ComCdService {
 	}
 
 	@Override
+	public int multiSaveComCdList(List<ComCdVO> comCdList) throws Exception {
+		int savedCnt = 0;
+		for (ComCdVO comCdVO : comCdList) {
+			if(ComConstants.ROW_STS_INSERT.equals(comCdVO.getRowSts())) {
+				savedCnt += insertComCd(comCdVO);
+			}
+			if(ComConstants.ROW_STS_UPDATE.equals(comCdVO.getRowSts())) {
+				savedCnt += updateComCd(comCdVO);
+			}
+		}
+		return savedCnt;
+	}
+	
+	@Override
 	public int multiSaveComCdDtlList(List<ComCdVO> comCdList) throws Exception {
 		int savedCnt = 0;
 		for (ComCdVO comCdVO : comCdList) {
@@ -124,6 +138,4 @@ public class ComCdServiceImpl extends BaseServiceImpl implements ComCdService {
 		}
 		return savedCnt;
 	}
-
-
 }
