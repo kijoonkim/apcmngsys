@@ -75,6 +75,11 @@ public class PltBxVO extends ComVO {
 	/**
 	 * 기초재고수량 = 전일재고수량
 	 */
+	private int ystdBssInvntrQntt;
+	
+	/**
+	 * 기초재고수량 = 현재고수량
+	 */
 	private int bssInvntrQntt;
 
 	/**
@@ -116,4 +121,25 @@ public class PltBxVO extends ComVO {
 	 * 대여업체명
 	 */
 	private String pltCnptNm;
+	
+	/**
+	 * 변경대상
+	 * **/
+	private String sn;
+	/**
+	 * 처리번호
+	 * */
+	private String prcsno;
+	/**
+	 * 처리순번
+	 * **/
+	private String prcsSn;
+	/**
+	 * 입출고유형
+	 * **/
+	private String wrhsSpmtType;
+	/**
+	 * 입출고구분명
+	 * **/
+	private String wrhsSpmtSeNm;
 }

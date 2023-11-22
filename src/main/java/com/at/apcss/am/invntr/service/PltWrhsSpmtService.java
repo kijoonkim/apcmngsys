@@ -61,10 +61,10 @@ public interface PltWrhsSpmtService {
 	public int updatePltWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception;
 
 	/**
-	 * 팔레트 입출고 삭제
+	 * 팔레트 입출고 delYn 변경
 	 * @param pltWrhsSpmtVO
 	 * @return
 	 * @throws Exception
 	 */
-	public int deletePltWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception;
+	public int updateDelYnPltWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception;
 }

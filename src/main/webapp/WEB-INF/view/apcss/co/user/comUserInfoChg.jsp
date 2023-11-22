@@ -67,9 +67,9 @@
 								<sbux-input id="srch-inp-userNm" name="srch-inp-userNm" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
 							</td>
 							<td colspan="2" class="td_input"></td>
-							<th scope="row">유형</th>
+							<th scope="row">사용자 유형</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-userType" name="srch-slt-userType" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonUserType">
+								<sbux-select id="srch-slt-userType" name="srch-slt-userType" uitype="single" class="form-control input-sm" unselected-text="전체" jsondata-ref="jsonUserType">
 							</td>
 							<td colspan="2" class="td_input"></td>
 						</tr>
@@ -311,8 +311,6 @@ async function fn_reset(){
 const fn_onChangeApc = async function() {
 	fn_search();
 }
-
-
 /*
  * 비밀번호 초기화 호출
  * 2023-11-03

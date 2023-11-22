@@ -73,9 +73,9 @@ public class PltWrhsSpmtServiceImpl extends BaseServiceImpl implements PltWrhsSp
 	}
 
 	@Override
-	public int deletePltWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception {
+	public int updateDelYnPltWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception {
 
-		int deletedCnt = pltWrhsSpmtMapper.deletePltWrhsSpmt(pltWrhsSpmtVO);
+		int deletedCnt = pltWrhsSpmtMapper.updateDelYnPltWrhsSpmt(pltWrhsSpmtVO);
 		
 		return deletedCnt;
 	}
