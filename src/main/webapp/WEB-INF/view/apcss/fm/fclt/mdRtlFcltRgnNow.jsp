@@ -255,7 +255,7 @@ const fn_createMdRtlOgnzTypeGrid = function() {
     SBGridProperties.id = 'grdMdRtlOgnzType';
     SBGridProperties.jsonref = 'jsonMdRtlOgnzType';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -299,7 +299,7 @@ const fn_createRgnOperPrsnGrid = function() {
     SBGridProperties.id = 'grdRgnOperPrsn';
     SBGridProperties.jsonref = 'jsonRgnOperPrsn';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -343,7 +343,7 @@ const fn_createLgstcsGdsFcltGrid = function() {
     SBGridProperties.id = 'grdLgstcsGdsFclt';
     SBGridProperties.jsonref = 'jsonLgstcsGdsFclt';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -385,7 +385,7 @@ const fn_createMdLwtpStrgGrid = function() {
     SBGridProperties.id = 'grdMdLwtpStrg';
     SBGridProperties.jsonref = 'jsonMdLwtpStrg';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -423,7 +423,7 @@ const fn_createRgnPrprtnClngFcltGrid = function() {
     SBGridProperties.id = 'grdRgnPrprtnClngFclt';
     SBGridProperties.jsonref = 'jsonRgnPrprtnClngFclt';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -461,7 +461,7 @@ const fn_createRgnStrgFcltGrid = function() {
     SBGridProperties.id = 'grdRgnStrgFclt';
     SBGridProperties.jsonref = 'jsonRgnStrgFclt';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -499,7 +499,7 @@ const fn_createRgnFcltMsrmtEqpmntGrid = function() {
     SBGridProperties.id = 'grdRgnFcltMsrmtEqpmnt';
     SBGridProperties.jsonref = 'jsonRgnFcltMsrmtEqpmnt';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -537,7 +537,7 @@ const fn_createRgnInvstAtmAllGrid = function() {
     SBGridProperties.id = 'grdRgnInvstAtmAll';
     SBGridProperties.jsonref = 'jsonRgnInvstAtmAll';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -579,7 +579,7 @@ const fn_createRgnInvstAtmOwnrGrid = function() {
     SBGridProperties.id = 'grdRgnInvstAtmOwnr';
     SBGridProperties.jsonref = 'jsonRgnInvstAtmOwnr';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -621,7 +621,7 @@ const fn_createRgnInvstAtmOperPrsnGrid = function() {
     SBGridProperties.id = 'grdRgnInvstOperPrsn';
     SBGridProperties.jsonref = 'jsonRgnInvstOperPrsn';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
