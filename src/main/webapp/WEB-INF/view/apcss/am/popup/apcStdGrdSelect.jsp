@@ -335,7 +335,6 @@ const stdGrdSelect = {
 			SBUxMethod.refresh('stdGrdSlt-slt-jgmt');
 		}
 
-		console.log(_stdGrdObj);
 		if (!gfn_isEmpty(_stdGrdObj)) {
 
 			// set stdGrd
@@ -350,9 +349,7 @@ const stdGrdSelect = {
 			});
 
 			_stdGrdObj.stdGrdList.forEach((stdGrd) => {
-				console.log(stdGrd);
 				gjsonStdGrdObjKnd.forEach((item, index) => {
-					console.log(item);
 					if (stdGrd.grdKnd === item.grdKnd) {
 						const id = gStdGrdObj.idList[index];						
 						if (_.isEqual(item.stdGrdType, "RT")) {
@@ -560,13 +557,16 @@ const stdGrdSelect = {
 				isOmit: false
 			}
 		
+		let jgmtGrdCd = "";
+		let jgmtGrdNm = "";
+		
 		let cntRt = 0;
 		let sumGrdNv = 0;
 		gjsonStdGrdObjKnd.forEach((item, index) => {
 			const _id = gStdGrdObj.idList[index];
+
 			let grdCd = SBUxMethod.get('stdGrdSlt-slt-knd-' + _id);
 			let grdNv = parseFloat(SBUxMethod.get('stdGrdSlt-inp-knd-' + _id)) || 0;
-			
 			if (_.isEqual(item.stdGrdType, "RT")) {
 				cntRt++;
 				grdCd = "";
@@ -589,25 +589,15 @@ const stdGrdSelect = {
 				}
 			result.stdGrdList.push(stdGrd);
 
-			if (index === 0) {
-				let jgmtGrdCd = "";
-				let jgmtGrdNm = "";
-				if (gjsonStdGrdObjJgmt.length > 0) {
-					jgmtGrdCd = SBUxMethod.get('stdGrdSlt-slt-jgmt');
-					jgmtGrdNm = SBUxMethod.getText('stdGrdSlt-slt-jgmt');
+			if (gfn_isEmpty(jgmtGrdCd) || _.isEqual(jgmtGrdCd, "*")) {
+				
+				if (_.isEqual(item.stdGrdType, "RT")) {
+					jgmtGrdCd = "*";
 				} else {
-					if (_.isEqual(item.stdGrdType, "RT")) {
-						jgmtGrdCd = "*";
-					} else {
-						jgmtGrdCd = item.grdCd;
-					}
+					jgmtGrdCd = grdCd;
 				}
-
-				result.grdJgmt = {
-					grdCd: jgmtGrdCd,
-					grdNm: jgmtGrdNm,
-					grdVl: null
-				}
+				
+				jgmtGrdNm = item.grdKndNm;
 			}
 		});
 
@@ -619,6 +609,17 @@ const stdGrdSelect = {
 			result.isOmit = true;
 		}
 
+		if (gjsonStdGrdObjJgmt.length > 0) {
+			jgmtGrdCd = SBUxMethod.get('stdGrdSlt-slt-jgmt');
+			jgmtGrdNm = SBUxMethod.getText('stdGrdSlt-slt-jgmt');
+		}
+		
+		result.grdJgmt = {
+				grdCd: jgmtGrdCd,
+				grdNm: jgmtGrdNm,
+				grdVl: null
+			}
+		console.log(result);
 		return result;
 	},
 }

@@ -271,6 +271,10 @@
 		        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		        	}
 		        } catch(e) {
+		        	if (!(e instanceof Error)) {
+		    			e = new Error(e);
+		    		}
+		    		console.error("failed", e.message);
 		        }
         	} else {
         		grdPrdcrPop.deleteRow(nRow);
@@ -299,7 +303,7 @@
 		            return;
 				}
 				if(!gfn_isEmpty(rowData.vhclno)){
-		    		if(!(/^\d{2,3}[가-힣]\d{4}/.exec(vhclno))){
+		    		if(!(/^\d{2,3}[가-힣]\d{4}/.exec(rowData.vhclno))){
 			    		gfn_comAlert("W0011", "차량번호");			//	W0001	{0}이/가 아닙니다.
 		    			return;
 		    		}
@@ -337,6 +341,10 @@
 	        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        	}
 	        } catch(e) {
+	        	if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
 	        }
 
 		},

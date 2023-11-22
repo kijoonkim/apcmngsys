@@ -1,6 +1,10 @@
 package com.at.apcss.co.cd.vo;
 
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.at.apcss.am.invntr.vo.RawMtrStdGrdVO;
 import com.at.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
@@ -41,4 +45,29 @@ public class ComCdVO extends ComVO {
 	private String cdNumVl;
 	private String cdChrVl;
 
+	/**
+	 * 공통코드 목록
+	 */
+	private List<ComCdVO> comCdList;
+	
+	public List<ComCdVO> getComCdList() {
+		return comCdList == null ? null : comCdList.stream().collect(Collectors.toList());
+	}
+
+	public void setComCdList(List<ComCdVO> comCdList) {
+		this.comCdList = comCdList == null ? null : comCdList.stream().collect(Collectors.toList());
+	}
+	
+	/**
+	 * 공통코드상세 목록
+	 */
+	private List<ComCdVO> comCdDtlList;
+
+	public List<ComCdVO> getComCdDtlList() {
+		return comCdDtlList == null ? null : comCdDtlList.stream().collect(Collectors.toList());
+	}
+
+	public void setComCdDtlList(List<ComCdVO> comCdDtlList) {
+		this.comCdDtlList = comCdDtlList == null ? null : comCdDtlList.stream().collect(Collectors.toList());
+	}
 }
