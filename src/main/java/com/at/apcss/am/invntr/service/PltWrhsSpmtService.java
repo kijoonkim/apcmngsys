@@ -1,5 +1,6 @@
 package com.at.apcss.am.invntr.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.cmns.vo.PltBxVO;
@@ -58,7 +59,7 @@ public interface PltWrhsSpmtService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int updatePltWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception;
+	public HashMap<String, Object> updatePltWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception;
 
 	/**
 	 * 팔레트 입출고 delYn 변경

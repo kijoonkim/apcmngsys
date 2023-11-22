@@ -582,14 +582,6 @@
 				}
 			}
 		}
-// 		if(wrhsSpmtSeCd == '2'){
-// 			let invntrQntt = jsonPltBxMngList.find(e => e.pltBxCd == pltBxCd && e.pltBxSeCd == pltBxSeCd).invntrQntt;
-// 			if(invntrQntt < qntt){
-// 				await alert("현재고를 초과하여 수량을 입력할 수 없습니다. 현재고: "+invntrQntt);
-// 				SBUxMethod.set("srch-inp-qntt", 0);
-// 				return;
-// 			}
-// 		}
 		
 		let pltNm = jsonPltBxNm.find(e => e.value == pltBxCd).text;
 		let pltBxs = await gfn_getPltBxs(gv_selectedApcCd, pltBxSeCd);
@@ -610,11 +602,31 @@
 				,rmrk: rmrk
 				,delYn: 'N'
 // 				,wrhsSpmtType: wrhsSpmtType
-				});
+			});
+			
+			var updateList = [];
+			let updateVO = {
+				apcCd: apcCd,
+				qntt: qntt,
+				pltBxSeCd: pltBxSeCd,
+				pltBxCd: pltBxCd
+			};
+			updateList.push(updateVO);
+			
+			console.log('updateList',updateList);
+			
+			const postJsonPromiseBssInvntrQntt = gfn_postJSON("/am/cmns/updatePltWrhsSpmt.do", updateList);
 	    	const data = await postJsonPromise;
+	    	const dataBssInvntrQntt = await postJsonPromiseBssInvntrQntt;
+	    	
+	    	console.log('postJsonPromise', postJsonPromise);
+	    	console.log('postJsonPromiseBssInvntrQntt', postJsonPromiseBssInvntrQntt);
+	    	console.log('postJsonPromiseBssInvntrQntt.updatedCnt', postJsonPromiseBssInvntrQntt.updatedCnt);
+	    	console.log('data', data);
+	    	console.log('dataBssInvntrQntt', dataBssInvntrQntt);
 
 	    	try{
-	       		if(data.insertedCnt > 0){
+	       		if(dataBssInvntrQntt.updatedCnt > 0){
 	       			fn_search();
 	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
 	       		}else{

@@ -1,5 +1,6 @@
 package com.at.apcss.am.invntr.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,11 +66,11 @@ public class PltWrhsSpmtServiceImpl extends BaseServiceImpl implements PltWrhsSp
 	}
 
 	@Override
-	public int updatePltWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception {
+	public HashMap<String, Object> updatePltWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception {
 
-		int updatedCnt = pltWrhsSpmtMapper.updatePltWrhsSpmt(pltWrhsSpmtVO);
+		pltWrhsSpmtMapper.updatePltWrhsSpmt(pltWrhsSpmtVO);
 		
-		return updatedCnt;
+		return null;
 	}
 
 	@Override

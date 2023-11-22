@@ -113,4 +113,6 @@ public class PltWrhsSpmtVO extends ComVO {
 	 * */
 	private String wrhsSpmtType;
 	private String wrhsSpmtTypeNm;
+	
+
 }
