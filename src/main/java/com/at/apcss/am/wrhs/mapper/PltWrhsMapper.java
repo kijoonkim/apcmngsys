@@ -1,6 +1,6 @@
 package com.at.apcss.am.wrhs.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
+import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 /**
  * 팔레트/박스 입고 Mapper 인터페이스

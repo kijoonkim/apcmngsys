@@ -1,6 +1,6 @@
 package com.at.apcss.am.bss.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
+import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 /**
  * APC 팔레트/박스 정보 Mapper 인터페이스
