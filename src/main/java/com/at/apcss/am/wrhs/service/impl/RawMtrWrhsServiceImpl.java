@@ -176,7 +176,7 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 		if (wrhsInfo == null
 				|| !StringUtils.hasText(wrhsInfo.getWrhsno())
 				|| ComConstants.CON_YES.equals(wrhsInfo.getDelYn()) ) {
-			return ComUtil.getResultMap("W0005", "입고정보");	// W0005	{0}이/가 없습니다.
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "입고정보");	// W0005	{0}이/가 없습니다.
 		}
 		RawMtrInvntrVO invntrVO = new RawMtrInvntrVO();
 		BeanUtils.copyProperties(rawMtrWrhsVO, invntrVO);
@@ -208,7 +208,7 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 		if (wrhsInfo == null
 				|| !StringUtils.hasText(wrhsInfo.getWrhsno())
 				|| ComConstants.CON_YES.equals(wrhsInfo.getDelYn()) ) {
-			return ComUtil.getResultMap("W0005", "입고정보");	// W0005	{0}이/가 없습니다.
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "입고정보");	// W0005	{0}이/가 없습니다.
 		}
 		
 		// 마감확인
@@ -279,6 +279,92 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 			}
 		}
 
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> insertRawMtrRePrcs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
+		
+		// 마감확인
+		String apcCd = rawMtrWrhsVO.getApcCd();
+		String wrhsYmd = rawMtrWrhsVO.getWrhsYmd();
+		String ddlnYn = cmnsValidationService.selectChkDdlnYn(apcCd, wrhsYmd);
+		if (!ComConstants.CON_NONE.equals(ddlnYn)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_ALEADY_CLOSE, "처리일자");
+		}
+		
+		String wrhsno = cmnsTaskNoService.selectWrhsno(apcCd, wrhsYmd);
+		rawMtrWrhsVO.setWrhsno(wrhsno);
+
+		if (!StringUtils.hasText(rawMtrWrhsVO.getPltno())) {
+			rawMtrWrhsVO.setPltno(wrhsno);
+		}
+
+		rawMtrWrhsMapper.insertRawMtrWrhs(rawMtrWrhsVO);
+
+		RawMtrInvntrVO rawMtrInvntrVO = new RawMtrInvntrVO();
+		BeanUtils.copyProperties(rawMtrWrhsVO, rawMtrInvntrVO);
+		rawMtrInvntrVO.setWrhsQntt(rawMtrWrhsVO.getWrhsQntt());
+		rawMtrInvntrVO.setInvntrQntt(rawMtrWrhsVO.getWrhsQntt());
+		rawMtrInvntrVO.setInvntrWght(rawMtrWrhsVO.getWrhsWght());
+		
+		HashMap<String, Object> rtnObj = rawMtrInvntrService.insertRawMtrInvntr(rawMtrInvntrVO);
+		if (rtnObj != null) {
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+		
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deleteRawMtrRePrcs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
+
+		// 원물재고 상태 확인
+		RawMtrWrhsVO wrhsInfo = selectRawMtrWrhs(rawMtrWrhsVO);
+		if (wrhsInfo == null
+				|| !StringUtils.hasText(wrhsInfo.getWrhsno())
+				|| ComConstants.CON_YES.equals(wrhsInfo.getDelYn()) ) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "입고정보");	// W0005	{0}이/가 없습니다.
+		}
+		
+		// 마감확인
+		String apcCd = wrhsInfo.getApcCd();
+		String wrhsYmd = wrhsInfo.getWrhsYmd();
+		String ddlnYn = cmnsValidationService.selectChkDdlnYn(apcCd, wrhsYmd);
+		if (!ComConstants.CON_NONE.equals(ddlnYn)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_ALEADY_CLOSE, "원물재고");
+		}
+		
+		if (!StringUtils.hasText(wrhsInfo.getPrcsno())) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_TARGET, "재처리실적");
+		}
+		
+		RawMtrInvntrVO invntrVO = new RawMtrInvntrVO();
+		BeanUtils.copyProperties(rawMtrWrhsVO, invntrVO);
+
+		// 원물재고 삭제
+		HashMap<String, Object> rtnObj = rawMtrInvntrService.updateRawMtrInvntrForDelY(invntrVO);
+		if (rtnObj != null) {
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+
+		// 입고실적 삭제
+		rawMtrWrhsMapper.updateRawMtrWrhsDelY(rawMtrWrhsVO);
+		
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> insertRawMtrPrcsInpt(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
+		
+		rawMtrWrhsMapper.insertRawMtrPrcs(rawMtrWrhsVO);
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deleteRawMtrPrcsInpt(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
+		
+		rawMtrWrhsMapper.updateRawMtrPrcsDelY(rawMtrWrhsVO);
 		return null;
 	}
 

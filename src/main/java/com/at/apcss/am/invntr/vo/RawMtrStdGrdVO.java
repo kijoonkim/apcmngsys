@@ -62,4 +62,23 @@ public class RawMtrStdGrdVO extends ComVO {
 	 */
 	private int sn;
 
+	/**
+	 * 등급수치
+	 */
+	private double grdNv;
+	
+	/**
+	 * 등급수량
+	 */
+	private int grdQntt;
+	
+	/**
+	 * 등급중량
+	 */
+	private double grdWght;
+	
+	/**
+	 * 표준등급유형
+	 */
+	private String stdGrdType;
 }

@@ -72,6 +72,23 @@ public interface RawMtrWrhsMapper {
 	public int updateRawMtrWrhsDelY(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
 
 	/**
+	 * 원물처리 삭제 UPDATE DEL_YN Y
+	 * @param rawMtrWrhsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertRawMtrPrcs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+	
+	/**
+	 * 원물처리 등록
+	 * @param rawMtrWrhsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateRawMtrPrcsDelY(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+	
+	
+	/**
 	 * 입고실적 목록 조회
 	 *
 	 * @param selectRawMtrWrhsPrfmncList

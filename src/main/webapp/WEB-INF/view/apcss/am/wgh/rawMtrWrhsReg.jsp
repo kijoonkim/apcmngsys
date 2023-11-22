@@ -979,11 +979,10 @@
         		fn_inputClear();
         		fn_search();
         	} else {
-        		//alert(data.resultMessage);
-        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
-        		//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        		gfn_comAlert(data.resultCode, data.resultMessage);
         	}
         } catch(e) {
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 
 	}
@@ -995,7 +994,13 @@
             return;
         }
 
+        let prvWrhsno = SBUxMethod.get("srch-inp-wrhsno");
+        
         let rowData = grdRawMtrWrhs.getRowData(nRow);
+        
+        if (_.isEqual(prvWrhsno, rowData.wrhsno)) {
+        	return;
+        }
 
      	// 입고번호
 		SBUxMethod.set("lbl-wrhsno", "입고번호 : " + rowData.wrhsno);
@@ -1041,7 +1046,8 @@
 				const grd = item.split(':');
 				stdGrdList.push({
 					grdKnd: grd[0],
-					grdCd: grd[1]
+					grdCd: grd[1],
+					grdNv: grd[2]
 				});
 			});
 		}
@@ -1604,7 +1610,7 @@
 		const _columns = [];
 		
 		_columns.push(
-			{caption: ["입고일자"],	ref: 'wrhsYmd',		type:'output',  width:'100px',    style:'text-align:center'},
+			{caption: ["입고일자"],	ref: 'wrhsYmd',		type:'input',  width:'100px',    style:'text-align:center'},
 			{caption: ["품목"], 		ref: 'itemCd',   	type:'combo',  width:'80px',    style:'text-align:center',
 				typeinfo : {ref:'jsonExpSltItem', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 			{caption: ["품종"], 		ref: 'vrtyCd',   	type:'combo',  width:'80px',    style:'text-align:center',
@@ -1628,19 +1634,41 @@
 		);
 
 		const columnsStdGrd = [];
+		let cntRt = 0;
+		console.log(gjsonStdGrdObjKnd);
 	    gjsonStdGrdObjKnd.forEach((item, index) => {
-			const grd = {
-				caption: ["등급:" + item.grdKndNm],
-				ref: gStdGrdObj.colPrfx + item.grdKnd,
-				type:'combo',
-				width:'80px',
-				style: 'text-align:center;background-color:#FFF8DC;',
-				userattr: {colNm: "stdGrd"},
-				typeinfo: {ref: item.jsonId, label:'grdNm', value:'grdCd', displayui : false, oneclickedit: true}
-			}
+	    	
+	    	let grd;	    	
+	    	if (_.isEqual(item.stdGrdType, "RT")) {
+	    		cntRt++;
+	    		grd = {
+    				caption: ["등급:" + item.grdKndNm],
+    				ref: gStdGrdObj.colPrfx + item.grdKnd,
+    				type:'input',
+    				width:'80px',
+    				style: 'text-align:right;background-color:#FFF8DC;',
+    				userattr: {colNm: "stdGrdNv"},
+    				typeinfo: {
+    					mask : {alias : '#', repeat: '*', unmaskvalue : true},
+    					maxlength: 3,
+    					oneclickedit: true
+    				},
+    				format : {type:'number', rule:'#,###'}
+    			}
+	    	} else {
+	    		grd = {
+    				caption: ["등급:" + item.grdKndNm],
+    				ref: gStdGrdObj.colPrfx + item.grdKnd,
+    				type:'combo',
+    				width:'80px',
+    				style: 'text-align:center;background-color:#FFF8DC;',
+    				userattr: {colNm: "stdGrd"},
+    				typeinfo: {ref: item.jsonId, label:'grdNm', value:'grdCd', displayui : false, oneclickedit: true}
+    			}
+	    	}
 			columnsStdGrd.push(grd);
 		});
-
+	    
 	    if (gjsonStdGrdObjKnd.length > 1 && gjsonStdGrdObjJgmt.length > 0) {
 			const jgmtGrd = {
 				caption: ["판정등급"],
@@ -1653,6 +1681,17 @@
 			}
 			_columns.push(jgmtGrd);
 		}
+	    console.log("cntRt", cntRt);
+	    if (cntRt > 0) {	// 비율의 경우 비율합산 추가
+	    	_columns.push({
+	    		caption: ["비율합산"],
+	    		ref: 'grdNvSum',
+	    		type:'output',
+	    		width:'80px',
+	    		style:'text-align:center;color:blue;',
+	    		format: {type: 'string', rule: '@" %"'}
+	    	});
+	    }
 
 	    columnsStdGrd.forEach((item) => {
 	    	_columns.push(item);
@@ -1746,6 +1785,8 @@
             return;
 		}
 
+		const itemNm = SBUxMethod.getText("srch-slt-itemCd");
+		
 		await fn_setSltJson();
 		await fn_setExpJson();
 
@@ -1897,7 +1938,7 @@
 		await fn_createExpGrid(expObjList);
 
 		//exportExcel();
-	    gfn_exportExcelMulti("원물입고(샘플).xlsx", expObjList);
+	    gfn_exportExcelMulti("원물입고(샘플)_" + itemNm + ".xlsx", expObjList);
 	}
 
 	const gfn_exportExcelMulti = function(_fileName, _objList) {
@@ -1941,7 +1982,7 @@
 		_objList[0].sbGrid.exportExcel(objExcelInfo);
 	}
 
-
+/*
 	const importExcelData = function (e){
     	 SBUxMethod.openModal('modal-excel');
     	 //fn_createGridPopup();
@@ -1949,7 +1990,7 @@
     	 //grdExcelRawMtrWrhsPopup.rebuild();
     	 grdExcelRawMtrWrhsPopup.importExcelData(e);
      }
-
+*/
 	
 	/**
 	 * @name fn_uld
@@ -1971,7 +2012,7 @@
 
 		var SBGridProperties = {};
 		SBGridProperties.emptyrecords = '데이터가 없습니다.';
-		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.selectmode = 'free';
 		SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.oneclickedit = true;
 		SBGridProperties.columns = impColumns;
@@ -1982,8 +2023,6 @@
     			fn_setDataAfterImport,
     			fn_grdImpValueChanged
 			);
-
-    	 //$("#btnFileUpload").click();
      }
 
 	/**
@@ -2060,8 +2099,9 @@
 				grdCd = rowData.jgmtGrdCd;
 			}
 			
+ 	    	let cntRt = 0;
+ 	    	let grdNvSum = 0;
  	    	const stdGrdList = [];
- 	    	
 			// 상세등급
 			gjsonStdGrdObjKnd.forEach((item, index) => {				
 				let colNm = gStdGrdObj.colPrfx + item.grdKnd;
@@ -2070,22 +2110,46 @@
 	 	            return;
 	 	    	}
 				
-				stdGrdList.push({
+				const grd = {
 					apcCd: gv_selectedApcCd,
 					grdSeCd: _GRD_SE_CD_WRHS,
 					itemCd: rowData.itemCd,
 					grdKnd: item.grdKnd,
 					grdKndNm: item.grdKndNm,
-					grdCd: rowData[colNm]
-				});
-				
-				if (gfn_isEmpty(grdCd)) {
-					grdCd = rowData[colNm];
+					stdGrdType: item.stdGrdType
 				}
+				
+				if (_.isEqual(item.stdGrdType, "RT")) {
+					cntRt++;
+					grd.grdNv = rowData[colNm];
+					if (gfn_isEmpty(grdCd)) {
+						grdCd = "*";
+					}
+					
+					grdNvSum += parseFloat(grd.grdNv) || 0;
+				} else {
+					grd.grdCd = rowData[colNm];
+					if (gfn_isEmpty(grdCd) || _.isEqual(grdCd, "*")) {
+						grdCd = rowData[colNm];
+					}
+				}
+				stdGrdList.push(grd);
 			});
  	    	
+			console.log(stdGrdList);
+			
+			if (cntRt > 0) {
+				if (grdNvSum > 100) {
+					gfn_comAlert("W0014", "비율합산", "100%");	//	W0014	{0}이/가 {1} 보다 큽니다.
+		            return;
+				} else if (grdNvSum < 100) {
+					gfn_comAlert("W0015", "비율합산", "100%");	//	W0015	{0}이/가 {1} 보다 작습니다.
+					return;
+				}
+			}
+			
 	    	if (gfn_isEmpty(grdCd)) {
-	    		gfn_comAlert("W0001", "등급");		//	W0002	{0}을/를 선택하세요.
+	    		gfn_comAlert("W0005", "등급");	//	W0005	{0}이/가 없습니다.
 	            return;
 	    	}
 
@@ -2243,19 +2307,28 @@
 				}
 			}
 			
+			let cntRt = 0;
+			let grdNvSum = 0;
 			const grdList = [];
 			// 상세등급
-			gjsonStdGrdObjKnd.forEach((item, index) => {				
+			gjsonStdGrdObjKnd.forEach((item, index) => {
 				let colNm = gStdGrdObj.colPrfx + item.grdKnd;
-				const id = gStdGrdObj.idList[index];
-				let jsonObj = gStdGrdObj.getGrdJson(id);
 				
-				if (!gfn_isEmpty(rowData[colNm])) {			
-					let grdInfo = _.find(jsonObj, {grdCd: rowData[colNm]});
-					if (gfn_isEmpty(grdInfo)) {
-						grdInfo = _.find(jsonObj, {grdNm: rowData[colNm]});
-						if (!gfn_isEmpty(grdInfo)) {
-							rowData[colNm] = grdInfo.grdCd; 
+				if (_.isEqual(item.stdGrdType, "RT")) {
+					// 값을 그대로 사용
+					cntRt++;
+					grdNvSum += parseFloat(rowData[colNm]) || 0;
+				} else {
+					const id = gStdGrdObj.idList[index];
+					let jsonObj = gStdGrdObj.getGrdJson(id);
+					
+					if (!gfn_isEmpty(rowData[colNm])) {			
+						let grdInfo = _.find(jsonObj, {grdCd: rowData[colNm]});
+						if (gfn_isEmpty(grdInfo)) {
+							grdInfo = _.find(jsonObj, {grdNm: rowData[colNm]});
+							if (!gfn_isEmpty(grdInfo)) {
+								rowData[colNm] = grdInfo.grdCd; 
+							}
 						}
 					}
 				}
@@ -2263,11 +2336,15 @@
 				grdList.push(rowData[colNm]);
 			});
 			
+			if (cntRt > 0) {
+				rowData.grdNvSum = grdNvSum;
+			}
+			
 			// 판정등급
 			if (gjsonStdGrdObjKnd.length > 1 && gjsonStdGrdObjJgmt.length > 0) {
 				
 				if (grdList.length > 0) {
-					let jgmtGrdCd = stdGrdSelect.getJgmtGrdCd(grdList);
+					let jgmtGrdCd = gStdGrdObj.getJgmtGrdCd(grdList);
 					rowData.jgmtGrdCd = jgmtGrdCd;
 				} else {
 					if (!gfn_isEmpty(rowData.jgmtGrdCd)) {				
@@ -2311,13 +2388,22 @@
  	 						grdList.push(rowData[colNm]);
  	 					});
  						
- 						let jgmtGrdCd = stdGrdSelect.getJgmtGrdCd(grdList);
+ 						let jgmtGrdCd = gStdGrdObj.getJgmtGrdCd(grdList);
  						rowData.jgmtGrdCd = jgmtGrdCd;
  						
  						_grdImp.refresh();
  					}
  					break;
-
+ 				case "stdGrdNv":
+ 					let grdNvSum = 0;
+ 					gjsonStdGrdObjKnd.forEach((item, index) => {
+						if (_.isEqual(item.stdGrdType, "RT")) {
+							let colNm = gStdGrdObj.colPrfx + item.grdKnd;
+							grdNvSum += parseFloat(rowData[colNm]) || 0;
+						}
+				  	});
+ 					rowData.grdNvSum = grdNvSum;
+ 					_grdImp.refresh();
  				default:
  					return;
  			}

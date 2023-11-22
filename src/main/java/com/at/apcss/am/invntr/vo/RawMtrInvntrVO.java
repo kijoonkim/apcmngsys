@@ -38,6 +38,16 @@ public class RawMtrInvntrVO extends ComVO {
 	private String wrhsno;
 
 	/**
+	 * 처리번호
+	 */
+	private String prcsno;
+	
+	/**
+	 * 처리유형
+	 */
+	private String prcsType;
+	
+	/**
 	 * 팔레트번호
 	 */
 	private String pltno;
@@ -142,6 +152,15 @@ public class RawMtrInvntrVO extends ComVO {
 	 */
 	private double sortWght;
 
+	/**
+	 * 처리수량
+	 */
+	private int prcsQntt;
+	
+	/**
+	 * 처리중량
+	 */
+	private double prcsWght;
 
 	/**
 	 * 재고수량
