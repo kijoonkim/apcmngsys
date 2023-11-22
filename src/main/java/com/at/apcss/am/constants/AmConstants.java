@@ -5,6 +5,7 @@ public class AmConstants {
 	/* 업무별 발번용 TASK ID */
 	public final static String TASK_ID_WGH 			= "WT";
 	public final static String TASK_ID_WRHS 		= "RT";
+	public final static String TASK_ID_WRHS_PRCS	= "RR";		// 원물재처리
 	public final static String TASK_ID_WRHS_PLAN	= "RP";
 	public final static String TASK_ID_SORT 		= "ST";
 	public final static String TASK_ID_SORT_CMND 	= "SO";
@@ -119,6 +120,14 @@ public class AmConstants {
      */
     public final static String CON_INVNTR_CHG_RSN_CD_P2 = "P2";
     /**
+     * 재고변경사유코드 : P1 처리
+     */
+    public final static String CON_INVNTR_CHG_RSN_CD_P3 = "P3";
+    /**
+     * 재고변경사유코드 : P2 처리취소
+     */
+    public final static String CON_INVNTR_CHG_RSN_CD_P4 = "P4";
+    /**
      * 재고변경사유코드 : S1 출고
      */
     public final static String CON_INVNTR_CHG_RSN_CD_S1 = "S1";
@@ -143,5 +152,27 @@ public class AmConstants {
      */
     public final static String CON_INVNTR_CHG_RSN_CD_X1 = "X1";
 
-
+    /**
+     * 처리구분 : RR 원물재처리
+     */
+    public final static String CON_PRCS_TYPE_RAW_MTR_REPRCS = "RR";
+    
+    /**
+     * 운송구분 : 3 기타
+     */
+    public final static String CON_TRSPRT_SE_CD_ETC = "3";
+    
+    /**
+     * 표준등급유형 : RT 비율(%)
+     */
+    public final static String CON_STD_GRD_TYPE_RT = "RT";
+    /**
+     * 표준등급유형 : VL 등록 값
+     */
+    public final static String CON_STD_GRD_TYPE_VL = "VL";
+    
+    /**
+     * 표준등급 EMPTY
+     */
+    public final static String CON_STD_GRD_CD_EMPTY = "*";
 }

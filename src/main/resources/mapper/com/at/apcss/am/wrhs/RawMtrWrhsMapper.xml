@@ -295,49 +295,108 @@
 	</update>
 
 	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.insertRawMtrPrcs		-->
+	<!-- DESC : 원물처리 등록.		                                       				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertRawMtrPrcs" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsVO">
+    	<![CDATA[
+	    	INSERT /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.insertRawMtrPrcs */
+	    		INTO TB_RAW_MTR_PRCS (
+				  APC_CD
+				, WRHSNO
+				, PRCS_SN
+				, PRCS_YMD
+				, PRCSNO
+				, QNTT
+				, WGHT
+				, RMRK
+	    		, SYS_FRST_INPT_DT
+	    		, SYS_FRST_INPT_USER_ID
+	    		, SYS_FRST_INPT_PRGRM_ID
+	    		, SYS_LAST_CHG_DT
+	    		, SYS_LAST_CHG_USER_ID
+	    		, SYS_LAST_CHG_PRGRM_ID
+			) VALUES (
+					  #{apcCd}
+					, #{wrhsno}
+					, #{prcsSn}
+					, #{prcsYmd}
+					, #{prcsno}
+					, #{qntt}
+					, #{wght}
+					, #{rmrk}
+		    		, SYSDATE
+		    		, #{sysFrstInptUserId}
+		    		, #{sysFrstInptPrgrmId}
+		    		, SYSDATE
+		    		, #{sysLastChgUserId}
+		    		, #{sysLastChgPrgrmId}
+			)
+    	]]>
+    </insert>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.updateRawMtrPrcsDelY	-->
+	<!-- DESC : 원물처리 삭제 : delYn Y		                                       	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                    	-->
+	<!-- ==========================================================================	-->
+    <update id="updateRawMtrPrcsDelY" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.updateRawMtrPrcsDelY */
+				TB_RAW_MTR_PRCS
+			   SET
+			   	  SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+
+				, DEL_YN	= 'Y'
+			 WHERE APC_CD = #{apcCd}
+			   AND WRHSNO = #{wrhsno}
+			   AND PRCS_SN = #{prcsSn}
+		]]>
+	</update>
+
+	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.selectRawMtrWrhsPrfmncList	-->
 	<!-- DESC : 입고실적 목록 조회.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.08.16  	정희운        		Initial Creation                            -->
+	<!-- 2023.08.16  	정희운        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
     <select id="selectRawMtrWrhsPrfmncList" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsVO" resultType="com.at.apcss.am.wrhs.vo.RawMtrWrhsVO">
+    	<![CDATA[
+			SELECT  /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.selectRawMtrWrhsPrfmncList */
+		]]>
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		SELECT  /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.selectRawMtrWrhsPrfmncList */
+    		
     			  ROWNUM AS ROW_SEQ
     			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, pt0.*
-    			, (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = pt0.APC_CD) AS APC_NM
-    			, (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
-                , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
-                , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
-    			, (SELECT FN_GET_GRD_NM_RAWMTR(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL) AS GRD_NM
-                , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
-                , (SELECT FN_GET_COM_CD_VL_NM('BX_KND', pt0.BX_KND, pt0.APC_CD) FROM DUAL) AS BX_KND_NM
-				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
-				, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) AS WRHS_SE_NM
-				, (SELECT FN_GET_COM_CD_VL_NM('TRSPRT_SE_CD', pt0.TRSPRT_SE_CD) FROM DUAL) AS TRSPRT_SE_NM
-    		  FROM (
-    	</if>
-    	<if test='pagingYn == null or pagingYn.equals("N")'>
-    		SELECT
-    			  pt0.*
-    			, (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = pt0.APC_CD) AS APC_NM
-    			, (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
-                , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
-                , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
-    			, (SELECT FN_GET_GRD_NM_RAWMTR(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL) AS GRD_NM
-                , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
-                , (SELECT FN_GET_COM_CD_VL_NM('BX_KND', pt0.BX_KND, pt0.APC_CD) FROM DUAL) AS BX_KND_NM
-				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
-				, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) AS WRHS_SE_NM
-				, (SELECT FN_GET_COM_CD_VL_NM('TRSPRT_SE_CD', pt0.TRSPRT_SE_CD) FROM DUAL) AS TRSPRT_SE_NM
-    		  FROM (
+    			, 
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
+				  pt0.*
+    			, (SELECT FN_GET_APC_NM(pt0.APC_CD) FROM DUAL) AS APC_NM
+    			, (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
+                , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
+                , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
+    			, (SELECT FN_GET_GRD_NM_RAWMTR(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL) AS GRD_NM
+                , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
+                , (SELECT FN_GET_COM_CD_VL_NM('BX_KND', pt0.BX_KND, pt0.APC_CD) FROM DUAL) AS BX_KND_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) AS WRHS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('TRSPRT_SE_CD', pt0.TRSPRT_SE_CD) FROM DUAL) AS TRSPRT_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('PRCS_TYPE', pt0.PRCS_TYPE) FROM DUAL) AS PRCS_TYPE_NM
+    		  FROM (
 	    	SELECT
 				  WP.APC_CD         AS APC_CD
 				, WP.WRHSNO         AS WRHSNO
@@ -358,6 +417,8 @@
 				, INV.WAREHOUSE_SE_CD   AS WAREHOUSE_SE_CD
 				, WP.RMRK           AS RMRK
 				, TRS.TRSPRT_CST AS TRSPRT_CST
+				, INV.PRCS_TYPE		AS PRCS_TYPE
+				, INV.PRCSNO		AS PRCSNO
 			  FROM
 			  	  TB_RAW_MTR_WRHS_PRFMNC WP
 			  	, TB_RAW_MTR_INVNTR INV
@@ -411,16 +472,12 @@
 		</if>
 		<![CDATA[
 		 	 ORDER BY APC_CD, WRHS_YMD, WRHSNO
+    		  ) pt0
 		]]>
-
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		  ) pt0
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
-    	</if>
-    	<if test='pagingYn == null or pagingYn.equals("N")'>
-    		  ) pt0
     	</if>
     	<!-- End 페이징 -->
     </select>

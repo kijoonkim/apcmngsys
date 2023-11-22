@@ -1,9 +1,5 @@
 package com.at.apcss.am.cmns.service;
 
-import java.util.List;
-
-import com.at.apcss.am.cmns.vo.CmnsSpcfctVO;
-
 /**
  * 업무 번호 Service 인터페이스
  * @author 신정철
@@ -38,6 +34,15 @@ public interface CmnsTaskNoService {
 	 */
 	public String selectWrhsno(String apcCd, String ymd) throws Exception;
 
+	/**
+	 * 입고 처리(재처리) 번호 발번
+	 * @param apcCd
+	 * @param ymd
+	 * @return
+	 * @throws Exception
+	 */
+	public String selectWrhsPrcsno(String apcCd, String ymd) throws Exception;
+	
 	/**
 	 * 입고계획번호 발번
 	 * @param apcCd

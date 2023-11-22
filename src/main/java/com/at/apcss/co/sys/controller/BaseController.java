@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -196,7 +197,17 @@ public abstract class BaseController {
 
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.BAD_REQUEST);
 	}
+	
+	protected ResponseEntity<HashMap<String, Object>> getErrorResponseEntity(EgovBizException e) {
 
+		HashMap<String, Object> resultMap = new HashMap<>();
+
+		resultMap.put(ComConstants.PROP_RESULT_STATUS, ComConstants.RESULT_STATUS_ERROR);
+		resultMap.put(ComConstants.PROP_RESULT_MESSAGE, e.getMessage());
+
+		return new ResponseEntity<HashMap<String, Object>>(resultMap, HttpStatus.BAD_REQUEST);
+	}
+	
 	protected ResponseEntity<HashMap<String, Object>> getErrorResponseEntity(Exception e) {
 
 		HashMap<String, Object> resultMap = new HashMap<>();
@@ -204,6 +215,8 @@ public abstract class BaseController {
 		resultMap.put(ComConstants.PROP_RESULT_STATUS, ComConstants.RESULT_STATUS_ERROR);
 		resultMap.put(ComConstants.PROP_RESULT_CODE, ComConstants.RESULT_CODE_DEFAULT);
 		resultMap.put(ComConstants.PROP_RESULT_MESSAGE, e.getMessage());
+		
+		//resultMap.put(ComConstants.PROP_RESULT_MESSAGE, ComConstants.RESULT_MESSAGE_DEFAULT);
 
 		return new ResponseEntity<HashMap<String, Object>>(resultMap, HttpStatus.BAD_REQUEST);
 	}

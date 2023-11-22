@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.msg.mapper.ComMessageSource;
 import com.at.apcss.co.msg.vo.ComMsgVO;
 
-public abstract class BaseServiceImpl {
+public abstract class BaseServiceImpl extends EgovAbstractServiceImpl {
 	public final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
