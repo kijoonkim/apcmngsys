@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.fm.popup.mapper.BrnoPopupMapper;
 import com.at.apcss.fm.popup.service.BrnoPopupService;
 import com.at.apcss.fm.popup.vo.BrnoPopupVO;
@@ -25,7 +26,7 @@ import com.at.apcss.fm.popup.vo.BrnoPopupVO;
  * </pre>
  */
 @Service("BrnoPopupService")
-public class BrnoPopupServiceImpl implements BrnoPopupService{
+public class BrnoPopupServiceImpl extends BaseServiceImpl implements BrnoPopupService{
 
 	@Autowired
 	private BrnoPopupMapper BrnoPopupMapper;

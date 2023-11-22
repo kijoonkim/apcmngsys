@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.at.apcss.co.msg.mapper.ComMsgMapper;
 import com.at.apcss.co.msg.service.ComMsgService;
 import com.at.apcss.co.msg.vo.ComMsgVO;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : ComMsgServiceImpl.java
@@ -24,7 +25,7 @@ import com.at.apcss.co.msg.vo.ComMsgVO;
  * </pre>
  */
 @Service("comMsgService")
-public class ComMsgServiceImpl implements ComMsgService{
+public class ComMsgServiceImpl extends BaseServiceImpl implements ComMsgService{
 
 	@Autowired
 	private ComMsgMapper comMsgMapper;

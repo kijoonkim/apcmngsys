@@ -9,6 +9,7 @@ import com.at.apcss.am.oprtr.mapper.OprtrPrfmncMapper;
 import com.at.apcss.am.oprtr.service.OprtrPrfmncService;
 import com.at.apcss.am.oprtr.vo.OprtrPrfmncVO;
 import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : OprtrPrfmncServiceImpl.java
@@ -26,7 +27,7 @@ import com.at.apcss.co.constants.ComConstants;
  * </pre>
  */
 @Service("oprtrPrfmncService")
-public class OprtrPrfmncServiceImpl implements OprtrPrfmncService{
+public class OprtrPrfmncServiceImpl extends BaseServiceImpl implements OprtrPrfmncService{
 
 	@Autowired
 	private OprtrPrfmncMapper oprtrPrfmncMapper;

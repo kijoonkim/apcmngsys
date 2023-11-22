@@ -26,7 +26,7 @@ import com.at.apcss.co.sys.vo.LoginVO;
  * </pre>
  */
 @Service("apcSSOService")
-public class ApcSSOServiceImpl implements ApcSSOService {
+public class ApcSSOServiceImpl extends BaseServiceImpl implements ApcSSOService {
 
 	@Override
 	public boolean hasTokenInSSOServer(ServletRequest request, ServletResponse response) {

@@ -14,6 +14,7 @@ import com.at.apcss.am.sls.mapper.SlsPrfmncMapper;
 import com.at.apcss.am.sls.service.SlsPrfmncService;
 import com.at.apcss.am.sls.vo.SlsPrfmncVO;
 import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.co.sys.util.ComUtil;
 
 /**
@@ -32,7 +33,7 @@ import com.at.apcss.co.sys.util.ComUtil;
  * </pre>
  */
 @Service("slsPrfmncService")
-public class SlsPrfmncServiceImpl implements SlsPrfmncService {
+public class SlsPrfmncServiceImpl extends BaseServiceImpl implements SlsPrfmncService {
 
 	@Autowired
 	private SlsPrfmncMapper slsPrfmncMapper;

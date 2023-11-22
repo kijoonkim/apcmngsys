@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.fm.clt.mapper.CltvtnEngttRsltMngMapper;
 import com.at.apcss.fm.clt.service.CltvtnEngttRsltMngService;
 import com.at.apcss.fm.clt.vo.CltvtnEngttRsltMngVO;
@@ -25,7 +26,7 @@ import com.at.apcss.fm.clt.vo.CltvtnEngttRsltMngVO;
  * </pre>
  */
 @Service("cltvtnEngttRsltMngService")
-public class CltvtnEngttRsltMngServiceImpl implements CltvtnEngttRsltMngService{
+public class CltvtnEngttRsltMngServiceImpl extends BaseServiceImpl implements CltvtnEngttRsltMngService{
 
 	@Autowired
 	private CltvtnEngttRsltMngMapper cltvtnEngttRsltMngMapper;

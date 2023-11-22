@@ -25,6 +25,7 @@ import com.at.apcss.am.cmns.vo.StdGrdVO;
 import com.at.apcss.co.cd.service.ComCdService;
 import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : CmnsItemServiceImpl.java
@@ -42,7 +43,7 @@ import com.at.apcss.co.constants.ComConstants;
  * </pre>
  */
 @Service("cmnsItemService")
-public class CmnsItemServiceImpl implements CmnsItemService {
+public class CmnsItemServiceImpl extends BaseServiceImpl implements CmnsItemService {
 
 	@Autowired
 	private CmnsItemMapper cmnsItemMapper;

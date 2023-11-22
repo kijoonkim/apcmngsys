@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.fm.bbs.mapper.BbsMapper;
 import com.at.apcss.fm.bbs.service.BbsService;
 import com.at.apcss.fm.bbs.vo.BbsVO;
@@ -32,7 +33,7 @@ import com.at.apcss.pd.bsm.vo.ApcFarmOgnzInfoVO;
  * </pre>
  */
 @Service("apcFarmOgnzInfoService")
-public class ApcFarmOgnzInfoServiceImpl implements ApcFarmOgnzInfoService{
+public class ApcFarmOgnzInfoServiceImpl extends BaseServiceImpl implements ApcFarmOgnzInfoService{
 
 	@Autowired
 	private ApcFarmOgnzInfoMapper apcFarmOgnzInfoMapper;

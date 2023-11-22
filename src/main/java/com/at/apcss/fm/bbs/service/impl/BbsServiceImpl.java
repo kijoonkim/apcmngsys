@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.fm.bbs.mapper.BbsMapper;
 import com.at.apcss.fm.bbs.service.BbsService;
 import com.at.apcss.fm.bbs.vo.BbsVO;
@@ -25,7 +26,7 @@ import com.at.apcss.fm.bbs.vo.BbsVO;
  * </pre>
  */
 @Service("bbsService")
-public class BbsServiceImpl implements BbsService{
+public class BbsServiceImpl extends BaseServiceImpl implements BbsService{
 
 	@Autowired
 	private BbsMapper bbsMapper;

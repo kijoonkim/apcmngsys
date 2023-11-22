@@ -11,9 +11,10 @@ import com.at.apcss.co.pms.service.DvlpPrgrsMngService;
 import com.at.apcss.co.pms.vo.DfctMngVO;
 import com.at.apcss.co.pms.vo.DfctVO;
 import com.at.apcss.co.pms.vo.DvlpPrgrsMngVO;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 @Service("dvlpPrgrsMngService")
-public class DvlpPrgrsMngServiceImpl implements DvlpPrgrsMngService {
+public class DvlpPrgrsMngServiceImpl extends BaseServiceImpl implements DvlpPrgrsMngService {
 
 	@Autowired
 	private DvlpPrgrsMngMapper dvlpPrgrsMngMapper;

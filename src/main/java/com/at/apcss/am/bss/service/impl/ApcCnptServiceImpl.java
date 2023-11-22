@@ -3,6 +3,7 @@ package com.at.apcss.am.bss.service.impl;
 import org.springframework.stereotype.Service;
 
 import com.at.apcss.am.bss.service.ApcCnptService;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : ApcCnptServiceImpl.java
@@ -20,6 +21,6 @@ import com.at.apcss.am.bss.service.ApcCnptService;
  * </pre>
  */
 @Service("apcCnptService")
-public class ApcCnptServiceImpl implements ApcCnptService {
+public class ApcCnptServiceImpl extends BaseServiceImpl implements ApcCnptService {
 
 }

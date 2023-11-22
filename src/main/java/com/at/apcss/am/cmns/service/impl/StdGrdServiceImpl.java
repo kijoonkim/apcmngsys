@@ -22,6 +22,7 @@ import com.at.apcss.co.cd.service.ComCdService;
 import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ApcConstants;
 import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.co.sys.util.ComUtil;
 
 /**
@@ -40,7 +41,7 @@ import com.at.apcss.co.sys.util.ComUtil;
  * </pre>
  */
 @Service("stdGrdService")
-public class StdGrdServiceImpl implements StdGrdService {
+public class StdGrdServiceImpl extends BaseServiceImpl implements StdGrdService {
 
 	@Autowired
 	private StdGrdMapper stdGrdMapper;

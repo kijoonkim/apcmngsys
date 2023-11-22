@@ -12,9 +12,10 @@ import com.at.apcss.am.spmt.mapper.SpmtTrsprtMapper;
 import com.at.apcss.am.spmt.service.SpmtTrsprtService;
 import com.at.apcss.am.spmt.vo.SpmtTrsprtVO;
 import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 @Service("spmtTrsprtService")
-public class SpmtTrsprtServiceImpl implements SpmtTrsprtService{
+public class SpmtTrsprtServiceImpl extends BaseServiceImpl implements SpmtTrsprtService{
 
 	@Autowired
 	private SpmtTrsprtMapper spmtTrsprtMapper;
