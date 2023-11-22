@@ -30,22 +30,9 @@ public class EgovTestUserDetailsServiceImpl extends EgovAbstractServiceImpl impl
 
 	@Override
 	public Object getAuthenticatedUser() {
-
-		LoginVO loginVO = new LoginVO();
-		loginVO.setId("TEST1");
-		loginVO.setPassword("raHLBnHFcunwNzcDcfad4PhD11hHgXSUr7fc1Jk9uoQ=");
-		loginVO.setUserSe("USR");
-		loginVO.setEmail("egovframe@nia.or.kr");
-		loginVO.setIhidNum("");
-		loginVO.setName("더미사용자");
-		loginVO.setOrgnztId("ORGNZT_0000000000000");
-		loginVO.setUniqId("USRCNFRM_00000000000");
-		return loginVO;
-
-		// return
-		// RequestContextHolder.getRequestAttributes().getAttribute("loginVO",
-		// RequestAttributes.SCOPE_SESSION);
-
+		//LoginVO loginVO = new LoginVO();
+		//return loginVO;
+		return null;
 	}
 
 	@Override

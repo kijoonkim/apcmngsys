@@ -1,6 +1,6 @@
 package com.at.apcss.am.cmns.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
+import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.at.apcss.am.cmns.vo.CmnsTaskNoVO;
 

@@ -1,6 +1,6 @@
 package com.at.apcss.am.invntr.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
+import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 /**
  * 재고관리 Mapper 인터페이스

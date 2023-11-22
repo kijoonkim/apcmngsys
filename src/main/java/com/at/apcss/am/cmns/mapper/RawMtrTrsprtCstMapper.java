@@ -2,7 +2,7 @@ package com.at.apcss.am.cmns.mapper;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Mapper;
+import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.at.apcss.am.cmns.vo.RawMtrTrsprtCstVO;
 
