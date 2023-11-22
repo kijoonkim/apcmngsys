@@ -231,6 +231,11 @@ public class RawMtrInvntrVO extends ComVO {
 	 * 등급명
 	 */
 	private String grdNm;
+	
+	/**
+	 * 표준등급명
+	 */
+	private String stdGrdNm;
 
 	/**
 	 * 선별지시번호

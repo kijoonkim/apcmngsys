@@ -403,134 +403,10 @@
 					<input type="file" id="btnFileUpload" name="btnFileUpload" style="visibility: hidden;" onchange="importExcelData(event)">
 				</div>
 				<!-- 엑셀 시트별 데이터 영역 -->
-				<!--
-				<div style="display: none">
-
-
-					<div class="row" >
-						<div class="col-sm-3">
-							<div class="ad_tbl_top"  style="width: 98%;">
-								<ul class="ad_tbl_count">
-									<li><span>원물입고샘플</span></li>
-								</ul>
-							</div>
-							<div>
-								<div id="sb-area-excelRawMtrWrhs" style="height:157px; width: 100%;"></div>
-							</div>
-						</div>
-						<div class="col-sm-2">
-							<div class="ad_tbl_top"  style="width: 98%;">
-								<ul class="ad_tbl_count">
-									<li><span>APC 품목</span></li>
-								</ul>
-							</div>
-							<div>
-								<div id="sb-area-grdItem" style="height:157px; width: 100%;"></div>
-							</div>
-						</div>
-						<div class="col-sm-2">
-							<div class="ad_tbl_top"  style="width: 98%;">
-								<ul class="ad_tbl_count">
-									<li><span>APC 품종</span></li>
-								</ul>
-							</div>
-							<div>
-								<div id="sb-area-grdVrty" style="height:157px; width: 100%;"></div>
-							</div>
-						</div>
-						<div class="col-sm-3">
-							<div class="ad_tbl_top"  style="width: 98%;">
-								<ul class="ad_tbl_count">
-									<li><span>생산자</span></li>
-								</ul>
-							</div>
-							<div>
-								<div id="sb-area-grdPrdcr" style="height:157px; width: 100%;"></div>
-							</div>
-						</div>
-						<div class="col-sm-2">
-							<div class="ad_tbl_top"  style="width: 98%;">
-								<ul class="ad_tbl_count">
-									<li><span>입고구분코드</span></li>
-								</ul>
-							</div>
-							<div>
-								<div id="sb-area-grdWrhsSeCd" style="height:157px; width: 100%;"></div>
-							</div>
-						</div>
-					</div>
-					<div class="row" >
-						<div class="col-sm-2">
-							<div class="ad_tbl_top"  style="width: 98%;">
-								<ul class="ad_tbl_count">
-									<li><span>상품구분코드</span></li>
-								</ul>
-							</div>
-							<div>
-								<div id="sb-area-grdGdsSeCd" style="height:157px; width: 100%;"></div>
-							</div>
-						</div>
-						<div class="col-sm-2">
-							<div class="ad_tbl_top"  style="width: 98%;">
-								<ul class="ad_tbl_count">
-									<li><span>운송구분코드</span></li>
-								</ul>
-							</div>
-							<div>
-								<div id="sb-area-grdTrsprtSeCd" style="height:157px; width: 100%;"></div>
-							</div>
-						</div>
-						<div class="col-sm-2">
-							<div class="ad_tbl_top"  style="width: 98%;">
-								<ul class="ad_tbl_count">
-									<li><span>창고코드</span></li>
-								</ul>
-							</div>
-							<div>
-								<div id="sb-area-grdWarehouseSeCd" style="height:157px; width: 100%;"></div>
-							</div>
-						</div>
-						<div class="col-sm-2">
-							<div class="ad_tbl_top"  style="width: 98%;">
-								<ul class="ad_tbl_count">
-									<li><span>박스코드</span></li>
-								</ul>
-							</div>
-							<div>
-								<div id="sb-area-grdBxKnd" style="height:157px; width: 100%;"></div>
-							</div>
-						</div>
-
-						<div class="col-sm-2">
-							<div class="ad_tbl_top"  style="width: 98%;">
-								<ul class="ad_tbl_count">
-									<li><span>등급코드</span></li>
-								</ul>
-							</div>
-							<div>
-								<div id="sb-area-grdStdGrd" style="height:157px; width: 100%;"></div>
-							</div>
-						</div>
-						<div class="col-sm-2">
-							<div class="ad_tbl_top"  style="width: 98%;">
-								<ul class="ad_tbl_count">
-									<li><span>등급상세코드</span></li>
-								</ul>
-							</div>
-							<div>
-								<div id="sb-area-grdStdGrdDtl" style="height:157px; width: 100%;"></div>
-							</div>
-						</div>
-						<input type="file" id="btnFileUpload" name="btnFileUpload" style="visibility: hidden;" onchange="importExcelData(event)">
-					</div>
-				</div>
-				-->
 			</div>
 		</div>
 
 	</section>
-
-
 
     <!-- 생산자 선택 Modal -->
     <div>
@@ -571,6 +447,7 @@
     	<jsp:include page="../../am/popup/importExcelPopup.jsp"></jsp:include>
     </div>
 
+<!-- 
     <div>
         <sbux-modal id="modal-excel" name="modal-excel" uitype="middle" header-title="원물입고등록" body-html-id="body-modal-excel" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
@@ -578,6 +455,7 @@
     	<jsp:include page="../../am/popup/rawMtrWrhsPrfmncPopup.jsp"></jsp:include>
     </div>
     <sbux-button id="btnRawMtrWrhsfmncPopup" name="btnRawMtrWrhsfmncPopup" uitype="modal" text="엑셀등록" style="width:100%; display:none" class="btn btn-sm btn-outline-dark" target-id="modal-excel" onclick="fn_modal('btnSpmtSlsUntprcReg')"></sbux-button>
+ -->
 	<!-- importExcelPopup -->
 	
 	<!-- clip report direct print area  -->
@@ -872,7 +750,6 @@
  		let vhclno = SBUxMethod.get("srch-inp-vhclno");			// 차량번호
  		let trsprtCst = SBUxMethod.get("srch-inp-trsprtCst");	// 운임비용
  		let rmrk = SBUxMethod.get("srch-inp-rmrk");				// 비고
- 		//let grdCd = SBUxMethod.get("srch-slt-grdCd");			// 등급
  		let wghno = SBUxMethod.get("srch-inp-wghno");			// 계량번호
  		let prdctnYr = SBUxMethod.get("srch-dtp-prdctnYr");		// 생산연도
 
@@ -1178,6 +1055,11 @@
           }
 	}
 
+  	/**
+     * @name fn_inputClear
+     * @description input form 초기화
+     * @function
+     */
     const fn_inputClear = function() {
   		// 수량
   		SBUxMethod.set("srch-inp-bxQntt", "");
@@ -1216,6 +1098,11 @@
  		fn_onChangeSrchItemCd({value: null});
  	}
 
+ 	/**
+     * @name fn_clearInptForm
+     * @description input form 초기화
+     * @function
+     */
  	const fn_clearInptForm = function() {
  		// 수량
  		SBUxMethod.set("srch-inp-bxQntt", "");
@@ -1681,7 +1568,7 @@
 			}
 			_columns.push(jgmtGrd);
 		}
-	    console.log("cntRt", cntRt);
+
 	    if (cntRt > 0) {	// 비율의 경우 비율합산 추가
 	    	_columns.push({
 	    		caption: ["비율합산"],
@@ -2023,7 +1910,7 @@
     			fn_setDataAfterImport,
     			fn_grdImpValueChanged
 			);
-     }
+	}
 
 	/**
 	 * @name fn_importRawMtrWrhs
@@ -2136,7 +2023,6 @@
 				stdGrdList.push(grd);
 			});
  	    	
-			console.log(stdGrdList);
 			
 			if (cntRt > 0) {
 				if (grdNvSum > 100) {
