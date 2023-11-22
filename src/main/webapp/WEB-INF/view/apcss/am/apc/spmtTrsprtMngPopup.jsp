@@ -135,7 +135,7 @@
 		var spmtTrsprtCoList = [];
 
 
-		for(var i=2; i<=spmtTrsprtCoAllData.length; i++ ){
+		for(var i=1; i<=spmtTrsprtCoAllData.length; i++ ){
 			const rowData = grdSpmtTrsprtCo.getRowData(i);
 			if(rowData.delYn != 'N')
 				continue;
