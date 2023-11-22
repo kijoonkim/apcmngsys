@@ -2050,6 +2050,7 @@
  	   			vrtyCd: rowData.vrtyCd,
  	   			prdcrCd: rowData.prdcrCd,
  	   			bxQntt: rowData.bxQntt,
+ 	   			wrhsQntt: rowData.bxQntt,
  	   			wrhsWght: rowData.wrhsWght,
  	   			pltno: rowData.pltno,
  	   			bxKnd: rowData.pltBxCd,
