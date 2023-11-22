@@ -269,7 +269,7 @@ let lv_prvMenuId = "";
 		fn_createGrdComAuthMenu();
 		fn_createGrdAuthrtUi();
 		
-		if(gv_userType == '00'){
+		if(gv_userType == '10'){
 			fn_initDisable();
 		}
 	}
@@ -572,10 +572,7 @@ let lv_prvMenuId = "";
 
 		let sysId = SBUxMethod.get("srch-slt-sysId");
 		let authrtNm = SBUxMethod.get("srch-inp-authrtNm");
-		let apcCd = "";
-		if(gv_userType == '00'){
-			apcCd = gv_apcCd;
-		}
+		let apcCd = gv_selectedApcCd;
 		
         const postJsonPromise = gfn_postJSON("/co/authrt/selectComAuthrtList.do",{
         		sysId: sysId,
