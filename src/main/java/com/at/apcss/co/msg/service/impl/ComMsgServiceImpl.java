@@ -25,7 +25,7 @@ import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
  * </pre>
  */
 @Service("comMsgService")
-public class ComMsgServiceImpl extends BaseServiceImpl implements ComMsgService{
+public class ComMsgServiceImpl implements ComMsgService{
 
 	@Autowired
 	private ComMsgMapper comMsgMapper;
