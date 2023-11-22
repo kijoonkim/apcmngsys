@@ -235,10 +235,7 @@
 					apcCd: apcCd,
 					vhclno: rowData.vhclno
 				}
-				const postJsonPromise = gfn_postJSON("/am/cmns/deleteWrhsVhclList.do", {
-					apcCd: apcCd,
-					vhclno: rowData.vhclno
-				}, this.prgrmId);
+				const postJsonPromise = gfn_postJSON("/am/cmns/deleteWrhsVhclList.do", wrhsVhclVO, this.prgrmId);
 
 				const data = await postJsonPromise;
 		        try {
