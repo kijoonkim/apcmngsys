@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.at.apcss.co.dashboard.mapper.MainDashboardMapper;
 import com.at.apcss.co.dashboard.vo.DashboardVO;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * 대시보드 데이터를 조회하는 Service
@@ -24,7 +25,7 @@ import com.at.apcss.co.dashboard.vo.DashboardVO;
  *  </pre>
  */
 @Service("DashboardService")
-public class DashboardServiceImpl implements DashboardService{
+public class DashboardServiceImpl extends BaseServiceImpl implements DashboardService{
 	@Autowired
 	private MainDashboardMapper mainDashboardMapper;
 

@@ -199,6 +199,10 @@
 	</section>
 </body>
 <script type="text/javascript">
+function fn_rowStyleCssMdRtlOgnz() {
+	grdMdRtlOgnz.setCellStyle('background-color',0,0,8,2,'#F5FBFF');
+	grdMdRtlOgnz.setRowStyles(9, 'background-color: #CEEBFF; font-weight: bold; color: #0060b3', 'all', true);
+}
 
 const fn_cellCreateMdRtlOgnzNowGrid = function() {
 	// 개소수 : 산지유통조직유형
@@ -296,10 +300,10 @@ const fn_createMdRtlOgnzGrid = function() {
     SBGridProperties.mergecells = 'bycolrec';
     SBGridProperties.allowcopy = true;
     SBGridProperties.columns = [
-    	{caption : ["산지유통조직유형"], ref: 'title', type: 'output',  width:'213px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
-    	{caption : ["산지유통조직유형"], ref: 'subTitle', type: 'output',  width:'213px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
-    	{caption : ["산지유통조직유형"], ref: 's0', type: 'output',  width:'213px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
-    	{caption : ["APC 개소수"], ref: 's1', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;; padding-right:5px;', format : {type:'number', rule:'#,###'}}
+    	{caption : ["산지유통조직유형"], ref: 'title', type: 'output',  width:'213px', style: 'text-align:center; padding-right:5px; '},
+    	{caption : ["산지유통조직유형"], ref: 'subTitle', type: 'output',  width:'213px', style: 'text-align:center; padding-right:5px;'},
+    	{caption : ["산지유통조직유형"], ref: 's0', type: 'output',  width:'213px', style: 'text-align:center; padding-right:5px;'},
+    	{caption : ["APC 개소수"], ref: 's1', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdMdRtlOgnz = _SBGrid.create(SBGridProperties);
 }
@@ -889,6 +893,7 @@ const fn_cellMdRtlOgnzNowGrid = async function() {
 	  	});
 	  	
 	  	mdRtlOgnzNowGridRebuild();
+	  	fn_rowStyleCssMdRtlOgnz();
 	  		
 	  }	catch (e) {
 	 		if (!(e instanceof Error)) {

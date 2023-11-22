@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper;
 import com.at.apcss.fm.fclt.service.FcltSortMchnInfoService;
 import com.at.apcss.fm.fclt.vo.FcltSortMchnInfoVO;
@@ -25,7 +26,7 @@ import com.at.apcss.fm.fclt.vo.FcltSortMchnInfoVO;
  * </pre>
  */
 @Service("fcltSortMchnInfoService")
-public class FcltSortMchnInfoServiceImpl implements FcltSortMchnInfoService{
+public class FcltSortMchnInfoServiceImpl extends BaseServiceImpl implements FcltSortMchnInfoService{
 
 	@Autowired
 	private FcltSortMchnInfoMapper fcltSortMchnInfoMapper;

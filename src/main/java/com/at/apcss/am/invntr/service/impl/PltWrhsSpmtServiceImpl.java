@@ -9,6 +9,7 @@ import com.at.apcss.am.cmns.vo.PltBxVO;
 import com.at.apcss.am.invntr.mapper.PltWrhsSpmtMapper;
 import com.at.apcss.am.invntr.service.PltWrhsSpmtService;
 import com.at.apcss.am.invntr.vo.PltWrhsSpmtVO;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : PltWrhsSpmtServiceImpl.java
@@ -26,7 +27,7 @@ import com.at.apcss.am.invntr.vo.PltWrhsSpmtVO;
  * </pre>
  */
 @Service("pltWrhsSpmtService")
-public class PltWrhsSpmtServiceImpl implements PltWrhsSpmtService {
+public class PltWrhsSpmtServiceImpl extends BaseServiceImpl implements PltWrhsSpmtService {
 
 	@Autowired
 	private PltWrhsSpmtMapper pltWrhsSpmtMapper;

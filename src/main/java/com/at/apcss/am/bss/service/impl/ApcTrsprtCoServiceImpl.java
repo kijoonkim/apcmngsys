@@ -3,6 +3,7 @@ package com.at.apcss.am.bss.service.impl;
 import org.springframework.stereotype.Service;
 
 import com.at.apcss.am.bss.service.ApcTrsprtCoService;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : ApcTrsprtCoService.java
@@ -20,6 +21,6 @@ import com.at.apcss.am.bss.service.ApcTrsprtCoService;
  * </pre>
  */
 @Service("apcTrsprtCoService")
-public class ApcTrsprtCoServiceImpl implements ApcTrsprtCoService {
+public class ApcTrsprtCoServiceImpl extends BaseServiceImpl implements ApcTrsprtCoService {
 
 }

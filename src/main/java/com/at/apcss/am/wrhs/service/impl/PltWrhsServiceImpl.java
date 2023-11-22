@@ -3,6 +3,7 @@ package com.at.apcss.am.wrhs.service.impl;
 import org.springframework.stereotype.Service;
 
 import com.at.apcss.am.wrhs.service.PltWrhsService;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : PltWrhsServiceImpl.java
@@ -20,6 +21,6 @@ import com.at.apcss.am.wrhs.service.PltWrhsService;
  * </pre>
  */
 @Service("pltWrhsService")
-public class PltWrhsServiceImpl implements PltWrhsService {
+public class PltWrhsServiceImpl extends BaseServiceImpl implements PltWrhsService {
 
 }

@@ -99,6 +99,7 @@
 		    	    };
 		        SBGridProperties.columns = [
 		        	{caption: ['선별번호'], 	ref: 'sortno',			width: '120px',		type: 'output',	style:'text-align: center'},
+		            {caption: ['선별순번'],	ref: 'sortSn', 			width: '70px', 	type: 'output',	style:'text-align: center'},
 		            {caption: ['변경일자'], 	ref: 'chgYmd', 			width: '120px', 	type: 'output',	style:'text-align: center',
 		        		format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 		            {caption: ['변경전수량'],	ref: 'chgBfrQntt', 		width: '120px', 	type: 'output',	style:'text-align: right',
@@ -138,9 +139,13 @@
 					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
 		            return;
 				}
+				let apcCd = "";
+				if(gv_userType == '10'){
+					apcCd = gv_apcCd;
+				}
 
 		        const postJsonPromise = gfn_postJSON("/co/log/selectSortHstryList.do", {
-		        		apcCd				: gv_selectedApcCd
+		        		apcCd				: apcCd
 					  , chgYmdFrom 			: chgYmdFrom
 					  , chgYmdTo 			: chgYmdTo
 					  , pagingYn 			: 'Y'

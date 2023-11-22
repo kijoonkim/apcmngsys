@@ -8,6 +8,7 @@ import com.at.apcss.am.bbs.mapper.apcBbsMapper;
 import com.at.apcss.am.bbs.service.apcBbsService;
 import com.at.apcss.am.bbs.vo.apcBbsCmntVO;
 import com.at.apcss.am.bbs.vo.apcBbsVO;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 
 /**
@@ -26,7 +27,7 @@ import com.at.apcss.am.bbs.vo.apcBbsVO;
  * </pre>
  */
 @Service("apcBbsService")
-public class apcBbsServiceImpl implements apcBbsService{
+public class apcBbsServiceImpl extends BaseServiceImpl implements apcBbsService{
 
 	@Autowired
 	private apcBbsMapper bbsMapper;

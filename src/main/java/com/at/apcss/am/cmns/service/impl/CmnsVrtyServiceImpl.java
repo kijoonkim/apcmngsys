@@ -13,6 +13,7 @@ import com.at.apcss.am.cmns.service.CmnsValidationService;
 import com.at.apcss.am.cmns.service.CmnsVrtyService;
 import com.at.apcss.am.cmns.vo.CmnsVrtyVO;
 import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : CmnsVrtyServiceImpl.java
@@ -30,7 +31,7 @@ import com.at.apcss.co.constants.ComConstants;
  * </pre>
  */
 @Service("cmnsVrtyService")
-public class CmnsVrtyServiceImpl implements CmnsVrtyService {
+public class CmnsVrtyServiceImpl extends BaseServiceImpl implements CmnsVrtyService {
 
 	@Autowired
 	private CmnsVrtyMapper cmnsVrtyMapper;

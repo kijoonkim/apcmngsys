@@ -3,6 +3,7 @@ package com.at.apcss.am.bss.service.impl;
 import org.springframework.stereotype.Service;
 
 import com.at.apcss.am.bss.service.ApcRawMtrGrdService;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : ApcRawMtrGrdServiceImpl.java
@@ -20,6 +21,6 @@ import com.at.apcss.am.bss.service.ApcRawMtrGrdService;
  * </pre>
  */
 @Service("apcRawMtrGrdService")
-public class ApcRawMtrGrdServiceImpl implements ApcRawMtrGrdService {
+public class ApcRawMtrGrdServiceImpl extends BaseServiceImpl implements ApcRawMtrGrdService {
 
 }

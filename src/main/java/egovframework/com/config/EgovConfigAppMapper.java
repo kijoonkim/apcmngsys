@@ -42,7 +42,7 @@ import org.springframework.jdbc.support.lob.DefaultLobHandler;
 	@PropertySource("classpath:/application.properties")
 })
 @MapperScan(basePackages = {"com.at.apcss"},
-	annotationClass = org.apache.ibatis.annotations.Mapper.class)
+	annotationClass = org.egovframe.rte.psl.dataaccess.mapper.Mapper.class)
 public class EgovConfigAppMapper {
 	@Autowired
 	DataSource dataSource;

@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.fm.mngmst.mapper.MngmstBscInfoMapper;
 import com.at.apcss.fm.mngmst.service.MngmstBscInfoService;
 import com.at.apcss.fm.mngmst.vo.MngmstBscInfoVO;
@@ -25,7 +26,7 @@ import com.at.apcss.fm.mngmst.vo.MngmstBscInfoVO;
  * </pre>
  */
 @Service("mngmstBscInfoService")
-public class MngmstBscInfoServiceImpl implements MngmstBscInfoService{
+public class MngmstBscInfoServiceImpl extends BaseServiceImpl implements MngmstBscInfoService{
 
 	@Autowired
 	private MngmstBscInfoMapper mngmstBscInfoMapper;

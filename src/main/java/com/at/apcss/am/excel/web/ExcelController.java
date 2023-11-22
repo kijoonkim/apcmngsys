@@ -832,12 +832,15 @@ public class ExcelController extends BaseConstructor{
 		} catch (ParseException e) {
 			//e.printStackTrace();
 			logger.error(e.getMessage());
+			System.out.println(e.getMessage());
 		} catch (UnsupportedEncodingException e) {
 			//e.printStackTrace();
 			logger.error(e.getMessage());
+			System.out.println(e.getMessage());
 		} catch (IOException e){
 			//e.printStackTrace();
 			logger.error(e.getMessage());
+			System.out.println(e.getMessage());
 		}
 	};
 

@@ -9,9 +9,10 @@ import com.at.apcss.co.menu.mapper.ComMenuMapper;
 import com.at.apcss.co.menu.service.ComMenuService;
 import com.at.apcss.co.menu.vo.ComMenuVO;
 import com.at.apcss.co.menu.vo.ComUiVO;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 @Service("comMenuService")
-public class ComMenuServiceImpl implements ComMenuService {
+public class ComMenuServiceImpl extends BaseServiceImpl implements ComMenuService {
 
 	@Autowired
 	private ComMenuMapper comMenuMapper;

@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.fm.fclt.mapper.FcltOperInfoClctAgreInfoMapper;
 import com.at.apcss.fm.fclt.service.FcltOperInfoClctAgreInfoService;
 import com.at.apcss.fm.fclt.vo.FcltOperInfoClctAgreInfoVO;
@@ -25,7 +26,7 @@ import com.at.apcss.fm.fclt.vo.FcltOperInfoClctAgreInfoVO;
  * </pre>
  */
 @Service("fcltOperInfoClctAgreInfoService")
-public class FcltOperInfoClctAgreInfoServiceImpl implements FcltOperInfoClctAgreInfoService{
+public class FcltOperInfoClctAgreInfoServiceImpl extends BaseServiceImpl implements FcltOperInfoClctAgreInfoService{
 
 	@Autowired
 	private FcltOperInfoClctAgreInfoMapper fcltOperInfoClctAgreInfoMapper;

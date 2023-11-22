@@ -14,6 +14,7 @@ import com.at.apcss.am.cmns.mapper.DdlnMapper;
 import com.at.apcss.am.cmns.service.DdlnService;
 import com.at.apcss.am.cmns.vo.DdlnVO;
 import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : WrhsVhclServiceImpl.java
@@ -31,7 +32,7 @@ import com.at.apcss.co.constants.ComConstants;
  * </pre>
  */
 @Service("DdlnService")
-public class DdlnServiceImpl implements DdlnService {
+public class DdlnServiceImpl extends BaseServiceImpl implements DdlnService {
 	
 	@Autowired
 	private DdlnMapper DdlnMapper;

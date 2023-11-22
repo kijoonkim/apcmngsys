@@ -3,6 +3,7 @@ package com.at.apcss.am.bss.service.impl;
 import org.springframework.stereotype.Service;
 
 import com.at.apcss.am.bss.service.ApcWrhsVhclService;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : ApcWrhsVhclServiceImpl.java
@@ -20,6 +21,6 @@ import com.at.apcss.am.bss.service.ApcWrhsVhclService;
  * </pre>
  */
 @Service("apcWrhsVhclService")
-public class ApcWrhsVhclServiceImpl implements ApcWrhsVhclService {
+public class ApcWrhsVhclServiceImpl extends BaseServiceImpl implements ApcWrhsVhclService {
 
 }

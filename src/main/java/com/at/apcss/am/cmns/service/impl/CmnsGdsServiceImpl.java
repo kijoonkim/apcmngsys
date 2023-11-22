@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 import com.at.apcss.am.cmns.mapper.CmnsGdsMapper;
 import com.at.apcss.am.cmns.service.CmnsGdsService;
 import com.at.apcss.am.cmns.vo.CmnsGdsVO;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.co.sys.util.ComUtil;
 
 /**
@@ -28,7 +29,7 @@ import com.at.apcss.co.sys.util.ComUtil;
  * </pre>
  */
 @Service("cmnsGdsService")
-public class CmnsGdsServiceImpl implements CmnsGdsService {
+public class CmnsGdsServiceImpl extends BaseServiceImpl implements CmnsGdsService {
 
 	@Autowired
 	private CmnsGdsMapper cmnsGdsMapper;

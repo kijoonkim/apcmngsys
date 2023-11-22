@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.fm.popup.mapper.InvstmntSpmtPopupMapper;
 import com.at.apcss.fm.popup.service.InvstmntSpmtPopupService;
 import com.at.apcss.fm.popup.vo.InvstmntSpmtPopupVO;
@@ -25,7 +26,7 @@ import com.at.apcss.fm.popup.vo.InvstmntSpmtPopupVO;
  * </pre>
  */
 @Service("InvstmntSpmtPopupService")
-public class InvstmntSpmtPopupServiceImpl implements InvstmntSpmtPopupService{
+public class InvstmntSpmtPopupServiceImpl extends BaseServiceImpl implements InvstmntSpmtPopupService{
 
 	@Autowired
 	private InvstmntSpmtPopupMapper invstmntSpmtPopupMapper;

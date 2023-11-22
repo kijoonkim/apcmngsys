@@ -11,6 +11,7 @@ import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.wrhs.mapper.RawMtrWrhsPlanMapper;
 import com.at.apcss.am.wrhs.service.RawMtrWrhsPlanService;
 import com.at.apcss.am.wrhs.vo.RawMtrWrhsPlanVO;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 /**
  * @Class Name : RawMtrWrhsPlanServiceImpl.java
  * @Description : 원물입고계획등록 서비스를 정의하기 위한 서비스 구현 클래스
@@ -27,7 +28,7 @@ import com.at.apcss.am.wrhs.vo.RawMtrWrhsPlanVO;
  * </pre>
  */
 @Service("rawMtrWrhsPlanService")
-public class RawMtrWrhsPlanServiceImpl implements RawMtrWrhsPlanService{
+public class RawMtrWrhsPlanServiceImpl extends BaseServiceImpl implements RawMtrWrhsPlanService{
 
 	@Autowired
 	private RawMtrWrhsPlanMapper rawMtrWrhsPlanMapper;

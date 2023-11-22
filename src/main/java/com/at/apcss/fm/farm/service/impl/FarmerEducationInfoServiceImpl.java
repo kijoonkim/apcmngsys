@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.fm.bbs.mapper.BbsMapper;
 import com.at.apcss.fm.bbs.service.BbsService;
 import com.at.apcss.fm.bbs.vo.BbsVO;
@@ -32,7 +33,7 @@ import com.at.apcss.fm.farm.vo.FarmerEducationInfoVO;
  * </pre>
  */
 @Service("farmerEducationInfoService")
-public class FarmerEducationInfoServiceImpl implements FarmerEducationInfoService{
+public class FarmerEducationInfoServiceImpl extends BaseServiceImpl implements FarmerEducationInfoService{
 
 	@Autowired
 	private FarmerEducationInfoMapper farmerEducationInfoMapper;

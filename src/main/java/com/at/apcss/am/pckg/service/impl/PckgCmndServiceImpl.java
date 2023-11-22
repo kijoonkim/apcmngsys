@@ -11,6 +11,7 @@ import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.pckg.mapper.PckgCmndMapper;
 import com.at.apcss.am.pckg.service.PckgCmndService;
 import com.at.apcss.am.pckg.vo.PckgCmndVO;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : PckgCmndServiceImpl.java
@@ -28,7 +29,7 @@ import com.at.apcss.am.pckg.vo.PckgCmndVO;
  * </pre>
  */
 @Service("pckgCmndService")
-public class PckgCmndServiceImpl implements PckgCmndService {
+public class PckgCmndServiceImpl extends BaseServiceImpl implements PckgCmndService {
 
 	@Autowired
 	private PckgCmndMapper pckgCmndMapper;

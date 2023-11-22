@@ -13,6 +13,7 @@ import com.at.apcss.am.cmns.service.WrhsVhclService;
 import com.at.apcss.am.cmns.vo.RawMtrTrsprtCstVO;
 import com.at.apcss.am.cmns.vo.WrhsVhclVO;
 import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : RawMtrTrsprtCstServiceImpl.java
@@ -30,7 +31,7 @@ import com.at.apcss.co.constants.ComConstants;
  * </pre>
  */
 @Service("rawMtrTrsprtCstService")
-public class RawMtrTrsprtCstServiceImpl implements RawMtrTrsprtCstService {
+public class RawMtrTrsprtCstServiceImpl extends BaseServiceImpl implements RawMtrTrsprtCstService {
 
 	@Autowired
 	private RawMtrTrsprtCstMapper rawMtrTrsprtCstMapper;

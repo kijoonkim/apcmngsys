@@ -6,12 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper;
 import com.at.apcss.fm.fclt.service.FcltMdRtlService;
 import com.at.apcss.fm.fclt.vo.FcltMdRtlVO;
 
 @Service("fcltMdRtlService")
-public class FcltMdRtlServiceImpl implements FcltMdRtlService {
+public class FcltMdRtlServiceImpl extends BaseServiceImpl implements FcltMdRtlService {
 	@Autowired
 	private FcltMdRtlMapper fcltMdRtlMapper;
 

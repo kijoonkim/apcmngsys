@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.at.apcss.am.oprtr.mapper.OprtrMapper;
 import com.at.apcss.am.oprtr.service.OprtrService;
 import com.at.apcss.am.oprtr.vo.OprtrVO;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 /**
  * @Class Name : OprtrServiceImpl.java
  * @Description : 작업생산자 서비스를 정의하기 위한 서비스 구현 클래스
@@ -24,7 +25,7 @@ import com.at.apcss.am.oprtr.vo.OprtrVO;
  * </pre>
  */
 @Service("oprtrService")
-public class OprtrServiceImpl implements OprtrService {
+public class OprtrServiceImpl extends BaseServiceImpl implements OprtrService {
 
 	@Autowired
 	private OprtrMapper oprtrMapper;

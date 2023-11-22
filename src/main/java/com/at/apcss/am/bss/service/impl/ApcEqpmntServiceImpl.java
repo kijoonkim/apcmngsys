@@ -3,6 +3,7 @@ package com.at.apcss.am.bss.service.impl;
 import org.springframework.stereotype.Service;
 
 import com.at.apcss.am.bss.service.ApcEqpmntService;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : ApcEqpmntServiceImpl.java
@@ -20,6 +21,6 @@ import com.at.apcss.am.bss.service.ApcEqpmntService;
  * </pre>
  */
 @Service("apcEqpmntService")
-public class ApcEqpmntServiceImpl implements ApcEqpmntService {
+public class ApcEqpmntServiceImpl extends BaseServiceImpl implements ApcEqpmntService {
 
 }
