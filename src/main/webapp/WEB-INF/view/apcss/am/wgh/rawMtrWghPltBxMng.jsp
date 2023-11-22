@@ -479,7 +479,7 @@
     	const postJsonPromise = gfn_postJSON("/am/cmns/selectPltWrhsSpmtList.do", {
 			apcCd: gv_selectedApcCd,
 			jobYmd: cmndYmd,
-			
+			delYn: 'N',
           	// pagination
   	  		pagingYn : 'N',
   			currentPageNo : pageNo,
@@ -509,7 +509,8 @@
           				qntt: item.qntt,
           				rmrk: item.rmrk,
           				delYn: item.delYn,
-          				pltCnptNm: item.pltCnptNm
+          				pltCnptNm: item.pltCnptNm,
+          				sn: item.sn
 				}
       			jsonPltWrhsSpmt.push(pckgCmnd);
 	
@@ -644,7 +645,7 @@
 
     	let regMsg = "삭제 하시겠습니까?";
 		if(confirm(regMsg)){
-			const postJsonPromise = gfn_postJSON("/am/cmns/deletePltWrhsSpmtList.do", deleteList);
+			const postJsonPromise = gfn_postJSON("/am/cmns/updateDelYnPltWrhsSpmt.do", deleteList);
 	    	const data = await postJsonPromise;
 
 	    	try{
@@ -652,6 +653,7 @@
 	       			fn_search();
 	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
 	       		}else{
+	       			console.log('deleteList', deleteList);
 	       			gfn_comAlert("E0001");					// E0001 오류가 발생하였습니다.
 	       		}
 	        }catch (e) {

@@ -61,8 +61,11 @@
 			         FROM TB_PLT_BX_INFO PBI
 			         WHERE 1=1
          ]]>
+		         <if test='delYn != null and delYn != ""'>
+				    	AND PBI.DEL_YN 					= #{delYn}
+				</if>
 		         <if test='apcCd != null and apcCd != ""'>
-				    	AND APC_CD 					= #{apcCd}
+				    	AND PBI.APC_CD 					= #{apcCd}
 				</if>
 		<![CDATA[
       			) pt0
@@ -176,8 +179,11 @@
 			                   AND X.PLT_BX_CD = PWS.PLT_BX_CD
 			              ) AS PLT_CNPT_CD
 			          FROM TB_PLT_WRHS_SPMT PWS
-			         WHERE PWS.DEL_YN = 'N'
+			         WHERE 1=1
 		]]>
+        <if test='delYn != null and delYn != ""'>
+				    	AND PWS.DEL_YN 					= #{delYn}
+		</if>
         <if test='apcCd != null and apcCd != ""'>
 				    	AND PWS.APC_CD 					= #{apcCd}
 		</if>
@@ -188,25 +194,22 @@
     
     
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.PltWrhsMapper.deletePltWrhsSpmt			-->
-	<!-- DESC : 팔레트/박스 입출 목록 삭제.	                         	            -->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.PltWrhsMapper.updatePltWrhsSpmt			-->
+	<!-- DESC : 팔레트/박스 입출 목록 삭제. (DEL_YN => Y)               	            -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.08.16  	하민우        	Initial Creation                            -->
+	<!-- 2023.11.22  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<delete id="deletePltWrhsSpmt" parameterType="com.at.apcss.am.invntr.vo.PltWrhsSpmtVO">
+	<update id="updateDelYnPltWrhsSpmt" parameterType="com.at.apcss.am.invntr.vo.PltWrhsSpmtVO">
 		<![CDATA[
-		DELETE FROM TB_PLT_WRHS_SPMT
-		 WHERE APC_CD 						= #{apcCd}
-		   AND JOB_YMD 						= #{jobYmd}
-		   AND WRHS_SPMT_SE_CD 				= #{wrhsSpmtSeCd}
-		   AND PLT_BX_SE_CD 				= #{pltBxSeCd}
-		   AND PLT_BX_CD 					= #{pltBxCd}
-		   AND SEQ_NO 						= #{seqNo}
+			update 
+				TB_PLT_WRHS_SPMT 
+			SET 
+				DEL_YN = 'Y'
+			WHERE APC_CD = #{apcCd}
+				AND JOB_YMD = #{jobYmd}
+				AND SN = #{sn}
 		]]>
-		<if test='prdcrCd != null and prdcrCd != ""'>
-		   AND PRDCR_CD 					= #{prdcrCd}
-		</if>
-	</delete>
+	</update>
 </mapper>

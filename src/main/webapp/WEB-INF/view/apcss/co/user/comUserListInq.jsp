@@ -66,7 +66,12 @@
 										<td class="td_input" style="border-right: hidden;">
 											<sbux-input id="srch-inp-userNm" name="srch-inp-userNm" uitype="text" class="form-control input-sm" placeholder=""  maxlength="30"></sbux-input>
 										</td>
-										<td colspan="6"></td>
+										<td colspan="2" style="border-right: hidden;"></td>
+										<th scope="row">사용자 유형</th>
+										<td class="td_input" style="border-right: hidden;">
+											<sbux-select id="srch-slt-userType" name="srch-slt-userType" uitype="single" class="form-control input-sm" unselected-text="전체" jsondata-ref="jsonUserType" onchange="cfn_onChangeUserType(this)">
+										</td>
+										<td colspan="2" class="td_input"></td>
 									</tr>
 								</tbody>
 							</table>
@@ -84,8 +89,15 @@
 			</section>
 				
 <script type="text/javascript">
-				
+var jsonUserType=[];		// 사용자상태
+const fn_initSBSelectSpcfct = async function() {
+	let rst = await Promise.all([
+		gfn_setComCdSBSelect('srch-slt-userType', 			jsonUserType, 			'USER_TYPE','0000')	// 사용자상태
+	])
+}
+
 window.addEventListener('DOMContentLoaded', function(e) {
+	fn_initSBSelectSpcfct();
 	fn_createUserListInqGrid();
 	fn_search();
 })
@@ -145,11 +157,13 @@ async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
 	let apcCd = SBUxMethod.get("gsb-slt-apcCd");
 	let userId = SBUxMethod.get("srch-inp-userId");
 	let userNm = SBUxMethod.get("srch-inp-userNm");
+	let userType = SBUxMethod.get("srch-slt-userType");
 	
 	var comUserVO = { 
 			  apcCd					: apcCd
 			, userId				: userId
 			, userNm				: userNm
+			, userType				: userType
 			, pagingYn 				: 'Y'
 			, currentPageNo 		: currentPageNo
 			, recordCountPerPage 	: recordCountPerPage

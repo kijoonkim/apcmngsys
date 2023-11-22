@@ -101,15 +101,15 @@ public class PltWrhsSpmtController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	@PostMapping(value = "/am/cmns/deletePltWrhsSpmtList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> deletePltWrhsSpmtList(@RequestBody List<PltWrhsSpmtVO> deleteList, HttpServletRequest request) throws Exception {
+	@PostMapping(value = "/am/cmns/updateDelYnPltWrhsSpmt.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> updateDelYnPltWrhsSpmt(@RequestBody List<PltWrhsSpmtVO> deleteList, HttpServletRequest request) throws Exception {
 		logger.debug("deletePltWrhsSpmtList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int deletedCnt = 0;
 		try {
 			for (PltWrhsSpmtVO pltWrhsSpmtVO : deleteList)
-				deletedCnt += pltWrhsSpmtService.deletePltWrhsSpmt(pltWrhsSpmtVO);
+				deletedCnt += pltWrhsSpmtService.updateDelYnPltWrhsSpmt(pltWrhsSpmtVO);
 		} catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
