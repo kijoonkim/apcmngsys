@@ -2,10 +2,9 @@ package com.at.apcss.am.vrty.mapper;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Mapper;
+import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.at.apcss.am.vrty.vo.VrtyVO;
-import com.at.apcss.co.cd.vo.ComCdVO;
 /**
  * 품종팝업 Mapper
  * @author FINEVT 개발팀 김호

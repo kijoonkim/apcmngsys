@@ -1,13 +1,7 @@
 package egovframework.com.config;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Properties;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.context.MessageSourceProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -19,11 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
-import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.msg.mapper.ComMessageSource;
-import com.at.apcss.co.msg.service.ComMsgService;
-import com.at.apcss.co.msg.vo.ComMsgVO;
-
 //import ch.qos.logback.classic.Logger;
 import egovframework.com.cmm.EgovComTraceHandler;
 import egovframework.com.cmm.EgovMessageSource;
@@ -38,7 +28,6 @@ import org.egovframe.rte.fdl.cryptography.EgovPasswordEncoder;
 import org.egovframe.rte.fdl.cryptography.impl.EgovARIACryptoServiceImpl;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.DefaultPaginationManager;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationRenderer;
-import org.mybatis.spring.annotation.MapperScan;
 
 /**
  * @ClassName : EgovConfigAppCommon.java
