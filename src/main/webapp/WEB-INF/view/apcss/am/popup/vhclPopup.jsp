@@ -249,6 +249,10 @@
 		        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		        	}
 		        } catch(e) {
+		        	if (!(e instanceof Error)) {
+		    			e = new Error(e);
+		    		}
+		    		console.error("failed", e.message);
 		        }
         	} else {
         		grdVhclPop.deleteRow(nRow);
@@ -307,6 +311,10 @@
 	        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        	}
 	        } catch(e) {
+	        	if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
 	        }
 		},
 		search: async function() {
