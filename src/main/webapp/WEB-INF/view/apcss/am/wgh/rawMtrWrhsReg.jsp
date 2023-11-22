@@ -447,17 +447,6 @@
     	<jsp:include page="../../am/popup/importExcelPopup.jsp"></jsp:include>
     </div>
 
-<!-- 
-    <div>
-        <sbux-modal id="modal-excel" name="modal-excel" uitype="middle" header-title="원물입고등록" body-html-id="body-modal-excel" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
-    </div>
-    <div id="body-modal-excel">
-    	<jsp:include page="../../am/popup/rawMtrWrhsPrfmncPopup.jsp"></jsp:include>
-    </div>
-    <sbux-button id="btnRawMtrWrhsfmncPopup" name="btnRawMtrWrhsfmncPopup" uitype="modal" text="엑셀등록" style="width:100%; display:none" class="btn btn-sm btn-outline-dark" target-id="modal-excel" onclick="fn_modal('btnSpmtSlsUntprcReg')"></sbux-button>
- -->
-	<!-- importExcelPopup -->
-	
 	<!-- clip report direct print area  -->
 	<div id="div-rpt-clipReportPrint" style="display:none;"></div>
 </body>
