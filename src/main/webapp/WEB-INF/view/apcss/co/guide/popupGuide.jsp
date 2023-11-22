@@ -315,7 +315,7 @@
     <div id="body-modal-gds">
     	<jsp:include page="/WEB-INF/view/apcss/am/popup/gdsPopup.jsp"></jsp:include>
     </div>
-    
+
      <!-- 생산작업자 선택 Modal -->
     <div>
         <sbux-modal id="modal-oprtr" name="modal-oprtr" uitype="middle" header-title="생산작업자 선택" body-html-id="body-modal-oprtr" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
@@ -323,7 +323,7 @@
     <div id="body-modal-oprtr">
     	<jsp:include page="../../am/popup/oprtrPopup.jsp"></jsp:include>
     </div>
-    
+
     <!-- 포장지시번호 선택 Modal -->
     <div>
         <sbux-modal id="modal-pckgCmndno" name="modal-pckgCmndno" uitype="middle" header-title="포장지시번호 선택" body-html-id="body-modal-pckgCmndno" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
@@ -331,7 +331,7 @@
     <div id="body-modal-pckgCmndno">
     	<jsp:include page="../../am/popup/pckgCmndPopup.jsp"></jsp:include>
     </div>
-    
+
     <!-- 선별재고 선택 Modal -->
     <div>
         <sbux-modal id="modal-sortInvntr" name="modal-sortInvntr" uitype="middle" header-title="선별재고 선택" body-html-id="body-modal-sortInvntr" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
@@ -339,7 +339,7 @@
     <div id="body-modal-sortInvntr">
     	<jsp:include page="../../am/popup/sortInvntrPopup.jsp"></jsp:include>
     </div>
-    
+
     <!-- 선별지시번호 선택 Modal -->
     <div>
         <sbux-modal id="modal-sortCmndno" name="modal-sortCmndno" uitype="middle" header-title="선별지시번호 선택" body-html-id="body-modal-sortCmndno" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
@@ -347,7 +347,7 @@
     <div id="body-modal-sortCmndno">
     	<jsp:include page="../../am/popup/sortCmndnoPopup.jsp"></jsp:include>
     </div>
-    
+
     <!-- 원물재고 선택 Modal -->
     <div>
         <sbux-modal id="modal-rawMtrInvntr" name="modal-rawMtrInvntr" uitype="middle" header-title="원물재고 선택" body-html-id="body-modal-rawMtrInvntr" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
@@ -355,7 +355,7 @@
     <div id="body-modal-rawMtrInvntr">
     	<jsp:include page="../../am/popup/rawMtrInvntrPopup.jsp"></jsp:include>
     </div>
-    
+
     <!-- 상품재고 선택 Modal -->
     <div>
         <sbux-modal id="modal-gdsInvntr" name="modal-gdsInvntr" uitype="middle" header-title="상품재고 선택" body-html-id="body-modal-gdsInvntr" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
@@ -370,7 +370,7 @@
 		SBUxMethod.set("srch-dtp-trsprtYmd", gfn_dateToYmd(new Date()));
 		fn_initSBSelect();
 	})
-	
+
 	 const fn_initSBSelect = async function() {
 		// 검색 SB select
 	 	await gfn_setApcItemSBSelect('srch-slt-itemCd', jsonComItem, gv_selectedApcCd);		// 품목
@@ -406,7 +406,7 @@
 	 * @description 생산자 팝업 호출
 	 */
 	const fn_choicePrdcr = function() {
-		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr);
+		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr, SBUxMethod.get("srch-inp-prdcrNm"));
 	}
 
 	/**
@@ -544,7 +544,7 @@
 	/* Start */
 	var jsonComItem	= [];
 	/* End */
-	
+
 	/* 품종선택팝업 호출 필수 function  */
 	/* Start */
 	/**
@@ -556,7 +556,7 @@
 		SBUxMethod.set("srch-inp-vrtyNm", "");
 		SBUxMethod.set("srch-inp-vrtyCd", "");
 	}
-	
+
 	/**
 	 * @name fn_modalVrty
 	 * @description 품종선택팝업 호출
@@ -603,9 +603,9 @@
 			SBUxMethod.set('srch-inp-vrtyNm', _vrtyNm.join(','));
 		}
 	}
-    
+
  	/**
-	 * @name 
+	 * @name
 	 * @description 품종 input 삭제 버튼 이벤트
 	 */
 	 $(function(){
@@ -649,7 +649,7 @@
 // 		 let searchData = {
 // 			regSpmtList	: regSpmtList
 // 		}
-		
+
     	popSpmtCmnd.init(gv_selectedApcCd, gv_selectedApcNm, null, fn_setSpmtCmnd);
 	}
 
@@ -706,7 +706,7 @@
 		}
 	}
 	/* End */
-	
+
 	/* 포장지시번호 선택 호출 필수 function  */
 	/* Start */
 	/**
@@ -727,7 +727,7 @@
 		}
 	}
 	/* End */
-	
+
 	/* 선별재고 선택 호출 필수 function  */
 	/* Start */
 	/**
@@ -748,7 +748,7 @@
 		}
 	}
 	/* End */
-	
+
 	/* 선별지시번호 선택 호출 필수 function  */
 	/* Start */
 	/**
@@ -769,7 +769,7 @@
 		}
 	}
 	/* End */
-	
+
 	/* 원물재고 선택 호출 필수 function  */
 	/* Start */
 	/**
@@ -790,7 +790,7 @@
 		}
 	}
 	/* End */
-	
+
 	/* 상품재고 선택 호출 필수 function  */
 	/* Start */
 	/**
@@ -805,7 +805,7 @@
 // 			gdsGrd		: SBUxMethod.get('srch-inp-gdsGrd'),
 // 			spmtGdsList	: spmtGdsList
 // 		}
-		
+
 		popGdsInvntr.init(gv_selectedApcCd, gv_selectedApcNm, null, fn_setGdsInvntr);
 	}
 

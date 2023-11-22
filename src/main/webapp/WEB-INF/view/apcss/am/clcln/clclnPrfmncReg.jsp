@@ -183,7 +183,7 @@
 									placeholder="초성검색 가능"
 									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
-    								onkeyup="fn_onKeyUpPrdcrNm(srch-inp-prdcrNm)"
+    								oninput="fn_onInputPrdcrNm(event)"
     								autocomplete-select-callback="fn_onSelectPrdcrNm"
 								></sbux-input>
 							</td>
@@ -414,15 +414,15 @@
 					rowData.checkedYn = "Y";
 					grdClclnPrfmnc.refresh();
 					break;
-				
-				case "checkedYn":					
+
+				case "checkedYn":
 					if (rowData.checkedYn === "Y"
 							&& rowData.cfmtnYn === "N"
 							&& rowData.cfmtnAmt === 0) {
 						rowData.cfmtnAmt = rowData.rkngAmt;
 						grdClclnPrfmnc.refresh();
 					}
-					
+
 				default:
 					return;
 			}
@@ -461,14 +461,14 @@
      * @description 삭제 버튼
      */
  	const fn_delete = async function() {
- 		
+
  		const allData = grdClclnPrfmnc.getGridDataAll();
 
 		const clclnPrfmncList = [];
-		
+
 		allData.forEach((item, index) => {
 			if (item.checkedYn === "Y") {
-				
+
 				clclnPrfmncList.push({
 					apcCd: item.apcCd,
 					clclnYmd: item.clclnYmd,
@@ -507,14 +507,14 @@
      * @description 저장 버튼
      */
     const fn_save = async function() {
-    	
+
 		const allData = grdClclnPrfmnc.getGridDataAll();
 
 		const clclnPrfmncList = [];
-		
+
 		allData.forEach((item, index) => {
 			if (item.checkedYn === "Y") {
-				
+
 				clclnPrfmncList.push({
 					apcCd: item.apcCd,
 					clclnYmd: item.clclnYmd,
@@ -648,11 +648,11 @@
      * @function
 	 */
 	const fn_insertClclnData = async function() {
-		
+
 		let clclnYmd = SBUxMethod.get("srch-dtp-clclnYmd");
 		let clclnCrtrCd = SBUxMethod.get("srch-slt-clclnCrtrCd")
-		
-		
+
+
 		if(gfn_isEmpty(clclnYmd)){
 			gfn_comAlert("W0002", "정산일자");		//	W0002	{0}을/를 입력하세요.
             return;
@@ -726,11 +726,11 @@
 	const fn_onChangeSrchVrtyCd = async function(obj) {
 
 		let vrtyCd = obj.value;
-		
+
 		if (gfn_isEmpty(vrtyCd)) {
 			return;
 		}
-		
+
 		const vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd});
 		const itemCd = vrtyInfo.mastervalue;
 
@@ -743,12 +743,25 @@
 	}
 
 	/**
-	 * @name fn_onKeyUpPrdcrNm
+	 * @name getByteLengthOfString
+	 * @description 글자 byte 크기 계산
+	 */
+ 	const getByteLengthOfString = function (s, b, i, c) {
+		  for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
+		  return b;
+	}
+
+	/**
+	 * @name fn_onInputPrdcrNm
 	 * @description 생산자명 입력 시 event : autocomplete
 	 */
-	const fn_onKeyUpPrdcrNm = function(prdcrNm){
+	const fn_onInputPrdcrNm = function(prdcrNm){
 		fn_clearPrdcr();
-		jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm, jsonPrdcr);
+		if(getByteLengthOfString(prdcrNm.target.value) > 100){
+			SBUxMethod.set("srch-inp-prdcrNm", "");
+			return;
+		}
+		jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm.target.value, jsonPrdcr);
     	SBUxMethod.changeAutocompleteData('srch-inp-prdcrNm', true);
     }
 
@@ -790,6 +803,27 @@
 					fn_onChangeSrchItemCd({value:prdcr.rprsItemCd});
 				}
 			}
+		}
+	}
+
+	/**
+	 * @name fn_choicePrdcr
+	 * @description 생산자 선택 popup
+	 */
+	const fn_choicePrdcr = function() {
+		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr, SBUxMethod.get("srch-inp-prdcrNm"));
+	}
+	/**
+	 * @name fn_setPrdcr
+	 * @description 생산자 선택 popup callback
+	 */
+	const fn_setPrdcr = function(prdcr) {
+		if (!gfn_isEmpty(prdcr)) {
+			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
+			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
+			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+
+			fn_setPrdcrForm(prdcr);
 		}
 	}
 
