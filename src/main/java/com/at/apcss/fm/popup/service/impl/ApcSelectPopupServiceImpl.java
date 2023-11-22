@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.fm.popup.mapper.ApcSelectPopupMapper;
 import com.at.apcss.fm.popup.service.ApcSelectPopupService;
 import com.at.apcss.fm.popup.vo.ApcSelectPopupVO;
@@ -25,7 +26,7 @@ import com.at.apcss.fm.popup.vo.ApcSelectPopupVO;
  * </pre>
  */
 @Service("ApcSelectPopupService")
-public class ApcSelectPopupServiceImpl implements ApcSelectPopupService{
+public class ApcSelectPopupServiceImpl extends BaseServiceImpl implements ApcSelectPopupService{
 
 	@Autowired
 	private ApcSelectPopupMapper apcSelectPopupMapper;

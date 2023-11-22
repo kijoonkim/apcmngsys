@@ -11,6 +11,7 @@ import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.sort.mapper.SortCmndMapper;
 import com.at.apcss.am.sort.service.SortCmndService;
 import com.at.apcss.am.sort.vo.SortCmndVO;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : SortCmndServiceImpl.java
@@ -28,7 +29,7 @@ import com.at.apcss.am.sort.vo.SortCmndVO;
  * </pre>
  */
 @Service("sortCmndService")
-public class SortCmndServiceImpl implements SortCmndService {
+public class SortCmndServiceImpl extends BaseServiceImpl implements SortCmndService {
 
 	@Autowired
 	private SortCmndMapper sortCmndMapper;

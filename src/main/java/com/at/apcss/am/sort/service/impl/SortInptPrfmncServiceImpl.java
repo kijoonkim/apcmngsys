@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.at.apcss.am.sort.mapper.SortInptPrfmncMapper;
 import com.at.apcss.am.sort.service.SortInptPrfmncService;
 import com.at.apcss.am.sort.vo.SortInptPrfmncVO;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : SortInptPrfmncServiceImpl.java
@@ -26,7 +27,7 @@ import com.at.apcss.am.sort.vo.SortInptPrfmncVO;
  * </pre>
  */
 @Service("sortInptPrfmncService")
-public class SortInptPrfmncServiceImpl implements SortInptPrfmncService {
+public class SortInptPrfmncServiceImpl extends BaseServiceImpl implements SortInptPrfmncService {
 
 	@Autowired
 	private SortInptPrfmncMapper sortInptPrfmncMapper;

@@ -15,6 +15,7 @@ import com.at.apcss.am.ordr.mapper.OrdrMapper;
 import com.at.apcss.am.ordr.service.OrdrService;
 import com.at.apcss.am.ordr.vo.OrdrVO;
 import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : OrdrServiceImpl.java
@@ -32,7 +33,7 @@ import com.at.apcss.co.constants.ComConstants;
  * </pre>
  */
 @Service("ordrService")
-public class OrdrServiceImpl implements OrdrService {
+public class OrdrServiceImpl extends BaseServiceImpl implements OrdrService {
 
 	@Autowired
 	private OrdrMapper ordrMapper;

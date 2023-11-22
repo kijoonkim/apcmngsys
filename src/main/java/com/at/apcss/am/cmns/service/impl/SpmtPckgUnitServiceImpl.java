@@ -18,6 +18,7 @@ import com.at.apcss.am.cmns.vo.CmnsGdsVO;
 import com.at.apcss.am.cmns.vo.SpmtPckgUnitVO;
 import com.at.apcss.am.cmns.vo.SpmtSlsUntprcRegVO;
 import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 /**
  * @Class Name : SpmtPckgUnitServiceImpl.java
  * @Description : 출하포장단위 서비스를 정의하기 위한 서비스 구현 클래스
@@ -34,7 +35,7 @@ import com.at.apcss.co.constants.ComConstants;
  * </pre>
  */
 @Service(value="spmtPckgUnitService")
-public class SpmtPckgUnitServiceImpl implements SpmtPckgUnitService{
+public class SpmtPckgUnitServiceImpl extends BaseServiceImpl implements SpmtPckgUnitService{
 
 	@Autowired
 	private SpmtPckgUnitMapper spmtPckgUnitMapper;

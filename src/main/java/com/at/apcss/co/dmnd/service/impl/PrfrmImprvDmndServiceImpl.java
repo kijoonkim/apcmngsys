@@ -9,6 +9,7 @@ import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.dmnd.mapper.PrfrmImprvDmndMapper;
 import com.at.apcss.co.dmnd.service.PrfrmImprvDmndService;
 import com.at.apcss.co.dmnd.vo.PrfrmImprvDmndVO;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 /**
  * @Class Name : PrfrmImprvDmndServiceImpl.java
  * @Description : 프로그램개선요청 서비스를 정의하기 위한 서비스 구현 클래스
@@ -25,7 +26,7 @@ import com.at.apcss.co.dmnd.vo.PrfrmImprvDmndVO;
  * </pre>
  */
 @Service("prfrmImprvDmndService")
-public class PrfrmImprvDmndServiceImpl implements PrfrmImprvDmndService{
+public class PrfrmImprvDmndServiceImpl extends BaseServiceImpl implements PrfrmImprvDmndService{
 
 	@Autowired
 	private PrfrmImprvDmndMapper prfrmImprvDmndMapper;

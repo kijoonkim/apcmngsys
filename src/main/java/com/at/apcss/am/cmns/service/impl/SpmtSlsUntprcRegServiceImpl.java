@@ -13,6 +13,7 @@ import com.at.apcss.am.cmns.service.CmnsValidationService;
 import com.at.apcss.am.cmns.service.SpmtSlsUntprcRegService;
 import com.at.apcss.am.cmns.vo.SpmtSlsUntprcRegVO;
 import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 /**
  * @Class Name : SpmtPckgUnitServiceImpl.java
  * @Description : 출하포장단위 서비스를 정의하기 위한 서비스 구현 클래스
@@ -29,7 +30,7 @@ import com.at.apcss.co.constants.ComConstants;
  * </pre>
  */
 @Service(value="spmtSlsUntprcRegService")
-public class SpmtSlsUntprcRegServiceImpl implements SpmtSlsUntprcRegService{
+public class SpmtSlsUntprcRegServiceImpl extends BaseServiceImpl implements SpmtSlsUntprcRegService{
 
 	@Autowired
 	private SpmtSlsUntprcRegMapper spmtSlsUntprcRegMapper;

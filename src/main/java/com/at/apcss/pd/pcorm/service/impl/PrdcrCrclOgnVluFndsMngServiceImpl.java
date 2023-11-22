@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.fm.bbs.mapper.BbsMapper;
 import com.at.apcss.fm.bbs.service.BbsService;
 import com.at.apcss.fm.bbs.vo.BbsVO;
@@ -30,7 +31,7 @@ import com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO;
  * </pre>
  */
 @Service("prdcrCrclOgnVluFndsMngService")
-public class PrdcrCrclOgnVluFndsMngServiceImpl implements PrdcrCrclOgnVluFndsMngService{
+public class PrdcrCrclOgnVluFndsMngServiceImpl extends BaseServiceImpl implements PrdcrCrclOgnVluFndsMngService{
 
 	@Autowired
 	private PrdcrCrclOgnVluFndsMngMapper prdcrCrclOgnVluFndsMngMapper;

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.at.apcss.co.log.mapper.ComLogMapper;
 import com.at.apcss.co.log.service.ComLogService;
 import com.at.apcss.co.log.vo.ComLogVO;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * 이력정보에 대한 서비스 구현 클래스를 정의한다
@@ -26,7 +27,7 @@ import com.at.apcss.co.log.vo.ComLogVO;
  * </pre>
  */
 @Service("comLogService")
-public class ComLogServiceImpl implements ComLogService {
+public class ComLogServiceImpl extends BaseServiceImpl implements ComLogService {
 
 	@Autowired
 	private ComLogMapper comLogMapper;

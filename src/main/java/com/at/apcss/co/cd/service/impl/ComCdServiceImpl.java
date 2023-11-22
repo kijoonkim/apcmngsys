@@ -10,9 +10,10 @@ import com.at.apcss.co.cd.mapper.ComCdMapper;
 import com.at.apcss.co.cd.service.ComCdService;
 import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 @Service("comCdService")
-public class ComCdServiceImpl implements ComCdService {
+public class ComCdServiceImpl extends BaseServiceImpl implements ComCdService {
 
 	@Autowired
 	private ComCdMapper comCdMapper;

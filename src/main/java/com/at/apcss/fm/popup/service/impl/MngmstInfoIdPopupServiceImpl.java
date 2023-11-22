@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.fm.popup.mapper.MngmstInfoIdPopupMapper;
 import com.at.apcss.fm.popup.service.MngmstInfoIdPopupService;
 import com.at.apcss.fm.popup.vo.MngmstInfoIdPopupVO;
@@ -25,7 +26,7 @@ import com.at.apcss.fm.popup.vo.MngmstInfoIdPopupVO;
  * </pre>
  */
 @Service("MngmstInfoIdPopupService")
-public class MngmstInfoIdPopupServiceImpl implements MngmstInfoIdPopupService{
+public class MngmstInfoIdPopupServiceImpl extends BaseServiceImpl implements MngmstInfoIdPopupService{
 
 	@Autowired
 	private MngmstInfoIdPopupMapper MngmstInfoIdPopupMapper;

@@ -6,12 +6,13 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.fm.dashboard.mapper.DashboardMapper;
 import com.at.apcss.fm.dashboard.service.DashboardService;
 import com.at.apcss.fm.dashboard.vo.DashboardVO;
 
 @Service("dashboardService")
-public class DashboardServiceImpl implements DashboardService{
+public class DashboardServiceImpl extends BaseServiceImpl implements DashboardService{
 
 	@Autowired
 	private DashboardMapper dashboardMapper;

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.at.apcss.am.pckg.mapper.PckgInptMapper;
 import com.at.apcss.am.pckg.service.PckgInptService;
 import com.at.apcss.am.pckg.vo.PckgInptVO;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : PckgInptServiceImpl.java
@@ -26,7 +27,7 @@ import com.at.apcss.am.pckg.vo.PckgInptVO;
  * </pre>
  */
 @Service("pckgInptService")
-public class PckgInptServiceImpl implements PckgInptService {
+public class PckgInptServiceImpl extends BaseServiceImpl implements PckgInptService {
 
 	@Autowired
 	private PckgInptMapper pckgInptMapper;

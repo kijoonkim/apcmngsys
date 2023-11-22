@@ -12,6 +12,7 @@ import com.at.apcss.am.cmns.mapper.RgnTrsprtCstMapper;
 import com.at.apcss.am.cmns.service.RgnTrsprtCstService;
 import com.at.apcss.am.cmns.vo.RgnTrsprtCstVO;
 import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : RgnTrsprtCstServiceImpl.java
@@ -29,7 +30,7 @@ import com.at.apcss.co.constants.ComConstants;
  * </pre>
  */
 @Service("rgnTrsprtCstService")
-public class RgnTrsprtCstServiceImpl implements RgnTrsprtCstService {
+public class RgnTrsprtCstServiceImpl extends BaseServiceImpl implements RgnTrsprtCstService {
 	
 	@Autowired
 	private RgnTrsprtCstMapper rgnTrsprtCstMapper;

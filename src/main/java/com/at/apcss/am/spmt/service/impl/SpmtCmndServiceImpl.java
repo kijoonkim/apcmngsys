@@ -13,6 +13,7 @@ import com.at.apcss.am.ordr.vo.OrdrVO;
 import com.at.apcss.am.spmt.mapper.SpmtCmndMapper;
 import com.at.apcss.am.spmt.service.SpmtCmndService;
 import com.at.apcss.am.spmt.vo.SpmtCmndVO;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : SpmtCmndServiceImpl.java
@@ -30,7 +31,7 @@ import com.at.apcss.am.spmt.vo.SpmtCmndVO;
  * </pre>
  */
 @Service("spmtCmndService")
-public class SpmtCmndServiceImpl implements SpmtCmndService {
+public class SpmtCmndServiceImpl extends BaseServiceImpl implements SpmtCmndService {
 
 	@Autowired
 	private SpmtCmndMapper spmtCmndMapper;

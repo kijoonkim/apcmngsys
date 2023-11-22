@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.at.apcss.am.cmns.mapper.RawMtrWrhsGrdMapper;
 import com.at.apcss.am.cmns.service.RawMtrWrhsGrdService;
 import com.at.apcss.am.cmns.vo.RawMtrWrhsGrdVO;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : RawMtrWrhsGrdServiceImpl.java
@@ -25,7 +26,7 @@ import com.at.apcss.am.cmns.vo.RawMtrWrhsGrdVO;
  * </pre>
  */
 @Service("rawMtrWrhsGrdService")
-public class RawMtrWrhsGrdServiceImpl implements RawMtrWrhsGrdService {
+public class RawMtrWrhsGrdServiceImpl extends BaseServiceImpl implements RawMtrWrhsGrdService {
 	
 	@Autowired
 	private RawMtrWrhsGrdMapper rawMtrWrhsGrdMapper;

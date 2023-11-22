@@ -214,6 +214,10 @@
 	</section>
 </body>
 <script type="text/javascript">
+function fn_rowStyleCssBzeatCntMdRtlOgnzType() {
+	grdBzeatCntMdRtlOgnzType.setCellStyle('background-color',0,0,8,2,'#F5FBFF');
+	grdBzeatCntMdRtlOgnzType.setRowStyles(9, 'background-color: #CEEBFF; font-weight: bold; color: #0060b3', 'all', true);
+}
 
 const fn_cellCreateGvrngmtSprtMdRtlFcltGrid = function() {
 	// 정부지원 산지유통시설 개소수 - 개소수 : 산지유통조직 유형
@@ -311,9 +315,9 @@ const fn_createBzeatCntMdRtlOgnzTypeGrid = function() {
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.mergecells = 'bycolrec';
     SBGridProperties.columns = [
-    	{caption : ["산지유통조직유형"], ref: 'title', type: 'output',  width:'213px', style: 'text-align:center; background-color:#F5FBFF'},
-    	{caption : ["산지유통조직유형"], ref: 'subTitle', type: 'output',  width:'213px', style: 'text-align:center; background-color:#F5FBFF'},
-    	{caption : ["산지유통조직유형"], ref: 's0', type: 'output',  width:'213px', style: 'text-align:center; background-color:#F5FBFF'},
+    	{caption : ["산지유통조직유형"], ref: 'title', type: 'output',  width:'213px', style: 'text-align:center;'},
+    	{caption : ["산지유통조직유형"], ref: 'subTitle', type: 'output',  width:'213px', style: 'text-align:center;'},
+    	{caption : ["산지유통조직유형"], ref: 's0', type: 'output',  width:'213px', style: 'text-align:center;'},
     	{caption : ["APC 개소수"], ref: 's1', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdBzeatCntMdRtlOgnzType = _SBGrid.create(SBGridProperties);
@@ -894,6 +898,7 @@ const fn_cellGvrngmtSprtMdRtlFcltGrid = async function() {
 	  	});
 	  	
 	  	gvrngmtSprtMdRtlFcltGridRebuild();
+	  	fn_rowStyleCssBzeatCntMdRtlOgnzType();
 	  		
 	  }	catch (e) {
 	 		if (!(e instanceof Error)) {

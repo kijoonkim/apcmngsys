@@ -279,7 +279,7 @@ const fn_createOperOgnzAvgTrmtPrfmncGrid = function() {
 	};
     SBGridProperties.columns = [
     	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
-    	{caption : ["APC 평균 취급액"," APC 평균 취급액 "], ref: 'v1', type: 'output',  width:'150px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["APC 평균 취급액","APC 평균 취급액"], ref: 'v1', type: 'output',  width:'150px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
     	{caption : ["평균 일반취급액","평균 일반취급액"], ref: 'v2', type: 'output',  width:'150px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
     	{caption : ["평균 조직화취급액"," 공동선별(수탁) "], ref: 'v3', type: 'output',  width:'150px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
     	{caption : ["평균 조직화취급액","계약재배(매취)"], ref: 'v4', type: 'output',  width:'150px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},

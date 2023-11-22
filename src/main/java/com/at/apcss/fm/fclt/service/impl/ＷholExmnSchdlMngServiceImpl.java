@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.fm.fclt.mapper.ＷholExmnSchdlMngMapper;
 import com.at.apcss.fm.fclt.service.ＷholExmnSchdlMngService;
 import com.at.apcss.fm.fclt.vo.ＷholExmnSchdlMngVO;
@@ -25,7 +26,7 @@ import com.at.apcss.fm.fclt.vo.ＷholExmnSchdlMngVO;
  * </pre>
  */
 @Service("wholExmnSchdlMngService")
-public class ＷholExmnSchdlMngServiceImpl implements ＷholExmnSchdlMngService{
+public class ＷholExmnSchdlMngServiceImpl extends BaseServiceImpl implements ＷholExmnSchdlMngService{
 
 	@Autowired
 	private ＷholExmnSchdlMngMapper wholExmnSchdlMngMapper;

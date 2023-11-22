@@ -14,6 +14,7 @@ import com.at.apcss.am.cmns.mapper.WrhsVhclMapper;
 import com.at.apcss.am.cmns.service.WrhsVhclService;
 import com.at.apcss.am.cmns.vo.WrhsVhclVO;
 import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : WrhsVhclServiceImpl.java
@@ -31,7 +32,7 @@ import com.at.apcss.co.constants.ComConstants;
  * </pre>
  */
 @Service("wrhsVhclService")
-public class WrhsVhclServiceImpl implements WrhsVhclService {
+public class WrhsVhclServiceImpl extends BaseServiceImpl implements WrhsVhclService {
 	
 	@Autowired
 	private WrhsVhclMapper wrhsVhclMapper;
