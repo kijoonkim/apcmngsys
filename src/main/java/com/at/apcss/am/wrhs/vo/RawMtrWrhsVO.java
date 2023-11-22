@@ -39,6 +39,22 @@ public class RawMtrWrhsVO extends ComVO {
 	private String wrhsno;
 
 	/**
+	 * 처리번호
+	 */
+	private String prcsno;
+	
+	/**
+	 * 처리순번
+	 */
+	private int prcsSn;
+	
+	/**
+	 * 처리유형
+	 */
+	private String prcsType;
+	private String prcsTypeNm;
+	
+	/**
 	 * 계량번호
 	 */
 	private String wghno;
@@ -60,6 +76,16 @@ public class RawMtrWrhsVO extends ComVO {
 	private String wrhsYmdFrom;
 	private String wrhsYmdTo;
 
+	/**
+	 * 처리일자
+	 */
+	private String prcsYmd;
+	
+	/**
+	 * 처리유무
+	 */
+	private String prcsYn;
+	
 	/**
 	 * 생산자코드
 	 */
@@ -99,6 +125,7 @@ public class RawMtrWrhsVO extends ComVO {
 	 * 창고구분코드
 	 */
 	private String warehouseSeCd;
+	private String warehouseSeCdFrom;
 
 	/**
 	 * 박스종류
@@ -111,10 +138,34 @@ public class RawMtrWrhsVO extends ComVO {
 	private int bxQntt;
 
 	/**
+	 * 수량
+	 */
+	private int qntt;
+	
+	/**
+	 * 중량
+	 */
+	private double wght;
+	
+	/**
+	 * 입고수량
+	 */
+	private int wrhsQntt;
+	/**
 	 * 입고중량
 	 */
 	private double wrhsWght;
 
+	/**
+	 * 잔여수량
+	 */
+	private int rmnQntt;
+	/**
+	 * 잔여중량
+	 */
+	private double rmnWght;
+	
+	
 	/**
 	 * 비고
 	 */
@@ -139,10 +190,7 @@ public class RawMtrWrhsVO extends ComVO {
 	 * 등급
 	 */
 	private String grdCd;
-	/**
-	 * 입고수량
-	 */
-	private int wrhsQntt;
+
 	/**
 	 * 투입수량
 	 */

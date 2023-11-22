@@ -47,10 +47,15 @@ public class StdGrdVO extends ComVO {
 	private String grdKndNm;
 	/*
 	 * 가산비율
-	 * */
+	 */
 	private int adtnRt;
 	/*
 	 * 순번
 	 * */
 	private int sn;
+	
+	/**
+	 * 표준등급유형
+	 */
+	private String stdGrdType;
 }

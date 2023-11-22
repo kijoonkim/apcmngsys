@@ -31,9 +31,10 @@
 			     , SG.GRD_KND           AS GRD_KND
 			     , SG.GRD_KND_NM        AS GRD_KND_NM
 			     , SG.ADTN_RT           AS ADTN_RT
+			     , SG.STD_GRD_TYPE		AS STD_GRD_TYPE
 			     , SG.DEL_YN            AS DEL_YN
 			     , SG.SN				AS SN
-			  FROM TB_APC_Std_GRD SG
+			  FROM TB_APC_STD_GRD SG
 			 WHERE SG.APC_CD	= #{apcCd}
 			   AND SG.ITEM_CD 	= #{itemCd}
 			   AND SG.GRD_SE_CD = #{grdSeCd}
@@ -82,6 +83,7 @@
 			     , SG.GRD_KND           AS GRD_KND
 			     , SG.GRD_KND_NM        AS GRD_KND_NM
 			     , SG.ADTN_RT 			AS ADTN_RT
+			     , SG.STD_GRD_TYPE		AS STD_GRD_TYPE
 			     , SG.SN				AS SN
 			     , SG.DEL_YN            AS DEL_YN
 			  FROM TB_APC_STD_GRD SG
@@ -128,6 +130,7 @@
 	    			, GRD_KND_NM
 	    			, SN
 	    			, ADTN_RT
+	    			, STD_GRD_TYPE
 					, SYS_FRST_INPT_DT
 					, SYS_FRST_INPT_USER_ID
 					, SYS_FRST_INPT_PRGRM_ID
@@ -144,6 +147,7 @@
 	    			, #{grdKndNm}
 	    			, #{sn}
 	    			, #{adtnRt}
+	    			, #{stdGrdType}
 					, SYSDATE
 					, #{sysFrstInptUserId}
 					, #{sysFrstInptPrgrmId}
@@ -173,6 +177,7 @@
     			, GRD_KND_NM				= #{grdKndNm}
     			, ADTN_RT					= #{adtnRt}
     			, SN						= #{sn}
+    			, STD_GRD_TYPE				= #{stdGrdType}
 			 WHERE APC_CD 		= #{apcCd}
 			   AND ITEM_CD 		= #{itemCd}
 			   AND GRD_SE_CD 	= #{grdSeCd}
@@ -216,6 +221,49 @@
 			   AND ITEM_CD 		= #{itemCd}
 		]]>
 	</delete>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrdDtl			-->
+	<!-- DESC : APC 등급 상세 조회.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+    <select id="selectStdGrdDtl" parameterType="com.at.apcss.am.cmns.vo.StdGrdDtlVO" resultType="com.at.apcss.am.cmns.vo.StdGrdDtlVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrdDtl */
+			       SG.APC_CD			AS APC_CD
+			     , SG.ITEM_CD           AS ITEM_CD
+			     , (SELECT FN_GET_ITEM_NM(SG.ITEM_CD, SGD.APC_CD) FROM DUAL) AS ITEM_NM
+			     , SG.GRD_SE_CD        	AS GRD_SE_CD
+			     , SG.GRD_KND           AS GRD_KND
+			     , SG.GRD_KND_NM		AS GRD_KND_NM
+			     , SG.ADTN_RT           AS ADTN_RT
+			     , SG.STD_GRD_TYPE		AS STD_GRD_TYPE
+			     , SGD.GRD_CD           AS GRD_CD
+			     , SGD.GRD_NM           AS GRD_NM
+			     , SGD.GRD_VL           AS GRD_VL
+			     , SGD.SN               AS SN
+			     
+  			  FROM TB_APC_STD_GRD SG
+  			  
+  			  JOIN TB_APC_STD_GRD_DTL SGD
+  			    ON SGD.APC_CD = SG.APC_CD
+  			   AND SGD.ITEM_CD = SG.ITEM_CD
+  			   AND SGD.GRD_SE_CD = SG.GRD_SE_CD
+  			   AND SGD.GRD_KND = SG.GRD_KND
+  			   AND SGD.DEL_YN = 'N'
+  			  
+			 WHERE SG.APC_CD	= #{apcCd}
+			   AND SG.GRD_SE_CD = #{grdSeCd}
+			   AND SG.ITEM_CD 	= #{itemCd}
+			   AND SG.GRD_KND 	= #{grdKnd}
+			   AND SG.DEL_YN 	= 'N'
+			   AND SGD.GRD_CD 	= #{grdCd}
+		]]>
+    </select>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrdDtlList		-->

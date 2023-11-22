@@ -61,7 +61,7 @@
 						</li>
 					</ul>
 				</div>
-				<div id="sb-area-grdMdOperOgnzTrmtPrfmnc" style="height:187px;"></div>
+				<div id="sb-area-grdMdOperOgnzTrmtPrfmnc" style="height:312px;"></div>
 				
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
@@ -73,8 +73,9 @@
 						</li>
 					</ul>
 				</div>
-				<div id="sb-area-grdMdApcPrcsPrfmnc" style="height:187px;"></div>
+				<div id="sb-area-grdMdApcPrcsPrfmnc" style="height:312px;"></div>
 			</div>
+			
 			<div class="col-sm-6">
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
@@ -100,7 +101,7 @@
 						</li>
 					</ul>
 				</div>
-				<div id="sb-area-grdMdOperOgnzTrmtPrfmncAvg" style="height:187px;"></div>		
+				<div id="sb-area-grdMdOperOgnzTrmtPrfmncAvg" style="height:312px;"></div>		
 				
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
@@ -112,7 +113,7 @@
 						</li>
 					</ul>
 				</div>
-				<div id="sb-area-grdMdApcPrcsPrfmncAvg" style="height:187px;"></div>
+				<div id="sb-area-grdMdApcPrcsPrfmncAvg" style="height:312px;"></div>
 			</div>
 		</div>
 	</div>
@@ -120,7 +121,7 @@
 </body>
 <script type="text/javascript">
 
-window.addEventListener('DOMContentLoaded', function(e) {
+const fn_cellCreateMdRtlFcltOperPrfmncGrid = function() {
 	// 운영조직 취급실적
 	fn_createOperOgnzTrmtPrfmncGrid();
 	// 운영조직 처리실적
@@ -135,7 +136,10 @@ window.addEventListener('DOMContentLoaded', function(e) {
 	fn_createMdApcPrcsPrfmncGrid();
 	// 지역별 APC 처리실적(평균)
 	fn_createMdApcPrcsPrfmncAvgGrid();
-});
+	
+	fn_cellMdRtlFcltOperPrfmncGrid();
+}
+
 //그리드 id, 그리드 json
 // 운영조직 취급실적
 var grdOperOgnzTrmtPrfmnc;
@@ -175,7 +179,7 @@ const fn_createOperOgnzTrmtPrfmncGrid = function() {
     SBGridProperties.id = 'grdOperOgnzTrmtPrfmnc';
     SBGridProperties.jsonref = 'jsonOperOgnzTrmtPrfmnc';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -213,7 +217,7 @@ const fn_createOperOgnzPrcsPrfmncGrid = function() {
     SBGridProperties.id = 'grdOperOgnzPrcsPrfmnc';
     SBGridProperties.jsonref = 'jsonOperOgnzPrcsPrfmnc';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -251,7 +255,7 @@ const fn_createOperOgnzAvgTrmtPrfmncGrid = function() {
     SBGridProperties.id = 'grdOperOgnzAvgTrmtPrfmnc';
     SBGridProperties.jsonref = 'jsonOperOgnzAvgTrmtPrfmnc';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -275,10 +279,10 @@ const fn_createOperOgnzAvgTrmtPrfmncGrid = function() {
 	};
     SBGridProperties.columns = [
     	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
-    	{caption : ["총취급액"," 총취급액 "], ref: 'v1', type: 'output',  width:'150px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["총취급액","평균취급액"], ref: 'v2', type: 'output',  width:'150px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["조직화취급액"," 조직화취급액 "], ref: 'v3', type: 'output',  width:'150px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["조직화취급액","평균조직화취급액"], ref: 'v4', type: 'output',  width:'150px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["APC 평균 취급액"," APC 평균 취급액 "], ref: 'v1', type: 'output',  width:'150px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["평균 일반취급액","평균 일반취급액"], ref: 'v2', type: 'output',  width:'150px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["평균 조직화취급액"," 공동선별(수탁) "], ref: 'v3', type: 'output',  width:'150px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["평균 조직화취급액","계약재배(매취)"], ref: 'v4', type: 'output',  width:'150px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
     ];
     grdOperOgnzAvgTrmtPrfmnc = _SBGrid.create(SBGridProperties);
 }
@@ -289,14 +293,14 @@ const fn_createMdOperOgnzTrmtPrfmncGrid = function() {
     SBGridProperties.id = 'grdMdOperOgnzTrmtPrfmnc';
     SBGridProperties.jsonref = 'jsonMdOperOgnzTrmtPrfmnc';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
 			position: 'bottom',
 			columns: {
 			standard: [0],
-			sum: [1,2,3,4],
+			sum: [1,2,3,4,5,6],
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -308,15 +312,19 @@ const fn_createMdOperOgnzTrmtPrfmncGrid = function() {
 			1: '#,###',
 			2: '#,###',
 			3: '#,###',
-			4: '#,###'
+			4: '#,###',
+			5: '#,###',
+			6: '#,###'
 		}
 	};
     SBGridProperties.columns = [
     	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
-    	{caption : ["총취급액"," 총취급액 "], ref: 'v1', type: 'output',  width:'150px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["총취급액","평균취급액"], ref: 'v2', type: 'output',  width:'150px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["조직화취급액"," 조직화취급액 "], ref: 'v3', type: 'output',  width:'150px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["조직화취급액","평균조직화취급액"], ref: 'v4', type: 'output',  width:'150px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["총취급액","농협"], ref: 'v1', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["총취급액","농업법인"], ref: 'v2', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["총취급액","합계"], ref: 'v3', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["조직화취급액"," 농협 "], ref: 'v4', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["조직화취급액","농협법인"], ref: 'v5', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["조직화취급액","합계"], ref: 'v6', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdMdOperOgnzTrmtPrfmnc = _SBGrid.create(SBGridProperties);
 }
@@ -327,7 +335,7 @@ const fn_createMdOperOgnzTrmtPrfmncAvgGrid = function() {
     SBGridProperties.id = 'grdMdOperOgnzTrmtPrfmncAvg';
     SBGridProperties.jsonref = 'jsonMdOperOgnzTrmtPrfmncAvg';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -353,12 +361,12 @@ const fn_createMdOperOgnzTrmtPrfmncAvgGrid = function() {
 	};
     SBGridProperties.columns = [
     	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
-    	{caption : ["평균취급액","농협"], ref: 'v1', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["평균취급액","농업법인"], ref: 'v2', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["평균취급액","전체"], ref: 'v3', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["평균조직화취급액","농협"], ref: 'v4', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["평균조직화취급액","농업법인"], ref: 'v5', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["평균조직화취급액","전체"], ref: 'v6', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
+    	{caption : ["총취급액","농협"], ref: 'v1', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["총취급액","농업법인"], ref: 'v2', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["총취급액","합계"], ref: 'v3', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["조직화취급액","농협"], ref: 'v4', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["조직화취급액","농업법인"], ref: 'v5', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["조직화취급액","합계"], ref: 'v6', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdMdOperOgnzTrmtPrfmncAvg = _SBGrid.create(SBGridProperties);
 }
@@ -369,7 +377,7 @@ const fn_createMdApcPrcsPrfmncGrid = function() {
     SBGridProperties.id = 'grdMdApcPrcsPrfmnc';
     SBGridProperties.jsonref = 'jsonMdApcPrcsPrfmnc';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -395,12 +403,12 @@ const fn_createMdApcPrcsPrfmncGrid = function() {
 	};
     SBGridProperties.columns = [
     	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
-    	{caption : ["평균취급액","농협"], ref: 'v1', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["평균취급액","농업법인"], ref: 'v2', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["평균취급액","전체"], ref: 'v3', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["평균조직화취급액","농협"], ref: 'v4', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["평균조직화취급액","농업법인"], ref: 'v5', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["평균조직화취급액","전체"], ref: 'v6', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
+    	{caption : ["총취급액","농협"], ref: 'v1', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["총취급액","농업법인"], ref: 'v2', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["총취급액","전체"], ref: 'v3', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["조직화취급액","농협"], ref: 'v4', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["조직화취급액","농업법인"], ref: 'v5', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["조직화취급액","합계"], ref: 'v6', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdMdApcPrcsPrfmnc = _SBGrid.create(SBGridProperties);
 }
@@ -411,7 +419,7 @@ const fn_createMdApcPrcsPrfmncAvgGrid = function() {
     SBGridProperties.id = 'grdMdApcPrcsPrfmncAvg';
     SBGridProperties.jsonref = 'jsonMdApcPrcsPrfmncAvg';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -437,19 +445,20 @@ const fn_createMdApcPrcsPrfmncAvgGrid = function() {
 	};
     SBGridProperties.columns = [
     	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
-    	{caption : ["평균취급액","농협"], ref: 'v1', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["평균취급액","농업법인"], ref: 'v2', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["평균취급액","전체"], ref: 'v3', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["평균조직화취급액","농협"], ref: 'v4', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["평균조직화취급액","농업법인"], ref: 'v5', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["평균조직화취급액","전체"], ref: 'v6', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
+    	{caption : ["총취급액","농협"], ref: 'v1', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["총취급액","농업법인"], ref: 'v2', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["총취급액","합계"], ref: 'v3', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["조직화취급액","농협"], ref: 'v4', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["조직화취급액","농업법인"], ref: 'v5', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["조직화취급액","합계"], ref: 'v6', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdMdApcPrcsPrfmncAvg = _SBGrid.create(SBGridProperties);
 }
 
 const fn_cellMdRtlFcltOperPrfmncGrid = async function() {
+	let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 	
-	const postJsonPromise = gfn_postJSON("/fm/fclt/selectMdRtlFcltOperPrfmncGridList.do", {crtrYn : "2023"});
+	const postJsonPromise = gfn_postJSON("/fm/fclt/selectMdRtlFcltOperPrfmncGridList.do", {crtrYr : crtrYr});
 	
 	let data = await postJsonPromise;
 	try {
@@ -486,52 +495,54 @@ const fn_cellMdRtlFcltOperPrfmncGrid = async function() {
 			}
 	  		jsonOperOgnzAvgTrmtPrfmnc.push(operOgnzAvgTrmtPrfmnc);
 	  	});
-// 	  	data.resultMdOperOgnzTrmtPrfmnc.forEach((item, index) => {
-// 	  		const mdOperOgnzTrmtPrfmnc = {
-// 	  				  v0 : item.v0,
-// 	  				  v1 : item.v1,
-// 	  				  v2 : item.v2,
-// 	  				  v3 : item.v3,
-// 	  				  v4 : item.v4
-// 			}
-// 	  		jsonMdOperOgnzTrmtPrfmnc.push(mdOperOgnzTrmtPrfmnc);
-// 	  	});
-// 	  	data.resultMdOperOgnzTrmtPrfmncAvg.forEach((item, index) => {
-// 	  		const mdOperOgnzTrmtPrfmncAvg = {
-// 	  				  v0 : item.v0,
-// 	  				  v1 : item.v1,
-// 	  				  v2 : item.v2,
-// 	  				  v3 : item.v3,
-// 	  				  v4 : item.v4,
-// 	  				  v5 : item.v5,
-// 	  				  v6 : item.v6
-// 			}
-// 	  		jsonMdOperOgnzTrmtPrfmncAvg.push(mdOperOgnzTrmtPrfmncAvg);
-// 	  	});
-// 	  	data.resultMdApcPrcsPrfmnc.forEach((item, index) => {
-// 	  		const mdApcPrcsPrfmnc = {
-// 	  				  v0 : item.v0,
-// 	  				  v1 : item.v1,
-// 	  				  v2 : item.v2,
-// 	  				  v3 : item.v3,
-// 	  				  v4 : item.v4,
-// 	  				  v5 : item.v5,
-// 	  				  v6 : item.v6
-// 			}
-// 	  		jsonMdApcPrcsPrfmnc.push(mdApcPrcsPrfmnc);
-// 	  	});
-// 	  	data.resultMdApcPrcsPrfmncAvg.forEach((item, index) => {
-// 	  		const mdApcPrcsPrfmncAvg = {
-// 	  				  v0 : item.v0,
-// 	  				  v1 : item.v1,
-// 	  				  v2 : item.v2,
-// 	  				  v3 : item.v3,
-// 	  				  v4 : item.v4,
-// 	  				  v5 : item.v5,
-// 	  				  v6 : item.v6
-// 			}
-// 	  		jsonMdApcPrcsPrfmncAvg.push(mdApcPrcsPrfmncAvg);
-// 	  	});
+	  	data.resultMdOperOgnzTrmtPrfmnc.forEach((item, index) => {
+	  		const mdOperOgnzTrmtPrfmnc = {
+	  				  v0 : item.v0,
+	  				  v1 : item.v1,
+	  				  v2 : item.v2,
+	  				  v3 : item.v3,
+	  				  v4 : item.v4,
+	  				  v5 : item.v5,
+	  				  v6 : item.v6
+			}
+	  		jsonMdOperOgnzTrmtPrfmnc.push(mdOperOgnzTrmtPrfmnc);
+	  	});
+	  	data.resultMdOperOgnzTrmtPrfmncAvg.forEach((item, index) => {
+	  		const mdOperOgnzTrmtPrfmncAvg = {
+	  				  v0 : item.v0,
+	  				  v1 : item.v1,
+	  				  v2 : item.v2,
+	  				  v3 : item.v3,
+	  				  v4 : item.v4,
+	  				  v5 : item.v5,
+	  				  v6 : item.v6
+			}
+	  		jsonMdOperOgnzTrmtPrfmncAvg.push(mdOperOgnzTrmtPrfmncAvg);
+	  	});
+	  	data.resultMdApcPrcsPrfmnc.forEach((item, index) => {
+	  		const mdApcPrcsPrfmnc = {
+	  				  v0 : item.v0,
+	  				  v1 : item.v1,
+	  				  v2 : item.v2,
+	  				  v3 : item.v3,
+	  				  v4 : item.v4,
+	  				  v5 : item.v5,
+	  				  v6 : item.v6
+			}
+	  		jsonMdApcPrcsPrfmnc.push(mdApcPrcsPrfmnc);
+	  	});
+	  	data.resultMdApcPrcsPrfmncAvg.forEach((item, index) => {
+	  		const mdApcPrcsPrfmncAvg = {
+	  				  v0 : item.v0,
+	  				  v1 : item.v1,
+	  				  v2 : item.v2,
+	  				  v3 : item.v3,
+	  				  v4 : item.v4,
+	  				  v5 : item.v5,
+	  				  v6 : item.v6
+			}
+	  		jsonMdApcPrcsPrfmncAvg.push(mdApcPrcsPrfmncAvg);
+	  	});
 	  	
 	  	mdRtlFcltOperPrfmncRebuild();
 	  		

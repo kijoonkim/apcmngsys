@@ -23,35 +23,48 @@
     <style>
     	.ul_stdgrd {
     		list-style:none;
-    		padding-left: 5px;
+    		padding-left: 3px;
     		height: 24px;
     		vertical-align: middle
     	}
     	.ul_stdgrd li {
     		float: left;
-    		margin: 0px 5px;
-			max-width: 100px;
+    		margin: 0px 3px;
 			vertical-align: middle
     	}
     	.ul_stdgrd li label {
     		padding: 6px 0px 4px 0px;
+    		max-width: 100px;
     	}
     	.ul_stdgrd li select {
     		padding: 0px;
     		height: 20px;
     		max-width: 100px;
     	}
+    	.ul_stdgrd li input {
+    		/*padding: 0px;
+    		height: 18px;
+    		max-width: 80px;*/
+    	}
+    	.ul_stdgrd .sb__li__select {
+    		padding: 0px;
+    		height: 20px;
+    		max-width: 100px;
+    	}
+    	.ul_stdgrd .sb__li__input {
+    		max-width: 80px;
+    	}
 
     </style>
 </head>
 <body>
 	<ul class="ul_stdgrd">
-		<li class="li_label">
+		<li class="li__label">
 			<!-- <span id="stdGrdSlt-spn-grdNm-1" style="margin-right: 5px;">등급1 : </span> -->
 			<sbux-label id="stdGrdSlt-lbl-knd-1" name="stdGrdSlt-lbl-knd-1" uitype="normal" style="font-weight: bold;font-size: 12px;" text="등급1">
 			</sbux-label>
 		</li>
-		<li class="li_select">
+		<li class="li__select">
 			<sbux-select
 				uitype="singleExt"
 				id="stdGrdSlt-slt-knd-1"
@@ -61,18 +74,30 @@
 				select-item-after-blur="true"
 				clear-input-tab="true"
 				clear-input-blur="true"
-				class=""
+				class="sb__li__select"
 				jsondata-ref="gjsonStdGrdObj_1"
 				jsondata-text="grdNm"
 				jsondata-value="grdCd"
 				onchange="stdGrdSelect.setGrdJgmt"
 			/>
 		</li>
-		<li class="li_label">
+		<li class="li__input">
+			<sbux-input
+				uitype="text"
+				id="stdGrdSlt-inp-knd-1"
+				name="stdGrdSlt-inp-knd-1"
+				class="form-control input-sm input-sm-ast sb__li__input"
+				maxlength="3"
+				autocomplete="off"
+				mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+				onchange="stdGrdSelect.setGrdNvSum"
+			></sbux-input>
+		</li>
+		<li class="li__label">
 			<sbux-label id="stdGrdSlt-lbl-knd-2" name="stdGrdSlt-lbl-knd-2" uitype="normal" style="font-weight: bold;font-size: 12px;" text="등급2">
 			</sbux-label>
 		</li>
-		<li class="li_select">
+		<li class="li__select">
 			<sbux-select
 				uitype="singleExt"
 				id="stdGrdSlt-slt-knd-2"
@@ -82,18 +107,30 @@
 				select-item-after-blur="true"
 				clear-input-tab="true"
 				clear-input-blur="true"
-				class=""
+				class="sb__li__select"
 				jsondata-ref="gjsonStdGrdObj_2"
 				jsondata-text="grdNm"
 				jsondata-value="grdCd"
 				onchange="stdGrdSelect.setGrdJgmt"
 			/>
 		</li>
-		<li class="li_label">
+		<li class="li__input">
+			<sbux-input
+				uitype="text"
+				id="stdGrdSlt-inp-knd-2"
+				name="stdGrdSlt-inp-knd-2"
+				class="form-control input-sm input-sm-ast sb__li__input"
+				maxlength="3"
+				autocomplete="off"
+				mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+				onchange="stdGrdSelect.setGrdNvSum"
+			></sbux-input>
+		</li>
+		<li class="li__label">
 			<sbux-label id="stdGrdSlt-lbl-knd-3" name="stdGrdSlt-lbl-knd-3" uitype="normal" style="font-weight: bold;font-size: 12px;" text="등급3">
 			</sbux-label>
 		</li>
-		<li class="li_select">
+		<li class="li__select">
 			<sbux-select
 				uitype="singleExt"
 				id="stdGrdSlt-slt-knd-3"
@@ -103,18 +140,30 @@
 				select-item-after-blur="true"
 				clear-input-tab="true"
 				clear-input-blur="true"
-				class=""
+				class="sb__li__select"
 				jsondata-ref="gjsonStdGrdObj_3"
 				jsondata-text="grdNm"
 				jsondata-value="grdCd"
 				onchange="stdGrdSelect.setGrdJgmt"
 			/>
 		</li>
-		<li class="li_label">
+		<li class="li__input">
+			<sbux-input
+				uitype="text"
+				id="stdGrdSlt-inp-knd-3"
+				name="stdGrdSlt-inp-knd-3"
+				class="form-control input-sm input-sm-ast sb__li__input"
+				maxlength="3"
+				autocomplete="off"
+				mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+				onchange="stdGrdSelect.setGrdNvSum"
+			></sbux-input>
+		</li>
+		<li class="li__label">
 			<sbux-label id="stdGrdSlt-lbl-knd-4" name="stdGrdSlt-lbl-knd-4" uitype="normal" style="font-weight: bold;font-size: 12px;" text="등급4">
 			</sbux-label>
 		</li>
-		<li class="li_select">
+		<li class="li__select">
 			<sbux-select
 				uitype="singleExt"
 				id="stdGrdSlt-slt-knd-4"
@@ -124,18 +173,30 @@
 				select-item-after-blur="true"
 				clear-input-tab="true"
 				clear-input-blur="true"
-				class=""
+				class="sb__li__select"
 				jsondata-ref="gjsonStdGrdObj_4"
 				jsondata-text="grdNm"
 				jsondata-value="grdCd"
 				onchange="stdGrdSelect.setGrdJgmt"
 			/>
 		</li>
-		<li class="li_label">
+		<li class="li__input">
+			<sbux-input
+				uitype="text"
+				id="stdGrdSlt-inp-knd-4"
+				name="stdGrdSlt-inp-knd-4"
+				class="form-control input-sm input-sm-ast sb__li__input"
+				maxlength="3"
+				autocomplete="off"
+				mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+				onchange="stdGrdSelect.setGrdNvSum"
+			></sbux-input>
+		</li>
+		<li class="li__label">
 			<sbux-label id="stdGrdSlt-lbl-knd-5" name="stdGrdSlt-lbl-knd-5" uitype="normal" style="font-weight: bold;font-size: 12px;" text="등급5">
 			</sbux-label>
 		</li>
-		<li class="li_select">
+		<li class="li__select">
 			<sbux-select
 				uitype="singleExt"
 				id="stdGrdSlt-slt-knd-5"
@@ -145,18 +206,45 @@
 				select-item-after-blur="true"
 				clear-input-tab="true"
 				clear-input-blur="true"
-				class=""
+				class="sb__li__select"
 				jsondata-ref="gjsonStdGrdObj_5"
 				jsondata-text="grdNm"
 				jsondata-value="grdCd"
 				onchange="stdGrdSelect.setGrdJgmt"
 			/>
 		</li>
+		<li class="li__input">
+			<sbux-input
+				uitype="text"
+				id="stdGrdSlt-inp-knd-5"
+				name="stdGrdSlt-inp-knd-5"
+				class="form-control input-sm input-sm-ast sb__li__input"
+				maxlength="3"
+				autocomplete="off"
+				mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+				onchange="stdGrdSelect.setGrdNvSum"
+			></sbux-input>
+		</li>
+		<li class="li_label_sum">
+			<sbux-label id="stdGrdSlt-lbl-sumTitle" name="stdGrdSlt-lbl-sumTitle" uitype="normal" style="color: #3c6dbc;font-weight: bold;font-size: 12px;" text="합산">
+			</sbux-label>
+		</li>
+		<li class="li_label_sum">
+			<sbux-label 
+				id="stdGrdSlt-lbl-sum" 
+				name="stdGrdSlt-lbl-sum" 
+				uitype="normal"
+				class="stdGrdSlt__sum sb__li__input" 
+				style="font-weight: bold;font-size: 12px;"
+				mask = "{'alias': 'currency', 'suffix': ' %', 'prefix': '', 'digits': 0}" 
+				text="">
+			</sbux-label>
+		</li>
 		<li class="li_label">
 			<sbux-label id="stdGrdSlt-lbl-jgmt" name="stdGrdSlt-lbl-jgmt" uitype="normal" style="color: #3c6dbc;font-weight: bold;font-size: 12px;" text="판정등급 : ">
 			</sbux-label>
 		</li>
-		<li class="li_select">
+		<li class="li__select">
 			<sbux-select
 				uitype="single"
 				id="stdGrdSlt-slt-jgmt"
@@ -183,10 +271,15 @@ const stdGrdSelect = {
 	hide: function() {
 		SBUxMethod.hide("stdGrdSlt-lbl-jgmt");
 		SBUxMethod.hide("stdGrdSlt-slt-jgmt");
-
+		SBUxMethod.hide("stdGrdSlt-lbl-sumTitle");
+		SBUxMethod.hide("stdGrdSlt-lbl-sum");
+		
+		document.querySelector('.li_label_sum').style.display = "none";
+		
 		gStdGrdObj.idList.forEach((id) => {
 			SBUxMethod.hide('stdGrdSlt-lbl-knd-' + id);
 			SBUxMethod.hide('stdGrdSlt-slt-knd-' + id);
+			SBUxMethod.hide('stdGrdSlt-inp-knd-' + id);
 
 			let jsonObj = gStdGrdObj.getGrdJson(id);
 			jsonObj.length = 0;
@@ -197,81 +290,52 @@ const stdGrdSelect = {
 	},
 	setStdGrd: async function(_apcCd, _grdSeCd, _itemCd, _stdGrdObj) {
 
-			this.hide();
-			this.param.apcCd = _apcCd;
-			this.param.grdSeCd = _grdSeCd;
-			this.param.itemCd = _itemCd;
+		this.hide();
+		this.param.apcCd = _apcCd;
+		this.param.grdSeCd = _grdSeCd;
+		this.param.itemCd = _itemCd;
 
-			gjsonStdGrdObjKnd.length = 0;
+		gjsonStdGrdObjKnd.length = 0;
 
-			if (gfn_isEmpty(_apcCd)
-					|| gfn_isEmpty(_grdSeCd)
-					|| gfn_isEmpty(_itemCd)) {
-				return;
-			}
-			await gStdGrdObj.init(_apcCd, _grdSeCd, _itemCd);
+		if (gfn_isEmpty(_apcCd)
+				|| gfn_isEmpty(_grdSeCd)
+				|| gfn_isEmpty(_itemCd)) {
+			return;
+		}
+		await gStdGrdObj.init(_apcCd, _grdSeCd, _itemCd);
 
-			if (gjsonStdGrdObjKnd.length === 0) {
-				return;
-			}
-
-			gjsonStdGrdObjKnd.forEach((item, index) => {
-				const id = gStdGrdObj.idList[index];
-				SBUxMethod.set('stdGrdSlt-lbl-knd-' + id, item.grdKndNm + " : ");	// 등급종류명
-				SBUxMethod.show('stdGrdSlt-lbl-knd-' + id);
+		if (gjsonStdGrdObjKnd.length === 0) {
+			return;
+		}
+		
+		let cntRt = 0;
+		gjsonStdGrdObjKnd.forEach((item, index) => {
+			const id = gStdGrdObj.idList[index];
+			SBUxMethod.set('stdGrdSlt-lbl-knd-' + id, item.grdKndNm + " : ");	// 등급종류명
+			SBUxMethod.show('stdGrdSlt-lbl-knd-' + id);
+			
+			if (_.isEqual(item.stdGrdType, "RT")) {
+				cntRt++;
+				SBUxMethod.show('stdGrdSlt-inp-knd-' + id);
+			} else {
 				SBUxMethod.show('stdGrdSlt-slt-knd-' + id);
 				SBUxMethod.refresh('stdGrdSlt-slt-knd-' + id);
-			});
-
-			/*
-			let rslt = await Promise.all([
-				gfn_getStdGrds(_apcCd, _grdSeCd, _itemCd),
-				gfn_getStdGrdJgmts(_apcCd, _grdSeCd, _itemCd),
-				gfn_getStdGrdDtls(_apcCd, _grdSeCd, _itemCd)
-		 	]);
-
-			const jsonTempKnds = rslt[0];
-			gjsonStdGrdObjJgmt = rslt[1];
-			gjsonStdGrdObjDtl = rslt[2];
-
-			if (jsonTempKnds.length > 0) {
-				jsonTempKnds.forEach((item, index) => {
-					if (index >= 5) return false;
-
-					const knd = {
-							itemCd: item.itemCd,
-							itemNm: item.itemNm,
-							grdKnd: item.grdKnd,
-							grdKndNm: item.grdKndNm,
-							adtnRt: item.adtnRt
-
-						}
-					gjsonStdGrdObjKnd.push(knd);
-
-					const id = gStdGrdObj.idList[index];
-
-					SBUxMethod.set('stdGrdSlt-lbl-knd-' + id, item.grdKndNm + " : ");	// 등급종류명
-					let jsonObj = gStdGrdObj.getGrdJson(id);
-
-					const dtls = gfn_getJsonFilter(gjsonStdGrdObjDtl, "grdKnd", item.grdKnd);
-					dtls.forEach((item) => {
-						jsonObj.push(item);
-					});
-
-					SBUxMethod.show('stdGrdSlt-lbl-knd-' + id);
-					SBUxMethod.show('stdGrdSlt-slt-knd-' + id);
-
-					SBUxMethod.refresh('stdGrdSlt-slt-knd-' + id);
-				});
 			}
-			 */
+		});
+		
+		if (cntRt > 0) {
+			document.querySelector('.li_label_sum').style.display = "";
+			SBUxMethod.show("stdGrdSlt-lbl-sumTitle");
+			SBUxMethod.show("stdGrdSlt-lbl-sum");
+		} 
+		
+		if (gjsonStdGrdObjKnd.length > 1 && gjsonStdGrdObjJgmt.length > 0) {
+			SBUxMethod.show('stdGrdSlt-lbl-jgmt');
+			SBUxMethod.show('stdGrdSlt-slt-jgmt');
+			SBUxMethod.refresh('stdGrdSlt-slt-jgmt');
+		}
 
-			if (gjsonStdGrdObjKnd.length > 1 && gjsonStdGrdObjJgmt.length > 0) {
-				SBUxMethod.show('stdGrdSlt-lbl-jgmt');
-				SBUxMethod.show('stdGrdSlt-slt-jgmt');
-				SBUxMethod.refresh('stdGrdSlt-slt-jgmt');
-			}
-
+		console.log(_stdGrdObj);
 		if (!gfn_isEmpty(_stdGrdObj)) {
 
 			// set stdGrd
@@ -282,20 +346,40 @@ const stdGrdSelect = {
 			gjsonStdGrdObjKnd.forEach((item, index) => {
 				const id = gStdGrdObj.idList[index];
 				SBUxMethod.set('stdGrdSlt-slt-knd-' + id, "");
+				SBUxMethod.set('stdGrdSlt-inp-knd-' + id, "");
 			});
 
 			_stdGrdObj.stdGrdList.forEach((stdGrd) => {
+				console.log(stdGrd);
 				gjsonStdGrdObjKnd.forEach((item, index) => {
+					console.log(item);
 					if (stdGrd.grdKnd === item.grdKnd) {
-						const id = gStdGrdObj.idList[index];
-						//SBUxMethod.set('stdGrdSlt-slt-knd-' + id, stdGrd.grdCd);
-						SBUxMethod.refresh('stdGrdSlt-slt-knd-' + id);
-						SBUxMethod.set('stdGrdSlt-slt-knd-' + id, stdGrd.grdCd, { isTriggerExt : true } );
+						const id = gStdGrdObj.idList[index];						
+						if (_.isEqual(item.stdGrdType, "RT")) {
+							SBUxMethod.set('stdGrdSlt-inp-knd-' + id, stdGrd.grdNv);
+						} else {
+							SBUxMethod.refresh('stdGrdSlt-slt-knd-' + id);
+							SBUxMethod.set('stdGrdSlt-slt-knd-' + id, stdGrd.grdCd, { isTriggerExt : true } );
+						}
 						return false;
 					}
 				});
 			});
 		} else {
+			gjsonStdGrdObjKnd.forEach((item, index) => {
+				const id = gStdGrdObj.idList[index];
+				if (_.isEqual(item.stdGrdType, "RT")) {
+					SBUxMethod.set('stdGrdSlt-inp-knd-' + id, "");
+				} else {
+					let jsonObj = gStdGrdObj.getGrdJson(id);
+					if (jsonObj.length == 0) {
+						return;
+					}
+					SBUxMethod.refresh('stdGrdSlt-slt-knd-' + id);
+					SBUxMethod.set('stdGrdSlt-slt-knd-' + id, jsonObj[0].grdCd, { isTriggerExt : true } );
+				}
+			});
+			/*
 			gStdGrdObj.idList.forEach((id) => {
 				let jsonObj = gStdGrdObj.getGrdJson(id);
 				if (jsonObj.length == 0) {
@@ -304,10 +388,14 @@ const stdGrdSelect = {
 				SBUxMethod.refresh('stdGrdSlt-slt-knd-' + id);
 				SBUxMethod.set('stdGrdSlt-slt-knd-' + id, jsonObj[0].grdCd, { isTriggerExt : true } );
 			});
+			 */
 		}
 	},
 	getJgmtGrdCd: function(_grdList) {
 		
+		return gStdGrdObj.getJgmtGrdCd(_grdList);
+		
+		/*
 		if (gjsonStdGrdObjJgmt.length == 0) {
 			return "";
 		}
@@ -372,6 +460,27 @@ const stdGrdSelect = {
 		});
 		
 		return jgmtGrdCd;
+		*/
+	},
+	setGrdNvSum: function() {
+		let sumGrdNv = 0;
+		gjsonStdGrdObjKnd.forEach((item, index) => {
+			if (_.isEqual(item.stdGrdType, "RT")) {
+				const id = gStdGrdObj.idList[index];
+				let grdNv = parseFloat(SBUxMethod.get('stdGrdSlt-inp-knd-' + id)) || 0;
+				sumGrdNv += grdNv;
+			}
+		});
+		
+		if (sumGrdNv > 100) {
+			document.querySelector('.stdGrdSlt__sum').style.color = "blue";
+		} else if (sumGrdNv < 100) {
+			document.querySelector('.stdGrdSlt__sum').style.color = "red";
+		} else {
+			document.querySelector('.stdGrdSlt__sum').style.color = "green";
+		}
+		
+		SBUxMethod.set('stdGrdSlt-lbl-sum', sumGrdNv);
 	},
 	setGrdJgmt: function() {
 
@@ -450,21 +559,35 @@ const stdGrdSelect = {
 				grdJgmt: {grdCd: null, grdNm: null, grdVl: null},
 				isOmit: false
 			}
+		
+		let cntRt = 0;
+		let sumGrdNv = 0;
 		gjsonStdGrdObjKnd.forEach((item, index) => {
-			let grdCd = SBUxMethod.get('stdGrdSlt-slt-knd-' + gStdGrdObj.idList[index])
+			const _id = gStdGrdObj.idList[index];
+			let grdCd = SBUxMethod.get('stdGrdSlt-slt-knd-' + _id);
+			let grdNv = parseFloat(SBUxMethod.get('stdGrdSlt-inp-knd-' + _id)) || 0;
+			
+			if (_.isEqual(item.stdGrdType, "RT")) {
+				cntRt++;
+				grdCd = "";
+				sumGrdNv += grdNv;
+			} else {
+				if (gfn_isEmpty(grdCd)) {
+					result.isOmit = true;
+				}
+			}
+			
 			const stdGrd = {
 					apcCd: this.param.apcCd,
 					grdSeCd: this.param.grdSeCd,
 					itemCd: this.param.itemCd,
 					grdKnd: item.grdKnd,
 					grdKndNm: item.grdKndNm,
-					grdCd: grdCd
+					stdGrdType: item.stdGrdType,
+					grdCd: grdCd,
+					grdNv: grdNv
 				}
 			result.stdGrdList.push(stdGrd);
-
-			if (gfn_isEmpty(grdCd)) {
-				result.isOmit = true;
-			}
 
 			if (index === 0) {
 				let jgmtGrdCd = "";
@@ -473,8 +596,11 @@ const stdGrdSelect = {
 					jgmtGrdCd = SBUxMethod.get('stdGrdSlt-slt-jgmt');
 					jgmtGrdNm = SBUxMethod.getText('stdGrdSlt-slt-jgmt');
 				} else {
-					jgmtGrdCd = item.grdKnd;
-					jgmtGrdNm = item.grdKndNm;
+					if (_.isEqual(item.stdGrdType, "RT")) {
+						jgmtGrdCd = "*";
+					} else {
+						jgmtGrdCd = item.grdCd;
+					}
 				}
 
 				result.grdJgmt = {
@@ -485,6 +611,10 @@ const stdGrdSelect = {
 			}
 		});
 
+		if (cntRt > 0 && (sumGrdNv > 100 || sumGrdNv < 100)) {
+			result.isOmit = true;
+		}
+		
 		if (result.stdGrdList.length == 0) {
 			result.isOmit = true;
 		}

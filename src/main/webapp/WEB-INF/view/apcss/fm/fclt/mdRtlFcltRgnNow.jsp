@@ -177,7 +177,7 @@
 </body>
 <script type="text/javascript">
 
-window.addEventListener('DOMContentLoaded', function(e) {
+const fn_cellCreateMdRtlFcltRgnNowGrid = function() {
 	// 지역별 개소수 : 산지유통조직 유형	
 	fn_createMdRtlOgnzTypeGrid();
 	// 지역별 개소수 : 운영자
@@ -198,9 +198,11 @@ window.addEventListener('DOMContentLoaded', function(e) {
 	fn_createRgnInvstAtmOwnrGrid();
 	// 지역별 투자금액 - 지역별 투자금액 : 운영자
 	fn_createRgnInvstAtmOperPrsnGrid();
-});
-//그리드 id, 그리드 json
+	
+	fn_cellMdRtlFcltRgnNowGrid();
+}
 
+//그리드 id, 그리드 json
 //지역별 개소수 : 산지유통조직 유형
 var grdMdRtlOgnzType;
 //지역별 개소수 : 운영자
@@ -253,7 +255,7 @@ const fn_createMdRtlOgnzTypeGrid = function() {
     SBGridProperties.id = 'grdMdRtlOgnzType';
     SBGridProperties.jsonref = 'jsonMdRtlOgnzType';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -284,8 +286,8 @@ const fn_createMdRtlOgnzTypeGrid = function() {
     	{caption : ["통합조직 운영 APC","공공"], ref: 'v2', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
     	{caption : ["개발조직 운영 APC","민간"], ref: 'v3', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
     	{caption : ["개발조직 운영 APC","공공"], ref: 'v4', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["소 개","민간"], ref: 'v5', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["소 개","공공"], ref: 'v6', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["소 계","민간"], ref: 'v5', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["소 계","공공"], ref: 'v6', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
     	{caption : ["합계","합계"], ref: 'v7', type: 'output',  width:'190px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdMdRtlOgnzType = _SBGrid.create(SBGridProperties);
@@ -297,7 +299,7 @@ const fn_createRgnOperPrsnGrid = function() {
     SBGridProperties.id = 'grdRgnOperPrsn';
     SBGridProperties.jsonref = 'jsonRgnOperPrsn';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -328,8 +330,8 @@ const fn_createRgnOperPrsnGrid = function() {
     	{caption : ["통합조직 운영 APC","농업법인"], ref: 'v2', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
     	{caption : ["개발조직 운영 APC","농 협"], ref: 'v3', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
     	{caption : ["개발조직 운영 APC","농업법인"], ref: 'v4', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["소 개","농 협"], ref: 'v5', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["소 개","농업법인"], ref: 'v6', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["소 계","농 협"], ref: 'v5', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["소 계","농업법인"], ref: 'v6', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
     	{caption : ["합계","합계"], ref: 'v7', type: 'output',  width:'190px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdRgnOperPrsn = _SBGrid.create(SBGridProperties);
@@ -341,7 +343,7 @@ const fn_createLgstcsGdsFcltGrid = function() {
     SBGridProperties.id = 'grdLgstcsGdsFclt';
     SBGridProperties.jsonref = 'jsonLgstcsGdsFclt';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -383,7 +385,7 @@ const fn_createMdLwtpStrgGrid = function() {
     SBGridProperties.id = 'grdMdLwtpStrg';
     SBGridProperties.jsonref = 'jsonMdLwtpStrg';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -421,7 +423,7 @@ const fn_createRgnPrprtnClngFcltGrid = function() {
     SBGridProperties.id = 'grdRgnPrprtnClngFclt';
     SBGridProperties.jsonref = 'jsonRgnPrprtnClngFclt';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -459,7 +461,7 @@ const fn_createRgnStrgFcltGrid = function() {
     SBGridProperties.id = 'grdRgnStrgFclt';
     SBGridProperties.jsonref = 'jsonRgnStrgFclt';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -485,8 +487,8 @@ const fn_createRgnStrgFcltGrid = function() {
     	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'105px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
     	{caption : ["설치현황","전체 개소수"], ref: 'v1', type: 'output',  width:'175px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
     	{caption : ["설치현황","설치 개소수"], ref: 'v2', type: 'output',  width:'175px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["예냉시설(면적)","전체면적"], ref: 'v3', type: 'output',  width:'175px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["예냉시설(면적)","평균면적"], ref: 'v4', type: 'output',  width:'175px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
+    	{caption : ["CA저장고(면적)","전체면적"], ref: 'v3', type: 'output',  width:'175px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["CA저장고(면적)","평균면적"], ref: 'v4', type: 'output',  width:'175px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdRgnStrgFclt = _SBGrid.create(SBGridProperties);
 }
@@ -497,7 +499,7 @@ const fn_createRgnFcltMsrmtEqpmntGrid = function() {
     SBGridProperties.id = 'grdRgnFcltMsrmtEqpmnt';
     SBGridProperties.jsonref = 'jsonRgnFcltMsrmtEqpmnt';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -535,7 +537,7 @@ const fn_createRgnInvstAtmAllGrid = function() {
     SBGridProperties.id = 'grdRgnInvstAtmAll';
     SBGridProperties.jsonref = 'jsonRgnInvstAtmAll';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -577,7 +579,7 @@ const fn_createRgnInvstAtmOwnrGrid = function() {
     SBGridProperties.id = 'grdRgnInvstAtmOwnr';
     SBGridProperties.jsonref = 'jsonRgnInvstAtmOwnr';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -619,7 +621,7 @@ const fn_createRgnInvstAtmOperPrsnGrid = function() {
     SBGridProperties.id = 'grdRgnInvstOperPrsn';
     SBGridProperties.jsonref = 'jsonRgnInvstOperPrsn';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
-    SBGridProperties.selectmode = 'byrow';
+    SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.total = {
 			type: 'grand',
@@ -647,7 +649,7 @@ const fn_createRgnInvstAtmOperPrsnGrid = function() {
     	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'105px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
     	{caption : ["농 협","개소 수"], ref: 'v1', type: 'output',  width:'115px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
     	{caption : ["농 협","투자금액"], ref: 'v2', type: 'output',  width:'115px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["농 협","개소 수"], ref: 'v3', type: 'output',  width:'115px', style: 'text-align:right; padding-right:5px;', merge: false, format : {type:'number', rule:'#,###'}},
+    	{caption : ["농 협","평균투자액"], ref: 'v3', type: 'output',  width:'115px', style: 'text-align:right; padding-right:5px;', merge: false, format : {type:'number', rule:'#,###'}},
     	{caption : ["농업법인"," 개소 수 "], ref: 'v4', type: 'output',  width:'115px', style: 'text-align:right; padding-right:5px;', merge: false, format : {type:'number', rule:'#,###'}},
     	{caption : ["농업법인","투자금액"], ref: 'v5', type: 'output',  width:'115px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
     	{caption : ["농업법인","평균투자액"], ref: 'v6', type: 'output',  width:'115px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
@@ -656,8 +658,9 @@ const fn_createRgnInvstAtmOperPrsnGrid = function() {
 }
 
 const fn_cellMdRtlFcltRgnNowGrid = async function() {
+	let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 	
-	const postJsonPromise = gfn_postJSON("/fm/fclt/selectMdRtlFcltRgnNowGridList.do", {crtrYn : "2023"});
+	const postJsonPromise = gfn_postJSON("/fm/fclt/selectMdRtlFcltRgnNowGridList.do", {crtrYr : crtrYr});
 	
 	let data = await postJsonPromise;
 	try {

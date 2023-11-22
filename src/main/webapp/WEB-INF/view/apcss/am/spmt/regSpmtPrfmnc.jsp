@@ -1137,7 +1137,11 @@
     		grdGdsInvntr.setCellData(nRow, 18, vhclno);
     		grdGdsInvntr.setCellData(nRow, 19, dldtn);
     		grdGdsInvntr.setCellData(nRow, 20, trsprtCst);
-    		grdGdsInvntr.setCellData(nRow, 21, rmrk);
+    		if(gfn_isEmpty(rmrk)){
+    			grdGdsInvntr.setCellData(nRow, 21, '');    			
+    		}else{
+    			grdGdsInvntr.setCellData(nRow, 21, rmrk);
+    		}
     		grdGdsInvntr.setCellData(nRow, 22, spmtCmndno);
     		grdGdsInvntr.setCellData(nRow, 23, brndNm);
     		grdGdsInvntr.setCellData(nRow, 24, outordrno);
@@ -1337,7 +1341,11 @@
 			SBUxMethod.set("dtl-inp-cnptCd", cmnd.cnptCd);
 			SBUxMethod.set("dtl-inp-cnptNm", cmnd.cnptNm);
 			SBUxMethod.set("dtl-inp-dldtn", cmnd.dldtn);
-			SBUxMethod.set("dtl-inp-rmrk", cmnd.rmrk);
+			if(gfn_isEmpty(cmnd.rmrk)){
+				SBUxMethod.set("dtl-inp-rmrk", "");
+			}else{
+				SBUxMethod.set("dtl-inp-rmrk", cmnd.rmrk);
+			}
 			SBUxMethod.set("dtl-inp-outordrno", cmnd.outordrno);
 			SBUxMethod.set("dtl-slt-gdsGrd", cmnd.gdsGrd);
 			SBUxMethod.set("srch-slt-itemCd", cmnd.itemCd);

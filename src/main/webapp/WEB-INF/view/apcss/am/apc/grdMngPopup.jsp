@@ -110,20 +110,26 @@
 	</section>
 </body>
 <script type="text/javascript">
+
 	var jsonGItemCd 	= [];
 	var jsonGGrdSeCd 	= [];
 	var jsonGJgmtType 	= [];
-
+	var jsonGStdGrdType	= [];
+	
 	var jsonStdGrd = [];
 	var jsonStdGrdDtl = [];
 
 	const fn_initSBSelectStdGrd = async function() {
 		let rst = await Promise.all([
+			gfn_getComCdDtls('STD_GRD_TYPE'),
 			gfn_setApcItemSBSelect("grd-slt-itemCd", 	jsonGItemCd, gv_apcCd),			// APC 품목
 			gfn_setComCdSBSelect("grd-rdo-grdSeCd", 	jsonGGrdSeCd, "GRD_SE_CD"),		// 등급구분코드(출하)
 			gfn_setComCdSBSelect("grdStdGrdJgmt", 		jsonGJgmtType, "JGMT_TYPE")		// 등급구분코드(출하)
-
 		]);
+		
+		jsonGStdGrdType = rst[0]; 
+		console.log(jsonGStdGrdType);
+		
 		SBUxMethod.set("grd-rdo-grdSeCd", "01");
 
 		jsonStdGrd.length = 0;
@@ -154,8 +160,12 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdStdGrd\", " + nRow + ")'>삭제</button>";
 	        	}
 		    }},
-	        {caption: ["등급분류명"],     	ref: 'grdKndNm',  type:'input',  width:'180px',    style:'text-align:center',
-	        		typeinfo : {maxlength : 30}},
+	        {caption: ["등급분류명"],     	ref: 'grdKndNm',  type:'input',  width:'100px',    style:'text-align:center',
+	        		typeinfo : {maxlength : 30}
+		    },
+		    {caption: ["유형"], 	ref: 'stdGrdType',	type:'combo',  width:'80px',    style:'text-align:center',
+				typeinfo : {ref:'jsonGStdGrdType', 	displayui : false,	itemcount: 10, label:'cdVlNm', value:'cdVl', unselect: {label : '', value: ''}}
+		    },
 	        {caption: ["순번"],     ref: 'sn',  type:'input',  width:'80px',    style:'text-align:center',
 					typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 4}},
 		    {caption: ["상세"], 		ref: 'grdKnd',  type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
@@ -277,6 +287,7 @@
 				  ,	grdSeCd		: item.grdSeCd
 				  ,	grdKnd  	: item.grdKnd
 				  , grdKndNm 	: item.grdKndNm
+				  , stdGrdType	: item.stdGrdType
 				  , sn			: item.sn
 				  , adtnRt		: item.adtnRt
 				  , delYn		: item.delYn

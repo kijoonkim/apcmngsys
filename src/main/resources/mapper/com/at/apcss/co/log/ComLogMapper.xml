@@ -237,6 +237,9 @@
 			 FROM TB_RAW_MTR_CHG_HSTRY RCH
 		    WHERE 1=1
 		]]>
+		<if test='apcCd != null and apcCd != ""'>
+			  AND RCH.APC_CD = #{apcCd}
+		</if>
 		<if test='chgYmdFrom != null and chgYmdFrom != ""'>
 			  AND RCH.CHG_YMD <![CDATA[>=]]> #{chgYmdFrom}
 		</if>
@@ -296,6 +299,9 @@
 					 FROM TB_SORT_INVNTR_CHG_HSTRY SCH
 		    	    WHERE 1=1
 		]]>
+			<if test='apcCd != null and apcCd != ""'>
+				  		AND SCH.APC_CD = #{apcCd}
+			</if>
 			<if test='chgYmdFrom != null and chgYmdFrom != ""'>
 				  	  AND SCH.CHG_YMD <![CDATA[>=]]> #{chgYmdFrom}
 			</if>
@@ -355,6 +361,9 @@
 					 FROM TB_GDS_INVNTR_CHG_HSTRY GCH
 				    WHERE 1=1
 		]]>
+			<if test='apcCd != null and apcCd != ""'>
+				  	  AND GCH.APC_CD = #{apcCd}
+			</if>
 			<if test='chgYmdFrom != null and chgYmdFrom != ""'>
 				  	  AND GCH.CHG_YMD <![CDATA[>=]]> #{chgYmdFrom}
 			</if>

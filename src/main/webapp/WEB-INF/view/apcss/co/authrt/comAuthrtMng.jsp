@@ -268,6 +268,10 @@ let lv_prvMenuId = "";
 		fn_createGrdComAuth();
 		fn_createGrdComAuthMenu();
 		fn_createGrdAuthrtUi();
+		
+		if(gv_userType == '10'){
+			fn_initDisable();
+		}
 	}
 	
     /**
@@ -315,6 +319,10 @@ let lv_prvMenuId = "";
     	jsonAplcnType = await gfn_getComCdDtls("APLCN_TYPE");
     }
     
+    const fn_initDisable = function() {
+    	SBUxMethod.set('srch-slt-sysId', 'AM');
+		SBUxMethod.attr('srch-slt-sysId', 'disabled', 'true');
+    }
     
     /**
      * @name fn_createGrdComAuth
@@ -565,16 +573,16 @@ let lv_prvMenuId = "";
 		let sysId = SBUxMethod.get("srch-slt-sysId");
 		let authrtNm = SBUxMethod.get("srch-inp-authrtNm");
 		let apcCd = gv_selectedApcCd;
-
-        const postJsonPromise = gfn_postJSON("/co/authrt/selectComAuthrtList.do", {
-        	sysId: sysId,
-        	authrtNm: authrtNm,
-        	apcCd: apcCd,
-        	// pagination
-	  		pagingYn : 'Y',
-			currentPageNo : pageNo,
- 		  	recordCountPerPage : pageSize
-		});
+		
+        const postJsonPromise = gfn_postJSON("/co/authrt/selectComAuthrtList.do",{
+        		sysId: sysId,
+            	authrtNm: authrtNm,
+            	apcCd: apcCd,
+            	// pagination
+    	  		pagingYn : 'Y',
+    			currentPageNo : pageNo,
+     		  	recordCountPerPage : pageSize
+        });
 
         const data = await postJsonPromise;
 
