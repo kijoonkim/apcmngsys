@@ -1261,22 +1261,34 @@
 				cdVls += chkGdsSeCd[keys[i]]
 			}
 		}
-
+		let apcNm 					= fn_empty(SBUxMethod.get("inp-apcNm"));
+  	  	let telno 					= fn_empty(SBUxMethod.get("inp-telno"));
+  	    let addr 					= fn_empty(SBUxMethod.get("inp-addr"));
+  	  	let fxno 					= fn_empty(SBUxMethod.get("inp-fxno"));
+  	  	let actno 					= fn_empty(SBUxMethod.get("inp-actno"));
+  	  	let bankCd 					= fn_empty(SBUxMethod.get("slt-bankCd"));
+  	  	let dpstr 					= fn_empty(SBUxMethod.get("inp-dpstr"));
+  	  	let brno 					= fn_empty(SBUxMethod.get("inp-brno"));
+  	  	let apcSeCd					= fn_empty(SBUxMethod.get("rdo-apcSeCd"));
+  	  	let clclnCrtrCd				= fn_empty(SBUxMethod.get("rdo-clclnCrtrCd"));
+  	  	let bzstat					= fn_empty(SBUxMethod.get("inp-bzstat"));
+  	  	let cls						= fn_empty(SBUxMethod.get("inp-cls"));
+  	  	let apcRprsvNm				= fn_empty(SBUxMethod.get("inp-apcRprsvNm"));
     	let apcEvrmntStng = {
     		apcCd					: gv_selectedApcCd
-    	  ,	apcNm 					: SBUxMethod.get("inp-apcNm")
-    	  , telno 					: SBUxMethod.get("inp-telno")
-    	  , addr 					: SBUxMethod.get("inp-addr")
-    	  , fxno 					: SBUxMethod.get("inp-fxno")
-    	  , actno 					: SBUxMethod.get("inp-actno")
-    	  , bankCd 					: SBUxMethod.get("slt-bankCd")
-    	  , dpstr 					: SBUxMethod.get("inp-dpstr")
-    	  , brno 					: SBUxMethod.get("inp-brno")
-    	  , apcSeCd					: SBUxMethod.get("rdo-apcSeCd")
-    	  , clclnCrtrCd				: SBUxMethod.get("rdo-clclnCrtrCd")
-    	  , bzstat					: SBUxMethod.get("inp-bzstat")
-    	  , cls						: SBUxMethod.get("inp-cls")
-    	  , apcRprsvNm				: SBUxMethod.get("inp-apcRprsvNm")
+    	  ,	apcNm 					: apcNm
+    	  , telno 					: telno
+    	  , addr 					: addr
+    	  , fxno 					: fxno
+    	  , actno 					: actno
+    	  , bankCd 					: bankCd
+    	  , dpstr 					: dpstr
+    	  , brno 					: brno
+    	  , apcSeCd					: apcSeCd
+    	  , clclnCrtrCd				: clclnCrtrCd
+    	  , bzstat					: bzstat
+    	  , cls						: cls
+    	  , apcRprsvNm				: apcRprsvNm
     	  , cdVls					: cdVls
     	}
     	let postJsonPromise = gfn_postJSON("/am/apc/updateApcEvrmntStng.do", apcEvrmntStng);
@@ -1296,6 +1308,15 @@
     		console.error("failed", e.message);
         }
     }
+
+	const fn_empty = function(value){
+		if(gfn_isEmpty(value)){
+			return "";
+		}else{
+			return value;
+		}
+	}
+
 	const fn_saveMenu = async function(){
 
 		let apcEvrmntStng = {
