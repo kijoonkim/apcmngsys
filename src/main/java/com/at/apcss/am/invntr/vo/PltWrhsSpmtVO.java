@@ -23,7 +23,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PltWrhsSpmtVO extends ComVO {
-	
+
 	/**
 	 * APC코드
 	 */
@@ -70,7 +70,7 @@ public class PltWrhsSpmtVO extends ComVO {
 	/**
 	 * 순번
 	 */
-	private int seqNo;
+	private int sn;
 
 	/**
 	 * 팔레트명칭
@@ -99,4 +99,18 @@ public class PltWrhsSpmtVO extends ComVO {
 	 * 대여업체명
 	 */
 	private String pltCnptNm;
+
+	/*
+	 * 처리번호
+	 * */
+	private String prcsno;
+	/*
+	 * 처리순번
+	 * */
+	private int prcsSn;
+	/*
+	 * 입출고유형
+	 * */
+	private String wrhsSpmtType;
+	private String wrhsSpmtTypeNm;
 }

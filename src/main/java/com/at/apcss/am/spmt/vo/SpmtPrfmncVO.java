@@ -264,4 +264,14 @@ public class SpmtPrfmncVO extends ComVO {
 	 * 반품가능중량
 	 */
 	private double rtnPsbleyWght;
+
+	/*
+	 * 기초재고수량
+	 * */
+	private int bssInvntrQntt;
+
+	/*
+	 * 팔레트박스코드
+	 * */
+	private String pltBxCd;
 }
