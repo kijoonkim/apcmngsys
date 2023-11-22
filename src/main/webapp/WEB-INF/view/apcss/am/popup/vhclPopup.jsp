@@ -235,10 +235,7 @@
 					apcCd: apcCd,
 					vhclno: rowData.vhclno
 				}
-				const postJsonPromise = gfn_postJSON("/am/cmns/deleteWrhsVhclList.do", {
-					apcCd: apcCd,
-					vhclno: rowData.vhclno
-				}, this.prgrmId);
+				const postJsonPromise = gfn_postJSON("/am/cmns/deleteWrhsVhclList.do", wrhsVhclVO, this.prgrmId);
 
 				const data = await postJsonPromise;
 		        try {
@@ -249,6 +246,10 @@
 		        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		        	}
 		        } catch(e) {
+		        	if (!(e instanceof Error)) {
+		    			e = new Error(e);
+		    		}
+		    		console.error("failed", e.message);
 		        }
         	} else {
         		grdVhclPop.deleteRow(nRow);
@@ -307,6 +308,10 @@
 	        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        	}
 	        } catch(e) {
+	        	if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
 	        }
 		},
 		search: async function() {
