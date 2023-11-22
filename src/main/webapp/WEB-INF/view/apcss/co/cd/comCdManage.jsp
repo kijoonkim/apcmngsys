@@ -146,13 +146,13 @@
         SBGridProperties.columns = [
             {caption : ["<input type='checkbox' onchange='fn_checkAll(comCdgrid, this);'>"],
             	ref: 'checked', type: 'checkbox', width: '40px', style: 'text-align:center', typeinfo: {ignoreupdate : true}},
-            {caption: ["코드ID"],		ref: 'cdId',	type: 'input',		width: '150px',	style: 'text-align:center',
+            {caption: ["코드ID"],		ref: 'cdId',	type: 'input',	width: '150px',	style: 'text-align:center',
             	validate : gfn_chkByte.bind({byteLimit: 20})},
-            {caption: ["코드명"],		ref: 'cdNm',	type: 'input',		width: '150px',	style: 'text-align:center',
+            {caption: ["코드명"],		ref: 'cdNm',	type: 'input',	width: '150px',	style: 'text-align:center',
             	validate : gfn_chkByte.bind({byteLimit: 100})},
-            {caption: ["코드유형"],	ref: 'cdType',	type: 'combo',		width: '150px',	style: 'text-align:center',
-            	typeinfo: {ref:'jsonComCdType', displayui: false, itemcount: 10, label:'label', value:'value'}},
-            {caption: ["코드설명"],	ref: 'cdExpln',	type: 'input',		width: '200px',	style: 'text-align:center',
+            {caption: ["코드유형"],	ref: 'cdType',	type: 'combo',	width: '150px',	style: 'text-align:center',
+            	typeinfo: {ref:'jsonComCdType', itemcount: 10, label:'label', value:'value'}},
+            {caption: ["코드설명"],	ref: 'cdExpln',	type: 'input',	width: '200px',	style: 'text-align:center',
             	validate : gfn_chkByte.bind({byteLimit: 1000})}
         ];
         window.comCdgrid = _SBGrid.create(SBGridProperties);
@@ -179,23 +179,23 @@
         SBGridProperties.columns = [
             {caption : ["<input type='checkbox' onchange='fn_checkAll(comCdDtlgrid, this);'>"],
             	ref: 'checked', type: 'checkbox', width: '40px', style: 'text-align:center', typeinfo : {ignoreupdate : true}},
-            {caption: ["코드값"],		ref: 'cdVl',		type: 'input',		width: '150px',	style: 'text-align:center',
+            {caption: ["코드값"],		ref: 'cdVl',		type: 'input',	width: '70px',	style: 'text-align:center',
             	validate : gfn_chkByte.bind({byteLimit: 20})},
-            {caption: ["코드값명"],	ref: 'cdVlNm',		type: 'input',		width: '150px',	style: 'text-align:center',
+            {caption: ["코드값명"],	ref: 'cdVlNm',		type: 'input',	width: '150px',	style: 'text-align:center',
             	validate : gfn_chkByte.bind({byteLimit: 100})},
-            {caption: ["코드값설명"],	ref: 'cdVlExpln',	type: 'input',		width: '250px',	style: 'text-align:center',
+            {caption: ["코드값설명"],	ref: 'cdVlExpln',	type: 'input',	width: '250px',	style: 'text-align:center',
             	validate : gfn_chkByte.bind({byteLimit: 1000})},
-            {caption: ["Sort순서"],	ref: 'indctSeq',	type: 'input',		width: '100px',	style: 'text-align:center',
+            {caption: ["Sort순서"],	ref: 'indctSeq',	type: 'input',	width: '70px',	style: 'text-align:center',
             	typeinfo : {mask : {alias : 'numeric'}, maxlength: 10}, format : {type:'number'}},
-            {caption: ["상위코드값"],	ref: 'upCdVl',		type: 'input',		width: '100px',	style: 'text-align:center',
+            {caption: ["상위코드값"],	ref: 'upCdVl',		type: 'input',	width: '70px',	style: 'text-align:center',
             	validate : gfn_chkByte.bind({byteLimit: 20})},
-            {caption: ["코드숫자값"],	ref: 'cdNumVl',		type: 'input',		width: '100px',	style: 'text-align:center',
+            {caption: ["코드숫자값"],	ref: 'cdNumVl',		type: 'input',	width: '70px',	style: 'text-align:center',
             	typeinfo : {mask : {alias : 'numeric'}, maxlength: 10}, format : {type:'number'}},
             {caption: ["코드문자값"],	ref: 'cdChrVl',		type: 'input',		width: '100px',	style: 'text-align:center',
             	validate : gfn_chkByte.bind({byteLimit: 20})},
-            {caption: ["APC코드"],	ref: 'apcCd',		type: 'output',		hidden : true},
-            {caption: ["코드ID"],		ref: 'cdId',		type: 'output',		hidden : true},
-            {caption: ["행추가여부"],	ref: 'addYn',		type: 'output',		hidden : true}
+            {caption: ["APC코드"],	ref: 'apcCd',		type: 'output',	hidden : true},
+            {caption: ["코드ID"],		ref: 'cdId',		type: 'output',	hidden : true},
+            {caption: ["행추가여부"],	ref: 'addYn',		type: 'output',	hidden : true}
         ];
         comCdDtlgrid = _SBGrid.create(SBGridProperties);
     }
