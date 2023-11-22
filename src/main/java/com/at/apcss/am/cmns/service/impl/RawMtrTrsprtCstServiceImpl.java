@@ -62,21 +62,21 @@ public class RawMtrTrsprtCstServiceImpl extends BaseServiceImpl implements RawMt
 	@Override
 	public int multiTrsprtCstList(List<RawMtrTrsprtCstVO> RawMtrTrsprtCstList) throws Exception {
 		int cnt =0;
-		for ( var i=0; i<RawMtrTrsprtCstList.size(); i++ ) {
+		for ( RawMtrTrsprtCstVO rawMtrTrsprtCstVO : RawMtrTrsprtCstList ) {
 			WrhsVhclVO wrhsVhclVO = new WrhsVhclVO();
 
-			wrhsVhclVO.setVhclno(RawMtrTrsprtCstList.get(i).getVhclno());
-			wrhsVhclVO.setApcCd(RawMtrTrsprtCstList.get(i).getApcCd());
+			wrhsVhclVO.setVhclno(rawMtrTrsprtCstVO.getVhclno());
+			wrhsVhclVO.setApcCd(rawMtrTrsprtCstVO.getApcCd());
 			wrhsVhclVO = wrhsVhclService.selectWrhsVhcl(wrhsVhclVO);
 
-			RawMtrTrsprtCstList.get(i).setBankCd(wrhsVhclVO.getBankCd());
-			RawMtrTrsprtCstList.get(i).setActno(wrhsVhclVO.getActno());
-			RawMtrTrsprtCstList.get(i).setDpstr(wrhsVhclVO.getDpstr());
-			if (ComConstants.ROW_STS_INSERT.equals(RawMtrTrsprtCstList.get(i).getRowSts())) {
-				cnt += insertRawMtrTrsprtCst(RawMtrTrsprtCstList.get(i));
+			rawMtrTrsprtCstVO.setBankCd(wrhsVhclVO.getBankCd());
+			rawMtrTrsprtCstVO.setActno(wrhsVhclVO.getActno());
+			rawMtrTrsprtCstVO.setDpstr(wrhsVhclVO.getDpstr());
+			if (ComConstants.ROW_STS_INSERT.equals(rawMtrTrsprtCstVO.getRowSts())) {
+				cnt += insertRawMtrTrsprtCst(rawMtrTrsprtCstVO);
 			}
-			if (ComConstants.ROW_STS_UPDATE.equals(RawMtrTrsprtCstList.get(i).getRowSts())) {
-				cnt += updateRawMtrTrsprtCst(RawMtrTrsprtCstList.get(i));
+			if (ComConstants.ROW_STS_UPDATE.equals(rawMtrTrsprtCstVO.getRowSts())) {
+				cnt += updateRawMtrTrsprtCst(rawMtrTrsprtCstVO);
 			}
 		}
 		return cnt;

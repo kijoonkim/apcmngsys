@@ -55,32 +55,32 @@ public class WrhsVhclController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	@PostMapping(value = "/am/cmns/multiVhclList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> multiVhclList(@RequestBody List<WrhsVhclVO> vhclList, HttpServletRequest request) throws Exception {
-		
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<WrhsVhclVO> updateList = new ArrayList<WrhsVhclVO>();
 		try {
-			for ( var i=0; i<vhclList.size(); i++ ) {
-				vhclList.get(i).setVhclno(vhclList.get(i).getVhclno().replaceAll(" ", ""));
-				vhclList.get(i).setSysFrstInptUserId(getUserId());
-				vhclList.get(i).setSysFrstInptPrgrmId(getPrgrmId());
-				vhclList.get(i).setSysLastChgUserId(getUserId());
-				vhclList.get(i).setSysLastChgPrgrmId(getPrgrmId());
-				updateList.add(vhclList.get(i));
+			for ( WrhsVhclVO wrhsVhclVO : vhclList ) {
+				wrhsVhclVO.setVhclno(wrhsVhclVO.getVhclno().replaceAll(" ", ""));
+				wrhsVhclVO.setSysFrstInptUserId(getUserId());
+				wrhsVhclVO.setSysFrstInptPrgrmId(getPrgrmId());
+				wrhsVhclVO.setSysLastChgUserId(getUserId());
+				wrhsVhclVO.setSysLastChgPrgrmId(getPrgrmId());
+				updateList.add(wrhsVhclVO);
 			}
-			
+
 			HashMap<String, Object> rtnObj = wrhsVhclService.multiVhclList(updateList);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}
-			
+
 		} catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		
+
 		return getSuccessResponseEntity(resultMap);
 	}
 

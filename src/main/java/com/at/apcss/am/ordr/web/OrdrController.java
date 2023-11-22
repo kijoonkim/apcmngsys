@@ -42,7 +42,7 @@ public class OrdrController extends BaseController {
 	// 발주정보조회
 	@Resource(name = "ordrService")
 	private OrdrService ordrService;
-	
+
 	@Resource(name = "spmtCmndService")
 	private SpmtCmndService spmtCmndService;
 
@@ -90,11 +90,11 @@ public class OrdrController extends BaseController {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
-			for ( var i=0; i<ordrList.size(); i++ ) {
-				ordrList.get(i).setSysFrstInptUserId(getUserId());
-				ordrList.get(i).setSysFrstInptPrgrmId(getPrgrmId());
-				ordrList.get(i).setSysLastChgUserId(getUserId());
-				ordrList.get(i).setSysLastChgPrgrmId(getPrgrmId());
+			for ( OrdrVO ordrVO : ordrList ) {
+				ordrVO.setSysFrstInptUserId(getUserId());
+				ordrVO.setSysFrstInptPrgrmId(getPrgrmId());
+				ordrVO.setSysLastChgUserId(getUserId());
+				ordrVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
 
 			HashMap<String, Object> rtnObj = ordrService.multiOrdrList(ordrList);
@@ -108,7 +108,7 @@ public class OrdrController extends BaseController {
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	// 출하지시 등록
 	@PostMapping(value = "/am/ordr/regSpmtCmndList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> regSpmtCmndList(@RequestBody List<OrdrVO> ordrList, HttpServletRequest request) throws Exception {
@@ -118,17 +118,17 @@ public class OrdrController extends BaseController {
 		String spmtCmndno = cmnsTaskNoService.selectSpmtCmndno(ordrList.get(0).getApcCd(), ordrList.get(0).getCmndYmd());
 		int insertedCnt = 0;
 		int sn = 1;
-		
+
 		try {
 			// 접수
-			for ( var i=0; i<ordrList.size(); i++ ) {
-				ordrList.get(i).setSysFrstInptUserId(getUserId());
-				ordrList.get(i).setSysFrstInptPrgrmId(getPrgrmId());
-				ordrList.get(i).setSysLastChgUserId(getUserId());
-				ordrList.get(i).setSysLastChgPrgrmId(getPrgrmId());
-				ordrList.get(i).setSpmtCmndno(spmtCmndno);
-				if (ComConstants.ROW_STS_UPDATE.equals(ordrList.get(i).getRowSts())) {
-					rcptList.add(ordrList.get(i));
+			for ( OrdrVO ordrVO : ordrList ) {
+				ordrVO.setSysFrstInptUserId(getUserId());
+				ordrVO.setSysFrstInptPrgrmId(getPrgrmId());
+				ordrVO.setSysLastChgUserId(getUserId());
+				ordrVO.setSysLastChgPrgrmId(getPrgrmId());
+				ordrVO.setSpmtCmndno(spmtCmndno);
+				if (ComConstants.ROW_STS_UPDATE.equals(ordrVO.getRowSts())) {
+					rcptList.add(ordrVO);
 				}
 			}
 
@@ -136,17 +136,17 @@ public class OrdrController extends BaseController {
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}
-			
+
 			// 출하지시 등록
-			for ( var i=0; i<ordrList.size(); i++ ) {
-				if (ComConstants.ROW_STS_UPDATE.equals(ordrList.get(i).getRowSts())) {
-					ordrList.get(i).setRowSts("I");
+			for ( OrdrVO ordrVO : ordrList ) {
+				if (ComConstants.ROW_STS_UPDATE.equals(ordrVO.getRowSts())) {
+					ordrVO.setRowSts("I");
 				}
 			}
-			
-			for ( var i=0; i<ordrList.size(); i++ ) {
+
+			for ( OrdrVO ordrVO : ordrList ) {
 				SpmtCmndVO vo = new SpmtCmndVO();
-				OrdrVO list = ordrList.get(i);
+				OrdrVO list = ordrVO;
 				vo.setApcCd(list.getApcCd());
 				vo.setSpmtCmndno(spmtCmndno);
 				vo.setSpmtCmndSn(sn);
@@ -175,9 +175,9 @@ public class OrdrController extends BaseController {
 			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		
+
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
-		
+
 		return getSuccessResponseEntity(resultMap);
 	}
 
