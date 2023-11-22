@@ -138,9 +138,13 @@
 					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
 		            return;
 				}
+				let apcCd = "";
+				if(gv_userType == '10'){
+					apcCd = gv_apcCd;
+				}
 
 		        const postJsonPromise = gfn_postJSON("/co/log/selectRawMtrHstryList.do", {
-		        		apcCd				: gv_selectedApcCd
+		        		apcCd				: apcCd
 					  , chgYmdFrom 			: chgYmdFrom
 					  , chgYmdTo 			: chgYmdTo
 					  , pagingYn 			: 'Y'
