@@ -302,21 +302,18 @@ public class ComCdController extends BaseController {
 	
 		List<ComCdVO> deleteCdList = deleteList.getComCdList();
 		List<ComCdVO> deleteCdDtlList = deleteList.getComCdDtlList();
+		List<ComCdVO> resultList = new ArrayList<>();
 		int deletedCnt = 0;
 		
 		try {
 			for (ComCdVO comCd : deleteCdList) {
-				comCd.setSysFrstInptPrgrmId(getPrgrmId());
-				comCd.setSysFrstInptUserId(getUserId());
-				comCd.setSysLastChgPrgrmId(getPrgrmId());
+				resultList = comCdService.selectComCdDtlList(comCd);
 				deletedCnt += comCdService.deleteComCd(comCd);
-				comCd.setSysLastChgUserId(getUserId());
+				for (ComCdVO result : resultList) {
+					deletedCnt += comCdService.deleteComCdDtl(result);
+				}
 			}
 			for (ComCdVO comCdDtl : deleteCdDtlList) {
-				comCdDtl.setSysFrstInptPrgrmId(getPrgrmId());
-				comCdDtl.setSysFrstInptUserId(getUserId());
-				comCdDtl.setSysLastChgPrgrmId(getPrgrmId());
-				comCdDtl.setSysLastChgUserId(getUserId());
 				deletedCnt += comCdService.deleteComCdDtl(comCdDtl);
 			}
 		}catch (Exception e) {
