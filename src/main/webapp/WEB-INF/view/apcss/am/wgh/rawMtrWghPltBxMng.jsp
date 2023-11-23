@@ -649,6 +649,7 @@
 	       		if(data.deletedCnt > 0){
 	       			fn_search();
 	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
+	       			fn_reset();
 	       		}else{
 	       			console.log('deleteList', deleteList);
 	       			gfn_comAlert("E0001");					// E0001 오류가 발생하였습니다.
