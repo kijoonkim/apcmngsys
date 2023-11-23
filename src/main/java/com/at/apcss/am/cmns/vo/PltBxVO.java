@@ -142,4 +142,8 @@ public class PltBxVO extends ComVO {
 	 * 입출고구분명
 	 * **/
 	private String wrhsSpmtSeNm;
+	/**
+	 * 수량
+	 * **/
+	private String qntt;
 }
