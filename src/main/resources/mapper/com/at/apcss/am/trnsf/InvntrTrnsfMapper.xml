@@ -29,6 +29,7 @@
     			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
     			, pt0.*
     			, (SELECT FN_GET_APC_NM(pt0.TRNSF_APC_CD) FROM DUAL) 											AS TRNSF_APC_NM
+    			, (SELECT FN_GET_APC_NM(pt0.APC_CD) FROM DUAL) 													AS APC_NM
     			, (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) 									AS PRDCR_NM
                 , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) 	AS WAREHOUSE_SE_NM
 				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) 							AS GDS_SE_NM
@@ -49,6 +50,7 @@
     		SELECT
     			  pt0.*
     			, (SELECT FN_GET_APC_NM(pt0.TRNSF_APC_CD) FROM DUAL) 											AS TRNSF_APC_NM
+    			, (SELECT FN_GET_APC_NM(pt0.APC_CD) FROM DUAL) 													AS APC_NM
     			, (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) 									AS PRDCR_NM
                 , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) 	AS WAREHOUSE_SE_NM
 				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) 							AS GDS_SE_NM
@@ -129,6 +131,9 @@
 			</if>
 			<if test='invntrSeCd != null and invntrSeCd !=""'>
 					   AND TH.INVNTR_SE_CD = #{invntrSeCd}
+			</if>
+			<if test='cfmtnYn != null and cfmtnYn !=""'>
+					   AND TH.CFMTN_YN = #{cfmtnYn}
 			</if>
 			<if test='trnsfYmdFrom != null and trnsfYmdFrom != ""'>
 		   	   		   AND TH.TRNSF_YMD <![CDATA[>=]]> #{trnsfYmdFrom}
