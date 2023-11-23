@@ -548,7 +548,7 @@
 		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
 		let qntt = SBUxMethod.get("srch-inp-qntt");	
 		let rmrk = SBUxMethod.get("srch-inp-rmrk");
-
+		let bssInvntrQntt = "";
     	
 		if(gfn_isEmpty(cmndYmd)){
 			gfn_comAlert("W0001", "지시일자");		//	W0002	{0}을/를 선택하세요.
@@ -570,11 +570,12 @@
 			gfn_comAlert("W0001", "수량");		//	W0002	{0}을/를 선택하세요.
 			return;
 		}
-		console.log('wrhsSpmtSeCd',wrhsSpmtSeCd);
+		
 		if(wrhsSpmtSeCd == '2'){
 			for(var i=0; i<jsonPltBxMngList.length; i++){
 				if(jsonPltBxMngList[i].pltBxCd == pltBxCd){
-					if(qntt > jsonPltBxMngList[i].bssInvntrQntt){
+					bssInvntrQntt = jsonPltBxMngList[i].bssInvntrQntt;
+					if(qntt > jsonPltBxMngList[i].bssInvntrQntt && pltBxSeCd == jsonPltBxMngList[i].pltBxSeCd && apcCd == jsonPltBxMngList[i].apcCd ){
 					gfn_comAlert("W0008", "팔레트잔여수량", "입력한팔레트수량");//W0008{0} 보다 {1}이/가 큽니다.
 					SBUxMethod.set("srch-inp-qntt", 0);
 					return;
@@ -601,32 +602,13 @@
 				,unitWght: unitWght
 				,rmrk: rmrk
 				,delYn: 'N'
+				,bssInvntrQntt: bssInvntrQntt
 // 				,wrhsSpmtType: wrhsSpmtType
 			});
-			
-			var updateList = [];
-			let updateVO = {
-				apcCd: apcCd,
-				qntt: qntt,
-				pltBxSeCd: pltBxSeCd,
-				pltBxCd: pltBxCd
-			};
-			updateList.push(updateVO);
-			
-			console.log('updateList',updateList);
-			
-			const postJsonPromiseBssInvntrQntt = gfn_postJSON("/am/cmns/updatePltWrhsSpmt.do", updateList);
 	    	const data = await postJsonPromise;
-	    	const dataBssInvntrQntt = await postJsonPromiseBssInvntrQntt;
-	    	
-	    	console.log('postJsonPromise', postJsonPromise);
-	    	console.log('postJsonPromiseBssInvntrQntt', postJsonPromiseBssInvntrQntt);
-	    	console.log('postJsonPromiseBssInvntrQntt.updatedCnt', postJsonPromiseBssInvntrQntt.updatedCnt);
-	    	console.log('data', data);
-	    	console.log('dataBssInvntrQntt', dataBssInvntrQntt);
 
 	    	try{
-	       		if(dataBssInvntrQntt.updatedCnt > 0){
+	       		if(data.insertedCnt > 0){
 	       			fn_search();
 	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
 	       		}else{
@@ -644,12 +626,15 @@
 	const fn_del = async function(){
 		let grdRows = grdPltWrhsSpmt.getCheckedRows(0);
     	let deleteList = [];
-
+		
 
     	for(var i=0; i< grdRows.length; i++){
     		let nRow = grdRows[i];
     		deleteList.push(jsonPltWrhsSpmt[nRow-1]);
+    		console.log('jsonPltWrhsSpmt[nRow-1]', jsonPltWrhsSpmt[nRow-1]);
     	}
+    	console.log('grdRows', grdRows);
+    	console.log('deleteList', deleteList);
     	if(grdRows.length == 0){
     		gfn_comAlert("W0003", "삭제");			// W0003	{0}할 대상이 없습니다.
     		return;

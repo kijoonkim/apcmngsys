@@ -1,6 +1,5 @@
 package com.at.apcss.am.invntr.service.impl;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +33,14 @@ public class PltWrhsSpmtServiceImpl extends BaseServiceImpl implements PltWrhsSp
 	private PltWrhsSpmtMapper pltWrhsSpmtMapper;
 	
 	@Override
+	public PltWrhsSpmtVO selectPltBxMngWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception {
+		
+		PltWrhsSpmtVO resultVO = pltWrhsSpmtMapper.selectPltBxMngWrhsSpmt(pltWrhsSpmtVO);
+		
+		return resultVO;
+	}
+	
+	@Override
 	public List<PltBxVO> selectPltBxMngList(PltBxVO pltBxVO) throws Exception {
 
 		List<PltBxVO> resultList = pltWrhsSpmtMapper.selectPltBxMngList(pltBxVO);
@@ -59,24 +66,35 @@ public class PltWrhsSpmtServiceImpl extends BaseServiceImpl implements PltWrhsSp
 
 	@Override
 	public int insertPltWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception {
-
+		PltWrhsSpmtVO resultVO = selectPltBxMngWrhsSpmt(pltWrhsSpmtVO);
 		int insertedCnt = pltWrhsSpmtMapper.insertPltWrhsSpmt(pltWrhsSpmtVO);
+		
+		if(insertedCnt > 0) {
+			if("1".equals(pltWrhsSpmtVO.getWrhsSpmtSeCd())) {
+				int returnBssInvntrQntt = resultVO.getBssInvntrQntt() + pltWrhsSpmtVO.getQntt();
+				pltWrhsSpmtVO.setBssInvntrQntt(returnBssInvntrQntt);
+			}else if("2".equals(pltWrhsSpmtVO.getWrhsSpmtSeCd())) {
+				int returnBssInvntrQntt = resultVO.getBssInvntrQntt() - pltWrhsSpmtVO.getQntt();
+				pltWrhsSpmtVO.setBssInvntrQntt(returnBssInvntrQntt);
+			}
+			insertedCnt = pltWrhsSpmtMapper.updatePltWrhsSpmt(pltWrhsSpmtVO);
+		}
 		
 		return insertedCnt;
 	}
 
 	@Override
-	public HashMap<String, Object> updatePltWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception {
-
-		pltWrhsSpmtMapper.updatePltWrhsSpmt(pltWrhsSpmtVO);
-		
-		return null;
-	}
-
-	@Override
 	public int updateDelYnPltWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception {
-
+		PltWrhsSpmtVO resultVO = selectPltBxMngWrhsSpmt(pltWrhsSpmtVO);
 		int deletedCnt = pltWrhsSpmtMapper.updateDelYnPltWrhsSpmt(pltWrhsSpmtVO);
+		if("1".equals(pltWrhsSpmtVO.getWrhsSpmtSeCd())) {
+			int deleteQntt = resultVO.getBssInvntrQntt() - pltWrhsSpmtVO.getQntt();
+			pltWrhsSpmtVO.setBssInvntrQntt(deleteQntt);
+		}else if("2".equals(pltWrhsSpmtVO.getWrhsSpmtSeCd())) {
+			int deleteQntt = resultVO.getBssInvntrQntt() + pltWrhsSpmtVO.getQntt();
+			pltWrhsSpmtVO.setBssInvntrQntt(deleteQntt);
+		}
+		deletedCnt = pltWrhsSpmtMapper.updateBssInvntrQnttPltWrhsSpmt(pltWrhsSpmtVO);
 		
 		return deletedCnt;
 	}

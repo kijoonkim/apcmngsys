@@ -24,6 +24,14 @@ import com.at.apcss.am.invntr.vo.PltWrhsSpmtVO;
 @Mapper
 public interface PltWrhsSpmtMapper {
 	/**
+	 * 팔레트/박스 입출고 단건 조회
+	 * 
+	 * @param pltBxVO
+	 * @return
+	 * @throws Exception
+	 */
+	public PltWrhsSpmtVO selectPltBxMngWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception;
+	/**
 	 * 팔레트/박스 재고정보 목록 조회
 	 * 
 	 * @param pltBxVO
@@ -71,4 +79,11 @@ public interface PltWrhsSpmtMapper {
 	 * @throws Exception
 	 */
 	public int updateDelYnPltWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception;
+	/**
+	 * 팔레트 입출고 기초재고수량 변경
+	 * @param pltWrhsSpmtVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateBssInvntrQnttPltWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception;
 }
