@@ -80,11 +80,11 @@ public class ApcInfoController extends BaseController{
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
-			for ( var i=0; i<apcDsctnList.size(); i++ ) {
-				apcDsctnList.get(i).setSysFrstInptUserId(getUserId());
-				apcDsctnList.get(i).setSysFrstInptPrgrmId(getPrgrmId());
-				apcDsctnList.get(i).setSysLastChgUserId(getUserId());
-				apcDsctnList.get(i).setSysLastChgPrgrmId(getPrgrmId());
+			for ( ApcInfoVO apcInfoVO : apcDsctnList ) {
+				apcInfoVO.setSysFrstInptUserId(getUserId());
+				apcInfoVO.setSysFrstInptPrgrmId(getPrgrmId());
+				apcInfoVO.setSysLastChgUserId(getUserId());
+				apcInfoVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
 
 			HashMap<String, Object> rtnObj = apcInfoService.multiApcDsctnList(apcDsctnList);

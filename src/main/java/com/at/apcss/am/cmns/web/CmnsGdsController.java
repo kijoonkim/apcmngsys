@@ -63,12 +63,12 @@ public class CmnsGdsController extends BaseController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int insertedCnt = 0;
 		try {
-			for ( var i=0; i<insertList.size(); i++ ) {
-				insertList.get(i).setSysFrstInptUserId(getUserId());
-				insertList.get(i).setSysFrstInptPrgrmId(getPrgrmId());
-				insertList.get(i).setSysLastChgUserId(getUserId());
-				insertList.get(i).setSysLastChgPrgrmId(getPrgrmId());
-				insertedCnt += cmnsGdsService.insertCmnsGds(insertList.get(i));
+			for ( CmnsGdsVO cmnsGdsVO : insertList ) {
+				cmnsGdsVO.setSysFrstInptUserId(getUserId());
+				cmnsGdsVO.setSysFrstInptPrgrmId(getPrgrmId());
+				cmnsGdsVO.setSysLastChgUserId(getUserId());
+				cmnsGdsVO.setSysLastChgPrgrmId(getPrgrmId());
+				insertedCnt += cmnsGdsService.insertCmnsGds(cmnsGdsVO);
 			}
 
 		} catch (Exception e) {
@@ -82,13 +82,13 @@ public class CmnsGdsController extends BaseController {
 
 	@PostMapping(value = "/am/cmns/updateCmnsGds.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> updateCmnsGds(@RequestBody List<CmnsGdsVO> updateList, HttpServletRequest request) throws Exception {
-		
+
 		int updatedCnt = 0;
 		try {
-			for ( var i=0; i<updateList.size(); i++ ) {
-				updateList.get(i).setSysLastChgUserId(getUserId());
-				updateList.get(i).setSysLastChgPrgrmId(getPrgrmId());
-				updatedCnt += cmnsGdsService.updateCmnsGds(updateList.get(i));
+			for ( CmnsGdsVO cmnsGdsVO : updateList ) {
+				cmnsGdsVO.setSysLastChgUserId(getUserId());
+				cmnsGdsVO.setSysLastChgPrgrmId(getPrgrmId());
+				updatedCnt += cmnsGdsService.updateCmnsGds(cmnsGdsVO);
 			}
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);

@@ -44,7 +44,7 @@ public class DdlnController extends BaseController {
 	// 마감등록팝업 - 마감여부 목록 조회
 	@PostMapping(value = "/am/cmns/selectDdlnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectDdlnList(@RequestBody DdlnVO DdlnVO, HttpServletRequest request) throws Exception {
-		
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<DdlnVO> resultList = new ArrayList<>();
 		try {
@@ -59,35 +59,35 @@ public class DdlnController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	@PostMapping(value = "/am/cmns/multiDdlnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> multiDdlnList(@RequestBody List<DdlnVO> ddlnList, HttpServletRequest request) throws Exception {
-		
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
-			for ( var i=0; i<ddlnList.size(); i++ ) {
-				ddlnList.get(i).setSysFrstInptUserId(getUserId());
-				ddlnList.get(i).setSysFrstInptPrgrmId(getPrgrmId());
-				ddlnList.get(i).setSysLastChgUserId(getUserId());
-				ddlnList.get(i).setSysLastChgPrgrmId(getPrgrmId());
+			for ( DdlnVO ddlnVO : ddlnList ) {
+				ddlnVO.setSysFrstInptUserId(getUserId());
+				ddlnVO.setSysFrstInptPrgrmId(getPrgrmId());
+				ddlnVO.setSysLastChgUserId(getUserId());
+				ddlnVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
-			
+
 			HashMap<String, Object> rtnObj = DdlnService.multiDdlnList(ddlnList);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}
-			
+
 		} catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		
+
 		return getSuccessResponseEntity(resultMap);
 	}
 
 	@PostMapping(value = "/am/cmns/deleteDdln.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> deleteDdln(@RequestBody DdlnVO DdlnVO, HttpServletRequest request) throws Exception {
-		
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int result = 0;
 		try {

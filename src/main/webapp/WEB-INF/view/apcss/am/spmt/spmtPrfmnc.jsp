@@ -20,6 +20,7 @@
 <head>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../frame/inc/clipreport.jsp" %>
 </head>
 <body>
 	<section>
@@ -29,6 +30,7 @@
 					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>	<!-- 출하실적조회 -->
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-button id="btnDocSpmt" name="btnDocSpmt" uitype="normal" text="송품장" class="btn btn-sm btn-primary" onclick="fn_docSpmt"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
 					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_del"></sbux-button>
 					<sbux-button id="btnRetrun" name="btnRetrun" uitype="normal" text="반품" class="btn btn-sm btn-outline-danger" onclick="fn_rtn"></sbux-button>
@@ -808,6 +810,31 @@
 		}
 	}
 
+	/**
+     * @name fn_docSpmt
+     * @description 송품장 발행 버튼
+     */
+ 	const fn_docSpmt = function() {
+
+ 		const spmtnoList = [];
+		const allData = grdSpmtPrfmnc.getGridDataAll();
+		allData.forEach((item, index) => {
+			if (item.checkedYn === "Y") {
+				spmtnoList.push(item.spmtno);
+    		}
+		});
+
+ 		if (spmtnoList.length === 0) {
+ 			gfn_comAlert("W0001", "발행대상");		//	W0001	{0}을/를 선택하세요.
+			return;
+ 		}
+
+ 		const spmtno = spmtnoList.join("','");
+ 		console.log(spmtno);
+ 		gfn_popClipReport("송품장", "am/trsprtCmdtyDoc.crf", {apcCd: gv_selectedApcCd, spmtno: spmtno});
+ 	}
+	
+	
 	$(function(){
 		$(".glyphicon").on("click", function(){
 			SBUxMethod.set("srch-inp-vrtyNm", "");

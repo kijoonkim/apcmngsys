@@ -71,11 +71,11 @@ public class RawMtrTrsprtCstController extends BaseController {
 		int inserted = 0;
 
 		try {
-			for ( var i=0; i<trsprtCstList.size(); i++ ) {
-				trsprtCstList.get(i).setSysFrstInptUserId(getUserId());
-				trsprtCstList.get(i).setSysFrstInptPrgrmId(getPrgrmId());
-				trsprtCstList.get(i).setSysLastChgUserId(getUserId());
-				trsprtCstList.get(i).setSysLastChgPrgrmId(getPrgrmId());
+			for ( RawMtrTrsprtCstVO rawMtrTrsprtCstVO : trsprtCstList ) {
+				rawMtrTrsprtCstVO.setSysFrstInptUserId(getUserId());
+				rawMtrTrsprtCstVO.setSysFrstInptPrgrmId(getPrgrmId());
+				rawMtrTrsprtCstVO.setSysLastChgUserId(getUserId());
+				rawMtrTrsprtCstVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
 			inserted = rawMtrTrsprtCstService.multiTrsprtCstList(trsprtCstList);
 
