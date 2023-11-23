@@ -133,16 +133,30 @@ public interface ComCdService {
 
 	/**
 	 * 공통코드 멀티 저장
-	 * @param comCdList
+	 * @param List<ComCdVO>
 	 * @return updated count
 	 */
 	public int multiSaveComCdList(List<ComCdVO> comCdList) throws Exception;
 	
 	/**
 	 * 공통코드 상세 멀티 저장
-	 * @param comCdList
+	 * @param List<ComCdVO>
 	 * @return updated count
 	 */
 	public int multiSaveComCdDtlList(List<ComCdVO> comCdList) throws Exception;
+	
+	/**
+	 * 공통코드 & 공통코드 상세 멀티 저장
+	 * @param ComCdVO
+	 * @return updated count
+	 */
+	public int multiSaveComCdComCdDtlList(ComCdVO comCdVO) throws Exception;
+	
+	/**
+	 * 공통코드 & 공통코드 상세 멀티 삭제
+	 * @param ComCdVO
+	 * @return updated count
+	 */
+	public int deleteComCdComCdDtlList(ComCdVO comCdVO) throws Exception;
 
 }

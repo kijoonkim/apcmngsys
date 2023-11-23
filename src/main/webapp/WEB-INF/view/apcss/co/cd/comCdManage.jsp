@@ -267,12 +267,13 @@
 
 			document.querySelector('#listCount').innerText = totalRecordCount;
 
-          } catch (e) {
-      		if (!(e instanceof Error)) {
-      			e = new Error(e);
-      		}
-      		console.error("failed", e.message);
-          }
+		} catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
     }
 
  	// 공통코드 상세 목록 조회
@@ -311,11 +312,12 @@
 			});
 			comCdDtlgrid.rebuild();
 			comCdDtlgrid.setCellDisabled(0, 1, comCdDtlgrid.getRows() - 1, 1, true);
-        }catch (e) {
+        } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
     		}
     		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
 
@@ -385,11 +387,12 @@
 	        	} else {
 	        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        	}
-	        } catch(e) {
-	        	if (!(e instanceof Error)) {
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
 	    			e = new Error(e);
 	    		}
 	    		console.error("failed", e.message);
+	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        }
         }
     }
@@ -484,14 +487,15 @@
 		        		fn_selectComCdDtlList();
 		        	}
 	        	} else {
-	        		alert(data.resultMessage);
+	        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
 	        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        	}
-	        } catch(e) {
-	        	if (!(e instanceof Error)) {
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
 	    			e = new Error(e);
 	    		}
 	    		console.error("failed", e.message);
+	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        }
         }
     }
@@ -509,133 +513,6 @@
     	let postJsonPromise = gfn_postJSON("/co/cd/duplicateCheckCdIdDtl.do", comCdVO);
         let data = await postJsonPromise;
 		return data.result;
-    }
-
-    // 공통코드 등록
-    async function fn_callInsertComCd(comCdList){
-
-    	let postJsonPromise = gfn_postJSON("/co/cd/insertComCdList.do", comCdList);
-        let data = await postJsonPromise;
-
-        try{
-        	if(data.result > 0){
-				return data.result;
-			}else{
-				alert("저장을 실패 했습니다.");
-				return;
-			}
-        }catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        }
-    }
-
-    // 공통코드 수정
-    async function fn_callUpdateComCd(comCdList){
-
-    	let postJsonPromise = gfn_postJSON("/co/cd/updateComCdList.do", comCdList);
-        let data = await postJsonPromise;
-
-        try{
-        	if(data.result > 0){
-				return data.result;
-			}else{
-				alert("저장을 실패 했습니다.");
-				return;
-			}
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        }
-    }
-
-    // 공통코드 삭제
-    async function fn_callDeleteComCd(comCdList){
-
-    	let postJsonPromise = gfn_postJSON("/co/cd/deleteComCdList.do", comCdList);
-        let data = await postJsonPromise;
-
-        try{
-        	if(data.result > 0){
-				return data.result;
-			}else{
-				alert("삭제를 실패 했습니다.");
-				return;
-			}
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        }
-    }
-
-    // 공통코드 상세 등록
-    async function fn_callInsertComCdDtl(comCdDtlList){
-
-    	let postJsonPromise = gfn_postJSON("/co/cd/insertComCdDtlList.do", comCdDtlList);
-        let data = await postJsonPromise;
-
-        try{
-        	if(data.result > 0){
-				return data.result;
-			}else{
-				alert("저장을 실패 했습니다.");
-				return;
-			}
-        }catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        }
-    }
-
- 	// 공통코드 상세 수정
-    async function fn_callUpdateComCdDtl(comCdDtlList){
-
-    	let postJsonPromise = gfn_postJSON("/co/cd/updateComCdDtlList.do", comCdDtlList);
-        let data = await postJsonPromise;
-
-        try{
-        	if(data.result > 0){
-				return data.result;
-			}else{
-				alert("저장을 실패 했습니다.");
-				return;
-			}
-        }catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        }
-
-    }
-
- 	// 공통코드 상세 삭제
-    async function fn_callDeleteComCdDtl(comCdDtlList){
-
-    	let postJsonPromise = gfn_postJSON("/co/cd/deleteComCdDtlList.do", comCdDtlList);
-        let data = await postJsonPromise;
-
-        try{
-        	if(data.result > 0){
-				return data.result;
-			}else{
-				alert("삭제를 실패 했습니다.");
-				return;
-			}
-        }catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        }
     }
 
     // 공통코드 || 명 입력 후 엔터 이벤트(조회)
