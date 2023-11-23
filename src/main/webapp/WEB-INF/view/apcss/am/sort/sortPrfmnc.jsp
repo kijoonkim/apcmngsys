@@ -712,16 +712,17 @@
 		SBGridProperties.contextmenulist = objMenuList2;	// 우클릭 메뉴 리스트
  	    SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-        	{caption: ["입고번호","입고번호"], 	ref: 'wrhsno',  	type:'output',  width:'100px',   style:'text-align:center'},
-         	{caption: ["투입","수량"],  		ref: 'qntt',   		type:'output',  width:'60px',   style:'text-align:right',
+        	{caption: ["입고번호","입고번호"], 	ref: 'wrhsno',  		type:'output',  width:'100px',   style:'text-align:center'},
+         	{caption: ["투입","수량"],  		ref: 'qntt',   			type:'output',  width:'60px',   style:'text-align:right',
              	format : {type:'number', rule:'#,###'}
             },
-            {caption: ["투입","중량"],  		ref: 'wght',   		type:'output',  width:'60px',   style:'text-align:right',
+            {caption: ["투입","중량"],  		ref: 'wght',   			type:'output',  width:'60px',   style:'text-align:right',
             	format : {type:'number', rule:'#,###'}
             },
-            {caption: ["투입창고","투입창고"],		ref: 'warehouseSeNm', type:'output',  width:'80px',   style:'text-align:center'},
-            {caption: ["선별번호"],				ref: 'sortno', 			type:'output',  hidden: true},
-            {caption: ["선별순번"],				ref: 'sortSn', 			type:'output',  hidden: true},
+            {caption: ["투입창고","투입창고"],	ref: 'warehouseSeNm',	type:'output',  width:'80px',   style:'text-align:center'},
+            {caption: ["생산자","생산자"],		ref: 'prdcrNm',			type:'output',  width:'80px',   style:'text-align:center'},
+            {caption: ["선별번호"],			ref: 'sortno', 			type:'output',  hidden: true},
+            {caption: ["선별순번"],			ref: 'sortSn', 			type:'output',  hidden: true},
  	        {caption: [" "," "],			ref: '_',				type:'output',  width:'1px'},
         ];
     	grdSortInptPrfmnc = _SBGrid.create(SBGridProperties);
@@ -789,7 +790,7 @@
 		const postJsonPromise = gfn_postJSON("/am/sort/selectSortInptPrfmncList.do", {
 			apcCd: gv_selectedApcCd,
 			sortno: sortno,
-			sortSn: sortSn,
+			sortSn: sortSn
           	// pagination
   		});
 
@@ -801,22 +802,23 @@
       		let totalRecordCount = 0;
           	data.resultList.forEach((item, index) => {
           		const sortPrfmnc = {
-       				apcCd: item.apcCd,
-       				wrhsno: item.wrhsno,
-       				inptYmd: item.inptYmd,
-       				sortno: item.sortno,
-       				qntt: item.qntt,
-       				wght: item.wght,
-       				pltno: item.pltno,
-       				wrhsYmd: item.wrhsYmd,
-       				prdcrCd: item.prdcrCd,
-       				itemCd: item.itemCd,
-       				vrtyCd: item.vrtyCd,
-       				gdsSeCd: item.gdsSeCd,
-       				wrhsSeCd: item.wrhsSeCd,
-       				trsprtSeCd: item.trsprtSeCd,
-       				warehouseSeCd: item.warehouseSeCd,
-       				warehouseSeNm: item.warehouseSeNm,
+       				apcCd : item.apcCd,
+       				wrhsno : item.wrhsno,
+       				inptYmd : item.inptYmd,
+       				sortno : item.sortno,
+       				qntt : item.qntt,
+       				wght : item.wght,
+       				pltno : item.pltno,
+       				wrhsYmd : item.wrhsYmd,
+       				prdcrCd : item.prdcrCd,
+       				itemCd : item.itemCd,
+       				vrtyCd : item.vrtyCd,
+       				gdsSeCd : item.gdsSeCd,
+       				wrhsSeCd : item.wrhsSeCd,
+       				trsprtSeCd : item.trsprtSeCd,
+       				warehouseSeCd : item.warehouseSeCd,
+       				warehouseSeNm : item.warehouseSeNm,
+       				prdcrNm : item.prdcrNm
   				}
           		jsonSortInptPrfmnc.push(sortPrfmnc);
 
