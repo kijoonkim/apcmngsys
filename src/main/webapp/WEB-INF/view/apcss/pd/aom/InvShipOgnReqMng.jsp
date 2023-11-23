@@ -218,8 +218,8 @@
 							<td colspan="2" class="td_input">
 								<sbux-input
 									uitype="text"
-									id="dtl-input-12"
-									name="dtl-input-12"
+									id="dtl-input-crno"
+									name="dtl-input-crno"
 									class="form-control input-sm"
 									autocomplete="off"
 									readonly
@@ -229,8 +229,8 @@
 							<td colspan="4" class="td_input">
 								<sbux-input
 									uitype="text"
-									id="dtl-input-12"
-									name="dtl-input-12"
+									id="dtl-input-brno"
+									name="dtl-input-brno"
 									class="form-control input-sm"
 									autocomplete="off"
 									readonly
@@ -240,8 +240,8 @@
 							<td colspan="2" class="td_input">
 								<sbux-input
 									uitype="text"
-									id="dtl-input-12"
-									name="dtl-input-12"
+									id="dtl-input-corpNm"
+									name="dtl-input-corpNm"
 									class="form-control input-sm"
 									autocomplete="off"
 									readonly
@@ -251,8 +251,8 @@
 							<td colspan="2" class="td_input">
 								<sbux-input
 									uitype="text"
-									id="dtl-input-12"
-									name="dtl-input-12"
+									id="dtl-input-corpSeCd"
+									name="dtl-input-corpSeCd"
 									class="form-control input-sm"
 									autocomplete="off"
 									readonly
@@ -262,8 +262,8 @@
 							<td colspan="2" class="td_input">
 								<sbux-input
 									uitype="text"
-									id="dtl-input-12"
-									name="dtl-input-12"
+									id="dtl-input-corpDtlSeCd"
+									name="dtl-input-corpDtlSeCd"
 									class="form-control input-sm"
 									autocomplete="off"
 									readonly
@@ -273,8 +273,8 @@
 							<td colspan="2" class="td_input">
 								<sbux-input
 									uitype="text"
-									id="dtl-input-12"
-									name="dtl-input-12"
+									id="dtl-input-corpFndnDay"
+									name="dtl-input-corpFndnDay"
 									class="form-control input-sm"
 									autocomplete="off"
 									readonly
@@ -299,8 +299,8 @@
 							<td colspan="2" class="td_input">
 								<sbux-input
 									uitype="text"
-									id="dtl-input-12"
-									name="dtl-input-12"
+									id="dtl-input-invstNope"
+									name="dtl-input-invstNope"
 									class="form-control input-sm"
 									autocomplete="off"
 									readonly
@@ -310,8 +310,8 @@
 							<td colspan="1" class="td_input">
 								<sbux-input
 									uitype="text"
-									id="dtl-input-12"
-									name="dtl-input-12"
+									id="dtl-input-invstExpndFrmerNope"
+									name="dtl-input-invstExpndFrmerNope"
 									class="form-control input-sm"
 									autocomplete="off"
 									readonly
@@ -321,8 +321,8 @@
 							<td colspan="2" class="td_input">
 								<sbux-input
 									uitype="text"
-									id="dtl-input-12"
-									name="dtl-input-12"
+									id="dtl-input-invstAmt"
+									name="dtl-input-invstAmt"
 									class="form-control input-sm"
 									autocomplete="off"
 									readonly
@@ -332,8 +332,8 @@
 							<td colspan="2" class="td_input">
 								<sbux-input
 									uitype="text"
-									id="dtl-input-12"
-									name="dtl-input-12"
+									id="dtl-input-frmerInvstAmt"
+									name="dtl-input-frmerInvstAmt"
 									class="form-control input-sm"
 									autocomplete="off"
 									readonly
@@ -343,8 +343,8 @@
 							<td colspan="2" class="td_input">
 								<sbux-input
 									uitype="text"
-									id="dtl-input-12"
-									name="dtl-input-12"
+									id="dtl-input-prdcrGrpInvstAmt"
+									name="dtl-input-prdcrGrpInvstAmt"
 									class="form-control input-sm"
 									autocomplete="off"
 									readonly
@@ -354,8 +354,8 @@
 							<td colspan="2" class="td_input">
 								<sbux-input
 									uitype="text"
-									id="dtl-input-12"
-									name="dtl-input-12"
+									id="dtl-input-locgovInvstAmt"
+									name="dtl-input-locgovInvstAmt"
 									class="form-control input-sm"
 									autocomplete="off"
 									readonly
@@ -365,8 +365,8 @@
 							<td colspan="2" class="td_input">
 								<sbux-input
 									uitype="text"
-									id="dtl-input-12"
-									name="dtl-input-12"
+									id="dtl-input-etcAmt"
+									name="dtl-input-etcAmt"
 									class="form-control input-sm"
 									autocomplete="off"
 									readonly
@@ -394,8 +394,8 @@
 							<td colspan="5" class="td_input">
 								<sbux-input
 									uitype="text"
-									id="dtl-input-12"
-									name="dtl-input-12"
+									id="dtl-input-rprsvFlnm"
+									name="dtl-input-rprsvFlnm"
 									class="form-control input-sm"
 									autocomplete="off"
 									readonly
@@ -405,8 +405,8 @@
 							<td colspan="5" class="td_input">
 								<sbux-input
 									uitype="text"
-									id="dtl-input-12"
-									name="dtl-input-12"
+									id="dtl-input-rprsvTelno"
+									name="dtl-input-rprsvTelno"
 									class="form-control input-sm"
 									autocomplete="off"
 									readonly
@@ -416,8 +416,8 @@
 							<td colspan="5" class="td_input">
 								<sbux-input
 									uitype="text"
-									id="dtl-input-12"
-									name="dtl-input-12"
+									id="dtl-input-fxno"
+									name="dtl-input-fxno"
 									class="form-control input-sm"
 									autocomplete="off"
 									readonly
@@ -579,10 +579,12 @@
 	    ];
 
 	    grdInvShipOgnReqMng = _SBGrid.create(SBGridProperties);
+	    /*
 	    let rst = await Promise.all([
-	    	fn_initSBSelectFclt(),
+	    	//fn_initSBSelectFclt(),
 		    fn_searchFcltList()
 		])
+		*/
 		//grdInvShipOgnReqMng.refresh({"combo":true});
 	  	//클릭 이벤트 바인드
 	   	grdInvShipOgnReqMng.bind('click','fn_view');
@@ -607,30 +609,42 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	    	{caption: ["seq"], 			ref: 'apoCd',   	hidden : true},
-	    	{caption: ["순번"], 				ref: 'aa',   	type:'output',  width:'50px',    style:'text-align:center'},
-	    	{caption: ["업체명"], 			ref: 'bb',   	type:'output',  width:'220px',    style:'text-align:center'},
-	    	{caption: ["대표자명"], 			ref: 'cc',   	type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["사업자번호"], 			ref: 'dd',   	type:'output',  width:'220px',    style:'text-align:center'},
-	        {caption: ["전화번호"], 			ref: 'ee',   	type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["법인형태"], 			ref: 'ff',  	type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["출자자수"], 			ref: 'gg',   	type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["출자자 중 농업인수"], 	ref: 'hh',   	type:'output',  width:'120px',    style:'text-align:center'},
+	    	//{caption: ["순번"], 				ref: 'aa',   	type:'output',  width:'50px',    style:'text-align:center'},
+	    	{caption: ["업체명"], 			ref: 'corpNm',   	type:'output',  width:'220px',    style:'text-align:center'},
+	    	{caption: ["대표자명"], 			ref: 'rprsvFlnm',   	type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["사업자번호"], 			ref: 'brno',   	type:'output',  width:'220px',    style:'text-align:center'},
+	        {caption: ["전화번호"], 			ref: 'rprsvTelno',   	type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["법인형태"], 			ref: 'corpDtlSeCd',  	type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["출자자수"], 			ref: 'invstNope',   	type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["출자자 중 농업인수"], 	ref: 'invstExpndFrmerNope',   	type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["농업인 출자 지분율"], 	ref: 'ii',   	type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["2020~2022 대출액잔액"],ref: 'jj',   	type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["2023 상환예상액"], 	ref: 'kk',   	type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["2023 자금신청액"], 	ref: 'll',   	type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["2023 가용액"], 		ref: 'mm',   	type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["비고"], 				ref: 'nn',   	type:'output',  width:'120px',    style:'text-align:center'},
+
+	        {caption: ["상세내역"], 	ref: 'crno',   	hidden : true},
+	        {caption: ["상세내역"], 	ref: 'corpSeCd',   	hidden : true},
+	        {caption: ["상세내역"], 	ref: 'corpFndnDay',   	hidden : true},
+	        {caption: ["상세내역"], 	ref: 'invstAmt',   	hidden : true},
+	        {caption: ["상세내역"], 	ref: 'frmerInvstAmt',   	hidden : true},
+	        {caption: ["상세내역"], 	ref: 'prdcrGrpInvstAmt',   	hidden : true},
+	        {caption: ["상세내역"], 	ref: 'locgovInvstAmt',   	hidden : true},
+	        {caption: ["상세내역"], 	ref: 'etcAmt',   	hidden : true},
+	        {caption: ["상세내역"], 	ref: 'fxno',   	hidden : true}
 	    ];
 
 	    grdInvShipOgnReqMng01 = _SBGrid.create(SBGridProperties);
+	    /*
 	    let rst = await Promise.all([
 	    	fn_initSBSelectFclt(),
 		    fn_searchFcltList()
 		])
+		*/
 		//grdInvShipOgnReqMng01.refresh({"combo":true});
 	  	//클릭 이벤트 바인드
-	    //grdInvShipOgnReqMng01.bind('click','fn_view');
+	    grdInvShipOgnReqMng01.bind('click','fn_view01');
 
 	}
 
@@ -647,7 +661,7 @@
 		let brno = SBUxMethod.get("srch-input-brno");//
 		let corpNm = SBUxMethod.get("srch-input-corpNm");//
 
-    	let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
+    	let postJsonPromise01 = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
     		cmptnInst : cmptnInst
     		,ctpv : ctpv
 
@@ -658,7 +672,8 @@
     		,corpNm : corpNm
 
 		});
-        let data = await postJsonPromise;
+
+        let data = await postJsonPromise01 ;
         try{
         	jsonInvShipOgnReqMng.length = 0;
         	console.log("data==="+data);
@@ -787,15 +802,15 @@
 
 
 	//통합조직 리스트 그리드 클릭시 출자출하조직 리스트 조회 이벤트
-	function fn_view() {
+	const fn_view = async function(){
 		console.log("******************fn_view**********************************");
 
 	    //데이터가 존재하는 그리드 범위 확인
-		var nCol = grdPrdcrCrclOgnReqMng.getCol();
+		var nCol = grdInvShipOgnReqMng.getCol();
 	    if (nCol < 1) {
 	        return;
 	    }
-	    var nRow = grdPrdcrCrclOgnReqMng.getRow();
+	    var nRow = grdInvShipOgnReqMng.getRow();
 		if (nRow < 1) {
 	        return;
 		}
@@ -804,8 +819,97 @@
 		}
 
 		//해당 로우 데이터로 출자출하조직 리스트 조회
-        let rowData = grdPrdcrCrclOgnReqMng.getRowData(nRow);
+        let rowData = grdInvShipOgnReqMng.getRowData(nRow);
 		console.log(rowData);
+
+		let uoBrno = rowData.brno
+		let apoCd = rowData.apoCd
+
+		let postJsonPromise = gfn_postJSON("/pd/aom/selectInvShipOgnReqMngList.do", {
+			uoBrno : uoBrno
+    		,apoCd : apoCd
+
+		});
+        let data = await postJsonPromise;
+        try{
+        	jsonInvShipOgnReqMng01.length = 0;
+        	console.log("data==="+data);
+        	data.resultList.forEach((item, index) => {
+				let InvShipOgnReqMngVO = {
+						apoCd: item.apoCd
+						,corpNm: item.corpNm
+						,rprsvFlnm: item.rprsvFlnm
+						,brno: item.brno
+						,rprsvTelno: item.rprsvTelno
+						,corpDtlSeCd: item.corpDtlSeCd
+						,invstNope: item.invstNope
+						,invstExpndFrmerNope: item.invstExpndFrmerNope
+
+						,crno: item.crno
+						,corpSeCd: item.corpSeCd
+						,corpFndnDay: item.corpFndnDay
+						,invstAmt: item.invstAmt
+						,frmerInvstAmt: item.frmerInvstAmt
+						,prdcrGrpInvstAmt: item.prdcrGrpInvstAmt
+						,locgovInvstAmt: item.locgovInvstAmt
+						,etcAmt: item.etcAmt
+						,rprsvFlnm: item.rprsvFlnm
+						,rprsvTelno: item.rprsvTelno
+						,fxno: item.fxno
+				}
+				jsonInvShipOgnReqMng01.push(InvShipOgnReqMngVO);
+			});
+
+        	grdInvShipOgnReqMng01.rebuild();
+
+        	//비어 있는 마지막 줄 추가용도?
+        	//grdInvShipOgnReqMng01.addRow();
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
+    }
+
+	//출자출하조직 상세 조회
+	function fn_view01() {
+		console.log("******************fn_view**********************************");
+
+	    //데이터가 존재하는 그리드 범위 확인
+		var nCol = grdInvShipOgnReqMng01.getCol();
+	    if (nCol < 1) {
+	        return;
+	    }
+	    var nRow = grdInvShipOgnReqMng01.getRow();
+		if (nRow < 1) {
+	        return;
+		}
+		if(nRow == null){
+			nRow = 1;
+		}
+
+		//해당 로우 데이터로 출자출하조직 리스트 조회
+        let rowData = grdInvShipOgnReqMng01.getRowData(nRow);
+		console.log(rowData);
+
+		SBUxMethod.set("dtl-input-apoCd", rowData.apoCd);
+		SBUxMethod.set("dtl-input-crno", rowData.brno);
+		SBUxMethod.set("dtl-input-brno", rowData.brno);
+		SBUxMethod.set("dtl-input-corpNm", rowData.corpNm);
+		SBUxMethod.set("dtl-input-corpSeCd", rowData.corpSeCd);
+		SBUxMethod.set("dtl-input-corpDtlSeCd", rowData.corpDtlSeCd);
+		SBUxMethod.set("dtl-input-corpFndnDay", rowData.corpFndnDay);
+		SBUxMethod.set("dtl-input-invstNope", rowData.invstNope);
+		SBUxMethod.set("dtl-input-invstExpndFrmerNope", rowData.invstExpndFrmerNope);
+		SBUxMethod.set("dtl-input-invstAmt", rowData.invstAmt);
+		SBUxMethod.set("dtl-input-frmerInvstAmt", rowData.frmerInvstAmt);
+		SBUxMethod.set("dtl-input-prdcrGrpInvstAmt", rowData.prdcrGrpInvstAmt);
+		SBUxMethod.set("dtl-input-locgovInvstAmt", rowData.locgovInvstAmt);
+		SBUxMethod.set("dtl-input-etcAmt", rowData.etcAmt);
+		SBUxMethod.set("dtl-input-rprsvFlnm", rowData.rprsvFlnm);
+		SBUxMethod.set("dtl-input-rprsvTelno", rowData.rprsvTelno);
+		SBUxMethod.set("dtl-input-fxno", rowData.fxno);
 
     }
 
