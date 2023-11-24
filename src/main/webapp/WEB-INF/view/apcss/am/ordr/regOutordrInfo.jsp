@@ -413,6 +413,7 @@
 
 			console.error("failed", e.message);
 		}
+		console.log('jsonComSpcfct', jsonComSpcfct);
 	}
 
 
@@ -511,7 +512,9 @@
 		let gdsNm 		= SBUxMethod.get("srch-inp-gdsNm");
 		let spmtPckgUnitCd 	= SBUxMethod.get("srch-inp-spmtPckgUnitCd");
 		let rcptnSeCd 	= "99";
-
+		let unitWght 	= "";
+		let outordrWght = "";
+		
 		if(gfn_isEmpty(outordrType)){
 			gfn_comAlert("W0001", "발주형태");		//	W0001	{0}을/를 선택하세요.
 			return;
@@ -556,6 +559,12 @@
 			gfn_comAlert("W0002", "입수");		//	W0002	{0}을/를 입력하세요.
 			return;
 		}
+		// FOR문 돌려서 JSON에서 (단중) 찾아서 빼서 밑에 ORDR에 넣어주기 XML 확인
+		for(var i=0; i<jsonComSpcfct.length; i++){
+			unitWght = jsonComSpcfct[i].wght;
+		
+			outordrWght = (parseInt(unitWght) * parseInt(outordrQntt));
+		}
 		let ordr = {
 				apcCd 			: apcCd,
 				apcSeCd			: apcSeCd,
@@ -580,7 +589,9 @@
 				gdsNm			: gdsNm,
 				spmtPckgUnitCd	: spmtPckgUnitCd,
 				rcptCfmtnApcCd 	: apcCd,
-				rcptCfmtnYmd	: outordrYmd
+				rcptCfmtnYmd	: outordrYmd,
+				unitWght		: unitWght,
+				outordrWght		: outordrWght
 		}
 
 		let regMsg = "저장 하시겠습니까?";
