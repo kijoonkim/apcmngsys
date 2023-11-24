@@ -23,7 +23,8 @@
     <select id="selectBbs" parameterType="com.at.apcss.am.bbs.vo.apcBbsVO" resultType="com.at.apcss.am.bbs.vo.apcBbsVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.am.bbs.mapper.apcBbsMapper.selectBbs */
-				  CM.BBS_NO	AS BBS_NO
+			      CM.APC_CD
+				, CM.BBS_NO	AS BBS_NO
 				, CM.BBS_TITLE		AS BBS_TITLE
 				, CM.BBS_SE_CD	AS BBS_SE_CD
 				, CM.BBS_SUBJECT		AS BBS_SUBJECT
@@ -67,7 +68,8 @@
     	<!-- End 페이징 -->
     	<![CDATA[
 			SELECT /* com.at.apcss.am.bbs.mapper.apcBbsMapper.selectBbsList */
-				  CM.BBS_NO	AS BBS_NO
+				  CM.APC_CD
+				, CM.BBS_NO	AS BBS_NO
 				, CM.BBS_TITLE		AS BBS_TITLE
 				, CM.BBS_SE_CD	AS BBS_SE_CD
 				, (SELECT FN_GET_COM_CD_VL_NM('BBS_SE_CD', CM.BBS_SE_CD) FROM DUAL) AS BBS_SE_CD_NM
