@@ -467,7 +467,7 @@
     			e = new Error(e);
     		}
     		console.error("failed", e.message);
-    		alert(gfn_getComMsg("E0001"));	//	E0001	오류가 발생하였습니다.
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
 
@@ -520,7 +520,12 @@
         		alert(data.resultMessage);
         		alert(gfn_getComMsg("E0001"));	//	E0001	오류가 발생하였습니다.
         	}
-        } catch(e) {
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
 
@@ -567,7 +572,12 @@
 	    		alert(data.resultMessage);
 	    		alert(gfn_getComMsg("E0001"));	//	E0001	오류가 발생하였습니다.
 	    	}
-	    } catch(e) {
+	    } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	    }
 
     }
@@ -595,7 +605,12 @@
 	    		alert(data.resultMessage);
 	    		alert(gfn_getComMsg("E0001"));	//	E0001	오류가 발생하였습니다.
 	    	}
-	    } catch(e) {
+	    } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	    }
     }
 

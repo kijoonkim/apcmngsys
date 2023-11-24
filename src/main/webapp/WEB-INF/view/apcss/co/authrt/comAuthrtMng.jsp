@@ -630,6 +630,7 @@ let lv_prvMenuId = "";
     			e = new Error(e);
     		}
     		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
 
@@ -708,10 +709,11 @@ let lv_prvMenuId = "";
      		grdComAuthMenu.rebuild();
 
          } catch (e) {
-     		if (!(e instanceof Error)) {
-     			e = new Error(e);
-     		}
-     		console.error("failed", e.message);
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
          }
 	}
 
@@ -758,10 +760,11 @@ let lv_prvMenuId = "";
   			});
           	
 		} catch (e) {
-      		if (!(e instanceof Error)) {
-      			e = new Error(e);
-      		}
-      		console.error("failed", e.message);
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 		
 		grdComAuthrtUi.refresh();
@@ -803,7 +806,12 @@ let lv_prvMenuId = "";
         		//alert(data.resultMessage);
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
-        } catch(e) {
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
 
@@ -842,9 +850,13 @@ let lv_prvMenuId = "";
         		//alert(data.resultMessage);
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
-        } catch(e) {
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
-
     }
 
     /**
@@ -874,7 +886,12 @@ let lv_prvMenuId = "";
         		//alert(data.resultMessage);
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
-        } catch(e) {
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
 
@@ -1031,7 +1048,12 @@ let lv_prvMenuId = "";
         		//alert(data.resultMessage);
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
-        } catch(e) {
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
 
@@ -1079,16 +1101,20 @@ let lv_prvMenuId = "";
 
  		const data = await postJsonPromise;
 
-         try {
-         	if (_.isEqual("S", data.resultStatus)) {
-         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-         		fn_setGrdComAuthrtUi();
-         	} else {
-         		gfn_comAlert(data.resultCode, data.resultMessage);
-         	}
-         } catch(e) {
-        	 gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-         }
+			try {
+	         	if (_.isEqual("S", data.resultStatus)) {
+	         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+	         		fn_setGrdComAuthrtUi();
+	         	} else {
+	         		gfn_comAlert(data.resultCode, data.resultMessage);
+	         	}
+			} catch (e) {
+	    		if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+			}
 	}
 
 	/**

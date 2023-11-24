@@ -741,13 +741,12 @@
           		}
   			});
           	grdGdsInvntr.refresh();
-		}catch (e) {
-
-			if (!(e instanceof Error)) {
-				e = new Error(e);
-			}
-
-			console.error("failed", e.message);
+		} catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 		return true;
 	}
@@ -1184,14 +1183,14 @@
 	        	} else {
 	        		alert(data.resultMessage);
 	        	}
-	        }catch (e) {
-	        	if (!(e instanceof Error)) {
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
 	    			e = new Error(e);
 	    		}
 	    		console.error("failed", e.message);
+	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 			}
 		}
-
     }
 
 	const fn_setGrdSmptPrfmnc = async function(){
@@ -1246,12 +1245,12 @@
   			});
           	grdSpmtPrfmnc.refresh();
           	SBUxMethod.set("crtr-ymd", spmtYmd);
-		}catch (e) {
-
-			if (!(e instanceof Error)) {
-				e = new Error(e);
-			}
-			console.error("failed", e.message);
+		} catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 	}
 

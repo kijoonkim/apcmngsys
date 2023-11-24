@@ -119,54 +119,62 @@
 	    	grdWarehouse.rebuild();
 	    	grdWarehouse.addRow(true);
 	    	grdWarehouse.setCellDisabled(grdWarehouse.getRows() -1, 0, grdWarehouse.getRows() -1, grdWarehouse.getCols() -1, true);
-	    }catch (e) {
-			if (!(e instanceof Error)) {
-				e = new Error(e);
-			}
-			console.error("failed", e.message);
+	    } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	    }
 	}
 
 	async function fn_saveWarehouseList(){
 		let gridData = grdWarehouse.getGridDataAll();
-		let insertList = [];
-		let updateList = [];
-		let insertCnt = 0;
-		let updateCnt = 0;
+		let saveList = [];
+		
 		for(var i=1; i<=gridData.length; i++ ){
-			if(grdWarehouse.getRowData(i).delYn == 'N'){
+			const rowData = grdWarehouse.getRowData(i);
+			const rowSts = grdWarehouse.getRowStatus(i);
+			if(rowData.delYn == 'N'){
 
-				if(grdWarehouse.getRowData(i).cdVlNm == null || grdWarehouse.getRowData(i).cdVlNm == ""){
+				if(gfn_isEmpty(rowData.cdVlNm)){
 					alert("창고 명은 필수 값 입니다.");
 					return;
 				}
 
-				if(grdWarehouse.getRowStatus(i) === 3){
-					insertList.push(grdWarehouse.getRowData(i));
+				if(rowSts === 3){
+					rowData.rowSts = "I";
+					saveList.push(rowData);
 				}
-				if(grdWarehouse.getRowStatus(i) === 2){
-					updateList.push(grdWarehouse.getRowData(i));
+				if(rowSts === 2){
+					rowData.rowSts = "U";
+					saveList.push(rowData);
 				}
 			}
 		}
-		if(insertList.length == 0 && updateList.length == 0){
+		if(saveList.length == 0 ){
 			alert("저장 할 내용이 없습니다.");
 			return;
 		}
 
 		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
-
-			if(insertList.length > 0){
-				insertCnt = await fn_callInsertRsrcList(insertList);
-			}
-			if(updateList.length > 0){
-				updateCnt = await fn_callUpdateRsrcList(updateList);
-			}
-			if(insertCnt + updateCnt > 0 ){
-				fn_callSelectWarehouseList();
-				alert("저장 되었습니다.");
-			}
+			const postJsonPromise = gfn_postJSON("/co/cd/multiSaveComCdDtlList.do", saveList, this.prgrmId);	// 프로그램id 추가
+			const data = await postJsonPromise;
+	        try {
+				if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+					fn_callSelectWarehouseList();
+	        	} else {
+		        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	        	}
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	        }
 		}
 
 	}

@@ -38,141 +38,7 @@ public class ComCdController extends BaseController {
 
 	@Resource(name ="comCdService")
 	private ComCdService comCdService;
-
-
-	// 공통코드 등록
-	@PostMapping(value = "/co/cd/insertComCdList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> insertComCdList(@RequestBody List<ComCdVO> comCdList, HttpServletRequest request) throws Exception {
-		logger.debug("/co/cd/insertComCdList >>> 호출 >>> ");
-
-		logger.debug("size >>>>  {} ", comCdList.size());
-		int result = 0;
-		try {
-			for (ComCdVO comCdVO : comCdList) {
-				comCdVO.setSysFrstInptPrgrmId(getPrgrmId());
-				comCdVO.setSysFrstInptUserId(getUserId());
-				comCdVO.setSysLastChgPrgrmId(getPrgrmId());
-				comCdVO.setSysLastChgUserId(getUserId());
-				result += comCdService.insertComCd(comCdVO);
-			}
-		}catch (Exception e) {
-			return getErrorResponseEntity(e);
-		}
-
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		resultMap.put("result", result);
-		return getSuccessResponseEntity(resultMap);
-	}
-
-
-	// 공통코드 수정
-	@PostMapping(value = "/co/cd/updateComCdList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> updateComCdList(@RequestBody List<ComCdVO> comCdList, HttpServletRequest request) throws Exception {
-		logger.debug("/co/cd/updateComCdList >>> 호출 >>> ");
-
-		logger.debug("size >>>>  {} ", comCdList.size());
-		int result = 0;
-		try {
-			for (ComCdVO comCdVO : comCdList) {
-				comCdVO.setSysLastChgPrgrmId(getPrgrmId());
-				comCdVO.setSysLastChgUserId(getUserId());
-				result += comCdService.updateComCd(comCdVO);
-			}
-		}catch (Exception e) {
-			return getErrorResponseEntity(e);
-		}
-
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		resultMap.put("result", result);
-		return getSuccessResponseEntity(resultMap);
-	}
-
-	// 공통코드 삭제
-	@PostMapping(value = "/co/cd/deleteComCdList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> deleteComCdList(@RequestBody List<ComCdVO> comCdList, HttpServletRequest request) throws Exception {
-		logger.debug("/co/cd/deleteComCdList >>> 호출 >>> ");
-
-		logger.debug("size >>>>  {} ", comCdList.size());
-		int result = 0;
-		try {
-			for (ComCdVO comCdVO : comCdList) {
-				result += comCdService.deleteComCd(comCdVO);
-			}
-		}catch (Exception e) {
-			return getErrorResponseEntity(e);
-		}
-
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		resultMap.put("result", result);
-		return getSuccessResponseEntity(resultMap);
-	}
-
-	// 공통코드 상세 등록
-	@PostMapping(value = "/co/cd/insertComCdDtlList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> insertComCdDtlList(@RequestBody List<ComCdVO> comCdList, HttpServletRequest request) throws Exception {
-		logger.debug("/co/cd/insertComCdDtlList >>> 호출 >>> ");
-
-		logger.debug("size >>>>  {} ", comCdList.size());
-		int result = 0;
-		try {
-			for (ComCdVO comCdVO : comCdList) {
-				comCdVO.setSysFrstInptPrgrmId(getPrgrmId());
-				comCdVO.setSysFrstInptUserId(getUserId());
-				comCdVO.setSysLastChgPrgrmId(getPrgrmId());
-				comCdVO.setSysLastChgUserId(getUserId());
-				result += comCdService.insertComCdDtl(comCdVO);
-			}
-		}catch (Exception e) {
-			return getErrorResponseEntity(e);
-		}
-
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		resultMap.put("result", result);
-		return getSuccessResponseEntity(resultMap);
-	}
-
-	// 공통코드 상세 수정
-	@PostMapping(value = "/co/cd/updateComCdDtlList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> updateComCdDtlList(@RequestBody List<ComCdVO> comCdList, HttpServletRequest request) throws Exception {
-		logger.debug("/co/cd/updateComCdList >>> 호출 >>> ");
-
-		logger.debug("size >>>>  {} ", comCdList.size());
-		int result = 0;
-		try {
-			for (ComCdVO comCdVO : comCdList) {
-				comCdVO.setSysLastChgPrgrmId(getPrgrmId());
-				comCdVO.setSysLastChgUserId(getUserId());
-				result += comCdService.updateComCdDtl(comCdVO);
-			}
-		}catch (Exception e) {
-			return getErrorResponseEntity(e);
-		}
-
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		resultMap.put("result", result);
-		return getSuccessResponseEntity(resultMap);
-	}
-
-	// 공통코드 상세 삭제
-	@PostMapping(value = "/co/cd/deleteComCdDtlList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> deleteComCdDtlList(@RequestBody List<ComCdVO> comCdList, HttpServletRequest request) throws Exception {
-		logger.debug("/co/cd/deleteComCdList >>> 호출 >>> ");
-
-		logger.debug("size >>>>  {} ", comCdList.size());
-		int result = 0;
-		try {
-			for (ComCdVO comCdVO : comCdList) {
-				result += comCdService.deleteComCdDtl(comCdVO);
-			}
-		}catch (Exception e) {
-			return getErrorResponseEntity(e);
-		}
-
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		resultMap.put("result", result);
-		return getSuccessResponseEntity(resultMap);
-	}
-
+	
 	// 공통코드 상세 삭제
 	@PostMapping(value = "/co/cd/deleteComCdDtl.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteComCdDtl(@RequestBody ComCdVO comCdVO, HttpServletRequest request) throws Exception {
@@ -269,6 +135,7 @@ public class ComCdController extends BaseController {
 	
 		List<ComCdVO> saveCdList = saveList.getComCdList();
 		List<ComCdVO> saveCdDtlList = saveList.getComCdDtlList();
+		ComCdVO saveComCdComCdDtlList = new ComCdVO();
 		int savedCnt = 0;
 		
 		try {
@@ -284,9 +151,10 @@ public class ComCdController extends BaseController {
 				comCdDtl.setSysLastChgPrgrmId(getPrgrmId());
 				comCdDtl.setSysLastChgUserId(getUserId());
 			}
+			saveComCdComCdDtlList.setComCdList(saveCdList);
+			saveComCdComCdDtlList.setComCdDtlList(saveCdDtlList);
 	
-			savedCnt += comCdService.multiSaveComCdList(saveCdList);
-			savedCnt += comCdService.multiSaveComCdDtlList(saveCdDtlList);
+			savedCnt = comCdService.multiSaveComCdComCdDtlList(saveComCdComCdDtlList);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -299,23 +167,11 @@ public class ComCdController extends BaseController {
 	public ResponseEntity<HashMap<String, Object>> deleteComCdComCdDtlList(@RequestBody ComCdVO deleteList, HttpServletRequest request) throws Exception {
 	
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-	
-		List<ComCdVO> deleteCdList = deleteList.getComCdList();
-		List<ComCdVO> deleteCdDtlList = deleteList.getComCdDtlList();
-		List<ComCdVO> resultList = new ArrayList<>();
+
 		int deletedCnt = 0;
 		
 		try {
-			for (ComCdVO comCd : deleteCdList) {
-				resultList = comCdService.selectComCdDtlList(comCd);
-				deletedCnt += comCdService.deleteComCd(comCd);
-				for (ComCdVO result : resultList) {
-					deletedCnt += comCdService.deleteComCdDtl(result);
-				}
-			}
-			for (ComCdVO comCdDtl : deleteCdDtlList) {
-				deletedCnt += comCdService.deleteComCdDtl(comCdDtl);
-			}
+			deletedCnt = comCdService.deleteComCdComCdDtlList(deleteList);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}

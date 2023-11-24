@@ -405,18 +405,17 @@
   				}else{
   					grdGdsCd.refresh();
   				}
-          	} else {
-          		grdGdsCd.setPageTotalCount(totalRecordCount);
-          		grdGdsCd.rebuild();
-          	}
-
-
-          } catch (e) {
-      		if (!(e instanceof Error)) {
-      			e = new Error(e);
-      		}
-      		console.error("failed", e.message);
-          }
+        	} else {
+        		grdGdsCd.setPageTotalCount(totalRecordCount);
+        		grdGdsCd.rebuild();
+        	}
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+	    	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
     }
 
  	$(function(){

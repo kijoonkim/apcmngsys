@@ -435,10 +435,10 @@
      */
     const fn_rawMtrWrhsPrfmncSearch = async function() {
     	try{
- 		   if (gfn_isEmpty(SBUxMethod.get("srch-dtp-startPrdctnYmd")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-endPrdctnYmd"))){
- 			  await gfn_comAlert("W0001", "입고일자");		//	W0002	{0}을/를 선택하세요.
- 	          return false;
- 		   }
+			if (gfn_isEmpty(SBUxMethod.get("srch-dtp-startPrdctnYmd")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-endPrdctnYmd"))){
+				await gfn_comAlert("W0001", "입고일자");		//	W0002	{0}을/를 선택하세요.
+			    return;
+			}
 	        // set pagination
 	    	inptCmndDsctnList.rebuild();
 	    	let pageSize = inptCmndDsctnList.getPageSize();
@@ -448,10 +448,13 @@
 	    	jsoninptCmndDsctnList.length = 0;
 	    	inptCmndDsctnList.clearStatus();
 	    	await fn_setGrdRawMtrWrhsPrfmnc(pageSize, pageNo);
- 	   } catch(e){
-		   alert(e);
-		   return;
-	   }
+		} catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
 	}
 	const fn_setGrdRawMtrWrhsPrfmnc = async function(pageSize, pageNo) {
 		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-startPrdctnYmd");		// 입고시작일자
@@ -542,10 +545,11 @@
           		inptCmndDsctnList.rebuild();
          	}
         } catch (e) {
-     		if (!(e instanceof Error)) {
-     			e = new Error(e);
-     		}
-     		console.error("failed", e.message);
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
      	}
 	}
 

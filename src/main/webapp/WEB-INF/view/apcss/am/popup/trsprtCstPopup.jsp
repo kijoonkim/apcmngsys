@@ -266,10 +266,11 @@
 		        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		        	}
 		        } catch(e) {
-		        	if (!(e instanceof Error)) {
+		    		if (!(e instanceof Error)) {
 		    			e = new Error(e);
 		    		}
 		    		console.error("failed", e.message);
+		        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		        }
         	} else {
         		grdTrsprtCstPop.deleteRow(nRow);
@@ -346,10 +347,11 @@
 	        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        	}
 	        } catch(e) {
-	        	if (!(e instanceof Error)) {
+	    		if (!(e instanceof Error)) {
 	    			e = new Error(e);
 	    		}
 	    		console.error("failed", e.message);
+	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        }
 		},
 		search: async function() {
@@ -401,6 +403,7 @@
 	    			e = new Error(e);
 	    		}
 	    		console.error("failed", e.message);
+	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        }
 	    },
 	    callSelectRgnTsprtCstList: async function() {
@@ -422,6 +425,7 @@
 	    			e = new Error(e);
 	    		}
 	    		console.error("failed", e.message);
+	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        }
 	    },
 	    setTrsprtCst: async function(objGrid, nRow, nCol, strValue, objRowData) {
@@ -492,6 +496,7 @@
 	    			e = new Error(e);
 	    		}
 	    		console.error("failed", e.message);
+	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        }
 	    },
 	    // 엑셀 내려받기, 올리기

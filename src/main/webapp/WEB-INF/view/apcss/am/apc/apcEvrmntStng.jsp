@@ -793,36 +793,6 @@
 		}
 	}
 
-	async function fn_callInsertRsrcList(comCdList){
-		let postJsonPromise = gfn_postJSON("/co/cd/insertComCdDtlList.do", comCdList);
-        let data = await postJsonPromise;
-
-        try{
-       		return data.result;
-
-        }catch (e) {
-        	if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-		}
-
-	}
-
-	async function fn_callUpdateRsrcList(comCdList){
-		let postJsonPromise = gfn_postJSON("/co/cd/updateComCdDtlList.do", comCdList);
-        let data = await postJsonPromise;
-        try{
-       		return data.result;
-
-        }catch (e) {
-        	if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-		}
-	}
-
 	async function fn_deleteRsrc(comCdVO){
 		let postJsonPromise = gfn_postJSON("/co/cd/deleteComCdDtl.do", comCdVO);
         let data = await postJsonPromise;
