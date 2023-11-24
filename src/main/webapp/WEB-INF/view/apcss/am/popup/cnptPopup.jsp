@@ -64,6 +64,11 @@
 
 	var grdCnpt = null;
 	var jsonCnptPopUp = [];
+	
+	const excelDwnldCnptPop = function () {
+		grdCnpt.exportLocalExcel("거래처 목록", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+	
 	const popCnpt = {
 		modalId: 'modal-cnpt',
 		gridId: 'grdCnpt',
@@ -74,6 +79,13 @@
 		gridJson: [],
 		apcCd :"",
 		cnptNm : "",
+		objMenuListCnptPop : {
+			"excelDwnldPop": {
+				"name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+				"accesskey": "e",					//단축키
+				"callback": excelDwnldCnptPop,		//콜백함수명
+			}
+		},
 		callbackSelectFnc: function() {},
 		init: async function(_apcCd, _apcNm, _cnptNm, _callbackChoiceFnc) {
 			this.apcCd = _apcCd;
@@ -103,10 +115,13 @@
 		    SBGridProperties.id = this.gridId;			//'grdComAuthUserPop';					//'grdComAuthUserPop';
 		    SBGridProperties.jsonref = this.jsonId;		//'jsonComAuthUserPop';		//'jsonComAuthUserPop';
 		    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-		    SBGridProperties.selectmode = 'byrow';
-		    SBGridProperties.explorerbar = 'sortmove';
+		    SBGridProperties.selectmode = 'free';
+		    SBGridProperties.explorerbar = 'move';
 		    SBGridProperties.extendlastcol = 'scroll';
 		    SBGridProperties.oneclickedit = true;
+		    SBGridProperties.allowcopy = true;
+		    SBGridProperties.contextmenu = true;					// 우클린 메뉴 호출 여부
+		    SBGridProperties.contextmenulist = this.objMenuListCnptPop;	// 우클릭 메뉴 리스트
 		    SBGridProperties.columns = [
 	 	        {caption: ['거래처명'], 		ref: 'cnptNm',		width: '150px', type: 'output', style:'text-align:center'},
 	 	        {caption: ['유형'], 			ref: 'cnptTypeNm', 	width: '120px', type: 'output', style:'text-align:center'},

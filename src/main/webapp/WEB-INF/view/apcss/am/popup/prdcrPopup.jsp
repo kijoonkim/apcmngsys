@@ -159,8 +159,8 @@
 		    SBGridProperties.id = this.gridId;			//'grdComAuthUserPop';					//'grdComAuthUserPop';
 		    SBGridProperties.jsonref = this.jsonId;		//'jsonComAuthUserPop';		//'jsonComAuthUserPop';
 		    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-		    SBGridProperties.selectmode = 'byrow';
-		    SBGridProperties.explorerbar = 'sortmove';
+		    SBGridProperties.selectmode = 'free';
+		    SBGridProperties.explorerbar = 'move';
 		    SBGridProperties.extendlastcol = 'scroll';
 		    SBGridProperties.oneclickedit = true;
 		    SBGridProperties.allowcopy = true;
@@ -223,7 +223,6 @@
 				popPrdcr.close(rowData);
 			}
 		},
-
 		edit: async function() {
 
 			SBUxMethod.hide('btnEditPrdcr');
