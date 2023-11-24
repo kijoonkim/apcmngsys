@@ -203,7 +203,17 @@
 		    	let currentPageNo = grdSortInvntrChgHstry.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
 
 		    	tabSortInvntrChgHstry.setGrid(recordCountPerPage, currentPageNo);
-		    }
+		    },
+			dtpChange : function(){
+				let chgYmdFrom = SBUxMethod.get("sortInvntr-dtp-chgYmdFrom");
+				let chgYmdTo = SBUxMethod.get("sortInvntr-dtp-chgYmdTo");
+				if(gfn_diffDate(chgYmdFrom, chgYmdTo) < 0){
+					gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다."); //W0001{0}
+					SBUxMethod.set("sortInvntr-dtp-chgYmdFrom", gfn_dateFirstYmd(new Date()));
+					SBUxMethod.set("sortInvntr-dtp-chgYmdTo", gfn_dateToYmd(new Date()));
+					return;
+				}
+			}
 		}
 </script>
 </html>

@@ -196,7 +196,17 @@
 		    	let currentPageNo = grdLogBatchHstry.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
 
 		    	tabLogBatchHstry.setGrid(recordCountPerPage, currentPageNo);
-		    }
+		    },
+			dtpChange : function(){
+				let logYmdFrom = SBUxMethod.get("batch-dtp-logYmdFrom");
+				let logYmdTo = SBUxMethod.get("batch-dtp-logYmdTo");
+				if(gfn_diffDate(logYmdFrom, logYmdTo) < 0){
+					gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다."); //W0001{0}
+					SBUxMethod.set("batch-dtp-logYmdFrom", gfn_dateFirstYmd(new Date()));
+					SBUxMethod.set("batch-dtp-logYmdTo", gfn_dateToYmd(new Date()));
+					return;
+				}
+			}
 		}
 </script>
 </html>
