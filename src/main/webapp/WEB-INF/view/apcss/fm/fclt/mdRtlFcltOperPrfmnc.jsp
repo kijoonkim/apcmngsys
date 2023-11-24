@@ -61,7 +61,7 @@
 						</li>
 					</ul>
 				</div>
-				<div id="sb-area-grdMdOperOgnzTrmtPrfmnc" style="height:312px;"></div>
+				<div id="sb-area-grdMdOperOgnzTrmtPrfmnc" style="height:337px;"></div>
 				
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
@@ -73,7 +73,7 @@
 						</li>
 					</ul>
 				</div>
-				<div id="sb-area-grdMdApcPrcsPrfmnc" style="height:312px;"></div>
+				<div id="sb-area-grdMdApcPrcsPrfmnc" style="height:337px;"></div>
 			</div>
 			
 			<div class="col-sm-6">
@@ -101,7 +101,7 @@
 						</li>
 					</ul>
 				</div>
-				<div id="sb-area-grdMdOperOgnzTrmtPrfmncAvg" style="height:312px;"></div>		
+				<div id="sb-area-grdMdOperOgnzTrmtPrfmncAvg" style="height:337px;"></div>		
 				
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
@@ -113,7 +113,7 @@
 						</li>
 					</ul>
 				</div>
-				<div id="sb-area-grdMdApcPrcsPrfmncAvg" style="height:312px;"></div>
+				<div id="sb-area-grdMdApcPrcsPrfmncAvg" style="height:337px;"></div>
 			</div>
 		</div>
 	</div>

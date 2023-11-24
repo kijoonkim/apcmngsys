@@ -260,11 +260,11 @@ public class FcltMdRtlServiceImpl extends BaseServiceImpl implements FcltMdRtlSe
 		List<FcltMdRtlVO> resultMdRtlFcltPrcsPrfmnc =  fcltMdRtlMapper.selectMdRtlFcltPrcsPrfmncGridList(fcltMdRtlVO);
 		// 정부지원지역별운영실적 - 산지유통시설 처리실적(평균)
 		List<FcltMdRtlVO> resultMdRtlFcltPrcsPrfmncAvg =  fcltMdRtlMapper.selectMdRtlFcltPrcsPrfmncAvgcGridList(fcltMdRtlVO);
-		// 정부지원지역별운영실적 - 산지유통시설 처리실적(평균)
+		// 정부지원지역별운영실적 - 산지유통시설 취급실적
 		List<FcltMdRtlVO> resultRgnOperOgnzTrmtPrfmnc =  fcltMdRtlMapper.selectRgnOperOgnzTrmtPrfmncGridList(fcltMdRtlVO);
-		// 정부지원지역별운영실적 - 산지유통시설 처리실적(평균)
+		// 정부지원지역별운영실적 - 산지유통시설 취급실적(평균)
 		List<FcltMdRtlVO> resultRgnOperOgnzTrmtPrfmncAvg =  fcltMdRtlMapper.selectRgnOperOgnzTrmtPrfmncAvgGridList(fcltMdRtlVO);
-		// 정부지원지역별운영실적 - 산지유통시설 처리실적(평균)
+		// 정부지원지역별운영실적 - 산지유통시설 처리실적
 		List<FcltMdRtlVO> resultRgnOperOgnzApcPrcsPrfmnc =  fcltMdRtlMapper.selectRgnOperOgnzApcPrcsPrfmncGridList(fcltMdRtlVO);
 		// 정부지원지역별운영실적 - 산지유통시설 처리실적(평균)
 		List<FcltMdRtlVO> resultRgnOperOgnzApcPrcsPrfmncAvg =  fcltMdRtlMapper.selectRgnOperOgnzApcPrcsPrfmncAvgGridList(fcltMdRtlVO);

@@ -33,7 +33,7 @@
 						</li>
 					</ul>
 				</div>
-				<div id="sb-area-grdMdRtlOgnzType" style="height:313px;"></div>
+				<div id="sb-area-grdMdRtlOgnzType" style="height:338px;"></div>
 				
 				<div style="height: 50px"></div>
 				
@@ -48,7 +48,7 @@
 						</li>
 					</ul>
 				</div>
-				<div id="sb-area-grdLgstcsGdsFclt" style="height:314px; margin-bottom: 60px"></div>
+				<div id="sb-area-grdLgstcsGdsFclt" style="height:338px; margin-bottom: 60px"></div>
 				
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
@@ -60,7 +60,7 @@
 						</li>
 					</ul>
 				</div>
-				<div id="sb-area-grdRgnPrprtnClngFclt" style="height:312px;"></div>
+				<div id="sb-area-grdRgnPrprtnClngFclt" style="height:338px;"></div>
 				<span style="font-size:11px;">*예냉시설:  수확 후 또는 운송 이전에 농산물의 품온을 짧은 시간 내에 적정온도로 냉각하는 시설</span>
 				
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
@@ -73,7 +73,7 @@
 						</li>
 					</ul>
 				</div>
-				<div id="sb-area-grdRgnFcltMsrmtEqpmnt" style="height:313px;"></div>
+				<div id="sb-area-grdRgnFcltMsrmtEqpmnt" style="height:338px;"></div>
 				<span style="font-size:11px;">*선별기 : 선별(grading&sorting)시설 본체</span>
 				<br/>
 				<span style="font-size:11px;">*측정장비 : 당도•색택•내부손상 등 세부 품질 측정장비(선별기에 부착)</span>
@@ -93,7 +93,7 @@
 						</li>
 					</ul>
 				</div>
-				<div id="sb-area-grdRgnOperPrsn" style="height:313px;"></div>
+				<div id="sb-area-grdRgnOperPrsn" style="height:338px;"></div>
 				
 				<div style="height: 50px"></div>
 				
@@ -107,7 +107,7 @@
 						</li>
 					</ul>
 				</div>
-				<div id="sb-area-grdMdLwtpStrg" style="height:313px;"></div>
+				<div id="sb-area-grdMdLwtpStrg" style="height:338px;"></div>
 				
 				
 				<span style="font-size:11px;">*물류·상품화 시설: 집출하, 선별, 포장, 신선편의, 반가공 등 처리시설</span>
@@ -126,10 +126,10 @@
 						</li>
 					</ul>
 				</div>
-				<div id="sb-area-grdRgnStrgFclt" style="height:313px;"></div>
+				<div id="sb-area-grdRgnStrgFclt" style="height:338px;"></div>
 				<span style="font-size:11px;">*CA저장 시설 : Controlled Atmosphere Storage(기체조절 저장고)로 장기저장 과일의 신선도 유지 시설</span>
 				
-				<div style="height: 500px"></div>
+				<div style="height: 525px"></div>
 				
 			</div>
 			<div class="col-sm-6">
@@ -144,7 +144,7 @@
 						</li>
 					</ul>
 				</div>
-				<div id="sb-area-grdRgnInvstAtmAll" style="height:313px;"></div>
+				<div id="sb-area-grdRgnInvstAtmAll" style="height:338px;"></div>
 				
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
@@ -156,7 +156,7 @@
 						</li>
 					</ul>
 				</div>
-				<div id="sb-area-grdRgnInvstOperPrsn" style="height:313px;"></div>
+				<div id="sb-area-grdRgnInvstOperPrsn" style="height:338px;"></div>
 			</div>
 			<div class="col-sm-6">
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
@@ -169,7 +169,7 @@
 						</li>
 					</ul>
 				</div>
-				<div id="sb-area-grdRgnInvstAtmOwnr" style="height:313px;"></div>
+				<div id="sb-area-grdRgnInvstAtmOwnr" style="height:338px;"></div>
 			</div>
 		</div>
 	</div>
