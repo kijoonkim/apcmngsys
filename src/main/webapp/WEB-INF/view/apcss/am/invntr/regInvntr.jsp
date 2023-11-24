@@ -348,6 +348,7 @@
 				stdGrdSelect.setStdGrd(gv_selectedApcCd, _GRD_SE_CD_WRHS, itemCd)
 			]);
 		}
+		console.log("jsonComSpcfct", jsonComSpcfct);
 
 		if (checkSection == 1) {
 			jsonComSpcfct.length = 0;
@@ -356,9 +357,6 @@
 		} else {
 			SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'false')
 		}
-
-
-
 	}
 
 	const fn_selectVrty = async function(){
@@ -811,7 +809,7 @@
 
       		jsoninptCmndDsctnList2.length = 0;
           	data2.resultList.forEach((item, index) => {
-          		const rawMtrInvntr2 = {
+          		const sortInvntr = {
           			  sortno			: item.sortno
           			, sortSn			: item.sortSn
        				, grdNm				: item.grdNm
@@ -833,7 +831,7 @@
       				, originInvntrWght	: item.invntrWght
       				, chgRmrk			: ""
   				}
-          		jsoninptCmndDsctnList2.push(rawMtrInvntr2);
+          		jsoninptCmndDsctnList2.push(sortInvntr);
 
   				if (index === 0) {
   					totalRecordCount = item.totalRecordCount;
@@ -843,6 +841,7 @@
           		if(inptCmndDsctnList.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
           			inptCmndDsctnList.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
           			inptCmndDsctnList.rebuild();
+
   				}else{
   					inptCmndDsctnList.refresh();
   				}
@@ -850,6 +849,7 @@
           		inptCmndDsctnList.setPageTotalCount(totalRecordCount);
           		inptCmndDsctnList.rebuild();
           	}
+          	fn_selectItem();
 
           } catch (e) {
     		if (!(e instanceof Error)) {
@@ -897,7 +897,7 @@
 
       		jsoninptCmndDsctnList3.length = 0;
           	data3.resultList.forEach((item, index) => {
-          		const rawMtrInvntr3 = {
+          		const gdsInvntr = {
           				  pckgno			: item.pckgno
           				, pckgSn			: item.pckgSn
           				, pckgYmd			: item.pckgYmd
@@ -923,7 +923,7 @@
           				, originInvntrWght	: item.invntrWght
           				, chgRmrk			: ""
   				}
-          		jsoninptCmndDsctnList3.push(rawMtrInvntr3);
+          		jsoninptCmndDsctnList3.push(gdsInvntr);
 
   				if (index === 0) {
   					totalRecordCount = item.totalRecordCount;
@@ -940,6 +940,7 @@
           		inptCmndDsctnList.setPageTotalCount(totalRecordCount);
           		inptCmndDsctnList.rebuild();
           	}
+          	fn_selectItem();
 
           } catch (e) {
     		if (!(e instanceof Error)) {
@@ -1022,6 +1023,7 @@
         	} else {
         		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
         	}
+
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -1410,6 +1412,8 @@
 				        id: "grdExpSpcfct",
 				        jsonref: "jsonExpSpcfct",
 						columns: [
+							{caption: ["품목코드"],		ref: 'itemCd',  type:'output',  width:'100px',    style:'text-align:center'},
+							{caption: ["품목명"],		ref: 'itemNm',  type:'output',  width:'100px',    style:'text-align:center'},
 					    	{caption: ["규격코드"],   	ref: 'spcfctCd',  	type:'output',  width:'100px',    style:'text-align:center'},
 					    	{caption: ["규격명"],    	ref: 'spcfctNm',  	type:'output',  width:'100px',    style:'text-align:center'}
 						],
@@ -1476,6 +1480,8 @@
 				        id: "grdExpSpmtPckgUnit",
 				        jsonref: "jsonExpSpmtPckgUnit",
 						columns: [
+							{caption: ["품목코드"],		ref: 'itemCd',  type:'output',  width:'100px',    style:'text-align:center'},
+							{caption: ["품목명"],		ref: 'itemNm',  type:'output',  width:'100px',    style:'text-align:center'},
 					    	{caption: ["포장코드"],   	ref: 'value',  	type:'output',  width:'100px',    style:'text-align:center'},
 					    	{caption: ["포장단위명"],   ref: 'text',  	type:'output',  width:'100px',    style:'text-align:center'}
 						],
@@ -1517,14 +1523,16 @@
 		);
 		await fn_createExpGrid(expObjList); // fn_createExpGrid함수에 expObjList를 담아서 보내주는 코드
 		let xlsx = "";
+		let itemText = "";
+		let itemNm = SBUxMethod.getText("srch-slt-itemCd");
 		if(invntrSeCd == "1"){
-			xlsx = "재고정보(원물).xlsx"
+			itemText = "재고정보(원물-" + itemNm + ").xlsx"
 		}else if(invntrSeCd == "2"){
-			xlsx = "재고정보(선별).xlsx"
+			itemText = "재고정보(선별-" + itemNm + ").xlsx"
 		}else if(invntrSeCd == "3"){
-			xlsx = "재고정보(상품).xlsx"
+			itemText = "재고정보(상품-" + itemNm + ").xlsx"
 		}
-
+		xlsx = itemText;
 		//exportExcel();
 	    gfn_exportExcelMulti(xlsx, expObjList); // gfn_exportExcelMulti함수에 파일 이름, 오브젝트 리스트를 보내주는 코드
 	}

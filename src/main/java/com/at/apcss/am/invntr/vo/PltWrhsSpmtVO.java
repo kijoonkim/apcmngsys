@@ -113,4 +113,14 @@ public class PltWrhsSpmtVO extends ComVO {
 	 * */
 	private String wrhsSpmtType;
 	private String wrhsSpmtTypeNm;
+	
+	/**
+	 * 기초재고수량
+	 * **/
+	private int bssInvntrQntt;
+	
+	/**
+	 * 전일재고수량
+	 * **/
+	private int ystdBssInvntrQntt;
 }

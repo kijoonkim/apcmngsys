@@ -12,9 +12,36 @@
 
 <mapper namespace="com.at.apcss.am.invntr.mapper.PltWrhsSpmtMapper">
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.PltWrhsMapper.selectPltBxMngWrhsSpmt		-->
+	<!-- DESC : 팔레트/박스 재고 목록 조회.	                                        -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.22  	김현호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectPltBxMngWrhsSpmt" parameterType="com.at.apcss.am.invntr.vo.PltWrhsSpmtVO" resultType="com.at.apcss.am.invntr.vo.PltWrhsSpmtVO">
+    <![CDATA[
+      SELECT 
+    		  PBI.APC_CD                AS APC_CD
+            , PBI.PLT_BX_SE_CD          AS PLT_BX_SE_CD
+            , PBI.PLT_BX_CD             AS PLT_BX_CD
+            , PBI.PLT_BX_NM             AS PLT_BX_NM
+            , PBI.UNIT_WGHT             AS UNIT_WGHT
+            , PBI.USE_YN                AS USE_YN
+            , PBI.DEL_YN                AS DEL_YN
+            , PBI.BSS_INVNTR_QNTT       AS BSS_INVNTR_QNTT
+            , PBI.UNIT_CD               AS UNIT_CD
+            , PBI.RMRK                  AS RMRK 
+    	 FROM TB_PLT_BX_INFO PBI
+        WHERE APC_CD 		= #{apcCd}
+    	  AND PLT_BX_SE_CD 	= #{pltBxSeCd}
+    	  AND PLT_BX_CD 	= #{pltBxCd}
+    ]]>
+    </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.PltWrhsMapper.selectPltWrhsSpmtList		-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.PltWrhsMapper.selectPltBxMngList		-->
 	<!-- DESC : 팔레트/박스 재고 목록 조회.	                                        -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -27,7 +54,7 @@
 					pt0.*
 			     , (SELECT FN_GET_COM_CD_VL_NM('PLT_BX_SE_CD', pt0.PLT_BX_SE_CD) FROM DUAL)     AS PLT_BX_SE_NM
 			     , (SELECT FN_GET_COM_CD_VL_NM('PLT_CNPT', pt0.RMRK) FROM DUAL)                 AS PLT_CNPT_NM
-			     , (BSS_INVNTR_QNTT + NVL(WRHS_QNTT, 0) - NVL(SPMT_QNTT, 0))                    AS YSTD_BSS_INVNTR_QNTT
+			     , (BSS_INVNTR_QNTT - NVL(WRHS_QNTT, 0) + NVL(SPMT_QNTT, 0))                    AS YSTD_BSS_INVNTR_QNTT
 			  FROM (
 			        SELECT
 			              PBI.APC_CD                AS APC_CD
@@ -86,7 +113,7 @@
 	    	INSERT /* com.at.apcss.am.cmns.mapper.PltBxMapper.insertPltWrhsSpmt */
 	    		INTO TB_PLT_WRHS_SPMT
 	    		(
-					APC_CD
+					  APC_CD
 					, JOB_YMD
 					, WRHS_SPMT_SE_CD
 					, PLT_BX_SE_CD
@@ -110,7 +137,7 @@
 				)
 				VALUES
 				(
-					#{apcCd}
+					  #{apcCd}
 					, #{jobYmd}
 					, #{wrhsSpmtSeCd}
 					, #{pltBxSeCd}
@@ -138,6 +165,28 @@
 				)
     	]]>
     </insert>
+    
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.PltWrhsMapper.updatePltWrhs				-->
+	<!-- DESC : 팔레트/박스 입출 기초재고수량 입고. 			               	        -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.22  	김현호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updatePltWrhsSpmt" parameterType="com.at.apcss.am.invntr.vo.PltWrhsSpmtVO">
+		<![CDATA[
+			UPDATE 
+				   TB_PLT_BX_INFO
+			   SET SYS_LAST_CHG_DT			= SYSDATE
+			     , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+		   	     , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+			     , BSS_INVNTR_QNTT 			= #{bssInvntrQntt}
+			WHERE APC_CD 					= #{apcCd}
+			  AND PLT_BX_SE_CD 				= #{pltBxSeCd}
+			  AND PLT_BX_CD 				= #{pltBxCd}
+		]]>
+	</update>
     
    	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.wrhs.mapper.PltWrhsMapper.selectPltWrhsSpmtList		-->
@@ -194,7 +243,7 @@
     
     
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.PltWrhsMapper.updatePltWrhsSpmt			-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.PltWrhsMapper.updateDelYnPltWrhsSpmt	-->
 	<!-- DESC : 팔레트/박스 입출 목록 삭제. (DEL_YN => Y)               	            -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -203,13 +252,38 @@
 	<!-- ==========================================================================	-->
 	<update id="updateDelYnPltWrhsSpmt" parameterType="com.at.apcss.am.invntr.vo.PltWrhsSpmtVO">
 		<![CDATA[
-			update 
-				TB_PLT_WRHS_SPMT 
-			SET 
-				DEL_YN = 'Y'
-			WHERE APC_CD = #{apcCd}
-				AND JOB_YMD = #{jobYmd}
-				AND SN = #{sn}
+			UPDATE
+				   TB_PLT_WRHS_SPMT
+			   SET
+				   DEL_YN = 'Y'
+				 , SYS_LAST_CHG_DT			= SYSDATE
+			     , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+		   	     , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+			WHERE APC_CD 					= #{apcCd}
+				AND JOB_YMD 				= #{jobYmd}
+				AND SN 						= #{sn}
+		]]>
+	</update>
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.PltWrhsMapper.updateDelYnPltWrhsSpmt	-->
+	<!-- DESC : 팔레트/박스 입출 목록 삭제. (DEL_YN => Y)               	            -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.22  	김현호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updateBssInvntrQnttPltWrhsSpmt" parameterType="com.at.apcss.am.invntr.vo.PltWrhsSpmtVO">
+		<![CDATA[
+			UPDATE
+				   TB_PLT_BX_INFO
+			   SET
+				   BSS_INVNTR_QNTT 			= #{bssInvntrQntt}
+				 , SYS_LAST_CHG_DT			= SYSDATE
+			     , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+		   	     , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+			WHERE APC_CD 					= #{apcCd}
+			  AND PLT_BX_SE_CD 				= #{pltBxSeCd}
+			  AND PLT_BX_CD 				= #{pltBxCd}
 		]]>
 	</update>
 </mapper>
