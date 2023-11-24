@@ -23,10 +23,10 @@
 				<tr>
 					<th scope="row" class="th_bg"><span class="data_required"></span>조회일자</th>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-datepicker id="gdsInvntr-dtp-chgYmdFrom" name="gdsInvntr-dtp-chgYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"></sbux-datepicker>
+						<sbux-datepicker id="gdsInvntr-dtp-chgYmdFrom" name="gdsInvntr-dtp-chgYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc" onchange="tabGdsInvntrChgHstry.dtpChange"></sbux-datepicker>
 					</td>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-datepicker id="gdsInvntr-dtp-chgYmdTo" name="gdsInvntr-dtp-chgYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"></sbux-datepicker>
+						<sbux-datepicker id="gdsInvntr-dtp-chgYmdTo" name="gdsInvntr-dtp-chgYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc" onchange="tabGdsInvntrChgHstry.dtpChange"></sbux-datepicker>
 					</td>
 				</tr>
 			</tbody>
@@ -63,14 +63,10 @@
 			objGrid: null,
 			gridJson: [],
 			callbackFnc: function() {},
-			init: async function(_apcCd, _apcNm, _callbackFnc) {
-				if (!gfn_isEmpty(_callbackFnc) && typeof _callbackFnc === 'function') {
-					this.callbackFnc = _callbackFnc;
-				}
-
+			init: async function(_apcCd, _apcNm, _ymdFrom, _ymdTo) {
+				SBUxMethod.set("gdsInvntr-dtp-chgYmdFrom", _ymdFrom);
+				SBUxMethod.set("gdsInvntr-dtp-chgYmdTo", _ymdTo);
 				if (grdGdsInvntrChgHstry === null || this.prvApcCd != _apcCd) {
-					SBUxMethod.set("gdsInvntr-dtp-chgYmdFrom", gfn_dateFirstYmd(new Date()));
-					SBUxMethod.set("gdsInvntr-dtp-chgYmdTo", gfn_dateToYmd(new Date()));
 					this.createGrid();
 					this.search();
 				} else {
@@ -133,10 +129,14 @@
 				let chgYmdTo = SBUxMethod.get("gdsInvntr-dtp-chgYmdTo");
 				if (gfn_isEmpty(chgYmdFrom)){
 					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
+			    	jsonGdsInvntrChgHstry.length = 0;
+					grdGdsInvntrChgHstry.rebuild();
 		            return;
 				}
 				if (gfn_isEmpty(chgYmdTo)){
 					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
+			    	jsonGdsInvntrChgHstry.length = 0;
+					grdGdsInvntrChgHstry.rebuild();
 		            return;
 				}
 				let apcCd = "";
@@ -203,7 +203,17 @@
 		    	let currentPageNo = grdGdsInvntrChgHstry.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
 
 		    	tabGdsInvntrChgHstry.setGrid(recordCountPerPage, currentPageNo);
-		    }
+		    },
+			dtpChange : function(){
+				let chgYmdFrom = SBUxMethod.get("gdsInvntr-dtp-chgYmdFrom");
+				let chgYmdTo = SBUxMethod.get("gdsInvntr-dtp-chgYmdTo");
+				if(gfn_diffDate(chgYmdFrom, chgYmdTo) < 0){
+					gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다."); //W0001{0}
+					SBUxMethod.set("gdsInvntr-dtp-chgYmdFrom", gfn_dateFirstYmd(new Date()));
+					SBUxMethod.set("gdsInvntr-dtp-chgYmdTo", gfn_dateToYmd(new Date()));
+					return;
+				}
+			}
 		}
 </script>
 </html>

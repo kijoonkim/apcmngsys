@@ -23,10 +23,10 @@
 				<tr>
 					<th scope="row" class="th_bg"><span class="data_required"></span>조회일자</th>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-datepicker id="batch-dtp-logYmdFrom" name="batch-dtp-logYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"></sbux-datepicker>
+						<sbux-datepicker id="batch-dtp-logYmdFrom" name="batch-dtp-logYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc" onchange="tabLogBatchHstry.dtpChange"></sbux-datepicker>
 					</td>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-datepicker id="batch-dtp-logYmdTo" name="batch-dtp-logYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"></sbux-datepicker>
+						<sbux-datepicker id="batch-dtp-logYmdTo" name="batch-dtp-logYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc" onchange="tabLogBatchHstry.dtpChange"></sbux-datepicker>
 					</td>
 					<td></td>
 					<th scope="row" class="th_bg">프로그램명</th>
@@ -64,14 +64,10 @@
 			objGrid: null,
 			gridJson: [],
 			callbackFnc: function() {},
-			init: async function(_apcCd, _apcNm, _callbackFnc) {
-				if (!gfn_isEmpty(_callbackFnc) && typeof _callbackFnc === 'function') {
-					this.callbackFnc = _callbackFnc;
-				}
-
+			init: async function(_apcCd, _apcNm, _ymdFrom, _ymdTo) {
+				SBUxMethod.set("batch-dtp-logYmdFrom",_ymdFrom);
+				SBUxMethod.set("batch-dtp-logYmdTo", _ymdTo);
 				if (grdLogBatchHstry === null || this.prvApcCd != _apcCd) {
-					SBUxMethod.set("batch-dtp-logYmdFrom", gfn_dateFirstYmd(new Date()));
-					SBUxMethod.set("batch-dtp-logYmdTo", gfn_dateToYmd(new Date()));
 					this.createGrid();
 					this.search();
 				} else {
@@ -128,10 +124,14 @@
 				let prgrmNm = SBUxMethod.get("batch-inp-prgrmNm");
 				if (gfn_isEmpty(logYmdFrom)){
 					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
+			    	jsonLogBatchHstry.length = 0;
+					grdLogBatchHstry.rebuild();
 		            return;
 				}
 				if (gfn_isEmpty(logYmdTo)){
 					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
+			    	jsonLogBatchHstry.length = 0;
+					grdLogBatchHstry.rebuild();
 		            return;
 				}
 
@@ -196,7 +196,17 @@
 		    	let currentPageNo = grdLogBatchHstry.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
 
 		    	tabLogBatchHstry.setGrid(recordCountPerPage, currentPageNo);
-		    }
+		    },
+			dtpChange : function(){
+				let logYmdFrom = SBUxMethod.get("batch-dtp-logYmdFrom");
+				let logYmdTo = SBUxMethod.get("batch-dtp-logYmdTo");
+				if(gfn_diffDate(logYmdFrom, logYmdTo) < 0){
+					gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다."); //W0001{0}
+					SBUxMethod.set("batch-dtp-logYmdFrom", gfn_dateFirstYmd(new Date()));
+					SBUxMethod.set("batch-dtp-logYmdTo", gfn_dateToYmd(new Date()));
+					return;
+				}
+			}
 		}
 </script>
 </html>
