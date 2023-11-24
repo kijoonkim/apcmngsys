@@ -41,7 +41,7 @@
 		                    <div class="sbt-grid-wrap">
 
 		                        <div class="sbt-wrap-body">
-
+									<sbux-input id="dtl-input-orngApcCd" name="dtl-input-orngApcCd" uitype="hidden"></sbux-input>
 		                            <sbux-input id="dtl-input-orngBbsNo" name="dtl-input-orngBbsNo" uitype="hidden"></sbux-input>
 		                            <sbux-input id="dtl-input-orngCmntNo" name="dtl-input-orngCmntNo" uitype="hidden"></sbux-input>
 		                            <sbux-input id="dtl-input-orngChildCmntNo" name="dtl-input-orngChildCmntNo" uitype="hidden"></sbux-input>
@@ -160,8 +160,16 @@
 
 	async function fn_bbsDelete(){
 		let bbsNo = SBUxMethod.get("dtl-input-bbsNo");
+		let apcCd = "";
+
+		if(gv_apcCd == "0000"){
+			apcCd = SBUxMethod.get("dtl-input-orngApcCd");
+		}else{
+			apcCd = gv_apcCd;
+		}
+
 		const postJsonPromise = gfn_postJSON("/am/bbs/deleteBbs.do", {
-			 apcCd : gv_apcCd
+			 apcCd : apcCd
 			,bbsNo : bbsNo
 		});
 		const data = await postJsonPromise;
@@ -221,7 +229,7 @@
 		SBUxMethod.show("dtl-input-cmntCn");
 		SBUxMethod.show("btnInsertCmnt");
 		let apcCd = gv_apcCd;
-		if(apcCd == '0000' || user == '${loginVO.userId}'){
+		if(apcCd === '0000' || user === '${loginVO.name}'){
 			SBUxMethod.show("btnDeleteBbsPopup");
 		}else{
 			SBUxMethod.hide("btnDeleteBbsPopup");

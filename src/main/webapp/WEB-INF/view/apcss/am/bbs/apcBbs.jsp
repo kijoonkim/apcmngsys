@@ -155,6 +155,7 @@
             {caption: ["등록자"],	ref: 'sysFrstInptUserIdNm',   type:'output' ,width:'10%'  , style:'text-align:center'},
             {caption: ["등록일"],	ref: 'sysFrstInptDtYmd',   type:'output' ,width:'10%'  , style:'text-align:center'},
             //{caption: ['button\n(callback)'],ref:'temp3',width:'10%', style:'text-align:center',type:'button' uitype='modal',target-id:'dtl_bbsModal',typeinfo:{buttonvalue:'상세조회',callback:buttonEvt}},
+            {caption: ["APC코드"],	ref: 'apcCd',   type:'output',  hidden: true},
             {caption: ["원본등록자명"],	ref: 'orgUserNm',   type:'output',  hidden: true},
             {caption: ["최초등록자ID"],	ref: 'creUserId',   type:'output',  hidden: true},
             {caption: ["최초등록일시"],	ref: 'creDateTime', type:'output',  hidden: true},
@@ -234,6 +235,8 @@
         	jsonBbsList.length = 0;
         	data.resultList.forEach((item, index) => {
 				const msg = {
+
+					apcCd: item.apcCd,
 					bbsNo: item.bbsNo,
 					bbsTitle: item.bbsTitle,
 					bbsSeCd: item.bbsSeCd,
@@ -460,6 +463,7 @@
         SBUxMethod.set("dtl-input-bbsSubject", rowData.bbsSubject);
         SBUxMethod.set("dtl-input-sysFrstInptUserIdNm", rowData.sysFrstInptUserIdNm);
         SBUxMethod.set("dtl-input-sysFrstInptDt", rowData.sysFrstInptDt);
+        SBUxMethod.set("dtl-input-orngApcCd",rowData.apcCd);
 
         bbs_info = {
 				bbsSecd:rowData.bbsSeCd
@@ -469,7 +473,7 @@
         SBUxMethod.openModal('modal-bbsModal');
         SBUxMethod.set("dtl-input-orngBbsNo",rowData.bbsNo);
         fn_callselectComment(rowData.bbsNo);
-        fn_callInit();
+        fn_callInit(rowData.sysFrstInptUserIdNm);
 
 
     }
