@@ -929,7 +929,7 @@
 	    	const data = await postJsonPromise;
 
 	    	try{
-	       		if(data.errMsg == null){
+	    		if (_.isEqual("S", data.resultStatus)) {
 	       			if(checkSection == 1){
 	       				fn_sample1()
 	    			}
@@ -941,7 +941,7 @@
 	        		}
 	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
 	       		}else{
-	       			gfn_comAlert("E0001");					// E0001 오류가 발생하였습니다.
+	       			gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
 	       		}
 	        }catch (e) {
 	        	if (!(e instanceof Error)) {

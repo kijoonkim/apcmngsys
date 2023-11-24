@@ -291,7 +291,7 @@ FROM   (
 
         FROM    USRAM.TB_SPMT_PRFMNC_DTL
 
-        WHERE   SUBSTR(SPMTNO,3,6) = TO_CHAR(SYSDATE, 'YYYYMMDD') AND DEL_YN = 'N'
+        WHERE   SUBSTR(SPMTNO,3,8) = TO_CHAR(SYSDATE, 'YYYYMMDD') AND DEL_YN = 'N'
          <if test='gv_apcCd != null and gv_apcCd !=""'>
 	      	  AND     APC_CD =#{gv_apcCd}
         </if>
