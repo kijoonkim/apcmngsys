@@ -512,7 +512,8 @@
 		let gdsNm 		= SBUxMethod.get("srch-inp-gdsNm");
 		let spmtPckgUnitCd 	= SBUxMethod.get("srch-inp-spmtPckgUnitCd");
 		let rcptnSeCd 	= "99";
-		let outordrWght 		= "";
+		let unitWght 	= "";
+		let outordrWght = "";
 		
 		if(gfn_isEmpty(outordrType)){
 			gfn_comAlert("W0001", "발주형태");		//	W0001	{0}을/를 선택하세요.
@@ -560,7 +561,9 @@
 		}
 		// FOR문 돌려서 JSON에서 (단중) 찾아서 빼서 밑에 ORDR에 넣어주기 XML 확인
 		for(var i=0; i<jsonComSpcfct.length; i++){
-			outordrWght = jsonComSpcfct[i].wght;
+			unitWght = jsonComSpcfct[i].wght;
+		
+			outordrWght = (parseInt(unitWght) * parseInt(outordrQntt));
 		}
 		let ordr = {
 				apcCd 			: apcCd,
@@ -587,6 +590,7 @@
 				spmtPckgUnitCd	: spmtPckgUnitCd,
 				rcptCfmtnApcCd 	: apcCd,
 				rcptCfmtnYmd	: outordrYmd,
+				unitWght		: unitWght,
 				outordrWght		: outordrWght
 		}
 
