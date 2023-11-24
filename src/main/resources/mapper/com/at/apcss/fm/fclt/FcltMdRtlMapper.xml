@@ -990,7 +990,7 @@
 	<!-- ==========================================================================	-->
     <select id="selectMdRtlOgnzTypeGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  S0          AS V0
+			SELECT  DECODE(S0, '히', '기타', S0)          AS V0
 			      , SUM(S1)     AS V1
 			      , SUM(S2)     AS V2
 			      , SUM(S3)     AS V3
@@ -998,7 +998,7 @@
 			      , SUM(S5)     AS V5
 			      , SUM(S6)     AS V6
 			      , SUM(S7)     AS V7
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM)  AS S0
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM)  AS S0
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') AND A.TYPE_CD = '1' THEN 1 END    AS S1
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') AND A.TYPE_CD = '2' THEN 1 END    AS S2
 			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') AND A.TYPE_CD = '1' THEN 1 END        AS S3
@@ -1029,7 +1029,7 @@
 	<!-- ==========================================================================	-->
     <select id="selectRgnOperPrsnGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  S0          AS V0
+			SELECT  DECODE(S0, '히', '기타', S0)          AS V0
 			      , SUM(S1)     AS V1
 			      , SUM(S2)     AS V2
 			      , SUM(S3)     AS V3
@@ -1037,7 +1037,7 @@
 			      , SUM(S5)     AS V5
 			      , SUM(S6)     AS V6
 			      , SUM(S7)     AS V7
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') AND A.MB IS NOT NULL THEN 1 END   AS S1
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') AND A.MB IS NULL THEN 1 END       AS S2
 			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') AND A.MB IS NOT NULL THEN 1 END       AS S3
@@ -1068,14 +1068,14 @@
 	<!-- ==========================================================================	-->
     <select id="selectLgstcsGdsFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  S0                                  AS V0
+			SELECT  DECODE(S0, '히', '기타', S0)        	AS V0
 			      , NVL(ROUND(SUM(S1),0),0)             AS V1
 			      , NVL(ROUND(SUM(S1)/SUM(S2),0),0)     AS V2
 			      , NVL(ROUND(SUM(S3),0),0)             AS V3
 			      , NVL(ROUND(SUM(S3)/SUM(S4),0),0)     AS V4
 			      , NVL(ROUND(SUM(S5),0),0)             AS V5
 			      , NVL(ROUND(SUM(S5)/SUM(S6),0),0)     AS V6
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') THEN 
 			                     NVL(B.CSP_TOT_AREA,0) +
 			                     NVL(B.STRG_PLC_PRC_PLC_AREA,0) +    
@@ -1127,12 +1127,12 @@
 	<!-- ==========================================================================	-->
     <select id="selectMdLwtpStrgGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  S0                                 AS V0
+			SELECT  DECODE(S0, '히', '기타', S0)		   AS V0
 			      , NVL(ROUND(SUM(S1),0),0)            AS V1
 			      , NVL(ROUND(SUM(S2),0),0)            AS V2
 			      , NVL(ROUND(SUM(S3),0),0)            AS V3
 			      , NVL(ROUND(SUM(S3)/SUM(S2),0),0)    AS V4
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
 			              , 1                                                                   AS S1
 			              , CASE WHEN NVL(B.STRG_PLC_LWTP_STRG_AREA,0) > 0 THEN 1 ELSE 0 END    AS S2
 			              , CASE WHEN NVL(B.STRG_PLC_LWTP_STRG_AREA,0) > 0 THEN 
@@ -1162,12 +1162,12 @@
 	<!-- ==========================================================================	-->
     <select id="selectRgnPrprtnClngFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  S0                                 AS V0
+			SELECT  DECODE(S0, '히', '기타', S0)		   AS V0
 			      , NVL(ROUND(SUM(S1),0),0)            AS V1
 			      , NVL(ROUND(SUM(S2),0),0)            AS V2
 			      , NVL(ROUND(SUM(S3),0),0)            AS V3
 			      , NVL(ROUND(SUM(S3)/SUM(S2),0),0)    AS V4
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
 			              , 1                                                                   AS S1
 			              , CASE WHEN NVL(B.STRG_PLC_PRC_PLC_AREA,0) > 0 THEN 1 ELSE 0 END      AS S2
 			              , CASE WHEN NVL(B.STRG_PLC_PRC_PLC_AREA,0) > 0 THEN 
@@ -1197,12 +1197,12 @@
 	<!-- ==========================================================================	-->
     <select id="selectRgnStrgFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  S0                              AS V0
+			SELECT  DECODE(S0, '히', '기타', S0)		AS V0
 			      , NVL(ROUND(SUM(S1),0),0)         AS V1
 			      , NVL(ROUND(SUM(S2),0),0)         AS V2
 			      , NVL(ROUND(SUM(S3),0),0)         AS V3
 			      , NVL(ROUND(SUM(S3)/SUM(S2),0),0) AS V4
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
 			              , 1                                                                   AS S1
 			              , CASE WHEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) > 0 THEN 1 ELSE 0 END  AS S2
 			              , CASE WHEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) > 0 THEN 
@@ -1232,12 +1232,12 @@
 	<!-- ==========================================================================	-->
     <select id="selectRgnFcltMsrmtEqpmntGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  S0                                 AS V0
+			SELECT  DECODE(S0, '히', '기타', S0)		   AS V0
 			      , NVL(ROUND(SUM(S1),0),0)            AS V1
 			      , NVL(ROUND(SUM(S2),0),0)            AS V2
 			      , NVL(ROUND(SUM(S3),0),0)            AS V3
 			      , NVL(ROUND(SUM(S3)/SUM(S2),0),0)    AS V4
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
 			              , 1                                                           AS S1
 			              , CASE WHEN B.SORT_MCHN_SPCFCT IS NOT NULL THEN 1 END         AS S2
 			              , CASE WHEN B.SORT_BRCK_MCHN = 'Y'         THEN 1 END         AS S3
@@ -1275,14 +1275,14 @@
 	<!-- ==========================================================================	-->
     <select id="selectRgnInvstAtmAllGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  S0                                          AS V0
+			SELECT  DECODE(S0, '히', '기타', S0)		   			AS V0
 			      , NVL(SUM(S1),0)                              AS V1
 			      , NVL(ROUND(SUM(S2)/1000000,0),0)             AS V2
 			      , NVL(ROUND(SUM(S3)/1000000,0),0)             AS V3
 			      , NVL(ROUND(SUM(S4)/1000000,0),0)             AS V4
 			      , NVL(ROUND(SUM(S5)/1000000,0),0)             AS V5
 			      , NVL(ROUND((SUM(S5)/SUM(S1))/1000000,0),0)   AS V6
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
 			              , 1                               AS S1
 			              , B.NE                            AS S2
 			              , B.LCLT_EXPND                    AS S3
@@ -1318,7 +1318,7 @@
 	<!-- ==========================================================================	-->
     <select id="selectRgnInvstAtmOwnrGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  S0                                          AS V0
+			SELECT  DECODE(S0, '히', '기타', S0)		   			AS V0
 			      , NVL(SUM(S1),0)                              AS V1
 			      , NVL(ROUND(SUM(S2)/1000000,0),0)             AS V2
 			      , CASE WHEN SUM(S1) > 0 THEN NVL(ROUND((SUM(S2)/SUM(S1))/1000000,0),0)   
@@ -1327,7 +1327,7 @@
 			      , NVL(ROUND(SUM(S4)/1000000,0),0)             AS V5
 			      , CASE WHEN SUM(S3) > 0 THEN NVL(ROUND((SUM(S4)/SUM(S3))/1000000,0),0) 
 			             ELSE 0 END                             AS V6
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
 			              , CASE WHEN A.TYPE_CD = '1' THEN 1 ELSE 0 END                                 AS S1
 			              , CASE WHEN A.TYPE_CD = '1' THEN B.NE + B.LCLT_EXPND + B.SLF_BRDN ELSE 0 END  AS S2
 			              , CASE WHEN A.TYPE_CD = '2' THEN 1 ELSE 0 END                                 AS S3
@@ -1363,7 +1363,7 @@
 	<!-- ==========================================================================	-->
     <select id="selectRgnInvstOperPrsnGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  S0                                          AS V0
+			SELECT  DECODE(S0, '히', '기타', S0)		   			AS V0
 			      , NVL(SUM(S1),0)                              AS V1
 			      , NVL(ROUND(SUM(S2)/1000000,0),0)             AS V2
 			      , CASE WHEN SUM(S1) > 0 THEN NVL(ROUND((SUM(S2)/SUM(S1))/1000000,0),0)   
@@ -1372,7 +1372,7 @@
 			      , NVL(ROUND(SUM(S4)/1000000,0),0)             AS V5
 			      , CASE WHEN SUM(S3) > 0 THEN NVL(ROUND((SUM(S4)/SUM(S3))/1000000,0),0) 
 			             ELSE 0 END                             AS V6
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
 			              , CASE WHEN A.MB IS NOT NULL THEN 1 ELSE 0 END                                AS S1
 			              , CASE WHEN A.MB IS NOT NULL THEN B.NE + B.LCLT_EXPND + B.SLF_BRDN ELSE 0 END AS S2
 			              , CASE WHEN A.MB IS NULL THEN 1 ELSE 0 END                                    AS S3
@@ -2259,15 +2259,15 @@
 	<!-- ==========================================================================	-->
     <select id="selectGvrngmtSprtMdRtlOgnzTypeGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  S0          AS V0
-			      , SUM(S1)     AS V1
-			      , SUM(S2)     AS V2
-			      , SUM(S3)     AS V3
-			      , SUM(S4)     AS V4
-			      , SUM(S5)     AS V5
-			      , SUM(S6)     AS V6
-			      , SUM(S7)     AS V7
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			SELECT  DECODE(S0, '히', '기타', S0)			AS V0
+			      , SUM(S1)     						AS V1
+			      , SUM(S2)     						AS V2
+			      , SUM(S3)     						AS V3
+			      , SUM(S4)     						AS V4
+			      , SUM(S5)     						AS V5
+			      , SUM(S6)     						AS V6
+			      , SUM(S7)     						AS V7
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') AND A.TYPE_CD = '1' THEN 1 END    AS S1
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') AND A.TYPE_CD = '2' THEN 1 END    AS S2
 			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') AND A.TYPE_CD = '1' THEN 1 END        AS S3
@@ -2299,15 +2299,15 @@
 	<!-- ==========================================================================	-->
     <select id="selectGvrngmtSprtRgnOperPrsnGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  S0          AS V0
-			      , SUM(S1)     AS V1
-			      , SUM(S2)     AS V2
-			      , SUM(S3)     AS V3
-			      , SUM(S4)     AS V4
-			      , SUM(S5)     AS V5
-			      , SUM(S6)     AS V6
-			      , SUM(S7)     AS V7
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			SELECT  DECODE(S0, '히', '기타', S0)			AS V0
+			      , SUM(S1)     						AS V1
+			      , SUM(S2)     						AS V2
+			      , SUM(S3)     						AS V3
+			      , SUM(S4)     						AS V4
+			      , SUM(S5)     						AS V5
+			      , SUM(S6)     						AS V6
+			      , SUM(S7)     						AS V7
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') AND A.MB IS NOT NULL THEN 1 END   AS S1
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') AND A.MB IS NULL THEN 1 END       AS S2
 			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') AND A.MB IS NOT NULL THEN 1 END       AS S3
@@ -2339,14 +2339,14 @@
 	<!-- ==========================================================================	-->
     <select id="selectGvrngmtSprtLgstcsGdsFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  S0                                  AS V0
+			SELECT  DECODE(S0, '히', '기타', S0)			AS V0
 			      , NVL(ROUND(SUM(S1),0),0)             AS V1
 			      , NVL(ROUND(SUM(S1)/SUM(S2),0),0)     AS V2
 			      , NVL(ROUND(SUM(S3),0),0)             AS V3
 			      , NVL(ROUND(SUM(S3)/SUM(S4),0),0)     AS V4
 			      , NVL(ROUND(SUM(S5),0),0)             AS V5
 			      , NVL(ROUND(SUM(S5)/SUM(S6),0),0)     AS V6
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') THEN 
 			                     NVL(B.CSP_TOT_AREA,0) +
 			                     NVL(B.STRG_PLC_PRC_PLC_AREA,0) +    
@@ -2399,12 +2399,12 @@
 	<!-- ==========================================================================	-->
     <select id="selectGvrngmtSprtLwtpStrgGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  S0                                 AS V0
+			SELECT  DECODE(S0, '히', '기타', S0)		   AS V0
 			      , NVL(ROUND(SUM(S1),0),0)            AS V1
 			      , NVL(ROUND(SUM(S2),0),0)            AS V2
 			      , NVL(ROUND(SUM(S3),0),0)            AS V3
 			      , NVL(ROUND(SUM(S3)/SUM(S2),0),0)    AS V4
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
 			              , 1                                                                   AS S1
 			              , CASE WHEN NVL(B.STRG_PLC_LWTP_STRG_AREA,0) > 0 THEN 1 ELSE 0 END    AS S2
 			              , CASE WHEN NVL(B.STRG_PLC_LWTP_STRG_AREA,0) > 0 THEN 
@@ -2435,12 +2435,12 @@
 	<!-- ==========================================================================	-->
     <select id="selectGvrngmtSprtPrprtnClngFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  S0                                 AS V0
+			SELECT  DECODE(S0, '히', '기타', S0)		   AS V0
 			      , NVL(ROUND(SUM(S1),0),0)            AS V1
 			      , NVL(ROUND(SUM(S2),0),0)            AS V2
 			      , NVL(ROUND(SUM(S3),0),0)            AS V3
 			      , NVL(ROUND(SUM(S3)/SUM(S2),0),0)    AS V4
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
 			              , 1                                                                   AS S1
 			              , CASE WHEN NVL(B.STRG_PLC_PRC_PLC_AREA,0) > 0 THEN 1 ELSE 0 END      AS S2
 			              , CASE WHEN NVL(B.STRG_PLC_PRC_PLC_AREA,0) > 0 THEN 
@@ -2471,12 +2471,12 @@
 	<!-- ==========================================================================	-->
     <select id="selectGvrngmtSprtStrgFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  S0                              AS V0
+			SELECT  DECODE(S0, '히', '기타', S0)		AS V0
 			      , NVL(ROUND(SUM(S1),0),0)         AS V1
 			      , NVL(ROUND(SUM(S2),0),0)         AS V2
 			      , NVL(ROUND(SUM(S3),0),0)         AS V3
 			      , NVL(ROUND(SUM(S3)/SUM(S2),0),0) AS V4
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
 			              , 1                                                                   AS S1
 			              , CASE WHEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) > 0 THEN 1 ELSE 0 END  AS S2
 			              , CASE WHEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) > 0 THEN 
@@ -2507,12 +2507,12 @@
 	<!-- ==========================================================================	-->
     <select id="selectGvrngmtSprtFcltMsrmtEqpmntGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  S0                                 AS V0
+			SELECT  DECODE(S0, '히', '기타', S0)		   AS V0
 			      , NVL(ROUND(SUM(S1),0),0)            AS V1
 			      , NVL(ROUND(SUM(S2),0),0)            AS V2
 			      , NVL(ROUND(SUM(S3),0),0)            AS V3
 			      , NVL(ROUND(SUM(S3)/SUM(S2),0),0)    AS V4
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
 			              , 1                                                           AS S1
 			              , CASE WHEN B.SORT_MCHN_SPCFCT IS NOT NULL THEN 1 END         AS S2
 			              , CASE WHEN B.SORT_BRCK_MCHN = 'Y'         THEN 1 END         AS S3
@@ -2551,14 +2551,14 @@
 	<!-- ==========================================================================	-->
     <select id="selectGvrngmtSprtRgnInvstAtmAllGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  S0                                          AS V0
+			SELECT  DECODE(S0, '히', '기타', S0)					AS V0
 			      , NVL(SUM(S1),0)                              AS V1
 			      , NVL(ROUND(SUM(S2)/1000000,0),0)             AS V2
 			      , NVL(ROUND(SUM(S3)/1000000,0),0)             AS V3
 			      , NVL(ROUND(SUM(S4)/1000000,0),0)             AS V4
 			      , NVL(ROUND(SUM(S5)/1000000,0),0)             AS V5
 			      , NVL(ROUND((SUM(S5)/SUM(S1))/1000000,0),0)   AS V6
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
 			              , 1                               AS S1
 			              , B.NE                            AS S2
 			              , B.LCLT_EXPND                    AS S3
@@ -2595,7 +2595,7 @@
 	<!-- ==========================================================================	-->
     <select id="selectMdInvstAtmOwnrGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  S0                                          AS V0
+			SELECT  DECODE(S0, '히', '기타', S0)					AS V0
 			      , NVL(SUM(S1),0)                              AS V1
 			      , NVL(ROUND(SUM(S2)/1000000,0),0)             AS V2
 			      , CASE WHEN SUM(S1) > 0 THEN NVL(ROUND((SUM(S2)/SUM(S1))/1000000,0),0)   
@@ -2604,7 +2604,7 @@
 			      , NVL(ROUND(SUM(S4)/1000000,0),0)             AS V5
 			      , CASE WHEN SUM(S3) > 0 THEN NVL(ROUND((SUM(S4)/SUM(S3))/1000000,0),0) 
 			             ELSE 0 END                             AS V6   -- 공공 평균투자액
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
 			              , CASE WHEN A.TYPE_CD = '1' THEN 1 ELSE 0 END                                 AS S1
 			              , CASE WHEN A.TYPE_CD = '1' THEN B.NE + B.LCLT_EXPND + B.SLF_BRDN ELSE 0 END  AS S2
 			              , CASE WHEN A.TYPE_CD = '2' THEN 1 ELSE 0 END                                 AS S3
@@ -2641,7 +2641,7 @@
 	<!-- ==========================================================================	-->
     <select id="selectMdInvstAtmOperPrsnGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  S0                                          AS V0
+			SELECT  DECODE(S0, '히', '기타', S0)					AS V0
 			      , NVL(SUM(S1),0)                              AS V1
 			      , NVL(ROUND(SUM(S2)/1000000,0),0)             AS V2
 			      , CASE WHEN SUM(S1) > 0 THEN NVL(ROUND((SUM(S2)/SUM(S1))/1000000,0),0)   
@@ -2650,7 +2650,7 @@
 			      , NVL(ROUND(SUM(S4)/1000000,0),0)             AS V5
 			      , CASE WHEN SUM(S3) > 0 THEN NVL(ROUND((SUM(S4)/SUM(S3))/1000000,0),0) 
 			             ELSE 0 END                             AS V6   -- 법인 평균투자액
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
 			              , CASE WHEN A.MB IS NOT NULL THEN 1 ELSE 0 END                                AS S1
 			              , CASE WHEN A.MB IS NOT NULL THEN B.NE + B.LCLT_EXPND + B.SLF_BRDN ELSE 0 END AS S2
 			              , CASE WHEN A.MB IS NULL THEN 1 ELSE 0 END                                    AS S3
@@ -2964,7 +2964,7 @@
     
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMdOperOgnzTrmtPrfmncGridList	-->
-	<!-- DESC : 산지유통시설운영실적 - 지역별 운영조직 취급실적 단건조회.				-->
+	<!-- DESC : 산지유통시설운영실적 - 지역별 운영조직 취급실적 단건조회.							-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -2972,14 +2972,14 @@
 	<!-- ==========================================================================	-->
     <select id="selectMdOperOgnzTrmtPrfmncGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  S0                   AS V0
-			      , ROUND(SUM(S1),0)     AS V1
-			      , ROUND(SUM(S2),0)     AS V2
-			      , ROUND(SUM(S3),0)     AS V3
-			      , ROUND(SUM(S4),0)     AS V4
-			      , ROUND(SUM(S5),0)     AS V5
-			      , ROUND(SUM(S6),0)     AS V6
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			SELECT  DECODE(S0, '히', '기타', S0)			AS V0
+			      , ROUND(SUM(S1),0)     				AS V1
+			      , ROUND(SUM(S2),0)     				AS V2
+			      , ROUND(SUM(S3),0)     				AS V3
+			      , ROUND(SUM(S4),0)     				AS V4
+			      , ROUND(SUM(S5),0)     				AS V5
+			      , ROUND(SUM(S6),0)     				AS V6
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') THEN B.RTL_OGNZ_TOT_TRMT_AMT END  AS S1
 			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') THEN B.RTL_OGNZ_TOT_TRMT_AMT END      AS S2
 			              , B.RTL_OGNZ_TOT_TRMT_AMT                                                 AS S3
@@ -3002,7 +3002,7 @@
     </select>
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMdOperOgnzTrmtPrfmncAvgGridList	-->
-	<!-- DESC : 산지유통시설운영실적 - 지역별 운영조직 취급실적(평균) 단건조회.			-->
+	<!-- DESC : 산지유통시설운영실적 - 지역별 운영조직 취급실적(평균) 단건조회.						-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -3010,14 +3010,14 @@
 	<!-- ==========================================================================	-->
     <select id="selectMdOperOgnzTrmtPrfmncAvgGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  S0                           AS V0
-			      , ROUND(SUM(S1)/SUM(A1),0)     AS V1
-			      , ROUND(SUM(S2)/SUM(A2),0)     AS V2
-			      , ROUND(SUM(S3)/SUM(A3),0)     AS V3
-			      , ROUND(SUM(S4)/SUM(A4),0)     AS V4
-			      , ROUND(SUM(S5)/SUM(A5),0)     AS V5
-			      , ROUND(SUM(S6)/SUM(A6),0)     AS V6
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			SELECT  DECODE(S0, '히', '기타', S0)			AS V0
+			      , ROUND(SUM(S1)/SUM(A1),0)     		AS V1
+			      , ROUND(SUM(S2)/SUM(A2),0)     		AS V2
+			      , ROUND(SUM(S3)/SUM(A3),0)     		AS V3
+			      , ROUND(SUM(S4)/SUM(A4),0)     		AS V4
+			      , ROUND(SUM(S5)/SUM(A5),0)     		AS V5
+			      , ROUND(SUM(S6)/SUM(A6),0)     		AS V6
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') THEN B.RTL_OGNZ_TOT_TRMT_AMT END              AS S1
 			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') THEN B.RTL_OGNZ_TOT_TRMT_AMT END                  AS S2
 			              , B.RTL_OGNZ_TOT_TRMT_AMT                                                             AS S3
@@ -3046,7 +3046,7 @@
     </select>
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMdApcPrcsPrfmncGridList	-->
-	<!-- DESC : 산지유통시설운영실적 - 지역별 APC 처리실적 단건조회.					-->
+	<!-- DESC : 산지유통시설운영실적 - 지역별 APC 처리실적 단건조회.							-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -3054,14 +3054,14 @@
 	<!-- ==========================================================================	-->
     <select id="selectMdApcPrcsPrfmncGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  S0                   AS V0
-			      , ROUND(SUM(S1),0)     AS V1
-			      , ROUND(SUM(S2),0)     AS V2
-			      , ROUND(SUM(S3),0)     AS V3
-			      , ROUND(SUM(S4),0)     AS V4
-			      , ROUND(SUM(S5),0)     AS V5
-			      , ROUND(SUM(S6),0)     AS V6
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			SELECT  DECODE(S0, '히', '기타', S0)			AS V0
+			      , ROUND(SUM(S1),0)     				AS V1
+			      , ROUND(SUM(S2),0)     				AS V2
+			      , ROUND(SUM(S3),0)     				AS V3
+			      , ROUND(SUM(S4),0)     				AS V4
+			      , ROUND(SUM(S5),0)     				AS V5
+			      , ROUND(SUM(S6),0)     				AS V6
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') THEN B.APC_APC_TRMT_AMT END                                   AS S1
 			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') THEN B.APC_APC_TRMT_AMT END                                       AS S2
 			              , B.APC_APC_TRMT_AMT                                                                                  AS S3
@@ -3084,7 +3084,7 @@
     </select>
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMdApcPrcsPrfmncAvgGridList	-->
-	<!-- DESC : 산지유통시설운영실적 - 지역별 APC 처리실적(평균) 단건조회.				-->
+	<!-- DESC : 산지유통시설운영실적 - 지역별 APC 처리실적(평균) 단건조회.						-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -3092,14 +3092,14 @@
 	<!-- ==========================================================================	-->
     <select id="selectMdApcPrcsPrfmncAvgGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  S0                           AS V0
+			SELECT  DECODE(S0, '히', '기타', S0)	 AS V0
 			      , ROUND(SUM(S1)/SUM(A1),0)     AS V1
 			      , ROUND(SUM(S2)/SUM(A1),0)     AS V2
 			      , ROUND(SUM(S3)/SUM(A1),0)     AS V3
 			      , ROUND(SUM(S4)/SUM(A1),0)     AS V4
 			      , ROUND(SUM(S5)/SUM(A1),0)     AS V5
 			      , ROUND(SUM(S6)/SUM(A1),0)     AS V6
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') THEN B.APC_APC_TRMT_AMT END                                               AS S1
 			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') THEN B.APC_APC_TRMT_AMT END                                                   AS S2
 			              , B.APC_APC_TRMT_AMT                                                                                              AS S3
@@ -3434,14 +3434,14 @@
 	<!-- ==========================================================================	-->
     <select id="selectRgnOperOgnzTrmtPrfmncGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  S0                   AS V0
-			      , ROUND(SUM(S1),0)     AS V1
-			      , ROUND(SUM(S2),0)     AS V2
-			      , ROUND(SUM(S3),0)     AS V3
-			      , ROUND(SUM(S4),0)     AS V4
-			      , ROUND(SUM(S5),0)     AS V5
-			      , ROUND(SUM(S6),0)     AS V6
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			SELECT  DECODE(S0, '히', '기타', S0)			AS V0
+			      , ROUND(SUM(S1),0)     				AS V1
+			      , ROUND(SUM(S2),0)     				AS V2
+			      , ROUND(SUM(S3),0)     				AS V3
+			      , ROUND(SUM(S4),0)     				AS V4
+			      , ROUND(SUM(S5),0)     				AS V5
+			      , ROUND(SUM(S6),0)     				AS V6
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') THEN B.RTL_OGNZ_TOT_TRMT_AMT END  AS S1
 			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') THEN B.RTL_OGNZ_TOT_TRMT_AMT END      AS S2
 			              , B.RTL_OGNZ_TOT_TRMT_AMT                                                 AS S3
@@ -3474,14 +3474,14 @@
 	<!-- ==========================================================================	-->
     <select id="selectRgnOperOgnzTrmtPrfmncAvgGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  S0                           AS V0
-			      , ROUND(SUM(S1)/SUM(A1),0)     AS V1
-			      , ROUND(SUM(S2)/SUM(A2),0)     AS V2
-			      , ROUND(SUM(S3)/SUM(A3),0)     AS V3
-			      , ROUND(SUM(S4)/SUM(A4),0)     AS V4
-			      , ROUND(SUM(S5)/SUM(A5),0)     AS V5
-			      , ROUND(SUM(S6)/SUM(A6),0)     AS V6
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			SELECT  DECODE(S0, '히', '기타', S0)			AS V0
+			      , ROUND(SUM(S1)/SUM(A1),0)     		AS V1
+			      , ROUND(SUM(S2)/SUM(A2),0)     		AS V2
+			      , ROUND(SUM(S3)/SUM(A3),0)     		AS V3
+			      , ROUND(SUM(S4)/SUM(A4),0)     		AS V4
+			      , ROUND(SUM(S5)/SUM(A5),0)     		AS V5
+			      , ROUND(SUM(S6)/SUM(A6),0)     		AS V6
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') THEN B.RTL_OGNZ_TOT_TRMT_AMT END              AS S1
 			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') THEN B.RTL_OGNZ_TOT_TRMT_AMT END                  AS S2
 			              , B.RTL_OGNZ_TOT_TRMT_AMT                                                             AS S3
@@ -3520,14 +3520,14 @@
 	<!-- ==========================================================================	-->
     <select id="selectRgnOperOgnzApcPrcsPrfmncGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  S0                   AS V0
-			      , ROUND(SUM(S1),0)     AS V1
-			      , ROUND(SUM(S2),0)     AS V2
-			      , ROUND(SUM(S3),0)     AS V3
-			      , ROUND(SUM(S4),0)     AS V4
-			      , ROUND(SUM(S5),0)     AS V5
-			      , ROUND(SUM(S6),0)     AS V6
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			SELECT  DECODE(S0, '히', '기타', S0)			AS V0
+			      , ROUND(SUM(S1),0)     				AS V1
+			      , ROUND(SUM(S2),0)     				AS V2
+			      , ROUND(SUM(S3),0)     				AS V3
+			      , ROUND(SUM(S4),0)     				AS V4
+			      , ROUND(SUM(S5),0)     				AS V5
+			      , ROUND(SUM(S6),0)     				AS V6
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') THEN B.APC_APC_TRMT_AMT END                                   AS S1
 			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') THEN B.APC_APC_TRMT_AMT END                                       AS S2
 			              , B.APC_APC_TRMT_AMT                                                                                  AS S3
@@ -3560,14 +3560,14 @@
 	<!-- ==========================================================================	-->
     <select id="selectRgnOperOgnzApcPrcsPrfmncAvgGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  S0                           AS V0
-			      , ROUND(SUM(S1)/SUM(A1),0)     AS V1
-			      , ROUND(SUM(S2)/SUM(A1),0)     AS V2
-			      , ROUND(SUM(S3)/SUM(A1),0)     AS V3
-			      , ROUND(SUM(S4)/SUM(A1),0)     AS V4
-			      , ROUND(SUM(S5)/SUM(A1),0)     AS V5
-			      , ROUND(SUM(S6)/SUM(A1),0)     AS V6
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','경기도','광주시','전남도','대구시','경북도','부산시','경남도','세종시','충남도','울산시','경남도', A.CTPV_NM) AS S0
+			SELECT  DECODE(S0, '히', '기타', S0)			AS V0
+			      , ROUND(SUM(S1)/SUM(A1),0)     		AS V1
+			      , ROUND(SUM(S2)/SUM(A1),0)     		AS V2
+			      , ROUND(SUM(S3)/SUM(A1),0)     		AS V3
+			      , ROUND(SUM(S4)/SUM(A1),0)     		AS V4
+			      , ROUND(SUM(S5)/SUM(A1),0)     		AS V5
+			      , ROUND(SUM(S6)/SUM(A1),0)     		AS V6
+			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') THEN B.APC_APC_TRMT_AMT END                                               AS S1
 			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') THEN B.APC_APC_TRMT_AMT END                                                   AS S2
 			              , B.APC_APC_TRMT_AMT                                                                                              AS S3
