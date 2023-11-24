@@ -173,7 +173,11 @@
 		SBGridPropertiesItem.id = 'grdItem';
 		SBGridPropertiesItem.jsonref = 'jsonItem';
 		SBGridPropertiesItem.emptyrecords = '데이터가 없습니다.';
-		SBGridPropertiesItem.selectmode = 'byrow';
+		SBGridPropertiesItem.selectmode = 'free';
+		SBGridPropertiesItem.allowcopy = true;
+		SBGridPropertiesItem.explorerbar = 'move';				// 개인화 컬럼 이동 가능
+		SBGridPropertiesItem.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridPropertiesItem.contextmenulist = objMenuListItem;	// 우클릭 메뉴 리스트
 		SBGridPropertiesItem.extendlastcol = 'scroll';
 		SBGridPropertiesItem.scrollbubbling = false;
 		SBGridPropertiesItem.columns = [
@@ -194,7 +198,11 @@
 	    SBGridPropertiesApcItem.id = 'grdApcItem';
 	    SBGridPropertiesApcItem.jsonref = 'jsonApcItem';
 	    SBGridPropertiesApcItem.emptyrecords = '데이터가 없습니다.';
-	    SBGridPropertiesApcItem.selectmode = 'byrow';
+	    SBGridPropertiesApcItem.selectmode = 'free';
+	    SBGridPropertiesApcItem.allowcopy = true;
+	    SBGridPropertiesApcItem.explorerbar = 'move';					// 개인화 컬럼 이동 가능
+	    SBGridPropertiesApcItem.contextmenu = true;					// 우클린 메뉴 호출 여부
+	    SBGridPropertiesApcItem.contextmenulist = objMenuListApcItem;	// 우클릭 메뉴 리스트
 	    SBGridPropertiesApcItem.extendlastcol = 'scroll';
 	    SBGridPropertiesApcItem.oneclickedit = true;
 	    SBGridPropertiesApcItem.scrollbubbling = false;
@@ -220,7 +228,11 @@
 	    SBGridPropertiesVrty.id = 'grdVrty';
 	    SBGridPropertiesVrty.jsonref = 'jsonVrty';
 	    SBGridPropertiesVrty.emptyrecords = '데이터가 없습니다.';
-	    SBGridPropertiesVrty.selectmode = 'byrow';
+	    SBGridPropertiesVrty.selectmode = 'free';
+	    SBGridPropertiesVrty.allowcopy = true;
+	    SBGridPropertiesVrty.explorerbar = 'move';				// 개인화 컬럼 이동 가능
+	    SBGridPropertiesVrty.contextmenu = true;				// 우클린 메뉴 호출 여부
+	    SBGridPropertiesVrty.contextmenulist = objMenuListVrty;	// 우클릭 메뉴 리스트
 	    SBGridPropertiesVrty.extendlastcol = 'scroll';
 	    SBGridPropertiesVrty.oneclickedit = true;
 	    SBGridPropertiesVrty.scrollbubbling = false;
@@ -243,7 +255,11 @@
 	    SBGridPropertiesApcVrty.id = 'grdApcVrty';
 	    SBGridPropertiesApcVrty.jsonref = 'jsonApcVrty';
 	    SBGridPropertiesApcVrty.emptyrecords = '데이터가 없습니다.';
-	    SBGridPropertiesApcVrty.selectmode = 'byrow';
+	    SBGridPropertiesApcVrty.selectmode = 'free';
+	    SBGridPropertiesApcVrty.allowcopy = true;
+	    SBGridPropertiesApcVrty.explorerbar = 'move';					// 개인화 컬럼 이동 가능
+	    SBGridPropertiesApcVrty.contextmenu = true;					// 우클린 메뉴 호출 여부
+	    SBGridPropertiesApcVrty.contextmenulist = objMenuListApcVrty;	// 우클릭 메뉴 리스트
 	    SBGridPropertiesApcVrty.extendlastcol = 'scroll';
 	    SBGridPropertiesApcVrty.oneclickedit = true;
 	    SBGridPropertiesApcVrty.scrollbubbling = false;
@@ -273,6 +289,70 @@
 
 	    fn_initSBSelectItemVrty();
 	}
+	
+	/**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+    const objMenuListItem = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",					//단축키
+            "callback": fn_excelDwnldItem,			//콜백함수명
+        }
+    };
+    // 엑셀 다운로드
+    function fn_excelDwnldItem() {
+    	grdItem.exportLocalExcel("농수축산물표준 품목 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+    
+	/**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+    const objMenuListApcItem = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",					//단축키
+            "callback": fn_excelDwnldApcItem,			//콜백함수명
+        }
+    };
+    // 엑셀 다운로드
+    function fn_excelDwnldApcItem() {
+    	grdApcItem.exportLocalExcel("APC관리 품목 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+    
+	/**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+    const objMenuListVrty = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",					//단축키
+            "callback": fn_excelDwnldVrty,			//콜백함수명
+        }
+    };
+    // 엑셀 다운로드
+    function fn_excelDwnldVrty() {
+    	grdVrty.exportLocalExcel("농수축산물표준 품종 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+    
+	/**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+    const objMenuListApcVrty = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",					//단축키
+            "callback": fn_excelDwnldApcVrty,			//콜백함수명
+        }
+    };
+    // 엑셀 다운로드
+    function fn_excelDwnldApcVrty() {
+    	grdApcVrty.exportLocalExcel("APC관리 품종 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
 
 
 	const fn_searchItemList = async function(){

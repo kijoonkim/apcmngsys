@@ -86,7 +86,11 @@
 	    SBGridProperties.id = 'grdWrhsVhcl';
 	    SBGridProperties.jsonref = 'jsonWrhsVhcl';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.selectmode = 'free';
+	    SBGridProperties.allowcopy = true;
+	    SBGridProperties.explorerbar = 'move';					// 개인화 컬럼 이동 가능
+	    SBGridProperties.contextmenu = true;					// 우클린 메뉴 호출 여부
+	    SBGridProperties.contextmenulist = objMenuListWrhsVhcl;	// 우클릭 메뉴 리스트
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.scrollbubbling = false;
@@ -114,8 +118,23 @@
 	    ];
 	    grdWrhsVhcl = _SBGrid.create(SBGridProperties);
 	    fn_selectWrhsVhclList();
-
 	}
+	
+	/**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+    const objMenuListWrhsVhcl = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",					//단축키
+            "callback": fn_excelDwnldWrhsVhcl,			//콜백함수명
+        }
+    };
+    // 엑셀 다운로드
+    function fn_excelDwnldWrhsVhcl() {
+    	grdWrhsVhcl.exportLocalExcel("압고차량 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
 
 	async function fn_selectWrhsVhclList(){
 		fn_callSelectWrhsVhclList();
@@ -162,7 +181,11 @@
 	    SBGridProperties.id = 'grdRgnTrsprtCst';
 	    SBGridProperties.jsonref = 'jsonRgnTrsprtCst';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.selectmode = 'free';
+	    SBGridProperties.allowcopy = true;
+	    SBGridProperties.explorerbar = 'move';				// 개인화 컬럼 이동 가능
+	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+	    SBGridProperties.contextmenulist = objMenuListRgnTrsprtCst;		// 우클릭 메뉴 리스트
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.scrollbubbling = false;
@@ -182,6 +205,22 @@
         ];
         grdRgnTrsprtCst = _SBGrid.create(SBGridProperties);
         fn_selectRgnTrsprtCstList();
+    }
+    
+    /**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+    const objMenuListRgnTrsprtCst = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",					//단축키
+            "callback": fn_excelDwnldRgnTrsprtCst,			//콜백함수명
+        }
+    };
+    // 엑셀 다운로드
+    function fn_excelDwnldRgnTrsprtCst() {
+    	grdRgnTrsprtCst.exportLocalExcel("운송지역별 운임비용 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
 
 	// 출하지시 목록 조회 (조회 버튼)
