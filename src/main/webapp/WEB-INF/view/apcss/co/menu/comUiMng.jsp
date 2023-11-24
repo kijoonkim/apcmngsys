@@ -333,11 +333,12 @@
 				jsonMenu.push(menu);
 			});
         	grdMenu.rebuild();
-        }catch (e) {
+        } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
     		}
     		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
 
@@ -390,11 +391,12 @@
 			});
         	grdComUi.rebuild();
 
-        }catch (e) {
+        } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
     		}
     		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 
         //버튼 활성화
@@ -500,11 +502,12 @@
         try{
         	return data.result;
 
-        }catch (e) {
+        } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
     		}
     		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
 
@@ -514,11 +517,12 @@
         try{
         	return data.result;
 
-        }catch (e) {
+        } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
     		}
     		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
 
@@ -578,11 +582,12 @@
        		}else{
        			gfn_comAlert("E0001");					// E0001 오류가 발생하였습니다.
        		}
-        }catch (e) {
-        	if (!(e instanceof Error)) {
+        } catch (e) {
+    		if (!(e instanceof Error)) {
     			e = new Error(e);
     		}
     		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
     }
 </script>

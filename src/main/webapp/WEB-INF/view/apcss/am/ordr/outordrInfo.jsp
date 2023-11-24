@@ -531,15 +531,16 @@
         	// 체크박스 유무
         	for ( let i=1; i<=grdOutordrInfo.getGridDataAll().length; i++ ){
     			const rowData = grdOutordrInfo.getRowData(i);
-    			if (!gfn_isEmpty(rowData.spmtCmndno)){
+    			if (rowData.outordrQntt == rowData.cmndQntt){
     				grdOutordrInfo.setCellDisabled(i, 0, i, 0, true);
     			}
     		}
-        }catch (e) {
+        } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
     		}
     		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 	}
 
@@ -553,28 +554,38 @@
 	// 일괄 접수
     async function btn_receiptBndl(){
     	let allData = grdOutordrInfo.getGridDataAll();
+    	let haveSpmtCmndList = [];
 		const rcptOrdrAllList = [];
 
 		for ( let i=1; i<=allData.length; i++ ){
 			const rowData = grdOutordrInfo.getRowData(i);
 			const rowSts = grdOutordrInfo.getRowStatus(i);
-			if (rowData.checked == "true"){
-				if (rowSts === 2){
-					rowData.rowSts = "U";
-					if (rowData.rcptYn == 'N'){
-						rowData.rcptCfmtnYmd = null;
-					} else {
-						rowData.rcptCfmtnApcCd = gv_selectedApcCd;
-						rowData.rcptCfmtnYmd = gfn_dateToYmd(new Date());
-					}
-					rcptOrdrAllList.push(rowData);
+			if (rowData.checked == "true") {
+				if (!gfn_isEmpty(rowData.spmtCmndno)) {
+					haveSpmtCmndList.push(i+"행");
 				} else {
-					continue;
+					if (rowSts === 2) {
+						rowData.rowSts = "U";
+						if (rowData.rcptYn == 'N') {
+							rowData.rcptCfmtnYmd = null;
+						} else {
+							rowData.rcptCfmtnApcCd = gv_selectedApcCd;
+							rowData.rcptCfmtnYmd = gfn_dateToYmd(new Date());
+						}
+						rcptOrdrAllList.push(rowData);
+					} else {
+						continue;
+					}
 				}
 			}
 		}
+		
+		if (haveSpmtCmndList.length > 0) {
+			alert(haveSpmtCmndList.join(", ") + "은 출하지시가 등록된 데이터입니다.\n\n접수를 취소하시려면 출하지시를 삭제하십시오.");
+            return;
+		}
 
-		if (rcptOrdrAllList.length == 0){
+		if (rcptOrdrAllList.length == 0) {
 			gfn_comAlert("W0003", "저장");		//	W0003	{0}할 대상이 없습니다.
             return;
 		}
@@ -590,10 +601,14 @@
         		fn_callSelectOutordrInfoList();
         		fn_search();
         	} else {
-        		//gfn_comAlert(data.resultCode, data.resultMessage);
-        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        		gfn_comAlert(data.resultCode, data.resultMessage);
         	}
         } catch(e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
 
@@ -672,7 +687,7 @@
 				if(psbltyCmndQntt > invntrQntt) {
 					grdOutordrInfo.setCellData(nRow, inptCmndQnttCol, invntrQntt);
 					grdOutordrInfo.setCellData(nRow, inptCmndWghtCol, invntrQntt*wght);
-				}else {
+				} else {
 					grdOutordrInfo.setCellData(nRow, inptCmndQnttCol, psbltyCmndQntt);
 					grdOutordrInfo.setCellData(nRow, inptCmndWghtCol, psbltyCmndQntt*wght);
 				}
@@ -751,6 +766,11 @@
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
         } catch(e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
 

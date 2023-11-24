@@ -138,4 +138,46 @@ public class ComCdServiceImpl extends BaseServiceImpl implements ComCdService {
 		}
 		return savedCnt;
 	}
+	
+	@Override
+	public int multiSaveComCdComCdDtlList(ComCdVO comCdVO) throws Exception {
+		int savedCnt = 0;
+		
+		if (comCdVO.getComCdList().size() > 0) {
+			savedCnt += multiSaveComCdList(comCdVO.getComCdList());
+		}
+		if (comCdVO.getComCdDtlList().size() > 0) {
+			savedCnt += multiSaveComCdDtlList(comCdVO.getComCdDtlList());
+		}
+		
+		return savedCnt;
+	}
+	
+	@Override
+	public int deleteComCdComCdDtlList(ComCdVO comCdVO) throws Exception {
+		int deletedCnt = 0;
+
+		List<ComCdVO> deleteCdList = comCdVO.getComCdList();
+		List<ComCdVO> deleteCdDtlList = comCdVO.getComCdDtlList();
+		List<ComCdVO> resultList = new ArrayList<>();
+		
+		if (deleteCdList.size() > 0) {
+			for (ComCdVO comCd : deleteCdList) {
+				resultList = selectComCdDtlList(comCd);
+				deletedCnt += deleteComCd(comCd);
+				if (resultList.size() > 0) {
+					for (ComCdVO result : resultList) {
+						deletedCnt += deleteComCdDtl(result);
+					}
+				}
+			}
+		}
+		if (deleteCdDtlList.size() > 0) {
+			for (ComCdVO comCdDtl : deleteCdDtlList) {
+				deletedCnt += deleteComCdDtl(comCdDtl);
+			}
+		}
+		
+		return deletedCnt;
+	}
 }

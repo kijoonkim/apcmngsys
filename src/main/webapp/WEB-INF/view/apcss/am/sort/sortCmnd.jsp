@@ -304,10 +304,13 @@
 	    	jsonSortCmnd.length = 0;
 	    	grdSortCmnd.clearStatus();
  			await fn_setGrdSortCmnd(pageSize, pageNo);
- 	   } catch(e){
-		   alert(e);
-		   return;
-	   }
+		} catch (e) {
+	   		if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+	    	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
 	}
 	const fn_setGrdSortCmnd = async function(pageSize, pageNo){
     	let fcltCd	= SBUxMethod.get("srch-slt-inptFclt");
@@ -389,13 +392,13 @@
           	}
           	document.querySelector('#cnt-sortCmnd').innerText = totalRecordCount;
        } catch (e) {
-     		if (!(e instanceof Error)) {
-     			e = new Error(e);
-     		}
-     		console.error("failed", e.message);
+	   		if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+	    	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 	}
-
 
     const fn_del = async function(){
     	var grdRows = grdSortCmnd.getCheckedRows(0);
@@ -418,11 +421,12 @@
 	       		}else{
 	       			gfn_comAlert("E0001");					// E0001 오류가 발생하였습니다.
 	       		}
-	        }catch (e) {
-	        	if (!(e instanceof Error)) {
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
 	    			e = new Error(e);
 	    		}
 	    		console.error("failed", e.message);
+	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 			}
 		}
     }

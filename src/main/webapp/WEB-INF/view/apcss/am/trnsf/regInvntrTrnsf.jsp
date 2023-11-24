@@ -712,12 +712,13 @@
   			});
           	inptCmndDsctnList.rebuild();
 
-          } catch (e) {
-      		if (!(e instanceof Error)) {
-      			e = new Error(e);
-      		}
-      		console.error("failed", e.message);
-          }
+		} catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
     }
 	//원물재고 내역 조회 끝
 
@@ -781,12 +782,13 @@
           	});
           	inptCmndDsctnList.rebuild();
 
-          } catch (e) {
-      		if (!(e instanceof Error)) {
-      			e = new Error(e);
-      		}
-      		console.error("failed", e.message);
-          }
+		} catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
     }
 	//선별재고 내역 조회 끝
 
@@ -850,12 +852,13 @@
           	});
           	inptCmndDsctnList.rebuild();
 
-          } catch (e) {
-      		if (!(e instanceof Error)) {
-      			e = new Error(e);
-      		}
-      		console.error("failed", e.message);
-          }
+		} catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+	        gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
     }
 
 	//	fn_updataList
@@ -943,11 +946,12 @@
 	       		}else{
 	       			gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
 	       		}
-	        }catch (e) {
-	        	if (!(e instanceof Error)) {
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
 	    			e = new Error(e);
 	    		}
 	    		console.error("failed", e.message);
+	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 			}
 		}
 	}

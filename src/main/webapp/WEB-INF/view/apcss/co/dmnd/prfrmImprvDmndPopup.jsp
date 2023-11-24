@@ -221,6 +221,7 @@
 	    			e = new Error(e);
 	    		}
 	    		console.error("failed", e.message);
+	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        }
 	    },
 	    procRow : async function(gubun, nRow, nCol) {
@@ -296,6 +297,7 @@
 		    			e = new Error(e);
 		    		}
 		    		console.error("failed", e.message);
+		        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		        }
 			}
 	    },
@@ -317,6 +319,7 @@
 	    			e = new Error(e);
 	    		}
 	    		console.error("failed", e.message);
+	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        }
 	    },
 	    selectDmnd : async function(){

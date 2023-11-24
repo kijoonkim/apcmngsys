@@ -240,6 +240,11 @@
 	        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        	}
 	        } catch(e) {
+	    		if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        }
 
 		},
@@ -303,6 +308,7 @@
 	    			e = new Error(e);
 	    		}
 	    		console.error("failed", e.message);
+	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        }
 	    },
 	    createGridDfct: function(/** {boolean} */ isEditable) {
@@ -353,7 +359,6 @@
 	        const data = await postJsonPromise;
 
 			try {
-
 	    		jsonDfct.length = 0;
 	        	data.resultList.forEach((item, index) => {
 					const dfct = {
@@ -371,17 +376,14 @@
 						tot			: item.tot
 					}
 					jsonDfct.push(dfct);
-
 				});
-
         		grdDfct.rebuild();
-
-
 	        } catch (e) {
 	    		if (!(e instanceof Error)) {
 	    			e = new Error(e);
 	    		}
 	    		console.error("failed", e.message);
+	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        }
 	    },
 	    searchAll: async function() {

@@ -544,13 +544,12 @@
   			});
           	grdWrhsPlan.refresh();
           	grdWrhsPlan.addRow();
-		}catch (e) {
-
-			if (!(e instanceof Error)) {
-				e = new Error(e);
-			}
-
-			console.error("failed", e.message);
+		} catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 	}
 
@@ -575,7 +574,7 @@
 					} else {
 						continue;
 					}
-				}else{
+				} else {
 					const itemCd = rowData.itemCd;
 					const vrtyCd = rowData.vrtyCd;
 					const prdcrCd = rowData.prdcrCd;
@@ -612,7 +611,7 @@
 						}
 						rowData.apcCd = gv_selectedApcCd;
 						insertList.push(rowData);
-					}else{
+					} else {
 						continue;
 					}
 				}
@@ -638,7 +637,12 @@
         	} else {
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
-        } catch(e) {
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 	}
 
@@ -652,7 +656,12 @@
         	} else {
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
-        } catch(e) {
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 	}
 
@@ -848,11 +857,12 @@
 				jsonExcelItem.push(itemVO);
 			});
         	grdExcelItem.rebuild();
-        }catch (e) {
+        } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
     		}
     		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 	}
 
@@ -871,11 +881,12 @@
 				jsonExcelVrty.push(vrtyVO);
 			});
         	grdExcelVrty.rebuild();
-        }catch (e) {
+        } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
     		}
     		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 	}
 	const fn_selectPrdcrList = async function(){
@@ -894,11 +905,12 @@
 				jsonExcelPrdcr.push(prdcr);
 			});
         	grdExcelPrdcr.rebuild();
-        }catch (e) {
+        } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
     		}
     		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 	}
 
@@ -916,11 +928,12 @@
 				jsonExcelWrhsSeCd.push(wrhsSeCd);
 			});
         	grdExcelWrhsSeCd.rebuild();
-        }catch (e) {
+        } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
     		}
     		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 	}
 
@@ -938,11 +951,12 @@
 				jsonExcelGdsSeCd.push(gdsSeCd);
 			});
         	grdExcelGdsSeCd.rebuild();
-        }catch (e) {
+        } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
     		}
     		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 	}
 
@@ -960,11 +974,12 @@
 				jsonExcelTrsprtSeCd.push(trsprtSeCd);
 			});
         	grdExcelTrsprtSeCd.rebuild();
-        }catch (e) {
+        } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
     		}
     		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 	}
 

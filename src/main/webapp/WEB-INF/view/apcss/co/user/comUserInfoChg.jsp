@@ -233,11 +233,12 @@ async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
       		userInfoChgGridId.rebuild();
       	}
 
-    }catch (e) {
+    } catch (e) {
 		if (!(e instanceof Error)) {
 			e = new Error(e);
 		}
- 		console.error("failed", e.message);
+		console.error("failed", e.message);
+    	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
     }
 }
 
@@ -298,7 +299,11 @@ async function fn_reset(){
         	} else {
         		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
         	}
-        } catch(e) {
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 
@@ -342,11 +347,12 @@ async function fn_updatePwd(comUserVO){
         	}else{
         		alert("비밀번호 초기화 오류가 발생 되었습니다.");
         	}
-        }catch (e) {
-        	if (!(e instanceof Error)) {
+        } catch (e) {
+    		if (!(e instanceof Error)) {
     			e = new Error(e);
     		}
     		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 	}
 

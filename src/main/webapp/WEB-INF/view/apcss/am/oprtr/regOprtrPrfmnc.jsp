@@ -505,10 +505,11 @@
 		});
       	grdPrfmnc.refresh();
 	    } catch (e) {
-	 		if (!(e instanceof Error)) {
-	 			e = new Error(e);
-	 		}
-	 		console.error("failed", e.message);
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 	}
 
@@ -542,36 +543,37 @@
 			jsonOptrtPrfmnc.length = 0;
 	      	data.resultList.forEach((item, index) => {
 	      		const prfmncVO = {
-	      			prfmncSeNm	: item.prfmncSeNm
-	      		  , prfmncSeCd	: item.prfmncSeCd
-	      		  , fcltNm		: item.fcltNm
-	      		  , fcltCd		: item.fcltCd
-	      		  , prfmncSn	: item.prfmncSn
-	      		  , brdt		: item.brdt
-	      		  , flnm		: item.flnm
-	      		  , jobYmd 		: item.jobYmd
-	      		  , jobBgngHr	: item.jobBgngHr
-	      		  , jobEndHr	: item.jobEndHr
-	      		  , jobHr		: item.jobHr
-	      		  , rmrk		: item.rmrk
-	      		  , prfmncno	: item.prfmncno
-	      		  , apcCd		: item.apcCd
-	      		  , brdt		: item.brdt
-	      		  , delYn		: item.delYn
-	      		  , insertYn	: "N"
-			}
-	      	jsonOptrtPrfmnc.push(prfmncVO);
-
-		});
-      	grdOptrtPrfmnc.setCellDisabled(0, grdOptrtPrfmnc.getRows() -1, 0, grdOptrtPrfmnc.getCols() - 1, false);
-      	grdOptrtPrfmnc.rebuild();
-      	grdOptrtPrfmnc.addRow(true);
-      	grdOptrtPrfmnc.setCellDisabled(grdOptrtPrfmnc.getRows()-1, 0, grdOptrtPrfmnc.getRows()-1, grdOptrtPrfmnc.getCols() - 1, true);
+		      			prfmncSeNm	: item.prfmncSeNm
+		      		  , prfmncSeCd	: item.prfmncSeCd
+		      		  , fcltNm		: item.fcltNm
+		      		  , fcltCd		: item.fcltCd
+		      		  , prfmncSn	: item.prfmncSn
+		      		  , brdt		: item.brdt
+		      		  , flnm		: item.flnm
+		      		  , jobYmd 		: item.jobYmd
+		      		  , jobBgngHr	: item.jobBgngHr
+		      		  , jobEndHr	: item.jobEndHr
+		      		  , jobHr		: item.jobHr
+		      		  , rmrk		: item.rmrk
+		      		  , prfmncno	: item.prfmncno
+		      		  , apcCd		: item.apcCd
+		      		  , brdt		: item.brdt
+		      		  , delYn		: item.delYn
+		      		  , insertYn	: "N"
+				}
+		      	jsonOptrtPrfmnc.push(prfmncVO);
+	
+			});
+	      	grdOptrtPrfmnc.setCellDisabled(0, grdOptrtPrfmnc.getRows() -1, 0, grdOptrtPrfmnc.getCols() - 1, false);
+	      	grdOptrtPrfmnc.rebuild();
+	      	grdOptrtPrfmnc.addRow(true);
+	      	grdOptrtPrfmnc.setCellDisabled(grdOptrtPrfmnc.getRows()-1, 0, grdOptrtPrfmnc.getRows()-1, grdOptrtPrfmnc.getCols() - 1, true);
 	    } catch (e) {
-	 		if (!(e instanceof Error)) {
-	 			e = new Error(e);
-	 		}
-	 		console.error("failed", e.message);
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 	}
 
@@ -684,8 +686,8 @@
 	    			e = new Error(e);
 	    		}
 	    		console.error("failed", e.message);
+	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        }
-
 		}
 	}
 
@@ -700,11 +702,12 @@
        		}else{
        			gfn_comAlert("E0001");					// E0001 오류가 발생하였습니다.
        		}
-        }catch (e) {
-        	if (!(e instanceof Error)) {
+        } catch (e) {
+    		if (!(e instanceof Error)) {
     			e = new Error(e);
     		}
     		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 	}
 
