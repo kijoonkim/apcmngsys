@@ -23,10 +23,10 @@
 				<tr>
 					<th scope="row" class="th_bg"><span class="data_required"></span>조회일자</th>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-datepicker id="cntn-dtp-logYmdFrom" name="cntn-dtp-logYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc" onchange="fn_dtpChange"></sbux-datepicker>
+						<sbux-datepicker id="cntn-dtp-logYmdFrom" name="cntn-dtp-logYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc" onchange="tabLogCntnHstry.dtpChange"></sbux-datepicker>
 					</td>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-datepicker id="cntn-dtp-logYmdTo" name="cntn-dtp-logYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc" onchange="fn_dtpChange"></sbux-datepicker>
+						<sbux-datepicker id="cntn-dtp-logYmdTo" name="cntn-dtp-logYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc" onchange="tabLogCntnHstry.dtpChange"></sbux-datepicker>
 					</td>
 					<td></td>
 					<th scope="row" class="th_bg">사용자명</th>
@@ -54,19 +54,7 @@
 <script type="text/javascript">
 	var jsonLogCntnHstry = [];
 	var grdLogCntnHstry = null;
-
-	const fn_dtpChange = function(){
-		let logYmdFrom = SBUxMethod.get("cntn-dtp-logYmdFrom");
-		let logYmdTo = SBUxMethod.get("cntn-dtp-logYmdTo");
-		if(gfn_diffDate(logYmdFrom, logYmdTo) < 0){
-			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다."); //W0001{0}
-			SBUxMethod.set("cntn-dtp-logYmdFrom", gfn_dateFirstYmd(new Date()));
-			SBUxMethod.set("cntn-dtp-logYmdTo", gfn_dateToYmd(new Date()));
-			return;
-		}
-	}
-
-
+	
 	const tabLogCntnHstry = {
 			prgrmId: 'logCntnHstryTab',
 			gridId: 'grdLogCntnHstry',
@@ -76,14 +64,10 @@
 			objGrid: null,
 			gridJson: [],
 			callbackFnc: function() {},
-			init: async function(_apcCd, _apcNm, _callbackFnc) {
-				if (!gfn_isEmpty(_callbackFnc) && typeof _callbackFnc === 'function') {
-					this.callbackFnc = _callbackFnc;
-				}
-
+			init: async function(_apcCd, _apcNm, _ymdFrom, _ymdTo) {
+				SBUxMethod.set("cntn-dtp-logYmdFrom", _ymdFrom);
+				SBUxMethod.set("cntn-dtp-logYmdTo", _ymdTo);
 				if (grdLogCntnHstry === null || this.prvApcCd != _apcCd) {
-					SBUxMethod.set("cntn-dtp-logYmdFrom", gfn_dateFirstYmd(new Date()));
-					SBUxMethod.set("cntn-dtp-logYmdTo", gfn_dateToYmd(new Date()));
 					this.createGrid();
 					this.search();
 				} else {
@@ -140,10 +124,14 @@
 				let userNm = SBUxMethod.get("cntn-inp-userNm");
 				if (gfn_isEmpty(logYmdFrom)){
 					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
+			    	jsonLogCntnHstry.length = 0;
+					grdLogCntnHstry.rebuild();
 		            return;
 				}
 				if (gfn_isEmpty(logYmdTo)){
 					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
+			    	jsonLogCntnHstry.length = 0;
+					grdLogCntnHstry.rebuild();
 		            return;
 				}
 

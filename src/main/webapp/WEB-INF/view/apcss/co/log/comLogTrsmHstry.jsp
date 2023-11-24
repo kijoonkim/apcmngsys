@@ -26,10 +26,10 @@
 				<tr>
 					<th scope="row" class="th_bg"><span class="data_required"></span>조회일자</th>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-datepicker id="trsm-dtp-logYmdFrom" name="trsm-dtp-logYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"></sbux-datepicker>
+						<sbux-datepicker id="trsm-dtp-logYmdFrom" name="trsm-dtp-logYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc" onchange="tabLogTrsmHstry.dtpChange"></sbux-datepicker>
 					</td>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-datepicker id="trsm-dtp-logYmdTo" name="trsm-dtp-logYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"></sbux-datepicker>
+						<sbux-datepicker id="trsm-dtp-logYmdTo" name="trsm-dtp-logYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc" onchange="tabLogTrsmHstry.dtpChange"></sbux-datepicker>
 					</td>
 					<td></td>
 					<th scope="row" class="th_bg">송수신구분</th>
@@ -78,14 +78,10 @@
 			objGrid: null,
 			gridJson: [],
 			callbackFnc: function() {},
-			init: async function(_apcCd, _apcNm, _callbackFnc) {
-				if (!gfn_isEmpty(_callbackFnc) && typeof _callbackFnc === 'function') {
-					this.callbackFnc = _callbackFnc;
-				}
-
+			init: async function(_apcCd, _apcNm, _ymdFrom, _ymdTo) {
+				SBUxMethod.set("trsm-dtp-logYmdFrom", _ymdFrom);
+				SBUxMethod.set("trsm-dtp-logYmdTo", _ymdTo);
 				if (grdLogTrsmHstry === null || this.prvApcCd != _apcCd) {
-					SBUxMethod.set("trsm-dtp-logYmdFrom", gfn_dateFirstYmd(new Date()));
-					SBUxMethod.set("trsm-dtp-logYmdTo", gfn_dateToYmd(new Date()));
 					let rst = await Promise.all([
 						gfn_setComCdSBSelect('trsm-slt-sendRcptnSeCd', jsonComSendRcptnSeCd, 'SEND_RCPTN_SE_CD', gv_selectedApcCd),
 						gfn_setComCdGridSelect('grdLogTrsmHstry', comboSendRcptnSeCdJsData, "SEND_RCPTN_SE_CD", gv_selectedApcCd)
@@ -147,10 +143,14 @@
 				let prgrmNm = SBUxMethod.get("trsm-inp-prgrmNm");
 				if (gfn_isEmpty(logYmdFrom)){
 					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
+			    	jsonLogTrsmHstry.length = 0;
+					grdLogTrsmHstry.rebuild();
 		            return;
 				}
 				if (gfn_isEmpty(logYmdTo)){
 					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
+			    	jsonLogTrsmHstry.length = 0;
+					grdLogTrsmHstry.rebuild();
 		            return;
 				}
 

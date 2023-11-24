@@ -23,10 +23,10 @@
 				<tr>
 					<th scope="row" class="th_bg"><span class="data_required"></span>조회일자</th>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-datepicker id="menu-dtp-logYmdFrom" name="menu-dtp-logYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"></sbux-datepicker>
+						<sbux-datepicker id="menu-dtp-logYmdFrom" name="menu-dtp-logYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc" onchange="tabLogMenuHstry.dtpChange"></sbux-datepicker>
 					</td>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-datepicker id="menu-dtp-logYmdTo" name="menu-dtp-logYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"></sbux-datepicker>
+						<sbux-datepicker id="menu-dtp-logYmdTo" name="menu-dtp-logYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc" onchange="tabLogMenuHstry.dtpChange"></sbux-datepicker>
 					</td>
 					<td></td>
 					<th scope="row" class="th_bg">화면명</th>
@@ -64,14 +64,10 @@
 			objGrid: null,
 			gridJson: [],
 			callbackFnc: function() {},
-			init: async function(_apcCd, _apcNm, _callbackFnc) {
-				if (!gfn_isEmpty(_callbackFnc) && typeof _callbackFnc === 'function') {
-					this.callbackFnc = _callbackFnc;
-				}
-
+			init: async function(_apcCd, _apcNm, _ymdFrom, _ymdTo) {
+				SBUxMethod.set("menu-dtp-logYmdFrom", _ymdFrom);
+				SBUxMethod.set("menu-dtp-logYmdTo", _ymdTo);
 				if (grdLogMenuHstry === null || this.prvApcCd != _apcCd) {
-					SBUxMethod.set("menu-dtp-logYmdFrom", gfn_dateFirstYmd(new Date()));
-					SBUxMethod.set("menu-dtp-logYmdTo", gfn_dateToYmd(new Date()));
 					this.createGrid();
 					this.search();
 				} else {
@@ -126,10 +122,14 @@
 				let menuNm = SBUxMethod.get("menu-inp-menuNm");
 				if (gfn_isEmpty(logYmdFrom)){
 					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
+			    	jsonLogMenuHstry.length = 0;
+					grdLogMenuHstry.rebuild();
 		            return;
 				}
 				if (gfn_isEmpty(logYmdTo)){
 					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
+			    	jsonLogMenuHstry.length = 0;
+					grdLogMenuHstry.rebuild();
 		            return;
 				}
 
