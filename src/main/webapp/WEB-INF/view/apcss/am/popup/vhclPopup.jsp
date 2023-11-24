@@ -88,6 +88,10 @@
 	var grdVhclPop = null;
 	var jsonVhclPop = [];
 
+	const excelDwnldVhclPop = function () {
+		grdVhclPop.exportLocalExcel("차량 목록", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+	
 	/**
 	 * @description 차량 선택 팝업
 	 */
@@ -100,6 +104,13 @@
 		prvApcCd: "",
 		objGrid: null,
 		gridJson: [],
+		objMenuListVhclPop : {
+			"excelDwnldPop": {
+				"name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+				"accesskey": "e",					//단축키
+				"callback": excelDwnldVhclPop,		//콜백함수명
+			}
+		},
 		callbackFnc: function() {},
 		init: async function(_apcCd, _apcNm, _callbackFnc, _vhclno) {
 			// set param
@@ -139,12 +150,14 @@
 		    SBGridProperties.id = this.gridId;
 		    SBGridProperties.jsonref = this.jsonId;
 		    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-		    SBGridProperties.selectmode = 'byrow';
-		    SBGridProperties.explorerbar = 'sortmove';
+		    SBGridProperties.selectmode = 'free';
+		    SBGridProperties.explorerbar = 'move';
 		    SBGridProperties.extendlastcol = 'scroll';
 		    SBGridProperties.oneclickedit = true;
 		    SBGridProperties.allowcopy = true;
 		    SBGridProperties.scrollbubbling = false;
+		    SBGridProperties.contextmenu = true;					// 우클린 메뉴 호출 여부
+		    SBGridProperties.contextmenulist = this.objMenuListVhclPop;	// 우클릭 메뉴 리스트
 		    SBGridProperties.dblclickeventarea = {fixed: false, empty: false};
 		    SBGridProperties.columns = [
 		        {caption: ["처리"], 		ref: 'delYn', 			width: '70px',	type:'button', 		style: 'text-align:center', sortable: false,
