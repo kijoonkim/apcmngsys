@@ -376,13 +376,6 @@
 
 
 
-
-
-
-
-
-
-
 	<delete id="deletePrdcrCrclOgnMng" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO">
 		<![CDATA[
 		DELETE FROM TB_EV_APO
@@ -390,4 +383,161 @@
 		]]>
 	</delete>
 
+
+
+	<!-- 출자출하조직이 속한 통합조직 리스트조회 -->
+	<select id="selectUo" parameterType="com.at.apcss.pd.bsm.vo.UoListVO" resultType="com.at.apcss.pd.bsm.vo.UoListVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.selectUo */
+				  CM.UO_APO_CD
+				, CM.UO_APO_SE
+				, CM.UO_BRNO
+				, CM.UO_CORP_NM
+				, CM.UO_CRNO
+				, CM.ISO_APO_CD
+				, CM.ISO_APO_SE
+				, CM.ISO_BRNO
+				, CM.ISO_CORP_NM
+				, CM.ISO_CRNO
+				, CM.DEL_YN
+
+				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
+				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
+				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
+				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_FRST_INPT_USER_ID) AS SYS_FRST_INPT_USER_NM
+				, CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
+
+				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
+				, TO_CHAR(CM.SYS_LAST_CHG_DT,'YYYY-MM-DD')		AS SYS_LAST_CHG_DT_YMD
+				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
+				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_NM
+				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
+			  FROM TB_EV_APO_UO_CD CM
+			 WHERE 1=1
+    	]]>
+    		<if test='apoCd != null and apoCd != ""'>
+				AND CM.ISO_APO_CD LIKE #{apoCd} || '%'
+			</if>
+    </select>
+
+	<!-- 출자출하조직이 속한 통합조직 리스트조회 -->
+	<select id="selectUoList" parameterType="com.at.apcss.pd.bsm.vo.UoListVO" resultType="com.at.apcss.pd.bsm.vo.UoListVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.selectUoList */
+				  CM.UO_APO_CD
+				, CM.UO_APO_SE
+				, CM.UO_BRNO
+				, CM.UO_CORP_NM
+				, CM.UO_CRNO
+				, CM.ISO_APO_CD
+				, CM.ISO_APO_SE
+				, CM.ISO_BRNO
+				, CM.ISO_CORP_NM
+				, CM.ISO_CRNO
+				, CM.DEL_YN
+
+				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
+				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
+				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
+				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_FRST_INPT_USER_ID) AS SYS_FRST_INPT_USER_NM
+				, CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
+
+				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
+				, TO_CHAR(CM.SYS_LAST_CHG_DT,'YYYY-MM-DD')		AS SYS_LAST_CHG_DT_YMD
+				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
+				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_NM
+				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
+			  FROM TB_EV_APO_UO_CD CM
+			 WHERE 1=1
+    	]]>
+    		<if test='apoCd != null and apoCd != ""'>
+				AND CM.ISO_APO_CD LIKE #{apoCd} || '%'
+			</if>
+    </select>
+
+	<!-- 출자출하조직이 속한 통합조직 리스트 insert -->
+	<insert id="insertUo" parameterType="com.at.apcss.pd.bsm.vo.UoListVO">
+    	<![CDATA[
+	    	INSERT /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.insertPrdcrCrclOgnMng */
+	    	  INTO TB_EV_APO_UO_CD
+	    		(
+	    		  , UO_APO_CD
+				  , UO_APO_SE
+				  , UO_BRNO
+				  , UO_CORP_NM
+				  , UO_CRNO
+				  , ISO_APO_CD
+				  , ISO_APO_SE
+				  , ISO_BRNO
+				  , ISO_CORP_NM
+				  , ISO_CRNO
+
+	    		  , SYS_FRST_INPT_DT
+	    		  , SYS_FRST_INPT_USER_ID
+	    		  , SYS_FRST_INPT_PRGRM_ID
+	    		  , SYS_LAST_CHG_DT
+	    		  , SYS_LAST_CHG_USER_ID
+	    		  , SYS_LAST_CHG_PRGRM_ID
+	    		)
+	   		VALUES
+	   			(
+	   			    #{uoApoCd}
+	   			  , #{uoApoSe}
+	   			  , #{uoBrno}
+	   			  , #{uoCorpNm}
+	   			  , #{uoCrno}
+	   			  , #{isoApoCd}
+	   			  , #{isoApoSe}
+	   			  , #{isoBrno}
+	   			  , #{isoCorpNm}
+	   			  , #{isoCrno}
+
+	   			  , SYSDATE
+	   			  , #{sysFrstInptUserId}
+	   			  , #{sysFrstInptPrgrmId}
+	   			  , SYSDATE
+	   			  , #{sysLastChgUserId}
+	   			  , #{sysLastChgPrgrmId}
+	   			)
+    	]]>
+    </insert>
+
+    <!-- 출자출하조직이 속한 통합조직 리스트 update -->
+	<update id="updateUo" parameterType="com.at.apcss.pd.bsm.vo.UoListVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.updateUo */
+	    		TB_EV_APO_UO_CD
+			   SET
+			 	  	UO_APO_CD				= #{uoApoCd}
+			 	  , UO_APO_SE				= #{uoApoSe}
+	    		  , UO_BRNO					= #{uoBrno}
+	    		  , UO_CORP_NM				= #{uoCorpNm}
+	    		  , UO_CRNO					= #{uoCrno}
+
+	    		  , ISO_APO_CD				= #{isoApoCd}
+	    		  , ISO_APO_SE				= #{isoApoSe}
+	    		  , ISO_BRNO				= #{isoBrno}
+	    		  , ISO_CORP_NM				= #{isoCorpNm}
+	    		  , ISO_CRNO				= #{isoCrno}
+
+    	]]>
+    	<![CDATA[
+				, SYS_LAST_CHG_DT		= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+
+			 WHERE 1=1
+			   AND APO_CD	= #{apoCd}
+    	]]>
+    </update>
+
+	<!-- 출자출하조직이 속한 통합조직 리스트 delete -->
+	<delete id="deleteUo" parameterType="com.at.apcss.pd.bsm.vo.UoListVO">
+		<![CDATA[
+		DELETE FROM TB_EV_APO_UO_CD
+		/* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.deleteUo */
+		 WHERE UO_APO_CD 	= #{uoApoCd}
+		   AND ISO_APO_CD 	= #{isoApoCd}
+		]]>
+	</delete>
 </mapper>

@@ -6,6 +6,7 @@ import java.util.Map;
 import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO;
+import com.at.apcss.pd.bsm.vo.UoListVO;
 
 
 /**
@@ -41,5 +42,18 @@ public interface PrdcrCrclOgnMngService {
 	public int multiSavePrdcrCrclOgnMngList(List<PrdcrCrclOgnMngVO> PrdcrCrclOgnMngVOList) throws Exception;
 
 	public int deletePrdcrCrclOgnMng(PrdcrCrclOgnMngVO PrdcrCrclOgnMngVO) throws Exception;
+
+
+	public UoListVO selectUo(UoListVO uoListVO) throws Exception;
+
+	public List<UoListVO> selectUoList(UoListVO uoListVO) throws Exception;
+
+	public int insertUo(UoListVO uoListVO) throws Exception;
+
+	public int updateUo(UoListVO uoListVO) throws Exception;
+
+	public int multiSaveUoList(List<UoListVO> uoListVOList) throws Exception;
+
+	public int deleteUo(UoListVO uoListVO) throws Exception;
 
 }
