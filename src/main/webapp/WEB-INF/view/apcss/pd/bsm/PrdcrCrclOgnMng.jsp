@@ -54,7 +54,7 @@
 					<tbody>
 						<tr>
 							<th scope="row" class="th_bg" >관할기관</th>
-							<td colspan="3" class="td_input" style="border-right:hidden;" >
+							<td colspan="2" class="td_input" style="border-right:hidden;" >
 								<sbux-select
 									id="srch-input-cmptnInst"
 									name="srch-input-cmptnInst"
@@ -65,9 +65,9 @@
 									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 							</td>
-							<td style="border-right: hidden;">&nbsp;</td>
+							<td colspan="2" style="border-right: hidden;">&nbsp;</td>
 							<th scope="row" class="th_bg" >시도</th>
-							<td colspan="2" class="td_input" style="border-right:hidden;">
+							<td colspan="3" class="td_input" style="border-right:hidden;">
 								<sbux-select
 									id="srch-input-ctpv"
 									name="srch-input-ctpv"
@@ -78,7 +78,7 @@
 									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 							</td>
-							<td colspan="3" class="td_input" style="border-right: hidden;" >
+							<td colspan="2" class="td_input" style="border-right: hidden;" >
 							</td>
 							<th scope="row" class="th_bg">시군</th>
 							<td class="td_input" style="border-right: hidden;">
@@ -92,7 +92,7 @@
 									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;" >
+							<td colspan="3" class="td_input" style="border-right: hidden;" >
 							</td>
 						</tr>
 						<tr>
@@ -189,39 +189,80 @@
 					<div id="sb-area-grdPrdcrCrclOgnMng" style="height:350px; width: 100%;"></div>
 				</div>
 				<br>
+				<!-- 그리드 식으로 변경 -->
+
 				<table class="table table-bordered tbl_fixed">
-					<caption>경영체,통합조직 팝업</caption>
+					<caption>통합조직</caption>
 					<tbody>
 						<tr>
-							<td colspan="2" scope="row" class="th_bg"  style="text-align:center;">경영체번호</td>
-							<td style="border-right:hidden;">
-								<sbux-button id="srch-btn-mngmstInfoId" name="srch-btn-mngmstInfoId" uitype="modal" target-id="modal-mngmstInfoId" onclick="fn_choiceMngmstInfoId" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
-							</td>
-							<th colspan="3" scope="row" class="th_bg"  style="text-align:center;"><span class="data_required" ></span>출자출하조직이 속한 통합조직 사업자번호</th>
-							<td colspan="3" class="td_input" style="border-right:hidden;">
+							<th colspan="2" scope="row" class="th_bg"  style="text-align:center;"><span class="data_required" ></span>출자출하조직이 속한 통합조직 사업자번호</th>
+							<td colspan="2" class="td_input" style="border-right:hidden;">
 								<sbux-input
 									uitype="text"
-									id="dtl-input-uoNm"
-									name="dtl-input-uoNm"
+									id="dtl-input-uoNm1"
+									name="uoNm1"
 									class="form-control input-sm"
 									autocomplete="off"
+									group-id = "uoList"
 								></sbux-input>
 							</td>
-							<td colspan="3" class="td_input" style="border-right:hidden;">
+							<td colspan="2" class="td_input" style="border-right:hidden;">
 								<sbux-input
 									uitype="text"
-									id="dtl-input-uoBrno"
-									name="dtl-input-uoBrno"
+									id="dtl-input-uoBrno1"
+									name="uoBrno1"
 									class="form-control input-sm"
 									autocomplete="off"
+									group-id = "uoList"
 								></sbux-input>
 							</td>
-							<td style="border-right:hidden;">
-								<sbux-button id="srch-btn-brno" name="srch-btn-brno" uitype="modal" target-id="modal-brno" onclick="fn_choiceBrno" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+							<td>
+								<sbux-button id="srch-btn-brno1" name="srch-btn-brno" uitype="modal" target-id="modal-brno" onclick="fn_choiceBrno" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+							</td>
+							<td colspan="7" class="td_input" style="border-bottom:hidden; border-right:hidden; border-top:hidden;">
+							</td>
+						</tr>
+						<tr>
+							<th colspan="2" scope="row" class="th_bg"  style="text-align:center;"><span class="data_required" ></span>출자출하조직이 속한 통합조직 사업자번호</th>
+							<td colspan="2" class="td_input" style="border-right:hidden;">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-uoNm2"
+									name="uoNm2"
+									class="form-control input-sm"
+									autocomplete="off"
+									group-id = "uoList"
+								></sbux-input>
+							</td>
+							<td colspan="2" class="td_input" style="border-right:hidden;">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-uoBrno2"
+									name="uoBrno2"
+									class="form-control input-sm"
+									autocomplete="off"
+									group-id = "uoList"
+								></sbux-input>
+							</td>
+							<td>
+								<sbux-button id="srch-btn-brno2" name="srch-btn-brno" uitype="modal" target-id="modal-brno" onclick="fn_choiceBrno" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+							</td>
+							<td colspan="7" class="td_input" style="border-bottom:hidden; border-right:hidden; border-top:hidden;">
 							</td>
 						</tr>
 					</tbody>
 				</table>
+				<!--
+				 -->
+				<br>
+				<div></div>
+
+				<!-- 출자출하조직이 속한 통합조직 리스트 그리드 -->
+				<div class="ad_section_top">
+					<p>출자출하조직이 속한 통합조직 리스트</p>
+					<!-- SBGrid를 호출합니다. -->
+					<div id="sb-area-grdUoList" style="height:150px; width: 620px; overflow-x: hidden"></div>
+				</div>
 				<br>
 
 				<table class="table table-bordered tbl_fixed">
@@ -247,8 +288,13 @@
 					</colgroup>
 					<tbody>
 						<tr>
+							<th colspan="2" scope="row" class="th_bg"  style="text-align:center;">
+
+							<sbux-button id="srch-btn-mngmstInfoId" name="srch-btn-mngmstInfoId" uitype="modal" target-id="modal-mngmstInfoId" onclick="fn_choiceMngmstInfoId" text="경영체번호 찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+							</th>
+							<!-- <td style="border-right:hidden;"></td> -->
 							<sbux-input uitype="hidden" id="dtl-input-apoCd" name="dtl-input-apoCd" class="form-control input-sm" autocomplete="off"></sbux-input>
-							<th colspan="15" scope="row" class="th_bg"  style="text-align:center;">업체정보</th>
+							<th colspan="13" scope="row" class="th_bg"  style="text-align:center;">업체정보</th>
 						</tr>
 						<tr>
 							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>법인명</th>
@@ -861,6 +907,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	const fn_init = async function() {
 		//그리드 생성
 		fn_fcltMngCreateGrid();
+		fn_uoListGrid();
 	}
 
 	/* Grid 화면 그리기 기능*/
@@ -931,6 +978,42 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
 	  	//클릭 이벤트 바인드
 	    grdPrdcrCrclOgnMng.bind('click','fn_view');
+	}
+
+	var jsonUoList = []; // 그리드의 참조 데이터 주소 선언
+	var grdUoList; //그리드 객체
+
+	// TB_EV_APO_UO_CD 테이블
+	/* Grid 화면 그리기 기능*/
+	const fn_uoListGrid = async function() {
+
+		let SBGridProperties = {};
+	    SBGridProperties.parentid = 'sb-area-grdUoList';
+	    SBGridProperties.id = 'grdUoList';
+	    SBGridProperties.jsonref = 'jsonUoList';
+	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
+	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.columns = [
+	    	{caption: ["출자출하조직코드"], 		ref: 'isoApoCd',	hidden : true},
+	    	{caption: ["통합조직코드"], 		ref: 'uoApoCd',		hidden : true},
+	    	{caption: ["삭제여부"], 			ref: 'delYn',		hidden : true},
+	        {caption: ["통합조직명"], 			ref: 'uoCorpNm',	type:'output',  width:'220px',    style:'text-align:center'},
+	        {caption: ["통합조직 사업자번호"], 	ref: 'uoBrno',		type:'output',  width:'220px',    style:'text-align:center'},
+	        {caption: ["처리"], 				ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+	        	if(strValue== null || strValue == ""){
+	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdUoList\", " + nRow + ", " + nCol + ")'>추가</button>";
+	        	}else{
+			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdUoList\", " + nRow + ")'>삭제</button>";
+	        	}
+	        }}
+	    ];
+
+	    grdUoList = _SBGrid.create(SBGridProperties);
+
+	  	//클릭 이벤트 바인드
+	    grdUoList.bind('click','gridUoListClick');
 	}
 
 
@@ -1188,20 +1271,18 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
    }
 
-
-
-	//사업자번호 조회 팝업
-	const fn_choiceBrno = function() {
-		console.log("======fn_choiceBrno=======");
-		popBrno.init(fn_setBrno);
-	}
-	//사업자번호 조회 팝업 콜백함수
-	const fn_setBrno = function(rowData) {
-		if (!gfn_isEmpty(rowData)) {
-			SBUxMethod.set("dtl-input-brno", rowData.brno);
-			SBUxMethod.set("dtl-input-corpNm", rowData.corpNm);
-		}
-	}
+  	//사업자번호 조회 팝업
+  	const fn_choiceBrno = function() {
+  		console.log("======fn_choiceBrno=======");
+  		popBrno.init(fn_setBrno);
+  	}
+  	//사업자번호 조회 팝업 콜백함수
+  	const fn_setBrno = function(rowData) {
+  		if (!gfn_isEmpty(rowData)) {
+  			SBUxMethod.set("dtl-input-brno", rowData.brno);
+  			SBUxMethod.set("dtl-input-corpNm", rowData.corpNm);
+  		}
+  	}
 
 	//경영체조회 팝업
 	const fn_choiceMngmstInfoId = function() {
@@ -1284,7 +1365,56 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		SBUxMethod.set('dtl-input-fxno',rowData.fxno)//
 		SBUxMethod.set('dtl-input-itemNhBrofYn',rowData.itemNhBrofYn)//
 
+		fn_searchUoList();
+		/*
+		let apoCd = SBUxMethod.get('dtl-input-apoCd');
+		if(!gfn_isEmpty(apoCd)){
+		}else{
+			grdUoList.refresh();
+			grdUoList.addRow();
+		}
+		*/
+
     }
+
+
+	/* Grid Row 조회 기능*/
+	const fn_searchUoList = async function(){
+
+		let apoCd = SBUxMethod.get('dtl-input-apoCd');
+
+    	let postJsonPromise = gfn_postJSON("/pd/bsm/selectUoList.do", {
+			apoCd : apoCd
+		});
+        let data = await postJsonPromise;
+        try{
+        	jsonUoList.length = 0;
+        	//console.log("data==="+data);
+        	data.resultList.forEach((item, index) => {
+				let uoListVO = {
+						uoApoCd: item.uoApoCd
+						,uoApoSe: item.uoApoSe
+						,uoBrno: item.uoBrno
+						,uoCrno: item.uoCrno
+						,isoApoCd: item.isoApoCd
+						,delYn : item.delYn
+				}
+				jsonUoList.push(uoListVO);
+			});
+
+        	grdUoList.rebuild();
+
+        	//비어 있는 마지막 줄 추가용도?
+        	grdUoList.addRow();
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
+	}
+
+
 
     function fn_create() {
     	console.log("******************fn_create**********************************");
@@ -1372,5 +1502,92 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		//console.log(roadFullAddr+" , "+roadAddrPart1+" , "+addrDetail+" , "+roadAddrPart2+" , "+engAddr+" , "+jibunAddr+" , "+zipNo);
 		//alert("성공");
 	}
+
+
+
+	let selGridUoListRow;//선택한 행
+	let selGridUoListCol;//선택한 열
+
+    //그리드 클릭이벤트
+    function gridUoListClick(){
+		console.log("================gridClick================");
+		//grdPrdcrCrclOgnReqClsMng 그리드 객체
+        selGridUoListRow = grdUoList.getRow();
+        selGridUoListCol = grdUoList.getCol();
+
+        let delYnCol = grdUoList.getColRef('delYn');
+        let delYnValue = grdUoList.getCellData(selGridUoListRow,delYnCol);
+
+        //입력할 데이터 인지 확인
+        //추가 행의 경우 DEL_YN을 N 로 변경한 빈 행임
+        //fn_procRow 의 ADD 확인
+        if(delYnValue != 'N'){
+        	return;
+        }
+
+        //uoCorpNm 법인체명 uoBrno 사업자번호
+        let uoCorpNmCol = grdUoList.getColRef('uoCorpNm');
+        let uoBrnoCol = grdUoList.getColRef('uoBrno');
+
+        if(selGridUoListRow == '-1'){
+			return;
+        } else {
+        	//선택한 데이터가 통합조직명,통합조직 사업자번호 일떄
+        	if (selGridUoListCol == uoCorpNmCol || selGridUoListCol == uoBrnoCol){
+        		console.log("");
+        		//통합조직 선택 세팅
+        		//통합조직 팝업 객체 popBrno
+        		popBrno.init(fn_setGridMngmstInfoId);
+        		//팝업창 오픈
+        		//통합조직 팝업창 id : modal-brno
+        		SBUxMethod.openModal('modal-brno');
+        	}else{
+        		return;
+        	}
+        }
+    }
+
+ 	// 그리드의 통합조직선택 선택 팝업 콜백 함수
+	const fn_setGridMngmstInfoId = function(rowData) {
+		console.log("================fn_setGridMngmstInfoId================");
+		console.log(rowData);
+		if (!gfn_isEmpty(rowData)) {
+			//setCellData (행,열,입력 데이터,[refresh여부],[행 상태 정보 update로 변경])
+			//selGridUoListRow 선택된 행 값
+			//getColRef(ref) ref의 인덱스 값 가져오기
+			let colRefIdx1 = grdUoList.getColRef('uoCorpNm');//ii 통합조직 인덱스
+			let colRefIdx2 = grdUoList.getColRef('uoBrno');//ii 통합조직 코드 인덱스
+
+			//그리드 값 세팅
+			grdUoList.setCellData(selGridUoListRow,colRefIdx1,rowData.corpNm,true);
+			grdUoList.setCellData(selGridUoListRow,colRefIdx2,rowData.brno,true);
+		}
+	}
+
+	/* Grid Row 추가 및 삭제 기능*/
+    function fn_procRow(gubun, grid, nRow, nCol) {
+        if (gubun === "ADD") {
+            if (grid === "grdUoList") {
+            	grdUoList.setCellData(nRow, nCol, "N", true);
+            	//grdUoList.setCellData(nRow, 5, gv_apcCd, true);
+            	grdUoList.addRow(true);
+            }
+        }
+        else if (gubun === "DEL") {
+            if (grid === "grdUoList") {
+            	if(grdUoList.getRowStatus(nRow) == 0 || grdUoList.getRowStatus(nRow) == 2){
+            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+            		if(confirm(delMsg)){
+            			var uoVO = grdUoList.getRowData(nRow);
+            			fn_deleteRsrc(uoVO);
+            			grdUoList.deleteRow(nRow);
+            		}
+            	}else{
+            		grdUoList.deleteRow(nRow);
+            	}
+            }
+        }
+    }
+
 </script>
 </html>

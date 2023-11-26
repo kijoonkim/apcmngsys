@@ -5,6 +5,7 @@ import java.util.List;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO;
+import com.at.apcss.pd.bsm.vo.UoListVO;
 
 /**
  * 게시판 Mapper 인터페이스
@@ -38,4 +39,15 @@ public interface PrdcrCrclOgnMngMapper {
 	public int updatePrdcrCrclOgnMng(PrdcrCrclOgnMngVO PrdcrCrclOgnMngVO);
 
 	public int deletePrdcrCrclOgnMng(PrdcrCrclOgnMngVO PrdcrCrclOgnMngVO) throws Exception;
+
+
+	public UoListVO selectUo(UoListVO uoListVO);
+
+	public List<UoListVO> selectUoList(UoListVO uoListVO);
+
+	public int insertUo(UoListVO uoListVO);
+
+	public int updateUo(UoListVO uoListVO);
+
+	public int deleteUo(UoListVO uoListVO) throws Exception;
 }
