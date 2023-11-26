@@ -1193,9 +1193,9 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	    	{caption: ["seq"], 			ref: 'apoCd',   	hidden : true},
-	    	{caption: ["품목부류"], 		ref: 'aa',   	type:'combo',  width:'120px',    style:'text-align:center'
+	    	{caption: ["품목부류"], 		ref: 'aa',   	type:'combo',  width:'120px',    style:'text-align:center',
 	    		typeinfo : {ref:'jsonAa', label:'label', value:'value', displayui : true}},
-	    	{caption: ["전문/육성 구분"], 	ref: 'bb',   type:'combo',  width:'120px',    style:'text-align:center'
+	    	{caption: ["전문/육성 구분"], 	ref: 'bb',   type:'combo',  width:'120px',    style:'text-align:center',
 	    		typeinfo : {ref:'jsonBb', label:'label', value:'value', displayui : true}},
 	        {caption: ["품목"], 			ref: 'cc',   	type:'input',  width:'120px',    style:'text-align:center'},
 	        {caption: ["비고"], 			ref: 'dd',   	type:'input',  width:'120px',    style:'text-align:center'},
