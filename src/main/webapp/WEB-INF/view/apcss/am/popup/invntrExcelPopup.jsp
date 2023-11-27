@@ -74,7 +74,6 @@
 		let allData = grdExcelGdsInvntrPopup.getGridDataAll();
 
 		let invntrSeCd = SBUxMethod.get("dtl-slt-invntrSeCd")
-		console.log("jsonEPIApcPrdcr", jsonEPIApcPrdcr);
 
 		for(var i=1; i<=allData.length; i++){
 

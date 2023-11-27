@@ -450,7 +450,6 @@
 
 	// 출하실적 목록 조회 호출
 	const fn_callSelectSpmtPrfmncList = async function (recordCountPerPage, currentPageNo){
-		jsonSpmtPrfmnc = [];
 		let apcCd = gv_selectedApcCd;
 		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");
 		let spmtYmdFrom = SBUxMethod.get("srch-dtp-spmtYmdFrom");
@@ -488,8 +487,8 @@
 						  , recordCountPerPage 	: recordCountPerPage};
     	let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncList.do", SpmtPrfmncVO);
         let data = await postJsonPromise;
-        newJsonSpmtPrfmnc = [];
         try{
+        	jsonSpmtPrfmnc.length = 0;
         	data.resultList.forEach((item, index) => {
 				let spmtPrfmnc = {
 					spmtYmd 		: item.spmtYmd
@@ -527,10 +526,13 @@
 				  , rtnPsbleyWght	: item.rtnPsbleyWght
 				  , rtnGdsQntt		: item.rtnGdsQntt
 				  , rtnGdsWght		: item.rtnGdsWght
+				  , sn				: item.sn
+				  , pltBxCd			: item.pltBxCd
+				  , bssInvntrQntt	: item.bssInvntrQntt
+				  , pltSpmtYn		: item.pltSpmtYn
 
 				}
-				jsonSpmtPrfmnc.push(Object.assign({}, spmtPrfmnc));
-				newJsonSpmtPrfmnc.push(Object.assign({}, spmtPrfmnc));
+				jsonSpmtPrfmnc.push(spmtPrfmnc);
 			});
         	if(jsonSpmtPrfmnc.length > 0){
 				if(grdSpmtPrfmnc.getPageTotalCount() != data.resultList[0].totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
@@ -641,8 +643,13 @@
 				return;
 			}
 
-    		deleteList.push(grdSpmtPrfmnc.getRowData(nRow));
+			if(i == 0){
+				deleteList.push(rowData);
+			}
 
+			if(i > 0 && grdSpmtPrfmnc.getRowData(grdRows[i]).spmtno != grdSpmtPrfmnc.getRowData(grdRows[i-1]).spmtno){
+	    		deleteList.push(rowData);
+			}
     	}
 
     	if(grdRows.length == 0){
@@ -656,14 +663,12 @@
 	    	const data = await postJsonPromise;
 
 	    	try{
-	       		if(data.errCd != null){
-	       			gfn_comAlert(data.errCd, "출하실적");	// 마감등록 된 {0} 입니다.
-	       		}else if(data.deletedCnt > 0){
-	       			fn_search();
+	    		if (_.isEqual("S", data.resultStatus)) {
+		    		fn_search();
 	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
-	       		}else{
-	       			gfn_comAlert("E0001");					// E0001 오류가 발생하였습니다.
-	       		}
+	        	} else {
+    	    		gfn_comAlert(data.resultCode, data.resultMessage);
+    	    	}
 	        } catch (e) {
 	    		if (!(e instanceof Error)) {
 	    			e = new Error(e);
@@ -778,7 +783,7 @@
 	        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
 	        		fn_search();
 	        	} else {
-	        		alert(data.resultMessage);
+	        		gfn_comAlert(data.resultCode, data.resultMessage);
 	        	}
 	        } catch (e) {
 	    		if (!(e instanceof Error)) {
@@ -836,8 +841,8 @@
  		console.log(spmtno);
  		gfn_popClipReport("송품장", "am/trsprtCmdtyDoc.crf", {apcCd: gv_selectedApcCd, spmtno: spmtno});
  	}
-	
-	
+
+
 	$(function(){
 		$(".glyphicon").on("click", function(){
 			SBUxMethod.set("srch-inp-vrtyNm", "");

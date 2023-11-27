@@ -260,8 +260,8 @@
 		<sbux-modal id="modal-excel-gdsInvntr" name="modal-excel-gdsInvntr"
 			uitype="middle"
 			header-title="재고등록"
-			body-html-id="body-modal-excelGds" f
-			ooter-is-close-button="false"
+			body-html-id="body-modal-excelGds"
+			footer-is-close-button="false"
 			header-is-close-button="false"
 			style="width:1000px"
 		></sbux-modal>
