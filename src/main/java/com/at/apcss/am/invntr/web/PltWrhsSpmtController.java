@@ -59,27 +59,6 @@ public class PltWrhsSpmtController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	// 원물입고 - 원물 팔레트/박스 입출 등록
-	@PostMapping(value = "/am/cmns/insertPltWrhsSpmt.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> insertPltWrhsSpmt(@RequestBody PltWrhsSpmtVO pltWrhsSpmtVO, HttpServletRequest request) throws Exception {
-		logger.debug("insertPltWrhsSpmt 호출 <><><><> ");
-
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		int insertedCnt = 0;
-		try {
-			pltWrhsSpmtVO.setSysLastChgPrgrmId(getUserId());
-			pltWrhsSpmtVO.setSysLastChgUserId(getPrgrmId());
-			pltWrhsSpmtVO.setSysFrstInptPrgrmId(getUserId());
-			pltWrhsSpmtVO.setSysFrstInptUserId(getPrgrmId());
-			insertedCnt += pltWrhsSpmtService.insertPltWrhsSpmt(pltWrhsSpmtVO);
-		} catch (Exception e) {
-			return getErrorResponseEntity(e);
-		}
-
-		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
-
-		return getSuccessResponseEntity(resultMap);
-	}
 
 	// 원물입고 - 원물 팔레트/박스 입출 목록 조회
 	@PostMapping(value = "/am/cmns/selectPltWrhsSpmtList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
@@ -100,27 +79,51 @@ public class PltWrhsSpmtController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+	// 원물입고 - 원물 팔레트/박스 입출 등록
+	@PostMapping(value = "/am/cmns/insertPltWrhsSpmt.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertPltWrhsSpmt(@RequestBody List<PltWrhsSpmtVO> insertList, HttpServletRequest request) throws Exception {
+		logger.debug("insertPltWrhsSpmt 호출 <><><><> ");
+		
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		try {
+			for (PltWrhsSpmtVO pltWrhsSpmtVO : insertList) {
+				pltWrhsSpmtVO.setSysLastChgPrgrmId(getUserId());
+				pltWrhsSpmtVO.setSysLastChgUserId(getPrgrmId());
+				pltWrhsSpmtVO.setSysFrstInptPrgrmId(getUserId());
+				pltWrhsSpmtVO.setSysFrstInptUserId(getPrgrmId());
+			}
+			result = pltWrhsSpmtService.insertPltWrhsSpmtList(insertList);
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		
+		resultMap.put("result", result);
+		
+		return getSuccessResponseEntity(resultMap);
+	}
 	
 	@PostMapping(value = "/am/cmns/updateDelYnPltWrhsSpmt.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> updateDelYnPltWrhsSpmt(@RequestBody List<PltWrhsSpmtVO> deleteList, HttpServletRequest request) throws Exception {
 		logger.debug("updateDelYnPltWrhsSpmt 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		int deletedCnt = 0;
+		HashMap<String, Object> result = new HashMap<String, Object>();
 		try {
 			for (PltWrhsSpmtVO pltWrhsSpmtVO : deleteList) {
 				pltWrhsSpmtVO.setSysLastChgPrgrmId(getUserId());
 				pltWrhsSpmtVO.setSysLastChgUserId(getPrgrmId());
 				pltWrhsSpmtVO.setSysFrstInptPrgrmId(getUserId());
 				pltWrhsSpmtVO.setSysFrstInptUserId(getPrgrmId());
-				deletedCnt += pltWrhsSpmtService.updateDelYnPltWrhsSpmt(pltWrhsSpmtVO);
 			}
+			result = pltWrhsSpmtService.updateDelYnPltWrhsSpmtList(deleteList);
 		} catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
-		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+		resultMap.put("result", result);
 
 		return getSuccessResponseEntity(resultMap);
 	}

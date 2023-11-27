@@ -1,7 +1,9 @@
 package com.at.apcss.am.invntr.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,7 @@ import com.at.apcss.am.invntr.mapper.PltWrhsSpmtMapper;
 import com.at.apcss.am.invntr.service.PltWrhsSpmtService;
 import com.at.apcss.am.invntr.vo.PltWrhsSpmtVO;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : PltWrhsSpmtServiceImpl.java
@@ -65,7 +68,7 @@ public class PltWrhsSpmtServiceImpl extends BaseServiceImpl implements PltWrhsSp
 	}
 
 	@Override
-	public int insertPltWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception {
+	public HashMap<String, Object> insertPltWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception {
 		PltWrhsSpmtVO resultVO = selectPltBxMngWrhsSpmt(pltWrhsSpmtVO);
 		int insertedCnt = pltWrhsSpmtMapper.insertPltWrhsSpmt(pltWrhsSpmtVO);
 		
@@ -75,28 +78,61 @@ public class PltWrhsSpmtServiceImpl extends BaseServiceImpl implements PltWrhsSp
 				pltWrhsSpmtVO.setBssInvntrQntt(returnBssInvntrQntt);
 			}else if("2".equals(pltWrhsSpmtVO.getWrhsSpmtSeCd())) {
 				int returnBssInvntrQntt = resultVO.getBssInvntrQntt() - pltWrhsSpmtVO.getQntt();
-				pltWrhsSpmtVO.setBssInvntrQntt(returnBssInvntrQntt);
+				if(returnBssInvntrQntt > 0 ) {
+					pltWrhsSpmtVO.setBssInvntrQntt(returnBssInvntrQntt);			
+				}else {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("W0008", "현재고수량||수량")));
+				}
 			}
 			insertedCnt = pltWrhsSpmtMapper.updatePltWrhsSpmt(pltWrhsSpmtVO);
+		}else {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("W0008", "수량||현재고수량")));
 		}
-		
-		return insertedCnt;
+		return null;
 	}
 
 	@Override
-	public int updateDelYnPltWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception {
-		PltWrhsSpmtVO resultVO = selectPltBxMngWrhsSpmt(pltWrhsSpmtVO);
-		int deletedCnt = pltWrhsSpmtMapper.updateDelYnPltWrhsSpmt(pltWrhsSpmtVO);
-		if("1".equals(pltWrhsSpmtVO.getWrhsSpmtSeCd())) {
-			int deleteQntt = resultVO.getBssInvntrQntt() - pltWrhsSpmtVO.getQntt();
-			pltWrhsSpmtVO.setBssInvntrQntt(deleteQntt);
-		}else if("2".equals(pltWrhsSpmtVO.getWrhsSpmtSeCd())) {
-			int deleteQntt = resultVO.getBssInvntrQntt() + pltWrhsSpmtVO.getQntt();
-			pltWrhsSpmtVO.setBssInvntrQntt(deleteQntt);
+	public HashMap<String, Object> insertPltWrhsSpmtList(List<PltWrhsSpmtVO> pltWrhsSpmtList) throws Exception {
+		for (PltWrhsSpmtVO pltWrhsSpmtVO : pltWrhsSpmtList) {
+			HashMap<String, Object> rtnObj = insertPltWrhsSpmt(pltWrhsSpmtVO);
+			if(rtnObj != null) {
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
 		}
-		deletedCnt = pltWrhsSpmtMapper.updateBssInvntrQnttPltWrhsSpmt(pltWrhsSpmtVO);
-		
-		return deletedCnt;
+		return null;
 	}
 
+	@Override
+	public HashMap<String, Object> updateDelYnPltWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception {
+		PltWrhsSpmtVO resultVO = selectPltBxMngWrhsSpmt(pltWrhsSpmtVO);
+		int deletedCnt = pltWrhsSpmtMapper.updateDelYnPltWrhsSpmt(pltWrhsSpmtVO);
+		if(deletedCnt > 0) {
+			if("1".equals(pltWrhsSpmtVO.getWrhsSpmtSeCd())) {
+				int deleteQntt = resultVO.getBssInvntrQntt() - pltWrhsSpmtVO.getQntt();
+				if(deleteQntt > 0) {
+					pltWrhsSpmtVO.setBssInvntrQntt(deleteQntt);				
+				}else {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("W0008", "수량||현재고수량")));
+				}
+			}else if("2".equals(pltWrhsSpmtVO.getWrhsSpmtSeCd())) {
+				int deleteQntt = resultVO.getBssInvntrQntt() + pltWrhsSpmtVO.getQntt();
+				pltWrhsSpmtVO.setBssInvntrQntt(deleteQntt);
+			}
+			deletedCnt = pltWrhsSpmtMapper.updateBssInvntrQnttPltWrhsSpmt(pltWrhsSpmtVO);
+		}else {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("W0008", "수량||현재고수량")));
+		}
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> updateDelYnPltWrhsSpmtList(List<PltWrhsSpmtVO> pltWrhsSpmtList) throws Exception {
+		for (PltWrhsSpmtVO pltWrhsSpmtVO : pltWrhsSpmtList) {
+			HashMap<String, Object> rtnObj = updateDelYnPltWrhsSpmt(pltWrhsSpmtVO);
+			if(rtnObj != null) {
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+		}
+		return null;
+	}
 }

@@ -124,7 +124,6 @@
 					, UNIT_WGHT
 					, QNTT
 					, RMRK
-					, DEL_YN
 					, WRHS_SPMT_TYPE
 					, PRCSNO
 					, PRCS_SN
@@ -152,7 +151,6 @@
 					, #{unitWght}
 					, #{qntt}
 					, #{rmrk}
-					, #{delYn}
 					, #{wrhsSpmtType}
 					, #{prcsno}
 					, #{prcsSn}
@@ -229,6 +227,7 @@
 			              ) AS PLT_CNPT_CD
 			          FROM TB_PLT_WRHS_SPMT PWS
 			         WHERE 1=1
+			         	AND PWS.WRHS_SPMT_TYPE IS NULL
 		]]>
         <if test='delYn != null and delYn != ""'>
 				    	AND PWS.DEL_YN 					= #{delYn}

@@ -1,5 +1,6 @@
 package com.at.apcss.am.invntr.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.cmns.vo.PltBxVO;
@@ -57,7 +58,14 @@ public interface PltWrhsSpmtService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int insertPltWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception;
+	public HashMap<String, Object> insertPltWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception;
+	/**
+	 * 팔레트 입출고 등록
+	 * @param pltWrhsSpmtVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertPltWrhsSpmtList(List<PltWrhsSpmtVO> pltWrhsSpmtList) throws Exception;
 
 	/**
 	 * 팔레트 입출고 delYn 변경
@@ -65,5 +73,12 @@ public interface PltWrhsSpmtService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int updateDelYnPltWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception;
+	public HashMap<String, Object> updateDelYnPltWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception;
+	/**
+	 * 팔레트 입출고 delYn 변경
+	 * @param pltWrhsSpmtVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateDelYnPltWrhsSpmtList(List<PltWrhsSpmtVO> pltWrhsSpmtList) throws Exception;
 }
