@@ -36,7 +36,7 @@
 			</div>
 			<div class="box-body">
 				<!--[pp] 검색 -->
-				<!--[APC] START -->			
+				<!--[APC] START -->
 					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
 				<!--[APC] END -->
 				<table class="table table-bordered tbl_fixed">
@@ -643,6 +643,9 @@
 				SBUxMethod.set('srch-inp-spmtWght', leftInvntrWght);
 			}
 		}
+	}
+	const fn_close = function(){
+		parent.gfn_tabClose("TAB_AM_005_004");
 	}
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>

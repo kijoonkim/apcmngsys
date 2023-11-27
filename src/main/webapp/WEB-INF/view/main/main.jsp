@@ -730,8 +730,8 @@
         await fn_afterAddTab(menuNo);
         fn_setLeftMenu(menuJson[0].id, menuJson[0].text);
     }
-
-</script>
-</html>
+    function gfn_tabClose(_menuId) {
+    	SBUxMethod.removeTab("tab_menu", _menuId)
+    }
 </script>
 </html>
