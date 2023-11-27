@@ -573,55 +573,56 @@
 			return;
 		}
 		
-		if(wrhsSpmtSeCd == '2'){
-			for(var i=0; i<jsonPltBxMngList.length; i++){
-				if(jsonPltBxMngList[i].pltBxCd == pltBxCd){
-					bssInvntrQntt = jsonPltBxMngList[i].bssInvntrQntt;
-					if(qntt > jsonPltBxMngList[i].bssInvntrQntt && pltBxSeCd == jsonPltBxMngList[i].pltBxSeCd && apcCd == jsonPltBxMngList[i].apcCd ){
-					gfn_comAlert("W0008", "팔레트잔여수량", "입력한팔레트수량");//W0008{0} 보다 {1}이/가 큽니다.
-					SBUxMethod.set("srch-inp-qntt", 0);
-					return;
-					}
-				}
-			}
-		}
+// 		if(wrhsSpmtSeCd == '2'){
+// 			for(var i=0; i<jsonPltBxMngList.length; i++){
+// 				if(jsonPltBxMngList[i].pltBxCd == pltBxCd){
+// 					bssInvntrQntt = jsonPltBxMngList[i].bssInvntrQntt;
+// 					if(qntt > jsonPltBxMngList[i].bssInvntrQntt && pltBxSeCd == jsonPltBxMngList[i].pltBxSeCd && apcCd == jsonPltBxMngList[i].apcCd ){
+// 					gfn_comAlert("W0008", "팔레트잔여수량", "입력한팔레트수량");//W0008{0} 보다 {1}이/가 큽니다.
+// 					SBUxMethod.set("srch-inp-qntt", 0);
+// 					return;
+// 					}
+// 				}
+// 			}
+// 		}
 		
 		let pltNm = jsonPltBxNm.find(e => e.value == pltBxCd).text;
 		let pltBxs = await gfn_getPltBxs(gv_selectedApcCd, pltBxSeCd);
 		let unitWght = pltBxs.find(e => e.pltBxCd == pltBxCd).unitWght;
 		
+		
+		
+    	var insertList = [{
+   			apcCd: apcCd
+			,jobYmd: cmndYmd
+			,wrhsSpmtSeCd: wrhsSpmtSeCd
+			,pltBxSeCd: pltBxSeCd
+			,pltBxCd: pltBxCd
+			,prdcrCd: prdcrCd
+			,qntt: qntt
+			,pltNm: pltNm
+			,unitWght: unitWght
+			,rmrk: rmrk
+			,bssInvntrQntt: bssInvntrQntt
+    	}];
     	let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
-			const postJsonPromise = gfn_postJSON("/am/cmns/insertPltWrhsSpmt.do", {
-				apcCd: apcCd
-				,jobYmd: cmndYmd
-				,wrhsSpmtSeCd: wrhsSpmtSeCd
-				,pltBxSeCd: pltBxSeCd
-				,pltBxCd: pltBxCd
-				,prdcrCd: prdcrCd
-				,qntt: qntt
-				,pltNm: pltNm
-				,unitWght: unitWght
-				,rmrk: rmrk
-				,delYn: 'N'
-				,bssInvntrQntt: bssInvntrQntt
-// 				,wrhsSpmtType: wrhsSpmtType
-			});
+			const postJsonPromise = gfn_postJSON("/am/cmns/insertPltWrhsSpmt.do", insertList);
 	    	const data = await postJsonPromise;
-
+	    	console.log('data',data);
 	    	try{
-	       		if(data.insertedCnt > 0){
+	       		if(_.isEqual("S", data.resultStatus)){
 	       			fn_search();
 	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
 	       		}else{
-	       			gfn_comAlert("E0001");					// E0001 오류가 발생하였습니다.
+	       			console.log('test','test');
+	       			gfn_comAlert(data.resultCode , data.resultMessage);
 	       		}
 	        } catch (e) {
 	    		if (!(e instanceof Error)) {
 	    			e = new Error(e);
 	    		}
 	    		console.error("failed", e.message);
-	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 			}
 		}
 	}
@@ -649,20 +650,18 @@
 	    	const data = await postJsonPromise;
 
 	    	try{
-	       		if(data.deletedCnt > 0){
+	    		if (_.isEqual("S", data.resultStatus)) {
 	       			fn_search();
 	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
 	       			fn_reset();
 	       		}else{
-	       			console.log('deleteList', deleteList);
-	       			gfn_comAlert("E0001");					// E0001 오류가 발생하였습니다.
+	       			gfn_comAlert(data.resultCode , data.resultMessage);
 	       		}
 	        } catch (e) {
 	    		if (!(e instanceof Error)) {
 	    			e = new Error(e);
 	    		}
 	    		console.error("failed", e.message);
-	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 			}
 		}
 	}
