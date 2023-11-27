@@ -573,18 +573,18 @@
 			return;
 		}
 		
-// 		if(wrhsSpmtSeCd == '2'){
-// 			for(var i=0; i<jsonPltBxMngList.length; i++){
-// 				if(jsonPltBxMngList[i].pltBxCd == pltBxCd){
-// 					bssInvntrQntt = jsonPltBxMngList[i].bssInvntrQntt;
-// 					if(qntt > jsonPltBxMngList[i].bssInvntrQntt && pltBxSeCd == jsonPltBxMngList[i].pltBxSeCd && apcCd == jsonPltBxMngList[i].apcCd ){
-// 					gfn_comAlert("W0008", "팔레트잔여수량", "입력한팔레트수량");//W0008{0} 보다 {1}이/가 큽니다.
-// 					SBUxMethod.set("srch-inp-qntt", 0);
-// 					return;
-// 					}
-// 				}
-// 			}
-// 		}
+		if(wrhsSpmtSeCd == '2'){
+			for(var i=0; i<jsonPltBxMngList.length; i++){
+				if(jsonPltBxMngList[i].pltBxCd == pltBxCd){
+					bssInvntrQntt = jsonPltBxMngList[i].bssInvntrQntt;
+					if(qntt > jsonPltBxMngList[i].bssInvntrQntt && pltBxSeCd == jsonPltBxMngList[i].pltBxSeCd && apcCd == jsonPltBxMngList[i].apcCd ){
+					gfn_comAlert("W0008", "팔레트잔여수량", "입력한팔레트수량");//W0008{0} 보다 {1}이/가 큽니다.
+					SBUxMethod.set("srch-inp-qntt", 0);
+					return;
+					}
+				}
+			}
+		}
 		
 		let pltNm = jsonPltBxNm.find(e => e.value == pltBxCd).text;
 		let pltBxs = await gfn_getPltBxs(gv_selectedApcCd, pltBxSeCd);
