@@ -331,7 +331,7 @@
 					<ul class="ad_tbl_count">
 						<li>
 							<span>선별투입 내역</span>
-							<span style="font-size:12px">(기준일자 : 
+							<span style="font-size:12px">(기준일자 :
 								<sbux-label
 									id="crtr-ymd"
 									name="crtr-ymd"
@@ -861,6 +861,9 @@
 					+ " 등급: " + sortCmnd.grdNm;
 			SBUxMethod.set("dtl-lbl-invntr", invntrInfo);
 		}
+	}
+	const fn_close = function(){
+		parent.gfn_tabClose("TAB_AM_003_003");
 	}
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>

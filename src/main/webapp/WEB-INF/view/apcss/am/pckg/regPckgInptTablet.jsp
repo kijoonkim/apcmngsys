@@ -231,7 +231,7 @@
 					<ul class="ad_tbl_count">
 						<li>
 							<span>포장투입 내역</span>
-							<span style="font-size:12px">(기준일자 : 
+							<span style="font-size:12px">(기준일자 :
 								<sbux-label
 									id="crtr-ymd"
 									name="crtr-ymd"
@@ -659,6 +659,9 @@
 			SBUxMethod.set('cmnd-inp-itemCd', pckgCmnd.itemCd);
 			SBUxMethod.set('cmnd-inp-vrtyCd', pckgCmnd.vrtyCd);
 		}
+	}
+	const fn_close = function(){
+		parent.gfn_tabClose("TAB_AM_004_003");
 	}
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
