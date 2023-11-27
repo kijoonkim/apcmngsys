@@ -274,4 +274,13 @@ public class SpmtPrfmncVO extends ComVO {
 	 * 팔레트박스코드
 	 * */
 	private String pltBxCd;
+	/*
+	 * 팔레트불출여부
+	 * */
+	private String pltSpmtYn;
+	/*
+	 * 팔레트입출고순번
+	 * */
+	private int sn;
+
 }

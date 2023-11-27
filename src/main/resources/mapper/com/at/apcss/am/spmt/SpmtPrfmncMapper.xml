@@ -117,10 +117,22 @@
 				           AND X.PCKGNO = PD.PCKGNO
 				           AND X.PCKG_SN = PD.PCKG_SN
 				       ) AS CFMTN_YN
+				     , PWS.SN                   AS SN
+                     , PWS.PLT_BX_CD            AS PLT_BX_CD
+                     , PWS.QNTT                 AS BSS_INVNTR_QNTT
+                     , CASE WHEN PWS.PLT_BX_CD IS NOT NULL THEN 'Y'
+                            ELSE 'N'
+                       END AS PLT_SPMT_YN
+
 				  FROM TB_SPMT_PRFMNC_COM		PC
 				     , TB_SPMT_PRFMNC_DTL		PD
+                     , TB_PLT_WRHS_SPMT         PWS
 				 WHERE PC.APC_CD = PD.APC_CD
 				   AND PC.SPMTNO = PD.SPMTNO
+                   AND PC.APC_CD = PWS.APC_CD(+)
+                   AND PC.SPMTNO = PWS.PRCSNO(+)
+                   AND PC.SPMT_YMD = PWS.JOB_YMD(+)
+                   AND PWS.DEL_YN(+) = 'N'
 				   AND PC.DEL_YN = 'N'
 				   AND PD.DEL_YN = 'N'
 

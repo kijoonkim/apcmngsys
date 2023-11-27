@@ -147,9 +147,9 @@
 				<div class="table-responsive tbl_scroll_sm">
 					<div id="sb-area-grdGdsInvntr" style="height:162px;"></div>
 				</div>
-				
+
 				<br>
-				
+
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
@@ -264,8 +264,30 @@
 							</td>
 							<td colspan="2" class="td_input"></td>
 							<th scope="row" class="th_bg">비고</th>
-							<td colspan="7" class="td_input">
+							<td colspan="3" class="td_input">
 								<sbux-input id="dtl-inp-rmrk" name="dtl-inp-rmrk" uitype="text" class="form-control input-sm"></sbux-input>
+							</td>
+							<th scope="row" class="th_bg">팔레트불출</th>
+							<td class="td_input" colspan="2">
+								<sbux-select
+									id="dtl-slt-pltBxCd"
+									name="dtl-slt-pltBxCd"
+									uitype="single"
+									class="form-control input-sm"
+									unselected-text="전체"
+									jsondata-ref="jsonDtlPltBxCd"
+								></sbux-select>
+							</td>
+							<td class="td_input">
+								<sbux-input
+									id="dtl-inp-bssInvntrQntt"
+									name="dtl-inp-bssInvntrQntt"
+									uitype="text"
+									class="form-control input-sm"
+									autocomplete="off"
+									mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"
+									maxlength="3"
+								></sbux-input>
 							</td>
 						</tr>
 					</tbody>
@@ -274,7 +296,7 @@
 					<ul class="ad_tbl_count">
 						<li>
 							<span>출하 내역</span>
-							<span style="font-size:12px">(기준일자 : 
+							<span style="font-size:12px">(기준일자 :
 								<sbux-label
 									id="crtr-ymd"
 									name="crtr-ymd"
@@ -388,16 +410,18 @@
 </body>
 <script type="text/javascript">
 
-	var jsonComItem			= [];	// 품목 			itemCd			검색
-	var jsonComVrty			= [];	// 품종 			vrtyCd			검색
-	var jsonComSpcfct		= [];	// 규격 			spcfctCd		검색
-	var jsonComGdsSeCd		= [];	// 상품구분 		gdsSeCd			검색
-	var jsonComTrsprtCoCd	= [];	// 운송사 			trsprtCo		검색
+	var jsonComItem				= [];	// 품목 			itemCd			검색
+	var jsonComVrty				= [];	// 품종 			vrtyCd			검색
+	var jsonComSpcfct			= [];	// 규격 			spcfctCd		검색
+	var jsonComGdsSeCd			= [];	// 상품구분 		gdsSeCd			검색
+	var jsonComTrsprtCoCd		= [];	// 운송사 			trsprtCo		검색
 	var jsonComWarehouseSeCd	= [];	// 운송사 			trsprtCo		검색
-	var jsonGrdGdsGrd		= [];	// 상품등급			gdsGrd			그리드
-	var jsonGrdSpmtPckgUnit	= [];	// 출하포장단위 	spmtPckgUnit	그리드
-	var jsonDtlGdsGrd		= [];	// 상품등급			gdsGrd			그리드
-	var jsonDtlSpmtPckgUnit	= [];	// 출하포장단위 	spmtPckgUnit	상세
+	var jsonGrdGdsGrd			= [];	// 상품등급			gdsGrd			그리드
+	var jsonGrdSpmtPckgUnit		= [];	// 출하포장단위 	spmtPckgUnit	그리드
+	var jsonDtlGdsGrd			= [];	// 상품등급			gdsGrd			그리드
+	var jsonDtlSpmtPckgUnit		= [];	// 출하포장단위 	spmtPckgUnit	상세
+	var jsonDtlSpmtPckgUnit		= [];	// 출하포장단위 	spmtPckgUnit	상세
+	var jsonDtlPltBxCd			= [];	// 팔레트 			pltBxCd			상세
 
 	var jsonExeclComSpmtPckgUnit	= [];	// 출하포장단위 엑셀
 	var jsonExeclComPrdcr			= [];	// 생산자 엑셀
@@ -415,24 +439,26 @@
 		 	gfn_setTrsprtsSBSelect('dtl-slt-trsprtCoCd', 			jsonComTrsprtCoCd, 			gv_selectedApcCd),		// 운송사
 		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 				jsonComItem, 				gv_selectedApcCd),		// 품목
 		 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 				jsonComVrty, 				gv_selectedApcCd),		// 품종
+		 	gfn_setPltBxSBSelect('dtl-slt-pltBxCd', 				jsonDtlPltBxCd, 			gv_selectedApcCd, "P"), // 팔레트
 		 	gfn_setPrdcrSBSelect('excel-slt-prdcr', 				jsonExeclComPrdcr, 			gv_selectedApcCd),		// 생산자
 		 	gfn_setCpntSBSelect('excel-slt-cnpt', 					jsonExeclComCnpt, 			gv_selectedApcCd),		// 거래처
-		 	gfn_setApcVrtySBSelect('excel-slt-vrty', 				jsonExeclComVrty, 			gv_selectedApcCd),		// 거래처
-		 	gfn_setSpmtPckgUnitSBSelect('excel-slt-spmtPckgUnit', 	jsonExeclComSpmtPckgUnit, 	gv_selectedApcCd),		// 포장구분
-			gfn_setApcSpcfctsSBSelect('excel-slt-spcfct', 			jsonExeclComSpcfct, 		gv_selectedApcCd),		// 규격
 		])
 
 		SBUxMethod.refresh("excel-slt-prdcr");
 		SBUxMethod.refresh("excel-slt-cnpt");
 
 		SBUxMethod.set('srch-rdo-gdsSeCd', '1');
+
 	}
 
 	const fn_selectItem = async function(){
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let rst = await Promise.all([
-			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 			jsonComVrty, 			gv_apcCd, itemCd),			// 품종
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',		jsonComSpcfct, 			gv_apcCd, itemCd),			// 규격
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 				jsonComVrty, 				gv_selectedApcCd, itemCd),		// 품종
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',			jsonComSpcfct, 				gv_selectedApcCd, itemCd),		// 규격
+			gfn_setSpmtPckgUnitSBSelect('excel-slt-spmtPckgUnit', 	jsonExeclComSpmtPckgUnit, 	gv_selectedApcCd, itemCd),		// 포장구분
+			gfn_setApcSpcfctsSBSelect('excel-slt-spcfct', 			jsonExeclComSpcfct, 		gv_selectedApcCd, itemCd),		// 규격
+			gfn_setApcVrtySBSelect('excel-slt-vrty', 				jsonExeclComVrty, 			gv_selectedApcCd, itemCd),		// 품종
 		])
 
 		SBUxMethod.refresh("excel-slt-spmtPckgUnit");
@@ -450,8 +476,11 @@
 		}
 		SBUxMethod.set("srch-slt-itemCd", itemCd);
 		let rst = await Promise.all([
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 		jsonComSpcfct, 			gv_apcCd, itemCd),			// 규격
-			gfn_setSpmtPckgUnitSBSelect('grdGdsInvntr', 		jsonGrdSpmtPckgUnit, 	gv_apcCd, itemCd, vrtyCd),	// 포장구분
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 			jsonComSpcfct, 				gv_selectedApcCd, itemCd),			// 규격
+			gfn_setSpmtPckgUnitSBSelect('grdGdsInvntr', 			jsonGrdSpmtPckgUnit, 		gv_selectedApcCd, itemCd, vrtyCd),	// 포장구분
+			gfn_setSpmtPckgUnitSBSelect('excel-slt-spmtPckgUnit', 	jsonExeclComSpmtPckgUnit, 	gv_selectedApcCd, itemCd),		// 포장구분
+			gfn_setApcSpcfctsSBSelect('excel-slt-spcfct', 			jsonExeclComSpcfct, 		gv_selectedApcCd, itemCd),		// 규격
+			gfn_setApcVrtySBSelect('excel-slt-vrty', 				jsonExeclComVrty, 			gv_selectedApcCd, itemCd),		// 품종
 		])
 		grdGdsInvntr.refresh({"combo":true})
 		SBUxMethod.refresh("srch-slt-spmtPckgUnitCd");
@@ -500,7 +529,7 @@
         SBGridPropertiesGdsInvntr.allowcopy = true;
         SBGridPropertiesGdsInvntr.explorerbar = 'move';				// 개인화 컬럼 이동 가능
         SBGridPropertiesGdsInvntr.contextmenu = true;				// 우클린 메뉴 호출 여부
-        SBGridPropertiesGdsInvntr.contextmenulist = objMenuList1;	// 우클릭 메뉴 리스트
+        SBGridPropertiesGdsInvntr.contextmenulist = objMenuListGdsInvntr;	// 우클릭 메뉴 리스트
         SBGridPropertiesGdsInvntr.columns = [
         	{caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
@@ -534,7 +563,9 @@
             {caption: ["지시번호"],		ref: 'spmtCmndno',  type:'output',  hidden: true},
             {caption: ["브랜드명"],		ref: 'brndNm',  	type:'output',  hidden: true},
             {caption: ["발주번호"],		ref: 'outordrno',  	type:'output',  hidden: true},
-            {caption: ["상품코드"],		ref: 'gdsCd',  	type:'output',  hidden: true}
+            {caption: ["상품코드"],		ref: 'gdsCd',  		type:'output',  hidden: true},
+            {caption: ["팔레트"],		ref: 'pltBxCd',  	type:'output',  hidden: true},
+            {caption: ["수량"],			ref: 'bssInvntrQntt', 	type:'output',  hidden: true},
         ];
 
         grdGdsInvntr = _SBGrid.create(SBGridPropertiesGdsInvntr);
@@ -552,7 +583,7 @@
 	    SBGridPropertiesSpmtPrfmnc.allowcopy = true;
 	    SBGridPropertiesSpmtPrfmnc.explorerbar = 'move';				// 개인화 컬럼 이동 가능
 	    SBGridPropertiesSpmtPrfmnc.contextmenu = true;					// 우클린 메뉴 호출 여부
-	    SBGridPropertiesSpmtPrfmnc.contextmenulist = objMenuList2;		// 우클릭 메뉴 리스트
+	    SBGridPropertiesSpmtPrfmnc.contextmenulist = objMenuListPrfmnc;		// 우클릭 메뉴 리스트
 	    SBGridPropertiesSpmtPrfmnc.columns = [
         	{caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
@@ -571,7 +602,7 @@
             {caption: ['차량번호'], 	ref: 'vhclno', 		width: '100px', type: 'output', style: 'text-align:center'},
             {caption: ['배송처'], 		ref: 'dldtn', 		width: '150px', type: 'output', style: 'text-align:center'},
             {caption: ['운임비용'], 	ref: 'trsprtCst', 	width: '80px', type: 'output', style: 'text-align:center',
-    			typeinfo : {mask : {alias : 'numeric'}, maxlength: 10}, format : {type:'number', rule:'#,### 원'}},
+    			typeinfo : {mask : {alias : 'numeric'},maxlength: 10}, format : {type:'number', rule:'#,### 원'}},
             {caption: ['포장구분'], 	ref: 'spmtPckgUnitNm', 	width: '150px', type: 'output', style: 'text-align:center'},
             {caption: ['지시번호'], 	ref: 'spmtCmndno', 	width: '120px', type: 'output', style: 'text-align:center'},
             {caption: ['비고'], 		ref: 'rmrk', 		width: '150px', type: 'output', style: 'text-align:center'}
@@ -584,19 +615,19 @@
      * @description 메뉴트리그리드 컨텍스트메뉴 json
      * @type {object}
      */
-     const objMenuList1 = {
+     const objMenuListPrfmnc = {
 		"excelDwnld": {
 			"name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
 			"accesskey": "e",					//단축키
-			"callback": fn_excelDwnld1,			//콜백함수명
+			"callback": fn_excelDwnldPrfmnc,	//콜백함수명
 		}
 	};
-     
-    const objMenuList2 = {
+
+    const objMenuListGdsInvntr = {
         "excelDwnld": {
             "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
             "accesskey": "e",					//단축키
-            "callback": fn_excelDwnld2,			//콜백함수명
+            "callback": fn_excelDwnldGdsInvntr,	//콜백함수명
         },
         "personalSave" : {
         	"name": "개인화 저장",				//컨텍스트메뉴에 표시될 이름
@@ -619,14 +650,14 @@
             "callback": fn_colShow,				//콜백함수명
         }
     };
-     
+
   	// 엑셀 다운로드
-     function fn_excelDwnld1() {
+     function fn_excelDwnldGdsInvntr() {
     	 grdGdsInvntr.exportLocalExcel("상품재고 내역", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
      }
-  	
+
     // 엑셀 다운로드
-    function fn_excelDwnld2() {
+    function fn_excelDwnldPrfmnc() {
     	grdSpmtPrfmnc.exportLocalExcel("출하 내역", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
 
@@ -741,12 +772,13 @@
           		}
   			});
           	grdGdsInvntr.refresh();
-		} catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}catch (e) {
+
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+
+			console.error("failed", e.message);
 		}
 		return true;
 	}
@@ -1056,16 +1088,21 @@
     	var insertList = [];
     	var totSpmtQntt = 0;
 
-    	let spmtYmd		= SBUxMethod.get("dtl-dtp-spmtYmd");
-    	let cnptCd		= SBUxMethod.get("dtl-inp-cnptCd");
-    	let trsprtCoCd	= SBUxMethod.get("dtl-slt-trsprtCoCd");
-    	let trsprtCoNm	= SBUxMethod.getText("dtl-slt-trsprtCoCd");
-    	let vhclno		= SBUxMethod.get("dtl-inp-vhclno");
-    	let dldtn		= SBUxMethod.get("dtl-inp-dldtn");
-    	let trsprtCst	= SBUxMethod.get("dtl-inp-trsprtCst");
-    	let rmrk		= SBUxMethod.get("dtl-inp-rmrk");
-    	let spmtCmndno	= SBUxMethod.get("dtl-inp-spmtCmndno");
-    	let outordrno	= SBUxMethod.get("dtl-inp-outordrno");
+    	let spmtYmd			= SBUxMethod.get("dtl-dtp-spmtYmd");
+    	let cnptCd			= SBUxMethod.get("dtl-inp-cnptCd");
+    	let trsprtCoCd		= SBUxMethod.get("dtl-slt-trsprtCoCd");
+    	let trsprtCoNm		= SBUxMethod.getText("dtl-slt-trsprtCoCd");
+    	let vhclno			= SBUxMethod.get("dtl-inp-vhclno");
+    	let dldtn			= SBUxMethod.get("dtl-inp-dldtn");
+    	let trsprtCst		= SBUxMethod.get("dtl-inp-trsprtCst");
+    	let rmrk			= SBUxMethod.get("dtl-inp-rmrk");
+    	let spmtCmndno		= SBUxMethod.get("dtl-inp-spmtCmndno");
+    	let outordrno		= SBUxMethod.get("dtl-inp-outordrno");
+    	let pltBxCd			= SBUxMethod.get("dtl-slt-pltBxCd");
+    	let bssInvntrQntt 	= SBUxMethod.get("dtl-inp-bssInvntrQntt");
+    	let pltSpmtYn 		= "N";
+
+    	let totBssInvntrQntt = 0;
 
     	if(gfn_isEmpty(spmtYmd)){
     		gfn_comAlert("W0001", "출하일자");			//	W0001	{0}을/를 선택하세요.
@@ -1083,6 +1120,20 @@
     		}
     	}
 
+    	if(!gfn_isEmpty(pltBxCd) && gfn_isEmpty(bssInvntrQntt)){
+    		gfn_comAlert("W0002", "팔레트 수량");			//	W0002	{0}을/를 입력하세요.
+            return;
+    	}else{
+    		for(var i=0; i<jsonDtlPltBxCd.length; i++){
+        		if(jsonDtlPltBxCd[i].pltBxCd == pltBxCd){
+        			if(bssInvntrQntt > jsonDtlPltBxCd[i].bssInvntrQntt){
+    		    		gfn_comAlert("W0008", "팔레트잔여수량", "입력한팔레트수량");			//	W0008	{0} 보다 {1}이/가 큽니다.
+        				return;
+        			}
+        		}
+        	}
+    		pltSpmtYn = "Y";
+    	}
 
     	if(grdRows.length == 0){
     		gfn_comAlert("W0003", "저장");			// W0003	{0}할 대상이 없습니다.
@@ -1129,23 +1180,27 @@
     			}
     		}
 
-    		grdGdsInvntr.setCellData(nRow, 14, spmtYmd);
-    		grdGdsInvntr.setCellData(nRow, 15, cnptCd);
-    		grdGdsInvntr.setCellData(nRow, 16, trsprtCoCd);
-    		grdGdsInvntr.setCellData(nRow, 17, trsprtCoNm);
-    		grdGdsInvntr.setCellData(nRow, 18, vhclno);
-    		grdGdsInvntr.setCellData(nRow, 19, dldtn);
-    		grdGdsInvntr.setCellData(nRow, 20, trsprtCst);
+    		rowData.spmtYmd		= spmtYmd;
+    		rowData.cnptCd 		= cnptCd;
+    		rowData.trsprtCoCd 	= trsprtCoCd;
+    		rowData.trsprtCoNm	= trsprtCoNm;
+    		rowData.vhclno 		= vhclno;
+    		rowData.dldtn 		= dldtn;
+    		rowData.trsprtCst 	= trsprtCst;
     		if(gfn_isEmpty(rmrk)){
-    			grdGdsInvntr.setCellData(nRow, 21, '');    			
+    			rowData.rmrk = '';
     		}else{
-    			grdGdsInvntr.setCellData(nRow, 21, rmrk);
+    			rowData.rmrk = rmrk;
     		}
-    		grdGdsInvntr.setCellData(nRow, 22, spmtCmndno);
-    		grdGdsInvntr.setCellData(nRow, 23, brndNm);
-    		grdGdsInvntr.setCellData(nRow, 24, outordrno);
-    		grdGdsInvntr.setCellData(nRow, 25, gdsCd);
-    		insertList.push(grdGdsInvntr.getRowData(nRow));
+    		rowData.spmtCmndno = spmtCmndno;
+    		rowData.brndNm 		= brndNm;
+    		rowData.outordrno 	= outordrno;
+    		rowData.gdsCd 		= gdsCd;
+    		rowData.pltBxCd 	= pltBxCd;
+    		rowData.bssInvntrQntt = bssInvntrQntt;
+    		rowData.pltSpmtYn 	= pltSpmtYn;
+
+    		insertList.push(rowData);
     	}
 
 		if(cmndYn){
@@ -1178,19 +1233,24 @@
        				SBUxMethod.set("dtl-slt-spmtPckgUnit", "");
        				SBUxMethod.set("dtl-inp-spmtQntt", "");
        				SBUxMethod.set("dtl-inp-spmtWght", "");
+       				SBUxMethod.set("dtl-inp-vhclno", "");
+       				SBUxMethod.set("dtl-inp-trsprtCst", "");
+       				SBUxMethod.set("dtl-slt-pltBxCd", "");
+       				SBUxMethod.set("dtl-inp-bssInvntrQntt", "");
+       				SBUxMethod.set("dtl-inp-rmrk", "");
 	       			fn_search();
 	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
 	        	} else {
-	        		gfn_comAlert(data.resultCode , data.resultMessage);
+	        		gfn_comAlert(data.resultCode, data.resultMessage);
 	        	}
-	        } catch (e) {
-	    		if (!(e instanceof Error)) {
+	        }catch (e) {
+	        	if (!(e instanceof Error)) {
 	    			e = new Error(e);
 	    		}
 	    		console.error("failed", e.message);
-	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 			}
 		}
+
     }
 
 	const fn_setGrdSmptPrfmnc = async function(){
@@ -1245,12 +1305,12 @@
   			});
           	grdSpmtPrfmnc.refresh();
           	SBUxMethod.set("crtr-ymd", spmtYmd);
-		} catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}catch (e) {
+
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
 		}
 	}
 
@@ -1305,7 +1365,7 @@
 	 * 거래처 팝업 필수 함수
 	 * 종료
 	 */
-	 
+
  	/**
 	 * 차량 팝업 필수 함수
 	 * 시작
@@ -1511,6 +1571,12 @@
 	}
 
 	const fn_dwnld = async function(){
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+
+		if (gfn_isEmpty(itemCd)) {
+  			gfn_comAlert("W0001", "품목");				//	W0002	{0}을/를 선택하세요.
+            return;
+  		}
 
 		await fn_setSltJson();
 		await fn_setExpJson();
@@ -1646,7 +1712,6 @@
 
 		fn_createExpGrid(expObjList);
 
-		//exportExcel();
 	    gfn_exportExcelMulti("출하실적(샘플).xlsx", expObjList);
 	}
 
@@ -1705,6 +1770,13 @@
      }
 
     const fn_uld = async function() {
+    	let itemCd = SBUxMethod.get("srch-slt-itemCd");
+
+		if (gfn_isEmpty(itemCd)) {
+  			gfn_comAlert("W0001", "품목");				//	W0002	{0}을/를 선택하세요.
+            return;
+  		}
+
     	document.querySelector("#btnFileUpload").value = "";
 		$("#btnFileUpload").click();
 

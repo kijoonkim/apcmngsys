@@ -70,7 +70,10 @@ public class SpmtPrfmncController extends BaseController {
 				spmtPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
 
-			spmtPrfmncService.insertSpmtPrfmncList(SpmtPrfmncList);
+			HashMap<String, Object> rtnObj = spmtPrfmncService.insertSpmtPrfmncList(SpmtPrfmncList);
+			if(rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 
 		}catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
@@ -95,7 +98,10 @@ public class SpmtPrfmncController extends BaseController {
 				spmtPrfmncVO.setOrgnSpmtno(spmtPrfmncVO.getSpmtno());
 			}
 
-			spmtPrfmncService.insertRtnSpmtPrfmncList(SpmtPrfmncList);
+			HashMap<String, Object> rtnObj = spmtPrfmncService.insertRtnSpmtPrfmncList(SpmtPrfmncList);
+			if(rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 
 		}catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
@@ -117,7 +123,10 @@ public class SpmtPrfmncController extends BaseController {
 				spmtPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
 
-			spmtPrfmncService.deleteRtnSpmtPrfmncList(SpmtPrfmncList);
+			HashMap<String, Object> rtnObj = spmtPrfmncService.deleteRtnSpmtPrfmncList(SpmtPrfmncList);
+			if(rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 
 		}catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
@@ -158,7 +167,10 @@ public class SpmtPrfmncController extends BaseController {
 				spmtPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
 
-			resultMap = spmtPrfmncService.deleteSpmtPrfmnc(SpmtPrfmncList);
+			HashMap<String, Object> rtnObj = spmtPrfmncService.deleteSpmtPrfmnc(SpmtPrfmncList);
+			if(rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 
 		}catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
