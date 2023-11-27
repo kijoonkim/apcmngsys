@@ -508,7 +508,9 @@
 
     	const postJsonPromise = gfn_postJSON("/am/wrhs/insertGdsInvntr.do", gdsWrhs);
 		const data = await postJsonPromise;
-
+		
+		console.log('data', data);
+		
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
@@ -580,8 +582,11 @@
 		SBUxMethod.set("srch-inp-pckgSn", rowData.pckgSn);					// 순번
 		SBUxMethod.set("srch-dtp-pckgYmd", rowData.pckgYmd);				// 입고일자
  		SBUxMethod.set("srch-rdo-gdsSeCd", rowData.gdsSeCd);				// 상품구분
- 		SBUxMethod.set("srch-inp-prchsptNm", rowData.prchsptNm);			// 매입처
- 		
+ 		if(!gfn_isEmpty(rowData.prchsptNm)){
+ 			SBUxMethod.set("srch-inp-prchsptNm", rowData.prchsptNm);		// 매입처
+ 		}else{
+ 			SBUxMethod.set("srch-inp-prchsptNm", "");		// 매입처
+ 		}
  		await fn_onChangeSrchVrtyCd({value : rowData.vrtyCd});				// 품목&품종
  		
  		SBUxMethod.set("srch-inp-pckgQntt", rowData.pckgQntt);				// 수량
