@@ -13,6 +13,7 @@ import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper;
 import com.at.apcss.pd.bsm.service.PrdcrCrclOgnMngService;
 import com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO;
+import com.at.apcss.pd.bsm.vo.UoListVO;
 
 
 /**
@@ -84,6 +85,55 @@ public class PrdcrCrclOgnMngServiceImpl extends BaseServiceImpl implements Prdcr
 	@Override
 	public int deletePrdcrCrclOgnMng(PrdcrCrclOgnMngVO PrdcrCrclOgnMngVO) throws Exception {
 		return PrdcrCrclOgnMngMapper.deletePrdcrCrclOgnMng(PrdcrCrclOgnMngVO);
+	}
+
+
+
+	@Override
+	public UoListVO selectUo(UoListVO uoListVO) throws Exception {
+		UoListVO resultVO = PrdcrCrclOgnMngMapper.selectUo(uoListVO);
+
+		return resultVO;
+	}
+
+	@Override
+	public List<UoListVO> selectUoList(UoListVO uoListVO) throws Exception {
+		List<UoListVO> resultList = PrdcrCrclOgnMngMapper.selectUoList(uoListVO);
+		return resultList;
+	}
+
+	@Override
+	public int multiSaveUoList(List<UoListVO> uoListVOList) throws Exception {
+		int savedCnt = 0;
+		for (UoListVO UoListVO : uoListVOList) {
+			if(ComConstants.ROW_STS_INSERT.equals(UoListVO.getRowSts())) {
+				savedCnt += insertUo(UoListVO);
+			}
+			if(ComConstants.ROW_STS_UPDATE.equals(UoListVO.getRowSts())) {
+				savedCnt += updateUo(UoListVO);
+			}
+		}
+		return savedCnt;
+	}
+	@Override
+	public int insertUo(UoListVO uoListVO) throws Exception {
+
+		int insertedCnt = PrdcrCrclOgnMngMapper.insertUo(uoListVO);
+
+		return insertedCnt;
+	}
+
+	@Override
+	public int updateUo(UoListVO uoListVO) throws Exception {
+
+		int updatedCnt = PrdcrCrclOgnMngMapper.updateUo(uoListVO);
+
+		return updatedCnt;
+	}
+
+	@Override
+	public int deleteUo(UoListVO uoListVO) throws Exception {
+		return PrdcrCrclOgnMngMapper.deleteUo(uoListVO);
 	}
 
 }

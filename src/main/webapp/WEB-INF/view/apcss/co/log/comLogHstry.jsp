@@ -73,9 +73,14 @@
 </body>
 <script type="text/javascript">
 	var searchTarget = "logCntnHstry";
+	var ymdFrom;
+	var ymdTo;
 
 	$(function(){
 		$('.ad_tbl_toplist button').click(function(){
+			ymdFrom = SBUxMethod.get($('input:visible[name*="YmdFrom"]').attr('id'));
+			ymdTo = SBUxMethod.get($('input:visible[name*="YmdTo"]').attr('id'));
+			
 			var btnName = $(this).attr('id').slice(0, $(this).attr('id').length-1);
 			$('.ad_tbl_toplist button').css({'background-color':'#FFFFFF', 'border':'1px solid #666666', 'color': '#666666'});
 			$('#LogCntnHstry').hide();
@@ -87,13 +92,20 @@
 		    $('#GdsInvntrChgHstry').hide();
 		    $('#'+btnName.slice(3)).show();
 		    $('#'+btnName.slice(3)+' [name='+btnName+']').css({'background-color':'#149FFF', 'border':'1px solid #149FFF', 'color': '#FFFFFF'});
-		    eval('tab'+btnName.slice(3)+'.init(gv_selectedApcCd, gv_selectedApcNm)');
+
+		    eval('tab'+btnName.slice(3)+'.init(gv_selectedApcCd, gv_selectedApcNm, '+ymdFrom+', '+ymdTo+')');
 		    searchTarget = btnName.slice(3);
 		});
+		
+		ymdFrom = gfn_dateFirstYmd(new Date());
+		ymdTo = gfn_dateToYmd(new Date());
 		var userType = '${loginVO.userType}';
+		
 		if(userType == "00" || userType == "01"){
+			eval('tabLogCntnHstry.init(gv_selectedApcCd, gv_selectedApcNm, '+ymdFrom+', '+ymdTo+')');
 			$('#LogCntnHstry [name=btnLogCntnHstry]').click();
 		}else{
+		    eval('tabRawMtrChgHstry.init(gv_selectedApcCd, gv_selectedApcNm, '+ymdFrom+', '+ymdTo+')');
 			$('#RawMtrChgHstry [name=btnRawMtrChgHstry]').click();
 		}
 	});

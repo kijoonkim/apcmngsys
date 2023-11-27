@@ -74,7 +74,11 @@
 	    SBGridProperties.id = 'grdSpmtTrsprtCo';
 	    SBGridProperties.jsonref = 'spmtTrsprtMngGridData';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.selectmode = 'free';
+	    SBGridProperties.allowcopy = true;
+	    SBGridProperties.explorerbar = 'move';				// 개인화 컬럼 이동 가능
+	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+	    SBGridProperties.contextmenulist = objMenuListSpmtTrsprtCo;		// 우클릭 메뉴 리스트
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.scrollbubbling = false;
@@ -96,6 +100,22 @@
 	    window.grdSpmtTrsprtCo = _SBGrid.create(SBGridProperties);
 	    fn_callSelectSpmtTrsprtList();
 	}
+	
+	/**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+    const objMenuListSpmtTrsprtCo = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",					//단축키
+            "callback": fn_excelDwnldSpmtTrsprtCo,			//콜백함수명
+        }
+    };
+    // 엑셀 다운로드
+    function fn_excelDwnldSpmtTrsprtCo() {
+    	grdSpmtTrsprtCo.exportLocalExcel("운송회사 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
 
 	async function fn_selectSpmtTrsprtList(){
 		fn_callSelectSpmtTrsprtList();

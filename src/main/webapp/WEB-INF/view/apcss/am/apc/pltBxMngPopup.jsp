@@ -78,7 +78,11 @@
 	    SBGridProperties.id = 'grdPlt';
 	    SBGridProperties.jsonref = 'jsonPlt';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.selectmode = 'free';
+	    SBGridProperties.allowcopy = true;
+	    SBGridProperties.explorerbar = 'move';				// 개인화 컬럼 이동 가능
+	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+	    SBGridProperties.contextmenulist = objMenuListPlt;	// 우클릭 메뉴 리스트
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.scrollbubbling = false;
@@ -106,6 +110,22 @@
 	    grdPlt = _SBGrid.create(SBGridProperties);
 	    fn_callSelectPltList();
 	}
+	
+	/**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+    const objMenuListPlt = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",					//단축키
+            "callback": fn_excelDwnldPlt,			//콜백함수명
+        }
+    };
+    // 엑셀 다운로드
+    function fn_excelDwnldPlt() {
+    	grdPlt.exportLocalExcel("팔레트 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
 
 	// 박스 정보 Grid 생성
 	var jsonBx = []; // 그리드의 참조 데이터 주소 선언
@@ -115,7 +135,11 @@
 	    SBGridProperties.id = 'grdBx';
 	    SBGridProperties.jsonref = 'jsonBx';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.selectmode = 'free';
+	    SBGridProperties.allowcopy = true;
+	    SBGridProperties.explorerbar = 'move';				// 개인화 컬럼 이동 가능
+	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+	    SBGridProperties.contextmenulist = objMenuListBx;	// 우클릭 메뉴 리스트
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.scrollbubbling = false;
@@ -144,6 +168,22 @@
 	    grdBx = _SBGrid.create(SBGridProperties);
 	    fn_callSelectBxList();
 	}
+	
+	/**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+    const objMenuListBx = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",					//단축키
+            "callback": fn_excelDwnldBx,			//콜백함수명
+        }
+    };
+    // 엑셀 다운로드
+    function fn_excelDwnldBx() {
+    	grdBx.exportLocalExcel("박스 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
 
 	// 팔레트 목록 조회
 	async function fn_callSelectPltList(){

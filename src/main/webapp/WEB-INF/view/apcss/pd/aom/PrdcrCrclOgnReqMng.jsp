@@ -535,43 +535,31 @@
 				<br>가. 생산유통통합조직 여부
 				</div>
 				<br>
-				<table class="table table-bordered tbl_fixed">
+				<div class="ad_section_top">
+					<!-- SBGrid를 호출합니다. -->
+					<div id="sb-area-grdGpcList" style="height:200px; width: 620px;"></div>
+				</div>
+				<br>
+				<table class="table table-bordered tbl_fixed" style="border: none">
 					<caption>생산유통통합조직 여부</caption>
-					<colgroup>
-						<col style="width: 5%">
-						<col style="width: 7%">
-						<col style="width: 7%">
-						<col style="width: 7%">
-						<col style="width: 6%">
-
-						<col style="width: 6%">
-						<col style="width: 7%">
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 7%">
-						<col style="width: 6%">
-
-						<col style="width: 7%">
-						<col style="width: 7%">
-						<col style="width: 7%">
-						<col style="width: 7%">
-					</colgroup>
 					<tbody>
 						<tr>
-							<th colspan="7" scope="row" class="th_bg">생산유통통합조직</th>
-							<td colspan="8" class="td_input">
-								<sbux-input
-									uitype="text"
-									id="dtl-input-11"
-									name="dtl-input-11"
-									class="form-control input-sm"
-									autocomplete="off"
-								></sbux-input>
+							<th colspan="3" scope="row" class="th_bg">생산유통통합조직</th>
+							<td colspan="4" class="td_input">
+								<p class="ad_input_row">
+									<sbux-radio id="rdo-apcSeCd1" name="rdo-apcSeCd" uitype="normal" value="1" class="radio_label"></sbux-radio>
+									<label class="radio_label" for="radio1">승인형</label>
+								</p>
+								<p class="ad_input_row">
+									<sbux-radio id="rdo-apcSeCd2" name="rdo-apcSeCd" uitype="normal" value="2" class="radio_label" checked></sbux-radio>
+									<label class="radio_label" for="radio1">육성형</label>
+								</p>
 							</td>
+							<td colspan="8" style="border: none"></td>
 						</tr>
 						<tr>
-							<th colspan="7" scope="row" class="th_bg">원물확보 시•군 및 시•도 개소 수</th>
-							<td colspan="8" class="td_input">
+							<th colspan="3" scope="row" class="th_bg">원물확보 시•군 및 시•도 개소 수</th>
+							<td colspan="4" class="td_input">
 								<sbux-input
 									uitype="text"
 									id="dtl-input-22"
@@ -580,10 +568,11 @@
 									autocomplete="off"
 								></sbux-input>
 							</td>
+							<td colspan="8" style="border: none"></td>
 						</tr>
 						<tr>
-							<th colspan="7" scope="row" class="th_bg">출자출하조직 보유 여부</th>
-							<td colspan="8" class="td_input">
+							<th colspan="3" scope="row" class="th_bg">출자출하조직 보유 여부</th>
+							<td colspan="4" class="td_input">
 								<sbux-input
 									uitype="text"
 									id="dtl-input-isoHldYn"
@@ -592,6 +581,7 @@
 									autocomplete="off"
 								></sbux-input>
 							</td>
+							<td colspan="7" style="border: none"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -782,7 +772,7 @@
 									autocomplete="off"
 								></sbux-input>
 							</td>
-							<td colspan="8" style="border: none"></td>
+							<td colspan="7" style="border: none"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -822,10 +812,10 @@
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
 		fn_fcltMngCreateGrid();
+		fn_gpcListGrid();
 	}
 
-
-	//설비 등록
+	//그리드 변수
 	var jsonPrdcrCrclOgnReqMng = []; // 그리드의 참조 데이터 주소 선언
 	var grdPrdcrCrclOgnReqMng;
 
@@ -882,10 +872,12 @@
 	    ];
 
 	    grdPrdcrCrclOgnReqMng = _SBGrid.create(SBGridProperties);
+	    /*
 	    let rst = await Promise.all([
 	    	fn_initSBSelectFclt(),
 		    fn_searchFcltList()
 		])
+		*/
 		//grdPrdcrCrclOgnReqMng.refresh({"combo":true});
 	  	//클릭 이벤트 바인드
 	    grdPrdcrCrclOgnReqMng.bind('click','fn_view');
@@ -1175,5 +1167,121 @@
 		//alert("성공");
 	}
 
+	//품목입력 그리드 변수
+	var jsonGpcList = []; // 그리드의 참조 데이터 주소 선언
+	var grdGpcList;
+	var jsonAa = [
+		{'text': '과실류','label': '과실류', 'value': '1'},
+		{'text': '시설원예','label': '시설원예', 'value': '2'},
+		{'text': '노지채소','label': '노지채소', 'value': '3'}
+	];
+	var jsonBb = [
+		{'text': '전문품목','label': '전문품목', 'value': '1'},
+		{'text': '육성품목','label': '육성품목', 'value': '2'}
+	];
+	//품목입력 그리드
+	/* Grid 화면 그리기 기능*/
+	const fn_gpcListGrid = async function() {
+
+		let SBGridProperties = {};
+	    SBGridProperties.parentid = 'sb-area-grdGpcList';
+	    SBGridProperties.id = 'grdGpcList';
+	    SBGridProperties.jsonref = 'jsonGpcList';
+	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
+	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.columns = [
+	    	{caption: ["seq"], 			ref: 'apoCd',   	hidden : true},
+	    	{caption: ["품목부류"], 		ref: 'aa',   	type:'combo',  width:'120px',    style:'text-align:center',
+	    		typeinfo : {ref:'jsonAa', label:'label', value:'value', displayui : true}},
+	    	{caption: ["전문/육성 구분"], 	ref: 'bb',   type:'combo',  width:'120px',    style:'text-align:center',
+	    		typeinfo : {ref:'jsonBb', label:'label', value:'value', displayui : true}},
+	        {caption: ["품목"], 			ref: 'cc',   	type:'input',  width:'120px',    style:'text-align:center'},
+	        {caption: ["비고"], 			ref: 'dd',   	type:'input',  width:'120px',    style:'text-align:center'},
+
+	        {caption: ["상세내역"], 	ref: 'picFlnm',   		hidden : true},
+
+	    ];
+
+	    grdGpcList = _SBGrid.create(SBGridProperties);
+	    /*
+	    let rst = await Promise.all([
+	    	fn_initSBSelectFclt(),
+		    fn_searchFcltList()
+		])
+		*/
+		//grdGpc.refresh({"combo":true});
+	  	//클릭 이벤트 바인드
+	    //grdGpcList.bind('click','fn_view');
+	}
+	/*
+	let selGridUoListRow;//선택한 행
+	let selGridUoListCol;//선택한 열
+
+    //그리드 클릭이벤트
+    function gridUoListClick(){
+		console.log("================gridClick================");
+		//grdPrdcrCrclOgnReqClsMng 그리드 객체
+        selGridUoListRow = grdUoList.getRow();
+        selGridUoListCol = grdUoList.getCol();
+
+        let delYnCol = grdUoList.getColRef('delYn');
+        let delYnValue = grdUoList.getCellData(selGridUoListRow,delYnCol);
+
+        //입력할 데이터 인지 확인
+        //추가 행의 경우 DEL_YN을 N 로 변경한 빈 행임
+        //fn_procRow 의 ADD 확인
+        if(delYnValue != 'N'){
+        	return;
+        }
+
+        //uoCorpNm 법인체명 uoBrno 사업자번호
+        let uoCorpNmCol = grdUoList.getColRef('uoCorpNm');
+        let uoBrnoCol = grdUoList.getColRef('uoBrno');
+
+        if(selGridUoListRow == '-1'){
+			return;
+        } else {
+        	//선택한 데이터가 통합조직명,통합조직 사업자번호 일떄
+        	if (selGridUoListCol == uoCorpNmCol || selGridUoListCol == uoBrnoCol){
+        		console.log("");
+        		//통합조직 선택 세팅
+        		//통합조직 팝업 객체 popBrno
+        		popBrno.init(fn_setGridMngmstInfoId);
+        		//팝업창 오픈
+        		//통합조직 팝업창 id : modal-brno
+        		SBUxMethod.openModal('modal-brno');
+        	}else{
+        		return;
+        	}
+        }
+    }
+
+	// Grid Row 추가 및 삭제 기능
+    function fn_procRow(gubun, grid, nRow, nCol) {
+        if (gubun === "ADD") {
+            if (grid === "grdUoList") {
+            	grdUoList.setCellData(nRow, nCol, "N", true);
+            	//grdUoList.setCellData(nRow, 5, gv_apcCd, true);
+            	grdUoList.addRow(true);
+            }
+        }
+        else if (gubun === "DEL") {
+            if (grid === "grdUoList") {
+            	if(grdUoList.getRowStatus(nRow) == 0 || grdUoList.getRowStatus(nRow) == 2){
+            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+            		if(confirm(delMsg)){
+            			var uoVO = grdUoList.getRowData(nRow);
+            			fn_deleteRsrc(uoVO);
+            			grdUoList.deleteRow(nRow);
+            		}
+            	}else{
+            		grdUoList.deleteRow(nRow);
+            	}
+            }
+        }
+    }
+	*/
 </script>
 </html>

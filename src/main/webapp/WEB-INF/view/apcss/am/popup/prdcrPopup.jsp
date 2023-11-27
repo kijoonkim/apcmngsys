@@ -91,6 +91,10 @@
 	var grdPrdcrPop = null;
 	var jsonPrdcrPop = [];
 
+	const excelDwnldPrdcrPop = function () {
+		grdPrdcrPop.exportLocalExcel("생산자 목록", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+
 	/**
 	 * @description 권한 사용자 선택 팝업
 	 */
@@ -103,6 +107,13 @@
 		prvApcCd: "",
 		objGrid: null,
 		gridJson: [],
+		objMenuListPrdcrPop : {
+			"excelDwnldPop": {
+				"name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+				"accesskey": "e",					//단축키
+				"callback": excelDwnldPrdcrPop,		//콜백함수명
+			}
+		},
 		callbackFnc: function() {},
 		init: async function(_apcCd, _apcNm, _callbackFnc, _prdcrNm) {
 
@@ -148,13 +159,15 @@
 		    SBGridProperties.id = this.gridId;			//'grdComAuthUserPop';					//'grdComAuthUserPop';
 		    SBGridProperties.jsonref = this.jsonId;		//'jsonComAuthUserPop';		//'jsonComAuthUserPop';
 		    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-		    SBGridProperties.selectmode = 'byrow';
-		    SBGridProperties.explorerbar = 'sortmove';
+		    SBGridProperties.selectmode = 'free';
+		    SBGridProperties.explorerbar = 'move';
 		    SBGridProperties.extendlastcol = 'scroll';
 		    SBGridProperties.oneclickedit = true;
 		    SBGridProperties.allowcopy = true;
 		    SBGridProperties.scrollbubbling = false;
 		    SBGridProperties.frozencols = 2;
+		    SBGridProperties.contextmenu = true;					// 우클린 메뉴 호출 여부
+		    SBGridProperties.contextmenulist = this.objMenuListPrdcrPop;	// 우클릭 메뉴 리스트
 		    SBGridProperties.dblclickeventarea = {fixed: false, empty: false};
 		    SBGridProperties.columns = [
 		    	{caption: ["처리"], 			ref: 'delYn', 			type: 'button', width: '50px', 	style: 'text-align:center', sortable: false,
@@ -396,7 +409,7 @@
 					jsonPrdcrPop.push(prdcr);
 				});
         		grdPrdcrPop.rebuild();
-        		
+
 	        	if (isEditable) {
 	        		grdPrdcrPop.setCellDisabled(0, 0, grdPrdcrPop.getRows() - 1, grdPrdcrPop.getCols() - 1, false);
 	        		let nRow = grdPrdcrPop.getRows();
