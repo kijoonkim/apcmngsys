@@ -609,13 +609,11 @@
 		if(confirm(regMsg)){
 			const postJsonPromise = gfn_postJSON("/am/cmns/insertPltWrhsSpmt.do", insertList);
 	    	const data = await postJsonPromise;
-	    	console.log('data',data);
 	    	try{
 	       		if(_.isEqual("S", data.resultStatus)){
 	       			fn_search();
 	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
 	       		}else{
-	       			console.log('test','test');
 	       			gfn_comAlert(data.resultCode , data.resultMessage);
 	       		}
 	        } catch (e) {
@@ -635,10 +633,7 @@
     	for(var i=0; i< grdRows.length; i++){
     		let nRow = grdRows[i];
     		deleteList.push(jsonPltWrhsSpmt[nRow-1]);
-    		console.log('jsonPltWrhsSpmt[nRow-1]', jsonPltWrhsSpmt[nRow-1]);
     	}
-    	console.log('grdRows', grdRows);
-    	console.log('deleteList', deleteList);
     	if(grdRows.length == 0){
     		gfn_comAlert("W0003", "삭제");			// W0003	{0}할 대상이 없습니다.
     		return;
