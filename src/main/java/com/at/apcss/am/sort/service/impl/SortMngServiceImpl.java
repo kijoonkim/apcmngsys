@@ -521,11 +521,64 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 
 
 	@Override
-	public HashMap<String, Object> insertSortRsltList(SortMngVO sortMngVO) throws Exception {
+	public HashMap<String, Object> insertImportSortRslt(SortMngVO sortMngVO) throws Exception {
 
+		List<SortMngVO> sortMngList = new ArrayList<>();
+		
+		List<SortPrfmncVO> prfmncList = sortMngVO.getSortPrfmncList();
+		
+		if (prfmncList == null || prfmncList.isEmpty()) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "등록대상");
+		}
+		
+		// 선별일자별, 품목, 품종별 실적 분리
+		for ( SortPrfmncVO sort : prfmncList ) {
+			
+			boolean needAdd = true;
+			
+			SortMngVO mngVO = null;
+			
+			List<SortPrfmncVO> sortPrfmncList = new ArrayList<>();
+			
+			String sortKey = sort.getInptYmd()
+						+ sort.getItemCd()
+						+ sort.getVrtyCd();
+			
+			for ( SortMngVO chkMngVO : sortMngList ) {
+				if ( ComUtil.nullToEmpty(sortKey).equals(chkMngVO.getSortKey())) {
+					mngVO = chkMngVO;
+					sortPrfmncList = chkMngVO.getSortPrfmncList();
+					if (sortPrfmncList == null) {
+						sortPrfmncList = new ArrayList<>();
+					}
+					needAdd = false;
+					break;
+				}
+			}
+			
+			if (mngVO == null) {
+				mngVO = new SortMngVO();
+				BeanUtils.copyProperties(sortMngVO, mngVO);
+				mngVO.setSortKey(sortKey);
+				mngVO.setSortYmd(sort.getInptYmd());
+			}
+			
+			sortPrfmncList.add(sort);
+			mngVO.setSortPrfmncList(sortPrfmncList);
+			if (needAdd) {
+				sortMngList.add(mngVO);
+			}
+		}
+		
+		for ( SortMngVO mngVO : sortMngList ) {
+			HashMap<String, Object> rtnObj = insertSortRslt(mngVO);
+			if (rtnObj != null) {
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+		}
+		
 		return null;
 	}
-
 
 	@Override
 	public HashMap<String, Object> insertSortRslt(SortMngVO sortMngVO) throws Exception {
@@ -568,9 +621,10 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 			// 생산자, 품목, 품종에 따른 원물재고를 가져온다.
 			// 투입진행 중 건은 제외한다.
 			
+			int sn = 0;
 			labelLoopSort:
 				for ( SortPrfmncVO sort : prfmncList ) {
-				
+					sn++;
 					sort.setRmnQntt(sort.getSortQntt());
 					sort.setRmnWght(sort.getSortWght());
 					
@@ -587,6 +641,12 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 					double sortWght = sort.getRmnWght();
 					
 					for ( RawMtrInvntrVO orgnInv : rawMtrInvntrVOList ) {
+						logger.debug(
+								"orgn$#@ s: {}, no: {}, inpt: {}, sort: {}",
+								sn,
+								orgnInv.getWrhsno(), 
+								orgnInv.getInptWght(), 
+								orgnInv.getSortWght());
 						
 						int invRmnQntt = orgnInv.getRmnQntt();
 						double invRmnWght = orgnInv.getRmnWght();
@@ -635,6 +695,10 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 					// excldWrhsnoList	rawMtrInvntrVOList
 					// 원물재고 미매칭 시 원물재고 읽어오기 call
 					if (sortWght > 0) {
+						
+						for (String no : excldWrhsnoList) {
+							logger.debug("excld: {}", no);
+						}
 						
 						RawMtrInvntrVO param = new RawMtrInvntrVO();
 						
@@ -704,6 +768,13 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 							
 							rawMtrInvntrVOList.add(invntrVO);
 							excldWrhsnoList.add(invntrVO.getWrhsno());
+							
+							logger.debug(
+									"$#@ s: {}, no: {}, inpt: {}, sort: {}",
+									sn,
+									invntrVO.getWrhsno(), 
+									invntrVO.getInptWght(), 
+									invntrVO.getSortWght());
 							
 							if (sortWght <= 0) {
 								// 원물재고가 선정이 되었으므로 통과
@@ -811,6 +882,8 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 			inv.setInptYmd(inptYmd);
 			inv.setSortQntt(sortQntt);
 			inv.setSortWght(sortWght);
+			
+			logger.debug("!@#$ no: {}, inpt: {}, sort: {}", inv.getWrhsno(), inv.getInptWght(), inv.getSortWght());
 		}
 
 		for ( SortPrfmncVO sort : prfmncList ) {
@@ -882,8 +955,8 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 
 		// 원물재고정보 update
 		for ( RawMtrInvntrVO inv : rawMtrInvntrVOList ) {
-			HashMap<String, Object> rtnMap = rawMtrInvntrService.updateInvntrSortPrfmnc(inv);
-			if (rtnMap != null) {
+			rtnObj = rawMtrInvntrService.updateInvntrSortPrfmnc(inv);
+			if (rtnObj != null) {
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
 		}
@@ -1074,7 +1147,6 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 
 		return null;
 	}
-
 
 
 }
