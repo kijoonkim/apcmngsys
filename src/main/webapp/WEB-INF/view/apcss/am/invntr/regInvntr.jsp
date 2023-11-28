@@ -30,7 +30,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearch" name="btnSearch" uitype="button" class="btn btn-sm btn-outline-danger" onclick="fn_selectGridList();">조회</sbux-button>
-					<sbux-button id="btnSave" name="btnSave" uitype="button" class="btn btn-sm btn-outline-danger" onclick="fn_updataList();">저장</sbux-button>
+					<sbux-button id="btnSave" name="btnSave" uitype="button" class="btn btn-sm btn-outline-danger" onclick="fn_save();">저장</sbux-button>
 				</div>
 			</div>
 
@@ -873,11 +873,11 @@
 // 		SBUxMethod.closeModal(modalId);
 // 	}
 
-	//fn_updataList
+	//fn_save
 	//저장 버튼
 	// grdUserAprv -> 그리드 아이디
 	// userAprvList ->
-	const fn_updataList = async function() {
+	const fn_save = async function() {
 		let grdRows = inptCmndDsctnList.getCheckedRows(0);
 		let updateList = [];
 		for(var i=0; i< grdRows.length; i++){
@@ -1091,12 +1091,13 @@
 			_columns.push(
 					{caption: ["입고구분"], 		ref: 'whsSeCd',   		type:'combo',  width:'80px',    style:'text-align:center',
 						typeinfo : {ref:'jsonExpSltWrhsSeCd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
-					{caption: ["상품구분"], 		ref: 'gdsSeCd',   		type:'combo',  width:'80px',    style:'text-align:center',
-						typeinfo : {ref:'jsonExpSltGdsSeCd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
+
 				);
 
 		}
 		_columns.push(
+			{caption: ["상품구분"], 		ref: 'gdsSeCd',   		type:'combo',  width:'80px',    style:'text-align:center',
+				typeinfo : {ref:'jsonExpSltGdsSeCd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 			{caption: ["품목"], 		ref: 'itemCd',   		type:'combo',  width:'80px',    style:'text-align:center',
 				typeinfo : {ref:'jsonExpSltItem', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 			{caption: ["품종"], 		ref: 'vrtyCd',   		type:'combo',  width:'80px',    style:'text-align:center',
@@ -1292,24 +1293,24 @@
 				        sheetName: "입고구분",
 				        title: "",
 				        unit: ""
-				    },{
-				        sbGrid: grdExpItem,
-				        parentid: "sbexp-area-grdExpGdsSeCd",
-				        id: "grdExpGdsSeCd",
-				        jsonref: "jsonExpGdsSeCd",
-						columns: [
-					    	{caption: ["상품구분코드"],     ref: 'value',  type:'output',  width:'100px',    style:'text-align:center'},
-					        {caption: ["상품구분명칭"],     ref: 'text',  type:'output',  width:'100px',    style:'text-align:center'}
-						],
-				        sheetName: "상품구분",
-				        title: "",
-				        unit: ""
-				    },
+				    }
 				)
 		}
 
 		expObjList.push(
-				{
+				 {
+			        sbGrid: grdExpItem,
+			        parentid: "sbexp-area-grdExpGdsSeCd",
+			        id: "grdExpGdsSeCd",
+			        jsonref: "jsonExpGdsSeCd",
+					columns: [
+				    	{caption: ["상품구분코드"],     ref: 'value',  type:'output',  width:'100px',    style:'text-align:center'},
+				        {caption: ["상품구분명칭"],     ref: 'text',  type:'output',  width:'100px',    style:'text-align:center'}
+					],
+			        sheetName: "상품구분",
+			        title: "",
+			        unit: ""
+			    },{
 			        sbGrid: grdExpItem,
 			        parentid: "sbexp-area-grdExpItem",
 			        id: "grdExpItem",
