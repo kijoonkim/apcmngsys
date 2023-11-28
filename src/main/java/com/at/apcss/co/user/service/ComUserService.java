@@ -44,6 +44,20 @@ public interface ComUserService {
 	 */
 	public HashMap<String, Object> updateUserSttsList(List<ComUserVO> comUserList) throws Exception;
 	
+//	/**
+//	 * APC관리자승인등록-사용자유형을 저장한다.
+//	 * @param comUserVO
+//	 * @return
+//	 */
+//	public HashMap<String, Object> updateUserTypeList(ComUserVO comUserVO) throws Exception;
+	
+	/**
+	 * APC관리자승인등록-사용자유형을 저장한다.
+	 * @param comUserList
+	 * @return
+	 */
+	public int updateUserType(ComUserVO comUserVO) throws Exception;
+	
 	/**
 	 * 사용자 상태를 승인한다.
 	 * @param comUserList

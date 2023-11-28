@@ -32,6 +32,7 @@
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="승인" class="btn btn-sm btn-outline-danger" onclick="fn_userAprv"></sbux-button>
+					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 				</div>
 
 			</div>
@@ -287,11 +288,19 @@
 		const allUserData = grdUserAprv.getGridDataAll();
 		allUserData.forEach((item, index) => {
 			if (item.checkedYn === "Y") {
-				userAprvList.push({
-					  userStts : "01"
-					, userType : item.userType
-    				, userId: item.userId
-    			});
+				if (item.userType == "10"){
+					userAprvList.push({
+						  userStts : "01"
+						, userType : item.userType
+	    				, userId: item.userId
+	    			});
+				}else{
+					userAprvList.push({
+						  userStts : "01"
+						, userType : "10"
+						, userId   : item.userId
+					});
+				}
     		}
 		});
 		
@@ -327,15 +336,21 @@
 		const allUserData = grdUserAprv.getGridDataAll();
 
 		allUserData.forEach((item, index) => {
-			if (item.checkedYn === "Y") {
+			if(item.userType == "10"){
 				userAprvList.push({
 					  userStts : "01"
-				  	, userType : userType
-    				, userId: item.userId
+				  	, userType : "10"
+    				, userId   : item.userId
     			});
-    		}
+			}else{
+				userAprvList.push({
+					  userStts : "00"
+				  	, userType : item.userType
+    				, userId   : item.userId
+    			});
+			}
 		});
-
+		
 		if (userAprvList.length == 0) {
 			gfn_comAlert("W0001", "승인대상");		//	W0001	{0}을/를 선택하세요.
 			return;
@@ -348,6 +363,41 @@
     	const postJsonPromise = gfn_postJSON("/co/user/insertUserAprvList.do", userAprvList);
 		const data = await postJsonPromise;
         try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_search();
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch(e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+	}
+	
+	const fn_save = async function() {
+		const userTypeChgList = [];
+		const allUserData = grdUserAprv.getGridDataAll();
+		
+		allUserData.forEach((item, index) => {
+			if(item.checkedYn === "Y"){
+				userTypeChgList.push({
+				  	  userType : item.userType
+    				, userId   : item.userId
+    			});
+			}
+		});
+		if (userTypeChgList.length == 0) {
+			gfn_comAlert("W0001", "저장대상");		//	W0001	{0}을/를 선택하세요.
+			return;
+		}
+		
+		const postJsonPromise = gfn_postJSON("/co/user/updateUserTypeList.do", userTypeChgList);
+		const data = await postJsonPromise;
+		try {
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
         		fn_search();

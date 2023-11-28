@@ -36,6 +36,13 @@ public interface ComUserMapper {
 	 * @return List<>
 	 */
 	public int updateComUserAprv(ComUserVO comUserVO);
+	
+	/**
+	 * APC관리자승인등록-사용자유형 변경
+	 * @param comUserVO
+	 * @return int
+	 */
+	public int updateUserType(ComUserVO comUserVO);
 
 	/**
 	 * 사용자 정보 변경
