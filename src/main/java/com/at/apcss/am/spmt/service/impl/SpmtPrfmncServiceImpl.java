@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.cmns.service.CmnsValidationService;
 import com.at.apcss.am.invntr.service.GdsInvntrService;
+import com.at.apcss.am.invntr.service.PltWrhsSpmtService;
 import com.at.apcss.am.invntr.vo.GdsInvntrVO;
+import com.at.apcss.am.invntr.vo.PltWrhsSpmtVO;
 import com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper;
 import com.at.apcss.am.spmt.service.SpmtPrfmncService;
 import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
@@ -42,14 +44,21 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 	@Autowired
 	private SpmtPrfmncMapper spmtPrfmncMapper;
 
+	// 재고서비스
 	@Resource(name= "gdsInvntrService")
 	private GdsInvntrService gdsInvntrService;
 
+	// 번호발급 서비스
 	@Resource(name= "cmnsTaskNoService")
 	private CmnsTaskNoService cmnsTaskNoService;
 
+	// 매출확정확인 서비스
 	@Resource(name = "cmnsValidationService")
 	private CmnsValidationService cmnsValidationService;
+
+	// 팔레트 서비스
+	@Resource(name = "pltWrhsSpmtService")
+	private PltWrhsSpmtService pltWrhsSpmtService;
 
 	@Override
 	public SpmtPrfmncVO selectSpmtPrfmnc(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
@@ -242,7 +251,34 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 				gdsInvntrVO.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
 				gdsInvntrVO.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
 
-				gdsInvntrService.updateGdsInvntrSpmtPrfmnc(gdsInvntrVO);
+				resultMap = gdsInvntrService.updateGdsInvntrSpmtPrfmnc(gdsInvntrVO);
+				if(resultMap != null) {
+					throw new EgovBizException(getMessageForMap(resultMap));
+				}
+
+			}
+
+			if(ComConstants.CON_YES.equals(spmtPrfmncList.get(0).getPltSpmtYn())) {
+
+				PltWrhsSpmtVO pltWrhsSpmtVO = new PltWrhsSpmtVO();
+				pltWrhsSpmtVO.setSysFrstInptPrgrmId(spmtPrfmncList.get(0).getSysFrstInptPrgrmId());
+				pltWrhsSpmtVO.setSysFrstInptUserId(spmtPrfmncList.get(0).getSysFrstInptUserId());
+				pltWrhsSpmtVO.setSysLastChgPrgrmId(spmtPrfmncList.get(0).getSysLastChgPrgrmId());
+				pltWrhsSpmtVO.setSysLastChgUserId(spmtPrfmncList.get(0).getSysLastChgUserId());
+				pltWrhsSpmtVO.setApcCd(spmtPrfmncList.get(0).getApcCd());
+				pltWrhsSpmtVO.setQntt(spmtPrfmncList.get(0).getBssInvntrQntt());
+				pltWrhsSpmtVO.setWrhsSpmtSeCd("2");
+				pltWrhsSpmtVO.setPltBxCd(spmtPrfmncList.get(0).getPltBxCd());
+				pltWrhsSpmtVO.setPltBxSeCd("P");
+				pltWrhsSpmtVO.setJobYmd(spmtPrfmncList.get(0).getSpmtYmd());
+				pltWrhsSpmtVO.setPrcsno(spmtno);
+				pltWrhsSpmtVO.setWrhsSpmtType("DT");
+				pltWrhsSpmtVO.setPrdcrCd(spmtPrfmncList.get(0).getPrdcrCd());
+
+				resultMap = pltWrhsSpmtService.insertPltWrhsSpmt(pltWrhsSpmtVO);
+				if(resultMap != null) {
+					throw new EgovBizException(getMessageForMap(resultMap));
+				}
 			}
 
 		}
@@ -261,7 +297,7 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 	@Override
 	public HashMap<String, Object> deleteSpmtPrfmnc(List<SpmtPrfmncVO> spmtPrfmncList) throws Exception {
 
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		HashMap<String, Object> resultMap;
 
 		int deletedCnt = 0;
 
@@ -272,7 +308,7 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 
 			String ddlnYn = cmnsValidationService.selectChkDdlnYn(spmtPrfmncVO.getApcCd(), spmtPrfmncVO.getSpmtYmd());
 
-			if("N".equals(ddlnYn)) {
+			if(ComConstants.CON_NONE.equals(ddlnYn)) {
 				deleteSpmtPrfmncCom(spmtPrfmncVO);
 
 				deleteList = selectSpmtPrfmncDtl(spmtPrfmncVO);
@@ -293,16 +329,39 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 					gdsInvntrVO.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
 					gdsInvntrVO.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
 
-					gdsInvntrService.updateGdsInvntrSpmtPrfmncCncl(gdsInvntrVO);
+					resultMap = gdsInvntrService.updateGdsInvntrSpmtPrfmncCncl(gdsInvntrVO);
+					if(resultMap != null) {
+						throw new EgovBizException(getMessageForMap(resultMap));
+					}
+
+				}
+				if(ComConstants.CON_YES.equals(spmtPrfmncList.get(0).getPltSpmtYn())) {
+
+					PltWrhsSpmtVO pltWrhsSpmtVO = new PltWrhsSpmtVO();
+					pltWrhsSpmtVO.setSysFrstInptPrgrmId(spmtPrfmncVO.getSysFrstInptPrgrmId());
+					pltWrhsSpmtVO.setSysFrstInptUserId(spmtPrfmncVO.getSysFrstInptUserId());
+					pltWrhsSpmtVO.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
+					pltWrhsSpmtVO.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
+					pltWrhsSpmtVO.setApcCd(spmtPrfmncVO.getApcCd());
+					pltWrhsSpmtVO.setJobYmd(spmtPrfmncVO.getSpmtYmd());
+					pltWrhsSpmtVO.setSn(spmtPrfmncVO.getSn());
+					pltWrhsSpmtVO.setPltBxCd(spmtPrfmncVO.getPltBxCd());
+					pltWrhsSpmtVO.setPltBxSeCd("P");
+					pltWrhsSpmtVO.setWrhsSpmtSeCd("2");
+					pltWrhsSpmtVO.setQntt(spmtPrfmncVO.getBssInvntrQntt());
+					resultMap = pltWrhsSpmtService.updateDelYnPltWrhsSpmt(pltWrhsSpmtVO);
+
+					if(resultMap != null) {
+						throw new EgovBizException(getMessageForMap(resultMap));
+					}
 				}
 			}else {
-				resultMap.put("errCd", ComConstants.MSGCD_ALEADY_CLOSE);
-				return resultMap;
+				return ComUtil.getResultMap(ComConstants.MSGCD_ALEADY_CLOSE, "출하실적");		// W0012	마감등록 된 {0} 입니다.
 			}
 
+
 		}
-		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
-		return resultMap;
+		return null ;
 	}
 
 	@Override
@@ -346,7 +405,7 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 	@Override
 	public HashMap<String, Object> deleteRtnSpmtPrfmncList(List<SpmtPrfmncVO> spmtPrfmncList) throws Exception {
 
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		HashMap<String, Object> resultMap;
 
 		int deletedCnt = 0;
 
@@ -375,12 +434,14 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 					gdsInvntrVO.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
 					gdsInvntrVO.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
 
-					gdsInvntrService.updateGdsInvntrSpmtPrfmncRtnCncl(gdsInvntrVO);
+					resultMap = gdsInvntrService.updateGdsInvntrSpmtPrfmncRtnCncl(gdsInvntrVO);
+					if(resultMap != null) {
+						throw new EgovBizException(getMessageForMap(resultMap));
+					}
 				}
 
 		}
-		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
-		return resultMap;
+		return null;
 
 	}
 

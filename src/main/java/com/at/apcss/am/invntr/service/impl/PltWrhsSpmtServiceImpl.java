@@ -34,15 +34,15 @@ public class PltWrhsSpmtServiceImpl extends BaseServiceImpl implements PltWrhsSp
 
 	@Autowired
 	private PltWrhsSpmtMapper pltWrhsSpmtMapper;
-	
+
 	@Override
 	public PltWrhsSpmtVO selectPltBxMngWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception {
-		
+
 		PltWrhsSpmtVO resultVO = pltWrhsSpmtMapper.selectPltBxMngWrhsSpmt(pltWrhsSpmtVO);
-		
+
 		return resultVO;
 	}
-	
+
 	@Override
 	public List<PltBxVO> selectPltBxMngList(PltBxVO pltBxVO) throws Exception {
 
@@ -55,7 +55,7 @@ public class PltWrhsSpmtServiceImpl extends BaseServiceImpl implements PltWrhsSp
 	public PltWrhsSpmtVO selectPltWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception {
 
 		PltWrhsSpmtVO resultVO = pltWrhsSpmtMapper.selectPltWrhsSpmt(pltWrhsSpmtVO);
-		
+
 		return resultVO;
 	}
 
@@ -63,7 +63,7 @@ public class PltWrhsSpmtServiceImpl extends BaseServiceImpl implements PltWrhsSp
 	public List<PltWrhsSpmtVO> selectPltWrhsSpmtList(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception {
 
 		List<PltWrhsSpmtVO> resultList = pltWrhsSpmtMapper.selectPltWrhsSpmtList(pltWrhsSpmtVO);
-		
+
 		return resultList;
 	}
 
@@ -71,7 +71,7 @@ public class PltWrhsSpmtServiceImpl extends BaseServiceImpl implements PltWrhsSp
 	public HashMap<String, Object> insertPltWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception {
 		PltWrhsSpmtVO resultVO = selectPltBxMngWrhsSpmt(pltWrhsSpmtVO);
 		int insertedCnt = pltWrhsSpmtMapper.insertPltWrhsSpmt(pltWrhsSpmtVO);
-		
+
 		if(insertedCnt > 0) {
 			if("1".equals(pltWrhsSpmtVO.getWrhsSpmtSeCd())) {
 				int returnBssInvntrQntt = resultVO.getBssInvntrQntt() + pltWrhsSpmtVO.getQntt();
@@ -79,9 +79,9 @@ public class PltWrhsSpmtServiceImpl extends BaseServiceImpl implements PltWrhsSp
 			}else if("2".equals(pltWrhsSpmtVO.getWrhsSpmtSeCd())) {
 				int returnBssInvntrQntt = resultVO.getBssInvntrQntt() - pltWrhsSpmtVO.getQntt();
 				if(returnBssInvntrQntt > 0 ) {
-					pltWrhsSpmtVO.setBssInvntrQntt(returnBssInvntrQntt);			
+					pltWrhsSpmtVO.setBssInvntrQntt(returnBssInvntrQntt);
 				}else {
-					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("W0008", "현재고수량||수량")));
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("W0008", "현팔레트수량||입력팔레트수량")));
 				}
 			}
 			insertedCnt = pltWrhsSpmtMapper.updatePltWrhsSpmt(pltWrhsSpmtVO);
@@ -110,9 +110,9 @@ public class PltWrhsSpmtServiceImpl extends BaseServiceImpl implements PltWrhsSp
 			if("1".equals(pltWrhsSpmtVO.getWrhsSpmtSeCd())) {
 				int deleteQntt = resultVO.getBssInvntrQntt() - pltWrhsSpmtVO.getQntt();
 				if(deleteQntt > 0) {
-					pltWrhsSpmtVO.setBssInvntrQntt(deleteQntt);				
+					pltWrhsSpmtVO.setBssInvntrQntt(deleteQntt);
 				}else {
-					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("W0008", "수량||현재고수량")));
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("W0008", "입력팔레트수량||현팔레트수량")));
 				}
 			}else if("2".equals(pltWrhsSpmtVO.getWrhsSpmtSeCd())) {
 				int deleteQntt = resultVO.getBssInvntrQntt() + pltWrhsSpmtVO.getQntt();
