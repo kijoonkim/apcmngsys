@@ -334,7 +334,8 @@
 
 		const userAprvList = [];
 		const allUserData = grdUserAprv.getGridDataAll();
-
+		
+		console.log('allUserData', allUserData);
 		allUserData.forEach((item, index) => {
 			if(item.userType == "10"){
 				userAprvList.push({
@@ -342,12 +343,8 @@
 				  	, userType : "10"
     				, userId   : item.userId
     			});
-			}else{
-				userAprvList.push({
-					  userStts : "00"
-				  	, userType : item.userType
-    				, userId   : item.userId
-    			});
+			}else if(item.userType == "11"){
+				console.log('userType11', item.userId);
 			}
 		});
 		
@@ -359,7 +356,7 @@
 		if (!gfn_comConfirm("Q0001", "승인")) {
 			return;
 		}
-		
+		console.log('userAprvList', userAprvList);
     	const postJsonPromise = gfn_postJSON("/co/user/insertUserAprvList.do", userAprvList);
 		const data = await postJsonPromise;
         try {
