@@ -369,7 +369,7 @@ public class RawMtrInvntrVO extends ComVO {
 	}
 
 	public void setExcldWrhsnoList(List<String> excldWrhsnoList) {
-		this.excldWrhsnoList = stdGrdList == null ? null : excldWrhsnoList.stream().collect(Collectors.toList());
+		this.excldWrhsnoList = excldWrhsnoList == null ? null : excldWrhsnoList.stream().collect(Collectors.toList());
 	}
 	
 	/**

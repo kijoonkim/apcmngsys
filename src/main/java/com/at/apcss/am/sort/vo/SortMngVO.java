@@ -37,6 +37,8 @@ public class SortMngVO extends ComVO {
 
 	private String sortYmd;
 
+	private String sortKey;
+	
 	/**
 	 * 투입등록 필요 여부
 	 */

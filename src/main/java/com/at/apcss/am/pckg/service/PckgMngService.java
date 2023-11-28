@@ -21,7 +21,7 @@ public interface PckgMngService {
 
 	/**
 	 * 포장투입실적 등록
-	 * @param pckgInptVO
+	 * @param pckgMngVO
 	 * @return
 	 * @throws Exception
 	 */
@@ -29,11 +29,19 @@ public interface PckgMngService {
 
 	/**
 	 * 포장실적 처리
-	 * @param pckgInptVO
+	 * @param pckgMngVO
 	 * @return
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertPckgRslt(PckgMngVO pckgMngVO) throws Exception;
+	
+	/**
+	 * 포장실적 Import 처리
+	 * @param pckgMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertImportPckgRslt(PckgMngVO pckgMngVO) throws Exception;
 	
 	/**
 	 * 포장실적 등록
@@ -54,7 +62,7 @@ public interface PckgMngService {
 
 	/**
 	 * 포장투입실적 변경
-	 * @param pckgInptVO
+	 * @param pckgMngVO
 	 * @return
 	 * @throws Exception
 	 */
@@ -62,7 +70,7 @@ public interface PckgMngService {
 
 	/**
 	 * 포장실적 변경
-	 * @param pckgInptVO
+	 * @param pckgMngVO
 	 * @return
 	 * @throws Exception
 	 */
@@ -72,7 +80,7 @@ public interface PckgMngService {
 
 	/**
 	 * 포장투입실적 삭제
-	 * @param pckgInptVO
+	 * @param pckgMngVO
 	 * @return
 	 * @throws Exception
 	 */
@@ -80,7 +88,7 @@ public interface PckgMngService {
 
 	/**
 	 * 포장투입실적 삭제
-	 * @param pckgInptVO
+	 * @param pckgMngVO
 	 * @return
 	 * @throws Exception
 	 */
@@ -88,7 +96,7 @@ public interface PckgMngService {
 
 	/**
 	 * 포장투입실적 삭제
-	 * @param pckgInptVO
+	 * @param pckgMngVO
 	 * @return
 	 * @throws Exception
 	 */

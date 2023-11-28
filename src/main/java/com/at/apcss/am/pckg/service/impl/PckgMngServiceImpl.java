@@ -157,7 +157,9 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 
 		String pckgno = pckgMngVO.getPckgno();
 		String pckgYmd = pckgMngVO.getPckgYmd();
-
+		
+		logger.debug("@@@@pckgYmd: {}", pckgYmd);
+		
 		if (!StringUtils.hasText(pckgno)) {
 			pckgno = cmnsTaskNoService.selectPckgno(apcCd, pckgYmd);
 		}
@@ -211,7 +213,7 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 							itemCd.equals(orgnInv.getItemCd())
 							&& vrtyCd.equals(orgnInv.getVrtyCd())
 							&& spcfctCd.equals(orgnInv.getSpcfctCd())
-							&& prdcrCd.equals(orgnInv.getPrdcrCd())
+							//&& prdcrCd.equals(orgnInv.getPrdcrCd())
 							&& warehouseSeCdFrom.equals(orgnInv.getWarehouseSeCd())) {
 							
 							if (pckgWght > invRmnWght) {
@@ -236,6 +238,8 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 								pckgQntt = 0;
 								pckgWght = 0;
 							}
+							
+							pckg.setRprsPrdcrCd(orgnInv.getRprsPrdcrCd());
 							
 							if (pckgWght <= 0) {
 								// 선별재고가 선정이 되었으므로 통과
@@ -313,7 +317,8 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 							invntrVO.setPckgQntt(0);
 							invntrVO.setPckgWght(0);
 							invntrVO.setRmrk(ComConstants.CON_BLANK);
-							invntrVO.setPrdcrCd(prdcrCd);
+							
+							//invntrVO.setPrdcrCd(prdcrCd);
 							
 							sortInvntrVOList.add(invntrVO);
 							
@@ -322,6 +327,8 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 							invntrDtlVO.setInvntrSn(invntrVO.getSortSn());
 							
 							excldInvntrList.add(invntrDtlVO);
+							
+							pckg.setRprsPrdcrCd(orgnInv.getRprsPrdcrCd());
 							
 							if (pckgWght <= 0) {
 								// 선별재고가 선정이 되었으므로 통과
@@ -380,7 +387,7 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 			String rprsPrdcrCd = inv.getRprsPrdcrCd();
 			String itemCd = inv.getItemCd();
 			String vrtyCd = inv.getVrtyCd();
-			String spcfctCd = inv.getSpcfctCd();
+			//String spcfctCd = inv.getSpcfctCd();
 			String gdsSeCd = inv.getGdsSeCd();
 			String wrhsSeCd = inv.getWrhsSeCd();
 			String prdctnYr = inv.getPrdctnYr();
@@ -427,7 +434,10 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 
 			PckgInptVO pckgInptVO = new PckgInptVO();
 			BeanUtils.copyProperties(inv, pckgInptVO);
-
+			
+			logger.debug("inptYmd: {}", inv.getInptYmd());
+			logger.debug("(inp)inptYmd: {}", pckgInptVO.getInptYmd());
+			
 			pckgInptVO.setQntt(inv.getInptQntt());
 			pckgInptVO.setWght(inv.getInptWght());
 
@@ -476,6 +486,72 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 
 		return null;
 	}
+	
+
+	@Override
+	public HashMap<String, Object> insertImportPckgRslt(PckgMngVO pckgMngVO) throws Exception {
+		
+		List<PckgMngVO> pckgMngList = new ArrayList<>();
+		
+		List<PckgPrfmncVO> pckgList = pckgMngVO.getPckgPrfmncList();
+		
+		if (pckgList == null || pckgList.isEmpty()) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "등록대상");
+		}
+		
+		// 포장일자별, 품목, 품종, 규격별 실적 분리
+		for ( PckgPrfmncVO pckg : pckgList ) {
+			
+			boolean needAdd = true;
+			
+			PckgMngVO mngVO = null;
+			List<PckgPrfmncVO> pckgPrfmncList = new ArrayList<>();
+			
+			String pckgKey = pckg.getPckgYmd() 
+						+ pckg.getItemCd() 
+						+ pckg.getVrtyCd() 
+						+ pckg.getSpcfctCd();  
+			logger.debug("xxx@@pckgKey : {}", pckgKey);
+			
+			for ( PckgMngVO chkMngVO : pckgMngList ) {
+				if ( ComUtil.nullToEmpty(pckgKey).equals(chkMngVO.getPckgKey())) {
+					mngVO = chkMngVO;
+					pckgPrfmncList = chkMngVO.getPckgPrfmncList();
+					if (pckgPrfmncList == null) {
+						pckgPrfmncList = new ArrayList<>();
+					}
+					needAdd = false;
+					break;
+				}
+			}
+			
+			if (mngVO == null) {
+				mngVO = new PckgMngVO();
+				BeanUtils.copyProperties(pckgMngVO, mngVO);
+				mngVO.setPckgKey(pckgKey);
+				mngVO.setPckgYmd(pckg.getPckgYmd());
+				logger.debug("xxx@@pckgYmd : {}", mngVO.getPckgYmd());
+			}
+			
+			pckgPrfmncList.add(pckg);
+			mngVO.setPckgPrfmncList(pckgPrfmncList);
+			if (needAdd) {
+				pckgMngList.add(mngVO);
+			}
+		}
+		
+		for ( PckgMngVO mngVO : pckgMngList ) {
+			HashMap<String, Object> rtnObj = insertPckgRslt(mngVO);
+			if (rtnObj != null) {
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+		}
+		
+		return null;
+	}
+
+
+
 	
 	
 	@Override
@@ -871,7 +947,6 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 
 		return null;
 	}
-
 
 
 

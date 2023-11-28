@@ -94,6 +94,30 @@ public class SortMngController extends BaseController {
 	}
 	
 
+	@PostMapping(value = "/am/sort/insertImportSortRslt.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertImportSortRslt(@RequestBody SortMngVO sortMngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			sortMngVO.setSysFrstInptUserId(getUserId());
+			sortMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+			sortMngVO.setSysLastChgUserId(getUserId());
+			sortMngVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String, Object> rtnObj = sortMngService.insertImportSortRslt(sortMngVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
 	@PostMapping(value = "/am/sort/insertSortRslt.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> insertSortRslt(@RequestBody SortMngVO sortMngVO, HttpServletRequest request) throws Exception {
 
