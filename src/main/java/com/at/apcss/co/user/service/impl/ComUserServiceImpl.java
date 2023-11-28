@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.at.apcss.am.apc.service.ApcEvrmntStngService;
-import com.at.apcss.am.apc.vo.ApcEvrmntStngVO;
 import com.at.apcss.co.authrt.service.ComAuthrtService;
 import com.at.apcss.co.authrt.vo.ComAuthrtVO;
 import com.at.apcss.co.constants.ComConstants;
@@ -72,8 +71,15 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 
 	@Override
 	public List<ComUserVO> selectComUserList(ComUserVO comUserVO) throws Exception {
-
+		
 		List<ComUserVO> resultList = comUserMapper.selectComUserList(comUserVO);
+		return resultList;
+	}
+	
+	@Override
+	public List<ComUserVO> selectComUserApcList(ComUserVO comUserVO) throws Exception {
+
+		List<ComUserVO> resultList = comUserMapper.selectComUserApcList(comUserVO);
 		return resultList;
 	}
 
@@ -159,9 +165,6 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 			if (ComConstants.CON_USER_STTS_VALID.equals(userInfo.getUserStts())) {
 				return ComUtil.getResultMap(ComConstants.MSGCD_ALEADY_DONE, "승인||사용자");	// W0010	이미 {0}된 {1} 입니다.
 			}
-			if (!ComConstants.CON_USER_TYPE_ADMIN.equals(userInfo.getUserType())) {
-				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_TARGET, "APC관리자");	// W0011	{0}이/가 아닙니다.
-			}
 
 			user.setApcCd(userInfo.getApcCd());
 		}
@@ -185,19 +188,6 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 
 			rtnObj = comAuthrtService.insertApcAuthrtId(comAuthrtVO);
 			if (rtnObj != null) {
-				throw new EgovBizException(getMessageForMap(rtnObj));
-			}
-
-			ApcEvrmntStngVO apcEvrmntStngVO = new ApcEvrmntStngVO();
-			apcEvrmntStngVO.setSysFrstInptUserId(sysUserId);
-			apcEvrmntStngVO.setSysFrstInptPrgrmId(sysPrgrmId);
-			apcEvrmntStngVO.setSysLastChgUserId(sysUserId);
-			apcEvrmntStngVO.setSysLastChgPrgrmId(sysPrgrmId);
-			apcEvrmntStngVO.setApcCd(user.getApcCd());
-
-			rtnObj = apcEvrmntStngService.insertApcInitInfo(apcEvrmntStngVO);
-			if (rtnObj != null) {
-				logger.error(getMessageForMap(rtnObj));
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
 		}

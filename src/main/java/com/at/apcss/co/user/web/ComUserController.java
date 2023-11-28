@@ -67,7 +67,7 @@ public class ComUserController extends BaseController {
 			comUserVO.setUserStts(ComConstants.CON_USER_STTS_STANDBY);
 			comUserVO.setUserType(ComConstants.CON_USER_TYPE_ADMIN);
 
-			resultList = comUserService.selectComUserList(comUserVO);
+			resultList = comUserService.selectComUserApcList(comUserVO);
 		} catch(Exception e) {
 			return getErrorResponseEntity(e);
 		}

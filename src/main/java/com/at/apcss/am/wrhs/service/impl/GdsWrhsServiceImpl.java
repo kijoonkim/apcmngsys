@@ -70,6 +70,7 @@ public class GdsWrhsServiceImpl extends BaseServiceImpl implements GdsWrhsServic
 		cmnsGdsVO.setItemCd(gdsInvntrVO.getItemCd());
 		cmnsGdsVO.setVrtyCd(gdsInvntrVO.getVrtyCd());
 		cmnsGdsVO.setSpcfctCd(gdsInvntrVO.getSpcfctCd());
+		cmnsGdsVO.setSpmtPckgUnitCd(gdsInvntrVO.getSpmtPckgUnitCd());
 		
 		HashMap<String, Object> getGdsCd = cmnsGdsService.insertCheckGdsCd(cmnsGdsVO);
 		if (getGdsCd != null) {

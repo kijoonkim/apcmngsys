@@ -36,6 +36,7 @@
 			     , PID.DMND_YMD         AS DMND_YMD
 			     , PID.SN               AS SN
 			     , PID.MENU_ID          AS MENU_ID
+			     , CM.MENU_NM			AS MENU_NM
 			     , PID.USER_ID          AS USER_ID
 			     , (SELECT USER_NM FROM TB_COM_USER X WHERE PID.USER_ID = X.USER_ID)  AS USER_NM
 			     , PID.IMPRV_DMND_MTTR  AS IMPRV_DMND_MTTR
@@ -52,8 +53,9 @@
                        WHEN PID.ACTN_PRNMNT_YMD IS NULL AND PID.PIC IS NULL AND PID.ACTN_RSLT IS NULL
                        THEN '대기'
                    END AS DMND_STTS
-			  FROM TB_PRGRM_IMPRV_DMND PID
+			  FROM TB_PRGRM_IMPRV_DMND PID, TB_COM_MENU CM
 			 WHERE PID.DEL_YN 	= 'N'
+			 AND PID.MENU_ID = CM.MENU_ID
 		]]>
 		<if test='apcCd != null and apcCd != ""'>
 			  AND PID.APC_CD 	= #{apcCd}
