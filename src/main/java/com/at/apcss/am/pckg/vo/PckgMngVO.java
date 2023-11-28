@@ -119,6 +119,8 @@ public class PckgMngVO extends ComVO {
 	 */
 	private String rmrk;
 
+	private String pckgKey;
+	
 	private List<PckgInptVO> pckgInptList;
 
 	/**

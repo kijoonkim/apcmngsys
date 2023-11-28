@@ -361,7 +361,7 @@
 	<!-- ===========  	============  	==============================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- =============================================================================	-->
-    <select id="selectRawMtrInvntrListForSort" parameterType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO" resultType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO">
+    <select id="selectRawMtrInvntrListForSort" parameterType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO" resultType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO" useCache="false" flushCache="true" >
     	<![CDATA[
 			SELECT /* com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.selectRawMtrInvntrListForSort */
     			  pt0.*
