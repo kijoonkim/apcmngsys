@@ -231,11 +231,13 @@
     <update id="updateComUserAprv" parameterType="com.at.apcss.co.user.vo.ComUserVO">
     	<![CDATA[
     	UPDATE TB_COM_USER
-    	   SET USER_STTS 				= #{userStts}
-    	     , SYS_LAST_CHG_DT 			= SYSDATE
+    	   SET SYS_LAST_CHG_DT 			= SYSDATE
     	     , SYS_LAST_CHG_USER_ID 	= #{sysLastChgUserId}
     	     , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
-    	]]>     
+    	]]>
+    	<if test='userStts != null and userStts != ""'>
+    		 , USER_STTS 				= #{userStts}
+    	</if>
     	<if test='userType != null and userType != ""'>
     		 , USER_TYPE 				= #{userType}
     	</if>
