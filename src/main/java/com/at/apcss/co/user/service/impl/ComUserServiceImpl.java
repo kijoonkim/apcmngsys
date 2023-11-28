@@ -98,6 +98,18 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 		return null;
 	}
 	
+//	//기능
+//	@Override
+//	public HashMap<String, Object> updateUserTypeList(ComUserVO comUserVO) throws Exception {
+//		
+//			
+//		return null;
+//	}
+	@Override
+	public int updateUserType(ComUserVO comUserVO) throws Exception {
+		return comUserMapper.updateUserType(comUserVO);
+	}
+	
 	@Override
 	public HashMap<String, Object> updateComUserStts(ComUserVO comUserVO) throws Exception {
 		
