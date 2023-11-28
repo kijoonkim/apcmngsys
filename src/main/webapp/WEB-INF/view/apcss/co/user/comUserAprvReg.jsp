@@ -285,7 +285,6 @@
 
 		const userAprvList = [];
 		const allUserData = grdUserAprv.getGridDataAll();
-		console.log('allUserData',allUserData);
 		allUserData.forEach((item, index) => {
 			if (item.checkedYn === "Y") {
 				userAprvList.push({
@@ -304,11 +303,8 @@
 		if (!gfn_comConfirm("Q0001", "승인")) {
 			return;
 		}
-		console.log('userAprvList',userAprvList);
     	const postJsonPromise = gfn_postJSON("/co/user/insertUserAprvList.do", userAprvList);
 		const data = await postJsonPromise;
-		console.log('postJsonPromise',postJsonPromise);
-		console.log('data',data);
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
