@@ -145,7 +145,7 @@
 					<div class="ad_tbl_toplist">
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdGdsInvntr" style="height:162px;"></div>
+					<div id="sb-area-grdGdsInvntr" style="height:132px;"></div>
 				</div>
 
 				<br>
@@ -289,6 +289,19 @@
 									maxlength="3"
 								></sbux-input>
 							</td>
+						</tr>
+						<tr>
+							<th scope="row" class="th_bg">출하자신고번호</th>
+							<td colspan="2" class="td_input" style="border-right: hidden;">
+								<sbux-input
+									id="dtl-inp-spmtPrsnDclrno"
+									name="dtl-inp-spmtPrsnDclrno"
+									uitype="text"
+									class="form-control input-sm"
+									mask = "999999-999999"
+								></sbux-input>
+							</td>
+							<td colspan="9"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -1100,6 +1113,7 @@
     	let outordrno		= SBUxMethod.get("dtl-inp-outordrno");
     	let pltBxCd			= SBUxMethod.get("dtl-slt-pltBxCd");
     	let bssInvntrQntt 	= SBUxMethod.get("dtl-inp-bssInvntrQntt");
+    	let spmtPrsnDclrno 	= SBUxMethod.get("dtl-inp-spmtPrsnDclrno");
     	let pltSpmtYn 		= "N";
 
     	let totBssInvntrQntt = 0;
@@ -1132,6 +1146,8 @@
         			}
         		}
         	}
+    	}
+    	if(!gfn_isEmpty(pltBxCd) && !gfn_isEmpty(bssInvntrQntt)){
     		pltSpmtYn = "Y";
     	}
 
@@ -1180,25 +1196,26 @@
     			}
     		}
 
-    		rowData.spmtYmd		= spmtYmd;
-    		rowData.cnptCd 		= cnptCd;
-    		rowData.trsprtCoCd 	= trsprtCoCd;
-    		rowData.trsprtCoNm	= trsprtCoNm;
-    		rowData.vhclno 		= vhclno;
-    		rowData.dldtn 		= dldtn;
-    		rowData.trsprtCst 	= trsprtCst;
+    		rowData.spmtYmd			= spmtYmd;
+    		rowData.cnptCd 			= cnptCd;
+    		rowData.trsprtCoCd 		= trsprtCoCd;
+    		rowData.trsprtCoNm		= trsprtCoNm;
+    		rowData.vhclno 			= vhclno;
+    		rowData.dldtn 			= dldtn;
+    		rowData.trsprtCst 		= trsprtCst;
     		if(gfn_isEmpty(rmrk)){
     			rowData.rmrk = '';
     		}else{
     			rowData.rmrk = rmrk;
     		}
-    		rowData.spmtCmndno = spmtCmndno;
-    		rowData.brndNm 		= brndNm;
-    		rowData.outordrno 	= outordrno;
-    		rowData.gdsCd 		= gdsCd;
-    		rowData.pltBxCd 	= pltBxCd;
-    		rowData.bssInvntrQntt = bssInvntrQntt;
-    		rowData.pltSpmtYn 	= pltSpmtYn;
+    		rowData.spmtCmndno 		= spmtCmndno;
+    		rowData.brndNm 			= brndNm;
+    		rowData.outordrno 		= outordrno;
+    		rowData.gdsCd 			= gdsCd;
+    		rowData.pltBxCd 		= pltBxCd;
+    		rowData.bssInvntrQntt 	= bssInvntrQntt;
+    		rowData.pltSpmtYn 		= pltSpmtYn;
+    		rowData.spmtPrsnDclrno 	= spmtPrsnDclrno;
 
     		insertList.push(rowData);
     	}
@@ -1238,6 +1255,7 @@
        				SBUxMethod.set("dtl-slt-pltBxCd", "");
        				SBUxMethod.set("dtl-inp-bssInvntrQntt", "");
        				SBUxMethod.set("dtl-inp-rmrk", "");
+       				SBUxMethod.set("dtl-inp-spmtPrsnDclrno", "");
 	       			fn_search();
 	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
 	        	} else {
@@ -1299,7 +1317,6 @@
           				spmtQntt		: item.spmtQntt,
           				spmtWght		: item.spmtWght,
           				rmrk			: item.rmrk
-
   				}
           		jsonSpmtPrfmnc.push(gdsSpmtPrfmnc);
   			});
