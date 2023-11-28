@@ -71,7 +71,8 @@
 						<col style="width: 7%">
 						<col style="width: 6%">
 						<col style="width: 3%">
-						<col style="width: 6%">
+						<col style="width: 5%">
+						<col style="width: 1%">
 					</colgroup>
 					<tbody>
 						<tr>
@@ -102,7 +103,7 @@
 							<td class="td_input" style="border-right:hidden ;">
 								<sbux-button id="btnSrchCnpt" name="btnSrchCnpt" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
 							</td>
-							<td></td>
+							<td colspan="2"></td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>품목/품종</th>
@@ -154,16 +155,21 @@
 							<td class="td_input" style="border-right:hidden ;">
 								<sbux-select unselected-text="전체" uitype="single" id="srch-slt-spcfctCd" name="srch-slt-spcfctCd" class="form-control input-sm-ast inpt_data_reqed input-sm" jsondata-ref="jsonApcSpcfct"></sbux-select>
 							</td>
-							<td colspan="2"></td>
+							<td colspan="3"></td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">창고</th>
+							<th scope="row" class="th_bg"><span class="data_required"></span>출하포장단위</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select unselected-text="전체" uitype="single" id="srch-slt-warehouseSeCd" name="srch-slt-warehouseSeCd" class="form-control input-sm" jsondata-ref="jsonComWarehouseSeCd"></sbux-select>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-spmtPckgUnitCd" name="srch-slt-spmtPckgUnitCd" class="form-control input-sm input-sm-ast" jsondata-ref="jsonSpmtPckgUnitCd"></sbux-select>
 							</td>
 							<td colspan="2"></td>
+							<th scope="row" class="th_bg">창고</th>
+							<td colspan="6" class="td_input" style="border-right: hidden;">
+								<sbux-select unselected-text="전체" uitype="single" id="srch-slt-warehouseSeCd" name="srch-slt-warehouseSeCd" class="form-control input-sm" jsondata-ref="jsonComWarehouseSeCd"></sbux-select>
+							</td>
+							<td colspan="9"></td>
 							<th scope="row" class="th_bg">비고</th>
-							<td colspan="15" class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-rmrk" name="srch-inp-rmrk" maxlength="333" class="form-control input-sm"></sbux-input>
 							</td>
 						</tr>
@@ -206,11 +212,12 @@
     </div>
 </body>
 <script type="text/javascript">
-	var jsonApcItem				= [];	// 품목 			itemCd		검색
-	var jsonApcVrty				= [];	// 품종 			vrtyCd		검색
-	var jsonApcSpcfct			= [];	// 규격 			spcfcCd		검색
-	var jsonComBx				= [];	// 박스 			pltBxCd		검색
-	var jsonComWarehouseSeCd	= [];	// 창고 			warehouse	검색
+	var jsonApcItem				= [];	// 품목 			itemCd			검색
+	var jsonApcVrty				= [];	// 품종 			vrtyCd			검색
+	var jsonApcSpcfct			= [];	// 규격 			spcfcCd			검색
+	var jsonComBx				= [];	// 박스 			pltBxCd			검색
+	var jsonComWarehouseSeCd	= [];	// 창고 			warehouse		검색
+	var jsonSpmtPckgUnitCd		= [];	// 출하포장단위		spmtPckgUnitCd	검색
 
 	var jsonComGdsSeCd			= [];	// 상품구분		GDS_SE_CD
 	
@@ -227,8 +234,10 @@
     }
 	
 	const fn_initSBSelect = async function() {
+// 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		// 검색 SB select
 		let rst = await Promise.all([
+// 			gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', jsonSpmtPckgUnitCd, gv_selectedApcCd, itemCd),		// 포장구분
 		 	gfn_setComCdSBSelect('srch-slt-warehouseSeCd', jsonComWarehouseSeCd, 'WAREHOUSE_SE_CD', gv_selectedApcCd),	// 창고
 		 	gfn_setPltBxSBSelect('srch-slt-bx', jsonComBx, gv_selectedApcCd, 'B'),										// 박스
 		 	gfn_setApcItemSBSelect('srch-slt-itemCd', jsonApcItem, gv_selectedApcCd),									// 품목
@@ -293,7 +302,8 @@
 	        {caption: ["품목코드"],	ref: 'itemCd',			hidden: true},
 	        {caption: ["품종코드"],	ref: 'vrtyCd',			hidden: true},
 	        {caption: ["규격코드"],	ref: 'spcfctCd',		hidden: true},
-	        {caption: ["창고구분코드"],	ref: 'warehouseSeCd',	hidden: true}
+	        {caption: ["창고구분코드"],	ref: 'warehouseSeCd',	hidden: true},
+	        {caption: ["매입처코드"],	ref: 'cnptCd',	hidden: true},
 	    ];
 	    grdGdsWrhs = _SBGrid.create(SBGridProperties);
 	    grdGdsWrhs.bind( "afterpagechanged" , "fn_pagingGdsWrhs" );
@@ -450,6 +460,7 @@
 		let pckgWght = SBUxMethod.get("srch-inp-pckgWght");
 		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
 		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");
+		let spmtPckgUnitCd = SBUxMethod.get("srch-slt-spmtPckgUnitCd");
 		let rmrk = SBUxMethod.get("srch-inp-rmrk");
  		if (gfn_isEmpty(rmrk)) {
  			rmrk = "";
@@ -503,19 +514,22 @@
 		  , pckgQntt 		: pckgQntt
 		  , pckgWght 		: pckgWght
 		  , warehouseSeCd	: warehouseSeCd
+		  , spmtPckgUnitCd	: spmtPckgUnitCd
 		  , rmrk			: rmrk
     	}
 
     	const postJsonPromise = gfn_postJSON("/am/wrhs/insertGdsInvntr.do", gdsWrhs);
 		const data = await postJsonPromise;
 		
+		console.log('postJsonPromise', postJsonPromise);
 		console.log('data', data);
-		
+		console.log('test1');
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
         		fn_search();
         	} else {
+        		console.log('test2');
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
         } catch(e) {
@@ -523,6 +537,7 @@
     			e = new Error(e);
     		}
     		console.error("failed", e.message);
+    		console.log('test3');
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 	}
@@ -672,9 +687,11 @@
 			await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd),						// 품종
 		]);
 		if (gfn_isEmpty(itemCd)) {
-			await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, "");
+			await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, ""),
+			await gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', jsonSpmtPckgUnitCd, "")		// 포장구분
 		} else {
-			await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, gv_selectedApcCd, itemCd);				// 규격
+			await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, gv_selectedApcCd, itemCd),				// 규격
+			await gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', jsonSpmtPckgUnitCd, gv_selectedApcCd, itemCd)		// 포장구분
 		}
 	}
 

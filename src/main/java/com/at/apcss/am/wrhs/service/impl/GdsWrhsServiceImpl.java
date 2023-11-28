@@ -70,7 +70,7 @@ public class GdsWrhsServiceImpl extends BaseServiceImpl implements GdsWrhsServic
 		cmnsGdsVO.setItemCd(gdsInvntrVO.getItemCd());
 		cmnsGdsVO.setVrtyCd(gdsInvntrVO.getVrtyCd());
 		cmnsGdsVO.setSpcfctCd(gdsInvntrVO.getSpcfctCd());
-		
+// 여기서		
 		HashMap<String, Object> getGdsCd = cmnsGdsService.insertCheckGdsCd(cmnsGdsVO);
 		if (getGdsCd != null) {
 			throw new EgovBizException(getMessageForMap(getGdsCd));
@@ -81,7 +81,7 @@ public class GdsWrhsServiceImpl extends BaseServiceImpl implements GdsWrhsServic
 						getMessageForMap(ComUtil.getResultMap("E0003", "상품코드 발번"))
 					);	// {0} 시 오류가 발생하였습니다.
 		}
-		
+// 여기까지
 		gdsInvntrVO.setPckgno(pckgno);
 		gdsInvntrVO.setPckgSn(sn);
 		gdsInvntrVO.setWrhsSeCd(wrhsSeCd);
