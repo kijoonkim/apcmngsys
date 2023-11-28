@@ -154,12 +154,12 @@
 						break;
 					}
 				}
-				// 상품구분 명 or 코드 일치 검사
-				for(var j=0; j<jsonEPIGdsSeCd.length; j++){
-					if(jsonEPIGdsSeCd[j].text == gdsSeCd || jsonEPIGdsSeCd[j].value == gdsSeCd){
-						rowData.gdsSeCd = jsonEPIGdsSeCd[j].value;
-						break;
-					}
+			}
+			// 상품구분 명 or 코드 일치 검사
+			for(var j=0; j<jsonEPIGdsSeCd.length; j++){
+				if(jsonEPIGdsSeCd[j].text == gdsSeCd || jsonEPIGdsSeCd[j].value == gdsSeCd){
+					rowData.gdsSeCd = jsonEPIGdsSeCd[j].value;
+					break;
 				}
 			}
 			// 품목 명 or 코드 일치 검사
@@ -280,11 +280,11 @@
 			popupColumns.push(
 					{caption: ["입고구분"], 		ref: 'wrhsSeCd',   		type:'combo',  width:'80px',    style:'text-align:center; background:#FFF8DC;',
 						typeinfo : {ref:'jsonEPIWrhsSeCd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
-					{caption: ["상품구분"], 		ref: 'gdsSeCd',   		type:'combo',  width:'80px',    style:'text-align:center; background:#FFF8DC;',
-						typeinfo : {ref:'jsonEPIGdsSeCd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 				);
 		}
 		popupColumns.push(
+			{caption: ["상품구분"], 		ref: 'gdsSeCd',   	type:'combo',  width:'80px',    style:'text-align:center; background:#FFF8DC;',
+				typeinfo : {ref:'jsonEPIGdsSeCd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 			{caption: ["품목"], 		ref: 'itemCd',   		type:'combo',  width:'80px',    style:'text-align:center; background:#FFF8DC;',
 				typeinfo : {ref:'jsonEPIApcItem', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 			{caption: ["품종"], 		ref: 'vrtyCd',   		type:'combo',  width:'80px',    style:'text-align:center; background:#FFF8DC;',
@@ -571,10 +571,11 @@
 						gfn_comAlert("W0005", "입고구분") 	// W0005	{0}이/가 없습니다.
 						return;
 					}
-					if(gfn_comboValidation(jsonEPIGdsSeCd, gdsSeCd) != "Y" || gfn_isEmpty(gdsSeCd)){
-						gfn_comAlert("W0005", "상품구분") 	// W0005	{0}이/가 없습니다.
-						return;
-					}
+				}
+
+				if(gfn_comboValidation(jsonEPIGdsSeCd, gdsSeCd) != "Y" || gfn_isEmpty(gdsSeCd)){
+					gfn_comAlert("W0005", "상품구분") 	// W0005	{0}이/가 없습니다.
+					return;
 				}
 
 				if(invntrSeCd == "2"){
@@ -621,7 +622,7 @@
 					return;
 				}
 				if(invntrWght == 0){
-					gfn_comAlert("W0005", "수량") 	// W0005	{0}이/가 없습니다.
+					gfn_comAlert("W0005", "중량") 	// W0005	{0}이/가 없습니다.
 					return;
 				}
 				rowData.apcCd = gv_selectedApcCd;
@@ -633,7 +634,7 @@
 						rowData.wrhsYmd  = ymd;
 						rowData.prdctnYr = ymd.substr(0,4);
 					}else{
-						if(!(/^(19[7-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/.exec(rowData.wrhsYmd))){
+						if((/^(19[7-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/.exec(rowData.wrhsYmd))){
 				    		gfn_comAlert("W0011", "날짜형식");			//	W0001	{0}이/가 아닙니다.
 			    			return;
 			    		}
@@ -718,7 +719,7 @@
 					if(gfn_isEmpty(rowData.inptYmd)){
 						rowData.inptYmd  = ymd;
 					}else{
-						if(!(/^(19[7-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/.exec(rowData.inptYmd))){
+						if((/^(19[7-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/.exec(rowData.inptYmd))){
 				    		gfn_comAlert("W0011", "날짜형식");			//	W0001	{0}이/가 아닙니다.
 			    			return;
 			    		}
@@ -728,7 +729,7 @@
 					if(gfn_isEmpty(rowData.pckgYmd)){
 						rowData.pckgYmd  = ymd;
 					}else{
-						if(!(/^(19[7-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/.exec(rowData.pckgYmd))){
+						if((/^(19[7-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/.exec(rowData.pckgYmd))){
 				    		gfn_comAlert("W0011", "날짜형식");			//	W0001	{0}이/가 아닙니다.
 			    			return;
 			    		}
