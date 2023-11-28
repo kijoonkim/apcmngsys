@@ -160,7 +160,7 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>출하포장단위</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-spmtPckgUnitCd" name="srch-slt-spmtPckgUnitCd" class="form-control input-sm input-sm-ast" jsondata-ref="jsonSpmtPckgUnitCd"></sbux-select>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-spmtPckgUnitCd" name="srch-slt-spmtPckgUnitCd" class="form-control input-sm-ast inpt_data_reqed input-sm" jsondata-ref="jsonSpmtPckgUnitCd"></sbux-select>
 							</td>
 							<td colspan="2"></td>
 							<th scope="row" class="th_bg">창고</th>
@@ -498,6 +498,10 @@
 			gfn_comAlert("W0002", "규격");		//	W0002	{0}을/를 입력하세요.
             return;
 		}
+		if (gfn_isEmpty(spmtPckgUnitCd)){
+			gfn_comAlert("W0002", "출하포장단위");	//	W0002	{0}을/를 입력하세요.
+            return;
+		}
 		
     	if (!gfn_comConfirm("Q0001", "저장")) {
     		return;
@@ -521,15 +525,11 @@
     	const postJsonPromise = gfn_postJSON("/am/wrhs/insertGdsInvntr.do", gdsWrhs);
 		const data = await postJsonPromise;
 		
-		console.log('postJsonPromise', postJsonPromise);
-		console.log('data', data);
-		console.log('test1');
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
         		fn_search();
         	} else {
-        		console.log('test2');
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
         } catch(e) {
@@ -537,7 +537,6 @@
     			e = new Error(e);
     		}
     		console.error("failed", e.message);
-    		console.log('test3');
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 	}
