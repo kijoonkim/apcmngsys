@@ -15,7 +15,7 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title" style="line-height: 30px;"> ▶ ${comMenuVO.menuNm}</h3>
+					<h3 class="box-title" style="line-height: 30px;"> ▶ ${comMenuVO.menuNm}</h3> <!-- 프로그램 요청사항 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
@@ -115,8 +115,7 @@
             {caption: ['요청일자'], 	ref: 'dmndYmd', 		width: '80px', 		type: 'output', 	style: 'text-align: center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['요청자'], 	ref: 'userNm', 			width: '80px', 		type: 'output', 	style: 'text-align: center'},
-            {caption: ['프로그램명'], 	ref: 'menuId', 			width: '300px',		type: 'output'},
-//             {caption: ['프로그램명'], 	ref: 'menuNm', 			width: '300px',		type: 'output'},
+            {caption: ['프로그램명'], 	ref: 'menuNm', 			width: '300px',		type: 'output', 	style: 'text-align: center'},
             {caption: ['접수자'], 	ref: 'pic', 			width: '120px',		type: 'combo',		style: 'text-align: center',
         		typeinfo : {ref:'jsonComPic', label:'label', value:'value', itemcount: 10}},
             {caption: ['조치예정일자'],	ref: 'actnPrnmntYmd', 	width: '120px',		type: 'datepicker',	style: 'text-align: center',
@@ -126,7 +125,6 @@
             	validate : gfn_chkByte.bind({byteLimit: 1000})},
             {caption: ['APC코드'], 	ref: 'apcCd', 			hidden: true},
             {caption: ['순번'], 		ref: 'sn', 				hidden: true},
-//             {caption: ['메뉴ID'], 	ref: 'menuId', 			hidden: true},
             {caption: ['요청자ID'], 	ref: 'userId', 			hidden: true}
         ];
         grdPrgrmImprvDmnd = _SBGrid.create(SBGridProperties);
@@ -198,7 +196,7 @@
 						apcCd 			: item.apcCd,
 						dmndYmd 		: item.dmndYmd,
 						sn 				: item.sn,
-						menuId 			: item.menuId,
+						menuNm 			: item.menuNm,
 						userId 			: item.userId,
 						userNm 			: item.userNm,
 						imprvDmndMttr	: item.imprvDmndMttr,

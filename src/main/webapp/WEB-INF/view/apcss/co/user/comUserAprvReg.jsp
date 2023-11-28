@@ -85,7 +85,20 @@
 									maxlength="13"
 								></sbux-input>
 							</td>
-							<td colspan="6"></td>
+							<td colspan="2" class="td_input" style="border-right: hidden;"></td>
+							<th scope="row">사용자ID</th>
+							<td class="td_input" style="border-right: hidden;">
+							<sbux-input
+									id="srch-inp-userId"
+									name="srch-inp-userId"
+									uitype="text"
+									class="form-control input-sm" 
+									placeholder="" 
+									title=""
+									maxlength="13"
+								></sbux-input>
+							</td>
+							<td colspan="2" class="td_input"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -107,7 +120,11 @@
 </body>
 
 <script type="text/javascript">
-
+	var userType=[
+		{'label': 'APC관리자', 'value': '10'},
+		{'label': 'APC사용자', 'value': '11'}
+	];
+// 	var jsonUserType = [];
 	var jsonComUserStts	= [];	// 사용자상태	USER_STTS	srch-slt-userStts
 
 	var grdUserAprv;
@@ -119,7 +136,9 @@
 	 */
 	const fn_init = async function() {
 		await gfn_setComCdSBSelect('srch-slt-userStts', jsonComUserStts, 'USER_STTS');
+// 		await gfn_setComCdGridSelect('grdUserAprv', 	jsonUserType,    'USER_TYPE');	// 사용유무
 		SBUxMethod.set("srch-slt-userStts", "00");
+		
 		fn_createGridUserAprv();
 		
 		fn_search();
@@ -139,6 +158,7 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.scrollbubbling = false;
+	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.paging = {
 			'type' : 'page',
 		  	'count' : 5,
@@ -155,7 +175,9 @@
 	        {caption: ["사용자ID"],  	ref: 'userId',    	type:'output',	width:'175px', style:'text-align:center'},
 	        {caption: ["사용자명"],   	ref: 'userNm',      type:'output',  width:'175px', style:'text-align:center'},
 	        {caption: ["APC명"],			ref: 'apcNm',   	type:'output',  width:'175px', style:'text-align:center'},
-	        {caption: ["사용자유형"],	ref: 'userTypeNm',	type:'output',  width:'175px', style:'text-align:center'},
+	        {caption: ["사용자유형"],	ref: 'userType',	type:'combo',  width:'175px', style:'text-align:center',
+	        	typeinfo : {ref:'userType', label:'label', value:'value', displayui : true}
+	        },
 	        {caption: ["메일주소"],  	ref: 'eml',  		type:'output',  width:'175px', style:'text-align:center'},
 	    	{caption: ["전화번호"],  	ref: 'telno',   	type:'output',  width:'175px', style:'text-align:center'},
 	        {caption: ["직책 명"],  		ref: 'jbttlNm',   	type:'output',  width:'175px', style:'text-align:center'},
@@ -168,21 +190,10 @@
 	    grdUserAprv.bind( "afterpagechanged" , "fn_pagingUserAprv" );
 	}
 
-// 	const fn_search = async function() {
-
-// 		grdUserAprv.rebuild();
-
-// 		// set pagination
-//     	let pageSize = grdUserAprv.getPageSize();
-//     	let pageNo = 1;
-//     	fn_setGrdUserAprv(pageSize, pageNo);
-// 	}
-
     async function fn_search() {
     	let recordCountPerPage = grdUserAprv.getPageSize();  		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = 1;
 		grdUserAprv.movePaging(currentPageNo);
-//     	fn_setGrdUserAprv(recordCountPerPage, currentPageNo);
     }
 
     /**
@@ -195,11 +206,13 @@
 		let apcCd = SBUxMethod.get("gsb-slt-apcCd");	//	사용자상태
         let userStts = SBUxMethod.get("srch-slt-userStts");	//	사용자상태
         let userNm = SBUxMethod.get("srch-inp-userNm");     // 	사용자명
+        let userId = SBUxMethod.get("srch-inp-userId");     // 	사용자ID
 
 		const postJsonPromise = gfn_postJSON("/co/user/selectUserAprvList.do", {
 			apcCd: apcCd,
 			userStts: userStts,
 			userNm: userNm,
+			userId: userId,
           	// pagination
   	  		pagingYn : 'Y',
   			currentPageNo : currentPageNo,
@@ -251,20 +264,8 @@
           		grdUserAprv.rebuild();
           	}
           	
-//           	if(jsonSlsPrfmnc.length > 0){
-// 				if(grdSlsPrfmnc.getPageTotalCount() != data.resultList[0].totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-// 					grdSlsPrfmnc.setPageTotalCount(data.resultList[0].totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-// 					grdSlsPrfmnc.rebuild();
-// 				}else{
-// 					grdSlsPrfmnc.refresh();
-// 				}
-// 			}else{
-// 				grdSlsPrfmnc.setPageTotalCount(0);
-// 				grdSlsPrfmnc.rebuild();
-// 			}
-          	
           	document.querySelector('#cnt-userAprv').innerText = totalRecordCount;
-
+          	
           } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -284,16 +285,17 @@
 
 		const userAprvList = [];
 		const allUserData = grdUserAprv.getGridDataAll();
-
+		console.log('allUserData',allUserData);
 		allUserData.forEach((item, index) => {
 			if (item.checkedYn === "Y") {
 				userAprvList.push({
 					  userStts : "01"
+					, userType : item.userType
     				, userId: item.userId
     			});
     		}
 		});
-
+		
 		if (userAprvList.length == 0) {
 			gfn_comAlert("W0001", "승인대상");		//	W0001	{0}을/를 선택하세요.
 			return;
@@ -302,9 +304,11 @@
 		if (!gfn_comConfirm("Q0001", "승인")) {
 			return;
 		}
-		
+		console.log('userAprvList',userAprvList);
     	const postJsonPromise = gfn_postJSON("/co/user/insertUserAprvList.do", userAprvList);
 		const data = await postJsonPromise;
+		console.log('postJsonPromise',postJsonPromise);
+		console.log('data',data);
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
@@ -330,6 +334,7 @@
 			if (item.checkedYn === "Y") {
 				userAprvList.push({
 					  userStts : "01"
+				  	, userType : userType
     				, userId: item.userId
     			});
     		}

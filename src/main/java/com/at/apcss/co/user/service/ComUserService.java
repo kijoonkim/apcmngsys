@@ -17,11 +17,18 @@ public interface ComUserService {
 	public ComUserVO selectComUser(String userId) throws Exception;
 
 	/**
-	 * 사용자 정보 목록 조회
+	 * 사용자 목록 조회
 	 * @param comUserVO
 	 * @return List<>
 	 */
 	public List<ComUserVO> selectComUserList(ComUserVO comUserVO) throws Exception;
+	
+	/**
+	 * apc관리자승인등록 목록 조회
+	 * @param comUserVO
+	 * @return List<>
+	 */
+	public List<ComUserVO> selectComUserApcList(ComUserVO comUserVO) throws Exception;
 
 	/**
 	 * 사용자 정보를 변경한다.
