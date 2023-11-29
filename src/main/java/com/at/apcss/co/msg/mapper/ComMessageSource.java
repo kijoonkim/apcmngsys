@@ -72,9 +72,6 @@ public class ComMessageSource implements MessageSource {
 
 	@Override
 	public String getMessage(String code, Object[] args, String defaultMessage, Locale locale) {
-		
-		System.out.println("###001");
-		
 		try {
 			return getReloadableResourceBundleMessageSource().getMessage(code, args, defaultMessage, locale);
 		} catch (Exception e) {
@@ -84,9 +81,6 @@ public class ComMessageSource implements MessageSource {
 
 	@Override
 	public String getMessage(String code, Object[] args, Locale locale) throws NoSuchMessageException {
-
-		System.out.println("###002");
-		
 		try {
 			return getReloadableResourceBundleMessageSource().getMessage(code, args, locale);
 		} catch (Exception e) {
@@ -96,9 +90,6 @@ public class ComMessageSource implements MessageSource {
 
 	@Override
 	public String getMessage(MessageSourceResolvable resolvable, Locale locale) throws NoSuchMessageException {
-
-		System.out.println("###003");
-		
 		try {
 			return getReloadableResourceBundleMessageSource().getMessage(resolvable, locale);
 		} catch (Exception e) {
@@ -138,9 +129,6 @@ public class ComMessageSource implements MessageSource {
 	}
 	
 	private String getComMessage(String code, Object[] args) {
-
-		System.out.println("###005");
-		
 		if (!StringUtils.hasText(code)) {
 			return null;
 		}

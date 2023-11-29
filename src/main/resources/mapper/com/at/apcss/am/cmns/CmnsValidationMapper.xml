@@ -13,6 +13,23 @@
 <mapper namespace="com.at.apcss.am.cmns.mapper.CmnsValidationMapper">
 
 	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsValidationMapper.selectNowDateString	-->
+	<!-- DESC : APC 업무별 삭제가능 단건 조회.	                                       	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.31  	김 호        		Initial Creation                           	-->
+	<!-- ==========================================================================	-->
+    <select id="selectNowDateString" parameterType="com.at.apcss.am.cmns.vo.CmnsValidationVO" resultType="com.at.apcss.am.cmns.vo.CmnsValidationVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.cmns.mapper.CmnsValidationMapper.selectNowDateString */
+	    		  #{format}	AS FORMAT
+	    		, TO_CHAR(SYSDATE, #{format}) AS YMD
+			  FROM DUAL
+		]]>
+    </select>
+    
+	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsValidationMapper.selectChkCdDelible	-->
 	<!-- DESC : APC 업무별 삭제가능 단건 조회.	                                       	-->
 	<!-- ==========================================================================	-->
@@ -22,7 +39,7 @@
 	<!-- ==========================================================================	-->
     <select id="selectChkCdDelible" parameterType="com.at.apcss.am.cmns.vo.CmnsValidationVO" resultType="com.at.apcss.am.cmns.vo.CmnsValidationVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.cmns.mapper.CmnsValidationMapper */
+	    	SELECT /* com.at.apcss.am.cmns.mapper.CmnsValidationMapper.selectChkCdDelible */
 	    		  #{apcCd} 	AS APC_CD
 	    		, #{cdId} 	AS CD_ID
 	    		, #{cdVl} 	AS CD_VL
@@ -41,7 +58,7 @@
 	<!-- ==========================================================================	-->
     <select id="selectChkDdlnYn" parameterType="com.at.apcss.am.cmns.vo.CmnsValidationVO" resultType="com.at.apcss.am.cmns.vo.CmnsValidationVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.cmns.mapper.selectChkDdlnYn */
+	    	SELECT /* com.at.apcss.am.cmns.mapper.CmnsValidationMapper.selectChkDdlnYn */
 	    		  #{apcCd} 	AS APC_CD
 	    		, #{ymd} 	AS YMD
 	    		, FN_CHK_DDLN_YN(#{apcCd}, #{ymd}) AS DDLN_YN

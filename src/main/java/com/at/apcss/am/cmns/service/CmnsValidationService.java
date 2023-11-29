@@ -18,6 +18,21 @@ import com.at.apcss.am.cmns.vo.CmnsValidationVO;
  */
 public interface CmnsValidationService {
 
+	
+	/**
+	 * 현재날짜 조회
+	 * @return
+	 * @throws Exception
+	 */
+	public String selectNowDateString() throws Exception;
+	/**
+	 * 현재날짜 조회
+	 * @param format
+	 * @return
+	 * @throws Exception
+	 */
+	public String selectNowDateString(String format) throws Exception;
+	
 	/**
 	 *
 	 * @param apcCd	APC코드
