@@ -25,7 +25,7 @@ public interface TrnsfRawMtrInvntrMapper {
 
 	/**
 	 * 원물재고 목록 조회
-	 * @param rawMtrInvntrVO
+	 * @param TrnsfRawMtrInvntrVO
 	 * @return
 	 * @throws Exception
 	 */
@@ -34,12 +34,18 @@ public interface TrnsfRawMtrInvntrMapper {
 
 	/**
 	 * 원물재고내역 변경
-	 * @param rawMtrInvntrVO
+	 * @param TrnsfRawMtrInvntrVO
 	 * @return
 	 * @throws Exception
 	 */
-//	public int updateRawMtrInvntrList(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception;
 	public int updateTrnsfRawMtrInvntrList(TrnsfRawMtrInvntrVO trnsfrawMtrInvntrVO) throws Exception;
-//	public HashMap<String, Object> updateRawMtrInvntrList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+
+	/**
+	 * 원물재고이송확정
+	 * @param TrnsfRawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateTrnsfRawMtrInvntr(TrnsfRawMtrInvntrVO trnsfRawMtrInvntr) throws Exception;
 
 }

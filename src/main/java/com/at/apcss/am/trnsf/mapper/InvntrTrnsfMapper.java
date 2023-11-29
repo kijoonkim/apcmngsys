@@ -22,7 +22,7 @@ import com.at.apcss.am.trnsf.vo.InvntrTrnsfVO;
  */
 @Mapper
 public interface InvntrTrnsfMapper {
-	
+
 	/**
 	 * 재고이송 단건 조회
 	 * @param invntrTrnsfVO
@@ -62,4 +62,12 @@ public interface InvntrTrnsfMapper {
 	 * @throws Exception
 	 */
 	public int deleteInvntrTrnsf(InvntrTrnsfVO invntrTrnsfVO) throws Exception;
+
+	/**
+	 * 재고이송확정
+	 * @param invntrTrnsfVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateTrnsfInvntr(InvntrTrnsfVO invntrTrnsfVO) throws Exception;
 }

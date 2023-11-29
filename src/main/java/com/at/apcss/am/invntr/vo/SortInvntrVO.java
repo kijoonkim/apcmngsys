@@ -1,8 +1,6 @@
 package com.at.apcss.am.invntr.vo;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.at.apcss.co.sys.vo.ComVO;
@@ -191,7 +189,7 @@ public class SortInvntrVO extends ComVO {
 	 * 잔여중량
 	 */
 	private double rmnWght;
-	
+
 	/**
 	 * 선별번호
 	 */
@@ -243,18 +241,49 @@ public class SortInvntrVO extends ComVO {
 	private String stdGrdCd;
 
 	/*
-	 * 변경이력 
+	 * 변경이력
 	 */
-	
+
 	private int chgBfrQntt;
 	private double chgBfrWght;
 	private int chgAftrQntt;
 	private double chgAftrWght;
 	private String chgRsnCd;
-	private String chgRmrk;	
-	
-	
-	
+	private String chgRmrk;
+
+	/*
+	 * 이송여부
+	 * */
+	private String trnsfYn;
+	/*
+	 * 이송날짜
+	 * */
+	private String trnsfYmd;
+	/*
+	 * 이송순번
+	 * */
+	private int trnsfSn;
+	/*
+	 * 이송APC코드
+	 * */
+	private String trnsfApcCd;
+
+	/**
+	 * 처리번호
+	 */
+	private String prcsno;
+	/**
+	 * 처리순번
+	 */
+	private int prcsSn;
+
+	/**
+	 * 처리유형
+	 */
+	private String prcsType;
+
+
+
 	private List<InvntrDtlVO> excldInvntrList;
 	public List<InvntrDtlVO> getExcldInvntrList() {
 		return excldInvntrList == null ? null : excldInvntrList.stream().collect(Collectors.toList());
@@ -263,7 +292,7 @@ public class SortInvntrVO extends ComVO {
 	public void setExcldInvntrList(List<InvntrDtlVO> excldInvntrList) {
 		this.excldInvntrList = excldInvntrList == null ? null : excldInvntrList.stream().collect(Collectors.toList());
 	}
-	
+
 	/**
 	 * 표준등급
 	 */
