@@ -702,7 +702,7 @@
  		if(!gfn_isEmpty(rowData.prchsptNm)){
  			SBUxMethod.set("srch-inp-prchsptNm", rowData.prchsptNm);		// 매입처
  		}else{
- 			SBUxMethod.set("srch-inp-prchsptNm", "");		// 매입처
+ 			SBUxMethod.set("srch-inp-prchsptNm", "");						// 매입처
  		}
  		await fn_onChangeSrchVrtyCd({value : rowData.vrtyCd});				// 품목&품종
  		
@@ -713,19 +713,16 @@
  		SBUxMethod.set("srch-slt-spcfctCd", rowData.spcfctCd);				// 규격
  		
  		SBUxMethod.set("srch-slt-warehouseSeCd", rowData.warehouseSeCd);	// 창고
- 		console.log('rowData', rowData);
- 		console.log('rowData.spmtPckgUnitCd', rowData.spmtPckgUnitCd);
  		SBUxMethod.set("srch-slt-spmtPckgUnitCd", rowData.spmtPckgUnitCd);	// 출하포장단위
- 		console.log('rowData.gdsGrd', rowData.gdsGrd);
  		if (gfn_isEmpty(rowData.rmrk)) {
  			SBUxMethod.set("srch-inp-rmrk", "");							// 비고
  		}else{
 	 		SBUxMethod.set("srch-inp-rmrk", rowData.rmrk);					// 비고 			
  		}
  		if (gfn_isEmpty(rowData.gdsGrd)) {
- 			SBUxMethod.set("stdGrdSlt-slt-knd-1", "");				// 등급 			
+ 			SBUxMethod.set("stdGrdSlt-slt-knd-1", "");						// 등급 			
  		}else{
- 			SBUxMethod.set("stdGrdSlt-slt-knd-1", rowData.gdsGrd);				// 등급 			
+ 			SBUxMethod.set("stdGrdSlt-slt-knd-1", rowData.gdsGrd);			// 등급 			
  		}
     }
 	
