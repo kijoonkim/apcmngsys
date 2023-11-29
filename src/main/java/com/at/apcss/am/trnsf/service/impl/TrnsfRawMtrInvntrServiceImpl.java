@@ -12,7 +12,6 @@ import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 
 import com.at.apcss.am.invntr.service.RawMtrInvntrService;
-import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
 import com.at.apcss.am.trnsf.mapper.TrnsfRawMtrInvntrMapper;
 import com.at.apcss.am.trnsf.service.InvntrTrnsfService;
 import com.at.apcss.am.trnsf.service.TrnsfRawMtrInvntrService;
@@ -81,7 +80,4 @@ public class TrnsfRawMtrInvntrServiceImpl extends BaseServiceImpl implements Trn
 
 		return resultMap;
 	}
-
-
-
 }

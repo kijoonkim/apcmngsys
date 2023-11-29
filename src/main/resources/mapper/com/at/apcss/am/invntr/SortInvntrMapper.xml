@@ -513,6 +513,9 @@
 					, INVNTR_QNTT
 					, INVNTR_WGHT
 					, PRDCTN_YR
+					, PRCS_SN
+					, PRCSNO
+					, PRCS_TYPE
 		    		, SYS_FRST_INPT_DT
 		    		, SYS_FRST_INPT_USER_ID
 		    		, SYS_FRST_INPT_PRGRM_ID
@@ -542,6 +545,9 @@
 					, #{invntrQntt}
 					, #{invntrWght}
 					, #{prdctnYr}
+					, #{prcsSn}
+					, #{prcsno}
+					, #{prcsType}
 		    		, SYSDATE
 		    		, #{sysFrstInptUserId}
 		    		, #{sysFrstInptPrgrmId}

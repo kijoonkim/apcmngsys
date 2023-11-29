@@ -41,12 +41,12 @@ public class RawMtrInvntrVO extends ComVO {
 	 * 처리번호
 	 */
 	private String prcsno;
-	
+
 	/**
 	 * 처리유형
 	 */
 	private String prcsType;
-	
+
 	/**
 	 * 팔레트번호
 	 */
@@ -156,7 +156,7 @@ public class RawMtrInvntrVO extends ComVO {
 	 * 처리수량
 	 */
 	private int prcsQntt;
-	
+
 	/**
 	 * 처리중량
 	 */
@@ -171,8 +171,8 @@ public class RawMtrInvntrVO extends ComVO {
 	 * 재고중량
 	 */
 	private double invntrWght;
-	
-	
+
+
 	/**
 	 * 잔여 수량
 	 */
@@ -181,8 +181,8 @@ public class RawMtrInvntrVO extends ComVO {
 	 * 잔여 중량
 	 */
 	private double rmnWght;
-	
-	
+
+
 	/**
 	 * 운송구분
 	 */
@@ -231,7 +231,7 @@ public class RawMtrInvntrVO extends ComVO {
 	 * 등급명
 	 */
 	private String grdNm;
-	
+
 	/**
 	 * 표준등급명
 	 */
@@ -280,8 +280,8 @@ public class RawMtrInvntrVO extends ComVO {
 	 * 투입진행중량
 	 */
 	private double inptPrgrsWght;
-	
-	
+
+
 	/**
 	 * 설비코드
 	 */
@@ -342,8 +342,8 @@ public class RawMtrInvntrVO extends ComVO {
 	 * 투입순번
 	 */
 	private int inptSn;
-	
-	
+
+
 	/**
 	 * 변경이력
 	 */
@@ -358,12 +358,31 @@ public class RawMtrInvntrVO extends ComVO {
 	private String chgRsnCd;
 	private String chgRsnNm;
 	private String chgRmrk;
-	
+
+	/*
+	 * 이송여부
+	 * */
+	private String trnsfYn;
+	/*
+	 * 이송날짜
+	 * */
+	private String trnsfYmd;
+	/*
+	 * 이송순번
+	 * */
+	private int trnsfSn;
+	/*
+	 * 이송APC코드
+	 * */
+	private String trnsfApcCd;
+
+
+
 	/**
 	 * 제외 입고번호 목록
 	 */
 	private List<String> excldWrhsnoList;
-	
+
 	public List<String> getExcldWrhsnoList() {
 		return excldWrhsnoList == null ? null : excldWrhsnoList.stream().collect(Collectors.toList());
 	}
@@ -371,7 +390,7 @@ public class RawMtrInvntrVO extends ComVO {
 	public void setExcldWrhsnoList(List<String> excldWrhsnoList) {
 		this.excldWrhsnoList = excldWrhsnoList == null ? null : excldWrhsnoList.stream().collect(Collectors.toList());
 	}
-	
+
 	/**
 	 * 표준등급
 	 */

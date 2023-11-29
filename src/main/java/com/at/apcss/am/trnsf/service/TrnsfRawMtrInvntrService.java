@@ -37,6 +37,4 @@ public interface TrnsfRawMtrInvntrService {
 	 */
 	public HashMap<String, Object> insertTrnsfRawMtrInvntrList(List<TrnsfRawMtrInvntrVO> trnsfRawMtrInvntrList) throws Exception;
 
-
-
 }

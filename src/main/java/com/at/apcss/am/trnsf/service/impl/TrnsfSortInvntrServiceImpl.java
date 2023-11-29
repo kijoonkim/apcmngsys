@@ -12,13 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.at.apcss.am.invntr.service.SortInvntrService;
-import com.at.apcss.am.invntr.vo.SortInvntrVO;
 import com.at.apcss.am.trnsf.mapper.TrnsfSortInvntrMapper;
 import com.at.apcss.am.trnsf.service.InvntrTrnsfService;
 import com.at.apcss.am.trnsf.service.TrnsfSortInvntrService;
 import com.at.apcss.am.trnsf.vo.InvntrTrnsfVO;
 import com.at.apcss.am.trnsf.vo.TrnsfSortInvntrVO;
-import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
@@ -61,7 +59,6 @@ public class TrnsfSortInvntrServiceImpl extends BaseServiceImpl implements Trnsf
 	public HashMap<String, Object> insertTrnsfSortInvntrList(List<TrnsfSortInvntrVO> trnsfSortInvntrList) throws Exception {
 
 		List<InvntrTrnsfVO> insertList = new ArrayList<>();
-		List<SortInvntrVO> sortInvntrList = new ArrayList<>();
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		for (TrnsfSortInvntrVO trnsfSortInvntrVO : trnsfSortInvntrList) {

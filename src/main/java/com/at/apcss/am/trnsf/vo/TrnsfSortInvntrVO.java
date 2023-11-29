@@ -242,6 +242,15 @@ public class TrnsfSortInvntrVO extends ComVO {
 
 	private String stdGrdCd;
 
+	/*
+	 * 처리번호
+	 * */
+	private String prcsno;
+	/*
+	 * 처리번호
+	 * */
+	private int prcsSn;
+
 	/**
 	 * 표준등급
 	 */

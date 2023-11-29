@@ -18,6 +18,8 @@ import com.at.apcss.am.invntr.mapper.GdsInvntrMapper;
 import com.at.apcss.am.invntr.service.GdsInvntrService;
 import com.at.apcss.am.invntr.vo.GdsInvntrVO;
 import com.at.apcss.am.invntr.vo.GdsStdGrdVO;
+import com.at.apcss.am.trnsf.mapper.InvntrTrnsfMapper;
+import com.at.apcss.am.trnsf.vo.InvntrTrnsfVO;
 import com.at.apcss.co.constants.ApcConstants;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
@@ -44,6 +46,9 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 
 	@Autowired
 	private GdsInvntrMapper gdsInvntrMapper;
+
+	@Autowired
+	private InvntrTrnsfMapper invntrTrnsfMapper;
 
 	@Resource(name= "cmnsTaskNoService")
 	private CmnsTaskNoService cmnsTaskNoService;
@@ -220,6 +225,7 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 
 		List<GdsInvntrVO> updateList = new ArrayList<>();
 		List<GdsInvntrVO> insertList = new ArrayList<>();
+		List<GdsInvntrVO> trnsfList = new ArrayList<>();
 
 		for (GdsInvntrVO gdsInvntrVO : gdsInvntrList) {
 			GdsInvntrVO vo = new GdsInvntrVO();
@@ -242,10 +248,24 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 				gdsInvntrVO.setPckgno(pckgno);
 				gdsInvntrVO.setPckgSn(pckgSn);
 
+				if(ComConstants.CON_YES.equals(gdsInvntrVO.getTrnsfYn())) {
+					gdsInvntrVO.setPrcsno(pckgno);
+					gdsInvntrVO.setPrcsSn(pckgSn);
+					trnsfList.add(gdsInvntrVO);
+				}
+
 				// 상품재고 등록 이력 남기기
 
 				insertGdsInvntr(gdsInvntrVO);
 				pckgSn ++;
+			}
+		}
+
+		if(trnsfList.size() > 0) {
+			for (GdsInvntrVO gdsInvntrVO : trnsfList) {
+				InvntrTrnsfVO vo = new InvntrTrnsfVO();
+				BeanUtils.copyProperties(gdsInvntrVO, vo);
+				invntrTrnsfMapper.updateTrnsfInvntr(vo);
 			}
 		}
 
