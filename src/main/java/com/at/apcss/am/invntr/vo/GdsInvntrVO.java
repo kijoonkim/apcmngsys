@@ -270,6 +270,37 @@ public class GdsInvntrVO extends ComVO {
 	private String chgRmrk;
 
 	/*
+	 * 이송여부
+	 * */
+	private String trnsfYn;
+	/*
+	 * 이송날짜
+	 * */
+	private String trnsfYmd;
+	/*
+	 * 이송순번
+	 * */
+	private int trnsfSn;
+	/*
+	 * 이송APC코드
+	 * */
+	private String trnsfApcCd;
+
+	/**
+	 * 처리번호
+	 */
+	private String prcsno;
+	/**
+	 * 처리순번
+	 */
+	private int prcsSn;
+
+	/**
+	 * 처리유형
+	 */
+	private String prcsType;
+
+	/*
 	 * 반품수량
 	 * */
 	private int rtnGdsQntt;

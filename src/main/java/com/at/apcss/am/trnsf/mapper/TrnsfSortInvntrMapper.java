@@ -25,7 +25,7 @@ public interface TrnsfSortInvntrMapper {
 
 	/**
 	 * 선별재고 내역 목록 조회 selectSortInvntrDsctnList
-	 * @param sortInvntrVO
+	 * @param TrnsfSortInvntrVO
 	 * @return
 	 * @throws Exception
 	 */
@@ -34,12 +34,10 @@ public interface TrnsfSortInvntrMapper {
 
 	/**
 	 * 원물재고내역 변경
-	 * @param rawMtrInvntrVO
+	 * @param TrnsfSortInvntrVO
 	 * @return
 	 * @throws Exception
 	 */
 	public int updateTrnsfSortInvntrDsctnList(TrnsfSortInvntrVO trnsfSortInvntrVO) throws Exception;
-	
-
 
 }

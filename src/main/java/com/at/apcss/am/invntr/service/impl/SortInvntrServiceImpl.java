@@ -18,6 +18,8 @@ import com.at.apcss.am.invntr.mapper.SortInvntrMapper;
 import com.at.apcss.am.invntr.service.SortInvntrService;
 import com.at.apcss.am.invntr.vo.SortInvntrVO;
 import com.at.apcss.am.invntr.vo.SortStdGrdVO;
+import com.at.apcss.am.trnsf.mapper.InvntrTrnsfMapper;
+import com.at.apcss.am.trnsf.vo.InvntrTrnsfVO;
 import com.at.apcss.co.constants.ApcConstants;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
@@ -43,6 +45,9 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 
 	@Autowired
 	private SortInvntrMapper sortInvntrMapper;
+
+	@Autowired
+	private InvntrTrnsfMapper invntrTrnsfMapper;
 
 	@Resource(name= "cmnsTaskNoService")
 	private CmnsTaskNoService cmnsTaskNoService;
@@ -74,14 +79,14 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 
 	@Override
 	public List<SortInvntrVO> selectSortInvntrListForPckg(SortInvntrVO sortInvntrVO) throws Exception {
-		
+
 		List<SortInvntrVO> resultList = sortInvntrMapper.selectSortInvntrListForPckg(sortInvntrVO);
 
 		return resultList;
 	}
 
 
-	
+
 	@Override
 	public HashMap<String, Object> insertSortInvntr(SortInvntrVO sortInvntrVO) throws Exception {
 
@@ -176,7 +181,7 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 			// error throw exception;
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
-		
+
 		sortInvntrMapper.updateInvntrPckgPrfmnc(sortInvntrVO);
 
 		return null;
@@ -215,7 +220,7 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 			// error throw exception;
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
-		
+
 		sortInvntrMapper.updateInvntrPckgPrfmnc(sortInvntrVO);
 
 		return null;
@@ -223,9 +228,10 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 
 	@Override
 	public HashMap<String, Object> multiSaveSortInvntrList(List<SortInvntrVO> sortInvntrList) throws Exception {
-		
+
 		List<SortInvntrVO> updateList = new ArrayList<>();
 		List<SortInvntrVO> insertList = new ArrayList<>();
+		List<SortInvntrVO> trnsfList = new ArrayList<>();
 
 		for (SortInvntrVO sortInvntrVO : sortInvntrList) {
 
@@ -242,17 +248,31 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 
 		if(insertList.size() > 0 ){
 			String sortno = cmnsTaskNoService.selectSortno(insertList.get(0).getApcCd(), insertList.get(0).getSortYmd());
-			int sortSn = 0;
+			int sortSn = 1;
 			// 선별 재고 등록
 			for (SortInvntrVO sortInvntrVO : insertList) {
 				sortInvntrVO.setSortno(sortno);
 				sortInvntrVO.setSortSn(sortSn);
+
+				if(ComConstants.CON_YES.equals(sortInvntrVO.getTrnsfYn())) {
+					sortInvntrVO.setPrcsno(sortno);
+					sortInvntrVO.setPrcsSn(sortSn);
+					trnsfList.add(sortInvntrVO);
+				}
 
 				insertSortInvntr(sortInvntrVO);
 
 				sortSn ++;
 
 				// 선별 재고등록 이력
+			}
+		}
+
+		if(trnsfList.size() > 0) {
+			for (SortInvntrVO sortInvntrVO : trnsfList) {
+				InvntrTrnsfVO vo = new InvntrTrnsfVO();
+				BeanUtils.copyProperties(sortInvntrVO, vo);
+				invntrTrnsfMapper.updateTrnsfInvntr(vo);
 			}
 		}
 
@@ -268,7 +288,7 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 					// error throw exception;
 					throw new EgovBizException(getMessageForMap(rtnObj));
 				}
-				
+
 				// 선별 재고변경
 				sortInvntrMapper.updateSortInvntrChg(sortInvntrVO);
 			}
@@ -308,7 +328,7 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 		double trnsfWght = invntrInfo.getTrnsfWght() + sortInvntrVO.getTrnsfWght();
 		sortInvntrVO.setTrnsfQntt(trnsfQntt);
 		sortInvntrVO.setTrnsfWght(trnsfWght);
-		
+
 		// 선별 재고변경 이력 등록 (이송)
 		sortInvntrVO.setChgRsnCd(AmConstants.CON_INVNTR_CHG_RSN_CD_T1);
 		HashMap<String, Object> rtnObj = insertSortChgHstry(sortInvntrVO);
@@ -316,7 +336,7 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 			// error throw exception;
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
-		
+
 		sortInvntrMapper.updateInvntrTrnsf(sortInvntrVO);
 
 		return null;
@@ -361,8 +381,8 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 		if (rtnObj != null) {
 			// error throw exception;
 			throw new EgovBizException(getMessageForMap(rtnObj));
-		}		
-		
+		}
+
 		sortInvntrMapper.updateInvntrInptPrgrs(sortInvntrVO);
 
 		return null;
@@ -400,7 +420,7 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 			// error throw exception;
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
-		
+
 		sortInvntrMapper.updateInvntrInptPrgrs(sortInvntrVO);
 
 		return null;
@@ -408,7 +428,7 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 
 	@Override
 	public HashMap<String, Object> insertSortChgHstry(SortInvntrVO sortInvntrVO) throws Exception {
-		
+
 		SortInvntrVO invntrInfo = sortInvntrMapper.selectSortInvntr(sortInvntrVO);
 
 		if (invntrInfo == null || !StringUtils.hasText(invntrInfo.getSortno())) {
@@ -416,21 +436,21 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 		}
 
 		SortInvntrVO chgHstryVO = new SortInvntrVO();
-		
+
 		BeanUtils.copyProperties(sortInvntrVO, chgHstryVO);
 		chgHstryVO.setChgBfrQntt(invntrInfo.getInvntrQntt());
 		chgHstryVO.setChgBfrWght(invntrInfo.getInvntrWght());
 		chgHstryVO.setChgAftrQntt(sortInvntrVO.getInvntrQntt());
 		chgHstryVO.setChgAftrWght(sortInvntrVO.getInvntrWght());
-		
+
 		if (!StringUtils.hasText(sortInvntrVO.getWarehouseSeCd())
 				|| sortInvntrVO.getWarehouseSeCd().equals(invntrInfo.getWarehouseSeCd())) {
 			chgHstryVO.setWarehouseSeCd(ComConstants.CON_BLANK);
 		}
-		
+
 		// 이력 insert
 		sortInvntrMapper.insertSortChgHstry(chgHstryVO);
-				
+
 		return null;
 	}
 

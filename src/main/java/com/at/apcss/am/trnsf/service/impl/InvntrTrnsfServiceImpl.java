@@ -120,16 +120,19 @@ public class InvntrTrnsfServiceImpl extends BaseServiceImpl implements InvntrTrn
 				BeanUtils.copyProperties(invntrTrnsfVO, sortInvntr);
 
 				resultMap = sortInvntrService.updateInvntrTrnsf(sortInvntr);
+				if(resultMap != null) {
+					throw new EgovBizException(getMessageForMap(resultMap));
+				}
 			}
 			if(ComConstants.INVNTR_SE_CD_GDS.equals(invntrTrnsfVO.getInvntrSeCd())) {
 				GdsInvntrVO gdsInvntr = new GdsInvntrVO();
 
 				BeanUtils.copyProperties(invntrTrnsfVO, gdsInvntr);
-
 				resultMap = gdsInvntrService.updateInvntrTrnsf(gdsInvntr);
-
+				if(resultMap != null) {
+					throw new EgovBizException(getMessageForMap(resultMap));
+				}
 			}
-
 
 		}
 
@@ -152,9 +155,7 @@ public class InvntrTrnsfServiceImpl extends BaseServiceImpl implements InvntrTrn
 
 		for (InvntrTrnsfVO invntrTrnsfVO : invntrTrnsfList) {
 
-			logger.debug("invntrTrnsfVO.getInvntrSeCd() >>> {} ", invntrTrnsfVO.getInvntrSeCd());
-
-			if("Y".equals(invntrTrnsfVO.getCfmtnYn())) {
+			if(ComConstants.CON_YES.equals(invntrTrnsfVO.getCfmtnYn())) {
 				return ComUtil.getResultMap("E0000", "이송 확정 된 실적 입니다.");	// E0001	{}
 			}
 

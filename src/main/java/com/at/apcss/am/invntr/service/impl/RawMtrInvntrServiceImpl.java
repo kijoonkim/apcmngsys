@@ -6,11 +6,11 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
-import org.springframework.beans.BeanUtils;
 
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.cmns.service.StdGrdService;
@@ -21,6 +21,8 @@ import com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper;
 import com.at.apcss.am.invntr.service.RawMtrInvntrService;
 import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
 import com.at.apcss.am.invntr.vo.RawMtrStdGrdVO;
+import com.at.apcss.am.trnsf.mapper.InvntrTrnsfMapper;
+import com.at.apcss.am.trnsf.vo.InvntrTrnsfVO;
 import com.at.apcss.co.constants.ApcConstants;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
@@ -47,12 +49,15 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 	@Autowired
 	private RawMtrInvntrMapper rawMtrInvntrMapper;
 
+	@Autowired
+	private InvntrTrnsfMapper invntrTrnsfMapper;
+
 	@Resource(name= "cmnsTaskNoService")
 	private CmnsTaskNoService cmnsTaskNoService;
 
 	@Resource(name= "stdGrdService")
 	private StdGrdService stdGrdService;
-		
+
 	@Override
 	public RawMtrInvntrVO selectRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
 
@@ -81,10 +86,10 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 
 		return resultList;
 	}
-	
+
 	@Override
 	public List<RawMtrInvntrVO> selectRawMtrInvntrListForSort(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
-		
+
 		List<RawMtrInvntrVO> resultList = rawMtrInvntrMapper.selectRawMtrInvntrListForSort(rawMtrInvntrVO);
 
 		return resultList;
@@ -95,15 +100,15 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 
 		List<RawMtrStdGrdVO> stdGrdList = rawMtrInvntrVO.getStdGrdList();
 		if (stdGrdList != null && !stdGrdList.isEmpty()) {
-			
+
 			String apcCd = rawMtrInvntrVO.getApcCd();
 			int wrhsQntt = rawMtrInvntrVO.getWrhsQntt();
 			double wrhsWght = rawMtrInvntrVO.getWrhsQntt();
-			
+
 			double sumGrdNv = 0;
 			int rmnQntt = wrhsQntt;
 			double rmnWght = wrhsWght;
-			
+
 			int cntCalc = 0;
 
 			for ( RawMtrStdGrdVO stdGrd : stdGrdList ) {
@@ -113,14 +118,14 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 				paramVO.setItemCd(stdGrd.getItemCd());
 				paramVO.setGrdSeCd(stdGrd.getGrdSeCd());
 				paramVO.setGrdKnd(stdGrd.getGrdKnd());
-				
+
 				StdGrdVO grdKndVO = stdGrdService.selectStdGrd(paramVO);
 				if (grdKndVO == null || !StringUtils.hasText(grdKndVO.getGrdKnd())) {
-					return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "등급정보");	// W0005	{0}이/가 없습니다. 
+					return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "등급정보");	// W0005	{0}이/가 없습니다.
 				}
-				
+
 				stdGrd.setStdGrdType(grdKndVO.getStdGrdType());
-				
+
 				if (StringUtils.hasText(stdGrd.getGrdCd())) {
 					// 일반
 					StdGrdDtlVO paramDtlVO = new StdGrdDtlVO();
@@ -129,77 +134,77 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 					paramDtlVO.setGrdSeCd(stdGrd.getGrdSeCd());
 					paramDtlVO.setGrdKnd(stdGrd.getGrdKnd());
 					paramDtlVO.setGrdCd(stdGrd.getGrdCd());
-					
+
 					StdGrdDtlVO grdDtlVO = stdGrdService.selectStdGrdDtl(paramDtlVO);
 					if (grdDtlVO == null || !StringUtils.hasText(grdDtlVO.getGrdCd())) {
-						return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "등급정보");	// W0005	{0}이/가 없습니다. 
+						return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "등급정보");	// W0005	{0}이/가 없습니다.
 					}
-					
+
 					stdGrd.setGrdNv(grdDtlVO.getGrdVl());
-					
+
 					if (AmConstants.CON_STD_GRD_TYPE_VL.equals(stdGrd.getStdGrdType())) {
-						
+
 						cntCalc++;
 						sumGrdNv += stdGrd.getGrdNv();
-						
+
 						int qntt = (int)(wrhsQntt * stdGrd.getGrdNv() / 100);
 						int wght = (int)(wrhsWght * stdGrd.getGrdNv() / 100);
-						
+
 						stdGrd.setGrdQntt(qntt);
 						stdGrd.setGrdWght(wght);
 						rmnQntt -= qntt;
 						rmnWght -= wght;
 					}
-					
+
 				} else {
 					// CON_STD_GRD_CD_EMPTY
 					if (AmConstants.CON_STD_GRD_TYPE_RT.equals(stdGrd.getStdGrdType())) {
-						
+
 						cntCalc++;
 						// 비율적용 : 등급상세 없음 * 로 등록
 						stdGrd.setGrdCd(AmConstants.CON_STD_GRD_CD_EMPTY);
 						sumGrdNv += stdGrd.getGrdNv();
-						
-						
+
+
 						int qntt = (int)(wrhsQntt * stdGrd.getGrdNv() / 100);
 						int wght = (int)(wrhsWght * stdGrd.getGrdNv() / 100);
 						stdGrd.setGrdQntt(qntt);
 						stdGrd.setGrdWght(wght);
 						rmnQntt -= qntt;
 						rmnWght -= wght;
-						
+
 					} else {
 						return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "등급값");
 					}
 				}
 			}
-			
+
 
 			if (cntCalc > 0) {
-				
+
 				if (sumGrdNv > 100) {
 					return ComUtil.getResultMap(ComConstants.MSGCD_TGT_GREATER_THAN, "비율합산||100");
 				} else if (sumGrdNv < 100) {
 					return ComUtil.getResultMap(ComConstants.MSGCD_TGT_LESS_THAN, "비율합산||100");
 				} else {}
-				
+
 				// 잔여량 마지막에 몰아주기
 				int divQntt = rmnQntt / cntCalc;
-				int divWght = (int) rmnWght / cntCalc; 
-				
+				int divWght = (int) rmnWght / cntCalc;
+
 				int oddQntt = rmnQntt - (divQntt * cntCalc);
 				double oddWght = rmnWght - (divWght * cntCalc);
-				
+
 				int calcSn = 0;
 				for ( RawMtrStdGrdVO stdGrd : stdGrdList ) {
-					
+
 					if (	!AmConstants.CON_STD_GRD_TYPE_RT.equals(stdGrd.getStdGrdType()) &&
 							!AmConstants.CON_STD_GRD_TYPE_VL.equals(stdGrd.getStdGrdType())) {
 						continue;
 					}
-					
+
 					calcSn++;
-					
+
 					if (calcSn < cntCalc) {
 						stdGrd.setGrdQntt(stdGrd.getGrdQntt() + divQntt);
 						stdGrd.setGrdWght(stdGrd.getGrdWght() + divWght);
@@ -209,7 +214,7 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 					}
 				}
 			}
-			
+
 			for ( RawMtrStdGrdVO stdGrd : stdGrdList ) {
 				RawMtrStdGrdVO rawMtrStdGrdVO = new RawMtrStdGrdVO();
 				BeanUtils.copyProperties(rawMtrInvntrVO, rawMtrStdGrdVO);
@@ -227,7 +232,7 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		}
 
 		rawMtrInvntrMapper.insertRawMtrInvntr(rawMtrInvntrVO);
-		
+
 		return null;
 	}
 
@@ -346,6 +351,7 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 
 		List<RawMtrInvntrVO> updateList = new ArrayList<>();
 		List<RawMtrInvntrVO> insertList = new ArrayList<>();
+		List<RawMtrInvntrVO> trnsfList = new ArrayList<>();
 
 		for (RawMtrInvntrVO rawMtrInvntrVO : rawMtrInvntrList) {
 
@@ -358,6 +364,7 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 			if (ComConstants.ROW_STS_UPDATE.equals(rawMtrInvntrVO.getRowSts())) {
 				updateList.add(vo);
 			}
+
 		}
 
 		if(insertList.size() > 0) {
@@ -370,11 +377,25 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 				if (!StringUtils.hasText(rawMtrInvntrVO.getPltno())) {
 					rawMtrInvntrVO.setPltno(wrhsno);
 				}
+				if(ComConstants.CON_YES.equals(rawMtrInvntrVO.getTrnsfYn())) {
+					rawMtrInvntrVO.setPrcsno(wrhsno);
+					trnsfList.add(rawMtrInvntrVO);
+				}
 
 				insertRawMtrInvntr(rawMtrInvntrVO);
 				// 원물 재고 등록 이력 부분 추가
 
 			}
+		}
+
+		if(trnsfList.size() > 0) {
+			// 이송 확정
+			for (RawMtrInvntrVO rawMtrInvntrVO : trnsfList) {
+
+				InvntrTrnsfVO vo = new InvntrTrnsfVO();
+				BeanUtils.copyProperties(rawMtrInvntrVO, vo);
+				invntrTrnsfMapper.updateTrnsfInvntr(vo);
+				}
 		}
 
 
@@ -569,7 +590,7 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 
 	@Override
 	public HashMap<String, Object> updateInvntrPrcs(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
-		
+
 		RawMtrInvntrVO invntrInfo = rawMtrInvntrMapper.selectRawMtrInvntr(rawMtrInvntrVO);
 
 		if (invntrInfo == null || !StringUtils.hasText(invntrInfo.getWrhsno())) {
@@ -608,7 +629,7 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 
 	@Override
 	public HashMap<String, Object> deleteInvntrPrcs(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
-		
+
 		RawMtrInvntrVO invntrInfo = rawMtrInvntrMapper.selectRawMtrInvntr(rawMtrInvntrVO);
 
 		if (invntrInfo == null || !StringUtils.hasText(invntrInfo.getWrhsno())) {
@@ -641,10 +662,10 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		}
 
 		rawMtrInvntrMapper.updateInvntrPrcs(rawMtrInvntrVO);
-		
+
 		return null;
 	}
-	
+
 	@Override
 	public HashMap<String, Object> insertRawMtrChgHstry(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
 
