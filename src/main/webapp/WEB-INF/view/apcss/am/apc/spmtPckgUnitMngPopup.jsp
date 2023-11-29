@@ -149,17 +149,17 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdSmptPckgUnit\", " + nRow + ")'>삭제</button>";
 	        	}
 		    }},
-	        {caption: ["품목"], 			ref: 'itemCd',   	type:'combo',  width:'100px',    style:'text-align:center',
+	        {caption: ["품목"], 			ref: 'itemCd',   	type:'combo',  width:'80px',    style:'text-align:center',
 				typeinfo : {ref:'jsonSPUGrdItemCd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
-	        {caption: ["품종"], 			ref: 'vrtyCd',   	type:'combo',  width:'100px',    style:'text-align:center',
+	        {caption: ["품종"], 			ref: 'vrtyCd',   	type:'combo',  width:'80px',    style:'text-align:center',
 				typeinfo : {ref:'jsonSPUGrdVrtyCd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
-	        {caption: ["규격"], 			ref: 'spcfctCd',   	type:'combo',  width:'100px',    style:'text-align:center',
+	        {caption: ["규격"], 			ref: 'spcfctCd',   	type:'combo',  width:'80px',    style:'text-align:center',
 				typeinfo : {ref:'jsonSPUGrdSpcfctCd', 	displayui : false, 	itemcount: 10, label:'label', value:'value'}},
 	        {caption: ["등급"], 			ref: 'gdsGrd',   	type:'combo',  width:'80px',    style:'text-align:center',
 				typeinfo : {ref:'jsonSPUGdsGrd', 	displayui : false, 	itemcount: 10, label:'label', value:'value'}},
-	        {caption: ["출하 포장단위 명"], ref: 'spmtPckgUnitNm',  type:'input',  width:'200px',    style:'text-align:center',
+	        {caption: ["출하 포장단위 명"], ref: 'spmtPckgUnitNm',  type:'input',  width:'240px',    style:'text-align:center',
 				typeinfo : {maxlength : 30}},
-	        {caption: ["브랜드 명"], ref: 'brndNm',  	type:'input',  width:'100px',    style:'text-align:center'},
+	        {caption: ["브랜드 명"], ref: 'brndNm',  	type:'input',  width:'140px',    style:'text-align:center'},
 	        {caption: ["판매단가"],     	ref: 'ntslUntprc',  type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
 	        {caption: ["변경"], 		ref: 'delYn',  type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if((grdSpmtPckgUnit.getRowStatus(nRow) == 0 || grdSpmtPckgUnit.getRowStatus(nRow) == 2) && !(strValue== null || strValue == "")){

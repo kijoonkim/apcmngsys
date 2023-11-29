@@ -170,13 +170,15 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdApcSpcfct\", " + nRow + ")'>삭제</button>";
 	        	}
 		    }},
-	        {caption: ["규격명"],   ref: 'spcfctNm',  	type:'input',  width:'300px',    style:'text-align:center'},
-	        {caption: ["중량단위"], ref: 'unitCd',   	type:'combo',  width:'100px',    style:'text-align:center',
-				typeinfo : {ref:'jsonSpcfctUnitCd', 	itemcount: 3, label:'label', value:'value', displayui : false}},
+	        {caption: ["규격명"],   ref: 'spcfctNm',  	type:'input',  width:'310px',    style:'text-align:center'},
+// 	        {caption: ["중량단위"], ref: 'unitCd',   	type:'combo',  width:'100px',    style:'text-align:center',
+// 				typeinfo : {ref:'jsonSpcfctUnitCd', 	itemcount: 3, label:'label', value:'value', displayui : false}},
 	        {caption: ["포장구분"], ref: 'pckgSttsCd',   	type:'combo',  width:'150px',    style:'text-align:center',
 				typeinfo : {ref:'jsonSpcfctPckgSttsCd', itemcount: 10, label:'label', value:'value', displayui : false}},
-	        {caption: ["평균입수"],	ref: 'bxGdsQntt',  	type:'input',  width:'100px',    style:'text-align:center'},
-	        {caption: ["단중"],     ref: 'wght',  		type:'input',  width:'100px',    style:'text-align:center'},
+	        {caption: ["평균입수"],	ref: 'bxGdsQntt',  	type:'input',  width:'150px',    style:'text-align:center'},
+	        {caption: ["단중"],     ref: 'wght',  		type:'input',  width:'150px',    style:'text-align:center',
+	        	format : {type:'number', rule:'#,###.000'}
+	        },
 	        {caption: ["사용유무"], 	ref: 'delYn',  type:'combo',  width:'100px',    style:'text-align:center',
 				typeinfo : {ref:'jsonUseYn', label:'label', value:'value',  displayui : false}},
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
@@ -313,7 +315,8 @@
 
 			let delYn = rowData.delYn;
 			let spcfctNm = rowData.spcfctNm;
-			let unitCd = rowData.unitCd;
+			let unitCd = "2";
+// 			let unitCd = rowData.unitCd;
 			let pckgSttsCd = rowData.pckgSttsCd;
 			let rowSts = grdApcSpcfct.getRowStatus(i);
 

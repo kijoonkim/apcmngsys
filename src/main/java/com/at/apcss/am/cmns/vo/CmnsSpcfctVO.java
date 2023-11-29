@@ -47,7 +47,7 @@ public class CmnsSpcfctVO extends CmnsItemVO {
 	/**
 	 * 단중
 	 */
-	private String wght;
+	private float wght;
 
 	/**
 	 * 순번
