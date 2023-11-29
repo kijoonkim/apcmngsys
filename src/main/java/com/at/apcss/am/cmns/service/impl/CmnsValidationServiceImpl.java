@@ -2,6 +2,8 @@ package com.at.apcss.am.cmns.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
 import com.at.apcss.am.cmns.mapper.CmnsValidationMapper;
 import com.at.apcss.am.cmns.service.CmnsValidationService;
 import com.at.apcss.am.cmns.vo.CmnsValidationVO;
@@ -28,6 +30,30 @@ public class CmnsValidationServiceImpl extends BaseServiceImpl implements CmnsVa
 	@Autowired
 	private CmnsValidationMapper cmnsValidationMapper;
 
+	
+	@Override
+	public String selectNowDateString() throws Exception {
+		return selectNowDateString(null);
+	}
+	
+	@Override
+	public String selectNowDateString(String format) throws Exception {
+		CmnsValidationVO paramVO = new CmnsValidationVO();
+		
+		if (!StringUtils.hasText(format)) {
+			format = "YYYYMMDD";
+		}
+		
+		paramVO.setFormat(format);
+
+		CmnsValidationVO resultVO = cmnsValidationMapper.selectNowDateString(paramVO);
+		if (resultVO != null) {
+			return resultVO.getYmd();
+		} else {
+			return null;
+		}
+	}
+	
 	@Override
 	public String selectChkCdDelible(String apcCd, String cdId, String cdVl) throws Exception {
 
@@ -84,5 +110,6 @@ public class CmnsValidationServiceImpl extends BaseServiceImpl implements CmnsVa
 			return null;
 		}
 	}
+
 
 }

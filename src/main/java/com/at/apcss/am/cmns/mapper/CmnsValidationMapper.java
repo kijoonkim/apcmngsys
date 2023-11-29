@@ -22,6 +22,14 @@ import com.at.apcss.am.cmns.vo.CmnsValidationVO;
 public interface CmnsValidationMapper {
 
 	/**
+	 * 현재일자 조회
+	 * @param cmnsValidationVO
+	 * @return
+	 * @throws Exception
+	 */
+	public CmnsValidationVO selectNowDateString(CmnsValidationVO cmnsValidationVO) throws Exception;
+	
+	/**
 	 * APC 업무별 코드삭제 가능여부 단건 조회
 	 * @param cmnsTaskNoVO
 	 * @return

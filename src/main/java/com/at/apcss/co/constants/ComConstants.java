@@ -68,6 +68,11 @@ public class ComConstants {
 	/* MSG CODE */
 	
 	/**
+	 * E0000 {0}
+	 */
+	public final static String MSGCD_ERR_CUSTOM = "E0000";	// {0}
+	
+	/**
 	 * E0003 {0} 시 오류가 발생하였습니다.
 	 */
 	public final static String MSGCD_ERR_PARAM_ONE = "E0003";
