@@ -34,11 +34,11 @@ public interface OprtrService {
 	public List<OprtrVO> selectOprtrList(OprtrVO oprtrVO) throws Exception;
 
 	/**
-	 * 작업생산자 등록
+	 * 작업생산자 등록, 변경
 	 * @param OprtrVO
 	 * @return Integer
 	 */
-	public int insertOprtr(OprtrVO oprtrVO) throws Exception;
+	public int multiOprtr(OprtrVO oprtrVO) throws Exception;
 
 	/**
 	 * 작업생산자 변경

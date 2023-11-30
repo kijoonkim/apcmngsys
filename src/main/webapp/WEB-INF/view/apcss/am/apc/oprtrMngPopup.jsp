@@ -89,8 +89,8 @@
 	        	}
 	        }},
 	        {caption: ["작업자명"], 	ref: 'flnm',  	type:'input',  width:'80px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100}), typeinfo : {mask : {alias : 'k'}, maxlength : 33}},
-	        {caption: ["생년월일"], 	ref: 'brdt',   	type:'input',  width:'90px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 8}), typeinfo : {mask : {alias : 'numeric'}, maxlength : 8}},
-	        {caption: ["전화번호"], 	ref: 'telno',   type:'input',  width:'100px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 11}), typeinfo : {mask: {alias : '999-9999-9999'}}, format : {type:'custom', callback : fnCustomOprtr}},
+	        {caption: ["생년월일"], 	ref: 'brdt',   	type:'input',  width:'90px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 10}), typeinfo : {maxlength : 10}, format : {type:'date', rule:'yy-mm-dd', origin:'YYMMDD'}},
+	        {caption: ["전화번호"], 	ref: 'telno',   type:'input',  width:'100px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 11}), typeinfo : {maxlength : 11}, format : {type:'custom', callback : fnNewCallNumber}},
 	        {caption: ["주소"], 		ref: 'addr',    type:'input',  width:'170px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 200}), typeinfo : {maxlength : 66}},
 	        {caption: ["입사일자"], 	ref: 'jncmp', 	type : 'datepicker', typeinfo: {dateformat: 'yy-mm-dd'}, format : {type:'date', rule:'yy-mm-dd', origin:'YYYYMMDD'},  width:'90px',    style:'text-align:center'},
 	        {caption: ["은행"], 		ref: 'bankCd',  type:'inputcombo',  width:'100px',    style:'text-align:center',
@@ -165,48 +165,52 @@
 		let updateCnt = 0;
 		for(var i=1; i<=gridData.length; i++ ){
 			if(grdOprtr.getRowData(i).delYn == 'N'){
-
 				if(grdOprtr.getRowData(i).flnm == null || grdOprtr.getRowData(i).flnm == ""){
 					alert("작업자 명은 필수 값 입니다.");
 					return;
 				}
-
+				let rowData = grdOprtr.getRowData(i);
+				let rowSts = grdOprtr.getRowStatus(i);
 				if(grdOprtr.getRowStatus(i) === 3){
-					insertList.push(grdOprtr.getRowData(i));
+					rowData.rowSts = "I";
+					insertList.push(rowData);
 				}
 				if(grdOprtr.getRowStatus(i) === 2){
-					updateList.push(grdOprtr.getRowData(i));
+					rowData.rowSts = "U";
+					updateList.push(rowData);
 				}
 			}
 		}
-// 		if(insertList.length == 0 && updateList.length == 0){
-// 			alert("저장 할 내용이 없습니다.");
-// 			return;
-// 		}
-
-		var isEqual1 = await chkEqualObj(jsonOprtr, newJsonOprtr);
-		if (isEqual1){
-			alert("저장 할 내용이 없습니다.");
-			return;
-		}
+		
 		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
-
-// 			if(insertList.length > 0){
-// 				insertCnt = await fn_callInsertOprtrList(insertList);
-// 			}
-// 			if(updateList.length > 0){
-// 				updateCnt = await fn_callUpdateOprtrList(updateList);
-// 			}
-// 			if(insertListResult + updateListResult > 0 ){
-// 				fn_callSelectFcltList();
-// 				alert("저장 되었습니다.");
-// 			}
-			let postJsonPromise = gfn_postJSON("/am/cmns/compareOprtrList.do", {origin : newJsonOprtr, modified : jsonOprtr});
-
+			console.log('insertList', insertList);
+			console.log('updateList', updateList);
+			if(!(gfn_isEmpty(insertList))){
+				for(let i=0;i<insertList.length;i++){
+					let newInsertTelno = insertList[i].telno.split("");
+					if(newInsertTelno < 8){
+						insertList[i].telno = "";
+					}
+				}
+			}
+			if(!(gfn_isEmpty(updateList))){
+				for(let i=0;i<updateList.length;i++){
+					let newUpdateListTelno = updateList[i].telno.split("");
+					if(newUpdateListTelno.length < 8){
+						updateList[i].telno = "";
+					}
+				}
+			}
+			console.log('insertList1231', insertList);
+			console.log('updateList123', updateList);
+			if (insertList.length > 0){
+				let postJsonPromise = gfn_postJSON("/am/cmns/compareOprtrList.do", insertList);
+			}
+			if (updateList.length > 0){
+				let postJsonPromise = gfn_postJSON("/am/cmns/compareOprtrList.do", updateList);
+			}
 			alert("저장 되었습니다.");
-
-
 		}
 	}
 
@@ -214,8 +218,24 @@
 		let postJsonPromise1 = gfn_postJSON("/am/cmns/deleteOprtrList.do", oprtrVO);
 	}
 
-	const fnCustomOprtr = function(strValue) {
-        return strValue.slice(0,3) + "-" + strValue.slice(3,7) + "-" + strValue.slice(7,11)
-    }
+	const fnNewCallNumber = function(strValue) {
+		if(!(gfn_isEmpty(strValue))){
+			let newCallNumber = strValue.split("");
+			if(newCallNumber.length==11){
+				newCallNumber = strValue.slice(0,3) + "-" + strValue.slice(3,7) + "-" + strValue.slice(7,11);
+			}else if(newCallNumber.length==10){
+				newCallNumber = strValue.slice(0,3) + "-" + strValue.slice(3,6) + "-" + strValue.slice(6,10);
+			}else if(newCallNumber.length==9){
+				newCallNumber = strValue.slice(0,2) + "-" + strValue.slice(2,5) + "-" + strValue.slice(5,9);
+			}else if(newCallNumber.length==8){
+				newCallNumber = strValue.slice(0,4) + "-" + strValue.slice(4,8);
+			}else{
+				return;
+			}
+			return newCallNumber;
+		}else{
+			return;
+		}
+	}
 </script>
 </html>

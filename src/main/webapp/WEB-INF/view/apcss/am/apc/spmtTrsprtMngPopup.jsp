@@ -92,8 +92,8 @@
 		    }},
 	        {caption: ["코드"], 			ref: 'trsprtCoCd',  type:'output',  width:'80px',     style:'text-align:center', hidden : true},
 	        {caption: ["운송회사명"], 		ref: 'trsprtCoNm',  type:'input',  width:'145px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100}), typeinfo : {maxlength : 33}},
-	        {caption: ["전화번호"], 		ref: 'telno',  		type:'input',  width:'145px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 11}), typeinfo : {mask : {alias : 'numeric'}, maxlength : 20}},
-	        {caption: ["팩스번호"], 		ref: 'fxno',  		type:'input',  width:'145px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {mask : {alias : 'numeric'}, maxlength : 20}},
+	        {caption: ["전화번호"], 		ref: 'telno',  		type:'input',  width:'145px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 11}), typeinfo : {maxlength : 20, emptyvalue: true}, format : {type:'custom', callback : fnNewSpmtTrsprtMngTelno}},
+	        {caption: ["팩스번호"], 		ref: 'fxno',  		type:'input',  width:'145px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {maxlength : 20, emptyvalue: true}, format : {type:'custom', callback : fnNewSpmtTrsprtMngFxno}},
 	        {caption: ["비고"], 			ref: 'rmrk',  		type:'input',  width:'320px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000}), typeinfo : {maxlength : 333}},
 	        {caption: ["APC코드"], 			ref: 'apcCd',  		hidden:true}
 	    ];
@@ -180,6 +180,14 @@
 		if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
     		return;
     	}
+		if(!(gfn_isEmpty(spmtTrsprtCoList))){
+			for(let i=0;i<spmtTrsprtCoList.length;i++){
+				let newInsertTelno = spmtTrsprtCoList[i].telno.split("");
+				if(newInsertTelno < 8){
+					spmtTrsprtCoList[i].telno = "";
+				}
+			}
+		}
     	const postJsonPromise = gfn_postJSON("/am/cmns/multiSpmtTrsprtList.do", spmtTrsprtCoList);	// 프로그램id 추가
 
 		const data = await postJsonPromise;
@@ -195,6 +203,40 @@
 	}
 	async function fn_deleteSpmtTrsprtList(grdSpmtTrsprtCo){
 		let postJsonPromise1 = gfn_postJSON("/am/cmns/deleteSpmtTrsprtList.do", grdSpmtTrsprtCo);
+	}
+	
+	const fnNewSpmtTrsprtMngTelno = function(strValue) {
+		if(!(gfn_isEmpty(strValue))){
+			let newCallNumber = strValue.split("");
+			if(newCallNumber.length==11){
+				newCallNumber = strValue.slice(0,3) + "-" + strValue.slice(3,7) + "-" + strValue.slice(7,11);
+			}else if(newCallNumber.length==10){
+				newCallNumber = strValue.slice(0,3) + "-" + strValue.slice(3,6) + "-" + strValue.slice(6,10);
+			}else if(newCallNumber.length==9){
+				newCallNumber = strValue.slice(0,2) + "-" + strValue.slice(2,5) + "-" + strValue.slice(5,9);
+			}else if(newCallNumber.length==8){
+				newCallNumber = strValue.slice(0,4) + "-" + strValue.slice(4,8);
+			}
+			return newCallNumber;
+		}else{
+			return;
+		}
+	}
+	
+	const fnNewSpmtTrsprtMngFxno = function(strValue){
+		if(!(gfn_isEmpty(strValue))){
+			let newFxno = strValue.split("");
+			if (newFxno.length==11) {
+				newFxno = strValue.slice(0,3) + "-" + strValue.slice(3,7) + "-" + strValue.slice(7,11);
+			}else if (newFxno.length==10) {
+				newFxno = strValue.slice(0,2) + "-" + strValue.slice(2,6) + "-" + strValue.slice(6,10);
+			}else{
+				return;
+			}
+			return newFxno;
+		}else{
+			return;
+		}
 	}
 </script>
 </html>

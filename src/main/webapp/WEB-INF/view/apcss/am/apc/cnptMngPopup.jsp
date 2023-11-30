@@ -106,7 +106,7 @@
 				typeinfo : {ref:'comboGridCnptTypeJsData', label:'label', value:'value', displayui : false, itemcount: 10}},
             {caption: ["사업자번호"], 	ref: 'brno',  		type:'input',  width:'135px',    style:'text-align:center', typeinfo : {mask : {alias : '#-', repeat: '*'}, maxlength : 20}, validate : gfn_chkByte.bind({byteLimit: 20})},
             {caption: ["담당자"], 		ref: 'picNm',  		type:'input',  width:'90px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {mask : {alias : 'k'}, maxlength : 20}},
-            {caption: ["전화번호"], 	ref: 'telno',  		type:'input',  width:'120px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {mask : {alias : '#-', repeat: '*'}, maxlength : 20}},
+            {caption: ["전화번호"], 	ref: 'telno',  		type:'input',  width:'120px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {maxlength : 11}, format : {type:'custom', callback : fnNewCnptMngTelno}},
             {caption: ["이메일"], 		ref: 'eml',  		type:'input',  width:'140px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 320}), typeinfo : {maxlength : 320}},
             {caption: ["업태"], 		ref: 'bzstat',  	type:'input',  width:'140px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 300}), typeinfo : {maxlength : 300}},
             {caption: ["종목"], 		ref: 'cls',  		type:'input',  width:'140px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 300}), typeinfo : {maxlength : 300}},
@@ -176,6 +176,7 @@
 
 	async function fn_saveCnptList(){
 		let gridData = cnptMngDatagrid.getGridDataAll();
+		console.log('gridData', gridData);
 		let insertList = [];
 		let updateList = [];
 		let insertCnt = 0;
@@ -217,6 +218,22 @@
 		}
 		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
+			if(!(gfn_isEmpty(insertList))){
+				for(let i=0;i<insertList.length;i++){
+					let newInsertTelno = insertList[i].telno.split("");
+					if(newInsertTelno < 8){
+						insertList[i].telno = "";
+					}
+				}
+			}
+			if(!(gfn_isEmpty(updateList))){
+				for(let i=0;i<updateList.length;i++){
+					let newUpdateListTelno = updateList[i].telno.split("");
+					if(newUpdateListTelno.length < 8){
+						updateList[i].telno = "";
+					}
+				}
+			}
 			totalCnt = 0;
 			if(insertList.length > 0){
 				const postJsonPromise = gfn_postJSON("/am/cmns/insertCnptList.do", insertList);
@@ -343,6 +360,26 @@
     		}
     		console.error("failed", e.message);
         }
+	}
+	const fnNewCnptMngTelno = function(strValue) {
+		if(!(gfn_isEmpty(strValue))){
+			let newCallNumber = strValue.split("");
+			if(newCallNumber.length==11){
+				newCallNumber = strValue.slice(0,3) + "-" + strValue.slice(3,7) + "-" + strValue.slice(7,11);
+			}else if(newCallNumber.length==10){
+				newCallNumber = strValue.slice(0,3) + "-" + strValue.slice(3,6) + "-" + strValue.slice(6,10);
+			}else if(newCallNumber.length==9){
+				newCallNumber = strValue.slice(0,2) + "-" + strValue.slice(2,5) + "-" + strValue.slice(5,9);
+			}else if(newCallNumber.length==8){
+				newCallNumber = strValue.slice(0,4) + "-" + strValue.slice(4,8);
+			}else{
+				return;
+			}
+			return newCallNumber;
+		}else{
+			return;
+		}
+		return;
 	}
 </script>
 </html>
