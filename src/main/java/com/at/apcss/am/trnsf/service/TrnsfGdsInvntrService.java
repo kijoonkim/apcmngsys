@@ -29,6 +29,14 @@ public interface TrnsfGdsInvntrService {
 	public List<TrnsfGdsInvntrVO> selectUpdateTrnsfGdsInvntrList(TrnsfGdsInvntrVO trnsfGdsInvntrVO) throws Exception;
 
 	/**
+	 * 이송확정 목록 조회
+	 * @param TrnsfGdsInvntrVO
+	 * @return List<TrnsfGdsInvntrVO>
+	 * @throws Exception
+	 */
+	public List<TrnsfGdsInvntrVO> selectTrnsfCfmtnGdsInvntrList(TrnsfGdsInvntrVO trnsfGdsInvntrVO) throws Exception;
+
+	/**
 	 * 상품재고 이송 등록
 	 * @param gdsInvntrVO
 	 * @return

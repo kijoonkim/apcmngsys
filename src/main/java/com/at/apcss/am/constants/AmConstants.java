@@ -175,4 +175,34 @@ public class AmConstants {
      * 표준등급 EMPTY
      */
     public final static String CON_STD_GRD_CD_EMPTY = "*";
+    
+    
+    /**
+     * 처리구분코드: S 성공
+     */
+    public final static String CON_PRCS_SE_CD_SUCCESS = "S";
+    
+    /**
+     * 처리구분코드: P 미결
+     */
+    public final static String CON_PRCS_SE_CD_PENDING = "P";
+    
+    /**
+     * 처리구분코드: E 오류
+     */
+    public final static String CON_PRCS_SE_CD_ERROR = "E";
+    
+    /**
+     * 발주유형: 1 일반
+     */
+    public final static String CON_OUTORDR_TYPE_NORMAL = "1";
+    /**
+     * 발주유형: 2 온라인
+     */
+    public final static String CON_OUTORDR_TYPE_ONLINE = "2";
+    /**
+     * 발주유형: 3 대형마트
+     */
+    public final static String CON_OUTORDR_TYPE_MART = "3";
+    
 }

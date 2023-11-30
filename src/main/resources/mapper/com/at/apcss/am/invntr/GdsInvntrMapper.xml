@@ -408,6 +408,8 @@
 					, PCKG_YMD
 					, FCLT_CD
 					, GDS_SE_CD
+					, WRHS_SE_CD
+					, TRSPRT_SE_CD
 					, RPRS_PRDCR_CD
 					, ITEM_CD
 					, VRTY_CD
@@ -426,6 +428,7 @@
 					, PRCS_SN
 					, PRCSNO
 					, PRCS_TYPE
+					, RMRK
 		    		, SYS_FRST_INPT_DT
 		    		, SYS_FRST_INPT_USER_ID
 		    		, SYS_FRST_INPT_PRGRM_ID
@@ -441,6 +444,8 @@
 					, #{pckgYmd}
 					, #{fcltCd}
 					, #{gdsSeCd}
+					, #{wrhsSeCd}
+					, #{trsprtSeCd}
 					, #{rprsPrdcrCd}
 					, #{itemCd}
 					, #{vrtyCd}
@@ -459,6 +464,7 @@
 					, #{prcsSn}
 					, #{prcsno}
 					, #{prcsType}
+					, #{rmrk}
 		    		, SYSDATE
 		    		, #{sysFrstInptUserId}
 		    		, #{sysFrstInptPrgrmId}

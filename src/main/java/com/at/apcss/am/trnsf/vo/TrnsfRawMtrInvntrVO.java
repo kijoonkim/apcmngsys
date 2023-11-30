@@ -46,6 +46,7 @@ public class TrnsfRawMtrInvntrVO extends ComVO {
 	 * 이송APC코드
 	 */
 	private String trnsfApcCd;
+	private String trnsfApcNm;
 
 	/**
 	 * 이송수량
