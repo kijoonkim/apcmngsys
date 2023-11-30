@@ -44,7 +44,6 @@ public class CnptController extends BaseController {
 	// APC 환경설정 - 입고차량정보 목록 조회
 	@PostMapping(value = "/am/cmns/selectCnptList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectCnptList(@RequestBody CnptVO cnptVO, HttpServletRequest request) throws Exception {
-		logger.debug("selectCnptList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<CnptVO> resultList = new ArrayList<>();
@@ -63,7 +62,6 @@ public class CnptController extends BaseController {
 
 	@PostMapping(value = "/am/cmns/insertCnptList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> insertCnptList(@RequestBody List<CnptVO> insertList, HttpServletRequest request) throws Exception {
-		logger.debug("insertCnptList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int insertedCnt = 0;
@@ -87,9 +85,7 @@ public class CnptController extends BaseController {
 
 	@PostMapping(value = "/am/cmns/updateCnptList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> updateComCdDtlList(@RequestBody List<CnptVO> updateList, HttpServletRequest request) throws Exception {
-		logger.debug("updateCnptList >>> 호출 >>> ");
 
-		logger.debug("size >>>>  {} ", updateList.size());
 		int updatedCnt = 0;
 		try {
 			for (CnptVO cnptVO : updateList) {
@@ -108,7 +104,6 @@ public class CnptController extends BaseController {
 
 	@PostMapping(value = "/am/cmns/deleteCnptList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> deletePltBx(@RequestBody CnptVO cnptVO, HttpServletRequest request) throws Exception {
-		logger.debug("deleteCnptList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int result = 0;
@@ -125,7 +120,6 @@ public class CnptController extends BaseController {
 
 	@PostMapping(value = "/am/cmns/selectLgszMrktList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectLgszMrktList(@RequestBody LgszMrktVO lgszMrktVO, HttpServletRequest request) throws Exception {
-		logger.debug("selectLgszMrktList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<LgszMrktVO> resultList = new ArrayList<>();
@@ -145,9 +139,6 @@ public class CnptController extends BaseController {
 
 	@PostMapping(value = "/am/cmns/updateLgszMrktList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> updateLgszMrktList(@RequestBody List<LgszMrktVO> updateList, HttpServletRequest request) throws Exception {
-		logger.debug("updateLgszMrktList >>> 호출 >>> ");
-
-		logger.debug("size >>>>  {} ", updateList.size());
 		int updatedCnt = 0;
 		try {
 			for (LgszMrktVO lgszMrktVO : updateList) {

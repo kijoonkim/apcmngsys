@@ -79,9 +79,9 @@ public class InvntrTrnsfServiceImpl extends BaseServiceImpl implements InvntrTrn
 	}
 
 	@Override
-	public int updateInvntrTrnsf(InvntrTrnsfVO invntrTrnsfVO) throws Exception {
+	public int updateTrnsfInvntrCncl(InvntrTrnsfVO invntrTrnsfVO) throws Exception {
 
-		int updatedCnt = invntrTrnsfMapper.updateInvntrTrnsf(invntrTrnsfVO);
+		int updatedCnt = invntrTrnsfMapper.updateTrnsfInvntrCncl(invntrTrnsfVO);
 
 		return updatedCnt;
 	}
@@ -137,7 +137,7 @@ public class InvntrTrnsfServiceImpl extends BaseServiceImpl implements InvntrTrn
 		}
 
 		if(insertedCnt == 0) {
-			return ComUtil.getResultMap("W0005", "재고이송");
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("W0005", "재고이송")));
 		}
 
 		return null;

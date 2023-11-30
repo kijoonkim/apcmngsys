@@ -1,6 +1,6 @@
 @charset "utf-8";
 /* CSS Document */
-/* http://meyerweb.com/eric/tools/css/reset/
+/* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
 */
@@ -244,11 +244,10 @@ nav.sbux-meu-wrap {
   z-index: 1030;
   margin: 0 auto;
 }
-/*메인상단 로고 여백 제거*/
-/* nav.sbux-meu-wrap .sbux-meu-fluid { */
-/*   margin: 0 auto; */
-/*   padding: 0 15px; */
-/* } */
+nav.sbux-meu-wrap .sbux-meu-fluid {
+  margin: 0 auto;
+  padding: 0 15px;
+}
 nav.sbux-meu-wrap .sbux-meu-fluid .sbux-meu-hd-wrap {
   margin: 0;
   height: 60px;
@@ -261,11 +260,10 @@ nav.sbux-meu-wrap .sbux-meu-fluid .sbux-meu-hd-wrap .sbux-meu-brand {
   margin-left: 0;
   color: #777;
 }
-/*메인상단 로고 이미지 여백 제거*/
-/* nav.sbux-meu-wrap .sbux-meu-fluid .sbux-meu-hd-wrap .sbux-meu-brand img { */
-/*   display: block; */
-/*   margin-top: 15px; */
-/* } */
+nav.sbux-meu-wrap .sbux-meu-fluid .sbux-meu-hd-wrap .sbux-meu-brand img {
+  display: block;
+  margin-top: 15px;
+}
 nav.sbux-meu-wrap .sbux-meu-fluid .sbux-meu-hd-wrap .sbux-meu-brand span {
   display: inline-block;
   color: #fff;
@@ -683,6 +681,18 @@ nav.sbux-meu-fixed-bottom .sbux-meu-fluid .sbux-meu-bd-wrap > ul.sbux-meu-bd-ul 
 .sbux-sidemeu a {
   text-decoration: none;
 }
+.sbux-sidemeu .sbux-sidemeu-link img.sbux-front {
+  display: inline-block;
+  margin-right: 3px;
+  width: auto;
+  height: auto;
+}
+.sbux-sidemeu .sbux-sidemeu-link img.sbux-back {
+  display: inline-block;
+  margin-left: 3px;
+  width: auto;
+  height: auto;
+}
 .sbux-sidemeu > ul {
   /*disabled, readonly*/
 }
@@ -835,6 +845,9 @@ nav.sbux-meu-fixed-bottom .sbux-meu-fluid .sbux-meu-bd-wrap > ul.sbux-meu-bd-ul 
 .sbux-sidemeu.sbux-sidemeu-split ul li {
   position: relative;
 }
+.sbux-sidemeu.sbux-sidemeu-split ul li > div {
+  position: relative;
+}
 .sbux-sidemeu.sbux-sidemeu-split ul li div {
   display: table;
   width: 100%;
@@ -855,10 +868,12 @@ nav.sbux-meu-fixed-bottom .sbux-meu-fluid .sbux-meu-bd-wrap > ul.sbux-meu-bd-ul 
 .sbux-sidemeu.sbux-sidemeu-split ul li div i {
   float: left;
   position: absolute;
+  top: 50%;
   right: 0;
   display: table-cell;
   width: 37px;
   height: 33px;
+  margin-top: -16px;
   padding: 10px 15px;
   cursor: pointer;
   color: #cecece;
@@ -1173,9 +1188,10 @@ body > form .sbux-nor-input {
   color: #91979e;
   cursor: pointer;
 }
+/*text*/
 .sbux-sidmeu-text-wrap {
   padding: 10px 0;
-  margin-top: 5px;
+  margin-top: 10px;
   color: #cecece;
   text-align: center;
   font-size: 12px;
@@ -6115,9 +6131,12 @@ div.sbux-pik-pop-body td.sbux-pik-saturday .sbux-btn:active {
 .sbux-pik-popwrap .sbux-pik-pop-body .sbux-pik-today,
 .sbux-pik-popwrap .sbux-pik-pop-body .sbux-pik-now {
   color: #fff;
-}
-.sbux-pik-popwrap .sbux-pik-pop-body .sbux-pik-now.active {
   background: #6c6d78;
+  border: 0;
+}
+.sbux-pik-popwrap .sbux-pik-pop-body .sbux-pik-year .sbux-pik-today,
+.sbux-pik-popwrap .sbux-pik-pop-body .sbux-pik-year .sbux-pik-now {
+  line-height: normal;
 }
 table.sbux-pik-pop-day {
   border-collapse: collapse;
@@ -10137,52 +10156,58 @@ fieldset.readonly .sbux-lbl-expr {
   display: block !important;
 }
 /*SBUx-extend*/
-.sbux-ale-wrap {
+.sbux-ale-item-wrapper {
   position: fixed;
   top: 20px;
   right: 20px;
   z-index: 12000;
   width: 301px;
 }
-.sbux-ale-wrap.sbux-ale-top-center {
+.sbux-ale-item-wrapper.sbux-ale-top-center {
   left: 50%;
   margin-left: -150px;
   right: auto;
 }
-.sbux-ale-wrap.sbux-ale-top-left {
+.sbux-ale-item-wrapper.sbux-ale-top-left {
   left: 20px;
   right: auto;
 }
-.sbux-ale-wrap.sbux-ale-middle-center {
+.sbux-ale-item-wrapper.sbux-ale-middle-center {
   top: 50%;
   left: 50%;
   bottom: auto;
   right: auto;
   margin-left: -150px;
+  transform: translate(0, -50%);
 }
-.sbux-ale-wrap.sbux-ale-middle-left {
+.sbux-ale-item-wrapper.sbux-ale-middle-left {
   top: auto;
   left: 20px;
   bottom: 50%;
   right: auto;
+  transform: translate(0, 50%);
 }
-.sbux-ale-wrap.sbux-ale-middle-right {
+.sbux-ale-item-wrapper.sbux-ale-middle-right {
   top: auto;
   left: auto;
   bottom: 50%;
   right: 20px;
+  transform: translate(0, 50%);
 }
-.sbux-ale-wrap.sbux-ale-bottom-right {
+.sbux-ale-item-wrapper.sbux-ale-bottom-right {
   top: auto;
   left: auto;
   bottom: 20px;
   right: 20px;
 }
-.sbux-ale-wrap.sbux-ale-bottom-left {
+.sbux-ale-item-wrapper.sbux-ale-bottom-left {
   top: auto;
   right: auto;
   bottom: 20px;
   left: 20px;
+}
+.sbux-ale-item-wrapper:last-child {
+  margin-bottom: 0;
 }
 .sbux-ale-dark {
   position: relative;
@@ -15624,6 +15649,20 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
 .sbux-cou-nodata > span {
   vertical-align: baseline;
 }
+.sbux-backdrop {
+  position: relative;
+}
+.sbux-backdrop:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 111;
+}
 /*최상단 부모 divv*/
 .sbux-group-wrap {
   background: beige;
@@ -16086,10 +16125,10 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
 .sbux-col-block {
   width: 100%;
 }
-/*,
-.col-top-left,.col-top-center,   .col-top-right,
+/*, 
+.col-top-left,.col-top-center,   .col-top-right,  
 .col-center-left,  .col-center-center, .col-center-right,
 .col-bottom-left, .col-bottom-center,.col-bottom-right,
-.col-left-between, .col-left-around,
+.col-left-between, .col-left-around, 
 .col-center-between, .col-center-around,
 .col-right-between, .col-right-around */

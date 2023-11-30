@@ -172,7 +172,6 @@ public class TrnsfSortInvntrVO extends ComVO {
 	 * 재고중량
 	 */
 	private double invntrWght;
-
 	/**
 	 * 투입수량
 	 */
@@ -181,6 +180,14 @@ public class TrnsfSortInvntrVO extends ComVO {
 	 * 투입중량
 	 */
 	private double inptWght;
+	/**
+	 * 투입진행수량
+	 */
+	private int inptPrgrsQntt;
+	/**
+	 * 투입진행중량
+	 */
+	private double inptPrgrsWght;
 
 	/**
 	 * 수량

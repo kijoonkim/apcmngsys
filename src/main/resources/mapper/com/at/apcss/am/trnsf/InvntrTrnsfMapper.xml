@@ -286,5 +286,30 @@
 		]]>
 	</update>
 
+	<!-- ================================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.updateTrnsfInvntrCncl		-->
+	<!-- DESC : 재고이송확정취소.                                    						-->
+	<!-- ================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	=================================================	-->
+	<!-- 2023.11.30  	김호        	Initial Creation                            		-->
+	<!-- ================================================================================	-->
+    <update id="updateTrnsfInvntrCncl" parameterType="com.at.apcss.am.trnsf.vo.InvntrTrnsfVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.trnsf.mapper.TrnsfRawMtrInvntrMapper.updateTrnsfInvntrCncl */
+				TB_INVNTR_TRNSF_HSTRY
+			   SET
+			   	  SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+	    		, CFMTN_YN					= 'N'
+	    		, PRCSNO					= ''
+	    		, PRCS_SN					= ''
+			 WHERE APC_CD 		= #{trnsfApcCd}
+			   AND TRNSF_YMD 	= #{trnsfYmd}
+			   AND TRNSF_SN 	= #{trnsfSn}
+		]]>
+	</update>
+
 
 </mapper>

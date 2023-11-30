@@ -146,29 +146,29 @@ public class ComUserApiController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	// APC관리자승인등록 승인
 	@PostMapping(value = "/co/user/updateUserStts", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> updateUserStts(@RequestBody List<ComUserVO> comUserList, HttpServletRequest request) throws Exception {
-		
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		
+
 		try {
-			
+
 			for ( ComUserVO comUser : comUserList ) {
 				comUser.setSysFrstInptPrgrmId(getPrgrmId());
 				comUser.setSysFrstInptUserId(getUserId());
 				comUser.setSysLastChgPrgrmId(getPrgrmId());
 				comUser.setSysLastChgUserId(getUserId());
 			}
-			
+
 			HashMap<String, Object> rtnObj = comUserService.updateUserSttsList(comUserList);
-			
+
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -178,25 +178,25 @@ public class ComUserApiController extends BaseController {
 	@PostMapping(value = "/co/user/compareComUserAprv.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> updateComUserList(@RequestBody List<ComUserVO> comUserList, HttpServletRequest request) throws Exception {
 		logger.debug("compareComUserAprv.do 호출 <><><><> ");
-		
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		
+
 		try {
-			
+
 			for ( ComUserVO comUser : comUserList ) {
 				comUser.setSysFrstInptPrgrmId(getPrgrmId());
 				comUser.setSysFrstInptUserId(getUserId());
 				comUser.setSysLastChgPrgrmId(getPrgrmId());
 				comUser.setSysLastChgUserId(getUserId());
 			}
-			
+
 			HashMap<String, Object> rtnObj = comUserService.updateComUserList(comUserList);
-			
+
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 

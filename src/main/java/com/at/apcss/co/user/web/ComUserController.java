@@ -97,40 +97,40 @@ public class ComUserController extends BaseController {
 			}
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	@PostMapping(value = "/co/user/updateUserTypeList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> updateUserTypeList(@RequestBody List<ComUserVO> comUserList, HttpServletRequest request) throws Exception {
 		//update 하는 리스트, 기능 구현하기
-		
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int result = 0;
 		try {
-			
+
 			for ( ComUserVO user : comUserList ) {
 				user.setSysFrstInptUserId(getUserId());
 				user.setSysFrstInptPrgrmId(getPrgrmId());
 				user.setSysLastChgUserId(getUserId());
 				user.setSysLastChgPrgrmId(getPrgrmId());
-				
+
 				result += comUserService.updateUserType(user);
 			}
-			
-			
+
+
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 		resultMap.put("result", result);
-		
+
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	@PostMapping(value = "/co/user/updateUserSttsList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> updateUserSttsList(@RequestBody List<ComUserVO> comUserList, HttpServletRequest request) throws Exception {
 
@@ -151,12 +151,12 @@ public class ComUserController extends BaseController {
 			}
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 
 }

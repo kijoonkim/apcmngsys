@@ -42,7 +42,6 @@ public class ApcEvrmntStngController extends BaseController{
 	@PostMapping(value = "/am/apc/selectApcEvrmntStng.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectApcEvrmntStng(@RequestBody ApcEvrmntStngVO apcEvrmntStngVO, HttpServletRequest request) throws Exception {
 
-		logger.debug("selectApcInfo 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		ApcEvrmntStngVO resultVO = new ApcEvrmntStngVO();
@@ -60,7 +59,6 @@ public class ApcEvrmntStngController extends BaseController{
 	// APC 환경설정 - 사용자 목록 조회
 	@PostMapping(value = "/am/apc/selectApcUserList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectApcUserList(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
-		logger.debug("selectApcUserList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<ComUserVO> resultList = new ArrayList<>();
@@ -79,7 +77,6 @@ public class ApcEvrmntStngController extends BaseController{
 	// APC 환경설정 - 사용자 정보 등록
 	@PostMapping(value = "/am/apc/updateComUserList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> updateComUserList(@RequestBody List<ComUserVO> comUserList, HttpServletRequest request) throws Exception {
-		logger.debug("updateComUserList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int result = 0;
@@ -123,7 +120,7 @@ public class ApcEvrmntStngController extends BaseController{
 			}
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -152,7 +149,7 @@ public class ApcEvrmntStngController extends BaseController{
 			}
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -178,7 +175,7 @@ public class ApcEvrmntStngController extends BaseController{
 
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -207,7 +204,7 @@ public class ApcEvrmntStngController extends BaseController{
 			}
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 

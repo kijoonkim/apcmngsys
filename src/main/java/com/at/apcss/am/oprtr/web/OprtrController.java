@@ -42,7 +42,6 @@ public class OprtrController extends BaseController{
 	// APC 환경설정 - 입고차량정보 목록 조회
 	@PostMapping(value = "/am/oprtr/selectOprtrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectOprtrList(@RequestBody OprtrVO oprtrVO, HttpServletRequest request) throws Exception {
-		logger.debug("selectOprtrList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<OprtrVO> resultList = new ArrayList<>();
@@ -86,7 +85,6 @@ public class OprtrController extends BaseController{
 
 	@PostMapping(value = "/am/cmns/deleteOprtrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> deleteOprtrList(@RequestBody OprtrVO oprtrVO, HttpServletRequest request) throws Exception {
-		logger.debug("deleteOprtrList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int result = 0;

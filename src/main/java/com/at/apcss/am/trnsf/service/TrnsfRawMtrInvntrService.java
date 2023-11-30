@@ -45,4 +45,12 @@ public interface TrnsfRawMtrInvntrService {
 	 */
 	public HashMap<String, Object> insertTrnsfRawMtrInvntrList(List<TrnsfRawMtrInvntrVO> trnsfRawMtrInvntrList) throws Exception;
 
+	/**
+	 * 원물재고 이송확정 취소 변경
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteTrnsfCfmtnRawMtrInvntrList(List<TrnsfRawMtrInvntrVO> trnsfRawMtrInvntrList) throws Exception;
+
 }

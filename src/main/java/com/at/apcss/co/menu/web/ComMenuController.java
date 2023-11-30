@@ -39,16 +39,16 @@ public class ComMenuController extends BaseController {
 
 	@Resource(name = "comAuthrtService")
 	private ComAuthrtService comAuthrtService;
-	
+
 	@RequestMapping(value = "/co/menu/openPage.do/{menuId}", method = RequestMethod.GET)
 	public String doOpenPage(Model model, @PathVariable String menuId, HttpServletRequest request) throws Exception {
 
 		String pageUrl = ComConstants.CON_BLANK;
 
 		try {
-			
+
 			ComMenuVO pageVO = comMenuService.selectComMenu(menuId);
-			
+
 			if (pageVO != null) {
 				pageUrl = pageVO.getPageUrl();
 			}
@@ -57,7 +57,7 @@ public class ComMenuController extends BaseController {
 			BeanUtils.copyProperties(pageVO, comUiJsonVO);
 			ObjectMapper objMapper = new ObjectMapper();
 			String jsonString = objMapper.writeValueAsString(comUiJsonVO);
-			
+
 			model.addAttribute("comUiJson", jsonString);
 			model.addAttribute("comMenuVO", pageVO);
 
@@ -67,19 +67,18 @@ public class ComMenuController extends BaseController {
 			model.addAttribute("reportPath", getReportPath());
 
 			request.getSession().setAttribute(ComConstants.PROP_SYS_PRGRM_ID, menuId);
-			
+
 			// 권한없을 시 return page
 			String userId = getUserId();
 			if (!StringUtils.hasText(userId)) {
 				return "frame/error/accessDenied";
 			}
-			
+
 			List<ComAuthrtUiVO> userAuthrtUiList = comAuthrtService.selectUserAuthrtUiList(userId, menuId);
-			
+
 			String authrtUiList = objMapper.writeValueAsString(userAuthrtUiList);
-			logger.debug("list: {}", authrtUiList);
 			request.getSession().setAttribute("authrtUiJson", authrtUiList);
-					
+
 			//model.addAttribute("comApcList", request.getSession().getAttribute("comApcList"));
 
 		} catch( Exception e) {
@@ -105,14 +104,14 @@ public class ComMenuController extends BaseController {
 			if (StringUtils.hasText(title)) {
 				pageVO.setMenuNm(title);
 			}
-			
+
 			model.addAttribute("comMenuVO", pageVO);
 
 			model.addAttribute("reportDbName", getReportDbName());
 			model.addAttribute("reportUrl", getReportUrl());
 			model.addAttribute("reportType", getReportType());
 			model.addAttribute("reportPath", getReportPath());
-			
+
 			request.getSession().setAttribute(ComConstants.PROP_SYS_PRGRM_ID, menuId);
 
 		} catch( Exception e) {
@@ -202,7 +201,7 @@ public class ComMenuController extends BaseController {
 	@PostMapping(value = "/co/menu/selectMenuUiList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectMenuUiList(@RequestBody ComMenuVO comMenuVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		
+
 		List<ComMenuVO> resultList = new ArrayList<>();
 		try {
 			resultList = comMenuService.selectMenuUiList(comMenuVO);

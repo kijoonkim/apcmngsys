@@ -93,10 +93,6 @@ public class SortPrfmncController extends BaseController {
 				sortPrfmncVO.setSysLastChgUserId(getUserId());
 				sortPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
 
-				sortPrfmncVO.setSysFrstInptUserId("admin");
-				sortPrfmncVO.setSysFrstInptPrgrmId("testprgrm");
-				sortPrfmncVO.setSysLastChgUserId("admin");
-				sortPrfmncVO.setSysLastChgPrgrmId("testprgrm");
 			}
 
 			HashMap<String, Object> rtnObj = sortPrfmncService.insertSortPrfmncList(sortPrfmncList);
@@ -105,7 +101,7 @@ public class SortPrfmncController extends BaseController {
 			}
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 

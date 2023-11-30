@@ -75,3 +75,9 @@ select.form-control.input-sm.inpt_data_reqed {
 	font-size : 20px !important;
 	fill : black !important;
 }
+nav.sbux-meu-wrap .sbux-meu-fluid .sbux-meu-hd-wrap .sbux-meu-brand img{
+	margin-top : 0px !important;
+}
+nav.sbux-meu-wrap .sbux-meu-fluid{
+	padding : 0px !important;
+}

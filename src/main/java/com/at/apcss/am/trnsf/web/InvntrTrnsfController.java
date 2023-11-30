@@ -48,7 +48,7 @@ public class InvntrTrnsfController extends BaseController {
 		try {
 			resultList = invntrTrnsfService.selectInvntrTrnsfList(invntrTrnsfVO);
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -71,7 +71,7 @@ public class InvntrTrnsfController extends BaseController {
 			}
 			resultMap = invntrTrnsfService.deleteInvntrTrnsfList(invntrTrnsfList);
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 

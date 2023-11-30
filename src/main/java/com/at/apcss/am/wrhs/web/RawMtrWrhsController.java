@@ -56,7 +56,7 @@ public class RawMtrWrhsController extends BaseController {
 			}
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -81,7 +81,7 @@ public class RawMtrWrhsController extends BaseController {
 			}
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -106,7 +106,7 @@ public class RawMtrWrhsController extends BaseController {
 			}
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -133,13 +133,13 @@ public class RawMtrWrhsController extends BaseController {
 			}
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	@PostMapping(value = "/am/wrhs/insertRawMtrWrhsList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> insertRawMtrWrhsList(@RequestBody List<RawMtrWrhsVO> rawMtrWrhsList, HttpServletRequest request) throws Exception {
 
@@ -160,7 +160,7 @@ public class RawMtrWrhsController extends BaseController {
 			}
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -194,7 +194,7 @@ public class RawMtrWrhsController extends BaseController {
 			resultList = rawMtrWrhsService.selectRawMtrWrhsPrfmncList(rawMtrWrhsVO);
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 

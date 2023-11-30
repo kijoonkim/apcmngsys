@@ -42,7 +42,6 @@ public class SpmtPckgUnitController extends BaseController{
 	// 품목별 출하포장단위 목록 조회
 	@PostMapping(value = "/am/cmns/selectSpmtPckgUnitList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectSpmtPckgUnitList(@RequestBody SpmtPckgUnitVO spmtPckgUnitVO, HttpServletRequest request) throws Exception {
-		logger.debug("selectSpmtPckgUnitList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<SpmtPckgUnitVO> resultList = new ArrayList<>();
@@ -62,7 +61,6 @@ public class SpmtPckgUnitController extends BaseController{
 	// 출하포장단위 저장
 	@PostMapping(value = "/am/cmns/multiSaveSpmtPckgUnitList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> multiSaveSpmtPckgUnitList(@RequestBody List<SpmtPckgUnitVO> spmtPckgUnitList, HttpServletRequest request) throws Exception {
-		logger.debug("selectSpmtPckgUnitList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int insertedCnt = 0;
@@ -88,7 +86,6 @@ public class SpmtPckgUnitController extends BaseController{
 	// 출하포장단위 삭제
 	@PostMapping(value = "/am/cmns/deleteSpmtPckgUnit.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> deleteSpmtPckgUnit(@RequestBody SpmtPckgUnitVO spmtPckgUnitVO, HttpServletRequest request) throws Exception {
-		logger.debug("deleteSpmtPckgUnit 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {

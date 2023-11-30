@@ -212,7 +212,7 @@ public class ComAuthrtController extends BaseController{
 		HashMap<String, Object> resultMap = new HashMap<String,Object>();
 
 		try {
-			
+
 			comAuthrtVO.setSysFrstInptUserId(getUserId());
 			comAuthrtVO.setSysFrstInptPrgrmId(getPrgrmId());
 			comAuthrtVO.setSysLastChgUserId(getUserId());
@@ -224,7 +224,7 @@ public class ComAuthrtController extends BaseController{
 			}
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -288,7 +288,7 @@ public class ComAuthrtController extends BaseController{
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	/**
 	 * 화면UI 권한 목록 조회
 	 * @param comAuthrtUserVO
@@ -323,7 +323,7 @@ public class ComAuthrtController extends BaseController{
 		HashMap<String, Object> resultMap = new HashMap<String,Object>();
 
 		try {
-			
+
 			comAuthrtMenuVO.setSysFrstInptUserId(getUserId());
 			comAuthrtMenuVO.setSysFrstInptPrgrmId(getPrgrmId());
 			comAuthrtMenuVO.setSysLastChgUserId(getUserId());
@@ -335,13 +335,13 @@ public class ComAuthrtController extends BaseController{
 			}
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	/**
 	 * 권한 사용자 목록 조회
 	 * @param comAuthrtUserVO
@@ -415,7 +415,7 @@ public class ComAuthrtController extends BaseController{
 			}
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -445,7 +445,7 @@ public class ComAuthrtController extends BaseController{
 			}
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -474,7 +474,7 @@ public class ComAuthrtController extends BaseController{
 				return getErrorResponseEntity(rtnObj);
 			}
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 

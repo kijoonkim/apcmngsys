@@ -313,7 +313,7 @@
 				<div class="ad_tbl_top2">
 					<ul class="ad_tbl_count">
 						<li>
-							<span>이송확정내역</span>
+							<span>이송확정 내역</span>
 						</li>
 					</ul>
 					<div class="ad_tbl_toplist">
@@ -551,6 +551,7 @@
 		SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:''");
 		SBUxMethod.set("dtl-slt-itemCd", "");
 		SBUxMethod.set("dtl-slt-vrtyCd", "");
+		SBUxMethod.set("dtl-inp-rmrk", "");
 		SBUxMethod.set("dtl-slt-spmtPckgUnit", "");
 		SBUxMethod.set("dtl-rdo-gdsSeCd", "1");
 		SBUxMethod.set("dtl-rdo-wrhsSeCd", "3");
@@ -821,50 +822,6 @@
 
     }
 
-	const fn_del = async function(){
-		let grdRows = grdInvntrTrnsf.getCheckedRows(0);
-    	let deleteList = [];
-
-    	for(var i=0; i< grdRows.length; i++){
-    		let nRow = grdRows[i];
-    		let rowData  = grdInvntrTrnsf.getRowData(nRow);
-    		let cfmtnYn	= rowData.cfmtnYn;
-
-			if(cfmtnYn == "Y"){
-				gfn_comAlert("W0010", "이송확정", "이송실적")	// W0010 이미 {0}된 {1} 입니다.
-				return;
-			}
-
-    		deleteList.push(rowData);
-
-    	}
-
-    	if(grdRows.length == 0){
-    		gfn_comAlert("W0003", "삭제");			// W0003	{0}할 대상이 없습니다.
-    		return;
-    	}
-
-    	let regMsg = "삭제 하시겠습니까?";
-		if(confirm(regMsg)){
-			const postJsonPromise = gfn_postJSON("/am/trnsf/deleteTrnsfInvntrList.do", deleteList);
-	    	const data = await postJsonPromise;
-
-	    	try{
-	    		if (_.isEqual("S", data.resultStatus)) {
-	        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
-	        		fn_search();
-	        	} else {
-	        		alert(data.resultMessage);
-	        	}
-	        }catch (e) {
-	        	if (!(e instanceof Error)) {
-	    			e = new Error(e);
-	    		}
-	    		console.error("failed", e.message);
-			}
-		}
-	}
-
 	const fn_searchTrnsfList = async function(){
 		let trnsfYmdFrom	= SBUxMethod.get("srch-dtp-trnsfYmdFrom");
 		let trnsfYmdTo 		= SBUxMethod.get("srch-dtp-trnsfYmdTo");
@@ -1024,11 +981,12 @@
           			cfmtnYmd = item.pckgYmd;
           		}
           		const invntrTrnsf = {
-          			  apcCd				: item.trnsfApcCd
+          			  apcCd				: item.apcCd
           			, apcNm				: item.apcNm
           			, cfmtnno			: cfmtnno
           			, cfmtnSn			: cfmtnSn
           			, cfmtnYmd			: cfmtnYmd
+          			, wrhsno			: item.wrhsno
           			, sortno			: item.sortno
           			, sortSn			: item.sortSn
           			, pckgno			: item.pckgno
@@ -1057,14 +1015,26 @@
           			, warehouseSeCd		: item.warehouseSeCd
           			, invntrQntt		: item.invntrQntt
           			, invntrWght		: item.invntrWght
+          			, spmtQntt			: item.spmtQntt
+          			, spmtWght			: item.spmtWght
+          			, trnsfQntt			: item.trnsfQntt
+          			, trnsfWght			: item.trnsfWght
+          			, rtnGdsQntt		: item.rtnGdsQntt
+          			, rtnGdsWght		: item.rtnGdsWght
+          			, inptQntt			: item.inptQntt
+          			, inptWght			: item.inptWght
+          			, inptPrgrsQntt		: item.inptPrgrsQntt
+          			, inptPrgrsWght		: item.inptPrgrsWght
           			, trnsfApcNm		: item.trnsfApcNm
-          			, trnsfApcCd		: item.apcCd
+          			, trnsfApcCd		: item.trnsfApcCd
           			, cfmtnNm			: item.cfmtnNm
           			, cfmtnCd			: item.cfmtnCd
           			, trnsfApcNm		: item.trnsfApcNm
           			, spmtPckgUnitNm	: item.spmtPckgUnitNm
           			, spmtPckgUnitCd	: item.spmtPckgUnitCd
           			, rmrk				: item.rmrk
+          			, trnsfYmd			: item.trnsfYmd
+          			, trnsfSn			: item.trnsfSn
   				}
           		jsonInvntrTrnsfCfmtn.push(invntrTrnsf);
   			});
@@ -1076,8 +1046,91 @@
       		}
       		console.error("failed", e.message);
           }
-
 	}
+
+	const fn_del = async function(){
+
+		let invntrSeCd = SBUxMethod.get("srch-slt-invntrSeCd");
+
+		let grdRows = grdInvntrTrnsfCfmtn.getCheckedRows(0);
+    	let deleteList = [];
+
+    	for(var i=0; i< grdRows.length; i++){
+    		let nRow = grdRows[i];
+    		let rowData  = grdInvntrTrnsfCfmtn.getRowData(nRow);
+
+    		if(invntrSeCd == "1" || invntrSeCd == "2"){
+    			if(rowData.inptPrgrsQntt > 0){
+    				gfn_comAlert("W0010", "투입예정", "재고")	// W0010 이미 {0}된 {1} 입니다.
+    				return;
+    			}
+    		}
+    		if(invntrSeCd == "1"){
+    			if(rowData.inptQntt > 0){
+    				gfn_comAlert("W0010", "투입", "재고")	// W0010 이미 {0}된 {1} 입니다.
+    				return;
+    			}
+    		}
+    		if(invntrSeCd == "2"){
+    			if(rowData.pckgQntt > 0){
+    				gfn_comAlert("W0010", "포장", "재고")	// W0010 이미 {0}된 {1} 입니다.
+    				return;
+    			}
+    		}
+    		if(invntrSeCd == "3"){
+    			if(rowData.spmtQntt > 0){
+    				gfn_comAlert("W0010", "출하", "재고")	// W0010 이미 {0}된 {1} 입니다.
+    				return;
+    			}
+    		}
+   			if(rowData.trnsfQntt > 0){
+   				gfn_comAlert("W0010", "이송", "재고")	// W0010 이미 {0}된 {1} 입니다.
+   				return;
+   			}
+
+    		deleteList.push(rowData);
+
+    	}
+
+    	console.log("deleteList",deleteList);
+
+    	if(grdRows.length == 0){
+    		gfn_comAlert("W0003", "삭제");			// W0003	{0}할 대상이 없습니다.
+    		return;
+    	}
+
+    	let regMsg = "삭제 하시겠습니까?";
+		if(confirm(regMsg)){
+
+			let url = "";
+			if (invntrSeCd == "1"){
+				url = "/am/trnsf/deleteTrnsfCfmtnRawMtrInvntrList.do";
+			} else if(invntrSeCd == "2"){
+				url = "/am/trnsf/deleteTrnsfCfmtnSortInvntrList.do";
+			} else if(invntrSeCd == "3"){
+				url = "/am/trnsf/deleteTrnsfCfmtnGdsInvntrList.do";
+			}
+
+			const postJsonPromise = gfn_postJSON(url, deleteList);
+	    	const data = await postJsonPromise;
+
+	    	try{
+	    		if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+	        		fn_search();
+	        		fn_reSet();
+	        	} else {
+	        		alert(data.resultMessage);
+	        	}
+	        }catch (e) {
+	        	if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+			}
+		}
+	}
+
 
 	/* 생산자 팝업 호출 필수 function  */
 	/* Start */

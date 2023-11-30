@@ -158,11 +158,18 @@
 			                 , SI.PRDCTN_YR             AS PRDCTN_YR
 			                 , SI.INVNTR_QNTT           AS INVNTR_QNTT
 			                 , SI.INVNTR_WGHT           AS INVNTR_WGHT
+			                 , SI.PCKG_QNTT             AS PCKG_QNTT
+			                 , SI.PCKG_WGHT             AS PCKG_WGHT
+			                 , SI.TRNSF_QNTT            AS TRNSF_QNTT
+			                 , SI.TRNSF_WGHT            AS TRNSF_WGHT
+			                 , SI.INPT_PRGRS_WGHT       AS INPT_PRGRS_WGHT
+			                 , SI.INPT_PRGRS_QNTT       AS INPT_PRGRS_QNTT
 			                 , SI.PRCSNO                AS PRCSNO
 			                 , SI.PRCS_SN               AS PRCS_SN
 			                 , SI.PRCS_TYPE             AS PRCS_TYPE
 			                 , TH.APC_CD                AS TRNSF_APC_CD
-
+			                 , TH.TRNSF_YMD             AS TRNSF_YMD
+                             , TH.TRNSF_SN              AS TRNSF_SN
 			              FROM TB_SORT_INVNTR SI
 			                 , TB_INVNTR_TRNSF_HSTRY TH
 			             WHERE SI.APC_CD = TH.TRNSF_APC_CD

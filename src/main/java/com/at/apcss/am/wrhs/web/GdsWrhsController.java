@@ -35,27 +35,27 @@ import com.at.apcss.co.sys.controller.BaseController;
  */
 @Controller
 public class GdsWrhsController extends BaseController {
-	
+
 	@Resource(name = "gdsWrhsService")
 	private GdsWrhsService gdsWrhsService;
-	
+
 	@PostMapping(value = "/am/wrhs/selectGdsWrhsList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectGdsWrhsList(@RequestBody GdsInvntrVO gdsInvntrVO, HttpServletRequest request) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<GdsInvntrVO> resultList = new ArrayList<>();
 		try {
-			resultList = gdsWrhsService.selectGdsWrhsList(gdsInvntrVO);			
+			resultList = gdsWrhsService.selectGdsWrhsList(gdsInvntrVO);
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		
+
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-		
+
 		return getSuccessResponseEntity(resultMap);
-		
+
 	}
-	
+
 	@PostMapping(value = "/am/wrhs/insertGdsInvntr.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> insertGdsInvntr(@RequestBody GdsInvntrVO gdsInvntrVO, HttpServletRequest request) throws Exception {
 
@@ -72,12 +72,12 @@ public class GdsWrhsController extends BaseController {
 				return getErrorResponseEntity(rtnObj);
 			}
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	@PostMapping(value = "/am/wrhs/deleteGdsInvntr.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> deleteGdsInvntr(@RequestBody GdsInvntrVO gdsInvntrVO, HttpServletRequest request) throws Exception {
 
@@ -86,16 +86,16 @@ public class GdsWrhsController extends BaseController {
 		try {
 			gdsInvntrVO.setSysLastChgUserId(getUserId());
 			gdsInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
-			
+
 			HashMap<String, Object> rtnObj = gdsWrhsService.deleteGdsInvntr(gdsInvntrVO);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 }

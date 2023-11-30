@@ -46,12 +46,12 @@ public interface InvntrTrnsfService {
 	public int insertInvntrTrnsf(InvntrTrnsfVO invntrTrnsfVO) throws Exception;
 
 	/**
-	 * 재고이송 변경
+	 * 재고이송확정 취소
 	 * @param invntrTrnsfVO
 	 * @return
 	 * @throws Exception
 	 */
-	public int updateInvntrTrnsf(InvntrTrnsfVO invntrTrnsfVO) throws Exception;
+	public int updateTrnsfInvntrCncl(InvntrTrnsfVO invntrTrnsfVO) throws Exception;
 
 	/**
 	 * 재고이송 삭제
