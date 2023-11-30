@@ -169,6 +169,12 @@
 			                 , GI.GDS_CD                AS GDS_CD
 			                 , GI.INVNTR_QNTT           AS INVNTR_QNTT
 			                 , GI.INVNTR_WGHT           AS INVNTR_WGHT
+			                 , GI.SPMT_QNTT				AS SPMT_QNTT
+			                 , GI.SPMT_WGHT				AS SPMT_WGHT
+			                 , GI.TRNSF_QNTT            AS TRNSF_QNTT
+			                 , GI.TRNSF_WGHT            AS TRNSF_WGHT
+			                 , GI.RTN_GDS_QNTT          AS RTN_GDS_QNTT
+			                 , GI.RTN_GDS_WGHT          AS RTN_GDS_WGHT
 			                 , GI.WRHS_SE_CD            AS WRHS_SE_CD
 			                 , GI.TRSPRT_SE_CD          AS TRSPRT_SE_CD
 			                 , GI.INVNTR_CHG_RSN_CD     AS INVNTR_CHG_RSN_CD
@@ -176,6 +182,8 @@
 			                 , GI.PRCSNO                AS PRCSNO
 			                 , GI.PRCS_TYPE             AS PRCS_TYPE
 			                 , TH.APC_CD                AS TRNSF_APC_CD
+			                 , TH.TRNSF_YMD             AS TRNSF_YMD
+                             , TH.TRNSF_SN              AS TRNSF_SN
 			              FROM TB_GDS_INVNTR GI
 			                 , TB_INVNTR_TRNSF_HSTRY TH
 			             WHERE GI.APC_CD = TH.TRNSF_APC_CD

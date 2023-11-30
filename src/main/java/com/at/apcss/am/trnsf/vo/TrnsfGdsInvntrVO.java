@@ -199,6 +199,15 @@ public class TrnsfGdsInvntrVO extends ComVO {
 	 * 재고중량
 	 */
 	private double invntrWght;
+	/**
+	 * 재고수량
+	 */
+	private int rtnGdsQntt;
+
+	/**
+	 * 재고중량
+	 */
+	private double rtnGdsWght;
 
 	/**
 	 * 지시수량

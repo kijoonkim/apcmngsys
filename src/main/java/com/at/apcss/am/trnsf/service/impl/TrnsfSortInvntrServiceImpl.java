@@ -12,12 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.at.apcss.am.invntr.service.SortInvntrService;
+import com.at.apcss.am.invntr.vo.SortInvntrVO;
 import com.at.apcss.am.trnsf.mapper.TrnsfSortInvntrMapper;
 import com.at.apcss.am.trnsf.service.InvntrTrnsfService;
 import com.at.apcss.am.trnsf.service.TrnsfSortInvntrService;
 import com.at.apcss.am.trnsf.vo.InvntrTrnsfVO;
 import com.at.apcss.am.trnsf.vo.TrnsfSortInvntrVO;
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : SortInvntrServiceImpl.java
@@ -83,6 +86,42 @@ public class TrnsfSortInvntrServiceImpl extends BaseServiceImpl implements Trnsf
 	public List<TrnsfSortInvntrVO> selectTrnsfCfmtnSortInvntrList(TrnsfSortInvntrVO trnsfSortInvntrVO) throws Exception {
 		List<TrnsfSortInvntrVO> resultList = trnsfSortInvntrMapper.selectTrnsfCfmtnSortInvntrList(trnsfSortInvntrVO);
 		return resultList;
+	}
+
+
+	@Override
+	public HashMap<String, Object> deleteTrnsfCfmtnSortInvntrList(List<TrnsfSortInvntrVO> trnsfSortInvntrList) throws Exception {
+
+		List<SortInvntrVO> sortInvntrList = new ArrayList<>();
+		List<InvntrTrnsfVO> invntrTrnsfList = new ArrayList<>();
+
+		for (TrnsfSortInvntrVO trnsfSortInvntrVO : trnsfSortInvntrList) {
+
+				SortInvntrVO sortInvntrVO = new SortInvntrVO();
+				InvntrTrnsfVO invntrTrnsfVO = new InvntrTrnsfVO();
+				BeanUtils.copyProperties(trnsfSortInvntrVO, sortInvntrVO);
+				BeanUtils.copyProperties(trnsfSortInvntrVO, invntrTrnsfVO);
+
+				sortInvntrList.add(sortInvntrVO);
+				invntrTrnsfList.add(invntrTrnsfVO);
+		}
+
+		for (InvntrTrnsfVO invntrTrnsfVO : invntrTrnsfList) {
+			int i = invntrTrnsfService.updateTrnsfInvntrCncl(invntrTrnsfVO);
+
+			if(i == 0) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "취소 중 오류가 발생 했습니다.")));		// E0000	{0}
+			}
+		}
+
+		for (SortInvntrVO sortInvntrVO : sortInvntrList) {
+			HashMap<String, Object> rtnObj = sortInvntrService.deleteSortInvntr(sortInvntrVO);
+			if(rtnObj != null) {
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+		}
+
+		return null;
 	}
 
 }

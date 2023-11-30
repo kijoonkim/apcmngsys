@@ -156,11 +156,19 @@
 			                 , RI.PRDCTN_YR             AS PRDCTN_YR
 			                 , RI.GRD_IDNTY_PRSN        AS GRD_IDNTY_PRSN
 			                 , RI.RMRK                  AS RMRK
+			                 , RI.INPT_QNTT             AS INPT_QNTT
+			                 , RI.INPT_WGHT             AS INPT_WGHT
+			                 , RI.TRNSF_QNTT            AS TRNSF_QNTT
+			                 , RI.TRNSF_WGHT            AS TRNSF_WGHT
+			                 , RI.INPT_PRGRS_QNTT       AS INPT_PRGRS_QNTT
+			                 , RI.INPT_PRGRS_WGHT       AS INPT_PRGRS_WGHT
 			                 , RI.INVNTR_QNTT           AS INVNTR_QNTT
 			                 , RI.INVNTR_WGHT           AS INVNTR_WGHT
 			                 , RI.PRCSNO                AS PRCSNO
 			                 , RI.PRCS_TYPE             AS PRCS_TYPE
 			                 , TH.APC_CD                AS TRNSF_APC_CD
+			                 , TH.TRNSF_YMD             AS TRNSF_YMD
+                             , TH.TRNSF_SN              AS TRNSF_SN
 			              FROM TB_RAW_MTR_INVNTR RI
 			                 , TB_INVNTR_TRNSF_HSTRY TH
 			             WHERE RI.APC_CD = TH.TRNSF_APC_CD

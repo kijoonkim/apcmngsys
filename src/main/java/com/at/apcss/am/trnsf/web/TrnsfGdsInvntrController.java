@@ -100,4 +100,30 @@ public class TrnsfGdsInvntrController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 
 	}
+
+	@PostMapping(value = "/am/trnsf/deleteTrnsfCfmtnGdsInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteTrnsfCfmtnGdsInvntrList(@RequestBody List<TrnsfGdsInvntrVO> trnsfGdsInvntrList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			for ( TrnsfGdsInvntrVO trnsfGdsInvntrVO : trnsfGdsInvntrList ) {
+				trnsfGdsInvntrVO.setSysFrstInptPrgrmId(getPrgrmId());
+				trnsfGdsInvntrVO.setSysFrstInptUserId(getUserId());
+				trnsfGdsInvntrVO.setSysLastChgUserId(getUserId());
+				trnsfGdsInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
+			}
+
+			HashMap<String, Object> rtnObj = trnsfGdsInvntrService.deleteTrnsfCfmtnGdsInvntrList(trnsfGdsInvntrList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }

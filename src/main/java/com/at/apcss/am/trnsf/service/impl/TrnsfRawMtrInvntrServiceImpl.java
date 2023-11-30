@@ -12,12 +12,15 @@ import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 
 import com.at.apcss.am.invntr.service.RawMtrInvntrService;
+import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
 import com.at.apcss.am.trnsf.mapper.TrnsfRawMtrInvntrMapper;
 import com.at.apcss.am.trnsf.service.InvntrTrnsfService;
 import com.at.apcss.am.trnsf.service.TrnsfRawMtrInvntrService;
 import com.at.apcss.am.trnsf.vo.InvntrTrnsfVO;
 import com.at.apcss.am.trnsf.vo.TrnsfRawMtrInvntrVO;
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : RawMtrInvntrServiceImpl.java
@@ -85,5 +88,40 @@ public class TrnsfRawMtrInvntrServiceImpl extends BaseServiceImpl implements Trn
 	public List<TrnsfRawMtrInvntrVO> selectTrnsfCfmtnRawMtrInvntrList(TrnsfRawMtrInvntrVO trnsfrawMtrInvntrVO) throws Exception {
 		List<TrnsfRawMtrInvntrVO> resultList = trnsfRawMtrInvntrMapper.selectTrnsfCfmtnRawMtrInvntrList(trnsfrawMtrInvntrVO);
 		return resultList;
+	}
+
+	@Override
+	public HashMap<String, Object> deleteTrnsfCfmtnRawMtrInvntrList(List<TrnsfRawMtrInvntrVO> trnsfRawMtrInvntrList) throws Exception {
+
+		List<RawMtrInvntrVO> rawMtrInvntrList = new ArrayList<>();
+		List<InvntrTrnsfVO> invntrTrnsfList = new ArrayList<>();
+
+		for (TrnsfRawMtrInvntrVO trnsfRawMtrInvntrVO : trnsfRawMtrInvntrList) {
+
+				RawMtrInvntrVO rawMtrInvntrVO = new RawMtrInvntrVO();
+				InvntrTrnsfVO invntrTrnsfVO = new InvntrTrnsfVO();
+				BeanUtils.copyProperties(trnsfRawMtrInvntrVO, rawMtrInvntrVO);
+				BeanUtils.copyProperties(trnsfRawMtrInvntrVO, invntrTrnsfVO);
+
+				rawMtrInvntrList.add(rawMtrInvntrVO);
+				invntrTrnsfList.add(invntrTrnsfVO);
+		}
+
+		for (InvntrTrnsfVO invntrTrnsfVO : invntrTrnsfList) {
+			int i = invntrTrnsfService.updateTrnsfInvntrCncl(invntrTrnsfVO);
+
+			if(i == 0) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "취소 중 오류가 발생 했습니다.")));		// E0000	{0}
+			}
+		}
+
+		for (RawMtrInvntrVO rawMtrInvntrVO : rawMtrInvntrList) {
+			HashMap<String, Object> rtnObj = rawMtrInvntrService.deleteRawMtrInvntr(rawMtrInvntrVO);
+			if(rtnObj != null) {
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+		}
+
+		return null;
 	}
 }
