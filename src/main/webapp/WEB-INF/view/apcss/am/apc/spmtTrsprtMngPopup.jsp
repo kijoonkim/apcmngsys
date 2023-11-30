@@ -91,10 +91,10 @@
 	        	}
 		    }},
 	        {caption: ["코드"], 			ref: 'trsprtCoCd',  type:'output',  width:'80px',     style:'text-align:center', hidden : true},
-	        {caption: ["운송회사명"], 		ref: 'trsprtCoNm',  type:'input',  width:'145px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
-	        {caption: ["전화번호"], 		ref: 'telno',  		type:'input',  width:'145px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 11}), typeinfo : {mask : {alias : 'numeric'}}},
-	        {caption: ["팩스번호"], 		ref: 'fxno',  		type:'input',  width:'145px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {mask : {alias : 'numeric'}}},
-	        {caption: ["비고"], 			ref: 'rmrk',  		type:'input',  width:'320px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000})},
+	        {caption: ["운송회사명"], 		ref: 'trsprtCoNm',  type:'input',  width:'145px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100}), typeinfo : {maxlength : 33}},
+	        {caption: ["전화번호"], 		ref: 'telno',  		type:'input',  width:'145px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 11}), typeinfo : {mask : {alias : 'numeric'}, maxlength : 20}},
+	        {caption: ["팩스번호"], 		ref: 'fxno',  		type:'input',  width:'145px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {mask : {alias : 'numeric'}, maxlength : 20}},
+	        {caption: ["비고"], 			ref: 'rmrk',  		type:'input',  width:'320px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000}), typeinfo : {maxlength : 333}},
 	        {caption: ["APC코드"], 			ref: 'apcCd',  		hidden:true}
 	    ];
 	    window.grdSpmtTrsprtCo = _SBGrid.create(SBGridProperties);

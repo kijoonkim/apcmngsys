@@ -44,7 +44,7 @@
 						</th>
 						<th scope="row">사용자명</th>
 						<th>
-							<sbux-input id="inp-userAuthUserNm" name="inp-userAuthUserNm" uitype="text" class="form-control input-sm" onkeyenter="fn_selectUserList"></sbux-input>
+							<sbux-input id="inp-userAuthUserNm" name="inp-userAuthUserNm" uitype="text" class="form-control input-sm" onkeyenter="fn_selectUserList" maxlength="33"></sbux-input>
 						</th>
 						<th>&nbsp;</th>
 						<th>&nbsp;</th>
@@ -92,8 +92,8 @@
 	        {caption: ["순번"], 		ref: 'rowSeq',  	type:'output',  width:'50px',     style:'text-align:center'},
 	        {caption: ["사용자 ID"], 	ref: 'userId',  	type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["사용자 명"], 	ref: 'userNm',   	type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["직책"], 		ref: 'jbttlNm',   	type:'input',  width:'100px',    style:'text-align:center'},
-	        {caption: ["담당업무"], 	ref: 'tkcgTaskNm',  type:'input',  width:'100px',    style:'text-align:center'},
+	        {caption: ["직책"], 		ref: 'jbttlNm',   	type:'input',  width:'100px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100}), typeinfo : {maxlength : 33}},
+	        {caption: ["담당업무"], 	ref: 'tkcgTaskNm',  type:'input',  width:'100px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100}), typeinfo : {maxlength : 33}},
 	        {caption: ["권한"], 		ref: 'userStts', 	type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
             	if(strValue === "00"){
             		return "<button type='button' class='btn btn-xs btn-outline-danger' style='color:blue' onClick='fn_updateComUserAprv("+ nRow + ", \"01\")'>승인대기</button>";
@@ -109,7 +109,7 @@
 		    }},
 		    {caption: ["사용유무"], 	ref: 'delYn',   	type:'combo',  width:'100px',    style:'text-align:center',
 				typeinfo : {ref:'jsonUAReverseYn', label:'label', value:'value', displayui : true}},
-	        {caption: ["비고"], 		ref: 'rmrk',   		type:'input',   width:'150px',    style:'text-align:left'},
+	        {caption: ["비고"], 		ref: 'rmrk',   		type:'input',   width:'150px',    style:'text-align:left', validate : gfn_chkByte.bind({byteLimit: 1000}), typeinfo : {maxlength : 333}},
 	        {caption: ["APC코드"], 	ref: 'apcCd',   	type:'input',  hidden : true}
 	    ];
 	    grdUserAuth = _SBGrid.create(SBGridProperties);

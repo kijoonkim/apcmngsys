@@ -170,7 +170,7 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdApcSpcfct\", " + nRow + ")'>삭제</button>";
 	        	}
 		    }},
-	        {caption: ["규격명"],   ref: 'spcfctNm',  	type:'input',  width:'310px',    style:'text-align:center'},
+	        {caption: ["규격명"],   ref: 'spcfctNm',  	type:'input',  width:'310px',    style:'text-align:center', typeinfo : {maxlength : 30}},
 // 	        {caption: ["중량단위"], ref: 'unitCd',   	type:'combo',  width:'100px',    style:'text-align:center',
 // 				typeinfo : {ref:'jsonSpcfctUnitCd', 	itemcount: 3, label:'label', value:'value', displayui : false}},
 	        {caption: ["포장구분"], ref: 'pckgSttsCd',   	type:'combo',  width:'150px',    style:'text-align:center',
