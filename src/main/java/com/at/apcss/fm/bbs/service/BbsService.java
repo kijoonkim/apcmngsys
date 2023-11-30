@@ -3,6 +3,7 @@ package com.at.apcss.fm.bbs.service;
 import java.util.List;
 import java.util.Map;
 
+import com.at.apcss.fm.bbs.vo.BbsFileVO;
 import com.at.apcss.fm.bbs.vo.BbsVO;
 
 
@@ -78,5 +79,37 @@ public interface BbsService {
 	 * @throws Exception
 	 */
 	public int deleteBbsList(List<BbsVO> bbsList) throws Exception;
+
+	/**
+	 * 첨부파일을 조회한다.
+	 * @param bbsFileVO
+	 * @return
+	 * @throws Exception
+	 */
+	public BbsFileVO selectBbsAttaches (BbsFileVO bbsFileVO) throws Exception;
+
+	/**
+	 * 첨부파일을 조회한다.
+	 * @param bbsFileVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<BbsFileVO> selectBbsAttachesList(BbsVO bbsVO) throws Exception;
+
+	/**
+	 * 첨부파일을 등록한다.
+	 * @param bbsFileVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertAttach(BbsFileVO bbsFileVO) throws Exception;
+
+	/**
+	 * 첨부파일을 삭제한다.
+	 * @param bbsList
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteBbsAttache(BbsFileVO bbsFileVO) throws Exception;
 
 }

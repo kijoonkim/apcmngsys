@@ -80,7 +80,7 @@
 		                    <div class="sbt-grid-wrap">
 		                        <div class="sbt-wrap-header">
 		                            <span>icon</span>
-		                            <h3>게시판상세정보</h3>
+		                            <h3>게시판상세정보2</h3>
 		                        </div>
 		                        <div class="sbt-wrap-body">
 		                            <form id="frm1" name="frm1" method="post">

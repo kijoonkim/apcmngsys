@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.fm.bbs.mapper.BbsMapper;
 import com.at.apcss.fm.bbs.service.BbsService;
+import com.at.apcss.fm.bbs.vo.BbsFileVO;
 import com.at.apcss.fm.bbs.vo.BbsVO;
 
 
@@ -97,6 +98,30 @@ public class BbsServiceImpl extends BaseServiceImpl implements BbsService{
 		}
 
 		return deletedCnt;
+	}
+
+	@Override
+	public int insertAttach(BbsFileVO bbsFileVO) throws Exception {
+		int insertedCnt = bbsMapper.insertAttach(bbsFileVO);
+		return insertedCnt;
+	}
+
+	@Override
+	public List<BbsFileVO> selectBbsAttachesList(BbsVO bbsVO) throws Exception {
+		List<BbsFileVO> resultList = bbsMapper.selectBbsAttachesList(bbsVO);
+		return resultList;
+	}
+
+	@Override
+	public int deleteBbsAttache(BbsFileVO bbsFileVO) throws Exception {
+		int deletedCnt = bbsMapper.deleteBbsAttache(bbsFileVO);
+		return deletedCnt;
+	}
+
+	@Override
+	public BbsFileVO selectBbsAttaches(BbsFileVO bbsFileVO) throws Exception {
+		BbsFileVO resultVO = bbsMapper.selectBbsAttaches(bbsFileVO);
+		return resultVO;
 	}
 
 }
