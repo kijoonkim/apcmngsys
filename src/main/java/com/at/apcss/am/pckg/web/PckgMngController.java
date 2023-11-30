@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at.apcss.am.pckg.service.PckgMngService;
 import com.at.apcss.am.pckg.vo.PckgMngVO;
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 
 /**
@@ -51,13 +52,13 @@ public class PckgMngController extends BaseController {
 				return getErrorResponseEntity(rtnObj);
 			}
 		} catch(Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	@PostMapping(value = "/am/pckg/insertImportPckgRslt.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> insertImportPckgRslt(@RequestBody PckgMngVO pckgMngVO, HttpServletRequest request) throws Exception {
 
@@ -74,7 +75,7 @@ public class PckgMngController extends BaseController {
 				return getErrorResponseEntity(rtnObj);
 			}
 		} catch(Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -97,7 +98,7 @@ public class PckgMngController extends BaseController {
 				return getErrorResponseEntity(rtnObj);
 			}
 		} catch(Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -121,7 +122,7 @@ public class PckgMngController extends BaseController {
 				return getErrorResponseEntity(rtnObj);
 			}
 		} catch(Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -145,7 +146,7 @@ public class PckgMngController extends BaseController {
 				return getErrorResponseEntity(rtnObj);
 			}
 		} catch(Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -168,7 +169,7 @@ public class PckgMngController extends BaseController {
 				return getErrorResponseEntity(rtnObj);
 			}
 		} catch(Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 

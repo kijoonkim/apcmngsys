@@ -48,7 +48,7 @@ public class SpmtPrfmncController extends BaseController {
 		try {
 			resultList = spmtPrfmncService.selectSpmtPrfmncList(SpmtPrfmncVO);
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -76,7 +76,7 @@ public class SpmtPrfmncController extends BaseController {
 			}
 
 		}catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 		return getSuccessResponseEntity(resultMap);
@@ -104,7 +104,7 @@ public class SpmtPrfmncController extends BaseController {
 			}
 
 		}catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 		return getSuccessResponseEntity(resultMap);
@@ -129,7 +129,7 @@ public class SpmtPrfmncController extends BaseController {
 			}
 
 		}catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 		return getSuccessResponseEntity(resultMap);
@@ -147,7 +147,7 @@ public class SpmtPrfmncController extends BaseController {
 			resultMap.put(ComConstants.PROP_RESULT_LIST,  resultList);
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 		return getSuccessResponseEntity(resultMap);
@@ -173,7 +173,7 @@ public class SpmtPrfmncController extends BaseController {
 			}
 
 		}catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 		return getSuccessResponseEntity(resultMap);

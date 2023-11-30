@@ -42,7 +42,6 @@ public class CmnsItemController extends BaseController {
 	// APC 환경설정 - 품목 단건 조회
 	@PostMapping(value = "/am/cmns/selectCmnsApcItem.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectCmnsApcItem(@RequestBody CmnsItemVO cmnsItemVO, HttpServletRequest request) throws Exception {
-		logger.debug("selectCmnsItem 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		CmnsItemVO resultVO = new CmnsItemVO();
@@ -63,7 +62,6 @@ public class CmnsItemController extends BaseController {
 	// APC 환경설정 - 품목 목록 조회
 	@PostMapping(value = "/am/cmns/selectCmnsItemList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectCmnsItemList(@RequestBody CmnsItemVO cmnsItemVO, HttpServletRequest request) throws Exception {
-		logger.debug("selectCmnsItemList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<CmnsItemVO> resultList = new ArrayList<>();
@@ -84,7 +82,6 @@ public class CmnsItemController extends BaseController {
 	// APC 환경설정 - APC 품목 목록 조회
 	@PostMapping(value = "/am/cmns/selectApcCmnsItemList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectApcCmnsItemList(@RequestBody CmnsItemVO cmnsItemVO, HttpServletRequest request) throws Exception {
-		logger.debug("selectApcCmnsItemList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<CmnsItemVO> resultList = new ArrayList<>();
@@ -127,7 +124,6 @@ public class CmnsItemController extends BaseController {
 	// APC 환경설정 - APC 품목 삭제
 	@PostMapping(value = "/am/cmns/deleteApcCmnsItem.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> deleteApcCmnsItem(@RequestBody CmnsItemVO cmnsItemVO, HttpServletRequest request) throws Exception {
-		logger.debug("deleteApcCmnsItem 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
@@ -141,7 +137,6 @@ public class CmnsItemController extends BaseController {
 	// APC 환경설정 - APC 품목 정보 변경
 	@PostMapping(value = "/am/cmns/updateApcCmnsItem.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> updateApcCmnsItem(@RequestBody CmnsItemVO cmnsItemVO, HttpServletRequest request) throws Exception {
-		logger.debug("deleteApcCmnsItem 호출 <><><><> ");
 
 		int updatedCnt = 0;
 

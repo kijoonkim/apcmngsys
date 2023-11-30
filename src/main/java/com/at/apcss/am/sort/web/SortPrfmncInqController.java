@@ -37,21 +37,19 @@ import com.at.apcss.co.sys.controller.BaseController;
  */
 @Controller
 public class SortPrfmncInqController extends BaseController {
-	
+
 	@Resource(name = "sortMngService")
 	private SortMngService sortMngService;
-	
+
 	@Resource(name = "sortPrfmncService")
 	private SortPrfmncService sortPrfmncService;
 
-	
+
 	@PostMapping(value = "/am/sort/sortPrfmncInq.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectSortPrfmncList(@RequestBody SortPrfmncVO sortPrfmncVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<SortPrfmncVO> resultList = new ArrayList<>();
-
-		logger.debug("param info {}", sortPrfmncVO.toString());
 
 		try {
 			resultList = sortPrfmncService.selectSortPrfmncList(sortPrfmncVO);
@@ -63,5 +61,5 @@ public class SortPrfmncInqController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 }

@@ -47,7 +47,7 @@ public class TrnsfGdsInvntrController extends BaseController {
 		try {
 			resultList = trnsfGdsInvntrService.selectUpdateTrnsfGdsInvntrList(trnsfGdsInvntrVO);
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -76,7 +76,7 @@ public class TrnsfGdsInvntrController extends BaseController {
 			}
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -91,7 +91,7 @@ public class TrnsfGdsInvntrController extends BaseController {
 		try {
 			resultList = trnsfGdsInvntrService.selectTrnsfCfmtnGdsInvntrList(trnsfGdsInvntrVO);
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -120,7 +120,7 @@ public class TrnsfGdsInvntrController extends BaseController {
 			}
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 

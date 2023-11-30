@@ -48,7 +48,7 @@ public class TrnsfSortInvntrController extends BaseController {
 			resultList = trnsfSortInvntrService.selectTrnsfSortInvntrDsctnList(trnsfSortInvntrVO);
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -77,7 +77,7 @@ public class TrnsfSortInvntrController extends BaseController {
 			}
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -94,7 +94,7 @@ public class TrnsfSortInvntrController extends BaseController {
 			resultList = trnsfSortInvntrService.selectTrnsfCfmtnSortInvntrList(trnsfSortInvntrVO);
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -122,7 +122,7 @@ public class TrnsfSortInvntrController extends BaseController {
 			}
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 

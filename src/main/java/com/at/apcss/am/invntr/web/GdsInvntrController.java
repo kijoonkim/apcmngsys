@@ -47,7 +47,7 @@ public class GdsInvntrController extends BaseController {
 		try {
 			resultList = gdsInvntrService.selectGdsInvntrList(gdsInvntrVO);
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -64,7 +64,7 @@ public class GdsInvntrController extends BaseController {
 		try {
 			resultList = gdsInvntrService.selectDailyGdsInvntrList(gdsInvntrVO);
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -82,7 +82,7 @@ public class GdsInvntrController extends BaseController {
 		try {
 			resultList = gdsInvntrService.selectUpdateGdsInvntrList(gdsInvntrVO);
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -112,7 +112,7 @@ public class GdsInvntrController extends BaseController {
 			}
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 

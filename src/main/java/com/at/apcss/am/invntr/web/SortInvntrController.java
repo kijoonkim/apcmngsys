@@ -48,7 +48,7 @@ public class SortInvntrController extends BaseController {
 			resultList = sortInvntrService.selectSortInvntrDsctnList(sortInvntrVO);
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -65,7 +65,7 @@ public class SortInvntrController extends BaseController {
 		try {
 			resultList = sortInvntrService.selectSortInvntrList(sortInvntrVO);
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -82,7 +82,7 @@ public class SortInvntrController extends BaseController {
 		try {
 			resultList = sortInvntrService.selectDailySortInvntrList(sortInvntrVO);
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -111,7 +111,7 @@ public class SortInvntrController extends BaseController {
 			}
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
