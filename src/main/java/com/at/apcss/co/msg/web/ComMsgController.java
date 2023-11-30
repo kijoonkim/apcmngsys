@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.msg.service.ComMsgService;
@@ -51,11 +50,6 @@ public class ComMsgController extends BaseController{
 
 		try {
 			 resultList = comMsgService.selectComMsgList(comMsgVO);
-
-			 logger.debug("$$$$$$$$$$$$$$$$$$$$$");
-			 for (ComMsgVO msg : resultList ) {
-				 logger.debug("msgCn : {}", msg.getMsgCn());
-			 }
 
 		} catch (Exception e) {
 			logger.debug(e.getMessage());

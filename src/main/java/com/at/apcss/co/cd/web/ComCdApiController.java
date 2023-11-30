@@ -29,7 +29,6 @@ public class ComCdApiController extends BaseController {
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<ComCdVO> resultList;
-		logger.debug("pagingYn >>>>  {}", comCdVO.getPagingYn());
 		try {
 			resultList = comCdService.selectComCdList(comCdVO);
 		} catch (Exception e) {
@@ -60,7 +59,6 @@ public class ComCdApiController extends BaseController {
 
 	@PostMapping(value = "/co/cd/comBoCdDtls", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectComBoCdDtlList(@RequestBody ComCdVO comCdVO, HttpServletRequest request) throws Exception {
-		logger.debug("/co/cd/comBoCdDtls >>> 호출 >>> ");
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<ComCdVO> resultList;

@@ -48,7 +48,7 @@ public class TrnsfRawMtrInvntrController extends BaseController {
 			resultList = trnsfRawMtrInvntrService.selectTrnsfRawMtrInvntrList(trnsfRawMtrInvntrVO);
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -76,7 +76,7 @@ public class TrnsfRawMtrInvntrController extends BaseController {
 			}
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -92,7 +92,7 @@ public class TrnsfRawMtrInvntrController extends BaseController {
 			resultList = trnsfRawMtrInvntrService.selectTrnsfCfmtnRawMtrInvntrList(trnsfRawMtrInvntrVO);
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -121,7 +121,7 @@ public class TrnsfRawMtrInvntrController extends BaseController {
 			}
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 

@@ -42,7 +42,6 @@ public class PltWrhsSpmtController extends BaseController {
 	// 원물입고 - 원물 팔레트/박스 재고 목록 조회
 	@PostMapping(value = "/am/cmns/selectPltBxMngList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectPltBxMngList(@RequestBody PltBxVO pltBxVO, HttpServletRequest request) throws Exception {
-		logger.debug("selectPltBxMngList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<PltBxVO> resultList = new ArrayList<>();
@@ -63,7 +62,6 @@ public class PltWrhsSpmtController extends BaseController {
 	// 원물입고 - 원물 팔레트/박스 입출 목록 조회
 	@PostMapping(value = "/am/cmns/selectPltWrhsSpmtList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectPltWrhsSpmtList(@RequestBody PltWrhsSpmtVO pltWrhsSpmtVO, HttpServletRequest request) throws Exception {
-		logger.debug("selectPltBxMngList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<PltWrhsSpmtVO> resultList = new ArrayList<>();
@@ -82,8 +80,7 @@ public class PltWrhsSpmtController extends BaseController {
 	// 원물입고 - 원물 팔레트/박스 입출 등록
 	@PostMapping(value = "/am/cmns/insertPltWrhsSpmt.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> insertPltWrhsSpmt(@RequestBody List<PltWrhsSpmtVO> insertList, HttpServletRequest request) throws Exception {
-		logger.debug("insertPltWrhsSpmt 호출 <><><><> ");
-		
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		try {
@@ -95,18 +92,17 @@ public class PltWrhsSpmtController extends BaseController {
 			}
 			result = pltWrhsSpmtService.insertPltWrhsSpmtList(insertList);
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		
+
 		resultMap.put("result", result);
-		
+
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	@PostMapping(value = "/am/cmns/updateDelYnPltWrhsSpmt.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> updateDelYnPltWrhsSpmt(@RequestBody List<PltWrhsSpmtVO> deleteList, HttpServletRequest request) throws Exception {
-		logger.debug("updateDelYnPltWrhsSpmt 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		HashMap<String, Object> result = new HashMap<String, Object>();
@@ -119,7 +115,7 @@ public class PltWrhsSpmtController extends BaseController {
 			}
 			result = pltWrhsSpmtService.updateDelYnPltWrhsSpmtList(deleteList);
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 

@@ -42,7 +42,6 @@ public class PltBxController extends BaseController {
 	// APC 환경설정 - 팔레트/박스 목록 조회
 	@PostMapping(value = "/am/cmns/selectPltBxList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectPltBxList(@RequestBody PltBxVO pltBxVO, HttpServletRequest request) throws Exception {
-		logger.debug("selectPltBxList 호출 <><><><> ");
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<PltBxVO> resultList = new ArrayList<>();
@@ -62,7 +61,6 @@ public class PltBxController extends BaseController {
 	// 출하실적 등록
 	@PostMapping(value = "/am/cmns/multiPltBxList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> multiPltBxList(@RequestBody List<PltBxVO> pltBxList, HttpServletRequest request) throws Exception {
-		logger.debug("multiPltBxList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<PltBxVO> updateList = new ArrayList<PltBxVO>();
@@ -81,7 +79,7 @@ public class PltBxController extends BaseController {
 			}
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 		return getSuccessResponseEntity(resultMap);
@@ -97,7 +95,7 @@ public class PltBxController extends BaseController {
 		try {
 			result = pltBxService.deletePltBx(pltBxVO);
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 

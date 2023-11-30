@@ -48,7 +48,7 @@ public class RawMtrInvntrController extends BaseController {
 			resultVO = rawMtrInvntrService.selectRawMtrInvntr(rawMtrInvntrVO);
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -67,7 +67,7 @@ public class RawMtrInvntrController extends BaseController {
 			resultList = rawMtrInvntrService.selectRawMtrInvntrList(rawMtrInvntrVO);
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -86,7 +86,7 @@ public class RawMtrInvntrController extends BaseController {
 			resultList = rawMtrInvntrService.selectRawMtrInvntrListForPrcs(rawMtrInvntrVO);
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -105,7 +105,7 @@ public class RawMtrInvntrController extends BaseController {
 			resultList = rawMtrInvntrService.selectDailyRawMtrInvntrList(rawMtrInvntrVO);
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -133,7 +133,7 @@ public class RawMtrInvntrController extends BaseController {
 			}
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 

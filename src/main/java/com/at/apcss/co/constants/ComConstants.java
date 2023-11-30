@@ -17,6 +17,8 @@ public class ComConstants {
 
 	public final static String PAGINATION_MAP = "paginationMap";
 
+	public final static String ERROR_CODE = "error: {}";
+
 	/**
 	 * SSO TOKEN : pni_token
 	 */

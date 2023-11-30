@@ -33,7 +33,7 @@ public class RawMtrWrhsPlanController extends BaseController{
 			resultList = rawMtrWrhsPlanService.selectRawMtrWrhsPlanList(rawMtrWrhsPlanVO);
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -59,7 +59,7 @@ public class RawMtrWrhsPlanController extends BaseController{
 			insertedCnt = rawMtrWrhsPlanService.insertRawMtrWrhsPlanList(rawMtrWrhsPlanList);
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -81,7 +81,7 @@ public class RawMtrWrhsPlanController extends BaseController{
 				delettedCnt = rawMtrWrhsPlanService.deleteRawMtrWrhsPlan(rawMtrWrhsPlanVO);
 
 		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
