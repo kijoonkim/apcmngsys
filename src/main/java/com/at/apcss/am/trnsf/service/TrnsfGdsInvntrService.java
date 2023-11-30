@@ -43,5 +43,12 @@ public interface TrnsfGdsInvntrService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> inserttrnsfGdsInvntrList(List<TrnsfGdsInvntrVO> trnsfGdsInvntrList) throws Exception;
+	/**
+	 * 상품재고 이송확정 취소
+	 * @param gdsInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteTrnsfCfmtnGdsInvntrList(List<TrnsfGdsInvntrVO> trnsfGdsInvntrList) throws Exception;
 
 }

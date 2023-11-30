@@ -70,7 +70,7 @@ public class TrnsfRawMtrInvntrController extends BaseController {
 				trnsfRawMtrInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
 
-			HashMap<String, Object> rtnObj = trnsfRawMtrInvntrService.insertTrnsfRawMtrInvntrList(trnsfRawMtrInvntrList); //updateRawMtrInvntrList
+			HashMap<String, Object> rtnObj = trnsfRawMtrInvntrService.insertTrnsfRawMtrInvntrList(trnsfRawMtrInvntrList);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}
@@ -97,6 +97,33 @@ public class TrnsfRawMtrInvntrController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/trnsf/deleteTrnsfCfmtnRawMtrInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteTrnsfCfmtnRawMtrInvntrList(@RequestBody List<TrnsfRawMtrInvntrVO> trnsfRawMtrInvntrList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+
+			for (TrnsfRawMtrInvntrVO trnsfRawMtrInvntrVO : trnsfRawMtrInvntrList) {
+
+				trnsfRawMtrInvntrVO.setSysFrstInptPrgrmId(getPrgrmId());
+				trnsfRawMtrInvntrVO.setSysFrstInptUserId(getUserId());
+				trnsfRawMtrInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
+				trnsfRawMtrInvntrVO.setSysLastChgUserId(getUserId());
+			}
+
+			HashMap<String, Object> rtnObj = trnsfRawMtrInvntrService.deleteTrnsfCfmtnRawMtrInvntrList(trnsfRawMtrInvntrList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
 
 		return getSuccessResponseEntity(resultMap);
 	}

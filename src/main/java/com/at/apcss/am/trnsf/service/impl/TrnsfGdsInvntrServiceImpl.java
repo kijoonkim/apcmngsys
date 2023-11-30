@@ -12,12 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.at.apcss.am.invntr.service.GdsInvntrService;
+import com.at.apcss.am.invntr.vo.GdsInvntrVO;
 import com.at.apcss.am.trnsf.mapper.TrnsfGdsInvntrMapper;
 import com.at.apcss.am.trnsf.service.InvntrTrnsfService;
 import com.at.apcss.am.trnsf.service.TrnsfGdsInvntrService;
 import com.at.apcss.am.trnsf.vo.InvntrTrnsfVO;
 import com.at.apcss.am.trnsf.vo.TrnsfGdsInvntrVO;
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : GdsInvntrServiceImpl.java
@@ -86,6 +89,41 @@ public class TrnsfGdsInvntrServiceImpl extends BaseServiceImpl implements TrnsfG
 	public List<TrnsfGdsInvntrVO> selectTrnsfCfmtnGdsInvntrList(TrnsfGdsInvntrVO trnsfGdsInvntrVO) throws Exception {
 		List<TrnsfGdsInvntrVO> resultList =  trnsfGdsInvntrMapper.selectTrnsfCfmtnGdsInvntrList(trnsfGdsInvntrVO);
 		return resultList;
+	}
+
+
+	@Override
+	public HashMap<String, Object> deleteTrnsfCfmtnGdsInvntrList(List<TrnsfGdsInvntrVO> trnsfGdsInvntrList) throws Exception {
+		List<GdsInvntrVO> gdsInvntrList = new ArrayList<>();
+		List<InvntrTrnsfVO> invntrTrnsfList = new ArrayList<>();
+
+		for (TrnsfGdsInvntrVO trnsfGdsInvntrVO : trnsfGdsInvntrList) {
+
+				GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
+				InvntrTrnsfVO invntrTrnsfVO = new InvntrTrnsfVO();
+				BeanUtils.copyProperties(trnsfGdsInvntrVO, gdsInvntrVO);
+				BeanUtils.copyProperties(trnsfGdsInvntrVO, invntrTrnsfVO);
+
+				gdsInvntrList.add(gdsInvntrVO);
+				invntrTrnsfList.add(invntrTrnsfVO);
+		}
+
+		for (InvntrTrnsfVO invntrTrnsfVO : invntrTrnsfList) {
+			int i = invntrTrnsfService.updateTrnsfInvntrCncl(invntrTrnsfVO);
+
+			if(i == 0) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "취소 중 오류가 발생 했습니다.")));		// E0000	{0}
+			}
+		}
+
+		for (GdsInvntrVO gdsInvntrVO : gdsInvntrList) {
+			HashMap<String, Object> rtnObj = gdsInvntrService.deleteGdsInvntr(gdsInvntrVO);
+			if(rtnObj != null) {
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+		}
+
+		return null;
 	}
 
 }

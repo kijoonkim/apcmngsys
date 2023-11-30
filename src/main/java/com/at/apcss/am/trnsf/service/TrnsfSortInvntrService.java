@@ -23,8 +23,8 @@ public interface TrnsfSortInvntrService {
 
 	/**
 	 * 선별재고 목록 조회
-	 * @param sortInvntrVO
-	 * @return
+	 * @param TrnsfSortInvntrVO
+	 * @return List<TrnsfSortInvntrVO>
 	 * @throws Exception
 	 */
 	public List<TrnsfSortInvntrVO> selectTrnsfSortInvntrDsctnList(TrnsfSortInvntrVO trnsfSortInvntrVO) throws Exception;
@@ -40,10 +40,18 @@ public interface TrnsfSortInvntrService {
 
 	/**
 	 * 선별재고 이송 등록
-	 * @param sortInvntrVO
-	 * @return
+	 * @param List<TrnsfSortInvntrVO>
+	 * @return HashMap<String, Object>
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertTrnsfSortInvntrList(List<TrnsfSortInvntrVO> trnsfSortInvntrList) throws Exception;
+
+	/**
+	 * 선별재고 이송확정 취소
+	 * @param List<TrnsfSortInvntrVO>
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteTrnsfCfmtnSortInvntrList(List<TrnsfSortInvntrVO> trnsfSortInvntrList) throws Exception;
 
 }
