@@ -175,9 +175,9 @@
 // 				typeinfo : {ref:'jsonSpcfctUnitCd', 	itemcount: 3, label:'label', value:'value', displayui : false}},
 	        {caption: ["포장구분"], ref: 'pckgSttsCd',   	type:'combo',  width:'150px',    style:'text-align:center',
 				typeinfo : {ref:'jsonSpcfctPckgSttsCd', itemcount: 10, label:'label', value:'value', displayui : false}},
-	        {caption: ["평균입수"],	ref: 'bxGdsQntt',  	type:'input',  width:'150px',    style:'text-align:center'},
+	        {caption: ["평균입수"],	ref: 'bxGdsQntt',  	type:'input',  width:'150px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}},},
 	        {caption: ["단중"],     ref: 'wght',  		type:'input',  width:'150px',    style:'text-align:center',
-	        	format : {type:'number', rule:'#,###.000'}
+	        	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###.000'}
 	        },
 	        {caption: ["사용유무"], 	ref: 'delYn',  type:'combo',  width:'100px',    style:'text-align:center',
 				typeinfo : {ref:'jsonUseYn', label:'label', value:'value',  displayui : false}},
