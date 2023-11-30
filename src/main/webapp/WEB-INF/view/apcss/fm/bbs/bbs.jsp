@@ -18,6 +18,7 @@
                 <div class="sbt-wrap-full">
                     <!--Button 영역-->
                     <div class="sbt-search-button" style="text-align:right;">
+                   		<sbux-button id="test" name="test" uitype="normal" wrap-class="sbt-btn-reset" text="test" onclick="fn_test(0)"></sbux-button>
                         <sbux-button id="btn_create" name="btn_create" uitype="normal" wrap-class="sbt-btn-reset" text="신규" onclick="fn_create"></sbux-button>
                         <sbux-button id="btn_delete" name="btn_delete" uitype="normal" wrap-class="sbt-btn-reset" text="삭제" onclick="fn_delete"></sbux-button>
                         <sbux-button id="btn_save" name="btn_save" uitype="normal" wrap-class="sbt-btn-reset" text="저장" onclick="fn_save"></sbux-button>
@@ -80,7 +81,7 @@
 		                    <div class="sbt-grid-wrap">
 		                        <div class="sbt-wrap-header">
 		                            <span>icon</span>
-		                            <h3>게시판상세정보</h3>
+		                            <h3>게시판상세정보1</h3>
 		                        </div>
 		                        <div class="sbt-wrap-body">
 		                            <form id="frm1" name="frm1" method="post">
@@ -135,6 +136,58 @@
 		                                        <sbux-input id="dtl-input-bbsFile" name="dtl-input-bbsFile" uitype="text" required style="width:100%" readonly ></sbux-input>
 		                                    </td>
 		                                </tr> -->
+		                                <tr>
+		                                	<th>첨부파일</th>
+		                                    <td colspan="7">
+		                                    	<!--
+			                                	<sbux-fileupload id="file" name="file" uitype="multiple"
+													upload-url="/fm/bbs/fileUpload.do"
+
+													header-title = "첨부파일목록"
+
+													accept-file-types= "txt|zip|jar|docx?|xls?x|pdf|gif|jpe?g|png|pptx?",
+													max-file-size = "5000000"
+													vertical-scroll-height = "100px"
+													wrap-style="width:90%"
+
+													accept-file-types-message ="금지된 파일"
+													max-file-size-message = "용량초과"
+													upload-fail-message = "업로드 실패"
+
+													button-add-title = "Add"
+													button-cancel-title = "Cancel"
+													button-upload-title = "Upload"
+													button-delete-title = "Delete"
+
+													callback-click-list= "fnClickList"
+													drop-zone="true"
+													drop-zone-img-placement="middle"
+													>
+												</sbux-fileupload>
+												 -->
+												<!--
+												<form method="post" action="/fm/bbs/fileUpload.do" enctype="multipart/form-data">
+												-->
+												    <!-- 라벨 및 파일 선택 input 추가 -->
+												    <!--
+												    <label for="bbsfile" class="custom-file-upload">첨부파일</label>
+												    <input type="file" name="files" id="bbsfile" multiple />
+												     -->
+												    <!-- 파일 리스트 표시를 위한 추가 -->
+												    <!--
+												    <ul id="file-list"></ul>
+												</form>
+												 -->
+												 <div id="drop-area">
+												    <p>첨부파일을 여기에 드래그 해주세요</p>
+												    <label for="bbsfile" class="custom-file-upload">첨부파일</label>
+												    <input type="file" name="files" id="bbsfile" multiple style="display: none;">
+												    <input type="file" name="filesa" id="bbsfileList" multiple style="display: none;">
+												    <ul id="org-file-list"></ul>
+												    <ul id="file-list"></ul>
+												</div>
+											</td>
+		                                </tr>
 		                              </table>
 		                            </form>
 		                        </div>
@@ -205,7 +258,8 @@
             {caption: ["최종변경자ID"],	ref: 'updUserId',   type:'output',  hidden: true},
             {caption: ["최종변경일시"], ref: 'updDateTime', type:'output',  hidden: true},
             {caption: ["등록프로그램"], ref: 'creProgram',  type:'output',  hidden: true},
-            {caption: ["변경프로그램"], ref: 'updProgram',  type:'output',  hidden: true}
+            {caption: ["변경프로그램"], ref: 'updProgram',  type:'output',  hidden: true},
+            {caption: ["첨부파일 수"],      	ref: 'attCnt',        type:'output',  hidden: true}
         ];
 
         grdBbsList = _SBGrid.create(SBGridProperties);
@@ -283,7 +337,9 @@
 					sysLastChgDt: item.sysLastChgDt,
 					sysLastChgUserId: item.sysLastChgUserId,
 					sysLastChgUserIdNm: item.sysLastChgUserIdNm,
-					sysLastChgPrgrmId: item.sysLastChgPrgrmId
+					sysLastChgPrgrmId: item.sysLastChgPrgrmId,
+
+					attCnt : item.attCnt
 				}
 				jsonBbsList.push(msg);
 
@@ -328,6 +384,12 @@
         SBUxMethod.set("dtl-input-bbsSubject", null);
         SBUxMethod.set("dtl-input-sysFrstInptUserIdNm", null);
         SBUxMethod.set("dtl-input-sysFrstInptDt", null);
+
+	    //첨부파일 리스트 초기화
+        var ulList = $('#file-list');
+	    ulList.empty();
+	    var ulOrgList = $('#org-file-list');
+	    ulOrgList.empty();
     }
 
     const fn_clearForm = function() {
@@ -339,6 +401,11 @@
         SBUxMethod.set("dtl-input-bbsSubject", null);
         SBUxMethod.set("dtl-input-sysFrstInptUserIdNm", null);
         SBUxMethod.set("dtl-input-sysFrstInptDt", null);
+      	//첨부파일 리스트 초기화
+        var ulList = $('#file-list');
+	    ulList.empty();
+	    var ulOrgList = $('#org-file-list');
+	    ulOrgList.empty();
     }
 
     //저장
@@ -408,8 +475,14 @@
 
         try {
         	if (_.isEqual("S", data.resultStatus)) {
-        		alert("처리 되었습니다.");
-        		fn_search();
+        		console.log("게시글 등록 성공");
+        		var fileList = $('#bbsfileList')[0].files;
+        		if(fileList.length > 0){
+        			fn_test(0);
+        		}else{
+        			alert("처리 되었습니다.");
+        			fn_search();
+        		}
         	} else {
         		alert(data.resultMessage);
         	}
@@ -439,8 +512,15 @@
 
         try {
         	if (_.isEqual("S", data.resultStatus)) {
-        		alert("처리 되었습니다.");
-        		fn_search();
+        		console.log("게시글 등록 성공");
+        		var fileList = $('#bbsfileList')[0].files;
+        		if(fileList.length > 0){
+        			var bbsNo = SBUxMethod.get('dtl-input-orngBbsNo');
+        			fn_test(bbsNo);
+        		}else{
+        			alert("처리 되었습니다.");
+        			fn_search();
+        		}
         	} else {
         		alert(data.resultMessage);
         	}
@@ -530,7 +610,13 @@
     }
 
     //상세정보 보기
-    function fn_view() {
+    //function fn_view() {
+    const fn_view = async function (){
+    	//첨부파일 리스트 초기화
+        var ulList = $('#file-list');
+	    ulList.empty();
+	    var ulOrgList = $('#org-file-list');
+	    ulOrgList.empty();
 
     	var nCol = grdBbsList.getCol();
         //특정 열 부터 이벤트 적용
@@ -551,6 +637,35 @@
         SBUxMethod.set("dtl-input-bbsSubject", rowData.bbsSubject);
         SBUxMethod.set("dtl-input-sysFrstInptUserIdNm", rowData.sysFrstInptUserIdNm);
         SBUxMethod.set("dtl-input-sysFrstInptDt", rowData.sysFrstInptDt);
+		console.log(rowData.attCnt);
+        if(Number(rowData.attCnt) == 0){
+        	console.log("attCnt = 0");
+			return;
+        }
+        const postJsonPromise = gfn_postJSON("/fm/bbs/selectBbsAttachesList.do", {
+        	bbsNo: SBUxMethod.get("dtl-input-orngBbsNo")
+		});
+
+        const data = await postJsonPromise;
+
+        try {
+
+        	/** @type {number} **/
+        	data.resultList.forEach((item, index) => {
+				const msg = {
+					bbsNo: item.bbsNo,
+				}
+				var ulList = $('#org-file-list');
+				var fileName = item.atchflOrgnNm;
+		        var fileItem = $('<li class="file-item" id=att_"' + item.atchflno + '">' +
+		                '<span class="file-name">' + fileName + '</span>' +
+		                '<span class="remove-file" onclick="downloadFile(' + item.atchflno + ')">다운</span>' +
+		                '<span class="remove-file" onclick="deleteFile(' + item.atchflno + ')">삭제</span>' +
+		                '</li>');
+		        ulList.append(fileItem);
+			});
+        } catch(e) {
+        }
     }
 
     //그리드 체크박스 전체 선택
@@ -561,7 +676,222 @@
         	grdBbsList.setCellData(i+1, 1, checkedYn, true, false);
         }
     }
+	//첨부파일 업로드
+    function fn_test(bbsNo) {
+    	console.log("===========fn_test");
+    	var formData = new FormData();
+    	var files = $('#bbsfileList')[0].files;
 
+    	if(files.length == 0){return;}
+
+    	for (var i = 0; i < files.length; i++) {
+            formData.append('files', files[i]);
+        }
+    	if(Number(bbsNo) > 0){
+			//게시판 번호
+    		formData.append('bbsNo', "0");
+    	}else{
+    		//게시판 번호
+    		formData.append('bbsNo', bbsNo);
+    	}
+
+        $.ajax({
+            type: 'POST',
+            url: '/fm/bbs/fileUpload.do',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                console.log(response);
+                alert("처리 되었습니다.");
+        		fn_search();
+            },
+            error: function (error) {
+                console.log('Error:', error);
+            }
+        });
+	}
+
+	//첨부파일 드래그 앤 드랍 구현
+    var dropArea = $('#drop-area');
+	var addButton = $('#add-button');
+
+	dropArea.on('dragover', function (e) {
+	    e.preventDefault();
+	    dropArea.addClass('highlight');
+	});
+
+	dropArea.on('dragleave', function () {
+	    dropArea.removeClass('highlight');
+	});
+
+	//드랍 이벤트
+	dropArea.on('drop', function (e) {
+		console.log("drop---------");
+	    e.preventDefault();
+	    dropArea.removeClass('highlight');
+	    var files = e.originalEvent.dataTransfer.files;
+	    showFiles(files);
+	});
+	//input 변경이벤트
+	$('#bbsfile').on('change', function (e) {
+		console.log("change---------");
+	    var files = $(this)[0].files;
+	    showFiles(files);
+	});
+
+	addButton.on('click', function () {
+	    var inputFiles = $('#bbsfile')[0].files;
+	    showFiles(inputFiles);
+	});
+
+	function showFiles(newfiles) {
+
+		var newFileList = new DataTransfer();
+		var fileList = $('#bbsfileList')[0].files;
+		//기존파일
+		for (var i = 0; i < fileList.length; i++) {
+			newFileList.items.add(fileList[i]);
+		}
+		if(newfiles != null){
+			//새로운 파일
+			for (var i = 0; i < newfiles.length; i++) {
+				newFileList.items.add(newfiles[i]);
+			}
+		}
+
+		$('#bbsfileList')[0].files = newFileList.files;
+
+	    var ulList = $('#file-list');
+	    //리스트 초기화
+	    ulList.empty();
+	    //파일 목록
+		var realFileList = $('#bbsfileList')[0].files;
+	    for (var i = 0; i < realFileList.length; i++) {
+	    	var fileName = realFileList[i].name;
+	        var fileItem = $('<li class="file-item">' +
+	                '<span class="file-name">' + fileName + '</span>' +
+	                '<span class="remove-file" onclick="removeFile(' + i + ')">삭제</span>' +
+	                '</li>');
+	        ulList.append(fileItem);
+	    }
+	    console.log($('#bbsfile')[0].files);
+	    $('#bbsfile').val("");
+	}
+
+ 	// 파일 리스트에서 파일을 제거하는 함수
+    function removeFile(index) {
+    	console.log("==============removeFile==============");
+
+ 		var fileList = $('#bbsfileList')[0].files;
+    	console.log(fileList);
+        var fileListContainer = $('#file-list');
+
+        // 선택한 파일을 리스트에서 제거
+        fileListContainer.find('.file-item').eq(index).remove();
+
+        // input[type=file]에서도 제거
+        //보안 문제로 files는 읽기 전용
+        var newFileList = new DataTransfer();
+        for (var i = 0; i < fileList.length; i++) {
+            if (i !== index) {
+                //newFileList.push(fileList[i]);
+            	newFileList.items.add(fileList[i]);
+            }
+        }
+        $('#bbsfileList')[0].files = newFileList.files;
+        console.log($('#bbsfileList')[0].files);
+        showFiles(null);
+    }
+ 	//첨부파일 삭제
+    const deleteFile = async function (atchflno){
+
+     	const postJsonPromise = gfn_postJSON("/fm/bbs/deleteBbsAttache.do", {
+     		atchflno : atchflno
+     	});
+
+         const data = await postJsonPromise;
+
+         try {
+         	if (_.isEqual("S", data.resultStatus)) {
+				$("#att_"+atchflno).remove();
+         		alert("삭제 되었습니다.");
+         	} else {
+         		alert(data.resultMessage);
+         	}
+         } catch(e) {
+         }
+
+         // 결과 확인 후 재조회
+         console.log("update result", data);
+    }
+
+ 	//첨부파일 삭제
+    const downloadFile = async function (atchflno){
+ 		var url = "/download/"+atchflno;
+ 		window.open(url);
+    	//var formData = new FormData();
+    	//formData.append('atchflno', atchflno);
+
+    	/*
+    	$.ajax({
+            type: 'POST',
+            url: '/fm/bbs/downloadFile.do',
+            data: {atchflno:atchflno},
+            //processData: false,
+            //contentType: false,
+           contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+            success: function (response) {
+                console.log(response);
+                alert("처리 되었습니다.");
+        		fn_search();
+            },
+            error: function (error) {
+                console.log('Error:', error);
+            }
+        });
+    	*/
+    }
 </script>
+	<!-- 첨부파일 스타일 추가 -->
+	<style>
+        #drop-area {
+            border: 2px dashed #ccc;
+            padding: 20px;
+            width: 90%;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        #file-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .file-item {
+            margin: 5px;
+        }
+        .remove-file {
+        	padding-left: 10px;
+            cursor: pointer;
+            color: #e74c3c;
+        }
+        .custom-file-upload {
+            display: inline-block;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 5px 10px;
+            color: #fff;
+            background-color: #3498db;
+            border: 1px solid #3498db;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .custom-file-upload:hover {
+            background-color: #2980b9;
+            border: 1px solid #2980b9;
+        }
+    </style>
 </body>
 </html>

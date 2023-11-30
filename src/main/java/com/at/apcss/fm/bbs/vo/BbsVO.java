@@ -1,5 +1,7 @@
 package com.at.apcss.fm.bbs.vo;
 
+import java.util.List;
+
 import com.at.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
@@ -24,5 +26,7 @@ public class BbsVO extends ComVO{
 	private String sysFrstInptDtYmd;
 	private String sysLastChgDtYmd;
 
-
+	private String attCnt;
+	private List<BbsFileVO> attaches ;      /*첨부파일 리스트    */
+	private int[] delAtchNos;             /*삭제를 위한 글 번호  */
 }

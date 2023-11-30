@@ -1,40 +1,53 @@
 package com.at.apcss.fm.bbs.web;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.fm.bbs.service.BbsService;
+import com.at.apcss.fm.bbs.vo.BbsFileVO;
 import com.at.apcss.fm.bbs.vo.BbsVO;
 
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 
 /**
@@ -55,6 +68,8 @@ import org.xml.sax.SAXException;
 @Controller
 public class BbsController extends BaseController {
 
+	//파일 업로드 경로
+	private String uploadPath = "C:\\app\\upload";
 
 	// 게시판
 	@Resource(name= "bbsService")
@@ -288,6 +303,166 @@ public class BbsController extends BaseController {
 		return "apcss/fm/bbs/xmlParshing";
 	}
 
+	// 첨부파일 조회
+	@PostMapping(value = "/fm/bbs/selectBbsAttachesList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectFile(Model model, @RequestBody BbsVO bbsVO, HttpServletRequest request) throws Exception{
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<BbsFileVO> resultList = new ArrayList<>();
+
+		try {
+			 resultList = bbsService.selectBbsAttachesList(bbsVO);
+
+			 logger.debug("$$$$$$$$$$$$$$$$$$$$$");
+			 for (BbsFileVO bbsFile : resultList ) {
+				 logger.debug("AtchNo : {}", bbsFile.getAtchflno());
+			 }
+
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 첨부파일 업로드
+    @PostMapping("/fm/bbs/fileUpload.do")
+    public ResponseEntity<HashMap<String, Object>> handleFileUpload(@RequestParam("files") List<MultipartFile> files,@RequestParam("bbsNo") String bbsNo, RedirectAttributes redirectAttributes) throws Exception{
+
+    	System.out.println("======================/fm/bbs/fileUpload.do==========================");
+
+    	HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+    	for (MultipartFile file : files) {
+    		BbsFileVO bbsFileVO = new BbsFileVO();
+
+    		long size = file.getSize(); //파일 사이즈
+    		String fileRealName = file.getOriginalFilename();//파일 이름
+    		//System.out.println("파일명 : "  + fileRealName);
+    		//System.out.println("용량크기(byte) : " + size);
+
+    		//서버에 저장할 파일이름 fileextension으로 .jsp이런식의  확장자 명을 구함
+    		String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."),fileRealName.length());
+
+    		UUID uuid = UUID.randomUUID();
+    		//System.out.println(uuid.toString());
+    		String[] uuids = uuid.toString().split("-");
+
+    		String uniqueName = uuids[0];
+    		//System.out.println("생성된 고유문자열" + uniqueName);
+    		//System.out.println("확장자명" + fileExtension);
+
+    		String folderPath = makeFolder();
+    		//uploadPath 업로드 경로
+    		//folderPath 날짜 폴더 경로
+    		String saveName = uploadPath + File.separator + folderPath +File.separator + uniqueName + "_" + fileExtension;
+
+    		Path savePath = Paths.get(saveName);
+
+    		bbsFileVO.setAtchflno(bbsNo);
+    		bbsFileVO.setAtchflNm(uniqueName);
+    		bbsFileVO.setAtchflOrgnNm(fileRealName);
+    		bbsFileVO.setAtchflSz(size);
+    		bbsFileVO.setAtchflExtnType(fileExtension);
+    		bbsFileVO.setAtchflPath(folderPath);
+
+    		int insertedCnt = 0;
+    		//파일 생성
+    		//file.transferTo(savePath);
+    		 try {
+                 file.transferTo(savePath);
+                 insertedCnt = bbsService.insertAttach(bbsFileVO);
+             } catch (IOException e) {
+                 e.printStackTrace();
+             }
+
+        }
+
+		redirectAttributes.addFlashAttribute("message", "File successfully uploaded!");
+
+		resultMap.put(ComConstants.PROP_DELETED_CNT, 0);
+
+		return getSuccessResponseEntity(resultMap);
+    }
+
+    private String makeFolder(){
+
+      	String str = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+        //LocalDate를 문자열로 포멧
+        String folderPath = str.replace("/", File.separator);
+        //만약 Data 밑에 exam.jpg라는 파일을 원한다고 할때,
+        //윈도우는 "Data\\"eaxm.jpg", 리눅스는 "Data/exam.jpg"라고 씁니다.
+        //그러나 자바에서는 "Data" +File.separator + "exam.jpg" 라고 쓰면 됩니다.
+
+        //make folder ==================
+        File uploadPathFolder = new File(uploadPath, folderPath);
+        //File newFile= new File(dir,"파일명");
+        //->부모 디렉토리를 파라미터로 인스턴스 생성
+
+        if(uploadPathFolder.exists() == false){
+        	uploadPathFolder.mkdirs();
+            //만약 uploadPathFolder가 존재하지않는다면 makeDirectory 시도
+            //mkdir(): 디렉토리에 상위 디렉토리가 존재하지 않을경우에는 생성이 불가능한 함수
+        }
+        return folderPath;
+	}
 
 
+	// 첨부파일 삭제
+	@PostMapping(value = "/fm/bbs/deleteBbsAttache.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteBbsAttache(@RequestBody BbsFileVO bbsFileVO, HttpServletRequest requset) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		// validation check
+
+		int deletedCnt = 0;
+
+		try {
+			deletedCnt = bbsService.deleteBbsAttache(bbsFileVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+    @GetMapping("/download/{atchflno}")
+    public void downloadFile(@PathVariable String atchflno, HttpServletRequest requset, HttpServletResponse response) throws Exception {
+
+    	System.out.println("============/fm/bbs/downloadFile.do=============");
+    	BbsFileVO bbsFileVO = new BbsFileVO();
+    	bbsFileVO.setAtchflno(atchflno);
+    	BbsFileVO result;
+
+
+    	result = bbsService.selectBbsAttaches(bbsFileVO);
+
+    	String atchFileName = result.getAtchflNm();
+    	String fileExtension = result.getAtchflExtnType();
+    	String folderPath = result.getAtchflPath();
+    	String atchOriginalName = result.getAtchflOrgnNm();
+
+    	String downloadPath = uploadPath + File.separator + folderPath +File.separator ;
+    	String filename = atchFileName + "_" + fileExtension;
+
+    	File f = new File(downloadPath, filename);
+        // file 다운로드 설정
+        response.setContentType("application/download");
+        response.setContentLength((int)f.length());
+        response.setHeader("Content-disposition", "attachment;filename=\"" + URLEncoder.encode(atchOriginalName,"UTF-8") + "\"");
+        // response 객체를 통해서 서버로부터 파일 다운로드
+        OutputStream os = response.getOutputStream();
+        // 파일 입력 객체 생성
+        FileInputStream fis = new FileInputStream(f);
+        FileCopyUtils.copy(fis, os);
+        fis.close();
+        os.close();
+
+    }
 }
