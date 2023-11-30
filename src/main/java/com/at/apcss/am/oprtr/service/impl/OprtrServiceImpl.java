@@ -41,8 +41,19 @@ public class OprtrServiceImpl extends BaseServiceImpl implements OprtrService {
 	}
 
 	@Override
-	public int insertOprtr(OprtrVO oprtrVO) throws Exception {
-		return oprtrMapper.insertOprtr(oprtrVO);
+	public int multiOprtr(OprtrVO oprtrVO) throws Exception {
+		String rowSts = oprtrVO.getRowSts();
+		int insertedCnt = 0;
+		int updatedCnt = 0;
+		if("I".equals(rowSts)) {
+			insertedCnt = oprtrMapper.insertOprtr(oprtrVO);
+			return insertedCnt;
+		}
+		if("U".equals(rowSts)) {
+			updatedCnt = oprtrMapper.updateOprtr(oprtrVO);
+			return updatedCnt;
+		}
+		return 0;
 	}
 
 	@Override

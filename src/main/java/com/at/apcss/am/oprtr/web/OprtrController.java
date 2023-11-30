@@ -3,8 +3,6 @@ package com.at.apcss.am.oprtr.web;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -62,46 +60,20 @@ public class OprtrController extends BaseController{
 	}
 
 	@PostMapping(value = "/am/cmns/compareOprtrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> compareSpmtTrsprtList(@RequestBody Map<String, List<OprtrVO>> oprtrVO, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> compareSpmtTrsprtList(@RequestBody List<OprtrVO> oprtrList, HttpServletRequest request) throws Exception {
 		logger.debug("compareOprtrList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		int insertCnt = 0;
 		try {
-			List<OprtrVO> origin = oprtrVO.get("origin").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
-			List<OprtrVO> modified = oprtrVO.get("modified").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
-
-			List<OprtrVO> updateList = new ArrayList<OprtrVO>();
-			List<OprtrVO> insertList = new ArrayList<OprtrVO>();
-			boolean insrtChk = true;
-			for (OprtrVO ei : modified) {
-				insrtChk = true;
-				for (OprtrVO ej : origin) {
-					if (ei.getFlnm().equals(ej.getFlnm()) && ei.getBrdt().equals(ej.getBrdt())) {
-						if (ei.hashCode() != ej.hashCode()) {
-							updateList.add(ei);
-						}
-						insrtChk = false;
-						break;
-					}
-				}
-				if (insrtChk)
-					insertList.add(ei);
-			}
-
-			for (OprtrVO element : insertList) {
+			
+			for (OprtrVO element : oprtrList) {
 				element.setSysFrstInptPrgrmId(getPrgrmId());
 				element.setSysFrstInptUserId(getUserId());
 				element.setSysLastChgPrgrmId(getPrgrmId());
 				element.setSysLastChgUserId(getUserId());
-				oprtrService.insertOprtr(element);
-			}
-
-			for (OprtrVO element : updateList) {
-				element.setSysLastChgPrgrmId(getPrgrmId());
-				element.setSysLastChgUserId(getUserId());
-				oprtrService.updateOprtr(element);
+				oprtrService.multiOprtr(element);
 			}
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
