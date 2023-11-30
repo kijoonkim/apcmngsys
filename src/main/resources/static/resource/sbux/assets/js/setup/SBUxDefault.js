@@ -647,6 +647,7 @@
 		jsondataImageAlt  :	'imagealt',
 		jsondataImageTitle:	'imagetitle',
 		jsondataLink	  : 'link',
+        jsondataTarget    : 'target',
 		notFoundText      : SBUxG.DEF.MSG.CAROUSEL_NOT_FOUND,
 		mouseWheelMove    : false,
 		contentIdArray    : '',

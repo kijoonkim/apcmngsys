@@ -1,7 +1,9 @@
 /* 그리드의 기본 default 속성 변경 시 사용 */
 var _SBDefault = { PROP: {} };
 _SBDefault.PROP.Columns = {
-	/*'mask': {
+	/*
+	yearrange: 50,
+	'mask': {
 		alias: "currency",
 		prefix: '￦'
 	}*/

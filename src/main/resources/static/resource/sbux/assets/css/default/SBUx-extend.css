@@ -95,52 +95,58 @@ body {
 .light-grey {
   color: #bbb !important;
 }
-.sbux-ale-wrap {
+.sbux-ale-item-wrapper {
   position: fixed;
   top: 20px;
   right: 20px;
   z-index: 12000;
   width: 301px;
 }
-.sbux-ale-wrap.sbux-ale-top-center {
+.sbux-ale-item-wrapper.sbux-ale-top-center {
   left: 50%;
   margin-left: -150px;
   right: auto;
 }
-.sbux-ale-wrap.sbux-ale-top-left {
+.sbux-ale-item-wrapper.sbux-ale-top-left {
   left: 20px;
   right: auto;
 }
-.sbux-ale-wrap.sbux-ale-middle-center {
+.sbux-ale-item-wrapper.sbux-ale-middle-center {
   top: 50%;
   left: 50%;
   bottom: auto;
   right: auto;
   margin-left: -150px;
+  transform: translate(0, -50%);
 }
-.sbux-ale-wrap.sbux-ale-middle-left {
+.sbux-ale-item-wrapper.sbux-ale-middle-left {
   top: auto;
   left: 20px;
   bottom: 50%;
   right: auto;
+  transform: translate(0, 50%);
 }
-.sbux-ale-wrap.sbux-ale-middle-right {
+.sbux-ale-item-wrapper.sbux-ale-middle-right {
   top: auto;
   left: auto;
   bottom: 50%;
   right: 20px;
+  transform: translate(0, 50%);
 }
-.sbux-ale-wrap.sbux-ale-bottom-right {
+.sbux-ale-item-wrapper.sbux-ale-bottom-right {
   top: auto;
   left: auto;
   bottom: 20px;
   right: 20px;
 }
-.sbux-ale-wrap.sbux-ale-bottom-left {
+.sbux-ale-item-wrapper.sbux-ale-bottom-left {
   top: auto;
   right: auto;
   bottom: 20px;
   left: 20px;
+}
+.sbux-ale-item-wrapper:last-child {
+  margin-bottom: 0;
 }
 .sbux-ale-dark {
   position: relative;
