@@ -65,25 +65,25 @@
 							</td>
 							<td scope="row" align="right">업태</td>
 							<td scope="row" style="border-right: hidden;">
-								<sbux-input id="inp-bzstat" name="inp-bzstat" uitype="text" class="form-control input-sm" ></sbux-input>
+								<sbux-input id="inp-bzstat" name="inp-bzstat" uitype="text" class="form-control input-sm" maxlength="33"></sbux-input>
 							</td>
 							<td scope="row" align="right">종목</td>
 							<td scope="row" style="border-right: hidden;">
-								<sbux-input id="inp-cls" name="inp-cls" uitype="text" class="form-control input-sm" ></sbux-input>
+								<sbux-input id="inp-cls" name="inp-cls" uitype="text" class="form-control input-sm" maxlength="33"></sbux-input>
 							</td>
 							<td scope="row" align="right">APC대표자명</td>
 							<td scope="row" style="border-right: hidden;">
-								<sbux-input id="inp-apcRprsvNm" name="inp-apcRprsvNm" uitype="text" class="form-control input-sm" ></sbux-input>
+								<sbux-input id="inp-apcRprsvNm" name="inp-apcRprsvNm" uitype="text" class="form-control input-sm" maxlength="3"></sbux-input>
 							</td>
 						</tr>
 						<tr>
 							<td scope="row" align="right"><span class="data_required"></span>명칭</td>
 							<td scope="row" >
-								<sbux-input id="inp-apcNm" name="inp-apcNm" uitype="text" class="form-control input-sm input-sm-ast"></sbux-input>
+								<sbux-input id="inp-apcNm" name="inp-apcNm" uitype="text" class="form-control input-sm input-sm-ast" maxlength="33"></sbux-input>
 							</td>
 							<td scope="row" align="right">주소</td>
 							<td scope="row">
-								<sbux-input id="inp-addr" name="inp-addr" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="inp-addr" name="inp-addr" uitype="text" class="form-control input-sm" maxlength="66"></sbux-input>
 							</td>
 							<td scope="row" align="right">전화번호</td>
 							<td scope="row">
@@ -107,7 +107,7 @@
 							</td>
 							<td scope="row" align="right">계좌번호</td>
 							<td scope="row">
-								<sbux-input id="inp-actno" name="inp-actno" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="inp-actno" name="inp-actno" uitype="text" class="form-control input-sm" maxlength="256"></sbux-input>
 
 							</td>
 							<td scope="row"  align="right">입금은행</td>
@@ -121,7 +121,7 @@
 
 							<td scope="row" align="right">예금주명</td>
 							<td scope="row">
-								<sbux-input id="inp-dpstr" name="inp-dpstr" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="inp-dpstr" name="inp-dpstr" uitype="text" class="form-control input-sm" maxlength="6"></sbux-input>
 							</td>
 						</tr>
 						<tr>
