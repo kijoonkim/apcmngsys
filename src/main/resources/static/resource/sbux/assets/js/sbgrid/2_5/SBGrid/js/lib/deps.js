@@ -143,7 +143,7 @@ jQuery.download = function (url, data, method) {
 	});
 })(jQuery);
 
-jQuery.fn.rowspan = function (colIdx, colinfo, bSpaceSkip) {
+jQuery.fn.rowspan = function (colIdx, colinfo, bSpaceSkip, vAlign) {
 	return this.each(function () {
 		var that;
 		var tr = this.children;
@@ -176,6 +176,7 @@ jQuery.fn.rowspan = function (colIdx, colinfo, bSpaceSkip) {
 										rowspan = Number(rowspan) + 1;
 										if(parseInt(thiscol.getAttribute('data-rowindex')) - parseInt(that.getAttribute('data-rowindex')) != rowspan){
 											that.setAttribute("rowspan", rowspan);
+											if ( vAlign=="top" || vAlign=="bottom")	that.style.verticalAlign = vAlign;
 											thiscol.style.display = 'none';
 											thiscol.setAttribute("merge-rowindex", that.getAttribute('data-rowindex'));
 											that.setAttribute("merge-rowindex", that.getAttribute('data-rowindex'));
@@ -215,6 +216,7 @@ jQuery.fn.rowspan = function (colIdx, colinfo, bSpaceSkip) {
 										
 										if(parseInt(thiscol.getAttribute('data-rowindex')) - parseInt(that.getAttribute('data-rowindex')) != rowspan){
 											that.setAttribute("rowspan", rowspan);
+											if ( vAlign=="top" || vAlign=="bottom")	that.style.verticalAlign = vAlign;
 											thiscol.style.display = 'none';
 											thiscol.setAttribute("merge-rowindex", that.getAttribute('data-rowindex'));
 											that.setAttribute("merge-rowindex", that.getAttribute('data-rowindex'));
@@ -245,6 +247,7 @@ jQuery.fn.rowspan = function (colIdx, colinfo, bSpaceSkip) {
 									rowspan = Number(rowspan) + 1;
 									if(parseInt(thiscol.getAttribute('data-rowindex')) - parseInt(that.getAttribute('data-rowindex')) != rowspan){
 										that.setAttribute("rowspan", rowspan);
+										if ( vAlign=="top" || vAlign=="bottom")	that.style.verticalAlign = vAlign;
 										thiscol.style.display = 'none';
 										thiscol.setAttribute("merge-rowindex", that.getAttribute('data-rowindex'));
 										that.setAttribute("merge-rowindex", that.getAttribute('data-rowindex'));
@@ -348,7 +351,7 @@ jQuery.fn.colspan = function (rowIdx, colinfo, bSpaceSkip) {
 	});
 };
 
-jQuery.fn.byrestriccol = function (colIdx, tds, nRowHeader, bSpaceSkip, bCheckType, bDataMergeFalseSkip, colinfo) {
+jQuery.fn.byrestriccol = function (colIdx, tds, nRowHeader, bSpaceSkip, bCheckType, bDataMergeFalseSkip, colinfo, vAlign) {
 	return this.each(function () {
 		var that;
 		var tr = this.children;
@@ -381,6 +384,7 @@ jQuery.fn.byrestriccol = function (colIdx, tds, nRowHeader, bSpaceSkip, bCheckTy
 							rowspan = that.getAttribute("rowspan") || 1;
 							rowspan = Number(rowspan) + 1;
 							that.setAttribute("rowspan", rowspan);
+							if ( vAlign=="top" || vAlign=="bottom")	that.style.verticalAlign = vAlign;
 						
 							thiscol.style.display = 'none';
 							thiscol.setAttribute("merge-rowindex", that.getAttribute("data-rowindex"));
@@ -392,6 +396,7 @@ jQuery.fn.byrestriccol = function (colIdx, tds, nRowHeader, bSpaceSkip, bCheckTy
 									rowspan = Number(rowspan) + 1;
 									
 									that.setAttribute("rowspan", rowspan);
+									if ( vAlign=="top" || vAlign=="bottom")	that.style.verticalAlign = vAlign;
 									
 									thiscol.style.display = 'none';
 									thiscol.setAttribute("merge-rowindex", that.getAttribute("data-rowindex"));

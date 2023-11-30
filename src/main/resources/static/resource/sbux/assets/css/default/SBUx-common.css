@@ -548,6 +548,18 @@ nav.sbux-meu-fixed-bottom .sbux-meu-fluid .sbux-meu-bd-wrap > ul.sbux-meu-bd-ul 
 .sbux-sidemeu a {
   text-decoration: none;
 }
+.sbux-sidemeu .sbux-sidemeu-link img.sbux-front {
+  display: inline-block;
+  margin-right: 3px;
+  width: auto;
+  height: auto;
+}
+.sbux-sidemeu .sbux-sidemeu-link img.sbux-back {
+  display: inline-block;
+  margin-left: 3px;
+  width: auto;
+  height: auto;
+}
 .sbux-sidemeu > ul {
   /*disabled, readonly*/
 }
@@ -700,6 +712,9 @@ nav.sbux-meu-fixed-bottom .sbux-meu-fluid .sbux-meu-bd-wrap > ul.sbux-meu-bd-ul 
 .sbux-sidemeu.sbux-sidemeu-split ul li {
   position: relative;
 }
+.sbux-sidemeu.sbux-sidemeu-split ul li > div {
+  position: relative;
+}
 .sbux-sidemeu.sbux-sidemeu-split ul li div {
   display: table;
   width: 100%;
@@ -720,10 +735,12 @@ nav.sbux-meu-fixed-bottom .sbux-meu-fluid .sbux-meu-bd-wrap > ul.sbux-meu-bd-ul 
 .sbux-sidemeu.sbux-sidemeu-split ul li div i {
   float: left;
   position: absolute;
+  top: 50%;
   right: 0;
   display: table-cell;
   width: 37px;
   height: 33px;
+  margin-top: -16px;
   padding: 10px 15px;
   cursor: pointer;
   color: #cecece;

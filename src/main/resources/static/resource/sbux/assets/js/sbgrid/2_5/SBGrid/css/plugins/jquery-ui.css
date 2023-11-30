@@ -376,8 +376,6 @@ button.sbgrid-ui-button::-moz-focus-inner {
 	width: 40%;
 	display: inline-block;
 	float: right;
-	color: #444444;
-	text-align: center;
 }
 
 /* 2017-09-22 (hmw53): CSS 커스텀 적용 */
@@ -386,8 +384,6 @@ button.sbgrid-ui-button::-moz-focus-inner {
 	width: 40%;
 	display: inline-block;
 	float: left;
-    color: #444444;
-    text-align: center;
 }
 
 .sbgrid-ui-datepicker table {

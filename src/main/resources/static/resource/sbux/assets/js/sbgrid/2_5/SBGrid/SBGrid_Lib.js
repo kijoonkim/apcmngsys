@@ -21,6 +21,7 @@ this.strScript +=
 '<script src="' + this.strSBGridPATH + 'js/lib/' 		+ 'underscore-min.js'									+ '" type="text/javascript"></script>' +
 '<script src="' + this.strSBGridPATH + 'js/lib/' 		+ 'jquery-sbgrid.min.js' 								+ '" type="text/javascript"></script>' +
 '<script src="' + this.strSBGridPATH + 'js/lib/' 		+ 'xml2json.js' 										+ '" type="text/javascript"></script>' +
+'<script src="' + this.strSBGridPATH + 'js/lib/' 		+ 'jsbi-umd.js' 										+ '" type="text/javascript"></script>' +
 
 /* data-structure */
 '<script src="' + this.strSBGridPATH + 'js/lib/ds/'		+ 'hashtable.js' 										+ '" type="text/javascript"></script>' +

@@ -923,9 +923,12 @@ div.sbux-pik-pop-body td.sbux-pik-saturday .sbux-btn:active {
 .sbux-pik-popwrap .sbux-pik-pop-body .sbux-pik-today,
 .sbux-pik-popwrap .sbux-pik-pop-body .sbux-pik-now {
   color: #fff;
-}
-.sbux-pik-popwrap .sbux-pik-pop-body .sbux-pik-now.active {
   background: #6c6d78;
+  border: 0;
+}
+.sbux-pik-popwrap .sbux-pik-pop-body .sbux-pik-year .sbux-pik-today,
+.sbux-pik-popwrap .sbux-pik-pop-body .sbux-pik-year .sbux-pik-now {
+  line-height: normal;
 }
 table.sbux-pik-pop-day {
   border-collapse: collapse;
@@ -2388,7 +2391,7 @@ input.sbux-pik-input.sbux-dirty[readonly] + .sbux-pik-icon-span .sbux-pik-icon-b
 }
 .sbux-pop .sbux-pop-content {
   padding: 1em;
-  /* width: max-content; */
+  /*width: max-content;*/
 }
 .sbux-pop.sbux-pop-top {
   margin-top: -10px;
