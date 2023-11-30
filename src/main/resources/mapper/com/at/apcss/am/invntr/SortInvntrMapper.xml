@@ -516,6 +516,7 @@
 					, PRCS_SN
 					, PRCSNO
 					, PRCS_TYPE
+					, RMRK
 		    		, SYS_FRST_INPT_DT
 		    		, SYS_FRST_INPT_USER_ID
 		    		, SYS_FRST_INPT_PRGRM_ID
@@ -548,6 +549,7 @@
 					, #{prcsSn}
 					, #{prcsno}
 					, #{prcsType}
+					, #{rmrk}
 		    		, SYSDATE
 		    		, #{sysFrstInptUserId}
 		    		, #{sysFrstInptPrgrmId}

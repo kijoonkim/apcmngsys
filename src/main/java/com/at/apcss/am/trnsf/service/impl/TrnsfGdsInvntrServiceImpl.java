@@ -81,4 +81,11 @@ public class TrnsfGdsInvntrServiceImpl extends BaseServiceImpl implements TrnsfG
 		return resultMap;
 	}
 
+
+	@Override
+	public List<TrnsfGdsInvntrVO> selectTrnsfCfmtnGdsInvntrList(TrnsfGdsInvntrVO trnsfGdsInvntrVO) throws Exception {
+		List<TrnsfGdsInvntrVO> resultList =  trnsfGdsInvntrMapper.selectTrnsfCfmtnGdsInvntrList(trnsfGdsInvntrVO);
+		return resultList;
+	}
+
 }

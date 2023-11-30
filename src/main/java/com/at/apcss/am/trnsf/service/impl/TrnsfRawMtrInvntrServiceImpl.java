@@ -80,4 +80,10 @@ public class TrnsfRawMtrInvntrServiceImpl extends BaseServiceImpl implements Trn
 
 		return resultMap;
 	}
+
+	@Override
+	public List<TrnsfRawMtrInvntrVO> selectTrnsfCfmtnRawMtrInvntrList(TrnsfRawMtrInvntrVO trnsfrawMtrInvntrVO) throws Exception {
+		List<TrnsfRawMtrInvntrVO> resultList = trnsfRawMtrInvntrMapper.selectTrnsfCfmtnRawMtrInvntrList(trnsfrawMtrInvntrVO);
+		return resultList;
+	}
 }

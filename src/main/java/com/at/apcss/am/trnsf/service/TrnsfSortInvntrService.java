@@ -29,6 +29,14 @@ public interface TrnsfSortInvntrService {
 	 */
 	public List<TrnsfSortInvntrVO> selectTrnsfSortInvntrDsctnList(TrnsfSortInvntrVO trnsfSortInvntrVO) throws Exception;
 
+	/**
+	 * 선별재고 이송확정 내역 목록 조회
+	 * @param TrnsfSortInvntrVO
+	 * @return List<TrnsfSortInvntrVO>
+	 * @throws Exception
+	 */
+
+	public List<TrnsfSortInvntrVO> selectTrnsfCfmtnSortInvntrList(TrnsfSortInvntrVO trnsfSortInvntrVO) throws Exception;
 
 	/**
 	 * 선별재고 이송 등록

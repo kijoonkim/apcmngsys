@@ -45,6 +45,7 @@ public class TrnsfSortInvntrVO extends ComVO {
 	 * 이송APC코드
 	 */
 	private String trnsfApcCd;
+	private String trnsfApcNm;
 
 	/**
 	 * 이송수량
@@ -83,6 +84,8 @@ public class TrnsfSortInvntrVO extends ComVO {
 	 * 투입일자
 	 */
 	private String inptYmd;
+	private String inptYmdFrom;
+	private String inptYmdTo;
 
 	/**
 	 * 설비코드

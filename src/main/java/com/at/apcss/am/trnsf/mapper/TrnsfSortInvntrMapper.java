@@ -26,11 +26,20 @@ public interface TrnsfSortInvntrMapper {
 	/**
 	 * 선별재고 내역 목록 조회 selectSortInvntrDsctnList
 	 * @param TrnsfSortInvntrVO
-	 * @return
+	 * @return List<TrnsfSortInvntrVO>
 	 * @throws Exception
 	 */
 
 	public List<TrnsfSortInvntrVO> selectTrnsfSortInvntrDsctnList(TrnsfSortInvntrVO trnsfSortInvntrVO) throws Exception;
+
+	/**
+	 * 선별재고 이송확정 내역 목록 조회
+	 * @param TrnsfSortInvntrVO
+	 * @return List<TrnsfSortInvntrVO>
+	 * @throws Exception
+	 */
+
+	public List<TrnsfSortInvntrVO> selectTrnsfCfmtnSortInvntrList(TrnsfSortInvntrVO trnsfSortInvntrVO) throws Exception;
 
 	/**
 	 * 원물재고내역 변경
