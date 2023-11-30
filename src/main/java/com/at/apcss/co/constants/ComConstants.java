@@ -12,7 +12,7 @@ public class ComConstants {
 
 	public final static String CON_SYS_ID_CO = "CO";
 	public final static String CON_SYS_ID_AM = "AM";
-	
+
 	public final static String PROP_SYS_PRGRM_ID = "sysPrgrmId";
 
 	public final static String PAGINATION_MAP = "paginationMap";
@@ -21,7 +21,7 @@ public class ComConstants {
 	 * SSO TOKEN : pni_token
 	 */
 	public final static String SYS_SSO_TOKEN = "pni_token";
-	
+
 	/* RESULT */
 	public final static String PROP_RESULT_STATUS = "resultStatus";
 	public final static String PROP_RESULT_CODE = "resultCode";
@@ -53,7 +53,7 @@ public class ComConstants {
 	public final static String RESULT_CODE_DEFAULT = "E0000";
 	public final static String RESULT_MESSAGE_DEFAULT = "처리 시 오류가 발생하였습니다.";
 
-	
+
 	public final static String CON_BLANK = "";
 	public final static String CON_SPACE = " ";
 	public final static String CON_UNDERLINE = "_";
@@ -66,17 +66,17 @@ public class ComConstants {
 
 
 	/* MSG CODE */
-	
+
 	/**
 	 * E0000 {0}
 	 */
 	public final static String MSGCD_ERR_CUSTOM = "E0000";	// {0}
-	
+
 	/**
 	 * E0003 {0} 시 오류가 발생하였습니다.
 	 */
 	public final static String MSGCD_ERR_PARAM_ONE = "E0003";
-	
+
 	/**
 	 * W0001	{0}을/를 선택하세요.
 	 */
@@ -105,7 +105,7 @@ public class ComConstants {
 	 * W0012	마감등록 된 {0} 입니다.
 	 */
 	public final static String MSGCD_ALEADY_CLOSE = "W0012";	// W0012	마감등록 된 {0} 입니다.
-	
+
 	/**
 	 * W0014	{0}이/가 {1} 보다 큽니다.
 	 */
@@ -160,7 +160,7 @@ public class ComConstants {
 
 	public final static String[] MENU_ID_GDS_WRHS 					= {"AM_001_006"};				// 상품입고
     public final static String[] MENU_ID_RAW_MTR_WRHS_PRCS          = {"AM_001_009"};            // 원물입고재처리
-    
+
 	public final static String[] MENU_ID_SORT_CMND 					= {"AM_002_001", "AM_002_002"};	// 선별지시
 	public final static String[] MENU_ID_SORT_CMND_DOC_PBLCN		= {};							// 선별지시서발행
 
@@ -185,7 +185,7 @@ public class ComConstants {
 	public final static String[] MENU_ID_SLS						= {"AM_005_006", "AM_005_007"};	// 매출관리
 
 	public final static String[] MENU_ID_INVNTR						= {"AM_006_001", "AM_006_002"};	// 재고관리
-	public final static String[] MENU_ID_INVNTR_TRNSF				= {"AM_006_003", "AM_006_004"};	// 재고이송관리
+	public final static String[] MENU_ID_INVNTR_TRNSF				= {"AM_006_003", "AM_006_004", "AM_006_005"};	// 재고이송관리
 
 	public final static String[] MENU_ID_CLCLN						= {"AM_008_001", "AM_008_002"};	// 정산관리
 
