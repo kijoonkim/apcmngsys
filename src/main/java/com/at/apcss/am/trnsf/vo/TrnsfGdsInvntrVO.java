@@ -33,7 +33,6 @@ public class TrnsfGdsInvntrVO extends ComVO {
 	 * 이송순번
 	 */
 	private int trnsfSn;
-
 	/**
 	 * 재고구분코드
 	 */
@@ -43,6 +42,7 @@ public class TrnsfGdsInvntrVO extends ComVO {
 	 * 이송APC코드
 	 */
 	private String trnsfApcCd;
+	private String trnsfApcNm;
 
 	/**
 	 * 이송수량
@@ -132,6 +132,7 @@ public class TrnsfGdsInvntrVO extends ComVO {
 	 * 상품등급명
 	 */
 	private String gdsGrdNm;
+	private String grdNm;
 
 	/**
 	 * 포장구분코드

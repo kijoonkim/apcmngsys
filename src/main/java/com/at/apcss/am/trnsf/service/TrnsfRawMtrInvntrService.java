@@ -30,6 +30,14 @@ public interface TrnsfRawMtrInvntrService {
 	public List<TrnsfRawMtrInvntrVO> selectTrnsfRawMtrInvntrList(TrnsfRawMtrInvntrVO trnsfRawMtrInvntrVO) throws Exception;
 
 	/**
+	 * 원물재고 이송확정 목록 조회
+	 * @param TrnsfRawMtrInvntrVO
+	 * @return List<TrnsfRawMtrInvntrVO>
+	 * @throws Exception
+	 */
+	public List<TrnsfRawMtrInvntrVO> selectTrnsfCfmtnRawMtrInvntrList(TrnsfRawMtrInvntrVO trnsfrawMtrInvntrVO) throws Exception;
+
+	/**
 	 * 원물재고내역 변경
 	 * @param rawMtrInvntrVO
 	 * @return

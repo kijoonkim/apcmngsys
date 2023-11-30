@@ -26,10 +26,17 @@ public interface TrnsfRawMtrInvntrMapper {
 	/**
 	 * 원물재고 목록 조회
 	 * @param TrnsfRawMtrInvntrVO
-	 * @return
+	 * @return List<TrnsfRawMtrInvntrVO>
 	 * @throws Exception
 	 */
 	public List<TrnsfRawMtrInvntrVO> selectTrnsfRawMtrInvntrList(TrnsfRawMtrInvntrVO trnsfrawMtrInvntrVO) throws Exception;
+	/**
+	 * 원물재고 이송확정 목록 조회
+	 * @param TrnsfRawMtrInvntrVO
+	 * @return List<TrnsfRawMtrInvntrVO>
+	 * @throws Exception
+	 */
+	public List<TrnsfRawMtrInvntrVO> selectTrnsfCfmtnRawMtrInvntrList(TrnsfRawMtrInvntrVO trnsfrawMtrInvntrVO) throws Exception;
 
 
 	/**

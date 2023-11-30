@@ -2,25 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <!-- ==========================================================================	-->
-<!-- NAME : SortInvntrMapper.xml                                   				-->
-<!-- DESC : 선별재고 mapper                                            				-->
+<!-- NAME : TrnsfSortInvntrMapper.xml                                   		-->
+<!-- DESC : 선별재고 mapper                                            			-->
 <!-- ==========================================================================	-->
 <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 <!-- ===========  	============  	===========================================	-->
-<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+<!-- 2023.07.28  	신정철        		Initial Creation                        -->
 <!-- ==========================================================================	-->
 
 <mapper namespace="com.at.apcss.am.trnsf.mapper.TrnsfSortInvntrMapper">
 
 
-	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrDsctnList	-->
+	<!-- =====================================================================================	-->
+	<!-- NAME : com.at.apcss.am.trnsf.mapper.TrnsfSortInvntrMapper.selectSortInvntrDsctnList	-->
 	<!-- DESC : 선별재고 내역 목록 조회.	                                       				-->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.07.28  	김현호        		Initial Creation                            -->
-	<!-- ==========================================================================	-->
+	<!-- =====================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      						-->
+	<!-- ===========  	============  	======================================================	-->
+	<!-- 2023.07.28  	김현호        		Initial Creation                            		-->
+	<!-- =====================================================================================	-->
     <select id="selectTrnsfSortInvntrDsctnList" parameterType="com.at.apcss.am.trnsf.vo.TrnsfSortInvntrVO" resultType="com.at.apcss.am.trnsf.vo.TrnsfSortInvntrVO">
    		<![CDATA[
     		SELECT
@@ -44,7 +44,7 @@
     			, (pt0.INVNTR_QNTT - pt0.CMND_QNTT) 														AS PSBLTY_INVNTR_QNTT
      			, (pt0.INVNTR_WGHT - pt0.CMND_QNTT) 														AS PSBLTY_INVNTR_WGHT
     		  FROM (
-			    	SELECT /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrDsctnList */
+			    	SELECT /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectTrnsfSortInvntrDsctnList */
 					       SI.APC_CD 				AS APC_CD
 					     , SI.SORTNO 				AS SORTNO
 					     , SI.SORT_SN				AS SORT_SN
@@ -119,15 +119,86 @@
     	<!-- End 페이징 -->
     </select>
 
+	<!-- =========================================================================================	-->
+	<!-- NAME : com.at.apcss.am.trnsf.mapper.TrnsfSortInvntrMapper.selectTrnsfCfmtnSortInvntrList	-->
+	<!-- DESC : 선별재고 이송확정 내역 목록 조회.	                                       			-->
+	<!-- =========================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      							-->
+	<!-- ===========  	============  	==========================================================	-->
+	<!-- 2023.07.28  	김현호        		Initial Creation                            			-->
+	<!-- =========================================================================================	-->
+    <select id="selectTrnsfCfmtnSortInvntrList" parameterType="com.at.apcss.am.trnsf.vo.TrnsfSortInvntrVO" resultType="com.at.apcss.am.trnsf.vo.TrnsfSortInvntrVO">
+   		<![CDATA[
+	    	SELECT pt0.*
+			     , (SELECT FN_GET_APC_NM(pt0.TRNSF_APC_CD) FROM DUAL)					                        AS TRNSF_APC_NM
+			     , (SELECT FN_GET_PRDCR_NM(pt0.RPRS_PRDCR_CD, pt0.APC_CD) FROM DUAL) 							AS PRDCR_NM
+			     , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 									AS ITEM_NM
+			     , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) 						AS VRTY_NM
+			     , (SELECT FN_GET_GRD_NM_SORT(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL) 					AS GRD_NM
+			     , (SELECT FN_GET_COM_CD_VL_NM('SORT_FCLT_CD', pt0.FCLT_CD, pt0.APC_CD) FROM DUAL) 				AS FCLT_NM
+			     , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) 					AS SPCFCT_NM
+			     , (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) 							AS GDS_SE_NM
+			     , (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL)                         AS WRHS_SE_NM
+			     , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) 	AS WAREHOUSE_SE_NM
+			  FROM (
+			            SELECT	/* com.at.apcss.am.trnsf.mapper.TrnsfSortInvntrMapper.selectTrnsfCfmtnSortInvntrList */
+			                   SI.APC_CD                AS APC_CD
+			                 , SI.SORTNO                AS SORTNO
+			                 , SI.SORT_SN               AS SORT_SN
+			                 , SI.GRD_CD                AS GRD_CD
+			                 , SI.INPT_YMD              AS INPT_YMD
+			                 , SI.FCLT_CD               AS FCLT_CD
+			                 , SI.RPRS_PRDCR_CD         AS RPRS_PRDCR_CD
+			                 , SI.ITEM_CD               AS ITEM_CD
+			                 , SI.VRTY_CD               AS VRTY_CD
+			                 , SI.SPCFCT_CD             AS SPCFCT_CD
+			                 , SI.GDS_SE_CD             AS GDS_SE_CD
+			                 , SI.WRHS_SE_CD            AS WRHS_SE_CD
+			                 , SI.WAREHOUSE_SE_CD       AS WAREHOUSE_SE_CD
+			                 , SI.PRDCTN_YR             AS PRDCTN_YR
+			                 , SI.INVNTR_QNTT           AS INVNTR_QNTT
+			                 , SI.INVNTR_WGHT           AS INVNTR_WGHT
+			                 , SI.PRCSNO                AS PRCSNO
+			                 , SI.PRCS_SN               AS PRCS_SN
+			                 , SI.PRCS_TYPE             AS PRCS_TYPE
+			                 , TH.APC_CD                AS TRNSF_APC_CD
 
-	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateSortInvntrDsctnList	-->
-	<!-- DESC : 원물재고내역 변경.		                                       				-->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.09.18  	김현호        		Initial Creation                            -->
-	<!-- ==========================================================================	-->
+			              FROM TB_SORT_INVNTR SI
+			                 , TB_INVNTR_TRNSF_HSTRY TH
+			             WHERE SI.APC_CD = TH.TRNSF_APC_CD
+			               AND SI.PRCSNO = TH.PRCSNO
+			               AND SI.PRCS_SN = TH.PRCS_SN
+			               AND SI.DEL_YN = 'N'
+			               AND TH.DEL_YN = 'N'
+			               AND TH.INVNTR_SE_CD = '2'
+		]]>
+			<if test='apcCd != null and apcCd != ""'>
+				   	  	   AND SI.APC_CD = #{apcCd}
+			</if>
+			<if test='itemCd != null and itemCd != ""'>
+				   	  	   AND SI.ITEM_CD = #{itemCd}
+			</if>
+			<if test='inptYmdFrom != null and inptYmdFrom != ""'>
+			   	   		  AND SI.INPT_YMD <![CDATA[>=]]> #{inptYmdFrom}
+			</if>
+			<if test='inptYmdTo != null and inptYmdTo != ""'>
+			   	   		  AND SI.INPT_YMD <![CDATA[<=]]> #{inptYmdTo}
+			</if>
+    	<![CDATA[
+    		ORDER BY SI.INPT_YMD DESC, SI.SORTNO DESC, SI.SORT_SN DESC
+			 ) pt0
+		]]>
+    </select>
+
+
+	<!-- ==========================================================================	=============== -->
+	<!-- NAME : com.at.apcss.am.trnsf.mapper.TrnsfSortInvntrMapper.updateTrnsfSortInvntrDsctnList	-->
+	<!-- DESC : 원물재고내역 변경.		                                       						-->
+	<!-- ==========================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      							-->
+	<!-- ===========  	============  	===========================================================	-->
+	<!-- 2023.09.18  	김현호        		Initial Creation                            			-->
+	<!-- ==========================================================================================	-->
     <update id="updateTrnsfSortInvntrDsctnList" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO">
 		<![CDATA[
 			UPDATE /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateSortInvntrDsctnList */

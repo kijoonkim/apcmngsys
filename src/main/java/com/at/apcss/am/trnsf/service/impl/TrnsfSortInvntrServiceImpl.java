@@ -78,4 +78,11 @@ public class TrnsfSortInvntrServiceImpl extends BaseServiceImpl implements Trnsf
 		return null;
 	}
 
+
+	@Override
+	public List<TrnsfSortInvntrVO> selectTrnsfCfmtnSortInvntrList(TrnsfSortInvntrVO trnsfSortInvntrVO) throws Exception {
+		List<TrnsfSortInvntrVO> resultList = trnsfSortInvntrMapper.selectTrnsfCfmtnSortInvntrList(trnsfSortInvntrVO);
+		return resultList;
+	}
+
 }

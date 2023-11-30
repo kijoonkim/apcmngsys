@@ -82,4 +82,22 @@ public class TrnsfGdsInvntrController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	@PostMapping(value = "/am/trnsf/selectTrnsfCfmtnGdsInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectTrnsfCfmtnGdsInvntrList(@RequestBody TrnsfGdsInvntrVO trnsfGdsInvntrVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<TrnsfGdsInvntrVO> resultList = new ArrayList<>();
+		try {
+			resultList = trnsfGdsInvntrService.selectTrnsfCfmtnGdsInvntrList(trnsfGdsInvntrVO);
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+
+	}
 }

@@ -291,7 +291,7 @@
 				, RI.RMRK			AS RMRK
 				, RI.INPT_PRGRS_QNTT	AS INPT_PRGRS_QNTT
 				, RI.INPT_PRGRS_WGHT	AS INPT_PRGRS_WGHT
-				
+
 			  FROM TB_RAW_MTR_INVNTR RI
 
 			 WHERE RI.DEL_YN = 'N'
@@ -593,6 +593,7 @@
 					, PRDCTN_YR
 					, PRCSNO
 					, PRCS_TYPE
+					, RMRK
 		    		, SYS_FRST_INPT_DT
 		    		, SYS_FRST_INPT_USER_ID
 		    		, SYS_FRST_INPT_PRGRM_ID
@@ -624,6 +625,7 @@
 					, #{prdctnYr}
 					, #{prcsno}
 					, #{prcsType}
+					, #{rmrk}
 		    		, SYSDATE
 		    		, #{sysFrstInptUserId}
 		    		, #{sysFrstInptPrgrmId}
