@@ -276,32 +276,36 @@
     <select id="selectStdGrdDtlList" parameterType="com.at.apcss.am.cmns.vo.StdGrdDtlVO" resultType="com.at.apcss.am.cmns.vo.StdGrdDtlVO">
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrdDtlList */
-			       SGD.APC_CD            AS APC_CD
-			     , SGD.ITEM_CD           AS ITEM_CD
-			     , (SELECT FN_GET_ITEM_NM(SGD.ITEM_CD, SGD.APC_CD) FROM DUAL) AS ITEM_NM
-			     , SGD.GRD_SE_CD         AS GRD_SE_CD
-			     , SGD.GRD_KND           AS GRD_KND
-			     , SGD.GRD_CD            AS GRD_CD
-			     , SGD.GRD_NM            AS GRD_NM
-			     , SGD.GRD_VL            AS GRD_VL
-			     , SGD.SN                AS SN
-			     , SGD.DEL_YN            AS DEL_YN
-			     , (SELECT GRD_KND_NM
-                     FROM TB_APC_STD_GRD X
-                    WHERE SGD.GRD_KND = X.GRD_KND
-                      AND SGD.APC_CD = X.APC_CD
-                      AND SGD.ITEM_CD = X.ITEM_CD
-                      AND SGD.GRD_SE_CD = X.GRD_SE_CD
-                    ) AS GRD_KND_NM
-  			  FROM TB_APC_STD_GRD_DTL SGD
-			 WHERE SGD.APC_CD		= #{apcCd}
-			   AND SGD.GRD_SE_CD 	= #{grdSeCd}
+			       SG.APC_CD            AS APC_CD
+			     , SG.ITEM_CD           AS ITEM_CD
+			     , SG.GRD_SE_CD         AS GRD_SE_CD
+			     , SG.GRD_KND           AS GRD_KND
+			     , SG.GRD_KND_NM		AS GRD_KND_NM
+			     , SG.STD_GRD_TYPE		AS STD_GRD_TYPE
+			     , (SELECT FN_GET_ITEM_NM(SG.ITEM_CD, SG.APC_CD) FROM DUAL) AS ITEM_NM
+			     , SGD.GRD_CD           AS GRD_CD
+			     , SGD.GRD_NM           AS GRD_NM
+			     , SGD.GRD_VL           AS GRD_VL
+			     , SGD.SN               AS SN
+			     , SGD.DEL_YN           AS DEL_YN
+			     
+  			  FROM TB_APC_STD_GRD SG
+  			  
+  			  JOIN TB_APC_STD_GRD_DTL SGD
+  			    ON SGD.APC_CD = SG.APC_CD
+  			   AND SGD.ITEM_CD = SG.ITEM_CD
+  			   AND SGD.GRD_SE_CD = SG.GRD_SE_CD
+  			   AND SGD.GRD_KND = SG.GRD_KND
+  			   AND SGD.DEL_YN = 'N'
+  			   
+			 WHERE SG.APC_CD		= #{apcCd}
+			   AND SG.GRD_SE_CD 	= #{grdSeCd}
 		]]>
 		<if test='itemCd != null and itemCd != ""'>
-			   AND SGD.ITEM_CD = #{itemCd}
+			   AND SG.ITEM_CD = #{itemCd}
 		</if>
 		<if test='grdKnd != null and grdKnd != ""'>
-			   AND SGD.GRD_KND = #{grdKnd}
+			   AND SG.GRD_KND = #{grdKnd}
 		</if>
 		<if test='grdCd != null and grdCd != ""'>
 			   AND SGD.GRD_CD = #{grdCd}
@@ -456,7 +460,6 @@
 			 WHERE SGJ.APC_CD		= #{apcCd}
 			   AND SGJ.ITEM_CD 		= #{itemCd}
 			   AND SGJ.GRD_SE_CD 	= #{grdSeCd}
-
 		]]>
 
 		<if test='grdCd != null and grdCd != ""'>

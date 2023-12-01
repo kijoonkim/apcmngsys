@@ -119,9 +119,9 @@
 				<div class="table-responsive tbl_scroll_sm">
 					<div id="sb-area-grdSpmtCmndTrgtDsctn" style="height:201px;"></div>
 				</div>
-				
+
 				<br>
-				
+
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
@@ -175,7 +175,7 @@
 					<ul class="ad_tbl_count">
 						<li>
 							<span>출하지시 내역</span>
-							<span style="font-size:12px">(기준일자 : 
+							<span style="font-size:12px">(기준일자 :
 								<sbux-label
 									id="crtr-ymd"
 									name="crtr-ymd"
@@ -239,7 +239,7 @@
 			gfn_setTrsprtsSBSelect('dtl-slt-trsprtCo', 		jsonTrsprtCo, 		gv_selectedApcCd),						// 운송회사
 		]);
 	}
-	
+
 	/**
 	 * @name fn_onChangeSrchItemCd
 	 * @description 품목 선택 변경 event
@@ -270,7 +270,7 @@
 		} else {
 			itemCd = SBUxMethod.get("srch-slt-itemCd");
 		}
-		
+
 		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
 		if (itemCd != prvItemCd) {
 			SBUxMethod.set("srch-slt-itemCd", itemCd);
@@ -320,7 +320,7 @@
             {caption: ['출하수량'], 	ref: 'spmtQntt',		width: '100px', type: 'output', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ['출하지시수량'], ref: 'cmndQntt',		width: '100px', type: 'output', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ['재고수량'], 	ref: 'invntrQntt', 		width: '100px', type: 'output', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["포장단위"], 	ref: 'spmtPckgUnitCd',  width: '200px', type:'combo',      style:'text-align:center; background:#FFF8DC;',
+            {caption: ["상품명"], 	ref: 'spmtPckgUnitCd',  width: '200px', type:'combo',      style:'text-align:center; background:#FFF8DC;',
 				typeinfo : {ref:'jsonSpmtPckgUnit', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 		    {caption: ["등급"], 		ref: 'gdsGrd',   		width:'100px',  type:'combo',    style:'text-align:center; background:#FFF8DC;',
 						typeinfo : {ref:'jsonComGdsGrd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
@@ -359,7 +359,7 @@
             {caption: ['중량'], 		ref: 'cmndWght', 		width: '80px', type: 'output', style: 'text-align:right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
             {caption: ['상품등급'], 	ref: 'gdsGrdNm', 		width: '70px', type: 'output', style: 'text-align:center'},
-            {caption: ['포장구분'], 	ref: 'spmtPckgUnitNm', 	width: '140px', type: 'output', style: 'text-align:center'},
+            {caption: ['상품명'], 		ref: 'spmtPckgUnitNm', 	width: '140px', type: 'output', style: 'text-align:center'},
             {caption: ['비고'], 		ref: 'rmrk', 			width: '200px', type: 'output', style: 'text-align:center'}
         ];
 
@@ -377,7 +377,7 @@
 			"callback": fn_excelDwnld1,			//콜백함수명
 		}
 	};
-    	     
+
     const objMenuList2 = {
         "excelDwnld": {
             "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
@@ -410,7 +410,7 @@
     function fn_excelDwnld1() {
     	grdSpmtCmndTrg.exportLocalExcel("출하지시대상 내역", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
-    
+
  	// 엑셀 다운로드
     function fn_excelDwnld2() {
     	grdSpmtCmnd.exportLocalExcel("출하지시 내역", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
@@ -741,7 +741,7 @@
     	for(var i=0; i< grdRows.length; i++){
     		let nRow = grdRows[i];
 			if(gfn_isEmpty(jsonSpmtCmndTrg[nRow-1].spmtPckgUnitCd)){
-				gfn_comAlert("W0001", "포장단위");		//	W0002	{0}을/를 선택하세요.
+				gfn_comAlert("W0001", "상품명");		//	W0002	{0}을/를 선택하세요.
 				return;
 			}
 			if(gfn_isEmpty(jsonSpmtCmndTrg[nRow-1].gdsGrd)){
@@ -756,9 +756,9 @@
 			jsonSpmtCmndTrg[nRow-1].trsprtCoCd = trsprtCo
 			jsonSpmtCmndTrg[nRow-1].trsprtCoNm = jsonTrsprtCo.find(e => e.value == trsprtCo).label;
 			if(gfn_isEmpty(rmrk)){
-				jsonSpmtCmndTrg[nRow-1].rmrk = '';								
+				jsonSpmtCmndTrg[nRow-1].rmrk = '';
 			}else{
-				jsonSpmtCmndTrg[nRow-1].rmrk = rmrk;				
+				jsonSpmtCmndTrg[nRow-1].rmrk = rmrk;
 			}
 			jsonSpmtCmndTrg[nRow-1].cnptCd = jsonSpmtCmndTrg[nRow-1].apcCnptCd;
 			jsonSpmtCmndTrg[nRow-1].cmndQntt = jsonSpmtCmndTrg[nRow-1].inptCmndQntt;
@@ -842,7 +842,7 @@
 			SBUxMethod.set('srch-slt-vrtyNm', _vrtyNm.join(','));
 		}
 	}
-     
+
      const fn_dtpChange = function(){
   		let outordrYmdFrom = SBUxMethod.get("srch-dtp-outordrYmdFrom");
   		let outordrYmdTo = SBUxMethod.get("srch-dtp-outordrYmdTo");
@@ -859,7 +859,7 @@
  			return;
  		}
   	}
-     
+
      const fn_onChangeApc = async function() {
  		let result = await Promise.all([
  			fn_initSBSelect(),

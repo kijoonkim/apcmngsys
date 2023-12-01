@@ -266,6 +266,7 @@
                 , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
                 , (SELECT FN_GET_PLT_BX_NM('B', pt0.BX_KND, pt0.APC_CD) FROM DUAL) AS BX_KND_NM
     			, (SELECT FN_GET_STD_GRD_RAWMTR(pt0.APC_CD, pt0.WRHSNO, 'NM') FROM DUAL) AS STD_GRD
+    			, (SELECT FN_GET_STD_GRD_RAWMTR(pt0.APC_CD, pt0.WRHSNO, 'CD') FROM DUAL) AS STD_GRD_CD
 
     		  FROM (
 	    	SELECT
@@ -296,6 +297,7 @@
 
 			 WHERE RI.DEL_YN = 'N'
 			   AND RI.INVNTR_WGHT > 0
+			   AND (RI.PRCS_TYPE IS NULL OR RI.PRCS_TYPE <> 'RR')
 		]]>
 		<if test='apcCd != null and apcCd != ""'>
 			   AND RI.APC_CD = #{apcCd}

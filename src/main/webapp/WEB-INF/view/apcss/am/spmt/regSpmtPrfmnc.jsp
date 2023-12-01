@@ -192,7 +192,7 @@
 							</td>
 							<td class="td_input" style="border-right: hidden;"></td>
 							<td class="td_input"></td>
-							<th scope="row" class="th_bg">포장단위</th>
+							<th scope="row" class="th_bg">상품명</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select
 									id="dtl-slt-spmtPckgUnit"
@@ -557,7 +557,7 @@
             {caption: ['재고수량'], 	ref: 'invntrQntt', 	width: '80px', type: 'output', style: 'text-align:right'},
             {caption: ['재고중량'], 	ref: 'invntrWght', 	width: '100px', type: 'output', style: 'text-align:right',
             			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-   			{caption: ["포장단위"], 	ref: 'spmtPckgUnitCd',   	type:'combo',  width:'200px',    style:'text-align:center; background:#FFF8DC;',
+   			{caption: ["상품명"], 	ref: 'spmtPckgUnitCd',   	type:'combo',  width:'200px',    style:'text-align:center; background:#FFF8DC;',
     					typeinfo : {ref:'jsonGrdSpmtPckgUnit', 	displayui : false,	itemcount: 10, label:'label', value:'value', unselect: {label : '선택', value: ''}}},
             {caption: ["등급"], 			ref: 'gdsGrd',   	type:'combo',  width:'100px',    style:'text-align:center; background:#FFF8DC;',
     					typeinfo : {ref:'jsonGrdGdsGrd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
@@ -616,7 +616,7 @@
             {caption: ['배송처'], 		ref: 'dldtn', 		width: '150px', type: 'output', style: 'text-align:center'},
             {caption: ['운임비용'], 	ref: 'trsprtCst', 	width: '80px', type: 'output', style: 'text-align:center',
     			typeinfo : {mask : {alias : 'numeric'},maxlength: 10}, format : {type:'number', rule:'#,### 원'}},
-            {caption: ['포장구분'], 	ref: 'spmtPckgUnitNm', 	width: '150px', type: 'output', style: 'text-align:center'},
+            {caption: ['상품명'], 		ref: 'spmtPckgUnitNm', 	width: '150px', type: 'output', style: 'text-align:center'},
             {caption: ['지시번호'], 	ref: 'spmtCmndno', 	width: '120px', type: 'output', style: 'text-align:center'},
             {caption: ['비고'], 		ref: 'rmrk', 		width: '150px', type: 'output', style: 'text-align:center'}
         ];
@@ -1172,7 +1172,7 @@
     			return;
     		}
     		if(gfn_isEmpty(spmtPckgUnitCd)){
-    			gfn_comAlert("W0002", "포장단위");		//	W0002	{0}을/를 선택하세요.
+    			gfn_comAlert("W0002", "상품명");		//	W0002	{0}을/를 선택하세요.
     			return;
     		}
 
@@ -1191,7 +1191,7 @@
     			}
 
     			if(spmtPckgUnitCd != cmndSpmtPckgUnitCd){
-    				gfn_comAlert("W0006", "지시포장단위", "실적포장단위");	// W0006 {0}와/과 {1}이/가 서로 다릅니다.
+    				gfn_comAlert("W0006", "지시상품명", "실적상품명");	// W0006 {0}와/과 {1}이/가 서로 다릅니다.
     				return;
     			}
     		}
@@ -1522,7 +1522,7 @@
 				typeinfo : {ref:'jsonExpSpcfct', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 			{caption: ["등급"], 		ref: 'gdsGrd',   	type:'combo',  width:'80px',    style:'text-align:center; background:#FFF8DC;',
 				typeinfo : {ref:'jsonExpGdsGrd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
-			{caption: ["포장단위"], 	ref: 'spmtPckgUnitCd', type:'combo',  width:'140px',    style:'text-align:center; background:#FFF8DC;',
+			{caption: ["상품명"], 	ref: 'spmtPckgUnitCd', type:'combo',  width:'140px',    style:'text-align:center; background:#FFF8DC;',
 				typeinfo : {ref:'jsonExpSpmtPckgUnit', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 			{caption: ["생산자"], 		ref: 'prdcrCd',   	type:'combo',  width:'80px',    style:'text-align:center; background:#FFF8DC;',
 				typeinfo : {ref:'jsonExpSltPrdcr', 	displayui : false,	itemcount: 10, label:'prdcrNm', value:'prdcrCd'}},
@@ -1682,10 +1682,10 @@
 				columns: [
 					{caption: ["품목코드"],				ref: 'itemCd',  			type:'output',  width:'100px',    style:'text-align:center'},
 					{caption: ["품목명"],				ref: 'itemNm',  			type:'output',  width:'100px',    style:'text-align:center'},
-			    	{caption: ["포장단위코드"],   		ref: 'spmtPckgUnitCd',  	type:'output',  width:'100px',    style:'text-align:center'},
-			    	{caption: ["포장단위코드명"],    	ref: 'spmtPckgUnitNm',  	type:'output',  width:'160px',    style:'text-align:center'}
+			    	{caption: ["상품명코드"],   		ref: 'spmtPckgUnitCd',  	type:'output',  width:'100px',    style:'text-align:center'},
+			    	{caption: ["상품명"],    	ref: 'spmtPckgUnitNm',  	type:'output',  width:'160px',    style:'text-align:center'}
 				],
-		        sheetName: "포장단위",
+		        sheetName: "상품명",
 		        title: "",
 		        unit: ""
 		    },{
