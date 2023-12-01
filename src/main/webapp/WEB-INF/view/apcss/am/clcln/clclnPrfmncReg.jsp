@@ -354,7 +354,7 @@
             	format : {type:'number', rule:'#,###'}
             },
             {caption: ["중량"], ref: 'wght', type:'output',  width:'100px',   style:'text-align:right',
-            	format : {type:'number', rule:'#,### kg'}
+            	format : {type:'number', rule:'#,### Kg'}
             },
             {caption: ["계산금액"], ref: 'rkngAmt', type:'output',  width:'100px',   style:'text-align:right',
             	format : {type:'number', rule:'#,###'}
