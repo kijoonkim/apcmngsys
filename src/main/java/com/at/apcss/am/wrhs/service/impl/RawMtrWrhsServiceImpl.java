@@ -109,8 +109,6 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 		rawMtrInvntrVO.setInvntrWght(rawMtrWrhsVO.getWrhsWght());
 		rawMtrInvntrVO.setStdGrdList(rawMtrWrhsVO.getStdGrdList());
 
-		logger.debug("getStdGrdList size: {}", rawMtrInvntrVO.getStdGrdList().size());
-
 		HashMap<String, Object> rtnObj = rawMtrInvntrService.insertRawMtrInvntr(rawMtrInvntrVO);
 		if (rtnObj != null) {
 			throw new EgovBizException(getMessageForMap(rtnObj));
@@ -121,7 +119,11 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 		BeanUtils.copyProperties(rawMtrWrhsVO, prdcrVO);
 		prdcrVO.setRprsItemCd(rawMtrWrhsVO.getItemCd());
 		prdcrVO.setRprsVrtyCd(rawMtrWrhsVO.getVrtyCd());
-
+		prdcrVO.setGdsSeCd(rawMtrWrhsVO.getGdsSeCd());
+		prdcrVO.setWrhsSeCd(rawMtrWrhsVO.getWrhsSeCd());
+		prdcrVO.setTrsprtSeCd(rawMtrWrhsVO.getTrsprtSeCd());
+		prdcrVO.setVhclno(rawMtrWrhsVO.getVhclno());
+		
 		rtnObj = prdcrService.updatePrdcrRprs(prdcrVO);
 		if (rtnObj != null) {
 			throw new EgovBizException(getMessageForMap(rtnObj));

@@ -167,6 +167,10 @@ public class AmConstants {
      */
     public final static String CON_STD_GRD_TYPE_RT = "RT";
     /**
+     * 표준등급유형 : WT 중량(kg)
+     */
+    public final static String CON_STD_GRD_TYPE_WT = "WT";
+    /**
      * 표준등급유형 : VL 등록 값
      */
     public final static String CON_STD_GRD_TYPE_VL = "VL";

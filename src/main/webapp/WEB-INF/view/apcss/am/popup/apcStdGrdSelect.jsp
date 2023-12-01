@@ -294,7 +294,7 @@ const stdGrdSelect = {
 		this.param.apcCd = _apcCd;
 		this.param.grdSeCd = _grdSeCd;
 		this.param.itemCd = _itemCd;
-
+		
 		gjsonStdGrdObjKnd.length = 0;
 
 		if (gfn_isEmpty(_apcCd)
