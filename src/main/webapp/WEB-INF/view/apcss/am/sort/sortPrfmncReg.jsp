@@ -700,7 +700,7 @@
 	                maxlength: 6,
 	                oneclickedit: true
                 },
-                format : {type:'number', rule:'#,###'}
+                format : {type:'number', rule:'#,### Kg'}
 			},
             {caption: ["저장창고"],		ref: 'warehouseSeCd',    type:'combo',  width:'100px', style: 'text-align:center;background-color:#FFF8DC;',
            	 	typeinfo: {ref:'jsonComWarehouse', label:'cdVlNm', value:'cdVl', oneclickedit: true}
