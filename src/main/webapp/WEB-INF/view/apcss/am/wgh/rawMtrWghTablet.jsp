@@ -1044,24 +1044,24 @@
             {caption: ['운송구분'], ref: 'trsprtSeNm', width: '60px', type: 'output', style:'text-align:center'},
             {caption: ['차량번호'], ref: 'vhclno', width: '100px', type: 'output', style:'text-align:center'},
             {caption: ['보관창고'], ref: 'warehouseSeNm', width: '60px', type: 'output', style:'text-align:center'},
-            {caption: ['전체중량'], ref: 'wholWght', width: '80px', type: 'output', style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ['공차중량'], ref: 'emptVhclWght', width: '80px', type: 'output', style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ['전체중량'], ref: 'wholWght', width: '80px', type: 'output', style:'text-align:right', format : {type:'number', rule:'#,### Kg'}},
+            {caption: ['공차중량'], ref: 'emptVhclWght', width: '80px', type: 'output', style:'text-align:right', format : {type:'number', rule:'#,### Kg'}},
             {caption: ['감량%'], ref: 'rdcdRt', width: '60px', type: 'output', style:'text-align:right', format : {type:'number', rule:'#,###.##'}},
             {caption: ['감량Kg'], ref: 'rdcdWght', width: '80px', type: 'output', style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ['실중량'], ref: 'actlWght', width: '80px', type: 'output', style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ['실중량'], ref: 'actlWght', width: '80px', type: 'output', style:'text-align:right', format : {type:'number', rule:'#,### Kg'}},
             {caption: ['입고중량'], ref: 'wrhsWght', width: '80px', type: 'output', style:'text-align:right',
-            	format : {type:'number', rule:'#,###'}
+            	format : {type:'number', rule:'#,### Kg'}
             },
             {caption: ['팔레트중량'], ref: 'pltWght', width: '80px', type: 'output', style:'text-align:right',
-            	format : {type:'number', rule:'#,###'},
+            	format : {type:'number', rule:'#,### Kg'},
             	merge : false
             },
             {caption: ['박스중량'], ref: 'bxWght', width: '80px', type: 'output', style:'text-align:right',
-            	format : {type:'number', rule:'#,###'},
+            	format : {type:'number', rule:'#,### Kg'},
             	merge : false
             },
             {caption: ['재고중량'], ref: 'invntrWght', width: '80px', type: 'output', style:'text-align:right',
-            	format : {type:'number', rule:'#,###'},
+            	format : {type:'number', rule:'#,### Kg'},
             	merge : false
             },
             {caption: ['등급'], ref: 'grdNm', width: '60px', type: 'output', style:'text-align:center',

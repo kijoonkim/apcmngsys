@@ -26,7 +26,7 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 원물입고 재처리 -->
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 원물입고재처리 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-dark" onclick="fn_search" text="조회"></sbux-button>
@@ -584,7 +584,7 @@
 	                maxlength: 6,
 	                oneclickedit: true
                 },
-                format : {type:'number', rule:'#,###'}
+                format : {type:'number', rule:'#,### Kg'}
 			},
             {caption: ["저장창고"],		ref: 'warehouseSeCd',    type:'combo',  width:'100px', style: 'text-align:center;background-color:#FFF8DC;',
            	 	typeinfo: {ref:'jsonComWarehouse', label:'cdVlNm', value:'cdVl', oneclickedit: true}
@@ -592,8 +592,9 @@
             {caption: ["컨테이너번호"], 	ref: 'pltno',  		type:'input',  width:'150px', style: 'text-align:center;',
             	typeinfo: {
 	                maxlength: 20,
-	                oneclickedit: true
-                },
+	                oneclickedit: true,
+	                mask : {alias : '*', repeat : '*'}
+                }
             },
             {caption: ["비고"], 		ref: 'rmrk',  		type:'input',  width:'200px'},
 	        {caption: ["품목코드"],		ref: 'itemCd',   	type:'output',  hidden: true},
