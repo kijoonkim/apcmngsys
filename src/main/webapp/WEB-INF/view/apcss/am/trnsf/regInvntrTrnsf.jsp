@@ -396,7 +396,7 @@
 	        {caption: ["운송","운송"],				ref: 'trsprtSeNm',      	type:'output',  width:'60px',    style:'text-align:center'},
 	        {caption: ["현물창고","현물창고"],		ref: 'warehouseSeNm',      	type:'output',  width:'110px',    style:'text-align:center'},
 	        {caption: ["재고","수량"],				ref: 'invntrQntt',      	type:'output',  width:'60px',    style:'text-align:center',
-	        	format : {type:'number', rule:'#,### Kg'}},
+	        	format : {type:'number', rule:'#,### '}},
 	        {caption: ["재고","중량"],				ref: 'invntrWght',      	type:'output',  width:'80px',    style:'text-align:center',
 	        	format : {type:'number', rule:'#,### Kg'}},
 	        {caption: ["이송","수량"],				ref: 'trnsfQntt',      		type:'input',  width:'60px',    style:'text-align:center',
