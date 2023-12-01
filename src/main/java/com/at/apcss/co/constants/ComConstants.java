@@ -189,7 +189,7 @@ public class ComConstants {
 	public final static String[] MENU_ID_INVNTR						= {"AM_006_001", "AM_006_002"};	// 재고관리
 	public final static String[] MENU_ID_INVNTR_TRNSF				= {"AM_006_003", "AM_006_004", "AM_006_005"};	// 재고이송관리
 
-	public final static String[] MENU_ID_CLCLN						= {"AM_008_001", "AM_008_002"};	// 정산관리
+	public final static String[] MENU_ID_CLCLN						= {"AM_008_001", "AM_008_002", "AM_008_003"};	// 정산관리
 
 	public final static String[] MENU_ID_OUTORDR					= {"AM_007_001", "AM_007_002"};	// 발주정보관리
 	public final static String[] MENU_ID_OUTORDR_PCKG_CMND_LNKG		= {};							// 발주정보포장지시연결
