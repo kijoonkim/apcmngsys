@@ -459,13 +459,13 @@
 	        {caption: ["운송","운송"],				ref: 'trsprtSeNm',      type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["창고","창고"],				ref: 'originWarehouseSeNm',  	type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["현 재고","수량"],			ref: 'invntrQntt',      type:'input',  	width:'85px',    style:'text-align:center'
-	        	, format : {type:'number', rule:'#,###'}},
+	        	, format : {type:'number', rule:'#,###'}, typeinfo : {maxlength : 10}, validate : gfn_chkByte.bind({byteLimit: 10})},
 	        {caption: ["현 재고","중량"],		ref: 'invntrWght',      type:'input',  	width:'85px',    style:'text-align:center'
-	        	, format : {type:'number', rule:'#,### Kg'}
+	        	, format : {type:'number', rule:'#,### Kg'}, typeinfo : {maxlength : 10}, validate : gfn_chkByte.bind({byteLimit: 10})
 	        },
 	        {caption: ["변경창고", "변경창고"], 	ref: 'warehouseSeCd',   	type:'combo',  width:'120px',    style:'text-align:center;',
 				typeinfo : {ref:'jsonGrdwarehouseSeCd', 	displayui : false,	itemcount: 10, label:'label', value:'value', unselect: {label : '선택', value: ''}}},
-	        {caption: ["변경사항","변경사항"],		ref: 'chgRmrk',      type:'input',  width:'105px',    style:'text-align:center'},
+	        {caption: ["변경사항","변경사항"],		ref: 'chgRmrk',      type:'input',  width:'105px',    style:'text-align:center', typeinfo : {maxlength : 333}},
 	        {caption: ["창고구분코드","창고구분코드"],		ref: 'warehouseSeCd', 	type:'output',	hidden: true}
 	    ];
 
@@ -503,13 +503,13 @@
 	        {caption: ["규격","규격"],			ref: 'spcfctNm',      	type:'output',  	width:'105px',    style:'text-align:center'},
 	        {caption: ["창고","창고"],			ref: 'originWarehouseSeNm',  	type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["현 재고","수량"],		ref: 'invntrQntt',      type:'input',  	width:'85px',    style:'text-align:center'
-	        	, format : {type:'number', rule:'#,###'}},
+	        	, format : {type:'number', rule:'#,###'}, typeinfo : {maxlength : 10}, validate : gfn_chkByte.bind({byteLimit: 10})},
 	        {caption: ["현 재고","중량"],		ref: 'invntrWght',      type:'input',  	width:'85px',    style:'text-align:center'
-	        	, format : {type:'number', rule:'#,### Kg'}
+	        	, format : {type:'number', rule:'#,### Kg'}, typeinfo : {maxlength : 10}, validate : gfn_chkByte.bind({byteLimit: 10})
 	        },
 	        {caption: ["변경창고", "변경창고"], ref: 'warehouseSeCd',   	type:'combo',  width:'120px',    style:'text-align:center;',
 				typeinfo : {ref:'jsonGrdwarehouseSeCd', 	displayui : false,	itemcount: 10, label:'label', value:'value', unselect: {label : '선택', value: ''}}},
-	        {caption: ["변경사항","변경사항"],	ref: 'chgRmrk',      		type:'input',  		width:'105px',    	style:'text-align:center'},
+	        {caption: ["변경사항","변경사항"],	ref: 'chgRmrk',      		type:'input',  		width:'105px',    	style:'text-align:center', typeinfo : {maxlength : 333}},
             {caption: ["선별순번"],		ref: 'sortSn', 			type:'output',  hidden: true},
 	    ];
 
@@ -549,13 +549,13 @@
 	        {caption: ["등급","등급"],			ref: 'gdsGrdNm',      	type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["창고","창고"],			ref: 'originWarehouseSeNm',  	type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["현 재고","수량"],		ref: 'invntrQntt',      type:'input',  	width:'85px',    style:'text-align:center'
-	        	, format : {type:'number', rule:'#,###'}},
+	        	, format : {type:'number', rule:'#,###'}, typeinfo : {maxlength : 10}, validate : gfn_chkByte.bind({byteLimit: 10})},
 	        {caption: ["현 재고","중량"],		ref: 'invntrWght',      type:'input',  	width:'85px',    style:'text-align:center'
-	        	, format : {type:'number', rule:'#,### Kg'}
+	        	, format : {type:'number', rule:'#,### Kg', typeinfo : {maxlength : 10}}, validate : gfn_chkByte.bind({byteLimit: 10})
 	        },
 	        {caption: ["변경창고", "변경창고"], ref: 'warehouseSeCd',   	type:'combo',  width:'120px',    style:'text-align:center;',
 				typeinfo : {ref:'jsonGrdwarehouseSeCd', 	displayui : false,	itemcount: 10, label:'label', value:'value', unselect: {label : '선택', value: ''}}},
-	        {caption: ["변경사항","변경사항"],	ref: 'chgRmrk',      	type:'input',  		width:'105px',    	style:'text-align:center'},
+	        {caption: ["변경사항","변경사항"],	ref: 'chgRmrk',      	type:'input',  		width:'105px',    	style:'text-align:center', typeinfo : {maxlength : 333}, validate : gfn_chkByte.bind({byteLimit: 1000})},
 	        {caption: ["창고구분코드","창고구분코드"],		ref: 'warehouseSeCd', 	type:'output',	hidden: true}
 	    ];
 
