@@ -113,7 +113,7 @@
 								</div>
 							</td>
 							<td class="td_input" colspan="2"></td>
-							<th scope="row" class="th_bg">포장단위</th>
+							<th scope="row" class="th_bg">상품명</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
@@ -225,7 +225,7 @@
             {caption: ['중량'], 		ref: 'cmndWght', 		width: '80px',	type: 'output',	style:'text-align: right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
             {caption: ['상품등급'], 	ref: 'gdsGrdNm', 		width: '60px',	type: 'output',	style:'text-align: center'},
-            {caption: ['포장단위'], 	ref: 'spmtPckgUnitNm', 	width: '160px',	type: 'output',	style:'text-align: center'},
+            {caption: ['상품명'], 	ref: 'spmtPckgUnitNm', 	width: '160px',	type: 'output',	style:'text-align: center'},
             {caption: ['품종'], 		ref: 'vrtyNm', 			width: '100px',	type: 'output',	style:'text-align: center'},
             {caption: ['규격'], 		ref: 'spcfctNm', 		width: '100px',	type: 'output',	style:'text-align: center'},
             {caption: ['비고'], 		ref: 'rmrk', 			width: '300px',	type: 'output'},
@@ -235,7 +235,7 @@
         grdSpmtCmnd = _SBGrid.create(SBGridProperties);
         grdSpmtCmnd.bind( "afterpagechanged" , "fn_pagingSmptCmnd" );
     }
-	
+
 	/**
      * @description 메뉴트리그리드 컨텍스트메뉴 json
      * @type {object}
@@ -267,7 +267,7 @@
             "callback": fn_colShow,				//콜백함수명
         }
     };
-     
+
     // 엑셀 다운로드
     function fn_excelDwnld() {
     	grdSpmtCmnd.exportLocalExcel("출하지시", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});

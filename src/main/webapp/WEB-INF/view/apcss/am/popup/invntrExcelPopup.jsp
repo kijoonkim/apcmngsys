@@ -338,7 +338,7 @@
 		if(invntrSeCd == "2" || invntrSeCd == "3"){
 
 			popupColumns.push(
-					{caption: ["포장구분"], 	ref: 'spmtPckgUnitCd', 	type:'combo',  width:'150px',    style:'text-align:center; background:#FFF8DC;',
+					{caption: ["상품명"], 	ref: 'spmtPckgUnitCd', 	type:'combo',  width:'150px',    style:'text-align:center; background:#FFF8DC;',
 						typeinfo : {ref:'jsonEPISpmtPckgUnit', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 					{caption: ["생산자"], 		ref: 'rprsPrdcrCd',   	type:'combo',  width:'150px',    style:'text-align:center',
 						typeinfo : {ref:'jsonEPIApcPrdcr', 	displayui : false,	itemcount: 10, label:'prdcrNm', value:'prdcrCd'}},
@@ -487,17 +487,17 @@
    			}
    		}
    		if(itemCd != choiceItemCd){
-   			gfn_comAlert("W0006", nRow+"행의 품목의 포장구분", "선택한 포장구분") 	// W0006	{0}와/과 {1}이/가 서로 다릅니다.
+   			gfn_comAlert("W0006", nRow+"행의 품목의 상품명", "선택한 상품명") 	// W0006	{0}와/과 {1}이/가 서로 다릅니다.
    			grdExcelGdsInvntrPopup.setCellData(nRow, spmtPckgUnitCdCol, "");
    			return false;
    		}
    		if(vrtyCd != choiceVrtyCd){
-   			gfn_comAlert("W0006", nRow+"행의 품종의 포장구분", "선택한 포장구분") 	// W0006	{0}와/과 {1}이/가 서로 다릅니다.
+   			gfn_comAlert("W0006", nRow+"행의 품종의 상품명", "선택한 상품명") 	// W0006	{0}와/과 {1}이/가 서로 다릅니다.
    			grdExcelGdsInvntrPopup.setCellData(nRow, spmtPckgUnitCdCol, "");
    			return false;
    		}
    		if(spcfctCd != choiceSpcfctCd){
-   			gfn_comAlert("W0006", nRow+"행의 규격의 포장구분", "선택한 포장구분") 	// W0006	{0}와/과 {1}이/가 서로 다릅니다.
+   			gfn_comAlert("W0006", nRow+"행의 규격의 상품명", "선택한 상품명") 	// W0006	{0}와/과 {1}이/가 서로 다릅니다.
    			grdExcelGdsInvntrPopup.setCellData(nRow, spmtPckgUnitCdCol, "");
    			return false;
    		}
@@ -605,7 +605,7 @@
 				}
 				if(invntrSeCd == "3"){
 					if(gfn_comboValidation(jsonEPISpmtPckgUnit, spmtPckgUnitCd) != "Y" || gfn_isEmpty(spmtPckgUnitCd)){
-						gfn_comAlert("W0005", "포장구분") 	// W0005	{0}이/가 없습니다.
+						gfn_comAlert("W0005", "상품명") 	// W0005	{0}이/가 없습니다.
 						return;
 					}
 					if(!fn_checkSpmtPckgUnit(i)){
