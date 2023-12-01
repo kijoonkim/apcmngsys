@@ -106,8 +106,8 @@
 				typeinfo : {ref:'comboGridCnptTypeJsData', label:'label', value:'value', displayui : false, itemcount: 10}},
             {caption: ["사업자번호"], 	ref: 'brno',  		type:'input',  width:'135px',    style:'text-align:center', typeinfo : {mask : {alias : '#-', repeat: '*'}, maxlength : 20}, validate : gfn_chkByte.bind({byteLimit: 20})},
             {caption: ["담당자"], 		ref: 'picNm',  		type:'input',  width:'90px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {mask : {alias : 'k'}, maxlength : 20}},
-            {caption: ["전화번호"], 	ref: 'telno',  		type:'input',  width:'120px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {maxlength : 11}, format : {type:'custom', callback : fnNewCnptMngTelno}},
-            {caption: ["이메일"], 		ref: 'eml',  		type:'input',  width:'140px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 320}), typeinfo : {maxlength : 320}},
+            {caption: ["전화번호"], 	ref: 'telno',  		type:'input',  width:'120px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {maxlength : 11}, format : {type:'custom', callback : fn_newCnptMngTelno}},
+            {caption: ["이메일"], 		ref: 'eml',  		type:'input',  width:'140px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 320}), typeinfo : {maxlength : 320}, format : {type:'custom', callback : fn_checkCnptMngEml}},
             {caption: ["업태"], 		ref: 'bzstat',  	type:'input',  width:'140px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 300}), typeinfo : {maxlength : 300}},
             {caption: ["종목"], 		ref: 'cls',  		type:'input',  width:'140px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 300}), typeinfo : {maxlength : 300}},
             {caption: ["비고"], 		ref: 'rmrk',  		type:'input',  width:'120px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000}), typeinfo : {maxlength : 1000}},
@@ -224,6 +224,10 @@
 					if(newInsertTelno < 8){
 						insertList[i].telno = "";
 					}
+					let newUpdateListEml = updateList[i].eml;
+					if (!(fn_checkCnptMngEmlReturn(newUpdateListEml))) {
+						updateList[i].eml = "";
+					}
 				}
 			}
 			if(!(gfn_isEmpty(updateList))){
@@ -231,6 +235,10 @@
 					let newUpdateListTelno = updateList[i].telno.split("");
 					if(newUpdateListTelno.length < 8){
 						updateList[i].telno = "";
+					}
+					let newUpdateListEml = updateList[i].eml;
+					if (!(fn_checkCnptMngEmlReturn(newUpdateListEml))) {
+						updateList[i].eml = "";
 					}
 				}
 			}
@@ -361,7 +369,7 @@
     		console.error("failed", e.message);
         }
 	}
-	const fnNewCnptMngTelno = function(strValue) {
+	const fn_newCnptMngTelno = function(strValue) {
 		if(!(gfn_isEmpty(strValue))){
 			let newCallNumber = strValue.split("");
 			if(newCallNumber.length==11){
@@ -380,6 +388,22 @@
 			return;
 		}
 		return;
+	}
+	
+	const fn_checkCnptMngEml = function(strValue) {
+		if(!(gfn_isEmpty(strValue))){
+			if(fn_checkCnptMngEmlReturn(strValue)){
+				return strValue;
+			}
+		}else{
+			return;
+		}
+		return;
+	}
+	
+	const fn_checkCnptMngEmlReturn = function(eml) {
+		let checkEml = new RegExp(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i);
+		return checkEml.test(eml);
 	}
 </script>
 </html>
