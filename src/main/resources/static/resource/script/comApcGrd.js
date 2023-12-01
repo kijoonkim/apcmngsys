@@ -28,7 +28,17 @@ const _GRD_SE_CD_GDS = "03";
  * @returns
  */
 const gfn_getStdGrds = async function(_apcCd, _grdSeCd, _itemCd) {
-	const postJsonPromise = gfn_postJSON(URL_APC_STD_GRDS, {apcCd: _apcCd, grdSeCd: _grdSeCd, itemCd: _itemCd, delYn : "N"}, null, true);
+	const postJsonPromise = gfn_postJSON(
+								URL_APC_STD_GRDS,
+								{
+									apcCd: _apcCd, 
+									grdSeCd: _grdSeCd, 
+									itemCd: _itemCd, 
+									delYn : "N"
+								}, 
+								null, 
+								true
+							);
 	const data = await postJsonPromise;
 	return data.resultList;
 }
@@ -43,7 +53,17 @@ const gfn_getStdGrds = async function(_apcCd, _grdSeCd, _itemCd) {
  * @returns
  */
 const gfn_getStdGrdDtls = async function(_apcCd, _grdSeCd, _itemCd) {
-	const postJsonPromise = gfn_postJSON(URL_APC_STD_GRD_DTLS, {apcCd: _apcCd, grdSeCd: _grdSeCd, itemCd: _itemCd, delYn : "N"}, null, true);
+	const postJsonPromise = gfn_postJSON(
+								URL_APC_STD_GRD_DTLS, 
+								{
+									apcCd: _apcCd, 
+									grdSeCd: _grdSeCd, 
+									itemCd: _itemCd,
+									delYn : "N"
+								}, 
+								null, 
+								true
+							);
 	const data = await postJsonPromise;
 	return data.resultList;
 }
@@ -58,7 +78,17 @@ const gfn_getStdGrdDtls = async function(_apcCd, _grdSeCd, _itemCd) {
  * @returns
  */
 const gfn_getStdGrdJgmts = async function(_apcCd, _grdSeCd, _itemCd) {
-	const postJsonPromise = gfn_postJSON(URL_APC_STD_GRD_JGMTS, {apcCd: _apcCd, grdSeCd: _grdSeCd, itemCd: _itemCd, delYn : "N"}, null, true);
+	const postJsonPromise = gfn_postJSON(
+								URL_APC_STD_GRD_JGMTS, 
+								{
+									apcCd: _apcCd, 
+									grdSeCd: _grdSeCd, 
+									itemCd: _itemCd, 
+									delYn : "N"
+								}, 
+								null, 
+								true
+							);
 	const data = await postJsonPromise;
 	return data.resultList;
 }

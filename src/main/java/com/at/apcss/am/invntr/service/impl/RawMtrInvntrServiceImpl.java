@@ -103,14 +103,17 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 
 			String apcCd = rawMtrInvntrVO.getApcCd();
 			int wrhsQntt = rawMtrInvntrVO.getWrhsQntt();
-			double wrhsWght = rawMtrInvntrVO.getWrhsQntt();
+			double wrhsWght = rawMtrInvntrVO.getWrhsWght();
 
 			double sumGrdNv = 0;
+			double sumGrdWght = 0;
+			
 			int rmnQntt = wrhsQntt;
 			double rmnWght = wrhsWght;
 
 			int cntCalc = 0;
-
+			int cntWght = 0;
+			
 			for ( RawMtrStdGrdVO stdGrd : stdGrdList ) {
 
 				StdGrdVO paramVO = new StdGrdVO();
@@ -124,7 +127,9 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 					return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "등급정보");	// W0005	{0}이/가 없습니다.
 				}
 
-				stdGrd.setStdGrdType(grdKndVO.getStdGrdType());
+				if (!StringUtils.hasText(stdGrd.getStdGrdType())) {
+					stdGrd.setStdGrdType(grdKndVO.getStdGrdType());
+				}
 
 				if (StringUtils.hasText(stdGrd.getGrdCd())) {
 					// 일반
@@ -173,6 +178,13 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 						rmnQntt -= qntt;
 						rmnWght -= wght;
 
+					} else if (AmConstants.CON_STD_GRD_TYPE_WT.equals(stdGrd.getStdGrdType())) {
+						
+						cntWght++;
+						// 중량적용 : 등급상세 없음 * 로 등록
+						stdGrd.setGrdCd(AmConstants.CON_STD_GRD_CD_EMPTY);
+						sumGrdWght += stdGrd.getGrdWght();
+						
 					} else {
 						return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "등급값");
 					}
@@ -213,7 +225,15 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 						stdGrd.setGrdWght(stdGrd.getGrdWght() + divWght + oddWght);
 					}
 				}
-			}
+			} else if (cntWght > 0) {
+				
+				if (sumGrdWght > wrhsWght) {
+					return ComUtil.getResultMap(ComConstants.MSGCD_TGT_GREATER_THAN, "등급중량||합산중량");
+				} else if (sumGrdWght < wrhsWght) {
+					return ComUtil.getResultMap(ComConstants.MSGCD_TGT_LESS_THAN, "등급중량||합산중량");
+				} else {}
+
+			} else {}
 
 			for ( RawMtrStdGrdVO stdGrd : stdGrdList ) {
 				RawMtrStdGrdVO rawMtrStdGrdVO = new RawMtrStdGrdVO();

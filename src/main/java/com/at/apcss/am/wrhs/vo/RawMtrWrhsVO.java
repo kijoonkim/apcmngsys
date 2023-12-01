@@ -268,6 +268,7 @@ public class RawMtrWrhsVO extends ComVO {
 	 */
 	private String stdGrd;
 	private String stdGrdCd;
+	private String stdGrdType;
 
 	/**
 	 * 표준등급 목록
