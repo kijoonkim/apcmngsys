@@ -1,9 +1,9 @@
 package com.at.apcss.am.bbs.service;
 
 import java.util.List;
-import java.util.Map;
 
 import com.at.apcss.am.bbs.vo.apcBbsCmntVO;
+import com.at.apcss.am.bbs.vo.apcBbsFileVO;
 import com.at.apcss.am.bbs.vo.apcBbsVO;
 
 
@@ -121,4 +121,36 @@ public interface apcBbsService {
 	public int deleteBbsList(List<apcBbsVO> bbsList) throws Exception;
 
 
+
+	/**
+	 * 첨부파일을 조회한다.
+	 * @param bbsFileVO
+	 * @return
+	 * @throws Exception
+	 */
+	public apcBbsFileVO selectBbsAttaches (apcBbsFileVO apcBbsFileVO) throws Exception;
+
+	/**
+	 * 첨부파일을 조회한다.
+	 * @param bbsFileVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<apcBbsFileVO> selectBbsAttachesList(apcBbsVO apcBbsVO) throws Exception;
+
+	/**
+	 * 첨부파일을 등록한다.
+	 * @param bbsFileVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertAttach(apcBbsFileVO apcBbsFileVO) throws Exception;
+
+	/**
+	 * 첨부파일을 삭제한다.
+	 * @param bbsList
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteBbsAttache(apcBbsFileVO apcBbsFileVO) throws Exception;
 }

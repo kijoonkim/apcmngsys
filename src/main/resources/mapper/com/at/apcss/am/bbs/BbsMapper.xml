@@ -364,4 +364,130 @@
     </delete>
 
 
+
+
+
+
+
+
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.bbs.mapper.BbsMapper.selectBbsAttachesList			-->
+	<!-- DESC : 첨부파일 조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectBbsAttaches" parameterType="com.at.apcss.am.bbs.vo.apcBbsFileVO" resultType="com.at.apcss.am.bbs.vo.apcBbsFileVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.am.bbs.mapper.BbsMapper.selectBbsAttaches */
+				ATCHFLNO
+				,ATCHFL_NM
+				,ATCHFL_ORGN_NM
+				,ATCHFL_SZ
+				,ATCHFL_EXTN_TYPE
+				,ATCHFL_PATH
+				FROM USRAM.TB_APC_BBS_ATTACH
+    	]]>
+    	<where>
+    			AND DEL_YN = 'N'
+			<if test='atchflno != null and atchflno != ""'>
+				AND ATCHFLNO = #{atchflno}
+			</if>
+		</where>
+    </select>
+
+    	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.bbs.mapper.BbsMapper.selectBbsAttachesList			-->
+	<!-- DESC : 첨부파일 목록 조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectBbsAttachesList" parameterType="com.at.apcss.am.bbs.vo.apcBbsVO" resultType="com.at.apcss.am.bbs.vo.apcBbsFileVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.am.bbs.mapper.BbsMapper.selectBbsAttachesList */
+				ATCHFLNO
+				,ATCHFL_NM
+				,ATCHFL_ORGN_NM
+				,ATCHFL_SZ
+				,ATCHFL_EXTN_TYPE
+				,ATCHFL_PATH
+				FROM USRAM.TB_APC_BBS_ATTACH
+    	]]>
+    	<where>
+    			AND DEL_YN = 'N'
+			<if test='bbsNo != null and bbsNo != ""'>
+				AND ATCHFL_PRNTSNO LIKE #{bbsNo} || '%'
+			</if>
+		</where>
+    </select>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.bbs.mapper.BbsMapper.insertAttach				-->
+	<!-- DESC : 첨부파일 등록                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertAttach" parameterType="com.at.apcss.am.bbs.vo.apcBbsFileVO">
+    	<![CDATA[
+	    	INSERT /* com.at.apcss.am.bbs.mapper.BbsMapper.insertAttach */
+	    	  INTO TB_APC_BBS_ATTACH
+	    		(
+					ATCHFLNO
+				  , ATCHFL_PRNTSNO
+			      , ATCHFL_NM
+			      , ATCHFL_ORGN_NM
+			      , ATCHFL_SZ
+			      , ATCHFL_EXTN_TYPE
+			      , ATCHFL_PATH
+			      , SYS_FRST_INPT_DT
+	    		  , SYS_FRST_INPT_USER_ID
+	    		  , SYS_FRST_INPT_PRGRM_ID
+	    		  , SYS_LAST_CHG_DT
+	    		  , SYS_LAST_CHG_USER_ID
+	    		  , SYS_LAST_CHG_PRGRM_ID
+	    		)
+	   		VALUES
+	   			(
+	   			    seq_apc_attach.nextval
+	   			  , (SELECT NVL(MAX(BBS_NO),0) FROM TB_APC_BBS)
+				  , #{atchflNm}
+				  , #{atchflOrgnNm}
+				  , #{atchflSz}
+				  , #{atchflExtnType}
+				  , #{atchflPath}
+				  , SYSDATE
+	   			  , #{sysFrstInptUserId}
+	   			  , #{sysFrstInptPrgrmId}
+	   			  , SYSDATE
+	   			  , #{sysFrstInptUserId}
+	   			  , #{sysFrstInptPrgrmId}
+	   			)
+    	]]>
+    </insert>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.bbs.mapper.BbsMapper.deleteBbsAttache				-->
+	<!-- DESC : 첨부파일 삭제                                            				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <delete id="deleteBbsAttache" parameterType="com.at.apcss.am.bbs.vo.apcBbsVO">
+    	<![CDATA[
+	    	DELETE /* com.at.apcss.am.bbs.mapper.BbsMapper.deleteBbsAttache */
+	    		TB_APC_BBS_ATTACH
+			 WHERE 1=1
+			   AND ATCHFLNO	= #{atchflno}
+    	]]>
+    </delete>
+
+
 </mapper>

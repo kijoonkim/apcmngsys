@@ -18,7 +18,7 @@
                 <div class="sbt-wrap-full">
                     <!--Button 영역-->
                     <div class="sbt-search-button" style="text-align:right;">
-                   		<sbux-button id="test" name="test" uitype="normal" wrap-class="sbt-btn-reset" text="test" onclick="fn_test(0)"></sbux-button>
+                   		<sbux-button id="test" name="test" uitype="normal" wrap-class="sbt-btn-reset" text="test" onclick="fn_fileUpload(0)"></sbux-button>
                         <sbux-button id="btn_create" name="btn_create" uitype="normal" wrap-class="sbt-btn-reset" text="신규" onclick="fn_create"></sbux-button>
                         <sbux-button id="btn_delete" name="btn_delete" uitype="normal" wrap-class="sbt-btn-reset" text="삭제" onclick="fn_delete"></sbux-button>
                         <sbux-button id="btn_save" name="btn_save" uitype="normal" wrap-class="sbt-btn-reset" text="저장" onclick="fn_save"></sbux-button>
@@ -478,7 +478,7 @@
         		console.log("게시글 등록 성공");
         		var fileList = $('#bbsfileList')[0].files;
         		if(fileList.length > 0){
-        			fn_test(0);
+        			fn_fileUpload(0);
         		}else{
         			alert("처리 되었습니다.");
         			fn_search();
@@ -516,7 +516,7 @@
         		var fileList = $('#bbsfileList')[0].files;
         		if(fileList.length > 0){
         			var bbsNo = SBUxMethod.get('dtl-input-orngBbsNo');
-        			fn_test(bbsNo);
+        			fn_fileUpload(bbsNo);
         		}else{
         			alert("처리 되었습니다.");
         			fn_search();
@@ -676,9 +676,13 @@
         	grdBbsList.setCellData(i+1, 1, checkedYn, true, false);
         }
     }
+
+
+	/**************첨부 파일********************/
+
 	//첨부파일 업로드
-    function fn_test(bbsNo) {
-    	console.log("===========fn_test");
+    function fn_fileUpload(bbsNo) {
+    	console.log("===========fn_fileUpload");
     	var formData = new FormData();
     	var files = $('#bbsfileList')[0].files;
 
@@ -714,7 +718,6 @@
 
 	//첨부파일 드래그 앤 드랍 구현
     var dropArea = $('#drop-area');
-	var addButton = $('#add-button');
 
 	dropArea.on('dragover', function (e) {
 	    e.preventDefault();
@@ -738,11 +741,6 @@
 		console.log("change---------");
 	    var files = $(this)[0].files;
 	    showFiles(files);
-	});
-
-	addButton.on('click', function () {
-	    var inputFiles = $('#bbsfile')[0].files;
-	    showFiles(inputFiles);
 	});
 
 	function showFiles(newfiles) {
@@ -826,31 +824,10 @@
          console.log("update result", data);
     }
 
- 	//첨부파일 삭제
+ 	//파일다운로드
     const downloadFile = async function (atchflno){
  		var url = "/download/"+atchflno;
  		window.open(url);
-    	//var formData = new FormData();
-    	//formData.append('atchflno', atchflno);
-
-    	/*
-    	$.ajax({
-            type: 'POST',
-            url: '/fm/bbs/downloadFile.do',
-            data: {atchflno:atchflno},
-            //processData: false,
-            //contentType: false,
-           contentType: "application/x-www-form-urlencoded;charset=UTF-8",
-            success: function (response) {
-                console.log(response);
-                alert("처리 되었습니다.");
-        		fn_search();
-            },
-            error: function (error) {
-                console.log('Error:', error);
-            }
-        });
-    	*/
     }
 </script>
 	<!-- 첨부파일 스타일 추가 -->

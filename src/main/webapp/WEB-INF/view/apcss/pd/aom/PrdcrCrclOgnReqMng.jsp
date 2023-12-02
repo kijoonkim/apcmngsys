@@ -16,12 +16,13 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 등록결과확인 -->
+					<!-- 생산유통통합조직 등록 -->
 					<sbux-label id="lbl-wghno" name="lbl-wghno" uitype="normal" text="">
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btn-srch-input-outordrInq" name="btn-srch-input-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
-					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchFcltList"></sbux-button>
+					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 					<!--
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchFcltList"></sbux-button>
@@ -58,8 +59,8 @@
 							<th scope="row" class="th_bg" >신청년도</th>
 							<td colspan="3" class="td_input" style="border-right:hidden;" >
 								<sbux-select
-									id="srch-input-year"
-									name="srch-input-year"
+									id="srch-input-yr"
+									name="srch-input-yr"
 									uitype="single"
 									jsondata-ref="jsonDSON"
 									unselected-text="전체"
@@ -74,7 +75,7 @@
 									id="srch-input-cmptnInst"
 									name="srch-input-cmptnInst"
 									uitype="single"
-									jsondata-ref="jsonDSON"
+									jsondata-ref="jsonComCmptnInst"
 									unselected-text="전체"
 									class="form-control input-sm"
 									onchange="fn_onChangeSrchItemCd(this)"
@@ -87,7 +88,7 @@
 									id="srch-input-ctpv"
 									name="srch-input-ctpv"
 									uitype="single"
-									jsondata-ref="jsonDSFA"
+									jsondata-ref="jsonComCtpv"
 									unselected-text="전체"
 									class="form-control input-sm"
 									onchange="fn_onChangeSrchItemCd(this)"
@@ -103,7 +104,7 @@
 									id="srch-input-corpSeCd"
 									name="srch-input-corpSeCd"
 									uitype="single"
-									jsondata-ref="jsonDSA"
+									jsondata-ref="jsonComCorpSeCd"
 									unselected-text="전체"
 									class="form-control input-sm"
 									onchange="fn_onChangeSrchItemCd(this)"
@@ -117,7 +118,7 @@
 									id="srch-input-corpDtlSeCd"
 									name="srch-input-corpDtlSeCd"
 									uitype="single"
-									jsondata-ref="jsonDSA"
+									jsondata-ref="jsonComCorpDtlSeCd"
 									unselected-text="전체"
 									class="form-control input-sm"
 									onchange="fn_onChangeSrchItemCd(this)"
@@ -128,10 +129,10 @@
 							<th colspan="2" scope="row" class="th_bg">통합조직여부</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-select
-									id="srch-input-ii"
-									name="srch-input-ii"
+									id="srch-input-aprv"
+									name="srch-input-aprv"
 									uitype="single"
-									jsondata-ref="jsonDSA"
+									jsondata-ref="jsonComAprv"
 									unselected-text="전체"
 									class="form-control input-sm"
 									onchange="fn_onChangeSrchItemCd(this)"
@@ -143,27 +144,27 @@
 						<tr>
 							<th scope="row" class="th_bg">신청대상구분</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input
-									uitype="text"
-									id="srch-input-jj"
-									name="srch-input-jj"
+								<sbux-select
+									id="srch-input-aplyTrgtSe"
+									name="srch-input-aplyTrgtSe"
+									uitype="single"
+									jsondata-ref="jsonComAplyTrgtSe"
+									unselected-text="전체"
 									class="form-control input-sm"
-									autocomplete="off"
-								></sbux-input>
+									onchange="fn_onChangeSrchItemCd(this)"
+								></sbux-select>
 							</td>
 							<td class="td_input"  style="border-right: hidden;">
 							</td>
 							<th scope="row" class="th_bg">사업자번호</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-select
+								<sbux-input
+									uitype="text"
 									id="srch-input-brno"
 									name="srch-input-brno"
-									uitype="single"
-									jsondata-ref="jsonDSA"
-									unselected-text="전체"
 									class="form-control input-sm"
-									onchange="fn_onChangeSrchItemCd(this)"
-								></sbux-select>
+									autocomplete="off"
+								></sbux-input>
 							</td>
 							<td class="td_input">
 							</td>
@@ -187,6 +188,14 @@
 
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
+				<div class="ad_tbl_top">
+					<ul class="ad_tbl_count">
+						<li>
+							<span style="font-size:14px">검색리스트</span>
+							<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+						</li>
+					</ul>
+				</div>
 				<div class="ad_section_top">
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrCrclOgnReqMng" style="height:350px; width: 100%;"></div>
@@ -547,11 +556,11 @@
 							<th colspan="3" scope="row" class="th_bg">생산유통통합조직</th>
 							<td colspan="4" class="td_input">
 								<p class="ad_input_row">
-									<sbux-radio id="rdo-apcSeCd1" name="rdo-apcSeCd" uitype="normal" value="1" class="radio_label"></sbux-radio>
+									<sbux-radio id="rdo-apcSeCd1" name="rdo-aprv" uitype="normal" value="1" class="radio_label"></sbux-radio>
 									<label class="radio_label" for="radio1">승인형</label>
 								</p>
 								<p class="ad_input_row">
-									<sbux-radio id="rdo-apcSeCd2" name="rdo-apcSeCd" uitype="normal" value="2" class="radio_label" checked></sbux-radio>
+									<sbux-radio id="rdo-apcSeCd2" name="rdo-aprv" uitype="normal" value="2" class="radio_label" checked></sbux-radio>
 									<label class="radio_label" for="radio1">육성형</label>
 								</p>
 							</td>
@@ -573,13 +582,15 @@
 						<tr>
 							<th colspan="3" scope="row" class="th_bg">출자출하조직 보유 여부</th>
 							<td colspan="4" class="td_input">
-								<sbux-input
-									uitype="text"
+								<sbux-select
 									id="dtl-input-isoHldYn"
 									name="dtl-input-isoHldYn"
+									uitype="single"
+									jsondata-ref="selectIsoHldYn"
+									unselected-text="전체"
 									class="form-control input-sm"
-									autocomplete="off"
-								></sbux-input>
+									onchange="fn_onChangeSrchItemCd(this)"
+								></sbux-select>
 							</td>
 							<td colspan="7" style="border: none"></td>
 						</tr>
@@ -616,10 +627,10 @@
 							<th colspan="5" rowspan="3" scope="row" class="th_bg">타 조직 통합 여부</th>
 							<td colspan="3" rowspan="3" class="td_input">
 								<sbux-select
-									id="dtl-input-intyYn"
-									name="dtl-input-intyYn"
+									id="dtl-input-untyYn"
+									name="dtl-input-untyYn"
 									uitype="single"
-									jsondata-ref="jsonDSA"
+									jsondata-ref="selectUntuYn"
 									unselected-text="전체"
 									class="form-control input-sm"
 									onchange="fn_onChangeSrchItemCd(this)"
@@ -702,8 +713,8 @@
 							<td colspan="7" class="td_input">
 								<sbux-input
 									uitype="text"
-									id="dtl-input-88"
-									name="dtl-input-88"
+									id="dtl-input-pruoFundAplyAmt"
+									name="dtl-input-pruoFundAplyAmt"
 									class="form-control input-sm"
 									autocomplete="off"
 								></sbux-input>
@@ -715,8 +726,8 @@
 							<td colspan="7" class="td_input">
 								<sbux-input
 									uitype="text"
-									id="dtl-input-99"
-									name="dtl-input-99"
+									id="dtl-input-isoFundAplyAmt"
+									name="dtl-input-isoFundAplyAmt"
 									class="form-control input-sm"
 									autocomplete="off"
 								></sbux-input>
@@ -764,13 +775,15 @@
 						<tr>
 							<th colspan="3" scope="row" class="th_bg">신청대상구분</th>
 							<td colspan="4" class="td_input">
-								<sbux-input
-									uitype="text"
-									id="dtl-input-12"
-									name="dtl-input-12"
+								<sbux-select
+									id="dtl-input-aplyTrgtSe"
+									name="dtl-input-aplyTrgtSe"
+									uitype="single"
+									jsondata-ref="jsonComAplyTrgtSe"
+									unselected-text="전체"
 									class="form-control input-sm"
-									autocomplete="off"
-								></sbux-input>
+									onchange="fn_onChangeSrchItemCd(this)"
+								></sbux-select>
 							</td>
 							<td colspan="7" style="border: none"></td>
 						</tr>
@@ -791,6 +804,7 @@
 	window.addEventListener('DOMContentLoaded', function(e) {
 
 		fn_init();
+		fn_initSBSelect();
 
 		/**
 		 * 엔터시 검색 이벤트
@@ -808,6 +822,48 @@
 		  	});
 		}
 	})
+
+	//타 조직 통합 여부 untuYn
+	var selectUntuYn = [
+		{'text': 'Y','label': 'Y', 'value': '1'},
+		{'text': 'N','label': 'N', 'value': '2'}
+	];
+
+	//출자출하조직 보유 여부
+	var selectIsoHldYn = [
+		{'text': 'Y','label': 'Y', 'value': '1'},
+		{'text': 'N','label': 'N', 'value': '2'}
+	];
+
+	var jsonComCmptnInst = [];//관할기관
+	var jsonComCtpv = [];//시도
+	var jsonComSgg = [];//시군
+	var jsonComCorpSeCd = [];//법인구분
+	var jsonComCorpDtlSeCd = [];//법인형태
+	var jsonComUoCd = [];//통합조직코드
+	var jsonComAprv = [];//신청구분
+	var jsonComAplyTrgtSe = [];//신청대상구분
+	/**
+	 * combo 설정
+	 */
+	const fn_initSBSelect = async function() {
+		console.log("============fn_initSBSelect============");
+		// 검색 SB select
+		let rst = await Promise.all([
+			//검색조건
+			gfn_setComCdSBSelect('srch-input-cmptnInst', 	jsonComCmptnInst, 	'CMPTNC_INST'), //관할기관
+			gfn_setComCdSBSelect('srch-input-ctpv', 		jsonComCtpv, 	'C91'), //시도
+			gfn_setComCdSBSelect('srch-input-sgg', 			jsonComSgg, 	'C92'),	 //시군
+			gfn_setComCdSBSelect('srch-input-corpSeCd', 	jsonComCorpSeCd, 	'CORP_SE_CD'), //법인구분
+			gfn_setComCdSBSelect('srch-input-corpDtlSeCd', 	jsonComCorpDtlSeCd, 	'CORP_SHAP'), //법인형태
+			//gfn_setComCdSBSelect('srch-input-uoCd', 		jsonComUoCd, 	'UO_CD'), //통합조직코드
+			gfn_setComCdSBSelect('srch-input-aprv', 		jsonComAprv, 	'APRV_UPBR_SE_CD'), //신청구분
+			gfn_setComCdSBSelect('srch-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE'), //신청대상구분
+			gfn_setComCdSBSelect('dtl-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE'), //신청대상구분
+
+		]);
+		console.log("============fn_initSBSelect=====1=======");
+	}
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
@@ -835,16 +891,24 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.paging = {
+				'type' : 'page',
+			  	'count' : 5,
+			  	'size' : 20,
+			  	'sorttype' : 'page',
+			  	'showgoalpageui' : true
+		    };
 	    SBGridProperties.columns = [
 	    	{caption: ["seq"], 			ref: 'apoCd',   	hidden : true},
-	    	{caption: ["신청년도"], 		ref: 'year',   	type:'output',  width:'220px',    style:'text-align:center'},
-	    	{caption: ["통합조직여부"], 	ref: 'apoSe',   type:'output',  width:'220px',    style:'text-align:center'},
+	    	{caption: ["신청년도"], 		ref: 'yr',   	type:'output',  width:'220px',    style:'text-align:center'},
+	    	{caption: ["통합조직여부"], 	ref: 'aprv',   type:'combo',  width:'220px',    style:'text-align:center', disabled:true
+	    		,typeinfo : {ref:'jsonComAprv', label:'label', value:'value', displayui : true}},
 	        {caption: ["시도"], 			ref: 'ctpv',   	type:'output',  width:'220px',    style:'text-align:center'},
 	        {caption: ["시군구"], 		ref: 'sgg',   	type:'output',  width:'220px',    style:'text-align:center'},
 	        {caption: ["법인명"], 		ref: 'corpNm',  type:'output',  width:'220px',    style:'text-align:center'},
 	        {caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'220px',    style:'text-align:center'},
 	        {caption: ["진행단계"], 		ref: 'aa',   	type:'output',  width:'220px',    style:'text-align:center'},
-	        {caption: ["비고"], 			ref: 'bb',   	type:'output',  width:'220px',    style:'text-align:center'},
+	        {caption: ["비고"], 			ref: 'rmrk',   	type:'output',  width:'220px',    style:'text-align:center'},
 
 	        {caption: ["상세내역"], 	ref: 'picFlnm',   		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'lotnoAddr',   	hidden : true},
@@ -881,12 +945,29 @@
 		//grdPrdcrCrclOgnReqMng.refresh({"combo":true});
 	  	//클릭 이벤트 바인드
 	    grdPrdcrCrclOgnReqMng.bind('click','fn_view');
+	    grdPrdcrCrclOgnReqMng.bind('beforepagechanged', 'fn_pagingBbsList');
 	}
+	/**
+     * 목록 조회
+     */
+    const fn_search = async function() {
 
+    	// set pagination
+    	let pageSize = grdPrdcrCrclOgnReqMng.getPageSize();
+    	let pageNo = 1;
+
+    	fn_setGrdFcltList(pageSize, pageNo);
+    }
+
+	const fn_pagingBbsList = async function() {
+    	let recordCountPerPage = grdPrdcrCrclOgnReqMng.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+    	let currentPageNo = grdPrdcrCrclOgnReqMng.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+    	fn_setGrdFcltList(recordCountPerPage, currentPageNo);
+    }
 
 
 	/* Grid Row 조회 기능*/
-	const fn_searchFcltList = async function(){
+	const fn_setGrdFcltList = async function(pageSize, pageNo){
 		let year = SBUxMethod.get("srch-input-year");//
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
 		let ctpv = SBUxMethod.get("srch-input-ctpv");//
@@ -907,6 +988,10 @@
     		,brno : brno
     		,corpNm : corpNm
 
+    		//페이징
+    		,pagingYn : 'Y'
+    		,currentPageNo : pageNo
+     		,recordCountPerPage : pageSize
 		});
         let data = await postJsonPromise;
         try{
@@ -915,6 +1000,7 @@
         	data.resultList.forEach((item, index) => {
 				let PrdcrCrclOgnReqMngVO = {
 						apoSe: item.apoSe
+						,year: '2023'
 						,apoCd: item.apoCd
 						,ctpv: item.ctpv
 						,sgg: item.sgg
@@ -951,9 +1037,26 @@
 						,untyYr: item.untyYr
 				}
 				jsonPrdcrCrclOgnReqMng.push(PrdcrCrclOgnReqMngVO);
+				if (index === 0) {
+					totalRecordCount = item.totalRecordCount;
+				}
 			});
 
-        	grdPrdcrCrclOgnReqMng.rebuild();
+        	if (jsonPrdcrCrclOgnReqMng.length > 0) {
+
+        		if(grdPrdcrCrclOgnReqMng.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+        			grdPrdcrCrclOgnReqMng.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+        			grdPrdcrCrclOgnReqMng.rebuild();
+				}else{
+					grdPrdcrCrclOgnReqMng.refresh()
+				}
+        	} else {
+        		grdPrdcrCrclOgnReqMng.setPageTotalCount(totalRecordCount);
+        		grdPrdcrCrclOgnReqMng.rebuild();
+        	}
+        	document.querySelector('#listCount').innerText = totalRecordCount;
+
+        	//grdPrdcrCrclOgnReqMng.rebuild();
 
         	//비어 있는 마지막 줄 추가용도?
         	//grdPrdcrCrclOgnReqMng.addRow();
