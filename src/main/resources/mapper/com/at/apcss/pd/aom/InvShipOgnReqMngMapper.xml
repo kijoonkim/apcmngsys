@@ -72,6 +72,15 @@
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectInvShipOgnReqMngList" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO" resultType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+
     	<![CDATA[
 			SELECT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectPrdcrCrclOgnReqMng */
 				  CM.APO_CD
@@ -111,6 +120,13 @@
     		<if test='uoBrno != null and uoBrno != ""'>
 				AND CM.UO_BRNO LIKE #{uoBrno} || '%'
 			</if>
+
+		<!-- 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
     </select>
 
 

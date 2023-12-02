@@ -109,6 +109,8 @@
 				AND CM.APO_SE LIKE '%' || #{apoSe} || '%'
 			</if>
 		ORDER BY CM.SYS_LAST_CHG_DT DESC
+
+
     </select>
 
 
@@ -121,6 +123,16 @@
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectPrdcrCrclOgnMngList" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO" resultType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO">
+
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+
     	<![CDATA[
 			SELECT /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.selectPrdcrCrclOgnMng */
 				  CM.APO_CD
@@ -209,6 +221,13 @@
 				AND CM.APO_SE LIKE '%' || #{apoSe} || '%'
 			</if>
 		ORDER BY CM.SYS_LAST_CHG_DT DESC
+
+		<!-- 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
     </select>
 
 

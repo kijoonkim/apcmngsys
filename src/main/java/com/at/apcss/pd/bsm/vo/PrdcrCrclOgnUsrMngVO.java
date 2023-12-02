@@ -8,36 +8,18 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PrdcrCrclOgnUsrMngVO extends ComVO{
-	private String testNo;
-	private String aa;
-	private String bb;
-	private String cc;
-	private String ccCode;
-	private String dd;
-	private String ddCode;
-	private String ee;
-	private String ff;
-	private String gg;
-	private String hh;
-	private String ii;
-	private String iiCode;
-	private String jj;
-	private String kk;
-	private String ll;
-	private String mm;
-	private String nn;
-	private String oo;
-	private String pp;
-	private String qq;
-	private String rr;
-	private String ss;
-	private String tt;
-	private String uu;
-	private String vv;
-	private String ww;
-	private String xx;
-	private String yy;
-	private String zz;
+	private String userId;		//사용자id
+	private String userNm;		//사용자명
+	private String userType;	//권한
+	private String userStts;	//1차승인
+	private String telno;		//전화번호
+	private String brno;		//사업자등록번호
+	private String moblno;		//휴대전화번호
+	private String coNm;		//회사명 -> 임시로 법인명으로 사용중
+	private String evCertYn;	//2차승인구분
+	private String cmptnInst;	//관할기관
+
+
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;
 	private String sysFrstInptDtYmd;

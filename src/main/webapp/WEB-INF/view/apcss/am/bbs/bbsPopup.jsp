@@ -26,6 +26,7 @@
 		<div class="box box-solid">
 		<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div style="margin-left: auto;">
+					<sbux-button id="test" name="test" uitype="normal" text="test" class="btn btn-sm btn-outline-danger" onclick="fn_fileUpload"></sbux-button>
 					<sbux-button id="btnUpdateBbsPopup" name="btnUpdateBbsPopup" uitype="normal" text="수정" class="btn btn-sm btn-outline-danger" onclick="fn_update"></sbux-button>
 					<sbux-button id="btnCancelBbsPopup" name="btnCancelBbsPopup" uitype="normal" text="취소" class="btn btn-sm btn-outline-danger" onclick="fn_update"></sbux-button>
 					<sbux-button id="btnSaveBbsPopup" name="btnSaveBbsPopup" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_bbsDetailupdate"></sbux-button>
@@ -94,7 +95,20 @@
 			                                    </td>
 			                                </tr>
 			                                <tr>
-			                                    <th scope="row">댓글작성</th>
+			                                    <th scope="row">첨부파일</th>
+			                                    <td colspan="8">
+			                                        <div id="drop-area">
+													    <p>첨부파일을 여기에 드래그 해주세요</p>
+													    <label for="bbsfile" class="custom-file-upload">첨부파일</label>
+													    <input type="file" name="files" id="bbsfile" multiple style="display: none;">
+													    <input type="file" name="filesa" id="bbsfileList" multiple style="display: none;">
+													    <ul id="org-file-list"></ul>
+													    <ul id="file-list"></ul>
+													</div>
+			                                    </td>
+			                                </tr>
+			                                <tr>
+			                                    <th scope="row">댓글작성1</th>
 			                                    <td colspan="6">
 			                                        <sbux-input id="dtl-input-cmntCn" name="dtl-input-cmntCn" uitype="text" required style="width:100%"></sbux-input>
 			                                    </td>
@@ -329,5 +343,202 @@
 		fn_callselectComment(orngbbsNo);
 	}
 
+
+	/**************첨부 파일********************/
+
+	//첨부파일 업로드
+    function fn_fileUpload(bbsNo) {
+    	console.log("===========fn_fileUpload");
+    	var formData = new FormData();
+    	var files = $('#bbsfileList')[0].files;
+
+    	if(files.length == 0){return;}
+
+    	for (var i = 0; i < files.length; i++) {
+            formData.append('files', files[i]);
+        }
+    	if(Number(bbsNo) > 0){
+			//게시판 번호
+    		formData.append('bbsNo', "0");
+    	}else{
+    		//게시판 번호
+    		formData.append('bbsNo', bbsNo);
+    	}
+
+        $.ajax({
+            type: 'POST',
+            url: '/am/bbs/fileUpload.do',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                console.log(response);
+                alert("처리 되었습니다.");
+        		fn_search();
+            },
+            error: function (error) {
+                console.log('Error:', error);
+            }
+        });
+	}
+
+    window.addEventListener('DOMContentLoaded', function(e) {
+    	//첨부파일 드래그 앤 드랍 구현
+    	$('#drop-area').on('dragover', function (e) {
+        	console.log("dragover---------");
+    	    e.preventDefault();
+    	    $('#drop-area').addClass('highlight');
+    	});
+
+    	$('#drop-area').on('dragleave', function () {
+        	console.log("dragleave---------");
+        	$('#drop-area').removeClass('highlight');
+    	});
+
+    	//드랍 이벤트
+    	$('#drop-area').on('drop', function (e) {
+    		console.log("drop---------");
+    	    e.preventDefault();
+    	    $('#drop-area').removeClass('highlight');
+    	    var files = e.originalEvent.dataTransfer.files;
+    	    showFiles(files);
+    	});
+    	//input 변경이벤트
+    	$('#bbsfile').on('change', function (e) {
+    		console.log("change---------");
+    	    var files = $(this)[0].files;
+    	    showFiles(files);
+    	});
+    });
+
+
+	function showFiles(newfiles) {
+
+		var newFileList = new DataTransfer();
+		var fileList = $('#bbsfileList')[0].files;
+		//기존파일
+		for (var i = 0; i < fileList.length; i++) {
+			newFileList.items.add(fileList[i]);
+		}
+		if(newfiles != null){
+			//새로운 파일
+			for (var i = 0; i < newfiles.length; i++) {
+				newFileList.items.add(newfiles[i]);
+			}
+		}
+
+		$('#bbsfileList')[0].files = newFileList.files;
+
+	    var ulList = $('#file-list');
+	    //리스트 초기화
+	    ulList.empty();
+	    //파일 목록
+		var realFileList = $('#bbsfileList')[0].files;
+	    for (var i = 0; i < realFileList.length; i++) {
+	    	var fileName = realFileList[i].name;
+	        var fileItem = $('<li class="file-item">' +
+	                '<span class="file-name">' + fileName + '</span>' +
+	                '<span class="remove-file" onclick="removeFile(' + i + ')">삭제</span>' +
+	                '</li>');
+	        ulList.append(fileItem);
+	    }
+	    console.log($('#bbsfile')[0].files);
+	    $('#bbsfile').val("");
+	}
+
+ 	// 파일 리스트에서 파일을 제거하는 함수
+    function removeFile(index) {
+    	console.log("==============removeFile==============");
+
+ 		var fileList = $('#bbsfileList')[0].files;
+    	console.log(fileList);
+        var fileListContainer = $('#file-list');
+
+        // 선택한 파일을 리스트에서 제거
+        fileListContainer.find('.file-item').eq(index).remove();
+
+        // input[type=file]에서도 제거
+        //보안 문제로 files는 읽기 전용
+        var newFileList = new DataTransfer();
+        for (var i = 0; i < fileList.length; i++) {
+            if (i !== index) {
+                //newFileList.push(fileList[i]);
+            	newFileList.items.add(fileList[i]);
+            }
+        }
+        $('#bbsfileList')[0].files = newFileList.files;
+        console.log($('#bbsfileList')[0].files);
+        showFiles(null);
+    }
+ 	//첨부파일 삭제
+    const deleteFile = async function (atchflno){
+
+     	const postJsonPromise = gfn_postJSON("/am/bbs/deleteBbsAttache.do", {
+     		atchflno : atchflno
+     	});
+
+         const data = await postJsonPromise;
+
+         try {
+         	if (_.isEqual("S", data.resultStatus)) {
+				$("#att_"+atchflno).remove();
+         		alert("삭제 되었습니다.");
+         	} else {
+         		alert(data.resultMessage);
+         	}
+         } catch(e) {
+         }
+
+         // 결과 확인 후 재조회
+         console.log("update result", data);
+    }
+
+ 	//파일다운로드
+    const downloadFile = async function (atchflno){
+ 		var url = "/download/"+atchflno;
+ 		window.open(url);
+    }
+
 </script>
+
+	<!-- 첨부파일 스타일 추가 -->
+	<style>
+        #drop-area {
+            border: 2px dashed #ccc;
+            padding: 20px;
+            width: 90%;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        #file-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .file-item {
+            margin: 5px;
+        }
+        .remove-file {
+        	padding-left: 10px;
+            cursor: pointer;
+            color: #e74c3c;
+        }
+        .custom-file-upload {
+            display: inline-block;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 5px 10px;
+            color: #fff;
+            background-color: #3498db;
+            border: 1px solid #3498db;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .custom-file-upload:hover {
+            background-color: #2980b9;
+            border: 1px solid #2980b9;
+        }
+    </style>
 </html>

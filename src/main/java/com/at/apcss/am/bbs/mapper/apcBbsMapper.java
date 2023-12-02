@@ -5,6 +5,7 @@ import java.util.List;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.at.apcss.am.bbs.vo.apcBbsCmntVO;
+import com.at.apcss.am.bbs.vo.apcBbsFileVO;
 import com.at.apcss.am.bbs.vo.apcBbsVO;
 
 /**
@@ -94,4 +95,32 @@ public interface apcBbsMapper {
 	 * @return
 	 */
 	public int deleteBbs(apcBbsVO bbsVO);
+
+	/**
+	 * 첨부파일을 등록한다.
+	 * @param bbsFileVO
+	 * @return
+	 */
+	public int insertAttach(apcBbsFileVO apcBbsFileVO);
+
+	/**
+	 * 첨부파일 조회한다.
+	 * @param bbsVO
+	 * @return
+	 */
+	public apcBbsFileVO selectBbsAttaches(apcBbsFileVO apcBbsFileVO);
+
+	/**
+	 * 첨부파일 목록을 조회한다.
+	 * @param bbsVO
+	 * @return
+	 */
+	public List<apcBbsFileVO> selectBbsAttachesList(apcBbsVO bbsVO);
+
+	/**
+	 * 첨부파일을 삭제한다.
+	 * @param bbsVO
+	 * @return
+	 */
+	public int deleteBbsAttache(apcBbsFileVO apcBbsFileVO);
 }

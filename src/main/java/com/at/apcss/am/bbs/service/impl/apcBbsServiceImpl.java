@@ -7,8 +7,11 @@ import org.springframework.stereotype.Service;
 import com.at.apcss.am.bbs.mapper.apcBbsMapper;
 import com.at.apcss.am.bbs.service.apcBbsService;
 import com.at.apcss.am.bbs.vo.apcBbsCmntVO;
+import com.at.apcss.am.bbs.vo.apcBbsFileVO;
 import com.at.apcss.am.bbs.vo.apcBbsVO;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.fm.bbs.vo.BbsFileVO;
+import com.at.apcss.fm.bbs.vo.BbsVO;
 
 
 /**
@@ -143,6 +146,30 @@ public class apcBbsServiceImpl extends BaseServiceImpl implements apcBbsService{
 			System.out.println();
 		}
 		return resultList;
+	}
+
+	@Override
+	public int insertAttach(apcBbsFileVO apcBbsFileVO) throws Exception {
+		int insertedCnt = bbsMapper.insertAttach(apcBbsFileVO);
+		return insertedCnt;
+	}
+
+	@Override
+	public List<apcBbsFileVO> selectBbsAttachesList(apcBbsVO apcBbsVO) throws Exception {
+		List<apcBbsFileVO> resultList = bbsMapper.selectBbsAttachesList(apcBbsVO);
+		return resultList;
+	}
+
+	@Override
+	public int deleteBbsAttache(apcBbsFileVO apcBbsFileVO) throws Exception {
+		int deletedCnt = bbsMapper.deleteBbsAttache(apcBbsFileVO);
+		return deletedCnt;
+	}
+
+	@Override
+	public apcBbsFileVO selectBbsAttaches(apcBbsFileVO apcBbsFileVO) throws Exception {
+		apcBbsFileVO resultVO = bbsMapper.selectBbsAttaches(apcBbsFileVO);
+		return resultVO;
 	}
 
 }

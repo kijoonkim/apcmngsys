@@ -290,7 +290,7 @@
 				  , #{atchflNm}
 				  , #{atchflOrgnNm}
 				  , #{atchflSz}
-				  , #{atchflExthType}
+				  , #{atchflExtnType}
 				  , #{atchflPath}
 				  , SYSDATE
 	   			  , #{sysFrstInptUserId}
