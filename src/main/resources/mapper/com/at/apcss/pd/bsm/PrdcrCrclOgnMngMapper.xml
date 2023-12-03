@@ -304,7 +304,7 @@
 	   			  , #{roadNmDtlAddr}
 	   			  , #{corpSeCd}
 	   			  , #{corpDtlSeCd}
-	   			  , #{corpFndnDay}
+	   			  , TO_DATE( #{corpFndnDay} , 'YYYY-MM-DD HH24:MI:SS')
 	   			  , #{isoHldYn}
 	   			  , #{invstNope}
 	   			  , #{invstExpndFrmerNope}
@@ -359,7 +359,7 @@
 	    		  , ROAD_NM_DTL_ADDR		= #{roadNmDtlAddr}
 	    		  , CORP_SE_CD				= #{corpSeCd}
 	    		  , CORP_DTL_SE_CD			= #{corpDtlSeCd}
-	    		  , CORP_FNDN_DAY			= #{corpFndnDay}
+	    		  , CORP_FNDN_DAY			= TO_DATE( #{corpFndnDay} , 'YYYY-MM-DD HH24:MI:SS')
 	    		  , ISO_HLD_YN				= #{isoHldYn}
 	    		  , INVST_NOPE				= #{invstNope}
 	    		  , INVST_EXPND_FRMER_NOPE	= #{invstExpndFrmerNope}
@@ -480,7 +480,7 @@
 	    	INSERT /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.insertPrdcrCrclOgnMng */
 	    	  INTO TB_EV_APO_UO_CD
 	    		(
-	    		  , UO_APO_CD
+	    		    UO_APO_CD
 				  , UO_APO_SE
 				  , UO_BRNO
 				  , UO_CORP_NM
@@ -505,7 +505,7 @@
 	   			  , #{uoBrno}
 	   			  , #{uoCorpNm}
 	   			  , #{uoCrno}
-	   			  , #{isoApoCd}
+	   			  , (SELECT APO_CD FROM TB_EV_APO WHERE BRNO = #{isoBrno})
 	   			  , #{isoApoSe}
 	   			  , #{isoBrno}
 	   			  , #{isoCorpNm}
@@ -533,7 +533,7 @@
 	    		  , UO_CORP_NM				= #{uoCorpNm}
 	    		  , UO_CRNO					= #{uoCrno}
 
-	    		  , ISO_APO_CD				= #{isoApoCd}
+	    		  , ISO_APO_CD				= (SELECT APO_CD FROM TB_EV_APO WHERE BRNO = #{isoBrno})
 	    		  , ISO_APO_SE				= #{isoApoSe}
 	    		  , ISO_BRNO				= #{isoBrno}
 	    		  , ISO_CORP_NM				= #{isoCorpNm}

@@ -133,7 +133,8 @@
 		    };
 		    SBGridProperties.columns = [
 		        {caption: ['사업자번호'], ref: 'brno', width: '300px', type: 'input', style: 'text-align:center'},
-		        {caption: ['법인체명'], ref: 'corpNm', width: '300px', type: 'input', style: 'text-align:center'}
+		        {caption: ['법인체명'], ref: 'corpNm', width: '300px', type: 'input', style: 'text-align:center'},
+		        {caption: ['통합조직코드'], ref: 'apoCd', hidden:true}
 		    ];
 
 		    grdBrnoPop = _SBGrid.create(SBGridProperties);
@@ -181,7 +182,8 @@
 	        	data.resultList.forEach((item, index) => {
 					const apc = {
 					    brno 	: item.brno,
-					    corpNm 	: item.corpNm
+					    corpNm 	: item.corpNm,
+					    apoCd	: item.apoCd
 					}
 					jsonBrnoPop.push(apc);
 
@@ -211,7 +213,7 @@
 	        		grdBrnoPop.setCellDisabled(0, 0, grdBrnoPop.getRows() - 1, grdBrnoPop.getCols() - 1, true);
 	        	}
 
-	        	document.querySelector('#apc-pop-cnt').innerText = totalRecordCount;
+	        	document.querySelector('#brno-pop-cnt').innerText = totalRecordCount;
 
 	        } catch (e) {
 	    		if (!(e instanceof Error)) {

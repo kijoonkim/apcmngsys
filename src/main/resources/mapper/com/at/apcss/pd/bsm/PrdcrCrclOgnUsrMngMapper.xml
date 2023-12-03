@@ -31,7 +31,8 @@
 				, CM.BRNO
 				, CM.MOBLNO
 				, CM.CO_NM
-				, CM.EV_CERT_YN
+				, CM.CMPTN_INST_COFM_CD
+				, CM.CMPTN_INST_COFM_DT
 				, CM.CMPTN_INST
 				, CM.DEL_YN		AS DEL_YN
 				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
@@ -67,8 +68,8 @@
 			<if test='brno != null and brno != ""'>
 				AND CM.BRNO = #{brno}
 			</if>
-			<if test='evCertYn != null and evCertYn != ""'>
-				AND CM.EV_CERT_YN = #{evCertYn}
+			<if test='cmptnInstCofmCd != null and cmptnInstCofmCd != ""'>
+				AND CM.CMPTN_INST_COFM_CD = #{cmptnInstCofmCd}
 			</if>
 			<if test='cmptnInst != null and cmptnInst != ""'>
 				AND CM.CMPTN_INST = #{cmptnInst}
@@ -105,7 +106,8 @@
 				, CM.BRNO
 				, CM.MOBLNO
 				, CM.CO_NM
-				, CM.EV_CERT_YN
+				, CM.CMPTN_INST_COFM_CD
+				, CM.CMPTN_INST_COFM_DT
 				, CM.CMPTN_INST
 				, CM.DEL_YN		AS DEL_YN
 				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
@@ -141,8 +143,8 @@
 			<if test='brno != null and brno != ""'>
 				AND CM.BRNO = #{brno}
 			</if>
-			<if test='evCertYn != null and evCertYn != ""'>
-				AND CM.EV_CERT_YN = #{evCertYn}
+			<if test='cmptnInstCofmCd != null and cmptnInstCofmCd != ""'>
+				AND CM.CMPTN_INST_COFM_CD = #{cmptnInstCofmCd}
 			</if>
 			<if test='cmptnInst != null and cmptnInst != ""'>
 				AND CM.CMPTN_INST = #{cmptnInst}
@@ -170,7 +172,8 @@
 	    		  , TELNO
 	    		  , BRNO
 	    		  , MOBLNO
-	    		  , EV_CERT_YN
+	    		  , CMPTN_INST_COFM_CD
+	    		  , CMPTN_INST_COFM_DT
 	    		  , CMPTN_INST
 
 	    		  , SYS_FRST_INPT_DT
@@ -190,7 +193,8 @@
 	   			  , #{brno}
 	   			  , #{moblno}
 	   			  , #{coNm}
-	   			  , #{evCertYn}
+	   			  , #{cmptnInstCofmCd}
+	   			  , SYSDATE
 	   			  , #{cmptnInst}
 
 	   			  , SYSDATE
@@ -207,12 +211,14 @@
 	    	UPDATE /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnUsrMngMapper.upatePrdcrCrclOgnUsrMng */
 	    		TB_COM_USER
 			   SET
-			 	  USER_TYPE		= #{userType}
-			 	, BRNO 			= #{brno}
-			 	, CO_NM 		= #{coNm}
-			 	, MOBLNO 		= #{moblno}
-			 	, TELNO 		= #{telno}
-			 	, EV_CERT_YN 	= #{evCertYn}
+			 	  USER_TYPE				= #{userType}
+			 	, BRNO 					= #{brno}
+			 	, CO_NM 				= #{coNm}
+			 	, MOBLNO 				= #{moblno}
+			 	, TELNO 				= #{telno}
+			 	, CMPTN_INST_COFM_CD 	= #{cmptnInstCofmCd}
+			 	, CMPTN_INST_COFM_DT 	= SYSDATE
+			 	, USER_STTS 			= #{userStts}
 
     	]]>
 		<if test='delYn != null and delYn != ""'>

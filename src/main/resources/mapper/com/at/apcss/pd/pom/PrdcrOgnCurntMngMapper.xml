@@ -88,6 +88,15 @@
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectPrdcrOgnCurntMngList" parameterType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO" resultType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+
     	<![CDATA[
 			SELECT /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectPrdcrOgnCurntMngList */
 				  CM.TEST_NO
@@ -143,6 +152,13 @@
 			<if test='testNo != null and testNo != ""'>
 				AND CM.TEST_NO LIKE '%' || #{testNo} || '%'
 			</if>
+
+		<!-- 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
     </select>
 
 

@@ -173,9 +173,6 @@
 									jsondata-ref="selectApoSe"
 									unselected-text="전체"
 									class="form-control input-sm"
-									<!--
-									onchange="fn_onChangeSrchItemCd(this)"
-									 -->
 								></sbux-select>
 							</td>
 							<td colspan="3" class="td_input">
@@ -201,7 +198,7 @@
 				</div>
 				<br>
 				<!-- 그리드 식으로 변경 -->
-
+				<!--
 				<table class="table table-bordered tbl_fixed">
 					<caption>통합조직</caption>
 					<tbody>
@@ -263,16 +260,16 @@
 						</tr>
 					</tbody>
 				</table>
-				<!--
-				 -->
+				-->
 				<br>
 				<div></div>
 
 				<!-- 출자출하조직이 속한 통합조직 리스트 그리드 -->
 				<div class="ad_section_top">
-					<p>출자출하조직이 속한 통합조직 리스트</p>
+					<span style="font-size:16px">출자출하조직이 속한 통합조직 리스트</span><br>
+					<span style="font-size:16px">추가 버튼을 누른후 통합조직명,사업자번호 위치 클릭시 팝업이 열립니다.</span>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdUoList" style="height:150px; width: 620px; overflow-x: hidden"></div>
+					<div id="sb-area-grdUoList" style="height:150px; width: 908px; overflow-x: hidden"></div>
 				</div>
 				<br>
 
@@ -395,23 +392,27 @@
 							</td>
 							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>시도</th>
 							<td colspan="3" class="td_input" style="border-right:hidden;" >
-								<sbux-input
-									uitype="text"
+								<sbux-select
 									id="dtl-input-ctpv"
 									name="dtl-input-ctpv"
+									uitype="single"
+									jsondata-ref="jsonComCtpv"
+									unselected-text="전체"
 									class="form-control input-sm"
-									autocomplete="off"
-								></sbux-input>
+									onchange="fn_onChangeSrchItemCd(this)"
+								></sbux-select>
 							</td>
 							<th colspan="2" scope="row" class="th_bg">시군</th>
 							<td colspan="3" class="td_input">
-								<sbux-input
-									uitype="text"
+								<sbux-select
 									id="dtl-input-sgg"
 									name="dtl-input-sgg"
+									uitype="single"
+									jsondata-ref="jsonComSgg"
+									unselected-text="전체"
 									class="form-control input-sm"
-									autocomplete="off"
-								></sbux-input>
+									onchange="fn_onChangeSrchItemCd(this)"
+								></sbux-select>
 							</td>
 						</tr>
 						<tr>
@@ -524,23 +525,15 @@
 								</td>
 							<td colspan="2" class="td_input">
 							<!-- 법인설립일 -->
-							<sbux-input
-									uitype="text"
-									id="dtl-input-corpFndnDay"
-									name="dtl-input-corpFndnDay"
-									class="form-control input-sm"
-									autocomplete="off"
-								></sbux-input>
-							<!-- 현재 데이터 문제로 datepicker 보류 -->
-							<!--
 							<sbux-datepicker
 									uitype="popup"
-									id="dtl-input-corpFndnDay"
-									name="dtl-input-corpFndnDay"
-									class="form-control input-sm"
+									id="dtl-input-corpFndnDay01"
+									name="dtl-input-corpFndnDay01"
+									class="input-sm"
+									style="width:100%;"
 									autocomplete="off"
 								></sbux-datepicker>
-							 -->
+
 								</td>
 							<td colspan="2" class="td_input">
 							<!-- 출자출하조직여부 -->
@@ -906,6 +899,8 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		fn_init();
 		fn_initSBSelect();
 
+		fn_search();
+
 		/**
 		 * 엔터시 검색 이벤트
 		 */
@@ -933,6 +928,11 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		{'text': 'Y','label': 'Y', 'value': '1'},
 		{'text': 'N','label': 'N', 'value': '2'}
 	];
+	//승인여부
+	var jsonComEvCertYn = [
+		{'text': '승인','label': '승인', 'value': 'Y'},
+		{'text': '미승인','label': '미승인', 'value': 'N'}
+	];
 
 	var jsonComCmptnInst = [];//관할기관
 	var jsonComCtpv = [];//시도
@@ -948,14 +948,14 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		let rst = await Promise.all([
 			//검색조건
 			gfn_setComCdSBSelect('srch-input-cmptnInst', 	jsonComCmptnInst, 	'CMPTNC_INST'), //관할기관
-			gfn_setComCdSBSelect('srch-input-ctpv', 		jsonComCtpv, 	'C91'), //시도
-			gfn_setComCdSBSelect('srch-input-sgg', 			jsonComSgg, 	'C92'),	 //시군
+			gfn_setComCdSBSelect('srch-input-ctpv', 		jsonComCtpv, 	'CMPTN_INST_CTPV'), //시도
+			gfn_setComCdSBSelect('srch-input-sgg', 			jsonComSgg, 	'CMPTN_INST_SIGUN'),	 //시군
 			gfn_setComCdSBSelect('srch-input-corpSeCd', 	jsonComCorpSeCd, 	'CORP_SE_CD'), //법인구분
 			gfn_setComCdSBSelect('srch-input-corpDtlSeCd', 	jsonComCorpDtlSeCd, 	'CORP_SHAP'), //법인형태
 			//상세
 			gfn_setComCdSBSelect('dtl-input-cmptnInst', 	jsonComCmptnInst, 	'C90'), //관할기관
-			gfn_setComCdSBSelect('dtl-input-ctpv', 			jsonComCtpv, 	'C91'), //시도
-			gfn_setComCdSBSelect('dtl-input-sgg', 			jsonComSgg, 	'C92'),	 //시군
+			gfn_setComCdSBSelect('dtl-input-ctpv', 			jsonComCtpv, 	'CMPTN_INST_CTPV'), //시도
+			gfn_setComCdSBSelect('dtl-input-sgg', 			jsonComSgg, 	'CMPTN_INST_SIGUN'),	 //시군
 			gfn_setComCdSBSelect('dtl-input-corpSeCd', 		jsonComCorpSeCd, 	'CORP_SE_CD'), //법인구분
 			gfn_setComCdSBSelect('dtl-input-corpDtlSeCd', 	jsonComCorpDtlSeCd, 	'CORP_SHAP') //법인형태
 			//gfn_setComCdSBSelect('srch-input-evCertYn', 	jsonCom, 	''), //2차승인구분
@@ -997,15 +997,19 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		    };
 	    SBGridProperties.columns = [
 	    	{caption: ["산지유통조직코드"], 	ref: 'apoCd',   	hidden : true},
-	        {caption: ["법인구분"], 		ref: 'corpSeCd',   	type:'output',  width:'160px',    style:'text-align:center'},
-	        {caption: ["시도"], 			ref: 'ctpv',   	type:'output',  width:'160px',    style:'text-align:center'},
-	        {caption: ["시군구"], 		ref: 'sgg',   	type:'output',  width:'160px',    style:'text-align:center'},
+	        {caption: ["법인구분"], 		ref: 'corpSeCd',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
+	    		,typeinfo : {ref:'jsonComCorpSeCd', label:'label', value:'value', displayui : true}},
+	        {caption: ["시도"], 			ref: 'ctpv',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
+	    		,typeinfo : {ref:'jsonComCtpv', label:'label', value:'value', displayui : true}},
+	        {caption: ["시군구"], 		ref: 'sgg',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
+		    	,typeinfo : {ref:'jsonComSgg', label:'label', value:'value', displayui : true}},
 	        {caption: ["법인명"], 		ref: 'corpNm',   	type:'output',  width:'250px',    style:'text-align:center'},
 	        {caption: ["대표자명"], 		ref: 'rprsvFlnm',   	type:'output',  width:'160px',    style:'text-align:center'},
 	        {caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'160px',    style:'text-align:center'},
 	        {caption: ["전화번호"], 		ref: 'rprsvTelno',   	type:'output',  width:'160px',    style:'text-align:center'},
-	        {caption: ["2차승인구분"], 	ref: 'evCertYn',   	type:'output',  width:'160px',    style:'text-align:center'},
-	        {caption: ["참여조직여부"], 	ref: 'apoSe',   	type:'output',  width:'160px',    style:'text-align:center', disabled:true
+	        {caption: ["2차승인구분"], 	ref: 'evCertYn',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
+	    		,typeinfo : {ref:'jsonComEvCertYn', label:'label', value:'value', displayui : true}},
+	        {caption: ["참여조직여부"], 	ref: 'apoSe',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
 	    		,typeinfo : {ref:'selectApoSe', label:'label', value:'value', displayui : true}},
 	        {caption: ["비고"], 			ref: 'rmrk',   	type:'output',  width:'80px',    style:'text-align:center'},
 
@@ -1070,11 +1074,9 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	    	{caption: ["출자출하조직코드"], 		ref: 'isoApoCd',	hidden : true},
 	    	{caption: ["통합조직코드"], 		ref: 'uoApoCd',		hidden : true},
-	    	{caption: ["삭제여부"], 			ref: 'delYn',		hidden : true},
-	        {caption: ["통합조직명"], 			ref: 'uoCorpNm',	type:'output',  width:'220px',    style:'text-align:center'},
-	        {caption: ["통합조직 사업자번호"], 	ref: 'uoBrno',		type:'output',  width:'220px',    style:'text-align:center'},
+	        {caption: ["통합조직명"], 			ref: 'uoCorpNm',	type:'output',  width:'400px',    style:'text-align:center'},
+	        {caption: ["통합조직 사업자번호"], 	ref: 'uoBrno',		type:'output',  width:'400px',    style:'text-align:center'},
 	        {caption: ["처리"], 				ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdUoList\", " + nRow + ", " + nCol + ")'>추가</button>";
@@ -1098,6 +1100,8 @@ tps://sbgrid.co.kr/v2_5/document/guide
     	// set pagination
     	let pageSize = grdPrdcrCrclOgnMng.getPageSize();
     	let pageNo = 1;
+		//입력폼 초기화
+    	fn_clearForm();
 
     	fn_setGrdFcltList(pageSize, pageNo);
     }
@@ -1143,6 +1147,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
         	data.resultList.forEach((item, index) => {
 				let PrdcrCrclOgnMngVO = {
 						apoSe: item.apoSe
+						,apoCd: item.apoCd
 						,uoBrno: item.uoBrno
 						,corpNm: item.corpNm
 						,crno: item.crno
@@ -1223,8 +1228,11 @@ tps://sbgrid.co.kr/v2_5/document/guide
     const fn_save = async function() {
     	console.log("******************fn_save**********************************");
 
+    	var mngmstInfoId = SBUxMethod.get('dtl-input-mngmstInfoId')//
+		var mngmstYn = SBUxMethod.get('dtl-input-mngmstYn')//
+    	console.log(mngmstInfoId);
+    	console.log(mngmstYn);
     	let apoCd = SBUxMethod.get("dtl-input-apoCd");
-
     	//필수값 체크
     	//fn_checkRequiredInput();
 
@@ -1306,8 +1314,13 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
         try {
         	if (_.isEqual("S", data.resultStatus)) {
-        		alert("처리 되었습니다.");
-        		fn_search();
+        		let gridData = grdUoList.getGridDataAll();
+				if(gridData.length > 1){
+					fn_uoListMultiSave();
+				}else{
+					alert("처리 되었습니다.");
+	        		fn_search();
+				}
         	} else {
         		alert(data.resultMessage);
         	}
@@ -1374,8 +1387,13 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
 		try {
 			if (_.isEqual("S", data.resultStatus)) {
-				alert("처리 되었습니다.");
-				fn_search();
+				let gridData = grdUoList.getGridDataAll();
+				if(gridData.length > 1){
+					fn_uoListMultiSave();
+				}else{
+					alert("처리 되었습니다.");
+	        		fn_search();
+				}
 			} else {
 				alert(data.resultMessage);
 			}
@@ -1435,49 +1453,49 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		//서치폼에서 클릭시 디테일폼에 데이터출력
         let rowData = grdPrdcrCrclOgnMng.getRowData(nRow);
 
-		console.log(rowData);
-		SBUxMethod.set('dtl-input-apoCd',rowData.apoCd)//
-		SBUxMethod.set('dtl-input-apoSe',rowData.apoSe)//
-		SBUxMethod.set('dtl-input-uoBrno',rowData.uoBrno)//
-		SBUxMethod.set('dtl-input-corpNm',rowData.corpNm)//
-		SBUxMethod.set('dtl-input-crno',rowData.crno)//
-		SBUxMethod.set('dtl-input-brno',rowData.brno)//
-		SBUxMethod.set('dtl-input-mngmstInfoId',rowData.mngmstInfoId)//
-		SBUxMethod.set('dtl-input-mngmstYn',rowData.mngmstYn)//
-		SBUxMethod.set('dtl-input-nonghyupCd',rowData.nonghyupCd)//
-		SBUxMethod.set('dtl-input-cmptnInst',rowData.cmptnInst)//
-		SBUxMethod.set('dtl-input-ctpv',rowData.ctpv)//
-		SBUxMethod.set('dtl-input-sgg',rowData.sgg)//
-		SBUxMethod.set('dtl-input-zip',rowData.zip)//
-		SBUxMethod.set('dtl-input-lotnoAddr',rowData.lotnoAddr)//
-		SBUxMethod.set('dtl-input-lotnoDtlAddr',rowData.lotnoDtlAddr)//
-		SBUxMethod.set('dtl-input-roadNmAddr',rowData.roadNmAddr)//
-		SBUxMethod.set('dtl-input-roadNmDtlAddr',rowData.roadNmDtlAddr)//
-		SBUxMethod.set('dtl-input-corpSeCd',rowData.corpSeCd)//
-		SBUxMethod.set('dtl-input-corpDtlSeCd',rowData.corpDtlSeCd)//
-		SBUxMethod.set('dtl-input-corpFndnDay',rowData.corpFndnDay)//
-		SBUxMethod.set('dtl-input-isoHldYn',rowData.isoHldYn)//
-		SBUxMethod.set('dtl-input-invstNope',rowData.invstNope)//
-		SBUxMethod.set('dtl-input-invstExpndFrmerNope',rowData.invstExpndFrmerNope)//
-		SBUxMethod.set('dtl-input-invstAmt',rowData.invstAmt)//
-		SBUxMethod.set('dtl-input-frmerInvstAmt',rowData.frmerInvstAmt)//
-		SBUxMethod.set('dtl-input-prdcrGrpInvstAmt',rowData.prdcrGrpInvstAmt)//
-		SBUxMethod.set('dtl-input-locgovInvstAmt',rowData.locgovInvstAmt)//
-		SBUxMethod.set('dtl-input-etcInvstAmt',rowData.etcInvstAmt)//
-		SBUxMethod.set('dtl-input-rgllbrNope',rowData.rgllbrNope)//
-		SBUxMethod.set('dtl-input-dwNope',rowData.dwNope)//
-		SBUxMethod.set('dtl-input-dlbrrNope',rowData.dlbrrNope)//
-		SBUxMethod.set('dtl-input-rprsvFlnm',rowData.rprsvFlnm)//
-		SBUxMethod.set('dtl-input-rprsvTelno',rowData.rprsvTelno)//
-		SBUxMethod.set('dtl-input-rprsvMoblno',rowData.rprsvMoblno)//
-		SBUxMethod.set('dtl-input-rprsvEml',rowData.rprsvEml)//
-		SBUxMethod.set('dtl-input-picPosition',rowData.picPosition)//
-		SBUxMethod.set('dtl-input-picFlnm',rowData.picFlnm)//
-		SBUxMethod.set('dtl-input-picTelno',rowData.picTelno)//
-		SBUxMethod.set('dtl-input-picMoblno',rowData.picMoblno)//
-		SBUxMethod.set('dtl-input-picEml',rowData.picEml)//
-		SBUxMethod.set('dtl-input-fxno',rowData.fxno)//
-		SBUxMethod.set('dtl-input-itemNhBrofYn',rowData.itemNhBrofYn)//
+		SBUxMethod.set('dtl-input-apoCd',gfn_nvl(rowData.apoCd))//
+		SBUxMethod.set('dtl-input-apoSe',gfn_nvl(rowData.apoSe))//
+		SBUxMethod.set('dtl-input-uoBrno',gfn_nvl(rowData.uoBrno))//
+		SBUxMethod.set('dtl-input-corpNm',gfn_nvl(rowData.corpNm))//
+		SBUxMethod.set('dtl-input-crno',gfn_nvl(rowData.crno))//
+		SBUxMethod.set('dtl-input-brno',gfn_nvl(rowData.brno))//
+		SBUxMethod.set('dtl-input-mngmstInfoId',gfn_nvl(rowData.mngmstInfoId))//
+		SBUxMethod.set('dtl-input-mngmstYn',gfn_nvl(rowData.mngmstYn))//
+		SBUxMethod.set('dtl-input-nonghyupCd',gfn_nvl(rowData.nonghyupCd))//
+		SBUxMethod.set('dtl-input-cmptnInst',gfn_nvl(rowData.cmptnInst))//
+		SBUxMethod.set('dtl-input-ctpv',gfn_nvl(rowData.ctpv))//
+		SBUxMethod.set('dtl-input-sgg',gfn_nvl(rowData.sgg))//
+		SBUxMethod.set('dtl-input-zip',gfn_nvl(rowData.zip))//
+		SBUxMethod.set('dtl-input-lotnoAddr',gfn_nvl(rowData.lotnoAddr))//
+		SBUxMethod.set('dtl-input-lotnoDtlAddr',gfn_nvl(rowData.lotnoDtlAddr))//
+		SBUxMethod.set('dtl-input-roadNmAddr',gfn_nvl(rowData.roadNmAddr))//
+		SBUxMethod.set('dtl-input-roadNmDtlAddr',gfn_nvl(rowData.roadNmDtlAddr))//
+		SBUxMethod.set('dtl-input-corpSeCd',gfn_nvl(rowData.corpSeCd))//
+		SBUxMethod.set('dtl-input-corpDtlSeCd',gfn_nvl(rowData.corpDtlSeCd))//
+		SBUxMethod.set('dtl-input-corpFndnDay',gfn_nvl(rowData.corpFndnDay))//
+		SBUxMethod.set('dtl-input-corpFndnDay01',gfn_nvl(rowData.corpFndnDay))//
+		SBUxMethod.set('dtl-input-isoHldYn',gfn_nvl(rowData.isoHldYn))//
+		SBUxMethod.set('dtl-input-invstNope',gfn_nvl(rowData.invstNope))//
+		SBUxMethod.set('dtl-input-invstExpndFrmerNope',gfn_nvl(rowData.invstExpndFrmerNope))//
+		SBUxMethod.set('dtl-input-invstAmt',gfn_nvl(rowData.invstAmt))//
+		SBUxMethod.set('dtl-input-frmerInvstAmt',gfn_nvl(rowData.frmerInvstAmt))//
+		SBUxMethod.set('dtl-input-prdcrGrpInvstAmt',gfn_nvl(rowData.prdcrGrpInvstAmt))//
+		SBUxMethod.set('dtl-input-locgovInvstAmt',gfn_nvl(rowData.locgovInvstAmt))//
+		SBUxMethod.set('dtl-input-etcInvstAmt',gfn_nvl(rowData.etcInvstAmt))//
+		SBUxMethod.set('dtl-input-rgllbrNope',gfn_nvl(rowData.rgllbrNope))//
+		SBUxMethod.set('dtl-input-dwNope',gfn_nvl(rowData.dwNope))//
+		SBUxMethod.set('dtl-input-dlbrrNope',gfn_nvl(rowData.dlbrrNope))//
+		SBUxMethod.set('dtl-input-rprsvFlnm',gfn_nvl(rowData.rprsvFlnm))//
+		SBUxMethod.set('dtl-input-rprsvTelno',gfn_nvl(rowData.rprsvTelno))//
+		SBUxMethod.set('dtl-input-rprsvMoblno',gfn_nvl(rowData.rprsvMoblno))//
+		SBUxMethod.set('dtl-input-rprsvEml',gfn_nvl(rowData.rprsvEml))//
+		SBUxMethod.set('dtl-input-picPosition',gfn_nvl(rowData.picPosition))//
+		SBUxMethod.set('dtl-input-picFlnm',gfn_nvl(rowData.picFlnm))//
+		SBUxMethod.set('dtl-input-picTelno',gfn_nvl(rowData.picTelno))//
+		SBUxMethod.set('dtl-input-picMoblno',gfn_nvl(rowData.picMoblno))//
+		SBUxMethod.set('dtl-input-picEml',gfn_nvl(rowData.picEml))//
+		SBUxMethod.set('dtl-input-fxno',gfn_nvl(rowData.fxno))//
+		SBUxMethod.set('dtl-input-itemNhBrofYn',gfn_nvl(rowData.itemNhBrofYn))//
 
 		fn_searchUoList();
 		/*
@@ -1506,12 +1524,12 @@ tps://sbgrid.co.kr/v2_5/document/guide
         	//console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
 				let uoListVO = {
-						uoApoCd: item.uoApoCd
-						,uoApoSe: item.uoApoSe
-						,uoBrno: item.uoBrno
-						,uoCrno: item.uoCrno
-						,isoApoCd: item.isoApoCd
-						,delYn : item.delYn
+						uoApoCd		: item.uoApoCd
+						,uoCorpNm	: item.uoCorpNm
+						,uoBrno		: item.uoBrno
+						,uoCrno		: item.uoCrno
+						,isoApoCd	: item.isoApoCd
+						,delYn		: item.delYn
 				}
 				jsonUoList.push(uoListVO);
 			});
@@ -1574,7 +1592,58 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		SBUxMethod.set('dtl-input-picEml',null)//
 		SBUxMethod.set('dtl-input-fxno',null)//
 		SBUxMethod.set('dtl-input-itemNhBrofYn',null)//
+
+		//출자출하조직이 속한 통합조직 리스트 입력 추가
+		grdUoList.deleteRow(nRow);
     }
+
+	const fn_clearForm = function() {
+
+		SBUxMethod.set('dtl-input-apoCd',null)//
+		SBUxMethod.set('dtl-input-apoSe',null)//
+		SBUxMethod.set('dtl-input-uoBrno',null)//
+		SBUxMethod.set('dtl-input-corpNm',null)//
+		SBUxMethod.set('dtl-input-crno',null)//
+		SBUxMethod.set('dtl-input-brno',null)//
+		SBUxMethod.set('dtl-input-mngmstInfoId',null)//
+		SBUxMethod.set('dtl-input-mngmstYn',null)//
+		SBUxMethod.set('dtl-input-nonghyupCd',null)//
+		SBUxMethod.set('dtl-input-cmptnInst',null)//
+		SBUxMethod.set('dtl-input-ctpv',null)//
+		SBUxMethod.set('dtl-input-sgg',null)//
+		SBUxMethod.set('dtl-input-zip',null)//
+		SBUxMethod.set('dtl-input-lotnoAddr',null)//
+		SBUxMethod.set('dtl-input-lotnoDtlAddr',null)//
+		SBUxMethod.set('dtl-input-roadNmAddr',null)//
+		SBUxMethod.set('dtl-input-roadNmDtlAddr',null)//
+		SBUxMethod.set('dtl-input-corpSeCd',null)//
+		SBUxMethod.set('dtl-input-corpDtlSeCd',null)//
+		SBUxMethod.set('dtl-input-corpFndnDay',null)//
+		SBUxMethod.set('dtl-input-isoHldYn',null)//
+		SBUxMethod.set('dtl-input-invstNope',null)//
+		SBUxMethod.set('dtl-input-invstExpndFrmerNope',null)//
+		SBUxMethod.set('dtl-input-invstAmt',null)//
+		SBUxMethod.set('dtl-input-frmerInvstAmt',null)//
+		SBUxMethod.set('dtl-input-prdcrGrpInvstAmt',null)//
+		SBUxMethod.set('dtl-input-locgovInvstAmt',null)//
+		SBUxMethod.set('dtl-input-etcInvstAmt',null)//
+		SBUxMethod.set('dtl-input-rgllbrNope',null)//
+		SBUxMethod.set('dtl-input-dwNope',null)//
+		SBUxMethod.set('dtl-input-dlbrrNope',null)//
+		SBUxMethod.set('dtl-input-rprsvFlnm',null)//
+		SBUxMethod.set('dtl-input-rprsvTelno',null)//
+		SBUxMethod.set('dtl-input-rprsvMoblno',null)//
+		SBUxMethod.set('dtl-input-rprsvEml',null)//
+		SBUxMethod.set('dtl-input-picPosition',null)//
+		SBUxMethod.set('dtl-input-picFlnm',null)//
+		SBUxMethod.set('dtl-input-picTelno',null)//
+		SBUxMethod.set('dtl-input-picMoblno',null)//
+		SBUxMethod.set('dtl-input-picEml',null)//
+		SBUxMethod.set('dtl-input-fxno',null)//
+		SBUxMethod.set('dtl-input-itemNhBrofYn',null)//
+		//출자출하조직이 속한 통합조직 리스트 초기화
+		grdUoList.rebuild();
+	}
 
 	/* 주소 팝업 */
 	//팝업 실행
@@ -1671,10 +1740,12 @@ tps://sbgrid.co.kr/v2_5/document/guide
 			//getColRef(ref) ref의 인덱스 값 가져오기
 			let colRefIdx1 = grdUoList.getColRef('uoCorpNm');//ii 통합조직 인덱스
 			let colRefIdx2 = grdUoList.getColRef('uoBrno');//ii 통합조직 코드 인덱스
+			let colRefIdx3 = grdUoList.getColRef('uoApoCd');//ii 통합조직 코드 인덱스
 
 			//그리드 값 세팅
 			grdUoList.setCellData(selGridUoListRow,colRefIdx1,rowData.corpNm,true);
 			grdUoList.setCellData(selGridUoListRow,colRefIdx2,rowData.brno,true);
+			grdUoList.setCellData(selGridUoListRow,colRefIdx3,rowData.apoCd,true);
 		}
 	}
 
@@ -1702,6 +1773,89 @@ tps://sbgrid.co.kr/v2_5/document/guide
             }
         }
     }
+
+	//출자출하조직이 속한 통합조직 리스트 업데이트
+	const fn_uoListMultiSave = async function (){
+		console.log("******************fn_uoListMultiSave**********************************");
+
+		let gridData = grdUoList.getGridDataAll();
+		let saveList = [];
+
+		let isoBrno = SBUxMethod.get('dtl-input-brno')//
+		let isoCorpNm = SBUxMethod.get('dtl-input-corpNm')//
+
+		for(var i=1; i<=gridData.length; i++ ){
+
+			let rowData = grdUoList.getRowData(i);
+			let rowSts = grdUoList.getRowStatus(i);
+			console.log(i+"행 상태값 : "+rowSts);
+			let uoBrno = rowData.uoBrno;
+			let uoCorpNm = rowData.uoCorpNm;
+			let uoApoCd = rowData.uoApoCd;
+			let delYn = rowData.delYn;
+			console.log(i+"행 uoApoCd : "+uoApoCd);
+			rowData.isoBrno = isoBrno;
+			rowData.isoCorpNm = isoCorpNm;
+
+			if(delYn == 'N'){
+				if (gfn_isEmpty(uoBrno)) {
+		  			alert("통합조직을 선택해주세요");
+		            return;
+		  		}
+				if (rowSts === 1){
+					rowData.rowSts = "I";
+					saveList.push(rowData);
+				} else if (rowSts === 2){
+					rowData.rowSts = "U";
+					saveList.push(rowData);
+				} else if (rowSts === 3){
+					rowData.rowSts = "I";
+					saveList.push(rowData);
+				} else {
+					continue;
+				}
+			}
+		}
+		if(saveList.length == 0){
+			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
+			return;
+		}
+
+		let postJsonPromise = gfn_postJSON("/pd/bsm/multiSaveUoList.do", saveList);
+        let data = await postJsonPromise;
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+        		fn_search();
+        	} else {
+        		alert(data.resultMessage);
+        	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
+	}
+
+	async function fn_deleteRsrc(uoVO){
+		let postJsonPromise = gfn_postJSON("/pd/bsm/deleteUo.do", uoVO);
+        let data = await postJsonPromise;
+
+        try{
+        	if(data.result > 0){
+        		alert("삭제 되었습니다.");
+        	}else{
+        		alert("삭제 도중 오류가 발생 되었습니다.");
+        	}
+        }catch (e) {
+        	if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+		}
+
+	}
 
 </script>
 </html>
