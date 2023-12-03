@@ -4,15 +4,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.fm.bbs.mapper.BbsMapper;
-import com.at.apcss.fm.bbs.service.BbsService;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper;
 import com.at.apcss.pd.aom.service.PrdcrCrclOgnReqMngService;
 import com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO;
+import com.at.apcss.pd.aom.vo.GpcVO;
 
 
 /**
@@ -63,7 +60,7 @@ public class PrdcrCrclOgnReqMngServiceImpl extends BaseServiceImpl implements Pr
 	public int updatePrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception {
 
 		int updatedCnt = PrdcrCrclOgnReqMngMapper.updatePrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO);
-
+		updatedCnt += PrdcrCrclOgnReqMngMapper.insertEvAplyMng(PrdcrCrclOgnReqMngVO);
 		return updatedCnt;
 	}
 
@@ -84,6 +81,29 @@ public class PrdcrCrclOgnReqMngServiceImpl extends BaseServiceImpl implements Pr
 	@Override
 	public int deletePrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception {
 		return PrdcrCrclOgnReqMngMapper.deletePrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO);
+	}
+
+	@Override
+	public int multiSaveGpcList(List<GpcVO> gpcVOList) throws Exception {
+		int savedCnt = 0;
+		for (GpcVO gpcVO : gpcVOList) {
+			savedCnt += insertGpc(gpcVO);
+		}
+		return savedCnt;
+	}
+
+	@Override
+	public int insertGpc(GpcVO gpcVO) throws Exception {
+
+		int insertedCnt = PrdcrCrclOgnReqMngMapper.insertGpc(gpcVO);
+
+		return insertedCnt;
+	}
+
+	@Override
+	public List<GpcVO> selectGpcList(GpcVO gpcVO) throws Exception {
+		List<GpcVO> resultList = PrdcrCrclOgnReqMngMapper.selectGpcList(gpcVO);
+		return resultList;
 	}
 
 }

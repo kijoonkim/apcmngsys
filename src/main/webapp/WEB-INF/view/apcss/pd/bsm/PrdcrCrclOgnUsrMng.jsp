@@ -213,7 +213,18 @@
 									readonly
 								></sbux-input>
 							</td>
-							<td colspan="2" style="border-right: hidden;"></td>
+							<td style="border-right: hidden;">
+								<sbux-button
+									id="srch-btn-pwd"
+									name="srch-btn-pwd"
+									uitype="normal"
+									onclick="fn_updatePwd"
+									text="비밀번호초기화"
+									style="font-size: x-small;"
+									class="btn btn-xs btn-outline-dark"
+								></sbux-button>
+							</td>
+							<td style="border-right: hidden;"></td>
 							<th scope="row" class="th_bg" >이름</th>
 							<td colspan="3" class="td_input" style="border-right:hidden;">
 								<sbux-input
@@ -234,10 +245,9 @@
 									name="dtl-input-cmptnInst"
 									uitype="single"
 									jsondata-ref="jsonComCmptnInst"
-									unselected-text="전체"
+									unselected-text="선택"
 									class="form-control input-sm"
 									onchange="fn_onChangeSrchItemCd(this)"
-									readonly
 								></sbux-select>
 							</td>
 							<td colspan="2" class="td_input" >
@@ -251,7 +261,7 @@
 									name="dtl-input-userType"
 									uitype="single"
 									jsondata-ref="jsonComUserType"
-									unselected-text="전체"
+									unselected-text="선택"
 									class="form-control input-sm"
 									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
@@ -315,10 +325,9 @@
 									name="dtl-input-userStts"
 									uitype="single"
 									jsondata-ref="jsonComUserStts"
-									unselected-text="전체"
+									unselected-text="선택"
 									class="form-control input-sm"
 									onchange="fn_onChangeSrchItemCd(this)"
-									readonly
 								></sbux-select>
 							</td>
 							<td colspan="6" class="td_input"  style="border-right: hidden;">
@@ -343,7 +352,7 @@
 									name="dtl-input-evCertYn"
 									uitype="single"
 									jsondata-ref="jsonComEvCertYn"
-									unselected-text="전체"
+									unselected-text="선택"
 									class="form-control input-sm"
 									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
@@ -404,6 +413,7 @@
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_init();
 		fn_initSBSelect();
+		fn_search();
 
 		const elements = document.querySelectorAll(".srch-keyup-area");
 
@@ -507,7 +517,7 @@
     	// set pagination
     	let pageSize = grdPrdcrCrclOgnUsrMng.getPageSize();
     	let pageNo = 1;
-
+    	fn_clearForm();
     	fn_setGrdFcltList(pageSize, pageNo);
     }
 
@@ -590,6 +600,20 @@
         }
 	}
 
+	const fn_clearForm = function() {
+
+		SBUxMethod.set("dtl-input-userId",null);
+		SBUxMethod.set("dtl-input-userNm",null);
+		SBUxMethod.set("dtl-input-userType",null);
+		SBUxMethod.set("dtl-input-userStts",null);
+		SBUxMethod.set("dtl-input-telno",null);
+		SBUxMethod.set("dtl-input-brno",null);
+		SBUxMethod.set("dtl-input-moblno",null);
+		SBUxMethod.set("dtl-input-coNm",null);
+		SBUxMethod.set("dtl-input-evCertYn",null);
+		SBUxMethod.set("dtl-input-cmptnInst",null);
+	}
+
 
 	//포털에서 가입하고 넘어오기에 update 만 필요함
 	//저장
@@ -599,14 +623,13 @@
 		if (!confirm("저장 하시겠습니까?")) return;
 
 		const postJsonPromise = gfn_postJSON("/pd/bsm/updatePrdcrCrclOgnUsrMng.do", {
-			user_id : SBUxMethod.get("dtl-input-userId")//아이디
+			 userId : SBUxMethod.get("dtl-input-userId")//아이디
 			,userType : SBUxMethod.get("dtl-input-userType")//권한
 			,brno : SBUxMethod.get("dtl-input-brno")//사업자번호
 			,coNm : SBUxMethod.get("dtl-input-coNm")//법인명
 			,telno : SBUxMethod.get("dtl-input-telno")//전화번호
 			,moblno : SBUxMethod.get("dtl-input-moblno")//휴대폰번호
 			,evCertYn : SBUxMethod.get("dtl-input-evCertYn")//2차승인여부
-
 		});
 
 		const data = await postJsonPromise;
@@ -622,8 +645,7 @@
 		} catch(e) {
 
 		}
-
-  }
+  	}
 
 
 
@@ -658,5 +680,35 @@
 		SBUxMethod.set("dtl-input-cmptnInst", rowData.cmptnInst);  //  관할기관
 	}
 
+	 /*
+	  * 비밀번호 초기화 업데이트
+	  * 2023-11-03
+	  * ysh
+	  */
+	async function fn_updatePwd(){
+		console.log("========fn_updatePwd================");
+		var userId = SBUxMethod.get("dtl-input-userId");
+		if(gfn_isEmpty(userId)) return;
+
+		if (!confirm("비밀번호 초기화 하시겠습니까?")) return;
+
+		let postJsonPromise = gfn_postJSON("/co/user/updComUserPwd.do", {
+			userId : userId
+		});
+        let data = await postJsonPromise;
+        try{
+        	if(data.updatedCnt > 0){
+        		alert("비밀번호가 초기화 되었습니다.");
+        	}else{
+        		alert("비밀번호 초기화 오류가 발생 되었습니다.");
+        	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
+	}
 </script>
 </html>

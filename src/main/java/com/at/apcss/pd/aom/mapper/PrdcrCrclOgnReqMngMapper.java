@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
+import com.at.apcss.pd.aom.vo.GpcVO;
 import com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO;
 
 /**
@@ -38,4 +39,10 @@ public interface PrdcrCrclOgnReqMngMapper {
 	public int updatePrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO);
 
 	public int deletePrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception;
+
+	public int insertGpc(GpcVO gpcVO);
+
+	public int insertEvAplyMng(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO);
+
+	public List<GpcVO> selectGpcList(GpcVO gpcVO);
 }

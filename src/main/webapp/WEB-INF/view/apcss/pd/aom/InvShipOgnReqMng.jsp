@@ -21,7 +21,9 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
+					<!--
 					<sbux-button id="btn-srch-input-outordrInq" name="btn-srch-input-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
+					 -->
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 					<!--
@@ -39,15 +41,12 @@
 						<tr>
 							<th scope="row" class="th_bg" >신청년도</th>
 							<td colspan="3" class="td_input" style="border-right:hidden;" >
-								<sbux-select
+								<sbux-spinner
 									id="srch-input-yr"
 									name="srch-input-yr"
-									uitype="single"
-									jsondata-ref="selectYr"
-									unselected-text="전체"
-									class="form-control input-sm"
-									onchange="fn_onChangeSrchItemCd(this)"
-								></sbux-select>
+									uitype="normal"
+                					step-value="1"
+                				></sbux-spinner>
 							</td>
 							<td style="border-right: hidden;"></td>
 							<th scope="row" class="th_bg" >관할기관</th>
@@ -537,6 +536,11 @@
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_init();
+		fn_initSBSelect();
+
+		var now = new Date();
+		var year = now.getFullYear();
+		SBUxMethod.set("srch-input-yr",year);//
 
 		const elements = document.querySelectorAll(".srch-keyup-area");
 
@@ -581,8 +585,8 @@
 		let rst = await Promise.all([
 			//검색조건
 			gfn_setComCdSBSelect('srch-input-cmptnInst', 	jsonComCmptnInst, 	'CMPTNC_INST'), //관할기관
-			gfn_setComCdSBSelect('srch-input-ctpv', 		jsonComCtpv, 	'C91'), //시도
-			gfn_setComCdSBSelect('srch-input-sgg', 			jsonComSgg, 	'C92'),	 //시군
+			gfn_setComCdSBSelect('srch-input-ctpv', 		jsonComCtpv, 	'CMPTN_INST_CTPV'), //시도
+			gfn_setComCdSBSelect('srch-input-sgg', 			jsonComSgg, 	'CMPTN_INST_SIGUN'), //시군
 			gfn_setComCdSBSelect('srch-input-corpSeCd', 	jsonComCorpSeCd, 	'CORP_SE_CD'), //법인구분
 			gfn_setComCdSBSelect('srch-input-corpDtlSeCd', 	jsonComCorpDtlSeCd, 	'CORP_SHAP'), //법인형태
 			//gfn_setComCdSBSelect('srch-input-uoCd', 		jsonComUoCd, 	'UO_CD'), //통합조직코드

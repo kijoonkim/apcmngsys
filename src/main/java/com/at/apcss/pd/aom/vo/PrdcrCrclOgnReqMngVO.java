@@ -1,12 +1,16 @@
 package com.at.apcss.pd.aom.vo;
 
+import java.util.List;
+
 import com.at.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class PrdcrCrclOgnReqMngVO extends ComVO{
 	private String apoCd;
 	private String apoSe;
@@ -17,6 +21,7 @@ public class PrdcrCrclOgnReqMngVO extends ComVO{
 	private String corpSeCd;
 	private String corpDtlSeCd;
 	private String brno;
+	private String crno;
 	private String corpNm;
 	private String picFlnm;
 
@@ -45,11 +50,25 @@ public class PrdcrCrclOgnReqMngVO extends ComVO{
 	private String uoBrno;
 	private String untyYr;
 
+	private String isoHldYn;
+	private String aprv;
+
+	private String uoCd;
+	private String yr;
+	private String aplyDay;
+	private String rawMtrEnsrSigunCnt;
+	private String rawMtrEnsrCtpvCnt;
+	private String ctpvNm;
+	private String sigunNm;
+	private String pruoFundAplyAmt;
+	private String isoFundAplyAmt;
+	private String aplyTrgtSe;
+
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;
 	private String sysFrstInptDtYmd;
 	private String sysLastChgDtYmd;
 
-
+	private List<GpcVO> gpcList;
 }
 

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <!-- ==========================================================================	-->
-<!-- NAME : BrnoPopupMapper.xml                                    				-->
+<!-- NAME : GpcSelectPopupMapper.xml                                    				-->
 <!-- DESC :  apc선택 팝업 정보 mapper                                             			-->
 <!-- ==========================================================================	-->
 <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -10,17 +10,17 @@
 <!-- 2023.10.03  	ljw        		Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.fm.popup.mapper.BrnoPopupMapper">
+<mapper namespace="com.at.apcss.fm.popup.mapper.GpcSelectPopupMapper">
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.popup.mapper.BrnoPopupMapper.selectApcList		-->
+	<!-- NAME : com.at.apcss.fm.popup.mapper.GpcSelectPopupMapper.selectGpcList		-->
 	<!-- DESC : apc목록 조회.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.10.03  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBrnoList" parameterType="com.at.apcss.fm.popup.vo.BrnoPopupVO" resultType="com.at.apcss.fm.popup.vo.BrnoPopupVO">
+    <select id="selectGpcList" parameterType="com.at.apcss.fm.popup.vo.GpcSelectPopupVO" resultType="com.at.apcss.fm.popup.vo.GpcSelectPopupVO">
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		SELECT
@@ -32,19 +32,22 @@
     	<!-- End 페이징 -->
 
 		<![CDATA[
-    	SELECT /* com.at.apcss.fm.popup.mapper.BrnoPopupMapper.selectBrnoList */
-    		   MAX(A.OGNZ_NM)	AS CORP_NM
-		     , A.BRNO		AS BRNO
-		     , MAX(A.OGNZ_CD)	AS APO_CD
-		  FROM TB_APC_OGNZ_INFO A
-		 WHERE 1=1
-		   AND OGNZ_SE_CD = '1'
+    	SELECT /* com.at.apcss.fm.popup.mapper.GpcSelectPopupMapper.selectGpcList */
+    		   A.CTGRY_CD   AS CTGRY_CD
+		     , A.CTGRY_NM   AS CTGRY_NM
+		     , A.ITEM_CD	AS ITEM_CD
+		     , A.ITEM_NM	AS ITEM_NM
+		     , A.RMRK		AS RMRK
+		  FROM TB_EV_GPC_CD A
+		 WHERE A.DEL_YN = 'N'
 		 ]]>
-		 <if test='brno != null and brno != ""'>
-				AND A.BRNO LIKE '%'||#{brno}||'%'
+		 <if test='ctgryNm != null and ctgryNm != ""'>
+				AND A.CTGRY_NM LIKE '%'||#{ctgryNm}||'%'
 		</if>
-		 GROUP BY BRNO
-		 ORDER BY CORP_NM ASC
+		<if test='itemNm != null and itemNm != ""'>
+				AND A.ITEM_NM LIKE '%'||#{itemNm}||'%'
+		</if>
+		 ORDER BY ITEM_NM ASC
 
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
