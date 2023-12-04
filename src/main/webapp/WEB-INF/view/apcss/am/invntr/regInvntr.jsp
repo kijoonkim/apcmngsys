@@ -1100,11 +1100,16 @@
 				typeinfo : {ref:'jsonExpSltGdsSeCd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 			{caption: ["품목"], 		ref: 'itemCd',   		type:'combo',  width:'80px',    style:'text-align:center',
 				typeinfo : {ref:'jsonExpSltItem', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
-			{caption: ["품종"], 		ref: 'vrtyCd',   		type:'combo',  width:'80px',    style:'text-align:center',
-				typeinfo : {ref:'jsonExpSltVrty', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 		);
 
-		if(invntrSeCd == "2" || invntrSeCd == "3"){
+		if(invntrSeCd == "1" || invntrSeCd == "2"){
+			_columns.push(
+					{caption: ["품종"], 		ref: 'vrtyCd',   		type:'combo',  width:'80px',    style:'text-align:center',
+						typeinfo : {ref:'jsonExpSltVrty', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
+				)
+		}
+
+		if(invntrSeCd == "2"){
 			_columns.push(
 					{caption: ["규격"], 		ref: 'spcfctCd',   		type:'combo',  width:'80px',    style:'text-align:center',
 						typeinfo : {ref:'jsonExpSltSpcfct', displayui : false,	itemcount: 10, label:'SpcfctNm', value:'SpcfctCd'}},
@@ -1134,6 +1139,10 @@
 			_columns.push(
 					{caption: ["등급"], 		ref: 'gdsGrd',   		type:'combo',  width:'80px',    style:'text-align:center',
 						typeinfo : {ref:'jsonExpSltGdsGrd', displayui : false,	itemcount: 10, label:'SpcfctNm', value:'SpcfctCd'}},
+			);
+		}
+		if(invntrSeCd == "3"){
+			_columns.push(
 					{caption: ["상품명"], 	ref: 'spmtPckgUnitCd',   		type:'combo',  width:'80px',    style:'text-align:center',
 						typeinfo : {ref:'jsonExpSpmtPckgUnit', displayui : false,	itemcount: 10, label:'SpcfctNm', value:'SpcfctCd'}},
 			);
@@ -1251,7 +1260,8 @@
 				        unit: ""
 				    },
 			)
-		}else if(invntrSeCd == "2"){
+		}
+		if(invntrSeCd == "2"){
 			expObjList.push(
 					{
 				        sbGrid: grdExpSort,
@@ -1264,7 +1274,8 @@
 				        unit: ""
 					},
 			)
-		}else if(invntrSeCd == "3"){
+		}
+		if(invntrSeCd == "3"){
 			expObjList.push(
 					{
 				        sbGrid: grdExpGds,
@@ -1296,7 +1307,6 @@
 				    }
 				)
 		}
-
 		expObjList.push(
 				 {
 			        sbGrid: grdExpItem,
@@ -1322,24 +1332,29 @@
 			        sheetName: "품목",
 			        title: "",
 			        unit: ""
-			    }, {
-			        sbGrid: grdExpVrty,
-			        parentid: "sbexp-area-grdExpVrty",
-			        id: "grdExpVrty",
-			        jsonref: "jsonExpVrty",
-					columns: [
-						{caption: ["품목코드"],		ref: 'itemCd',  type:'output',  width:'100px',    style:'text-align:center'},
-						{caption: ["품목명"],		ref: 'itemNm',  type:'output',  width:'100px',    style:'text-align:center'},
-						{caption: ["품종코드"],    	ref: 'vrtyCd',  type:'output',  width:'100px',    style:'text-align:center; background:#FFF8DC;'},
-				    	{caption: ["품종명칭"],    	ref: 'vrtyNm',  type:'output',  width:'100px',    style:'text-align:center; background:#FFF8DC;'}
-					],
-			        sheetName: "품종",
-			        title: "",
-			        unit: ""
 			    },
 		)
+		if(invntrSeCd == "1" || invntrSeCd == "2"){
+			expObjList.push(
+					 {
+				        sbGrid: grdExpVrty,
+				        parentid: "sbexp-area-grdExpVrty",
+				        id: "grdExpVrty",
+				        jsonref: "jsonExpVrty",
+						columns: [
+							{caption: ["품목코드"],		ref: 'itemCd',  type:'output',  width:'100px',    style:'text-align:center'},
+							{caption: ["품목명"],		ref: 'itemNm',  type:'output',  width:'100px',    style:'text-align:center'},
+							{caption: ["품종코드"],    	ref: 'vrtyCd',  type:'output',  width:'100px',    style:'text-align:center; background:#FFF8DC;'},
+					    	{caption: ["품종명칭"],    	ref: 'vrtyNm',  type:'output',  width:'100px',    style:'text-align:center; background:#FFF8DC;'}
+						],
+				        sheetName: "품종",
+				        title: "",
+				        unit: ""
+				    },
+			)
+		}
 
-		if(invntrSeCd == "2" || invntrSeCd == "3"){
+		if(invntrSeCd == "2"){
 			expObjList.push(
 					{
 				        sbGrid: grdExpSpcfct,
@@ -1395,7 +1410,7 @@
 			)
 
 		}
-		else if(invntrSeCd == "2" || invntrSeCd == "3"){
+		if(invntrSeCd == "2" || invntrSeCd == "3"){
 			expObjList.push(
 				    {
 				        sbGrid: grdExpGdsGrd,
@@ -1409,7 +1424,13 @@
 				        sheetName: "등급",
 				        title: "",
 				        unit: ""
-				    },{
+				    },
+				)
+		}
+
+		if(invntrSeCd == "3"){
+			expObjList.push(
+				    {
 				        sbGrid: grdExpGdsGrd,
 				        parentid: "sbexp-area-grdExpSpmtPckgUnit",
 				        id: "grdExpSpmtPckgUnit",

@@ -67,6 +67,10 @@ public class SpmtPckgUnitVO extends ComVO{
 	 */
 	private int ntslUntprc;
 	/**
+	 * 규격 입수
+	 */
+	private int bxGdsQntt;
+	/**
 	 * 등급
 	 */
 	private String gdsGrd;

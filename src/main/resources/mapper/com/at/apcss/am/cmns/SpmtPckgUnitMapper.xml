@@ -83,13 +83,25 @@
 					     , (SELECT MAX(X.SPMT_SLS_UNTPRC) KEEP (DENSE_RANK LAST ORDER BY X.APLCN_CRTR_YMD)
 					          FROM TB_SPMT_SLS_UNTPRC_REG X
 					         WHERE X.APC_CD = SPU.APC_CD
+					           AND X.DEL_YN = 'N'
 					           AND X.SPMT_PCKG_UNIT_CD = SPU.SPMT_PCKG_UNIT_CD
 					           AND X.APLCN_CRTR_YMD <= TO_CHAR(SYSDATE, 'YYYYMMDD')) AS NTSL_UNTPRC
 					     , SPU.DEL_YN               AS DEL_YN
 					     , SPU.GDS_GRD				AS GDS_GRD
+                         , SC.WGHT                  AS SPCFCT_WGHT
+                         , SC.BX_GDS_QNTT           AS BX_GDS_QNTT
 					  FROM TB_SPMT_PCKG_UNIT SPU
-				     WHERE SPU.APC_CD = #{apcCd}
+                         , TB_APC_SPCFCT_CRTR SC
+				     WHERE SPU.APC_CD = SC.APC_CD
+                       AND SPU.ITEM_CD = SC.ITEM_CD
+                       AND SPU.SPCFCT_CD = SC.SPCFCT_CD
+                       AND SC.DEL_YN = 'N'
+                       AND SPU.DEL_YN = 'N'
+
 		]]>
+		<if test='apcCd != null and apcCd != ""'>
+			   AND SPU.APC_CD 		= #{apcCd}
+		</if>
 		<if test='itemCd != null and itemCd != ""'>
 			   AND SPU.ITEM_CD		= #{itemCd}
 		</if>
