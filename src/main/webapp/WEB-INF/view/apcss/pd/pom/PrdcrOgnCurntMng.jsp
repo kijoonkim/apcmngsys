@@ -15,13 +15,13 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}aaa</h3><!-- 등록결과확인 -->
-					<!-- 생산자조직현황 -->
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 등록결과확인 -->
+					<!-- 생산자조직 현황 -->
 					<sbux-label id="lbl-wghno" name="lbl-wghno" uitype="normal" text="">
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchFcltList"></sbux-button>
+					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
 				</div>
 			</div>
@@ -33,15 +33,12 @@
 						<tr>
 							<th scope="row" class="th_bg" >등록년도</th>
 							<td colspan="3" class="td_input" style="border-right:hidden;" >
-								<sbux-select
-									id="srch-input-year"
-									name="srch-input-year"
-									uitype="single"
-									jsondata-ref="jsonDSON"
-									unselected-text="전체"
-									class="form-control input-sm"
-									onchange="fn_onChangeSrchItemCd(this)"
-								></sbux-select>
+								<sbux-spinner
+									id="srch-input-yr"
+									name="srch-input-yr"
+									uitype="normal"
+                					step-value="1"
+                				></sbux-spinner>
 							</td>
 							<td style="border-right: hidden;"></td>
 							<th scope="row" class="th_bg" >APC(또는 산지유통시설) 지원형태</th>
@@ -198,16 +195,28 @@
 
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
+				<!-- 조직 리스트 -->
+				<div class="ad_tbl_top">
+					<ul class="ad_tbl_count">
+						<li>
+							<span style="font-size:14px">검색리스트</span>
+							<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+						</li>
+					</ul>
+				</div>
 				<div class="ad_section_top">
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrOgnCurntMng" style="height:350px; width: 100%;"></div>
 				</div>
 				<br>
+
 				<table class="table table-bordered tbl_fixed">
-					<caption>생산자조직</caption>
+					<caption>출하조직 표기</caption>
 					<tbody>
 						<tr>
 							<th scope="row" class="th_bg th_border_right">법인명</th>
+							<sbux-input uitype="hidden" id="dtl-input-apoCd" name="dtl-input-apoCd"></sbux-input>
+							<sbux-input uitype="hidden" id="dtl-input-brno" name="dtl-input-brno"></sbux-input>
 							<td colspan="2" class="td_input">
 								<sbux-input
 									uitype="text"
@@ -227,20 +236,19 @@
 									name="dtl-input-corpNm"
 									class="form-control input-sm"
 									autocomplete="off"
-									readonly
 								></sbux-input>
 							</td>
 							<td class="td_input"  style="border-left: hidden;">
 							<th scope="row" class="th_bg th_border_right">취급유형</th>
 							<td colspan="2" class="td_input">
-								<sbux-input
-									uitype="text"
-									id="dtl-input-corpNm"
-									name="dtl-input-corpNm"
+								<sbux-select
+									id="srch-input-apoSe"
+									name="srch-input-apoSe"
+									uitype="single"
+									jsondata-ref="selectApoSe"
+									unselected-text="전체"
 									class="form-control input-sm"
-									autocomplete="off"
-									readonly
-								></sbux-input>
+								></sbux-select>
 							</td>
 							<td class="td_input"  style="border-left: hidden;">
 						</tr>
@@ -248,6 +256,7 @@
 				</table>
 				<br>
 				<!--[pp] 검색결과 상세보기-->
+				<!-- 농가 조직원 리스트 -->
 				<div class="ad_section_top">
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:350px; width: 100%;"></div>
@@ -258,9 +267,19 @@
 
 </body>
 <script type="text/javascript">
+//생산자조직 등록의 경우
+//통합조직 직속 농가 출자출하조직 농가 두가지 경우가 있음
+//첫리스트는 통합조직,출자출하조직 둘다 보여야함
+//조직 선택후 품목 취급유형 선택후 다시 조회
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_init();
+		fn_initSBSelect();
+
+		var now = new Date();
+		var year = now.getFullYear();
+		SBUxMethod.set("srch-input-yr",year);//
+
 	})
 
 
@@ -271,7 +290,8 @@
 	const fn_init = async function() {
 		fn_fcltMngCreateGrid();
 		fn_fcltMngCreateGrid01();
-		grdPrdcrOgnCurntMng01.addRow();
+		fn_fcltMngCreateGrid02();
+		//grdPrdcrOgnCurntMng01.addRow();
 	}
 
 	/* Grid 화면 그리기 기능*/
@@ -289,6 +309,13 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.paging = {
+				'type' : 'page',
+			  	'count' : 5,
+			  	'size' : 20,
+			  	'sorttype' : 'page',
+			  	'showgoalpageui' : true
+		    };
 	    SBGridProperties.columns = [
 	    	{caption: ["seq"], 			ref: 'apoCd',   	hidden : true},
 	    	{caption: ["등록년도"], 		ref: 'year',   	type:'output',  width:'220px',    style:'text-align:center'},
@@ -302,20 +329,16 @@
 	    ];
 
 	    grdPrdcrOgnCurntMng = _SBGrid.create(SBGridProperties);
-	    /*
-	    let rst = await Promise.all([
-	    	//fn_initSBSelectFclt(),
-		    fn_searchFcltList()
-		])
-		*/
-		//grdPrdcrOgnCurntMng.refresh({"combo":true});
+
 	  	//클릭 이벤트 바인드
 	   	grdPrdcrOgnCurntMng.bind('click','fn_view');
+	   	grdPrdcrOgnCurntMng.bind('beforepagechanged', 'fn_pagingBbsList');
 
 	}
 
 	var jsonPrdcrOgnCurntMng01 = []; // 그리드의 참조 데이터 주소 선언
 	var grdPrdcrOgnCurntMng01;
+
 
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid01 = async function() {
@@ -355,25 +378,40 @@
 	    ];
 
 	    grdPrdcrOgnCurntMng01 = _SBGrid.create(SBGridProperties);
-	    /*
-	    let rst = await Promise.all([
-	    	fn_initSBSelectFclt(),
-		    fn_searchFcltList()
-		])
-		*/
-		//grdPrdcrOgnCurntMng01.refresh({"combo":true});
-	  	//클릭 이벤트 바인드
-	    //grdPrdcrOgnCurntMng01.bind('click','fn_view01');
 
 	}
 
+
+	/**
+     * 목록 조회
+     */
+    const fn_search = async function() {
+
+    	// set pagination
+    	let pageSize = grdPrdcrOgnCurntMng.getPageSize();
+    	let pageNo = 1;
+
+    	fn_setGrdFcltList(pageSize, pageNo);
+    }
+
+	const fn_pagingBbsList = async function() {
+    	let recordCountPerPage = grdPrdcrOgnCurntMng.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+    	let currentPageNo = grdPrdcrOgnCurntMng.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+    	fn_setGrdFcltList(recordCountPerPage, currentPageNo);
+    }
+
 	/* Grid Row 조회 기능*/
-	const fn_searchFcltList = async function(){
-		//let year = SBUxMethod.get("srch-input-year");//
+	const fn_setGrdFcltList = async function(pageSize, pageNo){
+		//let yr = SBUxMethod.get("srch-input-yr");//
 
     	let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
-    		//cmptnInst : cmptnInst
+    		//yr : yr
     		//,ctpv : ctpv
+
+    		//페이징
+    		pagingYn : 'Y'
+    		,currentPageNo : pageNo
+     		,recordCountPerPage : pageSize
 		});
 
         let data = await postJsonPromise ;
@@ -390,12 +428,27 @@
 						,brno: item.brno
 				}
 				jsonPrdcrOgnCurntMng.push(PrdcrOgnCurntMngVO);
+				if (index === 0) {
+					totalRecordCount = item.totalRecordCount;
+				}
 			});
 
-        	grdPrdcrOgnCurntMng.rebuild();
+        	if (jsonPrdcrOgnCurntMng.length > 0) {
 
-        	//비어 있는 마지막 줄 추가용도?
-        	//grdPrdcrOgnCurntMng.addRow();
+        		if(grdPrdcrOgnCurntMng.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+        			grdPrdcrOgnCurntMng.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+        			grdPrdcrOgnCurntMng.rebuild();
+				}else{
+					grdPrdcrOgnCurntMng.refresh()
+				}
+        	} else {
+        		grdPrdcrOgnCurntMng.setPageTotalCount(totalRecordCount);
+        		grdPrdcrOgnCurntMng.rebuild();
+        	}
+        	document.querySelector('#listCount').innerText = totalRecordCount;
+
+        	//grdPrdcrOgnCurntMng.rebuild();
+
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -407,7 +460,6 @@
 
 	//다중 세이브
 	const fn_listSave = async function(){
-
 
 		let gridData = grdPrdcrOgnCurntMng01.getGridDataAll();
 		let saveList = [];
@@ -563,7 +615,7 @@
 						,rprsvTelno: item.rprsvTelno
 						,fxno: item.fxno
 				}
-				jsonPrdcrOgnCurntMng01.push(PrdcrOgnCurntMngVO);
+				grdPrdcrOgnCurntMng01.push(PrdcrOgnCurntMngVO);
 			});
 
         	grdPrdcrOgnCurntMng01.rebuild();

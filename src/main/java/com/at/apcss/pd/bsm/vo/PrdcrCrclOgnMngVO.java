@@ -33,7 +33,7 @@ public class PrdcrCrclOgnMngVO extends ComVO{
 
 	private String corpSeCd;		//법인구분
 	private String corpDtlSeCd;		//법인형태
-	private String corpYr;			//법인설립일
+	private String corpFndnDay;		//법인설립일
 	private String isoHldYn;		//출자출하조직여부
 	private String invstNope;		//출자자수
 	private String invstExpndFrmerNope;//출자자중 농업인수

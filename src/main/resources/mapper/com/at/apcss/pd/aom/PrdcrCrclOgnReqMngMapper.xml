@@ -29,6 +29,7 @@
 				, CM.SGG
 				, CM.CORP_NM
 				, CM.BRNO
+				, CM.CRNO
 
 				, CM.PIC_FLNM
 				, CM.ZIP
@@ -54,6 +55,17 @@
 				, CM.UO_BRNO
 				, CM.UO_NM
 				, CM.UNTY_YN
+				, CM.APRV
+
+				, EAM.YR
+				, EAM.APLY_DAY
+				, EAM.RAW_MTR_ENSR_SIGUN_CNT
+				, EAM.RAW_MTR_ENSR_CTPV_CNT
+				, EAM.CTPV_NM
+				, EAM.SIGUN_NM
+				, EAM.PRUO_FUND_APLY_AMT
+				, EAM.ISO_FUND_APLY_AMT
+				, EAM.APLY_TRGT_SE
 
 				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
 				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
@@ -66,8 +78,9 @@
 				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
 				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_NM
 				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_EV_APO CM
+			  FROM TB_EV_APO CM , TB_EV_APLY_MNG EAM
 			 WHERE 1=1
+			   AND CM.BRNO = EAM.BRNO(+)
     	]]>
     		<if test='cmptnInst != null and cmptnInst != ""'>
 				AND CM.CMPTN_INST LIKE #{cmptnInst} || '%'
@@ -88,6 +101,9 @@
 			</if>
 			<if test='corpNm != null and corpNm != ""'>
 				AND CM.CORP_NM LIKE '%' || #{corpNm} || '%'
+			</if>
+			<if test='yr != null and yr != ""'>
+				AND EAM.YR LIKE '%' || #{yr} || '%'
 			</if>
 
 		ORDER BY CM.SYS_LAST_CHG_DT DESC
@@ -103,6 +119,16 @@
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectPrdcrCrclOgnReqMngList" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO" resultType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
+
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+
     	<![CDATA[
 			SELECT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectPrdcrCrclOgnReqMngList */
 				  CM.APO_CD
@@ -111,6 +137,7 @@
 				, CM.SGG
 				, CM.CORP_NM
 				, CM.BRNO
+				, CM.CRNO
 
 				, CM.PIC_FLNM
 				, CM.ZIP
@@ -137,6 +164,16 @@
 				, CM.UO_NM
 				, CM.UNTY_YN
 
+				, EAM.YR
+				, EAM.APLY_DAY
+				, EAM.RAW_MTR_ENSR_SIGUN_CNT
+				, EAM.RAW_MTR_ENSR_CTPV_CNT
+				, EAM.CTPV_NM
+				, EAM.SIGUN_NM
+				, EAM.PRUO_FUND_APLY_AMT
+				, EAM.ISO_FUND_APLY_AMT
+				, EAM.APLY_TRGT_SE
+
 				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
 				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
 				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
@@ -148,8 +185,9 @@
 				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
 				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_NM
 				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_EV_APO CM
+			  FROM TB_EV_APO CM , TB_EV_APLY_MNG EAM
 			 WHERE 1=1
+			   AND CM.BRNO = EAM.BRNO(+)
     	]]>
     		<if test='cmptnInst != null and cmptnInst != ""'>
 				AND CM.CMPTN_INST LIKE #{cmptnInst} || '%'
@@ -171,10 +209,18 @@
 			<if test='corpNm != null and corpNm != ""'>
 				AND CM.CORP_NM LIKE '%' || #{corpNm} || '%'
 			</if>
+			<if test='yr != null and yr != ""'>
+				AND EAM.YR LIKE '%' || #{yr} || '%'
+			</if>
 
 		ORDER BY CM.SYS_LAST_CHG_DT DESC
+		<!-- 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
     </select>
-
 
 	<insert id="insertPrdcrCrclOgnReqMng" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
     	<![CDATA[
@@ -214,10 +260,12 @@
 	    	UPDATE /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.upatePrdcrCrclOgnReqMng */
 	    		TB_EV_APO
 			   SET
-			 	  UNTY_YN	= #{intyYn}
-			 	, UO_NM 	= #{uoNm}
-			 	, UO_BRNO 	= #{uoBrno}
-			 	, UNTY_YR 	= #{untyYr}
+			 	  UNTY_YN		= #{intyYn}
+			 	, UO_NM 		= #{uoNm}
+			 	, UO_BRNO 		= #{uoBrno}
+			 	, UNTY_YR 		= #{untyYr}
+			 	, APRV			= #{aprv}
+			 	, ISO_HLD_YN 	= #{isoHldYn}
     	]]>
     	<![CDATA[
 				, SYS_LAST_CHG_DT		= SYSDATE
@@ -237,4 +285,207 @@
 		]]>
 	</delete>
 
+
+
+
+
+	<insert id="insertEvAplyMng" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
+	<![CDATA[
+    	MERGE INTO TB_EV_APLY_MNG CLT  /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertEvAplyMng */
+		USING DUAL
+			ON (
+					CLT.APO_CD  = #{apoCd}
+				AND CLT.APO_SE  = #{apoSe}
+				AND CLT.BRNO  	= #{brno}
+				)
+		WHEN MATCHED THEN
+				 UPDATE /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertEvAplyMng */
+					   SET
+		    	          RAW_MTR_ENSR_SIGUN_CNT	= #{rawMtrEnsrSigunCnt}
+		    	        , RAW_MTR_ENSR_CTPV_CNT		= #{rawMtrEnsrCtpvCnt}
+		    	        , CTPV_NM					= #{ctpvNm}
+		    	        , SIGUN_NM					= #{sigunNm}
+		    	        , PRUO_FUND_APLY_AMT		= #{pruoFundAplyAmt}
+		    	        , ISO_FUND_APLY_AMT			= #{isoFundAplyAmt}
+		    	        , APLY_TRGT_SE				= #{aplyTrgtSe}
+		    	]]>
+		    	<![CDATA[
+
+					 WHERE 1=1
+					 AND CLT.APO_CD		= #{apoCd}
+					 AND CLT.APO_SE		= #{apoSe}
+					 AND CLT.BRNO		= #{brno}
+		WHEN NOT MATCHED THEN
+			 INSERT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertEvAplyMng */
+		    		(
+		    			APO_CD
+		    		  , APO_SE
+		    		  , BRNO
+		    		  , CRNO
+		    		  , CORP_NM
+		    		  , YR
+		    		  , APLY_DAY
+		    		  , RAW_MTR_ENSR_SIGUN_CNT
+		    		  , RAW_MTR_ENSR_CTPV_CNT
+		    		  , CTPV_NM
+		    		  , SIGUN_NM
+		    		  , PRUO_FUND_APLY_AMT
+		    		  , ISO_FUND_APLY_AMT
+		    		  , APLY_TRGT_SE
+		    		)
+		   		VALUES
+		   			(
+		   			    #{apoCd}
+		   			  , #{apoSe}
+		   			  , #{brno}
+		   			  , #{crno}
+		   			  , #{corpNm}
+		   			  , #{yr}
+		   			  , SYSDATE
+		   			  , #{rawMtrEnsrSigunCnt}
+		   			  , #{rawMtrEnsrCtpvCnt}
+		   			  , #{ctpvNm}
+		   			  , #{sigunNm}
+		   			  , #{pruoFundAplyAmt}
+		   			  , #{isoFundAplyAmt}
+		   			  , #{aplyTrgtSe}
+		   			)
+    	]]>
+	</insert>
+
+
+	<insert id="insertGpc" parameterType="com.at.apcss.pd.aom.vo.GpcVO">
+	<![CDATA[
+    	MERGE INTO TB_EV_APO_YR_GPC_CD CLT  /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertGpc */
+		USING DUAL
+			ON (
+					CLT.APO_CD  	= #{apoCd}
+				AND CLT.YR  		= #{yr}
+				AND CLT.CTGRY_CD  	= #{ctgryCd}
+				AND CLT.ITEM_CD  	= #{itemCd}
+				AND CLT.STTG_UPBR_ITEM_SE  	= #{sttgUpbrItemSe}
+				)
+		WHEN MATCHED THEN
+				 UPDATE /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertGpc */
+					   SET
+		    	          CTGRY_NM	= #{ctgryNm}
+		    	        , ITEM_NM	= #{itemNm}
+		    	]]>
+				<if test='delYn != null and delYn != ""'>
+						, DEL_YN 	= #{delYn}
+				</if>
+		    	<![CDATA[
+						, SYS_LAST_CHG_DT		= SYSDATE
+			    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+			    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+
+					 WHERE 1=1
+					 AND CLT.APO_CD  	= #{apoCd}
+					 AND CLT.YR  		= #{yr}
+					 AND CLT.CTGRY_CD  	= #{ctgryCd}
+					 AND CLT.ITEM_CD  	= #{itemCd}
+					 AND CLT.STTG_UPBR_ITEM_SE  = #{sttgUpbrItemSe}
+		WHEN NOT MATCHED THEN
+			 INSERT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertGpc */
+		    		(
+		    			APO_CD
+		    		  , APO_SE
+		    		  , BRNO
+		    		  , CRNO
+		    		  , CORP_NM
+
+		    		  , YR
+		    		  , STTG_UPBR_ITEM_SE
+		    		  , CTGRY_CD
+		    		  , CTGRY_NM
+		    		  , ITEM_CD
+		    		  , ITEM_NM
+		    		  , RMRK
+
+		    		  , SYS_FRST_INPT_DT
+		    		  , SYS_FRST_INPT_USER_ID
+		    		  , SYS_FRST_INPT_PRGRM_ID
+		    		  , SYS_LAST_CHG_DT
+		    		  , SYS_LAST_CHG_USER_ID
+		    		  , SYS_LAST_CHG_PRGRM_ID
+		    		)
+		   		VALUES
+		   			(
+		   			    #{apoCd}
+		   			  , #{apoSe}
+		   			  , #{brno}
+		   			  , #{crno}
+		   			  , #{corpNm}
+
+		   			  , #{yr}
+		   			  , #{sttgUpbrItemSe}
+		   			  , #{ctgryCd}
+		   			  , #{ctgryNm}
+		   			  , #{itemCd}
+		   			  , #{itemNm}
+		   			  , #{rmrk}
+
+		   			  , SYSDATE
+		   			  , #{sysFrstInptUserId}
+		   			  , #{sysFrstInptPrgrmId}
+		   			  , SYSDATE
+		   			  , #{sysLastChgUserId}
+		   			  , #{sysLastChgPrgrmId}
+		   			)
+    	]]>
+	</insert>
+
+	<select id="selectGpcList" parameterType="com.at.apcss.pd.aom.vo.GpcVO" resultType="com.at.apcss.pd.aom.vo.GpcVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectGpcList */
+				  CM.APO_CD
+				, CM.APO_SE
+				, CM.CORP_NM
+				, CM.BRNO
+				, CM.CRNO
+
+				, CM.YR
+				, CM.STTG_UPBR_ITEM_SE
+				, CM.CTGRY_CD
+				, CM.CTGRY_NM
+				, CM.ITEM_CD
+				, CM.ITEM_NM
+				, CM.RMRK
+
+				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
+				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
+				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
+				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_FRST_INPT_USER_ID) AS SYS_FRST_INPT_USER_NM
+				, CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
+
+				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
+				, TO_CHAR(CM.SYS_LAST_CHG_DT,'YYYY-MM-DD')		AS SYS_LAST_CHG_DT_YMD
+				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
+				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_NM
+				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
+			  FROM TB_EV_APO_YR_GPC_CD CM
+			 WHERE 1=1
+    	]]>
+			<if test='apoCd != null and apoCd != ""'>
+				AND CM.APO_CD LIKE #{apoCd} || '%'
+			</if>
+			<if test='apoSe != null and apoSe != ""'>
+				AND CM.APO_SE LIKE #{apoSe} || '%'
+			</if>
+			<if test='brno != null and brno != ""'>
+				AND CM.BRNO LIKE #{brno} || '%'
+			</if>
+			<if test='crno != null and crno != ""'>
+				AND CM.CRNO LIKE #{crno} || '%'
+			</if>
+			<if test='corpNm != null and corpNm != ""'>
+				AND CM.CORP_NM LIKE '%' || #{corpNm} || '%'
+			</if>
+			<if test='yr != null and yr != ""'>
+				AND EAM.YR LIKE '%' || #{yr} || '%'
+			</if>
+
+		ORDER BY CM.SYS_LAST_CHG_DT DESC
+    </select>
 </mapper>
+

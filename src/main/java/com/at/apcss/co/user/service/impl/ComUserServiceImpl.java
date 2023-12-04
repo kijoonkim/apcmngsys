@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.at.apcss.am.apc.service.ApcEvrmntStngService;
+import com.at.apcss.am.apc.vo.ApcEvrmntStngVO;
 import com.at.apcss.co.authrt.service.ComAuthrtService;
 import com.at.apcss.co.authrt.vo.ComAuthrtVO;
 import com.at.apcss.co.constants.ComConstants;
@@ -202,6 +203,22 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 			if (rtnObj != null) {
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
+			
+			ApcEvrmntStngVO stngVO = new ApcEvrmntStngVO();
+			stngVO.setSysFrstInptUserId(sysUserId);
+			stngVO.setSysFrstInptPrgrmId(sysPrgrmId);
+			stngVO.setSysLastChgUserId(sysUserId);
+			stngVO.setSysLastChgPrgrmId(sysPrgrmId);
+			stngVO.setApcCd(user.getApcCd());
+			
+			// APC 초기정보가 없으면 APC 환경설정 초기정보 설정
+			ApcEvrmntStngVO apcStngInfo = apcEvrmntStngService.selectApcEvrmntStng(stngVO);
+			if (apcStngInfo == null || !StringUtils.hasText(apcStngInfo.getApcCd())) {
+				rtnObj = apcEvrmntStngService.insertApcInitInfo(stngVO);
+				if (rtnObj != null) {
+					throw new EgovBizException(getMessageForMap(rtnObj));
+				}
+			}			
 		}
 
 		return null;

@@ -30,7 +30,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>
-					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" onclick="fn_rawMtrWrhsPrfmncSearch" text="조회" ></sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" onclick="fn_search" text="조회" ></sbux-button>
 
 				</div>
 			</div>
@@ -332,7 +332,7 @@
 		SBGridProperties.explorerbar = 'sortmove';			// 개인화 컬럼 이동 가능
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
-	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.extendlastcol = 'none';
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.paging = {
 			'type' : 'page',
@@ -356,7 +356,8 @@
 	        {caption: ["입고중량"],		ref: 'wrhsWght',      type:'output',  width:'100px',    style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg '}},
 	        {caption: ["보관창고"],		ref: 'warehouseSeNm',      type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["계량번호"],		ref: 'wghno',      type:'output',  width:'140px',    style:'text-align:center'},
-	        {caption: ["팔레트번호"],		ref: 'pltno',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["팔레트번호"],	ref: 'pltno',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["처리구분"],		ref: 'prcsTypeNm',      type:'output',  width:'140px',    style:'text-align:center'},
 	        {caption: ["비고"],		ref: 'rmrk',      type:'output',  width:'200px',    style:'text-align:center'},
 	    ];
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
@@ -428,34 +429,31 @@
 		fn_initSBSelect();
 		fn_getPrdcrs();
 	}
-
+	
 	/**
-     * @name fn_rawMtrWrhsPrfmncSearch
+     * @name fn_search
      * @description 조회 버튼
      */
-    const fn_rawMtrWrhsPrfmncSearch = async function() {
-    	try{
-			if (gfn_isEmpty(SBUxMethod.get("srch-dtp-startPrdctnYmd")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-endPrdctnYmd"))){
-				await gfn_comAlert("W0001", "입고일자");		//	W0002	{0}을/를 선택하세요.
-			    return;
-			}
-	        // set pagination
-	    	inptCmndDsctnList.rebuild();
-	    	let pageSize = inptCmndDsctnList.getPageSize();
-	    	let pageNo = 1;
-
-	    	// grid clear
-	    	jsoninptCmndDsctnList.length = 0;
-	    	inptCmndDsctnList.clearStatus();
-	    	await fn_setGrdRawMtrWrhsPrfmnc(pageSize, pageNo);
-		} catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+    const fn_search = async function() {
+		
+		if (gfn_isEmpty(SBUxMethod.get("srch-dtp-startPrdctnYmd")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-endPrdctnYmd"))){
+			await gfn_comAlert("W0001", "입고일자");		//	W0002	{0}을/를 선택하세요.
+		    return;
 		}
+		
+		// set pagination
+    	inptCmndDsctnList.rebuild();
+    	let pageSize = inptCmndDsctnList.getPageSize();
+    	let pageNo = 1;
+
+    	// grid clear
+    	jsoninptCmndDsctnList.length = 0;
+    	inptCmndDsctnList.clearStatus();
+    	await fn_setGrdRawMtrWrhsPrfmnc(pageSize, pageNo);
+
 	}
+	
+	
 	const fn_setGrdRawMtrWrhsPrfmnc = async function(pageSize, pageNo) {
 		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-startPrdctnYmd");		// 입고시작일자
    		let wrhsYmdTo = SBUxMethod.get("srch-dtp-endPrdctnYmd");		// 입고종료일자
@@ -524,7 +522,9 @@
   						warehouseSeCd: item.warehouseSeCd,
   						warehouseSeNm: item.warehouseSeNm,
   						rmrk: item.rmrk,
-  						trsprtCst: item.trsprtCst
+  						trsprtCst: item.trsprtCst,
+  						prcsType: item.prcsType,
+  						prcsTypeNm: item.prcsTypeNm,
   				}
   				jsoninptCmndDsctnList.push(rawMtrWrhs);
 

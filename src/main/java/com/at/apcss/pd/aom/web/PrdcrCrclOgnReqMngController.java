@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.pd.aom.service.PrdcrCrclOgnReqMngService;
+import com.at.apcss.pd.aom.vo.GpcVO;
 import com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO;
-import com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO;
 
 @Controller
 public class PrdcrCrclOgnReqMngController extends BaseController{
@@ -87,10 +87,22 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 			PrdcrCrclOgnReqMngVO.setSysFrstInptPrgrmId(getPrgrmId());
 			PrdcrCrclOgnReqMngVO.setSysLastChgUserId(getUserId());
 
+			System.out.println(PrdcrCrclOgnReqMngVO.toString());
+
 			int insertedCnt = 0;
 
 			try {
 				insertedCnt = PrdcrCrclOgnReqMngService.updatePrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO);
+
+				List<GpcVO> GpcVoList = PrdcrCrclOgnReqMngVO.getGpcList();
+				for (GpcVO gpcVO : GpcVoList) {
+					gpcVO.setSysFrstInptPrgrmId(getPrgrmId());
+					gpcVO.setSysFrstInptUserId(getUserId());
+					gpcVO.setSysLastChgPrgrmId(getPrgrmId());
+					gpcVO.setSysLastChgUserId(getUserId());
+				}
+
+				insertedCnt += PrdcrCrclOgnReqMngService.multiSaveGpcList(GpcVoList);
 			} catch (Exception e) {
 				logger.debug(e.getMessage());
 				return getErrorResponseEntity(e);
@@ -140,6 +152,21 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 			resultMap.put("result", result);
+			return getSuccessResponseEntity(resultMap);
+		}
+
+		// 조회
+		@PostMapping(value = "/pd/aom/selectGpcList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> selectGpcList(Model model, @RequestBody GpcVO gpcVO, HttpServletRequest request) throws Exception{
+			HashMap<String,Object> resultMap = new HashMap<String,Object>();
+			List<GpcVO> resultList = new ArrayList<>();
+			try {
+				 resultList = PrdcrCrclOgnReqMngService.selectGpcList(gpcVO);
+			} catch (Exception e) {
+				logger.debug(e.getMessage());
+				return getErrorResponseEntity(e);
+			}
+			resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 			return getSuccessResponseEntity(resultMap);
 		}
 

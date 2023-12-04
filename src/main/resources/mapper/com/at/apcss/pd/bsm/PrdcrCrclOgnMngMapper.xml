@@ -109,6 +109,8 @@
 				AND CM.APO_SE LIKE '%' || #{apoSe} || '%'
 			</if>
 		ORDER BY CM.SYS_LAST_CHG_DT DESC
+
+
     </select>
 
 
@@ -121,6 +123,16 @@
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectPrdcrCrclOgnMngList" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO" resultType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO">
+
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+
     	<![CDATA[
 			SELECT /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.selectPrdcrCrclOgnMng */
 				  CM.APO_CD
@@ -209,6 +221,13 @@
 				AND CM.APO_SE LIKE '%' || #{apoSe} || '%'
 			</if>
 		ORDER BY CM.SYS_LAST_CHG_DT DESC
+
+		<!-- 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
     </select>
 
 
@@ -285,7 +304,7 @@
 	   			  , #{roadNmDtlAddr}
 	   			  , #{corpSeCd}
 	   			  , #{corpDtlSeCd}
-	   			  , #{corpFndnDay}
+	   			  , TO_DATE( #{corpFndnDay} , 'YYYY-MM-DD HH24:MI:SS')
 	   			  , #{isoHldYn}
 	   			  , #{invstNope}
 	   			  , #{invstExpndFrmerNope}
@@ -340,7 +359,7 @@
 	    		  , ROAD_NM_DTL_ADDR		= #{roadNmDtlAddr}
 	    		  , CORP_SE_CD				= #{corpSeCd}
 	    		  , CORP_DTL_SE_CD			= #{corpDtlSeCd}
-	    		  , CORP_FNDN_DAY			= #{corpFndnDay}
+	    		  , CORP_FNDN_DAY			= TO_DATE( #{corpFndnDay} , 'YYYY-MM-DD HH24:MI:SS')
 	    		  , ISO_HLD_YN				= #{isoHldYn}
 	    		  , INVST_NOPE				= #{invstNope}
 	    		  , INVST_EXPND_FRMER_NOPE	= #{invstExpndFrmerNope}
@@ -461,7 +480,7 @@
 	    	INSERT /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.insertPrdcrCrclOgnMng */
 	    	  INTO TB_EV_APO_UO_CD
 	    		(
-	    		  , UO_APO_CD
+	    		    UO_APO_CD
 				  , UO_APO_SE
 				  , UO_BRNO
 				  , UO_CORP_NM
@@ -486,7 +505,7 @@
 	   			  , #{uoBrno}
 	   			  , #{uoCorpNm}
 	   			  , #{uoCrno}
-	   			  , #{isoApoCd}
+	   			  , (SELECT APO_CD FROM TB_EV_APO WHERE BRNO = #{isoBrno})
 	   			  , #{isoApoSe}
 	   			  , #{isoBrno}
 	   			  , #{isoCorpNm}
@@ -514,7 +533,7 @@
 	    		  , UO_CORP_NM				= #{uoCorpNm}
 	    		  , UO_CRNO					= #{uoCrno}
 
-	    		  , ISO_APO_CD				= #{isoApoCd}
+	    		  , ISO_APO_CD				= (SELECT APO_CD FROM TB_EV_APO WHERE BRNO = #{isoBrno})
 	    		  , ISO_APO_SE				= #{isoApoSe}
 	    		  , ISO_BRNO				= #{isoBrno}
 	    		  , ISO_CORP_NM				= #{isoCorpNm}

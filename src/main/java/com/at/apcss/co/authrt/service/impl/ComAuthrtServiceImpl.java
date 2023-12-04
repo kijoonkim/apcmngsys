@@ -473,7 +473,9 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 
 		// 01. 해당 APC의 권한그룹 등록 (관리자 승인 시 1회)
 		// 권한그룹 등록 확인
-		if (ComConstants.CON_AUTHRT_TYPE_ADMIN.equals(authrtType)) {
+		if (ComConstants.CON_AUTHRT_TYPE_ADMIN.equals(authrtType)
+				|| ComConstants.CON_AUTHRT_TYPE_USER.equals(authrtType)
+				) {
 
 			if (authrtList == null || authrtList.isEmpty()) {
 				// 권한 그룹 생성 admin + user
@@ -541,6 +543,8 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 						throw new EgovBizException(getMessage(ComConstants.MSGCD_ERR_PARAM_ONE, "업무메뉴 권한등록".split("\\|\\|")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
 					}
 				}
+			} else {
+				
 			}
 		}
 
@@ -818,7 +822,7 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 					deleteComAuthrtMenu(authMenu);
 				}
 			}
-
+			
 			//	rawMtrIdentTagPblcnYn 원물인식표발행유무
 
 			//	pltBxMngYn 팔레트박스정보관리유무	MENU_ID_PLT_BX

@@ -11,4 +11,5 @@ public class BrnoPopupVO extends ComVO{
 
 	private String corpNm;			//법인명
 	private String brno;			//사업자등록번호
+	private String apoCd;			//사업자등록번호
 }
