@@ -152,16 +152,18 @@
 						<col style="width: 6%">
 						<col style="width: 6%">
 						<col style="width: 3%">
+
 						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 7%">
-						<col style="width: 3%">
-						<col style="width: 4%">						
-						<col style="width: 1%">
 						<col style="width: 3%">
 						<col style="width: 4%">
+						<col style="width: 2%">
+						<col style="width: 6%">	
+						
+						<col style="width: 7%">
+						<col style="width: 3%">
+						<col style="width: 4%">
+						<col style="width: 2%">
+						<col style="width: 6%">						
 					</colgroup>
 					<tbody>
 						<tr>
@@ -176,14 +178,9 @@
 								></sbux-datepicker>
 							</td>
 							<td></td>
-							<th scope="row" class="th_bg">투입 수량/중량</th>
-							<td class="td_input" style="border-right: hidden;">
-								
-							</td>
-							<td class="td_input" style="border-right: hidden;">
-							</td>
-							<td></td>
-							<th scope="row" class="th_bg">투입/처리</th>
+							
+							<th scope="row" class="th_bg">투입 중량</th>
+							<!--
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
@@ -208,8 +205,15 @@
 									mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 								/>
 							</td>
-							<td>
+							<td style="border-right: hidden;">Kg</td>
+							-->
+							<td colspan="4" class="td_input" >
+								<sbux-label id="lbl-grdInptWght" name="lbl-grdInptWght" uitype="normal" text="">
+								</sbux-label>
 							</td>
+							
+							<th scope="row" class="th_bg">처리 중량</th>
+							<!-- 
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
@@ -233,8 +237,14 @@
 									readonly
 									mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 								/>
+							</td>								
+							<td style="border-right: hidden;">Kg</td>
+							 -->
+							<td colspan="4" class="td_input" >
+								<sbux-label id="lbl-grdPrcsWght" name="lbl-grdPrcsWght" uitype="normal" text="">
+								</sbux-label>
 							</td>
-							
+														
 						</tr>
 					</tbody>
 	            </table>
@@ -1029,10 +1039,12 @@
      * @function
      */
 	const fn_clearForm = function() {
+ 		/*
 		SBUxMethod.set("dtl-inp-inptQntt", 0);
 		SBUxMethod.set("dtl-inp-inptWght", 0);
 		SBUxMethod.set("dtl-inp-wrhsQntt", 0);
 		SBUxMethod.set("dtl-inp-wrhsWght", 0);
+		*/
  	}
 
  	/**
@@ -1182,11 +1194,41 @@
 		let totalWrhsQntt = 0;
 		let toatlWrhsWght = 0;
  		
+		const stdGrdList = [];
+		
+		/*
+		{
+			grdKnd: 1등급
+			stdGrdType: ""
+			inptWght: 100
+			prcsWght: 20
+		}
+		 */
+		
+		gjsonStdGrdObjKnd.forEach((item, index) => {
+			if (_.isEqual(item.stdGrdType, "RT")) {
+				const stdGrd = {
+					grdKnd: item.grdKnd,
+					grdKndNm: item.grdKndNm,
+					stdGrdType: item.stdGrdType,
+					inptWght: 0,
+					prcsWght: 0				
+				}
+				stdGrdList.push(stdGrd);
+			}
+		});
+		 
+		 
 		const allInvntrData = grdRawMtrInvntr.getGridDataAll();
 		allInvntrData.forEach((item, index) => {
 			if (item.checkedYn === "Y") {
     			totalInptQntt += parseInt(item.inptQntt) || 0;
     			totalInptWght += parseInt(item.inptWght) || 0;
+    			
+    			stdGrdList.forEach((std) => {
+    				let key = "rt__" + std.grdKnd;
+    				std.inptWght += parseFloat(item[key]) || 0;
+    			});
     		}
 		});
 
@@ -1195,15 +1237,36 @@
 			if (!gfn_isEmpty(item.itemCd)) {
 				totalWrhsQntt += parseInt(item.wrhsQntt) || 0;
 				toatlWrhsWght += parseInt(item.wrhsWght) || 0;
+				
+    			stdGrdList.forEach((std) => {
+    				let key = gStdGrdObj.colPrfx + std.grdKnd;
+    				std.prcsWght += parseFloat(item[key]) || 0;
+    			});
 			}
 		});
-
+		
+		/*
 		SBUxMethod.set("dtl-inp-inptQntt", totalInptQntt);
 		SBUxMethod.set("dtl-inp-inptWght", totalInptWght);
 		SBUxMethod.set("dtl-inp-wrhsQntt", totalWrhsQntt);
 		SBUxMethod.set("dtl-inp-wrhsWght", toatlWrhsWght);
+		*/
+		
+		// 등급별 중량 표시
+		let inptWghtInfo = "";
+		let prcsWghtInfo = "";
+		stdGrdList.forEach((std, idx) => {
+			if (idx > 0) {
+				inptWghtInfo += ", ";
+				prcsWghtInfo += ", ";
+			}
+			inptWghtInfo += std.grdKndNm + " " + std.inptWght + " Kg";
+			prcsWghtInfo += std.grdKndNm + " " + std.prcsWght + " Kg";
+		});
+	
+		SBUxMethod.set("lbl-grdInptWght", inptWghtInfo);
+		SBUxMethod.set("lbl-grdPrcsWght", prcsWghtInfo);
  	}
- 	
 
  	/**
  	 * @name fn_clearPrdcr

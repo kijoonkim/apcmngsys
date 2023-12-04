@@ -59,6 +59,10 @@ public class SpmtPckgUnitVO extends ComVO{
 	 */
 	private String spcfctNm;
 	/**
+	 * 규격중량
+	 */
+	private double spcfctWght;
+	/**
 	 * 판매단가
 	 */
 	private int ntslUntprc;
