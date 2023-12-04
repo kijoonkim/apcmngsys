@@ -734,6 +734,10 @@
             return;
 		}
 
+		if (!gfn_comConfirm("Q0001", "삭제")) {
+    		return;
+    	}
+		
 		const rawMtrWrhs = {
     		apcCd: gv_selectedApcCd,
     		wrhsno: wrhsno
