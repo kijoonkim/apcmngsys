@@ -220,6 +220,7 @@
 									maxlength="2"
 									autocomplete="off"
 									onchange="fn_onChangeSrchPrdcrIdentno(this)"
+									mask = "{ 'alias': 'numeric' }"
 								/>
 							</td>
 						    <td class="td_input">

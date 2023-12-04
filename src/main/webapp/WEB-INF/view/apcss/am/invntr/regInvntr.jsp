@@ -459,9 +459,9 @@
 	        {caption: ["운송","운송"],				ref: 'trsprtSeNm',      type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["창고","창고"],				ref: 'originWarehouseSeNm',  	type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["현 재고","수량"],			ref: 'invntrQntt',      type:'input',  	width:'85px',    style:'text-align:center'
-	        	, format : {type:'number', rule:'#,###'}, typeinfo : {maxlength : 10}, validate : gfn_chkByte.bind({byteLimit: 10})},
+	        	, format : {type:'number', rule:'#,###'}, typeinfo : {mask : {alias : '#', repeat: '*'}, maxlength : 10}, validate : gfn_chkByte.bind({byteLimit: 10})},
 	        {caption: ["현 재고","중량"],		ref: 'invntrWght',      type:'input',  	width:'85px',    style:'text-align:center'
-	        	, format : {type:'number', rule:'#,### Kg'}, typeinfo : {maxlength : 10}, validate : gfn_chkByte.bind({byteLimit: 10})
+	        	, format : {type:'number', rule:'#,### Kg'}, typeinfo : {mask : {alias : '#', repeat: '*'}, maxlength : 10}, validate : gfn_chkByte.bind({byteLimit: 10})
 	        },
 	        {caption: ["변경창고", "변경창고"], 	ref: 'warehouseSeCd',   	type:'combo',  width:'120px',    style:'text-align:center;',
 				typeinfo : {ref:'jsonGrdwarehouseSeCd', 	displayui : false,	itemcount: 10, label:'label', value:'value', unselect: {label : '선택', value: ''}}},
@@ -503,9 +503,9 @@
 	        {caption: ["규격","규격"],			ref: 'spcfctNm',      	type:'output',  	width:'105px',    style:'text-align:center'},
 	        {caption: ["창고","창고"],			ref: 'originWarehouseSeNm',  	type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["현 재고","수량"],		ref: 'invntrQntt',      type:'input',  	width:'85px',    style:'text-align:center'
-	        	, format : {type:'number', rule:'#,###'}, typeinfo : {maxlength : 10}, validate : gfn_chkByte.bind({byteLimit: 10})},
+	        	, format : {type:'number', rule:'#,###'}, typeinfo : {mask : {alias : '#', repeat: '*'}, maxlength : 10}, validate : gfn_chkByte.bind({byteLimit: 10})},
 	        {caption: ["현 재고","중량"],		ref: 'invntrWght',      type:'input',  	width:'85px',    style:'text-align:center'
-	        	, format : {type:'number', rule:'#,### Kg'}, typeinfo : {maxlength : 10}, validate : gfn_chkByte.bind({byteLimit: 10})
+	        	, format : {type:'number', rule:'#,### Kg'}, typeinfo : {mask : {alias : '#', repeat: '*'}, maxlength : 10}, validate : gfn_chkByte.bind({byteLimit: 10})
 	        },
 	        {caption: ["변경창고", "변경창고"], ref: 'warehouseSeCd',   	type:'combo',  width:'120px',    style:'text-align:center;',
 				typeinfo : {ref:'jsonGrdwarehouseSeCd', 	displayui : false,	itemcount: 10, label:'label', value:'value', unselect: {label : '선택', value: ''}}},
@@ -549,9 +549,9 @@
 	        {caption: ["등급","등급"],			ref: 'gdsGrdNm',      	type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["창고","창고"],			ref: 'originWarehouseSeNm',  	type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["현 재고","수량"],		ref: 'invntrQntt',      type:'input',  	width:'85px',    style:'text-align:center'
-	        	, format : {type:'number', rule:'#,###'}, typeinfo : {maxlength : 10}, validate : gfn_chkByte.bind({byteLimit: 10})},
+	        	, format : {type:'number', rule:'#,###'}, typeinfo : {mask : {alias : '#', repeat: '*'}, maxlength : 10}, validate : gfn_chkByte.bind({byteLimit: 10})},
 	        {caption: ["현 재고","중량"],		ref: 'invntrWght',      type:'input',  	width:'85px',    style:'text-align:center'
-	        	, format : {type:'number', rule:'#,### Kg', typeinfo : {maxlength : 10}}, validate : gfn_chkByte.bind({byteLimit: 10})
+	        	, format : {type:'number', rule:'#,### Kg', typeinfo : {mask : {alias : '#', repeat: '*'}, maxlength : 10}}, validate : gfn_chkByte.bind({byteLimit: 10})
 	        },
 	        {caption: ["변경창고", "변경창고"], ref: 'warehouseSeCd',   	type:'combo',  width:'120px',    style:'text-align:center;',
 				typeinfo : {ref:'jsonGrdwarehouseSeCd', 	displayui : false,	itemcount: 10, label:'label', value:'value', unselect: {label : '선택', value: ''}}},

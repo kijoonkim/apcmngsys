@@ -226,9 +226,11 @@
 			{caption: ["작업자명"],    	ref: 'flnm',        	type:'outputbutton',   width:'100px', style: 'text-align:center',
 				typeinfo : {callback: fn_grdChoiceOprtr}},
 			{caption: ["시작시간"],		ref: 'jobBgngHr',   	type:'input',  width:'120px', style: 'text-align:center',
-				format : {type:'date', rule:'HH:mm', origin:'HHmmss'}},
+				format : {type:'date', rule:'HH:mm', origin:'HHmmss'}, typeinfo : {mask : {alias : 'numeric'}}
+			},
 			{caption: ["종료시간"],		ref: 'jobEndHr', 		type:'input',  width:'120px', style: 'text-align:center',
-				format : {type:'date', rule:'HH:mm', origin:'HHmmss'}},
+				format : {type:'date', rule:'HH:mm', origin:'HHmmss'}, typeinfo : {mask : {alias : 'numeric'}}
+			},
 			{caption: ["작업시간"], ref: 'jobHr',   		type:'output',  width:'120px', style: 'text-align:right',
 	     		typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### 분'}},
 			{caption: ["비고"], 	 	ref: 'rmrk',   			type:'input',  	width:'300px', style: 'text-align:center'},

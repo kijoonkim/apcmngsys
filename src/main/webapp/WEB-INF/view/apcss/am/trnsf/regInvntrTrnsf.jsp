@@ -400,9 +400,9 @@
 	        {caption: ["재고","중량"],				ref: 'invntrWght',      	type:'output',  width:'80px',    style:'text-align:center',
 	        	format : {type:'number', rule:'#,### Kg'}},
 	        {caption: ["이송","수량"],				ref: 'trnsfQntt',      		type:'input',  width:'60px',    style:'text-align:center',
-	        	format : {type:'number', rule:'#,###'}},
+	        	format : {type:'number', rule:'#,###'}, typeinfo : {mask : {alias : '#', repeat: '*'}}},
 	        {caption: ["이송","중량"],				ref: 'trnsfWght',      		type:'input',  width:'80px',    style:'text-align:center',
-	        	format : {type:'number', rule:'#,### Kg'}},
+	        	format : {type:'number', rule:'#,### Kg'}, typeinfo : {mask : {alias : '#', repeat: '*'}}},
 	        {caption: ["비고","비고"],				ref: 'rmrk',      			type:'output',  width:'110px',    style:'text-align:center'},
 	    ];
 
@@ -447,9 +447,9 @@
 	        	format : {type:'number', rule:'#,### Kg'}
 	        },
 	        {caption: ["이송","수량"],				ref: 'trnsfQntt',      		type:'input',  width:'60px',    style:'text-align:center',
-	        	format : {type:'number', rule:'#,###'}},
+	        	format : {type:'number', rule:'#,###'}, typeinfo : {mask : {alias : '#', repeat: '*'}}},
 	        {caption: ["이송","중량"],				ref: 'trnsfWght',      		type:'input',  width:'80px',    style:'text-align:center',
-	        	format : {type:'number', rule:'#,### Kg'}
+	        	format : {type:'number', rule:'#,### Kg'}, typeinfo : {mask : {alias : '#', repeat: '*'}}
 	        },
 	        {caption: ["비고","비고"],			ref: 'rmrk',      			type:'output',  width:'110px',    style:'text-align:center'},
 	    ];
@@ -498,9 +498,9 @@
 	        	format : {type:'number', rule:'#,### Kg'}
 	        },
 	        {caption: ["이송","수량"],				ref: 'trnsfQntt',      	type:'input',  width:'60px',    style:'text-align:center',
-	        	format : {type:'number', rule:'#,###'}},
+	        	format : {type:'number', rule:'#,###'}, typeinfo : {mask : {alias : '#', repeat: '*'}}},
 	        {caption: ["이송","중량"],				ref: 'trnsfWght',      	type:'input',  width:'80px',    style:'text-align:center',
-	        	format : {type:'number', rule:'#,### Kg'}
+	        	format : {type:'number', rule:'#,### Kg'}, typeinfo : {mask : {alias : '#', repeat: '*'}}
 	        },
 	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'110px',  style:'text-align:center'},
 	    ];

@@ -59,7 +59,7 @@
 						<tr>
 							<th scope="row" class="th_bg">상품코드</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-gdsCd" name="srch-inp-gdsCd" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="srch-inp-gdsCd" name="srch-inp-gdsCd" uitype="text" class="form-control input-sm" mask = "{ 'alias': 'numeric' }"></sbux-input>
 							</td>
 							<td></td>
 							<th scope="row" class="th_bg">품목/품종</th>

@@ -301,7 +301,7 @@
 	        {caption: ["재고규격","재고규격"],  ref: 'spcfctNm',    	type:'output',  width:'100px',    style:'text-align:right; background:#FFF8DC;'},
             {caption: ["포장지시", "지시규격"], ref: 'spcfct',   		type:'combo',  width:'100px',    style:'text-align:center; background:#FFF8DC;',
 				typeinfo : {ref:'jsonComSpcfct', 	displayui : false,	itemcount: 10, label:'label', value:'value', unselect: {label : '선택', value: ''}}},
-	        {caption: ["포장지시","수량"],  	ref: 'pckgQntt',    	type:'input',  width:'100px',    style:'text-align:right; background:#FFF8DC;', format : {type:'number', rule:'#,### '}},
+	        {caption: ["포장지시","수량"],  	ref: 'pckgQntt',    	type:'input',  width:'100px',    style:'text-align:right; background:#FFF8DC;', format : {type:'number', rule:'#,### '}, typeinfo : {mask : {alias : 'numeric'}}},
 	        {caption: ["포장지시","중량"],  	ref: 'pckgWght',    	type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,### Kg'}},
 	        {caption: ["지시비고","지시비고"],  ref: 'rmrk',    		type:'input',  width:'180px',    style:'text-align:center'},
 	    ];
