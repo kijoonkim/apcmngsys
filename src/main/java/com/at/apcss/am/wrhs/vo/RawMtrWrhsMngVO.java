@@ -35,6 +35,8 @@ public class RawMtrWrhsMngVO extends ComVO {
 	
 	private String wrhsYmd;
 	
+	private String wrhsno;
+	
 	private String prcsno;	// 처리번호
 	
 	private List<RawMtrInvntrVO> rawMtrInvntrList;

@@ -30,5 +30,22 @@ public interface RawMtrWrhsMngService {
 	 */
 	public HashMap<String, Object> insertRawMtrRePrcs(RawMtrWrhsMngVO rawMtrWrhsMngVO) throws Exception;
 
-
+	/**
+	 * 원물 재처리 취소
+	 * @param rawMtrWrhsMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteRawMtrRePrcs(RawMtrWrhsMngVO rawMtrWrhsMngVO) throws Exception;
+	
+	/**
+	 * 원물입고 취소
+	 * @param rawMtrWrhsMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteRawMtrPrcs(RawMtrWrhsMngVO rawMtrWrhsMngVO) throws Exception;
+	
+	
+	
 }

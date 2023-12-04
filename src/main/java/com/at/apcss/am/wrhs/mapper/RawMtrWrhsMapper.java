@@ -91,9 +91,30 @@ public interface RawMtrWrhsMapper {
 	/**
 	 * 입고실적 목록 조회
 	 *
-	 * @param selectRawMtrWrhsPrfmncList
+	 * @param rawMtrWrhsVO
 	 * @return
 	 * @throws Exception
 	 */
 	public List<RawMtrWrhsVO> selectRawMtrWrhsPrfmncList(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+	
+	/**
+	 * 원물입고 재처리 목록 조회
+	 *
+	 * @param rawMtrWrhsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<RawMtrWrhsVO> selectRawMtrPrcsList(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+	
+	/**
+	 * 원물입고 재처리 투입 목록 조회
+	 *
+	 * @param rawMtrWrhsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<RawMtrWrhsVO> selectRawMtrPrcsInptList(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+	
+	
+	
 }

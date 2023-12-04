@@ -32,11 +32,46 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnCmndDocPckg" name="btnCmndDocPckg" uitype="normal" class="btn btn-sm btn-primary" onclick="fn_docRawMtrWrhs" text="원물인식표" ></sbux-button>
-					<sbux-button id="btnReset" name="btnReset" uitype="normal" class="btn btn-sm btn-outline-danger" onclick="fn_reset" text="초기화" ></sbux-button>
-					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" onclick="fn_search" text="조회" ></sbux-button>
-					<sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-danger" onclick="fn_save" text="저장" ></sbux-button>
-					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" class="btn btn-sm btn-outline-danger" onclick="fn_delete" text="삭제" ></sbux-button>
+					<sbux-button 
+						id="btnCmndDocPckg" 
+						name="btnCmndDocPckg" 
+						uitype="normal" 
+						class="btn btn-sm btn-primary" 
+						onclick="fn_docRawMtrWrhs" 
+						text="원물인식표" 
+					></sbux-button>
+					<sbux-button 
+						id="btnReset" 
+						name="btnReset" 
+						uitype="normal" 
+						class="btn btn-sm btn-outline-danger" 
+						onclick="fn_reset" 
+						text="초기화" 
+					></sbux-button>
+					<sbux-button 
+						id="btnSearch" 
+						name="btnSearch" 
+						uitype="normal" 
+						class="btn btn-sm btn-outline-danger" 
+						onclick="fn_search" 
+						text="조회" 
+					></sbux-button>
+					<sbux-button 
+						id="btnSave" 
+						name="btnSave" 
+						uitype="normal" 
+						class="btn btn-sm btn-outline-danger" 
+						onclick="fn_save" 
+						text="저장" 
+					></sbux-button>
+					<sbux-button 
+						id="btnDelete" 
+						name="btnDelete" 
+						uitype="normal" 
+						class="btn btn-sm btn-outline-danger" 
+						onclick="fn_delete" 
+						text="삭제" 
+					></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -46,6 +81,7 @@
 				<!--[pp] 검색 -->
 				<sbux-input id="srch-inp-wrhsno" name="srch-inp-wrhsno" uitype="hidden"></sbux-input>
 				<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
+				<sbux-input id="srch-inp-prcsType" name="srch-inp-prcsType" uitype="hidden"></sbux-input>
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
@@ -573,8 +609,8 @@
 	    SBGridProperties.paging = lv_paging;
 
 	    SBGridProperties.columns = [
-	        {caption: ["입고번호"],		ref: 'wrhsno',      type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["팔레트번호"],	ref: 'pltno',      	type:'output',  width:'120px',    style:'text-align:center', hidden: true},
+	        //{caption: ["입고번호"],		ref: 'wrhsno',      type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["팔레트번호"],	ref: 'pltno',      	type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["생산자"],		ref: 'prdcrNm',     type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["품목"],		ref: 'itemNm',      type:'output',  width:'80px',    style:'text-align:center'},
 	        {caption: ["품종"],		ref: 'vrtyNm',      type:'output',  width:'80px',    style:'text-align:center'},
@@ -598,6 +634,7 @@
 	        {caption: ["비고"],		ref: 'rmrk',      	type:'output',  width:'200px',    style:'text-align:left'},
 
 	        {caption: ["APC코드"],	ref: 'apcCd',     	type:'output',  hidden: true},
+	        {caption: ["입고번호"],		ref: 'wrhsno',     	type:'output',  hidden: true},
 	        {caption: ["생산자코드"],	ref: 'prdcrCd',   	type:'output',  hidden: true},
 	        {caption: ["품목코드"],		ref: 'itemCd',   	type:'output',  hidden: true},
 	        {caption: ["품종코드"],		ref: 'vrtyCd',   	type:'output',  hidden: true},
@@ -608,7 +645,8 @@
 	        {caption: ["박스종류코드"],	ref: 'bxKnd',   	type:'output',  hidden: true},
 	        {caption: ["보관창고코드"],	ref: 'warehouseSeCd', type:'output',  hidden: true},
 	        {caption: ["상세등급코드"],	ref: 'stdGrdCd', 	type:'output',  hidden: true},
-	        {caption: ["등급유형"],		ref: 'stdGrdType', type:'output',  hidden: true},
+	        {caption: ["등급유형"],		ref: 'stdGrdType', 	type:'output',  hidden: true},
+	        {caption: ["처리구분"],		ref: 'prcsType', 	type:'output',  hidden: true},
 	    ];
 		
 	    grdRawMtrWrhs = _SBGrid.create(SBGridProperties);
@@ -690,7 +728,7 @@
      */
 	const fn_delete = async function() {
 		let wrhsno = SBUxMethod.get("srch-inp-wrhsno");
-
+		
 		if (gfn_isEmpty(wrhsno)) {
 			gfn_comAlert("W0004", "선택");		//	W0004	{0}한 대상이 없습니다.
             return;
@@ -700,9 +738,10 @@
     		apcCd: gv_selectedApcCd,
     		wrhsno: wrhsno
     	}
-
-    	let postUrl = "/am/wrhs/deleteRawMtrWrhs.do";
-
+		
+    	//let postUrl = "/am/wrhs/deleteRawMtrPrcs.do";
+    	let postUrl = "/am/wrhs/deleteRawMtrPrcs.do";
+		
     	const postJsonPromise = gfn_postJSON(postUrl, rawMtrWrhs);
 		const data = await postJsonPromise;
 
@@ -732,6 +771,8 @@
     const fn_save = async function() {
 
 		let wrhsno = SBUxMethod.get("srch-inp-wrhsno");
+		let prcsType = SBUxMethod.get("srch-inp-prcsType");
+		
     	// 항목 set
     	let wrhsYmd = SBUxMethod.get("srch-dtp-wrhsYmd");		// 입고일자
  		let wrhsSeCd = SBUxMethod.get("srch-rdo-wrhsSeCd");		// 입고구분
@@ -745,12 +786,13 @@
  		let pltno = SBUxMethod.get("srch-inp-pltno");			// 팔레트번호
  		let bxKnd = SBUxMethod.get("srch-slt-bxKnd");			// 박스종류
  		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");	// 창고
- 		let vhclno = SBUxMethod.get("srch-inp-vhclno");			// 차량번호
+ 		let vhclno = gfn_nvl(SBUxMethod.get("srch-inp-vhclno"));			// 차량번호
  		let trsprtCst = SBUxMethod.get("srch-inp-trsprtCst");	// 운임비용
- 		let rmrk = SBUxMethod.get("srch-inp-rmrk");				// 비고
- 		let wghno = SBUxMethod.get("srch-inp-wghno");			// 계량번호
+ 		let rmrk = gfn_nvl(SBUxMethod.get("srch-inp-rmrk"));				// 비고
+ 		let wghno = gfn_nvl(SBUxMethod.get("srch-inp-wghno"));			// 계량번호
  		let prdctnYr = SBUxMethod.get("srch-dtp-prdctnYr");		// 생산연도
-
+		
+ 		
     	// validation check
     	if (gfn_isEmpty(wrhsYmd)) {
     		gfn_comAlert("W0001", "입고일자");		//	W0002	{0}을/를 선택하세요.
@@ -809,6 +851,19 @@
             return;
     	}
 
+    	console.log("stdGrd", stdGrd);
+    	console.log("wrhsWght", wrhsWght);
+    	
+    	if (stdGrd.isWght) {
+    		if (stdGrd.grdWght > wrhsWght) {
+    			gfn_comAlert("W0014", "등급중량", "입고중량");		//	W0014	{0}이/가 {1} 보다 큽니다.
+                return;
+    		} else if (stdGrd.grdWght < wrhsWght) {
+    			gfn_comAlert("W0015", "등급중량", "입고중량");		//	W0015 {0}이/가 {1} 보다 작습니다.
+                return;
+    		} else {}
+    	}
+    	
     	let grdCd = stdGrd.grdJgmt.grdCd;
     	if (gfn_isEmpty(grdCd)) {
     		gfn_comAlert("W0001", "등급");		//	W0002	{0}을/를 선택하세요.
@@ -840,6 +895,7 @@
    			grdCd: grdCd,
    			wghno: wghno,
    			prdctnYr: prdctnYr,
+   			prcsType: prcsType,
    			stdGrdList: stdGrd.stdGrdList
     	}
 
@@ -884,7 +940,8 @@
      	// 입고번호
 		SBUxMethod.set("lbl-wrhsno", "입고번호 : " + rowData.wrhsno);
 		SBUxMethod.set("srch-inp-wrhsno", rowData.wrhsno);
-
+		SBUxMethod.set("srch-inp-prcsType", rowData.prcsType);
+		
 		SBUxMethod.set("srch-dtp-wrhsYmd", rowData.wrhsYmd);	// 입고일자
  		SBUxMethod.set("srch-rdo-wrhsSeCd", rowData.wrhsSeCd);		// 입고구분
  		SBUxMethod.set("srch-rdo-gdsSeCd", rowData.gdsSeCd);		// 상품구분
@@ -926,7 +983,8 @@
 				stdGrdList.push({
 					grdKnd: grd[0],
 					grdCd: grd[1],
-					grdNv: grd[2]
+					grdNv: grd[2],
+					grdWght: parseFloat(grd[4]) || 0
 				});
 			});
 		}
@@ -939,7 +997,8 @@
 				grdJgmt: {grdCd: rowData.grdCd}
 			}
 		
-		fn_setStdGdsSelect(rowData.itemCd, stdGrdObj);
+		console.log(rowData.prcsType);
+		fn_setStdGdsSelect(rowData.itemCd, stdGrdObj, _.isEqual(rowData.prcsType, "RR"));
 		//stdGrdSelect.setStdGrd(rowData.apcCd, _GRD_SE_CD_WRHS, rowData.itemCd, stdGrdObj);
     }
 
@@ -963,6 +1022,7 @@
 
 		SBUxMethod.set("lbl-wrhsno", "");
 		SBUxMethod.set("srch-inp-wrhsno", "");
+		SBUxMethod.set("srch-inp-prcsType", "");
 	}
 
     /**
@@ -1084,6 +1144,7 @@
 
 		SBUxMethod.set("lbl-wrhsno", "");
 		SBUxMethod.set("srch-inp-wrhsno", "");
+		SBUxMethod.set("srch-inp-prcsType", "");
 
  		// 입고일자
  		SBUxMethod.set("srch-dtp-wrhsYmd", gfn_dateToYmd(new Date()));
@@ -1167,8 +1228,8 @@
 		]);
 	}
 
-	const fn_setStdGdsSelect = async function(_itemCd, _stdGrdObj) {
-		await stdGrdSelect.setStdGrd(gv_selectedApcCd, _GRD_SE_CD_WRHS, _itemCd, _stdGrdObj);
+	const fn_setStdGdsSelect = async function(_itemCd, _stdGrdObj, _isWght) {
+		await stdGrdSelect.setStdGrd(gv_selectedApcCd, _GRD_SE_CD_WRHS, _itemCd, _stdGrdObj, _isWght);
 	}
 	
 	/**

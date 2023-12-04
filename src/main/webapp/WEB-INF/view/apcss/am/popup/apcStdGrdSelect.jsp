@@ -87,7 +87,7 @@
 				id="stdGrdSlt-inp-knd-1"
 				name="stdGrdSlt-inp-knd-1"
 				class="form-control input-sm input-sm-ast sb__li__input"
-				maxlength="3"
+				maxlength="5"
 				autocomplete="off"
 				mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 				onchange="stdGrdSelect.setGrdNvSum"
@@ -120,7 +120,7 @@
 				id="stdGrdSlt-inp-knd-2"
 				name="stdGrdSlt-inp-knd-2"
 				class="form-control input-sm input-sm-ast sb__li__input"
-				maxlength="3"
+				maxlength="5"
 				autocomplete="off"
 				mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 				onchange="stdGrdSelect.setGrdNvSum"
@@ -153,7 +153,7 @@
 				id="stdGrdSlt-inp-knd-3"
 				name="stdGrdSlt-inp-knd-3"
 				class="form-control input-sm input-sm-ast sb__li__input"
-				maxlength="3"
+				maxlength="5"
 				autocomplete="off"
 				mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 				onchange="stdGrdSelect.setGrdNvSum"
@@ -186,7 +186,7 @@
 				id="stdGrdSlt-inp-knd-4"
 				name="stdGrdSlt-inp-knd-4"
 				class="form-control input-sm input-sm-ast sb__li__input"
-				maxlength="3"
+				maxlength="5"
 				autocomplete="off"
 				mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 				onchange="stdGrdSelect.setGrdNvSum"
@@ -219,7 +219,7 @@
 				id="stdGrdSlt-inp-knd-5"
 				name="stdGrdSlt-inp-knd-5"
 				class="form-control input-sm input-sm-ast sb__li__input"
-				maxlength="3"
+				maxlength="5"
 				autocomplete="off"
 				mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 				onchange="stdGrdSelect.setGrdNvSum"
@@ -237,6 +237,21 @@
 				class="stdGrdSlt__sum sb__li__input" 
 				style="font-weight: bold;font-size: 12px;"
 				mask = "{'alias': 'currency', 'suffix': ' %', 'prefix': '', 'digits': 0}" 
+				text="">
+			</sbux-label>
+		</li>
+		<li class="li_label_wght">
+			<sbux-label id="stdGrdSlt-lbl-wghtTitle" name="stdGrdSlt-lbl-wghtTitle" uitype="normal" style="color: #3c6dbc;font-weight: bold;font-size: 12px;" text="합계">
+			</sbux-label>
+		</li>
+		<li class="li_label_wght">
+			<sbux-label 
+				id="stdGrdSlt-lbl-wght" 
+				name="stdGrdSlt-lbl-wght" 
+				uitype="normal"
+				class="stdGrdSlt__sum sb__li__input" 
+				style="font-weight: bold;font-size: 12px;"
+				mask = "{'alias': 'currency', 'suffix': ' Kg', 'prefix': '', 'digits': 0}" 
 				text="">
 			</sbux-label>
 		</li>
@@ -266,21 +281,24 @@ const stdGrdSelect = {
 	param: {
 		apcCd: null,
 		grdSeCd: null,
-		itemCd: null
+		itemCd: null,
+		isWght: null
 	},
 	hide: function() {
 		SBUxMethod.hide("stdGrdSlt-lbl-jgmt");
 		SBUxMethod.hide("stdGrdSlt-slt-jgmt");
 		SBUxMethod.hide("stdGrdSlt-lbl-sumTitle");
+		SBUxMethod.hide("stdGrdSlt-lbl-wghtTitle");
 		SBUxMethod.hide("stdGrdSlt-lbl-sum");
+		SBUxMethod.hide("stdGrdSlt-lbl-wght");
 		
 		document.querySelector('.li_label_sum').style.display = "none";
+		document.querySelector('.li_label_wght').style.display = "none";
 		
 		gStdGrdObj.idList.forEach((id) => {
 			SBUxMethod.hide('stdGrdSlt-lbl-knd-' + id);
 			SBUxMethod.hide('stdGrdSlt-slt-knd-' + id);
 			SBUxMethod.hide('stdGrdSlt-inp-knd-' + id);
-
 			let jsonObj = gStdGrdObj.getGrdJson(id);
 			jsonObj.length = 0;
 		});
@@ -288,12 +306,13 @@ const stdGrdSelect = {
 	init: function() {
 		this.hide();
 	},
-	setStdGrd: async function(_apcCd, _grdSeCd, _itemCd, _stdGrdObj) {
-
+	setStdGrd: async function(_apcCd, _grdSeCd, _itemCd, _stdGrdObj, _isWght) {
+		
 		this.hide();
 		this.param.apcCd = _apcCd;
 		this.param.grdSeCd = _grdSeCd;
 		this.param.itemCd = _itemCd;
+		this.param.isWght = _isWght;
 		
 		gjsonStdGrdObjKnd.length = 0;
 
@@ -309,13 +328,18 @@ const stdGrdSelect = {
 		}
 		
 		let cntRt = 0;
+		let cntWt = 0;
 		gjsonStdGrdObjKnd.forEach((item, index) => {
 			const id = gStdGrdObj.idList[index];
 			SBUxMethod.set('stdGrdSlt-lbl-knd-' + id, item.grdKndNm + " : ");	// 등급종류명
 			SBUxMethod.show('stdGrdSlt-lbl-knd-' + id);
 			
 			if (_.isEqual(item.stdGrdType, "RT")) {
-				cntRt++;
+				if (_isWght) {
+					cntWt++;					
+				} else {
+					cntRt++;
+				}
 				SBUxMethod.show('stdGrdSlt-inp-knd-' + id);
 			} else {
 				SBUxMethod.show('stdGrdSlt-slt-knd-' + id);
@@ -323,18 +347,25 @@ const stdGrdSelect = {
 			}
 		});
 		
+		if (cntWt > 0) {
+			document.querySelector('.li_label_wght').style.display = "";
+			SBUxMethod.show("stdGrdSlt-lbl-wghtTitle");
+			SBUxMethod.show("stdGrdSlt-lbl-wght");
+		}
 		if (cntRt > 0) {
 			document.querySelector('.li_label_sum').style.display = "";
 			SBUxMethod.show("stdGrdSlt-lbl-sumTitle");
 			SBUxMethod.show("stdGrdSlt-lbl-sum");
-		} 
+		}
 		
 		if (gjsonStdGrdObjKnd.length > 1 && gjsonStdGrdObjJgmt.length > 0) {
 			SBUxMethod.show('stdGrdSlt-lbl-jgmt');
 			SBUxMethod.show('stdGrdSlt-slt-jgmt');
 			SBUxMethod.refresh('stdGrdSlt-slt-jgmt');
 		}
-
+		
+		SBUxMethod.set("stdGrdSlt-lbl-wght", "");
+		SBUxMethod.set("stdGrdSlt-lbl-sum", "");
 		if (!gfn_isEmpty(_stdGrdObj)) {
 
 			// set stdGrd
@@ -348,12 +379,20 @@ const stdGrdSelect = {
 				SBUxMethod.set('stdGrdSlt-inp-knd-' + id, "");
 			});
 
+			let grdNvSum = 0;
+			let grdWghtSum = 0;
 			_stdGrdObj.stdGrdList.forEach((stdGrd) => {
 				gjsonStdGrdObjKnd.forEach((item, index) => {
 					if (stdGrd.grdKnd === item.grdKnd) {
 						const id = gStdGrdObj.idList[index];						
 						if (_.isEqual(item.stdGrdType, "RT")) {
-							SBUxMethod.set('stdGrdSlt-inp-knd-' + id, stdGrd.grdNv);
+							if (_isWght) {
+								SBUxMethod.set('stdGrdSlt-inp-knd-' + id, stdGrd.grdWght);
+								grdWghtSum += parseFloat(stdGrd.grdWght) || 0;
+							} else {
+								SBUxMethod.set('stdGrdSlt-inp-knd-' + id, stdGrd.grdNv);
+								grdNvSum += parseFloat(stdGrd.grdNv) || 0;
+							}
 						} else {
 							SBUxMethod.refresh('stdGrdSlt-slt-knd-' + id);
 							SBUxMethod.set('stdGrdSlt-slt-knd-' + id, stdGrd.grdCd, { isTriggerExt : true } );
@@ -361,6 +400,14 @@ const stdGrdSelect = {
 						return false;
 					}
 				});
+
+				if (grdNvSum > 0) {
+					SBUxMethod.set("stdGrdSlt-lbl-sum", grdNvSum);
+				}
+				console.log("grdWghtSum", grdWghtSum);
+				if (grdWghtSum > 0) {
+					SBUxMethod.set("stdGrdSlt-lbl-wght", grdWghtSum);
+				}
 			});
 		} else {
 			gjsonStdGrdObjKnd.forEach((item, index) => {
@@ -469,15 +516,18 @@ const stdGrdSelect = {
 			}
 		});
 		
-		if (sumGrdNv > 100) {
-			document.querySelector('.stdGrdSlt__sum').style.color = "blue";
-		} else if (sumGrdNv < 100) {
-			document.querySelector('.stdGrdSlt__sum').style.color = "red";
+		if (this.param.isWght) {
+			SBUxMethod.set('stdGrdSlt-lbl-wght', sumGrdNv);
 		} else {
-			document.querySelector('.stdGrdSlt__sum').style.color = "green";
+			if (sumGrdNv > 100) {
+				document.querySelector('.stdGrdSlt__sum').style.color = "blue";
+			} else if (sumGrdNv < 100) {
+				document.querySelector('.stdGrdSlt__sum').style.color = "red";
+			} else {
+				document.querySelector('.stdGrdSlt__sum').style.color = "green";
+			}
+			SBUxMethod.set('stdGrdSlt-lbl-sum', sumGrdNv);
 		}
-		
-		SBUxMethod.set('stdGrdSlt-lbl-sum', sumGrdNv);
 	},
 	setGrdJgmt: function() {
 
@@ -552,6 +602,8 @@ const stdGrdSelect = {
 				apcCd: this.param.apcCd,
 				grdSeCd: this.param.grdSeCd,
 				itemCd: this.param.itemCd,
+				isWght: this.param.isWght,
+				grdWght: 0,
 				stdGrdList: [],
 				grdJgmt: {grdCd: null, grdNm: null, grdVl: null},
 				isOmit: false
@@ -561,6 +613,8 @@ const stdGrdSelect = {
 		let jgmtGrdNm = "";
 		
 		let cntRt = 0;
+		let cntWt = 0;
+		let grdWghtSum = 0;
 		let sumGrdNv = 0;
 		gjsonStdGrdObjKnd.forEach((item, index) => {
 			const _id = gStdGrdObj.idList[index];
@@ -568,7 +622,11 @@ const stdGrdSelect = {
 			let grdCd = SBUxMethod.get('stdGrdSlt-slt-knd-' + _id);
 			let grdNv = parseFloat(SBUxMethod.get('stdGrdSlt-inp-knd-' + _id)) || 0;
 			if (_.isEqual(item.stdGrdType, "RT")) {
-				cntRt++;
+				if (this.param.isWght) {
+					cntWt++;
+				} else {
+					cntRt++;
+				}
 				grdCd = "";
 				sumGrdNv += grdNv;
 			} else {
@@ -576,7 +634,7 @@ const stdGrdSelect = {
 					result.isOmit = true;
 				}
 			}
-			
+						
 			const stdGrd = {
 					apcCd: this.param.apcCd,
 					grdSeCd: this.param.grdSeCd,
@@ -585,8 +643,16 @@ const stdGrdSelect = {
 					grdKndNm: item.grdKndNm,
 					stdGrdType: item.stdGrdType,
 					grdCd: grdCd,
-					grdNv: grdNv
+					grdNv: grdNv,
+					grdWght: null
 				}
+			
+			if (this.param.isWght) {
+				stdGrd.grdWght = stdGrd.grdNv;
+				stdGrd.grdNv = null;
+				stdGrd.stdGrdType = "WT";
+			}
+			
 			result.stdGrdList.push(stdGrd);
 
 			if (gfn_isEmpty(jgmtGrdCd) || _.isEqual(jgmtGrdCd, "*")) {
@@ -608,6 +674,10 @@ const stdGrdSelect = {
 		if (result.stdGrdList.length == 0) {
 			result.isOmit = true;
 		}
+		
+		if (cntWt > 0) {
+			result.grdWght = sumGrdNv;
+		}
 
 		if (gjsonStdGrdObjJgmt.length > 0) {
 			jgmtGrdCd = SBUxMethod.get('stdGrdSlt-slt-jgmt');
@@ -619,7 +689,7 @@ const stdGrdSelect = {
 				grdNm: jgmtGrdNm,
 				grdVl: null
 			}
-		console.log(result);
+
 		return result;
 	},
 }
