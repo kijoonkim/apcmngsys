@@ -610,9 +610,8 @@
 	        {caption: ["상세등급코드"],	ref: 'stdGrdCd', 	type:'output',  hidden: true},
 	        {caption: ["등급유형"],		ref: 'stdGrdType', type:'output',  hidden: true},
 	    ];
-
+		
 	    grdRawMtrWrhs = _SBGrid.create(SBGridProperties);
-	    // TODO 바인드 추가 확인할 것
 	    grdRawMtrWrhs.bind('click', fn_view);
 	}
 
