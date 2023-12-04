@@ -327,7 +327,12 @@
 			) VALUES (
 					  #{apcCd}
 					, #{wrhsno}
-					, #{prcsSn}
+					, NVL((
+						SELECT MAX(PRCS_SN)
+						  FROM TB_RAW_MTR_PRCS 
+						 WHERE APC_CD = #{apcCd} 
+						   AND WRHSNO = #{wrhsno}
+						), 0) + 1
 					, #{prcsYmd}
 					, #{prcsno}
 					, #{qntt}
