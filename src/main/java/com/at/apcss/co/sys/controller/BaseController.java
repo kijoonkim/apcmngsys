@@ -203,6 +203,7 @@ public abstract class BaseController {
 		HashMap<String, Object> resultMap = new HashMap<>();
 
 		resultMap.put(ComConstants.PROP_RESULT_STATUS, ComConstants.RESULT_STATUS_ERROR);
+		resultMap.put(ComConstants.PROP_RESULT_CODE, ComConstants.RESULT_CODE_DEFAULT);
 		resultMap.put(ComConstants.PROP_RESULT_MESSAGE, e.getMessage());
 
 		return new ResponseEntity<HashMap<String, Object>>(resultMap, HttpStatus.BAD_REQUEST);
@@ -216,6 +217,11 @@ public abstract class BaseController {
 		resultMap.put(ComConstants.PROP_RESULT_CODE, ComConstants.RESULT_CODE_DEFAULT);
 		resultMap.put(ComConstants.PROP_RESULT_MESSAGE, e.getMessage());
 		
+		if (StringUtils.hasText(e.getMessage())) {
+			if (e.getMessage().contains("java.sql.SQLException")) {
+				resultMap.put(ComConstants.PROP_RESULT_MESSAGE, ComConstants.RESULT_MESSAGE_DEFAULT);
+			}
+		}
 		//resultMap.put(ComConstants.PROP_RESULT_MESSAGE, ComConstants.RESULT_MESSAGE_DEFAULT);
 
 		return new ResponseEntity<HashMap<String, Object>>(resultMap, HttpStatus.BAD_REQUEST);

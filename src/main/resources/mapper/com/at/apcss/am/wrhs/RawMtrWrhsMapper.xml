@@ -35,6 +35,7 @@
 				, WP.WRHS_WGHT	AS WRHS_WGHT
 				, WP.RMRK		AS RMRK
 				, WP.DEL_YN		AS DEL_YN
+				, (SELECT X.PRCSNO FROM TB_RAW_MTR_INVNTR X WHERE X.APC_CD = WP.APC_CD AND X.WRHSNO = WP.WRHSNO) AS PRCSNO
 			  FROM TB_RAW_MTR_WRHS_PRFMNC WP
 			 WHERE WP.APC_CD = #{apcCd}
 			   AND WP.WRHSNO = #{wrhsno}
@@ -477,6 +478,141 @@
 		 	 ORDER BY APC_CD, WRHS_YMD, WRHSNO
     		  ) pt0
 		]]>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.selectRawMtrPrcsList	-->
+	<!-- DESC : 원물입고 재처리 목록 조회.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectRawMtrPrcsList" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsVO" resultType="com.at.apcss.am.wrhs.vo.RawMtrWrhsVO">
+    	<![CDATA[
+    		SELECT /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.selectRawMtrPrcsList */
+		]]>
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			,
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+				  pt0.*
+    		  FROM (
+	    	SELECT 
+				  WP.APC_CD         AS APC_CD
+				, WP.WRHSNO         AS WRHSNO
+				, WP.WGHNO          AS WGHNO
+				, WP.PLTNO          AS PLTNO
+				, WP.WRHS_YMD		AS WRHS_YMD
+				, WP.PRDCR_CD       AS PRDCR_CD
+				, INV.ITEM_CD       AS ITEM_CD
+				, INV.VRTY_CD       AS VRTY_CD
+				, INV.GDS_SE_CD     AS GDS_SE_CD
+				, INV.WRHS_SE_CD    AS WRHS_SE_CD
+				, INV.TRSPRT_SE_CD  AS TRSPRT_SE_CD
+				, INV.GRD_CD        AS GRD_CD
+				, WP.VHCLNO         AS VHCLNO
+				, WP.BX_QNTT        AS BX_QNTT
+				, WP.WRHS_WGHT      AS WRHS_WGHT
+				, INV.BX_KND        AS BX_KND
+				, INV.WAREHOUSE_SE_CD   AS WAREHOUSE_SE_CD
+				, INV.PRDCTN_YR		AS PRDCTN_YR
+				, WP.RMRK           AS RMRK
+				, INV.PRCS_TYPE		AS PRCS_TYPE
+				, INV.PRCSNO		AS PRCSNO
+				
+			  FROM
+			  	  TB_RAW_MTR_WRHS_PRFMNC WP
+			  	, TB_RAW_MTR_INVNTR INV
+
+			 WHERE WP.APC_CD = INV.APC_CD
+			   AND WP.WRHSNO = INV.WRHSNO
+			   AND WP.DEL_YN = 'N'
+			   AND INV.DEL_YN = 'N'
+			   AND WP.APC_CD = #{apcCd}
+			   AND INV.PRCSNO = #{prcsno}
+		]]>
+		<![CDATA[
+		 	 ORDER BY APC_CD, WRHS_YMD, WRHSNO
+    		  ) pt0
+		]]>
+
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.selectRawMtrPrcsInptList	-->
+	<!-- DESC : 원물입고 재처리 투입 목록 조회.	                                       		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectRawMtrPrcsInptList" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsVO" resultType="com.at.apcss.am.wrhs.vo.RawMtrWrhsVO">
+    	<![CDATA[
+    		SELECT /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.selectRawMtrPrcsInptList */
+		]]>
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			,
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+				  pt0.*
+    		  FROM (
+	    	SELECT 
+				  RP.APC_CD         AS APC_CD
+				, RP.WRHSNO         AS WRHSNO
+				, RP.PRCSNO			AS PRCSNO
+				, RP.PRCS_SN		AS PRCS_SN
+				, RP.PRCS_YMD		AS PRCS_YMD
+				, RP.QNTT			AS QNTT
+				, RP.WGHT			AS WGHT
+				, INV.ITEM_CD       AS ITEM_CD
+				, INV.VRTY_CD       AS VRTY_CD
+				, INV.GDS_SE_CD     AS GDS_SE_CD
+				, INV.WRHS_SE_CD    AS WRHS_SE_CD
+				, INV.TRSPRT_SE_CD  AS TRSPRT_SE_CD
+				, INV.GRD_CD        AS GRD_CD
+				, INV.BX_KND        AS BX_KND
+				, INV.WAREHOUSE_SE_CD   AS WAREHOUSE_SE_CD
+				, INV.PRDCTN_YR		AS PRDCTN_YR
+				, INV.PRCS_TYPE		AS PRCS_TYPE
+				
+			  FROM
+			  	  TB_RAW_MTR_PRCS RP
+			  	, TB_RAW_MTR_INVNTR INV
+
+			 WHERE RP.APC_CD = INV.APC_CD
+			   AND RP.WRHSNO = INV.WRHSNO
+			   AND RP.DEL_YN = 'N'
+			   AND INV.DEL_YN = 'N'
+			   AND RP.APC_CD = #{apcCd}
+			   AND RP.PRCSNO = #{prcsno}
+		]]>
+		<![CDATA[
+		 	 ORDER BY APC_CD, PRCSNO, PRCS_SN
+    		  ) pt0
+		]]>
+
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS

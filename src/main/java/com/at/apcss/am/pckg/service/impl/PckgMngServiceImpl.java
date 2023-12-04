@@ -181,7 +181,7 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 			
 			labelLoopPckg:
 				for ( PckgPrfmncVO pckg : prfmncList ) {
-
+					
 					pckg.setRmnQntt(pckg.getPckgQntt());
 					pckg.setRmnWght(pckg.getPckgWght());
 					
@@ -212,7 +212,7 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 						if (
 							itemCd.equals(orgnInv.getItemCd())
 							&& vrtyCd.equals(orgnInv.getVrtyCd())
-							&& spcfctCd.equals(orgnInv.getSpcfctCd())
+							//&& spcfctCd.equals(orgnInv.getSpcfctCd())
 							//&& prdcrCd.equals(orgnInv.getPrdcrCd())
 							&& warehouseSeCdFrom.equals(orgnInv.getWarehouseSeCd())) {
 							
@@ -502,6 +502,8 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 		// 포장일자별, 품목, 품종, 규격별 실적 분리
 		for ( PckgPrfmncVO pckg : pckgList ) {
 			
+			pckg.setPckgYmd(ComUtil.nullToEmpty(pckg.getPckgYmd()).replace(ComConstants.CON_DASH, ComConstants.CON_BLANK));
+			
 			boolean needAdd = true;
 			
 			PckgMngVO mngVO = null;
@@ -510,7 +512,8 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 			String pckgKey = pckg.getPckgYmd() 
 						+ pckg.getItemCd() 
 						+ pckg.getVrtyCd() 
-						+ pckg.getSpcfctCd();  
+						+ pckg.getSpcfctCd()
+						+ pckg.getSpmtPckgUnitCd();  
 			logger.debug("xxx@@pckgKey : {}", pckgKey);
 			
 			for ( PckgMngVO chkMngVO : pckgMngList ) {

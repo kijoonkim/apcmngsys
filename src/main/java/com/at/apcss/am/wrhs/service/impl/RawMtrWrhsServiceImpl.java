@@ -183,6 +183,7 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 		RawMtrInvntrVO invntrVO = new RawMtrInvntrVO();
 		BeanUtils.copyProperties(rawMtrWrhsVO, invntrVO);
 
+		invntrVO.setPltno(null);
 		// 원물재고 삭제
 		rtnObj = rawMtrInvntrService.deleteRawMtrInvntr(invntrVO);
 		if (rtnObj != null) {
@@ -336,7 +337,7 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 		if (!ComConstants.CON_NONE.equals(ddlnYn)) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_ALEADY_CLOSE, "원물재고");
 		}
-		
+
 		if (!StringUtils.hasText(wrhsInfo.getPrcsno())) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_TARGET, "재처리실적");
 		}
@@ -368,6 +369,22 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 		
 		rawMtrWrhsMapper.updateRawMtrPrcsDelY(rawMtrWrhsVO);
 		return null;
+	}
+
+	@Override
+	public List<RawMtrWrhsVO> selectRawMtrPrcsList(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
+		
+		List<RawMtrWrhsVO> resultList = rawMtrWrhsMapper.selectRawMtrPrcsList(rawMtrWrhsVO);
+
+		return resultList;
+	}
+
+	@Override
+	public List<RawMtrWrhsVO> selectRawMtrPrcsInptList(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
+		
+		List<RawMtrWrhsVO> resultList = rawMtrWrhsMapper.selectRawMtrPrcsInptList(rawMtrWrhsVO);
+
+		return resultList;
 	}
 
 

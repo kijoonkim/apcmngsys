@@ -179,7 +179,7 @@
 							</td>
 							<td></td>
 							
-							<th scope="row" class="th_bg">투입 중량</th>
+							<th scope="row" class="th_bg">투입 총량</th>
 							<!--
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input
@@ -208,11 +208,16 @@
 							<td style="border-right: hidden;">Kg</td>
 							-->
 							<td colspan="4" class="td_input" >
-								<sbux-label id="lbl-grdInptWght" name="lbl-grdInptWght" uitype="normal" text="">
-								</sbux-label>
+								<sbux-label 
+									id="lbl-grdInptWght" 
+									name="lbl-grdInptWght" 
+									uitype="normal" 
+									text=""
+									style="font-size:12px;font-weight:bold;"
+								></sbux-label>
 							</td>
 							
-							<th scope="row" class="th_bg">처리 중량</th>
+							<th scope="row" class="th_bg">투입 잔량</th>
 							<!-- 
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input
@@ -241,8 +246,13 @@
 							<td style="border-right: hidden;">Kg</td>
 							 -->
 							<td colspan="4" class="td_input" >
-								<sbux-label id="lbl-grdPrcsWght" name="lbl-grdPrcsWght" uitype="normal" text="">
-								</sbux-label>
+								<sbux-label 
+									id="lbl-grdPrcsWght" 
+									name="lbl-grdPrcsWght" 
+									uitype="normal" 
+									text=""
+									style="font-size:12px;font-weight:bold;"
+								></sbux-label>
 							</td>
 														
 						</tr>
@@ -507,10 +517,12 @@
             {caption: ["품종"], 		ref: 'vrtyCd',		type:'combo',  width:'100px', style: 'text-align:center',
             	typeinfo: {ref:'jsonApcVrty', label:'label', value:'value', displayui : false}
             },
+            /*
             {caption: ["박스종류"],	ref: 'bxKnd',    type:'combo',  width:'140px', style: 'text-align:center',
             	userattr: {colNm: "bxKnd"},
             	typeinfo: {ref:'jsonApcBx', label:'pltBxNm', value:'pltBxCd', oneclickedit: true, unselect: {label : '', value: ''}},            	
             },
+            */
     	];
 
 		const columnsStdGrd = [];
@@ -566,6 +578,7 @@
 		});
 
 		const columns2 = [
+			/*
 			{
 				caption: ["총 수량"],
 				ref: 'wrhsQntt',
@@ -581,6 +594,18 @@
                 },
                 format : {type:'number', rule:'#,###'}
 			},
+			*/
+			{
+				caption: ["총 중량"],
+				ref: 'wrhsWght',   	
+				type:'output',  
+				width:'80px', 
+				style: 'text-align:right',
+				userattr: {colNm: "wrhsWght"},
+				format : {type:'number', rule:'#,### Kg'}, 
+				typeinfo : {mask : {alias : 'numeric'}}
+			},
+			/*
 			{
 				caption: ["총 중량"],
 				ref: 'wrhsWght',
@@ -596,10 +621,16 @@
                 },
                 format : {type:'number', rule:'#,### Kg'}
 			},
+			 */
             {caption: ["저장창고"],		ref: 'warehouseSeCd',    type:'combo',  width:'100px', style: 'text-align:center;background-color:#FFF8DC;',
            	 	typeinfo: {ref:'jsonComWarehouse', label:'cdVlNm', value:'cdVl', oneclickedit: true}
             },
-            {caption: ["컨테이너번호"], 	ref: 'pltno',  		type:'input',  width:'150px', style: 'text-align:center;',
+            {
+            	caption: ["컨테이너번호"], 	
+            	ref: 'pltno',
+            	type:'input',  
+            	width:'150px', 
+            	style: 'text-align:center;background-color:#FFF8DC;',
             	typeinfo: {
 	                maxlength: 20,
 	                oneclickedit: true,
@@ -821,6 +852,7 @@
 			const itemCd = rowData.itemCd;
 			const vrtyCd = rowData.vrtyCd;
 			const warehouseSeCd = rowData.warehouseSeCd;
+			const pltno = rowData.pltno;
 			const wrhsQntt = parseInt(rowData.wrhsQntt) || 0;
 			const wrhsWght = parseInt(rowData.wrhsWght) || 0;
 			
@@ -836,6 +868,11 @@
 			
 			if (gfn_isEmpty(warehouseSeCd)) {
 				gfn_comAlert("W0005", "창고");		//	W0005	{0}이/가 없습니다.
+				return;
+			}
+			
+			if (gfn_isEmpty(pltno)) {
+				gfn_comAlert("W0005", "컨테이너번호");		//	W0005	{0}이/가 없습니다.
 				return;
 			}
 			
@@ -940,14 +977,23 @@
 		}
 
 		if (invntrInptWght < totalWrhsWght) {
-			gfn_comAlert("W0008", "재고량", "처리량");		// W0008	{0} 보다 {1}이/가 큽니다.
+			gfn_comAlert("W0008", "투입량", "처리량");		// W0008	{0} 보다 {1}이/가 큽니다.
 			return;
 		}
 
+		
+		
 		// comConfirm
-		if (!gfn_comConfirm("Q0001", "재처리 등록")) {	//	Q0001	{0} 하시겠습니까?
-    		return;
-    	}
+		if (invntrInptWght > totalWrhsWght) {
+			if (!gfn_comConfirm("Q0002", "투입잔량", "재처리 등록")) {	// Q0002	{0}이/가 있습니다. {1} 하시겠습니까?
+	    		return;
+	    	}
+		} else {
+			if (!gfn_comConfirm("Q0001", "재처리 등록")) {	//	Q0001	{0} 하시겠습니까?
+	    		return;
+	    	}	
+		}
+		
 
 		const wrhsMng = {
     		apcCd: gv_selectedApcCd,
@@ -1045,6 +1091,9 @@
 		SBUxMethod.set("dtl-inp-wrhsQntt", 0);
 		SBUxMethod.set("dtl-inp-wrhsWght", 0);
 		*/
+		SBUxMethod.set("lbl-grdInptWght", "");
+		//SBUxMethod.set("lbl-grdPrcsWght", prcsWghtInfo);
+		SBUxMethod.set("lbl-grdPrcsWght", "");
  	}
 
  	/**
@@ -1105,7 +1154,7 @@
 
 				case "inptWght":
 
-					let tmpInptWght = parseInt(rowData.inptWght) || 0;
+					let tmpInptWght = parseFloat(rowData.inptWght) || 0;
 					if ( tmpInptWght > 0 && rowData.checkedYn !== "Y") {
 						rowData.checkedYn = "Y";
 					}
@@ -1212,7 +1261,8 @@
 					grdKndNm: item.grdKndNm,
 					stdGrdType: item.stdGrdType,
 					inptWght: 0,
-					prcsWght: 0				
+					prcsWght: 0,
+					rmnWght: 0,
 				}
 				stdGrdList.push(stdGrd);
 			}
@@ -1228,6 +1278,7 @@
     			stdGrdList.forEach((std) => {
     				let key = "rt__" + std.grdKnd;
     				std.inptWght += parseFloat(item[key]) || 0;
+    				std.rmnWght += parseFloat(item[key]) || 0;
     			});
     		}
 		});
@@ -1241,6 +1292,7 @@
     			stdGrdList.forEach((std) => {
     				let key = gStdGrdObj.colPrfx + std.grdKnd;
     				std.prcsWght += parseFloat(item[key]) || 0;
+    				std.rmnWght -= parseFloat(item[key]) || 0;
     			});
 			}
 		});
@@ -1253,19 +1305,23 @@
 		*/
 		
 		// 등급별 중량 표시
-		let inptWghtInfo = "";
-		let prcsWghtInfo = "";
+		let inptWghtInfo = " ";
+		let prcsWghtInfo = " ";
+		let rmnWghtInfo = " ";
 		stdGrdList.forEach((std, idx) => {
 			if (idx > 0) {
-				inptWghtInfo += ", ";
-				prcsWghtInfo += ", ";
+				inptWghtInfo += " / ";
+				prcsWghtInfo += " / ";
+				rmnWghtInfo += " / ";
 			}
-			inptWghtInfo += std.grdKndNm + " " + std.inptWght + " Kg";
-			prcsWghtInfo += std.grdKndNm + " " + std.prcsWght + " Kg";
+			inptWghtInfo += std.grdKndNm + "  " + std.inptWght + " Kg";
+			prcsWghtInfo += std.grdKndNm + "  " + std.prcsWght + " Kg";
+			rmnWghtInfo += std.grdKndNm + "  " + std.rmnWght + " Kg";
 		});
 	
 		SBUxMethod.set("lbl-grdInptWght", inptWghtInfo);
-		SBUxMethod.set("lbl-grdPrcsWght", prcsWghtInfo);
+		//SBUxMethod.set("lbl-grdPrcsWght", prcsWghtInfo);
+		SBUxMethod.set("lbl-grdPrcsWght", rmnWghtInfo);
  	}
 
  	/**

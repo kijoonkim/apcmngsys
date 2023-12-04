@@ -223,10 +223,8 @@
 			 WHERE SI.APC_CD = #{apcCd}
 			   AND SI.DEL_YN = 'N'
 			   AND SI.INVNTR_WGHT > 0
-			   AND SI.RPRS_PRDCR_CD = #{rprsPrdcrCd}
 			   AND SI.ITEM_CD = #{itemCd}
 			   AND SI.VRTY_CD = #{vrtyCd}
-			   AND SI.SPCFCT_CD = #{spcfctCd}
 		]]>
 		<if test='excldInvntrList != null and !excldInvntrList.isEmpty()'>
 			   AND (SI.SORTNO, SI.SORT_SN) NOT IN
@@ -249,7 +247,16 @@
 		</if>
 
 		<![CDATA[
-			 ORDER BY SI.APC_CD, SI.INPT_YMD, SI.SORTNO
+			 ORDER BY SI.APC_CD 
+		]]>
+		<if test='rprsPrdcrCd != null and rprsPrdcrCd != ""'>
+			   	, CASE
+			   		WHEN SI.RPRS_PRDCR_CD = #{rprsPrdcrCd} THEN 1
+			   		ELSE 9
+			   	  END
+		</if>
+		<![CDATA[
+				, SI.INPT_YMD, SI.SORTNO
     		  ) pt0
 		]]>
 

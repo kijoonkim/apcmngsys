@@ -61,4 +61,30 @@ public class RawMtrWrhsMngController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	@PostMapping(value = "/am/wrhs/deleteRawMtrPrcs.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteRawMtrPrcs(@RequestBody RawMtrWrhsMngVO rawMtrWrhsMngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+
+			rawMtrWrhsMngVO.setSysFrstInptUserId(getUserId());
+			rawMtrWrhsMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+			rawMtrWrhsMngVO.setSysLastChgUserId(getUserId());
+			rawMtrWrhsMngVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String, Object> rtnObj = rawMtrWrhsMngService.deleteRawMtrPrcs(rawMtrWrhsMngVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		} catch (EgovBizException e) {
+			return getErrorResponseEntity(e);
+		} catch (Exception e) {
+			logger.error("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }
