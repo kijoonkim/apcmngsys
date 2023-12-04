@@ -620,16 +620,11 @@
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
 	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
-
+				, INVNTR_QNTT				= #{invntrQntt}
+				, INVNTR_Wght				= #{invntrWght}
 		]]>
 			<if test='warehouseSeCd != null and warehouseSeCd != ""'>
 				, WAREHOUSE_SE_CD			= #{warehouseSeCd}
-			</if>
-			<if test='invntrQntt != null and invntrQntt != ""'>
-				, INVNTR_QNTT			= #{invntrQntt}
-			</if>
-			<if test='invntrWght != null and invntrWght != ""'>
-				, INVNTR_Wght			= #{invntrWght}
 			</if>
 			<if test='trnsfQntt != null and trnsfQntt != ""'>
 				, TRNSF_QNTT			= #{trnsfQntt}
