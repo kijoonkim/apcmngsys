@@ -241,7 +241,7 @@
 	}
 
 	var vrtyCds = [];
-	
+
     const fn_setVrty = function(vrty) {
 		if (!gfn_isEmpty(vrty)) {
 			vrtyCds = [];
@@ -250,7 +250,7 @@
 			SBUxMethod.set('srch-inp-vrtyCd', vrty.vrtyNm);
 		}
 	}
-	
+
     const fn_setVrtys = function(vrtys) {
 		if (!gfn_isEmpty(vrtys)) {
 			var _vrtys = [];
@@ -279,7 +279,7 @@
 		}
 		SBUxMethod.set("srch-inp-vrtyCd", "");
 	}
-    
+
 	/**
 	 * @name fn_choiceVhcl
 	 * @description 차량번호 선택 popup
@@ -303,7 +303,7 @@
 		fn_initSBSelect();
 		fn_getPrdcrs();
 	});
-	
+
 	const fn_dtpChange = function(){
 		let startPrdctnYmd = SBUxMethod.get("srch-dtp-startPrdctnYmd");
 		let endPrdctnYmd = SBUxMethod.get("srch-dtp-endPrdctnYmd");
@@ -314,7 +314,7 @@
 			return;
 		}
 	}
-	
+
 	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언
 	var jsoninptCmndDsctnList = []; // 그리드의 참조 데이터 주소 선언
 
@@ -363,7 +363,7 @@
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
 	    inptCmndDsctnList.bind( "afterpagechanged" , "fn_pagingInptCmndDsctnList" );
 	}
-	
+
 	/**
      * @description 메뉴트리그리드 컨텍스트메뉴 json
      * @type {object}
@@ -395,7 +395,7 @@
             "callback": fn_colShow,				//콜백함수명
         }
     };
-     
+
     // 엑셀 다운로드
     function fn_excelDwnld() {
     	inptCmndDsctnList.exportLocalExcel("입고실적", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
@@ -429,18 +429,18 @@
 		fn_initSBSelect();
 		fn_getPrdcrs();
 	}
-	
+
 	/**
      * @name fn_search
      * @description 조회 버튼
      */
     const fn_search = async function() {
-		
+
 		if (gfn_isEmpty(SBUxMethod.get("srch-dtp-startPrdctnYmd")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-endPrdctnYmd"))){
 			await gfn_comAlert("W0001", "입고일자");		//	W0002	{0}을/를 선택하세요.
 		    return;
 		}
-		
+
 		// set pagination
     	inptCmndDsctnList.rebuild();
     	let pageSize = inptCmndDsctnList.getPageSize();
@@ -452,8 +452,8 @@
     	await fn_setGrdRawMtrWrhsPrfmnc(pageSize, pageNo);
 
 	}
-	
-	
+
+
 	const fn_setGrdRawMtrWrhsPrfmnc = async function(pageSize, pageNo) {
 		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-startPrdctnYmd");		// 입고시작일자
    		let wrhsYmdTo = SBUxMethod.get("srch-dtp-endPrdctnYmd");		// 입고종료일자
@@ -559,12 +559,16 @@
     	let currentPageNo = inptCmndDsctnList.getSelectPageIndex();
     	fn_setGrdRawMtrWrhsPrfmnc(recordCountPerPage, currentPageNo);
     }
-	
+
 	function fn_getChkbox(json, result) {
 		val = [];
-		for(var key in result){
-			if(result[key] == true)
-				val.push(json[Number(key.substring(key.lastIndexOf('_')+1))].value);
+		if(json.length == 1){
+			val.push(json[0].value);
+		}else{
+			for(var key in result){
+				if(result[key] == true)
+					val.push(json[Number(key.substring(key.lastIndexOf('_')+1))].value);
+			}
 		}
 
 		return val.join(',');
