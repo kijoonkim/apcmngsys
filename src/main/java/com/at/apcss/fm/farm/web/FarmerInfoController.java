@@ -365,7 +365,11 @@ public class FarmerInfoController extends BaseController{
 								//mapper.insert
 							//intser into aaa(a, b,c) values(#{brthdy}, #{brthdy2}, #{brthdy})
 							}
-
+							mapItem.put("sysFrstInptUserId", getUserId());
+							mapItem.put("sysFrstInptPrgrmId", getPrgrmId());
+							mapItem.put("sysLastChgUserId", getUserId());
+							mapItem.put("sysLastChgPrgrmId", getPrgrmId());
+							mapItem.put("saveCd", "AGRIX");
 							savedCnt = farmerInfoService.insertMegerFarmerInfoMap(mapItem);
 			                 result = farmerInfoService.insertMegerLogFarmerInfoMap(mapItem);
 
