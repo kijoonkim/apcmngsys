@@ -46,6 +46,7 @@ public class ApcConstants {
     /* APC MENU */
     public final static String MENU_ID_AM = "AM";
     public final static String MENU_ID_AM_APC_EVRMNT_STNG = "AM_015";
+    public final static String MENU_ID_AM_PRDCR_MNG = "AM_001_010";
 
 
     /* APC 권한명 */

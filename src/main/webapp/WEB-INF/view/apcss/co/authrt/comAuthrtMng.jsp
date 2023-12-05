@@ -235,7 +235,8 @@
 
 <script type="text/javascript">
 
-let lv_prvMenuId = "";
+	let lv_prvAuthrtId = "";
+	let lv_prvMenuId = "";
 
 	/* 공통코드 */
 	var jsonComSysId 		= [];	// 시스템유형	srch-slt-sysId		SYS_ID
@@ -264,6 +265,9 @@ let lv_prvMenuId = "";
      */
 	const fn_init = async function() {
 		
+		lv_prvAuthrtId = "";
+		lv_prvMenuId = "";
+    	
 		await fn_initSBSelect();
 		fn_createGrdComAuth();
 		fn_createGrdComAuthMenu();
@@ -538,6 +542,9 @@ let lv_prvMenuId = "";
      */
     const fn_search = async function() {
 
+		lv_prvAuthrtId = "";
+		lv_prvMenuId = "";
+		
         if (!SBUxMethod.get("srch-slt-sysId")) {
         	gfn_comAlert("W0001", "시스템구분");		//	W0001	{0}을/를 선택하세요.
             return;
@@ -847,8 +854,7 @@ let lv_prvMenuId = "";
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
         		fn_search();
         	} else {
-        		//alert(data.resultMessage);
-        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        		gfn_comAlert(data.resultCode, data.resultMessage);
         	}
         } catch (e) {
     		if (!(e instanceof Error)) {
@@ -883,8 +889,7 @@ let lv_prvMenuId = "";
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
         		fn_search();
         	} else {
-        		//alert(data.resultMessage);
-        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        		gfn_comAlert(data.resultCode, data.resultMessage);
         	}
         } catch (e) {
     		if (!(e instanceof Error)) {
@@ -909,6 +914,11 @@ let lv_prvMenuId = "";
 
         var rowData = grdComAuth.getRowData(nRow);
 
+        if (_.isEqual(lv_prvAuthrtId, rowData.authrtId)) {
+        	return;
+        }
+		lv_prvAuthrtId = rowData.authrtId;
+        
         SBUxMethod.set("dtl-inp-orgnAuthrtId", rowData.authrtId);
         SBUxMethod.set("dtl-inp-authrtId", rowData.authrtId);
         SBUxMethod.attr("dtl-inp-authrtId", "readonly", true);
@@ -1045,8 +1055,7 @@ let lv_prvMenuId = "";
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
         		fn_setGrdComAuthMenu(sysId, authrtId);
         	} else {
-        		//alert(data.resultMessage);
-        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        		gfn_comAlert(data.resultCode, data.resultMessage);
         	}
         } catch (e) {
     		if (!(e instanceof Error)) {

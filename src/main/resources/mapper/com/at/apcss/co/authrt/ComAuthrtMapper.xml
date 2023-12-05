@@ -177,7 +177,38 @@
     	]]>
     </delete>
 
-
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.deleteComAuthrtMenuByAuthrtId		-->
+	<!-- DESC : 권한메뉴 삭제 by 권한id                                       				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.05.25  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <delete id="deleteComAuthrtMenuByAuthrtId" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtVO">
+    	<![CDATA[
+			DELETE /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.deleteComAuthrtMenuByAuthrtId */
+	    		FROM TB_COM_AUTH_MENU
+	    	 WHERE AUTHRT_ID = #{authrtId}
+    	]]>
+    </delete>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.deleteComAuthrtUserByAuthrtId		-->
+	<!-- DESC : 권한사용자 삭제 by 권한id                                       				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.05.25  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <delete id="deleteComAuthrtUserByAuthrtId" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtVO">
+    	<![CDATA[
+			DELETE /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.deleteComAuthrtUserByAuthrtId */
+	    		FROM TB_COM_AUTH_USER
+	    	 WHERE AUTHRT_ID = #{authrtId}
+    	]]>
+    </delete>
+    
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectComAuthrtMenu	-->
 	<!-- DESC : 권한 메뉴 단건 조회.                                             			-->
@@ -189,10 +220,11 @@
     <select id="selectComAuthrtMenu" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtMenuVO" resultType="com.at.apcss.co.authrt.vo.ComAuthrtMenuVO" >
     	<![CDATA[
 			SELECT /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectComAuthrtMenu */
-				  AM.AUTHRT_ID
-				, AM.MENU_ID
-				, AM.DEL_YN
-				, CM.UP_MENU_ID
+				  AM.AUTHRT_ID		AS AUTHRT_ID
+				, AM.MENU_ID		AS MENU_ID
+				, AM.DEL_YN			AS DEL_YN
+				, CM.UP_MENU_ID		AS UP_MENU_ID
+				, CM.AUTHRT_TYPE	AS AUTHRT_TYPE
 				, SUBSTR(AM.MENU_ID, 1, 2)	AS TOP_MENU_ID
 			  FROM
 			  	  TB_COM_AUTH_MENU AM
@@ -411,7 +443,7 @@
 			  	 AND AM.AUTHRT_ID = CA.AUTHRT_ID
 
 			 WHERE 1=1
-
+			ORDER BY MENU_SEQ
     	]]>
     </select>
 

@@ -147,7 +147,8 @@ public class ComConstants {
 	public final static String ROW_STS_UPDATE = "U";
 	public final static String ROW_STS_DELETE = "D";
 
-
+	public final static String[] MENU_ID_AM_CMNS					= {"AM_001_010"};				// APC생산관리 공통사용메뉴
+	
 	public final static String[] MENU_ID_WGH 						= {"AM_001_001"};				// 계량정보관리
 	public final static String[] MENU_ID_WGH_MBL 					= {"AM_001_007"};				// 계량테블릿
 	public final static String[] MENU_ID_WGH_IDNTY_DOC_PBLCN 		= {};							// 계량확인서발행

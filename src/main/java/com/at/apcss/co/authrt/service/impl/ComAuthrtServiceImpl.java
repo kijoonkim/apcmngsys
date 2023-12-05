@@ -86,11 +86,18 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 	}
 
 	@Override
-	public int deleteComAuthrt(ComAuthrtVO comAuthVO) throws Exception {
+	public HashMap<String, Object> deleteComAuthrt(ComAuthrtVO comAuthVO) throws Exception {
 
-		int deletedCnt = comAuthrtMapper.deleteComAuthrt(comAuthVO);
+		// 권한 사용자 삭제
+		comAuthrtMapper.deleteComAuthrtUserByAuthrtId(comAuthVO);
+		
+		// 권한 메뉴 삭제
+		comAuthrtMapper.deleteComAuthrtMenuByAuthrtId(comAuthVO);
+		
+		// 권한 삭제
+		comAuthrtMapper.deleteComAuthrt(comAuthVO);
 
-		return deletedCnt;
+		return null;
 	}
 
 	@Override
@@ -138,6 +145,33 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 
 		ComAuthrtMenuVO orgnAuthMenu = comAuthrtMapper.selectComAuthrtMenu(comAuthrtMenuVO);
 
+		ComMenuVO menuInfo = comMenuService.selectComMenu(comAuthrtMenuVO.getMenuId());
+		
+		if (	menuInfo == null
+				|| !StringUtils.hasText(menuInfo.getMenuId())
+				|| !ComConstants.CON_NONE.equals(menuInfo.getDelYn())) {
+			return 0;
+		}
+		
+		String authrtType = ComUtil.nullToEmpty(comAuthrtMenuVO.getAuthrtType());
+		if (StringUtils.hasText(authrtType)) {
+			String menuAuthrtType = ComUtil.nullToEmpty(menuInfo.getAuthrtType());
+			
+			if (ComConstants.CON_AUTHRT_TYPE_ADMIN.equals(authrtType)) {
+				if (	ComConstants.CON_AUTHRT_TYPE_SYS.equals(menuAuthrtType)
+						|| ComConstants.CON_AUTHRT_TYPE_AT.equals(menuAuthrtType)) {
+					return 0;
+				}					
+			} else if (ComConstants.CON_AUTHRT_TYPE_USER.equals(authrtType)) {
+				if (	ComConstants.CON_AUTHRT_TYPE_SYS.equals(menuAuthrtType)
+						|| ComConstants.CON_AUTHRT_TYPE_AT.equals(menuAuthrtType)
+						|| ComConstants.CON_AUTHRT_TYPE_ADMIN.equals(menuAuthrtType)
+						) {
+					return 0;
+				}	
+			} else {}
+		}
+		
 		if (orgnAuthMenu == null || !StringUtils.hasText(orgnAuthMenu.getMenuId())) {
 
 			insertedCnt = comAuthrtMapper.insertComAuthrtMenu(comAuthrtMenuVO);
@@ -542,6 +576,7 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 					if (insertedCnt != 1) {
 						throw new EgovBizException(getMessage(ComConstants.MSGCD_ERR_PARAM_ONE, "업무메뉴 권한등록".split("\\|\\|")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
 					}
+										
 				}
 			} else {
 				
@@ -770,6 +805,8 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 			authMenu.setSysLastChgPrgrmId(sysPrgrmId);
 			authMenu.setAuthrtId(authrtId);
 
+			authMenu.setAuthrtType(ComConstants.CON_AUTHRT_TYPE_ADMIN);
+			
 			// 시스템관리 메뉴 권한 등록
 			if (apcAdminCoMenuList != null && !apcAdminCoMenuList.isEmpty()) {
 				for ( ComMenuVO coMenu : apcAdminCoMenuList ) {
@@ -778,6 +815,12 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 				}
 			}
 
+			// 기본 권한메뉴 등록
+			for ( String menuId : ComConstants.MENU_ID_AM_CMNS ) {
+				authMenu.setMenuId(menuId);
+				insertComAuthrtMenu(authMenu);
+			}
+			
 			//	wghMngYn 계량정보관리유무	MENU_ID_WGH
 			for ( String menuId : ComConstants.MENU_ID_WGH ) {
 
@@ -1061,6 +1104,14 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 			authMenu.setSysLastChgPrgrmId(sysPrgrmId);
 			authMenu.setAuthrtId(authrtId);
 
+			authMenu.setAuthrtType(ComConstants.CON_AUTHRT_TYPE_USER);
+			
+			// 기본 권한메뉴 등록
+			for ( String menuId : ComConstants.MENU_ID_AM_CMNS ) {
+				authMenu.setMenuId(menuId);
+				insertComAuthrtMenu(authMenu);
+			}
+			
 			//	wghMngYn 계량정보관리유무	MENU_ID_WGH
 			for ( String menuId : ComConstants.MENU_ID_WGH ) {
 
