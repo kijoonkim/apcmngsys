@@ -167,6 +167,16 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 		gdsInvntrVO.setSpmtQntt(spmtQntt);
 		gdsInvntrVO.setSpmtWght(spmtWght);
 
+		if (StringUtils.hasText(invntrInfo.getGdsGrd())) {
+			gdsInvntrVO.setGdsGrd(invntrInfo.getGdsGrd());
+		}
+		if (StringUtils.hasText(invntrInfo.getSpmtPckgUnitCd())) {
+			gdsInvntrVO.setSpmtPckgUnitCd(invntrInfo.getSpmtPckgUnitCd());
+		}
+		if (StringUtils.hasText(invntrInfo.getGdsCd())) {
+			gdsInvntrVO.setGdsCd(invntrInfo.getGdsCd());
+		}
+
 		// 상품 재고변경 이력 등록 (출고)
 		gdsInvntrVO.setChgRsnCd(AmConstants.CON_INVNTR_CHG_RSN_CD_S1);
 		HashMap<String, Object> rtnObj = insertGdsInvntrChgHstry(gdsInvntrVO);

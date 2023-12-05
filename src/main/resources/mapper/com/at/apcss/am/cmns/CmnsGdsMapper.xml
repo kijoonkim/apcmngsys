@@ -104,6 +104,7 @@
 					, #{spcfctCd}
 					, #{spmtPckgUnitCd}
 					, #{newGdsCd, jdbcType=VARCHAR, mode=OUT}
+					, #{brndNm, jdbcType=VARCHAR, mode=OUT}
 					, #{rtnCd, jdbcType=VARCHAR, mode=OUT}
 					, #{rtnMsg, jdbcType=VARCHAR, mode=OUT}
 				)

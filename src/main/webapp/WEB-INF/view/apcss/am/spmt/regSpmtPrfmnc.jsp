@@ -563,7 +563,7 @@
     					typeinfo : {ref:'jsonGrdGdsGrd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
             {caption: ['출하수량'], 	ref: 'spmtQntt', 	width: '80px', type: 'input', style: 'text-align:right; background:#FFF8DC;',
             			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### '}},
-            {caption: ['출하중량'], 	ref: 'spmtWght', 	width: '100px', type: 'output', style: 'text-align:right',
+            {caption: ['출하중량'], 	ref: 'spmtWght', 	width: '100px', type: 'input', style: 'text-align:right',
             			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
 			{caption: ['비고'], 		ref: 'rmrk', 		width: '300px', type: 'output', style: 'text-align:center'},
             {caption: ["출하일자"],		ref: 'spmtYmd',   	type:'output',  hidden: true},
@@ -809,10 +809,6 @@
 		case spmtQnttCol:	// checkbox
 			fn_checkInptQntt();
 			break;
-		case spmtWghtCol:
-			//check qntt
-			fn_checkInptWght();
-			break;
 		default:
 			return;
 		}
@@ -831,13 +827,13 @@
 
     	if(nCol == 0){
 
-
 	    	let invntrQntt = grdGdsInvntr.getRowData(nRow).invntrQntt;
 			let invntrWght = grdGdsInvntr.getRowData(nRow).invntrWght;
 			let spmtQntt = grdGdsInvntr.getRowData(nRow).spmtQntt;
 			let spmtWght = grdGdsInvntr.getRowData(nRow).spmtWght;
 			let cmndQntt = grdGdsInvntr.getRowData(nRow).cmndQntt;
 			let cmndWght = grdGdsInvntr.getRowData(nRow).cmndWght;
+			let spmtPckgUnitCd = grdGdsInvntr.getRowData(nRow).spmtPckgUnitCd;
 
 			if(cmndYn){
 
@@ -869,12 +865,36 @@
 
 					if(spmtCmndQntt - totSpmtQntt <  invntrQntt){
 						grdGdsInvntr.setCellData(nRow, spmtQnttCol, spmtCmndQntt - totSpmtQntt);
-						grdGdsInvntr.setCellData(nRow, spmtWghtCol, spmtCmndWght - totSpmtWght);
+
+						if(!gfn_isEmpty(spmtPckgUnit)){
+							for(var j=0; j<jsonGrdSpmtPckgUnit.length; j++){
+								let row  = jsonGrdSpmtPckgUnit[j];
+					   			if(spmtPckgUnit == row.spmtPckgUnitCd){
+									let wght = Math.round(parseFloat(row.spcfctWght) * (spmtCmndWght - totSpmtWght));
+									grdGdsInvntr.setCellData(nRow, spmtWghtCol, wght);
+					   			}
+					   		}
+						}else{
+							grdGdsInvntr.setCellData(nRow, spmtWghtCol, spmtCmndWght - totSpmtWght);
+						}
+
 						grdGdsInvntr.setCellData(nRow, spmtPckgUnitCdCol, spmtPckgUnit, true);
 						grdGdsInvntr.setCellData(nRow, gdsGrdCol, gdsGrdCd, true);
 					}else{
 						grdGdsInvntr.setCellData(nRow, spmtQnttCol, invntrQntt);
-						grdGdsInvntr.setCellData(nRow, spmtWghtCol, invntrWght);
+
+						if(!gfn_isEmpty(spmtPckgUnit)){
+							for(var j=0; j<jsonGrdSpmtPckgUnit.length; j++){
+								let row  = jsonGrdSpmtPckgUnit[j];
+					   			if(spmtPckgUnit == row.spmtPckgUnitCd){
+									let wght = Math.round(parseFloat(row.spcfctWght) * invntrQntt);
+									grdGdsInvntr.setCellData(nRow, spmtWghtCol, wght);
+					   			}
+					   		}
+						}else{
+							grdGdsInvntr.setCellData(nRow, spmtWghtCol, invntrWght);
+						}
+
 						grdGdsInvntr.setCellData(nRow, spmtPckgUnitCdCol, spmtPckgUnit, true);
 						grdGdsInvntr.setCellData(nRow, gdsGrdCol, gdsGrdCd, true);
 					}
@@ -882,6 +902,7 @@
 			}else{
 
 				grdGdsInvntr.setCellData(nRow, spmtQnttCol, invntrQntt);
+
 				grdGdsInvntr.setCellData(nRow, spmtWghtCol, invntrWght);
 			}
 		}
@@ -964,6 +985,7 @@
 
 		let invntrQntt = grdGdsInvntr.getRowData(nRow).invntrQntt;
 		let invntrWght = grdGdsInvntr.getRowData(nRow).invntrWght;
+		let spmtPckgUnitCd = grdGdsInvntr.getRowData(nRow).spmtPckgUnitCd;
 		let spmtQntt = grdGdsInvntr.getRowData(nRow).spmtQntt;
 		let spmtQnttCol = grdGdsInvntr.getColRef("spmtQntt")
 		let spmtWghtCol = grdGdsInvntr.getColRef("spmtWght")
@@ -1015,8 +1037,18 @@
 					if(spmtCmndQntt - totSpmtQntt <  invntrQntt){
 
 						if(invntrQntt >= spmtQntt){
+							if(!gfn_isEmpty(spmtPckgUnitCd)){
+								for(var j=0; j<jsonGrdSpmtPckgUnit.length; j++){
+									let row  = jsonGrdSpmtPckgUnit[j];
+						   			if(spmtPckgUnitCd == row.spmtPckgUnitCd){
+										let wght = Math.round(parseFloat(row.spcfctWght) * spmtQntt);
+										grdGdsInvntr.setCellData(nRow, spmtWghtCol, wght);
+						   			}
+						   		}
+							}else{
+								grdGdsInvntr.setCellData(nRow, spmtWghtCol, Math.round(invntrWght / invntrQntt) * spmtQntt);
+							}
 							grdGdsInvntr.setCellData(nRow, spmtQnttCol, spmtQntt);
-							grdGdsInvntr.setCellData(nRow, spmtWghtCol, Math.round(invntrWght / invntrQntt) * spmtQntt);
 							grdGdsInvntr.setCellData(nRow, spmtPckgUnitCdCol, spmtPckgUnit, true);
 							grdGdsInvntr.setCellData(nRow, gdsGrdCol, gdsGrdCd, true);
 							grdGdsInvntr.setCellData(nRow, checkedYnCol, "Y");
@@ -1053,10 +1085,21 @@
 					return;
 				}
 			}else{
-
-
 				if(invntrQntt > spmtCmndQntt && spmtCmndQntt > spmtQntt ){
-					grdGdsInvntr.setCellData(nRow, spmtWghtCol, Math.round(invntrWght / invntrQntt) * spmtQntt);
+
+					if(!gfn_isEmpty(spmtPckgUnitCd)){
+						for(var j=0; j<jsonGrdSpmtPckgUnit.length; j++){
+							let row  = jsonGrdSpmtPckgUnit[j];
+				   			if(spmtPckgUnitCd == row.spmtPckgUnitCd){
+								let wght = Math.round(parseFloat(row.spcfctWght) * spmtQntt);
+								grdGdsInvntr.setCellData(nRow, spmtWghtCol, wght);
+				   			}
+				   		}
+					}else{
+						grdGdsInvntr.setCellData(nRow, spmtWghtCol, Math.round(invntrWght / invntrQntt) * spmtQntt);
+					}
+					grdGdsInvntr.setCellData(nRow, spmtQnttCol, spmtQntt);
+
 					grdGdsInvntr.setCellData(nRow, checkedYnCol, "Y");
 				}else if(invntrQntt < spmtQntt){
 					gfn_comAlert("W0008", "재고수량", "출하수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
@@ -1069,7 +1112,18 @@
 					grdGdsInvntr.setCellData(nRow, checkedYnCol, "N");
 					return;
 				}else{
-					grdGdsInvntr.setCellData(nRow, spmtWghtCol, Math.round(invntrWght / invntrQntt) * spmtQntt);
+					if(!gfn_isEmpty(spmtPckgUnitCd)){
+						for(var j=0; j<jsonGrdSpmtPckgUnit.length; j++){
+							let row  = jsonGrdSpmtPckgUnit[j];
+				   			if(spmtPckgUnitCd == row.spmtPckgUnitCd){
+								let wght = Math.round(parseFloat(row.spcfctWght) * spmtQntt);
+								grdGdsInvntr.setCellData(nRow, spmtWghtCol, wght);
+				   			}
+				   		}
+					}else{
+						grdGdsInvntr.setCellData(nRow, spmtWghtCol, Math.round(invntrWght / invntrQntt) * spmtQntt);
+					}
+					grdGdsInvntr.setCellData(nRow, spmtQnttCol, spmtQntt);
 					grdGdsInvntr.setCellData(nRow, checkedYnCol, "Y");
 				}
 
@@ -1084,7 +1138,18 @@
 			}
 
 			if(invntrQntt > 0 && spmtQntt > 0){
-				grdGdsInvntr.setCellData(nRow, spmtWghtCol, Math.round(invntrWght / invntrQntt) * spmtQntt);
+
+				if(!gfn_isEmpty(spmtPckgUnitCd)){
+					for(var j=0; j<jsonGrdSpmtPckgUnit.length; j++){
+						let row  = jsonGrdSpmtPckgUnit[j];
+			   			if(spmtPckgUnitCd == row.spmtPckgUnitCd){
+							let wght = Math.round(parseFloat(row.spcfctWght) * spmtQntt);
+							grdGdsInvntr.setCellData(nRow, spmtWghtCol, wght);
+			   			}
+			   		}
+				}else{
+					grdGdsInvntr.setCellData(nRow, spmtWghtCol, Math.round(invntrWght / invntrQntt) * spmtQntt);
+				}
 				grdGdsInvntr.setCellData(nRow, spmtQnttCol, spmtQntt);
 				grdGdsInvntr.setCellData(nRow, checkedYnCol, "Y");
 			}

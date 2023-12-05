@@ -528,6 +528,8 @@
 		let inptCmndWghtCol = grdSpmtCmndTrg.getColRef("inptCmndWght");
 		let checkedYnCol 	= grdSpmtCmndTrg.getColRef("checkedYn");
 
+		console.log("wght",wght)
+
 		let dtlApcCnptCd = SBUxMethod.get("dtl-inp-apcCnptCd");
 		let dtlDldtn = SBUxMethod.get("dtl-inp-dldtn");
 		if(gfn_isEmpty(dtlApcCnptCd)){
