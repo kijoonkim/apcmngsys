@@ -92,14 +92,16 @@
 				     , PD.ORGN_PCKG_SN                  AS ORGN_PCKG_SN
 				     , PD.SPMT_QNTT - NVL((SELECT SUM(SPMT_QNTT)
 				          FROM TB_SPMT_PRFMNC_DTL X
-				         WHERE PD.SPMTNO = X.ORGN_SPMTNO
+				         WHERE PD.APC_CD = X.APC_CD
+				           AND PD.SPMTNO = X.ORGN_SPMTNO
 				           AND PD.PCKGNO = X.ORGN_PCKGNO
 				           AND PD.PCKG_SN = X.ORGN_PCKG_SN
 				           AND X.DEL_YN = 'N'
 				       ), 0) AS RTN_PSBLEY_QNTT
 				     , PD.SPMT_WGHT - NVL((SELECT SUM(SPMT_WGHT)
 				          FROM TB_SPMT_PRFMNC_DTL X
-				         WHERE PD.SPMTNO = X.ORGN_SPMTNO
+				         WHERE PD.APC_CD = X.APC_CD
+				           AND PD.SPMTNO = X.ORGN_SPMTNO
 				           AND PD.PCKGNO = X.ORGN_PCKGNO
 				           AND PD.PCKG_SN = X.ORGN_PCKG_SN
 				           AND X.DEL_YN = 'N'

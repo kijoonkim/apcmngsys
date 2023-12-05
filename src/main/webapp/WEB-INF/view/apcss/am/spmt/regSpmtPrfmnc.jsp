@@ -561,9 +561,8 @@
     					typeinfo : {ref:'jsonGrdSpmtPckgUnit', 	displayui : false,	itemcount: 10, label:'label', value:'value', unselect: {label : '선택', value: ''}}},
             {caption: ["등급"], 			ref: 'gdsGrd',   	type:'combo',  width:'100px',    style:'text-align:center; background:#FFF8DC;',
     					typeinfo : {ref:'jsonGrdGdsGrd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
-            {caption: ['출하수량'], 	ref: 'spmtQntt', 	width: '80px', type: 'input', style: 'text-align:right; background:#FFF8DC;'
-            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### '}
-            },
+            {caption: ['출하수량'], 	ref: 'spmtQntt', 	width: '80px', type: 'input', style: 'text-align:right; background:#FFF8DC;',
+            			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### '}},
             {caption: ['출하중량'], 	ref: 'spmtWght', 	width: '100px', type: 'output', style: 'text-align:right',
             			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
 			{caption: ['비고'], 		ref: 'rmrk', 		width: '300px', type: 'output', style: 'text-align:center'},
