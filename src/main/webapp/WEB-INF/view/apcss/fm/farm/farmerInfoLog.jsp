@@ -40,7 +40,11 @@
 							<td class="td_input" style="border-right:hidden;">
 									<sbux-input id="srch-inp-bzobRgno" name="srch-inp-bzobRgno" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 							</td>
-							<td colspan="2" style="border-left: hidden;"></td>
+							<th class="th_bg">생년월일</th>
+							<td class="td_input" style="border-right:hidden;">
+									<sbux-input id="srch-inp-brthdy" name="srch-inp-brthdy" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							</td>
+<!-- 							<td colspan="2" style="border-left: hidden;"></td> -->
 						</tr>
 
 					</tbody>
@@ -148,36 +152,36 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	    	{caption: ["순번"], 		ref: 'seq',   	type:'output',  hidden : false },
-	    	{caption: ["농업인 번호"], 		ref: 'frmerSn',   	type:'output',  hidden : false},
-	        {caption: ["경영체 등록번호"], 	ref: 'bzobRgno',   	type:'output',     style:'text-align:center'},
-	        {caption: ["경영주 및 경영주와 의 관계"], 	ref: 'mngerRelate',   	type:'output',     style:'text-align:center'},
-	        {caption: ["경영주 법인 명"], 	ref: 'bzmCorpNm',   	type:'output',     style:'text-align:center'},
-	        {caption: ["경영주 주민등록 주소"], 	ref: 'addr',   	type:'output',     style:'text-align:center'},
-	        {caption: ["경영주 실거주 주소"], 	ref: 'rrsdAddr',   	type:'output',     style:'text-align:center'},
-	        {caption: ["경영주 실거주 도로명 주소"], 	ref: 'rdnmAddr',   	type:'output',     style:'text-align:center'},
-	        {caption: ["마을명"], 	ref: 'twNm',   	type:'output',     style:'text-align:center'},
-	        {caption: ["개인 법인 구분코드명"], 	ref: 'perCorpDvcdNm',   	type:'output',     style:'text-align:center'},
-	        {caption: ["내외국인 구분코드명"], 	ref: 'nafoDvcdNm',   	type:'output',     style:'text-align:center'},
-	        {caption: ["전화번호"], 	ref: 'telno',   	type:'output',     style:'text-align:center'},
-	        {caption: ["휴대 전화번호"], 	ref: 'mblTelno',   	type:'output',     style:'text-align:center'},
-	        {caption: ["팩스 전화번호"], 	ref: 'faxTelno',   	type:'output',     style:'text-align:center'},
-	        {caption: ["이메일 주소"], 	ref: 'emailAddr',   	type:'output',     style:'text-align:center'},
-	        {caption: ["영농 시작 일자"], 	ref: 'famgStrYmd',   	type:'output',     style:'text-align:center'},
-	        {caption: ["농업시작형태"], 	ref: 'farmngBeginStleCdNm',   	type:'output',     style:'text-align:center'},
-	        {caption: ["농업종사형태"], 	ref: 'farmngEngageStleCdNm',   	type:'output',     style:'text-align:center'},
-	        {caption: ["설립 년도"], 	ref: 'fndtYr',   	type:'output',     style:'text-align:center'},
-	        {caption: ["사업자 등록 번호"], 	ref: 'bzmRgno',   	type:'output',     style:'text-align:center'},
-	        {caption: ["대표자 명"], 	ref: 'reprNm',   	type:'output',     style:'text-align:center'},
-	        {caption: ["대표자 주소"], 	ref: 'reprAddr',   	type:'output',     style:'text-align:center'},
-	        {caption: ["생년월일"], 	ref: 'brthdy',   	type:'output',     style:'text-align:center'},
-	        {caption: ["성별"], 	ref: 'sexdstn',   	type:'output',     style:'text-align:center'},
-	        {caption: ["시스템최초입력일시"], 	ref: 'sysFrstInptDt',   	type:'output',     style:'text-align:center'},
-	        {caption: ["시스템최초입력사용자ID"], 	ref: 'sysFrstInptUserId',   	type:'output',     style:'text-align:center'},
-	        {caption: ["시스템최초입력프로그램ID"], 	ref: 'sysFrstInptPrgrmId',   	type:'output',     style:'text-align:center'},
-	        {caption: ["시스템최종변경일시"], 	ref: 'sysLastChgDt',   	type:'output',     style:'text-align:center'},
-	        {caption: ["시스템최종변경사용자ID"], 	ref: 'sysLastChgUserId',   	type:'output',     style:'text-align:center'},
-	        {caption: ["시스템최종변경프로그램ID"], 	ref: 'sysLastChgPrgrmId',   	type:'output',     style:'text-align:center'}
+	    	{caption: ["순번"], 		ref: 'seq',   	type:'output',  hidden : false , style:'text-align:center' ,width: '50px'},
+	    	{caption: ["농업인 번호"], 		ref: 'frmerSn',   	type:'output',  style:'text-align:center', hidden : false},
+	        {caption: ["경영체 등록번호"], 	ref: 'bzobRgno',   	type:'output',     style:'text-align:center' ,width: '100px'},
+	        {caption: ["경영주 및 경영주와의 관계"], 	ref: 'mngerRelate',   	type:'output',     style:'text-align:center' ,width: '180px'},
+	        {caption: ["경영주 법인 명"], 	ref: 'bzmCorpNm',   	type:'output',     style:'text-align:center' ,width: '100px'},
+	        {caption: ["경영주 주민등록 주소"], 	ref: 'addr',   	type:'output',     style:'text-align:left' ,width: '300px'},
+	        {caption: ["경영주 실거주 주소"], 	ref: 'rrsdAddr',   	type:'output',     style:'text-align:left' ,width: '300px'},
+	        {caption: ["경영주 실거주 도로명 주소"], 	ref: 'rdnmAddr',   	type:'output',     style:'text-align:left' ,width: '300px'},
+	        {caption: ["마을명"], 	ref: 'twNm',   	type:'output',     style:'text-align:left' ,width: '100px'},
+	        {caption: ["개인 법인 구분코드명"], 	ref: 'perCorpDvcdNm',   	type:'output',     style:'text-align:center' ,width: '150px'},
+	        {caption: ["내외국인 구분코드명"], 	ref: 'nafoDvcdNm',   	type:'output',     style:'text-align:center' ,width: '150px'},
+	        {caption: ["전화번호"], 	ref: 'telno',   	type:'output',     style:'text-align:center' ,width: '100px'},
+	        {caption: ["휴대 전화번호"], 	ref: 'mblTelno',   	type:'output',     style:'text-align:center' ,width: '100px'},
+	        {caption: ["팩스 전화번호"], 	ref: 'faxTelno',   	type:'output',     style:'text-align:center' ,width: '100px'},
+	        {caption: ["이메일 주소"], 	ref: 'emailAddr',   	type:'output',     style:'text-align:center' ,width: '100px'},
+	        {caption: ["영농 시작 일자"], 	ref: 'famgStrYmd',   	type:'output',     style:'text-align:center' ,width: '100px'},
+	        {caption: ["농업시작형태"], 	ref: 'farmngBeginStleCdNm',   	type:'output',     style:'text-align:center' ,width: '100px'},
+	        {caption: ["농업종사형태"], 	ref: 'farmngEngageStleCdNm',   	type:'output',     style:'text-align:center' ,width: '100px'},
+	        {caption: ["설립 년도"], 	ref: 'fndtYr',   	type:'output',     style:'text-align:center' ,width: '100px'},
+	        {caption: ["사업자 등록 번호"], 	ref: 'bzmRgno',   	type:'output',     style:'text-align:center' ,width: '100px'},
+	        {caption: ["대표자 명"], 	ref: 'reprNm',   	type:'output',     style:'text-align:center' ,width: '100px'},
+	        {caption: ["대표자 주소"], 	ref: 'reprAddr',   	type:'output',     style:'text-align:center' ,width: '100px'},
+	        {caption: ["생년월일"], 	ref: 'brthdy',   	type:'output',     style:'text-align:center' ,width: '100px'},
+	        {caption: ["성별"], 	ref: 'sexdstn',   	type:'output',     style:'text-align:center' ,width: '100px'},
+	        {caption: ["시스템최초입력일시"], 	ref: 'sysFrstInptDt',   	type:'output',     style:'text-align:center' ,width: '160px'},
+	        {caption: ["시스템최초입력사용자ID"], 	ref: 'sysFrstInptUserId',   	type:'output',     style:'text-align:center' ,width: '160px'},
+	        {caption: ["시스템최초입력프로그램ID"], 	ref: 'sysFrstInptPrgrmId',   	type:'output',     style:'text-align:center' ,width: '160px'},
+	        {caption: ["시스템최종변경일시"], 	ref: 'sysLastChgDt',   	type:'output',     style:'text-align:center' ,width: '160px'},
+	        {caption: ["시스템최종변경사용자ID"], 	ref: 'sysLastChgUserId',   	type:'output',     style:'text-align:center' ,width: '160px'},
+	        {caption: ["시스템최종변경프로그램ID"], 	ref: 'sysLastChgPrgrmId',   	type:'output',     style:'text-align:center' ,width: '160px'}
 	       /*  {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdfarmerInfoLog\", " + nRow + ", " + nCol + ")'>추가</button>";
@@ -222,11 +226,13 @@
 	const fn_searchFcltList = async function(){
 		let frmerSn = SBUxMethod.get("srch-inp-frmerSn");//
 		let bzobRgno = SBUxMethod.get("srch-inp-bzobRgno");//
+		let brthdy = SBUxMethod.get("srch-inp-brthdy");
 		//let apcCd = SBUxMethod.get("inp-apcCd");
     	//let postJsonPromise = gfn_postJSON("/fm/farm/selectfarmerInfoLog.do", {apcCd : apcCd});
     	let postJsonPromise = gfn_postJSON("/fm/farm/selectFarmerInfoLogList.do", {
     		 frmerSn : frmerSn
     		,bzobRgno : bzobRgno
+    		,brthdy : brthdy
 		});
         let data = await postJsonPromise;
         try{

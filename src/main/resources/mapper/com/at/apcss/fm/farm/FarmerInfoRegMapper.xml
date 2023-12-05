@@ -2,127 +2,66 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <!-- ==========================================================================	-->
-<!-- NAME : Bfarmapper.xml                                    				-->
-<!-- DESC : 게시판 정보 mapper                                             			-->
+<!-- NAME : FarmerIfnoMapper.xml                                    				-->
+<!-- DESC : 경영체정보일반현황 mapper                                             			-->
 <!-- ==========================================================================	-->
 <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 <!-- ===========  	============  	===========================================	-->
-<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
+<!-- 2023.06.29  	ljw        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
 <mapper namespace="com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper">
 
-	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BfarmngMapper.selectBbs				-->
-	<!-- DESC : 게시판 테이블 단건조회.                                             		-->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
-	<!-- ==========================================================================	-->
- <!--
-    <select id="selectfarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO" resultType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
-    	<![CDATA[
-			SELECT /* com.at.apcss.fm.farm.mapper.farmerInfoRegMapper.selectfarmerInfoReg */
-				  CM.TEST_NO
-				, CM.AA
-				, CM.BB
-				, CM.CC
-				, CM.DD
-				, CM.EE
-				, CM.FF
-				, CM.GG
-				, CM.HH
-				, CM.II
-				, CM.II_CODE
-				, CM.JJ
-				, CM.KK
-				, CM.LL
-				, CM.MM
-				, CM.NN
-				, CM.OO
-				, CM.PP
-				, CM.QQ
-				, CM.RR
-				, CM.SS
-				, CM.TT
-				, CM.UU
-				, CM.VV
-				, CM.WW
-				, CM.XX
-				, CM.YY
-				, CM.ZZ
-				, CM.DEL_YN		AS DEL_YN
-				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
-				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
-				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
-				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_FRST_INPT_USER_ID) AS SYS_FRST_INPT_USER_ID_NM
-				, CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
-				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
-				, TO_CHAR(CM.SYS_LAST_CHG_DT,'YYYY-MM-DD')		AS SYS_LAST_CHG_DT_YMD
-				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
-				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_ID_NM
-				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_PD_PrdcrCrclOgnVluIdctrMng CM
-			 WHERE 1=1
-
-    	]]>
-    		<if test='ccCode != null and ccCode != ""'>
-				AND CM.CC_CODE LIKE #{ccCode} || '%'
-			</if>
-			<if test='iiCode != null and iiCode != ""'>
-				AND CM.II_CODE LIKE '%' || #{iiCode} || '%'
-			</if>
-			<if test='testNo != null and testNo != ""'>
-				AND CM.TEST_NO LIKE '%' || #{testNo} || '%'
-			</if>
-		ORDER BY CM.SYS_LAST_CHG_DT DESC
-    </select>
-	  -->
 
 	   <select id="selectFarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO" resultType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.fm.farm.mapper.farmerInfoRegMapper.selectFarmerInfoReg */
-				  CM.FRMER_SN
-				, CM.BZOB_RGNO
-				, CM.MNGER_RELATE
-				, CM.BZM_CORP_NM
-				, CM.ADDR
-				, CM.RRSD_ADDR
-			    , CM.RDNM_ADDR
-				, CM.TW_NM
-				, CM.PER_CORP_DVCD_NM
-				, CM.NAFO_DVCD_NM
-				, CM.TELNO
-				, CM.MBL_TELNO
-				, CM.FAX_TELNO
-				, CM.EMAIL_ADDR
-				, CM.FAMG_STR_YMD
-				, CM.FARMNG_BEGIN_STLE_CD_NM
-				, CM.FARMNG_ENGAGE_STLE_CD_NM
-				, CM.FNDT_YR
-				, CM.BZM_RGNO
-				, CM.REPR_NM
-				, CM.REPR_ADDR
-				, CM.BRTHDY
-				, CM.SEXDSTN
-				, CM.SYS_FRST_INPT_DT
-				, CM.SYS_FRST_INPT_USER_ID
-				, CM.SYS_FRST_INPT_PRGRM_ID
-				, CM.SYS_LAST_CHG_DT
-				, CM.SYS_LAST_CHG_USER_ID
-				, CM.SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_FARMER_INFO CM
+			SELECT /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.selectfarmerInfoReg */
+				  FRMERNO                            as FRMER_SN
+				, MNGMST_REGNO                       as BZOB_RGNO
+				, ADMST_OWNR_REL                     as MNGER_RELATE
+				, ADMST_OWNR_CORP_NM                 as BZM_CORP_NM
+				, ADMST_OWNR_RGDT_ADDR               as ADDR
+				, ADMST_OWNR_ACTL_HBTN_ADDR          as RRSD_ADDR
+			    , ADMST_OWNR_DADDR                   as RDNM_ADDR
+				, VLG_NM                             as TW_NM
+				, PRSNA_CORP_SE_CD                   as PER_CORP_DVCD_NM
+				, CTZN_FNGNR_SE_CD                   as NAFO_DVCD_NM
+				, TELNO                              as TELNO
+				, MOBLNO                             as MBL_TELNO
+				, FXNO                               as FAX_TELNO
+				, EML_ADDR                           as EMAIL_ADDR
+				, AGRC_BGNG_YMD                      as FAMG_STR_YMD
+				, FRMNG_BGNG_SHAP                    as FARMNG_BEGIN_STLE_CD_NM
+				, FRMNG_ENGG_SHAP                    as FARMNG_ENGAGE_STLE_CD_NM
+				, FNDN_YR                            as FNDT_YR
+				, BRNO                               as BZM_RGNO
+				, RPRSV_NM                           as REPR_NM
+				, RPRSV_ADDR                         as REPR_ADDR
+				, BRDT                               as BRTHDY
+				, SXDC                               as SEXDSTN
+				, REG_SE_CD                          as REG_SE_CD
+				, RMRK                               as RMRK
+				, DEL_YN                             as DEL_YN
+				, SYS_FRST_INPT_DT                   as SYS_FRST_INPT_DT
+				, SYS_FRST_INPT_PRGRM_ID             as SYS_FRST_INPT_USER_ID
+				, SYS_FRST_INPT_USER_ID              as SYS_FRST_INPT_PRGRM_ID
+				, SYS_LAST_CHG_DT                    as SYS_LAST_CHG_DT
+				, SYS_LAST_CHG_PRGRM_ID              as SYS_LAST_CHG_USER_ID
+				, SYS_LAST_CHG_USER_ID               as SYS_LAST_CHG_PRGRM_ID
+			  FROM TB_AX_FRMER_INFO 
 			 WHERE 1=1
 
     	]]>
      		<if test='frmerSn != null and frmerSn != ""'>
-				AND CM.FRMER_SN LIKE #{frmerSn} || '%'
+				AND FRMER_SN LIKE #{frmerSn} || '%'
 			</if>
 			<if test='bzobRgno != null and bzobRgno != ""'>
-				AND CM.BZOB_RGNO LIKE '%' || #{bzobRgno} || '%'
+				AND BZOB_RGNO LIKE '%' || #{bzobRgno} || '%'
 			</if>
-		ORDER BY CM.SYS_LAST_CHG_DT DESC
+			<if test='brthdy != null and brthdy != ""'>
+				AND BRDT LIKE '%' || #{brthdy} || '%'
+			</if>
+		ORDER BY SYS_LAST_CHG_DT DESC
     </select>
 
 	<!-- ==========================================================================	-->
@@ -135,88 +74,92 @@
 	<!-- ==========================================================================	-->
     <select id="selectFarmerInfoRegList" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO" resultType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.fm.farm.mapper.farmerInfoRegMapper.selectFarmerInfoRegList */
-				  CM.FRMER_SN
-				, CM.BZOB_RGNO
-				, CM.MNGER_RELATE
-				, CM.BZM_CORP_NM
-				, CM.ADDR
-				, CM.RRSD_ADDR
-			    , CM.RDNM_ADDR
-				, CM.TW_NM
-				, CM.PER_CORP_DVCD_NM
-				, CM.NAFO_DVCD_NM
-				, CM.TELNO
-				, CM.MBL_TELNO
-				, CM.FAX_TELNO
-				, CM.EMAIL_ADDR
-				, CM.FAMG_STR_YMD
-				, CM.FARMNG_BEGIN_STLE_CD_NM
-				, CM.FARMNG_ENGAGE_STLE_CD_NM
-				, CM.FNDT_YR
-				, CM.BZM_RGNO
-				, CM.REPR_NM
-				, CM.REPR_ADDR
-				, CM.BRTHDY
-				, CM.SEXDSTN
-				, CM.SYS_FRST_INPT_DT
-				, CM.SYS_FRST_INPT_USER_ID
-				, CM.SYS_FRST_INPT_PRGRM_ID
-				, CM.SYS_LAST_CHG_DT
-				, CM.SYS_LAST_CHG_USER_ID
-				, CM.SYS_LAST_CHG_PRGRM_ID
-				, CM.DEL_YN
-				, CM.SAVE_CD
-			  FROM TB_FARMER_INFO CM
+			SELECT /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.selectfarmerInfoRegList */
+				  FRMERNO                            as FRMER_SN
+				, MNGMST_REGNO                       as BZOB_RGNO
+				, ADMST_OWNR_REL                     as MNGER_RELATE
+				, ADMST_OWNR_CORP_NM                 as BZM_CORP_NM
+				, ADMST_OWNR_RGDT_ADDR               as ADDR
+				, ADMST_OWNR_ACTL_HBTN_ADDR          as RRSD_ADDR
+			    , ADMST_OWNR_DADDR                   as RDNM_ADDR
+				, VLG_NM                             as TW_NM
+				, PRSNA_CORP_SE_CD                   as PER_CORP_DVCD_NM
+				, CTZN_FNGNR_SE_CD                   as NAFO_DVCD_NM
+				, TELNO                              as TELNO
+				, MOBLNO                             as MBL_TELNO
+				, FXNO                               as FAX_TELNO
+				, EML_ADDR                           as EMAIL_ADDR
+				, AGRC_BGNG_YMD                      as FAMG_STR_YMD
+				, FRMNG_BGNG_SHAP                    as FARMNG_BEGIN_STLE_CD_NM
+				, FRMNG_ENGG_SHAP                    as FARMNG_ENGAGE_STLE_CD_NM
+				, FNDN_YR                            as FNDT_YR
+				, BRNO                               as BZM_RGNO
+				, RPRSV_NM                           as REPR_NM
+				, RPRSV_ADDR                         as REPR_ADDR
+				, BRDT                               as BRTHDY
+				, SXDC                               as SEXDSTN
+				, REG_SE_CD                          as REG_SE_CD
+				, RMRK                               as RMRK
+				, DEL_YN                             as DEL_YN
+				, SYS_FRST_INPT_DT                   as SYS_FRST_INPT_DT
+				, SYS_FRST_INPT_PRGRM_ID             as SYS_FRST_INPT_USER_ID
+				, SYS_FRST_INPT_USER_ID              as SYS_FRST_INPT_PRGRM_ID
+				, SYS_LAST_CHG_DT                    as SYS_LAST_CHG_DT
+				, SYS_LAST_CHG_PRGRM_ID              as SYS_LAST_CHG_USER_ID
+				, SYS_LAST_CHG_USER_ID               as SYS_LAST_CHG_PRGRM_ID
+			  FROM TB_AX_FRMER_INFO 
 			 WHERE 1=1
 
     	]]>
      		<if test='frmerSn != null and frmerSn != ""'>
-				AND CM.FRMER_SN LIKE #{frmerSn} || '%'
+				AND FRMERNO LIKE #{frmerSn} || '%'
 			</if>
 			<if test='bzobRgno != null and bzobRgno != ""'>
-				AND CM.BZOB_RGNO LIKE '%' || #{bzobRgno} || '%'
+				AND BRNO LIKE '%' || #{bzobRgno} || '%'
 			</if>
-		ORDER BY CM.SYS_LAST_CHG_DT DESC
+			<if test='brthdy != null and brthdy != ""'>
+				AND BRDT LIKE '%' || #{brthdy} || '%'
+			</if>
+		ORDER BY SYS_LAST_CHG_DT DESC
     </select>
 
 
 	<insert id="insertFarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.fm.farm.mapper.farmerInfoRegMapper.insertFarmerInfoReg */
-	    	  INTO TB_FARMER_INFO
+	    	INSERT /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.insertfarmerInfoReg */
+	    	  INTO TB_AX_FRMER_INFO
 	    		(
-	    		  FRMER_SN
-				, BZOB_RGNO
-				, MNGER_RELATE
-				, BZM_CORP_NM
-				, ADDR
-				, RRSD_ADDR
-			    , RDNM_ADDR
-				, TW_NM
-				, PER_CORP_DVCD_NM
-				, NAFO_DVCD_NM
-				, TELNO
-				, MBL_TELNO
-				, FAX_TELNO
-				, EMAIL_ADDR
-				, FAMG_STR_YMD
-				, FARMNG_BEGIN_STLE_CD_NM
-				, FARMNG_ENGAGE_STLE_CD_NM
-				, FNDT_YR
-				, BZM_RGNO
-				, REPR_NM
-				, REPR_ADDR
-				, BRTHDY
-				, SEXDSTN
-				, SYS_FRST_INPT_DT
-				, SYS_FRST_INPT_USER_ID
-				, SYS_FRST_INPT_PRGRM_ID
-				, SYS_LAST_CHG_DT
-				, SYS_LAST_CHG_USER_ID
-				, SYS_LAST_CHG_PRGRM_ID
-				, DEL_YN
-				, SAVE_CD
+	    		      FRMERNO
+					, MNGMST_REGNO
+					, ADMST_OWNR_REL
+					, ADMST_OWNR_CORP_NM
+					, ADMST_OWNR_RGDT_ADDR
+					, ADMST_OWNR_ACTL_HBTN_ADDR
+					, ADMST_OWNR_DADDR
+					, VLG_NM
+					, PRSNA_CORP_SE_CD
+					, CTZN_FNGNR_SE_CD
+					, TELNO
+					, MOBLNO
+					, FXNO
+					, EML_ADDR
+					, AGRC_BGNG_YMD
+					, FRMNG_BGNG_SHAP
+					, FRMNG_ENGG_SHAP
+					, FNDN_YR
+					, BRNO
+					, RPRSV_NM
+					, RPRSV_ADDR
+					, BRDT
+					, SXDC
+					, REG_SE_CD
+					, DEL_YN
+					, SYS_FRST_INPT_DT
+					, SYS_FRST_INPT_PRGRM_ID
+					, SYS_FRST_INPT_USER_ID
+					, SYS_LAST_CHG_DT
+					, SYS_LAST_CHG_PRGRM_ID
+					, SYS_LAST_CHG_USER_ID
 	    		)
 	   		VALUES
 	   			(
@@ -243,14 +186,14 @@
 					,#{reprAddr}
 					,#{brthdy}
 					,#{sexdstn}
+					,#{saveCd}
+					,#{delYn}
 					,SYSDATE
 					,#{sysFrstInptUserId}
 					,#{sysFrstInptPrgrmId}
 					,SYSDATE
 					,#{sysLastChgUserId}
 					,#{sysLastChgPrgrmId}
-					,#{delYn}
-					,#{saveCd}
 	   			)
     	]]>
     </insert>
@@ -260,10 +203,10 @@
 
     <insert id="insertMegerFarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
 	<![CDATA[
-    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.insertMegerFarmerInfoReg */
+    	MERGE INTO TB_AX_FRMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.insertMegerfarmerInfoReg */
 		USING DUAL
-			ON (	         CLT.FRMER_SN      = #{frmerSn}
-				      AND CLT.BZOB_RGNO  =  #{bzobRgno}
+			ON (	         CLT.FRMERNO      = #{frmerSn}
+				      AND CLT.MNGMST_REGNO  =  #{bzobRgno}
 				   )
 		WHEN MATCHED THEN
 			UPDATE /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.insertMegerfarmerInfoReg */
@@ -293,37 +236,143 @@
 		WHEN NOT MATCHED THEN
 			 INSERT /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.insertMegerfarmerInfoReg */
 	    		(
-	    		  FRMER_SN
-				, BZOB_RGNO
-				, MNGER_RELATE
-				, BZM_CORP_NM
-				, ADDR
-				, RRSD_ADDR
-			    , RDNM_ADDR
-				, TW_NM
-				, PER_CORP_DVCD_NM
-				, NAFO_DVCD_NM
-				, TELNO
-				, MBL_TELNO
-				, FAX_TELNO
-				, EMAIL_ADDR
-				, FAMG_STR_YMD
-				, FARMNG_BEGIN_STLE_CD_NM
-				, FARMNG_ENGAGE_STLE_CD_NM
-				, FNDT_YR
-				, BZM_RGNO
-				, REPR_NM
-				, REPR_ADDR
-				, BRTHDY
-				, SEXDSTN
-				, SYS_FRST_INPT_DT
-				, SYS_FRST_INPT_USER_ID
-				, SYS_FRST_INPT_PRGRM_ID
-				, SYS_LAST_CHG_DT
-				, SYS_LAST_CHG_USER_ID
-				, SYS_LAST_CHG_PRGRM_ID
-				, DEL_YN
-				, SAVE_CD
+	    		      FRMERNO
+					, MNGMST_REGNO
+					, ADMST_OWNR_REL
+					, ADMST_OWNR_CORP_NM
+					, ADMST_OWNR_RGDT_ADDR
+					, ADMST_OWNR_ACTL_HBTN_ADDR
+					, ADMST_OWNR_DADDR
+					, VLG_NM
+					, PRSNA_CORP_SE_CD
+					, CTZN_FNGNR_SE_CD
+					, TELNO 
+					, MOBLNO
+					, FXNO
+					, EML_ADDR
+					, AGRC_BGNG_YMD
+					, FRMNG_BGNG_SHAP
+					, FRMNG_ENGG_SHAP
+					, FNDN_YR
+					, BRNO
+					, RPRSV_NM
+					, RPRSV_ADDR
+					, BRDT
+					, SXDC
+					, REG_SE_CD
+					, DEL_YN
+					, SYS_FRST_INPT_DT
+					, SYS_FRST_INPT_PRGRM_ID
+					, SYS_FRST_INPT_USER_ID
+					, SYS_LAST_CHG_DT
+					, SYS_LAST_CHG_PRGRM_ID
+					, SYS_LAST_CHG_USER_ID
+	    		)
+	   		VALUES
+	   			(
+	   			    #{frmerSn}
+					,#{bzobRgno}
+					,#{mngerRelate}
+					,#{bzmCorpNm}
+					,#{addr}
+					,#{rrsdAddr}
+					,#{rdnmAddr}
+					,#{twNm}
+					,#{perCorpDvcdNm}
+					,#{nafoDvcdNm}
+					,#{telno}
+					,#{mblTelno}
+					,#{faxTelno}
+					,#{emailAddr}
+					,#{famgStrYmd}
+					,#{farmngBeginStleCdNm}
+					,#{farmngEngageStleCdNm}
+					,#{fndtYr}
+					,#{bzmRgno}
+					,#{reprNm}
+					,#{reprAddr}
+					,#{brthdy}
+					,#{sexdstn}
+					,#{saveCd}
+					,#{delYn}
+					,SYSDATE
+					,#{sysFrstInptUserId}
+					,#{sysFrstInptPrgrmId}
+					,SYSDATE
+					,#{sysLastChgUserId}
+					,#{sysLastChgPrgrmId}
+	   			)
+    	]]>
+	</insert>
+
+
+
+    <insert id="insertMegerFarmerInfoRegMap" parameterType="hashmap">
+	<![CDATA[
+    	MERGE INTO TB_AX_FRMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.insertMegerfarmerInfoRegMap */
+		USING DUAL
+			ON (	         CLT.FRMERNO      = #{frmerSn}
+				      AND CLT.MNGMST_REGNO  =  #{bzobRgno}
+				   )
+		WHEN MATCHED THEN
+			UPDATE /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.insertMegerfarmerInfoRegMap */
+			   SET
+			 	  ADMST_OWNR_REL	= #{mngerRelate}
+				, ADMST_OWNR_CORP_NM	= #{bzmCorpNm}
+				, ADMST_OWNR_RGDT_ADDR	= #{addr}
+				, ADMST_OWNR_ACTL_HBTN_ADDR	= #{rrsdAddr}
+			    , ADMST_OWNR_DADDR	= #{rdnmAddr}
+				, VLG_NM	= #{twNm}
+				, PRSNA_CORP_SE_CD	= #{perCorpDvcdNm}
+				, CTZN_FNGNR_SE_CD	= #{nafoDvcdNm}
+				, TELNO	= #{telno}
+				, MOBLNO	= #{mblTelno}
+				, FXNO	= #{faxTelno}
+				, EML_ADDR	= #{emailAddr}
+				, AGRC_BGNG_YMD	= #{famgStrYmd}
+				, FRMNG_BGNG_SHAP	= #{farmngBeginStleCdNm}
+				, FRMNG_ENGG_SHAP	= #{farmngEngageStleCdNm}
+				, FNDN_YR	= #{fndtYr}
+				, BRNO	= #{bzmRgno}
+				, RPRSV_NM	= #{reprNm}
+				, RPRSV_ADDR	= #{reprAddr}
+				, BRDT	= #{brthdy}
+				, SXDC	= #{sexdstn}
+				, REG_SE_CD	= #{saveCd}
+		WHEN NOT MATCHED THEN
+			 INSERT /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.insertMegerfarmerInfoReg */
+	    		(
+	    		      FRMERNO
+					, MNGMST_REGNO
+					, ADMST_OWNR_REL
+					, ADMST_OWNR_CORP_NM
+					, ADMST_OWNR_RGDT_ADDR
+					, ADMST_OWNR_ACTL_HBTN_ADDR
+					, ADMST_OWNR_DADDR
+					, VLG_NM
+					, PRSNA_CORP_SE_CD
+					, CTZN_FNGNR_SE_CD
+					, TELNO 
+					, MOBLNO
+					, FXNO
+					, EML_ADDR
+					, AGRC_BGNG_YMD
+					, FRMNG_BGNG_SHAP
+					, FRMNG_ENGG_SHAP
+					, FNDN_YR
+					, BRNO
+					, RPRSV_NM
+					, RPRSV_ADDR
+					, BRDT
+					, SXDC
+					, REG_SE_CD
+					, DEL_YN
+					, SYS_FRST_INPT_DT
+					, SYS_FRST_INPT_PRGRM_ID
+					, SYS_FRST_INPT_USER_ID
+					, SYS_LAST_CHG_DT
+					, SYS_LAST_CHG_PRGRM_ID
+					, SYS_LAST_CHG_USER_ID
 	    		)
 	   		VALUES
 	   			(
@@ -365,45 +414,45 @@
 
     <insert id="insertMegerLogFarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
 	<![CDATA[
-    	INSERT /* com.at.apcss.fm.farm.mapper.farmerInfoRegMapper.insertMegerLogFarmerInfoReg */
-	    	  INTO TB_FARMER_INFO_LOG
+    	INSERT /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.insertMegerLogfarmerInfoReg */
+	    	  INTO TB_AX_FRMER_INFO_LOG
 	    		(
-	    		  SEQ
-	    		 ,FRMER_SN
-				, BZOB_RGNO
-				, MNGER_RELATE
-				, BZM_CORP_NM
-				, ADDR
-				, RRSD_ADDR
-			    , RDNM_ADDR
-				, TW_NM
-				, PER_CORP_DVCD_NM
-				, NAFO_DVCD_NM
-				, TELNO
-				, MBL_TELNO
-				, FAX_TELNO
-				, EMAIL_ADDR
-				, FAMG_STR_YMD
-				, FARMNG_BEGIN_STLE_CD_NM
-				, FARMNG_ENGAGE_STLE_CD_NM
-				, FNDT_YR
-				, BZM_RGNO
-				, REPR_NM
-				, REPR_ADDR
-				, BRTHDY
-				, SEXDSTN
-				, SYS_FRST_INPT_DT
-				, SYS_FRST_INPT_USER_ID
-				, SYS_FRST_INPT_PRGRM_ID
-				, SYS_LAST_CHG_DT
-				, SYS_LAST_CHG_USER_ID
-				, SYS_LAST_CHG_PRGRM_ID
-				, DEL_YN
-				, SAVE_CD
+	    		      SN
+	    		    , FRMERNO
+					, MNGMST_REGNO
+					, ADMST_OWNR_REL
+					, ADMST_OWNR_CORP_NM
+					, ADMST_OWNR_RGDT_ADDR
+					, ADMST_OWNR_ACTL_HBTN_ADDR
+					, ADMST_OWNR_DADDR
+					, VLG_NM
+					, PRSNA_CORP_SE_CD
+					, CTZN_FNGNR_SE_CD
+					, TELNO 
+					, MOBLNO
+					, FXNO
+					, EML_ADDR
+					, AGRC_BGNG_YMD
+					, FRMNG_BGNG_SHAP
+					, FRMNG_ENGG_SHAP
+					, FNDN_YR
+					, BRNO
+					, RPRSV_NM
+					, RPRSV_ADDR
+					, BRDT
+					, SXDC
+					, REG_SE_CD
+					, DEL_YN
+					, SYS_FRST_INPT_DT
+					, SYS_FRST_INPT_PRGRM_ID
+					, SYS_FRST_INPT_USER_ID
+					, SYS_LAST_CHG_DT
+					, SYS_LAST_CHG_PRGRM_ID
+					, SYS_LAST_CHG_USER_ID
 	    		)
 	   		VALUES
 	   			(
-	   			      (SELECT NVL(MAX(SEQ),0)+1 FROM TB_FARMER_INFO_LOG)
+	   			      (SELECT NVL(MAX(SN),0)+1 FROM TB_AX_FRMER_INFO_LOG)
 	   			    ,#{frmerSn}
 					,#{bzobRgno}
 					,#{mngerRelate}
@@ -427,130 +476,61 @@
 					,#{reprAddr}
 					,#{brthdy}
 					,#{sexdstn}
+					,#{saveCd}
+					,#{delYn}
 					,SYSDATE
 					,#{sysFrstInptUserId}
 					,#{sysFrstInptPrgrmId}
 					,SYSDATE
 					,#{sysLastChgUserId}
 					,#{sysLastChgPrgrmId}
-					,#{delYn}
-					,#{saveCd}
 	   			)
     	]]>
 	</insert>
 
-	<update id="updateFarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
-    	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.farm.mapper.farmerInfoRegMapper.upateFarmerInfoReg */
-	    		TB_FARMER_INFO
-			   SET
-			 	  MNGER_RELATE 	= #{mngerRelate}
-				, BZM_CORP_NM 	= #{bzmCorpNm}
-				, ADDR 	= #{addr}
-				, RRSD_ADDR 	= #{rrsdAddr}
-			    , RDNM_ADDR 	= #{rdnmAddr}
-				, TW_NM 	= #{twNm}
-				, PER_CORP_DVCD_NM 	= #{perCorpDvcdNm}
-				, NAFO_DVCD_NM 	= #{nafoDvcdNm}
-				, TELNO 	= #{telno}
-				, MBL_TELNO 	= #{mblTelno}
-				, FAX_TELNO 	= #{faxTelno}
-				, EMAIL_ADDR 	= #{emailAddr}
-				, FAMG_STR_YMD 	= #{famgStrYmd}
-				, FARMNG_BEGIN_STLE_CD_NM 	= #{farmngBeginStleCdNm}
-				, FARMNG_ENGAGE_STLE_CD_NM 	= #{farmngEngageStleCdNm}
-				, FNDT_YR 	= #{fndtYr}
-				, BZM_RGNO 	= #{bzmRgno}
-				, REPR_NM 	= #{reprNm}
-				, REPR_ADDR 	= #{reprAddr}
-				, BRTHDY 	= #{brthdy}
-				, SEXDSTN 	= #{sexdstn}
-				, SAVE_CD 	= #{saveCd}
-    	]]>
-		<if test='delYn != null and delYn != ""'>
-				, DEL_YN 	= #{delYn}
-		</if>
-    	<![CDATA[
-				, SYS_LAST_CHG_DT		= SYSDATE
-	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 
-			 WHERE 1=1
-			    AND FRMER_SN 	    = #{frmerSn}
-		        AND BZOB_RGNO 	= #{bzobRgno}
-    	]]>
-    </update>
-
-    <update id="updateMegerFarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
-    	<![CDATA[
-	    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.insertMegerFarmerInfoReg */
-		USING DUAL
-			ON (	         CLT.FRMER_SN      = #{frmerSn}
-				      AND CLT.BZOB_RGNO  =  #{bzobRgno}
-				   )
-		WHEN MATCHED THEN
-			UPDATE /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.insertMegerfarmerInfoReg */
-			   SET
-			 	  MNGER_RELATE 	= #{mngerRelate}
-				, BZM_CORP_NM 	= #{bzmCorpNm}
-				, ADDR 	= #{addr}
-				, RRSD_ADDR 	= #{rrsdAddr}
-			    , RDNM_ADDR 	= #{rdnmAddr}
-				, TW_NM 	= #{twNm}
-				, PER_CORP_DVCD_NM 	= #{perCorpDvcdNm}
-				, NAFO_DVCD_NM 	= #{nafoDvcdNm}
-				, TELNO 	= #{telno}
-				, MBL_TELNO 	= #{mblTelno}
-				, FAX_TELNO 	= #{faxTelno}
-				, EMAIL_ADDR 	= #{emailAddr}
-				, FAMG_STR_YMD 	= #{famgStrYmd}
-				, FARMNG_BEGIN_STLE_CD_NM 	= #{farmngBeginStleCdNm}
-				, FARMNG_ENGAGE_STLE_CD_NM 	= #{farmngEngageStleCdNm}
-				, FNDT_YR 	= #{fndtYr}
-				, BZM_RGNO 	= #{bzmRgno}
-				, REPR_NM 	= #{reprNm}
-				, REPR_ADDR 	= #{reprAddr}
-				, BRTHDY 	= #{brthdy}
-				, SEXDSTN 	= #{sexdstn}
-				, SAVE_CD 	= #{saveCd}
-		WHEN NOT MATCHED THEN
-			 INSERT /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.insertMegerfarmerInfoReg */
+    <insert id="insertMegerLogFarmerInfoRegMap" parameterType="hashmap">
+	<![CDATA[
+    	INSERT /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.insertMegerLogfarmerInfoRegMap */
+	    	  INTO TB_AX_FRMER_INFO_LOG
 	    		(
-	    		  FRMER_SN
-				, BZOB_RGNO
-				, MNGER_RELATE
-				, BZM_CORP_NM
-				, ADDR
-				, RRSD_ADDR
-			    , RDNM_ADDR
-				, TW_NM
-				, PER_CORP_DVCD_NM
-				, NAFO_DVCD_NM
-				, TELNO
-				, MBL_TELNO
-				, FAX_TELNO
-				, EMAIL_ADDR
-				, FAMG_STR_YMD
-				, FARMNG_BEGIN_STLE_CD_NM
-				, FARMNG_ENGAGE_STLE_CD_NM
-				, FNDT_YR
-				, BZM_RGNO
-				, REPR_NM
-				, REPR_ADDR
-				, BRTHDY
-				, SEXDSTN
-				, SYS_FRST_INPT_DT
-				, SYS_FRST_INPT_USER_ID
-				, SYS_FRST_INPT_PRGRM_ID
-				, SYS_LAST_CHG_DT
-				, SYS_LAST_CHG_USER_ID
-				, SYS_LAST_CHG_PRGRM_ID
-				, DEL_YN
-				, SAVE_CD
+	    		      SN
+	    		    , FRMERNO
+					, MNGMST_REGNO
+					, ADMST_OWNR_REL
+					, ADMST_OWNR_CORP_NM
+					, ADMST_OWNR_RGDT_ADDR
+					, ADMST_OWNR_ACTL_HBTN_ADDR
+					, ADMST_OWNR_DADDR
+					, VLG_NM
+					, PRSNA_CORP_SE_CD
+					, CTZN_FNGNR_SE_CD
+					, TELNO 
+					, MOBLNO
+					, FXNO
+					, EML_ADDR
+					, AGRC_BGNG_YMD
+					, FRMNG_BGNG_SHAP
+					, FRMNG_ENGG_SHAP
+					, FNDN_YR
+					, BRNO
+					, RPRSV_NM
+					, RPRSV_ADDR
+					, BRDT
+					, SXDC
+					, REG_SE_CD
+					, DEL_YN
+					, SYS_FRST_INPT_DT
+					, SYS_FRST_INPT_PRGRM_ID
+					, SYS_FRST_INPT_USER_ID
+					, SYS_LAST_CHG_DT
+					, SYS_LAST_CHG_PRGRM_ID
+					, SYS_LAST_CHG_USER_ID
 	    		)
 	   		VALUES
 	   			(
-	   			    #{frmerSn}
+	   			      (SELECT NVL(MAX(SN),0)+1 FROM TB_AX_FRMER_INFO_LOG)
+	   			    ,#{frmerSn}
 					,#{bzobRgno}
 					,#{mngerRelate}
 					,#{bzmCorpNm}
@@ -573,25 +553,276 @@
 					,#{reprAddr}
 					,#{brthdy}
 					,#{sexdstn}
+					,#{saveCd}
+					,#{delYn}
 					,SYSDATE
 					,#{sysFrstInptUserId}
 					,#{sysFrstInptPrgrmId}
 					,SYSDATE
 					,#{sysLastChgUserId}
 					,#{sysLastChgPrgrmId}
-					,#{delYn}
+	   			)
+    	]]>
+	</insert>
+
+	<update id="updateFarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.upatefarmerInfoReg */
+	    		TB_AX_FRMER_INFO
+			   SET
+			 	   ADMST_OWNR_REL	= #{mngerRelate}
+				, ADMST_OWNR_CORP_NM	= #{bzmCorpNm}
+				, ADMST_OWNR_RGDT_ADDR	= #{addr}
+				, ADMST_OWNR_ACTL_HBTN_ADDR	= #{rrsdAddr}
+			    , ADMST_OWNR_DADDR	= #{rdnmAddr}
+				, VLG_NM	= #{twNm}
+				, PRSNA_CORP_SE_CD	= #{perCorpDvcdNm}
+				, CTZN_FNGNR_SE_CD	= #{nafoDvcdNm}
+				, TELNO	= #{telno}
+				, MOBLNO	= #{mblTelno}
+				, FXNO	= #{faxTelno}
+				, EML_ADDR	= #{emailAddr}
+				, AGRC_BGNG_YMD	= #{famgStrYmd}
+				, FRMNG_BGNG_SHAP	= #{farmngBeginStleCdNm}
+				, FRMNG_ENGG_SHAP	= #{farmngEngageStleCdNm}
+				, FNDN_YR	= #{fndtYr}
+				, BRNO	= #{bzmRgno}
+				, RPRSV_NM	= #{reprNm}
+				, RPRSV_ADDR	= #{reprAddr}
+				, BRDT	= #{brthdy}
+				, SXDC	= #{sexdstn}
+				, REG_SE_CD	= #{saveCd}
+    	]]>
+		<if test='delYn != null and delYn != ""'>
+				, DEL_YN 	= #{delYn}
+		</if>
+    	<![CDATA[
+				, SYS_LAST_CHG_DT		= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+
+			 WHERE 1=1
+			    AND FRMERNO 	    = #{frmerSn}
+		        AND MNGMST_REGNO 	= #{bzobRgno}
+    	]]>
+    </update>
+
+    <update id="updateMegerFarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
+    	<![CDATA[
+	    	MERGE INTO TB_AX_FRMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.insertMegerfarmerInfoReg */
+		USING DUAL
+			ON (	         CLT.FRMERNO      = #{frmerSn}
+				      AND CLT.MNGMST_REGNO  =  #{bzobRgno}
+				   )
+		WHEN MATCHED THEN
+			UPDATE /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.insertMegerfarmerInfoReg */
+			   SET
+			 	   ADMST_OWNR_REL	= #{mngerRelate}
+				, ADMST_OWNR_CORP_NM	= #{bzmCorpNm}
+				, ADMST_OWNR_RGDT_ADDR	= #{addr}
+				, ADMST_OWNR_ACTL_HBTN_ADDR	= #{rrsdAddr}
+			    , ADMST_OWNR_DADDR	= #{rdnmAddr}
+				, VLG_NM	= #{twNm}
+				, PRSNA_CORP_SE_CD	= #{perCorpDvcdNm}
+				, CTZN_FNGNR_SE_CD	= #{nafoDvcdNm}
+				, TELNO	= #{telno}
+				, MOBLNO	= #{mblTelno}
+				, FXNO	= #{faxTelno}
+				, EML_ADDR	= #{emailAddr}
+				, AGRC_BGNG_YMD	= #{famgStrYmd}
+				, FRMNG_BGNG_SHAP	= #{farmngBeginStleCdNm}
+				, FRMNG_ENGG_SHAP	= #{farmngEngageStleCdNm}
+				, FNDN_YR	= #{fndtYr}
+				, BRNO	= #{bzmRgno}
+				, RPRSV_NM	= #{reprNm}
+				, RPRSV_ADDR	= #{reprAddr}
+				, BRDT	= #{brthdy}
+				, SXDC	= #{sexdstn}
+				, REG_SE_CD	= #{saveCd}
+		WHEN NOT MATCHED THEN
+			 INSERT /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.insertMegerfarmerInfoReg */
+	    		(
+	    		      FRMERNO
+					, MNGMST_REGNO
+					, ADMST_OWNR_REL
+					, ADMST_OWNR_CORP_NM
+					, ADMST_OWNR_RGDT_ADDR
+					, ADMST_OWNR_ACTL_HBTN_ADDR
+					, ADMST_OWNR_DADDR
+					, VLG_NM
+					, PRSNA_CORP_SE_CD
+					, CTZN_FNGNR_SE_CD
+					, TELNO 
+					, MOBLNO
+					, FXNO
+					, EML_ADDR
+					, AGRC_BGNG_YMD
+					, FRMNG_BGNG_SHAP
+					, FRMNG_ENGG_SHAP
+					, FNDN_YR
+					, BRNO
+					, RPRSV_NM
+					, RPRSV_ADDR
+					, BRDT
+					, SXDC
+					, REG_SE_CD
+					, DEL_YN
+					, SYS_FRST_INPT_DT
+					, SYS_FRST_INPT_PRGRM_ID
+					, SYS_FRST_INPT_USER_ID
+					, SYS_LAST_CHG_DT
+					, SYS_LAST_CHG_PRGRM_ID
+					, SYS_LAST_CHG_USER_ID
+	    		)
+	   		VALUES
+	   			(
+	   			     #{frmerSn}
+					,#{bzobRgno}
+					,#{mngerRelate}
+					,#{bzmCorpNm}
+					,#{addr}
+					,#{rrsdAddr}
+					,#{rdnmAddr}
+					,#{twNm}
+					,#{perCorpDvcdNm}
+					,#{nafoDvcdNm}
+					,#{telno}
+					,#{mblTelno}
+					,#{faxTelno}
+					,#{emailAddr}
+					,#{famgStrYmd}
+					,#{farmngBeginStleCdNm}
+					,#{farmngEngageStleCdNm}
+					,#{fndtYr}
+					,#{bzmRgno}
+					,#{reprNm}
+					,#{reprAddr}
+					,#{brthdy}
+					,#{sexdstn}
 					,#{saveCd}
+					,#{delYn}
+					,SYSDATE
+					,#{sysFrstInptUserId}
+					,#{sysFrstInptPrgrmId}
+					,SYSDATE
+					,#{sysLastChgUserId}
+					,#{sysLastChgPrgrmId}
 	   			)
     	]]>
     </update>
 
 
+
+    <update id="updateMegerFarmerInfoRegMap" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
+    	<![CDATA[
+	    	MERGE INTO TB_AX_FRMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.updateMegerfarmerInfoRegMap */
+		USING DUAL
+			ON (	         CLT.FRMERNO      = #{frmerSn}
+				      AND CLT.MNGMST_REGNO  =  #{bzobRgno}
+				   )
+		WHEN MATCHED THEN
+			UPDATE /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.insertMegerfarmerInfoReg */
+			   SET
+			 	   ADMST_OWNR_REL	= #{mngerRelate}
+				, ADMST_OWNR_CORP_NM	= #{bzmCorpNm}
+				, ADMST_OWNR_RGDT_ADDR	= #{addr}
+				, ADMST_OWNR_ACTL_HBTN_ADDR	= #{rrsdAddr}
+			    , ADMST_OWNR_DADDR	= #{rdnmAddr}
+				, VLG_NM	= #{twNm}
+				, PRSNA_CORP_SE_CD	= #{perCorpDvcdNm}
+				, CTZN_FNGNR_SE_CD	= #{nafoDvcdNm}
+				, TELNO	= #{telno}
+				, MOBLNO	= #{mblTelno}
+				, FXNO	= #{faxTelno}
+				, EML_ADDR	= #{emailAddr}
+				, AGRC_BGNG_YMD	= #{famgStrYmd}
+				, FRMNG_BGNG_SHAP	= #{farmngBeginStleCdNm}
+				, FRMNG_ENGG_SHAP	= #{farmngEngageStleCdNm}
+				, FNDN_YR	= #{fndtYr}
+				, BRNO	= #{bzmRgno}
+				, RPRSV_NM	= #{reprNm}
+				, RPRSV_ADDR	= #{reprAddr}
+				, BRDT	= #{brthdy}
+				, SXDC	= #{sexdstn}
+				, REG_SE_CD	= #{saveCd}
+		WHEN NOT MATCHED THEN
+			 INSERT /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.insertMegerfarmerInfoReg */
+	    		(
+	    		      FRMERNO
+					, MNGMST_REGNO
+					, ADMST_OWNR_REL
+					, ADMST_OWNR_CORP_NM
+					, ADMST_OWNR_RGDT_ADDR
+					, ADMST_OWNR_ACTL_HBTN_ADDR
+					, ADMST_OWNR_DADDR
+					, VLG_NM
+					, PRSNA_CORP_SE_CD
+					, CTZN_FNGNR_SE_CD
+					, TELNO
+					, MOBLNO
+					, FXNO
+					, EML_ADDR
+					, AGRC_BGNG_YMD
+					, FRMNG_BGNG_SHAP
+					, FRMNG_ENGG_SHAP
+					, FNDN_YR
+					, BRNO
+					, RPRSV_NM
+					, RPRSV_ADDR
+					, BRDT
+					, SXDC
+					, REG_SE_CD
+					, DEL_YN
+					, SYS_FRST_INPT_DT
+					, SYS_FRST_INPT_PRGRM_ID
+					, SYS_FRST_INPT_USER_ID
+					, SYS_LAST_CHG_DT
+					, SYS_LAST_CHG_PRGRM_ID
+					, SYS_LAST_CHG_USER_ID
+	    		)
+	   		VALUES
+	   			(
+	   			     #{frmerSn}
+					,#{bzobRgno}
+					,#{mngerRelate}
+					,#{bzmCorpNm}
+					,#{addr}
+					,#{rrsdAddr}
+					,#{rdnmAddr}
+					,#{twNm}
+					,#{perCorpDvcdNm}
+					,#{nafoDvcdNm}
+					,#{telno}
+					,#{mblTelno}
+					,#{faxTelno}
+					,#{emailAddr}
+					,#{famgStrYmd}
+					,#{farmngBeginStleCdNm}
+					,#{farmngEngageStleCdNm}
+					,#{fndtYr}
+					,#{bzmRgno}
+					,#{reprNm}
+					,#{reprAddr}
+					,#{brthdy}
+					,#{sexdstn}
+					,#{saveCd}
+					,#{delYn}
+					,SYSDATE
+					,#{sysFrstInptUserId}
+					,#{sysFrstInptPrgrmId}
+					,SYSDATE
+					,#{sysLastChgUserId}
+					,#{sysLastChgPrgrmId}
+	   			)
+    	]]>
+    </update>
+
 	<delete id="deleteFarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
 		<![CDATA[
-		DELETE FROM TB_FARMER_INFO
+		DELETE FROM TB_AX_FRMER_INFO
 		 WHERE 1=1
-		      AND FRMER_SN 	    = #{frmerSn}
-		      AND BZOB_RGNO 	= #{bzobRgno}
+		      AND FRMERNO 	    = #{frmerSn}
+		      AND MNGMST_REGNO 	= #{bzobRgno}
 		]]>
 	</delete>
 
