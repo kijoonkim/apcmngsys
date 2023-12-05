@@ -36,6 +36,7 @@
 	    		, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
 	    		, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
 	    		, (SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)							AS GDS_NM
+	    		, (SELECT FN_GET_CNPT_NM(pt0.CNPT_CD, pt0.APC_CD) FROM DUAL)                        AS CNPT_NM
     		 FROM (
 	    	SELECT
 	    		   SP.APC_CD						AS APC_CD
@@ -46,7 +47,7 @@
 	    		 , SP.VRTY_CD						AS VRTY_CD
 	    		 , SP.SPCFCT_CD						AS SPCFCT_CD
 	    		 , SP.GDS_CD						AS GDS_CD
-	    		 , CI.CNPT_NM				 		AS CNPT_NM
+	    		 , SP.CNPT_CD				 		AS CNPT_CD
 	    		 , SP.BRND_NM						AS BRND_NM
 	    		 , SP.SPMT_YMD						AS SPMT_YMD
 	    		 , SP.SLS_UNTPRC					AS SLS_UNTPRC
@@ -59,12 +60,8 @@
 	    		 , SUM(SP.WGHT)	OVER()				AS TOT_WGHT
 	    		 , SUM(SP.CFMTN_AMT) OVER()			AS TOT_CFMTN_AMT
 			  FROM TB_SLS_PRFMNC SP
-			     , TB_CNPT_INFO CI
-			 WHERE SP.APC_CD = CI.APC_CD
-	    	   AND SP.CNPT_CD = CI.CNPT_CD
-	    	   AND SP.CFMTN_YN = 'Y'
+			 WHERE SP.CFMTN_YN = 'Y'
 			   AND SP.DEL_YN = 'N'
-	    	   AND CI.DEL_YN = 'N'
 		]]>
 		<if test='apcCd != null and apcCd != ""'>
 			   AND SP.APC_CD = #{apcCd}
@@ -76,7 +73,7 @@
 		       AND SP.SLS_YMD <![CDATA[<=]]> #{slsYmdTo}
 		</if>
 		<if test='cnptNm != null and cnptNm != ""'>
-		       AND CI.CNPT_NM LIKE '%' ||  #{cnptNm} || '%'
+		       AND (SELECT FN_GET_CNPT_NM(SP.CNPT_CD, SP.APC_CD) FROM DUAL) LIKE '%' ||  #{cnptNm} || '%'
 		</if>
 		<if test='itemCd != null and itemCd != ""'>
 		       AND SP.ITEM_CD = #{itemCd}

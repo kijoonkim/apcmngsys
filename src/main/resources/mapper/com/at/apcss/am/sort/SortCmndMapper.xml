@@ -58,22 +58,24 @@
 			     , SC.CMND_WGHT         AS CMND_WGHT        -- 지시중량
 			     , SC.RMRK              AS RMRK             -- 비고
 			     , SC.DEL_YN            AS DEL_YN           -- 삭제유무
-			     , RI.BX_KND         AS BX_KND
+			     , RI.BX_KND         	AS BX_KND
 				 , RI.GRD_CD			AS GRD_CD
-				 , RI.INVNTR_QNTT    AS INVNTR_QNTT
-				 , RI.INVNTR_WGHT    AS INVNTR_WGHT
-				 , RI.WRHS_YMD       AS WRHS_YMD
-				 , RI.WRHSNO		AS WRHSNO
+				 , RI.INVNTR_QNTT    	AS INVNTR_QNTT
+				 , RI.INVNTR_WGHT    	AS INVNTR_WGHT
+				 , RI.WRHS_YMD       	AS WRHS_YMD
+				 , RI.WRHSNO			AS WRHSNO
 
 			  FROM
-			  	  TB_SORT_CMND SC
+			  	   TB_SORT_CMND SC
 			  	 , TB_RAW_MTR_INVNTR RI
 	        WHERE SC.DEL_YN = 'N'
-	          AND SC.APC_CD = #{apcCd}
-	          AND SC.APC_CD = RI.APC_CD
-	          AND SC.PLTNO = RI.PLTNO
 	          AND RI.DEL_YN = 'N'
+	          AND SC.APC_CD = RI.APC_CD
+	          AND SC.WRHSNO = RI.WRHSNO
 		]]>
+		<if test='apcCd != null and apcCd != ""'>
+	          AND SC.APC_CD = #{apcCd}
+		</if>
 		<if test='sortCmndYmd != null and sortCmndYmd != ""'>
 			 AND SC.SORT_CMND_YMD = #{sortCmndYmd}
 		</if>
@@ -136,6 +138,7 @@
 				  , FCLT_CD
 				  , WAREHOUSE_SE_CD
 				  , PLTNO
+				  , WRHSNO
 				  , PRDCR_CD
 				  , ITEM_CD
 				  , VRTY_CD
@@ -158,6 +161,7 @@
 				 , #{fcltCd}
 				 , #{warehouseSeCd}
 				 , #{pltno}
+				 , #{wrhsno}
 				 , #{prdcrCd}
 				 , #{itemCd}
 				 , #{vrtyCd}
