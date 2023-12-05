@@ -39,6 +39,20 @@ public interface ComAuthrtMapper {
 	 * @return
 	 */
 	public int deleteComAuthrt(ComAuthrtVO comAuthVO) throws Exception;
+	/**
+	 * 권한메뉴 삭제 by 권한id
+	 * @param comAuthVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteComAuthrtMenuByAuthrtId(ComAuthrtVO comAuthVO) throws Exception;
+	/**
+	 * 권한사용자 삭제 by 권한id
+	 * @param comAuthVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteComAuthrtUserByAuthrtId(ComAuthrtVO comAuthVO) throws Exception;
 	
 	
 	/**

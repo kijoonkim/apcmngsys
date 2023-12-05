@@ -152,16 +152,18 @@ public class ComAuthrtController extends BaseController{
 		comAuthrtVO.setSysLastChgUserId(getUserId());
 		comAuthrtVO.setSysLastChgPrgrmId(getPrgrmId());
 
-		int deletedCnt = 0;
-
 		try {
-			deletedCnt = comAuthrtService.deleteComAuthrt(comAuthrtVO);
+			HashMap<String, Object> rtnObj = comAuthrtService.deleteComAuthrt(comAuthrtVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+			
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
-		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+		//resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
 
 		return getSuccessResponseEntity(resultMap);
 	}

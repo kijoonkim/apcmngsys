@@ -154,6 +154,8 @@
 </body>
 <script type="text/javascript">
 
+	let lv_prvAuthrtId = "";
+
 	/* 공통코드 */
 	var jsonComApcCd = [];	// APC코드	srch-slt-apcCd	APC_CD
 
@@ -165,13 +167,18 @@
     var jsonComAuth = [];
     var jsonComAuthUser = [];
 
-
-	// only document
-	window.addEventListener('DOMContentLoaded', function(e) {
-		fn_createGrdComAuth();
+    const fn_init = async function() {
+    	
+    	lv_prvAuthrtId = "";
+    	fn_createGrdComAuth();
 		fn_createGrdComAuthUser();
 
 		fn_initSBSelect();
+    }
+    
+	// only document
+	window.addEventListener('DOMContentLoaded', function(e) {
+		fn_init();
 	});
 
     /**
@@ -217,10 +224,16 @@
         //document.getElementById('sb-area-grdComAuth').style.height = "500px";
 
         grdComAuth = _SBGrid.create(SBGridProperties);
-        grdComAuth.bind('click', 'fn_view');
-        grdComAuth.bind('beforepagechanged', 'fn_pagingGrdComAuth');
+        grdComAuth.bind('click', fn_view);
+        grdComAuth.bind('beforepagechanged', fn_pagingGrdComAuth);
     }
-
+    
+    
+    /**
+     * @name fn_pagingGrdComAuth
+     * @description 페이징
+     * @function
+     */
     const fn_pagingGrdComAuth = async function() {
     	let recordCountPerPage = grdComAuth.getPageSize();   		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = grdComAuth.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
@@ -286,6 +299,7 @@
      */
     const fn_search = async function() {
 
+    	lv_prvAuthrtId = "";
     	// set pagination
     	grdComAuth.rebuild();
     	let pageSize = grdComAuth.getPageSize();
@@ -454,9 +468,16 @@
             return;
         }
 
+        let rowData = grdComAuth.getRowData(nRow);
+        
+        if (_.isEqual(lv_prvAuthrtId, rowData.authrtId)) {
+        	return;
+        }
+        
+        lv_prvAuthrtId = rowData.authrtId;
+        
         SBUxMethod.attr('btnAddUser', 'disabled', false);
 
-        let rowData = grdComAuth.getRowData(nRow);
         SBUxMethod.set("dtl-inp-authrtId", rowData.authrtId);
         SBUxMethod.set("dtl-inp-authrtNm", rowData.authrtNm);
         SBUxMethod.set("dtl-inp-authrtTypeNm", rowData.authrtTypeNm);
@@ -473,6 +494,7 @@
      * @description 상세정보 초기화
      */
     const fn_clearForm = function() {
+    	lv_prvAuthrtId = "";
         SBUxMethod.set("dtl-inp-authrtId", null);
         SBUxMethod.set("dtl-inp-authrtNm", null);
         SBUxMethod.set("dtl-inp-authrtTypeNm", null);
@@ -510,19 +532,22 @@
     	}
 
     	const authrtId = SBUxMethod.get("dtl-inp-authrtId");
-    	const postJsonPromise = gfn_postJSON("/co/authrt/insertComAuthrtUserList.do", {
-    		'authrtId': authrtId,
-    		'comAuthrtUserList': users
-    	});
+    	const postJsonPromise = gfn_postJSON(
+    					"/co/authrt/insertComAuthrtUserList.do", 
+    					{
+					    		'authrtId': authrtId,
+					    		'comAuthrtUserList': users
+				    	});
 
 		const data = await postJsonPromise;
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		lv_prvAuthrtId = "";
         		fn_view();
         	} else {
         		//alert(data.resultMessage);
-        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        		gfn_comAlert(data.resultCode, data.resultMessage);
         	}
         } catch (e) {
     		if (!(e instanceof Error)) {
@@ -574,10 +599,11 @@
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		lv_prvAuthrtId = "";
         		fn_view();
         	} else {
         		//alert(data.resultMessage);
-        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        		gfn_comAlert(data.resultCode, data.resultMessage);
         	}
         } catch (e) {
     		if (!(e instanceof Error)) {

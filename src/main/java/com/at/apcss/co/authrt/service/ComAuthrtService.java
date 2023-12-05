@@ -45,8 +45,8 @@ public interface ComAuthrtService {
 	 * @param comAuthVO
 	 * @return
 	 */
-	public int deleteComAuthrt(ComAuthrtVO comAuthVO) throws Exception;
-
+	public HashMap<String, Object> deleteComAuthrt(ComAuthrtVO comAuthVO) throws Exception;
+	
 	/**
 	 * 권한메뉴 단건 조회
 	 * @param comAuthrtMenuVO
