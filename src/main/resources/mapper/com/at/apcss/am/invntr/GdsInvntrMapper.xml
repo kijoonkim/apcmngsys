@@ -132,6 +132,12 @@
 		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
 			   AND GI.WAREHOUSE_SE_CD = #{warehouseSeCd}
 		</if>
+		<if test='pckgYmdFrom != null and pckgYmdFrom != ""'>
+			   AND GI.PCKG_YMD <![CDATA[>=]]> #{pckgYmdFrom}
+		</if>
+		<if test='pckgYmdTo != null and pckgYmdTo != ""'>
+			   AND GI.PCKG_YMD <![CDATA[<=]]> #{pckgYmdTo}
+		</if>
 		<if test='itemCd != null and itemCd != ""'>
 			   AND GI.ITEM_CD = #{itemCd}
 		</if>
@@ -578,11 +584,21 @@
 	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
 
-				, SPMT_QNTT = #{spmtQntt}
-				, SPMT_WGHT = #{spmtWght}
-				, INVNTR_QNTT = #{invntrQntt}
-				, INVNTR_WGHT = #{invntrWght}
-
+				, SPMT_QNTT 				= #{spmtQntt}
+				, SPMT_WGHT 				= #{spmtWght}
+				, INVNTR_QNTT 				= #{invntrQntt}
+				, INVNTR_WGHT 				= #{invntrWght}
+		]]>
+			<if test='gdsGrd != null and gdsGrd != ""'>
+				, GDS_GRD 					= #{gdsGrd}
+			</if>
+			<if test='spmtPckgUnitCd != null and spmtPckgUnitCd != ""'>
+				, SPMT_PCKG_UNIT_CD 		= #{spmtPckgUnitCd}
+			</if>
+			<if test='gdsCd != null and gdsCd != ""'>
+				, GDS_CD	 				= #{gdsCd}
+			</if>
+		<![CDATA[
 			 WHERE APC_CD = #{apcCd}
 			   AND PCKGNO = #{pckgno}
 			   AND PCKG_SN = #{pckgSn}

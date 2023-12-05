@@ -42,7 +42,7 @@ public class SpmtCmndVO extends ComVO {
 	 * 출하지시순번
 	 */
 	private int spmtCmndSn;
-	
+
 	/**
 	 * 출하지시번호 표시
 	 */
@@ -110,7 +110,7 @@ public class SpmtCmndVO extends ComVO {
 	/**
 	 * 출하중량
 	 */
-	private int spmtWght;
+	private double spmtWght;
 	/**
 	 * 지시수량
 	 */
@@ -119,7 +119,7 @@ public class SpmtCmndVO extends ComVO {
 	/**
 	 * 지시중량
 	 */
-	private int cmndWght;
+	private double cmndWght;
 
 	/**
 	 * 포장단위코드

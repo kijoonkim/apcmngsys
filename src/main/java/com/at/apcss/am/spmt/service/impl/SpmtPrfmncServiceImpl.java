@@ -9,9 +9,12 @@ import javax.annotation.Resource;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import com.at.apcss.am.cmns.service.CmnsGdsService;
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.cmns.service.CmnsValidationService;
+import com.at.apcss.am.cmns.vo.CmnsGdsVO;
 import com.at.apcss.am.invntr.service.GdsInvntrService;
 import com.at.apcss.am.invntr.service.PltWrhsSpmtService;
 import com.at.apcss.am.invntr.vo.GdsInvntrVO;
@@ -59,6 +62,10 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 	// 팔레트 서비스
 	@Resource(name = "pltWrhsSpmtService")
 	private PltWrhsSpmtService pltWrhsSpmtService;
+
+	// 상품코드 서비스
+	@Resource(name = "cmnsGdsService")
+	private CmnsGdsService cmnsGdsService;
 
 	@Override
 	public SpmtPrfmncVO selectSpmtPrfmnc(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
@@ -172,6 +179,21 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 								spmtPrfmncVO.setSpmtQntt(remainderSpmtQntt);
 								spmtPrfmncVO.setSpmtWght(remainderSpmtWght);
 
+								if(!StringUtils.hasText(spmtPrfmncVO.getGdsCd())) {
+									CmnsGdsVO cmnsGdsVO = new CmnsGdsVO();
+									cmnsGdsVO.setApcCd(spmtPrfmncVO.getApcCd());
+									cmnsGdsVO.setItemCd(spmtPrfmncVO.getItemCd());
+									cmnsGdsVO.setVrtyCd(spmtPrfmncVO.getVrtyCd());
+									cmnsGdsVO.setSpcfctCd(spmtPrfmncVO.getSpcfctCd());
+									cmnsGdsVO.setSpmtPckgUnitCd(spmtPrfmncVO.getSpmtPckgUnitCd());
+									cmnsGdsVO.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
+									cmnsGdsVO.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
+
+									cmnsGdsService.insertCheckGdsCd(cmnsGdsVO);
+									spmtPrfmncVO.setGdsCd(cmnsGdsVO.getNewGdsCd());
+									spmtPrfmncVO.setBrndNm(cmnsGdsVO.getBrndNm());
+								}
+
 								insertedCnt = insertSpmtPrfmncDtl(spmtPrfmncVO);
 
 								GdsInvntrVO updateGdsInvntrVO = new GdsInvntrVO();
@@ -180,6 +202,8 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 								updateGdsInvntrVO.setPckgSn(spmtPrfmncVO.getPckgSn());
 								updateGdsInvntrVO.setSpmtQntt(spmtPrfmncVO.getSpmtQntt());
 								updateGdsInvntrVO.setSpmtWght(spmtPrfmncVO.getSpmtWght());
+								updateGdsInvntrVO.setSpmtPckgUnitCd(spmtPrfmncVO.getSpmtPckgUnitCd());
+								updateGdsInvntrVO.setGdsGrd(spmtPrfmncVO.getGdsGrd());
 								updateGdsInvntrVO.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
 								updateGdsInvntrVO.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
 
@@ -200,6 +224,21 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 								spmtPrfmncVO.setSpmtQntt(gdsInvntr.getInvntrQntt());
 								spmtPrfmncVO.setSpmtWght(gdsInvntr.getInvntrWght());
 
+								if(!StringUtils.hasText(spmtPrfmncVO.getGdsCd())) {
+									CmnsGdsVO cmnsGdsVO = new CmnsGdsVO();
+									cmnsGdsVO.setApcCd(spmtPrfmncVO.getApcCd());
+									cmnsGdsVO.setItemCd(spmtPrfmncVO.getItemCd());
+									cmnsGdsVO.setVrtyCd(spmtPrfmncVO.getVrtyCd());
+									cmnsGdsVO.setSpcfctCd(spmtPrfmncVO.getSpcfctCd());
+									cmnsGdsVO.setSpmtPckgUnitCd(spmtPrfmncVO.getSpmtPckgUnitCd());
+									cmnsGdsVO.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
+									cmnsGdsVO.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
+
+									cmnsGdsService.insertCheckGdsCd(cmnsGdsVO);
+									spmtPrfmncVO.setGdsCd(cmnsGdsVO.getNewGdsCd());
+									spmtPrfmncVO.setBrndNm(cmnsGdsVO.getBrndNm());
+								}
+
 								insertedCnt = insertSpmtPrfmncDtl(spmtPrfmncVO);
 
 								GdsInvntrVO updateGdsInvntrVO = new GdsInvntrVO();
@@ -208,6 +247,8 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 								updateGdsInvntrVO.setPckgSn(spmtPrfmncVO.getPckgSn());
 								updateGdsInvntrVO.setSpmtQntt(spmtPrfmncVO.getSpmtQntt());
 								updateGdsInvntrVO.setSpmtWght(spmtPrfmncVO.getSpmtWght());
+								updateGdsInvntrVO.setSpmtPckgUnitCd(spmtPrfmncVO.getSpmtPckgUnitCd());
+								updateGdsInvntrVO.setGdsGrd(spmtPrfmncVO.getGdsGrd());
 								updateGdsInvntrVO.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
 								updateGdsInvntrVO.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
 								resultMap = gdsInvntrService.updateGdsInvntrSpmtPrfmnc(updateGdsInvntrVO);
@@ -227,7 +268,7 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 					}
 
 				}else {
-					return ComUtil.getResultMap("W0005", "상품재고");
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("W0005", "상품재고")));
 				}
 			}
 
@@ -240,6 +281,22 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 
 			for (SpmtPrfmncVO spmtPrfmncVO : spmtPrfmncList) {
 				spmtPrfmncVO.setSpmtno(spmtno);
+
+				if(!StringUtils.hasText(spmtPrfmncVO.getGdsCd())) {
+					CmnsGdsVO cmnsGdsVO = new CmnsGdsVO();
+					cmnsGdsVO.setApcCd(spmtPrfmncVO.getApcCd());
+					cmnsGdsVO.setItemCd(spmtPrfmncVO.getItemCd());
+					cmnsGdsVO.setVrtyCd(spmtPrfmncVO.getVrtyCd());
+					cmnsGdsVO.setSpcfctCd(spmtPrfmncVO.getSpcfctCd());
+					cmnsGdsVO.setSpmtPckgUnitCd(spmtPrfmncVO.getSpmtPckgUnitCd());
+					cmnsGdsVO.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
+					cmnsGdsVO.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
+
+					cmnsGdsService.insertCheckGdsCd(cmnsGdsVO);
+					spmtPrfmncVO.setGdsCd(cmnsGdsVO.getNewGdsCd());
+					spmtPrfmncVO.setBrndNm(cmnsGdsVO.getBrndNm());
+				}
+
 				insertedCnt += insertSpmtPrfmncDtl(spmtPrfmncVO);
 
 				GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
@@ -248,6 +305,9 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 				gdsInvntrVO.setPckgSn(spmtPrfmncVO.getPckgSn());
 				gdsInvntrVO.setSpmtQntt(spmtPrfmncVO.getSpmtQntt());
 				gdsInvntrVO.setSpmtWght(spmtPrfmncVO.getSpmtWght());
+				gdsInvntrVO.setSpmtPckgUnitCd(spmtPrfmncVO.getSpmtPckgUnitCd());
+				gdsInvntrVO.setGdsCd(spmtPrfmncVO.getGdsCd());
+				gdsInvntrVO.setGdsGrd(spmtPrfmncVO.getGdsGrd());
 				gdsInvntrVO.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
 				gdsInvntrVO.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
 
@@ -356,7 +416,7 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 					}
 				}
 			}else {
-				return ComUtil.getResultMap(ComConstants.MSGCD_ALEADY_CLOSE, "출하실적");		// W0012	마감등록 된 {0} 입니다.
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ALEADY_CLOSE, "출하실적")));		// W0012	마감등록 된 {0} 입니다.
 			}
 
 

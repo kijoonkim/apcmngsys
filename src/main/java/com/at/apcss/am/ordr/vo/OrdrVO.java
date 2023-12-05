@@ -242,7 +242,7 @@ public class OrdrVO extends ComVO {
 	/*
 	 * 단중
 	 * */
-	private String unitWght;
+	private double unitWght;
 	/*
 	 * 출하포장단위코드
 	 * */
@@ -275,7 +275,7 @@ public class OrdrVO extends ComVO {
 	/*
 	 * 재고중량
 	 * */
-	private int invntrWght;
+	private double invntrWght;
 	/*
 	 * 출하수량
 	 * */
@@ -283,7 +283,7 @@ public class OrdrVO extends ComVO {
 	/*
 	 * 출하중량
 	 * */
-	private int spmtWght;
+	private double spmtWght;
 	/*
 	 * 창고코드
 	 * */
@@ -292,7 +292,7 @@ public class OrdrVO extends ComVO {
 	/*
 	 * 단위중량
 	 * */
-	private int wght;
+	private double wght;
 	/*
 	 * 출하지시수량
 	 * */
@@ -300,7 +300,7 @@ public class OrdrVO extends ComVO {
 	/*
 	 * 출하지시중량
 	 * */
-	private int cmndWght;
+	private double cmndWght;
 	/*
 	 * 출하일자
 	 * */

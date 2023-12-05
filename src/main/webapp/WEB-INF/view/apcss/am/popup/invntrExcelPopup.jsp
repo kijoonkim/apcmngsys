@@ -618,7 +618,6 @@
 						gfn_comAlert("W0005", "중량") 	// W0005	{0}이/가 없습니다.
 						return;
 					}else if(invntrSeCd == "2"){
-						console.log("jsonEPISpcfct", jsonEPISpcfct);
 						for(var j=0; j<jsonEPISpcfct.length; j++){
 							let row  = jsonEPISpcfct[j];
 				   			if(spcfctCd == row.spcfctCd){
