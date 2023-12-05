@@ -125,6 +125,9 @@
 		<if test=' vhclno != null and vhclno !=""'>
 			   AND PR.VHCLNO LIKE '%' || #{vhclno} || '%'
 		</if>
+		<if test=' telno != null and telno !=""'>
+			   AND PR.TELNO LIKE '%' || #{telno} || '%'
+		</if>
 
     	<![CDATA[
     		 ORDER BY PRDCR_NM, PRDCR_CD
@@ -138,13 +141,90 @@
     	<!-- End 페이징 -->
     </select>
 
-   	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrMapper.selectNewPrdcrCd			-->
-	<!-- DESC : 생산자 코드발번 조회.	                                       				-->
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrMapper.selectAgrixPrdcrList		-->
+	<!-- DESC : 아그리스 생산자 마스터 목록 조회.	                                -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.07.25  	김 호        	Initial Creation                            	-->
+	<!-- 2023.12.04  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectAgrixPrdcrList" parameterType="com.at.apcss.am.cmns.vo.PrdcrVO" resultType="com.at.apcss.am.cmns.vo.PrdcrVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.cmns.mapper.PrdcrMapper.selectAgrixPrdcrList */
+			       AFI.FRMERNO                      AS FRMERNO
+			     , AFI.MNGMST_REGNO                 AS MNGMST_REGNO
+			     , AFI.ADMST_OWNR_REL               AS ADMST_OWNR_REL
+			     , AFI.ADMST_OWNR_CORP_NM           AS ADMST_OWNR_CORP_NM
+			     , AFI.ADMST_OWNR_RGDT_ADDR         AS ADMST_OWNR_RGDT_ADDR
+			     , AFI.ADMST_OWNR_ACTL_HBTN_ADDR    AS ADMST_OWNR_ACTL_HBTN_ADDR
+			     , AFI.ADMST_OWNR_DADDR             AS ADMST_OWNR_DADDR
+			     , AFI.VLG_NM                       AS VLG_NM
+			     , AFI.PRSNA_CORP_SE_CD             AS PRSNA_CORP_SE_CD
+			     , AFI.CTZN_FNGNR_SE_CD             AS CTZN_FNGNR_SE_CD
+			     , AFI.TELNO                        AS TELNO
+			     , AFI.MOBLNO                       AS MOBLNO
+			     , AFI.FXNO                         AS FXNO
+			     , AFI.EML_ADDR                     AS EML_ADDR
+			     , AFI.AGRC_BGNG_YMD                AS AGRC_BGNG_YMD
+			     , AFI.FRMNG_BGNG_SHAP              AS FRMNG_BGNG_SHAP
+			     , AFI.FRMNG_ENGG_SHAP              AS FRMNG_ENGG_SHAP
+			     , AFI.FNDN_YR                      AS FNDN_YR
+			     , AFI.BRNO                         AS BRNO
+			     , AFI.RPRSV_NM                     AS RPRSV_NM
+			     , AFI.RPRSV_ADDR                   AS RPRSV_ADDR
+			     , AFI.BRDT                         AS BRDT
+			     , AFI.SXDC                         AS SXDC
+			     , AFI.REG_SE_CD                    AS REG_SE_CD
+			     , AFI.RMRK                         AS RMRK
+
+			  FROM TB_AX_FRMER_INFO AFI
+			 WHERE AFI.DEL_YN = 'N'
+			   AND NOT EXISTS (
+			                    SELECT 1
+			                      FROM TB_PRDCR_INFO X
+			                     WHERE X.APC_CD = #{apcCd}
+			                       AND X.PRDCR_LINK_CD = AFI.MNGMST_REGNO
+			                       AND X.DEL_YN = 'N'
+			                  )
+		]]>
+		<if test=' admstOwnrCorpNm != null and admstOwnrCorpNm !=""'>
+			   AND AFI.ADMST_OWNR_CORP_NM LIKE '%' || #{admstOwnrCorpNm} || '%'
+		</if>
+		<if test=' admstOwnrRgdtAddr != null and admstOwnrRgdtAddr !=""'>
+			   AND AFI.ADMST_OWNR_RGDT_ADDR LIKE '%' || #{admstOwnrRgdtAddr} || '%'
+		</if>
+		<if test=' telno != null and telno !=""'>
+			   AND (AFI.TELNO LIKE '%' || #{telno} || '%' OR AFI.MOBLNO LIKE '%' || #{telno} || '%')
+		</if>
+    	<![CDATA[
+    		 ORDER BY AFI.ADMST_OWNR_CORP_NM
+		]]>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+
+   	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrMapper.selectNewPrdcrCd			-->
+	<!-- DESC : 생산자 코드발번 조회.	                                       		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.25  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectNewPrdcrCd" parameterType="com.at.apcss.am.cmns.vo.PrdcrVO" resultType="com.at.apcss.am.cmns.vo.PrdcrVO">
     	<![CDATA[
@@ -155,7 +235,7 @@
     </select>
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrMapper.insertPrdcr					-->
-	<!-- DESC : 생산자 등록.                                             				-->
+	<!-- DESC : 생산자 등록.                                             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -214,7 +294,7 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrMapper.updatePrdcr					-->
-	<!-- DESC : 생산자 변경.                                             				-->
+	<!-- DESC : 생산자 변경.                                             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -254,7 +334,7 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrMapper.updatePrdcrRprs				-->
-	<!-- DESC : 생산자 변경.                                             				-->
+	<!-- DESC : 생산자 변경.                                             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -285,7 +365,7 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrMapper.deletePrdcr					-->
-	<!-- DESC : 생산자 변경.                                             				-->
+	<!-- DESC : 생산자 삭제.                                             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->

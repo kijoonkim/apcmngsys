@@ -39,7 +39,7 @@ public class PrdcrController extends BaseController {
 	@Resource(name="prdcrService")
 	private PrdcrService prdcrService;
 
-	// APC 환경설정 - 품목 목록 조회
+	// 생산자팝업 - 생산자 목록 조회
 	@PostMapping(value = "/am/cmns/selectPrdcrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectPrdcrList(@RequestBody PrdcrVO prdcrVO, HttpServletRequest request) throws Exception {
 
@@ -49,6 +49,26 @@ public class PrdcrController extends BaseController {
 		try {
 
 			resultList = prdcrService.selectPrdcrList(prdcrVO);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 생산자관리 - 아그리스 생산자 마스터 목록 조회
+	@PostMapping(value = "/am/cmns/selectAgrixPrdcrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectAgrixPrdcrList(@RequestBody PrdcrVO prdcrVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<PrdcrVO> resultList = new ArrayList<>();
+
+		try {
+
+			resultList = prdcrService.selectAgrixPrdcrList(prdcrVO);
 
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
