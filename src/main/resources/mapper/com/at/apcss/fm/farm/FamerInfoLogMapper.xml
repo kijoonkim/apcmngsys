@@ -155,7 +155,6 @@
 					, BRDT
 					, SXDC
 					, REG_SE_CD
-					, DEL_YN
 					, SYS_FRST_INPT_DT
 					, SYS_FRST_INPT_PRGRM_ID
 					, SYS_FRST_INPT_USER_ID
@@ -189,7 +188,6 @@
 					,#{brthdy}
 					,#{sexdstn}
 					,#{saveCd}
-					,#{delYn}
 					,SYSDATE
 					,#{sysFrstInptUserId}
 					,#{sysFrstInptPrgrmId}
@@ -261,14 +259,13 @@
 				, REPR_ADDR
 				, BRTHDY
 				, SEXDSTN
+				, SAVE_CD
 				, SYS_FRST_INPT_DT
 				, SYS_FRST_INPT_USER_ID
 				, SYS_FRST_INPT_PRGRM_ID
 				, SYS_LAST_CHG_DT
 				, SYS_LAST_CHG_USER_ID
 				, SYS_LAST_CHG_PRGRM_ID
-				, DEL_YN
-				, SAVE_CD
 	    		)
 	   		VALUES
 	   			(
@@ -295,14 +292,13 @@
 					,#{reprAddr}
 					,#{brthdy}
 					,#{sexdstn}
+					,#{saveCd}
 					,SYSDATE
 					,#{sysFrstInptUserId}
 					,#{sysFrstInptPrgrmId}
 					,SYSDATE
 					,#{sysLastChgUserId}
 					,#{sysLastChgPrgrmId}
-					,#{delYn}
-					,#{saveCd}
 	   			)
     	]]>
 	</insert>
@@ -337,7 +333,6 @@
 					, BRDT
 					, SXDC
 					, REG_SE_CD
-					, DEL_YN
 					, SYS_FRST_INPT_DT
 					, SYS_FRST_INPT_PRGRM_ID
 					, SYS_FRST_INPT_USER_ID
@@ -372,7 +367,6 @@
 					,#{brthdy}
 					,#{sexdstn}
 					,#{saveCd}
-					,#{delYn}
 					,SYSDATE
 					,#{sysFrstInptUserId}
 					,#{sysFrstInptPrgrmId}
@@ -483,14 +477,13 @@
 				, REPR_ADDR
 				, BRTHDY
 				, SEXDSTN
+				, SAVE_CD
 				, SYS_FRST_INPT_DT
 				, SYS_FRST_INPT_USER_ID
 				, SYS_FRST_INPT_PRGRM_ID
 				, SYS_LAST_CHG_DT
 				, SYS_LAST_CHG_USER_ID
 				, SYS_LAST_CHG_PRGRM_ID
-				, DEL_YN
-				, SAVE_CD
 	    		)
 	   		VALUES
 	   			(
@@ -518,7 +511,6 @@
 					,#{brthdy}
 					,#{sexdstn}
 					,#{saveCd}
-					,#{delYn}
 					,SYSDATE
 					,#{sysFrstInptUserId}
 					,#{sysFrstInptPrgrmId}

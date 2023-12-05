@@ -153,7 +153,6 @@
 					, BRDT
 					, SXDC
 					, REG_SE_CD
-					, DEL_YN
 					, SYS_FRST_INPT_DT
 					, SYS_FRST_INPT_PRGRM_ID
 					, SYS_FRST_INPT_USER_ID
@@ -187,7 +186,6 @@
 					,#{brthdy}
 					,#{sexdstn}
 					,#{saveCd}
-					,#{delYn}
 					,SYSDATE
 					,#{sysFrstInptUserId}
 					,#{sysFrstInptPrgrmId}
@@ -260,7 +258,6 @@
 					, BRDT
 					, SXDC
 					, REG_SE_CD
-					, DEL_YN
 					, SYS_FRST_INPT_DT
 					, SYS_FRST_INPT_PRGRM_ID
 					, SYS_FRST_INPT_USER_ID
@@ -294,7 +291,6 @@
 					,#{brthdy}
 					,#{sexdstn}
 					,#{saveCd}
-					,#{delYn}
 					,SYSDATE
 					,#{sysFrstInptUserId}
 					,#{sysFrstInptPrgrmId}
@@ -366,7 +362,6 @@
 					, BRDT
 					, SXDC
 					, REG_SE_CD
-					, DEL_YN
 					, SYS_FRST_INPT_DT
 					, SYS_FRST_INPT_PRGRM_ID
 					, SYS_FRST_INPT_USER_ID
@@ -400,7 +395,6 @@
 					,#{brthdy}
 					,#{sexdstn}
 					,#{saveCd}
-					,#{delYn}
 					,SYSDATE
 					,#{sysFrstInptUserId}
 					,#{sysFrstInptPrgrmId}
@@ -442,7 +436,6 @@
 					, BRDT
 					, SXDC
 					, REG_SE_CD
-					, DEL_YN
 					, SYS_FRST_INPT_DT
 					, SYS_FRST_INPT_PRGRM_ID
 					, SYS_FRST_INPT_USER_ID
@@ -477,7 +470,6 @@
 					,#{brthdy}
 					,#{sexdstn}
 					,#{saveCd}
-					,#{delYn}
 					,SYSDATE
 					,#{sysFrstInptUserId}
 					,#{sysFrstInptPrgrmId}
@@ -554,7 +546,6 @@
 					,#{brthdy}
 					,#{sexdstn}
 					,#{saveCd}
-					,#{delYn}
 					,SYSDATE
 					,#{sysFrstInptUserId}
 					,#{sysFrstInptPrgrmId}
@@ -666,7 +657,6 @@
 					, BRDT
 					, SXDC
 					, REG_SE_CD
-					, DEL_YN
 					, SYS_FRST_INPT_DT
 					, SYS_FRST_INPT_PRGRM_ID
 					, SYS_FRST_INPT_USER_ID
@@ -700,7 +690,6 @@
 					,#{brthdy}
 					,#{sexdstn}
 					,#{saveCd}
-					,#{delYn}
 					,SYSDATE
 					,#{sysFrstInptUserId}
 					,#{sysFrstInptPrgrmId}
@@ -772,7 +761,6 @@
 					, BRDT
 					, SXDC
 					, REG_SE_CD
-					, DEL_YN
 					, SYS_FRST_INPT_DT
 					, SYS_FRST_INPT_PRGRM_ID
 					, SYS_FRST_INPT_USER_ID
@@ -806,7 +794,6 @@
 					,#{brthdy}
 					,#{sexdstn}
 					,#{saveCd}
-					,#{delYn}
 					,SYSDATE
 					,#{sysFrstInptUserId}
 					,#{sysFrstInptPrgrmId}
