@@ -517,14 +517,14 @@
 					,#{reprAddr}
 					,#{brthdy}
 					,#{sexdstn}
+					,#{saveCd}
+					,#{delYn}
 					,SYSDATE
 					,#{sysFrstInptUserId}
 					,#{sysFrstInptPrgrmId}
 					,SYSDATE
 					,#{sysLastChgUserId}
 					,#{sysLastChgPrgrmId}
-					,#{delYn}
-					,#{saveCd}
 	   			)
     	]]>
     </update>
