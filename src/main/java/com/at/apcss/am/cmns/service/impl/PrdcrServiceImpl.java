@@ -121,4 +121,10 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 		return null;
 	}
 
+	@Override
+	public List<PrdcrVO> selectAgrixPrdcrList(PrdcrVO prdcrVO) throws Exception {
+		List<PrdcrVO> resultList = prdcrMapper.selectAgrixPrdcrList(prdcrVO);
+		return resultList;
+	}
+
 }

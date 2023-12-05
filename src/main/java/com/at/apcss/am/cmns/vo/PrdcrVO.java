@@ -114,4 +114,96 @@ public class PrdcrVO extends ComVO {
 	 */
 	private String clclnCrtrNm;
 
+	/**
+	 * 농업인 번호
+	 */
+	private String frmerno;
+	/**
+	 * 경영체등록번호(연계번호)
+	 */
+	private String mngmstRegno;
+	/**
+	 * 경영주 및 경영주와의 관계
+	 */
+	private String admstOwnrRel;
+	/**
+	 * 경영주 법인 명
+	 */
+	private String admstOwnrCorpNm;
+	/**
+	 * 경영주 주민등록 주소
+	 */
+	private String admstOwnrRgdtAddr;
+	/*
+	 * 경영주 실거주 주소
+	 * */
+	private String admstOwnrActlHbtnAddr;
+	/*
+	 * 경영주 실거주 도로명 주소
+	 * */
+	private String admstOwnrDaddr;
+	/*
+	 * 마을 명
+	 * */
+	private String vlgNm;
+	/*
+	 * 개인 법인 구분코드명
+	 * */
+	private String prsnaCorpSeCd;
+	/*
+	 * 내외국인 구분코드명
+	 * */
+	private String ctznFngnrSeCd;
+	/*
+	 * 휴대전화번호
+	 * */
+	private String moblno;
+	/*
+	 * 팩스번호
+	 * */
+	private String fxno;
+	/*
+	 * 이메일 주소
+	 * */
+	private String emlAddr;
+	/*
+	 * 영농 시작 일자
+	 * */
+	private String agrcBgngYmd;
+	/*
+	 * 농업시작형태
+	 * */
+	private String frmngBgngShap;
+	/*
+	 * 농업종사형태
+	 * */
+	private String frmngEnggShap;
+	/*
+	 * 설립연도
+	 * */
+	private String fndnYr;
+	/*
+	 * 사업자등록번호
+	 * */
+	private String brno;
+	/*
+	 * 대표자명
+	 * */
+	private String rprsvNm;
+	/*
+	 * 대표자 주소
+	 * */
+	private String rprsvAddr;
+	/*
+	 * 생년월일
+	 * */
+	private String brdt;
+	/*
+	 * 성별
+	 * */
+	private String sxdc;
+	/*
+	 * 등록구분
+	 * */
+	private String regSeCd;
 }

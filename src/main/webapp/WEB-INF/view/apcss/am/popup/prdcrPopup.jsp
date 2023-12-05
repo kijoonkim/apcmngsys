@@ -329,10 +329,6 @@
 		save: async function() {
 			const apcCd = SBUxMethod.get("prdcr-inp-apcCd");
 			let allData = grdPrdcrPop.getGridDataAll();
-			let insertList = [];
-			let updateList = [];
-			let insertCnt = 0;
-			let updateCnt = 0;
 
 			const prdcrList = [];
 
@@ -382,7 +378,7 @@
 	            return;
 			}
 
-			if (!gfn_comConfirm("Q0001", "등록")) {	//	Q0001	{0} 하시겠습니까?
+			if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
 	    		return;
 	    	}
 
