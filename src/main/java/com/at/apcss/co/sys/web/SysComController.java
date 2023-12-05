@@ -105,8 +105,10 @@ public class SysComController extends BaseController {
 			comLogVo.setSysLastChgUserId(userId);
 			comLogVo.setSysFrstInptPrgrmId(menuId);
 			comLogVo.setSysLastChgPrgrmId(menuId);
-			if (comLogVo.getFlfmtTaskSeCd() != null && comLogVo.getFlfmtTaskSeCd().equals("Y")) {
+			if (ComConstants.CON_YES.equals(comLogVo.getFlfmtTaskSeCd())) {
 				comLogVo.setFlfmtTaskSeCd("01");
+			}else {
+				comLogVo.setFlfmtTaskSeCd("");
 			}
 
 		comLogService.insertMenuHstry(comLogVo);

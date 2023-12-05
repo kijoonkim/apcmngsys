@@ -329,11 +329,10 @@
 				  , cfmtnAmt 	: item.cfmtnAmt
 				  , cfmtnYn		: item.cfmtnYn
 				  , cfmtnPsbltyYn	: item.cfmtnPsbltyYn
-
 				}
 				jsonSlsPrfmnc.push(slsPrfmnc);
 			});
-			grdSlsPrfmnc.refresh();
+			grdSlsPrfmnc.rebuild();
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
