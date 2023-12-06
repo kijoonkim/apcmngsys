@@ -33,6 +33,45 @@
 
 		<![CDATA[
     	SELECT /* com.at.apcss.fm.popup.mapper.MngmstInfoIdPopupMapper.selectMngmstInfoIdList */
+    		   A.RPRSV_NM				AS RPRSV_NM
+		     , A.RPRSV_ADDR				AS RPRSV_ADDR
+		     , A.ADMST_OWNR_CORP_NM		AS ADMST_OWNR_CORP_NM
+		     , A.BRNO					AS BRNO
+		     , A.MNGMST_REGNO			AS MNGMST_REGNO
+		  FROM TB_AX_FRMER_INFO A
+		 WHERE 1=1
+		 ]]>
+		 <if test='corpNm != null and corpNm != ""'>
+				AND A.CORP_NM LIKE '%'||#{corpNm}||'%'
+		</if>
+		<if test='brno != null and brno != ""'>
+				AND A.BRNO LIKE '%'||#{brno}||'%'
+		</if>
+		 ORDER BY CORP_NM ASC
+
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+
+	<!--
+	<select id="selectMngmstInfoIdList" parameterType="com.at.apcss.fm.popup.vo.MngmstInfoIdPopupVO" resultType="com.at.apcss.fm.popup.vo.MngmstInfoIdPopupVO">
+
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+
+
+		<![CDATA[
+    	SELECT /* com.at.apcss.fm.popup.mapper.MngmstInfoIdPopupMapper.selectMngmstInfoIdList */
     		   A.CORP_NM            AS CORP_NM
 		     , A.MNGMST_INFO_ID		AS MNGMST_INFO_ID
 		     , A.MNGMST_YN			AS MNGMST_YN
@@ -50,13 +89,13 @@
 		</if>
 		 ORDER BY CORP_NM ASC
 
-		<!-- Start 페이징 -->
+
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		  ) pt0
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
     	</if>
-    	<!-- End 페이징 -->
-    </select>
 
+    </select>
+     -->
 </mapper>

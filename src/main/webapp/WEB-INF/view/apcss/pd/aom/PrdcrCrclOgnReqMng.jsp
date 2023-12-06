@@ -922,7 +922,7 @@
 	var jsonComCorpSeCd = [];//법인구분
 	var jsonComCorpDtlSeCd = [];//법인형태
 	var jsonComUoCd = [];//통합조직코드
-	var jsonComAprv = [];//신청구분
+	var jsonComAprv = [];//통합조직여부
 	var jsonComAplyTrgtSe = [];//신청대상구분
 	/**
 	 * combo 설정
@@ -938,7 +938,7 @@
 			gfn_setComCdSBSelect('srch-input-corpSeCd', 	jsonComCorpSeCd, 	'CORP_SE_CD'), //법인구분
 			gfn_setComCdSBSelect('srch-input-corpDtlSeCd', 	jsonComCorpDtlSeCd, 	'CORP_SHAP'), //법인형태
 			//gfn_setComCdSBSelect('srch-input-uoCd', 		jsonComUoCd, 	'UO_CD'), //통합조직코드
-			gfn_setComCdSBSelect('srch-input-aprv', 		jsonComAprv, 	'APRV_UPBR_SE_CD'), //신청구분
+			gfn_setComCdSBSelect('srch-input-aprv', 		jsonComAprv, 	'APRV_UPBR_SE_CD'), //통합조직여부
 			gfn_setComCdSBSelect('srch-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE'), //신청대상구분
 			gfn_setComCdSBSelect('dtl-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE'), //신청대상구분
 
@@ -1051,7 +1051,7 @@
 
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
-		let year = SBUxMethod.get("srch-input-year");//
+		let yr = SBUxMethod.get("srch-input-yr");//
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
 		let ctpv = SBUxMethod.get("srch-input-ctpv");//
 
@@ -1070,6 +1070,7 @@
 
     		,brno : brno
     		,corpNm : corpNm
+    		,yr : yr
 
     		//페이징
     		,pagingYn : 'Y'
