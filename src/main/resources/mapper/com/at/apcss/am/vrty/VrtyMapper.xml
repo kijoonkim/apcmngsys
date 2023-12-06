@@ -13,8 +13,8 @@
 <mapper namespace="com.at.apcss.am.vrty.mapper.VrtyMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.apc..mapper.ApcEvrmntStngMapper.selectVrtyList		-->
-	<!-- DESC : 픔종 선택후 팝업 조회			                                        -->
+	<!-- NAME : com.at.apcss.am.vrty.mapper.ApcEvrmntStngMapper.selectVrtyList		-->
+	<!-- DESC : 품종 선택 후 팝업 조회			                                        -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
