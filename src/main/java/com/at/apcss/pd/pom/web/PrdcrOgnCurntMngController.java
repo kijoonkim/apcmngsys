@@ -15,14 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.at.apcss.am.apc.service.ApcEvrmntStngService;
-import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
-import com.at.apcss.fm.dashboard.service.DashboardService;
-import com.at.apcss.fm.dashboard.vo.DashboardVO;
-import com.at.apcss.fm.fclt.service.FcltOperInfoClctAgreInfoService;
-import com.at.apcss.fm.fclt.vo.FcltOperInfoClctAgreInfoVO;
 import com.at.apcss.pd.pom.service.PrdcrOgnCurntMngService;
 import com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO;
 
@@ -38,13 +32,28 @@ public class PrdcrOgnCurntMngController extends BaseController{
 		return "apcss/pd/pom/PrdcrOgnCurntMng";
 	}
 
-// 조회
+		// 조회
 		@PostMapping(value = "/pd/pom/selectPrdcrOgnCurntMngList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 		public ResponseEntity<HashMap<String, Object>> selectPrdcrOgnCurntMngList(Model model, @RequestBody PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO, HttpServletRequest request) throws Exception{
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 			List<PrdcrOgnCurntMngVO> resultList = new ArrayList<>();
 			try {
 				 resultList = PrdcrOgnCurntMngService.selectPrdcrOgnCurntMngList(PrdcrOgnCurntMngVO);
+			} catch (Exception e) {
+				logger.debug(e.getMessage());
+				return getErrorResponseEntity(e);
+			}
+			resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+			return getSuccessResponseEntity(resultMap);
+		}
+
+		// 조회
+		@PostMapping(value = "/pd/pom/selectPrdcrOgnCurntMngDtlList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> selectPrdcrOgnCurntMngDtlList(Model model, @RequestBody PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO, HttpServletRequest request) throws Exception{
+			HashMap<String,Object> resultMap = new HashMap<String,Object>();
+			List<PrdcrOgnCurntMngVO> resultList = new ArrayList<>();
+			try {
+				 resultList = PrdcrOgnCurntMngService.selectPrdcrOgnCurntMngDtlList(PrdcrOgnCurntMngVO);
 			} catch (Exception e) {
 				logger.debug(e.getMessage());
 				return getErrorResponseEntity(e);

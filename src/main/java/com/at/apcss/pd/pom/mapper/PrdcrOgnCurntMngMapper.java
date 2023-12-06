@@ -33,6 +33,8 @@ public interface PrdcrOgnCurntMngMapper {
 
 	public List<PrdcrOgnCurntMngVO> selectPrdcrOgnCurntMngList(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO);
 
+	public List<PrdcrOgnCurntMngVO> selectPrdcrOgnCurntMngDtlList(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO);
+
 	public int insertPrdcrOgnCurntMng(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO);
 
 	public int updatePrdcrOgnCurntMng(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO);

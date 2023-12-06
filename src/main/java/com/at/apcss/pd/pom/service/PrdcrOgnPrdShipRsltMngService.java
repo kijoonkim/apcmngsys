@@ -1,10 +1,7 @@
 package com.at.apcss.pd.pom.service;
 
 import java.util.List;
-import java.util.Map;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.pd.pom.vo.PrdcrOgnPrdShipRsltMngVO;
 
 
@@ -33,6 +30,8 @@ public interface PrdcrOgnPrdShipRsltMngService {
 	public PrdcrOgnPrdShipRsltMngVO selectPrdcrOgnPrdShipRsltMng(PrdcrOgnPrdShipRsltMngVO PrdcrOgnPrdShipRsltMngVO) throws Exception;
 
 	public List<PrdcrOgnPrdShipRsltMngVO> selectPrdcrOgnPrdShipRsltMngList(PrdcrOgnPrdShipRsltMngVO PrdcrOgnPrdShipRsltMngVO) throws Exception;
+
+	public List<PrdcrOgnPrdShipRsltMngVO> selectPrdcrOgnPrdShipRsltMngDtlList(PrdcrOgnPrdShipRsltMngVO PrdcrOgnPrdShipRsltMngVO) throws Exception;
 
 	public int insertPrdcrOgnPrdShipRsltMng(PrdcrOgnPrdShipRsltMngVO PrdcrOgnPrdShipRsltMngVO) throws Exception;
 

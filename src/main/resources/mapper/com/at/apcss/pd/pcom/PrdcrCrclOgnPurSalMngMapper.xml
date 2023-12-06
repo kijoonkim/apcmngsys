@@ -23,34 +23,28 @@
     <select id="selectPrdcrCrclOgnPurSalMng" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectPrdcrCrclOgnPurSalMng */
-				  CM.TEST_NO
-				, CM.AA
-				, CM.BB
-				, CM.CC
-				, CM.DD
-				, CM.EE
-				, CM.FF
-				, CM.GG
-				, CM.HH
-				, CM.II
-				, CM.II_CODE
-				, CM.JJ
-				, CM.KK
-				, CM.LL
-				, CM.MM
-				, CM.NN
-				, CM.OO
-				, CM.PP
-				, CM.QQ
-				, CM.RR
-				, CM.SS
-				, CM.TT
-				, CM.UU
-				, CM.VV
-				, CM.WW
-				, CM.XX
-				, CM.YY
-				, CM.ZZ
+				  CM.YR
+				, CM.APO_CD
+				, CM.APO_SE
+				, CM.BRNO
+				, CM.CRNO
+				, CM.CTGRY_CD
+				, CM.ITEM_CD
+				, (SELECT CTGRY_NM FROM TB_EV_GPC_CD WHERE ITEM_CD = CM.ITEM_CD) AS CTGRY_NM
+				, (SELECT ITEM_NM FROM TB_EV_GPC_CD WHERE ITEM_CD = CM.ITEM_CD) AS ITEM_NM
+
+				, CM.PRCHS_TRST_VLM
+				, CM.PRCHS_TRST_AMT
+				, CM.PRCHS_EMSPAP_VLM
+				, CM.PRCHS_EMSPAP_AMT
+
+				, CM.SLS_EMSPAP_VLM
+				, CM.SLS_EMSPAP_AMT
+				, CM.SLS_TRST_VLM
+				, CM.SLS_TRST_AMT
+
+				, CM.RMRK
+
 				, CM.DEL_YN		AS DEL_YN
 				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
 				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
@@ -62,20 +56,17 @@
 				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
 				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_ID_NM
 				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_PD_PrdcrCrclOgnVluIdctrMng CM
+			  FROM TB_EV_UO_ALL_PRCHS_SLS CM
 			 WHERE 1=1
 
     	]]>
-    		<if test='ccCode != null and ccCode != ""'>
-				AND CM.CC_CODE LIKE #{ccCode} || '%'
+    		<if test='apoCd != null and apoCd != ""'>
+				AND CM.APO_CD = #{apoCd}
 			</if>
-			<if test='iiCode != null and iiCode != ""'>
-				AND CM.II_CODE LIKE '%' || #{iiCode} || '%'
+			<if test='apoSe != null and apoSe != ""'>
+				AND CM.APO_SE = #{apoSe}
 			</if>
-			<if test='testNo != null and testNo != ""'>
-				AND CM.TEST_NO LIKE '%' || #{testNo} || '%'
-			</if>
-		ORDER BY CM.SYS_LAST_CHG_DT DESC
+		ORDER BY CM.ITEM_CD DESC
     </select>
 
 
@@ -90,36 +81,28 @@
     <select id="selectPrdcrCrclOgnPurSalMngList" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectPrdcrCrclOgnPurSalMngList */
-				  CM.TEST_NO
-				, CM.AA
-				, CM.BB
-				, CM.CC
-				, CM.CC_CODE
-				, CM.DD
-				, CM.DD_CODE
-				, CM.EE
-				, CM.FF
-				, CM.GG
-				, CM.HH
-				, CM.II
-				, CM.II_CODE
-				, CM.JJ
-				, CM.KK
-				, CM.LL
-				, CM.MM
-				, CM.NN
-				, CM.OO
-				, CM.PP
-				, CM.QQ
-				, CM.RR
-				, CM.SS
-				, CM.TT
-				, CM.UU
-				, CM.VV
-				, CM.WW
-				, CM.XX
-				, CM.YY
-				, CM.ZZ
+				  CM.YR
+				, CM.APO_CD
+				, CM.APO_SE
+				, CM.BRNO
+				, CM.CRNO
+				, CM.CTGRY_CD
+				, CM.ITEM_CD
+				, (SELECT CTGRY_NM FROM TB_EV_GPC_CD WHERE ITEM_CD = CM.ITEM_CD) AS CTGRY_NM
+				, (SELECT ITEM_NM FROM TB_EV_GPC_CD WHERE ITEM_CD = CM.ITEM_CD) AS ITEM_NM
+
+				, CM.PRCHS_TRST_VLM
+				, CM.PRCHS_TRST_AMT
+				, CM.PRCHS_EMSPAP_VLM
+				, CM.PRCHS_EMSPAP_AMT
+
+				, CM.SLS_EMSPAP_VLM
+				, CM.SLS_EMSPAP_AMT
+				, CM.SLS_TRST_VLM
+				, CM.SLS_TRST_AMT
+
+				, CM.RMRK
+
 				, CM.DEL_YN		AS DEL_YN
 				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
 				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
@@ -131,104 +114,100 @@
 				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
 				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_ID_NM
 				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_PD_PrdcrCrclOgnVluIdctrMng CM
-			  WHERE 1=1
+			  FROM TB_EV_UO_ALL_PRCHS_SLS CM
+			 WHERE 1=1
+
     	]]>
-    		<if test='ccCode != null and ccCode != ""'>
-				AND CM.CC_CODE LIKE #{ccCode} || '%'
+    		<if test='apoCd != null and apoCd != ""'>
+				AND CM.APO_CD = #{apoCd}
 			</if>
-			<if test='iiCode != null and iiCode != ""'>
-				AND CM.II_CODE LIKE '%' || #{iiCode} || '%'
+			<if test='apoSe != null and apoSe != ""'>
+				AND CM.APO_SE = #{apoSe}
 			</if>
-			<if test='testNo != null and testNo != ""'>
-				AND CM.TEST_NO LIKE '%' || #{testNo} || '%'
-			</if>
+		ORDER BY CM.ITEM_CD DESC
     </select>
 
 
 	<insert id="insertPrdcrCrclOgnPurSalMng" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.insertPrdcrCrclOgnPurSalMng */
-	    	  INTO TB_PD_PrdcrCrclOgnVluIdctrMng
-	    		(
-	    			TEST_NO
-	    		  , AA
-	    		  , BB
-	    		  , CC
-	    		  , CC_CODE
-	    		  , DD
-	    		  , DD_CODE
-	    		  , EE
-	    		  , FF
-	    		  , GG
-	    		  , HH
-	    		  , II
-	    		  , II_CODE
-	    		  , JJ
-	    		  , KK
-	    		  , LL
-	    		  , MM
-	    		  , NN
-	    		  , OO
-	    		  , PP
-	    		  , QQ
-	    		  , RR
-	    		  , SS
-	    		  , TT
-	    		  , UU
-	    		  , VV
-	    		  , WW
-	    		  , XX
-	    		  , YY
-	    		  , ZZ
-	    		  , SYS_FRST_INPT_DT
-	    		  , SYS_FRST_INPT_USER_ID
-	    		  , SYS_FRST_INPT_PRGRM_ID
-	    		  , SYS_LAST_CHG_DT
-	    		  , SYS_LAST_CHG_USER_ID
-	    		  , SYS_LAST_CHG_PRGRM_ID
-	    		)
-	   		VALUES
-	   			(
-	   			    (SELECT NVL(MAX(TEST_NO),0)+1 FROM TB_PD_PrdcrCrclOgnVluIdctrMng)
-	   			  , #{aa}
-	   			  , #{bb}
-	   			  , #{cc}
-	   			  , #{ccCode}
-	   			  , #{dd}
-	   			  , #{ddCode}
-	   			  , #{ee}
-	   			  , #{ff}
-	   			  , #{gg}
-	   			  , #{hh}
-	   			  , #{ii}
-	   			  , #{iiCode}
-	   			  , #{jj}
-	   			  , #{kk}
-	   			  , #{ll}
-	   			  , #{mm}
-	   			  , #{nn}
-	   			  , #{oo}
-	   			  , #{pp}
-	   			  , #{qq}
-	   			  , #{rr}
-	   			  , #{ss}
-	   			  , #{tt}
-	   			  , #{uu}
-	   			  , #{vv}
-	   			  , #{ww}
-	   			  , #{xx}
-	   			  , #{yy}
-	   			  , #{zz}
-	   			  , SYSDATE
-	   			  , #{sysFrstInptUserId}
-	   			  , #{sysFrstInptPrgrmId}
-	   			  , SYSDATE
-	   			  , #{sysLastChgUserId}
-	   			  , #{sysLastChgPrgrmId}
-	   			)
+    	MERGE INTO TB_EV_UO_ALL_PRCHS_SLS CLT  /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.insertPrdcrCrclOgnPurSalMng */
+		USING DUAL
+			ON (
+					CLT.APO_CD   = #{apoCd}
+				AND CLT.CTGRY_CD = #{ctgryCd}
+				AND CLT.ITEM_CD	 = #{itemCd}
+				)
+		WHEN MATCHED THEN
+				 UPDATE
+					   SET
+		    	        PRCHS_TRST_VLM			= #{prchsTrstVlm}
+		    	        , PRCHS_TRST_AMT		= #{prchsTrstAmt}
+		    	        , PRCHS_EMSPAP_VLM		= #{prchsEmspapVlm}
+		    	        , PRCHS_EMSPAP_AMT		= #{prchsEmspapAmt}
+
+		    	        , SLS_EMSPAP_VLM		= #{slsEmspapVlm}
+		    	        , SLS_EMSPAP_AMT		= #{slsEmspapAmt}
+		    	        , SLS_TRST_VLM			= #{slsTrstVlm}
+		    	        , SLS_TRST_AMT			= #{slsTrstAmt}
+
+		    	        , RMRK					= #{rmrk}
+		    	]]>
+		    	<![CDATA[
+
+					 WHERE 1=1
+					 AND CLT.APO_CD		= #{apoCd}
+					 AND CLT.CTGRY_CD	= #{ctgryCd}
+					 AND CLT.ITEM_CD	= #{itemCd}
+		WHEN NOT MATCHED THEN
+			 INSERT
+		    		(
+		    			APO_CD
+		    		  , APO_SE
+		    		  , BRNO
+		    		  , CRNO
+		    		  , YR
+
+		    		  , CTGRY_CD
+		    		  , ITEM_CD
+
+		    		  , PRCHS_TRST_VLM
+		    		  , PRCHS_TRST_AMT
+		    		  , PRCHS_EMSPAP_VLM
+		    		  , PRCHS_EMSPAP_AMT
+
+		    		  , SLS_EMSPAP_VLM
+		    		  , SLS_EMSPAP_AMT
+		    		  , SLS_TRST_VLM
+		    		  , SLS_TRST_AMT
+
+		    		  , RMRK
+		    		)
+		   		VALUES
+		   			(
+		   			    #{apoCd}
+		   			  , #{apoSe}
+		   			  , #{brno}
+		   			  , #{crno}
+		   			  , #{yr}
+
+		   			  , #{ctgryCd}
+		   			  , #{itemCd}
+
+		   			  , #{prchsTrstVlm}
+		   			  , #{prchsTrstAmt}
+		   			  , #{prchsEmspapVlm}
+		   			  , #{prchsEmspapAmt}
+
+		   			  , #{slsEmspapVlm}
+		   			  , #{slsEmspapAmt}
+		   			  , #{slsTrstVlm}
+		   			  , #{slsTrstAmt}
+
+		   			  , #{rmrk}
+		   			)
     	]]>
     </insert>
+
 	<update id="updatePrdcrCrclOgnPurSalMng" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
     	<![CDATA[
 	    	UPDATE /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.upatePrdcrCrclOgnPurSalMng */
@@ -280,8 +259,11 @@
 
 	<delete id="deletePrdcrCrclOgnPurSalMng" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
 		<![CDATA[
-		DELETE FROM TB_PD_PrdcrCrclOgnVluIdctrMng
-		 WHERE TEST_NO 	= #{testNo}
+		DELETE FROM TB_EV_UO_ALL_PRCHS_SLS
+		 WHERE 1=1
+					 AND APO_CD		= #{apoCd}
+					 AND CTGRY_CD	= #{ctgryCd}
+					 AND ITEM_CD	= #{itemCd}
 		]]>
 	</delete>
 

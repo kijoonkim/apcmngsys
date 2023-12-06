@@ -527,6 +527,10 @@
 				<div>
 				*신청대상구분은 aT본사에서만 이용하는 란입니다.
 				</div>
+				<br>
+				<div style="margin-left: auto;">
+					<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -635,7 +639,7 @@
 	    	{caption: ["seq"], 			ref: 'apoCd',   	hidden : true},
 	    	{caption: ["신청년도"], 		ref: 'year',   	type:'output',  width:'220px',    style:'text-align:center'},
 	    	{caption: ["통합조직여부"], 	ref: 'aprv',   type:'output',  width:'220px',    style:'text-align:center', disabled:true
-	    		,typeinfo : {ref:'jsonComAprv', label:'label', value:'value', displayui : true}},
+	    		,typeinfo : {ref:'jsonComAprv', label:'label', value:'value', displayui : false}},
 	        {caption: ["시도"], 			ref: 'ctpv',   	type:'output',  width:'220px',    style:'text-align:center'},
 	        {caption: ["시군구"], 		ref: 'sgg',   	type:'output',  width:'220px',    style:'text-align:center'},
 	        {caption: ["법인명"], 		ref: 'corpNm',  type:'output',  width:'220px',    style:'text-align:center'},

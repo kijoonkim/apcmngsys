@@ -33,6 +33,8 @@ public interface PrdcrOgnPrdShipRsltMngMapper {
 
 	public List<PrdcrOgnPrdShipRsltMngVO> selectPrdcrOgnPrdShipRsltMngList(PrdcrOgnPrdShipRsltMngVO PrdcrOgnPrdShipRsltMngVO);
 
+	public List<PrdcrOgnPrdShipRsltMngVO> selectPrdcrOgnPrdShipRsltMngDtlList(PrdcrOgnPrdShipRsltMngVO PrdcrOgnPrdShipRsltMngVO);
+
 	public int insertPrdcrOgnPrdShipRsltMng(PrdcrOgnPrdShipRsltMngVO PrdcrOgnPrdShipRsltMngVO);
 
 	public int updatePrdcrOgnPrdShipRsltMng(PrdcrOgnPrdShipRsltMngVO PrdcrOgnPrdShipRsltMngVO);
