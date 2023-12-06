@@ -158,6 +158,9 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 		// 조회
 		@PostMapping(value = "/pd/aom/selectGpcList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 		public ResponseEntity<HashMap<String, Object>> selectGpcList(Model model, @RequestBody GpcVO gpcVO, HttpServletRequest request) throws Exception{
+			System.out.println("==============selectGpcList===================");
+			logger.debug("/pd/aom/selectGpcList >>> 호출 >>> ");
+			System.out.println(gpcVO.toString());
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 			List<GpcVO> resultList = new ArrayList<>();
 			try {

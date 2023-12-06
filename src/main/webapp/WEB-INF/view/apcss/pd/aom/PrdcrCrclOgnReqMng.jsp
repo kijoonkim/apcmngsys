@@ -1049,7 +1049,6 @@
     	fn_setGrdFcltList(recordCountPerPage, currentPageNo);
     }
 
-
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
 		let year = SBUxMethod.get("srch-input-year");//
@@ -1215,6 +1214,10 @@
    	 	const postJsonPromise = gfn_postJSON("/pd/aom/insertPrdcrCrclOgnReqMng.do", {
 
    	 		apoCd: SBUxMethod.get('dtl-input-apoCd')//
+			,apoSe: SBUxMethod.get('dtl-input-apoSe')//
+			,brno: SBUxMethod.get('dtl-input-brno')//
+			,crno: SBUxMethod.get('dtl-input-crno')//
+			,corpNm: SBUxMethod.get('dtl-input-corpNm')//
    	 		//생산유통통합조직 승인형,육성형
    	 		,aprv: SBUxMethod.get('dtl-input-aprv')//
    	 		//원물확보 시군 및 시도 개소 수
@@ -1519,13 +1522,18 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	    	{caption: ["통합조직코드"], 	ref: 'apoCd',   	hidden : true},
-	    	{caption: ["통합조직코드"], 	ref: 'yr',   	hidden : true},
+	    	{caption: ["통합조직코드"], 	ref: 'yr',   		hidden : true},
+	    	{caption: ["분류명"], 		ref: 'ctgryNm',   	type:'output',  width:'150px',    style:'text-align:center'},
+	    	{caption: ["분류코드"], 		ref: 'ctgryCd',   	hidden : true},
+	    	/*
 	    	{caption: ["품목분류"], 		ref: 'ctgryCd',   	type:'combo',  width:'150px',    style:'text-align:center',
 	    		typeinfo : {ref:'jsonAa', label:'label', value:'value', displayui : true}},
+	    	*/
 	    	{caption: ["전문/육성 구분"], 	ref: 'sttgUpbrItemSe',   type:'combo',  width:'150px',    style:'text-align:center',
 	    		typeinfo : {ref:'jsonBb', label:'label', value:'value', displayui : true}},
-	        {caption: ["품목"], 			ref: 'itemCd',   	hidden : true},
-	        {caption: ["품목"], 			ref: 'itemNm',   	type:'input',  width:'150px',    style:'text-align:center'},
+	    	{caption: ["품목명"], 			ref: 'itemNm',   	type:'output',  width:'150px',    style:'text-align:center'},
+	        {caption: ["품목코드"], 			ref: 'itemCd',   	hidden : true},
+	        {caption: ["품목"], 			ref: 'itemNm',   	type:'output',  width:'150px',    style:'text-align:center'},
 	        {caption: ["비고"], 			ref: 'rmrk',   	type:'input',  width:'150px',    style:'text-align:center'},
 	        {caption: ["처리"], 				ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
@@ -1554,11 +1562,11 @@
 
 	/* 품목리스트 조회 기능*/
 	const fn_selectGpcList = async function(){
-
+		console.log("===========fn_selectGpcList===========");
 		let apoCd = SBUxMethod.get('dtl-input-apoCd')//
 
 		if(gfn_isEmpty(apoCd)) return;
-
+		console.log("apoCd : "+apoCd);
     	let postJsonPromise = gfn_postJSON("/pd/aom/selectGpcList.do", {
     		 apoCd : apoCd
     		,apoSe : SBUxMethod.get('dtl-input-apoSe')//
@@ -1572,7 +1580,7 @@
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
 				let GpcListVO = {
-						 yr: yr
+						 yr: item.yr
 						,sttgUpbrItemSe: item.sttgUpbrItemSe
 						,ctgryCd: item.ctgryCd
 						,ctgryNm: item.ctgryNm
@@ -1587,6 +1595,8 @@
         	grdGpcList.rebuild();
         	//비어 있는 마지막 줄 추가용도
         	grdGpcList.addRow();
+        	var nCol =grdGpcList.getColRef('sttgUpbrItemSe');
+
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -1595,48 +1605,6 @@
         }
 	}
 
-
-	let selGridGpcListRow;//선택한 행
-	let selGridGpcListCol;//선택한 열
-
-    //그리드 클릭이벤트
-    function gridUoListClick(){
-		console.log("================gridClick================");
-		//grdPrdcrCrclOgnReqClsMng 그리드 객체
-        selGridGpcListRow = grdGpcList.getRow();
-        selGridGpcListCol = grdGpcList.getCol();
-
-        let delYnCol = grdGpcList.getColRef('delYn');
-        let delYnValue = grdGpcList.getCellData(selGridGpcListRow,delYnCol);
-
-        //입력할 데이터 인지 확인
-        //추가 행의 경우 DEL_YN을 N 로 변경한 빈 행임
-        //fn_procRow 의 ADD 확인
-        if(delYnValue != 'N'){
-        	return;
-        }
-
-        //uoCorpNm 법인체명 uoBrno 사업자번호
-        let uoCorpNmCol = grdGpcList.getColRef('uoCorpNm');
-        let uoBrnoCol = grdGpcList.getColRef('uoBrno');
-
-        if(selGridUoListRow == '-1'){
-			return;
-        } else {
-        	//선택한 데이터가 통합조직명,통합조직 사업자번호 일떄
-        	if (selGridGpcListCol == uoCorpNmCol || selGridGpcListCol == uoBrnoCol){
-        		console.log("");
-        		//통합조직 선택 세팅
-        		//통합조직 팝업 객체 popBrno
-        		popBrno.init(fn_setGridMngmstInfoId);
-        		//팝업창 오픈
-        		//통합조직 팝업창 id : modal-brno
-        		SBUxMethod.openModal('modal-brno');
-        	}else{
-        		return;
-        	}
-        }
-    }
 
 	// Grid Row 추가 및 삭제 기능
     function fn_procRow(gubun, grid, nRow, nCol) {
@@ -1773,49 +1741,24 @@
         	return;
         }
 
-        //cc 전문 품목 dd 육성 품목
-        let ccCol = grdGpcList.getColRef('cc');
-        let ddCol = grdGpcList.getColRef('dd');
-        let iiCol = grdGpcList.getColRef('ii');
+        //분류,품목,
+        let ctgryCdCol = grdGpcList.getColRef('ctgryCd');
+        let sttgUpbrItemSeCol = grdGpcList.getColRef('sttgUpbrItemSe');
+        let itemNmCol = grdGpcList.getColRef('itemNm');
 
         if(selGridRow == '-1'){
 			return;
         } else {
         	//선택한 데이터가 통합조직 일떄
-        	if (selGridCol == iiCol){
-        		//통합조직 선택 세팅
-        		//통합조직 팝업 객체 popInvstmntSpmt
-        		popInvstmntSpmt.init(gv_selectedApcCd, gv_selectedApcNm, fn_setGridInvstmntSpmt);
+        	if (selGridCol == ctgryCdCol || selGridCol == itemNmCol){
         		//팝업창 오픈
         		//통합조직 팝업창 id : modal-gpcList
-        		SBUxMethod.openModal('modal-gpcList');
-        	} else if (selGridCol == ccCol || selGridCol == ddCol){
-        		//품목 선택 세팅
-        		//품목 선택 팝업 객체 popItemSelect
-        		popItemSelect.init(selGridRow, fn_setGridItem);
-        		//팝업창 오픈
-        		//품목 팝업창 id : modal-gpcList
+        		popGpcSelect.init(fn_setGridItem);
         		SBUxMethod.openModal('modal-gpcList');
         	}
         }
     }
 
- 	// 그리드의 통합조직 선택 팝업 콜백 함수
-	const fn_setGridInvstmntSpmt = function(rowData) {
-		console.log("================fn_setGridInvstmntSpmt================");
-		console.log(rowData);
-		if (!gfn_isEmpty(rowData)) {
-			//setCellData (행,열,입력 데이터,[refresh여부],[행 상태 정보 update로 변경])
-			//selGridRow 선택된 행 값
-			//getColRef(ref) ref의 인덱스 값 가져오기
-			let colRefIdx1 = grdGpcList.getColRef('ii');//ii 통합조직 인덱스
-			let colRefIdx2 = grdGpcList.getColRef('iiCode');//ii 통합조직 코드 인덱스
-
-			//그리드 값 세팅
-			grdGpcList.setCellData(selGridRow,colRefIdx1,rowData.mainCodeNm,true);
-			grdGpcList.setCellData(selGridRow,colRefIdx2,rowData.mainCode,true);
-		}
-	}
 
 	// 그리드의 품목 선택 팝업 콜백 함수
 	const fn_setGridItem = function(rowData) {
@@ -1827,13 +1770,18 @@
 			//getColRef(ref) ref의 인덱스 값 가져오기
 			let selRef = grdGpcList.getRefOfCol(selGridCol);
 
-			//구분하기 편하기 위해 ref 값이 cc라면 코드값은 ccCode 로 설정
-			let colRefIdx1 = grdGpcList.getColRef(selRef);//품목명 인덱스
-			let colRefIdx2 = grdGpcList.getColRef(selRef+"Code");//품목코드 인덱스
+			let colRefIdx1 = grdGpcList.getColRef("ctgryCd");//분류코드 인덱스
+			let colRefIdx2 = grdGpcList.getColRef("ctgryNm");//분류명 인덱스
+			let colRefIdx3 = grdGpcList.getColRef("itemCd");//품목코드 인덱스
+			let colRefIdx4 = grdGpcList.getColRef("itemNm");//품목명 인덱스
+			let colRefIdx5 = grdGpcList.getColRef("rmrk");//기타 인덱스
 
 			//그리드 값 세팅
-			grdGpcList.setCellData(selGridRow,colRefIdx1,rowData.itemNm,true);
-			grdGpcList.setCellData(selGridRow,colRefIdx2,rowData.itemCd,true);
+			grdGpcList.setCellData(selGridRow,colRefIdx1,rowData.ctgryCd,true);
+			grdGpcList.setCellData(selGridRow,colRefIdx2,rowData.ctgryNm,true);
+			grdGpcList.setCellData(selGridRow,colRefIdx3,rowData.itemCd,true);
+			grdGpcList.setCellData(selGridRow,colRefIdx4,rowData.itemNm,true);
+			grdGpcList.setCellData(selGridRow,colRefIdx5,rowData.rmrk,true);
 		}
 	}
 </script>

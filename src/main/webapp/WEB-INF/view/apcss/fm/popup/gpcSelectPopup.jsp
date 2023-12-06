@@ -11,7 +11,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<p>
-						<span style="font-weight:bold;">APC명을 선택합니다.</span>
+						<span style="font-weight:bold;">품목을 선택합니다.</span>
 					</p>
 				</div>
 				<div style="margin-left: auto;">
@@ -37,11 +37,15 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row">APC명</th>
+							<th scope="row">분류</th>
 							<th>
 								<sbux-input id="gpc-inp-gpcNm" name="gpc-inp-gpcNm" uitype="text" class="form-control input-sm" onkeyenter="enterKey();"></sbux-input>
 							</th>
-							<th colspan="3"></th>
+							<th scope="row">품목</th>
+							<th>
+								<sbux-input id="gpc-inp-gpcNm1" name="gpc-inp-gpcNm1" uitype="text" class="form-control input-sm" onkeyenter="enterKey();"></sbux-input>
+							</th>
+							<th></th>
 						</tr>
 					</tbody>
 				</table>
@@ -51,7 +55,7 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="color: black;">APC 목록</span>
+								<span style="color: black;">품목 목록</span>
 								<span style="font-size:12px">(조회건수 <span id="gpc-pop-cnt">0</span>건)</span>
 							</li>
 						</ul>
@@ -78,7 +82,7 @@
 	 */
 	const popGpcSelect = {
 		prgrmId: 'gpcPopup',
-		modalId: 'modal-gpcSelect',
+		modalId: 'modal-gpcList',
 		gridId: 'grdGpcPop',
 		jsonId: 'jsonGpcPop',
 		areaId: "sb-area-grdGpcPop",

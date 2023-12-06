@@ -471,8 +471,8 @@
 							<td colspan="4" class="td_input">
 								<sbux-input
 									uitype="text"
-									id="dtl-input-12"
-									name="dtl-input-12"
+									id="dtl-input-isoFundAplyAmt"
+									name="dtl-input-isoFundAplyAmt"
 									class="form-control input-sm"
 									autocomplete="off"
 								></sbux-input>
@@ -690,6 +690,10 @@
 	        {caption: ["2023 가용액"], 		ref: 'mm',   	type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["비고"], 				ref: 'nn',   	type:'output',  width:'120px',    style:'text-align:center'},
 
+	        {caption: ["상세내역"], 	ref: 'isoFundAplyAmt',   	hidden : true},
+	        {caption: ["상세내역"], 	ref: 'aplyTrgtSe',   	hidden : true},
+	        {caption: ["상세내역"], 	ref: 'yr',   	hidden : true},
+
 	        {caption: ["상세내역"], 	ref: 'crno',   	hidden : true},
 	        {caption: ["상세내역"], 	ref: 'corpSeCd',   	hidden : true},
 	        {caption: ["상세내역"], 	ref: 'corpFndnDay',   	hidden : true},
@@ -819,7 +823,7 @@
 
     	if (gfn_isEmpty(apoCd)) {
     		// 신규 등록
-			fn_subInsert(confirm("등록 하시겠습니까?"));
+			return;
     	} else {
     		// 변경 저장
     		fn_subUpdate(confirm("저장 하시겠습니까?"));
@@ -849,10 +853,13 @@
 
    	 	const postJsonPromise = gfn_postJSON("/pd/aom/insertPrdcrCrclOgnReqMng.do", {
    	 		apoCd: SBUxMethod.get('dtl-input-apoCd')//
-   	 		,intyYn: SBUxMethod.get('dtl-input-intyYn')//
-			,uoNm: SBUxMethod.get('dtl-input-uoNm')//
-			,uoBrno: SBUxMethod.get('dtl-input-uoBrno')//
-			,untyYr: SBUxMethod.get('dtl-input-untyYr')//
+   	 		,apoSe: SBUxMethod.get('dtl-input-apoSe')//
+			,brno: SBUxMethod.get('dtl-input-brno')//
+			,crno: SBUxMethod.get('dtl-input-crno')//
+			,corpNm: SBUxMethod.get('dtl-input-corpNm')//
+   	 		,isoFundAplyAmt: SBUxMethod.get('dtl-input-isoFundAplyAmt')//
+			,aplyTrgtSe: SBUxMethod.get('dtl-input-aplyTrgtSe')//
+			,yr: '2023'
 		});
 
         const data = await postJsonPromise;
@@ -881,10 +888,13 @@
 
 		const postJsonPromise = gfn_postJSON("/pd/aom/updatePrdcrCrclOgnReqMng.do", {
 			apoCd: SBUxMethod.get('dtl-input-apoCd')//
-			,intyYn: SBUxMethod.get('dtl-input-intyYn')//
-			,uoNm: SBUxMethod.get('dtl-input-uoNm')//
-			,uoBrno: SBUxMethod.get('dtl-input-uoBrno')//
-			,untyYr: SBUxMethod.get('dtl-input-untyYr')//
+   	 		,apoSe: SBUxMethod.get('dtl-input-apoSe')//
+			,brno: SBUxMethod.get('dtl-input-brno')//
+			,crno: SBUxMethod.get('dtl-input-crno')//
+			,corpNm: SBUxMethod.get('dtl-input-corpNm')//
+   	 		,isoFundAplyAmt: SBUxMethod.get('dtl-input-isoFundAplyAmt')//
+			,aplyTrgtSe: SBUxMethod.get('dtl-input-aplyTrgtSe')//
+			,yr: '2023'
   		});
 
 		const data = await postJsonPromise;
@@ -960,6 +970,9 @@
 						,rprsvFlnm: item.rprsvFlnm
 						,rprsvTelno: item.rprsvTelno
 						,fxno: item.fxno
+						,isoFundAplyAmt: item.isoFundAplyAmt
+						,aplyTrgtSe: item.aplyTrgtSe
+						,yr: item.yr
 				}
 				jsonInvShipOgnReqMng01.push(InvShipOgnReqMngVO);
 			});

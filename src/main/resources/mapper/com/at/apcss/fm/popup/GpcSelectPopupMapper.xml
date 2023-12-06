@@ -41,7 +41,7 @@
 		  FROM TB_EV_GPC_CD A
 		 WHERE A.DEL_YN = 'N'
 		 ]]>
-		 <if test='ctgryNm != null and ctgryNm != ""'>
+		<if test='ctgryNm != null and ctgryNm != ""'>
 				AND A.CTGRY_NM LIKE '%'||#{ctgryNm}||'%'
 		</if>
 		<if test='itemNm != null and itemNm != ""'>

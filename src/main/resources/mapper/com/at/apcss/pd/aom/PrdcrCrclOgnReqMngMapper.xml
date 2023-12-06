@@ -54,7 +54,7 @@
 				, CM.UNTY_YN
 				, CM.UO_BRNO
 				, CM.UO_NM
-				, CM.UNTY_YN
+				, CM.UNTY_YR
 				, CM.APRV
 
 				, EAM.YR
@@ -162,7 +162,7 @@
 				, CM.UNTY_YN
 				, CM.UO_BRNO
 				, CM.UO_NM
-				, CM.UNTY_YN
+				, CM.UNTY_YR
 
 				, EAM.YR
 				, EAM.APLY_DAY
@@ -294,9 +294,7 @@
     	MERGE INTO TB_EV_APLY_MNG CLT  /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertEvAplyMng */
 		USING DUAL
 			ON (
-					CLT.APO_CD  = #{apoCd}
-				AND CLT.APO_SE  = #{apoSe}
-				AND CLT.BRNO  	= #{brno}
+				CLT.APO_CD  = #{apoCd}
 				)
 		WHEN MATCHED THEN
 				 UPDATE /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertEvAplyMng */
@@ -313,8 +311,6 @@
 
 					 WHERE 1=1
 					 AND CLT.APO_CD		= #{apoCd}
-					 AND CLT.APO_SE		= #{apoSe}
-					 AND CLT.BRNO		= #{brno}
 		WHEN NOT MATCHED THEN
 			 INSERT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertEvAplyMng */
 		    		(
@@ -484,7 +480,6 @@
 			<if test='yr != null and yr != ""'>
 				AND EAM.YR LIKE '%' || #{yr} || '%'
 			</if>
-
 		ORDER BY CM.SYS_LAST_CHG_DT DESC
     </select>
 </mapper>

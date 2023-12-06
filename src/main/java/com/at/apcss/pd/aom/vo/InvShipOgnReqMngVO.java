@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 public class InvShipOgnReqMngVO extends ComVO{
 	private String apoCd;
+	private String apoSe;
 	private String corpNm;
 	private String rprsvFlnm;
 	private String brno;
@@ -29,6 +30,11 @@ public class InvShipOgnReqMngVO extends ComVO{
 	private String etcAmt;
 	private String fxno;
 
+	private String isoFundAplyAmt;
+	private String aplyTrgtSe;
+	private String yr;
+	private String aplyDay;
+
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;
 	private String sysFrstInptDtYmd;
@@ -36,3 +42,4 @@ public class InvShipOgnReqMngVO extends ComVO{
 
 
 }
+

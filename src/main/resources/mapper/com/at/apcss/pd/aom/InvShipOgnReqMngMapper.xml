@@ -103,6 +103,11 @@
 				, CM.ETC_INVST_AMT
 				, CM.FXNO
 
+				, EAM.YR
+				, EAM.APLY_DAY
+				, EAM.ISO_FUND_APLY_AMT
+				, EAM.APLY_TRGT_SE
+
 				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
 				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
 				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
@@ -114,8 +119,9 @@
 				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
 				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_NM
 				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_EV_APO CM
+			  FROM TB_EV_APO CM, TB_EV_APLY_MNG EAM
 			 WHERE 1=1
+			   AND CM.BRNO = EAM.BRNO(+)
     	]]>
     		<if test='uoBrno != null and uoBrno != ""'>
 				AND CM.UO_BRNO LIKE #{uoBrno} || '%'
@@ -129,61 +135,104 @@
     	</if>
     </select>
 
-
+	<!--
 	<insert id="insertInvShipOgnReqMng" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.insertInvShipOgnReqMng */
-	    	  INTO TB_PD_PrdcrCrclOgnVluIdctrMng
-	    		(
-	    			TEST_NO
-	    		  , AA
-	    		  , BB
-	    		  , CC
-
-	    		  , SYS_FRST_INPT_DT
-	    		  , SYS_FRST_INPT_USER_ID
-	    		  , SYS_FRST_INPT_PRGRM_ID
-	    		  , SYS_LAST_CHG_DT
-	    		  , SYS_LAST_CHG_USER_ID
-	    		  , SYS_LAST_CHG_PRGRM_ID
-	    		)
-	   		VALUES
-	   			(
-	   			    (SELECT NVL(MAX(TEST_NO),0)+1 FROM TB_PD_PrdcrCrclOgnVluIdctrMng)
-	   			  , #{aa}
-	   			  , #{bb}
-	   			  , #{cc}
-
-	   			  , SYSDATE
-	   			  , #{sysFrstInptUserId}
-	   			  , #{sysFrstInptPrgrmId}
-	   			  , SYSDATE
-	   			  , #{sysLastChgUserId}
-	   			  , #{sysLastChgPrgrmId}
-	   			)
+		    		(
+		    			APO_CD
+		    		  , APO_SE
+		    		  , BRNO
+		    		  , CRNO
+		    		  , CORP_NM
+		    		  , YR
+		    		  , APLY_DAY
+		    		  , RAW_MTR_ENSR_SIGUN_CNT
+		    		  , RAW_MTR_ENSR_CTPV_CNT
+		    		  , CTPV_NM
+		    		  , SIGUN_NM
+		    		  , PRUO_FUND_APLY_AMT
+		    		  , ISO_FUND_APLY_AMT
+		    		  , APLY_TRGT_SE
+		    		)
+		   		VALUES
+		   			(
+		   			    #{apoCd}
+		   			  , #{apoSe}
+		   			  , #{brno}
+		   			  , #{crno}
+		   			  , #{corpNm}
+		   			  , #{yr}
+		   			  , SYSDATE
+		   			  , #{rawMtrEnsrSigunCnt}
+		   			  , #{rawMtrEnsrCtpvCnt}
+		   			  , #{ctpvNm}
+		   			  , #{sigunNm}
+		   			  , #{pruoFundAplyAmt}
+		   			  , #{isoFundAplyAmt}
+		   			  , #{aplyTrgtSe}
+		   			)
     	]]>
     </insert>
+     -->
+    <insert id="insertInvShipOgnReqMng" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
+    		<![CDATA[
+    	MERGE INTO TB_EV_APLY_MNG CLT  /* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.insertInvShipOgnReqMng */
+		USING DUAL
+			ON (
+				CLT.APO_CD  = #{apoCd}
+				)
+		WHEN MATCHED THEN
+				 UPDATE
+					   SET
+		    	          APLY_DAY	= SYSDATE
+		    	        , ISO_FUND_APLY_AMT			= #{isoFundAplyAmt}
+		    	        , APLY_TRGT_SE				= #{aplyTrgtSe}
+		    	]]>
+		    	<![CDATA[
+
+					 WHERE 1=1
+					 AND CLT.APO_CD		= #{apoCd}
+		WHEN NOT MATCHED THEN
+			 INSERT
+		    		(
+		    			APO_CD
+		    		  , APO_SE
+		    		  , BRNO
+		    		  , CRNO
+		    		  , CORP_NM
+		    		  , YR
+		    		  , APLY_DAY
+		    		  , ISO_FUND_APLY_AMT
+		    		  , APLY_TRGT_SE
+		    		)
+		   		VALUES
+		   			(
+		   			    #{apoCd}
+		   			  , #{apoSe}
+		   			  , #{brno}
+		   			  , #{crno}
+		   			  , #{corpNm}
+		   			  , #{yr}
+		   			  , SYSDATE
+		   			  , #{isoFundAplyAmt}
+		   			  , #{aplyTrgtSe}
+		   			)
+    	]]>
+    </insert>
+
 	<update id="updateInvShipOgnReqMng" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
     	<![CDATA[
 	    	UPDATE /* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.upateInvShipOgnReqMng */
-	    		TB_PD_PrdcrCrclOgnVluIdctrMng
+	    		TB_EV_APLY_MNG
 			   SET
-			 	  AA	= #{aa}
-			 	, BB 	= #{bb}
-			 	, CC 	= #{cc}
+			 	  ISO_FUND_APLY_AMT			= #{isoFundAplyAmt}
+		    	, APLY_TRGT_SE				= #{aplyTrgtSe}
 
     	]]>
-		<if test='delYn != null and delYn != ""'>
-				, DEL_YN 	= #{delYn}
-		</if>
-    	<![CDATA[
-				, SYS_LAST_CHG_DT		= SYSDATE
-	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 
 			 WHERE 1=1
-			   AND TEST_NO	= #{testNo}
-    	]]>
+			   AND CLT.APO_CD		= #{apoCd}
     </update>
 
 
