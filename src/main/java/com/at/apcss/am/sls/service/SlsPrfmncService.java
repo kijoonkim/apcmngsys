@@ -30,6 +30,14 @@ public interface SlsPrfmncService {
 	public SlsPrfmncVO selectSlsPrfmnc(SlsPrfmncVO slsPrfmncVO) throws Exception;
 
 	/**
+	 * 매출실적 확정여부 조회
+	 * @param slsPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public SlsPrfmncVO selectSlsPrfmncCfmtnYn(SlsPrfmncVO slsPrfmncVO) throws Exception;
+
+	/**
 	 * 매출실적 목록 조회
 	 * @param SlsPrfmncVO
 	 * @return List<SlsPrfmncVO>
@@ -68,6 +76,13 @@ public interface SlsPrfmncService {
 	 * @throws Exception
 	 */
 	public int deleteSlsPrfmnc(SlsPrfmncVO slsPrfmncVO) throws Exception;
+	/**
+	 * 매출실적 전체 삭제
+	 * @param SlsPrfmncVO
+	 * @return integer
+	 * @throws Exception
+	 */
+	public int deleteSlsPrfmncAll(SlsPrfmncVO slsPrfmncVO) throws Exception;
 
 	/**
 	 * 매출실적 생성

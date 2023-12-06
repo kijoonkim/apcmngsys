@@ -19,6 +19,8 @@ import com.at.apcss.am.invntr.service.GdsInvntrService;
 import com.at.apcss.am.invntr.service.PltWrhsSpmtService;
 import com.at.apcss.am.invntr.vo.GdsInvntrVO;
 import com.at.apcss.am.invntr.vo.PltWrhsSpmtVO;
+import com.at.apcss.am.sls.service.SlsPrfmncService;
+import com.at.apcss.am.sls.vo.SlsPrfmncVO;
 import com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper;
 import com.at.apcss.am.spmt.service.SpmtPrfmncService;
 import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
@@ -66,6 +68,10 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 	// 상품코드 서비스
 	@Resource(name = "cmnsGdsService")
 	private CmnsGdsService cmnsGdsService;
+
+	// 매출실적조회
+	@Resource(name = "slsPrfmncService")
+	private SlsPrfmncService slsPrfmncService;
 
 	@Override
 	public SpmtPrfmncVO selectSpmtPrfmnc(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
@@ -375,6 +381,24 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 
 				for (SpmtPrfmncVO spmtPrfmnc : deleteList) {
 
+					SlsPrfmncVO slsPrfmncVO = new SlsPrfmncVO();
+					slsPrfmncVO.setApcCd(spmtPrfmnc.getApcCd());
+					slsPrfmncVO.setSpmtno(spmtPrfmnc.getSpmtno());
+
+					slsPrfmncVO = slsPrfmncService.selectSlsPrfmncCfmtnYn(slsPrfmncVO);
+
+					if (ComConstants.CON_YES.equals(slsPrfmncVO.getCfmtnYn())) {
+						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ALEADY_DONE, "매출확정||출하실적")));		// W0010	이미 {0}된 {1} 입니다.
+					} else {
+						if(0 < slsPrfmncVO.getSlsPrfmncQntt()) {
+							slsPrfmncVO.setApcCd(spmtPrfmnc.getApcCd());
+							slsPrfmncVO.setSpmtno(spmtPrfmnc.getSpmtno());
+							if (0 == slsPrfmncService.deleteSlsPrfmncAll(slsPrfmncVO)) {
+								throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "매출확정 삭제")));		// E0003	{0} 시 오류가 발생하였습니다.
+							};
+						}
+					}
+
 					spmtPrfmnc.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
 					spmtPrfmnc.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
 
@@ -480,6 +504,7 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 
 				for (SpmtPrfmncVO spmtPrfmnc : deleteList) {
 
+
 					spmtPrfmnc.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
 					spmtPrfmnc.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
 
@@ -498,6 +523,7 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 					if(resultMap != null) {
 						throw new EgovBizException(getMessageForMap(resultMap));
 					}
+
 				}
 
 		}
