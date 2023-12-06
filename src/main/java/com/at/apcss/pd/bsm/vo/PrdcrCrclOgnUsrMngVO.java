@@ -18,6 +18,7 @@ public class PrdcrCrclOgnUsrMngVO extends ComVO{
 	private String coNm;		//회사명 -> 임시로 법인명으로 사용중
 	private String evCertYn;	//2차승인구분
 	private String cmptnInst;	//관할기관
+	private String cmptnInstCofmCd;
 
 
 	private String sysFrstInptUserIdNm;

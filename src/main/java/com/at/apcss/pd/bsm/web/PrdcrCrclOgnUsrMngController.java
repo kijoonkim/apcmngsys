@@ -35,10 +35,12 @@ public class PrdcrCrclOgnUsrMngController extends BaseController{
 	// 조회
 	@PostMapping(value = "/pd/bsm/selectPrdcrCrclOgnUsrMngList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectPrdcrCrclOgnUsrMngList(Model model, @RequestBody PrdcrCrclOgnUsrMngVO PrdcrCrclOgnUsrMngVO, HttpServletRequest request) throws Exception{
+		System.out.println("==============selectPrdcrCrclOgnUsrMngList=======================");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<PrdcrCrclOgnUsrMngVO> resultList = new ArrayList<>();
 		try {
 			resultList = PrdcrCrclOgnUsrMngService.selectPrdcrCrclOgnUsrMngList(PrdcrCrclOgnUsrMngVO);
+			System.out.println(resultList);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);

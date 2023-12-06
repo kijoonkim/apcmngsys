@@ -12,6 +12,6 @@ public class GpcSelectPopupVO extends ComVO{
 	private String ctgryCd;//분류코드
 	private String ctgryNm;//분류명
 	private String itemCd;//품목코드
-	private String itemNM;//품목명
+	private String itemNm;//품목명
 	private String rmrk;//비고
 }

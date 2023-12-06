@@ -29,12 +29,11 @@ import com.at.apcss.fm.popup.vo.GpcSelectPopupVO;
 public class GpcSelectPopupServiceImpl extends BaseServiceImpl implements GpcSelectPopupService{
 
 	@Autowired
-	private GpcSelectPopupMapper gpcSelectPopupMapper;
+	private GpcSelectPopupMapper GpcSelectPopupMapper;
 
 	@Override
 	public List<GpcSelectPopupVO> selectGpcList(GpcSelectPopupVO vo) throws Exception {
-		List<GpcSelectPopupVO> resultList = gpcSelectPopupMapper.selectGpcList(vo);
-
+		List<GpcSelectPopupVO> resultList = GpcSelectPopupMapper.selectGpcList(vo);
 		return resultList;
 	}
 

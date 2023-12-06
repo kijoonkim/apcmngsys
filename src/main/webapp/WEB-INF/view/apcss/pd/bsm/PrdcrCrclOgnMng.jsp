@@ -1210,10 +1210,6 @@ tps://sbgrid.co.kr/v2_5/document/guide
         	}
         	document.querySelector('#listCount').innerText = totalRecordCount;
 
-        	grdPrdcrCrclOgnMng.rebuild();
-
-        	//비어 있는 마지막 줄 추가용도?
-        	//grdPrdcrCrclOgnMng.addRow();
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);

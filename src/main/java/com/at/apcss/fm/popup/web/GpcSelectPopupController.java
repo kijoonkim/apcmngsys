@@ -46,14 +46,13 @@ public class GpcSelectPopupController extends BaseController {
 	public ResponseEntity<HashMap<String, Object>> selectApcListPopup(@RequestBody GpcSelectPopupVO vo, HttpServletRequest request) throws Exception {
 
 		logger.debug("selectApcListPopup.do 호출 <><><><> ");
-		logger.debug(vo.toString());
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<GpcSelectPopupVO> resultList = new ArrayList<>();
 
 		try {
 
 			resultList = gpcSelectPopupService.selectGpcList(vo);
-
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
