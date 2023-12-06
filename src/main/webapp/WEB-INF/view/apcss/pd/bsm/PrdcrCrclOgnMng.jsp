@@ -1418,13 +1418,13 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		popMngmstInfoId.init(fn_setMngmstInfoId);
 	}
 	//경영체조회 팝업 콜백함수
-	//법인명,법인등록번호,사업자번호,경영체번호
+	//법인명,사업자번호,경영체번호
 	const fn_setMngmstInfoId = function(rowData) {
 		if (!gfn_isEmpty(rowData)) {
-			SBUxMethod.set("dtl-input-mngmstInfoId", rowData.mngmstInfoId);//경영체번호
-			SBUxMethod.set("dtl-input-corpNm", rowData.corpNm);			//법인명
+			SBUxMethod.set("dtl-input-mngmstInfoId", rowData.mngmstRegno);//경영체번호
+			SBUxMethod.set("dtl-input-mngmstYn", 'Y');//경영체여부
+			SBUxMethod.set("dtl-input-corpNm", rowData.admstOwnrCorpNm);//법인명
 			SBUxMethod.set("dtl-input-brno", rowData.brno);				//사업자등록번호
-			SBUxMethod.set("dtl-input-crno", rowData.crno);				//법인등록번호
 		}
 	}
 

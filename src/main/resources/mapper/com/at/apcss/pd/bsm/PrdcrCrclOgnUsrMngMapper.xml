@@ -106,6 +106,7 @@
 				, CM.BRNO
 				, CM.MOBLNO
 				, CM.CO_NM
+				, CM.EV_CERT_YN
 				, CM.CMPTN_INST_COFM_CD
 				, CM.CMPTN_INST_COFM_DT
 				, CM.CMPTN_INST

@@ -82,10 +82,10 @@
 							<th scope="row" class="th_bg">2차승인여부</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select
-									id="srch-input-evCertYn"
-									name="srch-input-evCertYn"
+									id="srch-input-cmptnInstCofmCd"
+									name="srch-input-cmptnInstCofmCd"
 									uitype="single"
-									jsondata-ref="jsonComEvCertYn"
+									jsondata-ref="jsonCmptnInstCofmCd"
 									unselected-text="전체"
 									class="form-control input-sm"
 									onchange="fn_onChangeSrchItemCd(this)"
@@ -348,10 +348,10 @@
 							<th scope="row" class="th_bg">2차승인여부</th>
 							<td colspan="4" class="td_input" style="border-right: hidden;">
 								<sbux-select
-									id="dtl-input-evCertYn"
-									name="dtl-input-evCertYn"
+									id="dtl-input-cmptnInstCofmCd"
+									name="dtl-input-cmptnInstCofmCd"
 									uitype="single"
-									jsondata-ref="jsonComEvCertYn"
+									jsondata-ref="jsonCmptnInstCofmCd"
 									unselected-text="선택"
 									class="form-control input-sm"
 									onchange="fn_onChangeSrchItemCd(this)"
@@ -431,7 +431,7 @@
 
 
 	//승인여부
-	var jsonComEvCertYn = [
+	var jsonCmptnInstCofmCd = [
 		{'text': '승인','label': '승인', 'value': 'Y'},
 		{'text': '미승인','label': '미승인', 'value': 'N'}
 	];
@@ -493,8 +493,8 @@
 	    		,typeinfo : {ref:'jsonComCmptnInst', label:'label', value:'value', displayui : true}},
 	    	{caption: ["1차승인"], 	ref: 'userStts',   	type:'output',  width:'200px',    style:'text-align:center', disabled:true
 		    	,typeinfo : {ref:'jsonComUserStts', label:'label', value:'value', displayui : true}},
-	    	{caption: ["2차승인"], 	ref: 'evCertYn',   	type:'output',  width:'200px',    style:'text-align:center', disabled:true
-			    ,typeinfo : {ref:'jsonComEvCertYn', label:'label', value:'value', displayui : true}},
+	    	{caption: ["2차승인"], 	ref: 'cmptnInstCofmCd',   	type:'output',  width:'200px',    style:'text-align:center', disabled:true
+			    ,typeinfo : {ref:'jsonCmptnInstCofmCd', label:'label', value:'value', displayui : true}},
 	    	{caption: ["권한"], 		ref: 'userType',   	type:'output',  width:'200px',    style:'text-align:center', disabled:true
 				,typeinfo : {ref:'jsonComUserType', label:'label', value:'value', displayui : true}},
 	    	{caption: ["사업자번호"], 	ref: 'brno',   	type:'output',  width:'200px',    style:'text-align:center'},
@@ -533,7 +533,7 @@
 
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//관할기관
 		let userStts = SBUxMethod.get("srch-input-userStts");//1차승인여부
-		let evCertYn = SBUxMethod.get("srch-input-evCertYn");//2차승인여부
+		let cmptnInstCofmCd = SBUxMethod.get("srch-input-cmptnInstCofmCd");//2차승인여부
 		let userType = SBUxMethod.get("srch-input-userType");//권한
 		let userId = SBUxMethod.get("srch-input-userId");//아이디
 		let userNm = SBUxMethod.get("srch-input-userNm");//이름
@@ -543,7 +543,7 @@
     	let postJsonPromise = gfn_postJSON("/pd/bsm/selectPrdcrCrclOgnUsrMngList.do", {
     		cmptnInst : cmptnInst
     		,userStts : userStts
-    		,evCertYn : evCertYn
+    		,cmptnInstCofmCd : cmptnInstCofmCd
     		,userType : userType
     		,userId : userId
     		,userNm : userNm
@@ -569,7 +569,7 @@
 				  , brno 		: item.brno
 				  , moblno 		: item.moblno
 				  , coNm 		: item.coNm
-				  , evCertYn 	: item.evCertYn
+				  , cmptnInstCofmCd 	: item.cmptnInstCofmCd
 				  , cmptnInst 	: item.cmptnInst
 				}
 				jsonPrdcrCrclOgnUsrMng.push(PrdcrCrclOgnUsrMngVO);
@@ -610,7 +610,7 @@
 		SBUxMethod.set("dtl-input-brno",null);
 		SBUxMethod.set("dtl-input-moblno",null);
 		SBUxMethod.set("dtl-input-coNm",null);
-		SBUxMethod.set("dtl-input-evCertYn",null);
+		SBUxMethod.set("dtl-input-cmptnInstCofmCd",null);
 		SBUxMethod.set("dtl-input-cmptnInst",null);
 	}
 
@@ -629,7 +629,8 @@
 			,coNm : SBUxMethod.get("dtl-input-coNm")//법인명
 			,telno : SBUxMethod.get("dtl-input-telno")//전화번호
 			,moblno : SBUxMethod.get("dtl-input-moblno")//휴대폰번호
-			,evCertYn : SBUxMethod.get("dtl-input-evCertYn")//2차승인여부
+			,cmptnInstCofmCd : SBUxMethod.get("dtl-input-cmptnInstCofmCd")//2차승인여부
+			,userStts : SBUxMethod.get("dtl-input-userStts")//1차승인여부
 		});
 
 		const data = await postJsonPromise;
@@ -676,7 +677,7 @@
 		SBUxMethod.set("dtl-input-brno", rowData.brno);  //  사업자번호
 		SBUxMethod.set("dtl-input-moblno", rowData.moblno);  //  휴대폰번호
 		SBUxMethod.set("dtl-input-coNm", rowData.coNm);  //  법인명
-		SBUxMethod.set("dtl-input-evCertYn", rowData.evCertYn);  //  2차승인
+		SBUxMethod.set("dtl-input-cmptnInstCofmCd", rowData.cmptnInstCofmCd);  //  2차승인
 		SBUxMethod.set("dtl-input-cmptnInst", rowData.cmptnInst);  //  관할기관
 	}
 

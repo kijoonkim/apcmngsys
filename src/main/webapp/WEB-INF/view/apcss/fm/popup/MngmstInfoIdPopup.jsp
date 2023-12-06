@@ -43,7 +43,7 @@
 							</th>
 							<th scope="row">법인등록번호</th>
 							<th>
-								<sbux-input id="mngmstInfoId-inp-crno" name="mngmstInfoId-inp-crno" uitype="text" class="form-control input-sm" onkeyenter="enterKey();"></sbux-input>
+								<sbux-input id="mngmstInfoId-inp-brno" name="mngmstInfoId-inp-brno" uitype="text" class="form-control input-sm" onkeyenter="enterKey();"></sbux-input>
 							</th>
 							<th></th>
 						</tr>
@@ -130,12 +130,11 @@
 			  	'showgoalpageui' : true
 		    };
 		    SBGridProperties.columns = [
-		        {caption: ['경영체(법인)명'], ref: 'corpNm', width: '100px', type: 'input', style: 'text-align:center'},
-		        {caption: ['주민(법인)번호'], ref: 'crno', width: '100px', type: 'input', style: 'text-align:center'},
-		        {caption: ['경영체번호'], ref: 'mngmstInfoId', width: '100px', type: 'input', style: 'text-align:center'},
-		        {caption: ['경영체여부'], ref: 'mngmstYn', width: '100px', type: 'input', style: 'text-align:center'},
-		        {caption: ['경영주'], ref: 'rprsvFlnm', width: '100px', type: 'input', style: 'text-align:center'},
-		        {caption: ['지번주소'], ref: 'lotnoAddr', width: '100px', type: 'input', style: 'text-align:center'}
+		        {caption: ['경영체(법인)명'], ref: 'admstOwnrCorpNm', width: '100px', type: 'input', style: 'text-align:center'},
+		        {caption: ['주민(법인)번호'], ref: 'brno', width: '100px', type: 'input', style: 'text-align:center'},
+		        {caption: ['경영체번호'], ref: 'mngmstRegno', width: '100px', type: 'input', style: 'text-align:center'},
+		        {caption: ['경영주'], ref: 'rprsvNm', width: '100px', type: 'input', style: 'text-align:center'},
+		        {caption: ['지번주소'], ref: 'rprsvAddr', width: '100px', type: 'input', style: 'text-align:center'}
 		    ];
 
 		    grdMngmstInfoIdPop = _SBGrid.create(SBGridProperties);
@@ -168,7 +167,7 @@
 	        const postJsonPromise = gfn_postJSON("/fm/popup/selectMngmstInfoIdList.do", {
 
 	        	corpNm : corpNm, //검색 파라미터
-	        	crno : crno,
+	        	brno : brno,
 	        	// pagination
 		  		pagingYn : 'Y',
 				currentPageNo : pageNo,
@@ -184,13 +183,11 @@
 	    		jsonMngmstInfoIdPop.length = 0;
 	        	data.resultList.forEach((item, index) => {
 					const mngmstInfoId = {
-						corpNm 			: item.corpNm,
-						crno 			: item.crno,
-						mngmstInfoId 	: item.mngmstInfoId,
-						mngmstYn 		: item.mngmstYn,
-						rprsvFlnm 		: item.rprsvFlnm,
-						lotnoAddr 		: item.lotnoAddr
-
+							rprsvNm 			: item.rprsvNm,
+							rprsvAddr 			: item.rprsvAddr,
+							admstOwnrCorpNm 	: item.admstOwnrCorpNm,
+							brno 				: item.brno,
+							mngmstRegno 		: item.mngmstRegno,
 					}
 					jsonMngmstInfoIdPop.push(mngmstInfoId);
 
