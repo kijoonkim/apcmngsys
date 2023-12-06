@@ -15,14 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.at.apcss.am.apc.service.ApcEvrmntStngService;
-import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
-import com.at.apcss.fm.dashboard.service.DashboardService;
-import com.at.apcss.fm.dashboard.vo.DashboardVO;
-import com.at.apcss.fm.fclt.service.FcltOperInfoClctAgreInfoService;
-import com.at.apcss.fm.fclt.vo.FcltOperInfoClctAgreInfoVO;
 import com.at.apcss.pd.pom.service.PrdcrOgnPrdShipRsltMngService;
 import com.at.apcss.pd.pom.vo.PrdcrOgnPrdShipRsltMngVO;
 
@@ -38,7 +32,7 @@ public class PrdcrOgnPrdShipRsltMngController extends BaseController{
 		return "apcss/pd/pom/PrdcrOgnPrdShipRsltMng";
 	}
 
-// 조회
+		// 조회
 		@PostMapping(value = "/pd/pom/selectPrdcrOgnPrdShipRsltMngList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 		public ResponseEntity<HashMap<String, Object>> selectPrdcrOgnPrdShipRsltMngList(Model model, @RequestBody PrdcrOgnPrdShipRsltMngVO PrdcrOgnPrdShipRsltMngVO, HttpServletRequest request) throws Exception{
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
@@ -53,7 +47,20 @@ public class PrdcrOgnPrdShipRsltMngController extends BaseController{
 			return getSuccessResponseEntity(resultMap);
 		}
 
-
+		// 조회
+		@PostMapping(value = "/pd/pom/selectPrdcrOgnPrdShipRsltMngDtlList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> selectPrdcrOgnPrdShipRsltMngDtlList(Model model, @RequestBody PrdcrOgnPrdShipRsltMngVO PrdcrOgnPrdShipRsltMngVO, HttpServletRequest request) throws Exception{
+			HashMap<String,Object> resultMap = new HashMap<String,Object>();
+			List<PrdcrOgnPrdShipRsltMngVO> resultList = new ArrayList<>();
+			try {
+				 resultList = PrdcrOgnPrdShipRsltMngService.selectPrdcrOgnPrdShipRsltMngDtlList(PrdcrOgnPrdShipRsltMngVO);
+			} catch (Exception e) {
+				logger.debug(e.getMessage());
+				return getErrorResponseEntity(e);
+			}
+			resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+			return getSuccessResponseEntity(resultMap);
+		}
 
 		//등록
 		@PostMapping(value = "/pd/pom/insertPrdcrOgnPrdShipRsltMng.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})

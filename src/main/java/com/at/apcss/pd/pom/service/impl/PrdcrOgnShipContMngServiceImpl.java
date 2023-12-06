@@ -4,12 +4,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.fm.bbs.mapper.BbsMapper;
-import com.at.apcss.fm.bbs.service.BbsService;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.pd.pom.mapper.PrdcrOgnShipContMngMapper;
 import com.at.apcss.pd.pom.service.PrdcrOgnShipContMngService;
 import com.at.apcss.pd.pom.vo.PrdcrOgnShipContMngVO;
@@ -48,6 +44,13 @@ public class PrdcrOgnShipContMngServiceImpl extends BaseServiceImpl implements P
 	public List<PrdcrOgnShipContMngVO> selectPrdcrOgnShipContMngList(PrdcrOgnShipContMngVO PrdcrOgnShipContMngVO) throws Exception {
 
 		List<PrdcrOgnShipContMngVO> resultList = PrdcrOgnShipContMngMapper.selectPrdcrOgnShipContMngList(PrdcrOgnShipContMngVO);
+		return resultList;
+	}
+
+	@Override
+	public List<PrdcrOgnShipContMngVO> selectPrdcrOgnShipContMngDtlList(PrdcrOgnShipContMngVO PrdcrOgnShipContMngVO) throws Exception {
+
+		List<PrdcrOgnShipContMngVO> resultList = PrdcrOgnShipContMngMapper.selectPrdcrOgnShipContMngDtlList(PrdcrOgnShipContMngVO);
 		return resultList;
 	}
 

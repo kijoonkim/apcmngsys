@@ -15,14 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.at.apcss.am.apc.service.ApcEvrmntStngService;
-import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
-import com.at.apcss.fm.dashboard.service.DashboardService;
-import com.at.apcss.fm.dashboard.vo.DashboardVO;
-import com.at.apcss.fm.fclt.service.FcltOperInfoClctAgreInfoService;
-import com.at.apcss.fm.fclt.vo.FcltOperInfoClctAgreInfoVO;
 import com.at.apcss.pd.pcom.service.PrdcrCrclOgnPurSalMngService;
 import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO;
 
@@ -38,7 +32,7 @@ public class PrdcrCrclOgnPurSalMngController extends BaseController{
 		return "apcss/pd/pcom/PrdcrCrclOgnPurSalMng";
 	}
 
-// 조회
+		// 조회
 		@PostMapping(value = "/pd/pcom/selectPrdcrCrclOgnPurSalMngList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 		public ResponseEntity<HashMap<String, Object>> selectPrdcrCrclOgnPurSalMngList(Model model, @RequestBody PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO, HttpServletRequest request) throws Exception{
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();

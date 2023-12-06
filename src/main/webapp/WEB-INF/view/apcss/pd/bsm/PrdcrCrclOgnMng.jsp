@@ -832,6 +832,12 @@
 
 					</tbody>
 				</table>
+
+			</div>
+			<div class="box-header" style="display:flex; justify-content: flex-start;" >
+				<div style="margin-left: auto;">
+					<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -998,19 +1004,19 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	    SBGridProperties.columns = [
 	    	{caption: ["산지유통조직코드"], 	ref: 'apoCd',   	hidden : true},
 	        {caption: ["법인구분"], 		ref: 'corpSeCd',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
-	    		,typeinfo : {ref:'jsonComCorpSeCd', label:'label', value:'value', displayui : true}},
+	    		,typeinfo : {ref:'jsonComCorpSeCd', label:'label', value:'value', displayui : false}},
 	        {caption: ["시도"], 			ref: 'ctpv',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
-	    		,typeinfo : {ref:'jsonComCtpv', label:'label', value:'value', displayui : true}},
+	    		,typeinfo : {ref:'jsonComCtpv', label:'label', value:'value', displayui : false}},
 	        {caption: ["시군구"], 		ref: 'sgg',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
-		    	,typeinfo : {ref:'jsonComSgg', label:'label', value:'value', displayui : true}},
+		    	,typeinfo : {ref:'jsonComSgg', label:'label', value:'value', displayui : false}},
 	        {caption: ["법인명"], 		ref: 'corpNm',   	type:'output',  width:'250px',    style:'text-align:center'},
 	        {caption: ["대표자명"], 		ref: 'rprsvFlnm',   	type:'output',  width:'160px',    style:'text-align:center'},
 	        {caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'160px',    style:'text-align:center'},
 	        {caption: ["전화번호"], 		ref: 'rprsvTelno',   	type:'output',  width:'160px',    style:'text-align:center'},
 	        {caption: ["2차승인구분"], 	ref: 'evCertYn',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
-	    		,typeinfo : {ref:'jsonComEvCertYn', label:'label', value:'value', displayui : true}},
+	    		,typeinfo : {ref:'jsonComEvCertYn', label:'label', value:'value', displayui : false}},
 	        {caption: ["참여조직여부"], 	ref: 'apoSe',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
-	    		,typeinfo : {ref:'selectApoSe', label:'label', value:'value', displayui : true}},
+	    		,typeinfo : {ref:'selectApoSe', label:'label', value:'value', displayui : false}},
 	        {caption: ["비고"], 			ref: 'rmrk',   	type:'output',  width:'80px',    style:'text-align:center'},
 
 	        {caption: ["상세내역"], 	ref: 'uoBrno',   	hidden : true},

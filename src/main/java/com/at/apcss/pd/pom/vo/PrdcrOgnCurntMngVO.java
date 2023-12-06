@@ -60,6 +60,21 @@ public class PrdcrOgnCurntMngVO extends ComVO{
 	private String isoFundAplyAmt;
 	private String aplyTrgtSe;
 
+	private String rmrk;
+
+	private String itemCd;
+	private String trmtType;
+
+	private String prdcrOgnzSn;
+	private String prdcrOgnzCd;
+	private String prdcrOgnzNm;
+	private String cltvtnAreaRmrk;
+
+	private String joinDay;
+	private String whdwlDay;
+	private String cltvtnArea;
+	private String avgYrPrdctnVlm;
+
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;
 	private String sysFrstInptDtYmd;

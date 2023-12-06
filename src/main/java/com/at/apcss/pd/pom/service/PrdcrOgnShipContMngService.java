@@ -34,6 +34,8 @@ public interface PrdcrOgnShipContMngService {
 
 	public List<PrdcrOgnShipContMngVO> selectPrdcrOgnShipContMngList(PrdcrOgnShipContMngVO PrdcrOgnShipContMngVO) throws Exception;
 
+	public List<PrdcrOgnShipContMngVO> selectPrdcrOgnShipContMngDtlList(PrdcrOgnShipContMngVO PrdcrOgnShipContMngVO) throws Exception;
+
 	public int insertPrdcrOgnShipContMng(PrdcrOgnShipContMngVO PrdcrOgnShipContMngVO) throws Exception;
 
 	public int updatePrdcrOgnShipContMng(PrdcrOgnShipContMngVO PrdcrOgnShipContMngVO) throws Exception;

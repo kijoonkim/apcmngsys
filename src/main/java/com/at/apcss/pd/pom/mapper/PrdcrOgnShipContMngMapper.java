@@ -33,6 +33,8 @@ public interface PrdcrOgnShipContMngMapper {
 
 	public List<PrdcrOgnShipContMngVO> selectPrdcrOgnShipContMngList(PrdcrOgnShipContMngVO PrdcrOgnShipContMngVO);
 
+	public List<PrdcrOgnShipContMngVO> selectPrdcrOgnShipContMngDtlList(PrdcrOgnShipContMngVO PrdcrOgnShipContMngVO);
+
 	public int insertPrdcrOgnShipContMng(PrdcrOgnShipContMngVO PrdcrOgnShipContMngVO);
 
 	public int updatePrdcrOgnShipContMng(PrdcrOgnShipContMngVO PrdcrOgnShipContMngVO);

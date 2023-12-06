@@ -82,6 +82,9 @@
 			 WHERE 1=1
 			   AND CM.BRNO = EAM.BRNO(+)
     	]]>
+    		<if test='apoSe != null and apoSe != ""'>
+				AND CM.APO_SE LIKE #{apoSe} || '%'
+			</if>
     		<if test='cmptnInst != null and cmptnInst != ""'>
 				AND CM.CMPTN_INST LIKE #{cmptnInst} || '%'
 			</if>
@@ -188,21 +191,23 @@
 			  FROM TB_EV_APO CM , TB_EV_APLY_MNG EAM
 			 WHERE 1=1
 			   AND CM.BRNO = EAM.BRNO(+)
+			   AND CM.APO_SE IS NOT NULL
     	]]>
+    		<if test='apoSe != null and apoSe != ""'>
+				AND CM.APO_SE LIKE #{apoSe} || '%'
+			</if>
     		<if test='cmptnInst != null and cmptnInst != ""'>
 				AND CM.CMPTN_INST LIKE #{cmptnInst} || '%'
 			</if>
 			<if test='ctpv != null and ctpv != ""'>
 				AND CM.II_CODE LIKE '%' || #{ctpv} || '%'
 			</if>
-
 			<if test='corpSeCd != null and corpSeCd != ""'>
 				AND CM.CORP_SE_CD LIKE #{corpSeCd} || '%'
 			</if>
 			<if test='corpDtlSeCd != null and corpDtlSeCd != ""'>
 				AND CM.CORP_DTL_SE_CD LIKE '%' || #{corpDtlSeCd} || '%'
 			</if>
-
 			<if test='brno != null and brno != ""'>
 				AND CM.BRNO LIKE #{brno} || '%'
 			</if>
@@ -483,4 +488,5 @@
 		ORDER BY CM.SYS_LAST_CHG_DT DESC
     </select>
 </mapper>
+
 

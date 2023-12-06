@@ -985,7 +985,7 @@
 	    	{caption: ["법인등록번호"], 	ref: 'crno',   		hidden : true},
 	    	{caption: ["신청년도"], 		ref: 'yr',   	type:'output',  width:'220px',    style:'text-align:center'},
 	    	{caption: ["통합조직여부"], 	ref: 'aprv',   type:'combo',  width:'220px',    style:'text-align:center', disabled:true
-	    		,typeinfo : {ref:'jsonComAprv', label:'label', value:'value', displayui : true}},
+	    		,typeinfo : {ref:'jsonComAprv', label:'label', value:'value', displayui : false}},
 	        {caption: ["시도"], 			ref: 'ctpv',   	type:'output',  width:'220px',    style:'text-align:center'},
 	        {caption: ["시군구"], 		ref: 'sgg',   	type:'output',  width:'220px',    style:'text-align:center'},
 	        {caption: ["법인명"], 		ref: 'corpNm',  type:'output',  width:'220px',    style:'text-align:center'},
@@ -1648,7 +1648,6 @@
     		}
     		console.error("failed", e.message);
 		}
-
 	}
 
 	//품목 리스트 저장

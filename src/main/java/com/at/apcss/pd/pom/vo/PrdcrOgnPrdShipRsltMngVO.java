@@ -8,36 +8,74 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PrdcrOgnPrdShipRsltMngVO extends ComVO{
-	private String testNo;
-	private String aa;
-	private String bb;
-	private String cc;
-	private String ccCode;
-	private String dd;
-	private String ddCode;
-	private String ee;
-	private String ff;
-	private String gg;
-	private String hh;
-	private String ii;
-	private String iiCode;
-	private String jj;
-	private String kk;
-	private String ll;
-	private String mm;
-	private String nn;
-	private String oo;
-	private String pp;
-	private String qq;
-	private String rr;
-	private String ss;
-	private String tt;
-	private String uu;
-	private String vv;
-	private String ww;
-	private String xx;
-	private String yy;
-	private String zz;
+	private String apoCd;
+	private String apoSe;
+
+	private String cmptnInst;
+	private String ctpv;
+	private String sgg;
+	private String corpSeCd;
+	private String corpDtlSeCd;
+	private String brno;
+	private String crno;
+	private String corpNm;
+	private String picFlnm;
+
+	private String lotnoAddr;
+	private String lotnoDtlAddr;
+	private String zip;
+	private String roadNmAddr;
+	private String roadNmDtlAddr;
+
+	private String corpFndnDay;
+	private String invstNope;
+	private String invstExpndFrmerNope;
+	private String invstAmt;
+
+	private String frmerInvstAmt;
+	private String prdcrGrpInvstAmt;
+	private String locgovInvstAmt;
+	private String etcInvstAmt;
+
+	private String rgllbrNope;
+	private String dwNope;
+	private String dlbrrNope;
+
+	private String intyYn;
+	private String uoNm;
+	private String uoBrno;
+	private String untyYr;
+
+	private String isoHldYn;
+	private String aprv;
+
+	private String uoCd;
+	private String yr;
+	private String aplyDay;
+	private String rawMtrEnsrSigunCnt;
+	private String rawMtrEnsrCtpvCnt;
+	private String ctpvNm;
+	private String sigunNm;
+	private String pruoFundAplyAmt;
+	private String isoFundAplyAmt;
+	private String aplyTrgtSe;
+
+	private String rmrk;
+
+	private String itemCd;
+	private String trmtType;
+
+	private String prdcrOgnzSn;
+	private String prdcrOgnzCd;
+	private String prdcrOgnzNm;
+	private String spmtRmrk;
+
+	private String joinDay;
+	private String whdwlDay;
+	private String prdctnVlm;
+	private String ecSpmtVlm;
+	private String spmtPrc;
+
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;
 	private String sysFrstInptDtYmd;

@@ -285,4 +285,48 @@
 		]]>
 	</delete>
 
+	<select id="selectPrdcrOgnPrdShipRsltMngDtlList" parameterType="com.at.apcss.pd.pom.vo.PrdcrOgnPrdShipRsltMngVO" resultType="com.at.apcss.pd.pom.vo.PrdcrOgnPrdShipRsltMngVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.pd.pom.mapper.PrdcrOgnPrdShipRsltMngMapper.selectPrdcrOgnPrdShipRsltMngDtlList */
+				  CM.APO_CD
+		    	, CM.APO_SE
+		    	, CM.BRNO
+		    	, CM.CRNO
+		    	, CM.YR
+		    	, CM.STTG_UPBR_ITEM_SE
+		    	, CM.CTGRY_CD
+		    	, CM.ITEM_CD
+		    	, CM.TRMT_TYPE
+		    	, CM.PRDCR_OGNZ_SN
+		    	, CM.PRDCR_OGNZ_CD
+		    	, CM.PRDCR_OGNZ_NM
+		    	, CM.SPMT_RMRK
+
+		    	, CM.JOIN_DAY
+		    	, CM.WHDWL_DAY
+		    	, CM.PRDCTN_VLM
+		    	, CM.EC_SPMT_VLM
+		    	, CM.SPMT_PRC
+
+				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
+				, TO_CHAR(CM.SYS_LAST_CHG_DT,'YYYY-MM-DD')		AS SYS_LAST_CHG_DT_YMD
+				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
+				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_NM
+				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
+			  FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN CM
+			 WHERE 1=1
+
+    	]]>
+    		<if test='apoCd != null and apoCd != ""'>
+				AND CM.APO_CD LIKE #{apoCd} || '%'
+			</if>
+			<if test='itemCd != null and itemCd != ""'>
+				AND CM.ITEM_CD LIKE '%' || #{itemCd} || '%'
+			</if>
+			<if test='trmtType != null and trmtType != ""'>
+				AND CM.TRMT_TYPE LIKE #{trmtType} || '%'
+			</if>
+		ORDER BY CM.PRDCR_OGNZ_SN DESC
+
+    </select>
 </mapper>

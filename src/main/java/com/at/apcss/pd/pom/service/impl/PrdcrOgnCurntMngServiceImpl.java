@@ -4,12 +4,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.fm.bbs.mapper.BbsMapper;
-import com.at.apcss.fm.bbs.service.BbsService;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper;
 import com.at.apcss.pd.pom.service.PrdcrOgnCurntMngService;
 import com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO;
@@ -48,6 +44,13 @@ public class PrdcrOgnCurntMngServiceImpl extends BaseServiceImpl implements Prdc
 	public List<PrdcrOgnCurntMngVO> selectPrdcrOgnCurntMngList(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO) throws Exception {
 
 		List<PrdcrOgnCurntMngVO> resultList = PrdcrOgnCurntMngMapper.selectPrdcrOgnCurntMngList(PrdcrOgnCurntMngVO);
+		return resultList;
+	}
+
+	@Override
+	public List<PrdcrOgnCurntMngVO> selectPrdcrOgnCurntMngDtlList(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO) throws Exception {
+
+		List<PrdcrOgnCurntMngVO> resultList = PrdcrOgnCurntMngMapper.selectPrdcrOgnCurntMngDtlList(PrdcrOgnCurntMngVO);
 		return resultList;
 	}
 
