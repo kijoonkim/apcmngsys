@@ -1162,7 +1162,7 @@
 
 						let inptQntt = parseInt(rowData.inptQntt) || 0;
 						let inptWght = parseInt(rowData.inptWght) || 0;
-
+						
 						if (inptQntt === 0 && inptWght === 0) {
 
 							let cmndQntt = parseInt(rowData.cmndQntt) || 0;
@@ -1187,6 +1187,10 @@
 						rowData.inptQntt = 0;
 						rowData.inptWght = 0;
 					}
+					grdRawMtrInvntr.refresh();
+					fn_setInptInfo();
+					
+					break;
 
 				case "inptQntt":
 					let invntrQntt = parseInt(rowData.invntrQntt) || 0;
@@ -1196,9 +1200,13 @@
 					if (tmpInptQntt <= 0) {
 						rowData.inptQntt = 0;
 						rowData.inptWght = 0;
+						
+						rowData.checkedYn = "N";
+						
 					} else if (invntrQntt === 0) {
 						if (tmpInptQntt > invntrQntt) {
 							rowData.inptWght = invntrWght;
+							rowData.checkedYn = "Y";
 						}
 					} else {
 						if (tmpInptQntt > invntrQntt) {
@@ -1207,7 +1215,7 @@
 							rowData.inptWght = 0;
 						} else {
 							rowData.checkedYn = "Y";
-							rowData.inptWght = Math.round(invntrWght * tmpInptQntt / invntrQntt);
+							rowData.inptWght = gfn_apcEstmtWght(invntrWght * tmpInptQntt / invntrQntt, gv_selectedApcCd);
 						}
 					}
 					grdRawMtrInvntr.refresh();
@@ -1218,29 +1226,9 @@
 					if ( tmpInptWght > 0 && rowData.checkedYn !== "Y") {
 						rowData.checkedYn = "Y";
 					}
-
-					const allData = grdRawMtrInvntr.getGridDataAll();
-					let inptQntt = 0;
-					let inptWght = 0;
-
-					allData.forEach((item, index) => {
-						if (item.checkedYn === "Y") {
-			    			let qntt = parseInt(item.inptQntt) || 0;
-			    			let wght = parseInt(item.inptWght) || 0;
-
-			    			inptQntt += qntt;
-			    			inptWght += wght;
-			    		}
-					});
-
-					SBUxMethod.set("dtl-inp-inptWght", inptWght);
-
-					let sortRdcdRt = parseFloat(SBUxMethod.get("srch-inp-sortRdcdRt")) || 0;
-					let actlWght = gfn_apcEstmtWght(inptWght * (1 - sortRdcdRt / 100), gv_selectedApcCd);
-					let sortWght = parseInt(SBUxMethod.get("dtl-inp-sortWght")) || 0;
-					SBUxMethod.set("dtl-inp-lossWght", actlWght - sortWght);
-					SBUxMethod.set("dtl-inp-actlWght", actlWght);
-
+					
+					fn_setInptInfo();
+					
 					break;
 
 				default:
@@ -1249,6 +1237,31 @@
 		}
 	}
 
+ 	const fn_setInptInfo = function() {
+ 		
+ 		const allData = grdRawMtrInvntr.getGridDataAll();
+		let inptQntt = 0;
+		let inptWght = 0;
+
+		allData.forEach((item, index) => {
+			if (item.checkedYn === "Y") {
+    			let qntt = parseInt(item.inptQntt) || 0;
+    			let wght = parseInt(item.inptWght) || 0;
+
+    			inptQntt += qntt;
+    			inptWght += wght;
+    		}
+		});
+
+		SBUxMethod.set("dtl-inp-inptWght", inptWght);
+
+		let sortRdcdRt = parseFloat(SBUxMethod.get("srch-inp-sortRdcdRt")) || 0;
+		let actlWght = gfn_apcEstmtWght(inptWght * (1 - sortRdcdRt / 100), gv_selectedApcCd);
+		let sortWght = parseInt(SBUxMethod.get("dtl-inp-sortWght")) || 0;
+		SBUxMethod.set("dtl-inp-lossWght", actlWght - sortWght);
+		SBUxMethod.set("dtl-inp-actlWght", actlWght);
+ 	}
+ 	
  	/**
      * @name fn_grdSortPrfmncValueChanged
      * @description 선별등록 변경 event 처리
@@ -1271,9 +1284,9 @@
 	    			rowData.spcfctWght = spcfctInfo.wght;
 
 				case "sortQntt":
-					let spcfctWght = parseInt(rowData.spcfctWght) || 0;
+					let spcfctWght = parseFloat(rowData.spcfctWght) || 0;
 
-					const wght = rowData.sortQntt * spcfctWght;
+					const wght = gfn_apcEstmtWght(rowData.sortQntt * spcfctWght, gv_selectedApcCd);;
 					rowData.sortWght = wght;
 
 					grdSortPrfmnc.refresh();
