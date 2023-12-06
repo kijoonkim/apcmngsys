@@ -524,6 +524,9 @@
 			const trsprtSeCd 		= rowData.trsprtSeCd;
 			const wrhsSeCd 			= rowData.wrhsSeCd;
 			const gdsSeCd 			= rowData.gdsSeCd;
+			const wrhsYmd 			= rowData.wrhsYmd;
+			const sortYmd 			= rowData.sortYmd;
+			const pckgYmd 			= rowData.pckgYmd;
 
 			if(rowSts === 0 || rowSts === 1 || rowSts === 2 ){
 				if(gfn_comboValidation(jsonEPIApcItem, itemCd) != "Y" || gfn_isEmpty(itemCd)){
@@ -609,40 +612,50 @@
 					gfn_comAlert("W0005", "보관창고") 	// W0005	{0}이/가 없습니다.
 					return;
 				}
-				if(invntrQntt == 0){
-					gfn_comAlert("W0005", "수량") 	// W0005	{0}이/가 없습니다.
-					return;
-				}
-				if(invntrWght == 0 || gfn_isEmpty(invntrWght)){
-					if (invntrSeCd == "1"){
+
+				if (invntrSeCd == "1"){
+
+					if(invntrWght == 0 || gfn_isEmpty(invntrWght)){
 						gfn_comAlert("W0005", "중량") 	// W0005	{0}이/가 없습니다.
 						return;
-					}else if(invntrSeCd == "2"){
-						for(var j=0; j<jsonEPISpcfct.length; j++){
-							let row  = jsonEPISpcfct[j];
-				   			if(spcfctCd == row.spcfctCd){
-								let wght = Math.round(parseFloat(row.wght) * invntrQntt);
-								rowData.invntrWght = wght;
-				   			}
-				   		}
-
-					}else if(invntrSeCd == "3"){
-						for(var j=0; j<jsonEPISpmtPckgUnit.length; j++){
-							let row  = jsonEPISpmtPckgUnit[j];
-				   			if(spmtPckgUnitCd == row.spmtPckgUnitCd){
-								let wght = Math.round(parseFloat(row.spcfctWght) * invntrQntt);
-								rowData.invntrWght = wght;
-				   			}
-				   		}
 					}
 
+				}else if(invntrSeCd == "2"){
+					if(invntrWght == 0 || gfn_isEmpty(invntrWght)){
+						gfn_comAlert("W0005", "중량") 	// W0005	{0}이/가 없습니다.
+						return;
+					}else{
+						if(invntrQntt > 0){
+							for(var j=0; j<jsonEPISpcfct.length; j++){
+								let row  = jsonEPISpcfct[j];
+					   			if(spcfctCd == row.spcfctCd){
+									let wght = Math.round(parseFloat(row.wght) * invntrQntt);
+									rowData.invntrWght = wght;
+					   			}
+					   		}
+						}
+					}
+
+				}else if(invntrSeCd == "3"){
+					if(invntrQntt == 0 || gfn_isEmpty(invntrQntt)){
+						gfn_comAlert("W0005", "수량") 	// W0005	{0}이/가 없습니다.
+						return;
+					}
+					for(var j=0; j<jsonEPISpmtPckgUnit.length; j++){
+						let row  = jsonEPISpmtPckgUnit[j];
+			   			if(spmtPckgUnitCd == row.spmtPckgUnitCd){
+							let wght = Math.round(parseFloat(row.spcfctWght) * invntrQntt);
+							rowData.invntrWght = wght;
+			   			}
+			   		}
 				}
+
 				rowData.apcCd = gv_selectedApcCd;
 				rowData.rowSts = "I"
 
 				if(invntrSeCd == "1"){
 
-					if(gfn_isEmpty(rowData.wrhsYmd)){
+					if(gfn_isEmpty(wrhsYmd)){
 						rowData.wrhsYmd  = ymd;
 						rowData.prdctnYr = ymd.substr(0,4);
 					}else{
@@ -650,10 +663,8 @@
 				    		gfn_comAlert("W0011", "날짜형식");			//	W0001	{0}이/가 아닙니다.
 			    			return;
 			    		}
-						rowData.prdctnYr = rowData.wrhsYmd.substr(0,4);
+						rowData.prdctnYr = toString(wrhsYmd).substr(0,4);
 					}
-
-
 
 					let postJsonPromise = gfn_getStdGrdDtls(gv_selectedApcCd, "01", itemCd)
 					let data = await postJsonPromise;
@@ -747,8 +758,6 @@
 			    		}
 					}
 				}
-
-				console.log(insertList)
 
 				insertList.push(rowData);
 			}else{
