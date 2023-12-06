@@ -95,12 +95,13 @@
 		    		  	'showgoalpageui' : true
 		    	    };
 		        SBGridProperties.columns = [
-		        	{caption: ['화면ID'], 	ref: 'menuId',		width: '200px',		type: 'output',	style:'text-align: center'},
-		            {caption: ['화면명'], 	ref: 'menuNm', 		width: '200px', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['사용자ID'],	ref: 'userId', 		width: '200px', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['사용자명'],	ref: 'userNm', 		width: '200px', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['APC명'], 	ref: 'apcNm', 		width: '200px', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['열람일시'],	ref: 'prslDt',		width: '200px', 	type: 'output',	style:'text-align: center'}
+		        	{caption: ['화면ID'], 		ref: 'menuId',			width: '200px',		type: 'output',	style:'text-align: center'},
+		            {caption: ['화면명'], 		ref: 'menuNm', 			width: '200px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['사용자ID'],		ref: 'userId', 			width: '200px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['사용자명'],		ref: 'userNm', 			width: '200px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['APC명'], 		ref: 'apcNm', 			width: '200px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['개인정보유형'], ref: 'flfmtTaskSeNm', 	width: '100px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['열람일시'],		ref: 'prslDt',			width: '200px', 	type: 'output',	style:'text-align: center'}
 		        ];
 		        grdLogMenuHstry = _SBGrid.create(SBGridProperties);
 		        grdLogMenuHstry.bind( "afterpagechanged" , tabLogMenuHstry.paging );
@@ -150,12 +151,14 @@
 		    		jsonLogMenuHstry.length = 0;
 		        	data.resultList.forEach((item, index) => {
 						const log = {
-							menuId			: item.menuId,
-							menuNm			: item.menuNm,
-							userId 			: item.userId,
-							userNm 			: item.userNm,
-							apcNm 			: item.apcNm,
-							prslDt	 		: item.prslDt
+							menuId			: item.menuId
+						  , menuNm			: item.menuNm
+						  ,	userId 			: item.userId
+						  ,	userNm 			: item.userNm
+						  ,	apcNm 			: item.apcNm
+						  ,	prslDt	 		: item.prslDt
+						  ,	flfmtTaskSeNm	: item.flfmtTaskSeNm
+						  ,	flfmtTaskSeCd	: item.flfmtTaskSeCd
 						}
 						jsonLogMenuHstry.push(log);
 

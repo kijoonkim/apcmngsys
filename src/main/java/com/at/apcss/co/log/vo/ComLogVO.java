@@ -130,6 +130,7 @@ public class ComLogVO extends ComVO {
 	 * 수행업무구분코드
 	 */
 	private String flfmtTaskSeCd;
+	private String flfmtTaskSeNm;
 
 
 	/**
