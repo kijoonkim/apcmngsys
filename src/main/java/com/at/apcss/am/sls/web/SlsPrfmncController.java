@@ -121,7 +121,7 @@ public class SlsPrfmncController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	// 매출 금액 및 확정 저장
+	// 매출 삭제
 	@PostMapping(value = "/am/sls/deleteSlsPrfmncCrtList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> deleteSlsPrfmncCrtList(@RequestBody List<SlsPrfmncVO> slsPrfmncList, HttpServletRequest request) throws Exception {
 

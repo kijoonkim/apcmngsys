@@ -33,7 +33,7 @@ public class SlsPrfmncVO extends ComVO {
 	 * 매출번호
 	 */
 	private String slsno;
-	
+
 	/**
 	 * 매출일자
 	 */
@@ -65,6 +65,10 @@ public class SlsPrfmncVO extends ComVO {
 	 * 매출순번
 	 */
 	private int slsSn;
+	/**
+	 * 매출확정 수
+	 */
+	private int slsPrfmncQntt;
 
 	/**
 	 * 거래처코드

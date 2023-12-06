@@ -112,13 +112,10 @@
 				           AND SUBSTR(PC.SPMT_YMD, 1,4) = X.CRTR_YR
 				           AND SUBSTR(PC.SPMT_YMD, 5,2) = X.CRTR_MM
 				       ) AS DDLN_YN
-				     , (SELECT CFMTN_YN
-				          FROM TB_SLS_PRFMNC X
-				         WHERE X.APC_CD = PC.APC_CD
-				           AND X.SPMTNO = PD.SPMTNO
-				           AND X.PCKGNO = PD.PCKGNO
-				           AND X.PCKG_SN = PD.PCKG_SN
-				       ) AS CFMTN_YN
+				     , CASE WHEN 0 < (SELECT COUNT(*) FROM TB_SLS_PRFMNC X WHERE X.APC_CD = PC.APC_CD AND X.SPMTNO = PD.SPMTNO AND X.CFMTN_YN = 'Y' AND X.DEL_YN = 'N')
+                            THEN 'Y'
+				            ELSE 'N'
+                       END AS CFMTN_YN
 				     , PWS.SN                   AS SN
                      , PWS.PLT_BX_CD            AS PLT_BX_CD
                      , PWS.QNTT                 AS BSS_INVNTR_QNTT

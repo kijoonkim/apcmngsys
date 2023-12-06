@@ -37,7 +37,7 @@ public class SlsPrfmncServiceImpl extends BaseServiceImpl implements SlsPrfmncSe
 
 	@Autowired
 	private SlsPrfmncMapper slsPrfmncMapper;
-	
+
 	@Resource(name = "cmnsValidationService")
 	private CmnsValidationService cmnsValidationService;
 
@@ -104,12 +104,12 @@ public class SlsPrfmncServiceImpl extends BaseServiceImpl implements SlsPrfmncSe
 	public HashMap<String, Object> saveSlsPrfmncCrtList(List<SlsPrfmncVO> slsPrfmncList) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		
+
 		int savedCnt = 0;
 
 		for (SlsPrfmncVO slsPrfmncVO : slsPrfmncList) {
 			String ddlnYn = cmnsValidationService.selectChkDdlnYn(slsPrfmncVO.getApcCd(), slsPrfmncVO.getSpmtYmd());
-			
+
 			if("N".equals(ddlnYn)) {
 				savedCnt += updateSlsPrfmnc(slsPrfmncVO);
 			} else {
@@ -125,12 +125,12 @@ public class SlsPrfmncServiceImpl extends BaseServiceImpl implements SlsPrfmncSe
 	public HashMap<String, Object> deleteSlsPrfmncCrtList(List<SlsPrfmncVO> slsPrfmncList) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		
+
 		int deletedCnt = 0;
-		
+
 		for (SlsPrfmncVO slsPrfmncVO : slsPrfmncList) {
 			String ddlnYn = cmnsValidationService.selectChkDdlnYn(slsPrfmncVO.getApcCd(), slsPrfmncVO.getSpmtYmd());
-			
+
 			if("N".equals(ddlnYn)) {
 				deletedCnt += deleteSlsPrfmnc(slsPrfmncVO);
 			} else {
@@ -140,6 +140,20 @@ public class SlsPrfmncServiceImpl extends BaseServiceImpl implements SlsPrfmncSe
 		}
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
 		return resultMap;
+	}
+
+	@Override
+	public SlsPrfmncVO selectSlsPrfmncCfmtnYn(SlsPrfmncVO slsPrfmncVO) throws Exception {
+		SlsPrfmncVO resultVO = slsPrfmncMapper.selectSlsPrfmncCfmtnYn(slsPrfmncVO);
+		return resultVO;
+	}
+
+	@Override
+	public int deleteSlsPrfmncAll(SlsPrfmncVO slsPrfmncVO) throws Exception {
+
+		int deletedCnt = slsPrfmncMapper.deleteSlsPrfmncAll(slsPrfmncVO);
+
+		return deletedCnt;
 	}
 
 }
