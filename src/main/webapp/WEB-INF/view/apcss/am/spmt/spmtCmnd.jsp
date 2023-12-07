@@ -207,8 +207,8 @@
 		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
     	SBGridProperties.paging = {
 			'type' : 'page',
-		  	'count' : 1,
-		  	'size' : 1,
+		  	'count' : 5,
+		  	'size' : 20,
 		  	'sorttype' : 'page',
 		  	'showgoalpageui' : true
 	    };
