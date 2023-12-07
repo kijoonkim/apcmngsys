@@ -677,9 +677,11 @@
         //체크박스 열 index
         var getColRef = grid.getColRef("checkedYn");
         for (var i=0; i<gridList.length; i++) {
+        	grid.setCol(getColRef);
         	grid.clickCell(i+1, getColRef);
             grid.setCellData(i+1, getColRef, checkedYn, true, false);
         }
+    	grid.setRow(0);
     }
 
 	/**

@@ -359,9 +359,11 @@
         //체크박스 열 index
         var getColRef = grid.getColRef("checkedYn");
         for (var i=0; i<gridList.length; i++) {
+        	grid.setCol(getColRef);
         	grid.clickCell(i+1, getColRef);
             grid.setCellData(i+1, getColRef, checkedYn, true, false);
         }
+    	grid.setRow(0);
     }
 
 	// 포장투입 목록 조회 (조회 버튼)
