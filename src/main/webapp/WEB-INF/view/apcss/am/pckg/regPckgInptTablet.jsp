@@ -318,7 +318,10 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.clickeventarea = {fixed: false, empty: false};
         SBGridProperties.columns = [
-            {caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'50px', style: 'text-align:center',
+            {
+            	caption : ["<input type='checkbox' onchange='fn_checkAll(grdPckgInpt, this);'>"],
+            	ref: 'checkedYn', type: 'checkbox',  width:'40px',
+            	style: 'text-align:center',
 				userattr: {colNm: "checkedYn"},
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
@@ -347,6 +350,18 @@
         ];
         grdPckgInpt = _SBGrid.create(SBGridProperties);
         //grdPckgInpt.bind('click', fn_choice);
+    }
+
+    //그리드 체크박스 전체 선택
+    function fn_checkAll(grid, obj) {
+        var gridList = grid.getGridDataAll();
+        var checkedYn = obj.checked ? "Y" : "N";
+        //체크박스 열 index
+        var getColRef = grid.getColRef("checkedYn");
+        for (var i=0; i<gridList.length; i++) {
+        	grid.clickCell(i+1, getColRef);
+            grid.setCellData(i+1, getColRef, checkedYn, true, false);
+        }
     }
 
 	// 포장투입 목록 조회 (조회 버튼)

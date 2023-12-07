@@ -522,8 +522,13 @@
 	    SBGridProperties.selectmode = 'free';
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.frozencols = 2;
         SBGridProperties.columns = [
-			{caption : ["선택","선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center', userattr: {colNm: "checkedYn"},
+			{
+				caption : ["전체","<input type='checkbox' onchange='fn_checkAll(grdSortInvntr, this);'>"],
+				ref: 'checkedYn', type: 'checkbox',  width:'50px',
+				style: 'text-align:center',
+				userattr: {colNm: "checkedYn"},
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
             {caption: ['선별번호','선별번호'], 		ref: 'sortno', 			width: '110px', type: 'output', style: 'text-align:center'},
@@ -571,7 +576,21 @@
 
         ];
         grdSortInvntr = _SBGrid.create(SBGridProperties);
-        grdSortInvntr.bind('valuechanged', fn_grdSortInvntrValueChanged);
+        grdSortInvntr.bind('valuechanged' , 'fn_grdSortInvntrValueChanged');
+        grdSortInvntr.bind('select' , 'fn_setValue');
+        grdSortInvntr.bind('deselect' , 'fn_delValue');
+    }
+
+    //그리드 체크박스 전체 선택
+    function fn_checkAll(grid, obj) {
+        var gridList = grid.getGridDataAll();
+        var checkedYn = obj.checked ? "Y" : "N";
+        //체크박스 열 index
+        var getColRef = grid.getColRef("checkedYn");
+        for (var i=0; i<gridList.length; i++) {
+        	grid.clickCell(i+2, getColRef);
+            grid.setCellData(i+2, getColRef, checkedYn, true, false);
+        }
     }
 
     /**
@@ -1246,6 +1265,69 @@
 
  	}
 
+	/**
+     * @name fn_setValue
+     * @description 체크박스 선택 event
+     * @function
+     */
+	const fn_setValue = function() {
+    	let nRow = grdSortInvntr.getRow();
+    	let nCol = grdSortInvntr.getCol();
+
+		const usrAttr = grdSortInvntr.getColUserAttr(nCol);
+		if (!gfn_isEmpty(usrAttr) && usrAttr.hasOwnProperty('colNm')) {
+			if (nCol == grdSortInvntr.getColRef("checkedYn")) {
+				const rowData = grdSortInvntr.getRowData(nRow, false);
+
+				let inptQntt = parseInt(rowData.inptQntt) || 0;
+				let inptWght = parseInt(rowData.inptWght) || 0;
+
+				if (inptQntt === 0 && inptWght === 0) {
+
+					let cmndQntt = parseInt(rowData.cmndQntt) || 0;
+					let cmndWght = parseInt(rowData.cmndWght) || 0;
+					let invntrQntt = parseInt(rowData.invntrQntt) || 0;
+					let invntrWght = parseInt(rowData.invntrWght) || 0;
+
+					if (cmndWght > 0) {
+						if (invntrWght > cmndWght) {
+							rowData.inptQntt = cmndQntt;
+							rowData.inptWght = cmndWght;
+						} else {
+							rowData.inptQntt = invntrQntt;
+							rowData.inptWght = invntrWght;
+						}
+					} else {
+						rowData.inptQntt = invntrQntt;
+						rowData.inptWght = invntrWght;
+					}
+				}
+			}
+			grdSortInvntr.refresh();
+		}
+ 	}
+		
+	/**
+     * @name fn_delValue
+     * @description 체크박스 해제 event
+     * @function
+     */
+	const fn_delValue = async function(){
+    	let nRow = grdSortInvntr.getRow();
+    	let nCol = grdSortInvntr.getCol();
+
+		const usrAttr = grdSortInvntr.getColUserAttr(nCol);
+		if (!gfn_isEmpty(usrAttr) && usrAttr.hasOwnProperty('colNm')) {
+			if (nCol == grdSortInvntr.getColRef("checkedYn")) {
+				const rowData = grdSortInvntr.getRowData(nRow, false);
+
+				rowData.inptQntt = 0;
+				rowData.inptWght = 0;
+			}
+			grdSortInvntr.refresh();
+		}
+    }
+ 	
  	/**
      * @name fn_grdSortInvntrValueChanged
      * @description 선별재고 변경 event 처리
@@ -1260,37 +1342,6 @@
 
 			const rowData = grdSortInvntr.getRowData(nRow, false);	// deep copy
 			switch (usrAttr.colNm) {
-				case "checkedYn":	// checkbox
-					if (rowData.checkedYn == "Y") {
-
-						let inptQntt = parseInt(rowData.inptQntt) || 0;
-						let inptWght = parseInt(rowData.inptWght) || 0;
-
-						if (inptQntt === 0 && inptWght === 0) {
-
-							let cmndQntt = parseInt(rowData.cmndQntt) || 0;
-							let cmndWght = parseInt(rowData.cmndWght) || 0;
-							let invntrQntt = parseInt(rowData.invntrQntt) || 0;
-							let invntrWght = parseInt(rowData.invntrWght) || 0;
-
-							if (cmndWght > 0) {
-								if (invntrWght > cmndWght) {
-									rowData.inptQntt = cmndQntt;
-									rowData.inptWght = cmndWght;
-								} else {
-									rowData.inptQntt = invntrQntt;
-									rowData.inptWght = invntrWght;
-								}
-							} else {
-								rowData.inptQntt = invntrQntt;
-								rowData.inptWght = invntrWght;
-							}
-						}
-					} else {
-						rowData.inptQntt = 0;
-						rowData.inptWght = 0;
-					}
-
 				case "inptQntt":
 					let invntrQntt = parseInt(rowData.invntrQntt) || 0;
 					let invntrWght = parseInt(rowData.invntrWght) || 0;
@@ -1299,6 +1350,7 @@
 					if (tmpInptQntt <= 0) {
 						rowData.inptQntt = 0;
 						rowData.inptWght = 0;
+						rowData.checkedYn = "N";
 					} else if (invntrQntt === 0) {
 						if (tmpInptQntt > invntrQntt) {
 							rowData.inptWght = invntrWght;

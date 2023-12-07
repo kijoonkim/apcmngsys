@@ -381,10 +381,14 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.oneclickedit = true;
+		SBGridProperties.frozencols = 4;
 	    SBGridProperties.columns = [
-	    	{caption: ["<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>","<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>"],
-	    		ref: 'checkBox',      		type:'checkbox',  width:'50px',    style:'text-align:center',
-	    		typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
+	    	{
+	    		caption: ["전체","<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>"],
+	    		ref: 'checkBox',      	type:'checkbox',  	width:'50px',
+	    		style:'text-align:center',
+	    		typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+	    	},
 	        {caption: ["입고번호","입고번호"],		ref: 'wrhsno',      		type:'output',  width:'110px',    style:'text-align:center'},
 	        {caption: ["팔레트번호","팔레트번호"],	ref: 'pltno',      			type:'output',  width:'110px',    style:'text-align:center'},
 	        {caption: ["입고일자","입고일자"],		ref: 'wrhsYmd',      		type:'output',  width:'110px',    style:'text-align:center',
@@ -431,9 +435,12 @@
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	    	{caption: ["<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>","<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>"],
-	    		ref: 'checkBox',      	type:'checkbox',  	width:'40px',    style:'text-align:center',
-	    		typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
+	    	{
+	    		caption: ["전체","<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>"],
+	    		ref: 'checkBox',      	type:'checkbox',  	width:'50px',
+	    		style:'text-align:center',
+	    		typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+	    	},
 	        {caption: ["선별번호","선별번호"],	ref: 'sortno',      	type:'output',  	width:'110px',    style:'text-align:center'},
 	        {caption: ["등급","등급"],			ref: 'grdNm',      		type:'output',  	width:'80px',    style:'text-align:center'},
 	        {caption: ["투입일자","투입일자"],	ref: 'inptYmd',      	type:'output',  	width:'100px',    style:'text-align:center',
@@ -481,9 +488,12 @@
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	    	{caption: ["<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>","<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>"],
-	    		ref: 'checkBox',      	type:'checkbox',width:'40px',	style:'text-align:center',
-	    		typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
+	    	{
+	    		caption: ["전체","<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>"],
+	    		ref: 'checkBox',      	type:'checkbox',	width:'50px',
+	    		style:'text-align:center',
+	    		typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+	    	},
 	        {caption: ["포장번호","포장번호"],		ref: 'pckgno',      	type:'output',  width:'110px',	style:'text-align:center'},
 	        {caption: ["순번","순번"],				ref: 'pckgSn',      	type:'output',  width:'50px',   style:'text-align:center'},
 	        {caption: ["포장일자","포장일자"],		ref: 'pckgYmd',      	type:'output',  width:'110px',  style:'text-align:center',
@@ -629,7 +639,7 @@
         //체크박스 열 index
         var getColRef = grid.getColRef("checkBox");
         for (var i=0; i<gridList.length; i++) {
-        	grid.clickRow(i+2, true);
+        	grid.clickCell(i+2, getColRef);
             grid.setCellData(i+2, getColRef, checkedYn, true, false);
         }
     }
