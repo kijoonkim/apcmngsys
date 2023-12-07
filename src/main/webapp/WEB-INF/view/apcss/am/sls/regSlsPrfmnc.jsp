@@ -273,8 +273,8 @@
 				typeinfo : {ref:'jsonGrdCfmtnYn', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
         ];
         grdSlsPrfmnc = _SBGrid.create(SBGridProperties);
-        grdSlsPrfmnc.bind('select', 'fn_setValue');
-        grdSlsPrfmnc.bind('deselect', 'fn_delValue');
+        grdSlsPrfmnc.bind('select' , 'fn_setValue');
+        grdSlsPrfmnc.bind('deselect' , 'fn_delValue');
     }
 
     //그리드 체크박스 전체 선택
@@ -290,8 +290,7 @@
         	grid.clickCell(i+2, getColRef);
             grid.setCellData(i+2, getColRef, checkedYn, true, false);
         }
-    	grid.setRow(getRow);
-    	grid.setCol(getCol);
+    	grid.clickCell(getRow, getCol);
     }
 
 	const fn_search = async function(){

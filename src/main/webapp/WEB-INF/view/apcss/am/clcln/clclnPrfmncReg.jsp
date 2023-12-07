@@ -447,8 +447,7 @@
         	grid.clickCell(i+1, getColRef);
             grid.setCellData(i+1, getColRef, checkedYn, true, false);
         }
-    	grid.setRow(getRow);
-    	grid.setCol(getCol);
+    	grid.clickCell(getRow, getCol);
     }
 
 	/**

@@ -667,8 +667,7 @@
         	grid.clickCell(i+1, getColRef);
             grid.setCellData(i+1, getColRef, checkedYn, true, false);
         }
-    	grid.setRow(getRow);
-    	grid.setCol(getCol);
+    	grid.clickCell(getRow, getCol);
     }
 
 	/* 상풍선택팝업 호출 필수 function  */

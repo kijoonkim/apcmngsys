@@ -837,8 +837,7 @@
         	grid.clickCell(i+2, getColRef);
             grid.setCellData(i+2, getColRef, checkedYn, true, false);
         }
-    	grid.setRow(getRow);
-    	grid.setCol(getCol);
+    	grid.clickCell(getRow, getCol);
     }
 
 

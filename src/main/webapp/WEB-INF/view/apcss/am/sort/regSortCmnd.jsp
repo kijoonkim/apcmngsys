@@ -245,6 +245,7 @@
 		SBGridProperties.explorerbar = 'move';				// 개인화 컬럼 이동 가능
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList1;	// 우클릭 메뉴 리스트
+		SBGridProperties.frozencols = 2;
 		SBGridProperties.columns = [
 			{
 				caption : ["전체","<input type='checkbox' onchange='fn_checkAllRawMtrInvntr(grdRawMtrInvntr, this);'>"],
@@ -815,8 +816,7 @@
         	grid.clickCell(i+2, getColRef);
             grid.setCellData(i+2, getColRef, checkedYn, true, false);
         }
-    	grid.setRow(getRow);
-    	grid.setCol(getCol);
+    	grid.clickCell(getRow, getCol);
     }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>

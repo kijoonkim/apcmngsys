@@ -518,7 +518,11 @@
 	    SBGridProperties.paging = lv_paging;
 
 	    SBGridProperties.columns = [
-	    	{caption : ["<input type='checkbox' onchange='fn_checkAllRawMtrWrhs(this);'>"], ref: 'checkedYn', type: 'checkbox',  width:'50px', style: 'text-align:center', userattr: {colNm: "checkedYn"},
+	    	{
+	    		caption : ["<input type='checkbox' onchange='fn_checkAllRawMtrWrhs(grdRawMtrWrhs, this);'>"],
+	    		ref: 'checkedYn', type: 'checkbox',  width:'40px',
+	    		style: 'text-align:center',
+	    		userattr: {colNm: "checkedYn"},
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
             {caption: ["입고번호"],		ref: 'wrhsno',      type:'output',  width:'120px',    style:'text-align:center'},
@@ -1133,14 +1137,21 @@
 		parent.gfn_tabClose("TAB_AM_001_008");
 	}
 	
-	const fn_checkAllRawMtrWrhs = function(obj) {
-    	const data = grdRawMtrWrhs.getGridDataAll();
-        const checkedYn = obj.checked ? "Y" : "N";
-        for (var i=0; i<data.length; i++ ){
-        	grdRawMtrWrhs.setCellData(i+1, 0, checkedYn, true, false);
+    //그리드 체크박스 전체 선택
+    function fn_checkAllRawMtrWrhs(grid, obj) {
+        var gridList = grid.getGridDataAll();
+        var checkedYn = obj.checked ? "Y" : "N";
+        //체크박스 열 index
+        var getColRef = grid.getColRef("checkedYn");
+    	var getRow = grid.getRow();
+    	var getCol = grid.getCol();
+        for (var i=0; i<gridList.length; i++) {
+        	grid.setCol(getColRef);
+        	grid.clickCell(i+1, getColRef);
+            grid.setCellData(i+1, getColRef, checkedYn, true, false);
         }
+    	grid.clickCell(getRow, getCol);
     }
-
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

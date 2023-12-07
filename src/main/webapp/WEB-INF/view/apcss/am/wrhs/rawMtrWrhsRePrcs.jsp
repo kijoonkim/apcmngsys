@@ -394,8 +394,13 @@
 	    SBGridProperties.selectmode = 'free';
 	    SBGridProperties.allowcopy = true;
 		SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.frozencols = 2;
 		SBGridProperties.columns = [
-			{caption : ["전체 <br/> <input type='checkbox' onchange='fn_checkAllRawMtrInvntr(this);'>","전체 <br/> <input type='checkbox' onchange='fn_checkAllRawMtrInvntr(this);'>"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center', userattr: {colNm: "checkedYn"},
+			{
+				caption : ["전체","<input type='checkbox' onchange='fn_checkAllRawMtrInvntr(grdRawMtrInvntr, this);'>"],
+				ref: 'checkedYn', type: 'checkbox',  width:'50px',
+				style: 'text-align:center',
+				userattr: {colNm: "checkedYn"},
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
         	{caption: ["입고일자","입고일자"],		ref: 'wrhsYmd',			type:'output',  width:'120px', style: 'text-align:center',
@@ -486,7 +491,9 @@
 		});
 		
 		grdRawMtrInvntr = _SBGrid.create(SBGridProperties);
-		grdRawMtrInvntr.bind('valuechanged', fn_grdRawMtrInvntrValueChanged);
+		grdRawMtrInvntr.bind('valuechanged' , 'fn_grdRawMtrInvntrValueChanged');
+		grdRawMtrInvntr.bind('select' , 'fn_setValue');
+		grdRawMtrInvntr.bind('deselect' , 'fn_delValue');
 	}
 
 	/**
@@ -1095,6 +1102,54 @@
 		SBUxMethod.set("lbl-grdPrcsWght", "");
  	}
 
+	/**
+     * @name fn_setValue
+     * @description 체크박스 선택 event
+     * @function
+     */
+	const fn_setValue = function(){
+    	let nRow = grdRawMtrInvntr.getRow();
+    	let nCol = grdRawMtrInvntr.getCol();
+
+		const usrAttr = grdRawMtrInvntr.getColUserAttr(nCol);
+		if (!gfn_isEmpty(usrAttr) && usrAttr.hasOwnProperty('colNm')) {
+			if (nCol == grdRawMtrInvntr.getColRef("checkedYn")) {
+				const rowData = grdRawMtrInvntr.getRowData(nRow, false);
+				let inptQntt = parseInt(rowData.inptQntt) || 0;
+				let inptWght = parseInt(rowData.inptWght) || 0;
+
+				if (inptQntt === 0 && inptWght === 0) {
+					let invntrQntt = parseInt(rowData.invntrQntt) || 0;
+					let invntrWght = parseInt(rowData.invntrWght) || 0;
+
+					rowData.inptQntt = invntrQntt;
+					rowData.inptWght = invntrWght;
+				}
+			}
+			grdRawMtrInvntr.refresh();
+		}
+    }
+		
+	/**
+     * @name fn_delValue
+     * @description 체크박스 해제 event
+     * @function
+     */
+	const fn_delValue = function(){
+    	let nRow = grdRawMtrInvntr.getRow();
+    	let nCol = grdRawMtrInvntr.getCol();
+
+		const usrAttr = grdRawMtrInvntr.getColUserAttr(nCol);
+		if (!gfn_isEmpty(usrAttr) && usrAttr.hasOwnProperty('colNm')) {
+			if (nCol == grdRawMtrInvntr.getColRef("checkedYn")) {
+				const rowData = grdRawMtrInvntr.getRowData(nRow, false);
+				rowData.inptQntt = 0;
+				rowData.inptWght = 0;
+			}
+			grdRawMtrInvntr.refresh();
+		}
+    }
+	
  	/**
      * @name fn_grdRawMtrInvntrValueChanged
      * @description 원물재고 변경 event 처리
@@ -1109,24 +1164,6 @@
 
 			const rowData = grdRawMtrInvntr.getRowData(nRow, false);	// deep copy
 			switch (usrAttr.colNm) {
-				case "checkedYn":	// checkbox
-					if (rowData.checkedYn == "Y") {
-
-						let inptQntt = parseInt(rowData.inptQntt) || 0;
-						let inptWght = parseInt(rowData.inptWght) || 0;
-
-						if (inptQntt === 0 && inptWght === 0) {
-							let invntrQntt = parseInt(rowData.invntrQntt) || 0;
-							let invntrWght = parseInt(rowData.invntrWght) || 0;
-
-							rowData.inptQntt = invntrQntt;
-							rowData.inptWght = invntrWght;
-						}
-					} else {
-						rowData.inptQntt = 0;
-						rowData.inptWght = 0;
-					}
-
 				case "inptQntt":
 					let invntrQntt = parseInt(rowData.invntrQntt) || 0;
 					let invntrWght = parseInt(rowData.invntrWght) || 0;
@@ -1461,20 +1498,20 @@
 		}
 	}
 
-	const fn_checkAllRawMtrInvntr = function(obj) {
-		const data = grdRawMtrInvntr.getGridDataAll();
-        const checkedYn = obj.checked ? "Y" : "N";
-        for (var i=0; i<data.length; i++ ){
-        	grdRawMtrInvntr.setCellData(i+2, 0, checkedYn, true, false);
-        	if(checkedYn == 'Y'){
-	        	grdRawMtrInvntr.setCellData(i+2, 11, data[i].invntrQntt, true, false);
-	        	grdRawMtrInvntr.setCellData(i+2, 12, data[i].invntrWght, true, false);        		
-        	}else{
-        		grdRawMtrInvntr.setCellData(i+2, 11, 0, true, false);
-        		grdRawMtrInvntr.setCellData(i+2, 12, 0, true, false);
-        	}
-        	
+    //그리드 체크박스 전체 선택
+    function fn_checkAllRawMtrInvntr(grid, obj) {
+        var gridList = grid.getGridDataAll();
+        var checkedYn = obj.checked ? "Y" : "N";
+        //체크박스 열 index
+        var getColRef = grid.getColRef("checkedYn");
+    	var getRow = grid.getRow();
+    	var getCol = grid.getCol();
+        for (var i=0; i<gridList.length; i++) {
+        	grid.setCol(getColRef);
+        	grid.clickCell(i+2, getColRef);
+            grid.setCellData(i+2, getColRef, checkedYn, true, false);
         }
+    	grid.clickCell(getRow, getCol);
     }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>

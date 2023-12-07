@@ -348,8 +348,12 @@
 	    SBGridProperties.scrollbubbling = false;
 
 	    SBGridProperties.columns = [
-	        {caption: ["<input type='checkbox' onchange='fn_checkAllPltWrhsSpmt(this);'>"],		ref: 'checkedYn', type: 'checkbox',  width:'70px', style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
+	        {
+	        	caption: ["<input type='checkbox' onchange='fn_checkAllPltWrhsSpmt(grdPltWrhsSpmt, this);'>"],
+	        	ref: 'checkedYn', type: 'checkbox',  width:'40px',
+	        	style: 'text-align:center',
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+	        },
 	        {caption: ["작업일자"],	ref: 'jobYmd',      	type:'output',  	width:'100px',    style:'text-align:center',
 	        	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 	        {caption: ["입출고구분"],	ref: 'wrhsSpmtSeNm',    type:'output',  	width:'100px',    style:'text-align:center'},
@@ -759,13 +763,20 @@
 		SBUxMethod.closeModal(modalId);
 	}
 	
-	const fn_checkAllPltWrhsSpmt = function(obj) {
-    	const data = grdPltWrhsSpmt.getGridDataAll();
-        const checkedYn = obj.checked ? "Y" : "N";
-        for (var i=0; i<data.length; i++ ){
-        	grdPltWrhsSpmt.setCellData(i+1, 0, checkedYn, true, false);
-        	
+    //그리드 체크박스 전체 선택
+    function fn_checkAllPltWrhsSpmt(grid, obj) {
+        var gridList = grid.getGridDataAll();
+        var checkedYn = obj.checked ? "Y" : "N";
+        //체크박스 열 index
+        var getColRef = grid.getColRef("checkedYn");
+    	var getRow = grid.getRow();
+    	var getCol = grid.getCol();
+        for (var i=0; i<gridList.length; i++) {
+        	grid.setCol(getColRef);
+        	grid.clickCell(i+1, getColRef);
+            grid.setCellData(i+1, getColRef, checkedYn, true, false);
         }
+    	grid.clickCell(getRow, getCol);
     }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
