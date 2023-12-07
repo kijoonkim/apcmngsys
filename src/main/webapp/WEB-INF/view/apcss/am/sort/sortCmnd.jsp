@@ -203,12 +203,12 @@
 	    SBGridProperties.paging = {
 			'type' : 'page',
 		  	'count' : 5,
-		  	'size' : 15,
+		  	'size' : 20,
 		  	'sorttype' : 'page',
 		  	'showgoalpageui' : true
 	    };
 	    SBGridProperties.columns = [
-			{caption : ["선택","선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center', userattr: {colNm: "checkedYn"},
+			{caption : ["전체 <br/> <input type='checkbox' onchange='fn_checkAllSortCmnd(this);'>", "전체 <br/> <input type='checkbox' onchange='fn_checkAllSortCmnd(this);'>"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center', userattr: {colNm: "checkedYn"},
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
 	        {caption: ["지시번호","지시번호"],		ref: 'sortCmndno',      type:'output',  width:'130px',    style:'text-align:center'},
@@ -288,6 +288,7 @@
     async function fn_pagingGrdSortCmnd(){
     	let recordCountPerPage = grdSortCmnd.getPageSize();   		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = grdSortCmnd.getSelectPageIndex();
+    	grdSortCmnd.setCellData(0, 0, "전체 <br/> <input type='checkbox' onchange='fn_checkAllSortCmnd(this);'>", true, false);
     	fn_setGrdSortCmnd(recordCountPerPage, currentPageNo);
     }
 
@@ -601,6 +602,14 @@
 			SBUxMethod.set("srch-inp-vrtyCd", "");
 		})
 	})
+	
+	const fn_checkAllSortCmnd = function(obj) {
+		const data = grdSortCmnd.getGridDataAll();
+		const checkedYn = obj.checked ? "Y" : "N";
+		for (var i=0; i<data.length; i++ ){
+			grdSortCmnd.setCellData(i+2, 0, checkedYn, true, false);
+		}
+	}
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

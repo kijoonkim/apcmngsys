@@ -518,7 +518,7 @@
 	    SBGridProperties.paging = lv_paging;
 
 	    SBGridProperties.columns = [
-	    	{caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'50px', style: 'text-align:center', userattr: {colNm: "checkedYn"},
+	    	{caption : ["<input type='checkbox' onchange='fn_checkAllRawMtrWrhs(this);'>"], ref: 'checkedYn', type: 'checkbox',  width:'50px', style: 'text-align:center', userattr: {colNm: "checkedYn"},
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
             {caption: ["입고번호"],		ref: 'wrhsno',      type:'output',  width:'120px',    style:'text-align:center'},
@@ -1132,6 +1132,14 @@
 	const fn_close = function(){
 		parent.gfn_tabClose("TAB_AM_001_008");
 	}
+	
+	const fn_checkAllRawMtrWrhs = function(obj) {
+    	const data = grdRawMtrWrhs.getGridDataAll();
+        const checkedYn = obj.checked ? "Y" : "N";
+        for (var i=0; i<data.length; i++ ){
+        	grdRawMtrWrhs.setCellData(i+1, 0, checkedYn, true, false);
+        }
+    }
 
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>

@@ -246,7 +246,7 @@
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList1;	// 우클릭 메뉴 리스트
 		SBGridProperties.columns = [
-			{caption : ["선택","선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
+			{caption : [" 전체 <br/> <input type='checkbox' onchange='fn_checkAllRawMtrInvntr(this);'>", " 전체 <br/> <input type='checkbox' onchange='fn_checkAllRawMtrInvntr(this);'>"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
         	{caption: ["입고일자","입고일자"],		ref: 'wrhsYmd',			type:'output',  width:'120px', style: 'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
@@ -798,6 +798,22 @@
  			return;
  		}
  	}
+	
+	const fn_checkAllRawMtrInvntr = function(obj) {
+		const data = grdRawMtrInvntr.getGridDataAll();
+        const checkedYn = obj.checked ? "Y" : "N";
+        for (var i=0; i<data.length; i++ ){
+        	grdRawMtrInvntr.setCellData(i+2, 0, checkedYn, true, false);
+        	if(checkedYn == 'Y'){
+	        	grdRawMtrInvntr.setCellData(i+2, 10, data[i].invntrCmndQntt, true, false);
+	        	grdRawMtrInvntr.setCellData(i+2, 11, data[i].invntrCmndWght, true, false);        		
+        	}else{
+        		grdRawMtrInvntr.setCellData(i+2, 10, 0, true, false);
+        		grdRawMtrInvntr.setCellData(i+2, 11, 0, true, false);
+        	}
+        	
+        }
+    }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

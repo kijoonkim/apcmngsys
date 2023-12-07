@@ -309,8 +309,9 @@
         SBGridPropertiesOrdr.contextmenu = true;				// 우클린 메뉴 호출 여부
         SBGridPropertiesOrdr.contextmenulist = objMenuList1;	// 우클릭 메뉴 리스트
         SBGridPropertiesOrdr.columns = [
-        	{caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
+	    	{caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+            },
             {caption: ['거래처'], 		ref: 'apcCnptNm', 		width: '200px', type: 'output', style: 'text-align:center'},
             {caption: ['배송처'], 		ref: 'dldtn', 			width: '200px', type: 'output', style: 'text-align:center'},
             {caption: ['납기일자'], 	ref: 'wrhsYmd', 		width: '120px', type: 'output', style: 'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
@@ -528,8 +529,6 @@
 		let inptCmndWghtCol = grdSpmtCmndTrg.getColRef("inptCmndWght");
 		let checkedYnCol 	= grdSpmtCmndTrg.getColRef("checkedYn");
 
-		console.log("wght",wght)
-
 		let dtlApcCnptCd = SBUxMethod.get("dtl-inp-apcCnptCd");
 		let dtlDldtn = SBUxMethod.get("dtl-inp-dldtn");
 		if(gfn_isEmpty(dtlApcCnptCd)){
@@ -582,7 +581,6 @@
 	}
 
 	const fn_setGrdSpmtCmndTrg = async function(){
-
 		let outordrYmdFrom  = SBUxMethod.get("srch-dtp-outordrYmdFrom"); //발주 시작일자
 		let outordrYmdTo  = SBUxMethod.get("srch-dtp-outordrYmdTo"); //발주 종료일자
 		let warehouseSeCd  = SBUxMethod.get("dtl-slt-warehouseSeCd"); //창고구분

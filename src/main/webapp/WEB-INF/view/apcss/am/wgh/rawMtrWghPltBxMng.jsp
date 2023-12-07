@@ -348,7 +348,8 @@
 	    SBGridProperties.scrollbubbling = false;
 
 	    SBGridProperties.columns = [
-	        {caption: ["선택"],		ref: 'checkbox',      	type:'checkbox',	width:'70px',     style:'text-align:center'},
+	        {caption: ["<input type='checkbox' onchange='fn_checkAllPltWrhsSpmt(this);'>"],		ref: 'checkedYn', type: 'checkbox',  width:'70px', style: 'text-align:center',
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
 	        {caption: ["작업일자"],	ref: 'jobYmd',      	type:'output',  	width:'100px',    style:'text-align:center',
 	        	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 	        {caption: ["입출고구분"],	ref: 'wrhsSpmtSeNm',    type:'output',  	width:'100px',    style:'text-align:center'},
@@ -638,7 +639,6 @@
     		gfn_comAlert("W0003", "삭제");			// W0003	{0}할 대상이 없습니다.
     		return;
     	}
-
     	let regMsg = "삭제 하시겠습니까?";
 		if(confirm(regMsg)){
 			const postJsonPromise = gfn_postJSON("/am/cmns/updateDelYnPltWrhsSpmt.do", deleteList);
@@ -759,6 +759,14 @@
 		SBUxMethod.closeModal(modalId);
 	}
 	
+	const fn_checkAllPltWrhsSpmt = function(obj) {
+    	const data = grdPltWrhsSpmt.getGridDataAll();
+        const checkedYn = obj.checked ? "Y" : "N";
+        for (var i=0; i<data.length; i++ ){
+        	grdPltWrhsSpmt.setCellData(i+1, 0, checkedYn, true, false);
+        	
+        }
+    }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
