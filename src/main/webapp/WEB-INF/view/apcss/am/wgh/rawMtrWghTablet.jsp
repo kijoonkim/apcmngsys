@@ -1032,7 +1032,7 @@
 	    SBGridProperties.mergecells = 'byrestriccol';
         SBGridProperties.columns = [
         	{caption: ['계량번호'], ref: 'wghno', hidden: true},
-        	{caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'50px', style: 'text-align:center', userattr: {colNm: "checkedYn"},
+        	{caption : ["<input type='checkbox' onchange='fn_checkAllWghPrfmnc(this);'>"], ref: 'checkedYn', type: 'checkbox',  width:'50px', style: 'text-align:center', userattr: {colNm: "checkedYn"},
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
             {caption: ['계량번호'], ref: 'wghno', width: '120px', type: 'output', style:'text-align:center'},
@@ -1488,6 +1488,14 @@
 	const fn_close = function(){
 		parent.gfn_tabClose("TAB_AM_001_007");
 	}
+	
+	const fn_checkAllWghPrfmnc = function(obj) {
+    	const data = grdWghPrfmnc.getGridDataAll();
+        const checkedYn = obj.checked ? "Y" : "N";
+        for (var i=0; i<data.length; i++ ){
+        	grdWghPrfmnc.setCellData(i+1, 1, checkedYn, true, false);
+        }
+    }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

@@ -395,7 +395,7 @@
 	    SBGridProperties.allowcopy = true;
 		SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.columns = [
-			{caption : ["선택","선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center', userattr: {colNm: "checkedYn"},
+			{caption : ["전체 <br/> <input type='checkbox' onchange='fn_checkAllRawMtrInvntr(this);'>","전체 <br/> <input type='checkbox' onchange='fn_checkAllRawMtrInvntr(this);'>"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center', userattr: {colNm: "checkedYn"},
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
         	{caption: ["입고일자","입고일자"],		ref: 'wrhsYmd',			type:'output',  width:'120px', style: 'text-align:center',
@@ -1102,6 +1102,7 @@
      * @function
      */
 	const fn_grdRawMtrInvntrValueChanged = function() {
+ 		console.log('test');
 		var nRow = grdRawMtrInvntr.getRow();
 		var nCol = grdRawMtrInvntr.getCol();
 
@@ -1462,6 +1463,23 @@
 		}
 	}
 
+	const fn_checkAllRawMtrInvntr = function(obj) {
+    	const data = grdRawMtrInvntr.getGridDataAll();
+    	console.log('data : ', data);
+        const checkedYn = obj.checked ? "Y" : "N";
+        console.log('checkedYn', checkedYn);
+        for (var i=0; i<data.length; i++ ){
+        	grdRawMtrInvntr.setCellData(i+2, 0, checkedYn, true, false);
+        	if(checkedYn == 'Y'){
+	        	grdRawMtrInvntr.setCellData(i+2, 11, data[i].invntrQntt, true, false);
+	        	grdRawMtrInvntr.setCellData(i+2, 12, data[i].invntrWght, true, false);        		
+        	}else{
+        		grdRawMtrInvntr.setCellData(i+2, 11, 0, true, false);
+        		grdRawMtrInvntr.setCellData(i+2, 12, 0, true, false);
+        	}
+        	
+        }
+    }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
