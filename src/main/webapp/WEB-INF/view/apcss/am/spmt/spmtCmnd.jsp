@@ -213,8 +213,9 @@
 		  	'showgoalpageui' : true
 	    };
         SBGridProperties.columns = [
-        	{caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
+	    	{caption : ["<input type='checkbox' onchange='fn_checkAll(grdSpmtCmnd, this);'>"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+            },
             {caption: ['지시일자'], 	ref: 'cmndYmd', 		width: '100px',	type: 'output',	style:'text-align: center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['거래처'], 	ref: 'cnptNm', 			width: '200px',	type: 'output',	style:'text-align: center'},
@@ -301,6 +302,7 @@
 
 	// 출하지시 목록 조회 호출
 	async function fn_callSelectSpmtCmndList(recordCountPerPage, currentPageNo){
+    	grdSpmtCmnd.setCellData(0, 0, "<input type='checkbox' onchange='fn_checkAll(grdSpmtCmnd, this);'>", true, false);
 		jsonSmptCmnd = [];
 		let apcCd = gv_selectedApcCd;
 		let cmndYmdFrom = SBUxMethod.get("srch-dtp-cmndYmdFrom");
@@ -546,5 +548,18 @@
 			SBUxMethod.set("srch-inp-vrtyCd", "");
  		})
  	})
+ 	
+     //그리드 체크박스 전체 선택
+     function fn_checkAll(grid, obj) {
+         var gridList = grid.getGridDataAll();
+         var checkedYn = obj.checked ? "Y" : "N";
+         //체크박스 열 index
+         var getColRef = grid.getColRef("checkedYn");
+         
+         for (var i=0; i<gridList.length; i++) {
+        	 grid.clickRow(i+1, true);
+             grid.setCellData(i+1, getColRef, checkedYn, true, false);
+         }
+     }
 </script>
 </html>

@@ -288,8 +288,9 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	        {caption: ["선택","선택"],			ref: 'checkbox',     	type:'checkbox',  width:'40px',    style:'text-align:center',
-            	typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
+	    	{caption : ["전체 <br/> <input type='checkbox' onchange='fn_checkAllSortInvntr(this);'>", "전체 <br/> <input type='checkbox' onchange='fn_checkAllSortInvntr(this);'>"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+            },
 	        {caption: ["선별번호","선별번호"],	ref: 'sortno',   		type:'output',  width:'130px',    style:'text-align:center'},
 	        {caption: ["선별일자","선별일자"], 	ref: 'inptYmd',  		type:'output',  width:'100px',    style:'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 	        {caption: ["생산자","생산자"],  	ref: 'prdcrNm',    		type:'output',  width:'100px',    style:'text-align:center'},
@@ -854,6 +855,21 @@
  			grdPckgCmnd.rebuild()
  		]);
  	}
+ 	 
+ 	const fn_checkAllSortInvntr = function(obj) {
+		const data = grdSortInvntr.getGridDataAll();
+		const checkedYn = obj.checked ? "Y" : "N";
+		for (var i=0; i<data.length; i++ ){
+			grdSortInvntr.setCellData(i+2, 0, checkedYn, true, false);
+			if(checkedYn == 'Y'){
+				grdSortInvntr.setCellData(i+2, 11, data[i].invntrQntt, true, false);
+				grdSortInvntr.setCellData(i+2, 12, data[i].invntrWght, true, false);        		
+        	}else{
+        		grdSortInvntr.setCellData(i+2, 11, 0, true, false);
+        		grdSortInvntr.setCellData(i+2, 12, 0, true, false);
+        	}
+		}
+	}
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
