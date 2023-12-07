@@ -29,7 +29,7 @@ public interface CnptService {
 	 * @throws Exception
 	 */
 	public CnptVO selectCnpt(CnptVO cnptVO) throws Exception;
-	
+
 	/**
 	 * 거래처정보 목록 조회
 	 * @param CnptVO
@@ -45,8 +45,8 @@ public interface CnptService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertCnptList(List<CnptVO> cnptList) throws Exception;
-	
-	
+
+
 	/**
 	 * 거래처정보 등록
 	 * @param CnptVO
@@ -70,7 +70,7 @@ public interface CnptService {
 	 * @throws Exception
 	 */
 	public int deleteCnpt(CnptVO cnptVO) throws Exception;
-	
+
 	/**
 	 * 대형마켓 목록 조회
 	 * @param LgszMrktVO
@@ -86,7 +86,7 @@ public interface CnptService {
 	 * @throws Exception
 	 */
 	public int updateLgszMrkt(LgszMrktVO lgszMrktVO) throws Exception;
-	
+
 	/**
 	 * 대형마켓 초기 등록
 	 * @param List<LgszMrktVO>
@@ -94,5 +94,14 @@ public interface CnptService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertLgszMrktList(List<LgszMrktVO> lgszMrktList) throws Exception;
-	
+
+
+	/**
+	 * 거래처저장 및 대형마켓 저장
+	 * @param List<LgszMrktVO>
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> multiCnptLgszMrktList(List<CnptVO> cnptList, List<LgszMrktVO> lgszMrktList) throws Exception;
+
 }

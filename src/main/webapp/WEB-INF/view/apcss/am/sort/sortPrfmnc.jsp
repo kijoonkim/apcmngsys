@@ -984,6 +984,19 @@
 			SBUxMethod.set("srch-inp-vrtyCd", "");
 		})
 	})
+	
+	    //그리드 체크박스 전체 선택
+    function fn_checkAll(grid, obj) {
+        var gridList = grid.getGridDataAll();
+        var checkedYn = obj.checked ? "Y" : "N";
+        //체크박스 열 index
+        var getColRef = grid.getColRef("checkedYn");
+        
+        for (var i=0; i<gridList.length; i++) {
+       	 	grid.clickRow(i+2, true);
+            grid.setCellData(i+2, getColRef, checkedYn, true, false);
+        }
+    }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

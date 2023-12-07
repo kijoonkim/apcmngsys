@@ -19,8 +19,8 @@
 					</p>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnCnptSech" name="btnCnptSech" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectCnptList()"></sbux-button>
-					<sbux-button id="btnCnptReg" name="btnCnptReg" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveCnptList"></sbux-button>
+					<sbux-button id="btnCnptSech" name="btnCnptSech" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchCnptLgszMrkt()"></sbux-button>
+					<sbux-button id="btnCnptReg" name="btnCnptReg" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveCnpt"></sbux-button>
 					<sbux-button id="btnCnptEnd" name="btnCnptEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-cnpt')"></sbux-button>
 				</div>
 			</div>
@@ -59,13 +59,13 @@
 						</ul>
 					</div>
 					<div class="table-responsive tbl_scroll_sm">
-						<div id="cnptMngGridArea" style="height:150px; width: 100%;"></div>
+						<div id="sb-area-grdCnpt" style="height:150px; width: 100%;"></div>
 						<div class="ad_tbl_top">
 							<ul class="ad_tbl_count">
 								<li><span>대형마트 발주서 접수관리</span></li>
 							</ul>
 						</div>
-						<div id="lgszMrktMngGridArea" style="height:220px; width: 100%;"></div>
+						<div id="sb-area-grdLgszMrkt" style="height:220px; width: 100%;"></div>
 					</div>
 				</div>
 				<!--[pp] //검색결과 -->
@@ -74,15 +74,15 @@
 	</section>
 </body>
 <script type="text/javascript">
-	var cnptMngGridData = [
-    ]; // 그리드의 참조 데이터 주소 선언
-    function fn_cnptMngCreateGrid() {
+	var grdCnpt;
+	var jsonCnpt = []; // 그리드의 참조 데이터 주소 선언
+    const fn_cnptMngCreateGrid = async function() {
     	SBUxMethod.set("cnpt-inp-apcNm", SBUxMethod.get("inp-apcNm"));
     	cnptMngGridData = [];
         let SBGridProperties = {};
-	    SBGridProperties.parentid = 'cnptMngGridArea';
-	    SBGridProperties.id = 'cnptMngDatagrid';
-	    SBGridProperties.jsonref = 'cnptMngGridData';
+	    SBGridProperties.parentid = 'sb-area-grdCnpt';
+	    SBGridProperties.id = 'grdCnpt';
+	    SBGridProperties.jsonref = 'jsonCnpt';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'free';
 	    SBGridProperties.allowcopy = true;
@@ -95,9 +95,9 @@
         SBGridProperties.columns = [
             {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
             	if(strValue== null || strValue == ""){
-            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"cnptMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
+            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdCnpt\", " + nRow + ", " + nCol + ")'>추가</button>";
             	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"cnptMngDatagrid\", " + nRow + ")'>삭제</button>";
+			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdCnpt\", " + nRow + ")'>삭제</button>";
             	}
 		    }},
             {caption: ["코드"], 		ref: 'cnptCd',  	type:'output', width:'80px',     style:'text-align:center',  hidden : true},
@@ -111,11 +111,12 @@
             {caption: ["업태"], 		ref: 'bzstat',  	type:'input',  width:'140px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 300}), typeinfo : {maxlength : 300}},
             {caption: ["종목"], 		ref: 'cls',  		type:'input',  width:'140px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 300}), typeinfo : {maxlength : 300}},
             {caption: ["비고"], 		ref: 'rmrk',  		type:'input',  width:'120px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000}), typeinfo : {maxlength : 1000}},
+            {caption: ["APC코드"], 		ref: 'apcCd',  		type:'output', hidden : true},
         ];
-        window.cnptMngDatagrid = _SBGrid.create(SBGridProperties);
+        grdCnpt = _SBGrid.create(SBGridProperties);
         fn_selectCnptList();
     }
-    
+
     /**
      * @description 메뉴트리그리드 컨텍스트메뉴 json
      * @type {object}
@@ -129,22 +130,22 @@
     };
     // 엑셀 다운로드
     function fn_excelDwnldCnptMng() {
-    	cnptMngDatagrid.exportLocalExcel("거래처 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    	grdCnpt.exportLocalExcel("거래처 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
 
-    async function fn_selectCnptList(){
-		fn_callSelectCnptList();
-		fn_callSelectLgszMrktList();
+    const fn_searchCnptLgszMrkt = async function(){
+
+    	let rst = await Promise.all([
+    		fn_selectCnptList(),
+    		fn_selectLgszMrktList(),
+    	])
 	}
 
-
-    let newCnptGridData = [];
-	async function fn_callSelectCnptList(){
+	const fn_selectCnptList = async function(){
 		let apcCd = SBUxMethod.get("inp-apcCd");
     	let postJsonPromise = gfn_postJSON("/am/cmns/selectCnptList.do", {apcCd : apcCd});
         let data = await postJsonPromise;
-	    newCnptGridData = [];
-	    cnptMngGridData = [];
+	    jsonCnpt.length = 0;
         try{
         	data.resultList.forEach((item, index) => {
 				let cnpt = {
@@ -161,11 +162,10 @@
 				  , bzstat		: item.bzstat
 				  , cls			: item.cls
 				}
-				cnptMngGridData.push(Object.assign({}, cnpt));
-				newCnptGridData.push(Object.assign({}, cnpt));
+				jsonCnpt.push(cnpt);
 			});
-        	cnptMngDatagrid.rebuild();
-         	cnptMngDatagrid.addRow();
+        	grdCnpt.rebuild();
+        	grdCnpt.addRow();
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -174,153 +174,103 @@
         }
 	}
 
-	async function fn_saveCnptList(){
-		let gridData = cnptMngDatagrid.getGridDataAll();
-		console.log('gridData', gridData);
-		let insertList = [];
-		let updateList = [];
-		let insertCnt = 0;
-		let updateCnt = 0;
-		for(var i=1; i<=gridData.length; i++ ){
-			if(cnptMngDatagrid.getRowData(i).delYn == 'N'){
+	const fn_saveCnpt = async function(){
+		let gridCnptData = grdCnpt.getGridDataAll();
+		let gridLgszMrktData = grdLgszMrkt.getGridDataAll();
 
-				if(cnptMngDatagrid.getRowData(i).cnptNm == null || cnptMngDatagrid.getRowData(i).cnptNm == ""){
-					alert("거래처명은 필수 값 입니다.");
-					return;
-				}
+		let saveCnptList = [];
+		let saveLgszMrktList = [];
 
-				if(cnptMngDatagrid.getRowData(i).cnptType == null || cnptMngDatagrid.getRowData(i).cnptType == ""){
-					alert("유형을 선택해주세요");
-					return;
-				}
+		for(var i=1; i<=gridCnptData.length; i++ ){
+			let rowData = grdCnpt.getRowData(i);
+			let rowSts = grdCnpt.getRowStatus(i);
+			let delYn = rowData.delYn;
+			let cnptNm = rowData.cnptNm;
+			let cnptType = rowData.cnptType;
 
-				if(cnptMngDatagrid.getRowStatus(i) === 3){
-					insertList.push(cnptMngDatagrid.getRowData(i));
-				}
-				if(cnptMngDatagrid.getRowStatus(i) === 2){
-					updateList.push(cnptMngDatagrid.getRowData(i));
+			if(delYn == 'N'){
+				if (gfn_isEmpty(cnptNm)) {
+		  			gfn_comAlert("W0002", "거래처명");		//	W0002	{0}을/를 입력하세요.
+		            return;
+		  		}
+				if (gfn_isEmpty(cnptType)) {
+		  			gfn_comAlert("W0002", "유형");		//	W0002	{0}을/를 입력하세요.
+		            return;
+		  		}
+				if (rowSts === 3){
+					rowData.rowSts = "I";
+					saveCnptList.push(rowData);
+				} else if (rowSts === 2){
+					rowData.rowSts = "U";
+					saveCnptList.push(rowData);
+				} else {
+					continue;
 				}
 			}
 		}
 
-		let gridData2 = lgszMrktMngDatagrid.getGridDataAll();
-		let updateList2 = [];
-		let updateCnt2 = 0;
-		for(var i=1; i<=gridData2.length; i++ ){
-			if(lgszMrktMngDatagrid.getRowStatus(i) === 2){
-				updateList2.push(lgszMrktMngDatagrid.getRowData(i));
+		for(var i=1; i<=gridLgszMrktData.length; i++ ){
+			let rowData = grdLgszMrkt.getRowData(i);
+			let rowSts = grdLgszMrkt.getRowStatus(i);
+			let delYn = rowData.delYn;
+
+			if (rowSts === 2){
+				rowData.rowSts = "U";
+				saveLgszMrktList.push(rowData);
+			} else {
+				continue;
 			}
 		}
-
-		if(insertList.length == 0 && updateList.length == 0 && updateList2.length == 0){
-			alert("저장 할 내용이 없습니다.");
+		if(saveCnptList.length == 0 && saveLgszMrktList.length == 0){
+			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
 			return;
 		}
+
+		let saveVOList = [
+			{
+				cnptList 		: saveCnptList
+			  , lgszMrkttList 	: saveLgszMrktList
+			}
+		]
+
 		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
-			if(!(gfn_isEmpty(insertList))){
-				for(let i=0;i<insertList.length;i++){
-					let newInsertTelno = insertList[i].telno.split("");
-					if(newInsertTelno < 8){
-						insertList[i].telno = "";
-					}
-					let newUpdateListEml = updateList[i].eml;
-					if (!(fn_checkCnptMngEmlReturn(newUpdateListEml))) {
-						updateList[i].eml = "";
-					}
-				}
-			}
-			if(!(gfn_isEmpty(updateList))){
-				for(let i=0;i<updateList.length;i++){
-					let newUpdateListTelno = updateList[i].telno.split("");
-					if(newUpdateListTelno.length < 8){
-						updateList[i].telno = "";
-					}
-					let newUpdateListEml = updateList[i].eml;
-					if (!(fn_checkCnptMngEmlReturn(newUpdateListEml))) {
-						updateList[i].eml = "";
-					}
-				}
-			}
-			totalCnt = 0;
-			if(insertList.length > 0){
-				const postJsonPromise = gfn_postJSON("/am/cmns/insertCnptList.do", insertList);
-		    	const data = await postJsonPromise;
-		    	totalCnt += data.insertedCnt;
-			}
-			if(updateList.length > 0){
-				const postJsonPromise = gfn_postJSON("/am/cmns/updateCnptList.do", updateList);
-		    	const data = await postJsonPromise;
-		    	totalCnt += data.updatedCnt;
-// 				updateCnt = await fn_callUpdateCnptList(updateList);
-			}
-			if(updateList2.length > 0){
-				const postJsonPromise = gfn_postJSON("/am/cmns/updateLgszMrktList.do", updateList2);
-		    	const data = await postJsonPromise;
-		    	totalCnt += data.updatedCnt;
-// 				updateCnt2 = await fn_callUpdateLgszMrktList(updateList2);
-			}
-			if(totalCnt > 0 ){
-				fn_selectCnptList();
-				alert("저장 되었습니다.");
-			}
+
+			let postJsonPromise = gfn_postJSON("/am/cmns/multiCnptLgszMrktList.do", saveVOList);
+	        let data = await postJsonPromise;
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+	        		fn_searchCnptLgszMrkt();
+	        	} else {
+	        		gfn_comAlert(data.resultCode, data.resultMessage);
+	        	}
+	        } catch(e) {
+	        	console.error("failed", e.message);
+	        }
 		}
+
 	}
 
-	async function fn_callInsertCnptList(insertList){
-		let postJsonPromise = gfn_postJSON("/am/cmns/insertCnptList.do", insertList);
-        let data = await postJsonPromise;
-
-        try{
-       		return data.result;
-
-        }catch (e) {
-        	if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-		}
+	const fn_deleteCnpt = async function(cnpt){
+		let postJsonPromise1 = gfn_postJSON("/am/cmns/deleteCnpt.do", cnpt);
+		let data = await postJsonPromise;
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);
+        	}
+        } catch(e) {
+        	console.error("failed", e.message);
+        }
 	}
-
-	async function fn_callUpdateCnptList(updateList){
-		let postJsonPromise = gfn_postJSON("/am/cmns/updateCnptList.do", updateList);
-        let data = await postJsonPromise;
-        try{
-       		return data.result;
-
-        }catch (e) {
-        	if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-		}
-	}
-
-	async function fn_callUpdateLgszMrktList(updateList){
-		let postJsonPromise = gfn_postJSON("/am/cmns/updateLgszMrktList.do", updateList);
-        let data = await postJsonPromise;
-        try{
-       		return data.result;
-
-        }catch (e) {
-        	if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-		}
-	}
-
-
-	async function fn_deleteCnptList(cnpt){
-		let postJsonPromise1 = gfn_postJSON("/am/cmns/deleteCnptList.do", cnpt);
-	}
-
-    var lgszMrktMngGridData =[];
-    function fn_lgszMrktMngCreateGrid() {
+	var grdLgszMrkt;
+    var jsonLgszMrkt =[];
+    const fn_lgszMrktMngCreateGrid = async function() {
         let SBGridProperties = {};
-	    SBGridProperties.parentid = 'lgszMrktMngGridArea';
-	    SBGridProperties.id = 'lgszMrktMngDatagrid';
-	    SBGridProperties.jsonref = 'lgszMrktMngGridData';
+	    SBGridProperties.parentid = 'sb-area-grdLgszMrkt';
+	    SBGridProperties.id = 'grdLgszMrkt';
+	    SBGridProperties.jsonref = 'jsonLgszMrkt';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
@@ -335,21 +285,19 @@
 						typeinfo : {ref:'comboReverseYnJsData', label:'label', value:'value', displayui : false, itemcount: 10}},
             {caption: ["최종처리일시"], 	ref: 'lastPrcsDt',  	type:'output',  width:'280px',    style:'text-align:center'}
         ];
-        window.lgszMrktMngDatagrid = _SBGrid.create(SBGridProperties);
-		fn_callSelectLgszMrktList();
+        grdLgszMrkt = _SBGrid.create(SBGridProperties);
+        fn_selectLgszMrktList();
     }
 
-    let newLgszMrktMngGridData = [];
-	async function fn_callSelectLgszMrktList(){
+	const fn_selectLgszMrktList = async function(){
 		let apcCd = SBUxMethod.get("inp-apcCd");
     	let postJsonPromise = gfn_postJSON("/am/cmns/selectLgszMrktList.do", {apcCd : apcCd});
         let data = await postJsonPromise;
-        newLgszMrktMngGridData = [];
-        lgszMrktMngGridData = [];
+        jsonLgszMrkt.length = 0;
         try{
         	data.resultList.forEach((item, index) => {
 				let LgszMrkt = {
-					apcCd 					: item.apcCd
+					  apcCd 				: item.apcCd
 					, lgszMrktCd 			: item.lgszMrktCd
 					, lgszMrktNm 			: item.lgszMrktNm
 					, outordrInfoUrl 		: item.outordrInfoUrl
@@ -358,10 +306,9 @@
 					, useYn 				: item.useYn
 					, lastPrcsDt 			: item.lastPrcsDt
 				}
-				lgszMrktMngGridData.push(Object.assign({}, LgszMrkt));
-				newLgszMrktMngGridData.push(Object.assign({}, LgszMrkt));
+				jsonLgszMrkt.push(LgszMrkt);
 			});
-        	lgszMrktMngDatagrid.rebuild();
+        	grdLgszMrkt.rebuild();
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -389,7 +336,7 @@
 		}
 		return;
 	}
-	
+
 	const fn_checkCnptMngEml = function(strValue) {
 		if(!(gfn_isEmpty(strValue))){
 			if(fn_checkCnptMngEmlReturn(strValue)){
@@ -400,7 +347,7 @@
 		}
 		return;
 	}
-	
+
 	const fn_checkCnptMngEmlReturn = function(eml) {
 		let checkEml = new RegExp(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i);
 		return checkEml.test(eml);

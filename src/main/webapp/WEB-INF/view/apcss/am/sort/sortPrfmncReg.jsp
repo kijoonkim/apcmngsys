@@ -2277,6 +2277,26 @@
  			}
  		}
  	}
+  	
+    //그리드 체크박스 전체 선택
+    function fn_checkAll(grid, obj) {
+        var gridList = grid.getGridDataAll();
+        var checkedYn = obj.checked ? "Y" : "N";
+        //체크박스 열 index
+        var getColRef = grid.getColRef("checkedYn");
+        
+        for (var i=0; i<gridList.length; i++) {
+       	 	grid.clickRow(i+2, true);
+            grid.setCellData(i+2, getColRef, checkedYn, true, false);
+            if(checkedYn == 'Y'){
+	        	grdRawMtrInvntr.setCellData(i+2, 15, gridList[i].invntrQntt, true, false);
+	        	grdRawMtrInvntr.setCellData(i+2, 16, gridList[i].invntrWght, true, false);        		
+        	}else{
+        		grdRawMtrInvntr.setCellData(i+2, 15, 0, true, false);
+        		grdRawMtrInvntr.setCellData(i+2, 16, 0, true, false);
+        	}
+        }
+    }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

@@ -289,7 +289,7 @@
 
 	    fn_initSBSelectItemVrty();
 	}
-	
+
 	/**
      * @description 메뉴트리그리드 컨텍스트메뉴 json
      * @type {object}
@@ -305,7 +305,7 @@
     function fn_excelDwnldItem() {
     	grdItem.exportLocalExcel("농수축산물표준 품목 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
-    
+
 	/**
      * @description 메뉴트리그리드 컨텍스트메뉴 json
      * @type {object}
@@ -321,7 +321,7 @@
     function fn_excelDwnldApcItem() {
     	grdApcItem.exportLocalExcel("APC관리 품목 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
-    
+
 	/**
      * @description 메뉴트리그리드 컨텍스트메뉴 json
      * @type {object}
@@ -337,7 +337,7 @@
     function fn_excelDwnldVrty() {
     	grdVrty.exportLocalExcel("농수축산물표준 품종 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
-    
+
 	/**
      * @description 메뉴트리그리드 컨텍스트메뉴 json
      * @type {object}
@@ -455,7 +455,7 @@
 			});
         	jsonVrty = newJsonVrty;
         	grdVrty.rebuild();
-        }catch (e) {
+        } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
     		}
@@ -513,10 +513,10 @@
 		let postJsonPromise = gfn_postJSON("/am/cmns/insertApcCmnsItem.do", itemVO);
         let data = await postJsonPromise;
         try{
-        	if(data.insertedCnt > 0){
-        		fn_searchAll()
+        	if (_.isEqual("S", data.resultStatus)) {
+        		fn_searchAll();
         	}else{
-        		gfn_comAlert("E0001");
+        		gfn_comAlert(data.resultCode, data.resultMessage);
         	}
         }catch (e) {
     		if (!(e instanceof Error)) {
@@ -531,18 +531,16 @@
 		let postJsonPromise = gfn_postJSON("/am/cmns/deleteApcCmnsItem.do", itemVO);
         let data = await postJsonPromise;
         try{
-        	if(data.deletedCnt > 0){
-        		fn_searchAll();
+        	if (_.isEqual("S", data.resultStatus)) {
         		jsonApcVrty = [];
         		jsonVrty = [];
         		grdApcVrty.refresh();
         		grdVrty.refresh();
-        		return;
-        	}else if (data.errMsg != null ){
-        		gfn_comAlert("E0000", data.errMsg)		// W0009   {0}이/가 있습니다.
+        		fn_searchAll();
         		return;
         	}else {
-        		gfn_comAlert("E0001");
+        		gfn_comAlert(data.resultCode, data.resultMessage);
+        		return;
         	}
         }catch (e) {
     		if (!(e instanceof Error)) {
@@ -562,7 +560,7 @@
         		fn_searchAll();
         		fn_searchVrtyAll();
         	} else {
-        		alert(data.resultMessage);
+        		gfn_comAlert(data.resultCode, data.resultMessage);
         	}
         } catch (e) {
     		if (!(e instanceof Error)) {
@@ -580,15 +578,13 @@
 			let postJsonPromise = gfn_postJSON("/am/cmns/deleteApcVrty.do", vrtyVO);
 	        let data = await postJsonPromise;
 	        try {
-	        	if(data.deletedCnt > 0){
+	        	if (_.isEqual("S", data.resultStatus)) {
 	        		fn_searchAll();
 	        		fn_searchVrtyAll();
 	        		return;
-	        	}else if (data.errMsg != null ){
-	        		gfn_comAlert("E0000", data.errMsg)		// W0009   {0}이/가 있습니다.
+	        	} else {
+	        		gfn_comAlert(data.resultCode, data.resultMessage);
 	        		return;
-	        	}else {
-	        		gfn_comAlert("E0001");
 	        	}
 	        } catch (e) {
 	    		if (!(e instanceof Error)) {
@@ -644,9 +640,10 @@
 	        		fn_searchAll();
 	        		fn_searchVrtyAll();
 	        	} else {
-	        		alert(data.resultMessage);
+	        		gfn_comAlert(data.resultCode, data.resultMessage);
 	        	}
 	        } catch(e) {
+	        	console.error("failed", e.message);
 	        }
 		}
 	}
