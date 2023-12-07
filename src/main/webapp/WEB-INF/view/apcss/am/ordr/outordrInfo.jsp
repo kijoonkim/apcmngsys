@@ -397,7 +397,7 @@
         	if (grid.getCellDisabled(i+1, getColRef)) {
         		continue;
         	}
-        	grid.clickRow(i+1, false);
+        	grid.clickRow(i+1, true);
             grid.setCellData(i+1, getColRef, checkedYn, true, false);
         }
     }
