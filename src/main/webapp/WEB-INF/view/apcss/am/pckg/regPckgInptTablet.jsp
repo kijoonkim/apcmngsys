@@ -365,8 +365,7 @@
         	grid.clickCell(i+1, getColRef);
             grid.setCellData(i+1, getColRef, checkedYn, true, false);
         }
-    	grid.setRow(getRow);
-    	grid.setCol(getCol);
+    	grid.clickCell(getRow, getCol);
     }
 
 	// 포장투입 목록 조회 (조회 버튼)

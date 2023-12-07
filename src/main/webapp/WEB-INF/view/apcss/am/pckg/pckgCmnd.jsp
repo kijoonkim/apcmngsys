@@ -206,7 +206,10 @@
 		  	'showgoalpageui' : true
 	    };
 	    SBGridProperties.columns = [
-	    	{caption : ["전체 <br/> <input type='checkbox' onchange='fn_checkAllPckgCmnd(this);'>", "전체 <br/> <input type='checkbox' onchange='fn_checkAllPckgCmnd(this);'>"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
+	    	{
+	    		caption : ["전체","<input type='checkbox' onchange='fn_checkAllPckgCmnd(grdPckgCmnd, this);'>"],
+	    		ref: 'checkedYn', type: 'checkbox',  width:'50px',
+	    		style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
 	    	{caption: ["지시번호","지시번호"],	ref: 'pckgCmndno',  type:'output',  width:'120px',    style:'text-align:center'},
@@ -287,7 +290,8 @@
      async function fn_pagingPckgCmndList(){
     	let recordCountPerPage = grdPckgCmnd.getPageSize();   		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = grdPckgCmnd.getSelectPageIndex();
-    	grdPckgCmnd.setCellData(0, 0, "전체 <br/> <input type='checkbox' onchange='fn_checkAllPckgCmnd(this);'>", true, false);
+    	let ref = "<input type='checkbox' onchange='fn_checkAllPckgCmnd(grdPckgCmnd, this);'>";
+    	grdPckgCmnd.setCellData(1, grdPckgCmnd.getColRef("checkedYn"), ref, true, false);
     	fn_setGrdPckgCmnd(recordCountPerPage, currentPageNo);
      }
 
@@ -525,14 +529,21 @@
 		})
 	})
 	
-	const fn_checkAllPckgCmnd = function(obj) {
-		const data = grdPckgCmnd.getGridDataAll();
-		
-		const checkedYn = obj.checked ? "Y" : "N";
-		for (var i=0; i<data.length; i++ ){
-			grdPckgCmnd.setCellData(i+2, 0, checkedYn, true, false);
-		}
-	}
+    //그리드 체크박스 전체 선택
+    function fn_checkAllPckgCmnd(grid, obj) {
+        var gridList = grid.getGridDataAll();
+        var checkedYn = obj.checked ? "Y" : "N";
+        //체크박스 열 index
+        var getColRef = grid.getColRef("checkedYn");
+    	var getRow = grid.getRow();
+    	var getCol = grid.getCol();
+        for (var i=0; i<gridList.length; i++) {
+        	grid.setCol(getColRef);
+        	grid.clickCell(i+2, getColRef);
+            grid.setCellData(i+2, getColRef, checkedYn, true, false);
+        }
+    	grid.clickCell(getRow, getCol);
+    }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

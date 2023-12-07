@@ -308,6 +308,7 @@
         SBGridPropertiesOrdr.explorerbar = 'move';				// 개인화 컬럼 이동 가능
         SBGridPropertiesOrdr.contextmenu = true;				// 우클린 메뉴 호출 여부
         SBGridPropertiesOrdr.contextmenulist = objMenuList1;	// 우클릭 메뉴 리스트
+        SBGridPropertiesOrdr.frozencols = 1;
         SBGridPropertiesOrdr.columns = [
 	    	{caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
@@ -508,6 +509,9 @@
 		let inptCmndWghtCol = grdSpmtCmndTrg.getColRef("inptCmndWght");
     	grdSpmtCmndTrg.setCellData(nRow, inptCmndQnttCol, 0);
     	grdSpmtCmndTrg.setCellData(nRow, inptCmndWghtCol, 0);
+    	SBUxMethod.set("dtl-inp-apcCnptNm", "");
+    	SBUxMethod.set("dtl-inp-apcCnptCd", "");
+    	SBUxMethod.set("dtl-inp-dldtn", "");
     }
 
     const fn_checkInptQntt = async function(){
@@ -549,6 +553,9 @@
 			grdSpmtCmndTrg.setCellData(nRow, nCol , 0);
 			grdSpmtCmndTrg.setCellData(nRow, inptCmndWghtCol , 0);
 			grdSpmtCmndTrg.setCellData(nRow, checkedYnCol, "N");
+			SBUxMethod.set("dtl-inp-apcCnptNm", "");
+			SBUxMethod.set("dtl-inp-apcCnptCd", "");
+			SBUxMethod.set("dtl-inp-dldtn", "");
             return;
 		}
 
@@ -560,12 +567,18 @@
 			grdSpmtCmndTrg.setCellData(nRow, inptCmndWghtCol, 0);
 			grdSpmtCmndTrg.setCellData(nRow, inptCmndWghtCol , 0);
 			grdSpmtCmndTrg.setCellData(nRow, checkedYnCol, "N");
+			SBUxMethod.set("dtl-inp-apcCnptNm", "");
+			SBUxMethod.set("dtl-inp-apcCnptCd", "");
+			SBUxMethod.set("dtl-inp-dldtn", "");
 			return;
 		}
 
-		if(invntrQntt == 0 && invntrQntt > 0){
+		if(inptCmndQntt == 0){
 			grdSpmtCmndTrg.setCellData(nRow, inptCmndWghtCol, 0);
 			grdSpmtCmndTrg.setCellData(nRow, checkedYnCol, "N");
+			SBUxMethod.set("dtl-inp-apcCnptNm", "");
+			SBUxMethod.set("dtl-inp-apcCnptCd", "");
+			SBUxMethod.set("dtl-inp-dldtn", "");
 		}
 
 

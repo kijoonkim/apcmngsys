@@ -1150,8 +1150,7 @@
         	grid.clickCell(i+2, getColRef);
             grid.setCellData(i+2, getColRef, checkedYn, true, false);
         }
-    	grid.setRow(getRow);
-    	grid.setCol(getCol);
+    	grid.clickCell(getRow, getCol);
     }
 	
     function fn_checkAllInvntrTrnsfCfmtn(grid, obj) {
@@ -1166,8 +1165,7 @@
         	grid.clickCell(i+1, getColRef);
             grid.setCellData(i+1, getColRef, checkedYn, true, false);
         }
-    	grid.setRow(getRow);
-    	grid.setCol(getCol);
+    	grid.clickCell(getRow, getCol);
     }
 
 

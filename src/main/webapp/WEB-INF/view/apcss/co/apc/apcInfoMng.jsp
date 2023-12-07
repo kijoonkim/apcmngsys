@@ -121,6 +121,7 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.allowcopy = true;
 		SBGridProperties.explorerbar = 'sortmove';
+		SBGridProperties.frozencols = 2;
     	SBGridProperties.paging = {
 			'type' : 'page',
 		  	'count' : 5,
@@ -129,7 +130,8 @@
 		  	'showgoalpageui' : true
 	    };
         SBGridProperties.columns = [
-        	{caption: ['선택'],		ref: 'checked',  	width: '50px',		type: 'checkbox'	, sortable: false},
+        	{caption: ["<input type='checkbox' onchange='fn_checkAll(grdApcInfoMng, this);'>"],
+        		ref: 'checked',  	width: '40px',		type: 'checkbox'	, sortable: false},
             {caption: ['APC코드'],	ref: 'apcCd',		width: '70px', 		type: 'output',		style:'text-align: center', sortable: false},
             {caption: ['원본APC명'], 	ref: 'regApcNm', 	width: '200px',		type: 'input',		style:'text-align: center', sortable: false,
 	        	validate : gfn_chkByte.bind({byteLimit: 100})},
@@ -158,6 +160,22 @@
         ];
         grdApcInfoMng = _SBGrid.create(SBGridProperties);
         grdApcInfoMng.bind( "afterpagechanged" , "fn_pagingApcInfoMng" );
+    }
+	
+    //그리드 체크박스 전체 선택
+    function fn_checkAll(grid, obj) {
+        var gridList = grid.getGridDataAll();
+        var checkedYn = obj.checked ? "true" : "false";
+        //체크박스 열 index
+        var getColRef = grid.getColRef("checked");
+    	var getRow = grid.getRow();
+    	var getCol = grid.getCol();
+        for (var i=0; i<gridList.length; i++) {
+        	grid.setCol(getColRef);
+        	grid.clickCell(i+1, getColRef);
+            grid.setCellData(i+1, getColRef, checkedYn, true, false);
+        }
+    	grid.clickCell(getRow, getCol);
     }
 	
 	// 행 삭제 및 추가
@@ -251,6 +269,8 @@
     async function fn_pagingApcInfoMng(){
     	let recordCountPerPage = grdApcInfoMng.getPageSize();   		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = grdApcInfoMng.getSelectPageIndex(); 
+    	let ref = "<input type='checkbox' onchange='fn_checkAll(grdApcInfoMng, this);'>";
+    	grdApcInfoMng.setCellData(0, grdApcInfoMng.getColRef("checked"), ref, true, false);
     	fn_callSelectApcDsctnList(recordCountPerPage, currentPageNo);
     }
 	

@@ -287,8 +287,12 @@
 		SBGridProperties.contextmenulist = objMenuList1;	// 우클릭 메뉴 리스트
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
+		SBGridProperties.frozencols = 3;
 	    SBGridProperties.columns = [
-	    	{caption : ["전체 <br/> <input type='checkbox' onchange='fn_checkAllSortInvntr(this);'>", "전체 <br/> <input type='checkbox' onchange='fn_checkAllSortInvntr(this);'>"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
+	    	{
+	    		caption : ["전체","<input type='checkbox' onchange='fn_checkAllSortInvntr(grdSortInvntr, this);'>"],
+	    		ref: 'checkedYn', type: 'checkbox',  width:'50px',
+	    		style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
 	        {caption: ["선별번호","선별번호"],	ref: 'sortno',   		type:'output',  width:'130px',    style:'text-align:center'},
@@ -856,20 +860,21 @@
  		]);
  	}
  	 
- 	const fn_checkAllSortInvntr = function(obj) {
-		const data = grdSortInvntr.getGridDataAll();
-		const checkedYn = obj.checked ? "Y" : "N";
-		for (var i=0; i<data.length; i++ ){
-			grdSortInvntr.setCellData(i+2, 0, checkedYn, true, false);
-			if(checkedYn == 'Y'){
-				grdSortInvntr.setCellData(i+2, 11, data[i].invntrQntt, true, false);
-				grdSortInvntr.setCellData(i+2, 12, data[i].invntrWght, true, false);        		
-        	}else{
-        		grdSortInvntr.setCellData(i+2, 11, 0, true, false);
-        		grdSortInvntr.setCellData(i+2, 12, 0, true, false);
-        	}
-		}
-	}
+    //그리드 체크박스 전체 선택
+    function fn_checkAllSortInvntr(grid, obj) {
+        var gridList = grid.getGridDataAll();
+        var checkedYn = obj.checked ? "Y" : "N";
+        //체크박스 열 index
+        var getColRef = grid.getColRef("checkedYn");
+    	var getRow = grid.getRow();
+    	var getCol = grid.getCol();
+        for (var i=0; i<gridList.length; i++) {
+        	grid.setCol(getColRef);
+        	grid.clickCell(i+2, getColRef);
+            grid.setCellData(i+2, getColRef, checkedYn, true, false);
+        }
+    	grid.clickCell(getRow, getCol);
+    }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
