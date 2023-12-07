@@ -195,7 +195,8 @@
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
         SBGridProperties.columns = [
-			{caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
+			{caption : ["<input type='checkbox' onchange='fn_checkAll(grdClclnUntprc, this);'>"],
+				ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
 				userattr: {colNm: "checkedYn"},
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
@@ -288,6 +289,20 @@
 			}
 		}
 	}
+ 	
+	/**
+	 * @name fn_checkAll
+	 * @description 전체 선택 체크박스
+	 */
+    function fn_checkAll(grid, obj) {
+        var gridList = grid.getGridDataAll();
+        var checkedYn = obj.checked ? "Y" : "N";
+        //체크박스 열 index
+        var getColRef = grid.getColRef("checkedYn");
+        for (var i=0; i<gridList.length; i++) {
+            grid.setCellData(i+1, getColRef, checkedYn, true, false);
+        }
+    }
 
 
 	/**

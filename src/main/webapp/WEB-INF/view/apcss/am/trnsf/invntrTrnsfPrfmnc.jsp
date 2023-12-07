@@ -570,7 +570,8 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-        	{caption : ["선택", "선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
+        	{caption : ["<input type='checkbox' onchange='fn_checkAllInvntrTrnsf(grdInvntrTrnsf, this);'>", "<input type='checkbox' onchange='fn_checkAllInvntrTrnsf(grdInvntrTrnsf, this);'>"],
+        		ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
             {caption: ['이송APC','이송APC'], 			ref: 'apcNm', 		width: '150px', type: 'output', style: 'text-align:center'},
             {caption: ['이송일자','이송일자'], 			ref: 'trnsfYmd', 	width: '110px', type: 'output', style: 'text-align:center',
@@ -610,7 +611,8 @@
         const cfmtnCloumns = [];
         let invntrSeCd = SBUxMethod.get("srch-slt-invntrSeCd");
         cfmtnCloumns.push(
-        		{caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
+        		{caption : ["<input type='checkbox' onchange='fn_checkAllInvntrTrnsfCfmtn(grdInvntrTrnsfCfmtn, this);'>"],
+        			ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
                     typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
                 {caption: ['이송APC'], 		ref: 'trnsfApcNm', 	width: '150px', type: 'output', style: 'text-align:center'},
                 {caption: ['확정일자'], 	ref: 'cfmtnYmd', 	width: '110px', type: 'output', style: 'text-align:center',
@@ -1130,6 +1132,27 @@
 			}
 		}
 	}
+	
+	//그리드 체크박스 전체 선택
+    function fn_checkAllInvntrTrnsf(grid, obj) {
+        var gridList = grid.getGridDataAll();
+        var checkedYn = obj.checked ? "Y" : "N";
+        //체크박스 열 index
+        var getColRef = grid.getColRef("checkedYn");
+        for (var i=0; i<gridList.length; i++) {
+            grid.setCellData(i+2, getColRef, checkedYn, true, false);
+        }
+    }
+	
+    function fn_checkAllInvntrTrnsfCfmtn(grid, obj) {
+        var gridList = grid.getGridDataAll();
+        var checkedYn = obj.checked ? "Y" : "N";
+        //체크박스 열 index
+        var getColRef = grid.getColRef("checkedYn");
+        for (var i=0; i<gridList.length; i++) {
+            grid.setCellData(i+1, getColRef, checkedYn, true, false);
+        }
+    }
 
 
 	/* 생산자 팝업 호출 필수 function  */

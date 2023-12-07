@@ -304,7 +304,8 @@
     		  	'showgoalpageui' : true
     	    };
         SBGridProperties.columns = [
-        	{caption: ['선택'], 			ref: 'checked', 		width: '50px', 		type: 'checkbox',		style:'text-align: center',
+        	{caption: ["<input type='checkbox' onchange='fn_checkAll(grdOutordrInfo, this);'>"],
+        		ref: 'checked', 		width: '40px', 		type: 'checkbox',		style:'text-align: center',
         		typeinfo : {ignoreupdate: true}},
             {caption: ['접수일자'], 		ref: 'rcptCfmtnYmd', 	width: '100px', 	type: 'output',			style:'text-align: center',
     		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
@@ -386,6 +387,21 @@
         grdOutordrInfo.bind('deselect', 'fn_delValue');
     }
 
+	//그리드 체크박스 전체 선택
+    function fn_checkAll(grid, obj) {
+        var gridList = grid.getGridDataAll();
+        var checkedYn = obj.checked ? "true" : "false";
+        //체크박스 열 index
+        var getColRef = grid.getColRef("checked");
+        for (var i=0; i<gridList.length; i++) {
+        	if (grid.getCellDisabled(i+1, getColRef)) {
+        		continue;
+        	}
+        	grid.clickRow(i+1, false);
+            grid.setCellData(i+1, getColRef, checkedYn, true, false);
+        }
+    }
+	
 	/**
      * @description 메뉴트리그리드 컨텍스트메뉴 json
      * @type {object}
@@ -548,6 +564,8 @@
     async function fn_pagingOutordrInfoList(){
     	let recordCountPerPage = grdOutordrInfo.getPageSize();   		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = grdOutordrInfo.getSelectPageIndex();
+    	let ref = "<input type='checkbox' onchange='fn_checkAll(grdOutordrInfo, this);'>";
+    	grdOutordrInfo.setCellData(0, grdOutordrInfo.getColRef("checked"), ref, true, false);
     	fn_callSelectOutordrInfoList(recordCountPerPage, currentPageNo);
     }
 
@@ -668,7 +686,6 @@
     }
 
     const fn_setValue = function(){
-
     	let nRow = grdOutordrInfo.getRow();
     	let nCol = grdOutordrInfo.getCol();
     	if(nCol == 0){

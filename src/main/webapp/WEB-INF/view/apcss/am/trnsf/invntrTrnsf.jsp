@@ -291,7 +291,8 @@
 		  	'showgoalpageui' : true
 		};
         SBGridProperties.columns = [
-        	{caption : ["선택", "선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
+        	{caption : ["<input type='checkbox' onchange='fn_checkAll(grdInvntrTrnsf, this);'>", "<input type='checkbox' onchange='fn_checkAll(grdInvntrTrnsf, this);'>"],
+        		ref: 'checked', type: 'checkbox',  width:'40px', style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
             {caption: ['이송APC','이송APC'], 			ref: 'trnsfApcNm', 	width: '150px', type: 'output', style: 'text-align:center'},
             {caption: ['이송일자','이송일자'], 			ref: 'trnsfYmd', 	width: '110px', type: 'output', style: 'text-align:center',
@@ -316,7 +317,7 @@
             {caption: ['확정여부','확정여부'], 			ref: 'cfmtnNm', 	width: '100px', type: 'output', style: 'text-align:center'}
         ];
         grdInvntrTrnsf = _SBGrid.create(SBGridProperties);
-
+        grdInvntrTrnsf.bind( "afterpagechanged" , "fn_pagingInvntrTrnsf" );
     }
 
 	/**
@@ -350,6 +351,17 @@
             "callback": fn_colShow,				//콜백함수명
         }
     };
+     
+	//그리드 체크박스 전체 선택
+	function fn_checkAll(grid, obj) {
+	    var gridList = grid.getGridDataAll();
+	    var checkedYn = obj.checked ? "Y" : "N";
+	    //체크박스 열 index
+	    var getColRef = grid.getColRef("checked");
+	    for (var i=0; i<gridList.length; i++) {
+	        grid.setCellData(i+2, getColRef, checkedYn, true, false);
+	    }
+	}
 
     // 엑셀 다운로드
     function fn_excelDwnld() {
@@ -375,6 +387,15 @@
     	}
    	}
 
+ 	// 페이징
+    async function fn_pagingInvntrTrnsf(){
+    	let recordCountPerPage = grdInvntrTrnsf.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+    	let currentPageNo = grdInvntrTrnsf.getSelectPageIndex();
+    	let ref = "\"<input type='checkbox' onchange='fn_checkAll(grdInvntrTrnsf, this);'>\", \"<input type='checkbox' onchange='fn_checkAll(grdInvntrTrnsf, this);'>\"";
+    	grdInvntrTrnsf.setCellData(0, grdInvntrTrnsf.getColRef("checked"), ref, true, false);
+    	fn_callSelectGridList(recordCountPerPage, currentPageNo);
+    }
+	
 	//조회
     const fn_search = async function() {
     	grdInvntrTrnsf.rebuild();
