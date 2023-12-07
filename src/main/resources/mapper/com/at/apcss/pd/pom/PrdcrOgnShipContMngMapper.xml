@@ -148,85 +148,76 @@
 
 	<insert id="insertPrdcrOgnShipContMng" parameterType="com.at.apcss.pd.pom.vo.PrdcrOgnShipContMngVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.pd.pom.mapper.PrdcrOgnShipContMngMapper.insertPrdcrOgnShipContMng */
-	    	  INTO TB_PD_PrdcrCrclOgnVluIdctrMng
-	    		(
-	    			TEST_NO
-	    		  , AA
-	    		  , BB
-	    		  , CC
-	    		  , CC_CODE
-	    		  , DD
-	    		  , DD_CODE
-	    		  , EE
-	    		  , FF
-	    		  , GG
-	    		  , HH
-	    		  , II
-	    		  , II_CODE
-	    		  , JJ
-	    		  , KK
-	    		  , LL
-	    		  , MM
-	    		  , NN
-	    		  , OO
-	    		  , PP
-	    		  , QQ
-	    		  , RR
-	    		  , SS
-	    		  , TT
-	    		  , UU
-	    		  , VV
-	    		  , WW
-	    		  , XX
-	    		  , YY
-	    		  , ZZ
-	    		  , SYS_FRST_INPT_DT
-	    		  , SYS_FRST_INPT_USER_ID
-	    		  , SYS_FRST_INPT_PRGRM_ID
-	    		  , SYS_LAST_CHG_DT
-	    		  , SYS_LAST_CHG_USER_ID
-	    		  , SYS_LAST_CHG_PRGRM_ID
-	    		)
-	   		VALUES
-	   			(
-	   			    (SELECT NVL(MAX(TEST_NO),0)+1 FROM TB_PD_PrdcrCrclOgnVluIdctrMng)
-	   			  , #{aa}
-	   			  , #{bb}
-	   			  , #{cc}
-	   			  , #{ccCode}
-	   			  , #{dd}
-	   			  , #{ddCode}
-	   			  , #{ee}
-	   			  , #{ff}
-	   			  , #{gg}
-	   			  , #{hh}
-	   			  , #{ii}
-	   			  , #{iiCode}
-	   			  , #{jj}
-	   			  , #{kk}
-	   			  , #{ll}
-	   			  , #{mm}
-	   			  , #{nn}
-	   			  , #{oo}
-	   			  , #{pp}
-	   			  , #{qq}
-	   			  , #{rr}
-	   			  , #{ss}
-	   			  , #{tt}
-	   			  , #{uu}
-	   			  , #{vv}
-	   			  , #{ww}
-	   			  , #{xx}
-	   			  , #{yy}
-	   			  , #{zz}
-	   			  , SYSDATE
-	   			  , #{sysFrstInptUserId}
-	   			  , #{sysFrstInptPrgrmId}
-	   			  , SYSDATE
-	   			  , #{sysLastChgUserId}
-	   			  , #{sysLastChgPrgrmId}
-	   			)
+    	MERGE INTO TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN CLT  /* com.at.apcss.pd.aom.mapper.PrdcrOgnShipContMngMapper.insertPrdcrOgnShipContMng */
+		USING DUAL
+			ON (
+					CLT.APO_CD  = #{apoCd}
+				 AND CLT.PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
+				)
+		WHEN MATCHED THEN
+				 UPDATE
+					   SET
+		    	        PRDCR_OGNZ_CD			= #{prdcrOgnzCd}
+		    	        , PRDCR_OGNZ_NM			= #{prdcrOgnzNm}
+		    	        , PLAN_RMRK				= #{planRmrk}
+
+		    	        , PRDCTN_PLAN_VLM		= #{prdctnPlanVlm}
+		    	        , EC_SPMT_PLAN_VLM		= #{ecSpmtPlanVlm}
+		    	        , JOIN_DAY				= #{joinDay}
+		    	        , WHDWL_DAY				= #{whdwlDay}
+		    	]]>
+		    	<![CDATA[
+
+					 WHERE 1=1
+					 AND CLT.APO_CD			= #{apoCd}
+					 AND CLT.PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
+		WHEN NOT MATCHED THEN
+			 INSERT
+		    		(
+		    			APO_CD
+		    		  , APO_SE
+		    		  , BRNO
+		    		  , CRNO
+		    		  , YR
+		    		  , STTG_UPBR_ITEM_SE
+		    		  , CTGRY_CD
+		    		  , ITEM_CD
+		    		  , TRMT_TYPE
+
+		    		  , PRDCR_OGNZ_SN
+		    		  , PRDCR_OGNZ_CD
+		    		  , PRDCR_OGNZ_NM
+		    		  , PLAN_RMRK
+
+		    		  , PRDCTN_PLAN_VLM
+		    		  , EC_SPMT_PLAN_VLM
+		    		  , JOIN_DAY
+		    		  , WHDWL_DAY
+		    		)
+		   		VALUES
+		   			(
+		   			    #{apoCd}
+		   			  , (case when #{apoSe} is not null then #{apoSe}
+		   			  			ELSE (SELECT OGNZ_SE_CD FROM TB_APC_OGNZ_INFO WHERE OGNZ_CD = #{apoCd})
+		   			  			END)
+		   			  , #{brno}
+		   			  , #{crno}
+		   			  , #{yr}
+		   			  , #{sttgUpbrItemSe}
+		   			  , #{ctgryCd}
+		   			  , #{itemCd}
+		   			  , #{trmtType}
+
+		   			  , SEQ_PRDCR_OGNZ_SN.NEXTVAL
+		   			  , #{prdcrOgnzCd}
+		   			  , #{prdcrOgnzNm}
+		   			  , #{planRmrk}
+
+		   			  , #{prdctnPlanVlm}
+		   			  , #{ecSpmtPlanVlm}
+		   			  , #{joinDay}
+		   			  , #{whdwlDay}
+		   			)
     	]]>
     </insert>
 	<update id="updatePrdcrOgnShipContMng" parameterType="com.at.apcss.pd.pom.vo.PrdcrOgnShipContMngVO">
