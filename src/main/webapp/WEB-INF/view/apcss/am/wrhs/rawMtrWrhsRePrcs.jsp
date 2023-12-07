@@ -1462,7 +1462,7 @@
 	}
 
 	const fn_checkAllRawMtrInvntr = function(obj) {
-    	const data = grdRawMtrInvntr.getGridDataAll();
+		const data = grdRawMtrInvntr.getGridDataAll();
         const checkedYn = obj.checked ? "Y" : "N";
         for (var i=0; i<data.length; i++ ){
         	grdRawMtrInvntr.setCellData(i+2, 0, checkedYn, true, false);

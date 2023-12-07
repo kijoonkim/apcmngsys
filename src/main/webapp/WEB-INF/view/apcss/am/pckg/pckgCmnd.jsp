@@ -206,9 +206,9 @@
 		  	'showgoalpageui' : true
 	    };
 	    SBGridProperties.columns = [
-	    	{caption : ["선택","선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
+	    	{caption : ["전체 <br/> <input type='checkbox' onchange='fn_checkAllPckgCmnd(this);'>", "전체 <br/> <input type='checkbox' onchange='fn_checkAllPckgCmnd(this);'>"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-	    	},
+            },
 	    	{caption: ["지시번호","지시번호"],	ref: 'pckgCmndno',  type:'output',  width:'120px',    style:'text-align:center'},
 	    	{caption: ["순번","순번"],			ref: 'pckgCmndSn',	type:'output',  width:'40px',    style:'text-align:center'},
 	        {caption: ["생산설비","생산설비"],	ref: 'fcltNm',      type:'output',  width:'100px',    style:'text-align:center'},
@@ -287,6 +287,7 @@
      async function fn_pagingPckgCmndList(){
     	let recordCountPerPage = grdPckgCmnd.getPageSize();   		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = grdPckgCmnd.getSelectPageIndex();
+    	grdPckgCmnd.setCellData(0, 0, "전체 <br/> <input type='checkbox' onchange='fn_checkAllPckgCmnd(this);'>", true, false);
     	fn_setGrdPckgCmnd(recordCountPerPage, currentPageNo);
      }
 
@@ -523,6 +524,15 @@
 			SBUxMethod.set("srch-inp-vrtyCd", "");
 		})
 	})
+	
+	const fn_checkAllPckgCmnd = function(obj) {
+		const data = grdPckgCmnd.getGridDataAll();
+		
+		const checkedYn = obj.checked ? "Y" : "N";
+		for (var i=0; i<data.length; i++ ){
+			grdPckgCmnd.setCellData(i+2, 0, checkedYn, true, false);
+		}
+	}
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
