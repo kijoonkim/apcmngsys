@@ -3,6 +3,7 @@ package com.at.apcss.am.cmns.service.impl;
 import java.util.HashMap;
 import java.util.List;
 
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,45 +32,45 @@ import com.at.apcss.co.sys.util.ComUtil;
  */
 @Service("cnptService")
 public class CnptServiceImpl extends BaseServiceImpl implements CnptService {
-	
+
 	@Autowired
 	private CnptMapper cnptMapper;
-	
+
 	@Override
 	public CnptVO selectCnpt(CnptVO cnptVO) throws Exception {
-		
+
 		CnptVO resultVO = cnptMapper.selectCnpt(cnptVO);
-		
+
 		return resultVO;
 	}
 
 	@Override
 	public List<CnptVO> selectCnptList(CnptVO cnptVO) throws Exception {
-		
+
 		List<CnptVO> resultList = cnptMapper.selectCnptList(cnptVO);
-		
+
 		return resultList;
 	}
 
 	@Override
 	public HashMap<String, Object> insertCnptList(List<CnptVO> cnptList) throws Exception {
-		
+
 		if (cnptList == null || cnptList.isEmpty()) {
 			ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "등록대상");	// W0005	{0}이/가 없습니다.
 		}
-		
+
 		for ( CnptVO cnptVO : cnptList ) {
 			cnptMapper.insertCnpt(cnptVO);
 		}
-		
+
 		return null;
 	}
-	
+
 	@Override
 	public int insertCnpt(CnptVO cnptVO) throws Exception {
-		
+
 		int insertedCnt = cnptMapper.insertCnpt(cnptVO);
-		
+
 		return insertedCnt;
 	}
 
@@ -77,7 +78,7 @@ public class CnptServiceImpl extends BaseServiceImpl implements CnptService {
 	public int updateCnpt(CnptVO cnptVO) throws Exception {
 
 		int updatedCnt = cnptMapper.updateCnpt(cnptVO);
-		
+
 		return updatedCnt;
 	}
 
@@ -85,7 +86,7 @@ public class CnptServiceImpl extends BaseServiceImpl implements CnptService {
 	public int deleteCnpt(CnptVO cnptVO) throws Exception {
 
 		int deletedCnt = cnptMapper.deleteCnpt(cnptVO);
-		
+
 		return deletedCnt;
 	}
 
@@ -107,16 +108,46 @@ public class CnptServiceImpl extends BaseServiceImpl implements CnptService {
 
 	@Override
 	public HashMap<String, Object> insertLgszMrktList(List<LgszMrktVO> lgszMrktList) throws Exception {
-		
+
 		if (lgszMrktList == null || lgszMrktList.isEmpty()) {
 			ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "등록대상");	// W0005	{0}이/가 없습니다.
 		}
-		
+
 		for ( LgszMrktVO lgszMrktVO : lgszMrktList ) {
 			cnptMapper.insertLgszMrkt(lgszMrktVO);
 		}
-		
+
 		return null;
 	}
-	
+
+	@Override
+	public HashMap<String, Object> multiCnptLgszMrktList(List<CnptVO> cnptList, List<LgszMrktVO> lgszMrktList) throws Exception{
+
+		if(lgszMrktList.size() > 0) {
+			for (LgszMrktVO lgszMrktVO : lgszMrktList) {
+				if(0 == updateLgszMrkt(lgszMrktVO)) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+				}
+			}
+		}
+
+		if(cnptList.size() > 0) {
+			for (CnptVO cnptVO : cnptList) {
+
+				if (ComConstants.ROW_STS_INSERT.equals(cnptVO.getRowSts())) {
+					if(0 == insertCnpt(cnptVO)){
+						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+					}
+				}
+				if (ComConstants.ROW_STS_UPDATE.equals(cnptVO.getRowSts())) {
+					if(0 == updateCnpt(cnptVO)) {
+						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+					}
+				}
+			}
+		}
+
+		return null;
+	}
+
 }

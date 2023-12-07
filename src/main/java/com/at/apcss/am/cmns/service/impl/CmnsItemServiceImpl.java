@@ -23,7 +23,6 @@ import com.at.apcss.am.cmns.vo.SpmtPckgUnitVO;
 import com.at.apcss.am.cmns.vo.StdGrdJgmtVO;
 import com.at.apcss.am.cmns.vo.StdGrdVO;
 import com.at.apcss.co.cd.service.ComCdService;
-import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
@@ -86,11 +85,11 @@ public class CmnsItemServiceImpl extends BaseServiceImpl implements CmnsItemServ
 	public int insertCmnsItem(CmnsItemVO cmnsItemVO) throws Exception {
 
 		int insertedCnt = cmnsItemMapper.insertCmnsItem(cmnsItemVO);
-		
+
 		StdGrdVO stdGrdVO = new StdGrdVO();
 		BeanUtils.copyProperties(cmnsItemVO, stdGrdVO);
 		stdGrdService.insertStdGrdAuto(stdGrdVO);
-		
+
 		return insertedCnt;
 	}
 

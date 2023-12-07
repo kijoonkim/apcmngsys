@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at.apcss.am.cmns.service.CnptService;
+import com.at.apcss.am.cmns.vo.CnptLgszMrktVO;
 import com.at.apcss.am.cmns.vo.CnptVO;
 import com.at.apcss.am.cmns.vo.LgszMrktVO;
 import com.at.apcss.co.constants.ComConstants;
@@ -60,25 +61,39 @@ public class CnptController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	@PostMapping(value = "/am/cmns/insertCnptList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> insertCnptList(@RequestBody List<CnptVO> insertList, HttpServletRequest request) throws Exception {
+	@PostMapping(value = "/am/cmns/multiCnptLgszMrktList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> multiCnptLgszMrktList(@RequestBody List<CnptLgszMrktVO> saveVOList, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		int insertedCnt = 0;
+
+		List<CnptVO> cnptList = saveVOList.get(0).getCnptList();
+		List<LgszMrktVO> LgszMrktList = saveVOList.get(0).getLgszMrktList();
+
 		try {
-			for (CnptVO cnptVO : insertList) {
-				cnptVO.setSysLastChgPrgrmId(getUserId());
-				cnptVO.setSysLastChgUserId(getPrgrmId());
-				cnptVO.setSysFrstInptPrgrmId(getUserId());
-				cnptVO.setSysFrstInptUserId(getPrgrmId());
-				insertedCnt += cnptService.insertCnpt(cnptVO);
+
+			for (LgszMrktVO lgszMrktVO : LgszMrktList) {
+				lgszMrktVO.setSysFrstInptPrgrmId(getPrgrmId());
+				lgszMrktVO.setSysFrstInptUserId(getUserId());
+				lgszMrktVO.setSysLastChgPrgrmId(getPrgrmId());
+				lgszMrktVO.setSysLastChgUserId(getUserId());
+			}
+
+			for (CnptVO cnptVO : cnptList) {
+				cnptVO.setSysFrstInptPrgrmId(getPrgrmId());
+				cnptVO.setSysFrstInptUserId(getUserId());
+				cnptVO.setSysLastChgPrgrmId(getPrgrmId());
+				cnptVO.setSysLastChgUserId(getUserId());
+			}
+
+			HashMap<String, Object> rtnObj = cnptService.multiCnptLgszMrktList(cnptList, LgszMrktList);
+			if(rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
 			}
 
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
 
-		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
 
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -102,18 +117,18 @@ public class CnptController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	@PostMapping(value = "/am/cmns/deleteCnptList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> deletePltBx(@RequestBody CnptVO cnptVO, HttpServletRequest request) throws Exception {
+	@PostMapping(value = "/am/cmns/deleteCnpt.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteCnpt(@RequestBody CnptVO cnptVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		int result = 0;
+		int deletedCnt = 0;
 		try {
-			result = cnptService.deleteCnpt(cnptVO);
+			deletedCnt = cnptService.deleteCnpt(cnptVO);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
 
-		resultMap.put("result", result);
+		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
 
 		return getSuccessResponseEntity(resultMap);
 	}
