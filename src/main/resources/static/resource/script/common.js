@@ -148,6 +148,16 @@ async function gfn_postJSON(_url, _param, _sysPrgrmId, _hideProgress) {
 			}
 		}
 
+		if (!_.isEqual("S", result.resultStatus)
+			&& _.isEqual("E0010", result.resultCode)) {
+			
+			// gfn_comAlert(result.resultCode, result.resultMessage);	
+			
+			if (typeof parent.lfn_redirect === 'function') {
+				parent.lfn_redirect("/main.do");
+			}
+		}
+
 		return result;
 
 	} catch (e) {
@@ -162,7 +172,6 @@ async function gfn_postJSON(_url, _param, _sysPrgrmId, _hideProgress) {
 		console.error("failed", e.message);
 	}
 }
-
 
 /**
  * @name gfn_getComCdDtls

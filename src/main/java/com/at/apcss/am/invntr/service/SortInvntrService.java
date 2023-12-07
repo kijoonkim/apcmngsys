@@ -78,6 +78,14 @@ public interface SortInvntrService {
 	public HashMap<String, Object> insertSortInvntrList(List<SortInvntrVO> sortInvntrList) throws Exception;
 
 	/**
+	 * 선별재고 엑셀 업로드 목록 등록
+	 * @param sortInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertSortInvntrListForImport(List<SortInvntrVO> sortInvntrList) throws Exception;
+
+	/**
 	 * 선별재고 변경
 	 * @param sortInvntrVO
 	 * @return

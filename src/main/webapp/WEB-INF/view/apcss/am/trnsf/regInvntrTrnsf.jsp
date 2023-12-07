@@ -382,7 +382,8 @@
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	    	{caption: ["선택","선택"],				ref: 'checkBox',      		type:'checkbox',  width:'50px',    style:'text-align:center',
+	    	{caption: ["<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>","<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>"],
+	    		ref: 'checkBox',      		type:'checkbox',  width:'50px',    style:'text-align:center',
 	    		typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
 	        {caption: ["입고번호","입고번호"],		ref: 'wrhsno',      		type:'output',  width:'110px',    style:'text-align:center'},
 	        {caption: ["팔레트번호","팔레트번호"],	ref: 'pltno',      			type:'output',  width:'110px',    style:'text-align:center'},
@@ -430,7 +431,8 @@
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	    	{caption: ["선택","선택"],			ref: 'checkBox',      	type:'checkbox',  	width:'40px',    style:'text-align:center',
+	    	{caption: ["<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>","<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>"],
+	    		ref: 'checkBox',      	type:'checkbox',  	width:'40px',    style:'text-align:center',
 	    		typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
 	        {caption: ["선별번호","선별번호"],	ref: 'sortno',      	type:'output',  	width:'110px',    style:'text-align:center'},
 	        {caption: ["등급","등급"],			ref: 'grdNm',      		type:'output',  	width:'80px',    style:'text-align:center'},
@@ -479,7 +481,8 @@
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	    	{caption: ["선택","선택"],				ref: 'checkBox',      	type:'checkbox',width:'40px',	style:'text-align:center',
+	    	{caption: ["<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>","<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>"],
+	    		ref: 'checkBox',      	type:'checkbox',width:'40px',	style:'text-align:center',
 	    		typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
 	        {caption: ["포장번호","포장번호"],		ref: 'pckgno',      	type:'output',  width:'110px',	style:'text-align:center'},
 	        {caption: ["순번","순번"],				ref: 'pckgSn',      	type:'output',  width:'50px',   style:'text-align:center'},
@@ -619,6 +622,16 @@
 		}
 	}
 
+	//그리드 체크박스 전체 선택
+    function fn_checkAll(grid, obj) {
+        var gridList = grid.getGridDataAll();
+        var checkedYn = obj.checked ? "Y" : "N";
+        //체크박스 열 index
+        var getColRef = grid.getColRef("checkBox");
+        for (var i=0; i<gridList.length; i++) {
+            grid.setCellData(i+2, getColRef, checkedYn, true, false);
+        }
+    }
 
 
 	//조회

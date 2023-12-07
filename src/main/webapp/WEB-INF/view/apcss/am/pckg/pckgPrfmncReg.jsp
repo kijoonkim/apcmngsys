@@ -1647,9 +1647,9 @@
 			{caption: ["수량"],		ref: 'pckgQntt',	type:'input',  width:'60px',    style:'text-align:right; background:#FFF8DC;'},
 	        {caption: ["중량 Kg"],	ref: 'pckgWght',    type:'input',  width:'60px',    style:'text-align:right; background:#FFF8DC;'},
 	        {caption: ["비고"],		ref: 'rmrk',      	type:'input',  width:'300px',    style:'text-align:center'},
-	        {caption: ["품목"],		ref: 'rmrk',      	type:'input',  width:'80px',    style:'text-align:center', hidden: true},
-	        {caption: ["품종"],		ref: 'rmrk',      	type:'input',  width:'80px',    style:'text-align:center', hidden: true},
-	        {caption: ["규격"],		ref: 'rmrk',      	type:'input',  width:'80px',    style:'text-align:center', hidden: true},
+	        {caption: ["품목"],		ref: 'itemCd',     	type:'input',  width:'80px',    style:'text-align:center', hidden: true},
+	        {caption: ["품종"],		ref: 'vrtyCd',     	type:'input',  width:'80px',    style:'text-align:center', hidden: true},
+	        {caption: ["규격"],		ref: 'spcfctCd',    type:'input',  width:'80px',    style:'text-align:center', hidden: true},
 		);
 
 		return _columns;
