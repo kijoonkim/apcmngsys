@@ -639,7 +639,7 @@
         //체크박스 열 index
         var getColRef = grid.getColRef("checkBox");
         for (var i=0; i<gridList.length; i++) {
-        	grid.clickRow(i+2, true);
+        	grid.clickCell(i+2, getColRef);
             grid.setCellData(i+2, getColRef, checkedYn, true, false);
         }
     }
