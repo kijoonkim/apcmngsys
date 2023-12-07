@@ -548,7 +548,8 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	        {
-	        	caption: ["선택","선택"],			ref: 'checkBox',      type:'checkbox',  width:'50px',    
+	        	caption: ["<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>","<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>"],
+	        	ref: 'checkBox',      type:'checkbox',  width:'50px',
 	        	style:'text-align:center',
 	        	typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
 	        },
@@ -621,8 +622,9 @@
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	    	{caption: ["선택","선택"],			ref: 'checkBox',      	type:'checkbox',  	width:'55px',    style:'text-align:center', typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
-	        {caption: ["선별번호","선별번호"],		ref: 'sortno',      	type:'output',  	width:'105px',    style:'text-align:center'},
+	    	{caption: ["<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>","<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>"],
+	    		ref: 'checkBox',      	type:'checkbox',  	width:'55px',    style:'text-align:center', typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
+	        {caption: ["선별번호","선별번호"],	ref: 'sortno',      	type:'output',  	width:'105px',    style:'text-align:center'},
 	        {caption: ["등급","등급"],			ref: 'grdNm',      		type:'output',  	width:'105px',    style:'text-align:center'},
 	        {
 	        	caption: ["투입일자","투입일자"],		ref: 'inptYmd',      	type:'output',  	width:'105px',    
@@ -692,21 +694,22 @@
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	    	{caption: ["선택","선택"],		ref: 'checkBox',	type:'checkbox',  width:'50px',    style:'text-align:center', typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
-	        {caption: ["포장번호","포장번호"],	ref: 'pckgno',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["순번","순번"],		ref: 'pckgSn',      type:'output',  width:'85px',    style:'text-align:center'},
+	    	{caption: ["<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>","<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>"],
+	    		ref: 'checkBox',      	type:'checkbox',  width:'50px',    style:'text-align:center', typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
+	        {caption: ["포장번호","포장번호"],	ref: 'pckgno',      	type:'output',  width:'105px',    style:'text-align:center'},
+	        {caption: ["순번","순번"],			ref: 'pckgSn',      	type:'output',  width:'85px',    style:'text-align:center'},
 	        {
-	        	caption: ["포장일자","포장일자"],	ref: 'pckgYmd',     type:'output',  width:'105px',    
+	        	caption: ["포장일자","포장일자"],	ref: 'pckgYmd',      	type:'output',  width:'105px',
 	        	style:'text-align:center',
 	        	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}
 	        },
-	        {caption: ["설비","설비"],		ref: 'fcltNm',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["생산자","생산자"],	ref: 'rprsPrdcrNm',	type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["품목","품목"],		ref: 'itemNm',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["품종","품종"],		ref: 'vrtyNm',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["규격","규격"],		ref: 'spcfctNm',    type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["등급","등급"],		ref: 'gdsGrdNm',    type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["창고","창고"],		ref: 'originWarehouseSeNm',  	type:'output',  width:'105px',    style:'text-align:center'},
+	        {caption: ["설비","설비"],			ref: 'fcltNm',      	type:'output',  width:'105px',    style:'text-align:center'},
+	        {caption: ["생산자","생산자"],		ref: 'rprsPrdcrNm',     type:'output',  width:'105px',    style:'text-align:center'},
+	        {caption: ["품목","품목"],			ref: 'itemNm',      	type:'output',  width:'105px',    style:'text-align:center'},
+	        {caption: ["품종","품종"],			ref: 'vrtyNm',      	type:'output',  width:'105px',    style:'text-align:center'},
+	        {caption: ["규격","규격"],			ref: 'spcfctNm',      	type:'output',  width:'105px',    style:'text-align:center'},
+	        {caption: ["등급","등급"],			ref: 'gdsGrdNm',      	type:'output',  width:'105px',    style:'text-align:center'},
+	        {caption: ["창고","창고"],			ref: 'originWarehouseSeNm',  	type:'output',  width:'105px',    style:'text-align:center'},
 	        {
 	        	caption: ["현 재고","수량"],	ref: 'invntrQntt',      type:'input',  	width:'85px', 
 	        	style:'text-align:right', 
@@ -809,6 +812,17 @@
 			inptCmndDsctnList.setCellData(nRow, checkedYnCol, "Y");
 		}
 	}
+	
+	//그리드 체크박스 전체 선택
+    function fn_checkAll(grid, obj) {
+        var gridList = grid.getGridDataAll();
+        var checkedYn = obj.checked ? "Y" : "N";
+        //체크박스 열 index
+        var getColRef = grid.getColRef("checkBox");
+        for (var i=0; i<gridList.length; i++) {
+            grid.setCellData(i+2, getColRef, checkedYn, true, false);
+        }
+    }
 
 
 	//조회
