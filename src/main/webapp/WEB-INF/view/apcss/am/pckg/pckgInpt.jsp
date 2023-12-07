@@ -393,6 +393,7 @@
 		SBGridProperties.explorerbar = 'move';				// 개인화 컬럼 이동 가능
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
+		SBGridProperties.frozencols = 2;
 	    SBGridProperties.paging = {
 			'type' : 'page',
 		  	'count' : 5,
@@ -402,7 +403,10 @@
 		};
         SBGridProperties.columns = [
 
-        	{caption : ["선택","선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
+        	{
+        		caption : ["전체","<input type='checkbox' onchange='fn_checkAll(grdPckgPrfmnc, this);'>"],
+        		ref: 'checkedYn', type: 'checkbox',  width:'50px',
+        		style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
         	{caption: ["포장일자","포장일자"], 	ref: 'pckgYmd', 		width: '120px', type: 'output', style:'text-align:center',
@@ -517,7 +521,21 @@
 	const fn_pagingGrd = async function(){
     	let pageSize = grdPckgPrfmnc.getPageSize();   			// 몇개의 데이터를 가져올지 설정
     	let pageNo = grdPckgPrfmnc.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+    	let ref = "<input type='checkbox' onchange='fn_checkAll(grdPckgPrfmnc, this);'>";
+    	grdPckgPrfmnc.setCellData(1, grdPckgPrfmnc.getColRef("checkedYn"), ref, true, false);
     	fn_setGrdPckgPrfmnc(pageSize, pageNo);
+    }
+
+    //그리드 체크박스 전체 선택
+    function fn_checkAll(grid, obj) {
+        var gridList = grid.getGridDataAll();
+        var checkedYn = obj.checked ? "Y" : "N";
+        //체크박스 열 index
+        var getColRef = grid.getColRef("checkedYn");
+        for (var i=0; i<gridList.length; i++) {
+        	grid.clickRow(i+2, true);
+            grid.setCellData(i+2, getColRef, checkedYn, true, false);
+        }
     }
 
 	//조회

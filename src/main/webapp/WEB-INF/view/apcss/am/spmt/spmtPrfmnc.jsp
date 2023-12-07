@@ -241,6 +241,7 @@
 		SBGridProperties.explorerbar = 'move';				// 개인화 컬럼 이동 가능
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
+		SBGridProperties.frozencols = 4;
     	SBGridProperties.paging = {
     			'type' : 'page',
     		  	'count' : 5,
@@ -249,7 +250,10 @@
     		  	'showgoalpageui' : true
     	    };
         SBGridProperties.columns = [
-        	{caption: ["선택","선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
+        	{
+        		caption: ["전체","<input type='checkbox' onchange='fn_checkAll(grdSpmtPrfmnc, this);'>"],
+        		ref: 'checkedYn', type: 'checkbox',  width:'50px',
+        		style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
             {caption: ['반품여부','반품여부'], 	ref: 'rtnGdsNm',	width: '50px',	type: 'output',	style:'text-align: center'},
@@ -300,6 +304,18 @@
     	grdSpmtPrfmnc.exportLocalExcel("출하실적", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
 
+    //그리드 체크박스 전체 선택
+    function fn_checkAll(grid, obj) {
+        var gridList = grid.getGridDataAll();
+        var checkedYn = obj.checked ? "Y" : "N";
+        //체크박스 열 index
+        var getColRef = grid.getColRef("checkedYn");
+        for (var i=0; i<gridList.length; i++) {
+        	grid.clickRow(i+2, true);
+            grid.setCellData(i+2, getColRef, checkedYn, true, false);
+        }
+    }
+    
 	const fn_setValue = function(){
 		let checkedYnCol = grdSpmtPrfmnc.getColRef("checkedYn");
 		let nCol = grdSpmtPrfmnc.getCol();
@@ -558,6 +574,8 @@
     const fn_pagingSmptPrfmnc = async function (){
     	let recordCountPerPage = grdSpmtPrfmnc.getPageSize();   		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = grdSpmtPrfmnc.getSelectPageIndex();
+    	let ref = "<input type='checkbox' onchange='fn_checkAll(grdSpmtPrfmnc, this);'>";
+    	grdSpmtPrfmnc.setCellData(1, grdSpmtPrfmnc.getColRef("checkedYn"), ref, true, false);
     	fn_callSelectSpmtPrfmncList(recordCountPerPage, currentPageNo);
     }
 

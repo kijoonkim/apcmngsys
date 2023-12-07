@@ -177,6 +177,7 @@
 		SBGridProperties.explorerbar = 'move';				// 개인화 컬럼 이동 가능
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
+		SBGridProperties.frozencols = 2;
     	SBGridProperties.paging = {
     			'type' : 'page',
     		  	'count' : 5,
@@ -185,8 +186,12 @@
     		  	'showgoalpageui' : true
     	    };
         SBGridProperties.columns = [
-            {caption: ['선택','선택'], 		ref: 'checkedYn',	width: '50px',		type: 'checkbox',	style:'text-align: center',
-        		typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate: true}},
+            {
+            	caption: ['전체',"<input type='checkbox' onchange='fn_checkAll(grdSlsPrfmnc, this);'>"],
+            	ref: 'checkedYn',	width: '50px',		type: 'checkbox',
+            	style:'text-align: center',
+        		typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate: true}
+            },
             {caption: ['매출일자','매출일자'], 	ref: 'slsYmd',		width: '100px',		type: 'output',		style:'text-align: center',
         		format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
             {caption: ['거래처','거래처'], 		ref: 'cnptNm', 		width: '100px', 	type: 'output',		style:'text-align: center'},
@@ -230,6 +235,18 @@
     // 엑셀 다운로드
     function fn_excelDwnld() {
     	grdSlsPrfmnc.exportLocalExcel("매출실적", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+
+    //그리드 체크박스 전체 선택
+    function fn_checkAll(grid, obj) {
+        var gridList = grid.getGridDataAll();
+        var checkedYn = obj.checked ? "Y" : "N";
+        //체크박스 열 index
+        var getColRef = grid.getColRef("checkedYn");
+        for (var i=0; i<gridList.length; i++) {
+        	grid.clickRow(i+2, true);
+            grid.setCellData(i+2, getColRef, checkedYn, true, false);
+        }
     }
 
 	// 출하지시 목록 조회 (조회 버튼)
@@ -321,6 +338,8 @@
     async function fn_pagingSlsPrfmnc(){
     	let recordCountPerPage = grdSlsPrfmnc.getPageSize();   		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = grdSlsPrfmnc.getSelectPageIndex();
+    	let ref = "<input type='checkbox' onchange='fn_checkAll(grdSlsPrfmnc, this);'>";
+    	grdSlsPrfmnc.setCellData(1, grdSlsPrfmnc.getColRef("checkedYn"), ref, true, false);
     	fn_callSelectSlsPrfmncList(recordCountPerPage, currentPageNo);
     }
 

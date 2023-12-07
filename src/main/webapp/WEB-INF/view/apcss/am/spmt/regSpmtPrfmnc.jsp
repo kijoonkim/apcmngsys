@@ -543,8 +543,12 @@
         SBGridPropertiesGdsInvntr.explorerbar = 'move';				// 개인화 컬럼 이동 가능
         SBGridPropertiesGdsInvntr.contextmenu = true;				// 우클린 메뉴 호출 여부
         SBGridPropertiesGdsInvntr.contextmenulist = objMenuListGdsInvntr;	// 우클릭 메뉴 리스트
+        SBGridPropertiesGdsInvntr.frozencols = 1;
         SBGridPropertiesGdsInvntr.columns = [
-        	{caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
+        	{
+        		caption : ["<input type='checkbox' onchange='fn_checkAll(grdGdsInvntr, this);'>"],
+        		ref: 'checkedYn', type: 'checkbox',  width:'40px',
+        		style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
             {caption: ['품목'], 		ref: 'itemNm', 		width: '80px', type: 'output', style: 'text-align:center'},
@@ -598,9 +602,14 @@
 	    SBGridPropertiesSpmtPrfmnc.explorerbar = 'move';				// 개인화 컬럼 이동 가능
 	    SBGridPropertiesSpmtPrfmnc.contextmenu = true;					// 우클린 메뉴 호출 여부
 	    SBGridPropertiesSpmtPrfmnc.contextmenulist = objMenuListPrfmnc;		// 우클릭 메뉴 리스트
+	    SBGridPropertiesSpmtPrfmnc.frozencols = 1;
 	    SBGridPropertiesSpmtPrfmnc.columns = [
-        	{caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
+        	{
+        		caption : ["<input type='checkbox' onchange='fn_checkAll(grdSpmtPrfmnc, this);'>"],
+        		ref: 'checkedYn', type: 'checkbox',  width:'40px',
+        		style: 'text-align:center',
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+        	},
             {caption: ['출하일자'], 	ref: 'spmtYmd', 	width: '100px', type: 'output', style: 'text-align:center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['거래처'],		ref: 'cnptNm', 		width: '120px', type: 'output', style: 'text-align:center'},
@@ -702,6 +711,18 @@
 		}
 	}
 
+    //그리드 체크박스 전체 선택
+    function fn_checkAll(grid, obj) {
+        var gridList = grid.getGridDataAll();
+        var checkedYn = obj.checked ? "Y" : "N";
+        //체크박스 열 index
+        var getColRef = grid.getColRef("checkedYn");
+        for (var i=0; i<gridList.length; i++) {
+        	grid.clickRow(i+1, true);
+            grid.setCellData(i+1, getColRef, checkedYn, true, false);
+        }
+    }
+    
 	const fn_setGrdGdsInvntr = async function(){
 		let pckgYmdFrom = SBUxMethod.get("srch-dtp-pckgYmdFrom");
 		let pckgYmdTo = SBUxMethod.get("srch-dtp-pckgYmdTo");
