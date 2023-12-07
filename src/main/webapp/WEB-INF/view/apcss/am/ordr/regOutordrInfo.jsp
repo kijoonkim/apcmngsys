@@ -316,6 +316,7 @@
 	    SBGridProperties.selectmode = 'free';
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.frozencols = 4;
         SBGridProperties.columns = [
         	{caption: ["<input type='checkbox' onchange='fn_checkAll(grdOrdr, this);'>"],
         		ref: 'checkedYn', 		width: '40px',  type: 'checkbox'},

@@ -334,6 +334,7 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.frozencols = 2;
         SBGridProperties.columns = [
 			{caption : ["<input type='checkbox' onchange='fn_checkAll(grdClclnPrfmnc, this);'>"],
 				ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
