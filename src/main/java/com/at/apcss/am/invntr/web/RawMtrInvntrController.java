@@ -139,4 +139,34 @@ public class RawMtrInvntrController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+	
+	
+	@PostMapping(value = "/am/invntr/insertRawMtrInvntrListForImport.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertRawMtrInvntrList(@RequestBody List<RawMtrInvntrVO> rawMtrInvntrList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			for ( RawMtrInvntrVO rawMtrInvntrVO : rawMtrInvntrList ) {
+				rawMtrInvntrVO.setSysFrstInptPrgrmId(getPrgrmId());
+				rawMtrInvntrVO.setSysFrstInptUserId(getUserId());
+				rawMtrInvntrVO.setSysLastChgUserId(getUserId());
+				rawMtrInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
+			}
+
+			HashMap<String, Object> rtnObj = rawMtrInvntrService.insertRawMtrInvntrListForImport(rawMtrInvntrList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	
+	
 }

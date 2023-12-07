@@ -118,4 +118,30 @@ public class GdsInvntrController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+	
+	@PostMapping(value = "/am/invntr/insertGdsInvntrListForImport.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertGdsInvntrListForImport(@RequestBody List<GdsInvntrVO> gdsInvntrList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			for ( GdsInvntrVO gdsInvntrVO : gdsInvntrList ) {
+				gdsInvntrVO.setSysFrstInptPrgrmId(getPrgrmId());
+				gdsInvntrVO.setSysFrstInptUserId(getUserId());
+				gdsInvntrVO.setSysLastChgUserId(getUserId());
+				gdsInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
+			}
+
+			HashMap<String, Object> rtnObj = gdsInvntrService.insertGdsInvntrListForImport(gdsInvntrList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }

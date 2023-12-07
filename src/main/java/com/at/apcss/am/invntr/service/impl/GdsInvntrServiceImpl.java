@@ -12,12 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.at.apcss.am.cmns.service.CmnsGdsService;
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
+import com.at.apcss.am.cmns.vo.CmnsGdsVO;
 import com.at.apcss.am.constants.AmConstants;
 import com.at.apcss.am.invntr.mapper.GdsInvntrMapper;
 import com.at.apcss.am.invntr.service.GdsInvntrService;
 import com.at.apcss.am.invntr.vo.GdsInvntrVO;
 import com.at.apcss.am.invntr.vo.GdsStdGrdVO;
+import com.at.apcss.am.invntr.vo.InvntrVO;
 import com.at.apcss.am.trnsf.mapper.InvntrTrnsfMapper;
 import com.at.apcss.am.trnsf.vo.InvntrTrnsfVO;
 import com.at.apcss.co.constants.ApcConstants;
@@ -52,6 +55,9 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 
 	@Resource(name= "cmnsTaskNoService")
 	private CmnsTaskNoService cmnsTaskNoService;
+
+	@Resource(name= "cmnsGdsService")
+	private CmnsGdsService cmnsGdsService;
 
 	@Override
 	public GdsInvntrVO selectGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception {
@@ -140,6 +146,118 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 		return null;
 	}
 
+
+	@Override
+	public HashMap<String, Object> insertGdsInvntrListForImport(List<GdsInvntrVO> gdsInvntrList) throws Exception {
+		
+		HashMap<String, Object> rtnObj = null;
+		
+		if (gdsInvntrList == null || gdsInvntrList.isEmpty()) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "등록대상");
+		}
+		
+		String apcCd = ComConstants.CON_BLANK;
+		
+		// 선별일자별로 처리		
+		List<InvntrVO> mstList = new ArrayList<>();
+		for ( GdsInvntrVO gdsInvntr : gdsInvntrList ) {
+						
+			if (!StringUtils.hasText(gdsInvntr.getApcCd())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC정보");
+			}
+			if (!StringUtils.hasText(gdsInvntr.getPckgYmd())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "포장일자");
+			}
+			if (!StringUtils.hasText(gdsInvntr.getItemCd())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "품목");
+			}
+			if (!StringUtils.hasText(gdsInvntr.getVrtyCd())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "품종");
+			}
+			if (!StringUtils.hasText(gdsInvntr.getSpcfctCd())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "규격");
+			}
+			if (!StringUtils.hasText(gdsInvntr.getSpmtPckgUnitCd())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상품명");
+			}
+			
+			if (StringUtils.hasText(apcCd)) {
+				if (!apcCd.equals(gdsInvntr.getApcCd())) {
+					return ComUtil.getResultMap(ComConstants.MSGCD_TARGET_EXIST, "서로 다른 APC코드");					
+				}
+			} else {
+				apcCd = gdsInvntr.getApcCd();
+			}
+			
+			CmnsGdsVO cmnsGdsParam = new CmnsGdsVO();
+			BeanUtils.copyProperties(gdsInvntr, cmnsGdsParam);
+			rtnObj = cmnsGdsService.insertCheckGdsCd(cmnsGdsParam);
+			if (rtnObj != null) {
+				return rtnObj;
+			}
+			gdsInvntr.setGdsCd(cmnsGdsParam.getNewGdsCd());
+			
+			gdsInvntr.setExcelYn(ComConstants.CON_YES);
+			
+			boolean needAdd = true;
+			
+			InvntrVO mstVO = null;
+			
+			List<GdsInvntrVO> importList = new ArrayList<>();
+			
+			String invntrKey = gdsInvntr.getPckgYmd()
+						+ gdsInvntr.getItemCd()
+						+ gdsInvntr.getVrtyCd();
+			
+			for ( InvntrVO chkVO : mstList ) {
+				if ( ComUtil.nullToEmpty(invntrKey).equals(chkVO.getInvntrKey())) {
+					mstVO = chkVO;
+					importList = mstVO.getGdsInvntrList();
+					if (importList == null) {
+						importList = new ArrayList<>();
+					}
+					needAdd = false;
+					break;
+				}
+			}
+			
+			if (mstVO == null) {
+				mstVO = new InvntrVO();
+				mstVO.setApcCd(apcCd);
+				mstVO.setInvntrKey(invntrKey);
+				mstVO.setInvntrYmd(gdsInvntr.getPckgYmd());
+			}
+			
+			importList.add(gdsInvntr);
+			mstVO.setGdsInvntrList(importList);
+			
+			if (needAdd) {
+				mstList.add(mstVO);
+			}
+		}
+		
+		for ( InvntrVO mstVO : mstList ) {
+			List<GdsInvntrVO> importList = mstVO.getGdsInvntrList();
+			if (importList != null && !importList.isEmpty()) {
+				String pckgno = cmnsTaskNoService.selectPckgno(mstVO.getApcCd(), mstVO.getInvntrYmd());
+				int pckgSn = 0;
+				for ( GdsInvntrVO gds : importList ) {
+					pckgSn++;
+					gds.setPckgno(pckgno);
+					gds.setPckgSn(pckgSn);
+				}
+				rtnObj = insertGdsInvntrList(importList);
+				if (rtnObj != null) {
+					// error throw exception;
+					throw new EgovBizException(getMessageForMap(rtnObj));
+				}
+			}
+		}
+		
+		return null;
+	}
+
+	
 	@Override
 	public HashMap<String, Object> updateGdsInvntrSpmtPrfmnc(GdsInvntrVO gdsInvntrVO) throws Exception {
 

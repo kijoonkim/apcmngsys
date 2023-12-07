@@ -49,8 +49,13 @@ public class ApcEvrmntStngController extends BaseController{
 			resultVO = apcEvrmntStngService.selectApcEvrmntStng(apcEvrmntStngVO);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
-
+		
 		resultMap.put("resultVO", resultVO);
 
 		return getSuccessResponseEntity(resultMap);

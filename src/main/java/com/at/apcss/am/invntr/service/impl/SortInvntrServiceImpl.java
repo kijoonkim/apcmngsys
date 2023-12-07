@@ -16,6 +16,7 @@ import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.constants.AmConstants;
 import com.at.apcss.am.invntr.mapper.SortInvntrMapper;
 import com.at.apcss.am.invntr.service.SortInvntrService;
+import com.at.apcss.am.invntr.vo.InvntrVO;
 import com.at.apcss.am.invntr.vo.SortInvntrVO;
 import com.at.apcss.am.invntr.vo.SortStdGrdVO;
 import com.at.apcss.am.trnsf.mapper.InvntrTrnsfMapper;
@@ -94,7 +95,7 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 
 		List<SortStdGrdVO> stdGrdList = sortInvntrVO.getStdGrdList();
 
-		if (stdGrdList !=null ) {
+		if (stdGrdList != null ) {
 
 			for ( SortStdGrdVO stdGrd : stdGrdList ) {
 
@@ -131,6 +132,104 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 		return null;
 	}
 
+	@Override
+	public HashMap<String, Object> insertSortInvntrListForImport(List<SortInvntrVO> sortInvntrList) throws Exception {
+		
+		if (sortInvntrList == null || sortInvntrList.isEmpty()) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "등록대상");
+		}
+		
+		String apcCd = ComConstants.CON_BLANK;
+		
+		// 선별일자별로 처리		
+		List<InvntrVO> mstList = new ArrayList<>();
+		for ( SortInvntrVO sortInvntr : sortInvntrList ) {
+						
+			if (!StringUtils.hasText(sortInvntr.getApcCd())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC정보");
+			}
+			if (!StringUtils.hasText(sortInvntr.getInptYmd())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "선별일자");
+			}
+			if (!StringUtils.hasText(sortInvntr.getItemCd())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "품목");
+			}
+			if (!StringUtils.hasText(sortInvntr.getVrtyCd())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "품종");
+			}
+			if (!StringUtils.hasText(sortInvntr.getSpcfctCd())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "규격");
+			}
+			
+			if (StringUtils.hasText(apcCd)) {
+				if (!apcCd.equals(sortInvntr.getApcCd())) {
+					return ComUtil.getResultMap(ComConstants.MSGCD_TARGET_EXIST, "서로 다른 APC코드");					
+				}
+			} else {
+				apcCd = sortInvntr.getApcCd();
+			}
+			
+			sortInvntr.setExcelYn(ComConstants.CON_YES);
+			
+			boolean needAdd = true;
+			
+			InvntrVO mstVO = null;
+			
+			List<SortInvntrVO> importList = new ArrayList<>();
+			
+			String invntrKey = sortInvntr.getInptYmd()
+						+ sortInvntr.getItemCd()
+						+ sortInvntr.getVrtyCd();
+			
+			for ( InvntrVO chkVO : mstList ) {
+				if ( ComUtil.nullToEmpty(invntrKey).equals(chkVO.getInvntrKey())) {
+					mstVO = chkVO;
+					importList = mstVO.getSortInvntrList();
+					if (importList == null) {
+						importList = new ArrayList<>();
+					}
+					needAdd = false;
+					break;
+				}
+			}
+			
+			if (mstVO == null) {
+				mstVO = new InvntrVO();
+				mstVO.setApcCd(apcCd);
+				mstVO.setInvntrKey(invntrKey);
+				mstVO.setInvntrYmd(sortInvntr.getInptYmd());
+			}
+			
+			importList.add(sortInvntr);
+			mstVO.setSortInvntrList(importList);
+			
+			if (needAdd) {
+				mstList.add(mstVO);
+			}
+		}
+		
+		for ( InvntrVO mstVO : mstList ) {
+			List<SortInvntrVO> importList = mstVO.getSortInvntrList();
+			if (importList != null && !importList.isEmpty()) {
+				String sortno = cmnsTaskNoService.selectSortno(mstVO.getApcCd(), mstVO.getInvntrYmd());
+				int sortSn = 0;
+				for ( SortInvntrVO sort : importList ) {
+					sortSn++;
+					sort.setSortno(sortno);
+					sort.setSortSn(sortSn);
+				}
+				HashMap<String, Object> rtnObj = insertSortInvntrList(importList);
+				if (rtnObj != null) {
+					// error throw exception;
+					throw new EgovBizException(getMessageForMap(rtnObj));
+				}
+			}
+		}
+		
+		return null;
+	}
+
+	
 	@Override
 	public HashMap<String, Object> updateSortInvntr(SortInvntrVO sortInvntrVO) throws Exception {
 

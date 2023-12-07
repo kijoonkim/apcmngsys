@@ -34,7 +34,7 @@ import egovframework.com.cmm.util.EgovUserDetailsHelper;
  */
 
 public class AuthenticInterceptor extends WebContentInterceptor {
-	
+
 	private final Logger log = LoggerFactory.getLogger(CustomAuthenticInterceptor.class);
 
 	/**
@@ -46,22 +46,33 @@ public class AuthenticInterceptor extends WebContentInterceptor {
 
 		// set program id
 		request.getSession().setAttribute(ComConstants.PROP_SYS_PRGRM_ID, request.getHeader(ComConstants.PROP_SYS_PRGRM_ID));
-		
+
 		LoginVO loginVO = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 
+		/*
+		log.debug("getRequestURL {}", request.getRequestURL());
+		log.debug("getRequestURI {}", request.getRequestURI());
+		log.debug("getMethod {}", request.getMethod());
+		log.debug("getContentType {}", request.getContentType());
+		 */
+
 		if (loginVO.getId() != null) {
-			
+
 			log.debug("AuthenticInterceptor sessionID "+loginVO.getId());
 			log.debug("AuthenticInterceptor ================== ");
-			
+
 			return true;
 		} else {
-			
+
 			log.debug("AuthenticInterceptor Fail!!!!!!!!!!!!================== ");
-			
 //			ModelAndView modelAndView = new ModelAndView("redirect:/uat/uia/egovLoginUsr.do");
 //			ModelAndView modelAndView = new ModelAndView("redirect:http://localhost:3000/login");
-			ModelAndView modelAndView = new ModelAndView("redirect:/login.do");
+			
+            ModelAndView modelAndView = new ModelAndView("redirect:/login.do");
+            
+			if ("POST".equals(request.getMethod())) {
+				modelAndView = new ModelAndView("redirect:/accessDenied");
+			}
 			throw new ModelAndViewDefiningException(modelAndView);
 		}
 	}
