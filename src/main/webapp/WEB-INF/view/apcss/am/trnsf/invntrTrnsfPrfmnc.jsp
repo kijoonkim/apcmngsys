@@ -569,10 +569,14 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.frozencols = 1;
         SBGridProperties.columns = [
-        	{caption : ["<input type='checkbox' onchange='fn_checkAllInvntrTrnsf(grdInvntrTrnsf, this);'>", "<input type='checkbox' onchange='fn_checkAllInvntrTrnsf(grdInvntrTrnsf, this);'>"],
-        		ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
+        	{
+        		caption : ["전체", "<input type='checkbox' onchange='fn_checkAllInvntrTrnsf(grdInvntrTrnsf, this);'>"],
+        		ref: 'checkedYn', type: 'checkbox',  width:'50px',
+        		style: 'text-align:center',
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+        	},
             {caption: ['이송APC','이송APC'], 			ref: 'apcNm', 		width: '150px', type: 'output', style: 'text-align:center'},
             {caption: ['이송일자','이송일자'], 			ref: 'trnsfYmd', 	width: '110px', type: 'output', style: 'text-align:center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
@@ -612,7 +616,7 @@
         let invntrSeCd = SBUxMethod.get("srch-slt-invntrSeCd");
         cfmtnCloumns.push(
         		{caption : ["<input type='checkbox' onchange='fn_checkAllInvntrTrnsfCfmtn(grdInvntrTrnsfCfmtn, this);'>"],
-        			ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
+        			ref: 'checkedYn', type: 'checkbox',  width:'50px', style: 'text-align:center',
                     typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
                 {caption: ['이송APC'], 		ref: 'trnsfApcNm', 	width: '150px', type: 'output', style: 'text-align:center'},
                 {caption: ['확정일자'], 	ref: 'cfmtnYmd', 	width: '110px', type: 'output', style: 'text-align:center',

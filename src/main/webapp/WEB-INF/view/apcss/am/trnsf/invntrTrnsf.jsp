@@ -283,6 +283,7 @@
 		SBGridProperties.explorerbar = 'move';				// 개인화 컬럼 이동 가능
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
+		SBGridProperties.frozencols = 1;
 	    SBGridProperties.paging = {
 			'type' : 'page',
 		  	'count' : 5,
@@ -291,9 +292,12 @@
 		  	'showgoalpageui' : true
 		};
         SBGridProperties.columns = [
-        	{caption : ["<input type='checkbox' onchange='fn_checkAll(grdInvntrTrnsf, this);'>", "<input type='checkbox' onchange='fn_checkAll(grdInvntrTrnsf, this);'>"],
-        		ref: 'checked', type: 'checkbox',  width:'40px', style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
+        	{
+        		caption : ["전체", "<input type='checkbox' onchange='fn_checkAll(grdInvntrTrnsf, this);'>"],
+        		ref: 'checked', type: 'checkbox',  width:'50px',
+        		style: 'text-align:center',
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+        	},
             {caption: ['이송APC','이송APC'], 			ref: 'trnsfApcNm', 	width: '150px', type: 'output', style: 'text-align:center'},
             {caption: ['이송일자','이송일자'], 			ref: 'trnsfYmd', 	width: '110px', type: 'output', style: 'text-align:center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
@@ -391,8 +395,8 @@
     async function fn_pagingInvntrTrnsf(){
     	let recordCountPerPage = grdInvntrTrnsf.getPageSize();   		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = grdInvntrTrnsf.getSelectPageIndex();
-    	let ref = "\"<input type='checkbox' onchange='fn_checkAll(grdInvntrTrnsf, this);'>\", \"<input type='checkbox' onchange='fn_checkAll(grdInvntrTrnsf, this);'>\"";
-    	grdInvntrTrnsf.setCellData(0, grdInvntrTrnsf.getColRef("checked"), ref, true, false);
+    	let ref = "<input type='checkbox' onchange='fn_checkAll(grdInvntrTrnsf, this);'>";
+    	grdInvntrTrnsf.setCellData(1, grdInvntrTrnsf.getColRef("checked"), ref, true, false);
     	fn_callSelectGridList(recordCountPerPage, currentPageNo);
     }
 	

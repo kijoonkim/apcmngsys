@@ -304,9 +304,12 @@
     		  	'showgoalpageui' : true
     	    };
         SBGridProperties.columns = [
-        	{caption: ["<input type='checkbox' onchange='fn_checkAll(grdOutordrInfo, this);'>"],
-        		ref: 'checked', 		width: '40px', 		type: 'checkbox',		style:'text-align: center',
-        		typeinfo : {ignoreupdate: true}},
+        	{
+        		caption: ["<input type='checkbox' onchange='fn_checkAll(grdOutordrInfo, this);'>"],
+        		ref: 'checked', 		width: '40px', 		type: 'checkbox',
+        		style:'text-align: center',
+        		typeinfo : {ignoreupdate: true}
+        	},
             {caption: ['접수일자'], 		ref: 'rcptCfmtnYmd', 	width: '100px', 	type: 'output',			style:'text-align: center',
     		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
             {caption: ['발주유형'], 		ref: 'outordrTypeNm', 	width: '70px', 		type: 'output',			style:'text-align: center'},
@@ -382,9 +385,9 @@
         ];
         grdOutordrInfo = _SBGrid.create(SBGridProperties);
         grdOutordrInfo.bind( "afterpagechanged" , "fn_pagingOutordrInfoList" );
-        grdOutordrInfo.bind('valuechanged', 'fn_grdCmndQnttValueChanged');
-        grdOutordrInfo.bind('select', 'fn_setValue');
-        grdOutordrInfo.bind('deselect', 'fn_delValue');
+        grdOutordrInfo.bind('valuechanged' , 'fn_grdCmndQnttValueChanged');
+        grdOutordrInfo.bind('select' , 'fn_setValue');
+        grdOutordrInfo.bind('deselect' , 'fn_delValue');
     }
 
 	//그리드 체크박스 전체 선택
@@ -397,7 +400,7 @@
         	if (grid.getCellDisabled(i+1, getColRef)) {
         		continue;
         	}
-        	grid.clickRow(i+1, true);
+        	grid.clickCell(i+1, getColRef);
             grid.setCellData(i+1, getColRef, checkedYn, true, false);
         }
     }
@@ -688,7 +691,7 @@
     const fn_setValue = function(){
     	let nRow = grdOutordrInfo.getRow();
     	let nCol = grdOutordrInfo.getCol();
-    	if(nCol == 0){
+    	if(nCol == grdOutordrInfo.getColRef("checked")){
     		// 발주수량 - 출하수량 - 출하지시수량 = 가능한 지시수량
 	    	let invntrQntt 		= grdOutordrInfo.getRowData(nRow).invntrQntt;
 			let spmtQntt 		= grdOutordrInfo.getRowData(nRow).spmtQntt;

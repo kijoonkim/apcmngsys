@@ -223,6 +223,7 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.allowcopy = true;
+		SBGridProperties.frozencols = 2;
 	    SBGridProperties.total = {
 				type: 'grand',
 				position: 'bottom',
@@ -242,7 +243,10 @@
 			}
 		};
         SBGridProperties.columns = [
-        	{caption : ["선택", "선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
+        	{
+        		caption : ["전체","<input type='checkbox' onchange='fn_checkAll(grdSlsPrfmnc, this);'>"],
+        		ref: 'checkedYn', type: 'checkbox',  width:'50px',
+        		style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
             {caption: ['매출일자','매출일자'], 	ref: 'slsYmd', 		width: '120px', type: 'output', style: 'text-align:center' ,
@@ -273,6 +277,18 @@
         grdSlsPrfmnc = _SBGrid.create(SBGridProperties);
         grdSlsPrfmnc.bind('select', 'fn_setValue');
         grdSlsPrfmnc.bind('deselect', 'fn_delValue');
+    }
+
+    //그리드 체크박스 전체 선택
+    function fn_checkAll(grid, obj) {
+        var gridList = grid.getGridDataAll();
+        var checkedYn = obj.checked ? "Y" : "N";
+        //체크박스 열 index
+        var getColRef = grid.getColRef("checkedYn");
+        for (var i=0; i<gridList.length; i++) {
+        	grid.clickCell(i+2, getColRef);
+            grid.setCellData(i+2, getColRef, checkedYn, true, false);
+        }
     }
 
 	const fn_search = async function(){

@@ -546,9 +546,10 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.oneclickedit = true;
+		SBGridProperties.frozencols = 4;
 	    SBGridProperties.columns = [
 	        {
-	        	caption: ["<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>","<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>"],
+	        	caption: ["전체","<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>"],
 	        	ref: 'checkBox',      type:'checkbox',  width:'50px',
 	        	style:'text-align:center',
 	        	typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
@@ -621,9 +622,14 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.oneclickedit = true;
+		SBGridProperties.frozencols = 4;
 	    SBGridProperties.columns = [
-	    	{caption: ["<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>","<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>"],
-	    		ref: 'checkBox',      	type:'checkbox',  	width:'55px',    style:'text-align:center', typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
+	    	{
+	    		caption: ["전체","<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>"],
+	    		ref: 'checkBox',      	type:'checkbox',  	width:'50px',
+	    		style:'text-align:center',
+	    		typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+	    	},
 	        {caption: ["선별번호","선별번호"],	ref: 'sortno',      	type:'output',  	width:'105px',    style:'text-align:center'},
 	        {caption: ["등급","등급"],			ref: 'grdNm',      		type:'output',  	width:'105px',    style:'text-align:center'},
 	        {
@@ -693,9 +699,14 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.oneclickedit = true;
+		SBGridProperties.frozencols = 4;
 	    SBGridProperties.columns = [
-	    	{caption: ["<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>","<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>"],
-	    		ref: 'checkBox',      	type:'checkbox',  width:'50px',    style:'text-align:center', typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
+	    	{
+	    		caption: ["전체","<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>"],
+	    		ref: 'checkBox',      	type:'checkbox',  width:'50px',
+	    		style:'text-align:center',
+	    		typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+	    	},
 	        {caption: ["포장번호","포장번호"],	ref: 'pckgno',      	type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["순번","순번"],			ref: 'pckgSn',      	type:'output',  width:'85px',    style:'text-align:center'},
 	        {
