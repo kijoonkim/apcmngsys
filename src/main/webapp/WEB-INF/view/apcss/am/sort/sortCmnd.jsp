@@ -200,6 +200,7 @@
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
 	    SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.frozencols = 3;
 	    SBGridProperties.paging = {
 			'type' : 'page',
 		  	'count' : 5,
@@ -208,7 +209,11 @@
 		  	'showgoalpageui' : true
 	    };
 	    SBGridProperties.columns = [
-			{caption : ["전체 <br/> <input type='checkbox' onchange='fn_checkAllSortCmnd(this);'>", "전체 <br/> <input type='checkbox' onchange='fn_checkAllSortCmnd(this);'>"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center', userattr: {colNm: "checkedYn"},
+			{
+				caption : ["전체","<input type='checkbox' onchange='fn_checkAllSortCmnd(grdSortCmnd, this);'>"],
+				ref: 'checkedYn', type: 'checkbox',  width:'50px',
+				style: 'text-align:center',
+				userattr: {colNm: "checkedYn"},
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
 	        {caption: ["지시번호","지시번호"],		ref: 'sortCmndno',      type:'output',  width:'130px',    style:'text-align:center'},
@@ -288,7 +293,8 @@
     async function fn_pagingGrdSortCmnd(){
     	let recordCountPerPage = grdSortCmnd.getPageSize();   		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = grdSortCmnd.getSelectPageIndex();
-    	grdSortCmnd.setCellData(0, 0, "전체 <br/> <input type='checkbox' onchange='fn_checkAllSortCmnd(this);'>", true, false);
+    	let ref = "<input type='checkbox' onchange='fn_checkAllSortCmnd(grdSortCmnd, this);'>";
+    	grdSortCmnd.setCellData(1, grdSortCmnd.getColRef("checkedYn"), ref, true, false);
     	fn_setGrdSortCmnd(recordCountPerPage, currentPageNo);
     }
 
@@ -603,13 +609,22 @@
 		})
 	})
 	
-	const fn_checkAllSortCmnd = function(obj) {
-		const data = grdSortCmnd.getGridDataAll();
-		const checkedYn = obj.checked ? "Y" : "N";
-		for (var i=0; i<data.length; i++ ){
-			grdSortCmnd.setCellData(i+2, 0, checkedYn, true, false);
-		}
-	}
+    //그리드 체크박스 전체 선택
+    function fn_checkAllSortCmnd(grid, obj) {
+        var gridList = grid.getGridDataAll();
+        var checkedYn = obj.checked ? "Y" : "N";
+        //체크박스 열 index
+        var getColRef = grid.getColRef("checkedYn");
+    	var getRow = grid.getRow();
+    	var getCol = grid.getCol();
+        for (var i=0; i<gridList.length; i++) {
+        	grid.setCol(getColRef);
+        	grid.clickCell(i+2, getColRef);
+            grid.setCellData(i+2, getColRef, checkedYn, true, false);
+        }
+    	grid.setRow(getRow);
+    	grid.setCol(getCol);
+    }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

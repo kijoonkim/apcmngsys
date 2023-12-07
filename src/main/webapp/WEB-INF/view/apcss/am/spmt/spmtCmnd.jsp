@@ -205,6 +205,7 @@
 		SBGridProperties.explorerbar = 'move';				// 개인화 컬럼 이동 가능
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
+		SBGridProperties.frozencols = 2;
     	SBGridProperties.paging = {
 			'type' : 'page',
 		  	'count' : 5,
@@ -213,7 +214,10 @@
 		  	'showgoalpageui' : true
 	    };
         SBGridProperties.columns = [
-	    	{caption : ["<input type='checkbox' onchange='fn_checkAll(grdSpmtCmnd, this);'>"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
+	    	{
+	    		caption : ["<input type='checkbox' onchange='fn_checkAll(grdSpmtCmnd, this);'>"],
+	    		ref: 'checkedYn', type: 'checkbox',  width:'40px',
+	    		style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
             {caption: ['지시일자'], 	ref: 'cmndYmd', 		width: '100px',	type: 'output',	style:'text-align: center',
@@ -302,7 +306,6 @@
 
 	// 출하지시 목록 조회 호출
 	async function fn_callSelectSpmtCmndList(recordCountPerPage, currentPageNo){
-    	grdSpmtCmnd.setCellData(0, 0, "<input type='checkbox' onchange='fn_checkAll(grdSpmtCmnd, this);'>", true, false);
 		jsonSmptCmnd = [];
 		let apcCd = gv_selectedApcCd;
 		let cmndYmdFrom = SBUxMethod.get("srch-dtp-cmndYmdFrom");
@@ -386,6 +389,8 @@
     async function fn_pagingSmptCmnd(){
     	let recordCountPerPage = grdSpmtCmnd.getPageSize();   		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = grdSpmtCmnd.getSelectPageIndex();
+    	let ref = "<input type='checkbox' onchange='fn_checkAll(grdSpmtCmnd, this);'>";
+    	grdSpmtCmnd.setCellData(0, grdSpmtCmnd.getColRef("checkedYn"), ref, true, false);
     	fn_callSelectSpmtCmndList(recordCountPerPage, currentPageNo);
     }
 
@@ -549,17 +554,21 @@
  		})
  	})
  	
-     //그리드 체크박스 전체 선택
-     function fn_checkAll(grid, obj) {
-         var gridList = grid.getGridDataAll();
-         var checkedYn = obj.checked ? "Y" : "N";
-         //체크박스 열 index
-         var getColRef = grid.getColRef("checkedYn");
-         
-         for (var i=0; i<gridList.length; i++) {
-        	 grid.clickRow(i+1, true);
-             grid.setCellData(i+1, getColRef, checkedYn, true, false);
-         }
-     }
+    //그리드 체크박스 전체 선택
+    function fn_checkAll(grid, obj) {
+        var gridList = grid.getGridDataAll();
+        var checkedYn = obj.checked ? "Y" : "N";
+        //체크박스 열 index
+        var getColRef = grid.getColRef("checkedYn");
+    	var getRow = grid.getRow();
+    	var getCol = grid.getCol();
+        for (var i=0; i<gridList.length; i++) {
+        	grid.setCol(getColRef);
+        	grid.clickCell(i+1, getColRef);
+            grid.setCellData(i+1, getColRef, checkedYn, true, false);
+        }
+    	grid.setRow(getRow);
+    	grid.setCol(getCol);
+    }
 </script>
 </html>

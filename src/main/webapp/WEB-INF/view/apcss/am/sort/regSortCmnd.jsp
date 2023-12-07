@@ -246,7 +246,10 @@
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList1;	// 우클릭 메뉴 리스트
 		SBGridProperties.columns = [
-			{caption : [" 전체 <br/> <input type='checkbox' onchange='fn_checkAllRawMtrInvntr(this);'>", " 전체 <br/> <input type='checkbox' onchange='fn_checkAllRawMtrInvntr(this);'>"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
+			{
+				caption : ["전체","<input type='checkbox' onchange='fn_checkAllRawMtrInvntr(grdRawMtrInvntr, this);'>"],
+				ref: 'checkedYn', type: 'checkbox',  width:'50px',
+				style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
         	{caption: ["입고일자","입고일자"],		ref: 'wrhsYmd',			type:'output',  width:'120px', style: 'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
@@ -799,20 +802,21 @@
  		}
  	}
 	
-	const fn_checkAllRawMtrInvntr = function(obj) {
-		const data = grdRawMtrInvntr.getGridDataAll();
-        const checkedYn = obj.checked ? "Y" : "N";
-        for (var i=0; i<data.length; i++ ){
-        	grdRawMtrInvntr.setCellData(i+2, 0, checkedYn, true, false);
-        	if(checkedYn == 'Y'){
-	        	grdRawMtrInvntr.setCellData(i+2, 10, data[i].invntrCmndQntt, true, false);
-	        	grdRawMtrInvntr.setCellData(i+2, 11, data[i].invntrCmndWght, true, false);        		
-        	}else{
-        		grdRawMtrInvntr.setCellData(i+2, 10, 0, true, false);
-        		grdRawMtrInvntr.setCellData(i+2, 11, 0, true, false);
-        	}
-        	
+    //그리드 체크박스 전체 선택
+    function fn_checkAllRawMtrInvntr(grid, obj) {
+        var gridList = grid.getGridDataAll();
+        var checkedYn = obj.checked ? "Y" : "N";
+        //체크박스 열 index
+        var getColRef = grid.getColRef("checkedYn");
+    	var getRow = grid.getRow();
+    	var getCol = grid.getCol();
+        for (var i=0; i<gridList.length; i++) {
+        	grid.setCol(getColRef);
+        	grid.clickCell(i+2, getColRef);
+            grid.setCellData(i+2, getColRef, checkedYn, true, false);
         }
+    	grid.setRow(getRow);
+    	grid.setCol(getCol);
     }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
