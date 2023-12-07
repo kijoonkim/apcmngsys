@@ -752,7 +752,6 @@
         				rawMtrInvntr["rt__" + grdKnd] = grdWght;
         				rawMtrInvntr["nm__" + grdKnd] = grdNm;
         			});
-          			console.log("rawMtrInvntr", rawMtrInvntr);
         		}
           		
           		jsonRawMtrInvntr.push(rawMtrInvntr);
@@ -1102,7 +1101,6 @@
      * @function
      */
 	const fn_grdRawMtrInvntrValueChanged = function() {
- 		console.log('test');
 		var nRow = grdRawMtrInvntr.getRow();
 		var nCol = grdRawMtrInvntr.getCol();
 
@@ -1465,9 +1463,7 @@
 
 	const fn_checkAllRawMtrInvntr = function(obj) {
     	const data = grdRawMtrInvntr.getGridDataAll();
-    	console.log('data : ', data);
         const checkedYn = obj.checked ? "Y" : "N";
-        console.log('checkedYn', checkedYn);
         for (var i=0; i<data.length; i++ ){
         	grdRawMtrInvntr.setCellData(i+2, 0, checkedYn, true, false);
         	if(checkedYn == 'Y'){
