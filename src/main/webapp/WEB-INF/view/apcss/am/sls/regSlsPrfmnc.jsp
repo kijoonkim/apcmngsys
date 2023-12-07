@@ -197,7 +197,7 @@
 		 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 	jsonComVrty, 	gv_apcCd)	// 품종
 		])
 
-		grdSlsPrfmnc.refresh({"combo":true})
+		grdSlsPrfmnc.refresh({"combo":true});
 
 	}
 
@@ -281,20 +281,14 @@
 
     //그리드 체크박스 전체 선택
     function fn_checkAll(grid, obj) {
-    	console.log(grid, obj);
         var gridList = grid.getGridDataAll();
         var checkedYn = obj.checked ? "Y" : "N";
-    	console.log(checkedYn);
         //체크박스 열 index
         var getColRef = grid.getColRef("checkedYn");
         for (var i=0; i<gridList.length; i++) {
         	grid.clickCell(i+2, getColRef);
             grid.setCellData(i+2, getColRef, checkedYn, true, false);
         }
-        for (var i=0; i<gridList.length+2; i++) {
-        	console.log(grid.getRowData(i));
-        }
-        console.log("=================");
     }
 
 	const fn_search = async function(){
@@ -373,7 +367,7 @@
     		let cfmtnPsbltyYn = grdSlsPrfmnc.getRowData(nRow).cfmtnPsbltyYn;
     		if(cfmtnPsbltyYn == "N"){
     			gfn_comAlert("E0000", "출하실적이 없습니다. 매출생성을 다시 진행하세요.");		//	E0000	{0}
-    			grdSlsPrfmnc.setCellData(nRow, grdSlsPrfmnc.getColRef("checkedYn"), "N");checkedYn
+    			grdSlsPrfmnc.setCellData(nRow, grdSlsPrfmnc.getColRef("checkedYn"), "N");
     			return;
     		}
 
@@ -402,7 +396,7 @@
 		var saveList = [];
     	for(var i=0; i< grdRows.length; i++){
     		let nRow = grdRows[i];
-    		let rowData = grdSlsPrfmnc.getRowData(nRow)
+    		let rowData = grdSlsPrfmnc.getRowData(nRow);
     		let rkngAmt = rowData.rkngAmt;
 
 			if(gfn_isEmpty(rkngAmt)){
@@ -438,8 +432,8 @@
     }
 
 	const fn_insertSls = async function (){
-		let slsYmdFrom = SBUxMethod.get("dtl-dtp-slsYmdFrom")
-		let slsYmdTo = SBUxMethod.get("dtl-dtp-slsYmdTo")
+		let slsYmdFrom = SBUxMethod.get("dtl-dtp-slsYmdFrom");
+		let slsYmdTo = SBUxMethod.get("dtl-dtp-slsYmdTo");
 
 		if(gfn_isEmpty(slsYmdFrom)){
 			gfn_comAlert("W0002", "매출생성시작일자");		//	W0002	{0}을/를 입력하세요.
@@ -458,7 +452,7 @@
 		const data = await postJsonPromise;
 		try{
 			if (_.isEqual("S", data.resultStatus)) {
-        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+        		gfn_comAlert("I0001"); 			// I0001 	처리 되었습니다.
         		fn_search();
         	} else {
         		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
@@ -483,7 +477,7 @@
 		var delList = [];
     	for(var i=0; i< grdRows.length; i++){
     		let nRow = grdRows[i];
-    		let rowData = grdSlsPrfmnc.getRowData(nRow)
+    		let rowData = grdSlsPrfmnc.getRowData(nRow);
 
 			delList.push(rowData);
     	}
