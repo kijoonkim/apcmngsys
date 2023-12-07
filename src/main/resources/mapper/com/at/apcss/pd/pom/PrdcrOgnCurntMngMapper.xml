@@ -221,11 +221,16 @@
 				 AND CLT.PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
 				)
 		WHEN MATCHED THEN
-				 UPDATE /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertEvAplyMng */
+				 UPDATE
 					   SET
 		    	        PRDCR_OGNZ_CD			= #{prdcrOgnzCd}
 		    	        , PRDCR_OGNZ_NM			= #{prdcrOgnzNm}
-		    	        , RMRK					= #{rmrk}
+		    	        , CLTVTN_AREA_RMRK		= #{cltvtnAreaRmrk}
+
+		    	        , CLTVTN_AREA			= #{cltvtnArea}
+		    	        , AVG_YR_PRDCTN_VLM		= #{avgYrPrdctnVlm}
+		    	        , JOIN_DAY				= #{joinDay}
+		    	        , WHDWL_DAY				= #{whdwlDay}
 		    	]]>
 		    	<![CDATA[
 
@@ -233,7 +238,7 @@
 					 AND CLT.APO_CD			= #{apoCd}
 					 AND CLT.PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
 		WHEN NOT MATCHED THEN
-			 INSERT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertEvAplyMng */
+			 INSERT
 		    		(
 		    			APO_CD
 		    		  , APO_SE
@@ -244,10 +249,16 @@
 		    		  , CTGRY_CD
 		    		  , ITEM_CD
 		    		  , TRMT_TYPE
+
 		    		  , PRDCR_OGNZ_SN
 		    		  , PRDCR_OGNZ_CD
 		    		  , PRDCR_OGNZ_NM
-		    		  , RMRK
+		    		  , CLTVTN_AREA_RMRK
+
+		    		  , CLTVTN_AREA
+		    		  , AVG_YR_PRDCTN_VLM
+		    		  , JOIN_DAY
+		    		  , WHDWL_DAY
 		    		)
 		   		VALUES
 		   			(
@@ -259,13 +270,21 @@
 		   			  , #{crno}
 		   			  , #{yr}
 		   			  , #{sttgUpbrItemSe}
-		   			  , #{ctgryCd}
+		   			  , (case when #{ctgryCd} is not null then #{ctgryCd}
+		   			  			ELSE (SELECT CTGRY_CD FROM TB_EV_GPC_CD WHERE OGNZ_CD = #{itemCd})
+		   			  			END)
 		   			  , #{itemCd}
 		   			  , #{trmtType}
+
 		   			  , SEQ_PRDCR_OGNZ_SN.NEXTVAL
 		   			  , #{prdcrOgnzCd}
 		   			  , #{prdcrOgnzNm}
-		   			  , #{rmrk}
+		   			  , #{cltvtnAreaRmrk}
+
+		   			  , #{cltvtnArea}
+		   			  , #{avgYrPrdctnVlm}
+		   			  , #{joinDay}
+		   			  , #{whdwlDay}
 		   			)
     	]]>
     </insert>

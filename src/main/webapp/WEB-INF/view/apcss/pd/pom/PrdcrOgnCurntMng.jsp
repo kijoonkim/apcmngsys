@@ -530,8 +530,8 @@
 
 
 	//다중 세이브
-	const fn_listSave = async function(){
-
+	async function fn_saveFmList() {
+		console.log("===============fn_saveFmList=================");
 		let gridData = grdPrdcrOgnCurntMng01.getGridDataAll();
 		let saveList = [];
 
@@ -539,6 +539,9 @@
 		let apoSe = SBUxMethod.get('dtl-input-apoSe');
 		let crno = SBUxMethod.get('dtl-input-crno');
 		let brno = SBUxMethod.get('dtl-input-brno');
+		let itemCd = SBUxMethod.get('dtl-input-itemCd');
+		let trmtType = SBUxMethod.get('dtl-input-trmtType');
+		let sttgUpbrItemSe = '1' // test
 
 		for(var i=1; i<=gridData.length; i++ ){
 
@@ -553,6 +556,9 @@
 					rowData.apoSe = apoSe;
 					rowData.crno = crno;
 					rowData.brno = brno;
+					rowData.itemCd = itemCd;
+					rowData.trmtType = trmtType;
+					rowData.sttgUpbrItemSe = sttgUpbrItemSe;
 				}
 
 				if (rowSts === 3){
@@ -577,12 +583,12 @@
 		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
 
-			let postJsonPromise = gfn_postJSON("/pd/pom/multiSaveComCdDtlList.do", saveList);
+			let postJsonPromise = gfn_postJSON("/pd/pom/multiSavePrdcrOgnCurntMngList.do", saveList);
 	        let data = await postJsonPromise;
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
 	        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
-	        		fn_searchFcltList();
+	        		fn_dtlGridSearch();
 	        	} else {
 	        		alert(data.resultMessage);
 	        	}
