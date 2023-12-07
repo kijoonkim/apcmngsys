@@ -521,12 +521,15 @@
         var checkedYn = obj.checked ? "Y" : "N";
         //체크박스 열 index
         var getColRef = grid.getColRef("checkedYn");
+    	var getRow = grid.getRow();
+    	var getCol = grid.getCol();
         for (var i=0; i<gridList.length; i++) {
         	grid.setCol(getColRef);
         	grid.clickCell(i+2, getColRef);
             grid.setCellData(i+2, getColRef, checkedYn, true, false);
         }
-    	grid.setRow(0);
+    	grid.setRow(getRow);
+    	grid.setCol(getCol);
     }
 
 

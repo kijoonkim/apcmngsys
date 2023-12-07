@@ -396,13 +396,18 @@
         var checkedYn = obj.checked ? "true" : "false";
         //체크박스 열 index
         var getColRef = grid.getColRef("checked");
+    	var getRow = grid.getRow();
+    	var getCol = grid.getCol();
         for (var i=0; i<gridList.length; i++) {
         	if (grid.getCellDisabled(i+1, getColRef)) {
         		continue;
         	}
+        	grid.setCol(getColRef);
         	grid.clickCell(i+1, getColRef);
             grid.setCellData(i+1, getColRef, checkedYn, true, false);
         }
+    	grid.setRow(getRow);
+    	grid.setCol(getCol);
     }
 	
 	/**

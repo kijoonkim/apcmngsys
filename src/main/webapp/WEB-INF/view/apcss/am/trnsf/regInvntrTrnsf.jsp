@@ -592,17 +592,15 @@
 			inptCmndDsctnList.setCellData(nRow, checkedYnCol, 'N');
 			gfn_comAlert("W0008", "재고수량", "이송수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
 			return;
-		}else if(trnsfQntt <= invntrQntt ){
-
-			let wght = Math.round(invntrWght / invntrQntt)
-			inptCmndDsctnList.setCellData(nRow, trnsfQnttQnttCol, trnsfQntt);
-			inptCmndDsctnList.setCellData(nRow, trnsfWghtQnttCol, trnsfQntt*wght);
-			inptCmndDsctnList.setCellData(nRow, checkedYnCol, 'Y');
-
 		}else if(trnsfQntt == 0){
 			inptCmndDsctnList.setCellData(nRow, trnsfQnttQnttCol, 0);
 			inptCmndDsctnList.setCellData(nRow, trnsfWghtQnttCol, 0);
 			inptCmndDsctnList.setCellData(nRow, checkedYnCol, 'N');
+		}else if(trnsfQntt <= invntrQntt ){
+			let wght = Math.round(invntrWght / invntrQntt)
+			inptCmndDsctnList.setCellData(nRow, trnsfQnttQnttCol, trnsfQntt);
+			inptCmndDsctnList.setCellData(nRow, trnsfWghtQnttCol, trnsfQntt*wght);
+			inptCmndDsctnList.setCellData(nRow, checkedYnCol, 'Y');
 		}
 	}
 
@@ -638,10 +636,15 @@
         var checkedYn = obj.checked ? "Y" : "N";
         //체크박스 열 index
         var getColRef = grid.getColRef("checkBox");
+    	var getRow = grid.getRow();
+    	var getCol = grid.getCol();
         for (var i=0; i<gridList.length; i++) {
+        	grid.setCol(getColRef);
         	grid.clickCell(i+2, getColRef);
             grid.setCellData(i+2, getColRef, checkedYn, true, false);
         }
+    	grid.setRow(getRow);
+    	grid.setCol(getCol);
     }
 
 
