@@ -55,7 +55,8 @@ public class ComConstants {
 	public final static String RESULT_CODE_DEFAULT = "E0000";
 	public final static String RESULT_MESSAGE_DEFAULT = "처리 시 오류가 발생하였습니다.";
 
-
+	public final static String RESULT_CODE_ACCESS_DENIED = "E0010";	//	세션정보가 만료되었습니다.
+	
 	public final static String CON_BLANK = "";
 	public final static String CON_SPACE = " ";
 	public final static String CON_UNDERLINE = "_";
@@ -87,6 +88,12 @@ public class ComConstants {
 	 * W0005	{0}이/가 없습니다.
 	 */
 	public final static String MSGCD_NOT_FOUND = "W0005";
+	/**
+	 * W0006	{0}와/과 {1}이/가 서로 다릅니다.
+	 */
+	public final static String MSGCD_NOT_EQUAL = "W0006";
+	
+	
 	/**
 	 * W0008	{0} 보다 {1}이/가 큽니다.
 	 */
@@ -138,6 +145,66 @@ public class ComConstants {
 	public final static String CON_USER_STTS_DORMANCY = "02";
 	public final static String CON_USER_STTS_UNUSED = "03";
 
+	/* 열람유형 */
+	/**
+	 * 열람유형: L1 로그인
+	 */
+	public final static String CON_PRSL_TYPE_LOGIN = "L1";
+	/**
+	 * 열람유형: L2 로그아웃
+	 */
+	public final static String CON_PRSL_TYPE_LOGOUT = "L2";
+	/**
+	 * 열람유형: L3 로그인실패 
+	 */
+	public final static String CON_PRSL_TYPE_LOGIN_FAIL = "L3";
+	/**
+	 * 열람유형: M1 메뉴열기 
+	 */
+	public final static String CON_PRSL_TYPE_MENU_OPEN = "M1";
+	/**
+	 * 열람유형: M2 메뉴닫기 
+	 */
+	public final static String CON_PRSL_TYPE_MENU_CLOSE = "M2";
+	/**
+	 * 열람유형: R1 장표보기 
+	 */
+	public final static String CON_PRSL_TYPE_REPORT_VIEW = "R1";
+	/**
+	 * 열람유형: R2 장표출력 
+	 */
+	public final static String CON_PRSL_TYPE_REPORT_PRINT = "R2";
+	/**
+	 * 열람유형: U0 화면처리
+	 */
+	public final static String CON_PRSL_TYPE_UI_ACTION = "U0";
+	
+	/* 수행업무구분코드 */
+	/**
+	 * 수행업무구분코드: 01 조회
+	 */
+	public final static String CON_FLFMT_TASK_SE_CD_READ = "01";
+	/**
+	 * 수행업무구분코드: 02 수정
+	 */
+	public final static String CON_FLFMT_TASK_SE_CD_UPDATE = "02";
+	/**
+	 * 수행업무구분코드: 03 삭제
+	 */
+	public final static String CON_FLFMT_TASK_SE_CD_DELETE = "03";
+	/**
+	 * 수행업무구분코드: 04 등록
+	 */
+	public final static String CON_FLFMT_TASK_SE_CD_CREATE = "04";
+	/**
+	 * 수행업무구분코드: 05 출력
+	 */
+	public final static String CON_FLFMT_TASK_SE_CD_PRINT = "05";
+	/**
+	 * 수행업무구분코드: 기본 ""
+	 */
+	public final static String CON_FLFMT_TASK_SE_CD_DEFAULT = "";
+	
 	/* 재고구분 */
 	public final static String INVNTR_SE_CD_RAWMTR = "1";
 	public final static String INVNTR_SE_CD_SORT = "2";

@@ -70,6 +70,14 @@ public interface GdsInvntrService {
 	public HashMap<String, Object> insertGdsInvntrList(List<GdsInvntrVO> gdsInvntrList) throws Exception;
 
 	/**
+	 * 상품재고 엑셀 import 목록 등록
+	 * @param gdsInvntrList
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertGdsInvntrListForImport(List<GdsInvntrVO> gdsInvntrList) throws Exception;
+
+	/**
 	 * 상품재고 변경
 	 * @param gdsInvntrVO
 	 * @return
