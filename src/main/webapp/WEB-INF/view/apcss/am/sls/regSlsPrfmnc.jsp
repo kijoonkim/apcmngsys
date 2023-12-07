@@ -197,7 +197,7 @@
 		 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 	jsonComVrty, 	gv_apcCd)	// 품종
 		])
 
-		grdSlsPrfmnc.refresh({"combo":true})
+		grdSlsPrfmnc.refresh({"combo":true});
 
 	}
 
@@ -285,10 +285,15 @@
         var checkedYn = obj.checked ? "Y" : "N";
         //체크박스 열 index
         var getColRef = grid.getColRef("checkedYn");
+    	var getRow = grid.getRow();
+    	var getCol = grid.getCol();
         for (var i=0; i<gridList.length; i++) {
+        	grid.setCol(getColRef);
         	grid.clickCell(i+2, getColRef);
             grid.setCellData(i+2, getColRef, checkedYn, true, false);
         }
+    	grid.setRow(getRow);
+    	grid.setCol(getCol);
     }
 
 	const fn_search = async function(){
@@ -367,20 +372,21 @@
     		let cfmtnPsbltyYn = grdSlsPrfmnc.getRowData(nRow).cfmtnPsbltyYn;
     		if(cfmtnPsbltyYn == "N"){
     			gfn_comAlert("E0000", "출하실적이 없습니다. 매출생성을 다시 진행하세요.");		//	E0000	{0}
-    			grdSlsPrfmnc.setCellData(nRow, 0, "N");
+    			grdSlsPrfmnc.setCellData(nRow, grdSlsPrfmnc.getColRef("checkedYn"), "N");
     			return;
     		}
 
 	    	let rkngAmt = grdSlsPrfmnc.getRowData(nRow).rkngAmt;
-	    	grdSlsPrfmnc.setCellData(nRow, 15, rkngAmt);
-	    	grdSlsPrfmnc.setCellData(nRow, 16, "Y");
+	    	grdSlsPrfmnc.setCellData(nRow, grdSlsPrfmnc.getColRef("cfmtnAmt"), rkngAmt);
+	    	grdSlsPrfmnc.setCellData(nRow, grdSlsPrfmnc.getColRef("cfmtnYn"), "Y");
     	}
 
     }
 
     const fn_delValue = async function(){
     	var nRow = grdSlsPrfmnc.getRow();
-    	grdSlsPrfmnc.setCellData(nRow, 15, 0);
+    	grdSlsPrfmnc.setCellData(nRow, grdSlsPrfmnc.getColRef("cfmtnAmt"), 0);
+    	grdSlsPrfmnc.setCellData(nRow, grdSlsPrfmnc.getColRef("cfmtnYn"), "N");
     }
 
     const fn_save = async function(){
@@ -395,7 +401,7 @@
 		var saveList = [];
     	for(var i=0; i< grdRows.length; i++){
     		let nRow = grdRows[i];
-    		let rowData = grdSlsPrfmnc.getRowData(nRow)
+    		let rowData = grdSlsPrfmnc.getRowData(nRow);
     		let rkngAmt = rowData.rkngAmt;
 
 			if(gfn_isEmpty(rkngAmt)){
@@ -431,8 +437,8 @@
     }
 
 	const fn_insertSls = async function (){
-		let slsYmdFrom = SBUxMethod.get("dtl-dtp-slsYmdFrom")
-		let slsYmdTo = SBUxMethod.get("dtl-dtp-slsYmdTo")
+		let slsYmdFrom = SBUxMethod.get("dtl-dtp-slsYmdFrom");
+		let slsYmdTo = SBUxMethod.get("dtl-dtp-slsYmdTo");
 
 		if(gfn_isEmpty(slsYmdFrom)){
 			gfn_comAlert("W0002", "매출생성시작일자");		//	W0002	{0}을/를 입력하세요.
@@ -451,7 +457,7 @@
 		const data = await postJsonPromise;
 		try{
 			if (_.isEqual("S", data.resultStatus)) {
-        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+        		gfn_comAlert("I0001"); 			// I0001 	처리 되었습니다.
         		fn_search();
         	} else {
         		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
@@ -476,7 +482,7 @@
 		var delList = [];
     	for(var i=0; i< grdRows.length; i++){
     		let nRow = grdRows[i];
-    		let rowData = grdSlsPrfmnc.getRowData(nRow)
+    		let rowData = grdSlsPrfmnc.getRowData(nRow);
 
 			delList.push(rowData);
     	}
