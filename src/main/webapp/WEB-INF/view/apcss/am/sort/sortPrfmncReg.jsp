@@ -545,8 +545,13 @@
 	    SBGridProperties.selectmode = 'free';
 	    SBGridProperties.allowcopy = true;
 		SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.frozencols = 2;
 		SBGridProperties.columns = [
-			{caption : ["선택","선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center', userattr: {colNm: "checkedYn"},
+			{
+				caption : ["전체","<input type='checkbox' onchange='fn_checkAll(grdRawMtrInvntr, this);'>"],
+				ref: 'checkedYn', type: 'checkbox',  width:'50px',
+				style: 'text-align:center',
+				userattr: {colNm: "checkedYn"},
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
         	{caption: ["입고일자","입고일자"],		ref: 'wrhsYmd',			type:'output',  width:'120px', style: 'text-align:center',
@@ -601,7 +606,9 @@
 	        {caption: [" "],	ref: '_',		type:'output',  width:'1px'},
     	];
 		grdRawMtrInvntr = _SBGrid.create(SBGridProperties);
-		grdRawMtrInvntr.bind('valuechanged', fn_grdRawMtrInvntrValueChanged);
+		grdRawMtrInvntr.bind('valuechanged' , 'fn_grdRawMtrInvntrValueChanged');
+		grdRawMtrInvntr.bind('select' , 'fn_setValue');
+		grdRawMtrInvntr.bind('deselect' , 'fn_delValue');
 	}
 
 	const fn_createGridSortPrfmnc = function() {
@@ -637,6 +644,18 @@
             	typeinfo: {ref:'jsonApcSpcfct', label:'spcfctNm', value:'spcfctCd', oneclickedit: true}
             },
     	];
+		
+	    //그리드 체크박스 전체 선택
+	    function fn_checkAll(grid, obj) {
+	        var gridList = grid.getGridDataAll();
+	        var checkedYn = obj.checked ? "Y" : "N";
+	        //체크박스 열 index
+	        var getColRef = grid.getColRef("checkedYn");
+	        for (var i=0; i<gridList.length; i++) {
+	        	grid.clickCell(i+2, getColRef);
+	            grid.setCellData(i+2, getColRef, checkedYn, true, false);
+	        }
+	    }
 
 		const columnsStdGrd = [];
 		gjsonStdGrdObjKnd.forEach((item, index) => {
@@ -1144,6 +1163,71 @@
  	}
 
  	/**
+     * @name fn_setValue
+     * @description 체크박스 선택 event
+     * @function
+     */
+	const fn_setValue = function() {
+    	let nRow = grdRawMtrInvntr.getRow();
+    	let nCol = grdRawMtrInvntr.getCol();
+    	
+		const usrAttr = grdRawMtrInvntr.getColUserAttr(nCol);
+		if (!gfn_isEmpty(usrAttr) && usrAttr.hasOwnProperty('colNm')) {
+			if (nCol == grdRawMtrInvntr.getColRef("checkedYn")) {
+				const rowData = grdRawMtrInvntr.getRowData(nRow, false);
+	
+				let inptQntt = parseInt(rowData.inptQntt) || 0;
+				let inptWght = parseInt(rowData.inptWght) || 0;
+				
+				if (inptQntt === 0 && inptWght === 0) {
+	
+					let cmndQntt = parseInt(rowData.cmndQntt) || 0;
+					let cmndWght = parseInt(rowData.cmndWght) || 0;
+					let invntrQntt = parseInt(rowData.invntrQntt) || 0;
+					let invntrWght = parseInt(rowData.invntrWght) || 0;
+	
+					if (cmndWght > 0) {
+						if (invntrWght > cmndWght) {
+							rowData.inptQntt = cmndQntt;
+							rowData.inptWght = cmndWght;
+						} else {
+							rowData.inptQntt = invntrQntt;
+							rowData.inptWght = invntrWght;
+						}
+					} else {
+						rowData.inptQntt = invntrQntt;
+						rowData.inptWght = invntrWght;
+					}
+				}
+			}
+			grdRawMtrInvntr.refresh();
+			fn_setInptInfo();
+		}
+ 	}
+
+ 	/**
+     * @name fn_delValue
+     * @description 체크박스 해제 event
+     * @function
+     */
+	const fn_delValue = async function(){
+		let nRow = grdRawMtrInvntr.getRow();
+    	let nCol = grdRawMtrInvntr.getCol();
+    	
+		const usrAttr = grdRawMtrInvntr.getColUserAttr(nCol);
+		if (!gfn_isEmpty(usrAttr) && usrAttr.hasOwnProperty('colNm')) {
+			if (nCol == grdRawMtrInvntr.getColRef("checkedYn")) {
+				const rowData = grdRawMtrInvntr.getRowData(nRow, false);
+	
+				rowData.inptQntt = 0;
+				rowData.inptWght = 0;
+			}
+			grdRawMtrInvntr.refresh();
+			fn_setInptInfo();
+		}
+    }
+ 	
+ 	/**
      * @name fn_grdRawMtrInvntrValueChanged
      * @description 원물재고 변경 event 처리
      * @function
@@ -1157,41 +1241,6 @@
 
 			const rowData = grdRawMtrInvntr.getRowData(nRow, false);	// deep copy
 			switch (usrAttr.colNm) {
-				case "checkedYn":	// checkbox
-					if (rowData.checkedYn == "Y") {
-
-						let inptQntt = parseInt(rowData.inptQntt) || 0;
-						let inptWght = parseInt(rowData.inptWght) || 0;
-						
-						if (inptQntt === 0 && inptWght === 0) {
-
-							let cmndQntt = parseInt(rowData.cmndQntt) || 0;
-							let cmndWght = parseInt(rowData.cmndWght) || 0;
-							let invntrQntt = parseInt(rowData.invntrQntt) || 0;
-							let invntrWght = parseInt(rowData.invntrWght) || 0;
-
-							if (cmndWght > 0) {
-								if (invntrWght > cmndWght) {
-									rowData.inptQntt = cmndQntt;
-									rowData.inptWght = cmndWght;
-								} else {
-									rowData.inptQntt = invntrQntt;
-									rowData.inptWght = invntrWght;
-								}
-							} else {
-								rowData.inptQntt = invntrQntt;
-								rowData.inptWght = invntrWght;
-							}
-						}
-					} else {
-						rowData.inptQntt = 0;
-						rowData.inptWght = 0;
-					}
-					grdRawMtrInvntr.refresh();
-					fn_setInptInfo();
-					
-					break;
-
 				case "inptQntt":
 					let invntrQntt = parseInt(rowData.invntrQntt) || 0;
 					let invntrWght = parseInt(rowData.invntrWght) || 0;
@@ -1343,6 +1392,7 @@
 	const fn_onChangeApc = async function() {
 		fn_clearPrdcr();
 		let result = await Promise.all([
+			fn_init(),
 			fn_initSBSelect(),
 			fn_getPrdcrs(),
 			fn_getStdGrd()

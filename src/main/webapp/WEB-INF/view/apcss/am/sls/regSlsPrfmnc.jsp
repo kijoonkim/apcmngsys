@@ -281,14 +281,20 @@
 
     //그리드 체크박스 전체 선택
     function fn_checkAll(grid, obj) {
+    	console.log(grid, obj);
         var gridList = grid.getGridDataAll();
         var checkedYn = obj.checked ? "Y" : "N";
+    	console.log(checkedYn);
         //체크박스 열 index
         var getColRef = grid.getColRef("checkedYn");
         for (var i=0; i<gridList.length; i++) {
         	grid.clickCell(i+2, getColRef);
             grid.setCellData(i+2, getColRef, checkedYn, true, false);
         }
+        for (var i=0; i<gridList.length+2; i++) {
+        	console.log(grid.getRowData(i));
+        }
+        console.log("=================");
     }
 
 	const fn_search = async function(){
@@ -367,20 +373,21 @@
     		let cfmtnPsbltyYn = grdSlsPrfmnc.getRowData(nRow).cfmtnPsbltyYn;
     		if(cfmtnPsbltyYn == "N"){
     			gfn_comAlert("E0000", "출하실적이 없습니다. 매출생성을 다시 진행하세요.");		//	E0000	{0}
-    			grdSlsPrfmnc.setCellData(nRow, 0, "N");
+    			grdSlsPrfmnc.setCellData(nRow, grdSlsPrfmnc.getColRef("checkedYn"), "N");checkedYn
     			return;
     		}
 
 	    	let rkngAmt = grdSlsPrfmnc.getRowData(nRow).rkngAmt;
-	    	grdSlsPrfmnc.setCellData(nRow, 15, rkngAmt);
-	    	grdSlsPrfmnc.setCellData(nRow, 16, "Y");
+	    	grdSlsPrfmnc.setCellData(nRow, grdSlsPrfmnc.getColRef("cfmtnAmt"), rkngAmt);
+	    	grdSlsPrfmnc.setCellData(nRow, grdSlsPrfmnc.getColRef("cfmtnYn"), "Y");
     	}
 
     }
 
     const fn_delValue = async function(){
     	var nRow = grdSlsPrfmnc.getRow();
-    	grdSlsPrfmnc.setCellData(nRow, 15, 0);
+    	grdSlsPrfmnc.setCellData(nRow, grdSlsPrfmnc.getColRef("cfmtnAmt"), 0);
+    	grdSlsPrfmnc.setCellData(nRow, grdSlsPrfmnc.getColRef("cfmtnYn"), "N");
     }
 
     const fn_save = async function(){
