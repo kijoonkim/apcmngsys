@@ -1,6 +1,7 @@
 package com.at.apcss.co.sys.web;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -24,6 +26,7 @@ import com.at.apcss.co.menu.vo.ComApcJsonVO;
 import com.at.apcss.co.menu.vo.ComMenuVO;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.co.sys.service.LoginService;
+import com.at.apcss.co.sys.util.ComUtil;
 import com.at.apcss.co.sys.vo.LoginVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ubintis.api.ApiUserService;
@@ -63,7 +66,21 @@ public class LoginController extends BaseController {
 	@Autowired
 	ComLogService comLogService;
 
-
+	
+	@GetMapping("/accessDenied")
+	public ResponseEntity<HashMap<String, Object>> accessDenied(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			HttpSession httpSession,
+			ModelMap model) throws Exception {
+		return getErrorResponseEntity(
+					ComUtil.getResultMap(
+							ComConstants.RESULT_CODE_ACCESS_DENIED, 
+							ComConstants.CON_BLANK
+				));
+	}
+	
+	
 	@GetMapping("/login.do")
 	public String doLoginView(@ModelAttribute("loginVO") LoginVO loginVO,
 			HttpServletRequest request,

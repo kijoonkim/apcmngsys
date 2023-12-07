@@ -78,6 +78,14 @@ public interface RawMtrInvntrService {
 	 */
 	public HashMap<String, Object> insertRawMtrInvntrList(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception;
 
+	/**
+	 * 원물재고 등록
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertRawMtrInvntrListForImport(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception;
+
 
 	/**
 	 * 원물재고 변경

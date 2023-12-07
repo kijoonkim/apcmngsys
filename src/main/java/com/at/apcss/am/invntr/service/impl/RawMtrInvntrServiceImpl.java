@@ -102,8 +102,13 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		if (stdGrdList != null && !stdGrdList.isEmpty()) {
 
 			String apcCd = rawMtrInvntrVO.getApcCd();
+			
 			int wrhsQntt = rawMtrInvntrVO.getWrhsQntt();
 			double wrhsWght = rawMtrInvntrVO.getWrhsWght();
+			if (ComConstants.CON_YES.equals(rawMtrInvntrVO.getExcelYn())) {
+				wrhsQntt = rawMtrInvntrVO.getInvntrQntt();
+				wrhsWght = rawMtrInvntrVO.getInvntrWght();
+			}
 
 			double sumGrdNv = 0;
 			double sumGrdWght = 0;
@@ -272,6 +277,30 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		return null;
 	}
 
+	@Override
+	public HashMap<String, Object> insertRawMtrInvntrListForImport(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception {
+		
+		for ( RawMtrInvntrVO rawMtrInvntrVO : rawMtrInvntrList ) {
+			
+			rawMtrInvntrVO.setExcelYn(ComConstants.CON_YES);
+			// 재고 등록 부분
+			String wrhsno = cmnsTaskNoService.selectWrhsno(rawMtrInvntrVO.getApcCd(), rawMtrInvntrVO.getWrhsYmd());
+			rawMtrInvntrVO.setWrhsno(wrhsno);
+			if (!StringUtils.hasText(rawMtrInvntrVO.getPltno())) {
+				rawMtrInvntrVO.setPltno(wrhsno);
+			}
+			
+			HashMap<String, Object> rtnObj = insertRawMtrInvntr(rawMtrInvntrVO);
+
+			if (rtnObj != null) {
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+		}
+
+		return null;
+	}
+	
+	
 	@Override
 	public HashMap<String, Object> deleteRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
 
@@ -712,5 +741,6 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 
 		return null;
 	}
+
 
 }

@@ -118,4 +118,29 @@ public class SortInvntrController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	@PostMapping(value = "/am/invntr/insertSortInvntrListForImport.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertSortInvntrListForImport(@RequestBody List<SortInvntrVO> sortInvntrList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			for ( SortInvntrVO sortInvntrVO : sortInvntrList ) {
+				sortInvntrVO.setSysFrstInptPrgrmId(getPrgrmId());
+				sortInvntrVO.setSysFrstInptUserId(getUserId());
+				sortInvntrVO.setSysLastChgUserId(getUserId());
+				sortInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
+			}
+
+			HashMap<String, Object> rtnObj = sortInvntrService.insertSortInvntrListForImport(sortInvntrList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }

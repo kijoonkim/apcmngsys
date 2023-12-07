@@ -9,6 +9,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
@@ -24,9 +25,12 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
 import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.log.service.ComLogService;
 import com.at.apcss.co.msg.mapper.ComMessageSource;
 import com.at.apcss.co.msg.vo.ComMsgVO;
+import com.at.apcss.co.sys.service.ComSysService;
 import com.at.apcss.co.sys.vo.ComPageVO;
+import com.at.apcss.co.sys.vo.ComSysVO;
 import com.at.apcss.co.sys.vo.LoginVO;
 
 import egovframework.com.cmm.EgovMessageSource;
@@ -41,6 +45,8 @@ public abstract class BaseController {
 	@Autowired
 	protected ComMessageSource messageSource;
 
+	@Resource(name = "comSysService")
+	private ComSysService comSysService;
 
 	@Autowired
 	Environment env;
@@ -95,6 +101,18 @@ public abstract class BaseController {
 
 		return null;
 	}
+	
+	protected String getUserNm() {
+
+		LoginVO loginVO = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+
+		if (loginVO != null) {
+			return loginVO.getName();
+		}
+
+		return null;
+	}
+	
 	protected String getUserType() {
 		LoginVO loginVO = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 
@@ -104,13 +122,24 @@ public abstract class BaseController {
 		return null;
 	}
 
+	protected String getApcCd() {
+
+		LoginVO loginVO = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+
+		if (loginVO != null) {
+			return loginVO.getApcCd();
+		}
+
+		return null;
+	}
+
 	protected String getPrgrmId() {
 
 		String prgrmId = (String) RequestContextHolder.currentRequestAttributes().getAttribute(ComConstants.PROP_SYS_PRGRM_ID, RequestAttributes.SCOPE_SESSION);
 		return prgrmId;
 	}
 
-
+	
 	protected <T> boolean setPaginationInfo(ComPageVO comPageVO, T t) {
 
 		if (comPageVO == null || !ComConstants.CON_YES.equals(comPageVO.getPagingYn())) {
@@ -242,6 +271,7 @@ public abstract class BaseController {
 	protected List<ComMsgVO> getMessageList() throws Exception {
 		return messageSource.getComMessageList();
 	}
+	
 	protected String getUserIp(HttpServletRequest request) throws Exception{
 		String clientIp = null;
 		boolean isIpInHeader = false;
@@ -274,6 +304,54 @@ public abstract class BaseController {
 		}
 		return clientIp;
 	}
+	
+	protected HashMap<String, Object> setMenuComLog(HttpServletRequest request) throws Exception {
+	
+		ComSysVO comSysVO = new ComSysVO();
+		
+		comSysVO.setUserId(getUserId());
+		comSysVO.setPrgrmId(getPrgrmId());
+		comSysVO.setUserNm(getUserNm());
+		comSysVO.setUserType(getUserType());
+		comSysVO.setLgnScsYn(StringUtils.hasText(getUserId()) ? ComConstants.CON_YES : ComConstants.CON_NONE);
+		comSysVO.setUserIp(getUserIp(request));
+		comSysVO.setApcCd(getApcCd());
+		
+		String uri = request.getRequestURI();
+		if (StringUtils.hasText(uri)) {
+			
+			comSysVO.setPrslType(ComConstants.CON_PRSL_TYPE_UI_ACTION);
+			
+			String flfmtTaskSeCd = ComConstants.CON_BLANK;
+			
+			if (uri.contains("insert")) {
+				flfmtTaskSeCd = ComConstants.CON_FLFMT_TASK_SE_CD_CREATE;
+			} else if (uri.contains("update")) {
+				flfmtTaskSeCd = ComConstants.CON_FLFMT_TASK_SE_CD_UPDATE;
+			} else if (uri.contains("delete")) {
+				flfmtTaskSeCd = ComConstants.CON_FLFMT_TASK_SE_CD_DELETE;
+			} else if (uri.contains("multi")) {
+				flfmtTaskSeCd = ComConstants.CON_FLFMT_TASK_SE_CD_UPDATE;
+			} else if (uri.contains("select")) {
+				flfmtTaskSeCd = ComConstants.CON_FLFMT_TASK_SE_CD_READ;
+			} else if (uri.contains("action")) {
+				flfmtTaskSeCd = ComConstants.CON_FLFMT_TASK_SE_CD_UPDATE;
+			} else {
+				flfmtTaskSeCd = ComConstants.CON_FLFMT_TASK_SE_CD_DEFAULT;
+			}
+			
+			comSysVO.setFlfmtTaskSeCd(flfmtTaskSeCd);
+			
+			HashMap<String, Object> rtnObj = comSysService.insertComeMenuLogPrsnaInfo(comSysVO);
+			if (rtnObj != null) {
+				return rtnObj;
+			}
+		}
+		
+		
+		return null;
+	}
+	
 //	@Autowired
 //	protected MessageSource message;
 
