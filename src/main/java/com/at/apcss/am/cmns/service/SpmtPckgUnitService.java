@@ -74,6 +74,6 @@ public interface SpmtPckgUnitService {
 	 * @return Integer
 	 * @throws Exception
 	 */
-	public int multiSaveSpmtPckgUnitList(List<SpmtPckgUnitVO> spmtPckgUnitList) throws Exception;
+	public HashMap<String, Object> multiSaveSpmtPckgUnitList(List<SpmtPckgUnitVO> spmtPckgUnitList) throws Exception;
 
 }

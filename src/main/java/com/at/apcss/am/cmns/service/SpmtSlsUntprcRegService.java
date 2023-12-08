@@ -74,5 +74,5 @@ public interface SpmtSlsUntprcRegService {
 	 * @return Integer
 	 * @throws Exception
 	 */
-	public int multiSpmtSlsUntprcRegList(List<SpmtSlsUntprcRegVO> spmtSlsUntprcRegList) throws Exception;
+	public HashMap<String, Object> multiSpmtSlsUntprcRegList(List<SpmtSlsUntprcRegVO> spmtSlsUntprcRegList) throws Exception;
 }

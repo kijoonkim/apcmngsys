@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import com.at.apcss.am.cmns.service.SpmtSlsUntprcRegService;
 import com.at.apcss.am.cmns.vo.SpmtSlsUntprcRegVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.co.sys.util.ComUtil;
 /**
  * @Class Name : SpmtPckgUnitServiceImpl.java
  * @Description : 출하포장단위 서비스를 정의하기 위한 서비스 구현 클래스
@@ -61,17 +63,15 @@ public class SpmtSlsUntprcRegServiceImpl extends BaseServiceImpl implements Spmt
 	@Override
 	public HashMap<String, Object> deleteSpmtSlsUntprcReg(SpmtSlsUntprcRegVO spmtSlsUntprcRegVO) throws Exception {
 
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		int deletedCnt = 0;
-
 		String errMsg = cmnsValidationService.selectChkCdDelible(spmtSlsUntprcRegVO.getApcCd(), "SPMT_SLS_UNTPRC", spmtSlsUntprcRegVO.getSpmtSlsUntprcCd());
 		if(errMsg == null) {
-			deletedCnt = spmtSlsUntprcRegMapper.deleteSpmtSlsUntprcReg(spmtSlsUntprcRegVO);
-			resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+			if(0 == spmtSlsUntprcRegMapper.deleteSpmtSlsUntprcReg(spmtSlsUntprcRegVO)) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+			}
 		}else {
-			resultMap.put("errMsg", errMsg);
+			return ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, errMsg); // E0000	{0}
 		}
-		return resultMap;
+		return null;
 	}
 
 	@Override
@@ -81,22 +81,26 @@ public class SpmtSlsUntprcRegServiceImpl extends BaseServiceImpl implements Spmt
 	}
 
 	@Override
-	public int multiSpmtSlsUntprcRegList(List<SpmtSlsUntprcRegVO> spmtSlsUntprcRegList) throws Exception {
-		int savedCnt = 0;
+	public HashMap<String, Object> multiSpmtSlsUntprcRegList(List<SpmtSlsUntprcRegVO> spmtSlsUntprcRegList) throws Exception {
 		for (SpmtSlsUntprcRegVO spmtSlsUntprcRegVO : spmtSlsUntprcRegList) {
 
 			if(ComConstants.ROW_STS_INSERT.equals(spmtSlsUntprcRegVO.getRowSts())) {
 
 				String spmtSlsUntprcCd = getSpmtSlsUntprcCd(spmtSlsUntprcRegVO).getSpmtSlsUntprcCd();
 				spmtSlsUntprcRegVO.setSpmtSlsUntprcCd(spmtSlsUntprcCd);
-				savedCnt += insertSpmtSlsUntprcReg(spmtSlsUntprcRegVO);
+				if(0 == insertSpmtSlsUntprcReg(spmtSlsUntprcRegVO)) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+				}
 			}
 			if(ComConstants.ROW_STS_UPDATE.equals(spmtSlsUntprcRegVO.getRowSts())) {
-				savedCnt += updateSpmtSlsUntprcReg(spmtSlsUntprcRegVO);
+
+				if(0 == updateSpmtSlsUntprcReg(spmtSlsUntprcRegVO)) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+				}
 			}
 		}
 
-		return savedCnt;
+		return null;
 	}
 
 }

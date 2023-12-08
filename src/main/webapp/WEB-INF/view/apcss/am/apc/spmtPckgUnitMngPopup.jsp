@@ -19,7 +19,7 @@
 					</p>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearchSpmtPckgUnit" name="btnSearchSpmtPckgUnit" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectSpmtPckgUnitList"></sbux-button>
+					<sbux-button id="btnSearchSpmtPckgUnit" name="btnSearchSpmtPckgUnit" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectSpmtPckgUnit"></sbux-button>
 					<sbux-button id="btnSaveSpmtPckgUnit" name="btnSaveSpmtPckgUnit" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveSpmtPckgUnit"></sbux-button>
 					<sbux-button id="btnEndSpmtPckgUnit" name="btnEndSpmtPckgUnit" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-spmtPckgUnit')"></sbux-button>
 				</div>
@@ -107,8 +107,9 @@
 		let rst = await Promise.all([
 			gfn_setApcVrtySBSelect("grdSpmtPckgUnit", 			jsonSPUGrdVrtyCd, 	gv_apcCd, itemCd),	// APC 품종(저장)
 			gfn_setApcSpcfctsSBSelect("grdSpmtPckgUnit", 		jsonSPUGrdSpcfctCd, gv_apcCd, itemCd),	// APC 규격(저장)
-			fn_selectSpmtPckgUnitList(),
+			fn_selectSpmtPckgUnit(),
 		])
+		grdSpmtPckgUnit.refresh({"combo":true});
 	}
 
 	const fn_modalClick = async function (nRow){
@@ -157,7 +158,7 @@
 				typeinfo : {ref:'jsonSPUGrdSpcfctCd', 	displayui : false, 	itemcount: 10, label:'label', value:'value'}},
 // 	        {caption: ["등급"], 			ref: 'gdsGrd',   	type:'combo',  width:'80px',    style:'text-align:center',
 // 				typeinfo : {ref:'jsonSPUGdsGrd', 	displayui : false, 	itemcount: 10, label:'label', value:'value'}},
-	        {caption: ["출하 포장단위 명"], ref: 'spmtPckgUnitNm',  type:'input',  width:'240px',    style:'text-align:center',
+	        {caption: ["상품 명"], 			ref: 'spmtPckgUnitNm',  type:'input',  width:'240px',    style:'text-align:center',
 				typeinfo : {maxlength : 30}},
 	        {caption: ["브랜드 명"], ref: 'brndNm',  	type:'input',  width:'140px',    style:'text-align:center', typeinfo : {maxlength : 33}},
 	        {caption: ["판매단가"],     	ref: 'ntslUntprc',  type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### 원'}},
@@ -256,7 +257,7 @@
 	}
 
 
-	const fn_selectSpmtPckgUnitList = async function(){
+	const fn_selectSpmtPckgUnit = async function(){
 		let apcCd = gv_apcCd;
 		let itemCd = SBUxMethod.get("spmtPckgUnit-slt-itemCd");
 		if(gfn_isEmpty(itemCd)){
@@ -326,7 +327,7 @@
 		            return;
 		  		}
 				if (gfn_isEmpty(spmtPckgUnitNm)) {
-		  			gfn_comAlert("W0002", "출하포장잔위");		//	W0002	{0}을/를 입력하세요.
+		  			gfn_comAlert("W0002", "상품명");		//	W0002	{0}을/를 입력하세요.
 		            return;
 		  		}
 				if (gfn_isEmpty(ntslUntprc)) {
@@ -359,15 +360,12 @@
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
 	        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
-	        		fn_selectSpmtPckgUnitList();
+	        		fn_selectSpmtPckgUnit();
 	        	} else {
-	        		alert(data.resultMessage);
+	        		gfn_comAlert(data.resultCode, data.resultMessage);
 	        	}
-	        } catch (e) {
-	    		if (!(e instanceof Error)) {
-	    			e = new Error(e);
-	    		}
-	    		console.error("failed", e.message);
+	        } catch(e) {
+	        	console.error("failed", e.message);
 	        }
 
 		}
@@ -377,21 +375,14 @@
 		let postJsonPromise = gfn_postJSON("/am/cmns/deleteSpmtPckgUnit.do", spmtPckgUnitVO);
         let data = await postJsonPromise;
         try {
-        	if(data.deletedCnt > 0){
-        		gfn_comAlert("I0001") 					// I0001 	처리 되었습니다.
-        		fn_selectSpmtPckgUnitList();
-        		return;
-        	}else if (data.errMsg != null ){
-        		gfn_comAlert("E0000", data.errMsg)		// W0009   {0}이/가 있습니다.
-        		return;
-        	}else {
-        		gfn_comAlert("E0001");
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+        		fn_selectSpmtPckgUnit();
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);
         	}
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
+        } catch(e) {
+        	console.error("failed", e.message);
         }
 	}
 
