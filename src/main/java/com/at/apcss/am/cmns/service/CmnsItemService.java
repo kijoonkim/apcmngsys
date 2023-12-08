@@ -51,7 +51,7 @@ public interface CmnsItemService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int insertCmnsItem(CmnsItemVO cmnsItemVO) throws Exception;
+	public HashMap<String, Object> insertCmnsItem(CmnsItemVO cmnsItemVO) throws Exception;
 
 	/**
 	 * 품목정보 변경
@@ -59,7 +59,7 @@ public interface CmnsItemService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int updateCmnsItem(CmnsItemVO cmnsItemVO) throws Exception;
+	public HashMap<String, Object> updateCmnsItem(CmnsItemVO cmnsItemVO) throws Exception;
 
 	/**
 	 * 품목정보 삭제

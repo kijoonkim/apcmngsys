@@ -530,6 +530,7 @@
 		let itemVO = grdApcItem.getRowData(nRow);
 		let postJsonPromise = gfn_postJSON("/am/cmns/deleteApcCmnsItem.do", itemVO);
         let data = await postJsonPromise;
+
         try{
         	if (_.isEqual("S", data.resultStatus)) {
         		jsonApcVrty = [];

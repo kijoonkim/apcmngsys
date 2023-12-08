@@ -117,5 +117,5 @@ public interface CmnsVrtyService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int multiSaveApcVrtyList(List<CmnsVrtyVO> cmnsVrtyList) throws Exception;
+	public HashMap<String, Object> multiSaveApcVrtyList(List<CmnsVrtyVO> cmnsVrtyList) throws Exception;
 }
