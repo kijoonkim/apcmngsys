@@ -72,7 +72,10 @@ public class SpmtPckgUnitController extends BaseController{
 				spmtPckgUnitVO.setSysLastChgUserId(getUserId());
 			}
 
-			spmtPckgUnitService.multiSaveSpmtPckgUnitList(spmtPckgUnitList);
+			HashMap<String, Object> rtnObj = spmtPckgUnitService.multiSaveSpmtPckgUnitList(spmtPckgUnitList);
+			if(rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -89,7 +92,11 @@ public class SpmtPckgUnitController extends BaseController{
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
-			resultMap = spmtPckgUnitService.deleteSpmtPckgUnit(spmtPckgUnitVO);
+
+			HashMap<String, Object> rtnObj = spmtPckgUnitService.deleteSpmtPckgUnit(spmtPckgUnitVO);
+			if(rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,7 +52,7 @@ public class StdGrdServiceImpl extends BaseServiceImpl implements StdGrdService 
 
 	@Resource(name ="comCdService")
 	private ComCdService comCdService;
-	
+
 	@Override
 	public StdGrdVO selectStdGrd(StdGrdVO StdGrdVO) throws Exception {
 		StdGrdVO resultVO = stdGrdMapper.selectStdGrd(StdGrdVO);
@@ -66,22 +67,22 @@ public class StdGrdServiceImpl extends BaseServiceImpl implements StdGrdService 
 
 	@Override
 	public int insertStdGrd(StdGrdVO stdGrdVO) throws Exception {
-		
+
 		if (stdGrdVO != null && !StringUtils.hasText(stdGrdVO.getGrdKnd())) {
 			StdGrdVO returnVO = stdGrdMapper.selectNewGrdKnd(stdGrdVO);
 			stdGrdVO.setGrdKnd(returnVO.getGrdKnd());
 		}
-		
+
 		int insertedCnt = stdGrdMapper.insertStdGrd(stdGrdVO);
 		return insertedCnt;
 	}
 
 	@Override
 	public HashMap<String, Object> insertStdGrdAuto(StdGrdVO stdGrdVO) throws Exception {
-		
+
 		ComCdVO comCdVO = new ComCdVO();
 		comCdVO.setApcCd(ApcConstants.APC_CD_SYSTEM);
-		
+
 		// 상품등급
 		comCdVO.setCdId(AmConstants.CON_CD_ID_GDS_GRD);
 
@@ -89,31 +90,31 @@ public class StdGrdServiceImpl extends BaseServiceImpl implements StdGrdService 
 		if (gdsGrdInfo == null || !StringUtils.hasText(gdsGrdInfo.getCdId())) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "기본등급정보");
 		}
-		
-		stdGrdVO.setGrdSeCd(AmConstants.CON_CD_ID_GRD_SE_CD_GDS);		
-		
+
+		stdGrdVO.setGrdSeCd(AmConstants.CON_CD_ID_GRD_SE_CD_GDS);
+
 		StdGrdVO returnVO = stdGrdMapper.selectNewGrdKnd(stdGrdVO);
 		String gdsGrdKnd = returnVO.getGrdKnd();
-		
+
 		StdGrdVO gdsGrdVO = new StdGrdVO();
 		BeanUtils.copyProperties(stdGrdVO, gdsGrdVO);
 		gdsGrdVO.setGrdKnd(gdsGrdKnd);
 		gdsGrdVO.setGrdKndNm(gdsGrdInfo.getCdNm());
 		gdsGrdVO.setGrdSeCd(AmConstants.CON_CD_ID_GRD_SE_CD_GDS);
 		gdsGrdVO.setSn(1);
-		
+
 		// insert master
 		insertStdGrd(gdsGrdVO);
-		
+
 		int sn = 0;
 		List<ComCdVO> gdsGrdDtlList = comCdService.selectComCdDtlList(comCdVO);
 		for ( ComCdVO gdsGrdDtlInfo : gdsGrdDtlList ) {
-			
+
 			sn++;
-			
+
 			StdGrdDtlVO gdsGrdDtlVO = new StdGrdDtlVO();
 			BeanUtils.copyProperties(gdsGrdVO, gdsGrdDtlVO);
-			
+
 			gdsGrdDtlVO.setGrdNm(gdsGrdDtlInfo.getCdVlNm());
 			gdsGrdDtlVO.setSn(sn);
 
@@ -127,57 +128,57 @@ public class StdGrdServiceImpl extends BaseServiceImpl implements StdGrdService 
 		if (sortGrdInfo == null || !StringUtils.hasText(sortGrdInfo.getCdId())) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "선별기본등급정보");
 		}
-		
+
 		stdGrdVO.setGrdSeCd(AmConstants.CON_CD_ID_GRD_SE_CD_SORT);
 		StdGrdVO sortReturnVO = stdGrdMapper.selectNewGrdKnd(stdGrdVO);
 		String sortGrdKnd = sortReturnVO.getGrdKnd();
-		
+
 		StdGrdVO sortGrdVO = new StdGrdVO();
 		BeanUtils.copyProperties(stdGrdVO, sortGrdVO);
 		sortGrdVO.setGrdKnd(sortGrdKnd);
 		sortGrdVO.setGrdKndNm(sortGrdInfo.getCdNm());
 		sortGrdVO.setGrdSeCd(AmConstants.CON_CD_ID_GRD_SE_CD_SORT);
 		sortGrdVO.setSn(1);
-		
+
 		// insert master : sort
 		insertStdGrd(sortGrdVO);
-		
+
 		sn = 0;
 		List<ComCdVO> sortGrdDtlList = comCdService.selectComCdDtlList(comCdVO);
 		for ( ComCdVO sortGrdDtlInfo : sortGrdDtlList ) {
 			sn++;
 			StdGrdDtlVO sortGrdDtlVO = new StdGrdDtlVO();
 			BeanUtils.copyProperties(sortGrdVO, sortGrdDtlVO);
-			
+
 			sortGrdDtlVO.setGrdNm(sortGrdDtlInfo.getCdVlNm());
 			sortGrdDtlVO.setSn(sn);
 			insertStdGrdDtl(sortGrdDtlVO);
 		}
-		
+
 		// 입고등급
 		comCdVO.setCdId(AmConstants.CON_CD_ID_STD_GRD);
 		List<ComCdVO> stdGrdList = comCdService.selectComCdDtlList(comCdVO);
-		
+
 		sn = 0;
 		for ( ComCdVO stdGrd : stdGrdList ) {
-			
+
 			sn++;
-			
+
 			StdGrdVO wrhsGrdVO = new StdGrdVO();
 			BeanUtils.copyProperties(stdGrdVO, wrhsGrdVO);
 			wrhsGrdVO.setGrdKnd(stdGrd.getCdVl());
 			wrhsGrdVO.setGrdKndNm(stdGrd.getCdVlNm());
 			wrhsGrdVO.setGrdSeCd(AmConstants.CON_CD_ID_GRD_SE_CD_WRHS);
 			wrhsGrdVO.setSn(sn);
-			
+
 			insertStdGrd(wrhsGrdVO);
 		}
-		
+
 		return null;
 	}
-	
-	
-	
+
+
+
 	@Override
 	public int updateStdGrd(StdGrdVO stdGrdVO) throws Exception {
 		int updatedCnt = stdGrdMapper.updateStdGrd(stdGrdVO);
@@ -185,8 +186,7 @@ public class StdGrdServiceImpl extends BaseServiceImpl implements StdGrdService 
 	}
 
 	@Override
-	public int multiStdGrdList(List<StdGrdListVO> stdGrdLists) throws Exception {
-		int savedCnt = 0;
+	public HashMap<String, Object> multiStdGrdList(List<StdGrdListVO> stdGrdLists) throws Exception {
 
 		List<StdGrdVO> stdGrdList = stdGrdLists.get(0).getStdGrdList();
 		List<StdGrdDtlVO> stdGrdDtlList = stdGrdLists.get(0).getStdGrdDtlList();
@@ -205,10 +205,16 @@ public class StdGrdServiceImpl extends BaseServiceImpl implements StdGrdService 
 			stdGrdVO.setSysLastChgUserId(sysLastChgUserId);
 
 			if(ComConstants.ROW_STS_INSERT.equals(stdGrdVO.getRowSts())) {
-				savedCnt += insertStdGrd(stdGrdVO);
+
+				if(0 == insertStdGrd(stdGrdVO)) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+				}
 			}
 			if(ComConstants.ROW_STS_UPDATE.equals(stdGrdVO.getRowSts())) {
-				savedCnt += updateStdGrd(stdGrdVO);
+
+				if(0 == updateStdGrd(stdGrdVO)) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+				}
 			}
 		}
 
@@ -220,10 +226,15 @@ public class StdGrdServiceImpl extends BaseServiceImpl implements StdGrdService 
 			stdGrdDtlVO.setSysLastChgUserId(sysLastChgUserId);
 
 			if(ComConstants.ROW_STS_INSERT.equals(stdGrdDtlVO.getRowSts())) {
-				savedCnt += insertStdGrdDtl(stdGrdDtlVO);
+				if(0 == insertStdGrdDtl(stdGrdDtlVO)) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+				}
 			}
 			if(ComConstants.ROW_STS_UPDATE.equals(stdGrdDtlVO.getRowSts())) {
-				savedCnt += updateStdGrdDtl(stdGrdDtlVO);
+
+				if(0 == updateStdGrdDtl(stdGrdDtlVO)) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+				}
 			}
 		}
 
@@ -236,46 +247,53 @@ public class StdGrdServiceImpl extends BaseServiceImpl implements StdGrdService 
 			stdGrdJgmtVO.setSysLastChgUserId(sysLastChgUserId);
 
 			if(ComConstants.ROW_STS_INSERT.equals(stdGrdJgmtVO.getRowSts())) {
-				savedCnt += insertStdGrdJgmt(stdGrdJgmtVO);
+
+				if(0 == insertStdGrdJgmt(stdGrdJgmtVO)) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+				}
 			}
 			if(ComConstants.ROW_STS_UPDATE.equals(stdGrdJgmtVO.getRowSts())) {
-				savedCnt += updateStdGrdJgmt(stdGrdJgmtVO);
+
+				if(0 == updateStdGrdJgmt(stdGrdJgmtVO)) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+				}
 			}
 		}
 
-		return savedCnt;
+		return null;
 	}
 
 	@Override
 	public HashMap<String, Object> deleteStdGrd(StdGrdVO stdGrdVO) throws Exception {
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		StdGrdDtlVO stdGrdDtlVO = new StdGrdDtlVO();
 		stdGrdDtlVO.setApcCd(stdGrdVO.getApcCd());
 		stdGrdDtlVO.setItemCd(stdGrdVO.getItemCd());
 		stdGrdDtlVO.setGrdSeCd(stdGrdVO.getGrdSeCd());
 		stdGrdDtlVO.setGrdKnd(stdGrdVO.getGrdKnd());
-		int deletedCnt = 0;
 		List<StdGrdDtlVO> stdGrdDtlList = selectStdGrdDtlList(stdGrdDtlVO);
 
 		for (StdGrdDtlVO stdGrdDtl : stdGrdDtlList) {
 
-			resultMap = deleteStdGrdDtl(stdGrdDtl);
-			String errMsgGrdDtl = (String) resultMap.get("errMsg");
-			if(errMsgGrdDtl !=null ) {
-				return resultMap;
+			HashMap<String, Object> rtnObj = deleteStdGrdDtl(stdGrdDtl);
+			if(rtnObj !=null ) {
+				return rtnObj;
 			}
 		}
 
 		String errMsg = cmnsValidationService.selectChkCdDelible(stdGrdVO.getApcCd(), "GRD_KND", stdGrdVO.getGrdKnd());
 
 		if(errMsg == null ) {
-			deletedCnt += stdGrdMapper.deleteStdGrd(stdGrdVO);
-			resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+
+			if(0 == stdGrdMapper.deleteStdGrd(stdGrdVO)) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+			}
+
 		}else {
-			resultMap.put("errMsg", errMsg);
+			return ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, errMsg); // E0000	{0}
 		}
-		return resultMap;
+		return null;
+
 	}
 
 	@Override
@@ -312,18 +330,17 @@ public class StdGrdServiceImpl extends BaseServiceImpl implements StdGrdService 
 	@Override
 	public HashMap<String, Object> deleteStdGrdDtl(StdGrdDtlVO stdGrdDtlVO) throws Exception {
 
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-
 		String errMsg = cmnsValidationService.selectChkCdDelible(stdGrdDtlVO.getApcCd(), "GRD_CD", stdGrdDtlVO.getGrdCd());
-		int deletedCnt = 0;
 		if(errMsg == null ) {
-			deletedCnt = stdGrdMapper.deleteStdGrdDtl(stdGrdDtlVO);
-			resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
-		}else {
-			resultMap.put("errMsg", errMsg);
-		}
-		return resultMap;
 
+			if(0 == stdGrdMapper.deleteStdGrdDtl(stdGrdDtlVO)) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+			}
+
+		}else {
+			return ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, errMsg); // E0000	{0}
+		}
+		return null;
 	}
 
 	@Override
@@ -364,17 +381,18 @@ public class StdGrdServiceImpl extends BaseServiceImpl implements StdGrdService 
 
 	@Override
 	public HashMap<String, Object> deleteStdGrdJgmt(StdGrdJgmtVO StdGrdJgmtVO) throws Exception {
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		String errMsg = cmnsValidationService.selectChkCdDelible(StdGrdJgmtVO.getApcCd(), "JGMT_GRD_CD", StdGrdJgmtVO.getGrdCd());
-		int deletedCnt = 0;
 		if(errMsg == null ) {
-			deletedCnt = stdGrdMapper.deleteStdGrdJgmt(StdGrdJgmtVO);
-			resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+
+			if(0 == stdGrdMapper.deleteStdGrdJgmt(StdGrdJgmtVO)) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+			}
+
 		}else {
-			resultMap.put("errMsg", errMsg);
+			return ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, errMsg); // E0000	{0}
 		}
-		return resultMap;
+		return null;
 	}
 
 	@Override

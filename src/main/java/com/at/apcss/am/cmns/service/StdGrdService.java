@@ -55,7 +55,7 @@ public interface StdGrdService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertStdGrdAuto(StdGrdVO stdGrdVO) throws Exception;
-	
+
 	/**
 	 * APC 등급 정보 변경
 	 * @param cmnsGrdVO
@@ -70,7 +70,7 @@ public interface StdGrdService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int multiStdGrdList(List<StdGrdListVO> stdGrdLists) throws Exception;
+	public HashMap<String, Object> multiStdGrdList(List<StdGrdListVO> stdGrdLists) throws Exception;
 
 	/**
 	 * APC 등급 정보 삭제

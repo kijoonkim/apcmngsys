@@ -77,7 +77,10 @@ public class StdGrdController extends BaseController {
 		stdGrdVO.setSysLastChgPrgrmId(getPrgrmId());
 
 		try {
-			resultMap = stdGrdService.deleteStdGrd(stdGrdVO);
+			HashMap<String, Object> rtnObj = stdGrdService.deleteStdGrd(stdGrdVO);
+			if(rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -92,8 +95,6 @@ public class StdGrdController extends BaseController {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
-		// validation check
-		int savedCnt = 0;
 		try {
 
 			stdGrdLists.get(0).setSysFrstInptPrgrmId(getPrgrmId());
@@ -101,14 +102,15 @@ public class StdGrdController extends BaseController {
 			stdGrdLists.get(0).setSysLastChgPrgrmId(getPrgrmId());
 			stdGrdLists.get(0).setSysLastChgUserId(getPrgrmId());
 
-			savedCnt = stdGrdService.multiStdGrdList(stdGrdLists);
+			HashMap<String, Object> rtnObj = stdGrdService.multiStdGrdList(stdGrdLists);
+			if(rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-
-		resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
 
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -160,7 +162,10 @@ public class StdGrdController extends BaseController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		try {
-			resultMap = stdGrdService.deleteStdGrdDtl(stdGrdDtlVO);
+			HashMap<String, Object> rtnObj = stdGrdService.deleteStdGrdDtl(stdGrdDtlVO);
+			if(rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
@@ -175,7 +180,10 @@ public class StdGrdController extends BaseController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		try {
-			resultMap = stdGrdService.deleteStdGrdJgmt(stdGrdJgmtVO);
+			HashMap<String, Object> rtnObj =  stdGrdService.deleteStdGrdJgmt(stdGrdJgmtVO);
+			if(rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
