@@ -58,43 +58,45 @@ public class OprtrController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	@PostMapping(value = "/am/cmns/compareOprtrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> compareSpmtTrsprtList(@RequestBody List<OprtrVO> oprtrList, HttpServletRequest request) throws Exception {
-		logger.debug("compareOprtrList 호출 <><><><> ");
+	@PostMapping(value = "/am/cmns/multiSaveOprtrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> multiSaveOprtrList(@RequestBody List<OprtrVO> oprtrList, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
-		int insertCnt = 0;
 		try {
-			
-			for (OprtrVO element : oprtrList) {
-				element.setSysFrstInptPrgrmId(getPrgrmId());
-				element.setSysFrstInptUserId(getUserId());
-				element.setSysLastChgPrgrmId(getPrgrmId());
-				element.setSysLastChgUserId(getUserId());
-				oprtrService.multiOprtr(element);
+
+			for (OprtrVO oprtrVO : oprtrList) {
+				oprtrVO.setSysFrstInptPrgrmId(getPrgrmId());
+				oprtrVO.setSysFrstInptUserId(getUserId());
+				oprtrVO.setSysLastChgPrgrmId(getPrgrmId());
+				oprtrVO.setSysLastChgUserId(getUserId());
 			}
+			HashMap<String, Object> rtnObj = oprtrService.multiSaveOprtrList(oprtrList);
+			if(rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
-
-		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertCnt);
 
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	@PostMapping(value = "/am/cmns/deleteOprtrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> deleteOprtrList(@RequestBody OprtrVO oprtrVO, HttpServletRequest request) throws Exception {
+	@PostMapping(value = "/am/cmns/deleteOprtr.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteOprtr(@RequestBody OprtrVO oprtrVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		int result = 0;
 		try {
-			result = oprtrService.deleteOprtr(oprtrVO);
+			HashMap<String, Object> rtnObj = oprtrService.deleteOprtr(oprtrVO);
+
+			if(rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
-
-		resultMap.put("result", result);
 
 		return getSuccessResponseEntity(resultMap);
 	}

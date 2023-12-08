@@ -823,6 +823,9 @@
             	grdCnpt.setCellData(nRow, apcCdCol, gv_apcCd, true);
             	grdCnpt.addRow(true);
 
+            	grdCnpt.setCellDisabled(0, 0, grdCnpt.getRows() -1, grdCnpt.getCols() -1, false);
+            	grdCnpt.setCellDisabled(grdCnpt.getRows() -1, 0, grdCnpt.getRows() -1, grdCnpt.getCols() -1, true);
+
             }else if (grid === "grdFclt") {
             	let apcCdCol = grdFclt.getColRef("apcCd");
             	grdFclt.setCellData(nRow, nCol, "N", true);
@@ -1117,7 +1120,7 @@
             		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
             		if(confirm(delMsg)){
             			var oprtrVO = grdOprtr.getRowData(nRow);
-            			fn_deleteOprtrList(oprtrVO);
+            			fn_deleteOprtr(oprtrVO);
             			grdOprtr.deleteRow(nRow);
             		}
             	}else{

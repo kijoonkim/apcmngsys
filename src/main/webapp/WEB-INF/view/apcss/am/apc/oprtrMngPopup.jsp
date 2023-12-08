@@ -19,8 +19,8 @@
 					</p>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearchOprtr" name="btnSearchOprtr" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectOprtrList"></sbux-button>
-					<sbux-button id="btnInsertOprtr" name="btnInsertOprtr" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_insertOprtrList"></sbux-button>
+					<sbux-button id="btnSearchOprtr" name="btnSearchOprtr" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchOprtr"></sbux-button>
+					<sbux-button id="btnInsertOprtr" name="btnInsertOprtr" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveOprtr"></sbux-button>
 					<sbux-button id="btnEndOprtr" name="btnEndOprtr" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-oprtr')"></sbux-button>
 				</div>
 			</div>
@@ -102,7 +102,7 @@
 	    grdOprtr = _SBGrid.create(SBGridProperties);
 	    fn_selectOprtrList();
 	}
-	
+
 	/**
      * @description 메뉴트리그리드 컨텍스트메뉴 json
      * @type {object}
@@ -119,12 +119,7 @@
     	grdOprtr.exportLocalExcel("생산작업자 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
 
-	async function fn_selectOprtrList(){
-		fn_callSelectOprtrList();
-	}
-
-    var newJsonOprtr = [];
-	async function fn_callSelectOprtrList(){
+	const fn_searchOprtr = async function(){
 		let apcCd = SBUxMethod.get("inp-apcCd");
     	let postJsonPromise = gfn_postJSON("/am/oprtr/selectOprtrList.do", {apcCd : apcCd});
         let data = await postJsonPromise;
@@ -157,12 +152,9 @@
         }
 	}
 
-	async function fn_insertOprtrList(){
+	const fn_saveOprtr = async function(){
 		let gridData = grdOprtr.getGridDataAll();
-		let insertList = [];
-		let updateList = [];
-		let insertCnt = 0;
-		let updateCnt = 0;
+		let saveList = [];
 		for(var i=1; i<=gridData.length; i++ ){
 			if(grdOprtr.getRowData(i).delYn == 'N'){
 				if(grdOprtr.getRowData(i).flnm == null || grdOprtr.getRowData(i).flnm == ""){
@@ -173,49 +165,56 @@
 				let rowSts = grdOprtr.getRowStatus(i);
 				if(grdOprtr.getRowStatus(i) === 3){
 					rowData.rowSts = "I";
-					insertList.push(rowData);
+					saveList.push(rowData);
 				}
 				if(grdOprtr.getRowStatus(i) === 2){
 					rowData.rowSts = "U";
-					updateList.push(rowData);
+					saveList.push(rowData);
 				}
 			}
 		}
-		
+
 		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
-			console.log('insertList', insertList);
-			console.log('updateList', updateList);
-			if(!(gfn_isEmpty(insertList))){
-				for(let i=0;i<insertList.length;i++){
-					let newInsertTelno = insertList[i].telno.split("");
+			console.log('saveList', saveList);
+			if(!(gfn_isEmpty(saveList))){
+				for(let i=0;i<saveList.length;i++){
+					let newInsertTelno = saveList[i].telno.split("");
 					if(newInsertTelno < 8){
-						insertList[i].telno = "";
+						saveList[i].telno = "";
 					}
 				}
 			}
-			if(!(gfn_isEmpty(updateList))){
-				for(let i=0;i<updateList.length;i++){
-					let newUpdateListTelno = updateList[i].telno.split("");
-					if(newUpdateListTelno.length < 8){
-						updateList[i].telno = "";
-					}
-				}
-			}
-			console.log('insertList1231', insertList);
-			console.log('updateList123', updateList);
-			if (insertList.length > 0){
-				let postJsonPromise = gfn_postJSON("/am/cmns/compareOprtrList.do", insertList);
-			}
-			if (updateList.length > 0){
-				let postJsonPromise = gfn_postJSON("/am/cmns/compareOprtrList.do", updateList);
-			}
-			alert("저장 되었습니다.");
+
+			let postJsonPromise = gfn_postJSON("/am/cmns/compareOprtrList.do", saveList);
+	        let data = await postJsonPromise;
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+	        		fn_searchOprtr();
+	        	} else {
+	        		gfn_comAlert(data.resultCode, data.resultMessage);
+	        	}
+	        } catch(e) {
+	        	console.error("failed", e.message);
+	        }
 		}
 	}
 
-	async function fn_deleteOprtrList(oprtrVO){
-		let postJsonPromise1 = gfn_postJSON("/am/cmns/deleteOprtrList.do", oprtrVO);
+	const fn_deleteOprtr = async function(oprtrVO){
+
+		let postJsonPromise = gfn_postJSON("/am/cmns/deleteOprtr.do", oprtrVO);
+        let data = await postJsonPromise;
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+        		fn_searchOprtr();
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);
+        	}
+        } catch(e) {
+        	console.error("failed", e.message);
+        }
 	}
 
 	const fnNewCallNumber = function(strValue) {
