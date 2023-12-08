@@ -1,14 +1,18 @@
 package com.at.apcss.am.oprtr.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.at.apcss.am.oprtr.mapper.OprtrMapper;
 import com.at.apcss.am.oprtr.service.OprtrService;
 import com.at.apcss.am.oprtr.vo.OprtrVO;
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.co.sys.util.ComUtil;
 /**
  * @Class Name : OprtrServiceImpl.java
  * @Description : 작업생산자 서비스를 정의하기 위한 서비스 구현 클래스
@@ -41,28 +45,45 @@ public class OprtrServiceImpl extends BaseServiceImpl implements OprtrService {
 	}
 
 	@Override
-	public int multiOprtr(OprtrVO oprtrVO) throws Exception {
-		String rowSts = oprtrVO.getRowSts();
-		int insertedCnt = 0;
-		int updatedCnt = 0;
-		if("I".equals(rowSts)) {
-			insertedCnt = oprtrMapper.insertOprtr(oprtrVO);
-			return insertedCnt;
+	public HashMap<String, Object> multiSaveOprtrList(List<OprtrVO> optrtList) throws Exception {
+
+		for (OprtrVO oprtrVO : optrtList) {
+			if (ComConstants.ROW_STS_INSERT.equals(oprtrVO.getRowSts())) {
+				if(0 == insertOprtr(oprtrVO)){
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+				}
+			}
+			if (ComConstants.ROW_STS_UPDATE.equals(oprtrVO.getRowSts())) {
+				if(0 == updateOprtr(oprtrVO)) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+				}
+			}
 		}
-		if("U".equals(rowSts)) {
-			updatedCnt = oprtrMapper.updateOprtr(oprtrVO);
-			return updatedCnt;
-		}
-		return 0;
+
+		return null;
+	}
+
+	@Override
+	public int insertOprtr(OprtrVO oprtrVO) throws Exception {
+
+		int insertedCnt = oprtrMapper.insertOprtr(oprtrVO);
+
+		return insertedCnt;
 	}
 
 	@Override
 	public int updateOprtr(OprtrVO oprtrVO) throws Exception {
-		return oprtrMapper.updateOprtr(oprtrVO);
+
+		int updatedCnt = oprtrMapper.updateOprtr(oprtrVO);
+
+		return updatedCnt;
 	}
 
 	@Override
-	public int deleteOprtr(OprtrVO oprtrVO) throws Exception {
-		return oprtrMapper.deleteOprtr(oprtrVO);
+	public HashMap<String, Object> deleteOprtr(OprtrVO oprtrVO) throws Exception {
+		if(0 == oprtrMapper.deleteOprtr(oprtrVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
+		return null;
 	}
 }
