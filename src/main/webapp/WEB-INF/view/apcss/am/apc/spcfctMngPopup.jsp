@@ -187,7 +187,7 @@
 	    grdApcSpcfct = _SBGrid.create(SBGridProperties);
 	    fn_initSBSelectSpcfct();
 	}
-	
+
 	/**
      * @description 메뉴트리그리드 컨텍스트메뉴 json
      * @type {object}
@@ -287,22 +287,17 @@
 
 		let postJsonPromise = gfn_postJSON("/am/cmns/deleteApcSpcfct.do", cmnsSpcfctVO);
         let data = await postJsonPromise;
+
         try {
-        	if(data.deletedCnt > 0){
+        	if (_.isEqual("S", data.resultStatus)) {
         		return;
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);
         	}
-        	if (data.errMsg != null ){
-        		gfn_comAlert("E0000", data.errMsg)		// W0009   {0}이/가 있습니다.
-        		return;
-        	}else {
-        		gfn_comAlert("E0001");
-        	}
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
+        } catch(e) {
+        	console.error("failed", e.message);
         }
+
 	}
 
 	const fn_saveApcSpcfctList = async function(){
@@ -388,27 +383,32 @@
 	const fn_saveSpcfct = async function(spcfctList){
 		let postJsonPromise = gfn_postJSON("/am/cmns/multiApcSpcfctList.do", spcfctList);
         let data = await postJsonPromise;
+
         try {
-        	if (data.savedCnt > 0) {
-        		return data.savedCnt;
+        	if (_.isEqual("S", data.resultStatus)) {
+        		return 1;
         	} else {
-        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        		gfn_comAlert(data.resultCode, data.resultMessage);
         	}
         } catch(e) {
+        	console.error("failed", e.message);
         }
 	}
 
 	const fn_saveRdcdRt = async function(itemVO){
 		let postJsonPromise = gfn_postJSON("/am/cmns/updateApcCmnsItem.do", itemVO);
         let data = await postJsonPromise;
+
         try {
-        	if (data.updatedCnt > 0) {
-        		return data.updatedCnt;
+        	if (_.isEqual("S", data.resultStatus)) {
+        		return 1;
         	} else {
-        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        		gfn_comAlert(data.resultCode, data.resultMessage);
         	}
         } catch(e) {
+        	console.error("failed", e.message);
         }
+
 	}
 
 </script>

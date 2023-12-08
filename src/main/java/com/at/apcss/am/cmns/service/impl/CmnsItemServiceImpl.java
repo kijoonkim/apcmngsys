@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ import com.at.apcss.am.cmns.vo.StdGrdVO;
 import com.at.apcss.co.cd.service.ComCdService;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : CmnsItemServiceImpl.java
@@ -82,28 +84,35 @@ public class CmnsItemServiceImpl extends BaseServiceImpl implements CmnsItemServ
 	}
 
 	@Override
-	public int insertCmnsItem(CmnsItemVO cmnsItemVO) throws Exception {
+	public HashMap<String, Object> insertCmnsItem(CmnsItemVO cmnsItemVO) throws Exception {
 
-		int insertedCnt = cmnsItemMapper.insertCmnsItem(cmnsItemVO);
+		if(0 == cmnsItemMapper.insertCmnsItem(cmnsItemVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
 
 		StdGrdVO stdGrdVO = new StdGrdVO();
 		BeanUtils.copyProperties(cmnsItemVO, stdGrdVO);
-		stdGrdService.insertStdGrdAuto(stdGrdVO);
 
-		return insertedCnt;
+		HashMap<String, Object> rtnObj = stdGrdService.insertStdGrdAuto(stdGrdVO);
+		if(rtnObj != null) {
+			return rtnObj;
+		}
+
+		return null;
 	}
 
 	@Override
-	public int updateCmnsItem(CmnsItemVO cmnsItemVO) throws Exception {
+	public HashMap<String, Object> updateCmnsItem(CmnsItemVO cmnsItemVO) throws Exception {
 
-		int updatedCnt = cmnsItemMapper.updateCmnsItem(cmnsItemVO);
+		if(0 == cmnsItemMapper.updateCmnsItem(cmnsItemVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
 
-		return updatedCnt;
+		return null;
 	}
 
 	@Override
 	public HashMap<String, Object> deleteCmnsItem(CmnsItemVO cmnsItemVO) throws Exception {
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		String errMsg = cmnsValidationService.selectChkCdDelible(cmnsItemVO.getApcCd(), "ITEM_CD", cmnsItemVO.getItemCd());
 
@@ -118,49 +127,44 @@ public class CmnsItemServiceImpl extends BaseServiceImpl implements CmnsItemServ
 		BeanUtils.copyProperties(cmnsItemVO, vrtyVO);
 		BeanUtils.copyProperties(cmnsItemVO, spmtPckgUnitVO);
 
-		int deletedCnt = 0;
 		if(errMsg == null ) {
 
 			List<StdGrdVO> stdGrdList = stdGrdService.selectStdGrdList(stdGrdVO);
 
 			for (StdGrdVO stdGrd : stdGrdList) {
 
-				resultMap = stdGrdService.deleteStdGrd(stdGrd);
-				String errMsgGrd = (String) resultMap.get("errMsg");
-				if(errMsgGrd != null) {
-					return resultMap;
+				HashMap<String, Object> rtnObj = stdGrdService.deleteStdGrd(stdGrd);
+				if(rtnObj != null) {
+					return rtnObj;
 				}
 			}
 
 			List<StdGrdJgmtVO> stdGrdJgmtList = stdGrdService.selectStdGrdJgmtList(stdGrdJgmtVO);
 
 			for (StdGrdJgmtVO stdGrdJgmt : stdGrdJgmtList) {
-				resultMap = stdGrdService.deleteStdGrdJgmt(stdGrdJgmt);
-				String errMsgGrdJgmt = (String) resultMap.get("errMsg");
-				if(errMsgGrdJgmt != null) {
-					return resultMap;
+				HashMap<String, Object> rtnObj = stdGrdService.deleteStdGrdJgmt(stdGrdJgmt);
+				if(rtnObj != null) {
+					return rtnObj;
 				}
 			}
-
 
 			List<CmnsSpcfctVO> spcfctList = cmnsSpcfctService.selectApcSpcfctList(spcfctVO);
 
 			for (CmnsSpcfctVO cmnsSpcfctVO : spcfctList) {
-				resultMap = cmnsSpcfctService.deleteApcSpcfct(cmnsSpcfctVO);
 
-				String errMsgSpcfct = (String) resultMap.get("errMsg");
-				if(errMsgSpcfct != null) {
-					return resultMap;
+				HashMap<String, Object> rtnObj = cmnsSpcfctService.deleteApcSpcfct(cmnsSpcfctVO);
+				if(rtnObj != null) {
+					return rtnObj;
 				}
 			}
 
 			List<CmnsVrtyVO> vrtyList = cmnsVrtyService.selectApcVrtyList(vrtyVO);
 
 			for (CmnsVrtyVO cmnsVrtyVO : vrtyList) {
-				resultMap = cmnsVrtyService.deleteApcVrty(cmnsVrtyVO);
-				String errMsgVrty = (String) resultMap.get("errMsg");
-				if(errMsgVrty != null) {
-					return resultMap;
+
+				HashMap<String, Object> rtnObj = cmnsVrtyService.deleteApcVrty(cmnsVrtyVO);
+				if(rtnObj != null) {
+					return rtnObj;
 				}
 			}
 
@@ -168,20 +172,21 @@ public class CmnsItemServiceImpl extends BaseServiceImpl implements CmnsItemServ
 
 			for (SpmtPckgUnitVO spmtPckgUnit : spmtPckgUnitList) {
 
-				resultMap = spmtPckgUnitService.deleteSpmtPckgUnit(spmtPckgUnit);
-				String errMsgSpmtPckgUnit = (String) resultMap.get("errMsg");
-				if(errMsgSpmtPckgUnit != null) {
-					return resultMap;
+				HashMap<String, Object> rtnObj = spmtPckgUnitService.deleteSpmtPckgUnit(spmtPckgUnit);
+				if(rtnObj != null) {
+					return rtnObj;
 				}
 			}
 
-			deletedCnt = cmnsItemMapper.deleteCmnsItem(cmnsItemVO);
-			resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+			if(0 == cmnsItemMapper.deleteCmnsItem(cmnsItemVO)) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다."))); // E0000	{0}
+			}
+
 		}else {
-			resultMap.put("errMsg", errMsg);
+			return ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, errMsg); // E0000	{0}
 		}
 
-		return resultMap;
+		return null;
 	}
 
 	@Override

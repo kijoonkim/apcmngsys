@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import com.at.apcss.am.cmns.service.CmnsValidationService;
 import com.at.apcss.am.cmns.vo.CmnsSpcfctVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : CmnsSpcfctServiceImpl.java
@@ -113,17 +115,18 @@ public class CmnsSpcfctServiceImpl extends BaseServiceImpl implements CmnsSpcfct
 
 	@Override
 	public HashMap<String, Object> deleteApcSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception {
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		String errMsg = cmnsValidationService.selectChkCdDelible(cmnsSpcfctVO.getApcCd(), "SPCFCT_CD", cmnsSpcfctVO.getSpcfctCd());
-		int deletedCnt = 0;
 		if(errMsg == null) {
-			deletedCnt = cmnsSpcfctMapper.deleteApcSpcfct(cmnsSpcfctVO);
-			resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+
+			if(0 == cmnsSpcfctMapper.deleteApcSpcfct(cmnsSpcfctVO)) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다."))); // E0000	{0}
+			}
+
 		}else {
-			resultMap.put("errMsg", errMsg);
+			return ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, errMsg); // E0000	{0}
 		}
-		return resultMap;
+		return null;
 	}
 
 	@Override
@@ -132,18 +135,23 @@ public class CmnsSpcfctServiceImpl extends BaseServiceImpl implements CmnsSpcfct
 	}
 
 	@Override
-	public int multiApcSpcfct(List<CmnsSpcfctVO> cmnsSpcfctList) throws Exception {
-		int savedCnt = 0;
+	public HashMap<String, Object> multiApcSpcfct(List<CmnsSpcfctVO> cmnsSpcfctList) throws Exception {
 		for (CmnsSpcfctVO cmnsSpcfctVO : cmnsSpcfctList) {
 			if(ComConstants.ROW_STS_INSERT.equals(cmnsSpcfctVO.getRowSts())) {
-				savedCnt += insertApcSpcfct(cmnsSpcfctVO);
+
+				if(0 == insertApcSpcfct(cmnsSpcfctVO)) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다."))); // E0000	{0}
+				}
 			}
 			if(ComConstants.ROW_STS_UPDATE.equals(cmnsSpcfctVO.getRowSts())) {
-				savedCnt += updateApcSpcfct(cmnsSpcfctVO);
+
+				if(0 == updateApcSpcfct(cmnsSpcfctVO)) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다."))); // E0000	{0}
+				}
 			}
 		}
 
-		return savedCnt;
+		return null;
 	}
 
 }
