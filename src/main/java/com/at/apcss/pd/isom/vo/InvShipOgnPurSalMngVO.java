@@ -24,14 +24,19 @@ public class InvShipOgnPurSalMngVO extends ComVO{
 	private String prchsEmspapVlm;
 	private String prchsEmspapAmt;
 
+	private String slsTrstVlm;
+	private String slsTrstAmt;
+	private String slsEmspapVlm;
+	private String slsEmspapAmt;
+
 	private String ddcExprtVlm;
 	private String ddcExprtAmt;
 	private String ddcVlm;
 	private String ddcAmt;
 	private String ddcArmyDlvgdsVlm;
 	private String ddcArmyDlvgdsAmt;
-	private String dccMlsrVlm;
-	private String dccMlsrAmt;
+	private String ddcMlsrVlm;
+	private String ddcMlsrAmt;
 
 	private String ajmtVlm;
 	private String ajmtAmt;

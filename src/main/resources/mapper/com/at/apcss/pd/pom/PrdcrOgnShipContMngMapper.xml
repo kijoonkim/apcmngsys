@@ -148,29 +148,30 @@
 
 	<insert id="insertPrdcrOgnShipContMng" parameterType="com.at.apcss.pd.pom.vo.PrdcrOgnShipContMngVO">
     	<![CDATA[
-    	MERGE INTO TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN CLT  /* com.at.apcss.pd.aom.mapper.PrdcrOgnShipContMngMapper.insertPrdcrOgnShipContMng */
+    	MERGE INTO TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN CLT  /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertEvAplyMng */
 		USING DUAL
 			ON (
 					CLT.APO_CD  = #{apoCd}
 				 AND CLT.PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
+				 AND CLT.CLTVTN_LAND_SN	= #{cltvtnLandSn}
 				)
 		WHEN MATCHED THEN
 				 UPDATE
 					   SET
-		    	        PRDCR_OGNZ_CD			= #{prdcrOgnzCd}
-		    	        , PRDCR_OGNZ_NM			= #{prdcrOgnzNm}
+		    	        PRDCTN_PLAN_VLM		= #{prdctnPlanVlm}
+		    	        , EC_SPMT_PLAN_VLM		= #{ecSpmtPlanVlm}
 		    	        , PLAN_RMRK				= #{planRmrk}
 
-		    	        , PRDCTN_PLAN_VLM		= #{prdctnPlanVlm}
-		    	        , EC_SPMT_PLAN_VLM		= #{ecSpmtPlanVlm}
-		    	        , JOIN_DAY				= #{joinDay}
-		    	        , WHDWL_DAY				= #{whdwlDay}
+		    	        , SYS_LAST_CHG_DT		= SYSDATE
+	    				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 		    	]]>
 		    	<![CDATA[
 
 					 WHERE 1=1
 					 AND CLT.APO_CD			= #{apoCd}
 					 AND CLT.PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
+					 AND CLT.CLTVTN_LAND_SN	= #{cltvtnLandSn}
 		WHEN NOT MATCHED THEN
 			 INSERT
 		    		(
@@ -183,16 +184,27 @@
 		    		  , CTGRY_CD
 		    		  , ITEM_CD
 		    		  , TRMT_TYPE
-
 		    		  , PRDCR_OGNZ_SN
 		    		  , PRDCR_OGNZ_CD
 		    		  , PRDCR_OGNZ_NM
-		    		  , PLAN_RMRK
+
+		    		  , CLTVTN_LAND_SN
+		    		  , FLNM
+		    		  , CLTVTN_LAND_ADDR
+		    		  , CLTVTN_AREA
+		    		  , JOIN_DAY
+		    		  , WHDWL_DAY
 
 		    		  , PRDCTN_PLAN_VLM
 		    		  , EC_SPMT_PLAN_VLM
-		    		  , JOIN_DAY
-		    		  , WHDWL_DAY
+		    		  , PLAN_RMRK
+
+		    		  , SYS_FRST_INPT_DT
+		    		  , SYS_FRST_INPT_USER_ID
+		    		  , SYS_FRST_INPT_PRGRM_ID
+		    		  , SYS_LAST_CHG_DT
+		    		  , SYS_LAST_CHG_USER_ID
+		    		  , SYS_LAST_CHG_PRGRM_ID
 		    		)
 		   		VALUES
 		   			(
@@ -204,19 +216,33 @@
 		   			  , #{crno}
 		   			  , #{yr}
 		   			  , #{sttgUpbrItemSe}
-		   			  , #{ctgryCd}
+		   			  , (case when #{ctgryCd} is not null then #{ctgryCd}
+		   			  			ELSE (SELECT CTGRY_CD FROM TB_EV_GPC_CD WHERE ITEM_CD = #{itemCd})
+		   			  			END)
 		   			  , #{itemCd}
 		   			  , #{trmtType}
-
-		   			  , SEQ_PRDCR_OGNZ_SN.NEXTVAL
+		   			  , #{prdcrOgnzSn}
 		   			  , #{prdcrOgnzCd}
 		   			  , #{prdcrOgnzNm}
-		   			  , #{planRmrk}
+
+		   			  , SEQ_CLTVTN_LAND_SN.NEXTVAL
+		   			  , #{flnm}
+		   			  , #{cltvtnLandAddr}
+
+		   			  , #{cltvtnArea}
+		   			  , #{joinDay}
+		   			  , #{whdwlDay}
 
 		   			  , #{prdctnPlanVlm}
 		   			  , #{ecSpmtPlanVlm}
-		   			  , #{joinDay}
-		   			  , #{whdwlDay}
+		   			  , #{planRmrk}
+
+		   			  , SYSDATE
+	   			  	  , #{sysFrstInptUserId}
+		   			  , #{sysFrstInptPrgrmId}
+		   			  , SYSDATE
+		   			  , #{sysLastChgUserId}
+		   			  , #{sysLastChgPrgrmId}
 		   			)
     	]]>
     </insert>
@@ -279,12 +305,13 @@
 
 	<select id="selectPrdcrOgnShipContMngDtlList" parameterType="com.at.apcss.pd.pom.vo.PrdcrOgnShipContMngVO" resultType="com.at.apcss.pd.pom.vo.PrdcrOgnShipContMngVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.pd.pom.mapper.PrdcrOgnShipContMngMapper.selectPrdcrOgnShipContMngDtlList */
+			SELECT /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectPrdcrOgnCurntMng */
 				  CM.APO_CD
 		    	, CM.APO_SE
 		    	, CM.BRNO
 		    	, CM.CRNO
 		    	, CM.YR
+
 		    	, CM.STTG_UPBR_ITEM_SE
 		    	, CM.CTGRY_CD
 		    	, CM.ITEM_CD
@@ -292,13 +319,20 @@
 		    	, CM.PRDCR_OGNZ_SN
 		    	, CM.PRDCR_OGNZ_CD
 		    	, CM.PRDCR_OGNZ_NM
-		    	, CM.PLAN_RMRK
 
 		    	, CM.JOIN_DAY
 		    	, CM.WHDWL_DAY
-		    	, CM.PRDCTN_PLAN_VLM
-		    	, CM.EC_SPMT_PLAN_VLM
+		    	, CM.CLTVTN_AREA
 
+		    	, CM.CLTVTN_LAND_SN
+		    	, CM.FLNM
+		    	, CM.CLTVTN_LAND_ADDR
+
+				, CM.PRDCTN_PLAN_VLM
+				, CM.EC_SPMT_PLAN_VLM
+		    	, CM.PLAN_RMRK
+
+				, CM.DEL_YN
 				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
 				, TO_CHAR(CM.SYS_LAST_CHG_DT,'YYYY-MM-DD')		AS SYS_LAST_CHG_DT_YMD
 				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
@@ -311,13 +345,9 @@
     		<if test='apoCd != null and apoCd != ""'>
 				AND CM.APO_CD LIKE #{apoCd} || '%'
 			</if>
-			<if test='itemCd != null and itemCd != ""'>
-				AND CM.ITEM_CD LIKE '%' || #{itemCd} || '%'
+			<if test='prdcrOgnzSn != null and prdcrOgnzSn != ""'>
+				AND CM.PRDCR_OGNZ_SN LIKE '%' || #{prdcrOgnzSn} || '%'
 			</if>
-			<if test='trmtType != null and trmtType != ""'>
-				AND CM.TRMT_TYPE LIKE #{trmtType} || '%'
-			</if>
-		ORDER BY CM.PRDCR_OGNZ_SN DESC
-
+		ORDER BY CM.PRDCR_OGNZ_SN ASC
     </select>
 </mapper>

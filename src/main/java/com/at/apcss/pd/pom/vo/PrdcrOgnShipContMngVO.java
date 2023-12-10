@@ -63,17 +63,25 @@ public class PrdcrOgnShipContMngVO extends ComVO{
 	private String rmrk;
 
 	private String itemCd;
+	private String ctgryCd;
 	private String trmtType;
+	private String sttgUpbrItemSe;
 
 	private String prdcrOgnzSn;
 	private String prdcrOgnzCd;
 	private String prdcrOgnzNm;
-	private String planRmrk;
+
+	private String cltvtnLandSn;
+	private String flnm;
+	private String cltvtnLandAddr;
 
 	private String joinDay;
 	private String whdwlDay;
+	private String cltvtnArea;
+
 	private String prdctnPlanVlm;
 	private String ecSpmtPlanVlm;
+	private String planRmrk;
 
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;

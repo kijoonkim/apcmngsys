@@ -1522,7 +1522,8 @@
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
+	    SBGridProperties.oneclickedit = false;//입력 활성화 true 1번클릭 false 더블클릭
 	    SBGridProperties.columns = [
 	    	{caption: ["통합조직코드"], 	ref: 'apoCd',   	hidden : true},
 	    	{caption: ["통합조직코드"], 	ref: 'yr',   		hidden : true},
@@ -1560,7 +1561,8 @@
 	  	//클릭 이벤트 바인드
 	    //grdGpcList.bind('click','fn_view');
 	  	//클릭 이벤트 바인드
-	    grdGpcList.bind('click','gridClick');
+	    //grdGpcList.bind('click','gridClick');
+	    grdGpcList.bind('dblclick','gridClick');
 	}
 
 	/* 품목리스트 조회 기능*/
@@ -1744,15 +1746,14 @@
         }
 
         //분류,품목,
-        let ctgryCdCol = grdGpcList.getColRef('ctgryCd');
-        let sttgUpbrItemSeCol = grdGpcList.getColRef('sttgUpbrItemSe');
+        let ctgryNmCol = grdGpcList.getColRef('ctgryNm');
         let itemNmCol = grdGpcList.getColRef('itemNm');
 
         if(selGridRow == '-1'){
 			return;
         } else {
         	//선택한 데이터가 통합조직 일떄
-        	if (selGridCol == ctgryCdCol || selGridCol == itemNmCol){
+        	if (selGridCol == ctgryNmCol || selGridCol == itemNmCol){
         		//팝업창 오픈
         		//통합조직 팝업창 id : modal-gpcList
         		popGpcSelect.init(fn_setGridItem);
