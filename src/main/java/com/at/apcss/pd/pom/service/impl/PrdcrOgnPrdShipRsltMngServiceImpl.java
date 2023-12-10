@@ -74,12 +74,14 @@ public class PrdcrOgnPrdShipRsltMngServiceImpl extends BaseServiceImpl implement
 	public int multiSavePrdcrOgnPrdShipRsltMngList(List<PrdcrOgnPrdShipRsltMngVO> PrdcrOgnPrdShipRsltMngVOList) throws Exception {
 		int savedCnt = 0;
 		for (PrdcrOgnPrdShipRsltMngVO PrdcrOgnPrdShipRsltMngVO : PrdcrOgnPrdShipRsltMngVOList) {
+			savedCnt += insertPrdcrOgnPrdShipRsltMng(PrdcrOgnPrdShipRsltMngVO);
+			/*
 			if(ComConstants.ROW_STS_INSERT.equals(PrdcrOgnPrdShipRsltMngVO.getRowSts())) {
-				savedCnt += insertPrdcrOgnPrdShipRsltMng(PrdcrOgnPrdShipRsltMngVO);
 			}
 			if(ComConstants.ROW_STS_UPDATE.equals(PrdcrOgnPrdShipRsltMngVO.getRowSts())) {
 				savedCnt += updatePrdcrOgnPrdShipRsltMng(PrdcrOgnPrdShipRsltMngVO);
 			}
+			*/
 		}
 		return savedCnt;
 	}
