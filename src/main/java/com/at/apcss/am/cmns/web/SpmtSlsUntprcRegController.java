@@ -71,8 +71,11 @@ public class SpmtSlsUntprcRegController extends BaseController {
 				spmtSlsUntprcRegVO.setSysLastChgPrgrmId(getPrgrmId());
 				spmtSlsUntprcRegVO.setSysLastChgUserId(getUserId());
 			}
-			insertedCnt = spmtSlsUntprcRegService.multiSpmtSlsUntprcRegList(spmtSlsUntprcRegList);
 
+			HashMap<String, Object> rtnObj = spmtSlsUntprcRegService.multiSpmtSlsUntprcRegList(spmtSlsUntprcRegList);
+			if(rtnObj != null) {
+                getErrorResponseEntity(rtnObj);
+            }
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}

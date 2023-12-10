@@ -263,7 +263,10 @@ public class CmnsVrtyController extends BaseController {
 				cmnsVrtyVO.setSysLastChgUserId(getUserId());
 				cmnsVrtyVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
-			savedCnt = cmnsVrtyService.multiSaveApcVrtyList(cmnsVrtyList);
+			HashMap<String, Object> rtnObj = cmnsVrtyService.multiSaveApcVrtyList(cmnsVrtyList);
+            if(rtnObj != null) {
+                getErrorResponseEntity(rtnObj);
+            }
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
