@@ -227,17 +227,17 @@
 			position: 'bottom',
 			columns: {
 				standard: [0],
-				sum: [14,15],
+				sum: [14,15]
 			},
 			grandtotalrow : {
 				titlecol: 7,
 				titlevalue: '합계',
-				style : 'background-color: #ceebff ; font-weight: bold; color: #0060b3;',
+				style : 'background-color: #ceebff; font-weight: bold; color: #0060b3;',
 				stylestartcol: 1
 			},
 			totalformat: {
 				14: '#,### 원',
-				15: '#,### 원',
+				15: '#,### 원'
 			}
 		};
         SBGridProperties.columns = [

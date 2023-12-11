@@ -112,7 +112,9 @@ public class ClclnPrfmncServiceImpl extends BaseServiceImpl implements ClclnPrfm
 			return ComUtil.getResultMap(ComConstants.MSGCD_ALEADY_CLOSE, "정산일자");
 		}
 		
-		clclnPrfmncMapper.updateClclnPrfmnc(clclnPrfmncVO);
+		if(0 == clclnPrfmncMapper.updateClclnPrfmnc(clclnPrfmncVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
 		
 		return null;
 	}
@@ -152,8 +154,10 @@ public class ClclnPrfmncServiceImpl extends BaseServiceImpl implements ClclnPrfm
 		if (!ComConstants.CON_NONE.equals(ddlnYn)) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_ALEADY_CLOSE, "정산실적");
 		}
-		
-		clclnPrfmncMapper.updateClclnPrfmncForDelY(clclnPrfmncVO);
+
+		if(0 == clclnPrfmncMapper.updateClclnPrfmncForDelY(clclnPrfmncVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
 		
 		return null;
 	}
