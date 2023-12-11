@@ -74,18 +74,40 @@
 							<td>&nbsp;</td>
 						    <th scope="row" class="th_bg">생산자</th>
 							<td class="td_input" style="border-right: hidden;">
+<!-- 								<sbux-input -->
+<!-- 									uitype="text" -->
+<!-- 									id="srch-inp-prdcrNm" -->
+<!-- 									name="srch-inp-prdcrNm" -->
+<!-- 									class="form-control input-sm" -->
+<!-- 									placeholder="초성검색 가능" -->
+<!-- 									autocomplete-ref="jsonPrdcrAutocomplete" -->
+<!-- 									autocomplete-text="name" -->
+<!--     								oninput="fn_onInputPrdcrNm(event)" -->
+<!--     								autocomplete-select-callback="fn_onSelectPrdcrNm" -->
+<!--    								></sbux-input> -->
+<!--    								<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input> -->
 								<sbux-input
 									uitype="text"
 									id="srch-inp-prdcrNm"
 									name="srch-inp-prdcrNm"
-									class="form-control input-sm"
+									class="form-control input-sm input-sm-ast"
 									placeholder="초성검색 가능"
 									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
-    								oninput="fn_onInputPrdcrNm(event)"
+    								onkeyup="fn_onKeyUpPrdcrNm(srch-inp-prdcrNm)"
     								autocomplete-select-callback="fn_onSelectPrdcrNm"
    								></sbux-input>
-   								<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
+							</td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-input
+									uitype="text"
+									id="srch-inp-prdcrIdentno"
+									name="srch-inp-prdcrIdentno"
+									class="form-control input-sm"
+									maxlength="2"
+									autocomplete="off"
+									onchange="fn_onChangeSrchPrdcrIdentno(this)"
+								/>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button
@@ -97,7 +119,6 @@
 									onclick="fn_choicePrdcr"
 								></sbux-button>
 							</td>
-							<td>&nbsp;</td>
 						</tr>
 					</tbody>
 				</table>
@@ -735,14 +756,14 @@
     	SBUxMethod.changeAutocompleteData('srch-inp-prdcrNm', true);
     }
 
-	/**
-	 * @name fn_clearPrdcr
-	 * @description 생산자 폼 clear
-	 */
-	const fn_clearPrdcr = function() {
-		SBUxMethod.set("srch-inp-prdcrCd", "");
-		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:''");
-	}
+// 	/**
+// 	 * @name fn_clearPrdcr
+// 	 * @description 생산자 폼 clear
+// 	 */
+// 	const fn_clearPrdcr = function() {
+// 		SBUxMethod.set("srch-inp-prdcrCd", "");
+// 		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:''");
+// 	}
 
 	/**
 	 * @name fn_onSelectPrdcrNm
@@ -759,31 +780,111 @@
 		}
 	}
 
-	/**
-	 * @name fn_choicePrdcr
-	 * @description 생산자 찾기 버튼 클릭
-	 */
-    const fn_choicePrdcr = function() {
-		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr, SBUxMethod.get("srch-inp-prdcrNm"));
-	}
+// 	/**
+// 	 * @name fn_choicePrdcr
+// 	 * @description 생산자 찾기 버튼 클릭
+// 	 */
+//     const fn_choicePrdcr = function() {
+// 		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr, SBUxMethod.get("srch-inp-prdcrNm"));
+// 	}
 
 	/**
 	 * @name getByteLengthOfString
 	 * @description 글자 byte 크기 계산
 	 */
  	const getByteLengthOfString = function (s, b, i, c) {
-		  for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
-		  return b;
+	  	for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
+	  	return b;
 	}
 
 
+// 	const fn_setPrdcr = function(prdcr) {
+// 		if (!gfn_isEmpty(prdcr)) {
+// 			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
+// 			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
+// 			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+// 		}
+// 	}
+	
+ 	/**
+ 	 * @name fn_clearPrdcr
+ 	 * @description 생산자 폼 clear
+ 	 */
+ 	const fn_clearPrdcr = function() {
+ 		SBUxMethod.set("srch-inp-prdcrCd", "");
+ 		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:''");
+ 	}
+ 	/**
+ 	 * @name fn_choicePrdcr
+ 	 * @description 생산자 선택 popup
+ 	 */
+	const fn_choicePrdcr = function() {
+		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr);
+	}
+ 	/**
+ 	 * @name fn_setPrdcr
+ 	 * @description 생산자 선택 callback
+ 	 */
 	const fn_setPrdcr = function(prdcr) {
-			if (!gfn_isEmpty(prdcr)) {
-				SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
-				SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
-				SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
-			}
+		if (!gfn_isEmpty(prdcr)) {
+			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
+			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
+			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 		}
+	}
+	/**
+	 * @name fn_onKeyUpPrdcrNm
+	 * @description 생산자명 입력 시 event : autocomplete
+	 */
+	const fn_onKeyUpPrdcrNm = function(prdcrNm){
+		fn_clearPrdcr();
+		jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm, jsonPrdcr);
+    	SBUxMethod.changeAutocompleteData('srch-inp-prdcrNm', true);
+    }
+	/**
+	 * @name fn_onSelectPrdcrNm
+	 * @description 생산자 autocomplete 선택 callback
+	 */
+	 function fn_onSelectPrdcrNm(value, label, item) {
+		SBUxMethod.set("srch-inp-prdcrCd", value);
+		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+	}
+	
+	/**
+	 * @name fn_onChangeSrchPrdcrIdentno
+	 * @description 생산자번호로 찾기
+	 */
+	const fn_onChangeSrchPrdcrIdentno = function(obj) {
+
+		if (gfn_isEmpty(SBUxMethod.get("srch-inp-prdcrIdentno"))) {
+			return;
+		}
+
+		SBUxMethod.set("srch-inp-prdcrCd", "");
+		SBUxMethod.set("srch-inp-prdcrNm", "");
+		SBUxMethod.attr("srch-inp-prdcrNm", "style", "");	//skyblue
+
+		let prdcrIdentno = parseInt(SBUxMethod.get("srch-inp-prdcrIdentno")) || 0;
+
+		if (prdcrIdentno < 1) {
+			return;
+		}
+
+		const prdcrInfo = _.find(jsonPrdcr, {prdcrIdentno: prdcrIdentno});
+		if (gfn_isEmpty(prdcrInfo)) {
+			return;
+		}
+
+		SBUxMethod.set("srch-inp-prdcrCd", prdcrInfo.prdcrCd);
+		SBUxMethod.set("srch-inp-prdcrNm", prdcrInfo.prdcrNm);
+		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+
+		if (!gfn_isEmpty(prdcr.prdcrIdentno)) {
+			SBUxMethod.set("srch-inp-prdcrIdentno", prdcr.prdcrIdentno);
+		} else {
+			SBUxMethod.set("srch-inp-prdcrIdentno", "");
+		}
+	}
 	
 	const fn_dtpChange = function(){
  		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-wrhsYmdFrom");
