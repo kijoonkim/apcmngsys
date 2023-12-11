@@ -70,6 +70,11 @@ public class SortCmndController extends BaseController {
 			insertedCnt = sortCmndService.insertSortCmndList(sortCmndList);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 
 		resultMap.put(ComConstants.PROP_INSERTED_CNT,  insertedCnt);
@@ -90,6 +95,11 @@ public class SortCmndController extends BaseController {
 			deletedCnt = sortCmndService.deleteSortCmndList(sortCmndList);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 		resultMap.put(ComConstants.PROP_DELETED_CNT,  deletedCnt);
 

@@ -640,21 +640,20 @@
 		if(confirm(regMsg)){
 			const postJsonPromise = gfn_postJSON("/am/sort/insertSortCmndList.do", insertList);
 	    	const data = await postJsonPromise;
-
-	    	try{
-	       		if(data.insertedCnt > 0){
-	       			fn_search();
-	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
-	       		}else{
-	       			gfn_comAlert("E0001");					// E0001 오류가 발생하였습니다.
-	       		}
+	    	try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+	        		fn_search();
+	        	} else {
+	        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	        	}
 	        } catch (e) {
 	    		if (!(e instanceof Error)) {
 	    			e = new Error(e);
 	    		}
 	    		console.error("failed", e.message);
 	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-			}
+	        }
 		}
     }
 
