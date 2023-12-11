@@ -126,8 +126,7 @@ public class CmnsItemServiceImpl extends BaseServiceImpl implements CmnsItemServ
 		BeanUtils.copyProperties(cmnsItemVO, spcfctVO);
 		BeanUtils.copyProperties(cmnsItemVO, vrtyVO);
 		BeanUtils.copyProperties(cmnsItemVO, spmtPckgUnitVO);
-
-		if(errMsg == null ) {
+		if(errMsg == null) {
 
 			List<StdGrdVO> stdGrdList = stdGrdService.selectStdGrdList(stdGrdVO);
 
