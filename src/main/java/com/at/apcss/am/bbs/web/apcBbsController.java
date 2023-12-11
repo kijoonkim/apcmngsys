@@ -98,12 +98,6 @@ public class apcBbsController extends BaseController {
 		try {
 			 resultList = bbsService.selectBbsList(apcBbsVO);
 
-			 logger.debug("$$$$$$$$$$$$$$$$$$$$$");
-			 for (apcBbsVO bbs : resultList ) {
-				 logger.debug("bbsTitle : {}", bbs.getBbsTitle());
-				 logger.debug("sysFrstInptUserIdNm : {}", bbs.getSysFrstInptUserIdNm());
-			 }
-
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -308,12 +302,6 @@ public class apcBbsController extends BaseController {
 			try {
 				 resultList = bbsService.selectBbsCmntList(apcBbsVO);
 
-				 logger.debug("$$$$$$$$$$$$$$$$$$$$$");
-				 for (apcBbsCmntVO bbs : resultList ) {
-					 logger.debug("bbsTitle : {}", bbs.getBbsNo());
-					 logger.debug("sysFrstInptUserIdNm : {}", bbs.getSysFrstInptUserIdNm());
-				 }
-
 			} catch (Exception e) {
 				logger.debug(e.getMessage());
 				return getErrorResponseEntity(e);
@@ -336,11 +324,6 @@ public class apcBbsController extends BaseController {
 			try {
 				 resultList = bbsService.selectBbsAttachesList(apcBbsVO);
 
-				 logger.debug("$$$$$$$$$$$$$$$$$$$$$");
-				 for (apcBbsFileVO apcBbsFileVO : resultList ) {
-					 logger.debug("AtchNo : {}", apcBbsFileVO.getAtchflno());
-				 }
-
 			} catch (Exception e) {
 				logger.debug(e.getMessage());
 				return getErrorResponseEntity(e);
@@ -354,8 +337,6 @@ public class apcBbsController extends BaseController {
 		// 첨부파일 업로드
 	    @PostMapping("/am/bbs/fileUpload.do")
 	    public ResponseEntity<HashMap<String, Object>> handleFileUpload(@RequestParam("files") List<MultipartFile> files,@RequestParam("bbsNo") String bbsNo, RedirectAttributes redirectAttributes) throws Exception{
-
-	    	System.out.println("======================/fm/bbs/fileUpload.do==========================");
 
 	    	HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
@@ -458,7 +439,6 @@ public class apcBbsController extends BaseController {
 	    @GetMapping("/am/bbs/download/{atchflno}")
 	    public void downloadFile(@PathVariable String atchflno, HttpServletRequest requset, HttpServletResponse response) throws Exception {
 
-	    	System.out.println("============/am/bbs/download/=============");
 	    	apcBbsFileVO apcBbsFileVO = new apcBbsFileVO();
 	    	apcBbsFileVO.setAtchflno(atchflno);
 	    	apcBbsFileVO result;

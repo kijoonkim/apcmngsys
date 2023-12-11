@@ -14,40 +14,41 @@ import org.springframework.util.StringUtils;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.msg.service.ComMsgService;
 import com.at.apcss.co.msg.vo.ComMsgVO;
+import com.tmax.tibero.Debug;
 
 public class ComMessageSource implements MessageSource {
 
 	@Autowired
-	private ComMsgService comMsgService;		
-	
+	private ComMsgService comMsgService;
+
 	private Date comMessageDate;
-	
+
 	private List<ComMsgVO> comMsgList;
-	
+
 	private ReloadableResourceBundleMessageSource reloadableResourceBundleMessageSource;
 
 	/**
-	 * getReloadableResourceBundleMessageSource() 
+	 * getReloadableResourceBundleMessageSource()
 	 * @param reloadableResourceBundleMessageSource - resource MessageSource
 	 * @return ReloadableResourceBundleMessageSource
-	 */	
+	 */
 	public void setReloadableResourceBundleMessageSource(ReloadableResourceBundleMessageSource reloadableResourceBundleMessageSource) {
 		this.reloadableResourceBundleMessageSource = reloadableResourceBundleMessageSource;
 	}
-	
+
 	/**
-	 * getReloadableResourceBundleMessageSource() 
+	 * getReloadableResourceBundleMessageSource()
 	 * @return ReloadableResourceBundleMessageSource
-	 */	
+	 */
 	public ReloadableResourceBundleMessageSource getReloadableResourceBundleMessageSource() {
 		return reloadableResourceBundleMessageSource;
 	}
-	
+
 	/**
 	 * 정의된 메세지 조회
 	 * @param code - 메세지 코드
 	 * @return String
-	 */	
+	 */
 	public String getMessage(String code) {
 		try {
 			return getReloadableResourceBundleMessageSource().getMessage(code, null, Locale.getDefault());
@@ -55,14 +56,14 @@ public class ComMessageSource implements MessageSource {
 			return getComMessage(code);
 		}
 	}
-	
+
 	/**
 	 * 정의된 메세지 조회
 	 * @param code
 	 * @param locale
 	 * @return
 	 */
-	public String getMessage(String code, Locale locale) {		
+	public String getMessage(String code, Locale locale) {
 		try {
 			return getReloadableResourceBundleMessageSource().getMessage(code, null, locale);
 		} catch (Exception e) {
@@ -93,7 +94,7 @@ public class ComMessageSource implements MessageSource {
 		try {
 			return getReloadableResourceBundleMessageSource().getMessage(resolvable, locale);
 		} catch (Exception e) {
-			
+
 			String[] codes = resolvable.getCodes();
 			if (codes != null) {
 				for (String code : codes) {
@@ -104,69 +105,68 @@ public class ComMessageSource implements MessageSource {
 				}
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	public List<ComMsgVO> getComMessageList() throws Exception {
-		
+
 		Date nowDate = new Date();
 
-		if (comMsgList == null || comMsgList.isEmpty() || comMessageDate == null 
+		if (comMsgList == null || comMsgList.isEmpty() || comMessageDate == null
 				|| nowDate.getTime() > comMessageDate.getTime() + 60 * 1000) {
 			ComMsgVO param = new ComMsgVO();
 			param.setDelYn(ComConstants.CON_NONE);
 			comMsgList = comMsgService.selectComMsgList(param);
-			
+
 			comMessageDate = nowDate;
 		}
-		
+
 		return comMsgList;
 	}
-	
+
 	private String getComMessage(String code) {
 		return getComMessage(code, null);
 	}
-	
+
 	private String getComMessage(String code, Object[] args) {
 		if (!StringUtils.hasText(code)) {
 			return null;
 		}
-		
+
 		try {
 
 			comMsgList = getComMessageList();
-			
+
 			ComMsgVO msgVO = comMsgList.stream()
 					.filter(msg -> code.equals(msg.getMsgKey()))
 					.findAny()
 					.orElse(null);
-			
+
 			//ComMsgVO msgVO = comMsgService.selectComMsg(code);
-			
+
 			if (msgVO != null) {
-				
-				String message = msgVO.getMsgCn();				
+
+				String message = msgVO.getMsgCn();
 				if (args == null || args.length == 0) {
 					return message;
-				} 
-				
+				}
+
 				MessageFormat mf = new MessageFormat(message);
 				if (mf != null) {
 					synchronized (mf) {
 						message = mf.format(args);
 					}
 				}
-				
+
 				return message;
 			}
-			
+
 		} catch (Exception e) {
-			System.out.println("#####");
-			System.out.println(e.getMessage());
+			getComMessage(code, args);
 		}
-		
+
 		return null;
 	}
-	
+
 }

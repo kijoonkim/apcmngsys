@@ -281,8 +281,10 @@ public class StdGrdServiceImpl extends BaseServiceImpl implements StdGrdService 
 			}
 		}
 
-		String errMsg = cmnsValidationService.selectChkCdDelible(stdGrdVO.getApcCd(), "GRD_KND", stdGrdVO.getGrdKnd());
 
+		// 임시 주석 2023-12-11
+		// String errMsg = cmnsValidationService.selectChkCdDelible(stdGrdVO.getApcCd(), "GRD_KND", stdGrdVO.getGrdKnd());
+		String errMsg = null;
 		if(errMsg == null ) {
 
 			if(0 == stdGrdMapper.deleteStdGrd(stdGrdVO)) {
@@ -329,8 +331,9 @@ public class StdGrdServiceImpl extends BaseServiceImpl implements StdGrdService 
 
 	@Override
 	public HashMap<String, Object> deleteStdGrdDtl(StdGrdDtlVO stdGrdDtlVO) throws Exception {
-
-		String errMsg = cmnsValidationService.selectChkCdDelible(stdGrdDtlVO.getApcCd(), "GRD_CD", stdGrdDtlVO.getGrdCd());
+		// 임시 주석 2023-12-11
+		//String errMsg = cmnsValidationService.selectChkCdDelible(stdGrdDtlVO.getApcCd(), "GRD_CD", stdGrdDtlVO.getGrdCd());
+		String errMsg = null;
 		if(errMsg == null ) {
 
 			if(0 == stdGrdMapper.deleteStdGrdDtl(stdGrdDtlVO)) {
@@ -382,7 +385,9 @@ public class StdGrdServiceImpl extends BaseServiceImpl implements StdGrdService 
 	@Override
 	public HashMap<String, Object> deleteStdGrdJgmt(StdGrdJgmtVO StdGrdJgmtVO) throws Exception {
 
-		String errMsg = cmnsValidationService.selectChkCdDelible(StdGrdJgmtVO.getApcCd(), "JGMT_GRD_CD", StdGrdJgmtVO.getGrdCd());
+		// 임시 주석 2023-12-11
+		//String errMsg = cmnsValidationService.selectChkCdDelible(StdGrdJgmtVO.getApcCd(), "JGMT_GRD_CD", StdGrdJgmtVO.getGrdCd());
+		String errMsg = null;
 		if(errMsg == null ) {
 
 			if(0 == stdGrdMapper.deleteStdGrdJgmt(StdGrdJgmtVO)) {
