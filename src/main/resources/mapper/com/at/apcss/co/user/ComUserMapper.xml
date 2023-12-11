@@ -303,7 +303,7 @@
 	    		TB_COM_USER
 			   SET
 				 PSWD = #{pswd}
-				,LCK_YN = 'Y'
+				,LCK_YN = 'N'
 				,LGN_FAIL_NMTM = 0
 				,SYS_LAST_CHG_DT = SYSDATE
 				,SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
