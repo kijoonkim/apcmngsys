@@ -115,7 +115,7 @@
 	var jsonGGrdSeCd 	= [];
 	var jsonGJgmtType 	= [];
 	var jsonGStdGrdType	= [];
-	
+
 	var jsonStdGrd = [];
 	var jsonStdGrdDtl = [];
 
@@ -126,10 +126,8 @@
 			gfn_setComCdSBSelect("grd-rdo-grdSeCd", 	jsonGGrdSeCd, "GRD_SE_CD"),		// 등급구분코드(출하)
 			gfn_setComCdSBSelect("grdStdGrdJgmt", 		jsonGJgmtType, "JGMT_TYPE")		// 등급구분코드(출하)
 		]);
-		
-		jsonGStdGrdType = rst[0]; 
-		console.log(jsonGStdGrdType);
-		
+
+		jsonGStdGrdType = rst[0];
 		SBUxMethod.set("grd-rdo-grdSeCd", "01");
 
 		jsonStdGrd.length = 0;
@@ -477,7 +475,7 @@
 	        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
 	        		fn_searchStdGrd();
 	        	} else {
-	        		alert(data.resultMessage);
+	        		gfn_comAlert(data.resultCode, data.resultMessage);
 	        	}
 	        } catch (e) {
 	    		if (!(e instanceof Error)) {
@@ -488,70 +486,61 @@
 		}
 	}
 
-	const fn_deleteGrd = async function(stdGrdVO){
+	const fn_deleteGrd = async function(stdGrdVO, nRow){
         let postJsonPromise = gfn_postJSON("/am/cmns/deleteStdGrd.do", stdGrdVO);
         let data = await postJsonPromise;
+
         try {
-        	if(data.deletedCnt > 0){
-        		gfn_comAlert("I0001");		// I0001	처리 되었습니다.
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
         		fn_searchStdGrd();
+        		grdStdGrd.deleteRow(nRow);
         		return;
-        	}else if (data.errMsg != null ){
-        		gfn_comAlert("E0000", data.errMsg)		// W0009   {0}이/가 있습니다.
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);
         		return;
-        	}else {
-        		gfn_comAlert("E0001");
         	}
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
+        } catch(e) {
+        	console.error("failed", e.message);
         }
+
 	}
 
-	const fn_deleteGrdDtl = async function(stdGrdDtlVO){
+	const fn_deleteGrdDtl = async function(stdGrdDtlVO, nRow){
         let postJsonPromise = gfn_postJSON("/am/cmns/deleteStdGrdDtl.do", stdGrdDtlVO);
         let data = await postJsonPromise;
+
         try {
-        	if(data.deletedCnt > 0){
-        		gfn_comAlert("I0001");		// I0001	처리 되었습니다.
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
         		fn_stdGrdDtl(grdStdGrd.getRow());
+        		grdStdGrdDtl.deleteRow(nRow);
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);
         		return;
-        	}else if (data.errMsg != null ){
-        		gfn_comAlert("E0000", data.errMsg)		// W0009   {0}이/가 있습니다.
-        		return;
-        	}else {
-        		gfn_comAlert("E0001");
         	}
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
+        } catch(e) {
+        	console.error("failed", e.message);
         }
 	}
 
-	const fn_deleteGrdJgmt = async function(stdGrdJgmtVO){
+	const fn_deleteGrdJgmt = async function(stdGrdJgmtVO, nRow){
         let postJsonPromise = gfn_postJSON("/am/cmns/deleteStdGrdJgmt.do", stdGrdJgmtVO);
         let data = await postJsonPromise;
+
         try {
-        	if(data.deletedCnt > 0){
-        		gfn_comAlert("I0001");		// I0001	처리 되었습니다.
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
         		fn_searchStdGrd();
+        		grdStdGrdJgmt.deleteRow(nRow);
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);
         		return;
-        	}else if (data.errMsg != null ){
-        		gfn_comAlert("E0000", data.errMsg)		// W0009   {0}이/가 있습니다.
-        		return;
-        	}else {
-        		gfn_comAlert("E0001");
         	}
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
+        } catch(e) {
+        	console.error("failed", e.message);
         }
+
 	}
 
 </script>

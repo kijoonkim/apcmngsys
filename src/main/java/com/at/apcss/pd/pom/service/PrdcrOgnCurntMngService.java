@@ -3,6 +3,7 @@ package com.at.apcss.pd.pom.service;
 import java.util.List;
 
 import com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO;
+import com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO;
 
 
 /**
@@ -31,14 +32,30 @@ public interface PrdcrOgnCurntMngService {
 
 	public List<PrdcrOgnCurntMngVO> selectPrdcrOgnCurntMngList(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO) throws Exception;
 
-	public List<PrdcrOgnCurntMngVO> selectPrdcrOgnCurntMngDtlList(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO) throws Exception;
-
-	public int insertPrdcrOgnCurntMng(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO) throws Exception;
 
 	public int updatePrdcrOgnCurntMng(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO) throws Exception;
 
-	public int multiSavePrdcrOgnCurntMngList(List<PrdcrOgnCurntMngVO> PrdcrOgnCurntMngVOList) throws Exception;
 
-	public int deletePrdcrOgnCurntMng(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO) throws Exception;
+
+	//농가리스트 조회
+	public List<PrdcrOgnCurntMngVO> selectPrdcrOgnCurntMngDtlList(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO) throws Exception;
+	//농가 리스트 저장
+	public int multiSavePrdcrOgnCurntMngDtlList(List<PrdcrOgnCurntMngVO> PrdcrOgnCurntMngVOList) throws Exception;
+	//농가 저장
+	public int insertPrdcrOgnCurntMngDtl(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO) throws Exception;
+	//농가 삭제
+	public int deletePrdcrOgnCurntMngDtl(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO) throws Exception;
+
+
+	//생산자조직
+	public TbEvFrmhsApoVO selectTbEvFrmhsApo(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception;
+
+	public List<TbEvFrmhsApoVO> selectTbEvFrmhsApoList(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception;
+
+	public int multiSaveTbEvFrmhsApoList(List<TbEvFrmhsApoVO> tbEvFrmhsApoVOList) throws Exception;
+
+	public int insertTbEvFrmhsApo(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception;
+
+	public int deleteTbEvFrmhsApo(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception;
 
 }

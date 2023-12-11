@@ -236,7 +236,10 @@ public class CmnsSpcfctController extends BaseController {
 		cmnsSpcfctVO.setSysLastChgPrgrmId(getPrgrmId());
 
 		try {
-			resultMap = cmnsSpcfctService.deleteApcSpcfct(cmnsSpcfctVO);
+			HashMap<String, Object> rtnObj = cmnsSpcfctService.deleteApcSpcfct(cmnsSpcfctVO);
+			if(rtnObj != null) {
+				getErrorResponseEntity(rtnObj);
+			}
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -263,7 +266,10 @@ public class CmnsSpcfctController extends BaseController {
 				cmnsSpcfctVO.setSysLastChgUserId(getUserId());
 				cmnsSpcfctVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
-			savedCnt = cmnsSpcfctService.multiApcSpcfct(cmnsSpcfctList);
+			HashMap<String, Object> rtnObj = cmnsSpcfctService.multiApcSpcfct(cmnsSpcfctList);
+			if(rtnObj != null) {
+				getErrorResponseEntity(rtnObj);
+			}
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);

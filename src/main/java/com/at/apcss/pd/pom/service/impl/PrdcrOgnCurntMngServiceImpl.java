@@ -9,6 +9,7 @@ import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper;
 import com.at.apcss.pd.pom.service.PrdcrOgnCurntMngService;
 import com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO;
+import com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO;
 
 
 /**
@@ -55,9 +56,9 @@ public class PrdcrOgnCurntMngServiceImpl extends BaseServiceImpl implements Prdc
 	}
 
 	@Override
-	public int insertPrdcrOgnCurntMng(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO) throws Exception {
+	public int insertPrdcrOgnCurntMngDtl(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO) throws Exception {
 
-		int insertedCnt = PrdcrOgnCurntMngMapper.insertPrdcrOgnCurntMng(PrdcrOgnCurntMngVO);
+		int insertedCnt = PrdcrOgnCurntMngMapper.insertPrdcrOgnCurntMngDtl(PrdcrOgnCurntMngVO);
 
 		return insertedCnt;
 	}
@@ -71,11 +72,11 @@ public class PrdcrOgnCurntMngServiceImpl extends BaseServiceImpl implements Prdc
 	}
 
 	@Override
-	public int multiSavePrdcrOgnCurntMngList(List<PrdcrOgnCurntMngVO> PrdcrOgnCurntMngVOList) throws Exception {
+	public int multiSavePrdcrOgnCurntMngDtlList(List<PrdcrOgnCurntMngVO> PrdcrOgnCurntMngVOList) throws Exception {
 		int savedCnt = 0;
 		for (PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO : PrdcrOgnCurntMngVOList) {
 			if(ComConstants.ROW_STS_INSERT.equals(PrdcrOgnCurntMngVO.getRowSts())) {
-				savedCnt += insertPrdcrOgnCurntMng(PrdcrOgnCurntMngVO);
+				savedCnt += insertPrdcrOgnCurntMngDtl(PrdcrOgnCurntMngVO);
 			}
 			if(ComConstants.ROW_STS_UPDATE.equals(PrdcrOgnCurntMngVO.getRowSts())) {
 				savedCnt += updatePrdcrOgnCurntMng(PrdcrOgnCurntMngVO);
@@ -85,8 +86,43 @@ public class PrdcrOgnCurntMngServiceImpl extends BaseServiceImpl implements Prdc
 	}
 
 	@Override
-	public int deletePrdcrOgnCurntMng(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO) throws Exception {
-		return PrdcrOgnCurntMngMapper.deletePrdcrOgnCurntMng(PrdcrOgnCurntMngVO);
+	public int deletePrdcrOgnCurntMngDtl(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO) throws Exception {
+		return PrdcrOgnCurntMngMapper.deletePrdcrOgnCurntMngDtl(PrdcrOgnCurntMngVO);
 	}
 
+
+
+	//생산자 조직
+	@Override
+	public TbEvFrmhsApoVO selectTbEvFrmhsApo(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception {
+		TbEvFrmhsApoVO resultVO = PrdcrOgnCurntMngMapper.selectTbEvFrmhsApo(tbEvFrmhsApoVO);
+
+		return resultVO;
+	}
+
+	@Override
+	public List<TbEvFrmhsApoVO> selectTbEvFrmhsApoList(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception {
+		List<TbEvFrmhsApoVO> resultList = PrdcrOgnCurntMngMapper.selectTbEvFrmhsApoList(tbEvFrmhsApoVO);
+		return resultList;
+	}
+
+	@Override
+	public int multiSaveTbEvFrmhsApoList(List<TbEvFrmhsApoVO> tbEvFrmhsApoVOList) throws Exception {
+		int savedCnt = 0;
+		for (TbEvFrmhsApoVO tbEvFrmhsApoVO : tbEvFrmhsApoVOList) {
+			savedCnt += insertTbEvFrmhsApo(tbEvFrmhsApoVO);
+		}
+		return savedCnt;
+	}
+
+	@Override
+	public int insertTbEvFrmhsApo(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception {
+		int insertedCnt = PrdcrOgnCurntMngMapper.insertTbEvFrmhsApo(tbEvFrmhsApoVO);
+		return insertedCnt;
+	}
+
+	@Override
+	public int deleteTbEvFrmhsApo(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception {
+		return PrdcrOgnCurntMngMapper.deleteTbEvFrmhsApo(tbEvFrmhsApoVO);
+	}
 }

@@ -151,11 +151,16 @@
 		    	        , SLS_TRST_AMT			= #{slsTrstAmt}
 
 		    	        , RMRK					= #{rmrk}
+
+		    	        , SYS_LAST_CHG_DT		= SYSDATE
+	    				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 		    	]]>
 		    	<![CDATA[
 
 					 WHERE 1=1
 					 AND CLT.APO_CD		= #{apoCd}
+					 AND CLT.APO_SE		= #{apoSe}
 					 AND CLT.CTGRY_CD	= #{ctgryCd}
 					 AND CLT.ITEM_CD	= #{itemCd}
 		WHEN NOT MATCHED THEN
@@ -181,16 +186,29 @@
 		    		  , SLS_TRST_AMT
 
 		    		  , RMRK
+
+		    		  , SYS_FRST_INPT_DT
+		    		  , SYS_FRST_INPT_USER_ID
+		    		  , SYS_FRST_INPT_PRGRM_ID
+		    		  , SYS_LAST_CHG_DT
+		    		  , SYS_LAST_CHG_USER_ID
+		    		  , SYS_LAST_CHG_PRGRM_ID
 		    		)
 		   		VALUES
 		   			(
 		   			    #{apoCd}
-		   			  , #{apoSe}
+		   			  , (case when #{apoSe} is not null then #{apoSe}
+		   			  			ELSE (SELECT OGNZ_SE_CD FROM TB_APC_OGNZ_INFO WHERE OGNZ_CD = #{apoCd})
+		   			  			END)
 		   			  , #{brno}
-		   			  , #{crno}
+		   			  , (case when #{crno} is not null then #{crno}
+		   			  			ELSE (SELECT CRNO FROM TB_EV_APO WHERE APO_CD = #{apoCd})
+		   			  			END)
 		   			  , #{yr}
 
-		   			  , #{ctgryCd}
+		   			  , (case when #{ctgryCd} is not null then #{ctgryCd}
+		   			  			ELSE (SELECT CTGRY_CD FROM TB_EV_GPC_CD WHERE ITEM_CD = #{itemCd})
+		   			  			END)
 		   			  , #{itemCd}
 
 		   			  , #{prchsTrstVlm}
@@ -204,6 +222,13 @@
 		   			  , #{slsTrstAmt}
 
 		   			  , #{rmrk}
+
+		   			  , SYSDATE
+	   			  	  , #{sysFrstInptUserId}
+		   			  , #{sysFrstInptPrgrmId}
+		   			  , SYSDATE
+		   			  , #{sysLastChgUserId}
+		   			  , #{sysLastChgPrgrmId}
 		   			)
     	]]>
     </insert>

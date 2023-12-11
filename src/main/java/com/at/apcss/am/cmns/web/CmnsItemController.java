@@ -104,19 +104,20 @@ public class CmnsItemController extends BaseController {
 	public ResponseEntity<HashMap<String, Object>> insertApcCmnsItem(@RequestBody CmnsItemVO cmnsItemVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		int insertedCnt =0;
 		try {
 			cmnsItemVO.setSysFrstInptPrgrmId(getPrgrmId());
 			cmnsItemVO.setSysFrstInptUserId(getUserId());
 			cmnsItemVO.setSysLastChgPrgrmId(getPrgrmId());
 			cmnsItemVO.setSysLastChgUserId(getUserId());
-			insertedCnt = cmnsItemService.insertCmnsItem(cmnsItemVO);
+
+			HashMap<String, Object> rtnObj = cmnsItemService.insertCmnsItem(cmnsItemVO);
+			if(rtnObj != null) {
+				getErrorResponseEntity(rtnObj);
+			}
 
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
-
-		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
 
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -127,7 +128,10 @@ public class CmnsItemController extends BaseController {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
-			resultMap = cmnsItemService.deleteCmnsItem(cmnsItemVO);
+			HashMap<String, Object> rtnObj = cmnsItemService.deleteCmnsItem(cmnsItemVO);
+			if(rtnObj != null) {
+				getErrorResponseEntity(rtnObj);
+			}
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}

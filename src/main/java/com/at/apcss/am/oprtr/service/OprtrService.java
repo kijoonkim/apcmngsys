@@ -1,5 +1,6 @@
 package com.at.apcss.am.oprtr.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.oprtr.vo.OprtrVO;
@@ -38,8 +39,14 @@ public interface OprtrService {
 	 * @param OprtrVO
 	 * @return Integer
 	 */
-	public int multiOprtr(OprtrVO oprtrVO) throws Exception;
+	public HashMap<String, Object> multiSaveOprtrList(List<OprtrVO> optrtList) throws Exception;
 
+	/**
+	 * 작업생산자 등록
+	 * @param OprtrVO
+	 * @return Integer
+	 */
+	public int insertOprtr(OprtrVO oprtrVO) throws Exception;
 	/**
 	 * 작업생산자 변경
 	 * @param OprtrVO
@@ -51,6 +58,6 @@ public interface OprtrService {
 	 * @param OprtrVO
 	 * @return Integer
 	 */
-	public int deleteOprtr(OprtrVO oprtrVO) throws Exception;
+	public HashMap<String, Object> deleteOprtr(OprtrVO oprtrVO) throws Exception;
 
 }

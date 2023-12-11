@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import com.at.apcss.am.cmns.vo.SpmtPckgUnitVO;
 import com.at.apcss.am.cmns.vo.SpmtSlsUntprcRegVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.co.sys.util.ComUtil;
 /**
  * @Class Name : SpmtPckgUnitServiceImpl.java
  * @Description : 출하포장단위 서비스를 정의하기 위한 서비스 구현 클래스
@@ -48,7 +50,7 @@ public class SpmtPckgUnitServiceImpl extends BaseServiceImpl implements SpmtPckg
 
 	@Resource(name = "cmnsGdsService")
 	private CmnsGdsService cmnsGdsService;
-	
+
 	@Override
 	public SpmtPckgUnitVO selectSpmtPckgUnit(SpmtPckgUnitVO spmtPckgUnitVO) throws Exception {
 		SpmtPckgUnitVO resultVO = spmtPckgUnitMapper.selectSpmtPckgUnit(spmtPckgUnitVO);
@@ -79,11 +81,7 @@ public class SpmtPckgUnitServiceImpl extends BaseServiceImpl implements SpmtPckg
 	@Override
 	public HashMap<String, Object> deleteSpmtPckgUnit(SpmtPckgUnitVO spmtPckgUnitVO) throws Exception {
 
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		HashMap<String, Object> resultSlsMap = new HashMap<String, Object>();
-
 		String errMsg = cmnsValidationService.selectChkCdDelible(spmtPckgUnitVO.getApcCd(), "PCKG_UNIT_CD", spmtPckgUnitVO.getSpmtPckgUnitCd());
-		int deletedCnt = 0;
 		if(errMsg == null) {
 			SpmtSlsUntprcRegVO spmtSlsUntprcReg = new SpmtSlsUntprcRegVO();
 
@@ -92,22 +90,22 @@ public class SpmtPckgUnitServiceImpl extends BaseServiceImpl implements SpmtPckg
 			List<SpmtSlsUntprcRegVO> resultList = spmtSlsUntprcRegService.selectSpmtSlsUntprcRegList(spmtSlsUntprcReg);
 
 			for (SpmtSlsUntprcRegVO spmtSlsUntprcRegVO : resultList) {
-				resultSlsMap = spmtSlsUntprcRegService.deleteSpmtSlsUntprcReg(spmtSlsUntprcRegVO);
+				HashMap<String, Object> resultSlsMap = spmtSlsUntprcRegService.deleteSpmtSlsUntprcReg(spmtSlsUntprcRegVO);
 
-				String errMsgSls = (String) resultSlsMap.get("errMsg");
-				if(errMsgSls == null) {
-					continue;
-				}else {
+				if(resultSlsMap != null) {
 					return resultSlsMap;
 				}
 			}
-			deletedCnt = spmtPckgUnitMapper.deleteSpmtPckgUnit(spmtPckgUnitVO);
-			resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+
+			if(0 == spmtPckgUnitMapper.deleteSpmtPckgUnit(spmtPckgUnitVO)) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+			}
 		}else {
-			resultMap.put("errMsg", errMsg);
+
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, errMsg))); // E0000	{0}
 		}
 
-		return resultMap;
+		return null;
 	}
 
 	@Override
@@ -118,9 +116,7 @@ public class SpmtPckgUnitServiceImpl extends BaseServiceImpl implements SpmtPckg
 	}
 
 	@Override
-	public int multiSaveSpmtPckgUnitList(List<SpmtPckgUnitVO> spmtPckgUnitList) throws Exception {
-		int insertedCnt = 0;
-		int savedCnt = 0;
+	public HashMap<String, Object> multiSaveSpmtPckgUnitList(List<SpmtPckgUnitVO> spmtPckgUnitList) throws Exception {
 
 		String spmtPckgUnitCd;
 		for (SpmtPckgUnitVO spmtPckgUnitVO : spmtPckgUnitList) {
@@ -129,8 +125,12 @@ public class SpmtPckgUnitServiceImpl extends BaseServiceImpl implements SpmtPckg
 				spmtPckgUnitCd = getSpmtPckgUnitCd(spmtPckgUnitVO).getSpmtPckgUnitCd();
 				spmtPckgUnitVO.setSpmtPckgUnitCd(spmtPckgUnitCd);
 
-				insertedCnt = insertSpmtPckgUnit(spmtPckgUnitVO);
-				savedCnt += insertedCnt;
+				int insertedCnt = insertSpmtPckgUnit(spmtPckgUnitVO);
+
+				if(0 == insertedCnt) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+				}
+
 				if(insertedCnt > 0) {
 					SpmtSlsUntprcRegVO spmtSlsUntprcRegVO = new SpmtSlsUntprcRegVO();
 
@@ -143,21 +143,26 @@ public class SpmtPckgUnitServiceImpl extends BaseServiceImpl implements SpmtPckg
 					spmtSlsUntprcRegVO.setSysLastChgPrgrmId(spmtPckgUnitVO.getSysLastChgPrgrmId());
 					spmtSlsUntprcRegVO.setSysLastChgUserId(spmtPckgUnitVO.getSysLastChgUserId());
 
-					savedCnt += spmtSlsUntprcRegService.insertSpmtSlsUntprcReg(spmtSlsUntprcRegVO);
+					if(0 == spmtSlsUntprcRegService.insertSpmtSlsUntprcReg(spmtSlsUntprcRegVO)) {
+						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+					}
+
+					// 상품코드 발번 추가
+					CmnsGdsVO cmnsGdsVO = new CmnsGdsVO();
+					BeanUtils.copyProperties(spmtPckgUnitVO, cmnsGdsVO);
+					cmnsGdsService.insertCheckGdsCd(cmnsGdsVO);
 				}
-				
-				// 상품코드 발번 추가
-				CmnsGdsVO cmnsGdsVO = new CmnsGdsVO();
-				BeanUtils.copyProperties(spmtPckgUnitVO, cmnsGdsVO);
-				cmnsGdsService.insertCheckGdsCd(cmnsGdsVO);
-				
+
 			}
 			if(ComConstants.ROW_STS_UPDATE.equals(spmtPckgUnitVO.getRowSts())) {
-				savedCnt += updateSpmtPckgUnit(spmtPckgUnitVO);
+
+				if(0 == updateSpmtPckgUnit(spmtPckgUnitVO)) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+				}
 			}
 		}
 
-		return savedCnt;
+		return null;
 	}
 
 }

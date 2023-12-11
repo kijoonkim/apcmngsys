@@ -166,6 +166,7 @@
 			});
         	grdCnpt.rebuild();
         	grdCnpt.addRow();
+        	grdCnpt.setCellDisabled(grdCnpt.getRows() -1, 0, grdCnpt.getRows() -1, grdCnpt.getCols() -1, true);
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);

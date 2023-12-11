@@ -1,4 +1,4 @@
-package com.at.apcss.pd.pcom.vo;
+package com.at.apcss.pd.pom.vo;
 
 import com.at.apcss.co.sys.vo.ComVO;
 
@@ -7,28 +7,24 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PrdcrCrclOgnPurSalMngVO extends ComVO{
+public class TbEvFrmhsApoVO extends ComVO{
+	//생산자조직 TB_EV_FRMHS_APO
 	private String yr;
 	private String apoCd;
 	private String apoSe;
 	private String brno;
-	private String ccCode;
 	private String crno;
+	private String corpNm;
+
+	private String sttgUpbrItemSe;
 	private String ctgryCd;
-	private String itemCd;
 	private String ctgryNm;
+	private String itemCd;
 	private String itemNm;
-
-	private String prchsTrstVlm;
-	private String prchsTrstAmt;
-	private String prchsEmspapVlm;
-	private String prchsEmspapAmt;
-
-	private String slsTrstVlm;
-	private String slsTrstAmt;
-	private String slsEmspapVlm;
-	private String slsEmspapAmt;
-
+	private String trmtType;
+	private String prdcrOgnzSn;
+	private String prdcrOgnzCd;
+	private String prdcrOgnzNm;
 	private String rmrk;
 
 	private String sysFrstInptUserIdNm;

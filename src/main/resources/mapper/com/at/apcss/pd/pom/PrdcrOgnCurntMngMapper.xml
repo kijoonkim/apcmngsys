@@ -212,31 +212,37 @@
     </select>
 
 
-	<insert id="insertPrdcrOgnCurntMng" parameterType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO">
+	<insert id="insertPrdcrOgnCurntMngDtl" parameterType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO">
     	<![CDATA[
     	MERGE INTO TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN CLT  /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertEvAplyMng */
 		USING DUAL
 			ON (
 					CLT.APO_CD  = #{apoCd}
 				 AND CLT.PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
+				 AND CLT.CLTVTN_LAND_SN	= #{cltvtnLandSn}
 				)
 		WHEN MATCHED THEN
 				 UPDATE
 					   SET
-		    	        PRDCR_OGNZ_CD			= #{prdcrOgnzCd}
-		    	        , PRDCR_OGNZ_NM			= #{prdcrOgnzNm}
-		    	        , CLTVTN_AREA_RMRK		= #{cltvtnAreaRmrk}
-
-		    	        , CLTVTN_AREA			= #{cltvtnArea}
+		    	        CLTVTN_AREA			= #{cltvtnArea}
 		    	        , AVG_YR_PRDCTN_VLM		= #{avgYrPrdctnVlm}
 		    	        , JOIN_DAY				= #{joinDay}
 		    	        , WHDWL_DAY				= #{whdwlDay}
+		    	        , CLTVTN_AREA_RMRK		= #{cltvtnAreaRmrk}
+
+		    	        , FLNM		= #{flnm}
+		    	        , CLTVTN_LAND_ADDR		= #{cltvtnLandAddr}
+
+		    	        , SYS_LAST_CHG_DT		= SYSDATE
+	    				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 		    	]]>
 		    	<![CDATA[
 
 					 WHERE 1=1
 					 AND CLT.APO_CD			= #{apoCd}
 					 AND CLT.PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
+					 AND CLT.CLTVTN_LAND_SN	= #{cltvtnLandSn}
 		WHEN NOT MATCHED THEN
 			 INSERT
 		    		(
@@ -249,16 +255,25 @@
 		    		  , CTGRY_CD
 		    		  , ITEM_CD
 		    		  , TRMT_TYPE
-
 		    		  , PRDCR_OGNZ_SN
 		    		  , PRDCR_OGNZ_CD
 		    		  , PRDCR_OGNZ_NM
-		    		  , CLTVTN_AREA_RMRK
 
+		    		  , CLTVTN_LAND_SN
+		    		  , FLNM
+		    		  , CLTVTN_LAND_ADDR
 		    		  , CLTVTN_AREA
 		    		  , AVG_YR_PRDCTN_VLM
 		    		  , JOIN_DAY
 		    		  , WHDWL_DAY
+		    		  , CLTVTN_AREA_RMRK
+
+		    		  , SYS_FRST_INPT_DT
+		    		  , SYS_FRST_INPT_USER_ID
+		    		  , SYS_FRST_INPT_PRGRM_ID
+		    		  , SYS_LAST_CHG_DT
+		    		  , SYS_LAST_CHG_USER_ID
+		    		  , SYS_LAST_CHG_PRGRM_ID
 		    		)
 		   		VALUES
 		   			(
@@ -267,27 +282,40 @@
 		   			  			ELSE (SELECT OGNZ_SE_CD FROM TB_APC_OGNZ_INFO WHERE OGNZ_CD = #{apoCd})
 		   			  			END)
 		   			  , #{brno}
-		   			  , #{crno}
+		   			  , (case when #{crno} is not null then #{crno}
+		   			  			ELSE (SELECT CRNO FROM TB_EV_APO WHERE APO_CD = #{apoCd})
+		   			  			END)
 		   			  , #{yr}
 		   			  , #{sttgUpbrItemSe}
 		   			  , (case when #{ctgryCd} is not null then #{ctgryCd}
-		   			  			ELSE (SELECT CTGRY_CD FROM TB_EV_GPC_CD WHERE OGNZ_CD = #{itemCd})
+		   			  			ELSE (SELECT CTGRY_CD FROM TB_EV_GPC_CD WHERE ITEM_CD = #{itemCd})
 		   			  			END)
 		   			  , #{itemCd}
 		   			  , #{trmtType}
-
-		   			  , SEQ_PRDCR_OGNZ_SN.NEXTVAL
+		   			  , #{prdcrOgnzSn}
 		   			  , #{prdcrOgnzCd}
 		   			  , #{prdcrOgnzNm}
-		   			  , #{cltvtnAreaRmrk}
+
+		   			  , SEQ_CLTVTN_LAND_SN.NEXTVAL
+		   			  , #{flnm}
+		   			  , #{cltvtnLandAddr}
 
 		   			  , #{cltvtnArea}
 		   			  , #{avgYrPrdctnVlm}
 		   			  , #{joinDay}
 		   			  , #{whdwlDay}
+		   			  , #{cltvtnAreaRmrk}
+
+		   			  , SYSDATE
+	   			  	  , #{sysFrstInptUserId}
+		   			  , #{sysFrstInptPrgrmId}
+		   			  , SYSDATE
+		   			  , #{sysLastChgUserId}
+		   			  , #{sysLastChgPrgrmId}
 		   			)
     	]]>
     </insert>
+
 	<update id="updatePrdcrOgnCurntMng" parameterType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO">
     	<![CDATA[
 	    	UPDATE /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.upatePrdcrOgnCurntMng */
@@ -337,15 +365,16 @@
     </update>
 
 
-	<delete id="deletePrdcrOgnCurntMng" parameterType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO">
+	<delete id="deletePrdcrOgnCurntMngDtl" parameterType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO">
 		<![CDATA[
-		DELETE FROM TB_EV_FRMHS_APO
+		DELETE FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN
 		 WHERE APO_CD			= #{apoCd}
 		   AND PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
+		   AND CLTVTN_LAND_SN	= #{cltvtnLandSn}
 		]]>
 	</delete>
 
-
+	<!-- 농가 리스트 조회 -->
     <select id="selectPrdcrOgnCurntMngDtlList" parameterType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO" resultType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectPrdcrOgnCurntMng */
@@ -354,6 +383,7 @@
 		    	, CM.BRNO
 		    	, CM.CRNO
 		    	, CM.YR
+
 		    	, CM.STTG_UPBR_ITEM_SE
 		    	, CM.CTGRY_CD
 		    	, CM.ITEM_CD
@@ -361,13 +391,18 @@
 		    	, CM.PRDCR_OGNZ_SN
 		    	, CM.PRDCR_OGNZ_CD
 		    	, CM.PRDCR_OGNZ_NM
-		    	, CM.CLTVTN_AREA_RMRK
 
 		    	, CM.JOIN_DAY
 		    	, CM.WHDWL_DAY
 		    	, CM.CLTVTN_AREA
 		    	, CM.AVG_YR_PRDCTN_VLM
+		    	, CM.CLTVTN_AREA_RMRK
 
+		    	, CM.CLTVTN_LAND_SN
+		    	, CM.FLNM
+		    	, CM.CLTVTN_LAND_ADDR
+
+				, CM.DEL_YN
 				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
 				, TO_CHAR(CM.SYS_LAST_CHG_DT,'YYYY-MM-DD')		AS SYS_LAST_CHG_DT_YMD
 				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
@@ -380,13 +415,208 @@
     		<if test='apoCd != null and apoCd != ""'>
 				AND CM.APO_CD LIKE #{apoCd} || '%'
 			</if>
-			<if test='itemCd != null and itemCd != ""'>
-				AND CM.ITEM_CD LIKE '%' || #{itemCd} || '%'
+			<if test='prdcrOgnzSn != null and prdcrOgnzSn != ""'>
+				AND CM.PRDCR_OGNZ_SN LIKE '%' || #{prdcrOgnzSn} || '%'
 			</if>
-			<if test='trmtType != null and trmtType != ""'>
-				AND CM.TRMT_TYPE LIKE #{trmtType} || '%'
-			</if>
-		ORDER BY CM.PRDCR_OGNZ_SN DESC
+		ORDER BY CM.PRDCR_OGNZ_SN ASC
 
     </select>
+
+
+    <!-- 생산자조직 조회 -->
+	<select id="selectTbEvFrmhsApo" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO" resultType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectTbEvFrmhsApo */
+				  CM.APO_CD
+				, CM.APO_SE
+				, CM.BRNO
+				, CM.CRNO
+				, CM.YR
+
+				, CM.STTG_UPBR_ITEM_SE
+				, CM.CTGRY_CD
+				, (SELECT CTGRY_NM FROM TB_EV_GPC_CD WHERE ITEM_CD = CM.ITEM_CD) AS CTGRY_NM
+				, CM.ITEM_CD
+				, (SELECT ITEM_NM FROM TB_EV_GPC_CD WHERE ITEM_CD = CM.ITEM_CD) AS ITEM_NM
+				, CM.TRMT_TYPE
+				, CM.PRDCR_OGNZ_SN
+				, CM.PRDCR_OGNZ_CD
+				, CM.PRDCR_OGNZ_NM
+				, CM.RMRK
+				, CM.DEL_YN
+
+				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
+				, TO_CHAR(CM.SYS_LAST_CHG_DT,'YYYY-MM-DD')		AS SYS_LAST_CHG_DT_YMD
+				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
+				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_NM
+				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
+			  FROM TB_EV_FRMHS_APO CM
+			 WHERE 1=1
+
+    	]]>
+    		<if test='apoCd != null and apoCd != ""'>
+				AND CM.APO_CD LIKE #{apoCd} || '%'
+			</if>
+			<if test='brno != null and brno != ""'>
+				AND CM.BRNO LIKE #{brno} || '%'
+			</if>
+			<if test='yr != null and yr != ""'>
+				AND EAM.YR LIKE '%' || #{yr} || '%'
+			</if>
+		ORDER BY CM.PRDCR_OGNZ_SN ASC
+
+		<!-- 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    </select>
+
+    <!-- 생산자조직 리스트 조회 -->
+	<select id="selectTbEvFrmhsApoList" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO" resultType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+
+    	<![CDATA[
+			SELECT /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectTbEvFrmhsApo */
+				  CM.APO_CD
+				, CM.APO_SE
+				, CM.BRNO
+				, CM.CRNO
+				, CM.YR
+
+				, CM.STTG_UPBR_ITEM_SE
+				, CM.CTGRY_CD
+				, (SELECT CTGRY_NM FROM TB_EV_GPC_CD WHERE ITEM_CD = CM.ITEM_CD) AS CTGRY_NM
+				, CM.ITEM_CD
+				, (SELECT ITEM_NM FROM TB_EV_GPC_CD WHERE ITEM_CD = CM.ITEM_CD) AS ITEM_NM
+				, CM.TRMT_TYPE
+				, CM.PRDCR_OGNZ_SN
+				, CM.PRDCR_OGNZ_CD
+				, CM.PRDCR_OGNZ_NM
+				, CM.RMRK
+				, CM.DEL_YN
+
+				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
+				, TO_CHAR(CM.SYS_LAST_CHG_DT,'YYYY-MM-DD')		AS SYS_LAST_CHG_DT_YMD
+				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
+				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_NM
+				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
+			  FROM TB_EV_FRMHS_APO CM
+			 WHERE 1=1
+
+    	]]>
+    		<if test='apoCd != null and apoCd != ""'>
+				AND CM.APO_CD LIKE #{apoCd} || '%'
+			</if>
+			<if test='brno != null and brno != ""'>
+				AND CM.BRNO LIKE #{brno} || '%'
+			</if>
+			<if test='yr != null and yr != ""'>
+				AND EAM.YR LIKE '%' || #{yr} || '%'
+			</if>
+		ORDER BY CM.PRDCR_OGNZ_SN ASC
+
+		<!-- 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    </select>
+
+	<insert id="insertTbEvFrmhsApo" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
+    	<![CDATA[
+    	MERGE INTO TB_EV_FRMHS_APO CLT  /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertTbEvFrmhsApo */
+		USING DUAL
+			ON (
+					CLT.APO_CD  = #{apoCd}
+				AND CLT.BRNO	= #{brno}
+				AND CLT.PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
+				)
+		WHEN MATCHED THEN
+				 UPDATE
+					   SET
+		    	        PRDCR_OGNZ_CD		= #{prdcrOgnzCd}
+		    	        , PRDCR_OGNZ_NM		= #{prdcrOgnzNm}
+		    	        , RMRK				= #{rmrk}
+
+		    	        , SYS_LAST_CHG_DT		= SYSDATE
+	    				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+		    	]]>
+		    	<![CDATA[
+
+					 WHERE 1=1
+					 AND CLT.APO_CD			= #{apoCd}
+					 AND CLT.PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
+		WHEN NOT MATCHED THEN
+			 INSERT
+		    		(
+		    			APO_CD
+		    		  , APO_SE
+		    		  , BRNO
+		    		  , CRNO
+		    		  , YR
+		    		  , STTG_UPBR_ITEM_SE
+		    		  , CTGRY_CD
+		    		  , ITEM_CD
+		    		  , TRMT_TYPE
+
+		    		  , PRDCR_OGNZ_SN
+		    		  , PRDCR_OGNZ_CD
+		    		  , PRDCR_OGNZ_NM
+		    		  , RMRK
+
+		    		  , SYS_FRST_INPT_DT
+		    		  , SYS_FRST_INPT_USER_ID
+		    		  , SYS_FRST_INPT_PRGRM_ID
+		    		  , SYS_LAST_CHG_DT
+		    		  , SYS_LAST_CHG_USER_ID
+		    		  , SYS_LAST_CHG_PRGRM_ID
+		    		)
+		   		VALUES
+		   			(
+		   			    #{apoCd}
+		   			  , (case when #{apoSe} is not null then #{apoSe}
+		   			  			ELSE (SELECT OGNZ_SE_CD FROM TB_APC_OGNZ_INFO WHERE OGNZ_CD = #{apoCd})
+		   			  			END)
+		   			  , #{brno}
+		   			  , #{crno}
+		   			  , #{yr}
+		   			  , #{sttgUpbrItemSe}
+		   			  , (case when #{ctgryCd} is not null then #{ctgryCd}
+		   			  			ELSE (SELECT CTGRY_CD FROM TB_EV_GPC_CD WHERE ITEM_CD = #{itemCd})
+		   			  			END)
+		   			  , #{itemCd}
+		   			  , #{trmtType}
+
+		   			  , SEQ_PRDCR_OGNZ_SN.NEXTVAL
+		   			  , #{prdcrOgnzCd}
+		   			  , #{prdcrOgnzNm}
+		   			  , #{rmrk}
+		   			  , SYSDATE
+	   			  	  , #{sysFrstInptUserId}
+		   			  , #{sysFrstInptPrgrmId}
+		   			  , SYSDATE
+		   			  , #{sysLastChgUserId}
+		   			  , #{sysLastChgPrgrmId}
+		   			)
+    	]]>
+    </insert>
+
+	<delete id="deleteTbEvFrmhsApo" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
+		<![CDATA[
+		DELETE FROM TB_EV_FRMHS_APO
+		 WHERE APO_CD			= #{apoCd}
+		   AND PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
+		]]>
+	</delete>
 </mapper>

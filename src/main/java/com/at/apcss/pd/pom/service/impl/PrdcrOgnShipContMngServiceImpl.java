@@ -74,12 +74,15 @@ public class PrdcrOgnShipContMngServiceImpl extends BaseServiceImpl implements P
 	public int multiSavePrdcrOgnShipContMngList(List<PrdcrOgnShipContMngVO> PrdcrOgnShipContMngVOList) throws Exception {
 		int savedCnt = 0;
 		for (PrdcrOgnShipContMngVO PrdcrOgnShipContMngVO : PrdcrOgnShipContMngVOList) {
+			savedCnt += insertPrdcrOgnShipContMng(PrdcrOgnShipContMngVO);
+			/*
 			if(ComConstants.ROW_STS_INSERT.equals(PrdcrOgnShipContMngVO.getRowSts())) {
 				savedCnt += insertPrdcrOgnShipContMng(PrdcrOgnShipContMngVO);
 			}
 			if(ComConstants.ROW_STS_UPDATE.equals(PrdcrOgnShipContMngVO.getRowSts())) {
 				savedCnt += updatePrdcrOgnShipContMng(PrdcrOgnShipContMngVO);
 			}
+			*/
 		}
 		return savedCnt;
 	}
