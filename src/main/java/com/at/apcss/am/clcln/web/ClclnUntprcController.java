@@ -12,9 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import com.at.apcss.am.clcln.service.ClclnPrfmncService;
 import com.at.apcss.am.clcln.service.ClclnUntprcService;
-import com.at.apcss.am.clcln.vo.ClclnPrfmncVO;
 import com.at.apcss.am.clcln.vo.ClclnUntprcVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
@@ -51,6 +49,11 @@ public class ClclnUntprcController extends BaseController {
 			resultList = clclnUntprcService.selectClclnUntprcList(clclnUntprcVO);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -82,6 +85,11 @@ public class ClclnUntprcController extends BaseController {
 		} catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 
 		return getSuccessResponseEntity(resultMap);
