@@ -781,15 +781,16 @@
 
     	const postJsonPromise = gfn_postJSON("/am/ordr/regSpmtCmndList.do", regSpmtCmndList, this.prgrmId);	// 프로그램id 추가
 		const data = await postJsonPromise;
-        try {
-        	if (data.insertedCnt > 0) {
+    	
+		try {
+        	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
         		fn_callSelectOutordrInfoList();
         		fn_search();
         	} else {
-        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
         	}
-        } catch(e) {
+		}catch(e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
     		}
