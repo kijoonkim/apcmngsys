@@ -74,6 +74,11 @@ public class GdsWrhsController extends BaseController {
 		} catch (Exception e) {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -94,6 +99,11 @@ public class GdsWrhsController extends BaseController {
 		} catch (Exception e) {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 		return getSuccessResponseEntity(resultMap);
 	}

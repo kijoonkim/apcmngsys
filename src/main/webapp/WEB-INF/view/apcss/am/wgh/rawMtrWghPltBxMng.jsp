@@ -76,7 +76,8 @@
 						<col style="width: 3%">
 						<col style="width: 7%">
 						<col style="width: 6%">
-						<col style="width: 6%">
+						<col style="width: 3%">
+						<col style="width: 3%">
 						<col style="width: 3%">
 						<col style="width: 7%">
 						<col style="width: 6%">
@@ -94,7 +95,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-wrhsSpmtSe" name="srch-slt-wrhsSpmtSe" uitype="single" jsondata-ref="jsonWrhsSpmtSe" class="form-control input-sm input-sm-ast inpt_data_reqed" unselected-text="선택"></sbux-select>
 							</td>
-							<td colspan="2" class="td_input"  style="border-right: hidden;"></td>
+							<td colspan="3" class="td_input"  style="border-right: hidden;"></td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>구분</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-pltBxSe" name="srch-slt-pltBxSe" uitype="single" jsondata-ref="jsonPltBxSe" class="form-control input-sm input-sm-ast inpt_data_reqed" unselected-text="선택" onchange="fn_selectPltBxSe()"></sbux-select>
@@ -113,7 +114,7 @@
 									uitype="text"
 									id="srch-inp-prdcrNm"
 									name="srch-inp-prdcrNm"
-									class="form-control input-sm"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									placeholder="초성검색 가능"
 									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
@@ -121,6 +122,17 @@
     								autocomplete-select-callback="fn_onSelectPrdcrNm"
    								></sbux-input>
    								<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
+							</td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-input
+									uitype="text"
+									id="srch-inp-prdcrIdentno"
+									name="srch-inp-prdcrIdentno"
+									class="form-control input-sm"
+									maxlength="2"
+									autocomplete="off"
+									onchange="fn_onChangeSrchPrdcrIdentno(this)"
+								/>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button 
@@ -132,7 +144,7 @@
 									onclick="fn_choicePrdcr"
 								></sbux-button>
 							</td>
-							<td>&nbsp;</td>
+							<td class="td_input" style="border-right: hidden;"></td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>수량</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-qntt" name="srch-inp-qntt" uitype="text" maxlength="7" class="form-control input-sm" mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"></sbux-input>
@@ -673,6 +685,8 @@
 		SBUxMethod.set("srch-slt-pltBxNm", "");
 		fn_clearPrdcr();
 		SBUxMethod.set("srch-inp-prdcrNm", "");
+		SBUxMethod.set("srch-inp-prdcrCd", "");
+		SBUxMethod.set("srch-inp-prdcrIdentno", "");
 		SBUxMethod.set("srch-inp-qntt", "");
 	}
 	
@@ -740,6 +754,35 @@
 	 */
     const fn_choicePrdcr = function() {
 		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr, SBUxMethod.get("srch-inp-prdcrNm"));
+	}
+	
+    const fn_onChangeSrchPrdcrIdentno = function(obj) {
+
+		if (gfn_isEmpty(SBUxMethod.get("srch-inp-prdcrIdentno"))) {
+			return;
+		}
+
+		SBUxMethod.set("srch-inp-prdcrCd", "");
+		SBUxMethod.set("srch-inp-prdcrNm", "");
+		SBUxMethod.attr("srch-inp-prdcrNm", "style", "");	//skyblue
+
+		let prdcrIdentno = parseInt(SBUxMethod.get("srch-inp-prdcrIdentno")) || 0;
+
+		if (prdcrIdentno < 1) {
+			return;
+		}
+
+		const prdcrInfo = _.find(jsonPrdcr, {prdcrIdentno: prdcrIdentno});
+		if (gfn_isEmpty(prdcrInfo)) {
+			return;
+		}
+
+		SBUxMethod.set("srch-inp-prdcrCd", prdcrInfo.prdcrCd);
+		SBUxMethod.set("srch-inp-prdcrNm", prdcrInfo.prdcrNm);
+		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+
+		fn_setPrdcrForm(prdcrInfo);
+
 	}
 
 	/**
