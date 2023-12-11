@@ -1449,6 +1449,15 @@
 
 	}
 	
+	/**
+	 * @name getByteLengthOfString
+	 * @description 글자 byte 크기 계산
+	 */
+ 	const getByteLengthOfString = function (s, b, i, c) {
+		  for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
+		  return b;
+	}
+	
 	const fn_onChangeSrchPrdcrIdentno = function(obj) {
 
 		if (gfn_isEmpty(SBUxMethod.get("srch-inp-prdcrIdentno"))) {
