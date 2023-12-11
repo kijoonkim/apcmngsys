@@ -371,6 +371,40 @@
 		]]>
 	</delete>
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.selectComCdDtl				-->
+	<!-- DESC : 공통코드 상세 조회.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.05.17  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectComCdDtl" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultType="com.at.apcss.co.cd.vo.ComCdVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.cd.mapper.ComCdMapper.selectComCdDtlList */
+				   CC.CD_ID         AS CD_ID
+			     , CC.CD_NM         AS CD_NM
+			     , CC.CD_EXPLN      AS CD_EXPLN
+			     , CD.CD_VL			AS CD_VL
+			     , CD.APC_CD		AS APC_CD
+			     , CD.CD_VL_NM		AS CD_VL_NM
+			     , CD.CD_VL_EXPLN	AS CD_VL_EXPLN
+			     , CD.INDCT_SEQ		AS INDCT_SEQ
+			     , CD.UP_CD_VL		AS UP_CD_VL
+			     , CD.CD_NUM_VL		AS CD_NUM_VL
+			     , CD.CD_CHR_VL		AS CD_CHR_VL
+			     , CD.DEL_YN		AS DEL_YN
+			  FROM
+			  	  TB_COM_CD CC
+			  	, TB_COM_CD_DTL CD
+			 WHERE CC.CD_ID = CD.CD_ID
+			   AND CC.CD_ID = #{cdId}
+			   AND CD.APC_CD = #{apcCd}
+			   AND CD.CD_VL = #{cdVl}
+    	]]>
+    </select>
+
+
 	<!-- =========================================================================  -->
 	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.updateComCdDtlDelYn			-->
 	<!-- DESC : 공통코드 상세 사용유무 수정  		                                        -->

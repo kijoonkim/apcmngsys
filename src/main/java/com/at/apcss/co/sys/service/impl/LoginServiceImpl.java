@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.log.vo.ComLogVO;
 import com.at.apcss.co.sys.mapper.LoginMapper;
 import com.at.apcss.co.sys.service.LoginService;
 import com.at.apcss.co.sys.vo.LoginVO;
@@ -226,5 +227,6 @@ public class LoginServiceImpl extends EgovAbstractServiceImpl implements LoginSe
 	public void updateResetFailCount(LoginVO resultVO) throws Exception {
 		loginMapper.updateResetFailCount(resultVO);
 	}
+
 
 }

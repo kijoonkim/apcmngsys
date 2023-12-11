@@ -2,13 +2,42 @@ package com.at.apcss.co.constants;
 
 public class ComConstants {
 
+	/**
+	 * 미등록
+	 */
 	public final static String ERR_USER_NONE = "USER_NONE";
+	/**
+	 * 미승인
+	 */
 	public final static String ERR_USER_UNRECEIVED = "USER_UNRECEIVED";
+	/**
+	 * 휴면
+	 */
 	public final static String ERR_USER_DORMANCY = "USER_DORMANCY";
 	public final static String ERR_USER_INVALID = "USER_INVALID";
+	/**
+	 * 미사용
+	 */
 	public final static String ERR_USER_UNUSED = "USER_UNUSED";
+	/**
+	 * 잠김
+	 */
 	public final static String ERR_USER_LOCKED = "USER_LOCKED";
+	/**
+	 * 중복로그인
+	 */
+	public final static String ERR_USER_DUPLICATE = "USER_DUPLICATE";
+	
+	/**
+	 * 로그인 실패
+	 */
 	public final static String ERR_LOGIN_FAILED = "LOGIN_FAILED";
+	
+	/**
+	 * 로그인 성공
+	 */
+	public final static String LOGIN_SUCCESS = "LOGIN_SUCCESS";
+	
 
 	public final static String CON_SYS_ID_CO = "CO";
 	public final static String CON_SYS_ID_AM = "AM";
@@ -35,6 +64,10 @@ public class ComConstants {
 	public final static String PROP_UPDATED_CNT = "updatedCnt";
 	public final static String PROP_DELETED_CNT = "deletedCnt";
 	public final static String PROP_SAVED_CNT = "savedCnt";
+	
+	public final static String PROP_LOGIN_CODE = "loginCode";
+	public final static String PROP_LOGIN_MESSAGE = "loginMessage";
+	
 
 	/* audit column name */
 	public final static String PROP_SYS_FRST_INPT_DT = "sysFrstInptDt";
@@ -204,6 +237,12 @@ public class ComConstants {
 	 * 수행업무구분코드: 기본 ""
 	 */
 	public final static String CON_FLFMT_TASK_SE_CD_DEFAULT = "";
+	
+	/**
+	 * 중복허용 여부
+	 */
+	public final static String CON_DPCN_LGN = "DPCN_LGN";
+	public final static String CON_DPCN_LGN_PSBLTY = "PSBLTY";
 	
 	/* 재고구분 */
 	public final static String INVNTR_SE_CD_RAWMTR = "1";

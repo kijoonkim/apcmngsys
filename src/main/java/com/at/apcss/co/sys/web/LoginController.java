@@ -81,6 +81,183 @@ public class LoginController extends BaseController {
 	}
 	
 	
+	@PostMapping(value = "/co/sys/forceLogin")//, consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> forceLogin(@RequestBody LoginVO loginVO, HttpServletRequest request) throws Exception{
+		
+		loginVO.setFrcdExpryYn(ComConstants.CON_YES);
+		return loginCheck(loginVO, request);
+	}
+	
+	
+	
+	
+	@PostMapping(value = "/co/sys/loginCheck")//, consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> loginCheck(@RequestBody LoginVO loginVO, HttpServletRequest request) throws Exception{
+		
+		/*
+		logger.debug("loginVO {}", loginVO.toString());
+		logger.debug("getId() {}", loginVO.getId());
+		logger.debug("getPassword() {}", loginVO.getPassword());
+		*/
+		//logger.debug("map {}", map.toString());
+		
+		
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		//LoginVO loginVO = new LoginVO();
+		try {
+
+			String userId = loginVO.getId();
+			String prgrmId = "login";
+			String userIp = getUserIp(request);
+			
+			logger.debug("id : {}", userId);
+			if (userId == null) {
+				return null;
+			}
+			
+			ComLogVO comLogVo = new ComLogVO();
+			comLogVo.setSysFrstInptUserId(userId);
+			comLogVo.setSysFrstInptPrgrmId(prgrmId);
+			comLogVo.setSysLastChgUserId(userId);
+			comLogVo.setSysLastChgPrgrmId(prgrmId);
+			
+			comLogVo.setPrslType(ComConstants.CON_PRSL_TYPE_LOGIN_FAIL);
+			comLogVo.setMenuId(prgrmId);
+			comLogVo.setUserId(userId);
+			
+			if (getUserId() != null) {
+				comLogVo.setLgnScsYn(ComConstants.CON_YES);
+			}
+			
+			LoginVO resultVO = loginService.actionLogin(loginVO);
+			if (resultVO != null && StringUtils.hasText(resultVO.getId())) {
+				
+				if (ComConstants.CON_YES.equals(resultVO.getLckYn())) {		// 잠금상태
+					resultMap.put(ComConstants.PROP_LOGIN_CODE, ComConstants.ERR_USER_LOCKED);
+					resultMap.put(ComConstants.PROP_LOGIN_MESSAGE, messageSource.getMessage("fail.common.login.lck", request.getLocale()));
+				} else {
+					
+					String userStts = resultVO.getUserStts();
+					
+					if (!ComConstants.CON_USER_STTS_VALID.equals(userStts)) {
+						
+						if (ComConstants.CON_USER_STTS_STANDBY.equals(userStts)) {	// 승인대기
+							resultMap.put(ComConstants.PROP_LOGIN_CODE, ComConstants.ERR_USER_UNRECEIVED);
+						} else if (ComConstants.CON_USER_STTS_DORMANCY.equals(userStts)) {	// 휴면
+							resultMap.put(ComConstants.PROP_LOGIN_CODE, ComConstants.ERR_USER_DORMANCY);
+						} else if (ComConstants.CON_USER_STTS_UNUSED.equals(userStts)) {	// 미사용
+							resultMap.put(ComConstants.PROP_LOGIN_CODE, ComConstants.ERR_USER_UNUSED);
+						} else {
+							resultMap.put(ComConstants.PROP_LOGIN_CODE, ComConstants.ERR_USER_INVALID);
+						}
+						resultMap.put(ComConstants.PROP_LOGIN_MESSAGE, null);
+					} else {
+						
+						if (ComConstants.CON_YES.equals(loginVO.getFrcdExpryYn())) {
+							// 동일id의 세션을 만료처리한다
+							HashMap<String, Object> rtnObj = terminateSessionByUser(userId);
+							if (rtnObj != null) {
+								return getErrorResponseEntity(rtnObj);
+							}
+						}
+						
+						// login 세션 확인
+						boolean isDuplicateUser = checkDuplicatedUser(userId, userIp);
+						
+						if (isDuplicateUser) {
+							resultMap.put(ComConstants.PROP_LOGIN_CODE, ComConstants.ERR_USER_DUPLICATE);
+							resultMap.put(ComConstants.PROP_LOGIN_MESSAGE, null);
+						} else {
+							// 정상 로그인 진행
+							
+							resultMap.put(ComConstants.PROP_LOGIN_CODE, ComConstants.LOGIN_SUCCESS);
+							resultMap.put(ComConstants.PROP_LOGIN_MESSAGE, null);
+							
+							// 로그인 정보를 세션에 저장
+							request.getSession().setAttribute("loginVO", resultVO);
+							// 로그인 인증세션
+							request.getSession().setAttribute("accessUser", resultVO.getId());
+							
+							// 세션정보 db insert
+							setSessionInfo(request);
+							
+							ApcInfoVO apcInfoVO = new ApcInfoVO();
+							List<String> comApcList = new ArrayList<>();
+							ObjectMapper objMapper = new ObjectMapper();
+
+							// 로그인 사용자가 시스템관리자, AT관리자 일 경우 APC리스트를 세션에 저장
+							String userType = resultVO.getUserType();
+							if (ComConstants.CON_USER_TYPE_SYS.equals(userType)
+									|| ComConstants.CON_USER_TYPE_AT.equals(userType)) {
+								resultVO.setApcAdminType(userType);
+							} else {
+								apcInfoVO.setApcCd(resultVO.getApcCd());
+							}
+							
+							List<ApcInfoVO> apcInfoList = apcInfoService.selectApcMngList(apcInfoVO);
+							for ( ApcInfoVO apc : apcInfoList ) {
+
+								ComApcJsonVO comApcJsonVO = new ComApcJsonVO();
+								BeanUtils.copyProperties(apc, comApcJsonVO);
+
+								if (StringUtils.hasText(resultVO.getApcCd())
+										&& resultVO.getApcCd().equals(apc.getApcCd())) {
+									request.getSession().setAttribute("apcVO", comApcJsonVO);
+								}
+
+								comApcList.add(objMapper.writeValueAsString(comApcJsonVO));
+								logger.debug(objMapper.writeValueAsString(comApcJsonVO));
+
+							}
+
+							if (comApcList != null && !comApcList.isEmpty()) {
+								request.getSession().setAttribute("comApcList", comApcList);
+							} else {
+								request.getSession().setAttribute("comApcList", null);
+							}
+							
+							comLogVo.setApcCd(resultVO.getApcCd());
+							comLogVo.setUserNm(resultVO.getName());
+							comLogVo.setUserType(userType);
+							comLogVo.setPrslType(ComConstants.CON_PRSL_TYPE_LOGIN);
+							
+							loginService.updateResetFailCount(resultVO);
+						}
+					}
+				}
+				
+			} else {
+				
+				if (resultVO != null) {
+					
+					String lgnRslt = resultVO.getLgnRslt();
+					
+					if (ComConstants.ERR_LOGIN_FAILED.equals(lgnRslt)) {
+						LoginVO loginVo = loginService.selectUser(loginVO.getId());
+						if (ComConstants.CON_NONE.equals(loginVo.getLckYn())) {
+							loginService.updateFailCount(loginVO);
+							if (loginVo.getLgnFailNmtm() == 4){
+								loginService.updateUserLck(loginVo);
+							}
+						}
+					}
+					
+					resultMap.put(ComConstants.PROP_LOGIN_CODE, ComConstants.ERR_LOGIN_FAILED);
+					resultMap.put(ComConstants.PROP_LOGIN_MESSAGE, messageSource.getMessage("fail.common.login.notFound", request.getLocale()));					
+				}
+			}
+			
+			comLogService.insertMenuHstry(comLogVo);
+			
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+		
+		
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	
 	@GetMapping("/login.do")
 	public String doLoginView(@ModelAttribute("loginVO") LoginVO loginVO,
 			HttpServletRequest request,
@@ -118,25 +295,25 @@ public class LoginController extends BaseController {
 			HttpServletResponse response,
 			HttpSession httpSession,
 			ModelMap model) throws Exception {
-
+		
 		LoginVO resultVO = loginService.actionLogin(loginVO);
 
 		//로그인 이력 저장
-				ComLogVO comLogVo = new ComLogVO();
-				String userId = loginVO.getId();
-				String menuId ="login";
-				comLogVo.setUserId(userId);
-				comLogVo.setUserIp(getUserIp(request));
-				comLogVo.setMenuId(menuId);
+		ComLogVO comLogVo = new ComLogVO();
+		String userId = loginVO.getId();
+		String menuId ="login";
+		comLogVo.setUserId(userId);
+		comLogVo.setUserIp(getUserIp(request));
+		comLogVo.setMenuId(menuId);
 
-				if (getUserId() != null) {
-					comLogVo.setLgnScsYn("Y");
-				}
+		if (getUserId() != null) {
+			comLogVo.setLgnScsYn("Y");
+		}
 
-				comLogVo.setSysFrstInptUserId(userId);
-				comLogVo.setSysLastChgUserId(userId);
-				comLogVo.setSysFrstInptPrgrmId(menuId);
-				comLogVo.setSysLastChgPrgrmId(menuId);
+		comLogVo.setSysFrstInptUserId(userId);
+		comLogVo.setSysLastChgUserId(userId);
+		comLogVo.setSysFrstInptPrgrmId(menuId);
+		comLogVo.setSysLastChgPrgrmId(menuId);
 //				comLogVo.setPrslType("L1");
 
 //				comLogService.insertMenuHstry(comLogVo);
@@ -176,11 +353,15 @@ public class LoginController extends BaseController {
 				return "main/login";
 			}
 
-
+			// 로그인 정보를 세션에 저장
+			request.getSession().setAttribute("loginVO", resultVO);
+			// 로그인 인증세션
+			request.getSession().setAttribute("accessUser", resultVO.getId());
+			
+			// 세션정보 db insert
+			setSessionInfo(request);
+			
 			ApcInfoVO apcInfoVO = new ApcInfoVO();
-
-
-
 			List<String> comApcList = new ArrayList<>();
 			ObjectMapper objMapper = new ObjectMapper();
 
@@ -215,16 +396,9 @@ public class LoginController extends BaseController {
 				request.getSession().setAttribute("comApcList", null);
 			}
 
-			// 로그인 정보를 세션에 저장
-			request.getSession().setAttribute("loginVO", resultVO);
-
-			// 세션정보 db insert
-
-			// 로그인 인증세션
-			request.getSession().setAttribute("accessUser", resultVO.getId());
-
 			model.addAttribute("loginCode", null);
 			model.addAttribute("loginMessage", null);
+
 			//로그인 이력
 			comLogVo.setApcCd(resultVO.getApcCd());
 			comLogVo.setUserNm(resultVO.getName());
@@ -255,7 +429,6 @@ public class LoginController extends BaseController {
 
 				}
 			}
-
 
 			//실패 이력저장
 			comLogVo.setPrslType("L3");
@@ -301,6 +474,14 @@ public class LoginController extends BaseController {
 
 		if (resultVO != null && resultVO.getId() != null && StringUtils.hasText(resultVO.getId())) {
 
+			// 로그인 정보를 세션에 저장
+			request.getSession().setAttribute("loginVO", resultVO);
+
+			// 로그인 인증세션
+			request.getSession().setAttribute("accessUser", resultVO.getId());
+			
+			setSessionInfo(request);
+			
 			ApcInfoVO apcInfoVO = new ApcInfoVO();
 
 			List<String> comApcList = new ArrayList<>();
@@ -319,27 +500,20 @@ public class LoginController extends BaseController {
 			for ( ApcInfoVO apc : apcInfoList ) {
 				ComApcJsonVO comApcJsonVO = new ComApcJsonVO();
 				BeanUtils.copyProperties(apc, comApcJsonVO);
-				comApcList.add(objMapper.writeValueAsString(comApcJsonVO));
 
 				if (StringUtils.hasText(resultVO.getApcCd())
 						&& resultVO.getApcCd().equals(apc.getApcCd())) {
 					request.getSession().setAttribute("apcVO", comApcJsonVO);
 				}
+				
+				comApcList.add(objMapper.writeValueAsString(comApcJsonVO));
 			}
 
 			if (comApcList != null && !comApcList.isEmpty()) {
-				request.getSession().setAttribute("comApcList", objMapper.writeValueAsString(comApcList));
+				request.getSession().setAttribute("comApcList", comApcList);
 			} else {
 				request.getSession().setAttribute("comApcList", null);
 			}
-
-			// 로그인 정보를 세션에 저장
-			//httpSession.setAttribute("loginVO", resultVO);
-			request.getSession().setAttribute("loginVO", resultVO);
-
-			// 로그인 인증세션
-			//httpSession.setAttribute("accessUser", resultVO.getId());
-			request.getSession().setAttribute("accessUser", resultVO.getId());
 
 			return "redirect:/actionMain.do";
 		} else {
@@ -412,9 +586,10 @@ public class LoginController extends BaseController {
 			return "redirect:/main.do";
 		}
 
-
 		comLogService.insertMenuHstry(comLogVo);
 
+		terminateSession(request);
+		
 		// 1. Security 연도
 		request.getSession().setAttribute("loginVO", null);
 		request.getSession().setAttribute("accessUser", null);
