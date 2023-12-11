@@ -1,5 +1,6 @@
 package com.at.apcss.am.spmt.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.ordr.vo.OrdrVO;
@@ -95,4 +96,12 @@ public interface SpmtCmndService {
 	 * @throws Exception
 	 */
 	public int deleteSpmtCmndList(List<SpmtCmndVO> spmtCmndList) throws Exception;
+	
+	/**
+	 * 발주정보 출하지시번호 저장
+	 * @param List<OrdrVO>
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> regSpmtCmndList(List<OrdrVO> ordrList) throws Exception;
 }

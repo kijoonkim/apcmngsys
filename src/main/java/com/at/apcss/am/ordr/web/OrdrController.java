@@ -17,7 +17,6 @@ import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.ordr.service.OrdrService;
 import com.at.apcss.am.ordr.vo.OrdrVO;
 import com.at.apcss.am.spmt.service.SpmtCmndService;
-import com.at.apcss.am.spmt.vo.SpmtCmndVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 
@@ -119,61 +118,19 @@ public class OrdrController extends BaseController {
 	public ResponseEntity<HashMap<String, Object>> regSpmtCmndList(@RequestBody List<OrdrVO> ordrList, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		List<OrdrVO> rcptList = new ArrayList<>();
-		String spmtCmndno = cmnsTaskNoService.selectSpmtCmndno(ordrList.get(0).getApcCd(), ordrList.get(0).getCmndYmd());
-		int insertedCnt = 0;
-		int sn = 1;
 
 		try {
-			// 접수
 			for ( OrdrVO ordrVO : ordrList ) {
 				ordrVO.setSysFrstInptUserId(getUserId());
 				ordrVO.setSysFrstInptPrgrmId(getPrgrmId());
 				ordrVO.setSysLastChgUserId(getUserId());
 				ordrVO.setSysLastChgPrgrmId(getPrgrmId());
-				ordrVO.setSpmtCmndno(spmtCmndno);
-				if (ComConstants.ROW_STS_UPDATE.equals(ordrVO.getRowSts())) {
-					rcptList.add(ordrVO);
-				}
 			}
+			
+			HashMap<String, Object> rtnObj = spmtCmndService.regSpmtCmndList(ordrList);
 
-			HashMap<String, Object> rtnObj = ordrService.multiOrdrList(rcptList);
-			if (rtnObj != null) {
+			if(rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
-			}
-
-			// 출하지시 등록
-			for ( OrdrVO ordrVO : ordrList ) {
-				if (ComConstants.ROW_STS_UPDATE.equals(ordrVO.getRowSts())) {
-					ordrVO.setRowSts("I");
-				}
-			}
-
-			for ( OrdrVO ordrVO : ordrList ) {
-				SpmtCmndVO vo = new SpmtCmndVO();
-				OrdrVO list = ordrVO;
-				vo.setApcCd(list.getApcCd());
-				vo.setSpmtCmndno(spmtCmndno);
-				vo.setSpmtCmndSn(sn);
-				vo.setCmndYmd(list.getCmndYmd());
-				vo.setCnptCd(list.getApcCnptCd());
-				vo.setDldtn(list.getDldtn());
-				vo.setTrsprtCoCd(list.getTrsprtCoCd());
-				vo.setGdsGrd(list.getGdsGrd());
-				vo.setCmndQntt(list.getCmndQntt());
-				vo.setCmndWght(list.getCmndWght());
-				vo.setSpmtPckgUnitCd(list.getSpmtPckgUnitCd());
-				vo.setOutordrno(list.getOutordrno());
-				vo.setItemCd(list.getItemCd());
-				vo.setVrtyCd(list.getVrtyCd());
-				vo.setSpcfctCd(list.getSpcfctCd());
-				vo.setRmrk(list.getRmrk());
-				vo.setSysFrstInptPrgrmId(getPrgrmId());
-				vo.setSysFrstInptUserId(getUserId());
-				vo.setSysLastChgPrgrmId(getPrgrmId());
-				vo.setSysLastChgUserId(getUserId());
-				insertedCnt += spmtCmndService.insertSpmtCmnd(vo);
-				sn++;
 			}
 
 		} catch (Exception e) {
@@ -185,9 +142,6 @@ public class OrdrController extends BaseController {
 				return getErrorResponseEntity(rtnObj);
 			}
 		}
-
-		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
-
 		return getSuccessResponseEntity(resultMap);
 	}
 

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import com.at.apcss.am.ordr.service.OrdrService;
 import com.at.apcss.am.ordr.vo.OrdrVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : OrdrServiceImpl.java
@@ -97,11 +99,15 @@ public class OrdrServiceImpl extends BaseServiceImpl implements OrdrService {
 		}
 
 		for ( OrdrVO OrdrVO : insertList ) {
-			ordrMapper.insertOrdr(OrdrVO);
+			if(0 == ordrMapper.insertOrdr(OrdrVO)) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+			}
 		}
 
 		for ( OrdrVO OrdrVO : updateList ) {
-			ordrMapper.updateOrdr(OrdrVO);
+			if(0 == ordrMapper.updateOrdr(OrdrVO)) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+			}
 		}
 		return null;
 	}

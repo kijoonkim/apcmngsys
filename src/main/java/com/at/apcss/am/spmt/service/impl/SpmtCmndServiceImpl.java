@@ -1,9 +1,12 @@
 package com.at.apcss.am.spmt.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +16,9 @@ import com.at.apcss.am.ordr.vo.OrdrVO;
 import com.at.apcss.am.spmt.mapper.SpmtCmndMapper;
 import com.at.apcss.am.spmt.service.SpmtCmndService;
 import com.at.apcss.am.spmt.vo.SpmtCmndVO;
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : SpmtCmndServiceImpl.java
@@ -153,5 +158,66 @@ public class SpmtCmndServiceImpl extends BaseServiceImpl implements SpmtCmndServ
 			sn++;
 		}
 		return insertedCnt;
+	}
+	
+	@Override
+	public HashMap<String, Object> regSpmtCmndList(List<OrdrVO> ordrList) throws Exception {
+		// TODO Auto-generated method stub
+		
+		List<OrdrVO> rcptList = new ArrayList<>();
+		String spmtCmndno = cmnsTaskNoService.selectSpmtCmndno(ordrList.get(0).getApcCd(), ordrList.get(0).getCmndYmd());
+		int sn = 1;
+		
+
+		// 접수
+		for ( OrdrVO ordrVO : ordrList ) {
+			ordrVO.setSpmtCmndno(spmtCmndno);
+			if (ComConstants.ROW_STS_UPDATE.equals(ordrVO.getRowSts())) {
+				rcptList.add(ordrVO);
+			}
+		}
+
+		HashMap<String, Object> rtnObj = ordrService.multiOrdrList(rcptList);
+		if (rtnObj != null) {
+			return rtnObj;
+		}
+
+		// 출하지시 등록
+		for ( OrdrVO ordrVO : ordrList ) {
+			if (ComConstants.ROW_STS_UPDATE.equals(ordrVO.getRowSts())) {
+				ordrVO.setRowSts("I");
+			}
+		}
+
+		for ( OrdrVO ordrVO : ordrList ) {
+			SpmtCmndVO vo = new SpmtCmndVO();
+			OrdrVO list = ordrVO;
+			vo.setApcCd(list.getApcCd());
+			vo.setSpmtCmndno(spmtCmndno);
+			vo.setSpmtCmndSn(sn);
+			vo.setCmndYmd(list.getCmndYmd());
+			vo.setCnptCd(list.getApcCnptCd());
+			vo.setDldtn(list.getDldtn());
+			vo.setTrsprtCoCd(list.getTrsprtCoCd());
+			vo.setGdsGrd(list.getGdsGrd());
+			vo.setCmndQntt(list.getCmndQntt());
+			vo.setCmndWght(list.getCmndWght());
+			vo.setSpmtPckgUnitCd(list.getSpmtPckgUnitCd());
+			vo.setOutordrno(list.getOutordrno());
+			vo.setItemCd(list.getItemCd());
+			vo.setVrtyCd(list.getVrtyCd());
+			vo.setSpcfctCd(list.getSpcfctCd());
+			vo.setRmrk(list.getRmrk());
+			vo.setSysFrstInptPrgrmId(list.getSysFrstInptPrgrmId());
+			vo.setSysFrstInptUserId(list.getSysFrstInptUserId());
+			vo.setSysLastChgPrgrmId(list.getSysLastChgPrgrmId());
+			vo.setSysLastChgUserId(list.getSysLastChgUserId());
+			if(0 == insertSpmtCmnd(vo)) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+			}
+			sn++;
+		}
+		
+		return null;
 	}
 }
