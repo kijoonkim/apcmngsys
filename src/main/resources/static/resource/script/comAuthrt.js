@@ -12,11 +12,11 @@
  * @returns
  */
 const gfn_setComAuthrtUI = function(_authrtUI) {
-	
+
 	if (gfn_isEmpty(_authrtUI)) {
-		return;	
+		return;
 	}
-	
+
 	try {
 		_authrtUI.forEach((_ui) => {
 			let entyId = _ui.entyId;
@@ -24,13 +24,13 @@ const gfn_setComAuthrtUI = function(_authrtUI) {
 			let aplcnType = _ui.aplcnType;
 			let useYn = _ui.useYn;
 			let indctYn = _ui.indctYn;
-			
+
 			if (_.isEqual("Y", useYn)) {
 				//01		접근
 				//11		표시
-				
+
 				switch (aplcnType) {
-					
+
 					case "01":	//	01	접근	disabled
 						if (_.isEqual("Y", indctYn)) {
 							try {
@@ -48,10 +48,10 @@ const gfn_setComAuthrtUI = function(_authrtUI) {
 							}
 						}
 						break;
-						
+
 					case "11":	//	11	표시	display
 						// 표시
-						if (_.isEqual("Y", indctYn)) {							
+						if (_.isEqual("Y", indctYn)) {
 							try {
 								// SB
 								SBUxMethod.show(entyId);
@@ -72,9 +72,13 @@ const gfn_setComAuthrtUI = function(_authrtUI) {
 				}
 			}
 		});
-		
+
 	} catch (e) {
-		
+		if (!(e instanceof Error)) {
+			e = new Error(e);
+		}
+		console.error("failed", e);
+		console.error("failed", e.message);
 	}
 }
 

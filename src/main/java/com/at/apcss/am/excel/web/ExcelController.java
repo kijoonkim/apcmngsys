@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.yaml.snakeyaml.constructor.BaseConstructor;
 
+import com.at.apcss.co.constants.ComConstants;
 import com.softbowl.poi.LZString;
 import com.softbowl.poi.SBExcel;
 import com.tmax.tibero.Debug;
@@ -76,7 +77,7 @@ public class ExcelController extends BaseConstructor{
 
 		try {
 
-			System.out.println("====================== 다중시트 엑셀 다운로드 시작 ======================");
+			logger.debug("====================== 다중시트 엑셀 다운로드 시작 ======================");
 			arrSheetData = URLDecoder.decode(arrSheetData, "UTF-8");		//엑셀파일 정보 - decoding
 			arrSheetName = URLDecoder.decode(arrSheetName, "UTF-8");	//그리드별 시트이름 - decoding
 
@@ -154,8 +155,11 @@ public class ExcelController extends BaseConstructor{
 	        Iterator<String> iterator = sheetData.keySet().iterator();
 	        while (iterator.hasNext()) {
 	            String key = (String) iterator.next();
-	            System.out.print("key="+key);
-	            System.out.println(" value="+sheetData.get(key) + " 객체형 : " + sheetData.get(key).getClass());
+
+	            logger.debug("===key=== {} ", key);
+	            logger.debug("===value=== {} ", sheetData.get(key));
+	            logger.debug("===객체형=== {} ", sheetData.get(key).getClass());
+
 	        }
 
 			excel.init(sheetData);
@@ -174,10 +178,10 @@ public class ExcelController extends BaseConstructor{
 	         int fcn0 = sheet0.getRow(lrn0).getFirstCellNum();
 	         int lcn0 = sheet0.getRow(lrn0).getLastCellNum();
 
-	         System.out.println("getFirstRowNum : " + frn0);
-	         System.out.println("getLastRowNum : " + lrn0);
-	         System.out.println("sheet0.getRow(" + frn0+ " ) : " + sheet0.getRow(frn0));
-	         System.out.println("sheet0.getRow(" + lrn0+ " ) : " + sheet0.getRow(lrn0));
+	         logger.debug("===getFirstRowNum === {} ", frn0);
+	         logger.debug("===getLastRowNum === {} ", lrn0);
+	         logger.debug("===sheet0.getRow === {} ", sheet0.getRow(frn0));
+	         logger.debug("===sheet0.getRow === {} ", sheet0.getRow(lrn0));
 
 	         if(sheet0.getRow(frn0)!=null){
 				XSSFCellStyle r1CellStyle0 = (XSSFCellStyle) sheet0.getRow(frn0).getCell(fcn0).getCellStyle();
@@ -187,7 +191,7 @@ public class ExcelController extends BaseConstructor{
 				r1CellStyle0.setBorderBottom(BorderStyle.NONE);
 				sheet0.getRow(frn0).getCell(fcn0).setCellStyle(r1CellStyle0);
 	         }else{
-	        	 //System.out.println("sheet0.getRow(frn0) is null");
+	        	 logger.debug("===sheet0.getRow(frn0){} is null ", sheet0.getRow(frn0));
 	         };
 	         if(sheet0.getRow(frn0+1)!=null){
 				XSSFCellStyle r2CellStyle0 = (XSSFCellStyle) sheet0.getRow(frn0+1).getCell(fcn0).getCellStyle();
@@ -198,7 +202,7 @@ public class ExcelController extends BaseConstructor{
 				fontName = r2CellStyle0.getFont().getFontName();
 				sheet0.getRow(frn0+1).getCell(fcn0).setCellStyle(r2CellStyle0);
 	         }else{
-	        	 //System.out.println("sheet0.getRow(frn0+1) is null");
+	        	 logger.debug("===sheet0.getRow(frn0){} is null ", sheet0.getRow(frn0));
 	         }
 	         XSSFCellStyle cellStyleHD0 = null;
 	         if(lrn0>=2) {
@@ -214,7 +218,7 @@ public class ExcelController extends BaseConstructor{
 						cellStyleHD0.setBorderColor(BorderSide.BOTTOM, cHeader);
 						sheet0.getRow(frn0+2).getCell(j).setCellStyle(cellStyleHD0);
 	         		}else{
-	         			//System.out.println("sheet0.getRow(frn0+2) is null");
+	         			logger.debug("===sheet0.getRow(frn0+2) {} is null ", sheet0.getRow(frn0+2));
 	         		}
 	         	}
 	         };
@@ -222,7 +226,8 @@ public class ExcelController extends BaseConstructor{
 	         if(lrn0>2) {
 	         	for(int k=(frn0+3);k<=lrn0;k++){
 	         		if(sheet0.getRow(k)==null){
-	         			System.out.println("sheet0.getRow("+k+") is null");
+
+	         			logger.debug("===sheet0.getRow === {}  is null ", k);
 	         			continue;
 	         		}
 	            	Iterator<Cell> itrc0 = sheet0.getRow(k).cellIterator();
@@ -332,7 +337,8 @@ public class ExcelController extends BaseConstructor{
 		         	 r1CellStyle.setBorderBottom(BorderStyle.NONE);
 		         	 sheet.getRow(frn).getCell(fcn).setCellStyle(r1CellStyle);
 	             }else{
-	            	 //System.out.println("sheet.getRow(frn) is null");
+
+	            	 logger.debug("===sheet.getRow(frn) {}  is null ", sheet.getRow(frn));
 	             }
          	 	 // 두번째 줄
 	             if(sheet.getRow(frn+1)!=null){
@@ -347,7 +353,7 @@ public class ExcelController extends BaseConstructor{
 		             fontName = r2CellStyle.getFont().getFontName();
 		             sheet.getRow(frn+1).getCell(fcn).setCellStyle(r2CellStyle);
 	             }else{
-	            	 //System.out.println("sheet.getRow(frn+1) is null");
+	            	 logger.debug("===sheet.getRow(frn) {}  is null ", sheet.getRow(frn));
 	             }
 	             // 세번째 줄
 	             XSSFCellStyle cellStyleHD = null;
@@ -364,13 +370,15 @@ public class ExcelController extends BaseConstructor{
 							cellStyleHD.setBorderColor(BorderSide.BOTTOM, cHeader);
 							sheet.getRow(frn+2).getCell(j).setCellStyle(cellStyleHD);
 		            	 }
-	            	 }else{System.out.println("sheet.getRow(frn+2) is null");}
+	            	 }else{
+	            		 logger.debug("===sheet.getRow(frn+2) is null ");
+	            	 }
 	             };
 	             // 데이터
 	             if(lrn>2){
 	            	 for(int k=(frn+3);k<=lrn;k++){
 	            		 if(sheet.getRow(k)==null){
-	            			 System.out.println("sheet.getRow("+k+") is null");
+	            			 logger.debug("===sheet0.getRow === {}  is null ", k);
 	            			 continue;
 	            		 }
 	            		 Iterator<Cell> itrc = sheet.getRow(k).cellIterator();
@@ -510,7 +518,8 @@ public class ExcelController extends BaseConstructor{
 
 		try {
 
-			System.out.println("====================== 다중시트 엑셀 다운로드 시작 ======================");
+			logger.debug("====================== 다중시트 엑셀 다운로드 시작 ======================");
+
 			arrSheetData = URLDecoder.decode(arrSheetData, "UTF-8");		//엑셀파일 정보 - decoding
 			arrSheetName = URLDecoder.decode(arrSheetName, "UTF-8");	//그리드별 시트이름 - decoding
 
@@ -598,7 +607,8 @@ public class ExcelController extends BaseConstructor{
 			//ex) arrListSheetName = ["grid1","grid2","grid3","grid4","grid5"]
 			//0번째 그리드의 시트이름을 지정
 			workbook.setSheetName(0, arrListSheetName.get(0));
-			System.out.println(arrListSheetName.get(0));
+
+			logger.debug("===arrListSheetName.get(0) === {} ", arrListSheetName.get(0));
 
 			String fontName = "";
 			Sheet sheet0 = workbook.getSheetAt(0);
@@ -649,7 +659,7 @@ public class ExcelController extends BaseConstructor{
 	        if (lrn0 > 2) {
 	         	for ( int k = (frn0+3); k <= lrn0; k++ ) {
 	         		if (sheet0.getRow(k) == null) {
-	         			System.out.println("sheet0.getRow("+k+") is null");
+	         			logger.debug("===sheet0.getRow(  {} ) is null ", k);
 	         			continue;
 	         		}
 	            	Iterator<Cell> itrc0 = sheet0.getRow(k).cellIterator();
@@ -769,7 +779,7 @@ public class ExcelController extends BaseConstructor{
 	           if (lrn > 2) {
 	        	   for( int k = (frn+3); k <= lrn; k++ ) {
 	        		   if (sheet.getRow(k) == null) {
-	        			   System.out.println("sheet.getRow("+k+") is null");
+	        			   logger.debug("===sheet0.getRow(  {} ) is null ", k);
 	        			   continue;
 	        		   }
 	        		   Iterator<Cell> itrc = sheet.getRow(k).cellIterator();
@@ -832,15 +842,12 @@ public class ExcelController extends BaseConstructor{
 		} catch (ParseException e) {
 			//e.printStackTrace();
 			logger.error(e.getMessage());
-			System.out.println(e.getMessage());
 		} catch (UnsupportedEncodingException e) {
 			//e.printStackTrace();
 			logger.error(e.getMessage());
-			System.out.println(e.getMessage());
 		} catch (IOException e){
 			//e.printStackTrace();
 			logger.error(e.getMessage());
-			System.out.println(e.getMessage());
 		}
 	};
 

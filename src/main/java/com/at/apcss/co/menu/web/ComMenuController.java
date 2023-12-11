@@ -82,6 +82,7 @@ public class ComMenuController extends BaseController {
 			//model.addAttribute("comApcList", request.getSession().getAttribute("comApcList"));
 
 		} catch( Exception e) {
+			getErrorResponseEntity(e);
 		}
 
 		return "apcss/" + pageUrl;
@@ -115,6 +116,7 @@ public class ComMenuController extends BaseController {
 			request.getSession().setAttribute(ComConstants.PROP_SYS_PRGRM_ID, menuId);
 
 		} catch( Exception e) {
+			getErrorResponseEntity(e);
 		}
 
 		return "apcss/am/popup/openClipReportPopup";
