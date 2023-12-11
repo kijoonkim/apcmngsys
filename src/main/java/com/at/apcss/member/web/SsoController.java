@@ -684,5 +684,223 @@ public class SsoController extends BaseController {
 	}
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+	@GetMapping(value = "/actionSSOLoginApcPt.do")
+	public String actionSSOLoginApcPt(HttpServletRequest request) throws Exception {
+
+		String id = request.getParameter("id");
+
+		LoginVO loginVO = new LoginVO();
+		loginVO.setId(id);
+
+		LoginVO resultVO = loginService.actionSSOLogin(loginVO);
+
+		if (resultVO != null && resultVO.getId() != null && StringUtils.hasText(resultVO.getId())) {
+
+			ApcInfoVO apcInfoVO = new ApcInfoVO();
+
+			List<String> comApcList = new ArrayList<>();
+			ObjectMapper objMapper = new ObjectMapper();
+
+			// 로그인 사용자가 시스템관리자, AT관리자 일 경우 APC리스트를 세션에 저장
+			String userType = resultVO.getUserType();
+			if (ComConstants.CON_USER_TYPE_SYS.equals(userType)
+					|| ComConstants.CON_USER_TYPE_AT.equals(userType)) {
+				resultVO.setApcAdminType(userType);
+			} else {
+				apcInfoVO.setApcCd(resultVO.getApcCd());
+			}
+
+			List<ApcInfoVO> apcInfoList = apcInfoService.selectApcMngList(apcInfoVO);
+			for ( ApcInfoVO apc : apcInfoList ) {
+				ComApcJsonVO comApcJsonVO = new ComApcJsonVO();
+				BeanUtils.copyProperties(apc, comApcJsonVO);
+				comApcList.add(objMapper.writeValueAsString(comApcJsonVO));
+
+				if (StringUtils.hasText(resultVO.getApcCd())
+						&& resultVO.getApcCd().equals(apc.getApcCd())) {
+					request.getSession().setAttribute("apcVO", comApcJsonVO);
+				}
+			}
+
+			if (comApcList != null && !comApcList.isEmpty()) {
+				request.getSession().setAttribute("comApcList", objMapper.writeValueAsString(comApcList));
+			} else {
+				request.getSession().setAttribute("comApcList", null);
+			}
+
+			// 로그인 정보를 세션에 저장
+			//httpSession.setAttribute("loginVO", resultVO);
+			request.getSession().setAttribute("loginVO", resultVO);
+
+			// 로그인 인증세션
+			//httpSession.setAttribute("accessUser", resultVO.getId());
+			request.getSession().setAttribute("accessUser", resultVO.getId());
+
+			return "redirect:/actionMainApcPt.do";
+		} else {
+			//model.addAttribute("loginMessage", message.getMessage("fail.common.login", request.getLocale()));
+			return "redirect:/login.do";
+		}
+	}
+
+
+	/**
+	 * 로그인 후 메인화면으로 들어간다
+	 * @param request
+	 * @param model
+	 * @return redirect url
+	 * @throws Exception
+	 */
+	@GetMapping(value = "/actionMainApcPt.do")
+	public String actionMainApcPt(HttpServletRequest request, ModelMap model) throws Exception {
+
+		// 1. Spring Security 사용자 권한처리
+		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
+		if (!isAuthenticated) {
+			logger.debug("1");
+			//model.addAttribute("loginMessage", message.getMessage("fail.common.login"));
+			return "redirect:/login.do";
+		}
+
+		//LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+
+		// 2. 메뉴조회
+
+		// 메인 이동
+		//String mainPage = Globals.MAIN_PAGE;
+		String mainPage = "/mainApcPt.do";
+
+		if (mainPage.startsWith("/")) {
+			return "forward:" + mainPage;
+		} else {
+			return mainPage;
+		}
+	}
+
+	@GetMapping(value = "/actionLogoutApcPt.do")
+	public String actionLogoutPt(HttpServletRequest request, ModelMap model) throws Exception {
+
+		// 1. Security 연도
+
+		request.getSession().setAttribute("loginVO", null);
+		request.getSession().setAttribute("accessUser", null);
+		request.getSession().setAttribute("sysPrgrmId", null);
+		request.getSession().setAttribute("comApcList", null);
+
+		return "redirect:/mainApcInsReq.do";
+	}
+	
+	
+	
+	@GetMapping("/mainApcPt.do")
+	public String mainApcPt(Model model, HttpServletRequest request) {
+
+		List<String> menuList = new ArrayList<>();
+		try {
+
+			LoginVO loginVO = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+
+			String menuId = "main";
+			ComUiJsonVO comUiJsonVO = new ComUiJsonVO();
+			comUiJsonVO.setMenuId(menuId);
+			ObjectMapper objMapper = new ObjectMapper();
+			String comUiJsonString = objMapper.writeValueAsString(comUiJsonVO);
+			model.addAttribute("comUiJson", comUiJsonString);
+
+			ComMenuVO pageVO = new ComMenuVO();
+			pageVO.setMenuId(menuId);
+			pageVO.setMenuNm("메인페이지");
+			model.addAttribute("comMenuVO", pageVO);
+
+			request.getSession().setAttribute(ComConstants.PROP_SYS_PRGRM_ID, menuId);
+
+			ComAuthrtMenuVO paramVO = new ComAuthrtMenuVO();
+			paramVO.setUserId(loginVO.getUserId());
+
+
+			List<ComAuthrtMenuVO> resultList = comAuthrtService.selectTopMenuTreeList(paramVO);
+			if (resultList != null && !resultList.isEmpty()) {
+				for ( ComAuthrtMenuVO rslt : resultList ) {
+
+					if (ComConstants.CON_YES.equals(rslt.getUseYn())) {
+						ComMenuJsonVO menu = new ComMenuJsonVO();
+						menu.setId(rslt.getMenuId());
+						menu.setPid(rslt.getUpMenuId());
+						menu.setOrder(rslt.getIndctSeq());
+						menu.setText(rslt.getMenuNm());
+						//menu.setLink(rslt.getPageUrl() == null ? ComConstants.CON_BLANK : rslt.getPageUrl());
+						menu.setTopMenuNm(rslt.getUpMenuNm() == null ? ComConstants.CON_BLANK : rslt.getUpMenuNm());
+						menu.setUrl(rslt.getPageUrl() == null ? ComConstants.CON_BLANK : rslt.getPageUrl());
+						menu.setValue(rslt.getUpMenuNm() == null ? ComConstants.CON_BLANK : rslt.getUpMenuNm());
+						ObjectMapper mapper = new ObjectMapper();
+						String jsonString = mapper.writeValueAsString(menu);
+						System.out.println(jsonString);
+						menuList.add(jsonString);
+					}
+				}
+			}
+			/*
+			List<ComMenuVO> resultList = comMenuService.selectTopMenuList(new ComMenuVO());
+			if (resultList != null && !resultList.isEmpty()) {
+				for ( ComMenuVO rslt : resultList ) {
+
+					ComMenuJsonVO menu = new ComMenuJsonVO();
+					menu.setId(rslt.getMenuId());
+					menu.setPid(rslt.getUpMenuId());
+					menu.setOrder(rslt.getIndctSeq());
+					menu.setText(rslt.getMenuNm());
+					//menu.setLink(rslt.getPageUrl() == null ? ComConstants.CON_BLANK : rslt.getPageUrl());
+					menu.setTopMenuNm(rslt.getUpMenuNm() == null ? ComConstants.CON_BLANK : rslt.getUpMenuNm());
+					menu.setUrl(rslt.getPageUrl() == null ? ComConstants.CON_BLANK : rslt.getPageUrl());
+					menu.setValue(rslt.getUpMenuNm() == null ? ComConstants.CON_BLANK : rslt.getUpMenuNm());
+					ObjectMapper mapper = new ObjectMapper();
+					String jsonString = mapper.writeValueAsString(menu);
+					System.out.println(jsonString);
+					menuList.add(jsonString);
+				}
+			}
+			 */
+
+
+		} catch (Exception e) {
+
+		}
+
+		model.addAttribute("topMenuList", menuList);
+		
+		model.addAttribute("pMenuIdParam", "PT");
+		model.addAttribute("pMenuNmParam", "서비스포털");
+  
+
+		model.addAttribute("reportDbName", getReportDbName());
+		model.addAttribute("reportUrl", getReportUrl());
+		model.addAttribute("reportType", getReportType());
+		model.addAttribute("reportPath", getReportPath());
+
+		//model.addAttribute("comApcList", request.getSession().getAttribute("comApcList"));
+
+		return "member/mainApcPt";
+	}
+	
+	
 
 }
