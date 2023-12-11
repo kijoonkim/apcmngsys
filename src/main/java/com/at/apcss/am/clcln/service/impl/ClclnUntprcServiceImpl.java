@@ -3,6 +3,7 @@ package com.at.apcss.am.clcln.service.impl;
 import java.util.HashMap;
 import java.util.List;
 
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -10,7 +11,9 @@ import org.springframework.util.StringUtils;
 import com.at.apcss.am.clcln.mapper.ClclnUntprcMapper;
 import com.at.apcss.am.clcln.service.ClclnUntprcService;
 import com.at.apcss.am.clcln.vo.ClclnUntprcVO;
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : ClclnUntprcServiceImpl.java
@@ -57,9 +60,13 @@ public class ClclnUntprcServiceImpl extends BaseServiceImpl implements ClclnUntp
 			ClclnUntprcVO chkVO = selectClclnUntprc(clclnUntprcVO);
 			
 			if (chkVO == null || !StringUtils.hasText(chkVO.getApcCd())) {
-				clclnUntprcMapper.insertClclnUntprc(clclnUntprcVO);
+				if(0 == clclnUntprcMapper.insertClclnUntprc(clclnUntprcVO)) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+				}
 			} else {
-				clclnUntprcMapper.updateClclnUntprc(clclnUntprcVO);
+				if(0 == clclnUntprcMapper.updateClclnUntprc(clclnUntprcVO)) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+				}
 			}
 		}
 		

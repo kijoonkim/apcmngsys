@@ -78,6 +78,11 @@ public class ClclnPrfmncController extends BaseController {
 		} catch (Exception e) {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 
 		return getSuccessResponseEntity(resultMap);
@@ -92,14 +97,11 @@ public class ClclnPrfmncController extends BaseController {
 		try {
 
 			for ( ClclnPrfmncVO clcln : clclnPrfmncList ) {
-				clcln.setSysFrstInptPrgrmId(getPrgrmId());
-				clcln.setSysFrstInptUserId(getUserId());
 				clcln.setSysLastChgPrgrmId(getPrgrmId());
 				clcln.setSysLastChgUserId(getUserId());
 			}
 
 			HashMap<String, Object> rtnObj = clclnPrfmncService.updateClclnPrfmncList(clclnPrfmncList);
-
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}
@@ -107,6 +109,11 @@ public class ClclnPrfmncController extends BaseController {
 		} catch (Exception e) {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 
 		return getSuccessResponseEntity(resultMap);
@@ -121,8 +128,6 @@ public class ClclnPrfmncController extends BaseController {
 		try {
 
 			for ( ClclnPrfmncVO clcln : clclnPrfmncList ) {
-				clcln.setSysFrstInptPrgrmId(getPrgrmId());
-				clcln.setSysFrstInptUserId(getUserId());
 				clcln.setSysLastChgPrgrmId(getPrgrmId());
 				clcln.setSysLastChgUserId(getUserId());
 			}
@@ -136,6 +141,11 @@ public class ClclnPrfmncController extends BaseController {
 		} catch (Exception e) {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 
 		return getSuccessResponseEntity(resultMap);
