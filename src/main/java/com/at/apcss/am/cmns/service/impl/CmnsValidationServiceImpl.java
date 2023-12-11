@@ -30,20 +30,20 @@ public class CmnsValidationServiceImpl extends BaseServiceImpl implements CmnsVa
 	@Autowired
 	private CmnsValidationMapper cmnsValidationMapper;
 
-	
+
 	@Override
 	public String selectNowDateString() throws Exception {
 		return selectNowDateString(null);
 	}
-	
+
 	@Override
 	public String selectNowDateString(String format) throws Exception {
 		CmnsValidationVO paramVO = new CmnsValidationVO();
-		
+
 		if (!StringUtils.hasText(format)) {
 			format = "YYYYMMDD";
 		}
-		
+
 		paramVO.setFormat(format);
 
 		CmnsValidationVO resultVO = cmnsValidationMapper.selectNowDateString(paramVO);
@@ -53,7 +53,7 @@ public class CmnsValidationServiceImpl extends BaseServiceImpl implements CmnsVa
 			return null;
 		}
 	}
-	
+
 	@Override
 	public String selectChkCdDelible(String apcCd, String cdId, String cdVl) throws Exception {
 
@@ -66,7 +66,7 @@ public class CmnsValidationServiceImpl extends BaseServiceImpl implements CmnsVa
 		if (resultVO != null) {
 			return resultVO.getRtnMsg();
 		} else {
-			return "error";
+			return null;
 		}
 	}
 
@@ -83,7 +83,7 @@ public class CmnsValidationServiceImpl extends BaseServiceImpl implements CmnsVa
 		if (resultVO != null) {
 			return resultVO.getRtnMsg();
 		} else {
-			return "error";
+			return null;
 		}
 	}
 
@@ -97,13 +97,13 @@ public class CmnsValidationServiceImpl extends BaseServiceImpl implements CmnsVa
 
 	@Override
 	public String selectChkDdlnYn(String apcCd, String ymd) throws Exception {
-		
+
 		CmnsValidationVO paramVO = new CmnsValidationVO();
 		paramVO.setApcCd(apcCd);
 		paramVO.setYmd(ymd);
-		
+
 		CmnsValidationVO resultVO = cmnsValidationMapper.selectChkDdlnYn(paramVO);
-		
+
 		if (resultVO != null) {
 			return resultVO.getDdlnYn();
 		} else {

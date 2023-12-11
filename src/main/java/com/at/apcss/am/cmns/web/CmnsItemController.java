@@ -112,7 +112,7 @@ public class CmnsItemController extends BaseController {
 
 			HashMap<String, Object> rtnObj = cmnsItemService.insertCmnsItem(cmnsItemVO);
 			if(rtnObj != null) {
-				getErrorResponseEntity(rtnObj);
+				return getErrorResponseEntity(rtnObj);
 			}
 
 		} catch (Exception e) {
@@ -129,8 +129,9 @@ public class CmnsItemController extends BaseController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
 			HashMap<String, Object> rtnObj = cmnsItemService.deleteCmnsItem(cmnsItemVO);
+
 			if(rtnObj != null) {
-				getErrorResponseEntity(rtnObj);
+				return getErrorResponseEntity(rtnObj);
 			}
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
