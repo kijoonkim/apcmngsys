@@ -85,7 +85,7 @@
 									uitype="text"
 									id="srch-inp-prdcrNm"
 									name="srch-inp-prdcrNm"
-									class="form-control input-sm"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									placeholder="초성검색 가능"
 									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
@@ -93,6 +93,17 @@
     								autocomplete-select-callback="fn_onSelectPrdcrNm"
    								></sbux-input>
    								<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
+							</td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-input
+									uitype="text"
+									id="srch-inp-prdcrIdentno"
+									name="srch-inp-prdcrIdentno"
+									class="form-control input-sm"
+									maxlength="2"
+									autocomplete="off"
+									onchange="fn_onChangeSrchPrdcrIdentno(this)"
+								/>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button
@@ -104,8 +115,6 @@
 									onclick="fn_choicePrdcr"
 								></sbux-button>
 							</td>
-							<td>&nbsp;</td>
-
 						</tr>
 					</tbody>
 				</table>
@@ -148,6 +157,7 @@
 <script type="text/javascript">
 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
 	var jsonComItem			= [];	// 품목 		itemCd		검색
+	var jsonComVrty			= [];	// 품종 		vrtyCd		검색
 	var jsonPrdcr			= [];
     var jsonPrdcrAutocomplete = [];
 
@@ -424,7 +434,6 @@
 	    	try {
 	        	if (_.isEqual("S", data.resultStatus)) {
 	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-	        		fn_setGrdWrhsPlan();
 	        	} else {
 	        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        	}
@@ -441,6 +450,8 @@
 	function fn_closeModal(modalId){
 		SBUxMethod.closeModal(modalId);
 	}
+
+	
 	/*
 	* @name fn_getPrdcrs
 	* @description 생산자 자동완성 목록 가져오기
@@ -449,11 +460,11 @@
 		jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
 		jsonPrdcr = gfn_setFrst(jsonPrdcr);
 	}
-
+	
 	/**
-	* @name fn_onInputPrdcrNm
-	* @description 생산자명 입력 시 event : autocomplete
-	*/
+	 * @name fn_onInputPrdcrNm
+	 * @description 생산자명 입력 시 event : autocomplete
+	 */
 	const fn_onInputPrdcrNm = function(prdcrNm){
 		fn_clearPrdcr();
 		if(getByteLengthOfString(prdcrNm.target.value) > 100){
@@ -465,32 +476,30 @@
     }
 
 	/**
-	 * @name fn_clearPrdcr
-	 * @description 생산자 폼 clear
-	 */
-	const fn_clearPrdcr = function() {
-		SBUxMethod.set("srch-inp-prdcrCd", "");
-		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:''");
-	}
-
-	/**
 	 * @name fn_onSelectPrdcrNm
 	 * @description 생산자 autocomplete 선택 callback
 	 */
 	function fn_onSelectPrdcrNm(value, label, item) {
-		// 생산자 명 중복 체크. 중복일 경우 팝업 활성화.
-		if(jsonPrdcr.filter(e => e.prdcrNm === label).length > 1){
-			document.getElementById('btn-srch-prdcr').click();
-		}
-		else{
-			SBUxMethod.set("srch-inp-prdcrCd", value);
-			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
-		}
+		SBUxMethod.set("srch-inp-prdcrCd", value);
+		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+
+		let prdcr = _.find(jsonPrdcr, {prdcrCd: value});
+		fn_setPrdcrForm(prdcr);
 	}
+
+ 	/**
+ 	 * @name fn_clearPrdcr
+ 	 * @description 생산자 폼 clear
+ 	 */
+ 	const fn_clearPrdcr = function() {
+ 		SBUxMethod.set("srch-inp-prdcrCd", "");
+ 		SBUxMethod.set("srch-inp-prdcrIdentno", "");
+ 		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:''");
+ 	}
 
 	/**
 	 * @name fn_choicePrdcr
-	 * @description 생산자 찾기 버튼 클릭
+	 * @description 생산자 선택 popup 호출
 	 */
     const fn_choicePrdcr = function() {
 		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr, SBUxMethod.get("srch-inp-prdcrNm"));
@@ -498,14 +507,74 @@
 
 	/**
 	 * @name fn_setPrdcr
-	 * @description 생산자 모달 선택 콜백 callback
+	 * @description 생산자 선택 popup callback 처리
 	 */
-	const fn_setPrdcr = function(prdcr) {
+	const fn_setPrdcr = async function(prdcr) {
+		
+		await fn_getPrdcrs();
+		
 		if (!gfn_isEmpty(prdcr)) {
 			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
 			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
 			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+
+			fn_setPrdcrForm(prdcr);
 		}
+	}
+
+	const fn_setPrdcrForm = async function(prdcr) {
+
+		if (!gfn_isEmpty(prdcr.rprsVrtyCd)) {	// 대표품종
+			await gfn_setApcVrtySBSelect('srch-inp-vrtyCd', jsonComVrty, gv_selectedApcCd);
+			SBUxMethod.set("srch-inp-vrtyCd", prdcr.rprsVrtyNm);
+		} else {
+			if (!gfn_isEmpty(prdcr.rprsItemCd)) {	// 대표품목
+				const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
+				if (prvItemCd != prdcr.rprsItemCd) {
+					SBUxMethod.set("srch-slt-itemCd", prdcr.rprsItemCd);
+					fn_onChangeSrchItemCd({value:prdcr.rprsItemCd});
+				}
+			}
+		}
+		if (!gfn_isEmpty(prdcr.vhclno)) {	// 차량번호
+			SBUxMethod.set("srch-inp-vhclno", prdcr.vhclno);
+		}
+
+		if (!gfn_isEmpty(prdcr.prdcrIdentno)) {
+			SBUxMethod.set("srch-inp-prdcrIdentno", prdcr.prdcrIdentno);
+		} else {
+			SBUxMethod.set("srch-inp-prdcrIdentno", "");
+		}
+
+	}
+	
+	const fn_onChangeSrchPrdcrIdentno = function(obj) {
+
+		if (gfn_isEmpty(SBUxMethod.get("srch-inp-prdcrIdentno"))) {
+			return;
+		}
+
+		SBUxMethod.set("srch-inp-prdcrCd", "");
+		SBUxMethod.set("srch-inp-prdcrNm", "");
+		SBUxMethod.attr("srch-inp-prdcrNm", "style", "");	//skyblue
+
+		let prdcrIdentno = parseInt(SBUxMethod.get("srch-inp-prdcrIdentno")) || 0;
+
+		if (prdcrIdentno < 1) {
+			return;
+		}
+
+		const prdcrInfo = _.find(jsonPrdcr, {prdcrIdentno: prdcrIdentno});
+		if (gfn_isEmpty(prdcrInfo)) {
+			return;
+		}
+
+		SBUxMethod.set("srch-inp-prdcrCd", prdcrInfo.prdcrCd);
+		SBUxMethod.set("srch-inp-prdcrNm", prdcrInfo.prdcrNm);
+		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+
+		fn_setPrdcrForm(prdcrInfo);
+
 	}
 
 	/**
@@ -516,6 +585,7 @@
 		  for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
 		  return b;
 	}
+	
 
 	/** 품종 modal **/
     const fn_modalVrty = function() {

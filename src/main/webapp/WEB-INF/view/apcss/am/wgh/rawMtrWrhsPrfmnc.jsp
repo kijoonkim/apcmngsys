@@ -710,64 +710,6 @@
 
 	}
 
-// 	/**
-// 	* @name fn_onInputPrdcrNm
-// 	* @description 생산자명 입력 시 event : autocomplete
-// 	*/
-// 	const fn_onInputPrdcrNm = function(prdcrNm){
-// 		fn_clearPrdcr();
-// 		if(getByteLengthOfString(prdcrNm.target.value) > 100){
-// 			SBUxMethod.set("srch-inp-prdcrNm", "");
-// 			return;
-// 		}
-// 		jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm.target.value, jsonPrdcr);
-//     	SBUxMethod.changeAutocompleteData('srch-inp-prdcrNm', true);
-//     }
-
-// 	/**
-// 	 * @name fn_clearPrdcr
-// 	 * @description 생산자 폼 clear
-// 	 */
-// 	const fn_clearPrdcr = function() {
-// 		SBUxMethod.set("srch-inp-prdcrCd", "");
-// 		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:''");
-// 	}
-
-// 	/**
-// 	 * @name fn_onSelectPrdcrNm
-// 	 * @description 생산자 autocomplete 선택 callback
-// 	 */
-// 	function fn_onSelectPrdcrNm(value, label, item) {
-// 		// 생산자 명 중복 체크. 중복일 경우 팝업 활성화.
-// 		if(jsonPrdcr.filter(e => e.prdcrNm === label).length > 1){
-// 			document.getElementById('btn-srch-prdcr').click();
-// 		}
-// 		else{
-// 			SBUxMethod.set("srch-inp-prdcrCd", value);
-// 			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
-// 		}
-// 	}
-
-// 	/**
-// 	 * @name fn_choicePrdcr
-// 	 * @description 생산자 찾기 버튼 클릭
-// 	 */
-//     const fn_choicePrdcr = function() {
-// 		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr, SBUxMethod.get("srch-inp-prdcrNm"));
-// 	}
-
-// 	/**
-// 	 * @name fn_setPrdcr
-// 	 * @description 생산자 모달 선택 콜백 callback
-// 	 */
-// 	const fn_setPrdcr = function(prdcr) {
-// 		if (!gfn_isEmpty(prdcr)) {
-// 			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
-// 			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
-// 			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
-// 		}
-// 	}
-
 	/**
 	 * @name getByteLengthOfString
 	 * @description 글자 byte 크기 계산
