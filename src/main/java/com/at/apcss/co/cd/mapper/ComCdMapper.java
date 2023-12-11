@@ -102,6 +102,15 @@ public interface ComCdMapper {
 	public int deleteComCdDtl(ComCdVO comCdVO) throws Exception;
 
 	/**
+	 * 공통코드 상세 조회
+	 * @param comCdVO
+	 * @return
+	 * @throws Exception
+	 */
+	public ComCdVO selectComCdDtl(ComCdVO comCdVO) throws Exception;
+	
+	
+	/**
 	 * 콤보박스 공통코드 리스트
 	 * @param comCdVO
 	 * @return List<ComCdVO>

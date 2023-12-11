@@ -1,5 +1,6 @@
 package egovframework.com.cmm.interceptor;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +12,8 @@ import org.springframework.web.servlet.ModelAndViewDefiningException;
 import org.springframework.web.servlet.mvc.WebContentInterceptor;
 
 import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.service.ComSysService;
+import com.at.apcss.co.sys.util.ComUtil;
 import com.at.apcss.co.sys.vo.LoginVO;
 
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
@@ -37,6 +40,9 @@ public class AuthenticInterceptor extends WebContentInterceptor {
 
 	private final Logger log = LoggerFactory.getLogger(CustomAuthenticInterceptor.class);
 
+	@Resource(name = "comSysService")
+	private ComSysService comSysService;	
+	
 	/**
 	 * 세션에 계정정보(LoginVO)가 있는지 여부로 인증 여부를 체크한다.
 	 * 계정정보(LoginVO)가 없다면, 로그인 페이지로 이동한다.
@@ -54,27 +60,61 @@ public class AuthenticInterceptor extends WebContentInterceptor {
 		log.debug("getRequestURI {}", request.getRequestURI());
 		log.debug("getMethod {}", request.getMethod());
 		log.debug("getContentType {}", request.getContentType());
-		 */
-
+		 */		
+		
+		boolean isRtnJson = false;
+		String uri = ComUtil.nullToEmpty(request.getRequestURI());
+		log.debug("uri {}", uri);
+		if (	"POST".equals(request.getMethod())
+				&& (uri.contains("/select")
+				|| uri.contains("/insert")
+				|| uri.contains("/update")
+				|| uri.contains("/delete")
+				|| uri.contains("/multi"))) {
+			isRtnJson = true;
+		}
+		
 		if (loginVO.getId() != null) {
 
 			log.debug("AuthenticInterceptor sessionID "+loginVO.getId());
 			log.debug("AuthenticInterceptor ================== ");
 
-			return true;
+			boolean isValidSession = true;
+			
+			// 세션id 만료여부 조회
+			String jsseionId = request.getSession().getId();
+			log.debug("jsseionId {}", jsseionId);
+			try {
+				isValidSession = comSysService.checkSessionValid(jsseionId);
+				
+				if (!isValidSession) {
+					throw new ModelAndViewDefiningException(getModelAndView(isRtnJson));
+				}
+				
+			} catch (Exception e) {
+				throw new ModelAndViewDefiningException(getModelAndView(isRtnJson));
+			}
+			
+			return isValidSession;
+			
 		} else {
 
 			log.debug("AuthenticInterceptor Fail!!!!!!!!!!!!================== ");
 //			ModelAndView modelAndView = new ModelAndView("redirect:/uat/uia/egovLoginUsr.do");
 //			ModelAndView modelAndView = new ModelAndView("redirect:http://localhost:3000/login");
-			
-            ModelAndView modelAndView = new ModelAndView("redirect:/login.do");
+            //ModelAndView modelAndView = new ModelAndView("redirect:/login.do");
             
-			if ("POST".equals(request.getMethod())) {
-				modelAndView = new ModelAndView("redirect:/accessDenied");
-			}
-			throw new ModelAndViewDefiningException(modelAndView);
+			//throw new ModelAndViewDefiningException(modelAndView);
+			throw new ModelAndViewDefiningException(getModelAndView(isRtnJson));
 		}
+	}
+	
+	private ModelAndView getModelAndView(boolean isRtnJson) {
+		ModelAndView modelAndView = new ModelAndView("redirect:/login.do");
+		if (isRtnJson) {
+			modelAndView = new ModelAndView("redirect:/accessDenied");
+		}
+		return modelAndView;
 	}
 
 }

@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +24,6 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
 import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.log.service.ComLogService;
 import com.at.apcss.co.msg.mapper.ComMessageSource;
 import com.at.apcss.co.msg.vo.ComMsgVO;
 import com.at.apcss.co.sys.service.ComSysService;
@@ -304,6 +302,71 @@ public abstract class BaseController {
 		}
 		return clientIp;
 	}
+	
+	protected HashMap<String, Object> setSessionInfo(HttpServletRequest request) throws Exception {
+		
+		// user id 로 조회
+		String jsseionId = request.getSession().getId();
+		System.out.println(String.format("jsseionId : %s", jsseionId));
+		
+		// 세션정보 db insert
+		ComSysVO comSysVO = new ComSysVO();
+		comSysVO.setSessId(jsseionId);
+		comSysVO.setUserId(getUserId());
+		
+		HashMap<String, Object> rtnObj = comSysService.insertComSession(comSysVO);
+		if (rtnObj != null) {
+			return rtnObj;
+		}
+		
+		// String sessionId = UUID.randomUUID().toString();
+		// System.out.println(String.format("sessionid : %s", sessionId));
+		// Cookie sessionCookie = new Cookie("sessionid", sessionId);
+		// response.addCookie(sessionCookie);
+		
+		// 세션id로 조회
+		
+		// 만료안된 세션정보가 있다면 만료 처리 
+		// insert session 정보
+		return null;
+	}
+	
+	protected HashMap<String, Object> terminateSession(HttpServletRequest request) throws Exception {
+		
+		// user id 로 조회
+		String jsseionId = request.getSession().getId();
+		
+		// 세션정보 만료 update
+		ComSysVO comSysVO = new ComSysVO();
+		comSysVO.setSessId(jsseionId);
+		comSysVO.setUserId(getUserId());
+		
+		HashMap<String, Object> rtnObj = comSysService.updateComSessionExpiry(comSysVO);
+		if (rtnObj != null) {
+			return rtnObj;
+		}
+		
+		return null;
+	}
+	
+	protected HashMap<String, Object> terminateSessionByUser(String userId) throws Exception {
+		
+		// 세션정보 만료 update
+		ComSysVO comSysVO = new ComSysVO();
+		comSysVO.setUserId(userId);
+		comSysVO.setFrcdExpryYn(ComConstants.CON_YES);
+		HashMap<String, Object> rtnObj = comSysService.updateComSessionExpiryByUser(comSysVO);
+		if (rtnObj != null) {
+			return rtnObj;
+		}
+		
+		return null;
+	}
+	
+	protected boolean checkDuplicatedUser(String userId, String userIp) throws Exception {
+		return comSysService.checkDuplicatedUser(userId, userIp);
+	}
+	
 	
 	protected HashMap<String, Object> setMenuComLog(HttpServletRequest request) throws Exception {
 	

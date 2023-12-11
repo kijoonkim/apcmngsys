@@ -15,5 +15,8 @@ public class ComSysVO {
 	private String prgrmId;
 	private String lgnScsYn;
 	private String prslType;
-	private String flfmtTaskSeCd;	
+	private String flfmtTaskSeCd;
+	
+	private String sessId;
+	private String frcdExpryYn;
 }

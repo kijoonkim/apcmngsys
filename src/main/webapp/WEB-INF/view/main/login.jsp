@@ -41,10 +41,11 @@
                         ></sbux-checkbox>
                     </div>
                     <div class="apc-login-wrap">
-                        <sbux-button id="btnSubmit" name="btnSubmit" uitype="submit"
+                        <sbux-button id="btnSubmit" name="btnSubmit" uitype="normal"
                             text="로그인"
                             onclick="fn_beforeSubmit"
                         ></sbux-button>
+                        <!-- submit -->
                     </div>
                 </form>
             </div>
@@ -55,7 +56,7 @@
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
     //로그인 버튼 클릭
-    function fn_beforeSubmit() {
+    const fn_beforeSubmit = async function() {
         var userId = SBUxMethod.get("id");
         var password = SBUxMethod.get("password");
         if (!userId) {
@@ -69,10 +70,180 @@
         
         //사용자아이디 쿠키 설정
         fn_setCookie();
+        
+        fn_checkLogin();
+        
+        
+        return false;
     }
     
+    /**
+     * @name fn_checkLogin
+     * @description set post header programId
+     * @function
+     */
+    const fn_checkLogin = async function() {
+    	
+        const id = SBUxMethod.get("id");
+        const password = SBUxMethod.get("password");
+    	
+        const header = {
+                //"Content-Type": "application/x-www-form-urlencoded",
+                "sysPrgrmId": "login"
+            }
+        
+        //let loginformData = new FormData(document.getElementById("frm"));
+        let loginformData = new FormData();
+        loginformData.append("id", id);
+        loginformData.append("password", password);
+        
+        const response = await fetch(
+                "/co/sys/loginCheck", {
+                    method: "POST",
+                    headers: header,
+                    cache: "no-cache",
+                    body: new URLSearchParams({ // 일반 객체를 fordata형식으로 변환해주는 클래스
+                    	id: id,
+                    	password: password
+                    })
+                }
+            );
+
+   		const data = await response.json();
+    		
+        /*
+    	const postJsonPromise = gfn_postJSON("/co/sys/loginCheck", {
+    			userId: id,
+    			password: password
+    		});
+        const data = await postJsonPromise;
+		*/
+        if (!_.isEqual("S", data.resultStatus)) {
+        	gfn_comAlert(data.resultCode, data.resultMessage);
+        	return;
+    	} else {
+    		
+    		const loginCode = data.loginCode;
+    		const loginMessage = data.loginMessage;
+    		
+    		if (!gfn_isEmpty(loginMessage)) {
+    			alert(loginMessage);
+    			return;
+    		}
+    		
+    		switch(loginCode) {
+    		case "USER_UNRECEIVED":	// 승인대기 id
+    			alert("APC생산관리 승인대기상태입니다.");
+    			break;
+    		case "USER_LOCKED":		// 잠김계정
+    			alert("계정이 잠김처리되었습니다.관리자에게 문의하세요.");
+    			break;
+    		case "USER_DORMANCY":	// 휴면계정
+    			alert("휴면상태의 계정입니다.");
+    			break;
+    		case "USER_UNUSED":		// 미사용등록 계정
+    			alert("미사용등록된 계정입니다.");
+    			break;
+    		case "LOGIN_FAILED":	// 로그인실패
+    			alert("로그인 정보가 올바르지 않습니다.");
+    			break;
+    		case "USER_DUPLICATE":	// 중복계정
+
+   				let isConfirmed = confirm("동일ID의 기존 접속정보가 존재합니다. 접속종료 시키겠습니까?");
+       			if (isConfirmed) {
+       				// id 접속 강제종료
+       				fn_forceLogin();
+       			}
+    			
+    			break;
+    		
+    		case "LOGIN_SUCCESS":	// 로그인성공
+    			window.location.href = "/actionMain.do";
+    			break;
+    		}
+    	}
+    }
+    
+    // 기존 접속 종료처리
+    const fn_forceLogin = async function() {
+    	const id = SBUxMethod.get("id");
+        const password = SBUxMethod.get("password");
+    	
+        const header = {
+                //"Content-Type": "application/x-www-form-urlencoded",
+                "sysPrgrmId": "login"
+            }
+        
+        //let loginformData = new FormData(document.getElementById("frm"));
+        let loginformData = new FormData();
+        loginformData.append("id", id);
+        loginformData.append("password", password);
+        
+        const response = await fetch(
+                "/co/sys/forceLogin", {
+                    method: "POST",
+                    headers: header,
+                    cache: "no-cache",
+                    body: new URLSearchParams({ // 일반 객체를 fordata형식으로 변환해주는 클래스
+                    	id: id,
+                    	password: password
+                    })
+                }
+            );
+
+   		const data = await response.json();
+    		
+        /*
+    	const postJsonPromise = gfn_postJSON("/co/sys/loginCheck", {
+    			userId: id,
+    			password: password
+    		});
+        const data = await postJsonPromise;
+		*/
+        if (!_.isEqual("S", data.resultStatus)) {
+        	gfn_comAlert(data.resultCode, data.resultMessage);
+        	return;
+    	} else {
+    		
+    		const loginCode = data.loginCode;
+    		const loginMessage = data.loginMessage;
+    		
+    		if (!gfn_isEmpty(loginMessage)) {
+    			alert(loginMessage);
+    			return;
+    		}
+    		
+    		switch(loginCode) {
+    		case "USER_UNRECEIVED":	// 승인대기 id
+    			alert("APC생산관리 승인대기상태입니다.");
+    			break;
+    		case "USER_LOCKED":		// 잠김계정
+    			alert("계정이 잠김처리되었습니다.관리자에게 문의하세요.");
+    			break;
+    		case "USER_DORMANCY":	// 휴면계정
+    			alert("휴면상태의 계정입니다.");
+    			break;
+    		case "USER_UNUSED":		// 미사용등록 계정
+    			alert("미사용등록된 계정입니다.");
+    			break;
+    		case "LOGIN_FAILED":	// 로그인실패
+    			alert("로그인 정보가 올바르지 않습니다.");
+    			break;
+    		case "USER_DUPLICATE":	// 중복계정
+    			alert("동일ID의 기존 접속정보가 존재합니다.");
+    			break;
+    		
+    		case "LOGIN_SUCCESS":	// 로그인성공
+    			window.location.href = "/actionMain.do";
+    			break;
+    		}
+    	}
+    }
+    
+	
+    
     //사용자아이디 쿠키 설정
-    function fn_setCookie() {
+    const fn_setCookie = function() {
     	// 사용자아이디
     	let userId = SBUxMethod.get("id");
     	let saveIdYn = SBUxMethod.get("chkSaveIdYn").chkSaveIdYn;
@@ -106,6 +277,14 @@
     	<c:if test="${loginMessage != null}">
 			alert('${loginMessage}');
 		</c:if>
+		
+	    const frm = document.getElementById("frm");
+	    frm.addEventListener("keyup", function (event) {
+	      	if (event.keyCode === 13) {
+	        	event.preventDefault();
+	        	fn_beforeSubmit();
+			}
+	    });
     });
     
 </script>
