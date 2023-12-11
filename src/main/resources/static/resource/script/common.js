@@ -150,9 +150,9 @@ async function gfn_postJSON(_url, _param, _sysPrgrmId, _hideProgress) {
 
 		if (!_.isEqual("S", result.resultStatus)
 			&& _.isEqual("E0010", result.resultCode)) {
-			
-			// gfn_comAlert(result.resultCode, result.resultMessage);	
-			
+
+			// gfn_comAlert(result.resultCode, result.resultMessage);
+
 			if (typeof parent.lfn_redirect === 'function') {
 				parent.lfn_redirect("/main.do");
 			}
@@ -227,7 +227,11 @@ async function gfn_setComCdSBSelect(_targetIds, _jsondataRef, _cdId, _apcCd) {
 		}
 
 	} catch (e) {
-
+		if (!(e instanceof Error)) {
+			e = new Error(e);
+		}
+		console.error("failed", e);
+		console.error("failed", e.message);
 	}
 }
 
@@ -261,6 +265,11 @@ async function gfn_setComCdGridSelect(_gridId, _jsondataRef, _cdId, _apcCd) {
 		});
 		SBUxMethod.refresh(_gridId);
 	} catch (e) {
+		if (!(e instanceof Error)) {
+			e = new Error(e);
+		}
+		console.error("failed", e);
+		console.error("failed", e.message);
 	}
 }
 
@@ -306,6 +315,11 @@ const gfn_setSBSelectJson = function (_targetIds, _jsondataRef, _sourceJson) {
 			SBUxMethod.refresh(_targetIds);
 		}
 	} catch (e) {
+		if (!(e instanceof Error)) {
+			e = new Error(e);
+		}
+		console.error("failed", e);
+		console.error("failed", e.message);
 	}
 }
 
@@ -844,6 +858,11 @@ try{
 			SBUxMethod.refresh(_targetIds);
 		}
 }catch(e) {
+	if (!(e instanceof Error)) {
+			e = new Error(e);
+		}
+		console.error("failed", e);
+		console.error("failed", e.message);
 }
 }
 /** 생산자정보 */
@@ -1132,6 +1151,11 @@ const gfn_getComMsgList = async function() {
 			gv_comMsgList.push(msg);
 		});
 	} catch (e) {
+		if (!(e instanceof Error)) {
+			e = new Error(e);
+		}
+		console.error("failed", e);
+		console.error("failed", e.message);
 	}
 }
 
