@@ -806,7 +806,7 @@ public class SsoController extends BaseController {
 		request.getSession().setAttribute("sysPrgrmId", null);
 		request.getSession().setAttribute("comApcList", null);
 
-		return "redirect:/mainApcInsReq.do";
+		return "redirect:/mainApcPt.do";
 	}
 	
 	
