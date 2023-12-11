@@ -429,7 +429,7 @@
 	    SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
-	    //SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.paging = {
 				'type' : 'page',
