@@ -69,8 +69,8 @@ public class SpmtTrsprtController extends BaseController {
 
 		int insertCnt = 0;
 		try {
-			List<SpmtTrsprtVO> origin = spmtTrsprtVO.get("origin").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
-			List<SpmtTrsprtVO> modified = spmtTrsprtVO.get("modified").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
+			List<SpmtTrsprtVO> origin = spmtTrsprtVO.get("origin").stream().filter(e -> e.getDelYn().equals(ComConstants.CON_NONE)).collect(Collectors.toList());
+			List<SpmtTrsprtVO> modified = spmtTrsprtVO.get("modified").stream().filter(e -> e.getDelYn().equals(ComConstants.CON_NONE)).collect(Collectors.toList());
 
 			List<String> originPk = origin.stream().filter(e -> e.getTrsprtCoCd() != null && e.getTrsprtCoCd().equals("") == false).map(e -> e.getTrsprtCoCd()).collect(Collectors.toCollection(ArrayList::new));
 			List<String> modifiedPk = modified.stream().filter(e -> e.getTrsprtCoCd() != null && e.getTrsprtCoCd().equals("") == false).map(e -> e.getTrsprtCoCd()).collect(Collectors.toCollection(ArrayList::new));

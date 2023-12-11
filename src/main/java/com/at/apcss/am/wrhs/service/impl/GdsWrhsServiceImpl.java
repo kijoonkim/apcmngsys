@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.am.cmns.service.CmnsGdsService;
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
@@ -59,7 +60,7 @@ public class GdsWrhsServiceImpl extends BaseServiceImpl implements GdsWrhsServic
 		int sn = 1;
 		String wrhsSeCd = "4";
 		String trsprtSeCd = "3";
-		String delYn = "N";
+		String delYn = ComConstants.CON_NONE;
 		String pckgno = cmnsTaskNoService.selectPckgno(gdsInvntrVO.getApcCd(), gdsInvntrVO.getPckgYmd());
 		
 		CmnsGdsVO cmnsGdsVO = new CmnsGdsVO();
@@ -97,7 +98,7 @@ public class GdsWrhsServiceImpl extends BaseServiceImpl implements GdsWrhsServic
 	
 	@Override
 	public HashMap<String, Object> deleteGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception {
-		String delYn = "Y";
+		String delYn = ComConstants.CON_YES;
 		
 		gdsInvntrVO.setDelYn(delYn);
 		
