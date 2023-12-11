@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -110,11 +111,10 @@ public class SlsPrfmncServiceImpl extends BaseServiceImpl implements SlsPrfmncSe
 		for (SlsPrfmncVO slsPrfmncVO : slsPrfmncList) {
 			String ddlnYn = cmnsValidationService.selectChkDdlnYn(slsPrfmncVO.getApcCd(), slsPrfmncVO.getSpmtYmd());
 
-			if("N".equals(ddlnYn)) {
+			if(ComConstants.CON_YES.equals(ddlnYn)) {
 				savedCnt += updateSlsPrfmnc(slsPrfmncVO);
 			} else {
-				resultMap.put("errCd", ComConstants.MSGCD_ALEADY_CLOSE);
-				return resultMap;
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("W0012", "매출 내역")));
 			}
 		}
 		resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
@@ -131,11 +131,10 @@ public class SlsPrfmncServiceImpl extends BaseServiceImpl implements SlsPrfmncSe
 		for (SlsPrfmncVO slsPrfmncVO : slsPrfmncList) {
 			String ddlnYn = cmnsValidationService.selectChkDdlnYn(slsPrfmncVO.getApcCd(), slsPrfmncVO.getSpmtYmd());
 
-			if("N".equals(ddlnYn)) {
+			if(ComConstants.CON_NONE.equals(ddlnYn)) {
 				deletedCnt += deleteSlsPrfmnc(slsPrfmncVO);
 			} else {
-				resultMap.put("errCd", ComConstants.MSGCD_ALEADY_CLOSE);
-				return resultMap;
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("W0012", "매출 내역")));
 			}
 		}
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
