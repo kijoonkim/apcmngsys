@@ -2057,7 +2057,11 @@ jQuery.fn.serializeForm = function( ) {
 		}
 
 	} catch (e) {
-	} finally {
+		if (!(e instanceof Error)) {
+			e = new Error(e);
+		}
+		console.error("failed", e);
+		console.error("failed", e.message);
 	}
 	return obj;
 };

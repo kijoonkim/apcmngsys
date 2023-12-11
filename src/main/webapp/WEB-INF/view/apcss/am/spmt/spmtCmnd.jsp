@@ -32,8 +32,8 @@
 				<div style="margin-left: auto;">
 					<sbux-button id="btnCmndDocSpmt" name="btnCmndDocSpmt" uitype="normal" class="btn btn-sm btn-primary" text="출하지시서" onclick="fn_cmndDocSpmt"></sbux-button>
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>
-					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
+					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -553,7 +553,7 @@
 			SBUxMethod.set("srch-inp-vrtyCd", "");
  		})
  	})
- 	
+
     //그리드 체크박스 전체 선택
     function fn_checkAll(grid, obj) {
         var gridList = grid.getGridDataAll();

@@ -609,7 +609,8 @@
         </sbux-menu>
         <div class="user-info-wrap">
             <c:if test="${loginVO != null && loginVO.id != null}">
-                <span class="name-t">${loginVO.name}</span>님 반갑습니다.
+            	<c:set scope="request" var="userName" value="${loginVO.name}"></c:set>
+                <span class="name-t">${userName}</span>님 반갑습니다.
                 <ul class="user-login-menu">
                     <li style="background-color:#149FFF;"><sbux-button id="btnPrfrmImprvDmnd" name="btnPrfrmImprvDmnd" uitype="normal" text="개선요청" style="width:64px; text-align:center; display:inline-block; font-size:12px;" onclick="fn_modalPopup"></sbux-button></li>
                     <li><a href="/actionLogout.do">로그아웃</a></li>
@@ -730,15 +731,15 @@
         await fn_afterAddTab(menuNo);
         fn_setLeftMenu(menuJson[0].id, menuJson[0].text);
     }
-    
+
     function gfn_tabClose(_menuId) {
     	SBUxMethod.removeTab("tab_menu", _menuId)
     }
-    
+
     function lfn_redirect(_url) {
     	window.location.href = _url;
     }
-    
-    
+
+
 </script>
 </html>
