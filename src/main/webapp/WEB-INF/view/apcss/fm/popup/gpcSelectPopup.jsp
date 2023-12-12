@@ -144,7 +144,10 @@
 		    };
 		    SBGridProperties.columns = [
 		        {caption: ['분류코드'], 	ref: 'ctgryCd', hidden : true},
+		        {caption: ['분류명'], 	ref: 'ctgryNm', hidden : true},
+		        /*
 		        {caption: ['분류명'], 	ref: 'ctgryNm', width: '200px', type: 'input', style: 'text-align:center'},
+		        */
 		        {caption: ['품목코드'], 	ref: 'itemCd', 	hidden : true},
 		        {caption: ['품목명'], 	ref: 'itemNm', 	width: '200px', type: 'input', style: 'text-align:center'},
 		        {caption: ['비고'], 		ref: 'rmrk', 	width: '500px', type: 'input', style: 'text-align:center'},
