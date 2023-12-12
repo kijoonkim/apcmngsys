@@ -252,7 +252,6 @@
 		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, 		gv_selectedApcCd),						// 품목
  			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, 		gv_selectedApcCd),						// 품종
 			gfn_setSpmtPckgUnitSBSelect('grdSpmtCmndTrg', 	jsonSpmtPckgUnit, 	gv_selectedApcCd),						// 포장구분
-			gfn_setComCdSBSelect('grdSpmtCmndTrg', 			jsonComGdsGrd, 		'GDS_GRD'),								// 상품등급
 			gfn_setTrsprtsSBSelect('dtl-slt-trsprtCo', 		jsonTrsprtCo, 		gv_selectedApcCd),						// 운송회사
 		]);
 	}
@@ -265,8 +264,9 @@
 		let itemCd = obj.value;
 
 		let result = await Promise.all([
-			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd, itemCd),						// 품종
-			gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', jsonSpmtPckgUnit, gv_selectedApcCd, itemCd)		// 포장구분
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 				jsonComVrty, 		gv_selectedApcCd, itemCd),			// 품종
+			gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', 	jsonSpmtPckgUnit, 	gv_selectedApcCd, itemCd),			// 포장구분
+			gfn_setApcGdsGrdSBSelect('grdSpmtCmndTrg', 				jsonComGdsGrd, 		gv_selectedApcCd, itemCd, '03'),	// 상품등급(재고그리드)
 		]);
 		if (gfn_isEmpty(itemCd)) {
 			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, "");
@@ -295,16 +295,18 @@
 			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
 		}
 		let rst = await Promise.all([
-			gfn_setSpmtPckgUnitSBSelect('grdSpmtCmndTrg', jsonSpmtPckgUnit, gv_selectedApcCd, itemCd, vrtyCd)	// 포장구분	(그리드)
+			gfn_setSpmtPckgUnitSBSelect('grdSpmtCmndTrg', 	jsonSpmtPckgUnit, 	gv_selectedApcCd, itemCd, vrtyCd),	// 포장구분	(그리드)
+			gfn_setApcGdsGrdSBSelect('grdSpmtCmndTrg', 		jsonComGdsGrd, 		gv_selectedApcCd, itemCd, '03'),	// 상품등급(재고그리드)
 		]);
 		grdSpmtCmndTrg.refresh({"combo":true});
 		SBUxMethod.refresh("srch-slt-spmtPckgUnitCd");
+
 	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createRegSpmtCmndGrid();
 
-		SBUxMethod.set("srch-dtp-outordrYmdFrom", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-dtp-outordrYmdFrom", gfn_dateFirstYmd(new Date()));
 		SBUxMethod.set("srch-dtp-outordrYmdTo", gfn_dateToYmd(new Date()));
 		SBUxMethod.set("dtl-inp-cmndYmd", gfn_dateToYmd(new Date()));
 
