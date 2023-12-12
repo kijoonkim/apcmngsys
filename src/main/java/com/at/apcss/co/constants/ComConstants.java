@@ -2,6 +2,10 @@ package com.at.apcss.co.constants;
 
 public class ComConstants {
 
+	
+	public final static String DEFAULT_ERR_USER = "SYSTEM";
+	public final static String DEFAULT_ERR_PRGRM = "SYSTEM_APP";	
+	
 	/**
 	 * 미등록
 	 */
@@ -94,6 +98,8 @@ public class ComConstants {
 	public final static String CON_SPACE = " ";
 	public final static String CON_UNDERLINE = "_";
 	public final static String CON_DASH = "-";
+	public final static String CON_COLON = ":";
+	public final static String CON_COMMA = ",";
 
 	public final static String CON_YES = "Y";
 	public final static String CON_NONE = "N";

@@ -208,5 +208,23 @@ public class AmConstants {
      * 발주유형: 3 대형마트
      */
     public final static String CON_OUTORDR_TYPE_MART = "3";
+
+    /**
+     * 대형마트 코드: 11	이마트
+     */
+    public final static String CON_LGSZ_MRKT_CD_EMART = "11";
+    /**
+     * 대형마트 코드: 21	홈플러스
+     */
+    public final static String CON_LGSZ_MRKT_CD_HOMEPLUS = "21";
+    /**
+     * 대형마트 코드: 31	롯데마트
+     */
+    public final static String CON_LGSZ_MRKT_CD_LOTTEMART = "31";
+    /**
+     * 대형마트 코드: 41	GS리테일
+     */
+    public final static String CON_LGSZ_MRKT_CD_GSRETAIL = "41";
+
     
 }

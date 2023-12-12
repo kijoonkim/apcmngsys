@@ -53,4 +53,17 @@ public interface ComSysService {
 	 */
 	public boolean checkDuplicatedUser(String userId, String userIp) throws Exception;
 	
+	/**
+	 * 오류내용 DB등록
+	 * @param errCnts
+	 * @throws Exception
+	 */
+	public void insertSysErrLog(String userId, String prgrmId, String errCnts) throws Exception;
+	
+	/**
+	 * 오류내용 DB등록
+	 * @param comSysVO
+	 * @throws Exception
+	 */
+	public void insertSysErrLog(ComSysVO comSysVO) throws Exception;
 }

@@ -40,14 +40,6 @@
 						onclick="fn_reset"
 					></sbux-button>
 					<sbux-button
-						id="btnSearch"
-						name="btnSearch"
-						uitype="normal"
-						text="조회"
-						class="btn btn-sm btn-outline-danger"
-						onclick="fn_search"
-					></sbux-button>
-					<sbux-button
 						id="btnSave"
 						name="btnSave"
 						uitype="normal"
@@ -62,6 +54,14 @@
 						text="삭제"
 						class="btn btn-sm btn-outline-danger"
 						onclick="fn_delete"
+					></sbux-button>
+					<sbux-button
+						id="btnSearch"
+						name="btnSearch"
+						uitype="normal"
+						text="조회"
+						class="btn btn-sm btn-outline-danger"
+						onclick="fn_search"
 					></sbux-button>
 					<sbux-button
 						id="btnClose"
@@ -1495,7 +1495,7 @@
 	const fn_close = function(){
 		parent.gfn_tabClose("TAB_AM_001_007");
 	}
-	
+
     //그리드 체크박스 전체 선택
     function fn_checkAllWghPrfmnc(grid, obj) {
         var gridList = grid.getGridDataAll();
