@@ -326,6 +326,10 @@
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid = async function() {
 
+
+
+		//SBUxMethod.set("fclt-inp-apcNm", SBUxMethod.get("inp-apcNm"));
+
 		let SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng';
 	    SBGridProperties.id = 'grdPrdcrOgnCurntMng';
@@ -518,7 +522,7 @@
     		,corpNm : corpNm
     		//,yr : yr
 
-    		,apoSe : '2'
+    		,apoSe : '1'
 
     		//페이징
     		,pagingYn : 'Y'
