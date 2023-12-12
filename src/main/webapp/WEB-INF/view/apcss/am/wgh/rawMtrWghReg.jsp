@@ -401,6 +401,23 @@
     <div id="body-modal-prdcr">
     	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
     </div>
+    
+	<!-- 생산자 상세 Modal -->
+    <div>
+        <sbux-modal
+        	id="modal-prdcrDtl"
+        	name="modal-prdcrDtl"
+        	uitype="middle"
+        	header-title="생산자 상세"
+        	body-html-id="body-modal-prdcrDtl"
+        	footer-is-close-button="false"
+        	header-is-close-button="false"
+        	style="width:1000px"
+        ></sbux-modal>
+    </div>
+    <div id="body-modal-prdcrDtl">
+    	<jsp:include page="../../am/popup/prdcrDtlPopup.jsp"></jsp:include>
+    </div>
 
     <!-- 차량 선택 Modal -->
     <div>

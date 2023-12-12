@@ -206,4 +206,20 @@ public class PrdcrVO extends ComVO {
 	 * 등록구분
 	 * */
 	private String regSeCd;
+	/**
+	 * 농가명
+	 */
+	private String frmhsNm;
+	/**
+	 * 농가 전화번호
+	 */
+	private String frmhsTelno;
+	/**
+	 * 농가 지역코드
+	 */
+	private String frmhsCtpv;
+	/**
+	 * 농가 주소
+	 */
+	private String frmhsAddr;
 }
