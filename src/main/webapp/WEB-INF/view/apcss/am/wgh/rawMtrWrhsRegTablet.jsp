@@ -40,14 +40,6 @@
 						text="초기화"
 					></sbux-button>
 					<sbux-button
-						id="btnSearch"
-						name="btnSearch"
-						uitype="normal"
-						class="btn btn-sm btn-outline-danger"
-						onclick="fn_search"
-						text="조회"
-					></sbux-button>
-					<sbux-button
 						id="btnSave"
 						name="btnSave"
 						uitype="normal"
@@ -62,6 +54,14 @@
 						class="btn btn-sm btn-outline-danger"
 						onclick="fn_delete"
 						text="삭제"
+					></sbux-button>
+					<sbux-button
+						id="btnSearch"
+						name="btnSearch"
+						uitype="normal"
+						class="btn btn-sm btn-outline-danger"
+						onclick="fn_search"
+						text="조회"
 					></sbux-button>
 					<sbux-button
 						id="btnClose"
@@ -859,9 +859,9 @@
 	 * @description 생산자 선택 popup callback 처리
 	 */
 	const fn_setPrdcr = async function(prdcr) {
-		
+
 		await fn_getPrdcrs();
-		
+
 		if (!gfn_isEmpty(prdcr)) {
 			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
 			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
@@ -907,7 +907,7 @@
 		}
 
 	}
-	
+
 	const fn_onChangeSrchPrdcrIdentno = function(obj) {
 
 		if (gfn_isEmpty(SBUxMethod.get("srch-inp-prdcrIdentno"))) {
@@ -1177,7 +1177,7 @@
 	const fn_close = function(){
 		parent.gfn_tabClose("TAB_AM_001_008");
 	}
-	
+
     //그리드 체크박스 전체 선택
     function fn_checkAllRawMtrWrhs(grid, obj) {
         var gridList = grid.getGridDataAll();
