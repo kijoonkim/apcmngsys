@@ -27,8 +27,8 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 선별실적등록 -->
+                    <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
+                    <h3 class="box-title"> ▶ ${menuNm}</h3><!-- 선별실적등록 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-dark" onclick="fn_search" text="조회"></sbux-button>
@@ -975,6 +975,8 @@
 			}
 		}
 
+		let hasError = false;
+		
 		allSortData.forEach((item, index) => {
 			if (!gfn_isEmpty(item.inptYmd)) {
 
@@ -1014,10 +1016,11 @@
 
 				if (gfn_isEmpty(jgmtGrdCd)) {
 					gfn_comAlert("W0005", "선별등급");		//	W0005	{0}이/가 없습니다.
-					return;
+					
+					hasError = true;
+					return false;
 				}
-
-
+				
 				const autoPckgInptYn = item.checkedYn;	// 포장등록 유무
 
 				sortPrfmnc = {
@@ -1039,6 +1042,10 @@
     		}
 		});
 
+		if (hasError) {
+			return;
+		}
+		
 		if (sortPrfmncList.length == 0) {
 			gfn_comAlert("W0005", "등록대상");		//	W0005	{0}이/가 없습니다.
 			return;
@@ -1977,11 +1984,14 @@
  	    	const stdGrdList = [];
  	    	
 			// 상세등급
+			
+			let hasError = false;
 			gjsonStdGrdObjKnd.forEach((item, index) => {				
 				let colNm = gStdGrdObj.colPrfx + item.grdKnd;
 				if (gfn_isEmpty(rowData[colNm])) {
 	 	    		gfn_comAlert("W0001", "등급");		//	W0002	{0}을/를 선택하세요.
-	 	            return;
+	 	    		hasError = true;
+	 	            return false;
 	 	    	}
 				
 				stdGrdList.push({
@@ -1998,6 +2008,10 @@
 				}
 			});
  	    	
+			if (hasError) {
+				return;
+			}
+			
 	    	if (gfn_isEmpty(grdCd)) {
 	    		gfn_comAlert("W0001", "등급");		//	W0002	{0}을/를 선택하세요.
 	            return;

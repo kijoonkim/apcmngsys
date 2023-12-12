@@ -65,6 +65,14 @@ public interface CnptMapper {
 	public int deleteCnpt(CnptVO cnptVO) throws Exception;
 
 	/**
+	 * 대형마켓 접속정보 조회
+	 * @param lgszMrktVO
+	 * @return
+	 * @throws Exception
+	 */
+	public LgszMrktVO selectLgszMrkt(LgszMrktVO lgszMrktVO) throws Exception;
+	
+	/**
 	 * 대형마켓 목록 조회
 	 * 
 	 * @param LgszMrktVO

@@ -24,7 +24,7 @@
     	.ul_stdgrd {
     		list-style:none;
     		padding-left: 3px;
-    		height: 24px;
+    		/* height: 24px; */
     		vertical-align: middle
     	}
     	.ul_stdgrd li {
@@ -37,9 +37,11 @@
     		max-width: 100px;
     	}
     	.ul_stdgrd li select {
+    		/*
     		padding: 0px;
     		height: 20px;
     		max-width: 100px;
+    		*/
     	}
     	.ul_stdgrd li input {
     		/*padding: 0px;
@@ -47,9 +49,11 @@
     		max-width: 80px;*/
     	}
     	.ul_stdgrd .sb__li__select {
+    		/*
     		padding: 0px;
     		height: 20px;
     		max-width: 100px;
+    		*/
     	}
     	.ul_stdgrd .sb__li__input {
     		max-width: 80px;
@@ -66,15 +70,10 @@
 		</li>
 		<li class="li__select">
 			<sbux-select
-				uitype="singleExt"
+				uitype="single"
 				id="stdGrdSlt-slt-knd-1"
 				name="stdGrdSlt-slt-knd-1"
-				filtering="false"
-				clear-filtering-after-select="true"
-				select-item-after-blur="true"
-				clear-input-tab="true"
-				clear-input-blur="true"
-				class="sb__li__select"
+				class="form-control input-sm input-sm-ast inpt_data_reqed"
 				jsondata-ref="gjsonStdGrdObj_1"
 				jsondata-text="grdNm"
 				jsondata-value="grdCd"
@@ -99,15 +98,10 @@
 		</li>
 		<li class="li__select">
 			<sbux-select
-				uitype="singleExt"
+				uitype="single"
 				id="stdGrdSlt-slt-knd-2"
 				name="stdGrdSlt-slt-knd-2"
-				filtering="false"
-				clear-filtering-after-select="true"
-				select-item-after-blur="true"
-				clear-input-tab="true"
-				clear-input-blur="true"
-				class="sb__li__select"
+				class="form-control input-sm input-sm-ast inpt_data_reqed"
 				jsondata-ref="gjsonStdGrdObj_2"
 				jsondata-text="grdNm"
 				jsondata-value="grdCd"
@@ -132,15 +126,10 @@
 		</li>
 		<li class="li__select">
 			<sbux-select
-				uitype="singleExt"
+				uitype="single"
 				id="stdGrdSlt-slt-knd-3"
 				name="stdGrdSlt-slt-knd-3"
-				filtering="false"
-				clear-filtering-after-select="true"
-				select-item-after-blur="true"
-				clear-input-tab="true"
-				clear-input-blur="true"
-				class="sb__li__select"
+				class="form-control input-sm input-sm-ast inpt_data_reqed"
 				jsondata-ref="gjsonStdGrdObj_3"
 				jsondata-text="grdNm"
 				jsondata-value="grdCd"
@@ -165,15 +154,10 @@
 		</li>
 		<li class="li__select">
 			<sbux-select
-				uitype="singleExt"
+				uitype="single"
 				id="stdGrdSlt-slt-knd-4"
 				name="stdGrdSlt-slt-knd-4"
-				filtering="false"
-				clear-filtering-after-select="true"
-				select-item-after-blur="true"
-				clear-input-tab="true"
-				clear-input-blur="true"
-				class="sb__li__select"
+				class="form-control input-sm input-sm-ast inpt_data_reqed"
 				jsondata-ref="gjsonStdGrdObj_4"
 				jsondata-text="grdNm"
 				jsondata-value="grdCd"
@@ -198,15 +182,10 @@
 		</li>
 		<li class="li__select">
 			<sbux-select
-				uitype="singleExt"
+				uitype="single"
 				id="stdGrdSlt-slt-knd-5"
 				name="stdGrdSlt-slt-knd-5"
-				filtering="false"
-				clear-filtering-after-select="true"
-				select-item-after-blur="true"
-				clear-input-tab="true"
-				clear-input-blur="true"
-				class="sb__li__select"
+				class="form-control input-sm input-sm-ast inpt_data_reqed"
 				jsondata-ref="gjsonStdGrdObj_5"
 				jsondata-text="grdNm"
 				jsondata-value="grdCd"

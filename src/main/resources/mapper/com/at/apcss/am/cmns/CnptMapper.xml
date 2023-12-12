@@ -167,24 +167,51 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.10  	정희운       		Initial Creation                            -->
 	<!-- ==========================================================================	-->
+    <select id="selectLgszMrkt" parameterType="com.at.apcss.am.cmns.vo.LgszMrktVO" resultType="com.at.apcss.am.cmns.vo.LgszMrktVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.cmns.mapper.CnptMapper.selectLgszMrkt */
+	    		  LM.APC_CD				AS APC_CD
+			    , LM.LGSZ_MRKT_CD		AS LGSZ_MRKT_CD
+			    , LM.LGSZ_MRKT_NM		AS LGSZ_MRKT_NM
+			    , LM.OUTORDR_INFO_URL	AS OUTORDR_INFO_URL
+			    , LM.USER_ID			AS USER_ID
+			    , LM.PSWD				AS PSWD
+			    , LM.USE_YN				AS USE_YN
+			    , LM.LAST_PRCS_DT		AS LAST_PRCS_DT
+			  FROM TB_LGSZ_MRKT_MNG LM
+			 WHERE APC_CD = #{apcCd}
+			   AND LGSZ_MRKT_CD = #{lgszMrktCd}
+		]]>
+    </select>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CnptMapper.selectLgszMrktList			-->
+	<!-- DESC : 대형마켓정보 조회.	                                       					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.10  	정희운       		Initial Creation                            -->
+	<!-- ==========================================================================	-->
     <select id="selectLgszMrktList" parameterType="com.at.apcss.am.cmns.vo.LgszMrktVO" resultType="com.at.apcss.am.cmns.vo.LgszMrktVO">
     	<![CDATA[
-    	SELECT LM.APC_CD				AS APC_CD
-		     , LM.LGSZ_MRKT_CD			AS LGSZ_MRKT_CD
-		     , LM.LGSZ_MRKT_NM			AS LGSZ_MRKT_NM
-		     , LM.OUTORDR_INFO_URL		AS OUTORDR_INFO_URL
-		     , LM.USER_ID				AS USER_ID
-		     , LM.PSWD					AS PSWD
-		     , LM.USE_YN				AS USE_YN
-		     , LM.LAST_PRCS_DT			AS LAST_PRCS_DT
-		FROM TB_LGSZ_MRKT_MNG LM
-		WHERE APC_CD = #{apcCd}
+	    	SELECT /* com.at.apcss.am.cmns.mapper.CnptMapper.selectLgszMrktList */
+	    		  LM.APC_CD				AS APC_CD
+			    , LM.LGSZ_MRKT_CD		AS LGSZ_MRKT_CD
+			    , LM.LGSZ_MRKT_NM		AS LGSZ_MRKT_NM
+			    , LM.OUTORDR_INFO_URL	AS OUTORDR_INFO_URL
+			    , LM.USER_ID			AS USER_ID
+			    --, LM.PSWD				AS PSWD
+			    , NULL					AS PSWD
+			    , LM.USE_YN				AS USE_YN
+			    , LM.LAST_PRCS_DT		AS LAST_PRCS_DT
+			  FROM TB_LGSZ_MRKT_MNG LM
+			 WHERE APC_CD = #{apcCd}
 		]]>
     </select>
 
     <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CnptMapper.updateLgszMrkt				-->
-	<!-- DESC : 대형마켓정보 변경.	                                       				-->
+	<!-- DESC : 대형마켓정보 변경.	                                       					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -192,15 +219,20 @@
 	<!-- ==========================================================================	-->
 	<update id="updateLgszMrkt" parameterType="com.at.apcss.am.cmns.vo.LgszMrktVO">
 		<![CDATA[
-		UPDATE TB_LGSZ_MRKT_MNG
-		   SET SYS_LAST_CHG_DT 			= SYSDATE
-    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
-    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
-    		 , USER_ID 	= #{userId}
-    		 , PSWD 	= #{pswd}
-    		 , USE_YN 	= #{useYn}
-		 WHERE APC_CD 					= #{apcCd}
-  		 AND LGSZ_MRKT_CD 				= #{lgszMrktCd}
+			UPDATE /* com.at.apcss.am.cmns.mapper.CnptMapper.updateLgszMrkt */
+				TB_LGSZ_MRKT_MNG
+			   SET SYS_LAST_CHG_DT 			= SYSDATE
+	    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+	    		 , USER_ID 	= #{userId}
+		]]>
+		<if test='pswd != null and pswd !=""'>
+	    		 , PSWD 	= #{pswd}
+		</if>
+		<![CDATA[
+	    		 , USE_YN 	= #{useYn}
+			 WHERE APC_CD 					= #{apcCd}
+	  		 AND LGSZ_MRKT_CD 				= #{lgszMrktCd}
 		]]>
 	</update>
 
@@ -213,7 +245,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.10  	정희운       		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="insertLgszMrkt" parameterType="com.at.apcss.am.cmns.vo.LgszMrktVO">
+	<insert id="insertLgszMrkt" parameterType="com.at.apcss.am.cmns.vo.LgszMrktVO">
 		<![CDATA[
 	    	INSERT /* com.at.apcss.am.cmns.mapper.CnptMapper.insertLgszMrkt */
 	    		INTO TB_LGSZ_MRKT_MNG
@@ -249,7 +281,7 @@
 		    		, #{sysLastChgPrgrmId}
 	   			)
 		]]>
-	</update>
+	</insert>
 </mapper>
 
 

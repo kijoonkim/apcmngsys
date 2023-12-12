@@ -1,6 +1,6 @@
 <%
  /**
-  * @Class Name : regRawMtrWrhsPrfmnc.jsp
+  * @Class Name : rawMtrWrhsReg.jsp
   * @Description : 원물입고 실적등록 화면
   * @author SI개발부
   * @since 2023.08.31
@@ -28,8 +28,10 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
-					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 원물입고등록 -->
+                    <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
+                    <h3 class="box-title"> ▶ ${menuNm}</h3><!-- 원물입고등록 -->
+					<sbux-label id="lbl-wrhsno" name="lbl-wrhsno" uitype="normal" text="">
+					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button 
@@ -855,9 +857,6 @@
             return;
     	}
 
-    	console.log("stdGrd", stdGrd);
-    	console.log("wrhsWght", wrhsWght);
-    	
     	if (stdGrd.isWght) {
     		if (stdGrd.grdWght > wrhsWght) {
     			gfn_comAlert("W0014", "등급중량", "입고중량");		//	W0014	{0}이/가 {1} 보다 큽니다.
@@ -2210,12 +2209,16 @@
  	    	let cntRt = 0;
  	    	let grdNvSum = 0;
  	    	const stdGrdList = [];
+ 	    	
+ 	    	let hasError = false;
 			// 상세등급
 			gjsonStdGrdObjKnd.forEach((item, index) => {
 				let colNm = gStdGrdObj.colPrfx + item.grdKnd;
 				if (gfn_isEmpty(rowData[colNm])) {
 	 	    		gfn_comAlert("W0001", "등급");		//	W0002	{0}을/를 선택하세요.
-	 	            return;
+	 	    		
+	 	    		hasError = true;
+	 	            return false;
 	 	    	}
 
 				const grd = {
@@ -2244,6 +2247,9 @@
 				stdGrdList.push(grd);
 			});
 
+			if (hasError) {
+				return;
+			}
 
 			if (cntRt > 0) {
 				if (grdNvSum > 100) {
