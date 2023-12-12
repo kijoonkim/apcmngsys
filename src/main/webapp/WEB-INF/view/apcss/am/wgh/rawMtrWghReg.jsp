@@ -28,9 +28,8 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3> <!-- 원물계량등록 -->
-					<sbux-label id="lbl-wghno" name="lbl-wghno" uitype="normal" text="">
-					</sbux-label>
+					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
+					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 원물계량등록 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnDocRawMtrWgh" name="btnDocRawMtrWgh" uitype="normal" class="btn btn-sm btn-primary" onclick="fn_docRawMtrWgh" text="계량확인서" ></sbux-button>
