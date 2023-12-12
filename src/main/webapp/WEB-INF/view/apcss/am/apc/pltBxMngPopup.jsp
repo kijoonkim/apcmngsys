@@ -54,11 +54,6 @@
 					<!--[pp] //검색 -->
 					<!--[pp] 검색결과 -->
 					<div class="table-responsive tbl_scroll_sm">
-						<div class="ad_tbl_top">
-							<ul class="ad_tbl_count">
-								<li><span>원물입고</span></li>
-							</ul>
-						</div>
 						<div id="sb-area-grdPlt" style="height:213px; width: 100%;"></div>
 						<div id="sb-area-grdBx" style="height:213px; width: 100%"></div>
 					</div>
@@ -110,7 +105,7 @@
 	    grdPlt = _SBGrid.create(SBGridProperties);
 	    fn_callSelectPltList();
 	}
-	
+
 	/**
      * @description 메뉴트리그리드 컨텍스트메뉴 json
      * @type {object}
@@ -168,7 +163,7 @@
 	    grdBx = _SBGrid.create(SBGridProperties);
 	    fn_callSelectBxList();
 	}
-	
+
 	/**
      * @description 메뉴트리그리드 컨텍스트메뉴 json
      * @type {object}
