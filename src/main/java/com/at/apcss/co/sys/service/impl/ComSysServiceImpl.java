@@ -17,6 +17,7 @@ import com.at.apcss.co.menu.mapper.ComMenuMapper;
 import com.at.apcss.co.menu.vo.ComMenuVO;
 import com.at.apcss.co.sys.mapper.ComSysMapper;
 import com.at.apcss.co.sys.service.ComSysService;
+import com.at.apcss.co.sys.util.ComUtil;
 import com.at.apcss.co.sys.vo.ComLgnPlcyVO;
 import com.at.apcss.co.sys.vo.ComSessionVO;
 import com.at.apcss.co.sys.vo.ComSysVO;
@@ -192,6 +193,23 @@ public class ComSysServiceImpl extends BaseServiceImpl implements ComSysService 
 		}
 		
 		return false;
+	}
+
+	@Override
+	public void insertSysErrLog(String userId, String prgrmId, String errCnts) throws Exception {
+		
+		ComSysVO comSysVO = new ComSysVO();
+		comSysVO.setUserId(ComUtil.nullToDefault(userId, ComConstants.DEFAULT_ERR_USER));
+		comSysVO.setPrgrmId(ComUtil.nullToDefault(prgrmId, ComConstants.DEFAULT_ERR_PRGRM));
+		comSysVO.setErrCd(ComConstants.RESULT_CODE_DEFAULT);
+		comSysVO.setErrCnts(errCnts);
+		
+		insertSysErrLog(comSysVO);
+	}
+
+	@Override
+	public void insertSysErrLog(ComSysVO comSysVO) throws Exception {
+		comSysMapper.insertSysLog(comSysVO);
 	}
 
 

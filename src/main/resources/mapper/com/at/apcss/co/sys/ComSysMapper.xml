@@ -209,4 +209,25 @@
     	]]>
 	</update>
 	
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.sys.mapper.ComSysMapper.insertSysLog   				-->
+	<!-- DESC : 시스템로그 등록                                        					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.13  	MS    	     	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<insert id="insertSysLog" parameterType="com.at.apcss.co.sys.vo.ComSysVO">
+    	<![CDATA[
+			{call /* com.at.apcss.co.sys.mapper.ComSysMapper.insertSysLog */
+				SP_SYS_LOG (
+					  #{userId}
+					, #{prgrmId}
+					, #{errCd}
+					, #{errCnts}
+				)
+			}
+    	]]>
+	</insert>
+	
 </mapper>

@@ -19,4 +19,7 @@ public class ComSysVO {
 	
 	private String sessId;
 	private String frcdExpryYn;
+	
+	private String errCd;
+	private String errCnts;
 }
