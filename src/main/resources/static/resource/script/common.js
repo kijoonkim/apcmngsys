@@ -1072,6 +1072,51 @@ const gfn_nvl = function (str, defaultStr) {
     return gfn_isEmpty(str) ? defaultStr : str;
 }
 
+/**
+ * @name gfn_lpad
+ * @description String Left Padding 처리
+ * @function
+ * @param {string} val
+ * @param {number} padLength
+ * @param {string} padString
+ * @return {string}
+ */
+const gfn_lpad = function(val, padLength, padString){
+    
+	if (gfn_isEmpty(padString)) {
+		return val;
+	}
+
+	val = gfn_nvl(val);
+
+	while(val.length < padLength){
+        val = padString + val;
+    }
+    return val;
+}
+
+/**
+ * @name gfn_rpad
+ * @description String Right Padding 처리
+ * @function
+ * @param {string} val
+ * @param {number} padLength
+ * @param {string} padString
+ * @return {string}
+ */
+const gfn_rpad = function (val, padLength, padString){
+	
+	if (gfn_isEmpty(padString)) {
+		return val;
+	}
+	
+	val = gfn_nvl(val);
+	
+    while(val.length < padLength){
+        val += padString;
+    }
+    return val;
+}
 
 /**
  * @name gfn_getCookie

@@ -103,7 +103,7 @@ public class SlsPrfmncController extends BaseController {
 
 	// 매출 금액 및 확정 저장
 	@PostMapping(value = "/am/sls/saveSlsPrfmncCrtList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> saveSlsPrfmncCrtList(@RequestBody List<SlsPrfmncVO> slsPrfmncList, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> updateSlsPrfmncCfmtnList(@RequestBody List<SlsPrfmncVO> slsPrfmncList, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
@@ -117,7 +117,7 @@ public class SlsPrfmncController extends BaseController {
 				slsPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
 
-			resultMap = slsPrfmncService.saveSlsPrfmncCrtList(slsPrfmncList);
+			resultMap = slsPrfmncService.updateSlsPrfmncCfmtnList(slsPrfmncList);
 
 		} catch (Exception e) {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());

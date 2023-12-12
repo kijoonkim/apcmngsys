@@ -441,7 +441,8 @@ public class LoginController extends BaseController {
 	@GetMapping(value = "/actionSSOLogin.do")
 	public String actionSSOLogin(HttpServletRequest request) throws Exception {
 
-		String id = request.getParameter("id");
+		// String id = request.getParameter("id");
+		String id = ComConstants.CON_BLANK;
 		String pniToken = StrUtil.NVL(request.getParameter(ComConstants.SYS_SSO_TOKEN));
 		
 		if (ComConstants.CON_BLANK.equals(pniToken)) {
@@ -459,10 +460,16 @@ public class LoginController extends BaseController {
 			} else {
 				String userData = apiUserService.getUserData();
 				logger.error("@@@@ SSO 사용자 정보 : {}", userData);
+				id = userData;
 				
 				request.getSession().setAttribute(ComConstants.SYS_SSO_TOKEN, pniToken);
 			}	
 		} else {
+			logger.error("@@@@ SSO 토큰정보 없음");
+			return "redirect:/login.do";
+		}
+		
+		if (StringUtils.hasText(id)) {
 			logger.error("@@@@ SSO 토큰정보 없음");
 			return "redirect:/login.do";
 		}
