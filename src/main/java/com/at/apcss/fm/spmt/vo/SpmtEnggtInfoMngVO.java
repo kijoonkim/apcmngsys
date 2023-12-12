@@ -33,6 +33,8 @@ public class SpmtEnggtInfoMngVO extends ComVO{
 	private String cltvtnArea;
 	private String spmtType;
 	private String trmtType;
+	private String spmtTypeNm;
+	private String trmtTypeNm;
 	private String spmtStrDt;
 	private String spmtEndDt;
 	private String rmrk;

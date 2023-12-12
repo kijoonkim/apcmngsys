@@ -81,7 +81,9 @@
 				 CM.SPMT_CMNDNO    AS SPMT_CMNDNO,
 				 CM.CLTVTN_AREA       AS CLTVTN_AREA,
 				 CM.SPMT_TYPE          AS SPMT_TYPE,
+				 (SELECT FN_GET_COM_CD_VL_NM('SPMT_TYPE', CM.SPMT_TYPE) FROM DUAL) AS SPMT_TYPE_NM,
 				 CM.TRMT_TYPE          AS TRMT_TYPE,
+				 (SELECT FN_GET_COM_CD_VL_NM('TRMT_TYPE', CM.TRMT_TYPE) FROM DUAL) AS TRMT_TYPE_NM,
 				 CM.SPMT_STR_DT      AS SPMT_STR_DT,
 				 CM.SPMT_END_DT      AS SPMT_END_DT,
 				 CM.DEL_YN                  AS DEL_YN,
@@ -101,7 +103,7 @@
 				 CM.ADVNC_PAY	    AS ADVNC_PAY,
 				 CM.RMRK		    AS RMRK,
 				 CM.APC_CD2		AS APC_CD2,
-				 CM.APC_NM2 AS APC_NM2, 
+				 CM.APC_NM2 AS APC_NM2,
 				 CM.APC_CD3		AS APC_CD3,
 				 CM.APC_NM3 AS APC_NM3
 			  FROM TB_SPMT_ENGGT_INFO_MNG CM
@@ -249,35 +251,35 @@
 	    	UPDATE /* com.at.apcss.fm.spmt.mapper.SpmtEnggtInfoMngMapper.updateSpmtEnggtInfoMng */
 	    		TB_SPMT_ENGGT_INFO_MNG
 			   SET
-					  SPMTNO  =#{spmtNo}  
-					 ,PCKGNO  =  #{pckgNo} 
-					 ,ITEM_CD  = #{itemCd} 
-					 ,VRTY_CD  = #{vrtyCd} 
-					 ,GDS_SE_CD  = #{gdsSeCd} 
-					 ,SPCFCT_CD  =#{spcfctCd}  
-					 ,PRDCTN_QNTT  = #{prdctnQntt} 
-					 ,SPMT_QNTT  =  #{spmtQntt} 
-					 ,SPMT_WGHT  = #{spmtWght}  
+					  SPMTNO  =#{spmtNo}
+					 ,PCKGNO  =  #{pckgNo}
+					 ,ITEM_CD  = #{itemCd}
+					 ,VRTY_CD  = #{vrtyCd}
+					 ,GDS_SE_CD  = #{gdsSeCd}
+					 ,SPCFCT_CD  =#{spcfctCd}
+					 ,PRDCTN_QNTT  = #{prdctnQntt}
+					 ,SPMT_QNTT  =  #{spmtQntt}
+					 ,SPMT_WGHT  = #{spmtWght}
 					 ,PCKG_SE_CD  =  #{pckgSeCd}
 					 ,BRND_NM  =  #{brndNm}
 					 ,GDS_CD  =  #{gdsCd}
 					 ,PRDCR_CD  =  #{prdcrCd}
-					 ,SPMT_CMNDNO  =#{spmtCmndno}  
+					 ,SPMT_CMNDNO  =#{spmtCmndno}
 					 ,CLTVTN_AREA  =   #{cltvtnArea}
-					 ,SPMT_TYPE  = #{spmtType} 
+					 ,SPMT_TYPE  = #{spmtType}
 					 ,TRMT_TYPE  =  #{trmtType}
-					 ,SPMT_STR_DT  =  #{spmtStrDt} 
-					 ,SPMT_END_DT  = #{spmtEndDt} 
-					 ,DTL_MTTR  =  #{dtlMttr} 
+					 ,SPMT_STR_DT  =  #{spmtStrDt}
+					 ,SPMT_END_DT  = #{spmtEndDt}
+					 ,DTL_MTTR  =  #{dtlMttr}
 					 ,QLT_GRD  =   #{qltGrd}
 					 ,PRC  =   #{prc}
 					 ,PRC_PBLNT  =  #{prcPblnt}
 					 ,UNIT  =  #{unit}
 					 ,PRC_GIVE_DT  =   #{prcGiveDt}
-					 ,SPCL_MTTR  = #{spclMttr} 
-					 ,ADVNC_PAY  =  #{advncPay} 
+					 ,SPCL_MTTR  = #{spclMttr}
+					 ,ADVNC_PAY  =  #{advncPay}
 					 ,RMRK  =  #{rmrk}
-					 ,APC_CD2  =  #{apcCd2} 
+					 ,APC_CD2  =  #{apcCd2}
 					 ,APC_NM2  =   #{apcNm2}
 					 ,APC_CD3  =   #{apcCd3}
 					 ,APC_NM3 =  #{apcNm3}
