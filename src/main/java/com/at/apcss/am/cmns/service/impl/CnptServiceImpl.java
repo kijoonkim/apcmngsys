@@ -3,15 +3,19 @@ package com.at.apcss.am.cmns.service.impl;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.at.apcss.am.cmns.mapper.CnptMapper;
 import com.at.apcss.am.cmns.service.CnptService;
 import com.at.apcss.am.cmns.vo.CnptVO;
 import com.at.apcss.am.cmns.vo.LgszMrktVO;
 import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.service.ComCryptoService;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.co.sys.util.ComUtil;
 
@@ -36,6 +40,10 @@ public class CnptServiceImpl extends BaseServiceImpl implements CnptService {
 	@Autowired
 	private CnptMapper cnptMapper;
 
+	/** 암호화서비스 */
+    @Resource(name="comCryptoService")
+    ComCryptoService comCryptoService;
+	
 	@Override
 	public CnptVO selectCnpt(CnptVO cnptVO) throws Exception {
 
@@ -91,6 +99,32 @@ public class CnptServiceImpl extends BaseServiceImpl implements CnptService {
 	}
 
 	@Override
+	public LgszMrktVO selectLgszMrkt(String apcCd, String lgszMrktCd) throws Exception {
+		
+		LgszMrktVO lgszMrktVO = new LgszMrktVO();
+		lgszMrktVO.setApcCd(apcCd);
+		lgszMrktVO.setLgszMrktCd(lgszMrktCd);
+		
+		LgszMrktVO resultVO = selectLgszMrkt(lgszMrktVO);
+
+		if (StringUtils.hasText(resultVO.getPswd())) {			
+			String decryptedPswd = comCryptoService.decrypt(resultVO.getPswd());
+			resultVO.setPswd(decryptedPswd);
+		}
+		
+		return resultVO;
+	}
+
+	@Override
+	public LgszMrktVO selectLgszMrkt(LgszMrktVO lgszMrktVO) throws Exception {
+		
+		LgszMrktVO resultVO = cnptMapper.selectLgszMrkt(lgszMrktVO);
+
+		return resultVO;
+	}
+
+	
+	@Override
 	public List<LgszMrktVO> selectLgszMrktList(LgszMrktVO lgszMrktVO) throws Exception {
 
 		List<LgszMrktVO> resultList = cnptMapper.selectLgszMrktList(lgszMrktVO);
@@ -125,6 +159,12 @@ public class CnptServiceImpl extends BaseServiceImpl implements CnptService {
 
 		if(lgszMrktList.size() > 0) {
 			for (LgszMrktVO lgszMrktVO : lgszMrktList) {
+				
+				if (StringUtils.hasText(lgszMrktVO.getPswd())) {
+					String hashedPswd = comCryptoService.encrypt(lgszMrktVO.getPswd());
+					lgszMrktVO.setPswd(hashedPswd);
+				}
+				
 				if(0 == updateLgszMrkt(lgszMrktVO)) {
 					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
 				}

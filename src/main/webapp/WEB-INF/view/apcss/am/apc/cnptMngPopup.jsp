@@ -265,6 +265,7 @@
         	console.error("failed", e.message);
         }
 	}
+	
 	var grdLgszMrkt;
     var jsonLgszMrkt =[];
     const fn_lgszMrktMngCreateGrid = async function() {
@@ -281,12 +282,31 @@
             {caption: ["대형마트 명"], 		ref: 'lgszMrktNm',  	type:'input',  width:'100px',     style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100}), typeinfo : {maxlength : 33}},
             {caption: ["발주정보 URL"], 	ref: 'outordrInfoUrl',  	type:'input',  width:'300px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 2000}), typeinfo : {maxlength : 2000}},
             {caption: ["사용자ID"], 		ref: 'userId',  	type:'input',  width:'100px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 200}), typeinfo : {maxlength : 40}},
-            {caption: ["패스워드"], 		ref: 'pswd',  	type:'input',  width:'120px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 40}), typeinfo : {maxlength : 256}},
+            {
+            	caption: ["패스워드"], 		
+            	ref: 'pswdDisp',  	
+            	type:'input',  
+            	width:'120px',    
+            	style:'text-align:center',
+            	userattr: {colNm: "pswd"},
+            	validate : gfn_chkByte.bind({byteLimit: 40}), 
+            	typeinfo : {maxlength : 256}
+            },
             {caption: ["사용유무"], 		ref: 'useYn',   	type:'combo',  	width:'100px',    style:'text-align:center',
-						typeinfo : {ref:'comboReverseYnJsData', label:'label', value:'value', displayui : false, itemcount: 10}},
-            {caption: ["최종처리일시"], 	ref: 'lastPrcsDt',  	type:'output',  width:'280px',    style:'text-align:center'}
+						typeinfo : {ref:'comboUesYnJsData', label:'label', value:'value', displayui : false, itemcount: 10}},
+            {caption: ["최종처리일시"], 	ref: 'lastPrcsDt',  	type:'output',  width:'280px',    style:'text-align:center'},
+            {
+            	caption: ["패스워드"], 		
+            	ref: 'pswd',  	
+            	type:'output',
+            	width:'120px',    
+            	style:'text-align:center',
+            	hidden: true
+            },
+            
         ];
         grdLgszMrkt = _SBGrid.create(SBGridProperties);
+        grdLgszMrkt.bind('valuechanged', fn_grdLgszMrktValueChanged);
         fn_selectLgszMrktList();
     }
 
@@ -303,7 +323,8 @@
 					, lgszMrktNm 			: item.lgszMrktNm
 					, outordrInfoUrl 		: item.outordrInfoUrl
 					, userId 				: item.userId
-					, pswd 					: item.pswd
+					, pswd 					: ""
+					, pswdDisp				: "********"
 					, useYn 				: item.useYn
 					, lastPrcsDt 			: item.lastPrcsDt
 				}
@@ -353,5 +374,32 @@
 		let checkEml = new RegExp(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i);
 		return checkEml.test(eml);
 	}
+	
+ 	/**
+     * @name fn_grdLgszMrktValueChanged
+     * @description 대형마켓정보 변경 event 처리
+     * @function
+     */
+	const fn_grdLgszMrktValueChanged = function() {
+		var nRow = grdLgszMrkt.getRow();
+		var nCol = grdLgszMrkt.getCol();
+
+		const usrAttr = grdLgszMrkt.getColUserAttr(nCol);
+		
+		if (!gfn_isEmpty(usrAttr) && usrAttr.hasOwnProperty('colNm')) {
+
+			const rowData = grdLgszMrkt.getRowData(nRow, false);	// deep copy
+
+			switch (usrAttr.colNm) {
+				case "pswd":	// 패스워드
+					rowData.pswd = rowData.pswdDisp;
+					break;
+				default:
+					return;
+			}
+		}
+	}
+	
+	
 </script>
 </html>

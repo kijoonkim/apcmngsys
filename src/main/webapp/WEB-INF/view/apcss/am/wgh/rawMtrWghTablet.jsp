@@ -15,6 +15,7 @@
   */
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +27,8 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 원물계량등록 태블릿 -->
+					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
+					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 원물계량등록 태블릿 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button
@@ -36,14 +38,6 @@
 						text="초기화"
 						class="btn btn-sm btn-outline-danger"
 						onclick="fn_reset"
-					></sbux-button>
-					<sbux-button
-						id="btnSearch"
-						name="btnSearch"
-						uitype="normal"
-						text="조회"
-						class="btn btn-sm btn-outline-danger"
-						onclick="fn_search"
 					></sbux-button>
 					<sbux-button
 						id="btnSave"
@@ -60,6 +54,14 @@
 						text="삭제"
 						class="btn btn-sm btn-outline-danger"
 						onclick="fn_delete"
+					></sbux-button>
+					<sbux-button
+						id="btnSearch"
+						name="btnSearch"
+						uitype="normal"
+						text="조회"
+						class="btn btn-sm btn-outline-danger"
+						onclick="fn_search"
 					></sbux-button>
 					<sbux-button
 						id="btnClose"
@@ -1493,7 +1495,7 @@
 	const fn_close = function(){
 		parent.gfn_tabClose("TAB_AM_001_007");
 	}
-	
+
     //그리드 체크박스 전체 선택
     function fn_checkAllWghPrfmnc(grid, obj) {
         var gridList = grid.getGridDataAll();

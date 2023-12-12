@@ -112,6 +112,11 @@ public class GdsInvntrVO extends ComVO {
 	 * 상품등급명
 	 */
 	private String gdsGrdNm;
+	/**
+	 * 선별등급명
+	 */
+	private String sortGrdCd;
+	private String sortGrdNm;
 
 	/**
 	 * 포장구분코드

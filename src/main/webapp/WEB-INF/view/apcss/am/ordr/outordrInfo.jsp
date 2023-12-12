@@ -1,6 +1,6 @@
 <%
  /**
-  * @Class Name : regOutordrInfo.jsp
+  * @Class Name : outordrinfo.jsp
   * @Description : 발주정보등록 화면
   * @author SI개발부
   * @since 2023.10.23
@@ -15,13 +15,10 @@
   */
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -30,7 +27,8 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title" style="line-height: 30px;"> ▶ ${comMenuVO.menuNm}</h3><!-- 발주정보조회 -->
+                    <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
+                    <h3 class="box-title"> ▶ ${menuNm}</h3><!-- 발주정보조회 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-dark" text="조회" onclick="fn_search"></sbux-button>
@@ -184,9 +182,85 @@
 					<ul class="ad_tbl_count">
 						<li><span>발주 내역</span></li>
 					</ul>
-					<div class="ad_tbl_toplist">
-						<sbux-button id="btnRcptOrdrAll" name="btnReceiptBndl" uitype="normal" onclick="btn_receiptBndl" class="btn btn-sm btn-outline-dark" text="일괄 접수"></sbux-button>
-						<sbux-button id="btnRegPrdctnCmnd" name="btnRegPrdctnCmnd" uitype="normal" onclick="fn_regSpmtCmnd" class="btn btn-sm btn-outline-dark" text="출하지시 등록"></sbux-button>
+					<div class="ad_tbl_toplist_datepk">
+				 		<table class="table table-bordered tbl_fixed">
+				 			<caption>검색 조건 설정</caption>
+							<colgroup>
+								<col style="width: auto">
+								<col style="width: 100px">
+								<col style="width: 140px">
+								<col style="width: 140px">
+								<col style="width: 82px">
+								<col style="width: 82px">
+								<col style="width: 94px">
+							</colgroup>
+							<tbody>
+								<tr>
+									<td style="border-left:hidden"></td>
+									<td class="td_input" style="border-right:hidden; border-left:hidden" >
+										<sbux-select
+											unselected-text="대형마트 선택"
+											uitype="single"
+											id="slt-lgszMrktCd"
+											name="slt-lgszMrktCd"
+											class="form-control input-sm"
+											jsondata-ref="jsonComLgszMrkt"
+											onchange=""
+										/>
+									</td>
+									<td class="td_input" style="border-right:hidden; border-left:hidden" >
+										<sbux-datepicker 
+											id="dtp-crtrYmdFrom" 
+											name="dtp-crtrYmdFrom" 
+											uitype="popup" 
+											date-format="yyyy-mm-dd" 
+											class="form-control input-sm sbux-pik-group-apc" 
+											onchange=""
+										></sbux-datepicker>
+									</td>
+									<td class="td_input" style="border-right:hidden; border-left:hidden" >
+										<sbux-datepicker 
+											id="dtp-crtrYmdTo" 
+											name="dtp-crtrYmdTo" 
+											uitype="popup" 
+											date-format="yyyy-mm-dd" 
+											class="form-control input-sm sbux-pik-group-apc" 
+											onchange=""
+										></sbux-datepicker>
+									</td>
+									<td class="td_input" style="border-right:hidden;">
+										<sbux-button
+											id="btn-rcptOutordr" 
+											name="btn-rcptOutordr" 
+											uitype="normal" 
+											onclick="fn_rcptOutordr" 
+											class="btn btn-sm btn-outline-dark" 
+											text="발주정보수신"
+										></sbux-button>
+									</td>
+									<td class="td_input" style="border-right:hidden;">
+										<sbux-button 
+											id="btnRcptOrdrAll" 
+											name="btnReceiptBndl" 
+											uitype="normal" 
+											onclick="btn_receiptBndl" 
+											class="btn btn-sm btn-outline-dark" 
+											text="일괄 접수"
+										></sbux-button>
+									</td>
+									<td class="td_input" style="border-right:hidden;">
+										<sbux-button 
+											id="btnRegPrdctnCmnd" 
+											name="btnRegPrdctnCmnd" 
+											uitype="normal" 
+											onclick="fn_regSpmtCmnd" 
+											class="btn btn-sm btn-outline-dark" 
+											text="출하지시 등록"
+										></sbux-button>
+									</td>
+								</tr>
+							</tbody>
+				 		</table>
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
@@ -220,56 +294,77 @@
     </div>
 </body>
 <script type="text/javascript">
+
+
 	var jsonOutordrInfo 	= [];
 
 	var jsonApcItem			= [];															// 품목
 	var jsonApcVrty			= [];															// 품종
-	var jsonRcptYn			= [];															// 접수여부
+	var jsonRcptYn			= [{text: "접수", value: "Y"}, {text: "미접수", value: "N"}];															// 접수여부
 	var jsonComOutordrType	= [];															// 발주유형
 	var jsonTrsprtCoCd		= [];															// 운송회사
 
+	var jsonComLgszMrkt		= [];
+	
 	var comboGridRcpYn 		= [{label: "접수", value: "Y"}, {label: "미접수", value: "N"}];	// 접수여부 (그리드)
 
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
 		let rst = await Promise.all([
-		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 	 jsonApcItem, 			gv_selectedApcCd),							// 품목
-		 	gfn_setApcVrtySBSelect('srch-inp-vrtyCd', 	 jsonApcVrty, 			gv_selectedApcCd),							// 품종
-			gfn_setComCdSBSelect('srch-slt-outordrType', jsonComOutordrType,	'OUTORDR_TYPE'),							// 발주유형
-			gfn_setTrsprtsSBSelect('srch-slt-trsprtCoCd', jsonTrsprtCoCd, gv_selectedApcCd),								// 운송회사
-			setRcptYnSBSelect('srch-slt-rcptYn', 		 jsonRcptYn),														// 접수여부
-			SBUxMethod.refresh('grdOutordrInfo')																			// 접수여부 (그리드)
+		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 	 	jsonApcItem,		gv_selectedApcCd),	// 품목
+		 	gfn_setApcVrtySBSelect('srch-inp-vrtyCd', 	 	jsonApcVrty, 		gv_selectedApcCd),	// 품종
+			gfn_setComCdSBSelect('srch-slt-outordrType', 	jsonComOutordrType,	'OUTORDR_TYPE'),	// 발주유형
+			gfn_setTrsprtsSBSelect('srch-slt-trsprtCoCd', 	jsonTrsprtCoCd, 	gv_selectedApcCd),	// 운송회사
+			//setRcptYnSBSelect('srch-slt-rcptYn', 		 jsonRcptYn),								// 접수여부
+			gfn_setComCdSBSelect('slt-lgszMrktCd', 			jsonComLgszMrkt,	'LGSZ_MRKT_CD'),	// 발주유형
 		]);
+		SBUxMethod.refresh('srch-slt-rcptYn');
+		SBUxMethod.refresh('grdOutordrInfo');	// 접수여부 (그리드)
 	}
+	
+	const fn_init = async function() {
+		
+		const firstYmd = gfn_dateFirstYmd(new Date());
+		const nowYmd = gfn_dateToYmd(new Date());
+		
+		SBUxMethod.set("srch-dtp-outordrYmdFrom", firstYmd);
+		SBUxMethod.set("srch-dtp-outordrYmdTo", nowYmd);
+		SBUxMethod.set("srch-dtp-cmndYmd", nowYmd);
 
-	window.addEventListener('DOMContentLoaded', function(e) {
-		SBUxMethod.set("srch-dtp-outordrYmdFrom", gfn_dateFirstYmd(new Date()));
-		SBUxMethod.set("srch-dtp-outordrYmdTo", gfn_dateToYmd(new Date()));
-		SBUxMethod.set("srch-dtp-cmndYmd", gfn_dateToYmd(new Date()));
-
+		SBUxMethod.set("dtp-crtrYmdFrom", nowYmd);
+		SBUxMethod.set("dtp-crtrYmdTo", nowYmd);
+		
+		await fn_initSBSelect();
+		
 		fn_createOutordrInfoGrid();
-		fn_initSBSelect();
+		
 		fn_search();
+	}
+	
+	window.addEventListener('DOMContentLoaded', function(e) {
+		fn_init();
 	});
 
+	
+	
 	const fn_dtpChange = function(){
 		let cmndYmd = SBUxMethod.get("srch-dtp-cmndYmd");
 		let dudtYmd = SBUxMethod.get("srch-dtp-dudtYmd");
 		let outordrYmdFrom = SBUxMethod.get("srch-dtp-outordrYmdFrom");
 		let outordrYmdTo = SBUxMethod.get("srch-dtp-outordrYmdTo");
-		if(gfn_diffDate(outordrYmdFrom, outordrYmdTo) < 0){
-			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");//W0001{0}
+		if (gfn_diffDate(outordrYmdFrom, outordrYmdTo) < 0){
+			gfn_comAlert("W0014", "시작일자", "종료일자");		//	W0014	{0}이/가 {1} 보다 큽니다.
 			SBUxMethod.set("srch-dtp-outordrYmdFrom", gfn_dateFirstYmd(new Date()));
 			SBUxMethod.set("srch-dtp-outordrYmdTo", gfn_dateToYmd(new Date()));
 			return;
 		}
-		if(gfn_diffDate(outordrYmdTo, cmndYmd) < 0){
-			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");//W0001{0}
+		if (gfn_diffDate(outordrYmdTo, cmndYmd) < 0){
+			gfn_comAlert("W0014", "시작일자", "종료일자");		//	W0014	{0}이/가 {1} 보다 큽니다.
 			SBUxMethod.set("srch-dtp-cmndYmd", outordrYmdTo);
 			return;
 		}
-		if(gfn_diffDate(outordrYmdTo, dudtYmd) < 0){
-			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");//W0001{0}
+		if (gfn_diffDate(outordrYmdTo, dudtYmd) < 0){
+			gfn_comAlert("W0014", "시작일자", "종료일자");		//	W0014	{0}이/가 {1} 보다 큽니다.
 			SBUxMethod.set("srch-dtp-dudtYmd", outordrYmdTo);
 			return;
 		}
@@ -637,6 +732,66 @@
         }
     }
 
+	/**
+	 * @name fn_rcptOutordr
+	 * @description 발주정보 수신 처리
+	 */
+	const fn_rcptOutordr = async function() {
+		
+		// set param
+		const lgszMrktCd = SBUxMethod.get("slt-lgszMrktCd");
+		const crtrYmdFrom = SBUxMethod.get("dtp-crtrYmdFrom");
+		const crtrYmdTo = SBUxMethod.get("dtp-crtrYmdTo");
+		
+		if (gfn_isEmpty(lgszMrktCd)) {
+			gfn_comAlert("W0001", "대형마트");		//	W0001	{0}을/를 선택하세요.
+			return;
+		}
+		if (gfn_isEmpty(crtrYmdFrom)) {
+			gfn_comAlert("W0001", "수신기준시작일자");		//	W0001	{0}을/를 선택하세요.
+			return;
+		}
+		if (gfn_isEmpty(crtrYmdTo)) {
+			gfn_comAlert("W0001", "수신기준종료일자");		//	W0001	{0}을/를 선택하세요.
+			return;
+		}
+		
+		if (!gfn_comConfirm("Q0001", "발주정보수신")) {	//	Q0001	{0} 하시겠습니까?
+    		return;
+    	}
+		
+		const rcptOutordr = {
+				apcCd: gv_selectedApcCd,
+				lgszMrktCd: lgszMrktCd,
+				crtrYmdFrom: crtrYmdFrom,
+				crtrYmdTo: crtrYmdTo
+			}
+		
+		const postJsonPromise = gfn_postJSON(
+										"/am/ordr/insertOutordrRcpt.do", 
+										rcptOutordr
+									);	// 프로그램id 추가
+		const data = await postJsonPromise;
+									
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_callSelectOutordrInfoList();
+        		fn_search();
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);
+        	}
+        } catch(e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+		
+		
+	}
+	
     const fn_grdCmndQnttValueChanged = async function(){
 
     	let nRow = grdOutordrInfo.getRow();

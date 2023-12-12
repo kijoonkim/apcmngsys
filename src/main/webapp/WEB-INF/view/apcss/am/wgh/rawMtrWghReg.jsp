@@ -17,7 +17,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
@@ -29,9 +29,9 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3> <!-- 원물계량등록 -->
-					<sbux-label id="lbl-wghno" name="lbl-wghno" uitype="normal" text="">
-					</sbux-label>
+					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 원물계량등록 -->
+                    <sbux-label id="lbl-wghno" name="lbl-wghno" uitype="normal" text="">
+                    </sbux-label>
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnDocRawMtrWgh" name="btnDocRawMtrWgh" uitype="normal" class="btn btn-sm btn-primary" onclick="fn_docRawMtrWgh" text="계량확인서" ></sbux-button>
@@ -544,13 +544,6 @@
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
 		SBGridProperties.frozencols = 2;
-	    SBGridProperties.paging = {
-				'type' : 'page',
-			  	'count' : 5,
-			  	'size' : 20,
-			  	'sorttype' : 'page',
-			  	'showgoalpageui' : true
-		    };
 	    SBGridProperties.mergecells = 'byrestriccol';
         SBGridProperties.columns = [
             {caption: ['계량번호'], ref: 'wghno', hidden: true},
@@ -903,15 +896,9 @@
 		SBUxMethod.set("lbl-wghno", "");
 		SBUxMethod.set("dtl-inp-wghno", "");
 
-        // set pagination
-    	grdWghPrfmnc.rebuild();
-    	let pageSize = grdWghPrfmnc.getPageSize();
-    	let pageNo = 1;
-
     	// grid clear
     	jsonWghPrfmnc.length = 0;
-    	grdWghPrfmnc.clearStatus();
-    	fn_setGrdWghPrfmnc(pageSize, pageNo);
+    	fn_setGrdWghPrfmnc();
 	}
 
 	/**
@@ -987,7 +974,7 @@
      * @param {number} pageSize
      * @param {number} pageNo
      */
-    const fn_setGrdWghPrfmnc = async function(pageSize, pageNo) {
+    const fn_setGrdWghPrfmnc = async function() {
 
 		prvRowNum = -1;
 
@@ -996,16 +983,18 @@
 		const postJsonPromise = gfn_postJSON("/am/wgh/selectWghPrfmncList.do", {
 			apcCd: gv_selectedApcCd,
 			wghYmd: wghYmd,
-
           	// pagination
-  	  		pagingYn : 'Y',
-  			currentPageNo : pageNo,
-   		  	recordCountPerPage : pageSize
+  	  		pagingYn : 'N'
   		});
-
-        const data = await postJsonPromise;
-
+  		
   		try {
+  			
+	        const data = await postJsonPromise;
+	
+	        if (!_.isEqual("S", data.resultStatus)) {
+	        	gfn_comAlert(data.resultCode, data.resultMessage);
+	        	return;
+	        }
 
           	/** @type {number} **/
       		let totalRecordCount = 0;
@@ -1013,7 +1002,6 @@
       		jsonWghPrfmnc.length = 0;
           	data.resultList.forEach((item, index) => {
   				const wghPrfmnc = {
-  						rowSeq: item.rowSeq,
   						apcCd: item.apcCd,
   						wghno: item.wghno,
   						wghSn: item.wghSn,
@@ -1054,24 +1042,12 @@
   						stdGrdCd: item.stdGrdCd,
   				}
   				jsonWghPrfmnc.push(wghPrfmnc);
-
-  				if (index === 0) {
-  					totalRecordCount = item.totalRecordCount;
-  				}
   			});
-
-          	if (jsonWghPrfmnc.length > 0) {
-          		if(grdWghPrfmnc.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-          			grdWghPrfmnc.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-          			grdWghPrfmnc.rebuild();
-  				}else{
-  					grdWghPrfmnc.refresh();
-  				}
-          	} else {
-          		grdWghPrfmnc.setPageTotalCount(totalRecordCount);
-          		grdWghPrfmnc.rebuild();
-          	}
-
+			
+          	totalRecordCount = jsonWghPrfmnc.length;
+          	
+          	grdWghPrfmnc.refresh();
+          	
           	document.querySelector('#cnt-wgh').innerText = totalRecordCount;
           	SBUxMethod.set("crtr-ymd", wghYmd);
 

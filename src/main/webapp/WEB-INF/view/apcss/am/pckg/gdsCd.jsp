@@ -15,6 +15,7 @@
  **/
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +31,8 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title" style="line-height: 30px;"> ▶ 상품코드조회</h3>
+					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
+					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 상품코드조회 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>

@@ -1,3 +1,19 @@
+<%
+/**
+ * @Class Name : xmlParshing.jsp
+ * @Description : xmlParshing 화면
+ * @author SI개발부
+ * @since 2023.12.12
+ * @version 1.0
+ * @Modification Information
+ * @
+ * @ 수정일       	수정자      	수정내용
+ * @ ----------	----------	---------------------------
+ * @ 2023.12.12 김현호		최초 생성
+ * @see
+ *
+ */
+%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>

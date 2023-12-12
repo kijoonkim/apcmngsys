@@ -15,6 +15,7 @@
   */
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +27,8 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
-					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 원물입고등록 태블릿 -->
+					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
+					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 원물입고등록 태블릿 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button
@@ -36,14 +38,6 @@
 						class="btn btn-sm btn-outline-danger"
 						onclick="fn_reset"
 						text="초기화"
-					></sbux-button>
-					<sbux-button
-						id="btnSearch"
-						name="btnSearch"
-						uitype="normal"
-						class="btn btn-sm btn-outline-danger"
-						onclick="fn_search"
-						text="조회"
 					></sbux-button>
 					<sbux-button
 						id="btnSave"
@@ -60,6 +54,14 @@
 						class="btn btn-sm btn-outline-danger"
 						onclick="fn_delete"
 						text="삭제"
+					></sbux-button>
+					<sbux-button
+						id="btnSearch"
+						name="btnSearch"
+						uitype="normal"
+						class="btn btn-sm btn-outline-danger"
+						onclick="fn_search"
+						text="조회"
 					></sbux-button>
 					<sbux-button
 						id="btnClose"
@@ -857,9 +859,9 @@
 	 * @description 생산자 선택 popup callback 처리
 	 */
 	const fn_setPrdcr = async function(prdcr) {
-		
+
 		await fn_getPrdcrs();
-		
+
 		if (!gfn_isEmpty(prdcr)) {
 			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
 			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
@@ -905,7 +907,7 @@
 		}
 
 	}
-	
+
 	const fn_onChangeSrchPrdcrIdentno = function(obj) {
 
 		if (gfn_isEmpty(SBUxMethod.get("srch-inp-prdcrIdentno"))) {
@@ -1175,7 +1177,7 @@
 	const fn_close = function(){
 		parent.gfn_tabClose("TAB_AM_001_008");
 	}
-	
+
     //그리드 체크박스 전체 선택
     function fn_checkAllRawMtrWrhs(grid, obj) {
         var gridList = grid.getGridDataAll();

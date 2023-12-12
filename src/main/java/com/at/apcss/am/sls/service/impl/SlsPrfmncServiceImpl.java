@@ -102,7 +102,7 @@ public class SlsPrfmncServiceImpl extends BaseServiceImpl implements SlsPrfmncSe
 	}
 
 	@Override
-	public HashMap<String, Object> saveSlsPrfmncCrtList(List<SlsPrfmncVO> slsPrfmncList) throws Exception {
+	public HashMap<String, Object> updateSlsPrfmncCfmtnList(List<SlsPrfmncVO> slsPrfmncList) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
@@ -111,7 +111,7 @@ public class SlsPrfmncServiceImpl extends BaseServiceImpl implements SlsPrfmncSe
 		for (SlsPrfmncVO slsPrfmncVO : slsPrfmncList) {
 			String ddlnYn = cmnsValidationService.selectChkDdlnYn(slsPrfmncVO.getApcCd(), slsPrfmncVO.getSpmtYmd());
 
-			if(ComConstants.CON_YES.equals(ddlnYn)) {
+			if (ComConstants.CON_NONE.equals(ddlnYn)) {
 				savedCnt += updateSlsPrfmnc(slsPrfmncVO);
 			} else {
 				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("W0012", "매출 내역")));

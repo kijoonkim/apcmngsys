@@ -92,15 +92,20 @@
 
     <!-- ComUi json -->
 	<script type="text/javascript">
+		<c:set scope="request" var="comUiJson" value="${comUiJson}"></c:set>
 		const comUiJson = ${comUiJson};
 		gfn_setSysPrgrmId(comUiJson.menuId);
 
 	<c:choose>
 		<c:when test="${loginVO != null && loginVO.id != null}">
-		const gv_apcCd = '${loginVO.apcCd}';
-		const gv_apcNm = '${loginVO.apcNm}';
-		const gv_apcSeCd = '${loginVO.apcSeCd}';
-		const gv_userType = '${loginVO.userType}';
+		<c:set scope="request" var="apcCd" value="${loginVO.apcCd}"></c:set>
+		<c:set scope="request" var="apcNm" value="${loginVO.apcNm}"></c:set>
+		<c:set scope="request" var="apcSeCd" value="${loginVO.apcSeCd}"></c:set>
+		<c:set scope="request" var="userType" value="${loginVO.userType}"></c:set>
+		const gv_apcCd = '${apcCd}';
+		const gv_apcNm = '${apcNm}';
+		const gv_apcSeCd = '${apcSeCd}';
+		const gv_userType = '${userType}';
 		</c:when>
 		<c:otherwise>
 		const gv_apcCd = '';

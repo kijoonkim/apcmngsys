@@ -1,4 +1,19 @@
-
+<%
+ /**
+  * @Class Name : fcltOperInfo.jsp
+  * @Description : 운영자개요 화면
+  * @author SI개발부
+  * @since 2023.12.12
+  * @version 1.0
+  * @Modification Information
+  * @
+  * @ 수정일       	수정자      	수정내용
+  * @ ----------	----------	---------------------------
+  * @ 2023.12.12   	김현호		최초 생성
+  * @see
+  *
+  */
+%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -19,7 +34,8 @@
 	<div class="box box-solid">
 		<div class="box-header" style="display:flex; justify-content: flex-start;" >
 			<div>
-				<h3 class="box-title" style="line-height: 30px;"> ▶ 운영자개요</h3>
+				<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
+					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 운영자개요 -->
 			</div>
 			<div style="margin-left: auto;">
 				<sbux-button id="btnReset" name="btnReset" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>

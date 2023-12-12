@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : OrdrRcvMapper.xml                                   			-->
+<!-- DESC : 발주수신정보 관리 mapper                   				                 	-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.08.24  	하민우        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.ordr.mapper.OrdrRcvMapper">
+
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertOrdrRcvHomeplus		-->
+	<!-- DESC : 홈플러스 발주정보 등록.                         	             	 			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.24  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertOrdrRcvHomeplus" parameterType="com.at.apcss.am.ordr.vo.OrdrRcvHomeplusVO">
+    	<![CDATA[
+    		INSERT /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertOrdrRcvHomeplus */
+    			INTO TB_OUTORDR_INFO_IF_HOMEPLUS
+    		(
+    			  APC_CD
+				, RCPTN_YMD
+				, RCPTN_SN
+				, PRCS_SE_CD
+				, DLDTN_YMD
+				, OUTORDRNO
+				, OUTORDR_TYPE
+				, DOCNO
+				, WRHS_TYPE
+				, WRHS_TYPE_NM
+				, OUTORDR_YMD
+				, DLVGDS_YMD
+				, ORDR_PRSN
+				, ORDR_PRSN_CD
+				, BUYER_NM
+				, DLVGDS_CO
+				, SPLY_PRSN
+				, GDS_NM
+				, GDS_CD
+				, TPND
+				, TPNB
+				, DIAMONDLINE
+				, DLDTN
+				, WRHS_TYPE_2
+				, BX_GDS_QNTT
+				, OUTORDR_QNTT
+				, PIECE_QNTT
+				, UNIT
+				, BX_UNTPRC
+				, PIECE_UNTPRC
+				, TX_AMT
+				, OUTORDR_AMT
+				, DLDTN_CD
+				, OUTORDR_YMD_2
+				, WRHS_YMD
+				, DLVGDS_NM
+				, DLVGDS_CD
+				, CNTR_SE
+				, CNTR_CD
+				, CNTR_NM
+			) VALUES (
+				  #{apcCd}
+				, #{rcptnYmd}
+				, NVL((
+					SELECT MAX(RCPTN_SN)
+					  FROM TB_OUTORDR_INFO_IF_HOMEPLUS
+					 WHERE APC_CD = #{apcCd}
+					   AND RCPTN_YMD = #{rcptnYmd}
+				), 0) + 1
+				, #{prcsSeCd}
+				, #{dldtnYmd}
+				, #{outordrno}
+				, #{outordrType}
+				, #{docno}
+				, #{wrhsType}
+				, #{wrhsTypeNm}
+				, #{outordrYmd}
+				, #{dlvgdsYmd}
+				, #{ordrPrsn}
+				, #{ordrPrsnCd}
+				, #{buyerNm}
+				, #{dlvgdsCo}
+				, #{splyPrsn}
+				, #{gdsNm}
+				, #{gdsCd}
+				, #{tpnd}
+				, #{tpnb}
+				, #{diamondline}
+				, #{dldtn}
+				, #{wrhsType2}
+				, #{bxGdsQntt}
+				, #{outordrQntt}
+				, #{pieceQntt}
+				, #{unit}
+				, #{bxUntprc}
+				, #{pieceUntprc}
+				, #{txAmt}
+				, #{outordrAmt}
+				, #{dldtnCd}
+				, #{outordrYmd2}
+				, #{wrhsYmd}
+				, #{dlvgdsNm}
+				, #{dlvgdsCd}
+				, #{cntrSe}
+				, #{cntrCd}
+				, #{cntrNm}
+   			)
+	    ]]>
+    </insert>
+
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpOrdrRcvHmpls		-->
+	<!-- DESC : from 발주수신정보 to 발주정보 등록 : 홈플러스                          	        -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.24  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertSpOrdrRcvHmpls" statementType="CALLABLE" parameterType="com.at.apcss.am.ordr.vo.OrdrRcvVO">
+    	<![CDATA[
+    		{call /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpOrdrRcvHmpls */
+    			SP_ORDR_RCV_HMPLS (
+					  #{sysLastChgUserId}
+	   		  		, #{sysLastChgPrgrmId}
+					, #{apcCd}
+					, #{rcptnYmd}
+					, #{rtnCd, jdbcType=VARCHAR, mode=OUT}
+					, #{rtnMsg, jdbcType=VARCHAR, mode=OUT}
+    			)
+    		}
+		]]>
+	</insert>
+	
+</mapper>
+
+

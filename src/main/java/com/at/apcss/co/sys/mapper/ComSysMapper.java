@@ -6,6 +6,7 @@ import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.at.apcss.co.sys.vo.ComLgnPlcyVO;
 import com.at.apcss.co.sys.vo.ComSessionVO;
+import com.at.apcss.co.sys.vo.ComSysVO;
 
 /**
  * 시스템 공통 정보 처리하는 DAO 클래스
@@ -102,4 +103,12 @@ public interface ComSysMapper {
 	 * @throws Exception
 	 */
 	public int updateComSessionExpiryWithUserId(ComSessionVO comSessionVO) throws Exception;
+	
+	/**
+	 * 시스템로그 등록
+	 * @param comSysVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertSysLog(ComSysVO comSysVO) throws Exception;
 }

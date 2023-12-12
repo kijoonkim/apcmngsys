@@ -27,6 +27,7 @@ import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.msg.mapper.ComMessageSource;
 import com.at.apcss.co.msg.vo.ComMsgVO;
 import com.at.apcss.co.sys.service.ComSysService;
+import com.at.apcss.co.sys.util.ComUtil;
 import com.at.apcss.co.sys.vo.ComPageVO;
 import com.at.apcss.co.sys.vo.ComSysVO;
 import com.at.apcss.co.sys.vo.LoginVO;
@@ -211,6 +212,12 @@ public abstract class BaseController {
 	protected ResponseEntity<HashMap<String, Object>> getErrorResponseEntity(HashMap<String, Object> resultMap) {
 
 		resultMap.put(ComConstants.PROP_RESULT_STATUS, ComConstants.RESULT_STATUS_ERROR);
+		
+		String errorCode = (String)resultMap.getOrDefault(ComConstants.PROP_RESULT_CODE, ComConstants.CON_BLANK);
+		String errorMessage = (String)resultMap.getOrDefault(ComConstants.PROP_RESULT_MESSAGE, ComConstants.CON_BLANK);
+		
+		insertSysErrorLog(errorCode + ComConstants.CON_COMMA + errorMessage);
+		
 		return new ResponseEntity<HashMap<String, Object>>(resultMap, HttpStatus.OK);
 	}
 
@@ -222,6 +229,8 @@ public abstract class BaseController {
 		resultMap.put(ComConstants.PROP_RESULT_CODE, errorCode);
 		resultMap.put(ComConstants.PROP_RESULT_MESSAGE, errorMessage);
 
+		insertSysErrorLog(ComUtil.nullToEmpty(errorCode) + ComConstants.CON_COMMA + ComUtil.nullToEmpty(errorMessage));
+		
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.BAD_REQUEST);
 	}
 	
@@ -233,6 +242,8 @@ public abstract class BaseController {
 		resultMap.put(ComConstants.PROP_RESULT_CODE, ComConstants.RESULT_CODE_DEFAULT);
 		resultMap.put(ComConstants.PROP_RESULT_MESSAGE, e.getMessage());
 
+		insertSysErrorLog(e.getMessage());
+		
 		return new ResponseEntity<HashMap<String, Object>>(resultMap, HttpStatus.BAD_REQUEST);
 	}
 	
@@ -249,6 +260,9 @@ public abstract class BaseController {
 				resultMap.put(ComConstants.PROP_RESULT_MESSAGE, ComConstants.RESULT_MESSAGE_DEFAULT);
 			}
 		}
+		
+		insertSysErrorLog(e.getMessage());
+		
 		//resultMap.put(ComConstants.PROP_RESULT_MESSAGE, ComConstants.RESULT_MESSAGE_DEFAULT);
 
 		return new ResponseEntity<HashMap<String, Object>>(resultMap, HttpStatus.BAD_REQUEST);
@@ -411,8 +425,21 @@ public abstract class BaseController {
 			}
 		}
 		
-		
 		return null;
+	}
+	
+	/**
+	 * 시스템 로그 등록
+	 * @param errCnts
+	 */
+	protected void insertSysErrorLog(String errCnts) {
+		try {
+			comSysService.insertSysErrLog(getUserId(), getPrgrmId(), errCnts);
+		} catch (Exception e) {
+			logger.error("insert log error {}", e.getMessage());
+		} finally {
+			
+		}		
 	}
 	
 //	@Autowired

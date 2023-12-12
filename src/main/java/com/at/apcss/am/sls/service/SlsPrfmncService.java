@@ -99,8 +99,8 @@ public interface SlsPrfmncService {
 	 * @return HashMap<String, Object>
 	 * @throws Exception
 	 */
-	public HashMap<String, Object> saveSlsPrfmncCrtList(List<SlsPrfmncVO> slsPrfmncList) throws Exception;
-
+	public HashMap<String, Object> updateSlsPrfmncCfmtnList(List<SlsPrfmncVO> slsPrfmncList) throws Exception;
+	
 	/**
 	 * 매출 금액 및 확정 저장
 	 * @param SlsPrfmncVO
