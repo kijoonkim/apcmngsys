@@ -365,7 +365,7 @@
 					<ul class="ad_tbl_count">
 						<li>
 							<span>원물계량 내역</span>
-							<span style="font-size:12px">(기준일자 : 
+							<span style="font-size:12px">(기준일자 :
 								<sbux-label
 									id="crtr-ymd"
 									name="crtr-ymd"
@@ -400,23 +400,6 @@
     </div>
     <div id="body-modal-prdcr">
     	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
-    </div>
-    
-	<!-- 생산자 상세 Modal -->
-    <div>
-        <sbux-modal
-        	id="modal-prdcrDtl"
-        	name="modal-prdcrDtl"
-        	uitype="middle"
-        	header-title="생산자 상세"
-        	body-html-id="body-modal-prdcrDtl"
-        	footer-is-close-button="false"
-        	header-is-close-button="false"
-        	style="width:1000px"
-        ></sbux-modal>
-    </div>
-    <div id="body-modal-prdcrDtl">
-    	<jsp:include page="../../am/popup/prdcrDtlPopup.jsp"></jsp:include>
     </div>
 
     <!-- 차량 선택 Modal -->
@@ -501,7 +484,7 @@
 	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {
-		
+
 		fn_init();
 
 		const elements = document.querySelectorAll(".srch-keyup-area");
@@ -690,7 +673,7 @@
 		const allData = grdWghPrfmnc.getGridDataAll();
 		allData.forEach((item, index) => {
 			if (item.checkedYn === "Y") {
-				
+
 				if (!wghPrfmncList.some(function(wgh) {
 					return wgh.wghno === item.wghno;
 				})) {
@@ -986,11 +969,11 @@
           	// pagination
   	  		pagingYn : 'N'
   		});
-  		
+
   		try {
-  			
+
 	        const data = await postJsonPromise;
-	
+
 	        if (!_.isEqual("S", data.resultStatus)) {
 	        	gfn_comAlert(data.resultCode, data.resultMessage);
 	        	return;
@@ -1043,11 +1026,11 @@
   				}
   				jsonWghPrfmnc.push(wghPrfmnc);
   			});
-			
+
           	totalRecordCount = jsonWghPrfmnc.length;
-          	
+
           	grdWghPrfmnc.refresh();
-          	
+
           	document.querySelector('#cnt-wgh').innerText = totalRecordCount;
           	SBUxMethod.set("crtr-ymd", wghYmd);
 
@@ -1251,7 +1234,7 @@
 		} else {
 			SBUxMethod.set("dtl-inp-rdcdRt", "");
 		}
-		
+
 		fn_clearPltBx();	// 팔레트 박스 초기화
 	}
 
@@ -1263,7 +1246,7 @@
 		let vrtyCd = obj.value;
 		let itemCd = "";
 		const vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd});
-		
+
 		if (!gfn_isEmpty(vrtyCd)) {
 			itemCd = vrtyInfo.mastervalue;
 		} else {
@@ -1286,7 +1269,7 @@
 		  for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
 		  return b;
 	}
-	
+
 	/**
 	 * @name fn_onInputPrdcrNm
 	 * @description 생산자명 입력 시 event : autocomplete
@@ -1525,7 +1508,7 @@
 	function fn_noKeyup(event) {
 
 	}
-	
+
     //그리드 체크박스 전체 선택
     function fn_checkAllWghPrfmnc(grid, obj) {
         var gridList = grid.getGridDataAll();
