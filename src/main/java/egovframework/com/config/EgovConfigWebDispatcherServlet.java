@@ -3,6 +3,7 @@ package egovframework.com.config;
 import java.util.List;
 import java.util.Properties;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
@@ -58,7 +59,8 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 	// -------------------------------------------------------------
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new AuthenticInterceptor())
+		//registry.addInterceptor(new AuthenticInterceptor())
+		registry.addInterceptor(authenticInterceptor())
 			.addPathPatterns(
 //				"/cop/com/*.do",
 //				"/cop/bbs/*Master*.do",
@@ -93,6 +95,11 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 				"/report/**");
 	}
 
+	@Bean
+	public AuthenticInterceptor authenticInterceptor() {
+		return new AuthenticInterceptor();
+	}
+	
 	// -------------------------------------------------------------
 	// RequestMappingHandlerMapping 설정 View Controller 추가
 	// -------------------------------------------------------------

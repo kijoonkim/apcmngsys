@@ -79,8 +79,7 @@ public class ComCdServiceImpl extends BaseServiceImpl implements ComCdService {
 
 	@Override
 	public ComCdVO selectComCdDtl(ComCdVO comCdVO) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return comCdMapper.selectComCdDtl(comCdVO);
 	}
 
 	@Override
