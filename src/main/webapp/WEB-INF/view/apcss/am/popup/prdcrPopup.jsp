@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,17 +63,17 @@
 				<!--[pp] 검색결과 -->
 				<div class="row">
 					<div class="ad_tbl_top2">
-					<ul class="ad_tbl_count">
-						<li>
-							<span style="color: black;">생산자 목록</span>
-							<span style="font-size:12px">(조회건수 <span id="prdcr-pop-cnt">0</span>건)</span>
-						</li>
-					</ul>
-					<div class="ad_tbl_toplist">
-						<sbux-button id="btnDwnldPrdcr" name="btnDwnldPrdcr" uitype="normal" text="서식받기" class="btn btn-sm btn-outline-danger" onclick="popPrdcr.dwnld" ></sbux-button>
-						<sbux-button id="btnUldPrdcr" name="btnUldPrdcr" uitype="normal" text="올리기" class="btn btn-sm btn-outline-dark" onclick="popPrdcr.uld"></sbux-button>
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="color: black;">생산자 목록</span>
+								<span style="font-size:12px">(조회건수 <span id="prdcr-pop-cnt">0</span>건)</span>
+							</li>
+						</ul>
+						<div class="ad_tbl_toplist">
+							<sbux-button id="btnDwnldPrdcr" name="btnDwnldPrdcr" uitype="normal" text="서식받기" class="btn btn-sm btn-outline-danger" onclick="popPrdcr.dwnld" ></sbux-button>
+							<sbux-button id="btnUldPrdcr" name="btnUldPrdcr" uitype="normal" text="올리기" class="btn btn-sm btn-outline-dark" onclick="popPrdcr.uld"></sbux-button>
+						</div>
 					</div>
-				</div>
 					<div>
 						<div id="sb-area-grdPrdcrPop" style="height:300px; width: 100%;"></div>
 					</div>
@@ -190,7 +191,7 @@
 		    SBGridProperties.contextmenulist = this.objMenuListPrdcrPop;	// 우클릭 메뉴 리스트
 		    SBGridProperties.dblclickeventarea = {fixed: false, empty: false};
 		    SBGridProperties.columns = [
-		    	{caption: ["처리"], 			ref: 'delYn', 			type: 'button', width: '50px', 	style: 'text-align:center', sortable: false,
+		    	{caption: ["처리"], 			ref: 'delYn', 			type: 'button', width: '50px', style: 'text-align:center', sortable: false,
 		        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 						if (!isEditable) {
 							return "";
@@ -201,6 +202,17 @@
 		            	} else {
 					        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='popPrdcr.del(" + nRow + ")'>삭제</button>";
 		            	}
+			    }},
+			    {caption: ["상세"], 			ref: 'delYn',  			type:'button',  width:'50px',  style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+			    	if (isEditable) {
+						return "";
+					}
+
+		        	if(!gfn_isEmpty(strValue)){
+				        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_modalPrdcrDtl(" + nRow + ")'>변경</button>";
+		        	}else{
+		        		return ;
+		        	}
 			    }},
 			    {caption: ['번호'], 			ref: 'prdcrIdentno', 	type: 'input', 	width: '50px', style: 'text-align:center', sortable: false},
 		        {caption: ['생산자명'], 		ref: 'prdcrNm', 		type: 'input', 	width: '65px', style: 'text-align:center', sortable: false,
@@ -228,7 +240,7 @@
 		        	validate : gfn_chkByte.bind({byteLimit: 1000})},
 		        {caption: ['APC코드'], ref: 'apcCd', hidden : true},
 		        {caption: ['생산자코드'], ref: 'prdcrCd', hidden : true},
-		        {caption: ['ROW STATUS'], ref: 'rowSts', hidden : true},
+		        {caption: ['ROW STATUS'], ref: 'rowSts', hidden : true}
 		    ];
 		    grdPrdcrPop = _SBGrid.create(SBGridProperties);
 		    grdPrdcrPop.bind("afterimportexcel", popPrdcr.setDataAfterImport);
@@ -324,7 +336,6 @@
 	        		grdPrdcrPop.deleteRow(nRow);
 	        	}
 			}
-
 		},
 		save: async function() {
 			const apcCd = SBUxMethod.get("prdcr-inp-apcCd");
@@ -743,8 +754,14 @@
 
 			grdPrdcrPop.rebuild();
 	    }
+	}
+	
+	// 생산자 상세 팝업 호출
+	const fn_modalPrdcrDtl = async function (nRow){
+		let rowData = grdPrdcrPop.getRowData(nRow);
 
-
+		SBUxMethod.openModal('modal-prdcrDtl');
+		popPrdcrDtl.init(gv_selectedApcCd, gv_selectedApcNm, rowData.prdcrCd);
 	}
 
 	// 엑셀다운로드
