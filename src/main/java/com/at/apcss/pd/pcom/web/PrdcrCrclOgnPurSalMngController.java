@@ -65,7 +65,7 @@ public class PrdcrCrclOgnPurSalMngController extends BaseController{
 			int insertedCnt = 0;
 
 			try {
-				insertedCnt = PrdcrCrclOgnPurSalMngService.insertPrdcrCrclOgnPurSalMng(PrdcrCrclOgnPurSalMngVO);
+				insertedCnt = PrdcrCrclOgnPurSalMngService.insertPrdcrCrclOgnPurSalMng01(PrdcrCrclOgnPurSalMngVO);
 			} catch (Exception e) {
 				logger.debug(e.getMessage());
 				return getErrorResponseEntity(e);
@@ -76,9 +76,9 @@ public class PrdcrCrclOgnPurSalMngController extends BaseController{
 			return getSuccessResponseEntity(resultMap);
 		}
 
-
-		@PostMapping(value = "/pd/pcom/multiSavePrdcrCrclOgnPurSalMngList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> multiSavePrdcrCrclOgnPurSalMngList(@RequestBody List<PrdcrCrclOgnPurSalMngVO> PrdcrCrclOgnPurSalMngVOList, HttpServletRequest request) throws Exception {
+		//매입 저장
+		@PostMapping(value = "/pd/pcom/multiSavePrdcrCrclOgnPurSalMngList01.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> multiSavePrdcrCrclOgnPurSalMngList01(@RequestBody List<PrdcrCrclOgnPurSalMngVO> PrdcrCrclOgnPurSalMngVOList, HttpServletRequest request) throws Exception {
 
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
@@ -91,7 +91,30 @@ public class PrdcrCrclOgnPurSalMngController extends BaseController{
 					PrdcrCrclOgnPurSalMngVO.setSysLastChgUserId(getUserId());
 				}
 
-				savedCnt = PrdcrCrclOgnPurSalMngService.multiSavePrdcrCrclOgnPurSalMngList(PrdcrCrclOgnPurSalMngVOList);
+				savedCnt = PrdcrCrclOgnPurSalMngService.multiSavePrdcrCrclOgnPurSalMngList01(PrdcrCrclOgnPurSalMngVOList);
+			}catch (Exception e) {
+				return getErrorResponseEntity(e);
+			}
+
+			resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
+			return getSuccessResponseEntity(resultMap);
+		}
+		//매출 저장
+		@PostMapping(value = "/pd/pcom/multiSavePrdcrCrclOgnPurSalMngList02.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> multiSavePrdcrCrclOgnPurSalMngList02(@RequestBody List<PrdcrCrclOgnPurSalMngVO> PrdcrCrclOgnPurSalMngVOList, HttpServletRequest request) throws Exception {
+
+			HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+			int savedCnt = 0;
+			try {
+				for (PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO : PrdcrCrclOgnPurSalMngVOList) {
+					PrdcrCrclOgnPurSalMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+					PrdcrCrclOgnPurSalMngVO.setSysFrstInptUserId(getUserId());
+					PrdcrCrclOgnPurSalMngVO.setSysLastChgPrgrmId(getPrgrmId());
+					PrdcrCrclOgnPurSalMngVO.setSysLastChgUserId(getUserId());
+				}
+
+				savedCnt = PrdcrCrclOgnPurSalMngService.multiSavePrdcrCrclOgnPurSalMngList02(PrdcrCrclOgnPurSalMngVOList);
 			}catch (Exception e) {
 				return getErrorResponseEntity(e);
 			}

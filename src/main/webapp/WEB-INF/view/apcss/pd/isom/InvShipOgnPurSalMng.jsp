@@ -22,7 +22,9 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
+					<!--
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
+					 -->
 				</div>
 			</div>
 			<div class="box-body">
@@ -192,11 +194,14 @@
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrOgnCurntMng" style="height:350px; width: 100%;"></div>
 				</div>
+
 				<br>
 				<div class="box-header" style="display:flex; justify-content: flex-start;" >
 					<div style="margin-left: auto;">
 						<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
+						<!--
 						<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
+						 -->
 					</div>
 				</div>
 				<table class="table table-bordered tbl_fixed">
@@ -247,8 +252,13 @@
 				</table>
 				<br>
 				<!--[pp] 검색결과 상세보기-->
-				<div>
-					<p>출자출하조직 총 매입현황</p>
+				<div class="box-header" style="display:flex; justify-content: flex-start;" >
+					<div>
+						<p>출자출하조직 총 매입현황</p>
+					</div>
+					<div style="margin-left: auto;">
+						<sbux-button id="btnSaveFclt2" name="btnSaveFclt2" uitype="normal" text="매입저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave01"></sbux-button>
+					</div>
 				</div>
 				<div class="ad_section_top">
 					<!-- SBGrid를 호출합니다. -->
@@ -256,8 +266,13 @@
 				</div>
 				<br>
 				<!--[pp] 검색결과 상세보기-->
-				<div>
-					<p>출자출하조직 총 매출현황</p>
+				<div class="box-header" style="display:flex; justify-content: flex-start;" >
+					<div>
+						<p>출자출하조직 총 매출현황</p>
+					</div>
+					<div style="margin-left: auto;">
+						<sbux-button id="btnSaveFclt3" name="btnSaveFclt3" uitype="normal" text="매출저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave02"></sbux-button>
+					</div>
 				</div>
 				<div class="ad_section_top">
 					<!-- SBGrid를 호출합니다. -->
@@ -359,7 +374,7 @@
 	    SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
-	    //SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.paging = {
 				'type' : 'page',
@@ -412,17 +427,14 @@
 	    	{caption: ["품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 	    	{caption: ["품목분류","품목분류"], 	ref: 'ctgryNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 
-	    	{caption: ["공선수탁","물량"], 		ref: 'aa',   	type:'output',  width:'90px',    style:'text-align:center'},
-	        {caption: ["공선수탁","금액"], 		ref: 'bb',   	type:'output',  width:'100px',    style:'text-align:center'},
-	    	{caption: ["공동수탁","물량"], 		ref: 'cc',   	type:'output',  width:'90px',    style:'text-align:center'},
-	        {caption: ["공동수탁","금액"], 		ref: 'dd',   	type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["공선매취","물량"], 		ref: 'ee',   	type:'output',  width:'90px',    style:'text-align:center'},
-	        {caption: ["공선매취","금액"], 		ref: 'ff',   	type:'output',  width:'100px',    style:'text-align:center'},
-
-	        {caption: ["단순수탁","물량"], 		ref: 'prchsTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'},
-	        {caption: ["단순수탁","금액"], 		ref: 'prchsTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'},
-	        {caption: ["단순매취","물량"], 		ref: 'prchsEmspapVlm',   type:'input',  width:'90px',    style:'text-align:center'},
-	        {caption: ["단순매취","금액"], 		ref: 'prchsEmspapAmt',   type:'input',  width:'100px',    style:'text-align:center'},
+	        {caption: ["수탁","물량"], 		ref: 'prchsTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["수탁","금액"], 		ref: 'prchsTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["매취","물량"], 		ref: 'prchsEmspapVlm',   type:'input',  width:'90px',    style:'text-align:center'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["매취","금액"], 		ref: 'prchsEmspapAmt',   type:'input',  width:'100px',    style:'text-align:center'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 	        {caption: ["합계","물량"], 		ref: 'prchsTotVlm',   		type:'output',  width:'90px',    style:'text-align:center', calc : 'fn_prchsVlmSum'},
 	        {caption: ["합계","금액"], 		ref: 'prchsTotAmt',   		type:'output',  width:'100px',    style:'text-align:center', calc : 'fn_prchsAmtSum'},
 	        {caption: ["처리","처리"], 		ref: 'delYn',   		type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
@@ -432,6 +444,7 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ")'>삭제</button>";
 	        	}
 	        }},
+	        {caption: ["상세내역"], 	ref: 'prchsSlsSe',  hidden : true},
 	        {caption: ["상세내역"], 	ref: 'yr',   		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'apoCd',   	hidden : true},
 	    	{caption: ["상세내역"], 	ref: 'itemCd',   	hidden : true},
@@ -443,7 +456,34 @@
 
 	    grdPrdcrOgnCurntMng01 = _SBGrid.create(SBGridProperties);
 	    grdPrdcrOgnCurntMng01.bind('click','gridClick01');
+	    grdPrdcrOgnCurntMng01.bind('afteredit','fn_AfterEdit01');
 	}
+
+	//해당 컬럼 변경시 리프래시 리스트
+	const columnsToRefresh01 = [
+		  'prchsTrstVlm', 'prchsTrstAmt', 'prchsEmspapVlm', 'prchsEmspapAmt'
+		];
+
+	//그리드 열 속성의 calc 은 그리드 생성시 작동함  refresh() 해서 데이터 변경시로 유사하게 가능
+	function fn_AfterEdit01(){
+		let prevCol = grdPrdcrOgnCurntMng01.getPrevCol();
+		let prevRef = grdPrdcrOgnCurntMng01.getRefOfCol(prevCol);
+	    if(columnsToRefresh01.includes(prevRef)){
+	    	grdPrdcrOgnCurntMng01.refresh();
+	    }
+	}
+
+	/*
+	function fn_AfterEdit01(){
+	    if(grdPrdcrOgnCurntMng01.getPrevCol() == grdPrdcrOgnCurntMng01.getColRef('prchsTrstVlm')
+	    		|| grdPrdcrOgnCurntMng01.getPrevCol() == grdPrdcrOgnCurntMng01.getColRef('prchsTrstAmt')
+	    		|| grdPrdcrOgnCurntMng01.getPrevCol() == grdPrdcrOgnCurntMng01.getColRef('prchsEmspapVlm')
+	    		|| grdPrdcrOgnCurntMng01.getPrevCol() == grdPrdcrOgnCurntMng01.getColRef('prchsEmspapAmt')
+	    	){
+	    	grdPrdcrOgnCurntMng01.refresh();
+	    }
+	}
+	*/
 
 	var jsonPrdcrOgnCurntMng02 = []; // 그리드의 참조 데이터 주소 선언
 	var grdPrdcrOgnCurntMng02;
@@ -461,47 +501,94 @@
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    //SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
+	    //SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	    	{caption: ["품목","품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 	    	{caption: ["품목분류","품목분류","품목분류"], 	ref: 'ctgryNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 
-	    	{caption: ["공선수탁","공선수탁","물량"], 		ref: 'aa',   	type:'output',  width:'90px',    style:'text-align:center'},
-	        {caption: ["공선수탁","공선수탁","금액"], 		ref: 'bb',   	type:'output',  width:'100px',    style:'text-align:center'},
-	    	{caption: ["공동수탁","공동수탁","물량"], 		ref: 'cc',   	type:'output',  width:'90px',    style:'text-align:center'},
-	        {caption: ["공동수탁","공동수탁","금액"], 		ref: 'dd',   	type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["공선매취","공선매취","물량"], 		ref: 'ee',   	type:'output',  width:'90px',    style:'text-align:center'},
-	        {caption: ["공선매취","공선매취","금액"], 		ref: 'ff',   	type:'output',  width:'100px',    style:'text-align:center'},
+	    	{caption: ["공선수탁","공선수탁","물량"], 		ref: 'slsCprtnSortTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["공선수탁","공선수탁","금액"], 		ref: 'slsCprtnSortTrstAmt',   	type:'output',  width:'100px',    style:'text-align:center'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	    	{caption: ["공동수탁","공동수탁","물량"], 		ref: 'slsCprtnTrstVlm',   	type:'output',  width:'90px',    style:'text-align:center'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["공동수탁","공동수탁","금액"], 		ref: 'slsCprtnTrstAmt',   	type:'output',  width:'100px',    style:'text-align:center'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["공선매취","공선매취","물량"], 		ref: 'slsCprtnSortEmspapVlm',   	type:'output',  width:'90px',    style:'text-align:center'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["공선매취","공선매취","금액"], 		ref: 'slsCprtnSortEmspapAmt',   	type:'output',  width:'100px',    style:'text-align:center'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
-	        {caption: ["단순수탁","단순수탁","물량"], 		ref: 'slsTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'},
-	        {caption: ["단순수탁","단순수탁","금액"], 		ref: 'slsTrstAmt',		type:'input',  width:'100px',    style:'text-align:center'},
-	        {caption: ["단순매취","단순매취","물량"], 		ref: 'slsEmspapVlm',	type:'input',  width:'90px',    style:'text-align:center'},
-	        {caption: ["단순매취","단순매취","금액"], 		ref: 'slsEmspapAmt',	type:'input',  width:'100px',    style:'text-align:center'},
-	        {caption: ["합계","합계","물량"], 				ref: 'slsTotVlm',   		type:'output',  width:'90px',    style:'text-align:center', calc : 'fn_slsVlmSum'},
-	        {caption: ["합계","합계","금액"], 				ref: 'slsTotAmt',   		type:'output',  width:'100px',    style:'text-align:center', calc : 'fn_slsAmtSum'},
+	    	{caption: ["단순수탁","단순수탁","물량"], 		ref: 'slsSmplTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+		    	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+		    {caption: ["단순수탁","단순수탁","금액"], 		ref: 'slsSmplTrstAmt',		type:'input',  width:'100px',    style:'text-align:center'
+		    	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+		    {caption: ["단순매취","단순매취","물량"], 		ref: 'slsSmplEmspapVlm',	type:'input',  width:'90px',    style:'text-align:center'
+		    	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+		    {caption: ["단순매취","단순매취","금액"], 		ref: 'slsSmplEmspapAmt',	type:'input',  width:'100px',    style:'text-align:center'
+		    	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
-	        {caption: ["공제대상물량","자체수출","물량"], 		ref: 'ddcExprtVlm',   	type:'input',  width:'90px',    style:'text-align:center'},
-	        {caption: ["공제대상물량","자체수출","금액"], 		ref: 'ddcExprtAmt',		type:'input',  width:'100px',    style:'text-align:center'},
-	        {caption: ["공제대상물량","자체공판장","물량"], 	ref: 'ddcVlm',   		type:'input',  width:'90px',    style:'text-align:center'},
-	        {caption: ["공제대상물량","자체공판장","금액"], 	ref: 'ddcAmt',   		type:'input',  width:'100px',    style:'text-align:center'},
-	        {caption: ["공제대상물량","군납","물량"], 		ref: 'ddcArmyDlvgdsVlm',type:'input',  width:'90px',    style:'text-align:center'},
-	        {caption: ["공제대상물량","군납","금액"], 		ref: 'ddcArmyDlvgdsAmt',type:'input',  width:'100px',    style:'text-align:center'},
-	        {caption: ["공제대상물량","학교급식","물량"], 		ref: 'ddcMlsrVlm',   	type:'input',  width:'90px',    style:'text-align:center'},
-	        {caption: ["공제대상물량","학교급식","금액"], 		ref: 'ddcMlsrAmt',   	type:'input',  width:'100px',    style:'text-align:center'},
-	        {caption: ["공제대상물량","공제대상 소계","물량"], 	ref: 'ddcTotVlm',   	type:'output',  width:'90px',    style:'text-align:center', calc : 'fn_ddcVlmSum'},
-	        {caption: ["공제대상물량","공제대상 소계","금액"], 	ref: 'ddcTotAmt',   	type:'output',  width:'100px',    style:'text-align:center', calc : 'fn_ddcAmtSum'},
+	        {caption: ["수탁","수탁","물량"], 		ref: 'slsTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["수탁","수탁","금액"], 		ref: 'slsTrstAmt',		type:'input',  width:'100px',    style:'text-align:center'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["매취","매취","물량"], 		ref: 'slsEmspapVlm',	type:'input',  width:'90px',    style:'text-align:center'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["매취","매취","금액"], 		ref: 'slsEmspapAmt',	type:'input',  width:'100px',    style:'text-align:center'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["합계","합계","물량"], 				ref: 'slsTotVlm',   		type:'output',  width:'90px',    style:'text-align:center', calc : 'fn_slsVlmSum'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["합계","합계","금액"], 				ref: 'slsTotAmt',   		type:'output',  width:'100px',    style:'text-align:center', calc : 'fn_slsAmtSum'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
-	        {caption: ["조정 취급액","조정 취급액 소계","물량"], 	ref: 'ajmtVlm',   	type:'input',  width:'90px',    style:'text-align:center'},
-	        {caption: ["조정 취급액","조정 취급액 소계","금액"], 	ref: 'ajmtAmt',   	type:'input',  width:'100px',    style:'text-align:center'},
+	        {caption: ["공제대상물량","자체수출","물량"], 		ref: 'ddcExprtVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["공제대상물량","자체수출","금액"], 		ref: 'ddcExprtAmt',		type:'input',  width:'100px',    style:'text-align:center'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["공제대상물량","자체공판장","물량"], 	ref: 'ddcVlm',   		type:'input',  width:'90px',    style:'text-align:center'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["공제대상물량","자체공판장","금액"], 	ref: 'ddcAmt',   		type:'input',  width:'100px',    style:'text-align:center'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["공제대상물량","군납","물량"], 		ref: 'ddcArmyDlvgdsVlm',type:'input',  width:'90px',    style:'text-align:center'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["공제대상물량","군납","금액"], 		ref: 'ddcArmyDlvgdsAmt',type:'input',  width:'100px',    style:'text-align:center'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["공제대상물량","학교급식","물량"], 		ref: 'ddcMlsrVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["공제대상물량","학교급식","금액"], 		ref: 'ddcMlsrAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["공제대상물량","공제대상 소계","물량"], 	ref: 'ddcTotVlm',   	type:'output',  width:'90px',    style:'text-align:center', calc : 'fn_ddcVlmSum'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["공제대상물량","공제대상 소계","금액"], 	ref: 'ddcTotAmt',   	type:'output',  width:'100px',    style:'text-align:center', calc : 'fn_ddcAmtSum'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
-	        {caption: ["처리","처리"], 		ref: 'delYn',   type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+	        {caption: ["조정 취급액","조정 취급액 소계","물량"], 	ref: 'ajmtVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["조정 취급액","조정 취급액 소계","금액"], 	ref: 'ajmtAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+
+	        {caption: ["출자출하조직 통합조직 출하액","출하실적","물량"], 		ref: 'spmtPrfmncVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["출자출하조직 통합조직 출하액","출하실적","금액"], 		ref: 'spmtPrfmncAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["출자출하조직 통합조직 출하액","단순기표","물량"], 		ref: 'smplInptVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["출자출하조직 통합조직 출하액","단순기표","금액"], 		ref: 'smplInptAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["출자출하조직 통합조직 출하액","출하실적","물량"], 		ref: 'spmtTotVlm',   	type:'input',  width:'90px',    style:'text-align:center', calc : 'fn_testVlmSum'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["출자출하조직 통합조직 출하액","출하실적","금액"], 		ref: 'spmtTotAmt',   	type:'input',  width:'100px',    style:'text-align:center', calc : 'fn_testAmtSum'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+
+	        {caption: ["처리","처리","처리"], 		ref: 'delYn',   type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ")'>삭제</button>";
 	        	}
 	        }},
+	        {caption: ["상세내역"], 	ref: 'prchsSlsSe',  hidden : true},
 	        {caption: ["상세내역"], 	ref: 'yr',   		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'apoCd',   	hidden : true},
 	    	{caption: ["상세내역"], 	ref: 'itemCd',   	hidden : true},
@@ -513,16 +600,36 @@
 
 	    grdPrdcrOgnCurntMng02 = _SBGrid.create(SBGridProperties);
 	    grdPrdcrOgnCurntMng02.bind('click','gridClick02');
-
+	    grdPrdcrOgnCurntMng02.bind('afteredit','fn_AfterEdit02');
 	}
+
+	//해당 컬럼 변경시 리프래시 리스트
+	const columnsToRefresh02 = [
+		  'slsEmspapVlm', 'slsTrstVlm', 'slsCprtnSortTrstVlm', 'slsCprtnTrstVlm', 'slsCprtnSortEmspapVlm',
+		  'slsEmspapAmt', 'slsTrstAmt', 'slsCprtnSortTrstAmt', 'slsCprtnTrstAmt', 'slsCprtnSortEmspapAmt',
+		  'slsSmplTrstVlm', 'slsSmplTrstAmt', 'slsSmplEmspapVlm', 'slsSmplEmspapAmt',
+		  'ddcExprtVlm', 'ddcExprtAmt', 'ddcVlm', 'ddcAmt', 'ddcArmyDlvgdsVlm', 'ddcArmyDlvgdsAmt',
+		  'ddcMlsrVlm', 'ddcMlsrAmt',
+		  'spmtPrfmncVlm', 'spmtPrfmncAmt', 'smplInptVlm', 'smplInptAmt'
+		];
+
+	//그리드 열 속성의 calc 은 그리드 생성시 작동함  refresh() 해서 데이터 변경시로 유사하게 가능
+	function fn_AfterEdit02(){
+		let prevCol = grdPrdcrOgnCurntMng02.getPrevCol();
+		let prevRef = grdPrdcrOgnCurntMng02.getRefOfCol(prevCol);
+	    if(columnsToRefresh02.includes(prevRef)){
+	    	grdPrdcrOgnCurntMng02.refresh();
+	    }
+	}
+
 	//그리드 매입 물량 합계 함수
 	function fn_prchsVlmSum(objGrid, nRow, nCol) {
 		var strSum
 		var delYn = objGrid.getData(Number(nRow), objGrid.getColRef('delYn'));
 		if(delYn == 'N'){
-		    var prchsTrstVlm = Number(objGrid.getData(Number(nRow), objGrid.getColRef('prchsTrstVlm')));
-		    var prchsEmspapVlm = Number(objGrid.getData(Number(nRow), objGrid.getColRef('prchsEmspapVlm')));
-		    strSum = (prchsTrstVlm + prchsEmspapVlm).toString();
+		    var value01 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('prchsTrstVlm')));
+		    var value02 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('prchsEmspapVlm')));
+		    strSum = (value01 + value02).toString();
 		}
 	    return strSum;
 	}
@@ -531,9 +638,9 @@
 		var strSum
 		var delYn = objGrid.getData(Number(nRow), objGrid.getColRef('delYn'));
 		if(delYn == 'N'){
-		    var prchsTrstAmt = Number(objGrid.getData(Number(nRow), objGrid.getColRef('prchsTrstAmt')));
-		    var prchsEmspapAmt = Number(objGrid.getData(Number(nRow), objGrid.getColRef('prchsEmspapAmt')));
-		    strSum = (prchsTrstAmt + prchsEmspapAmt).toString();
+		    var value01 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('prchsTrstAmt')));
+		    var value02 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('prchsEmspapAmt')));
+		    strSum = (value01 + value02).toString();
 		}
 	    return strSum;
 	}
@@ -542,9 +649,13 @@
 		var strSum
 		var delYn = objGrid.getData(Number(nRow), objGrid.getColRef('delYn'));
 		if(delYn == 'N'){
-		    var slsEmspapVlm = Number(objGrid.getData(Number(nRow), objGrid.getColRef('slsEmspapVlm')));
-		    var slsTrstVlm = Number(objGrid.getData(Number(nRow), objGrid.getColRef('slsTrstVlm')));
-		    strSum = (slsEmspapVlm + slsTrstVlm).toString();
+		    var value01 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('slsEmspapVlm')));
+		    var value02 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('slsTrstVlm')));
+
+		    var value03 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('aa')));
+		    var value04 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('cc')));
+		    var value05 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('ee')));
+		    strSum = (value01 + value02 + value03 + value04 + value05).toString();
 		}
 	    return strSum;
 	}
@@ -553,9 +664,13 @@
 		var strSum
 		var delYn = objGrid.getData(Number(nRow), objGrid.getColRef('delYn'));
 		if(delYn == 'N'){
-		    var slsEmspapAmt = Number(objGrid.getData(Number(nRow), objGrid.getColRef('slsEmspapAmt')));
-		    var slsTrstAmt = Number(objGrid.getData(Number(nRow), objGrid.getColRef('slsTrstAmt')));
-		    strSum = (slsEmspapAmt + slsTrstAmt).toString();
+		    var value01 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('slsEmspapAmt')));
+		    var value02 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('slsTrstAmt')));
+
+		    var value03 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('bb')));
+		    var value04 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('dd')));
+		    var value05 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('ff')));
+		    strSum = (value01 + value02 + value03 + value04 + value05).toString();
 		}
 	    return strSum;
 	}
@@ -564,11 +679,11 @@
 		var strSum
 		var delYn = objGrid.getData(Number(nRow), objGrid.getColRef('delYn'));
 		if(delYn == 'N'){
-	    	var ddcExprtVlm = Number(objGrid.getData(Number(nRow), objGrid.getColRef('ddcExprtVlm')));
-	    	var ddcVlm = Number(objGrid.getData(Number(nRow), objGrid.getColRef('ddcVlm')));
-	    	var ddcArmyDlvgdsVlm = Number(objGrid.getData(Number(nRow), objGrid.getColRef('ddcArmyDlvgdsVlm')));
-	    	var ddcMlsrVlm = Number(objGrid.getData(Number(nRow), objGrid.getColRef('ddcMlsrVlm')));
-	    	strSum = (ddcExprtVlm + ddcVlm + ddcArmyDlvgdsVlm + ddcMlsrVlm).toString();
+	    	var value01 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('ddcExprtVlm')));
+	    	var value02 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('ddcVlm')));
+	    	var value03 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('ddcArmyDlvgdsVlm')));
+	    	var value04 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('ddcMlsrVlm')));
+	    	strSum = (value01 + value02 + value03 + value04).toString();
 		}
 	    return strSum;
 	}
@@ -577,11 +692,34 @@
 		var strSum
 		var delYn = objGrid.getData(Number(nRow), objGrid.getColRef('delYn'));
 		if(delYn == 'N'){
-			var ddcExprtAmt = Number(objGrid.getData(Number(nRow), objGrid.getColRef('ddcExprtAmt')));
-	    	var ddcAmt = Number(objGrid.getData(Number(nRow), objGrid.getColRef('ddcAmt')));
-	    	var ddcArmyDlvgdsAmt = Number(objGrid.getData(Number(nRow), objGrid.getColRef('ddcArmyDlvgdsAmt')));
-	    	var ddcMlsrAmt = Number(objGrid.getData(Number(nRow), objGrid.getColRef('ddcMlsrAmt')));
-	    	strSum = (ddcExprtAmt + ddcAmt + ddcArmyDlvgdsAmt + ddcMlsrAmt).toString();
+			var value01 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('ddcExprtAmt')));
+	    	var value02 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('ddcAmt')));
+	    	var value03 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('ddcArmyDlvgdsAmt')));
+	    	var value04 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('ddcMlsrAmt')));
+	    	strSum = (value01 + value02 + value03 + value04).toString();
+		}
+	    return strSum;
+	}
+
+	//그리드 출자출하조직 통합조직 출하액 출하실적 물량 합계 함수
+	function fn_testVlmSum(objGrid, nRow, nCol) {
+		var strSum
+		var delYn = objGrid.getData(Number(nRow), objGrid.getColRef('delYn'));
+		if(delYn == 'N'){
+	    	var value01 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('aaa')));
+	    	var value02 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('ccc')));
+	    	strSum = (value01 + value02).toString();
+		}
+	    return strSum;
+	}
+	//그리드 출자출하조직 통합조직 출하액 출하실적 금액 합계 함수
+	function fn_testAmtSum(objGrid, nRow, nCol) {
+		var strSum
+		var delYn = objGrid.getData(Number(nRow), objGrid.getColRef('delYn'));
+		if(delYn == 'N'){
+			var value01 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('bbb')));
+	    	var value02 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('ddd')));
+	    	strSum = (value01 + value02).toString();
 		}
 	    return strSum;
 	}
@@ -682,49 +820,42 @@
 	}
 
 
-	//다중 세이브
-	const fn_listSave = async function(){
+	//매입 다중 세이브
+	const fn_listSave01 = async function(){
 
 		let gridData01 = grdPrdcrOgnCurntMng01.getGridDataAll();
-		let gridData02 = grdPrdcrOgnCurntMng02.getGridDataAll();
 		let saveList = [];
 
 		let apoCd = SBUxMethod.get('dtl-input-apoCd');
 		let apoSe = SBUxMethod.get('dtl-input-apoSe');
 		let crno = SBUxMethod.get('dtl-input-crno');
 		let brno = SBUxMethod.get('dtl-input-brno');
+		console.log(gridData01.length);
+		for(var i=1; i<=gridData01.length; i++ ){
+			console.log(i);
+			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i+1);
+			let rowSts01 = grdPrdcrOgnCurntMng01.getRowStatus(i+1);
 
-
-		//같은 테이블의 그리드 2개 합치기
-		//그리드 의 해드 줄 차이가 있음 그리드01는 2줄 그리드02은 3줄
-		for(var i=2; i<=gridData01.length; i++ ){
-			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i);
-			let rowData02 = grdPrdcrOgnCurntMng02.getRowData(i+1);
-			let rowSts01 = grdPrdcrOgnCurntMng01.getRowStatus(i);
-			//let rowSts02 = grdPrdcrOgnCurntMng02.getRowStatus(i+1);
-			//console.log(JSON.stringify(rowData01));
-			//console.log(JSON.stringify(rowData02));
 			let delYn = rowData01.delYn;
 			if(delYn == 'N'){
-				const newObj = {...rowData01, ...rowData02};
-				//console.log("newObj : " + JSON.stringify(newObj));
-				if(gfn_isEmpty(newObj.apoCd)){
-					newObj.apoCd = apoCd;
-					newObj.apoSe = apoSe;
-					newObj.crno = crno;
-					newObj.brno = brno;
-					newObj.yr = '2023';
+
+				if(gfn_isEmpty(rowData01.apoCd)){
+					rowData01.apoCd = apoCd;
+					rowData01.apoSe = apoSe;
+					rowData01.crno = crno;
+					rowData01.brno = brno;
+					rowData01.yr = '2023';
 				}
 
 				if (rowSts01 === 3){
-					newObj.rowSts = "I";
-					saveList.push(newObj);
+					rowData01.rowSts = "I";
+					saveList.push(rowData01);
 				} else if (rowSts01 === 2){
-					newObj.rowSts = "I";
-					saveList.push(newObj);
+					rowData01.rowSts = "I";
+					saveList.push(rowData01);
 				} else if (rowSts01 === 1){
-					newObj.rowSts = "I";
-					saveList.push(newObj);
+					rowData01.rowSts = "I";
+					saveList.push(rowData01);
 				} else {
 					continue;
 				}
@@ -738,7 +869,74 @@
 		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
 
-			let postJsonPromise = gfn_postJSON("/pd/isom/multiSaveInvShipOgnPurSalMngList.do", saveList);
+			let postJsonPromise = gfn_postJSON("/pd/isom/multiSaveInvShipOgnPurSalMngList01.do", saveList);
+	        let data = await postJsonPromise;
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+	        		fn_dtlGridSearch();
+	        		//fn_searchFcltList();
+	        	} else {
+	        		alert(data.resultMessage);
+	        	}
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        }
+
+		}
+	}
+
+	//매출 다중 세이브
+	const fn_listSave02 = async function(){
+
+		let gridData02 = grdPrdcrOgnCurntMng02.getGridDataAll();
+		let saveList = [];
+
+		let apoCd = SBUxMethod.get('dtl-input-apoCd');
+		let apoSe = SBUxMethod.get('dtl-input-apoSe');
+		let crno = SBUxMethod.get('dtl-input-crno');
+		let brno = SBUxMethod.get('dtl-input-brno');
+
+		for(var i=1; i<=gridData02.length; i++ ){
+			let rowData02 = grdPrdcrOgnCurntMng02.getRowData(i);
+			let rowSts02 = grdPrdcrOgnCurntMng02.getRowStatus(i);
+			let delYn = rowData02.delYn;
+
+			if(delYn == 'N'){
+				if(gfn_isEmpty(rowData02.apoCd)){
+					rowData02.apoCd = apoCd;
+					rowData02.apoSe = apoSe;
+					rowData02.crno = crno;
+					rowData02.brno = brno;
+					rowData02.yr = '2023';
+				}
+
+				if (rowSts02 === 3){
+					rowData02.rowSts = "I";
+					saveList.push(rowData02);
+				} else if (rowSts02 === 2){
+					rowData02.rowSts = "I";
+					saveList.push(rowData02);
+				} else if (rowSts02 === 1){
+					rowData02.rowSts = "I";
+					saveList.push(rowData02);
+				} else {
+					continue;
+				}
+			}
+		}
+		if(saveList.length == 0){
+			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
+			return;
+		}
+
+		let regMsg = "저장 하시겠습니까?";
+		if(confirm(regMsg)){
+
+			let postJsonPromise = gfn_postJSON("/pd/isom/multiSaveInvShipOgnPurSalMngList02.do", saveList);
 	        let data = await postJsonPromise;
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
@@ -766,17 +964,17 @@
             	//grdPrdcrOgnCurntMng01.setCellData(nRow, nCol, "N", true);
             	//console.log(nRow);
             	grdPrdcrOgnCurntMng01.setCellData(nRow, grdPrdcrOgnCurntMng01.getColRef("delYn"), "N", true);
-            	grdPrdcrOgnCurntMng02.setCellData(nRow+1, grdPrdcrOgnCurntMng02.getColRef("delYn"), "N", true);
+            	//grdPrdcrOgnCurntMng02.setCellData(nRow+1, grdPrdcrOgnCurntMng02.getColRef("delYn"), "N", true);
             	grdPrdcrOgnCurntMng01.addRow(true);
-            	grdPrdcrOgnCurntMng02.addRow(true);
+            	//grdPrdcrOgnCurntMng02.addRow(true);
             }
 
             if (grid === "grdPrdcrOgnCurntMng02") {
             	//grdPrdcrOgnCurntMng01.setCellData(nRow, nCol, "N", true);
             	//console.log(nRow);
-            	grdPrdcrOgnCurntMng01.setCellData(nRow-1, grdPrdcrOgnCurntMng01.getColRef("delYn"), "N", true);
+            	//grdPrdcrOgnCurntMng01.setCellData(nRow-1, grdPrdcrOgnCurntMng01.getColRef("delYn"), "N", true);
             	grdPrdcrOgnCurntMng02.setCellData(nRow, grdPrdcrOgnCurntMng02.getColRef("delYn"), "N", true);
-            	grdPrdcrOgnCurntMng01.addRow(true);
+            	//grdPrdcrOgnCurntMng01.addRow(true);
             	grdPrdcrOgnCurntMng02.addRow(true);
             }
 
@@ -789,11 +987,11 @@
             			var rowVal = grdPrdcrOgnCurntMng01.getRowData(nRow);
             			fn_deleteRsrc(rowVal);
             			grdPrdcrOgnCurntMng01.deleteRow(nRow);
-            			grdPrdcrOgnCurntMng02.deleteRow(nRow+1);
+            			//grdPrdcrOgnCurntMng02.deleteRow(nRow+1);
             		}
             	}else{
             		grdPrdcrOgnCurntMng01.deleteRow(nRow);
-            		grdPrdcrOgnCurntMng02.deleteRow(nRow+1);
+            		//grdPrdcrOgnCurntMng02.deleteRow(nRow+1);
             	}
             }
             if (grid === "grdPrdcrOgnCurntMng02") {
@@ -802,11 +1000,11 @@
             		if(confirm(delMsg)){
             			var rowVal = grdPrdcrOgnCurntMng02.getRowData(nRow);
             			fn_deleteRsrc(rowVal);
-            			grdPrdcrOgnCurntMng01.deleteRow(nRow-1);
+            			//grdPrdcrOgnCurntMng01.deleteRow(nRow-1);
             			grdPrdcrOgnCurntMng02.deleteRow(nRow);
             		}
             	}else{
-            		grdPrdcrOgnCurntMng01.deleteRow(nRow-1);
+            		//grdPrdcrOgnCurntMng01.deleteRow(nRow-1);
             		grdPrdcrOgnCurntMng02.deleteRow(nRow);
             	}
             }
@@ -891,57 +1089,76 @@
         	jsonPrdcrOgnCurntMng02.length = 0;
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
-				let PrdcrOgnCurntMngVO01 = {
-						apoCd: 	item.apoCd
-						,apoSe: item.apoSe
-						,brno: 	item.brno
-						,crno: 	item.crno
-						,delYn: item.delYn
+        		if(item.prchsSlsSe == '1'){
+        			let PrdcrOgnCurntMngVO01 = {
+    						apoCd: 	item.apoCd
+    						,apoSe: item.apoSe
+    						,brno: 	item.brno
+    						,crno: 	item.crno
+    						,delYn: item.delYn
 
-						,ctgryCd: 		item.ctgryCd
-						,itemCd: 		item.itemCd
-						,ctgryNm: 		item.ctgryNm
-						,itemNm: 		item.itemNm
+    						,ctgryCd: 		item.ctgryCd
+    						,itemCd: 		item.itemCd
+    						,ctgryNm: 		item.ctgryNm
+    						,itemNm: 		item.itemNm
+    						,prchsSlsSe: 	item.prchsSlsSe
 
-						,prchsTrstVlm: 		item.prchsTrstVlm
-						,prchsTrstAmt: 		item.prchsTrstAmt
-						,prchsEmspapVlm: 	item.prchsEmspapVlm
-						,prchsEmspapAmt: 	item.prchsEmspapAmt
-				};
-				console.log(PrdcrOgnCurntMngVO01);
-				let PrdcrOgnCurntMngVO02 = {
-						apoCd: 	item.apoCd
-						,apoSe: item.apoSe
-						,brno: 	item.brno
-						,crno: 	item.crno
-						,delYn: item.delYn
+    						,prchsTrstVlm: 		item.prchsTrstVlm
+    						,prchsTrstAmt: 		item.prchsTrstAmt
+    						,prchsEmspapVlm: 	item.prchsEmspapVlm
+    						,prchsEmspapAmt: 	item.prchsEmspapAmt
+    				};
+        			jsonPrdcrOgnCurntMng01.push(PrdcrOgnCurntMngVO01);
+        		}else if(item.prchsSlsSe == '2'){
+        			let PrdcrOgnCurntMngVO02 = {
+    						apoCd: 	item.apoCd
+    						,apoSe: item.apoSe
+    						,brno: 	item.brno
+    						,crno: 	item.crno
+    						,delYn: item.delYn
 
-						,ctgryCd: 		item.ctgryCd
-						,itemCd: 		item.itemCd
-						,ctgryNm: 		item.ctgryNm
-						,itemNm: 		item.itemNm
+    						,ctgryCd: 		item.ctgryCd
+    						,itemCd: 		item.itemCd
+    						,ctgryNm: 		item.ctgryNm
+    						,itemNm: 		item.itemNm
+    						,prchsSlsSe: 	item.prchsSlsSe
 
-						,slsEmspapVlm: 		item.slsEmspapVlm
-						,slsEmspapAmt: 		item.slsEmspapAmt
-						,slsTrstVlm: 		item.slsTrstVlm
-						,slsTrstAmt: 		item.slsTrstAmt
+    						,slsCprtnSortTrstVlm: 		item.slsCprtnSortTrstVlm
+    						,slsCprtnSortTrstAmt: 		item.slsCprtnSortTrstAmt
+    						,slsCprtnTrstVlm: 		item.slsCprtnTrstVlm
+    						,slsCprtnTrstAmt: 		item.slsCprtnTrstAmt
+    						,slsCprtnSortEmspapVlm: 		item.slsCprtnSortEmspapVlm
+    						,slsCprtnSortEmspapAmt: 		item.slsCprtnSortEmspapAmt
 
-						,ddcExprtVlm: 		item.ddcExprtVlm
-						,ddcExprtAmt: 		item.ddcExprtAmt
-						,ddcVlm: 		item.ddcVlm
-						,ddcAmt: 		item.ddcAmt
-						,ddcArmyDlvgdsVlm: 		item.ddcArmyDlvgdsVlm
-						,ddcArmyDlvgdsAmt: 		item.ddcArmyDlvgdsAmt
-						,ddcMlsrVlm: 		item.ddcMlsrVlm
-						,ddcMlsrAmt: 		item.ddcMlsrAmt
+    						,slsSmplTrstVlm: 		item.slsSmplTrstVlm
+    						,slsSmplTrstAmt: 		item.slsSmplTrstAmt
+    						,slsSmplEmspapVlm: 		item.slsSmplEmspapVlm
+    						,slsSmplEmspapAmt: 		item.slsSmplEmspapAmt
 
-						,ajmtVlm: 		item.ajmtVlm
-						,ajmtAmt: 		item.ajmtAmt
+    						,slsEmspapVlm: 		item.slsEmspapVlm
+    						,slsEmspapAmt: 		item.slsEmspapAmt
+    						,slsTrstVlm: 		item.slsTrstVlm
+    						,slsTrstAmt: 		item.slsTrstAmt
 
-				};
-				console.log(PrdcrOgnCurntMngVO02);
-				jsonPrdcrOgnCurntMng01.push(PrdcrOgnCurntMngVO01);
-				jsonPrdcrOgnCurntMng02.push(PrdcrOgnCurntMngVO02);
+    						,ddcExprtVlm: 		item.ddcExprtVlm
+    						,ddcExprtAmt: 		item.ddcExprtAmt
+    						,ddcVlm: 		item.ddcVlm
+    						,ddcAmt: 		item.ddcAmt
+    						,ddcArmyDlvgdsVlm: 		item.ddcArmyDlvgdsVlm
+    						,ddcArmyDlvgdsAmt: 		item.ddcArmyDlvgdsAmt
+    						,ddcMlsrVlm: 		item.ddcMlsrVlm
+    						,ddcMlsrAmt: 		item.ddcMlsrAmt
+
+    						,spmtPrfmncVlm: 		item.spmtPrfmncVlm
+    						,spmtPrfmncAmt: 		item.spmtPrfmncAmt
+    						,smplInptVlm: 		item.smplInptVlm
+    						,smplInptAmt: 		item.smplInptAmt
+
+    						,ajmtVlm: 		item.ajmtVlm
+    						,ajmtAmt: 		item.ajmtAmt
+    				};
+					jsonPrdcrOgnCurntMng02.push(PrdcrOgnCurntMngVO02);
+        		}
 			});
 
         	grdPrdcrOgnCurntMng01.rebuild();
@@ -1023,15 +1240,17 @@
 			//let colRefIdx4 = grdPrdcrOgnCurntMng01.getColRef("itemNm");//품목명 인덱스
 
 			//그리드 값 세팅
+
 			grdPrdcrOgnCurntMng01.setCellData(selGridRow01,grdPrdcrOgnCurntMng01.getColRef("ctgryCd"),rowData.ctgryCd,true);
 			grdPrdcrOgnCurntMng01.setCellData(selGridRow01,grdPrdcrOgnCurntMng01.getColRef("ctgryNm"),rowData.ctgryNm,true);
 			grdPrdcrOgnCurntMng01.setCellData(selGridRow01,grdPrdcrOgnCurntMng01.getColRef("itemCd"),rowData.itemCd,true);
 			grdPrdcrOgnCurntMng01.setCellData(selGridRow01,grdPrdcrOgnCurntMng01.getColRef("itemNm"),rowData.itemNm,true);
-
+			/*
 			grdPrdcrOgnCurntMng02.setCellData(selGridRow01+1,grdPrdcrOgnCurntMng02.getColRef("ctgryCd"),rowData.ctgryCd,true);
 			grdPrdcrOgnCurntMng02.setCellData(selGridRow01+1,grdPrdcrOgnCurntMng02.getColRef("ctgryNm"),rowData.ctgryNm,true);
 			grdPrdcrOgnCurntMng02.setCellData(selGridRow01+1,grdPrdcrOgnCurntMng02.getColRef("itemCd"),rowData.itemCd,true);
 			grdPrdcrOgnCurntMng02.setCellData(selGridRow01+1,grdPrdcrOgnCurntMng02.getColRef("itemNm"),rowData.itemNm,true);
+			*/
 		}
 	}
 
@@ -1088,11 +1307,12 @@
 			//let colRefIdx4 = grdPrdcrOgnCurntMng02.getColRef("itemNm");//품목명 인덱스
 
 			//그리드 값 세팅
+			/*
 			grdPrdcrOgnCurntMng01.setCellData(selGridRow02-1,grdPrdcrOgnCurntMng01.getColRef("ctgryCd"),rowData.ctgryCd,true);
 			grdPrdcrOgnCurntMng01.setCellData(selGridRow02-1,grdPrdcrOgnCurntMng01.getColRef("ctgryNm"),rowData.ctgryNm,true);
 			grdPrdcrOgnCurntMng01.setCellData(selGridRow02-1,grdPrdcrOgnCurntMng01.getColRef("itemCd"),rowData.itemCd,true);
 			grdPrdcrOgnCurntMng01.setCellData(selGridRow02-1,grdPrdcrOgnCurntMng01.getColRef("itemNm"),rowData.itemNm,true);
-
+			*/
 			grdPrdcrOgnCurntMng02.setCellData(selGridRow02,grdPrdcrOgnCurntMng02.getColRef("ctgryCd"),rowData.ctgryCd,true);
 			grdPrdcrOgnCurntMng02.setCellData(selGridRow02,grdPrdcrOgnCurntMng02.getColRef("ctgryNm"),rowData.ctgryNm,true);
 			grdPrdcrOgnCurntMng02.setCellData(selGridRow02,grdPrdcrOgnCurntMng02.getColRef("itemCd"),rowData.itemCd,true);

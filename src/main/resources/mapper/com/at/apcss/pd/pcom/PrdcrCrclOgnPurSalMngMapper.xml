@@ -32,11 +32,24 @@
 				, CM.ITEM_CD
 				, (SELECT CTGRY_NM FROM TB_EV_GPC_CD WHERE ITEM_CD = CM.ITEM_CD) AS CTGRY_NM
 				, (SELECT ITEM_NM FROM TB_EV_GPC_CD WHERE ITEM_CD = CM.ITEM_CD) AS ITEM_NM
+				, CM.PRCHS_SLS_SE
 
 				, CM.PRCHS_TRST_VLM
 				, CM.PRCHS_TRST_AMT
 				, CM.PRCHS_EMSPAP_VLM
 				, CM.PRCHS_EMSPAP_AMT
+
+				, CM.SLS_CPRTN_SORT_TRST_VLM
+				, CM.SLS_CPRTN_SORT_TRST_AMT
+				, CM.SLS_CPRTN_TRST_VLM
+				, CM.SLS_CPRTN_TRST_AMT
+				, CM.SLS_CPRTN_SORT_EMSPAP_VLM
+				, CM.SLS_CPRTN_SORT_EMSPAP_AMT
+
+				, CM.SLS_SMPL_TRST_VLM
+				, CM.SLS_SMPL_TRST_AMT
+				, CM.SLS_SMPL_EMSPAP_VLM
+				, CM.SLS_SMPL_EMSPAP_AMT
 
 				, CM.SLS_EMSPAP_VLM
 				, CM.SLS_EMSPAP_AMT
@@ -90,11 +103,24 @@
 				, CM.ITEM_CD
 				, (SELECT CTGRY_NM FROM TB_EV_GPC_CD WHERE ITEM_CD = CM.ITEM_CD) AS CTGRY_NM
 				, (SELECT ITEM_NM FROM TB_EV_GPC_CD WHERE ITEM_CD = CM.ITEM_CD) AS ITEM_NM
+				, CM.PRCHS_SLS_SE
 
 				, CM.PRCHS_TRST_VLM
 				, CM.PRCHS_TRST_AMT
 				, CM.PRCHS_EMSPAP_VLM
 				, CM.PRCHS_EMSPAP_AMT
+
+				, CM.SLS_CPRTN_SORT_TRST_VLM
+				, CM.SLS_CPRTN_SORT_TRST_AMT
+				, CM.SLS_CPRTN_TRST_VLM
+				, CM.SLS_CPRTN_TRST_AMT
+				, CM.SLS_CPRTN_SORT_EMSPAP_VLM
+				, CM.SLS_CPRTN_SORT_EMSPAP_AMT
+
+				, CM.SLS_SMPL_TRST_VLM
+				, CM.SLS_SMPL_TRST_AMT
+				, CM.SLS_SMPL_EMSPAP_VLM
+				, CM.SLS_SMPL_EMSPAP_AMT
 
 				, CM.SLS_EMSPAP_VLM
 				, CM.SLS_EMSPAP_AMT
@@ -128,14 +154,15 @@
     </select>
 
 
-	<insert id="insertPrdcrCrclOgnPurSalMng" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
+	<insert id="insertPrdcrCrclOgnPurSalMng01" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
     	<![CDATA[
     	MERGE INTO TB_EV_UO_ALL_PRCHS_SLS CLT  /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.insertPrdcrCrclOgnPurSalMng */
 		USING DUAL
 			ON (
-					CLT.APO_CD   = #{apoCd}
-				AND CLT.CTGRY_CD = #{ctgryCd}
-				AND CLT.ITEM_CD	 = #{itemCd}
+					CLT.APO_CD   		= #{apoCd}
+				AND CLT.CTGRY_CD 		= #{ctgryCd}
+				AND CLT.ITEM_CD	 		= #{itemCd}
+				AND CLT.PRCHS_SLS_SE	= '1'
 				)
 		WHEN MATCHED THEN
 				 UPDATE
@@ -144,6 +171,106 @@
 		    	        , PRCHS_TRST_AMT		= #{prchsTrstAmt}
 		    	        , PRCHS_EMSPAP_VLM		= #{prchsEmspapVlm}
 		    	        , PRCHS_EMSPAP_AMT		= #{prchsEmspapAmt}
+
+		    	        , RMRK					= #{rmrk}
+
+		    	        , SYS_LAST_CHG_DT		= SYSDATE
+	    				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+		    	]]>
+		    	<![CDATA[
+
+					 WHERE 1=1
+					 AND CLT.APO_CD			= #{apoCd}
+					 AND CLT.APO_SE			= #{apoSe}
+					 AND CLT.CTGRY_CD		= #{ctgryCd}
+					 AND CLT.ITEM_CD		= #{itemCd}
+					 AND CLT.PRCHS_SLS_SE	= '1'
+		WHEN NOT MATCHED THEN
+			 INSERT
+		    		(
+		    			APO_CD
+		    		  , APO_SE
+		    		  , BRNO
+		    		  , CRNO
+		    		  , YR
+
+		    		  , CTGRY_CD
+		    		  , ITEM_CD
+		    		  , PRCHS_SLS_SE
+
+		    		  , PRCHS_TRST_VLM
+		    		  , PRCHS_TRST_AMT
+		    		  , PRCHS_EMSPAP_VLM
+		    		  , PRCHS_EMSPAP_AMT
+
+		    		  , RMRK
+
+		    		  , SYS_FRST_INPT_DT
+		    		  , SYS_FRST_INPT_USER_ID
+		    		  , SYS_FRST_INPT_PRGRM_ID
+		    		  , SYS_LAST_CHG_DT
+		    		  , SYS_LAST_CHG_USER_ID
+		    		  , SYS_LAST_CHG_PRGRM_ID
+		    		)
+		   		VALUES
+		   			(
+		   			    #{apoCd}
+		   			  , (case when #{apoSe} is not null then #{apoSe}
+		   			  			ELSE (SELECT OGNZ_SE_CD FROM TB_APC_OGNZ_INFO WHERE OGNZ_CD = #{apoCd})
+		   			  			END)
+		   			  , #{brno}
+		   			  , (case when #{crno} is not null then #{crno}
+		   			  			ELSE (SELECT CRNO FROM TB_EV_APO WHERE APO_CD = #{apoCd})
+		   			  			END)
+		   			  , #{yr}
+
+		   			  , (case when #{ctgryCd} is not null then #{ctgryCd}
+		   			  			ELSE (SELECT CTGRY_CD FROM TB_EV_GPC_CD WHERE ITEM_CD = #{itemCd})
+		   			  			END)
+		   			  , #{itemCd}
+		   			  , '1'
+
+		   			  , #{prchsTrstVlm}
+		   			  , #{prchsTrstAmt}
+		   			  , #{prchsEmspapVlm}
+		   			  , #{prchsEmspapAmt}
+
+		   			  , #{rmrk}
+
+		   			  , SYSDATE
+	   			  	  , #{sysFrstInptUserId}
+		   			  , #{sysFrstInptPrgrmId}
+		   			  , SYSDATE
+		   			  , #{sysLastChgUserId}
+		   			  , #{sysLastChgPrgrmId}
+		   			)
+    	]]>
+    </insert>
+
+    <insert id="insertPrdcrCrclOgnPurSalMng02" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
+    	<![CDATA[
+    	MERGE INTO TB_EV_UO_ALL_PRCHS_SLS CLT  /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.insertPrdcrCrclOgnPurSalMng */
+		USING DUAL
+			ON (
+					CLT.APO_CD   		= #{apoCd}
+				AND CLT.CTGRY_CD 		= #{ctgryCd}
+				AND CLT.ITEM_CD	 		= #{itemCd}
+				AND CLT.PRCHS_SLS_SE	= '2'
+				)
+		WHEN MATCHED THEN
+				 UPDATE
+					   SET
+		    	        SLS_CPRTN_SORT_TRST_VLM		= #{slsCprtnSortTrstVlm}
+		    	        , SLS_CPRTN_SORT_TRST_AMT		= #{slsCprtnSortTrstAmt}
+		    	        , SLS_CPRTN_TRST_VLM			= #{slsCprtnTrstVlm}
+		    	        , SLS_CPRTN_TRST_AMT			= #{slsCprtnTrstAmt}
+		    	        , SLS_CPRTN_SORT_EMSPAP_VLM		= #{slsCprtnSortEmspapVlm}
+		    	        , SLS_CPRTN_SORT_EMSPAP_AMT		= #{slsCprtnSortEmspapAmt}
+		    	        , SLS_SMPL_TRST_VLM				= #{slsSmplTrstVlm}
+		    	        , SLS_SMPL_TRST_AMT				= #{slsSmplTrstAmt}
+		    	        , SLS_SMPL_EMSPAP_VLM			= #{slsSmplEmspapVlm}
+		    	        , SLS_SMPL_EMSPAP_AMT			= #{slsSmplEmspapAmt}
 
 		    	        , SLS_EMSPAP_VLM		= #{slsEmspapVlm}
 		    	        , SLS_EMSPAP_AMT		= #{slsEmspapAmt}
@@ -163,6 +290,7 @@
 					 AND CLT.APO_SE		= #{apoSe}
 					 AND CLT.CTGRY_CD	= #{ctgryCd}
 					 AND CLT.ITEM_CD	= #{itemCd}
+					 AND CLT.PRCHS_SLS_SE	= '2'
 		WHEN NOT MATCHED THEN
 			 INSERT
 		    		(
@@ -174,11 +302,18 @@
 
 		    		  , CTGRY_CD
 		    		  , ITEM_CD
+		    		  , PRCHS_SLS_SE
 
-		    		  , PRCHS_TRST_VLM
-		    		  , PRCHS_TRST_AMT
-		    		  , PRCHS_EMSPAP_VLM
-		    		  , PRCHS_EMSPAP_AMT
+		    		  , SLS_CPRTN_SORT_TRST_VLM
+		    	      , SLS_CPRTN_SORT_TRST_AMT
+		    	      , SLS_CPRTN_TRST_VLM
+		    	      , SLS_CPRTN_TRST_AMT
+		    	      , SLS_CPRTN_SORT_EMSPAP_VLM
+		    	      , SLS_CPRTN_SORT_EMSPAP_AMT
+		    	      , SLS_SMPL_TRST_VLM
+		    	      , SLS_SMPL_TRST_AMT
+		    	      , SLS_SMPL_EMSPAP_VLM
+		    	      , SLS_SMPL_EMSPAP_AMT
 
 		    		  , SLS_EMSPAP_VLM
 		    		  , SLS_EMSPAP_AMT
@@ -210,11 +345,18 @@
 		   			  			ELSE (SELECT CTGRY_CD FROM TB_EV_GPC_CD WHERE ITEM_CD = #{itemCd})
 		   			  			END)
 		   			  , #{itemCd}
+		   			  , '2'
 
-		   			  , #{prchsTrstVlm}
-		   			  , #{prchsTrstAmt}
-		   			  , #{prchsEmspapVlm}
-		   			  , #{prchsEmspapAmt}
+					  , #{slsCprtnSortTrstVlm}
+		    	      , #{slsCprtnSortTrstAmt}
+		    	      , #{slsCprtnTrstVlm}
+		    	      , #{slsCprtnTrstAmt}
+		    	      , #{slsCprtnSortEmspapVlm}
+		    	      , #{slsCprtnSortEmspapAmt}
+		    	      , #{slsSmplTrstVlm}
+		    	      , #{slsSmplTrstAmt}
+		    	      , #{slsSmplEmspapVlm}
+		    	      , #{slsSmplEmspapAmt}
 
 		   			  , #{slsEmspapVlm}
 		   			  , #{slsEmspapAmt}

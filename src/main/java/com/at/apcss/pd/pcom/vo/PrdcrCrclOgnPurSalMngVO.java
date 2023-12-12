@@ -18,11 +18,23 @@ public class PrdcrCrclOgnPurSalMngVO extends ComVO{
 	private String itemCd;
 	private String ctgryNm;
 	private String itemNm;
+	private String prchsSlsSe;
 
 	private String prchsTrstVlm;
 	private String prchsTrstAmt;
 	private String prchsEmspapVlm;
 	private String prchsEmspapAmt;
+
+	private String slsCprtnSortTrstVlm;
+	private String slsCprtnSortTrstAmt;
+	private String slsCprtnTrstVlm;
+	private String slsCprtnTrstAmt;
+	private String slsCprtnSortEmspapVlm;
+	private String slsCprtnSortEmspapAmt;
+	private String slsSmplTrstVlm;
+	private String slsSmplTrstAmt;
+	private String slsSmplEmspapVlm;
+	private String slsSmplEmspapAmt;
 
 	private String slsTrstVlm;
 	private String slsTrstAmt;

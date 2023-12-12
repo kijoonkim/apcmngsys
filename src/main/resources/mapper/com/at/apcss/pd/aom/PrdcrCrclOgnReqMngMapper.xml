@@ -369,8 +369,7 @@
 		WHEN MATCHED THEN
 				 UPDATE /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertGpc */
 					   SET
-		    	          CTGRY_NM	= #{ctgryNm}
-		    	        , ITEM_NM	= #{itemNm}
+		    	          RMRK	= #{rmrk}
 		    	]]>
 				<if test='delYn != null and delYn != ""'>
 						, DEL_YN 	= #{delYn}
@@ -379,7 +378,6 @@
 						, SYS_LAST_CHG_DT		= SYSDATE
 			    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 			    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
-
 					 WHERE 1=1
 					 AND CLT.APO_CD  	= #{apoCd}
 					 AND CLT.YR  		= #{yr}
@@ -421,7 +419,7 @@
 		   			  , #{yr}
 		   			  , #{sttgUpbrItemSe}
 		   			  , #{ctgryCd}
-		   			  , #{ctgryNm}
+		   			  , (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = #{ctgryCd})
 		   			  , #{itemCd}
 		   			  , #{itemNm}
 		   			  , #{rmrk}
