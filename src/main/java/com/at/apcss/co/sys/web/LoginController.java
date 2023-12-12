@@ -469,7 +469,7 @@ public class LoginController extends BaseController {
 			return "redirect:/login.do";
 		}
 		
-		if (StringUtils.hasText(id)) {
+		if (!StringUtils.hasText(id)) {
 			logger.error("@@@@ SSO 토큰정보 없음");
 			return "redirect:/login.do";
 		}
