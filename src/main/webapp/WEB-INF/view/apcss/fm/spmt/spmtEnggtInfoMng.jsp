@@ -76,19 +76,29 @@
 
 							<th scope="row">출하방법</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-spmtType" name="srch-slt-spmtType" uitype="single" class="form-control input-sm" unselected-text="전체">
+							   <sbux-select id="srch-slt-spmtType" name="srch-slt-spmtType" uitype="single"
+					                                jsondata-ref="jsonSpmtType"
+					                                unselected-text="전체"
+					                               >
+					           </sbux-select>
+								<!-- <sbux-select id="srch-slt-spmtType" name="srch-slt-spmtType" uitype="single" class="form-control input-sm" unselected-text="전체">
 									<option-item value="유형1">유형1</option-item>
 									<option-item value="유형2">유형2</option-item>
 									<option-item value="유형3">유형3</option-item>
-								</sbux-select>
+								</sbux-select> -->
 							</td>
 							<th scope="row">취급방법</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-trmtType" name="srch-slt-trmtType" uitype="single" class="form-control input-sm" unselected-text="전체">
+							   <sbux-select id="srch-slt-trmtType" name="srch-slt-trmtType" uitype="single"
+					                                jsondata-ref="jsonTrmtType"
+					                                unselected-text="전체"
+					                              >
+					           </sbux-select>
+								<!-- <sbux-select id="srch-slt-trmtType" name="srch-slt-trmtType" uitype="single" class="form-control input-sm" unselected-text="전체">
 									<option-item value="유형1">유형1</option-item>
 									<option-item value="유형2">유형2</option-item>
 									<option-item value="유형3">유형3</option-item>
-								</sbux-select>
+								</sbux-select> -->
 							</td>
 
 						</tr>
@@ -232,19 +242,30 @@
 						<tr>
 						    <th scope="row">출하방법</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-select id="dtl-slt-spmtType" name="dtl-slt-spmtType" uitype="single" class="form-control input-sm" unselected-text="선택">
+							   <sbux-select id="dtl-slt-spmtType" name="dtl-slt-spmtType" uitype="single"
+					                                jsondata-ref="jsonSpmtType"
+					                                unselected-text="선택"
+					                               >
+					            </sbux-select>
+								<!-- <sbux-select id="dtl-slt-spmtType" name="dtl-slt-spmtType" uitype="single" class="form-control input-sm" unselected-text="선택">
 									<option-item value="유형1">유형1</option-item>
 									<option-item value="유형2">유형2</option-item>
 									<option-item value="유형3">유형3</option-item>
-								</sbux-select>
+								</sbux-select> -->
 							</td>
 							<th scope="row">취급방법</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
+							    <sbux-select id="dtl-slt-trmtType" name="dtl-slt-trmtType" uitype="single"
+					                                jsondata-ref="jsonTrmtType"
+					                                unselected-text="선택"
+					                               >
+					            </sbux-select>
+					             <!--
 								<sbux-select id="dtl-slt-trmtType" name="dtl-slt-trmtType" uitype="single" class="form-control input-sm" unselected-text="선택">
 									<option-item value="유형1">유형1</option-item>
 									<option-item value="유형2">유형2</option-item>
 									<option-item value="유형3">유형3</option-item>
-								</sbux-select>
+								</sbux-select> -->
 							</td>
 							<th scope="row">품질등급</th>
 							<td colspan="3" class="td_input">
@@ -474,18 +495,28 @@
 
 	// 공통코드 JSON
 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
+	var jsonTrmtType = [];
+	var jsonSpmtType = [];
 	var jsonApcItem			= [];	// 품목 		itemCd		검색
 	var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
 
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
-    	fn_search();
     	fn_createGrid();
-    	fn_createGrid1();
     	gfn_setComCdSBSelect(
+    			['srch-slt-trmtType', 'dtl-slt-trmtType'],
+    			jsonTrmtType,
+			'TRMT_TYPE');
+    	gfn_setComCdSBSelect(
+    			['srch-slt-spmtType', 'dtl-slt-spmtType'],
+    			jsonSpmtType,
+			'SPMT_TYPE');
+    	fn_search();
+    	fn_createGrid1();
+    	/* gfn_setComCdSBSelect(
     			['srch-select-msgKnd', 'dtl-select-msgKnd'],
     			jsonComMsgKnd,
-			'MSG_KND');
+			'MSG_KND'); */
     });
 
     //grid 초기화
@@ -514,8 +545,8 @@
             {caption: ["출자출하조직"], 	 ref: 'apcNm3',     	type:'output',   width:'15%',    style:'text-align:center'},
             {caption: ["기초생산자조직"], 	 ref: 'apcNm',     	type:'output',   width:'15%',    style:'text-align:center'},
             {caption: ["대표자"], 	 ref: 'prdcrNm',     	type:'output',   width:'15%',    style:'text-align:center'},
-            {caption: ["출하유형"],	 ref: 'spmtType',      type:'output',  width:'15%',    style:'text-align:center'},
-            {caption: ["취급유형"], 	 ref: 'trmtType',     	type:'output',   width:'15%',    style:'text-align:center'},
+            {caption: ["출하유형"],	 ref: 'spmtTypeNm',      type:'output',  width:'15%',    style:'text-align:center'},
+            {caption: ["취급유형"], 	 ref: 'trmtTypeNm',     	type:'output',   width:'15%',    style:'text-align:center'},
             {caption: ["품목명"],   	 ref: 'itemNm',    type:'output',  width:'15%',    style:'text-align:center'},
             {caption: ["재배면적"],    ref: 'cltvtnArea',        type:'output',  width:'15%',    style:'text-align:center'},
             {caption: ["재배품종"], 	 ref: 'vrtyNm',   type:'output',  width:'15%',    style:'text-align:center'},
@@ -936,7 +967,32 @@
 
     	const postJsonPromise = gfn_postJSON("/fm/spmt/updateSpmtEnggtInfoMng.do", {
     		apcCd: SBUxMethod.get('dtl-inp-apcCd'),
-    		pckgSn: SBUxMethod.get('dtl-inp-pckgSn')
+    		pckgSn: SBUxMethod.get('dtl-inp-pckgSn'),
+			prdcrCd: SBUxMethod.get('dtl-inp-prdcrCd'),
+			itemCd: SBUxMethod.get('dtl-slt-itemCd'),
+			vrtyCd: SBUxMethod.get('dtl-slt-vrtyCd'),
+			prdctnQntt: SBUxMethod.get('dtl-inp-prdctnQntt'),
+			spmtQntt: SBUxMethod.get('dtl-inp-spmtQntt'),
+			cltvtnArea: SBUxMethod.get('dtl-inp-cltvtnArea'),
+			spmtType: SBUxMethod.get('dtl-slt-spmtType'),
+			trmtType: SBUxMethod.get('dtl-slt-trmtType'),
+			spmtStrDt: SBUxMethod.get('dtl-inp-spmtStrDt'),
+			spmtEndDt: SBUxMethod.get('dtl-inp-spmtEndDt'),
+			dtlMttr: SBUxMethod.get('dtl-inp-dtlMttr'),
+			qltGrd: SBUxMethod.get('dtl-inp-qltGrd'),
+			prc: SBUxMethod.get('dtl-inp-prc'),
+			prcPblnt: SBUxMethod.get('dtl-slt-prcPblnt'),
+			unit: SBUxMethod.get('dtl-inp-unit'),
+			prcGiveDt: SBUxMethod.get('dtl-inp-prcGiveDt'),
+			spclMttr: SBUxMethod.get('dtl-inp-spclMttr'),
+			advncPay: SBUxMethod.get('dtl-inp-advncPay'),
+			rmrk: SBUxMethod.get('dtl-inp-rmrk'),
+			apcCd2: SBUxMethod.get('dtl-inp-apcCd2'),
+			apcNm2: SBUxMethod.get('dtl-inp-apcNm2'),
+			apcCd3: SBUxMethod.get('dtl-inp-apcCd3'),
+			apcNm3: SBUxMethod.get('dtl-inp-apcNm3')
+
+
 		});
 
         const data = await postJsonPromise;
@@ -1060,7 +1116,7 @@
  			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, rowData.apcCd);	// 품종
  			gfn_setApcVrtySBSelect('dtl-slt-spmtCd', jsonApcVrty, rowData.apcCd);	// 품종
 
- 			alert( rowData.apcCd);
+//  			alert( rowData.apcCd);
  			fn_view2() ;
 
      }

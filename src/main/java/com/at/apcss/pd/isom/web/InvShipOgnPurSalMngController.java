@@ -65,7 +65,7 @@ public class InvShipOgnPurSalMngController extends BaseController{
 			int insertedCnt = 0;
 
 			try {
-				insertedCnt = invShipOgnPurSalMngService.insertInvShipOgnPurSalMng(InvShipOgnPurSalMngVO);
+				insertedCnt = invShipOgnPurSalMngService.insertInvShipOgnPurSalMng01(InvShipOgnPurSalMngVO);
 			} catch (Exception e) {
 				logger.debug(e.getMessage());
 				return getErrorResponseEntity(e);
@@ -77,8 +77,8 @@ public class InvShipOgnPurSalMngController extends BaseController{
 		}
 
 
-		@PostMapping(value = "/pd/isom/multiSaveInvShipOgnPurSalMngList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> multiSaveInvShipOgnPurSalMngList(@RequestBody List<InvShipOgnPurSalMngVO> InvShipOgnPurSalMngVOList, HttpServletRequest request) throws Exception {
+		@PostMapping(value = "/pd/isom/multiSaveInvShipOgnPurSalMngList01.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> multiSaveInvShipOgnPurSalMngList01(@RequestBody List<InvShipOgnPurSalMngVO> InvShipOgnPurSalMngVOList, HttpServletRequest request) throws Exception {
 
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
@@ -91,7 +91,30 @@ public class InvShipOgnPurSalMngController extends BaseController{
 					InvShipOgnPurSalMngVO.setSysLastChgUserId(getUserId());
 				}
 
-				savedCnt = invShipOgnPurSalMngService.multiSaveInvShipOgnPurSalMngList(InvShipOgnPurSalMngVOList);
+				savedCnt = invShipOgnPurSalMngService.multiSaveInvShipOgnPurSalMngList01(InvShipOgnPurSalMngVOList);
+			}catch (Exception e) {
+				return getErrorResponseEntity(e);
+			}
+
+			resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
+			return getSuccessResponseEntity(resultMap);
+		}
+		//매출 저장
+		@PostMapping(value = "/pd/isom/multiSaveInvShipOgnPurSalMngList02.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> multiSaveInvShipOgnPurSalMngList02(@RequestBody List<InvShipOgnPurSalMngVO> InvShipOgnPurSalMngVOList, HttpServletRequest request) throws Exception {
+
+			HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+			int savedCnt = 0;
+			try {
+				for (InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO : InvShipOgnPurSalMngVOList) {
+					InvShipOgnPurSalMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+					InvShipOgnPurSalMngVO.setSysFrstInptUserId(getUserId());
+					InvShipOgnPurSalMngVO.setSysLastChgPrgrmId(getPrgrmId());
+					InvShipOgnPurSalMngVO.setSysLastChgUserId(getUserId());
+				}
+
+				savedCnt = invShipOgnPurSalMngService.multiSaveInvShipOgnPurSalMngList02(InvShipOgnPurSalMngVOList);
 			}catch (Exception e) {
 				return getErrorResponseEntity(e);
 			}

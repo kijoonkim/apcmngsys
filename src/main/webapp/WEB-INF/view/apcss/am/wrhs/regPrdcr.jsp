@@ -120,12 +120,29 @@
     <div id="body-modal-oprtr">
     	<jsp:include page="../../am/popup/oprtrPopup.jsp"></jsp:include>
     </div>
+    
+	<!-- 생산자 상세 Modal -->
+    <div>
+        <sbux-modal
+        	id="modal-prdcrDtl"
+        	name="modal-prdcrDtl"
+        	uitype="middle"
+        	header-title="생산자 상세"
+        	body-html-id="body-modal-prdcrDtl"
+        	footer-is-close-button="false"
+        	header-is-close-button="false"
+        	style="width:1000px"
+        ></sbux-modal>
+    </div>
+    <div id="body-modal-prdcrDtl">
+    	<jsp:include page="../../am/popup/prdcrDtlPopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">
 
 	var jsonApcItemCd		= [];	// 대표품목 rprsItemCd	Grid
 	var jsonApcVrtyCd		= [];	// 대표품종 rprsVrtyCd	Grid
-	var jsonComGdsSeCd		= [];	// 상품구분 gdsSeCd		Grid
+	var jsonComGdsSeCd		= [];	// 상품구분 gdsSeCd	Grid
 	var jsonComWrhsSeCd		= [];	// 입고구분 wrhsSeCd	Grid
 	var jsonComTrsprtSeCd	= [];	// 운송구분 trsprtSeCd	Grid
 	var jsonComClclnCrtrCd	= [];	// 정산기준 clclnCrtr	Grid
@@ -199,6 +216,14 @@
 	            	} else {
 				        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(" + nRow + ")'>삭제</button>";
 	            	}
+		    }},
+		    {caption: ["상세"], 			ref: 'delYn',  			type:'button',  width:'50px',  style:'text-align:center',	sortable: false,
+		    	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        	if(!gfn_isEmpty(strValue)){
+			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_modalPrdcrDtl(" + nRow + ")'>변경</button>";
+	        	}else{
+	        		return ;
+	        	}
 		    }},
 		    {caption: ['번호'], 			ref: 'prdcrIdentno', 	type: 'input', 	width: '50px', style: 'text-align:center', sortable: false},
 	        {caption: ['생산자명'], 		ref: 'prdcrNm', 		type: 'input', 	width: '65px', style: 'text-align:center', sortable: false,
@@ -504,7 +529,14 @@
     		grdApcPrdcr.deleteRow(nRow);
     	}
 	}
+	
+	// 생산자 상세 팝업 호출
+	const fn_modalPrdcrDtl = async function (nRow){
+		let rowData = grdApcPrdcr.getRowData(nRow);
 
+		SBUxMethod.openModal('modal-prdcrDtl');
+		popPrdcrDtl.init(gv_selectedApcCd, gv_selectedApcNm, rowData.prdcrCd);
+	}
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

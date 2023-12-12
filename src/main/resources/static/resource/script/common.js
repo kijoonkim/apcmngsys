@@ -28,6 +28,7 @@ const URL_APC_ITEMS 		= "/am/cmns/apcItems";		//	APC 품목
 const URL_APC_VRTYS 		= "/am/cmns/apcVrtys";		//	APC 품종
 const URL_APC_SPCFCTS 		= "/am/cmns/apcSpcfcts";	//	APC 규격
 const URL_APC_GRDS 			= "/am/cmns/apcGrds";		//	APC 등급
+const URL_APC_GDS_GRDS 		= "/am/cmns/apcStdGrdDtls";	//	APC 상품등급
 
 const URL_CNPT_INFO			= "/am/cmns/cnptInfos";		//	거래처
 const URL_GDS_INFO			= "/am/cmns/gdsInfos";		//	상품
@@ -536,6 +537,45 @@ const gfn_setApcVrtySBSelect = async function (_targetIds, _jsondataRef, _apcCd,
 	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
 }
 
+/**
+ * @name gfn_getApcGdsGrd
+ * @description  APC 상품등급 목록 가져오기
+ * @function
+ * @param {string} _apcCd	APC코드
+ * @param {string} _itemCd	품목코드
+ * @param {string} _grdSeCd	등급구분코드
+ * @returns {any[]}
+ */
+async function gfn_getApcGdsGrd (_apcCd, _itemCd, _grdSeCd) {
+	const postJsonPromise = gfn_postJSON(URL_APC_GDS_GRDS, {apcCd: _apcCd, itemCd: _itemCd, grdSeCd: _grdSeCd, delYn: "N"}, null, true);
+	const data = await postJsonPromise;
+	return data.resultList;
+}
+
+/**
+ * @name gfn_setApcGdsGrdSBSelect
+ * @description set SBUX-select options from APC 상품등급
+ * @function
+ * @param {(string|string[])} _targetIds
+ * @param {any[]} _jsondataRef
+ * @param {string} _apcCd	APC코드
+ * @param {string} _itemCd	품목코드
+ * @param {string} _grdSeCd	등급구분코드
+ */
+const gfn_setApcGdsGrdSBSelect = async function (_targetIds, _jsondataRef, _apcCd, _itemCd, _grdSeCd) {
+	const postJsonPromise = gfn_postJSON(URL_APC_GDS_GRDS, {apcCd: _apcCd, itemCd: _itemCd, grdSeCd: _grdSeCd, delYn: "N"}, null, true);
+	const data = await postJsonPromise;
+
+	const sourceJson = [];
+	data.resultList.forEach((item) => {
+			item.cmnsCd 		= item.grdCd;
+			item.cmnsNm 		= item.grdNm;
+			item.mastervalue 	= item.itemCd;
+			sourceJson.push(item);
+		});
+
+	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
+}
 
 /**
  * @name gfn_getApcSpcfcts
@@ -1072,6 +1112,51 @@ const gfn_nvl = function (str, defaultStr) {
     return gfn_isEmpty(str) ? defaultStr : str;
 }
 
+/**
+ * @name gfn_lpad
+ * @description String Left Padding 처리
+ * @function
+ * @param {string} val
+ * @param {number} padLength
+ * @param {string} padString
+ * @return {string}
+ */
+const gfn_lpad = function(val, padLength, padString){
+
+	if (gfn_isEmpty(padString)) {
+		return val;
+	}
+
+	val = gfn_nvl(val);
+
+	while(val.length < padLength){
+        val = padString + val;
+    }
+    return val;
+}
+
+/**
+ * @name gfn_rpad
+ * @description String Right Padding 처리
+ * @function
+ * @param {string} val
+ * @param {number} padLength
+ * @param {string} padString
+ * @return {string}
+ */
+const gfn_rpad = function (val, padLength, padString){
+
+	if (gfn_isEmpty(padString)) {
+		return val;
+	}
+
+	val = gfn_nvl(val);
+
+    while(val.length < padLength){
+        val += padString;
+    }
+    return val;
+}
 
 /**
  * @name gfn_getCookie

@@ -100,7 +100,7 @@
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'output',  hidden : true}
 	    ];
 	    grdOprtr = _SBGrid.create(SBGridProperties);
-	    fn_selectOprtrList();
+	    fn_searchOprtr();
 	}
 
 	/**

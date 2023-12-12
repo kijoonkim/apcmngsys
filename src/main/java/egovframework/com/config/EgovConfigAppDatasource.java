@@ -75,8 +75,8 @@ public class EgovConfigAppDatasource {
 		userName = env.getProperty("Globals." + dbType + ".UserName");
 		password = env.getProperty("Globals." + dbType + ".Password");
 		
-		System.out.println(String.format("userName: %s", userName));
-		System.out.println(String.format("password: %s", password));
+		//System.out.println(String.format("userName: %s", userName));
+		//System.out.println(String.format("password: %s", password));
 		
 
 		System.out.println(String.format("@@profile 값 :: %s", env.getProperty("spring.profiles.active")));

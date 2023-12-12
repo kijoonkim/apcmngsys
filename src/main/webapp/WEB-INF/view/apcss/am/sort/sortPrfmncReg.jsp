@@ -17,7 +17,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
@@ -1539,7 +1539,19 @@
 		const _columns = [];
 		
 		_columns.push(
-			{caption: ["선별일자"], 	ref: 'sortYmd',   		type:'input',  width:'100px',    style:'text-align:center'},
+			{
+				caption: ["선별일자"], 	
+				ref: 'sortYmd',   		
+				type: 'datepicker',  
+				width: '100px',    
+				style: 'text-align:center',
+				format : {
+					type:'date',
+					rule:'yyyy-mm-dd',
+					origin:'yyyymmdd'
+				},
+				typeinfo : {gotoCurrentClick: true, clearbutton: true}
+			},
 			{caption: ["품목"], 		ref: 'itemCd',   		type:'combo',  width:'80px',    style:'text-align:center; background:#FFF8DC;',
 				typeinfo : {ref:'jsonExpSltItem', 		displayui : false,	itemcount: 10, label:'label', value:'value'}},
 			{caption: ["품종"], 		ref: 'vrtyCd',   		type:'combo',  width:'80px',    style:'text-align:center; background:#FFF8DC;',
@@ -2088,13 +2100,40 @@
 			
 			if (gfn_isEmpty(rowData.sortYmd)) {
  				rowData.sortYmd = today;
- 			}
+ 			} else {
+				if (typeof rowData.sortYmd === "string") {
+					rowData.sortYmd = rowData.sortYmd.trim();
+				} else if (typeof rowData.sortYmd === "number") {
+					let len = rowData.sortYmd.toString().length;
+					switch (len) {
+						case 5:
+							let jsDate = gfn_excelSerialDateToJSDate(rowData.sortYmd);
+							rowData.sortYmd = gfn_dateToYmd(jsDate);
+							break;
+						case 8:
+							rowData.sortYmd = rowData.sortYmd.toString();
+							break;
+						default:
+							rowData.sortYmd = today;
+							break;
+					}
+				} else {
+					rowData.sortYmd = today;
+				}
+			}
 			
 			// 품목
 			if (!gfn_isEmpty(rowData.itemCd)) {
 				if (typeof rowData.itemCd === "string") {
 					rowData.itemCd = rowData.itemCd.trim();
+				} else if (typeof rowData.itemCd === "number") {
+					rowData.itemCd = rowData.itemCd.toString();
+				} else {
+					
 				}
+				
+				rowData.itemCd = gfn_lpad(rowData.itemCd, 4, '0');
+				
 				let chkInfo = _.find(jsonExpSltItem, {value: rowData.itemCd});
 				if (gfn_isEmpty(chkInfo)) {
 					chkInfo = _.find(jsonExpSltItem, {label: rowData.itemCd});
@@ -2111,7 +2150,14 @@
 			if (!gfn_isEmpty(rowData.vrtyCd)) {
 				if (typeof rowData.vrtyCd === "string") {
 					rowData.vrtyCd = rowData.vrtyCd.trim();
+				} else if (typeof rowData.vrtyCd === "number") {
+					rowData.vrtyCd = rowData.vrtyCd.toString();
+				} else {
+					
 				}
+				
+				rowData.vrtyCd = gfn_lpad(rowData.vrtyCd, 4, '0');
+				
 				let chkInfo = _.find(jsonExpSltVrty, {value: rowData.vrtyCd});
 				if (gfn_isEmpty(chkInfo)) {
 					chkInfo = _.find(jsonExpSltVrty, {label: rowData.vrtyCd});
@@ -2128,7 +2174,14 @@
 			if (!gfn_isEmpty(rowData.spcfctCd)) {
 				if (typeof rowData.spcfctCd === "string") {
 					rowData.spcfctCd = rowData.spcfctCd.trim();
-				}				
+				} else if (typeof rowData.spcfctCd === "number") {
+					rowData.spcfctCd = rowData.spcfctCd.toString();
+				} else {
+					
+				}
+				
+				rowData.spcfctCd = gfn_lpad(rowData.spcfctCd, 4, '0');
+				
 				let chkInfo = _.find(jsonExpSltSpcfct, {spcfctCd: rowData.spcfctCd});
 				if (gfn_isEmpty(chkInfo)) {
 					chkInfo = _.find(jsonExpSltSpcfct, {spcfctNm: rowData.spcfctCd});
@@ -2145,7 +2198,14 @@
 			if (!gfn_isEmpty(rowData.prdcrCd)) {
 				if (typeof rowData.prdcrCd === "string") {
 					rowData.prdcrCd = rowData.prdcrCd.trim();
+				} else if (typeof rowData.prdcrCd === "number") {
+					rowData.prdcrCd = rowData.prdcrCd.toString();
+				} else {
+					
 				}
+				
+				rowData.prdcrCd = gfn_lpad(rowData.prdcrCd, 4, '0');
+				
 				let chkInfo = _.find(jsonExpSltPrdcr, {prdcrCd: rowData.prdcrCd});
 				if (gfn_isEmpty(chkInfo)) {
 					chkInfo = _.find(jsonExpSltPrdcr, {prdcrNm: rowData.prdcrCd});
@@ -2162,7 +2222,14 @@
 			if (!gfn_isEmpty(rowData.warehouseSeCdFrom)) {
 				if (typeof rowData.warehouseSeCdFrom === "string") {
 					rowData.warehouseSeCdFrom = rowData.warehouseSeCdFrom.trim();
+				} else if (typeof rowData.warehouseSeCdFrom === "number") {
+					rowData.warehouseSeCdFrom = rowData.warehouseSeCdFrom.toString();
+				} else {
+					
 				}
+				
+				rowData.warehouseSeCdFrom = gfn_lpad(rowData.warehouseSeCdFrom, 2, '0');
+				
 				let chkInfo = _.find(jsonExpSltWarehouse, {cdVl: rowData.warehouseSeCdFrom});
 				if (gfn_isEmpty(chkInfo)) {
 					chkInfo = _.find(jsonExpSltWarehouse, {cdVlNm: rowData.warehouseSeCdFrom});
@@ -2179,7 +2246,14 @@
 			if (!gfn_isEmpty(rowData.warehouseSeCdTo)) {
 				if (typeof rowData.warehouseSeCdTo === "string") {
 					rowData.warehouseSeCdTo = rowData.warehouseSeCdTo.trim();
-				}				
+				} else if (typeof rowData.warehouseSeCdTo === "number") {
+					rowData.warehouseSeCdTo = rowData.warehouseSeCdTo.toString();
+				} else {
+					
+				}
+				
+				rowData.warehouseSeCdTo = gfn_lpad(rowData.warehouseSeCdTo, 2, '0');
+				
 				let chkInfo = _.find(jsonExpSltWarehouse, {cdVl: rowData.warehouseSeCdTo});
 				if (gfn_isEmpty(chkInfo)) {
 					chkInfo = _.find(jsonExpSltWarehouse, {cdVlNm: rowData.warehouseSeCdTo});
@@ -2196,7 +2270,14 @@
 			if (!gfn_isEmpty(rowData.sortFcltCd)) {	
 				if (typeof rowData.sortFcltCd === "string") {
 					rowData.sortFcltCd = rowData.sortFcltCd.trim();
-				}							
+				} else if (typeof rowData.sortFcltCd === "number") {
+					rowData.sortFcltCd = rowData.sortFcltCd.toString();
+				} else {
+					
+				}
+				
+				rowData.sortFcltCd = gfn_lpad(rowData.sortFcltCd, 4, '0');
+				
 				let chkInfo = _.find(jsonExpSltSortFclt, {value: rowData.sortFcltCd});
 				if (gfn_isEmpty(chkInfo)) {
 					chkInfo = _.find(jsonExpSltSortFclt, {label: rowData.sortFcltCd});
@@ -2217,7 +2298,14 @@
 				let jsonObj = gStdGrdObj.getGrdJson(id);
 				if (typeof rowData[colNm] === "string") {
 					rowData[colNm] = rowData[colNm].trim();
+				} else if (typeof rowData[colNm] === "number") {
+					rowData[colNm] = rowData[colNm].toString();
+				} else {
+					
 				}
+				
+				rowData[colNm] = gfn_lpad(rowData[colNm], 2, '0');
+				
 				if (!gfn_isEmpty(rowData[colNm])) {			
 					let grdInfo = _.find(jsonObj, {grdCd: rowData[colNm]});
 					if (gfn_isEmpty(grdInfo)) {

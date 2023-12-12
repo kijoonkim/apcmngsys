@@ -17,7 +17,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
@@ -608,8 +608,7 @@
 		SBGridProperties.explorerbar = 'move';				// 개인화 컬럼 이동 가능
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
-	    SBGridProperties.paging = lv_paging;
-
+	    
 	    SBGridProperties.columns = [
 	        //{caption: ["입고번호"],		ref: 'wrhsno',      type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["팔레트번호"],	ref: 'pltno',      	type:'output',  width:'120px',    style:'text-align:center'},
@@ -757,9 +756,7 @@
         		fn_inputClear();
         		fn_search();
         	} else {
-        		//alert(data.resultMessage);
         		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
-        		//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
         } catch (e) {
     		if (!(e instanceof Error)) {
@@ -1013,15 +1010,9 @@
 
     	fn_clearInptForm();
 
-        // set pagination
-    	grdRawMtrWrhs.rebuild();
-    	let pageSize = grdRawMtrWrhs.getPageSize();
-    	let pageNo = 1;
-
     	// grid clear
     	jsonRawMtrWrhs.length = 0;
-    	grdRawMtrWrhs.clearStatus();
-    	fn_setGrdRawMtrWrhs(pageSize, pageNo);
+    	fn_setGrdRawMtrWrhs();
 
 		SBUxMethod.set("lbl-wrhsno", "");
 		SBUxMethod.set("srch-inp-wrhsno", "");
@@ -1031,10 +1022,8 @@
     /**
      * @name fn_setGrdRawMtrWrhs
      * @description 입고내역 조회
-     * @param {number} pageSize
-     * @param {number} pageNo
      */
-	const fn_setGrdRawMtrWrhs = async function(pageSize, pageNo) {
+	const fn_setGrdRawMtrWrhs = async function() {
 
    		let wrhsYmd = SBUxMethod.get("srch-dtp-wrhsYmd");		// 입고일자
 
@@ -1043,14 +1032,17 @@
 			wrhsYmd: wrhsYmd,
 
           	// pagination
-  	  		pagingYn : 'Y',
-  			currentPageNo : pageNo,
-   		  	recordCountPerPage : pageSize
+  	  		pagingYn : 'N',
   		});
 
-        const data = await postJsonPromise;
-
   		try {
+  			
+	        const data = await postJsonPromise;
+	
+	        if (!_.isEqual("S", data.resultStatus)) {
+	        	gfn_comAlert(data.resultCode, data.resultMessage);
+	        	return;
+	        }
 
           	/** @type {number} **/
       		let totalRecordCount = 0;
@@ -1094,23 +1086,10 @@
   						stdGrdCd: item.stdGrdCd
   				}
   				jsonRawMtrWrhs.push(rawMtrWrhs);
-
-  				if (index === 0) {
-  					totalRecordCount = item.totalRecordCount;
-  				}
   			});
 
-          	if (jsonRawMtrWrhs.length > 0) {
-          		if(grdRawMtrWrhs.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-          			grdRawMtrWrhs.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-          			grdRawMtrWrhs.rebuild();
-  				}else{
-  					grdRawMtrWrhs.refresh();
-  				}
-          	} else {
-          		grdRawMtrWrhs.setPageTotalCount(totalRecordCount);
-          		grdRawMtrWrhs.rebuild();
-          	}
+          	totalRecordCount = jsonRawMtrWrhs.length;
+          	grdRawMtrWrhs.refresh();
 
           	document.querySelector('#cnt-wrhs').innerText = totalRecordCount;
           	SBUxMethod.set("crtr-ymd", wrhsYmd);
@@ -1580,9 +1559,15 @@
 			{
 				caption: ["입고일자"],	
 				ref: 'wrhsYmd',		
-				type:'input',  
-				width:'100px',    
-				style:'text-align:center'
+				type: 'datepicker',  
+				width: '100px',    
+				style: 'text-align:center',
+				format : {
+					type:'date',
+					rule:'yyyy-mm-dd',
+					origin:'yyyymmdd'
+				},
+				typeinfo : {gotoCurrentClick: true, clearbutton: true}
 			},
 			{
 				caption: ["품목"], 		
@@ -2337,11 +2322,42 @@
 		for ( let iRow = 1; iRow <= impData.length; iRow++ ) {
 			const rowData = _grdImp.getRowData(iRow, false);	// deep copy
 
+			if (gfn_isEmpty(rowData.wrhsYmd)) {
+				rowData.wrhsYmd = today;
+			} else {
+				if (typeof rowData.wrhsYmd === "string") {
+					rowData.wrhsYmd = rowData.wrhsYmd.trim();
+				} else if (typeof rowData.wrhsYmd === "number") {
+					let len = rowData.wrhsYmd.toString().length;
+					switch (len) {
+						case 5:
+							let jsDate = gfn_excelSerialDateToJSDate(rowData.wrhsYmd);
+							rowData.wrhsYmd = gfn_dateToYmd(jsDate);
+							break;
+						case 8:
+							rowData.wrhsYmd = rowData.wrhsYmd.toString();
+							break;
+						default:
+							rowData.wrhsYmd = today;
+							break;
+					}
+				} else {
+					rowData.wrhsYmd = today;
+				}
+			}
+			
 			// 품목
 			if (!gfn_isEmpty(rowData.itemCd)) {
 				if (typeof rowData.itemCd === "string") {
 					rowData.itemCd = rowData.itemCd.trim();
+				} else if (typeof rowData.itemCd === "number") {
+					rowData.itemCd = rowData.itemCd.toString();
+				} else {
+					
 				}
+				
+				rowData.itemCd = gfn_lpad(rowData.itemCd, 4, '0');
+				
 				let chkInfo = _.find(jsonExpSltItem, {value: rowData.itemCd});
 				if (gfn_isEmpty(chkInfo)) {
 					chkInfo = _.find(jsonExpSltItem, {label: rowData.itemCd});
@@ -2358,7 +2374,14 @@
 			if (!gfn_isEmpty(rowData.vrtyCd)) {
 				if (typeof rowData.vrtyCd === "string") {
 					rowData.vrtyCd = rowData.vrtyCd.trim();
+				} else if (typeof rowData.vrtyCd === "number") {
+					rowData.vrtyCd = rowData.vrtyCd.toString();
+				} else {
+					
 				}
+				
+				rowData.vrtyCd = gfn_lpad(rowData.vrtyCd, 4, '0');
+				
 				let chkInfo = _.find(jsonExpSltVrty, {value: rowData.vrtyCd});
 				if (gfn_isEmpty(chkInfo)) {
 					chkInfo = _.find(jsonExpSltVrty, {label: rowData.vrtyCd});
@@ -2375,7 +2398,14 @@
 			if (!gfn_isEmpty(rowData.prdcrCd)) {
 				if (typeof rowData.prdcrCd === "string") {
 					rowData.prdcrCd = rowData.prdcrCd.trim();
+				} else if (typeof rowData.prdcrCd === "number") {
+					rowData.prdcrCd = rowData.prdcrCd.toString();
+				} else {
+					
 				}
+				
+				rowData.prdcrCd = gfn_lpad(rowData.prdcrCd, 4, '0');
+				
 				let chkInfo = _.find(jsonExpSltPrdcr, {prdcrCd: rowData.prdcrCd});
 				if (gfn_isEmpty(chkInfo)) {
 					chkInfo = _.find(jsonExpSltPrdcr, {prdcrNm: rowData.prdcrCd});
@@ -2390,6 +2420,14 @@
 
 			// 입고구분
 			if (!gfn_isEmpty(rowData.wrhsSeCd)) {
+				if (typeof rowData.wrhsSeCd === "string") {
+					rowData.wrhsSeCd = rowData.wrhsSeCd.trim();
+				} else if (typeof rowData.wrhsSeCd === "number") {
+					rowData.wrhsSeCd = rowData.wrhsSeCd.toString();
+				} else {
+					
+				}
+				
 				let wrhsSeInfo = _.find(jsonExpSltWrhsSeCd, {cdVl: rowData.wrhsSeCd});
 				if (gfn_isEmpty(wrhsSeInfo)) {
 					wrhsSeInfo = _.find(jsonExpSltWrhsSeCd, {cdVlNm: rowData.wrhsSeCd});
@@ -2403,7 +2441,12 @@
 			if (!gfn_isEmpty(rowData.gdsSeCd)) {
 				if (typeof rowData.gdsSeCd === "string") {
 					rowData.gdsSeCd = rowData.gdsSeCd.trim();
+				} else if (typeof rowData.gdsSeCd === "number") {
+					rowData.gdsSeCd = rowData.gdsSeCd.toString();
+				} else {
+					
 				}
+				
 				let chkInfo = _.find(jsonExpSltGdsSeCd, {cdVl: rowData.gdsSeCd});
 				if (gfn_isEmpty(chkInfo)) {
 					chkInfo = _.find(jsonExpSltGdsSeCd, {cdVlNm: rowData.gdsSeCd});
@@ -2420,7 +2463,12 @@
 			if (!gfn_isEmpty(rowData.trsprtSeCd)) {
 				if (typeof rowData.trsprtSeCd === "string") {
 					rowData.trsprtSeCd = rowData.trsprtSeCd.trim();
+				} else if (typeof rowData.trsprtSeCd === "number") {
+					rowData.trsprtSeCd = rowData.trsprtSeCd.toString();
+				} else {
+					
 				}
+				
 				let chkInfo = _.find(jsonExpSltTrsprtSeCd, {cdVl: rowData.trsprtSeCd});
 				if (gfn_isEmpty(chkInfo)) {
 					chkInfo = _.find(jsonExpSltTrsprtSeCd, {cdVlNm: rowData.trsprtSeCd});
@@ -2437,7 +2485,14 @@
 			if (!gfn_isEmpty(rowData.warehouseSeCd)) {
 				if (typeof rowData.warehouseSeCd === "string") {
 					rowData.warehouseSeCd = rowData.warehouseSeCd.trim();
+				} else if (typeof rowData.warehouseSeCd === "number") {
+					rowData.warehouseSeCd = rowData.warehouseSeCd.toString();
+				} else {
+					
 				}
+				
+				rowData.warehouseSeCd = gfn_lpad(rowData.warehouseSeCd, 2, '0');
+				
 				let chkInfo = _.find(jsonExpSltWarehouseSeCd, {value: rowData.warehouseSeCd});
 				if (gfn_isEmpty(chkInfo)) {
 					chkInfo = _.find(jsonExpSltWarehouseSeCd, {label: rowData.warehouseSeCd});
@@ -2454,7 +2509,14 @@
 			if (!gfn_isEmpty(rowData.pltBxCd)) {
 				if (typeof rowData.pltBxCd === "string") {
 					rowData.pltBxCd = rowData.pltBxCd.trim();
+				} else if (typeof rowData.pltBxCd === "number") {
+					rowData.pltBxCd = rowData.pltBxCd.toString();
+				} else {
+					
 				}
+				
+				rowData.pltBxCd = gfn_lpad(rowData.pltBxCd, 2, '0');
+				
 				let chkInfo = _.find(jsonExpSltBxKnd, {value: rowData.pltBxCd});
 				if (gfn_isEmpty(chkInfo)) {
 					chkInfo = _.find(jsonExpSltBxKnd, {label: rowData.pltBxCd});
@@ -2485,7 +2547,14 @@
 					if (!gfn_isEmpty(rowData[colNm])) {
 						if (typeof rowData[colNm] === "string") {
 							rowData[colNm] = rowData[colNm].trim();
+						} else if (typeof rowData[colNm] === "number") {
+							rowData[colNm] = rowData[colNm].toString();
+						} else {
+							
 						}
+						
+						rowData[colNm] = gfn_lpad(rowData[colNm], 2, '0');
+						
 						let grdInfo = _.find(jsonObj, {grdCd: rowData[colNm]});
 						if (gfn_isEmpty(grdInfo)) {
 							grdInfo = _.find(jsonObj, {grdNm: rowData[colNm]});

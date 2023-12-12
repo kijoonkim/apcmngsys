@@ -68,22 +68,26 @@
     	<!-- End 페이징 -->
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.cmns.mapper.PrdcrMapper.selectPrdcrList */
-				   PR.APC_CD        AS APC_CD
-			     , PR.PRDCR_CD      AS PRDCR_CD
-			     , PR.PRDCR_NM      AS PRDCR_NM
-			     , PR.PRDCR_FRST_NM AS PRDCR_FRST_NM
-			     , PR.RPRS_ITEM_CD  AS RPRS_ITEM_CD
-			     , PR.RPRS_VRTY_CD  AS RPRS_VRTY_CD
-			     , PR.GDS_SE_CD     AS GDS_SE_CD
-			     , PR.WRHS_SE_CD    AS WRHS_SE_CD
-			     , PR.TRSPRT_SE_CD  AS TRSPRT_SE_CD
-			     , PR.CLCLN_CRTR_CD	AS CLCLN_CRTR_CD
-			     , PR.VHCLNO        AS VHCLNO
-			     , PR.TELNO        	AS TELNO
-			     , PR.PRDCR_LINK_CD	AS PRDCR_LINK_CD
-			     , PR.PRDCR_IDENTNO	AS PRDCR_IDENTNO
-			     , PR.RMRK          AS RMRK
-			     , PR.DEL_YN        AS DEL_YN
+				   PR.APC_CD        	AS APC_CD
+			     , PR.PRDCR_CD      	AS PRDCR_CD
+			     , PR.PRDCR_NM      	AS PRDCR_NM
+			     , PR.PRDCR_FRST_NM 	AS PRDCR_FRST_NM
+			     , PR.RPRS_ITEM_CD  	AS RPRS_ITEM_CD
+			     , PR.RPRS_VRTY_CD  	AS RPRS_VRTY_CD
+			     , PR.GDS_SE_CD     	AS GDS_SE_CD
+			     , PR.WRHS_SE_CD    	AS WRHS_SE_CD
+			     , PR.TRSPRT_SE_CD  	AS TRSPRT_SE_CD
+			     , PR.CLCLN_CRTR_CD		AS CLCLN_CRTR_CD
+			     , PR.VHCLNO        	AS VHCLNO
+			     , PR.TELNO        		AS TELNO
+			     , PR.PRDCR_LINK_CD		AS PRDCR_LINK_CD
+			     , PR.PRDCR_IDENTNO		AS PRDCR_IDENTNO
+			     , PR.RMRK          	AS RMRK
+			     , PR.FRMHS_NM      	AS FRMHS_NM
+			     , PR.FRMHS_TELNO		AS FRMHS_TELNO
+			     , PR.FRMHS_CTPV		AS FRMHS_CTPV
+			     , PR.FRMHS_ADDR		AS FRMHS_ADDR
+			     , PR.DEL_YN        	AS DEL_YN
 			     , (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = PR.APC_CD) AS APC_NM
 			     , (SELECT FN_GET_ITEM_NM(PR.RPRS_ITEM_CD, PR.APC_CD) FROM DUAL) AS RPRS_ITEM_NM
 			     , (SELECT FN_GET_VRTY_NM(PR.RPRS_ITEM_CD, PR.RPRS_VRTY_CD, PR.APC_CD) FROM DUAL) AS RPRS_VRTY_NM

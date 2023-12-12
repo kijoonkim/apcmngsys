@@ -118,7 +118,14 @@
 							</td>
 							<th scope="row" class="th_bg">납기일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-dudtYmd" name="srch-dtp-dudtYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm" onchange="fn_dtpChange(srch-dtp-dudtYmd)"></sbux-datepicker>
+								<sbux-datepicker
+									id="srch-dtp-dudtYmd"
+									name="srch-dtp-dudtYmd"
+									uitype="popup"
+									date-format="yyyy-mm-dd"
+									class="form-control input-sm"
+									onchange="fn_dtpChangeDudt(srch-dtp-dudtYmd)"
+								></sbux-datepicker>
 							</td>
 							<td colspan="2"></td>
 						</tr>
@@ -133,13 +140,13 @@
 						</tr>
 					</tbody>
 				</table>
-				
+
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
 						<li><span>지시등록</span></li>
 					</ul>
 				</div>
-				
+
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
@@ -160,7 +167,7 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span><sbux-label id="srch-lbl-cmndYmd" name="srch-lbl-cmndYmd" uitype="normal" text="지시일자" class="bold"></sbux-label></th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-cmndYmd" name="srch-dtp-cmndYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm-ast inpt_data_reqed input-sm" onchange="fn_dtpChange(srch-dtp-cmndYmd)"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-cmndYmd" name="srch-dtp-cmndYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm-ast inpt_data_reqed input-sm" onchange="fn_dtpChangeCmnd(srch-dtp-cmndYmd)"></sbux-datepicker>
 							</td>
 							<td colspan="2"></td>
 							<th scope="row" class="th_bg" style="border-right: hidden;"><span class="data_required"></span></span><sbux-label id="srch-lbl-trsprtCoCd" name="srch-lbl-trsprtCoCd" uitype="normal" text="운송회사" class="bold"></sbux-label></th>
@@ -187,8 +194,7 @@
 				 			<caption>검색 조건 설정</caption>
 							<colgroup>
 								<col style="width: auto">
-								<col style="width: 100px">
-								<col style="width: 140px">
+								<col style="width: 120px">
 								<col style="width: 140px">
 								<col style="width: 82px">
 								<col style="width: 82px">
@@ -209,52 +215,42 @@
 										/>
 									</td>
 									<td class="td_input" style="border-right:hidden; border-left:hidden" >
-										<sbux-datepicker 
-											id="dtp-crtrYmdFrom" 
-											name="dtp-crtrYmdFrom" 
-											uitype="popup" 
-											date-format="yyyy-mm-dd" 
-											class="form-control input-sm sbux-pik-group-apc" 
-											onchange=""
-										></sbux-datepicker>
-									</td>
-									<td class="td_input" style="border-right:hidden; border-left:hidden" >
-										<sbux-datepicker 
-											id="dtp-crtrYmdTo" 
-											name="dtp-crtrYmdTo" 
-											uitype="popup" 
-											date-format="yyyy-mm-dd" 
-											class="form-control input-sm sbux-pik-group-apc" 
-											onchange=""
+										<sbux-datepicker
+											id="dtp-crtrYmd"
+											name="dtp-crtrYmd"
+											uitype="popup"
+											date-format="yyyy-mm-dd"
+											class="form-control input-sm sbux-pik-group-apc"
+											onchange="fn_dtpChangeCrtr"
 										></sbux-datepicker>
 									</td>
 									<td class="td_input" style="border-right:hidden;">
 										<sbux-button
-											id="btn-rcptOutordr" 
-											name="btn-rcptOutordr" 
-											uitype="normal" 
-											onclick="fn_rcptOutordr" 
-											class="btn btn-sm btn-outline-dark" 
+											id="btn-rcptOutordr"
+											name="btn-rcptOutordr"
+											uitype="normal"
+											onclick="fn_rcptOutordr"
+											class="btn btn-sm btn-outline-dark"
 											text="발주정보수신"
 										></sbux-button>
 									</td>
 									<td class="td_input" style="border-right:hidden;">
-										<sbux-button 
-											id="btnRcptOrdrAll" 
-											name="btnReceiptBndl" 
-											uitype="normal" 
-											onclick="btn_receiptBndl" 
-											class="btn btn-sm btn-outline-dark" 
+										<sbux-button
+											id="btnRcptOrdrAll"
+											name="btnReceiptBndl"
+											uitype="normal"
+											onclick="btn_receiptBndl"
+											class="btn btn-sm btn-outline-dark"
 											text="일괄 접수"
 										></sbux-button>
 									</td>
 									<td class="td_input" style="border-right:hidden;">
-										<sbux-button 
-											id="btnRegPrdctnCmnd" 
-											name="btnRegPrdctnCmnd" 
-											uitype="normal" 
-											onclick="fn_regSpmtCmnd" 
-											class="btn btn-sm btn-outline-dark" 
+										<sbux-button
+											id="btnRegPrdctnCmnd"
+											name="btnRegPrdctnCmnd"
+											uitype="normal"
+											onclick="fn_regSpmtCmnd"
+											class="btn btn-sm btn-outline-dark"
 											text="출하지시 등록"
 										></sbux-button>
 									</td>
@@ -305,7 +301,7 @@
 	var jsonTrsprtCoCd		= [];															// 운송회사
 
 	var jsonComLgszMrkt		= [];
-	
+
 	var comboGridRcpYn 		= [{label: "접수", value: "Y"}, {label: "미접수", value: "N"}];	// 접수여부 (그리드)
 
 	const fn_initSBSelect = async function() {
@@ -321,35 +317,32 @@
 		SBUxMethod.refresh('srch-slt-rcptYn');
 		SBUxMethod.refresh('grdOutordrInfo');	// 접수여부 (그리드)
 	}
-	
+
 	const fn_init = async function() {
-		
+
 		const firstYmd = gfn_dateFirstYmd(new Date());
 		const nowYmd = gfn_dateToYmd(new Date());
-		
+
 		SBUxMethod.set("srch-dtp-outordrYmdFrom", firstYmd);
 		SBUxMethod.set("srch-dtp-outordrYmdTo", nowYmd);
 		SBUxMethod.set("srch-dtp-cmndYmd", nowYmd);
 
-		SBUxMethod.set("dtp-crtrYmdFrom", nowYmd);
-		SBUxMethod.set("dtp-crtrYmdTo", nowYmd);
-		
+		SBUxMethod.set("dtp-crtrYmd", nowYmd);
+
 		await fn_initSBSelect();
-		
+
 		fn_createOutordrInfoGrid();
-		
+
 		fn_search();
 	}
-	
+
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_init();
 	});
 
-	
-	
+
+
 	const fn_dtpChange = function(){
-		let cmndYmd = SBUxMethod.get("srch-dtp-cmndYmd");
-		let dudtYmd = SBUxMethod.get("srch-dtp-dudtYmd");
 		let outordrYmdFrom = SBUxMethod.get("srch-dtp-outordrYmdFrom");
 		let outordrYmdTo = SBUxMethod.get("srch-dtp-outordrYmdTo");
 		if (gfn_diffDate(outordrYmdFrom, outordrYmdTo) < 0){
@@ -358,17 +351,43 @@
 			SBUxMethod.set("srch-dtp-outordrYmdTo", gfn_dateToYmd(new Date()));
 			return;
 		}
-		if (gfn_diffDate(outordrYmdTo, cmndYmd) < 0){
-			gfn_comAlert("W0014", "시작일자", "종료일자");		//	W0014	{0}이/가 {1} 보다 큽니다.
-			SBUxMethod.set("srch-dtp-cmndYmd", outordrYmdTo);
+	}
+	const fn_dtpChangeCrtr = function(){
+		let crtrYmd = SBUxMethod.get("dtp-crtrYmd");
+		let outordrYmdFrom = SBUxMethod.get("srch-dtp-outordrYmdFrom");
+		if (gfn_diffDate(outordrYmdFrom, crtrYmd) < 0){
+			gfn_comAlert("E0000", "수신일자는 발주일자 시작일 보다 이전일수 없습니다.");	//	E0000	{0}
+			SBUxMethod.set("dtp-crtrYmd", gfn_dateToYmd(new Date()));
 			return;
 		}
-		if (gfn_diffDate(outordrYmdTo, dudtYmd) < 0){
-			gfn_comAlert("W0014", "시작일자", "종료일자");		//	W0014	{0}이/가 {1} 보다 큽니다.
-			SBUxMethod.set("srch-dtp-dudtYmd", outordrYmdTo);
-			return;
-		}
+		let day = new Date();
+		day.setHours(0, 0, 0, 0);
+		let tomorrow = new Date(day.setDate(day.getDate()+1))
 
+		if (gfn_diffDate(crtrYmd, gfn_dateToYmd(tomorrow)) <= 0){
+			gfn_comAlert("E0000", "수신일자는 금일 이후가 될수 없습니다.");					//	E0000	{0}
+			SBUxMethod.set("dtp-crtrYmd", gfn_dateToYmd(new Date()));
+			return;
+		}
+	}
+
+	const fn_dtpChangeCmnd = function(){
+		let cmndYmd = SBUxMethod.get("srch-dtp-cmndYmd");
+
+		if (gfn_diffDate(gfn_dateToYmd(new Date()), cmndYmd) < 0){
+			gfn_comAlert("E0000", "지시일자는 금일 보다 이전일수 없습니다.");		//	E0000	{0}
+			SBUxMethod.set("srch-dtp-cmndYmd", gfn_dateToYmd(new Date()));
+			return;
+		}
+	}
+
+	const fn_dtpChangeDudt = function(){
+		let dudtYmd = SBUxMethod.get("srch-dtp-dudtYmd");
+		if (gfn_diffDate(gfn_dateToYmd(new Date()), dudtYmd) < 0){
+			gfn_comAlert("E0000", "납기일자는 금일 이전일수 없습니다.");		//	E0000	{0}
+			SBUxMethod.set("srch-dtp-dudtYmd", gfn_dateToYmd(new Date()));
+			return;
+		}
 	}
 
 	function fn_selectItem(){
@@ -503,7 +522,7 @@
         }
     	grid.clickCell(getRow, getCol);
     }
-	
+
 	/**
      * @description 메뉴트리그리드 컨텍스트메뉴 json
      * @type {object}
@@ -699,7 +718,7 @@
 				}
 			}
 		}
-		
+
 		if (haveSpmtCmndList.length > 0) {
 			alert(haveSpmtCmndList.join(", ") + "은 출하지시가 등록된 데이터입니다.\n\n접수를 취소하시려면 출하지시를 삭제하십시오.");
             return;
@@ -737,12 +756,12 @@
 	 * @description 발주정보 수신 처리
 	 */
 	const fn_rcptOutordr = async function() {
-		
+
 		// set param
 		const lgszMrktCd = SBUxMethod.get("slt-lgszMrktCd");
-		const crtrYmdFrom = SBUxMethod.get("dtp-crtrYmdFrom");
-		const crtrYmdTo = SBUxMethod.get("dtp-crtrYmdTo");
-		
+		const crtrYmdFrom = SBUxMethod.get("dtp-crtrYmd");
+		const crtrYmdTo = SBUxMethod.get("dtp-crtrYmd");
+
 		if (gfn_isEmpty(lgszMrktCd)) {
 			gfn_comAlert("W0001", "대형마트");		//	W0001	{0}을/를 선택하세요.
 			return;
@@ -755,24 +774,24 @@
 			gfn_comAlert("W0001", "수신기준종료일자");		//	W0001	{0}을/를 선택하세요.
 			return;
 		}
-		
+
 		if (!gfn_comConfirm("Q0001", "발주정보수신")) {	//	Q0001	{0} 하시겠습니까?
     		return;
     	}
-		
+
 		const rcptOutordr = {
 				apcCd: gv_selectedApcCd,
 				lgszMrktCd: lgszMrktCd,
 				crtrYmdFrom: crtrYmdFrom,
 				crtrYmdTo: crtrYmdTo
 			}
-		
+
 		const postJsonPromise = gfn_postJSON(
-										"/am/ordr/insertOutordrRcpt.do", 
+										"/am/ordr/insertOutordrRcpt.do",
 										rcptOutordr
 									);	// 프로그램id 추가
 		const data = await postJsonPromise;
-									
+
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
@@ -788,10 +807,10 @@
     		console.error("failed", e.message);
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
-		
-		
+
+
 	}
-	
+
     const fn_grdCmndQnttValueChanged = async function(){
 
     	let nRow = grdOutordrInfo.getRow();
@@ -936,7 +955,7 @@
 
     	const postJsonPromise = gfn_postJSON("/am/ordr/regSpmtCmndList.do", regSpmtCmndList, this.prgrmId);	// 프로그램id 추가
 		const data = await postJsonPromise;
-    	
+
 		try {
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.

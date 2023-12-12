@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -441,7 +443,8 @@ public class LoginController extends BaseController {
 	@GetMapping(value = "/actionSSOLogin.do")
 	public String actionSSOLogin(HttpServletRequest request) throws Exception {
 
-		String id = request.getParameter("id");
+		// String id = request.getParameter("id");
+		String id = ComConstants.CON_BLANK;
 		String pniToken = StrUtil.NVL(request.getParameter(ComConstants.SYS_SSO_TOKEN));
 		
 		if (ComConstants.CON_BLANK.equals(pniToken)) {
@@ -458,11 +461,30 @@ public class LoginController extends BaseController {
 				return "redirect:/login.do";
 			} else {
 				String userData = apiUserService.getUserData();
-				logger.error("@@@@ SSO 사용자 정보 : {}", userData);
 				
-				request.getSession().setAttribute(ComConstants.SYS_SSO_TOKEN, pniToken);
+				if (StringUtils.hasText(userData)) {
+					
+					logger.error("@@@@ SSO 사용자 정보 : {}", userData);
+					try {
+				        JSONParser jsonParser = new JSONParser();
+				        Object objUser = jsonParser.parse(userData);
+						JSONObject jsonObj = (JSONObject) objUser;
+						
+						id = (String)jsonObj.get("user_id");
+						request.getSession().setAttribute(ComConstants.SYS_SSO_TOKEN, pniToken);
+						
+					} catch (Exception e) {
+						insertSysErrorLog(String.format("sso error: %s / %s", userData, e.getMessage()));
+						return "redirect:/login.do";
+					}
+				}
 			}	
 		} else {
+			logger.error("@@@@ SSO 토큰정보 없음");
+			return "redirect:/login.do";
+		}
+		
+		if (!StringUtils.hasText(id)) {
 			logger.error("@@@@ SSO 토큰정보 없음");
 			return "redirect:/login.do";
 		}

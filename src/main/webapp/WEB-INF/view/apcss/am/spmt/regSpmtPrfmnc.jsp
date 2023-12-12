@@ -449,8 +449,6 @@
 		let rst = await Promise.all([
 			gfn_setComCdSBSelect('srch-rdo-gdsSeCd', 				jsonComGdsSeCd, 			'GDS_SE_CD', 		gv_selectedApcCd), 		// 상품구분 등록
 			gfn_setComCdSBSelect('srch-slt-warehouseSeCd', 			jsonComWarehouseSeCd, 		'WAREHOUSE_SE_CD', 	gv_selectedApcCd), 		// 상품구분 등록
-			gfn_setComCdSBSelect('grdGdsInvntr', 					jsonGrdGdsGrd, 				'GDS_GRD'),				// 상품등급(재고그리드)
-			gfn_setComCdSBSelect('dtl-slt-gdsGrd', 					jsonDtlGdsGrd, 				'GDS_GRD'),				// 상품등급(상세)
 		 	gfn_setTrsprtsSBSelect('dtl-slt-trsprtCoCd', 			jsonComTrsprtCoCd, 			gv_selectedApcCd),		// 운송사
 		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 				jsonComItem, 				gv_selectedApcCd),		// 품목
 		 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 				jsonComVrty, 				gv_selectedApcCd),		// 품종
@@ -469,15 +467,22 @@
 	const fn_selectItem = async function(){
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let rst = await Promise.all([
-			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 				jsonComVrty, 				gv_selectedApcCd, itemCd),		// 품종
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',			jsonComSpcfct, 				gv_selectedApcCd, itemCd),		// 규격
-			gfn_setSpmtPckgUnitSBSelect('excel-slt-spmtPckgUnit', 	jsonExeclComSpmtPckgUnit, 	gv_selectedApcCd, itemCd),		// 포장구분
-			gfn_setApcSpcfctsSBSelect('excel-slt-spcfct', 			jsonExeclComSpcfct, 		gv_selectedApcCd, itemCd),		// 규격
-			gfn_setApcVrtySBSelect('excel-slt-vrty', 				jsonExeclComVrty, 			gv_selectedApcCd, itemCd),		// 품종
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 				jsonComVrty, 				gv_selectedApcCd, itemCd),			// 품종
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',			jsonComSpcfct, 				gv_selectedApcCd, itemCd),			// 규격
+			gfn_setSpmtPckgUnitSBSelect('excel-slt-spmtPckgUnit', 	jsonExeclComSpmtPckgUnit, 	gv_selectedApcCd, itemCd),			// 포장구분
+			gfn_setApcSpcfctsSBSelect('excel-slt-spcfct', 			jsonExeclComSpcfct, 		gv_selectedApcCd, itemCd),			// 규격
+			gfn_setApcVrtySBSelect('excel-slt-vrty', 				jsonExeclComVrty, 			gv_selectedApcCd, itemCd),			// 품종
+			gfn_setApcGdsGrdSBSelect('grdGdsInvntr', 				jsonGrdGdsGrd, 				gv_selectedApcCd, itemCd, '03'),	// 상품등급(재고그리드)
+			gfn_setApcGdsGrdSBSelect('dtl-slt-gdsGrd', 				jsonDtlGdsGrd, 				gv_selectedApcCd, itemCd, '03'),	// 상품등급(상세)
 		])
 
 		SBUxMethod.refresh("excel-slt-spmtPckgUnit");
 		SBUxMethod.refresh("srch-slt-spmtPckgUnitCd");
+
+		if(gfn_isEmpty(itemCd)){
+			jsonComSpcfct.length = 0;
+			SBUxMethod.refresh("srch-slt-spcfctCd");
+		}
 
 	}
 
@@ -496,7 +501,15 @@
 			gfn_setSpmtPckgUnitSBSelect('excel-slt-spmtPckgUnit', 	jsonExeclComSpmtPckgUnit, 	gv_selectedApcCd, itemCd),		// 포장구분
 			gfn_setApcSpcfctsSBSelect('excel-slt-spcfct', 			jsonExeclComSpcfct, 		gv_selectedApcCd, itemCd),		// 규격
 			gfn_setApcVrtySBSelect('excel-slt-vrty', 				jsonExeclComVrty, 			gv_selectedApcCd, itemCd),		// 품종
+			gfn_setApcGdsGrdSBSelect('grdGdsInvntr', 				jsonGrdGdsGrd, 				gv_selectedApcCd, itemCd, '03'),	// 상품등급(재고그리드)
+			gfn_setApcGdsGrdSBSelect('dtl-slt-gdsGrd', 				jsonDtlGdsGrd, 				gv_selectedApcCd, itemCd, '03'),	// 상품등급(상세)
 		])
+
+		if(gfn_isEmpty(itemCd)){
+			jsonComSpcfct.length = 0;
+			SBUxMethod.refresh("srch-slt-spcfctCd");
+		}
+
 		grdGdsInvntr.refresh({"combo":true})
 		SBUxMethod.refresh("srch-slt-spmtPckgUnitCd");
 		SBUxMethod.refresh("excel-slt-spmtPckgUnit");
@@ -560,6 +573,7 @@
             {caption: ['생산일자'], 	ref: 'pckgYmd', 	width: '150px', type: 'output', style: 'text-align:center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['포장번호'], 	ref: 'pckgno', 		width: '150px', type: 'output', style: 'text-align:center'},
+            {caption: ['선별등급'], 	ref: 'sortGrdNm', 	width: '120px', type: 'output', style: 'text-align:center'},
             {caption: ['재고수량'], 	ref: 'invntrQntt', 	width: '80px', type: 'output', style: 'text-align:right'},
             {caption: ['재고중량'], 	ref: 'invntrWght', 	width: '100px', type: 'output', style: 'text-align:right',
             			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
@@ -774,40 +788,42 @@
           	data.resultList.forEach((item, index) => {
           		if(item.invntrWght != 0){
 	          		const gdsInvntr = {
-	          				apcCd		: item.apcCd,
-	          				pckgno		: item.pckgno,
-	          				pckgSn		: item.pckgSn,
-	          				pckgYmd		: item.pckgYmd,
-	          				itemCd		: item.itemCd,
-	          				itemNm		: item.itemNm,
-	          				vrtyCd		: item.vrtyCd,
-	          				vrtyNm		: item.vrtyNm,
-	          				spcfctCd	: item.spcfctCd,
-	          				spcfctNm	: item.spcfctNm,
-	          				gdsSeCd		: item.gdsSeCd,
-	          				gdsSeNm		: item.gdsSeNm,
-	          				invntrQntt	: item.invntrQntt,
-	          				invntrWght	: item.invntrWght,
-	          				spmtQntt	: 0,
-	          				spmtWght	: 0,
-	          				pckgQntt	: item.pckgQntt,
-	          				pckgWght	: item.pckgWght,
-	          				pckgSeCd	: item.pckgSeCd,
-	          				pckgSeNm	: item.pckgSeNm,
-	          				prdcrCd		: item.rprsPrdcrCd,
-	          				prdcrNm		: item.rprsPrdcrNm,
-	          				fcltCd		: item.fcltCd,
-	          				fcltNm		: item.fcltNm,
-	          				cmndQntt	: item.cmndQntt,
-	          				cmndWght	: item.cmndWght,
-	          				gdsGrd		: item.gdsGrd,
-	          				gdsGrdNm	: item.gdsGrdNm,
-	          				gdsCd 		: item.gdsCd,
-	          				plorCd 		: item.plorCd,
-	          				spmtPckgUnitCd: item.spmtPckgUnitCd,
-	          				spmtPckgUnitNm: item.spmtPckgUnitNm,
-	          				rmrk		: item.rmrk,
-	          				brndNm		: item.brndNm
+	          				apcCd		: item.apcCd
+	          			  ,	pckgno		: item.pckgno
+	          			  ,	pckgSn		: item.pckgSn
+	          			  ,	pckgYmd		: item.pckgYmd
+	          			  ,	itemCd		: item.itemCd
+	          			  ,	itemNm		: item.itemNm
+	          			  ,	vrtyCd		: item.vrtyCd
+	          			  ,	vrtyNm		: item.vrtyNm
+	          			  ,	spcfctCd	: item.spcfctCd
+	          			  ,	spcfctNm	: item.spcfctNm
+	          			  ,	gdsSeCd		: item.gdsSeCd
+	          			  ,	gdsSeNm		: item.gdsSeNm
+	          			  ,	invntrQntt	: item.invntrQntt
+	          			  ,	invntrWght	: item.invntrWght
+	          			  ,	spmtQntt	: 0
+	          			  ,	spmtWght	: 0
+	          			  ,	pckgQntt	: item.pckgQntt
+	          			  ,	pckgWght	: item.pckgWght
+	          			  ,	pckgSeCd	: item.pckgSeCd
+	          			  ,	pckgSeNm	: item.pckgSeNm
+	          			  ,	prdcrCd		: item.rprsPrdcrCd
+	          			  ,	prdcrNm		: item.rprsPrdcrNm
+	          			  ,	fcltCd		: item.fcltCd
+	          			  ,	fcltNm		: item.fcltNm
+	          			  ,	cmndQntt	: item.cmndQntt
+	          			  ,	cmndWght	: item.cmndWght
+	          			  ,	gdsGrd		: item.gdsGrd
+	          			  ,	gdsGrdNm	: item.gdsGrdNm
+	          			  ,	gdsCd 		: item.gdsCd
+	          			  ,	plorCd 		: item.plorCd
+	          			  ,	spmtPckgUnitCd: item.spmtPckgUnitCd
+	          			  ,	spmtPckgUnitNm: item.spmtPckgUnitNm
+	          			  ,	rmrk		: item.rmrk
+	          			  ,	brndNm		: item.brndNm
+	          			  ,	sortGrdCd	: item.sortGrdCd
+	          			  ,	sortGrdNm	: item.sortGrdNm
 	  				}
 					jsonGdsInvntr.push(gdsInvntr);
           		}
@@ -1424,7 +1440,7 @@
 		}
 	}
 
-	const fn_reset = function () {
+	const fn_reset = async function () {
 		SBUxMethod.set("srch-dtp-pckgYmdFrom", gfn_dateFirstYmd(new Date())); // 생산일지 from
 		SBUxMethod.set("srch-dtp-pckgYmdTo", gfn_dateToYmd(new Date())); // 생산일지 to
 		SBUxMethod.set("srch-slt-warehouseSeCd", ""); // 창고구분
@@ -1453,6 +1469,20 @@
 		jsonSpmtPrfmnc.length = 0;
 		grdGdsInvntr.refresh();
 		grdSpmtPrfmnc.refresh();
+
+		let rst = await Promise.all([
+			gfn_setComCdSBSelect('srch-rdo-gdsSeCd', 				jsonComGdsSeCd, 			'GDS_SE_CD', 		gv_selectedApcCd), 		// 상품구분 등록
+			gfn_setComCdSBSelect('srch-slt-warehouseSeCd', 			jsonComWarehouseSeCd, 		'WAREHOUSE_SE_CD', 	gv_selectedApcCd), 		// 상품구분 등록
+		 	gfn_setTrsprtsSBSelect('dtl-slt-trsprtCoCd', 			jsonComTrsprtCoCd, 			gv_selectedApcCd),		// 운송사
+		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 				jsonComItem, 				gv_selectedApcCd),		// 품목
+		 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 				jsonComVrty, 				gv_selectedApcCd),		// 품종
+		 	gfn_setPltBxSBSelect('dtl-slt-pltBxCd', 				jsonDtlPltBxCd, 			gv_selectedApcCd, "P"), // 팔레트
+		 	gfn_setPrdcrSBSelect('excel-slt-prdcr', 				jsonExeclComPrdcr, 			gv_selectedApcCd),		// 생산자
+		 	gfn_setCpntSBSelect('excel-slt-cnpt', 					jsonExeclComCnpt, 			gv_selectedApcCd),		// 거래처
+		])
+
+		jsonComSpcfct.length = 0;
+		SBUxMethod.refresh("srch-slt-spcfctCd");
 
 		cmndYn = false;
 	}

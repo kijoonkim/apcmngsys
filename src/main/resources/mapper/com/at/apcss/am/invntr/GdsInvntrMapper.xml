@@ -76,16 +76,17 @@
     	<!-- End 페이징 -->
     	<![CDATA[
 				  pt0.*
-    			, (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = pt0.APC_CD) AS APC_NM
-    			, (SELECT FN_GET_PRDCR_NM(pt0.RPRS_PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
-                , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
-                , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
-                , (SELECT FN_GET_COM_CD_VL_NM('GDS_GRD', pt0.GDS_GRD) FROM DUAL) AS GDS_GRD_NM
-                , (SELECT FN_GET_COM_CD_VL_NM('PCKG_FCLT_CD', pt0.FCLT_CD, pt0.APC_CD) FROM DUAL) AS FCLT_NM
-                , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) AS SPCFCT_NM
-				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
+    			, (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = pt0.APC_CD) 					AS APC_NM
+    			, (SELECT FN_GET_PRDCR_NM(pt0.RPRS_PRDCR_CD, pt0.APC_CD) FROM DUAL) 				AS PRDCR_NM
+                , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 						AS ITEM_NM
+                , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) 			AS VRTY_NM
+                , (SELECT FN_GET_COM_CD_VL_NM('GDS_GRD', pt0.GDS_GRD) FROM DUAL) 					AS GDS_GRD_NM
+                , (SELECT FN_GET_COM_CD_VL_NM('PCKG_FCLT_CD', pt0.FCLT_CD, pt0.APC_CD) FROM DUAL) 	AS FCLT_NM
+                , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) 		AS SPCFCT_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) 				AS GDS_SE_NM
 				, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
-                , (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL) AS SPMT_PCKG_UNIT_NM
+                , (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL) 	AS SPMT_PCKG_UNIT_NM
+                , (SELECT FN_GET_GRD_NM_SORT(pt0.APC_CD, pt0.ITEM_CD, pt0.SORT_GRD_CD) FROM DUAL) 	AS SORT_GRD_NM
                 , pt0.PCKGNO || '-' || pt0.PCKG_SN AS PCKGNO_INDCT
     		  FROM (
 	    	SELECT /* com.at.apcss.am.invntr.mapper.GdsInvntrMapper.selectGdsInvntrList */
@@ -122,6 +123,15 @@
                       AND X.SPMT_PCKG_UNIT_CD = GI.SPMT_PCKG_UNIT_CD
                       AND X.DEL_YN = 'N'
                   ) 						AS BRND_NM
+                , (SELECT MAX(GRD_CD)
+                     FROM TB_SORT_INVNTR SI
+                        , TB_PCKG_INPT_PRFMNC IP
+                    WHERE SI.DEL_YN = 'N'
+                      AND IP.DEL_YN = 'N'
+                      AND SI.SORTNO = IP.SORTNO
+                      AND SI.SORT_SN = IP.SORT_SN
+                      AND IP.PCKGNO = GI.PCKGNO
+                  ) AS SORT_GRD_CD
 			  FROM TB_GDS_INVNTR GI
 			 WHERE GI.DEL_YN = 'N'
 			   AND GI.INVNTR_WGHT > 0

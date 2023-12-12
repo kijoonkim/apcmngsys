@@ -713,6 +713,13 @@
 						<tr>
 							<th colspan="4" scope="row" class="th_bg">통합년도</th>
 							<td colspan="3" class="td_input">
+								<sbux-spinner
+									id="dtl-input-untyYr"
+									name="dtl-input-untyYr"
+									uitype="normal"
+                					step-value="1"
+                				></sbux-spinner>
+                				<!--
 								<sbux-input
 									uitype="text"
 									id="dtl-input-untyYr"
@@ -720,6 +727,7 @@
 									class="form-control input-sm"
 									autocomplete="off"
 								></sbux-input>
+								 -->
 							</td>
 						</tr>
 					</tbody>
@@ -767,6 +775,7 @@
 									id="dtl-input-pruoFundAplyAmt"
 									name="dtl-input-pruoFundAplyAmt"
 									class="form-control input-sm"
+									mask="{'alias':'numeric','autoGroup':3,'groupSeparator':','}"
 									autocomplete="off"
 								></sbux-input>
 							</td>
@@ -780,6 +789,7 @@
 									id="dtl-input-isoFundAplyAmt"
 									name="dtl-input-isoFundAplyAmt"
 									class="form-control input-sm"
+									mask="{'alias':'numeric','autoGroup':3,'groupSeparator':','}"
 									autocomplete="off"
 								></sbux-input>
 							</td>
@@ -792,7 +802,9 @@
 									id="dtl-input-10"
 									name="dtl-input-10"
 									class="form-control input-sm"
+									mask="{'alias':'numeric','autoGroup':3,'groupSeparator':','}"
 									autocomplete="off"
+									readonly
 								></sbux-input>
 							</td>
 						</tr>
@@ -863,7 +875,7 @@
         	header-title="품목 선택"
         	body-html-id="body-modal-gpcList"
         	footer-is-close-button="false"
-        	style="width:1000px"
+        	style="width:800px"
        	></sbux-modal>
     </div>
     <div id="body-modal-gpcList">
@@ -899,6 +911,10 @@
 		  	});
 		}
 	})
+	function fn_test(){
+		console.log('zz');
+
+	}
 
 	//타 조직 통합 여부 untuYn
 	var selectUntuYn = [
@@ -924,6 +940,7 @@
 	var jsonComUoCd = [];//통합조직코드
 	var jsonComAprv = [];//통합조직여부
 	var jsonComAplyTrgtSe = [];//신청대상구분
+	var jsonCtgryCd = [];//분류코드
 	/**
 	 * combo 설정
 	 */
@@ -941,8 +958,12 @@
 			gfn_setComCdSBSelect('srch-input-aprv', 		jsonComAprv, 	'APRV_UPBR_SE_CD'), //통합조직여부
 			gfn_setComCdSBSelect('srch-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE'), //신청대상구분
 			gfn_setComCdSBSelect('dtl-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE'), //신청대상구분
+			gfn_setComCdSBSelect('grdGpcList', 				jsonCtgryCd, 	'CTGRY_CD'), //분류코드
 
 		]);
+		//품목 그리드
+		grdGpcList.refresh({"combo":true});
+
 		console.log("============fn_initSBSelect=====1=======");
 	}
 
@@ -1053,7 +1074,7 @@
 
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
-		let yr = SBUxMethod.get("srch-input-yr");//
+		//let yr = SBUxMethod.get("srch-input-yr");// 보류
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
 		let ctpv = SBUxMethod.get("srch-input-ctpv");//
 
@@ -1072,7 +1093,7 @@
 
     		,brno : brno
     		,corpNm : corpNm
-    		,yr : yr
+    		//,yr : yr
 
     		//페이징
     		,pagingYn : 'Y'
@@ -1148,8 +1169,11 @@
 
         	//grdPrdcrCrclOgnReqMng.rebuild();
 
-        	//비어 있는 마지막 줄 추가용도?
+        	//입력그리드인경우 추가용
         	//grdPrdcrCrclOgnReqMng.addRow();
+
+        	//조회후 포커스가 이상한곳으로 가있는 경우가 있어서 추가
+        	window.scrollTo(0, 0);
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -1169,24 +1193,50 @@
     	let apoCd = SBUxMethod.get("dtl-input-apoCd");
 
     	//필수값 체크
-    	//fn_checkRequiredInput();
+    	if(fn_checkRequiredInput()){
+    		return;
+    	}
 
     	if (gfn_isEmpty(apoCd)) {
+    		console.log("apoCd null");
     		return;
     		// 신규 등록
 			//fn_subInsert(confirm("등록 하시겠습니까?"));
     	} else {
     		// 변경 저장
+    		console.log("저장");
     		fn_subUpdate(confirm("저장 하시겠습니까?"));
     	}
     }
 
-    const fn_checkRequiredInput = async function (){
-    	//레드닷 처리한 필수값들 확인
+    function fn_checkRequiredInput(){
+    	//필수값 확인
 
-    	//var val = SBUxMethod.get("dtl-input-trgtYr");
 
-    	return true;
+    	//품목 그리드 필수갑 확인
+    	let gridData = grdGpcList.getGridDataAll();
+    	for(var i=1; i<=gridData.length; i++ ){
+    		let rowData = grdGpcList.getRowData(i);
+
+    		if(rowData.delYn == 'N'){
+    			if(gfn_isEmpty(rowData.ctgryCd)){
+    				alert('품목 그리드의 품목분류를 선택해주세요');
+    				grdGpcList.focus();//그리드 객체로 포커스 이동
+    				return true;
+    			}
+    			if(gfn_isEmpty(rowData.itemCd)){
+    				alert('품목 그리드의 품목을 선택해주세요');
+    				grdGpcList.focus();
+    				return true;
+    			}
+    			if(gfn_isEmpty(rowData.sttgUpbrItemSe)){
+    				alert('품목 그리드의 전문/육성 구분을 선택해주세요');
+    				grdGpcList.focus();
+    				return true;
+    			}
+    		}
+    	}
+    	return false;
     }
 
 
@@ -1501,11 +1551,7 @@
 	//품목입력 그리드 변수
 	var jsonGpcList = []; // 그리드의 참조 데이터 주소 선언
 	var grdGpcList;
-	var jsonAa = [
-		{'text': '과실류','label': '과실류', 'value': '1'},
-		{'text': '시설원예','label': '시설원예', 'value': '2'},
-		{'text': '노지채소','label': '노지채소', 'value': '3'}
-	];
+
 	var jsonBb = [
 		{'text': '전문품목','label': '전문품목', 'value': '1'},
 		{'text': '육성품목','label': '육성품목', 'value': '2'}
@@ -1522,22 +1568,28 @@
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.rowheader = ['seq', 'update'];//맨앞열 추가 행갯수 , 업데이트 여부
+	    SBGridProperties.rowheadercaption = {seq: 'No'};//seq 해더 추가
 	    SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
-	    SBGridProperties.oneclickedit = false;//입력 활성화 true 1번클릭 false 더블클릭
+	    SBGridProperties.oneclickedit = true;//입력 활성화 true 1번클릭 false 더블클릭
 	    SBGridProperties.columns = [
 	    	{caption: ["통합조직코드"], 	ref: 'apoCd',   	hidden : true},
 	    	{caption: ["통합조직코드"], 	ref: 'yr',   		hidden : true},
+	    	/*
 	    	{caption: ["분류명"], 		ref: 'ctgryNm',   	type:'output',  width:'150px',    style:'text-align:center'},
 	    	{caption: ["분류코드"], 		ref: 'ctgryCd',   	hidden : true},
-	    	/*
-	    	{caption: ["품목분류"], 		ref: 'ctgryCd',   	type:'combo',  width:'150px',    style:'text-align:center',
-	    		typeinfo : {ref:'jsonAa', label:'label', value:'value', displayui : true}},
 	    	*/
+
+	    	{caption: ["품목분류"], 		ref: 'ctgryCd',   	type:'combo',  width:'150px',    style:'text-align:center',
+	    		typeinfo : {ref:'jsonCtgryCd', label:'label', value:'value', displayui : true}},
+
 	    	{caption: ["전문/육성 구분"], 	ref: 'sttgUpbrItemSe',   type:'combo',  width:'150px',    style:'text-align:center',
 	    		typeinfo : {ref:'jsonBb', label:'label', value:'value', displayui : true}},
 	    	{caption: ["품목명"], 			ref: 'itemNm',   	type:'output',  width:'150px',    style:'text-align:center'},
+	    	/*
 	        {caption: ["품목코드"], 			ref: 'itemCd',   	hidden : true},
-	        {caption: ["품목"], 			ref: 'itemNm',   	type:'output',  width:'150px',    style:'text-align:center'},
+	        */
+	        {caption: ["품목코드"], 			ref: 'itemCd',   	type:'output',  width:'150px',    style:'text-align:center'},
 	        {caption: ["비고"], 			ref: 'rmrk',   	type:'input',  width:'150px',    style:'text-align:center'},
 	        {caption: ["처리"], 				ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
@@ -1570,8 +1622,13 @@
 		console.log("===========fn_selectGpcList===========");
 		let apoCd = SBUxMethod.get('dtl-input-apoCd')//
 
-		if(gfn_isEmpty(apoCd)) return;
-		console.log("apoCd : "+apoCd);
+		//없는경우 품목그리드 초기화
+		//apoCd 가 없는 경우가 없어야 한데 현재는 있어서 추가 함
+		if(gfn_isEmpty(apoCd)){
+			jsonGpcList.length = 0;
+			grdGpcList.rebuild();
+			return;
+		}
     	let postJsonPromise = gfn_postJSON("/pd/aom/selectGpcList.do", {
     		 apoCd : apoCd
     		,apoSe : SBUxMethod.get('dtl-input-apoSe')//
@@ -1746,14 +1803,14 @@
         }
 
         //분류,품목,
-        let ctgryNmCol = grdGpcList.getColRef('ctgryNm');
+        //let ctgryNmCol = grdGpcList.getColRef('ctgryNm');
         let itemNmCol = grdGpcList.getColRef('itemNm');
 
         if(selGridRow == '-1'){
 			return;
         } else {
         	//선택한 데이터가 통합조직 일떄
-        	if (selGridCol == ctgryNmCol || selGridCol == itemNmCol){
+        	if (selGridCol == itemNmCol){
         		//팝업창 오픈
         		//통합조직 팝업창 id : modal-gpcList
         		popGpcSelect.init(fn_setGridItem);
@@ -1773,15 +1830,15 @@
 			//getColRef(ref) ref의 인덱스 값 가져오기
 			let selRef = grdGpcList.getRefOfCol(selGridCol);
 
-			let colRefIdx1 = grdGpcList.getColRef("ctgryCd");//분류코드 인덱스
-			let colRefIdx2 = grdGpcList.getColRef("ctgryNm");//분류명 인덱스
+			//let colRefIdx1 = grdGpcList.getColRef("ctgryCd");//분류코드 인덱스
+			//let colRefIdx2 = grdGpcList.getColRef("ctgryNm");//분류명 인덱스
 			let colRefIdx3 = grdGpcList.getColRef("itemCd");//품목코드 인덱스
 			let colRefIdx4 = grdGpcList.getColRef("itemNm");//품목명 인덱스
 			let colRefIdx5 = grdGpcList.getColRef("rmrk");//기타 인덱스
 
 			//그리드 값 세팅
-			grdGpcList.setCellData(selGridRow,colRefIdx1,rowData.ctgryCd,true);
-			grdGpcList.setCellData(selGridRow,colRefIdx2,rowData.ctgryNm,true);
+			//grdGpcList.setCellData(selGridRow,colRefIdx1,rowData.ctgryCd,true);
+			//grdGpcList.setCellData(selGridRow,colRefIdx2,rowData.ctgryNm,true);
 			grdGpcList.setCellData(selGridRow,colRefIdx3,rowData.itemCd,true);
 			grdGpcList.setCellData(selGridRow,colRefIdx4,rowData.itemNm,true);
 			grdGpcList.setCellData(selGridRow,colRefIdx5,rowData.rmrk,true);

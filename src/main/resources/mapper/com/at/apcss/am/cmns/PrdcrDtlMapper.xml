@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : PrdcrDtlMapper.xml                                   				-->
+<!-- DESC : 생산자 상세 mapper                                             		-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.12.11  	하민우        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.cmns.mapper.PrdcrDtlMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrDtlMapper.selectPrdcrDtlList		-->
+	<!-- DESC : 생산자 상세 목록 조회.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.12.11  	하민우        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectPrdcrDtlList" parameterType="com.at.apcss.am.cmns.vo.PrdcrDtlVO" resultType="com.at.apcss.am.cmns.vo.PrdcrDtlVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.cmns.mapper.PrdcrDtlMapper.selectPrdcrDtlList */
+				   PD.APC_CD        	AS APC_CD
+			     , PD.PRDCR_CD      	AS PRDCR_CD
+			     , PD.CLTVTN_AREA      	AS CLTVTN_AREA
+			     , PD.CTRT_AREA      	AS CTRT_AREA
+			     , PD.REG_YMD      		AS REG_YMD
+			     , PD.SN      			AS SN
+			     , PD.VRTY_CD_1      	AS VRTY_CD_1
+			     , PD.VRTY_CD_2      	AS VRTY_CD_2
+			     , PD.VRTY_CD_3      	AS VRTY_CD_3
+			     , PD.VRTY_CD_4      	AS VRTY_CD_4
+			     , PD.VRTY_CD_5      	AS VRTY_CD_5
+			     , PD.RMRK          	AS RMRK
+			     , PD.DEL_YN        	AS DEL_YN
+			     , (SELECT X.PRDCR_NM FROM TB_PRDCR_INFO X WHERE X.APC_CD = PD.APC_CD AND X.PRDCR_CD = PD.PRDCR_CD AND X.DEL_YN = 'N') AS PRDCR_NM
+
+			  FROM TB_PRDCR_DTL PD
+			 WHERE PD.DEL_YN = 'N'
+		]]>
+		<if test=' apcCd != null and apcCd !=""'>
+			   AND PD.APC_CD = #{apcCd}
+		</if>
+		<if test=' prdcrCd != null and prdcrCd !=""'>
+			   AND PD.PRDCR_CD = #{prdcrCd}
+		</if>
+
+    	<![CDATA[
+    		 ORDER BY REG_YMD, SN
+		]]>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrDtlMapper.insertPrdcrDtl			-->
+	<!-- DESC : 생산자 상세 등록.		                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.12.11  	하민우        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertPrdcrDtl" parameterType="com.at.apcss.am.cmns.vo.PrdcrDtlVO">
+    	<![CDATA[
+			INSERT /* com.at.apcss.am.cmns.mapper.PrdcrDtlMapper.insertPrdcrDtl */
+				INTO TB_PRDCR_DTL (
+					  APC_CD
+					, PRDCR_CD
+					, REG_YMD
+					, SN
+					, CTRT_AREA
+					, CLTVTN_AREA
+					, VRTY_CD_1
+					, VRTY_CD_2
+					, VRTY_CD_3
+					, VRTY_CD_4
+					, VRTY_CD_5
+					, RMRK
+	    		  	, SYS_FRST_INPT_DT
+	    		  	, SYS_FRST_INPT_USER_ID
+	    		  	, SYS_FRST_INPT_PRGRM_ID
+	    		  	, SYS_LAST_CHG_DT
+	    		  	, SYS_LAST_CHG_USER_ID
+	    		  	, SYS_LAST_CHG_PRGRM_ID
+				) VALUES (
+					  #{apcCd}
+					, #{prdcrCd}
+					, #{regYmd}
+					, (SELECT FN_GET_SN_PRDCR_DTL(#{apcCd}, #{regYmd}, #{prdcrCd}) FROM DUAL)
+					, #{ctrtArea}
+					, #{cltvtnArea}
+					, #{vrtyCd1}
+					, #{vrtyCd2}
+					, #{vrtyCd3}
+					, #{vrtyCd4}
+					, #{vrtyCd5}
+					, #{rmrk}
+					, SYSDATE
+	   			  	, #{sysFrstInptUserId}
+	   			  	, #{sysFrstInptPrgrmId}
+	   			  	, SYSDATE
+	   			  	, #{sysLastChgUserId}
+	   			  	, #{sysLastChgPrgrmId}
+				)
+    	]]>
+    </insert>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrDtlMapper.updatePrdcrDtl			-->
+	<!-- DESC : 생산자 상세 변경.		                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.12.11  	하민우        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updatePrdcrDtl" parameterType="com.at.apcss.am.cmns.vo.PrdcrDtlVO">
+    	<![CDATA[
+			UPDATE /* com.at.apcss.am.cmns.mapper.PrdcrDtlMapper.updatePrdcrDtl */
+	    		TB_PRDCR_DTL
+			   SET
+				  CTRT_AREA				= #{ctrtArea}
+				, CLTVTN_AREA			= #{cltvtnArea}
+				, VRTY_CD_1				= #{vrtyCd1}
+				, VRTY_CD_2				= #{vrtyCd2}
+				, VRTY_CD_3				= #{vrtyCd3}
+				, VRTY_CD_4				= #{vrtyCd4}
+				, VRTY_CD_5				= #{vrtyCd5}
+				, RMRK					= #{rmrk}
+	    	    , SYS_LAST_CHG_DT		= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+			WHERE APC_CD 	= #{apcCd}
+			  AND PRDCR_CD 	= #{prdcrCd}
+			  AND REG_YMD 	= #{regYmd}
+			  AND SN 		= #{sn}
+    	]]>
+    </update>
+    
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrDtlMapper.updatePrdcrInfoFrmhs		-->
+	<!-- DESC : 생산자 농가 정보 변경.		                                       		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.12.11  	하민우        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updatePrdcrInfoFrmhs" parameterType="com.at.apcss.am.cmns.vo.PrdcrVO">
+    	<![CDATA[
+			UPDATE /* com.at.apcss.am.cmns.mapper.PrdcrDtlMapper.updatePrdcrInfoFrmhs */
+	    		TB_PRDCR_INFO
+			   SET
+				  FRMHS_NM				= #{frmhsNm}
+				, FRMHS_TELNO			= #{frmhsTelno}
+				, FRMHS_CTPV			= #{frmhsCtpv}
+				, FRMHS_ADDR			= #{frmhsAddr}
+	    	    , SYS_LAST_CHG_DT		= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+			WHERE APC_CD 	= #{apcCd}
+			  AND PRDCR_CD 	= #{prdcrCd}
+    	]]>
+    </update>
+    
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrDtlMapper.updatePrdcrDtlDelYn		-->
+	<!-- DESC : 생산자 상세 삭제.		                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.12.11  	하민우        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updatePrdcrDtlDelYn" parameterType="com.at.apcss.am.cmns.vo.PrdcrDtlVO">
+    	<![CDATA[
+		   UPDATE /* com.at.apcss.am.cmns.mapper.PrdcrDtlMapper.updatePrdcrDtlDelYn */
+				  TB_PRDCR_DTL
+			  SET
+				  DEL_YN				= 'Y'
+	    	    , SYS_LAST_CHG_DT		= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+			WHERE APC_CD 	= #{apcCd}
+			  AND PRDCR_CD 	= #{prdcrCd}
+			  AND REG_YMD 	= #{regYmd}
+			  AND SN 		= #{sn}
+    	]]>
+    </update>
+</mapper>
