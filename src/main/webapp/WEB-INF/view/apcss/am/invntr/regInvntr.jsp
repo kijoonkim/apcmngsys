@@ -17,7 +17,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
@@ -3041,7 +3041,12 @@
 		if (!gfn_isEmpty(rowData.trsprtSeCd)) {
 			if (typeof rowData.trsprtSeCd === "string") {
 				rowData.trsprtSeCd = rowData.trsprtSeCd.trim();
+			} else if (typeof rowData.trsprtSeCd === "number") {
+				rowData.trsprtSeCd = rowData.trsprtSeCd.toString();
+			} else {
+				
 			}
+			
 			let chkInfo = _.find(jsonExpSltTrsprtSeCd, {value: rowData.trsprtSeCd});
 			if (gfn_isEmpty(chkInfo)) {
 				chkInfo = _.find(jsonExpSltTrsprtSeCd, {label: rowData.trsprtSeCd});
@@ -3056,6 +3061,14 @@
 
 		// 입고구분
 		if (!gfn_isEmpty(rowData.wrhsSeCd)) {
+			if (typeof rowData.wrhsSeCd === "string") {
+				rowData.wrhsSeCd = rowData.wrhsSeCd.trim();
+			} else if (typeof rowData.wrhsSeCd === "number") {
+				rowData.wrhsSeCd = rowData.wrhsSeCd.toString();
+			} else {
+				
+			}
+			
 			let wrhsSeInfo = _.find(jsonExpSltWrhsSeCd, {value: rowData.wrhsSeCd});
 			if (gfn_isEmpty(wrhsSeInfo)) {
 				wrhsSeInfo = _.find(jsonExpSltWrhsSeCd, {label: rowData.wrhsSeCd});
@@ -3071,7 +3084,12 @@
 		if (!gfn_isEmpty(rowData.gdsSeCd)) {
 			if (typeof rowData.gdsSeCd === "string") {
 				rowData.gdsSeCd = rowData.gdsSeCd.trim();
+			} else if (typeof rowData.gdsSeCd === "number") {
+				rowData.gdsSeCd = rowData.gdsSeCd.toString();
+			} else {
+				
 			}
+			
 			let chkInfo = _.find(jsonExpSltGdsSeCd, {value: rowData.gdsSeCd});
 			if (gfn_isEmpty(chkInfo)) {
 				chkInfo = _.find(jsonExpSltGdsSeCd, {label: rowData.gdsSeCd});
@@ -3088,7 +3106,14 @@
 		if (!gfn_isEmpty(rowData.itemCd)) {
 			if (typeof rowData.itemCd === "string") {
 				rowData.itemCd = rowData.itemCd.trim();
+			} else if (typeof rowData.itemCd === "number") {
+				rowData.itemCd = rowData.itemCd.toString();
+			} else {
+				
 			}
+			
+			rowData.itemCd = gfn_lpad(rowData.itemCd, 4, '0');
+			
 			let chkInfo = _.find(jsonExpSltItem, {value: rowData.itemCd});
 			if (gfn_isEmpty(chkInfo)) {
 				chkInfo = _.find(jsonExpSltItem, {label: rowData.itemCd});
@@ -3105,7 +3130,14 @@
 		if (!gfn_isEmpty(rowData.vrtyCd)) {
 			if (typeof rowData.vrtyCd === "string") {
 				rowData.vrtyCd = rowData.vrtyCd.trim();
+			} else if (typeof rowData.vrtyCd === "number") {
+				rowData.vrtyCd = rowData.vrtyCd.toString();
+			} else {
+				
 			}
+			
+			rowData.vrtyCd = gfn_lpad(rowData.vrtyCd, 4, '0');
+			
 			let chkInfo = _.find(jsonExpSltVrty, {value: rowData.vrtyCd});
 			if (gfn_isEmpty(chkInfo)) {
 				chkInfo = _.find(jsonExpSltVrty, {label: rowData.vrtyCd});
@@ -3122,7 +3154,14 @@
 		if (!gfn_isEmpty(rowData.spcfctCd)) {
 			if (typeof rowData.spcfctCd === "string") {
 				rowData.spcfctCd = rowData.spcfctCd.trim();
+			} else if (typeof rowData.spcfctCd === "number") {
+				rowData.spcfctCd = rowData.spcfctCd.toString();
+			} else {
+				
 			}
+			
+			rowData.spcfctCd = gfn_lpad(rowData.spcfctCd, 4, '0');
+			
 			let chkInfo = _.find(jsonExpSltSpcfct, {spcfctCd: rowData.spcfctCd});
 			if (gfn_isEmpty(chkInfo)) {
 				chkInfo = _.find(jsonExpSltSpcfct, {spcfctNm: rowData.spcfctCd});
@@ -3139,7 +3178,13 @@
 		if (!gfn_isEmpty(rowData.spmtPckgUnitCd)) {
 			if (typeof rowData.spmtPckgUnitCd === "string") {
 				rowData.spmtPckgUnitCd = rowData.spmtPckgUnitCd.trim();
+			} else if (typeof rowData.spmtPckgUnitCd === "number") {
+				rowData.spmtPckgUnitCd = rowData.spmtPckgUnitCd.toString();
+			} else {
+				
 			}
+			
+			rowData.spmtPckgUnitCd = gfn_lpad(rowData.spmtPckgUnitCd, 4, '0');
 
 			let chkInfo = _.find(
 								jsonExpSltSpmtPckgUnit, 
@@ -3179,7 +3224,14 @@
 		if (!gfn_isEmpty(rowData.prdcrCd)) {
 			if (typeof rowData.prdcrCd === "string") {
 				rowData.prdcrCd = rowData.prdcrCd.trim();
+			} else if (typeof rowData.prdcrCd === "number") {
+				rowData.prdcrCd = rowData.prdcrCd.toString();
+			} else {
+				
 			}
+			
+			rowData.prdcrCd = gfn_lpad(rowData.prdcrCd, 4, '0');
+			
 			let chkInfo = _.find(jsonExpSltPrdcr, {prdcrCd: rowData.prdcrCd});
 			if (gfn_isEmpty(chkInfo)) {
 				chkInfo = _.find(jsonExpSltPrdcr, {prdcrNm: rowData.prdcrCd});
@@ -3196,7 +3248,14 @@
 		if (!gfn_isEmpty(rowData.warehouseSeCd)) {
 			if (typeof rowData.warehouseSeCd === "string") {
 				rowData.warehouseSeCd = rowData.warehouseSeCd.trim();
+			} else if (typeof rowData.warehouseSeCd === "number") {
+				rowData.warehouseSeCd = rowData.warehouseSeCd.toString();
+			} else {
+				
 			}
+			
+			rowData.warehouseSeCd = gfn_lpad(rowData.warehouseSeCd, 2, '0');
+			
 			let chkInfo = _.find(jsonExpSltWarehouseSe, {value: rowData.warehouseSeCd});
 			if (gfn_isEmpty(chkInfo)) {
 				chkInfo = _.find(jsonExpSltWarehouseSe, {label: rowData.warehouseSeCd});
@@ -3227,7 +3286,14 @@
 				if (!gfn_isEmpty(rowData[colNm])) {
 					if (typeof rowData[colNm] === "string") {
 						rowData[colNm] = rowData[colNm].trim();
+					} else if (typeof rowData[colNm] === "number") {
+						rowData[colNm] = rowData[colNm].toString();
+					} else {
+						
 					}
+					
+					rowData[colNm] = gfn_lpad(rowData[colNm], 2, '0');
+					
 					let grdInfo = _.find(jsonObj, {grdCd: rowData[colNm]});
 					if (gfn_isEmpty(grdInfo)) {
 						grdInfo = _.find(jsonObj, {grdNm: rowData[colNm]});
