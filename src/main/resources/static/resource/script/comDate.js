@@ -116,3 +116,16 @@ const gfn_diffDate = function(fromDate, toDate) {
 
 	return diffDate;
 }
+
+/**
+ * @name gfn_excelSerialDateToJSDate
+ * @description
+ * @function
+ * @returns
+ */
+const gfn_excelSerialDateToJSDate = function (_excelSerialDate) {
+	const daysBeforeUnixEpoch = 70 * 365 + 19;
+	const hour = 60 * 60 * 1000;
+	
+	return new Date(Math.round((_excelSerialDate - daysBeforeUnixEpoch) * 24 * hour) + 12 * hour);
+}

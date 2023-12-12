@@ -3349,6 +3349,26 @@
 			// 입고일자
 			if (gfn_isEmpty(rowData.wrhsYmd)) {
 				rowData.wrhsYmd = today;
+			} else {
+				if (typeof rowData.wrhsYmd === "string") {
+					rowData.wrhsYmd = rowData.wrhsYmd.trim();
+				} else if (typeof rowData.wrhsYmd === "number") {
+					let len = rowData.wrhsYmd.toString().length;
+					switch (len) {
+						case 5:
+							let jsDate = gfn_excelSerialDateToJSDate(rowData.wrhsYmd);
+							rowData.wrhsYmd = gfn_dateToYmd(jsDate);
+							break;
+						case 8:
+							rowData.wrhsYmd = rowData.wrhsYmd.toString();
+							break;
+						default:
+							rowData.wrhsYmd = today;
+							break;
+					}
+				} else {
+					rowData.wrhsYmd = today;
+				}
 			}
 			
 			fn_setDataAfterImport(rowData);
@@ -3372,6 +3392,26 @@
 			// 선별일자
 			if (gfn_isEmpty(rowData.inptYmd)) {
 				rowData.inptYmd = today;
+			} else {
+				if (typeof rowData.inptYmd === "string") {
+					rowData.inptYmd = rowData.inptYmd.trim();
+				} else if (typeof rowData.inptYmd === "number") {
+					let len = rowData.inptYmd.toString().length;
+					switch (len) {
+						case 5:
+							let jsDate = gfn_excelSerialDateToJSDate(rowData.inptYmd);
+							rowData.inptYmd = gfn_dateToYmd(jsDate);
+							break;
+						case 8:
+							rowData.inptYmd = rowData.inptYmd.toString();
+							break;
+						default:
+							rowData.inptYmd = today;
+							break;
+					}
+				} else {
+					rowData.inptYmd = today;
+				}
 			}
 			
 			fn_setDataAfterImport(rowData);
@@ -3395,6 +3435,26 @@
 			// 포장일자
 			if (gfn_isEmpty(rowData.pckgYmd)) {
 				rowData.pckgYmd = today;
+			} else {
+				if (typeof rowData.pckgYmd === "string") {
+					rowData.pckgYmd = rowData.pckgYmd.trim();
+				} else if (typeof rowData.pckgYmd === "number") {
+					let len = rowData.pckgYmd.toString().length;
+					switch (len) {
+						case 5:
+							let jsDate = gfn_excelSerialDateToJSDate(rowData.pckgYmd);
+							rowData.pckgYmd = gfn_dateToYmd(jsDate);
+							break;
+						case 8:
+							rowData.pckgYmd = rowData.pckgYmd.toString();
+							break;
+						default:
+							rowData.pckgYmd = today;
+							break;
+					}
+				} else {
+					rowData.pckgYmd = today;
+				}
 			}
 			
 			fn_setDataAfterImport(rowData);

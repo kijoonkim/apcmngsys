@@ -1539,7 +1539,19 @@
 		const _columns = [];
 		
 		_columns.push(
-			{caption: ["선별일자"], 	ref: 'sortYmd',   		type:'input',  width:'100px',    style:'text-align:center'},
+			{
+				caption: ["선별일자"], 	
+				ref: 'sortYmd',   		
+				type: 'datepicker',  
+				width: '100px',    
+				style: 'text-align:center',
+				format : {
+					type:'date',
+					rule:'yyyy-mm-dd',
+					origin:'yyyymmdd'
+				},
+				typeinfo : {gotoCurrentClick: true, clearbutton: true}
+			},
 			{caption: ["품목"], 		ref: 'itemCd',   		type:'combo',  width:'80px',    style:'text-align:center; background:#FFF8DC;',
 				typeinfo : {ref:'jsonExpSltItem', 		displayui : false,	itemcount: 10, label:'label', value:'value'}},
 			{caption: ["품종"], 		ref: 'vrtyCd',   		type:'combo',  width:'80px',    style:'text-align:center; background:#FFF8DC;',
@@ -2088,7 +2100,27 @@
 			
 			if (gfn_isEmpty(rowData.sortYmd)) {
  				rowData.sortYmd = today;
- 			}
+ 			} else {
+				if (typeof rowData.sortYmd === "string") {
+					rowData.sortYmd = rowData.sortYmd.trim();
+				} else if (typeof rowData.sortYmd === "number") {
+					let len = rowData.sortYmd.toString().length;
+					switch (len) {
+						case 5:
+							let jsDate = gfn_excelSerialDateToJSDate(rowData.sortYmd);
+							rowData.sortYmd = gfn_dateToYmd(jsDate);
+							break;
+						case 8:
+							rowData.sortYmd = rowData.sortYmd.toString();
+							break;
+						default:
+							rowData.sortYmd = today;
+							break;
+					}
+				} else {
+					rowData.sortYmd = today;
+				}
+			}
 			
 			// 품목
 			if (!gfn_isEmpty(rowData.itemCd)) {
