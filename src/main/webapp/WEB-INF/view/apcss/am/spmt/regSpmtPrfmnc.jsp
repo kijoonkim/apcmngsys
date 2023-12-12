@@ -479,6 +479,11 @@
 		SBUxMethod.refresh("excel-slt-spmtPckgUnit");
 		SBUxMethod.refresh("srch-slt-spmtPckgUnitCd");
 
+		if(gfn_isEmpty(itemCd)){
+			jsonComSpcfct.length = 0;
+			SBUxMethod.refresh("srch-slt-spcfctCd");
+		}
+
 	}
 
 	const fn_selectVrty = async function(){
@@ -499,6 +504,12 @@
 			gfn_setApcGdsGrdSBSelect('grdGdsInvntr', 				jsonGrdGdsGrd, 				gv_selectedApcCd, itemCd, '03'),	// 상품등급(재고그리드)
 			gfn_setApcGdsGrdSBSelect('dtl-slt-gdsGrd', 				jsonDtlGdsGrd, 				gv_selectedApcCd, itemCd, '03'),	// 상품등급(상세)
 		])
+
+		if(gfn_isEmpty(itemCd)){
+			jsonComSpcfct.length = 0;
+			SBUxMethod.refresh("srch-slt-spcfctCd");
+		}
+
 		grdGdsInvntr.refresh({"combo":true})
 		SBUxMethod.refresh("srch-slt-spmtPckgUnitCd");
 		SBUxMethod.refresh("excel-slt-spmtPckgUnit");
@@ -1429,7 +1440,7 @@
 		}
 	}
 
-	const fn_reset = function () {
+	const fn_reset = async function () {
 		SBUxMethod.set("srch-dtp-pckgYmdFrom", gfn_dateFirstYmd(new Date())); // 생산일지 from
 		SBUxMethod.set("srch-dtp-pckgYmdTo", gfn_dateToYmd(new Date())); // 생산일지 to
 		SBUxMethod.set("srch-slt-warehouseSeCd", ""); // 창고구분
@@ -1458,6 +1469,20 @@
 		jsonSpmtPrfmnc.length = 0;
 		grdGdsInvntr.refresh();
 		grdSpmtPrfmnc.refresh();
+
+		let rst = await Promise.all([
+			gfn_setComCdSBSelect('srch-rdo-gdsSeCd', 				jsonComGdsSeCd, 			'GDS_SE_CD', 		gv_selectedApcCd), 		// 상품구분 등록
+			gfn_setComCdSBSelect('srch-slt-warehouseSeCd', 			jsonComWarehouseSeCd, 		'WAREHOUSE_SE_CD', 	gv_selectedApcCd), 		// 상품구분 등록
+		 	gfn_setTrsprtsSBSelect('dtl-slt-trsprtCoCd', 			jsonComTrsprtCoCd, 			gv_selectedApcCd),		// 운송사
+		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 				jsonComItem, 				gv_selectedApcCd),		// 품목
+		 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 				jsonComVrty, 				gv_selectedApcCd),		// 품종
+		 	gfn_setPltBxSBSelect('dtl-slt-pltBxCd', 				jsonDtlPltBxCd, 			gv_selectedApcCd, "P"), // 팔레트
+		 	gfn_setPrdcrSBSelect('excel-slt-prdcr', 				jsonExeclComPrdcr, 			gv_selectedApcCd),		// 생산자
+		 	gfn_setCpntSBSelect('excel-slt-cnpt', 					jsonExeclComCnpt, 			gv_selectedApcCd),		// 거래처
+		])
+
+		jsonComSpcfct.length = 0;
+		SBUxMethod.refresh("srch-slt-spcfctCd");
 
 		cmndYn = false;
 	}
