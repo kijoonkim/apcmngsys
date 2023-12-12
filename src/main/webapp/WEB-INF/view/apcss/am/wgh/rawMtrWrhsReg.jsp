@@ -1559,9 +1559,15 @@
 			{
 				caption: ["입고일자"],	
 				ref: 'wrhsYmd',		
-				type:'input',  
-				width:'100px',    
-				style:'text-align:center'
+				type: 'datepicker',  
+				width: '100px',    
+				style: 'text-align:center',
+				format : {
+					type:'date',
+					rule:'yyyy-mm-dd',
+					origin:'yyyymmdd'
+				},
+				typeinfo : {gotoCurrentClick: true, clearbutton: true}
 			},
 			{
 				caption: ["품목"], 		
@@ -2316,6 +2322,30 @@
 		for ( let iRow = 1; iRow <= impData.length; iRow++ ) {
 			const rowData = _grdImp.getRowData(iRow, false);	// deep copy
 
+			if (gfn_isEmpty(rowData.wrhsYmd)) {
+				rowData.wrhsYmd = today;
+			} else {
+				if (typeof rowData.wrhsYmd === "string") {
+					rowData.wrhsYmd = rowData.wrhsYmd.trim();
+				} else if (typeof rowData.wrhsYmd === "number") {
+					let len = rowData.wrhsYmd.toString().length;
+					switch (len) {
+						case 5:
+							let jsDate = gfn_excelSerialDateToJSDate(rowData.wrhsYmd);
+							rowData.wrhsYmd = gfn_dateToYmd(jsDate);
+							break;
+						case 8:
+							rowData.wrhsYmd = rowData.wrhsYmd.toString();
+							break;
+						default:
+							rowData.wrhsYmd = today;
+							break;
+					}
+				} else {
+					rowData.wrhsYmd = today;
+				}
+			}
+			
 			// 품목
 			if (!gfn_isEmpty(rowData.itemCd)) {
 				if (typeof rowData.itemCd === "string") {

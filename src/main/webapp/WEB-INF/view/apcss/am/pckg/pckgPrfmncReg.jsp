@@ -1540,7 +1540,18 @@
 	const fn_getExpColumns = function() {
 		const _columns = [];
 		_columns.push(
-			{caption: ["포장일자"], 	ref: 'pckgYmd',		type:'input',  width:'100px',    style:'text-align:center',
+			{
+				caption: ["포장일자"], 	
+				ref: 'pckgYmd',		
+				type: 'datepicker',  
+				width: '100px',    
+				style: 'text-align:center',
+				format : {
+					type:'date',
+					rule:'yyyy-mm-dd',
+					origin:'yyyymmdd'
+				},
+				typeinfo : {gotoCurrentClick: true, clearbutton: true}
 				
 			},
 			{caption: ["상품명"], 	ref: 'spmtPckgUnitCd',   		type:'combo',  width:'120px',    style:'text-align:center; background:#FFF8DC;',
@@ -2277,7 +2288,27 @@
  			// col 0 : 포장일자
 			if (gfn_isEmpty(rowData.pckgYmd)) {
  				rowData.pckgYmd = today;
- 			}
+ 			} else {
+				if (typeof rowData.pckgYmd === "string") {
+					rowData.pckgYmd = rowData.pckgYmd.trim();
+				} else if (typeof rowData.pckgYmd === "number") {
+					let len = rowData.pckgYmd.toString().length;
+					switch (len) {
+						case 5:
+							let jsDate = gfn_excelSerialDateToJSDate(rowData.pckgYmd);
+							rowData.pckgYmd = gfn_dateToYmd(jsDate);
+							break;
+						case 8:
+							rowData.pckgYmd = rowData.pckgYmd.toString();
+							break;
+						default:
+							rowData.pckgYmd = today;
+							break;
+					}
+				} else {
+					rowData.pckgYmd = today;
+				}
+			}
 			
 			// col 6 : 포장구분|출하포장단위
 			if (!gfn_isEmpty(rowData.spmtPckgUnitCd)) {

@@ -456,10 +456,12 @@ public class LoginController extends BaseController {
 			
 			if (StringUtils.hasText(errorCode)) {
 				logger.error("@@@@ SSO 에이전트 오류 : {}", errorCode);
+				System.out.println(String.format("sso errorCode: %s", errorCode));
 				return "redirect:/login.do";
 			} else {
 				String userData = apiUserService.getUserData();
 				logger.error("@@@@ SSO 사용자 정보 : {}", userData);
+				System.out.println(String.format("sso userData: %s", userData));
 				id = userData;
 				
 				request.getSession().setAttribute(ComConstants.SYS_SSO_TOKEN, pniToken);
