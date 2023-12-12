@@ -1,7 +1,7 @@
 <%
 /**
  * @Class Name : comMsgMng.jsp
- * @Description : 발주정보등록 화면
+ * @Description : 메시지관리 화면
  * @author SI개발부
  * @since 2023.10.23
  * @version 1.0
@@ -30,7 +30,8 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 메시지관리 -->
+					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
+					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 메시지관리 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnCreate" name="btnCreate" uitype="normal"  text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
