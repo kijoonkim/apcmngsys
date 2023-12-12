@@ -161,21 +161,40 @@
 							</td>
 						</tr>
 						<tr>
-						    <th scope="row" class="th_bg"><span class="data_required"></span>발주금액/세액</th>
+						    <th scope="row" class="th_bg">발주금액/세액/%</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input
 									id="srch-inp-outordrAmt"
 									name="srch-inp-outordrAmt"
 									uitype="text"
-									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									class="form-control input-sm"
 									mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"
 									maxlength="10"
-									onkeyup="fn_calculate"></sbux-input>
+									onkeyup="fn_calculate"
+								></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-txAmt" name="srch-inp-txAmt" uitype="text" class="form-control input-sm" disabled></sbux-input>
+								<sbux-input
+									id="srch-inp-txAmt"
+									name="srch-inp-txAmt"
+									uitype="text"
+									class="form-control input-sm"
+									maxlength="10"
+									mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"
+									disabled
+								></sbux-input>
 							</td>
-							<td></td>
+							<td>
+								<sbux-input
+									id="srch-inp-tx"
+									name="srch-inp-tx"
+									uitype="text"
+									class="form-control input-sm"
+									maxlength="6"
+									mask = "{ 'alias': 'currency', 'digits': 2, 'suffix': '%' , 'prefix': '', 'autoUnmask': true }"
+									onkeyup="fn_calculate"
+								></sbux-input>
+							</td>
 						    <th scope="row" class="th_bg"><span class="data_required"></span>발주수량/입수</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input
@@ -185,17 +204,19 @@
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"
 									maxlength="10"
-									onkeyup="fn_calculate"></sbux-input>
+									onkeyup="fn_calculate"
+								></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input
 									id="srch-inp-bxGdsQntt"
 									name="srch-inp-bxGdsQntt"
 									uitype="text"
-									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									class="form-control input-sm"
 									mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"
 									maxlength="6"
-									onkeyup="fn_calculate"></sbux-input>
+									onkeyup="fn_calculate"
+								></sbux-input>
 							</td>
 							<td></td>
 							<th scope="row" class="th_bg">낱개수량</th>
@@ -365,9 +386,9 @@
 		const outordrYmd = SBUxMethod.get("srch-dtp-outordrYmd");
 		const outordrType = SBUxMethod.get("srch-slt-outordrType");
 		const postJsonPromise = gfn_postJSON("/am/ordr/selectOrdrHandwritingList.do", {
-			apcCd			: gv_selectedApcCd
-			, outordrYmd : outordrYmd
-			, outordrType : outordrType
+			  apcCd			: gv_selectedApcCd
+			, outordrYmd 	: outordrYmd
+			, outordrType 	: outordrType
   		});
         const data = await postJsonPromise;
         try {
@@ -423,47 +444,31 @@
 	// 발주금액, 발주수량, 입수 입력시 낱개수량, 박스단가, 낱개단가 자동계산
 	const fn_calculate = function(){
 
-		let outordrAmt = SBUxMethod.get("srch-inp-outordrAmt");
-		let outordrQntt = SBUxMethod.get("srch-inp-outordrQntt");
-		let bxGdsQntt = SBUxMethod.get("srch-inp-bxGdsQntt");
+		let outordrAmt 	= parseInt(SBUxMethod.get("srch-inp-outordrAmt"));
+		let outordrQntt = parseInt(SBUxMethod.get("srch-inp-outordrQntt"));
+		let bxGdsQntt 	= parseInt(SBUxMethod.get("srch-inp-bxGdsQntt"));
+		let tx 			= parseFloat(SBUxMethod.get("srch-inp-tx"));
+		let txAmt = 0;
+		let pieceQntt = 0;
+		let bxUntprc = 0;
+		let outordrUntprc = 0;
 
-		if(outordrAmt.length > 10){
-			SBUxMethod.set("srch-inp-outordrAmt","");
-			gfn_comAlert("E0000", "발주금액 입력값 크기를 초과하였습니다..");//W0001{0}
-			return;
+		if(!gfn_isEmpty(tx)){
+			txAmt = Math.round(parseInt(outordrAmt) * (tx/100));
 		}
-		if(outordrQntt.length > 6 ){
-			SBUxMethod.set("srch-inp-outordrQntt","");
-			SBUxMethod.set("srch-inp-bxGdsQntt","");
-			gfn_comAlert("E0000", "발주수량/입수 입력값 크기를 초과하였습니다..");//W0001{0}
-			return;
-		}
-		if(bxGdsQntt.lenght > 6){
-			SBUxMethod.set("srch-inp-outordrQntt","");
-			SBUxMethod.set("srch-inp-bxGdsQntt","");
-			gfn_comAlert("E0000", "발주수량/입수 입력값 크기를 초과하였습니다..");//W0001{0}
-			return;
-		}
-
 
 		if(outordrAmt > 0 && outordrQntt > 0 && bxGdsQntt > 0){
 
-			let txAmt = outordrAmt * 0.1;
-			let pieceQntt = outordrQntt * bxGdsQntt;
-			let bxUntprc = Math.round((outordrAmt*0.9) / outordrQntt);
-			let outordrUntprc = Math.round((outordrAmt*0.9) / pieceQntt);
-
-			SBUxMethod.set("srch-inp-txAmt", txAmt);
-			SBUxMethod.set("srch-inp-pieceQntt", pieceQntt);
-			SBUxMethod.set("srch-inp-bxUntprc", bxUntprc);
-			SBUxMethod.set("srch-inp-outordrUntprc", outordrUntprc);
-
-		}else{
-			SBUxMethod.set("srch-inp-txAmt", "");
-			SBUxMethod.set("srch-inp-pieceQntt", "");
-			SBUxMethod.set("srch-inp-bxUntprc", "");
-			SBUxMethod.set("srch-inp-outordrUntprc", "");
+			pieceQntt = outordrQntt * bxGdsQntt;
+			bxUntprc = Math.round((outordrAmt-txAmt) / (outordrQntt * bxGdsQntt));
+			outordrUntprc = Math.round((outordrAmt-txAmt) / (outordrQntt * bxGdsQntt));
 		}
+
+		SBUxMethod.set("srch-inp-txAmt", txAmt);
+		SBUxMethod.set("srch-inp-pieceQntt", pieceQntt);
+		SBUxMethod.set("srch-inp-bxUntprc", bxUntprc);
+		SBUxMethod.set("srch-inp-outordrUntprc", outordrUntprc);
+
 	}
 
 	// 초기화
@@ -517,7 +522,7 @@
 		let rcptnSeCd 	= "99";
 		let unitWght 	= "";
 		let outordrWght = "";
-		
+
 		if(gfn_isEmpty(outordrType)){
 			gfn_comAlert("W0001", "발주형태");		//	W0001	{0}을/를 선택하세요.
 			return;
@@ -550,22 +555,14 @@
 			gfn_comAlert("W0001", "규격");		//	W0001	{0}을/를 선택하세요.
 			return;
 		}
-		if(gfn_isEmpty(outordrAmt)){
-			gfn_comAlert("W0002", "발주금액");		//	W0002	{0}을/를 입력하세요.
-			return;
-		}
 		if(gfn_isEmpty(outordrQntt)){
 			gfn_comAlert("W0002", "발주수량");		//	W0002	{0}을/를 입력하세요.
-			return;
-		}
-		if(gfn_isEmpty(bxGdsQntt)){
-			gfn_comAlert("W0002", "입수");		//	W0002	{0}을/를 입력하세요.
 			return;
 		}
 		// FOR문 돌려서 JSON에서 (단중) 찾아서 빼서 밑에 ORDR에 넣어주기 XML 확인
 		for(var i=0; i<jsonComSpcfct.length; i++){
 			unitWght = jsonComSpcfct[i].wght;
-		
+
 			outordrWght = (parseInt(unitWght) * parseInt(outordrQntt));
 		}
 		let ordr = {
@@ -606,9 +603,9 @@
 	        	if (_.isEqual("S", data.resultStatus)) {
 	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
 	        		fn_search();
+	        		fn_reset();
 	        	} else {
 	        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
-	        		//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        	}
 	        } catch(e) {
 	    		if (!(e instanceof Error)) {
@@ -617,7 +614,7 @@
 	    		console.error("failed", e.message);
 	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        }
-	        
+
 		}
 	}
 
@@ -658,7 +655,7 @@
 	        }
 		}
 	}
-	
+
 	//그리드 체크박스 전체 선택
     function fn_checkAll(grid, obj) {
         var gridList = grid.getGridDataAll();
