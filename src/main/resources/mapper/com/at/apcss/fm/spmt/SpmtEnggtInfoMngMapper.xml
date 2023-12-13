@@ -283,11 +283,7 @@
 					 ,APC_NM2  =   #{apcNm2}
 					 ,APC_CD3  =   #{apcCd3}
 					 ,APC_NM3 =  #{apcNm3}
-    	]]>
-		<if test='delYn != null and delYn != ""'>
-				, DEL_YN 	= #{delYn}
-		</if>
-    	<![CDATA[
+				     , DEL_YN 	= 'N'
 				, SYS_LAST_CHG_DT		= SYSDATE
 	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}

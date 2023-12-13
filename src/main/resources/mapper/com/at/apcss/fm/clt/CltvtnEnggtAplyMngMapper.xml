@@ -214,11 +214,7 @@
 		    	        , EXPCT_HRVST_QNTT   = #{expctHrvstQntt}
 		    	        , ENGGT_YMD          = #{enggtYmd}
 		    	        , RMRK               = #{rmrk}
-		    	]]>
-				<if test='delYn != null and delYn != ""'>
-						, DEL_YN 	= #{delYn}
-				</if>
-		    	<![CDATA[
+						, DEL_YN 	= 'N'
 						, SYS_LAST_CHG_DT		= SYSDATE
 			    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 			    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
@@ -477,11 +473,7 @@
 		    	        , EXPCT_HRVST_QNTT   = #{expctHrvstQntt}
 		    	        , ENGGT_YMD          = #{enggtYmd}
 		    	        , RMRK               = #{rmrk}
-		    	]]>
-				<if test='delYn != null and delYn != ""'>
-						, DEL_YN 	= #{delYn}
-				</if>
-		    	<![CDATA[
+		    	        , DEL_YN 	= 'N'
 						, SYS_LAST_CHG_DT		= SYSDATE
 			    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 			    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
@@ -573,11 +565,7 @@
     	        , EXPCT_HRVST_QNTT   = #{expctHrvstQntt}
     	        , ENGGT_YMD          = #{enggtYmd}
     	        , RMRK               = #{rmrk}
-    	]]>
-		<if test='delYn != null and delYn != ""'>
-				, DEL_YN 	= #{delYn}
-		</if>
-    	<![CDATA[
+    	        , DEL_YN 	= 'N'
 				, SYS_LAST_CHG_DT		= SYSDATE
 	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
