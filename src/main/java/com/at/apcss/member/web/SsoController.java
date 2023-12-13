@@ -243,7 +243,7 @@ public class SsoController extends BaseController {
 
 
 		} catch (Exception e) {
-
+			return "redirect:/login.do";
 		}
 
 		model.addAttribute("topMenuList", menuList);
@@ -451,7 +451,7 @@ public class SsoController extends BaseController {
 
 
 		} catch (Exception e) {
-
+			return "redirect:/login.do";
 		}
 
 		model.addAttribute("topMenuList", menuList);
@@ -664,7 +664,7 @@ public class SsoController extends BaseController {
 
 
 		} catch (Exception e) {
-
+			return "redirect:/login.do";
 		}
 
 		model.addAttribute("topMenuList", menuList);
@@ -882,7 +882,7 @@ public class SsoController extends BaseController {
 
 
 		} catch (Exception e) {
-
+			return "redirect:/login.do";
 		}
 
 		model.addAttribute("topMenuList", menuList);
