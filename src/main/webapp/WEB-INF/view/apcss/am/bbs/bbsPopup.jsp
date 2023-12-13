@@ -26,9 +26,6 @@
 		<div class="box box-solid">
 		<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div style="margin-left: auto;">
-					<!--
-					<sbux-button id="test" name="test" uitype="normal" text="test" class="btn btn-sm btn-outline-danger" onclick="fn_fileUpload"></sbux-button>
-					 -->
 					<sbux-button id="btnUpdateBbsPopup" name="btnUpdateBbsPopup" uitype="normal" text="수정" class="btn btn-sm btn-outline-danger" onclick="fn_update"></sbux-button>
 					<sbux-button id="btnCancelBbsPopup" name="btnCancelBbsPopup" uitype="normal" text="취소" class="btn btn-sm btn-outline-danger" onclick="fn_update"></sbux-button>
 					<sbux-button id="btnSaveBbsPopup" name="btnSaveBbsPopup" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_bbsDetailupdate"></sbux-button>
@@ -212,6 +209,7 @@
 			, bbsTitle : bbs_info.bbsTitle
 			, bbsSubject : bbs_info.bbsSubject
 			, bbsNo : bbsNo
+			, apcCd : gv_apcCd
 		});
 		const data = await postJsonPromise;
 		SBUxMethod.attr("dtl-select-bbsSeCd","readonly","true");
@@ -256,7 +254,7 @@
 	async function fn_callselectComment(bbsNo){
 		let apcCd = gv_apcCd;
 		const postJsonPromise = gfn_postJSON("/am/bbs/selectBbsCmntList.do", {
-			apcCd: apcCd
+			 apcCd: apcCd
         	,bbsNo: bbsNo
 		});
 		const data = await postJsonPromise;
@@ -276,11 +274,10 @@
 				bbsNo 		: item.bbsNo
 			  , cmntNo 		: item.cmntNo
 			  , cmntChildNo : item.cmntChildNo
-			  , cmntCn 	: item.cmntCn
-			  , user 	: item.sysFrstInptUserId
+			  , cmntCn 		: item.cmntCn
+			  , user 		: item.sysFrstInptUserId
 
 			}
-
 			$("#cmntList").append("<tr id=cmnt>");
 			if(item.cmntChildNo == "1"){
 				$("#cmntList").append("<td id=cmnt style=text-align:center>"+ bbsCmnt.user  +"</td>");
@@ -290,7 +287,6 @@
 					$("#cmntList").append("<td id=cmnt>"+"<button id=btnDeleteCmnt name=btnDeleteCmnt class=btn btn-xs  style=width:100% onclick=fn_deleteComment("+bbsCmnt.cmntNo+")>삭제</button></td>");
 				}
 
-
 			}else if(item.cmntChildNo !="1"){
 				$("#cmntList").append("<td id=cmnt style=text-align:center>"+ " " +"</td>");
 				$("#cmntList").append("<td id=cmnt style=border-left:20px>"+bbsCmnt.user+" : "+bbsCmnt.cmntCn+"</td>");
@@ -298,10 +294,6 @@
 					$("#cmntList").append("<td id=cmnt>"+"<button id=btnDeleteCmnt name=btnDeleteCmnt class=btn btn-xs  style=width:100% onclick=fn_deleteComment("+bbsCmnt.cmntNo+")>삭제</button></td>");
 				}
 			}
-
-
-
-
 			$("#cmntList").append("</tr>");
 		});
 
