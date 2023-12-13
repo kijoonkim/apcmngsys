@@ -19,6 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<title>title : APC정보관리</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -28,7 +29,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- APC정보관리 -->
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- APC정보관리 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_save"></sbux-button>
@@ -69,7 +70,7 @@
 						</tr>
 					</tbody>
 				</table>
-											
+
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
 				<div class="ad_tbl_top2">
@@ -94,7 +95,7 @@
 	var jsonComboDelYn = [];
 	var comboDelYnJsData = [];
 	var comboMbCdJsData = [];
-	
+
 	var apcInfoMngData = [];
 
 	const fn_initSBSelect = async function() {
@@ -105,12 +106,12 @@
 		]);
         fn_search();
 	}
-	
+
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createApcInfoMngGrid();
 		fn_initSBSelect();
 	})
-	
+
 	function fn_createApcInfoMngGrid() {
 		apcInfoMngData = [];
 		var SBGridProperties = {};
@@ -163,7 +164,7 @@
         grdApcInfoMng = _SBGrid.create(SBGridProperties);
         grdApcInfoMng.bind( "afterpagechanged" , "fn_pagingApcInfoMng" );
     }
-	
+
     //그리드 체크박스 전체 선택
     function fn_checkAll(grid, obj) {
         var gridList = grid.getGridDataAll();
@@ -179,7 +180,7 @@
         }
     	grid.clickCell(getRow, getCol);
     }
-	
+
 	// 행 삭제 및 추가
 	async function fn_procRowApcInfo(type){
 		if (type == "ADD"){
@@ -214,9 +215,9 @@
     	let currentPageNo = 1;
     	grdApcInfoMng.movePaging(currentPageNo);
     }
-	
+
 	let newApcInfoMngData = [];
-	
+
 	// APC 내역 목록 조회 호출
 	async function fn_callSelectApcDsctnList(recordCountPerPage, currentPageNo){
 		apcInfoMngData = [];
@@ -266,23 +267,23 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 	}
-	
+
 	// 페이징
     async function fn_pagingApcInfoMng(){
     	let recordCountPerPage = grdApcInfoMng.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-    	let currentPageNo = grdApcInfoMng.getSelectPageIndex(); 
+    	let currentPageNo = grdApcInfoMng.getSelectPageIndex();
     	let ref = "<input type='checkbox' onchange='fn_checkAll(grdApcInfoMng, this);'>";
     	grdApcInfoMng.setCellData(0, grdApcInfoMng.getColRef("checked"), ref, true, false);
     	fn_callSelectApcDsctnList(recordCountPerPage, currentPageNo);
     }
-	
+
 	// APC 내역 등록 (등록 버튼)
 	async function fn_save() {
 		const apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let allData = grdApcInfoMng.getGridDataAll();
-		
+
 		const apcDsctnList = [];
-		
+
 		for ( let i=1; i<=allData.length; i++ ){
 			const rowData = grdApcInfoMng.getRowData(i);
 			const rowSts = grdApcInfoMng.getRowStatus(i);
@@ -291,7 +292,7 @@
 					gfn_comAlert("W0002", "원본APC명");		//	W0002	{0}을/를 입력하세요.
 		            return;
 				}
-	
+
 				if (rowSts === 3){
 					rowData.rowSts = "I";
 					apcDsctnList.push(rowData);
@@ -303,19 +304,19 @@
 				}
 			}
 		}
-		
+
 		if (apcDsctnList.length == 0){
 			gfn_comAlert("W0003", "저장");		//	W0003	{0}할 대상이 없습니다.
             return;
 		}
-		
+
 		if (!gfn_comConfirm("Q0001", "등록")) {	//	Q0001	{0} 하시겠습니까?
     		return;
     	}
-    	
+
     	const postJsonPromise = gfn_postJSON("/co/apc/multiApcDsctnList.do", apcDsctnList, this.prgrmId);
-    	
-		const data = await postJsonPromise;	    
+
+		const data = await postJsonPromise;
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.

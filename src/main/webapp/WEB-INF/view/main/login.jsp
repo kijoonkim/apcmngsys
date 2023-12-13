@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<title>title : 로그인</title>
+	<title>로그인</title>
 	<%@ include file="../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../frame/inc/headerScript.jsp" %>
 </head>

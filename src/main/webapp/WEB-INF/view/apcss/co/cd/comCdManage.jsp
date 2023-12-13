@@ -19,6 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<title>title : 공통코드관리</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -28,7 +29,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 공통코드관리 -->
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 공통코드관리 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnCreate" name="btnCreate" uitype="normal" class="btn btn-sm btn-outline-danger" text="신규" onclick="fn_createComCdGridRow"></sbux-button>
@@ -201,7 +202,7 @@
         ];
         comCdDtlgrid = _SBGrid.create(SBGridProperties);
     }
-    
+
   	//공통코드 목록 조회
     async function fn_selectComCdList() {
     	comCdgrid.rebuild();
@@ -224,7 +225,7 @@
     	}else if(selectType === 'NM'){
     		cdNm = SBUxMethod.get("srchKeyword");
     	}
-    	
+
     	const postJsonPromise = gfn_postJSON("/co/cd/comCds", {
 	  		cdId : cdId,
 	  		cdNm : cdNm,
@@ -236,7 +237,7 @@
   		});
 
         const data = await postJsonPromise;
-    	
+
         try {
       		let totalRecordCount = 0;
       		comCdgridData.length = 0;
@@ -354,7 +355,7 @@
     	let deleteCdDtlList = [];
         let comCdgridList = comCdgrid.getGridDataAll();
         let comCdDtlgridList = comCdDtlgrid.getGridDataAll();
-        
+
         for (var i=0; i<comCdgridList.length; i++) {
             if (comCdgridList[i].checked === "true") {
             	deleteCdList.push(comCdgridList[i]);
@@ -373,7 +374,7 @@
         }
 
     	let deleteList = {comCdList : deleteCdList, comCdDtlList : deleteCdDtlList};
-    	
+
         var delMsg = "삭제 하시겠습니까?";
         if (confirm(delMsg)) {
         	const postJsonPromise = gfn_postJSON("/co/cd/deleteComCdComCdDtlList.do", deleteList, this.prgrmId);
@@ -409,7 +410,7 @@
     	const comCdDtlGridList = comCdDtlgrid.getGridDataAll();
     	let comCdResult = 0;
     	let comCdDtlResult = 0;
-    	
+
     	for(var i=1; i<=comCdGridList.length; i++){
 			let rowData = comCdgrid.getRowData(i);
 			let rowSts = comCdgrid.getRowStatus(i);
@@ -473,9 +474,9 @@
             alert("저장 할 대상이 없습니다.");
             return;
         }
-    	
+
     	let saveList = {comCdList : saveCdList, comCdDtlList : saveCdDtlList};
-    	
+
     	var saveMsg = "저장 하시겠습니까?";
         if (confirm(saveMsg)) {
         	const postJsonPromise = gfn_postJSON("/co/cd/multiSaveComCdComCdDtlList.do", saveList, this.prgrmId);	// 프로그램id 추가
@@ -531,7 +532,7 @@
             grid.setCellData(i+1, getColRef, checkedYn, true, false);
         }
     }
-    
+
     //공통코드 상세 행 추가
     function fn_addRow() {
 		var cdId = comCdgrid.getRowData(comCdgrid.getRow()).cdId;

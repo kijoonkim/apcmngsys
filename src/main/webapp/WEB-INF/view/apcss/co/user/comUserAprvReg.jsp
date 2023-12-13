@@ -19,6 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<title>title : APC관리자승인등록</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -29,7 +30,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- APC관리자승인등록 -->
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- APC관리자승인등록 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="승인" class="btn btn-sm btn-outline-danger" onclick="fn_userAprv"></sbux-button>
@@ -82,8 +83,8 @@
 									id="srch-inp-userNm"
 									name="srch-inp-userNm"
 									uitype="text"
-									class="form-control input-sm" 
-									placeholder="" 
+									class="form-control input-sm"
+									placeholder=""
 									title=""
 									maxlength="13"
 								></sbux-input>
@@ -95,8 +96,8 @@
 									id="srch-inp-userId"
 									name="srch-inp-userId"
 									uitype="text"
-									class="form-control input-sm" 
-									placeholder="" 
+									class="form-control input-sm"
+									placeholder=""
 									title=""
 									maxlength="13"
 								></sbux-input>
@@ -141,9 +142,9 @@
 		await gfn_setComCdSBSelect('srch-slt-userStts', jsonComUserStts, 'USER_STTS');
 // 		await gfn_setComCdGridSelect('grdUserAprv', 	jsonUserType,    'USER_TYPE');	// 사용유무
 		SBUxMethod.set("srch-slt-userStts", "00");
-		
+
 		fn_createGridUserAprv();
-		
+
 		fn_search();
 	}
 
@@ -266,9 +267,9 @@
           		grdUserAprv.setPageTotalCount(0);
           		grdUserAprv.rebuild();
           	}
-          	
+
           	document.querySelector('#cnt-userAprv').innerText = totalRecordCount;
-          	
+
           } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -277,7 +278,7 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
           }
 	}
-     
+
   	// 페이징
      async function fn_pagingUserAprv(){
      	let recordCountPerPage = grdUserAprv.getPageSize();   		// 몇개의 데이터를 가져올지 설정
@@ -305,7 +306,7 @@
 				}
     		}
 		});
-		
+
 		if (userAprvList.length == 0) {
 			gfn_comAlert("W0001", "승인대상");		//	W0001	{0}을/를 선택하세요.
 			return;
@@ -331,12 +332,12 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 	}
-	
+
 	const fn_allUserAprv = async function() {
 
 		const userAprvList = [];
 		const allUserData = grdUserAprv.getGridDataAll();
-		
+
 		console.log('allUserData', allUserData);
 		allUserData.forEach((item, index) => {
 			if(item.userType == "10"){
@@ -349,7 +350,7 @@
 				console.log('userType11', item.userId);
 			}
 		});
-		
+
 		if (userAprvList.length == 0) {
 			gfn_comAlert("W0001", "승인대상");		//	W0001	{0}을/를 선택하세요.
 			return;
@@ -376,11 +377,11 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 	}
-	
+
 	const fn_save = async function() {
 		const userTypeChgList = [];
 		const allUserData = grdUserAprv.getGridDataAll();
-		
+
 		allUserData.forEach((item, index) => {
 			if(item.checkedYn === "Y"){
 				userTypeChgList.push({
@@ -393,7 +394,7 @@
 			gfn_comAlert("W0001", "저장대상");		//	W0001	{0}을/를 선택하세요.
 			return;
 		}
-		
+
 		const postJsonPromise = gfn_postJSON("/co/user/updateUserTypeList.do", userTypeChgList);
 		const data = await postJsonPromise;
 		try {
