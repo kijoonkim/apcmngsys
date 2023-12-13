@@ -71,11 +71,14 @@
 
 		let allData = grdExcelSpmtPrfmncPopup.getGridDataAll();
 
+		const today = gfn_dateToYmd(new Date());
+
 		for(var i=1; i<=allData.length; i++){
 
 			let rowData = grdExcelSpmtPrfmncPopup.getRowData(i, false) // deep copy;
 
 			let spmtYmd 		= $.trim(rowData.spmtYmd);
+
 			let itemCd 			= $.trim(rowData.itemCd);
 			let vrtyCd 			= $.trim(rowData.vrtyCd);
 			let spcfctCd	 	= $.trim(rowData.spcfctCd);
@@ -88,11 +91,35 @@
 			let cnptCd 			= $.trim(rowData.cnptCd);
 
 
-			if(!gfn_isEmpty(spmtYmd)){
-				if(!(/^(19[7-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/.exec(spmtYmd))){
+			/* if(!gfn_isEmpty(spmtYmd)){
+				if((/^(19[7-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/.exec(spmtYmd))){
 					rowData.spmtYmd = "";
 	    		}
+			} */
+
+			if (gfn_isEmpty(spmtYmd)) {
+				spmtYmd = today;
+ 			} else {
+				if (typeof spmtYmd === "string") {
+					let len = spmtYmd.length;
+					switch (len) {
+						case 5:
+							let jsDate = gfn_excelSerialDateToJSDate(parseInt(spmtYmd));
+							spmtYmd = gfn_dateToYmd(jsDate);
+							break;
+						case 8:
+							spmtYmd = spmtYmd.toString();
+							break;
+						default:
+							spmtYmd = today;
+							break;
+					}
+				} else {
+					spmtYmd = today;
+				}
 			}
+
+			rowData.spmtYmd = spmtYmd;
 
 			// 상품구분 명 or 코드 일치 검사
 			for(var j=0; j<jsonEPSGdsSeCd.length; j++){
@@ -385,13 +412,6 @@
 			let spmtWght 		= rowData.spmtWght;			// 중량
 
 			if(rowSts === 0 || rowSts === 1 || rowSts === 2 ){
-
-				if(!gfn_isEmpty(spmtYmd)){
-					if(!(/^(19[7-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/.exec(spmtYmd))){
-			    		gfn_comAlert("W0011", "날짜형식");			//	W0001	{0}이/가 아닙니다.
-		    			return;
-		    		}
-				}
 
 				if(gfn_comboValidation(jsonEPSGdsSeCd, gdsSeCd) != "Y" || gfn_isEmpty(gdsSeCd)){
 					gfn_comAlert("W0005", "상품구분") 	// W0005	{0}이/가 없습니다.
