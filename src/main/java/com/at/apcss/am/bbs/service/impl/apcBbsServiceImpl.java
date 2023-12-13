@@ -1,6 +1,8 @@
 package com.at.apcss.am.bbs.service.impl;
 
 import java.util.List;
+
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,9 +11,9 @@ import com.at.apcss.am.bbs.service.apcBbsService;
 import com.at.apcss.am.bbs.vo.apcBbsCmntVO;
 import com.at.apcss.am.bbs.vo.apcBbsFileVO;
 import com.at.apcss.am.bbs.vo.apcBbsVO;
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.fm.bbs.vo.BbsFileVO;
-import com.at.apcss.fm.bbs.vo.BbsVO;
+import com.at.apcss.co.sys.util.ComUtil;
 
 
 /**
@@ -109,7 +111,9 @@ public class apcBbsServiceImpl extends BaseServiceImpl implements apcBbsService{
 	 * @throws Exception
 	 */
 	public int deleteBbsCmnt(apcBbsCmntVO bbsCmntVO) throws Exception{
-		int insertedCnt = bbsMapper.deleteBbsCmnt(bbsCmntVO);
+		if(0 == bbsMapper.deleteBbsCmnt(bbsCmntVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
 		return 0;
 	}
 	/**
@@ -119,21 +123,27 @@ public class apcBbsServiceImpl extends BaseServiceImpl implements apcBbsService{
 	 * @throws Exception
 	 */
 	public int deleteBbsAllCmnt(apcBbsVO bbsVO) throws Exception{
-		int insertedCnt = bbsMapper.deleteBbsAllCmnt(bbsVO);
+		if(0 == bbsMapper.deleteBbsAllCmnt(bbsVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
 		return 0;
 	}
 
 	@Override
 	public int insertBbsCmnt(apcBbsCmntVO bbsCmntVO) throws Exception {
 		// TODO Auto-generated method stub
-		int insertedCnt = bbsMapper.insertBbsCmnt(bbsCmntVO);
+		if(0 == bbsMapper.insertBbsCmnt(bbsCmntVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
 		return 0;
 	}
 
 	@Override
 	public int insertBbsChildCmnt(apcBbsCmntVO bbsCmntVO) throws Exception {
 		// TODO Auto-generated method stub
-		int insertedCnt = bbsMapper.insertBbsChildCmnt(bbsCmntVO);
+		if(0 == bbsMapper.insertBbsChildCmnt(bbsCmntVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
 		return 0;
 	}
 	@Override

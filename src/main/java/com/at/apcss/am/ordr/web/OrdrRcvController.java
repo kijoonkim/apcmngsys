@@ -1,8 +1,6 @@
 package com.at.apcss.am.ordr.web;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -13,14 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.ordr.service.OrdrRcvService;
-import com.at.apcss.am.ordr.service.OrdrService;
 import com.at.apcss.am.ordr.vo.OrdrRcvVO;
-import com.at.apcss.am.ordr.vo.OrdrVO;
-import com.at.apcss.am.spmt.service.SpmtCmndService;
-import com.at.apcss.am.spmt.vo.SpmtCmndVO;
-import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 
 /**

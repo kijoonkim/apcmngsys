@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at.apcss.am.sort.service.SortInptPrfmncService;
 import com.at.apcss.am.sort.vo.SortInptPrfmncVO;
-import com.at.apcss.am.sort.vo.SortMngVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 

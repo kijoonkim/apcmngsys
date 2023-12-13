@@ -72,9 +72,6 @@ public class SpmtTrsprtController extends BaseController {
 			List<SpmtTrsprtVO> origin = spmtTrsprtVO.get("origin").stream().filter(e -> e.getDelYn().equals(ComConstants.CON_NONE)).collect(Collectors.toList());
 			List<SpmtTrsprtVO> modified = spmtTrsprtVO.get("modified").stream().filter(e -> e.getDelYn().equals(ComConstants.CON_NONE)).collect(Collectors.toList());
 
-			List<String> originPk = origin.stream().filter(e -> e.getTrsprtCoCd() != null && e.getTrsprtCoCd().equals("") == false).map(e -> e.getTrsprtCoCd()).collect(Collectors.toCollection(ArrayList::new));
-			List<String> modifiedPk = modified.stream().filter(e -> e.getTrsprtCoCd() != null && e.getTrsprtCoCd().equals("") == false).map(e -> e.getTrsprtCoCd()).collect(Collectors.toCollection(ArrayList::new));
-
 			List<SpmtTrsprtVO> insertList = new ArrayList<SpmtTrsprtVO>(modified).stream().filter(e -> e.getTrsprtCoCd() == null || e.getTrsprtCoCd().equals("")).collect(Collectors.toList());
 			for (SpmtTrsprtVO element : insertList) {
 				element.setSysFrstInptPrgrmId(getPrgrmId());

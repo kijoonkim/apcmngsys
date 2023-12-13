@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.at.apcss.am.cmns.service.PltBxService;
-import com.at.apcss.am.cmns.vo.CmnsVrtyVO;
 import com.at.apcss.am.cmns.vo.PltBxVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;

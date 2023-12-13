@@ -1,12 +1,10 @@
 package com.at.apcss.am.ordr.mapper;
 
-import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.at.apcss.am.ordr.vo.OrdrRcvHomeplusVO;
 import com.at.apcss.am.ordr.vo.OrdrRcvVO;
-import com.at.apcss.am.ordr.vo.OrdrVO;
 
 /**
  * 발주정보 수신 Mapper 인터페이스
