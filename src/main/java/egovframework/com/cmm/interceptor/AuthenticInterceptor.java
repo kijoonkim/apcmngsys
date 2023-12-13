@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.ModelAndViewDefiningException;
 import org.springframework.web.servlet.mvc.WebContentInterceptor;
@@ -38,7 +39,7 @@ import egovframework.com.cmm.util.EgovUserDetailsHelper;
 
 public class AuthenticInterceptor extends WebContentInterceptor {
 
-	private final Logger log = LoggerFactory.getLogger(CustomAuthenticInterceptor.class);
+	private final Logger log = LoggerFactory.getLogger(AuthenticInterceptor.class);
 
 	@Resource(name = "comSysService")
 	private ComSysService comSysService;	
@@ -61,7 +62,7 @@ public class AuthenticInterceptor extends WebContentInterceptor {
 		log.debug("getMethod {}", request.getMethod());
 		log.debug("getContentType {}", request.getContentType());
 		 */		
-		
+
 		boolean isRtnJson = false;
 		String uri = ComUtil.nullToEmpty(request.getRequestURI());
 		log.debug("uri {}", uri);
