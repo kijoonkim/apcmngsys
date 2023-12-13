@@ -31,8 +31,8 @@
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 재고정보등록 -->
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearch" name="btnSearch" uitype="button" class="btn btn-sm btn-outline-danger" onclick="fn_selectGridList();">조회</sbux-button>
 					<sbux-button id="btnSave" name="btnSave" uitype="button" class="btn btn-sm btn-outline-danger" onclick="fn_save();">저장</sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="button" class="btn btn-sm btn-outline-danger" onclick="fn_selectGridList();">조회</sbux-button>
 				</div>
 			</div>
 
@@ -3108,11 +3108,10 @@
 				rowData.itemCd = rowData.itemCd.trim();
 			} else if (typeof rowData.itemCd === "number") {
 				rowData.itemCd = rowData.itemCd.toString();
+				rowData.itemCd = gfn_lpad(rowData.itemCd, 4, '0');
 			} else {
 				
 			}
-			
-			rowData.itemCd = gfn_lpad(rowData.itemCd, 4, '0');
 			
 			let chkInfo = _.find(jsonExpSltItem, {value: rowData.itemCd});
 			if (gfn_isEmpty(chkInfo)) {
@@ -3132,11 +3131,10 @@
 				rowData.vrtyCd = rowData.vrtyCd.trim();
 			} else if (typeof rowData.vrtyCd === "number") {
 				rowData.vrtyCd = rowData.vrtyCd.toString();
+				rowData.vrtyCd = gfn_lpad(rowData.vrtyCd, 4, '0');
 			} else {
 				
 			}
-			
-			rowData.vrtyCd = gfn_lpad(rowData.vrtyCd, 4, '0');
 			
 			let chkInfo = _.find(jsonExpSltVrty, {value: rowData.vrtyCd});
 			if (gfn_isEmpty(chkInfo)) {
@@ -3156,11 +3154,10 @@
 				rowData.spcfctCd = rowData.spcfctCd.trim();
 			} else if (typeof rowData.spcfctCd === "number") {
 				rowData.spcfctCd = rowData.spcfctCd.toString();
+				rowData.spcfctCd = gfn_lpad(rowData.spcfctCd, 4, '0');
 			} else {
 				
 			}
-			
-			rowData.spcfctCd = gfn_lpad(rowData.spcfctCd, 4, '0');
 			
 			let chkInfo = _.find(jsonExpSltSpcfct, {spcfctCd: rowData.spcfctCd});
 			if (gfn_isEmpty(chkInfo)) {
@@ -3180,12 +3177,11 @@
 				rowData.spmtPckgUnitCd = rowData.spmtPckgUnitCd.trim();
 			} else if (typeof rowData.spmtPckgUnitCd === "number") {
 				rowData.spmtPckgUnitCd = rowData.spmtPckgUnitCd.toString();
+				rowData.spmtPckgUnitCd = gfn_lpad(rowData.spmtPckgUnitCd, 4, '0');
 			} else {
 				
 			}
 			
-			rowData.spmtPckgUnitCd = gfn_lpad(rowData.spmtPckgUnitCd, 4, '0');
-
 			let chkInfo = _.find(
 								jsonExpSltSpmtPckgUnit, 
 								{	
@@ -3226,11 +3222,10 @@
 				rowData.prdcrCd = rowData.prdcrCd.trim();
 			} else if (typeof rowData.prdcrCd === "number") {
 				rowData.prdcrCd = rowData.prdcrCd.toString();
+				rowData.prdcrCd = gfn_lpad(rowData.prdcrCd, 4, '0');
 			} else {
 				
 			}
-			
-			rowData.prdcrCd = gfn_lpad(rowData.prdcrCd, 4, '0');
 			
 			let chkInfo = _.find(jsonExpSltPrdcr, {prdcrCd: rowData.prdcrCd});
 			if (gfn_isEmpty(chkInfo)) {
@@ -3250,11 +3245,10 @@
 				rowData.warehouseSeCd = rowData.warehouseSeCd.trim();
 			} else if (typeof rowData.warehouseSeCd === "number") {
 				rowData.warehouseSeCd = rowData.warehouseSeCd.toString();
+				rowData.warehouseSeCd = gfn_lpad(rowData.warehouseSeCd, 2, '0');
 			} else {
 				
 			}
-			
-			rowData.warehouseSeCd = gfn_lpad(rowData.warehouseSeCd, 2, '0');
 			
 			let chkInfo = _.find(jsonExpSltWarehouseSe, {value: rowData.warehouseSeCd});
 			if (gfn_isEmpty(chkInfo)) {
@@ -3288,11 +3282,10 @@
 						rowData[colNm] = rowData[colNm].trim();
 					} else if (typeof rowData[colNm] === "number") {
 						rowData[colNm] = rowData[colNm].toString();
+						rowData[colNm] = gfn_lpad(rowData[colNm], 2, '0');
 					} else {
 						
 					}
-					
-					rowData[colNm] = gfn_lpad(rowData[colNm], 2, '0');
 					
 					let grdInfo = _.find(jsonObj, {grdCd: rowData[colNm]});
 					if (gfn_isEmpty(grdInfo)) {
