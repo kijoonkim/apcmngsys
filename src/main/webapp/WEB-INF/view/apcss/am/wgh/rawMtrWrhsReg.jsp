@@ -51,14 +51,6 @@
 						text="초기화" 
 					></sbux-button>
 					<sbux-button 
-						id="btnSearch" 
-						name="btnSearch" 
-						uitype="normal" 
-						class="btn btn-sm btn-outline-danger" 
-						onclick="fn_search" 
-						text="조회" 
-					></sbux-button>
-					<sbux-button 
 						id="btnSave" 
 						name="btnSave" 
 						uitype="normal" 
@@ -73,6 +65,14 @@
 						class="btn btn-sm btn-outline-danger" 
 						onclick="fn_delete" 
 						text="삭제" 
+					></sbux-button>
+					<sbux-button 
+						id="btnSearch" 
+						name="btnSearch" 
+						uitype="normal" 
+						class="btn btn-sm btn-outline-danger" 
+						onclick="fn_search" 
+						text="조회" 
 					></sbux-button>
 				</div>
 			</div>
@@ -1574,7 +1574,7 @@
 				ref: 'itemCd',   	
 				type:'combo',  
 				width:'80px',    
-				style:'text-align:center',
+				style:'text-align:center;background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltItem', 	
 					displayui : false,	
@@ -1588,7 +1588,7 @@
 				ref: 'vrtyCd',   	
 				type:'combo',  
 				width:'80px',    
-				style:'text-align:center',
+				style:'text-align:center;background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltVrty', 	
 					displayui : false,	
@@ -1602,7 +1602,7 @@
 				ref: 'prdcrCd', 
 				type:'combo',  
 				width:'80px',    
-				style:'text-align:center',
+				style:'text-align:center;background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltPrdcr', 	
 					displayui : false,	
@@ -1616,7 +1616,7 @@
 				ref: 'wrhsSeCd',   	
 				type:'combo',  
 				width:'80px',    
-				style:'text-align:center',
+				style:'text-align:center;background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltWrhsSeCd', 	
 					displayui : false,	
@@ -1630,7 +1630,7 @@
 				ref: 'gdsSeCd',   	
 				type:'combo',  
 				width:'80px',    
-				style:'text-align:center',
+				style:'text-align:center;background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltGdsSeCd', 	
 					displayui : false,	
@@ -1644,7 +1644,7 @@
 				ref: 'trsprtSeCd',  
 				type:'combo',  
 				width:'80px',    
-				style:'text-align:center',
+				style:'text-align:center;background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltTrsprtSeCd', 
 					displayui : false,	
@@ -1658,7 +1658,7 @@
 				ref: 'warehouseSeCd',	
 				type:'combo',  
 				width:'80px',    
-				style:'text-align:center',
+				style:'text-align:center;background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltWarehouseSeCd', 	
 					displayui : false,	
@@ -1686,7 +1686,7 @@
 				ref: 'prdctnYr',    
 				type:'input',  
 				width:'80px',	
-				style:'text-align:center'
+				style:'text-align:center;background-color:#FFF8DC;'
 			},
 	        {
 				caption: ["차량번호"],	
@@ -1707,7 +1707,7 @@
 				ref: 'wrhsWght',    
 				type:'input',  
 				width:'60px',   
-				style:'text-align:right'
+				style:'text-align:right;background-color:#FFF8DC;'
 			},
 		);
 

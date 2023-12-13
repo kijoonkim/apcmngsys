@@ -159,7 +159,9 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 				List<GdsInvntrVO> gdsInvntrList = gdsInvntrService.selectGdsInvntrList(gdsInvntrVO);
 				if(gdsInvntrList.size() > 0) {
 
-					insertSpmtPrfmncCom(spmtPrfmncVO);
+					if (0 == insertSpmtPrfmncCom(spmtPrfmncVO)) {
+						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "출하실적 등록")));		// E0003	{0} 시 오류가 발생하였습니다.
+					}
 
 					int remainderSpmtQntt = spmtPrfmncVO.getSpmtQntt();
 					Double remainderSpmtWght = spmtPrfmncVO.getSpmtWght();
@@ -197,8 +199,8 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 									spmtPrfmncVO.setBrndNm(cmnsGdsVO.getBrndNm());
 								}
 
-								if(0 == insertSpmtPrfmncDtl(spmtPrfmncVO)) {
-									throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+								if (0 == insertSpmtPrfmncDtl(spmtPrfmncVO)) {
+									throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "출하실적 등록")));		// E0003	{0} 시 오류가 발생하였습니다.
 								}
 
 								GdsInvntrVO updateGdsInvntrVO = new GdsInvntrVO();
@@ -244,8 +246,8 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 									spmtPrfmncVO.setBrndNm(cmnsGdsVO.getBrndNm());
 								}
 
-								if(0 == insertSpmtPrfmncDtl(spmtPrfmncVO)) {
-									throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+								if (0 == insertSpmtPrfmncDtl(spmtPrfmncVO)) {
+									throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "출하실적 등록")));		// E0003	{0} 시 오류가 발생하였습니다.
 								}
 
 								GdsInvntrVO updateGdsInvntrVO = new GdsInvntrVO();
@@ -284,7 +286,9 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 
 			spmtPrfmncList.get(0).setSpmtno(spmtno);
 
-			insertSpmtPrfmncCom(spmtPrfmncList.get(0));
+			if (0 == insertSpmtPrfmncCom(spmtPrfmncList.get(0))) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "출하실적 등록")));		// E0003	{0} 시 오류가 발생하였습니다.
+			}
 
 			for (SpmtPrfmncVO spmtPrfmncVO : spmtPrfmncList) {
 				spmtPrfmncVO.setSpmtno(spmtno);
@@ -304,8 +308,8 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 					spmtPrfmncVO.setBrndNm(cmnsGdsVO.getBrndNm());
 				}
 
-				if(0 == insertSpmtPrfmncDtl(spmtPrfmncVO)) {
-					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+				if (0 == insertSpmtPrfmncDtl(spmtPrfmncVO)) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "출하실적 등록")));		// E0003	{0} 시 오류가 발생하였습니다.
 				}
 
 				GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
@@ -370,13 +374,15 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 
 		List<SpmtPrfmncVO> deleteList = new ArrayList<>();
 
-
 		for (SpmtPrfmncVO spmtPrfmncVO : spmtPrfmncList) {
 
 			String ddlnYn = cmnsValidationService.selectChkDdlnYn(spmtPrfmncVO.getApcCd(), spmtPrfmncVO.getSpmtYmd());
 
 			if(ComConstants.CON_NONE.equals(ddlnYn)) {
-				deleteSpmtPrfmncCom(spmtPrfmncVO);
+
+				if (0 == deleteSpmtPrfmncCom(spmtPrfmncVO)) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "출하실적 삭제")));		// E0003	{0} 시 오류가 발생하였습니다.
+				}
 
 				deleteList = selectSpmtPrfmncDtl(spmtPrfmncVO);
 
@@ -403,8 +409,8 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 					spmtPrfmnc.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
 					spmtPrfmnc.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
 
-					if(0 == deleteSpmtPrfmncDtl(spmtPrfmnc)) {
-						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+					if (0 == deleteSpmtPrfmncDtl(spmtPrfmnc)) {
+						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "출하실적 삭제")));		// E0003	{0} 시 오류가 발생하였습니다.
 					}
 
 					GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
@@ -462,14 +468,17 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 		HashMap<String, Object> resultMap;
 		String spmtno = cmnsTaskNoService.selectSpmtno(spmtPrfmncList.get(0).getApcCd(), spmtPrfmncList.get(0).getSpmtYmd());
 		spmtPrfmncList.get(0).setSpmtno(spmtno);
-		insertSpmtPrfmncCom(spmtPrfmncList.get(0));
+
+		if (0 == insertSpmtPrfmncCom(spmtPrfmncList.get(0))) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "출하실적 등록")));		// E0003	{0} 시 오류가 발생하였습니다.
+		}
 
 		for (SpmtPrfmncVO spmtPrfmncVO : spmtPrfmncList) {
 
 			spmtPrfmncVO.setSpmtno(spmtno);
-			
-			if(0 == insertSpmtPrfmncDtl(spmtPrfmncVO)) {
-				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+
+			if (0 == insertSpmtPrfmncDtl(spmtPrfmncVO)) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "출하실적 등록")));		// E0003	{0} 시 오류가 발생하였습니다.
 			}
 
 			GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
@@ -501,9 +510,13 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 
 		for (SpmtPrfmncVO spmtPrfmncVO : spmtPrfmncList) {
 
-				deleteSpmtPrfmncCom(spmtPrfmncVO);
+
+				if (0 == deleteSpmtPrfmncCom(spmtPrfmncVO)) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "반품실적 삭제")));		// E0003	{0} 시 오류가 발생하였습니다.
+				}
 
 				deleteList = selectSpmtPrfmncDtl(spmtPrfmncVO);
+
 
 				for (SpmtPrfmncVO spmtPrfmnc : deleteList) {
 
@@ -511,8 +524,8 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 					spmtPrfmnc.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
 					spmtPrfmnc.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
 
-					if(0 == deleteSpmtPrfmncDtl(spmtPrfmnc)) {
-						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다."))); // E0000	{0}
+					if (0 == deleteSpmtPrfmncDtl(spmtPrfmnc)) {
+						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "반품실적 삭제")));		// E0003	{0} 시 오류가 발생하였습니다.
 					}
 
 					GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
