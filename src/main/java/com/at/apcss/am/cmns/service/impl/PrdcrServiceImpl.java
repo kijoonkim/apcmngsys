@@ -15,6 +15,7 @@ import com.at.apcss.am.cmns.service.PrdcrService;
 import com.at.apcss.am.cmns.vo.PrdcrVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : PrdcrServiceImpl.java
@@ -56,7 +57,9 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 	@Override
 	public HashMap<String, Object> insertPrdcr(PrdcrVO prdcrVO) throws Exception {
 
-		int insertedCnt = prdcrMapper.insertPrdcr(prdcrVO);
+		if(0 == prdcrMapper.insertPrdcr(prdcrVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
 
 		return null;
 	}
@@ -64,7 +67,9 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 	@Override
 	public HashMap<String, Object> updatePrdcr(PrdcrVO prdcrVO) throws Exception {
 
-		int updatedCnt = prdcrMapper.updatePrdcr(prdcrVO);
+		if(0 == prdcrMapper.updatePrdcr(prdcrVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
 
 		return null;
 	}
@@ -72,7 +77,9 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 	@Override
 	public HashMap<String, Object> updatePrdcrRprs(PrdcrVO prdcrVO) throws Exception {
 
-		int updatedCnt = prdcrMapper.updatePrdcrRprs(prdcrVO);
+		if(0 == prdcrMapper.updatePrdcrRprs(prdcrVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
 
 		return null;
 	}
@@ -80,7 +87,9 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 	@Override
 	public HashMap<String, Object> deletePrdcr(PrdcrVO prdcrVO) throws Exception {
 
-		int deletedCnt = prdcrMapper.deletePrdcr(prdcrVO);
+		if(0 == prdcrMapper.deletePrdcr(prdcrVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
 
 		return null;
 	}
@@ -111,11 +120,15 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 				throw new EgovBizException(getMessage("E0001"));
 			}
 			prdcrVO.setPrdcrCd(newPrdcr.getPrdcrCd());
-			prdcrMapper.insertPrdcr(prdcrVO);
+			if(0 == prdcrMapper.insertPrdcr(prdcrVO)) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+			}
 		}
 
 		for ( PrdcrVO prdcrVO : updateList ) {
-			prdcrMapper.updatePrdcr(prdcrVO);
+			if(0 == prdcrMapper.updatePrdcr(prdcrVO)) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+			}
 		}
 
 		return null;

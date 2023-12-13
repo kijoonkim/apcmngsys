@@ -13,7 +13,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<p>
-						<span style="font-weight:bold;">원물 생산자 상세 정보를 등록합니다.</span>
+						<span style="font-weight:bold;">생산자 상세 정보를 등록합니다.</span>
 					</p>
 				</div>
 				<div style="margin-left: auto;">
@@ -47,9 +47,6 @@
 							<th class="td_input">
 								<sbux-input id="prdcrDtl-inp-frmhsNm" name="prdcrDtl-inp-frmhsNm" uitype="text" class="form-control input-sm" maxlength='100' onchange='popPrdcrDtl.onChangeFrmhs'></sbux-input>
 							</th>
-							<th colspan='2'></th>
-						</tr>
-						<tr>
 							<th scope="row">연락처</th>
 							<th>
 								<sbux-input
@@ -63,6 +60,8 @@
 									onchange='popPrdcrDtl.onChangeFrmhs'
 								></sbux-input>
 							</th>
+						</tr>
+						<tr>
 							<th scope="row">지역</th>
 							<th class="td_input">
 								<sbux-select
@@ -77,7 +76,7 @@
 								></sbux-select>
 							</th>
 							<th scope="row">주소</th>
-							<th class="td_input">
+							<th colspan='3' class="td_input">
 								<sbux-input id="prdcrDtl-inp-frmhsAddr" name="prdcrDtl-inp-frmhsAddr" uitype="text" class="form-control input-sm" maxlength='200' onchange='popPrdcrDtl.onChangeFrmhs'></sbux-input>
 							</th>
 						</tr>
@@ -191,7 +190,10 @@
 		},
 		add: function(nRow, nCol) {
 			grdPrdcrDtlPop.setCellData(nRow, nCol, "N", true);
+			grdPrdcrDtlPop.setCellDisabled(nRow, 0, nRow, grdPrdcrDtlPop.getCols() - 1, false);
+			nRow++;
 			grdPrdcrDtlPop.addRow(true);
+			grdPrdcrDtlPop.setCellDisabled(nRow, 0, nRow, grdPrdcrDtlPop.getCols() - 1, true);
 		},
 		del: async function(nRow) {
 			const apcCd = SBUxMethod.get("prdcrDtl-inp-apcCd");
@@ -390,7 +392,10 @@
 					jsonPrdcrDtlPop.push(prdcrDtl);
 				});
         		grdPrdcrDtlPop.rebuild();
+        		
+        		let nRow = grdPrdcrDtlPop.getRows();
         		grdPrdcrDtlPop.addRow(true);
+        		grdPrdcrDtlPop.setCellDisabled(nRow, 0, nRow, grdPrdcrDtlPop.getCols() - 1, true);
 
 	        } catch (e) {
 	    		if (!(e instanceof Error)) {
