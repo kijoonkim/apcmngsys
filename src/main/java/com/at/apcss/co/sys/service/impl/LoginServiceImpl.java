@@ -1,8 +1,6 @@
 package com.at.apcss.co.sys.service.impl;
 
 import java.util.Map;
-import java.util.Optional;
-import java.util.OptionalInt;
 
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 
@@ -11,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.log.vo.ComLogVO;
 import com.at.apcss.co.sys.mapper.LoginMapper;
 import com.at.apcss.co.sys.service.LoginService;
 import com.at.apcss.co.sys.vo.LoginVO;

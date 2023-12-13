@@ -14,7 +14,6 @@ import org.springframework.util.StringUtils;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.msg.service.ComMsgService;
 import com.at.apcss.co.msg.vo.ComMsgVO;
-import com.tmax.tibero.Debug;
 
 public class ComMessageSource implements MessageSource {
 

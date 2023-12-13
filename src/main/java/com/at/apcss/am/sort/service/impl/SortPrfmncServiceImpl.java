@@ -19,7 +19,9 @@ import com.at.apcss.am.sort.mapper.SortPrfmncMapper;
 import com.at.apcss.am.sort.service.SortInptPrfmncService;
 import com.at.apcss.am.sort.service.SortPrfmncService;
 import com.at.apcss.am.sort.vo.SortPrfmncVO;
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : SortPrfmncServiceImpl.java
@@ -89,7 +91,9 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 	@Override
 	public HashMap<String, Object> insertSortPrfmnc(SortPrfmncVO sortPrfmncVO) throws Exception {
 
-		int insertedCnt = sortPrfmncMapper.insertSortPrfmnc(sortPrfmncVO);
+		if(0 == sortPrfmncMapper.insertSortPrfmnc(sortPrfmncVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
 
 		return null;
 	}
@@ -145,7 +149,9 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 	@Override
 	public HashMap<String, Object> updateSortPrfmnc(SortPrfmncVO sortPrfmncVO) throws Exception {
 
-		int updatedCnt = sortPrfmncMapper.updateSortPrfmnc(sortPrfmncVO);
+		if(0 == sortPrfmncMapper.updateSortPrfmnc(sortPrfmncVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
 
 		return null;
 	}
@@ -153,7 +159,9 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 	@Override
 	public HashMap<String, Object> deleteSortPrfmnc(SortPrfmncVO sortPrfmncVO) throws Exception {
 
-		int deletedCnt = sortPrfmncMapper.deleteSortPrfmnc(sortPrfmncVO);
+		if(0 == sortPrfmncMapper.deleteSortPrfmnc(sortPrfmncVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
 
 		return null;
 	}

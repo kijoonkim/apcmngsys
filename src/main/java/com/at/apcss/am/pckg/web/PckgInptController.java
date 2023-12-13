@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at.apcss.am.pckg.service.PckgInptService;
-import com.at.apcss.am.pckg.service.PckgPrfmncService;
 import com.at.apcss.am.pckg.vo.PckgInptVO;
-import com.at.apcss.am.pckg.vo.PckgPrfmncVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 

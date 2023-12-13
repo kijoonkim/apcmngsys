@@ -141,9 +141,6 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 	public HashMap<String, Object> insertSpmtPrfmncList(List<SpmtPrfmncVO> spmtPrfmncList) throws Exception {
 		HashMap<String, Object> resultMap;
 
-
-		int insertedCnt = 0;
-
 		if(ComConstants.EXCEL_YES.equals(spmtPrfmncList.get(0).getExcelYn())) {
 
 			for (SpmtPrfmncVO spmtPrfmncVO : spmtPrfmncList) {
@@ -200,7 +197,9 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 									spmtPrfmncVO.setBrndNm(cmnsGdsVO.getBrndNm());
 								}
 
-								insertedCnt = insertSpmtPrfmncDtl(spmtPrfmncVO);
+								if(0 == insertSpmtPrfmncDtl(spmtPrfmncVO)) {
+									throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+								}
 
 								GdsInvntrVO updateGdsInvntrVO = new GdsInvntrVO();
 								updateGdsInvntrVO.setApcCd(spmtPrfmncVO.getApcCd());
@@ -245,7 +244,9 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 									spmtPrfmncVO.setBrndNm(cmnsGdsVO.getBrndNm());
 								}
 
-								insertedCnt = insertSpmtPrfmncDtl(spmtPrfmncVO);
+								if(0 == insertSpmtPrfmncDtl(spmtPrfmncVO)) {
+									throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+								}
 
 								GdsInvntrVO updateGdsInvntrVO = new GdsInvntrVO();
 								updateGdsInvntrVO.setApcCd(spmtPrfmncVO.getApcCd());
@@ -303,7 +304,9 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 					spmtPrfmncVO.setBrndNm(cmnsGdsVO.getBrndNm());
 				}
 
-				insertedCnt += insertSpmtPrfmncDtl(spmtPrfmncVO);
+				if(0 == insertSpmtPrfmncDtl(spmtPrfmncVO)) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+				}
 
 				GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
 				gdsInvntrVO.setApcCd(spmtPrfmncVO.getApcCd());
@@ -365,8 +368,6 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 
 		HashMap<String, Object> resultMap;
 
-		int deletedCnt = 0;
-
 		List<SpmtPrfmncVO> deleteList = new ArrayList<>();
 
 
@@ -402,7 +403,9 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 					spmtPrfmnc.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
 					spmtPrfmnc.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
 
-					deletedCnt += deleteSpmtPrfmncDtl(spmtPrfmnc);
+					if(0 == deleteSpmtPrfmncDtl(spmtPrfmnc)) {
+						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+					}
 
 					GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
 					gdsInvntrVO.setApcCd(spmtPrfmnc.getApcCd());
@@ -456,7 +459,6 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 
 	@Override
 	public HashMap<String, Object> insertRtnSpmtPrfmncList(List<SpmtPrfmncVO> spmtPrfmncList) throws Exception {
-		int insertedCnt =0;
 		HashMap<String, Object> resultMap;
 		String spmtno = cmnsTaskNoService.selectSpmtno(spmtPrfmncList.get(0).getApcCd(), spmtPrfmncList.get(0).getSpmtYmd());
 		spmtPrfmncList.get(0).setSpmtno(spmtno);
@@ -465,7 +467,10 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 		for (SpmtPrfmncVO spmtPrfmncVO : spmtPrfmncList) {
 
 			spmtPrfmncVO.setSpmtno(spmtno);
-			insertedCnt += insertSpmtPrfmncDtl(spmtPrfmncVO);
+			
+			if(0 == insertSpmtPrfmncDtl(spmtPrfmncVO)) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+			}
 
 			GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
 			gdsInvntrVO.setApcCd(spmtPrfmncVO.getApcCd());
@@ -491,8 +496,6 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 
 		HashMap<String, Object> resultMap;
 
-		int deletedCnt = 0;
-
 		List<SpmtPrfmncVO> deleteList = new ArrayList<>();
 
 
@@ -508,7 +511,9 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 					spmtPrfmnc.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
 					spmtPrfmnc.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
 
-					deletedCnt += deleteSpmtPrfmncDtl(spmtPrfmnc);
+					if(0 == deleteSpmtPrfmncDtl(spmtPrfmnc)) {
+						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다."))); // E0000	{0}
+					}
 
 					GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
 					gdsInvntrVO.setApcCd(spmtPrfmnc.getApcCd());

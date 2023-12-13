@@ -3,8 +3,6 @@ package com.at.apcss.co.user.web;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -21,12 +19,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.at.apcss.am.clcln.vo.ClclnPrfmncVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.co.user.service.ComUserService;
 import com.at.apcss.co.user.vo.ComUserVO;
-import com.at.apcss.fm.farm.vo.FarmerInfoVO;
 
 import egovframework.com.cmm.EgovMessageSource;
 import egovframework.com.jwt.config.EgovJwtTokenUtil;

@@ -1,6 +1,5 @@
 package com.at.apcss.am.wgh.service.impl;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
-import com.at.apcss.am.constants.AmConstants;
 import com.at.apcss.am.wgh.mapper.WghPrfmncMapper;
 import com.at.apcss.am.wgh.service.WghPrfmncService;
 import com.at.apcss.am.wgh.vo.WghPrfmncDtlVO;

@@ -1,7 +1,6 @@
 package com.at.apcss.am.ordr.service;
 
 import java.util.HashMap;
-import java.util.List;
 
 import com.at.apcss.am.ordr.vo.OrdrRcvVO;
 import com.at.apcss.am.ordr.vo.OrdrVO;

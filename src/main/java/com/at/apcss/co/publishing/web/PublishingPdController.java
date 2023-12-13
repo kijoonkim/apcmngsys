@@ -4,7 +4,6 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.at.apcss.am.apc.service.ApcEvrmntStngService;
 import com.at.apcss.co.sys.controller.BaseController;
