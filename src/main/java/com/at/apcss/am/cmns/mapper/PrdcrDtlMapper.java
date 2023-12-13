@@ -63,4 +63,12 @@ public interface PrdcrDtlMapper {
 	 * @throws Exception
 	 */
 	public int updatePrdcrDtlDelYn(PrdcrDtlVO prdcrDtlVO) throws Exception;
+	
+	/**
+	 * 생산자 상세 정보 삭제
+	 * @param prdcrDtlVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deletePrdcrDtl(PrdcrDtlVO prdcrDtlVO) throws Exception;
 }

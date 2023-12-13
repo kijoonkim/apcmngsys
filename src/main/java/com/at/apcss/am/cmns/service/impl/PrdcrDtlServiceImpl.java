@@ -85,6 +85,16 @@ public class PrdcrDtlServiceImpl extends BaseServiceImpl implements PrdcrDtlServ
 
 		return null;
 	}
+	
+	@Override
+	public HashMap<String, Object> deletePrdcrDtl(PrdcrDtlVO prdcrDtlVO) throws Exception {
+
+		if(0 == prdcrDtlMapper.deletePrdcrDtl(prdcrDtlVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
+
+		return null;
+	}
 
 	@Override
 	public HashMap<String, Object> multiPrdcrDtlList(List<PrdcrDtlVO> prdcrList) throws Exception {

@@ -201,4 +201,27 @@
 			  AND SN 		= #{sn}
     	]]>
     </update>
+    
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrDtlMapper.deletePrdcr				-->
+	<!-- DESC : 생산자 상세 삭제.                                             			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.12.13  	하민우        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <delete id="deletePrdcrDtl" parameterType="com.at.apcss.am.cmns.vo.PrdcrDtlVO">
+    	<![CDATA[
+			DELETE /* com.at.apcss.am.cmns.mapper.PrdcrMapper.deletePrdcrDtl */
+			  FROM TB_PRDCR_DTL
+	    	 WHERE APC_CD 	= #{apcCd}
+	    	   AND PRDCR_CD = #{prdcrCd}
+    	]]>
+		<if test=' regYmd != null and regYmd !=""'>
+			   AND REG_YMD 	= #{regYmd}
+		</if>
+		<if test=' sn != null and sn !=""'>
+			   AND SN 		= #{sn}
+		</if>
+    </delete>
 </mapper>
