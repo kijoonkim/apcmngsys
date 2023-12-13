@@ -2316,11 +2316,10 @@
 					rowData.spmtPckgUnitCd = rowData.spmtPckgUnitCd.trim();
 				} else if (typeof rowData.spmtPckgUnitCd === "number") {
 					rowData.spmtPckgUnitCd = rowData.spmtPckgUnitCd.toString();
+					rowData.spmtPckgUnitCd = gfn_lpad(rowData.spmtPckgUnitCd, 4, '0');
 				} else {
 
 				}
-
-				rowData.spmtPckgUnitCd = gfn_lpad(rowData.spmtPckgUnitCd, 4, '0');
 
 				let chkInfo = _.find(
 									jsonExpSltSpmtPckgUnit,
@@ -2400,11 +2399,10 @@
 					rowData.prdcrCd = rowData.prdcrCd.trim();
 				} else if (typeof rowData.prdcrCd === "number") {
 					rowData.prdcrCd = rowData.prdcrCd.toString();
+					rowData.prdcrCd = gfn_lpad(rowData.prdcrCd, 4, '0');
 				} else {
 
 				}
-
-				rowData.prdcrCd = gfn_lpad(rowData.prdcrCd, 4, '0');
 
 				let chkInfo = _.find(jsonExpSltPrdcr, {prdcrCd: rowData.prdcrCd});
 				if (gfn_isEmpty(chkInfo)) {
@@ -2424,11 +2422,10 @@
 					rowData.warehouseSeCdFrom = rowData.warehouseSeCdFrom.trim();
 				} else if (typeof rowData.warehouseSeCdFrom === "number") {
 					rowData.warehouseSeCdFrom = rowData.warehouseSeCdFrom.toString();
+					rowData.warehouseSeCdFrom = gfn_lpad(rowData.warehouseSeCdFrom, 2, '0');
 				} else {
 
 				}
-
-				rowData.warehouseSeCdFrom = gfn_lpad(rowData.warehouseSeCdFrom, 2, '0');
 
 				let chkInfo = _.find(jsonExpSltWarehouse, {cdVl: rowData.warehouseSeCdFrom});
 				if (gfn_isEmpty(chkInfo)) {
@@ -2467,11 +2464,10 @@
 					rowData.pckgFcltCd = rowData.pckgFcltCd.trim();
 				} else if (typeof rowData.pckgFcltCd === "number") {
 					rowData.pckgFcltCd = rowData.pckgFcltCd.toString();
+					rowData.pckgFcltCd = gfn_lpad(rowData.pckgFcltCd, 4, '0');
 				} else {
 
 				}
-
-				rowData.pckgFcltCd = gfn_lpad(rowData.pckgFcltCd, 4, '0');
 
 				let chkInfo = _.find(jsonExpSltPckgFclt, {value: rowData.pckgFcltCd});
 				if (gfn_isEmpty(chkInfo)) {
@@ -2491,11 +2487,10 @@
 					rowData.warehouseSeCdTo = rowData.warehouseSeCdTo.trim();
 				} else if (typeof rowData.warehouseSeCdTo === "number") {
 					rowData.warehouseSeCdTo = rowData.warehouseSeCdTo.toString();
+					rowData.warehouseSeCdTo = gfn_lpad(rowData.warehouseSeCdTo, 2, '0');
 				} else {
 
 				}
-
-				rowData.warehouseSeCdTo = gfn_lpad(rowData.warehouseSeCdTo, 2, '0');
 
 				let chkInfo = _.find(jsonExpSltWarehouse, {cdVl: rowData.warehouseSeCdTo});
 				if (gfn_isEmpty(chkInfo)) {
@@ -2523,11 +2518,10 @@
 						rowData[colNm] = rowData[colNm].trim();
 					} else if (typeof rowData[colNm] === "number") {
 						rowData[colNm] = rowData[colNm].toString();
+						rowData[colNm] = gfn_lpad(rowData[colNm], 2, '0');
 					} else {
 
 					}
-
-					rowData[colNm] = gfn_lpad(rowData[colNm], 2, '0');
 
 					let grdInfo = _.find(jsonObj, {grdCd: rowData[colNm]});
 					if (gfn_isEmpty(grdInfo)) {
