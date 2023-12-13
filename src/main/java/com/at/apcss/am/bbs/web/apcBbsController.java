@@ -20,6 +20,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -38,6 +39,9 @@ import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.fm.bbs.vo.BbsFileVO;
 import com.at.apcss.fm.bbs.vo.BbsVO;
+
+import egovframework.com.cmm.service.EgovProperties;
+
 import com.at.apcss.am.bbs.service.apcBbsService;
 import com.at.apcss.am.bbs.vo.apcBbsCmntVO;
 import com.at.apcss.am.bbs.vo.apcBbsFileVO;
@@ -77,6 +81,7 @@ public class apcBbsController extends BaseController {
 
 	//파일 업로드 경로
 	private String uploadPath = "C:\\app\\upload";
+	Environment env;
 
 	// 게시판
 	@Resource(name= "apcBbsService")
@@ -339,6 +344,8 @@ public class apcBbsController extends BaseController {
 	    public ResponseEntity<HashMap<String, Object>> handleFileUpload(@RequestParam("files") List<MultipartFile> files,@RequestParam("bbsNo") String bbsNo, RedirectAttributes redirectAttributes) throws Exception{
 
 	    	HashMap<String,Object> resultMap = new HashMap<String,Object>();
+	    	//확장자 허용 리스트
+	    	String whiteListFileUploadExtensions = env.getProperty("Globals.fileUpload.Extensions");
 
 	    	for (MultipartFile file : files) {
 	    		apcBbsFileVO apcBbsFileVO = new apcBbsFileVO();
@@ -350,6 +357,20 @@ public class apcBbsController extends BaseController {
 
 	    		//서버에 저장할 파일이름 fileextension으로 .jsp이런식의  확장자 명을 구함
 	    		String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."),fileRealName.length());
+
+	    		if (fileRealName == null || "".equals(fileRealName)) {
+	    			logger.debug("No file name.");
+	    			continue;
+				} else {
+					if ("".equals(fileExtension)) { // 확장자 없는 경우 처리 불가
+						throw new SecurityException("[No file extension] File extension not allowed.");
+					}
+					if ((whiteListFileUploadExtensions+".").contains("."+fileExtension.toLowerCase()+".")) {
+						logger.debug("File extension allowed.");
+					} else {
+						throw new SecurityException("["+fileExtension+"] File extension not allowed.");
+					}
+				}
 
 	    		UUID uuid = UUID.randomUUID();
 	    		//System.out.println(uuid.toString());
