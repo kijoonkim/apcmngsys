@@ -4,6 +4,7 @@
 <html lang="ko">
 <head>
 	<meta charset="UTF-8">
+	<title>title : SBUx2.6</title>
 </head>
 <style>
 	table {
@@ -296,7 +297,7 @@
 				$("#cmntList").append("<td id=cmnt style=text-align:center>"+ " " +"</td>");
 				$("#cmntList").append("<td id=cmnt style=border-left:20px><xmp id=cmntXmp>"+bbsCmnt.user+" : "+bbsCmnt.cmntCn+"</xmp></td>");
 				if('${loginVO.userId}' == item.sysFrstInptUserId){
-					$("#cmntList").append("<td id=cmnt>"+"<button id=btnDeleteCmnt name=btnDeleteCmnt class=btn btn-xs  style=width:100% onclick=fn_deleteComment("+bbsCmnt.cmntNo+")>삭제</button></td>");
+					$("#cmntList").append("<td id=cmnt>"+"<button id=btnDeleteCmnt name=btnDeleteCmnt class=btn btn-xs  style=width:100% onclick=fn_deleteCommentComment("+bbsCmnt.cmntNo+","+bbsCmnt.cmntChildNo+")>삭제</button></td>");
 				}
 			}
 			$("#cmntList").append("</tr>");
@@ -314,6 +315,16 @@
 	async function fn_deleteComment(cmntNo){
 		let orngbbsNo = SBUxMethod.get("dtl-input-orngBbsNo");
 		let postJsonPromise = gfn_postJSON("/am/bbs/deleteCmntBbs.do", { apcCd : gv_apcCd, bbsNo : orngbbsNo, cmntNo : cmntNo});
+		const data = await postJsonPromise;
+		remove_Comment();
+		fn_selectComment(orngbbsNo);
+	}
+	
+	async function fn_deleteCommentComment(cmntNo, cmntChildNo){
+		console.log('대댓글 삭제');
+		let orngbbsNo = SBUxMethod.get("dtl-input-orngBbsNo");
+		console.log('cmntChildNo', cmntChildNo);
+		let postJsonPromise = gfn_postJSON("/am/bbs/deleteCmntBbs.do", { apcCd : gv_apcCd, bbsNo : orngbbsNo, cmntNo : cmntNo, cmntChildNo : cmntChildNo});
 		const data = await postJsonPromise;
 		remove_Comment();
 		fn_selectComment(orngbbsNo);
