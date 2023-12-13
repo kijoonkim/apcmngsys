@@ -889,6 +889,8 @@
 					grdOutordrInfo.setCellData(nRow, inptCmndQnttCol, psbltyCmndQntt);
 					grdOutordrInfo.setCellData(nRow, inptCmndWghtCol, psbltyCmndQntt*wght);
 				}
+			} else if (invntrQntt <= 0) {
+				alert("재고가 없습니다.");
 			}
     	}
     }
@@ -923,7 +925,6 @@
 			const rowSts = grdOutordrInfo.getRowStatus(i);
 			if (rowData.checked == "true"){
 				if (gfn_isEmpty(rowData.inptCmndQntt)){
-					break;
 					gfn_comAlert("W0002", "지시수량");		//	W0002	{0}을/를 선택하세요.
 					return;
 				}
