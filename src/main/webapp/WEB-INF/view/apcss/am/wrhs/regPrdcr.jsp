@@ -31,7 +31,8 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title" style="line-height: 30px;"> ▶ ${comMenuVO.menuNm}</h3><!-- 생산자관리 -->
+					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 생산자관리 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>
@@ -120,7 +121,7 @@
     <div id="body-modal-oprtr">
     	<jsp:include page="../../am/popup/oprtrPopup.jsp"></jsp:include>
     </div>
-    
+
 	<!-- 생산자 상세 Modal -->
     <div>
         <sbux-modal
@@ -529,7 +530,7 @@
     		grdApcPrdcr.deleteRow(nRow);
     	}
 	}
-	
+
 	// 생산자 상세 팝업 호출
 	const fn_modalPrdcrDtl = async function (nRow){
 		let rowData = grdApcPrdcr.getRowData(nRow);

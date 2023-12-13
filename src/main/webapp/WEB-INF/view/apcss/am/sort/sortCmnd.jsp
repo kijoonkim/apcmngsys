@@ -30,7 +30,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 선별지시조회 -->
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 선별지시조회 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnDocSortCmnd" name="btnDocSortCmnd" uitype="normal" text="선별지시서" class="btn btn-sm btn-primary" onclick="fn_docSortCmnd"></sbux-button>

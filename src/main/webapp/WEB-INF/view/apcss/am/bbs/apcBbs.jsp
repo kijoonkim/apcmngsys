@@ -22,6 +22,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<title>title : APC게시판</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -33,7 +34,7 @@
                 <div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- APC게시판 -->
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- APC게시판 -->
 				</div>
 				<div style="margin-left: auto;">
 					<div class="sbt-search-button" style="text-align:right;">
