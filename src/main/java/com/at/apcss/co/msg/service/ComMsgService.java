@@ -1,7 +1,6 @@
 package com.at.apcss.co.msg.service;
 
 import java.util.List;
-import java.util.Map;
 
 import com.at.apcss.co.msg.vo.ComMsgVO;
 

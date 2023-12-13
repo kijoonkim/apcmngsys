@@ -1,11 +1,9 @@
 package com.at.apcss.co.sys.web;
 
-import java.util.Base64;
 import java.util.HashMap;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.egovframe.rte.fdl.cryptography.EgovCryptoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

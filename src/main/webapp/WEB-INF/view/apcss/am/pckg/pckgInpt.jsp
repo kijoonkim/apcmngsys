@@ -17,7 +17,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
@@ -50,20 +50,20 @@
 					></sbux-button>
 
 					<sbux-button
-						id="btnSearch"
-						name="btnSearch"
-						uitype="normal"
-						class="btn btn-sm btn-outline-danger"
-						text="조회"
-						onclick="fn_search"
-					></sbux-button>
-					<sbux-button
 						id="btnDelete"
 						name="btnDelete"
 						uitype="normal"
 						class="btn btn-sm btn-outline-danger"
 						text="삭제"
 						onclick="fn_delete"
+					></sbux-button>
+					<sbux-button
+						id="btnSearch"
+						name="btnSearch"
+						uitype="normal"
+						class="btn btn-sm btn-outline-danger"
+						text="조회"
+						onclick="fn_search"
 					></sbux-button>
 				</div>
 			</div>

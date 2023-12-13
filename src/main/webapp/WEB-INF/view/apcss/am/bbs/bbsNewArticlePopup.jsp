@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 	<meta charset="UTF-8">
     <title>title : SBUx2.6</title>
@@ -11,7 +11,9 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div style="margin-left: auto;">
+					<!--
 					<sbux-button id="test" name="test" uitype="normal" text="test" class="btn btn-sm btn-outline-danger" onclick="fn_bbsNewFileUpload"></sbux-button>
+					 -->
 					<sbux-button id="btnsaveNewArticle" name="btnsaveNewArticle" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_ArticleCreate"></sbux-button>
 					<sbux-button id="btnEndNewArticle" name="btnEndNewArticle" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-bbsNewArticlePopup','fn_search')"></sbux-button>
 
@@ -68,7 +70,7 @@
 			                                        <div id="drop-area01">
 													    <p>첨부파일을 여기에 드래그 해주세요</p>
 													    <label for="bbsNewFile" class="custom-file-upload">첨부파일</label>
-													    <input type="file" name="newfiles" id="bbsNewFile" multiple style="display: none;">
+													    <input type="file" name="newfiles" id="bbsNewFile" multiple style="display: none;" accept=".gif , .jpg , .jpeg , .png , .xls , .xlsx">
 													    <input type="file" name="newfilesa" id="bbsNewFileList" multiple style="display: none;">
 													    <ul id="bbsNew-file-list"></ul>
 													</div>
@@ -198,7 +200,8 @@
     });
 
 
-
+ // 허용하려는 확장자들
+    const allowedExtensions = ['.gif' , '.jpg' , '.jpeg' , '.png' , '.xls' , '.xlsx' , 'zip'];
 
 	function bbsNewShowFiles(newfiles) {
 		console.log("=====bbsNewShowFiles");
@@ -211,6 +214,15 @@
 		if(newfiles != null){
 			//새로운 파일
 			for (var i = 0; i < newfiles.length; i++) {
+				var newfileName = newfiles[i].name;
+				var fileExtension = '.' + newfileName.split('.').pop();
+
+				if (allowedExtensions.indexOf(fileExtension.toLowerCase()) === -1) {
+			    	alert('올바른 확장자를 선택하세요.');
+			    	newfiles = null; // 파일 선택 취소
+			    	return false;
+			    }
+
 				newFileList.items.add(newfiles[i]);
 			}
 		}

@@ -31,8 +31,8 @@
                     <h3 class="box-title"> ▶ ${menuNm}</h3><!-- 선별실적등록 -->
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-dark" onclick="fn_search" text="조회"></sbux-button>
 					<sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-dark" onclick="fn_save" text="저장"></sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-dark" onclick="fn_search" text="조회"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -246,8 +246,30 @@
 						</li>
 					</ul>
 					<div class="ad_tbl_toplist">
-						<sbux-button id="btnDwnld" name="btnDwnld" uitype="normal" text="서식받기" class="btn btn-sm btn-outline-danger" onclick="fn_dwnld" ></sbux-button>
-						<sbux-button id="btnUld" name="btnUld" uitype="normal" text="올리기" class="btn btn-sm btn-outline-danger" onclick="fn_upload"></sbux-button>
+						<sbux-button 
+							id="btnSave" 
+							name="btnSave" 
+							uitype="normal" 
+							class="btn btn-sm btn-outline-dark" 
+							onclick="fn_save" 
+							text="저장"
+						></sbux-button>
+						<sbux-button 
+							id="btnDwnld" 
+							name="btnDwnld" 
+							uitype="normal" 
+							text="서식받기" 
+							class="btn btn-sm btn-outline-danger" 
+							onclick="fn_dwnld" 
+						></sbux-button>
+						<sbux-button 
+							id="btnUld" 
+							name="btnUld" 
+							uitype="normal" 
+							text="올리기" 
+							class="btn btn-sm btn-outline-danger" 
+							onclick="fn_upload"
+						></sbux-button>
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
@@ -1552,9 +1574,26 @@
 				},
 				typeinfo : {gotoCurrentClick: true, clearbutton: true}
 			},
-			{caption: ["품목"], 		ref: 'itemCd',   		type:'combo',  width:'80px',    style:'text-align:center; background:#FFF8DC;',
-				typeinfo : {ref:'jsonExpSltItem', 		displayui : false,	itemcount: 10, label:'label', value:'value'}},
-			{caption: ["품종"], 		ref: 'vrtyCd',   		type:'combo',  width:'80px',    style:'text-align:center; background:#FFF8DC;',
+			{
+				caption: ["품목"], 		
+				ref: 'itemCd',   		
+				type:'combo',  
+				width:'80px',    
+				style:'text-align:center; background:#FFF8DC;',
+				typeinfo : {
+					ref:'jsonExpSltItem', 		
+					displayui : false,	
+					itemcount: 10, 
+					label:'label', 
+					value:'value'
+				}
+			},
+			{
+				caption: ["품종"], 		
+				ref: 'vrtyCd',   		
+				type:'combo',  
+				width:'80px',    
+				style:'text-align:center; background:#FFF8DC;',
 				typeinfo : {ref:'jsonExpSltVrty', 		displayui : false,	itemcount: 10, label:'label', value:'value'}},
 			{caption: ["대표생산자"], 		ref: 'prdcrCd',   		type:'combo',  width:'80px',    style:'text-align:center; background:#FFF8DC;',
 				typeinfo : {ref:'jsonExpSltPrdcr', 		displayui : false,	itemcount: 10, label:'prdcrNm', value:'prdcrCd'}},
@@ -2128,11 +2167,10 @@
 					rowData.itemCd = rowData.itemCd.trim();
 				} else if (typeof rowData.itemCd === "number") {
 					rowData.itemCd = rowData.itemCd.toString();
+					rowData.itemCd = gfn_lpad(rowData.itemCd, 4, '0');
 				} else {
 					
 				}
-				
-				rowData.itemCd = gfn_lpad(rowData.itemCd, 4, '0');
 				
 				let chkInfo = _.find(jsonExpSltItem, {value: rowData.itemCd});
 				if (gfn_isEmpty(chkInfo)) {
@@ -2152,11 +2190,10 @@
 					rowData.vrtyCd = rowData.vrtyCd.trim();
 				} else if (typeof rowData.vrtyCd === "number") {
 					rowData.vrtyCd = rowData.vrtyCd.toString();
+					rowData.vrtyCd = gfn_lpad(rowData.vrtyCd, 4, '0');
 				} else {
 					
 				}
-				
-				rowData.vrtyCd = gfn_lpad(rowData.vrtyCd, 4, '0');
 				
 				let chkInfo = _.find(jsonExpSltVrty, {value: rowData.vrtyCd});
 				if (gfn_isEmpty(chkInfo)) {
@@ -2176,11 +2213,10 @@
 					rowData.spcfctCd = rowData.spcfctCd.trim();
 				} else if (typeof rowData.spcfctCd === "number") {
 					rowData.spcfctCd = rowData.spcfctCd.toString();
+					rowData.spcfctCd = gfn_lpad(rowData.spcfctCd, 4, '0');
 				} else {
 					
 				}
-				
-				rowData.spcfctCd = gfn_lpad(rowData.spcfctCd, 4, '0');
 				
 				let chkInfo = _.find(jsonExpSltSpcfct, {spcfctCd: rowData.spcfctCd});
 				if (gfn_isEmpty(chkInfo)) {
@@ -2200,11 +2236,10 @@
 					rowData.prdcrCd = rowData.prdcrCd.trim();
 				} else if (typeof rowData.prdcrCd === "number") {
 					rowData.prdcrCd = rowData.prdcrCd.toString();
+					rowData.prdcrCd = gfn_lpad(rowData.prdcrCd, 4, '0');
 				} else {
 					
 				}
-				
-				rowData.prdcrCd = gfn_lpad(rowData.prdcrCd, 4, '0');
 				
 				let chkInfo = _.find(jsonExpSltPrdcr, {prdcrCd: rowData.prdcrCd});
 				if (gfn_isEmpty(chkInfo)) {
@@ -2224,11 +2259,10 @@
 					rowData.warehouseSeCdFrom = rowData.warehouseSeCdFrom.trim();
 				} else if (typeof rowData.warehouseSeCdFrom === "number") {
 					rowData.warehouseSeCdFrom = rowData.warehouseSeCdFrom.toString();
+					rowData.warehouseSeCdFrom = gfn_lpad(rowData.warehouseSeCdFrom, 2, '0');
 				} else {
 					
 				}
-				
-				rowData.warehouseSeCdFrom = gfn_lpad(rowData.warehouseSeCdFrom, 2, '0');
 				
 				let chkInfo = _.find(jsonExpSltWarehouse, {cdVl: rowData.warehouseSeCdFrom});
 				if (gfn_isEmpty(chkInfo)) {
@@ -2248,11 +2282,10 @@
 					rowData.warehouseSeCdTo = rowData.warehouseSeCdTo.trim();
 				} else if (typeof rowData.warehouseSeCdTo === "number") {
 					rowData.warehouseSeCdTo = rowData.warehouseSeCdTo.toString();
+					rowData.warehouseSeCdTo = gfn_lpad(rowData.warehouseSeCdTo, 2, '0');
 				} else {
 					
 				}
-				
-				rowData.warehouseSeCdTo = gfn_lpad(rowData.warehouseSeCdTo, 2, '0');
 				
 				let chkInfo = _.find(jsonExpSltWarehouse, {cdVl: rowData.warehouseSeCdTo});
 				if (gfn_isEmpty(chkInfo)) {
@@ -2272,11 +2305,10 @@
 					rowData.sortFcltCd = rowData.sortFcltCd.trim();
 				} else if (typeof rowData.sortFcltCd === "number") {
 					rowData.sortFcltCd = rowData.sortFcltCd.toString();
+					rowData.sortFcltCd = gfn_lpad(rowData.sortFcltCd, 4, '0');
 				} else {
 					
 				}
-				
-				rowData.sortFcltCd = gfn_lpad(rowData.sortFcltCd, 4, '0');
 				
 				let chkInfo = _.find(jsonExpSltSortFclt, {value: rowData.sortFcltCd});
 				if (gfn_isEmpty(chkInfo)) {
@@ -2300,11 +2332,10 @@
 					rowData[colNm] = rowData[colNm].trim();
 				} else if (typeof rowData[colNm] === "number") {
 					rowData[colNm] = rowData[colNm].toString();
+					rowData[colNm] = gfn_lpad(rowData[colNm], 2, '0');
 				} else {
 					
 				}
-				
-				rowData[colNm] = gfn_lpad(rowData[colNm], 2, '0');
 				
 				if (!gfn_isEmpty(rowData[colNm])) {			
 					let grdInfo = _.find(jsonObj, {grdCd: rowData[colNm]});

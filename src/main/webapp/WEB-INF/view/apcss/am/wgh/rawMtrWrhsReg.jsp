@@ -51,14 +51,6 @@
 						text="초기화" 
 					></sbux-button>
 					<sbux-button 
-						id="btnSearch" 
-						name="btnSearch" 
-						uitype="normal" 
-						class="btn btn-sm btn-outline-danger" 
-						onclick="fn_search" 
-						text="조회" 
-					></sbux-button>
-					<sbux-button 
 						id="btnSave" 
 						name="btnSave" 
 						uitype="normal" 
@@ -73,6 +65,14 @@
 						class="btn btn-sm btn-outline-danger" 
 						onclick="fn_delete" 
 						text="삭제" 
+					></sbux-button>
+					<sbux-button 
+						id="btnSearch" 
+						name="btnSearch" 
+						uitype="normal" 
+						class="btn btn-sm btn-outline-danger" 
+						onclick="fn_search" 
+						text="조회" 
 					></sbux-button>
 				</div>
 			</div>
@@ -1574,7 +1574,7 @@
 				ref: 'itemCd',   	
 				type:'combo',  
 				width:'80px',    
-				style:'text-align:center',
+				style:'text-align:center;background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltItem', 	
 					displayui : false,	
@@ -1588,7 +1588,7 @@
 				ref: 'vrtyCd',   	
 				type:'combo',  
 				width:'80px',    
-				style:'text-align:center',
+				style:'text-align:center;background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltVrty', 	
 					displayui : false,	
@@ -1602,7 +1602,7 @@
 				ref: 'prdcrCd', 
 				type:'combo',  
 				width:'80px',    
-				style:'text-align:center',
+				style:'text-align:center;background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltPrdcr', 	
 					displayui : false,	
@@ -1616,7 +1616,7 @@
 				ref: 'wrhsSeCd',   	
 				type:'combo',  
 				width:'80px',    
-				style:'text-align:center',
+				style:'text-align:center;background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltWrhsSeCd', 	
 					displayui : false,	
@@ -1630,7 +1630,7 @@
 				ref: 'gdsSeCd',   	
 				type:'combo',  
 				width:'80px',    
-				style:'text-align:center',
+				style:'text-align:center;background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltGdsSeCd', 	
 					displayui : false,	
@@ -1644,7 +1644,7 @@
 				ref: 'trsprtSeCd',  
 				type:'combo',  
 				width:'80px',    
-				style:'text-align:center',
+				style:'text-align:center;background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltTrsprtSeCd', 
 					displayui : false,	
@@ -1658,7 +1658,7 @@
 				ref: 'warehouseSeCd',	
 				type:'combo',  
 				width:'80px',    
-				style:'text-align:center',
+				style:'text-align:center;background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltWarehouseSeCd', 	
 					displayui : false,	
@@ -1686,7 +1686,7 @@
 				ref: 'prdctnYr',    
 				type:'input',  
 				width:'80px',	
-				style:'text-align:center'
+				style:'text-align:center;background-color:#FFF8DC;'
 			},
 	        {
 				caption: ["차량번호"],	
@@ -1707,7 +1707,7 @@
 				ref: 'wrhsWght',    
 				type:'input',  
 				width:'60px',   
-				style:'text-align:right'
+				style:'text-align:right;background-color:#FFF8DC;'
 			},
 		);
 
@@ -2352,11 +2352,10 @@
 					rowData.itemCd = rowData.itemCd.trim();
 				} else if (typeof rowData.itemCd === "number") {
 					rowData.itemCd = rowData.itemCd.toString();
+					rowData.itemCd = gfn_lpad(rowData.itemCd, 4, '0');
 				} else {
 					
 				}
-				
-				rowData.itemCd = gfn_lpad(rowData.itemCd, 4, '0');
 				
 				let chkInfo = _.find(jsonExpSltItem, {value: rowData.itemCd});
 				if (gfn_isEmpty(chkInfo)) {
@@ -2376,11 +2375,10 @@
 					rowData.vrtyCd = rowData.vrtyCd.trim();
 				} else if (typeof rowData.vrtyCd === "number") {
 					rowData.vrtyCd = rowData.vrtyCd.toString();
+					rowData.vrtyCd = gfn_lpad(rowData.vrtyCd, 4, '0');
 				} else {
 					
 				}
-				
-				rowData.vrtyCd = gfn_lpad(rowData.vrtyCd, 4, '0');
 				
 				let chkInfo = _.find(jsonExpSltVrty, {value: rowData.vrtyCd});
 				if (gfn_isEmpty(chkInfo)) {
@@ -2400,11 +2398,10 @@
 					rowData.prdcrCd = rowData.prdcrCd.trim();
 				} else if (typeof rowData.prdcrCd === "number") {
 					rowData.prdcrCd = rowData.prdcrCd.toString();
+					rowData.prdcrCd = gfn_lpad(rowData.prdcrCd, 4, '0');
 				} else {
 					
 				}
-				
-				rowData.prdcrCd = gfn_lpad(rowData.prdcrCd, 4, '0');
 				
 				let chkInfo = _.find(jsonExpSltPrdcr, {prdcrCd: rowData.prdcrCd});
 				if (gfn_isEmpty(chkInfo)) {
@@ -2487,11 +2484,10 @@
 					rowData.warehouseSeCd = rowData.warehouseSeCd.trim();
 				} else if (typeof rowData.warehouseSeCd === "number") {
 					rowData.warehouseSeCd = rowData.warehouseSeCd.toString();
+					rowData.warehouseSeCd = gfn_lpad(rowData.warehouseSeCd, 2, '0');
 				} else {
 					
 				}
-				
-				rowData.warehouseSeCd = gfn_lpad(rowData.warehouseSeCd, 2, '0');
 				
 				let chkInfo = _.find(jsonExpSltWarehouseSeCd, {value: rowData.warehouseSeCd});
 				if (gfn_isEmpty(chkInfo)) {
@@ -2511,11 +2507,10 @@
 					rowData.pltBxCd = rowData.pltBxCd.trim();
 				} else if (typeof rowData.pltBxCd === "number") {
 					rowData.pltBxCd = rowData.pltBxCd.toString();
+					rowData.pltBxCd = gfn_lpad(rowData.pltBxCd, 2, '0');
 				} else {
 					
 				}
-				
-				rowData.pltBxCd = gfn_lpad(rowData.pltBxCd, 2, '0');
 				
 				let chkInfo = _.find(jsonExpSltBxKnd, {value: rowData.pltBxCd});
 				if (gfn_isEmpty(chkInfo)) {
@@ -2549,11 +2544,10 @@
 							rowData[colNm] = rowData[colNm].trim();
 						} else if (typeof rowData[colNm] === "number") {
 							rowData[colNm] = rowData[colNm].toString();
+							rowData[colNm] = gfn_lpad(rowData[colNm], 2, '0');
 						} else {
 							
 						}
-						
-						rowData[colNm] = gfn_lpad(rowData[colNm], 2, '0');
 						
 						let grdInfo = _.find(jsonObj, {grdCd: rowData[colNm]});
 						if (gfn_isEmpty(grdInfo)) {

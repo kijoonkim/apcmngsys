@@ -34,7 +34,9 @@
                 <div class="sbt-wrap-full">
                     <!--Button 영역-->
                     <div class="sbt-search-button" style="text-align:right;">
+                    	<!--
                    		<sbux-button id="test" name="test" uitype="normal" wrap-class="sbt-btn-reset" text="test" onclick="fn_fileUpload(0)"></sbux-button>
+                    	 -->
                         <sbux-button id="btn_create" name="btn_create" uitype="normal" wrap-class="sbt-btn-reset" text="신규" onclick="fn_create"></sbux-button>
                         <sbux-button id="btn_delete" name="btn_delete" uitype="normal" wrap-class="sbt-btn-reset" text="삭제" onclick="fn_delete"></sbux-button>
                         <sbux-button id="btn_save" name="btn_save" uitype="normal" wrap-class="sbt-btn-reset" text="저장" onclick="fn_save"></sbux-button>
@@ -197,7 +199,7 @@
 												 <div id="drop-area">
 												    <p>첨부파일을 여기에 드래그 해주세요</p>
 												    <label for="bbsfile" class="custom-file-upload">첨부파일</label>
-												    <input type="file" name="files" id="bbsfile" multiple style="display: none;">
+												    <input type="file" name="files" id="bbsfile" multiple style="display: none;" accept=".gif , .jpg , .jpeg , .png , .xls , .xlsx">
 												    <input type="file" name="filesa" id="bbsfileList" multiple style="display: none;">
 												    <ul id="org-file-list"></ul>
 												    <ul id="file-list"></ul>
@@ -759,6 +761,9 @@
 	    showFiles(files);
 	});
 
+	// 허용하려는 확장자들
+    const allowedExtensions = ['.gif' , '.jpg' , '.jpeg' , '.png' , '.xls' , '.xlsx' , 'zip'];
+
 	function showFiles(newfiles) {
 
 		var newFileList = new DataTransfer();
@@ -770,6 +775,15 @@
 		if(newfiles != null){
 			//새로운 파일
 			for (var i = 0; i < newfiles.length; i++) {
+
+				var newfileName = newfiles[i].name;
+				var fileExtension = '.' + newfileName.split('.').pop();
+
+				if (allowedExtensions.indexOf(fileExtension.toLowerCase()) === -1) {
+			    	alert('올바른 확장자를 선택하세요.');
+			    	newfiles = null; // 파일 선택 취소
+			    	return false;
+			    }
 				newFileList.items.add(newfiles[i]);
 			}
 		}

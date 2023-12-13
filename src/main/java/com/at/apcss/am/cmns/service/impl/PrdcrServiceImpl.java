@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +13,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.at.apcss.am.cmns.mapper.PrdcrMapper;
+import com.at.apcss.am.cmns.service.PrdcrDtlService;
 import com.at.apcss.am.cmns.service.PrdcrService;
+import com.at.apcss.am.cmns.vo.PrdcrDtlVO;
 import com.at.apcss.am.cmns.vo.PrdcrVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : PrdcrServiceImpl.java
@@ -37,6 +42,9 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 	@Autowired
 	private PrdcrMapper prdcrMapper;
 
+	@Resource(name="prdcrDtlService")
+	private PrdcrDtlService prdcrDtlService;
+
 	@Override
 	public PrdcrVO selectPrdcr(PrdcrVO prdcrVO) throws Exception {
 
@@ -56,7 +64,9 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 	@Override
 	public HashMap<String, Object> insertPrdcr(PrdcrVO prdcrVO) throws Exception {
 
-		int insertedCnt = prdcrMapper.insertPrdcr(prdcrVO);
+		if(0 == prdcrMapper.insertPrdcr(prdcrVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
 
 		return null;
 	}
@@ -64,7 +74,9 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 	@Override
 	public HashMap<String, Object> updatePrdcr(PrdcrVO prdcrVO) throws Exception {
 
-		int updatedCnt = prdcrMapper.updatePrdcr(prdcrVO);
+		if(0 == prdcrMapper.updatePrdcr(prdcrVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
 
 		return null;
 	}
@@ -72,7 +84,9 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 	@Override
 	public HashMap<String, Object> updatePrdcrRprs(PrdcrVO prdcrVO) throws Exception {
 
-		int updatedCnt = prdcrMapper.updatePrdcrRprs(prdcrVO);
+		if(0 == prdcrMapper.updatePrdcrRprs(prdcrVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
 
 		return null;
 	}
@@ -80,7 +94,18 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 	@Override
 	public HashMap<String, Object> deletePrdcr(PrdcrVO prdcrVO) throws Exception {
 
-		int deletedCnt = prdcrMapper.deletePrdcr(prdcrVO);
+		PrdcrDtlVO prdcrDtlVO = new PrdcrDtlVO();
+		prdcrDtlVO.setApcCd(prdcrVO.getApcCd());
+		prdcrDtlVO.setPrdcrCd(prdcrVO.getPrdcrCd());
+		
+		HashMap<String, Object> rtnObj = prdcrDtlService.deletePrdcrDtl(prdcrDtlVO);
+		if (rtnObj != null) {
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+		
+		if(0 == prdcrMapper.deletePrdcr(prdcrVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
 
 		return null;
 	}
@@ -111,11 +136,15 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 				throw new EgovBizException(getMessage("E0001"));
 			}
 			prdcrVO.setPrdcrCd(newPrdcr.getPrdcrCd());
-			prdcrMapper.insertPrdcr(prdcrVO);
+			if(0 == prdcrMapper.insertPrdcr(prdcrVO)) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+			}
 		}
 
 		for ( PrdcrVO prdcrVO : updateList ) {
-			prdcrMapper.updatePrdcr(prdcrVO);
+			if(0 == prdcrMapper.updatePrdcr(prdcrVO)) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+			}
 		}
 
 		return null;

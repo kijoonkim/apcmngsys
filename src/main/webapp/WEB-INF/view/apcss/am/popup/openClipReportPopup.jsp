@@ -20,7 +20,7 @@
 String reportKey = request.getParameter("reportKey");
 %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 	<meta charset="UTF-8">
     <title>title : 클립리포트 팝업</title>
