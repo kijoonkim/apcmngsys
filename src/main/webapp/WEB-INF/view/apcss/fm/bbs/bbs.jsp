@@ -197,7 +197,7 @@
 												 <div id="drop-area">
 												    <p>첨부파일을 여기에 드래그 해주세요</p>
 												    <label for="bbsfile" class="custom-file-upload">첨부파일</label>
-												    <input type="file" name="files" id="bbsfile" multiple style="display: none;">
+												    <input type="file" name="files" id="bbsfile" multiple style="display: none;" accept=".gif , .jpg , .jpeg , .png , .xls , .xlsx">
 												    <input type="file" name="filesa" id="bbsfileList" multiple style="display: none;">
 												    <ul id="org-file-list"></ul>
 												    <ul id="file-list"></ul>

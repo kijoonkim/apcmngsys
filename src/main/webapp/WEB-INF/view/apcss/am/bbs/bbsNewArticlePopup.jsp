@@ -68,7 +68,7 @@
 			                                        <div id="drop-area01">
 													    <p>첨부파일을 여기에 드래그 해주세요</p>
 													    <label for="bbsNewFile" class="custom-file-upload">첨부파일</label>
-													    <input type="file" name="newfiles" id="bbsNewFile" multiple style="display: none;">
+													    <input type="file" name="newfiles" id="bbsNewFile" multiple style="display: none;" accept=".gif , .jpg , .jpeg , .png , .xls , .xlsx">
 													    <input type="file" name="newfilesa" id="bbsNewFileList" multiple style="display: none;">
 													    <ul id="bbsNew-file-list"></ul>
 													</div>
@@ -211,6 +211,8 @@
 		if(newfiles != null){
 			//새로운 파일
 			for (var i = 0; i < newfiles.length; i++) {
+
+
 				newFileList.items.add(newfiles[i]);
 			}
 		}
