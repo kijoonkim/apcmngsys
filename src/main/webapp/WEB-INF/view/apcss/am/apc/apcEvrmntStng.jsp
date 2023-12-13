@@ -609,7 +609,7 @@
     </div>
     <!-- 생산작업자 등록 Modal -->
     <div>
-        <sbux-modal id="modal-oprtr" name="modal-oprtr" uitype="middle" header-title="생산작업자 등록" body-html-id="body-modal-oprtr" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-oprtr" name="modal-oprtr" uitype="middle" header-title="생산작업자 등록" body-html-id="body-modal-oprtr" footer-is-close-button="false" header-is-close-button="false" style="width:900px"></sbux-modal>
     </div>
     <div id="body-modal-oprtr">
     	<jsp:include page="../apc/oprtrMngPopup.jsp"></jsp:include>
