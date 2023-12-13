@@ -19,6 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<title>title : 재고정보조회</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -589,7 +590,7 @@
             "callback": fn_colShow2,			//콜백함수명
         }
     };
-     
+
     // 엑셀 다운로드
     function fn_excelDwnld2() {
     	sortInvntrGrid.exportLocalExcel("선별재고", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
@@ -613,7 +614,7 @@
     		sortInvntrGrid.setColHidden(i, false);
     	}
 	}
-	
+
 	const fn_callSelectGrid2List = async function(pageSize, pageNo) {
 		let crtrYmd = SBUxMethod.get("srch-dtp-crtrYmd");
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
@@ -791,7 +792,7 @@
             "callback": fn_colShow3,				//콜백함수명
         }
     };
-     
+
     // 엑셀 다운로드
     function fn_excelDwnld3() {
     	gdsInvntrGrid.exportLocalExcel("상품재고", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});

@@ -19,6 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<title>title : 재소이송확정</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -1138,7 +1139,7 @@
 			}
 		}
 	}
-	
+
 	//그리드 체크박스 전체 선택
     function fn_checkAllInvntrTrnsf(grid, obj) {
         var gridList = grid.getGridDataAll();
@@ -1154,7 +1155,7 @@
         }
     	grid.clickCell(getRow, getCol);
     }
-	
+
     function fn_checkAllInvntrTrnsfCfmtn(grid, obj) {
         var gridList = grid.getGridDataAll();
         var checkedYn = obj.checked ? "Y" : "N";

@@ -19,6 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<title>title : 출하실적조회</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
@@ -321,7 +322,7 @@
         }
     	grid.clickCell(getRow, getCol);
     }
-    
+
 	const fn_setValue = function(){
 		let checkedYnCol = grdSpmtPrfmnc.getColRef("checkedYn");
 		let nCol = grdSpmtPrfmnc.getCol();

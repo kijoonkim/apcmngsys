@@ -18,6 +18,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<title>title : 정산자료등록</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 <body>

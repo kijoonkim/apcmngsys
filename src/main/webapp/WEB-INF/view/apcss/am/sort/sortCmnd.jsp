@@ -19,6 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<title>title : 선별지시조회</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
@@ -185,7 +186,7 @@
 		fn_initSBSelect();
 
 	});
-	
+
 	const fn_dtpChange = function(){
 		let strtCmndYmd = SBUxMethod.get("srch-dtp-strtCmndYmd");
 		let endCmndYmd = SBUxMethod.get("srch-dtp-endCmndYmd");
@@ -245,7 +246,7 @@
 	    grdSortCmnd = _SBGrid.create(SBGridProperties);
 	    grdSortCmnd.bind( "afterpagechanged" , "fn_pagingGrdSortCmnd" );
 	}
-	
+
 	/**
      * @description 메뉴트리그리드 컨텍스트메뉴 json
      * @type {object}
@@ -433,7 +434,7 @@
 		}
     	var delMsg = "삭제 하시겠습니까?";
 		if(confirm(delMsg)){
-			
+
 			const postJsonPromise = gfn_postJSON("/am/sort/deleteSortCmndList.do", deleteList);
 	    	const data = await postJsonPromise;
 
@@ -458,7 +459,7 @@
 		SBUxMethod.closeModal(modalId);
 	}
 
-	
+
 	/*
 	* @name fn_getPrdcrs
 	* @description 생산자 자동완성 목록 가져오기
@@ -467,7 +468,7 @@
 		jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
 		jsonPrdcr = gfn_setFrst(jsonPrdcr);
 	}
-	
+
 	/**
 	 * @name fn_onInputPrdcrNm
 	 * @description 생산자명 입력 시 event : autocomplete
@@ -517,9 +518,9 @@
 	 * @description 생산자 선택 popup callback 처리
 	 */
 	const fn_setPrdcr = async function(prdcr) {
-		
+
 		await fn_getPrdcrs();
-		
+
 		if (!gfn_isEmpty(prdcr)) {
 			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
 			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
@@ -554,7 +555,7 @@
 		}
 
 	}
-	
+
 	const fn_onChangeSrchPrdcrIdentno = function(obj) {
 
 		if (gfn_isEmpty(SBUxMethod.get("srch-inp-prdcrIdentno"))) {
@@ -592,7 +593,7 @@
 		  for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
 		  return b;
 	}
-	
+
 
 	/** 품종 modal **/
     const fn_modalVrty = function() {
@@ -650,7 +651,7 @@
  		const sortCmndno = sortCmndnoList.join("','");
  		gfn_popClipReport("선별지시서", "am/sortCmndDoc.crf", {apcCd: gv_selectedApcCd, sortCmndno: sortCmndno});
  	}
-	
+
  	/**
      * @name fn_reset
      * @description 검색조건 초기화 버튼
@@ -664,7 +665,7 @@
 		SBUxMethod.set('srch-inp-prdcrNm', "");
 		fn_clearPrdcr();
 	}
- 	
+
 	/**
      * @name fn_onChangeApc
      * @description APC 변경 시 리셋
@@ -685,7 +686,7 @@
 			SBUxMethod.set("srch-inp-vrtyCd", "");
 		})
 	})
-	
+
     //그리드 체크박스 전체 선택
     function fn_checkAllSortCmnd(grid, obj) {
         var gridList = grid.getGridDataAll();

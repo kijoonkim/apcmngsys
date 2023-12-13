@@ -19,6 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<title>title : 포장지시조회</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
@@ -163,7 +164,7 @@
 			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonComSpcfct, 	gv_selectedApcCd, itemCd);		// 규격
 		}
 	}
-	
+
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createPckgCmndGrid();
@@ -173,7 +174,7 @@
 
 		fn_initSBSelect();
 	});
-	
+
 	const fn_dtpChange = function(){
 		let cmndYmdFrom = SBUxMethod.get("srch-dtp-cmndYmdFrom");
 		let cmndYmdTo = SBUxMethod.get("srch-dtp-cmndYmdTo");
@@ -232,7 +233,7 @@
 	    grdPckgCmnd = _SBGrid.create(SBGridProperties);
 	    grdPckgCmnd.bind( "afterpagechanged" , "fn_pagingPckgCmndList" );
 	}
-	
+
 	/**
      * @description 메뉴트리그리드 컨텍스트메뉴 json
      * @type {object}
@@ -264,7 +265,7 @@
             "callback": fn_colShow,				//콜백함수명
         }
     };
-     
+
     // 엑셀 다운로드
     function fn_excelDwnld() {
     	grdPckgCmnd.exportLocalExcel("포장지시", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
@@ -404,7 +405,7 @@
 	 * @description 포장지시서 발행
 	 */
     const fn_cmndDocPckg = async function() {
-		
+
     	const cmndNoList = [];
 		const allData = grdPckgCmnd.getGridDataAll();
 		allData.forEach((item) => {
@@ -514,7 +515,7 @@
  		SBUxMethod.set('srch-slt-spcfctCd', "");
 		gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, '');
  	}
-     
+
   	// APC 선택 변경
  	const fn_onChangeApc = async function() {
  		let result = await Promise.all([
@@ -530,7 +531,7 @@
 			SBUxMethod.set("srch-inp-vrtyCd", "");
 		})
 	})
-	
+
     //그리드 체크박스 전체 선택
     function fn_checkAllPckgCmnd(grid, obj) {
         var gridList = grid.getGridDataAll();

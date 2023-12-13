@@ -4,6 +4,7 @@
 <html lang="ko">
 <head>
 	<meta charset="UTF-8">
+	<title>title : 게시판 팝업</title>
 </head>
 <style>
 	table {

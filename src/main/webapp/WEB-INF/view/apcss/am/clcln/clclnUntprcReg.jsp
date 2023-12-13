@@ -19,6 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<title>title : 정산단가등록</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -291,7 +292,7 @@
 			}
 		}
 	}
- 	
+
 	/**
 	 * @name fn_checkAll
 	 * @description 전체 선택 체크박스

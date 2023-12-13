@@ -18,6 +18,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<title>title : 선별실적등록</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
