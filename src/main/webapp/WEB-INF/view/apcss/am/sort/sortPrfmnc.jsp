@@ -19,6 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<title>title : 선별실적조회</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
@@ -548,10 +549,10 @@
     	// grid clear
     	jsonSortPrfmnc.length = 0;
     	grdSortPrfmnc.clearStatus();
-    	
+
     	jsonSortInptPrfmnc.length = 0;
     	grdSortInptPrfmnc.refresh();
-    	
+
     	fn_setGrdSortPrfmnc(pageSize, pageNo);
 	}
 
@@ -566,7 +567,7 @@
     	grdSortPrfmnc.setCellData(1, grdSortPrfmnc.getColRef("checkedYn"), ref, true, false);
 		fn_setGrdSortPrfmnc(pageSize, pageNo);
 	}
-    
+
     /**
      * @name fn_setGrdSortPrfmnc
      * @description 선별실적 조회
@@ -877,7 +878,7 @@
 		  for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
 		  return b;
  	}
-     
+
      /**
  	* @name fn_onInputPrdcrNm
  	* @description 생산자명 입력 시 event : autocomplete

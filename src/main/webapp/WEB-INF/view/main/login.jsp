@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<title>title : 로그인</title>
 	<%@ include file="../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../frame/inc/headerScript.jsp" %>
 </head>
@@ -15,11 +16,11 @@
         <div class="apc-login-wrap">
             <div class="apc-login-box">
                 <h3>
-                    <sbux-label id="idxLabel_norm" name="label_norm" uitype="normal" text="Login"></sbux-label></span>
+                    <sbux-label id="idxLabel_norm" name="label_norm" uitype="normal" text="Login"></sbux-label>
                 </h3>
                 <form id="frm" name="frm" method="post" action="/actionLogin.do">
                     <div class="apc-id-wrap">
-                    	
+
                         <sbux-input id="id" name="id" uitype="text"
                             required
                             style="width:100%"
@@ -37,7 +38,7 @@
                         <sbux-checkbox id="chkSaveIdYn" name="chkSaveIdYn" uitype="normal"
                             text="아이디저장"
                             true-value="Y"
-                            false-value="N" 
+                            false-value="N"
                         ></sbux-checkbox>
                     </div>
                     <div class="apc-login-wrap">
@@ -52,7 +53,7 @@
         </div>
 
     </div>
-    
+
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
     //로그인 버튼 클릭
@@ -67,36 +68,36 @@
             alert("비밀번호를 입력하세요.");
             return;
         }
-        
+
         //사용자아이디 쿠키 설정
         fn_setCookie();
-        
+
         fn_checkLogin();
-        
-        
+
+
         return false;
     }
-    
+
     /**
      * @name fn_checkLogin
      * @description set post header programId
      * @function
      */
     const fn_checkLogin = async function() {
-    	
+
         const id = SBUxMethod.get("id");
         const password = SBUxMethod.get("password");
-    	
+
         const header = {
                 //"Content-Type": "application/x-www-form-urlencoded",
                 "sysPrgrmId": "login"
             }
-        
+
         //let loginformData = new FormData(document.getElementById("frm"));
         let loginformData = new FormData();
         loginformData.append("id", id);
         loginformData.append("password", password);
-        
+
         const response = await fetch(
                 "/co/sys/loginCheck", {
                     method: "POST",
@@ -110,7 +111,7 @@
             );
 
    		const data = await response.json();
-    		
+
         /*
     	const postJsonPromise = gfn_postJSON("/co/sys/loginCheck", {
     			userId: id,
@@ -122,15 +123,15 @@
         	gfn_comAlert(data.resultCode, data.resultMessage);
         	return;
     	} else {
-    		
+
     		const loginCode = data.loginCode;
     		const loginMessage = data.loginMessage;
-    		
+
     		if (!gfn_isEmpty(loginMessage)) {
     			alert(loginMessage);
     			return;
     		}
-    		
+
     		switch(loginCode) {
     		case "USER_UNRECEIVED":	// 승인대기 id
     			alert("APC생산관리 승인대기상태입니다.");
@@ -154,31 +155,31 @@
        				// id 접속 강제종료
        				fn_forceLogin();
        			}
-    			
+
     			break;
-    		
+
     		case "LOGIN_SUCCESS":	// 로그인성공
     			window.location.href = "/actionMain.do";
     			break;
     		}
     	}
     }
-    
+
     // 기존 접속 종료처리
     const fn_forceLogin = async function() {
     	const id = SBUxMethod.get("id");
         const password = SBUxMethod.get("password");
-    	
+
         const header = {
                 //"Content-Type": "application/x-www-form-urlencoded",
                 "sysPrgrmId": "login"
             }
-        
+
         //let loginformData = new FormData(document.getElementById("frm"));
         let loginformData = new FormData();
         loginformData.append("id", id);
         loginformData.append("password", password);
-        
+
         const response = await fetch(
                 "/co/sys/forceLogin", {
                     method: "POST",
@@ -192,7 +193,7 @@
             );
 
    		const data = await response.json();
-    		
+
         /*
     	const postJsonPromise = gfn_postJSON("/co/sys/loginCheck", {
     			userId: id,
@@ -204,15 +205,15 @@
         	gfn_comAlert(data.resultCode, data.resultMessage);
         	return;
     	} else {
-    		
+
     		const loginCode = data.loginCode;
     		const loginMessage = data.loginMessage;
-    		
+
     		if (!gfn_isEmpty(loginMessage)) {
     			alert(loginMessage);
     			return;
     		}
-    		
+
     		switch(loginCode) {
     		case "USER_UNRECEIVED":	// 승인대기 id
     			alert("APC생산관리 승인대기상태입니다.");
@@ -232,22 +233,22 @@
     		case "USER_DUPLICATE":	// 중복계정
     			alert("동일ID의 기존 접속정보가 존재합니다.");
     			break;
-    		
+
     		case "LOGIN_SUCCESS":	// 로그인성공
     			window.location.href = "/actionMain.do";
     			break;
     		}
     	}
     }
-    
-	
-    
+
+
+
     //사용자아이디 쿠키 설정
     const fn_setCookie = function() {
     	// 사용자아이디
     	let userId = SBUxMethod.get("id");
     	let saveIdYn = SBUxMethod.get("chkSaveIdYn").chkSaveIdYn;
-                
+
         if (saveIdYn === "Y") {
             //cookie 에 사용자아이디, 아이디체크 여부(Y) 저장
             // 기본적으로 30일동안 기억하게 함. 일수를 조절하려면 * 30에서 숫자를 조절하면 됨
@@ -260,7 +261,7 @@
         	gfn_setCookie("savedUserId", userId, {"max-age": -1});
 	    }
     }
-    
+
     function fn_setUserId() {
     	let savedUserId = gfn_getCookie("savedUserId");
     	if (savedUserId) {
@@ -268,16 +269,16 @@
     		SBUxMethod.set("chkSaveIdYn", "Y");
     	}
     }
-    
+
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
-        // setting saved userId 
+        // setting saved userId
         fn_setUserId();
-		
+
     	<c:if test="${loginMessage != null}">
 			alert('${loginMessage}');
 		</c:if>
-		
+
 	    const frm = document.getElementById("frm");
 	    frm.addEventListener("keyup", function (event) {
 	      	if (event.keyCode === 13) {
@@ -286,7 +287,7 @@
 			}
 	    });
     });
-    
+
 </script>
 <!-- //inline scripts related to this page -->
 

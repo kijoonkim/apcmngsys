@@ -19,6 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<title>title : 원물입고계획등록</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -110,9 +111,9 @@
 						</tr>
 					</tbody>
 				</table>
-				
+
 				<br/>
-				
+
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
@@ -363,7 +364,7 @@
 			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd)	// 품종
 		]);
 	}
-	
+
 	/**
 	 * @name fn_onChangeSrchVrtyCd
 	 * @description 품종 선택 변경 event
@@ -372,7 +373,7 @@
 		let vrtyCd = obj.value;
 		let itemCd = "";
 		const vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd});
-		
+
 		if (!gfn_isEmpty(vrtyCd)) {
 			itemCd = vrtyInfo.mastervalue;
 		} else {
@@ -719,7 +720,7 @@
 		jsonPrdcrDtl 	= await gfn_getPrdcrs(gv_selectedApcCd);
 		jsonPrdcrDtl 	= gfn_setFrst(jsonPrdcrDtl);
 	}
-	
+
 	/**
 	 * @name getByteLengthOfString
 	 * @description 글자 byte 크기 계산
@@ -777,9 +778,9 @@
 	 * @description 생산자 선택 popup callback 처리
 	 */
 	const fn_setPrdcr = async function(prdcr) {
-		
+
 		await fn_getPrdcrs();
-		
+
 		if (!gfn_isEmpty(prdcr)) {
 			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
 			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
@@ -820,7 +821,7 @@
 		}
 
 	}
-	
+
 	const fn_onChangeSrchPrdcrIdentno = function(obj) {
 
 		if (gfn_isEmpty(SBUxMethod.get("srch-inp-prdcrIdentno"))) {
@@ -853,8 +854,8 @@
 	* 조회조건 생산자 팝업 관련 function
 	* End
 	*/
-	
-	
+
+
 
 	/*
 	* 상세 정보 생산자 팝업 관련 function
@@ -923,7 +924,7 @@
 			SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 		}
 	}
-	
+
 	const fn_onChangeSrchPrdcrIdentnoDtl = function(obj) {
 
 		if (gfn_isEmpty(SBUxMethod.get("dtl-inp-prdcrIdentno"))) {
@@ -944,7 +945,7 @@
 		if (gfn_isEmpty(prdcrInfo)) {
 			return;
 		}
-		
+
 		SBUxMethod.set("dtl-inp-prdcrCd", prdcrInfo.prdcrCd);
 		SBUxMethod.set("dtl-inp-prdcrNm", prdcrInfo.prdcrNm);
 		SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
@@ -952,14 +953,14 @@
 		fn_setPrdcrDtl(prdcrInfo);
 
 	}
-	
+
 	/*
 	* 상세 정보 생산자 팝업 관련 function
 	* End
 	*/
 
-	
-	
+
+
 	const fn_selectItemList = async function(){
 		let apcCd = gv_selectedApcCd;
     	let postJsonPromise = gfn_postJSON("/am/cmns/selectApcCmnsItemList.do", {apcCd : apcCd});
@@ -1111,7 +1112,7 @@
  			return;
  		}
  	}
-     
+
      const fn_onChangeApc = async function() {
  		fn_clearPrdcr();
  		fn_clearPrdcrDtl();
