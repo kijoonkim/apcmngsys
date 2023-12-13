@@ -774,7 +774,7 @@
 				caption: [item.grdKndNm],
 				ref: item.grdKnd,
 				type:'combo',
-				width:'80px',
+				width:'160px',
 				style: 'text-align:center;background-color:#FFF8DC;',
 				userattr: {colNm: "stdGrd"},
 				typeinfo: {

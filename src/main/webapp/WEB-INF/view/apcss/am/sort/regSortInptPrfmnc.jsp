@@ -631,7 +631,7 @@
             {caption: ["품종"], 		ref: 'vrtyCd',		type:'combo',  width:'100px', style: 'text-align:center',
             	typeinfo: {ref:'jsonApcVrty', label:'label', value:'value', displayui : false}
             },
-            {caption: ["규격"], 	 	ref: 'spcfctCd',    type:'combo',  width:'100px', style: 'text-align:center;background-color:#FFF8DC;',
+            {caption: ["규격"], 	 	ref: 'spcfctCd',    type:'combo',  width:'200px', style: 'text-align:center;background-color:#FFF8DC;',
             	userattr: {colNm: "spcfctCd"},
             	typeinfo: {ref:'jsonApcSpcfct', label:'spcfctNm', value:'spcfctCd', oneclickedit: true}
             },
@@ -645,7 +645,7 @@
 				caption: [item.grdKndNm],
 				ref: item.grdKnd,
 				type:'combo',
-				width:'80px',
+				width:'140px',
 				style: 'text-align:center;background-color:#FFF8DC;',
 				userattr: {colNm: "stdGrd"},
 				typeinfo: {ref: _jsonId, label:'grdNm', value:'grdCd', displayui : false, oneclickedit: true}
