@@ -23,7 +23,7 @@
 	<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
+    <title>title : 프로그램 요청사항</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -33,7 +33,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 프로그램 요청사항 -->
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 프로그램 요청사항 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
@@ -80,14 +80,14 @@
 					<div id="sb-area-grdPrgrmImprvDmnd" style="width:100%;height:594px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
-				
+
 			</div>
 		</div>
 	</section>
 </body>
 <script type="text/javascript">
 	var jsonComPic			= [];		// PIC
-	
+
 	var jsonPrgrmImprvDmnd	= [];
 
 	const fn_initSBSelect = async function() {
@@ -101,7 +101,7 @@
 	window.addEventListener('DOMContentLoaded', function(e) {
 		SBUxMethod.set("srch-dtp-dmndYmdFrom", gfn_dateToYmd(new Date()));
 		SBUxMethod.set("srch-dtp-dmndYmdTo", gfn_dateToYmd(new Date()));
-		
+
 		fn_createPrgrmImprvDmndGrid();
 		fn_initSBSelect();
 	})
@@ -148,7 +148,7 @@
         grdPrgrmImprvDmnd = _SBGrid.create(SBGridProperties);
         grdPrgrmImprvDmnd.bind( "afterpagechanged" , "fn_pagingPrgrmImprvDmnd" );
     }
-	
+
 	// 행 삭제
 	async function fn_procRow(nRow, nCol) {
    		if(grdPrgrmImprvDmnd.getRowStatus(nRow) == 0 || grdPrgrmImprvDmnd.getRowStatus(nRow) == 2){
@@ -160,7 +160,7 @@
        		}
        	}
     }
-	
+
 	// 프로그램 개선요청 삭제
 	async function fn_delete(prfrmImprvDmndVO){
     	let postJsonPromise = gfn_postJSON("/co/dmnd/deletePrfrmImprvDmnd.do", prfrmImprvDmndVO);
@@ -183,16 +183,16 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
-	
+
 	// 프로그램 개선요청 목록 조회 (조회 버튼)
     async function fn_search() {
     	let recordCountPerPage = grdPrgrmImprvDmnd.getPageSize();  		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = 1;
     	grdPrgrmImprvDmnd.movePaging(currentPageNo);
     }
-	
+
 	let newJsonPrgrmImprvDmnd = [];
-	
+
 	// 프로그램 개선요청 목록 조회 호출
 	async function fn_callSelectPrgrmImprvDmndList(recordCountPerPage, currentPageNo){
 		jsonPrgrmImprvDmnd = [];
@@ -247,14 +247,14 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 	}
-	
+
 	// 페이징
     async function fn_pagingPrgrmImprvDmnd(){
     	let recordCountPerPage = grdPrgrmImprvDmnd.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-    	let currentPageNo = grdPrgrmImprvDmnd.getSelectPageIndex(); 
+    	let currentPageNo = grdPrgrmImprvDmnd.getSelectPageIndex();
     	fn_callSelectPrgrmImprvDmndList(recordCountPerPage, currentPageNo);
     }
-	
+
 	// 프로그램 개선요청 수정
     async function fn_save(){
     	let saveList = [];
@@ -304,14 +304,14 @@
 	        }
 		}
     }
-	
+
  	// APC 선택 변경
 	const fn_onChangeApc = async function() {
 		let result = await Promise.all([
 			fn_initSBSelect()
 		]);
 	}
- 	
+
 	const fn_dtpChange = function(){
   		let dmndYmdFrom = SBUxMethod.get("srch-dtp-dmndYmdFrom");
   		let dmndYmdTo = SBUxMethod.get("srch-dtp-dmndYmdTo");

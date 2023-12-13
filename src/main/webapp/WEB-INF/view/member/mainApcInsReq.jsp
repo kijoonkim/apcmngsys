@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<title>메인</title>
 	<%@ include file="../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../frame/inc/headerScript.jsp" %>
 
@@ -34,7 +35,7 @@
 
 	let prvTabMenuId = "";
 
-	
+
 	var firstLoad = 0;
     var secondLaod = 0;
 	//const sysPrgrmId = "main";
@@ -123,7 +124,7 @@
      	 var pMenuId = menuInfo.pid;
           var pMenuNm = menuInfo.value;
         }
-       
+
         if (gfn_isEmpty(pMenuId)) {
         	pMenuId = _menuNo;
         	pMenuNm = menuInfo.text;
@@ -577,7 +578,8 @@
             </sbux-menu>
 			<div class="user-info-wrap">
 				<c:if test="${loginVO != null && loginVO.id != null}">
-					<span class="name-t">${loginVO.name}</span>님 반갑습니다.
+					<c:set scope="request" var="userName" value="${loginVO.name}"></c:set>
+					<span class="name-t"><c:out value='${userName}'></c:out></span>님 반갑습니다.
                 <ul class="user-login-menu">
 					<li style="background-color:#149FFF;"><sbux-button id="btnPrfrmImprvDmnd" name="btnPrfrmImprvDmnd" uitype="normal" text="개선요청" style="width:64px; text-align:center; display:inline-block; font-size:12px;" onclick="fn_modalPopup"></sbux-button></li>
                     <li><a href="/actionLogout.do">로그아웃</a></li>

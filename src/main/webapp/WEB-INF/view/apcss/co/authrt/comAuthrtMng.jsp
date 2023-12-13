@@ -19,6 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<title>title : 권한그룹관리</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -28,39 +29,39 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 권한그룹관리 -->
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 권한그룹관리 -->
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button 
-						id="btnCreate" 
-						name="btnCreate" 
-						uitype="normal" 
-						text="신규" 
-						class="btn btn-sm btn-outline-danger" 
+					<sbux-button
+						id="btnCreate"
+						name="btnCreate"
+						uitype="normal"
+						text="신규"
+						class="btn btn-sm btn-outline-danger"
 						onclick="fn_create"
 					></sbux-button>
-					<sbux-button 
-						id="btnSave" 
-						name="btnSave" 
-						uitype="normal" 
-						text="저장" 
-						class="btn btn-sm btn-outline-danger" 
+					<sbux-button
+						id="btnSave"
+						name="btnSave"
+						uitype="normal"
+						text="저장"
+						class="btn btn-sm btn-outline-danger"
 						onclick="fn_save"
 					></sbux-button>
-					<sbux-button 
-						id="btnDelete" 
-						name="btnDelete" 
-						uitype="normal" 
-						text="삭제" 
-						class="btn btn-sm btn-outline-danger" 
+					<sbux-button
+						id="btnDelete"
+						name="btnDelete"
+						uitype="normal"
+						text="삭제"
+						class="btn btn-sm btn-outline-danger"
 						onclick="fn_delete"
 					></sbux-button>
-					<sbux-button 
-						id="btnSearch" 
-						name="btnSearch" 
-						uitype="normal" 
-						text="조회" 
-						class="btn btn-sm btn-outline-danger" 
+					<sbux-button
+						id="btnSearch"
+						name="btnSearch"
+						uitype="normal"
+						text="조회"
+						class="btn btn-sm btn-outline-danger"
 						onclick="fn_search"
 					></sbux-button>
 				</div>
@@ -91,12 +92,12 @@
 						<tr>
 							<th scope="row" class="th_bg">시스템구분</th>
 							<td class="td_input" colspan="3" style="border-right: hidden;">
-								<sbux-select 
-									class="form-control input-sm" 
-									id="srch-slt-sysId" 
-									name="srch-slt-sysId" 
-									uitype="single" 
-									jsondata-ref="jsonComSysId" 
+								<sbux-select
+									class="form-control input-sm"
+									id="srch-slt-sysId"
+									name="srch-slt-sysId"
+									uitype="single"
+									jsondata-ref="jsonComSysId"
 									unselected-text="선택"
 								></sbux-select>
 							</td>
@@ -200,12 +201,12 @@
 										</li>
 									</ul>
 								 	<div class="ad_tbl_toplist">
-										<sbux-button 
-											id="btn-saveUi" 
-											name="btn-saveUi" 
-											uitype="normal" 
-											text="UI권한저장" 
-											class="btn btn-sm btn-outline-danger" 
+										<sbux-button
+											id="btn-saveUi"
+											name="btn-saveUi"
+											uitype="normal"
+											text="UI권한저장"
+											class="btn btn-sm btn-outline-danger"
 											onclick="fn_saveComAuthrtUi"
 										></sbux-button>
 									</div>
@@ -244,12 +245,12 @@
 	var jsonComSysId 		= [];	// 시스템유형	srch-slt-sysId		SYS_ID
     var jsonComAuthrtType 	= [];	// 권한유형	dtl-slt-authrtType	AUTHRT_TYPE
 	var jsonAplcnType		= [];	// 적용유형	APLCN_TYPE
-    
+
     /* SBGrid */
     var grdComAuth;			// 권한그룸 목록
     var grdComAuthMenu;		// 권한메뉴 목록
 	var grdComAuthrtUi;		// 화면UI권한 목록
-    
+
     /* SBGrid Data (JSON) */
     var jsonComAuth = [];
     var jsonComAuthMenu = [];
@@ -259,27 +260,27 @@
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_init();
 	});
-	
+
     /**
      * @name fn_init
      * @description initialize Form
      * @function
      */
 	const fn_init = async function() {
-		
+
 		lv_prvAuthrtId = "";
 		lv_prvMenuId = "";
-    	
+
 		await fn_initSBSelect();
 		fn_createGrdComAuth();
 		fn_createGrdComAuthMenu();
 		fn_createGrdAuthrtUi();
-		
+
 		if(gv_userType == '10'){
 			fn_initDisable();
 		}
 	}
-	
+
     /**
      * @name fn_initSBSelect
      * @description SBSelect 초기화
@@ -296,7 +297,7 @@
     	]);
 
     	switch (gv_userType) {
-    	
+
     		case "00":
     			break;
     		case "01":
@@ -311,7 +312,7 @@
     			jsonComAuthrtType.length = 0;
     			break;
     	}
-    	
+
     	SBUxMethod.refresh("srch-slt-sysId");
     	SBUxMethod.refresh("dtl-slt-authrtType");
     }
@@ -324,12 +325,12 @@
     const fn_initComCd = async function() {
     	jsonAplcnType = await gfn_getComCdDtls("APLCN_TYPE");
     }
-    
+
     const fn_initDisable = function() {
     	SBUxMethod.set('srch-slt-sysId', 'AM');
 		SBUxMethod.attr('srch-slt-sysId', 'disabled', 'true');
     }
-    
+
     /**
      * @name fn_createGrdComAuth
      * @description 권한그룹 그리드 초기화
@@ -454,8 +455,8 @@
         ];
         grdComAuthrtUi = _SBGrid.create(SBGridProperties);
     }
-    
-    
+
+
     const fn_create = function(){
 
     	if (!SBUxMethod.get("srch-slt-sysId")) {
@@ -546,7 +547,7 @@
 
 		lv_prvAuthrtId = "";
 		lv_prvMenuId = "";
-		
+
         if (!SBUxMethod.get("srch-slt-sysId")) {
         	gfn_comAlert("W0001", "시스템구분");		//	W0001	{0}을/를 선택하세요.
             return;
@@ -576,13 +577,13 @@
     const fn_setGrdComAuth = async function(pageSize, pageNo) {
 
 		fn_initComAuthrtUi();
-		
+
     	grdComAuth.clearStatus();
 
 		let sysId = SBUxMethod.get("srch-slt-sysId");
 		let authrtNm = SBUxMethod.get("srch-inp-authrtNm");
 		let apcCd = gv_selectedApcCd;
-		
+
         const postJsonPromise = gfn_postJSON("/co/authrt/selectComAuthrtList.do",{
         		sysId: sysId,
             	authrtNm: authrtNm,
@@ -648,16 +649,16 @@
      * @description 화면UI권한 초기화
      */
 	const fn_initComAuthrtUi = function() {
-		
+
 		lv_prvMenuId = "";
-		
+
     	jsonComAuthrtUi.length = 0;
     	grdComAuthrtUi.refresh();
     	document.querySelector('#span-authrtMenuNm').innerText = "";
 		SBUxMethod.set('ui-inp-authrtId', "");
 		SBUxMethod.set('ui-inp-menuId', "");
 	}
-     
+
     /**
      * @name fn_setGrdComAuthMenu
      * @description 권한메뉴 조회
@@ -665,9 +666,9 @@
      * @param {string} authrtId	권한그룹id
      */
     const fn_setGrdComAuthMenu = async function(sysId, authrtId, authrtType) {
-		
+
     	 fn_initComAuthrtUi();
-    	
+
 		grdComAuthMenu.clearStatus();
 
 		const postJsonPromise = gfn_postJSON("/co/authrt/selectComAuthrtMenuTreeList.do", {
@@ -731,10 +732,10 @@
      * @description 화면UI 권한 조회
      */
     const fn_setGrdComAuthrtUi = async function() {
-		
+
 		const authrtId = SBUxMethod.get('ui-inp-authrtId');
 		const menuId = SBUxMethod.get('ui-inp-menuId');
-		
+
 		const postJsonPromise = gfn_postJSON("/co/authrt/selectComAuthrtUiList.do", {
  			menuId: menuId,
           	authrtId: authrtId,
@@ -767,7 +768,7 @@
   				}
   				jsonComAuthrtUi.push(authrtUi);
   			});
-          	
+
 		} catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -775,7 +776,7 @@
     		console.error("failed", e.message);
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
-		
+
 		grdComAuthrtUi.refresh();
 
 	}
@@ -920,7 +921,7 @@
         	return;
         }
 		lv_prvAuthrtId = rowData.authrtId;
-        
+
         SBUxMethod.set("dtl-inp-orgnAuthrtId", rowData.authrtId);
         SBUxMethod.set("dtl-inp-authrtId", rowData.authrtId);
         SBUxMethod.attr("dtl-inp-authrtId", "readonly", true);
@@ -945,7 +946,7 @@
         }
 
         const rowData = grdComAuthMenu.getRowData(nRow);
-        
+
         if (rowData.menuType != "02") {
         	return;
         }
@@ -953,16 +954,16 @@
 		if (lv_prvMenuId === rowData.menuId) {
 			return;
 		}
-		
+
 		document.querySelector('#span-authrtMenuNm').innerText = " : " + rowData.menuNm;
-		
+
 		SBUxMethod.set('ui-inp-authrtId', rowData.authrtId);
 		SBUxMethod.set('ui-inp-menuId', rowData.menuId);
 		lv_prvMenuId = rowData.menuId;
-		
+
         fn_setGrdComAuthrtUi();
     }
-    
+
     /**
      * @name fn_clearForm
      * @description 상세정보 초기화
@@ -1078,16 +1079,16 @@
      	const allData = grdComAuthrtUi.getGridDataAll();
 
      	const comAuthrtUiList = [];
-     	
+
      	for ( let i = 0; i < allData.length; i++ ) {
-     		
+
      		let item = allData[i];
-     		
+
      		if (_.isEqual("Y", item.useYn) && gfn_isEmpty(item.aplcnType)) {
      			gfn_comAlert("W0001", "적용유형");	//	W0001	{0}을/를 선택하세요.
      			return;
      		}
-     		
+
      		const authrtUi = {
          			authrtId: item.authrtId,
          			apcCd: item.apcCd,
@@ -1098,12 +1099,12 @@
          			aplcnType: item.aplcnType,
          			indctYn: item.indctYn,
          		}
-         		
+
 			comAuthrtUiList.push(authrtUi);
      	}
      	const authrtId = SBUxMethod.get("ui-inp-authrtId");
      	const menuId = SBUxMethod.get("ui-inp-menuId");
-     	
+
      	const postJsonPromise = gfn_postJSON("/co/authrt/insertComAuthrtUi.do", {
      		'authrtId': authrtId,
      		'menuId': menuId,

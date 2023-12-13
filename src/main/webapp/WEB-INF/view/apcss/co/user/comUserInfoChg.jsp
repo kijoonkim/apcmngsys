@@ -19,6 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<title>title : 사용자정보변경</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -28,7 +29,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 사용자정보변경 -->
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 사용자정보변경 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset()"></sbux-button>
@@ -216,7 +217,7 @@ async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
 			}
 			userInfoChgGridData.push(Object.assign({}, userAprvReg));
 			newUserInfoChgGridData.push(Object.assign({}, userAprvReg));
-			
+
 			if (index === 0) {
 					totalRecordCount = item.totalRecordCount;
 			}
@@ -253,7 +254,7 @@ async function fn_reset(){
 	SBUxMethod.clear("srch-inp-userId");
 	SBUxMethod.clear("srch-inp-userNm");
 	SBUxMethod.clear("srch-slt-userType");
-	
+
 	fn_search();
 }
 
@@ -262,11 +263,11 @@ async function fn_reset(){
      * @description 저장 버튼
      */
     const fn_save = async function() {
-    	
+
 		const allData = userInfoChgGridId.getGridDataAll();
 
 		const userAprvRegGridData = [];
-		
+
 		allData.forEach((item, index) => {
 			if (item.checkedYn === "Y") {
 				userAprvRegGridData.push({

@@ -19,6 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<title>title : 화면관리</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 <meta charset="UTF-8">
@@ -29,7 +30,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 화면관리 -->
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 화면관리 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSave" name="btnSave" uitype="normal"  text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save" disabled></sbux-button>
