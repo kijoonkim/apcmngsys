@@ -34,11 +34,46 @@
                     </sbux-label>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnDocRawMtrWgh" name="btnDocRawMtrWgh" uitype="normal" class="btn btn-sm btn-primary" onclick="fn_docRawMtrWgh" text="계량확인서" ></sbux-button>
-					<sbux-button id="btnReset" name="btnReset" uitype="normal" class="btn btn-sm btn-outline-danger" onclick="fn_reset" text="초기화" ></sbux-button>
-					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" onclick="fn_search" text="조회" ></sbux-button>
-					<sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-danger" onclick="fn_save" text="저장" ></sbux-button>
-					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" class="btn btn-sm btn-outline-danger" onclick="fn_delete" text="삭제" ></sbux-button>
+					<sbux-button 
+						id="btnDocRawMtrWgh" 
+						name="btnDocRawMtrWgh" 
+						uitype="normal" 
+						class="btn btn-sm btn-primary" 
+						onclick="fn_docRawMtrWgh" 
+						text="계량확인서" 
+					></sbux-button>
+					<sbux-button 
+						id="btnReset" 
+						name="btnReset" 
+						uitype="normal" 
+						class="btn btn-sm btn-outline-danger" 
+						onclick="fn_reset" 
+						text="초기화" 
+					></sbux-button>
+					<sbux-button 
+						id="btnSave" 
+						name="btnSave" 
+						uitype="normal" 
+						class="btn btn-sm btn-outline-danger" 
+						onclick="fn_save" 
+						text="저장" 
+					></sbux-button>
+					<sbux-button 
+						id="btnDelete" 
+						name="btnDelete" 
+						uitype="normal" 
+						class="btn btn-sm btn-outline-danger" 
+						onclick="fn_delete" 
+						text="삭제" 
+					></sbux-button>
+					<sbux-button 
+						id="btnSearch" 
+						name="btnSearch" 
+						uitype="normal" 
+						class="btn btn-sm btn-outline-danger" 
+						onclick="fn_search" 
+						text="조회" 
+					></sbux-button>
 				</div>
 			</div>
 
@@ -644,13 +679,29 @@
      * @description 계량확인서 발행 버튼
      */
 	const fn_docRawMtrWgh = function() {
-		let wghno = SBUxMethod.get("dtl-inp-wghno");
+		
+		const wghnoList = [];
+		const allData = grdWghPrfmnc.getGridDataAll();
+		allData.forEach((item) => {
+			if (item.checkedYn === "Y") {
+				wghnoList.push(item.wghno);
+    		}
+		});
 
+ 		if (wghnoList.length === 0) {
+ 			gfn_comAlert("W0001", "발행대상");		//	W0001	{0}을/를 선택하세요.
+			return;
+ 		}
+		
+		/*		
+		let wghno = SBUxMethod.get("dtl-inp-wghno");
+		
 		if (gfn_isEmpty(wghno)) {
 			gfn_comAlert("W0001", "발행대상");		//	W0001	{0}을/를 선택하세요.
             return;
 		}
-
+		 */
+		const wghno = wghnoList.join("','");
 		gfn_popClipReport("계량확인서", "am/rawMtrWghDoc.crf", {apcCd: gv_selectedApcCd, wghno: wghno});
 	}
 
