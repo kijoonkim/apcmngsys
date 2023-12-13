@@ -124,7 +124,7 @@
 				</div>
 
 				<br/>
-				
+
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
@@ -155,7 +155,7 @@
 					<ul class="ad_tbl_count">
 						<li>
 							<span>선별지시 내역</span>
-							<span style="font-size:12px">(기준일자 : 
+							<span style="font-size:12px">(기준일자 :
 								<sbux-label
 									id="crtr-ymd"
 									name="crtr-ymd"
@@ -224,7 +224,7 @@
 			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd, itemCd)						// 품종
 		]);
 	}
-	
+
 	const fn_onChangeSrchVrtyCd = async function(obj) {
 		let vrtyCd = obj.value;
 		let itemCd = "";
@@ -233,7 +233,7 @@
 		} else {
 			itemCd = SBUxMethod.get("srch-slt-itemCd");
 		}
-		
+
 		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
 		if (itemCd != prvItemCd) {
 			SBUxMethod.set("srch-slt-itemCd", itemCd);
@@ -346,7 +346,7 @@
 			"callback": fn_excelDwnld1,			//콜백함수명
 		}
 	};
-     
+
     const objMenuList2 = {
         "excelDwnld": {
             "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
@@ -379,7 +379,7 @@
     function fn_excelDwnld1() {
     	grdRawMtrInvntr.exportLocalExcel("투입대상 내역", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
-    
+
     // 엑셀 다운로드
     function fn_excelDwnld2() {
     	grdSortCmnd.exportLocalExcel("선별지시 내역", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
@@ -733,7 +733,7 @@
 		jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
 		jsonPrdcr = gfn_setFrst(jsonPrdcr);
 	}
-	
+
 	/**
 	 * @name fn_onInputPrdcrNm
 	 * @description 생산자명 입력 시 event : autocomplete
@@ -783,9 +783,9 @@
 	 * @description 생산자 선택 popup callback 처리
 	 */
 	const fn_setPrdcr = async function(prdcr) {
-		
+
 		await fn_getPrdcrs();
-		
+
 		if (!gfn_isEmpty(prdcr)) {
 			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
 			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
@@ -820,7 +820,7 @@
 		}
 
 	}
-	
+
 	const fn_onChangeSrchPrdcrIdentno = function(obj) {
 
 		if (gfn_isEmpty(SBUxMethod.get("srch-inp-prdcrIdentno"))) {
@@ -858,7 +858,7 @@
 		  for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
 		  return b;
 	}
-	
+
 	const fn_dtpChange = function(){
  		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-wrhsYmdFrom");
  		let wrhsYmdTo = SBUxMethod.get("srch-dtp-wrhsYmdTo");
@@ -875,9 +875,9 @@
  			return;
  		}
  	}
-	
+
     //그리드 체크박스 전체 선택
-    function fn_checkAllRawMtrInvntr(grid, obj) {
+    const fn_checkAllRawMtrInvntr = function (grid, obj) {
         var gridList = grid.getGridDataAll();
         var checkedYn = obj.checked ? "Y" : "N";
         //체크박스 열 index
@@ -891,8 +891,8 @@
         }
     	grid.clickCell(getRow, getCol);
     }
-    
-	async function fn_reset() {
+
+    const fn_reset = async function() {
 		SBUxMethod.set('srch-dtp-wrhsYmdFrom', gfn_dateFirstYmd(new Date()));
 		SBUxMethod.set('srch-dtp-wrhsYmdTo', gfn_dateToYmd(new Date()));
 		SBUxMethod.set('srch-slt-itemCd', "");
@@ -902,6 +902,8 @@
 		SBUxMethod.set('srch-inp-prdcrIdentno', "");
 		SBUxMethod.set('srch-dtp-cmndYmd', gfn_dateToYmd(new Date()));
 		SBUxMethod.set('srch-slt-inptFclt', "");
+
+		fn_initSBSelect()
 	}
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
