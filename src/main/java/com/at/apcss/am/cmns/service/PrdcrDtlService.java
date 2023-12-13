@@ -63,6 +63,14 @@ public interface PrdcrDtlService {
 	public HashMap<String, Object> updatePrdcrDtlDelYn(PrdcrDtlVO prdcrDtlVO) throws Exception;
 	
 	/**
+	 * 생산자 상세 정보 삭제
+	 * @param prdcrDtlVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deletePrdcrDtl(PrdcrDtlVO prdcrDtlVO) throws Exception;
+	
+	/**
 	 * 생산자 상세 정보 등록
 	 * @param prdcrList
 	 * @return
