@@ -26,7 +26,7 @@
 
 
                                     <div class ="sbt-wrap-body">
-                                          <table class="cmntTbl" id="cmntList" >
+                                          <table class="cmntTbl" id="cmntChildList" >
                                               <colgroup>
                                                 <col style="width:20%">
                                                 <col style="width:50%">
