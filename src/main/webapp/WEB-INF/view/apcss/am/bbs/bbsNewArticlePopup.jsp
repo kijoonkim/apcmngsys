@@ -11,7 +11,9 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div style="margin-left: auto;">
+					<!--
 					<sbux-button id="test" name="test" uitype="normal" text="test" class="btn btn-sm btn-outline-danger" onclick="fn_bbsNewFileUpload"></sbux-button>
+					 -->
 					<sbux-button id="btnsaveNewArticle" name="btnsaveNewArticle" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_ArticleCreate"></sbux-button>
 					<sbux-button id="btnEndNewArticle" name="btnEndNewArticle" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-bbsNewArticlePopup','fn_search')"></sbux-button>
 
