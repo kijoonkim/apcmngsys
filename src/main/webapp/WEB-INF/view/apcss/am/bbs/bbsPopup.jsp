@@ -20,14 +20,6 @@
 		border: 1px solid #e8f1f9;
 		padding: 10px;
 	}
-	#cmntTd{
-		border: 1px solid #e8f1f9;
-		padding: 10px;
-	}
-	#cmntTr{
-		border: 1px solid #e8f1f9;
-		padding: 10px;
-	}
 	#cmntXmp{
 		padding: 10px;
 		font-family: Notokr, Apple SD Gothic Neo, Arial, Tahoma, sans-serif;
@@ -279,8 +271,8 @@
 		remove_Comment();
 		const list = data.resultList;
 		const classtag = list.bbsNo+list.cmntChildNo;
-		$("#cmntList").append("<tr id=cmntTr>");
-		$("#cmntList").append("<td id=cmntTd class=cmntHd>사용자명 </td> <td id=cmntTd class=cmntHd>내용 </td> <td id=cmntTd class=cmntHd>  </td> ");
+		$("#cmntList").append("<tr id=cmnt>");
+		$("#cmntList").append("<td id=cmnt class=cmntHd>사용자명 </td> <td id=cmnt class=cmntHd>내용 </td> <td id=cmnt class=cmntHd>  </td> ");
 		$("#cmntList").append("</tr>");
 		data.resultList.forEach((item, index) => {
 			let bbsCmnt = {
@@ -291,20 +283,20 @@
 			  , user 		: item.sysFrstInptUserId
 
 			}
-			$("#cmntList").append("<tr id=cmntTr>");
+			$("#cmntList").append("<tr id=cmnt>");
 			if(item.cmntChildNo == "1"){
-				$("#cmntList").append("<td id=cmntTd style=text-align:center>"+ bbsCmnt.user  +"</td>");
+				$("#cmntList").append("<td id=cmnt style=text-align:center>"+ bbsCmnt.user  +"</td>");
 				$("#cmntList").append("<td id=newCmnt style=border-left:20px><xmp id=cmntXmp>"+String(bbsCmnt.cmntCn)+"</xmp></td>");
-				$("#cmntList").append("<td id=cmntTd>"+"<button id=bbsChildCmntModal name=bbsChildCmntModal class=btn btn-xs  style=width:100% onclick=fn_childComment("+bbsCmnt.cmntNo+","+bbsCmnt.cmntChildNo+")>답글</button></td>");
+				$("#cmntList").append("<td id=cmnt>"+"<button id=bbsChildCmntModal name=bbsChildCmntModal class=btn btn-xs  style=width:100% onclick=fn_childComment("+bbsCmnt.cmntNo+","+bbsCmnt.cmntChildNo+")>답글</button></td>");
 				if('${loginVO.userId}' == item.sysFrstInptUserId){
-					$("#cmntList").append("<td id=cmntTd>"+"<button id=btnDeleteCmnt name=btnDeleteCmnt class=btn btn-xs  style=width:100% onclick=fn_deleteComment("+bbsCmnt.cmntNo+")>삭제</button></td>");
+					$("#cmntList").append("<td id=cmnt>"+"<button id=btnDeleteCmnt name=btnDeleteCmnt class=btn btn-xs  style=width:100% onclick=fn_deleteComment("+bbsCmnt.cmntNo+")>삭제</button></td>");
 				}
 
 			}else if(item.cmntChildNo != "1"){
-				$("#cmntList").append("<td id=cmntTd style=text-align:center>"+ " " +"</td>");
-				$("#cmntList").append("<td id=cmntTd style=border-left:20px><xmp>"+bbsCmnt.user+" : "+bbsCmnt.cmntCn+"</xmp></td>");
+				$("#cmntList").append("<td id=cmnt style=text-align:center>"+ " " +"</td>");
+				$("#cmntList").append("<td id=cmnt style=border-left:20px><xmp id=cmntXmp>"+bbsCmnt.user+" : "+bbsCmnt.cmntCn+"</xmp></td>");
 				if('${loginVO.userId}' == item.sysFrstInptUserId){
-					$("#cmntList").append("<td id=cmntTd>"+"<button id=btnDeleteCmnt name=btnDeleteCmnt class=btn btn-xs  style=width:100% onclick=fn_deleteComment("+bbsCmnt.cmntNo+")>삭제</button></td>");
+					$("#cmntList").append("<td id=cmnt>"+"<button id=btnDeleteCmnt name=btnDeleteCmnt class=btn btn-xs  style=width:100% onclick=fn_deleteComment("+bbsCmnt.cmntNo+")>삭제</button></td>");
 				}
 			}
 			$("#cmntList").append("</tr>");
