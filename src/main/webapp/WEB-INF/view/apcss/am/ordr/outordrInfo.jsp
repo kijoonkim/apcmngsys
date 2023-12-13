@@ -869,7 +869,8 @@
     const fn_setValue = function(){
     	let nRow = grdOutordrInfo.getRow();
     	let nCol = grdOutordrInfo.getCol();
-    	if(nCol == grdOutordrInfo.getColRef("checked")){
+    	let checkedCol = grdOutordrInfo.getColRef("checked");
+    	if(nCol == checkedCol){
     		// 발주수량 - 출하수량 - 출하지시수량 = 가능한 지시수량
 	    	let invntrQntt 		= grdOutordrInfo.getRowData(nRow).invntrQntt;
 			let spmtQntt 		= grdOutordrInfo.getRowData(nRow).spmtQntt;
@@ -879,7 +880,6 @@
 			let wght 			= grdOutordrInfo.getRowData(nRow).wght;
 			let inptCmndQnttCol = grdOutordrInfo.getColRef("inptCmndQntt");
 			let inptCmndWghtCol = grdOutordrInfo.getColRef("inptCmndWght");
-			let checkedCol 		= grdOutordrInfo.getColRef("checked");
 
 			if(psbltyCmndQntt > 0 && invntrQntt > 0){
 				if(psbltyCmndQntt > invntrQntt) {
@@ -890,6 +890,7 @@
 					grdOutordrInfo.setCellData(nRow, inptCmndWghtCol, psbltyCmndQntt*wght);
 				}
 			} else if (invntrQntt <= 0) {
+		    	grdOutordrInfo.setCellData(nRow, checkedCol, "false");
 				alert("재고가 없습니다.");
 			}
     	}
