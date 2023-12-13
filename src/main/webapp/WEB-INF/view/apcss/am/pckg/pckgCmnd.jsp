@@ -30,7 +30,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 포장지시조회 -->
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 포장지시조회 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnCmndDocPckg" name="btnCmndDocPckg" uitype="normal" class="btn btn-sm btn-primary" text="포장지시서" onclick="fn_cmndDocPckg"></sbux-button>
