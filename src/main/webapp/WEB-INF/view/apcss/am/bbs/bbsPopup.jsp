@@ -264,7 +264,7 @@
 			return;
 		}
 		remove_Comment();
-		const list = data.resultList
+		const list = data.resultList;
 		const classtag = list.bbsNo+list.cmntChildNo;
 		$("#cmntList").append("<tr id=cmnt>");
 		$("#cmntList").append("<td id=cmnt class=cmntHd>사용자명 </td> <td id=cmnt class=cmntHd>내용 </td> <td id=cmnt class=cmntHd>  </td> ");
@@ -281,15 +281,15 @@
 			$("#cmntList").append("<tr id=cmnt>");
 			if(item.cmntChildNo == "1"){
 				$("#cmntList").append("<td id=cmnt style=text-align:center>"+ bbsCmnt.user  +"</td>");
-				$("#cmntList").append("<td id=cmnt style=border-left:20px>"+bbsCmnt.cmntCn+"</td>");
+				$("#cmntList").append("<td id=newCmnt style=border-left:20px><xmp>"+String(bbsCmnt.cmntCn)+"</xmp></td>");
 				$("#cmntList").append("<td id=cmnt>"+"<button id=bbsChildCmntModal name=bbsChildCmntModal class=btn btn-xs  style=width:100% onclick=fn_childComment("+bbsCmnt.cmntNo+","+bbsCmnt.cmntChildNo+")>답글</button></td>");
 				if('${loginVO.userId}' == item.sysFrstInptUserId){
 					$("#cmntList").append("<td id=cmnt>"+"<button id=btnDeleteCmnt name=btnDeleteCmnt class=btn btn-xs  style=width:100% onclick=fn_deleteComment("+bbsCmnt.cmntNo+")>삭제</button></td>");
 				}
 
-			}else if(item.cmntChildNo !="1"){
+			}else if(item.cmntChildNo != "1"){
 				$("#cmntList").append("<td id=cmnt style=text-align:center>"+ " " +"</td>");
-				$("#cmntList").append("<td id=cmnt style=border-left:20px>"+bbsCmnt.user+" : "+bbsCmnt.cmntCn+"</td>");
+				$("#cmntList").append("<td id=cmnt style=border-left:20px><xmp>"+bbsCmnt.user+" : "+bbsCmnt.cmntCn+"</xmp></td>");
 				if('${loginVO.userId}' == item.sysFrstInptUserId){
 					$("#cmntList").append("<td id=cmnt>"+"<button id=btnDeleteCmnt name=btnDeleteCmnt class=btn btn-xs  style=width:100% onclick=fn_deleteComment("+bbsCmnt.cmntNo+")>삭제</button></td>");
 				}
@@ -406,7 +406,7 @@
     });
 
  	// 허용하려는 확장자들
-    const allowedExtensions = ['.gif' , '.jpg' , '.jpeg' , '.png' , '.xls' , '.xlsx' , 'zip'];
+    const allowedExtensionsBbs = ['.gif' , '.jpg' , '.jpeg' , '.png' , '.xls' , '.xlsx' , 'zip'];
 
 	function showFiles(newfiles) {
 
@@ -422,7 +422,7 @@
 				var newfileName = newfiles[i].name;
 				var fileExtension = '.' + newfileName.split('.').pop();
 
-				if (allowedExtensions.indexOf(fileExtension.toLowerCase()) === -1) {
+				if (allowedExtensionsBbs.indexOf(fileExtension.toLowerCase()) === -1) {
 			    	alert('올바른 확장자를 선택하세요.');
 			    	newfiles = null; // 파일 선택 취소
 			    	return false;
