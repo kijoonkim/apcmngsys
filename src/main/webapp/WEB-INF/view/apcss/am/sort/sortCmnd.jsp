@@ -427,9 +427,13 @@
     		var nRow = grdRows[i];
     		deleteList.push(grdSortCmnd.getRowData(nRow));
     	}
-
+    	if (deleteList.length == 0) {
+			gfn_comAlert("W0005", "삭제대상");		//	W0005	{0}이/가 없습니다.
+			return;
+		}
     	var delMsg = "삭제 하시겠습니까?";
 		if(confirm(delMsg)){
+			
 			const postJsonPromise = gfn_postJSON("/am/sort/deleteSortCmndList.do", deleteList);
 	    	const data = await postJsonPromise;
 

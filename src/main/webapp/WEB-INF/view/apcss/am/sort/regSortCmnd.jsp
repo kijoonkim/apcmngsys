@@ -31,6 +31,7 @@
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 선별지시등록 -->
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 				</div>
 			</div>
@@ -200,7 +201,7 @@
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createRawMtrInvntr();
 		fn_createSortCmnd();
-		SBUxMethod.set("srch-dtp-wrhsYmdFrom", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-dtp-wrhsYmdFrom", gfn_dateFirstYmd(new Date()));
 		SBUxMethod.set("srch-dtp-wrhsYmdTo", gfn_dateToYmd(new Date()));
 		SBUxMethod.set("srch-dtp-cmndYmd", gfn_dateToYmd(new Date()));
 		fn_initSBSelect();
@@ -864,7 +865,7 @@
  		let cmndYmd = SBUxMethod.get("srch-dtp-cmndYmd");
  		if(gfn_diffDate(wrhsYmdFrom, wrhsYmdTo) < 0){
  			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");		//	W0001	{0}
- 			SBUxMethod.set("srch-dtp-wrhsYmdFrom", gfn_dateToYmd(new Date()));
+ 			SBUxMethod.set("srch-dtp-wrhsYmdFrom", gfn_dateFirstYmd(new Date()));
  			SBUxMethod.set("srch-dtp-wrhsYmdTo", gfn_dateToYmd(new Date()));
  			return;
  		}
@@ -890,6 +891,18 @@
         }
     	grid.clickCell(getRow, getCol);
     }
+    
+	async function fn_reset() {
+		SBUxMethod.set('srch-dtp-wrhsYmdFrom', gfn_dateFirstYmd(new Date()));
+		SBUxMethod.set('srch-dtp-wrhsYmdTo', gfn_dateToYmd(new Date()));
+		SBUxMethod.set('srch-slt-itemCd', "");
+		SBUxMethod.set('srch-slt-vrtyCd', "");
+		SBUxMethod.set('srch-inp-prdcrNm', "");
+		SBUxMethod.set('srch-inp-prdcrCd', "");
+		SBUxMethod.set('srch-inp-prdcrIdentno', "");
+		SBUxMethod.set('srch-dtp-cmndYmd', gfn_dateToYmd(new Date()));
+		SBUxMethod.set('srch-slt-inptFclt', "");
+	}
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
