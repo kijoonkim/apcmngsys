@@ -49,20 +49,20 @@
 						onclick="fn_lblSort"
 					></sbux-button>
 					<sbux-button
-						id="btnSearch"
-						name="btnSearch"
-						uitype="normal"
-						text="조회"
-						class="btn btn-sm btn-outline-dark"
-						onclick="fn_search"
-					></sbux-button>
-					<sbux-button
 						id="btnDelete"
 						name="btnDelete"
 						uitype="normal"
 						text="삭제"
 						class="btn btn-sm btn-outline-dark"
 						onclick="fn_delete"
+					></sbux-button>
+					<sbux-button
+						id="btnSearch"
+						name="btnSearch"
+						uitype="normal"
+						text="조회"
+						class="btn btn-sm btn-outline-dark"
+						onclick="fn_search"
 					></sbux-button>
 				</div>
 			</div>
