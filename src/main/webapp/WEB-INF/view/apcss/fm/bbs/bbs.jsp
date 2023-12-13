@@ -34,7 +34,9 @@
                 <div class="sbt-wrap-full">
                     <!--Button 영역-->
                     <div class="sbt-search-button" style="text-align:right;">
+                    	<!--
                    		<sbux-button id="test" name="test" uitype="normal" wrap-class="sbt-btn-reset" text="test" onclick="fn_fileUpload(0)"></sbux-button>
+                    	 -->
                         <sbux-button id="btn_create" name="btn_create" uitype="normal" wrap-class="sbt-btn-reset" text="신규" onclick="fn_create"></sbux-button>
                         <sbux-button id="btn_delete" name="btn_delete" uitype="normal" wrap-class="sbt-btn-reset" text="삭제" onclick="fn_delete"></sbux-button>
                         <sbux-button id="btn_save" name="btn_save" uitype="normal" wrap-class="sbt-btn-reset" text="저장" onclick="fn_save"></sbux-button>
@@ -758,6 +760,9 @@
 	    var files = $(this)[0].files;
 	    showFiles(files);
 	});
+
+	// 허용하려는 확장자들
+    const allowedExtensions = ['.gif' , '.jpg' , '.jpeg' , '.png' , '.xls' , '.xlsx' , 'zip'];
 
 	function showFiles(newfiles) {
 
