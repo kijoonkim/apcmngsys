@@ -420,14 +420,14 @@
 					if ((grdPrdcrDtlPop.getCellData(nRow, nCol)).length > 11) {
 						grdPrdcrDtlPop.setCellData(nRow, ctrtAreaCol, "");
 						grdPrdcrDtlPop.setCellData(nRow, ctrtAreaSqMCol, "");
-						alert("소수점 자리를 포함해 10자리까지(평 단위 기준)만 입력 가능합니다.");
+						gfn_comAlert("E0000", "소수점 자리를 포함해 10자리까지(평 단위 기준)만 입력 가능합니다.");
 						return;
 					}
 				} else {
 					if ((grdPrdcrDtlPop.getCellData(nRow, nCol)).length > 10) {
 						grdPrdcrDtlPop.setCellData(nRow, ctrtAreaCol, "");
 						grdPrdcrDtlPop.setCellData(nRow, ctrtAreaSqMCol, "");
-						alert("소수점 자리를 포함해 10자리까지(평 단위 기준)만 입력 가능합니다.");
+						gfn_comAlert("E0000", "소수점 자리를 포함해 10자리까지(평 단위 기준)만 입력 가능합니다.");
 						return;
 					}
 				}
@@ -446,14 +446,14 @@
 					if (ctrtArea.toString().length > 11) {
 						grdPrdcrDtlPop.setCellData(nRow, ctrtAreaCol, "");
 						grdPrdcrDtlPop.setCellData(nRow, ctrtAreaSqMCol, "");
-						alert("소수점 자리를 포함해 10자리까지(평 단위 기준)만 입력 가능합니다.");
+						gfn_comAlert("E0000", "소수점 자리를 포함해 10자리까지(평 단위 기준)만 입력 가능합니다.");
 						return;
 					}
 				} else {
 					if (ctrtArea.toString().length > 10) {
 						grdPrdcrDtlPop.setCellData(nRow, ctrtAreaCol, "");
 						grdPrdcrDtlPop.setCellData(nRow, ctrtAreaSqMCol, "");
-						alert("소수점 자리를 포함해 10자리까지(평 단위 기준)만 입력 가능합니다.");
+						gfn_comAlert("E0000", "소수점 자리를 포함해 10자리까지(평 단위 기준)만 입력 가능합니다.");
 						return;
 					}
 				}
@@ -465,13 +465,13 @@
 				if (grdPrdcrDtlPop.getCellData(nRow, nCol)%1 != 0) {
 					if ((grdPrdcrDtlPop.getCellData(nRow, nCol)).length > 11) {
 						grdPrdcrDtlPop.setCellData(nRow, cltvtnAreaCol, "");
-						alert("소수점 자리를 포함해 10자리까지(평 단위 기준)만 입력 가능합니다.");
+						gfn_comAlert("E0000", "소수점 자리를 포함해 10자리까지(평 단위 기준)만 입력 가능합니다.");
 						return;
 					}
 				} else {
 					if ((grdPrdcrDtlPop.getCellData(nRow, nCol)).length > 10) {
 						grdPrdcrDtlPop.setCellData(nRow, cltvtnAreaCol, "");
-						alert("소수점 자리를 포함해 10자리까지(평 단위 기준)만 입력 가능합니다.");
+						gfn_comAlert("E0000", "소수점 자리를 포함해 10자리까지(평 단위 기준)만 입력 가능합니다.");
 						return;
 					}
 				}

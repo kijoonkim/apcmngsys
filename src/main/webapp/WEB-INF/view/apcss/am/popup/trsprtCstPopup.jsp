@@ -305,7 +305,7 @@
 					if (rowSts === 3){
 						await this.isExistData(rowData);
 						if(isExist){
-							alert("이미 존재하는 데이터입니다.");
+							gfn_comAlert("E0000", "이미 존재하는 데이터입니다.");
 							this.search();
 							return;
 						}
@@ -315,7 +315,7 @@
 					} else if (rowSts === 2){
 						await this.isExistData(rowData);
 						if(isExist){
-							alert("이미 존재하는 데이터입니다.");
+							gfn_comAlert("E0000", "이미 존재하는 데이터입니다.");
 							this.search();
 							return;
 						}
@@ -692,7 +692,7 @@
 				);
 	     },
 	     importTrsprtCst: async function() {
-	    	 alert('import data save');
+	    	 gfn_comAlert("E0000", 'import data save');
 	     }
    	}
 

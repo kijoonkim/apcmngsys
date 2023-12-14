@@ -138,7 +138,7 @@
 			if(rowData.delYn == 'N'){
 
 				if(gfn_isEmpty(rowData.cdVlNm)){
-					alert("창고 명은 필수 값 입니다.");
+					gfn_comAlert("W0002", "창고 명");
 					return;
 				}
 
@@ -153,12 +153,11 @@
 			}
 		}
 		if(saveList.length == 0 ){
-			alert("저장 할 내용이 없습니다.");
+			gfn_comAlert("W0003", "저장");
 			return;
 		}
 
-		let regMsg = "저장 하시겠습니까?";
-		if(confirm(regMsg)){
+		if(gfn_comAlert("Q0001", "저장")){
 			const postJsonPromise = gfn_postJSON("/co/cd/multiSaveComCdDtlList.do", saveList, this.prgrmId);	// 프로그램id 추가
 			const data = await postJsonPromise;
 	        try {

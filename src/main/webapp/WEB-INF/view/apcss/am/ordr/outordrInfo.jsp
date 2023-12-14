@@ -721,7 +721,7 @@
 		}
 
 		if (haveSpmtCmndList.length > 0) {
-			alert(haveSpmtCmndList.join(", ") + "은 출하지시가 등록된 데이터입니다.\n\n접수를 취소하시려면 출하지시를 삭제하십시오.");
+			gfn_comAlert("E0000", haveSpmtCmndList.join(", ") + "은 출하지시가 등록된 데이터입니다.\n\n접수를 취소하시려면 출하지시를 삭제하십시오.");
             return;
 		}
 
@@ -892,7 +892,7 @@
 				}
 			} else if (invntrQntt <= 0) {
 		    	grdOutordrInfo.setCellData(nRow, checkedCol, "false");
-				alert("재고가 없습니다.");
+				gfn_comAlert("E0000", "재고가 없습니다.");
 			}
     	}
     }

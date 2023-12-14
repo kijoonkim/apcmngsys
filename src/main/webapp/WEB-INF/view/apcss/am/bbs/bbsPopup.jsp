@@ -396,7 +396,7 @@
             contentType: false,
             success: function (response) {
                 console.log(response);
-                alert("처리 되었습니다.");
+                gfn_comAlert("I0001");
         		fn_search();
             },
             error: function (error) {
@@ -452,7 +452,7 @@
 				var fileExtension = '.' + newfileName.split('.').pop();
 
 				if (allowedExtensionsBbs.indexOf(fileExtension.toLowerCase()) === -1) {
-			    	alert('올바른 확장자를 선택하세요.');
+			    	gfn_comAlert('W0001', '올바른 확장자');
 			    	newfiles = null; // 파일 선택 취소
 			    	return false;
 			    }
@@ -515,9 +515,9 @@
          try {
          	if (_.isEqual("S", data.resultStatus)) {
 				$("#att_"+atchflno).remove();
-         		alert("삭제 되었습니다.");
+         		gfn_comAlert("I0001");
          	} else {
-         		alert(data.resultMessage);
+         		gfn_comAlert("E0001");
          	}
          } catch(e) {
          }
