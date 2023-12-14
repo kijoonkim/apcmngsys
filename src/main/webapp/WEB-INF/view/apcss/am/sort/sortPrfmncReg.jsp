@@ -31,7 +31,6 @@
                     <h3 class="box-title"> ▶ ${menuNm}</h3><!-- 선별실적등록 -->
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-dark" onclick="fn_save" text="저장"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-dark" onclick="fn_search" text="조회"></sbux-button>
 				</div>
 			</div>
@@ -868,7 +867,7 @@
 				 */
   			});
 
-          	grdRawMtrInvntr.refresh();
+          	grdRawMtrInvntr.rebuild();
 
           	totalRecordCount = jsonRawMtrInvntr.length;
           	document.querySelector('#cnt-rawMtrInvtr').innerText = totalRecordCount;
@@ -891,8 +890,6 @@
      */
 	const fn_search = async function() {
 
-        // set pagination
-    	grdRawMtrInvntr.rebuild();
     	// grid clear
     	jsonRawMtrInvntr.length = 0;
     	fn_setGrdRawMtrInvntr();

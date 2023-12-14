@@ -803,7 +803,7 @@
 
          	totalRecordCount = jsonWghPrfmnc.length;
 
-         	grdWghPrfmnc.refresh();
+         	grdWghPrfmnc.rebuild();
          	document.querySelector('#cnt-wgh').innerText = totalRecordCount;
           	SBUxMethod.set("crtr-ymd", wghYmd);
 

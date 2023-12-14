@@ -759,7 +759,7 @@
           		jsonRawMtrInvntr.push(rawMtrInvntr);
   			});
 
-          	grdRawMtrInvntr.refresh();
+          	grdRawMtrInvntr.rebuild();
 
           	totalRecordCount = jsonRawMtrInvntr.length;
           	document.querySelector('#cnt-rawMtrInvtr').innerText = totalRecordCount;
@@ -781,8 +781,6 @@
      */
 	const fn_search = async function() {
 
-        // set pagination
-    	grdRawMtrInvntr.rebuild();
     	// grid clear
     	jsonRawMtrInvntr.length = 0;
     	fn_setGrdRawMtrInvntr();

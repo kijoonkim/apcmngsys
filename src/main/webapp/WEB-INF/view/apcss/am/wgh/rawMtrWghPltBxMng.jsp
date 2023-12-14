@@ -261,39 +261,23 @@
 	}
 	
 	const fn_search = async function(){
-		pltBxMngList.rebuild();
-    	let pageSize = pltBxMngList.getPageSize();
-    	let pageNo = 1;
 
     	// grid clear
     	jsonPltBxMngList.length = 0;
-    	pltBxMngList.clearStatus();
-    	await fn_setPltBxMngList(pageSize, pageNo);
-    	
-		grdPltWrhsSpmt.rebuild();
-    	pageSize = grdPltWrhsSpmt.getPageSize();
-    	pageNo = 1;
+    	await fn_setPltBxMngList();
 
     	// grid clear
     	jsonPltWrhsSpmt.length = 0;
-    	grdPltWrhsSpmt.clearStatus();
-    	await fn_setPltWrhsSpmtList(pageSize, pageNo);
+    	await fn_setPltWrhsSpmtList();
 	}
 	
-	const fn_setPltBxMngList = async function(pageSize, pageNo){    	
+	const fn_setPltBxMngList = async function(){    	
     	const postJsonPromise = gfn_postJSON("/am/cmns/selectPltBxMngList.do", {
-			apcCd: gv_selectedApcCd,
-          	// pagination
-  	  		pagingYn : 'N',
-  			currentPageNo : pageNo,
-   		  	recordCountPerPage : pageSize
+			apcCd: gv_selectedApcCd
   		});
 		
         const data = await postJsonPromise;
 		try{
-         	/** @type {number} **/
-     		let totalRecordCount = 0;
-
      		jsonPltWrhsSpmt.length = 0;
           	data.resultList.forEach((item, index) => {
           		const pckgCmnd = {
@@ -314,22 +298,10 @@
           				pltCnptNm: item.pltCnptNm,
 				}
       			jsonPltBxMngList.push(pckgCmnd);
-				if (index === 0) {
-  					totalRecordCount = item.totalRecordCount;
-  				}
   			});
+          	
+			pltBxMngList.rebuild();
 			
-	      	if (jsonPltBxMngList.length > 0) {
-	      		if(pltBxMngList.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-	      			pltBxMngList.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-	      			pltBxMngList.rebuild();
-					}else{
-						pltBxMngList.refresh();
-					}
-	      	} else {
-	      		pltBxMngList.setPageTotalCount(totalRecordCount);
-	      		pltBxMngList.rebuild();
-	      	}
 		} catch (e) {
 	   		if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -494,23 +466,16 @@
     	}
    	}
 
-	const fn_setPltWrhsSpmtList = async function(pageSize, pageNo){   
+	const fn_setPltWrhsSpmtList = async function(){   
 		let cmndYmd = SBUxMethod.get("srch-inp-cmndYmd");
     	const postJsonPromise = gfn_postJSON("/am/cmns/selectPltWrhsSpmtList.do", {
 			apcCd: gv_selectedApcCd,
 			jobYmd: cmndYmd,
-			delYn: 'N',
-          	// pagination
-  	  		pagingYn : 'N',
-  			currentPageNo : pageNo,
-   		  	recordCountPerPage : pageSize
+			delYn: 'N'
   		});
 		
         const data = await postJsonPromise;
 		try{
-         	/** @type {number} **/
-     		let totalRecordCount = 0;
-
      		jsonPltWrhsSpmt.length = 0;
           	data.resultList.forEach((item, index) => {
           		const pckgCmnd = {
@@ -533,24 +498,10 @@
           				sn: item.sn
 				}
       			jsonPltWrhsSpmt.push(pckgCmnd);
-	
-				if (index === 0) {
-  					totalRecordCount = item.totalRecordCount;
-  				}
   			});
-	      	if (jsonPltWrhsSpmt.length > 0) {
-	      		if(grdPltWrhsSpmt.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-	      			grdPltWrhsSpmt.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-	      			grdPltWrhsSpmt.rebuild();
-					}else{
-						grdPltWrhsSpmt.refresh();
-					}
-	      	} else {
-	      		grdPltWrhsSpmt.setPageTotalCount(totalRecordCount);
-	      		grdPltWrhsSpmt.rebuild();
-	      	}
+
+			grdPltWrhsSpmt.rebuild();
           	SBUxMethod.set("crtr-ymd", cmndYmd);
-	      	
 	      	
 		} catch (e) {
     		if (!(e instanceof Error)) {

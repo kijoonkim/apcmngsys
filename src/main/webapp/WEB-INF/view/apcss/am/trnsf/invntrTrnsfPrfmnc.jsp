@@ -825,7 +825,7 @@
     	}
 		let rst = await Promise.all([
 			fn_searchTrnsfList(),
-			fn_searchTrnsfCfmtnList(),
+			fn_searchTrnsfCfmtnList()
 		])
 
     }

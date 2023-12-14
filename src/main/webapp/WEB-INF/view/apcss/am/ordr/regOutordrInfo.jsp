@@ -429,7 +429,7 @@
   				}
           		jsonOrdr.push(ordr);
   			});
-          	grdOrdr.refresh();
+          	grdOrdr.rebuild();
 		} catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);

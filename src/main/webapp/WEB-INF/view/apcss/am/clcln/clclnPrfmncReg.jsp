@@ -612,9 +612,7 @@
 
 			prdcrCd: prdcrCd,
 			itemCd: itemCd,
-			vrtyCd: vrtyCd,
-          	// pagination
-  	  		pagingYn : 'N',
+			vrtyCd: vrtyCd
   		});
 
         const data = await postJsonPromise;
@@ -649,18 +647,14 @@
   						clclnCrtrNm: item.clclnCrtrNm,
   						wrhsSeNm: item.wrhsSeNm,
   						gdsSeNm: item.gdsSeNm,
-  						grdNm: item.grdNm,
+  						grdNm: item.grdNm
   				}
 
           		jsonClclnPrfmnc.push(clclnPrfmnc);
-
-  				if (index === 0) {
-  					totalRecordCount = item.totalRecordCount;
-  				}
   			});
 
           	totalRecordCount = jsonClclnPrfmnc.length;
-          	grdClclnPrfmnc.refresh();
+          	grdClclnPrfmnc.rebuild();
 
           	document.querySelector('#cnt-clcln').innerText = totalRecordCount;
 

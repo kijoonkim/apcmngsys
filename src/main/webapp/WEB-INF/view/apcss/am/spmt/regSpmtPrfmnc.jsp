@@ -828,7 +828,7 @@
 					jsonGdsInvntr.push(gdsInvntr);
           		}
   			});
-          	grdGdsInvntr.refresh();
+          	grdGdsInvntr.rebuild();
 		}catch (e) {
 
 			if (!(e instanceof Error)) {
@@ -1429,7 +1429,7 @@
   				}
           		jsonSpmtPrfmnc.push(gdsSpmtPrfmnc);
   			});
-          	grdSpmtPrfmnc.refresh();
+          	grdSpmtPrfmnc.rebuild();
           	SBUxMethod.set("crtr-ymd", spmtYmd);
 		}catch (e) {
 
