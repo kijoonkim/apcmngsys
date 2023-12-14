@@ -197,8 +197,7 @@
 			return;
 		}
 
-		let regMsg = "저장 하시겠습니까?";
-		if(confirm(regMsg)){
+		if(gfn_comConfirm("Q0001", "저장")){
 
 			let postJsonPromise = gfn_postJSON("/am/cmns/multiSaveSpmtSlsUniprcRegList.do", saveList);
 	        let data = await postJsonPromise;
@@ -213,7 +212,7 @@
 	        } catch (e) {
 	    		if (!(e instanceof Error)) {
 	    			e = new Error(e);
-	    		}
+	    		}ㄴ
 	    		console.error("failed", e.message);
 	        }
 		}

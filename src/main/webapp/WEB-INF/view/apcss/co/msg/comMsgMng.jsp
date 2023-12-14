@@ -417,10 +417,10 @@
 
     	if (gfn_isEmpty(delYn)) {
     		// 신규 등록
-			fn_subInsert(confirm("등록 하시겠습니까?"));
+			fn_subInsert(gfn_comConfirm("Q0001", "등록"));
     	} else {
     		// 변경 저장
-    		fn_subUpdate(confirm("저장 하시겠습니까?"));
+    		fn_subUpdate(gfn_comConfirm("Q0001", "저장"));
     	}
 
     }
@@ -522,7 +522,7 @@
         	return;
         }
 
-        fn_subDelete(confirm("삭제 하시겠습니까?"), list);
+        fn_subDelete(gfn_comConfirm("Q0001", "삭제"), list);
 
     }
 

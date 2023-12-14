@@ -152,8 +152,7 @@
 	// 행 삭제
 	async function fn_procRow(nRow, nCol) {
    		if(grdPrgrmImprvDmnd.getRowStatus(nRow) == 0 || grdPrgrmImprvDmnd.getRowStatus(nRow) == 2){
-       		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-       		if(confirm(delMsg)){
+       		if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
        			var prfrmImprvDmnd = grdPrfrmImprvDmnd.getRowData(nRow);
        			fn_delete(prfrmImprvDmnd);
        			grdPrfrmImprvDmnd.deleteRow(nRow);
@@ -283,8 +282,7 @@
 			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
 			return;
 		}
-		let regMsg = "저장 하시겠습니까?";
-		if(confirm(regMsg)){
+		if(gfn_comConfirm("Q0001", "저장")){
 
 			let postJsonPromise = gfn_postJSON("/co/dmnd/multiSavePrfrmImprvDmndList.do", saveList);
 	        let data = await postJsonPromise;

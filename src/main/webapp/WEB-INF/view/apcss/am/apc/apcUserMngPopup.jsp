@@ -217,8 +217,8 @@
 	 function fn_callUpdateUserPsd(gubun, grid, nRow, nCol) {
 	     if (gubun === "UPD") {
 	         if (grid === "grdUserAuth") {
-	         		var updMsg = "비밀번호 초기화 하시겠습니까?";
-	         		if(confirm(updMsg)){
+	         		var updMsg = "비밀번호를 초기화 하시겠습니까?";
+	         		if(gfn_comConfirm("E0001", updMsg)){
 	         			var comUserVO = grdUserAuth.getRowData(nRow);
 	         			fn_updatePwd(comUserVO);
 	         		}

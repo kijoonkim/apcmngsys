@@ -427,7 +427,7 @@
         	return;
         }
 
-        fn_subDelete(confirm("삭제 하시겠습니까?"), list);
+        fn_subDelete(gfn_comConfirm("Q0001", "삭제"), list);
 
 
     }

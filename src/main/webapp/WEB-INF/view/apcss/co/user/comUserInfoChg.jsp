@@ -328,7 +328,7 @@ const fn_onChangeApc = async function() {
      if (gubun === "UPD") {
          if (grid === "userInfoChgGridId") {
          		var updMsg = "비밀번호 초기화 하시겠습니까?";
-         		if(confirm(updMsg)){
+         		if(gfn_comConfirm(updMsg)){
          			var comUserVO = userInfoChgGridId.getRowData(nRow);
          			fn_updatePwd(comUserVO);
          		}

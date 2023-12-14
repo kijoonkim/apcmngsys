@@ -375,8 +375,7 @@
 
     	let deleteList = {comCdList : deleteCdList, comCdDtlList : deleteCdDtlList};
 
-        var delMsg = "삭제 하시겠습니까?";
-        if (confirm(delMsg)) {
+        if (gfn_comConfirm("Q0001", "삭제")) {
         	const postJsonPromise = gfn_postJSON("/co/cd/deleteComCdComCdDtlList.do", deleteList, this.prgrmId);
 			const data = await postJsonPromise;
 	        try {
@@ -477,8 +476,7 @@
 
     	let saveList = {comCdList : saveCdList, comCdDtlList : saveCdDtlList};
 
-    	var saveMsg = "저장 하시겠습니까?";
-        if (confirm(saveMsg)) {
+        if (gfn_comConfirm("Q0001", "저장")) {
         	const postJsonPromise = gfn_postJSON("/co/cd/multiSaveComCdComCdDtlList.do", saveList, this.prgrmId);	// 프로그램id 추가
 			const data = await postJsonPromise;
 	        try {

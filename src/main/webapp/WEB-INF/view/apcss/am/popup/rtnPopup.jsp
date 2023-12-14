@@ -152,8 +152,7 @@
 			}
 			popRtnList[0].dldtn = sumDldtn;
 
-			let regMsg = "반품 하시겠습니까?";
-			if(confirm(regMsg)){
+			if(gfn_comConfirm("Q0001", "반품")){
 				const postJsonPromise = gfn_postJSON("/am/spmt/insertRtnSpmtPrfmncList.do", popRtnList);
 		    	const data = await postJsonPromise;
 

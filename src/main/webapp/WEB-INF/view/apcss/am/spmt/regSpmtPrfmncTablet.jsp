@@ -446,7 +446,7 @@
 		}
 		if (alertList.length != 0){
 			gfn_comAlert('E0000', '재고가 부족합니다.');
-// 			alert("재고가 부족합니다.\r\n" + alertList);		//	W0003	{0}할 대상이 없습니다.
+// 			gfn_comAlert('E0000', "재고가 부족합니다.\r\n" + alertList);		//	W0003	{0}할 대상이 없습니다.
             return;
 		}
 
@@ -606,7 +606,6 @@
 				$("#btnSrchPckgno").attr("disabled", false);
 				fn_resetPckgno();
 			} else {
-// 				alert("출하대상에 추가 완료된 출하지시입니다.");
 				gfn_comAlert("W0010", "출하대상에 추가 완료", "출하지시");			//	W0010	이미 {0}된 {1}입니다.
 			}
 		}

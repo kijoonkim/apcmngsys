@@ -181,8 +181,7 @@
 			}
 		}
 
-		let regMsg = "저장 하시겠습니까?";
-		if(confirm(regMsg)){
+		if(gfn_comConfirm("Q0001", "저장")){
 			if(!(gfn_isEmpty(saveList))){
 				for(let i=0;i<saveList.length;i++){
 					let newInsertTelno = saveList[i].telno.split("");
