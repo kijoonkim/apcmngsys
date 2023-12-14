@@ -16,7 +16,6 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnDocSort" name="btnDocSort" uitype="normal" text="선별확인서" class="btn btn-sm btn-success" onclick="gfn_comAlert('E0000', 'test');"></sbux-button>
 					<sbux-button id="btnSearch" name="btnDocSort" uitype="normal" text="조회" class="btn btn-sm btn-outline-dark" onclick="fn_selectSortInptList"></sbux-button>
 				</div>
 			</div>

@@ -1145,7 +1145,8 @@
 		var RdctRt = SBUxMethod.get("dtl-inp-rdctRt").replace(regex, "");
 		SBUxMethod.set("dtl-inp-rdctRt", RdctRt);
 		if (RdctRt < 0 || RdctRt > 100){
-			alert("0~100 사이의 값을 입력해야합니다.");
+// 			alert("0~100 사이의 값을 입력해야합니다.");
+			gfn_comAlert('E0000', '0~100 사이의 값을 입력햐야 합니다.');
 			SBUxMethod.set("dtl-inp-rdctRt", 0);
 		}
 		calKg();
@@ -1458,7 +1459,8 @@
 	const fn_onChangeRdcdRt = function() {
 		// 감량(%) >> 감량, 실중량, 입고중량
 		if (parseFloat(SBUxMethod.get("dtl-inp-rdcdRt")) > 100) {
-			alert("감량률이 100% 보다 큽니다.");
+// 			alert("감량률이 100% 보다 큽니다.");
+			gfn_comAlert('W0014', '감량률', '100%');
 			SBUxMethod.set("dtl-inp-rdcdRt", "");
 			return;
 		}
