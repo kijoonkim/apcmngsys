@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,7 +18,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.core.env.Environment;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -30,35 +28,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
-import com.at.apcss.fm.bbs.vo.BbsFileVO;
-import com.at.apcss.fm.bbs.vo.BbsVO;
-
-import egovframework.com.cmm.service.EgovProperties;
 
 import com.at.apcss.am.bbs.service.apcBbsService;
 import com.at.apcss.am.bbs.vo.apcBbsCmntVO;
 import com.at.apcss.am.bbs.vo.apcBbsFileVO;
 import com.at.apcss.am.bbs.vo.apcBbsVO;
-
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.w3c.dom.Document;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 
 /**
@@ -80,7 +60,8 @@ import org.xml.sax.SAXException;
 public class apcBbsController extends BaseController {
 
 	//파일 업로드 경로
-	private String uploadPath = "C:\\app\\upload";
+	@Value("${upload.path}")
+    private String uploadPath;
 
 	// 게시판
 	@Resource(name= "apcBbsService")
