@@ -650,8 +650,7 @@
     		insertList.push(grdRawMtrInvntr.getRowData(nRow));
     	}
 
-    	var regMsg = "저장 하시겠습니까?";
-		if(confirm(regMsg)){
+    	if (gfn_comConfirm("Q0001", "저장")) {		//	Q0001	{0} 하시겠습니까?
 			const postJsonPromise = gfn_postJSON("/am/sort/insertSortCmndList.do", insertList);
 	    	const data = await postJsonPromise;
 	    	try {

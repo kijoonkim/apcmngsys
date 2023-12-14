@@ -782,8 +782,7 @@
     		insertList.push(rowData);
     	}
 
-		let regMsg = "저장 하시겠습니까?";
-		if(confirm(regMsg)){
+		if (gfn_comConfirm("Q0001", "저장")) {		//	Q0001	{0} 하시겠습니까?
 			let url = "";
 			if(invntrSeCd == "1"){
 				url = "/am/invntr/mulitSaveRawMtrInvntrList.do";
@@ -1108,8 +1107,7 @@
     		return;
     	}
 
-    	let regMsg = "삭제 하시겠습니까?";
-		if(confirm(regMsg)){
+    	if (gfn_comConfirm("Q0001", "삭제")) {		//	Q0001	{0} 하시겠습니까?
 
 			let url = "";
 			if (invntrSeCd == "1"){

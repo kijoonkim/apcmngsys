@@ -506,8 +506,7 @@
 
 			if(excelYn == "N"){
 				if(rowStts == 0 || rowStts == 2){
-	        		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-	        		if(confirm(delMsg)){
+					if (gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")) {		//	Q0001	{0} 하시겠습니까?
 	        			var wrhsPlan = grdWrhsPlan.getRowData(nRow);
 	        			fn_deleteWrhsPlan(wrhsPlan);
 	        			grdWrhsPlan.deleteRow(nRow);
@@ -647,7 +646,7 @@
             return;
 		}
 
-		if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
+		if (gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
     		return;
     	}
 

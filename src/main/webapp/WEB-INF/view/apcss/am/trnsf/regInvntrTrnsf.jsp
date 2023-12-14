@@ -939,8 +939,7 @@
     		saveList.push(rowData);
     	}
 
-		let regMsg = "저장 하시겠습니까?";
-		if(confirm(regMsg)){
+		if (gfn_comConfirm("Q0001", "저장")) {		//	Q0001	{0} 하시겠습니까?
 			let postJsonPromise;
 			if(checkSection == 1){
 				postJsonPromise = gfn_postJSON("/am/trnsf/saveTrnsfRawMtrInvntrList.do", saveList);

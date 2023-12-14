@@ -574,8 +574,7 @@
 			,rmrk: rmrk
 			,bssInvntrQntt: bssInvntrQntt
     	}];
-    	let regMsg = "저장 하시겠습니까?";
-		if(confirm(regMsg)){
+    	if (gfn_comConfirm("Q0001", "저장")) {		//	Q0001	{0} 하시겠습니까?
 			const postJsonPromise = gfn_postJSON("/am/cmns/insertPltWrhsSpmt.do", insertList);
 	    	const data = await postJsonPromise;
 	    	try{
@@ -607,8 +606,7 @@
     		gfn_comAlert("W0003", "삭제");			// W0003	{0}할 대상이 없습니다.
     		return;
     	}
-    	let regMsg = "삭제 하시겠습니까?";
-		if(confirm(regMsg)){
+    	if (gfn_comConfirm("Q0001", "삭제")) {		//	Q0001	{0} 하시겠습니까?
 			const postJsonPromise = gfn_postJSON("/am/cmns/updateDelYnPltWrhsSpmt.do", deleteList);
 	    	const data = await postJsonPromise;
 
