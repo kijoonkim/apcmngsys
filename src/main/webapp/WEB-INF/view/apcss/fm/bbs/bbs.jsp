@@ -708,9 +708,9 @@
     	console.log("===========fn_fileUpload");
     	var formData = new FormData();
     	var files = $('#bbsfileList')[0].files;
-
+		console.log(files);
     	if(files.length == 0){return;}
-
+    	console.log(files);
     	for (var i = 0; i < files.length; i++) {
             formData.append('files', files[i]);
         }

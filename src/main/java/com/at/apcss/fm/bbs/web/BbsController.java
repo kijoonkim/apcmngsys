@@ -385,6 +385,7 @@ public class BbsController extends BaseController {
 		redirectAttributes.addFlashAttribute("message", "File successfully uploaded!");
 
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
+		resultMap.put("test", files.size());
 
 		return getSuccessResponseEntity(resultMap);
     }
