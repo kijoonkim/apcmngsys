@@ -505,7 +505,7 @@
 					jsonRawMtrInvntr.push(rawMtrInvntr);
 				}
   			});
-			grdRawMtrInvntr.refresh();
+			grdRawMtrInvntr.rebuild();
 		} catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);

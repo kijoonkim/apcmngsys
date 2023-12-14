@@ -529,7 +529,6 @@
 	    };
 	    SBGridProperties.columns = [
 	        {caption: ["선별번호","선별번호"],		ref: 'sortno',      	type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["등급","등급"],				ref: 'grdNm',      		type:'output',  width:'90px',    style:'text-align:center'},
 	        {caption: ["투입일자","투입일자"],		ref: 'inptYmd',      	type:'output',  width:'105px',    style:'text-align:center',
 	        	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 	        {caption: ["설비","설비"],				ref: 'fcltNm',      	type:'output',  width:'105px',    style:'text-align:center'},
@@ -537,6 +536,7 @@
 	        {caption: ["품목","품목"],				ref: 'itemNm',     		type:'output',  width:'90px',    style:'text-align:center'},
 	        {caption: ["품종","품종"],				ref: 'vrtyNm',      	type:'output',  width:'90px',    style:'text-align:center'},
 	        {caption: ["규격","규격"],				ref: 'spcfctNm',      	type:'output',  width:'90px',    style:'text-align:center'},
+	        {caption: ["등급","등급"],				ref: 'grdNm',      		type:'output',  width:'90px',    style:'text-align:center'},
 	        {caption: ["창고","창고"],				ref: 'warehouseSeNm',   type:'output',  width:'90px',    style:'text-align:center'},
 	        {caption: ["선별","수량"],				ref: 'sortQntt',      	type:'output',  width:'85px',    style:'text-align:center'},
 	        {caption: ["선별","중량"],				ref: 'sortWght',      	type:'output',  width:'85px',    style:'text-align:center',

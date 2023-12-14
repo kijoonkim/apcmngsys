@@ -421,14 +421,6 @@
 </body>
 <script type="text/javascript">
 
-	const lv_paging = {
-		'type' : 'page',
-	  	'count' : 5,
-	  	'size' : 20,
-	  	'sorttype' : 'page',
-	  	'showgoalpageui' : true
-    };
-
 	var jsonApcItem			= [];	// 품목 		itemCd		검색
 	var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
 	var jsonApcGrd			= [];	// 등급 		vrtyCd		검색
@@ -529,7 +521,6 @@
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.scrollbubbling = false;
-	    SBGridProperties.paging = lv_paging;
 
 	    SBGridProperties.columns = [
 	    	{
@@ -776,15 +767,10 @@
      * @description 조회 버튼
      */
     const fn_search = async function() {
-        // set pagination
-    	grdRawMtrWrhs.rebuild();
-    	let pageSize = grdRawMtrWrhs.getPageSize();
-    	let pageNo = 1;
 
     	// grid clear
     	jsonRawMtrWrhs.length = 0;
-    	grdRawMtrWrhs.clearStatus();
-    	fn_setGrdRawMtrWrhs(pageSize, pageNo);
+    	fn_setGrdRawMtrWrhs();
 	}
 
 	/** ui event */
@@ -1020,21 +1006,13 @@
     /**
      * @name fn_setGrdRawMtrWrhs
      * @description 입고내역 조회
-     * @param {number} pageSize
-     * @param {number} pageNo
      */
-	const fn_setGrdRawMtrWrhs = async function(pageSize, pageNo) {
-
+	const fn_setGrdRawMtrWrhs = async function() {
    		let wrhsYmd = SBUxMethod.get("srch-dtp-wrhsYmd");	// 입고일자
 
 		const postJsonPromise = gfn_postJSON("/am/wrhs/selectRawMtrWrhsList.do", {
 			apcCd: gv_selectedApcCd,
-			wrhsYmd: wrhsYmd,
-
-          	// pagination
-  	  		pagingYn : 'Y',
-  			currentPageNo : pageNo,
-   		  	recordCountPerPage : pageSize
+			wrhsYmd: wrhsYmd
   		});
 
         const data = await postJsonPromise;
@@ -1081,24 +1059,10 @@
   						stdGrdCd: item.stdGrdCd,
   				}
   				jsonRawMtrWrhs.push(rawMtrWrhs);
-
-  				if (index === 0) {
-  					totalRecordCount = item.totalRecordCount;
-  				}
   			});
-
-          	if (jsonRawMtrWrhs.length > 0) {
-          		if(grdRawMtrWrhs.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-          			grdRawMtrWrhs.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-          			grdRawMtrWrhs.rebuild();
-  				}else{
-  					grdRawMtrWrhs.refresh();
-  				}
-          	} else {
-          		grdRawMtrWrhs.setPageTotalCount(totalRecordCount);
-          		grdRawMtrWrhs.rebuild();
-          	}
-
+          	totalRecordCount = jsonRawMtrWrhs.length;
+          	
+			grdRawMtrWrhs.rebuild();
           	document.querySelector('#cnt-wrhs').innerText = totalRecordCount;
           	SBUxMethod.set("crtr-ymd", wrhsYmd);
 

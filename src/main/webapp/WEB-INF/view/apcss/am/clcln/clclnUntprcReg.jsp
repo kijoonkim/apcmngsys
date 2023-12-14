@@ -33,20 +33,20 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button
-						id="btnSearch"
-						name="btnSearch"
-						uitype="normal"
-						class="btn btn-sm btn-outline-danger"
-						text="조회"
-						onclick="fn_search"
-					></sbux-button>
-					<sbux-button
 						id="btnSave"
 						name="btnSave"
 						uitype="normal"
 						class="btn btn-sm btn-outline-danger"
 						text="저장"
 						onclick="fn_save"
+					></sbux-button>
+					<sbux-button
+						id="btnSearch"
+						name="btnSearch"
+						uitype="normal"
+						class="btn btn-sm btn-outline-danger"
+						text="조회"
+						onclick="fn_search"
 					></sbux-button>
 				</div>
 			</div>
@@ -413,9 +413,7 @@
 			apcCd: gv_selectedApcCd,
 			clclnCrtrCd: clclnCrtrCd,
 			itemCd: itemCd,
-			vrtyCd: vrtyCd,
-          	// pagination
-  	  		pagingYn : 'N',
+			vrtyCd: vrtyCd
   		});
 
         const data = await postJsonPromise;
@@ -446,7 +444,7 @@
   			});
 
           	totalRecordCount = jsonClclnUntprc.length;
-          	grdClclnUntprc.refresh();
+          	grdClclnUntprc.rebuild();
 
           	document.querySelector('#cnt-clcln').innerText = totalRecordCount;
 

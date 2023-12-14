@@ -89,7 +89,7 @@ public class ComMenuApiController extends BaseController {
 		try {
 			resultList = comMenuService.selectMenuTreeList(comMenuVO);
 		} catch (Exception e) {
-
+			return getErrorResponseEntity(e);
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -122,7 +122,7 @@ public class ComMenuApiController extends BaseController {
 				}
 			}
 		} catch (Exception e) {
-
+			return getErrorResponseEntity(e);
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -141,7 +141,7 @@ public class ComMenuApiController extends BaseController {
 		try {
 			resultList = comMenuService.selectLeftMenuList(comMenuVO);
 		} catch (Exception e) {
-
+			return getErrorResponseEntity(e);
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);

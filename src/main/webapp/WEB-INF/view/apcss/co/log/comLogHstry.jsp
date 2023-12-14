@@ -95,7 +95,7 @@
 		    $('#'+btnName.slice(3)).show();
 		    $('#'+btnName.slice(3)+' [name='+btnName+']').css({'background-color':'#149FFF', 'border':'1px solid #149FFF', 'color': '#FFFFFF'});
 
-		    eval('tab'+btnName.slice(3)+'.init(gv_selectedApcCd, gv_selectedApcNm, '+ymdFrom+', '+ymdTo+')');
+		    (new Function('tab'+btnName.slice(3)+'.init(gv_selectedApcCd, gv_selectedApcNm, '+ymdFrom+', '+ymdTo+')'))();
 		    searchTarget = btnName.slice(3);
 		});
 
@@ -104,10 +104,10 @@
 		var userType = '${loginVO.userType}';
 
 		if(userType == "00" || userType == "01"){
-			eval('tabLogCntnHstry.init(gv_selectedApcCd, gv_selectedApcNm, '+ymdFrom+', '+ymdTo+')');
+			(new Function('tabLogCntnHstry.init(gv_selectedApcCd, gv_selectedApcNm, '+ymdFrom+', '+ymdTo+')'))();
 			$('#LogCntnHstry [name=btnLogCntnHstry]').click();
 		}else{
-		    eval('tabRawMtrChgHstry.init(gv_selectedApcCd, gv_selectedApcNm, '+ymdFrom+', '+ymdTo+')');
+			(new Function('tabRawMtrChgHstry.init(gv_selectedApcCd, gv_selectedApcNm, '+ymdFrom+', '+ymdTo+')'))();
 			$('#RawMtrChgHstry [name=btnRawMtrChgHstry]').click();
 		}
 	});
