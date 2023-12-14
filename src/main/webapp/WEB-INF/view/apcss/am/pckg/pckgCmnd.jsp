@@ -224,9 +224,9 @@
 	        {caption: ["납기일자","납기일자"],	ref: 'dudtYmd',     type:'output',  width:'120px',    style:'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 	        {caption: ["상품명","상품명"],		ref: 'gdsNm',      	type:'output',  width:'130px',    style:'text-align:center', hidden: true},
 	        {caption: ["지시","수량"],			ref: 'cmndQntt',    type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,### '}},
-	        {caption: ["지시","중량"],			ref: 'cmndWght',    type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,### Kg'}},
+	        {caption: ["지시","중량 (Kg)"],			ref: 'cmndWght',    type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
 	        {caption: ["실적","수량"],			ref: 'pckgQntt',    type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,### '}},
-	        {caption: ["실적","중량"],			ref: 'pckgWght',    type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,### Kg'}},
+	        {caption: ["실적","중량 (Kg)"],			ref: 'pckgWght',    type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
 	        {caption: ["비고","비고"],			ref: 'rmrk',      	type:'output',  width:'250px',    style:'text-align:center'},
 	    ];
 
