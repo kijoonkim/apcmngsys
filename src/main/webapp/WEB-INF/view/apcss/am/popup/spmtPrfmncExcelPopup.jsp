@@ -61,7 +61,7 @@
 			 	gfn_setApcItemSBSelect('grdExcelSpmtPrfmncPopup', 		jsonEPSApcItem, 		gv_selectedApcCd),						// 품목
 			 	gfn_setApcVrtySBSelect('grdExcelSpmtPrfmncPopup', 		jsonEPSApcVrty, 		gv_selectedApcCd, itemCd),				// 품종
 				gfn_setApcSpcfctsSBSelect('grdExcelSpmtPrfmncPopup',	jsonEPSSpcfct, 			gv_selectedApcCd, itemCd),				// 규격
-			 	gfn_setComCdSBSelect('grdExcelSpmtPrfmncPopup',			jsonEPSGdsGrd, 			'GDS_GRD'),								// 등급
+			 	gfn_setApcGdsGrdSBSelect('grdExcelSpmtPrfmncPopup', 	jsonEPSGdsGrd, 			gv_selectedApcCd, itemCd, '03'),		// 등급
 				gfn_setPrdcrSBSelect('grdExcelSpmtPrfmncPopup', 		jsonEPSApcPrdcr, 	 	gv_selectedApcCd), 						// 생산자 등록
 				gfn_setSpmtPckgUnitSBSelect('grdExcelSpmtPrfmncPopup',	jsonEPSSpmtPckgUnit, 	gv_selectedApcCd, itemCd),				// 포장구분
 				gfn_setCpntSBSelect('grdExcelSpmtPrfmncPopup', 			jsonEPSCnpt, 			gv_selectedApcCd),						// 거래처
