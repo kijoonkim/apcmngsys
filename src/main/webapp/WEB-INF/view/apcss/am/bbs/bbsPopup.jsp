@@ -251,8 +251,10 @@
 		let apcCd = gv_apcCd;
 		if(apcCd === '0000' || user === '${loginVO.name}'){
 			SBUxMethod.show("btnDeleteBbsPopup");
+			SBUxMethod.show("btnUpdateBbsPopup");
 		}else{
 			SBUxMethod.hide("btnDeleteBbsPopup");
+			SBUxMethod.hide("btnUpdateBbsPopup");
 		}
 
 	}
