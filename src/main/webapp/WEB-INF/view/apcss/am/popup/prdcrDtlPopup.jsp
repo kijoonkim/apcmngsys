@@ -45,7 +45,7 @@
 							</th>
 							<th scope="row">농가명</th>
 							<th class="td_input">
-								<sbux-input id="prdcrDtl-inp-frmhsNm" name="prdcrDtl-inp-frmhsNm" uitype="text" class="form-control input-sm" maxlength='100' onchange='popPrdcrDtl.onChangeFrmhs'></sbux-input>
+								<sbux-input id="prdcrDtl-inp-prdcrNm" name="prdcrDtl-inp-prdcrNm" uitype="text" class="form-control input-sm" maxlength='100' disabled></sbux-input>
 							</th>
 							<th scope="row">연락처</th>
 							<th>
@@ -57,7 +57,7 @@
 									auto-fill-phone-dashes="true"
 									auto-fill-gen-dashes="true"
 									maxlength='22'
-									onchange='popPrdcrDtl.onChangeFrmhs'
+									onkeyup='popPrdcrDtl.onChangeFrmhs'
 								></sbux-input>
 							</th>
 						</tr>
@@ -71,13 +71,13 @@
 									jsondata-ref="jsonCtpvPrdcrDtlPop"
 									unselected-text="선택"
 									class="form-control input-sm"
-									onchange='popPrdcrDtl.onChangeFrmhs'
+									onchange="popPrdcrDtl.onChangeFrmhs"
 									style="background-color:#FFFFFF;"
 								></sbux-select>
 							</th>
 							<th scope="row">주소</th>
 							<th colspan='3' class="td_input">
-								<sbux-input id="prdcrDtl-inp-frmhsAddr" name="prdcrDtl-inp-frmhsAddr" uitype="text" class="form-control input-sm" maxlength='200' onchange='popPrdcrDtl.onChangeFrmhs'></sbux-input>
+								<sbux-input id="prdcrDtl-inp-frmhsAddr" name="prdcrDtl-inp-frmhsAddr" uitype="text" class="form-control input-sm" maxlength='200' onkeyup='popPrdcrDtl.onChangeFrmhs'></sbux-input>
 							</th>
 						</tr>
 					</tbody>
@@ -115,20 +115,20 @@
 		prvApcCd: "",
 		objGrid: null,
 		gridJson: [],
-		init: async function(_apcCd, _apcNm, _prdcrCd) {
+		init: async function(_apcCd, _apcNm, _rowData) {
+
 			// set param
 			SBUxMethod.set("prdcrDtl-inp-apcCd", _apcCd);
 			SBUxMethod.set("prdcrDtl-inp-apcNm", _apcNm);
+
+			SBUxMethod.set("prdcrDtl-inp-prdcrCd", _rowData.prdcrCd);
+			SBUxMethod.set("prdcrDtl-inp-prdcrNm", _rowData.prdcrNm);
+			SBUxMethod.set("prdcrDtl-slt-frmhsCtpv", _rowData.frmhsCtpv);
+			SBUxMethod.set("prdcrDtl-inp-frmhsAddr", _rowData.frmhsAddr);
+
 			onChangeFrmhsYn = 'N';
-			if (!gfn_isEmpty(_prdcrCd)) {
-				SBUxMethod.set("prdcrDtl-inp-prdcrCd",_prdcrCd);
-			}
-			
+
 			if (grdPrdcrDtlPop === null || this.prvApcCd != _apcCd) {
-				let rst = await Promise.all([
-					gfn_setApcVrtySBSelect('grdPrdcrDtlPop', jsonApcVrtyPrdcrDtlPop, _apcCd),				// 품종
-					gfn_setComCdSBSelect('prdcrDtl-slt-frmhsCtpv', jsonCtpvPrdcrDtlPop, 'CTPV', '0000')		// 지역
-				]);
 				this.createGrid();
 				this.search();
 			} else {
@@ -147,7 +147,6 @@
 		    SBGridProperties.jsonref = this.jsonId;		//'jsonComAuthUserPop';		//'jsonComAuthUserPop';
 		    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 		    SBGridProperties.selectmode = 'free';
-		    SBGridProperties.explorerbar = 'move';
 		    SBGridProperties.extendlastcol = 'scroll';
 		    SBGridProperties.oneclickedit = true;
 		    SBGridProperties.allowcopy = true;
@@ -164,16 +163,11 @@
 			    {caption: ['등록일자','등록일자'],			ref: 'regYmd',		type: 'output',		width: '80px',	style: 'text-align:center',	sortable: false,
 			    	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 		        {caption: ['순번','순번'],					ref: 'sn',			type: 'output', 	width: '40px',	style: 'text-align:center',	sortable: false},
-		        {caption: ['품종','품종1'],				ref: 'vrtyCd1',		type: 'combo', 		width: '80px',	style: 'text-align:center',	sortable: false,
-					typeinfo: {ref:'jsonApcVrtyPrdcrDtlPop', label:'label', value:'value', itemcount: 10}},
-		        {caption: ['품종','품종2'],				ref: 'vrtyCd2',		type: 'combo', 		width: '80px',	style: 'text-align:center',	sortable: false,
-					typeinfo: {ref:'jsonApcVrtyPrdcrDtlPop', label:'label', value:'value', itemcount: 10}},
-		        {caption: ['품종','품종3'],				ref: 'vrtyCd3',		type: 'combo', 		width: '80px',	style: 'text-align:center',	sortable: false,
-					typeinfo: {ref:'jsonApcVrtyPrdcrDtlPop', label:'label', value:'value', itemcount: 10}},
-		        {caption: ['품종','품종4'],				ref: 'vrtyCd4',		type: 'combo', 		width: '80px',	style: 'text-align:center',	sortable: false,
-					typeinfo: {ref:'jsonApcVrtyPrdcrDtlPop', label:'label', value:'value', itemcount: 10}},
-		        {caption: ['품종','품종5'],				ref: 'vrtyCd5',		type: 'combo', 		width: '80px',	style: 'text-align:center',	sortable: false,
-					typeinfo: {ref:'jsonApcVrtyPrdcrDtlPop', label:'label', value:'value', itemcount: 10}},
+		        {caption: ['품종','뉴마르스'],				ref: 'vrtyCd1',		type: 'input', 		width: '80px',	style: 'text-align:center',	sortable: false},
+		        {caption: ['품종','카나마루'],				ref: 'vrtyCd2',		type: 'input', 		width: '80px',	style: 'text-align:center',	sortable: false},
+		        {caption: ['품종','홍스트'],				ref: 'vrtyCd3',		type: 'input', 		width: '80px',	style: 'text-align:center',	sortable: false},
+		        {caption: ['품종','페가수스'],				ref: 'vrtyCd4',		type: 'input', 		width: '80px',	style: 'text-align:center',	sortable: false},
+		        {caption: ['품종','찬스볼'],				ref: 'vrtyCd5',		type: 'input', 		width: '80px',	style: 'text-align:center',	sortable: false},
 		        {caption: ['계약면적','평'],				ref: 'ctrtArea', 	type: 'input', 		width: '70px',	style: 'text-align:right',	sortable: false,
 					typeinfo : {mask : {alias: 'decimal', digits : 3}}, format : {type:'number', rule:'#,###.###'}},
 		        {caption: ['계약면적','㎡'],				ref: 'ctrtAreaSqM',	type: 'input', 		width: '80px',	style: 'text-align:right',	sortable: false,
@@ -234,7 +228,6 @@
 		save: async function() {
 			const apcCd = SBUxMethod.get("prdcrDtl-inp-apcCd");
 			const prdcrCd = SBUxMethod.get("prdcrDtl-inp-prdcrCd");
-			const frmhsNm = gfn_isEmpty(SBUxMethod.get("prdcrDtl-inp-frmhsNm")) ? "" : SBUxMethod.get("prdcrDtl-inp-frmhsNm");
 			const frmhsTelno = (typeof(SBUxMethod.get("prdcrDtl-inp-frmhsTelno")) == "undefined" || gfn_isEmpty(SBUxMethod.get("prdcrDtl-inp-frmhsTelno"))) ? "" : SBUxMethod.get("prdcrDtl-inp-frmhsTelno");
 			const frmhsCtpv = SBUxMethod.get("prdcrDtl-slt-frmhsCtpv");
 			const frmhsAddr = gfn_isEmpty(SBUxMethod.get("prdcrDtl-inp-frmhsAddr")) ? "" : SBUxMethod.get("prdcrDtl-inp-frmhsAddr");
@@ -255,19 +248,17 @@
 					rowData.prdcrCd = prdcrCd;
 					rowData.regYmd = gfn_dateToYmd(new Date());
 					rowData.rowSts = "I";
-					rowData.frmhsNm = frmhsNm;
 					rowData.frmhsTelno = frmhsTelno;
 					rowData.frmhsCtpv = frmhsCtpv;
 					rowData.frmhsAddr = frmhsAddr;
-					
+
 					prdcrDtlList.push(rowData);
 				} else if (rowSts === 2){
 					rowData.rowSts = "U";
-					rowData.frmhsNm = frmhsNm;
 					rowData.frmhsTelno = frmhsTelno;
 					rowData.frmhsCtpv = frmhsCtpv;
 					rowData.frmhsAddr = frmhsAddr;
-					
+
 					prdcrDtlList.push(rowData);
 				} else {
 					continue;
@@ -282,17 +273,15 @@
 					var frmhs = {
 						apcCd 		: apcCd,
 						prdcrCd 	: prdcrCd,
-						frmhsNm 	: frmhsNm,
 						frmhsTelno 	: frmhsTelno,
 						frmhsCtpv 	: frmhsCtpv,
 						frmhsAddr 	: frmhsAddr
 					};
-					
+
 					prdcrDtlList.push(frmhs);
 				}
 			}
 
-			console.log(prdcrDtlList);
 			if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
 	    		return;
 	    	}
@@ -305,6 +294,7 @@
 	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
 	        		onChangeFrmhsYn = 'N';
 	        		this.search();
+	        		fn_search();
 	        	} else {
 	        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        	}
@@ -322,42 +312,8 @@
 	    	// grid clear
 	    	jsonPrdcrDtlPop.length = 0;
 	    	grdPrdcrDtlPop.refresh();
-	    	this.setFrmhs();
 	    	this.setGrid();
 		},
-		setFrmhs: async function() {
-
-	    	let apcCd = SBUxMethod.get("prdcrDtl-inp-apcCd");
-			let prdcrCd = SBUxMethod.get("prdcrDtl-inp-prdcrCd");
-
-	        const postJsonPromise = gfn_postJSON("/am/cmns/selectPrdcrList.do", {
-	        	apcCd	: apcCd,
-	        	prdcrCd	: prdcrCd
-			});
-
-	        const data = await postJsonPromise;
-
-			try {
-	        	data.resultList.forEach((item, index) => {
-					const prdcrDtl = {
-							frmhsNm			: item.frmhsNm,
-							frmhsTelno		: item.frmhsTelno,
-							frmhsCtpv		: item.frmhsCtpv,
-							frmhsAddr		: item.frmhsAddr
-					}
-					SBUxMethod.set("prdcrDtl-inp-frmhsNm", prdcrDtl.frmhsNm);
-					SBUxMethod.set("prdcrDtl-inp-frmhsTelno", prdcrDtl.frmhsTelno);
-					SBUxMethod.set("prdcrDtl-slt-frmhsCtpv", prdcrDtl.frmhsCtpv);
-					SBUxMethod.set("prdcrDtl-inp-frmhsAddr", prdcrDtl.frmhsAddr);
-				});
-	        } catch (e) {
-	    		if (!(e instanceof Error)) {
-	    			e = new Error(e);
-	    		}
-	    		console.error("failed", e.message);
-	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-	        }
-	    },
 		setGrid: async function() {
 
 	    	let apcCd = SBUxMethod.get("prdcrDtl-inp-apcCd");
@@ -392,7 +348,7 @@
 					jsonPrdcrDtlPop.push(prdcrDtl);
 				});
         		grdPrdcrDtlPop.rebuild();
-        		
+
         		let nRow = grdPrdcrDtlPop.getRows();
         		grdPrdcrDtlPop.addRow(true);
         		grdPrdcrDtlPop.setCellDisabled(nRow, 0, nRow, grdPrdcrDtlPop.getCols() - 1, true);
@@ -415,67 +371,67 @@
 			let ctrtAreaSqMCol = grdPrdcrDtlPop.getColRef("ctrtAreaSqM");
 			let cltvtnAreaCol = grdPrdcrDtlPop.getColRef("cltvtnArea");
 			if (nCol == ctrtAreaCol) {
-				
+
 				if (grdPrdcrDtlPop.getCellData(nRow, nCol)%1 != 0) {
 					if ((grdPrdcrDtlPop.getCellData(nRow, nCol)).length > 11) {
 						grdPrdcrDtlPop.setCellData(nRow, ctrtAreaCol, "");
 						grdPrdcrDtlPop.setCellData(nRow, ctrtAreaSqMCol, "");
-						gfn_comAlert("E0000", "소수점 자리를 포함해 10자리까지(평 단위 기준)만 입력 가능합니다.");
+						gfn_comAlert("E0000", "소수점 자리를 포함해 10자리까지(평 단위 기준)만 입력 가능합니다.");	//	E0000	{}
 						return;
 					}
 				} else {
 					if ((grdPrdcrDtlPop.getCellData(nRow, nCol)).length > 10) {
 						grdPrdcrDtlPop.setCellData(nRow, ctrtAreaCol, "");
 						grdPrdcrDtlPop.setCellData(nRow, ctrtAreaSqMCol, "");
-						gfn_comAlert("E0000", "소수점 자리를 포함해 10자리까지(평 단위 기준)만 입력 가능합니다.");
+						gfn_comAlert("E0000", "소수점 자리를 포함해 10자리까지(평 단위 기준)만 입력 가능합니다.");	//	E0000	{}
 						return;
 					}
 				}
-				
+
 				let ctrtAreaSqM = parseFloat((grdPrdcrDtlPop.getCellData(nRow, nCol)*3.305785).toPrecision(10));
 				ctrtAreaSqM = parseFloat(ctrtAreaSqM.toFixed(3));
-				
+
 				grdPrdcrDtlPop.setCellData(nRow, ctrtAreaSqMCol, ctrtAreaSqM);
-				
+
 			} else if (nCol == ctrtAreaSqMCol) {
 
 				let ctrtArea = parseFloat((grdPrdcrDtlPop.getCellData(nRow, nCol)/3.305785).toPrecision(10));
 				ctrtArea = parseFloat(ctrtArea.toFixed(3));
-				
+
 				if (ctrtArea%1 != 0) {
 					if (ctrtArea.toString().length > 11) {
 						grdPrdcrDtlPop.setCellData(nRow, ctrtAreaCol, "");
 						grdPrdcrDtlPop.setCellData(nRow, ctrtAreaSqMCol, "");
-						gfn_comAlert("E0000", "소수점 자리를 포함해 10자리까지(평 단위 기준)만 입력 가능합니다.");
+						gfn_comAlert("E0000", "소수점 자리를 포함해 10자리까지(평 단위 기준)만 입력 가능합니다.");	//	E0000	{}
 						return;
 					}
 				} else {
 					if (ctrtArea.toString().length > 10) {
 						grdPrdcrDtlPop.setCellData(nRow, ctrtAreaCol, "");
 						grdPrdcrDtlPop.setCellData(nRow, ctrtAreaSqMCol, "");
-						gfn_comAlert("E0000", "소수점 자리를 포함해 10자리까지(평 단위 기준)만 입력 가능합니다.");
+						gfn_comAlert("E0000", "소수점 자리를 포함해 10자리까지(평 단위 기준)만 입력 가능합니다.");	//	E0000	{}
 						return;
 					}
 				}
-				
+
 				grdPrdcrDtlPop.setCellData(nRow, ctrtAreaCol, ctrtArea);
-				
+
 			} else if (nCol == cltvtnAreaCol) {
-				
+
 				if (grdPrdcrDtlPop.getCellData(nRow, nCol)%1 != 0) {
 					if ((grdPrdcrDtlPop.getCellData(nRow, nCol)).length > 11) {
 						grdPrdcrDtlPop.setCellData(nRow, cltvtnAreaCol, "");
-						gfn_comAlert("E0000", "소수점 자리를 포함해 10자리까지(평 단위 기준)만 입력 가능합니다.");
+						gfn_comAlert("E0000", "소수점 자리를 포함해 10자리까지(평 단위 기준)만 입력 가능합니다.");	//	E0000	{}
 						return;
 					}
 				} else {
 					if ((grdPrdcrDtlPop.getCellData(nRow, nCol)).length > 10) {
 						grdPrdcrDtlPop.setCellData(nRow, cltvtnAreaCol, "");
-						gfn_comAlert("E0000", "소수점 자리를 포함해 10자리까지(평 단위 기준)만 입력 가능합니다.");
+						gfn_comAlert("E0000", "소수점 자리를 포함해 10자리까지(평 단위 기준)만 입력 가능합니다.");	//	E0000	{}
 						return;
 					}
 				}
-				
+
 			}
 	    }
 	}
