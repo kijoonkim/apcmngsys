@@ -20,7 +20,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.core.env.Environment;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -70,7 +70,8 @@ import org.w3c.dom.NodeList;
 public class BbsController extends BaseController {
 
 	//파일 업로드 경로
-	private String uploadPath = "C:\\app\\upload";
+	@Value("${upload.path}")
+    private String uploadPath;
 
 	// 게시판
 	@Resource(name= "bbsService")
@@ -334,6 +335,13 @@ public class BbsController extends BaseController {
     public ResponseEntity<HashMap<String, Object>> handleFileUpload(@RequestParam("files") List<MultipartFile> files,@RequestParam("bbsNo") String bbsNo, RedirectAttributes redirectAttributes) throws Exception{
 
     	System.out.println("======================/fm/bbs/fileUpload.do==========================");
+
+    	//String curWorkingDir = System.getProperty("user.dir");
+		//System.out.println("현재 작업 폴더 : " + curWorkingDir);
+		//System.out.println("폴더 : " + uploadPath1);
+
+    	String projectDir = System.getProperty("user.dir");
+        String uploadDir = projectDir + "/upload";
 
     	HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
