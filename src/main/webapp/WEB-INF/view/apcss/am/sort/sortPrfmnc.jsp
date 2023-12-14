@@ -435,14 +435,14 @@
             {caption: ["투입","수량"],  			ref: 'inptQntt',   		type:'output',  width:'60px',   style:'text-align:right',
             	format : {type:'number', rule:'#,###'}
             },
-            {caption: ["투입","중량"],  			ref: 'inptWght',   		type:'output',  width:'80px',   style:'text-align:right',
-            	format : {type:'number', rule:'#,### Kg'}
+            {caption: ["투입","중량 (Kg)"],  			ref: 'inptWght',   		type:'output',  width:'80px',   style:'text-align:right',
+            	format : {type:'number', rule:'#,###'}
             },
             {caption: ["선별","수량"],  			ref: 'sortQntt', 		type:'output',  width:'60px',   style:'text-align:right',
             	format : {type:'number', rule:'#,###'}
             },
-            {caption: ["선별","중량"],  			ref: 'sortWght', 		type:'output',  width:'80px',   style:'text-align:right',
-            	format : {type:'number', rule:'#,### Kg'}
+            {caption: ["선별","중량 (Kg)"],  			ref: 'sortWght', 		type:'output',  width:'80px',   style:'text-align:right',
+            	format : {type:'number', rule:'#,###'}
             },
             {caption: ["대표생산자","대표생산자"], 	ref: 'rprsPrdcrNm',  	type:'output',  width:'80px',   style:'text-align:center'},
             {caption: ["저장창고","저장창고"], 		ref: 'warehouseSeNm', 	type:'output',  width:'80px',	style:'text-align:center'},
@@ -748,8 +748,8 @@
          	{caption: ["투입","수량"],  		ref: 'qntt',   			type:'output',  width:'60px',   style:'text-align:right',
              	format : {type:'number', rule:'#,###'}
             },
-            {caption: ["투입","중량"],  		ref: 'wght',   			type:'output',  width:'60px',   style:'text-align:right',
-            	format : {type:'number', rule:'#,### Kg'}
+            {caption: ["투입","중량 (Kg)"],  		ref: 'wght',   			type:'output',  width:'60px',   style:'text-align:right',
+            	format : {type:'number', rule:'#,###'}
             },
             {caption: ["투입창고","투입창고"],	ref: 'warehouseSeNm',	type:'output',  width:'80px',   style:'text-align:center'},
             {caption: ["생산자","생산자"],		ref: 'prdcrNm',			type:'output',  width:'80px',   style:'text-align:center'},
