@@ -191,8 +191,8 @@
 	         {caption: ["규격"],    	ref: 'spcfctNm',	type:'output',  width:'120px', style: 'text-align:center'},
 	         {caption: ["수량"],	    ref: 'qntt',   		type:'output',  width:'120px', style: 'text-align:right',
      			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-	         {caption: ["중량"],	    ref: 'wght', 		type:'output',  width:'120px', style: 'text-align:right',
-     			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
+	         {caption: ["중량 (Kg)"],	    ref: 'wght', 		type:'output',  width:'120px', style: 'text-align:right',
+     			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
 	         {caption: ["작업자수"],  	ref: 'oprtrQntt',   type:'output',  width:'120px', style: 'text-align:right',
         			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### 명'}},
 	         {caption: ["비고"],  		ref: 'rmrk',   		type:'output',  width:'300px', style: 'text-align:left'}

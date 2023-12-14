@@ -237,9 +237,9 @@
 	        {caption: ["설비","설비"],  	ref: 'fcltNm',    type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["팔레트번호","팔레트번호"],  	ref: 'pltno',    type:'output',  width:'150px',    style:'text-align:center'},
 	        {caption: ["선별지시","수량"],  	ref: 'cmndQntt',    type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,### '}},
-	        {caption: ["선별지시","중량"],  	ref: 'cmndWght',    type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,### Kg'}},
+	        {caption: ["선별지시","중량 (Kg)"],  	ref: 'cmndWght',    type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
 	        {caption: ["투입실적","수량"],  	ref: 'inptQntt',    type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,### '}},
-	        {caption: ["투입실적","중량"],  	ref: 'inptWght',    type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,### Kg'}},
+	        {caption: ["투입실적","중량 (Kg)"],  	ref: 'inptWght',    type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
 	        {caption: ["비고","비고"],  	ref: 'rmrk',    type:'output',  width:'180px',    style:'text-align:center'},
 	    ];
 

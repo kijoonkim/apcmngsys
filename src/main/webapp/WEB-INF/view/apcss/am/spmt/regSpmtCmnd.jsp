@@ -348,8 +348,8 @@
             {caption: ['지시수량'], 	ref: 'inptCmndQntt', 	width: '80px', type: 'input', style: 'text-align:right; background:#FFF8DC;',
             	typeinfo : {mask : {alias : 'numeric'}}
             },
-            {caption: ['지시중량'], 	ref: 'inptCmndWght', 	width: '100px', type: 'output', style: 'text-align:right' ,
-            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
+            {caption: ['지시중량 (Kg)'], 	ref: 'inptCmndWght', 	width: '100px', type: 'output', style: 'text-align:right' ,
+            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
             {caption: ["단중"], ref: 'wght', type:'output', hidden : true}
         ];
 
@@ -379,8 +379,8 @@
             {caption: ['품종'], 		ref: 'vrtyNm', 			width: '100px', type: 'output', style: 'text-align:center'},
             {caption: ['규격'], 		ref: 'spcfctNm', 		width: '100px', type: 'output', style: 'text-align:center'},
             {caption: ['수량'], 		ref: 'cmndQntt',		width: '70px', type: 'output', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ['중량'], 		ref: 'cmndWght', 		width: '80px', type: 'output', style: 'text-align:right',
-            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
+            {caption: ['중량 (Kg)'], 		ref: 'cmndWght', 		width: '80px', type: 'output', style: 'text-align:right',
+            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
             {caption: ['상품등급'], 	ref: 'gdsGrdNm', 		width: '70px', type: 'output', style: 'text-align:center'},
             {caption: ['상품명'], 		ref: 'spmtPckgUnitNm', 	width: '140px', type: 'output', style: 'text-align:center'},
             {caption: ['비고'], 		ref: 'rmrk', 			width: '200px', type: 'output', style: 'text-align:center'}

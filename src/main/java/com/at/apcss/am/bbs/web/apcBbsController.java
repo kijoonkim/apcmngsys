@@ -365,7 +365,7 @@ public class apcBbsController extends BaseController {
 	                 file.transferTo(savePath);
 	                 insertedCnt1 += bbsService.insertAttach(apcBbsFileVO);
 	             } catch (IOException e) {
-	                 e.printStackTrace();
+	            	 getErrorResponseEntity(e);
 	             }
 
 	        }

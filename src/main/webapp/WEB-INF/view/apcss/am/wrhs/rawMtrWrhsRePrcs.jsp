@@ -410,9 +410,7 @@
             {caption: ["상품구분","상품구분"],		ref: 'gdsSeNm', 		type:'output',  width:'80px', style: 'text-align:center'},
             {caption: ["창고","창고"],	    	ref: 'warehouseSeNm', 	type:'output',  width:'120px', style: 'text-align:center'},
             {caption: ["원물재고","수량"],  		ref: 'invntrQntt',   	type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,###'}, typeinfo : {mask : {alias : 'numeric'}}},
-            {caption: ["원물재고","중량"],  		ref: 'invntrWght',   	type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,### Kg'}, typeinfo : {mask : {alias : 'numeric'}}},
-            //{caption: ["투입진행","수량"],  		ref: 'inptPrgrsQntt', 	type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-            //{caption: ["투입진행","중량"],  		ref: 'inptPrgrsWght', 	type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,### Kg'}},
+            {caption: ["원물재고","중량 (Kg)"],  		ref: 'invntrWght',   	type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,### '}, typeinfo : {mask : {alias : 'numeric'}}},
             {caption: ["투입","수량"], 			ref: 'inptQntt',  		type:'input',  width:'80px', style: 'text-align:right;background-color:#FFF8DC;',
             	userattr: {colNm: "inptQntt"},
             	typeinfo: {
@@ -422,14 +420,14 @@
 				},
 				format : {type:'number', rule:'#,###'}
             },
-            {caption: ["투입","중량"], 			ref: 'inptWght',  		type:'input',  width:'80px', style: 'text-align:right;background-color:#FFF8DC;',
+            {caption: ["투입","중량 (Kg)"], 			ref: 'inptWght',  		type:'input',  width:'80px', style: 'text-align:right;background-color:#FFF8DC;',
             	userattr: {colNm: "inptWght"},
             	typeinfo: {
             		mask : {alias : '#', repeat: '*', unmaskvalue : true},
             		maxlength: 6,
             		oneclickedit: true
 				},
-				format : {type:'number', rule:'#,### Kg'}
+				format : {type:'number', rule:'#,### '}
          	},
 		];
 
@@ -599,13 +597,13 @@
 			},
 			*/
 			{
-				caption: ["총 중량"],
+				caption: ["총 중량 (Kg)"],
 				ref: 'wrhsWght',
 				type:'output',
 				width:'80px',
 				style: 'text-align:right',
 				userattr: {colNm: "wrhsWght"},
-				format : {type:'number', rule:'#,### Kg'},
+				format : {type:'number', rule:'#,### '},
 				typeinfo : {mask : {alias : 'numeric'}}
 			},
 			/*
