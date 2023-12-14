@@ -261,8 +261,8 @@
             {caption: ['산지'], 			ref: 'plorCd', 			width: '9%', 	type: 'output', style: 'text-align:center'},
             {caption: ['포장구분'], 		ref: 'spmtPckgUnitNm', 	width: '9%', 	type: 'output', style: 'text-align:center'},
             {caption: ['입수'], 			ref: 'bxGdsQntt', 		width: '9%', 	type: 'output', style: 'text-align:center'},
-            {caption: ['중량'], 			ref: 'wght', 			width: '8%', 	type: 'output', style: 'text-align:center',
-            	format : {type:'number', rule:'#,### Kg'}
+            {caption: ['중량 (Kg)'], 			ref: 'wght', 			width: '8%', 	type: 'output', style: 'text-align:center',
+            	format : {type:'number', rule:'#,###'}
             }
         ];
         grdGdsCd = _SBGrid.create(SBGridProperties);

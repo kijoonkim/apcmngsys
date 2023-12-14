@@ -424,8 +424,8 @@
             {caption: ['재고','수량'], 			ref: 'invntrQntt', 		width: '50px', 	type: 'output', style:'text-align:right',
             	format : {type:'number', rule:'#,###'}
             },
-            {caption: ['재고','중량'], 			ref: 'invntrWght', 		width: '80px', 	type: 'output', style:'text-align:right',
-            	format : {type:'number', rule:'#,### Kg'}
+            {caption: ['재고','중량 (Kg)'], 			ref: 'invntrWght', 		width: '80px', 	type: 'output', style:'text-align:right',
+            	format : {type:'number', rule:'#,###'}
             },
             {caption: ['포장기','포장기'], 		ref: 'fcltNm', 			width: '100px', type: 'output', style:'text-align:center'},
             {caption: ['대표생산자','대표생산자'],	ref: 'rprsPrdcrNm', width: '100px', type: 'output', style:'text-align:center'},
@@ -433,14 +433,14 @@
             {caption: ['포장','수량'], 			ref: 'pckgQntt', 		width: '50px', 	type: 'output', style:'text-align:right',
             	format : {type:'number', rule:'#,###'}
             },
-            {caption: ['포장','중량'], 			ref: 'pckgWght', 		width: '80px', 	type: 'output', style:'text-align:right',
-            	format : {type:'number', rule:'#,### Kg'}
+            {caption: ['포장','중량 (Kg)'], 			ref: 'pckgWght', 		width: '80px', 	type: 'output', style:'text-align:right',
+            	format : {type:'number', rule:'#,###'}
             },
             {caption: ['출하','수량'], 			ref: 'spmtQntt', 		width: '50px', 	type: 'output', style:'text-align:right',
             	format : {type:'number', rule:'#,###'}
             },
-            {caption: ['출하','중량'], 			ref: 'spmtWght', 		width: '80px', 	type: 'output', style:'text-align:right',
-            	format : {type:'number', rule:'#,### Kg'}
+            {caption: ['출하','중량 (Kg)'], 			ref: 'spmtWght', 		width: '80px', 	type: 'output', style:'text-align:right',
+            	format : {type:'number', rule:'#,###'}
             },
             {caption: ['비고','비고'], 		ref: 'rmrk', 				width: '250px', type: 'output', style:'text-align:center'},
  	        {caption: ["APC코드"],	ref: 'apcCd',   	type:'output',  hidden: true},
