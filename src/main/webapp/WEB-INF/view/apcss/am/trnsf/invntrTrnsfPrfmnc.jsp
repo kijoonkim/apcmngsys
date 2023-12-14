@@ -598,7 +598,7 @@
             {caption: ['창고','창고'], 				ref: 'warehouseSeNm',	width: '100px',	type: 'output', style: 'text-align:center'},
             {caption: ['이송','수량'], 				ref: 'trnsfQntt', 		width: '60px', 	type: 'output', style: 'text-align:right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-            {caption: ['이송','중량 (kg)'], 			ref: 'trnsfWght', 		width: '80px', 	type: 'output', style: 'text-align:right',
+            {caption: ['이송','중량 (Kg)'], 			ref: 'trnsfWght', 		width: '80px', 	type: 'output', style: 'text-align:right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
             {caption: ['확정여부','확정여부'], 			ref: 'cfmtnNm', 		width: '100px', type: 'output', style: 'text-align:center'}
         ];
@@ -666,7 +666,7 @@
         		{caption: ['창고'], 			ref: 'warehouseSeNm', 	width: '100px', type: 'output', style: 'text-align:center'},
         		{caption: ['이송수량'], 		ref: 'invntrQntt', 		width: '60px', 	type: 'output', style: 'text-align:right',
                 	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-                {caption: ['이송중량 (kg)'], 	ref: 'invntrWght', 		width: '80px', 	type: 'output', style: 'text-align:right',
+                {caption: ['이송중량 (Kg)'], 	ref: 'invntrWght', 		width: '80px', 	type: 'output', style: 'text-align:right',
                 	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
                 {caption: ['비고'], 			ref: 'rmrk', 			width: '100px', type: 'output', style: 'text-align:center'}
         	)

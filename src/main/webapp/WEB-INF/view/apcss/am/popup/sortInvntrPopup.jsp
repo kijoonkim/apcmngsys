@@ -191,8 +191,8 @@
 		        {caption: ["창고","창고"],				ref: 'warehouseSeNm',   type:'output',  width:'90px',	style:'text-align: center'},
 		        {caption: ["선별재고","수량"],			ref: 'invntrQntt',      type:'output',  width:'80px',	style:'text-align: right',
 			        format : {type:'number', rule:'#,###'}},
-		        {caption: ["선별재고","중량"],			ref: 'invntrWght',      type:'output',  width:'80px',	style:'text-align: right',
-			        typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
+		        {caption: ["선별재고","중량 (Kg)"],		ref: 'invntrWght',      type:'output',  width:'80px',	style:'text-align: right',
+			        typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
 		        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'300px',	style:'text-align: center'}
 		    ];
 		    grdSortInvntrPop = _SBGrid.create(SBGridProperties);

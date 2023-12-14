@@ -579,7 +579,7 @@
 	        	validate : gfn_chkByte.bind({byteLimit: 10})
 	        },
 	        {
-	        	caption: ["현 재고","중량 (kg)"],	ref: 'invntrWght',	type:'input',	width:'85px',
+	        	caption: ["현 재고","중량 (Kg)"],	ref: 'invntrWght',	type:'input',	width:'85px',
 	        	style:'text-align:right',
 	        	format : {type:'number', rule:'#,###'},
 	        	typeinfo : {mask : {alias : '#', repeat: '*'}, maxlength : 10},
@@ -654,7 +654,7 @@
 	        	validate : gfn_chkByte.bind({byteLimit: 10})
 	        },
 	        {
-	        	caption: ["현 재고","중량 (kg)"],	ref: 'invntrWght',      type:'input',  	width:'85px',
+	        	caption: ["현 재고","중량 (Kg)"],	ref: 'invntrWght',      type:'input',  	width:'85px',
 	        	style:'text-align:right',
 	        	format : {type:'number', rule:'#,###'},
 	        	typeinfo : {mask : {alias : '#', repeat: '*'}, maxlength : 10},
@@ -732,7 +732,7 @@
 	        	validate : gfn_chkByte.bind({byteLimit: 10})
 	        },
 	        {
-	        	caption: ["현 재고","중량 (kg)"],	ref: 'invntrWght',      type:'input',  	width:'85px',
+	        	caption: ["현 재고","중량 (Kg)"],	ref: 'invntrWght',      type:'input',  	width:'85px',
 	        	style:'text-align:right',
 	        	format : {
 	        		type:'number', rule:'#,###',
@@ -1470,7 +1470,7 @@
 				format : {type:'number', rule:'#,###'}
 			},
 	        {
-				caption: ["중량 (kg)"],
+				caption: ["중량 (Kg)"],
 				ref: 'invntrWght',
 				type:'input',
 				width:'60px',
@@ -1671,7 +1671,7 @@
 				format : {type:'number', rule:'#,###'}
 			},
 	        {
-				caption: ["중량 (kg)"],
+				caption: ["중량 (Kg)"],
 				ref: 'invntrWght',
 				type:'input',
 				width:'60px',
@@ -1838,7 +1838,7 @@
 				format : {type:'number', rule:'#,###'}
 			},
 	        {
-				caption: ["중량 (kg)"],
+				caption: ["중량 (Kg)"],
 				ref: 'invntrWght',
 				type:'input',
 				width:'60px',
@@ -1989,7 +1989,7 @@
 		        {caption: ["보관창고"],		ref: 'warehouseSeCd',	type:'combo',  width:'80px',    style:'text-align:center',
 					typeinfo : {ref:'jsonExpSltWarehouseSe', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 		        {caption: ["수량"],			ref: 'invntrQntt',      type:'output',  width:'60px',    style:'text-align:right'},
-		        {caption: ["중량 (kg)"],		ref: 'invntrWght',    	type:'output',  width:'60px',    style:'text-align:right'},
+		        {caption: ["중량 (Kg)"],		ref: 'invntrWght',    	type:'output',  width:'60px',    style:'text-align:right'},
 		        {caption: ["비고"],			ref: 'rmrk',      		type:'output',  width:'300px',    style:'text-align:center'},
 			);
 		*/

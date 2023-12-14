@@ -358,7 +358,7 @@
             {caption: ["수량"], 		ref: 'qntt', 		type: 'output', width:'80px',   style:'text-align:right',
             	format : {type:'number', rule:'#,###'}
             },
-            {caption: ["중량 (kg)"], ref: 'wght', 		type: 'output', width:'100px',  style:'text-align:right',
+            {caption: ["중량 (Kg)"], ref: 'wght', 		type: 'output', width:'100px',  style:'text-align:right',
             	format : {type:'number', rule:'#,###'}
             },
             {caption: ["계산금액 (원)"], 	ref: 'rkngAmt', 	type: 'output', width:'100px',  style:'text-align:right',

@@ -209,7 +209,7 @@
     		    typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
             {caption: ['출하','수량'], 				ref: 'qntt', 		width: '100px', 	type: 'output',		style:'text-align: right',
     		    format : {type:'number', rule:'#,###'}},
-            {caption: ['출하','중량 (kg)'], 			ref: 'wght', 		width: '100px', 	type: 'output',		style:'text-align: right',
+            {caption: ['출하','중량 (Kg)'], 			ref: 'wght', 		width: '100px', 	type: 'output',		style:'text-align: right',
     		    typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
             {caption: ['매출금액 (원)','매출금액 (원)'], 	ref: 'cfmtnAmt', 	width: '100px', 	type: 'output',		style:'text-align: right',
     		    typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},

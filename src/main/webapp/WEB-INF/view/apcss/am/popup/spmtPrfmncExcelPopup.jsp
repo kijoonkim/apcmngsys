@@ -231,12 +231,12 @@
 					typeinfo : {ref:'jsonEPSTrsprtCoCd', displayui : false,	itemcount: 10, label:'label', value:'value'}},
 				{caption: ["차량번호"],		ref: 'vhclno',      	type:'input',  width:'100px',    style:'text-align:right'},
 				{caption: ["배송처"],		ref: 'dldtn',      		type:'input',  width:'100px',    style:'text-align:right'},
-				{caption: ["운송비용"],		ref: 'trsprtCst',      	type:'input',  width:'100px',    style:'text-align:right',
-		        	format : {type:'number', rule:'#,### 원'}},
+				{caption: ["운송비용 (원)"],	ref: 'trsprtCst',      	type:'input',  width:'100px',    style:'text-align:right',
+		        	format : {type:'number', rule:'#,###'}},
 				{caption: ["수량"],			ref: 'spmtQntt',      	type:'input',  width:'60px',    style:'text-align:right; background:#FFF8DC;',
 		        	format : {type:'number', rule:'#,###'}},
-		        {caption: ["중량 Kg"],		ref: 'spmtWght',    	type:'input',  width:'80px',    style:'text-align:right; background:#FFF8DC;',
-			        format : {type:'number', rule:'#,### Kg'}},
+		        {caption: ["중량 (Kg)"],		ref: 'spmtWght',    	type:'input',  width:'80px',    style:'text-align:right; background:#FFF8DC;',
+			        format : {type:'number', rule:'#,###'}},
 		        {caption: ["비고"],			ref: 'rmrk',      		type:'input',  width:'300px',    style:'text-align:center'},
 		];
 

@@ -840,7 +840,7 @@
 
 		let invntrInfo = " ";
 		invntrInfo += "수량: " + _rawMtrInvntr.invntrQntt
-				+ " 중량: " + _rawMtrInvntr.invntrWght + " kg "
+				+ " 중량: " + _rawMtrInvntr.invntrWght + " Kg "
 				+ " 등급: " + _rawMtrInvntr.grdNm;
 		SBUxMethod.set("dtl-lbl-invntr", invntrInfo);
 	}
@@ -879,7 +879,7 @@
 
 			let invntrInfo = " ";
 			invntrInfo += "수량: " + sortCmnd.invntrQntt
-					+ " 중량: " + sortCmnd.invntrWght + " kg "
+					+ " 중량: " + sortCmnd.invntrWght + " Kg "
 					+ " 등급: " + sortCmnd.grdNm;
 			SBUxMethod.set("dtl-lbl-invntr", invntrInfo);
 		}

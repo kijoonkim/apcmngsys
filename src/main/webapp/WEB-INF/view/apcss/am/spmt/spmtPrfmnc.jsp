@@ -275,11 +275,11 @@
             {caption: ['규격','규격'], 			ref: 'spcfctNm', 	width: '100px',	type: 'output',	style:'text-align: center'},
             {caption: ['출하','수량'], 			ref: 'spmtQntt', 	width: '60px',	type: 'output',	style:'text-align: right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-            {caption: ['출하','중량 (kg)'], 		ref: 'spmtWght', 	width: '80px',	type: 'output',	style:'text-align: right',
+            {caption: ['출하','중량 (Kg)'], 		ref: 'spmtWght', 	width: '80px',	type: 'output',	style:'text-align: right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
             {caption: ['반품','수량'], 			ref: 'rtnGdsQntt', 	width: '60px',	type: 'input',	style:'text-align: right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-            {caption: ['반품','중량 (kg)'], 		ref: 'rtnGdsWght', 	width: '80px',	type: 'output',	style:'text-align: right',
+            {caption: ['반품','중량 (Kg)'], 		ref: 'rtnGdsWght', 	width: '80px',	type: 'output',	style:'text-align: right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
             {caption: ['비고','비고'], 			ref: 'rmrk',		width: '250px',	type: 'output',	style:'text-align: center'}
         ];

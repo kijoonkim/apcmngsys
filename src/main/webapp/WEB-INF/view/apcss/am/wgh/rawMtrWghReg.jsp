@@ -1547,13 +1547,13 @@
 
 		// 실중량
 		const actlWght = wholWght - emptVhclWght;
-		// 감량(kg)
+		// 감량(Kg)
 		const rdcdWght = Math.round(actlWght * rdcdRt / 100);
 		// 정산중량(입고중량)
 		const wrhsWght = actlWght - rdcdWght - pltWght - bxWght;
 
 		SBUxMethod.set("dtl-inp-actlWght", actlWght);	// 실중량
-		SBUxMethod.set("dtl-inp-rdcdWght", rdcdWght);	// 감량(kg)
+		SBUxMethod.set("dtl-inp-rdcdWght", rdcdWght);	// 감량(Kg)
 		SBUxMethod.set("dtl-inp-wrhsWght", wrhsWght);	// 정산중량(입고중량)
 	}
 

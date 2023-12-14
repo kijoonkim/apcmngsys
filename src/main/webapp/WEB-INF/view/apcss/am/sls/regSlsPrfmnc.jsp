@@ -262,7 +262,7 @@
             {caption: ['브랜드','브랜드'], 				ref: 'brndNm', 		width: '120px', type: 'output', style: 'text-align:center'},
             {caption: ['출하','수량'], 				ref: 'qntt',		width: '60px', 	type: 'output',	style: 'text-align:right',
     			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-            {caption: ['출하','중량 (kg)'], 		ref: 'wght', 		width: '80px', 	type: 'output',	style: 'text-align:right',
+            {caption: ['출하','중량 (Kg)'], 		ref: 'wght', 		width: '80px', 	type: 'output',	style: 'text-align:right',
     			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
             {caption: ['출하일자','출하일자'], 			ref: 'spmtYmd', 	width: '120px', type: 'output', style: 'text-align:center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},

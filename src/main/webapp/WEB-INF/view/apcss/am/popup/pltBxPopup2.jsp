@@ -140,10 +140,10 @@
 			    		format : {type:'number', rule:'#,###'},
 			    		maxlength: 3
 			        },
-			        {caption: ["팔레트","단중"], 	ref: 'unitWght',   	type:'output',  width:'60px',   style:'text-align:right', format : {type:'number', rule:'#,###'}},
-			        {caption: ["팔레트","중량"], 	ref: 'wght',   		type:'output',  width:'70px',   style:'text-align:right', format : {type:'number', rule:'#,###'}},
+			        {caption: ["팔레트","단중 (Kg)"], 	ref: 'unitWght',   	type:'output',  width:'60px',   style:'text-align:right', format : {type:'number', rule:'#,###'}},
+			        {caption: ["팔레트","중량 (Kg)"], 	ref: 'wght',   		type:'output',  width:'70px',   style:'text-align:right', format : {type:'number', rule:'#,###'}},
 			        {caption: ["팔레트","단위"], 	ref: 'unitNm',   	type:'output',  width:'50px',   style:'text-align:center'},
-			        {caption: ["팔레트","kg"], 	ref: 'kg',   		type:'output',  width:'70px',   style:'text-align:right', format : {type:'number', rule:'#,###'}, hidden:true},
+			        {caption: ["팔레트","Kg"], 	ref: 'kg',   		type:'output',  width:'70px',   style:'text-align:right', format : {type:'number', rule:'#,###'}, hidden:true},
 			        {caption: ["팔레트","처리"], 	ref: 'delYn',   	type:'button',  width:'50px',   style:'text-align:center',
 			        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 			            	if (gfn_isEmpty(strValue)){
@@ -195,10 +195,10 @@
 			    		format : {type:'number', rule:'#,###'},
 			    		maxlength: 3
 		    		},
-			        {caption: ["박스","단중"], 	ref: 'unitWght',   	type:'output',  width:'60px',   style:'text-align:right', format : {type:'number', rule:'#,###'}},
-			        {caption: ["박스","중량"], 	ref: 'wght',   		type:'output',  width:'70px',   style:'text-align:right', format : {type:'number', rule:'#,###'}},
+			        {caption: ["박스","단중 (Kg)"], 	ref: 'unitWght',   	type:'output',  width:'60px',   style:'text-align:right', format : {type:'number', rule:'#,###'}},
+			        {caption: ["박스","중량 (Kg)"], 	ref: 'wght',   		type:'output',  width:'70px',   style:'text-align:right', format : {type:'number', rule:'#,###'}},
 			        {caption: ["박스","단위"], 	ref: 'unitNm',   	type:'output',  width:'50px',   style:'text-align:center'},
-			        {caption: ["박스","kg"], 	ref: 'kg',   		type:'output',  width:'70px',   style:'text-align:right', format : {type:'number', rule:'#,###'}, hidden:true},
+			        {caption: ["박스","Kg"], 	ref: 'kg',   		type:'output',  width:'70px',   style:'text-align:right', format : {type:'number', rule:'#,###'}, hidden:true},
 			        {caption: ["박스","처리"], 		ref: 'delYn',   	type:'button',  width:'50px',   style:'text-align:center',
 			        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 			            	if (gfn_isEmpty(strValue)){

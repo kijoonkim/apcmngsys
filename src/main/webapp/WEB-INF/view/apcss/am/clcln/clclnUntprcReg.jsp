@@ -223,7 +223,7 @@
                 format : {type:'number', rule:'#,###'}
 			},
 			{
-				caption: ["단중 (kg)"],
+				caption: ["단중 (Kg)"],
 				ref: 'clclnUnitWght',
 				datatype: 'number',
 				type:'input',

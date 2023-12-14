@@ -708,7 +708,7 @@
 	        {caption: ["등급"],		ref: 'grdNm',      	type:'output',  width:'80px',    style:'text-align:center'},
 	        {caption: ["차량번호"],		ref: 'vhclno',      type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["박스수량"],		ref: 'bxQntt',      type:'output',  width:'60px',    style:'text-align:right'},
-	        {caption: ["중량 Kg"],	ref: 'wrhsWght',    type:'output',  width:'60px',    style:'text-align:right'},
+	        {caption: ["중량 (Kg)"],	ref: 'wrhsWght',    type:'output',  width:'60px',    style:'text-align:right'},
 	        {caption: ["박스종류"],		ref: 'bxKndNm',     type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["보관창고"],		ref: 'warehouseSeNm',	type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["계량번호"],		ref: 'wghno',      	type:'output',  width:'120px',    style:'text-align:center'},
@@ -1557,7 +1557,7 @@
 	        {caption: ["생산연도"],		ref: 'prdctnYr',    	type:'output',  width:'80px',    style:'text-align:left'},
 	        {caption: ["차량번호"],		ref: 'vhclno',      type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["박스수량"],		ref: 'bxQntt',      type:'output',  width:'60px',    style:'text-align:right'},
-	        {caption: ["중량 Kg"],	ref: 'wrhsWght',    type:'output',  width:'60px',    style:'text-align:right'},
+	        {caption: ["중량 (Kg)"],	ref: 'wrhsWght',    type:'output',  width:'60px',    style:'text-align:right'},
 		);
 
 		const columnsStdGrd = [];

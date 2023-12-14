@@ -305,15 +305,15 @@
 	        {caption: ["운송","운송"],				ref: 'trsprtSeNm',      type:'output',  width:'90px',    style:'text-align:center'},
 	        {caption: ["창고","창고"],				ref: 'warehouseSeNm',   type:'output',  width:'90px',    style:'text-align:center'},
 	        {caption: ["입고","수량"],				ref: 'wrhsQntt',      	type:'output',  width:'85px',    style:'text-align:center'},
-	        {caption: ["입고","중량 (kg)"],		ref: 'wrhsWght',      	type:'output',  width:'85px',    style:'text-align:center',
+	        {caption: ["입고","중량 (Kg)"],		ref: 'wrhsWght',      	type:'output',  width:'85px',    style:'text-align:center',
 	        	format : {type:'number', rule:'#,###'}
 	        },
 	        {caption: ["투입","수량"],				ref: 'inptQntt',      	type:'output',  width:'85px',    style:'text-align:center'},
-	        {caption: ["투입","중량 (kg)"],		ref: 'inptWght',      	type:'output',  width:'85px',    style:'text-align:center',
+	        {caption: ["투입","중량 (Kg)"],		ref: 'inptWght',      	type:'output',  width:'85px',    style:'text-align:center',
 	        	format : {type:'number', rule:'#,###'}
 	        },
 	        {caption: ["현 재고","수량"],			ref: 'invntrQntt',      type:'output',  width:'85px',    style:'text-align:center'},
-	        {caption: ["현 재고","중량 (kg)"],		ref: 'invntrWght',      type:'output',  width:'85px',    style:'text-align:center',
+	        {caption: ["현 재고","중량 (Kg)"],		ref: 'invntrWght',      type:'output',  width:'85px',    style:'text-align:center',
 	        	format : {type:'number', rule:'#,###'}
 	        },
 	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'90px',    style:'text-align:center'}
@@ -539,15 +539,15 @@
 	        {caption: ["등급","등급"],				ref: 'grdNm',      		type:'output',  width:'90px',    style:'text-align:center'},
 	        {caption: ["창고","창고"],				ref: 'warehouseSeNm',   type:'output',  width:'90px',    style:'text-align:center'},
 	        {caption: ["선별","수량"],				ref: 'sortQntt',      	type:'output',  width:'85px',    style:'text-align:center'},
-	        {caption: ["선별","중량 (kg)"],		ref: 'sortWght',      	type:'output',  width:'85px',    style:'text-align:center',
+	        {caption: ["선별","중량 (Kg)"],		ref: 'sortWght',      	type:'output',  width:'85px',    style:'text-align:center',
 	        	format : {type:'number', rule:'#,###'}
 	        },
 	        {caption: ["포장","수량"],				ref: 'pckgQntt',      	type:'output',  width:'85px',    style:'text-align:center'},
-	        {caption: ["포장","중량 (kg)"],		ref: 'pckgWght',     	type:'output',  width:'85px',    style:'text-align:center',
+	        {caption: ["포장","중량 (Kg)"],		ref: 'pckgWght',     	type:'output',  width:'85px',    style:'text-align:center',
 	        	format : {type:'number', rule:'#,###'}
 	        },
 	        {caption: ["현 재고","수량"],			ref: 'invntrQntt',      type:'output',  width:'85px',    style:'text-align:center'},
-	        {caption: ["현 재고","중량 (kg)"],		ref: 'invntrWght',      type:'output',  width:'85px',    style:'text-align:center',
+	        {caption: ["현 재고","중량 (Kg)"],		ref: 'invntrWght',      type:'output',  width:'85px',    style:'text-align:center',
 	        	format : {type:'number', rule:'#,###'}
 	        },
 	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'105px',    style:'text-align:center'}
@@ -741,15 +741,15 @@
 	        {caption: ["등급","등급"],				ref: 'gdsGrdNm',      	type:'output',  width:'90px',    style:'text-align:center'},
 	        {caption: ["창고","창고"],				ref: 'warehouseSeNm',   type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["포장","수량"],				ref: 'pckgQntt',      	type:'output',  width:'85px',    style:'text-align:center'},
-	        {caption: ["포장","중량 (kg)"],		ref: 'pckgWght',      	type:'output',  width:'85px',    style:'text-align:center',
+	        {caption: ["포장","중량 (Kg)"],		ref: 'pckgWght',      	type:'output',  width:'85px',    style:'text-align:center',
 	        	format : {type:'number', 			rule:'#,###'}
 	        },
 	        {caption: ["출하","수량"],				ref: 'spmtQntt',      	type:'output',  width:'85px',    style:'text-align:center'},
-	        {caption: ["출하","중량 (kg)"],		ref: 'spmtWght',      	type:'output',  width:'85px',    style:'text-align:center',
+	        {caption: ["출하","중량 (Kg)"],		ref: 'spmtWght',      	type:'output',  width:'85px',    style:'text-align:center',
 	        	format : {type:'number', rule:'#,###'}
 	        },
 	        {caption: ["현 재고","수량"],			ref: 'invntrQntt',      type:'output',  width:'85px',    style:'text-align:center'},
-	        {caption: ["현 재고","중량 (kg)"],		ref: 'invntrWght',      type:'output',  width:'85px',    style:'text-align:center',
+	        {caption: ["현 재고","중량 (Kg)"],		ref: 'invntrWght',      type:'output',  width:'85px',    style:'text-align:center',
 	        	format : {type:'number', rule:'#,###'}
 	        },
 	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'105px',    style:'text-align:center'}
