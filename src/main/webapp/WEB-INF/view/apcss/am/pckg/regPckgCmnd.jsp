@@ -271,7 +271,7 @@
 
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
-		SBUxMethod.set("srch-dtp-inptYmdFrom", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-dtp-inptYmdFrom", gfn_dateFirstYmd(new Date()));
 		SBUxMethod.set("srch-dtp-inptYmdTo", gfn_dateToYmd(new Date()));
 		SBUxMethod.set("srch-dtp-cmndYmd", gfn_dateToYmd(new Date()));
 		SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
@@ -315,12 +315,12 @@
 	        {caption: ["창고","창고"],  		ref: 'warehouseSeNm',   type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["설비","설비"],  		ref: 'fcltNm',    		type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["선별","수량"],  		ref: 'invntrQntt',    	type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
-	        {caption: ["선별","중량"],  		ref: 'invntrWght',    	type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,### Kg'}},
+	        {caption: ["선별","중량 (Kg)"],  		ref: 'invntrWght',    	type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
 	        {caption: ["재고규격","재고규격"],  ref: 'spcfctNm',    	type:'output',  width:'100px',    style:'text-align:right; background:#FFF8DC;'},
             {caption: ["포장지시", "지시규격"], ref: 'spcfct',   		type:'combo',  width:'100px',    style:'text-align:center; background:#FFF8DC;',
 				typeinfo : {ref:'jsonComSpcfct', 	displayui : false,	itemcount: 10, label:'label', value:'value', unselect: {label : '선택', value: ''}}},
 	        {caption: ["포장지시","수량"],  	ref: 'pckgQntt',    	type:'input',  width:'100px',    style:'text-align:right; background:#FFF8DC;', format : {type:'number', rule:'#,### '}, typeinfo : {mask : {alias : 'numeric'}}},
-	        {caption: ["포장지시","중량"],  	ref: 'pckgWght',    	type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,### Kg'}},
+	        {caption: ["포장지시","중량 (Kg)"],  	ref: 'pckgWght',    	type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
 	        {caption: ["지시비고","지시비고"],  ref: 'rmrk',    		type:'input',  width:'180px',    style:'text-align:center'},
 	    ];
 	    grdSortInvntr = _SBGrid.create(SBGridProperties);
@@ -419,7 +419,7 @@
 	        {caption: ["규격"],			ref: 'spcfctNm',    type:'output',  	width:'100px',  style:'text-align:center'},
 	        {caption: ["상품명"],		ref: 'gdsNm',      	type:'output',  	width:'150px',  style:'text-align:center' , hidden:true},
 	        {caption: ["지시수량"],		ref: 'cmndQntt',    type:'output',  	width:'60px',   style:'text-align:right', format : {type:'number', rule:'#,###'}},
-	        {caption: ["지시중량"],		ref: 'cmndWght',    type:'output',  	width:'80px',   style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
+	        {caption: ["지시중량 (Kg)"],		ref: 'cmndWght',    type:'output',  	width:'80px',   style:'text-align:right', format : {type:'number', rule:'#,###'}},
 	        {caption: ["비고"],			ref: 'rmrk',      	type:'output',  	width:'200px',  style:'text-align:left'},
 	        {caption: ["순번"],  		ref: 'pckgCmndSn',    hidden:true},
 	    ];
@@ -641,7 +641,7 @@
     }
 
 	const fn_reset = async function(){
-		SBUxMethod.set('srch-dtp-inptYmdFrom', gfn_dateToYmd(new Date()));
+		SBUxMethod.set('srch-dtp-inptYmdFrom', gfn_dateFirstYmd(new Date()));
 		SBUxMethod.set('srch-dtp-inptYmdTo', gfn_dateToYmd(new Date()));
 		SBUxMethod.set('srch-slt-itemCd', "");
 		SBUxMethod.set('srch-slt-vrtyCd', "");
@@ -903,7 +903,7 @@
  		let dudtYmd = SBUxMethod.get("srch-dtp-dudtYmd");
  		if(gfn_diffDate(inptYmdFrom, inptYmdTo) < 0){
  			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");		//	W0001	{0}
- 			SBUxMethod.set("srch-dtp-inptYmdFrom", gfn_dateToYmd(new Date()));
+ 			SBUxMethod.set("srch-dtp-inptYmdFrom", gfn_dateFirstYmd(new Date()));
  			SBUxMethod.set("srch-dtp-inptYmdTo", gfn_dateToYmd(new Date()));
  			return;
  		}
