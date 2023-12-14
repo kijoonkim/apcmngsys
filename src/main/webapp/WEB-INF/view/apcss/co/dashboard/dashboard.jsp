@@ -342,16 +342,16 @@
 	    SBGridProperties.allowcopy = true;
         SBGridProperties.columns = [
         	{caption: [strYmd,"대표품목"], 	ref: 'itemNm', 	type: 'output', width: '17%',	style: 'text-align: center'},
-            {caption: [strYmd,'원물입고'], 	ref: 'wgt1', 	type: 'output',	width: '17%',	style: 'text-align: right; padding-right: 5px;',
-    		    typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-            {caption: [strYmd,'선별실적'], 	ref: 'wgt2', 	type: 'output',	width: '17%',	style: 'text-align: right; padding-right: 5px;',
-				typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-            {caption: [strYmd,'포장실적'], 	ref: 'wgt3',	type: 'output',	width: '17%',	style: 'text-align: right; padding-right: 5px;',
-				typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-            {caption: [strYmd,'발주서 접수'], 	ref: 'wgt4', 	type: 'output',	width: '17%',	style: 'text-align: right; padding-right: 5px;',
-				typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-            {caption: [strYmd,'출하실적'], 	ref: 'wgt5', 	type: 'output',	width: '17%',	style: 'text-align: right; padding-right: 5px;',
-				typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}}
+            {caption: [strYmd,'원물입고 (Kg)'], 	ref: 'wgt1', 	type: 'output',	width: '17%',	style: 'text-align: right; padding-right: 5px;',
+    		    typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
+            {caption: [strYmd,'선별실적 (Kg)'], 	ref: 'wgt2', 	type: 'output',	width: '17%',	style: 'text-align: right; padding-right: 5px;',
+				typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
+            {caption: [strYmd,'포장실적 (Kg)'], 	ref: 'wgt3',	type: 'output',	width: '17%',	style: 'text-align: right; padding-right: 5px;',
+				typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
+            {caption: [strYmd,'발주서 접수 (Kg)'], 	ref: 'wgt4', 	type: 'output',	width: '17%',	style: 'text-align: right; padding-right: 5px;',
+				typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
+            {caption: [strYmd,'출하실적 (Kg)'], 	ref: 'wgt5', 	type: 'output',	width: '17%',	style: 'text-align: right; padding-right: 5px;',
+				typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}}
         ];
         grdDashboard = _SBGrid.create(SBGridProperties);
     }
