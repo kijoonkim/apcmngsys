@@ -434,8 +434,7 @@
     	}
 
 
-    	var delMsg = "삭제 하시겠습니까?";
-		if(confirm(delMsg)){
+    	if (gfn_comConfirm("Q0001", "삭제")) {		//	Q0001	{0} 하시겠습니까?
 			const postJsonPromise = gfn_postJSON("/am/pckg/deletePckgCmndList.do", deleteList);
 	    	const data = await postJsonPromise;
 

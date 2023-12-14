@@ -411,8 +411,7 @@
 			saveList.push(rowData);
     	}
 
-    	let regMsg = "저장 하시겠습니까?";
-		if(confirm(regMsg)){
+    	if (gfn_comConfirm("Q0001", "저장")) {		//	Q0001	{0} 하시겠습니까?
 			const postJsonPromise = gfn_postJSON("/am/sls/saveSlsPrfmncCrtList.do", saveList);
 	    	const data = await postJsonPromise;
 
@@ -484,8 +483,7 @@
 			delList.push(rowData);
     	}
 
-    	let regMsg = "삭제 하시겠습니까?";
-		if(confirm(regMsg)){
+    	if (gfn_comConfirm("Q0001", "삭제")) {		//	Q0001	{0} 하시겠습니까?
 			const postJsonPromise = gfn_postJSON("/am/sls/deleteSlsPrfmncCrtList.do", delList);
 	    	const data = await postJsonPromise;
 

@@ -618,8 +618,7 @@
 		}else if(gubun == "DEL"){
 
 			if(grdOptrtPrfmnc.getRowData(nRow).insertYn == "Y"){
-        		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-        		if(confirm(delMsg)){
+				if (gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")) {		//	Q0001	{0} 하시겠습니까?
         			var oprtrPrfmncVO = grdOptrtPrfmnc.getRowData(nRow);
         			fn_deleteOprtrPrfmnc(oprtrPrfmncVO);
         			grdOptrtPrfmnc.deleteRow(nRow);
@@ -672,8 +671,7 @@
 			return;
 		}
 
-		let regMsg = "저장 하시겠습니까?";
-		if(confirm(regMsg)){
+		if (gfn_comConfirm("Q0001", "저장")) {		//	Q0001	{0} 하시겠습니까?
 
 			let postJsonPromise = gfn_postJSON("/am/oprtr/multiSaveOprtrPrfmnc.do", saveList);
 	        let data = await postJsonPromise;
