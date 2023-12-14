@@ -49,8 +49,6 @@
 	<link rel="stylesheet" href="../../../src/bootstrap-adminLTE/css/AdminLTE.css">
 	<link rel="stylesheet" href="../../../src/bootstrap-adminLTE/css/_all-skins.min.css">
 	<link rel="stylesheet" href="../../../src/bootstrap-datepicker/css/bootstrap-datepicker.min.css">
-	<link rel="stylesheet" href="../../../src/dataTables/css/dataTables.bootstrap.min.css">
-	<link rel="stylesheet" href="../../../src/dataTables/css/select.dataTables.min.css">
 	<link rel="stylesheet" href="../../../src/mCustomScrollbar/css/jquery.mCustomScrollbar.min.css">
 	<link rel="stylesheet" href="../../../src/select2/css/select2.css">
 	<link rel="stylesheet" href="../../../src/apexchart/css/apexcharts.css">
@@ -77,12 +75,6 @@
 	<script src="../../../src/bootstrap-adminLTE/js/adminlte.js"></script>
 	<script src="../../../src/bootstrap-adminLTE/js/demo.js"></script>
 	<script src="../../../src/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-	<script src="../../../src/dataTables/js/jquery.dataTables.min.js"></script>
-	<script src="../../../src/dataTables/js/dataTables.bootstrap.min.js"></script>
-	<script src="../../../src/dataTables/js/dataTables.buttons.min.js"></script>
-	<script src="../../../src/dataTables/js/dataTables.select.min.js"></script>
-	<script src="../../../src/dataTables/js/jszip.min.js"></script>
-	<script src="../../../src/dataTables/js/pdfmake.min.js"></script>
 	<script src="../../../src/mCustomScrollbar/js/jquery.mCustomScrollbar.min.js"></script>
 	<script src="../../../src/select2/js/select2.min.js"></script>
 	<script src="../../../src/apexchart/js/apexcharts.js"></script>
