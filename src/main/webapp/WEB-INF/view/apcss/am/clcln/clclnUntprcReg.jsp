@@ -208,7 +208,7 @@
             {caption: ['품종'], ref: 'vrtyNm', width: '100px', type: 'output', style: 'text-align:center'},
             {caption: ['등급'], ref: 'grdNm', width: '80px', type: 'output', style: 'text-align:center'},
             {
-				caption: ["정산단가"],
+				caption: ["정산단가 (원)"],
 				ref: 'clclnUntprc',
 				datatype: 'number',
 				type:'input',
@@ -223,7 +223,7 @@
                 format : {type:'number', rule:'#,###'}
 			},
 			{
-				caption: ["단중(kg)"],
+				caption: ["단중 (Kg)"],
 				ref: 'clclnUnitWght',
 				datatype: 'number',
 				type:'input',

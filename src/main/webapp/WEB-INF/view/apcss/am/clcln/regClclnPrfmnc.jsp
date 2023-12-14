@@ -359,14 +359,14 @@
             {caption: ["수량"], ref: 'qntt', type:'output',  width:'80px',   style:'text-align:right',
             	format : {type:'number', rule:'#,###'}
             },
-            {caption: ["중량"], ref: 'wght', type:'output',  width:'100px',   style:'text-align:right',
-            	format : {type:'number', rule:'#,### Kg'}
+            {caption: ["중량 (Kg)"], ref: 'wght', type:'output',  width:'100px',   style:'text-align:right',
+            	format : {type:'number', rule:'#,###'}
             },
-            {caption: ["계산금액"], ref: 'rkngAmt', type:'output',  width:'100px',   style:'text-align:right',
-            	format : {type:'number', rule:'#,### 원'}, typeinfo : {maxlength : 10}
+            {caption: ["계산금액 (원)"], ref: 'rkngAmt', type:'output',  width:'100px',   style:'text-align:right',
+            	format : {type:'number', rule:'#,###'}, typeinfo : {maxlength : 10}
             },
             {
-				caption: ["확정금액"],
+				caption: ["확정금액 (원)"],
 				ref: 'cfmtnAmt',
 				datatype: 'number',
 				type:'input',
@@ -378,7 +378,7 @@
 	                maxlength: 10,
 	                oneclickedit: true
                 },
-                format : {type:'number', rule:'#,### 원'},
+                format : {type:'number', rule:'#,###'},
                 typeinfo : {maxlength : 10}
 
 			},

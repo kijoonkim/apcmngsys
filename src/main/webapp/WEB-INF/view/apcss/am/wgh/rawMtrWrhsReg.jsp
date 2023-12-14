@@ -1704,7 +1704,7 @@
 				style:'text-align:right'
 			},
 	        {
-				caption: ["중량 Kg"],
+				caption: ["중량 (Kg)"],
 				ref: 'wrhsWght',
 				type:'input',
 				width:'60px',

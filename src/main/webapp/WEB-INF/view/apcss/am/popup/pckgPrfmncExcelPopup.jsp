@@ -103,8 +103,8 @@
 					typeinfo : {ref:'jsonEPSWarehouseSeTo', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 				{caption: ["수량"],			ref: 'pckgQntt',      	type:'input',  width:'60px',    style:'text-align:right; background:#FFF8DC;',
 		        	format : {type:'number', rule:'#,###'}},
-		        {caption: ["중량 Kg"],		ref: 'pckgWght',    	type:'input',  width:'80px',    style:'text-align:right; background:#FFF8DC;',
-			        format : {type:'number', rule:'#,### Kg'}},
+		        {caption: ["중량 (Kg)"],		ref: 'pckgWght',    	type:'input',  width:'80px',    style:'text-align:right; background:#FFF8DC;',
+			        format : {type:'number', rule:'#,###'}},
 		        {caption: ["비고"],			ref: 'rmrk',      		type:'input',  width:'300px',    style:'text-align:center'},
 		];
 

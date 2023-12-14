@@ -344,14 +344,14 @@
             {caption: ["수량"], ref: 'qntt', type:'output',  width:'80px',   style:'text-align:right',
             	format : {type:'number', rule:'#,###'}
             },
-            {caption: ["중량"], ref: 'wght', type:'output',  width:'100px',   style:'text-align:right',
-            	format : {type:'number', rule:'#,### Kg'}
+            {caption: ["중량 (Kg)"], ref: 'wght', type:'output',  width:'100px',   style:'text-align:right',
+            	format : {type:'number', rule:'#,###'}
             },
-            {caption: ["계산금액"], ref: 'rkngAmt', type:'output',  width:'100px',   style:'text-align:right',
-            	format : {type:'number', rule:'#,### 원'}
+            {caption: ["계산금액 (원)"], ref: 'rkngAmt', type:'output',  width:'100px',   style:'text-align:right',
+            	format : {type:'number', rule:'#,###'}
             },
-            {caption: ["확정금액"], ref: 'cfmtnAmt', type:'output',  width:'100px',   style:'text-align:right',
-            	format : {type:'number', rule:'#,### 원'}
+            {caption: ["확정금액 (원)"], ref: 'cfmtnAmt', type:'output',  width:'100px',   style:'text-align:right',
+            	format : {type:'number', rule:'#,###'}
             },
             {caption: ['확정여부'], ref: 'cfmtnYnNm', width: '80px', type: 'output', style: 'text-align:center'},
             {caption: [""], ref: '_', type:'output', width:'1px'},
