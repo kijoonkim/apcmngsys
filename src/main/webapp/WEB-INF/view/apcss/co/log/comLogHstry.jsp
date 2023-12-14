@@ -104,10 +104,10 @@
 		var userType = '${loginVO.userType}';
 
 		if(userType == "00" || userType == "01"){
-			eval('tabLogCntnHstry.init(gv_selectedApcCd, gv_selectedApcNm, '+ymdFrom+', '+ymdTo+')');
+			(new Function('tabLogCntnHstry.init(gv_selectedApcCd, gv_selectedApcNm, '+ymdFrom+', '+ymdTo+')'))();
 			$('#LogCntnHstry [name=btnLogCntnHstry]').click();
 		}else{
-		    eval('tabRawMtrChgHstry.init(gv_selectedApcCd, gv_selectedApcNm, '+ymdFrom+', '+ymdTo+')');
+			(new Function('tabRawMtrChgHstry.init(gv_selectedApcCd, gv_selectedApcNm, '+ymdFrom+', '+ymdTo+')'))();
 			$('#RawMtrChgHstry [name=btnRawMtrChgHstry]').click();
 		}
 	});
