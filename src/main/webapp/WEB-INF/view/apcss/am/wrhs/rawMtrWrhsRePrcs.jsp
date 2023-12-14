@@ -608,7 +608,7 @@
 			},
 			/*
 			{
-				caption: ["총 중량"],
+				caption: ["총 중량 (Kg)"],
 				ref: 'wrhsWght',
 				datatype: 'number',
 				type:'input',
@@ -620,7 +620,7 @@
 	                maxlength: 6,
 	                oneclickedit: true
                 },
-                format : {type:'number', rule:'#,### Kg'}
+                format : {type:'number', rule:'#,###'}
 			},
 			 */
             {caption: ["저장창고"],		ref: 'warehouseSeCd',    type:'combo',  width:'100px', style: 'text-align:center;background-color:#FFF8DC;',

@@ -98,7 +98,7 @@
 	        {caption: ["상세"],			ref: 'stdGrdDtl',    	type:'input',  width:'80px',    style:'text-align:left'},
 	        {caption: ["차량번호"],		ref: 'vhclno',      type:'input',  width:'100px',    style:'text-align:center'},
 	        {caption: ["박스수량"],		ref: 'bxQntt',      type:'input',  width:'60px',    style:'text-align:right'},
-	        {caption: ["중량 Kg"],	ref: 'wrhsWght',    type:'input',  width:'60px',    style:'text-align:right'},
+	        {caption: ["중량 (Kg)"],	ref: 'wrhsWght',    type:'input',  width:'60px',    style:'text-align:right'},
 	        {caption: ["비고"],		ref: 'rmrk',      	type:'input',  width:'100px',    style:'text-align:left'},
 
 	    ];

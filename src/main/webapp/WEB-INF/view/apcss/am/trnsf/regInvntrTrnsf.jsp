@@ -391,9 +391,9 @@
 	    		style:'text-align:center',
 	    		typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
 	    	},
-	        {caption: ["입고번호","입고번호"],		ref: 'wrhsno',      		type:'output',  width:'110px',    style:'text-align:center'},
-	        {caption: ["팔레트번호","팔레트번호"],	ref: 'pltno',      			type:'output',  width:'110px',    style:'text-align:center'},
-	        {caption: ["입고일자","입고일자"],		ref: 'wrhsYmd',      		type:'output',  width:'110px',    style:'text-align:center',
+	        {caption: ["입고번호","입고번호"],		ref: 'wrhsno',      		type:'output',  width:'110px',   style:'text-align:center'},
+	        {caption: ["팔레트번호","팔레트번호"],	ref: 'pltno',      			type:'output',  width:'110px',   style:'text-align:center'},
+	        {caption: ["입고일자","입고일자"],		ref: 'wrhsYmd',      		type:'output',  width:'110px',   style:'text-align:center',
 	        	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 	        {caption: ["생산자","생산자"],			ref: 'prdcrNm',      		type:'output',  width:'80px',    style:'text-align:center'},
 	        {caption: ["품목","품목"],				ref: 'itemNm',      		type:'output',  width:'80px',    style:'text-align:center'},
@@ -401,16 +401,16 @@
 	        {caption: ["상품","상품"],				ref: 'gdsSeNm',      		type:'output',  width:'80px',    style:'text-align:center'},
 	        {caption: ["입고","입고"],				ref: 'wrhsSeNm',     		type:'output',  width:'60px',    style:'text-align:center'},
 	        {caption: ["운송","운송"],				ref: 'trsprtSeNm',      	type:'output',  width:'60px',    style:'text-align:center'},
-	        {caption: ["현물창고","현물창고"],		ref: 'warehouseSeNm',      	type:'output',  width:'110px',    style:'text-align:center'},
+	        {caption: ["현물창고","현물창고"],		ref: 'warehouseSeNm',      	type:'output',  width:'110px',   style:'text-align:center'},
 	        {caption: ["재고","수량"],				ref: 'invntrQntt',      	type:'output',  width:'60px',    style:'text-align:center',
 	        	format : {type:'number', rule:'#,### '}},
-	        {caption: ["재고","중량"],				ref: 'invntrWght',      	type:'output',  width:'80px',    style:'text-align:center',
-	        	format : {type:'number', rule:'#,### Kg'}},
-	        {caption: ["이송","수량"],				ref: 'trnsfQntt',      		type:'input',  width:'60px',    style:'text-align:center',
+	        {caption: ["재고","중량 (Kg)"],		ref: 'invntrWght',      	type:'output',  width:'80px',    style:'text-align:center',
+	        	format : {type:'number', rule:'#,###'}},
+	        {caption: ["이송","수량"],				ref: 'trnsfQntt',      		type:'input',  	width:'60px',    style:'text-align:center',
 	        	format : {type:'number', rule:'#,###'}, typeinfo : {mask : {alias : '#', repeat: '*'}}},
-	        {caption: ["이송","중량"],				ref: 'trnsfWght',      		type:'input',  width:'80px',    style:'text-align:center',
-	        	format : {type:'number', rule:'#,### Kg'}, typeinfo : {mask : {alias : '#', repeat: '*'}}},
-	        {caption: ["비고","비고"],				ref: 'rmrk',      			type:'output',  width:'110px',    style:'text-align:center'},
+	        {caption: ["이송","중량 (Kg)"],		ref: 'trnsfWght',      		type:'input',  	width:'80px',    style:'text-align:center',
+	        	format : {type:'number', rule:'#,###'}, typeinfo : {mask : {alias : '#', repeat: '*'}}},
+	        {caption: ["비고","비고"],				ref: 'rmrk',      			type:'output',  width:'110px',   style:'text-align:center'},
 	    ];
 
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
@@ -443,26 +443,26 @@
 	    		style:'text-align:center',
 	    		typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
 	    	},
-	        {caption: ["선별번호","선별번호"],	ref: 'sortno',      	type:'output',  	width:'110px',    style:'text-align:center'},
+	        {caption: ["선별번호","선별번호"],	ref: 'sortno',      	type:'output',  	width:'110px',   style:'text-align:center'},
 	        {caption: ["등급","등급"],			ref: 'grdNm',      		type:'output',  	width:'80px',    style:'text-align:center'},
 	        {caption: ["투입일자","투입일자"],	ref: 'inptYmd',      	type:'output',  	width:'100px',    style:'text-align:center',
 	        	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-	        {caption: ["설비","설비"],			ref: 'fcltNm',      	type:'output',  	width:'100px',    style:'text-align:center'},
+	        {caption: ["설비","설비"],			ref: 'fcltNm',      	type:'output',  	width:'100px',   style:'text-align:center'},
 	        {caption: ["생산자","생산자"],		ref: 'prdcrNm',      	type:'output',  	width:'80px',    style:'text-align:center'},
 	        {caption: ["품목","품목"],			ref: 'itemNm',      	type:'output',  	width:'80px',    style:'text-align:center'},
 	        {caption: ["품종","품종"],			ref: 'vrtyNm',      	type:'output',  	width:'80px',    style:'text-align:center'},
 	        {caption: ["규격","규격"],			ref: 'spcfctNm',      	type:'output',  	width:'80px',    style:'text-align:center'},
-	        {caption: ["현물창고","현물창고"],	ref: 'warehouseSeNm',      		type:'output',  width:'110px',    style:'text-align:center'},
-	        {caption: ["재고","수량"],			ref: 'invntrQntt',      	type:'output',  width:'60px',    style:'text-align:center'},
-	        {caption: ["재고","중량"],			ref: 'invntrWght',      	type:'output',  width:'80px',    style:'text-align:center',
-	        	format : {type:'number', rule:'#,### Kg'}
+	        {caption: ["현물창고","현물창고"],	ref: 'warehouseSeNm',   type:'output',  	width:'110px',   style:'text-align:center'},
+	        {caption: ["재고","수량"],			ref: 'invntrQntt',      type:'output',  	width:'60px',    style:'text-align:center'},
+	        {caption: ["재고","중량 (Kg)"],	ref: 'invntrWght',      type:'output',  	width:'80px',    style:'text-align:center',
+	        	format : {type:'number', rule:'#,###'}
 	        },
-	        {caption: ["이송","수량"],				ref: 'trnsfQntt',      		type:'input',  width:'60px',    style:'text-align:center',
+	        {caption: ["이송","수량"],			ref: 'trnsfQntt',      	type:'input',  		width:'60px',    style:'text-align:center',
 	        	format : {type:'number', rule:'#,###'}, typeinfo : {mask : {alias : '#', repeat: '*'}}},
-	        {caption: ["이송","중량"],				ref: 'trnsfWght',      		type:'input',  width:'80px',    style:'text-align:center',
-	        	format : {type:'number', rule:'#,### Kg'}, typeinfo : {mask : {alias : '#', repeat: '*'}}
+	        {caption: ["이송","중량 (Kg)"],	ref: 'trnsfWght',      	type:'input',  		width:'80px',    style:'text-align:center',
+	        	format : {type:'number', rule:'#,###'}, typeinfo : {mask : {alias : '#', repeat: '*'}}
 	        },
-	        {caption: ["비고","비고"],			ref: 'rmrk',      			type:'output',  width:'110px',    style:'text-align:center'},
+	        {caption: ["비고","비고"],			ref: 'rmrk',      		type:'output',  	width:'110px',   style:'text-align:center'},
 	    ];
 
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
@@ -509,13 +509,13 @@
 	        {caption: ["현물창고","현물창고"],		ref: 'warehouseSeNm',   type:'output',  width:'110px',  style:'text-align:center'},
 	        {caption: ["재고","수량"],				ref: 'invntrQntt',    	type:'output',  width:'60px',   style:'text-align:center',
 	        	format : {type:'number', rule:'#,###'}},
-	        {caption: ["재고","중량"],				ref: 'invntrWght',    	type:'output',  width:'80px',   style:'text-align:center',
-	        	format : {type:'number', rule:'#,### Kg'}
+	        {caption: ["재고","중량 (Kg)"],		ref: 'invntrWght',    	type:'output',  width:'80px',   style:'text-align:center',
+	        	format : {type:'number', rule:'#,###'}
 	        },
 	        {caption: ["이송","수량"],				ref: 'trnsfQntt',      	type:'input',  width:'60px',    style:'text-align:center',
 	        	format : {type:'number', rule:'#,###'}, typeinfo : {mask : {alias : '#', repeat: '*'}}},
-	        {caption: ["이송","중량"],				ref: 'trnsfWght',      	type:'input',  width:'80px',    style:'text-align:center',
-	        	format : {type:'number', rule:'#,### Kg'}, typeinfo : {mask : {alias : '#', repeat: '*'}}
+	        {caption: ["이송","중량 (Kg)"],		ref: 'trnsfWght',      	type:'input',  width:'80px',    style:'text-align:center',
+	        	format : {type:'number', rule:'#,###'}, typeinfo : {mask : {alias : '#', repeat: '*'}}
 	        },
 	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'110px',  style:'text-align:center'},
 	    ];

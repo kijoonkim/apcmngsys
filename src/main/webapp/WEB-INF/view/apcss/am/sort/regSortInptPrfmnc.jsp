@@ -553,20 +553,20 @@
         	{caption: ["입고일자","입고일자"],		ref: 'wrhsYmd',			type:'output',  width:'120px', style: 'text-align:center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}
             },
-            {caption: ["팔레트번호","팔레트번호"], 	ref: 'pltno',     		type:'output',  width:'120px', style: 'text-align:center'},
-            {caption: ["지시번호","지시번호"], 	ref: 'sortCmndno',  	type:'output',  width:'120px', style: 'text-align:center'},
-            {caption: ["생산자","생산자"],    	ref: 'prdcrNm',     	type:'output',  width:'80px', style: 'text-align:center'},
-            {caption: ["품목","품목"],	    	ref: 'itemNm',   		type:'output',  width:'80px', style: 'text-align:center'},
-            {caption: ["품종","품종"],	    	ref: 'vrtyNm',   		type:'output',  width:'100px', style: 'text-align:center'},
-            {caption: ["등급","등급"],	    	ref: 'grdNm',   		type:'output',  width:'80px', style: 'text-align:center'},
-            {caption: ["상품구분","상품구분"],		ref: 'gdsSeNm', 		type:'output',  width:'80px', style: 'text-align:center'},
-            {caption: ["지시설비","지시설비"],	    ref: 'fcltNm', 			type:'output',  width:'120px', style: 'text-align:center'},
-            {caption: ["창고","창고"],	    	ref: 'warehouseSeNm', 	type:'output',  width:'120px', style: 'text-align:center'},
-            {caption: ["원물재고","수량"],  		ref: 'invntrQntt',   	type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["원물재고","중량"],  		ref: 'invntrWght',   	type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,### Kg'}},
-            {caption: ["투입지시","수량"],  		ref: 'cmndQntt', 		type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["투입지시","중량"],  		ref: 'cmndWght', 		type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,### Kg'}},
-            {caption: ["투입","수량"], 			ref: 'inptQntt',  		type:'input',  width:'80px', style: 'text-align:right;background-color:#FFF8DC;',
+            {caption: ["팔레트번호","팔레트번호"], 	ref: 'pltno',     		type:'output',  width:'120px', 	style: 'text-align:center'},
+            {caption: ["지시번호","지시번호"], 		ref: 'sortCmndno',  	type:'output',  width:'120px', 	style: 'text-align:center'},
+            {caption: ["생산자","생산자"],    		ref: 'prdcrNm',     	type:'output',  width:'80px', 	style: 'text-align:center'},
+            {caption: ["품목","품목"],	    		ref: 'itemNm',   		type:'output',  width:'80px', 	style: 'text-align:center'},
+            {caption: ["품종","품종"],	    		ref: 'vrtyNm',   		type:'output',  width:'100px', 	style: 'text-align:center'},
+            {caption: ["등급","등급"],	    		ref: 'grdNm',   		type:'output',  width:'80px', 	style: 'text-align:center'},
+            {caption: ["상품구분","상품구분"],		ref: 'gdsSeNm', 		type:'output',  width:'80px', 	style: 'text-align:center'},
+            {caption: ["지시설비","지시설비"],	    ref: 'fcltNm', 			type:'output',  width:'120px', 	style: 'text-align:center'},
+            {caption: ["창고","창고"],	    		ref: 'warehouseSeNm', 	type:'output',  width:'120px', 	style: 'text-align:center'},
+            {caption: ["원물재고","수량"],  		ref: 'invntrQntt',   	type:'output',  width:'80px', 	style: 'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["원물재고","중량 (Kg)"],  	ref: 'invntrWght',   	type:'output',  width:'80px', 	style: 'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["투입지시","수량"],  		ref: 'cmndQntt', 		type:'output',  width:'80px', 	style: 'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["투입지시","중량 (Kg)"],  	ref: 'cmndWght', 		type:'output',  width:'80px', 	style: 'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["투입","수량"], 			ref: 'inptQntt',  		type:'input',  	width:'80px', 	style: 'text-align:right;background-color:#FFF8DC;',
             	userattr: {colNm: "inptQntt"},
             	typeinfo: {
             		mask : {alias : '#', repeat: '*', unmaskvalue : true},
@@ -575,14 +575,14 @@
 				},
 				format : {type:'number', rule:'#,###'}
             },
-            {caption: ["투입","중량"], 			ref: 'inptWght',  		type:'input',  width:'80px', style: 'text-align:right;background-color:#FFF8DC;',
+            {caption: ["투입","중량 (Kg)"], 		ref: 'inptWght',  		type:'input',  width:'80px', 	style: 'text-align:right;background-color:#FFF8DC;',
             	userattr: {colNm: "inptWght"},
             	typeinfo: {
             		mask : {alias : '#', repeat: '*', unmaskvalue : true},
             		maxlength: 6,
             		oneclickedit: true
 				},
-				format : {type:'number', rule:'#,### Kg'}
+				format : {type:'number', rule:'#,###'}
          	},
 
  	        {caption: ["생산자코드"],	ref: 'prdcrCd',   	type:'output',  hidden: true},
@@ -1511,7 +1511,7 @@
 
 		_columns.push(
 			{caption: ["수량"],		ref: 'sortQntt',	type:'input',  width:'60px',    style:'text-align:right; background:#FFF8DC;'},
-	        {caption: ["중량 Kg"],	ref: 'sortWght',    type:'input',  width:'60px',    style:'text-align:right; background:#FFF8DC;'},
+	        {caption: ["중량 (Kg)"],	ref: 'sortWght',    type:'input',  width:'60px',    style:'text-align:right; background:#FFF8DC;'},
 	        {caption: ["비고"],		ref: 'rmrk',      	type:'input',  width:'300px',    style:'text-align:left'},
 		);
 

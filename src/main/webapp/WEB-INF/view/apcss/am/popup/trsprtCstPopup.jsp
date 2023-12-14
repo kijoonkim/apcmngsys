@@ -197,27 +197,27 @@
 					        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='popTrsrptCst.del(" + nRow + ")'>삭제</button>";
 			        	}
 			    	}},
-		        {caption: ['운송일자'], 	ref: 'trsprtYmd', 	width:'120px',	type: 'datepicker', 	style: 'text-align: center', sortable: false,
+		        {caption: ['운송일자'], 		ref: 'trsprtYmd', 	width:'120px',	type: 'datepicker', 	style: 'text-align: center', sortable: false,
 			    	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-		        {caption: ['운송구분'], 	ref: 'trsprtSeCd',	width: '100px',	type: 'combo',			style: 'text-align: center', sortable: false,
+		        {caption: ['운송구분'], 		ref: 'trsprtSeCd',	width: '100px',	type: 'combo',			style: 'text-align: center', sortable: false,
 					typeinfo : {ref:'jsonComTrsprtSeCd', label:'label', value:'value', itemcount: 10}},
-		        {caption: ['차량번호'], 	ref: 'vhclno',		width: '100px',	type: 'inputbutton',	style: 'text-align: center', sortable: false,
+		        {caption: ['차량번호'], 		ref: 'vhclno',		width: '100px',	type: 'inputbutton',	style: 'text-align: center', sortable: false,
 					typeinfo : {callback: fn_grdChoiceVhcl}, validate : gfn_chkByte.bind({byteLimit: 40})},
-		        {caption: ['기사명'], 	ref: 'drvrNm',		width: '100px',	type: 'output', 		style: 'text-align: center', sortable: false},
+		        {caption: ['기사명'], 		ref: 'drvrNm',		width: '100px',	type: 'output', 		style: 'text-align: center', sortable: false},
 		        {caption: ['운송지역'], 	ref: 'trsprtRgnCd', width: '100px', type: 'combo', 			style: 'text-align: center', sortable: false,
-					typeinfo : {ref:'jsonComTrsprtRgnCd', label:'label', value:'value', itemcount: 10}},
-		        {caption: ['중량'], 		ref: 'wrhsWght', 	width: '100px',	type: 'output', 		style: 'text-align: right',	 sortable: false,
-					typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###Kg'}},
-		        {caption: ['운임비용'],	ref: 'trsprtCst', 	width: '100px',	type: 'input', 			style: 'text-align: right',  sortable: false,
-					typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}, validate : gfn_chkByte.bind({byteLimit: 5})},
-		        {caption: ['은행'],		ref: 'bankNm', 		width: '100px',	type: 'output', 		style: 'text-align: center', sortable: false},
-		        {caption: ['계좌'],		ref: 'actno', 		width: '100px',	type: 'output', 		style: 'text-align: center', sortable: false},
-		        {caption: ['예금주'],	 	ref: 'dpstr', 		width: '80px',	type: 'output', 		style: 'text-align: center', sortable: false},
-		        {caption: ['비고'],		ref: 'rmrk', 		width: '240px',	type: 'input',										 sortable: false,
+					typeinfo : {ref:'jso	nComTrsprtRgnCd', label:'label', value:'value', itemcount: 10}},
+		        {caption: ['중량 (Kg)'], 		ref: 'wrhsWght', 	width: '100px',	type: 'output', 		style: 'text-align: right',	 sortable: false,
+					typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
+		        {caption: ['운임비용 (원)'],	ref: 'trsprtCst', 	width: '100px',	type: 'input', 			style: 'text-align: right',  sortable: false,
+					typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}, validate : gfn_chkByte.bind({byteLimit: 5})},
+		        {caption: ['은행'],			ref: 'bankNm', 		width: '100px',	type: 'output', 		style: 'text-align: center', sortable: false},
+		        {caption: ['계좌'],			ref: 'actno', 		width: '100px',	type: 'output', 		style: 'text-align: center', sortable: false},
+		        {caption: ['예금주'],	 		ref: 'dpstr', 		width: '80px',	type: 'output', 		style: 'text-align: center', sortable: false},
+		        {caption: ['비고'],			ref: 'rmrk', 		width: '240px',	type: 'input',										 sortable: false,
 		        	validate : gfn_chkByte.bind({byteLimit: 1000})},
-		        {caption: ['APC코드'], 	ref: 'apcCd', 		hidden : true},
-		        {caption: ['은행'],		ref: 'bankCd', 		hidden : true},
-		        {caption: ['순번'], 		ref: 'sn', 			hidden : true}
+		        {caption: ['APC코드'], 		ref: 'apcCd', 		hidden : true},
+		        {caption: ['은행'],			ref: 'bankCd', 		hidden : true},
+		        {caption: ['순번'], 			ref: 'sn', 			hidden : true}
 
 		    ];
 		    grdTrsprtCstPop = _SBGrid.create(SBGridProperties);
@@ -503,24 +503,24 @@
 		getExpColumns: function() {
 			const _columns = []
 			_columns.push(
-					{caption: ['운송일자'], 	ref: 'trsprtYmd', 	width:'120px',	type: 'output',	style: 'text-align: center',
+					{caption: ['운송일자'], 		ref: 'trsprtYmd', 	width:'120px',	type: 'output',	style: 'text-align: center',
 				    	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-			        {caption: ['운송구분'], 	ref: 'trsprtSeCd',	width: '100px',	type: 'combo',	style: 'text-align: center',
+			        {caption: ['운송구분'], 		ref: 'trsprtSeCd',	width: '100px',	type: 'combo',	style: 'text-align: center',
 						typeinfo : {ref:'jsonExpSltTrsprtSeCd', label:'label', value:'value', itemcount: 10}},
-			        {caption: ['차량번호'], 	ref: 'vhclno',		width: '100px',	type: 'output',	style: 'text-align: center',
+			        {caption: ['차량번호'], 		ref: 'vhclno',		width: '100px',	type: 'output',	style: 'text-align: center',
 						typeinfo : {callback: fn_grdChoiceVhcl}},
-			        {caption: ['기사명'], 	ref: 'drvrNm',		width: '100px',	type: 'output',	style: 'text-align: center'},
-			        {caption: ['운송지역'], 	ref: 'trsprtRgnCd', width: '100px', type: 'combo',	style: 'text-align: center',
+			        {caption: ['기사명'], 		ref: 'drvrNm',		width: '100px',	type: 'output',	style: 'text-align: center'},
+			        {caption: ['운송지역'], 		ref: 'trsprtRgnCd', width: '100px', type: 'combo',	style: 'text-align: center',
 						typeinfo : {ref:'jsonExpSltTrsprtRgnCd', label:'label', value:'value', itemcount: 10}},
-			        {caption: ['중량'], 		ref: 'wrhsWght', 	width: '100px',	type: 'output',	style: 'text-align: right',
-						typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###Kg'}},
-			        {caption: ['운임비용'],	ref: 'trsprtCst', 	width: '100px',	type: 'output',	style: 'text-align: right',
-						typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
-			        {caption: ['은행'],		ref: 'bankCd', 		width: '100px',	type: 'combo',	style: 'text-align: center',
+			        {caption: ['중량 (Kg)'], 		ref: 'wrhsWght', 	width: '100px',	type: 'output',	style: 'text-align: right',
+						typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
+			        {caption: ['운임비용 (원)'],	ref: 'trsprtCst', 	width: '100px',	type: 'output',	style: 'text-align: right',
+						typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
+			        {caption: ['은행'],			ref: 'bankCd', 		width: '100px',	type: 'combo',	style: 'text-align: center',
 						typeinfo : {ref:'jsonExpSltBankCd', label:'label', value:'value', itemcount: 10}},
-			        {caption: ['계좌'],		ref: 'actno', 		width: '100px',	type: 'output',	style: 'text-align: center'},
-			        {caption: ['예금주'],	 	ref: 'dpstr', 		width: '80px',	type: 'output',	style: 'text-align: center'},
-			        {caption: ['비고'],		ref: 'rmrk', 		width: '240px',	type: 'output'}
+			        {caption: ['계좌'],			ref: 'actno', 		width: '100px',	type: 'output',	style: 'text-align: center'},
+			        {caption: ['예금주'],	 		ref: 'dpstr', 		width: '80px',	type: 'output',	style: 'text-align: center'},
+			        {caption: ['비고'],			ref: 'rmrk', 		width: '240px',	type: 'output'}
 			);
 		    return _columns;
 		},

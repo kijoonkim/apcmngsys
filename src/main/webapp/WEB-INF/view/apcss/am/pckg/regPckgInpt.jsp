@@ -578,12 +578,12 @@
             {caption: ['대표생산자','대표생산자'], 	ref: 'rprsPrdcrNm', 	width: '100px', type: 'output', style: 'text-align:center'},
             {caption: ["창고","창고"],				ref: 'warehouseSeNm', 	width: '120px',	type:'output',  style: 'text-align:center'},
             {caption: ['선별재고','수량'], 			ref: 'invntrQntt', 		width: '60px', 	type: 'output', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ['선별재고','중량'], 			ref: 'invntrWght', 		width: '60px', 	type: 'output', style: 'text-align:right', format : {type:'number', rule:'#,### Kg'}},
+            {caption: ['선별재고','중량 (Kg)'], 	ref: 'invntrWght', 		width: '60px', 	type: 'output', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ["선별재고","재고규격"],		ref: 'spcfctNm', 		width: '120px',	type:'output',  style: 'text-align:center'},
             {caption: ['포장지시','지시번호'], 		ref: 'pckgCmndno', 		width: '110px', type: 'output', style: 'text-align:center'},
             {caption: ['포장지시','지시설비'], 		ref: 'pckgFcltNm', 		width: '80px', 	type: 'output', style: 'text-align:center'},
             {caption: ['포장지시','수량'], 			ref: 'cmndQntt', 		width: '60px', 	type: 'output', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ['포장지시','중량'], 			ref: 'cmndWght', 		width: '60px', 	type: 'output', style: 'text-align:right', format : {type:'number', rule:'#,### Kg'}},
+            {caption: ['포장지시','중량 (Kg)'], 	ref: 'cmndWght', 		width: '60px', 	type: 'output', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ["포장투입","수량"], 			ref: 'inptQntt',  		width: '80px', 	type:'input',  	style: 'text-align:right;background-color:#FFF8DC;',
             	userattr: {colNm: "inptQntt"},
             	typeinfo: {
@@ -593,14 +593,14 @@
 				},
 				format : {type:'number', rule:'#,###'}
             },
-            {caption: ["포장투입","중량"], 			ref: 'inptWght',  		type:'input',  width:'80px', style: 'text-align:right;background-color:#FFF8DC;',
+            {caption: ["포장투입","중량 (Kg)"], 	ref: 'inptWght',  		type:'input',  width:'80px', style: 'text-align:right;background-color:#FFF8DC;',
             	userattr: {colNm: "inptWght"},
             	typeinfo: {
             		mask : {alias : '#', repeat: '*', unmaskvalue : true},
             		maxlength: 6,
             		oneclickedit: true
 				},
-				format : {type:'number', rule:'#,### Kg'}
+				format : {type:'number', rule:'#,###'}
          	},
  	        {caption: ["대표생산자코드"],		ref: 'rprsPrdcrCd',   	type:'output',  hidden: true},
 	        {caption: ["품목코드"],				ref: 'itemCd',   		type:'output',  hidden: true},
@@ -822,14 +822,14 @@
 				},
 				format : {type:'number', rule:'#,###'}
             },
-            {caption: ["포장중량"], 			ref: 'pckgWght',  		type:'input',  width:'80px', style: 'text-align:right;background-color:#FFF8DC;',
+            {caption: ["포장중량 (Kg)"], 		ref: 'pckgWght',  		type:'input',  width:'80px', style: 'text-align:right;background-color:#FFF8DC;',
             	userattr: {colNm: "pckgWght"},
             	typeinfo: {
             		mask : {alias : '#', repeat: '*', unmaskvalue : true},
             		maxlength: 6,
             		oneclickedit: true
 				},
-				format : {type:'number', rule:'#,### Kg'}
+				format : {type:'number', rule:'#,###'}
          	},
             {caption: ["창고"],	ref: 'warehouseSeCd',    type:'combo',  width:'100px', style: 'text-align:center;background-color:#FFF8DC;',
            	 	typeinfo: {ref:'jsonComWarehouse', label:'cdVlNm', value:'cdVl', oneclickedit: true, unselect: {label : '선택', value: 'notSelect'}}
@@ -1470,7 +1470,7 @@
 
 		_columns.push(
 			{caption: ["수량"],		ref: 'pckgQntt',	type:'input',  width:'60px',    style:'text-align:right; background:#FFF8DC;'},
-	        {caption: ["중량 Kg"],	ref: 'pckgWght',    type:'input',  width:'60px',    style:'text-align:right; background:#FFF8DC;'},
+	        {caption: ["중량 (Kg)"],	ref: 'pckgWght',    type:'input',  width:'60px',    style:'text-align:right; background:#FFF8DC;'},
 	        {caption: ["비고"],		ref: 'rmrk',      	type:'input',  width:'300px',    style:'text-align:center'},
 		);
 

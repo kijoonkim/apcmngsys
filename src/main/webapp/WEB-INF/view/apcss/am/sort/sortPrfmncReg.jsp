@@ -1638,7 +1638,7 @@
 
 		_columns.push(
 			{caption: ["수량"],		ref: 'sortQntt',	type:'input',  width:'60px',    style:'text-align:right; background:#FFF8DC;'},
-	        {caption: ["중량 Kg"],	ref: 'sortWght',    type:'input',  width:'60px',    style:'text-align:right; background:#FFF8DC;'},
+	        {caption: ["중량 (Kg)"],	ref: 'sortWght',    type:'input',  width:'60px',    style:'text-align:right; background:#FFF8DC;'},
 	        {caption: ["비고"],		ref: 'rmrk',      	type:'input',  width:'300px',    style:'text-align:left'},
 		);
 
