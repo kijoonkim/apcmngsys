@@ -651,18 +651,13 @@
 
 	//조회
     const fn_selectGridList = async function() {
-    	inptCmndDsctnList.rebuild();
-    	let pageSize = inptCmndDsctnList.getPageSize();
-    	let pageNo = 1;
 
     	// grid clear
     	jsoninptCmndDsctnList.length = 0;
     	jsoninptCmndDsctnList2.length = 0;
     	jsoninptCmndDsctnList3.length = 0;
-    	inptCmndDsctnList.clearStatus();
 
     	//검색조건
-//     	let crtrYmd  = SBUxMethod.get("srch-dtp-crtrYmd");	//기준일자
     	if(checkSection == 1 ){
     		fn_callSelectGrid1List();
     	}else if(checkSection == 2){
@@ -821,7 +816,7 @@
 	//선별재고 내역 조회 끝
 
 	var newSortInptPrfmncGridData = [];
-	const fn_callSelectGrid3List = async function(pageSize, pageNo) {
+	const fn_callSelectGrid3List = async function() {
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
 		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
@@ -831,12 +826,12 @@
 		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSe");
 		const postJsonPromise3 = gfn_postJSON("/am/trnsf/selectUpdateTrnsfGdsInvntrList.do", {
 			apcCd		:  gv_selectedApcCd,
-			itemCd:itemCd,
-			vrtyCd: vrtyCd,
-			spcfctCd: spcfctCd,
-			prdcrCd: prdcrCd,
-			gdsSeCd: gdsSeCd,
-			wrhsSeCd: wrhsSeCd,
+			itemCd		:itemCd,
+			vrtyCd		: vrtyCd,
+			spcfctCd	: spcfctCd,
+			prdcrCd		: prdcrCd,
+			gdsSeCd		: gdsSeCd,
+			wrhsSeCd	: wrhsSeCd
   		});
 
         let data3 = await postJsonPromise3;

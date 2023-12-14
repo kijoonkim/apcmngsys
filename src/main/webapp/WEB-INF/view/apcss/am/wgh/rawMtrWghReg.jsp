@@ -927,7 +927,7 @@
      * @description 조회 버튼
      */
     const fn_search = async function() {
-
+		
 		SBUxMethod.set("lbl-wghno", "");
 		SBUxMethod.set("dtl-inp-wghno", "");
 
@@ -1081,7 +1081,7 @@
 
           	totalRecordCount = jsonWghPrfmnc.length;
 
-          	grdWghPrfmnc.refresh();
+          	grdWghPrfmnc.rebuild();
 
           	document.querySelector('#cnt-wgh').innerText = totalRecordCount;
           	SBUxMethod.set("crtr-ymd", wghYmd);

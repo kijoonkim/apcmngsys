@@ -41,14 +41,6 @@
 						onclick="fn_reset"
 					></sbux-button>
 					<sbux-button
-						id="btnSearch"
-						name="btnSearch"
-						uitype="normal"
-						text="조회"
-						class="btn btn-sm btn-outline-danger"
-						onclick="fn_search"
-					></sbux-button>
-					<sbux-button
 						id="btnSave"
 						name="btnSave"
 						uitype="normal"
@@ -63,6 +55,14 @@
 						text="삭제"
 						class="btn btn-sm btn-outline-danger"
 						onclick="fn_delete"
+					></sbux-button>
+					<sbux-button
+						id="btnSearch"
+						name="btnSearch"
+						uitype="normal"
+						text="조회"
+						class="btn btn-sm btn-outline-danger"
+						onclick="fn_search"
 					></sbux-button>
 					<sbux-button
 						id="btnClose"
@@ -770,7 +770,7 @@
     		console.error("failed", e.message);
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
-		grdSortInpt.refresh();
+		grdSortInpt.rebuild();
     }
 
 	/**

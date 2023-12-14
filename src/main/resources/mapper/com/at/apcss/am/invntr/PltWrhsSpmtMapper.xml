@@ -235,6 +235,9 @@
         <if test='apcCd != null and apcCd != ""'>
 				    	AND PWS.APC_CD 					= #{apcCd}
 		</if>
+        <if test='jobYmd != null and jobYmd != ""'>
+				    	AND PWS.JOB_YMD 				= #{jobYmd}
+		</if>
 		<![CDATA[
 			        ) pt0
 		]]>

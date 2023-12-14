@@ -430,7 +430,7 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 
-        grdPckgInpt.refresh();
+        grdPckgInpt.rebuild();
 	}
 
 

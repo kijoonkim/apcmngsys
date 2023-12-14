@@ -273,7 +273,7 @@
             {caption: ['확정금액','확정금액'], 	ref: 'cfmtnAmt', 	width: '80px', 	type: 'input',	style: 'text-align:right; background:#FFF8DC;',
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### 원'}},
             {caption: ['확정여부','확정여부'], 	ref: 'cfmtnYn',   	width:'100px',  type: 'combo',	style: 'text-align:center; background:#FFF8DC;',
-				typeinfo : {ref:'jsonGrdCfmtnYn', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
+				typeinfo : {ref:'jsonGrdCfmtnYn', 	displayui : false,	itemcount: 10, label:'label', value:'value'}}
         ];
         grdSlsPrfmnc = _SBGrid.create(SBGridProperties);
         grdSlsPrfmnc.bind('select' , 'fn_setValue');
@@ -288,7 +288,7 @@
         var getColRef = grid.getColRef("checkedYn");
     	var getRow = grid.getRow();
     	var getCol = grid.getCol();
-        for (var i=0; i<gridList.length; i++) {
+        for (var i=0; i<gridList.length-1; i++) {
         	grid.setCol(getColRef);
         	grid.clickCell(i+2, getColRef);
             grid.setCellData(i+2, getColRef, checkedYn, true, false);

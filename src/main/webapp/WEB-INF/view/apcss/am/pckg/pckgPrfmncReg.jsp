@@ -635,11 +635,6 @@
 			itemCd: itemCd,
 			vrtyCd: vrtyCd,
 			spcfctCd: spcfctCd
-
-          	// pagination
-  	  		//pagingYn : 'Y',
-  			//currentPageNo : pageNo,
-   		  	//recordCountPerPage : pageSize
   		});
 
         const data = await postJsonPromise;
@@ -692,15 +687,10 @@
           				pckgFcltNm		: item.pckgFcltNm,
   				}
           		jsonSortInvntr.push(sortInvntr);
-
-				/*
-  				if (index === 0) {
-  					totalRecordCount = item.totalRecordCount;
-  				}
-				 */
   			});
 
-          	grdSortInvntr.refresh({"combo":true});
+          	grdSortInvntr.rebuild();
+          	//grdSortInvntr.refresh({"combo":true});
           	totalRecordCount = jsonSortInvntr.length;
           	document.querySelector('#cnt-SortInvntr').innerText = totalRecordCount;
 
@@ -888,9 +878,6 @@
      * @function
 	 */
 	const fn_search = async function() {
-
-        // set pagination
-    	grdSortInvntr.rebuild();
     	// grid clear
     	jsonSortInvntr.length = 0;
     	fn_setGrdSortInvntr();

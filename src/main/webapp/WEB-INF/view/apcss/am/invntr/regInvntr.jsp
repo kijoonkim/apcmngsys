@@ -846,16 +846,13 @@
 
 	//조회
     const fn_selectGridList = async function() {
-    	inptCmndDsctnList.rebuild();
 
     	// grid clear
     	jsoninptCmndDsctnListRaw.length = 0;
     	jsoninptCmndDsctnListSort.length = 0;
     	jsoninptCmndDsctnListGds.length = 0;
-    	inptCmndDsctnList.clearStatus();
 
     	//검색조건
-//     	let crtrYmd  = SBUxMethod.get("srch-dtp-crtrYmd");	//기준일자
     	if(checkSection == 1 ){
     		fn_callSelectGrid1List();
     	}else if(checkSection == 2){

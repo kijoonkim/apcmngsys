@@ -265,8 +265,8 @@
     	// set pagination
     	let pageSize = grdComMsgList.getPageSize();
     	let pageNo = 1;
-
-    	fn_setGrdComMsgList(pageSize, pageNo);
+    	
+    	grdComMsgList.movePaging(pageNo);
     }
 
     /**
@@ -275,6 +275,8 @@
     const fn_pagingComMsgList = async function() {
     	let recordCountPerPage = grdComMsgList.getPageSize();   		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = grdComMsgList.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+    	let ref = "<input type='checkbox' onchange='fn_checkAll(this);'>";
+    	grdComMsgList.setCellData(0, grdComMsgList.getColRef("checked"), ref, true, false);
     	fn_setGrdComMsgList(recordCountPerPage, currentPageNo);
     }
 
@@ -585,8 +587,10 @@
     function fn_checkAll(obj){
         var gridList = grdComMsgList.getGridDataAll();
         var checkedYn = obj.checked ? "Y" : "N";
+        //체크박스 열 index
+        var getColRef = grdComMsgList.getColRef("checked");
         for (var i=0; i<gridList.length; i++ ){
-        	grdComMsgList.setCellData(i+1, 1, checkedYn, true, false);
+        	grdComMsgList.setCellData(i+1, getColRef, checkedYn, true, false);
         }
     }
 
