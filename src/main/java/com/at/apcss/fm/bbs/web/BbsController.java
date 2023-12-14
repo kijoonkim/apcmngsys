@@ -385,7 +385,7 @@ public class BbsController extends BaseController {
                  file.transferTo(savePath);
                  insertedCnt += bbsService.insertAttach(bbsFileVO);
              } catch (IOException e) {
-                 e.printStackTrace();
+            	 return getErrorResponseEntity(e);
              }
 
         }
