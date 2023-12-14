@@ -290,7 +290,12 @@
 			$("#cmntList").append("<tr id=cmnt>");
 			if(item.cmntChildNo == "1"){
 				$("#cmntList").append("<td id=cmnt style=text-align:center>"+ bbsCmnt.user  +"</td>");
-				$("#cmntList").append("<td id=newCmnt style=border-left:20px><xmp id=cmntXmp>"+String(bbsCmnt.cmntCn)+"</xmp></td>");
+				//$("#cmntList").append("<td id=newCmnt style=border-left:20px><xmp id=cmntXmp>"+String(bbsCmnt.cmntCn)+"</xmp></td>");
+				const newTdCmnt = document.createElement("td");
+				const newSpanCmnt = document.createElement("span");
+				newSpanCmnt.innerText = String(bbsCmnt.cmntCn);
+				newTdCmnt.appendChild(newSpanCmnt);
+				$("#cmntList").append(newTdCmnt);
 				$("#cmntList").append("<td id=cmnt>"+"<button id=bbsChildCmntModal name=bbsChildCmntModal class=btn btn-xs  style=width:100% onclick=fn_childComment("+bbsCmnt.cmntNo+","+bbsCmnt.cmntChildNo+")>답글</button></td>");
 				if('${loginVO.userId}' == item.sysFrstInptUserId){
 					$("#cmntList").append("<td id=cmnt>"+"<button id=btnDeleteCmnt name=btnDeleteCmnt class=btn btn-xs  style=width:100% onclick=fn_deleteComment("+bbsCmnt.cmntNo+")>삭제</button></td>");
