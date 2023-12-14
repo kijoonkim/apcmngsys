@@ -471,8 +471,7 @@
 
         let updatedCnt = 0;
         let insertedCnt = 0;
-        var seveMsg = "저장 하시겠습니까?";
-        if(confirm(seveMsg)){
+        if(gfn_comConfirm("Q0001", "저장")){
 
 	        if((menuNm === menuRowData.numeNm && pageUrl === menuRowData.pageUrl && delYn === menuRowData.delYn)){
 	        	updatedCnt = await fn_updateMenu();
@@ -565,8 +564,7 @@
             return;
         }
 		if(delList.length > 0){
-			var delMsg = "등록 된 행을 삭제 하시겠습니까?";
-	        if(confirm(delMsg)){
+	        if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
 		        fn_delete(delList);
 	        }
 		}

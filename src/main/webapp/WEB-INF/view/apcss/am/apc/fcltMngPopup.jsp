@@ -180,8 +180,7 @@
 			return;
 		}
 
-		let regMsg = "저장 하시겠습니까?";
-		if(confirm(regMsg)){
+		if(gfn_comConfirm("Q0001", "저장")){
 
 			let postJsonPromise = gfn_postJSON("/co/cd/multiSaveComCdDtlList.do", saveList);
 	        let data = await postJsonPromise;

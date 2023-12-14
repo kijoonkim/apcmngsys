@@ -1030,8 +1030,7 @@
         else if (gubun === "DEL") {
             if (grid === "grdCnpt") {
             	if(grdCnpt.getRowStatus(nRow) == 0 || grdCnpt.getRowStatus(nRow) == 2){
-            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-            		if(confirm(delMsg)){
+            		if(gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
             			var cnpt = grdCnpt.getRowData(nRow);
             			fn_deleteCnpt(cnpt);
             			grdCnpt.deleteRow(nRow);
@@ -1041,8 +1040,7 @@
             	}
             }else if (grid === "grdFclt") {
             	if(grdFclt.getRowStatus(nRow) == 0 || grdFclt.getRowStatus(nRow) == 2){
-            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-            		if(confirm(delMsg)){
+            		if(gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
             			var comCdVO = grdFclt.getRowData(nRow);
             			fn_deleteRsrc(comCdVO);
             			grdFclt.deleteRow(nRow);
@@ -1052,8 +1050,7 @@
             	}
             }else if (grid === "grdWarehouse") {
             	if(grdWarehouse.getRowStatus(nRow) == 0 || grdWarehouse.getRowStatus(nRow) == 2){
-            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-            		if(confirm(delMsg)){
+            		if(gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
             			var comCdVO = grdWarehouse.getRowData(nRow);
             			fn_deleteRsrc(comCdVO);
             			grdWarehouse.deleteRow(nRow);
@@ -1063,8 +1060,7 @@
             	}
             }else if (grid === "grdPlt") {
             	if(grdPlt.getRowStatus(nRow) == 0 || grdPlt.getRowStatus(nRow) == 2){
-            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-            		if(confirm(delMsg)){
+            		if(gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
             			var pltBxVO = grdPlt.getRowData(nRow);
             			fn_deletepltBx(pltBxVO);
             			grdPlt.deleteRow(nRow);
@@ -1074,8 +1070,7 @@
             	}
             }else if (grid === "grdBx") {
             	if(grdBx.getRowStatus(nRow) == 0 || grdBx.getRowStatus(nRow) == 2){
-            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-            		if(confirm(delMsg)){
+            		if(gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
             			var pltBxVO = grdBx.getRowData(nRow);
             			fn_deletepltBx(pltBxVO);
             			grdBx.deleteRow(nRow);
@@ -1085,8 +1080,7 @@
             	}
             }else if (grid === "grdRgnTrsprtCst") {
             	if(grdRgnTrsprtCst.getRowStatus(nRow) == 0 || grdRgnTrsprtCst.getRowStatus(nRow) == 2){
-            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-            		if(confirm(delMsg)){
+            		if(gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
             			var rgnTrsprtCst = grdRgnTrsprtCst.getRowData(nRow);
             			fn_deleteRgnTrsprtCstList(rgnTrsprtCst);
             			grdRgnTrsprtCst.deleteRow(nRow);
@@ -1096,8 +1090,7 @@
             	}
             }else if (grid === "grdWrhsVhcl") {
             	if(grdWrhsVhcl.getRowStatus(nRow) == 0 || grdWrhsVhcl.getRowStatus(nRow) == 2){
-            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-            		if(confirm(delMsg)){
+            		if(gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
             			var wrhsVhclVo = grdWrhsVhcl.getRowData(nRow);
             			fn_deleteWrhsVhclList(wrhsVhclVo);
             			grdWrhsVhcl.deleteRow(nRow);
@@ -1107,8 +1100,7 @@
             	}
             }else if (grid === "grdSpmtTrsprtCo") {
             	if(grdSpmtTrsprtCo.getRowStatus(nRow) == 0 || grdSpmtTrsprtCo.getRowStatus(nRow) == 2){
-            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-            		if(confirm(delMsg)){
+            		if(gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
             			var spmtTrsprt = grdSpmtTrsprtCo.getRowData(nRow);
             			fn_deleteSpmtTrsprtList(spmtTrsprt);
             			grdSpmtTrsprtCo.deleteRow(nRow);
@@ -1118,8 +1110,7 @@
             	}
             }else if (grid === "grdOprtr") {
             	if(grdOprtr.getRowStatus(nRow) == 0 || grdOprtr.getRowStatus(nRow) == 2){
-            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-            		if(confirm(delMsg)){
+            		if(gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
             			var oprtrVO = grdOprtr.getRowData(nRow);
             			fn_deleteOprtr(oprtrVO);
             			grdOprtr.deleteRow(nRow);
@@ -1129,8 +1120,7 @@
             	}
             }else if (grid === "grdStdGrd") {
             	if(grdStdGrd.getRowStatus(nRow) == 0 || grdStdGrd.getRowStatus(nRow) == 2){
-            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-            		if(confirm(delMsg)){
+            		if(gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
             			var stdGrdVO = grdStdGrd.getRowData(nRow);
             			fn_deleteGrd(stdGrdVO, nRow);
             		}
@@ -1139,8 +1129,7 @@
             	}
             }else if (grid === "grdStdGrdDtl") {
             	if(grdStdGrdDtl.getRowStatus(nRow) == 0 || grdStdGrdDtl.getRowStatus(nRow) == 2){
-            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-            		if(confirm(delMsg)){
+            		if(gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
             			var stdGrdDtlVO = grdStdGrdDtl.getRowData(nRow);
             			fn_deleteGrdDtl(stdGrdDtlVO, nRow);
             		}
@@ -1149,8 +1138,7 @@
             	}
             }else if (grid === "grdStdGrdJgmt") {
             	if(grdStdGrdJgmt.getRowStatus(nRow) == 0 || grdStdGrdJgmt.getRowStatus(nRow) == 2){
-            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-            		if(confirm(delMsg)){
+            		if(gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
             			var stdGrdJgmtVO = grdStdGrdJgmt.getRowData(nRow);
             			fn_deleteGrdJgmt(stdGrdJgmtVO, nRow);
             		}
@@ -1159,8 +1147,7 @@
             	}
             }else if (grid === "grdApcSpcfct") {
             	if(grdApcSpcfct.getRowStatus(nRow) == 0 || grdApcSpcfct.getRowStatus(nRow) == 2){
-            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-            		if(confirm(delMsg)){
+            		if(gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
             			var cmnsSpcfctVO = grdApcSpcfct.getRowData(nRow);
             			fn_deleteSpcfct(cmnsSpcfctVO);
             			grdApcSpcfct.deleteRow(nRow);
@@ -1170,8 +1157,7 @@
             	}
             }else if (grid === "grdSmptPckgUnit") {
             	if(grdSpmtPckgUnit.getRowStatus(nRow) == 0 || grdSpmtPckgUnit.getRowStatus(nRow) == 2){
-            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-            		if(confirm(delMsg)){
+            		if(gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
             			var spmtPckgUnitVO = grdSpmtPckgUnit.getRowData(nRow);
             			fn_deleteSpmtPckgUnit(spmtPckgUnitVO);
             			grdSpmtPckgUnit.deleteRow(nRow);
@@ -1181,8 +1167,7 @@
             	}
             }else if (grid === "grdSpmtSlsUntprcReg") {
             	if(grdSpmtSlsUntprcReg.getRowStatus(nRow) == 0 || grdSpmtSlsUntprcReg.getRowStatus(nRow) == 2){
-            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-            		if(confirm(delMsg)){
+            		if(gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
             			var spmtSlsUntprcRegVO = grdSpmtSlsUntprcReg.getRowData(nRow);
             			fn_deleteSpmtSlsUntprcReg(spmtSlsUntprcRegVO);
             			grdSpmtSlsUntprcReg.deleteRow(nRow);
