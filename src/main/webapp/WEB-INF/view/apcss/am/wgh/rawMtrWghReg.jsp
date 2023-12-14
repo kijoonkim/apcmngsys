@@ -1526,7 +1526,8 @@
 	const fn_onChangeRdcdRt = function() {
 		// 감량(%) >> 감량, 실중량, 입고중량
 		if (parseFloat(SBUxMethod.get("dtl-inp-rdcdRt")) > 100) {
-			alert("감량률이 100% 보다 큽니다.");
+			gfn_comAlert('W0008', '감량률', '100%');
+			
 			SBUxMethod.set("dtl-inp-rdcdRt", "");
 			return;
 		}
