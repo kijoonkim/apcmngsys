@@ -155,7 +155,8 @@
 			gfn_setComCdSBSelect('grdApcPrdcr', 	jsonComGdsSeCd, 	'GDS_SE_CD',	gv_selectedApcCd),		// 상품구분
 			gfn_setComCdSBSelect('grdApcPrdcr', 	jsonComWrhsSeCd, 	'WRHS_SE_CD'),							// 입고구분
 			gfn_setComCdSBSelect('grdApcPrdcr', 	jsonComTrsprtSeCd, 	'TRSPRT_SE_CD'),						// 운송구분
-			gfn_setComCdSBSelect('grdApcPrdcr', 	jsonComClclnCrtrCd, 'CLCLN_CRTR_CD')						// 정산기준
+			gfn_setComCdSBSelect('grdApcPrdcr', 	jsonComClclnCrtrCd, 'CLCLN_CRTR_CD'),						// 정산기준
+			gfn_setComCdSBSelect('prdcrDtl-slt-frmhsCtpv', jsonCtpvPrdcrDtlPop, 'CTPV', '0000'),		// 지역
 		]);
 	}
 
@@ -169,7 +170,7 @@
 	var jsonAgrixPrdcr = [];
 	var jsonApcPrdcr = [];
 
-	function fn_createAgrixPrdcrGrid() {
+	const fn_createAgrixPrdcrGrid = function() {
 
 	    var SBGridAgrixPrdcrProperties = {};
 	    SBGridAgrixPrdcrProperties.parentid = 'sb-area-grdAgrixPrdcr';
@@ -221,7 +222,7 @@
 		    {caption: ["상세"], 			ref: 'delYn',  			type:'button',  width:'50px',  style:'text-align:center',	sortable: false,
 		    	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(!gfn_isEmpty(strValue)){
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_modalPrdcrDtl(" + nRow + ")'>변경</button>";
+			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_modalPrdcrDtl(" + nRow + ")'>정보</button>";
 	        	}else{
 	        		return ;
 	        	}
@@ -255,6 +256,8 @@
 
 	    ];
 	    grdApcPrdcr = _SBGrid.create(SBGridApcPrdcrProperties);
+
+	    fn_search();
 	}
 
 	/**
@@ -348,24 +351,27 @@
     		jsonApcPrdcr.length = 0;
         	data.resultList.forEach((item, index) => {
 				const prdcrVO = {
-					rowSeq			: item.rowSeq,
-					prdcrCd			: item.prdcrCd,
-				    prdcrNm 		: item.prdcrNm,
-				    rprsItemCd 		: item.rprsItemCd,
-				    rprsItemNm 		: item.rprsItemNm,
-				    rprsVrtyCd 		: item.rprsVrtyCd,
-				    rprsVrtyNm 		: item.rprsVrtyNm,
-				    gdsSeCd 		: item.gdsSeCd,
-				    wrhsSeCd 		: item.wrhsSeCd,
-				    trsprtSeCd 		: item.trsprtSeCd,
-				    clclnCrtrCd 	: item.clclnCrtrCd,
-				    vhclno 			: item.vhclno,
-				    telno			: item.telno,
-				    prdcrLinkCd		: item.prdcrLinkCd,
-				    prdcrIdentno	: item.prdcrIdentno,
-				    rmrk 			: item.rmrk,
-				    delYn 			: item.delYn,
-				    apcCd 			: item.apcCd
+					rowSeq			: item.rowSeq
+				  ,	prdcrCd			: item.prdcrCd
+				  , prdcrNm 		: item.prdcrNm
+				  , rprsItemCd 		: item.rprsItemCd
+				  , rprsItemNm 		: item.rprsItemNm
+				  , rprsVrtyCd 		: item.rprsVrtyCd
+				  , rprsVrtyNm 		: item.rprsVrtyNm
+				  , gdsSeCd 		: item.gdsSeCd
+				  , wrhsSeCd 		: item.wrhsSeCd
+				  , trsprtSeCd 		: item.trsprtSeCd
+				  , clclnCrtrCd 	: item.clclnCrtrCd
+				  , vhclno 			: item.vhclno
+				  , telno			: item.telno
+				  , prdcrLinkCd		: item.prdcrLinkCd
+				  , prdcrIdentno	: item.prdcrIdentno
+				  , rmrk 			: item.rmrk
+				  , delYn 			: item.delYn
+				  , apcCd 			: item.apcCd
+				  , frmhsTelno      : item.frmhsTelno
+				  , frmhsCtpv		: item.frmhsCtpv
+				  , frmhsAddr		: item.frmhsAddr
 				}
 				jsonApcPrdcr.push(prdcrVO);
 			});
@@ -534,9 +540,8 @@
 	// 생산자 상세 팝업 호출
 	const fn_modalPrdcrDtl = async function (nRow){
 		let rowData = grdApcPrdcr.getRowData(nRow);
-
 		SBUxMethod.openModal('modal-prdcrDtl');
-		popPrdcrDtl.init(gv_selectedApcCd, gv_selectedApcNm, rowData.prdcrCd);
+		popPrdcrDtl.init(gv_selectedApcCd, gv_selectedApcNm, rowData);
 	}
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>

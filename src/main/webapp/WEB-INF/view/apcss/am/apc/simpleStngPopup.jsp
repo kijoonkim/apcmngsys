@@ -792,7 +792,6 @@
     		if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
         	} else {
-        		//alert(data.resultMessage);
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
     	}catch (e) {

@@ -107,16 +107,16 @@
 		let bbsSubject = SBUxMethod.get("dtl-input-newbbsSubject");
 		let apcCd = gv_apcCd;
 		if (!SBUxMethod.get("dtl-select-newbbsSeCd")) {
-            alert("구분코드를 선택하세요.");
+            gfn_comAlert("W0001", "구분코드");
             return;
         }
 		if (!SBUxMethod.get("dtl-input-newbbsTitle")) {
-            alert("제목을 입력하세요.");
+            gfn_comAlert("W0002", "제목");
             return;
         }
 
         if (!SBUxMethod.get("dtl-input-newbbsSubject")) {
-            alert("내용을 입력하세요.");
+            gfn_comAlert("W0002", "내용");
             return;
         }
 		const postJsonPromise = gfn_postJSON("/am/bbs/insertBbs.do", {
@@ -218,7 +218,7 @@
 				var fileExtension = '.' + newfileName.split('.').pop();
 
 				if (allowedExtensionsBbsNewArticle.indexOf(fileExtension.toLowerCase()) === -1) {
-			    	alert('올바른 확장자를 선택하세요.');
+			    	gfn_comAlert('W0001', '올바른 확장자');
 			    	newfiles = null; // 파일 선택 취소
 			    	return false;
 			    }

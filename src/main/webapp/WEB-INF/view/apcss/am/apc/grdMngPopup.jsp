@@ -250,7 +250,7 @@
 
 	const fn_searchStdGrd = async function(){
 		if(jsonGItemCd.length == 0){
-			alert("품목 먼저 등록해주세요.");
+			gfn_comAlert("E0000", "품목 먼저 등록해주세요.");
 			return;
 		}
 		let itemCd = SBUxMethod.get("grd-slt-itemCd");
@@ -340,7 +340,7 @@
 
 	const fn_stdGrdDtl = async function(nRow){
 		if(jsonGItemCd.length == 0){
-			alert("품목 먼저 등록해주세요.");
+			gfn_comAlert("E0000", "품목 먼저 등록해주세요.");
 			return;
 		}
 		let itemCd = SBUxMethod.get("grd-slt-itemCd");
