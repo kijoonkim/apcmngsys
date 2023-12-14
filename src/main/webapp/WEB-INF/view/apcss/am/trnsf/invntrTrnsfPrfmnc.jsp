@@ -1129,7 +1129,7 @@
 	        		fn_search();
 	        		fn_reSet();
 	        	} else {
-	        		alert(data.resultMessage);
+	        		gfn_comAlert(data.resultCode, data.resultMessage);
 	        	}
 	        }catch (e) {
 	        	if (!(e instanceof Error)) {
