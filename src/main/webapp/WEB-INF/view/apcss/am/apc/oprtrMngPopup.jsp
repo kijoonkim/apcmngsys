@@ -155,9 +155,17 @@
 		let gridData = grdOprtr.getGridDataAll();
 		let saveList = [];
 		for(var i=1; i<=gridData.length; i++ ){
-			if(grdOprtr.getRowData(i).delYn == 'N'){
-				if(grdOprtr.getRowData(i).flnm == null || grdOprtr.getRowData(i).flnm == ""){
-					alert("작업자 명은 필수 값 입니다.");
+
+			let flnm = grdOprtr.getRowData(i).flnm;
+			let brdt = grdOprtr.getRowData(i).brdt;
+			let delYn = grdOprtr.getRowData(i).delYn;
+			if(delYn == 'N'){
+				if(gfn_isEmpty(flnm)){
+					gfn_comAlert("W0002", "작업자명");		//	W0002	{0}을/를 입력하세요.
+					return;
+				}
+				if(gfn_isEmpty(brdt)){
+					gfn_comAlert("W0002", "생년월일");		//	W0002	{0}을/를 입력하세요.
 					return;
 				}
 				let rowData = grdOprtr.getRowData(i);
@@ -175,7 +183,6 @@
 
 		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
-			console.log('saveList', saveList);
 			if(!(gfn_isEmpty(saveList))){
 				for(let i=0;i<saveList.length;i++){
 					let newInsertTelno = saveList[i].telno.split("");
@@ -185,7 +192,7 @@
 				}
 			}
 
-			let postJsonPromise = gfn_postJSON("/am/cmns/compareOprtrList.do", saveList);
+			let postJsonPromise = gfn_postJSON("/am/cmns/multiSaveOprtrList.do", saveList);
 	        let data = await postJsonPromise;
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
