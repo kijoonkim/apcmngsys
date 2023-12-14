@@ -344,6 +344,7 @@ public class apcBbsController extends BaseController {
 
 	    	HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
+	    	int insertedCnt1 = 0;
 	    	for (MultipartFile file : files) {
 	    		apcBbsFileVO apcBbsFileVO = new apcBbsFileVO();
 
@@ -377,12 +378,11 @@ public class apcBbsController extends BaseController {
 	    		apcBbsFileVO.setAtchflExtnType(fileExtension);
 	    		apcBbsFileVO.setAtchflPath(folderPath);
 
-	    		int insertedCnt = 0;
 	    		//파일 생성
 	    		//file.transferTo(savePath);
 	    		 try {
 	                 file.transferTo(savePath);
-	                 insertedCnt = bbsService.insertAttach(apcBbsFileVO);
+	                 insertedCnt1 += bbsService.insertAttach(apcBbsFileVO);
 	             } catch (IOException e) {
 	                 e.printStackTrace();
 	             }
@@ -391,7 +391,7 @@ public class apcBbsController extends BaseController {
 
 			redirectAttributes.addFlashAttribute("message", "File successfully uploaded!");
 
-			resultMap.put(ComConstants.PROP_DELETED_CNT, 0);
+			resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt1);
 
 			return getSuccessResponseEntity(resultMap);
 	    }
