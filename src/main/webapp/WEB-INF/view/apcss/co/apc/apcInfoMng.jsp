@@ -201,7 +201,7 @@
 				}
 			}
 			if (alertList.length != 0) {
-				alert(alertList.join(", ") + "은 이미 등록된 데이터입니다.\n\n삭제하시려면 사용유무를 미사용으로 수정하십시오.");
+				gfn_comAlert("E0000", alertList.join(", ") + "은 이미 등록된 데이터입니다.\n\n삭제하시려면 사용유무를 미사용으로 수정하십시오.");
 			}
 			for (var i=deleteList.length; i>0; i--) {
 				grdApcInfoMng.deleteRow(deleteList[i-1]);

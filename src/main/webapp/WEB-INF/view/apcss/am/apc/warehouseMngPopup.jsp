@@ -157,7 +157,7 @@
 			return;
 		}
 
-		if(gfn_comAlert("Q0001", "저장")){
+		if(gfn_comConfirm("Q0001", "저장")){
 			const postJsonPromise = gfn_postJSON("/co/cd/multiSaveComCdDtlList.do", saveList, this.prgrmId);	// 프로그램id 추가
 			const data = await postJsonPromise;
 	        try {

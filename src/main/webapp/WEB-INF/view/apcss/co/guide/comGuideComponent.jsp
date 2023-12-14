@@ -173,7 +173,7 @@
                                 <tr>
                                 	<th>button</th>
                                     <td>
-                                        <sbux-button id="buttonName1" name="buttonName1" uitype="normal" text="버튼" value="button" onclick="alert(buttonName1)"></sbux-button>
+                                        <sbux-button id="buttonName1" name="buttonName1" uitype="normal" text="버튼" value="button" onclick="gfn_comAlert('E0000', buttonName1)"></sbux-button>
                                     </td>
                                     <th>기본 버튼 입니다.</th>
                                 </tr>

@@ -369,7 +369,7 @@
         }
 
         if (deleteCdList.length + deleteCdDtlList.length == 0) {
-            alert("삭제 할 대상이 없습니다.");
+            gfn_comAlert("W0003", "삭제");
             return;
         }
 
@@ -416,18 +416,18 @@
 			let rowSts = comCdgrid.getRowStatus(i);
     		if(rowData.checked === 'true'){
     			if (gfn_isEmpty(rowData.cdId)) {
-        			alert(i+"번째 행 코드ID는 필수 입력 값 입니다.");
+        			gfn_comAlert("W0002", i+"번째 행 코드ID");
         			return;
         		}
         		if (gfn_isEmpty(rowData.cdNm)) {
-        			alert(i+"번째 행 코드명는 필수 입력 값 입니다.");
+        			gfn_comAlert("W0002", i+"번째 행 코드명");
         			return;
         		}
 
 	    		if (rowSts === 3 || rowSts === 1) {
 	    			let check = await fn_duplicateCheckCdId(rowData);
 	    			if (check != 0) {
-	    				alert(i+"번째 행은 중복 된 코드ID 입니다.");
+	    				gfn_comAlert("E0000", i+"번째 행은 중복 된 코드ID 입니다.");
 	    				return;
 	    			}
 					rowData.rowSts = "I";
@@ -445,18 +445,18 @@
 			let rowSts = comCdDtlgrid.getRowStatus(i);
     		if(rowData.checked === 'true'){
     			if (gfn_isEmpty(rowData.cdVl)) {
-        			alert(i+"번째 행 코드값는 필수 입력 값 입니다.");
+        			gfn_comAlert("W0002", i+"번째 행 코드ID");
         			return;
         		}
         		if (gfn_isEmpty(rowData.cdVlNm)) {
-        			alert(i+"번째 행 코드값명는 필수 입력 값 입니다.");
+        			gfn_comAlert("W0002", i+"번째 행 코드값명");
         			return;
         		}
 
 	    		if (rowSts === 3 || rowSts === 1) {
 	    			let check = await fn_duplicateCheckCdIdDtl(rowData)
 	    			if (check != 0) {
-	    				alert(i+"번째 행은 중복 된 코드값 입니다.");
+	    				gfn_comAlert("E0000", i+"번째 행은 중복 된 코드값 입니다.");
 	    				return;
 	    			}
 					rowData.rowSts = "I";
@@ -471,7 +471,7 @@
     	}
 
     	if ((saveCdList.length + saveCdDtlList.length) == 0 ) {
-            alert("저장 할 대상이 없습니다.");
+            gfn_comAlert("W0003", "저장");
             return;
         }
 
@@ -537,7 +537,7 @@
     function fn_addRow() {
 		var cdId = comCdgrid.getRowData(comCdgrid.getRow()).cdId;
 		if(cdId ==null || cdId == ''){
-			alert("공통코드를 선택 해주세요.");
+			gfn_comAlert("W0001", "공통코드");
 			return;
 		}
     	comCdDtlgrid.addRow(true, ['true', '', '', '', '', '', '', '', '0000', cdId, 'Y']);
@@ -550,14 +550,14 @@
             if (gridList[i].checked === "true") {
 				delList.push(gridList[i])
             	if (gridList[i].addYn == 'N') {
-            		alert((i+1) + "행은 기존 공통코드 상세이므로 삭제를 이용하여 주세요.");
+            		gfn_comAlert("E0001", (i+1) + "행은 기존 공통코드 상세이므로 삭제를 이용하여 주세요.");
             		return;
             	}
             	comCdDtlgrid.deleteRow(i+1);
             }
         }
         if (delList.length < 1) {
-            alert("지정한 대상이 없습니다.");
+            gfn_comAlert("W0003", "삭제");
             return;
         }
     }

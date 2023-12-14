@@ -549,7 +549,6 @@
         		lv_prvAuthrtId = "";
         		fn_view();
         	} else {
-        		//alert(data.resultMessage);
         		gfn_comAlert(data.resultCode, data.resultMessage);
         	}
         } catch (e) {
@@ -605,7 +604,6 @@
         		lv_prvAuthrtId = "";
         		fn_view();
         	} else {
-        		//alert(data.resultMessage);
         		gfn_comAlert(data.resultCode, data.resultMessage);
         	}
         } catch (e) {
