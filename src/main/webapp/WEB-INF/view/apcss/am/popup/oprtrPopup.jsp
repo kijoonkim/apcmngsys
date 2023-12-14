@@ -34,7 +34,6 @@
 						<col style="width: 100px">
 						<col style="width: 200px">
 						<col style="width: 100px">
-						<col style="width: 200px">
 					</colgroup>
 					<tbody>
 						<tr>
@@ -65,7 +64,7 @@
 <script type="text/javascript">
 	//설비 등록
 	var jsonOprtrPop = []; // 그리드의 참조 데이터 주소 선언
-	
+
 	const popOprtr = {
 		modalId: 'modal-oprtr',
 		gridId: 'grdOprtrPop',
@@ -103,19 +102,19 @@
 		    SBGridProperties.scrollbubbling = false;
 		    SBGridProperties.dblclickeventarea = {fixed: false, empty: false};
 		    SBGridProperties.columns = [
-		        {caption: ["작업자명"], 	ref: 'flnm',  	type: 'output',  width:'90px',	style:'text-align:center',
+		        {caption: ["작업자명"], 	ref: 'flnm',  	type: 'output',  width:'100px',	style:'text-align:center',
 		        	typeinfo : {mask : {alias : 'k'}}},
-		        {caption: ["생년월일"], 	ref: 'brdt',   	type: 'output',  width:'90px',	style:'text-align:center',
+		        {caption: ["생년월일"], 	ref: 'brdt',   	type: 'output',  width:'100px',	style:'text-align:center',
 		        	typeinfo : {mask : {alias : 'numeric'}}},
-		        {caption: ["전화번호"], 	ref: 'telno',   type: 'output',  width:'100px',	style:'text-align:center',
+		        {caption: ["전화번호"], 	ref: 'telno',   type: 'output',  width:'120px',	style:'text-align:center',
 		        	typeinfo : {mask: {alias : '999-9999-9999'}}, format : {type:'custom', callback : fnCustomOprtr}},
-		        {caption: ["주소"], 		ref: 'addr',    type: 'output',  width:'170px',	style:'text-align:center'},
-		        {caption: ["입사일자"], 	ref: 'jncmp', 	type: 'output',  width:'90px',	style:'text-align:center',
+		        {caption: ["주소"], 		ref: 'addr',    type: 'output',  width:'360px',	style:'text-align:center'},
+		        {caption: ["입사일자"], 	ref: 'jncmp', 	type: 'output',  width:'100px',	style:'text-align:center',
 			        typeinfo: {dateformat: 'yy-mm-dd'}, format : {type:'date', rule:'yy-mm-dd', origin:'YYYYMMDD'}},
-		        {caption: ["은행"], 		ref: 'bankCd',  type: 'output',  width:'100px',	style:'text-align:center'},
+		        /* {caption: ["은행"], 		ref: 'bankCd',  type: 'output',  width:'100px',	style:'text-align:center'},
 		        {caption: ["계좌번호"], 	ref: 'actno',   type: 'output',  width:'130px',	style:'text-align:center',
 	    			typeinfo : {mask : {alias : '#-', repeat: '*'}}},
-		        {caption: ["예금주명"], 	ref: 'dpstr',   type: 'output',  width:'90px',	style:'text-align:center'}
+		        {caption: ["예금주명"], 	ref: 'dpstr',   type: 'output',  width:'90px',	style:'text-align:center'} */
 		    ];
 		    grdOprtrPop = _SBGrid.create(SBGridProperties);
 		    grdOprtrPop.bind('dblclick', popOprtr.choice);

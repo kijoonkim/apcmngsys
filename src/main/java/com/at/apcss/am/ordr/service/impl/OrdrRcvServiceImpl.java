@@ -72,20 +72,17 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 
 		JSONParser jsonParser = new JSONParser();
 
-		System.out.println("xxxx");
 		String originUrl = "https://activescm.co.kr/";
 		String welcomeUrl = originUrl + "Homeplus/welcome.do";
 		String indexUrl = originUrl + "Homeplus/index.do";
-		//Document doc = Jsoup.connect(url).get();
-		//System.out.println(doc);
+
 		String userType = "S";	// 공급자
-		String userId = "MNOHU01";
-		String userPw = "nacf1234";
+		String userId = "";
+		String userPw = "";
 		String grDate = "20231016";
 		String qryId = "po.itemOrderSql";
 		String jsessionId = "";
 
-//		String jsessionId = "DF224C5D162C757B8F4967C6EB08B6EE.tomcat9009";
 		Connection.Response welcomeResponse = Jsoup.connect(welcomeUrl)
                 .timeout(3000)
                 .header("Origin", originUrl)
@@ -98,7 +95,6 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
                 .method(Connection.Method.GET)
                 .execute();
 		jsessionId = welcomeResponse.cookie("JSESSIONID");
-		System.out.println("JSESSIONID=" + jsessionId);
 
 		//login 처리 후 진행
 		Map<String, String> params = new HashMap<>();
@@ -124,13 +120,6 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 
 		Object obj = jsonParser.parse(loginPageResponse.body());
 		JSONObject jsonObj = (JSONObject) obj;
-		System.out.println("ADMIN_PASSWORD:" + jsonObj.get("ADMIN_PASSWORD"));
-		System.out.println("PASSWORD_YN:" + jsonObj.get("PASSWORD_YN"));
-		System.out.println("ID_CHECK:" + jsonObj.get("ID_CHECK"));
-		System.out.println("BIL_CHECK:" + jsonObj.get("BIL_CHECK"));
-		System.out.println("ACCOUNT:" + jsonObj.get("ACCOUNT"));
-		System.out.println("CONFIRM_FLAG:" + jsonObj.get("CONFIRM_FLAG"));
-		System.out.println("NO_SERVICE:" + jsonObj.get("NO_SERVICE"));
 
 		Connection.Response indexResponse = Jsoup.connect(welcomeUrl)
                 .timeout(3000)
@@ -175,7 +164,6 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 	                                                .method(Connection.Method.POST)
 	                                                .execute();
 
-		System.out.println(gdsOrdrResponse.body());
 		Object objGds = jsonParser.parse(gdsOrdrResponse.body());
 		JSONObject jsonObjGds = (JSONObject) objGds;
 
@@ -244,8 +232,6 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 		                                                .data(logoutParam)
 		                                                .method(Connection.Method.POST)
 		                                                .execute();
-		System.out.println("logout");
-		System.out.println(logoutResponse.body());
 		/*
 	    "resultCd": true,
 	    "resultMsg": "조회가 완료되었습니다.",
@@ -344,21 +330,12 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 		}
 		
 		
-		//Document doc = Jsoup.connect(url).get();
-		//System.out.println(doc);
 		String pUserType = "S";	// 공급자
-		//String pUserId = ordrRcvVO.getUserId();
 		String pUserId = lgszMrktVO.getUserId();
-		//String pUserId = "MHDJY02";
-		//String pUserPw = ordrRcvVO.getUserPswd();
 		String pUserPw = lgszMrktVO.getPswd();
-		
-		logger.debug("@@@password: {}", pUserPw);
-		
-		//String pUserPw = "he8833";
 		String jsessionId = "";
 
-//		String jsessionId = "DF224C5D162C757B8F4967C6EB08B6EE.tomcat9009";
+
 		Connection.Response welcomeResponse = Jsoup.connect(welcomeUrl)
                 .timeout(3000)
                 .header("Origin", originUrl)
@@ -371,7 +348,6 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
                 .method(Connection.Method.GET)
                 .execute();
 		jsessionId = welcomeResponse.cookie("JSESSIONID");
-		System.out.println("JSESSIONID=" + jsessionId);
 
 		//login 처리 후 진행
 		Map<String, String> params = new HashMap<>();
@@ -397,14 +373,7 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 
 		Object obj = jsonParser.parse(loginPageResponse.body());
 		JSONObject jsonObj = (JSONObject) obj;
-		System.out.println("ADMIN_PASSWORD:" + jsonObj.get("ADMIN_PASSWORD"));
-		System.out.println("PASSWORD_YN:" + jsonObj.get("PASSWORD_YN"));
-		System.out.println("ID_CHECK:" + jsonObj.get("ID_CHECK"));
-		System.out.println("BIL_CHECK:" + jsonObj.get("BIL_CHECK"));
-		System.out.println("ACCOUNT:" + jsonObj.get("ACCOUNT"));
-		System.out.println("CONFIRM_FLAG:" + jsonObj.get("CONFIRM_FLAG"));
-		System.out.println("NO_SERVICE:" + jsonObj.get("NO_SERVICE"));
-
+		
 		Connection.Response indexResponse = Jsoup.connect(welcomeUrl)
                 .timeout(3000)
                 .header("Origin", originUrl)
@@ -470,8 +439,7 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 	                                                .data(ordrParams)
 	                                                .method(Connection.Method.POST)
 	                                                .execute();
-		logger.debug("### ordr body");
-		System.out.println(ordrResponse.body());
+		
 		Object objOrdr = jsonParser.parse(ordrResponse.body());
 		JSONObject jsonObjOrdr = (JSONObject) objOrdr;
 
@@ -608,7 +576,7 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 		                    .method(Connection.Method.POST)
 		                    .execute();
 					logger.debug("### ordrDtl body");
-					System.out.println(ordrDtlResponse.body());
+
 					Object objOrdrDtl = jsonParser.parse(ordrDtlResponse.body());
 					JSONObject jsonObjOrdrDtl = (JSONObject) objOrdrDtl;
 		
@@ -846,8 +814,6 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 		                                                .data(logoutParam)
 		                                                .method(Connection.Method.POST)
 		                                                .execute();
-		//System.out.println("logout");
-		//System.out.println(logoutResponse.body());
 		
 		if (rtnObj != null) {
 			return rtnObj;
@@ -875,20 +841,17 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 	public HashMap<String, Object> insertLotteOrdr(OrdrRcvVO ordrRcvVO) throws Exception {
 		JSONParser jsonParser = new JSONParser();
 
-		System.out.println("xxxx");
+
 		String originUrl = "https://activescm.co.kr/";
 		String welcomeUrl = originUrl + "Homeplus/welcome.do";
 		String indexUrl = originUrl + "Homeplus/index.do";
-		//Document doc = Jsoup.connect(url).get();
-		//System.out.println(doc);
 		String userType = "S";	// 공급자
-		String userId = "MNOHU01";
-		String userPw = "nacf1234";
+		String userId = "";
+		String userPw = "";
 		String grDate = "20231016";
 		String qryId = "po.itemOrderSql";
 		String jsessionId = "";
 
-//		String jsessionId = "DF224C5D162C757B8F4967C6EB08B6EE.tomcat9009";
 		Connection.Response welcomeResponse = Jsoup.connect(welcomeUrl)
                 .timeout(3000)
                 .header("Origin", originUrl)
@@ -901,7 +864,6 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
                 .method(Connection.Method.GET)
                 .execute();
 		jsessionId = welcomeResponse.cookie("JSESSIONID");
-		System.out.println("JSESSIONID=" + jsessionId);
 
 		//login 처리 후 진행
 		Map<String, String> params = new HashMap<>();
@@ -927,14 +889,7 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 
 		Object obj = jsonParser.parse(loginPageResponse.body());
 		JSONObject jsonObj = (JSONObject) obj;
-		System.out.println("ADMIN_PASSWORD:" + jsonObj.get("ADMIN_PASSWORD"));
-		System.out.println("PASSWORD_YN:" + jsonObj.get("PASSWORD_YN"));
-		System.out.println("ID_CHECK:" + jsonObj.get("ID_CHECK"));
-		System.out.println("BIL_CHECK:" + jsonObj.get("BIL_CHECK"));
-		System.out.println("ACCOUNT:" + jsonObj.get("ACCOUNT"));
-		System.out.println("CONFIRM_FLAG:" + jsonObj.get("CONFIRM_FLAG"));
-		System.out.println("NO_SERVICE:" + jsonObj.get("NO_SERVICE"));
-
+		
 		Connection.Response indexResponse = Jsoup.connect(welcomeUrl)
                 .timeout(3000)
                 .header("Origin", originUrl)
@@ -978,7 +933,6 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 	                                                .method(Connection.Method.POST)
 	                                                .execute();
 
-		System.out.println(gdsOrdrResponse.body());
 		Object objGds = jsonParser.parse(gdsOrdrResponse.body());
 		JSONObject jsonObjGds = (JSONObject) objGds;
 
@@ -1047,8 +1001,6 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 		                                                .data(logoutParam)
 		                                                .method(Connection.Method.POST)
 		                                                .execute();
-		System.out.println("logout");
-		System.out.println(logoutResponse.body());
 		/*
 	    "resultCd": true,
 	    "resultMsg": "조회가 완료되었습니다.",
@@ -1083,21 +1035,17 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 		
 		JSONParser jsonParser = new JSONParser();
 
-		
-		System.out.println("GS리테일");
 		String originUrl = "http://gs.escm21.net/";
 		String welcomeUrl = originUrl + "home/index.jsp";
 		String indexUrl = originUrl + "home/index.jsp";
-		//Document doc = Jsoup.connect(url).get();
-		//System.out.println(doc);
+
 		String userType = "S";	// 공급자
-		String userId = "mnohy01";
-		String userPw = "2222";
+		String userId = "";
+		String userPw = "";
 		String grDate = "20231016";
 		String qryId = "po.itemOrderSql";
 		String jsessionId = "";
 
-//		String jsessionId = "DF224C5D162C757B8F4967C6EB08B6EE.tomcat9009";
 		Connection.Response welcomeResponse = Jsoup.connect(welcomeUrl)
                 .timeout(3000)
                 .header("Origin", originUrl)
@@ -1110,7 +1058,7 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
                 .method(Connection.Method.GET)
                 .execute();
 		jsessionId = welcomeResponse.cookie("JSESSIONID");
-		System.out.println("JSESSIONID=" + jsessionId);
+
 		Document welcomeDoc = Jsoup.parse(welcomeResponse.body());
 		
 		Element elKeyModulus = welcomeDoc.getElementById("rsaPublicKeyModulus");
@@ -1156,13 +1104,6 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 		
 		
 		JSONObject jsonObj = (JSONObject) obj;
-		System.out.println("ADMIN_PASSWORD:" + jsonObj.get("ADMIN_PASSWORD"));
-		System.out.println("PASSWORD_YN:" + jsonObj.get("PASSWORD_YN"));
-		System.out.println("ID_CHECK:" + jsonObj.get("ID_CHECK"));
-		System.out.println("BIL_CHECK:" + jsonObj.get("BIL_CHECK"));
-		System.out.println("ACCOUNT:" + jsonObj.get("ACCOUNT"));
-		System.out.println("CONFIRM_FLAG:" + jsonObj.get("CONFIRM_FLAG"));
-		System.out.println("NO_SERVICE:" + jsonObj.get("NO_SERVICE"));
 
 		Connection.Response indexResponse = Jsoup.connect(welcomeUrl)
                 .timeout(3000)
@@ -1207,7 +1148,6 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 	                                                .method(Connection.Method.POST)
 	                                                .execute();
 
-		System.out.println(gdsOrdrResponse.body());
 		Object objGds = jsonParser.parse(gdsOrdrResponse.body());
 		JSONObject jsonObjGds = (JSONObject) objGds;
 
@@ -1276,8 +1216,6 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 		                                                .data(logoutParam)
 		                                                .method(Connection.Method.POST)
 		                                                .execute();
-		System.out.println("logout");
-		System.out.println(logoutResponse.body());
 		
 		/*
 	    "resultCd": true,

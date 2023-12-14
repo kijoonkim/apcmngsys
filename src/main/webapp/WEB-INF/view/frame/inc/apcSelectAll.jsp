@@ -75,13 +75,14 @@
 			></sbux-select>
 		</c:when>
 		<c:otherwise>
+			<c:set scope="request" var="apcNm" value="${loginVO.apcNm}"></c:set>
 			<sbux-input
 				id="gsb-slt-apcCd"
 				name="gsb-slt-apcCd"
 				uitype="text"
 				class="form-control input-sm"
 				readonly
-			>${loginVO.apcNm}</sbux-input>
+			><c:out value='${apcNm}'></c:out></sbux-input>
 		</c:otherwise>
 	</c:choose>
 							</td>

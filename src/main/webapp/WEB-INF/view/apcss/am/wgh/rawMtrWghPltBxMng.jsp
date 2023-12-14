@@ -19,6 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<title>title : 팔레트/박스불출관리</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -30,7 +31,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 팔레트/박스불출관리 -->
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 팔레트/박스불출관리 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>
@@ -66,9 +67,9 @@
 				<div class="table-responsive tbl_scroll_sm">
 					<div id="inptCmndDsctnGridArea" style="height:243px;"></div>
 				</div>
-				
+
 				<br>
-				
+
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
@@ -137,12 +138,12 @@
 								/>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button 
-									id="btn-srch-prdcr" 
-									name="btn-srch-prdcr" 
-									class="btn btn-xs btn-outline-dark" 
-									text="찾기" uitype="modal" 
-									target-id="modal-prdcr" 
+								<sbux-button
+									id="btn-srch-prdcr"
+									name="btn-srch-prdcr"
+									class="btn btn-xs btn-outline-dark"
+									text="찾기" uitype="modal"
+									target-id="modal-prdcr"
 									onclick="fn_choicePrdcr"
 								></sbux-button>
 							</td>
@@ -159,7 +160,7 @@
 					<ul class="ad_tbl_count">
 						<li>
 							<span>입출 내역</span>
-							<span style="font-size:12px">(기준일자 : 
+							<span style="font-size:12px">(기준일자 :
 								<sbux-label
 									id="crtr-ymd"
 									name="crtr-ymd"
@@ -176,7 +177,7 @@
 						<sbux-button id="btnDel" name="btnSearch" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_del"></sbux-button>
 					</div>
 				</div>
-				
+
 				<div class="table-responsive tbl_scroll_sm">
 					<div id="inptCmndDsctnGridArea2" style="height:243px;"></div>
 				</div>
@@ -196,10 +197,10 @@
 	var jsonWrhsSpmtSe = [];
 	var jsonPltBxSe = [];
 	var jsonPltBxNm = [];
-	
+
 	var jsonPrdcr				= [];	//생산자 목록
     var jsonPrdcrAutocomplete 	= [];	//생산자 자동완성
-	
+
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			gfn_setComCdSBSelect('srch-slt-wrhsSpmtSe', jsonWrhsSpmtSe, 'WRHS_SPMT_SE_CD'),	// 창고
@@ -207,7 +208,7 @@
 		]);
 		fn_search();
 	}
-	
+
 	const fn_selectPltBxSe = async function(){
 		let pltBxSe = SBUxMethod.get("srch-slt-pltBxSe");
 		gfn_setPltBxSBSelect("srch-slt-pltBxNm", jsonPltBxNm, gv_selectedApcCd, pltBxSe);
@@ -216,7 +217,7 @@
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
 		SBUxMethod.set("srch-inp-cmndYmd", gfn_dateToYmd(new Date()));
-		
+
 		fn_createGrid();
 		fn_createGrid2();
 		fn_initSBSelect();
@@ -259,7 +260,7 @@
 	    ];
 	    pltBxMngList = _SBGrid.create(SBGridProperties);
 	}
-	
+
 	const fn_search = async function(){
 		pltBxMngList.rebuild();
     	let pageSize = pltBxMngList.getPageSize();
@@ -269,7 +270,7 @@
     	jsonPltBxMngList.length = 0;
     	pltBxMngList.clearStatus();
     	await fn_setPltBxMngList(pageSize, pageNo);
-    	
+
 		grdPltWrhsSpmt.rebuild();
     	pageSize = grdPltWrhsSpmt.getPageSize();
     	pageNo = 1;
@@ -279,8 +280,8 @@
     	grdPltWrhsSpmt.clearStatus();
     	await fn_setPltWrhsSpmtList(pageSize, pageNo);
 	}
-	
-	const fn_setPltBxMngList = async function(pageSize, pageNo){    	
+
+	const fn_setPltBxMngList = async function(pageSize, pageNo){
     	const postJsonPromise = gfn_postJSON("/am/cmns/selectPltBxMngList.do", {
 			apcCd: gv_selectedApcCd,
           	// pagination
@@ -288,7 +289,7 @@
   			currentPageNo : pageNo,
    		  	recordCountPerPage : pageSize
   		});
-		
+
         const data = await postJsonPromise;
 		try{
          	/** @type {number} **/
@@ -318,7 +319,7 @@
   					totalRecordCount = item.totalRecordCount;
   				}
   			});
-			
+
 	      	if (jsonPltBxMngList.length > 0) {
 	      		if(pltBxMngList.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
 	      			pltBxMngList.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
@@ -338,7 +339,7 @@
 	    	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
     }
-	
+
 	var grdPltWrhsSpmt; // 그리드를 담기위한 객체 선언
 	var jsonPltWrhsSpmt = []; // 그리드의 참조 데이터 주소 선언
 
@@ -417,7 +418,7 @@
 			"callback": fn_colShow1,			//콜백함수명
 		}
 	};
-     
+
     const objMenuList2 = {
         "excelDwnld": {
             "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
@@ -469,7 +470,7 @@
     		pltBxMngList.setColHidden(i, false);
     	}
    	}
-    
+
     // 엑셀 다운로드
     function fn_excelDwnld2() {
     	grdPltWrhsSpmt.exportLocalExcel("팔레트/박스 입출내역", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
@@ -494,7 +495,7 @@
     	}
    	}
 
-	const fn_setPltWrhsSpmtList = async function(pageSize, pageNo){   
+	const fn_setPltWrhsSpmtList = async function(pageSize, pageNo){
 		let cmndYmd = SBUxMethod.get("srch-inp-cmndYmd");
     	const postJsonPromise = gfn_postJSON("/am/cmns/selectPltWrhsSpmtList.do", {
 			apcCd: gv_selectedApcCd,
@@ -505,7 +506,7 @@
   			currentPageNo : pageNo,
    		  	recordCountPerPage : pageSize
   		});
-		
+
         const data = await postJsonPromise;
 		try{
          	/** @type {number} **/
@@ -533,7 +534,7 @@
           				sn: item.sn
 				}
       			jsonPltWrhsSpmt.push(pckgCmnd);
-	
+
 				if (index === 0) {
   					totalRecordCount = item.totalRecordCount;
   				}
@@ -550,8 +551,8 @@
 	      		grdPltWrhsSpmt.rebuild();
 	      	}
           	SBUxMethod.set("crtr-ymd", cmndYmd);
-	      	
-	      	
+
+
 		} catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -567,10 +568,10 @@
 		let pltBxSeCd = SBUxMethod.get("srch-slt-pltBxSe");
 		let pltBxCd = SBUxMethod.get("srch-slt-pltBxNm");
 		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
-		let qntt = SBUxMethod.get("srch-inp-qntt");	
+		let qntt = SBUxMethod.get("srch-inp-qntt");
 		let rmrk = SBUxMethod.get("srch-inp-rmrk");
 		let bssInvntrQntt = "";
-    	
+
 		if(gfn_isEmpty(cmndYmd)){
 			gfn_comAlert("W0001", "지시일자");		//	W0002	{0}을/를 선택하세요.
 			return;
@@ -591,7 +592,7 @@
 			gfn_comAlert("W0001", "수량");		//	W0002	{0}을/를 선택하세요.
 			return;
 		}
-		
+
 		if(wrhsSpmtSeCd == '2'){
 			for(var i=0; i<jsonPltBxMngList.length; i++){
 				if(jsonPltBxMngList[i].pltBxCd == pltBxCd){
@@ -604,13 +605,13 @@
 				}
 			}
 		}
-		
+
 		let pltNm = jsonPltBxNm.find(e => e.value == pltBxCd).text;
 		let pltBxs = await gfn_getPltBxs(gv_selectedApcCd, pltBxSeCd);
 		let unitWght = pltBxs.find(e => e.pltBxCd == pltBxCd).unitWght;
-		
-		
-		
+
+
+
     	var insertList = [{
    			apcCd: apcCd
 			,jobYmd: cmndYmd
@@ -643,11 +644,11 @@
 			}
 		}
 	}
-	
+
 	const fn_del = async function(){
 		let grdRows = grdPltWrhsSpmt.getCheckedRows(0);
     	let deleteList = [];
-		
+
 
     	for(var i=0; i< grdRows.length; i++){
     		let nRow = grdRows[i];
@@ -678,7 +679,7 @@
 			}
 		}
 	}
-	
+
 	// 초기화
 	const fn_reset = async function() {
 		SBUxMethod.set("srch-inp-cmndYmd", gfn_dateToYmd(new Date()));
@@ -691,17 +692,17 @@
 		SBUxMethod.set("srch-inp-prdcrIdentno", "");
 		SBUxMethod.set("srch-inp-qntt", "");
 	}
-	
+
 	// APC 선택 변경
 	const fn_onChangeApc = async function() {
 		let result = await Promise.all([
 			fn_initSBSelect(),
 			fn_getPrdcrs()
 		]);
-		
+
 		fn_reset();
 	}
-	
+
 	/*
 	* @name fn_getPrdcrs
 	* @description 생산자 자동완성 목록 가져오기
@@ -710,7 +711,7 @@
 		jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
 		jsonPrdcr = gfn_setFrst(jsonPrdcr);
 	}
-	
+
 	/**
 	 * @name fn_onInputPrdcrNm
 	 * @description 생산자명 입력 시 event : autocomplete
@@ -760,9 +761,9 @@
 	 * @description 생산자 선택 popup callback 처리
 	 */
 	const fn_setPrdcr = async function(prdcr) {
-		
+
 		await fn_getPrdcrs();
-		
+
 		if (!gfn_isEmpty(prdcr)) {
 			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
 			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
@@ -785,7 +786,7 @@
 		}
 
 	}
-	
+
 	const fn_onChangeSrchPrdcrIdentno = function(obj) {
 
 		if (gfn_isEmpty(SBUxMethod.get("srch-inp-prdcrIdentno"))) {
@@ -823,11 +824,11 @@
 		  for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
 		  return b;
 	}
-	
+
 	function fn_closeModal(modalId){
 		SBUxMethod.closeModal(modalId);
 	}
-	
+
     //그리드 체크박스 전체 선택
     function fn_checkAllPltWrhsSpmt(grid, obj) {
         var gridList = grid.getGridDataAll();

@@ -27,7 +27,7 @@
 		     , WV.VHCLNO            AS VHCLNO
 		     , WV.DRVR_NM           AS DRVR_NM
 		     , WV.BANK_CD           AS BANK_CD
-		     , WV.ACTNO             AS ACTNO
+		     , (SELECT FN_UTL_DECRYPT_ARIA(WV.ACTNO) FROM DUAL)		AS ACTNO
 		     , WV.DPSTR             AS DPSTR
 		     , WV.RMRK              AS RMRK
 		     , WV.DEL_YN            AS DEL_YN
@@ -60,20 +60,20 @@
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
-    	SELECT /* com.at.apcss.am.cmns.mapper.WrhsVhclMapper.selectWrhsVhclList */
-    		   WV.APC_CD            AS APC_CD
-		     , WV.VHCLNO            AS VHCLNO
-		     , WV.DRVR_NM           AS DRVR_NM
-		     , WV.BANK_CD           AS BANK_CD
-		     , (SELECT USRAM.FN_GET_COM_CD_VL_NM('BANK_CD', WV.BANK_CD) FROM DUAL)    	    AS BANK_NM
-		     , WV.ACTNO             AS ACTNO
-		     , WV.DPSTR             AS DPSTR
-		     , WV.RMRK              AS RMRK
-		     , WV.DEL_YN            AS DEL_YN
-		     , TO_CHAR(WV.SYS_LAST_CHG_DT, 'YYYY-MM-DD HH24:MI')   AS SYS_LAST_CHG_DT
-		  FROM TB_WRHS_VHCL_INFO WV
-		 WHERE WV.APC_CD = #{apcCd}
-		   AND WV.DEL_YN = 'N'
+	    	SELECT /* com.at.apcss.am.cmns.mapper.WrhsVhclMapper.selectWrhsVhclList */
+	    		   WV.APC_CD            AS APC_CD
+			     , WV.VHCLNO            AS VHCLNO
+			     , WV.DRVR_NM           AS DRVR_NM
+			     , WV.BANK_CD           AS BANK_CD
+			     , (SELECT USRAM.FN_GET_COM_CD_VL_NM('BANK_CD', WV.BANK_CD) FROM DUAL)    	    AS BANK_NM
+			     , (SELECT FN_UTL_DECRYPT_ARIA(WV.ACTNO) FROM DUAL)		AS ACTNO
+			     , WV.DPSTR             AS DPSTR
+			     , WV.RMRK              AS RMRK
+			     , WV.DEL_YN            AS DEL_YN
+			     , TO_CHAR(WV.SYS_LAST_CHG_DT, 'YYYY-MM-DD HH24:MI')   AS SYS_LAST_CHG_DT
+			  FROM TB_WRHS_VHCL_INFO WV
+			 WHERE WV.APC_CD = #{apcCd}
+			   AND WV.DEL_YN = 'N'
 		]]>
 		<if test='vhclno != null and vhclno !=""'>
 		   AND WV.VHCLNO LIKE '%' || #{vhclno} || '%'
@@ -97,40 +97,41 @@
 	<!-- ==========================================================================	-->
     <insert id="insertWrhsVhcl" parameterType="com.at.apcss.am.cmns.vo.WrhsVhclVO">
     	<![CDATA[
-    	INSERT INTO TB_WRHS_VHCL_INFO  /* com.at.apcss.am.cmns.mapper.WrhsVhclMapper.insertWrhsVhcl */
-    		(
-    			APC_CD
-    		  , VHCLNO
-    		  , DRVR_NM
-    		  , BANK_CD
-    		  , ACTNO
-    		  , DPSTR
-    		  , RMRK
-    		  , DEL_YN
-    		  , SYS_FRST_INPT_DT
-    		  , SYS_FRST_INPT_USER_ID
-    		  , SYS_FRST_INPT_PRGRM_ID
-    		  , SYS_LAST_CHG_DT
-    		  , SYS_LAST_CHG_USER_ID
-    		  , SYS_LAST_CHG_PRGRM_ID
-    		)
-   		VALUES
-   			(
-   				#{apcCd}
-    		  , #{vhclno}
-    		  , #{drvrNm}
-    		  , #{bankCd}
-    		  , #{actno}
-			  , #{dpstr}
-    		  , #{rmrk}
-    		  , #{delYn}
-    		  , SYSDATE
-    		  , #{sysFrstInptUserId}
-    		  , #{sysFrstInptPrgrmId}
-    		  , SYSDATE
-    		  , #{sysLastChgUserId}
-    		  , #{sysLastChgPrgrmId}
-   			)
+	    	INSERT /* com.at.apcss.am.cmns.mapper.WrhsVhclMapper.insertWrhsVhcl */
+	    		INTO TB_WRHS_VHCL_INFO 
+	    		(
+	    			APC_CD
+	    		  , VHCLNO
+	    		  , DRVR_NM
+	    		  , BANK_CD
+	    		  , ACTNO
+	    		  , DPSTR
+	    		  , RMRK
+	    		  , DEL_YN
+	    		  , SYS_FRST_INPT_DT
+	    		  , SYS_FRST_INPT_USER_ID
+	    		  , SYS_FRST_INPT_PRGRM_ID
+	    		  , SYS_LAST_CHG_DT
+	    		  , SYS_LAST_CHG_USER_ID
+	    		  , SYS_LAST_CHG_PRGRM_ID
+	    		)
+	   		VALUES
+	   			(
+	   				#{apcCd}
+	    		  , #{vhclno}
+	    		  , #{drvrNm}
+	    		  , #{bankCd}
+	    		  , FN_UTL_ENCRYPT_ARIA(#{actno})
+				  , #{dpstr}
+	    		  , #{rmrk}
+	    		  , #{delYn}
+	    		  , SYSDATE
+	    		  , #{sysFrstInptUserId}
+	    		  , #{sysFrstInptPrgrmId}
+	    		  , SYSDATE
+	    		  , #{sysLastChgUserId}
+	    		  , #{sysLastChgPrgrmId}
+	   			)
     	]]>
     </insert>
 
@@ -144,18 +145,19 @@
 	<!-- ==========================================================================	-->
 	<update id="updateWrhsVhcl" parameterType="com.at.apcss.am.cmns.vo.WrhsVhclVO">
 		<![CDATA[
-		UPDATE TB_WRHS_VHCL_INFO /* com.at.apcss.am.cmns.mapper.WrhsVhclMapper.updateWrhsVhcl */
-		   SET SYS_LAST_CHG_DT 			= SYSDATE
-    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
-    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
-			 , DRVR_NM					= #{drvrNm}
-    		 , BANK_CD					= #{bankCd}
-    		 , ACTNO					= #{actno}
-    		 , DPSTR					= #{dpstr}
-    		 , RMRK						= #{rmrk}
-    		 , DEL_YN					= #{delYn}
-		 WHERE APC_CD 					= #{apcCd}
-		   AND VHCLNO 					= #{vhclno}
+			UPDATE /* com.at.apcss.am.cmns.mapper.WrhsVhclMapper.updateWrhsVhcl */
+				TB_WRHS_VHCL_INFO
+			   SET SYS_LAST_CHG_DT 			= SYSDATE
+	    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+				 , DRVR_NM					= #{drvrNm}
+	    		 , BANK_CD					= #{bankCd}
+	    		 , ACTNO					= FN_UTL_ENCRYPT_ARIA(#{actno})
+	    		 , DPSTR					= #{dpstr}
+	    		 , RMRK						= #{rmrk}
+	    		 , DEL_YN					= #{delYn}
+			 WHERE APC_CD 					= #{apcCd}
+			   AND VHCLNO 					= #{vhclno}
 		]]>
 	</update>
 
@@ -169,9 +171,9 @@
 	<!-- ==========================================================================	-->
 	<delete id="deleteWrhsVhcl" parameterType="com.at.apcss.am.cmns.vo.WrhsVhclVO">
 		<![CDATA[ 
-		DELETE FROM TB_WRHS_VHCL_INFO  /* com.at.apcss.am.cmns.mapper.WrhsVhclMapper.deleteWrhsVhcl */
-		 WHERE APC_CD		= #{apcCd}
-		   AND VHCLNO 		= #{vhclno}
+			DELETE FROM TB_WRHS_VHCL_INFO  /* com.at.apcss.am.cmns.mapper.WrhsVhclMapper.deleteWrhsVhcl */
+			 WHERE APC_CD		= #{apcCd}
+			   AND VHCLNO 		= #{vhclno}
 		]]>
 	</delete>
 

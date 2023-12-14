@@ -31,19 +31,20 @@
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
-    	SELECT OM.APC_CD            AS APC_CD
-		     , OM.FLNM              AS FLNM
-		     , OM.BRDT              AS BRDT
-		     , OM.TELNO             AS TELNO
-		     , OM.ADDR              AS ADDR
-		     , OM.JNCMP             AS JNCMP
-		     , OM.BANK_CD           AS BANK_CD
-		     , OM.ACTNO             AS ACTNO
-		     , OM.DPSTR             AS DPSTR
-		     , OM.RMRK              AS RMRK
-		     , OM.DEL_YN            AS DEL_YN
-		  FROM TB_OPRTR_MNG OM
-		 WHERE OM.APC_CD = #{apcCd}
+	    	SELECT /* com.at.apcss.am.oprtr.mapper.OprtrMapper.selectOprtrList */
+	    		   OM.APC_CD            AS APC_CD
+			     , OM.FLNM              AS FLNM
+			     , OM.BRDT              AS BRDT
+			     , OM.TELNO             AS TELNO
+			     , OM.ADDR              AS ADDR
+			     , OM.JNCMP             AS JNCMP
+			     , OM.BANK_CD           AS BANK_CD
+			     , (SELECT FN_UTL_DECRYPT_ARIA(OM.ACTNO) FROM DUAL)		AS ACTNO
+			     , OM.DPSTR             AS DPSTR
+			     , OM.RMRK              AS RMRK
+			     , OM.DEL_YN            AS DEL_YN
+			  FROM TB_OPRTR_MNG OM
+			 WHERE OM.APC_CD = #{apcCd}
 		]]>
 		<if test='flnm != null and flnm != ""'>
 		   AND OM.FLNM LIKE '%' ||  #{flnm} || '%'
@@ -96,7 +97,7 @@
     		  , #{addr}
     		  , #{jncmp}
     		  , #{bankCd}
-    		  , #{actno}
+    		  , FN_UTL_ENCRYPT_ARIA(#{actno})
     		  , #{dpstr}
     		  , #{rmrk}
     		  , #{delYn}
@@ -128,7 +129,7 @@
     		 , ADDR						= #{addr}
     		 , JNCMP					= #{jncmp}
     		 , BANK_CD					= #{bankCd}
-    		 , ACTNO					= #{actno}
+    		 , ACTNO					= FN_UTL_ENCRYPT_ARIA(#{actno})
     		 , DPSTR					= #{dpstr}
     		 , RMRK						= #{rmrk}
     		 , DEL_YN					= #{delYn}

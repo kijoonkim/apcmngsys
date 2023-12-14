@@ -10,6 +10,7 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerExceptionResolver;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -17,6 +18,8 @@ import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
 import egovframework.com.cmm.interceptor.AuthenticInterceptor;
 import egovframework.com.cmm.interceptor.CustomAuthenticInterceptor;
+import egovframework.com.cmm.interceptor.HttpInterceptor;
+import egovframework.com.cmm.service.EgovProperties;
 
 /**
  * @ClassName : EgovConfigWebDispatcherServlet.java
@@ -50,7 +53,7 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 	final static String URL_BASED_VIEW_RESOLVER_SUFFIX = ".jsp";
 
 	//private final String[] CORS_ORIGIN_SERVER_URLS = {"http://127.0.0.1:3000", "http://localhost:3000"};
-
+	public static final String CORS_ORIGIN_SERVER_URL = EgovProperties.getProperty("Globals.Allow.Origin");
 	// =====================================================================
 	// RequestMappingHandlerMapping 설정
 	// =====================================================================
@@ -93,6 +96,9 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 				"/uat/uia/**",
 				"/saveExcel.do",
 				"/report/**");
+		registry.addInterceptor(new HttpInterceptor())
+			.addPathPatterns(
+					"/**");
 	}
 
 	@Bean
@@ -151,5 +157,18 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 //	public void addCorsMappings(CorsRegistry registry) {
 //		registry.addMapping("*.do").allowedOrigins(CORS_ORIGIN_SERVER_URLS);
 //	}
-
+	/*
+	@Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins(CORS_ORIGIN_SERVER_URL)
+                //.allowedOrigins("*")
+                .allowedMethods("GET", "POST", "PUT", "DELETE")
+                //.allowedMethods("GET", "POST")
+                .allowedHeaders("Authorization", "Content-Type")
+                .exposedHeaders("Custom-Header")
+                .allowCredentials(true)
+                .maxAge(3600);
+    }
+    */
 }

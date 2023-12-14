@@ -22,7 +22,7 @@
 	<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
+    <title>title : 포장지시등록</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -32,7 +32,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 포장지시등ㄹ고 -->
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 포장지시등ㄹ고 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>
@@ -127,9 +127,9 @@
                 <div class="table-responsive tbl_scroll_sm">
                     <div id="sb-area-grdSortInvntr" style="height:235px;"></div>
                 </div>
-                
+
 				<br/>
-				
+
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
@@ -179,7 +179,7 @@
 					<ul class="ad_tbl_count">
 						<li>
 							<span>포장지시 내역</span>
-							<span style="font-size:12px">(기준일자 : 
+							<span style="font-size:12px">(기준일자 :
 								<sbux-label
 									id="crtr-ymd"
 									name="crtr-ymd"
@@ -260,7 +260,7 @@
 		} else {
 			itemCd = SBUxMethod.get("srch-slt-itemCd");
 		}
-		
+
 		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
 		if (itemCd != prvItemCd) {
 			SBUxMethod.set("srch-slt-itemCd", itemCd);
@@ -437,7 +437,7 @@
 			"callback": fn_excelDwnld1,			//콜백함수명
 		}
      };
-     
+
     const objMenuList2 = {
         "excelDwnld": {
             "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
@@ -470,7 +470,7 @@
     function fn_excelDwnld1() {
     	grdSortInvntr.exportLocalExcel("선별재고 내역", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
-    
+
  	// 엑셀 다운로드
     function fn_excelDwnld2() {
     	grdPckgCmnd.exportLocalExcel("포장지시 내역", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
@@ -654,7 +654,7 @@
 		SBUxMethod.set('srch-inp-cnptNm', "");
 		SBUxMethod.set('srch-dtp-dudtYmd', "");
 	}
-	
+
 	const fn_save = async function(){
 		let pckgCmndYmd 	= SBUxMethod.get("srch-dtp-cmndYmd"); //포장지시일자
 		let fcltCd  		= SBUxMethod.get("srch-slt-fclt"); //설비코드
@@ -746,7 +746,7 @@
 		jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
 		jsonPrdcr = gfn_setFrst(jsonPrdcr);
 	}
-	
+
 	/**
 	 * @name fn_onInputPrdcrNm
 	 * @description 생산자명 입력 시 event : autocomplete
@@ -796,9 +796,9 @@
 	 * @description 생산자 선택 popup callback 처리
 	 */
 	const fn_setPrdcr = async function(prdcr) {
-		
+
 		await fn_getPrdcrs();
-		
+
 		if (!gfn_isEmpty(prdcr)) {
 			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
 			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
@@ -833,7 +833,7 @@
 		}
 
 	}
-	
+
 	const fn_onChangeSrchPrdcrIdentno = function(obj) {
 
 		if (gfn_isEmpty(SBUxMethod.get("srch-inp-prdcrIdentno"))) {
@@ -883,7 +883,7 @@
  			SBUxMethod.set('srch-inp-cnptCd', cnpt.cnptCd);
  		}
  	}
- 	
+
  	/**
 	* @name fn_onChangeCnpt
 	* @description 거래처명 입력 시 event : autocomplete
@@ -918,7 +918,7 @@
  			return;
  		}
  	}
- 	
+
  	 const fn_onChangeApc = async function() {
  		let result = await Promise.all([
  			fn_clearPrdcr(),
@@ -930,7 +930,7 @@
  			grdPckgCmnd.rebuild()
  		]);
  	}
- 	 
+
     //그리드 체크박스 전체 선택
     function fn_checkAllSortInvntr(grid, obj) {
         var gridList = grid.getGridDataAll();

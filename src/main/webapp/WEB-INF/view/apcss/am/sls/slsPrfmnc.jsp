@@ -19,6 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<title>title : 매출실적조회</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
@@ -29,7 +30,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 매출실적조회 -->
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 매출실적조회 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSendMail" name="btnSendMail" uitype="normal" class="btn btn-sm btn-primary" text="메일발송" onclick="fn_sendMail"></sbux-button>
@@ -153,7 +154,7 @@
 		fn_createSlsPrfmncGrid();
 		fn_initSBSelect();
 	});
-	
+
 	const fn_dtpChange = function(){
 		let slsYmdFrom = SBUxMethod.get("srch-dtp-slsYmdFrom");
 		let slsYmdTo = SBUxMethod.get("srch-dtp-slsYmdTo");
@@ -395,7 +396,7 @@
 		if(confirm(regMsg)){
 			const postJsonPromise = gfn_postJSON("/am/sls/saveSlsPrfmncCrtList.do", saveList);
 	    	const data = await postJsonPromise;
-	        
+
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
 	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
@@ -419,7 +420,7 @@
 	 * @description 거래명세표 발행
 	 */
     const fn_slipDlng = async function() {
-    	
+
     	const slsnoList = [];
 		const allData = grdSlsPrfmnc.getGridDataAll();
 		allData.forEach((item) => {
@@ -432,11 +433,11 @@
  			gfn_comAlert("W0001", "발행대상");		//	W0001	{0}을/를 선택하세요.
 			return;
  		}
- 		
+
  		const slsno = slsnoList.join("','");
  		gfn_popClipReport("거래명세표", "am/dlngDoc.crf", {apcCd: gv_selectedApcCd, slsno: slsno});
     }
-	
+
 	// APC 선택 변경
 	const fn_onChangeApc = async function() {
 		let result = await Promise.all([
@@ -449,7 +450,7 @@
 		SBUxMethod.set("srch-inp-vrtyNm", "");
 		SBUxMethod.set("srch-inp-vrtyCd", "");
 	}
-    
+
  	// 품종 선택 팝업 호출
 	const fn_modalVrty = function() {
     	popVrty.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-slt-itemCd"), fn_setVrty, fn_setVrtys);

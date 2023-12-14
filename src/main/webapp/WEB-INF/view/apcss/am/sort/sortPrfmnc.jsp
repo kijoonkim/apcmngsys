@@ -19,6 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<title>title : 선별실적조회</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
@@ -29,7 +30,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 선별실적조회 -->
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 선별실적조회 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button
@@ -423,6 +424,7 @@
             {caption: ["선별일자","선별일자"],		ref: 'inptYmd',     	type:'output',  width:'90px',    style:'text-align:center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}
             },
+            {caption: ["선별번호","선별번호"], 		ref: 'sortno',     		type:'output',  width:'120px',  style:'text-align:center'},
             {caption: ["설비명","설비명"], 			ref: 'fcltNm',     		type:'output',  width:'120px',  style:'text-align:center'},
             {caption: ["입고구분","입고구분"], 		ref: 'wrhsSeNm',    	type:'output',  width:'60px',   style:'text-align:center'},
             {caption: ["상품구분","상품구분"],  	ref: 'gdsSeNm',       	type:'output',  width:'60px',   style:'text-align:center'},
@@ -548,10 +550,10 @@
     	// grid clear
     	jsonSortPrfmnc.length = 0;
     	grdSortPrfmnc.clearStatus();
-    	
+
     	jsonSortInptPrfmnc.length = 0;
     	grdSortInptPrfmnc.refresh();
-    	
+
     	fn_setGrdSortPrfmnc(pageSize, pageNo);
 	}
 
@@ -566,7 +568,7 @@
     	grdSortPrfmnc.setCellData(1, grdSortPrfmnc.getColRef("checkedYn"), ref, true, false);
 		fn_setGrdSortPrfmnc(pageSize, pageNo);
 	}
-    
+
     /**
      * @name fn_setGrdSortPrfmnc
      * @description 선별실적 조회
@@ -877,7 +879,7 @@
 		  for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
 		  return b;
  	}
-     
+
      /**
  	* @name fn_onInputPrdcrNm
  	* @description 생산자명 입력 시 event : autocomplete

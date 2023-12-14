@@ -23,7 +23,7 @@
 	<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
+    <title>title : 작업자실적등록</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -33,7 +33,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 작업자실적등록 -->
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 작업자실적등록 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>
@@ -68,7 +68,7 @@
 								<sbux-datepicker id="srch-dtp-prfmncYmd" name="srch-dtp-prfmncYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td colspan="2" style="border-right: hidden;"></td>
-	
+
 							<th scope="row" class="th_bg"><span class="data_required" ></span>작업구분</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select
@@ -84,8 +84,8 @@
 						</tr>
 					</tbody>
 				</table>
-	
-	
+
+
 				<!-- 1번째 그리드-->
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
@@ -147,7 +147,7 @@
 	</section>
 	<!-- 생산작업자 선택 Modal -->
     <div>
-        <sbux-modal id="modal-oprtr" name="modal-oprtr" uitype="middle" header-title="생산작업자 선택" body-html-id="body-modal-oprtr" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-oprtr" name="modal-oprtr" uitype="middle" header-title="생산작업자 선택" body-html-id="body-modal-oprtr" footer-is-close-button="false" header-is-close-button="false" style="width:900px"></sbux-modal>
     </div>
     <div id="body-modal-oprtr">
     	<jsp:include page="../../am/popup/oprtrPopup.jsp"></jsp:include>
@@ -566,7 +566,7 @@
 		      		  , insertYn	: "N"
 				}
 		      	jsonOptrtPrfmnc.push(prfmncVO);
-	
+
 			});
 	      	grdOptrtPrfmnc.setCellDisabled(0, grdOptrtPrfmnc.getRows() -1, 0, grdOptrtPrfmnc.getCols() - 1, false);
 	      	grdOptrtPrfmnc.rebuild();
