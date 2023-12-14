@@ -800,9 +800,9 @@
 
         try{
         	if(data.result > 0){
-        		alert("삭제 되었습니다.");
+        		gfn_comAlert("I0001");
         	}else{
-        		alert("삭제 도중 오류가 발생 되었습니다.");
+        		gfn_comAlert("E0001");
         	}
         }catch (e) {
         	if (!(e instanceof Error)) {
@@ -947,7 +947,7 @@
             		grdStdGrd.setCellDisabled(0, 0, grdStdGrd.getRows() -1, grdStdGrd.getCols() -1, false);
             		grdStdGrd.setCellDisabled(grdStdGrd.getRows() -1, 0, grdStdGrd.getRows() -1, grdStdGrd.getCols() -1, true);
             	}else{
-            		alert("품목을 선택해주세요.")
+            		gfn_comAlert("W0001", "품목");
             		return;
             	}
             }else if(grid === "grdStdGrdDtl"){
@@ -968,7 +968,7 @@
             		grdStdGrdDtl.setCellDisabled(0, 0, grdStdGrdDtl.getRows() -1, grdStdGrdDtl.getCols() -1, false);
             		grdStdGrdDtl.setCellDisabled(grdStdGrdDtl.getRows() -1, 0, grdStdGrdDtl.getRows() -1, grdStdGrdDtl.getCols() -1, true);
             	}else{
-            		alert("품목을 선택해주세요.")
+            		gfn_comAlert("W0001", "품목");
             		return;
             	}
             }else if(grid === "grdStdGrdJgmt"){
@@ -986,7 +986,7 @@
 					grdStdGrdJgmt.setCellDisabled(0, 0, grdStdGrdJgmt.getRows() -1, grdStdGrdJgmt.getCols() -1, false);
 					grdStdGrdJgmt.setCellDisabled(grdStdGrdJgmt.getRows() -1, 0, grdStdGrdJgmt.getRows() -1, grdStdGrdJgmt.getCols() -1, true);
             	}else{
-            		alert("품목을 선택해주세요.")
+            		gfn_comAlert("W0001", "품목");
             		return;
             	}
             }else if(grid === "grdApcSpcfct"){
@@ -1002,7 +1002,7 @@
             		grdApcSpcfct.setCellDisabled(0, 0, grdApcSpcfct.getRows() -1, grdApcSpcfct.getCols() -1, false);
             		grdApcSpcfct.setCellDisabled(grdApcSpcfct.getRows() -1, 0, grdApcSpcfct.getRows() -1, grdApcSpcfct.getCols() -1, true);
             	}else{
-            		alert("품목을 선택해주세요.")
+            		gfn_comAlert("W0001", "품목");
             		return;
             	}
             }else if(grid === "grdSmptPckgUnit"){
@@ -1273,7 +1273,7 @@
         		gfn_comAlert("I0001")				// I0001	처리 되었습니다.
         		selectApcEvrmntStng();
         	} else {
-        		alert(data.resultMessage);
+        		gfn_comAlert("E0001");
         	}
         } catch (e) {
     		if (!(e instanceof Error)) {
@@ -1345,7 +1345,7 @@
         		gfn_comAlert("I0001")				// I0001	처리 되었습니다.
         		selectApcEvrmntStng();
         	} else {
-        		alert(data.resultMessage);
+        		gfn_comAlert("E0001");
         	}
         } catch (e) {
     		if (!(e instanceof Error)) {

@@ -158,7 +158,7 @@
         		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
         		fn_selectUserList();
         	} else {
-        		alert(data.resultMessage);
+        		gfn_comAlert("E0001");
         	}
     	}catch (e) {
     		if (!(e instanceof Error)) {
@@ -199,7 +199,7 @@
         		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
         		fn_selectUserList();
         	} else {
-        		alert(data.resultMessage);
+        		gfn_comAlert("E0001");
         	}
         } catch (e) {
     		if (!(e instanceof Error)) {
@@ -236,9 +236,9 @@
 	        let data = await postJsonPromise;
 	        try{
 	        	if(data.updatedCnt > 0){
-	        		alert("비밀번호가 초기화 되었습니다.");
+	        		gfn_comAlert("I0001");
 	        	}else{
-	        		alert("비밀번호 초기화 오류가 발생 되었습니다.");
+	        		gfn_comAlert("E0001");
 	        	}
 	        }catch (e) {
 	        	if (!(e instanceof Error)) {

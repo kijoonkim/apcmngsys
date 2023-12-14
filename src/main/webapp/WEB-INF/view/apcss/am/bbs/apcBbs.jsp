@@ -325,12 +325,12 @@
     	let bbsNo = SBUxMethod.get("dtl-input-orngBbsNo");
 
     	if (!SBUxMethod.get("dtl-select-bbsSeCd")) {
-            alert("게시판유형을 선택하세요.");
+            gfn_comAlert("W0001", "게시판유형");
             return;
         }
 
     	/* if (!SBUxMethod.get("dtl-input-bbsNo")) {
-            alert("메시지Key를 입력하세요.");
+            gfn_comAlert("E0000", "메시지Key를 입력하세요.");
             return;
         } */
 
@@ -339,10 +339,10 @@
 
     	if (gfn_isEmpty(bbsNo)) {
     		// 신규 등록
-			fn_subInsert(confirm("등록 하시겠습니까?"));
+			fn_subInsert(gfn_comAlert("Q0001", "등록"));
     	} else {
     		// 변경 저장
-    		fn_subUpdate(confirm("저장 하시겠습니까?"));
+    		fn_subUpdate(gfn_comAlert("Q0001", "저장"));
     	}
 
     }
@@ -366,10 +366,10 @@
 
         try {
         	if (_.isEqual("S", data.resultStatus)) {
-        		alert("처리 되었습니다.");
+        		gfn_comAlert("I0001", "처리 되었습니다.");
         		fn_search();
         	} else {
-        		alert(data.resultMessage);
+        		gfn_comAlert("E0001");
         	}
         } catch(e) {
         }
@@ -394,10 +394,10 @@
 
         try {
         	if (_.isEqual("S", data.resultStatus)) {
-        		alert("처리 되었습니다.");
+        		gfn_comAlert("I0001", "처리 되었습니다.");
         		fn_search();
         	} else {
-        		alert(data.resultMessage);
+        		gfn_comAlert("E0001");
         	}
         } catch(e) {
         }
@@ -423,7 +423,7 @@
         });
 
         if (list.length == 0) {
-        	alert("삭제할 대상이 없습니다.");
+        	gfn_comAlert("W0003", "삭제");
         	return;
         }
 
@@ -447,10 +447,10 @@
 
          try {
          	if (_.isEqual("S", data.resultStatus)) {
-         		alert("처리 되었습니다.");
+         		gfn_comAlert("I0001", "처리 되었습니다.");
          		fn_search();
          	} else {
-         		alert(data.resultMessage);
+         		gfn_comAlert("E0001");
          	}
          } catch(e) {
          }

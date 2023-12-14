@@ -206,7 +206,7 @@
 
 	const fn_searchSpcfctAll = async function(){
 		if(jsonComItemCd.length == 0){
-			alert("품목 먼저 등록해주세요.");
+			gfn_comAlert("E0000", "품목 먼저 등록해주세요.");
 			return;
 		}
 		let itemCd = SBUxMethod.get("spcfct-slt-itemCd");

@@ -163,7 +163,7 @@
 		        		fn_search();
 		        		popRtn.close("S");
 		        	} else {
-		        		alert(data.resultMessage);
+		        		gfn_comAlert("E0001");
 		        	}
 		        } catch (e) {
 		    		if (!(e instanceof Error)) {
