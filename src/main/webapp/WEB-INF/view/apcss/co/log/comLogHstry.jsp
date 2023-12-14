@@ -94,7 +94,7 @@
 		    $('#'+btnName.slice(3)).show();
 		    $('#'+btnName.slice(3)+' [name='+btnName+']').css({'background-color':'#149FFF', 'border':'1px solid #149FFF', 'color': '#FFFFFF'});
 
-		    eval('tab'+btnName.slice(3)+'.init(gv_selectedApcCd, gv_selectedApcNm, '+ymdFrom+', '+ymdTo+')');
+		    (new Function('tab'+btnName.slice(3)+'.init(gv_selectedApcCd, gv_selectedApcNm, '+ymdFrom+', '+ymdTo+')'))();
 		    searchTarget = btnName.slice(3);
 		});
 		
