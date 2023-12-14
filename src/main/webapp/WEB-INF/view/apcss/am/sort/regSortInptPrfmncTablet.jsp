@@ -471,8 +471,8 @@
             {caption: ["투입수량"],  		ref: 'qntt',   		type:'output',  width:'60px',   style:'text-align:right',
             	format : {type:'number', rule:'#,###'}
             },
-            {caption: ["투입중량"],  		ref: 'wght',   		type:'output',  width:'90px',   style:'text-align:right',
-            	format : {type:'number', rule:'#,### kg'}
+            {caption: ["투입중량 (Kg)"],  		ref: 'wght',   		type:'output',  width:'90px',   style:'text-align:right',
+            	format : {type:'number', rule:'#,###'}
             },
             {caption: ["생산자"],  		ref: 'prdcrNm',   		type:'output',  width:'80px',    style:'text-align:center'},
             {caption: ["입고일자"],  		ref: 'wrhsYmd', 		type:'output',  width:'90px',    style:'text-align:center',
