@@ -94,21 +94,21 @@
 		    		  	'showgoalpageui' : true
 		    	    };
 		        SBGridProperties.columns = [
-		        	{caption: ['선별번호'], 	ref: 'sortno',			width: '120px',		type: 'output',	style:'text-align: center'},
-		            {caption: ['선별순번'],	ref: 'sortSn', 			width: '70px', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['변경일자'], 	ref: 'chgYmd', 			width: '120px', 	type: 'output',	style:'text-align: center',
+		        	{caption: ['선별번호'], 			ref: 'sortno',			width: '120px',		type: 'output',	style:'text-align: center'},
+		            {caption: ['선별순번'],			ref: 'sortSn', 			width: '70px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['변경일자'], 			ref: 'chgYmd', 			width: '120px', 	type: 'output',	style:'text-align: center',
 		        		format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-		            {caption: ['변경전수량'],	ref: 'chgBfrQntt', 		width: '120px', 	type: 'output',	style:'text-align: right',
+		            {caption: ['변경 전 수량'],		ref: 'chgBfrQntt', 		width: '120px', 	type: 'output',	style:'text-align: right',
 		            	format : {type:'number', rule:'#,###'}},
-		            {caption: ['변경전중량'],	ref: 'chgBfrWght', 		width: '120px', 	type: 'output',	style:'text-align: right',
-		                typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-		            {caption: ['변경후수량'],	ref: 'chgAftrQntt', 	width: '120px', 	type: 'output',	style:'text-align: right',
+		            {caption: ['변경 전 중량 (kg)'],	ref: 'chgBfrWght', 		width: '120px', 	type: 'output',	style:'text-align: right',
+		                typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
+		            {caption: ['변경 후 수량'],		ref: 'chgAftrQntt', 	width: '120px', 	type: 'output',	style:'text-align: right',
 		            	format : {type:'number', rule:'#,###'}},
-		            {caption: ['변경후중량'],	ref: 'chgAftrWght', 	width: '120px', 	type: 'output',	style:'text-align: right',
-		                typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-		            {caption: ['변경사유'], 	ref: 'chgRsnNm', 		width: '120px', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['창고구분'],	ref: 'warehouseSeNm',	width: '120px', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['변경비고'],	ref: 'chgRmrk', 		width: '300px', 	type: 'output'}
+		            {caption: ['변경 후 중량 (kg)'],	ref: 'chgAftrWght', 	width: '120px', 	type: 'output',	style:'text-align: right',
+		                typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
+		            {caption: ['변경사유'], 			ref: 'chgRsnNm', 		width: '120px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['창고구분'],			ref: 'warehouseSeNm',	width: '120px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['변경비고'],			ref: 'chgRmrk', 		width: '300px', 	type: 'output'}
 		        ];
 		        grdSortInvntrChgHstry = _SBGrid.create(SBGridProperties);
 		        grdSortInvntrChgHstry.bind( "afterpagechanged" , tabSortInvntrChgHstry.paging );
