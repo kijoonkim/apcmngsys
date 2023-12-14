@@ -401,17 +401,17 @@
     	let delYn = SBUxMethod.get("dtl-input-delYn");
 
     	if (!SBUxMethod.get("dtl-select-msgKnd")) {
-            alert("메시지종류를 선택하세요.");
+            gfn_comAlert("W0001", "메시지종류");
             return;
         }
 
     	if (!SBUxMethod.get("dtl-input-msgKey")) {
-            alert("메시지Key를 입력하세요.");
+            gfn_comAlert("W0002", "메시지Key");
             return;
         }
 
     	if (!SBUxMethod.get("dtl-input-msgCn")) {
-            alert("메시지내용을 입력하세요.");
+            gfn_comAlert("W0002", "메시지내용");
             return;
         }
 
@@ -443,10 +443,10 @@
 
         try {
         	if (_.isEqual("S", data.resultStatus)) {
-        		alert("처리 되었습니다.");
+        		gfn_comAlert("I0001");
         		fn_search();
         	} else {
-        		alert(data.resultMessage);
+        		gfn_comAlert("E0001");
         	}
         } catch (e) {
     		if (!(e instanceof Error)) {
@@ -484,10 +484,10 @@
 
         try {
         	if (_.isEqual("S", data.resultStatus)) {
-        		alert("처리 되었습니다.");
+        		gfn_comAlert("I0001");
         		fn_search();
         	} else {
-        		alert(data.resultMessage);
+        		gfn_comAlert("E0001");
         	}
         } catch (e) {
     		if (!(e instanceof Error)) {
@@ -518,7 +518,7 @@
         });
 
         if (list.length == 0) {
-        	alert("삭제할 대상이 없습니다.");
+        	gfn_comAlert("W0003", "삭제");
         	return;
         }
 
@@ -540,10 +540,10 @@
 
          try {
          	if (_.isEqual("S", data.resultStatus)) {
-         		alert("처리 되었습니다.");
+         		gfn_comAlert("I0001");
          		fn_search();
          	} else {
-         		alert(data.resultMessage);
+         		gfn_comAlert("E0001");
          	}
          } catch (e) {
     		if (!(e instanceof Error)) {

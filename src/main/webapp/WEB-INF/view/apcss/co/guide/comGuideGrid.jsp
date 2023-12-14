@@ -147,7 +147,7 @@
 
     function fn_pwReSet(nRow, nCol){
 		var row = datagrid.getRowData(nRow);
-		alert(row.userNm + "님의 비밀번호가 초기화 되었습니다.");
+		gfn_comAlert("E0000", row.userNm + "님의 비밀번호가 초기화 되었습니다.");
     }
 
     function fn_Paging(){

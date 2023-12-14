@@ -284,8 +284,7 @@
     	if (nRow == undefined) {
             nRow = grdMenuTreeList.getRow();
             if (nRow < 1) {
-                //alert("상위메뉴를 선택하세요.");
-            	alert(gfn_getComMsg("W0001", "상위메뉴"));	//	W0001	{0}을/를 선택하세요.
+            	gfn_comAlert("W0001", "상위메뉴");	//	W0001	{0}을/를 선택하세요.
                 return;
             }
         }
@@ -293,8 +292,7 @@
     	var rowData = grdMenuTreeList.getRowData(nRow);
 
         if (rowData.menuType == "02") {
-        	//alert("상위메뉴를 선택하세요.");
-        	alert(gfn_getComMsg("W0001", "상위메뉴"));	//	W0001	{0}을/를 선택하세요.
+        	gfn_comAlert("W0001", "상위메뉴");	//	W0001	{0}을/를 선택하세요.
             return;
         }
 
@@ -381,7 +379,6 @@
     function fn_delete() {
         let menuId = SBUxMethod.get("dtl-input-menuId");
         if (!menuId) {
-            //alert("메뉴를 선택하세요.");
             gfn_comAlert("W0001", "메뉴");	//	W0001	{0}을/를 선택하세요.
             return;
         }
@@ -517,11 +514,10 @@
 
         try {
         	if (_.isEqual("S", data.resultStatus)) {
-        		alert(gfn_getComMsg("I0001"));	// I0001	처리 되었습니다.
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
         		fn_search();
         	} else {
-        		alert(data.resultMessage);
-        		alert(gfn_getComMsg("E0001"));	//	E0001	오류가 발생하였습니다.
+        		gfn_comAlert("E0001");
         	}
         } catch (e) {
     		if (!(e instanceof Error)) {
@@ -569,11 +565,10 @@
 
 	    try {
 	    	if (_.isEqual("S", data.resultStatus)) {
-	    		alert(gfn_getComMsg("I0001"));	// I0001	처리 되었습니다.
+	    		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
 	    		fn_search();
 	    	} else {
-	    		alert(data.resultMessage);
-	    		alert(gfn_getComMsg("E0001"));	//	E0001	오류가 발생하였습니다.
+	    		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	    	}
 	    } catch (e) {
     		if (!(e instanceof Error)) {
@@ -602,11 +597,10 @@
 
 	    try {
 	    	if (_.isEqual("S", data.resultStatus)) {
-	    		alert(gfn_getComMsg("I0001"));	// I0001	처리 되었습니다.
+	    		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
 	    		fn_search();
 	    	} else {
-	    		alert(data.resultMessage);
-	    		alert(gfn_getComMsg("E0001"));	//	E0001	오류가 발생하였습니다.
+	    		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	    	}
 	    } catch (e) {
     		if (!(e instanceof Error)) {

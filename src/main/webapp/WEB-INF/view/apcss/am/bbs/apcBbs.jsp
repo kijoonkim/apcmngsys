@@ -339,10 +339,10 @@
 
     	if (gfn_isEmpty(bbsNo)) {
     		// 신규 등록
-			fn_subInsert(gfn_comAlert("Q0001", "등록"));
+			fn_subInsert(gfn_comConfirm("Q0001", "등록"));
     	} else {
     		// 변경 저장
-    		fn_subUpdate(gfn_comAlert("Q0001", "저장"));
+    		fn_subUpdate(gfn_comConfirm("Q0001", "저장"));
     	}
 
     }
