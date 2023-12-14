@@ -44,7 +44,7 @@
 		     , VI.DRVR_NM           AS DRVR_NM          -- 기사명
 		     , (SELECT USRAM.FN_GET_COM_CD_VL_NM('BANK_CD', TC.BANK_CD) FROM DUAL)    	    AS BANK_NM          -- 은행명
 		     , TC.BANK_CD    	    AS BANK_CD          -- 은행코드
-		     , TC.ACTNO			    AS ACTNO            -- 계좌번호
+		     , (SELECT FN_UTL_DECRYPT_ARIA(TC.ACTNO) FROM DUAL)	AS ACTNO            -- 계좌번호
 		     , TC.DPSTR			    AS DPSTR            -- 예금주명
 		     , TC.RMRK              AS RMRK             -- 비고
 		     , TC.DEL_YN            AS DEL_YN           -- 삭제유무
@@ -79,51 +79,51 @@
 	<!-- ==============================================================================	-->
     <insert id="insertRawMtrTrsprtCst" parameterType="com.at.apcss.am.cmns.vo.RawMtrTrsprtCstVO">
     	<![CDATA[
-    	/* com.at.apcss.am.cmns.mapper.RawMtrTrsprtCstMapper.insertRawMtrTrsprtCst */
-    	INSERT INTO TB_RAW_MTR_TRSPRT_CST
-    		(
-    			APC_CD
-		   	  , TRSPRT_YMD
-		   	  , VHCLNO
-		   	  , SN
-			  , TRSPRT_SE_CD
-			  , TRSPRT_RGN_CD
-			  , WRHS_WGHT
-    		  , TRSPRT_CST
-    		  , BANK_CD
-    		  , ACTNO
-    		  , DPSTR
-    		  , RMRK
-    		  , DEL_YN
-    		  , SYS_FRST_INPT_DT
-    		  , SYS_FRST_INPT_USER_ID
-    		  , SYS_FRST_INPT_PRGRM_ID
-    		  , SYS_LAST_CHG_DT
-    		  , SYS_LAST_CHG_USER_ID
-    		  , SYS_LAST_CHG_PRGRM_ID
-    		)
-   		VALUES
-   			(
-			    #{apcCd}
-			  , #{trsprtYmd}
-			  , #{vhclno}
-			  , (SELECT FN_GET_SN_TRSPRT_CST(#{apcCd}, #{trsprtYmd}, #{vhclno}) FROM DUAL)
-			  , #{trsprtSeCd}
-			  , #{trsprtRgnCd}
-			  , #{wrhsWght}
-    		  , #{trsprtCst}
-    		  , #{bankCd}
-    		  , #{actno}
-    		  , #{dpstr}
-    		  , #{rmrk}
-    		  , #{delYn}
-    		  , SYSDATE
-    		  , #{sysFrstInptUserId}
-    		  , #{sysFrstInptPrgrmId}
-    		  , SYSDATE
-    		  , #{sysLastChgUserId}
-    		  , #{sysLastChgPrgrmId}
-   			)
+	    	INSERT /* com.at.apcss.am.cmns.mapper.RawMtrTrsprtCstMapper.insertRawMtrTrsprtCst */
+	    		INTO TB_RAW_MTR_TRSPRT_CST
+	    		(
+	    			APC_CD
+			   	  , TRSPRT_YMD
+			   	  , VHCLNO
+			   	  , SN
+				  , TRSPRT_SE_CD
+				  , TRSPRT_RGN_CD
+				  , WRHS_WGHT
+	    		  , TRSPRT_CST
+	    		  , BANK_CD
+	    		  , ACTNO
+	    		  , DPSTR
+	    		  , RMRK
+	    		  , DEL_YN
+	    		  , SYS_FRST_INPT_DT
+	    		  , SYS_FRST_INPT_USER_ID
+	    		  , SYS_FRST_INPT_PRGRM_ID
+	    		  , SYS_LAST_CHG_DT
+	    		  , SYS_LAST_CHG_USER_ID
+	    		  , SYS_LAST_CHG_PRGRM_ID
+	    		)
+	   		VALUES
+	   			(
+				    #{apcCd}
+				  , #{trsprtYmd}
+				  , #{vhclno}
+				  , (SELECT FN_GET_SN_TRSPRT_CST(#{apcCd}, #{trsprtYmd}, #{vhclno}) FROM DUAL)
+				  , #{trsprtSeCd}
+				  , #{trsprtRgnCd}
+				  , #{wrhsWght}
+	    		  , #{trsprtCst}
+	    		  , #{bankCd}
+	    		  , FN_UTL_ENCRYPT_ARIA(#{actno})
+	    		  , #{dpstr}
+	    		  , #{rmrk}
+	    		  , #{delYn}
+	    		  , SYSDATE
+	    		  , #{sysFrstInptUserId}
+	    		  , #{sysFrstInptPrgrmId}
+	    		  , SYSDATE
+	    		  , #{sysLastChgUserId}
+	    		  , #{sysLastChgPrgrmId}
+	   			)
     	]]>
     </insert>
 
@@ -146,7 +146,7 @@
 			 , WRHS_WGHT				= #{wrhsWght}
     		 , TRSPRT_CST				= #{trsprtCst}
     		 , BANK_CD					= #{bankCd}
-    		 , ACTNO					= #{actno}
+    		 , ACTNO					= FN_UTL_ENCRYPT_ARIA(#{actno})
     		 , DPSTR					= #{dpstr}
     		 , RMRK						= #{rmrk}
     		 , DEL_YN					= #{delYn}

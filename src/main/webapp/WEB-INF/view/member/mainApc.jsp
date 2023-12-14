@@ -9,7 +9,7 @@
 <head>
 	<%@ include file="../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../frame/inc/headerScript.jsp" %>
-
+	<title>메인</title>
     <style>
         /*해당 레이아웃 템플릿 페이지를 표현하기위한 임의의 스타일 CSS 입니다.
         실작업시, 해당 프로젝트의 CSS 네이밍에 맞추어 재작업이 필요합니다.*/
@@ -33,7 +33,7 @@
 <script type="text/javascript">
 
 	let prvTabMenuId = "";
-	
+
 	var firstLoad = 0;
     var secondLaod = 0;
 
@@ -574,7 +574,8 @@
             </sbux-menu>
 			<div class="user-info-wrap">
 				<c:if test="${loginVO != null && loginVO.id != null}">
-					<span class="name-t">${loginVO.name}</span>님 반갑습니다.
+					<c:set scope="request" var="userName" value="${loginVO.name}"></c:set>
+					<span class="name-t"><c:out value='${userName}'></c:out></span>님 반갑습니다.
                 <ul class="user-login-menu">
 					<li style="background-color:#149FFF;"><sbux-button id="btnPrfrmImprvDmnd" name="btnPrfrmImprvDmnd" uitype="normal" text="개선요청" style="width:64px; text-align:center; display:inline-block; font-size:12px;" onclick="fn_modalPopup"></sbux-button></li>
                     <li><a href="/actionLogout.do">로그아웃</a></li>

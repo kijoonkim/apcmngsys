@@ -19,6 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<title>title : 재고이송조회</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -28,7 +29,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 재고이송조회 -->
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 재고이송조회 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_del"></sbux-button>
@@ -357,7 +358,7 @@
             "callback": fn_colShow,				//콜백함수명
         }
     };
-     
+
 	//그리드 체크박스 전체 선택
 	function fn_checkAll(grid, obj) {
 	    var gridList = grid.getGridDataAll();
@@ -406,7 +407,7 @@
     	grdInvntrTrnsf.setCellData(1, grdInvntrTrnsf.getColRef("checked"), ref, true, false);
     	fn_callSelectGridList(recordCountPerPage, currentPageNo);
     }
-	
+
 	//조회
     const fn_search = async function() {
     	grdInvntrTrnsf.rebuild();
@@ -575,7 +576,7 @@
 			}
 		}
 	}
-	
+
 
 
 	// 품종 선택 팝업 호출

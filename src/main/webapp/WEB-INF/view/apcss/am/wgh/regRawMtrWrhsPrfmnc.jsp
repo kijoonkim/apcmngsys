@@ -18,6 +18,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<title>title : 원물입고등록</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
@@ -27,7 +28,8 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
-					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 원물입고등록 -->
+					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 원물입고등록 -->
 					<sbux-label id="lbl-wrhsno" name="lbl-wrhsno" uitype="normal" text="">
 					</sbux-label>
 				</div>
@@ -871,10 +873,10 @@
     		gfn_comAlert("W0001", "등급");		//	W0002	{0}을/를 선택하세요.
             return;
     	}
-    	
+
     	console.log("stdGrd", stdGrd);
     	console.log("wrhsWght", wrhsWght);
-    	
+
     	if (stdGrd.isWght) {
     		if (stdGrd.grdWght > wrhsWght) {
     			gfn_comAlert("W0014", "등급중량", "입고중량");		//	W0014	{0}이/가 {1} 보다 큽니다.
@@ -882,7 +884,7 @@
     			gfn_comAlert("W0015", "등급중량", "입고중량");		//	W0015 {0}이/가 {1} 보다 작습니다.
     		} else {}
     	}
-    	
+
 
     	if (!gfn_comConfirm("Q0001", "저장")) {
     		return;

@@ -20,7 +20,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.core.env.Environment;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -70,8 +70,8 @@ import org.w3c.dom.NodeList;
 public class BbsController extends BaseController {
 
 	//파일 업로드 경로
-	private String uploadPath = "C:\\app\\upload";
-	Environment env;
+	@Value("${upload.path}")
+    private String uploadPath;
 
 	// 게시판
 	@Resource(name= "bbsService")
@@ -336,9 +336,16 @@ public class BbsController extends BaseController {
 
     	System.out.println("======================/fm/bbs/fileUpload.do==========================");
 
-    	HashMap<String,Object> resultMap = new HashMap<String,Object>();
-    	String whiteListFileUploadExtensions = env.getProperty("Globals.fileUpload.Extensions");
+    	//String curWorkingDir = System.getProperty("user.dir");
+		//System.out.println("현재 작업 폴더 : " + curWorkingDir);
+		//System.out.println("폴더 : " + uploadPath1);
 
+    	String projectDir = System.getProperty("user.dir");
+        String uploadDir = projectDir + "/upload";
+
+    	HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+    	int insertedCnt = 0;
     	for (MultipartFile file : files) {
     		BbsFileVO bbsFileVO = new BbsFileVO();
 
@@ -349,20 +356,6 @@ public class BbsController extends BaseController {
 
     		//서버에 저장할 파일이름 fileextension으로 .jsp이런식의  확장자 명을 구함
     		String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."),fileRealName.length());
-
-    		if (fileRealName == null || "".equals(fileRealName)) {
-    			logger.debug("No file name.");
-    			continue;
-			} else {
-				if ("".equals(fileExtension)) { // 확장자 없는 경우 처리 불가
-					throw new SecurityException("[No file extension] File extension not allowed.");
-				}
-				if ((whiteListFileUploadExtensions+".").contains("."+fileExtension.toLowerCase()+".")) {
-					logger.debug("File extension allowed.");
-				} else {
-					throw new SecurityException("["+fileExtension+"] File extension not allowed.");
-				}
-			}
 
     		UUID uuid = UUID.randomUUID();
     		//System.out.println(uuid.toString());
@@ -386,21 +379,22 @@ public class BbsController extends BaseController {
     		bbsFileVO.setAtchflExtnType(fileExtension);
     		bbsFileVO.setAtchflPath(folderPath);
 
-    		int insertedCnt = 0;
     		//파일 생성
     		//file.transferTo(savePath);
     		 try {
                  file.transferTo(savePath);
-                 insertedCnt = bbsService.insertAttach(bbsFileVO);
+                 insertedCnt += bbsService.insertAttach(bbsFileVO);
              } catch (IOException e) {
-                 e.printStackTrace();
+            	 resultMap.put("error", e.getMessage());
+            	 logger.debug(e.getMessage());
              }
 
         }
 
 		redirectAttributes.addFlashAttribute("message", "File successfully uploaded!");
 
-		resultMap.put(ComConstants.PROP_DELETED_CNT, 0);
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
+		resultMap.put("test", files.size());
 
 		return getSuccessResponseEntity(resultMap);
     }

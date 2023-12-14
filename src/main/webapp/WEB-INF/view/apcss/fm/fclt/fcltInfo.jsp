@@ -25,7 +25,7 @@
 	<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
+    <title>title : 시설현황</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -40,7 +40,7 @@
 		<div class="box-header" style="display:flex; justify-content: flex-start;" >
 			<div>
 				<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 시설현황 -->
+				<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 시설현황 -->
 			</div>
 			<div style="margin-left: auto;">
 				<!--
@@ -54,10 +54,6 @@
 		<div class="box-body">
 			<!--[pp] 검색 -->
 			<div>
-			<!--[APC] START -->
-<%-- 					<%@ include file="../../../frame/inc/apcSelect.jsp" %> --%>
-				<!--[APC] END -->
-
 			<!--[pp] 검색 -->
 			<table class="table table-bordered tbl_row tbl_fixed">
 				<caption>검색 조건 설정</caption>
@@ -264,27 +260,11 @@
 					</tr>
 				</tbody>
 			</table>
-
 			</div>
 			</div>
-
 			<!--[pp] //검색결과 -->
 		</div>
 	</section>
-<%-- 	<!-- 거래처 선택 Modal -->
-    <div>
-        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" style="width:1000px"></sbux-modal>
-    </div>
-    <div id="body-modal-cnpt">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
-    </div>
-        <!-- 품종 선택 Modal -->
-    <div>
-        <sbux-modal id="modal-vrtyCrtr" name="modal-vrtyCrtr" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:650px"></sbux-modal>
-    </div>
-    <div id="body-modal-vrtyCrtr">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/vrtyCrtrPopup.jsp"></jsp:include>
-    </div> --%>
     <!-- apc 선택 Modal -->
     <div id="body-modal-apcSelect_move" draggable="true" >
         <sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle"  header-title="APC 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"  ></sbux-modal>
@@ -295,7 +275,6 @@
 </body>
 <script>
     jQuery(document).ready(function() {
-    	//alert("aaaa"); 
         jQuery("#body-modal-apcSelect").draggable();
     	jQuery("#body-modal-apcSelect_move").draggable();
     	jQuery("#modal-apcSelect").draggable();

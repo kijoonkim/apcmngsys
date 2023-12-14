@@ -34,7 +34,6 @@
 						<col style="width: 100px">
 						<col style="width: 200px">
 						<col style="width: 100px">
-						<col style="width: 200px">
 					</colgroup>
 					<tbody>
 						<tr>
@@ -88,15 +87,15 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdOprtr\", " + nRow + ")'>삭제</button>";
 	        	}
 	        }},
-	        {caption: ["작업자명"], 	ref: 'flnm',  	type:'input',  width:'80px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100}), typeinfo : {mask : {alias : 'k'}, maxlength : 33}},
-	        {caption: ["생년월일"], 	ref: 'brdt',   	type:'input',  width:'90px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 10}), typeinfo : {maxlength : 10}, format : {type:'date', rule:'yy-mm-dd', origin:'YYMMDD'}},
-	        {caption: ["전화번호"], 	ref: 'telno',   type:'input',  width:'100px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 11}), typeinfo : {maxlength : 11}, format : {type:'custom', callback : fnNewCallNumber}},
-	        {caption: ["주소"], 		ref: 'addr',    type:'input',  width:'170px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 200}), typeinfo : {maxlength : 66}},
-	        {caption: ["입사일자"], 	ref: 'jncmp', 	type : 'datepicker', typeinfo: {dateformat: 'yy-mm-dd'}, format : {type:'date', rule:'yy-mm-dd', origin:'YYYYMMDD'},  width:'90px',    style:'text-align:center'},
-	        {caption: ["은행"], 		ref: 'bankCd',  type:'inputcombo',  width:'100px',    style:'text-align:center',
+	        {caption: ["작업자명"], 	ref: 'flnm',  	type:'input',  width:'100px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100}), typeinfo : {mask : {alias : 'k'}, maxlength : 33}},
+	        {caption: ["생년월일"], 	ref: 'brdt',   	type:'input',  width:'100px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 10}), typeinfo : {maxlength : 10}, format : {type:'date', rule:'yy-mm-dd', origin:'YYMMDD'}},
+	        {caption: ["전화번호"], 	ref: 'telno',   type:'input',  width:'120px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 11}), typeinfo : {maxlength : 11}, format : {type:'custom', callback : fnNewCallNumber}},
+	        {caption: ["주소"], 		ref: 'addr',    type:'input',  width:'320px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 200}), typeinfo : {maxlength : 66}},
+	        {caption: ["입사일자"], 	ref: 'jncmp', 	type : 'datepicker', width:'100px',style:'text-align:center', typeinfo: {dateformat: 'yy-mm-dd'}, format : {type:'date', rule:'yy-mm-dd', origin:'YYYYMMDD'}     },
+	        /* {caption: ["은행"], 		ref: 'bankCd',  type:'inputcombo',  width:'100px',    style:'text-align:center',
     			typeinfo : {ref:'comboGridBankCdJsData', displayui : false,	itemcount: 10, label:'label', value:'value'}},
 	        {caption: ["계좌번호"], 	ref: 'actno',   type:'input',  width:'130px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 256}), typeinfo : {mask : {alias : '#-', repeat: '*'}, maxlength : 256}},
-	        {caption: ["예금주명"], 	ref: 'dpstr',   type:'input',  width:'90px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {maxlength : 6}},
+	        {caption: ["예금주명"], 	ref: 'dpstr',   type:'input',  width:'90px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {maxlength : 6}}, */
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'output',  hidden : true}
 	    ];
 	    grdOprtr = _SBGrid.create(SBGridProperties);
@@ -156,9 +155,17 @@
 		let gridData = grdOprtr.getGridDataAll();
 		let saveList = [];
 		for(var i=1; i<=gridData.length; i++ ){
-			if(grdOprtr.getRowData(i).delYn == 'N'){
-				if(grdOprtr.getRowData(i).flnm == null || grdOprtr.getRowData(i).flnm == ""){
-					alert("작업자 명은 필수 값 입니다.");
+
+			let flnm = grdOprtr.getRowData(i).flnm;
+			let brdt = grdOprtr.getRowData(i).brdt;
+			let delYn = grdOprtr.getRowData(i).delYn;
+			if(delYn == 'N'){
+				if(gfn_isEmpty(flnm)){
+					gfn_comAlert("W0002", "작업자명");		//	W0002	{0}을/를 입력하세요.
+					return;
+				}
+				if(gfn_isEmpty(brdt)){
+					gfn_comAlert("W0002", "생년월일");		//	W0002	{0}을/를 입력하세요.
 					return;
 				}
 				let rowData = grdOprtr.getRowData(i);
@@ -176,7 +183,6 @@
 
 		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
-			console.log('saveList', saveList);
 			if(!(gfn_isEmpty(saveList))){
 				for(let i=0;i<saveList.length;i++){
 					let newInsertTelno = saveList[i].telno.split("");
@@ -186,7 +192,7 @@
 				}
 			}
 
-			let postJsonPromise = gfn_postJSON("/am/cmns/compareOprtrList.do", saveList);
+			let postJsonPromise = gfn_postJSON("/am/cmns/multiSaveOprtrList.do", saveList);
 	        let data = await postJsonPromise;
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {

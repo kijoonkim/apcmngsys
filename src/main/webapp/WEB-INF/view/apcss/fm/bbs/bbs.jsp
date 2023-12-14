@@ -404,6 +404,10 @@
         SBUxMethod.set("dtl-input-sysFrstInptDt", null);
 
 	    //첨부파일 리스트 초기화
+	    var bbsfile = $('#bbsfile');
+	    var bbsfileList = $('#bbsfileList');
+	    bbsfile.val(null);
+	    bbsfileList.val(null);
         var ulList = $('#file-list');
 	    ulList.empty();
 	    var ulOrgList = $('#org-file-list');
@@ -420,6 +424,10 @@
         SBUxMethod.set("dtl-input-sysFrstInptUserIdNm", null);
         SBUxMethod.set("dtl-input-sysFrstInptDt", null);
       	//첨부파일 리스트 초기화
+      	var bbsfile = $('#bbsfile');
+	    var bbsfileList = $('#bbsfileList');
+	    bbsfile.val(null);
+	    bbsfileList.val(null);
         var ulList = $('#file-list');
 	    ulList.empty();
 	    var ulOrgList = $('#org-file-list');
@@ -631,10 +639,7 @@
     //function fn_view() {
     const fn_view = async function (){
     	//첨부파일 리스트 초기화
-        var ulList = $('#file-list');
-	    ulList.empty();
-	    var ulOrgList = $('#org-file-list');
-	    ulOrgList.empty();
+    	fn_clearForm();
 
     	var nCol = grdBbsList.getCol();
         //특정 열 부터 이벤트 적용
@@ -703,9 +708,9 @@
     	console.log("===========fn_fileUpload");
     	var formData = new FormData();
     	var files = $('#bbsfileList')[0].files;
-
+		console.log(files);
     	if(files.length == 0){return;}
-
+    	console.log(files);
     	for (var i = 0; i < files.length; i++) {
             formData.append('files', files[i]);
         }

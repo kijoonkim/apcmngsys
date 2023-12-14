@@ -19,6 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<title>title : 출하실적등록</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
@@ -29,7 +30,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ ${menuNm}</h3>	<!-- 출하실적등록 -->
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 출하실적등록 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>
@@ -1470,16 +1471,7 @@
 		grdGdsInvntr.refresh();
 		grdSpmtPrfmnc.refresh();
 
-		let rst = await Promise.all([
-			gfn_setComCdSBSelect('srch-rdo-gdsSeCd', 				jsonComGdsSeCd, 			'GDS_SE_CD', 		gv_selectedApcCd), 		// 상품구분 등록
-			gfn_setComCdSBSelect('srch-slt-warehouseSeCd', 			jsonComWarehouseSeCd, 		'WAREHOUSE_SE_CD', 	gv_selectedApcCd), 		// 상품구분 등록
-		 	gfn_setTrsprtsSBSelect('dtl-slt-trsprtCoCd', 			jsonComTrsprtCoCd, 			gv_selectedApcCd),		// 운송사
-		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 				jsonComItem, 				gv_selectedApcCd),		// 품목
-		 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 				jsonComVrty, 				gv_selectedApcCd),		// 품종
-		 	gfn_setPltBxSBSelect('dtl-slt-pltBxCd', 				jsonDtlPltBxCd, 			gv_selectedApcCd, "P"), // 팔레트
-		 	gfn_setPrdcrSBSelect('excel-slt-prdcr', 				jsonExeclComPrdcr, 			gv_selectedApcCd),		// 생산자
-		 	gfn_setCpntSBSelect('excel-slt-cnpt', 					jsonExeclComCnpt, 			gv_selectedApcCd),		// 거래처
-		])
+		fn_initSBSelect();
 
 		jsonComSpcfct.length = 0;
 		SBUxMethod.refresh("srch-slt-spcfctCd");

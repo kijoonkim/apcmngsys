@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,7 +18,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.core.env.Environment;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -30,35 +28,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
-import com.at.apcss.fm.bbs.vo.BbsFileVO;
-import com.at.apcss.fm.bbs.vo.BbsVO;
-
-import egovframework.com.cmm.service.EgovProperties;
 
 import com.at.apcss.am.bbs.service.apcBbsService;
 import com.at.apcss.am.bbs.vo.apcBbsCmntVO;
 import com.at.apcss.am.bbs.vo.apcBbsFileVO;
 import com.at.apcss.am.bbs.vo.apcBbsVO;
-
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.w3c.dom.Document;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 
 /**
@@ -80,8 +60,8 @@ import org.xml.sax.SAXException;
 public class apcBbsController extends BaseController {
 
 	//파일 업로드 경로
-	private String uploadPath = "C:\\app\\upload";
-	Environment env;
+	@Value("${upload.path}")
+    private String uploadPath;
 
 	// 게시판
 	@Resource(name= "apcBbsService")
@@ -344,9 +324,8 @@ public class apcBbsController extends BaseController {
 	    public ResponseEntity<HashMap<String, Object>> handleFileUpload(@RequestParam("files") List<MultipartFile> files,@RequestParam("bbsNo") String bbsNo, RedirectAttributes redirectAttributes) throws Exception{
 
 	    	HashMap<String,Object> resultMap = new HashMap<String,Object>();
-	    	//확장자 허용 리스트
-	    	String whiteListFileUploadExtensions = env.getProperty("Globals.fileUpload.Extensions");
 
+	    	int insertedCnt1 = 0;
 	    	for (MultipartFile file : files) {
 	    		apcBbsFileVO apcBbsFileVO = new apcBbsFileVO();
 
@@ -357,20 +336,6 @@ public class apcBbsController extends BaseController {
 
 	    		//서버에 저장할 파일이름 fileextension으로 .jsp이런식의  확장자 명을 구함
 	    		String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."),fileRealName.length());
-
-	    		if (fileRealName == null || "".equals(fileRealName)) {
-	    			logger.debug("No file name.");
-	    			continue;
-				} else {
-					if ("".equals(fileExtension)) { // 확장자 없는 경우 처리 불가
-						throw new SecurityException("[No file extension] File extension not allowed.");
-					}
-					if ((whiteListFileUploadExtensions+".").contains("."+fileExtension.toLowerCase()+".")) {
-						logger.debug("File extension allowed.");
-					} else {
-						throw new SecurityException("["+fileExtension+"] File extension not allowed.");
-					}
-				}
 
 	    		UUID uuid = UUID.randomUUID();
 	    		//System.out.println(uuid.toString());
@@ -394,12 +359,11 @@ public class apcBbsController extends BaseController {
 	    		apcBbsFileVO.setAtchflExtnType(fileExtension);
 	    		apcBbsFileVO.setAtchflPath(folderPath);
 
-	    		int insertedCnt = 0;
 	    		//파일 생성
 	    		//file.transferTo(savePath);
 	    		 try {
 	                 file.transferTo(savePath);
-	                 insertedCnt = bbsService.insertAttach(apcBbsFileVO);
+	                 insertedCnt1 += bbsService.insertAttach(apcBbsFileVO);
 	             } catch (IOException e) {
 	                 e.printStackTrace();
 	             }
@@ -408,7 +372,7 @@ public class apcBbsController extends BaseController {
 
 			redirectAttributes.addFlashAttribute("message", "File successfully uploaded!");
 
-			resultMap.put(ComConstants.PROP_DELETED_CNT, 0);
+			resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt1);
 
 			return getSuccessResponseEntity(resultMap);
 	    }

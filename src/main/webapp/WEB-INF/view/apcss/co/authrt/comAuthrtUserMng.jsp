@@ -19,6 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<title>title : 권한별사용자관리</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -28,7 +29,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 권한별 사용자관리 -->
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 권한별 사용자관리 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_insert"></sbux-button>
@@ -170,14 +171,14 @@
     var jsonComAuthUser = [];
 
     const fn_init = async function() {
-    	
+
     	lv_prvAuthrtId = "";
     	fn_createGrdComAuth();
 		fn_createGrdComAuthUser();
 
 		fn_initSBSelect();
     }
-    
+
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_init();
@@ -229,8 +230,8 @@
         grdComAuth.bind('click', fn_view);
         grdComAuth.bind('beforepagechanged', fn_pagingGrdComAuth);
     }
-    
-    
+
+
     /**
      * @name fn_pagingGrdComAuth
      * @description 페이징
@@ -471,13 +472,13 @@
         }
 
         let rowData = grdComAuth.getRowData(nRow);
-        
+
         if (_.isEqual(lv_prvAuthrtId, rowData.authrtId)) {
         	return;
         }
-        
+
         lv_prvAuthrtId = rowData.authrtId;
-        
+
         SBUxMethod.attr('btnAddUser', 'disabled', false);
 
         SBUxMethod.set("dtl-inp-authrtId", rowData.authrtId);
@@ -535,7 +536,7 @@
 
     	const authrtId = SBUxMethod.get("dtl-inp-authrtId");
     	const postJsonPromise = gfn_postJSON(
-    					"/co/authrt/insertComAuthrtUserList.do", 
+    					"/co/authrt/insertComAuthrtUserList.do",
     					{
 					    		'authrtId': authrtId,
 					    		'comAuthrtUserList': users

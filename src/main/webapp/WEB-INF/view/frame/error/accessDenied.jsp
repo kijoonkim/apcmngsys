@@ -20,6 +20,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<title>권한없음</title>
    	<%@ include file="../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../frame/inc/headerScript.jsp" %>
 </head>
@@ -28,7 +29,8 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>
+					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3>
 				</div>
 			</div>
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
@@ -36,7 +38,7 @@
 					<p>
 						<span style="font-weight:bold;">해당 화면의 접근권한이 없습니다.</span>
 					</p>
-					<!-- 
+					<!--
 					<p>
 						<span style="color:black; font-weight:bold;">대형마트 발주서 접수관리는 발주정보를 자동으로 수집하기 위한 입력정보 입니다.</span>
 					</p>

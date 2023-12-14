@@ -18,6 +18,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<title>title : 선별실적등록</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -26,7 +27,8 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 선별실적등록 -->
+					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 선별실적등록 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-dark" onclick="fn_search" text="조회"></sbux-button>
@@ -631,7 +633,7 @@
             {caption: ["품종"], 		ref: 'vrtyCd',		type:'combo',  width:'100px', style: 'text-align:center',
             	typeinfo: {ref:'jsonApcVrty', label:'label', value:'value', displayui : false}
             },
-            {caption: ["규격"], 	 	ref: 'spcfctCd',    type:'combo',  width:'100px', style: 'text-align:center;background-color:#FFF8DC;',
+            {caption: ["규격"], 	 	ref: 'spcfctCd',    type:'combo',  width:'200px', style: 'text-align:center;background-color:#FFF8DC;',
             	userattr: {colNm: "spcfctCd"},
             	typeinfo: {ref:'jsonApcSpcfct', label:'spcfctNm', value:'spcfctCd', oneclickedit: true}
             },
@@ -645,7 +647,7 @@
 				caption: [item.grdKndNm],
 				ref: item.grdKnd,
 				type:'combo',
-				width:'80px',
+				width:'140px',
 				style: 'text-align:center;background-color:#FFF8DC;',
 				userattr: {colNm: "stdGrd"},
 				typeinfo: {ref: _jsonId, label:'grdNm', value:'grdCd', displayui : false, oneclickedit: true}

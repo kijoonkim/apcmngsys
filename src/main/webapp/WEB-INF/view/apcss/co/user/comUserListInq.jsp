@@ -19,6 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<title>title : 사용자목록조회</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -28,12 +29,12 @@
 						<div class="box-header" style="display:flex; justify-content: flex-start;" >
 							<div>
 								<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-								<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 사용자목록조회 -->
+								<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 사용자목록조회 -->
 							</div>
 							<div style="margin-left: auto;">
 								<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search()"></sbux-button>
 							</div>
-							
+
 						</div>
 
 						<div class="box-body">
@@ -89,7 +90,7 @@
 					</div>
 				</div>
 			</section>
-				
+
 <script type="text/javascript">
 var jsonUserType=[];		// 사용자상태
 const fn_initSBSelectSpcfct = async function() {
@@ -160,8 +161,8 @@ async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
 	let userId = SBUxMethod.get("srch-inp-userId");
 	let userNm = SBUxMethod.get("srch-inp-userNm");
 	let userType = SBUxMethod.get("srch-slt-userType");
-	
-	var comUserVO = { 
+
+	var comUserVO = {
 			  apcCd					: apcCd
 			, userId				: userId
 			, userNm				: userNm
@@ -171,10 +172,10 @@ async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
 			, recordCountPerPage 	: recordCountPerPage
 	}
 	let postJsonPromise = gfn_postJSON("/co/user/users", comUserVO);
-    let data = await postJsonPromise;                
+    let data = await postJsonPromise;
     newUserListInqGridData = [];
     userListInqGridData = [];
-    
+
     try{
     	data.resultList.forEach((item, index) => {
 			let userListInq = {
@@ -190,10 +191,10 @@ async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
 			  , lckYn		: item.lckYn
 			  , endLgnDt	: item.endLgnDt
 			}
-    	
+
 			userListInqGridData.push(Object.assign({}, userListInq));
 			newUserListInqGridData.push(Object.assign({}, userListInq));
-			
+
 			if (index === 0) {
 				totalRecordCount = item.totalRecordCount;
 			}

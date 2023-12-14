@@ -20,6 +20,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<title>title : 메뉴관리</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -29,7 +30,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 메뉴관리 -->
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 메뉴관리 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnCreate" name="btnCreate" uitype="normal"  text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>

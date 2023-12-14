@@ -201,7 +201,7 @@
 
 
  // 허용하려는 확장자들
-    const allowedExtensions = ['.gif' , '.jpg' , '.jpeg' , '.png' , '.xls' , '.xlsx' , 'zip'];
+    const allowedExtensionsBbsNewArticle = ['.gif' , '.jpg' , '.jpeg' , '.png' , '.xls' , '.xlsx' , 'zip'];
 
 	function bbsNewShowFiles(newfiles) {
 		console.log("=====bbsNewShowFiles");
@@ -217,7 +217,7 @@
 				var newfileName = newfiles[i].name;
 				var fileExtension = '.' + newfileName.split('.').pop();
 
-				if (allowedExtensions.indexOf(fileExtension.toLowerCase()) === -1) {
+				if (allowedExtensionsBbsNewArticle.indexOf(fileExtension.toLowerCase()) === -1) {
 			    	alert('올바른 확장자를 선택하세요.');
 			    	newfiles = null; // 파일 선택 취소
 			    	return false;

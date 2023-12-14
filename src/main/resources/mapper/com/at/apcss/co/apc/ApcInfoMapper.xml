@@ -35,7 +35,7 @@
 			    , AI.BRNO          	AS BRNO
 			    , AI.BANK_CD        AS BANK_CD
 			    , AI.DPSTR          AS DPSTR
-			    , AI.ACTNO          AS ACTNO
+			    , (SELECT FN_UTL_DECRYPT_ARIA(AI.ACTNO) FROM DUAL)		AS ACTNO
 			    , AI.ADDR           AS ADDR
 			    , AI.TELNO          AS TELNO
 			    , AI.FXNO           AS FXNO
@@ -69,7 +69,7 @@
 			    , AI.BRNO          	AS BRNO
 			    , AI.BANK_CD        AS BANK_CD
 			    , AI.DPSTR          AS DPSTR
-			    , AI.ACTNO          AS ACTNO
+			    , (SELECT FN_UTL_DECRYPT_ARIA(AI.ACTNO) FROM DUAL)	AS ACTNO
 			    , AI.ADDR           AS ADDR
 			    , AI.TELNO          AS TELNO
 			    , AI.FXNO           AS FXNO
@@ -127,7 +127,7 @@
 			    , AE.FXNO           AS FXNO
 			    , AE.BRNO          	AS BRNO
 			    , AE.BANK_CD        AS BANK_CD
-			    , AE.ACTNO          AS ACTNO
+			    , (SELECT FN_UTL_DECRYPT_ARIA(AE.ACTNO) FROM DUAL)		AS ACTNO
 			   	, AE.DPSTR          AS DPSTR
 			    , AE.CLCLN_CRTR_CD	AS CLCLN_CRTR_CD
 
@@ -176,7 +176,7 @@
 				, AI.BRNO          	   AS BRNO
 				, AI.BANK_CD           AS BANK_CD
 				, AI.DPSTR             AS DPSTR
-				, AI.ACTNO             AS ACTNO
+				, (SELECT FN_UTL_DECRYPT_ARIA(AI.ACTNO) FROM DUAL)	AS ACTNO
 				, AI.ADDR              AS ADDR
 				, AI.TELNO             AS TELNO
 				, AI.FXNO              AS FXNO
@@ -211,23 +211,23 @@
 	<!-- ==========================================================================	-->
 	<update id="updateApcDsctn" parameterType="com.at.apcss.co.apc.vo.ApcInfoVO">
 		<![CDATA[
-		UPDATE TB_APC_INFO
-		   SET SYS_LAST_CHG_DT 			= SYSDATE
-    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
-    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
-		     , REG_APC_NM				= #{regApcNm}
-		     , CTPV_NM					= #{ctpvNm}
-		     , SIGUN_NM					= #{sigunNm}
-		     , MB_CD					= #{mbCd}
-		     , REG_ADDR					= #{regAddr}
-		     , REG_TELNO				= #{regTelno}
-		     , APC_NM					= #{apcNm}
-	      	 , BRNO						= #{brno}
-		     , ADDR						= #{addr}
-		     , TELNO					= #{fxno}
-		     , FXNO						= #{telno}
-		     , DEL_YN					= #{delYn}
-		 WHERE APC_CD 		= #{apcCd}
+			UPDATE TB_APC_INFO
+			   SET SYS_LAST_CHG_DT 			= SYSDATE
+	    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+			     , REG_APC_NM				= #{regApcNm}
+			     , CTPV_NM					= #{ctpvNm}
+			     , SIGUN_NM					= #{sigunNm}
+			     , MB_CD					= #{mbCd}
+			     , REG_ADDR					= #{regAddr}
+			     , REG_TELNO				= #{regTelno}
+			     , APC_NM					= #{apcNm}
+		      	 , BRNO						= #{brno}
+			     , ADDR						= #{addr}
+			     , TELNO					= #{fxno}
+			     , FXNO						= #{telno}
+			     , DEL_YN					= #{delYn}
+			 WHERE APC_CD 		= #{apcCd}
 		]]>
 	</update>
 
@@ -241,50 +241,50 @@
 	<!-- ==========================================================================	-->
     <insert id="insertApcDsctn" parameterType="com.at.apcss.co.apc.vo.ApcInfoVO">
     	<![CDATA[
-    	INSERT INTO TB_APC_INFO
-    		(
-    			APC_CD
-		      , REG_APC_NM
-		      , CTPV_NM
-		      , SIGUN_NM
-		      , MB_CD
-		      , REG_ADDR
-		      , REG_TELNO
-		      , APC_NM
-		      , BRNO
-		      , ADDR
-		      , TELNO
-		      , FXNO
-		      , DEL_YN
-    		  , SYS_FRST_INPT_DT
-    		  , SYS_FRST_INPT_USER_ID
-    		  , SYS_FRST_INPT_PRGRM_ID
-    		  , SYS_LAST_CHG_DT
-    		  , SYS_LAST_CHG_USER_ID
-    		  , SYS_LAST_CHG_PRGRM_ID
-    		)
-   		VALUES
-   			(
-   				FN_GET_ID_APC_CD
-    		  , #{regApcNm}
-    		  , #{ctpvNm}
-    		  , #{sigunNm}
-    		  , #{mbCd}
-			  , #{regAddr}
-    		  , #{regTelno}
-    		  , #{apcNm}
-    		  , #{brno}
-    		  , #{addr}
-    		  , #{fxno}
-    		  , #{telno}
-    		  , #{delYn}
-    		  , SYSDATE
-    		  , #{sysFrstInptUserId}
-    		  , #{sysFrstInptPrgrmId}
-    		  , SYSDATE
-    		  , #{sysLastChgUserId}
-    		  , #{sysLastChgPrgrmId}
-   			)
+	    	INSERT INTO TB_APC_INFO
+	    		(
+	    			APC_CD
+			      , REG_APC_NM
+			      , CTPV_NM
+			      , SIGUN_NM
+			      , MB_CD
+			      , REG_ADDR
+			      , REG_TELNO
+			      , APC_NM
+			      , BRNO
+			      , ADDR
+			      , TELNO
+			      , FXNO
+			      , DEL_YN
+	    		  , SYS_FRST_INPT_DT
+	    		  , SYS_FRST_INPT_USER_ID
+	    		  , SYS_FRST_INPT_PRGRM_ID
+	    		  , SYS_LAST_CHG_DT
+	    		  , SYS_LAST_CHG_USER_ID
+	    		  , SYS_LAST_CHG_PRGRM_ID
+	    		)
+	   		VALUES
+	   			(
+	   				FN_GET_ID_APC_CD
+	    		  , #{regApcNm}
+	    		  , #{ctpvNm}
+	    		  , #{sigunNm}
+	    		  , #{mbCd}
+				  , #{regAddr}
+	    		  , #{regTelno}
+	    		  , #{apcNm}
+	    		  , #{brno}
+	    		  , #{addr}
+	    		  , #{fxno}
+	    		  , #{telno}
+	    		  , #{delYn}
+	    		  , SYSDATE
+	    		  , #{sysFrstInptUserId}
+	    		  , #{sysFrstInptPrgrmId}
+	    		  , SYSDATE
+	    		  , #{sysLastChgUserId}
+	    		  , #{sysLastChgPrgrmId}
+	   			)
     	]]>
     </insert>
 </mapper>

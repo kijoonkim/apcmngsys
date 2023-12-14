@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<title>title : 원물</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -12,7 +13,8 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>
+					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3>
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnDocRawMtrWgh" name="btnDocRawMtrWgh" uitype="normal" text="계량확인서" class="btn btn-sm btn-primary"></sbux-button>
@@ -537,7 +539,7 @@
   						itemCd: item.itemCd,
   						itemNm: item.itemNm,
   						vrtyCd: item.vrtyCd,
-  						vrtyNm: item.vrtyNm,	
+  						vrtyNm: item.vrtyNm,
   						wholWght: item.wholWght,
   						emptVhclWght: item.emptVhclWght,
   						rdcdRt: item.rdcdRt,

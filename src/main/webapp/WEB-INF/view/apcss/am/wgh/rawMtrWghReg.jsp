@@ -19,6 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<title>title : 원물계량등록</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
@@ -29,50 +30,50 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 원물계량등록 -->
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 원물계량등록 -->
                     <sbux-label id="lbl-wghno" name="lbl-wghno" uitype="normal" text="">
                     </sbux-label>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button 
-						id="btnDocRawMtrWgh" 
-						name="btnDocRawMtrWgh" 
-						uitype="normal" 
-						class="btn btn-sm btn-primary" 
-						onclick="fn_docRawMtrWgh" 
-						text="계량확인서" 
+					<sbux-button
+						id="btnDocRawMtrWgh"
+						name="btnDocRawMtrWgh"
+						uitype="normal"
+						class="btn btn-sm btn-primary"
+						onclick="fn_docRawMtrWgh"
+						text="계량확인서"
 					></sbux-button>
-					<sbux-button 
-						id="btnReset" 
-						name="btnReset" 
-						uitype="normal" 
-						class="btn btn-sm btn-outline-danger" 
-						onclick="fn_reset" 
-						text="초기화" 
+					<sbux-button
+						id="btnReset"
+						name="btnReset"
+						uitype="normal"
+						class="btn btn-sm btn-outline-danger"
+						onclick="fn_reset"
+						text="초기화"
 					></sbux-button>
-					<sbux-button 
-						id="btnSave" 
-						name="btnSave" 
-						uitype="normal" 
-						class="btn btn-sm btn-outline-danger" 
-						onclick="fn_save" 
-						text="저장" 
+					<sbux-button
+						id="btnSave"
+						name="btnSave"
+						uitype="normal"
+						class="btn btn-sm btn-outline-danger"
+						onclick="fn_save"
+						text="저장"
 					></sbux-button>
-					<sbux-button 
-						id="btnDelete" 
-						name="btnDelete" 
-						uitype="normal" 
-						class="btn btn-sm btn-outline-danger" 
-						onclick="fn_delete" 
-						text="삭제" 
+					<sbux-button
+						id="btnDelete"
+						name="btnDelete"
+						uitype="normal"
+						class="btn btn-sm btn-outline-danger"
+						onclick="fn_delete"
+						text="삭제"
 					></sbux-button>
-					<sbux-button 
-						id="btnSearch" 
-						name="btnSearch" 
-						uitype="normal" 
-						class="btn btn-sm btn-outline-danger" 
-						onclick="fn_search" 
-						text="조회" 
+					<sbux-button
+						id="btnSearch"
+						name="btnSearch"
+						uitype="normal"
+						class="btn btn-sm btn-outline-danger"
+						onclick="fn_search"
+						text="조회"
 					></sbux-button>
 				</div>
 			</div>
@@ -679,7 +680,7 @@
      * @description 계량확인서 발행 버튼
      */
 	const fn_docRawMtrWgh = function() {
-		
+
 		const wghnoList = [];
 		const allData = grdWghPrfmnc.getGridDataAll();
 		allData.forEach((item) => {
@@ -692,10 +693,10 @@
  			gfn_comAlert("W0001", "발행대상");		//	W0001	{0}을/를 선택하세요.
 			return;
  		}
-		
-		/*		
+
+		/*
 		let wghno = SBUxMethod.get("dtl-inp-wghno");
-		
+
 		if (gfn_isEmpty(wghno)) {
 			gfn_comAlert("W0001", "발행대상");		//	W0001	{0}을/를 선택하세요.
             return;
