@@ -433,34 +433,39 @@
 
         const data = await postJsonPromise;
         try {
+  			if (_.isEqual("S", data.resultStatus)) {
 
-        	/** @type {number} **/
-    		let totalRecordCount = 0;
+  	        	/** @type {number} **/
+  	    		let totalRecordCount = 0;
 
-        	jsonMenuTreeList.length = 0;
-        	data.resultList.forEach((item, index) => {
-				const menu = {
-					level: item.menuLvl,
-					upMenuId: item.upMenuId,
-					upMenuNm: item.upMenuNm,
-					apcCd : item.apcCd,
-					order: item.indctSeq,
-					menuId : item.menuId,
-					menuNm : item.menuNm,
-					menuType : item.menuType,
-					userType : item.userType,
-					pageUrl : item.pageUrl,
-					delYn : item.delYn,
-					prsnaInfoYn : item.prsnaInfoYn,
-					authrtType : item.authrtType
-				}
-				jsonMenuTreeList.push(menu);
+  	        	jsonMenuTreeList.length = 0;
+  	        	data.resultList.forEach((item, index) => {
+  					const menu = {
+  						level: item.menuLvl,
+  						upMenuId: item.upMenuId,
+  						upMenuNm: item.upMenuNm,
+  						apcCd : item.apcCd,
+  						order: item.indctSeq,
+  						menuId : item.menuId,
+  						menuNm : item.menuNm,
+  						menuType : item.menuType,
+  						userType : item.userType,
+  						pageUrl : item.pageUrl,
+  						delYn : item.delYn,
+  						prsnaInfoYn : item.prsnaInfoYn,
+  						authrtType : item.authrtType
+  					}
+  					jsonMenuTreeList.push(menu);
 
-				totalRecordCount = jsonMenuTreeList.length;
-			});
+  					totalRecordCount = jsonMenuTreeList.length;
+  				});
 
-        	grdMenuTreeList.rebuild();
-        	//document.querySelector('#listCount').innerText = totalRecordCount;
+  	        	grdMenuTreeList.rebuild();
+  	        	//document.querySelector('#listCount').innerText = totalRecordCount;
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 
         } catch (e) {
     		if (!(e instanceof Error)) {

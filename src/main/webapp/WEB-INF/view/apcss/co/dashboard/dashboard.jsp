@@ -82,19 +82,24 @@
 		let data = await postJsonPromise;
 
         try{
-        	jsonDashboard.length = 0;
-        	data.result[0].dayPrcsSttn.forEach((item, index) => {
-				let dashboard = {
-				    itemNm 		: item.itemNm
-				  , wgt1 		: item.wgt1
-				  , wgt2 		: item.wgt2
-				  , wgt3 		: item.wgt3
-				  , wgt4 		: item.wgt4
-				  , wgt5		: item.wgt5
-				}
-				jsonDashboard.push(dashboard);
-			});
-        	grdDashboard.rebuild();
+  			if (_.isEqual("S", data.resultStatus)) {
+  	        	jsonDashboard.length = 0;
+  	        	data.result[0].dayPrcsSttn.forEach((item, index) => {
+  					let dashboard = {
+  					    itemNm 		: item.itemNm
+  					  , wgt1 		: item.wgt1
+  					  , wgt2 		: item.wgt2
+  					  , wgt3 		: item.wgt3
+  					  , wgt4 		: item.wgt4
+  					  , wgt5		: item.wgt5
+  					}
+  					jsonDashboard.push(dashboard);
+  				});
+  	        	grdDashboard.rebuild();
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);

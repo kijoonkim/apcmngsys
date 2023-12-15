@@ -177,41 +177,46 @@ async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
     userListInqGridData = [];
 
     try{
-    	data.resultList.forEach((item, index) => {
-			let userListInq = {
-				userId		: item.userId
-			  , userNm		: item.userNm
-			  , apcNm		: item.apcNm
-			  , userTypeNm	: item.userTypeNm
-			  , eml			: item.eml
-			  , telno		: item.telno
-			  , jbttlNm		: item.jbttlNm
-			  , tkcgTaskNm	: item.tkcgTaskNm
-			  , reverseYn	: item.reverseYn
-			  , lckYn		: item.lckYn
-			  , endLgnDt	: item.endLgnDt
-			}
+  			if (_.isEqual("S", data.resultStatus)) {
+  		    	data.resultList.forEach((item, index) => {
+  					let userListInq = {
+  						userId		: item.userId
+  					  , userNm		: item.userNm
+  					  , apcNm		: item.apcNm
+  					  , userTypeNm	: item.userTypeNm
+  					  , eml			: item.eml
+  					  , telno		: item.telno
+  					  , jbttlNm		: item.jbttlNm
+  					  , tkcgTaskNm	: item.tkcgTaskNm
+  					  , reverseYn	: item.reverseYn
+  					  , lckYn		: item.lckYn
+  					  , endLgnDt	: item.endLgnDt
+  					}
 
-			userListInqGridData.push(Object.assign({}, userListInq));
-			newUserListInqGridData.push(Object.assign({}, userListInq));
+  					userListInqGridData.push(Object.assign({}, userListInq));
+  					newUserListInqGridData.push(Object.assign({}, userListInq));
 
-			if (index === 0) {
-				totalRecordCount = item.totalRecordCount;
-			}
-		});
-    	if (userListInqGridData.length > 0) {
-      		if(userListInqGridId.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-      			userListInqGridId.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-      			userListInqGridId.rebuild();
-				}else{
-					userListInqGridId.refresh();
-				}
+  					if (index === 0) {
+  						totalRecordCount = item.totalRecordCount;
+  					}
+  				});
+  		    	if (userListInqGridData.length > 0) {
+  		      		if(userListInqGridId.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+  		      			userListInqGridId.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+  		      			userListInqGridId.rebuild();
+  						}else{
+  							userListInqGridId.refresh();
+  						}
 
-      		userListInqGridId.setRow(2);
-      	} else {
-      		userListInqGridId.setPageTotalCount(totalRecordCount);
-      		userListInqGridId.rebuild();
-      	}
+  		      		userListInqGridId.setRow(2);
+  		      	} else {
+  		      		userListInqGridId.setPageTotalCount(totalRecordCount);
+  		      		userListInqGridId.rebuild();
+  		      	}
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
     } catch (e) {
 		if (!(e instanceof Error)) {
 			e = new Error(e);

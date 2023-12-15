@@ -168,40 +168,45 @@
 		        const data = await postJsonPromise;
 
 				try {
-		    		let totalRecordCount = 0;
+		  			if (_.isEqual("S", data.resultStatus)) {
+			    		let totalRecordCount = 0;
 
-		    		jsonLogTrsmHstry.length = 0;
-		        	data.resultList.forEach((item, index) => {
-						const log = {
-							prcsDt			: item.prcsDt,
-							prgrmId			: item.prgrmId,
-							prgrmNm			: item.prgrmNm,
-							sendRcptnSeCd	: item.sendRcptnSeCd,
-							prcsRslt		: null,
-							logYmd 			: item.logYmd
-						}
-						if(log.prcsDt != null && log.prcsDt != ""){
-							log.prcsRslt = '처리';
-						} else {
-							log.prcsRslt = '미처리';
-						}
-						jsonLogTrsmHstry.push(log);
+			    		jsonLogTrsmHstry.length = 0;
+			        	data.resultList.forEach((item, index) => {
+							const log = {
+								prcsDt			: item.prcsDt,
+								prgrmId			: item.prgrmId,
+								prgrmNm			: item.prgrmNm,
+								sendRcptnSeCd	: item.sendRcptnSeCd,
+								prcsRslt		: null,
+								logYmd 			: item.logYmd
+							}
+							if(log.prcsDt != null && log.prcsDt != ""){
+								log.prcsRslt = '처리';
+							} else {
+								log.prcsRslt = '미처리';
+							}
+							jsonLogTrsmHstry.push(log);
 
-						if (index === 0) {
-							totalRecordCount = item.totalRecordCount;
-						}
-					});
+							if (index === 0) {
+								totalRecordCount = item.totalRecordCount;
+							}
+						});
 
-		        	if (jsonLogTrsmHstry.length > 0) {
-		        		if(grdLogTrsmHstry.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-		        			grdLogTrsmHstry.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-		        			grdLogTrsmHstry.rebuild();
-						}else{
-							grdLogTrsmHstry.refresh();
-						}
+			        	if (jsonLogTrsmHstry.length > 0) {
+			        		if(grdLogTrsmHstry.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+			        			grdLogTrsmHstry.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+			        			grdLogTrsmHstry.rebuild();
+							}else{
+								grdLogTrsmHstry.refresh();
+							}
+			        	} else {
+			        		grdLogTrsmHstry.setPageTotalCount(totalRecordCount);
+			        		grdLogTrsmHstry.rebuild();
+			        	}
+
 		        	} else {
-		        		grdLogTrsmHstry.setPageTotalCount(totalRecordCount);
-		        		grdLogTrsmHstry.rebuild();
+		        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		        	}
 		        } catch (e) {
 		    		if (!(e instanceof Error)) {

@@ -597,43 +597,48 @@
         const data = await postJsonPromise;
 
 		try {
+  			if (_.isEqual("S", data.resultStatus)) {
 
-        	/** @type {number} **/
-    		let totalRecordCount = 0;
+  	        	/** @type {number} **/
+  	    		let totalRecordCount = 0;
 
-        	jsonComAuth.length = 0;
-        	data.resultList.forEach((item, index) => {
-				const authrt = {
-					authrtId: item.authrtId,
-					authrtNm: item.authrtNm,
-					authrtType: item.authrtType,
-					authrtTypeNm: item.authrtTypeNm,
-					authrtRmrk: item.authrtRmrk,
-					apcCd: item.apcCd,
-					apcNm: item.apcNm,
-					sysId: item.sysId
-				}
-				jsonComAuth.push(authrt);
+  	        	jsonComAuth.length = 0;
+  	        	data.resultList.forEach((item, index) => {
+  					const authrt = {
+  						authrtId: item.authrtId,
+  						authrtNm: item.authrtNm,
+  						authrtType: item.authrtType,
+  						authrtTypeNm: item.authrtTypeNm,
+  						authrtRmrk: item.authrtRmrk,
+  						apcCd: item.apcCd,
+  						apcNm: item.apcNm,
+  						sysId: item.sysId
+  					}
+  					jsonComAuth.push(authrt);
 
-				if (index === 0) {
-					totalRecordCount = item.totalRecordCount;
-				}
-			});
+  					if (index === 0) {
+  						totalRecordCount = item.totalRecordCount;
+  					}
+  				});
 
-        	if (jsonComAuth.length > 0) {
+  	        	if (jsonComAuth.length > 0) {
 
-        		if(grdComAuth.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-        			grdComAuth.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-        			grdComAuth.rebuild();
-				}else{
-					grdComAuth.refresh();
-				}
+  	        		if(grdComAuth.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+  	        			grdComAuth.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+  	        			grdComAuth.rebuild();
+  					}else{
+  						grdComAuth.refresh();
+  					}
+  	        	} else {
+  	        		grdComAuth.setPageTotalCount(totalRecordCount);
+  	        		grdComAuth.rebuild();
+  	        	}
+
+  	        	document.querySelector('#cnt-authrt').innerText = totalRecordCount;
+
         	} else {
-        		grdComAuth.setPageTotalCount(totalRecordCount);
-        		grdComAuth.rebuild();
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
-
-        	document.querySelector('#cnt-authrt').innerText = totalRecordCount;
 
         } catch (e) {
     		if (!(e instanceof Error)) {
@@ -682,41 +687,46 @@
 		const data = await postJsonPromise;
 
  		try {
+  			if (_.isEqual("S", data.resultStatus)) {
 
-         	/** @type {number} **/
-     		let totalRecordCount = 0;
+  	         	/** @type {number} **/
+  	     		let totalRecordCount = 0;
 
-         	jsonComAuthMenu.length = 0;
-         	data.resultList.forEach((item, index) => {
- 				const menu = {
- 					//level: item.menuLvl,
-					menuLvl: item.menuLvl,
-					menuSeq: item.menuSeq,
-					sysId: item.sysId,
-					upMenuId: item.upMenuId,
-					upMenuNm: item.upMenuNm,
-					menuId: item.menuId,
-					menuNm: item.menuNm,
-					menuType: item.menuType,
-					userType: item.userType,
-					pageUrl: item.pageUrl,
-					apcCd: item.apcCd,
-					indctSeq: item.indctSeq,
-					authrtId: item.authrtId,
-					authrtNm: item.authrtNm,
-					authrtType: item.authrtType,
-					useYn: item.useYn,
-					entyList: item.entyList
- 				}
- 				jsonComAuthMenu.push(menu);
+  	         	jsonComAuthMenu.length = 0;
+  	         	data.resultList.forEach((item, index) => {
+  	 				const menu = {
+  	 					//level: item.menuLvl,
+  						menuLvl: item.menuLvl,
+  						menuSeq: item.menuSeq,
+  						sysId: item.sysId,
+  						upMenuId: item.upMenuId,
+  						upMenuNm: item.upMenuNm,
+  						menuId: item.menuId,
+  						menuNm: item.menuNm,
+  						menuType: item.menuType,
+  						userType: item.userType,
+  						pageUrl: item.pageUrl,
+  						apcCd: item.apcCd,
+  						indctSeq: item.indctSeq,
+  						authrtId: item.authrtId,
+  						authrtNm: item.authrtNm,
+  						authrtType: item.authrtType,
+  						useYn: item.useYn,
+  						entyList: item.entyList
+  	 				}
+  	 				jsonComAuthMenu.push(menu);
 
- 				if (index === 0) {
- 					totalRecordCount = item.totalRecordCount;
- 				}
- 			});
+  	 				if (index === 0) {
+  	 					totalRecordCount = item.totalRecordCount;
+  	 				}
+  	 			});
 
-     		grdComAuthMenu.setPageTotalCount(totalRecordCount);
-     		grdComAuthMenu.rebuild();
+  	     		grdComAuthMenu.setPageTotalCount(totalRecordCount);
+  	     		grdComAuthMenu.rebuild();
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 
          } catch (e) {
     		if (!(e instanceof Error)) {
@@ -746,28 +756,33 @@
  		const data = await postJsonPromise;
 
   		try {
+  			if (_.isEqual("S", data.resultStatus)) {
 
-          	/** @type {number} **/
-      		let totalRecordCount = 0;
+  	          	/** @type {number} **/
+  	      		let totalRecordCount = 0;
 
-      		jsonComAuthrtUi.length = 0;
-          	data.resultList.forEach((item, index) => {
-  				const authrtUi = {
-					authrtId: item.authrtId,
-					apcCd: item.apcCd,
-					menuId: item.menuId,
-					menuNm: item.menuNm,
-					entyId: item.entyId,
-					entyNm: item.entyNm,
-					entyType: item.entyType,
-					entyTypeNm: item.entyTypeNm,
-					useYn: item.useYn,
-					aplcnType: item.aplcnType,
-					aplcnTypeNm: item.aplcnTypeNm,
-					indctYn: item.indctYn,
-  				}
-  				jsonComAuthrtUi.push(authrtUi);
-  			});
+  	      		jsonComAuthrtUi.length = 0;
+  	          	data.resultList.forEach((item, index) => {
+  	  				const authrtUi = {
+  						authrtId: item.authrtId,
+  						apcCd: item.apcCd,
+  						menuId: item.menuId,
+  						menuNm: item.menuNm,
+  						entyId: item.entyId,
+  						entyNm: item.entyNm,
+  						entyType: item.entyType,
+  						entyTypeNm: item.entyTypeNm,
+  						useYn: item.useYn,
+  						aplcnType: item.aplcnType,
+  						aplcnTypeNm: item.aplcnTypeNm,
+  						indctYn: item.indctYn,
+  	  				}
+  	  				jsonComAuthrtUi.push(authrtUi);
+  	  			});
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 
 		} catch (e) {
     		if (!(e instanceof Error)) {
