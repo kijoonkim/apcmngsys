@@ -406,6 +406,11 @@
         let data = await postJsonPromise;
         newJsonGdsWrhs = [];
         try{
+        	if (!_.isEqual("S", data.resultStatus)) {
+	        	gfn_comAlert(data.resultCode, data.resultMessage);
+	        	return;
+	        }
+        	
         	data.resultList.forEach((item, index) => {
 				let gdsWrhs = {
 					pckgno 			: item.pckgno

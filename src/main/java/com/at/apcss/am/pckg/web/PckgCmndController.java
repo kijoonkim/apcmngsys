@@ -62,6 +62,11 @@ public class PckgCmndController extends BaseController {
 			resultList = pckgCmndService.selectPckgCmndList(pckgCmndVO);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -79,6 +84,11 @@ public class PckgCmndController extends BaseController {
 			resultList = pckgCmndService.selectRegPckgCmndList(pckgCmndVO);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -151,6 +161,11 @@ public class PckgCmndController extends BaseController {
 			resultList = sortInvntrService.selectPckgCmndTrgetList(sortInvntrVO);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 

@@ -750,9 +750,12 @@
   		  	recordCountPerPage : 0
  		});
 
-       const data = await postJsonPromise;
-
+        const data = await postJsonPromise;
  		try {
+ 			if (!_.isEqual("S", data.resultStatus)) {
+	        	gfn_comAlert(data.resultCode, data.resultMessage);
+	        	return;
+	        }
 
          	/** @type {number} **/
      		let totalRecordCount = 0;

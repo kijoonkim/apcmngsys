@@ -343,6 +343,12 @@
     	let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtCmndList.do", spmtCmndVO);
         let data = await postJsonPromise;
         try{
+        	
+        	if (!_.isEqual("S", data.resultStatus)) {
+	        	gfn_comAlert(data.resultCode, data.resultMessage);
+	        	return;
+	        }
+        	
         	jsonSmptCmnd.length = 0;
         	data.resultList.forEach((item, index) => {
 				let spmtCmnd = {

@@ -54,6 +54,11 @@ public class WghPrfmncController extends BaseController {
 			resultVO = wghPrfmncService.selectWghPrfmnc(wghPrfmncVO);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_MAP, resultVO);
@@ -78,6 +83,11 @@ public class WghPrfmncController extends BaseController {
 			resultList = wghPrfmncService.selectWghPrfmncList(wghPrfmncVO);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);

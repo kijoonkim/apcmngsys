@@ -357,6 +357,7 @@
   		});
         const data = await postJsonPromise;
   		try {
+  			
   			if (_.isEqual("S", data.resultStatus)) {
   	          	/** @type {number} **/
   	      		let totalRecordCount = 0;
