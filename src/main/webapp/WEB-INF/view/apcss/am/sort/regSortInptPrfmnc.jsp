@@ -770,62 +770,67 @@
         const data = await postJsonPromise;
 
   		try {
+  			if (_.isEqual("S", data.resultStatus)) {
 
-          	/** @type {number} **/
-      		let totalRecordCount = 0;
+  	          	/** @type {number} **/
+  	      		let totalRecordCount = 0;
 
-      		jsonRawMtrInvntr.length = 0;
-          	data.resultList.forEach((item, index) => {
-          		const rawMtrInvntr = {
-  						rowSeq: item.rowSeq,
-  						apcCd: item.apcCd,
-  						wrhsno: item.wrhsno,
-  						pltno: item.pltno,
-  						wrhsYmd: item.wrhsYmd,
-  						prdcrCd: item.prdcrCd,
-  						itemCd: item.itemCd,
-  						vrtyCd: item.vrtyCd,
-  						gdsSeCd: item.gdsSeCd,
-  						wrhsSeCd: item.wrhsSeCd,
-  						trsprtSeCd: item.trsprtSeCd,
-  						warehouseSeCd: item.warehouseSeCd,
-  						fcltCd: item.fcltCd,
-  						fcltNm: item.fcltNm,
-  						bxKnd: item.bxKnd,
-  						grdCd: item.grdCd,
-  						wrhsQntt: item.wrhsQntt,
-  						wrhsWght: item.wrhsWght,
-  						inptQntt: 0, //item.inptQntt,
-  						inptWght: 0, //item.inptWght,
-  						invntrQntt: item.invntrQntt,
-  						invntrWght: item.invntrWght,
-  						apcNm: item.apcNm,
-  						prdcrNm: item.prdcrNm,
-  						itemNm: item.itemNm,
-  						vrtyNm: item.vrtyNm,
-  						grdNm: item.grdNm,
-  						warehouseSeNm: item.warehouseSeNm,
-  						gdsSeNm: item.gdsSeNm,
-  						wrhsSeNm: item.wrhsSeNm,
-  						trsprtSeNm: item.trsprtSeNm,
-  						bxKndNm: item.bxKndNm,
-  						grdNm: item.grdNm,
-  						sortCmndno: item.sortCmndno,
-  						cmndQntt: item.cmndQntt,
-  						cmndWght: item.cmndWght
-  				}
-          		jsonRawMtrInvntr.push(rawMtrInvntr);
-				/*
-  				if (index === 0) {
-  					totalRecordCount = item.totalRecordCount;
-  				}
-				 */
-  			});
+  	      		jsonRawMtrInvntr.length = 0;
+  	          	data.resultList.forEach((item, index) => {
+  	          		const rawMtrInvntr = {
+  	  						rowSeq: item.rowSeq,
+  	  						apcCd: item.apcCd,
+  	  						wrhsno: item.wrhsno,
+  	  						pltno: item.pltno,
+  	  						wrhsYmd: item.wrhsYmd,
+  	  						prdcrCd: item.prdcrCd,
+  	  						itemCd: item.itemCd,
+  	  						vrtyCd: item.vrtyCd,
+  	  						gdsSeCd: item.gdsSeCd,
+  	  						wrhsSeCd: item.wrhsSeCd,
+  	  						trsprtSeCd: item.trsprtSeCd,
+  	  						warehouseSeCd: item.warehouseSeCd,
+  	  						fcltCd: item.fcltCd,
+  	  						fcltNm: item.fcltNm,
+  	  						bxKnd: item.bxKnd,
+  	  						grdCd: item.grdCd,
+  	  						wrhsQntt: item.wrhsQntt,
+  	  						wrhsWght: item.wrhsWght,
+  	  						inptQntt: 0, //item.inptQntt,
+  	  						inptWght: 0, //item.inptWght,
+  	  						invntrQntt: item.invntrQntt,
+  	  						invntrWght: item.invntrWght,
+  	  						apcNm: item.apcNm,
+  	  						prdcrNm: item.prdcrNm,
+  	  						itemNm: item.itemNm,
+  	  						vrtyNm: item.vrtyNm,
+  	  						grdNm: item.grdNm,
+  	  						warehouseSeNm: item.warehouseSeNm,
+  	  						gdsSeNm: item.gdsSeNm,
+  	  						wrhsSeNm: item.wrhsSeNm,
+  	  						trsprtSeNm: item.trsprtSeNm,
+  	  						bxKndNm: item.bxKndNm,
+  	  						grdNm: item.grdNm,
+  	  						sortCmndno: item.sortCmndno,
+  	  						cmndQntt: item.cmndQntt,
+  	  						cmndWght: item.cmndWght
+  	  				}
+  	          		jsonRawMtrInvntr.push(rawMtrInvntr);
+  					/*
+  	  				if (index === 0) {
+  	  					totalRecordCount = item.totalRecordCount;
+  	  				}
+  					 */
+  	  			});
 
-          	grdRawMtrInvntr.refresh();
+  	          	grdRawMtrInvntr.refresh();
 
-          	totalRecordCount = jsonRawMtrInvntr.length;
-          	document.querySelector('#cnt-rawMtrInvtr').innerText = totalRecordCount;
+  	          	totalRecordCount = jsonRawMtrInvntr.length;
+  	          	document.querySelector('#cnt-rawMtrInvtr').innerText = totalRecordCount;
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 	    } catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);

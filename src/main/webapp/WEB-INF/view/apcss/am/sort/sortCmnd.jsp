@@ -358,65 +358,65 @@
         const data = await postJsonPromise;
   		try {
   			
-  			if (!_.isEqual("S", data.resultStatus)) {
-	        	gfn_comAlert(data.resultCode, data.resultMessage);
-	        	return;
-	        }
-  			
-          	/** @type {number} **/
-      		let totalRecordCount = 0;
+  			if (_.isEqual("S", data.resultStatus)) {
+  	          	/** @type {number} **/
+  	      		let totalRecordCount = 0;
 
-      		jsonSortCmnd.length = 0;
-          	data.resultList.forEach((item, index) => {
-          		const sortCmnd = {
-  						rowSeq: item.rowSeq,
-  						apcCd: item.apcCd,
-  						sortCmndno: item.sortCmndno,
-  						sortCmndSn: item.sortCmndSn,
-  						sortCmndYmd : item.sortCmndYmd,
-  						fcltCd : item.fcltCd,
-  						fcltNm : item.fcltNm,
-  						pltno: item.pltno,
-  						prdcrCd: item.prdcrCd,
-  						itemCd: item.itemCd,
-  						vrtyCd: item.vrtyCd,
-  						warehouseSeCd: item.warehouseSeCd,
-  						apcNm: item.apcNm,
-  						prdcrNm: item.prdcrNm,
-  						itemNm: item.itemNm,
-  						vrtyNm: item.vrtyNm,
-  						grdNm: item.grdNm,
-  						warehouseSeNm: item.warehouseSeNm,
-  						gdsSeNm: item.gdsSeNm,
-  						wrhsSeNm: item.wrhsSeNm,
-  						trsprtSeNm: item.trsprtSeNm,
-  						bxKndNm: item.bxKndNm,
-  						grdNm: item.grdNm,
-  						cmndQntt: item.cmndQntt,
-  						cmndWght: item.cmndWght,
-  						inptQntt: item.inptQntt,
-  						inptWght: item.inptWght,
-  						rmrk : item.rmrk
-  				}
-          		jsonSortCmnd.push(sortCmnd);
+  	      		jsonSortCmnd.length = 0;
+  	          	data.resultList.forEach((item, index) => {
+  	          		const sortCmnd = {
+  	  						rowSeq: item.rowSeq,
+  	  						apcCd: item.apcCd,
+  	  						sortCmndno: item.sortCmndno,
+  	  						sortCmndSn: item.sortCmndSn,
+  	  						sortCmndYmd : item.sortCmndYmd,
+  	  						fcltCd : item.fcltCd,
+  	  						fcltNm : item.fcltNm,
+  	  						pltno: item.pltno,
+  	  						prdcrCd: item.prdcrCd,
+  	  						itemCd: item.itemCd,
+  	  						vrtyCd: item.vrtyCd,
+  	  						warehouseSeCd: item.warehouseSeCd,
+  	  						apcNm: item.apcNm,
+  	  						prdcrNm: item.prdcrNm,
+  	  						itemNm: item.itemNm,
+  	  						vrtyNm: item.vrtyNm,
+  	  						grdNm: item.grdNm,
+  	  						warehouseSeNm: item.warehouseSeNm,
+  	  						gdsSeNm: item.gdsSeNm,
+  	  						wrhsSeNm: item.wrhsSeNm,
+  	  						trsprtSeNm: item.trsprtSeNm,
+  	  						bxKndNm: item.bxKndNm,
+  	  						grdNm: item.grdNm,
+  	  						cmndQntt: item.cmndQntt,
+  	  						cmndWght: item.cmndWght,
+  	  						inptQntt: item.inptQntt,
+  	  						inptWght: item.inptWght,
+  	  						rmrk : item.rmrk
+  	  				}
+  	          		jsonSortCmnd.push(sortCmnd);
 
-  				if (index === 0) {
-  					totalRecordCount = item.totalRecordCount;
-  				}
-  			});
-          	grdSortCmnd.refresh();
-          	if (jsonSortCmnd.length > 0) {
-          		if(grdSortCmnd.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-          			grdSortCmnd.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-          			grdSortCmnd.rebuild();
-  				}else{
-  					grdSortCmnd.refresh();
-  				}
-          	} else {
-          		grdSortCmnd.setPageTotalCount(totalRecordCount);
-          		grdSortCmnd.rebuild();
-          	}
-          	document.querySelector('#cnt-sortCmnd').innerText = totalRecordCount;
+  	  				if (index === 0) {
+  	  					totalRecordCount = item.totalRecordCount;
+  	  				}
+  	  			});
+  	          	grdSortCmnd.refresh();
+  	          	if (jsonSortCmnd.length > 0) {
+  	          		if(grdSortCmnd.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+  	          			grdSortCmnd.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+  	          			grdSortCmnd.rebuild();
+  	  				}else{
+  	  					grdSortCmnd.refresh();
+  	  				}
+  	          	} else {
+  	          		grdSortCmnd.setPageTotalCount(totalRecordCount);
+  	          		grdSortCmnd.rebuild();
+  	          	}
+  	          	document.querySelector('#cnt-sortCmnd').innerText = totalRecordCount;
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
        } catch (e) {
 	   		if (!(e instanceof Error)) {
 				e = new Error(e);

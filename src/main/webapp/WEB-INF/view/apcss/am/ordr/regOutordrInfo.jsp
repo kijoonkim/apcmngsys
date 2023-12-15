@@ -392,44 +392,49 @@
   		});
         const data = await postJsonPromise;
         try {
-          	/** @type {number} **/
-      		jsonOrdr.length = 0;
-          	data.resultList.forEach((item, index) => {
-          		const ordr = {
-          				apcCd			: item.apcCd,
-          				apcSeCd			: item.apcSeCd,
-          				outordrno		: item.outordrno,
-          				outordrType		: item.outordrType,
-          				outordrTypeNm	: item.outordrTypeNm,
-          				outordrYmd		: item.outordrYmd,
-          				wrhsYmd			: item.wrhsYmd,
-          				apcCnptCd		: item.apcCnptCd,
-          				apcCnptNm		: item.apcCnptNm,
-          				itemCd			: item.itemCd,
-          				itemNm			: item.itemNm,
-          				vrtyCd			: item.vrtyCd,
-          				vrtyNm			: item.vrtyNm,
-          				spcfctCd		: item.spcfctCd,
-          				spcfctNm		: item.spcfctNm,
-          				outordrAmt		: item.outordrAmt,
-          				txAmt			: item.txAmt,
-          				outordrQntt		: item.outordrQntt,
-          				bxGdsQntt		: item.bxGdsQntt,
-          				bxGdsQntt		: item.bxGdsQntt,
-          				pieceQntt		: item.pieceQntt,
-          				bxUntprc		: item.bxUntprc,
-          				outordrUntprc	: item.outordrUntprc,
-          				regYmd			: item.regYmd,
-          				regUserNm		: item.regUserNm,
-          				dldtn			: item.dldtn,
-          				gdsCd			: item.gdsCd,
-          				gdsNm			: item.gdsNm,
-          				spmtPckgUnitNm	: item.spmtPckgUnitNm,
-          				spmtPckgUnitCd	: item.spmtPckgUnitCd
-  				}
-          		jsonOrdr.push(ordr);
-  			});
-          	grdOrdr.rebuild();
+  			if (_.isEqual("S", data.resultStatus)) {
+  	          	/** @type {number} **/
+  	      		jsonOrdr.length = 0;
+  	          	data.resultList.forEach((item, index) => {
+  	          		const ordr = {
+  	          				apcCd			: item.apcCd,
+  	          				apcSeCd			: item.apcSeCd,
+  	          				outordrno		: item.outordrno,
+  	          				outordrType		: item.outordrType,
+  	          				outordrTypeNm	: item.outordrTypeNm,
+  	          				outordrYmd		: item.outordrYmd,
+  	          				wrhsYmd			: item.wrhsYmd,
+  	          				apcCnptCd		: item.apcCnptCd,
+  	          				apcCnptNm		: item.apcCnptNm,
+  	          				itemCd			: item.itemCd,
+  	          				itemNm			: item.itemNm,
+  	          				vrtyCd			: item.vrtyCd,
+  	          				vrtyNm			: item.vrtyNm,
+  	          				spcfctCd		: item.spcfctCd,
+  	          				spcfctNm		: item.spcfctNm,
+  	          				outordrAmt		: item.outordrAmt,
+  	          				txAmt			: item.txAmt,
+  	          				outordrQntt		: item.outordrQntt,
+  	          				bxGdsQntt		: item.bxGdsQntt,
+  	          				bxGdsQntt		: item.bxGdsQntt,
+  	          				pieceQntt		: item.pieceQntt,
+  	          				bxUntprc		: item.bxUntprc,
+  	          				outordrUntprc	: item.outordrUntprc,
+  	          				regYmd			: item.regYmd,
+  	          				regUserNm		: item.regUserNm,
+  	          				dldtn			: item.dldtn,
+  	          				gdsCd			: item.gdsCd,
+  	          				gdsNm			: item.gdsNm,
+  	          				spmtPckgUnitNm	: item.spmtPckgUnitNm,
+  	          				spmtPckgUnitCd	: item.spmtPckgUnitCd
+  	  				}
+  	          		jsonOrdr.push(ordr);
+  	  			});
+  	          	grdOrdr.rebuild();
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 		} catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);

@@ -859,66 +859,71 @@
         let data = await postJsonPromise;
 
   		try {
-          	/** @type {number} **/
+  			if (_.isEqual("S", data.resultStatus)) {
+  	          	/** @type {number} **/
 
-      		jsonInvntrTrnsf.length = 0;
-          	data.resultList.forEach((item, index) => {
-          		let prcsno ="";
-          		let prcsSn ="";
-          		if(item.invntrSeCd == "1"){
-          			prcsno = item.wrhsno;
-          		}
-          		if(item.invntrSeCd == "2"){
-          			prcsno = item.sortno;
-          			prcsSn = item.sortSn;
-          		}
-          		if(item.invntrSeCd == "3"){
-          			prcsno = item.pckgno;
-          			prcsSn = item.pckgSn;
-          		}
-          		const invntrTrnsf = {
-          			  apcCd				: item.trnsfApcCd
-          			, apcNm				: item.apcNm
-          			, prcsno			: prcsno
-          			, prcsSn			: prcsSn
-          			, sortno			: item.sortno
-          			, sortSn			: item.sortSn
-          			, pckgno			: item.pckgno
-          			, pckgSn			: item.pckgSn
-          			, trnsfYmd			: item.trnsfYmd
-          			, trnsfSn			: item.trnsfSn
-          			, wrhsYmd			: item.wrhsYmd
-          			, grdCd				: item.grdCd
-          			, grdNm				: item.grdNm
-          			, itemNm			: item.itemNm
-          			, itemCd			: item.itemCd
-          			, vrtyNm			: item.vrtyNm
-          			, vrtyCd			: item.vrtyCd
-          			, spcfctCd			: item.spcfctCd
-          			, spcfctNm			: item.spcfctNm
-          			, prdcrCd			: item.prdcrCd
-          			, prdcrNm			: item.prdcrNm
-          			, gdsSeNm			: item.gdsSeNm
-          			, gdsSeCd			: item.gdsSeCd
-          			, wrhsSeNm			: item.wrhsSeNm
-          			, wrhsSeCd			: item.wrhsSeCd
-          			, trsprtSeNm		: item.trsprtSeNm
-          			, invntrSeCd		: item.invntrSeCd
-          			, invntrSeNm		: item.invntrSeNm
-          			, trsprtSeCd		: item.trsprtSeCd
-          			, trsprtSeNm		: item.trsprtSeNm
-          			, warehouseSeNm		: item.warehouseSeNm
-          			, warehouseSeCd		: item.warehouseSeCd
-          			, trnsfQntt			: item.trnsfQntt
-          			, trnsfWght			: item.trnsfWght
-          			, trnsfApcNm		: item.trnsfApcNm
-          			, trnsfApcCd		: item.apcCd
-          			, cfmtnNm			: item.cfmtnNm
-          			, cfmtnCd			: item.cfmtnCd
-  				}
-  				jsonInvntrTrnsf.push(invntrTrnsf);
-  			});
-        	grdInvntrTrnsf.rebuild();
+  	      		jsonInvntrTrnsf.length = 0;
+  	          	data.resultList.forEach((item, index) => {
+  	          		let prcsno ="";
+  	          		let prcsSn ="";
+  	          		if(item.invntrSeCd == "1"){
+  	          			prcsno = item.wrhsno;
+  	          		}
+  	          		if(item.invntrSeCd == "2"){
+  	          			prcsno = item.sortno;
+  	          			prcsSn = item.sortSn;
+  	          		}
+  	          		if(item.invntrSeCd == "3"){
+  	          			prcsno = item.pckgno;
+  	          			prcsSn = item.pckgSn;
+  	          		}
+  	          		const invntrTrnsf = {
+  	          			  apcCd				: item.trnsfApcCd
+  	          			, apcNm				: item.apcNm
+  	          			, prcsno			: prcsno
+  	          			, prcsSn			: prcsSn
+  	          			, sortno			: item.sortno
+  	          			, sortSn			: item.sortSn
+  	          			, pckgno			: item.pckgno
+  	          			, pckgSn			: item.pckgSn
+  	          			, trnsfYmd			: item.trnsfYmd
+  	          			, trnsfSn			: item.trnsfSn
+  	          			, wrhsYmd			: item.wrhsYmd
+  	          			, grdCd				: item.grdCd
+  	          			, grdNm				: item.grdNm
+  	          			, itemNm			: item.itemNm
+  	          			, itemCd			: item.itemCd
+  	          			, vrtyNm			: item.vrtyNm
+  	          			, vrtyCd			: item.vrtyCd
+  	          			, spcfctCd			: item.spcfctCd
+  	          			, spcfctNm			: item.spcfctNm
+  	          			, prdcrCd			: item.prdcrCd
+  	          			, prdcrNm			: item.prdcrNm
+  	          			, gdsSeNm			: item.gdsSeNm
+  	          			, gdsSeCd			: item.gdsSeCd
+  	          			, wrhsSeNm			: item.wrhsSeNm
+  	          			, wrhsSeCd			: item.wrhsSeCd
+  	          			, trsprtSeNm		: item.trsprtSeNm
+  	          			, invntrSeCd		: item.invntrSeCd
+  	          			, invntrSeNm		: item.invntrSeNm
+  	          			, trsprtSeCd		: item.trsprtSeCd
+  	          			, trsprtSeNm		: item.trsprtSeNm
+  	          			, warehouseSeNm		: item.warehouseSeNm
+  	          			, warehouseSeCd		: item.warehouseSeCd
+  	          			, trnsfQntt			: item.trnsfQntt
+  	          			, trnsfWght			: item.trnsfWght
+  	          			, trnsfApcNm		: item.trnsfApcNm
+  	          			, trnsfApcCd		: item.apcCd
+  	          			, cfmtnNm			: item.cfmtnNm
+  	          			, cfmtnCd			: item.cfmtnCd
+  	  				}
+  	  				jsonInvntrTrnsf.push(invntrTrnsf);
+  	  			});
+  	        	grdInvntrTrnsf.rebuild();
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 
           } catch (e) {
       		if (!(e instanceof Error)) {
@@ -967,86 +972,91 @@
         let data = await postJsonPromise;
 
   		try {
-          	/** @type {number} **/
+  			if (_.isEqual("S", data.resultStatus)) {
+  	          	/** @type {number} **/
 
-      		jsonInvntrTrnsfCfmtn.length = 0;
-          	data.resultList.forEach((item, index) => {
-          		let cfmtnno = "";
-          		let cfmtnSn = "";
-          		let cfmtnYmd = "";
-          		if(invntrSeCd == "1"){
-          			cfmtnno = item.wrhsno;
-          			cfmtnYmd = item.wrhsYmd;
-          		}
-          		if(invntrSeCd == "2"){
-          			cfmtnno = item.sortno;
-          			cfmtnSn = item.sortSn;
-          			cfmtnYmd = item.inptYmd;
-          		}
-          		if(invntrSeCd == "3"){
-          			cfmtnno = item.pckgno;
-          			cfmtnSn = item.pckgSn;
-          			cfmtnYmd = item.pckgYmd;
-          		}
-          		const invntrTrnsf = {
-          			  apcCd				: item.apcCd
-          			, apcNm				: item.apcNm
-          			, cfmtnno			: cfmtnno
-          			, cfmtnSn			: cfmtnSn
-          			, cfmtnYmd			: cfmtnYmd
-          			, wrhsno			: item.wrhsno
-          			, sortno			: item.sortno
-          			, sortSn			: item.sortSn
-          			, pckgno			: item.pckgno
-          			, pckgSn			: item.pckgSn
-          			, wrhsYmd			: item.wrhsYmd
-          			, grdCd				: item.grdCd
-          			, grdNm				: item.grdNm
-          			, itemNm			: item.itemNm
-          			, itemCd			: item.itemCd
-          			, vrtyNm			: item.vrtyNm
-          			, vrtyCd			: item.vrtyCd
-          			, spcfctCd			: item.spcfctCd
-          			, spcfctNm			: item.spcfctNm
-          			, prdcrCd			: item.prdcrCd
-          			, prdcrNm			: item.prdcrNm
-          			, gdsSeNm			: item.gdsSeNm
-          			, gdsSeCd			: item.gdsSeCd
-          			, wrhsSeNm			: item.wrhsSeNm
-          			, wrhsSeCd			: item.wrhsSeCd
-          			, trsprtSeNm		: item.trsprtSeNm
-          			, invntrSeCd		: item.invntrSeCd
-          			, invntrSeNm		: item.invntrSeNm
-          			, trsprtSeCd		: item.trsprtSeCd
-          			, trsprtSeNm		: item.trsprtSeNm
-          			, warehouseSeNm		: item.warehouseSeNm
-          			, warehouseSeCd		: item.warehouseSeCd
-          			, invntrQntt		: item.invntrQntt
-          			, invntrWght		: item.invntrWght
-          			, spmtQntt			: item.spmtQntt
-          			, spmtWght			: item.spmtWght
-          			, trnsfQntt			: item.trnsfQntt
-          			, trnsfWght			: item.trnsfWght
-          			, rtnGdsQntt		: item.rtnGdsQntt
-          			, rtnGdsWght		: item.rtnGdsWght
-          			, inptQntt			: item.inptQntt
-          			, inptWght			: item.inptWght
-          			, inptPrgrsQntt		: item.inptPrgrsQntt
-          			, inptPrgrsWght		: item.inptPrgrsWght
-          			, trnsfApcNm		: item.trnsfApcNm
-          			, trnsfApcCd		: item.trnsfApcCd
-          			, cfmtnNm			: item.cfmtnNm
-          			, cfmtnCd			: item.cfmtnCd
-          			, trnsfApcNm		: item.trnsfApcNm
-          			, spmtPckgUnitNm	: item.spmtPckgUnitNm
-          			, spmtPckgUnitCd	: item.spmtPckgUnitCd
-          			, rmrk				: item.rmrk
-          			, trnsfYmd			: item.trnsfYmd
-          			, trnsfSn			: item.trnsfSn
-  				}
-          		jsonInvntrTrnsfCfmtn.push(invntrTrnsf);
-  			});
-          	grdInvntrTrnsfCfmtn.rebuild();
+  	      		jsonInvntrTrnsfCfmtn.length = 0;
+  	          	data.resultList.forEach((item, index) => {
+  	          		let cfmtnno = "";
+  	          		let cfmtnSn = "";
+  	          		let cfmtnYmd = "";
+  	          		if(invntrSeCd == "1"){
+  	          			cfmtnno = item.wrhsno;
+  	          			cfmtnYmd = item.wrhsYmd;
+  	          		}
+  	          		if(invntrSeCd == "2"){
+  	          			cfmtnno = item.sortno;
+  	          			cfmtnSn = item.sortSn;
+  	          			cfmtnYmd = item.inptYmd;
+  	          		}
+  	          		if(invntrSeCd == "3"){
+  	          			cfmtnno = item.pckgno;
+  	          			cfmtnSn = item.pckgSn;
+  	          			cfmtnYmd = item.pckgYmd;
+  	          		}
+  	          		const invntrTrnsf = {
+  	          			  apcCd				: item.apcCd
+  	          			, apcNm				: item.apcNm
+  	          			, cfmtnno			: cfmtnno
+  	          			, cfmtnSn			: cfmtnSn
+  	          			, cfmtnYmd			: cfmtnYmd
+  	          			, wrhsno			: item.wrhsno
+  	          			, sortno			: item.sortno
+  	          			, sortSn			: item.sortSn
+  	          			, pckgno			: item.pckgno
+  	          			, pckgSn			: item.pckgSn
+  	          			, wrhsYmd			: item.wrhsYmd
+  	          			, grdCd				: item.grdCd
+  	          			, grdNm				: item.grdNm
+  	          			, itemNm			: item.itemNm
+  	          			, itemCd			: item.itemCd
+  	          			, vrtyNm			: item.vrtyNm
+  	          			, vrtyCd			: item.vrtyCd
+  	          			, spcfctCd			: item.spcfctCd
+  	          			, spcfctNm			: item.spcfctNm
+  	          			, prdcrCd			: item.prdcrCd
+  	          			, prdcrNm			: item.prdcrNm
+  	          			, gdsSeNm			: item.gdsSeNm
+  	          			, gdsSeCd			: item.gdsSeCd
+  	          			, wrhsSeNm			: item.wrhsSeNm
+  	          			, wrhsSeCd			: item.wrhsSeCd
+  	          			, trsprtSeNm		: item.trsprtSeNm
+  	          			, invntrSeCd		: item.invntrSeCd
+  	          			, invntrSeNm		: item.invntrSeNm
+  	          			, trsprtSeCd		: item.trsprtSeCd
+  	          			, trsprtSeNm		: item.trsprtSeNm
+  	          			, warehouseSeNm		: item.warehouseSeNm
+  	          			, warehouseSeCd		: item.warehouseSeCd
+  	          			, invntrQntt		: item.invntrQntt
+  	          			, invntrWght		: item.invntrWght
+  	          			, spmtQntt			: item.spmtQntt
+  	          			, spmtWght			: item.spmtWght
+  	          			, trnsfQntt			: item.trnsfQntt
+  	          			, trnsfWght			: item.trnsfWght
+  	          			, rtnGdsQntt		: item.rtnGdsQntt
+  	          			, rtnGdsWght		: item.rtnGdsWght
+  	          			, inptQntt			: item.inptQntt
+  	          			, inptWght			: item.inptWght
+  	          			, inptPrgrsQntt		: item.inptPrgrsQntt
+  	          			, inptPrgrsWght		: item.inptPrgrsWght
+  	          			, trnsfApcNm		: item.trnsfApcNm
+  	          			, trnsfApcCd		: item.trnsfApcCd
+  	          			, cfmtnNm			: item.cfmtnNm
+  	          			, cfmtnCd			: item.cfmtnCd
+  	          			, trnsfApcNm		: item.trnsfApcNm
+  	          			, spmtPckgUnitNm	: item.spmtPckgUnitNm
+  	          			, spmtPckgUnitCd	: item.spmtPckgUnitCd
+  	          			, rmrk				: item.rmrk
+  	          			, trnsfYmd			: item.trnsfYmd
+  	          			, trnsfSn			: item.trnsfSn
+  	  				}
+  	          		jsonInvntrTrnsfCfmtn.push(invntrTrnsf);
+  	  			});
+  	          	grdInvntrTrnsfCfmtn.rebuild();
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 
           } catch (e) {
       		if (!(e instanceof Error)) {

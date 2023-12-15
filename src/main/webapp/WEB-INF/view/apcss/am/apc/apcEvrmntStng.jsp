@@ -690,58 +690,63 @@
         let data = await postJsonPromise;
 		let resultVO = data.resultVO;
         try{
-        	SBUxMethod.set("inp-apcNm", resultVO.apcNm);
-        	SBUxMethod.set("inp-telno", resultVO.telno);
-        	SBUxMethod.set("inp-addr", resultVO.addr);
-        	SBUxMethod.set("inp-fxno", resultVO.fxno);
-        	SBUxMethod.set("inp-actno", resultVO.actno);
-        	SBUxMethod.set("slt-bankCd", resultVO.bankCd);
-        	SBUxMethod.set("inp-dpstr", resultVO.dpstr);
-        	SBUxMethod.set("inp-brno", resultVO.brno);
-        	SBUxMethod.set("rdo-clclnCrtrCd", resultVO.clclnCrtrCd);
-        	SBUxMethod.set("rdo-apcSeCd", resultVO.apcSeCd);
-        	SBUxMethod.set("inp-apcRprsvNm", resultVO.apcRprsvNm);
-        	SBUxMethod.set("inp-cls", resultVO.cls);
-        	SBUxMethod.set("inp-bzstat", resultVO.bzstat);
-        	SBUxMethod.set("chk-wghMngYn", resultVO.wghMngYn);
-        	SBUxMethod.set("chk-wghMblUseYn", resultVO.wghMblUseYn);
-        	SBUxMethod.set("chk-wghIdntyDocPblcnYn", resultVO.wghIdntyDocPblcnYn);
-        	SBUxMethod.set("chk-rawMtrWrhsMngYn", resultVO.rawMtrWrhsMngYn);
-        	SBUxMethod.set("chk-rawMtrWrhsMblUseYn", resultVO.rawMtrWrhsMblUseYn);
-        	SBUxMethod.set("chk-rawMtrIdentTagPblcnYn", resultVO.rawMtrIdentTagPblcnYn);
-        	SBUxMethod.set("chk-pltBxMngYn", resultVO.pltBxMngYn);
-        	SBUxMethod.set("chk-rawMtrWrhsPlanMngYn", resultVO.rawMtrWrhsPlanMngYn);
-        	SBUxMethod.set("chk-gdsWrhsMngYn", resultVO.gdsWrhsMngYn);
-        	SBUxMethod.set("chk-rawMtrWrhsPrcsMngYn", resultVO.rawMtrWrhsPrcsMngYn);
-        	SBUxMethod.set("chk-sortCmndMngYn", resultVO.sortCmndMngYn);
-        	SBUxMethod.set("chk-sortCmndDocPblcnYn", resultVO.sortCmndDocPblcnYn);
-        	SBUxMethod.set("chk-pckgCmndMngYn", resultVO.pckgCmndMngYn);
-        	SBUxMethod.set("chk-pckgCmndDocPblcnYn", resultVO.pckgCmndDocPblcnYn);
-        	SBUxMethod.set("chk-sortMngYn", resultVO.sortMngYn);
-        	SBUxMethod.set("chk-sortMblUseYn", resultVO.sortMblUseYn);
-        	SBUxMethod.set("chk-sortLblPblcnYn", resultVO.sortLblPblcnYn);
-        	SBUxMethod.set("chk-sortIdntyDocPblcnYn", resultVO.sortIdntyDocPblcnYn);
-        	SBUxMethod.set("chk-pckgMngYn", resultVO.pckgMngYn);
-        	SBUxMethod.set("chk-pckgMblUseYn", resultVO.pckgMblUseYn);
-        	SBUxMethod.set("chk-gdsLblPblcnYn", resultVO.gdsLblPblcnYn);
-        	SBUxMethod.set("chk-spmtCmndMngYn", resultVO.spmtCmndMngYn);
-        	SBUxMethod.set("chk-spmtCmndDocPblcnYn", resultVO.spmtCmndDocPblcnYn);
-        	SBUxMethod.set("chk-spmtMngYn", resultVO.spmtMngYn);
-        	SBUxMethod.set("chk-spmtMblUseYn", resultVO.spmtMblUseYn);
-        	SBUxMethod.set("chk-spmtDocPblcnYn", resultVO.spmtDocPblcnYn);
-        	SBUxMethod.set("chk-clclnMngYn", resultVO.clclnMngYn);
-        	SBUxMethod.set("chk-outordrMngYn", resultVO.outordrMngYn);
-        	SBUxMethod.set("chk-outordrAtmtcRcptnYn", resultVO.outordrAtmtcRcptnYn);
-        	// SBUxMethod.set("chk-trsmMngYn", resultVO.trsmMngYn);
-        	// SBUxMethod.set("chk-sortDataTrsmYn", resultVO.sortDataTrsmYn);
-        	// SBUxMethod.set("chk-clclnDataTrsmYn", resultVO.clclnDataTrsmYn);
-        	SBUxMethod.set("chk-oprtrUseYn", resultVO.oprtrUseYn);
-        	SBUxMethod.set("chk-invntrMngYn", resultVO.invntrMngYn);
-        	SBUxMethod.set("chk-invntrTrnsfMngYn", resultVO.invntrTrnsfMngYn);
-        	SBUxMethod.set("chk-slsMngYn", resultVO.slsMngYn);
-        	SBUxMethod.set("chk-outordrPckgCmndLnkgYn", resultVO.outordrPckgCmndLnkgYn);		// 현재 없음
-        	SBUxMethod.set("chk-oprtrSortPrfmncTrsmYn", resultVO.oprtrSortPrfmncTrsmYn);		// 현재 없음
-        	SBUxMethod.set("chk-oprtrPckgPrfmncTrsmYn", resultVO.oprtrPckgPrfmncTrsmYn);		// 현재 없음
+  			if (_.isEqual("S", data.resultStatus)) {
+  	        	SBUxMethod.set("inp-apcNm", resultVO.apcNm);
+  	        	SBUxMethod.set("inp-telno", resultVO.telno);
+  	        	SBUxMethod.set("inp-addr", resultVO.addr);
+  	        	SBUxMethod.set("inp-fxno", resultVO.fxno);
+  	        	SBUxMethod.set("inp-actno", resultVO.actno);
+  	        	SBUxMethod.set("slt-bankCd", resultVO.bankCd);
+  	        	SBUxMethod.set("inp-dpstr", resultVO.dpstr);
+  	        	SBUxMethod.set("inp-brno", resultVO.brno);
+  	        	SBUxMethod.set("rdo-clclnCrtrCd", resultVO.clclnCrtrCd);
+  	        	SBUxMethod.set("rdo-apcSeCd", resultVO.apcSeCd);
+  	        	SBUxMethod.set("inp-apcRprsvNm", resultVO.apcRprsvNm);
+  	        	SBUxMethod.set("inp-cls", resultVO.cls);
+  	        	SBUxMethod.set("inp-bzstat", resultVO.bzstat);
+  	        	SBUxMethod.set("chk-wghMngYn", resultVO.wghMngYn);
+  	        	SBUxMethod.set("chk-wghMblUseYn", resultVO.wghMblUseYn);
+  	        	SBUxMethod.set("chk-wghIdntyDocPblcnYn", resultVO.wghIdntyDocPblcnYn);
+  	        	SBUxMethod.set("chk-rawMtrWrhsMngYn", resultVO.rawMtrWrhsMngYn);
+  	        	SBUxMethod.set("chk-rawMtrWrhsMblUseYn", resultVO.rawMtrWrhsMblUseYn);
+  	        	SBUxMethod.set("chk-rawMtrIdentTagPblcnYn", resultVO.rawMtrIdentTagPblcnYn);
+  	        	SBUxMethod.set("chk-pltBxMngYn", resultVO.pltBxMngYn);
+  	        	SBUxMethod.set("chk-rawMtrWrhsPlanMngYn", resultVO.rawMtrWrhsPlanMngYn);
+  	        	SBUxMethod.set("chk-gdsWrhsMngYn", resultVO.gdsWrhsMngYn);
+  	        	SBUxMethod.set("chk-rawMtrWrhsPrcsMngYn", resultVO.rawMtrWrhsPrcsMngYn);
+  	        	SBUxMethod.set("chk-sortCmndMngYn", resultVO.sortCmndMngYn);
+  	        	SBUxMethod.set("chk-sortCmndDocPblcnYn", resultVO.sortCmndDocPblcnYn);
+  	        	SBUxMethod.set("chk-pckgCmndMngYn", resultVO.pckgCmndMngYn);
+  	        	SBUxMethod.set("chk-pckgCmndDocPblcnYn", resultVO.pckgCmndDocPblcnYn);
+  	        	SBUxMethod.set("chk-sortMngYn", resultVO.sortMngYn);
+  	        	SBUxMethod.set("chk-sortMblUseYn", resultVO.sortMblUseYn);
+  	        	SBUxMethod.set("chk-sortLblPblcnYn", resultVO.sortLblPblcnYn);
+  	        	SBUxMethod.set("chk-sortIdntyDocPblcnYn", resultVO.sortIdntyDocPblcnYn);
+  	        	SBUxMethod.set("chk-pckgMngYn", resultVO.pckgMngYn);
+  	        	SBUxMethod.set("chk-pckgMblUseYn", resultVO.pckgMblUseYn);
+  	        	SBUxMethod.set("chk-gdsLblPblcnYn", resultVO.gdsLblPblcnYn);
+  	        	SBUxMethod.set("chk-spmtCmndMngYn", resultVO.spmtCmndMngYn);
+  	        	SBUxMethod.set("chk-spmtCmndDocPblcnYn", resultVO.spmtCmndDocPblcnYn);
+  	        	SBUxMethod.set("chk-spmtMngYn", resultVO.spmtMngYn);
+  	        	SBUxMethod.set("chk-spmtMblUseYn", resultVO.spmtMblUseYn);
+  	        	SBUxMethod.set("chk-spmtDocPblcnYn", resultVO.spmtDocPblcnYn);
+  	        	SBUxMethod.set("chk-clclnMngYn", resultVO.clclnMngYn);
+  	        	SBUxMethod.set("chk-outordrMngYn", resultVO.outordrMngYn);
+  	        	SBUxMethod.set("chk-outordrAtmtcRcptnYn", resultVO.outordrAtmtcRcptnYn);
+  	        	// SBUxMethod.set("chk-trsmMngYn", resultVO.trsmMngYn);
+  	        	// SBUxMethod.set("chk-sortDataTrsmYn", resultVO.sortDataTrsmYn);
+  	        	// SBUxMethod.set("chk-clclnDataTrsmYn", resultVO.clclnDataTrsmYn);
+  	        	SBUxMethod.set("chk-oprtrUseYn", resultVO.oprtrUseYn);
+  	        	SBUxMethod.set("chk-invntrMngYn", resultVO.invntrMngYn);
+  	        	SBUxMethod.set("chk-invntrTrnsfMngYn", resultVO.invntrTrnsfMngYn);
+  	        	SBUxMethod.set("chk-slsMngYn", resultVO.slsMngYn);
+  	        	SBUxMethod.set("chk-outordrPckgCmndLnkgYn", resultVO.outordrPckgCmndLnkgYn);		// 현재 없음
+  	        	SBUxMethod.set("chk-oprtrSortPrfmncTrsmYn", resultVO.oprtrSortPrfmncTrsmYn);		// 현재 없음
+  	        	SBUxMethod.set("chk-oprtrPckgPrfmncTrsmYn", resultVO.oprtrPckgPrfmncTrsmYn);		// 현재 없음
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 
         }catch (e) {
     		if (!(e instanceof Error)) {

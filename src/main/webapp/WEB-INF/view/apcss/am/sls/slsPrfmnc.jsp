@@ -295,43 +295,48 @@
         let data = await postJsonPromise;
         newJsonSlsPrfmnc = [];
         try{
-        	data.resultList.forEach((item, index) => {
-				let slsPrfmnc = {
-					apcCd		: item.apcCd
-				  , slsYmd 		: item.slsYmd
-				  , slsSn		: item.slsSn
-				  , slsno		: item.slsno
-				  , cnptNm 		: item.cnptNm
-				  , gdsNm 		: item.gdsNm
-				  , gdsCd 		: item.gdsCd
-				  , vrtyNm 		: item.vrtyNm
-				  , spcfctNm 	: item.spcfctNm
-				  , brndNm		: item.brndNm
-				  , spmtYmd 	: item.spmtYmd
-				  , slsUntprc 	: item.slsUntprc
-				  , qntt		: item.qntt
-				  , wght 		: item.wght
-				  , cfmtnAmt 	: item.cfmtnAmt
-				  , totQntt		: item.totQntt
-				  , totWght 	: item.totWght
-				  , totCfmtnAmt : item.totCfmtnAmt
-				  , clctmYn		: item.clctmYn
-				  , cfmtnYn		: item.cfmtnYn
-				}
-				jsonSlsPrfmnc.push(Object.assign({}, slsPrfmnc));
-				newJsonSlsPrfmnc.push(Object.assign({}, slsPrfmnc));
-			});
-        	if(jsonSlsPrfmnc.length > 0){
-				if(grdSlsPrfmnc.getPageTotalCount() != data.resultList[0].totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-					grdSlsPrfmnc.setPageTotalCount(data.resultList[0].totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-					grdSlsPrfmnc.rebuild();
-				}else{
-					grdSlsPrfmnc.refresh();
-				}
-			}else{
-				grdSlsPrfmnc.setPageTotalCount(0);
-				grdSlsPrfmnc.rebuild();
-			}
+  			if (_.isEqual("S", data.resultStatus)) {
+  	        	data.resultList.forEach((item, index) => {
+  					let slsPrfmnc = {
+  						apcCd		: item.apcCd
+  					  , slsYmd 		: item.slsYmd
+  					  , slsSn		: item.slsSn
+  					  , slsno		: item.slsno
+  					  , cnptNm 		: item.cnptNm
+  					  , gdsNm 		: item.gdsNm
+  					  , gdsCd 		: item.gdsCd
+  					  , vrtyNm 		: item.vrtyNm
+  					  , spcfctNm 	: item.spcfctNm
+  					  , brndNm		: item.brndNm
+  					  , spmtYmd 	: item.spmtYmd
+  					  , slsUntprc 	: item.slsUntprc
+  					  , qntt		: item.qntt
+  					  , wght 		: item.wght
+  					  , cfmtnAmt 	: item.cfmtnAmt
+  					  , totQntt		: item.totQntt
+  					  , totWght 	: item.totWght
+  					  , totCfmtnAmt : item.totCfmtnAmt
+  					  , clctmYn		: item.clctmYn
+  					  , cfmtnYn		: item.cfmtnYn
+  					}
+  					jsonSlsPrfmnc.push(Object.assign({}, slsPrfmnc));
+  					newJsonSlsPrfmnc.push(Object.assign({}, slsPrfmnc));
+  				});
+  	        	if(jsonSlsPrfmnc.length > 0){
+  					if(grdSlsPrfmnc.getPageTotalCount() != data.resultList[0].totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+  						grdSlsPrfmnc.setPageTotalCount(data.resultList[0].totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+  						grdSlsPrfmnc.rebuild();
+  					}else{
+  						grdSlsPrfmnc.refresh();
+  					}
+  				}else{
+  					grdSlsPrfmnc.setPageTotalCount(0);
+  					grdSlsPrfmnc.rebuild();
+  				}
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);

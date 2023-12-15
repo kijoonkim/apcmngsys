@@ -32,7 +32,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 포장지시등ㄹ고 -->
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 포장지시등록 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>
@@ -534,53 +534,53 @@
   		});
         const data = await postJsonPromise;
   		try {
-  			
-  			if (!_.isEqual("S", data.resultStatus)) {
-	        	gfn_comAlert(data.resultCode, data.resultMessage);
-	        	return;
-	        }
+  			if (_.isEqual("S", data.resultStatus)) {
 
-  			jsonSortInvntr.length = 0;
-          	data.resultList.forEach((item, index) => {
-          		const sortInvntr = {
-  						rowSeq			: item.rowSeq,
-  						apcCd			: item.apcCd,
-  						sortCmndno		: item.sortCmndno,
-  						sortCmndSn		: item.sortCmndSn,
-  						sortCmndYmd 	: item.sortCmndYmd,
-  						fcltCd 			: item.fcltCd,
-  						fcltNm 			: item.fcltNm,
-  						prdcrCd			: item.prdcrCd,
-  						itemCd			: item.itemCd,
-  						vrtyCd			: item.vrtyCd,
-  						spcfctCd		: item.spcfctCd,
-  						warehouseSeCd	: item.warehouseSeCd,
-  						apcNm			: item.apcNm,
-  						prdcrNm			: item.prdcrNm,
-  						itemNm			: item.itemNm,
-  						vrtyNm			: item.vrtyNm,
-  						spcfctNm		: item.spcfctNm,
-  						grdNm			: item.grdNm,
-  						warehouseSeNm	: item.warehouseSeNm,
-  						gdsSeNm			: item.gdsSeNm,
-  						wrhsSeNm		: item.wrhsSeNm,
-  						trsprtSeNm		: item.trsprtSeNm,
-  						bxKndNm			: item.bxKndNm,
-  						grdNm			: item.grdNm,
-  						cmndQntt		: item.cmndQntt,
-  						cmndWght		: item.cmndWght,
-  						invntrQntt		: item.invntrQntt,
-  						invntrWght		: item.invntrWght,
-  						rmrk 			: item.rmrk,
-  						inptYmd 		: item.inptYmd,
-  						sortno 			: item.sortno,
-  						sortSn 			: item.sortSn
-  				}
-          		jsonSortInvntr.push(sortInvntr);
+  	  			jsonSortInvntr.length = 0;
+  	          	data.resultList.forEach((item, index) => {
+  	          		const sortInvntr = {
+  	  						rowSeq			: item.rowSeq,
+  	  						apcCd			: item.apcCd,
+  	  						sortCmndno		: item.sortCmndno,
+  	  						sortCmndSn		: item.sortCmndSn,
+  	  						sortCmndYmd 	: item.sortCmndYmd,
+  	  						fcltCd 			: item.fcltCd,
+  	  						fcltNm 			: item.fcltNm,
+  	  						prdcrCd			: item.prdcrCd,
+  	  						itemCd			: item.itemCd,
+  	  						vrtyCd			: item.vrtyCd,
+  	  						spcfctCd		: item.spcfctCd,
+  	  						warehouseSeCd	: item.warehouseSeCd,
+  	  						apcNm			: item.apcNm,
+  	  						prdcrNm			: item.prdcrNm,
+  	  						itemNm			: item.itemNm,
+  	  						vrtyNm			: item.vrtyNm,
+  	  						spcfctNm		: item.spcfctNm,
+  	  						grdNm			: item.grdNm,
+  	  						warehouseSeNm	: item.warehouseSeNm,
+  	  						gdsSeNm			: item.gdsSeNm,
+  	  						wrhsSeNm		: item.wrhsSeNm,
+  	  						trsprtSeNm		: item.trsprtSeNm,
+  	  						bxKndNm			: item.bxKndNm,
+  	  						grdNm			: item.grdNm,
+  	  						cmndQntt		: item.cmndQntt,
+  	  						cmndWght		: item.cmndWght,
+  	  						invntrQntt		: item.invntrQntt,
+  	  						invntrWght		: item.invntrWght,
+  	  						rmrk 			: item.rmrk,
+  	  						inptYmd 		: item.inptYmd,
+  	  						sortno 			: item.sortno,
+  	  						sortSn 			: item.sortSn
+  	  				}
+  	          		jsonSortInvntr.push(sortInvntr);
 
-  			});
-       		grdSortInvntr.rebuild();
-       		grdSortInvntr.refresh({"combo":true});
+  	  			});
+  	       		grdSortInvntr.rebuild();
+  	       		grdSortInvntr.refresh({"combo":true});
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 		} catch (e) {
 	   		if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -602,40 +602,45 @@
 
         const data = await postJsonPromise;
 		try{
+  			if (_.isEqual("S", data.resultStatus)) {
 
-			jsonPckgCmnd.length = 0;
-          	data.resultList.forEach((item, index) => {
-          		const pckgCmnd = {
-      				apcCd			: item.apcCd,
-      				pckgCmndno		: item.pckgCmndno,
-      				pckgCmndSn		: item.pckgCmndSn,
-      				pckgCmndYmd		: item.pckgCmndYmd,
-      				fcltCd			: item.fcltCd,
-      				fcltNm			: item.fcltNm,
-      				cnptCd			: item.cnptCd,
-      				cnptNm 			: item.cnptNm,
-      				dudtYmd			: item.dudtYmd,
-      				itemCd			: item.itemCd,
-      				vrtyCd			: item.vrtyCd,
-      				vrtyNm			: item.vrtyNm,
-      				spcfctCd		: item.spcfctCd,
-      				spcfctNm		: item.spcfctNm,
-      				outordrQntt		: item.outordrQntt,
-      				outordrWght		: item.outordrWght,
-      				bxGdsQntt		: item.bxGdsQntt,
-      				cmndQntt		: item.cmndQntt,
-      				cmndWght		: item.cmndWght,
-      				outordrno		: item.outordrno,
-      				gdsCd			: item.gdsCd,
-      				gdsNm			: item.gdsNm,
-      				rmrk			: item.rmrk,
-      				delYn			: item.delYn
-				}
-          		jsonPckgCmnd.push(pckgCmnd);
+  				jsonPckgCmnd.length = 0;
+  	          	data.resultList.forEach((item, index) => {
+  	          		const pckgCmnd = {
+  	      				apcCd			: item.apcCd,
+  	      				pckgCmndno		: item.pckgCmndno,
+  	      				pckgCmndSn		: item.pckgCmndSn,
+  	      				pckgCmndYmd		: item.pckgCmndYmd,
+  	      				fcltCd			: item.fcltCd,
+  	      				fcltNm			: item.fcltNm,
+  	      				cnptCd			: item.cnptCd,
+  	      				cnptNm 			: item.cnptNm,
+  	      				dudtYmd			: item.dudtYmd,
+  	      				itemCd			: item.itemCd,
+  	      				vrtyCd			: item.vrtyCd,
+  	      				vrtyNm			: item.vrtyNm,
+  	      				spcfctCd		: item.spcfctCd,
+  	      				spcfctNm		: item.spcfctNm,
+  	      				outordrQntt		: item.outordrQntt,
+  	      				outordrWght		: item.outordrWght,
+  	      				bxGdsQntt		: item.bxGdsQntt,
+  	      				cmndQntt		: item.cmndQntt,
+  	      				cmndWght		: item.cmndWght,
+  	      				outordrno		: item.outordrno,
+  	      				gdsCd			: item.gdsCd,
+  	      				gdsNm			: item.gdsNm,
+  	      				rmrk			: item.rmrk,
+  	      				delYn			: item.delYn
+  					}
+  	          		jsonPckgCmnd.push(pckgCmnd);
 
-  			});
-      		grdPckgCmnd.rebuild();
-          	SBUxMethod.set("crtr-ymd", pckgCmndYmd);
+  	  			});
+  	      		grdPckgCmnd.rebuild();
+  	          	SBUxMethod.set("crtr-ymd", pckgCmndYmd);
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 		} catch (e) {
 	   		if (!(e instanceof Error)) {
 				e = new Error(e);

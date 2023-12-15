@@ -895,40 +895,45 @@
         sortInptPrfmncGridData = [];
 
   		try {
+  			if (_.isEqual("S", data1.resultStatus)) {
 
-  			jsoninptCmndDsctnListRaw.length = 0;
-          	data1.resultList.forEach((item, index) => {
-          		const rawMtrInvntr = {
-       				  wrhsno			: item.wrhsno
-       				, pltno				: item.pltno
-       				, wrhsYmd			: item.wrhsYmd
-       				, prdcrNm			: item.prdcrNm
-       				, itemNm			: item.itemNm
-       				, vrtyNm			: item.vrtyNm
-       				, gdsSeNm			: item.gdsSeNm
-       				, wrhsSeNm			: item.wrhsSeNm
-       				, trsprtSeNm		: item.trsprtSeNm
-       				, originWarehouseSeNm	: item.warehouseSeNm
-       				, originWarehouseSeCd	: item.warehouseSeCd
-       				, bxknd				: item.bxknd
-       				, grdNm				: item.grdNm
-       				, wrhsQntt			: item.wrhsQntt
-       				, wrhsWght			: item.wrhsWght
-       				, inptQntt			: item.inptQntt
-       				, inptWght			: item.inptWght
-       				, invntrQntt		: item.invntrQntt
-       				, invntrWght		: item.invntrWght
-       				, sortcmndNo		: item.sortcmndNo
-       				, fcltNm			: item.fcltNm
-       				, originInvntrQntt	: item.invntrQntt
-      				, originInvntrWght	: item.invntrWght
-      				, chgRmrk			: ""
-  				}
+  	  			jsoninptCmndDsctnListRaw.length = 0;
+  	          	data1.resultList.forEach((item, index) => {
+  	          		const rawMtrInvntr = {
+  	       				  wrhsno			: item.wrhsno
+  	       				, pltno				: item.pltno
+  	       				, wrhsYmd			: item.wrhsYmd
+  	       				, prdcrNm			: item.prdcrNm
+  	       				, itemNm			: item.itemNm
+  	       				, vrtyNm			: item.vrtyNm
+  	       				, gdsSeNm			: item.gdsSeNm
+  	       				, wrhsSeNm			: item.wrhsSeNm
+  	       				, trsprtSeNm		: item.trsprtSeNm
+  	       				, originWarehouseSeNm	: item.warehouseSeNm
+  	       				, originWarehouseSeCd	: item.warehouseSeCd
+  	       				, bxknd				: item.bxknd
+  	       				, grdNm				: item.grdNm
+  	       				, wrhsQntt			: item.wrhsQntt
+  	       				, wrhsWght			: item.wrhsWght
+  	       				, inptQntt			: item.inptQntt
+  	       				, inptWght			: item.inptWght
+  	       				, invntrQntt		: item.invntrQntt
+  	       				, invntrWght		: item.invntrWght
+  	       				, sortcmndNo		: item.sortcmndNo
+  	       				, fcltNm			: item.fcltNm
+  	       				, originInvntrQntt	: item.invntrQntt
+  	      				, originInvntrWght	: item.invntrWght
+  	      				, chgRmrk			: ""
+  	  				}
 
-          		jsoninptCmndDsctnListRaw.push(Object.assign({}, rawMtrInvntr));
+  	          		jsoninptCmndDsctnListRaw.push(Object.assign({}, rawMtrInvntr));
 
-  			});
-          	inptCmndDsctnList.rebuild();
+  	  			});
+  	          	inptCmndDsctnList.rebuild();
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 
           } catch (e) {
     		if (!(e instanceof Error)) {
@@ -971,36 +976,41 @@
         sortInptPrfmncGridData = [];
 
   		try {
+  			if (_.isEqual("S", data2.resultStatus)) {
 
-  			jsoninptCmndDsctnListSort.length = 0;
-          	data2.resultList.forEach((item, index) => {
-          		const sortInvntr = {
-          			  sortno			: item.sortno
-          			, sortSn			: item.sortSn
-       				, grdNm				: item.grdNm
-       				, inptYmd			: item.inptYmd
-       				, fcltNm			: item.fcltNm
-       				, prdcrNm			: item.prdcrNm
-       				, itemNm			: item.itemNm
-       				, vrtyNm			: item.vrtyNm
-       				, spcfctNm			: item.spcfctNm
-       				, originWarehouseSeNm	: item.warehouseSeNm
-       				, originWarehouseSeCd	: item.warehouseSeCd
-       				, sortQntt			: item.sortQntt
-       				, sortWght			: item.sortWght
-       				, pckgQntt			: item.pckgQntt
-       				, pckgWght			: item.pckgWght
-       				, invntrQntt		: item.invntrQntt
-       				, invntrWght		: item.invntrWght
-       				, originInvntrQntt	: item.invntrQntt
-      				, originInvntrWght	: item.invntrWght
-      				, chgRmrk			: ""
-  				}
-          		jsoninptCmndDsctnListSort.push(sortInvntr);
+  	  			jsoninptCmndDsctnListSort.length = 0;
+  	          	data2.resultList.forEach((item, index) => {
+  	          		const sortInvntr = {
+  	          			  sortno			: item.sortno
+  	          			, sortSn			: item.sortSn
+  	       				, grdNm				: item.grdNm
+  	       				, inptYmd			: item.inptYmd
+  	       				, fcltNm			: item.fcltNm
+  	       				, prdcrNm			: item.prdcrNm
+  	       				, itemNm			: item.itemNm
+  	       				, vrtyNm			: item.vrtyNm
+  	       				, spcfctNm			: item.spcfctNm
+  	       				, originWarehouseSeNm	: item.warehouseSeNm
+  	       				, originWarehouseSeCd	: item.warehouseSeCd
+  	       				, sortQntt			: item.sortQntt
+  	       				, sortWght			: item.sortWght
+  	       				, pckgQntt			: item.pckgQntt
+  	       				, pckgWght			: item.pckgWght
+  	       				, invntrQntt		: item.invntrQntt
+  	       				, invntrWght		: item.invntrWght
+  	       				, originInvntrQntt	: item.invntrQntt
+  	      				, originInvntrWght	: item.invntrWght
+  	      				, chgRmrk			: ""
+  	  				}
+  	          		jsoninptCmndDsctnListSort.push(sortInvntr);
 
-  			});
-        	inptCmndDsctnList.rebuild();
-          	fn_selectItem();
+  	  			});
+  	        	inptCmndDsctnList.rebuild();
+  	          	fn_selectItem();
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 
           } catch (e) {
     		if (!(e instanceof Error)) {
@@ -1039,40 +1049,45 @@
         sortInptPrfmncGridData = [];
 
   		try {
+  			if (_.isEqual("S", data3.resultStatus)) {
 
-  			jsoninptCmndDsctnListGds.length = 0;
-          	data3.resultList.forEach((item, index) => {
-          		const gdsInvntr = {
-          				  pckgno			: item.pckgno
-          				, pckgSn			: item.pckgSn
-          				, pckgYmd			: item.pckgYmd
-          				, fcltNm			: item.fcltNm
-          				, fcltCd			: item.fcltCd
-          				, rprsPrdcrNm		: item.prdcrNm
-          				, rprsPrdcrCd		: item.rprsPrdcrCd
-          				, itemNm			: item.itemNm
-          				, itemCd			: item.itemCd
-          				, vrtyNm			: item.vrtyNm
-          				, vrtyCd			: item.vrtyCd
-          				, spcfctNm			: item.spcfctNm
-          				, spcfctCd			: item.spcfctCd
-          				, gdsGrdNm			: item.gdsGrdNm
-          				, gdsGrd			: item.gdsGrd
-          				, originWarehouseSeNm	: item.warehouseSeNm
-          				, originWarehouseSeCd	: item.warehouseSeCd
-          				, invntrQntt		: item.invntrQntt
-          				, invntrWght		: item.invntrWght
-          				, trnsfWarehouse	: item.trnsfWarehouse
-          				, apcCd				: item.apcCd
-          				, originInvntrQntt	: item.invntrQntt
-          				, originInvntrWght	: item.invntrWght
-          				, chgRmrk			: ""
-  				}
-          		jsoninptCmndDsctnListGds.push(gdsInvntr);
+  	  			jsoninptCmndDsctnListGds.length = 0;
+  	          	data3.resultList.forEach((item, index) => {
+  	          		const gdsInvntr = {
+  	          				  pckgno			: item.pckgno
+  	          				, pckgSn			: item.pckgSn
+  	          				, pckgYmd			: item.pckgYmd
+  	          				, fcltNm			: item.fcltNm
+  	          				, fcltCd			: item.fcltCd
+  	          				, rprsPrdcrNm		: item.prdcrNm
+  	          				, rprsPrdcrCd		: item.rprsPrdcrCd
+  	          				, itemNm			: item.itemNm
+  	          				, itemCd			: item.itemCd
+  	          				, vrtyNm			: item.vrtyNm
+  	          				, vrtyCd			: item.vrtyCd
+  	          				, spcfctNm			: item.spcfctNm
+  	          				, spcfctCd			: item.spcfctCd
+  	          				, gdsGrdNm			: item.gdsGrdNm
+  	          				, gdsGrd			: item.gdsGrd
+  	          				, originWarehouseSeNm	: item.warehouseSeNm
+  	          				, originWarehouseSeCd	: item.warehouseSeCd
+  	          				, invntrQntt		: item.invntrQntt
+  	          				, invntrWght		: item.invntrWght
+  	          				, trnsfWarehouse	: item.trnsfWarehouse
+  	          				, apcCd				: item.apcCd
+  	          				, originInvntrQntt	: item.invntrQntt
+  	          				, originInvntrWght	: item.invntrWght
+  	          				, chgRmrk			: ""
+  	  				}
+  	          		jsoninptCmndDsctnListGds.push(gdsInvntr);
 
-  			});
-         	inptCmndDsctnList.rebuild();
-          	fn_selectItem();
+  	  			});
+  	         	inptCmndDsctnList.rebuild();
+  	          	fn_selectItem();
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 
           } catch (e) {
     		if (!(e instanceof Error)) {

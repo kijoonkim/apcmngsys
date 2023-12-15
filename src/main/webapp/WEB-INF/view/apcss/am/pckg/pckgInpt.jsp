@@ -597,68 +597,73 @@
         let data = await postJsonPromise;
 
   		try {
+  			if (_.isEqual("S", data.resultStatus)) {
 
-          	/** @type {number} **/
-      		let totalRecordCount = 0;
+  	          	/** @type {number} **/
+  	      		let totalRecordCount = 0;
 
-            jsonPckgPrfmnc.length = 0;
-          	data.resultList.forEach((item, index) => {
-          		const pckgPrfmnc = {
-          			apcCd: item.apcCd,
-          			apcNm: item.apcNm,
-          			pckgno: item.pckgno,
-          			pckgSn: item.pckgSn,
-          			pckgnoIndct: item.pckgnoIndct,
-          			pckgCmndno: item.pckgCmndno,
-          			pckgYmd: item.pckgYmd,
-          			fcltCd: item.fcltCd,
-          			fcltNm: item.fcltNm,
-          			rprsPrdcrCd: item.rprsPrdcrCd,
-          			rprsPrdcrNm: item.rprsPrdcrNm,
-          			itemCd: item.itemCd,
-          			itemNm: item.itemNm,
-          			vrtyCd: item.vrtyCd,
-          			vrtyNm: item.vrtyNm,
-          			spcfctCd: item.spcfctCd,
-          			spcfctNm: item.spcfctNm,
-          			gdsGrd: item.gdsGrd,
-          			gdsGrdNm: item.gdsGrdNm,
-          			gdsSeCd: item.gdsSeCd,
-          			gdsSeNm: item.gdsSeNm,
-          			prdctnYr: item.prdctnYr,
-          			spmtPckgUnitCd: item.spmtPckgUnitCd,
-          			spmtPckgUnitNm: item.spmtPckgUnitNm,
-          			warehouseSeCd: item.warehouseSeCd,
-          			warehouseSeNm: item.warehouseSeNm,
-          			pckgQntt: item.pckgQntt,
-          			pckgWght: item.pckgWght,
-          			spmtQntt: item.spmtQntt,
-          			spmtWght: item.spmtWght,
-          			invntrQntt: item.invntrQntt,
-          			invntrWght: item.invntrWght,
-          			plorCd: item.plorCd,
-          			prdctnYr: item.prdctnYr,
-  				}
-          		jsonPckgPrfmnc.push(pckgPrfmnc);
+  	            jsonPckgPrfmnc.length = 0;
+  	          	data.resultList.forEach((item, index) => {
+  	          		const pckgPrfmnc = {
+  	          			apcCd: item.apcCd,
+  	          			apcNm: item.apcNm,
+  	          			pckgno: item.pckgno,
+  	          			pckgSn: item.pckgSn,
+  	          			pckgnoIndct: item.pckgnoIndct,
+  	          			pckgCmndno: item.pckgCmndno,
+  	          			pckgYmd: item.pckgYmd,
+  	          			fcltCd: item.fcltCd,
+  	          			fcltNm: item.fcltNm,
+  	          			rprsPrdcrCd: item.rprsPrdcrCd,
+  	          			rprsPrdcrNm: item.rprsPrdcrNm,
+  	          			itemCd: item.itemCd,
+  	          			itemNm: item.itemNm,
+  	          			vrtyCd: item.vrtyCd,
+  	          			vrtyNm: item.vrtyNm,
+  	          			spcfctCd: item.spcfctCd,
+  	          			spcfctNm: item.spcfctNm,
+  	          			gdsGrd: item.gdsGrd,
+  	          			gdsGrdNm: item.gdsGrdNm,
+  	          			gdsSeCd: item.gdsSeCd,
+  	          			gdsSeNm: item.gdsSeNm,
+  	          			prdctnYr: item.prdctnYr,
+  	          			spmtPckgUnitCd: item.spmtPckgUnitCd,
+  	          			spmtPckgUnitNm: item.spmtPckgUnitNm,
+  	          			warehouseSeCd: item.warehouseSeCd,
+  	          			warehouseSeNm: item.warehouseSeNm,
+  	          			pckgQntt: item.pckgQntt,
+  	          			pckgWght: item.pckgWght,
+  	          			spmtQntt: item.spmtQntt,
+  	          			spmtWght: item.spmtWght,
+  	          			invntrQntt: item.invntrQntt,
+  	          			invntrWght: item.invntrWght,
+  	          			plorCd: item.plorCd,
+  	          			prdctnYr: item.prdctnYr,
+  	  				}
+  	          		jsonPckgPrfmnc.push(pckgPrfmnc);
 
-  				if (index === 0) {
-  					totalRecordCount = item.totalRecordCount;
-  				}
-  			});
+  	  				if (index === 0) {
+  	  					totalRecordCount = item.totalRecordCount;
+  	  				}
+  	  			});
 
-          	if (jsonPckgPrfmnc.length > 0) {
-          		if(grdPckgPrfmnc.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-          			grdPckgPrfmnc.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-          			grdPckgPrfmnc.rebuild();
-  				}else{
-  					grdPckgPrfmnc.refresh();
-  				}
-          	} else {
-          		grdPckgPrfmnc.setPageTotalCount(totalRecordCount);
-          		grdPckgPrfmnc.rebuild();
-          	}
+  	          	if (jsonPckgPrfmnc.length > 0) {
+  	          		if(grdPckgPrfmnc.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+  	          			grdPckgPrfmnc.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+  	          			grdPckgPrfmnc.rebuild();
+  	  				}else{
+  	  					grdPckgPrfmnc.refresh();
+  	  				}
+  	          	} else {
+  	          		grdPckgPrfmnc.setPageTotalCount(totalRecordCount);
+  	          		grdPckgPrfmnc.rebuild();
+  	          	}
 
-          	document.querySelector('#cnt-pckgPrfmnc').innerText = totalRecordCount;
+  	          	document.querySelector('#cnt-pckgPrfmnc').innerText = totalRecordCount;
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 
           } catch (e) {
     		if (!(e instanceof Error)) {

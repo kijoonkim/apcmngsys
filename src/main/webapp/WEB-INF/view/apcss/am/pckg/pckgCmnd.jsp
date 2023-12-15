@@ -340,63 +340,62 @@
 
         const data = await postJsonPromise;
 		try{
-			
-			if (!_.isEqual("S", data.resultStatus)) {
-	        	gfn_comAlert(data.resultCode, data.resultMessage);
-	        	return;
-	        }
-			
-         	/** @type {number} **/
-     		let totalRecordCount = 0;
+  			if (_.isEqual("S", data.resultStatus)) {
+  	         	/** @type {number} **/
+  	     		let totalRecordCount = 0;
 
-     		jsonPckgCmnd.length = 0;
-          	data.resultList.forEach((item, index) => {
-          		const pckgCmnd = {
-      				apcCd			: item.apcCd,
-      				pckgCmndno		: item.pckgCmndno,
-      				pckgCmndSn		: item.pckgCmndSn,
-      				pckgCmndYmd		: item.pckgCmndYmd,
-      				fcltCd			: item.fcltCd,
-      				fcltNm			: item.fcltNm,
-      				cnptCd			: item.cnptCd,
-      				cnptNm			: item.cnptNm,
-      				dudtYmd			: item.dudtYmd,
-      				itemCd			: item.itemCd,
-      				vrtyCd			: item.vrtyCd,
-      				vrtyNm			: item.vrtyNm,
-      				spcfctCd		: item.spcfctCd,
-      				spcfctNm		: item.spcfctNm,
-      				ordrQntt		: item.ordrQntt,
-      				ordrWght		: item.ordrWght,
-      				bxGdsQntt		: item.bxGdsQntt,
-      				cmndQntt		: item.cmndQntt,
-      				cmndWght		: item.cmndWght,
-      				pckgQntt		: item.pckgQntt,
-      				pckgWght		: item.pckgWght,
-      				ordrNo			: item.ordrNo,
-      				gdsCd			: item.gdsCd,
-      				gdsNm			: item.gdsNm,
-      				rmrk			: item.rmrk,
-      				delYn			: item.delYn
-				}
-      			jsonPckgCmnd.push(pckgCmnd);
+  	     		jsonPckgCmnd.length = 0;
+  	          	data.resultList.forEach((item, index) => {
+  	          		const pckgCmnd = {
+  	      				apcCd			: item.apcCd,
+  	      				pckgCmndno		: item.pckgCmndno,
+  	      				pckgCmndSn		: item.pckgCmndSn,
+  	      				pckgCmndYmd		: item.pckgCmndYmd,
+  	      				fcltCd			: item.fcltCd,
+  	      				fcltNm			: item.fcltNm,
+  	      				cnptCd			: item.cnptCd,
+  	      				cnptNm			: item.cnptNm,
+  	      				dudtYmd			: item.dudtYmd,
+  	      				itemCd			: item.itemCd,
+  	      				vrtyCd			: item.vrtyCd,
+  	      				vrtyNm			: item.vrtyNm,
+  	      				spcfctCd		: item.spcfctCd,
+  	      				spcfctNm		: item.spcfctNm,
+  	      				ordrQntt		: item.ordrQntt,
+  	      				ordrWght		: item.ordrWght,
+  	      				bxGdsQntt		: item.bxGdsQntt,
+  	      				cmndQntt		: item.cmndQntt,
+  	      				cmndWght		: item.cmndWght,
+  	      				pckgQntt		: item.pckgQntt,
+  	      				pckgWght		: item.pckgWght,
+  	      				ordrNo			: item.ordrNo,
+  	      				gdsCd			: item.gdsCd,
+  	      				gdsNm			: item.gdsNm,
+  	      				rmrk			: item.rmrk,
+  	      				delYn			: item.delYn
+  					}
+  	      			jsonPckgCmnd.push(pckgCmnd);
 
-				if (index === 0) {
-  					totalRecordCount = item.totalRecordCount;
-  				}
-  			});
+  					if (index === 0) {
+  	  					totalRecordCount = item.totalRecordCount;
+  	  				}
+  	  			});
 
-	      	if (jsonPckgCmnd.length > 0) {
-	      		if(grdPckgCmnd.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-	      			grdPckgCmnd.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-	      			grdPckgCmnd.rebuild();
-					}else{
-						grdPckgCmnd.refresh();
-					}
-	      	} else {
-	      		grdPckgCmnd.setPageTotalCount(totalRecordCount);
-	      		grdPckgCmnd.rebuild();
-	      	}
+  		      	if (jsonPckgCmnd.length > 0) {
+  		      		if(grdPckgCmnd.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+  		      			grdPckgCmnd.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+  		      			grdPckgCmnd.rebuild();
+  						}else{
+  							grdPckgCmnd.refresh();
+  						}
+  		      	} else {
+  		      		grdPckgCmnd.setPageTotalCount(totalRecordCount);
+  		      		grdPckgCmnd.rebuild();
+  		      	}
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 		} catch (e) {
 	   		if (!(e instanceof Error)) {
 				e = new Error(e);

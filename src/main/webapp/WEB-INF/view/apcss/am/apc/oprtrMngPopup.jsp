@@ -124,25 +124,30 @@
         let data = await postJsonPromise;
         jsonOprtr.length = 0;
         try{
-        	data.resultList.forEach((item, index) => {
-				let oprtrVO = {
-					flnm : 		item.flnm
-				  , brdt :	 	item.brdt
-				  , telno : 	item.telno
-				  , addr : 		item.addr
-				  , jncmp : 	item.jncmp
-				  , bankCd : 	item.bankCd
-				  , actno : 	item.actno
-				  , dpstr : 	item.dpstr
-				  , delYn : 	item.delYn
-				  , apcCd : 	item.apcCd
-				}
+  			if (_.isEqual("S", data.resultStatus)) {
+  	        	data.resultList.forEach((item, index) => {
+  					let oprtrVO = {
+  						flnm : 		item.flnm
+  					  , brdt :	 	item.brdt
+  					  , telno : 	item.telno
+  					  , addr : 		item.addr
+  					  , jncmp : 	item.jncmp
+  					  , bankCd : 	item.bankCd
+  					  , actno : 	item.actno
+  					  , dpstr : 	item.dpstr
+  					  , delYn : 	item.delYn
+  					  , apcCd : 	item.apcCd
+  					}
 
-				jsonOprtr.push(oprtrVO);
-			});
-        	grdOprtr.rebuild();
-        	grdOprtr.addRow(true);
-        	grdOprtr.setCellDisabled(grdOprtr.getRows() -1, 0, grdOprtr.getRows() -1, grdOprtr.getCols() -1, true);
+  					jsonOprtr.push(oprtrVO);
+  				});
+  	        	grdOprtr.rebuild();
+  	        	grdOprtr.addRow(true);
+  	        	grdOprtr.setCellDisabled(grdOprtr.getRows() -1, 0, grdOprtr.getRows() -1, grdOprtr.getCols() -1, true);
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
