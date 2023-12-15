@@ -77,15 +77,20 @@
             , cmntChildNo : cmntChildNo
         });
         const data = await postJsonPromise;
-        SBUxMethod.set("dtl-input-orngChildCmntNo", "");
-        gfn_closeModal('modal-bbsChildCmntModal',fn_callBackSelectComment,bbsNo);
-
-
-
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+                SBUxMethod.set("dtl-input-orngChildCmntNo", "");
+                gfn_closeModal('modal-bbsChildCmntModal',fn_callBackSelectComment,bbsNo);
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch(e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
 }
-
-
-
-
 </script>
 </html>

@@ -125,16 +125,26 @@
 			, bbsTitle : bbsTitle
 			, bbsSubject : bbsSubject
 		});
-		var files = $('#bbsNewFileList')[0].files;
-		if(files.length > 0){
-			fn_bbsNewFileUpload();
-		}else{
-			newArticle_clear();
-			gfn_closeModal('modal-bbsNewArticlePopup','fn_search');
-		}
-
-
-
+		const data = await postJsonPromise;
+		try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		var files = $('#bbsNewFileList')[0].files;
+        		if(files.length > 0){
+        			fn_bbsNewFileUpload();
+        		}else{
+        			newArticle_clear();
+        			gfn_closeModal('modal-bbsNewArticlePopup','fn_search');
+        		}
+        	} else {
+        		gfn_comAlert("E0001");
+        	}
+        } catch(e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
 	}
 
 	/**************첨부 파일********************/

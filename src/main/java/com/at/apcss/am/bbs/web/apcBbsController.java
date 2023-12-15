@@ -99,7 +99,7 @@ public class apcBbsController extends BaseController {
 	}
 	// 게시판 등록
 	@PostMapping(value = "/am/bbs/insertBbs.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> insertBbs(@RequestBody apcBbsVO apcBbsVO, HttpServletRequest requset) throws Exception{
+	public ResponseEntity<HashMap<String, Object>> insertBbs(@RequestBody apcBbsVO apcBbsVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -117,6 +117,11 @@ public class apcBbsController extends BaseController {
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
@@ -127,7 +132,7 @@ public class apcBbsController extends BaseController {
 
 	// 게시판 변경
 	@PostMapping(value = "/am/bbs/updateBbs.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> updateBbs(@RequestBody apcBbsVO apcBbsVO, HttpServletRequest requset) throws Exception{
+	public ResponseEntity<HashMap<String, Object>> updateBbs(@RequestBody apcBbsVO apcBbsVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -143,6 +148,11 @@ public class apcBbsController extends BaseController {
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 
 		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
@@ -152,7 +162,7 @@ public class apcBbsController extends BaseController {
 
 	// 게시판 삭제
 	@PostMapping(value = "/am/bbs/deleteBbs.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> deleteBbs(@RequestBody apcBbsVO apcBbsVO, HttpServletRequest requset) throws Exception{
+	public ResponseEntity<HashMap<String, Object>> deleteBbs(@RequestBody apcBbsVO apcBbsVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -169,6 +179,11 @@ public class apcBbsController extends BaseController {
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
@@ -178,7 +193,7 @@ public class apcBbsController extends BaseController {
 
 	// 게시판 목록 삭제
 	@PostMapping(value = "/am/bbs/deleteBbsList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> deleteBbsList(@RequestBody List<apcBbsVO> bbsList, HttpServletRequest requset) throws Exception{
+	public ResponseEntity<HashMap<String, Object>> deleteBbsList(@RequestBody List<apcBbsVO> bbsList, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -196,6 +211,11 @@ public class apcBbsController extends BaseController {
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
@@ -205,7 +225,7 @@ public class apcBbsController extends BaseController {
 
 	//게시판댓글등록
 		@PostMapping(value = "/am/bbs/insertBbsCmnt.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> insertBbsCmnt(@RequestBody apcBbsCmntVO apcBbsCmntVO, HttpServletRequest requset) throws Exception{
+		public ResponseEntity<HashMap<String, Object>> insertBbsCmnt(@RequestBody apcBbsCmntVO apcBbsCmntVO, HttpServletRequest request) throws Exception{
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 			// validation check
@@ -225,6 +245,11 @@ public class apcBbsController extends BaseController {
 			} catch (Exception e) {
 				logger.debug(e.getMessage());
 				return getErrorResponseEntity(e);
+			} finally {
+				HashMap<String, Object> rtnObj = setMenuComLog(request);
+				if (rtnObj != null) {
+					return getErrorResponseEntity(rtnObj);
+				}
 			}
 
 			resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
@@ -233,7 +258,7 @@ public class apcBbsController extends BaseController {
 		}
 		//게시판대댓글등록
 		@PostMapping(value = "/am/bbs/insertBbsChildCmnt.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> insertBbsChildCmnt(@RequestBody apcBbsCmntVO apcBbsCmntVO, HttpServletRequest requset) throws Exception{
+		public ResponseEntity<HashMap<String, Object>> insertBbsChildCmnt(@RequestBody apcBbsCmntVO apcBbsCmntVO, HttpServletRequest request) throws Exception{
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 			// validation check
@@ -253,6 +278,11 @@ public class apcBbsController extends BaseController {
 			} catch (Exception e) {
 				logger.debug(e.getMessage());
 				return getErrorResponseEntity(e);
+			} finally {
+				HashMap<String, Object> rtnObj = setMenuComLog(request);
+				if (rtnObj != null) {
+					return getErrorResponseEntity(rtnObj);
+				}
 			}
 
 			resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
@@ -261,7 +291,7 @@ public class apcBbsController extends BaseController {
 		}
 		//게시판댓글삭제
 		@PostMapping(value = "/am/bbs/deleteCmntBbs.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> deleteBbsCmnt(@RequestBody apcBbsCmntVO apcBbsCmntVO, HttpServletRequest requset) throws Exception{
+		public ResponseEntity<HashMap<String, Object>> deleteBbsCmnt(@RequestBody apcBbsCmntVO apcBbsCmntVO, HttpServletRequest request) throws Exception{
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 			// validation check
@@ -276,6 +306,11 @@ public class apcBbsController extends BaseController {
 			} catch (Exception e) {
 				logger.debug(e.getMessage());
 				return getErrorResponseEntity(e);
+			} finally {
+				HashMap<String, Object> rtnObj = setMenuComLog(request);
+				if (rtnObj != null) {
+					return getErrorResponseEntity(rtnObj);
+				}
 			}
 
 			resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
@@ -407,7 +442,7 @@ public class apcBbsController extends BaseController {
 
 		// 첨부파일 삭제
 		@PostMapping(value = "/am/bbs/deleteBbsAttache.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> deleteBbsAttache(@RequestBody apcBbsFileVO apcBbsFileVO, HttpServletRequest requset) throws Exception{
+		public ResponseEntity<HashMap<String, Object>> deleteBbsAttache(@RequestBody apcBbsFileVO apcBbsFileVO, HttpServletRequest request) throws Exception{
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 			// validation check
@@ -419,6 +454,11 @@ public class apcBbsController extends BaseController {
 			} catch (Exception e) {
 				logger.debug(e.getMessage());
 				return getErrorResponseEntity(e);
+			} finally {
+				HashMap<String, Object> rtnObj = setMenuComLog(request);
+				if (rtnObj != null) {
+					return getErrorResponseEntity(rtnObj);
+				}
 			}
 
 			resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
@@ -427,7 +467,7 @@ public class apcBbsController extends BaseController {
 		}
 
 	    @GetMapping("/am/bbs/download/{atchflno}")
-	    public void downloadFile(@PathVariable String atchflno, HttpServletRequest requset, HttpServletResponse response) throws Exception {
+	    public void downloadFile(@PathVariable String atchflno, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 	    	apcBbsFileVO apcBbsFileVO = new apcBbsFileVO();
 	    	apcBbsFileVO.setAtchflno(atchflno);
