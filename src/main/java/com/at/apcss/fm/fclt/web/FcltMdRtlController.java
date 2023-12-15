@@ -100,6 +100,11 @@ public class FcltMdRtlController extends BaseController {
 		} catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -114,6 +119,11 @@ public class FcltMdRtlController extends BaseController {
 		} catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -128,6 +138,11 @@ public class FcltMdRtlController extends BaseController {
 		} catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -142,6 +157,11 @@ public class FcltMdRtlController extends BaseController {
 		} catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -156,6 +176,11 @@ public class FcltMdRtlController extends BaseController {
 		} catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -170,6 +195,11 @@ public class FcltMdRtlController extends BaseController {
 		} catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
