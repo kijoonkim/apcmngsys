@@ -125,6 +125,7 @@
 			, bbsTitle : bbsTitle
 			, bbsSubject : bbsSubject
 		});
+		const data = await postJsonPromise;
 		try {
         	if (_.isEqual("S", data.resultStatus)) {
         		var files = $('#bbsNewFileList')[0].files;
