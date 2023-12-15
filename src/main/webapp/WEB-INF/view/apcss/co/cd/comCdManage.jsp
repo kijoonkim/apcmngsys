@@ -510,14 +510,38 @@
 
     	let postJsonPromise = gfn_postJSON("/co/cd/duplicateCheckCdId.do", comCdVO);
         let data = await postJsonPromise;
-		return data.result;
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		return data.result;
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
     }
 
     // 공통코드 상세 중복 체크 호출
     async function fn_duplicateCheckCdIdDtl(comCdVO){
     	let postJsonPromise = gfn_postJSON("/co/cd/duplicateCheckCdIdDtl.do", comCdVO);
         let data = await postJsonPromise;
-		return data.result;
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		return data.result;
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
     }
 
     // 공통코드 || 명 입력 후 엔터 이벤트(조회)
@@ -553,7 +577,7 @@
             if (gridList[i].checked === "true") {
 				delList.push(gridList[i])
             	if (gridList[i].addYn == 'N') {
-            		gfn_comAlert("E0001", (i+1) + "행은 기존 공통코드 상세이므로 삭제를 이용하여 주세요.");
+            		gfn_comAlert("E0000", (i+1) + "행은 기존 공통코드 상세이므로 삭제를 이용하여 주세요.");
             		return;
             	}
             	comCdDtlgrid.deleteRow(i+1);

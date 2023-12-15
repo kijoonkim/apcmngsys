@@ -149,7 +149,7 @@ public class ComMenuController extends BaseController {
 
 	// 메뉴 등록
 	@PostMapping(value = "/co/menu/insertMenu.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> insertMenu(@RequestBody ComMenuVO comMenuVO, HttpServletRequest requset) throws Exception{
+	public ResponseEntity<HashMap<String, Object>> insertMenu(@RequestBody ComMenuVO comMenuVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		int insertedCnt =0;
@@ -162,6 +162,11 @@ public class ComMenuController extends BaseController {
 			insertedCnt = comMenuService.insertMenu(comMenuVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
 		return getSuccessResponseEntity(resultMap);
@@ -169,7 +174,7 @@ public class ComMenuController extends BaseController {
 
 	// 메뉴 수정
 	@PostMapping(value = "/co/menu/updateMenu.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> updateMenu(@RequestBody ComMenuVO comMenuVO, HttpServletRequest requset) throws Exception{
+	public ResponseEntity<HashMap<String, Object>> updateMenu(@RequestBody ComMenuVO comMenuVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		int updatedCnt =0;
@@ -180,6 +185,11 @@ public class ComMenuController extends BaseController {
 			updatedCnt = comMenuService.updateMenu(comMenuVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
 		return getSuccessResponseEntity(resultMap);
@@ -187,13 +197,18 @@ public class ComMenuController extends BaseController {
 
 	// 메뉴 삭제
 	@PostMapping(value = "/co/menu/deleteMenu.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> deleteMenu(@RequestBody ComMenuVO comMenuVO, HttpServletRequest requset) throws Exception{
+	public ResponseEntity<HashMap<String, Object>> deleteMenu(@RequestBody ComMenuVO comMenuVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		int deletedCnt =0;
 		try {
 			deletedCnt = comMenuService.deleteMenu(comMenuVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
 		return getSuccessResponseEntity(resultMap);
@@ -246,6 +261,11 @@ public class ComMenuController extends BaseController {
 			}
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertdCnt);
 
@@ -267,6 +287,11 @@ public class ComMenuController extends BaseController {
 			insertdCnt = comMenuService.multiSaveComUiList(comUiList);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertdCnt);
 
@@ -283,6 +308,11 @@ public class ComMenuController extends BaseController {
 			}
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletetCnt);
 
