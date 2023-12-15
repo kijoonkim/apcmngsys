@@ -640,59 +640,64 @@
         const data = await postJsonPromise;
 
   		try {
+  			if (_.isEqual("S", data.resultStatus)) {
 
-          	/** @type {number} **/
-      		let totalRecordCount = 0;
+  	          	/** @type {number} **/
+  	      		let totalRecordCount = 0;
 
-      		jsonSortInvntr.length = 0;
-          	data.resultList.forEach((item, index) => {
-          		const sortInvntr = {
-          				apcCd			: item.apcCd,
-          				sortno			: item.sortno,
-          				sortSn			: item.sortSn,
-          				sortYmd			: item.sortYmd,
-          				fcltCd			: item.fcltCd,
-          				rprsPrdcrCd		: item.rprsPrdcrCd,
-          				itemCd			: item.itemCd,
-          				vrtyCd			: item.vrtyCd,
-          				spcfctCd		: item.spcfctCd,
-          				grdCd			: item.grdCd,
-          				gdsSeCd			: item.gdsSeCd,
-          				wrhsSeCd		: item.wrhsSeCd,
-          				warehouseSeCd	: item.warehouseSeCd,
-          				prdctnYr		: item.prdctnYr,
-          				sortQntt		: item.sortQntt,
-          				sortWght		: item.sortWght,
-          				pckgQntt		: item.pckgQntt,
-          				pckgWght		: item.pckgWght,
-          				invntrQntt		: item.invntrQntt,
-          				invntrWght		: item.invntrWght,
-          				apcNm			: item.apcNm,
-          				fcltNm			: item.fcltNm,
-          				rprsPrdcrNm		: item.rprsPrdcrNm,
-          				itemNm			: item.itemNm,
-          				vrtyNm			: item.vrtyNm,
-          				spcfctNm		: item.spcfctNm,
-          				grdNm			: item.grdNm,
-          				gdsSeNm			: item.gdsSeNm,
-          				wrhsSeNm		: item.wrhsSeNm,
-          				warehouseSeNm	: item.warehouseSeNm,
-          				pckgCmndno		: item.pckgCmndno,
-          				cmndQntt		: item.cmndQntt,
-          				cmndWght		: item.cmndWght,
-          				inptQntt		: item.inptQntt,
-          				inptWght		: item.inptWght,
-          				rmrk			: item.rmrk,
-          				pckgFcltCd		: item.pckgFcltCd,
-          				pckgFcltNm		: item.pckgFcltNm,
-  				}
-          		jsonSortInvntr.push(sortInvntr);
-  			});
+  	      		jsonSortInvntr.length = 0;
+  	          	data.resultList.forEach((item, index) => {
+  	          		const sortInvntr = {
+  	          				apcCd			: item.apcCd,
+  	          				sortno			: item.sortno,
+  	          				sortSn			: item.sortSn,
+  	          				sortYmd			: item.sortYmd,
+  	          				fcltCd			: item.fcltCd,
+  	          				rprsPrdcrCd		: item.rprsPrdcrCd,
+  	          				itemCd			: item.itemCd,
+  	          				vrtyCd			: item.vrtyCd,
+  	          				spcfctCd		: item.spcfctCd,
+  	          				grdCd			: item.grdCd,
+  	          				gdsSeCd			: item.gdsSeCd,
+  	          				wrhsSeCd		: item.wrhsSeCd,
+  	          				warehouseSeCd	: item.warehouseSeCd,
+  	          				prdctnYr		: item.prdctnYr,
+  	          				sortQntt		: item.sortQntt,
+  	          				sortWght		: item.sortWght,
+  	          				pckgQntt		: item.pckgQntt,
+  	          				pckgWght		: item.pckgWght,
+  	          				invntrQntt		: item.invntrQntt,
+  	          				invntrWght		: item.invntrWght,
+  	          				apcNm			: item.apcNm,
+  	          				fcltNm			: item.fcltNm,
+  	          				rprsPrdcrNm		: item.rprsPrdcrNm,
+  	          				itemNm			: item.itemNm,
+  	          				vrtyNm			: item.vrtyNm,
+  	          				spcfctNm		: item.spcfctNm,
+  	          				grdNm			: item.grdNm,
+  	          				gdsSeNm			: item.gdsSeNm,
+  	          				wrhsSeNm		: item.wrhsSeNm,
+  	          				warehouseSeNm	: item.warehouseSeNm,
+  	          				pckgCmndno		: item.pckgCmndno,
+  	          				cmndQntt		: item.cmndQntt,
+  	          				cmndWght		: item.cmndWght,
+  	          				inptQntt		: item.inptQntt,
+  	          				inptWght		: item.inptWght,
+  	          				rmrk			: item.rmrk,
+  	          				pckgFcltCd		: item.pckgFcltCd,
+  	          				pckgFcltNm		: item.pckgFcltNm,
+  	  				}
+  	          		jsonSortInvntr.push(sortInvntr);
+  	  			});
 
-          	grdSortInvntr.rebuild();
-          	//grdSortInvntr.refresh({"combo":true});
-          	totalRecordCount = jsonSortInvntr.length;
-          	document.querySelector('#cnt-SortInvntr').innerText = totalRecordCount;
+  	          	grdSortInvntr.rebuild();
+  	          	//grdSortInvntr.refresh({"combo":true});
+  	          	totalRecordCount = jsonSortInvntr.length;
+  	          	document.querySelector('#cnt-SortInvntr').innerText = totalRecordCount;
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 
 		} catch (e) {
     		if (!(e instanceof Error)) {

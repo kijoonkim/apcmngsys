@@ -619,45 +619,50 @@
         const data = await postJsonPromise;
 
   		try {
+  			if (_.isEqual("S", data.resultStatus)) {
 
-          	/** @type {number} **/
-      		let totalRecordCount = 0;
+  	          	/** @type {number} **/
+  	      		let totalRecordCount = 0;
 
-      		jsonClclnPrfmnc.length = 0;
-          	data.resultList.forEach((item, index) => {
-          		const clclnPrfmnc = {
-  						apcCd: item.apcCd,
-  						clclnYmd: item.clclnYmd,
-  						clclnSn: item.clclnSn,
-  						clclnCrtrCd: item.clclnCrtrCd,
-  						prdcrCd: item.prdcrCd,
-  						prdcrNm: item.prdcrNm,
-  						itemCd: item.itemCd,
-  						vrtyCd: item.vrtyCd,
-  						spcfctCd: item.spcfctCd,
-  						wrhsSeCd: item.wrhsSeCd,
-  						gdsSeCd: item.gdsSeCd,
-  						qntt: item.qntt,
-  						wght: item.wght,
-  						rkngAmt: item.rkngAmt,
-  						cfmtnAmt: item.cfmtnAmt,
-  						cfmtnYn: item.cfmtnYn,
-  						itemNm: item.itemNm,
-  						vrtyNm: item.vrtyNm,
-  						spcfctNm: item.spcfctNm,
-  						clclnCrtrNm: item.clclnCrtrNm,
-  						wrhsSeNm: item.wrhsSeNm,
-  						gdsSeNm: item.gdsSeNm,
-  						grdNm: item.grdNm
-  				}
+  	      		jsonClclnPrfmnc.length = 0;
+  	          	data.resultList.forEach((item, index) => {
+  	          		const clclnPrfmnc = {
+  	  						apcCd: item.apcCd,
+  	  						clclnYmd: item.clclnYmd,
+  	  						clclnSn: item.clclnSn,
+  	  						clclnCrtrCd: item.clclnCrtrCd,
+  	  						prdcrCd: item.prdcrCd,
+  	  						prdcrNm: item.prdcrNm,
+  	  						itemCd: item.itemCd,
+  	  						vrtyCd: item.vrtyCd,
+  	  						spcfctCd: item.spcfctCd,
+  	  						wrhsSeCd: item.wrhsSeCd,
+  	  						gdsSeCd: item.gdsSeCd,
+  	  						qntt: item.qntt,
+  	  						wght: item.wght,
+  	  						rkngAmt: item.rkngAmt,
+  	  						cfmtnAmt: item.cfmtnAmt,
+  	  						cfmtnYn: item.cfmtnYn,
+  	  						itemNm: item.itemNm,
+  	  						vrtyNm: item.vrtyNm,
+  	  						spcfctNm: item.spcfctNm,
+  	  						clclnCrtrNm: item.clclnCrtrNm,
+  	  						wrhsSeNm: item.wrhsSeNm,
+  	  						gdsSeNm: item.gdsSeNm,
+  	  						grdNm: item.grdNm
+  	  				}
 
-          		jsonClclnPrfmnc.push(clclnPrfmnc);
-  			});
+  	          		jsonClclnPrfmnc.push(clclnPrfmnc);
+  	  			});
 
-          	totalRecordCount = jsonClclnPrfmnc.length;
-          	grdClclnPrfmnc.rebuild();
+  	          	totalRecordCount = jsonClclnPrfmnc.length;
+  	          	grdClclnPrfmnc.rebuild();
 
-          	document.querySelector('#cnt-clcln').innerText = totalRecordCount;
+  	          	document.querySelector('#cnt-clcln').innerText = totalRecordCount;
+  	          	
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 
           } catch (e) {
       		if (!(e instanceof Error)) {

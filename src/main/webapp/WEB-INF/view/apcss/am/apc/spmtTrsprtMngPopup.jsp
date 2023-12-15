@@ -127,21 +127,26 @@
         let data = await postJsonPromise;
         newSpmtTrsprtGridData = [];
         try{
-        	data.resultList.forEach((item, index) => {
-				let spmtTrsprt = {
-					trsprtCoCd 	: item.trsprtCoCd
-				  , trsprtCoNm 	: item.trsprtCoNm
-				  , telno 		: item.telno
-				  , fxno 		: item.fxno
-				  , rmrk 		: item.rmrk
-				  , delYn 		: item.delYn
-				  , apcCd		: item.apcCd
-				}
-				spmtTrsprtMngGridData.push(Object.assign({}, spmtTrsprt));
-			});
-        	grdSpmtTrsprtCo.rebuild();
-        	grdSpmtTrsprtCo.addRow(true);
-        	grdSpmtTrsprtCo.setCellDisabled(grdSpmtTrsprtCo.getRows() -1, 0, grdSpmtTrsprtCo.getRows() -1, grdSpmtTrsprtCo.getCols() -1, true);
+  			if (_.isEqual("S", data.resultStatus)) {
+  	        	data.resultList.forEach((item, index) => {
+  					let spmtTrsprt = {
+  						trsprtCoCd 	: item.trsprtCoCd
+  					  , trsprtCoNm 	: item.trsprtCoNm
+  					  , telno 		: item.telno
+  					  , fxno 		: item.fxno
+  					  , rmrk 		: item.rmrk
+  					  , delYn 		: item.delYn
+  					  , apcCd		: item.apcCd
+  					}
+  					spmtTrsprtMngGridData.push(Object.assign({}, spmtTrsprt));
+  				});
+  	        	grdSpmtTrsprtCo.rebuild();
+  	        	grdSpmtTrsprtCo.addRow(true);
+  	        	grdSpmtTrsprtCo.setCellDisabled(grdSpmtTrsprtCo.getRows() -1, 0, grdSpmtTrsprtCo.getRows() -1, grdSpmtTrsprtCo.getCols() -1, true);
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);

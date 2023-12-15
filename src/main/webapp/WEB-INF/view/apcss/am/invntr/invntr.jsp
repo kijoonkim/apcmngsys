@@ -450,49 +450,54 @@
         let data1 = await postJsonPromise1;
 
   		try {
-          	/** @type {number} **/
-      		let totalRecordCount = 0;
+  			if (_.isEqual("S", data1.resultStatus)) {
+  	          	/** @type {number} **/
+  	      		let totalRecordCount = 0;
 
-      		jsonRawMtrInvntr.length = 0;
-          	data1.resultList.forEach((item, index) => {
-          		const rawMtrInvntr = {
-       				wrhsno			: item.wrhsno
-       			  , pltno			: item.pltno
-       			  , wrhsYmd			: item.wrhsYmd
-       			  , prdcrNm			: item.prdcrNm
-       			  , itemNm			: item.itemNm
-       			  , vrtyNm			: item.vrtyNm
-       			  , gdsSeNm			: item.gdsSeNm
-       			  , wrhsSeNm		: item.wrhsSeNm
-       			  , trsprtSeNm		: item.trsprtSeNm
-       			  , warehouseSeNm	: item.warehouseSeNm
-       			  , bxknd			: item.bxknd
-       			  , grdNm			: item.grdNm
-       			  , wrhsQntt		: item.wrhsQntt
-       			  , wrhsWght		: item.wrhsWght
-       			  , inptQntt		: item.inptQntt
-       			  , inptWght		: item.inptWght
-       			  , invntrQntt		: item.invntrQntt
-       			  , invntrWght		: item.invntrWght
-       			  , rmrk			: item.rmrk
-  				}
-          		jsonRawMtrInvntr.push(rawMtrInvntr);
+  	      		jsonRawMtrInvntr.length = 0;
+  	          	data1.resultList.forEach((item, index) => {
+  	          		const rawMtrInvntr = {
+  	       				wrhsno			: item.wrhsno
+  	       			  , pltno			: item.pltno
+  	       			  , wrhsYmd			: item.wrhsYmd
+  	       			  , prdcrNm			: item.prdcrNm
+  	       			  , itemNm			: item.itemNm
+  	       			  , vrtyNm			: item.vrtyNm
+  	       			  , gdsSeNm			: item.gdsSeNm
+  	       			  , wrhsSeNm		: item.wrhsSeNm
+  	       			  , trsprtSeNm		: item.trsprtSeNm
+  	       			  , warehouseSeNm	: item.warehouseSeNm
+  	       			  , bxknd			: item.bxknd
+  	       			  , grdNm			: item.grdNm
+  	       			  , wrhsQntt		: item.wrhsQntt
+  	       			  , wrhsWght		: item.wrhsWght
+  	       			  , inptQntt		: item.inptQntt
+  	       			  , inptWght		: item.inptWght
+  	       			  , invntrQntt		: item.invntrQntt
+  	       			  , invntrWght		: item.invntrWght
+  	       			  , rmrk			: item.rmrk
+  	  				}
+  	          		jsonRawMtrInvntr.push(rawMtrInvntr);
 
-  				if (index === 0) {
-  					totalRecordCount = item.totalRecordCount;
-  				}
-  			});
-          	if (jsonRawMtrInvntr.length > 0) {
-          		if(rawMtrInvntrGrid.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-          			rawMtrInvntrGrid.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-          			rawMtrInvntrGrid.rebuild();
-  				}else{
-  					rawMtrInvntrGrid.refresh();
-  				}
-          	} else {
-          		rawMtrInvntrGrid.setPageTotalCount(totalRecordCount);
-          		rawMtrInvntrGrid.rebuild();
-          	}
+  	  				if (index === 0) {
+  	  					totalRecordCount = item.totalRecordCount;
+  	  				}
+  	  			});
+  	          	if (jsonRawMtrInvntr.length > 0) {
+  	          		if(rawMtrInvntrGrid.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+  	          			rawMtrInvntrGrid.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+  	          			rawMtrInvntrGrid.rebuild();
+  	  				}else{
+  	  					rawMtrInvntrGrid.refresh();
+  	  				}
+  	          	} else {
+  	          		rawMtrInvntrGrid.setPageTotalCount(totalRecordCount);
+  	          		rawMtrInvntrGrid.rebuild();
+  	          	}
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 
           } catch (e) {
     		if (!(e instanceof Error)) {
@@ -653,47 +658,52 @@
         let data2 = await postJsonPromise2;
 
   		try {
-          	/** @type {number} **/
-      		let totalRecordCount = 0;
+  			if (_.isEqual("S", data2.resultStatus)) {
+  	          	/** @type {number} **/
+  	      		let totalRecordCount = 0;
 
-      		jsonSortInvntr.length = 0;
-          	data2.resultList.forEach((item, index) => {
-          		const sortInvntr = {
-          			sortno			: item.sortno
-       			  ,	grdNm			: item.grdNm
-       			  ,	inptYmd			: item.inptYmd
-       			  ,	fcltNm			: item.fcltNm
-       			  ,	prdcrNm			: item.prdcrNm
-       			  ,	itemNm			: item.itemNm
-       			  ,	vrtyNm			: item.vrtyNm
-       			  ,	spcfctNm		: item.spcfctNm
-       			  ,	warehouseSeNm	: item.warehouseSeNm
-       			  ,	sortQntt		: item.sortQntt
-       			  ,	sortWght		: item.sortWght
-       			  ,	pckgQntt		: item.pckgQntt
-       			  ,	pckgWght		: item.pckgWght
-       			  ,	invntrQntt		: item.invntrQntt
-       			  ,	invntrWght		: item.invntrWght
-       			  ,	rmrk			: item.rmrk
+  	      		jsonSortInvntr.length = 0;
+  	          	data2.resultList.forEach((item, index) => {
+  	          		const sortInvntr = {
+  	          			sortno			: item.sortno
+  	       			  ,	grdNm			: item.grdNm
+  	       			  ,	inptYmd			: item.inptYmd
+  	       			  ,	fcltNm			: item.fcltNm
+  	       			  ,	prdcrNm			: item.prdcrNm
+  	       			  ,	itemNm			: item.itemNm
+  	       			  ,	vrtyNm			: item.vrtyNm
+  	       			  ,	spcfctNm		: item.spcfctNm
+  	       			  ,	warehouseSeNm	: item.warehouseSeNm
+  	       			  ,	sortQntt		: item.sortQntt
+  	       			  ,	sortWght		: item.sortWght
+  	       			  ,	pckgQntt		: item.pckgQntt
+  	       			  ,	pckgWght		: item.pckgWght
+  	       			  ,	invntrQntt		: item.invntrQntt
+  	       			  ,	invntrWght		: item.invntrWght
+  	       			  ,	rmrk			: item.rmrk
 
-  				}
-          		jsonSortInvntr.push(sortInvntr);
+  	  				}
+  	          		jsonSortInvntr.push(sortInvntr);
 
-  				if (index === 0) {
-  					totalRecordCount = item.totalRecordCount;
-  				}
-  			});
-          	if (jsonSortInvntr.length > 0) {
-          		if(sortInvntrGrid.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-          			sortInvntrGrid.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-          			sortInvntrGrid.rebuild();
-  				}else{
-  					sortInvntrGrid.refresh();
-  				}
-          	} else {
-          		sortInvntrGrid.setPageTotalCount(totalRecordCount);
-          		sortInvntrGrid.rebuild();
-          	}
+  	  				if (index === 0) {
+  	  					totalRecordCount = item.totalRecordCount;
+  	  				}
+  	  			});
+  	          	if (jsonSortInvntr.length > 0) {
+  	          		if(sortInvntrGrid.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+  	          			sortInvntrGrid.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+  	          			sortInvntrGrid.rebuild();
+  	  				}else{
+  	  					sortInvntrGrid.refresh();
+  	  				}
+  	          	} else {
+  	          		sortInvntrGrid.setPageTotalCount(totalRecordCount);
+  	          		sortInvntrGrid.rebuild();
+  	          	}
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 
           } catch (e) {
     		if (!(e instanceof Error)) {
@@ -856,47 +866,52 @@
 
         let data = await postJsonPromise;
   		try {
-          	/** @type {number} **/
-      		let totalRecordCount = 0;
+  			if (_.isEqual("S", data.resultStatus)) {
+  	          	/** @type {number} **/
+  	      		let totalRecordCount = 0;
 
-      		jsonGdsInvntr.length = 0;
-          	data.resultList.forEach((item, index) => {
-          		const gdsInvntr = {
-          				pckgno			: item.pckgno
-          			  , pckgSn			: item.pckgSn
-          			  , pckgYmd			: item.pckgYmd
-       				  , fcltNm			: item.fcltNm
-       				  , itemNm			: item.itemNm
-       				  , vrtyNm			: item.vrtyNm
-       				  , spcfctNm		: item.spcfctNm
-       				  , gdsGrdNm		: item.gdsGrdNm
-       				  , warehouseSeNm	: item.warehouseSeNm
-       				  , pckgQntt		: item.pckgQntt
-       				  , pckgWght		: item.pckgWght
-       				  , spmtQntt		: item.spmtQntt
-       				  , spmtWght		: item.spmtWght
-       				  , invntrQntt		: item.invntrQntt
-       				  , invntrWght		: item.invntrWght
-       				  , rmrk			: item.rmrk
-       				  , prdcrNm 		: item.prdcrNm
-  				}
-          		jsonGdsInvntr.push(gdsInvntr);
+  	      		jsonGdsInvntr.length = 0;
+  	          	data.resultList.forEach((item, index) => {
+  	          		const gdsInvntr = {
+  	          				pckgno			: item.pckgno
+  	          			  , pckgSn			: item.pckgSn
+  	          			  , pckgYmd			: item.pckgYmd
+  	       				  , fcltNm			: item.fcltNm
+  	       				  , itemNm			: item.itemNm
+  	       				  , vrtyNm			: item.vrtyNm
+  	       				  , spcfctNm		: item.spcfctNm
+  	       				  , gdsGrdNm		: item.gdsGrdNm
+  	       				  , warehouseSeNm	: item.warehouseSeNm
+  	       				  , pckgQntt		: item.pckgQntt
+  	       				  , pckgWght		: item.pckgWght
+  	       				  , spmtQntt		: item.spmtQntt
+  	       				  , spmtWght		: item.spmtWght
+  	       				  , invntrQntt		: item.invntrQntt
+  	       				  , invntrWght		: item.invntrWght
+  	       				  , rmrk			: item.rmrk
+  	       				  , prdcrNm 		: item.prdcrNm
+  	  				}
+  	          		jsonGdsInvntr.push(gdsInvntr);
 
-  				if (index === 0) {
-  					totalRecordCount = item.totalRecordCount;
-  				}
-  			});
-          	if (jsonGdsInvntr.length > 0) {
-          		if(gdsInvntrGrid.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-          			gdsInvntrGrid.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-          			gdsInvntrGrid.rebuild();
-  				}else{
-  					gdsInvntrGrid.refresh();
-  				}
-          	} else {
-          		gdsInvntrGrid.setPageTotalCount(totalRecordCount);
-          		gdsInvntrGrid.rebuild();
-          	}
+  	  				if (index === 0) {
+  	  					totalRecordCount = item.totalRecordCount;
+  	  				}
+  	  			});
+  	          	if (jsonGdsInvntr.length > 0) {
+  	          		if(gdsInvntrGrid.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+  	          			gdsInvntrGrid.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+  	          			gdsInvntrGrid.rebuild();
+  	  				}else{
+  	  					gdsInvntrGrid.refresh();
+  	  				}
+  	          	} else {
+  	          		gdsInvntrGrid.setPageTotalCount(totalRecordCount);
+  	          		gdsInvntrGrid.rebuild();
+  	          	}
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 
           } catch (e) {
     		if (!(e instanceof Error)) {

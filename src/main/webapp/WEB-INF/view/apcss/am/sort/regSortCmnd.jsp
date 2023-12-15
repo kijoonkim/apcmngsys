@@ -460,52 +460,57 @@
         const data = await postJsonPromise;
 
   		try {
-          	/** @type {number} **/
-      		let totalRecordCount = 0;
+  			if (_.isEqual("S", data.resultStatus)) {
+  	          	/** @type {number} **/
+  	      		let totalRecordCount = 0;
 
-      		jsonRawMtrInvntr.length = 0;
-          	data.resultList.forEach((item, index) => {
-				if(item.invntrCmndWght > 0){
-	          		const rawMtrInvntr = {
-	  						rowSeq: item.rowSeq,
-	  						apcCd: item.apcCd,
-	  						wrhsno: item.wrhsno,
-	  						pltno: item.pltno,
-	  						wrhsYmd: item.wrhsYmd,
-	  						prdcrCd: item.prdcrCd,
-	  						itemCd: item.itemCd,
-	  						vrtyCd: item.vrtyCd,
-	  						gdsSeCd: item.gdsSeCd,
-	  						wrhsSeCd: item.wrhsSeCd,
-	  						trsprtSeCd: item.trsprtSeCd,
-	  						warehouseSeCd: item.warehouseSeCd,
-	  						bxKnd: item.bxKnd,
-	  						grdCd: item.grdCd,
-	  						wrhsQntt: item.wrhsQntt,
-	  						wrhsWght: item.wrhsWght,
-	  						inptQntt: item.inptQntt,
-	  						inptWght: item.inptWght,
-	  						invntrQntt: item.invntrQntt,
-	  						invntrWght: item.invntrWght,
-	  						apcNm: item.apcNm,
-	  						prdcrNm: item.prdcrNm,
-	  						itemNm: item.itemNm,
-	  						vrtyNm: item.vrtyNm,
-	  						grdNm: item.grdNm,
-	  						warehouseSeNm: item.warehouseSeNm,
-	  						gdsSeNm: item.gdsSeNm,
-	  						wrhsSeNm: item.wrhsSeNm,
-	  						trsprtSeNm: item.trsprtSeNm,
-	  						bxKndNm: item.bxKndNm,
-	  						grdNm: item.grdNm,
-	  						sortCmndno: item.sortCmndno,
-	  						invntrCmndQntt : item.invntrCmndQntt,
-	  						invntrCmndWght : item.invntrCmndWght
-	  				}
-					jsonRawMtrInvntr.push(rawMtrInvntr);
-				}
-  			});
-			grdRawMtrInvntr.rebuild();
+  	      		jsonRawMtrInvntr.length = 0;
+  	          	data.resultList.forEach((item, index) => {
+  					if(item.invntrCmndWght > 0){
+  		          		const rawMtrInvntr = {
+  		  						rowSeq: item.rowSeq,
+  		  						apcCd: item.apcCd,
+  		  						wrhsno: item.wrhsno,
+  		  						pltno: item.pltno,
+  		  						wrhsYmd: item.wrhsYmd,
+  		  						prdcrCd: item.prdcrCd,
+  		  						itemCd: item.itemCd,
+  		  						vrtyCd: item.vrtyCd,
+  		  						gdsSeCd: item.gdsSeCd,
+  		  						wrhsSeCd: item.wrhsSeCd,
+  		  						trsprtSeCd: item.trsprtSeCd,
+  		  						warehouseSeCd: item.warehouseSeCd,
+  		  						bxKnd: item.bxKnd,
+  		  						grdCd: item.grdCd,
+  		  						wrhsQntt: item.wrhsQntt,
+  		  						wrhsWght: item.wrhsWght,
+  		  						inptQntt: item.inptQntt,
+  		  						inptWght: item.inptWght,
+  		  						invntrQntt: item.invntrQntt,
+  		  						invntrWght: item.invntrWght,
+  		  						apcNm: item.apcNm,
+  		  						prdcrNm: item.prdcrNm,
+  		  						itemNm: item.itemNm,
+  		  						vrtyNm: item.vrtyNm,
+  		  						grdNm: item.grdNm,
+  		  						warehouseSeNm: item.warehouseSeNm,
+  		  						gdsSeNm: item.gdsSeNm,
+  		  						wrhsSeNm: item.wrhsSeNm,
+  		  						trsprtSeNm: item.trsprtSeNm,
+  		  						bxKndNm: item.bxKndNm,
+  		  						grdNm: item.grdNm,
+  		  						sortCmndno: item.sortCmndno,
+  		  						invntrCmndQntt : item.invntrCmndQntt,
+  		  						invntrCmndWght : item.invntrCmndWght
+  		  				}
+  						jsonRawMtrInvntr.push(rawMtrInvntr);
+  					}
+  	  			});
+  				grdRawMtrInvntr.rebuild();
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 		} catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -679,44 +684,49 @@
   		});
         const data = await postJsonPromise;
   		try {
-          	/** @type {number} **/
-      		let totalRecordCount = 0;
+  			if (_.isEqual("S", data.resultStatus)) {
+  	          	/** @type {number} **/
+  	      		let totalRecordCount = 0;
 
-      		jsonSortCmnd.length = 0;
-          	data.resultList.forEach((item, index) => {
+  	      		jsonSortCmnd.length = 0;
+  	          	data.resultList.forEach((item, index) => {
 
-          		const sortCmnd = {
-  						rowSeq: item.rowSeq,
-  						apcCd: item.apcCd,
-  						sortCmndno: item.sortCmndno,
-  						sortCmndSn: item.sortCmndSn,
-  						sortCmndYmd : item.sortCmndYmd,
-  						fcltCd : item.fcltCd,
-  						fcltNm : item.fcltNm,
-  						pltno: item.pltno,
-  						prdcrCd: item.prdcrCd,
-  						itemCd: item.itemCd,
-  						vrtyCd: item.vrtyCd,
-  						warehouseSeCd: item.warehouseSeCd,
-  						apcNm: item.apcNm,
-  						prdcrNm: item.prdcrNm,
-  						itemNm: item.itemNm,
-  						vrtyNm: item.vrtyNm,
-  						grdNm: item.grdNm,
-  						warehouseSeNm: item.warehouseSeNm,
-  						gdsSeNm: item.gdsSeNm,
-  						wrhsSeNm: item.wrhsSeNm,
-  						trsprtSeNm: item.trsprtSeNm,
-  						bxKndNm: item.bxKndNm,
-  						grdNm: item.grdNm,
-  						cmndQntt: item.cmndQntt,
-  						cmndWght: item.cmndWght,
-  						rmrk : item.rmrk
-  				}
-          		jsonSortCmnd.push(sortCmnd);
-  			});
-          	grdSortCmnd.refresh();
-          	SBUxMethod.set("crtr-ymd", sortCmndYmd);
+  	          		const sortCmnd = {
+  	  						rowSeq: item.rowSeq,
+  	  						apcCd: item.apcCd,
+  	  						sortCmndno: item.sortCmndno,
+  	  						sortCmndSn: item.sortCmndSn,
+  	  						sortCmndYmd : item.sortCmndYmd,
+  	  						fcltCd : item.fcltCd,
+  	  						fcltNm : item.fcltNm,
+  	  						pltno: item.pltno,
+  	  						prdcrCd: item.prdcrCd,
+  	  						itemCd: item.itemCd,
+  	  						vrtyCd: item.vrtyCd,
+  	  						warehouseSeCd: item.warehouseSeCd,
+  	  						apcNm: item.apcNm,
+  	  						prdcrNm: item.prdcrNm,
+  	  						itemNm: item.itemNm,
+  	  						vrtyNm: item.vrtyNm,
+  	  						grdNm: item.grdNm,
+  	  						warehouseSeNm: item.warehouseSeNm,
+  	  						gdsSeNm: item.gdsSeNm,
+  	  						wrhsSeNm: item.wrhsSeNm,
+  	  						trsprtSeNm: item.trsprtSeNm,
+  	  						bxKndNm: item.bxKndNm,
+  	  						grdNm: item.grdNm,
+  	  						cmndQntt: item.cmndQntt,
+  	  						cmndWght: item.cmndWght,
+  	  						rmrk : item.rmrk
+  	  				}
+  	          		jsonSortCmnd.push(sortCmnd);
+  	  			});
+  	          	grdSortCmnd.refresh();
+  	          	SBUxMethod.set("crtr-ymd", sortCmndYmd);
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 		} catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);

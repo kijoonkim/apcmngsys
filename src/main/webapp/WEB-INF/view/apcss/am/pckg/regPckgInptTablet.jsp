@@ -395,32 +395,37 @@
     	let postJsonPromise = gfn_postJSON("/am/pckg/selectPckgInptList.do", pckgInpt);
         let data = await postJsonPromise;
         try{
-        	jsonPckgInpt.length = 0;
-        	data.resultList.forEach((item, index) => {
-				let pckgInpt = {
-					inptYmd 		: item.inptYmd
-				  , fcltNm 			: item.fcltNm
-				  , fcltCd 			: item.fcltCd
-				  , sortno 			: item.sortno
-				  , sortSn 			: item.sortSn
-				  , sortnoIndct		: item.sortno + "-" + item.sortSn
-				  , pckgCmndno 		: item.pckgCmndno
-				  , grdNm 			: item.grdNm
-				  , itemNm 			: item.itemNm
-				  , vrtyNm			: item.vrtyNm
-				  , spcfctNm 		: item.spcfctNm
-				  , grdCd 			: item.grdCd
-				  , itemCd 			: item.itemCd
-				  , vrtyCd			: item.vrtyCd
-				  , spcfctCd 		: item.spcfctCd
-				  , qntt 			: item.qntt
-				  , wght 			: item.wght
-				  , inptSn			: item.inptSn
-				  , rmrk			: item.rmrk
-				}
-				jsonPckgInpt.push(pckgInpt);
-			});
-          	SBUxMethod.set("crtr-ymd", inptYmd);
+  			if (_.isEqual("S", data.resultStatus)) {
+  	        	jsonPckgInpt.length = 0;
+  	        	data.resultList.forEach((item, index) => {
+  					let pckgInpt = {
+  						inptYmd 		: item.inptYmd
+  					  , fcltNm 			: item.fcltNm
+  					  , fcltCd 			: item.fcltCd
+  					  , sortno 			: item.sortno
+  					  , sortSn 			: item.sortSn
+  					  , sortnoIndct		: item.sortno + "-" + item.sortSn
+  					  , pckgCmndno 		: item.pckgCmndno
+  					  , grdNm 			: item.grdNm
+  					  , itemNm 			: item.itemNm
+  					  , vrtyNm			: item.vrtyNm
+  					  , spcfctNm 		: item.spcfctNm
+  					  , grdCd 			: item.grdCd
+  					  , itemCd 			: item.itemCd
+  					  , vrtyCd			: item.vrtyCd
+  					  , spcfctCd 		: item.spcfctCd
+  					  , qntt 			: item.qntt
+  					  , wght 			: item.wght
+  					  , inptSn			: item.inptSn
+  					  , rmrk			: item.rmrk
+  					}
+  					jsonPckgInpt.push(pckgInpt);
+  				});
+  	          	SBUxMethod.set("crtr-ymd", inptYmd);
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 
         } catch (e) {
     		if (!(e instanceof Error)) {

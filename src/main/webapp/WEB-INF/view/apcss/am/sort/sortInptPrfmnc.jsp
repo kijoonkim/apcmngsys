@@ -317,47 +317,52 @@
         sortInptPrfmncGridData = [];
 
   		try {
-          	/** @type {number} **/
-      		let totalRecordCount = 0;
+  			if (_.isEqual("S", data.resultStatus)) {
+  	          	/** @type {number} **/
+  	      		let totalRecordCount = 0;
 
-      		jsonComMsgList.length = 0;
-          	data.resultList.forEach((item, index) => {
-          		const sortPrfmncInq = {
+  	      		jsonComMsgList.length = 0;
+  	          	data.resultList.forEach((item, index) => {
+  	          		const sortPrfmncInq = {
 
-          				inptYmd: item.inptYmd,
-          				fcltNm: item.fcltNm,
-          				wrhsSeNm: item.wrhsSeNm,
-          				gdsSeNm: item.gdsSeNm,
-          				itemNm: item.itemNm,
-          				spcfctCd: item.spcfctCd,
-          				inptQntt: item.inptQntt,
-          				inptWght: item.inptWght,
-          				grdNm: item.grdNm,
-          				sortQntt: item.sortQntt,
-          				sortWght: item.sortWght,
-          				ls: item.ls,
-          				rprsPrdcrNm: item.rprsPrdcrNm,
-          				warehouseSeNm: item.warehouseSeNm,
-          				strgWarehouse: item.strgWarehouse,
-          				rmrk: item.rmrk
-  				}
-  				jsonComMsgList.push(sortPrfmncInq);
+  	          				inptYmd: item.inptYmd,
+  	          				fcltNm: item.fcltNm,
+  	          				wrhsSeNm: item.wrhsSeNm,
+  	          				gdsSeNm: item.gdsSeNm,
+  	          				itemNm: item.itemNm,
+  	          				spcfctCd: item.spcfctCd,
+  	          				inptQntt: item.inptQntt,
+  	          				inptWght: item.inptWght,
+  	          				grdNm: item.grdNm,
+  	          				sortQntt: item.sortQntt,
+  	          				sortWght: item.sortWght,
+  	          				ls: item.ls,
+  	          				rprsPrdcrNm: item.rprsPrdcrNm,
+  	          				warehouseSeNm: item.warehouseSeNm,
+  	          				strgWarehouse: item.strgWarehouse,
+  	          				rmrk: item.rmrk
+  	  				}
+  	  				jsonComMsgList.push(sortPrfmncInq);
 
-  				if (index === 0) {
-  					totalRecordCount = item.totalRecordCount;
-  				}
-  			});
-          	if (jsonComMsgList.length > 0) {
-          		if(grdComMsgList.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-          			grdComMsgList.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-          			grdComMsgList.rebuild();
-  				}else{
-  					grdComMsgList.refresh();
-  				}
-          	} else {
-          		grdComMsgList.setPageTotalCount(totalRecordCount);
-          		grdComMsgList.rebuild();
-          	}
+  	  				if (index === 0) {
+  	  					totalRecordCount = item.totalRecordCount;
+  	  				}
+  	  			});
+  	          	if (jsonComMsgList.length > 0) {
+  	          		if(grdComMsgList.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+  	          			grdComMsgList.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+  	          			grdComMsgList.rebuild();
+  	  				}else{
+  	  					grdComMsgList.refresh();
+  	  				}
+  	          	} else {
+  	          		grdComMsgList.setPageTotalCount(totalRecordCount);
+  	          		grdComMsgList.rebuild();
+  	          	}
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 
           } catch (e) {
       		if (!(e instanceof Error)) {

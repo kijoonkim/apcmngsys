@@ -590,89 +590,94 @@
         let data = await postJsonPromise;
         newJsonOutordrInfo = [];
         try{
-        	data.resultList.forEach((item, index) => {
-				let ordr = {
-					  checked 				: "false"
-					, rcptCfmtnYmd 			: item.rcptCfmtnYmd
-					, outordrTypeNm 		: item.outordrTypeNm
-					, outordrType 			: item.outordrType
-					, rcptYn 				: null
-					, outordrno 			: item.outordrno
-					, apcCnptNm	 			: item.apcCnptNm
-					, wrhsYmd 				: item.wrhsYmd
-					, outordrYmd 			: item.outordrYmd
-					, outordrPrsn 			: item.outordrPrsn
-					, splyPrsn 				: item.splyPrsn
-					, spmtPckgUnitNm 		: item.spmtPckgUnitNm
-					, spmtPckgUnitCd		: item.spmtPckgUnitCd
-					, dldtn 				: item.dldtn
-					, itemNm 				: item.itemNm
-					, vrtyNm 				: item.vrtyNm
-					, spcfctNm 				: item.spcfctNm
-					, bxGdsQntt 			: item.bxGdsQntt
-					, outordrQntt			: item.outordrQntt
-					, pieceQntt				: item.pieceQntt
-					, unitCd				: item.unitCd
-					, bxUntprc				: item.bxUntprc
-					, outordrUntprc			: item.outordrUntprc
-					, outordrUnitCd			: item.outordrUnitCd
-					, lot					: item.lot
-					, txAmt					: item.txAmt
-					, outordrAmt			: item.outordrAmt
-					, wrhsType				: item.wrhsType
-					, docno					: item.docno
-					, dockInfo				: item.dockInfo
-					, cntrSe				: item.cntrSe
-					, buyerNm				: item.buyerNm
-					, cntrRcvdWrhsYmd		: item.cntrRcvdWrhsYmd
-					, cntrNm				: item.cntrNm
-					, dlvgdsSeCd			: item.dlvgdsSeCd
-					, etc					: item.etc
-					, rcptCfmtnApcNm		: item.rcptCfmtnApcNm
-					, spmtCmndno			: item.spmtCmndno
-					, spmtYmd				: item.spmtYmd
-					, invntrQntt			: item.invntrQntt
-					, invntrWght			: item.invntrWght
-					, spmtQntt				: item.spmtQntt
-					, spmtWght				: item.spmtWght
-					, cmndQntt				: item.cmndQntt
-					, cmndWght				: item.cmndWght
-					, gdsGrd 				: item.gdsGrd
-					, wght	 				: item.wght
-					, apcCd 				: item.apcCd
-					, apcSeCd 				: item.apcSeCd
-					, apcCnptCd 			: item.apcCnptCd
-					, itemCd 				: item.itemCd
-					, vrtyCd 				: item.vrtyCd
-					, spcfctCd 				: item.spcfctCd
-					, delYn					: item.delYn
-				}
-				if(!gfn_isEmpty(ordr.rcptCfmtnYmd)){
-					ordr.rcptYn = 'Y';
-				} else {
-					ordr.rcptYn = 'N';
-				}
-				jsonOutordrInfo.push(Object.assign({}, ordr));
-				newJsonOutordrInfo.push(Object.assign({}, ordr));
-			});
-        	if(jsonOutordrInfo.length > 0){
-				if(grdOutordrInfo.getPageTotalCount() != data.resultList[0].totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-					grdOutordrInfo.setPageTotalCount(data.resultList[0].totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-					grdOutordrInfo.rebuild();
-				}else{
-					grdOutordrInfo.refresh();
-				}
-			}else{
-				grdOutordrInfo.setPageTotalCount(0);
-				grdOutordrInfo.rebuild();
-			}
-        	// 체크박스 유무
-        	for ( let i=1; i<=grdOutordrInfo.getGridDataAll().length; i++ ){
-    			const rowData = grdOutordrInfo.getRowData(i);
-    			if (rowData.outordrQntt == rowData.cmndQntt){
-    				grdOutordrInfo.setCellDisabled(i, 0, i, 0, true);
-    			}
-    		}
+  			if (_.isEqual("S", data.resultStatus)) {
+  	        	data.resultList.forEach((item, index) => {
+  					let ordr = {
+  						  checked 				: "false"
+  						, rcptCfmtnYmd 			: item.rcptCfmtnYmd
+  						, outordrTypeNm 		: item.outordrTypeNm
+  						, outordrType 			: item.outordrType
+  						, rcptYn 				: null
+  						, outordrno 			: item.outordrno
+  						, apcCnptNm	 			: item.apcCnptNm
+  						, wrhsYmd 				: item.wrhsYmd
+  						, outordrYmd 			: item.outordrYmd
+  						, outordrPrsn 			: item.outordrPrsn
+  						, splyPrsn 				: item.splyPrsn
+  						, spmtPckgUnitNm 		: item.spmtPckgUnitNm
+  						, spmtPckgUnitCd		: item.spmtPckgUnitCd
+  						, dldtn 				: item.dldtn
+  						, itemNm 				: item.itemNm
+  						, vrtyNm 				: item.vrtyNm
+  						, spcfctNm 				: item.spcfctNm
+  						, bxGdsQntt 			: item.bxGdsQntt
+  						, outordrQntt			: item.outordrQntt
+  						, pieceQntt				: item.pieceQntt
+  						, unitCd				: item.unitCd
+  						, bxUntprc				: item.bxUntprc
+  						, outordrUntprc			: item.outordrUntprc
+  						, outordrUnitCd			: item.outordrUnitCd
+  						, lot					: item.lot
+  						, txAmt					: item.txAmt
+  						, outordrAmt			: item.outordrAmt
+  						, wrhsType				: item.wrhsType
+  						, docno					: item.docno
+  						, dockInfo				: item.dockInfo
+  						, cntrSe				: item.cntrSe
+  						, buyerNm				: item.buyerNm
+  						, cntrRcvdWrhsYmd		: item.cntrRcvdWrhsYmd
+  						, cntrNm				: item.cntrNm
+  						, dlvgdsSeCd			: item.dlvgdsSeCd
+  						, etc					: item.etc
+  						, rcptCfmtnApcNm		: item.rcptCfmtnApcNm
+  						, spmtCmndno			: item.spmtCmndno
+  						, spmtYmd				: item.spmtYmd
+  						, invntrQntt			: item.invntrQntt
+  						, invntrWght			: item.invntrWght
+  						, spmtQntt				: item.spmtQntt
+  						, spmtWght				: item.spmtWght
+  						, cmndQntt				: item.cmndQntt
+  						, cmndWght				: item.cmndWght
+  						, gdsGrd 				: item.gdsGrd
+  						, wght	 				: item.wght
+  						, apcCd 				: item.apcCd
+  						, apcSeCd 				: item.apcSeCd
+  						, apcCnptCd 			: item.apcCnptCd
+  						, itemCd 				: item.itemCd
+  						, vrtyCd 				: item.vrtyCd
+  						, spcfctCd 				: item.spcfctCd
+  						, delYn					: item.delYn
+  					}
+  					if(!gfn_isEmpty(ordr.rcptCfmtnYmd)){
+  						ordr.rcptYn = 'Y';
+  					} else {
+  						ordr.rcptYn = 'N';
+  					}
+  					jsonOutordrInfo.push(Object.assign({}, ordr));
+  					newJsonOutordrInfo.push(Object.assign({}, ordr));
+  				});
+  	        	if(jsonOutordrInfo.length > 0){
+  					if(grdOutordrInfo.getPageTotalCount() != data.resultList[0].totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+  						grdOutordrInfo.setPageTotalCount(data.resultList[0].totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+  						grdOutordrInfo.rebuild();
+  					}else{
+  						grdOutordrInfo.refresh();
+  					}
+  				}else{
+  					grdOutordrInfo.setPageTotalCount(0);
+  					grdOutordrInfo.rebuild();
+  				}
+  	        	// 체크박스 유무
+  	        	for ( let i=1; i<=grdOutordrInfo.getGridDataAll().length; i++ ){
+  	    			const rowData = grdOutordrInfo.getRowData(i);
+  	    			if (rowData.outordrQntt == rowData.cmndQntt){
+  	    				grdOutordrInfo.setCellDisabled(i, 0, i, 0, true);
+  	    			}
+  	    		}
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);

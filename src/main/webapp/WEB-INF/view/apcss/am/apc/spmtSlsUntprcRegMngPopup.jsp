@@ -142,22 +142,27 @@
 		let postJsonPromise = gfn_postJSON("/am/cmns/selectSpmtSlsUntprcRegList.do", {apcCd : apcCd, itemCd : itemCd, vrtyCd : vrtyCd, spcfctCd : spcfctCd});
 	    let data = await postJsonPromise;
 	    try{
-	    	jsonSpmtSlsUntprcReg.length = 0;
-	    	data.resultList.forEach((item, index) => {
-				let spmtSlsUntprcRegVO = {
-					aplcnCrtrYmd 	: item.aplcnCrtrYmd
-				  , spmtSlsUntprc 	: item.spmtSlsUntprc
-				  , spmtSlsUntprcCd : item.spmtSlsUntprcCd
-				  , rmrk			: item.rmrk
-				  , spmtPckgUnitCd	: item.spmtPckgUnitCd
-				  , delYn			: item.delYn
-				  , apcCd			: item.apcCd
-				}
-				jsonSpmtSlsUntprcReg.push(spmtSlsUntprcRegVO);
-			});
-	    	grdSpmtSlsUntprcReg.rebuild();
-	    	grdSpmtSlsUntprcReg.addRow(true);
-	    	grdSpmtSlsUntprcReg.setCellDisabled(grdSpmtSlsUntprcReg.getRows() -1, 0, grdSpmtSlsUntprcReg.getRows() -1, grdSpmtSlsUntprcReg.getCols() -1, true);
+  			if (_.isEqual("S", data.resultStatus)) {
+  		    	jsonSpmtSlsUntprcReg.length = 0;
+  		    	data.resultList.forEach((item, index) => {
+  					let spmtSlsUntprcRegVO = {
+  						aplcnCrtrYmd 	: item.aplcnCrtrYmd
+  					  , spmtSlsUntprc 	: item.spmtSlsUntprc
+  					  , spmtSlsUntprcCd : item.spmtSlsUntprcCd
+  					  , rmrk			: item.rmrk
+  					  , spmtPckgUnitCd	: item.spmtPckgUnitCd
+  					  , delYn			: item.delYn
+  					  , apcCd			: item.apcCd
+  					}
+  					jsonSpmtSlsUntprcReg.push(spmtSlsUntprcRegVO);
+  				});
+  		    	grdSpmtSlsUntprcReg.rebuild();
+  		    	grdSpmtSlsUntprcReg.addRow(true);
+  		    	grdSpmtSlsUntprcReg.setCellDisabled(grdSpmtSlsUntprcReg.getRows() -1, 0, grdSpmtSlsUntprcReg.getRows() -1, grdSpmtSlsUntprcReg.getCols() -1, true);
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 	    }catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);

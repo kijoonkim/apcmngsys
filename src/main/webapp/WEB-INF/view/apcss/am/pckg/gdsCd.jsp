@@ -374,42 +374,47 @@
         let data = await postJsonPromise;
 
   		try {
+  			if (_.isEqual("S", data.resultStatus)) {
 
-          	/** @type {number} **/
-      		let totalRecordCount = 0;
+  	          	/** @type {number} **/
+  	      		let totalRecordCount = 0;
 
-            jsonGdsCd.length = 0;
-          	data.resultList.forEach((item, index) => {
-          		const gdsCd = {
-          			gdsCd				: item.gdsCd
-          		  ,	gdsNm				: item.gdsNm
-          		  ,	itemNm				: item.itemNm
-          		  ,	vrtyNm				: item.vrtyNm
-          		  ,	spcfctNm			: item.spcfctNm
-          		  ,	gdsGrdNm			: item.gdsGrdNm
-          		  ,	brndNm				: item.brndNm
-          		  ,	plorCd				: item.plorCd
-          		  ,	spmtPckgUnitNm		: item.spmtPckgUnitNm
-          		  ,	bxGdsQntt			: item.bxGdsQntt
-          		  ,	wght				: item.wght
-  				}
-          		jsonGdsCd.push(gdsCd);
+  	            jsonGdsCd.length = 0;
+  	          	data.resultList.forEach((item, index) => {
+  	          		const gdsCd = {
+  	          			gdsCd				: item.gdsCd
+  	          		  ,	gdsNm				: item.gdsNm
+  	          		  ,	itemNm				: item.itemNm
+  	          		  ,	vrtyNm				: item.vrtyNm
+  	          		  ,	spcfctNm			: item.spcfctNm
+  	          		  ,	gdsGrdNm			: item.gdsGrdNm
+  	          		  ,	brndNm				: item.brndNm
+  	          		  ,	plorCd				: item.plorCd
+  	          		  ,	spmtPckgUnitNm		: item.spmtPckgUnitNm
+  	          		  ,	bxGdsQntt			: item.bxGdsQntt
+  	          		  ,	wght				: item.wght
+  	  				}
+  	          		jsonGdsCd.push(gdsCd);
 
-  				if (index === 0) {
-  					totalRecordCount = item.totalRecordCount;
-  				}
-  			});
+  	  				if (index === 0) {
+  	  					totalRecordCount = item.totalRecordCount;
+  	  				}
+  	  			});
 
-          	if (jsonGdsCd.length > 0) {
-          		if(grdGdsCd.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-          			grdGdsCd.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-          			grdGdsCd.rebuild();
-  				}else{
-  					grdGdsCd.refresh();
-  				}
+  	          	if (jsonGdsCd.length > 0) {
+  	          		if(grdGdsCd.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+  	          			grdGdsCd.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+  	          			grdGdsCd.rebuild();
+  	  				}else{
+  	  					grdGdsCd.refresh();
+  	  				}
+  	        	} else {
+  	        		grdGdsCd.setPageTotalCount(totalRecordCount);
+  	        		grdGdsCd.rebuild();
+  	        	}
+
         	} else {
-        		grdGdsCd.setPageTotalCount(totalRecordCount);
-        		grdGdsCd.rebuild();
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
 		} catch (e) {
 			if (!(e instanceof Error)) {

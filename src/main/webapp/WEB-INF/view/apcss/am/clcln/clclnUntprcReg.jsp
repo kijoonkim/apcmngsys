@@ -419,34 +419,39 @@
         const data = await postJsonPromise;
 
   		try {
+  			if (_.isEqual("S", data.resultStatus)) {
 
-          	/** @type {number} **/
-      		let totalRecordCount = 0;
+  	          	/** @type {number} **/
+  	      		let totalRecordCount = 0;
 
-      		jsonClclnUntprc.length = 0;
-          	data.resultList.forEach((item, index) => {
-          		const clclnUntprc = {
-          				apcCd: item.apcCd,
-          				itemCd: item.itemCd,
-          				itemNm: item.itemNm,
-          				vrtyCd: item.vrtyCd,
-          				vrtyNm: item.vrtyNm,
-          				clclnCrtrCd: item.clclnCrtrCd,
-          				clclnCrtrNm: item.clclnCrtrNm,
-          				grdCd: item.grdCd,
-          				grdNm: item.grdNm,
-          				gdsSeCd: item.gdsSeCd,
-          				clclnUntprc: item.clclnUntprc,
-          				clclnUnitWght: item.clclnUnitWght
-  				}
+  	      		jsonClclnUntprc.length = 0;
+  	          	data.resultList.forEach((item, index) => {
+  	          		const clclnUntprc = {
+  	          				apcCd: item.apcCd,
+  	          				itemCd: item.itemCd,
+  	          				itemNm: item.itemNm,
+  	          				vrtyCd: item.vrtyCd,
+  	          				vrtyNm: item.vrtyNm,
+  	          				clclnCrtrCd: item.clclnCrtrCd,
+  	          				clclnCrtrNm: item.clclnCrtrNm,
+  	          				grdCd: item.grdCd,
+  	          				grdNm: item.grdNm,
+  	          				gdsSeCd: item.gdsSeCd,
+  	          				clclnUntprc: item.clclnUntprc,
+  	          				clclnUnitWght: item.clclnUnitWght
+  	  				}
 
-          		jsonClclnUntprc.push(clclnUntprc);
-  			});
+  	          		jsonClclnUntprc.push(clclnUntprc);
+  	  			});
 
-          	totalRecordCount = jsonClclnUntprc.length;
-          	grdClclnUntprc.rebuild();
+  	          	totalRecordCount = jsonClclnUntprc.length;
+  	          	grdClclnUntprc.rebuild();
 
-          	document.querySelector('#cnt-clcln').innerText = totalRecordCount;
+  	          	document.querySelector('#cnt-clcln').innerText = totalRecordCount;
+  	          	
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 
           } catch (e) {
     		if (!(e instanceof Error)) {
