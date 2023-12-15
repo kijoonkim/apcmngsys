@@ -49,6 +49,11 @@ public class SortPrfmncController extends BaseController {
 			resultList = sortPrfmncService.selectSortPrfmncList(sortPrfmncVO);
 		} catch(Exception e) {
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -73,6 +78,11 @@ public class SortPrfmncController extends BaseController {
 			resultList = sortPrfmncService.selectSortInptPrfmncList(sortPrfmncVO);
 		} catch(Exception e) {
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
