@@ -511,17 +511,60 @@
         var checkedYn = obj.checked ? "true" : "false";
         //체크박스 열 index
         var getColRef = grid.getColRef("checked");
-    	var getRow = grid.getRow();
-    	var getCol = grid.getCol();
+    	let nRow = grid.getRow();
+    	let nCol = grid.getCol();
+    	let alertList = [];
+    	let checkedList = [];
         for (var i=0; i<gridList.length; i++) {
         	if (grid.getCellDisabled(i+1, getColRef)) {
         		continue;
         	}
         	grid.setCol(getColRef);
-        	grid.clickCell(i+1, getColRef);
-            grid.setCellData(i+1, getColRef, checkedYn, true, false);
+        	if (checkedYn == "true") {
+            	grid.clickCell(i+1, getColRef, true, false);
+
+           		// 발주수량 - 출하수량 - 출하지시수량 = 가능한 지시수량
+       	    	let invntrQntt 		= grdOutordrInfo.getRowData(i+1).invntrQntt;
+       			let spmtQntt 		= grdOutordrInfo.getRowData(i+1).spmtQntt;
+       			let outordrQntt 	= grdOutordrInfo.getRowData(i+1).outordrQntt;
+       			let cmndQntt 		= grdOutordrInfo.getRowData(i+1).cmndQntt;
+       			let psbltyCmndQntt 	= outordrQntt - cmndQntt;
+       			let wght 			= grdOutordrInfo.getRowData(i+1).wght;
+       			let inptCmndQnttCol = grdOutordrInfo.getColRef("inptCmndQntt");
+       			let inptCmndWghtCol = grdOutordrInfo.getColRef("inptCmndWght");
+
+       			if(psbltyCmndQntt > 0 && invntrQntt > 0){
+       				if(psbltyCmndQntt > invntrQntt) {
+       					grdOutordrInfo.setCellData(i+1, inptCmndQnttCol, invntrQntt);
+       					grdOutordrInfo.setCellData(i+1, inptCmndWghtCol, invntrQntt*wght);
+       		            grid.setCellData(i+1, getColRef, checkedYn, true, false);
+       		            checkedList.push(i+1);
+       				} else {
+       					grdOutordrInfo.setCellData(i+1, inptCmndQnttCol, psbltyCmndQntt);
+       					grdOutordrInfo.setCellData(i+1, inptCmndWghtCol, psbltyCmndQntt*wght);
+       		            grid.setCellData(i+1, getColRef, checkedYn, true, false);
+       		            checkedList.push(i+1);
+       				}
+       			} else if (invntrQntt <= 0) {
+       		    	alertList.push(i+1 + "번째 행");
+       			}
+        	} else {
+            	grid.clickCell(i+1, getColRef);
+	            grid.setCellData(i+1, getColRef, checkedYn, true, false);
+        	}
         }
-    	grid.clickCell(getRow, getCol);
+    	grid.clickCell(nRow, nCol);
+    	
+    	if (checkedYn == "true") {
+	    	if (checkedList.length == 0) {
+	        	let ref = "<input type='checkbox' onchange='fn_checkAll(grdOutordrInfo, this);'>";
+	        	grdOutordrInfo.setCellData(0, getColRef, ref, true, false);
+			}
+    	}
+    	
+    	if (alertList.length != 0) {
+        	gfn_comAlert("E0000", alertList.join(", ") + "의 재고가 없습니다.");
+		}
     }
 
 	/**
@@ -904,10 +947,16 @@
 
     const fn_delValue = async function(){
     	var nRow = grdOutordrInfo.getRow();
+        var getColRef = grdOutordrInfo.getColRef("checked");
     	let inptCmndQnttCol = grdOutordrInfo.getColRef("inptCmndQntt");
 		let inptCmndWghtCol = grdOutordrInfo.getColRef("inptCmndWght");
     	grdOutordrInfo.setCellData(nRow, inptCmndQnttCol, "");
     	grdOutordrInfo.setCellData(nRow, inptCmndWghtCol, "");
+    	
+    	if (grdOutordrInfo.getCheckedRows(getColRef) == 0) {
+        	let ref = "<input type='checkbox' onchange='fn_checkAll(grdOutordrInfo, this);'>";
+        	grdOutordrInfo.setCellData(0, getColRef, ref, true, false);
+    	}
     }
 
 	// 출하지시 등록
