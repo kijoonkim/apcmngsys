@@ -239,36 +239,41 @@
         const data = await postJsonPromise;
 
         try {
-      		let totalRecordCount = 0;
-      		comCdgridData.length = 0;
-          	data.resultList.forEach((item, index) => {
-  				const comCd = {
-						cdId : item.cdId,
-						cdNm : item.cdNm,
-						cdType : item.cdType,
-						cdExpln : item.cdExpln
-  				}
-  				comCdgridData.push(comCd);
+  			if (_.isEqual("S", data.resultStatus)) {
+  	      		let totalRecordCount = 0;
+  	      		comCdgridData.length = 0;
+  	          	data.resultList.forEach((item, index) => {
+  	  				const comCd = {
+  							cdId : item.cdId,
+  							cdNm : item.cdNm,
+  							cdType : item.cdType,
+  							cdExpln : item.cdExpln
+  	  				}
+  	  				comCdgridData.push(comCd);
 
-  				if (index === 0) {
-  					totalRecordCount = item.totalRecordCount;
-  				}
-  			});
+  	  				if (index === 0) {
+  	  					totalRecordCount = item.totalRecordCount;
+  	  				}
+  	  			});
 
-          	if (comCdgridData.length > 0) {
-          		if (comCdgrid.getPageTotalCount() != totalRecordCount) {	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-          			comCdgrid.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-          			comCdgrid.rebuild();
-  				} else {
-  					comCdgrid.refresh();
-  				}
-              	comCdgrid.setCellDisabled(0, 1, comCdgrid.getRows() - 1, 1, true);
-          	} else {
-          		comCdgrid.setPageTotalCount(totalRecordCount);
-          		comCdgrid.rebuild();
-          	}
+  	          	if (comCdgridData.length > 0) {
+  	          		if (comCdgrid.getPageTotalCount() != totalRecordCount) {	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+  	          			comCdgrid.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+  	          			comCdgrid.rebuild();
+  	  				} else {
+  	  					comCdgrid.refresh();
+  	  				}
+  	              	comCdgrid.setCellDisabled(0, 1, comCdgrid.getRows() - 1, 1, true);
+  	          	} else {
+  	          		comCdgrid.setPageTotalCount(totalRecordCount);
+  	          		comCdgrid.rebuild();
+  	          	}
 
-			document.querySelector('#listCount').innerText = totalRecordCount;
+  				document.querySelector('#listCount').innerText = totalRecordCount;
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 
 		} catch (e) {
     		if (!(e instanceof Error)) {

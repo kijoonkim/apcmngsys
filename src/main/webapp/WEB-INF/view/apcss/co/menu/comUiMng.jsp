@@ -314,28 +314,33 @@
         let postJsonPromise = gfn_postJSON("/co/menu/selectMenuUiList.do", menuVO);
         const data = await postJsonPromise;
         try {
-          	/** @type {number} **/
-      		jsonMenu.length = 0;
-        	data.resultList.forEach((item, index) => {
-				let menu = {
-						rowSeq : item.rowSeq,
-						menuId : item.menuId,
-						menuNm : item.menuNm,
-						menuType : item.menuType,
-						menuTypeNm : item.menuTypeNm,
-						pageUrl : item.pageUrl,
-						delYn : item.delYn,
-						sysFrstInptUserId : item.sysFrstInptUserId,
-						sysFrstInptDt : item.sysFrstInptDt,
-						sysFrstInptPrgrmId : item.sysFrstInptPrgrmId,
-						sysLastChgUserId : item.sysLastChgUserId,
-						sysLastChgPrgrmId : item.sysLastChgPrgrmId,
-						sysLastChgDt : item.sysLastChgDt,
-						apcCd : item.apcCd
-				}
-				jsonMenu.push(menu);
-			});
-        	grdMenu.rebuild();
+  			if (_.isEqual("S", data.resultStatus)) {
+  	          	/** @type {number} **/
+  	      		jsonMenu.length = 0;
+  	        	data.resultList.forEach((item, index) => {
+  					let menu = {
+  							rowSeq : item.rowSeq,
+  							menuId : item.menuId,
+  							menuNm : item.menuNm,
+  							menuType : item.menuType,
+  							menuTypeNm : item.menuTypeNm,
+  							pageUrl : item.pageUrl,
+  							delYn : item.delYn,
+  							sysFrstInptUserId : item.sysFrstInptUserId,
+  							sysFrstInptDt : item.sysFrstInptDt,
+  							sysFrstInptPrgrmId : item.sysFrstInptPrgrmId,
+  							sysLastChgUserId : item.sysLastChgUserId,
+  							sysLastChgPrgrmId : item.sysLastChgPrgrmId,
+  							sysLastChgDt : item.sysLastChgDt,
+  							apcCd : item.apcCd
+  					}
+  					jsonMenu.push(menu);
+  				});
+  	        	grdMenu.rebuild();
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -380,19 +385,24 @@
         let postJsonPromise = gfn_postJSON("/co/menu/selectComUiList.do", {menuId : menuId});
         const data = await postJsonPromise;
         try{
-        	jsonMenuUi.length = 0;
-        	data.resultList.forEach((item, index) => {
-				let menuUi = {
-						menuId : item.menuId,
-						entyId : item.entyId,
-						entyNm : item.entyNm,
-						entyType : item.entyType,
-						delYn : item.delYn,
-						addYn : "N"
-				}
-				jsonMenuUi.push(menuUi);
-			});
-        	grdComUi.rebuild();
+  			if (_.isEqual("S", data.resultStatus)) {
+  	        	jsonMenuUi.length = 0;
+  	        	data.resultList.forEach((item, index) => {
+  					let menuUi = {
+  							menuId : item.menuId,
+  							entyId : item.entyId,
+  							entyNm : item.entyNm,
+  							entyType : item.entyType,
+  							delYn : item.delYn,
+  							addYn : "N"
+  					}
+  					jsonMenuUi.push(menuUi);
+  				});
+  	        	grdComUi.rebuild();
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 
         } catch (e) {
     		if (!(e instanceof Error)) {

@@ -192,29 +192,34 @@
 	        const data = await postJsonPromise;
 
 			try {
-				jsonPrfrmImprvDmndPop.length = 0;
-	        	data.resultList.forEach((item, index) => {
-					const dmnd = {
-						apcCd 			: item.apcCd,
-						dmndYmd 		: item.dmndYmd,
-						sn 				: item.sn,
-						menuId 			: item.menuId,
-						userId 			: item.userId,
-						userNm 			: item.userNm,
-						imprvDmndMttr	: item.imprvDmndMttr,
-						actnPrnmntYmd 	: item.actnPrnmntYmd,
-						pic 			: item.pic,
-						picNm			: item.picNm,
-						actnRslt 		: item.actnRslt,
-						delYn			: item.delYn,
-						dmndStts		: item.dmndStts
-					}
-					jsonPrfrmImprvDmndPop.push(dmnd);
+	  			if (_.isEqual("S", data.resultStatus)) {
+					jsonPrfrmImprvDmndPop.length = 0;
+		        	data.resultList.forEach((item, index) => {
+						const dmnd = {
+							apcCd 			: item.apcCd,
+							dmndYmd 		: item.dmndYmd,
+							sn 				: item.sn,
+							menuId 			: item.menuId,
+							userId 			: item.userId,
+							userNm 			: item.userNm,
+							imprvDmndMttr	: item.imprvDmndMttr,
+							actnPrnmntYmd 	: item.actnPrnmntYmd,
+							pic 			: item.pic,
+							picNm			: item.picNm,
+							actnRslt 		: item.actnRslt,
+							delYn			: item.delYn,
+							dmndStts		: item.dmndStts
+						}
+						jsonPrfrmImprvDmndPop.push(dmnd);
 
-				});
+					});
 
-	        	grdPrfrmImprvDmndPop.rebuild();
-	        	grdPrfrmImprvDmndPop.addRow(true);
+		        	grdPrfrmImprvDmndPop.rebuild();
+		        	grdPrfrmImprvDmndPop.addRow(true);
+
+	        	} else {
+	        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	        	}
 
 	        } catch (e) {
 	    		if (!(e instanceof Error)) {

@@ -217,24 +217,29 @@
 			});
 	        const data = await postJsonPromise;
 			try {
-	    		jsonDfctPopup.length = 0;
-	        	data.resultList.forEach((item, index) => {
-					const dfctVO = {
-						prgrmId		: item.prgrmId,
-						dfctSn		: item.dfctSn,
-						dfctCn		: item.dfctCn,
-						regPrsnNm	: item.regPrsnNm,
-						actnRslt	: item.actnRslt,
-						ocrnYmd		: item.ocrnYmd,
-						actnYmd		: item.actnYmd,
-						delYn		: item.delYn
-					}
-					jsonDfctPopup.push(dfctVO);
+	  			if (_.isEqual("S", data.resultStatus)) {
+		    		jsonDfctPopup.length = 0;
+		        	data.resultList.forEach((item, index) => {
+						const dfctVO = {
+							prgrmId		: item.prgrmId,
+							dfctSn		: item.dfctSn,
+							dfctCn		: item.dfctCn,
+							regPrsnNm	: item.regPrsnNm,
+							actnRslt	: item.actnRslt,
+							ocrnYmd		: item.ocrnYmd,
+							actnYmd		: item.actnYmd,
+							delYn		: item.delYn
+						}
+						jsonDfctPopup.push(dfctVO);
 
-				});
+					});
 
-        		grdDtctPopup.rebuild();
-        		grdDtctPopup.addRow(true);
+	        		grdDtctPopup.rebuild();
+	        		grdDtctPopup.addRow(true);
+
+	        	} else {
+	        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	        	}
 
 	        } catch (e) {
 	    		if (!(e instanceof Error)) {

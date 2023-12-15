@@ -229,36 +229,41 @@
         let data = await postJsonPromise;
         newApcInfoMngData = [];
         try{
-        	data.resultList.forEach((item, index) => {
-				let apcDsctn = {
-					apcCd 		: item.apcCd
-				  , regApcNm 	: item.regApcNm
-				  , ctpvNm 		: item.ctpvNm
-				  , sigunNm 	: item.sigunNm
-				  , mbCd 		: item.mbCd
-				  , regAddr 	: item.regAddr
-				  , regTelno	: item.regTelno
-				  , apcNm 		: item.apcNm
-				  , brno 		: item.brno
-				  , addr 		: item.addr
-				  , fxno 		: item.fxno
-				  , telno 		: item.telno
-				  , delYn		: item.delYn
-				}
-				apcInfoMngData.push(Object.assign({}, apcDsctn));
-				newApcInfoMngData.push(Object.assign({}, apcDsctn));
-			});
-        	if(apcInfoMngData.length > 0){
-				if(grdApcInfoMng.getPageTotalCount() != data.resultList[0].totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-					grdApcInfoMng.setPageTotalCount(data.resultList[0].totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-					grdApcInfoMng.rebuild();
-				}else{
-					grdApcInfoMng.refresh();
-				}
-			}else{
-				grdApcInfoMng.setPageTotalCount(0);
-				grdApcInfoMng.rebuild();
-			}
+  			if (_.isEqual("S", data.resultStatus)) {
+  	        	data.resultList.forEach((item, index) => {
+  					let apcDsctn = {
+  						apcCd 		: item.apcCd
+  					  , regApcNm 	: item.regApcNm
+  					  , ctpvNm 		: item.ctpvNm
+  					  , sigunNm 	: item.sigunNm
+  					  , mbCd 		: item.mbCd
+  					  , regAddr 	: item.regAddr
+  					  , regTelno	: item.regTelno
+  					  , apcNm 		: item.apcNm
+  					  , brno 		: item.brno
+  					  , addr 		: item.addr
+  					  , fxno 		: item.fxno
+  					  , telno 		: item.telno
+  					  , delYn		: item.delYn
+  					}
+  					apcInfoMngData.push(Object.assign({}, apcDsctn));
+  					newApcInfoMngData.push(Object.assign({}, apcDsctn));
+  				});
+  	        	if(apcInfoMngData.length > 0){
+  					if(grdApcInfoMng.getPageTotalCount() != data.resultList[0].totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+  						grdApcInfoMng.setPageTotalCount(data.resultList[0].totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+  						grdApcInfoMng.rebuild();
+  					}else{
+  						grdApcInfoMng.refresh();
+  					}
+  				}else{
+  					grdApcInfoMng.setPageTotalCount(0);
+  					grdApcInfoMng.rebuild();
+  				}
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);

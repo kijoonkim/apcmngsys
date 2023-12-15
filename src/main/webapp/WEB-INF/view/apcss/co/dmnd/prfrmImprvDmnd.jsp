@@ -208,36 +208,41 @@
         let data = await postJsonPromise;
         newJsonPrgrmImprvDmnd = [];
         try{
-        	data.resultList.forEach((item, index) => {
-				let dmnd = {
-						apcCd 			: item.apcCd,
-						dmndYmd 		: item.dmndYmd,
-						sn 				: item.sn,
-						menuNm 			: item.menuNm,
-						userId 			: item.userId,
-						userNm 			: item.userNm,
-						imprvDmndMttr	: item.imprvDmndMttr,
-						actnPrnmntYmd 	: item.actnPrnmntYmd,
-						pic 			: item.pic,
-						picNm			: item.picNm,
-						actnRslt 		: item.actnRslt,
-						delYn			: item.delYn,
-						dmndStts		: item.dmndStts
-				}
-				jsonPrgrmImprvDmnd.push(Object.assign({}, dmnd));
-				newJsonPrgrmImprvDmnd.push(Object.assign({}, dmnd));
-			});
-        	if(jsonPrgrmImprvDmnd.length > 0){
-				if(grdPrgrmImprvDmnd.getPageTotalCount() != data.resultList[0].totalRecordCount){   	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-					grdPrgrmImprvDmnd.setPageTotalCount(data.resultList[0].totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-					grdPrgrmImprvDmnd.rebuild();
-				}else{
-					grdPrgrmImprvDmnd.refresh();
-				}
-			}else{
-				grdPrgrmImprvDmnd.setPageTotalCount(0);
-				grdPrgrmImprvDmnd.rebuild();
-			}
+  			if (_.isEqual("S", data.resultStatus)) {
+  	        	data.resultList.forEach((item, index) => {
+  					let dmnd = {
+  							apcCd 			: item.apcCd,
+  							dmndYmd 		: item.dmndYmd,
+  							sn 				: item.sn,
+  							menuNm 			: item.menuNm,
+  							userId 			: item.userId,
+  							userNm 			: item.userNm,
+  							imprvDmndMttr	: item.imprvDmndMttr,
+  							actnPrnmntYmd 	: item.actnPrnmntYmd,
+  							pic 			: item.pic,
+  							picNm			: item.picNm,
+  							actnRslt 		: item.actnRslt,
+  							delYn			: item.delYn,
+  							dmndStts		: item.dmndStts
+  					}
+  					jsonPrgrmImprvDmnd.push(Object.assign({}, dmnd));
+  					newJsonPrgrmImprvDmnd.push(Object.assign({}, dmnd));
+  				});
+  	        	if(jsonPrgrmImprvDmnd.length > 0){
+  					if(grdPrgrmImprvDmnd.getPageTotalCount() != data.resultList[0].totalRecordCount){   	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+  						grdPrgrmImprvDmnd.setPageTotalCount(data.resultList[0].totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+  						grdPrgrmImprvDmnd.rebuild();
+  					}else{
+  						grdPrgrmImprvDmnd.refresh();
+  					}
+  				}else{
+  					grdPrgrmImprvDmnd.setPageTotalCount(0);
+  					grdPrgrmImprvDmnd.rebuild();
+  				}
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
