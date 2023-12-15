@@ -79,6 +79,11 @@ public class WrhsVhclController extends BaseController {
 		} catch (Exception e) {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 
 		return getSuccessResponseEntity(resultMap);
@@ -93,6 +98,11 @@ public class WrhsVhclController extends BaseController {
 			result = wrhsVhclService.deleteWrhsVhcl(wrhsVhclVO);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 
 		resultMap.put("result", result);

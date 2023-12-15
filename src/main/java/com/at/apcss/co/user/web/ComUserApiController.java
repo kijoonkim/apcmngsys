@@ -136,6 +136,11 @@ public class ComUserApiController extends BaseController {
 			result = comUserService.updateComUserAprv(comUserVO);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 
 		resultMap.put("result", result);
@@ -166,6 +171,11 @@ public class ComUserApiController extends BaseController {
 		} catch (Exception e) {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 
 		return getSuccessResponseEntity(resultMap);
@@ -194,6 +204,11 @@ public class ComUserApiController extends BaseController {
 		} catch (Exception e) {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 
 		return getSuccessResponseEntity(resultMap);
@@ -204,7 +219,7 @@ public class ComUserApiController extends BaseController {
 	 * 비밀번호 초기화
 	 */
 	@PostMapping(value = "/co/user/updComUserPwd.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> updComUserPwd(@RequestBody ComUserVO comUserVO, HttpServletRequest requset) throws Exception{
+	public ResponseEntity<HashMap<String, Object>> updComUserPwd(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		logger.info("=============updComUserPwd=========start====");
 		comUserVO.setSysLastChgUserId(getUserId());
@@ -220,6 +235,11 @@ public class ComUserApiController extends BaseController {
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 
 		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);

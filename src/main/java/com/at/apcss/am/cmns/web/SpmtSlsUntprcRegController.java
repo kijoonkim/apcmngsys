@@ -78,6 +78,11 @@ public class SpmtSlsUntprcRegController extends BaseController {
             }
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
@@ -95,6 +100,11 @@ public class SpmtSlsUntprcRegController extends BaseController {
 
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 
 		return getSuccessResponseEntity(resultMap);
