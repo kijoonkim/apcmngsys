@@ -247,7 +247,7 @@
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdOutordrInfo" style="width:100%;height:437px;"></div>
+					<div id="sb-area-grdOutordrInfo" style="width:100%;height:425px;"></div>
 				</div>
 				<!--[pp] 검색결과 -->
 			</div>
@@ -388,7 +388,6 @@
 		const postJsonPromise = gfn_postJSON("/am/ordr/selectOrdrHandwritingList.do", {
 			  apcCd			: gv_selectedApcCd
 			, outordrYmd 	: outordrYmd
-			, outordrType 	: outordrType
   		});
         const data = await postJsonPromise;
         try {
@@ -605,8 +604,8 @@
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
 	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-	        		fn_search();
 	        		fn_reset();
+	        		fn_search();
 	        	} else {
 	        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
 	        	}

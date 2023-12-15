@@ -117,7 +117,7 @@
 		    {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true}
 	    ];
 	    grdWrhsVhcl = _SBGrid.create(SBGridProperties);
-	    fn_selectWrhsVhclList();
+	    fn_callSelectWrhsVhclList();
 	}
 	
 	/**
@@ -135,10 +135,6 @@
     function fn_excelDwnldWrhsVhcl() {
     	grdWrhsVhcl.exportLocalExcel("압고차량 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
-
-	async function fn_selectWrhsVhclList(){
-		fn_callSelectWrhsVhclList();
-	}
 
 	async function fn_callSelectWrhsVhclList(){
 		let apcCd = SBUxMethod.get("inp-apcCd");
@@ -203,14 +199,14 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdRgnTrsprtCst\", " + nRow + ")'>삭제</button>";
             	}
 		    }},
-            {caption: ["코드"], 			ref: 'trsprtRgnCd',  	type:'output',  width:'100px',     style:'text-align:center', hidden : true},
+            {caption: ["코드"], 			ref: 'trsprtRgnCd',  	type:'output', width:'100px',    style:'text-align:center', hidden : true},
             {caption: ["운송지역"], 		ref: 'trsprtRgnNm',  	type:'input',  width:'150px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
-            {caption: ["운송비용(원)"], 	ref: 'trsprtCst',  		type:'input',  width:'120px',    style:'text-align:right', format : {type:'number', rule:'#,### 원'}, typeinfo : {mask : {alias : 'numeric'}} },
+            {caption: ["운송비용(원)"], 	ref: 'trsprtCst',  		type:'input',  width:'120px',    style:'text-align:right', 	format : {type:'number', rule:'#,###'}, typeinfo : {mask : {alias : 'numeric'}} },
             {caption: ["비고"], 			ref: 'rmrk',  			type:'input',  width:'600px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000})},
-		    {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true}
+		    {caption: ["APC코드"], 		ref: 'apcCd',   		type:'input',  hidden : true}
         ];
         grdRgnTrsprtCst = _SBGrid.create(SBGridProperties);
-        fn_selectRgnTrsprtCstList();
+        fn_callSelectRgnTrsprtCstList();
     }
     
     /**
@@ -231,13 +227,9 @@
 
 	// 출하지시 목록 조회 (조회 버튼)
     async function fn_search() {
-    	fn_selectRgnTrsprtCstList();
-    	fn_selectWrhsVhclList();
+    	fn_callSelectRgnTrsprtCstList();
+    	fn_callSelectWrhsVhclList();
     }
-
-    async function fn_selectRgnTrsprtCstList(){
-		fn_callSelectRgnTrsprtCstList();
-	}
 
 	async function fn_callSelectRgnTrsprtCstList(){
 		let apcCd = SBUxMethod.get("inp-apcCd");
@@ -330,16 +322,16 @@
 		if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
     		return;
     	}
-    	const postJsonPromise = gfn_postJSON("/am/cmns/multiVhclList.do", wrhsVhclList);	// 프로그램id 추가
-    	const postJsonPromise2 = gfn_postJSON("/am/cmns/multiRgnTrsprtCstList.do", rgnTrsprtCstList);	// 프로그램id 추가
+    	const postJsonPromise = gfn_postJSON("/am/cmns/multiApcVhclMngList.do", {
+    		wrhsVhclList : wrhsVhclList,
+    		rgnTrsprtCstList : rgnTrsprtCstList
+    	});	// 프로그램id 추가
 
 		const data = await postJsonPromise;
-		const data2 = await postJsonPromise2;
         try {
-        	if (_.isEqual("S", data.resultStatus) && _.isEqual("S", data2.resultStatus)) {
+        	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-    			fn_callSelectWrhsVhclList();
-    			fn_callSelectRgnTrsprtCstList();
+        		fn_search();
         	} else {
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
