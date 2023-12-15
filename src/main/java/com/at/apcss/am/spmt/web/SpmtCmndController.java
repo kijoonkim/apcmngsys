@@ -51,6 +51,11 @@ public class SpmtCmndController extends BaseController {
 			resultList = spmtCmndService.selectSpmtCmndTrgList(ordrVO);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -68,6 +73,11 @@ public class SpmtCmndController extends BaseController {
 			resultList = spmtCmndService.selectSpmtCmndList(SpmtCmndVO);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -85,6 +95,11 @@ public class SpmtCmndController extends BaseController {
 			resultList = spmtCmndService.selectRegSpmtCmndList(SpmtCmndVO);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
