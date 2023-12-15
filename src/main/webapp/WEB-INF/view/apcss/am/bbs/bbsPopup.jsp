@@ -192,8 +192,19 @@
 			,bbsNo : bbsNo
 		});
 		const data = await postJsonPromise;
-
-		gfn_closeModal('modal-bbsModal','fn_search');
+		try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_closeModal('modal-bbsModal','fn_search');
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+		}catch(e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
 	}
 
 	async function fn_bbsDetailupdate(){
@@ -218,16 +229,27 @@
 			, apcCd : gv_apcCd
 		});
 		const data = await postJsonPromise;
-		SBUxMethod.attr("dtl-select-bbsSeCd","readonly","true");
-		SBUxMethod.attr("dtl-input-bbsTitle","readonly","true");
-		SBUxMethod.attr("dtl-input-bbsSubject","readonly","true");
-		SBUxMethod.set("btnUpdateBbsPopup","수정");
-		SBUxMethod.hide("btnCancelBbsPopup");
-		SBUxMethod.show("btnUpdateBbsPopup");
-		SBUxMethod.show("dtl-input-cmntCn");
-		SBUxMethod.show("btnInsertCmnt");
-		gfn_closeModal('modal-bbsModal','fn_search');
-
+		try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		SBUxMethod.attr("dtl-select-bbsSeCd","readonly","true");
+        		SBUxMethod.attr("dtl-input-bbsTitle","readonly","true");
+        		SBUxMethod.attr("dtl-input-bbsSubject","readonly","true");
+        		SBUxMethod.set("btnUpdateBbsPopup","수정");
+        		SBUxMethod.hide("btnCancelBbsPopup");
+        		SBUxMethod.show("btnUpdateBbsPopup");
+        		SBUxMethod.show("dtl-input-cmntCn");
+        		SBUxMethod.show("btnInsertCmnt");
+        		gfn_closeModal('modal-bbsModal','fn_search');
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+		}catch(e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
 	}
 
 	function remove_Comment(){
@@ -267,6 +289,21 @@
         	,bbsNo: bbsNo
 		});
 		const data = await postJsonPromise;
+		try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            	return;
+        	}
+		}catch(e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	return;
+        }
+		
 		SBUxMethod.set("dtl-input-cmntCn", "");
 
 		if(data.resultList.length < 0){
@@ -324,8 +361,20 @@
 		let orngbbsNo = SBUxMethod.get("dtl-input-orngBbsNo");
 		let postJsonPromise = gfn_postJSON("/am/bbs/deleteCmntBbs.do", { apcCd : gv_apcCd, bbsNo : orngbbsNo, cmntNo : cmntNo});
 		const data = await postJsonPromise;
-		remove_Comment();
-		fn_selectComment(orngbbsNo);
+		try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		remove_Comment();
+        		fn_selectComment(orngbbsNo);
+        	} else {
+            	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+		}catch(e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
 	}
 	
 	async function fn_deleteCommentComment(cmntNo, cmntChildNo){
@@ -334,8 +383,20 @@
 		console.log('cmntChildNo', cmntChildNo);
 		let postJsonPromise = gfn_postJSON("/am/bbs/deleteCmntBbs.do", { apcCd : gv_apcCd, bbsNo : orngbbsNo, cmntNo : cmntNo, cmntChildNo : cmntChildNo});
 		const data = await postJsonPromise;
-		remove_Comment();
-		fn_selectComment(orngbbsNo);
+		try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		remove_Comment();
+        		fn_selectComment(orngbbsNo);
+        	} else {
+            	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+		}catch(e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
 	}
 
 
@@ -355,7 +416,19 @@
 			cmntChildNo : 1
 			});
 		const data = await postJsonPromise;
-		fn_selectComment(orngbbsNo)
+		try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		fn_selectComment(orngbbsNo);
+        	} else {
+            	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+		}catch(e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
 	}
 
 
