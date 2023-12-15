@@ -124,23 +124,28 @@
     	let postJsonPromise = gfn_postJSON("/am/apc/selectApcUserList.do", {apcCd : apcCd, userNm : userNm});
         let data = await postJsonPromise;
         try{
-        	jsonUserAuth.length = 0;
-        	data.resultList.forEach((item, index) => {
-				let userVO = {
-					rowSeq 		: item.rowSeq
-				  , userId 		: item.userId
-				  , userNm 		: item.userNm
-				  , jbttlNm 	: item.jbttlNm
-				  , tkcgTaskNm 	: item.tkcgTaskNm
-				  , userStts 	: item.userStts
-				  , lckYn 		: item.lckYn
-				  , delYn 		: item.delYn
-				  , rmrk 		: item.rmrk
-				  , apcCd 		: item.apcCd
-				}
-				jsonUserAuth.push(userVO);
-			});
-        	grdUserAuth.rebuild();
+  			if (_.isEqual("S", data.resultStatus)) {
+  	        	jsonUserAuth.length = 0;
+  	        	data.resultList.forEach((item, index) => {
+  					let userVO = {
+  						rowSeq 		: item.rowSeq
+  					  , userId 		: item.userId
+  					  , userNm 		: item.userNm
+  					  , jbttlNm 	: item.jbttlNm
+  					  , tkcgTaskNm 	: item.tkcgTaskNm
+  					  , userStts 	: item.userStts
+  					  , lckYn 		: item.lckYn
+  					  , delYn 		: item.delYn
+  					  , rmrk 		: item.rmrk
+  					  , apcCd 		: item.apcCd
+  					}
+  					jsonUserAuth.push(userVO);
+  				});
+  	        	grdUserAuth.rebuild();
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);

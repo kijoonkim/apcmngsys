@@ -246,52 +246,57 @@
         const data = await postJsonPromise;
 
         try {
+  			if (_.isEqual("S", data.resultStatus)) {
 
-        	/** @type {number} **/
-    		let totalRecordCount = 0;
+  	        	/** @type {number} **/
+  	    		let totalRecordCount = 0;
 
-        	jsonBbsList.length = 0;
-        	data.resultList.forEach((item, index) => {
-				const msg = {
+  	        	jsonBbsList.length = 0;
+  	        	data.resultList.forEach((item, index) => {
+  					const msg = {
 
-					apcCd: item.apcCd,
-					bbsNo: item.bbsNo,
-					bbsTitle: item.bbsTitle,
-					bbsSeCd: item.bbsSeCd,
-					bbsSeCdNm: item.bbsSeCdNm,
-					bbsSubject: item.bbsSubject,
-					orgUserNm : item.orgUserNm,
-					sysFrstInptDt: item.sysFrstInptDt,
-					sysFrstInptDtYmd: item.sysFrstInptDtYmd,
-					sysFrstInptUserId: item.sysFrstInptUserId,
-					sysFrstInptUserIdNm: item.sysFrstInptUserIdNm,
-					sysFrstInptPrgrmId: item.sysFrstInptPrgrmId,
-					sysLastChgDt: item.sysLastChgDt,
-					sysLastChgUserId: item.sysLastChgUserId,
-					sysLastChgUserIdNm: item.sysLastChgUserIdNm,
-					sysLastChgPrgrmId: item.sysLastChgPrgrmId
-				}
-				jsonBbsList.push(msg);
+  						apcCd: item.apcCd,
+  						bbsNo: item.bbsNo,
+  						bbsTitle: item.bbsTitle,
+  						bbsSeCd: item.bbsSeCd,
+  						bbsSeCdNm: item.bbsSeCdNm,
+  						bbsSubject: item.bbsSubject,
+  						orgUserNm : item.orgUserNm,
+  						sysFrstInptDt: item.sysFrstInptDt,
+  						sysFrstInptDtYmd: item.sysFrstInptDtYmd,
+  						sysFrstInptUserId: item.sysFrstInptUserId,
+  						sysFrstInptUserIdNm: item.sysFrstInptUserIdNm,
+  						sysFrstInptPrgrmId: item.sysFrstInptPrgrmId,
+  						sysLastChgDt: item.sysLastChgDt,
+  						sysLastChgUserId: item.sysLastChgUserId,
+  						sysLastChgUserIdNm: item.sysLastChgUserIdNm,
+  						sysLastChgPrgrmId: item.sysLastChgPrgrmId
+  					}
+  					jsonBbsList.push(msg);
 
-				if (index === 0) {
-					totalRecordCount = item.totalRecordCount;
-				}
-			});
+  					if (index === 0) {
+  						totalRecordCount = item.totalRecordCount;
+  					}
+  				});
 
-        	if (jsonBbsList.length > 0) {
+  	        	if (jsonBbsList.length > 0) {
 
-        		if(grdBbsList.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-        			grdBbsList.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-        			grdBbsList.rebuild();
-				}else{
-					grdBbsList.refresh()
-				}
+  	        		if(grdBbsList.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+  	        			grdBbsList.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+  	        			grdBbsList.rebuild();
+  					}else{
+  						grdBbsList.refresh()
+  					}
+  	        	} else {
+  	        		grdBbsList.setPageTotalCount(totalRecordCount);
+  	        		grdBbsList.rebuild();
+  	        	}
+
+  	        	document.querySelector('#listCount').innerText = totalRecordCount;
+
         	} else {
-        		grdBbsList.setPageTotalCount(totalRecordCount);
-        		grdBbsList.rebuild();
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
-
-        	document.querySelector('#listCount').innerText = totalRecordCount;
 
         } catch (e) {
     		if (!(e instanceof Error)) {

@@ -110,23 +110,28 @@
     	let postJsonPromise = gfn_postJSON("/co/cd/selectFcltList.do", {apcCd : apcCd});
         let data = await postJsonPromise;
         try{
-        	jsonFclt.length = 0;
-        	data.resultList.forEach((item, index) => {
-				let fcltVO = {
-					rowSeq 		: item.rowSeq
-				  , cdVl 		: item.cdVl
-				  , cdVlNm 		: item.cdVlNm
-				  , cdVlExpln 	: item.cdVlExpln
-				  , indctSeq 	: item.indctSeq
-				  , delYn 		: item.delYn
-				  , apcCd 		: item.apcCd
-				  , cdId 		: item.cdId
-				}
-				jsonFclt.push(fcltVO);
-			});
-        	grdFclt.rebuild();
-        	grdFclt.addRow();
-        	grdFclt.setCellDisabled(grdFclt.getRows() -1, 0, grdFclt.getRows() -1, grdFclt.getCols() -1, true);
+  			if (_.isEqual("S", data.resultStatus)) {
+  	        	jsonFclt.length = 0;
+  	        	data.resultList.forEach((item, index) => {
+  					let fcltVO = {
+  						rowSeq 		: item.rowSeq
+  					  , cdVl 		: item.cdVl
+  					  , cdVlNm 		: item.cdVlNm
+  					  , cdVlExpln 	: item.cdVlExpln
+  					  , indctSeq 	: item.indctSeq
+  					  , delYn 		: item.delYn
+  					  , apcCd 		: item.apcCd
+  					  , cdId 		: item.cdId
+  					}
+  					jsonFclt.push(fcltVO);
+  				});
+  	        	grdFclt.rebuild();
+  	        	grdFclt.addRow();
+  	        	grdFclt.setCellDisabled(grdFclt.getRows() -1, 0, grdFclt.getRows() -1, grdFclt.getCols() -1, true);
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);

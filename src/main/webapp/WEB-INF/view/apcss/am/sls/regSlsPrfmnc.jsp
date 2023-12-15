@@ -326,34 +326,39 @@
 		let postJsonPromise = gfn_postJSON("/am/sls/selectRegSlsPrfmncList.do", slsPrfmncVO);
         let data = await postJsonPromise;
         try{
-        	jsonSlsPrfmnc.length = 0;
-        	data.resultList.forEach((item, index) => {
-				let slsPrfmnc = {
-				    apcCd		: item.apcCd
-			      , slsYmd 		: item.slsYmd
-				  , slsSn		: item.slsSn
-				  , cnptNm 		: item.cnptNm
-				  , itemCd		: item.itemCd
-				  , itemNm		: item.itemNm
-				  , grdCd		: item.grdCd
-				  , grdNm		: item.grdNm
-				  , gdsNm 		: item.gdsNm
-				  , gdsCd 		: item.gdsCd
-				  , vrtyNm 		: item.vrtyNm
-				  , spcfctNm 	: item.spcfctNm
-				  , brndNm		: item.brndNm
-				  , spmtYmd 	: item.spmtYmd
-				  , slsUntprc 	: item.slsUntprc
-				  , qntt		: item.qntt
-				  , wght 		: item.wght
-				  , rkngAmt		: item.rkngAmt
-				  , cfmtnAmt 	: item.cfmtnAmt
-				  , cfmtnYn		: item.cfmtnYn
-				  , cfmtnPsbltyYn	: item.cfmtnPsbltyYn
-				}
-				jsonSlsPrfmnc.push(slsPrfmnc);
-			});
-			grdSlsPrfmnc.rebuild();
+  			if (_.isEqual("S", data.resultStatus)) {
+  	        	jsonSlsPrfmnc.length = 0;
+  	        	data.resultList.forEach((item, index) => {
+  					let slsPrfmnc = {
+  					    apcCd		: item.apcCd
+  				      , slsYmd 		: item.slsYmd
+  					  , slsSn		: item.slsSn
+  					  , cnptNm 		: item.cnptNm
+  					  , itemCd		: item.itemCd
+  					  , itemNm		: item.itemNm
+  					  , grdCd		: item.grdCd
+  					  , grdNm		: item.grdNm
+  					  , gdsNm 		: item.gdsNm
+  					  , gdsCd 		: item.gdsCd
+  					  , vrtyNm 		: item.vrtyNm
+  					  , spcfctNm 	: item.spcfctNm
+  					  , brndNm		: item.brndNm
+  					  , spmtYmd 	: item.spmtYmd
+  					  , slsUntprc 	: item.slsUntprc
+  					  , qntt		: item.qntt
+  					  , wght 		: item.wght
+  					  , rkngAmt		: item.rkngAmt
+  					  , cfmtnAmt 	: item.cfmtnAmt
+  					  , cfmtnYn		: item.cfmtnYn
+  					  , cfmtnPsbltyYn	: item.cfmtnPsbltyYn
+  					}
+  					jsonSlsPrfmnc.push(slsPrfmnc);
+  				});
+  				grdSlsPrfmnc.rebuild();
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);

@@ -784,52 +784,57 @@
   		});
         const data = await postJsonPromise;
         try {
-          	/** @type {number} **/
-      		jsonGdsInvntr.length = 0;
-          	data.resultList.forEach((item, index) => {
-          		if(item.invntrWght != 0){
-	          		const gdsInvntr = {
-	          				apcCd		: item.apcCd
-	          			  ,	pckgno		: item.pckgno
-	          			  ,	pckgSn		: item.pckgSn
-	          			  ,	pckgYmd		: item.pckgYmd
-	          			  ,	itemCd		: item.itemCd
-	          			  ,	itemNm		: item.itemNm
-	          			  ,	vrtyCd		: item.vrtyCd
-	          			  ,	vrtyNm		: item.vrtyNm
-	          			  ,	spcfctCd	: item.spcfctCd
-	          			  ,	spcfctNm	: item.spcfctNm
-	          			  ,	gdsSeCd		: item.gdsSeCd
-	          			  ,	gdsSeNm		: item.gdsSeNm
-	          			  ,	invntrQntt	: item.invntrQntt
-	          			  ,	invntrWght	: item.invntrWght
-	          			  ,	spmtQntt	: 0
-	          			  ,	spmtWght	: 0
-	          			  ,	pckgQntt	: item.pckgQntt
-	          			  ,	pckgWght	: item.pckgWght
-	          			  ,	pckgSeCd	: item.pckgSeCd
-	          			  ,	pckgSeNm	: item.pckgSeNm
-	          			  ,	prdcrCd		: item.rprsPrdcrCd
-	          			  ,	prdcrNm		: item.rprsPrdcrNm
-	          			  ,	fcltCd		: item.fcltCd
-	          			  ,	fcltNm		: item.fcltNm
-	          			  ,	cmndQntt	: item.cmndQntt
-	          			  ,	cmndWght	: item.cmndWght
-	          			  ,	gdsGrd		: item.gdsGrd
-	          			  ,	gdsGrdNm	: item.gdsGrdNm
-	          			  ,	gdsCd 		: item.gdsCd
-	          			  ,	plorCd 		: item.plorCd
-	          			  ,	spmtPckgUnitCd: item.spmtPckgUnitCd
-	          			  ,	spmtPckgUnitNm: item.spmtPckgUnitNm
-	          			  ,	rmrk		: item.rmrk
-	          			  ,	brndNm		: item.brndNm
-	          			  ,	sortGrdCd	: item.sortGrdCd
-	          			  ,	sortGrdNm	: item.sortGrdNm
-	  				}
-					jsonGdsInvntr.push(gdsInvntr);
-          		}
-  			});
-          	grdGdsInvntr.rebuild();
+  			if (_.isEqual("S", data.resultStatus)) {
+  	          	/** @type {number} **/
+  	      		jsonGdsInvntr.length = 0;
+  	          	data.resultList.forEach((item, index) => {
+  	          		if(item.invntrWght != 0){
+  		          		const gdsInvntr = {
+  		          				apcCd		: item.apcCd
+  		          			  ,	pckgno		: item.pckgno
+  		          			  ,	pckgSn		: item.pckgSn
+  		          			  ,	pckgYmd		: item.pckgYmd
+  		          			  ,	itemCd		: item.itemCd
+  		          			  ,	itemNm		: item.itemNm
+  		          			  ,	vrtyCd		: item.vrtyCd
+  		          			  ,	vrtyNm		: item.vrtyNm
+  		          			  ,	spcfctCd	: item.spcfctCd
+  		          			  ,	spcfctNm	: item.spcfctNm
+  		          			  ,	gdsSeCd		: item.gdsSeCd
+  		          			  ,	gdsSeNm		: item.gdsSeNm
+  		          			  ,	invntrQntt	: item.invntrQntt
+  		          			  ,	invntrWght	: item.invntrWght
+  		          			  ,	spmtQntt	: 0
+  		          			  ,	spmtWght	: 0
+  		          			  ,	pckgQntt	: item.pckgQntt
+  		          			  ,	pckgWght	: item.pckgWght
+  		          			  ,	pckgSeCd	: item.pckgSeCd
+  		          			  ,	pckgSeNm	: item.pckgSeNm
+  		          			  ,	prdcrCd		: item.rprsPrdcrCd
+  		          			  ,	prdcrNm		: item.rprsPrdcrNm
+  		          			  ,	fcltCd		: item.fcltCd
+  		          			  ,	fcltNm		: item.fcltNm
+  		          			  ,	cmndQntt	: item.cmndQntt
+  		          			  ,	cmndWght	: item.cmndWght
+  		          			  ,	gdsGrd		: item.gdsGrd
+  		          			  ,	gdsGrdNm	: item.gdsGrdNm
+  		          			  ,	gdsCd 		: item.gdsCd
+  		          			  ,	plorCd 		: item.plorCd
+  		          			  ,	spmtPckgUnitCd: item.spmtPckgUnitCd
+  		          			  ,	spmtPckgUnitNm: item.spmtPckgUnitNm
+  		          			  ,	rmrk		: item.rmrk
+  		          			  ,	brndNm		: item.brndNm
+  		          			  ,	sortGrdCd	: item.sortGrdCd
+  		          			  ,	sortGrdNm	: item.sortGrdNm
+  		  				}
+  						jsonGdsInvntr.push(gdsInvntr);
+  	          		}
+  	  			});
+  	          	grdGdsInvntr.rebuild();
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 		}catch (e) {
 
 			if (!(e instanceof Error)) {
@@ -1389,48 +1394,53 @@
   		});
         const data = await postJsonPromise;
         try {
-          	/** @type {number} **/
-      		jsonSpmtPrfmnc.length = 0;
-          	data.resultList.forEach((item, index) => {
-          		const gdsSpmtPrfmnc = {
-          				apcCd			: item.apcCd,
-          				spmtno			: item.spmtno,
-          				spmtYmd			: item.spmtYmd,
-          				itemCd			: item.itemCd,
-          				itemNm			: item.itemNm,
-          				vrtyCd			: item.vrtyCd,
-          				vrtyNm			: item.vrtyNm,
-          				spcfctCd		: item.spcfctCd,
-          				spcfctNm		: item.spcfctNm,
-          				gdsGrd			: item.gdsGrd,
-          				gdsGrdNm		: item.gdsGrdNm,
-          				cnptCd			: item.cnptCd,
-          				cnptNm			: item.cnptNm,
-          				trsprtCoCd		: item.trsprtCoCd,
-          				trsprtCoNm		: item.trsprtCoNm,
-          				delYn			: item.delYn,
-          				vhclno			: item.vhclno,
-          				dldtn			: item.dldtn,
-          				trsprtCst		: item.trsprtCst,
-          				spmtSeCd		: item.spmtSeCd,
-          				spmtPrsnDclrnlo	: item.spmtPrsnDclrnlo,
-          				plorCd			: item.plorCd,
-          				pckgno			: item.pckgno,
-          				pckgSn			: item.pckgSn,
-          				brndNm			: item.brndNm,
-          				gdsCd			: item.gdsCd,
-          				prdcrCd			: item.prdcrCd,
-          				spmtCmndno		: item.spmtCmndno,
-          				spmtPckgUnitCd	: item.spmtPckgUnitCd,
-          				spmtPckgUnitNm	: item.spmtPckgUnitNm,
-          				spmtQntt		: item.spmtQntt,
-          				spmtWght		: item.spmtWght,
-          				rmrk			: item.rmrk
-  				}
-          		jsonSpmtPrfmnc.push(gdsSpmtPrfmnc);
-  			});
-          	grdSpmtPrfmnc.rebuild();
-          	SBUxMethod.set("crtr-ymd", spmtYmd);
+  			if (_.isEqual("S", data.resultStatus)) {
+  	          	/** @type {number} **/
+  	      		jsonSpmtPrfmnc.length = 0;
+  	          	data.resultList.forEach((item, index) => {
+  	          		const gdsSpmtPrfmnc = {
+  	          				apcCd			: item.apcCd,
+  	          				spmtno			: item.spmtno,
+  	          				spmtYmd			: item.spmtYmd,
+  	          				itemCd			: item.itemCd,
+  	          				itemNm			: item.itemNm,
+  	          				vrtyCd			: item.vrtyCd,
+  	          				vrtyNm			: item.vrtyNm,
+  	          				spcfctCd		: item.spcfctCd,
+  	          				spcfctNm		: item.spcfctNm,
+  	          				gdsGrd			: item.gdsGrd,
+  	          				gdsGrdNm		: item.gdsGrdNm,
+  	          				cnptCd			: item.cnptCd,
+  	          				cnptNm			: item.cnptNm,
+  	          				trsprtCoCd		: item.trsprtCoCd,
+  	          				trsprtCoNm		: item.trsprtCoNm,
+  	          				delYn			: item.delYn,
+  	          				vhclno			: item.vhclno,
+  	          				dldtn			: item.dldtn,
+  	          				trsprtCst		: item.trsprtCst,
+  	          				spmtSeCd		: item.spmtSeCd,
+  	          				spmtPrsnDclrnlo	: item.spmtPrsnDclrnlo,
+  	          				plorCd			: item.plorCd,
+  	          				pckgno			: item.pckgno,
+  	          				pckgSn			: item.pckgSn,
+  	          				brndNm			: item.brndNm,
+  	          				gdsCd			: item.gdsCd,
+  	          				prdcrCd			: item.prdcrCd,
+  	          				spmtCmndno		: item.spmtCmndno,
+  	          				spmtPckgUnitCd	: item.spmtPckgUnitCd,
+  	          				spmtPckgUnitNm	: item.spmtPckgUnitNm,
+  	          				spmtQntt		: item.spmtQntt,
+  	          				spmtWght		: item.spmtWght,
+  	          				rmrk			: item.rmrk
+  	  				}
+  	          		jsonSpmtPrfmnc.push(gdsSpmtPrfmnc);
+  	  			});
+  	          	grdSpmtPrfmnc.rebuild();
+  	          	SBUxMethod.set("crtr-ymd", spmtYmd);
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 		}catch (e) {
 
 			if (!(e instanceof Error)) {

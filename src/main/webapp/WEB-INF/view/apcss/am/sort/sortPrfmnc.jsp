@@ -605,64 +605,69 @@
         const data = await postJsonPromise;
 
   		try {
+  			if (_.isEqual("S", data.resultStatus)) {
 
-          	/** @type {number} **/
-      		let totalRecordCount = 0;
+  	          	/** @type {number} **/
+  	      		let totalRecordCount = 0;
 
-      		jsonSortPrfmnc.length = 0;
-          	data.resultList.forEach((item, index) => {
-          		const sortPrfmnc = {
- 						rowSeq: item.rowSeq,
-          				inptYmd: item.inptYmd,
-          				fcltCd: item.fcltCd,
-          				fcltNm: item.fcltNm,
-          				wrhsSeNm: item.wrhsSeNm,
-          				gdsSeNm: item.gdsSeNm,
-          				itemCd: item.itemCd,
-          				itemNm: item.itemNm,
-          				vrtyNm: item.vrtyNm,
-          				vrtyCd: item.vrtyCd,
-          				spcfctCd: item.spcfctCd,
-          				spcfctNm: item.spcfctNm,
-          				inptQntt: item.inptQntt,
-          				inptWght: item.inptWght,
-          				grdCd: item.grdCd,
-          				grdNm: item.grdNm,
-          				sortQntt: item.sortQntt,
-          				sortWght: item.sortWght,
-          				wrhsSeCd: item.wrhsSeCd,
-          				gdsSeCd: item.gdsSeCd,
-          				rprsPrdcrCd: item.rprsPrdcrCd,
-          				rprsPrdcrNm: item.rprsPrdcrNm,
-          				warehouseSeNm: item.warehouseSeNm,
-          				inptWarehouseSeNm: item.inptWarehouseSeNm,
-          				sortno: item.sortno,
-          				sortSn: item.sortSn,
-          				rmrk: item.rmrk
-  				}
-          		jsonSortPrfmnc.push(sortPrfmnc);
+  	      		jsonSortPrfmnc.length = 0;
+  	          	data.resultList.forEach((item, index) => {
+  	          		const sortPrfmnc = {
+  	 						rowSeq: item.rowSeq,
+  	          				inptYmd: item.inptYmd,
+  	          				fcltCd: item.fcltCd,
+  	          				fcltNm: item.fcltNm,
+  	          				wrhsSeNm: item.wrhsSeNm,
+  	          				gdsSeNm: item.gdsSeNm,
+  	          				itemCd: item.itemCd,
+  	          				itemNm: item.itemNm,
+  	          				vrtyNm: item.vrtyNm,
+  	          				vrtyCd: item.vrtyCd,
+  	          				spcfctCd: item.spcfctCd,
+  	          				spcfctNm: item.spcfctNm,
+  	          				inptQntt: item.inptQntt,
+  	          				inptWght: item.inptWght,
+  	          				grdCd: item.grdCd,
+  	          				grdNm: item.grdNm,
+  	          				sortQntt: item.sortQntt,
+  	          				sortWght: item.sortWght,
+  	          				wrhsSeCd: item.wrhsSeCd,
+  	          				gdsSeCd: item.gdsSeCd,
+  	          				rprsPrdcrCd: item.rprsPrdcrCd,
+  	          				rprsPrdcrNm: item.rprsPrdcrNm,
+  	          				warehouseSeNm: item.warehouseSeNm,
+  	          				inptWarehouseSeNm: item.inptWarehouseSeNm,
+  	          				sortno: item.sortno,
+  	          				sortSn: item.sortSn,
+  	          				rmrk: item.rmrk
+  	  				}
+  	          		jsonSortPrfmnc.push(sortPrfmnc);
 
-  				if (index === 0) {
-  					totalRecordCount = item.totalRecordCount;
-  				}
-  			});
+  	  				if (index === 0) {
+  	  					totalRecordCount = item.totalRecordCount;
+  	  				}
+  	  			});
 
-          	if (jsonSortPrfmnc.length > 0) {
-          		if(grdSortPrfmnc.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-          			grdSortPrfmnc.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-          			grdSortPrfmnc.rebuild();
-  				}else{
-  					grdSortPrfmnc.refresh();
-  				}
+  	          	if (jsonSortPrfmnc.length > 0) {
+  	          		if(grdSortPrfmnc.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+  	          			grdSortPrfmnc.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+  	          			grdSortPrfmnc.rebuild();
+  	  				}else{
+  	  					grdSortPrfmnc.refresh();
+  	  				}
 
-          		grdSortPrfmnc.setRow(2);
-          		fn_viewSortInpt();
-          	} else {
-          		grdSortPrfmnc.setPageTotalCount(totalRecordCount);
-          		grdSortPrfmnc.rebuild();
-          	}
+  	          		grdSortPrfmnc.setRow(2);
+  	          		fn_viewSortInpt();
+  	          	} else {
+  	          		grdSortPrfmnc.setPageTotalCount(totalRecordCount);
+  	          		grdSortPrfmnc.rebuild();
+  	          	}
 
-          	document.querySelector('#cnt-sort').innerText = totalRecordCount;
+  	          	document.querySelector('#cnt-sort').innerText = totalRecordCount;
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 
 		} catch (e) {
     		if (!(e instanceof Error)) {
@@ -829,38 +834,43 @@
         const data = await postJsonPromise;
 
   		try {
+  			if (_.isEqual("S", data.resultStatus)) {
 
-          	/** @type {number} **/
-      		let totalRecordCount = 0;
-          	data.resultList.forEach((item, index) => {
-          		const sortPrfmnc = {
-       				apcCd : item.apcCd,
-       				wrhsno : item.wrhsno,
-       				inptYmd : item.inptYmd,
-       				sortno : item.sortno,
-       				qntt : item.qntt,
-       				wght : item.wght,
-       				pltno : item.pltno,
-       				wrhsYmd : item.wrhsYmd,
-       				prdcrCd : item.prdcrCd,
-       				itemCd : item.itemCd,
-       				vrtyCd : item.vrtyCd,
-       				gdsSeCd : item.gdsSeCd,
-       				wrhsSeCd : item.wrhsSeCd,
-       				trsprtSeCd : item.trsprtSeCd,
-       				warehouseSeCd : item.warehouseSeCd,
-       				warehouseSeNm : item.warehouseSeNm,
-       				prdcrNm : item.prdcrNm
-  				}
-          		jsonSortInptPrfmnc.push(sortPrfmnc);
+  	          	/** @type {number} **/
+  	      		let totalRecordCount = 0;
+  	          	data.resultList.forEach((item, index) => {
+  	          		const sortPrfmnc = {
+  	       				apcCd : item.apcCd,
+  	       				wrhsno : item.wrhsno,
+  	       				inptYmd : item.inptYmd,
+  	       				sortno : item.sortno,
+  	       				qntt : item.qntt,
+  	       				wght : item.wght,
+  	       				pltno : item.pltno,
+  	       				wrhsYmd : item.wrhsYmd,
+  	       				prdcrCd : item.prdcrCd,
+  	       				itemCd : item.itemCd,
+  	       				vrtyCd : item.vrtyCd,
+  	       				gdsSeCd : item.gdsSeCd,
+  	       				wrhsSeCd : item.wrhsSeCd,
+  	       				trsprtSeCd : item.trsprtSeCd,
+  	       				warehouseSeCd : item.warehouseSeCd,
+  	       				warehouseSeNm : item.warehouseSeNm,
+  	       				prdcrNm : item.prdcrNm
+  	  				}
+  	          		jsonSortInptPrfmnc.push(sortPrfmnc);
 
-  			});
+  	  			});
 
-          	totalRecordCount = jsonSortInptPrfmnc.length;
+  	          	totalRecordCount = jsonSortInptPrfmnc.length;
 
-          	grdSortInptPrfmnc.refresh();
+  	          	grdSortInptPrfmnc.refresh();
 
-          	document.querySelector('#cnt-inpt').innerText = totalRecordCount;
+  	          	document.querySelector('#cnt-inpt').innerText = totalRecordCount;
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 
 		} catch (e) {
     		if (!(e instanceof Error)) {

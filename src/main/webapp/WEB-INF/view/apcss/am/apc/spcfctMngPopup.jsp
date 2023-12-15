@@ -232,11 +232,16 @@
 		let postJsonPromise = gfn_postJSON("/am/cmns/selectCmnsApcItem.do", {apcCd : apcCd, itemCd : itemCd});
 	    let data = await postJsonPromise;
 	    try{
-			let itemVO = data.resultMap;
-			resultItemVO = itemVO;
-	    	SBUxMethod.set('spcfct-inp-rawMtrRdcdRt', itemVO.rawMtrRdcdRt);
-			SBUxMethod.set('spcfct-inp-sortRdcdRt', itemVO.sortRdcdRt);
-			SBUxMethod.set('spcfct-inp-pckgRdcdRt', itemVO.pckgRdcdRt);
+  			if (_.isEqual("S", data.resultStatus)) {
+  				let itemVO = data.resultMap;
+  				resultItemVO = itemVO;
+  		    	SBUxMethod.set('spcfct-inp-rawMtrRdcdRt', itemVO.rawMtrRdcdRt);
+  				SBUxMethod.set('spcfct-inp-sortRdcdRt', itemVO.sortRdcdRt);
+  				SBUxMethod.set('spcfct-inp-pckgRdcdRt', itemVO.pckgRdcdRt);
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 
 	    }catch (e) {
 			if (!(e instanceof Error)) {
@@ -255,25 +260,30 @@
 		let postJsonPromise = gfn_postJSON("/am/cmns/selectApcSpcfctList.do", {apcCd : apcCd, itemCd : itemCd});
 	    let data = await postJsonPromise;
 	    try{
-	    	jsonApcSpcfct.length = 0;
-	    	data.resultList.forEach((item, index) => {
-				let spcfctVO = {
-					spcfctCd 	: item.spcfctCd
-				  , spcfctNm 	: item.spcfctNm
-				  , apcCd		: item.apcCd
-				  , itemCd		: item.itemCd
-				  , unitCd		: item.unitCd
-				  , pckgSttsCd	: item.pckgSttsCd
-				  , bxGdsQntt	: item.bxGdsQntt
-				  , wght		: item.wght
-				  , useYn		: item.delYn
-				  , delYn		: item.delYn
-				}
-				jsonApcSpcfct.push(spcfctVO);
-			});
-	    	grdApcSpcfct.rebuild();
-	    	grdApcSpcfct.addRow(true);
-	    	grdApcSpcfct.setCellDisabled(grdApcSpcfct.getRows() -1, 0, grdApcSpcfct.getRows() -1, grdApcSpcfct.getCols() -1, true);
+  			if (_.isEqual("S", data.resultStatus)) {
+  		    	jsonApcSpcfct.length = 0;
+  		    	data.resultList.forEach((item, index) => {
+  					let spcfctVO = {
+  						spcfctCd 	: item.spcfctCd
+  					  , spcfctNm 	: item.spcfctNm
+  					  , apcCd		: item.apcCd
+  					  , itemCd		: item.itemCd
+  					  , unitCd		: item.unitCd
+  					  , pckgSttsCd	: item.pckgSttsCd
+  					  , bxGdsQntt	: item.bxGdsQntt
+  					  , wght		: item.wght
+  					  , useYn		: item.delYn
+  					  , delYn		: item.delYn
+  					}
+  					jsonApcSpcfct.push(spcfctVO);
+  				});
+  		    	grdApcSpcfct.rebuild();
+  		    	grdApcSpcfct.addRow(true);
+  		    	grdApcSpcfct.setCellDisabled(grdApcSpcfct.getRows() -1, 0, grdApcSpcfct.getRows() -1, grdApcSpcfct.getCols() -1, true);
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 
 	    }catch (e) {
 			if (!(e instanceof Error)) {

@@ -696,44 +696,49 @@
         sortInptPrfmncGridData = [];
 
   		try {
+  			if (_.isEqual("S", data1.resultStatus)) {
 
-      		jsoninptCmndDsctnList.length = 0;
-          	data1.resultList.forEach((item, index) => {
-          		if(item.psbltyInvntrQntt > 0){
-          			const rawMtrInvntr = {
-              				  wrhsno			: item.wrhsno
-              				, pltno				: item.pltno
-              				, grdCd				: item.grdCd
-              				, wrhsYmd			: item.wrhsYmd
-              				, prdcrNm			: item.prdcrNm
-              				, prdcrCd			: item.prdcrCd
-              				, itemNm			: item.itemNm
-              				, itemCd			: item.itemCd
-              				, vrtyNm			: item.vrtyNm
-              				, vrtyCd			: item.vrtyCd
-              				, gdsSeNm			: item.gdsSeNm
-              				, gdsSeCd			: item.gdsSeCd
-              				, wrhsSeNm			: item.wrhsSeNm
-              				, wrhsSeCd			: item.wrhsSeCd
-              				, trsprtSeNm		: item.trsprtSeNm
-              				, trsprtSeCd		: item.trsprtSeCd
-              				, warehouseSeNm		: item.warehouseSeNm
-              				, warehouseSeCd		: item.warehouseSeCd
-              				, psbltyInvntrQntt	: item.psbltyInvntrQntt
-              				, psbltyInvntrWght	: item.psbltyInvntrWght
-              				, invntrQntt		: item.invntrQntt
-              				, invntrWght		: item.invntrWght
-              				, trnsfQntt			: item.trnsfQntt
-              				, trnsfWght			: item.trnsfWght
-              				, rmrk				: item.rmrk
-              				, apcCd				: item.apcCd
-      				}
-	          		jsoninptCmndDsctnList.push(Object.assign({}, rawMtrInvntr));
-          		}
+  	      		jsoninptCmndDsctnList.length = 0;
+  	          	data1.resultList.forEach((item, index) => {
+  	          		if(item.psbltyInvntrQntt > 0){
+  	          			const rawMtrInvntr = {
+  	              				  wrhsno			: item.wrhsno
+  	              				, pltno				: item.pltno
+  	              				, grdCd				: item.grdCd
+  	              				, wrhsYmd			: item.wrhsYmd
+  	              				, prdcrNm			: item.prdcrNm
+  	              				, prdcrCd			: item.prdcrCd
+  	              				, itemNm			: item.itemNm
+  	              				, itemCd			: item.itemCd
+  	              				, vrtyNm			: item.vrtyNm
+  	              				, vrtyCd			: item.vrtyCd
+  	              				, gdsSeNm			: item.gdsSeNm
+  	              				, gdsSeCd			: item.gdsSeCd
+  	              				, wrhsSeNm			: item.wrhsSeNm
+  	              				, wrhsSeCd			: item.wrhsSeCd
+  	              				, trsprtSeNm		: item.trsprtSeNm
+  	              				, trsprtSeCd		: item.trsprtSeCd
+  	              				, warehouseSeNm		: item.warehouseSeNm
+  	              				, warehouseSeCd		: item.warehouseSeCd
+  	              				, psbltyInvntrQntt	: item.psbltyInvntrQntt
+  	              				, psbltyInvntrWght	: item.psbltyInvntrWght
+  	              				, invntrQntt		: item.invntrQntt
+  	              				, invntrWght		: item.invntrWght
+  	              				, trnsfQntt			: item.trnsfQntt
+  	              				, trnsfWght			: item.trnsfWght
+  	              				, rmrk				: item.rmrk
+  	              				, apcCd				: item.apcCd
+  	      				}
+  		          		jsoninptCmndDsctnList.push(Object.assign({}, rawMtrInvntr));
+  	          		}
 
 
-  			});
-          	inptCmndDsctnList.rebuild();
+  	  			});
+  	          	inptCmndDsctnList.rebuild();
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 
 		} catch (e) {
     		if (!(e instanceof Error)) {
@@ -771,39 +776,44 @@
         sortInptPrfmncGridData = [];
 
   		try {
+  			if (_.isEqual("S", data2.resultStatus)) {
 
-      		jsoninptCmndDsctnList2.length = 0;
-          	data2.resultList.forEach((item, index) => {
-          		if(item.psbltyInvntrQntt > 0){
-	          		const rawMtrInvntr2 = {
-	          				  sortno			: item.sortno
-	          				, sortSn			: item.sortSn
-	          				, grdNm				: item.grdNm
-	          				, grdCd				: item.grdCd
-	          				, inptYmd			: item.inptYmd
-	          				, fcltNm			: item.fcltNm
-	          				, fcltCd			: item.fcltCd
-	          				, prdcrNm			: item.prdcrNm
-	          				, prdcrCd			: item.prdcrCd
-	          				, itemNm			: item.itemNm
-	          				, itemCd			: item.itemCd
-	          				, vrtyNm			: item.vrtyNm
-	          				, vrtyCd			: item.vrtyCd
-	          				, spcfctNm			: item.spcfctNm
-	          				, spcfctCd			: item.spcfctCd
-	          				, warehouseSeNm		: item.warehouseSeNm
-	          				, warehouseSeCd		: item.warehouseSeCd
-	          				, invntrQntt		: item.psbltyInvntrQntt
-	          				, invntrWght		: item.psbltyInvntrWght
-	          				, trnsfQntt			: item.trnsfQntt
-	          				, trnsfWght			: item.trnsfWght
-	          				, apcCd				: item.apcCd
-	  				}
-	          		jsoninptCmndDsctnList2.push(rawMtrInvntr2);
-          		}
+  	      		jsoninptCmndDsctnList2.length = 0;
+  	          	data2.resultList.forEach((item, index) => {
+  	          		if(item.psbltyInvntrQntt > 0){
+  		          		const rawMtrInvntr2 = {
+  		          				  sortno			: item.sortno
+  		          				, sortSn			: item.sortSn
+  		          				, grdNm				: item.grdNm
+  		          				, grdCd				: item.grdCd
+  		          				, inptYmd			: item.inptYmd
+  		          				, fcltNm			: item.fcltNm
+  		          				, fcltCd			: item.fcltCd
+  		          				, prdcrNm			: item.prdcrNm
+  		          				, prdcrCd			: item.prdcrCd
+  		          				, itemNm			: item.itemNm
+  		          				, itemCd			: item.itemCd
+  		          				, vrtyNm			: item.vrtyNm
+  		          				, vrtyCd			: item.vrtyCd
+  		          				, spcfctNm			: item.spcfctNm
+  		          				, spcfctCd			: item.spcfctCd
+  		          				, warehouseSeNm		: item.warehouseSeNm
+  		          				, warehouseSeCd		: item.warehouseSeCd
+  		          				, invntrQntt		: item.psbltyInvntrQntt
+  		          				, invntrWght		: item.psbltyInvntrWght
+  		          				, trnsfQntt			: item.trnsfQntt
+  		          				, trnsfWght			: item.trnsfWght
+  		          				, apcCd				: item.apcCd
+  		  				}
+  		          		jsoninptCmndDsctnList2.push(rawMtrInvntr2);
+  	          		}
 
-          	});
-          	inptCmndDsctnList.rebuild();
+  	          	});
+  	          	inptCmndDsctnList.rebuild();
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 
 		} catch (e) {
     		if (!(e instanceof Error)) {
@@ -839,41 +849,46 @@
         sortInptPrfmncGridData = [];
 
   		try {
+  			if (_.isEqual("S", data3.resultStatus)) {
 
-      		jsoninptCmndDsctnList3.length = 0;
-          	data3.resultList.forEach((item, index) => {
-          		if(item.psbltyInvntrQntt > 0){
+  	      		jsoninptCmndDsctnList3.length = 0;
+  	          	data3.resultList.forEach((item, index) => {
+  	          		if(item.psbltyInvntrQntt > 0){
 
-	          		const rawMtrInvntr3 = {
-	          				  pckgno			: item.pckgno
-	          				, pckgSn			: item.pckgSn
-	          				, pckgYmd			: item.pckgYmd
-	          				, fcltNm			: item.fcltNm
-	          				, fcltCd			: item.fcltCd
-	          				, rprsPrdcrNm		: item.prdcrNm
-	          				, rprsPrdcrCd		: item.rprsPrdcrCd
-	          				, itemNm			: item.itemNm
-	          				, itemCd			: item.itemCd
-	          				, vrtyNm			: item.vrtyNm
-	          				, vrtyCd			: item.vrtyCd
-	          				, spcfctNm			: item.spcfctNm
-	          				, spcfctCd			: item.spcfctCd
-	          				, gdsNm				: item.gdsGrdNm
-	          				, gdsCd				: item.gdsGrd
-	          				, warehouseSeNm		: item.warehouseSeNm
-	          				, warehouseSeCd		: item.warehouseSeCd
-	          				, invntrQntt		: item.psbltyInvntrQntt
-	          				, invntrWght		: item.psbltyInvntrWght
-	          				, trnsfWarehouse	: item.trnsfWarehouse
-	          				, trnsfQntt			: item.trnsfQntt
-	          				, trnsfWght			: item.trnsfWght
-	          				, apcCd				: item.apcCd
-	  				}
-	          		jsoninptCmndDsctnList3.push(rawMtrInvntr3);
-				}
+  		          		const rawMtrInvntr3 = {
+  		          				  pckgno			: item.pckgno
+  		          				, pckgSn			: item.pckgSn
+  		          				, pckgYmd			: item.pckgYmd
+  		          				, fcltNm			: item.fcltNm
+  		          				, fcltCd			: item.fcltCd
+  		          				, rprsPrdcrNm		: item.prdcrNm
+  		          				, rprsPrdcrCd		: item.rprsPrdcrCd
+  		          				, itemNm			: item.itemNm
+  		          				, itemCd			: item.itemCd
+  		          				, vrtyNm			: item.vrtyNm
+  		          				, vrtyCd			: item.vrtyCd
+  		          				, spcfctNm			: item.spcfctNm
+  		          				, spcfctCd			: item.spcfctCd
+  		          				, gdsNm				: item.gdsGrdNm
+  		          				, gdsCd				: item.gdsGrd
+  		          				, warehouseSeNm		: item.warehouseSeNm
+  		          				, warehouseSeCd		: item.warehouseSeCd
+  		          				, invntrQntt		: item.psbltyInvntrQntt
+  		          				, invntrWght		: item.psbltyInvntrWght
+  		          				, trnsfWarehouse	: item.trnsfWarehouse
+  		          				, trnsfQntt			: item.trnsfQntt
+  		          				, trnsfWght			: item.trnsfWght
+  		          				, apcCd				: item.apcCd
+  		  				}
+  		          		jsoninptCmndDsctnList3.push(rawMtrInvntr3);
+  					}
 
-          	});
-          	inptCmndDsctnList.rebuild();
+  	          	});
+  	          	inptCmndDsctnList.rebuild();
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 
 		} catch (e) {
     		if (!(e instanceof Error)) {

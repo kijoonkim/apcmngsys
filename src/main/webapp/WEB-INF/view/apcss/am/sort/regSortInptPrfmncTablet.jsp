@@ -721,48 +721,53 @@
         const data = await postJsonPromise;
 
         try {
-        	/** @type {number} **/
-      		let totalRecordCount = 0;
+  			if (_.isEqual("S", data.resultStatus)) {
+  	        	/** @type {number} **/
+  	      		let totalRecordCount = 0;
 
-      		jsonSortInpt.length = 0;
-          	data.resultList.forEach((item, index) => {
-          		const sortInpt = {
-          				apcCd: item.apcCd,
-          				wrhsno: item.wrhsno,
-          				inptSn: item.inptSn,
-          				inptYmd: item.inptYmd,
-          				fcltCd: item.fcltCd,
-          				qntt: item.qntt,
-          				wght: item.wght,
-          				sortno: item.sortno,
-          				sortCmndno: item.sortCmndno,
-          				rmrk: item.rmrk,
-          				pltno: item.pltno,
-          				wrhsYmd: item.wrhsYmd,
-          				prdcrCd: item.prdcrCd,
-          				itemCd: item.itemCd,
-          				vrtyCd: item.vrtyCd,
-          				gdsSeCd: item.gdsSeCd,
-          				wrhsSeCd: item.wrhsSeCd,
-          				warehouseSeCd: item.warehouseSeCd,
-          				bxKnd: item.bxKnd,
-          				grdCd: item.grdCd,
-          				prdcrNm: item.prdcrNm,
-          				itemNm: item.itemNm,
-          				vrtyNm: item.vrtyNm,
-          				grdNm: item.grdNm,
-          				fcltNm: item.fcltNm,
-          				warehouseSeNm: item.warehouseSeNm,
-          				gdsSeNm: item.gdsSeNm,
-          				wrhsSeNm: item.wrhsSeNm,
-          				vrtyNm: item.vrtyNm
-  				}
+  	      		jsonSortInpt.length = 0;
+  	          	data.resultList.forEach((item, index) => {
+  	          		const sortInpt = {
+  	          				apcCd: item.apcCd,
+  	          				wrhsno: item.wrhsno,
+  	          				inptSn: item.inptSn,
+  	          				inptYmd: item.inptYmd,
+  	          				fcltCd: item.fcltCd,
+  	          				qntt: item.qntt,
+  	          				wght: item.wght,
+  	          				sortno: item.sortno,
+  	          				sortCmndno: item.sortCmndno,
+  	          				rmrk: item.rmrk,
+  	          				pltno: item.pltno,
+  	          				wrhsYmd: item.wrhsYmd,
+  	          				prdcrCd: item.prdcrCd,
+  	          				itemCd: item.itemCd,
+  	          				vrtyCd: item.vrtyCd,
+  	          				gdsSeCd: item.gdsSeCd,
+  	          				wrhsSeCd: item.wrhsSeCd,
+  	          				warehouseSeCd: item.warehouseSeCd,
+  	          				bxKnd: item.bxKnd,
+  	          				grdCd: item.grdCd,
+  	          				prdcrNm: item.prdcrNm,
+  	          				itemNm: item.itemNm,
+  	          				vrtyNm: item.vrtyNm,
+  	          				grdNm: item.grdNm,
+  	          				fcltNm: item.fcltNm,
+  	          				warehouseSeNm: item.warehouseSeNm,
+  	          				gdsSeNm: item.gdsSeNm,
+  	          				wrhsSeNm: item.wrhsSeNm,
+  	          				vrtyNm: item.vrtyNm
+  	  				}
 
-          		jsonSortInpt.push(sortInpt);
-  			});
-          	totalRecordCount = jsonSortInpt.length;
-          	document.querySelector('#cnt-inpt').innerText = totalRecordCount;
-          	SBUxMethod.set("crtr-ymd", inptYmd);
+  	          		jsonSortInpt.push(sortInpt);
+  	  			});
+  	          	totalRecordCount = jsonSortInpt.length;
+  	          	document.querySelector('#cnt-inpt').innerText = totalRecordCount;
+  	          	SBUxMethod.set("crtr-ymd", inptYmd);
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);

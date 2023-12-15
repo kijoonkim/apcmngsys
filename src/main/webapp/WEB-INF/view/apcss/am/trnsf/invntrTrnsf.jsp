@@ -452,76 +452,81 @@
         let data = await postJsonPromise;
 
   		try {
-          	/** @type {number} **/
-      		let totalRecordCount = 0;
+  			if (_.isEqual("S", data.resultStatus)) {
+  	          	/** @type {number} **/
+  	      		let totalRecordCount = 0;
 
-      		jsonInvntrTrnsf.length = 0;
-          	data.resultList.forEach((item, index) => {
-          		let wrhsno ="";
-          		if(item.invntrSeCd == "1"){
-          			wrhsno = item.wrhsno
-          		}
-          		if(item.invntrSeCd == "2"){
-          			wrhsno = item.sortno
-          		}
-          		if(item.invntrSeCd == "3"){
-          			wrhsno = item.pckgno
-          		}
-          		const invntrTrnsf = {
-          			  apcCd				: item.apcCd
-          			, wrhsno			: wrhsno
-          			, sortno			: item.sortno
-          			, sortSn			: item.sortSn
-          			, pckgno			: item.pckgno
-          			, pckgSn			: item.pckgSn
-          			, trnsfYmd			: item.trnsfYmd
-          			, trnsfSn			: item.trnsfSn
-          			, wrhsYmd			: item.wrhsYmd
-          			, grdCd				: item.grdCd
-          			, grdNm				: item.grdNm
-          			, itemNm			: item.itemNm
-          			, itemCd			: item.itemCd
-          			, vrtyNm			: item.vrtyNm
-          			, vrtyCd			: item.vrtyCd
-          			, spcfctCd			: item.spcfctCd
-          			, spcfctNm			: item.spcfctNm
-          			, prdcrCd			: item.prdcrCd
-          			, prdcrNm			: item.prdcrNm
-          			, gdsSeNm			: item.gdsSeNm
-          			, gdsSeCd			: item.gdsSeCd
-          			, wrhsSeNm			: item.wrhsSeNm
-          			, wrhsSeCd			: item.wrhsSeCd
-          			, trsprtSeNm		: item.trsprtSeNm
-          			, invntrSeCd		: item.invntrSeCd
-          			, invntrSeNm		: item.invntrSeNm
-          			, trsprtSeCd		: item.trsprtSeCd
-          			, trsprtSeNm		: item.trsprtSeNm
-          			, warehouseSeNm		: item.warehouseSeNm
-          			, warehouseSeCd		: item.warehouseSeCd
-          			, trnsfQntt			: item.trnsfQntt
-          			, trnsfWght			: item.trnsfWght
-          			, trnsfApcNm		: item.trnsfApcNm
-          			, trnsfApcCd		: item.trnsfApcCd
-          			, cfmtnNm			: item.cfmtnNm
-          			, cfmtnCd			: item.cfmtnCd
-  				}
-  				jsonInvntrTrnsf.push(invntrTrnsf);
+  	      		jsonInvntrTrnsf.length = 0;
+  	          	data.resultList.forEach((item, index) => {
+  	          		let wrhsno ="";
+  	          		if(item.invntrSeCd == "1"){
+  	          			wrhsno = item.wrhsno
+  	          		}
+  	          		if(item.invntrSeCd == "2"){
+  	          			wrhsno = item.sortno
+  	          		}
+  	          		if(item.invntrSeCd == "3"){
+  	          			wrhsno = item.pckgno
+  	          		}
+  	          		const invntrTrnsf = {
+  	          			  apcCd				: item.apcCd
+  	          			, wrhsno			: wrhsno
+  	          			, sortno			: item.sortno
+  	          			, sortSn			: item.sortSn
+  	          			, pckgno			: item.pckgno
+  	          			, pckgSn			: item.pckgSn
+  	          			, trnsfYmd			: item.trnsfYmd
+  	          			, trnsfSn			: item.trnsfSn
+  	          			, wrhsYmd			: item.wrhsYmd
+  	          			, grdCd				: item.grdCd
+  	          			, grdNm				: item.grdNm
+  	          			, itemNm			: item.itemNm
+  	          			, itemCd			: item.itemCd
+  	          			, vrtyNm			: item.vrtyNm
+  	          			, vrtyCd			: item.vrtyCd
+  	          			, spcfctCd			: item.spcfctCd
+  	          			, spcfctNm			: item.spcfctNm
+  	          			, prdcrCd			: item.prdcrCd
+  	          			, prdcrNm			: item.prdcrNm
+  	          			, gdsSeNm			: item.gdsSeNm
+  	          			, gdsSeCd			: item.gdsSeCd
+  	          			, wrhsSeNm			: item.wrhsSeNm
+  	          			, wrhsSeCd			: item.wrhsSeCd
+  	          			, trsprtSeNm		: item.trsprtSeNm
+  	          			, invntrSeCd		: item.invntrSeCd
+  	          			, invntrSeNm		: item.invntrSeNm
+  	          			, trsprtSeCd		: item.trsprtSeCd
+  	          			, trsprtSeNm		: item.trsprtSeNm
+  	          			, warehouseSeNm		: item.warehouseSeNm
+  	          			, warehouseSeCd		: item.warehouseSeCd
+  	          			, trnsfQntt			: item.trnsfQntt
+  	          			, trnsfWght			: item.trnsfWght
+  	          			, trnsfApcNm		: item.trnsfApcNm
+  	          			, trnsfApcCd		: item.trnsfApcCd
+  	          			, cfmtnNm			: item.cfmtnNm
+  	          			, cfmtnCd			: item.cfmtnCd
+  	  				}
+  	  				jsonInvntrTrnsf.push(invntrTrnsf);
 
-  				if (index === 0) {
-  					totalRecordCount = item.totalRecordCount;
-  				}
-  			});
-          	if (jsonInvntrTrnsf.length > 0) {
-          		if(grdInvntrTrnsf.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-          			grdInvntrTrnsf.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-          			grdInvntrTrnsf.rebuild();
-  				}else{
-  					grdInvntrTrnsf.refresh();
-  				}
-          	} else {
-          		grdInvntrTrnsf.setPageTotalCount(totalRecordCount);
-          		grdInvntrTrnsf.rebuild();
-          	}
+  	  				if (index === 0) {
+  	  					totalRecordCount = item.totalRecordCount;
+  	  				}
+  	  			});
+  	          	if (jsonInvntrTrnsf.length > 0) {
+  	          		if(grdInvntrTrnsf.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+  	          			grdInvntrTrnsf.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+  	          			grdInvntrTrnsf.rebuild();
+  	  				}else{
+  	  					grdInvntrTrnsf.refresh();
+  	  				}
+  	          	} else {
+  	          		grdInvntrTrnsf.setPageTotalCount(totalRecordCount);
+  	          		grdInvntrTrnsf.rebuild();
+  	          	}
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 
 		} catch (e) {
 	   		if (!(e instanceof Error)) {

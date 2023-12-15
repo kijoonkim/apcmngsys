@@ -502,63 +502,67 @@
   		});
 
         const data = await postJsonPromise;
+        console.log(data.resultStatus);
 
   		try {
+  			if (_.isEqual("S", data.resultStatus)) {
+	          	/** @type {number} **/
+	      		let totalRecordCount = 0;
+	
+	      		jsonClclnPrfmnc.length = 0;
+	          	data.resultList.forEach((item, index) => {
+	          		const clclnPrfmnc = {
+	          				rowSeq: item.rowSeq,
+	  						apcCd: item.apcCd,
+	  						clclnYmd: item.clclnYmd,
+	  						clclnSn: item.clclnSn,
+	  						clclnCrtrCd: item.clclnCrtrCd,
+	  						prdcrCd: item.prdcrCd,
+	  						prdcrNm: item.prdcrNm,
+	  						itemCd: item.itemCd,
+	  						vrtyCd: item.vrtyCd,
+	  						spcfctCd: item.spcfctCd,
+	  						wrhsSeCd: item.wrhsSeCd,
+	  						gdsSeCd: item.gdsSeCd,
+	  						qntt: item.qntt,
+	  						wght: item.wght,
+	  						rkngAmt: item.rkngAmt,
+	  						cfmtnAmt: item.cfmtnAmt,
+	  						cfmtnYn: item.cfmtnYn,
+	  						itemNm: item.itemNm,
+	  						vrtyNm: item.vrtyNm,
+	  						spcfctNm: item.spcfctNm,
+	  						clclnCrtrNm: item.clclnCrtrNm,
+	  						wrhsSeNm: item.wrhsSeNm,
+	  						gdsSeNm: item.gdsSeNm,
+	  						grdNm: item.grdNm,
+	  						cfmtnYnNm : item.cfmtnYnNm
+	  				}
+	
+	          		jsonClclnPrfmnc.push(clclnPrfmnc);
+	
+	  				if (index === 0) {
+	  					totalRecordCount = item.totalRecordCount;
+	  				}
+	  			});
+	
+	          	if (jsonClclnPrfmnc.length > 0) {
+	          		if (grdClclnPrfmnc.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+	          			grdClclnPrfmnc.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+	          			grdClclnPrfmnc.rebuild();
+	  				} else {
+	  					grdClclnPrfmnc.refresh();
+	  				}
+	          	} else {
+	          		grdClclnPrfmnc.setPageTotalCount(totalRecordCount);
+	          		grdClclnPrfmnc.rebuild();
+	          	}
+	
+	          	document.querySelector('#cnt-clcln').innerText = totalRecordCount;
 
-          	/** @type {number} **/
-      		let totalRecordCount = 0;
-
-      		jsonClclnPrfmnc.length = 0;
-          	data.resultList.forEach((item, index) => {
-          		const clclnPrfmnc = {
-          				rowSeq: item.rowSeq,
-  						apcCd: item.apcCd,
-  						clclnYmd: item.clclnYmd,
-  						clclnSn: item.clclnSn,
-  						clclnCrtrCd: item.clclnCrtrCd,
-  						prdcrCd: item.prdcrCd,
-  						prdcrNm: item.prdcrNm,
-  						itemCd: item.itemCd,
-  						vrtyCd: item.vrtyCd,
-  						spcfctCd: item.spcfctCd,
-  						wrhsSeCd: item.wrhsSeCd,
-  						gdsSeCd: item.gdsSeCd,
-  						qntt: item.qntt,
-  						wght: item.wght,
-  						rkngAmt: item.rkngAmt,
-  						cfmtnAmt: item.cfmtnAmt,
-  						cfmtnYn: item.cfmtnYn,
-  						itemNm: item.itemNm,
-  						vrtyNm: item.vrtyNm,
-  						spcfctNm: item.spcfctNm,
-  						clclnCrtrNm: item.clclnCrtrNm,
-  						wrhsSeNm: item.wrhsSeNm,
-  						gdsSeNm: item.gdsSeNm,
-  						grdNm: item.grdNm,
-  						cfmtnYnNm : item.cfmtnYnNm
-  				}
-
-          		jsonClclnPrfmnc.push(clclnPrfmnc);
-
-  				if (index === 0) {
-  					totalRecordCount = item.totalRecordCount;
-  				}
-  			});
-
-          	if (jsonClclnPrfmnc.length > 0) {
-          		if (grdClclnPrfmnc.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-          			grdClclnPrfmnc.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-          			grdClclnPrfmnc.rebuild();
-  				} else {
-  					grdClclnPrfmnc.refresh();
-  				}
-          	} else {
-          		grdClclnPrfmnc.setPageTotalCount(totalRecordCount);
-          		grdClclnPrfmnc.rebuild();
-          	}
-
-          	document.querySelector('#cnt-clcln').innerText = totalRecordCount;
-
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 		} catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);

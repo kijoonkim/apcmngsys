@@ -511,63 +511,68 @@
     	let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncList.do", SpmtPrfmncVO);
         let data = await postJsonPromise;
         try{
-        	jsonSpmtPrfmnc.length = 0;
-        	data.resultList.forEach((item, index) => {
-				let spmtPrfmnc = {
-					spmtYmd 		: item.spmtYmd
-				  , gdsNm 			: item.gdsNm
-				  , gdsCd 			: item.gdsCd
-				  , itemCd			: item.itemCd
-				  , itemNm 			: item.itemNm
-				  , vrtyCd 			: item.vrtyCd
-				  , vrtyNm 			: item.vrtyNm
-				  , spcfctCd 		: item.spcfctCd
-				  , spcfctNm 		: item.spcfctNm
-				  , brndNm 			: item.brndNm
-				  , cnptNm 			: item.cnptNm
-				  , cnptCd 			: item.cnptCd
-				  , dldtn 			: item.dldtn
-				  , trsprtCoNm 		: item.trsprtCoNm
-				  , trsprtCoCd 		: item.trsprtCoCd
-				  , vhclno 			: item.vhclno
-				  , trsprtCst 		: item.trsprtCst
-				  , spmtQntt		: item.spmtQntt
-				  , spmtWght 		: item.spmtWght
-				  , totTrsprtCst 	: item.totTrsprtCst
-				  , totSpmtQntt		: item.totSpmtQntt
-				  , totSpmtWght 	: item.totSpmtWght
-				  , rmrk			: item.rmrk
-				  , spmtno			: item.spmtno
-				  , cfmtnYn			: item.cfmtnYn
-				  , ddlnYn			: item.ddlnYn
-				  , pckgno			: item.pckgno
-				  , pckgSn			: item.pckgSn
-				  , apcCd			: item.apcCd
-				  , rtnGdsYn		: item.rtnGdsYn
-				  , rtnGdsNm		: item.rtnGdsNm
-				  , rtnPsbleyQntt	: item.rtnPsbleyQntt
-				  , rtnPsbleyWght	: item.rtnPsbleyWght
-				  , rtnGdsQntt		: item.rtnGdsQntt
-				  , rtnGdsWght		: item.rtnGdsWght
-				  , sn				: item.sn
-				  , pltBxCd			: item.pltBxCd
-				  , bssInvntrQntt	: item.bssInvntrQntt
-				  , pltSpmtYn		: item.pltSpmtYn
+  			if (_.isEqual("S", data.resultStatus)) {
+  	        	jsonSpmtPrfmnc.length = 0;
+  	        	data.resultList.forEach((item, index) => {
+  					let spmtPrfmnc = {
+  						spmtYmd 		: item.spmtYmd
+  					  , gdsNm 			: item.gdsNm
+  					  , gdsCd 			: item.gdsCd
+  					  , itemCd			: item.itemCd
+  					  , itemNm 			: item.itemNm
+  					  , vrtyCd 			: item.vrtyCd
+  					  , vrtyNm 			: item.vrtyNm
+  					  , spcfctCd 		: item.spcfctCd
+  					  , spcfctNm 		: item.spcfctNm
+  					  , brndNm 			: item.brndNm
+  					  , cnptNm 			: item.cnptNm
+  					  , cnptCd 			: item.cnptCd
+  					  , dldtn 			: item.dldtn
+  					  , trsprtCoNm 		: item.trsprtCoNm
+  					  , trsprtCoCd 		: item.trsprtCoCd
+  					  , vhclno 			: item.vhclno
+  					  , trsprtCst 		: item.trsprtCst
+  					  , spmtQntt		: item.spmtQntt
+  					  , spmtWght 		: item.spmtWght
+  					  , totTrsprtCst 	: item.totTrsprtCst
+  					  , totSpmtQntt		: item.totSpmtQntt
+  					  , totSpmtWght 	: item.totSpmtWght
+  					  , rmrk			: item.rmrk
+  					  , spmtno			: item.spmtno
+  					  , cfmtnYn			: item.cfmtnYn
+  					  , ddlnYn			: item.ddlnYn
+  					  , pckgno			: item.pckgno
+  					  , pckgSn			: item.pckgSn
+  					  , apcCd			: item.apcCd
+  					  , rtnGdsYn		: item.rtnGdsYn
+  					  , rtnGdsNm		: item.rtnGdsNm
+  					  , rtnPsbleyQntt	: item.rtnPsbleyQntt
+  					  , rtnPsbleyWght	: item.rtnPsbleyWght
+  					  , rtnGdsQntt		: item.rtnGdsQntt
+  					  , rtnGdsWght		: item.rtnGdsWght
+  					  , sn				: item.sn
+  					  , pltBxCd			: item.pltBxCd
+  					  , bssInvntrQntt	: item.bssInvntrQntt
+  					  , pltSpmtYn		: item.pltSpmtYn
 
-				}
-				jsonSpmtPrfmnc.push(spmtPrfmnc);
-			});
-        	if(jsonSpmtPrfmnc.length > 0){
-				if(grdSpmtPrfmnc.getPageTotalCount() != data.resultList[0].totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-					grdSpmtPrfmnc.setPageTotalCount(data.resultList[0].totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-					grdSpmtPrfmnc.rebuild();
-				}else{
-					grdSpmtPrfmnc.refresh();
-				}
-			}else{
-				grdSpmtPrfmnc.setPageTotalCount(0);
-				grdSpmtPrfmnc.rebuild();
-			}
+  					}
+  					jsonSpmtPrfmnc.push(spmtPrfmnc);
+  				});
+  	        	if(jsonSpmtPrfmnc.length > 0){
+  					if(grdSpmtPrfmnc.getPageTotalCount() != data.resultList[0].totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+  						grdSpmtPrfmnc.setPageTotalCount(data.resultList[0].totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+  						grdSpmtPrfmnc.rebuild();
+  					}else{
+  						grdSpmtPrfmnc.refresh();
+  					}
+  				}else{
+  					grdSpmtPrfmnc.setPageTotalCount(0);
+  					grdSpmtPrfmnc.rebuild();
+  				}
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
