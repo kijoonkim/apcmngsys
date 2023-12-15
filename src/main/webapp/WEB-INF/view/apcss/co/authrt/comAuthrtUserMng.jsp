@@ -344,45 +344,50 @@
         const data = await postJsonPromise;
 
 		try {
+  			if (_.isEqual("S", data.resultStatus)) {
 
-        	/** @type {number} **/
-    		let totalRecordCount = 0;
+  	        	/** @type {number} **/
+  	    		let totalRecordCount = 0;
 
-        	jsonComAuth.length = 0;
+  	        	jsonComAuth.length = 0;
 
-        	data.resultList.forEach((item, index) => {
-				const authrt = {
-					rowSeq: item.rowSeq,
-					authrtId: item.authrtId,
-					authrtNm: item.authrtNm,
-					authrtType: item.authrtType,
-					authrtTypeNm: item.authrtTypeNm,
-					authrtRmrk: item.authrtRmrk,
-					apcCd: item.apcCd,
-					apcNm: item.apcNm,
-					sysId: item.sysId
-				}
-				jsonComAuth.push(authrt);
+  	        	data.resultList.forEach((item, index) => {
+  					const authrt = {
+  						rowSeq: item.rowSeq,
+  						authrtId: item.authrtId,
+  						authrtNm: item.authrtNm,
+  						authrtType: item.authrtType,
+  						authrtTypeNm: item.authrtTypeNm,
+  						authrtRmrk: item.authrtRmrk,
+  						apcCd: item.apcCd,
+  						apcNm: item.apcNm,
+  						sysId: item.sysId
+  					}
+  					jsonComAuth.push(authrt);
 
-				if (index === 0) {
-					totalRecordCount = item.totalRecordCount;
-				}
-			});
+  					if (index === 0) {
+  						totalRecordCount = item.totalRecordCount;
+  					}
+  				});
 
-        	if (jsonComAuth.length > 0) {
+  	        	if (jsonComAuth.length > 0) {
 
-        		if(grdComAuth.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-        			grdComAuth.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-        			grdComAuth.rebuild();
-				}else{
-					grdComAuth.refresh();
-				}
+  	        		if(grdComAuth.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+  	        			grdComAuth.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+  	        			grdComAuth.rebuild();
+  					}else{
+  						grdComAuth.refresh();
+  					}
+  	        	} else {
+  	        		grdComAuth.setPageTotalCount(totalRecordCount);
+  	        		grdComAuth.rebuild();
+  	        	}
+
+  	        	document.querySelector('#listCount').innerText = totalRecordCount;
+
         	} else {
-        		grdComAuth.setPageTotalCount(totalRecordCount);
-        		grdComAuth.rebuild();
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
-
-        	document.querySelector('#listCount').innerText = totalRecordCount;
 
         } catch (e) {
     		if (!(e instanceof Error)) {
@@ -415,41 +420,46 @@
 		const data = await postJsonPromise;
 
 		try {
+  			if (_.isEqual("S", data.resultStatus)) {
 
-        	/** @type {number} **/
-    		let totalRecordCount = 0;
+  	        	/** @type {number} **/
+  	    		let totalRecordCount = 0;
 
-        	jsonComAuthUser.length = 0;
-        	data.resultList.forEach((item, index) => {
-				const user = {
-					rowSeq: item.rowSeq,
-					authrtId: item.authrtId,
-					userId: item.userId,
-					userNm: item.userNm,
-					apcCd: item.apcCd,
-					apcNm: item.apcNm
-				}
-				jsonComAuthUser.push(user);
+  	        	jsonComAuthUser.length = 0;
+  	        	data.resultList.forEach((item, index) => {
+  					const user = {
+  						rowSeq: item.rowSeq,
+  						authrtId: item.authrtId,
+  						userId: item.userId,
+  						userNm: item.userNm,
+  						apcCd: item.apcCd,
+  						apcNm: item.apcNm
+  					}
+  					jsonComAuthUser.push(user);
 
-				if (index === 0) {
-					totalRecordCount = item.totalRecordCount;
-				}
-			});
+  					if (index === 0) {
+  						totalRecordCount = item.totalRecordCount;
+  					}
+  				});
 
-        	if (jsonComAuthUser.length > 0) {
+  	        	if (jsonComAuthUser.length > 0) {
 
-        		if(grdComAuth.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-        			grdComAuthUser.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-        			grdComAuthUser.rebuild();
-				}else{
-					grdComAuthUser.refresh();
-				}
+  	        		if(grdComAuth.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+  	        			grdComAuthUser.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+  	        			grdComAuthUser.rebuild();
+  					}else{
+  						grdComAuthUser.refresh();
+  					}
+  	        	} else {
+  	        		grdComAuthUser.setPageTotalCount(totalRecordCount);
+  	        		grdComAuthUser.rebuild();
+  	        	}
+
+  	        	document.querySelector('#listCount2').innerText = totalRecordCount;
+
         	} else {
-        		grdComAuthUser.setPageTotalCount(totalRecordCount);
-        		grdComAuthUser.rebuild();
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
-
-        	document.querySelector('#listCount2').innerText = totalRecordCount;
 
         } catch (e) {
     		if (!(e instanceof Error)) {

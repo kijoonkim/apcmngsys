@@ -155,38 +155,43 @@
 		        const data = await postJsonPromise;
 
 				try {
-		    		let totalRecordCount = 0;
+		  			if (_.isEqual("S", data.resultStatus)) {
+			    		let totalRecordCount = 0;
 
-		    		jsonRawMtrChgHstry.length = 0;
-		        	data.resultList.forEach((item, index) => {
-						const hstry = {
-							wrhsno			: item.wrhsno,
-							chgYmd			: item.chgYmd,
-							chgBfrQntt 		: item.chgBfrQntt,
-							chgBfrWght 		: item.chgBfrWght,
-							chgAftrQntt 	: item.chgAftrQntt,
-							chgAftrWght	 	: item.chgAftrWght,
-							chgRmrk	 		: item.chgRmrk,
-							chgRsnNm	 	: item.chgRsnNm,
-							warehouseSeNm	: item.warehouseSeNm
-						}
-						jsonRawMtrChgHstry.push(hstry);
+			    		jsonRawMtrChgHstry.length = 0;
+			        	data.resultList.forEach((item, index) => {
+							const hstry = {
+								wrhsno			: item.wrhsno,
+								chgYmd			: item.chgYmd,
+								chgBfrQntt 		: item.chgBfrQntt,
+								chgBfrWght 		: item.chgBfrWght,
+								chgAftrQntt 	: item.chgAftrQntt,
+								chgAftrWght	 	: item.chgAftrWght,
+								chgRmrk	 		: item.chgRmrk,
+								chgRsnNm	 	: item.chgRsnNm,
+								warehouseSeNm	: item.warehouseSeNm
+							}
+							jsonRawMtrChgHstry.push(hstry);
 
-						if (index === 0) {
-							totalRecordCount = item.totalRecordCount;
-						}
-					});
+							if (index === 0) {
+								totalRecordCount = item.totalRecordCount;
+							}
+						});
 
-		        	if (jsonRawMtrChgHstry.length > 0) {
-		        		if(grdRawMtrChgHstry.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-		        			grdRawMtrChgHstry.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-		        			grdRawMtrChgHstry.rebuild();
-						}else{
-							grdRawMtrChgHstry.refresh();
-						}
+			        	if (jsonRawMtrChgHstry.length > 0) {
+			        		if(grdRawMtrChgHstry.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+			        			grdRawMtrChgHstry.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+			        			grdRawMtrChgHstry.rebuild();
+							}else{
+								grdRawMtrChgHstry.refresh();
+							}
+			        	} else {
+			        		grdRawMtrChgHstry.setPageTotalCount(totalRecordCount);
+			        		grdRawMtrChgHstry.rebuild();
+			        	}
+
 		        	} else {
-		        		grdRawMtrChgHstry.setPageTotalCount(totalRecordCount);
-		        		grdRawMtrChgHstry.rebuild();
+		        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		        	}
 		        } catch (e) {
 		    		if (!(e instanceof Error)) {

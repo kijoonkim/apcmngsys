@@ -294,32 +294,37 @@
 	        const data = await postJsonPromise;
 
 			try {
+	  			if (_.isEqual("S", data.resultStatus)) {
 
-	    		jsonDvlpPrgs.length = 0;
-	        	data.resultList.forEach((item, index) => {
-					const dvlpPrgs = {
-						stts			: item.stts,
-						clsf			: item.clsf,
-						prgrmNm			: item.prgrmNm,
-						prgrmId			: item.prgrmId,
-						dvlpPlanYmd		: item.dvlpPlanYmd,
-						dvlpCmptnYmd	: item.dvlpCmptnYmd,
-						testPlanYmd		: item.testPlanYmd,
-						testCmptnYmd	: item.testCmptnYmd,
-						pic				: item.pic,
-						dfctCnt			: item.dfctCnt,
-						actnCnt			: item.actnCnt,
-						sysLastChgDt	: item.sysLastChgDt,
-					    rmrk 			: item.rmrk,
-					    dvlpStts 		: item.dvlpStts
-					}
-					jsonDvlpPrgs.push(dvlpPrgs);
+		    		jsonDvlpPrgs.length = 0;
+		        	data.resultList.forEach((item, index) => {
+						const dvlpPrgs = {
+							stts			: item.stts,
+							clsf			: item.clsf,
+							prgrmNm			: item.prgrmNm,
+							prgrmId			: item.prgrmId,
+							dvlpPlanYmd		: item.dvlpPlanYmd,
+							dvlpCmptnYmd	: item.dvlpCmptnYmd,
+							testPlanYmd		: item.testPlanYmd,
+							testCmptnYmd	: item.testCmptnYmd,
+							pic				: item.pic,
+							dfctCnt			: item.dfctCnt,
+							actnCnt			: item.actnCnt,
+							sysLastChgDt	: item.sysLastChgDt,
+						    rmrk 			: item.rmrk,
+						    dvlpStts 		: item.dvlpStts
+						}
+						jsonDvlpPrgs.push(dvlpPrgs);
 
-				});
+					});
 
-        		grdDvlpPrgs.rebuild();
+	        		grdDvlpPrgs.rebuild();
 
-	        	grdDvlpPrgs.setCellDisabled(0, 0, grdDvlpPrgs.getRows() - 1, 1, true);
+		        	grdDvlpPrgs.setCellDisabled(0, 0, grdDvlpPrgs.getRows() - 1, 1, true);
+
+	        	} else {
+	        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	        	}
 
 	        } catch (e) {
 	    		if (!(e instanceof Error)) {
@@ -377,25 +382,30 @@
 	        const data = await postJsonPromise;
 
 			try {
-	    		jsonDfct.length = 0;
-	        	data.resultList.forEach((item, index) => {
-					const dfct = {
-						gb			: item.gb,
-						cnt1		: item.cnt1,
-						cnt2		: item.cnt2,
-						cnt3		: item.cnt3,
-						per1		: item.per1,
-						cnt4		: item.cnt4,
-						cnt5		: item.cnt5,
-						cnt6		: item.cnt6,
-						per2		: item.per2,
-						cnt7		: item.cnt7,
-						cnt8		: item.cnt8,
-						tot			: item.tot
-					}
-					jsonDfct.push(dfct);
-				});
-        		grdDfct.rebuild();
+	  			if (_.isEqual("S", data.resultStatus)) {
+		    		jsonDfct.length = 0;
+		        	data.resultList.forEach((item, index) => {
+						const dfct = {
+							gb			: item.gb,
+							cnt1		: item.cnt1,
+							cnt2		: item.cnt2,
+							cnt3		: item.cnt3,
+							per1		: item.per1,
+							cnt4		: item.cnt4,
+							cnt5		: item.cnt5,
+							cnt6		: item.cnt6,
+							per2		: item.per2,
+							cnt7		: item.cnt7,
+							cnt8		: item.cnt8,
+							tot			: item.tot
+						}
+						jsonDfct.push(dfct);
+					});
+	        		grdDfct.rebuild();
+
+	        	} else {
+	        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	        	}
 	        } catch (e) {
 	    		if (!(e instanceof Error)) {
 	    			e = new Error(e);

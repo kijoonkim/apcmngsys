@@ -226,49 +226,54 @@
         const data = await postJsonPromise;
 
   		try {
+  			if (_.isEqual("S", data.resultStatus)) {
 
-          	/** @type {number} **/
-      		let totalRecordCount = 0;
+  	          	/** @type {number} **/
+  	      		let totalRecordCount = 0;
 
-      		jsonUserAprv.length = 0;
-          	data.resultList.forEach((item, index) => {
-          		const userAprv = {
-  						rowSeq: 	item.rowSeq,
-  						apcCd: 		item.apcCd,
-  						userId: 	item.userId,
-  						userNm: 	item.userNm,
-  						apcNm: 		item.apcNm,
-  						userStts: 	item.userStts,
-  						userSttsNm: item.userSttsNm,
-  						userType: 	item.userType,
-  						userTypeNm: item.userTypeNm,
-  						eml: 		item.eml,
-  						telno: 		item.telno,
-  						jbttlNm: 	item.jbttlNm,
-  						tkcgTaskNm: item.tkcgTaskNm
-  				}
-          		jsonUserAprv.push(userAprv);
+  	      		jsonUserAprv.length = 0;
+  	          	data.resultList.forEach((item, index) => {
+  	          		const userAprv = {
+  	  						rowSeq: 	item.rowSeq,
+  	  						apcCd: 		item.apcCd,
+  	  						userId: 	item.userId,
+  	  						userNm: 	item.userNm,
+  	  						apcNm: 		item.apcNm,
+  	  						userStts: 	item.userStts,
+  	  						userSttsNm: item.userSttsNm,
+  	  						userType: 	item.userType,
+  	  						userTypeNm: item.userTypeNm,
+  	  						eml: 		item.eml,
+  	  						telno: 		item.telno,
+  	  						jbttlNm: 	item.jbttlNm,
+  	  						tkcgTaskNm: item.tkcgTaskNm
+  	  				}
+  	          		jsonUserAprv.push(userAprv);
 
-  				if (index === 0) {
-  					totalRecordCount = item.totalRecordCount;
-  				}
-  			});
+  	  				if (index === 0) {
+  	  					totalRecordCount = item.totalRecordCount;
+  	  				}
+  	  			});
 
-          	if (jsonUserAprv.length > 0) {
-          		if(grdUserAprv.getPageTotalCount() != data.resultList[0].totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-          			grdUserAprv.setPageTotalCount(data.resultList[0].totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-          			grdUserAprv.rebuild();
-    				}else{
-    					grdUserAprv.refresh();
-    				}
+  	          	if (jsonUserAprv.length > 0) {
+  	          		if(grdUserAprv.getPageTotalCount() != data.resultList[0].totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+  	          			grdUserAprv.setPageTotalCount(data.resultList[0].totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+  	          			grdUserAprv.rebuild();
+  	    				}else{
+  	    					grdUserAprv.refresh();
+  	    				}
 
-          		grdUserAprv.setRow(2);
-          	} else {
-          		grdUserAprv.setPageTotalCount(0);
-          		grdUserAprv.rebuild();
-          	}
+  	          		grdUserAprv.setRow(2);
+  	          	} else {
+  	          		grdUserAprv.setPageTotalCount(0);
+  	          		grdUserAprv.rebuild();
+  	          	}
 
-          	document.querySelector('#cnt-userAprv').innerText = totalRecordCount;
+  	          	document.querySelector('#cnt-userAprv').innerText = totalRecordCount;
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 
           } catch (e) {
     		if (!(e instanceof Error)) {
