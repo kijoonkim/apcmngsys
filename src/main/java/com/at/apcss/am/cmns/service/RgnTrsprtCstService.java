@@ -69,4 +69,13 @@ public interface RgnTrsprtCstService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> multiRgnTrsprtCst(List<RgnTrsprtCstVO> vhclList) throws Exception;
+	
+	/**
+	 * APC환경설정 입고차량정보 등록
+	 * 
+	 * @param rgnTrsprtCstVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> multiApcVhclMngList(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception;
 }

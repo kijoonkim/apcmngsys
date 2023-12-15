@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at.apcss.am.cmns.service.RgnTrsprtCstService;
 import com.at.apcss.am.cmns.vo.RgnTrsprtCstVO;
+import com.at.apcss.am.cmns.vo.WrhsVhclVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 
@@ -65,21 +66,33 @@ public class RgnTrsprtCstController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	@PostMapping(value = "/am/cmns/multiRgnTrsprtCstList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> multiRgnTrsprtCstList(@RequestBody List<RgnTrsprtCstVO> rgnTrsprtCstList, HttpServletRequest request) throws Exception {
+	@PostMapping(value = "/am/cmns/multiApcVhclMngList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> multiApcVhclMngList(@RequestBody RgnTrsprtCstVO apcWrhsVhclMngList, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		List<RgnTrsprtCstVO> updateList = new ArrayList<RgnTrsprtCstVO>();
+		
+		List<WrhsVhclVO> wrhsVhclList = apcWrhsVhclMngList.getWrhsVhclList();
+		List<RgnTrsprtCstVO> rgnTrsprtCstList = apcWrhsVhclMngList.getRgnTrsprtCstList();
+		RgnTrsprtCstVO saveList = new RgnTrsprtCstVO();
+		
 		try {
+			for ( WrhsVhclVO wrhsVhclVO : wrhsVhclList ) {
+				wrhsVhclVO.setVhclno(wrhsVhclVO.getVhclno().replaceAll(" ", ""));
+				wrhsVhclVO.setSysFrstInptUserId(getUserId());
+				wrhsVhclVO.setSysFrstInptPrgrmId(getPrgrmId());
+				wrhsVhclVO.setSysLastChgUserId(getUserId());
+				wrhsVhclVO.setSysLastChgPrgrmId(getPrgrmId());
+			}
 			for ( RgnTrsprtCstVO rgnTrsprtCstVO : rgnTrsprtCstList ) {
 				rgnTrsprtCstVO.setSysFrstInptUserId(getUserId());
 				rgnTrsprtCstVO.setSysFrstInptPrgrmId(getPrgrmId());
 				rgnTrsprtCstVO.setSysLastChgUserId(getUserId());
 				rgnTrsprtCstVO.setSysLastChgPrgrmId(getPrgrmId());
-				updateList.add(rgnTrsprtCstVO);
 			}
+			saveList.setWrhsVhclList(wrhsVhclList);
+			saveList.setRgnTrsprtCstList(rgnTrsprtCstList);
 
-			HashMap<String, Object> rtnObj = rgnTrsprtCstService.multiRgnTrsprtCst(updateList);
+			HashMap<String, Object> rtnObj = rgnTrsprtCstService.multiApcVhclMngList(saveList);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}

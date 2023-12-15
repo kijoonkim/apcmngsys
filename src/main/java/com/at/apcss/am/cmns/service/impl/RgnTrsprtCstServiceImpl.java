@@ -4,15 +4,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.at.apcss.am.cmns.mapper.RgnTrsprtCstMapper;
 import com.at.apcss.am.cmns.service.RgnTrsprtCstService;
+import com.at.apcss.am.cmns.service.WrhsVhclService;
 import com.at.apcss.am.cmns.vo.RgnTrsprtCstVO;
+import com.at.apcss.am.cmns.vo.WrhsVhclVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : RgnTrsprtCstServiceImpl.java
@@ -34,6 +40,9 @@ public class RgnTrsprtCstServiceImpl extends BaseServiceImpl implements RgnTrspr
 	
 	@Autowired
 	private RgnTrsprtCstMapper rgnTrsprtCstMapper;
+	
+	@Resource(name = "wrhsVhclService")
+	private WrhsVhclService wrhsVhclService;
 	
 	@Override
 	public RgnTrsprtCstVO selectRgnTrsprtCst(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception {
@@ -101,6 +110,29 @@ public class RgnTrsprtCstServiceImpl extends BaseServiceImpl implements RgnTrspr
 		for (RgnTrsprtCstVO rgnTrsprtCstVO : updateList) {
 			rgnTrsprtCstMapper.updateRgnTrsprtCst(rgnTrsprtCstVO);
 		}
+		return null;
+	}
+	
+	@Override
+	public HashMap<String, Object> multiApcVhclMngList(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception {
+		// TODO Auto-generated method stub
+
+		List<WrhsVhclVO> wrhsVhclList = rgnTrsprtCstVO.getWrhsVhclList();
+		List<RgnTrsprtCstVO> rgnTrsprtCstList = rgnTrsprtCstVO.getRgnTrsprtCstList();
+
+		if (wrhsVhclList.size() > 0) {
+			HashMap<String, Object> rtnObjWrhsVhcl = wrhsVhclService.multiVhclList(wrhsVhclList);
+			if (rtnObjWrhsVhcl != null) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+			}
+		}
+		if (rgnTrsprtCstList.size() > 0) {
+			HashMap<String, Object> rtnObjRgnTrsprtCst = multiRgnTrsprtCst(rgnTrsprtCstList);
+			if (rtnObjRgnTrsprtCst != null) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+			}
+		}
+		
 		return null;
 	}
 
