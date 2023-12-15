@@ -512,7 +512,11 @@
         let postJsonPromise = gfn_postJSON("/co/menu/updateMenu.do", menuVO);
         let data = await postJsonPromise;
         try{
-        	return data.result;
+  			if (_.isEqual("S", data.resultStatus)) {
+  	        	return data.result;
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 
         } catch (e) {
     		if (!(e instanceof Error)) {
@@ -527,7 +531,11 @@
         let postJsonPromise = gfn_postJSON("/co/menu/multiSaveComUiList.do", comUiList);
         let data = await postJsonPromise;
         try{
-        	return data.result;
+  			if (_.isEqual("S", data.resultStatus)) {
+  	        	return data.result;
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
 
         } catch (e) {
     		if (!(e instanceof Error)) {
@@ -587,7 +595,7 @@
     	const data = await postJsonPromise;
 
     	try{
-       		if(data.deletedCnt > 0){
+       		if(_.isEqual("S", data.resultStatus)){
        			fn_setUiGridData();
        			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
        		}else{

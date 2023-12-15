@@ -1,5 +1,6 @@
 package com.at.apcss.co.dmnd.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -43,7 +44,12 @@ public class PrfrmImprvDmndController extends BaseController{
 	public ResponseEntity<HashMap<String, Object>> selectPrfrmImprvDmndList(@RequestBody PrfrmImprvDmndVO prfrmImprvDmndVO, HttpServletRequest request) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
-		List<PrfrmImprvDmndVO> resultList = prfrmImprvDmndService.selectPrfrmImprvDmndList(prfrmImprvDmndVO);
+		List<PrfrmImprvDmndVO> resultList = new ArrayList<>();
+		try {
+			resultList = prfrmImprvDmndService.selectPrfrmImprvDmndList(prfrmImprvDmndVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 
@@ -57,14 +63,23 @@ public class PrfrmImprvDmndController extends BaseController{
 
 		int savedCnt = 0;
 
-		for (PrfrmImprvDmndVO prfrmImprvDmndVO : prfrmImprvDmndList) {
-			prfrmImprvDmndVO.setSysFrstInptPrgrmId(getPrgrmId());
-			prfrmImprvDmndVO.setSysFrstInptUserId(getUserId());
-			prfrmImprvDmndVO.setSysLastChgPrgrmId(getPrgrmId());
-			prfrmImprvDmndVO.setSysLastChgUserId(getPrgrmId());
-		}
+		try {
+			for (PrfrmImprvDmndVO prfrmImprvDmndVO : prfrmImprvDmndList) {
+				prfrmImprvDmndVO.setSysFrstInptPrgrmId(getPrgrmId());
+				prfrmImprvDmndVO.setSysFrstInptUserId(getUserId());
+				prfrmImprvDmndVO.setSysLastChgPrgrmId(getPrgrmId());
+				prfrmImprvDmndVO.setSysLastChgUserId(getPrgrmId());
+			}
 
-		savedCnt = prfrmImprvDmndService.multiSavePrfrmImprvDmndList(prfrmImprvDmndList);
+			savedCnt = prfrmImprvDmndService.multiSavePrfrmImprvDmndList(prfrmImprvDmndList);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
 
 		resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
 
@@ -77,8 +92,19 @@ public class PrfrmImprvDmndController extends BaseController{
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		int deletedCnt = 0;
-
-		deletedCnt = prfrmImprvDmndService.deletePrfrmImprvDmnd(prfrmImprvDmndVO);
+		
+		try {
+			
+			deletedCnt = prfrmImprvDmndService.deletePrfrmImprvDmnd(prfrmImprvDmndVO);
+			
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
 

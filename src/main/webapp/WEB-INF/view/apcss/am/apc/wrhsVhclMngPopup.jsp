@@ -174,6 +174,7 @@
     			e = new Error(e);
     		}
     		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 	}
 
@@ -268,6 +269,7 @@
     			e = new Error(e);
     		}
     		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 	}
 
@@ -342,13 +344,44 @@
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
         } catch(e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 	}
 	async function fn_deleteWrhsVhclList(wrhsVhclVo){
 		let postJsonPromise1 = gfn_postJSON("/am/cmns/deleteWrhsVhclList.do", wrhsVhclVo);
+		let data = await postJsonPromise1;
+        try{
+  			if (_.isEqual("S", data.resultStatus)) {
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
 	}
 	async function fn_deleteRgnTrsprtCstList(rgnTrsprtCst){
 		let postJsonPromise1 = gfn_postJSON("/am/cmns/deleteRgnTrsprtCstList.do", rgnTrsprtCst);
+		let data = await postJsonPromise1;
+        try{
+  			if (_.isEqual("S", data.resultStatus)) {
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
 	}
 </script>
 </html>

@@ -227,7 +227,7 @@
 		let postJsonPromise = gfn_postJSON("/am/cmns/deleteSpmtSlsUntprcReg.do", spmtPckgUnitVO);
         let data = await postJsonPromise;
         try {
-        	if(data.deletedCnt > 0){
+        	if(_.isEqual("S", data.resultStatus)){
         		gfn_comAlert("I0001") 					// I0001 	처리 되었습니다.
         		fn_selectSpmtSlsUntprcRegList(slsUnitPrcParam);
         		return;

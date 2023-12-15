@@ -165,7 +165,7 @@
     	let postJsonPromise = gfn_postJSON("/co/dmnd/deletePrfrmImprvDmnd.do", prfrmImprvDmndVO);
         let data = await postJsonPromise;
         try {
-        	if(data.deletedCnt > 0){
+  			if (_.isEqual("S", data.resultStatus)) {
         		fn_search();
         		return;
         	}else if (data.errMsg != null ){

@@ -345,7 +345,7 @@ async function fn_updatePwd(comUserVO){
 		let postJsonPromise = gfn_postJSON("/co/user/updComUserPwd.do", comUserVO);
         let data = await postJsonPromise;
         try{
-        	if(data.updatedCnt > 0){
+        	if(_.isEqual("S", data.resultStatus)){
         		gfn_comAlert("I0001");
         	}else{
         		gfn_comAlert("E0001");
