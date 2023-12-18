@@ -269,7 +269,7 @@
             {caption: ['운송사','운송사'], 			ref: 'trsprtCoNm', 	width: '120px',	type: 'output',	style:'text-align: center'},
             {caption: ['차량번호','차량번호'], 		ref: 'vhclno',		width: '100px',	type: 'output',	style:'text-align: center'},
             {caption: ['운반비 (원)','운반비 (원)'],	ref: 'trsprtCst', 	width: '100px',	type: 'output',	style:'text-align: right',
-            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### 원'}},
+            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
             {caption: ['품목','품목'],				ref: 'itemNm', 		width: '70px',	type: 'output',	style:'text-align: center'},
             {caption: ['품종','품종'],				ref: 'vrtyNm', 		width: '70px',	type: 'output',	style:'text-align: center'},
             {caption: ['규격','규격'], 			ref: 'spcfctNm', 	width: '100px',	type: 'output',	style:'text-align: center'},
