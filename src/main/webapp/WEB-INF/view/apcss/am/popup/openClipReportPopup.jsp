@@ -61,7 +61,7 @@ while ( params.hasMoreElements() ){
 <html lang="ko">
 <head>
 	<meta charset="UTF-8">
-    <title>클립 리포트 팝업</title>
+    <title><%=title %> 클립 리포트 팝업</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
