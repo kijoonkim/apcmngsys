@@ -53,6 +53,10 @@
 				, SESS_EXPRY_DT
 				, FRCD_EXPRY_YN
 				, USER_ID
+				, CASE
+					WHEN LAST_ACCESS_DT < SYSDATE - 1/48 THEN 1
+					ELSE 0
+				  END	AS  NEED_ACCESS_DT
 			  FROM TB_COM_SESSION
 			 WHERE SESS_ID = #{sessId}
     	]]>
@@ -155,7 +159,23 @@
     	]]>
 	</insert>
 	
-	
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.sys.mapper.ComSysMapper.updateComSessionAccessDt   	-->
+	<!-- DESC : 세션 last access 일시 갱신                               					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.13  	MS    	     	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updateComSessionAccessDt" parameterType="com.at.apcss.co.sys.vo.ComSessionVO">
+    	<![CDATA[
+			UPDATE /* com.at.apcss.co.sys.mapper.ComSysMapper.updateComSessionAccessDt */
+				TB_COM_SESSION SET
+				  LAST_ACCESS_DT = SYSDATE
+			 WHERE SESS_ID = #{sessId}
+    	]]>
+	</update>
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.sys.mapper.ComSysMapper.deleteComSession   			-->
 	<!-- DESC : 세션정보 삭제                                        						-->
@@ -188,7 +208,7 @@
 				, FRCD_EXPRY_YN = #{frcdExpryYn}
 			 WHERE SESS_ID = #{sessId}
     	]]>
-	</update>	
+	</update>
 	
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.sys.mapper.ComSysMapper.updateComSessionExpiryWithUserId -->

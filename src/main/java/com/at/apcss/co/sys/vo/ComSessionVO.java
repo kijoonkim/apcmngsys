@@ -15,4 +15,5 @@ public class ComSessionVO {
 	private String frcdExpryYn;
 	private String userId;
 	private int cntSess;
+	private int needAccessDt;
 }

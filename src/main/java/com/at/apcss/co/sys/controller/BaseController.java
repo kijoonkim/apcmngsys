@@ -321,7 +321,7 @@ public abstract class BaseController {
 		
 		// user id 로 조회
 		String jsseionId = request.getSession().getId();
-		System.out.println(String.format("jsseionId : %s", jsseionId));
+		//System.out.println(String.format("jsseionId : %s", jsseionId));
 		
 		// 세션정보 db insert
 		ComSysVO comSysVO = new ComSysVO();

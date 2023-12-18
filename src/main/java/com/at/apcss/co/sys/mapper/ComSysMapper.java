@@ -80,6 +80,14 @@ public interface ComSysMapper {
 	public int insertComSession(ComSessionVO comSessionVO) throws Exception;
 	
 	/**
+	 * 세션 last access 일시 갱신
+	 * @param comSessionVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateComSessionAccessDt(ComSessionVO comSessionVO) throws Exception;
+	
+	/**
 	 * 세션 정보 삭제
 	 * @param comSessionVO
 	 * @return

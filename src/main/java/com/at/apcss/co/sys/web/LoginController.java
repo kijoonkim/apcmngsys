@@ -122,6 +122,7 @@ public class LoginController extends BaseController {
 			comLogVo.setSysFrstInptPrgrmId(prgrmId);
 			comLogVo.setSysLastChgUserId(userId);
 			comLogVo.setSysLastChgPrgrmId(prgrmId);
+			comLogVo.setUserIp(userIp);
 			
 			comLogVo.setPrslType(ComConstants.CON_PRSL_TYPE_LOGIN_FAIL);
 			comLogVo.setMenuId(prgrmId);
