@@ -11,28 +11,28 @@ import com.at.apcss.co.authrt.vo.ComAuthrtVO;
 
 @Mapper
 public interface ComAuthrtMapper {
-	
+
 	/**
 	 * 권한정보 조회
 	 * @param comAuthVO
 	 * @return
 	 */
 	public ComAuthrtVO selectComAuthrt(ComAuthrtVO comAuthVO) throws Exception;
-	
+
 	/**
 	 * 권한정보 등록
 	 * @param comAuthVO
 	 * @return
 	 */
 	public int insertComAuthrt(ComAuthrtVO comAuthVO) throws Exception;
-	
+
 	/**
 	 * 권한정보 변경
 	 * @param comAuthVO
 	 * @return
 	 */
 	public int updateComAuthrt(ComAuthrtVO comAuthVO) throws Exception;
-	
+
 	/**
 	 * 권한정보 삭제
 	 * @param comAuthVO
@@ -53,15 +53,15 @@ public interface ComAuthrtMapper {
 	 * @throws Exception
 	 */
 	public int deleteComAuthrtUserByAuthrtId(ComAuthrtVO comAuthVO) throws Exception;
-	
-	
+
+
 	/**
 	 * 권한정보 목록 조회
 	 * @param comAuthVO
 	 * @return List<>
 	 */
 	public List<ComAuthrtVO> selectComAuthrtList(ComAuthrtVO comAuthVO) throws Exception;
-	
+
 	/**
 	 * 권한메뉴 단건 조회
 	 * @param comAuthrtMenuVO
@@ -69,36 +69,36 @@ public interface ComAuthrtMapper {
 	 * @throws Exception
 	 */
 	public ComAuthrtMenuVO selectComAuthrtMenu(ComAuthrtMenuVO comAuthrtMenuVO) throws Exception;
-	
+
 	/**
 	 * 권한 메뉴 목록 조회
 	 * @param comAuthrtMenuVO
 	 * @return
 	 */
 	public List<ComAuthrtMenuVO> selectComAuthrtMenuList(ComAuthrtMenuVO comAuthMenuVO) throws Exception;
-	
-	
+
+
 	/**
 	 * 권한 화면 조회
 	 * @param comAuthVO
 	 * @return
 	 */
 	public ComAuthrtUiVO selectComAuthrtUi(ComAuthrtUiVO comAuthUiVO) throws Exception;
-	
+
 	/**
 	 * 권한 화면 목록 조회
 	 * @param comAuthVO
 	 * @return
 	 */
 	public List<ComAuthrtUiVO> selectComAuthrtUiList(ComAuthrtUiVO comAuthUiVO) throws Exception;
-	
+
 	/**
-	 * 사용자별 화면UI 권한 조회 
+	 * 사용자별 화면UI 권한 조회
 	 * @param comAuthUiVO
 	 * @return
 	 */
 	public List<ComAuthrtUiVO> selectUserAuthrtUiList(ComAuthrtUiVO comAuthUiVO) throws Exception;
-	
+
 	/**
 	 * 화면UI 권한 등록
 	 * @param comAuthUiVO
@@ -106,7 +106,7 @@ public interface ComAuthrtMapper {
 	 * @throws Exception
 	 */
 	public int insertComAuthrtUi(ComAuthrtUiVO comAuthUiVO) throws Exception;
-	
+
 	/**
 	 * 화면UI 권한 변경
 	 * @param comAuthUiVO
@@ -114,7 +114,7 @@ public interface ComAuthrtMapper {
 	 * @throws Exception
 	 */
 	public int updateComAuthrtUi(ComAuthrtUiVO comAuthUiVO) throws Exception;
-	
+
 	/**
 	 * 화면UI 권한 변경 : delYn >> Y
 	 * @param comAuthUiVO
@@ -122,7 +122,7 @@ public interface ComAuthrtMapper {
 	 * @throws Exception
 	 */
 	public int updateComAuthrtUiForDelY(ComAuthrtUiVO comAuthUiVO) throws Exception;
-	
+
 	/**
 	 * 화면UI 권한 삭제
 	 * @param comAuthUiVO
@@ -130,71 +130,71 @@ public interface ComAuthrtMapper {
 	 * @throws Exception
 	 */
 	public int deleteComAuthrtUi(ComAuthrtUiVO comAuthUiVO) throws Exception;
-	
+
 	/**
 	 * 권한 메뉴트리 목록 조회
 	 * @param comAuthMenuVO
 	 * @return
 	 */
 	public List<ComAuthrtMenuVO> selectComAuthrtMenuTreeList(ComAuthrtMenuVO comAuthMenuVO);
-	
+
 	/**
 	 * 권한별 메뉴정보를 등록한다.
 	 * @param comAuthMenuVO
 	 * @return
 	 */
 	public int insertComAuthrtMenu(ComAuthrtMenuVO comAuthrtMenuVO) throws Exception;
-	
+
 	/**
 	 * 권한별 메뉴정보를 변경한다.
 	 * @param comAuthMenuVO
 	 * @return
 	 */
 	public int updateComAuthrtMenu(ComAuthrtMenuVO comAuthrtMenuVO) throws Exception;
-	
+
 	/**
 	 * 권한별 메뉴정보를 삭제한다.
 	 * @param comAuthMenuVO
 	 * @return
 	 */
 	public int deleteComAuthrtMenu(ComAuthrtMenuVO comAuthrtMenuVO) throws Exception;
-	
+
 	/**
 	 * 권한 사용자정보를 조회한다.
 	 * @param comAuthUserVO
 	 * @return
 	 */
 	public ComAuthrtUserVO selectComAuthrtUser(ComAuthrtUserVO comAuthrtUserVO);
-	
-	
+
+
 	/**
 	 * 권한 사용자 목록 조회
 	 * @param comAuthUserVO
 	 * @return
 	 */
 	public List<ComAuthrtUserVO> selectComAuthrtUserList(ComAuthrtUserVO comAuthrtUserVO);
-	
+
 	/**
 	 * 권한 등록 대상 사용자 목록 조회
 	 * @param comAuthUserVO
 	 * @return
 	 */
 	public List<ComAuthrtUserVO> selectAuthrtTrgtUserList(ComAuthrtUserVO comAuthrtUserVO);
-	
+
 	/**
 	 * 권한 top 메뉴트리 목록 조회	: depth 2까지
 	 * @param comAuthMenuVO
 	 * @return
 	 */
 	public List<ComAuthrtMenuVO> selectTopMenuTreeList(ComAuthrtMenuVO comAuthrtMenuVO);
-	
+
 	/**
 	 * 권한 Side 메뉴트리 목록 조회
 	 * @param comAuthMenuVO
 	 * @return
 	 */
 	public List<ComAuthrtMenuVO> selectSideMenuTreeList(ComAuthrtMenuVO comAuthrtMenuVO);
-	
+
 	/**
 	 * 권한목록 조회 by userId
 	 * @param comAuthrtVO
@@ -202,21 +202,27 @@ public interface ComAuthrtMapper {
 	 * @throws Exception
 	 */
 	public List<ComAuthrtVO> selectComAuthrtListByUserId(ComAuthrtVO comAuthrtVO);
-		
-	
+
+
 	/**
 	 * 권한 사용자정보를 등록한다.
 	 * @param ComAuthrtUserVO
 	 * @return
 	 */
 	public int insertComAuthrtUser(ComAuthrtUserVO comAuthrtUserVO);
-	
+
 	/**
 	 * 권한 사용자정보를 삭제한다.
 	 * @param ComAuthrtUserVO
 	 * @return
 	 */
 	public int deleteComAuthrtUser(ComAuthrtUserVO comAuthrtUserVO);
-	
-	
+	/**
+	 * 권한 내역 등록.
+	 * @param ComAuthrtUserVO
+	 * @return
+	 */
+	public int insertComAuthrtUserHsrty(ComAuthrtUserVO comAuthrtUserVO);
+
+
 }
