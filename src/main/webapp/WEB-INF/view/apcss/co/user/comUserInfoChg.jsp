@@ -327,11 +327,10 @@ const fn_onChangeApc = async function() {
  function fn_callUpdateUserPsd(gubun, grid, nRow, nCol) {
      if (gubun === "UPD") {
          if (grid === "userInfoChgGridId") {
-         		var updMsg = "비밀번호 초기화 하시겠습니까?";
-         		if(gfn_comConfirm(updMsg)){
-         			var comUserVO = userInfoChgGridId.getRowData(nRow);
-         			fn_updatePwd(comUserVO);
-         		}
+    		if(gfn_comConfirm("Q0001", "비밀번호 초기화")){
+     			var comUserVO = userInfoChgGridId.getRowData(nRow);
+     			fn_updatePwd(comUserVO);
+       		}
          }
      }
  }

@@ -440,7 +440,7 @@
 	const fn_procRow = function (gubun, nRow, nCol){
 		if(gubun == "ADD"){
 			let planYmdHr = SBUxMethod.get("dtl-dtp-planYmd");
-			if (gfn_isEmpty(planYmdHr)) {
+			if (!gfn_isEmpty(planYmdHr)) {
 	  			gfn_comAlert("W0001", "계획일시");		//	W0002	{0}을/를 선택하세요.
 	            return;
 	  		}

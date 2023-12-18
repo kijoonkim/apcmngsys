@@ -205,7 +205,7 @@
 					typeinfo : {callback: fn_grdChoiceVhcl}, validate : gfn_chkByte.bind({byteLimit: 40})},
 		        {caption: ['기사명'], 		ref: 'drvrNm',		width: '100px',	type: 'output', 		style: 'text-align: center', sortable: false},
 		        {caption: ['운송지역'], 	ref: 'trsprtRgnCd', width: '100px', type: 'combo', 			style: 'text-align: center', sortable: false,
-					typeinfo : {ref:'jso	nComTrsprtRgnCd', label:'label', value:'value', itemcount: 10}},
+					typeinfo : {ref:'jsonComTrsprtRgnCd', label:'label', value:'value', itemcount: 10}},
 		        {caption: ['중량 (Kg)'], 		ref: 'wrhsWght', 	width: '100px',	type: 'output', 		style: 'text-align: right',	 sortable: false,
 					typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
 		        {caption: ['운임비용 (원)'],	ref: 'trsprtCst', 	width: '100px',	type: 'input', 			style: 'text-align: right',  sortable: false,

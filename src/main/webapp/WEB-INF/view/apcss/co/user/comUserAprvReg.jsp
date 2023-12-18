@@ -301,12 +301,14 @@
 						  userStts : "01"
 						, userType : item.userType
 	    				, userId: item.userId
+	    				, apcCd: item.apcCd
 	    			});
 				}else{
 					userAprvList.push({
 						  userStts : "01"
 						, userType : "10"
 						, userId   : item.userId
+						, apcCd: item.apcCd
 					});
 				}
     		}
@@ -350,6 +352,7 @@
 					  userStts : "01"
 				  	, userType : "10"
     				, userId   : item.userId
+    				, apcCd: item.apcCd
     			});
 			}else if(item.userType == "11"){
 				console.log('userType11', item.userId);
