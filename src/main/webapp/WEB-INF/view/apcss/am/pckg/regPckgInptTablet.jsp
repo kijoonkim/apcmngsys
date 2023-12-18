@@ -321,26 +321,21 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.clickeventarea = {fixed: false, empty: false};
         SBGridProperties.columns = [
-            {
-            	caption : ["<input type='checkbox' onchange='fn_checkAll(grdPckgInpt, this);'>"],
-            	ref: 'checkedYn', type: 'checkbox',  width:'40px',
-            	style: 'text-align:center',
-				userattr: {colNm: "checkedYn"},
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-            },
-            {caption: ['투입일자'], 		ref: 'inptYmd', 		width: '100px', type: 'output',	style:'text-align: center',
+        	{caption: ["체크박스"], 		ref: 'checkedYn', 		width: '40px', 	type: 'checkbox',	style:'text-align: center',
+				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}},
+            {caption: ['투입일자'], 		ref: 'inptYmd', 		width: '100px', type: 'output',		style:'text-align: center',
 	        	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ['포장기명'], 		ref: 'fcltNm', 			width: '100px', type: 'output',	style:'text-align: center'},
-            {caption: ['선별번호'], 		ref: 'sortnoIndct', 	width: '130px', type: 'output',	style:'text-align: center'},
-            {caption: ['포장지시번호'],		ref: 'pckgCmndno',	width: '130px', type: 'output',	style:'text-align: center'},
-            {caption: ['등급'], 			ref: 'grdNm', 			width: '60px', 	type: 'output',	style:'text-align: center'},
-            {caption: ['품목'], 			ref: 'itemNm', 			width: '80px', 	type: 'output',	style:'text-align: center'},
-            {caption: ['품종'], 			ref: 'vrtyNm', 			width: '80px', 	type: 'output',	style:'text-align: center'},
-            {caption: ['규격명'], 		ref: 'spcfctNm', 		width: '80px', 	type: 'output',	style:'text-align: center'},
-            {caption: ['투입수량'], 		ref: 'qntt', 		width: '80px', 	type: 'output', style:'text-align: right',
+            {caption: ['포장기명'], 		ref: 'fcltNm', 			width: '100px', type: 'output',		style:'text-align: center'},
+            {caption: ['선별번호'], 		ref: 'sortnoIndct', 	width: '130px', type: 'output',		style:'text-align: center'},
+            {caption: ['포장지시번호'],		ref: 'pckgCmndno',		width: '130px', type: 'output',		style:'text-align: center'},
+            {caption: ['등급'], 			ref: 'grdNm', 			width: '60px', 	type: 'output',		style:'text-align: center'},
+            {caption: ['품목'], 			ref: 'itemNm', 			width: '80px', 	type: 'output',		style:'text-align: center'},
+            {caption: ['품종'], 			ref: 'vrtyNm', 			width: '80px', 	type: 'output',		style:'text-align: center'},
+            {caption: ['규격명'], 		ref: 'spcfctNm', 		width: '80px', 	type: 'output',		style:'text-align: center'},
+            {caption: ['투입수량'], 		ref: 'qntt', 			width: '80px', 	type: 'output', 	style:'text-align: right',
             	format : {type:'number', rule:'#,###'}},
-            {caption: ['투입중량 (Kg)'], 		ref: 'wght', 		width: '80px', 	type: 'output', style:'text-align: right',
-                typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### '}},
+            {caption: ['투입중량 (Kg)'], 		ref: 'wght', 		width: '80px', 	type: 'output', 	style:'text-align: right',
+                typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
             {caption: ['비고'], 			ref: 'rmrk', 			width: '200px', type: 'output'},
             {caption: ['포장기코드'], 		ref: 'fcltCd', 			hidden: true},
             {caption: ['선별번호'], 		ref: 'sortno', 			hidden: true},
@@ -355,24 +350,10 @@
         //grdPckgInpt.bind('click', fn_choice);
     }
 
-    //그리드 체크박스 전체 선택
-    function fn_checkAll(grid, obj) {
-        var gridList = grid.getGridDataAll();
-        var checkedYn = obj.checked ? "Y" : "N";
-        //체크박스 열 index
-        var getColRef = grid.getColRef("checkedYn");
-    	var getRow = grid.getRow();
-    	var getCol = grid.getCol();
-        for (var i=0; i<gridList.length; i++) {
-        	grid.setCol(getColRef);
-        	grid.clickCell(i+1, getColRef);
-            grid.setCellData(i+1, getColRef, checkedYn, true, false);
-        }
-    	grid.clickCell(getRow, getCol);
-    }
-
 	// 포장투입 목록 조회 (조회 버튼)
     const fn_search = async function() {
+		var getColRef = grdPckgInpt.getColRef("checkedYn");
+		grdPckgInpt.setFixedcellcheckboxChecked(0, getColRef, false);
     	fn_setGrdPckgInpt();
     }
 
