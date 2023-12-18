@@ -172,23 +172,23 @@
 	    };
 	    SBGridProperties.explorerbar = 'sortmove';
 		SBGridProperties.columns = [
-	        {caption: ["선택"],			ref: 'checkedYn',	type:'checkbox', width:'50px',
-	        	typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-	        },
-	        {caption: ["상태"], 			ref: 'userSttsNm',	type:'output',  width:'175px', style:'text-align:center'},
-	        {caption: ["사용자ID"],  	ref: 'userId',    	type:'output',	width:'175px', style:'text-align:center'},
-	        {caption: ["사용자명"],   	ref: 'userNm',      type:'output',  width:'175px', style:'text-align:center'},
-	        {caption: ["APC명"],			ref: 'apcNm',   	type:'output',  width:'175px', style:'text-align:center'},
-	        {caption: ["사용자유형"],	ref: 'userType',	type:'combo',  width:'175px', style:'text-align:center',
+        	{caption: ["체크박스"], 	ref: 'checkedYn', 	type: 'checkbox',	width:'40px',  style:'text-align: center',
+				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}
+        	},
+	        {caption: ["상태"], 		ref: 'userSttsNm',	type:'output',  	width:'175px', style:'text-align:center'},
+	        {caption: ["사용자ID"],  	ref: 'userId',    	type:'output',		width:'175px', style:'text-align:center'},
+	        {caption: ["사용자명"],   	ref: 'userNm',      type:'output',  	width:'175px', style:'text-align:center'},
+	        {caption: ["APC명"],		ref: 'apcNm',   	type:'output',  	width:'175px', style:'text-align:center'},
+	        {caption: ["사용자유형"],	ref: 'userType',	type:'combo',  		width:'175px', style:'text-align:center',
 	        	typeinfo : {ref:'userType', label:'label', value:'value', displayui : true}
 	        },
-	        {caption: ["메일주소"],  	ref: 'eml',  		type:'output',  width:'175px', style:'text-align:center'},
-	    	{caption: ["전화번호"],  	ref: 'telno',   	type:'output',  width:'175px', style:'text-align:center'},
-	        {caption: ["직책 명"],  		ref: 'jbttlNm',   	type:'output',  width:'175px', style:'text-align:center'},
-	        {caption: ["담당업무"],  	ref: 'tkcgTaskNm',  type:'output',  width:'175px', style:'text-align:center'},
-			{caption: ["사용자상태"],	ref: 'userStts',  	type:'output',  hidden: true},
-			{caption: ["사용자유형"],	ref: 'userType',  	type:'output',  hidden: true},
-			{caption: ["apc코드"],		ref: 'apcCd',  		type:'output',  hidden: true}
+	        {caption: ["메일주소"],  	ref: 'eml',  		type:'output', 		width:'175px', style:'text-align:center'},
+	    	{caption: ["전화번호"],  	ref: 'telno',   	type:'output',  	width:'175px', style:'text-align:center'},
+	        {caption: ["직책 명"],  	ref: 'jbttlNm',   	type:'output',  	width:'175px', style:'text-align:center'},
+	        {caption: ["담당업무"],  	ref: 'tkcgTaskNm',  type:'output',  	width:'175px', style:'text-align:center'},
+			{caption: ["사용자상태"],	ref: 'userStts',  	type:'output',  	hidden: true},
+			{caption: ["사용자유형"],	ref: 'userType',  	type:'output',  	hidden: true},
+			{caption: ["apc코드"],	ref: 'apcCd',  		type:'output',  	hidden: true}
 		];
 	    grdUserAprv = _SBGrid.create(SBGridProperties);
 	    grdUserAprv.bind( "afterpagechanged" , "fn_pagingUserAprv" );
@@ -197,6 +197,8 @@
     async function fn_search() {
     	let recordCountPerPage = grdUserAprv.getPageSize();  		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = 1;
+		var getColRef = grdUserAprv.getColRef("checkedYn");
+		grdUserAprv.setFixedcellcheckboxChecked(0, getColRef, false);
 		grdUserAprv.movePaging(currentPageNo);
     }
 

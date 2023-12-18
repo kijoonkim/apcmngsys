@@ -236,11 +236,11 @@
 		  	'showgoalpageui' : true
 	    };
         SBGridProperties.columns = [
-        	{caption: ["체크박스"], 		ref: 'checked', 	type: 'checkbox',	width: '40px',	style:'text-align: center',
+        	{caption: ["체크박스"], 		ref: 'checked', 	type:'checkbox',	width:'40px',	style:'text-align: center',
 				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}},
-            {caption: ["메시지Key"],		ref: 'msgKey',      type:'output',  	width:'30%',    style:'text-align:center'},
-            {caption: ["메시지내용"], 		ref: 'msgCn',     	type:'output',  	width:'50%',    style:'text-align:left'},
-            {caption: ["메시지종류"],  	ref: 'msgKndNm',    type:'output',  	width:'20%',    style:'text-align:center'},
+            {caption: ["메시지Key"],		ref: 'msgKey',      type:'output',  	width:'100px',  style:'text-align:center'},
+            {caption: ["메시지내용"], 		ref: 'msgCn',     	type:'output',  	width:'520px',  style:'text-align:left'},
+            {caption: ["메시지종류"],  	ref: 'msgKndNm',    type:'output',  	width:'50px',   style:'text-align:center'},
             {caption: ["비고"],      		ref: 'rmrk',        type:'output',  	hidden: true},
             {caption: ["최초등록자ID"],	ref: 'creUserId',   type:'output',  	hidden: true},
             {caption: ["최초등록일시"],		ref: 'creDateTime', type:'output',  	hidden: true},
