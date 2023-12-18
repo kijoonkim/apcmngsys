@@ -35,6 +35,14 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 재고이송등록 -->
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-button
+						id="btnReset"
+						name="btnReset"
+						uitype="normal"
+						class="btn btn-sm btn-outline-danger"
+						text="초기화"
+						onclick="fn_reset"
+					></sbux-button>
 					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectGridList"></sbux-button>
 				</div>
@@ -1054,6 +1062,20 @@
  		SBUxMethod.set("srch-inp-prdcrCd", value);
  		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
  	}
+ 	
+	const fn_reset = function(){
+ 		// 검색조건 초기화
+		SBUxMethod.set("srch-slt-itemCd","");
+		SBUxMethod.set("srch-slt-vrtyCd","");
+		SBUxMethod.set("srch-slt-spcfctCd","");
+		SBUxMethod.set("srch-inp-prdcrNm","");
+		SBUxMethod.set("srch-inp-prdcrCd","");
+		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:none");
+		SBUxMethod.set("srch-slt-wrhsSeCd","");
+		SBUxMethod.set("srch-slt-gdsSe","");
+		SBUxMethod.set("srch-slt-warehouseSe","");
+		SBUxMethod.set("dtl-slt-trnsfApcCd","");
+	}
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

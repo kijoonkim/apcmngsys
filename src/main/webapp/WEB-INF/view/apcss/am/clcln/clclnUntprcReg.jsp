@@ -33,6 +33,14 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button
+						id="btnReset"
+						name="btnReset"
+						uitype="normal"
+						class="btn btn-sm btn-outline-danger"
+						text="초기화"
+						onclick="fn_reset"
+					></sbux-button>
+					<sbux-button
 						id="btnSave"
 						name="btnSave"
 						uitype="normal"
@@ -474,6 +482,13 @@
 			await fn_onChangeSrchItemCd({value: itemCd});
 			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
 		}
+	}
+	
+	const fn_reset = function(){
+ 		// 검색조건 초기화
+		SBUxMethod.set("srch-slt-clclnCrtrCd","");
+		SBUxMethod.set("srch-slt-itemCd","");
+		SBUxMethod.set("srch-slt-vrtyCd","");
 	}
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
