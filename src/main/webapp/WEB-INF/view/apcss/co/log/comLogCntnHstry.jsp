@@ -54,7 +54,7 @@
 <script type="text/javascript">
 	var jsonLogCntnHstry = [];
 	var grdLogCntnHstry = null;
-	
+
 	const tabLogCntnHstry = {
 			prgrmId: 'logCntnHstryTab',
 			gridId: 'grdLogCntnHstry',
@@ -99,9 +99,10 @@
 		            {caption: ['사용자명'], 	ref: 'userNm', 		width: '200px', 	type: 'output',	style:'text-align: center'},
 		            {caption: ['APC코드'],		ref: 'apcCd', 		width: '200px', 	type: 'output',	style:'text-align: center'},
 		            {caption: ['APC명'],		ref: 'apcNm', 		width: '200px', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['접속일시'],	ref: 'prslDt',		width: '200px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['접속일시'],		ref: 'prslDt',		width: '200px', 	type: 'output',	style:'text-align: center'},
 		            {caption: ['최초접속일시'],	ref: 'frstPrslDt',	width: '200px', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['열람유형'],	ref: 'prslTypeNm',	width: '200px', 	type: 'output',	style:'text-align: center'}
+		            {caption: ['열람유형'],		ref: 'prslTypeNm',	width: '200px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['접속IP'],		ref: 'userIp',		width: '120px', 	type: 'output',	style:'text-align: center'}
 		        ];
 		        grdLogCntnHstry = _SBGrid.create(SBGridProperties);
 		        grdLogCntnHstry.bind( "afterpagechanged" , tabLogCntnHstry.paging );
@@ -160,6 +161,7 @@
 							  ,	prslDt			: item.prslDt
 							  ,	frstPrslDt		: item.frstPrslDt
 							  ,	prslTypeNm		: item.prslTypeNm
+							  , userIp			: item.userIp
 							}
 							jsonLogCntnHstry.push(log);
 
