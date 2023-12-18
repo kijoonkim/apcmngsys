@@ -31,7 +31,7 @@ const URL_APC_GRDS 			= "/am/cmns/apcGrds";		//	APC 등급
 const URL_APC_GDS_GRDS 		= "/am/cmns/apcStdGrdDtls";	//	APC 상품등급
 
 const URL_CNPT_INFO			= "/am/cmns/cnptInfos";		//	거래처
-const URL_GDS_INFO			= "/am/cmns/gdsInfos";		//	상품
+const URL_GDS_INFO			= "/am/cmns/gdsInfos";		//	상품 ..
 const URL_PLT_BX_INFO		= "/am/cmns/pltBxInfos";	//	팔레트/박스
 const URL_PRDCR_INFO		= "/am/cmns/prdcrInfos";	//	생산자
 const URL_WRHS_VHCL			= "/am/cmns/wrhsVhcls";		//	입고차량
