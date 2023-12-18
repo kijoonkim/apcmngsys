@@ -46,7 +46,7 @@ public interface ComAuthrtService {
 	 * @return
 	 */
 	public HashMap<String, Object> deleteComAuthrt(ComAuthrtVO comAuthVO) throws Exception;
-	
+
 	/**
 	 * 권한메뉴 단건 조회
 	 * @param comAuthrtMenuVO
@@ -186,7 +186,7 @@ public interface ComAuthrtService {
 	 * @throws Exception
 	 */
 	public List<ComAuthrtUiVO> selectUserAuthrtUiList(String userId, String menuId) throws Exception;
-	
+
 	/**
 	 * 권한 사용자 목록 등록
 	 * @param comAuthrtVO
@@ -228,5 +228,12 @@ public interface ComAuthrtService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertApcNormalAuthrt(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
+
+	/**
+	 * 권한 내역 등록
+	 * @param comAuthrtUserVO
+	 * @return
+	 */
+	public int insertComAuthrtUserHsrty(ComAuthrtUserVO comAuthrtUserVO) throws Exception;
 
 }

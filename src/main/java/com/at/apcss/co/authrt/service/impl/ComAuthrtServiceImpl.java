@@ -90,10 +90,10 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 
 		// 권한 사용자 삭제
 		comAuthrtMapper.deleteComAuthrtUserByAuthrtId(comAuthVO);
-		
+
 		// 권한 메뉴 삭제
 		comAuthrtMapper.deleteComAuthrtMenuByAuthrtId(comAuthVO);
-		
+
 		// 권한 삭제
 		comAuthrtMapper.deleteComAuthrt(comAuthVO);
 
@@ -146,32 +146,32 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 		ComAuthrtMenuVO orgnAuthMenu = comAuthrtMapper.selectComAuthrtMenu(comAuthrtMenuVO);
 
 		ComMenuVO menuInfo = comMenuService.selectComMenu(comAuthrtMenuVO.getMenuId());
-		
+
 		if (	menuInfo == null
 				|| !StringUtils.hasText(menuInfo.getMenuId())
 				|| !ComConstants.CON_NONE.equals(menuInfo.getDelYn())) {
 			return 0;
 		}
-		
+
 		String authrtType = ComUtil.nullToEmpty(comAuthrtMenuVO.getAuthrtType());
 		if (StringUtils.hasText(authrtType)) {
 			String menuAuthrtType = ComUtil.nullToEmpty(menuInfo.getAuthrtType());
-			
+
 			if (ComConstants.CON_AUTHRT_TYPE_ADMIN.equals(authrtType)) {
 				if (	ComConstants.CON_AUTHRT_TYPE_SYS.equals(menuAuthrtType)
 						|| ComConstants.CON_AUTHRT_TYPE_AT.equals(menuAuthrtType)) {
 					return 0;
-				}					
+				}
 			} else if (ComConstants.CON_AUTHRT_TYPE_USER.equals(authrtType)) {
 				if (	ComConstants.CON_AUTHRT_TYPE_SYS.equals(menuAuthrtType)
 						|| ComConstants.CON_AUTHRT_TYPE_AT.equals(menuAuthrtType)
 						|| ComConstants.CON_AUTHRT_TYPE_ADMIN.equals(menuAuthrtType)
 						) {
 					return 0;
-				}	
+				}
 			} else {}
 		}
-		
+
 		if (orgnAuthMenu == null || !StringUtils.hasText(orgnAuthMenu.getMenuId())) {
 
 			insertedCnt = comAuthrtMapper.insertComAuthrtMenu(comAuthrtMenuVO);
@@ -417,7 +417,15 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 						ComConstants.PROP_SYS_LAST_CHG_USER_ID,
 						ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID
 					);
-			insertComAuthrtUser(comAuthrtUserVO);
+			int insertedCnt = insertComAuthrtUser(comAuthrtUserVO);
+			if (insertedCnt != 1) {
+				throw new EgovBizException(getMessage(ComConstants.MSGCD_ERR_PARAM_ONE, "사용자 권한등록".split("\\|\\|")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
+			}
+			comAuthrtUserVO.setFlfmtTaskSeCd("04");
+
+			if(1 != insertComAuthrtUserHsrty(comAuthrtUserVO)) {
+				throw new EgovBizException(getMessage(ComConstants.MSGCD_ERR_PARAM_ONE, "사용자권한 내역등록".split("\\|\\|")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
+			}
 		}
 
 		return null;
@@ -443,7 +451,13 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 						ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID
 					);
 
-			deleteComAuthrtUser(comAuthrtUserVO);
+			if(1 != deleteComAuthrtUser(comAuthrtUserVO)) {
+				throw new EgovBizException(getMessage(ComConstants.MSGCD_ERR_PARAM_ONE, "사용자권한 삭제".split("\\|\\|")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
+			}
+			comAuthrtUserVO.setFlfmtTaskSeCd("03");
+			if(1 != insertComAuthrtUserHsrty(comAuthrtUserVO)) {
+				throw new EgovBizException(getMessage(ComConstants.MSGCD_ERR_PARAM_ONE, "사용자권한 내역등록".split("\\|\\|")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
+			}
 		}
 
 		return null;
@@ -576,10 +590,10 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 					if (insertedCnt != 1) {
 						throw new EgovBizException(getMessage(ComConstants.MSGCD_ERR_PARAM_ONE, "업무메뉴 권한등록".split("\\|\\|")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
 					}
-										
+
 				}
 			} else {
-				
+
 			}
 		}
 
@@ -610,6 +624,10 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 				int insertedCnt = insertComAuthrtUser(newAuthrtUserVO);
 				if (insertedCnt != 1) {
 					throw new EgovBizException(getMessage(ComConstants.MSGCD_ERR_PARAM_ONE, "사용자 권한등록".split("\\|\\|")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
+				}
+				newAuthrtUserVO.setFlfmtTaskSeCd("04");
+				if(1 != insertComAuthrtUserHsrty(newAuthrtUserVO)) {
+					throw new EgovBizException(getMessage(ComConstants.MSGCD_ERR_PARAM_ONE, "사용자권한 내역등록".split("\\|\\|")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
 				}
 			}
 		}
@@ -806,7 +824,7 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 			authMenu.setAuthrtId(authrtId);
 
 			authMenu.setAuthrtType(ComConstants.CON_AUTHRT_TYPE_ADMIN);
-			
+
 			// 시스템관리 메뉴 권한 등록
 			if (apcAdminCoMenuList != null && !apcAdminCoMenuList.isEmpty()) {
 				for ( ComMenuVO coMenu : apcAdminCoMenuList ) {
@@ -820,7 +838,7 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 				authMenu.setMenuId(menuId);
 				insertComAuthrtMenu(authMenu);
 			}
-			
+
 			//	wghMngYn 계량정보관리유무	MENU_ID_WGH
 			for ( String menuId : ComConstants.MENU_ID_WGH ) {
 
@@ -865,7 +883,7 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 					deleteComAuthrtMenu(authMenu);
 				}
 			}
-			
+
 			//	rawMtrIdentTagPblcnYn 원물인식표발행유무
 
 			//	pltBxMngYn 팔레트박스정보관리유무	MENU_ID_PLT_BX
@@ -1105,13 +1123,13 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 			authMenu.setAuthrtId(authrtId);
 
 			authMenu.setAuthrtType(ComConstants.CON_AUTHRT_TYPE_USER);
-			
+
 			// 기본 권한메뉴 등록
 			for ( String menuId : ComConstants.MENU_ID_AM_CMNS ) {
 				authMenu.setMenuId(menuId);
 				insertComAuthrtMenu(authMenu);
 			}
-			
+
 			//	wghMngYn 계량정보관리유무	MENU_ID_WGH
 			for ( String menuId : ComConstants.MENU_ID_WGH ) {
 
@@ -1421,5 +1439,11 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 		}
 
 		return null;
+	}
+
+	@Override
+	public int insertComAuthrtUserHsrty(ComAuthrtUserVO comAuthrtUserVO) throws Exception {
+		int insertedCnt = comAuthrtMapper.insertComAuthrtUserHsrty(comAuthrtUserVO);
+		return insertedCnt;
 	}
 }

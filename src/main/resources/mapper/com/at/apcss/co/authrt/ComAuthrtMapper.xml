@@ -192,7 +192,7 @@
 	    	 WHERE AUTHRT_ID = #{authrtId}
     	]]>
     </delete>
-    
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.deleteComAuthrtUserByAuthrtId		-->
 	<!-- DESC : 권한사용자 삭제 by 권한id                                       				-->
@@ -208,7 +208,7 @@
 	    	 WHERE AUTHRT_ID = #{authrtId}
     	]]>
     </delete>
-    
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectComAuthrtMenu	-->
 	<!-- DESC : 권한 메뉴 단건 조회.                                             			-->
@@ -307,7 +307,7 @@
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     			  ROWNUM AS ROW_SEQ
     			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, 
+    			,
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
@@ -327,25 +327,25 @@
 				, UI.APLCN_TYPE	AS APLCN_TYPE
 				, NVL(UI.INDCT_YN, 'Y')			AS INDCT_YN
 			  FROM TB_COM_AUTH_MENU AM
-			  
+
 			  JOIN TB_COM_MENU MN
 			    ON MN.MENU_ID = AM.MENU_ID
 			   AND MN.DEL_YN = 'N'
-			  
+
 			  JOIN TB_COM_UI CU
 			    ON CU.MENU_ID = AM.MENU_ID
 			   AND CU.DEL_YN = 'N'
-			  
+
 			  LEFT JOIN TB_COM_AUTH_UI UI
 			    ON UI.AUTHRT_ID = AM.AUTHRT_ID
 			   AND UI.MENU_ID = AM.MENU_ID
        		   AND UI.ENTY_ID = CU.ENTY_ID
 			   AND UI.DEL_YN = 'N'
-			   
+
 			 WHERE AM.AUTHRT_ID = #{authrtId}
 			   AND AM.MENU_ID = #{menuId}
 			   AND AM.DEL_YN = 'N'
-			   
+
 			 ORDER BY
 			 	  ENTY_ID
     		  ) pt0
@@ -975,7 +975,7 @@
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     			  ROWNUM AS ROW_SEQ
     			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, 
+    			,
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
@@ -992,20 +992,20 @@
 				, UI.APLCN_TYPE	AS APLCN_TYPE
 				, UI.INDCT_YN	AS INDCT_YN
 			  FROM TB_COM_AUTH_USER AU
-			  
+
 			  JOIN TB_COM_AUTH_MENU AM
 			    ON AM.AUTHRT_ID = AU.AUTHRT_ID
 			   AND AM.MENU_ID = #{menuId}
 			   AND AM.DEL_YN = 'N'
-			  
+
 			  JOIN TB_COM_MENU MN
 			    ON MN.MENU_ID = AM.MENU_ID
 			   AND MN.DEL_YN = 'N'
-			  
+
 			  JOIN TB_COM_UI CU
 			    ON CU.MENU_ID = AM.MENU_ID
 			   AND CU.DEL_YN = 'N'
-			  
+
 			  LEFT JOIN TB_COM_AUTH_UI UI
 			    ON UI.AUTHRT_ID = AM.AUTHRT_ID
 			   AND UI.MENU_ID = AM.MENU_ID
@@ -1013,7 +1013,7 @@
 			   AND UI.DEL_YN = 'N'
 			 WHERE AU.USER_ID = #{userId}
 			   AND AU.DEL_YN = 'N'
-			   
+
 			 ORDER BY
 			 	  MENU_ID
 			 	, ENTY_ID
@@ -1028,8 +1028,8 @@
     	</if>
     	<!-- End 페이징 -->
     </select>
-    
-    
+
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectComAuthrtUi		-->
 	<!-- DESC : 화면UI 권한 조회.	                                             		-->
@@ -1047,13 +1047,13 @@
 				, UI.APLCN_TYPE		AS APLCN_TYPE
 				, UI.INDCT_YN		AS INDCT_YN
 				, UI.DEL_YN			AS DEL_YN
-			  FROM TB_COM_AUTH_UI UI			   
+			  FROM TB_COM_AUTH_UI UI
 			 WHERE UI.AUTHRT_ID = #{authrtId}
 			   AND UI.MENU_ID = #{menuId}
 			   AND UI.ENTY_ID = #{entyId}
     	]]>
     </select>
-    
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.insertComAuthrtUi		-->
 	<!-- DESC : 화면UI권한 등록.                                          				-->
@@ -1092,7 +1092,7 @@
 				)
     	]]>
     </insert>
-    
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.updateComAuthrtUi		-->
 	<!-- DESC : 화면UI권한 변경.                                             			-->
@@ -1140,7 +1140,7 @@
 			   AND ENTY_ID = #{entyId}
     	]]>
     </update>
-    
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.deleteComAuthrtUi		-->
 	<!-- DESC : 화면UI권한 삭제.                                             			-->
@@ -1158,5 +1158,45 @@
 			   AND ENTY_ID = #{entyId}
     	]]>
     </delete>
-    
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.insertComAuthrtHstry	-->
+	<!-- DESC : 권한 내역 등록.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.05.25  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertComAuthrtUserHsrty" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtUserVO">
+    	<![CDATA[
+			INSERT /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.insertComAuthrtHstry */
+				INTO TB_COM_AUTH_USER_HSTRY (
+					  AUTHRT_ID
+					, USER_ID
+					, SN
+					, FLFMT_TASK_SE_CD
+	    		  	, SYS_FRST_INPT_DT
+	    		  	, SYS_FRST_INPT_USER_ID
+	    		  	, SYS_FRST_INPT_PRGRM_ID
+	    		  	, SYS_LAST_CHG_DT
+	    		  	, SYS_LAST_CHG_USER_ID
+	    		  	, SYS_LAST_CHG_PRGRM_ID
+				) VALUES (
+					  #{authrtId}
+					, #{userId}
+				    , (SELECT NVL(MAX(SN) + 1 , 0)
+					    FROM TB_COM_AUTH_USER_HSTRY
+					   WHERE AUTHRT_ID = #{authrtId}
+					     AND USER_ID = #{userId})
+					, #{flfmtTaskSeCd}
+					, SYSDATE
+	   			  	, #{sysFrstInptUserId}
+	   			  	, #{sysFrstInptPrgrmId}
+	   			  	, SYSDATE
+	   			  	, #{sysLastChgUserId}
+	   			  	, #{sysLastChgPrgrmId}
+				)
+    	]]>
+    </insert>
+
 </mapper>
