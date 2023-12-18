@@ -204,30 +204,31 @@
 	    SBGridProperties.paging = {
 			'type' : 'page',
 		  	'count' : 5,
-		  	'size' : 12,
+		  	'size' : 20,
 		  	'sorttype' : 'page',
 		  	'showgoalpageui' : true
 	    };
 	    SBGridProperties.columns = [
-	    	{
-	    		caption : ["전체","<input type='checkbox' onchange='fn_checkAllPckgCmnd(grdPckgCmnd, this);'>"],
-	    		ref: 'checkedYn', type: 'checkbox',  width:'50px',
-	    		style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-            },
-	    	{caption: ["지시번호","지시번호"],	ref: 'pckgCmndno',  type:'output',  width:'120px',    style:'text-align:center'},
-	    	{caption: ["순번","순번"],			ref: 'pckgCmndSn',	type:'output',  width:'40px',    style:'text-align:center'},
-	        {caption: ["생산설비","생산설비"],	ref: 'fcltNm',      type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["거래처","거래처"],		ref: 'cnptNm',      type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["품종","품종"],			ref: 'vrtyNm',      type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["규격","규격"],			ref: 'spcfctNm',    type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["납기일자","납기일자"],	ref: 'dudtYmd',     type:'output',  width:'120px',    style:'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-	        {caption: ["상품명","상품명"],		ref: 'gdsNm',      	type:'output',  width:'130px',    style:'text-align:center', hidden: true},
-	        {caption: ["지시","수량"],			ref: 'cmndQntt',    type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,### '}},
-	        {caption: ["지시","중량 (Kg)"],			ref: 'cmndWght',    type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
-	        {caption: ["실적","수량"],			ref: 'pckgQntt',    type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,### '}},
-	        {caption: ["실적","중량 (Kg)"],			ref: 'pckgWght',    type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
-	        {caption: ["비고","비고"],			ref: 'rmrk',      	type:'output',  width:'250px',    style:'text-align:center'},
+        	{caption: ["체크박스","체크박스"], 	ref: 'checkedYn', 	type: 'checkbox', 	width:'40px',	  style:'text-align: center',
+				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}},
+	    	{caption: ["지시번호","지시번호"],	ref: 'pckgCmndno',  type:'output',  	width:'120px',    style:'text-align:center'},
+	    	{caption: ["순번","순번"],			ref: 'pckgCmndSn',	type:'output',  	width:'40px',     style:'text-align:center'},
+	        {caption: ["생산설비","생산설비"],	ref: 'fcltNm',      type:'output',  	width:'100px',    style:'text-align:center'},
+	        {caption: ["거래처","거래처"],		ref: 'cnptNm',      type:'output',  	width:'120px',    style:'text-align:center'},
+	        {caption: ["품종","품종"],			ref: 'vrtyNm',      type:'output',  	width:'100px',    style:'text-align:center'},
+	        {caption: ["규격","규격"],			ref: 'spcfctNm',    type:'output',  	width:'100px',    style:'text-align:center'},
+	        {caption: ["납기일자","납기일자"],	ref: 'dudtYmd',     type:'output',  	width:'120px',    style:'text-align:center',
+	        	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
+	        {caption: ["상품명","상품명"],		ref: 'gdsNm',      	type:'output',  	width:'130px',    style:'text-align:center', hidden: true},
+	        {caption: ["지시","수량"],			ref: 'cmndQntt',    type:'output',  	width:'100px',    style:'text-align:right',
+	        	format : {type:'number', rule:'#,###'}},
+	        {caption: ["지시","중량 (Kg)"],	ref: 'cmndWght',    type:'output',  	width:'100px',    style:'text-align:right',
+	        	format : {type:'number', rule:'#,###'}},
+	        {caption: ["실적","수량"],			ref: 'pckgQntt',    type:'output',  	width:'100px',    style:'text-align:right',
+	        	format : {type:'number', rule:'#,###'}},
+	        {caption: ["실적","중량 (Kg)"],	ref: 'pckgWght',    type:'output',  	width:'100px',    style:'text-align:right',
+	        	format : {type:'number', rule:'#,###'}},
+	        {caption: ["비고","비고"],			ref: 'rmrk',      	type:'output',  	width:'250px',    style:'text-align:center'}
 	    ];
 
 	    grdPckgCmnd = _SBGrid.create(SBGridProperties);
@@ -293,8 +294,8 @@
      async function fn_pagingPckgCmndList(){
     	let recordCountPerPage = grdPckgCmnd.getPageSize();   		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = grdPckgCmnd.getSelectPageIndex();
-    	let ref = "<input type='checkbox' onchange='fn_checkAllPckgCmnd(grdPckgCmnd, this);'>";
-    	grdPckgCmnd.setCellData(1, grdPckgCmnd.getColRef("checkedYn"), ref, true, false);
+		var getColRef = grdPckgCmnd.getColRef("checkedYn");
+		grdPckgCmnd.setFixedcellcheckboxChecked(0, getColRef, false);
     	fn_setGrdPckgCmnd(recordCountPerPage, currentPageNo);
      }
 
@@ -306,7 +307,7 @@
     	// grid clear
     	jsonPckgCmnd.length = 0;
     	grdPckgCmnd.clearStatus();
-    	await fn_setGrdPckgCmnd(pageSize, pageNo);
+    	grdPckgCmnd.movePaging(pageNo);
 	}
 
 	const fn_setGrdPckgCmnd = async function(pageSize, pageNo){
@@ -535,22 +536,6 @@
 			SBUxMethod.set("srch-inp-vrtyCd", "");
 		})
 	})
-
-    //그리드 체크박스 전체 선택
-    function fn_checkAllPckgCmnd(grid, obj) {
-        var gridList = grid.getGridDataAll();
-        var checkedYn = obj.checked ? "Y" : "N";
-        //체크박스 열 index
-        var getColRef = grid.getColRef("checkedYn");
-    	var getRow = grid.getRow();
-    	var getCol = grid.getCol();
-        for (var i=0; i<gridList.length; i++) {
-        	grid.setCol(getColRef);
-        	grid.clickCell(i+2, getColRef);
-            grid.setCellData(i+2, getColRef, checkedYn, true, false);
-        }
-    	grid.clickCell(getRow, getCol);
-    }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

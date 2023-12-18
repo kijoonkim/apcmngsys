@@ -222,25 +222,25 @@
 		  	'showgoalpageui' : true
 	    };
 	    SBGridProperties.columns = [
-			{
-				caption : ["전체","<input type='checkbox' onchange='fn_checkAllSortCmnd(grdSortCmnd, this);'>"],
-				ref: 'checkedYn', type: 'checkbox',  width:'50px',
-				style: 'text-align:center',
-				userattr: {colNm: "checkedYn"},
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-            },
-	        {caption: ["지시번호","지시번호"],		ref: 'sortCmndno',      type:'output',  width:'130px',    style:'text-align:center'},
-	        {caption: ["지시일자","지시일자"], 	ref: 'sortCmndYmd',     	type:'output',  width:'100px',    style:'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-	        {caption: ["생산자","생산자"],  	ref: 'prdcrNm',    type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["품종","품종"],  	ref: 'vrtyNm',    type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["창고","창고"],  	ref: 'warehouseSeNm',    type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["설비","설비"],  	ref: 'fcltNm',    type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["팔레트번호","팔레트번호"],  	ref: 'pltno',    type:'output',  width:'150px',    style:'text-align:center'},
-	        {caption: ["선별지시","수량"],  	ref: 'cmndQntt',    type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,### '}},
-	        {caption: ["선별지시","중량 (Kg)"],  	ref: 'cmndWght',    type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
-	        {caption: ["투입실적","수량"],  	ref: 'inptQntt',    type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,### '}},
-	        {caption: ["투입실적","중량 (Kg)"],  	ref: 'inptWght',    type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
-	        {caption: ["비고","비고"],  	ref: 'rmrk',    type:'output',  width:'180px',    style:'text-align:center'},
+        	{caption: ["체크박스","체크박스"], 		ref: 'checkedYn', 		type: 'checkbox', 	width: '40px',	  style:'text-align: center',
+				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}},
+	        {caption: ["지시번호","지시번호"],		ref: 'sortCmndno',      type:'output',  	width:'130px',    style:'text-align:center'},
+	        {caption: ["지시일자","지시일자"], 		ref: 'sortCmndYmd',     type:'output',  	width:'100px',    style:'text-align:center',
+	        	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
+	        {caption: ["생산자","생산자"],  		ref: 'prdcrNm',    		type:'output',  	width:'100px',    style:'text-align:center'},
+	        {caption: ["품종","품종"],  			ref: 'vrtyNm',    		type:'output',  	width:'100px',    style:'text-align:center'},
+	        {caption: ["창고","창고"],  			ref: 'warehouseSeNm',   type:'output',  	width:'100px',    style:'text-align:center'},
+	        {caption: ["설비","설비"],  			ref: 'fcltNm',    		type:'output',  	width:'100px',    style:'text-align:center'},
+	        {caption: ["팔레트번호","팔레트번호"],	ref: 'pltno',    		type:'output',  	width:'150px',    style:'text-align:center'},
+	        {caption: ["선별지시","수량"],  		ref: 'cmndQntt',    	type:'output',  	width:'100px',    style:'text-align:right',
+	        	format : {type:'number', rule:'#,###'}},
+	        {caption: ["선별지시","중량 (Kg)"],  	ref: 'cmndWght',    	type:'output',  	width:'100px',    style:'text-align:right',
+	        	format : {type:'number', rule:'#,###'}},
+	        {caption: ["투입실적","수량"],  		ref: 'inptQntt',    	type:'output',  	width:'100px',    style:'text-align:right',
+	        	format : {type:'number', rule:'#,###'}},
+	        {caption: ["투입실적","중량 (Kg)"],  	ref: 'inptWght',    	type:'output',  	width:'100px',    style:'text-align:right',
+	        	format : {type:'number', rule:'#,###'}},
+	        {caption: ["비고","비고"],  			ref: 'rmrk',    		type:'output',  	width:'180px',    style:'text-align:center'},
 	    ];
 
 	    grdSortCmnd = _SBGrid.create(SBGridProperties);
@@ -306,8 +306,8 @@
     async function fn_pagingGrdSortCmnd(){
     	let recordCountPerPage = grdSortCmnd.getPageSize();   		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = grdSortCmnd.getSelectPageIndex();
-    	let ref = "<input type='checkbox' onchange='fn_checkAllSortCmnd(grdSortCmnd, this);'>";
-    	grdSortCmnd.setCellData(1, grdSortCmnd.getColRef("checkedYn"), ref, true, false);
+		var getColRef = grdSortCmnd.getColRef("checkedYn");
+		grdSortCmnd.setFixedcellcheckboxChecked(0, getColRef, false);
     	fn_setGrdSortCmnd(recordCountPerPage, currentPageNo);
     }
 
@@ -323,7 +323,7 @@
 	    	// grid clear
 	    	jsonSortCmnd.length = 0;
 	    	grdSortCmnd.clearStatus();
- 			await fn_setGrdSortCmnd(pageSize, pageNo);
+	    	grdSortCmnd.movePaging(pageNo);
 		} catch (e) {
 	   		if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -691,22 +691,6 @@
 			SBUxMethod.set("srch-inp-vrtyCd", "");
 		})
 	})
-
-    //그리드 체크박스 전체 선택
-    function fn_checkAllSortCmnd(grid, obj) {
-        var gridList = grid.getGridDataAll();
-        var checkedYn = obj.checked ? "Y" : "N";
-        //체크박스 열 index
-        var getColRef = grid.getColRef("checkedYn");
-    	var getRow = grid.getRow();
-    	var getCol = grid.getCol();
-        for (var i=0; i<gridList.length; i++) {
-        	grid.setCol(getColRef);
-        	grid.clickCell(i+2, getColRef);
-            grid.setCellData(i+2, getColRef, checkedYn, true, false);
-        }
-    	grid.clickCell(getRow, getCol);
-    }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
