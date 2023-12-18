@@ -32,6 +32,14 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 선별실적등록 -->
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-button
+						id="btnReset"
+						name="btnReset"
+						uitype="normal"
+						class="btn btn-sm btn-outline-danger"
+						text="초기화"
+						onclick="fn_reset"
+					></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-dark" onclick="fn_search" text="조회"></sbux-button>
 				</div>
 			</div>
@@ -2626,6 +2634,24 @@
  			}
  		}
  	}
+  	
+	const fn_reset = function(){
+ 		// 검색조건 초기화
+		SBUxMethod.set("srch-dtp-wrhsYmdFrom",gfn_dateFirstYmd(new Date()));
+		SBUxMethod.set("srch-dtp-wrhsYmdTo",gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-slt-itemCd","");
+		SBUxMethod.set("srch-slt-vrtyCd","");
+		SBUxMethod.set("srch-inp-prdcrNm","");
+		SBUxMethod.set("srch-inp-prdcrIdentno","");
+		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:none");
+		
+		SBUxMethod.set("dtl-dtp-inptYmd",gfn_dateToYmd(new Date()));
+		SBUxMethod.set("dtl-slt-fcltCd","");
+		SBUxMethod.set("dtl-inp-inptWght",0);
+		SBUxMethod.set("dtl-inp-actlWght",0);
+		SBUxMethod.set("dtl-inp-sortWght",0);
+		SBUxMethod.set("dtl-inp-lossWght",0);
+	}
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

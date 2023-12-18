@@ -33,6 +33,14 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button
+						id="btnReset"
+						name="btnReset"
+						uitype="normal"
+						class="btn btn-sm btn-outline-danger"
+						text="초기화"
+						onclick="fn_reset"
+					></sbux-button>
+					<sbux-button
 						id="btnSearch"
 						name="btnSearch"
 						uitype="normal"
@@ -2650,6 +2658,20 @@
 			fn_setImportCellNormal(_grdImp, nRow, nCol);
 		}
 */
+	}
+  	
+	const fn_reset = function(){
+ 		// 검색조건 초기화
+		SBUxMethod.set("srch-dtp-sortYmdFrom",gfn_dateFirstYmd(new Date()));
+		SBUxMethod.set("srch-dtp-sortYmdTo",gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-slt-itemCd","");
+		SBUxMethod.set("srch-slt-vrtyCd","");
+		SBUxMethod.set("srch-slt-spcfctCd","");
+		
+		SBUxMethod.set("dtl-dtp-pckgYmd",gfn_dateFirstYmd(new Date()));
+		SBUxMethod.set("dtl-slt-fcltCd","");
+		SBUxMethod.set("dtl-inp-inptWght","");
+		SBUxMethod.set("dtl-inp-pckgWght","");
 	}
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
