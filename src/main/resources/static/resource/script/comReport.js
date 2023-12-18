@@ -138,6 +138,8 @@ const gfn_popClipReport = async function(title, fileName, param) {
 		keys.forEach((key) => {
 			url += "&"+ key +"="+ param[key];
 		});
+		
+		url += "&userNm=" + gv_userNm;
 	}
 	
 	window.open(

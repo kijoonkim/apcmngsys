@@ -95,10 +95,14 @@
 		<c:set scope="request" var="apcNm" value="${loginVO.apcNm}"></c:set>
 		<c:set scope="request" var="apcSeCd" value="${loginVO.apcSeCd}"></c:set>
 		<c:set scope="request" var="userType" value="${loginVO.userType}"></c:set>
+		<c:set scope="request" var="userNm" value="${loginVO.name}"></c:set>
+		
 		const gv_apcCd = '${apcCd}';
 		const gv_apcNm = '${apcNm}';
 		const gv_apcSeCd = '${apcSeCd}';
 		const gv_userType = '${userType}';
+		const gv_userNm = '${userNm}';
+		
 		</c:when>
 		<c:otherwise>
 		const gv_apcCd = '';
