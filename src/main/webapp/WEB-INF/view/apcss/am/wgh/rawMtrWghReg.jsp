@@ -1169,8 +1169,12 @@
 			SBUxMethod.set("dtl-inp-vhclno", rowData.vhclno);
 			// 창고
 			SBUxMethod.set("dtl-slt-warehouseSeCd", rowData.warehouseSeCd);
+			if(!gfn_isEmpty(rowData.rmrk)){
+				SBUxMethod.set("dtl-inp-rmrk", rowData.rmrk);
+			}else{
+				SBUxMethod.set("dtl-inp-rmrk", "");
+			}
 			// 비고
-			SBUxMethod.set("dtl-inp-rmrk", rowData.rmrk);
 
 			await gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd);
 			SBUxMethod.set("dtl-slt-vrtyCd", rowData.vrtyCd);
