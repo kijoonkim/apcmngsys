@@ -12,8 +12,8 @@
 			<div class="box-header">
 				<div class="ad_tbl_top">
 					<div class="ad_tbl_toplist">
-						<sbux-button id="btnSearchVrty" name="btnSearchVrty" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popVrty.search">조회</sbux-button>
 						<sbux-button id="btnChoiceVrty" name="btnChoiceVrty" uitype="normal" text="선택" class="btn btn-sm btn-outline-danger" onclick="popVrty.select">선택</sbux-button>
+						<sbux-button id="btnSearchVrty" name="btnSearchVrty" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popVrty.search">조회</sbux-button>
 						<sbux-button id="btnEndVrty" name="btnEndVrty" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="popVrty.close">종료</sbux-button>
 					</div>
 				</div>
@@ -61,7 +61,7 @@
 	var jsonVrtyPopUp = [];
 	var grdVrty = null;
 	const popVrty = {
-		prgrmId: 'prdcrPopup',
+		prgrmId: 'vrtyPopup',
 		modalId: 'modal-vrty',
 		gridId: 'grdVrty',
 		jsonId: 'jsonVrtyPopUp',
@@ -130,6 +130,11 @@
 			for(var i=0; i<jsonVrtyPopUp.length; i++){
 				if(jsonVrtyPopUp[i].checked == 'true')
 					data.push(jsonVrtyPopUp[i]);
+			}
+			
+			if (data.length == 0) {
+				gfn_comAlert("W0004", "선택");	// W0004	{0}한 대상이 없습니다.
+				return;
 			}
 			popVrty.close(popVrty.callbackSelectFnc, data);
 		},

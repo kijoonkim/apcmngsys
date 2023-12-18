@@ -32,9 +32,9 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 사용자정보변경 -->
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset()"></sbux-button>
-					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save()"></sbux-button>
-					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search()"></sbux-button>
+					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>
+					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -130,32 +130,34 @@ function fn_createUserInfoChgGrid() {
     		  	'showgoalpageui' : true
     	};
 	    SBGridProperties1.columns = [
-	         {caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'55px', style: 'text-align:center',
-					userattr: {colNm: "checkedYn"},
-	                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-	            },
-	         {caption: ["사용자ID"], 	ref: 'userId',     	type:'output',   width:'180px', style:'text-align:center'},
-	         {caption: ["사용자명"], 	ref: 'userNm',    	type:'output',  width:'105px', style:'text-align:center'},
-	         {caption: ["비밀번호"],    	ref: 'pswd',        type:'button',  width:'51px', style:'text-align:center',
+        	 {caption: ["체크박스"], 		ref: 'checkedYn', 	type: 'checkbox',	width: '40px',	style:'text-align: center',
+				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}},
+	         {caption: ["사용자ID"], 		ref: 'userId',     	type:'output',   	width:'180px', 	style:'text-align:center'},
+	         {caption: ["사용자명"], 		ref: 'userNm',    	type:'output',  	width:'105px', 	style:'text-align:center'},
+	         {caption: ["비밀번호"],    	ref: 'pswd',        type:'button',  	width:'51px', 	style:'text-align:center',
 	        	 renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	 	        	if(strValue != null && strValue != ""){
 	 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_callUpdateUserPsd(\"UPD\", \"userInfoChgGridId\", " + nRow + ", " + nCol + ")'>초기화</button>";
 	 	        	}
 	 	        }},
-	         {caption: ["APC명"],	    ref: 'apcNm',   	type:'output',  width:'105px', style:'text-align:center'},
-	         {caption: ["사용자유형"],   ref: 'userTypeNm',  type:'output',  width:'105px', style:'text-align:center'},
-	         {caption: ["메일주소"],	    ref: 'eml', 		type:'input',  width:'200px', style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 320})},
-	         {caption: ["전화번호"],  	ref: 'telno',   	type:'input',  width:'105px', style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 11})},
-	         {caption: ["직책명"],  		ref: 'jbttlNm',   	type:'input',   width:'105px', style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
-	         {caption: ["담당업무"],  	ref: 'tkcgTaskNm',  type:'input',   width:'105px', style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
-	         {caption: ["사용유무"],  	ref: 'delYn',   type:'combo',   width:'105px', style:'text-align:center',
-	        	 typeinfo : {ref:'jsonUseYn', label:'label', value:'value', displayui : true}
+	         {caption: ["APC명"],	    ref: 'apcNm',   	type:'output',  	width:'105px', 	style:'text-align:center'},
+	         {caption: ["사용자유형"],   	ref: 'userTypeNm',  type:'output',  	width:'105px', 	style:'text-align:center'},
+	         {caption: ["메일주소"],	    ref: 'eml', 		type:'input',  		width:'200px', 	style:'text-align:center',
+				validate : gfn_chkByte.bind({byteLimit: 320})},
+	         {caption: ["전화번호"],  		ref: 'telno',   	type:'input',  		width:'105px', 	style:'text-align:center',
+	        	validate : gfn_chkByte.bind({byteLimit: 11})},
+	         {caption: ["직책명"],  		ref: 'jbttlNm',   	type:'input',   	width:'105px', 	style:'text-align:center',
+				validate : gfn_chkByte.bind({byteLimit: 100})},
+	         {caption: ["담당업무"],  		ref: 'tkcgTaskNm',  type:'input',   	width:'105px', 	style:'text-align:center',
+				validate : gfn_chkByte.bind({byteLimit: 100})},
+	         {caption: ["사용유무"],  		ref: 'delYn',   	type:'combo',   	width:'105px', 	style:'text-align:center',
+				typeinfo : {ref:'jsonUseYn', label:'label', value:'value', displayui : true}
 	         },
-	         {caption: ["잠김여부"],  	ref: 'lckYn',   	type:'combo',   width:'105px', style:'text-align:center',
-	        	 typeinfo : {ref:'jsonLckYn', label:'label', value:'value', displayui : true}
+	         {caption: ["잠김여부"],  		ref: 'lckYn',   	type:'combo',   	width:'105px', style:'text-align:center',
+				typeinfo : {ref:'jsonLckYn', label:'label', value:'value', displayui : true}
 	         },
-	         {caption: ["최종접속일시"], ref: 'endLgnDt',  	type:'output',  width:'105px', style:'text-align:center'},
-	         {caption: ["APC코드"],		ref: 'apcCd',   	type:'output', hidden: true}
+	         {caption: ["최종접속일시"],	ref: 'endLgnDt',  	type:'output',  	width:'105px', style:'text-align:center'},
+	         {caption: ["APC코드"],		ref: 'apcCd',   	type:'output', 		hidden: true}
     ];
 	    userInfoChgGridId = _SBGrid.create(SBGridProperties1);
 	    userInfoChgGridId.bind( "afterpagechanged" , "fn_pagingUserList" );
@@ -171,6 +173,8 @@ async function fn_search() {
 async function fn_pagingUserList(){
 	let recordCountPerPage = userInfoChgGridId.getPageSize();   		// 몇개의 데이터를 가져올지 설정
 	let currentPageNo = userInfoChgGridId.getSelectPageIndex();
+	var getColRef = userInfoChgGridId.getColRef("checkedYn");
+	userInfoChgGridId.setFixedcellcheckboxChecked(0, getColRef, false);
 	fn_callSelectUserList(recordCountPerPage, currentPageNo);
 }
 newUserInfoChgGridData = [];
@@ -229,8 +233,6 @@ async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
 				}else{
 					userInfoChgGridId.refresh();
 				}
-
-      		userInfoChgGridId.setRow(2);
       	} else {
       		userInfoChgGridId.setPageTotalCount(totalRecordCount);
       		userInfoChgGridId.rebuild();

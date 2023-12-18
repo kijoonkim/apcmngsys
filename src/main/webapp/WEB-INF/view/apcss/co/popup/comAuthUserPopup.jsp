@@ -12,7 +12,7 @@
 			<div class="box-header">
 				<div class="ad_tbl_top">
 					<div class="ad_tbl_toplist">
-						<sbux-button id="btnChoiceComAuthUser" name="btnChoiceComAuthUser" uitype="normal" text="선택" class="btn btn-sm btn-outline-danger" onclick="popComAuthUser.choice"></sbux-button>
+						<sbux-button id="btnChoiceComAuthUser" name="btnChoiceComAuthUser" uitype="normal" text="선택" class="btn btn-sm btn-outline-danger" onclick="popComAuthUser.select"></sbux-button>
 						<sbux-button id="btnSearchComAuthUser" name="btnSearchComAuthUser" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popComAuthUser.search"></sbux-button>
 						<sbux-button id="btnCloseComAuthUser" name="btnCloseComAuthUser" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="popComAuthUser.close"></sbux-button>
 					</div>
@@ -80,6 +80,7 @@
 		gridId: 'grdComAuthUserPop',
 		jsonId: 'jsonComAuthUserPop',
 		areaId: "sb-area-grdComAuthUserPop",
+		prvApcCd: "",
 		
 		objGrid: null,
 		gridJson: [],
@@ -92,8 +93,9 @@
 			SBUxMethod.set("comAuthUser-inp-apcCd", _apcCd);
 			SBUxMethod.set("comAuthUser-inp-apcNm", _apcNm);
 			
-			if (grdComAuthUserPop === null) {
-				this.createGrid();	
+			if (grdComAuthUserPop === null || this.prvApcCd != _apcCd) {
+				this.createGrid();
+				this.search();
 			} else {
 				this.search();
 			}
@@ -101,6 +103,8 @@
 			if (!gfn_isEmpty(_callbackFnc) && typeof _callbackFnc === 'function') {
 				this.callbackFnc = _callbackFnc;	
 			}
+			
+			this.prvApcCd = _apcCd;
 		},
 		close: function(_users) {
 			gfn_closeModal(this.modalId, this.callbackFnc, _users);
@@ -114,46 +118,35 @@
 		    SBGridProperties.selectmode = 'byrow';
 		    SBGridProperties.explorerbar = 'sortmove';
 		    SBGridProperties.extendlastcol = 'scroll';
-		    SBGridProperties.paging = {
-				'type' : 'page',
-			  	'count' : 5,
-			  	'size' : 20,
-			  	'sorttype' : 'page',
-			  	'showgoalpageui' : true
-		    };
 		    SBGridProperties.columns = [
-	            {caption : ["<input type='checkbox' onchange='popComAuthUser.checkAll(this);'>"],
-	                ref: 'checked', type: 'checkbox',   style: 'text-align:center'
-	            },
-		        {caption: ['순번'], ref: 'rowSeq', width: '50px', type: 'output', style: 'text-align:right'},
-		        {caption: ['사용자ID'], ref: 'userId', width: '100px', type: 'output'},
-		        {caption: ['사용자명'], ref: 'userNm', width: '100px', type: 'output'},
-		        {caption: ['사용자유형'], ref: 'userTypeNm', width: '100px', type: 'output'},
-		        {caption: ['APC명'], ref: 'apcNm', width: '100px', type: 'output'},
-		        {caption: ['APC코드'], ref: 'apcCd', hidden : true},
-		        {caption: ['사용자유형'], ref: 'userType', hidden : true}
+	        	{caption: ["체크박스"], 	ref: 'checked', 	width: '40px', 	type: 'checkbox',	style:'text-align: center',
+					typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}}},
+		        {caption: ['순번'], 		ref: 'rowSeq', 		width: '50px', 	type: 'output', 	style: 'text-align:right'},
+		        {caption: ['사용자ID'], 	ref: 'userId', 		width: '100px', type: 'output'},
+		        {caption: ['사용자명'], 	ref: 'userNm', 		width: '100px', type: 'output'},
+		        {caption: ['사용자유형'], 	ref: 'userTypeNm',	width: '100px', type: 'output'},
+		        {caption: ['APC명'], 	ref: 'apcNm', 		width: '100px', type: 'output'},
+		        {caption: ['APC코드'], 	ref: 'apcCd', 		hidden : true},
+		        {caption: ['사용자유형'],	ref: 'userType', 	hidden : true}
 		    ];
 
 		    grdComAuthUserPop = _SBGrid.create(SBGridProperties);
-		    grdComAuthUserPop.bind('beforepagechanged', 'popComAuthUser.paging');
+		    grdComAuthUserPop.bind('dblclick', popComAuthUser.choice);
 
 		    //this.search();
 		},
 		choice: function() {
+			let nRow = grdComAuthUserPop.getRow();
+			let rowData = grdComAuthUserPop.getRowData(nRow);
+			popComAuthUser.close([rowData]);
+		},
+		select: function() {
 			const users = [];
 			const allData = grdComAuthUserPop.getGridDataAll();
 			for ( let i=1; i<=allData.length; i++ ) {
 				let rowData = grdComAuthUserPop.getRowData(i);				
 				if (rowData.checked === 'true') {
-					users.push({
-						userId: rowData.userId,
-						userNm: rowData.userNm,
-						apcCd: rowData.apcCd,
-						apcNm: rowData.apcNm,
-						userType: rowData.userType,
-						userTypeNm: rowData.userTypeNm,
-						authrtId: rowData.authrtId
-					});
+					users.push(rowData);
 				}
 			}
 			
@@ -165,18 +158,19 @@
 			this.close(users);
 		},
 		search: async function() {
+			var getColRef = grdComAuthUserPop.getColRef("checked");
+			grdComAuthUserPop.setFixedcellcheckboxChecked(0, getColRef, false);
+			
 			// set pagination
 			grdComAuthUserPop.rebuild();
-	    	let pageSize = grdComAuthUserPop.getPageSize();
-	    	let pageNo = 1;
 	        
 	    	// grid clear
 	    	jsonComAuthUserPop.length = 0;
 	    	grdComAuthUserPop.refresh();    	
 	    	
-	    	this.setGrid(pageSize, pageNo);
+	    	this.setGrid();
 		},
-		setGrid: async function(pageSize, pageNo) {
+		setGrid: async function() {
 			
 			grdComAuthUserPop.clearStatus();
 	    	let authrtId = SBUxMethod.get("comAuthUser-inp-authrtId");
@@ -186,50 +180,29 @@
 	        const postJsonPromise = gfn_postJSON("/co/authrt/selectAuthrtTrgtUserList.do", {
 	        	authrtId: authrtId,
 	        	apcCd: apcCd,
-	        	userNm: userNm,
-	        	// pagination
-		  		pagingYn : 'Y',
-				currentPageNo : pageNo,
-	 		  	recordCountPerPage : pageSize
+	        	userNm: userNm
 			});
 	        
 	        const data = await postJsonPromise;
 	        
 			try {
-				
-	        	/** @type {number} **/
-	    		let totalRecordCount = 0;
-	        	
 	    		jsonComAuthUserPop.length = 0;
 	        	data.resultList.forEach((item, index) => {
 					const user = {
-						rowSeq: item.rowSeq,
-						userId: item.userId,
-						userNm: item.userNm,
-						apcCd: item.apcCd,
-						apcNm: item.apcNm
+						rowSeq		: item.rowSeq,
+						userId		: item.userId,
+						userNm		: item.userNm,
+						apcCd		: item.apcCd,
+						apcNm		: item.apcNm,
+						userType	: item.userType,
+						userTypeNm	: item.userTypeNm,
+						authrtId	: item.authrtId
 					}
 					jsonComAuthUserPop.push(user);
-					
-					if (index === 0) {
-						totalRecordCount = item.totalRecordCount;	
-					}
 				});
+    			grdComAuthUserPop.rebuild();
 	        	
-	        	if (jsonComAuthUserPop.length > 0) {
-	        		
-	        		if(grdComAuthUserPop.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-	        			grdComAuthUserPop.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-	        			grdComAuthUserPop.rebuild();
-					}else{
-						grdComAuthUserPop.refresh();
-					}
-	        	} else {
-	        		grdComAuthUserPop.setPageTotalCount(totalRecordCount);
-	        		grdComAuthUserPop.rebuild();
-	        	}
-	        	
-	        	document.querySelector('#comAuthUser-cnt').innerText = totalRecordCount;
+	        	document.querySelector('#comAuthUser-cnt').innerText = jsonComAuthUserPop.length;
 
 	        } catch (e) {
 	    		if (!(e instanceof Error)) {
@@ -238,21 +211,7 @@
 	    		console.error("failed", e.message);
 	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        }
-	    },
-	    paging: function() {
-	    	let recordCountPerPage = grdComAuthUserPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-	    	let currentPageNo = grdComAuthUserPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-
-	    	popComAuthUser.setGrid(recordCountPerPage, currentPageNo);
-	    },
-	    checkAll: function(obj) {
-			var gridList = grdComAuthUserPop.getGridDataAll();
-	         //var checkedYn = obj.checked ? "Y" : "N";
-	        for (var i=0; i<gridList.length; i++ ){
-	        	grdComAuthUserPop.setCellData(i+1, 0, obj.checked, true, false);
-	    	}
 	    }
 	}
 </script>
-
 </html>

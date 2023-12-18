@@ -32,7 +32,7 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 권한별 사용자관리 -->
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_insert"></sbux-button>
+					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 				</div>
@@ -129,7 +129,7 @@
 								</li>
 							</ul>
 						 	<div class="ad_tbl_toplist">
-						 		<sbux-button id="btnAddUser" name="btnAddUser" uitype="modal" text="사용자추가" class="btn btn-sm btn-outline-dark" target-id="modal-comAuthUser" onclick="fn_addUser()" disabled ></sbux-button>
+						 		<sbux-button id="btnAddUser" name="btnAddUser" uitype="modal" text="사용자추가" class="btn btn-sm btn-outline-dark" target-id="modal-comAuthUser" onclick="fn_addUser()" disabled></sbux-button>
 							</div>
 						</div>
 						<div>
@@ -240,6 +240,7 @@
     const fn_pagingGrdComAuth = async function() {
     	let recordCountPerPage = grdComAuth.getPageSize();   		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = grdComAuth.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+    	fn_clearForm();
     	fn_setGrdComAuth(recordCountPerPage, currentPageNo);
     }
 
@@ -265,35 +266,31 @@
 		  	'showgoalpageui' : true
 	    };
         SBGridProperties.columns = [
-            {caption : ["<input type='checkbox' onchange='fn_checkAllAuthUser(this);'>"],
-                ref: 'checked', type: 'checkbox',   style: 'text-align:center'
-            },
-        	{caption: ["No."],		ref: 'rowSeq',			type:'output',  width:'10%',    style:'text-align:right'},
-        	{caption: ["사용자ID"],	ref: 'userId',			type:'output',  width:'20%',    style:'text-align:left'},
-            {caption: ["사용자명"],	ref: 'userNm',    		type:'output',  width:'30%',    style:'text-align:left'},
-            {caption: ["사용자유형"],	ref: 'userTypeNm',		type:'output',  width:'20%',    style:'text-align:left'},
-            {caption: ["APC명"],		ref: 'apcNm',    		type:'output',  width:'20%',    style:'text-align:left'},
-            {caption: ["APC코드"],	ref: 'apcCd',        	type:'output',  hidden: true},
-            {caption: ["권한ID"],		ref: 'authrtId',      	type:'output',  hidden: true}
+        	{caption: ["체크박스"], 	ref: 'checked', 		type: 'checkbox', 	width:'40px',	style:'text-align: center',
+				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}}},
+        	{caption: ["No."],		ref: 'rowSeq',			type:'output',  	width:'40px',	style:'text-align:right'},
+        	{caption: ["사용자ID"],	ref: 'userId',			type:'output',  	width:'160px',	style:'text-align:left'},
+            {caption: ["사용자명"],	ref: 'userNm',    		type:'output',  	width:'160px',	style:'text-align:left'},
+            {caption: ["사용자유형"],	ref: 'userTypeNm',		type:'output',  	width:'160px',	style:'text-align:left'},
+            {caption: ["APC명"],		ref: 'apcNm',    		type:'output',  	width:'160px',	style:'text-align:left'},
+            {caption: ["APC코드"],	ref: 'apcCd',        	type:'output',  	hidden: true},
+            {caption: ["권한ID"],		ref: 'authrtId',      	type:'output',  	hidden: true}
         ];
 
         grdComAuthUser = _SBGrid.create(SBGridProperties);
+        grdComAuthUser.bind('beforepagechanged', fn_pagingGrdComAuthUser);
     }
-
- 	/**
-     * @name fn_insert
-     * @description 등록
+    
+    /**
+     * @name fn_pagingGrdComAuth
+     * @description 페이징
+     * @function
      */
-    function fn_insert() {
-    	fn_insertComAuthUser();
-    }
-
- 	/**
-     * @name fn_delete
-     * @description 삭제
-     */
-    function fn_delete() {
-    	fn_deleteComAuthUser();
+    const fn_pagingGrdComAuthUser = async function() {
+    	let recordCountPerPage = grdComAuthUser.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+    	let currentPageNo = grdComAuthUser.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+    	fn_clearForm();
+    	fn_setGrdComAuth(recordCountPerPage, currentPageNo);
     }
 
  	/**
@@ -307,16 +304,9 @@
     	grdComAuth.rebuild();
     	let pageSize = grdComAuth.getPageSize();
     	let pageNo = 1;
-
-    	// form clear
-    	fn_clearForm();
-    	// grid clear
+    	
     	jsonComAuth.length = 0;
-    	jsonComAuthUser.length = 0;
-    	grdComAuthUser.refresh();
-    	SBUxMethod.attr('btnAddUser', 'disabled', true);
-
-    	fn_setGrdComAuth(pageSize, pageNo);
+    	grdComAuth.movePaging(pageNo);
     }
 
     /**
@@ -486,6 +476,7 @@
         if (_.isEqual(lv_prvAuthrtId, rowData.authrtId)) {
         	return;
         }
+        fn_clearForm();
 
         lv_prvAuthrtId = rowData.authrtId;
 
@@ -494,7 +485,6 @@
         SBUxMethod.set("dtl-inp-authrtId", rowData.authrtId);
         SBUxMethod.set("dtl-inp-authrtNm", rowData.authrtNm);
         SBUxMethod.set("dtl-inp-authrtTypeNm", rowData.authrtTypeNm);
-        SBUxMethod.set("dtl-inp-authrtRmrk", rowData.authrtRmrk);
         SBUxMethod.set("dtl-inp-apcCd", rowData.apcCd);
         SBUxMethod.set("dtl-inp-apcNm", rowData.apcNm);
 
@@ -511,17 +501,22 @@
         SBUxMethod.set("dtl-inp-authrtId", null);
         SBUxMethod.set("dtl-inp-authrtNm", null);
         SBUxMethod.set("dtl-inp-authrtTypeNm", null);
-        SBUxMethod.set("dtl-inp-authrtRmrk", null);
         SBUxMethod.set("dtl-inp-apcCd", null);
         SBUxMethod.set("dtl-inp-apcNm", null);
+
+    	jsonComAuthUser.length = 0;
+    	grdComAuthUser.refresh();
+		var getColRef = grdComAuthUser.getColRef("checked");
+		grdComAuthUser.setFixedcellcheckboxChecked(0, getColRef, false);
+    	SBUxMethod.attr('btnAddUser', 'disabled', true);
     }
 
     /**
-     * @name fn_insertComAuthUser
+     * @name fn_save
      * @description 권한사용자 등록
      * @function
      */
-    const fn_insertComAuthUser = async function() {
+    const fn_save = async function() {
 
     	const allUsers = grdComAuthUser.getGridDataAll();
     	const users = [];
@@ -545,12 +540,10 @@
     	}
 
     	const authrtId = SBUxMethod.get("dtl-inp-authrtId");
-    	const postJsonPromise = gfn_postJSON(
-    					"/co/authrt/insertComAuthrtUserList.do",
-    					{
-					    		'authrtId': authrtId,
-					    		'comAuthrtUserList': users
-				    	});
+    	const postJsonPromise = gfn_postJSON("/co/authrt/insertComAuthrtUserList.do", {
+    		'authrtId': authrtId,
+    		'comAuthrtUserList': users
+    	});
 
 		const data = await postJsonPromise;
         try {
@@ -572,11 +565,11 @@
 
 
     /**
-     * @name fn_deleteComAuthUser
+     * @name fn_delete
      * @description 권한사용자 삭제
      * @function
      */
-    const fn_deleteComAuthUser = async function() {
+    const fn_delete = async function() {
 
     	const allUsers = grdComAuthUser.getGridDataAll();
     	const users = [];
@@ -680,23 +673,6 @@
 			}
 		});
 	}
-
-    /**
-     * ui event
-     */
-
-    /**
-     * @name fn_checkAllAuthUser
-     * @description 권한사용자 all check
-     * @param {checkbox} obj
-     */
-	const fn_checkAllAuthUser = function(obj) {
-    	const data = grdComAuthUser.getGridDataAll();
-        for ( let i=0; i<data.length; i++ ){
-        	grdComAuthAuth.setCellData(i+1, 1, obj.checked, true, false);
-        }
-    }
-
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
