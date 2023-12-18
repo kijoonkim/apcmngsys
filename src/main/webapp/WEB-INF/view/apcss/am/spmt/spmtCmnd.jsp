@@ -217,25 +217,21 @@
 		  	'showgoalpageui' : true
 	    };
         SBGridProperties.columns = [
-	    	{
-	    		caption : ["<input type='checkbox' onchange='fn_checkAll(grdSpmtCmnd, this);'>"],
-	    		ref: 'checkedYn', type: 'checkbox',  width:'40px',
-	    		style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-            },
-            {caption: ['지시일자'], 	ref: 'cmndYmd', 		width: '100px',	type: 'output',	style:'text-align: center',
+        	{caption: ["체크박스"], 	ref: 'checkedYn', 		width: '40px', 	type: 'checkbox',	style:'text-align: center',
+				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}},
+            {caption: ['지시일자'], 	ref: 'cmndYmd', 		width: '100px',	type: 'output',		style:'text-align: center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ['거래처'], 	ref: 'cnptNm', 			width: '200px',	type: 'output',	style:'text-align: center'},
-            {caption: ['운송회사'], 	ref: 'trsprtCoNm', 		width: '140px',	type: 'output',	style:'text-align: center'},
-            {caption: ['배송처'], 	ref: 'dldtn', 			width: '200px',	type: 'output',	style:'text-align: center'},
-            {caption: ['수량'], 		ref: 'cmndQntt', 		width: '70px',	type: 'output',	style:'text-align: right',
+            {caption: ['거래처'], 	ref: 'cnptNm', 			width: '200px',	type: 'output',		style:'text-align: center'},
+            {caption: ['운송회사'], 	ref: 'trsprtCoNm', 		width: '140px',	type: 'output',		style:'text-align: center'},
+            {caption: ['배송처'], 	ref: 'dldtn', 			width: '200px',	type: 'output',		style:'text-align: center'},
+            {caption: ['수량'], 		ref: 'cmndQntt', 		width: '70px',	type: 'output',		style:'text-align: right',
             	format : {type:'number', rule:'#,###'}},
-            {caption: ['중량 (Kg)'], 		ref: 'cmndWght', 		width: '80px',	type: 'output',	style:'text-align: right',
+            {caption: ['중량 (Kg)'], 	ref: 'cmndWght', 		width: '80px',	type: 'output',		style:'text-align: right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-            {caption: ['상품등급'], 	ref: 'gdsGrdNm', 		width: '60px',	type: 'output',	style:'text-align: center'},
-            {caption: ['상품명'], 	ref: 'spmtPckgUnitNm', 	width: '160px',	type: 'output',	style:'text-align: center'},
-            {caption: ['품종'], 		ref: 'vrtyNm', 			width: '100px',	type: 'output',	style:'text-align: center'},
-            {caption: ['규격'], 		ref: 'spcfctNm', 		width: '100px',	type: 'output',	style:'text-align: center'},
+            {caption: ['상품등급'], 	ref: 'gdsGrdNm', 		width: '60px',	type: 'output',		style:'text-align: center'},
+            {caption: ['상품명'], 	ref: 'spmtPckgUnitNm', 	width: '160px',	type: 'output',		style:'text-align: center'},
+            {caption: ['품종'], 		ref: 'vrtyNm', 			width: '100px',	type: 'output',		style:'text-align: center'},
+            {caption: ['규격'], 		ref: 'spcfctNm', 		width: '100px',	type: 'output',		style:'text-align: center'},
             {caption: ['비고'], 		ref: 'rmrk', 			width: '300px',	type: 'output'},
             {caption: ["출하지시번호"],	ref: 'spmtCmndno', 		type:'output',  hidden: true},
             {caption: ["출하지시순번"],	ref: 'spmtCmndSn', 		type:'output',  hidden: true},
@@ -398,8 +394,8 @@
     async function fn_pagingSmptCmnd(){
     	let recordCountPerPage = grdSpmtCmnd.getPageSize();   		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = grdSpmtCmnd.getSelectPageIndex();
-    	let ref = "<input type='checkbox' onchange='fn_checkAll(grdSpmtCmnd, this);'>";
-    	grdSpmtCmnd.setCellData(0, grdSpmtCmnd.getColRef("checkedYn"), ref, true, false);
+		var getColRef = grdSpmtCmnd.getColRef("checkedYn");
+		grdSpmtCmnd.setFixedcellcheckboxChecked(0, getColRef, false);
     	fn_callSelectSpmtCmndList(recordCountPerPage, currentPageNo);
     }
 
@@ -561,21 +557,5 @@
 			SBUxMethod.set("srch-inp-vrtyCd", "");
  		})
  	})
-
-    //그리드 체크박스 전체 선택
-    function fn_checkAll(grid, obj) {
-        var gridList = grid.getGridDataAll();
-        var checkedYn = obj.checked ? "Y" : "N";
-        //체크박스 열 index
-        var getColRef = grid.getColRef("checkedYn");
-    	var getRow = grid.getRow();
-    	var getCol = grid.getCol();
-        for (var i=0; i<gridList.length; i++) {
-        	grid.setCol(getColRef);
-        	grid.clickCell(i+1, getColRef);
-            grid.setCellData(i+1, getColRef, checkedYn, true, false);
-        }
-    	grid.clickCell(getRow, getCol);
-    }
 </script>
 </html>

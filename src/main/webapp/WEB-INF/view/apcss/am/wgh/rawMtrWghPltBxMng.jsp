@@ -117,7 +117,7 @@
 									uitype="text"
 									id="srch-inp-prdcrNm"
 									name="srch-inp-prdcrNm"
-									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									class="form-control input-sm"
 									placeholder="초성검색 가능"
 									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
@@ -150,7 +150,14 @@
 							<td class="td_input" style="border-right: hidden;"></td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>수량</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-qntt" name="srch-inp-qntt" uitype="text" maxlength="7" class="form-control input-sm" mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"></sbux-input>
+								<sbux-input
+									id="srch-inp-qntt"
+									name="srch-inp-qntt"
+									uitype="text"
+									maxlength="7"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
+								></sbux-input>
 							</td>
 							<td colspan="2"></td>
 						</tr>
@@ -264,6 +271,8 @@
 	const fn_search = async function(){
 		var getColRef = grdPltWrhsSpmt.getColRef("checkedYn");
 		grdPltWrhsSpmt.setFixedcellcheckboxChecked(0, getColRef, false);
+		
+		fn_reset();
 
     	// grid clear
     	jsonPltBxMngList.length = 0;
@@ -618,7 +627,6 @@
 	    		if (_.isEqual("S", data.resultStatus)) {
 	       			fn_search();
 	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
-	       			fn_reset();
 	       		}else{
 	       			gfn_comAlert(data.resultCode , data.resultMessage);
 	       		}

@@ -309,19 +309,24 @@
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
 	        {caption: ["선별번호","선별번호"],	ref: 'sortno',   		type:'output',  width:'130px',    style:'text-align:center'},
-	        {caption: ["선별일자","선별일자"], 	ref: 'inptYmd',  		type:'output',  width:'100px',    style:'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
+	        {caption: ["선별일자","선별일자"], 	ref: 'inptYmd',  		type:'output',  width:'100px',    style:'text-align:center',
+	        	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 	        {caption: ["생산자","생산자"],  	ref: 'prdcrNm',    		type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["품종","품종"],  		ref: 'vrtyNm',    		type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["창고","창고"],  		ref: 'warehouseSeNm',   type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["설비","설비"],  		ref: 'fcltNm',    		type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["선별","수량"],  		ref: 'invntrQntt',    	type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
-	        {caption: ["선별","중량 (Kg)"],  		ref: 'invntrWght',    	type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
-	        {caption: ["재고규격","재고규격"],  ref: 'spcfctNm',    	type:'output',  width:'100px',    style:'text-align:right; background:#FFF8DC;'},
-            {caption: ["포장지시", "지시규격"], ref: 'spcfct',   		type:'combo',  width:'100px',    style:'text-align:center; background:#FFF8DC;',
+	        {caption: ["선별","수량"],  		ref: 'invntrQntt',    	type:'output',  width:'100px',    style:'text-align:right',
+	        	format : {type:'number', rule:'#,###'}},
+	        {caption: ["선별","중량 (Kg)"],  	ref: 'invntrWght',    	type:'output',  width:'100px',    style:'text-align:right',
+	        	format : {type:'number', rule:'#,###'}},
+	        {caption: ["재고규격","재고규격"],  	ref: 'spcfctNm',    	type:'output',  width:'100px',    style:'text-align:right; background:#FFF8DC;'},
+            {caption: ["포장지시", "지시규격"], 	ref: 'spcfct',   		type:'combo',  	width:'100px',    style:'text-align:center; background:#FFF8DC;',
 				typeinfo : {ref:'jsonComSpcfct', 	displayui : false,	itemcount: 10, label:'label', value:'value', unselect: {label : '선택', value: ''}}},
-	        {caption: ["포장지시","수량"],  	ref: 'pckgQntt',    	type:'input',  width:'100px',    style:'text-align:right; background:#FFF8DC;', format : {type:'number', rule:'#,### '}, typeinfo : {mask : {alias : 'numeric'}}},
-	        {caption: ["포장지시","중량 (Kg)"],  	ref: 'pckgWght',    	type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
-	        {caption: ["지시비고","지시비고"],  ref: 'rmrk',    		type:'input',  width:'180px',    style:'text-align:center'},
+	        {caption: ["포장지시","수량"],  	ref: 'pckgQntt',    	type:'input',  	width:'100px',    style:'text-align:right; background:#FFF8DC;',
+	        	format : {type:'number', rule:'#,###'}, typeinfo : {mask : {alias : 'numeric'}}},
+	        {caption: ["포장지시","중량 (Kg)"],	ref: 'pckgWght',    	type:'output',  width:'100px',    style:'text-align:right',
+	        	format : {type:'number', rule:'#,###'}},
+	        {caption: ["지시비고","지시비고"],  	ref: 'rmrk',    		type:'input',  	width:'180px',    style:'text-align:center'}
 	    ];
 	    grdSortInvntr = _SBGrid.create(SBGridProperties);
 	    grdSortInvntr.bind('valuechanged', 'fn_grdCmndQnttValueChanged');
@@ -344,29 +349,29 @@
     }
 
     const fn_setValue = async function(){
-
-
     	let nRow = grdSortInvntr.getRow();
     	let nCol = grdSortInvntr.getCol();
+    	let pckgQnttCol = grdSortInvntr.getColRef("pckgQntt");
+    	let pckgWghtCol = grdSortInvntr.getColRef("pckgWght");
     	if(nCol == 0){
-
 	    	let invntrQntt = grdSortInvntr.getRowData(nRow).invntrQntt;
 			let invntrWght = grdSortInvntr.getRowData(nRow).invntrWght;
 			let pckgQntt = grdSortInvntr.getRowData(nRow).pckgQntt;
 			let pckgWght = grdSortInvntr.getRowData(nRow).pckgWght;
 
-
 			if((pckgQntt == 0 && pckgWght == 0) || (gfn_isEmpty(pckgQntt) && gfn_isEmpty(pckgWght))){
-				grdSortInvntr.setCellData(nRow, 11, invntrQntt);
-				grdSortInvntr.setCellData(nRow, 12, invntrWght);
+				grdSortInvntr.setCellData(nRow, pckgQnttCol, invntrQntt);
+				grdSortInvntr.setCellData(nRow, pckgWghtCol, invntrWght);
 			}
     	}
     }
 
     const fn_delValue = async function(){
     	var nRow = grdSortInvntr.getRow();
-    	grdSortInvntr.setCellData(nRow, 11, 0);
-    	grdSortInvntr.setCellData(nRow, 12, 0);
+    	let pckgQnttCol = grdSortInvntr.getColRef("pckgQntt");
+    	let pckgWghtCol = grdSortInvntr.getColRef("pckgWght");
+    	grdSortInvntr.setCellData(nRow, pckgQnttCol, 0);
+    	grdSortInvntr.setCellData(nRow, pckgWghtCol, 0);
     }
 
     const fn_checkInptQntt = async function(){
@@ -413,15 +418,18 @@
 	    SBGridProperties.columns = [
 	        {caption: ["지시번호"],		ref: 'pckgCmndno',  type:'output',  	width:'130px',  style:'text-align:center'},
 	        {caption: ["생산설비"],		ref: 'fcltNm',      type:'output',  	width:'120px',  style:'text-align:center'},
-	        {caption: ["납기일자"],		ref: 'dudtYmd',     type:'output',  	width:'100px',  style:'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-	        {caption: ["거래처"],		ref: 'cnptNm',      type:'output',  	width:'140px',  style:'text-align:center'},
+	        {caption: ["납기일자"],		ref: 'dudtYmd',     type:'output',  	width:'100px',  style:'text-align:center',
+	        	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
+	        {caption: ["거래처"],			ref: 'cnptNm',      type:'output',  	width:'140px',  style:'text-align:center'},
 	        {caption: ["품종"],			ref: 'vrtyNm',      type:'output',  	width:'100px',  style:'text-align:center'},
 	        {caption: ["규격"],			ref: 'spcfctNm',    type:'output',  	width:'100px',  style:'text-align:center'},
-	        {caption: ["상품명"],		ref: 'gdsNm',      	type:'output',  	width:'150px',  style:'text-align:center' , hidden:true},
-	        {caption: ["지시수량"],		ref: 'cmndQntt',    type:'output',  	width:'60px',   style:'text-align:right', format : {type:'number', rule:'#,###'}},
-	        {caption: ["지시중량 (Kg)"],		ref: 'cmndWght',    type:'output',  	width:'80px',   style:'text-align:right', format : {type:'number', rule:'#,###'}},
+	        {caption: ["상품명"],			ref: 'gdsNm',      	type:'output',  	width:'150px',  style:'text-align:center' , hidden:true},
+	        {caption: ["지시수량"],		ref: 'cmndQntt',    type:'output',  	width:'60px',   style:'text-align:right',
+	        	format : {type:'number', rule:'#,###'}},
+	        {caption: ["지시중량 (Kg)"],	ref: 'cmndWght',    type:'output',  	width:'80px',   style:'text-align:right',
+	        	format : {type:'number', rule:'#,###'}},
 	        {caption: ["비고"],			ref: 'rmrk',      	type:'output',  	width:'200px',  style:'text-align:left'},
-	        {caption: ["순번"],  		ref: 'pckgCmndSn',    hidden:true},
+	        {caption: ["순번"],  			ref: 'pckgCmndSn',  hidden:true}
 	    ];
 	    grdPckgCmnd = _SBGrid.create(SBGridProperties);
 	}
