@@ -574,7 +574,7 @@
             {caption: ['생산일자'], 		ref: 'pckgYmd', 		width: '150px', type: 'output', style: 'text-align:center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['포장번호'], 		ref: 'pckgno', 			width: '150px', type: 'output', style: 'text-align:center'},
-            {caption: ['선별등급'], 		ref: 'sortGrdNm', 		width: '120px', type: 'output', style: 'text-align:center'},
+            /* {caption: ['선별등급'], 		ref: 'sortGrdNm', 		width: '120px', type: 'output', style: 'text-align:center'}, */
             {caption: ['재고수량'], 		ref: 'invntrQntt', 		width: '80px', 	type: 'output', style: 'text-align:right'},
             {caption: ['재고중량 (Kg)'], 	ref: 'invntrWght', 		width: '100px', type: 'output', style: 'text-align:right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
