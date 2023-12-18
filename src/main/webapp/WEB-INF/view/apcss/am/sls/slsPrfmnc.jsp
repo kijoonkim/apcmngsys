@@ -189,12 +189,8 @@
     		  	'showgoalpageui' : true
     	    };
         SBGridProperties.columns = [
-            {
-            	caption: ['전체',"<input type='checkbox' onchange='fn_checkAll(grdSlsPrfmnc, this);'>"],
-            	ref: 'checkedYn',	width: '50px',		type: 'checkbox',
-            	style:'text-align: center',
-        		typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate: true}
-            },
+        	{caption: ["체크박스","체크박스"], 			ref: 'checkedYn', 	width: '40px', 		type: 'checkbox',	style:'text-align: center',
+				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}},
             {caption: ['매출일자','매출일자'], 			ref: 'slsYmd',		width: '100px',		type: 'output',		style:'text-align: center',
         		format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
             {caption: ['거래처','거래처'], 				ref: 'cnptNm', 		width: '100px', 	type: 'output',		style:'text-align: center'},
@@ -216,8 +212,8 @@
    		    {caption: ['수금여부','수금여부'], 			ref: 'clctmYn',   	width:'80px',  		type:'combo',    	style:'text-align:center',
    				typeinfo : {ref:'jsonComClctmYn', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
             {caption: ['비고','비고'], 				ref: '__', 			width: '200px', 	type: 'output',		style:'text-align: right'},
-            {caption: ["매출순번"],	ref: 'slsSn', 		type:'output',  hidden: true},
-            {caption: ["매출실적key"],	ref: 'slsno', 		type:'output',  hidden: true},
+            {caption: ["매출순번"],					ref: 'slsSn', 		type:'output',  	hidden: true},
+            {caption: ["매출실적key"],					ref: 'slsno', 		type:'output',  	hidden: true},
         ];
         grdSlsPrfmnc = _SBGrid.create(SBGridProperties);
         grdSlsPrfmnc.bind( "afterpagechanged" , "fn_pagingSlsPrfmnc" );
@@ -238,22 +234,6 @@
     // 엑셀 다운로드
     function fn_excelDwnld() {
     	grdSlsPrfmnc.exportLocalExcel("매출실적", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
-    }
-
-    //그리드 체크박스 전체 선택
-    function fn_checkAll(grid, obj) {
-        var gridList = grid.getGridDataAll();
-        var checkedYn = obj.checked ? "Y" : "N";
-        //체크박스 열 index
-        var getColRef = grid.getColRef("checkedYn");
-    	var getRow = grid.getRow();
-    	var getCol = grid.getCol();
-        for (var i=0; i<gridList.length; i++) {
-        	grid.setCol(getColRef);
-        	grid.clickCell(i+2, getColRef);
-            grid.setCellData(i+2, getColRef, checkedYn, true, false);
-        }
-    	grid.clickCell(getRow, getCol);
     }
 
 	// 출하지시 목록 조회 (조회 버튼)
@@ -350,8 +330,8 @@
     async function fn_pagingSlsPrfmnc(){
     	let recordCountPerPage = grdSlsPrfmnc.getPageSize();   		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = grdSlsPrfmnc.getSelectPageIndex();
-    	let ref = "<input type='checkbox' onchange='fn_checkAll(grdSlsPrfmnc, this);'>";
-    	grdSlsPrfmnc.setCellData(1, grdSlsPrfmnc.getColRef("checkedYn"), ref, true, false);
+		var getColRef = grdSlsPrfmnc.getColRef("checkedYn");
+		grdSlsPrfmnc.setFixedcellcheckboxChecked(0, getColRef, false);
     	fn_callSelectSlsPrfmncList(recordCountPerPage, currentPageNo);
     }
 
