@@ -135,8 +135,11 @@ public class ComSysServiceImpl extends BaseServiceImpl implements ComSysService 
 			return false;
 		}
 		
-		// FIXME 세션 access 일시 update 추가할 것
-		
+		if (sessionVO.getNeedAccessDt() > 0) {
+			// FIXME 세션 access 일시 update 추가할 것
+			comSysMapper.updateComSessionAccessDt(sessParam);
+		}
+
 		return true;
 	}
 
