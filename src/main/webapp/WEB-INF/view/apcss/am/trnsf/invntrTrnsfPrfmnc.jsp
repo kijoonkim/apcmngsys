@@ -574,33 +574,29 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.frozencols = 1;
         SBGridProperties.columns = [
-        	{
-        		caption : ["전체", "<input type='checkbox' onchange='fn_checkAllInvntrTrnsf(grdInvntrTrnsf, this);'>"],
-        		ref: 'checkedYn', type: 'checkbox',  width:'50px',
-        		style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-        	},
-            {caption: ['이송APC','이송APC'], 			ref: 'apcNm', 			width: '150px', type: 'output', style: 'text-align:center'},
-            {caption: ['이송일자','이송일자'], 			ref: 'trnsfYmd', 		width: '110px', type: 'output', style: 'text-align:center',
+        	{caption: ["체크박스","체크박스"], 			ref: 'checkedYn', 		width: '40px', 	type: 'checkbox',	style:'text-align: center',
+				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}},
+            {caption: ['이송APC','이송APC'], 			ref: 'apcNm', 			width: '150px', type: 'output', 	style: 'text-align:center'},
+            {caption: ['이송일자','이송일자'], 			ref: 'trnsfYmd', 		width: '110px', type: 'output', 	style: 'text-align:center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ['재고구분','재고구분'], 			ref: 'invntrSeNm', 		width: '100px', type: 'output', style: 'text-align:center'},
-            {caption: ['입고번호','입고번호'], 			ref: 'prcsno', 			width: '120px', type: 'output', style: 'text-align:center'},
-            {caption: ['입고일자','입고일자'], 			ref: 'wrhsYmd', 		width: '110px', type: 'output', style: 'text-align:center',
+            {caption: ['재고구분','재고구분'], 			ref: 'invntrSeNm', 		width: '100px', type: 'output', 	style: 'text-align:center'},
+            {caption: ['입고번호','입고번호'], 			ref: 'prcsno', 			width: '120px', type: 'output', 	style: 'text-align:center'},
+            {caption: ['입고일자','입고일자'], 			ref: 'wrhsYmd', 		width: '110px', type: 'output', 	style: 'text-align:center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ['등급','등급'], 				ref: 'grdNm', 			width: '90px', 	type: 'output', style: 'text-align:center'},
-            {caption: ['생산자','생산자'], 				ref: 'prdcrNm',	 		width: '100px', type: 'output', style: 'text-align:center'},
-            {caption: ['품목','품목'], 				ref: 'itemNm', 			width: '90px', 	type: 'output', style: 'text-align:center'},
-            {caption: ['품종','품종'], 				ref: 'vrtyNm', 			width: '90px', 	type: 'output', style: 'text-align:center'},
-            {caption: ['규격','규격'], 				ref: 'spcfctNm', 		width: '90px', 	type: 'output', style: 'text-align:center'},
-            {caption: ['상품구분','상품구분'], 			ref: 'gdsSeNm', 		width: '80px', 	type: 'output', style: 'text-align:center'},
-            {caption: ['입고구분','입고구분'], 			ref: 'wrhsSeNm', 		width: '80px', 	type: 'output', style: 'text-align:center'},
-            {caption: ['운송구분','운송구분'], 			ref: 'trsprtSeNm', 		width: '80px', 	type: 'output', style: 'text-align:center'},
-            {caption: ['창고','창고'], 				ref: 'warehouseSeNm',	width: '100px',	type: 'output', style: 'text-align:center'},
-            {caption: ['이송','수량'], 				ref: 'trnsfQntt', 		width: '60px', 	type: 'output', style: 'text-align:right',
+            {caption: ['등급','등급'], 				ref: 'grdNm', 			width: '90px', 	type: 'output', 	style: 'text-align:center'},
+            {caption: ['생산자','생산자'], 				ref: 'prdcrNm',	 		width: '100px', type: 'output', 	style: 'text-align:center'},
+            {caption: ['품목','품목'], 				ref: 'itemNm', 			width: '90px', 	type: 'output', 	style: 'text-align:center'},
+            {caption: ['품종','품종'], 				ref: 'vrtyNm', 			width: '90px', 	type: 'output', 	style: 'text-align:center'},
+            {caption: ['규격','규격'], 				ref: 'spcfctNm', 		width: '90px', 	type: 'output', 	style: 'text-align:center'},
+            {caption: ['상품구분','상품구분'], 			ref: 'gdsSeNm', 		width: '80px', 	type: 'output', 	style: 'text-align:center'},
+            {caption: ['입고구분','입고구분'], 			ref: 'wrhsSeNm', 		width: '80px', 	type: 'output', 	style: 'text-align:center'},
+            {caption: ['운송구분','운송구분'], 			ref: 'trsprtSeNm', 		width: '80px', 	type: 'output', 	style: 'text-align:center'},
+            {caption: ['창고','창고'], 				ref: 'warehouseSeNm',	width: '100px',	type: 'output', 	style: 'text-align:center'},
+            {caption: ['이송','수량'], 				ref: 'trnsfQntt', 		width: '60px', 	type: 'output', 	style: 'text-align:right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-            {caption: ['이송','중량 (Kg)'], 			ref: 'trnsfWght', 		width: '80px', 	type: 'output', style: 'text-align:right',
+            {caption: ['이송','중량 (Kg)'], 			ref: 'trnsfWght', 		width: '80px', 	type: 'output', 	style: 'text-align:right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-            {caption: ['확정여부','확정여부'], 			ref: 'cfmtnNm', 		width: '100px', type: 'output', style: 'text-align:center'}
+            {caption: ['확정여부','확정여부'], 			ref: 'cfmtnNm', 		width: '100px', type: 'output', 	style: 'text-align:center'}
         ];
         grdInvntrTrnsf = _SBGrid.create(SBGridProperties);
 
@@ -618,9 +614,8 @@
         const cfmtnCloumns = [];
         let invntrSeCd = SBUxMethod.get("srch-slt-invntrSeCd");
         cfmtnCloumns.push(
-        		{caption : ["<input type='checkbox' onchange='fn_checkAllInvntrTrnsfCfmtn(grdInvntrTrnsfCfmtn, this);'>"],
-        			ref: 'checkedYn', type: 'checkbox',  width:'50px', style: 'text-align:center',
-                    typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
+            	{caption: ["체크박스"], 	ref: 'checkedYn', 		type: 'checkbox', 	width: '40px',	  style:'text-align: center',
+    				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}},
                 {caption: ['이송APC'], 		ref: 'trnsfApcNm', 	width: '150px', type: 'output', style: 'text-align:center'},
                 {caption: ['확정일자'], 	ref: 'cfmtnYmd', 	width: '110px', type: 'output', style: 'text-align:center',
                 	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
@@ -823,6 +818,11 @@
     		gfn_comAlert("W0001", "품목");		//	W0002	{0}을/를 선택하세요.
             return;
     	}
+
+		var getColRef = grdInvntrTrnsf.getColRef("checkedYn");
+		grdInvntrTrnsf.setFixedcellcheckboxChecked(0, getColRef, false);
+		grdInvntrTrnsfCfmtn.setFixedcellcheckboxChecked(0, getColRef, false);
+		
 		let rst = await Promise.all([
 			fn_searchTrnsfList(),
 			fn_searchTrnsfCfmtnList()
@@ -1147,38 +1147,6 @@
 			}
 		}
 	}
-
-	//그리드 체크박스 전체 선택
-    function fn_checkAllInvntrTrnsf(grid, obj) {
-        var gridList = grid.getGridDataAll();
-        var checkedYn = obj.checked ? "Y" : "N";
-        //체크박스 열 index
-        var getColRef = grid.getColRef("checkedYn");
-    	var getRow = grid.getRow();
-    	var getCol = grid.getCol();
-        for (var i=0; i<gridList.length; i++) {
-        	grid.setCol(getColRef);
-        	grid.clickCell(i+2, getColRef);
-            grid.setCellData(i+2, getColRef, checkedYn, true, false);
-        }
-    	grid.clickCell(getRow, getCol);
-    }
-
-    function fn_checkAllInvntrTrnsfCfmtn(grid, obj) {
-        var gridList = grid.getGridDataAll();
-        var checkedYn = obj.checked ? "Y" : "N";
-        //체크박스 열 index
-        var getColRef = grid.getColRef("checkedYn");
-    	var getRow = grid.getRow();
-    	var getCol = grid.getCol();
-        for (var i=0; i<gridList.length; i++) {
-        	grid.setCol(getColRef);
-        	grid.clickCell(i+1, getColRef);
-            grid.setCellData(i+1, getColRef, checkedYn, true, false);
-        }
-    	grid.clickCell(getRow, getCol);
-    }
-
 
 	/* 생산자 팝업 호출 필수 function  */
 	/* Start */
