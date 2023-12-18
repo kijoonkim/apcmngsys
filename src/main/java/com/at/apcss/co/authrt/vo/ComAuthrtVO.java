@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ComAuthrtVO extends ComVO {
-	
+
 	private String sysId;
 	private String authrtId;
 	private String authrtNm;
@@ -23,41 +23,42 @@ public class ComAuthrtVO extends ComVO {
 	private String apcCd;
 	private String apcNm;
 	private String userId;
-	
+	private String flfmtTaskSeCd;
+
 	/**
 	 * case id : CASE1 ~ CASE10
 	 */
 	private String authrtCaseId;
-	
+
 	private List<String> authMenuIdList;
 	private List<String> authUserIdList;
-	
+
 	private List<ComAuthrtMenuVO> comAuthrtMenuList;
-	
+
 	private List<ComAuthrtUserVO> comAuthrtUserList;
-	
+
 	public List<String> getAuthMenuIdList() {
 		return this.authMenuIdList == null ? null : authMenuIdList.stream().collect(Collectors.toList());
 	}
-	
+
 	public void setAuthMenuIdList(List<String> authMenuIdList) {
 		this.authMenuIdList = authMenuIdList == null ? null : authMenuIdList.stream().collect(Collectors.toList());
 	}
-	
+
 	public List<ComAuthrtMenuVO> getComAuthrtMenuList() {
 		return this.comAuthrtMenuList == null ? null : comAuthrtMenuList.stream().collect(Collectors.toList());
 	}
-	
+
 	public void setComAuthrtMenuList(List<ComAuthrtMenuVO> comAuthrtMenuList) {
 		this.comAuthrtMenuList = comAuthrtMenuList == null ? null : comAuthrtMenuList.stream().collect(Collectors.toList());
 	}
-	
+
 	public List<ComAuthrtUserVO> getComAuthrtUserList() {
 		return this.comAuthrtUserList == null ? null : comAuthrtUserList.stream().collect(Collectors.toList());
 	}
-	
+
 	public void setComAuthrtUserList(List<ComAuthrtUserVO> comAuthrtUserList) {
 		this.comAuthrtUserList = comAuthrtUserList == null ? null : comAuthrtUserList.stream().collect(Collectors.toList());
 	}
-	
+
 }
