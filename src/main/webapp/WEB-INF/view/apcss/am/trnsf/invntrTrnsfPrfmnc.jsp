@@ -23,7 +23,7 @@
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
-<body>
+<body oncontextmenu="return false">
 	<section>
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
@@ -32,6 +32,14 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 재고이송확정 -->
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-button
+						id="btnReset"
+						name="btnReset"
+						uitype="normal"
+						class="btn btn-sm btn-outline-danger"
+						text="초기화"
+						onclick="fn_reset"
+					></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="이송조회" onclick="fn_search"></sbux-button>
 				</div>
 			</div>
@@ -1231,7 +1239,33 @@
 	* 상세 정보 생산자 팝업 관련 function
 	* End
 	*/
-
+	const fn_reset = function(){
+ 		// 검색조건 초기화
+ 		SBUxMethod.set("srch-dtp-trnsfYmdFrom", gfn_dateFirstYmd(new Date()));
+		SBUxMethod.set("srch-dtp-trnsfYmdTo", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-slt-trnsfApcCd","");
+		SBUxMethod.set("srch-slt-itemCd","");
+		SBUxMethod.set("srch-slt-vrtyCd","");
+		SBUxMethod.set("srch-slt-wrhsSeCd","");
+		SBUxMethod.set("srch-slt-invntrSeCd","1");
+		SBUxMethod.set("srch-slt-gdsSe","");
+		
+		SBUxMethod.set("dtl-rdo-gdsSeCd","1");
+		SBUxMethod.set("dtl-rdo-wrhsSeCd","3");
+		SBUxMethod.set("dtl-rdo-trsprtSeCd","1");
+		SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:none");
+		SBUxMethod.set("dtl-inp-prdcrCd","");
+		SBUxMethod.set("dtl-inp-prdcrNm","");
+		SBUxMethod.set("dtl-slt-itemCd","");
+		SBUxMethod.set("dtl-slt-vrtyCd","");
+		SBUxMethod.set("dtl-slt-spcfctCd","");
+		SBUxMethod.set("dtl-slt-spmtPckgUnit","");
+		SBUxMethod.set("stdGrdSlt-slt-knd-1","01");
+		SBUxMethod.set("stdGrdSlt-inp-knd-2","");
+		SBUxMethod.set("dtl-slt-warehouseSeCd","");
+		SBUxMethod.set("dtl-inp-rmrk","");
+		
+	}
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

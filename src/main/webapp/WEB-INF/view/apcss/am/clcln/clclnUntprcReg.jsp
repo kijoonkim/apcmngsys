@@ -23,7 +23,7 @@
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
-<body>
+<body oncontextmenu="return false">
 	<section class="content container-fluid">
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
@@ -32,6 +32,14 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 정산단가등록 -->
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-button
+						id="btnReset"
+						name="btnReset"
+						uitype="normal"
+						class="btn btn-sm btn-outline-danger"
+						text="초기화"
+						onclick="fn_reset"
+					></sbux-button>
 					<sbux-button
 						id="btnSave"
 						name="btnSave"
@@ -474,6 +482,13 @@
 			await fn_onChangeSrchItemCd({value: itemCd});
 			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
 		}
+	}
+	
+	const fn_reset = function(){
+ 		// 검색조건 초기화
+		SBUxMethod.set("srch-slt-clclnCrtrCd","");
+		SBUxMethod.set("srch-slt-itemCd","");
+		SBUxMethod.set("srch-slt-vrtyCd","");
 	}
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
