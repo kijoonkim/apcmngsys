@@ -3,6 +3,7 @@ package com.at.apcss.am.sort.vo;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.at.apcss.am.invntr.vo.GdsStdGrdVO;
 import com.at.apcss.am.invntr.vo.SortStdGrdVO;
 import com.at.apcss.co.sys.vo.ComVO;
 
@@ -261,6 +262,11 @@ public class SortPrfmncVO extends ComVO {
 	private String autoPckgInptYn;
 
 	/**
+	 * 상품코드
+	 */
+	private String spmtPckgUnitCd;
+	
+	/**
 	 * 표준등급
 	 */
 	private String stdGrd;
@@ -280,4 +286,20 @@ public class SortPrfmncVO extends ComVO {
 		this.stdGrdList = stdGrdList == null ? null : stdGrdList.stream().collect(Collectors.toList());
 	}
 
+	/**
+	 * 상품 표준등급
+	 */
+	private String gdsGrd;
+	
+	private List<GdsStdGrdVO> gdsStdGrdList;
+
+	public List<GdsStdGrdVO> getGdsStdGrdList() {
+		return gdsStdGrdList == null ? null : gdsStdGrdList.stream().collect(Collectors.toList());
+	}
+
+	public void setGdsStdGrdList(List<GdsStdGrdVO> gdsStdGrdList) {
+		this.gdsStdGrdList = gdsStdGrdList == null ? null : gdsStdGrdList.stream().collect(Collectors.toList());
+	}
+	
+	
 }
