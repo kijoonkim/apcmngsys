@@ -262,6 +262,8 @@
 	}
 
 	const fn_search = async function(){
+		var getColRef = grdPltWrhsSpmt.getColRef("checkedYn");
+		grdPltWrhsSpmt.setFixedcellcheckboxChecked(0, getColRef, false);
 
     	// grid clear
     	jsonPltBxMngList.length = 0;
@@ -340,12 +342,8 @@
 	    SBGridProperties.scrollbubbling = false;
 
 	    SBGridProperties.columns = [
-	        {
-	        	caption: ["<input type='checkbox' onchange='fn_checkAllPltWrhsSpmt(grdPltWrhsSpmt, this);'>"],
-	        	ref: 'checkedYn', type: 'checkbox',  width:'40px',
-	        	style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-	        },
+        	{caption: ["체크박스"], 	ref: 'checkedYn', 		type: 'checkbox', 	width: '40px',	  style:'text-align: center',
+				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}},
 	        {caption: ["작업일자"],	ref: 'jobYmd',      	type:'output',  	width:'100px',    style:'text-align:center',
 	        	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 	        {caption: ["입출고구분"],	ref: 'wrhsSpmtSeNm',    type:'output',  	width:'100px',    style:'text-align:center'},
@@ -781,22 +779,6 @@
 	function fn_closeModal(modalId){
 		SBUxMethod.closeModal(modalId);
 	}
-
-    //그리드 체크박스 전체 선택
-    function fn_checkAllPltWrhsSpmt(grid, obj) {
-        var gridList = grid.getGridDataAll();
-        var checkedYn = obj.checked ? "Y" : "N";
-        //체크박스 열 index
-        var getColRef = grid.getColRef("checkedYn");
-    	var getRow = grid.getRow();
-    	var getCol = grid.getCol();
-        for (var i=0; i<gridList.length; i++) {
-        	grid.setCol(getColRef);
-        	grid.clickCell(i+1, getColRef);
-            grid.setCellData(i+1, getColRef, checkedYn, true, false);
-        }
-    	grid.clickCell(getRow, getCol);
-    }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

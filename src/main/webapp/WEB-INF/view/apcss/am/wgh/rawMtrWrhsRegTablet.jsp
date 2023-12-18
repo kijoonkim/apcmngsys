@@ -523,39 +523,34 @@
 	    SBGridProperties.scrollbubbling = false;
 
 	    SBGridProperties.columns = [
-	    	{
-	    		caption : ["<input type='checkbox' onchange='fn_checkAllRawMtrWrhs(grdRawMtrWrhs, this);'>"],
-	    		ref: 'checkedYn', type: 'checkbox',  width:'40px',
-	    		style: 'text-align:center',
-	    		userattr: {colNm: "checkedYn"},
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-            },
-            {caption: ["입고번호"],		ref: 'wrhsno',      type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["생산자"],		ref: 'prdcrNm',     type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["품목"],		ref: 'itemNm',      type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["품종"],		ref: 'vrtyNm',      type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["상품구분"],		ref: 'gdsSeNm',     type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["입고구분"],		ref: 'wrhsSeNm',    type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["운송구분"],		ref: 'trsprtSeNm',  type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["등급"],		ref: 'grdNm',      	type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["박스수량"],		ref: 'bxQntt',      type:'output',  width:'60px',    style:'text-align:right'},
-	        {caption: ["중량 (Kg)"],	ref: 'wrhsWght',    type:'output',  width:'60px',    style:'text-align:right'},
-	        {caption: ["박스종류"],		ref: 'bxKndNm',     type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["보관창고"],		ref: 'warehouseSeNm',	type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["생산연도"],		ref: 'prdctnYr',    type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["상세등급"],		ref: 'stdGrd',    	type:'output',  width:'200px',    style:'text-align:left'},
+        	{caption: ["체크박스"], 	ref: 'checkedYn', 		type: 'checkbox', 	width: '40px',	 style:'text-align: center',
+				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}},
+            {caption: ["입고번호"],	ref: 'wrhsno',      	type:'output',  	width:'120px',   style:'text-align:center'},
+	        {caption: ["생산자"],		ref: 'prdcrNm',     	type:'output',  	width:'100px',   style:'text-align:center'},
+	        {caption: ["품목"],		ref: 'itemNm',      	type:'output',  	width:'80px',    style:'text-align:center'},
+	        {caption: ["품종"],		ref: 'vrtyNm',      	type:'output',  	width:'80px',    style:'text-align:center'},
+	        {caption: ["상품구분"],	ref: 'gdsSeNm',     	type:'output',  	width:'80px',    style:'text-align:center'},
+	        {caption: ["입고구분"],	ref: 'wrhsSeNm',    	type:'output',  	width:'80px',    style:'text-align:center'},
+	        {caption: ["운송구분"],	ref: 'trsprtSeNm',  	type:'output',  	width:'80px',    style:'text-align:center'},
+	        {caption: ["등급"],		ref: 'grdNm',      		type:'output',  	width:'80px',    style:'text-align:center'},
+	        {caption: ["박스수량"],	ref: 'bxQntt',      	type:'output',  	width:'60px',    style:'text-align:right'},
+	        {caption: ["중량 (Kg)"],	ref: 'wrhsWght',    	type:'output',  	width:'60px',    style:'text-align:right'},
+	        {caption: ["박스종류"],	ref: 'bxKndNm',     	type:'output',  	width:'100px',   style:'text-align:center'},
+	        {caption: ["보관창고"],	ref: 'warehouseSeNm',	type:'output',  	width:'100px',   style:'text-align:center'},
+	        {caption: ["생산연도"],	ref: 'prdctnYr',    	type:'output',  	width:'80px',    style:'text-align:center'},
+	        {caption: ["상세등급"],	ref: 'stdGrd',    		type:'output',  	width:'200px',   style:'text-align:left'},
 
-	        {caption: ["APC코드"],	ref: 'apcCd',     	type:'output',  hidden: true},
-	        {caption: ["생산자코드"],	ref: 'prdcrCd',   	type:'output',  hidden: true},
-	        {caption: ["품목코드"],		ref: 'itemCd',   	type:'output',  hidden: true},
-	        {caption: ["품종코드"],		ref: 'vrtyCd',   	type:'output',  hidden: true},
-	        {caption: ["상품구분코드"],	ref: 'gdsSeCd',   	type:'output',  hidden: true},
-	        {caption: ["입고구분코드"],	ref: 'wrhsSeCd',   	type:'output',  hidden: true},
-	        {caption: ["운송구분코드"],	ref: 'trsprtSeCd', 	type:'output',  hidden: true},
-	        {caption: ["등급코드"],		ref: 'grdCd',   	type:'output',  hidden: true},
-	        {caption: ["박스종류코드"],	ref: 'bxKnd',   	type:'output',  hidden: true},
-	        {caption: ["보관창고코드"],	ref: 'warehouseSeCd', type:'output',  hidden: true},
-	        {caption: ["상세등급코드"],	ref: 'stdGrdCd', type:'output',  hidden: true},
+	        {caption: ["APC코드"],	ref: 'apcCd',     		type:'output',  	hidden: true},
+	        {caption: ["생산자코드"],	ref: 'prdcrCd',   		type:'output',  	hidden: true},
+	        {caption: ["품목코드"],	ref: 'itemCd',   		type:'output',  	hidden: true},
+	        {caption: ["품종코드"],	ref: 'vrtyCd',   		type:'output',  	hidden: true},
+	        {caption: ["상품구분코드"],	ref: 'gdsSeCd',   		type:'output',  	hidden: true},
+	        {caption: ["입고구분코드"],	ref: 'wrhsSeCd',   		type:'output',  	hidden: true},
+	        {caption: ["운송구분코드"],	ref: 'trsprtSeCd', 		type:'output',  	hidden: true},
+	        {caption: ["등급코드"],	ref: 'grdCd',   		type:'output',  	hidden: true},
+	        {caption: ["박스종류코드"],	ref: 'bxKnd',   		type:'output',  	hidden: true},
+	        {caption: ["보관창고코드"],	ref: 'warehouseSeCd', 	type:'output',  	hidden: true},
+	        {caption: ["상세등급코드"],	ref: 'stdGrdCd', 		type:'output',  	hidden: true}
 	    ];
 
 	    grdRawMtrWrhs = _SBGrid.create(SBGridProperties);
@@ -767,6 +762,8 @@
      * @description 조회 버튼
      */
     const fn_search = async function() {
+		var getColRef = grdRawMtrWrhs.getColRef("checkedYn");
+		grdRawMtrWrhs.setFixedcellcheckboxChecked(0, getColRef, false);
 
     	// grid clear
     	jsonRawMtrWrhs.length = 0;
@@ -1146,22 +1143,6 @@
 	const fn_close = function(){
 		parent.gfn_tabClose("TAB_AM_001_008");
 	}
-
-    //그리드 체크박스 전체 선택
-    function fn_checkAllRawMtrWrhs(grid, obj) {
-        var gridList = grid.getGridDataAll();
-        var checkedYn = obj.checked ? "Y" : "N";
-        //체크박스 열 index
-        var getColRef = grid.getColRef("checkedYn");
-    	var getRow = grid.getRow();
-    	var getCol = grid.getCol();
-        for (var i=0; i<gridList.length; i++) {
-        	grid.setCol(getColRef);
-        	grid.clickCell(i+1, getColRef);
-            grid.setCellData(i+1, getColRef, checkedYn, true, false);
-        }
-    	grid.clickCell(getRow, getCol);
-    }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
