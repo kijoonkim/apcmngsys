@@ -26,7 +26,7 @@
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
-<body>
+<body oncontextmenu="return false">
 	<section class="content container-fluid">
 
                 <!--full content-->
