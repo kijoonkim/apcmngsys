@@ -147,15 +147,15 @@
 	    		  'showgoalpageui' : true
  		};
         SBGridProperties.columns = [
-            {caption : ["<input type='checkbox' onchange='fn_checkAll(comCdgrid, this);'>"],
-            	ref: 'checked', type: 'checkbox', width: '40px', style: 'text-align:center', typeinfo: {ignoreupdate : true}},
-            {caption: ["코드ID"],		ref: 'cdId',	type: 'input',	width: '150px',	style: 'text-align:center',
+        	{caption: ["체크박스"], 	ref: 'checked', type: 'checkbox',	width: '40px',	style:'text-align: center',
+				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}}},
+            {caption: ["코드ID"],		ref: 'cdId',	type: 'input',		width: '150px',	style: 'text-align:center',
             	validate : gfn_chkByte.bind({byteLimit: 20})},
-            {caption: ["코드명"],		ref: 'cdNm',	type: 'input',	width: '150px',	style: 'text-align:center',
+            {caption: ["코드명"],		ref: 'cdNm',	type: 'input',		width: '150px',	style: 'text-align:center',
             	validate : gfn_chkByte.bind({byteLimit: 100})},
-            {caption: ["코드유형"],	ref: 'cdType',	type: 'combo',	width: '150px',	style: 'text-align:center',
+            {caption: ["코드유형"],	ref: 'cdType',	type: 'combo',		width: '150px',	style: 'text-align:center',
             	typeinfo: {ref:'jsonComCdType', itemcount: 10, label:'label', value:'value'}},
-            {caption: ["코드설명"],	ref: 'cdExpln',	type: 'input',	width: '200px',	style: 'text-align:center',
+            {caption: ["코드설명"],	ref: 'cdExpln',	type: 'input',		width: '200px',	style: 'text-align:center',
             	validate : gfn_chkByte.bind({byteLimit: 1000})}
         ];
         window.comCdgrid = _SBGrid.create(SBGridProperties);
@@ -180,25 +180,25 @@
 	    SBGridProperties.entertotab = true;
 	    SBGridProperties.oneclickedit = true;
         SBGridProperties.columns = [
-            {caption : ["<input type='checkbox' onchange='fn_checkAll(comCdDtlgrid, this);'>"],
-            	ref: 'checked', type: 'checkbox', width: '40px', style: 'text-align:center', typeinfo : {ignoreupdate : true}},
-            {caption: ["코드값"],		ref: 'cdVl',		type: 'input',	width: '70px',	style: 'text-align:center',
+        	{caption: ["체크박스"], 	ref: 'checked', 	type: 'checkbox', 	width: '40px',	style:'text-align: center',
+				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}}},
+            {caption: ["코드값"],		ref: 'cdVl',		type: 'input',		width: '70px',	style: 'text-align:center',
             	validate : gfn_chkByte.bind({byteLimit: 20})},
-            {caption: ["코드값명"],	ref: 'cdVlNm',		type: 'input',	width: '150px',	style: 'text-align:center',
+            {caption: ["코드값명"],	ref: 'cdVlNm',		type: 'input',		width: '150px',	style: 'text-align:center',
             	validate : gfn_chkByte.bind({byteLimit: 100})},
-            {caption: ["코드값설명"],	ref: 'cdVlExpln',	type: 'input',	width: '250px',	style: 'text-align:center',
+            {caption: ["코드값설명"],	ref: 'cdVlExpln',	type: 'input',		width: '250px',	style: 'text-align:center',
             	validate : gfn_chkByte.bind({byteLimit: 1000})},
-            {caption: ["Sort순서"],	ref: 'indctSeq',	type: 'input',	width: '70px',	style: 'text-align:center',
+            {caption: ["Sort순서"],	ref: 'indctSeq',	type: 'input',		width: '70px',	style: 'text-align:center',
             	typeinfo : {mask : {alias : 'numeric'}, maxlength: 10}, format : {type:'number'}},
-            {caption: ["상위코드값"],	ref: 'upCdVl',		type: 'input',	width: '70px',	style: 'text-align:center',
+            {caption: ["상위코드값"],	ref: 'upCdVl',		type: 'input',		width: '70px',	style: 'text-align:center',
             	validate : gfn_chkByte.bind({byteLimit: 20})},
-            {caption: ["코드숫자값"],	ref: 'cdNumVl',		type: 'input',	width: '70px',	style: 'text-align:center',
+            {caption: ["코드숫자값"],	ref: 'cdNumVl',		type: 'input',		width: '70px',	style: 'text-align:center',
             	typeinfo : {mask : {alias : 'numeric'}, maxlength: 10}, format : {type:'number'}},
             {caption: ["코드문자값"],	ref: 'cdChrVl',		type: 'input',		width: '100px',	style: 'text-align:center',
             	validate : gfn_chkByte.bind({byteLimit: 20})},
-            {caption: ["APC코드"],	ref: 'apcCd',		type: 'output',	hidden : true},
-            {caption: ["코드ID"],		ref: 'cdId',		type: 'output',	hidden : true},
-            {caption: ["행추가여부"],	ref: 'addYn',		type: 'output',	hidden : true}
+            {caption: ["APC코드"],	ref: 'apcCd',		type: 'output',		hidden : true},
+            {caption: ["코드ID"],		ref: 'cdId',		type: 'output',		hidden : true},
+            {caption: ["행추가여부"],	ref: 'addYn',		type: 'output',		hidden : true}
         ];
         comCdDtlgrid = _SBGrid.create(SBGridProperties);
     }
@@ -211,7 +211,7 @@
 
     	comCdgridData.length = 0;
     	comCdgrid.clearStatus();
-    	fn_callSelectComCdList(recordCountPerPage, currentPageNo);
+    	comCdgrid.movePaging(currentPageNo);
 		fn_clearComCdDtl();
     }
 
@@ -288,6 +288,7 @@
     async function fn_selectComCdDtlList() {
     	if (!gfn_isEmpty(comCdgrid.getRowData(comCdgrid.getRow()).cdId)) {
     		if (comCdgrid.getPrevRow() != comCdgrid.getRow()) {
+        		fn_clearComCdDtl();
     	    	fn_callSelectComCdDtlList();
     		}
     	} else {
@@ -333,14 +334,16 @@
     async function fn_pagingComCd(){
     	let recordCountPerPage = comCdgrid.getPageSize();   		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = comCdgrid.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-    	let ref = "<input type='checkbox' onchange='fn_checkAll(comCdgrid, this);'>";
-    	comCdgrid.setCellData(0, comCdgrid.getColRef("checked"), ref, true, false);
+		var getColRef = comCdgrid.getColRef("checked");
+		comCdgrid.setFixedcellcheckboxChecked(0, getColRef, false);
     	fn_clearComCdDtl();
     	fn_callSelectComCdList(recordCountPerPage, currentPageNo);
     }
 
     // 공통코드 상세 클리어
     function fn_clearComCdDtl(){
+		var getColRef = comCdDtlgrid.getColRef("checked");
+		comCdDtlgrid.setFixedcellcheckboxChecked(0, getColRef, false);
     	comCdDtlGridData = [];
     	comCdDtlgrid.rebuild();
     }
@@ -549,21 +552,10 @@
     	fn_selectComCdList();
     }
 
-    //그리드 체크박스 전체 선택
-    function fn_checkAll(grid, obj) {
-        var gridList = grid.getGridDataAll();
-        var checkedYn = obj.checked ? "true" : "false";
-        //체크박스 열 index
-        var getColRef = grid.getColRef("checked");
-        for (var i=0; i<gridList.length; i++) {
-            grid.setCellData(i+1, getColRef, checkedYn, true, false);
-        }
-    }
-
     //공통코드 상세 행 추가
     function fn_addRow() {
 		var cdId = comCdgrid.getRowData(comCdgrid.getRow()).cdId;
-		if(cdId ==null || cdId == ''){
+		if(cdId == null || cdId == ''){
 			gfn_comAlert("W0001", "공통코드");
 			return;
 		}
