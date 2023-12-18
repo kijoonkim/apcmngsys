@@ -81,3 +81,13 @@ nav.sbux-meu-wrap .sbux-meu-fluid .sbux-meu-hd-wrap .sbux-meu-brand img{
 nav.sbux-meu-wrap .sbux-meu-fluid{
 	padding : 0px !important;
 }
+.sbgrid-ui-datepicker-year{
+	color:black !important;
+}
+.sbgrid-ui-datepicker-month{
+	color:black !important;
+}
+.sbgrid-ui-datepicker-title select{
+	-webkit-appearance : auto !important;
+	appearance: auto  !important;
+}
