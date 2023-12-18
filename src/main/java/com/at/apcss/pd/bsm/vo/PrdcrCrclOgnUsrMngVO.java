@@ -19,6 +19,10 @@ public class PrdcrCrclOgnUsrMngVO extends ComVO{
 	private String evCertYn;	//2차승인구분
 	private String cmptnInst;	//관할기관
 	private String cmptnInstCofmCd;
+	private String cmptncInstAprvSe;
+	private String cmptncInstAprvYmd;
+	private String cmptncInst;
+	private String uoAprvStts;
 
 
 	private String sysFrstInptUserIdNm;
