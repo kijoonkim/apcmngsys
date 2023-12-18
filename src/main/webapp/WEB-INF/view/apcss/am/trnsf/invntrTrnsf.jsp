@@ -295,33 +295,29 @@
 		  	'showgoalpageui' : true
 		};
         SBGridProperties.columns = [
-        	{
-        		caption : ["전체", "<input type='checkbox' onchange='fn_checkAll(grdInvntrTrnsf, this);'>"],
-        		ref: 'checked', type: 'checkbox',  width:'50px',
-        		style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-        	},
-            {caption: ['이송APC','이송APC'], 			ref: 'trnsfApcNm', 		width: '150px', type: 'output', style: 'text-align:center'},
-            {caption: ['이송일자','이송일자'], 			ref: 'trnsfYmd', 		width: '110px', type: 'output', style: 'text-align:center',
+        	{caption: ["체크박스","체크박스"], 			ref: 'checked', 		width: '40px', 	type: 'checkbox',	style:'text-align: center',
+				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}},
+            {caption: ['이송APC','이송APC'], 			ref: 'trnsfApcNm', 		width: '150px', type: 'output', 	style: 'text-align:center'},
+            {caption: ['이송일자','이송일자'], 			ref: 'trnsfYmd', 		width: '110px', type: 'output', 	style: 'text-align:center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ['재고구분','재고구분'], 			ref: 'invntrSeNm', 		width: '100px', type: 'output', style: 'text-align:center'},
-            {caption: ['입고번호','입고번호'], 			ref: 'wrhsno', 			width: '120px', type: 'output', style: 'text-align:center'},
-            {caption: ['입고일자','입고일자'], 			ref: 'wrhsYmd', 		width: '110px', type: 'output', style: 'text-align:center',
+            {caption: ['재고구분','재고구분'], 			ref: 'invntrSeNm', 		width: '100px', type: 'output', 	style: 'text-align:center'},
+            {caption: ['입고번호','입고번호'], 			ref: 'wrhsno', 			width: '120px', type: 'output', 	style: 'text-align:center'},
+            {caption: ['입고일자','입고일자'], 			ref: 'wrhsYmd', 		width: '110px', type: 'output', 	style: 'text-align:center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ['등급','등급'], 				ref: 'grdNm', 			width: '90px', 	type: 'output', style: 'text-align:center'},
-            {caption: ['생산자','생산자'], 				ref: 'prdcrNm',	 		width: '100px', type: 'output', style: 'text-align:center'},
-            {caption: ['품목','품목'], 				ref: 'itemNm', 			width: '90px', 	type: 'output', style: 'text-align:center'},
-            {caption: ['품종','품종'], 				ref: 'vrtyNm', 			width: '90px', 	type: 'output', style: 'text-align:center'},
-            {caption: ['규격','규격'], 				ref: 'spcfctNm', 		width: '90px', 	type: 'output', style: 'text-align:center'},
-            {caption: ['상품구분','상품구분'], 			ref: 'gdsSeNm', 		width: '80px', 	type: 'output', style: 'text-align:center'},
-            {caption: ['입고구분','입고구분'], 			ref: 'wrhsSeNm', 		width: '80px', 	type: 'output', style: 'text-align:center'},
-            {caption: ['운송구분','운송구분'], 			ref: 'trsprtSeNm', 		width: '80px', 	type: 'output', style: 'text-align:center'},
-            {caption: ['창고','창고'], 				ref: 'warehouseSeNm', 	width: '100px',	type: 'output', style: 'text-align:center'},
-            {caption: ['이송','수량'], 				ref: 'trnsfQntt', 		width: '60px', 	type: 'output', style: 'text-align:right',
+            {caption: ['등급','등급'], 				ref: 'grdNm', 			width: '90px', 	type: 'output', 	style: 'text-align:center'},
+            {caption: ['생산자','생산자'], 				ref: 'prdcrNm',	 		width: '100px', type: 'output', 	style: 'text-align:center'},
+            {caption: ['품목','품목'], 				ref: 'itemNm', 			width: '90px', 	type: 'output', 	style: 'text-align:center'},
+            {caption: ['품종','품종'], 				ref: 'vrtyNm', 			width: '90px', 	type: 'output', 	style: 'text-align:center'},
+            {caption: ['규격','규격'], 				ref: 'spcfctNm', 		width: '90px', 	type: 'output', 	style: 'text-align:center'},
+            {caption: ['상품구분','상품구분'], 			ref: 'gdsSeNm', 		width: '80px', 	type: 'output', 	style: 'text-align:center'},
+            {caption: ['입고구분','입고구분'], 			ref: 'wrhsSeNm', 		width: '80px', 	type: 'output', 	style: 'text-align:center'},
+            {caption: ['운송구분','운송구분'], 			ref: 'trsprtSeNm', 		width: '80px', 	type: 'output', 	style: 'text-align:center'},
+            {caption: ['창고','창고'], 				ref: 'warehouseSeNm', 	width: '100px',	type: 'output', 	style: 'text-align:center'},
+            {caption: ['이송','수량'], 				ref: 'trnsfQntt', 		width: '60px', 	type: 'output', 	style: 'text-align:right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-            {caption: ['이송','중량 (Kg)'], 			ref: 'trnsfWght', 		width: '80px', 	type: 'output', style: 'text-align:right',
+            {caption: ['이송','중량 (Kg)'], 			ref: 'trnsfWght', 		width: '80px', 	type: 'output', 	style: 'text-align:right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-            {caption: ['확정여부','확정여부'], 			ref: 'cfmtnNm', 		width: '100px', type: 'output', style: 'text-align:center'}
+            {caption: ['확정여부','확정여부'], 			ref: 'cfmtnNm', 		width: '100px', type: 'output', 	style: 'text-align:center'}
         ];
         grdInvntrTrnsf = _SBGrid.create(SBGridProperties);
         grdInvntrTrnsf.bind( "afterpagechanged" , "fn_pagingInvntrTrnsf" );
@@ -359,22 +355,6 @@
         }
     };
 
-	//그리드 체크박스 전체 선택
-	function fn_checkAll(grid, obj) {
-	    var gridList = grid.getGridDataAll();
-	    var checkedYn = obj.checked ? "Y" : "N";
-	    //체크박스 열 index
-	    var getColRef = grid.getColRef("checked");
-    	var getRow = grid.getRow();
-    	var getCol = grid.getCol();
-	    for (var i=0; i<gridList.length; i++) {
-        	grid.setCol(getColRef);
-        	grid.clickCell(i+2, getColRef);
-	        grid.setCellData(i+2, getColRef, checkedYn, true, false);
-	    }
-    	grid.clickCell(getRow, getCol);
-	}
-
     // 엑셀 다운로드
     function fn_excelDwnld() {
     	grdInvntrTrnsf.exportLocalExcel("재고이송", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
@@ -403,8 +383,8 @@
     async function fn_pagingInvntrTrnsf(){
     	let recordCountPerPage = grdInvntrTrnsf.getPageSize();   		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = grdInvntrTrnsf.getSelectPageIndex();
-    	let ref = "<input type='checkbox' onchange='fn_checkAll(grdInvntrTrnsf, this);'>";
-    	grdInvntrTrnsf.setCellData(1, grdInvntrTrnsf.getColRef("checked"), ref, true, false);
+		var getColRef = grdInvntrTrnsf.getColRef("checked");
+		grdInvntrTrnsf.setFixedcellcheckboxChecked(0, getColRef, false);
     	fn_callSelectGridList(recordCountPerPage, currentPageNo);
     }
 
@@ -414,7 +394,7 @@
     	let pageSize = grdInvntrTrnsf.getPageSize();
     	let pageNo = 1;
 
-    	fn_callSelectGridList(pageSize, pageNo);
+    	grdInvntrTrnsf.movePaging(pageNo);
 	}
 
 	const fn_callSelectGridList = async function(pageSize, pageNo) {
