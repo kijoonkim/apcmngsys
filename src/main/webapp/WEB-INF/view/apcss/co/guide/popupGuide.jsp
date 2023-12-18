@@ -380,6 +380,7 @@
 	const fn_onChangeApc = async function() {
 		fn_clearPrdcr();
 		fn_getPrdcrs();
+		fn_initSBSelect();
 	}
 
 	/* 생산자 팝업 호출 필수 json  */
