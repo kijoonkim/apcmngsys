@@ -13,8 +13,8 @@
 <mapper namespace="com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnUsrMngMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.selectBbs				-->
-	<!-- DESC : 게시판 테이블 단건조회.                                             		-->
+	<!-- NAME :  com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnUsrMngMapper.selectPrdcrCrclOgnUsrMng			-->
+	<!-- DESC : 통합조직사용자관리 단건조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -31,9 +31,9 @@
 				, CM.BRNO
 				, CM.MOBLNO
 				, CM.CO_NM
-				, CM.CMPTN_INST_COFM_CD
-				, CM.CMPTN_INST_COFM_DT
-				, CM.CMPTN_INST
+				, CM.CMPTNC_INST_APRV_SE
+				, CM.CMPTNC_INST_APRV_YMD
+				, CM.CMPTNC_INST
 				, CM.DEL_YN		AS DEL_YN
 				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
 				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
@@ -68,11 +68,11 @@
 			<if test='brno != null and brno != ""'>
 				AND CM.BRNO = #{brno}
 			</if>
-			<if test='cmptnInstCofmCd != null and cmptnInstCofmCd != ""'>
-				AND CM.CMPTN_INST_COFM_CD = #{cmptnInstCofmCd}
+			<if test='cmptncInstAprvSe != null and cmptncInstAprvSe != ""'>
+				AND CM.CMPTNC_INST_APRV_SE = #{cmptncInstAprvSe}
 			</if>
-			<if test='cmptnInst != null and cmptnInst != ""'>
-				AND CM.CMPTN_INST = #{cmptnInst}
+			<if test='cmptncInst != null and cmptncInst != ""'>
+				AND CM.CMPTNC_INST = #{cmptncInst}
 			</if>
 		ORDER BY CM.USER_ID DESC
     </select>
@@ -106,10 +106,10 @@
 				, CM.BRNO
 				, CM.MOBLNO
 				, CM.CO_NM
-				, CM.EV_CERT_YN
-				, CM.CMPTN_INST_COFM_CD
-				, CM.CMPTN_INST_COFM_DT
-				, CM.CMPTN_INST
+				, CM.CMPTNC_INST_APRV_SE
+				, CM.CMPTNC_INST_APRV_YMD
+				, CM.CMPTNC_INST
+				, CM.UO_APRV_STTS
 				, CM.DEL_YN		AS DEL_YN
 				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
 				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
@@ -144,11 +144,11 @@
 			<if test='brno != null and brno != ""'>
 				AND CM.BRNO = #{brno}
 			</if>
-			<if test='cmptnInstCofmCd != null and cmptnInstCofmCd != ""'>
-				AND CM.CMPTN_INST_COFM_CD = #{cmptnInstCofmCd}
+			<if test='cmptncInstAprvSe != null and cmptncInstAprvSe != ""'>
+				AND CM.CMPTNC_INST_APRV_SE = #{cmptncInstAprvSe}
 			</if>
-			<if test='cmptnInst != null and cmptnInst != ""'>
-				AND CM.CMPTN_INST = #{cmptnInst}
+			<if test='cmptncInst != null and cmptncInst != ""'>
+				AND CM.CMPTNC_INST = #{cmptncInst}
 			</if>
 		ORDER BY CM.USER_ID DESC
 
@@ -173,9 +173,10 @@
 	    		  , TELNO
 	    		  , BRNO
 	    		  , MOBLNO
-	    		  , CMPTN_INST_COFM_CD
-	    		  , CMPTN_INST_COFM_DT
-	    		  , CMPTN_INST
+	    		  , CMPTNC_INST_APRV_SE
+	    		  , CMPTNC_INST_APRV_YMD
+	    		  , CMPTNC_INST
+	    		  , UO_APRV_STTS
 
 	    		  , SYS_FRST_INPT_DT
 	    		  , SYS_FRST_INPT_USER_ID
@@ -194,9 +195,10 @@
 	   			  , #{brno}
 	   			  , #{moblno}
 	   			  , #{coNm}
-	   			  , #{cmptnInstCofmCd}
+	   			  , #{cmptncInstAprvSe}
+	   			  , #{uoAprvStts}
 	   			  , SYSDATE
-	   			  , #{cmptnInst}
+	   			  , #{cmptncInst}
 
 	   			  , SYSDATE
 	   			  , #{sysFrstInptUserId}
@@ -217,9 +219,10 @@
 			 	, CO_NM 				= #{coNm}
 			 	, MOBLNO 				= #{moblno}
 			 	, TELNO 				= #{telno}
-			 	, CMPTN_INST_COFM_CD 	= #{cmptnInstCofmCd}
-			 	, CMPTN_INST_COFM_DT 	= SYSDATE
+			 	, CMPTNC_INST_APRV_SE 	= #{cmptncInstAprvSe}
+			 	, CMPTNC_INST_APRV_YMD 	= SYSDATE
 			 	, USER_STTS 			= #{userStts}
+			 	, UO_APRV_STTS 			= #{uoAprvStts}
 
     	]]>
 		<if test='delYn != null and delYn != ""'>
