@@ -198,15 +198,12 @@
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
         SBGridProperties.columns = [
-			{caption : ["<input type='checkbox' onchange='fn_checkAll(grdClclnUntprc, this);'>"],
-				ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
-				userattr: {colNm: "checkedYn"},
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-            },
-        	{caption: ['정산기준'], ref: 'clclnCrtrNm', width: '100px', type : 'output', style: 'text-align:center'},
-            {caption: ['품목'], ref: 'itemNm', width: '80px', type: 'output', style: 'text-align:center'},
-            {caption: ['품종'], ref: 'vrtyNm', width: '100px', type: 'output', style: 'text-align:center'},
-            {caption: ['등급'], ref: 'grdNm', width: '80px', type: 'output', style: 'text-align:center'},
+        	{caption: ["체크박스"], 	ref: 'checkedYn',	width: '40px', 	type: 'checkbox',	style: 'text-align: center',
+				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}},
+        	{caption: ['정산기준'], 	ref: 'clclnCrtrNm',	width: '100px', type : 'output',	style: 'text-align:center'},
+            {caption: ['품목'], 		ref: 'itemNm', 		width: '80px', 	type: 'output',		style: 'text-align:center'},
+            {caption: ['품종'], 		ref: 'vrtyNm', 		width: '100px', type: 'output', 	style: 'text-align:center'},
+            {caption: ['등급'], 		ref: 'grdNm', 		width: '80px', 	type: 'output', 	style: 'text-align:center'},
             {
 				caption: ["정산단가 (원)"],
 				ref: 'clclnUntprc',
@@ -237,12 +234,12 @@
                 },
                 format : {type:'number', rule:'#,###'}
 			},
-            {caption: [""], ref: '_', type:'output', width:'1px'},
-            {caption: ["정산기준코드"], ref: 'clclnCrtrCd', type:'output', hidden: true},
-            {caption: ["상품구분코드"], ref: 'gdsSeCd', type:'output', hidden: true},
-            {caption: ["품목코드"], ref: 'itemCd', type:'output', hidden: true},
-            {caption: ["품종코드"], ref: 'vrtyCd', type:'output', hidden: true},
-            {caption: ["등급코드"], ref: 'grdCd', type:'output', hidden: true},
+            {caption: [""], 			ref: '_', 			type:'output', width:'1px'},
+            {caption: ["정산기준코드"], 	ref: 'clclnCrtrCd', type:'output', hidden: true},
+            {caption: ["상품구분코드"], 	ref: 'gdsSeCd', 	type:'output', hidden: true},
+            {caption: ["품목코드"], 		ref: 'itemCd', 		type:'output', hidden: true},
+            {caption: ["품종코드"], 		ref: 'vrtyCd', 		type:'output', hidden: true},
+            {caption: ["등급코드"], 		ref: 'grdCd', 		type:'output', hidden: true},
         ];
 
         grdClclnUntprc = _SBGrid.create(SBGridProperties);
@@ -292,25 +289,6 @@
 			}
 		}
 	}
-
-	/**
-	 * @name fn_checkAll
-	 * @description 전체 선택 체크박스
-	 */
-    function fn_checkAll(grid, obj) {
-        var gridList = grid.getGridDataAll();
-        var checkedYn = obj.checked ? "Y" : "N";
-        //체크박스 열 index
-        var getColRef = grid.getColRef("checkedYn");
-    	var getRow = grid.getRow();
-    	var getCol = grid.getCol();
-        for (var i=0; i<gridList.length; i++) {
-        	grid.setCol(getColRef);
-        	grid.clickCell(i+1, getColRef);
-            grid.setCellData(i+1, getColRef, checkedYn, true, false);
-        }
-    	grid.clickCell(getRow, getCol);
-    }
 
 
 	/**
@@ -396,6 +374,9 @@
      * @description 조회 버튼
      */
     const fn_search = async function() {
+		var getColRef = grdClclnUntprc.getColRef("checkedYn");
+		grdClclnUntprc.setFixedcellcheckboxChecked(0, getColRef, false);
+		
     	fn_setGrdClclnUntprc();
 	}
 

@@ -91,3 +91,13 @@ nav.sbux-meu-wrap .sbux-meu-fluid{
 	-webkit-appearance : auto !important;
 	appearance: auto  !important;
 }
+.sbux-pik-pop-day .sbgrid_tree_ui {
+	border-width: 0px !important;
+}
+.sbux-pik-pop-day > thead > tr > th{
+	background-color : #149FFF !important;
+}
+.sbux-pik-pop-day > thead > tr > th.sbux-pik-dow{
+	background-color : #fff !important;
+	text-align: center !important;
+}
