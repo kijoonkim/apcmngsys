@@ -32,6 +32,14 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 원물입고재처리 -->
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-button
+						id="btnReset"
+						name="btnReset"
+						uitype="normal"
+						class="btn btn-sm btn-outline-danger"
+						text="초기화"
+						onclick="fn_reset"
+					></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-dark" onclick="fn_search" text="조회"></sbux-button>
 				</div>
 			</div>
@@ -1563,6 +1571,23 @@
         }
     	grid.clickCell(getRow, getCol);
     }
+    
+	const fn_reset = function(){
+ 		// 검색조건 초기화
+ 		SBUxMethod.set("srch-dtp-wrhsYmdFrom",gfn_dateFirstYmd(new Date()));
+		SBUxMethod.set("srch-dtp-wrhsYmdTo",gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-slt-itemCd","");
+		SBUxMethod.set("srch-slt-vrtyCd","");
+ 		SBUxMethod.set("srch-inp-prdcrIdentno","");
+ 		SBUxMethod.set("srch-inp-prdcrNm","");
+		SBUxMethod.set("srch-inp-prdcrCd","");
+		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:none");
+		
+		SBUxMethod.set("dtl-dtp-inptYmd",gfn_dateToYmd(new Date()));
+		SBUxMethod.set("lbl-grdInptWght","");
+		SBUxMethod.set("lbl-grdPrcsWght","");
+		
+	}
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
