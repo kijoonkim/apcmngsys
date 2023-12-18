@@ -103,11 +103,24 @@ var gjsonStdGrdObj_3 = [];
 var gjsonStdGrdObj_4 = [];
 var gjsonStdGrdObj_5 = [];
 
+
+var gjsonExtGrdObjKnd = [];
+var gjsonExtGrdObjJgmt = [];
+var gjsonExtGrdObjDtl = [];
+var gjsonExtGrdObj_1 = [];
+var gjsonExtGrdObj_2 = [];
+var gjsonExtGrdObj_3 = [];
+var gjsonExtGrdObj_4 = [];
+var gjsonExtGrdObj_5 = [];
+
 const gStdGrdObj = {
 		idList: ['1', '2', '3', '4', '5'],
 		jsonPrefix: "gjsonStdGrdObj_",
+		jsonExtPrefix: "gjsonExtGrdObj_",
 		jgmtJsonId: "gjsonStdGrdObjJgmt",
+		jgmtExtJsonId: "gjsonExtGrdObjJgmt",
 		colPrfx: 'std__',
+		colExtPrfx: 'ext__',
 		param: {apcCd: null, grdSeCd: null, itemCd: null},
 		init: async function(_apcCd, _grdSeCd, _itemCd) {
 
@@ -131,8 +144,8 @@ const gStdGrdObj = {
 			gjsonStdGrdObjJgmt = rslt[1];
 			gjsonStdGrdObjDtl = rslt[2];
 
-			if (jsonTempKnds.length > 0) {
-				jsonTempKnds.forEach((item, index) => {
+            if (jsonTempKnds.length > 0) {
+                jsonTempKnds.forEach((item, index) => {
 					if (index >= 5) return false;
 
 					const id = this.idList[index];
@@ -147,15 +160,65 @@ const gStdGrdObj = {
 							jsonId: this.jsonPrefix + id
 						}
 
-					gjsonStdGrdObjKnd.push(knd);
+                    gjsonStdGrdObjKnd.push(knd);
 
-					let jsonObj = this.getGrdJson(id);
-
+                    let jsonObj = this.getGrdJson(id);
+					jsonObj.length = 0;
+					
 					const dtls = gfn_getJsonFilter(gjsonStdGrdObjDtl, "grdKnd", item.grdKnd);
 					dtls.forEach((item) => {
-						jsonObj.push(item);
+                        jsonObj.push(item);
 					});
 				});
+			}
+			
+			
+			// 선별등급의 경우 상품등급 추가 세팅
+			if (_.isEqual(_grdSeCd, _GRD_SE_CD_SORT)) {
+				
+				gjsonExtGrdObjKnd.length = 0;
+				gjsonExtGrdObjJgmt.length = 0;
+				gjsonExtGrdObjDtl.length = 0;
+				
+				rslt = await Promise.all([
+					gfn_getStdGrds(_apcCd, _GRD_SE_CD_GDS, _itemCd),
+					gfn_getStdGrdJgmts(_apcCd, _GRD_SE_CD_GDS, _itemCd),
+					gfn_getStdGrdDtls(_apcCd, _GRD_SE_CD_GDS, _itemCd)
+			 	]);
+				
+				const _jsonKndTemp = rslt[0];
+				gjsonExtGrdObjJgmt = rslt[1];
+				gjsonExtGrdObjDtl = rslt[2];
+				
+				if (_jsonKndTemp.length > 0) {
+					_jsonKndTemp.forEach((item, index) => {
+						if (index >= 5) return false;
+	
+						const id = this.idList[index];
+						const knd = {
+								itemCd: item.itemCd,
+								itemNm: item.itemNm,
+								grdKnd: item.grdKnd,
+								grdKndNm: item.grdKndNm,
+								adtnRt: item.adtnRt,
+								stdGrdType: item.stdGrdType,
+								grdId: id,
+								jsonId: this.jsonPrefix + id
+							}
+	
+						gjsonExtGrdObjKnd.push(knd);
+	
+						let jsonObj = this.getExtJson(id);
+						jsonObj.length = 0;
+						
+						const dtls = gfn_getJsonFilter(gjsonExtGrdObjDtl, "grdKnd", item.grdKnd);
+						dtls.forEach((item) => {
+							jsonObj.push(item);
+						});
+						
+					});
+				}
+				console.log(gjsonExtGrdObjKnd);
 			}
 		},
 		getGrdJson: function(id) {
@@ -165,6 +228,16 @@ const gStdGrdObj = {
 				case '3': return gjsonStdGrdObj_3;
 				case '4': return gjsonStdGrdObj_4;
 				case '5': return gjsonStdGrdObj_5;
+				default: return null;
+			}
+		},
+		getExtJson: function(id) {
+			switch (id) {
+				case '1': return gjsonExtGrdObj_1;
+				case '2': return gjsonExtGrdObj_2;
+				case '3': return gjsonExtGrdObj_3;
+				case '4': return gjsonExtGrdObj_4;
+				case '5': return gjsonExtGrdObj_5;
 				default: return null;
 			}
 		},

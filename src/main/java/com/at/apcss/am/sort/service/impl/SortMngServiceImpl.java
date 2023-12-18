@@ -411,6 +411,18 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 			if (sort.getRmnWght() > 0) {
 				return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "재고량||투입량");		// W0008	{0} 보다 {1}이/가 큽니다.
 			}
+			if (!StringUtils.hasText(sort.getItemCd())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "품목");
+			}
+			if (!StringUtils.hasText(sort.getVrtyCd())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "품종");
+			}
+			if (!StringUtils.hasText(sort.getSpcfctCd())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "규격");
+			}
+			if (!StringUtils.hasText(sort.getGrdCd())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "등급");
+			}
 		}
 
 		// 선별실적 등록
@@ -496,11 +508,28 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 
 				PckgPrfmncVO pckgVO = new PckgPrfmncVO();
 				BeanUtils.copyProperties(invntrVO, pckgVO);
+				
+				pckgVO.setFcltCd(null);
 				pckgVO.setInptYmd(sortVO.getInptYmd());
 				pckgVO.setPckgYmd(sortVO.getInptYmd());
 				pckgVO.setPckgQntt(sortVO.getSortQntt());
 				pckgVO.setPckgWght(sortVO.getSortWght());
-				pckgVO.setGdsGrd(sortVO.getGrdCd());
+				//pckgVO.setGdsGrd(sortVO.getGrdCd());
+				
+				pckgVO.setSpmtPckgUnitCd(sortVO.getSpmtPckgUnitCd());
+				pckgVO.setGdsGrd(sortVO.getGdsGrd());
+				pckgVO.setStdGrdList(sortVO.getGdsStdGrdList());
+				
+				if (!StringUtils.hasText(pckgVO.getSpmtPckgUnitCd())) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상품명")));
+				}
+				if (!StringUtils.hasText(pckgVO.getGdsGrd())) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상품등급")));
+				}
+				if (pckgVO.getStdGrdList() == null || pckgVO.getStdGrdList().isEmpty()) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상품등급")));
+				}
+				
 				pckgPrfmncList.add(pckgVO);
 			}
 

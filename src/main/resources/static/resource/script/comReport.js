@@ -70,6 +70,22 @@ const gfn_getReportKey = async function(fileName, param) {
 }
 
 /**
+ * @name gfn_pdfDwnlClipReport
+ * @description 클립리포트 출력
+ */
+const gfn_pdfDwnlClipReport = async function(fileName, param, pdfName) {
+	const reportKey = await gfn_getReportKey(fileName, param);
+	const report = createOOFReport(
+				gv_reportUrl, 
+				reportKey, 
+				document.getElementById(gv_dvClipReportPrint)
+			);
+			
+	report.callSaveFileDownLoad(pdfName, 1, 1);
+}
+
+
+/**
  * @name gfn_printClipReport
  * @description 클립리포트 출력
  */
@@ -96,6 +112,7 @@ const gfn_drawClipReport = async function(divId, reportKey) {
 	//report.printPDFDirect()();
 	//printEXEDirect()
 	report.setViewType(1);
+	report.setStyle("close_button", "display:none;");
 	report.view();
 }
 
@@ -105,15 +122,38 @@ const gfn_drawClipReport = async function(divId, reportKey) {
  */
 const gfn_popClipReport = async function(title, fileName, param) {
 
-	const reportKey = await gfn_getReportKey(fileName, param);
+	// const reportKey = await gfn_getReportKey(fileName, param);
+	/*
 	const url = "/report/openClipReport.do?"
 			+ "reportKey="+ reportKey +"&title="+title;
+*/
 
+	let url = "/report/openClipReport.do?"
+				+ "title="+ title +"&fileName="+ fileName;
+	const windowTargetName = "popClipReport";
+	const features = "width=1200, height=1000, toolbar=no directories=no, status=no";
+
+	if (!gfn_isEmpty(param)) {
+		const keys = Object.getOwnPropertyNames(param);
+		keys.forEach((key) => {
+			url += "&"+ key +"="+ param[key];
+		});
+	}
+	
+	window.open(
+			encodeURI(url, "UTF-8"),
+			windowTargetName,
+			features
+		);
+	
+/*
 	window.open(
 		url,
 		'popClipReport',
 		'width=1200, height=800, toolbar=no directories=no, status=no'
 		);
+*/
+		
 /*
 	const frm = document.createElement("form");
  	frm.setAttribute("charset", "UTF-8");
