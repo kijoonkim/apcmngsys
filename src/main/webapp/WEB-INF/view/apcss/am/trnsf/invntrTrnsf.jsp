@@ -60,12 +60,12 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg">이송일자</th>
+							<th scope="row" class="th_bg"><span class="data_required"></span>이송일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-trnsfYmdFrom" name="srch-dtp-trnsfYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm" onchange="fn_dtpChange(srch-dtp-trnsfYmdFrom)"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-trnsfYmdFrom" name="srch-dtp-trnsfYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-trnsfYmdFrom)"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-trnsfYmdTo" name="srch-dtp-trnsfYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm" onchange="fn_dtpChange(srch-dtp-trnsfYmdTo)"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-trnsfYmdTo" name="srch-dtp-trnsfYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-trnsfYmdTo)"></sbux-datepicker>
 							</td>
 							<td></td>
 							<th scope="row" class="th_bg">이송APC</th>
@@ -401,6 +401,11 @@
 
 	//조회
     const fn_search = async function() {
+		if (gfn_isEmpty(SBUxMethod.get("srch-dtp-trnsfYmdFrom")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-trnsfYmdTo"))) {
+    		gfn_comAlert("W0001", "이송일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+    	}
+		
     	grdInvntrTrnsf.rebuild();
     	let pageSize = grdInvntrTrnsf.getPageSize();
     	let pageNo = 1;
