@@ -272,7 +272,7 @@ public class GdsInvntrVO extends ComVO {
 	private int chgAftrQntt;
 	private double chgAftrWght;
 	private String chgRsnCd;
-	private String chgRmrk;
+	private String chgRsn;
 
 	/*
 	 * 이송여부

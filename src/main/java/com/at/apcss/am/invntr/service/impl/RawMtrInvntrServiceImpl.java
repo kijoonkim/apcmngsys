@@ -102,7 +102,7 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		if (stdGrdList != null && !stdGrdList.isEmpty()) {
 
 			String apcCd = rawMtrInvntrVO.getApcCd();
-			
+
 			int wrhsQntt = rawMtrInvntrVO.getWrhsQntt();
 			double wrhsWght = rawMtrInvntrVO.getWrhsWght();
 			if (ComConstants.CON_YES.equals(rawMtrInvntrVO.getExcelYn())) {
@@ -112,13 +112,13 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 
 			double sumGrdNv = 0;
 			double sumGrdWght = 0;
-			
+
 			int rmnQntt = wrhsQntt;
 			double rmnWght = wrhsWght;
 
 			int cntCalc = 0;
 			int cntWght = 0;
-			
+
 			for ( RawMtrStdGrdVO stdGrd : stdGrdList ) {
 
 				StdGrdVO paramVO = new StdGrdVO();
@@ -184,12 +184,12 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 						rmnWght -= wght;
 
 					} else if (AmConstants.CON_STD_GRD_TYPE_WT.equals(stdGrd.getStdGrdType())) {
-						
+
 						cntWght++;
 						// 중량적용 : 등급상세 없음 * 로 등록
 						stdGrd.setGrdCd(AmConstants.CON_STD_GRD_CD_EMPTY);
 						sumGrdWght += stdGrd.getGrdWght();
-						
+
 					} else {
 						return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "등급값");
 					}
@@ -231,7 +231,7 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 					}
 				}
 			} else if (cntWght > 0) {
-				
+
 				if (sumGrdWght > wrhsWght) {
 					return ComUtil.getResultMap(ComConstants.MSGCD_TGT_GREATER_THAN, "등급중량||합산중량");
 				} else if (sumGrdWght < wrhsWght) {
@@ -279,9 +279,9 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 
 	@Override
 	public HashMap<String, Object> insertRawMtrInvntrListForImport(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception {
-		
+
 		for ( RawMtrInvntrVO rawMtrInvntrVO : rawMtrInvntrList ) {
-			
+
 			rawMtrInvntrVO.setExcelYn(ComConstants.CON_YES);
 			// 재고 등록 부분
 			String wrhsno = cmnsTaskNoService.selectWrhsno(rawMtrInvntrVO.getApcCd(), rawMtrInvntrVO.getWrhsYmd());
@@ -289,7 +289,7 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 			if (!StringUtils.hasText(rawMtrInvntrVO.getPltno())) {
 				rawMtrInvntrVO.setPltno(wrhsno);
 			}
-			
+
 			HashMap<String, Object> rtnObj = insertRawMtrInvntr(rawMtrInvntrVO);
 
 			if (rtnObj != null) {
@@ -299,8 +299,8 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 
 		return null;
 	}
-	
-	
+
+
 	@Override
 	public HashMap<String, Object> deleteRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
 
@@ -460,7 +460,9 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 			}
 
 			// 원물 재고 변경
-			rawMtrInvntrMapper.updateRawMtrInvntrChg(rawMtrInvntrVO);
+			if(1 != rawMtrInvntrMapper.updateRawMtrInvntrChg(rawMtrInvntrVO)) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "재고변경")));		// E0003	{0} 시 오류가 발생하였습니다.
+			}
 		}
 
 		return null;
@@ -730,6 +732,7 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		chgHstryVO.setChgBfrWght(invntrInfo.getInvntrWght());
 		chgHstryVO.setChgAftrQntt(rawMtrInvntrVO.getInvntrQntt());
 		chgHstryVO.setChgAftrWght(rawMtrInvntrVO.getInvntrWght());
+		chgHstryVO.setChgRsn(rawMtrInvntrVO.getRmrk());
 
 		if (!StringUtils.hasText(rawMtrInvntrVO.getWarehouseSeCd())
 				|| rawMtrInvntrVO.getWarehouseSeCd().equals(invntrInfo.getWarehouseSeCd())) {
