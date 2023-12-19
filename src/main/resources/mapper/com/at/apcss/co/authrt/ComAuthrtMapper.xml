@@ -26,7 +26,7 @@
 				  CA.AUTHRT_ID      AS AUTHRT_ID
 		        , CA.AUTHRT_NM      AS AUTHRT_NM
 				, CA.AUTHRT_TYPE    AS AUTHRT_TYPE
-				, CA.AUTHRT_RMRK    AS AUTHRT_RMRK
+				, CA.AUTHRT_EXPLN   AS AUTHRT_EXPLN
 				, CA.DEL_YN                 AS DEL_YN
 		        , CA.SYS_FRST_INPT_DT       AS SYS_FRST_INPT_DT
 		        , CA.SYS_FRST_INPT_USER_ID  AS SYS_FRST_INPT_USER_ID
@@ -62,7 +62,7 @@
 				  CA.AUTHRT_ID      AS AUTHRT_ID
 		        , CA.AUTHRT_NM      AS AUTHRT_NM
 				, CA.AUTHRT_TYPE    AS AUTHRT_TYPE
-				, CA.AUTHRT_RMRK    AS AUTHRT_RMRK
+				, CA.AUTHRT_EXPLN   AS AUTHRT_EXPLN
 				, CA.APC_CD			AS APC_CD
 				, (SELECT FN_GET_COM_CD_VL_NM('AUTHRT_TYPE', CA.AUTHRT_TYPE) FROM DUAL) AS AUTHRT_TYPE_NM
 				, (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = CA.APC_CD) AS APC_NM
@@ -83,8 +83,8 @@
 		<if test='authrtType != null and authrtType != ""'>
 			   AND CA.AUTHRT_TYPE = #{authrtType}
 		</if>
-		<if test='authrtRmrk != null and authrtRmrk != ""'>
-			   AND CA.AUTHRT_RMRK LIKE '%' || #{authrtRmrk} || '%'
+		<if test='authrtExpln != null and authrtExpln != ""'>
+			   AND CA.AUTHRT_EXPLN LIKE '%' || #{authrtExpln} || '%'
 		</if>
 		<if test='apcCd != null and apcCd != ""'>
 			   AND CA.APC_CD = #{apcCd}
@@ -114,7 +114,7 @@
 					  AUTHRT_ID
 					, AUTHRT_NM
 					, AUTHRT_TYPE
-					, AUTHRT_RMRK
+					, AUTHRT_EXPLN
 					, APC_CD
 	    		  	, SYS_FRST_INPT_DT
 	    		  	, SYS_FRST_INPT_USER_ID
@@ -126,7 +126,7 @@
 					  FN_GET_ID_COM_AUTH(#{apcCd})
 					, #{authrtNm}
 					, #{authrtType}
-					, #{authrtRmrk}
+					, #{authrtExpln}
 					, #{apcCd}
 					, SYSDATE
 	   			  	, #{sysFrstInptUserId}
@@ -153,7 +153,7 @@
 			   SET
 			   	  AUTHRT_NM 	= #{authrtNm}
 	    	    , AUTHRT_TYPE 	= #{authrtType}
-	    	    , AUTHRT_RMRK	= #{authrtRmrk}
+	    	    , AUTHRT_EXPLN	= #{authrtExpln}
 	    	    , SYS_LAST_CHG_DT		= SYSDATE
 	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
@@ -249,7 +249,7 @@
 				  CA.AUTHRT_ID      AS AUTHRT_ID
 		        , CA.AUTHRT_NM      AS AUTHRT_NM
 				, CA.AUTHRT_TYPE    AS AUTHRT_TYPE
-				, CA.AUTHRT_RMRK    AS AUTHRT_RMRK
+				, CA.AUTHRT_EXPLN   AS AUTHRT_EXPLN
 				, AM.MENU_ID    	AS MENU_ID
 				, CM.MENU_NM    	AS MENU_NM
 				, CM.UP_MENU_ID 	AS UP_MENU_ID
@@ -277,8 +277,8 @@
 		<if test='authrtType != null and authrtType != ""'>
 			   AND CA.AUTHRT_TYPE = #{authrtType}
 		</if>
-		<if test='authrtRmrk != null and authrtRmrk != ""'>
-			   AND CA.AUTHRT_RMRK LIKE '%' || #{authrtRmrk} || '%'
+		<if test='authrtExpln != null and authrtExpln != ""'>
+			   AND CA.AUTHRT_EXPLN LIKE '%' || #{authrtExpln} || '%'
 		</if>
 		<if test='menuId != null and menuId != ""'>
 			AND AM.MENU_ID = #{menuId}
@@ -820,7 +820,7 @@
 				  CA.AUTHRT_ID      AS AUTHRT_ID
 		        , CA.AUTHRT_NM      AS AUTHRT_NM
 				, CA.AUTHRT_TYPE    AS AUTHRT_TYPE
-				, CA.AUTHRT_RMRK    AS AUTHRT_RMRK
+				, CA.AUTHRT_EXPLN   AS AUTHRT_EXPLN
 				, CA.APC_CD			AS APC_CD
 				, (SELECT FN_GET_COM_CD_VL_NM('AUTHRT_TYPE', CA.AUTHRT_TYPE) FROM DUAL) AS AUTHRT_TYPE_NM
 				, (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = CA.APC_CD) AS APC_NM

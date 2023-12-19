@@ -17,7 +17,7 @@ public class ComAuthrtVO extends ComVO {
 	private String authrtNm;
 	private String authrtType;
 	private String authrtTypeNm;
-	private String authrtRmrk;
+	private String authrtExpln;
 	private String entyId;
 	private String entyType;
 	private String apcCd;

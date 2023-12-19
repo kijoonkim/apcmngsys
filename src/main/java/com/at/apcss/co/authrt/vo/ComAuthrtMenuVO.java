@@ -32,7 +32,7 @@ public class ComAuthrtMenuVO extends ComVO {
 	private int menuLvl;
 	private String userId;
 	private String authrtType;
-	private String authrtRmrk;
+	private String authrtExpln;
 	private String prsnaInfoYn;
 
 	private List<String> authrtIdList;
@@ -43,8 +43,8 @@ public class ComAuthrtMenuVO extends ComVO {
 	public void setAuthrtIdList(List<String> authrtIdList) {
 		this.authrtIdList = authrtIdList == null ? null : authrtIdList.stream().collect(Collectors.toList());
 	}
-	
-	private List<ComAuthrtUiVO> comAuthrtUiList;	
+
+	private List<ComAuthrtUiVO> comAuthrtUiList;
 	public List<ComAuthrtUiVO> getComAuthrtUiList() {
 		return this.comAuthrtUiList == null ? null : comAuthrtUiList.stream().collect(Collectors.toList());
 	}

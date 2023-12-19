@@ -12,8 +12,8 @@ public class ComAuthrtUiVO extends ComUiVO {
 	private String authrtId;
 	private String authrtNm;
 	private String authrtType;
-	private String authrtRmrk;
-	
+	private String authrtExpln;
+
 	private String aplcnType;
 	private String aplcnTypeNm;
 	private String indctYn;

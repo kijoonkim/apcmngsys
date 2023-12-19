@@ -16,10 +16,10 @@ public class apcBbsVO extends ComVO{
 	private String msgKndNm;
 	private String rmrk;
 	private String bbsNo;
-	private String bbsTitle;
+	private String bbsTtl;
 	private String bbsSeCd;
 	private String bbsSeCdNm;
-	private String bbsSubject;
+	private String bbsSbjt;
 	private String delYn;
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;

@@ -25,9 +25,9 @@
 			SELECT /* com.at.apcss.am.bbs.mapper.apcBbsMapper.selectBbs */
 			      CM.APC_CD
 				, CM.BBS_NO	AS BBS_NO
-				, CM.BBS_TITLE		AS BBS_TITLE
+				, CM.BBS_TTL		AS BBS_TTL
 				, CM.BBS_SE_CD	AS BBS_SE_CD
-				, CM.BBS_SUBJECT		AS BBS_SUBJECT
+				, CM.BBS_SBJT		AS BBS_SBJT
 				, CM.DEL_YN		AS DEL_YN
 				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
 				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
@@ -70,10 +70,10 @@
 			SELECT /* com.at.apcss.am.bbs.mapper.apcBbsMapper.selectBbsList */
 				  CM.APC_CD
 				, CM.BBS_NO	AS BBS_NO
-				, CM.BBS_TITLE		AS BBS_TITLE
+				, CM.BBS_TTL		AS BBS_TTL
 				, CM.BBS_SE_CD	AS BBS_SE_CD
 				, (SELECT FN_GET_COM_CD_VL_NM('BBS_SE_CD', CM.BBS_SE_CD) FROM DUAL) AS BBS_SE_CD_NM
-				, CM.BBS_SUBJECT		AS BBS_SUBJECT
+				, CM.BBS_SBJT		AS BBS_SBJT
 				, CM.DEL_YN		AS DEL_YN
 				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
 				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
@@ -134,9 +134,9 @@
 	    		(
 	    		    APC_CD
 	    		  , BBS_NO
-	    		  , BBS_TITLE
+	    		  , BBS_TTL
 	    		  , BBS_SE_CD
-	    		  , BBS_SUBJECT
+	    		  , BBS_SBJT
 	    		  , SYS_FRST_INPT_DT
 	    		  , SYS_FRST_INPT_USER_ID
 	    		  , SYS_FRST_INPT_PRGRM_ID
@@ -148,9 +148,9 @@
 	   			(
 	   			  #{apcCd}
 	   			  , (SELECT NVL(MAX(BBS_NO),0)+1 FROM TB_APC_BBS)
-	   			  , #{bbsTitle}
+	   			  , #{bbsTtl}
 	   			  , #{bbsSeCd}
-	   			  , #{bbsSubject}
+	   			  , #{bbsSbjt}
 	   			  , SYSDATE
 	   			  , #{sysFrstInptUserId}
 	   			  , #{sysFrstInptPrgrmId}
@@ -291,9 +291,9 @@
 	    	UPDATE /* com.at.apcss.am.bbs.mapper.BbsMngMapper.updateBbs */
 	    		TB_APC_BBS
 			   SET
-			 	  BBS_TITLE	= #{bbsTitle}
+			 	  BBS_TTL	= #{bbsTtl}
 			 	, BBS_SE_CD 	= #{bbsSeCd}
-			 	, BBS_SUBJECT 		= #{bbsSubject}
+			 	, BBS_SBJT 		= #{bbsSbjt}
     	]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}

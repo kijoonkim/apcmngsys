@@ -161,7 +161,7 @@
 									<tr>
 										<th scope="row" class="th_bg">권한설명</th>
 										<td class="td_input" colspan="3">
-											<sbux-input id="dtl-inp-authrtRmrk" name="dtl-inp-authrtRmrk" class="form-control input-sm" uitype="text" required style="width:100%" ></sbux-input>
+											<sbux-input id="dtl-inp-authrtExpln" name="dtl-inp-authrtExpln" class="form-control input-sm" uitype="text" required style="width:100%" ></sbux-input>
 										</td>
 									</tr>
 								</thead>
@@ -469,7 +469,7 @@
         SBUxMethod.attr("dtl-inp-authrtId", "readonly", true);
         SBUxMethod.set("dtl-inp-authrtNm", null);
         SBUxMethod.set("dtl-slt-authrtType", null);
-        SBUxMethod.set("dtl-inp-authrtRmrk", null);
+        SBUxMethod.set("dtl-inp-authrtExpln", null);
         if(gv_userType == "10"){
 	        SBUxMethod.set("dtl-inp-apcCd", gv_selectedApcCd);
 	        SBUxMethod.attr("dtl-inp-apcCd", "readonly", true);
@@ -507,7 +507,7 @@
         }
 
         // check 권한설명
-        if (!SBUxMethod.get("dtl-inp-authrtRmrk")) {
+        if (!SBUxMethod.get("dtl-inp-authrtExpln")) {
         	gfn_comAlert("W0002", "권한설명");		//	W0002	{0}을/를 입력하세요.
             return;
         }
@@ -609,7 +609,7 @@
   						authrtNm: item.authrtNm,
   						authrtType: item.authrtType,
   						authrtTypeNm: item.authrtTypeNm,
-  						authrtRmrk: item.authrtRmrk,
+  						authrtExpln: item.authrtExpln,
   						apcCd: item.apcCd,
   						apcNm: item.apcNm,
   						sysId: item.sysId
@@ -810,14 +810,14 @@
 		let authrtId		= SBUxMethod.get('dtl-inp-authrtId');		// 권한ID
 		let authrtNm		= SBUxMethod.get('dtl-inp-authrtNm');		// 권한명
 		let authrtType		= SBUxMethod.get('dtl-slt-authrtType');		// 권한유형
-		let authrtRmrk		= SBUxMethod.get('dtl-inp-authrtRmrk');		// 권한설명
+		let authrtExpln		= SBUxMethod.get('dtl-inp-authrtExpln');		// 권한설명
 		let apcCd			= SBUxMethod.get('dtl-inp-apcCd');
 
     	const postJsonPromise = gfn_postJSON("/co/authrt/insertComAuthrt.do", {
 			authrtId 	: authrtId,
 			authrtNm 	: authrtNm,
 			authrtType 	: authrtType,
-			authrtRmrk 	: authrtRmrk,
+			authrtExpln : authrtExpln,
 			apcCd 		: apcCd
 		});
 
@@ -853,14 +853,14 @@
 		let authrtId		= SBUxMethod.get('dtl-inp-orgnAuthrtId');		// 권한ID
 		let authrtNm		= SBUxMethod.get('dtl-inp-authrtNm');		// 권한명
 		let authrtType		= SBUxMethod.get('dtl-slt-authrtType');		// 권한유형
-		let authrtRmrk		= SBUxMethod.get('dtl-inp-authrtRmrk');		// 권한설명
+		let authrtExpln		= SBUxMethod.get('dtl-inp-authrtExpln');		// 권한설명
 		let apcCd			= SBUxMethod.get('dtl-inp-apcCd');
 
     	const postJsonPromise = gfn_postJSON("/co/authrt/updateComAuthrt.do", {
 			authrtId 	: authrtId,
 			authrtNm 	: authrtNm,
 			authrtType 	: authrtType,
-			authrtRmrk 	: authrtRmrk,
+			authrtExpln : authrtExpln,
 			apcCd 		: apcCd
 		});
 
@@ -941,7 +941,7 @@
         SBUxMethod.attr("dtl-inp-authrtId", "readonly", true);
         SBUxMethod.set("dtl-inp-authrtNm", rowData.authrtNm);
         SBUxMethod.set("dtl-slt-authrtType", rowData.authrtType);
-        SBUxMethod.set("dtl-inp-authrtRmrk", rowData.authrtRmrk);
+        SBUxMethod.set("dtl-inp-authrtExpln", rowData.authrtExpln);
         SBUxMethod.set("dtl-inp-apcCd", rowData.apcCd);
         SBUxMethod.attr("dtl-inp-apcCd", "readonly", !gfn_isEmpty(rowData.authrtId));
 
@@ -988,7 +988,7 @@
         SBUxMethod.attr("dtl-inp-authrtId", "readonly", true);
         SBUxMethod.set("dtl-inp-authrtNm", null);
         SBUxMethod.set("dtl-slt-authrtType", null);
-        SBUxMethod.set("dtl-inp-authrtRmrk", null);
+        SBUxMethod.set("dtl-inp-authrtExpln", null);
         if(gv_userType == "10"){
 	        SBUxMethod.set("dtl-inp-apcCd", gv_selectedApcCd);
 	        SBUxMethod.attr("dtl-inp-apcCd", "readonly", true);
