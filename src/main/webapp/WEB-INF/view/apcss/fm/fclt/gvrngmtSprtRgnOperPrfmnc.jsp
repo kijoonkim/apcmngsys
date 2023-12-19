@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>title : SBUx2.6</title>
 </head>
-<body>
+<body oncontextmenu="return false">
 	<section class="content container-fluid">
 	<div class="box box-solid">
 		<div class="box-body">

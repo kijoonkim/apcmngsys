@@ -76,7 +76,7 @@ function init(){
 		}
 }
 </script>
-<body onload="init();">
+<body onload="init();" oncontextmenu="return false">
 	<form id="form" name="form" method="post">
 		<input type="hidden" id="confmKey" name="confmKey" value=""/>
 		<input type="hidden" id="returnUrl" name="returnUrl" value=""/>
