@@ -41,8 +41,8 @@ public interface CmnsTaskNoService {
 	 * @return
 	 * @throws Exception
 	 */
-	public String selectWrhsPrcsno(String apcCd, String ymd) throws Exception;
-	
+	public String selectWrhsPrcsNo(String apcCd, String ymd) throws Exception;
+
 	/**
 	 * 입고계획번호 발번
 	 * @param apcCd

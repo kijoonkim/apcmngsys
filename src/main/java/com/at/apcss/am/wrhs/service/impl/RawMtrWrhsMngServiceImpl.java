@@ -48,7 +48,7 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 
 	@Resource(name="rawMtrWrhsService")
 	private RawMtrWrhsService rawMtrWrhsService;
-	
+
 	@Resource(name="rawMtrInvntrService")
 	private RawMtrInvntrService rawMtrInvntrService;
 
@@ -57,7 +57,7 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 
 	@Override
 	public HashMap<String, Object> insertRawMtrRePrcs(RawMtrWrhsMngVO rawMtrWrhsMngVO) throws Exception {
-		
+
 		// 원물입고 재처리
 		HashMap<String, Object> rtnObj = new HashMap<>();
 
@@ -66,108 +66,108 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 		if (!StringUtils.hasText(apcCd)) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
 		}
-		
+
 		String wrhsYmd = rawMtrWrhsMngVO.getWrhsYmd();
 		if (!StringUtils.hasText(wrhsYmd)) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "처리일자");
 		}
-		
-		// 재처리 번호 발번 : 
-		String rawMtrPrcsno = rawMtrWrhsMngVO.getPrcsno();
-		
-		if (!StringUtils.hasText(rawMtrPrcsno)) {
-			rawMtrPrcsno = cmnsTaskNoService.selectWrhsPrcsno(apcCd, wrhsYmd);
+
+		// 재처리 번호 발번 :
+		String rawMtrPrcsNo = rawMtrWrhsMngVO.getPrcsNo();
+
+		if (!StringUtils.hasText(rawMtrPrcsNo)) {
+			rawMtrPrcsNo = cmnsTaskNoService.selectWrhsPrcsNo(apcCd, wrhsYmd);
 		}
 
 		// 실적등록 대상재고 목록
 		List<RawMtrInvntrVO> invntrList = rawMtrWrhsMngVO.getRawMtrInvntrList();
 		// 실적등록 대상정보 목록
 		List<RawMtrWrhsVO> rawMtrRePrcsList = rawMtrWrhsMngVO.getRawMtrRePrcsList();
-		
+
 		if (rawMtrRePrcsList == null || rawMtrRePrcsList.isEmpty()) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "처리대상");
 		}
-		
+
 		// 원물재고 투입대상
 		List<RawMtrInvntrVO> rawMtrInvntrVOList = new ArrayList<>();
-		
+
 		// 원물입고
 		if (invntrList == null || invntrList.isEmpty()) {
-			
+
 			List<String> excldWrhsnoList = new ArrayList<>();
-			
+
 			invntrList = new ArrayList<RawMtrInvntrVO>();
-			
+
 			// 생산자, 품목, 품종에 따른 원물재고를 가져온다.
 			// 투입진행 중 건은 제외한다.
-			
+
 			labelLoop:
 				for ( RawMtrWrhsVO rePrcs : rawMtrRePrcsList ) {
-				
+
 					rePrcs.setRmnQntt(rePrcs.getWrhsQntt());
 					rePrcs.setRmnWght(rePrcs.getWrhsWght());
-					
+
 					// 품목
 					String itemCd = ComUtil.nullToEmpty(rePrcs.getItemCd());
 					// 품종
 					String vrtyCd = ComUtil.nullToEmpty(rePrcs.getVrtyCd());
 					// 창고
 					String warehouseSeCdFrom = ComUtil.nullToEmpty(rePrcs.getWarehouseSeCdFrom());
-					
+
 					int wrhsQntt = rePrcs.getRmnQntt();
 					double wrhsWght = rePrcs.getRmnWght();
-					
+
 					for ( RawMtrInvntrVO orgnInv : rawMtrInvntrVOList ) {
-						
+
 						int invRmnQntt = orgnInv.getRmnQntt();
 						double invRmnWght = orgnInv.getRmnWght();
 
 						if (invRmnWght <= 0) {
 							continue;
 						}
-						
-						// 재고정보 확인 중량기준으로 
+
+						// 재고정보 확인 중량기준으로
 						if (
 							itemCd.equals(orgnInv.getItemCd())
 							&& vrtyCd.equals(orgnInv.getVrtyCd())
 							&& warehouseSeCdFrom.equals(orgnInv.getWarehouseSeCd())) {
-							
+
 							if (wrhsWght > invRmnWght) {
 								wrhsQntt -= invRmnQntt;
 								wrhsWght -= invRmnWght;
-								
+
 								orgnInv.setRmnQntt(0);
 								orgnInv.setRmnWght(0);
-								
+
 								orgnInv.setInptQntt(orgnInv.getInptQntt() + invRmnQntt);
 								orgnInv.setInptWght(orgnInv.getInptWght() + invRmnWght);
-								
+
 							} else {
 								invRmnQntt -= wrhsQntt;
 								invRmnWght -= wrhsWght;
 								orgnInv.setRmnQntt(invRmnQntt);
 								orgnInv.setRmnWght(invRmnWght);
-								
+
 								orgnInv.setInptQntt(orgnInv.getInptQntt() + wrhsQntt);
 								orgnInv.setInptWght(orgnInv.getInptWght() + wrhsWght);
-								
+
 								wrhsQntt = 0;
 								wrhsWght = 0;
 							}
-							
+
 							if (wrhsWght <= 0) {
 								// 원물재고가 선정이 되었으므로 통과
 								continue labelLoop;
 							}
 						}
 					}
-					
+
 					// excldWrhsnoList	rawMtrInvntrVOList
 					// 원물재고 미매칭 시 원물재고 읽어오기 call
 					if (wrhsWght > 0) {
-						
+
 						RawMtrInvntrVO param = new RawMtrInvntrVO();
-						
+
 						param.setApcCd(apcCd);
 						param.setItemCd(itemCd);
 						param.setVrtyCd(vrtyCd);
@@ -176,46 +176,46 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 						param.setPagingYn(ComConstants.CON_YES);
 						param.setCurrentPageNo(1);
 						param.setRecordCountPerPage(100);
-						
+
 						List<RawMtrInvntrVO> invntrForPrcsList = rawMtrInvntrService.selectRawMtrInvntrListForSort(param);
-						
+
 						if (invntrForPrcsList == null || invntrForPrcsList.isEmpty()) {
 							return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "처리가능재고");
 						}
-						
+
 						// 재고정보 조회
 						for ( RawMtrInvntrVO orgnInv : invntrForPrcsList ) {
-							
+
 							int invRmnQntt = orgnInv.getInvntrQntt();
 							double invRmnWght = orgnInv.getInvntrWght();
-							
+
 							if (invRmnWght <= 0) {
 								continue;
 							}
-							
+
 							if (wrhsWght > invRmnWght) {
 								wrhsQntt -= invRmnQntt;
 								wrhsWght -= invRmnWght;
-								
+
 								orgnInv.setRmnQntt(0);
 								orgnInv.setRmnWght(0);
-								
+
 								orgnInv.setInptQntt(invRmnQntt);
 								orgnInv.setInptWght(invRmnWght);
-								
+
 							} else {
 								invRmnQntt -= wrhsQntt;
 								invRmnWght -= wrhsWght;
 								orgnInv.setRmnQntt(invRmnQntt);
 								orgnInv.setRmnWght(invRmnWght);
-								
+
 								orgnInv.setInptQntt(wrhsQntt);
 								orgnInv.setInptWght(wrhsWght);
-								
+
 								wrhsQntt = 0;
 								wrhsWght = 0;
 							}
-							
+
 							RawMtrInvntrVO invntrVO = new RawMtrInvntrVO();
 							BeanUtils.copyProperties(rawMtrWrhsMngVO, invntrVO);
 							BeanUtils.copyProperties(orgnInv, invntrVO,
@@ -226,14 +226,14 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 									ComConstants.PROP_SYS_LAST_CHG_DT,
 									ComConstants.PROP_SYS_LAST_CHG_USER_ID,
 									ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
-							
+
 							invntrVO.setSortQntt(0);
 							invntrVO.setSortWght(0);
 							invntrVO.setRmrk(ComConstants.CON_BLANK);
-							
+
 							rawMtrInvntrVOList.add(invntrVO);
 							excldWrhsnoList.add(invntrVO.getWrhsno());
-							
+
 							if (wrhsWght <= 0) {
 								// 원물재고가 선정이 되었으므로 통과
 								continue labelLoop;
@@ -241,14 +241,14 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 						}
 					}
 				}
-			
+
 		} else {
-			
+
 			for ( RawMtrWrhsVO rePrcs : rawMtrRePrcsList ) {
 				rePrcs.setRmnQntt(rePrcs.getWrhsQntt());
 				rePrcs.setRmnWght(rePrcs.getWrhsWght());
 			}
-			
+
 			// 재고 >> 선별실적 정보 set	// 재고배분
 			for ( RawMtrInvntrVO orgnInv : invntrList ) {
 
@@ -279,7 +279,7 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 				invntrVO.setInvntrQntt(invntrInfo.getInvntrQntt());
 				invntrVO.setInvntrWght(invntrInfo.getInvntrWght());
 				invntrVO.setPrdctnYr(invntrInfo.getPrdctnYr());
-				
+
 				invntrVO.setWrhsQntt(0);
 				invntrVO.setWrhsWght(0);
 
@@ -288,22 +288,22 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 		}
 
 		for ( RawMtrInvntrVO inv : rawMtrInvntrVOList ) {
-			
+
 			String wrhsno = inv.getWrhsno();
 			String prdcrCd = inv.getPrdcrCd();
 			String gdsSeCd = inv.getGdsSeCd();
 			String wrhsSeCd = inv.getWrhsSeCd();
 			String prdctnYr = inv.getPrdctnYr();
-						
+
 			// 지정 투입수량, 투입중량
 			int inptQntt = inv.getInptQntt();
 			double inptWght = inv.getInptWght();
-			
+
 			int wrhsQntt = inv.getWrhsQntt();
 			double wrhsWght = inv.getWrhsWght();
-			
+
 			for ( RawMtrWrhsVO rePrcs : rawMtrRePrcsList ) {
-				
+
 				if (StringUtils.hasText(rePrcs.getWrhsno()) && rePrcs.getRmnWght() <= 0) {
 					continue;
 				}
@@ -362,12 +362,12 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 					ComConstants.PROP_SYS_LAST_CHG_DT,
 					ComConstants.PROP_SYS_LAST_CHG_USER_ID,
 					ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
-			
+
 			wrhsVO.setWrhsYmd(wrhsYmd);
-			wrhsVO.setPrcsno(rawMtrPrcsno);
+			wrhsVO.setPrcsNo(rawMtrPrcsNo);
 			wrhsVO.setPrcsType(AmConstants.CON_PRCS_TYPE_RAW_MTR_REPRCS);
 			wrhsVO.setStdGrdList(rePrcsInfo.getStdGrdList());
-			
+
 			rtnObj = rawMtrWrhsService.insertRawMtrRePrcs(wrhsVO);
 			if (rtnObj != null) {
 				// error throw exception;
@@ -378,40 +378,40 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 		int prcsSn = 0;
 		// 재처리실적 등록 시 투입실적도 함께 등록 (투입실적 여부 확인 후 등록)
 		for ( RawMtrInvntrVO inv : rawMtrInvntrVOList ) {
-			
+
 			prcsSn++;
-			
+
 			RawMtrWrhsVO inptVO = new RawMtrWrhsVO();
 			BeanUtils.copyProperties(inv, inptVO);
-			
+
 			inptVO.setPrcsYmd(wrhsYmd);
 			inptVO.setPrcsSn(prcsSn);
-			inptVO.setPrcsno(rawMtrPrcsno);
-			
+			inptVO.setPrcsNo(rawMtrPrcsNo);
+
 			inptVO.setQntt(inv.getInptQntt());
 			inptVO.setWght(inv.getInptWght());
-			
+
 			// 투입실적있을 경우 update 처리로 분기
 			rtnObj = rawMtrWrhsService.insertRawMtrPrcsInpt(inptVO);
-			
+
 			if (rtnObj != null) {
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
-			
+
 			// 원물재고정보 update
 			rtnObj = rawMtrInvntrService.updateInvntrPrcs(inv);
-			
+
 			if (rtnObj != null) {
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
 		}
-		
+
 		return null;
 	}
 
 	@Override
 	public HashMap<String, Object> deleteRawMtrRePrcs(RawMtrWrhsMngVO rawMtrWrhsMngVO) throws Exception {
-		
+
 		// 원물입고 재처리
 		HashMap<String, Object> rtnObj = new HashMap<>();
 
@@ -420,27 +420,27 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 		if (!StringUtils.hasText(apcCd)) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
 		}
-		
-		String prcsno = rawMtrWrhsMngVO.getPrcsno();
-		
+
+		String prcsno = rawMtrWrhsMngVO.getPrcsNo();
+
 		if (!StringUtils.hasText(prcsno)) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "재처리번호");
 		}
-		
+
 		RawMtrWrhsVO prcsParam = new RawMtrWrhsVO();
 		prcsParam.setApcCd(apcCd);;
-		prcsParam.setPrcsno(prcsno);
+		prcsParam.setPrcsNo(prcsno);
 		List<RawMtrWrhsVO> rawMtrRePrcsList = rawMtrWrhsService.selectRawMtrPrcsList(prcsParam);
-		
+
 		if (rawMtrRePrcsList == null || rawMtrRePrcsList.isEmpty()) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "재처리실적");
 		}
-		
+
 		List<RawMtrWrhsVO> rawMtrRePrcsInptList = rawMtrWrhsService.selectRawMtrPrcsInptList(prcsParam);
 		if (rawMtrRePrcsInptList == null || rawMtrRePrcsInptList.isEmpty()) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "재처리투입실적");
 		}
-		
+
 		// 입고실적 취소
 		// 입고실적(재처리) 등록
 		for ( RawMtrWrhsVO rePrcsInfo : rawMtrRePrcsList ) {
@@ -454,17 +454,17 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 					ComConstants.PROP_SYS_LAST_CHG_DT,
 					ComConstants.PROP_SYS_LAST_CHG_USER_ID,
 					ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
-			
+
 			rtnObj = rawMtrWrhsService.deleteRawMtrRePrcs(wrhsVO);
 			if (rtnObj != null) {
 				// error throw exception;
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
 		}
-		
+
 		// 재처리 실적 취소 (재고 변경)
 		for ( RawMtrWrhsVO prcsInptInfo : rawMtrRePrcsInptList ) {
-			
+
 			RawMtrWrhsVO inptVO = new RawMtrWrhsVO();
 			BeanUtils.copyProperties(rawMtrWrhsMngVO, inptVO);
 			BeanUtils.copyProperties(prcsInptInfo, inptVO,
@@ -475,55 +475,55 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 					ComConstants.PROP_SYS_LAST_CHG_DT,
 					ComConstants.PROP_SYS_LAST_CHG_USER_ID,
 					ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
-			
+
 			RawMtrInvntrVO invVO = new RawMtrInvntrVO();
 			BeanUtils.copyProperties(inptVO, invVO);
 			invVO.setPrcsQntt(inptVO.getQntt());
 			invVO.setPrcsWght(inptVO.getWght());
-			
+
 			// 재고 복원
 			// 원물재고정보 update
 			rtnObj = rawMtrInvntrService.deleteInvntrPrcs(invVO);
-			
+
 			if (rtnObj != null) {
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
-			
+
 			// 재처리 삭제
 			rtnObj = rawMtrWrhsService.deleteRawMtrPrcsInpt(inptVO);
-			
+
 			if (rtnObj != null) {
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
 		}
-		
+
 		return null;
 	}
 
 	@Override
 	public HashMap<String, Object> deleteRawMtrPrcs(RawMtrWrhsMngVO rawMtrWrhsMngVO) throws Exception {
 
-		
+
 		RawMtrInvntrVO invParam = new RawMtrInvntrVO();
 		invParam.setApcCd(rawMtrWrhsMngVO.getApcCd());
 		invParam.setWrhsno(rawMtrWrhsMngVO.getWrhsno());
-		
+
 		RawMtrInvntrVO invInfo = rawMtrInvntrService.selectRawMtrInvntr(invParam);
-		
+
 		if (invInfo == null || !StringUtils.hasText(invInfo.getWrhsno())) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "재고정보");
 		}
-		
-		if (StringUtils.hasText(invInfo.getPrcsno())) {
-			rawMtrWrhsMngVO.setPrcsno(invInfo.getPrcsno());
+
+		if (StringUtils.hasText(invInfo.getPrcsNo())) {
+			rawMtrWrhsMngVO.setPrcsNo(invInfo.getPrcsNo());
 			return deleteRawMtrRePrcs(rawMtrWrhsMngVO);
 		} else {
 			RawMtrWrhsVO wrhsVO = new RawMtrWrhsVO();
 			BeanUtils.copyProperties(rawMtrWrhsMngVO, wrhsVO);
-			
+
 			return rawMtrWrhsService.deleteRawMtrWrhs(wrhsVO);
 		}
-		
+
 	}
-	
+
 }

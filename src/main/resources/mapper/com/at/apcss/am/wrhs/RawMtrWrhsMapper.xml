@@ -35,7 +35,7 @@
 				, WP.WRHS_WGHT	AS WRHS_WGHT
 				, WP.RMRK		AS RMRK
 				, WP.DEL_YN		AS DEL_YN
-				, (SELECT X.PRCSNO FROM TB_RAW_MTR_INVNTR X WHERE X.APC_CD = WP.APC_CD AND X.WRHSNO = WP.WRHSNO) AS PRCSNO
+				, (SELECT X.PRCS_NO FROM TB_RAW_MTR_INVNTR X WHERE X.APC_CD = WP.APC_CD AND X.WRHSNO = WP.WRHSNO) AS PRCS_NO
 			  FROM TB_RAW_MTR_WRHS_PRFMNC WP
 			 WHERE WP.APC_CD = #{apcCd}
 			   AND WP.WRHSNO = #{wrhsno}
@@ -99,7 +99,7 @@
 				, INV.PRDCTN_YR		AS PRDCTN_YR
 				, WP.RMRK           AS RMRK
 				, INV.PRCS_TYPE		AS PRCS_TYPE
-				
+
 			  FROM
 			  	  TB_RAW_MTR_WRHS_PRFMNC WP
 			  	, TB_RAW_MTR_INVNTR INV
@@ -314,7 +314,7 @@
 				, WRHSNO
 				, PRCS_SN
 				, PRCS_YMD
-				, PRCSNO
+				, PRCS_NO
 				, QNTT
 				, WGHT
 				, RMRK
@@ -329,12 +329,12 @@
 					, #{wrhsno}
 					, NVL((
 						SELECT MAX(PRCS_SN)
-						  FROM TB_RAW_MTR_PRCS 
-						 WHERE APC_CD = #{apcCd} 
+						  FROM TB_RAW_MTR_PRCS
+						 WHERE APC_CD = #{apcCd}
 						   AND WRHSNO = #{wrhsno}
 						), 0) + 1
 					, #{prcsYmd}
-					, #{prcsno}
+					, #{prcsNo}
 					, #{qntt}
 					, #{wght}
 					, #{rmrk}
@@ -386,10 +386,10 @@
 		]]>
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		
+
     			  ROWNUM AS ROW_SEQ
     			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, 
+    			,
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
@@ -427,7 +427,7 @@
 				, WP.RMRK           AS RMRK
 				, TRS.TRSPRT_CST 	AS TRSPRT_CST
 				, INV.PRCS_TYPE		AS PRCS_TYPE
-				, INV.PRCSNO		AS PRCSNO
+				, INV.PRCS_NO		AS PRCS_NO
 			  FROM
 			  	  TB_RAW_MTR_WRHS_PRFMNC WP
 			  	, TB_RAW_MTR_INVNTR INV
@@ -514,7 +514,7 @@
     	<![CDATA[
 				  pt0.*
     		  FROM (
-	    	SELECT 
+	    	SELECT
 				  WP.APC_CD         AS APC_CD
 				, WP.WRHSNO         AS WRHSNO
 				, WP.WGHNO          AS WGHNO
@@ -535,8 +535,8 @@
 				, INV.PRDCTN_YR		AS PRDCTN_YR
 				, WP.RMRK           AS RMRK
 				, INV.PRCS_TYPE		AS PRCS_TYPE
-				, INV.PRCSNO		AS PRCSNO
-				
+				, INV.PRCS_NO		AS PRCS_NO
+
 			  FROM
 			  	  TB_RAW_MTR_WRHS_PRFMNC WP
 			  	, TB_RAW_MTR_INVNTR INV
@@ -546,7 +546,7 @@
 			   AND WP.DEL_YN = 'N'
 			   AND INV.DEL_YN = 'N'
 			   AND WP.APC_CD = #{apcCd}
-			   AND INV.PRCSNO = #{prcsno}
+			   AND INV.PRCS_NO = #{prcsNo}
 		]]>
 		<![CDATA[
 		 	 ORDER BY APC_CD, WRHS_YMD, WRHSNO
@@ -583,10 +583,10 @@
     	<![CDATA[
 				  pt0.*
     		  FROM (
-	    	SELECT 
+	    	SELECT
 				  RP.APC_CD         AS APC_CD
 				, RP.WRHSNO         AS WRHSNO
-				, RP.PRCSNO			AS PRCSNO
+				, RP.PRCS_NO		AS PRCS_NO
 				, RP.PRCS_SN		AS PRCS_SN
 				, RP.PRCS_YMD		AS PRCS_YMD
 				, RP.QNTT			AS QNTT
@@ -601,7 +601,7 @@
 				, INV.WAREHOUSE_SE_CD   AS WAREHOUSE_SE_CD
 				, INV.PRDCTN_YR		AS PRDCTN_YR
 				, INV.PRCS_TYPE		AS PRCS_TYPE
-				
+
 			  FROM
 			  	  TB_RAW_MTR_PRCS RP
 			  	, TB_RAW_MTR_INVNTR INV
@@ -611,10 +611,10 @@
 			   AND RP.DEL_YN = 'N'
 			   AND INV.DEL_YN = 'N'
 			   AND RP.APC_CD = #{apcCd}
-			   AND RP.PRCSNO = #{prcsno}
+			   AND RP.PRCS_NO = #{prcsNo}
 		]]>
 		<![CDATA[
-		 	 ORDER BY APC_CD, PRCSNO, PRCS_SN
+		 	 ORDER BY APC_CD, PRCS_NO, PRCS_SN
     		  ) pt0
 		]]>
 

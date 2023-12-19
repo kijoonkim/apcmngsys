@@ -103,7 +103,7 @@ public class PltWrhsSpmtVO extends ComVO {
 	/*
 	 * 처리번호
 	 * */
-	private String prcsno;
+	private String prcsNo;
 	/*
 	 * 처리순번
 	 * */
@@ -113,12 +113,12 @@ public class PltWrhsSpmtVO extends ComVO {
 	 * */
 	private String wrhsSpmtType;
 	private String wrhsSpmtTypeNm;
-	
+
 	/**
 	 * 기초재고수량
 	 * **/
 	private int bssInvntrQntt;
-	
+
 	/**
 	 * 전일재고수량
 	 * **/

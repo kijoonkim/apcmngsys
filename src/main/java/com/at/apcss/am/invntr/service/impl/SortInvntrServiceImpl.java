@@ -354,7 +354,7 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 				sortInvntrVO.setSortSn(sortSn);
 
 				if(ComConstants.CON_YES.equals(sortInvntrVO.getTrnsfYn())) {
-					sortInvntrVO.setPrcsno(sortno);
+					sortInvntrVO.setPrcsNo(sortno);
 					sortInvntrVO.setPrcsSn(sortSn);
 					trnsfList.add(sortInvntrVO);
 				}

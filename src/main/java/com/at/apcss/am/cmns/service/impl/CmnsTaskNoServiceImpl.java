@@ -67,7 +67,7 @@ public class CmnsTaskNoServiceImpl extends BaseServiceImpl implements CmnsTaskNo
 
 
 	@Override
-	public String selectWrhsPrcsno(String apcCd, String ymd) throws Exception {
+	public String selectWrhsPrcsNo(String apcCd, String ymd) throws Exception {
 
 		CmnsTaskNoVO paramVO = new CmnsTaskNoVO();
 		paramVO.setApcCd(apcCd);
@@ -82,7 +82,7 @@ public class CmnsTaskNoServiceImpl extends BaseServiceImpl implements CmnsTaskNo
 
 		return null;
 	}
-	
+
 	@Override
 	public String selectPlanno(String apcCd, String ymd) throws Exception {
 		CmnsTaskNoVO paramVO = new CmnsTaskNoVO();

@@ -27,18 +27,18 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RawMtrWrhsMngVO extends ComVO {
-	
+
 	/**
 	 * APC코드
 	 */
 	private String apcCd;
-	
+
 	private String wrhsYmd;
-	
+
 	private String wrhsno;
-	
-	private String prcsno;	// 처리번호
-	
+
+	private String prcsNo;	// 처리번호
+
 	private List<RawMtrInvntrVO> rawMtrInvntrList;
 
 	public List<RawMtrInvntrVO> getRawMtrInvntrList() {
@@ -50,7 +50,7 @@ public class RawMtrWrhsMngVO extends ComVO {
 	}
 
 	private List<RawMtrWrhsVO> rawMtrRePrcsList;
-	
+
 	public List<RawMtrWrhsVO> getRawMtrRePrcsList() {
 		return rawMtrRePrcsList == null ? null : rawMtrRePrcsList.stream().collect(Collectors.toList());
 	}
@@ -58,6 +58,6 @@ public class RawMtrWrhsMngVO extends ComVO {
 	public void setRawMtrRePrcsList(List<RawMtrWrhsVO> rawMtrRePrcsList) {
 		this.rawMtrRePrcsList = rawMtrRePrcsList == null ? null : rawMtrRePrcsList.stream().collect(Collectors.toList());
 	}
-	
-	
+
+
 }

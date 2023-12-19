@@ -51,7 +51,7 @@
 				, RI.TRNSF_WGHT			AS TRNSF_WGHT
 				, RI.PRCS_QNTT			AS PRCS_QNTT
 				, RI.PRCS_WGHT			AS PRCS_WGHT
-				, RI.PRCSNO				AS PRCSNO
+				, RI.PRCS_NO			AS PRCS_NO
 				, RI.PRCS_TYPE			AS PRCS_TYPE
 				, (SELECT SUM(X.CMND_QNTT) FROM TB_SORT_CMND X WHERE X.APC_CD = RI.APC_CD AND X.PLTNO = RI.PLTNO AND X.DEL_YN = 'N') AS CMND_QNTT
 				, (SELECT SUM(X.CMND_WGHT) FROM TB_SORT_CMND X WHERE X.APC_CD = RI.APC_CD AND X.PLTNO = RI.PLTNO AND X.DEL_YN = 'N') AS CMND_WGHT
@@ -593,7 +593,7 @@
 					, INVNTR_QNTT
 					, INVNTR_WGHT
 					, PRDCTN_YR
-					, PRCSNO
+					, PRCS_NO
 					, PRCS_TYPE
 					, RMRK
 		    		, SYS_FRST_INPT_DT
@@ -625,7 +625,7 @@
 					, #{invntrQntt}
 					, #{invntrWght}
 					, #{prdctnYr}
-					, #{prcsno}
+					, #{prcsNo}
 					, #{prcsType}
 					, #{rmrk}
 		    		, SYSDATE

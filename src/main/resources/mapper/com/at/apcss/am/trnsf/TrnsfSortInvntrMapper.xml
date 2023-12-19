@@ -164,7 +164,7 @@
 			                 , SI.TRNSF_WGHT            AS TRNSF_WGHT
 			                 , SI.INPT_PRGRS_WGHT       AS INPT_PRGRS_WGHT
 			                 , SI.INPT_PRGRS_QNTT       AS INPT_PRGRS_QNTT
-			                 , SI.PRCSNO                AS PRCSNO
+			                 , SI.PRCS_NO               AS PRCS_NO
 			                 , SI.PRCS_SN               AS PRCS_SN
 			                 , SI.PRCS_TYPE             AS PRCS_TYPE
 			                 , TH.APC_CD                AS TRNSF_APC_CD
@@ -173,7 +173,7 @@
 			              FROM TB_SORT_INVNTR SI
 			                 , TB_INVNTR_TRNSF_HSTRY TH
 			             WHERE SI.APC_CD = TH.TRNSF_APC_CD
-			               AND SI.PRCSNO = TH.PRCSNO
+			               AND SI.PRCS_NO = TH.PRCS_NO
 			               AND SI.PRCS_SN = TH.PRCS_SN
 			               AND SI.DEL_YN = 'N'
 			               AND TH.DEL_YN = 'N'

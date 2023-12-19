@@ -344,7 +344,7 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 				pltWrhsSpmtVO.setPltBxCd(spmtPrfmncList.get(0).getPltBxCd());
 				pltWrhsSpmtVO.setPltBxSeCd("P");
 				pltWrhsSpmtVO.setJobYmd(spmtPrfmncList.get(0).getSpmtYmd());
-				pltWrhsSpmtVO.setPrcsno(spmtno);
+				pltWrhsSpmtVO.setPrcsNo(spmtno);
 				pltWrhsSpmtVO.setWrhsSpmtType("DT");
 				pltWrhsSpmtVO.setPrdcrCd(spmtPrfmncList.get(0).getPrdcrCd());
 
