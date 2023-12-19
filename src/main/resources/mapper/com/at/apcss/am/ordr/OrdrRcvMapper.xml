@@ -33,7 +33,7 @@
 				, DLDTN_YMD
 				, OUTORDRNO
 				, OUTORDR_TYPE
-				, DOCNO
+				, DOC_NO
 				, WRHS_TYPE
 				, WRHS_TYPE_NM
 				, OUTORDR_YMD
@@ -79,7 +79,7 @@
 				, #{dldtnYmd}
 				, #{outordrno}
 				, #{outordrType}
-				, #{docno}
+				, #{docNo}
 				, #{wrhsType}
 				, #{wrhsTypeNm}
 				, #{outordrYmd}
@@ -139,7 +139,7 @@
     		}
 		]]>
 	</insert>
-	
+
 </mapper>
 
 
