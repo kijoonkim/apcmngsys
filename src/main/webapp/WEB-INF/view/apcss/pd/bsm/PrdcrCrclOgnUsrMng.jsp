@@ -336,8 +336,8 @@
 							<td colspan="2" class="td_input" style="border-right:hidden;" >
 								<sbux-input
 									uitype="text"
-									id="dtl-input-twoDay"
-									name="dtl-input-twoDay"
+									id="dtl-input-userAprvYmd"
+									name="dtl-input-userAprvYmd"
 									class="form-control input-sm"
 									autocomplete="off"
 									readonly
@@ -613,6 +613,7 @@
 		SBUxMethod.set("dtl-input-cmptncInstAprvYmd",null);
 		SBUxMethod.set("dtl-input-coNm",null);
 		SBUxMethod.set("dtl-input-cmptncInstAprvSe",null);
+		SBUxMethod.set("dtl-input-userAprvYmd",null);
 		SBUxMethod.set("dtl-input-cmptncInst",null);
 	}
 
@@ -632,6 +633,7 @@
 			,telno : SBUxMethod.get("dtl-input-telno")//전화번호
 			,moblno : SBUxMethod.get("dtl-input-moblno")//휴대폰번호
 			,cmptncInstAprvYmd : SBUxMethod.get("dtl-input-cmptncInstAprvYmd")//관할기관승인일
+			,userAprvYmd : SBUxMethod.get("dtl-input-userAprvYmd")//사용자승인일
 			,cmptncInstAprvSe : SBUxMethod.get("dtl-input-cmptncInstAprvSe")//2차승인여부
 			,userStts : SBUxMethod.get("dtl-input-userStts")//1차승인여부
 		});
@@ -680,6 +682,7 @@
 		SBUxMethod.set("dtl-input-brno", rowData.brno);  //  사업자번호
 		SBUxMethod.set("dtl-input-moblno", rowData.moblno);  //  휴대폰번호
 		SBUxMethod.set("dtl-input-cmptncInstAprvYmd", rowData.cmptncInstAprvYmd);  //  관할기관승인일
+		SBUxMethod.set("dtl-input-userAprvYmd", rowData.userAprvYmd);  //  사용자승인일
 		SBUxMethod.set("dtl-input-coNm", rowData.coNm);  //  법인명
 		SBUxMethod.set("dtl-input-cmptncInstAprvSe", rowData.cmptncInstAprvSe);  //  2차승인
 		SBUxMethod.set("dtl-input-cmptncInst", rowData.cmptncInst);  //  관할기관
