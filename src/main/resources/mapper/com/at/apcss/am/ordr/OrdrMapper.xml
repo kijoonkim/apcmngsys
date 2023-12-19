@@ -58,7 +58,7 @@
     		  	 , OI.APC_CNPT_CD						AS APC_CNPT_CD
     		  	 , OI.WRHS_YMD							AS WRHS_YMD
     		  	 , OI.OUTORDR_YMD						AS OUTORDR_YMD
-    		  	 , OI.OUTORDR_PRSN						AS OUTORDR_PRSN
+    		  	 , OI.ORDR_PRSN							AS ORDR_PRSN
     		  	 , OI.SPLY_PRSN							AS SPLY_PRSN
     		  	 , OI.SPMT_PCKG_UNIT_CD					AS SPMT_PCKG_UNIT_CD
     		  	 , OI.DLDTN								AS DLDTN
@@ -76,7 +76,7 @@
     		  	 , OI.TX_AMT							AS TX_AMT
     		  	 , OI.OUTORDR_AMT						AS OUTORDR_AMT
     		  	 , OI.WRHS_TYPE							AS WRHS_TYPE
-    		  	 , OI.DOCNO								AS DOCNO
+    		  	 , OI.DOC_NO							AS DOC_NO
     		  	 , OI.DOCK_INFO							AS DOCK_INFO
     		  	 , OI.CNTR_SE							AS CNTR_SE
     		  	 , OI.BUYER_NM							AS BUYER_NM
@@ -233,8 +233,8 @@
 		         , OI.APC_CNPT_CD
 		         , OI.WRHS_YMD
 		         , OI.OUTORDR_YMD
-		         , OI.OUTORDR_PRSN
-		         , OI.OUTORDR_PRSN_CD
+		         , OI.ORDR_PRSN
+		         , OI.ORDR_PRSN_CD
 		         , OI.SPLY_PRSN
 		         , OI.SPMT_PCKG_UNIT_CD
 		         , OI.DLDTN
@@ -253,7 +253,7 @@
 		         , OI.TX_AMT
 		         , OI.OUTORDR_AMT
 		         , OI.WRHS_TYPE
-		         , OI.DOCNO
+		         , OI.DOC_NO
 		         , OI.DOCK_INFO
 		         , OI.CNTR_SE
 		         , OI.BUYER_NM
@@ -304,8 +304,8 @@
 					     , OI.OUTORDR_TYPE          AS OUTORDR_TYPE
 					     , OI.WRHS_TYPE             AS WRHS_TYPE
 					     , OI.OUTORDR_YMD           AS OUTORDR_YMD
-					     , OI.OUTORDR_PRSN          AS OUTORDR_PRSN
-					     , OI.OUTORDR_PRSN_CD       AS OUTORDR_PRSN_CD
+					     , OI.ORDR_PRSN          	AS ORDR_PRSN
+					     , OI.ORDR_PRSN_CD       	AS ORDR_PRSN_CD
 					     , OI.DOCK_INFO             AS DOCK_INFO
 					     , OI.SPLY_PRSN             AS SPLY_PRSN
 					     , OI.ITEM_CD               AS ITEM_CD
@@ -387,13 +387,13 @@
     	      , RCPT_CFMTN_APC_CD
     	      , RCPT_CFMTN_YMD
     	      , SPMT_CMNDNO
-    	      , DOCNO
+    	      , DOC_NO
     	      , CNPT_ORDRNO
     	      , OUTORDR_TYPE
     	      , WRHS_TYPE
     	      , OUTORDR_YMD
-    	      , OUTORDR_PRSN
-    	      , OUTORDR_PRSN_CD
+    	      , ORDR_PRSN
+    	      , ORDR_PRSN_CD
     	      , DOCK_INFO
     	      , SPLY_PRSN
     	      , GDS_CD
@@ -449,13 +449,13 @@
     		  , #{rcptCfmtnApcCd}
     		  , #{rcptCfmtnYmd}
     		  , #{spmtCmndno}
-    		  , #{docno}
+    		  , #{docNo}
     		  , #{cnptOrdrno}
     		  , #{outordrType}
     		  , #{wrhsType}
     		  , #{outordrYmd}
-    		  , #{outordrPrsn}
-    		  , #{outordrPrsnCd}
+    		  , #{ordrPrsn}
+    		  , #{ordrPrsnCd}
     		  , #{dockInfo}
     		  , #{splyPrsn}
     		  , #{gdsCd}
@@ -523,13 +523,13 @@
     		 , RCPT_CFMTN_APC_CD 		= #{rcptCfmtnApcCd}
     		 , RCPT_CFMTN_YMD 			= #{rcptCfmtnYmd}
     		 , SPMT_CMNDNO 				= #{spmtCmndno}
-    		 , DOCNO 					= #{docno}
+    		 , DOC_NO 					= #{docNo}
     		 , CNPT_ORDRNO 				= #{cnptOrdrno}
     		 , OUTORDR_TYPE 			= #{outordrType}
     		 , WRHS_TYPE 				= #{wrhsType}
     		 , OUTORDR_YMD 				= #{outordrYmd}
-    		 , OUTORDR_PRSN 			= #{outordrPrsn}
-    		 , OUTORDR_PRSN_CD 			= #{outordrPrsnCd}
+    		 , ORDR_PRSN 				= #{ordrPrsn}
+    		 , ORDR_PRSN_CD 			= #{ordrPrsnCd}
     		 , DOCK_INFO 				= #{dockInfo}
     		 , SPLY_PRSN 				= #{splyPrsn}
     		 , GDS_CD 					= #{gdsCd}

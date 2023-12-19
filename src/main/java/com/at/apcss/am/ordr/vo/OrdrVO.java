@@ -63,7 +63,7 @@ public class OrdrVO extends ComVO {
 	/*
 	 * 문서번호
 	 * */
-	private String docno;
+	private String docNo;
 	/*
 	 * 거래처발주번호
 	 * */
@@ -86,11 +86,11 @@ public class OrdrVO extends ComVO {
 	/*
 	 * 주문자
 	 * */
-	private String outordrPrsn;
+	private String ordrPrsn;
 	/*
 	 * 주문자코드
 	 * */
-	private String outordrPrsnCd;
+	private String ordrPrsnCd;
 	/*
 	 * 도크정보
 	 * */

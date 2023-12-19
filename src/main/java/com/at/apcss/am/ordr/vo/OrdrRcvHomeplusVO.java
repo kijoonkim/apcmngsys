@@ -23,7 +23,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class OrdrRcvHomeplusVO extends ComVO{
-	
+
 	private String apcCd;
 	private String rcptnYmd;    //	수신일자
 	private int rcptnSn;     //	수신순번
@@ -31,7 +31,7 @@ public class OrdrRcvHomeplusVO extends ComVO{
 	private String dldtnYmd;    //	배송일자
 	private String outordrno;   //	발주번호
 	private String outordrType; //	발주유형
-	private String docno;       //	문서번호
+	private String docNo;       //	문서번호
 	private String wrhsType;    //	입고유형
 	private String wrhsTypeNm;  //	입고유형명칭
 	private String outordrYmd;  //	발주일자

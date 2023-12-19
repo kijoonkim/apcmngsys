@@ -436,7 +436,7 @@
     		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
             {caption: ['발주일자'], 		ref: 'outordrYmd', 		width: '100px', 	type: 'output',			style:'text-align: center',
         		format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
-            {caption: ['주문자'], 		ref: 'outordrPrsn', 	width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['주문자'], 		ref: 'ordrPrsn', 	width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['공급자명'], 		ref: 'splyPrsn', 		width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['상품명'], 		ref: 'spmtPckgUnitNm', 	width: '150px', 	type: 'output',			style:'text-align: center'},
             {caption: ['상품코드'], 		ref: 'spmtPckgUnitCd', 	width: '100px', 	type: 'output',			style:'text-align: center'},
@@ -471,7 +471,7 @@
             {caption: ['지시중량 (Kg)'], 	ref: 'inptCmndWght', 	width: '100px', 	type: 'output', 		style:'text-align:right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
             {caption: ['입고형태'], 		ref: 'wrhsType', 		width: '100px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['문서번호'], 		ref: 'docno', 			width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['문서번호'], 		ref: 'docNo', 			width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['도크정보'], 		ref: 'dockInfo', 		width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['센터구분'], 		ref: 'cntrSe', 			width: '70px', 		type: 'output',			style:'text-align: center'},
             {caption: ['바이어명'], 		ref: 'buyerNm', 		width: '100px', 	type: 'output',			style:'text-align: center'},
@@ -554,14 +554,14 @@
         	}
         }
     	grid.clickCell(nRow, nCol);
-    	
+
     	if (checkedYn == "true") {
 	    	if (checkedList.length == 0) {
 	        	let ref = "<input type='checkbox' onchange='fn_checkAll(grdOutordrInfo, this);'>";
 	        	grdOutordrInfo.setCellData(0, getColRef, ref, true, false);
 			}
     	}
-    	
+
     	if (alertList.length != 0) {
         	gfn_comAlert("E0000", alertList.join(", ") + "의 재고가 없습니다.");
 		}
@@ -645,7 +645,7 @@
   						, apcCnptNm	 			: item.apcCnptNm
   						, wrhsYmd 				: item.wrhsYmd
   						, outordrYmd 			: item.outordrYmd
-  						, outordrPrsn 			: item.outordrPrsn
+  						, ordrPrsn 				: item.ordrPrsn
   						, splyPrsn 				: item.splyPrsn
   						, spmtPckgUnitNm 		: item.spmtPckgUnitNm
   						, spmtPckgUnitCd		: item.spmtPckgUnitCd
@@ -664,7 +664,7 @@
   						, txAmt					: item.txAmt
   						, outordrAmt			: item.outordrAmt
   						, wrhsType				: item.wrhsType
-  						, docno					: item.docno
+  						, docNo					: item.docNo
   						, dockInfo				: item.dockInfo
   						, cntrSe				: item.cntrSe
   						, buyerNm				: item.buyerNm
@@ -952,7 +952,7 @@
 		let inptCmndWghtCol = grdOutordrInfo.getColRef("inptCmndWght");
     	grdOutordrInfo.setCellData(nRow, inptCmndQnttCol, "");
     	grdOutordrInfo.setCellData(nRow, inptCmndWghtCol, "");
-    	
+
     	if (grdOutordrInfo.getCheckedRows(getColRef) == 0) {
         	let ref = "<input type='checkbox' onchange='fn_checkAll(grdOutordrInfo, this);'>";
         	grdOutordrInfo.setCellData(0, getColRef, ref, true, false);

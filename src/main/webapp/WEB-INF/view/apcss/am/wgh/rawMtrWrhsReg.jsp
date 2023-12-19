@@ -315,7 +315,7 @@
 									class="form-control input-sm"
 									maxlength="6"
 									autocomplete="off"
-									mask = "{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true }"
+									mask = "{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true }"
 									readonly
 								/>
 							</td>
@@ -754,7 +754,6 @@
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-        		fn_inputClear();
         		fn_search();
         	} else {
         		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
@@ -908,7 +907,6 @@
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-        		fn_inputClear();
         		fn_search();
         	} else {
         		gfn_comAlert(data.resultCode, data.resultMessage);
@@ -1008,11 +1006,12 @@
      * @description 조회 버튼
      */
     const fn_search = async function() {
-		if (gfn_isEmpty(SBUxMethod.get("srch-dtp-wrhsYmd"))) {
-    		gfn_comAlert("W0001", "입고일자");		//	W0002	{0}을/를 입력하세요.
-            return;
-    	}
 
+    	if (gfn_isEmpty(SBUxMethod.get("srch-dtp-wrhsYmd"))) {
+    		gfn_comAlert("W0001", "입고일자");		//	W0001	{0}을/를 선택하세요.
+    		return;
+    	}
+    	
     	fn_clearInptForm();
 
     	// grid clear
@@ -1120,6 +1119,16 @@
   		SBUxMethod.set("srch-inp-wrhsWght", "");
   		// 평균
   		SBUxMethod.set("srch-inp-wghtAvg", "");
+  		
+  		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
+  		if (!gfn_isEmpty(vrtyCd)) {
+  			const vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd});  			
+  			if (!gfn_isEmpty(vrtyInfo)) {
+  				const wghtRkngSeCd = vrtyInfo.wghtRkngSeCd;
+  				const unitWght = parseInt(vrtyInfo.unitWght) || 0;
+  				SBUxMethod.set("srch-inp-wghtAvg", unitWght);
+  			}
+  		}
     }
 
  	/**
@@ -1133,6 +1142,13 @@
 		SBUxMethod.set("srch-inp-wrhsno", "");
 		SBUxMethod.set("srch-inp-prcsType", "");
 
+ 		// 입고구분
+ 		SBUxMethod.set("srch-rdo-wrhsSeCd", "3");
+ 		// 상품구분
+ 		SBUxMethod.set("srch-rdo-gdsSeCd", "1");
+ 		// 운송구분
+ 		SBUxMethod.set("srch-rdo-trsprtSeCd", "1");
+		
  		// 입고일자
  		SBUxMethod.set("srch-dtp-wrhsYmd", gfn_dateToYmd(new Date()));
 
@@ -1165,13 +1181,6 @@
  		// 평균
  		SBUxMethod.set("srch-inp-wghtAvg", "");
 
- 		// 입고구분
- 		SBUxMethod.set("srch-rdo-wrhsSeCd", "3");
- 		// 상품구분
- 		SBUxMethod.set("srch-rdo-gdsSeCd", "1");
- 		// 운송구분
- 		SBUxMethod.set("srch-rdo-trsprtSeCd", "1");
-
  		// 팔레트번호
  		SBUxMethod.set("srch-inp-pltno", "");
 
@@ -1198,6 +1207,8 @@
 
  		// 계량번호
  		SBUxMethod.set("srch-inp-wghno", "");
+ 		
+ 		fn_inputClear();
  	}
 
 	/** ui event */
