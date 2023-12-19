@@ -15,7 +15,7 @@ function fncGoAfterErrorPage(){
 </script>
 </head>
 
-<body>
+<body oncontextmenu="return false">
 
 <div style="width: 1000px; margin: 50px auto 50px;">
 

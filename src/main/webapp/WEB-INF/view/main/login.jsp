@@ -11,7 +11,7 @@
 	<%@ include file="../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../frame/inc/headerScript.jsp" %>
 </head>
-<body>
+<body oncontextmenu="return false">
     <div class="apc-wrap">
         <div class="apc-login-wrap">
             <div class="apc-login-box">

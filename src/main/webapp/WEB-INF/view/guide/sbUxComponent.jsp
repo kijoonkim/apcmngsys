@@ -6,7 +6,7 @@
 	<%@ include file="../frame/inc/headerScript.jsp" %>
 <title>SBUx Component</title>
 </head>
-<body>
+<body oncontextmenu="return false">
 
 <sbux-select id="cmbMenuType" name="cmbMenuType" uitype="single" jsondata-ref="jsonComCdMenuType" unselected-text="선택" style="width:100%"></sbux-select>
 
