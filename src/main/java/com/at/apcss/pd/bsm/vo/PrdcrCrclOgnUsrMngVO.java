@@ -23,6 +23,7 @@ public class PrdcrCrclOgnUsrMngVO extends ComVO{
 	private String cmptncInstAprvYmd;
 	private String cmptncInst;
 	private String uoAprvStts;
+	private String userAprvYmd;
 
 
 	private String sysFrstInptUserIdNm;
