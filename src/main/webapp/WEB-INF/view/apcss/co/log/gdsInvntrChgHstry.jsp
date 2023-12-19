@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<title>title : SBUx2.6</title>
 </head>
-<body>
+<body oncontextmenu="return false">
 	<section>
 		<table class="table table-bordered tbl_fixed">
 			<caption>검색 조건 설정</caption>

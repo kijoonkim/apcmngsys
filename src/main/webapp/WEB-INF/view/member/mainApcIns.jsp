@@ -29,7 +29,7 @@
         }
     </style>
 </head>
-<body id="mainBody">
+<body id="mainBody" oncontextmenu="return false">
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
 

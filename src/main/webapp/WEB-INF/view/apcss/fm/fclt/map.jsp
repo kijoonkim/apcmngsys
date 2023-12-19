@@ -10,7 +10,7 @@
 	<meta charset="UTF-8">
     <title>title : SBUx2.6</title>
 </head>
-<body>
+<body oncontextmenu="return false">
 	<section class="content container-fluid">
 		<div class="box box-solid">
 			<div class="box-body">

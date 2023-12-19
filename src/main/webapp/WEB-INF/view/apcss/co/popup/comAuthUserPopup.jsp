@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
     <title>title : 권한별 사용자 추가</title>
 </head>
-<body>
+<body oncontextmenu="return false">
 	<section class="content container-fluid">
 		<div class="box box-solid">
 			<div class="box-header">

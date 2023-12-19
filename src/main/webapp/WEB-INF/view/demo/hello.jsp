@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+<body oncontextmenu="return false">
 	<h1>Hello, World!!!</h1>
 	<spring:message code="button.search"></spring:message>
 	<spring:message code="Q0001"></spring:message>

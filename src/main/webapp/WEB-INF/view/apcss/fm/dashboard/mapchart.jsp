@@ -43,7 +43,7 @@
 	</script>
 
 </head>
-<body>
+<body oncontextmenu="return false">
 	<section class="content container-fluid">
 	    
 <!-- 		<div class="box-header" -->

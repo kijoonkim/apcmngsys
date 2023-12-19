@@ -7,7 +7,7 @@
 	<meta charset="UTF-8">
     <title>title : 검토요청관리</title>
 </head>
-<body>
+<body oncontextmenu="return false">
 	<section class="content container-fluid">
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
