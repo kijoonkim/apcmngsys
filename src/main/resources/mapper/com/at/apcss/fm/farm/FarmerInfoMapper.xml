@@ -27,7 +27,7 @@
 				, PRSNA_CORP_SE_CD                   as PER_CORP_DVCD_NM
 				, CTZN_FNGNR_SE_CD                   as NAFO_DVCD_NM
 				, TELNO                              as TELNO
-				, MOBLNO                             as MBL_TELNO
+				, MBL_TELNO                             as MBL_TELNO
 				, FXNO                               as FAX_TELNO
 				, EML_ADDR                           as EMAIL_ADDR
 				, AGRC_BGNG_YMD                      as FAMG_STR_YMD
@@ -48,7 +48,7 @@
 				, SYS_LAST_CHG_DT                    as SYS_LAST_CHG_DT
 				, SYS_LAST_CHG_PRGRM_ID              as SYS_LAST_CHG_USER_ID
 				, SYS_LAST_CHG_USER_ID               as SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_AX_FRMER_INFO 
+			  FROM TB_AX_FRMER_INFO
 			 WHERE 1=1
 
     	]]>
@@ -86,7 +86,7 @@
 				, PRSNA_CORP_SE_CD                   as PER_CORP_DVCD_NM
 				, CTZN_FNGNR_SE_CD                   as NAFO_DVCD_NM
 				, TELNO                              as TELNO
-				, MOBLNO                             as MBL_TELNO
+				, MBL_TELNO                             as MBL_TELNO
 				, FXNO                               as FAX_TELNO
 				, EML_ADDR                           as EMAIL_ADDR
 				, AGRC_BGNG_YMD                      as FAMG_STR_YMD
@@ -107,7 +107,7 @@
 				, SYS_LAST_CHG_DT                    as SYS_LAST_CHG_DT
 				, SYS_LAST_CHG_PRGRM_ID              as SYS_LAST_CHG_USER_ID
 				, SYS_LAST_CHG_USER_ID               as SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_AX_FRMER_INFO 
+			  FROM TB_AX_FRMER_INFO
 			 WHERE 1=1
 
     	]]>
@@ -140,7 +140,7 @@
 					, PRSNA_CORP_SE_CD
 					, CTZN_FNGNR_SE_CD
 					, TELNO
-					, MOBLNO
+					, MBL_TELNO
 					, FXNO
 					, EML_ADDR
 					, AGRC_BGNG_YMD
@@ -244,8 +244,8 @@
 					, VLG_NM
 					, PRSNA_CORP_SE_CD
 					, CTZN_FNGNR_SE_CD
-					, TELNO 
-					, MOBLNO
+					, TELNO
+					, MBL_TELNO
 					, FXNO
 					, EML_ADDR
 					, AGRC_BGNG_YMD
@@ -322,7 +322,7 @@
 				, PRSNA_CORP_SE_CD	= #{perCorpDvcdNm}
 				, CTZN_FNGNR_SE_CD	= #{nafoDvcdNm}
 				, TELNO	= #{telno}
-				, MOBLNO	= #{mblTelno}
+				, MBL_TELNO	= #{mblTelno}
 				, FXNO	= #{faxTelno}
 				, EML_ADDR	= #{emailAddr}
 				, AGRC_BGNG_YMD	= #{famgStrYmd}
@@ -348,8 +348,8 @@
 					, VLG_NM
 					, PRSNA_CORP_SE_CD
 					, CTZN_FNGNR_SE_CD
-					, TELNO 
-					, MOBLNO
+					, TELNO
+					, MBL_TELNO
 					, FXNO
 					, EML_ADDR
 					, AGRC_BGNG_YMD
@@ -422,8 +422,8 @@
 					, VLG_NM
 					, PRSNA_CORP_SE_CD
 					, CTZN_FNGNR_SE_CD
-					, TELNO 
-					, MOBLNO
+					, TELNO
+					, MBL_TELNO
 					, FXNO
 					, EML_ADDR
 					, AGRC_BGNG_YMD
@@ -497,8 +497,8 @@
 					, VLG_NM
 					, PRSNA_CORP_SE_CD
 					, CTZN_FNGNR_SE_CD
-					, TELNO 
-					, MOBLNO
+					, TELNO
+					, MBL_TELNO
 					, FXNO
 					, EML_ADDR
 					, AGRC_BGNG_YMD
@@ -569,7 +569,7 @@
 				, PRSNA_CORP_SE_CD	= #{perCorpDvcdNm}
 				, CTZN_FNGNR_SE_CD	= #{nafoDvcdNm}
 				, TELNO	= #{telno}
-				, MOBLNO	= #{mblTelno}
+				, MBL_TELNO	= #{mblTelno}
 				, FXNO	= #{faxTelno}
 				, EML_ADDR	= #{emailAddr}
 				, AGRC_BGNG_YMD	= #{famgStrYmd}
@@ -616,7 +616,7 @@
 				, PRSNA_CORP_SE_CD	= #{perCorpDvcdNm}
 				, CTZN_FNGNR_SE_CD	= #{nafoDvcdNm}
 				, TELNO	= #{telno}
-				, MOBLNO	= #{mblTelno}
+				, MBL_TELNO	= #{mblTelno}
 				, FXNO	= #{faxTelno}
 				, EML_ADDR	= #{emailAddr}
 				, AGRC_BGNG_YMD	= #{famgStrYmd}
@@ -642,8 +642,8 @@
 					, VLG_NM
 					, PRSNA_CORP_SE_CD
 					, CTZN_FNGNR_SE_CD
-					, TELNO 
-					, MOBLNO
+					, TELNO
+					, MBL_TELNO
 					, FXNO
 					, EML_ADDR
 					, AGRC_BGNG_YMD
@@ -720,7 +720,7 @@
 				, PRSNA_CORP_SE_CD	= #{perCorpDvcdNm}
 				, CTZN_FNGNR_SE_CD	= #{nafoDvcdNm}
 				, TELNO	= #{telno}
-				, MOBLNO	= #{mblTelno}
+				, MBL_TELNO	= #{mblTelno}
 				, FXNO	= #{faxTelno}
 				, EML_ADDR	= #{emailAddr}
 				, AGRC_BGNG_YMD	= #{famgStrYmd}
@@ -747,7 +747,7 @@
 					, PRSNA_CORP_SE_CD
 					, CTZN_FNGNR_SE_CD
 					, TELNO
-					, MOBLNO
+					, MBL_TELNO
 					, FXNO
 					, EML_ADDR
 					, AGRC_BGNG_YMD

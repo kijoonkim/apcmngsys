@@ -95,7 +95,7 @@ public class BbsController extends BaseController {
 
 			 logger.debug("$$$$$$$$$$$$$$$$$$$$$");
 			 for (BbsVO bbs : resultList ) {
-				 logger.debug("bbsTitle : {}", bbs.getBbsTitle());
+//				 logger.debug("bbsTitle : {}", bbs.getBbsTitle());
 				 logger.debug("sysFrstInptUserIdNm : {}", bbs.getSysFrstInptUserIdNm());
 			 }
 
