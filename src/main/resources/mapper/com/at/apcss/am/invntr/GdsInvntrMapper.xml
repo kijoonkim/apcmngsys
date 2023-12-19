@@ -801,7 +801,7 @@
 					, CHG_AFTR_WGHT
 					, WAREHOUSE_SE_CD
 					, CHG_RSN_CD
-					, CHG_RMRK
+					, CHG_RSN
 		    		, SYS_FRST_INPT_DT
 		    		, SYS_FRST_INPT_USER_ID
 		    		, SYS_FRST_INPT_PRGRM_ID
@@ -828,7 +828,7 @@
 					, #{chgAftrWght}
 					, #{warehouseSeCd}
 					, #{chgRsnCd}
-					, #{chgRmrk}
+					, #{chgRsn}
 		    		, SYSDATE
 		    		, #{sysLastChgUserId}
 		    		, #{sysLastChgPrgrmId}

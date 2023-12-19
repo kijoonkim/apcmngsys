@@ -16,7 +16,7 @@
 		} */
 	</style>
 </head>
-<body>
+<body oncontextmenu="return false">
 	<section>
 		<div class="box box-solid">
 			<div class="box-header">

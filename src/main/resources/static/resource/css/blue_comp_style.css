@@ -356,7 +356,7 @@ nav.sbux-meu-wrap .sbux-meu-fluid .sbux-meu-bd-wrap > ul.sbux-meu-bd-ul > li a.s
 nav.sbux-meu-wrap .sbux-meu-fluid .sbux-meu-bd-wrap > ul.sbux-meu-bd-ul > li a.sbux-meu-top-item-tgl span.sbux-meu-top-item-txt-wrap {
   display: inline-block;
   white-space: nowrap;
-  padding: 0 7px 0 3px;
+  padding: 0 0px 0 0px;
 }
 nav.sbux-meu-wrap .sbux-meu-fluid .sbux-meu-bd-wrap > ul.sbux-meu-bd-ul > li a.sbux-meu-top-item-tgl:hover {
   color: #149FFF;
@@ -1159,7 +1159,7 @@ body > form .sbux-nor-input {
 }
 .sbux-sidemeu-title-wrap > div span {
   display: inline-block;
-  padding: 20px 0;
+  padding: 10px 0;
   font-size: 18px;
 }
 .sbux-sidemeu-title-wrap > div img {

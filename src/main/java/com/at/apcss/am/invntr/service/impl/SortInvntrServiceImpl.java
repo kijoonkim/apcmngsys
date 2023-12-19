@@ -134,17 +134,17 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 
 	@Override
 	public HashMap<String, Object> insertSortInvntrListForImport(List<SortInvntrVO> sortInvntrList) throws Exception {
-		
+
 		if (sortInvntrList == null || sortInvntrList.isEmpty()) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "등록대상");
 		}
-		
+
 		String apcCd = ComConstants.CON_BLANK;
-		
-		// 선별일자별로 처리		
+
+		// 선별일자별로 처리
 		List<InvntrVO> mstList = new ArrayList<>();
 		for ( SortInvntrVO sortInvntr : sortInvntrList ) {
-						
+
 			if (!StringUtils.hasText(sortInvntr.getApcCd())) {
 				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC정보");
 			}
@@ -160,27 +160,27 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 			if (!StringUtils.hasText(sortInvntr.getSpcfctCd())) {
 				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "규격");
 			}
-			
+
 			if (StringUtils.hasText(apcCd)) {
 				if (!apcCd.equals(sortInvntr.getApcCd())) {
-					return ComUtil.getResultMap(ComConstants.MSGCD_TARGET_EXIST, "서로 다른 APC코드");					
+					return ComUtil.getResultMap(ComConstants.MSGCD_TARGET_EXIST, "서로 다른 APC코드");
 				}
 			} else {
 				apcCd = sortInvntr.getApcCd();
 			}
-			
+
 			sortInvntr.setExcelYn(ComConstants.CON_YES);
-			
+
 			boolean needAdd = true;
-			
+
 			InvntrVO mstVO = null;
-			
+
 			List<SortInvntrVO> importList = new ArrayList<>();
-			
+
 			String invntrKey = sortInvntr.getInptYmd()
 						+ sortInvntr.getItemCd()
 						+ sortInvntr.getVrtyCd();
-			
+
 			for ( InvntrVO chkVO : mstList ) {
 				if ( ComUtil.nullToEmpty(invntrKey).equals(chkVO.getInvntrKey())) {
 					mstVO = chkVO;
@@ -192,22 +192,22 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 					break;
 				}
 			}
-			
+
 			if (mstVO == null) {
 				mstVO = new InvntrVO();
 				mstVO.setApcCd(apcCd);
 				mstVO.setInvntrKey(invntrKey);
 				mstVO.setInvntrYmd(sortInvntr.getInptYmd());
 			}
-			
+
 			importList.add(sortInvntr);
 			mstVO.setSortInvntrList(importList);
-			
+
 			if (needAdd) {
 				mstList.add(mstVO);
 			}
 		}
-		
+
 		for ( InvntrVO mstVO : mstList ) {
 			List<SortInvntrVO> importList = mstVO.getSortInvntrList();
 			if (importList != null && !importList.isEmpty()) {
@@ -225,11 +225,11 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 				}
 			}
 		}
-		
+
 		return null;
 	}
 
-	
+
 	@Override
 	public HashMap<String, Object> updateSortInvntr(SortInvntrVO sortInvntrVO) throws Exception {
 
@@ -389,7 +389,9 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 				}
 
 				// 선별 재고변경
-				sortInvntrMapper.updateSortInvntrChg(sortInvntrVO);
+				if(1 != sortInvntrMapper.updateSortInvntrChg(sortInvntrVO)) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "재고변경")));		// E0003	{0} 시 오류가 발생하였습니다.
+				}
 			}
 		}
 
@@ -541,6 +543,7 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 		chgHstryVO.setChgBfrWght(invntrInfo.getInvntrWght());
 		chgHstryVO.setChgAftrQntt(sortInvntrVO.getInvntrQntt());
 		chgHstryVO.setChgAftrWght(sortInvntrVO.getInvntrWght());
+		chgHstryVO.setChgRsn(sortInvntrVO.getRmrk());
 
 		if (!StringUtils.hasText(sortInvntrVO.getWarehouseSeCd())
 				|| sortInvntrVO.getWarehouseSeCd().equals(invntrInfo.getWarehouseSeCd())) {

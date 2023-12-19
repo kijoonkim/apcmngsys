@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
     <title>title : 원물입고 팔레트/박스 입고등록</title>
 </head>
-<body>
+<body oncontextmenu="return false">
 	<section>
 		<div class="box box-solid">
 			<div class="box-header">

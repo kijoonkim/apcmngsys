@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
     <title>title : 원물입고등록 엑셀 올리기</title>
 </head>
-<body>
+<body oncontextmenu="return false">
 	<section>
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >

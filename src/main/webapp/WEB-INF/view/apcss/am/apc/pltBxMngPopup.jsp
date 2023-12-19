@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
     <title>title : 팔레트/박스 등록</title>
 </head>
-<body>
+<body oncontextmenu="return false">
 	<section>
 		<div class="row">
 			<div class="box box-solid">

@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
     <title>title : 서류 발급</title>
 </head>
-<body>
+<body oncontextmenu="return false">
 	<!-- <div id="div-rpt-clipReportPopup" class="box box-solid" style="position:absolute;top:50px;left:5px;right:5px;bottom:5px;">  -->
 	<!-- <div id="div-rpt-clipReportPopup" style="width:1000px;height:600px;"> -->
 	<div id="div-rpt-clipReportPopup" style="width:1000px;height:80vh;"></div>

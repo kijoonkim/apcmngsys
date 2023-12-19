@@ -66,7 +66,7 @@ while ( params.hasMoreElements() ){
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
 </head>
-<body>
+<body oncontextmenu="return false">
 	<div id="div-rpt-clipReport" style="width:1000px;height:80vh;"></div>
 	<script type="text/javascript">
 		const fn_drawClipReport = async function() {

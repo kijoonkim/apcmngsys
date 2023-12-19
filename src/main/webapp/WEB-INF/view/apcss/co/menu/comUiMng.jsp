@@ -24,7 +24,7 @@
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 <meta charset="UTF-8">
 </head>
-<body>
+<body oncontextmenu="return false">
 	<section>
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
