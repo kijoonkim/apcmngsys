@@ -22,6 +22,7 @@
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
+					<sbux-button id="btnUpdatePwFclt" name="btnUpdatePwFclt" uitype="normal" text="비밀번호초기화" class="btn btn-sm btn-outline-danger" onclick="fn_updatePwFmList"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -718,5 +719,40 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 	}
+
+
+	 /*
+	  * 비밀번호 통합조직, 출자출하조직, 전체 초기화 업데이트
+	  * 2023-11-03
+	  * ysh
+	  */
+	async function fn_updatePwFmList(){
+		console.log("========fn_updatePwd================");
+		var userId = SBUxMethod.get("dtl-input-userId");
+		if(gfn_isEmpty(userId)) return;
+
+		if (!confirm("전체 사용자의 비밀번호를 초기화 하시겠습니까?")) return;
+
+		let postJsonPromise = gfn_postJSON("/pd/user/updAllComUserPwd.do", {
+			userId : 'all'
+		});
+       let data = await postJsonPromise;
+       try{
+       	if(data.updatedCnt > 0){
+       		alert("전체 사용자("+data.updatedCnt+"건)의 비밀번호가 초기화 되었습니다.");
+       	}else{
+       		alert("비밀번호 초기화 오류가 발생 되었습니다.");
+       	}
+       } catch (e) {
+   		if (!(e instanceof Error)) {
+   			e = new Error(e);
+   		}
+   		console.error("failed", e.message);
+       	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
+	}
+
+
+
 </script>
 </html>
