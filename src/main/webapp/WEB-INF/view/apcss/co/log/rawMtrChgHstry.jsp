@@ -106,8 +106,8 @@
 		            {caption: ['변경 후 중량 (Kg)'],			ref: 'chgAftrWght', 	width: '120px', 	type: 'output',	style:'text-align: right',
 		                typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
 		            {caption: ['변경사유'], 			ref: 'chgRsnNm', 		width: '120px', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['창고구분'],			ref: 'warehouseSeNm',	width: '120px', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['변경비고'],			ref: 'chgRmrk', 		width: '300px', 	type: 'output'}
+		            {caption: ['창고구분'],				ref: 'warehouseSeNm',	width: '120px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['변경비고'],				ref: 'chgRsn', 		width: '300px', 	type: 'output'}
 		        ];
 		        grdRawMtrChgHstry = _SBGrid.create(SBGridProperties);
 		        grdRawMtrChgHstry.bind( "afterpagechanged" , tabRawMtrChgHstry.paging );
@@ -167,7 +167,7 @@
 								chgBfrWght 		: item.chgBfrWght,
 								chgAftrQntt 	: item.chgAftrQntt,
 								chgAftrWght	 	: item.chgAftrWght,
-								chgRmrk	 		: item.chgRmrk,
+								chgRsn	 		: item.chgRsn,
 								chgRsnNm	 	: item.chgRsnNm,
 								warehouseSeNm	: item.warehouseSeNm
 							}

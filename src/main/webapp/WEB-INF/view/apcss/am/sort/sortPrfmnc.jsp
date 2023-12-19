@@ -414,8 +414,18 @@
 		  	'showgoalpageui' : true
 	    };
         SBGridProperties.columns = [
-        	{caption: ["체크박스","체크박스"], 		ref: 'checkedYn', 			type: 'checkbox', 	width: '40px',	style:'text-align: center',
-				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}
+        	{
+        		caption: ["전체",""], 			ref: 'checkedYn', 			type:'checkbox', 	width:'50px',	style:'text-align:center',
+					typeinfo: {
+						ignoreupdate : true,
+						fixedcellcheckbox : {
+							usemode : true,
+							rowindex : 1,
+							deletecaption : false
+						},
+						checkedvalue : 'Y',
+						uncheckedvalue : 'N'
+					}
         	},
             {caption: ["선별일자","선별일자"],		ref: 'inptYmd',     		type:'output',  	width:'90px',	style:'text-align:center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}
@@ -543,7 +553,7 @@
 		let pageSize = grdSortPrfmnc.getPageSize();   		// 몇개의 데이터를 가져올지 설정
 		let pageNo = grdSortPrfmnc.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
 		var getColRef = grdSortPrfmnc.getColRef("checkedYn");
-		grdSortPrfmnc.setFixedcellcheckboxChecked(0, getColRef, false);
+		grdSortPrfmnc.setFixedcellcheckboxChecked(1, getColRef, false);
 		fn_setGrdSortPrfmnc(pageSize, pageNo);
 	}
 

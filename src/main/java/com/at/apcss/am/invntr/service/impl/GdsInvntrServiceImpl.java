@@ -149,19 +149,19 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 
 	@Override
 	public HashMap<String, Object> insertGdsInvntrListForImport(List<GdsInvntrVO> gdsInvntrList) throws Exception {
-		
+
 		HashMap<String, Object> rtnObj = null;
-		
+
 		if (gdsInvntrList == null || gdsInvntrList.isEmpty()) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "등록대상");
 		}
-		
+
 		String apcCd = ComConstants.CON_BLANK;
-		
-		// 선별일자별로 처리		
+
+		// 선별일자별로 처리
 		List<InvntrVO> mstList = new ArrayList<>();
 		for ( GdsInvntrVO gdsInvntr : gdsInvntrList ) {
-						
+
 			if (!StringUtils.hasText(gdsInvntr.getApcCd())) {
 				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC정보");
 			}
@@ -180,15 +180,15 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 			if (!StringUtils.hasText(gdsInvntr.getSpmtPckgUnitCd())) {
 				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상품명");
 			}
-			
+
 			if (StringUtils.hasText(apcCd)) {
 				if (!apcCd.equals(gdsInvntr.getApcCd())) {
-					return ComUtil.getResultMap(ComConstants.MSGCD_TARGET_EXIST, "서로 다른 APC코드");					
+					return ComUtil.getResultMap(ComConstants.MSGCD_TARGET_EXIST, "서로 다른 APC코드");
 				}
 			} else {
 				apcCd = gdsInvntr.getApcCd();
 			}
-			
+
 			CmnsGdsVO cmnsGdsParam = new CmnsGdsVO();
 			BeanUtils.copyProperties(gdsInvntr, cmnsGdsParam);
 			rtnObj = cmnsGdsService.insertCheckGdsCd(cmnsGdsParam);
@@ -196,19 +196,19 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 				return rtnObj;
 			}
 			gdsInvntr.setGdsCd(cmnsGdsParam.getNewGdsCd());
-			
+
 			gdsInvntr.setExcelYn(ComConstants.CON_YES);
-			
+
 			boolean needAdd = true;
-			
+
 			InvntrVO mstVO = null;
-			
+
 			List<GdsInvntrVO> importList = new ArrayList<>();
-			
+
 			String invntrKey = gdsInvntr.getPckgYmd()
 						+ gdsInvntr.getItemCd()
 						+ gdsInvntr.getVrtyCd();
-			
+
 			for ( InvntrVO chkVO : mstList ) {
 				if ( ComUtil.nullToEmpty(invntrKey).equals(chkVO.getInvntrKey())) {
 					mstVO = chkVO;
@@ -220,22 +220,22 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 					break;
 				}
 			}
-			
+
 			if (mstVO == null) {
 				mstVO = new InvntrVO();
 				mstVO.setApcCd(apcCd);
 				mstVO.setInvntrKey(invntrKey);
 				mstVO.setInvntrYmd(gdsInvntr.getPckgYmd());
 			}
-			
+
 			importList.add(gdsInvntr);
 			mstVO.setGdsInvntrList(importList);
-			
+
 			if (needAdd) {
 				mstList.add(mstVO);
 			}
 		}
-		
+
 		for ( InvntrVO mstVO : mstList ) {
 			List<GdsInvntrVO> importList = mstVO.getGdsInvntrList();
 			if (importList != null && !importList.isEmpty()) {
@@ -253,11 +253,11 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 				}
 			}
 		}
-		
+
 		return null;
 	}
 
-	
+
 	@Override
 	public HashMap<String, Object> updateGdsInvntrSpmtPrfmnc(GdsInvntrVO gdsInvntrVO) throws Exception {
 
@@ -409,7 +409,9 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 			}
 
 			// 상품재고 변경
-			gdsInvntrMapper.updateGdsInvntrChg(gdsInvntrVO);
+			if(1 != gdsInvntrMapper.updateGdsInvntrChg(gdsInvntrVO)) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "재고변경")));		// E0003	{0} 시 오류가 발생하였습니다.
+			}
 		}
 
 		return null;
@@ -444,7 +446,6 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 		gdsInvntrVO.setChgRsnCd(AmConstants.CON_INVNTR_CHG_RSN_CD_T1);
 		HashMap<String, Object> rtnObj = insertGdsInvntrChgHstry(gdsInvntrVO);
 		if (rtnObj != null) {
-			// error throw exception;
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
 
@@ -479,6 +480,7 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 		chgHstryVO.setChgBfrWght(invntrInfo.getInvntrWght());
 		chgHstryVO.setChgAftrQntt(gdsInvntrVO.getInvntrQntt());
 		chgHstryVO.setChgAftrWght(gdsInvntrVO.getInvntrWght());
+		chgHstryVO.setChgRsn(gdsInvntrVO.getRmrk());
 
 		if (!StringUtils.hasText(gdsInvntrVO.getWarehouseSeCd())
 				|| gdsInvntrVO.getWarehouseSeCd().equals(invntrInfo.getWarehouseSeCd())) {

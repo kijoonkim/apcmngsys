@@ -209,8 +209,19 @@
 		  	'showgoalpageui' : true
 	    };
 	    SBGridProperties.columns = [
-        	{caption: ["체크박스","체크박스"], 	ref: 'checkedYn', 	type: 'checkbox', 	width:'40px',	  style:'text-align: center',
-				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}},
+        	{
+        		caption: ["전체",""], 		ref: 'checkedYn', 	type: 'checkbox', 	width:'50px',	  style:'text-align:center',
+					typeinfo: {
+						ignoreupdate : true,
+						fixedcellcheckbox : {
+							usemode : true,
+							rowindex : 1,
+							deletecaption : false
+						},
+						checkedvalue : 'Y',
+						uncheckedvalue : 'N'
+					}
+        	},
 	    	{caption: ["지시번호","지시번호"],	ref: 'pckgCmndno',  type:'output',  	width:'120px',    style:'text-align:center'},
 	    	{caption: ["순번","순번"],			ref: 'pckgCmndSn',	type:'output',  	width:'40px',     style:'text-align:center'},
 	        {caption: ["생산설비","생산설비"],	ref: 'fcltNm',      type:'output',  	width:'100px',    style:'text-align:center'},
@@ -295,7 +306,7 @@
     	let recordCountPerPage = grdPckgCmnd.getPageSize();   		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = grdPckgCmnd.getSelectPageIndex();
 		var getColRef = grdPckgCmnd.getColRef("checkedYn");
-		grdPckgCmnd.setFixedcellcheckboxChecked(0, getColRef, false);
+		grdPckgCmnd.setFixedcellcheckboxChecked(1, getColRef, false);
     	fn_setGrdPckgCmnd(recordCountPerPage, currentPageNo);
      }
 
