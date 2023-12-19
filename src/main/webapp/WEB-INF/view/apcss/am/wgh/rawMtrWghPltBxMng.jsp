@@ -91,7 +91,7 @@
 						<tr>
 						    <th scope="row" class="th_bg"><span class="data_required"></span>작업일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-inp-cmndYmd" name="srch-inp-cmndYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="srch-inp-cmndYmd" name="srch-inp-cmndYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"></sbux-datepicker>
 							</td>
 							<td colspan="2" class="td_input"  style="border-right: hidden;"></td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>입출고구분</th>
@@ -269,10 +269,18 @@
 	}
 
 	const fn_search = async function(){
+
+		let cmndYmd = SBUxMethod.get("srch-inp-cmndYmd");
+  		
+		if (gfn_isEmpty(cmndYmd)) {
+    		gfn_comAlert("W0001", "작업일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+    	}
+		
 		var getColRef = grdPltWrhsSpmt.getColRef("checkedYn");
 		grdPltWrhsSpmt.setFixedcellcheckboxChecked(0, getColRef, false);
-		
-		fn_reset();
+
+		fn_clearForm();
 
     	// grid clear
     	jsonPltBxMngList.length = 0;
@@ -535,7 +543,7 @@
 		let bssInvntrQntt = "";
 
 		if(gfn_isEmpty(cmndYmd)){
-			gfn_comAlert("W0001", "지시일자");		//	W0002	{0}을/를 선택하세요.
+			gfn_comAlert("W0001", "작업일자");		//	W0002	{0}을/를 선택하세요.
 			return;
 		}
 		if(gfn_isEmpty(wrhsSpmtSeCd)){
@@ -642,6 +650,9 @@
 	// 초기화
 	const fn_reset = async function() {
 		SBUxMethod.set("srch-inp-cmndYmd", gfn_dateToYmd(new Date()));
+		fn_clearForm();
+	}
+	const fn_clearForm = async function() {
 		SBUxMethod.set("srch-slt-wrhsSpmtSe", "");
 		SBUxMethod.set("srch-slt-pltBxSe", "");
 		SBUxMethod.set("srch-slt-pltBxNm", "");

@@ -190,7 +190,7 @@
 									id="srch-dtp-wrhsYmd"
 									name="srch-dtp-wrhsYmd"
 									date-format="yyyy-mm-dd"
-									class="form-control pull-right sbux-pik-group-apc input-sm"
+									class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
 									style="width:100%;"
 								/>
 							</td>
@@ -762,6 +762,12 @@
      * @description 조회 버튼
      */
     const fn_search = async function() {
+  		
+		if (gfn_isEmpty(SBUxMethod.get("srch-dtp-wrhsYmd"))) {
+    		gfn_comAlert("W0001", "입고일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+    	}
+		
 		var getColRef = grdRawMtrWrhs.getColRef("checkedYn");
 		grdRawMtrWrhs.setFixedcellcheckboxChecked(0, getColRef, false);
 

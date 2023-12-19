@@ -81,7 +81,7 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>입고일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-pckgYmd" name="srch-dtp-pckgYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control pull-right input-sm-ast input-sm"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-pckgYmd" name="srch-dtp-pckgYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control pull-right input-sm-ast input-sm inpt_data_reqed"></sbux-datepicker>
 							</td>
 							<td colspan="2"></td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>상품구분</th>
@@ -377,6 +377,12 @@
 
 	// 상품입고 목록 조회 (조회 버튼)
     async function fn_search() {
+
+		if (gfn_isEmpty(SBUxMethod.get("srch-dtp-pckgYmd"))){
+			gfn_comAlert("W0002", "입고일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+		}
+		
     	fn_clearInptForm();
 
     	let recordCountPerPage = grdGdsWrhs.getPageSize();  		// 몇개의 데이터를 가져올지 설정
@@ -391,11 +397,6 @@
 		jsonGdsWrhs = [];
 		let apcCd = gv_selectedApcCd;
 		let pckgYmd = SBUxMethod.get("srch-dtp-pckgYmd");
-
-		if (gfn_isEmpty(pckgYmd)){
-			gfn_comAlert("W0002", "입고일자");		//	W0002	{0}을/를 입력하세요.
-            return;
-		}
 
 		let gdsInvntrVO = {apcCd 				: apcCd
 						 , pckgYmd 				: pckgYmd

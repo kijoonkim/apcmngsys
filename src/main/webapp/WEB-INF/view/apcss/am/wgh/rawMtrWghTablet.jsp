@@ -240,7 +240,7 @@
 									name="dtl-dtp-wghYmd"
 									uitype="popup"
 									date-format="yyyy-mm-dd"
-									class="form-control sbux-pik-group-apc input-sm"
+									class="form-control sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
 									style="width:100%;"
 								></sbux-datepicker>
 							</td>
@@ -726,6 +726,11 @@
      * @description 조회 버튼
      */
 	const fn_search = async function() {
+		if (gfn_isEmpty(SBUxMethod.get("dtl-dtp-wghYmd"))) {
+    		gfn_comAlert("W0001", "계량일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+    	}
+ 		
 		var getColRef = grdWghPrfmnc.getColRef("checkedYn");
 		grdWghPrfmnc.setFixedcellcheckboxChecked(0, getColRef, false);
 

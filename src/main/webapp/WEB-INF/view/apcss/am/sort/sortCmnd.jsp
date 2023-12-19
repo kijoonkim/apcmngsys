@@ -65,10 +65,10 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>지시일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-strtCmndYmd" name="srch-dtp-strtCmndYmd" date-format="yyyy-mm-dd" class="form-control pull-right input-sm" onchange="fn_dtpChange(srch-dtp-strtCmndYmd)">
+								<sbux-datepicker uitype="popup" id="srch-dtp-cmndYmdFrom" name="srch-dtp-cmndYmdFrom" date-format="yyyy-mm-dd" class="form-control pull-right input-sm input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-cmndYmdFrom)">
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-endCmndYmd" name="srch-dtp-endCmndYmd" date-format="yyyy-mm-dd" class="form-control pull-right input-sm" onchange="fn_dtpChange(srch-dtp-endCmndYmd)">
+								<sbux-datepicker uitype="popup" id="srch-dtp-cmndYmdTo" name="srch-dtp-cmndYmdTo" date-format="yyyy-mm-dd" class="form-control pull-right input-sm input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-cmndYmdTo)">
 							</td>
 							<td>&nbsp;</td>
 							<th scope="row" class="th_bg">품목/품종</th>
@@ -88,7 +88,7 @@
 									uitype="text"
 									id="srch-inp-prdcrNm"
 									name="srch-inp-prdcrNm"
-									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									class="form-control input-sm"
 									placeholder="초성검색 가능"
 									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
@@ -180,20 +180,20 @@
 		fn_createSortCmndGrid();
 		fn_getPrdcrs();
 
-		SBUxMethod.set("srch-dtp-strtCmndYmd", gfn_dateFirstYmd(new Date()));
-		SBUxMethod.set("srch-dtp-endCmndYmd", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-dtp-cmndYmdFrom", gfn_dateFirstYmd(new Date()));
+		SBUxMethod.set("srch-dtp-cmndYmdTo", gfn_dateToYmd(new Date()));
 
 		fn_initSBSelect();
 
 	});
 
 	const fn_dtpChange = function(){
-		let strtCmndYmd = SBUxMethod.get("srch-dtp-strtCmndYmd");
-		let endCmndYmd = SBUxMethod.get("srch-dtp-endCmndYmd");
+		let strtCmndYmd = SBUxMethod.get("srch-dtp-cmndYmdFrom");
+		let endCmndYmd = SBUxMethod.get("srch-dtp-cmndYmdTo");
 		if(gfn_diffDate(strtCmndYmd, endCmndYmd) < 0){
 			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");//W0001{0}
-			SBUxMethod.set("srch-dtp-strtCmndYmd", gfn_dateFirstYmd(new Date()));
-			SBUxMethod.set("srch-dtp-endCmndYmd", gfn_dateToYmd(new Date()));
+			SBUxMethod.set("srch-dtp-cmndYmdFrom", gfn_dateFirstYmd(new Date()));
+			SBUxMethod.set("srch-dtp-cmndYmdTo", gfn_dateToYmd(new Date()));
 			return;
 		}
 	}
@@ -323,30 +323,24 @@
     }
 
 	const fn_search = async function(){
-    	try{
- 		   if (gfn_isEmpty(SBUxMethod.get("srch-dtp-strtCmndYmd")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-endCmndYmd")))
- 				   throw "지시일자는 필수입력 항목입니다.";
-
-	    	grdSortCmnd.rebuild();
-	    	let pageSize = grdSortCmnd.getPageSize();
-	    	let pageNo = 1;
-
-	    	// grid clear
-	    	jsonSortCmnd.length = 0;
-	    	grdSortCmnd.clearStatus();
-	    	grdSortCmnd.movePaging(pageNo);
-		} catch (e) {
-	   		if (!(e instanceof Error)) {
-				e = new Error(e);
-			}
-			console.error("failed", e.message);
-	    	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-		}
+		if (gfn_isEmpty(SBUxMethod.get("srch-dtp-cmndYmdFrom")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-cmndYmdTo"))) {
+    		gfn_comAlert("W0001", "지시일자");		//	W0002	{0}을/를 입력하세요.
+        	return;
+    	}
+		
+		grdSortCmnd.rebuild();
+		let pageSize = grdSortCmnd.getPageSize();
+		let pageNo = 1;
+		
+		// grid clear
+		jsonSortCmnd.length = 0;
+		grdSortCmnd.clearStatus();
+		grdSortCmnd.movePaging(pageNo);
 	}
 	const fn_setGrdSortCmnd = async function(pageSize, pageNo){
     	let fcltCd	= SBUxMethod.get("srch-slt-inptFclt");
-    	let sortCmndFromYmd = SBUxMethod.get("srch-dtp-strtCmndYmd");
-    	let sortCmndToYmd = SBUxMethod.get("srch-dtp-endCmndYmd");
+    	let sortCmndFromYmd = SBUxMethod.get("srch-dtp-cmndYmdFrom");
+    	let sortCmndToYmd = SBUxMethod.get("srch-dtp-cmndYmdTo");
     	let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");			// 생산자
   		let itemCd = SBUxMethod.get("srch-slt-itemCd");				// 품목
   		let vrtyCd = SBUxMethod.get("srch-inp-vrtyCd");				// 품종
@@ -673,8 +667,8 @@
      * @description 검색조건 초기화 버튼
      */
 	async function fn_reset() {
-		SBUxMethod.set('srch-dtp-strtCmndYmd', gfn_dateFirstYmd(new Date()));
-		SBUxMethod.set('srch-dtp-endCmndYmd', gfn_dateToYmd(new Date()));
+		SBUxMethod.set('srch-dtp-cmndYmdFrom', gfn_dateFirstYmd(new Date()));
+		SBUxMethod.set('srch-dtp-cmndYmdTo', gfn_dateToYmd(new Date()));
 		SBUxMethod.set('srch-slt-itemCd', "");
 		SBUxMethod.set('srch-inp-vrtyNm', "");
 		SBUxMethod.set('srch-inp-vrtyCd', "");

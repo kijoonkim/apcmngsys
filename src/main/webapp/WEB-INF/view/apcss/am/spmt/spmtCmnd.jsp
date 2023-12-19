@@ -298,6 +298,11 @@
 
 	// 출하지시 목록 조회 (조회 버튼)
     async function fn_search() {
+		if (gfn_isEmpty(SBUxMethod.get("srch-dtp-cmndYmdFrom")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-cmndYmdFrom"))){
+			gfn_comAlert("W0002", "지시일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+		}
+		
     	let recordCountPerPage = grdSpmtCmnd.getPageSize();  		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = 1;
     	grdSpmtCmnd.movePaging(currentPageNo);
@@ -315,14 +320,6 @@
 		let vrtyCd = SBUxMethod.get("srch-inp-vrtyCd");
 		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
 		let spmtPckgUnitCd = SBUxMethod.get("srch-slt-spmtPckgUnitCd");
-		if (gfn_isEmpty(cmndYmdFrom)){
-			gfn_comAlert("W0002", "지시일자");		//	W0002	{0}을/를 입력하세요.
-            return;
-		}
-		if (gfn_isEmpty(cmndYmdTo)){
-			gfn_comAlert("W0002", "지시일자");		//	W0002	{0}을/를 입력하세요.
-            return;
-		}
 
 		let spmtCmndVO = {apcCd 				: apcCd
 						, cmndYmdFrom 			: cmndYmdFrom

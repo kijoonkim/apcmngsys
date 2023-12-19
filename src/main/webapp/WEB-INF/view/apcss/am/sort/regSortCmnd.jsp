@@ -62,10 +62,10 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>입고일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-wrhsYmdFrom" name="srch-dtp-wrhsYmdFrom" date-format="yyyy-mm-dd" class="form-control pull-right input-sm input-sm-ast" onchange="fn_dtpChange(srch-dtp-wrhsYmdFrom)">
+								<sbux-datepicker uitype="popup" id="srch-dtp-wrhsYmdFrom" name="srch-dtp-wrhsYmdFrom" date-format="yyyy-mm-dd" class="form-control pull-right input-sm input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-wrhsYmdFrom)">
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-wrhsYmdTo" name="srch-dtp-wrhsYmdTo" date-format="yyyy-mm-dd" class="form-control pull-right input-sm input-sm-ast" onchange="fn_dtpChange(srch-dtp-wrhsYmdTo)">
+								<sbux-datepicker uitype="popup" id="srch-dtp-wrhsYmdTo" name="srch-dtp-wrhsYmdTo" date-format="yyyy-mm-dd" class="form-control pull-right input-sm input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-wrhsYmdTo)">
 							</td>
 							<td>&nbsp;</td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>품목/품종</th>
@@ -82,7 +82,7 @@
 									uitype="text"
 									id="srch-inp-prdcrNm"
 									name="srch-inp-prdcrNm"
-									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									class="form-control input-sm"
 									placeholder="초성검색 가능"
 									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
@@ -142,7 +142,7 @@
 					<tr>
 						<th scope="row" class="th_bg"><span class="data_required"></span>지시일자</th>
 						<td class="td_input" style="border-right: hidden;">
-							<sbux-datepicker uitype="popup" id="srch-dtp-cmndYmd" name="srch-dtp-cmndYmd" date-format="yyyy-mm-dd" class="form-control pull-right input-sm input-sm-ast" onchange="fn_dtpChange(srch-dtp-cmndYmd)"/>
+							<sbux-datepicker uitype="popup" id="srch-dtp-cmndYmd" name="srch-dtp-cmndYmd" date-format="yyyy-mm-dd" class="form-control pull-right input-sm input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-cmndYmd)"/>
 						</td>
 						<td>&nbsp;</td>
 						<th scope="row" class="th_bg"><span class="data_required"></span>투입설비</th>
@@ -432,12 +432,8 @@
   		let itemCd = SBUxMethod.get("srch-slt-itemCd");					// 품목
   		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");					// 품종
 
-  		if (gfn_isEmpty(wrhsYmdFrom)) {
-  			await gfn_comAlert("W0001", "입고시작일자");		//	W0002	{0}을/를 선택하세요.
-            return false;
-  		}
-  		if (gfn_isEmpty(wrhsYmdTo)) {
-  			await gfn_comAlert("W0001", "입고종료일자");		//	W0002	{0}을/를 선택하세요.
+  		if (gfn_isEmpty(wrhsYmdFrom) || gfn_isEmpty(wrhsYmdTo)) {
+  			await gfn_comAlert("W0001", "입고일자");		//	W0002	{0}을/를 선택하세요.
             return false;
   		}
 
@@ -632,8 +628,14 @@
 
     	var fcltCd	= SBUxMethod.get("srch-slt-inptFclt");
     	var sortCmndYmd = SBUxMethod.get("srch-dtp-cmndYmd");
+    	
+    	if(gfn_isEmpty(sortCmndYmd)){
+    		gfn_comAlert("W0001", "지시일자");			//	W0002	{0}을/를 선택하세요.
+            return;
+    	}
+    	
     	if(gfn_isEmpty(fcltCd)){
-    		gfn_comAlert("W0001", "설비");			//	W0002	{0}을/를 선택하세요.
+    		gfn_comAlert("W0001", "투입설비");			//	W0002	{0}을/를 선택하세요.
             return;
     	}
 
