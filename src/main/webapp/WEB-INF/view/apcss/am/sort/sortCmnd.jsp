@@ -222,8 +222,19 @@
 		  	'showgoalpageui' : true
 	    };
 	    SBGridProperties.columns = [
-        	{caption: ["체크박스","체크박스"], 		ref: 'checkedYn', 		type: 'checkbox', 	width: '40px',	  style:'text-align: center',
-				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}},
+        	{
+        		caption: ["전체",""], 			ref: 'checkedYn', 		type: 'checkbox', 	width:'50px',	  style:'text-align:center',
+					typeinfo: {
+						ignoreupdate : true,
+						fixedcellcheckbox : {
+							usemode : true,
+							rowindex : 1,
+							deletecaption : false
+						},
+						checkedvalue : 'Y',
+						uncheckedvalue : 'N'
+					}
+        	},
 	        {caption: ["지시번호","지시번호"],		ref: 'sortCmndno',      type:'output',  	width:'130px',    style:'text-align:center'},
 	        {caption: ["지시일자","지시일자"], 		ref: 'sortCmndYmd',     type:'output',  	width:'100px',    style:'text-align:center',
 	        	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
@@ -307,7 +318,7 @@
     	let recordCountPerPage = grdSortCmnd.getPageSize();   		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = grdSortCmnd.getSelectPageIndex();
 		var getColRef = grdSortCmnd.getColRef("checkedYn");
-		grdSortCmnd.setFixedcellcheckboxChecked(0, getColRef, false);
+		grdSortCmnd.setFixedcellcheckboxChecked(1, getColRef, false);
     	fn_setGrdSortCmnd(recordCountPerPage, currentPageNo);
     }
 
