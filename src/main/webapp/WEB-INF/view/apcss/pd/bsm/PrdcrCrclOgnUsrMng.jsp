@@ -20,9 +20,9 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-button id="btnUpdatePwFclt" name="btnUpdatePwFclt" uitype="normal" text="비밀번호 초기화(통합조직/출자출하조직 전체)" class="btn btn-sm btn-outline-danger" onclick="fn_updatePwFmList"></sbux-button>
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
-					<sbux-button id="btnUpdatePwFclt" name="btnUpdatePwFclt" uitype="normal" text="비밀번호초기화" class="btn btn-sm btn-outline-danger" onclick="fn_updatePwFmList"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -311,8 +311,8 @@
 							<td colspan="2" class="td_input" style="border-right:hidden;" >
 								<sbux-input
 									uitype="text"
-									id="dtl-input-moblno"
-									name="dtl-input-moblno"
+									id="dtl-input-mblTelno"
+									name="dtl-input-mblTelno"
 									class="form-control input-sm"
 									autocomplete="off"
 								></sbux-input>
@@ -502,7 +502,7 @@
 	    	{caption: ["비고"], 		ref: 'rmrk',   	type:'output',  width:'200px',    style:'text-align:center'},
 
 	    	{caption: ["전화번호"], 		ref: 'telno',   	type:'output',  hidden : true},
-	    	{caption: ["핸드폰번호"], 		ref: 'moblno',   	type:'output',  hidden : true},
+	    	{caption: ["핸드폰번호"], 		ref: 'mblTelno',   	type:'output',  hidden : true},
 	    	{caption: ["관할기관승인일"], 		ref: 'cmptncInstAprvYmd',   	type:'output',  hidden : true}
 	    ];
 
@@ -569,7 +569,7 @@
 				  , userStts 	: item.userStts
 				  , telno 		: item.telno
 				  , brno 		: item.brno
-				  , moblno 		: item.moblno
+				  , mblTelno 		: item.mblTelno
 				  , coNm 		: item.coNm
 				  , cmptncInstAprvSe 	: item.cmptncInstAprvSe
 				  , cmptncInst 	: item.cmptncInst
@@ -610,7 +610,7 @@
 		SBUxMethod.set("dtl-input-userStts",null);
 		SBUxMethod.set("dtl-input-telno",null);
 		SBUxMethod.set("dtl-input-brno",null);
-		SBUxMethod.set("dtl-input-moblno",null);
+		SBUxMethod.set("dtl-input-mblTelno",null);
 		SBUxMethod.set("dtl-input-cmptncInstAprvYmd",null);
 		SBUxMethod.set("dtl-input-coNm",null);
 		SBUxMethod.set("dtl-input-cmptncInstAprvSe",null);
@@ -632,7 +632,7 @@
 			,brno : SBUxMethod.get("dtl-input-brno")//사업자번호
 			,coNm : SBUxMethod.get("dtl-input-coNm")//법인명
 			,telno : SBUxMethod.get("dtl-input-telno")//전화번호
-			,moblno : SBUxMethod.get("dtl-input-moblno")//휴대폰번호
+			,mblTelno : SBUxMethod.get("dtl-input-mblTelno")//휴대폰번호
 			,cmptncInstAprvYmd : SBUxMethod.get("dtl-input-cmptncInstAprvYmd")//관할기관승인일
 			,userAprvYmd : SBUxMethod.get("dtl-input-userAprvYmd")//사용자승인일
 			,cmptncInstAprvSe : SBUxMethod.get("dtl-input-cmptncInstAprvSe")//2차승인여부
@@ -681,7 +681,7 @@
 		SBUxMethod.set("dtl-input-userStts", rowData.userStts);  //  1차승인
 		SBUxMethod.set("dtl-input-telno", rowData.telno);  //  전화번호
 		SBUxMethod.set("dtl-input-brno", rowData.brno);  //  사업자번호
-		SBUxMethod.set("dtl-input-moblno", rowData.moblno);  //  휴대폰번호
+		SBUxMethod.set("dtl-input-mblTelno", rowData.mblTelno);  //  휴대폰번호
 		SBUxMethod.set("dtl-input-cmptncInstAprvYmd", rowData.cmptncInstAprvYmd);  //  관할기관승인일
 		SBUxMethod.set("dtl-input-userAprvYmd", rowData.userAprvYmd);  //  사용자승인일
 		SBUxMethod.set("dtl-input-coNm", rowData.coNm);  //  법인명
@@ -729,12 +729,13 @@
 	async function fn_updatePwFmList(){
 		console.log("========fn_updatePwd================");
 		var userId = SBUxMethod.get("dtl-input-userId");
-		if(gfn_isEmpty(userId)) return;
+		var userIdTest = "all";
+		//if(gfn_isEmpty(userId)) return;
 
 		if (!confirm("전체 사용자의 비밀번호를 초기화 하시겠습니까?")) return;
 
 		let postJsonPromise = gfn_postJSON("/pd/user/updAllComUserPwd.do", {
-			userId : 'all'
+			userIdTest : userIdTest
 		});
        let data = await postJsonPromise;
        try{

@@ -28,7 +28,7 @@
 				, PRSNA_CORP_SE_CD                   as PER_CORP_DVCD_NM
 				, CTZN_FNGNR_SE_CD                   as NAFO_DVCD_NM
 				, TELNO                              as TELNO
-				, MOBLNO                             as MBL_TELNO
+				, MBL_TELNO                             as MBL_TELNO
 				, FXNO                               as FAX_TELNO
 				, EML_ADDR                           as EMAIL_ADDR
 				, AGRC_BGNG_YMD                      as FAMG_STR_YMD
@@ -49,7 +49,7 @@
 				, SYS_LAST_CHG_DT                    as SYS_LAST_CHG_DT
 				, SYS_LAST_CHG_PRGRM_ID              as SYS_LAST_CHG_USER_ID
 				, SYS_LAST_CHG_USER_ID               as SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_AX_FRMER_INFO_LOG 
+			  FROM TB_AX_FRMER_INFO_LOG
 			 WHERE 1=1
 
     	]]>
@@ -88,7 +88,7 @@
 				, PRSNA_CORP_SE_CD                   as PER_CORP_DVCD_NM
 				, CTZN_FNGNR_SE_CD                   as NAFO_DVCD_NM
 				, TELNO                              as TELNO
-				, MOBLNO                             as MBL_TELNO
+				, MBL_TELNO                             as MBL_TELNO
 				, FXNO                               as FAX_TELNO
 				, EML_ADDR                           as EMAIL_ADDR
 				, AGRC_BGNG_YMD                      as FAMG_STR_YMD
@@ -109,7 +109,7 @@
 				, SYS_LAST_CHG_DT                    as SYS_LAST_CHG_DT
 				, SYS_LAST_CHG_PRGRM_ID              as SYS_LAST_CHG_USER_ID
 				, SYS_LAST_CHG_USER_ID               as SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_AX_FRMER_INFO_LOG 
+			  FROM TB_AX_FRMER_INFO_LOG
 			 WHERE 1=1
 
     	]]>
@@ -142,7 +142,7 @@
 					, PRSNA_CORP_SE_CD
 					, CTZN_FNGNR_SE_CD
 					, TELNO
-					, MOBLNO
+					, MBL_TELNO
 					, FXNO
 					, EML_ADDR
 					, AGRC_BGNG_YMD
@@ -308,7 +308,7 @@
 	<![CDATA[
     	INSERT /* com.at.apcss.fm.farm.mapper.farmerInfoLogMapper.insertMegerLogFarmerInfoLog */
 	    	  INTO TB_AX_FRMER_INFO_LOG
-	    	  (       SN    
+	    	  (       SN
 	    		    , FRMERNO
 					, MNGMST_REGNO
 					, ADMST_OWNR_REL
@@ -320,7 +320,7 @@
 					, PRSNA_CORP_SE_CD
 					, CTZN_FNGNR_SE_CD
 					, TELNO
-					, MOBLNO
+					, MBL_TELNO
 					, FXNO
 					, EML_ADDR
 					, AGRC_BGNG_YMD
