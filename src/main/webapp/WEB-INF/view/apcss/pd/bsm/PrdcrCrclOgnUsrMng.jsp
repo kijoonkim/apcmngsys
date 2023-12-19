@@ -55,10 +55,10 @@
 							<th scope="row" class="th_bg" >관할기관</th>
 							<td colspan="2" class="td_input" style="border-right:hidden;" >
 								<sbux-select
-									id="srch-input-cmptnInst"
-									name="srch-input-cmptnInst"
+									id="srch-input-cmptncInst"
+									name="srch-input-cmptncInst"
 									uitype="single"
-									jsondata-ref="jsonComCmptnInst"
+									jsondata-ref="jsonComcmptncInst"
 									unselected-text="전체"
 									class="form-control input-sm"
 									onchange="fn_onChangeSrchItemCd(this)"
@@ -82,10 +82,10 @@
 							<th scope="row" class="th_bg">2차승인여부</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select
-									id="srch-input-cmptnInstCofmCd"
-									name="srch-input-cmptnInstCofmCd"
+									id="srch-input-cmptncInstAprvSe"
+									name="srch-input-cmptncInstAprvSe"
 									uitype="single"
-									jsondata-ref="jsonCmptnInstCofmCd"
+									jsondata-ref="jsoncmptncInstAprvSe"
 									unselected-text="전체"
 									class="form-control input-sm"
 									onchange="fn_onChangeSrchItemCd(this)"
@@ -241,10 +241,10 @@
 							<th scope="row" class="th_bg">관할기관</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-select
-									id="dtl-input-cmptnInst"
-									name="dtl-input-cmptnInst"
+									id="dtl-input-cmptncInst"
+									name="dtl-input-cmptncInst"
 									uitype="single"
-									jsondata-ref="jsonComCmptnInst"
+									jsondata-ref="jsonComcmptncInst"
 									unselected-text="선택"
 									class="form-control input-sm"
 									onchange="fn_onChangeSrchItemCd(this)"
@@ -348,10 +348,10 @@
 							<th scope="row" class="th_bg">2차승인여부</th>
 							<td colspan="4" class="td_input" style="border-right: hidden;">
 								<sbux-select
-									id="dtl-input-cmptnInstCofmCd"
-									name="dtl-input-cmptnInstCofmCd"
+									id="dtl-input-cmptncInstAprvSe"
+									name="dtl-input-cmptncInstAprvSe"
 									uitype="single"
-									jsondata-ref="jsonCmptnInstCofmCd"
+									jsondata-ref="jsoncmptncInstAprvSe"
 									unselected-text="선택"
 									class="form-control input-sm"
 									onchange="fn_onChangeSrchItemCd(this)"
@@ -431,12 +431,12 @@
 
 
 	//승인여부
-	var jsonCmptnInstCofmCd = [
+	var jsoncmptncInstAprvSe = [
 		{'text': '승인','label': '승인', 'value': 'Y'},
 		{'text': '미승인','label': '미승인', 'value': 'N'}
 	];
 
-	var jsonComCmptnInst = [];//관할기관
+	var jsonComcmptncInst = [];//관할기관
 	var jsonComUserType = [];//권한
 	var jsonComUserStts = [];//1차승인
 
@@ -451,8 +451,8 @@
 			gfn_setComCdSBSelect('dtl-input-userType', 	jsonComUserType, 	'USER_TYPE'),	// 권한
 			gfn_setComCdSBSelect('srch-input-userStts', 	jsonComUserStts, 	'USER_STTS'),	// 1차승인
 			gfn_setComCdSBSelect('dtl-input-userStts', 		jsonComUserStts, 	'USER_STTS'),	// 1차승인
-		 	gfn_setComCdSBSelect('srch-input-cmptnInst', 	jsonComCmptnInst, 	'CMPTNC_INST'), //관할기관
-		 	gfn_setComCdSBSelect('dtl-input-cmptnInst', 	jsonComCmptnInst, 	'CMPTNC_INST'), //관할기관
+		 	gfn_setComCdSBSelect('srch-input-cmptncInst', 	jsonComcmptncInst, 	'CMPTNC_INST'), //관할기관
+		 	gfn_setComCdSBSelect('dtl-input-cmptncInst', 	jsonComcmptncInst, 	'CMPTNC_INST'), //관할기관
 		]);
 	}
 
@@ -489,12 +489,12 @@
 	    	{caption: ["아이디"], 	ref: 'userId',   	type:'output',  width:'200px',    style:'text-align:center'},
 	    	{caption: ["이름"], 		ref: 'userNm',   	type:'output',  width:'200px',    style:'text-align:center'},
 	    	{caption: ["법인명"], 	ref: 'coNm',   	type:'output',  width:'200px',    style:'text-align:center'},
-	    	{caption: ["관할기관"], 	ref: 'cmptnInst',   	type:'output',  width:'200px',    style:'text-align:center', disabled:true
-	    		,typeinfo : {ref:'jsonComCmptnInst', label:'label', value:'value', displayui : true}},
+	    	{caption: ["관할기관"], 	ref: 'cmptncInst',   	type:'output',  width:'200px',    style:'text-align:center', disabled:true
+	    		,typeinfo : {ref:'jsonComcmptncInst', label:'label', value:'value', displayui : true}},
 	    	{caption: ["1차승인"], 	ref: 'userStts',   	type:'output',  width:'200px',    style:'text-align:center', disabled:true
 		    	,typeinfo : {ref:'jsonComUserStts', label:'label', value:'value', displayui : true}},
-	    	{caption: ["2차승인"], 	ref: 'cmptnInstCofmCd',   	type:'output',  width:'200px',    style:'text-align:center', disabled:true
-			    ,typeinfo : {ref:'jsonCmptnInstCofmCd', label:'label', value:'value', displayui : true}},
+	    	{caption: ["2차승인"], 	ref: 'cmptncInstAprvSe',   	type:'output',  width:'200px',    style:'text-align:center', disabled:true
+			    ,typeinfo : {ref:'jsoncmptncInstAprvSe', label:'label', value:'value', displayui : true}},
 	    	{caption: ["권한"], 		ref: 'userType',   	type:'output',  width:'200px',    style:'text-align:center', disabled:true
 				,typeinfo : {ref:'jsonComUserType', label:'label', value:'value', displayui : true}},
 	    	{caption: ["사업자번호"], 	ref: 'brno',   	type:'output',  width:'200px',    style:'text-align:center'},
@@ -531,9 +531,9 @@
 	//const fn_searchFcltList = async function(){
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
 
-		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//관할기관
+		let cmptncInst = SBUxMethod.get("srch-input-cmptncInst");//관할기관
 		let userStts = SBUxMethod.get("srch-input-userStts");//1차승인여부
-		let cmptnInstCofmCd = SBUxMethod.get("srch-input-cmptnInstCofmCd");//2차승인여부
+		let cmptncInstAprvSe = SBUxMethod.get("srch-input-cmptncInstAprvSe");//2차승인여부
 		let userType = SBUxMethod.get("srch-input-userType");//권한
 		let userId = SBUxMethod.get("srch-input-userId");//아이디
 		let userNm = SBUxMethod.get("srch-input-userNm");//이름
@@ -541,9 +541,9 @@
 		let coNm = SBUxMethod.get("srch-input-coNm");//법인명
 
     	let postJsonPromise = gfn_postJSON("/pd/bsm/selectPrdcrCrclOgnUsrMngList.do", {
-    		cmptnInst : cmptnInst
+    		cmptncInst : cmptncInst
     		,userStts : userStts
-    		,cmptnInstCofmCd : cmptnInstCofmCd
+    		,cmptncInstAprvSe : cmptncInstAprvSe
     		,userType : userType
     		,userId : userId
     		,userNm : userNm
@@ -569,8 +569,8 @@
 				  , brno 		: item.brno
 				  , moblno 		: item.moblno
 				  , coNm 		: item.coNm
-				  , cmptnInstCofmCd 	: item.cmptnInstCofmCd
-				  , cmptnInst 	: item.cmptnInst
+				  , cmptncInstAprvSe 	: item.cmptncInstAprvSe
+				  , cmptncInst 	: item.cmptncInst
 				}
 				jsonPrdcrCrclOgnUsrMng.push(PrdcrCrclOgnUsrMngVO);
 				if (index === 0) {
@@ -610,8 +610,8 @@
 		SBUxMethod.set("dtl-input-brno",null);
 		SBUxMethod.set("dtl-input-moblno",null);
 		SBUxMethod.set("dtl-input-coNm",null);
-		SBUxMethod.set("dtl-input-cmptnInstCofmCd",null);
-		SBUxMethod.set("dtl-input-cmptnInst",null);
+		SBUxMethod.set("dtl-input-cmptncInstAprvSe",null);
+		SBUxMethod.set("dtl-input-cmptncInst",null);
 	}
 
 
@@ -629,7 +629,7 @@
 			,coNm : SBUxMethod.get("dtl-input-coNm")//법인명
 			,telno : SBUxMethod.get("dtl-input-telno")//전화번호
 			,moblno : SBUxMethod.get("dtl-input-moblno")//휴대폰번호
-			,cmptnInstCofmCd : SBUxMethod.get("dtl-input-cmptnInstCofmCd")//2차승인여부
+			,cmptncInstAprvSe : SBUxMethod.get("dtl-input-cmptncInstAprvSe")//2차승인여부
 			,userStts : SBUxMethod.get("dtl-input-userStts")//1차승인여부
 		});
 
@@ -677,8 +677,8 @@
 		SBUxMethod.set("dtl-input-brno", rowData.brno);  //  사업자번호
 		SBUxMethod.set("dtl-input-moblno", rowData.moblno);  //  휴대폰번호
 		SBUxMethod.set("dtl-input-coNm", rowData.coNm);  //  법인명
-		SBUxMethod.set("dtl-input-cmptnInstCofmCd", rowData.cmptnInstCofmCd);  //  2차승인
-		SBUxMethod.set("dtl-input-cmptnInst", rowData.cmptnInst);  //  관할기관
+		SBUxMethod.set("dtl-input-cmptncInstAprvSe", rowData.cmptncInstAprvSe);  //  2차승인
+		SBUxMethod.set("dtl-input-cmptncInst", rowData.cmptncInst);  //  관할기관
 	}
 
 	 /*
