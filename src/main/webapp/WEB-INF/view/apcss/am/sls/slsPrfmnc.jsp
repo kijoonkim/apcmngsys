@@ -249,6 +249,11 @@
 
 	// 출하지시 목록 조회 (조회 버튼)
     async function fn_search() {
+		if (gfn_isEmpty(SBUxMethod.get("srch-dtp-slsYmdFrom")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-slsYmdTo"))){
+			gfn_comAlert("W0002", "매출일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+		}
+		
     	let recordCountPerPage = grdSlsPrfmnc.getPageSize();  		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = 1;
     	grdSlsPrfmnc.movePaging(currentPageNo);
@@ -265,14 +270,7 @@
 		let cnptNm = SBUxMethod.get("srch-inp-cnptNm");
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let vrtyCd = SBUxMethod.get("srch-inp-vrtyCd");
-		if (gfn_isEmpty(slsYmdFrom)){
-			gfn_comAlert("W0002", "매출일자");		//	W0002	{0}을/를 입력하세요.
-            return;
-		}
-		if (gfn_isEmpty(slsYmdTo)){
-			gfn_comAlert("W0002", "매출일자");		//	W0002	{0}을/를 입력하세요.
-            return;
-		}
+		
 		let SlsPrfmncVO = {apcCd 				: apcCd
 						 , slsYmdFrom 			: slsYmdFrom
 						 , slsYmdTo 			: slsYmdTo

@@ -464,6 +464,12 @@
 
 	// 출하실적 목록 조회 (조회 버튼)
     const fn_search = async function() {
+
+		if (gfn_isEmpty(SBUxMethod.get("srch-dtp-spmtYmdFrom")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-spmtYmdTo"))){
+			gfn_comAlert("W0002", "출하일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+		}
+		
     	let recordCountPerPage = grdSpmtPrfmnc.getPageSize();  		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = 1;
     	grdSpmtPrfmnc.movePaging(currentPageNo);
@@ -484,15 +490,6 @@
 		let dldtn = SBUxMethod.get("srch-inp-dldtn");
 		let vhclno = SBUxMethod.get("srch-inp-vhclno");
 		let rtnGdsYn = SBUxMethod.get("srch-slt-rtnGdsYn");
-
-		if (gfn_isEmpty(spmtYmdFrom)){
-			gfn_comAlert("W0002", "출하일자");		//	W0002	{0}을/를 입력하세요.
-            return;
-		}
-		if (gfn_isEmpty(spmtYmdTo)){
-			gfn_comAlert("W0002", "출하일자");		//	W0002	{0}을/를 입력하세요.
-            return;
-		}
 
 		let SpmtPrfmncVO = {apcCd 				: apcCd
 						  , spmtYmdFrom 		: spmtYmdFrom

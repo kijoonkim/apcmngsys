@@ -65,7 +65,7 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>작업일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-prfmncYmd" name="srch-dtp-prfmncYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-prfmncYmd" name="srch-dtp-prfmncYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"></sbux-datepicker>
 							</td>
 							<td colspan="2" style="border-right: hidden;"></td>
 
@@ -456,6 +456,15 @@
 
 
 	const fn_search = async function(){
+		if(gfn_isEmpty(SBUxMethod.get("srch-dtp-prfmncYmd"))){
+			gfn_comAlert("W0001", "작업일자");		//	W0002	{0}을/를 선택하세요.
+			return;
+		}
+		if(gfn_isEmpty(SBUxMethod.get("srch-slt-prfmncSeCd"))){
+			gfn_comAlert("W0001", "작업구분");		//	W0002	{0}을/를 선택하세요.
+			return;
+		}
+		
 		jsonOptrtPrfmnc.length = 0;
 		grdOptrtPrfmnc.refresh();
 
@@ -468,16 +477,6 @@
 
 		let prfmncYmd = SBUxMethod.get("srch-dtp-prfmncYmd");
 		let prfmncSeCd = SBUxMethod.get("srch-slt-prfmncSeCd");
-
-
-		if(gfn_isEmpty(prfmncYmd)){
-			gfn_comAlert("W0001", "작업일자");		//	W0002	{0}을/를 선택하세요.
-			return;
-		}
-		if(gfn_isEmpty(prfmncSeCd)){
-			gfn_comAlert("W0001", "작업구분");		//	W0002	{0}을/를 선택하세요.
-			return;
-		}
 
 		const prfmncVO = {
 			apcCd: gv_selectedApcCd,
