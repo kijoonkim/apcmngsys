@@ -9,7 +9,7 @@
     <%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
-<body>
+<body oncontextmenu="return false">
     <div class="sbt-A-wrap">
         <div class="main">
             <!--main content-->
