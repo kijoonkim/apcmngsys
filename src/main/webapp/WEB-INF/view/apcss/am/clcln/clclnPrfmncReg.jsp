@@ -90,7 +90,7 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg"><span class="data_required" ></span>정산기준</th>
+							<th scope="row" class="th_bg">정산기준</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
@@ -99,7 +99,7 @@
 											name="srch-slt-clclnCrtrCd"
 											uitype="single"
 											unselected-text="전체"
-											class="form-control input-sm input-sm-ast"
+											class="form-control input-sm"
 											jsondata-ref="jsonComClclnCrtrCd"
 										></sbux-select>
 									</div>
@@ -182,7 +182,7 @@
 									id="srch-inp-prdcrNm"
 									name="srch-inp-prdcrNm"
 									uitype="text"
-									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									class="form-control input-sm"
 									placeholder="초성검색 가능"
 									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
@@ -565,6 +565,11 @@
      * @description 조회 버튼
      */
     const fn_search = async function() {
+		if (gfn_isEmpty(SBUxMethod.get("srch-dtp-clclnYmdFrom")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-clclnYmdTo"))) {
+    		gfn_comAlert("W0001", "정산일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+    	}
+		
 		var getColRef = grdClclnPrfmnc.getColRef("checkedYn");
 		grdClclnPrfmnc.setFixedcellcheckboxChecked(0, getColRef, false);
 		

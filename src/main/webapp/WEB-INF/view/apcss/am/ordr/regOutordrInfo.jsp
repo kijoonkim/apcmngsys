@@ -383,11 +383,17 @@
     }
 
 	const fn_search = async function(){
+		const outordrYmd = SBUxMethod.get("srch-dtp-outordrYmd");
+		const outordrType = SBUxMethod.get("srch-slt-outordrType");
+		
+		if (gfn_isEmpty(outordrYmd)) {
+    		gfn_comAlert("W0001", "발주일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+    	}
+		
 		var getColRef = grdOrdr.getColRef("checkedYn");
 		grdOrdr.setFixedcellcheckboxChecked(0, getColRef, false);
 		
-		const outordrYmd = SBUxMethod.get("srch-dtp-outordrYmd");
-		const outordrType = SBUxMethod.get("srch-slt-outordrType");
 		const postJsonPromise = gfn_postJSON("/am/ordr/selectOrdrHandwritingList.do", {
 			  apcCd			: gv_selectedApcCd
 			, outordrYmd 	: outordrYmd
