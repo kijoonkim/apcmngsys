@@ -537,7 +537,7 @@
 
 	//조회
     const fn_search = async function() {
-		if (gfn_isEmpty(SBUxMethod.get("srch-dtp-pckgYmdFrom")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-pckgYmdTo")) {
+		if (gfn_isEmpty(SBUxMethod.get("srch-dtp-pckgYmdFrom")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-pckgYmdTo"))) {
     		gfn_comAlert("W0001", "포장일자");		//	W0002	{0}을/를 입력하세요.
             return;
     	}
