@@ -114,7 +114,7 @@
 		        /* {caption: ["은행"], 		ref: 'bankCd',  type: 'output',  width:'100px',	style:'text-align:center'},
 		        {caption: ["계좌번호"], 	ref: 'actno',   type: 'output',  width:'130px',	style:'text-align:center',
 	    			typeinfo : {mask : {alias : '#-', repeat: '*'}}},
-		        {caption: ["예금주명"], 	ref: 'dpstr',   type: 'output',  width:'90px',	style:'text-align:center'} */
+		        {caption: ["예금주명"], 	ref: 'dpstrNm',   type: 'output',  width:'90px',	style:'text-align:center'} */
 		    ];
 		    grdOprtrPop = _SBGrid.create(SBGridProperties);
 		    grdOprtrPop.bind('dblclick', popOprtr.choice);
@@ -158,7 +158,7 @@
 					  , jncmpYmd 	: item.jncmpYmd
 					  , bankCd 		: item.bankCd
 					  , actno 		: item.actno
-					  , dpstr 		: item.dpstr
+					  , dpstrNm 	: item.dpstrNm
 					}
 					jsonOprtrPop.push(oprtrVO);
 				});

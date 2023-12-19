@@ -122,7 +122,7 @@
 
 							<td scope="row" align="right">예금주명</td>
 							<td scope="row">
-								<sbux-input id="inp-dpstr" name="inp-dpstr" uitype="text" class="form-control input-sm" maxlength="6"></sbux-input>
+								<sbux-input id="inp-dpstrNm" name="inp-dpstrNm" uitype="text" class="form-control input-sm" maxlength="6"></sbux-input>
 							</td>
 						</tr>
 						<tr>
@@ -697,7 +697,7 @@
   	        	SBUxMethod.set("inp-fxno", resultVO.fxno);
   	        	SBUxMethod.set("inp-actno", resultVO.actno);
   	        	SBUxMethod.set("slt-bankCd", resultVO.bankCd);
-  	        	SBUxMethod.set("inp-dpstr", resultVO.dpstr);
+  	        	SBUxMethod.set("inp-dpstrNm", resultVO.dpstrNm);
   	        	SBUxMethod.set("inp-brno", resultVO.brno);
   	        	SBUxMethod.set("rdo-clclnCrtrCd", resultVO.clclnCrtrCd);
   	        	SBUxMethod.set("rdo-apcSeCd", resultVO.apcSeCd);
@@ -1231,7 +1231,7 @@
   	  	let fxno 					= fn_empty(SBUxMethod.get("inp-fxno"));
   	  	let actno 					= fn_empty(SBUxMethod.get("inp-actno"));
   	  	let bankCd 					= fn_empty(SBUxMethod.get("slt-bankCd"));
-  	  	let dpstr 					= fn_empty(SBUxMethod.get("inp-dpstr"));
+  	  	let dpstrNm 				= fn_empty(SBUxMethod.get("inp-dpstrNm"));
   	  	let brno 					= fn_empty(SBUxMethod.get("inp-brno"));
   	  	let apcSeCd					= fn_empty(SBUxMethod.get("rdo-apcSeCd"));
   	  	let clclnCrtrCd				= fn_empty(SBUxMethod.get("rdo-clclnCrtrCd"));
@@ -1246,7 +1246,7 @@
     	  , fxno 					: fxno
     	  , actno 					: actno
     	  , bankCd 					: bankCd
-    	  , dpstr 					: dpstr
+    	  , dpstrNm 				: dpstrNm
     	  , brno 					: brno
     	  , apcSeCd					: apcSeCd
     	  , clclnCrtrCd				: clclnCrtrCd

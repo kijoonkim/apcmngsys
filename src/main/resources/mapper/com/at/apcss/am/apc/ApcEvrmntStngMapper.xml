@@ -34,7 +34,7 @@
 			     , AI.APC_NM            AS APC_NM
 			     , AI.BRNO          	AS BRNO
 			     , AI.BANK_CD           AS BANK_CD
-			     , AI.DPSTR             AS DPSTR
+			     , AI.DPSTR_NM          AS DPSTR_NM
 			     , (SELECT FN_UTL_DECRYPT_ARIA(AI.ACTNO) FROM DUAL)	AS ACTNO
 			     , AI.ADDR              AS ADDR
 			     , AI.TELNO            	AS TELNO
@@ -126,7 +126,7 @@
 				, BRNO
 				, BANK_CD
 				, ACTNO
-				, DPSTR
+				, DPSTR_NM
 				, APC_SE_CD
 				, CLCLN_CRTR_CD
 				, APC_RPRSV_NM
@@ -187,7 +187,7 @@
 				, #{brno}
 				, #{bankCd}
 				, FN_UTL_ENCRYPT_ARIA(#{actno})
-				, #{dpstr}
+				, #{dpstrNm}
 				, #{apcSeCd}
 				, #{clclnCrtrCd}
 				, #{apcRprsvNm}
@@ -261,7 +261,7 @@
 				, APC.BRNO						AS BRNO
 				, APC.BANK_CD					AS BANK_CD
 				, (SELECT FN_UTL_DECRYPT_ARIA(APC.ACTNO) FROM DUAL)	AS ACTNO
-				, APC.DPSTR						AS DPSTR
+				, APC.DPSTR_NM					AS DPSTR_NM
 				, APC.APC_SE_CD					AS APC_SE_CD
 				, APC.CLCLN_CRTR_CD				AS CLCLN_CRTR_CD
 				, APC.BZSTAT					AS BZSTAT
@@ -393,7 +393,7 @@
 				, BRNO						= #{brno}
 				, BANK_CD					= #{bankCd}
 				, ACTNO						= FN_UTL_ENCRYPT_ARIA(#{actno})
-				, DPSTR						= #{dpstr}
+				, DPSTR_NM					= #{dpstrNm}
 				, APC_SE_CD					= #{apcSeCd}
 				, CLCLN_CRTR_CD 			= #{clclnCrtrCd}
 				, APC_RPRSV_NM				= #{apcRprsvNm}

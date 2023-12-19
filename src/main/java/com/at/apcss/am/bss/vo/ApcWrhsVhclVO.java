@@ -28,7 +28,7 @@ public class ApcWrhsVhclVO extends ComVO {
 	private String drvrNm;
 	private String bankCd;
 	private String actno;
-	private String dpstr;
+	private String dpstrNm;
 	private String rmrk;
 	private String delYn;
 	private String sysFrstInptDt;

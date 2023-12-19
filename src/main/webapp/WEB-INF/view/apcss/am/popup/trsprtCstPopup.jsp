@@ -212,7 +212,7 @@
 					typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}, validate : gfn_chkByte.bind({byteLimit: 5})},
 		        {caption: ['은행'],			ref: 'bankNm', 		width: '100px',	type: 'output', 		style: 'text-align: center', sortable: false},
 		        {caption: ['계좌'],			ref: 'actno', 		width: '100px',	type: 'output', 		style: 'text-align: center', sortable: false},
-		        {caption: ['예금주'],	 		ref: 'dpstr', 		width: '80px',	type: 'output', 		style: 'text-align: center', sortable: false},
+		        {caption: ['예금주'],	 		ref: 'dpstrNm', 		width: '80px',	type: 'output', 		style: 'text-align: center', sortable: false},
 		        {caption: ['비고'],			ref: 'rmrk', 		width: '240px',	type: 'input',										 sortable: false,
 		        	validate : gfn_chkByte.bind({byteLimit: 1000})},
 		        {caption: ['APC코드'], 		ref: 'apcCd', 		hidden : true},
@@ -386,7 +386,7 @@
 						  , bankCd 		: item.bankCd
 						  , bankNm 		: item.bankNm
 						  , actno 		: item.actno
-						  , dpstr 		: item.dpstr
+						  , dpstrNm 	: item.dpstrNm
 						  , rmrk 		: item.rmrk
 						  , delYn		: item.delYn
 						  , apcCd		: item.apcCd
@@ -453,7 +453,7 @@
 				  , trsprtCst 	: rowData.trsprtCst
 				  , bankCd 		: rowData.bankCd
 				  , actno 		: rowData.actno
-				  , dpstr 		: rowData.dpstr
+				  , dpstrNm 	: rowData.dpstrNm
 				  , delYn		: rowData.delYn
 				  , apcCd		: rowData.apcCd
 			}
@@ -471,7 +471,7 @@
 						  , trsprtCst 	: item.trsprtCst
 						  , bankCd 		: item.bankCd
 						  , actno 		: item.actno
-						  , dpstr 		: item.dpstr
+						  , dpstrNm 	: item.dpstrNm
 						  , delYn		: item.delYn
 						  , apcCd		: item.apcCd
 					}
@@ -483,7 +483,7 @@
 						(trsprtCstVO.trsprtCst == matchData.trsprtCst) &&
 						(trsprtCstVO.bankCd == matchData.bankCd) &&
 						(trsprtCstVO.actno == matchData.actno) &&
-						(trsprtCstVO.dpstr == matchData.dpstr) &&
+						(trsprtCstVO.dpstrNm == matchData.dpstrNm) &&
 						(trsprtCstVO.delYn == matchData.delYn) &&
 						(trsprtCstVO.apcCd == matchData.apcCd)){
 						isExist = true;
@@ -519,7 +519,7 @@
 			        {caption: ['은행'],			ref: 'bankCd', 		width: '100px',	type: 'combo',	style: 'text-align: center',
 						typeinfo : {ref:'jsonExpSltBankCd', label:'label', value:'value', itemcount: 10}},
 			        {caption: ['계좌'],			ref: 'actno', 		width: '100px',	type: 'output',	style: 'text-align: center'},
-			        {caption: ['예금주'],	 		ref: 'dpstr', 		width: '80px',	type: 'output',	style: 'text-align: center'},
+			        {caption: ['예금주'],	 		ref: 'dpstrNm', 		width: '80px',	type: 'output',	style: 'text-align: center'},
 			        {caption: ['비고'],			ref: 'rmrk', 		width: '240px',	type: 'output'}
 			);
 		    return _columns;
@@ -730,7 +730,7 @@
 			grdTrsprtCstPop.setCellData(nRow, 4, vhcl.drvrNm);
 			grdTrsprtCstPop.setCellData(nRow, 8, vhcl.bankNm);
 			grdTrsprtCstPop.setCellData(nRow, 9, vhcl.actno);
-			grdTrsprtCstPop.setCellData(nRow, 10, vhcl.dpstr);
+			grdTrsprtCstPop.setCellData(nRow, 10, vhcl.dpstrNm);
 			grdTrsprtCstPop.setCellData(nRow, 13, vhcl.bankCd);
 		}
 	}

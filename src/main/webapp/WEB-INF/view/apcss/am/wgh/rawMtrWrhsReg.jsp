@@ -521,7 +521,7 @@
     /* SBGrid Data (JSON) */
 	var jsonRawMtrWrhs = [];
 
-    let vhclData = {vhclno : null, drvrNm : null, bankNm : null, bankCd : null, actno : null, dpstr : null};
+    let vhclData = {vhclno : null, drvrNm : null, bankNm : null, bankCd : null, actno : null, dpstrNm : null};
 
     /**
      * @name fn_initSBSelect
@@ -1392,7 +1392,7 @@
 					  	  , bankNm 	: vhcl.bankNm
 					  	  , bankCd 	: vhcl.bankCd
 					  	  , actno 	: vhcl.actno
-					  	  , dpstr 	: vhcl.dpstr
+					  	  , dpstrNm : vhcl.dpstrNm
 					   };
 		}
 	}
@@ -1415,7 +1415,7 @@
 			  			bankNm 		: null,
 			  			bankCd 		: null,
 			  			actno 		: null,
-			  			dpstr 		: null,
+			  			dpstrNm 	: null,
 						trsprtSeCd 	: trsprtSeCd,
 						wrhsWght 	: wrhsWght
 				    };
@@ -1430,7 +1430,7 @@
 			data.bankNm = vhclData.bankNm;
 			data.bankCd = vhclData.bankCd;
 			data.actno = vhclData.actno;
-			data.dpstr = vhclData.dpstr;
+			data.dpstrNm = vhclData.dpstrNm;
 		}
 		popTrsrptCst.init(gv_selectedApcCd, gv_selectedApcNm, data, fn_setTrsprtCst);
 	}
