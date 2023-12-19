@@ -220,9 +220,7 @@ public class RawMtrWrhsController extends BaseController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<RawMtrWrhsVO> resultList;
 		try {
-
 			resultList = rawMtrWrhsService.selectRawMtrWrhsPrfmncList(rawMtrWrhsVO);
-
 		} catch (Exception e) {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);

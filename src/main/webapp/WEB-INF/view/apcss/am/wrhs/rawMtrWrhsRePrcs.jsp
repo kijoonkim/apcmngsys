@@ -106,7 +106,7 @@
 									uitype="text"
 									id="srch-inp-prdcrNm"
 									name="srch-inp-prdcrNm"
-									class="form-control input-sm"
+									class="form-control input-sm input-sm-ast"
 									placeholder="초성검색 가능"
 									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
@@ -188,7 +188,7 @@
 									class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"
 								></sbux-datepicker>
 							</td>
-							<td colspan='2'></td>
+							<td colspan="2"></td>
 
 							<th scope="row" class="th_bg">투입 총량</th>
 							<!--
@@ -493,9 +493,9 @@
 		});
 
 		grdRawMtrInvntr = _SBGrid.create(SBGridProperties);
-		grdRawMtrInvntr.bind('valuechanged' , 'fn_grdRawMtrInvntrValueChanged');
-		grdRawMtrInvntr.bind('select' , 'fn_setValue');
-		grdRawMtrInvntr.bind('deselect' , 'fn_delValue');
+		grdRawMtrInvntr.bind('valuechanged' , fn_grdRawMtrInvntrValueChanged);
+		grdRawMtrInvntr.bind('select' , fn_setValue);
+		grdRawMtrInvntr.bind('deselect', fn_delValue);
 	}
 
 	/**
@@ -782,19 +782,26 @@
      * @description 조회 버튼
      */
 	const fn_search = async function() {
-  		
-		if (gfn_isEmpty(SBUxMethod.get("srch-dtp-wrhsYmdFrom")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-wrhsYmdTo"))) {
-    		gfn_comAlert("W0001", "입고일자");		//	W0002	{0}을/를 입력하세요.
-            return;
-    	}
 
-  		if (gfn_isEmpty(SBUxMethod.get("srch-slt-itemCd"))) {
-  			gfn_comAlert("W0001", "품목");		//	W0002	{0}을/를 선택하세요.
+		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-wrhsYmdFrom");    // 입고일자from
+        let wrhsYmdTo = SBUxMethod.get("srch-dtp-wrhsYmdTo");        // 입고일자to
+  		let itemCd = SBUxMethod.get("srch-slt-itemCd");				// 품목
+  		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");				// 품종
+
+  		let inptYmd = SBUxMethod.get("dtl-dtp-inptYmd");
+
+		if (gfn_isEmpty(wrhsYmdFrom) || gfn_isEmpty(wrhsYmdTo)) {
+  			gfn_comAlert("W0001", "입고일자");	//	W0001	{0}을/를 선택하세요.
             return;
   		}
 
-  		if (gfn_isEmpty(SBUxMethod.get("srch-slt-vrtyCd"))) {
-  			gfn_comAlert("W0001", "품종");		//	W0002	{0}을/를 선택하세요.
+  		if (gfn_isEmpty(itemCd)) {
+  			gfn_comAlert("W0001", "품목");		//	W0001	{0}을/를 선택하세요.
+            return;
+  		}
+
+  		if (gfn_isEmpty(vrtyCd)) {
+  			gfn_comAlert("W0001", "품종");		//	W0001	{0}을/를 선택하세요.
             return;
   		}
 
@@ -1137,6 +1144,7 @@
 				}
 			}
 			grdRawMtrInvntr.refresh();
+			fn_setPrcsInfo();
 		}
     }
 
@@ -1157,6 +1165,7 @@
 				rowData.inptWght = 0;
 			}
 			grdRawMtrInvntr.refresh();
+			fn_setPrcsInfo();
 		}
     }
 
@@ -1591,8 +1600,8 @@
 		SBUxMethod.set("dtl-dtp-inptYmd",gfn_dateToYmd(new Date()));
 		SBUxMethod.set("lbl-grdInptWght","");
 		SBUxMethod.set("lbl-grdPrcsWght","");
-		
 	}
+	
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
