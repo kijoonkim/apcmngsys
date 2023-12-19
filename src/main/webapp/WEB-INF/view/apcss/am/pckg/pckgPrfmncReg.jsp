@@ -81,7 +81,7 @@
 									name="srch-dtp-sortYmdFrom"
 									uitype="popup"
 									date-format="yyyy-mm-dd"
-									class="form-control input-sm"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									onchange="fn_dtpChange(srch-dtp-sortYmdFrom)"
 								></sbux-datepicker>
 							</td>
@@ -91,7 +91,7 @@
 									name="srch-dtp-sortYmdTo"
 									uitype="popup"
 									date-format="yyyy-mm-dd"
-									class="form-control input-sm"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									onchange="fn_dtpChange(srch-dtp-sortYmdTo)"
 								></sbux-datepicker>
 							</td>
@@ -178,7 +178,7 @@
 									name="dtl-dtp-pckgYmd"
 									uitype="popup"
 									date-format="yyyy-mm-dd"
-									class="form-control input-sm"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									onchange="fn_dtpChangePckg(dtl-dtp-pckgYmd)"
 								></sbux-datepicker>
 							</td>
@@ -188,7 +188,7 @@
 								<sbux-select
 									id="dtl-slt-fcltCd"
 									name="dtl-slt-fcltCd"
-									uitype="single" class="form-control input-sm inpt_data_reqed"
+									uitype="single" class="form-control input-sm input-sm-ast inpt_data_reqed"
 									unselected-text="선택"
 									jsondata-ref="jsonComPckgFclt"
 								></sbux-select>
@@ -619,23 +619,6 @@
   		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");				// 품종
   		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");			// 규격
 
-  		if (gfn_isEmpty(itemCd)) {
-  			gfn_comAlert("W0001", "품목");		//	W0002	{0}을/를 선택하세요.
-            return;
-  		}
-
-  		if (gfn_isEmpty(vrtyCd)) {
-  			gfn_comAlert("W0001", "품종");		//	W0002	{0}을/를 선택하세요.
-            return;
-  		}
-
-  		/*
-  		if (gfn_isEmpty(spcfctCd)) {
-  			gfn_comAlert("W0001", "규격");		//	W0002	{0}을/를 선택하세요.
-            return;
-  		}
-  		 */
-
 		const postJsonPromise = gfn_postJSON("/am/invntr/selectSortInvntrList.do", {
 			apcCd: gv_selectedApcCd,
 			sortYmdFrom: sortYmdFrom,
@@ -891,6 +874,21 @@
      * @function
 	 */
 	const fn_search = async function() {
+		if (gfn_isEmpty(SBUxMethod.get("srch-dtp-sortYmdFrom")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-sortYmdTo"))){
+			gfn_comAlert("W0002", "선별일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+		}
+
+  		if (gfn_isEmpty(SBUxMethod.get("srch-slt-itemCd"))) {
+  			gfn_comAlert("W0001", "품목");		//	W0002	{0}을/를 선택하세요.
+            return;
+  		}
+
+  		if (gfn_isEmpty(SBUxMethod.get("srch-slt-vrtyCd"))) {
+  			gfn_comAlert("W0001", "품종");		//	W0002	{0}을/를 선택하세요.
+            return;
+  		}
+  		
     	// grid clear
     	jsonSortInvntr.length = 0;
     	fn_setGrdSortInvntr();

@@ -62,10 +62,10 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>생산일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-pckgYmdFrom" name="srch-dtp-pckgYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast" onchange="fn_dtpChange(srch-dtp-pckgYmdFrom)"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-pckgYmdFrom" name="srch-dtp-pckgYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-pckgYmdFrom)"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-pckgYmdTo" name="srch-dtp-pckgYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast" onchange="fn_dtpChange(srch-dtp-pckgYmdTo)"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-pckgYmdTo" name="srch-dtp-pckgYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-pckgYmdTo)"></sbux-datepicker>
 							</td>
 							<td class="td_input"></td>
 
@@ -213,7 +213,7 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>출하일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="dtl-dtp-spmtYmd" name="dtl-dtp-spmtYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast" onchange="fn_dtpChange(dtl-dtp-spmtYmd)"></sbux-datepicker>
+								<sbux-datepicker id="dtl-dtp-spmtYmd" name="dtl-dtp-spmtYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(dtl-dtp-spmtYmd)"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 							<td class="td_input" style="border-right: hidden;">
@@ -754,12 +754,8 @@
 		let gdsSeCd = SBUxMethod.get("srch-rdo-gdsSeCd");
 		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
 
-		if (gfn_isEmpty(pckgYmdFrom)) {
-  			gfn_comAlert("W0001", "생산시작일자");		//	W0002	{0}을/를 선택하세요.
-            return false;
-  		}
-  		if (gfn_isEmpty(pckgYmdTo)) {
-  			gfn_comAlert("W0001", "생산종료일자");		//	W0002	{0}을/를 선택하세요.
+		if (gfn_isEmpty(pckgYmdFrom) || gfn_isEmpty(pckgYmdTo)) {
+  			gfn_comAlert("W0001", "생산일자");		//	W0002	{0}을/를 선택하세요.
             return false;
   		}
 

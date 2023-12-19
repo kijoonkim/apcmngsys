@@ -352,6 +352,11 @@
 
 	// 포장투입 목록 조회 (조회 버튼)
     const fn_search = async function() {
+		if (gfn_isEmpty(SBUxMethod.get("srch-dtp-inptYmd"))){
+			gfn_comAlert("W0002", "투입일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+		}
+		
 		var getColRef = grdPckgInpt.getColRef("checkedYn");
 		grdPckgInpt.setFixedcellcheckboxChecked(0, getColRef, false);
     	fn_setGrdPckgInpt();
@@ -361,10 +366,6 @@
 	const fn_setGrdPckgInpt = async function(){
 		jsonPckgInpt = [];
 		let inptYmd = SBUxMethod.get("srch-dtp-inptYmd");
-		if (gfn_isEmpty(inptYmd)){
-			gfn_comAlert("W0002", "투입일자");		//	W0002	{0}을/를 입력하세요.
-            return;
-		}
 
 		let pckgInpt = {
 					apcCd: gv_selectedApcCd,

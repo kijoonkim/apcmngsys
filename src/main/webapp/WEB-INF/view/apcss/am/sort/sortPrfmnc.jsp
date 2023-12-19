@@ -99,7 +99,7 @@
 									name="srch-dtp-inptYmdFrom"
 									uitype="popup"
 									date-format="yyyy-mm-dd"
-									class="form-control input-sm sbux-pik-group-apc"
+									class="form-control input-sm sbux-pik-group-ap input-sm-ast inpt_data_reqed"
 									onchange="fn_dtpChange(srch-dtp-inptYmdFrom)"
 								></sbux-datepicker>
 							</td>
@@ -109,7 +109,7 @@
 									name="srch-dtp-inptYmdTo"
 									uitype="popup"
 									date-format="yyyy-mm-dd"
-									class="form-control input-sm sbux-pik-group-apc"
+									class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"
 									onchange="fn_dtpChange(srch-dtp-inptYmdTo)"
 								></sbux-datepicker>
 							</td>
@@ -120,7 +120,7 @@
 									id="srch-slt-itemCd"
 									name="srch-slt-itemCd"
 									uitype="single"
-									class="form-control input-sm input-sm-ast"
+									class="form-control input-sm"
 									unselected-text="전체"
 									jsondata-ref="jsonApcItem"
 									onchange="fn_selectItem"
@@ -529,6 +529,10 @@
      * @description 조회 버튼
      */
     const fn_search = async function() {
+		if (gfn_isEmpty(SBUxMethod.get("srch-dtp-inptYmdFrom")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-inptYmdTo"))) {
+    		gfn_comAlert("W0001", "선별일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+    	}
 
 		// set pagination
     	grdSortPrfmnc.rebuild();
