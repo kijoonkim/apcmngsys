@@ -4,7 +4,7 @@
 <html lang="ko">
 <head>
 	<meta charset="UTF-8">
-	<title>title : SBUx2.6</title>
+	<title>title : 원물재고변경이력</title>
 </head>
 <body oncontextmenu="return false">
 	<section>
@@ -113,6 +113,12 @@
 		        grdRawMtrChgHstry.bind( "afterpagechanged" , tabRawMtrChgHstry.paging );
 			},
 			search: async function() {
+				if (gfn_isEmpty(SBUxMethod.get("rawMtr-dtp-chgYmdFrom")) || gfn_isEmpty(SBUxMethod.get("rawMtr-dtp-chgYmdTo"))){
+					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
+					jsonRawMtrChgHstry.length = 0;
+					grdRawMtrChgHstry.rebuild();
+		            return;
+				}
 				// set pagination
 				grdRawMtrChgHstry.rebuild();
 		    	let recordCountPerPage = grdRawMtrChgHstry.getPageSize();
@@ -126,18 +132,6 @@
 
 				let chgYmdFrom = SBUxMethod.get("rawMtr-dtp-chgYmdFrom");
 				let chgYmdTo = SBUxMethod.get("rawMtr-dtp-chgYmdTo");
-				if (gfn_isEmpty(chgYmdFrom)){
-					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
-			    	jsonRawMtrChgHstry.length = 0;
-					grdRawMtrChgHstry.rebuild();
-		            return;
-				}
-				if (gfn_isEmpty(chgYmdTo)){
-					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
-			    	jsonRawMtrChgHstry.length = 0;
-					grdRawMtrChgHstry.rebuild();
-		            return;
-				}
 				let apcCd = "";
 				if(gv_userType == '10'){
 					apcCd = gv_apcCd;

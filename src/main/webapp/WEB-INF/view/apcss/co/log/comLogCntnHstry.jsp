@@ -4,7 +4,7 @@
 <html lang="ko">
 <head>
 	<meta charset="UTF-8">
-	<title>title : SBUx2.6</title>
+	<title>title : 접속이력</title>
 </head>
 <body oncontextmenu="return false">
 	<section>
@@ -108,6 +108,12 @@
 		        grdLogCntnHstry.bind( "afterpagechanged" , tabLogCntnHstry.paging );
 			},
 			search: async function() {
+				if (gfn_isEmpty(SBUxMethod.get("cntn-dtp-logYmdFrom")) || gfn_isEmpty(SBUxMethod.get("cntn-dtp-logYmdTo"))){
+					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
+					jsonLogCntnHstry.length = 0;
+			    	grdLogCntnHstry.rebuild();
+		            return;
+				}
 				// set pagination
 				grdLogCntnHstry.rebuild();
 		    	let recordCountPerPage = grdLogCntnHstry.getPageSize();
@@ -123,18 +129,6 @@
 				let logYmdFrom = SBUxMethod.get("cntn-dtp-logYmdFrom");
 				let logYmdTo = SBUxMethod.get("cntn-dtp-logYmdTo");
 				let userNm = SBUxMethod.get("cntn-inp-userNm");
-				if (gfn_isEmpty(logYmdFrom)){
-					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
-			    	jsonLogCntnHstry.length = 0;
-					grdLogCntnHstry.rebuild();
-		            return;
-				}
-				if (gfn_isEmpty(logYmdTo)){
-					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
-			    	jsonLogCntnHstry.length = 0;
-					grdLogCntnHstry.rebuild();
-		            return;
-				}
 
 		        const postJsonPromise = gfn_postJSON("/co/log/selectCntnHstryList.do", {
 					    logYmdFrom 			: logYmdFrom

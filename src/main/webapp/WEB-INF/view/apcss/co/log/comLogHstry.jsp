@@ -19,7 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<title>title : 이력관리</title>
+	<title>title : 이력조회</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>

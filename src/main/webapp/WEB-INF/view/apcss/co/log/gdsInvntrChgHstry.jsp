@@ -4,7 +4,7 @@
 <html lang="ko">
 <head>
 	<meta charset="UTF-8">
-	<title>title : SBUx2.6</title>
+	<title>title : 상품재고변경이력</title>
 </head>
 <body oncontextmenu="return false">
 	<section>
@@ -114,6 +114,12 @@
 		        grdGdsInvntrChgHstry.bind( "afterpagechanged" , tabGdsInvntrChgHstry.paging );
 			},
 			search: async function() {
+				if (gfn_isEmpty(SBUxMethod.get("gdsInvntr-dtp-chgYmdFrom")) || gfn_isEmpty(SBUxMethod.get("gdsInvntr-dtp-chgYmdTo"))){
+					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
+					jsonGdsInvntrChgHstry.length = 0;
+					grdGdsInvntrChgHstry.rebuild();
+		            return;
+				}
 				// set pagination
 				grdGdsInvntrChgHstry.rebuild();
 		    	let recordCountPerPage = grdGdsInvntrChgHstry.getPageSize();
@@ -127,18 +133,6 @@
 
 				let chgYmdFrom = SBUxMethod.get("gdsInvntr-dtp-chgYmdFrom");
 				let chgYmdTo = SBUxMethod.get("gdsInvntr-dtp-chgYmdTo");
-				if (gfn_isEmpty(chgYmdFrom)){
-					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
-			    	jsonGdsInvntrChgHstry.length = 0;
-					grdGdsInvntrChgHstry.rebuild();
-		            return;
-				}
-				if (gfn_isEmpty(chgYmdTo)){
-					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
-			    	jsonGdsInvntrChgHstry.length = 0;
-					grdGdsInvntrChgHstry.rebuild();
-		            return;
-				}
 				let apcCd = "";
 				if(gv_userType == '10'){
 					apcCd = gv_apcCd;
@@ -154,8 +148,6 @@
 				});
 
 		        const data = await postJsonPromise;
-
-		        console.log(data)
 
 				try {
 		  			if (_.isEqual("S", data.resultStatus)) {

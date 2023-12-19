@@ -4,7 +4,7 @@
 <html lang="ko">
 <head>
 	<meta charset="UTF-8">
-	<title>title : SBUx2.6</title>
+	<title>title : 화면열람이력</title>
 </head>
 <body oncontextmenu="return false">
 	<section>
@@ -108,6 +108,12 @@
 		        grdLogMenuHstry.bind( "afterpagechanged" , tabLogMenuHstry.paging );
 			},
 			search: async function() {
+				if (gfn_isEmpty(SBUxMethod.get("menu-dtp-logYmdFrom")) || gfn_isEmpty(SBUxMethod.get("menu-dtp-logYmdTo"))){
+					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
+					jsonLogMenuHstry.length = 0;
+					grdLogMenuHstry.rebuild();
+		            return;
+				}
 				// set pagination
 				grdLogMenuHstry.rebuild();
 		    	let recordCountPerPage = grdLogMenuHstry.getPageSize();
@@ -122,18 +128,6 @@
 				let logYmdFrom = SBUxMethod.get("menu-dtp-logYmdFrom");
 				let logYmdTo = SBUxMethod.get("menu-dtp-logYmdTo");
 				let menuNm = SBUxMethod.get("menu-inp-menuNm");
-				if (gfn_isEmpty(logYmdFrom)){
-					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
-			    	jsonLogMenuHstry.length = 0;
-					grdLogMenuHstry.rebuild();
-		            return;
-				}
-				if (gfn_isEmpty(logYmdTo)){
-					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
-			    	jsonLogMenuHstry.length = 0;
-					grdLogMenuHstry.rebuild();
-		            return;
-				}
 
 		        const postJsonPromise = gfn_postJSON("/co/log/selectMenuHstryList.do", {
 					    logYmdFrom 			: logYmdFrom
