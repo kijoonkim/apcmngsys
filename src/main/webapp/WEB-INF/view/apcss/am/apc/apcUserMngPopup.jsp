@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
     <title>title : APC사용자 권한설정</title>
 </head>
-<body>
+<body oncontextmenu="return false">
 	<section>
 	<div class="box box-solid">
 		<div class="box-header" style="display:flex; justify-content: flex-start;" >

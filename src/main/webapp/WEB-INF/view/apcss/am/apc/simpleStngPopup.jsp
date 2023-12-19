@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
     <title>title : 메뉴간편설정</title>
 </head>
-<body>
+<body oncontextmenu="return false">
 	<div class="box-header" style="display:flex; justify-content: flex-start;" >
 		<div>
 			<p>
