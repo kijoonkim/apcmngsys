@@ -336,8 +336,8 @@
 							<td colspan="2" class="td_input" style="border-right:hidden;" >
 								<sbux-input
 									uitype="text"
-									id="dtl-input-oneDay"
-									name="dtl-input-oneDay"
+									id="dtl-input-twoDay"
+									name="dtl-input-twoDay"
 									class="form-control input-sm"
 									autocomplete="off"
 									readonly
@@ -364,8 +364,8 @@
 							<td colspan="2" class="td_input" style="border-right:hidden;" >
 								<sbux-input
 									uitype="text"
-									id="dtl-input-twoDay"
-									name="dtl-input-twoDay"
+									id="dtl-input-cmptncInstAprvYmd"
+									name="dtl-input-cmptncInstAprvYmd"
 									class="form-control input-sm"
 									autocomplete="off"
 									readonly
@@ -489,19 +489,20 @@
 	    	{caption: ["아이디"], 	ref: 'userId',   	type:'output',  width:'200px',    style:'text-align:center'},
 	    	{caption: ["이름"], 		ref: 'userNm',   	type:'output',  width:'200px',    style:'text-align:center'},
 	    	{caption: ["법인명"], 	ref: 'coNm',   	type:'output',  width:'200px',    style:'text-align:center'},
-	    	{caption: ["관할기관"], 	ref: 'cmptncInst',   	type:'output',  width:'200px',    style:'text-align:center', disabled:true
-	    		,typeinfo : {ref:'jsonComcmptncInst', label:'label', value:'value', displayui : true}},
-	    	{caption: ["1차승인"], 	ref: 'userStts',   	type:'output',  width:'200px',    style:'text-align:center', disabled:true
-		    	,typeinfo : {ref:'jsonComUserStts', label:'label', value:'value', displayui : true}},
-	    	{caption: ["2차승인"], 	ref: 'cmptncInstAprvSe',   	type:'output',  width:'200px',    style:'text-align:center', disabled:true
-			    ,typeinfo : {ref:'jsoncmptncInstAprvSe', label:'label', value:'value', displayui : true}},
-	    	{caption: ["권한"], 		ref: 'userType',   	type:'output',  width:'200px',    style:'text-align:center', disabled:true
-				,typeinfo : {ref:'jsonComUserType', label:'label', value:'value', displayui : true}},
+	    	{caption: ["관할기관"], 	ref: 'cmptncInst',   	type:'combo',  width:'200px',    style:'text-align:center', disabled:true
+	    		,typeinfo : {ref:'jsonComcmptncInst', label:'label', value:'value', displayui : false}},
+	    	{caption: ["1차승인"], 	ref: 'userStts',   	type:'combo',  width:'200px',    style:'text-align:center', disabled:true
+		    	,typeinfo : {ref:'jsonComUserStts', label:'label', value:'value', displayui : false}},
+	    	{caption: ["2차승인"], 	ref: 'cmptncInstAprvSe',   	type:'combo',  width:'200px',    style:'text-align:center', disabled:true
+			    ,typeinfo : {ref:'jsoncmptncInstAprvSe', label:'label', value:'value', displayui : false}},
+	    	{caption: ["권한"], 		ref: 'userType',   	type:'combo',  width:'200px',    style:'text-align:center', disabled:true
+				,typeinfo : {ref:'jsonComUserType', label:'label', value:'value', displayui : false}},
 	    	{caption: ["사업자번호"], 	ref: 'brno',   	type:'output',  width:'200px',    style:'text-align:center'},
 	    	{caption: ["비고"], 		ref: 'rmrk',   	type:'output',  width:'200px',    style:'text-align:center'},
 
 	    	{caption: ["전화번호"], 		ref: 'telno',   	type:'output',  hidden : true},
-	    	{caption: ["핸드폰번호"], 		ref: 'moblno',   	type:'output',  hidden : true}
+	    	{caption: ["핸드폰번호"], 		ref: 'moblno',   	type:'output',  hidden : true},
+	    	{caption: ["관할기관승인일"], 		ref: 'cmptncInstAprvYmd',   	type:'output',  hidden : true}
 	    ];
 
 	    grdPrdcrCrclOgnUsrMng = _SBGrid.create(SBGridProperties);
@@ -609,6 +610,7 @@
 		SBUxMethod.set("dtl-input-telno",null);
 		SBUxMethod.set("dtl-input-brno",null);
 		SBUxMethod.set("dtl-input-moblno",null);
+		SBUxMethod.set("dtl-input-cmptncInstAprvYmd",null);
 		SBUxMethod.set("dtl-input-coNm",null);
 		SBUxMethod.set("dtl-input-cmptncInstAprvSe",null);
 		SBUxMethod.set("dtl-input-cmptncInst",null);
@@ -629,6 +631,7 @@
 			,coNm : SBUxMethod.get("dtl-input-coNm")//법인명
 			,telno : SBUxMethod.get("dtl-input-telno")//전화번호
 			,moblno : SBUxMethod.get("dtl-input-moblno")//휴대폰번호
+			,cmptncInstAprvYmd : SBUxMethod.get("dtl-input-cmptncInstAprvYmd")//관할기관승인일
 			,cmptncInstAprvSe : SBUxMethod.get("dtl-input-cmptncInstAprvSe")//2차승인여부
 			,userStts : SBUxMethod.get("dtl-input-userStts")//1차승인여부
 		});
@@ -676,6 +679,7 @@
 		SBUxMethod.set("dtl-input-telno", rowData.telno);  //  전화번호
 		SBUxMethod.set("dtl-input-brno", rowData.brno);  //  사업자번호
 		SBUxMethod.set("dtl-input-moblno", rowData.moblno);  //  휴대폰번호
+		SBUxMethod.set("dtl-input-cmptncInstAprvYmd", rowData.cmptncInstAprvYmd);  //  관할기관승인일
 		SBUxMethod.set("dtl-input-coNm", rowData.coNm);  //  법인명
 		SBUxMethod.set("dtl-input-cmptncInstAprvSe", rowData.cmptncInstAprvSe);  //  2차승인
 		SBUxMethod.set("dtl-input-cmptncInst", rowData.cmptncInst);  //  관할기관
