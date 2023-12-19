@@ -63,10 +63,10 @@
 					<tr>
 						<th scope="row" class="th_bg"><span class="data_required" ></span>매출일자</th>
 						<td class="td_input" style="border-right: hidden;">
-							<sbux-datepicker id="srch-dtp-slsYmdFrom" name="srch-dtp-slsYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc" onchange="fn_dtpChange(srch-dtp-slsYmdFrom)"></sbux-datepicker>
+							<sbux-datepicker id="srch-dtp-slsYmdFrom" name="srch-dtp-slsYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-slsYmdFrom)"></sbux-datepicker>
 						</td>
 						<td class="td_input" style="border-right: hidden;">
-							<sbux-datepicker id="srch-dtp-slsYmdTo" name="srch-dtp-slsYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc" onchange="fn_dtpChange(srch-dtp-slsYmdTo)"></sbux-datepicker>
+							<sbux-datepicker id="srch-dtp-slsYmdTo" name="srch-dtp-slsYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-slsYmdTo)"></sbux-datepicker>
 						</td>
 						<td class="td_input" style="border-right: hidden;"></td>
 						<th scope="row" class="th_bg">확정여부</th>
@@ -305,11 +305,7 @@
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
 		let cfmtnYn = SBUxMethod.get("srch-slt-cfmtnYn");
-		if (gfn_isEmpty(slsYmdFrom)){
-			gfn_comAlert("W0002", "매출일자");		//	W0002	{0}을/를 입력하세요.
-            return;
-		}
-		if (gfn_isEmpty(slsYmdTo)){
+		if (gfn_isEmpty(slsYmdFrom) || gfn_isEmpty(slsYmdTo)){
 			gfn_comAlert("W0002", "매출일자");		//	W0002	{0}을/를 입력하세요.
             return;
 		}

@@ -889,16 +889,6 @@
 
   		let inptYmd = SBUxMethod.get("dtl-dtp-inptYmd");
 
-  		if (gfn_isEmpty(itemCd)) {
-  			gfn_comAlert("W0001", "품목");		//	W0002	{0}을/를 선택하세요.
-            return;
-  		}
-		
-  		if (gfn_isEmpty(vrtyCd)) {
-  			gfn_comAlert("W0001", "품종");		//	W0002	{0}을/를 선택하세요.
-            return;
-  		}
-
   		try {
   			
   			const postJsonPromise = gfn_postJSON("/am/invntr/selectRawMtrInvntrList.do", {
@@ -996,6 +986,21 @@
      * @description 조회 버튼
      */
 	const fn_search = async function() {
+
+		if (gfn_isEmpty(SBUxMethod.get("srch-dtp-wrhsYmdFrom")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-wrhsYmdTo"))) {
+    		gfn_comAlert("W0001", "입고일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+    	}
+		
+  		if (gfn_isEmpty(SBUxMethod.get("srch-slt-itemCd"))) {
+  			gfn_comAlert("W0001", "품목");		//	W0002	{0}을/를 선택하세요.
+            return;
+  		}
+		
+  		if (gfn_isEmpty(SBUxMethod.get("srch-slt-vrtyCd"))) {
+  			gfn_comAlert("W0001", "품종");		//	W0002	{0}을/를 선택하세요.
+            return;
+  		}
 
     	// grid clear
     	jsonRawMtrInvntr.length = 0;
