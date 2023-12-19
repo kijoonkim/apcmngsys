@@ -27,7 +27,7 @@
 		font-family: Notokr, Apple SD Gothic Neo, Arial, Tahoma, sans-serif;
 	}
 </style>
-<body>
+<body oncontextmenu="return false">
 	<section>
 		<div class="box box-solid">
 		<div class="box-header" style="display:flex; justify-content: flex-start;" >
