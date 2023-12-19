@@ -106,12 +106,12 @@
   	            validate : gfn_chkByte.bind({byteLimit: 40}), typeinfo : {mask : {alias : '#'}, maxlength : 17 }},
 	        {caption: ["기사명"], 		ref: 'drvrNm',  type:'input',  width:'80px',    style:'text-align:center',
 	        	validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {mask : {alias : 'k'}, maxlength : 20}},
-	        {caption: ["은행"], 		ref: 'bankCd',  type:'inputcombo',  width:'120px',    style:'text-align:center',
+	        /* {caption: ["은행"], 		ref: 'bankCd',  type:'inputcombo',  width:'120px',    style:'text-align:center',
     			typeinfo : {ref:'comboGridBankCdJsData', label:'label', value:'value', displayui : false, itemcount: 10}},
 	        {caption: ["계좌번호"], 	ref: 'actno',  	type:'input',  width:'180px',    style:'text-align:center',
 	        	validate : gfn_chkByte.bind({byteLimit: 256}), typeinfo : {mask : {alias : '#-', repeat: '*'}, maxlength : 256}},
-	        {caption: ["예금주"], 		ref: 'dpstr',  	type:'input',  width:'80px',    style:'text-align:center',
-	        	validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {mask : {alias : 'k'}, maxlength : 20}},
+	        {caption: ["예금주"], 		ref: 'dpstrNm', type:'input',  width:'80px',    style:'text-align:center',
+	        	validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {mask : {alias : 'k'}, maxlength : 20}}, */
 	        {caption: ["비고"], 		ref: 'rmrk',  	type:'input',  width:'280px',    style:'text-align:center',
 	        	validate : gfn_chkByte.bind({byteLimit: 1000}), typeinfo : {maxlength : 333}},
 		    {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true}
@@ -119,7 +119,7 @@
 	    grdWrhsVhcl = _SBGrid.create(SBGridProperties);
 	    fn_callSelectWrhsVhclList();
 	}
-	
+
 	/**
      * @description 메뉴트리그리드 컨텍스트메뉴 json
      * @type {object}
@@ -149,7 +149,7 @@
   					  , drvrNm 	: item.drvrNm
   					  , bankCd 	: item.bankCd
   					  , actno 	: item.actno
-  					  , dpstr 	: item.dpstr
+  					  , dpstrNm : item.dpstrNm
   					  , rmrk 	: item.rmrk
   					  , delYn 	: item.delYn
   					  , apcCd	: item.apcCd
@@ -208,7 +208,7 @@
         grdRgnTrsprtCst = _SBGrid.create(SBGridProperties);
         fn_callSelectRgnTrsprtCstList();
     }
-    
+
     /**
      * @description 메뉴트리그리드 컨텍스트메뉴 json
      * @type {object}

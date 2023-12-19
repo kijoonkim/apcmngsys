@@ -21,7 +21,7 @@ public class ComApcJsonVO implements Serializable {
 	/** 은행코드 */
 	private String bankCd;
 	/** 예금주 */
-	private String dpstr;
+	private String dpstrNm;
 	/** 계좌번호 */
 	private String actno;
 	/** 주소 */

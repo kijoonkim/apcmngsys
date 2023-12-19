@@ -71,7 +71,7 @@ public class RawMtrTrsprtCstServiceImpl extends BaseServiceImpl implements RawMt
 
 			rawMtrTrsprtCstVO.setBankCd(wrhsVhclVO.getBankCd());
 			rawMtrTrsprtCstVO.setActno(wrhsVhclVO.getActno());
-			rawMtrTrsprtCstVO.setDpstr(wrhsVhclVO.getDpstr());
+			rawMtrTrsprtCstVO.setDpstrNm(wrhsVhclVO.getDpstrNm());
 			if (ComConstants.ROW_STS_INSERT.equals(rawMtrTrsprtCstVO.getRowSts())) {
 				cnt += insertRawMtrTrsprtCst(rawMtrTrsprtCstVO);
 			}

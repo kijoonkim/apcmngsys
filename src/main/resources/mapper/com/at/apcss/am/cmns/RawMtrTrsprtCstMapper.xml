@@ -45,7 +45,7 @@
 		     , (SELECT USRAM.FN_GET_COM_CD_VL_NM('BANK_CD', TC.BANK_CD) FROM DUAL)    	    AS BANK_NM          -- 은행명
 		     , TC.BANK_CD    	    AS BANK_CD          -- 은행코드
 		     , (SELECT FN_UTL_DECRYPT_ARIA(TC.ACTNO) FROM DUAL)	AS ACTNO            -- 계좌번호
-		     , TC.DPSTR			    AS DPSTR            -- 예금주명
+		     , TC.DPSTR_NM			AS DPSTR_NM            -- 예금주명
 		     , TC.RMRK              AS RMRK             -- 비고
 		     , TC.DEL_YN            AS DEL_YN           -- 삭제유무
 		  FROM TB_RAW_MTR_TRSPRT_CST    TC
@@ -92,7 +92,7 @@
 	    		  , TRSPRT_CST
 	    		  , BANK_CD
 	    		  , ACTNO
-	    		  , DPSTR
+	    		  , DPSTR_NM
 	    		  , RMRK
 	    		  , DEL_YN
 	    		  , SYS_FRST_INPT_DT
@@ -114,7 +114,7 @@
 	    		  , #{trsprtCst}
 	    		  , #{bankCd}
 	    		  , FN_UTL_ENCRYPT_ARIA(#{actno})
-	    		  , #{dpstr}
+	    		  , #{dpstrNm}
 	    		  , #{rmrk}
 	    		  , #{delYn}
 	    		  , SYSDATE
@@ -147,7 +147,7 @@
     		 , TRSPRT_CST				= #{trsprtCst}
     		 , BANK_CD					= #{bankCd}
     		 , ACTNO					= FN_UTL_ENCRYPT_ARIA(#{actno})
-    		 , DPSTR					= #{dpstr}
+    		 , DPSTR_NM					= #{dpstrNm}
     		 , RMRK						= #{rmrk}
     		 , DEL_YN					= #{delYn}
 		 WHERE APC_CD					= #{apcCd}

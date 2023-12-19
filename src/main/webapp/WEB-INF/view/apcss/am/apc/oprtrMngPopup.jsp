@@ -95,7 +95,7 @@
 	        /* {caption: ["은행"], 		ref: 'bankCd',  type:'inputcombo',  width:'100px',    style:'text-align:center',
     			typeinfo : {ref:'comboGridBankCdJsData', displayui : false,	itemcount: 10, label:'label', value:'value'}},
 	        {caption: ["계좌번호"], 	ref: 'actno',   type:'input',  width:'130px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 256}), typeinfo : {mask : {alias : '#-', repeat: '*'}, maxlength : 256}},
-	        {caption: ["예금주명"], 	ref: 'dpstr',   type:'input',  width:'90px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {maxlength : 6}}, */
+	        {caption: ["예금주명"], 	ref: 'dpstrNm', type:'input',  width:'90px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {maxlength : 6}}, */
 	        {caption: ["APC코드"], 		ref: 'apcCd',   type:'output',  hidden : true}
 	    ];
 	    grdOprtr = _SBGrid.create(SBGridProperties);
@@ -134,7 +134,7 @@
   					  , jncmpYmd : 	item.jncmpYmd
   					  , bankCd : 	item.bankCd
   					  , actno : 	item.actno
-  					  , dpstr : 	item.dpstr
+  					  , dpstrNm : 	item.dpstrNm
   					  , delYn : 	item.delYn
   					  , apcCd : 	item.apcCd
   					}

@@ -91,7 +91,7 @@
 	const excelDwnldVhclPop = function () {
 		grdVhclPop.exportLocalExcel("차량 목록", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
-	
+
 	/**
 	 * @description 차량 선택 팝업
 	 */
@@ -175,7 +175,7 @@
 		    		validate : gfn_chkByte.bind({byteLimit: 40})},
 		        {caption: ['기사명'], 	ref: 'drvrNm', 			width: '100px', type: 'input', 		style:'text-align:center', 	sortable: false,
 					validate : gfn_chkByte.bind({byteLimit: 20})},
-// 		        {caption: ['예금주명'], 	ref: 'dpstr', 			width: '100px', type: 'input', 		style:'text-align:center', 	sortable: false,
+// 		        {caption: ['예금주명'], 	ref: 'dpstrNm', 			width: '100px', type: 'input', 		style:'text-align:center', 	sortable: false,
 // 					validate : gfn_chkByte.bind({byteLimit: 20})},
 // 		        {caption: ['은행'], 		ref: 'bankCd', 			width: '100px',	type:'inputcombo',  style:'text-align:center', 	sortable: false,
 // 					typeinfo : {ref:'jsonComBankCdVhclPop', itemcount: 10,	label:'label', value:'value'}, validate : gfn_chkByte.bind({byteLimit: 100})},
@@ -211,7 +211,7 @@
 			this.createGrid(true);
 			grdVhclPop.rebuild();
 			grdVhclPop.setCellDisabled(0, 0, grdVhclPop.getRows() - 1, grdVhclPop.getCols() - 1, false);
-			
+
 			let nRow = grdVhclPop.getRows();
 			grdVhclPop.addRow(true);
 			grdVhclPop.setCellDisabled(nRow, 0, nRow, grdVhclPop.getCols() - 1, true);
@@ -358,7 +358,7 @@
 					    bankCd 			: item.bankCd,
 					    bankNm 			: item.bankNm,
 					    actno 			: item.actno,
-					    dpstr 			: item.dpstr,
+					    dpstrNm 		: item.dpstrNm,
 					    rmrk 			: item.rmrk,
 					    delYn 			: item.delYn,
 					    apcCd 			: item.apcCd,

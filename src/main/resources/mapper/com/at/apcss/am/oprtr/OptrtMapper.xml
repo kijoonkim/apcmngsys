@@ -40,7 +40,7 @@
 			     , OM.JNCMP_YMD         AS JNCMP_YMD
 			     , OM.BANK_CD           AS BANK_CD
 			     , (SELECT FN_UTL_DECRYPT_ARIA(OM.ACTNO) FROM DUAL)		AS ACTNO
-			     , OM.DPSTR             AS DPSTR
+			     , OM.DPSTR_NM          AS DPSTR_NM
 			     , OM.RMRK              AS RMRK
 			     , OM.DEL_YN            AS DEL_YN
 			  FROM TB_OPRTR_MNG OM
@@ -78,7 +78,7 @@
 		      , JNCMP_YMD
 		      , BANK_CD
 		      , ACTNO
-		      , DPSTR
+		      , DPSTR_NM
     		  , RMRK
     		  , DEL_YN
     		  , SYS_FRST_INPT_DT
@@ -98,7 +98,7 @@
     		  , #{jncmpYmd}
     		  , #{bankCd}
     		  , FN_UTL_ENCRYPT_ARIA(#{actno})
-    		  , #{dpstr}
+    		  , #{dpstrNm}
     		  , #{rmrk}
     		  , #{delYn}
     		  , SYSDATE
@@ -130,7 +130,7 @@
     		 , JNCMP_YMD				= #{jncmpYmd}
     		 , BANK_CD					= #{bankCd}
     		 , ACTNO					= FN_UTL_ENCRYPT_ARIA(#{actno})
-    		 , DPSTR					= #{dpstr}
+    		 , DPSTR_NM					= #{dpstrNm}
     		 , RMRK						= #{rmrk}
     		 , DEL_YN					= #{delYn}
 		 WHERE APC_CD 					= #{apcCd}

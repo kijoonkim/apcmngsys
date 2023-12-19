@@ -83,7 +83,7 @@ public class RawMtrTrsprtCstVO extends ComVO {
 	/**
 	 * 예금주명
 	 */
-	private String dpstr;
+	private String dpstrNm;
 	/**
 	 * 비고
 	 */
