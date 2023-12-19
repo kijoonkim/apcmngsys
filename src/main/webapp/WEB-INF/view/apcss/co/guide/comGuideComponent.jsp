@@ -43,7 +43,7 @@
         .tbl{width: 100%;border-top: 2px solid #888;border-bottom: 1px solid #ddd;text-align: left;}
     </style>
 </head>
-<body>
+<body oncontextmenu="return false">
     <div class="sbt-A-wrap">
         <div class="main">
             <!--main content-->
