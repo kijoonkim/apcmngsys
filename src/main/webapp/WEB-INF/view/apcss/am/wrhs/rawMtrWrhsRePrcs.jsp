@@ -106,7 +106,7 @@
 									uitype="text"
 									id="srch-inp-prdcrNm"
 									name="srch-inp-prdcrNm"
-									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									class="form-control input-sm"
 									placeholder="초성검색 가능"
 									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
@@ -179,7 +179,7 @@
 					<tbody>
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>재처리일자</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
+							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker
 									id="dtl-dtp-inptYmd"
 									name="dtl-dtp-inptYmd"
@@ -188,7 +188,7 @@
 									class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"
 								></sbux-datepicker>
 							</td>
-							<td></td>
+							<td colspan='2'></td>
 
 							<th scope="row" class="th_bg">투입 총량</th>
 							<!--
@@ -679,16 +679,6 @@
 
   		let inptYmd = SBUxMethod.get("dtl-dtp-inptYmd");
 
-  		if (gfn_isEmpty(itemCd)) {
-  			gfn_comAlert("W0001", "품목");		//	W0002	{0}을/를 선택하세요.
-            return;
-  		}
-
-  		if (gfn_isEmpty(vrtyCd)) {
-  			gfn_comAlert("W0001", "품종");		//	W0002	{0}을/를 선택하세요.
-            return;
-  		}
-
 		const postJsonPromise = gfn_postJSON("/am/invntr/selectRawMtrInvntrListForPrcs.do", {
 			apcCd: gv_selectedApcCd,
 			wrhsYmdFrom: wrhsYmdFrom,
@@ -792,6 +782,21 @@
      * @description 조회 버튼
      */
 	const fn_search = async function() {
+  		
+		if (gfn_isEmpty(SBUxMethod.get("srch-dtp-wrhsYmdFrom")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-wrhsYmdTo"))) {
+    		gfn_comAlert("W0001", "입고일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+    	}
+
+  		if (gfn_isEmpty(SBUxMethod.get("srch-slt-itemCd"))) {
+  			gfn_comAlert("W0001", "품목");		//	W0002	{0}을/를 선택하세요.
+            return;
+  		}
+
+  		if (gfn_isEmpty(SBUxMethod.get("srch-slt-vrtyCd"))) {
+  			gfn_comAlert("W0001", "품종");		//	W0002	{0}을/를 선택하세요.
+            return;
+  		}
 
     	// grid clear
     	jsonRawMtrInvntr.length = 0;
@@ -812,7 +817,7 @@
 		const wrhsYmd = SBUxMethod.get("dtl-dtp-inptYmd");
 
 		if (gfn_isEmpty(wrhsYmd)) {
-			gfn_comAlert("W0005", "처리일자");		//	W0005	{0}이/가 없습니다.
+			gfn_comAlert("W0005", "재처리일자");		//	W0005	{0}이/가 없습니다.
 			return;
 		}
 

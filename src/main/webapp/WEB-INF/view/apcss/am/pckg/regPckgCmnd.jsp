@@ -64,10 +64,10 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>선별일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-inptYmdFrom" name="srch-dtp-inptYmdFrom" date-format="yyyy-mm-dd" class="form-control pull-right input-sm" onchange="fn_dtpChange(srch-dtp-inptYmdFrom)">
+								<sbux-datepicker uitype="popup" id="srch-dtp-inptYmdFrom" name="srch-dtp-inptYmdFrom" date-format="yyyy-mm-dd" class="form-control pull-right input-sm input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-inptYmdFrom)">
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-inptYmdTo" name="srch-dtp-inptYmdTo" date-format="yyyy-mm-dd" class="form-control pull-right input-sm" onchange="fn_dtpChange(srch-dtp-inptYmdTo)">
+								<sbux-datepicker uitype="popup" id="srch-dtp-inptYmdTo" name="srch-dtp-inptYmdTo" date-format="yyyy-mm-dd" class="form-control pull-right input-sm input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-inptYmdTo)">
 							</td>
 							<td>&nbsp;</td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>품목/품종</th>
@@ -84,7 +84,7 @@
 									uitype="text"
 									id="srch-inp-prdcrNm"
 									name="srch-inp-prdcrNm"
-									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									class="form-control input-sm"
 									placeholder="초성검색 가능"
 									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
@@ -151,7 +151,7 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>지시일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-cmndYmd" name="srch-dtp-cmndYmd" date-format="yyyy-mm-dd" class="form-control pull-right input-sm" onchange="fn_dtpChange(srch-dtp-cmndYmd)"></sbux-datepicker>
+								<sbux-datepicker uitype="popup" id="srch-dtp-cmndYmd" name="srch-dtp-cmndYmd" date-format="yyyy-mm-dd" class="form-control pull-right input-sm input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-cmndYmd)"></sbux-datepicker>
 							</td>
 							<td colspan="2">&nbsp;</td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>생산설비</th>
@@ -511,7 +511,7 @@
     	let inptYmdTo = SBUxMethod.get("srch-dtp-inptYmdTo");
 
 		if(gfn_isEmpty(inptYmdFrom) || gfn_isEmpty(inptYmdTo)){
-			gfn_comAlert("W0001", "지시일자");		//	W0002	{0}을/를 선택하세요.
+			gfn_comAlert("W0001", "선별일자");		//	W0002	{0}을/를 선택하세요.
 			return;
 		}
 		if(gfn_isEmpty(vrtyCd)){

@@ -62,12 +62,12 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th class="ta_r th_bg">조회일자</th>
+							<th class="ta_r th_bg"><span class="data_required"></span>조회일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-planYmdFrom" name="srch-dtp-planYmdFrom" date-format="yyyy-mm-dd" class="form-control pull-right input-sm" onchange="fn_dtpChange(srch-dtp-planYmdFrom)"/>
+								<sbux-datepicker uitype="popup" id="srch-dtp-planYmdFrom" name="srch-dtp-planYmdFrom" date-format="yyyy-mm-dd" class="form-control pull-right input-sm input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-planYmdFrom)"/>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-planYmdTo" name="srch-dtp-planYmdTo" date-format="yyyy-mm-dd" class="form-control pull-right input-sm" onchange="fn_dtpChange(srch-dtp-planYmdTo)"/>
+								<sbux-datepicker uitype="popup" id="srch-dtp-planYmdTo" name="srch-dtp-planYmdTo" date-format="yyyy-mm-dd" class="form-control pull-right input-sm input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-planYmdTo)"/>
 							</td>
 							<td>&nbsp;</td>
 							<th class="ta_r th_bg">생산자</th>
@@ -137,7 +137,7 @@
 						<tr>
 							<th class="ta_r th_bg"><span class="data_required"></span>계획일시</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="dtl-dtp-planYmd" name="dtl-dtp-planYmd" class="form-control pull-right input-sm" date-format="yyyy-mm-dd HH:MM" show-time-bar="true"></sbux-datepicker>
+								<sbux-datepicker uitype="popup" id="dtl-dtp-planYmd" name="dtl-dtp-planYmd" class="form-control pull-right input-sm input-sm-ast inpt_data_reqed" date-format="yyyy-mm-dd HH:MM" show-time-bar="true"></sbux-datepicker>
 							</td>
 							<td >&nbsp;</td>
 							<th class="ta_r th_bg"><span class="data_required"></span>생산자</th>
@@ -440,7 +440,7 @@
 	const fn_procRow = function (gubun, nRow, nCol){
 		if(gubun == "ADD"){
 			let planYmdHr = SBUxMethod.get("dtl-dtp-planYmd");
-			if (!gfn_isEmpty(planYmdHr)) {
+			if (gfn_isEmpty(planYmdHr)) {
 	  			gfn_comAlert("W0001", "계획일시");		//	W0002	{0}을/를 선택하세요.
 	            return;
 	  		}
@@ -526,6 +526,11 @@
 		let planYmdFrom = SBUxMethod.get("srch-dtp-planYmdFrom");
 		let planYmdTo = SBUxMethod.get("srch-dtp-planYmdTo");
 		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
+  		
+		if (gfn_isEmpty(planYmdFrom) || gfn_isEmpty(planYmdTo)) {
+    		gfn_comAlert("W0001", "조회일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+    	}
 
 		const postJsonPromise = gfn_postJSON("/am/wrhs/selectRawMtrWrhsPlanList.do", {
 			apcCd			: gv_selectedApcCd,
@@ -621,7 +626,7 @@
 							return;
 						}
 						if(gfn_comboValidation(jsonApcPrdcr, prdcrCd) != "Y" || gfn_isEmpty(prdcrCd)){
-							gfn_comAlert("W0005", "입고구분") 	// W0005	{0}이/가 없습니다.
+							gfn_comAlert("W0005", "생산자") 	// W0005	{0}이/가 없습니다.
 							return;
 						}
 						if(gfn_comboValidation(jsonGrdWrhsSeCd, wrhsSeCd) != "Y" || gfn_isEmpty(wrhsSeCd)){

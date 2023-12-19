@@ -111,10 +111,10 @@
 					<tbody>
 						<tr>
 							<th scope="row" class="th_bg" ><span class="data_required" ></span>계량일자</th>
-							<td colspan="3" class="td_input" style="border-right:hidden;" >
-								<sbux-datepicker id="dtl-dtp-wghYmd" name="dtl-dtp-wghYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast"></sbux-datepicker>
+							<td class="td_input" style="border-right:hidden;" >
+								<sbux-datepicker id="dtl-dtp-wghYmd" name="dtl-dtp-wghYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-datepicker>
 							</td>
-							<td style="border-right: hidden;">&nbsp;</td>
+							<td colspan="3"></td>
 							<th scope="row" class="th_bg" ><span class="data_required" ></span>생산자</th>
 							<td class="td_input" style="border-right:hidden;">
 								<sbux-input
@@ -791,7 +791,7 @@
 
     	// validation check
     	if (gfn_isEmpty(wghYmd)) {
-    		gfn_comAlert("W0001", "입고일자");		//	W0001	{0}을/를 선택하세요.
+    		gfn_comAlert("W0001", "계량일자");		//	W0001	{0}을/를 선택하세요.
             return;
     	}
     	if (gfn_isEmpty(prdcrCd)) {
@@ -921,6 +921,12 @@
      * @description 조회 버튼
      */
     const fn_search = async function() {
+  		
+		if (gfn_isEmpty(SBUxMethod.get("dtl-dtp-wghYmd"))) {
+    		gfn_comAlert("W0001", "계량일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+    	}
+		
 		var getColRef = grdWghPrfmnc.getColRef("checkedYn");
 		grdWghPrfmnc.setFixedcellcheckboxChecked(0, getColRef, false);
 		

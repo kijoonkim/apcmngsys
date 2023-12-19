@@ -311,6 +311,12 @@
      }
 
 	const fn_search = async function(){
+  		
+		if (gfn_isEmpty(SBUxMethod.get("srch-dtp-cmndYmdFrom")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-cmndYmdTo"))) {
+    		gfn_comAlert("W0001", "지시일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+    	}
+		
 		grdPckgCmnd.rebuild();
     	let pageSize = grdPckgCmnd.getPageSize();
     	let pageNo = 1;
