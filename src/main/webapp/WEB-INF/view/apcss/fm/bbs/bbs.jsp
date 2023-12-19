@@ -139,13 +139,13 @@
 		                                <tr>
 		                                    <th>제목</th>
 		                                    <td colspan="7">
-		                                        <sbux-input id="dtl-input-bbsTitle" name="dtl-input-bbsTitle" uitype="text" required style="width:100%"></sbux-input>
+		                                        <sbux-input id="dtl-input-bbsTtl" name="dtl-input-bbsTtl" uitype="text" required style="width:100%"></sbux-input>
 		                                    </td>
 		                                </tr>
 		                                <tr>
 		                                    <th>내용</th>
 		                                    <td colspan="7">
-		                                        <sbux-textarea  rows="27" cols="120"  id="dtl-input-bbsSubject" name="dtl-input-bbsSubject"  uitype="normal"></sbux-textarea>
+		                                        <sbux-textarea  rows="27" cols="120"  id="dtl-input-bbsSbjt" name="dtl-input-bbsSbjt"  uitype="normal"></sbux-textarea>
 		                                    </td>
 		                                </tr>
 		                                <!-- <tr>
@@ -268,7 +268,7 @@
 //             {caption: ["번호"],	ref: 'bbsNo',      type:'output',  width:'10%',    style:'text-align:center'},
             {caption: ["유형"],  	ref: 'bbsSeCdNm',    type:'output',  width:'10%',    style:'text-align:center'},
             {caption: ["제목"], 	ref: 'bbsTitle',     	type:'output',  width:'60%',    style:'text-align:left'},
-            {caption: ["내용"],      	ref: 'bbsSubject',        type:'output',  hidden: true},
+            {caption: ["내용"],      	ref: 'bbsSbjt',        type:'output',  hidden: true},
             {caption: ["등록자"],	ref: 'sysFrstInptUserIdNm',   type:'output' ,width:'10%'  , style:'text-align:center'},
             {caption: ["등록일"],	ref: 'sysFrstInptDtYmd',   type:'output' ,width:'10%'  , style:'text-align:center'},
             {caption: ["최초등록자ID"],	ref: 'creUserId',   type:'output',  hidden: true},
@@ -343,10 +343,10 @@
         	data.resultList.forEach((item, index) => {
 				const msg = {
 					bbsNo: item.bbsNo,
-					bbsTitle: item.bbsTitle,
+					bbsTtl: item.bbsTtl,
 					bbsSeCd: item.bbsSeCd,
 					bbsSeCdNm: item.bbsSeCdNm,
-					bbsSubject: item.bbsSubject,
+					bbsSbjt: item.bbsSbjt,
 					sysFrstInptDt: item.sysFrstInptDt,
 					sysFrstInptDtYmd: item.sysFrstInptDtYmd,
 					sysFrstInptUserId: item.sysFrstInptUserId,
@@ -398,8 +398,8 @@
     	SBUxMethod.set("dtl-select-bbsSeCd", '1');
         SBUxMethod.set("dtl-input-bbsNo", null);
         SBUxMethod.attr("dtl-input-bbsNo", "readonly", true);
-        SBUxMethod.set("dtl-input-bbsTitle", null);
-        SBUxMethod.set("dtl-input-bbsSubject", null);
+        SBUxMethod.set("dtl-input-bbsTtl", null);
+        SBUxMethod.set("dtl-input-bbsSbjt", null);
         SBUxMethod.set("dtl-input-sysFrstInptUserIdNm", null);
         SBUxMethod.set("dtl-input-sysFrstInptDt", null);
 
@@ -419,8 +419,8 @@
     	SBUxMethod.set("dtl-select-bbsSeCd", null);
         SBUxMethod.set("dtl-input-bbsNo", null);
         SBUxMethod.attr("dtl-input-bbsNo", "readonly", true);
-        SBUxMethod.set("dtl-input-bbsTitle", null);
-        SBUxMethod.set("dtl-input-bbsSubject", null);
+        SBUxMethod.set("dtl-input-bbsTtl", null);
+        SBUxMethod.set("dtl-input-bbsSbjt", null);
         SBUxMethod.set("dtl-input-sysFrstInptUserIdNm", null);
         SBUxMethod.set("dtl-input-sysFrstInptDt", null);
       	//첨부파일 리스트 초기화
@@ -449,12 +449,12 @@
             return;
         } */
 
-    	if (!SBUxMethod.get("dtl-input-bbsTitle")) {
+    	if (!SBUxMethod.get("dtl-input-bbsTtl")) {
             alert("제목을 입력하세요.");
             return;
         }
 
-        if (!SBUxMethod.get("dtl-input-bbsSubject")) {
+        if (!SBUxMethod.get("dtl-input-bbsSbjt")) {
             alert("내용을 입력하세요.");
             return;
         }
@@ -493,8 +493,8 @@
     	const postJsonPromise = gfn_postJSON("/fm/bbs/insertBbs.do", {
 			bbsNo: SBUxMethod.get('dtl-input-bbsNo'),
 			bbsSeCd: SBUxMethod.get('dtl-select-bbsSeCd'),
-			bbsTitle: SBUxMethod.get('dtl-input-bbsTitle'),
-			bbsSubject: SBUxMethod.get('dtl-input-bbsSubject')
+			bbsTtl: SBUxMethod.get('dtl-input-bbsTtl'),
+			bbsSbjt: SBUxMethod.get('dtl-input-bbsSbjt')
 		});
 
         const data = await postJsonPromise;
@@ -530,8 +530,8 @@
     	const postJsonPromise = gfn_postJSON("/fm/bbs/updateBbs.do", {
 			bbsNo: SBUxMethod.get('dtl-input-orngBbsNo'),
 			bbsSeCd: SBUxMethod.get('dtl-select-bbsSeCd'),
-			bbsTitle: SBUxMethod.get('dtl-input-bbsTitle'),
-			bbsSubject: SBUxMethod.get('dtl-input-bbsSubject')
+			bbsTtl: SBUxMethod.get('dtl-input-bbsTtl'),
+			bbsSbjt: SBUxMethod.get('dtl-input-bbsSbjt')
 		});
 
         const data = await postJsonPromise;
@@ -656,8 +656,8 @@
         SBUxMethod.set("dtl-input-orngBbsNo", rowData.bbsNo);
         SBUxMethod.set("dtl-select-bbsSeCd", rowData.bbsSeCd);
         SBUxMethod.set("dtl-input-bbsNo", rowData.bbsNo);
-        SBUxMethod.set("dtl-input-bbsTitle", rowData.bbsTitle);
-        SBUxMethod.set("dtl-input-bbsSubject", rowData.bbsSubject);
+        SBUxMethod.set("dtl-input-bbsTtl", rowData.bbsTtl);
+        SBUxMethod.set("dtl-input-bbsSbjt", rowData.bbsSbjt);
         SBUxMethod.set("dtl-input-sysFrstInptUserIdNm", rowData.sysFrstInptUserIdNm);
         SBUxMethod.set("dtl-input-sysFrstInptDt", rowData.sysFrstInptDt);
 		console.log(rowData.attCnt);

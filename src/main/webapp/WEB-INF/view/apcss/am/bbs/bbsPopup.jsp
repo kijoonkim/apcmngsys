@@ -90,13 +90,13 @@
 			                                <tr>
 			                                    <th scope="row">제목</th>
 			                                    <td colspan="8">
-			                                        <sbux-input id="dtl-input-bbsTitle" name="dtl-input-bbsTitle" uitype="text" required style="width:100%" readonly></sbux-input>
+			                                        <sbux-input id="dtl-input-bbsTtl" name="dtl-input-bbsTtl" uitype="text" required style="width:100%" readonly></sbux-input>
 			                                    </td>
 			                                </tr>
 			                                <tr>
 			                                    <th scope="row">내용</th>
 			                                    <td colspan="8">
-			                                        <sbux-textarea  rows="10" cols="110"  id="dtl-input-bbsSubject" name="dtl-input-bbsSubject"  uitype="normal" readonly></sbux-textarea>
+			                                        <sbux-textarea  rows="10" cols="110"  id="dtl-input-bbsSbjt" name="dtl-input-bbsSbjt"  uitype="normal" readonly></sbux-textarea>
 			                                    </td>
 			                                </tr>
 			                                <tr>
@@ -159,13 +159,13 @@
 			SBUxMethod.hide("dtl-input-cmntCn");
 			SBUxMethod.hide("btnInsertCmnt");
 			SBUxMethod.attr("dtl-select-bbsSeCd","readonly","false");
-			SBUxMethod.attr("dtl-input-bbsTitle","readonly","false");
-			SBUxMethod.attr("dtl-input-bbsSubject","readonly","false");
+			SBUxMethod.attr("dtl-input-bbsTtl","readonly","false");
+			SBUxMethod.attr("dtl-input-bbsSbjt","readonly","false");
 
 		}else if (SBUxMethod.get("btnUpdateBbsPopup") == "취소"){
 			SBUxMethod.attr("dtl-select-bbsSeCd","readonly","true");
-			SBUxMethod.attr("dtl-input-bbsTitle","readonly","true");
-			SBUxMethod.attr("dtl-input-bbsSubject","readonly","true");
+			SBUxMethod.attr("dtl-input-bbsTtl","readonly","true");
+			SBUxMethod.attr("dtl-input-bbsSbjt","readonly","true");
 			SBUxMethod.show("dtl-input-cmntCn");
 			SBUxMethod.show("btnInsertCmnt");
 			SBUxMethod.set("btnUpdateBbsPopup","수정");
@@ -214,17 +214,17 @@
 			bbs_info.bbsSecd = bbsSeCd;
 		}
 		if(SBUxMethod.get("dtl-input-bbsTitle")){
-			bbs_info.bbsTitle = SBUxMethod.get("dtl-input-bbsTitle");
+			bbs_info.bbsTitle = SBUxMethod.get("dtl-input-bbsTtl");
 				}
-		if(SBUxMethod.get("dtl-input-bbsSubject")){
-			bbs_info.bbsSubject = SBUxMethod.get("dtl-input-bbsSubject");
+		if(SBUxMethod.get("dtl-input-bbsSbjt")){
+			bbs_info.bbsSubject = SBUxMethod.get("dtl-input-bbsSbjt");
 		}
 
 		let bbsNo = SBUxMethod.get("dtl-input-bbsNo");
 		const postJsonPromise = gfn_postJSON("/am/bbs/updateBbs.do", {
 			bbsSeCd : bbs_info.bbsSecd
-			, bbsTitle : bbs_info.bbsTitle
-			, bbsSubject : bbs_info.bbsSubject
+			, bbsTtl : bbs_info.bbsTtl
+			, bbsSbjt : bbs_info.bbsSbjt
 			, bbsNo : bbsNo
 			, apcCd : gv_apcCd
 		});
@@ -232,8 +232,8 @@
 		try {
         	if (_.isEqual("S", data.resultStatus)) {
         		SBUxMethod.attr("dtl-select-bbsSeCd","readonly","true");
-        		SBUxMethod.attr("dtl-input-bbsTitle","readonly","true");
-        		SBUxMethod.attr("dtl-input-bbsSubject","readonly","true");
+        		SBUxMethod.attr("dtl-input-bbsTtl","readonly","true");
+        		SBUxMethod.attr("dtl-input-bbsSbjt","readonly","true");
         		SBUxMethod.set("btnUpdateBbsPopup","수정");
         		SBUxMethod.hide("btnCancelBbsPopup");
         		SBUxMethod.show("btnUpdateBbsPopup");
@@ -266,8 +266,8 @@
 		SBUxMethod.hide("btnSaveBbsPopup");
 		SBUxMethod.show("btnUpdateBbsPopup");
 		SBUxMethod.attr("dtl-select-bbsSeCd","readonly","true");
-		SBUxMethod.attr("dtl-input-bbsTitle","readonly","true");
-		SBUxMethod.attr("dtl-input-bbsSubject","readonly","true");
+		SBUxMethod.attr("dtl-input-bbsTtl","readonly","true");
+		SBUxMethod.attr("dtl-input-bbsSbjt","readonly","true");
 		SBUxMethod.show("dtl-input-cmntCn");
 		SBUxMethod.show("btnInsertCmnt");
 		let apcCd = gv_apcCd;
@@ -303,7 +303,7 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	return;
         }
-		
+
 		SBUxMethod.set("dtl-input-cmntCn", "");
 
 		if(data.resultList.length < 0){
@@ -376,7 +376,7 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 	}
-	
+
 	async function fn_deleteCommentComment(cmntNo, cmntChildNo){
 		console.log('대댓글 삭제');
 		let orngbbsNo = SBUxMethod.get("dtl-input-orngBbsNo");

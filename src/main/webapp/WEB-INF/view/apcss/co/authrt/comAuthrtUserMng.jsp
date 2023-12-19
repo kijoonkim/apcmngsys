@@ -280,7 +280,7 @@
         grdComAuthUser = _SBGrid.create(SBGridProperties);
         grdComAuthUser.bind('beforepagechanged', fn_pagingGrdComAuthUser);
     }
-    
+
     /**
      * @name fn_pagingGrdComAuth
      * @description 페이징
@@ -304,7 +304,7 @@
     	grdComAuth.rebuild();
     	let pageSize = grdComAuth.getPageSize();
     	let pageNo = 1;
-    	
+
     	jsonComAuth.length = 0;
     	grdComAuth.movePaging(pageNo);
     }
@@ -348,7 +348,7 @@
   						authrtNm: item.authrtNm,
   						authrtType: item.authrtType,
   						authrtTypeNm: item.authrtTypeNm,
-  						authrtRmrk: item.authrtRmrk,
+  						authrtExpln: item.authrtExpln,
   						apcCd: item.apcCd,
   						apcNm: item.apcNm,
   						sysId: item.sysId

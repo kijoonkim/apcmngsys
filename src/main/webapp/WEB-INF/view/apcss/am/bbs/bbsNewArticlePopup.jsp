@@ -55,13 +55,13 @@
 			                                <tr>
 			                                    <th scope="row">제목</th>
 			                                    <td colspan="8">
-			                                        <sbux-input id="dtl-input-newbbsTitle" name="dtl-input-newbbsTitle" uitype="text" required style="width:100%"></sbux-input>
+			                                        <sbux-input id="dtl-input-newBbsTtl" name="dtl-input-newBbsTtl" uitype="text" required style="width:100%"></sbux-input>
 			                                    </td>
 			                                </tr>
 			                                <tr>
 			                                    <th scope="row">내용</th>
 			                                    <td colspan="8">
-			                                        <sbux-textarea  rows="10" cols="110"  id="dtl-input-newbbsSubject" name="dtl-input-newbbsSubject"  uitype="normal"></sbux-textarea>
+			                                        <sbux-textarea  rows="10" cols="110"  id="dtl-input-newBbsSbjt" name="dtl-input-newBbsSbjt"  uitype="normal"></sbux-textarea>
 			                                    </td>
 			                                </tr>
 											<tr>
@@ -98,32 +98,32 @@
 	}
 
 	function newArticle_clear(){
-		SBUxMethod.set("dtl-input-newbbsTitle","");
-		SBUxMethod.set("dtl-input-newbbsSubject","");
+		SBUxMethod.set("dtl-input-newBbsTtl","");
+		SBUxMethod.set("dtl-input-newBbsSbjt","");
 	}
 	async function fn_ArticleCreate(){
 		let bbsSeCd = SBUxMethod.get("dtl-select-newbbsSeCd");
-		let bbsTitle = SBUxMethod.get("dtl-input-newbbsTitle");
-		let bbsSubject = SBUxMethod.get("dtl-input-newbbsSubject");
+		let bbsTtl = SBUxMethod.get("dtl-input-newBbsTtl");
+		let bbsSubject = SBUxMethod.get("dtl-input-newBbsSbjt");
 		let apcCd = gv_apcCd;
 		if (!SBUxMethod.get("dtl-select-newbbsSeCd")) {
             gfn_comAlert("W0001", "구분코드");
             return;
         }
-		if (!SBUxMethod.get("dtl-input-newbbsTitle")) {
+		if (!SBUxMethod.get("dtl-input-newBbsTtl")) {
             gfn_comAlert("W0002", "제목");
             return;
         }
 
-        if (!SBUxMethod.get("dtl-input-newbbsSubject")) {
+        if (!SBUxMethod.get("dtl-input-newBbsSbjt")) {
             gfn_comAlert("W0002", "내용");
             return;
         }
 		const postJsonPromise = gfn_postJSON("/am/bbs/insertBbs.do", {
 			apcCd : apcCd
 			, bbsSeCd : bbsSeCd
-			, bbsTitle : bbsTitle
-			, bbsSubject : bbsSubject
+			, bbsTtl : bbsTtl
+			, bbsSbjt : bbsSbjt
 		});
 		const data = await postJsonPromise;
 		try {
