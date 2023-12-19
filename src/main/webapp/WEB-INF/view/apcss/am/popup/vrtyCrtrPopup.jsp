@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
     <title>title : 품종 선택</title>
 </head>
-<body>
+<body oncontextmenu="return false">
 	<section>
 		<div class="box box-solid">
 			<div class="box-header">

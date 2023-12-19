@@ -61,7 +61,7 @@
 
     </style>
 </head>
-<body>
+<body oncontextmenu="return false">
 	<ul class="ul_stdgrd">
 		<li class="li__label">
 			<!-- <span id="stdGrdSlt-spn-grdNm-1" style="margin-right: 5px;">등급1 : </span> -->

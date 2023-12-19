@@ -21,7 +21,7 @@
 	<meta charset="UTF-8">
     <title>title : 원물재고 선택</title>
 </head>
-<body>
+<body oncontextmenu="return false">
 	<section>
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
