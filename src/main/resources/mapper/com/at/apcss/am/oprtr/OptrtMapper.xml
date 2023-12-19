@@ -37,7 +37,7 @@
 			     , OM.BRDT              AS BRDT
 			     , OM.TELNO             AS TELNO
 			     , OM.ADDR              AS ADDR
-			     , OM.JNCMP             AS JNCMP
+			     , OM.JNCMP_YMD         AS JNCMP_YMD
 			     , OM.BANK_CD           AS BANK_CD
 			     , (SELECT FN_UTL_DECRYPT_ARIA(OM.ACTNO) FROM DUAL)		AS ACTNO
 			     , OM.DPSTR             AS DPSTR
@@ -75,7 +75,7 @@
 		      , BRDT
 		      , TELNO
 		      , ADDR
-		      , JNCMP
+		      , JNCMP_YMD
 		      , BANK_CD
 		      , ACTNO
 		      , DPSTR
@@ -95,7 +95,7 @@
     		  , #{brdt}
     		  , #{telno}
     		  , #{addr}
-    		  , #{jncmp}
+    		  , #{jncmpYmd}
     		  , #{bankCd}
     		  , FN_UTL_ENCRYPT_ARIA(#{actno})
     		  , #{dpstr}
@@ -127,7 +127,7 @@
     		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
     		 , TELNO					= #{telno}
     		 , ADDR						= #{addr}
-    		 , JNCMP					= #{jncmp}
+    		 , JNCMP_YMD				= #{jncmpYmd}
     		 , BANK_CD					= #{bankCd}
     		 , ACTNO					= FN_UTL_ENCRYPT_ARIA(#{actno})
     		 , DPSTR					= #{dpstr}

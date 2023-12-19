@@ -91,12 +91,12 @@
 	        {caption: ["생년월일"], 	ref: 'brdt',   	type:'input',  width:'100px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 10}), typeinfo : {maxlength : 10}, format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}},
 	        {caption: ["전화번호"], 	ref: 'telno',   type:'input',  width:'120px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 11}), typeinfo : {maxlength : 11}, format : {type:'custom', callback : fnNewCallNumber}},
 	        {caption: ["주소"], 		ref: 'addr',    type:'input',  width:'320px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 200}), typeinfo : {maxlength : 66}},
-	        {caption: ["입사일자"], 	ref: 'jncmp', 	type : 'datepicker', width:'100px',style:'text-align:center', typeinfo: {dateformat: 'yyyy-mm-dd'}, format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}     },
+	        {caption: ["입사일자"], 	ref: 'jncmpYmd',type:'datepicker', width:'100px',style:'text-align:center', typeinfo: {dateformat: 'yyyy-mm-dd'}, format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}     },
 	        /* {caption: ["은행"], 		ref: 'bankCd',  type:'inputcombo',  width:'100px',    style:'text-align:center',
     			typeinfo : {ref:'comboGridBankCdJsData', displayui : false,	itemcount: 10, label:'label', value:'value'}},
 	        {caption: ["계좌번호"], 	ref: 'actno',   type:'input',  width:'130px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 256}), typeinfo : {mask : {alias : '#-', repeat: '*'}, maxlength : 256}},
 	        {caption: ["예금주명"], 	ref: 'dpstr',   type:'input',  width:'90px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {maxlength : 6}}, */
-	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'output',  hidden : true}
+	        {caption: ["APC코드"], 		ref: 'apcCd',   type:'output',  hidden : true}
 	    ];
 	    grdOprtr = _SBGrid.create(SBGridProperties);
 	    fn_searchOprtr();
@@ -131,7 +131,7 @@
   					  , brdt :	 	item.brdt
   					  , telno : 	item.telno
   					  , addr : 		item.addr
-  					  , jncmp : 	item.jncmp
+  					  , jncmpYmd : 	item.jncmpYmd
   					  , bankCd : 	item.bankCd
   					  , actno : 	item.actno
   					  , dpstr : 	item.dpstr
@@ -143,6 +143,7 @@
   				});
   	        	grdOprtr.rebuild();
   	        	grdOprtr.addRow(true);
+  	        	grdOprtr.setCellDisabled(0, 1, grdOprtr.getRows() -1, 2, true);
   	        	grdOprtr.setCellDisabled(grdOprtr.getRows() -1, 0, grdOprtr.getRows() -1, grdOprtr.getCols() -1, true);
 
         	} else {

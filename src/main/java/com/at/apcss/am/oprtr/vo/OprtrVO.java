@@ -39,7 +39,7 @@ public class OprtrVO extends ComVO{
 	/*
 	 * 입사일자
 	 * */
-	private String jncmp;
+	private String jncmpYmd;
 
 	/*
 	 * 은행
