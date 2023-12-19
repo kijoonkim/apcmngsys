@@ -427,7 +427,7 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 					rawMtrInvntrVO.setPltno(wrhsno);
 				}
 				if(ComConstants.CON_YES.equals(rawMtrInvntrVO.getTrnsfYn())) {
-					rawMtrInvntrVO.setPrcsno(wrhsno);
+					rawMtrInvntrVO.setPrcsNo(wrhsno);
 					trnsfList.add(rawMtrInvntrVO);
 				}
 

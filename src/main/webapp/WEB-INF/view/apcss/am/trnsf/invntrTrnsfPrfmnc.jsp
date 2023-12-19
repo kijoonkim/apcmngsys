@@ -599,7 +599,7 @@
             {caption: ['이송일자','이송일자'], 			ref: 'trnsfYmd', 		width: '110px', type: 'output', 	style: 'text-align:center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['재고구분','재고구분'], 			ref: 'invntrSeNm', 		width: '100px', type: 'output', 	style: 'text-align:center'},
-            {caption: ['입고번호','입고번호'], 			ref: 'prcsno', 			width: '120px', type: 'output', 	style: 'text-align:center'},
+            {caption: ['입고번호','입고번호'], 			ref: 'prcsNo', 			width: '120px', type: 'output', 	style: 'text-align:center'},
             {caption: ['입고일자','입고일자'], 			ref: 'wrhsYmd', 		width: '110px', type: 'output', 	style: 'text-align:center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['등급','등급'], 				ref: 'grdNm', 			width: '90px', 	type: 'output', 	style: 'text-align:center'},
@@ -841,7 +841,7 @@
 		var getColRef = grdInvntrTrnsf.getColRef("checkedYn");
 		grdInvntrTrnsf.setFixedcellcheckboxChecked(1, getColRef, false);
 		grdInvntrTrnsfCfmtn.setFixedcellcheckboxChecked(0, getColRef, false);
-		
+
 		let rst = await Promise.all([
 			fn_searchTrnsfList(),
 			fn_searchTrnsfCfmtnList()
@@ -883,23 +883,23 @@
 
   	      		jsonInvntrTrnsf.length = 0;
   	          	data.resultList.forEach((item, index) => {
-  	          		let prcsno ="";
+  	          		let prcsNo ="";
   	          		let prcsSn ="";
   	          		if(item.invntrSeCd == "1"){
-  	          			prcsno = item.wrhsno;
+  	          			prcsNo = item.wrhsno;
   	          		}
   	          		if(item.invntrSeCd == "2"){
-  	          			prcsno = item.sortno;
+  	          			prcsNo = item.sortno;
   	          			prcsSn = item.sortSn;
   	          		}
   	          		if(item.invntrSeCd == "3"){
-  	          			prcsno = item.pckgno;
+  	          			prcsNo = item.pckgno;
   	          			prcsSn = item.pckgSn;
   	          		}
   	          		const invntrTrnsf = {
   	          			  apcCd				: item.trnsfApcCd
   	          			, apcNm				: item.apcNm
-  	          			, prcsno			: prcsno
+  	          			, prcsNo			: prcsNo
   	          			, prcsSn			: prcsSn
   	          			, sortno			: item.sortno
   	          			, sortSn			: item.sortSn
@@ -1260,7 +1260,7 @@
 		SBUxMethod.set("srch-slt-wrhsSeCd","");
 		SBUxMethod.set("srch-slt-invntrSeCd","1");
 		SBUxMethod.set("srch-slt-gdsSe","");
-		
+
 		SBUxMethod.set("dtl-rdo-gdsSeCd","1");
 		SBUxMethod.set("dtl-rdo-wrhsSeCd","3");
 		SBUxMethod.set("dtl-rdo-trsprtSeCd","1");
@@ -1275,7 +1275,7 @@
 		SBUxMethod.set("stdGrdSlt-inp-knd-2","");
 		SBUxMethod.set("dtl-slt-warehouseSeCd","");
 		SBUxMethod.set("dtl-inp-rmrk","");
-		
+
 	}
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>

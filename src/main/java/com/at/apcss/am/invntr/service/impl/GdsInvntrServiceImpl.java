@@ -377,7 +377,7 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 				gdsInvntrVO.setPckgSn(pckgSn);
 
 				if(ComConstants.CON_YES.equals(gdsInvntrVO.getTrnsfYn())) {
-					gdsInvntrVO.setPrcsno(pckgno);
+					gdsInvntrVO.setPrcsNo(pckgno);
 					gdsInvntrVO.setPrcsSn(pckgSn);
 					trnsfList.add(gdsInvntrVO);
 				}

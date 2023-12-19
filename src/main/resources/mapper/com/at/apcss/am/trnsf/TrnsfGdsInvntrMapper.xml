@@ -179,7 +179,7 @@
 			                 , GI.TRSPRT_SE_CD          AS TRSPRT_SE_CD
 			                 , GI.INVNTR_CHG_RSN_CD     AS INVNTR_CHG_RSN_CD
 			                 , GI.PRCS_SN               AS PRCS_SN
-			                 , GI.PRCSNO                AS PRCSNO
+			                 , GI.PRCS_NO               AS PRCS_NO
 			                 , GI.PRCS_TYPE             AS PRCS_TYPE
 			                 , TH.APC_CD                AS TRNSF_APC_CD
 			                 , TH.TRNSF_YMD             AS TRNSF_YMD
@@ -187,7 +187,7 @@
 			              FROM TB_GDS_INVNTR GI
 			                 , TB_INVNTR_TRNSF_HSTRY TH
 			             WHERE GI.APC_CD = TH.TRNSF_APC_CD
-			               AND GI.PRCSNO = TH.PRCSNO
+			               AND GI.PRCS_NO = TH.PRCS_NO
 			               AND GI.PRCS_SN = TH.PRCS_SN
 			               AND GI.DEL_YN = 'N'
 			               AND TH.DEL_YN = 'N'

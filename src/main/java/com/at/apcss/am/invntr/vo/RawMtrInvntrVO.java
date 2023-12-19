@@ -40,7 +40,7 @@ public class RawMtrInvntrVO extends ComVO {
 	/**
 	 * 처리번호
 	 */
-	private String prcsno;
+	private String prcsNo;
 
 	/**
 	 * 처리유형

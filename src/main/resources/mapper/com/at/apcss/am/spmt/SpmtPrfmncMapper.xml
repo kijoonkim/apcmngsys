@@ -129,7 +129,7 @@
 				 WHERE PC.APC_CD = PD.APC_CD
 				   AND PC.SPMTNO = PD.SPMTNO
                    AND PC.APC_CD = PWS.APC_CD(+)
-                   AND PC.SPMTNO = PWS.PRCSNO(+)
+                   AND PC.SPMTNO = PWS.PRCS_NO(+)
                    AND PC.SPMT_YMD = PWS.JOB_YMD(+)
                    AND PWS.DEL_YN(+) = 'N'
 				   AND PC.DEL_YN = 'N'

@@ -277,7 +277,7 @@
 	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
 	    		, CFMTN_YN					= 'Y'
-	    		, PRCSNO					= #{prcsno}
+	    		, PRCS_NO					= #{prcsNo}
 	    		, PRCS_SN					= #{prcsSn}
 			 WHERE APC_CD 		= #{trnsfApcCd}
 			   AND TRNSF_YMD 	= #{trnsfYmd}
@@ -303,7 +303,7 @@
 	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
 	    		, CFMTN_YN					= 'N'
-	    		, PRCSNO					= ''
+	    		, PRCS_NO					= ''
 	    		, PRCS_SN					= ''
 			 WHERE APC_CD 		= #{trnsfApcCd}
 			   AND TRNSF_YMD 	= #{trnsfYmd}

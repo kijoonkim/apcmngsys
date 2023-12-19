@@ -332,7 +332,7 @@ public class TrnsfRawMtrInvntrVO extends ComVO {
 	/*
 	 * 처리번호
 	 * */
-	private String prcsno;
+	private String prcsNo;
 
 	/**
 	 * 표준등급

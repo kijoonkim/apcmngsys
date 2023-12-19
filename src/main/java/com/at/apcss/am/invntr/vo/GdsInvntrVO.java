@@ -294,7 +294,7 @@ public class GdsInvntrVO extends ComVO {
 	/**
 	 * 처리번호
 	 */
-	private String prcsno;
+	private String prcsNo;
 	/**
 	 * 처리순번
 	 */

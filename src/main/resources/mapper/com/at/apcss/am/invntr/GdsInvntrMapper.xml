@@ -442,7 +442,7 @@
 					, INVNTR_WGHT
 					, PRDCTN_YR
 					, PRCS_SN
-					, PRCSNO
+					, PRCS_NO
 					, PRCS_TYPE
 					, RMRK
 		    		, SYS_FRST_INPT_DT
@@ -478,7 +478,7 @@
 					, #{invntrWght}
 					, #{prdctnYr}
 					, #{prcsSn}
-					, #{prcsno}
+					, #{prcsNo}
 					, #{prcsType}
 					, #{rmrk}
 		    		, SYSDATE

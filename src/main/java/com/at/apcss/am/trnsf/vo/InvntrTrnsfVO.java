@@ -158,7 +158,7 @@ public class InvntrTrnsfVO extends ComVO {
 	private String cfmtnCd;
 	private String cfmtnNm;
 
-	private String prcsno;
+	private String prcsNo;
 	private int prcsSn;
 
 }
