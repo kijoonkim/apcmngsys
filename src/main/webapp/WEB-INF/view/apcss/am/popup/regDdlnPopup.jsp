@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
     <title>title : 마감 등록</title>
 </head>
-<body>
+<body oncontextmenu="return false">
 	<section>
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
