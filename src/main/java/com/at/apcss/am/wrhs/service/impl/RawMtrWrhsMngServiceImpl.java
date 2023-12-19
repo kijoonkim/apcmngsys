@@ -2,6 +2,7 @@ package com.at.apcss.am.wrhs.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -526,4 +527,69 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 
 	}
 
+
+	@Override
+	public HashMap<String, Object> deleteRawMtrPrcsList(RawMtrWrhsMngVO rawMtrWrhsMngVO) throws Exception {
+		
+		HashMap<String, Object> rtnObj = new HashMap<>();
+		
+		List<RawMtrInvntrVO> rawMtrInvntrList = rawMtrWrhsMngVO.getRawMtrInvntrList();
+		
+		if (rawMtrInvntrList == null || rawMtrInvntrList.isEmpty()) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "삭제대상");
+		}
+		
+		String apcCd = rawMtrWrhsMngVO.getApcCd();
+		if (!StringUtils.hasText(apcCd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
+		}
+		
+		List<String> prcsnoList = new ArrayList<>();
+		
+		for ( RawMtrInvntrVO invVO : rawMtrInvntrList ) {
+			
+			String wrhsno = invVO.getWrhsno();			
+			if (!StringUtils.hasText(wrhsno)) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "입고번호");
+			}
+			
+			invVO.setApcCd(apcCd);			
+			RawMtrInvntrVO invInfo = rawMtrInvntrService.selectRawMtrInvntr(invVO);
+			
+			if (invInfo == null || !StringUtils.hasText(invInfo.getWrhsno())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "입고정보");
+			}
+			
+			if (StringUtils.hasText(invInfo.getPrcsNo())) {
+				prcsnoList.add(invInfo.getPrcsNo());
+			} else {
+				RawMtrWrhsVO wrhsVO = new RawMtrWrhsVO();
+				BeanUtils.copyProperties(rawMtrWrhsMngVO, wrhsVO);
+				wrhsVO.setWrhsno(wrhsno);
+				
+				rtnObj = rawMtrWrhsService.deleteRawMtrWrhs(wrhsVO);
+				if (rtnObj != null) {
+					throw new EgovBizException(getMessageForMap(rtnObj));
+				}
+			}
+		}
+		
+		if (!prcsnoList.isEmpty()) {
+			// 중복 제거
+			HashSet<String> rePrcsList = new HashSet<>(prcsnoList);
+			for ( String prcsno : rePrcsList ) {
+				RawMtrWrhsMngVO rePrcsVO = new RawMtrWrhsMngVO();
+				BeanUtils.copyProperties(rawMtrWrhsMngVO, rePrcsVO);
+				rePrcsVO.setPrcsNo(prcsno);
+				
+				rtnObj = deleteRawMtrRePrcs(rePrcsVO);
+				if (rtnObj != null) {
+					throw new EgovBizException(getMessageForMap(rtnObj));
+				}
+			}
+		}
+		
+		return null;
+	}
+	
 }

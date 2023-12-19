@@ -44,6 +44,14 @@ public interface RawMtrWrhsMngService {
 	 */
 	public HashMap<String, Object> deleteRawMtrPrcs(RawMtrWrhsMngVO rawMtrWrhsMngVO) throws Exception;
 	
+	/**
+	 * 원물입고 목록 취소
+	 * @param rawMtrWrhsMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteRawMtrPrcsList(RawMtrWrhsMngVO rawMtrWrhsMngVO) throws Exception;
+	
 	
 	
 }
