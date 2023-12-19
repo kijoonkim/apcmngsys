@@ -90,10 +90,10 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg">시스템구분</th>
+							<th scope="row" class="th_bg"><span class="data_required"></span>시스템구분</th>
 							<td class="td_input" colspan="3" style="border-right: hidden;">
 								<sbux-select
-									class="form-control input-sm"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									id="srch-slt-sysId"
 									name="srch-slt-sysId"
 									uitype="single"
@@ -545,13 +545,13 @@
      */
     const fn_search = async function() {
 
-		lv_prvAuthrtId = "";
-		lv_prvMenuId = "";
-
         if (!SBUxMethod.get("srch-slt-sysId")) {
         	gfn_comAlert("W0001", "시스템구분");		//	W0001	{0}을/를 선택하세요.
             return;
         }
+
+		lv_prvAuthrtId = "";
+		lv_prvMenuId = "";
 
     	// set pagination
     	grdComAuth.rebuild();

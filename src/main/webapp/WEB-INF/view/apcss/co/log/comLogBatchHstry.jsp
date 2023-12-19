@@ -4,7 +4,7 @@
 <html lang="ko">
 <head>
 	<meta charset="UTF-8">
-	<title>title : SBUx2.6</title>
+	<title>title : 배치실행이력</title>
 </head>
 <body oncontextmenu="return false">
 	<section>
@@ -107,6 +107,12 @@
 		        grdLogBatchHstry.bind( "afterpagechanged" , tabLogBatchHstry.paging );
 			},
 			search: async function() {
+				if (gfn_isEmpty(SBUxMethod.get("batch-dtp-logYmdFrom")) || gfn_isEmpty(SBUxMethod.get("batch-dtp-logYmdTo"))){
+					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
+			    	jsonLogBatchHstry.length = 0;
+					grdLogBatchHstry.rebuild();
+		            return;
+				}
 				// set pagination
 				grdLogBatchHstry.rebuild();
 		    	let recordCountPerPage = grdLogBatchHstry.getPageSize();
@@ -122,18 +128,6 @@
 				let logYmdFrom = SBUxMethod.get("batch-dtp-logYmdFrom");
 				let logYmdTo = SBUxMethod.get("batch-dtp-logYmdTo");
 				let prgrmNm = SBUxMethod.get("batch-inp-prgrmNm");
-				if (gfn_isEmpty(logYmdFrom)){
-					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
-			    	jsonLogBatchHstry.length = 0;
-					grdLogBatchHstry.rebuild();
-		            return;
-				}
-				if (gfn_isEmpty(logYmdTo)){
-					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
-			    	jsonLogBatchHstry.length = 0;
-					grdLogBatchHstry.rebuild();
-		            return;
-				}
 
 		        const postJsonPromise = gfn_postJSON("/co/log/selectTrsmHstryList.do", {
 					    logYmdFrom 			: logYmdFrom
