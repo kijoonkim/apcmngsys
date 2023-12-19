@@ -83,5 +83,5 @@ public class ApcVO extends ComVO {
 	/**
 	 * 예금주명
 	 */
-	private String dpstr;
+	private String dpstrNm;
 }

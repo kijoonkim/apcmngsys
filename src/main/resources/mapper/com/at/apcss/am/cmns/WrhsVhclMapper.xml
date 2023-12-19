@@ -28,7 +28,7 @@
 		     , WV.DRVR_NM           AS DRVR_NM
 		     , WV.BANK_CD           AS BANK_CD
 		     , (SELECT FN_UTL_DECRYPT_ARIA(WV.ACTNO) FROM DUAL)		AS ACTNO
-		     , WV.DPSTR             AS DPSTR
+		     , WV.DPSTR_NM          AS DPSTR_NM
 		     , WV.RMRK              AS RMRK
 		     , WV.DEL_YN            AS DEL_YN
 		     , TO_CHAR(WV.SYS_LAST_CHG_DT, 'YYYY-MM-DD HH24:MI')   AS SYS_LAST_CHG_DT
@@ -67,7 +67,7 @@
 			     , WV.BANK_CD           AS BANK_CD
 			     , (SELECT USRAM.FN_GET_COM_CD_VL_NM('BANK_CD', WV.BANK_CD) FROM DUAL)    	    AS BANK_NM
 			     , (SELECT FN_UTL_DECRYPT_ARIA(WV.ACTNO) FROM DUAL)		AS ACTNO
-			     , WV.DPSTR             AS DPSTR
+			     , WV.DPSTR_NM          AS DPSTR_NM
 			     , WV.RMRK              AS RMRK
 			     , WV.DEL_YN            AS DEL_YN
 			     , TO_CHAR(WV.SYS_LAST_CHG_DT, 'YYYY-MM-DD HH24:MI')   AS SYS_LAST_CHG_DT
@@ -98,14 +98,14 @@
     <insert id="insertWrhsVhcl" parameterType="com.at.apcss.am.cmns.vo.WrhsVhclVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.am.cmns.mapper.WrhsVhclMapper.insertWrhsVhcl */
-	    		INTO TB_WRHS_VHCL_INFO 
+	    		INTO TB_WRHS_VHCL_INFO
 	    		(
 	    			APC_CD
 	    		  , VHCLNO
 	    		  , DRVR_NM
 	    		  , BANK_CD
 	    		  , ACTNO
-	    		  , DPSTR
+	    		  , DPSTR_NM
 	    		  , RMRK
 	    		  , DEL_YN
 	    		  , SYS_FRST_INPT_DT
@@ -122,7 +122,7 @@
 	    		  , #{drvrNm}
 	    		  , #{bankCd}
 	    		  , FN_UTL_ENCRYPT_ARIA(#{actno})
-				  , #{dpstr}
+				  , #{dpstrNm}
 	    		  , #{rmrk}
 	    		  , #{delYn}
 	    		  , SYSDATE
@@ -153,7 +153,7 @@
 				 , DRVR_NM					= #{drvrNm}
 	    		 , BANK_CD					= #{bankCd}
 	    		 , ACTNO					= FN_UTL_ENCRYPT_ARIA(#{actno})
-	    		 , DPSTR					= #{dpstr}
+	    		 , DPSTR_NM					= #{dpstrNm}
 	    		 , RMRK						= #{rmrk}
 	    		 , DEL_YN					= #{delYn}
 			 WHERE APC_CD 					= #{apcCd}
@@ -170,7 +170,7 @@
 	<!-- 2023.07.11  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
 	<delete id="deleteWrhsVhcl" parameterType="com.at.apcss.am.cmns.vo.WrhsVhclVO">
-		<![CDATA[ 
+		<![CDATA[
 			DELETE FROM TB_WRHS_VHCL_INFO  /* com.at.apcss.am.cmns.mapper.WrhsVhclMapper.deleteWrhsVhcl */
 			 WHERE APC_CD		= #{apcCd}
 			   AND VHCLNO 		= #{vhclno}
