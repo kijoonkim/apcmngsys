@@ -91,7 +91,7 @@
 											name="srch-slt-clclnCrtrCd"
 											uitype="single"
 											unselected-text="전체"
-											class="form-control input-sm input-sm-ast"
+											class="form-control input-sm"
 											jsondata-ref="jsonComClclnCrtrCd"
 										></sbux-select>
 									</div>
