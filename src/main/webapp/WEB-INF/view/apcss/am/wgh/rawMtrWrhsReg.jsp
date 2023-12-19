@@ -315,7 +315,7 @@
 									class="form-control input-sm"
 									maxlength="6"
 									autocomplete="off"
-									mask = "{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true }"
+									mask = "{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true }"
 									readonly
 								/>
 							</td>
