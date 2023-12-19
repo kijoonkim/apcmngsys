@@ -157,7 +157,7 @@ public class PrdcrVO extends ComVO {
 	/*
 	 * 휴대전화번호
 	 * */
-	private String moblno;
+	private String mblTelno;
 	/*
 	 * 팩스번호
 	 * */
