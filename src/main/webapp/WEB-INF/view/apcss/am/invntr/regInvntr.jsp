@@ -559,8 +559,18 @@
 	    SBGridProperties.oneclickedit = true;
 		SBGridProperties.frozencols = 4;
 	    SBGridProperties.columns = [
-        	{caption: ["체크박스","체크박스"], 		ref: 'checkBox', 			type: 'checkbox',	width: '40px',	  style:'text-align: center',
-				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}
+        	{
+        		caption: ["전체",""], 			ref: 'checkBox', 			type: 'checkbox', 	width:'50px',	  style:'text-align:center',
+					typeinfo: {
+						ignoreupdate : true,
+						fixedcellcheckbox : {
+							usemode : true,
+							rowindex : 1,
+							deletecaption : false
+						},
+						checkedvalue : 'Y',
+						uncheckedvalue : 'N'
+					}
         	},
 	        {caption: ["입고번호","입고번호"],		ref: 'wrhsno',      		type:'output',  	width:'105px',    style:'text-align:center'},
 	        {caption: ["팔레트번호","팔레트번호"],	ref: 'pltno',      			type:'output',  	width:'105px',    style:'text-align:center'},
@@ -816,7 +826,7 @@
     	jsoninptCmndDsctnListGds.length = 0;
 
 		var getColRef = inptCmndDsctnList.getColRef("checkBox");
-		inptCmndDsctnList.setFixedcellcheckboxChecked(0, getColRef, false);
+		inptCmndDsctnList.setFixedcellcheckboxChecked(1, getColRef, false);
 
     	//검색조건
     	if(checkSection == 1 ){

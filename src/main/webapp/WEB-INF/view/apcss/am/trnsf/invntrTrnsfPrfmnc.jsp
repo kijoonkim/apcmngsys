@@ -582,8 +582,19 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.frozencols = 1;
         SBGridProperties.columns = [
-        	{caption: ["체크박스","체크박스"], 			ref: 'checkedYn', 		width: '40px', 	type: 'checkbox',	style:'text-align: center',
-				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}},
+        	{
+        		caption: ["전체",""], 				ref: 'checkedYn', 		width: '50px', 	type: 'checkbox',	style: 'text-align:center',
+					typeinfo: {
+						ignoreupdate : true,
+						fixedcellcheckbox : {
+							usemode : true,
+							rowindex : 1,
+							deletecaption : false
+						},
+						checkedvalue : 'Y',
+						uncheckedvalue : 'N'
+					}
+        	},
             {caption: ['이송APC','이송APC'], 			ref: 'apcNm', 			width: '150px', type: 'output', 	style: 'text-align:center'},
             {caption: ['이송일자','이송일자'], 			ref: 'trnsfYmd', 		width: '110px', type: 'output', 	style: 'text-align:center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
@@ -622,7 +633,7 @@
         const cfmtnCloumns = [];
         let invntrSeCd = SBUxMethod.get("srch-slt-invntrSeCd");
         cfmtnCloumns.push(
-            	{caption: ["체크박스"], 	ref: 'checkedYn', 		type: 'checkbox', 	width: '40px',	  style:'text-align: center',
+            	{caption: ["체크박스"], 	ref: 'checkedYn', 		type: 'checkbox', 	width: '50px',	  style:'text-align: center',
     				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}},
                 {caption: ['이송APC'], 		ref: 'trnsfApcNm', 	width: '150px', type: 'output', style: 'text-align:center'},
                 {caption: ['확정일자'], 	ref: 'cfmtnYmd', 	width: '110px', type: 'output', style: 'text-align:center',
@@ -828,7 +839,7 @@
     	}
 
 		var getColRef = grdInvntrTrnsf.getColRef("checkedYn");
-		grdInvntrTrnsf.setFixedcellcheckboxChecked(0, getColRef, false);
+		grdInvntrTrnsf.setFixedcellcheckboxChecked(1, getColRef, false);
 		grdInvntrTrnsfCfmtn.setFixedcellcheckboxChecked(0, getColRef, false);
 		
 		let rst = await Promise.all([
