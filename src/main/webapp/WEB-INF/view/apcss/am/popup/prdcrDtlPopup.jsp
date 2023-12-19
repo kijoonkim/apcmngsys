@@ -172,7 +172,7 @@
 					typeinfo : {mask : {alias: 'decimal', digits : 3}}, format : {type:'number', rule:'#,###.###'}},
 		        {caption: ['계약면적','㎡'],				ref: 'ctrtAreaSqM',	type: 'input', 		width: '80px',	style: 'text-align:right',	sortable: false,
 					typeinfo : {mask : {alias: 'decimal', digits : 3}}, format : {type:'number', rule:'#,###.###'}},
-		        {caption: ['정식면적(평)','정식면적(평)'],	ref: 'cltvtnArea',	type: 'input', 		width: '80px',	style: 'text-align:right',	sortable: false,
+		        {caption: ['정식면적(평)','정식면적(평)'],	ref: 'cltvtnSfc',	type: 'input', 		width: '80px',	style: 'text-align:right',	sortable: false,
 					typeinfo : {mask : {alias: 'decimal', digits : 3}}, format : {type:'number', rule:'#,###.###'}},
 		        {caption: ['비고','비고'],					ref: 'rmrk',		type: 'input', 		width: '100px',	style: 'text-align:center', sortable: false,
 		        	validate : gfn_chkByte.bind({byteLimit: 1000})},
@@ -330,7 +330,7 @@
 	    		jsonPrdcrDtlPop.length = 0;
 	        	data.resultList.forEach((item, index) => {
 					const prdcrDtl = {
-						cltvtnArea		: item.cltvtnArea,
+						cltvtnSfc		: item.cltvtnSfc,
 						ctrtArea		: item.ctrtArea,
 						ctrtAreaSqM		: item.ctrtArea*3.305785,
 						regYmd			: item.regYmd,
@@ -369,7 +369,7 @@
 			let nCol = grdPrdcrDtlPop.getCol();
 			let ctrtAreaCol = grdPrdcrDtlPop.getColRef("ctrtArea");
 			let ctrtAreaSqMCol = grdPrdcrDtlPop.getColRef("ctrtAreaSqM");
-			let cltvtnAreaCol = grdPrdcrDtlPop.getColRef("cltvtnArea");
+			let cltvtnSfcCol = grdPrdcrDtlPop.getColRef("cltvtnSfc");
 			if (nCol == ctrtAreaCol) {
 
 				if (grdPrdcrDtlPop.getCellData(nRow, nCol)%1 != 0) {
@@ -416,17 +416,17 @@
 
 				grdPrdcrDtlPop.setCellData(nRow, ctrtAreaCol, ctrtArea);
 
-			} else if (nCol == cltvtnAreaCol) {
+			} else if (nCol == cltvtnSfcCol) {
 
 				if (grdPrdcrDtlPop.getCellData(nRow, nCol)%1 != 0) {
 					if ((grdPrdcrDtlPop.getCellData(nRow, nCol)).length > 11) {
-						grdPrdcrDtlPop.setCellData(nRow, cltvtnAreaCol, "");
+						grdPrdcrDtlPop.setCellData(nRow, cltvtnSfcCol, "");
 						gfn_comAlert("E0000", "소수점 자리를 포함해 10자리까지(평 단위 기준)만 입력 가능합니다.");	//	E0000	{}
 						return;
 					}
 				} else {
 					if ((grdPrdcrDtlPop.getCellData(nRow, nCol)).length > 10) {
-						grdPrdcrDtlPop.setCellData(nRow, cltvtnAreaCol, "");
+						grdPrdcrDtlPop.setCellData(nRow, cltvtnSfcCol, "");
 						gfn_comAlert("E0000", "소수점 자리를 포함해 10자리까지(평 단위 기준)만 입력 가능합니다.");	//	E0000	{}
 						return;
 					}
