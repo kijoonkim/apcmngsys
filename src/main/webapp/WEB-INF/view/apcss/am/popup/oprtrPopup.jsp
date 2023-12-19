@@ -105,12 +105,12 @@
 		        {caption: ["작업자명"], 	ref: 'flnm',  	type: 'output',  width:'100px',	style:'text-align:center',
 		        	typeinfo : {mask : {alias : 'k'}}},
 		        {caption: ["생년월일"], 	ref: 'brdt',   	type: 'output',  width:'100px',	style:'text-align:center',
-		        	typeinfo : {mask : {alias : 'numeric'}}},
+		        		format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}},
 		        {caption: ["전화번호"], 	ref: 'telno',   type: 'output',  width:'120px',	style:'text-align:center',
 		        	typeinfo : {mask: {alias : '999-9999-9999'}}, format : {type:'custom', callback : fnCustomOprtr}},
 		        {caption: ["주소"], 		ref: 'addr',    type: 'output',  width:'360px',	style:'text-align:center'},
-		        {caption: ["입사일자"], 	ref: 'jncmp', 	type: 'output',  width:'100px',	style:'text-align:center',
-			        typeinfo: {dateformat: 'yy-mm-dd'}, format : {type:'date', rule:'yy-mm-dd', origin:'YYYYMMDD'}},
+		        {caption: ["입사일자"], 	ref: 'jncmpYmd', 	type: 'output',  width:'100px',	style:'text-align:center',
+			        typeinfo: {dateformat: 'yy-mm-dd'}, format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}},
 		        /* {caption: ["은행"], 		ref: 'bankCd',  type: 'output',  width:'100px',	style:'text-align:center'},
 		        {caption: ["계좌번호"], 	ref: 'actno',   type: 'output',  width:'130px',	style:'text-align:center',
 	    			typeinfo : {mask : {alias : '#-', repeat: '*'}}},
@@ -151,14 +151,14 @@
 	    		jsonOprtrPop.length = 0;
 	        	data.resultList.forEach((item, index) => {
 					let oprtrVO = {
-						flnm 	: 	item.flnm
-					  , brdt 	:	item.brdt
-					  , telno 	: 	item.telno
-					  , addr 	: 	item.addr
-					  , jncmp 	: 	item.jncmp
-					  , bankCd 	: 	item.bankCd
-					  , actno 	: 	item.actno
-					  , dpstr 	: 	item.dpstr
+						flnm 		: item.flnm
+					  , brdt 		: item.brdt
+					  , telno 		: item.telno
+					  , addr 		: item.addr
+					  , jncmpYmd 	: item.jncmpYmd
+					  , bankCd 		: item.bankCd
+					  , actno 		: item.actno
+					  , dpstr 		: item.dpstr
 					}
 					jsonOprtrPop.push(oprtrVO);
 				});
