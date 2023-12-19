@@ -47,7 +47,7 @@ public class PrdcrDtlVO extends ComVO {
 	/**
 	 * 재배면적
 	 */
-	private double cltvtnArea;
+	private double cltvtnSfc;
 	/**
 	 * 계약면적
 	 */

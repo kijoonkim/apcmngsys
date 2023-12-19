@@ -34,7 +34,7 @@
 	    	SELECT /* com.at.apcss.am.cmns.mapper.PrdcrDtlMapper.selectPrdcrDtlList */
 				   PD.APC_CD        	AS APC_CD
 			     , PD.PRDCR_CD      	AS PRDCR_CD
-			     , PD.CLTVTN_AREA      	AS CLTVTN_AREA
+			     , PD.CLTVTN_SFC      	AS CLTVTN_SFC
 			     , PD.CTRT_AREA      	AS CTRT_AREA
 			     , PD.REG_YMD      		AS REG_YMD
 			     , PD.SN      			AS SN
@@ -46,7 +46,7 @@
 			     , PD.RMRK          	AS RMRK
 			     , PD.DEL_YN        	AS DEL_YN
 			     , (SELECT X.PRDCR_NM FROM TB_PRDCR_INFO X WHERE X.APC_CD = PD.APC_CD AND X.PRDCR_CD = PD.PRDCR_CD AND X.DEL_YN = 'N') AS PRDCR_NM
-
+CLTVTN_AREA
 			  FROM TB_PRDCR_DTL PD
 			 WHERE PD.DEL_YN = 'N'
 		]]>
@@ -68,7 +68,7 @@
     	</if>
     	<!-- End 페이징 -->
     </select>
-    
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrDtlMapper.insertPrdcrDtl			-->
 	<!-- DESC : 생산자 상세 등록.		                                       			-->
@@ -86,7 +86,7 @@
 					, REG_YMD
 					, SN
 					, CTRT_AREA
-					, CLTVTN_AREA
+					, CLTVTN_SFC
 					, VRTY_CD_1
 					, VRTY_CD_2
 					, VRTY_CD_3
@@ -105,7 +105,7 @@
 					, #{regYmd}
 					, (SELECT FN_GET_SN_PRDCR_DTL(#{apcCd}, #{regYmd}, #{prdcrCd}) FROM DUAL)
 					, #{ctrtArea}
-					, #{cltvtnArea}
+					, #{cltvtnSfc}
 					, #{vrtyCd1}
 					, #{vrtyCd2}
 					, #{vrtyCd3}
@@ -136,7 +136,7 @@
 	    		TB_PRDCR_DTL
 			   SET
 				  CTRT_AREA				= #{ctrtArea}
-				, CLTVTN_AREA			= #{cltvtnArea}
+				, CLTVTN_SFC			= #{cltvtnSfc}
 				, VRTY_CD_1				= #{vrtyCd1}
 				, VRTY_CD_2				= #{vrtyCd2}
 				, VRTY_CD_3				= #{vrtyCd3}
@@ -152,7 +152,7 @@
 			  AND SN 		= #{sn}
     	]]>
     </update>
-    
+
     <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrDtlMapper.updatePrdcrInfoFrmhs		-->
 	<!-- DESC : 생산자 농가 정보 변경.		                                       		-->
@@ -177,7 +177,7 @@
 			  AND PRDCR_CD 	= #{prdcrCd}
     	]]>
     </update>
-    
+
     <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrDtlMapper.updatePrdcrDtlDelYn		-->
 	<!-- DESC : 생산자 상세 삭제.		                                       			-->
@@ -201,7 +201,7 @@
 			  AND SN 		= #{sn}
     	]]>
     </update>
-    
+
     <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrDtlMapper.deletePrdcr				-->
 	<!-- DESC : 생산자 상세 삭제.                                             			-->
