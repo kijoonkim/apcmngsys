@@ -32,7 +32,7 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 재고정보조회 -->
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearch" name="btnSearch" uitype="button" class="btn btn-sm btn-outline-danger" onclick="fn_selectGridList()">조회</sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectGridList"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -61,7 +61,7 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>기준일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-crtrYmd" name="srch-dtp-crtrYmd" date-format="yyyy-mm-dd" class="form-control pull-right input-sm"/>
+								<sbux-datepicker uitype="popup" id="srch-dtp-crtrYmd" name="srch-dtp-crtrYmd" date-format="yyyy-mm-dd" class="form-control pull-right input-sm input-sm-ast inpt_data_reqed"/>
 							</td>
 							<td colspan="2">&nbsp;</td>
 							<th scope="row" class="th_bg">생산자</th>
@@ -229,9 +229,9 @@
 
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
-		fn_sample1();
 		SBUxMethod.set("srch-dtp-crtrYmd", gfn_dateToYmd(new Date()));
 		fn_initSBSelect();
+		fn_sample1();
 	});
 
 	var rawMtrInvntrGrid; // 그리드를 담기위한 객체 선언
@@ -321,7 +321,6 @@
 
 	    rawMtrInvntrGrid = _SBGrid.create(SBGridProperties);
 	    rawMtrInvntrGrid.bind( "beforepagechanged" , "fn_pagingGrd" );
-
 		fn_selectGridList();
 	}
 
@@ -383,6 +382,15 @@
 
 	//조회
     const fn_selectGridList = async function() {
+
+    	//검색조건
+    	let crtrYmd  = SBUxMethod.get("srch-dtp-crtrYmd");	//기준일자
+    	
+		if (gfn_isEmpty(crtrYmd)) {
+    		gfn_comAlert("W0001", "기준일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+    	}
+		
     	var inptCmndDsctnList;
     	if(checkSection == 1 ){
     		inptCmndDsctnList = rawMtrInvntrGrid;
@@ -400,9 +408,6 @@
     	jsonSortInvntr.length = 0;
     	jsonGdsInvntr.length = 0;
     	inptCmndDsctnList.clearStatus();
-
-    	//검색조건
-    	let crtrYmd  = SBUxMethod.get("srch-dtp-crtrYmd");	//기준일자
 
     	if(checkSection == 1 ){
     		fn_callSelectGrid1List(pageSize, pageNo);
@@ -560,8 +565,7 @@
 
 	    sortInvntrGrid = _SBGrid.create(SBGridProperties);
 	    sortInvntrGrid.bind( "beforepagechanged" , "fn_pagingGrd" );
-
-	    fn_selectGridList();
+		fn_selectGridList();
 	}
 
 	/**
@@ -767,8 +771,7 @@
 
 	    gdsInvntrGrid = _SBGrid.create(SBGridProperties);
 	    gdsInvntrGrid.bind( "beforepagechanged" , "fn_pagingGrd" );
-
-	    fn_selectGridList();
+		fn_selectGridList();
 	}
 
 	/**
