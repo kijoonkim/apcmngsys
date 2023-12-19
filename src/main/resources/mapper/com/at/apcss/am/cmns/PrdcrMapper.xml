@@ -176,7 +176,7 @@
 			     , AFI.PRSNA_CORP_SE_CD             AS PRSNA_CORP_SE_CD
 			     , AFI.CTZN_FNGNR_SE_CD             AS CTZN_FNGNR_SE_CD
 			     , AFI.TELNO                        AS TELNO
-			     , AFI.MOBLNO                       AS MOBLNO
+			     , AFI.MBL_TELNO                    AS MBL_TELNO
 			     , AFI.FXNO                         AS FXNO
 			     , AFI.EML_ADDR                     AS EML_ADDR
 			     , AFI.AGRC_BGNG_YMD                AS AGRC_BGNG_YMD
@@ -208,7 +208,7 @@
 			   AND AFI.ADMST_OWNR_RGDT_ADDR LIKE '%' || #{admstOwnrRgdtAddr} || '%'
 		</if>
 		<if test=' telno != null and telno !=""'>
-			   AND (AFI.TELNO LIKE '%' || #{telno} || '%' OR AFI.MOBLNO LIKE '%' || #{telno} || '%')
+			   AND (AFI.TELNO LIKE '%' || #{telno} || '%' OR AFI.MBL_TELNO LIKE '%' || #{telno} || '%')
 		</if>
     	<![CDATA[
     		 ORDER BY AFI.ADMST_OWNR_CORP_NM
