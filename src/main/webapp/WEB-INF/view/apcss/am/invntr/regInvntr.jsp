@@ -587,12 +587,14 @@
 	        {caption: ["운송","운송"],				ref: 'trsprtSeNm',  		type:'output',  	width:'105px',    style:'text-align:center'},
 	        {caption: ["창고","창고"],				ref: 'originWarehouseSeNm',	type:'output',  	width:'105px',    style:'text-align:center'},
 	        {
+	        	userattr: {colNm: "invntrQntt"},
 	        	caption: ["현 재고","수량"],		ref: 'invntrQntt',      	type:'input',  		width:'85px',	  style:'text-align:right',
 	        	format : {type:'number', rule:'#,###'},
 	        	typeinfo : {mask : {alias : '#', repeat: '*'}, maxlength : 10},
 	        	validate : gfn_chkByte.bind({byteLimit: 10})
 	        },
 	        {
+	        	userattr: {colNm: "invntrWght"},
 	        	caption: ["현 재고","중량 (Kg)"],	ref: 'invntrWght',			type:'input',		width:'85px',	  style:'text-align:right',
 	        	format : {type:'number', rule:'#,###'},
 	        	typeinfo : {mask : {alias : '#', repeat: '*'}, maxlength : 10},
@@ -617,7 +619,7 @@
 
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
 	    inptCmndDsctnList.bind('valuechanged', fn_grdTrnsfQnttValueChanged);
-
+	    
 	    fn_selectGridList();
 	}
 
@@ -764,12 +766,17 @@
 		let nCol = inptCmndDsctnList.getCol();
 		let invntrQnttQnttCol = inptCmndDsctnList.getColRef("invntrQntt");
 		let invntrWghtQnttCol = inptCmndDsctnList.getColRef("invntrWght");
+		let warehouseSeCdCol = inptCmndDsctnList.getColRef("warehouseSeCd");
 		switch (nCol) {
 		case invntrQnttQnttCol:	// checkbox
+			console.log('수량변경');
 			fn_checkInptQntt();
 			break;
 		case invntrQnttQnttCol:	// checkbox
 			fn_checkInptWght();
+			break;
+		case warehouseSeCdCol:
+			fn_checkWarehouseSeCd();
 			break;
 		default:
 			return;
@@ -815,6 +822,13 @@
 			inptCmndDsctnList.setCellData(nRow, invntrQnttQnttCol, 0);
 			inptCmndDsctnList.setCellData(nRow, checkedYnCol, "Y");
 		}
+	}
+	
+	const fn_checkWarehouseSeCd = function(){
+		let nRow = inptCmndDsctnList.getRow();
+		let checkedYnCol = inptCmndDsctnList.getColRef("checkBox");
+		
+		inptCmndDsctnList.setCellData(nRow, checkedYnCol, "Y");
 	}
 
 	//조회
