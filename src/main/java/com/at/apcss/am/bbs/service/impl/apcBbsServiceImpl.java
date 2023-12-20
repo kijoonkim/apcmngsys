@@ -60,11 +60,6 @@ public class apcBbsServiceImpl extends BaseServiceImpl implements apcBbsService{
 	public List<apcBbsVO> selectBbsList(apcBbsVO bbsVO) throws Exception {
 
 		List<apcBbsVO> resultList = bbsMapper.selectBbsList(bbsVO);
-		System.out.println("$$$$$$$$$$$$$$$$$$$$$");
-		for (apcBbsVO bbs : resultList ) {
-			System.out.printf("bbsNo : %s", bbs.getBbsTitle());
-			System.out.println();
-		}
 		return resultList;
 	}
 
