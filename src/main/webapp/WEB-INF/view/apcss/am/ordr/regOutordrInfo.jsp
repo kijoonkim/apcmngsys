@@ -286,9 +286,9 @@
 
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-			gfn_setComCdSBSelect('srch-slt-outordrType', 	jsonComOutordrType, 	'OUTORDR_TYPE'),		// 상품등급
-		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, 		gv_apcCd),		// 품목
-		 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, 		gv_apcCd)		// 품종
+			gfn_setComCdSBSelect('srch-slt-outordrType', 	jsonComOutordrType,		'OUTORDR_TYPE'),		// 상품등급
+		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, 			gv_selectedApcCd),		// 품목
+		 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, 			gv_selectedApcCd)		// 품종
 		])
 
 	}
@@ -308,12 +308,15 @@
 	 * @description 품목 선택 변경 event
 	 */
 	const fn_onChangeSrchItemCd = async function(obj) {
-
 		let itemCd = obj.value;
 		let result = await Promise.all([
-			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd, itemCd),				// 품종
-			fn_getComSpcfct(itemCd),
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd, itemCd)				// 품종
 		]);
+		if (gfn_isEmpty(itemCd)) {
+			await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, "");
+		} else {
+			await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, gv_selectedApcCd, itemCd);	// 규격
+		}
 	}
 	
 	/**
@@ -322,40 +325,19 @@
 	 */
 	const fn_onChangeSrchVrtyCd = async function(obj) {
 		let vrtyCd = obj.value;
-
-		const vrtyInfo = _.find(jsonComVrty, {value: vrtyCd});
-
-		if (gfn_isEmpty(vrtyInfo)) {
-			return;
+		let itemCd = "";
+		if (!gfn_isEmpty(vrtyCd)) {
+			itemCd = _.find(jsonComVrty, {value: vrtyCd}).mastervalue;
+		} else {
+			itemCd = SBUxMethod.get("srch-slt-itemCd");
 		}
 
-		const itemCd = vrtyInfo.mastervalue;
 		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
 		if (itemCd != prvItemCd) {
 			SBUxMethod.set("srch-slt-itemCd", itemCd);
 			await fn_onChangeSrchItemCd({value: itemCd});
 			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
-			SBUxMethod.set("srch-slt-spcfctCd", "");
 		}
-	}
-	
-	/**
-	 * @name fn_getApcSpcfct
-     * @description APC규격 JSON 설정
-     * @function
-	 * @param {string} itemCd
-	 */
-	const fn_getComSpcfct = async function(itemCd) {
-
-		jsonComSpcfct.length = 0;
-
-		if (gfn_isEmpty(itemCd)) {
-			jsonComSpcfct.length = 0;
-			SBUxMethod.refresh("srch-slt-spcfctCd");
-			return;
-		}
-
-		gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',jsonComSpcfct, gv_selectedApcCd, itemCd);	// 규격
 	}
 
 	const fn_createRegOutordrInfoGrid = async function () {
@@ -535,6 +517,7 @@
 		SBUxMethod.set("srch-inp-pieceQntt","");								// 낱개수량
 		SBUxMethod.set("srch-inp-bxUntprc","");									// 박스단가
 		SBUxMethod.set("srch-inp-outordrUntprc","");							// 낱개단가
+ 		fn_onChangeSrchItemCd({value: null});
 	}
 
 	// 저장

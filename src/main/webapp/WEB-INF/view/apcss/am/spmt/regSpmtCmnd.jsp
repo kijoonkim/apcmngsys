@@ -221,13 +221,6 @@
     <div id="body-modal-cnpt">
     	<jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
     </div>
-    <!-- 품종 선택 Modal -->
-    <div>
-        <sbux-modal id="modal-vrty" name="modal-vrty" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" header-is-close-button="false" style="width:800px"></sbux-modal>
-    </div>
-    <div id="body-modal-vrtyCrtr">
-    	<jsp:include page="../../am/popup/vrtyCrtrPopup.jsp"></jsp:include>
-    </div>
 </body>
 <script type="text/javascript">
 
@@ -264,9 +257,7 @@
 		let itemCd = obj.value;
 
 		let result = await Promise.all([
-			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 				jsonComVrty, 		gv_selectedApcCd, itemCd),			// 품종
-			gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', 	jsonSpmtPckgUnit, 	gv_selectedApcCd, itemCd),			// 포장구분
-			gfn_setApcGdsGrdSBSelect('grdSpmtCmndTrg', 				jsonComGdsGrd, 		gv_selectedApcCd, itemCd, '03'),	// 상품등급(재고그리드)
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 				jsonComVrty, 		gv_selectedApcCd, itemCd)			// 품종
 		]);
 		if (gfn_isEmpty(itemCd)) {
 			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, "");
@@ -844,7 +835,6 @@
 		SBUxMethod.set("dtl-inp-cmndYmd", gfn_dateToYmd(new Date()));
 		SBUxMethod.set("dtl-slt-trsprtCo", "");
 		SBUxMethod.set("dtl-inp-rmrk", "");
-		gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, '');
 	}
 
  	const fn_modalCnpt = function() {
@@ -856,30 +846,6 @@
  			SBUxMethod.set('srch-inp-cnptNm', cnpt.cnptNm);
  		}
  	}
-
-	const fn_modalVrty = function() {
-    	popVrty.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-slt-itemCd"), fn_setVrty, fn_setVrtys);
-	}
-
-     const fn_setVrty = function(vrty) {
-		if (!gfn_isEmpty(vrty)) {
-			SBUxMethod.setValue('srch-slt-itemCd', vrty.itemCd);
-			SBUxMethod.set('srch-slt-vrtyNm', vrty.vrtyNm);
-			SBUxMethod.set('srch-slt-vrtyCd', vrty.vrtyCd);
-		}
-	}
-     const fn_setVrtys = function(vrtys) {
-		if (!gfn_isEmpty(vrtys)) {
-			var _vrtyCd = [];
-			var _vrtyNm = [];
-			for(var i=0;i<vrtys.length;i++){
-				_vrtyCd.push(vrtys[i].vrtyCd);
-				_vrtyNm.push(vrtys[i].vrtyNm);
-			}
-			SBUxMethod.set('srch-slt-vrtyCd', _vrtyCd.join(','));
-			SBUxMethod.set('srch-slt-vrtyNm', _vrtyNm.join(','));
-		}
-	}
 
      const fn_dtpChange = function(){
   		let outordrYmdFrom = SBUxMethod.get("srch-dtp-outordrYmdFrom");

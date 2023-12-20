@@ -541,9 +541,8 @@
 	 */
 	const fn_onChangeSrchItemCd = async function(obj) {
 		let itemCd = obj.value;
-
 		let result = await Promise.all([
-			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd, itemCd)			// 품종
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd, itemCd)				// 품종
 		]);
 	}
 
@@ -553,7 +552,12 @@
 	 */
 	const fn_onChangeSrchVrtyCd = async function(obj) {
 		let vrtyCd = obj.value;
-		const itemCd = _.find(jsonComVrty, {value: vrtyCd}).mastervalue;
+		let itemCd = "";
+		if (!gfn_isEmpty(vrtyCd)) {
+			itemCd = _.find(jsonComVrty, {value: vrtyCd}).mastervalue;
+		} else {
+			itemCd = SBUxMethod.get("srch-slt-itemCd");
+		}
 
 		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
 		if (itemCd != prvItemCd) {

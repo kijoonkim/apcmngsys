@@ -1147,11 +1147,15 @@
 		let itemCd = obj.value;
 		let result = await Promise.all([
 			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd),				// 품종
-			fn_getApcSpcfct(itemCd),
 			//fn_getApcGrd(itemCd),
 			fn_getSpmtPckgUnit(itemCd),
 			fn_getStdGrd(itemCd)
 		]);
+		if (gfn_isEmpty(itemCd)) {
+			await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, "");
+		} else {
+			await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, gv_selectedApcCd, itemCd);	// 규격
+		}
 
 		jsonPckgPrfmnc.length = 0;
 		fn_createGridPckgPrfmnc();
@@ -1163,21 +1167,18 @@
 	 */
 	const fn_onChangeSrchVrtyCd = async function(obj) {
 		let vrtyCd = obj.value;
-
-		const vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd});
-
-		if (gfn_isEmpty(vrtyInfo)) {
-			return;
+		let itemCd = "";
+		if (!gfn_isEmpty(vrtyCd)) {
+			itemCd = _.find(jsonApcVrty, {value: vrtyCd}).mastervalue;
+		} else {
+			itemCd = SBUxMethod.get("srch-slt-itemCd");
 		}
-
-		const itemCd = vrtyInfo.mastervalue;
 
 		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
 		if (itemCd != prvItemCd) {
 			SBUxMethod.set("srch-slt-itemCd", itemCd);
 			await fn_onChangeSrchItemCd({value: itemCd});
 			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
-			SBUxMethod.set("srch-slt-spcfctCd", "");
 		}
 
 		fn_getSpmtPckgUnit(itemCd, vrtyCd);
@@ -2696,6 +2697,7 @@
 		SBUxMethod.set("dtl-slt-fcltCd","");
 		SBUxMethod.set("dtl-inp-inptWght","");
 		SBUxMethod.set("dtl-inp-pckgWght","");
+ 		fn_onChangeSrchItemCd({value: null});
 	}
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>

@@ -681,16 +681,16 @@
 		let itemCd = obj.value;
 
 		let result = await Promise.all([
-			await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd),							// 품종
+			await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd)							// 품종
 		]);
 		if (gfn_isEmpty(itemCd)) {
-			await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, ""),
-			await gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', jsonSpmtPckgUnitCd, ""),							// 포장구분
-			await stdGrdSelect.setStdGrd(gv_selectedApcCd, _GRD_SE_CD_GDS, "")
+			await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, "");
+			await gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', jsonSpmtPckgUnitCd, "");							// 포장구분
+			await stdGrdSelect.setStdGrd(gv_selectedApcCd, _GRD_SE_CD_GDS, "");
 		} else {
-			await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, gv_selectedApcCd, itemCd),					// 규격
-			await gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', jsonSpmtPckgUnitCd, gv_selectedApcCd, itemCd),		// 포장구분
-			await stdGrdSelect.setStdGrd(gv_selectedApcCd, _GRD_SE_CD_GDS, itemCd)
+			await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, gv_selectedApcCd, itemCd);					// 규격
+			await gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', jsonSpmtPckgUnitCd, gv_selectedApcCd, itemCd);		// 포장구분
+			await stdGrdSelect.setStdGrd(gv_selectedApcCd, _GRD_SE_CD_GDS, itemCd);
 		}
 	}
 
@@ -752,8 +752,8 @@
 		if (itemCd != prvItemCd) {
 			SBUxMethod.set("srch-slt-itemCd", itemCd);
 			await fn_onChangeSrchItemCd({value: itemCd});
+			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
 		}
-		SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
 	}
 
 	// 거래처 선택 팝업 호출
