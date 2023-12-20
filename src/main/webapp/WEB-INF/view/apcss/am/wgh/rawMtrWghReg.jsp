@@ -991,6 +991,8 @@
  		fn_onChangeSrchItemCd({value: null});
 
 		fn_clearPltBx();
+
+		prvRowNum = -1;
 	}
 
 	/**
