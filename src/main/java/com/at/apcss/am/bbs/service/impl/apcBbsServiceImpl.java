@@ -60,6 +60,7 @@ public class apcBbsServiceImpl extends BaseServiceImpl implements apcBbsService{
 	public List<apcBbsVO> selectBbsList(apcBbsVO bbsVO) throws Exception {
 
 		List<apcBbsVO> resultList = bbsMapper.selectBbsList(bbsVO);
+		
 		return resultList;
 	}
 

@@ -189,7 +189,7 @@
 	        {caption: ["경영주 법인명"], 	ref: 'admstOwnrCorpNm',	type:'output',  width:'150px', style: 'text-align:center'},
 	        {caption: ["경영주 주소"], 		ref: 'admstOwnrRgdtAddr',	type:'output',  width:'250px', style: 'text-align:center'},
 	        {caption: ["전화번호"], 		ref: 'telno',			type:'output',  width:'100px', style: 'text-align:center'},
-	        {caption: ["휴대폰번호"], 		ref: 'moblno',			type:'output',  width:'150px', style: 'text-align:center'},
+	        {caption: ["휴대폰번호"], 		ref: 'mblTelno',			type:'output',  width:'150px', style: 'text-align:center'},
 	        {caption: ["영농시작일자"], 	ref: 'agrcBgngYmd',		type:'output',  width:'150px', style: 'text-align:center',
     		    	format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
 	        {caption: ["영농시작형태"], 	ref: 'frmngBgngShap',	type:'output',  width:'150px', style: 'text-align:center'},
@@ -228,7 +228,7 @@
 	        	}
 		    }},
 		    {caption: ['번호'], 			ref: 'prdcrIdentno', 	type: 'input', 	width: '50px', style: 'text-align:center', sortable: false},
-	        {caption: ['생산자명'], 		ref: 'prdcrNm', 		type: 'input', 	width: '65px', style: 'text-align:center', sortable: false,
+	        {caption: ['생산자명'], 		ref: 'prdcrNm', 		type: 'input', 	width: '150px', style: 'text-align:center', sortable: false,
 	        	validate : gfn_chkByte.bind({byteLimit: 100})},
 	        {caption: ['대표품목'], 		ref: 'rprsItemCd', 		type: 'combo', 	width: '90px', style: 'text-align:center', sortable: false,
 				typeinfo: {ref:'jsonApcItemCd', 	label:'label', value:'value', itemcount: 10}},
@@ -315,7 +315,7 @@
 	      		  , admstOwnrCorpNm		: item.admstOwnrCorpNm
 	      		  , admstOwnrRgdtAddr 	: item.admstOwnrRgdtAddr
 	      		  , telno				: item.telno
-	      		  , moblno				: item.moblno
+	      		  , mblTelno			: item.mblTelno
 	      		  , agrcBgngYmd			: item.agrcBgngYmd
 	      		  , frmngBgngShap		: item.frmngBgngShap
 	      		  , frmngEnggShap		: item.frmngEnggShap
@@ -467,7 +467,7 @@
 				apcCd  		: gv_selectedApcCd
 			  , prdcrNm		: rowData.admstOwnrCorpNm
 			  , prdcrLinkCd : rowData.mngmstRegno
-			  , telno		: rowData.moblno
+			  , telno		: rowData.mblTelno
 			  , rmrk		: rowData.rmrk
 			  , rowSts 		: "I"
 		}

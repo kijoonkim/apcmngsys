@@ -56,9 +56,9 @@
 						</colgroup>
 						<tbody>
 							<tr>
-								<th scope="row" style="border-bottom:1px solid white ">시스템구분</sbux-label></th>
+								<th scope="row" style="border-bottom:1px solid white "><span class="data_required"></span>시스템구분</sbux-label></th>
 								<td class="td_input" colspan="2"   style="border-right:hidden;">
-									<sbux-select id="srch-slt-sysId" name="srch-slt-sysId" uitype="single" jsondata-ref="jsonComSysId" unselected-text="선택" class="form-control input-sm"></sbux-select>
+									<sbux-select id="srch-slt-sysId" name="srch-slt-sysId" uitype="single" jsondata-ref="jsonComSysId" unselected-text="선택" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-select>
 								</td>
 								<td colspan="6"></td>
 							</tr>

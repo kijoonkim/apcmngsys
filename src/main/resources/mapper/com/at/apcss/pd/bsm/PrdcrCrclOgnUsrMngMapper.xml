@@ -29,7 +29,7 @@
 				, CM.USER_STTS
 				, CM.TELNO
 				, CM.BRNO
-				, CM.MOBLNO
+				, CM.MBL_TELNO
 				, CM.CO_NM
 				, CM.USER_APRV_YMD
 				, CM.CMPTNC_INST_APRV_SE
@@ -105,7 +105,7 @@
 				, CM.USER_STTS
 				, CM.TELNO
 				, CM.BRNO
-				, CM.MOBLNO
+				, CM.MBL_TELNO
 				, CM.CO_NM
 				, CM.USER_APRV_YMD
 				, CM.CMPTNC_INST_APRV_SE
@@ -174,7 +174,7 @@
 	    		  , USER_STTS
 	    		  , TELNO
 	    		  , BRNO
-	    		  , MOBLNO
+	    		  , MBL_TELNO
 	    		  , CMPTNC_INST_APRV_SE
 	    		  , CMPTNC_INST_APRV_YMD
 	    		  , CMPTNC_INST
@@ -195,7 +195,7 @@
 	   			  , #{userStts}
 	   			  , #{telno}
 	   			  , #{brno}
-	   			  , #{moblno}
+	   			  , #{mblTelno}
 	   			  , #{coNm}
 	   			  , #{cmptncInstAprvSe}
 	   			  , #{uoAprvStts}
@@ -219,7 +219,7 @@
 			 	  USER_TYPE				= #{userType}
 			 	, BRNO 					= #{brno}
 			 	, CO_NM 				= #{coNm}
-			 	, MOBLNO 				= #{moblno}
+			 	, MBL_TELNO 				= #{mblTelno}
 			 	, TELNO 				= #{telno}
 			 	, CMPTNC_INST_APRV_SE 	= #{cmptncInstAprvSe}
 			 	, CMPTNC_INST_APRV_YMD 	= SYSDATE

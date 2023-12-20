@@ -4,7 +4,7 @@
 <html lang="ko">
 <head>
 	<meta charset="UTF-8">
-	<title>title : SBUx2.6</title>
+	<title>title : 송수신이력</title>
 </head>
 <body oncontextmenu="return false">
 	<section>
@@ -125,6 +125,12 @@
 		        grdLogTrsmHstry.bind( "afterpagechanged" , tabLogTrsmHstry.paging );
 			},
 			search: async function() {
+				if (gfn_isEmpty(SBUxMethod.get("trsm-dtp-logYmdFrom")) || gfn_isEmpty(SBUxMethod.get("trsm-dtp-logYmdTo"))){
+					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
+					jsonLogTrsmHstry.length = 0;
+					grdLogTrsmHstry.rebuild();
+		            return;
+				}
 				// set pagination
 				grdLogTrsmHstry.rebuild();
 		    	let recordCountPerPage = grdLogTrsmHstry.getPageSize();
@@ -141,18 +147,6 @@
 				let logYmdTo = SBUxMethod.get("trsm-dtp-logYmdTo");
 				let sendRcptnSeCd = SBUxMethod.get("trsm-slt-sendRcptnSeCd");
 				let prgrmNm = SBUxMethod.get("trsm-inp-prgrmNm");
-				if (gfn_isEmpty(logYmdFrom)){
-					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
-			    	jsonLogTrsmHstry.length = 0;
-					grdLogTrsmHstry.rebuild();
-		            return;
-				}
-				if (gfn_isEmpty(logYmdTo)){
-					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
-			    	jsonLogTrsmHstry.length = 0;
-					grdLogTrsmHstry.rebuild();
-		            return;
-				}
 
 		        const postJsonPromise = gfn_postJSON("/co/log/selectTrsmHstryList.do", {
 					    logYmdFrom 			: logYmdFrom

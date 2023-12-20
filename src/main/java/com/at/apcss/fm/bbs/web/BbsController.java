@@ -92,7 +92,6 @@ public class BbsController extends BaseController {
 
 		try {
 			 resultList = bbsService.selectBbsList(bbsVO);
-
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);

@@ -15,18 +15,24 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 등록결과확인 -->
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm} ${loginVO.userType}</h3><!-- 등록결과확인 -->
 					<!-- 산지조직관리 -->
 					<sbux-label id="lbl-wghno" name="lbl-wghno" uitype="normal" text="">
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btn-srch-input-outordrInq" name="btn-srch-input-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
-					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
-					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+					<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+						<sbux-button id="btn-srch-input-outordrInq" name="btn-srch-input-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
+						<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
+						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+					</c:if>
+					<c:if test="${loginVO.userType ne '01' || loginVO.userType ne '00'}">
+						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+					</c:if>
 				</div>
 			</div>
 			<div class="box-body">
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 				<!--[pp] 검색 -->
 				<sbux-input id="dtl-input-wghno" name="dtl-input-wghno" uitype="hidden"></sbux-input>
 				<sbux-input id="dtl-input-prdcrCd" name="dtl-input-prdcrCd" uitype="hidden"></sbux-input>
@@ -192,11 +198,15 @@
 						</li>
 					</ul>
 				</div>
+				<span style="font-size:16px">출자출하조직이 속한 통합조직 리스트</span><br>
 				<div class="ad_section_top">
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrCrclOgnMng" style="height:350px; width: 100%;"></div>
 				</div>
 				<br>
+				<br>
+				<div></div>
+			</c:if><!-- 관리자 권한인 경우 그리드 표기 -->
 				<!-- 그리드 식으로 변경 -->
 				<!--
 				<table class="table table-bordered tbl_fixed">
@@ -261,12 +271,9 @@
 					</tbody>
 				</table>
 				-->
-				<br>
-				<div></div>
 
 				<!-- 출자출하조직이 속한 통합조직 리스트 그리드 -->
 				<div class="ad_section_top">
-					<span style="font-size:16px">출자출하조직이 속한 통합조직 리스트</span><br>
 					<span style="font-size:16px">추가 버튼을 누른후 통합조직명,사업자번호 위치 클릭시 팝업이 열립니다.</span>
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdUoList" style="height:150px; width: 908px; overflow-x: hidden"></div>
@@ -901,12 +908,16 @@ tps://sbgrid.co.kr/v2_5/document/guide
 */
 
 	window.addEventListener('DOMContentLoaded', function(e) {
-
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		fn_init();
 		fn_initSBSelect();
-
 		fn_search();
-
+	</c:if>
+	<c:if test="${loginVO.userType ne '01' || loginVO.userType ne '00'}">
+		fn_uoListGrid();//품목그리드
+		fn_initSBSelect();
+		fn_dtlSearch();
+	</c:if>
 		/**
 		 * 엔터시 검색 이벤트
 		 */
@@ -1215,6 +1226,73 @@ tps://sbgrid.co.kr/v2_5/document/guide
         		grdPrdcrCrclOgnMng.rebuild();
         	}
         	document.querySelector('#listCount').innerText = totalRecordCount;
+
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
+	}
+
+	/* Grid Row 조회 기능*/
+	const fn_dtlSearch = async function(){
+		let apcCd = '${loginVO.apcCd}';//
+		console.log('apcCd = '+apcCd);
+		if(gfn_isEmpty(apcCd)) return;
+
+    	let postJsonPromise = gfn_postJSON("/pd/bsm/selectPrdcrCrclOgnMngList.do", {
+    		apcCd : apcCd
+		});
+        let data = await postJsonPromise;
+        try{
+        	jsonPrdcrCrclOgnMng.length = 0;
+        	console.log("data==="+data);
+        	data.resultList.forEach((item, index) => {
+        		SBUxMethod.set('dtl-input-apoCd',gfn_nvl(item.apoCd))
+        		SBUxMethod.set('dtl-input-apoSe',gfn_nvl(item.apoSe))
+        		SBUxMethod.set('dtl-input-uoBrno',gfn_nvl(item.uoBrno))
+        		SBUxMethod.set('dtl-input-corpNm',gfn_nvl(item.corpNm))
+        		SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno))
+        		SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))
+        		SBUxMethod.set('dtl-input-mngmstInfoId',gfn_nvl(item.mngmstInfoId))
+        		SBUxMethod.set('dtl-input-mngmstYn',gfn_nvl(item.mngmstYn))
+        		SBUxMethod.set('dtl-input-nonghyupCd',gfn_nvl(item.nonghyupCd))
+        		SBUxMethod.set('dtl-input-cmptnInst',gfn_nvl(item.cmptnInst))
+        		SBUxMethod.set('dtl-input-ctpv',gfn_nvl(item.ctpv))
+        		SBUxMethod.set('dtl-input-sgg',gfn_nvl(item.sgg))
+        		SBUxMethod.set('dtl-input-zip',gfn_nvl(item.zip))
+        		SBUxMethod.set('dtl-input-lotnoAddr',gfn_nvl(item.lotnoAddr))
+        		SBUxMethod.set('dtl-input-lotnoDtlAddr',gfn_nvl(item.lotnoDtlAddr))
+        		SBUxMethod.set('dtl-input-roadNmAddr',gfn_nvl(item.roadNmAddr))
+        		SBUxMethod.set('dtl-input-roadNmDtlAddr',gfn_nvl(item.roadNmDtlAddr))
+        		SBUxMethod.set('dtl-input-corpSeCd',gfn_nvl(item.corpSeCd))
+        		SBUxMethod.set('dtl-input-corpDtlSeCd',gfn_nvl(item.corpDtlSeCd))
+        		SBUxMethod.set('dtl-input-corpFndnDay',gfn_nvl(item.corpFndnDay))
+        		SBUxMethod.set('dtl-input-corpFndnDay01',gfn_nvl(item.corpFndnDay))
+        		SBUxMethod.set('dtl-input-isoHldYn',gfn_nvl(item.isoHldYn))
+        		SBUxMethod.set('dtl-input-invstNope',gfn_nvl(item.invstNope))
+        		SBUxMethod.set('dtl-input-invstExpndFrmerNope',gfn_nvl(item.invstExpndFrmerNope))
+        		SBUxMethod.set('dtl-input-invstAmt',gfn_nvl(item.invstAmt))
+        		SBUxMethod.set('dtl-input-frmerInvstAmt',gfn_nvl(item.frmerInvstAmt))
+        		SBUxMethod.set('dtl-input-prdcrGrpInvstAmt',gfn_nvl(item.prdcrGrpInvstAmt))
+        		SBUxMethod.set('dtl-input-locgovInvstAmt',gfn_nvl(item.locgovInvstAmt))
+        		SBUxMethod.set('dtl-input-etcInvstAmt',gfn_nvl(item.etcInvstAmt))
+        		SBUxMethod.set('dtl-input-rgllbrNope',gfn_nvl(item.rgllbrNope))
+        		SBUxMethod.set('dtl-input-dwNope',gfn_nvl(item.dwNope))
+        		SBUxMethod.set('dtl-input-dlbrrNope',gfn_nvl(item.dlbrrNope))
+        		SBUxMethod.set('dtl-input-rprsvFlnm',gfn_nvl(item.rprsvFlnm))
+        		SBUxMethod.set('dtl-input-rprsvTelno',gfn_nvl(item.rprsvTelno))
+        		SBUxMethod.set('dtl-input-rprsvMoblno',gfn_nvl(item.rprsvMoblno))
+        		SBUxMethod.set('dtl-input-rprsvEml',gfn_nvl(item.rprsvEml))
+        		SBUxMethod.set('dtl-input-picPosition',gfn_nvl(item.picPosition))
+        		SBUxMethod.set('dtl-input-picFlnm',gfn_nvl(item.picFlnm))
+        		SBUxMethod.set('dtl-input-picTelno',gfn_nvl(item.picTelno))
+        		SBUxMethod.set('dtl-input-picMoblno',gfn_nvl(item.picMoblno))
+        		SBUxMethod.set('dtl-input-picEml',gfn_nvl(item.picEml))
+        		SBUxMethod.set('dtl-input-fxno',gfn_nvl(item.fxno))
+        		SBUxMethod.set('dtl-input-itemNhBrofYn',gfn_nvl(item.itemNhBrofYn))
+			});
 
         }catch (e) {
     		if (!(e instanceof Error)) {

@@ -586,6 +586,11 @@
 
 	// 출하지시 목록 조회 (조회 버튼)
     async function fn_search() {
+		if (gfn_isEmpty(SBUxMethod.get("srch-dtp-outordrYmdFrom")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-outordrYmdTo"))){
+			gfn_comAlert("W0002", "발주일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+		}
+		
     	let recordCountPerPage = grdOutordrInfo.getPageSize();  		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = 1;
     	grdOutordrInfo.movePaging(currentPageNo);
@@ -607,14 +612,6 @@
 		let dudtYmd = SBUxMethod.get("srch-dtp-dudtYmd");
 		let spmtPckgUnitNm = SBUxMethod.get("srch-inp-spmtPckgUnitNm");
 // 		let apcSeCd = ;
-		if (gfn_isEmpty(outordrYmdFrom)){
-			gfn_comAlert("W0002", "발주일자");		//	W0002	{0}을/를 입력하세요.
-            return;
-		}
-		if (gfn_isEmpty(outordrYmdTo)){
-			gfn_comAlert("W0002", "발주일자");		//	W0002	{0}을/를 입력하세요.
-            return;
-		}
 		let OrdrVO = {apcCd 				: apcCd
 //				    , apcSeCd 				: apcSeCd
 			        , rcptYn 				: rcptYn

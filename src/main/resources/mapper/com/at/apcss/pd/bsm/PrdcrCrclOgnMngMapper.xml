@@ -108,6 +108,9 @@
 			<if test='apoSe != null and apoSe != ""'>
 				AND CM.APO_SE LIKE '%' || #{apoSe} || '%'
 			</if>
+			<if test='apcCd != null and apcCd != ""'>
+				AND CM.APO_CD LIKE '%' || #{apcCd} || '%'
+			</if>
 		ORDER BY CM.SYS_LAST_CHG_DT DESC
 
 
@@ -219,6 +222,9 @@
 			</if>
 			<if test='apoSe != null and apoSe != ""'>
 				AND CM.APO_SE LIKE '%' || #{apoSe} || '%'
+			</if>
+			<if test='apcCd != null and apcCd != ""'>
+				AND CM.APO_CD LIKE '%' || #{apcCd} || '%'
 			</if>
 		ORDER BY CM.SYS_LAST_CHG_DT DESC
 

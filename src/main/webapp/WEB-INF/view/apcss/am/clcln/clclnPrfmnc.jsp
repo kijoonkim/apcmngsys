@@ -83,7 +83,7 @@
 											name="srch-slt-clclnCrtrCd"
 											uitype="single"
 											unselected-text="전체"
-											class="form-control input-sm input-sm-ast"
+											class="form-control input-sm"
 											jsondata-ref="jsonComClclnCrtrCd"
 										></sbux-select>
 									</div>
@@ -159,7 +159,7 @@
 									id="srch-inp-prdcrNm"
 									name="srch-inp-prdcrNm"
 									uitype="text"
-									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									class="form-control input-sm"
 									placeholder="초성검색 가능"
 									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
@@ -456,6 +456,10 @@
      * @description 조회 버튼
      */
     const fn_search = async function() {
+		if (gfn_isEmpty(SBUxMethod.get("srch-dtp-clclnYmdFrom")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-clclnYmdTo"))) {
+    		gfn_comAlert("W0001", "정산일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+    	}
 
 		// set pagination
     	grdClclnPrfmnc.rebuild();
@@ -502,7 +506,6 @@
   		});
 
         const data = await postJsonPromise;
-        console.log(data.resultStatus);
 
   		try {
   			if (_.isEqual("S", data.resultStatus)) {

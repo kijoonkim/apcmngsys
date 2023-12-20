@@ -20,11 +20,18 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
-					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
+					<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+						<sbux-button id="btnUpdatePwFclt" name="btnUpdatePwFclt" uitype="normal" text="비밀번호 초기화(통합조직/출자출하조직 전체)" class="btn btn-sm btn-outline-danger" onclick="fn_updatePwFmList"></sbux-button>
+						<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
+						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
+					</c:if>
+					<c:if test="${loginVO.userType ne '01' || loginVO.userType ne '00'}">
+						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
+					</c:if>
 				</div>
 			</div>
 			<div class="box-body">
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 				<!--[pp] 검색 -->
 				<sbux-input id="dtl-inp-aa" name="dtl-inp-aa" uitype="hidden"></sbux-input>
 				<sbux-input id="dtl-inp-prdcrCd" name="dtl-inp-prdcrCd" uitype="hidden"></sbux-input>
@@ -177,6 +184,7 @@
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrCrclOgnUsrMng" style="height:350px; width: 100%;"></div>
 				</div>
+			</c:if><!-- 관리자 인경우 그리드 표시 -->
 				<br>
 				<table class="table table-bordered tbl_fixed">
 					<caption>사용자관리 수정 화면</caption>
@@ -310,8 +318,8 @@
 							<td colspan="2" class="td_input" style="border-right:hidden;" >
 								<sbux-input
 									uitype="text"
-									id="dtl-input-moblno"
-									name="dtl-input-moblno"
+									id="dtl-input-mblTelno"
+									name="dtl-input-mblTelno"
 									class="form-control input-sm"
 									autocomplete="off"
 								></sbux-input>
@@ -411,10 +419,15 @@
 <script type="text/javascript">
 
 	window.addEventListener('DOMContentLoaded', function(e) {
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		fn_init();
 		fn_initSBSelect();
 		fn_search();
-
+	</c:if>
+	<c:if test="${loginVO.userType ne '01' || loginVO.userType ne '00'}">
+		fn_initSBSelect();
+		fn_dtlSearch();
+	</c:if>
 		const elements = document.querySelectorAll(".srch-keyup-area");
 
 		for (let i = 0; i < elements.length; i++) {
@@ -501,7 +514,7 @@
 	    	{caption: ["비고"], 		ref: 'rmrk',   	type:'output',  width:'200px',    style:'text-align:center'},
 
 	    	{caption: ["전화번호"], 		ref: 'telno',   	type:'output',  hidden : true},
-	    	{caption: ["핸드폰번호"], 		ref: 'moblno',   	type:'output',  hidden : true},
+	    	{caption: ["핸드폰번호"], 		ref: 'mblTelno',   	type:'output',  hidden : true},
 	    	{caption: ["관할기관승인일"], 		ref: 'cmptncInstAprvYmd',   	type:'output',  hidden : true}
 	    ];
 
@@ -568,7 +581,7 @@
 				  , userStts 	: item.userStts
 				  , telno 		: item.telno
 				  , brno 		: item.brno
-				  , moblno 		: item.moblno
+				  , mblTelno 		: item.mblTelno
 				  , coNm 		: item.coNm
 				  , cmptncInstAprvSe 	: item.cmptncInstAprvSe
 				  , cmptncInst 	: item.cmptncInst
@@ -600,6 +613,40 @@
     		console.error("failed", e.message);
         }
 	}
+	//관리자가 아닌 경우 조회
+	const fn_dtlSearch = async function(){
+		let userId = '${loginVO.userId}';//아이디
+
+		if(gfn_isEmpty(userId)) return;
+
+    	let postJsonPromise = gfn_postJSON("/pd/bsm/selectPrdcrCrclOgnUsrMngList.do", {
+			userId : userId
+		});
+        let data = await postJsonPromise;
+        try{
+        	console.log("data==="+data);
+        	data.resultList.forEach((item, index) => {
+				SBUxMethod.set("dtl-input-userId", item.userId);  //  아이디
+				SBUxMethod.set("dtl-input-userNm", item.userNm);  //  이름
+				SBUxMethod.set("dtl-input-userType", item.userType);  //  권한
+				SBUxMethod.set("dtl-input-userStts", item.userStts);  //  1차승인
+				SBUxMethod.set("dtl-input-telno", item.telno);  //  전화번호
+				SBUxMethod.set("dtl-input-brno", item.brno);  //  사업자번호
+				SBUxMethod.set("dtl-input-mblTelno", item.mblTelno);  //  휴대폰번호
+				SBUxMethod.set("dtl-input-cmptncInstAprvYmd", item.cmptncInstAprvYmd);  //  관할기관승인일
+				SBUxMethod.set("dtl-input-userAprvYmd", item.userAprvYmd);  //  사용자승인일
+				SBUxMethod.set("dtl-input-coNm", item.coNm);  //  법인명
+				SBUxMethod.set("dtl-input-cmptncInstAprvSe", item.cmptncInstAprvSe);  //  2차승인
+				SBUxMethod.set("dtl-input-cmptncInst", item.cmptncInst);  //  관할기관
+			});
+
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
+	}
 
 	const fn_clearForm = function() {
 
@@ -609,7 +656,7 @@
 		SBUxMethod.set("dtl-input-userStts",null);
 		SBUxMethod.set("dtl-input-telno",null);
 		SBUxMethod.set("dtl-input-brno",null);
-		SBUxMethod.set("dtl-input-moblno",null);
+		SBUxMethod.set("dtl-input-mblTelno",null);
 		SBUxMethod.set("dtl-input-cmptncInstAprvYmd",null);
 		SBUxMethod.set("dtl-input-coNm",null);
 		SBUxMethod.set("dtl-input-cmptncInstAprvSe",null);
@@ -631,7 +678,7 @@
 			,brno : SBUxMethod.get("dtl-input-brno")//사업자번호
 			,coNm : SBUxMethod.get("dtl-input-coNm")//법인명
 			,telno : SBUxMethod.get("dtl-input-telno")//전화번호
-			,moblno : SBUxMethod.get("dtl-input-moblno")//휴대폰번호
+			,mblTelno : SBUxMethod.get("dtl-input-mblTelno")//휴대폰번호
 			,cmptncInstAprvYmd : SBUxMethod.get("dtl-input-cmptncInstAprvYmd")//관할기관승인일
 			,userAprvYmd : SBUxMethod.get("dtl-input-userAprvYmd")//사용자승인일
 			,cmptncInstAprvSe : SBUxMethod.get("dtl-input-cmptncInstAprvSe")//2차승인여부
@@ -680,7 +727,7 @@
 		SBUxMethod.set("dtl-input-userStts", rowData.userStts);  //  1차승인
 		SBUxMethod.set("dtl-input-telno", rowData.telno);  //  전화번호
 		SBUxMethod.set("dtl-input-brno", rowData.brno);  //  사업자번호
-		SBUxMethod.set("dtl-input-moblno", rowData.moblno);  //  휴대폰번호
+		SBUxMethod.set("dtl-input-mblTelno", rowData.mblTelno);  //  휴대폰번호
 		SBUxMethod.set("dtl-input-cmptncInstAprvYmd", rowData.cmptncInstAprvYmd);  //  관할기관승인일
 		SBUxMethod.set("dtl-input-userAprvYmd", rowData.userAprvYmd);  //  사용자승인일
 		SBUxMethod.set("dtl-input-coNm", rowData.coNm);  //  법인명
@@ -718,5 +765,41 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 	}
+
+
+	 /*
+	  * 비밀번호 통합조직, 출자출하조직, 전체 초기화 업데이트
+	  * 2023-11-03
+	  * ysh
+	  */
+	async function fn_updatePwFmList(){
+		console.log("========fn_updatePwd================");
+		var userId = SBUxMethod.get("dtl-input-userId");
+		var userIdTest = "all";
+		//if(gfn_isEmpty(userId)) return;
+
+		if (!confirm("전체 사용자의 비밀번호를 초기화 하시겠습니까?")) return;
+
+		let postJsonPromise = gfn_postJSON("/pd/user/updAllComUserPwd.do", {
+			userIdTest : userIdTest
+		});
+       let data = await postJsonPromise;
+       try{
+       	if(data.updatedCnt > 0){
+       		alert("전체 사용자("+data.updatedCnt+"건)의 비밀번호가 초기화 되었습니다.");
+       	}else{
+       		alert("비밀번호 초기화 오류가 발생 되었습니다.");
+       	}
+       } catch (e) {
+   		if (!(e instanceof Error)) {
+   			e = new Error(e);
+   		}
+   		console.error("failed", e.message);
+       	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
+	}
+
+
+
 </script>
 </html>
