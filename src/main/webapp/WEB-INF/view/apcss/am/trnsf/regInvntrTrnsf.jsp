@@ -79,7 +79,7 @@
 									name="srch-slt-itemCd"
 									class="form-control input-sm"
 									jsondata-ref="jsonComItem"
-									onchange="fn_selectItem"
+									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
@@ -90,8 +90,9 @@
 									class="form-control input-sm"
 									unselected-text="선택"
 									jsondata-ref="jsonComVrty"
-									onchange="fn_selectVrty"
+									onchange="fn_onChangeSrchVrtyCd(this)"
 								></sbux-select>
+<!-- 									onchange="fn_selectVrty" -->
 							</td>
 							<td>&nbsp;</td>
 							<th scope="row" class="th_bg">규격</th>
@@ -284,62 +285,76 @@
 		jsonComWarehouse = result[0];
 		jsonComGdsGrd = result[1];
 	}
+	
+	/**
+	 * @name fn_onChangeSrchItemCd
+	 * @description 품목 선택 변경 event
+	 */
+	const fn_onChangeSrchItemCd = async function(obj) {
 
-	const fn_selectItem = async function(){
-		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-
-		if(gfn_isEmpty(itemCd)){
-
-			jsonComSpcfct.length = 0;
-			SBUxMethod.refresh("srch-slt-spcfctCd");
-			let rst = await Promise.all([
-				gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 				jsonComVrty, 				gv_selectedApcCd, itemCd),	// 품종
-			])
-		}else{
-			let rst = await Promise.all([
-				gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 				jsonComVrty, 				gv_selectedApcCd, itemCd),	// 품종
-				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',			jsonComSpcfct, 				gv_selectedApcCd, itemCd),	// 규격
-			])
+		let itemCd = obj.value;
+		let result = await Promise.all([
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd, itemCd),				// 품종
+			fn_getComSpcfct(itemCd),
+		]);
+		
+		switch (checkSection) {
+		case "1":	// checkbox
+			fn_sample1();
+			break;
+		case "2":	// checkbox
+			fn_sample2();
+			break;
+		case "3":	// checkbox
+			fn_sample3();
+			break;
+		default:
+			return;
 		}
-
-		if(checkSection == 1){
-			jsonComSpcfct.length = 0;
-			SBUxMethod.refresh("srch-slt-spcfctCd");
-			SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'true')
-		}else{
-			SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'false')
-		}
-
 	}
+	
+	/**
+	 * @name fn_onChangeSrchVrtyCd
+	 * @description 품종 선택 변경 event
+	 */
+	const fn_onChangeSrchVrtyCd = async function(obj) {
+		let vrtyCd = obj.value;
 
-	const fn_selectVrty = async function(){
-		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
-		let itemCd = "";
-		for(i=0;i<jsonComVrty.length;i++){
-			if(jsonComVrty[i].value == vrtyCd){
-				itemCd = jsonComVrty[i].mastervalue;
-			}
+		const vrtyInfo = _.find(jsonComVrty, {value: vrtyCd});
+
+		if (gfn_isEmpty(vrtyInfo)) {
+			return;
 		}
-		SBUxMethod.set("srch-slt-itemCd", itemCd);
-		if(checkSection == 2 || checkSection == 3){
-			if(gfn_isEmpty(itemCd)){
-				jsonComSpcfct.length = 0;
-				SBUxMethod.refresh("srch-slt-spcfctCd");
-			}else{
-				let rst = await Promise.all([
-					gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonComSpcfct, 		gv_selectedApcCd, itemCd),					// 규격
-				])
-				SBUxMethod.refresh("srch-slt-spcfctCd");
-			}
-			SBUxMethod.refresh("srch-slt-spcfctCd");
-    	}
 
-		if(checkSection == 1){
-			jsonComSpcfct.length = 0;
-			SBUxMethod.refresh("srch-slt-spcfctCd");
-			SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'true')
+		const itemCd = vrtyInfo.mastervalue;
+
+		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
+		if (itemCd != prvItemCd) {
+			SBUxMethod.set("srch-slt-itemCd", itemCd);
+			await fn_onChangeSrchItemCd({value: itemCd});
+			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
+			SBUxMethod.set("srch-slt-spcfctCd", "");
+		}
+	}
+	
+	/**
+	 * @name fn_getApcSpcfct
+     * @description APC규격 JSON 설정
+     * @function
+	 * @param {string} itemCd
+	 */
+	const fn_getComSpcfct = async function(itemCd) {
+
+		jsonComSpcfct.length = 0;
+
+		if (gfn_isEmpty(itemCd)) {
+			return;
+		}
+
+		if(checkSection != 1){
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',jsonComSpcfct, gv_selectedApcCd, itemCd);	// 규격
 		}else{
-			SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'false')
+			return;
 		}
 	}
 
