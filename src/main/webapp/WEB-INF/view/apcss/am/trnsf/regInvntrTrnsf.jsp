@@ -92,7 +92,6 @@
 									jsondata-ref="jsonComVrty"
 									onchange="fn_onChangeSrchVrtyCd(this)"
 								></sbux-select>
-<!-- 									onchange="fn_selectVrty" -->
 							</td>
 							<td>&nbsp;</td>
 							<th scope="row" class="th_bg">규격</th>

@@ -133,7 +133,7 @@
 									name="srch-slt-itemCd"
 									class="form-control input-sm"
 									jsondata-ref="jsonComItem"
-									onchange="fn_selectItem"
+									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
@@ -144,7 +144,7 @@
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									unselected-text="선택"
 									jsondata-ref="jsonComVrty"
-									onchange="fn_selectVrty"
+									onchange="fn_onChangeSrchVrtyCd(this)"
 								></sbux-select>
 							</td>
 						</tr>
@@ -255,7 +255,7 @@
 									name="dtl-slt-itemCd"
 									class="form-control input-sm"
 									jsondata-ref="jsonDtlItem"
-									onchange="fn_selectDtlItem"
+									onchange="fn_onChangeSrchItemCdDtl(this)"
 								></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
@@ -266,7 +266,7 @@
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									unselected-text="선택"
 									jsondata-ref="jsonDtlVrty"
-									onchange="fn_selectDtlVrty"
+									onchange="fn_onChangeSrchVrtyCdDtl(this)"
 								></sbux-select>
 							</td>
 							<td></td>
@@ -428,27 +428,100 @@
 		SBUxMethod.attr('dtl-slt-spmtPckgUnit', 'disabled', 'true')
 
 	}
+	
+	/**
+	 * @name fn_onChangeSrchItemCd
+	 * @description 품목 선택 변경 event
+	 */
+	const fn_onChangeSrchItemCd = async function(obj, checkObj) {
 
-	const fn_selectItem = async function(){
-		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-		let rst = await Promise.all([
-			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 			jsonComVrty, 			gv_selectedApcCd, itemCd),			// 품종
-		])
-
-		SBUxMethod.set("dtl-slt-itemCd", itemCd);
-		fn_selectDtlItem();
-
+		let itemCd = obj.value;
+		let result = await Promise.all([
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd, itemCd),				// 품종
+		]);
 	}
+	
+	/**
+	 * @name fn_onChangeSrchVrtyCd
+	 * @description 품종 선택 변경 event
+	 */
+	const fn_onChangeSrchVrtyCd = async function(obj) {
+		let vrtyCd = obj.value;
 
-	const fn_selectVrty = async function(){
-		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
-		let itemCd = "";
-		for(i=0;i<jsonComVrty.length;i++){
-			if(jsonComVrty[i].value == vrtyCd){
-				itemCd = jsonComVrty[i].mastervalue;
-			}
+		const vrtyInfo = _.find(jsonComVrty, {value: vrtyCd});
+
+		if (gfn_isEmpty(vrtyInfo)) {
+			return;
 		}
-		SBUxMethod.set("srch-slt-itemCd", itemCd);
+
+		const itemCd = vrtyInfo.mastervalue;
+
+		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
+		if (itemCd != prvItemCd) {
+			SBUxMethod.set("srch-slt-itemCd", itemCd);
+			await fn_onChangeSrchItemCd({value: itemCd});
+			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
+			SBUxMethod.set("srch-slt-spcfctCd", "");
+		}
+	}
+	
+	/**
+	 * @name fn_onChangeSrchItemCdDtl
+	 * @description 품목 선택 변경 event
+	 */
+	const fn_onChangeSrchItemCdDtl = async function(obj) {
+
+		let itemCd = obj.value;
+		let result = await Promise.all([
+			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonDtlVrty, gv_selectedApcCd, itemCd),				// 품종
+			fn_getComSpcfctDtl(itemCd),
+		]);
+		
+// 		fn_createInvntrTrnsfGrid();
+// 		fn_createInvntrTrnsCfmtnfGrid();
+	}
+	
+	/**
+	 * @name fn_onChangeSrchVrtyCdDtl
+	 * @description 품종 선택 변경 event
+	 */
+	const fn_onChangeSrchVrtyCdDtl = async function(obj) {
+		let vrtyCd = obj.value;
+
+		const vrtyInfo = _.find(jsonDtlVrty, {value: vrtyCd});
+
+		if (gfn_isEmpty(vrtyInfo)) {
+			return;
+		}
+
+		const itemCd = vrtyInfo.mastervalue;
+
+		const prvItemCd = SBUxMethod.get("dtl-slt-itemCd");
+		if (itemCd != prvItemCd) {
+			SBUxMethod.set("dtl-slt-itemCd", itemCd);
+			await fn_onChangeSrchItemCdDtl({value: itemCd});
+			SBUxMethod.set("dtl-slt-vrtyCd", vrtyCd);
+			SBUxMethod.attr('dtl-slt-spcfctCd', 'disabled', 'false');
+			SBUxMethod.set("dtl-slt-spcfctCd", "");
+		}
+	}
+	
+	/**
+	 * @name fn_getComSpcfctDtl
+     * @description APC규격 JSON 설정
+     * @function
+	 * @param {string} itemCd
+	 */
+	const fn_getComSpcfctDtl = async function(itemCd) {
+
+		jsonDtlSpcfct.length = 0;
+
+		if (gfn_isEmpty(itemCd)) {
+			SBUxMethod.attr('dtl-slt-spcfctCd', 'disabled', 'true');
+			return;
+		}
+		
+		gfn_setApcSpcfctsSBSelect('dtl-slt-spcfctCd',jsonDtlSpcfct, gv_selectedApcCd, itemCd);	// 규격
 	}
 
 	const fn_selectDtlItem = async function(){
@@ -1134,8 +1207,6 @@
     		deleteList.push(rowData);
 
     	}
-
-    	console.log("deleteList",deleteList);
 
     	if(grdRows.length == 0){
     		gfn_comAlert("W0003", "삭제");			// W0003	{0}할 대상이 없습니다.
