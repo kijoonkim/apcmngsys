@@ -92,13 +92,6 @@ public class BbsController extends BaseController {
 
 		try {
 			 resultList = bbsService.selectBbsList(bbsVO);
-
-			 logger.debug("$$$$$$$$$$$$$$$$$$$$$");
-			 for (BbsVO bbs : resultList ) {
-//				 logger.debug("bbsTitle : {}", bbs.getBbsTitle());
-				 logger.debug("sysFrstInptUserIdNm : {}", bbs.getSysFrstInptUserIdNm());
-			 }
-
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);

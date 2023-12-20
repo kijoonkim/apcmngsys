@@ -55,11 +55,7 @@ public class BbsServiceImpl extends BaseServiceImpl implements BbsService{
 	public List<BbsVO> selectBbsList(BbsVO bbsVO) throws Exception {
 
 		List<BbsVO> resultList = bbsMapper.selectBbsList(bbsVO);
-		System.out.println("$$$$$$$$$$$$$$$$$$$$$");
-		for (BbsVO bbs : resultList ) {
-//			System.out.printf("bbsNo : %s", bbs.getBbsTitle());
-			System.out.println();
-		}
+
 		return resultList;
 	}
 
