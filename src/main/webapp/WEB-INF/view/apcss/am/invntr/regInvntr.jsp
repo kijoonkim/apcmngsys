@@ -769,7 +769,6 @@
 		let warehouseSeCdCol = inptCmndDsctnList.getColRef("warehouseSeCd");
 		switch (nCol) {
 		case invntrQnttQnttCol:	// checkbox
-			console.log('수량변경');
 			fn_checkInptQntt();
 			break;
 		case invntrQnttQnttCol:	// checkbox
