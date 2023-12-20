@@ -640,8 +640,18 @@
 	    SBGridProperties.oneclickedit = true;
 		SBGridProperties.frozencols = 4;
 	    SBGridProperties.columns = [
-        	{caption: ["체크박스","체크박스"], 		ref: 'checkBox', 			type: 'checkbox',	width: '40px',	  style:'text-align: center',
-				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}
+        	{
+        		caption: ["전체",""], 			ref: 'checkBox', 			type: 'checkbox', 	width:'50px',	  style:'text-align:center',
+					typeinfo: {
+						ignoreupdate : true,
+						fixedcellcheckbox : {
+							usemode : true,
+							rowindex : 1,
+							deletecaption : false
+						},
+						checkedvalue : 'Y',
+						uncheckedvalue : 'N'
+					}
         	},
 	        {caption: ["선별번호","선별번호"],		ref: 'sortno',      		type:'output',  	width:'105px',    style:'text-align:center'},
 	        {caption: ["등급","등급"],				ref: 'grdNm',      			type:'output',  	width:'105px',    style:'text-align:center'},
@@ -707,8 +717,18 @@
 	    SBGridProperties.oneclickedit = true;
 		SBGridProperties.frozencols = 4;
 	    SBGridProperties.columns = [
-        	{caption: ["체크박스","체크박스"], 		ref: 'checkBox', 			type: 'checkbox',	width: '40px',	style:'text-align: center',
-				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}
+        	{
+        		caption: ["전체",""], 			ref: 'checkBox', 			type: 'checkbox', 	width:'50px',	  style:'text-align:center',
+					typeinfo: {
+						ignoreupdate : true,
+						fixedcellcheckbox : {
+							usemode : true,
+							rowindex : 1,
+							deletecaption : false
+						},
+						checkedvalue : 'Y',
+						uncheckedvalue : 'N'
+					}
         	},
 	        {caption: ["포장번호","포장번호"],		ref: 'pckgno',      		type:'output',  	width:'105px',	style:'text-align:center'},
 	        {caption: ["순번","순번"],				ref: 'pckgSn',      		type:'output',  	width:'85px',	style:'text-align:center'},
@@ -764,18 +784,23 @@
 
 		let nRow = inptCmndDsctnList.getRow();
 		let nCol = inptCmndDsctnList.getCol();
-		let invntrQnttQnttCol = inptCmndDsctnList.getColRef("invntrQntt");
-		let invntrWghtQnttCol = inptCmndDsctnList.getColRef("invntrWght");
+		let invntrQnttCol = inptCmndDsctnList.getColRef("invntrQntt");
+		let invntrWghtCol = inptCmndDsctnList.getColRef("invntrWght");
 		let warehouseSeCdCol = inptCmndDsctnList.getColRef("warehouseSeCd");
+		let chgRmrkCol = inptCmndDsctnList.getColRef("chgRmrk");
+		let checkedYnCol = inptCmndDsctnList.getColRef("checkBox");
 		switch (nCol) {
-		case invntrQnttQnttCol:	// checkbox
+		case invntrQnttCol:	// checkbox
 			fn_checkInptQntt();
 			break;
-		case invntrQnttQnttCol:	// checkbox
+		case invntrWghtCol:	// checkbox
 			fn_checkInptWght();
 			break;
 		case warehouseSeCdCol:
 			fn_checkWarehouseSeCd();
+			break;
+		case chgRmrkCol:
+			inptCmndDsctnList.setCellData(nRow, checkedYnCol, "Y");
 			break;
 		default:
 			return;
@@ -784,9 +809,35 @@
 
 	const fn_checkInptQntt = function(){
 		let nRow = inptCmndDsctnList.getRow();
-		let invntrQnttQnttCol = inptCmndDsctnList.getColRef("invntrQntt");
-		let invntrWghtQnttCol = inptCmndDsctnList.getColRef("invntrWght");
-		let checkedYnCol 	= inptCmndDsctnList.getColRef("checkBox");
+		let invntrQnttCol = inptCmndDsctnList.getColRef("invntrQntt");
+		let invntrWghtCol = inptCmndDsctnList.getColRef("invntrWght");
+		let checkedYnCol = inptCmndDsctnList.getColRef("checkBox");
+
+		let rowData = inptCmndDsctnList.getRowData(nRow);
+
+		let invntrQntt = rowData.invntrQntt;
+		let invntrWght = rowData.invntrWght;
+		let originInvntrQntt = rowData.originInvntrQntt;
+		let originInvntrWght = rowData.originInvntrWght;
+		console.log(originInvntrQntt);
+		console.log(parseInt(Math.round(parseInt(originInvntrWght) / parseInt(originInvntrQntt))));
+
+		if(invntrQntt > 0){
+			let wght = parseInt(Math.round(parseInt(originInvntrWght) / parseInt(originInvntrQntt)));
+			inptCmndDsctnList.setCellData(nRow, invntrWghtCol, invntrQntt*wght);
+			inptCmndDsctnList.setCellData(nRow, checkedYnCol, "Y");
+		}
+		if(invntrQntt == 0){
+			inptCmndDsctnList.setCellData(nRow, invntrWghtCol, 0);
+			inptCmndDsctnList.setCellData(nRow, checkedYnCol, "Y");
+		}
+	}
+
+	const fn_checkInptWght = function(){
+		let nRow = inptCmndDsctnList.getRow();
+		let invntrQnttCol = inptCmndDsctnList.getColRef("invntrQntt");
+		let invntrWghtCol = inptCmndDsctnList.getColRef("invntrWght");
+		let checkedYnCol = inptCmndDsctnList.getColRef("checkBox");
 
 		let rowData = inptCmndDsctnList.getRowData(nRow);
 
@@ -795,32 +846,10 @@
 		let originInvntrQntt = rowData.originInvntrQntt;
 		let originInvntrWght = rowData.originInvntrWght;
 
-		if(invntrQntt > 0){
-			let wght = parseInt(Math.round(parseInt(originInvntrWght) / parseInt(originInvntrQntt)));
-			inptCmndDsctnList.setCellData(nRow, invntrWghtQnttCol, invntrQntt*wght);
-			inptCmndDsctnList.setCellData(nRow, checkedYnCol, "Y");
-		}
-		if(invntrQntt == 0){
-			inptCmndDsctnList.setCellData(nRow, invntrWghtQnttCol, 0);
-			inptCmndDsctnList.setCellData(nRow, checkedYnCol, "Y");
-		}
-	}
-
-	const fn_checkInptWght = function(){
-		let nRow = inptCmndDsctnList.getRow();
-		let invntrQnttQnttCol = inptCmndDsctnList.getColRef("invntrQntt");
-		let invntrWghtQnttCol = inptCmndDsctnList.getColRef("invntrWght");
-		let checkedYnCol 	= inptCmndDsctnList.getColRef("checkBox");
-
-		let invntrQntt = rowData.invntrQntt;
-		let invntrWght = rowData.invntrWght;
-		let originInvntrQntt = rowData.originInvntrQntt;
-		let originInvntrWght = rowData.originInvntrWght;
-
 		if(invntrWght == 0){
-			inptCmndDsctnList.setCellData(nRow, invntrQnttQnttCol, 0);
-			inptCmndDsctnList.setCellData(nRow, checkedYnCol, "Y");
+			inptCmndDsctnList.setCellData(nRow, invntrQnttCol, 0);
 		}
+		inptCmndDsctnList.setCellData(nRow, checkedYnCol, "Y");
 	}
 	
 	const fn_checkWarehouseSeCd = function(){

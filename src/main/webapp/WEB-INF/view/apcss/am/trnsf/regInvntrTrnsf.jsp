@@ -511,6 +511,7 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.oneclickedit = true;
+		SBGridProperties.frozencols = 4;
 	    SBGridProperties.columns = [
 	    	{
 	    		caption: ["전체","<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>"],
