@@ -134,7 +134,7 @@
 									class="form-control input-sm input-sm-ast"
 									unselected-text="전체"
 									jsondata-ref="jsonComItem"
-									onchange="fn_selectItem"
+									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
@@ -145,7 +145,7 @@
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									unselected-text="선택"
 									jsondata-ref="jsonComVrty"
-									onchange="fn_selectVrty"
+									onchange="fn_onChangeSrchVrtyCd(this)"
 								></sbux-select>
 							</td>
 							<td></td>
@@ -302,6 +302,61 @@
 			return;
 		}
 	}
+	
+	/**
+	 * @name fn_onChangeSrchItemCd
+	 * @description 품목 선택 변경 event
+	 */
+	const fn_onChangeSrchItemCd = async function(obj) {
+
+		let itemCd = obj.value;
+		let result = await Promise.all([
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd, itemCd),				// 품종
+			fn_getComSpcfct(itemCd),
+		]);
+	}
+	
+	/**
+	 * @name fn_onChangeSrchVrtyCd
+	 * @description 품종 선택 변경 event
+	 */
+	const fn_onChangeSrchVrtyCd = async function(obj) {
+		let vrtyCd = obj.value;
+
+		const vrtyInfo = _.find(jsonComVrty, {value: vrtyCd});
+
+		if (gfn_isEmpty(vrtyInfo)) {
+			return;
+		}
+
+		const itemCd = vrtyInfo.mastervalue;
+		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
+		if (itemCd != prvItemCd) {
+			SBUxMethod.set("srch-slt-itemCd", itemCd);
+			await fn_onChangeSrchItemCd({value: itemCd});
+			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
+			SBUxMethod.set("srch-slt-spcfctCd", "");
+		}
+	}
+	
+	/**
+	 * @name fn_getApcSpcfct
+     * @description APC규격 JSON 설정
+     * @function
+	 * @param {string} itemCd
+	 */
+	const fn_getComSpcfct = async function(itemCd) {
+
+		jsonComSpcfct.length = 0;
+
+		if (gfn_isEmpty(itemCd)) {
+			return;
+		}
+
+		gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',jsonComSpcfct, gv_selectedApcCd, itemCd);	// 규격
+	}
+	
+	
 	function fn_selectItem(){
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		SBUxMethod.set("srch-inp-vrtyNm", "");
@@ -485,6 +540,7 @@
 
 	// 초기화
 	const fn_reset = function(){
+		fn_initSBSelect();
 		SBUxMethod.set("srch-slt-outordrType","");								// 발주형태
 		SBUxMethod.set("srch-dtp-outordrYmd", gfn_dateToYmd(new Date()));		// 발주일자 from
 		SBUxMethod.set("srch-dtp-wrhsYmd","");									// 발주일자 to
@@ -686,8 +742,9 @@
 			SBUxMethod.set('srch-inp-gdsNm', gds.spmtPckgUnitNm);
 			SBUxMethod.set('srch-inp-gdsCd', gds.gdsCd);
 			SBUxMethod.set('srch-inp-spmtPckgUnitCd', gds.spmtPckgUnitCd);
+			fn_onChangeSrchVrtyCd({value: gds.vrtyCd});
 			SBUxMethod.set("srch-slt-itemCd", gds.itemCd);
-			SBUxMethod.set("srch-slt-vrtyCd", gds.vrtyCd);
+			SBUxMethod.setValue("srch-slt-vrtyCd", gds.vrtyCd);
 			await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonComSpcfct, 	gv_apcCd, gds.itemCd)		// 규격
 			SBUxMethod.set("srch-slt-spcfctCd", gds.spcfctCd);
 		}
