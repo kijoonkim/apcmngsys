@@ -357,34 +357,6 @@
 
 		gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',jsonComSpcfct, gv_selectedApcCd, itemCd);	// 규격
 	}
-	
-	
-	function fn_selectItem(){
-		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-		SBUxMethod.set("srch-inp-vrtyNm", "");
-		SBUxMethod.set("srch-inp-vrtyCd", "");
-		if (gfn_isEmpty(itemCd)) {
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonComSpcfct, 	""); 		// 규격
-			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, "");			// 품종
-
-		} else {
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonComSpcfct, 	gv_selectedApcCd, itemCd);		// 규격
-			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_apcCd, itemCd);			// 품종
-
-		}
-	}
-
-	const fn_selectVrty = async function(){
-		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
-		let itemCd = "";
-		for(i=0;i<jsonComVrty.length;i++){
-			if(jsonComVrty[i].value == vrtyCd){
-				itemCd = jsonComVrty[i].mastervalue;
-			}
-		}
-		await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonComSpcfct, 	gv_apcCd, itemCd)		// 규격
-		SBUxMethod.set("srch-slt-itemCd", itemCd);
-	}
 
 	const fn_createRegOutordrInfoGrid = async function () {
 
