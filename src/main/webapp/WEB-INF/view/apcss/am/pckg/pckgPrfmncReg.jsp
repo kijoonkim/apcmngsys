@@ -2666,7 +2666,7 @@
 		SBUxMethod.set("srch-slt-vrtyCd","");
 		SBUxMethod.set("srch-slt-spcfctCd","");
 		
-		SBUxMethod.set("dtl-dtp-pckgYmd",gfn_dateFirstYmd(new Date()));
+		SBUxMethod.set("dtl-dtp-pckgYmd",gfn_dateToYmd(new Date()));
 		SBUxMethod.set("dtl-slt-fcltCd","");
 		SBUxMethod.set("dtl-inp-inptWght","");
 		SBUxMethod.set("dtl-inp-pckgWght","");

@@ -340,7 +340,7 @@
 							<td colspan="6">&nbsp;</td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">입고창고</th>
+							<th scope="row" class="th_bg"><span class="data_required"></span>입고창고</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
@@ -349,7 +349,7 @@
 											uitype="single"
 											id="srch-slt-warehouseSeCd"
 											name="srch-slt-warehouseSeCd"
-											class="form-control input-sm"
+											class="form-control input-sm input-sm-ast inpt_data_reqed"
 											jsondata-ref="jsonComWarehouse"
 										/>
 									</div>
@@ -687,12 +687,10 @@
             return;
     	}
 
-    	/*
      	if (gfn_isEmpty(warehouseSeCd)) {
      		gfn_comAlert("W0001", "창고");		//	W0002	{0}을/를 선택하세요.
 			return;
      	}
-    	 */
 
     	if (gfn_isEmpty(prdctnYr)) {
     		gfn_comAlert("W0001", "생산연도");		//	W0002	{0}을/를 선택하세요.
