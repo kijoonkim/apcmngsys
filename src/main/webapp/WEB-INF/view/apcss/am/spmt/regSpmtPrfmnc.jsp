@@ -530,15 +530,15 @@
 	const fn_dtpChange = function(){
 		let pckgYmdFrom = SBUxMethod.get("srch-dtp-pckgYmdFrom");
 		let pckgYmdTo = SBUxMethod.get("srch-dtp-pckgYmdTo");
-		let spmtYmdTo = SBUxMethod.get("dtl-dtp-spmtYmd");
+		let spmtYmd = SBUxMethod.get("dtl-dtp-spmtYmd");
 		if(gfn_diffDate(pckgYmdFrom, pckgYmdTo) < 0){
 			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");		//	W0001	{0}
 			SBUxMethod.set("srch-dtp-pckgYmdFrom", gfn_dateFirstYmd(new Date()));
 			SBUxMethod.set("srch-dtp-pckgYmdTo", gfn_dateToYmd(new Date()));
 			return;
 		}
-		if(gfn_diffDate(pckgYmdFrom, spmtYmdTo) < 0){
-			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");		//	W0001	{0}
+		if(gfn_diffDate(pckgYmdFrom, spmtYmd) < 0){
+			gfn_comAlert("W0015", "출하일자", "상품재고의 생산일자");		//	W0014	{0}이/가 {1} 보다 작습니다.
 			SBUxMethod.set("dtl-dtp-spmtYmd", gfn_dateToYmd(new Date()));
 			return;
 		}
@@ -1276,7 +1276,17 @@
     		let gdsGrd = rowData.gdsGrd;
     		let brndNm = rowData.brndNm;
     		let gdsCd = rowData.gdsCd;
+    		let pckgYmd = rowData.pckgYmd;
     		totSpmtQntt = totSpmtQntt + Number(spmtQntt);
+
+    		if (gfn_diffDate(pckgYmd, spmtYmd) < 0) {
+    			gfn_comAlert("W0015", "출하일자", "상품재고의 생산일자");		//	W0014	{0}이/가 {1} 보다 작습니다.
+    			return;
+    		}
+
+			if (parseInt(pckgYmd) < parseInt(rowData.pckgYmd)) {
+				pckgYmd = rowData.pckgYmd;
+			}
 
     		if(smptWght == 0){
     			gfn_comAlert("W0001", "출하중량");		//	W0001	{0}이/가 없습니다.
