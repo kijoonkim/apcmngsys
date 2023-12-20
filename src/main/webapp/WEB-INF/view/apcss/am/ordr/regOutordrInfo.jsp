@@ -350,6 +350,8 @@
 		jsonComSpcfct.length = 0;
 
 		if (gfn_isEmpty(itemCd)) {
+			jsonComSpcfct.length = 0;
+			SBUxMethod.refresh("srch-slt-spcfctCd");
 			return;
 		}
 
