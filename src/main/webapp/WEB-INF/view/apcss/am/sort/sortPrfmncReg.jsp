@@ -177,7 +177,14 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>선별일자</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="dtl-dtp-inptYmd" name="dtl-dtp-inptYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"></sbux-datepicker>
+								<sbux-datepicker
+									id="dtl-dtp-inptYmd"
+									name="dtl-dtp-inptYmd"
+									uitype="popup"
+									date-format="yyyy-mm-dd"
+									class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"
+									onchange="fn_dtpChange(dtl-dtp-inptYmd)"
+								></sbux-datepicker>
 							</td>
 							<td></td>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>설비</th>
@@ -1026,6 +1033,7 @@
 		// 입고번호, 재고량, 투입량
 		const rawMtrInvntrList = [];
 		const allInvntrData = grdRawMtrInvntr.getGridDataAll();
+		let wrhsYmd = 0;
 
 		let invntrInptQntt = 0;
 		let invntrInptWght = 0;
@@ -1044,6 +1052,10 @@
 
     			invntrInptQntt += qntt;
     			invntrInptWght += wght;
+
+    			if (parseInt(wrhsYmd) < parseInt(item.wrhsYmd)) {
+    				wrhsYmd = item.wrhsYmd;
+    			}
     		}
 		});
 
@@ -1082,6 +1094,10 @@
 				gfn_comAlert("W0005", "선별일자");		//	W0005	{0}이/가 없습니다.
 				return;
 			}
+	 		if(gfn_diffDate(wrhsYmd, inptYmd) < 0){
+				gfn_comAlert("W0015", "선별일자", "원물재고의 입고일자");		//	W0014	{0}이/가 {1} 보다 작습니다.
+	 			return;
+	 		}
 			if (gfn_isEmpty(fcltCd)) {
 				gfn_comAlert("W0005", "설비");		//	W0005	{0}이/가 없습니다.
 				return;
@@ -1276,10 +1292,17 @@
 	const fn_dtpChange = function(){
  		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-wrhsYmdFrom");
  		let wrhsYmdTo = SBUxMethod.get("srch-dtp-wrhsYmdTo");
+ 		let inptYmd = SBUxMethod.get("dtl-dtp-inptYmd");
+ 		
  		if(gfn_diffDate(wrhsYmdFrom, wrhsYmdTo) < 0){
  			gfn_comAlert("W0014", "시작일자", "종료일자");		//	W0014	{0}이/가 {1} 보다 큽니다.
- 			SBUxMethod.set("srch-dtp-wrhsYmdFrom", gfn_dateToYmd(new Date()));
+ 			SBUxMethod.set("srch-dtp-wrhsYmdFrom", gfn_dateFirstYmd(new Date()));
  			SBUxMethod.set("srch-dtp-wrhsYmdTo", gfn_dateToYmd(new Date()));
+ 			return;
+ 		}
+ 		if(gfn_diffDate(wrhsYmdFrom, inptYmd) < 0){
+			gfn_comAlert("W0015", "선별일자", "원물재고의 입고일자");		//	W0014	{0}이/가 {1} 보다 작습니다.
+			SBUxMethod.set("dtl-dtp-inptYmd", gfn_dateToYmd(new Date()));
  			return;
  		}
  	}
