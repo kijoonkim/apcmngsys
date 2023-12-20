@@ -257,9 +257,7 @@
 		let itemCd = obj.value;
 
 		let result = await Promise.all([
-			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 				jsonComVrty, 		gv_selectedApcCd, itemCd),			// 품종
-			gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', 	jsonSpmtPckgUnit, 	gv_selectedApcCd, itemCd),			// 포장구분
-			gfn_setApcGdsGrdSBSelect('grdSpmtCmndTrg', 				jsonComGdsGrd, 		gv_selectedApcCd, itemCd, '03')	// 상품등급(재고그리드)
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 				jsonComVrty, 		gv_selectedApcCd, itemCd)			// 품종
 		]);
 		if (gfn_isEmpty(itemCd)) {
 			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, "");
