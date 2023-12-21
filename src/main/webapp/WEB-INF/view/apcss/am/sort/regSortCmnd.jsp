@@ -585,7 +585,6 @@
 		if(invntrWght == cmndWght && invntrQntt > 0){
 			grdRawMtrInvntr.setCellData(nRow, 10, invntrQntt);
 		}
-
 		if(invntrWght % cmndWght == 0){
 			grdRawMtrInvntr.setCellData(nRow, 10, (cmndWght / invntrWght * invntrQntt));
 		}
@@ -609,6 +608,11 @@
 		if(invntrQntt - cmndQntt < 0){
 			gfn_comAlert("W0008", "재고수량", "지시수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
 			grdRawMtrInvntr.setCellData(nRow, nCol , 0);
+            return;
+		}
+		if(cmndQntt < 0){
+			gfn_comAlert("E0000", "지시수량이 0보다 작습니다.");
+			grdRawMtrInvntr.setCellData(nRow, nCol , null);
             return;
 		}
 		if(invntrQntt > 0 && cmndQntt > 0){
