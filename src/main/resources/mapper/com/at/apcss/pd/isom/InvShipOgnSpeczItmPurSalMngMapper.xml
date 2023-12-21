@@ -21,61 +21,61 @@
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectInvShipOgnSpeczItmPurSalMng" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
-    	<![CDATA[
-			SELECT /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectInvShipOgnSpeczItmPurSalMng */
-				  CM.TEST_NO
-				, CM.AA
-				, CM.BB
-				, CM.CC
-				, CM.DD
-				, CM.EE
-				, CM.FF
-				, CM.GG
-				, CM.HH
-				, CM.II
-				, CM.II_CODE
-				, CM.JJ
-				, CM.KK
-				, CM.LL
-				, CM.MM
-				, CM.NN
-				, CM.OO
-				, CM.PP
-				, CM.QQ
-				, CM.RR
-				, CM.SS
-				, CM.TT
-				, CM.UU
-				, CM.VV
-				, CM.WW
-				, CM.XX
-				, CM.YY
-				, CM.ZZ
-				, CM.DEL_YN		AS DEL_YN
-				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
-				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
-				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
-				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_FRST_INPT_USER_ID) AS SYS_FRST_INPT_USER_ID_NM
-				, CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
-				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
-				, TO_CHAR(CM.SYS_LAST_CHG_DT,'YYYY-MM-DD')		AS SYS_LAST_CHG_DT_YMD
-				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
-				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_ID_NM
-				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_PD_PrdcrCrclOgnVluIdctrMng CM
-			 WHERE 1=1
+    	SELECT *
+		FROM (
+			SELECT
+				ST.APO_CD
+				, ST.APO_SE
+				, ST.YR
+				, ST.CTGRY_CD
+				, ST.ITEM_CD
+				, (SELECT ITEM_NM FROM TB_GPC_CD WHERE ITEM_CD = ST.ITEM_CD) AS ITEM_NM
+				, ST.PRDCR_OGNZ_SN
+				, ST.PRDCR_OGNZ_CD
+				, ST.FLNM
+				,  (CASE WHEN TOT.SLS_CNSGN_PRCHS_AMT IS NOT NULL THEN TOT.SLS_CNSGN_PRCHS_AMT
+					ELSE ST.SPMT_PRC
+					END) AS SLS_CNSGN_PRCHS_AMT
+				, TOT.UO_SPMT_AMT
+				, TOT.UO_OTHER_SPMT_AMT
+				, TOT.RMRK
+			FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN ST
+			LEFT JOIN TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT TOT
+			ON ST.APO_CD = TOT.APO_CD
+			AND ST.APO_SE = TOT.APO_SE
+			AND ST.YR = TOT.YR
+			AND ST.CTGRY_CD = TOT.CTGRY_CD
+			AND ST.ITEM_CD = TOT.ITEM_CD
+			AND ST.PRDCR_OGNZ_SN = TOT.PRDCR_OGNZ_SN
+			WHERE 1=1
+			
+			UNION ALL
 
-    	]]>
-    		<if test='ccCode != null and ccCode != ""'>
-				AND CM.CC_CODE LIKE #{ccCode} || '%'
-			</if>
-			<if test='iiCode != null and iiCode != ""'>
-				AND CM.II_CODE LIKE '%' || #{iiCode} || '%'
-			</if>
-			<if test='testNo != null and testNo != ""'>
-				AND CM.TEST_NO LIKE '%' || #{testNo} || '%'
-			</if>
-		ORDER BY CM.SYS_LAST_CHG_DT DESC
+			SELECT
+				ITEM.APO_CD
+				, ITEM.APO_SE
+				, ITEM.YR
+				, TOT.CTGRY_CD
+				, ITEM.ITEM_CD
+				, (SELECT ITEM_NM FROM TB_GPC_CD WHERE ITEM_CD = ITEM.ITEM_CD) AS ITEM_NM
+				, TOT.PRDCR_OGNZ_SN
+				, '99' AS PRDCR_OGNZ_CD
+				, '농가 법인 등' AS FLNM
+				, '' AS SLS_CNSGN_PRCHS_AMT
+				, TOT.UO_SPMT_AMT
+				, TOT.UO_OTHER_SPMT_AMT
+				, TOT.RMRK
+			FROM (SELECT ITEM_CD , APO_CD , APO_SE , YR
+						FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN
+						WHERE 1=1
+						GROUP BY ITEM_CD , APO_CD , APO_SE , YR
+						) ITEM
+			LEFT JOIN TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT TOT
+			ON ITEM.ITEM_CD = TOT.ITEM_CD
+			AND ITEM.APO_CD = TOT.APO_CD
+			AND TOT.PRDCR_OGNZ_CD = '99'
+		)
+		ORDER BY ITEM_CD , PRDCR_OGNZ_CD , FLNM
     </select>
 
 

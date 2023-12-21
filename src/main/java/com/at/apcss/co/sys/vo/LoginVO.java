@@ -64,6 +64,7 @@ public class LoginVO implements Serializable{
 	private int lgnFailNmtm;
 	private String endLgnDt;
 	private String endLgnIp;
+	private String brno;
 
 	private String lgnRslt;
 	private String delYn;
@@ -73,9 +74,15 @@ public class LoginVO implements Serializable{
 
 	private String loginCode;
 	private String loginMessage;
-	
+
 	private String frcdExpryYn;
-	
+
+	public String getBrno() {
+		return brno;
+	}
+	public void setBrno(String brno) {
+		this.brno = brno;
+	}
 	/**
 	 * id attribute 를 리턴한다.
 	 * @return String

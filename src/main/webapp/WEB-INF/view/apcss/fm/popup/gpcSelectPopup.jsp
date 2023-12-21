@@ -28,22 +28,17 @@
 				<sbux-input id="gpc-inp-gpcCd" name="gpc-inp-gpcCd" uitype="hidden"></sbux-input>
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
-					<colgroup>
-						<col style="width: 11%">
-						<col style="width: 22%">
-						<col style="width: 11%">
-						<col style="width: 22%">
-						<col style="width: auto">
-					</colgroup>
 					<tbody>
 						<tr>
+							<!--
 							<th scope="row">분류</th>
 							<th>
 								<sbux-input id="gpc-inp-gpcNm" name="gpc-inp-gpcNm" uitype="text" class="form-control input-sm" onkeyenter="enterKey();"></sbux-input>
 							</th>
+							 -->
 							<th scope="row">품목</th>
 							<th>
-								<sbux-input id="gpc-inp-gpcNm1" name="gpc-inp-gpcNm1" uitype="text" class="form-control input-sm" onkeyenter="enterKey();"></sbux-input>
+								<sbux-input id="gpc-inp-itemNm" name="gpc-inp-itemNm" uitype="text" class="form-control input-sm" onkeyenter="enterKey();"></sbux-input>
 							</th>
 							<th></th>
 						</tr>
@@ -150,7 +145,9 @@
 		        */
 		        {caption: ['품목코드'], 	ref: 'itemCd', 	hidden : true},
 		        {caption: ['품목명'], 	ref: 'itemNm', 	width: '200px', type: 'input', style: 'text-align:center'},
+		        /*
 		        {caption: ['비고'], 		ref: 'rmrk', 	width: '500px', type: 'input', style: 'text-align:center'},
+		        */
 		    ];
 
 		    grdGpcPop = _SBGrid.create(SBGridProperties);
@@ -179,12 +176,14 @@
 
 	    	//var gpcCd = SBUxMethod.get("gpc-inp-gpcCd");
 			//var gpcNm = nvlScnd(SBUxMethod.get("gpc-inp-gpcNm"),'');
+			var itemNm = SBUxMethod.get("gpc-inp-itemNm");
 
 			//console.log("setGrid 호출 / gpcNm : " + gpcNm + "/ 타입 : " + typeof(gpcNm));
 
 	        const postJsonPromise = gfn_postJSON("/fm/popup/selectGpcListPopup.do", {
 
 	        	//gpcNm : gpcNm, //검색 파라미터
+	        	itemNm : itemNm,
 	        	// pagination
 		  		pagingYn : 'Y',
 				currentPageNo : pageNo,
@@ -203,8 +202,8 @@
 							ctgryCd : item.ctgryCd,
 							ctgryNm : item.ctgryNm,
 							itemCd 	: item.itemCd,
-							itemNm 	: item.itemNm,
-							rmrk 	: item.rmrk
+							itemNm 	: item.itemNm
+							//rmrk 	: item.rmrk
 					}
 					jsonGpcPop.push(gpc);
 

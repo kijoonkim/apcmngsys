@@ -15,7 +15,8 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title"> ▶ ${comMenuVO.menuNm} ${loginVO.userType}</h3><!-- 등록결과확인 -->
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 등록결과확인 -->
+					<p>-test-계정 사업자번호 : ${loginVO.brno}</p>
 					<!-- 산지조직관리 -->
 					<sbux-label id="lbl-wghno" name="lbl-wghno" uitype="normal" text="">
 					</sbux-label>
@@ -26,8 +27,8 @@
 						<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 					</c:if>
-					<c:if test="${loginVO.userType ne '01' || loginVO.userType ne '00'}">
-						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+					<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+						<sbux-button id="btnSaveFclt01" name="btnSaveFclt01" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 					</c:if>
 				</div>
 			</div>
@@ -913,7 +914,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		fn_initSBSelect();
 		fn_search();
 	</c:if>
-	<c:if test="${loginVO.userType ne '01' || loginVO.userType ne '00'}">
+	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
 		fn_uoListGrid();//품목그리드
 		fn_initSBSelect();
 		fn_dtlSearch();
@@ -1237,16 +1238,14 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
 	/* Grid Row 조회 기능*/
 	const fn_dtlSearch = async function(){
-		let apcCd = '${loginVO.apcCd}';//
-		console.log('apcCd = '+apcCd);
-		if(gfn_isEmpty(apcCd)) return;
+		let brno = '${loginVO.brno}';
+		if(gfn_isEmpty(brno)) return;
 
     	let postJsonPromise = gfn_postJSON("/pd/bsm/selectPrdcrCrclOgnMngList.do", {
-    		apcCd : apcCd
+    		brno : brno
 		});
         let data = await postJsonPromise;
         try{
-        	jsonPrdcrCrclOgnMng.length = 0;
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
         		SBUxMethod.set('dtl-input-apoCd',gfn_nvl(item.apoCd))
@@ -1293,7 +1292,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
         		SBUxMethod.set('dtl-input-fxno',gfn_nvl(item.fxno))
         		SBUxMethod.set('dtl-input-itemNhBrofYn',gfn_nvl(item.itemNhBrofYn))
 			});
-
+        	fn_searchUoList();
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -1399,7 +1398,9 @@ tps://sbgrid.co.kr/v2_5/document/guide
 					fn_uoListMultiSave();
 				}else{
 					alert("처리 되었습니다.");
-	        		fn_search();
+				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+					fn_search();
+				</c:if>
 				}
         	} else {
         		alert(data.resultMessage);
@@ -1472,7 +1473,9 @@ tps://sbgrid.co.kr/v2_5/document/guide
 					fn_uoListMultiSave();
 				}else{
 					alert("처리 되었습니다.");
-	        		fn_search();
+				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+					fn_search();
+				</c:if>
 				}
 			} else {
 				alert(data.resultMessage);
@@ -1613,7 +1616,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 				}
 				jsonUoList.push(uoListVO);
 			});
-
+        	jsonUoList.length = 0;
         	grdUoList.rebuild();
 
         	//비어 있는 마지막 줄 추가용도?
@@ -1674,7 +1677,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		SBUxMethod.set('dtl-input-itemNhBrofYn',null)//
 
 		//출자출하조직이 속한 통합조직 리스트 입력 추가
-		grdUoList.deleteRow(nRow);
+		grdUoList.addRow();
     }
 
 	const fn_clearForm = function() {
@@ -1722,6 +1725,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		SBUxMethod.set('dtl-input-fxno',null)//
 		SBUxMethod.set('dtl-input-itemNhBrofYn',null)//
 		//출자출하조직이 속한 통합조직 리스트 초기화
+
 		grdUoList.rebuild();
 	}
 
@@ -1906,7 +1910,9 @@ tps://sbgrid.co.kr/v2_5/document/guide
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
-        		fn_search();
+        	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+				fn_search();
+			</c:if>
         	} else {
         		alert(data.resultMessage);
         	}

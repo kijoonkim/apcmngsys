@@ -21,6 +21,7 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
+				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 					<!--
 					<sbux-button id="btn-srch-input-outordrInq" name="btn-srch-input-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
 					 -->
@@ -30,9 +31,14 @@
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchFcltList"></sbux-button>
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
 					-->
+				</c:if>
+				<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+					<sbux-button id="btnSaveFclt01" name="btnSaveFclt01" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+				</c:if>
 				</div>
 			</div>
 			<div class="box-body">
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
@@ -209,6 +215,67 @@
 				</div>
 				<br>
 				<br>
+			</c:if><!-- 관리자 권한인 경우 그리드 표기 -->
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '21'}">
+				<table class="table table-bordered tbl_fixed">
+					<caption>사용자 표기</caption>
+					<tbody>
+						<tr>
+							<th scope="row" class="th_bg th_border_right">법인명</th>
+							<sbux-input uitype="hidden" id="dtl-input-apoCd01" name="dtl-input-apoCd01"></sbux-input>
+							<sbux-input uitype="hidden" id="dtl-input-apoSe01" name="dtl-input-apoSe01"></sbux-input>
+							<td colspan="2" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-corpNm01"
+									name="dtl-input-corpNm01"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+							</td>
+							<td class="td_input"  style="border-left: hidden;">
+							<th scope="row" class="th_bg th_border_right">사업자번호</th>
+							<td colspan="2" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-brno01"
+									name="dtl-input-brno01"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+							</td>
+							<td class="td_input"  style="border-left: hidden;">
+							</td>
+							<!--
+							<th scope="row" class="th_bg th_border_right">법인등록번호</th>
+							<td colspan="2" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="srch-input-crno01"
+									name="srch-input-crno01"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+							</td>
+							<td class="td_input"  style="border-left: hidden;">
+							 -->
+							<td colspan="4" class="td_input"  style="border-left: hidden;">
+						</tr>
+					</tbody>
+				</table>
+				<div>
+				>출자출하조직 조회
+				</div>
+				<div class="ad_section_top">
+					<!-- SBGrid를 호출합니다. -->
+					<div id="sb-area-grdInvShipOgnReqMng01" style="height:350px; width: 100%;"></div>
+				</div>
+				<br>
+				<br>
+			</c:if>
 				<table class="table table-bordered tbl_fixed">
 					<caption>출자출하조직 등록 및 신청</caption>
 					<colgroup>
@@ -560,7 +627,21 @@
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_init();
 		fn_initSBSelect();
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		fn_search();
+	</c:if>
+	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+		//통합조직인 경우
+		<c:if test="${loginVO.userType eq '21'}">
+		console.log('통합조직인');
+		fn_dtlSearch();
+		</c:if>
+		//출하조직인 경우
+		<c:if test="${loginVO.userType eq '22'}">
+		console.log('출하조직인');
+		fn_dtlSearch01();
+		</c:if>
+	</c:if>
 
 		var now = new Date();
 		var year = now.getFullYear();
@@ -579,18 +660,6 @@
 		  	});
 		}
 	})
-
-	//타 조직 통합 여부 untuYn
-	var selectUntuYn = [
-		{'text': 'Y','label': 'Y', 'value': '1'},
-		{'text': 'N','label': 'N', 'value': '2'}
-	];
-
-	//출자출하조직 보유 여부
-	var selectIsoHldYn = [
-		{'text': 'Y','label': 'Y', 'value': '1'},
-		{'text': 'N','label': 'N', 'value': '2'}
-	];
 
 	var jsonComCmptnInst = [];//관할기관
 	var jsonComCtpv = [];//시도
@@ -616,7 +685,7 @@
 			//gfn_setComCdSBSelect('srch-input-uoCd', 		jsonComUoCd, 	'UO_CD'), //통합조직코드
 			gfn_setComCdSBSelect('srch-input-aprv', 		jsonComAprv, 	'APRV_UPBR_SE_CD'), //신청구분
 			gfn_setComCdSBSelect('srch-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE'), //신청대상구분
-			gfn_setComCdSBSelect('dtl-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE'), //신청대상구분
+			gfn_setComCdSBSelect('dtl-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE') //신청대상구분
 
 		]);
 		console.log("============fn_initSBSelect=====1=======");
@@ -629,16 +698,14 @@
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		fn_fcltMngCreateGrid();
+	</c:if>
 		fn_fcltMngCreateGrid01();
 	}
 
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid = async function() {
-
-
-
-		//SBUxMethod.set("fclt-inp-apcNm", SBUxMethod.get("inp-apcNm"));
 
 		let SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdInvShipOgnReqMng';
@@ -671,12 +738,7 @@
 	    ];
 
 	    grdInvShipOgnReqMng = _SBGrid.create(SBGridProperties);
-	    /*
-	    let rst = await Promise.all([
-	    	//fn_initSBSelectFclt(),
-		    fn_searchFcltList()
-		])
-		*/
+
 		//grdInvShipOgnReqMng.refresh({"combo":true});
 	  	//클릭 이벤트 바인드
 	   	grdInvShipOgnReqMng.bind('click','fn_view');
@@ -688,8 +750,6 @@
 
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid01 = async function() {
-
-		//SBUxMethod.set("fclt-inp-apcNm", SBUxMethod.get("inp-apcNm"));
 
 		let SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdInvShipOgnReqMng01';
@@ -732,12 +792,7 @@
 	    ];
 
 	    grdInvShipOgnReqMng01 = _SBGrid.create(SBGridProperties);
-	    /*
-	    let rst = await Promise.all([
-	    	fn_initSBSelectFclt(),
-		    fn_searchFcltList()
-		])
-		*/
+
 		//grdInvShipOgnReqMng01.refresh({"combo":true});
 	  	//클릭 이벤트 바인드
 	    grdInvShipOgnReqMng01.bind('click','fn_view01');
@@ -828,6 +883,80 @@
 
         	//비어 있는 마지막 줄 추가용도?
         	//grdInvShipOgnReqMng.addRow();
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
+	}
+	//통합조직 사용자 조회
+	const fn_dtlSearch = async function(){
+		console.log('============fn_dtlSearch=============');
+		let brno = '${loginVO.brno}';
+		if(gfn_isEmpty(brno)) return;
+
+    	let postJsonPromise01 = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
+    		brno : brno
+		});
+
+        let data = await postJsonPromise01 ;
+        try{
+        	console.log("data==="+data);
+        	data.resultList.forEach((item, index) => {
+        		console.log(item);
+        		console.log(item.corpNm);
+        		console.log(item.brno);
+				SBUxMethod.set('dtl-input-apoCd01',gfn_nvl(item.apoCd))//통합조직 코드
+				SBUxMethod.set('dtl-input-apoSe01',gfn_nvl(item.apoSe))//통합조직 구분
+				SBUxMethod.set('dtl-input-corpNm01',gfn_nvl(item.corpNm))//법인명
+				//SBUxMethod.set('dtl-input-crno01',gfn_nvl(item.crno))//법인등록번호
+				SBUxMethod.set('dtl-input-brno01',gfn_nvl(item.brno))//사업자등록번호
+			});
+
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
+	}
+
+	//출하조직 사용자 조회
+	const fn_dtlSearch01 = async function(){
+		let brno = '${loginVO.brno}';
+		if(gfn_isEmpty(brno)) return;
+
+		let postJsonPromise = gfn_postJSON("/pd/aom/selectInvShipOgnReqMngList.do", {
+			brno : brno
+		});
+        let data = await postJsonPromise;
+        try{
+        	jsonInvShipOgnReqMng01.length = 0;
+        	console.log("data==="+data);
+        	data.resultList.forEach((item, index) => {
+				SBUxMethod.set("dtl-input-apoCd", item.apoCd);
+				SBUxMethod.set("dtl-input-crno", item.brno);
+				SBUxMethod.set("dtl-input-brno", item.brno);
+				SBUxMethod.set("dtl-input-corpNm", item.corpNm);
+				SBUxMethod.set("dtl-input-corpSeCd", item.corpSeCd);
+				SBUxMethod.set("dtl-input-corpDtlSeCd", item.corpDtlSeCd);
+				SBUxMethod.set("dtl-input-corpFndnDay", item.corpFndnDay);
+				SBUxMethod.set("dtl-input-invstNope", item.invstNope);
+				SBUxMethod.set("dtl-input-invstExpndFrmerNope", item.invstExpndFrmerNope);
+				SBUxMethod.set("dtl-input-invstAmt", item.invstAmt);
+				SBUxMethod.set("dtl-input-frmerInvstAmt", item.frmerInvstAmt);
+				SBUxMethod.set("dtl-input-prdcrGrpInvstAmt", item.prdcrGrpInvstAmt);
+				SBUxMethod.set("dtl-input-locgovInvstAmt", item.locgovInvstAmt);
+				SBUxMethod.set("dtl-input-etcAmt", item.etcAmt);
+				SBUxMethod.set("dtl-input-rprsvFlnm", item.rprsvFlnm);
+				SBUxMethod.set("dtl-input-rprsvTelno", item.rprsvTelno);
+				SBUxMethod.set("dtl-input-fxno", item.fxno);
+
+				SBUxMethod.set("dtl-input-aplyTrgtSe", item.aplyTrgtSe);
+				SBUxMethod.set("dtl-input-isoFundAplyAmt", item.isoFundAplyAmt);
+			});
+
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -1054,6 +1183,9 @@
 		SBUxMethod.set("dtl-input-rprsvFlnm", rowData.rprsvFlnm);
 		SBUxMethod.set("dtl-input-rprsvTelno", rowData.rprsvTelno);
 		SBUxMethod.set("dtl-input-fxno", rowData.fxno);
+
+		SBUxMethod.set("dtl-input-aplyTrgtSe", rowData.aplyTrgtSe);
+		SBUxMethod.set("dtl-input-isoFundAplyAmt", rowData.isoFundAplyAmt);
 
     }
 
