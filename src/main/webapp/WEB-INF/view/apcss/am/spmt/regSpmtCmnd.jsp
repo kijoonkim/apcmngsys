@@ -577,7 +577,18 @@
 			SBUxMethod.set("dtl-inp-dldtn", "");
 			return;
 		}
-
+		
+		// 입력한 값이 음수일 때
+		if(inptCmndQntt < 0){
+			gfn_comAlert("E0000", "지시수량이 0보다 작습니다.");
+			grdSpmtCmndTrg.setCellData(nRow, inptCmndWghtCol, 0);
+			grdSpmtCmndTrg.setCellData(nRow, inptCmndWghtCol , 0);
+			grdSpmtCmndTrg.setCellData(nRow, checkedYnCol, "N");
+			SBUxMethod.set("dtl-inp-apcCnptNm", "");
+			SBUxMethod.set("dtl-inp-apcCnptCd", "");
+			SBUxMethod.set("dtl-inp-dldtn", "");
+			return;
+		}
 		if(inptCmndQntt == 0){
 			grdSpmtCmndTrg.setCellData(nRow, inptCmndWghtCol, 0);
 			grdSpmtCmndTrg.setCellData(nRow, checkedYnCol, "N");
