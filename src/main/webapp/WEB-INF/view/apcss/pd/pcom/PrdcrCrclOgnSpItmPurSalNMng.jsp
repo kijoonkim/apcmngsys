@@ -21,11 +21,19 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
+				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
+				</c:if>
+				<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+					<sbux-button id="test" name="test" uitype="normal" text="testView" class="btn btn-sm btn-outline-danger" onclick="fn_test"></sbux-button>
+					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
+					<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
+				</c:if>
 				</div>
 			</div>
 			<div class="box-body">
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
@@ -203,6 +211,7 @@
 						<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
 					</div>
 				</div>
+			</c:if><!-- 관리자 권한인 경우 그리드 표기 -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>출하조직 표기</caption>
 					<tbody>
@@ -268,7 +277,12 @@
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_init();
 		fn_initSBSelect();
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		fn_search();
+	</c:if>
+	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+		fn_dtlSearch();
+	</c:if>
 
 		var now = new Date();
 		var year = now.getFullYear();
@@ -278,16 +292,12 @@
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		fn_fcltMngCreateGrid();
+	</c:if>
 		fn_fcltMngCreateGrid01();
 		//fn_fcltMngCreateGrid02();
 	}
-
-	//출자출하조직 보유 여부
-	var selectIsoHldYn = [
-		{'text': 'Y','label': 'Y', 'value': '1'},
-		{'text': 'N','label': 'N', 'value': '2'}
-	];
 
 	var jsonComCmptnInst = [];//관할기관
 	var jsonComCtpv = [];//시도
@@ -575,6 +585,36 @@
         }
 	}
 
+
+	//사용자 화면 조회
+	const fn_dtlSearch = async function(){
+		let brno = '${loginVO.brno}';
+		if(gfn_isEmpty(brno)) return;
+
+    	let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
+    		brno : brno
+		});
+
+        let data = await postJsonPromise ;
+        try{
+        	console.log("data==="+data);
+        	data.resultList.forEach((item, index) => {
+				SBUxMethod.set('dtl-input-apoCd',gfn_nvl(item.apoCd))//통합조직 코드
+				SBUxMethod.set('dtl-input-apoSe',gfn_nvl(item.apoSe))//통합조직 구분
+				SBUxMethod.set('dtl-input-corpNm',gfn_nvl(item.corpNm))//법인명
+				SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno))//법인등록번호
+				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))//사업자등록번호
+
+			});
+
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
+	}
+
 	//통합조직 리스트 그리드 클릭시  이벤트
 	const fn_view = async function(){
 		console.log("******************fn_view**********************************");
@@ -609,7 +649,43 @@
 		//grdPrdcrOgnCurntMng02.rebuild();
 	}
 
+	//판매위임[매입] 및 출하[매출] 실적 그리드 조회
+	const fn_dtlGridSearch = async function(){
+		let brno = SBUxMethod.get("dtl-input-brno");//
 
+    	let postJsonPromise = gfn_postJSON("/pd/pcom/.do", {
+    		brno : brno
+		});
+
+        let data = await postJsonPromise ;
+        try{
+        	jsonPrdcrOgnCurntMng01.length = 0;
+        	console.log("data==="+data);
+        	data.resultList.forEach((item, index) => {
+				let PrdcrOgnCurntMngVO = {
+						apoCd: item.apoCd
+						,apoSe: item.apoSe
+						,ctpv: item.ctpv
+						,sgg: item.sgg
+						,corpNm: item.corpNm
+						,crno: item.crno
+						,brno: item.brno
+						,yr:'2023'
+				}
+				jsonPrdcrOgnCurntMng01.push(PrdcrOgnCurntMngVO);
+				if (index === 0) {
+					totalRecordCount = item.totalRecordCount;
+				}
+			});
+        	grdPrdcrOgnCurntMng01.rebuild();
+
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
+	}
 
 </script>
 </html>

@@ -59,6 +59,11 @@
 
 				, EAM.YR
 				, EAM.APLY_DAY
+
+				,(CASE WHEN TRIM(RAW_MTR_ENSR_SIGUN_CNT) IS NOT NULL THEN '1'
+						WHEN TRIM(RAW_MTR_ENSR_CTPV_CNT) IS NOT NULL THEN '2'
+						END
+				) AS RAW_MTR_ENSR
 				, EAM.RAW_MTR_ENSR_SIGUN_CNT
 				, EAM.RAW_MTR_ENSR_CTPV_CNT
 				, EAM.CTPV_NM
@@ -166,9 +171,15 @@
 				, CM.UO_BRNO
 				, CM.UO_NM
 				, CM.UNTY_YR
+				, CM.APRV
 
 				, EAM.YR
 				, EAM.APLY_DAY
+				,(CASE WHEN TRIM(RAW_MTR_ENSR_SIGUN_CNT) IS NOT NULL THEN '1'
+						WHEN TRIM(RAW_MTR_ENSR_CTPV_CNT) IS NOT NULL THEN '2'
+						END
+				) AS RAW_MTR_ENSR
+
 				, EAM.RAW_MTR_ENSR_SIGUN_CNT
 				, EAM.RAW_MTR_ENSR_CTPV_CNT
 				, EAM.CTPV_NM
@@ -246,7 +257,7 @@
 	    		)
 	   		VALUES
 	   			(
-	   			    #{intyYn}
+	   			    #{untyYn}
 	   			  , #{uoNm}
 	   			  , #{uoBrno}
 	   			  , #{untyYr}
@@ -265,7 +276,7 @@
 	    	UPDATE /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.upatePrdcrCrclOgnReqMng */
 	    		TB_EV_APO
 			   SET
-			 	  UNTY_YN		= #{intyYn}
+			 	  UNTY_YN		= #{untyYn}
 			 	, UO_NM 		= #{uoNm}
 			 	, UO_BRNO 		= #{uoBrno}
 			 	, UNTY_YR 		= #{untyYr}
