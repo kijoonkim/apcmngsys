@@ -829,7 +829,18 @@
 					    , SI.PRDCTN_YR          AS PRDCTN_YR
 					    , SI.SORT_SN            AS SORT_SN
 					    , SI.RMRK               AS RMRK
-
+						, (SELECT SUM(CMND_QNTT)
+			                 FROM TB_PCKG_CMND X
+			                WHERE X.APC_CD = SI.APC_CD
+			                  AND X.SORTNO = SI.SORTNO
+			                  AND X.DEL_YN = 'N'
+			              ) AS CMND_QNTT
+			     		, (SELECT SUM(CMND_WGHT)
+			                 FROM TB_PCKG_CMND X
+			                WHERE X.APC_CD = SI.APC_CD
+			                  AND X.SORTNO = SI.SORTNO
+			                  AND X.DEL_YN = 'N'
+			              ) AS CMND_WGHT
 					 FROM TB_SORT_INVNTR SI
 					WHERE SI.APC_CD = #{apcCd}
 					  AND SI.INVNTR_WGHT > 0

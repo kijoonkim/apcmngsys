@@ -370,8 +370,8 @@
     	var nRow = grdSortInvntr.getRow();
     	let pckgQnttCol = grdSortInvntr.getColRef("pckgQntt");
     	let pckgWghtCol = grdSortInvntr.getColRef("pckgWght");
-    	grdSortInvntr.setCellData(nRow, pckgQnttCol, 0);
-    	grdSortInvntr.setCellData(nRow, pckgWghtCol, 0);
+    	grdSortInvntr.setCellData(nRow, pckgQnttCol, null);
+    	grdSortInvntr.setCellData(nRow, pckgWghtCol, null);
     }
 
     const fn_checkInptQntt = async function(){
@@ -382,11 +382,16 @@
 		let invntrQntt = grdSortInvntr.getRowData(nRow).invntrQntt;
 		let invntrWght = grdSortInvntr.getRowData(nRow).invntrWght;
 		let pckgQntt = grdSortInvntr.getRowData(nRow).pckgQntt;
-
+		
 		if(invntrQntt - pckgQntt < 0){
 			gfn_comAlert("W0008", "재고수량", "출하수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
-			grdSortInvntr.setCellData(nRow, nCol , 0);
+			grdSortInvntr.setCellData(nRow, nCol , null);
             return;
+		}
+		if(pckgQntt < 0){
+			gfn_comAlert("E0000", "입력한 수량이 0보다 작습니다.");		//	W0008	{0} 보다 {1}이/가 큽니다.
+			grdSortInvntr.setCellData(nRow, nCol , null);
+			return;
 		}
 
 		if(invntrQntt > 0 && pckgQntt > 0){
@@ -580,6 +585,7 @@
   	  						sortno 			: item.sortno,
   	  						sortSn 			: item.sortSn
   	  				}
+  	          		sortInvntr.invntrQntt -= sortInvntr.cmndQntt;
   	          		jsonSortInvntr.push(sortInvntr);
 
   	  			});
@@ -640,6 +646,7 @@
   	      				rmrk			: item.rmrk,
   	      				delYn			: item.delYn
   					}
+//   	          		pckgCmnd.rmrk = 'TTEESSTT';
   	          		jsonPckgCmnd.push(pckgCmnd);
 
   	  			});
