@@ -167,7 +167,7 @@ public class ComAuthrtController extends BaseController{
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}
-			
+
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -510,6 +510,73 @@ public class ComAuthrtController extends BaseController{
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	/**
+	 * 메뉴 즐겨찾기 등록
+	 */
+	@PostMapping(value = "/co/authrt/insertBmk.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertBmk(@RequestBody ComAuthrtVO comAuthrtVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String,Object>();
+		try {
+
+			// validation check
+			comAuthrtVO.setSysFrstInptUserId(getUserId());
+			comAuthrtVO.setSysFrstInptPrgrmId(getPrgrmId());
+			comAuthrtVO.setSysLastChgUserId(getUserId());
+			comAuthrtVO.setSysLastChgPrgrmId(getPrgrmId());
+			comAuthrtVO.setUserId(getUserId());
+
+			HashMap<String, Object> rtnObj = comAuthrtService.insertBmk(comAuthrtVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	/**
+	 * 메뉴 즐겨찾기 삭제
+	 */
+	@PostMapping(value = "/co/authrt/deleteBmk.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteBmk(@RequestBody ComAuthrtVO comAuthrtVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String,Object>();
+		try {
+
+			// validation check
+			comAuthrtVO.setSysFrstInptUserId(getUserId());
+			comAuthrtVO.setSysFrstInptPrgrmId(getPrgrmId());
+			comAuthrtVO.setSysLastChgUserId(getUserId());
+			comAuthrtVO.setSysLastChgPrgrmId(getPrgrmId());
+			comAuthrtVO.setUserId(getUserId());
+
+			HashMap<String, Object> rtnObj = comAuthrtService.deleteBmk(comAuthrtVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
 		} catch (Exception e) {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);

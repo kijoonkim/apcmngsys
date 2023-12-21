@@ -123,7 +123,7 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 	}
 
 	@Override
-	public List<ComAuthrtMenuVO> selectComAuthrtMenuTreeList(ComAuthrtMenuVO comAuthrtMenuVO) {
+	public List<ComAuthrtMenuVO> selectComAuthrtMenuTreeList(ComAuthrtMenuVO comAuthrtMenuVO) throws Exception {
 
 		List<ComAuthrtMenuVO> rtnList = comAuthrtMapper.selectComAuthrtMenuTreeList(comAuthrtMenuVO);
 
@@ -131,7 +131,7 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 	}
 
 	@Override
-	public List<ComAuthrtUserVO> selectComAuthrtUserList(ComAuthrtUserVO comAuthrtUserVO) {
+	public List<ComAuthrtUserVO> selectComAuthrtUserList(ComAuthrtUserVO comAuthrtUserVO) throws Exception {
 
 		List<ComAuthrtUserVO> rtnList = comAuthrtMapper.selectComAuthrtUserList(comAuthrtUserVO);
 
@@ -1445,5 +1445,24 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 	public int insertComAuthrtUserHsrty(ComAuthrtUserVO comAuthrtUserVO) throws Exception {
 		int insertedCnt = comAuthrtMapper.insertComAuthrtUserHsrty(comAuthrtUserVO);
 		return insertedCnt;
+	}
+
+	@Override
+	public HashMap<String, Object> insertBmk(ComAuthrtVO comAuthrtVO) throws Exception {
+
+		if (0 == comAuthrtMapper.insertBmk(comAuthrtVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "즐겨찾기 등록")));		// E0003	{0} 시 오류가 발생하였습니다.
+		}
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deleteBmk(ComAuthrtVO comAuthrtVO) throws Exception {
+		if (0 == comAuthrtMapper.deleteBmk(comAuthrtVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "즐겨찾기 삭제")));		// E0003	{0} 시 오류가 발생하였습니다.
+		}
+
+		return null;
 	}
 }

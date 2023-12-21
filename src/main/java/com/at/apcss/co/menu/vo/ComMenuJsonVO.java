@@ -14,4 +14,5 @@ public class ComMenuJsonVO {
 	private String value;
 	private String topMenuNm;
 	private String url;
+	private String bmkYn;
 }
