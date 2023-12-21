@@ -129,7 +129,8 @@
                     order: item.indctSeq,
                     text: item.menuNm,
                     url: item.pageUrl,
-                    prsnaYn : item.prsnaInfoYn
+                    prsnaYn : item.prsnaInfoYn,
+                    bmkYn	: item.bmkYn
                 }
                 sideJsonData.push(menu);
             });
@@ -437,6 +438,16 @@
             {"order": "40", "id": menuNo, "pid": upMenuNo, "text": menuNm, "url": menuInfo.url}
         );
 
+        if (menuInfo.bmkYn == "Y"){
+        	menuJsonB.push(
+                    {"order": "50", "id": menuNo, "pid": upMenuNo, "text": '★', "value" : "Y"}
+                );
+        }else if(menuInfo.bmkYn == "N"){
+        	menuJsonB.push(
+                    {"order": "50", "id": menuNo, "pid": upMenuNo, "text": '☆', "value" : "N"}
+                );
+        }
+
         /*
         if (menuInfo != undefined) {
             var pMenuNo = menuInfo.pid;
@@ -643,6 +654,7 @@
                     jsondata-ref="menuJsonB"
                     show-tooltip="true"
                     tooltip-key="url"
+                    onclick="fn_bmkYn()"
             ></sbux-breadcrumb>
             <!--full content-->
             <div class="sbt-wrap-full">
@@ -701,7 +713,78 @@
             gfn_comAlert("W0001", "프로그램");		//	W0001	{0}을/를 선택하세요.
         }
 
+    }
 
+    const fn_bmkYn = async function(){
+
+    	let breadcrumb = SBUxMethod.getBreadcrumb("breadcrumb");
+    	let order = breadcrumb.order;
+    	if(order == "50"){
+
+    		let menuId = menuJsonB[menuJsonB.length-1].id;
+    		let bmkYn = menuJsonB[menuJsonB.length-1].value;
+
+    		SBUxMethod.refresh('breadcrumb');
+
+    		if(bmkYn == "Y" || bmkYn == "N"){
+    			let bmk = {menuId : menuId}
+    			if(bmkYn == "Y"){
+
+    				const postJsonPromise = gfn_postJSON("/co/authrt/deleteBmk.do", bmk);
+    		    	const data = await postJsonPromise;
+    		    	try{
+    		    		if (_.isEqual("S", data.resultStatus)) {
+
+    		    			let index = menuJsonB.length-1;
+    		    			menuJsonB[index].text = "☆"
+    		    			menuJsonB[index].value = "N"
+
+    		    			for(var i; i<menuJson.length; i++){
+    		    				if(menuJson[i].menuId == menuId){
+    		    					menuJson[i].bmkYn = "N"
+    		    					break;
+    		    				}
+    		    			}
+    		        	} else {
+    		        		gfn_comAlert(data.resultCode, data.resultMessage);
+    		        	}
+    		        }catch (e) {
+    		        	if (!(e instanceof Error)) {
+    		    			e = new Error(e);
+    		    		}
+    		    		console.error("failed", e.message);
+    				}
+    			}
+    			if(bmkYn == "N"){
+    				const postJsonPromise = gfn_postJSON("/co/authrt/insertBmk.do", bmk);
+    		    	const data = await postJsonPromise;
+    		    	try{
+    		    		if (_.isEqual("S", data.resultStatus)) {
+
+    		    			let index = menuJsonB.length-1;
+    		    			menuJsonB[index].text = "★"
+    		    			menuJsonB[index].value = "Y"
+
+    		    			for(var i; i<menuJson.length; i++){
+    		    				if(menuJson[i].menuId == menuId){
+    		    					menuJson[i].bmkYn = "Y";
+    		    					break;
+    		    				}
+    		    			}
+    		        	} else {
+    		        		gfn_comAlert(data.resultCode, data.resultMessage);
+    		        	}
+    		        }catch (e) {
+    		        	if (!(e instanceof Error)) {
+    		    			e = new Error(e);
+    		    		}
+    		    		console.error("failed", e.message);
+    				}
+    			}
+    			SBUxMethod.refresh('breadcrumb');
+    		}
+
+    	}
     }
 
 

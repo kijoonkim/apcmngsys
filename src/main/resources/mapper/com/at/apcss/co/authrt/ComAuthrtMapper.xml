@@ -406,10 +406,10 @@
     	]]>
     	<choose>
     		<when test='authrtType != null and authrtType == "00"'>
-				   AND MN.AUTHRT_TYPE IN ('00', '10', '20', '21', '30', '40')
+				   AND MN.AUTHRT_TYPE IN ('00', '10', '20', '21', '30', '40', '55', '60')
     		</when>
     		<when test='authrtType != null and authrtType == "10"'>
-				   AND MN.AUTHRT_TYPE IN ('10', '20', '21', '30', '40')
+				   AND MN.AUTHRT_TYPE IN ('10', '20', '21', '30', '40', '55', '60')
     		</when>
     		<when test='authrtType != null and authrtType == "20"'>
 				   AND MN.AUTHRT_TYPE IN ('20', '21', '30', '40')
@@ -422,6 +422,9 @@
     		</when>
     		<when test='authrtType != null and authrtType == "40"'>
 				   AND MN.AUTHRT_TYPE IN ('40')
+    		</when>
+    		<when test='authrtType != null and authrtType == "55"'>
+				   AND MN.AUTHRT_TYPE IN ('55')
     		</when>
     	</choose>
     	<![CDATA[
@@ -665,6 +668,7 @@
 				, MN.PAGE_URL		AS PAGE_URL
 				, MN.APC_CD			AS APC_CD
 				, MN.INDCT_SEQ		AS INDCT_SEQ
+				, MN.BMK_YN			AS BMK_YN
 				, AUTH.AUTHRT_ID	AS AUTHRT_ID
 				, AUTH.AUTHRT_NM	AS AUTHRT_NM
 				, AUTH.AUTHRT_TYPE	AS AUTHRT_TYPE
@@ -682,6 +686,10 @@
 					, MN.PAGE_URL	AS PAGE_URL
 					, MN.APC_CD		AS APC_CD
 					, MN.INDCT_SEQ	AS INDCT_SEQ
+					, CASE WHEN (SELECT COUNT(*) FROM  TB_COM_MENU_BMK MB WHERE MB.MENU_ID = MN.MENU_ID AND MB.USER_ID = #{userId}) = 1
+                           THEN 'Y'
+                           ELSE 'N'
+                      END AS BMK_YN
 				  FROM TB_COM_MENU MN
 				 WHERE MN.DEL_YN = 'N'
 				 START WITH MN.UP_MENU_ID IS NULL
@@ -720,6 +728,100 @@
 				) AUTH
 			  ON AUTH.MENU_ID = MN.MENU_ID
 		 	 WHERE MN.LVL <= 2
+
+		 	 UNION ALL
+				 SELECT
+				      1			   	 	AS MENU_LVL
+				    , 999			    AS MENU_SEQ
+				    , 'BM'			    AS SYS_ID
+				    , ''		        AS UP_MENU_ID
+				    , ''		        AS UP_MENU_NM
+				    , 'BM'		        AS MENU_ID
+				    , '즐겨찾기'		AS MENU_NM
+				    , '01'  	        AS MENU_TYPE
+				    , '10'		        AS USER_TYPE
+				    , ''		        AS PAGE_URL
+				    , '0000'			AS APC_CD
+				    , 0		            AS INDCT_SEQ
+				    , 'Y'               AS BMK_YN
+				    , #{authrtId}	    AS AUTHRT_ID
+				    , ''	            AS AUTHRT_NM
+				    , ''	            AS AUTHRT_TYPE
+				    , 'Y'               AS USE_YN
+				 FROM DUAL
+			UNION ALL
+				  SELECT          MN.LVL			AS MENU_LVL
+								, MN.SEQ			AS MENU_SEQ
+								, MN.SYS_ID			AS SYS_ID
+								, MN.UP_MENU_ID		AS UP_MENU_ID
+								, '즐겨찾기'		AS UP_MENU_NM
+								, MN.MENU_ID		AS MENU_ID
+								, MN.MENU_NM		AS MENU_NM
+								, MN.MENU_TYPE  	AS MENU_TYPE
+								, MN.USER_TYPE		AS USER_TYPE
+								, MN.PAGE_URL		AS PAGE_URL
+								, MN.APC_CD			AS APC_CD
+								, MN.INDCT_SEQ		AS INDCT_SEQ
+								, MN.BMK_YN			AS BMK_YN
+								, AUTH.AUTHRT_ID	AS AUTHRT_ID
+								, AUTH.AUTHRT_NM	AS AUTHRT_NM
+								, AUTH.AUTHRT_TYPE	AS AUTHRT_TYPE
+								, NVL2(AUTH.MENU_ID, 'Y', 'N') AS USE_YN
+
+				  FROM
+				    (SELECT
+				      2		    AS LVL
+					, 999+ROWNUM 	AS SEQ
+
+				    , 'BM'			    AS SYS_ID
+				    , 'BM'		        AS UP_MENU_ID
+				    , '즐겨찾기'		AS UP_MENU_NM
+				    , MN.MENU_ID		AS MENU_ID
+				    , MN.MENU_NM		AS MENU_NM
+				    , MN.MENU_TYPE  	AS MENU_TYPE
+				    , MN.USER_TYPE		AS USER_TYPE
+				    , MN.PAGE_URL		AS PAGE_URL
+				    , MN.APC_CD			AS APC_CD
+				    , MN.INDCT_SEQ		AS INDCT_SEQ
+				    , 'Y'               AS BMK_YN
+
+				 FROM TB_COM_MENU MN
+				    , TB_COM_MENU_BMK MB
+				WHERE MN.MENU_ID = MB.MENU_ID
+				 AND MN.DEL_YN = 'N'
+				 AND MB.USER_ID = #{userId}
+				 ) MN
+
+				 LEFT JOIN TB_COM_MENU UM
+			  	  ON UM.MENU_ID = MN.UP_MENU_ID
+			  	 AND UM.DEL_YN = 'N'
+
+				LEFT JOIN (
+					SELECT
+						  LISTAGG(CA.AUTHRT_ID, ',') WITHIN GROUP (ORDER BY CA.AUTHRT_ID) AS AUTHRT_ID
+						, LISTAGG(CA.AUTHRT_NM, ',') WITHIN GROUP (ORDER BY CA.AUTHRT_ID) AS AUTHRT_NM
+						, NULL AS AUTHRT_TYPE
+						, AM.MENU_ID
+					  FROM TB_COM_AUTH CA
+					  LEFT JOIN TB_COM_AUTH_MENU AM
+					    ON AM.AUTHRT_ID = CA.AUTHRT_ID
+					   AND AM.DEL_YN = 'N'
+					 WHERE CA.DEL_YN = 'N'
+		]]>
+				<if test='authrtId != null and authrtId != ""'>
+					   AND CA.AUTHRT_ID = #{authrtId}
+				</if>
+				<if test='authrtIdList != null and !authrtIdList.isEmpty()'>
+					   AND CA.AUTHRT_ID IN
+					   <foreach collection="authrtIdList" item="item" index="index" separator="," open="(" close=")">
+					   	#{item}
+					   </foreach>
+				</if>
+    	<![CDATA[
+					 GROUP BY AM.MENU_ID
+				) AUTH
+			  ON AUTH.MENU_ID = MN.MENU_ID
+		 	 WHERE MN.LVL <= 2
     	]]>
     </select>
 
@@ -746,6 +848,7 @@
 				, MN.PAGE_URL		AS PAGE_URL
 				, MN.APC_CD			AS APC_CD
 				, MN.INDCT_SEQ		AS INDCT_SEQ
+				, MN.BMK_YN			AS BMK_YN
 				, AUTH.AUTHRT_ID	AS AUTHRT_ID
 				, AUTH.AUTHRT_NM	AS AUTHRT_NM
 				, AUTH.AUTHRT_TYPE	AS AUTHRT_TYPE
@@ -765,6 +868,10 @@
 					, MN.APC_CD		AS APC_CD
 					, MN.INDCT_SEQ	AS INDCT_SEQ
 					, MN.PRSNA_INFO_YN
+					, CASE WHEN (SELECT COUNT(*) FROM  TB_COM_MENU_BMK MB WHERE MB.MENU_ID = MN.MENU_ID AND MB.USER_ID = #{userId}) = 1
+                           THEN 'Y'
+                           ELSE 'N'
+                      END AS BMK_YN
 				  FROM TB_COM_MENU MN
 				 WHERE MN.DEL_YN = 'N'
 				 START WITH MN.UP_MENU_ID = #{upMenuId}
@@ -803,6 +910,82 @@
 				) AUTH
 			  ON AUTH.MENU_ID = MN.MENU_ID
 			 WHERE 1=1
+
+  			UNION ALL
+			 SELECT           MN.LVL			AS MENU_LVL
+							, MN.SEQ			AS MENU_SEQ
+							, MN.SYS_ID			AS SYS_ID
+							, MN.UP_MENU_ID		AS UP_MENU_ID
+							, '즐겨찾기'		AS UP_MENU_NM
+							, MN.MENU_ID		AS MENU_ID
+							, MN.MENU_NM		AS MENU_NM
+							, MN.MENU_TYPE  	AS MENU_TYPE
+							, MN.USER_TYPE		AS USER_TYPE
+							, MN.PAGE_URL		AS PAGE_URL
+							, MN.APC_CD			AS APC_CD
+							, MN.INDCT_SEQ		AS INDCT_SEQ
+							, MN.BMK_YN			AS BMK_YN
+							, AUTH.AUTHRT_ID	AS AUTHRT_ID
+							, AUTH.AUTHRT_NM	AS AUTHRT_NM
+							, AUTH.AUTHRT_TYPE	AS AUTHRT_TYPE
+							, NVL2(AUTH.MENU_ID, 'Y', 'N') AS USE_YN
+							, MN.PRSNA_INFO_YN	AS PRSNA_INFO_YN
+
+			  FROM
+				    (SELECT
+				      2		    		AS LVL
+					, 999+ROWNUM 		AS SEQ
+
+				    , 'BM'			    AS SYS_ID
+				    , 'BM'		        AS UP_MENU_ID
+				    , '즐겨찾기'		AS UP_MENU_NM
+				    , MN.MENU_ID		AS MENU_ID
+				    , MN.MENU_NM		AS MENU_NM
+				    , MN.MENU_TYPE  	AS MENU_TYPE
+				    , MN.USER_TYPE		AS USER_TYPE
+				    , MN.PAGE_URL		AS PAGE_URL
+				    , MN.APC_CD			AS APC_CD
+				    , MN.INDCT_SEQ		AS INDCT_SEQ
+				    , 'Y'               AS BMK_YN
+				    , MN.PRSNA_INFO_YN	AS PRSNA_INFO_YN
+
+				 FROM TB_COM_MENU MN
+				    , TB_COM_MENU_BMK MB
+				WHERE MN.MENU_ID = MB.MENU_ID
+				 AND MN.DEL_YN = 'N'
+				 AND MB.USER_ID = #{userId}
+				 ) MN
+
+			 LEFT JOIN TB_COM_MENU UM
+			  	  ON UM.MENU_ID = MN.UP_MENU_ID
+			  	 AND UM.DEL_YN = 'N'
+
+				LEFT JOIN (
+					SELECT
+						  LISTAGG(CA.AUTHRT_ID, ',') WITHIN GROUP (ORDER BY CA.AUTHRT_ID) AS AUTHRT_ID
+						, LISTAGG(CA.AUTHRT_NM, ',') WITHIN GROUP (ORDER BY CA.AUTHRT_ID) AS AUTHRT_NM
+						, NULL AS AUTHRT_TYPE
+						, AM.MENU_ID
+					  FROM TB_COM_AUTH CA
+					  LEFT JOIN TB_COM_AUTH_MENU AM
+					    ON AM.AUTHRT_ID = CA.AUTHRT_ID
+					   AND AM.DEL_YN = 'N'
+					 WHERE CA.DEL_YN = 'N'
+		]]>
+				<if test='authrtId != null and authrtId != ""'>
+					   AND CA.AUTHRT_ID = #{authrtId}
+				</if>
+				<if test='authrtIdList != null and !authrtIdList.isEmpty()'>
+					   AND CA.AUTHRT_ID IN
+					   <foreach collection="authrtIdList" item="item" index="index" separator="," open="(" close=")">
+					   	#{item}
+					   </foreach>
+				</if>
+    	<![CDATA[
+					 GROUP BY AM.MENU_ID
+				) AUTH
+			  ON AUTH.MENU_ID = MN.MENU_ID
+		   WHERE MN.UP_MENU_ID = #{upMenuId}
     	]]>
     </select>
 
@@ -1199,4 +1382,57 @@
     	]]>
     </insert>
 
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.insertBmk				-->
+	<!-- DESC : 메뉴 즐겨찾기  등록.                                             	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.12.20  	김호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertBmk" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtUserVO">
+    	<![CDATA[
+			INSERT /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.insertBmk */
+				INTO TB_COM_MENU_BMK (
+					  USER_ID
+					, MENU_ID
+					, MENU_SEQ
+	    		  	, SYS_FRST_INPT_DT
+	    		  	, SYS_FRST_INPT_USER_ID
+	    		  	, SYS_FRST_INPT_PRGRM_ID
+	    		  	, SYS_LAST_CHG_DT
+	    		  	, SYS_LAST_CHG_USER_ID
+	    		  	, SYS_LAST_CHG_PRGRM_ID
+				) VALUES (
+					  #{userId}
+					, #{menuId}
+				    , (SELECT NVL(MAX(MENU_SEQ) + 1 , 0)
+					     FROM TB_COM_MENU_BMK
+					     WHERE USER_ID = #{userId})
+					, SYSDATE
+	   			  	, #{sysFrstInptUserId}
+	   			  	, #{sysFrstInptPrgrmId}
+	   			  	, SYSDATE
+	   			  	, #{sysLastChgUserId}
+	   			  	, #{sysLastChgPrgrmId}
+				)
+    	]]>
+    </insert>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.deleteBmk				-->
+	<!-- DESC : 메뉴 즐겨찾기  삭제.                                             	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.12.20  	김호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<delete id="deleteBmk" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtUserVO">
+		<![CDATA[
+			DELETE /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.deleteBmk */
+		 	  FROM TB_COM_MENU_BMK
+			 WHERE USER_ID = #{userId}
+			   AND MENU_ID = #{menuId}
+		]]>
+	</delete>
 </mapper>

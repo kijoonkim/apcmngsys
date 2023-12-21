@@ -23,6 +23,7 @@ public class ComAuthrtVO extends ComVO {
 	private String apcCd;
 	private String apcNm;
 	private String userId;
+	private String menuId;
 	private String flfmtTaskSeCd;
 
 	/**
