@@ -484,7 +484,6 @@
 		])
 
 		SBUxMethod.refresh("excel-slt-spmtPckgUnit");
-		SBUxMethod.refresh("srch-slt-spmtPckgUnitCd");
 	}
 
 	const fn_onChangeSrchVrtyCd = async function(obj){
@@ -507,7 +506,7 @@
 		]);
 
 		grdGdsInvntr.refresh({"combo":true})
-		SBUxMethod.refresh("srch-slt-spmtPckgUnitCd");
+		SBUxMethod.refresh("dtl-slt-gdsGrd");
 		SBUxMethod.refresh("excel-slt-spmtPckgUnit");
 	}
 
@@ -578,9 +577,9 @@
             {caption: ["등급"], 			ref: 'gdsGrd',   		width:'100px',  type:'combo',  	style:'text-align:center; background:#FFF8DC;',
     			typeinfo : {ref:'jsonGrdGdsGrd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
             {caption: ['출하수량'], 		ref: 'spmtQntt', 		width: '80px', 	type: 'input', 	style: 'text-align:right; background:#FFF8DC;',
-            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### '}},
+            	typeinfo : {mask : {alias : '#', repeat : '*'}}, format : {type:'number', rule:'#,###'}},
             {caption: ['출하중량 (Kg)'], 	ref: 'spmtWght', 		width: '100px', type: 'input', 	style: 'text-align:right',
-            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
+            	typeinfo : {mask : {alias : '#', repeat : '*'}}, format : {type:'number', rule:'#,###'}},
 			{caption: ['비고'], 			ref: 'rmrk', 			width: '300px', type: 'output', style: 'text-align:center'},
             {caption: ["출하일자"],		ref: 'spmtYmd',   		type:'output',  hidden: true},
             {caption: ["거래처코드"],		ref: 'cnptCd',   		type:'output',  hidden: true},
@@ -745,7 +744,7 @@
 		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
-		let spmtPckgUnitCd = SBUxMethod.get("srch-slt-spmtPckgUnitCd");
+		let spmtPckgUnitCd = SBUxMethod.get("dtl-slt-spmtPckgUnit");
 		let gdsSeCd = SBUxMethod.get("srch-rdo-gdsSeCd");
 		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
 
@@ -1542,7 +1541,6 @@
 				SBUxMethod.set("dtl-inp-rmrk", cmnd.rmrk);
 			}
 			SBUxMethod.set("dtl-inp-outordrno", cmnd.outordrno);
-			SBUxMethod.set("dtl-slt-gdsGrd", cmnd.gdsGrd);
 			await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd)		// 품종
 			SBUxMethod.set("srch-slt-itemCd", cmnd.itemCd);
 			SBUxMethod.set("srch-slt-vrtyCd", cmnd.vrtyCd);
@@ -1552,9 +1550,9 @@
 				gfn_setSpmtPckgUnitSBSelect('dtl-slt-spmtPckgUnit', 	jsonDtlSpmtPckgUnit, 	gv_apcCd, cmnd.itemCd, cmnd.vrtyCd)	// 포장구분
 			])
 			grdGdsInvntr.refresh({"combo":true})
-			SBUxMethod.refresh("srch-slt-spmtPckgUnitCd");
 
 			SBUxMethod.set("srch-slt-spcfctCd", cmnd.spcfctCd);
+			SBUxMethod.set("dtl-slt-gdsGrd", cmnd.gdsGrd);
 			SBUxMethod.set("dtl-slt-spmtPckgUnit", cmnd.spmtPckgUnitCd);
 
 			fn_search();
