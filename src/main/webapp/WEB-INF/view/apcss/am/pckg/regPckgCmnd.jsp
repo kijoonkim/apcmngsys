@@ -649,7 +649,6 @@
   	      				rmrk			: item.rmrk,
   	      				delYn			: item.delYn
   					}
-//   	          		pckgCmnd.rmrk = 'TTEESSTT';
   	          		jsonPckgCmnd.push(pckgCmnd);
 
   	  			});
