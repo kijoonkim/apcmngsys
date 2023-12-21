@@ -61,6 +61,7 @@
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-spmtCmndnoIndct" name="srch-inp-spmtCmndnoIndct" uitype="text" maxlength="25" class="form-control input-sm-ast inpt_data_reqed input-sm"></sbux-input>
 								<sbux-input id="srch-inp-spmtCmndno" name="srch-inp-spmtCmndno" uitype="hidden"></sbux-input>
+								<sbux-input id="srch-inp-outordrno" name="srch-inp-outordrno" uitype="hidden"></sbux-input>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-button id="btnSrchSpmtCmndno" name="btnSrchSpmtCmndno" uitype="modal" text="찾기" class="btn btn-xs btn-outline-dark" target-id="modal-spmtCmnd" onclick="fn_choiceSpmtCmnd"></sbux-button>
@@ -264,6 +265,7 @@
             {caption: ['APC코드'], 	ref: 'apcCd', 			hidden: true},
             {caption: ['출하일자'], 	ref: 'spmtYmd', 		hidden: true},
             {caption: ['출하지시번호'],	ref: 'spmtCmndno', 		hidden: true},
+            {caption: ['발주번호'],	ref: 'outordrno', 		hidden: true},
             {caption: ['포장번호'], 	ref: 'pckgno', 			hidden: true},
             {caption: ['포장순번'], 	ref: 'pckgSn', 			hidden: true},
             {caption: ['품목코드'], 	ref: 'itemCd', 			hidden: true},
@@ -307,6 +309,7 @@
 				, apcCd				: gv_selectedApcCd
 				, spmtYmd			: gfn_dateToYmd(new Date())
 				, spmtCmndno		: SBUxMethod.get('srch-inp-spmtCmndno')
+				, outordrno			: SBUxMethod.get('srch-inp-outordrno')
 				, pckgno			: SBUxMethod.get('srch-inp-pckgno')
 				, pckgSn			: SBUxMethod.get('srch-inp-pckgSn')
 				, itemCd 			: SBUxMethod.get('srch-inp-itemCd')
@@ -517,6 +520,7 @@
 		SBUxMethod.set('srch-inp-spmtCmndnoIndct', "");
 		SBUxMethod.attr("srch-inp-spmtCmndnoIndct", "readonly", "false");
 		SBUxMethod.set('srch-inp-spmtCmndno', "");
+		SBUxMethod.set('srch-inp-outordrno', "");
 		SBUxMethod.set('srch-inp-cmndQntt', "");
 		SBUxMethod.set('srch-inp-cmndWght', "");
 		SBUxMethod.set('srch-inp-regQntt', "");
@@ -586,6 +590,7 @@
 				SBUxMethod.set('srch-inp-spmtCmndnoIndct', spmtCmnd.spmtCmndnoIndct);
 				SBUxMethod.attr("srch-inp-spmtCmndnoIndct", "readonly", "true");
 				SBUxMethod.set('srch-inp-spmtCmndno', spmtCmnd.spmtCmndno);
+				SBUxMethod.set('srch-inp-outordrno', spmtCmnd.outordrno);
 				SBUxMethod.set('srch-inp-cmndQntt', spmtCmnd.cmndQntt);
 				SBUxMethod.set('srch-inp-cmndWght', spmtCmnd.cmndWght);
 				SBUxMethod.set('srch-inp-regQntt', regQntt);
