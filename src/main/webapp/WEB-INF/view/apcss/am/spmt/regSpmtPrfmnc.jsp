@@ -830,6 +830,7 @@
   	          		}
   	  			});
   	          	grdGdsInvntr.rebuild();
+  	          	console.log(jsonGdsInvntr);
 
         	} else {
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
@@ -863,7 +864,6 @@
     }
 
     const fn_setValue = async function(){
-
 
     	let nRow = grdGdsInvntr.getRow();
     	let nCol = grdGdsInvntr.getCol();
@@ -918,7 +918,7 @@
 							for(var j=0; j<jsonGrdSpmtPckgUnit.length; j++){
 								let row  = jsonGrdSpmtPckgUnit[j];
 					   			if(spmtPckgUnit == row.spmtPckgUnitCd){
-									let wght = Math.round(parseFloat(row.spcfctWght) * (spmtCmndWght - totSpmtWght));
+									let wght = Math.round(parseFloat(row.spcfctWght) * (spmtCmndQntt - totSpmtQntt));
 									grdGdsInvntr.setCellData(nRow, spmtWghtCol, wght);
 					   			}
 					   		}
@@ -1044,6 +1044,10 @@
 		grdGdsInvntr.setCellData(nRow, checkedYnCol, "N");
 
 		if(cmndYn){
+			if (spmtQntt == 0) {
+				grdGdsInvntr.setCellData(nRow, spmtWghtCol, 0);
+				return;
+			}
 
 			var grdRows = grdGdsInvntr.getCheckedRows(0);
 
@@ -1109,23 +1113,14 @@
 						}
 
 					}
-					if(spmtCmndQntt - totSpmtQntt > invntrQntt){
+					if(spmtCmndQntt - totSpmtQntt >= invntrQntt){
 						grdGdsInvntr.setCellData(nRow, spmtQnttCol, invntrQntt);
 						grdGdsInvntr.setCellData(nRow, spmtWghtCol, invntrWght);
 						grdGdsInvntr.setCellData(nRow, spmtPckgUnitCdCol, spmtPckgUnit, true);
 						grdGdsInvntr.setCellData(nRow, gdsGrdCol, gdsGrdCd, true);
 						grdGdsInvntr.setCellData(nRow, checkedYnCol, "Y");
 					}
-					if(spmtCmndQntt - totSpmtQntt == invntrQntt){
-						grdGdsInvntr.setCellData(nRow, spmtQnttCol, invntrQntt);
-						grdGdsInvntr.setCellData(nRow, spmtWghtCol, invntrWght);
-						grdGdsInvntr.setCellData(nRow, spmtPckgUnitCdCol, spmtPckgUnit, true);
-						grdGdsInvntr.setCellData(nRow, gdsGrdCol, gdsGrdCd, true);
-						grdGdsInvntr.setCellData(nRow, checkedYnCol, "Y");
-					}
-
 				}else{
-
 					gfn_comAlert("W0008", "지시수량", "출하수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
 					grdGdsInvntr.setCellData(nRow, nCol , 0);
 					grdGdsInvntr.setCellData(nRow, spmtWghtCol , 0);
