@@ -34,6 +34,7 @@ public class ComAuthrtMenuVO extends ComVO {
 	private String authrtType;
 	private String authrtExpln;
 	private String prsnaInfoYn;
+	private String bmkYn;
 
 	private List<String> authrtIdList;
 	public List<String> getAuthrtIdList() {
