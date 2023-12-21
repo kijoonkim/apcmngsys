@@ -325,19 +325,16 @@
 	 */
 	const fn_onChangeSrchVrtyCd = async function(obj) {
 		let vrtyCd = obj.value;
-		let itemCd = "";
-		if (!gfn_isEmpty(vrtyCd)) {
-			itemCd = _.find(jsonComVrty, {value: vrtyCd}).mastervalue;
-		} else {
-			itemCd = SBUxMethod.get("srch-slt-itemCd");
+		
+		if (gfn_isEmpty(vrtyCd)) {
+			return;
 		}
-
-		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
-		if (itemCd != prvItemCd) {
-			SBUxMethod.set("srch-slt-itemCd", itemCd);
-			await fn_onChangeSrchItemCd({value: itemCd});
-			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
-		}
+		
+		itemCd = _.find(jsonComVrty, {value: vrtyCd}).mastervalue;
+		
+		SBUxMethod.set("srch-slt-itemCd", itemCd);
+		await fn_onChangeSrchItemCd({value: itemCd});
+		SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
 	}
 
 	const fn_createRegOutordrInfoGrid = async function () {
@@ -699,10 +696,10 @@
 			SBUxMethod.set('srch-inp-gdsNm', gds.spmtPckgUnitNm);
 			SBUxMethod.set('srch-inp-gdsCd', gds.gdsCd);
 			SBUxMethod.set('srch-inp-spmtPckgUnitCd', gds.spmtPckgUnitCd);
-			fn_onChangeSrchVrtyCd({value: gds.vrtyCd});
+			await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd)		// 품종
 			SBUxMethod.set("srch-slt-itemCd", gds.itemCd);
-			SBUxMethod.setValue("srch-slt-vrtyCd", gds.vrtyCd);
-			await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonComSpcfct, 	gv_apcCd, gds.itemCd)		// 규격
+			SBUxMethod.set("srch-slt-vrtyCd", gds.vrtyCd);
+			fn_onChangeSrchVrtyCd({value: gds.vrtyCd});
 			SBUxMethod.set("srch-slt-spcfctCd", gds.spcfctCd);
 		}
 	}
