@@ -324,7 +324,7 @@
 				typeinfo : {ref:'jsonComSpcfct', 	displayui : false,	itemcount: 10, label:'label', value:'value', unselect: {label : '선택', value: ''}}},
 	        {caption: ["포장지시","수량"],  	ref: 'pckgQntt',    	type:'input',  	width:'100px',    style:'text-align:right; background:#FFF8DC;',
 	        	format : {type:'number', rule:'#,###'}, typeinfo : {mask : {alias : 'numeric'}}},
-	        {caption: ["포장지시","중량 (Kg)"],	ref: 'pckgWght',    	type:'output',  width:'100px',    style:'text-align:right',
+	        {caption: ["포장지시","중량 (Kg)"],	ref: 'pckgWght',    	type:'input',  width:'100px',    style:'text-align:right; background:#FFF8DC;',
 	        	format : {type:'number', rule:'#,###'}},
 	        {caption: ["지시비고","지시비고"],  	ref: 'rmrk',    		type:'input',  	width:'180px',    style:'text-align:center'}
 	    ];
@@ -370,8 +370,8 @@
     	var nRow = grdSortInvntr.getRow();
     	let pckgQnttCol = grdSortInvntr.getColRef("pckgQntt");
     	let pckgWghtCol = grdSortInvntr.getColRef("pckgWght");
-    	grdSortInvntr.setCellData(nRow, pckgQnttCol, 0);
-    	grdSortInvntr.setCellData(nRow, pckgWghtCol, 0);
+    	grdSortInvntr.setCellData(nRow, pckgQnttCol, null);
+    	grdSortInvntr.setCellData(nRow, pckgWghtCol, null);
     }
 
     const fn_checkInptQntt = async function(){
@@ -382,16 +382,24 @@
 		let invntrQntt = grdSortInvntr.getRowData(nRow).invntrQntt;
 		let invntrWght = grdSortInvntr.getRowData(nRow).invntrWght;
 		let pckgQntt = grdSortInvntr.getRowData(nRow).pckgQntt;
-
+		
 		if(invntrQntt - pckgQntt < 0){
 			gfn_comAlert("W0008", "재고수량", "출하수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
 			grdSortInvntr.setCellData(nRow, nCol , 0);
             return;
 		}
+		if(pckgQntt < 0){
+			gfn_comAlert("E0000", "입력한 수량이 0보다 작습니다.");		//	W0008	{0} 보다 {1}이/가 큽니다.
+			grdSortInvntr.setCellData(nRow, nCol , 0);
+			return;
+		}
 
-		if(invntrQntt > 0 && pckgQntt > 0){
+		if(invntrQntt > 0 && pckgQntt >= 0){
 			grdSortInvntr.setCellData(nRow, 12, Math.round(invntrWght / invntrQntt) * pckgQntt);
 			grdSortInvntr.setCellData(nRow, 0, "Y");
+		}
+		if(pckgQntt == 0 && invntrQntt == 0 && invntrWght > 0){
+			grdSortInvntr.setCellData(nRow, 12, invntrWght);
 		}
 		if(pckgQntt == 0 && invntrQntt > 0){
 			grdSortInvntr.setCellData(nRow, 12, 0);
@@ -580,6 +588,7 @@
   	  						sortno 			: item.sortno,
   	  						sortSn 			: item.sortSn
   	  				}
+  	          		sortInvntr.invntrQntt -= sortInvntr.cmndQntt;
   	          		jsonSortInvntr.push(sortInvntr);
 
   	  			});
