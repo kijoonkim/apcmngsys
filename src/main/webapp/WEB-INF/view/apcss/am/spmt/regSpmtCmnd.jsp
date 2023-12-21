@@ -337,8 +337,7 @@
 		    {caption: ["등급"], 		ref: 'gdsGrd',   		width:'100px',  type:'combo',    style:'text-align:center; background:#FFF8DC;',
 						typeinfo : {ref:'jsonComGdsGrd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
             {caption: ['지시수량'], 	ref: 'inptCmndQntt', 	width: '80px', type: 'input', style: 'text-align:right; background:#FFF8DC;',
-            	typeinfo : {mask : {alias : '#', repeat: '*'}}, format : {type:'number', rule:'#,###'}}
-            },
+            	typeinfo : {mask : {alias : '#', repeat: '*'}}, format : {type:'number', rule:'#,###'}},
             {caption: ['지시중량 (Kg)'], 	ref: 'inptCmndWght', 	width: '100px', type: 'output', style: 'text-align:right' ,
             	typeinfo : {mask : {alias : '#', repeat: '*'}}, format : {type:'number', rule:'#,###'}},
             {caption: ["단중"], ref: 'wght', type:'output', hidden : true}

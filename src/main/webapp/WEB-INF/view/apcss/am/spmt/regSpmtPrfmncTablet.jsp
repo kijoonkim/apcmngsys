@@ -482,7 +482,7 @@
     		return;
     	}
 
-    	const postJsonPromise = gfn_postJSON("/am/spmt/insertSpmtPrfmncList.do", insertList, this.prgrmId);
+    	const postJsonPromise = gfn_postJSON("/am/spmt/insertSpmtPrfmncTabletList.do", insertList, this.prgrmId);
 
 		const data = await postJsonPromise;
         try {
