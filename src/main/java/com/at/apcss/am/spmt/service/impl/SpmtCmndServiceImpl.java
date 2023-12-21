@@ -164,32 +164,26 @@ public class SpmtCmndServiceImpl extends BaseServiceImpl implements SpmtCmndServ
 	public HashMap<String, Object> regSpmtCmndList(List<OrdrVO> ordrList) throws Exception {
 		// TODO Auto-generated method stub
 		
-		List<OrdrVO> rcptList = new ArrayList<>();
-		String spmtCmndno = cmnsTaskNoService.selectSpmtCmndno(ordrList.get(0).getApcCd(), ordrList.get(0).getCmndYmd());
 		int sn = 1;
-		
 
-		// 접수
 		for ( OrdrVO ordrVO : ordrList ) {
+			String spmtCmndno = cmnsTaskNoService.selectSpmtCmndno(ordrList.get(0).getApcCd(), ordrList.get(0).getCmndYmd());
 			ordrVO.setSpmtCmndno(spmtCmndno);
+
+			// 접수
 			if (ComConstants.ROW_STS_UPDATE.equals(ordrVO.getRowSts())) {
+				List<OrdrVO> rcptList = new ArrayList<>();
 				rcptList.add(ordrVO);
-			}
-		}
+				
+				HashMap<String, Object> rtnObj = ordrService.multiOrdrList(rcptList);
+				if (rtnObj != null) {
+					return rtnObj;
+				}
 
-		HashMap<String, Object> rtnObj = ordrService.multiOrdrList(rcptList);
-		if (rtnObj != null) {
-			return rtnObj;
-		}
-
-		// 출하지시 등록
-		for ( OrdrVO ordrVO : ordrList ) {
-			if (ComConstants.ROW_STS_UPDATE.equals(ordrVO.getRowSts())) {
 				ordrVO.setRowSts("I");
 			}
-		}
-
-		for ( OrdrVO ordrVO : ordrList ) {
+				
+			// 출하지시 등록
 			SpmtCmndVO vo = new SpmtCmndVO();
 			OrdrVO list = ordrVO;
 			vo.setApcCd(list.getApcCd());
@@ -215,9 +209,7 @@ public class SpmtCmndServiceImpl extends BaseServiceImpl implements SpmtCmndServ
 			if(0 == insertSpmtCmnd(vo)) {
 				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
 			}
-			sn++;
 		}
-		
 		return null;
 	}
 }

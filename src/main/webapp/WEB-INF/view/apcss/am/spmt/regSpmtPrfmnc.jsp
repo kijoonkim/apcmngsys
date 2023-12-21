@@ -484,30 +484,21 @@
 		])
 
 		SBUxMethod.refresh("excel-slt-spmtPckgUnit");
-		SBUxMethod.refresh("srch-slt-spmtPckgUnitCd");
-
-		if(gfn_isEmpty(itemCd)){
-			jsonComSpcfct.length = 0;
-			SBUxMethod.refresh("srch-slt-spcfctCd");
-		}
-
 	}
 
 	const fn_onChangeSrchVrtyCd = async function(obj){
 		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
-		let itemCd = "";
-		if (!gfn_isEmpty(vrtyCd)) {
-			itemCd = _.find(jsonComVrty, {value: vrtyCd}).mastervalue;
-		} else {
-			itemCd = SBUxMethod.get("srch-slt-itemCd");
+		
+		if (gfn_isEmpty(vrtyCd)) {
+			return;
 		}
+		
+		itemCd = _.find(jsonComVrty, {value: vrtyCd}).mastervalue;
 
-		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
-		if (itemCd != prvItemCd) {
-			SBUxMethod.set("srch-slt-itemCd", itemCd);
-			await fn_onChangeSrchItemCd({value: itemCd});
-			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
-		}
+		SBUxMethod.set("srch-slt-itemCd", itemCd);
+		await fn_onChangeSrchItemCd({value: itemCd});
+		SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
+			
 		let rst = await Promise.all([
 			gfn_setSpmtPckgUnitSBSelect('grdGdsInvntr', 			jsonGrdSpmtPckgUnit, 		gv_selectedApcCd, itemCd, vrtyCd),	// 포장구분
 			gfn_setApcGdsGrdSBSelect('grdGdsInvntr', 				jsonGrdGdsGrd, 				gv_selectedApcCd, itemCd, '03'),	// 상품등급(재고그리드)
@@ -515,7 +506,7 @@
 		]);
 
 		grdGdsInvntr.refresh({"combo":true})
-		SBUxMethod.refresh("srch-slt-spmtPckgUnitCd");
+		SBUxMethod.refresh("dtl-slt-gdsGrd");
 		SBUxMethod.refresh("excel-slt-spmtPckgUnit");
 	}
 
@@ -586,9 +577,9 @@
             {caption: ["등급"], 			ref: 'gdsGrd',   		width:'100px',  type:'combo',  	style:'text-align:center; background:#FFF8DC;',
     			typeinfo : {ref:'jsonGrdGdsGrd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
             {caption: ['출하수량'], 		ref: 'spmtQntt', 		width: '80px', 	type: 'input', 	style: 'text-align:right; background:#FFF8DC;',
-            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### '}},
+            	typeinfo : {mask : {alias : '#', repeat : '*'}}, format : {type:'number', rule:'#,###'}},
             {caption: ['출하중량 (Kg)'], 	ref: 'spmtWght', 		width: '100px', type: 'input', 	style: 'text-align:right',
-            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
+            	typeinfo : {mask : {alias : '#', repeat : '*'}}, format : {type:'number', rule:'#,###'}},
 			{caption: ['비고'], 			ref: 'rmrk', 			width: '300px', type: 'output', style: 'text-align:center'},
             {caption: ["출하일자"],		ref: 'spmtYmd',   		type:'output',  hidden: true},
             {caption: ["거래처코드"],		ref: 'cnptCd',   		type:'output',  hidden: true},
@@ -645,7 +636,7 @@
             {caption: ['차량번호'], 		ref: 'vhclno', 			width: '100px', type: 'output', style: 'text-align:center'},
             {caption: ['배송처'], 		ref: 'dldtn', 			width: '150px', type: 'output', style: 'text-align:center'},
             {caption: ['운임비용 (원)'], 	ref: 'trsprtCst', 		width: '80px', 	type: 'output', style: 'text-align:center',
-    			typeinfo : {mask : {alias : 'numeric'}, maxlength: 10}, format : {type:'number', rule:'#,### 원'}},
+    			typeinfo : {mask : {alias : 'numeric'}, maxlength: 10}, format : {type:'number', rule:'#,###'}},
             {caption: ['상품명'], 		ref: 'spmtPckgUnitNm', 	width: '150px', type: 'output', style: 'text-align:center'},
             {caption: ['지시번호'], 		ref: 'spmtCmndno', 		width: '120px', type: 'output', style: 'text-align:center'},
             {caption: ['비고'], 			ref: 'rmrk', 			width: '150px', type: 'output', style: 'text-align:center'}
@@ -753,7 +744,7 @@
 		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
-		let spmtPckgUnitCd = SBUxMethod.get("srch-slt-spmtPckgUnitCd");
+		let spmtPckgUnitCd = SBUxMethod.get("dtl-slt-spmtPckgUnit");
 		let gdsSeCd = SBUxMethod.get("srch-rdo-gdsSeCd");
 		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
 
@@ -830,7 +821,6 @@
   	          		}
   	  			});
   	          	grdGdsInvntr.rebuild();
-  	          	console.log(jsonGdsInvntr);
 
         	} else {
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
@@ -1551,19 +1541,18 @@
 				SBUxMethod.set("dtl-inp-rmrk", cmnd.rmrk);
 			}
 			SBUxMethod.set("dtl-inp-outordrno", cmnd.outordrno);
-			SBUxMethod.set("dtl-slt-gdsGrd", cmnd.gdsGrd);
+			await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd)		// 품종
 			SBUxMethod.set("srch-slt-itemCd", cmnd.itemCd);
 			SBUxMethod.set("srch-slt-vrtyCd", cmnd.vrtyCd);
+			await fn_onChangeSrchVrtyCd({value: cmnd.vrtyCd});
 
 			let rst = await Promise.all([
-				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',			jsonComSpcfct, 			gv_apcCd, cmnd.itemCd), 				// 규격
-				gfn_setSpmtPckgUnitSBSelect('dtl-slt-spmtPckgUnit', 	jsonDtlSpmtPckgUnit, 	gv_apcCd, cmnd.itemCd, cmnd.vrtyCd),	// 포장구분
-				gfn_setSpmtPckgUnitSBSelect('grdGdsInvntr', 			jsonGrdSpmtPckgUnit, 	gv_apcCd, cmnd.itemCd, cmnd.vrtyCd)		// 포장구분(그리드)
+				gfn_setSpmtPckgUnitSBSelect('dtl-slt-spmtPckgUnit', 	jsonDtlSpmtPckgUnit, 	gv_apcCd, cmnd.itemCd, cmnd.vrtyCd)	// 포장구분
 			])
 			grdGdsInvntr.refresh({"combo":true})
-			SBUxMethod.refresh("srch-slt-spmtPckgUnitCd");
 
 			SBUxMethod.set("srch-slt-spcfctCd", cmnd.spcfctCd);
+			SBUxMethod.set("dtl-slt-gdsGrd", cmnd.gdsGrd);
 			SBUxMethod.set("dtl-slt-spmtPckgUnit", cmnd.spmtPckgUnitCd);
 
 			fn_search();

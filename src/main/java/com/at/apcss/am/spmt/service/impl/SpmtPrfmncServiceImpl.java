@@ -3,6 +3,8 @@ package com.at.apcss.am.spmt.service.impl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
@@ -135,6 +137,32 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 		int deletedCnt = spmtPrfmncMapper.deleteSpmtPrfmncDtl(spmtPrfmncVO);
 
 		return deletedCnt;
+	}
+	
+	@Override
+	public HashMap<String, Object> insertSpmtPrfmncTabletList(List<SpmtPrfmncVO> spmtPrfmncList) throws Exception {
+		HashMap<String, Object> resultMap;
+
+		Map<String, List<SpmtPrfmncVO>> collectList = spmtPrfmncList.stream().collect(Collectors.groupingBy(SpmtPrfmncVO::getSpmtCmndno));
+
+		List<String> keyList = collectList.keySet().stream().collect(Collectors.toList());
+		
+		for (String key : keyList) {
+			
+			List<SpmtPrfmncVO> insertList = new ArrayList<>();
+			List<SpmtPrfmncVO> valueList = collectList.get(key);
+			
+			for (SpmtPrfmncVO value : valueList) {
+				insertList.add(value);
+			}
+			
+			resultMap = insertSpmtPrfmncList(insertList);
+			
+			if(resultMap != null) {
+				throw new EgovBizException(getMessageForMap(resultMap));
+			}
+		}
+		return null;
 	}
 
 	@Override
@@ -353,7 +381,6 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 					throw new EgovBizException(getMessageForMap(resultMap));
 				}
 			}
-
 		}
 
 		return null;
