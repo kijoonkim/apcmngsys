@@ -468,67 +468,66 @@
 
     	let nRow = grdSpmtCmndTrg.getRow();
     	let nCol = grdSpmtCmndTrg.getCol();
-    	if(nCol == 0){
+    	let checkedYnCol = grdSpmtCmndTrg.getColRef("checkedYn");
+    	
+    	if (nCol == checkedYnCol) {
+           	if (grdSpmtCmndTrg.getCheckedRows(checkedYnCol).length > 1) {
+           		gfn_comAlert("W0009", "선택된 행");
+       			grdSpmtCmndTrg.setCellData(nRow, checkedYnCol, "N");
+           		return;
+           	}
 
-    		// 발주수량 - 출하수량 - 출하지시수량 = 가능한 지시수량
-	    	let invntrQntt 		= grdSpmtCmndTrg.getRowData(nRow).invntrQntt;
-			let spmtQntt 		= grdSpmtCmndTrg.getRowData(nRow).spmtQntt;
-			let outordrQntt 	= grdSpmtCmndTrg.getRowData(nRow).outordrQntt;
-			let cmndQntt 		= grdSpmtCmndTrg.getRowData(nRow).cmndQntt;
-			let psbltyCmndQntt = outordrQntt - cmndQntt;
+       		// 발주수량 - 출하수량 - 출하지시수량 = 가능한 지시수량
+        	let invntrQntt 		= grdSpmtCmndTrg.getRowData(nRow).invntrQntt;
+    		let spmtQntt 		= grdSpmtCmndTrg.getRowData(nRow).spmtQntt;
+    		let outordrQntt 	= grdSpmtCmndTrg.getRowData(nRow).outordrQntt;
+    		let cmndQntt 		= grdSpmtCmndTrg.getRowData(nRow).cmndQntt;
+    		let psbltyCmndQntt = outordrQntt - cmndQntt;
 
-			let wght 			= grdSpmtCmndTrg.getRowData(nRow).wght;
-			let apcCnptNm 		= grdSpmtCmndTrg.getRowData(nRow).apcCnptNm;
-			let apcCnptCd 		= grdSpmtCmndTrg.getRowData(nRow).apcCnptCd;
-			let dldtn 			= grdSpmtCmndTrg.getRowData(nRow).dldtn;
-			let inptCmndQnttCol = grdSpmtCmndTrg.getColRef("inptCmndQntt");
-			let inptCmndWghtCol = grdSpmtCmndTrg.getColRef("inptCmndWght");
-			let checkedYnCol 	= grdSpmtCmndTrg.getColRef("checkedYn");
+    		let wght 			= grdSpmtCmndTrg.getRowData(nRow).wght;
+    		let apcCnptNm 		= grdSpmtCmndTrg.getRowData(nRow).apcCnptNm;
+    		let apcCnptCd 		= grdSpmtCmndTrg.getRowData(nRow).apcCnptCd;
+    		let dldtn 			= grdSpmtCmndTrg.getRowData(nRow).dldtn;
+    		let inptCmndQnttCol = grdSpmtCmndTrg.getColRef("inptCmndQntt");
+    		let inptCmndWghtCol = grdSpmtCmndTrg.getColRef("inptCmndWght");
+    		
+    		SBUxMethod.set("dtl-inp-apcCnptCd", apcCnptCd);
+    		SBUxMethod.set("dtl-inp-apcCnptNm", apcCnptNm);
+    		SBUxMethod.set("dtl-inp-dldtn", dldtn);
+    		
+    		if(psbltyCmndQntt > 0 && invntrQntt > 0){
 
-			let dtlApcCnptCd = SBUxMethod.get("dtl-inp-apcCnptCd");
-			let dtlDldtn = SBUxMethod.get("dtl-inp-dldtn");
-			if(gfn_isEmpty(dtlApcCnptCd)){
-				SBUxMethod.set("dtl-inp-apcCnptCd", apcCnptCd);
-				SBUxMethod.set("dtl-inp-apcCnptNm", apcCnptNm);
-				SBUxMethod.set("dtl-inp-dldtn", dldtn);
-			}else{
-				if(dtlDldtn != dldtn){
-					gfn_comAlert("W0006", "선택한 행", "배송처");	// W0006 {0}와/과 {1}이/가 서로 다릅니다.
-					grdSpmtCmndTrg.setCellData(nRow, 0, "N");
-					return;
-				}
-			}
-			if(psbltyCmndQntt > 0 && invntrQntt > 0){
-
-				if(psbltyCmndQntt > invntrQntt) {
-					grdSpmtCmndTrg.setCellData(nRow, inptCmndQnttCol, invntrQntt);
-					grdSpmtCmndTrg.setCellData(nRow, inptCmndWghtCol, invntrQntt*wght);
-				}else {
-					grdSpmtCmndTrg.setCellData(nRow, inptCmndQnttCol, psbltyCmndQntt);
-					grdSpmtCmndTrg.setCellData(nRow, inptCmndWghtCol, psbltyCmndQntt*wght);
-				}
-			}
-    	}
-
-
+    			if(psbltyCmndQntt > invntrQntt) {
+    				grdSpmtCmndTrg.setCellData(nRow, inptCmndQnttCol, invntrQntt);
+    				grdSpmtCmndTrg.setCellData(nRow, inptCmndWghtCol, invntrQntt*wght);
+    			}else {
+    				grdSpmtCmndTrg.setCellData(nRow, inptCmndQnttCol, psbltyCmndQntt);
+    				grdSpmtCmndTrg.setCellData(nRow, inptCmndWghtCol, psbltyCmndQntt*wght);
+    			}
+    		}
+       	}
     }
 
     const fn_delValue = async function(){
     	var nRow = grdSpmtCmndTrg.getRow();
-    	let inptCmndQnttCol = grdSpmtCmndTrg.getColRef("inptCmndQntt");
-		let inptCmndWghtCol = grdSpmtCmndTrg.getColRef("inptCmndWght");
-    	grdSpmtCmndTrg.setCellData(nRow, inptCmndQnttCol, 0);
-    	grdSpmtCmndTrg.setCellData(nRow, inptCmndWghtCol, 0);
-    	SBUxMethod.set("dtl-inp-apcCnptNm", "");
-    	SBUxMethod.set("dtl-inp-apcCnptCd", "");
-    	SBUxMethod.set("dtl-inp-dldtn", "");
+    	let checkedYnCol = grdSpmtCmndTrg.getColRef("checkedYn");
+    		
+       	if (grdSpmtCmndTrg.getCheckedRows(checkedYnCol).length == 0) {
+        	let inptCmndQnttCol = grdSpmtCmndTrg.getColRef("inptCmndQntt");
+    		let inptCmndWghtCol = grdSpmtCmndTrg.getColRef("inptCmndWght");
+        	grdSpmtCmndTrg.setCellData(nRow, inptCmndQnttCol, null);
+        	grdSpmtCmndTrg.setCellData(nRow, inptCmndWghtCol, null);
+        	SBUxMethod.set("dtl-inp-apcCnptNm", "");
+        	SBUxMethod.set("dtl-inp-apcCnptCd", "");
+        	SBUxMethod.set("dtl-inp-dldtn", "");
+       	}
     }
 
     const fn_checkInptQntt = async function(){
 
     	let nRow = grdSpmtCmndTrg.getRow();
 		let nCol = grdSpmtCmndTrg.getCol();
-
+		
 		let invntrQntt 		= grdSpmtCmndTrg.getRowData(nRow).invntrQntt;
 		let spmtQntt 		= grdSpmtCmndTrg.getRowData(nRow).spmtQntt;
 		let outordrQntt 	= grdSpmtCmndTrg.getRowData(nRow).outordrQntt;
@@ -543,19 +542,15 @@
 		let inptCmndWghtCol = grdSpmtCmndTrg.getColRef("inptCmndWght");
 		let checkedYnCol 	= grdSpmtCmndTrg.getColRef("checkedYn");
 
-		let dtlApcCnptCd = SBUxMethod.get("dtl-inp-apcCnptCd");
-		let dtlDldtn = SBUxMethod.get("dtl-inp-dldtn");
-		if(gfn_isEmpty(dtlApcCnptCd)){
-			SBUxMethod.set("dtl-inp-apcCnptCd", apcCnptCd);
-			SBUxMethod.set("dtl-inp-apcCnptNm", apcCnptNm);
-			SBUxMethod.set("dtl-inp-dldtn", dldtn);
-		}else{
-			if(dtlDldtn != dldtn){
-				gfn_comAlert("W0006", "선택한 행", "배송처");	// W0006 {0}와/과 {1}이/가 서로 다릅니다.
-				grdSpmtCmndTrg.setCellData(nRow, checkedYnCol, "N");
-				return;
-			}
-		}
+       	if (grdSpmtCmndTrg.getCheckedRows(checkedYnCol).length > 0 && grdSpmtCmndTrg.getCellData(nRow, checkedYnCol) != 'Y') {
+       		gfn_comAlert("W0009", "선택된 행");
+   			grdSpmtCmndTrg.setCellData(nRow, inptCmndQnttCol, null);
+   			console.log(grdSpmtCmndTrg.getCellData(nRow, inptCmndQnttCol));
+       	}
+       	
+		SBUxMethod.set("dtl-inp-apcCnptCd", apcCnptCd);
+		SBUxMethod.set("dtl-inp-apcCnptNm", apcCnptNm);
+		SBUxMethod.set("dtl-inp-dldtn", dldtn);
 
 		// 지시가능한수량 > 입력한지시수량
 		if(inptCmndQntt > psbltyCmndQntt){
@@ -590,11 +585,11 @@
 			SBUxMethod.set("dtl-inp-apcCnptCd", "");
 			SBUxMethod.set("dtl-inp-dldtn", "");
 		}
-
-
     }
 
 	const fn_search = async function(){
+		
+		fn_clearForm();
 
 		let flag = true;
 		flag = await fn_setGrdSpmtCmndTrg();
@@ -612,7 +607,6 @@
 		let vrtyCd  = SBUxMethod.get("srch-slt-vrtyCd"); //품종코드
 		let apcCnptNm  = SBUxMethod.get("srch-inp-cnptNm"); //거래처명
 		let spcfctCd  = SBUxMethod.get("srch-slt-spcfctCd"); //규격코드
-
 
     	if(gfn_isEmpty(outordrYmdFrom) || gfn_isEmpty(outordrYmdTo)){
     		gfn_comAlert("W0001", "발주일자");			//	W0002	{0}을/를 선택하세요.
@@ -821,7 +815,7 @@
 	}
 
 	const fn_reset = function(){
-		SBUxMethod.set("srch-dtp-outordrYmdFrom", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-dtp-outordrYmdFrom", gfn_dateFirstYmd(new Date()));
 		SBUxMethod.set("srch-dtp-outordrYmdTo", gfn_dateToYmd(new Date()));
 		SBUxMethod.set("dtl-slt-warehouseSeCd", "");
 		SBUxMethod.set("srch-slt-itemCd", "");
@@ -829,11 +823,15 @@
  		fn_onChangeSrchItemCd({value: null});
 		SBUxMethod.set("srch-inp-cnptNm", "");
 		SBUxMethod.set("srch-slt-spcfctCd", "");
+		fn_clearForm();
+		SBUxMethod.set("dtl-inp-cmndYmd", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("dtl-slt-trsprtCo", "");
+	}
+	
+	const fn_clearForm = function(){
 		SBUxMethod.set("dtl-inp-apcCnptNm", "");
 		SBUxMethod.set("dtl-inp-apcCnptCd", "");
 		SBUxMethod.set("dtl-inp-dldtn", "");
-		SBUxMethod.set("dtl-inp-cmndYmd", gfn_dateToYmd(new Date()));
-		SBUxMethod.set("dtl-slt-trsprtCo", "");
 		SBUxMethod.set("dtl-inp-rmrk", "");
 	}
 
