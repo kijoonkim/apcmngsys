@@ -236,4 +236,17 @@ public interface ComAuthrtService {
 	 */
 	public int insertComAuthrtUserHsrty(ComAuthrtUserVO comAuthrtUserVO) throws Exception;
 
+	/**
+	 * 메뉴 즐겨찾기 등록
+	 * @param comAuthrtUserVO
+	 * @return
+	 */
+	public HashMap<String, Object> insertBmk(ComAuthrtVO comAuthrtVO) throws Exception;
+	/**
+	 * 메뉴 즐겨찾기 삭제
+	 * @param comAuthrtUserVO
+	 * @return
+	 */
+	public HashMap<String, Object> deleteBmk(ComAuthrtVO comAuthrtVO) throws Exception;
+
 }

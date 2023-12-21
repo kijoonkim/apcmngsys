@@ -819,18 +819,17 @@
 		let invntrWght = rowData.invntrWght;
 		let originInvntrQntt = rowData.originInvntrQntt;
 		let originInvntrWght = rowData.originInvntrWght;
-		console.log(originInvntrQntt);
-		console.log(parseInt(Math.round(parseInt(originInvntrWght) / parseInt(originInvntrQntt))));
 
 		if(invntrQntt > 0){
-			let wght = parseInt(Math.round(parseInt(originInvntrWght) / parseInt(originInvntrQntt)));
-			inptCmndDsctnList.setCellData(nRow, invntrWghtCol, invntrQntt*wght);
-			inptCmndDsctnList.setCellData(nRow, checkedYnCol, "Y");
+			if (originInvntrQntt != 0) {
+				let wght = parseInt(Math.round(parseInt(originInvntrWght) / parseInt(originInvntrQntt)));
+				inptCmndDsctnList.setCellData(nRow, invntrWghtCol, invntrQntt*wght);
+			}
 		}
 		if(invntrQntt == 0){
 			inptCmndDsctnList.setCellData(nRow, invntrWghtCol, 0);
-			inptCmndDsctnList.setCellData(nRow, checkedYnCol, "Y");
 		}
+		inptCmndDsctnList.setCellData(nRow, checkedYnCol, "Y");
 	}
 
 	const fn_checkInptWght = function(){

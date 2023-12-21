@@ -9,13 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.at.apcss.co.authrt.service.ComAuthrtService;
 import com.at.apcss.co.authrt.vo.ComAuthrtMenuVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.log.service.ComLogService;
-import com.at.apcss.co.log.vo.ComLogVO;
 import com.at.apcss.co.menu.service.ComMenuService;
 import com.at.apcss.co.menu.vo.ComMenuJsonVO;
 import com.at.apcss.co.menu.vo.ComMenuVO;
@@ -75,6 +73,7 @@ public class MainController extends BaseController {
 						menu.setPid(rslt.getUpMenuId());
 						menu.setOrder(rslt.getIndctSeq());
 						menu.setText(rslt.getMenuNm());
+						menu.setBmkYn(rslt.getBmkYn());
 						//menu.setLink(rslt.getPageUrl() == null ? ComConstants.CON_BLANK : rslt.getPageUrl());
 						menu.setTopMenuNm(rslt.getUpMenuNm() == null ? ComConstants.CON_BLANK : rslt.getUpMenuNm());
 						menu.setUrl(rslt.getPageUrl() == null ? ComConstants.CON_BLANK : rslt.getPageUrl());
