@@ -224,7 +224,7 @@
 		WHEN MATCHED THEN
 				 UPDATE
 					   SET
-		    	        CLTVTN_AREA			= #{cltvtnArea}
+		    	        CLTVTN_SFC			= #{cltvtnSfc}
 		    	        , AVG_YR_PRDCTN_VLM		= #{avgYrPrdctnVlm}
 		    	        , JOIN_DAY				= #{joinDay}
 		    	        , WHDWL_DAY				= #{whdwlDay}
@@ -262,7 +262,7 @@
 		    		  , CLTVTN_LAND_SN
 		    		  , FLNM
 		    		  , CLTVTN_LAND_ADDR
-		    		  , CLTVTN_AREA
+		    		  , CLTVTN_SFC
 		    		  , AVG_YR_PRDCTN_VLM
 		    		  , JOIN_DAY
 		    		  , WHDWL_DAY
@@ -300,7 +300,7 @@
 		   			  , #{flnm}
 		   			  , #{cltvtnLandAddr}
 
-		   			  , #{cltvtnArea}
+		   			  , #{cltvtnSfc}
 		   			  , #{avgYrPrdctnVlm}
 		   			  , #{joinDay}
 		   			  , #{whdwlDay}
@@ -394,7 +394,7 @@
 
 		    	, CM.JOIN_DAY
 		    	, CM.WHDWL_DAY
-		    	, CM.CLTVTN_AREA
+		    	, CM.CLTVTN_SFC
 		    	, CM.AVG_YR_PRDCTN_VLM
 		    	, CM.CLTVTN_AREA_RMRK
 

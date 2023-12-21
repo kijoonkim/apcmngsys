@@ -21,11 +21,17 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
+				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
+				</c:if>
+				<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch01"></sbux-button>
+				</c:if>
 				</div>
 			</div>
 			<div class="box-body">
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
@@ -201,6 +207,7 @@
 						<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch01"></sbux-button>
 					</div>
 				</div>
+			</c:if><!-- 관리자 권한인 경우 그리드 표기 -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>출하조직 표기</caption>
 					<tbody>
@@ -333,7 +340,7 @@
         	header-title="품목 선택"
         	body-html-id="body-modal-gpcList"
         	footer-is-close-button="false"
-        	style="width:1000px"
+        	style="width:500px"
        	></sbux-modal>
     </div>
     <div id="body-modal-gpcList">
@@ -349,24 +356,18 @@
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_init();
 		fn_initSBSelect();
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		fn_search();
+	</c:if>
+	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+		fn_dtlSearch();
+	</c:if>
 
 		var now = new Date();
 		var year = now.getFullYear();
 		SBUxMethod.set("srch-input-yr",year);//
 
 	});
-
-	//출자출하조직 보유 여부
-	var selectIsoHldYn = [
-		{'text': 'Y','label': 'Y', 'value': '1'},
-		{'text': 'N','label': 'N', 'value': '2'}
-	];
-	//품목구분 전문/육성
-	var jsonBb = [
-		{'text': '전문품목','label': '전문품목', 'value': '1'},
-		{'text': '육성품목','label': '육성품목', 'value': '2'}
-	];
 
 	var jsonComCmptnInst = [];//관할기관
 	var jsonComCtpv = [];//시도
@@ -377,6 +378,7 @@
 	var jsonComAprv = [];//신청구분
 	var jsonComAplyTrgtSe = [];//신청대상구분
 	var jsonComTrmtType = [];//취급유형
+	var jsonComSttgUpbrItemSe = [];//품목구분 전문/육성
 	/**
 	 * combo 설정
 	 */
@@ -394,6 +396,7 @@
 			gfn_setComCdSBSelect('srch-input-aprv', 		jsonComAprv, 		'APRV_UPBR_SE_CD'), //신청구분
 			gfn_setComCdSBSelect('srch-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE'), //신청대상구분
 			gfn_setComCdSBSelect('dtl-input-trmtType', 		jsonComTrmtType, 	'TRMT_TYPE'), //신청대상구분
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonComSttgUpbrItemSe, 	'STTG_UPBR_ITEM_SE'), //품목구분
 
 		]);
 	}
@@ -404,7 +407,9 @@
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		fn_fcltMngCreateGrid();
+	</c:if>
 		fn_fcltMngCreateGrid01();
 		fn_fcltMngCreateGrid02();
 	}
@@ -434,7 +439,8 @@
 	    SBGridProperties.columns = [
 	    	{caption: ["seq"], 			ref: 'apoCd',   	hidden : true},
 	    	{caption: ["등록년도"], 		ref: 'yr',   	type:'output',  width:'100px',    style:'text-align:center'},
-	    	{caption: ["법인구분"], 		ref: 'corpSeCd',type:'output',  width:'100px',    style:'text-align:center'},
+	    	{caption: ["법인구분"], 		ref: 'corpSeCd',type:'combo',  width:'100px',    style:'text-align:center', disabled:true
+	    		,typeinfo : {ref:'jsonComCorpSeCd', label:'label', value:'value', displayui : false}},
 	    	{caption: ["시도"], 			ref: 'ctpv',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
 	    		,typeinfo : {ref:'jsonComCtpv', label:'label', value:'value', displayui : false}},
 	        {caption: ["시군구"], 		ref: 'sgg',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
@@ -480,7 +486,7 @@
 	        {caption: ["취급유형"], 		ref: 'trmtType',   	type:'combo',  width:'150px',    style:'text-align:center', disabled:true
 			    		,typeinfo : {ref:'jsonComTrmtType', label:'label', value:'value', displayui : false}},
 			{caption: ["전문/육성 구분"], 	ref: 'sttgUpbrItemSe',   type:'combo',  width:'150px',    style:'text-align:center', disabled:true
-				    	,typeinfo : {ref:'jsonBb', label:'label', value:'value', displayui : false}},
+				    	,typeinfo : {ref:'jsonComSttgUpbrItemSe', label:'label', value:'value', displayui : false}},
 	        {caption: ["비고"], 			ref: 'rmrk',   		type:'output',  width:'220px',    style:'text-align:center'},
 	        /*
 	        {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
@@ -528,7 +534,7 @@
 	    	{caption: ["조직원명"], 		ref: 'flnm',   	type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["재배지 주소"], 	ref: 'cltvtnLandAddr',   	type:'output',  width:'150px',    style:'text-align:center'},
 	        {caption: ["품목"], 			ref: 'itemNm',   	type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["재배면적(㎡)"], 	ref: 'cltvtnArea',   	type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["재배면적(㎡)"], 	ref: 'cltvtnSfc',   	type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["생산계획량(톤)"], ref: 'prdctnPlanVlm',   	type:'input',  width:'140px',    style:'text-align:center'},
 	        {caption: ["전속출하계약량(톤)"], ref: 'ecSpmtPlanVlm',   	type:'input',  width:'140px',    style:'text-align:center'},
 	        {caption: ["가입일"], 		ref: 'joinDay',  	type:'datepicker',  width:'110px',    style:'text-align:center', disabled:true
@@ -623,6 +629,7 @@
 						,corpNm: item.corpNm
 						,crno: item.crno
 						,brno: item.brno
+						,corpSeCd: item.corpSeCd
 						,yr:'2023'
 				}
 				jsonPrdcrOgnCurntMng.push(PrdcrOgnCurntMngVO);
@@ -647,6 +654,35 @@
 
         	//grdPrdcrOgnCurntMng.rebuild();
 
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
+	}
+
+	//사용자 화면 조회
+	const fn_dtlSearch = async function(){
+		let brno = '${loginVO.brno}';
+		if(gfn_isEmpty(brno)) return;
+
+    	let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
+    		brno : brno
+		});
+
+        let data = await postJsonPromise ;
+        try{
+        	console.log("data==="+data);
+        	data.resultList.forEach((item, index) => {
+				SBUxMethod.set('dtl-input-apoCd',gfn_nvl(item.apoCd))//통합조직 코드
+				SBUxMethod.set('dtl-input-apoSe',gfn_nvl(item.apoSe))//통합조직 구분
+				SBUxMethod.set('dtl-input-corpNm',gfn_nvl(item.corpNm))//법인명
+				SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno))//법인등록번호
+				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))//사업자등록번호
+			});
+        	//생산자조직 리스트 조회
+        	fn_dtlGridSearch01();
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -749,7 +785,7 @@
 
 						,joinDay: 			item.joinDay
 						,whdwlDay: 			item.whdwlDay
-						,cltvtnArea: 		item.cltvtnArea
+						,cltvtnSfc: 		item.cltvtnSfc
 
 						,prdctnPlanVlm: 	item.prdctnPlanVlm
 						,ecSpmtPlanVlm: 	item.ecSpmtPlanVlm

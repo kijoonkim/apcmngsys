@@ -58,7 +58,10 @@
 			 WHERE 1=1
     	]]>
     		<if test='uoBrno != null and uoBrno != ""'>
-				AND CM.UO_BRNO LIKE #{uoBrno} || '%'
+				AND CM.UO_BRNO = #{uoBrno}
+			</if>
+			<if test='brno != null and brno != ""'>
+				AND CM.BRNO = #{brno}
 			</if>
     </select>
 
@@ -124,7 +127,10 @@
 			   AND CM.BRNO = EAM.BRNO(+)
     	]]>
     		<if test='uoBrno != null and uoBrno != ""'>
-				AND CM.UO_BRNO LIKE #{uoBrno} || '%'
+				AND CM.UO_BRNO = #{uoBrno}
+			</if>
+			<if test='brno != null and brno != ""'>
+				AND CM.BRNO = #{brno}
 			</if>
 
 		<!-- 페이징 -->

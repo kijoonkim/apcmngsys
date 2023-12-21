@@ -191,7 +191,7 @@
 		    		  , CLTVTN_LAND_SN
 		    		  , FLNM
 		    		  , CLTVTN_LAND_ADDR
-		    		  , CLTVTN_AREA
+		    		  , CLTVTN_SFC
 		    		  , JOIN_DAY
 		    		  , WHDWL_DAY
 
@@ -229,7 +229,7 @@
 		   			  , #{flnm}
 		   			  , #{cltvtnLandAddr}
 
-		   			  , #{cltvtnArea}
+		   			  , #{cltvtnSfc}
 		   			  , #{joinDay}
 		   			  , #{whdwlDay}
 
@@ -322,7 +322,7 @@
 
 		    	, CM.JOIN_DAY
 		    	, CM.WHDWL_DAY
-		    	, CM.CLTVTN_AREA
+		    	, CM.CLTVTN_SFC
 
 		    	, CM.CLTVTN_LAND_SN
 		    	, CM.FLNM

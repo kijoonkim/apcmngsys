@@ -21,13 +21,19 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
+				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<!--
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
 					 -->
+				</c:if>
+				<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
+				</c:if>
 				</div>
 			</div>
 			<div class="box-body">
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
@@ -204,6 +210,7 @@
 						 -->
 					</div>
 				</div>
+			</c:if><!-- 관리자 권한인 경우 그리드 표기 -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>출하조직 표기</caption>
 					<tbody>
@@ -290,7 +297,7 @@
         	header-title="품목 선택"
         	body-html-id="body-modal-gpcList"
         	footer-is-close-button="false"
-        	style="width:1000px"
+        	style="width:500px"
        	></sbux-modal>
     </div>
     <div id="body-modal-gpcList">
@@ -306,19 +313,18 @@
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_init();
 		fn_initSBSelect();
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		fn_search();
+	</c:if>
+	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+		fn_dtlSearch();
+	</c:if>
 
 		var now = new Date();
 		var year = now.getFullYear();
 		SBUxMethod.set("srch-input-yr",year);//
 
 	});
-
-	//출자출하조직 보유 여부
-	var selectIsoHldYn = [
-		{'text': 'Y','label': 'Y', 'value': '1'},
-		{'text': 'N','label': 'N', 'value': '2'}
-	];
 
 	var jsonComCmptnInst = [];//관할기관
 	var jsonComCtpv = [];//시도
@@ -328,6 +334,7 @@
 	var jsonComUoCd = [];//통합조직코드
 	var jsonComAprv = [];//신청구분
 	var jsonComAplyTrgtSe = [];//신청대상구분
+	var jsonCtgryCd = [];//분류코드
 	/**
 	 * combo 설정
 	 */
@@ -345,6 +352,8 @@
 			gfn_setComCdSBSelect('srch-input-aprv', 		jsonComAprv, 	'APRV_UPBR_SE_CD'), //신청구분
 			gfn_setComCdSBSelect('srch-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE'), //신청대상구분
 			//gfn_setComCdSBSelect('dtl-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE'), //신청대상구분
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng02', 	jsonCtgryCd, 	'CTGRY_CD'), //분류코드
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonCtgryCd, 	'CTGRY_CD'), //분류코드
 
 		]);
 		console.log("============fn_initSBSelect=====1=======");
@@ -356,17 +365,15 @@
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		fn_fcltMngCreateGrid();
+	</c:if>
 		fn_fcltMngCreateGrid01();
 		fn_fcltMngCreateGrid02();
 	}
 
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid = async function() {
-
-
-
-		//SBUxMethod.set("fclt-inp-apcNm", SBUxMethod.get("inp-apcNm"));
 
 		let SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng';
@@ -412,8 +419,6 @@
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid01 = async function() {
 
-		//SBUxMethod.set("fclt-inp-apcNm", SBUxMethod.get("inp-apcNm"));
-
 		let SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng01';
 	    SBGridProperties.id = 'grdPrdcrOgnCurntMng01';
@@ -425,7 +430,9 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	    	{caption: ["품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
-	    	{caption: ["품목분류","품목분류"], 	ref: 'ctgryNm',   	type:'output',  width:'80px',    style:'text-align:center'},
+	    	//{caption: ["품목분류","품목분류"], 	ref: 'ctgryNm',   	type:'combo',  width:'80px',    style:'text-align:center'},
+	    	{caption: ["품목분류","품목분류"], 	ref: 'ctgryCd',   	type:'combo',  width:'80px',    style:'text-align:center'
+	    		,typeinfo : {ref:'jsonCtgryCd', label:'label', value:'value', displayui : true}},
 
 	        {caption: ["수탁","물량"], 		ref: 'prchsTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
@@ -448,7 +455,7 @@
 	        {caption: ["상세내역"], 	ref: 'yr',   		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'apoCd',   	hidden : true},
 	    	{caption: ["상세내역"], 	ref: 'itemCd',   	hidden : true},
-	    	{caption: ["상세내역"], 	ref: 'ctgryCd',		hidden : true},
+	    	//{caption: ["상세내역"], 	ref: 'ctgryCd',		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'apoSe',		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'brno',		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'crno',		hidden : true}
@@ -492,8 +499,6 @@
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid02 = async function() {
 
-		//SBUxMethod.set("fclt-inp-apcNm", SBUxMethod.get("inp-apcNm"));
-
 		let SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng02';
 	    SBGridProperties.id = 'grdPrdcrOgnCurntMng02';
@@ -505,19 +510,21 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	    	{caption: ["품목","품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
-	    	{caption: ["품목분류","품목분류","품목분류"], 	ref: 'ctgryNm',   	type:'output',  width:'80px',    style:'text-align:center'},
+	    	//{caption: ["품목분류","품목분류","품목분류"], 	ref: 'ctgryNm',   	type:'combo',  width:'80px',    style:'text-align:center'},
+	    	{caption: ["품목분류","품목분류","품목분류"], 	ref: 'ctgryCd',   	type:'combo',  width:'80px',    style:'text-align:center'
+				,typeinfo : {ref:'jsonCtgryCd', label:'label', value:'value', displayui : true}},
 
 	    	{caption: ["공선수탁","공선수탁","물량"], 		ref: 'slsCprtnSortTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["공선수탁","공선수탁","금액"], 		ref: 'slsCprtnSortTrstAmt',   	type:'output',  width:'100px',    style:'text-align:center'
+	        {caption: ["공선수탁","공선수탁","금액"], 		ref: 'slsCprtnSortTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	    	{caption: ["공동수탁","공동수탁","물량"], 		ref: 'slsCprtnTrstVlm',   	type:'output',  width:'90px',    style:'text-align:center'
+	    	{caption: ["공동수탁","공동수탁","물량"], 		ref: 'slsCprtnTrstVlm',   		type:'input',  width:'90px',    style:'text-align:center'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["공동수탁","공동수탁","금액"], 		ref: 'slsCprtnTrstAmt',   	type:'output',  width:'100px',    style:'text-align:center'
+	        {caption: ["공동수탁","공동수탁","금액"], 		ref: 'slsCprtnTrstAmt',   		type:'input',  width:'100px',    style:'text-align:center'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["공선매취","공선매취","물량"], 		ref: 'slsCprtnSortEmspapVlm',   	type:'output',  width:'90px',    style:'text-align:center'
+	        {caption: ["공선매취","공선매취","물량"], 		ref: 'slsCprtnSortEmspapVlm',   type:'input',  width:'90px',    style:'text-align:center'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["공선매취","공선매취","금액"], 		ref: 'slsCprtnSortEmspapAmt',   	type:'output',  width:'100px',    style:'text-align:center'
+	        {caption: ["공선매취","공선매취","금액"], 		ref: 'slsCprtnSortEmspapAmt',   type:'input',  width:'100px',    style:'text-align:center'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
 	    	{caption: ["단순수탁","단순수탁","물량"], 		ref: 'slsSmplTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
@@ -592,7 +599,7 @@
 	        {caption: ["상세내역"], 	ref: 'yr',   		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'apoCd',   	hidden : true},
 	    	{caption: ["상세내역"], 	ref: 'itemCd',   	hidden : true},
-	    	{caption: ["상세내역"], 	ref: 'ctgryCd',		hidden : true},
+	    	//{caption: ["상세내역"], 	ref: 'ctgryCd',		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'apoSe',		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'brno',		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'crno',		hidden : true}
@@ -819,6 +826,34 @@
         }
 	}
 
+	//사용자 화면 조회
+	const fn_dtlSearch = async function(){
+		let brno = '${loginVO.brno}';
+		if(gfn_isEmpty(brno)) return;
+
+    	let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
+    		brno : brno
+		});
+
+        let data = await postJsonPromise ;
+        try{
+        	console.log("data==="+data);
+        	data.resultList.forEach((item, index) => {
+				SBUxMethod.set('dtl-input-apoCd',gfn_nvl(item.apoCd))//통합조직 코드
+				SBUxMethod.set('dtl-input-apoSe',gfn_nvl(item.apoSe))//통합조직 구분
+				SBUxMethod.set('dtl-input-corpNm',gfn_nvl(item.corpNm))//법인명
+				SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno))//법인등록번호
+				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))//사업자등록번호
+			});
+        	fn_dtlGridSearch();
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
+	}
+
 
 	//매입 다중 세이브
 	const fn_listSave01 = async function(){
@@ -830,13 +865,13 @@
 		let apoSe = SBUxMethod.get('dtl-input-apoSe');
 		let crno = SBUxMethod.get('dtl-input-crno');
 		let brno = SBUxMethod.get('dtl-input-brno');
-		console.log(gridData01.length);
-		for(var i=1; i<=gridData01.length; i++ ){
-			console.log(i);
-			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i+1);
-			let rowSts01 = grdPrdcrOgnCurntMng01.getRowStatus(i+1);
 
+		//그리드의 해드가 두줄이상인경우 for문 시작과 끝을 늘린만큼 늘려야함
+		for(var i=2; i<=gridData01.length + 1; i++ ){
+			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i);
+			let rowSts01 = grdPrdcrOgnCurntMng01.getRowStatus(i);
 			let delYn = rowData01.delYn;
+
 			if(delYn == 'N'){
 
 				if(gfn_isEmpty(rowData01.apoCd)){
@@ -900,9 +935,11 @@
 		let crno = SBUxMethod.get('dtl-input-crno');
 		let brno = SBUxMethod.get('dtl-input-brno');
 
-		for(var i=1; i<=gridData02.length; i++ ){
+		//그리드의 해드가 두줄이상인경우 for문 시작과 끝을 늘린만큼 늘려야함
+		for(var i=3; i<=gridData02.length + 2; i++ ){
 			let rowData02 = grdPrdcrOgnCurntMng02.getRowData(i);
 			let rowSts02 = grdPrdcrOgnCurntMng02.getRowStatus(i);
+
 			let delYn = rowData02.delYn;
 
 			if(delYn == 'N'){
@@ -1096,6 +1133,7 @@
     						,brno: 	item.brno
     						,crno: 	item.crno
     						,delYn: item.delYn
+    						,yr: item.yr
 
     						,ctgryCd: 		item.ctgryCd
     						,itemCd: 		item.itemCd
@@ -1116,6 +1154,7 @@
     						,brno: 	item.brno
     						,crno: 	item.crno
     						,delYn: item.delYn
+    						,yr: item.yr
 
     						,ctgryCd: 		item.ctgryCd
     						,itemCd: 		item.itemCd
@@ -1207,14 +1246,15 @@
         }
 
         //분류,품목,
-        let ctgryNmCol = grdPrdcrOgnCurntMng01.getColRef('ctgryNm');
+        //let ctgryNmCol = grdPrdcrOgnCurntMng01.getColRef('ctgryNm');
         let itemNmCol = grdPrdcrOgnCurntMng01.getColRef('itemNm');
 
         if(selGridRow01 == '-1'){
 			return;
         } else {
         	//선택한 데이터가 통합조직 일떄
-        	if (selGridCol01 == ctgryNmCol || selGridCol01 == itemNmCol){
+        	//if (selGridCol01 == ctgryNmCol || selGridCol01 == itemNmCol){
+        	if (selGridCol01 == itemNmCol){
         		//팝업창 오픈
         		//통합조직 팝업창 id : modal-gpcList
         		popGpcSelect.init(fn_setGridItem01);
@@ -1241,8 +1281,8 @@
 
 			//그리드 값 세팅
 
-			grdPrdcrOgnCurntMng01.setCellData(selGridRow01,grdPrdcrOgnCurntMng01.getColRef("ctgryCd"),rowData.ctgryCd,true);
-			grdPrdcrOgnCurntMng01.setCellData(selGridRow01,grdPrdcrOgnCurntMng01.getColRef("ctgryNm"),rowData.ctgryNm,true);
+			//grdPrdcrOgnCurntMng01.setCellData(selGridRow01,grdPrdcrOgnCurntMng01.getColRef("ctgryCd"),rowData.ctgryCd,true);
+			//grdPrdcrOgnCurntMng01.setCellData(selGridRow01,grdPrdcrOgnCurntMng01.getColRef("ctgryNm"),rowData.ctgryNm,true);
 			grdPrdcrOgnCurntMng01.setCellData(selGridRow01,grdPrdcrOgnCurntMng01.getColRef("itemCd"),rowData.itemCd,true);
 			grdPrdcrOgnCurntMng01.setCellData(selGridRow01,grdPrdcrOgnCurntMng01.getColRef("itemNm"),rowData.itemNm,true);
 			/*
@@ -1275,14 +1315,15 @@
         }
 
         //분류,품목,
-        let ctgryNmCol = grdPrdcrOgnCurntMng02.getColRef('ctgryNm');
+        //let ctgryNmCol = grdPrdcrOgnCurntMng02.getColRef('ctgryNm');
         let itemNmCol = grdPrdcrOgnCurntMng02.getColRef('itemNm');
 
         if(selGridRow02 == '-1'){
 			return;
         } else {
         	//선택한 데이터가 통합조직 일떄
-        	if (selGridCol02 == ctgryNmCol || selGridCol02 == itemNmCol){
+        	//if (selGridCol02 == ctgryNmCol || selGridCol02 == itemNmCol){
+        	if (selGridCol02 == itemNmCol){
         		//팝업창 오픈
         		//통합조직 팝업창 id : modal-gpcList
         		popGpcSelect.init(fn_setGridItem02);
@@ -1313,8 +1354,8 @@
 			grdPrdcrOgnCurntMng01.setCellData(selGridRow02-1,grdPrdcrOgnCurntMng01.getColRef("itemCd"),rowData.itemCd,true);
 			grdPrdcrOgnCurntMng01.setCellData(selGridRow02-1,grdPrdcrOgnCurntMng01.getColRef("itemNm"),rowData.itemNm,true);
 			*/
-			grdPrdcrOgnCurntMng02.setCellData(selGridRow02,grdPrdcrOgnCurntMng02.getColRef("ctgryCd"),rowData.ctgryCd,true);
-			grdPrdcrOgnCurntMng02.setCellData(selGridRow02,grdPrdcrOgnCurntMng02.getColRef("ctgryNm"),rowData.ctgryNm,true);
+			//grdPrdcrOgnCurntMng02.setCellData(selGridRow02,grdPrdcrOgnCurntMng02.getColRef("ctgryCd"),rowData.ctgryCd,true);
+			//grdPrdcrOgnCurntMng02.setCellData(selGridRow02,grdPrdcrOgnCurntMng02.getColRef("ctgryNm"),rowData.ctgryNm,true);
 			grdPrdcrOgnCurntMng02.setCellData(selGridRow02,grdPrdcrOgnCurntMng02.getColRef("itemCd"),rowData.itemCd,true);
 			grdPrdcrOgnCurntMng02.setCellData(selGridRow02,grdPrdcrOgnCurntMng02.getColRef("itemNm"),rowData.itemNm,true);
 

@@ -77,7 +77,7 @@ public class PrdcrOgnPrdShipRsltMngVO extends ComVO{
 
 	private String joinDay;
 	private String whdwlDay;
-	private String cltvtnArea;
+	private String cltvtnSfc;//cltvtnArea -> cltvtnSfc 컬럼 표준화로 변경됨
 
 	private String prdctnVlm;
 	private String ecSpmtVlm;
