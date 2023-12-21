@@ -636,7 +636,7 @@
             {caption: ['차량번호'], 		ref: 'vhclno', 			width: '100px', type: 'output', style: 'text-align:center'},
             {caption: ['배송처'], 		ref: 'dldtn', 			width: '150px', type: 'output', style: 'text-align:center'},
             {caption: ['운임비용 (원)'], 	ref: 'trsprtCst', 		width: '80px', 	type: 'output', style: 'text-align:center',
-    			typeinfo : {mask : {alias : 'numeric'}, maxlength: 10}, format : {type:'number', rule:'#,### 원'}},
+    			typeinfo : {mask : {alias : 'numeric'}, maxlength: 10}, format : {type:'number', rule:'#,###'}},
             {caption: ['상품명'], 		ref: 'spmtPckgUnitNm', 	width: '150px', type: 'output', style: 'text-align:center'},
             {caption: ['지시번호'], 		ref: 'spmtCmndno', 		width: '120px', type: 'output', style: 'text-align:center'},
             {caption: ['비고'], 			ref: 'rmrk', 			width: '150px', type: 'output', style: 'text-align:center'}
