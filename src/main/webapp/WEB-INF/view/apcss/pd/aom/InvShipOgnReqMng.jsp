@@ -857,6 +857,7 @@
 						,sgg: item.sgg
 						,corpNm: item.corpNm
 						,brno: item.brno
+						,aprv: item.aprv
 						,yr: '2023'
 				}
 				jsonInvShipOgnReqMng.push(InvShipOgnReqMngVO);
