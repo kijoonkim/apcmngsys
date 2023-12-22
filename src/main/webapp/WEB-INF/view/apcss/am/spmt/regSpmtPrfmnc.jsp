@@ -505,7 +505,7 @@
 			gfn_setApcGdsGrdSBSelect('dtl-slt-gdsGrd', 				jsonDtlGdsGrd, 				gv_selectedApcCd, itemCd, '03')		// 상품등급(상세)
 		]);
 
-		grdGdsInvntr.refresh({"combo":true})
+		grdGdsInvntr.refresh({"combo":true, "focus":false})
 		SBUxMethod.refresh("dtl-slt-gdsGrd");
 		SBUxMethod.refresh("excel-slt-spmtPckgUnit");
 	}
@@ -1551,7 +1551,7 @@
 			let rst = await Promise.all([
 				gfn_setSpmtPckgUnitSBSelect('dtl-slt-spmtPckgUnit', 	jsonDtlSpmtPckgUnit, 	gv_apcCd, cmnd.itemCd, cmnd.vrtyCd)	// 포장구분
 			])
-			grdGdsInvntr.refresh({"combo":true})
+			grdGdsInvntr.refresh({"combo":true, "focus":false})
 
 			SBUxMethod.set("srch-slt-spcfctCd", cmnd.spcfctCd);
 			SBUxMethod.set("dtl-slt-gdsGrd", cmnd.gdsGrd);
