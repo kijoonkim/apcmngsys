@@ -148,7 +148,7 @@
 					<div class="ad_tbl_toplist">
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdGdsInvntr" style="height:132px;"></div>
+					<div id="sb-area-grdGdsInvntr" style="height:280px;"></div>
 				</div>
 
 				<br>
@@ -332,7 +332,7 @@
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-spmtPrfmnc" style="height:162px;"></div>
+					<div id="sb-area-spmtPrfmnc" style="height:280px;"></div>
 				</div>
 			</div>
 		</div>
@@ -476,7 +476,7 @@
 		} else {
 			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, gv_selectedApcCd, itemCd);				// 규격
 		}
-		
+
 		let rst = await Promise.all([
 			gfn_setSpmtPckgUnitSBSelect('excel-slt-spmtPckgUnit', 	jsonExeclComSpmtPckgUnit, 	gv_selectedApcCd, itemCd),			// 포장구분
 			gfn_setApcSpcfctsSBSelect('excel-slt-spcfct', 			jsonExeclComSpcfct, 		gv_selectedApcCd, itemCd),			// 규격
@@ -488,17 +488,17 @@
 
 	const fn_onChangeSrchVrtyCd = async function(obj){
 		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
-		
+
 		if (gfn_isEmpty(vrtyCd)) {
 			return;
 		}
-		
+
 		itemCd = _.find(jsonComVrty, {value: vrtyCd}).mastervalue;
 
 		SBUxMethod.set("srch-slt-itemCd", itemCd);
 		await fn_onChangeSrchItemCd({value: itemCd});
 		SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
-			
+
 		let rst = await Promise.all([
 			gfn_setSpmtPckgUnitSBSelect('grdGdsInvntr', 			jsonGrdSpmtPckgUnit, 		gv_selectedApcCd, itemCd, vrtyCd),	// 포장구분
 			gfn_setApcGdsGrdSBSelect('grdGdsInvntr', 				jsonGrdGdsGrd, 				gv_selectedApcCd, itemCd, '03'),	// 상품등급(재고그리드)
@@ -548,6 +548,7 @@
         SBGridPropertiesGdsInvntr.emptyrecords = '데이터가 없습니다.';
         SBGridPropertiesGdsInvntr.selectmode = 'free';
         SBGridPropertiesGdsInvntr.extendlastcol = 'scroll';
+        SBGridPropertiesGdsInvntr.scrollbubbling = false;
         SBGridPropertiesGdsInvntr.oneclickedit = true;
         SBGridPropertiesGdsInvntr.allowcopy = true;
         SBGridPropertiesGdsInvntr.explorerbar = 'move';				// 개인화 컬럼 이동 가능
@@ -609,6 +610,7 @@
 	    SBGridPropertiesSpmtPrfmnc.emptyrecords = '데이터가 없습니다.';
 	    SBGridPropertiesSpmtPrfmnc.selectmode = 'free';
 	    SBGridPropertiesSpmtPrfmnc.extendlastcol = 'scroll';
+	    SBGridPropertiesSpmtPrfmnc.scrollbubbling = false;
 	    SBGridPropertiesSpmtPrfmnc.allowcopy = true;
 	    SBGridPropertiesSpmtPrfmnc.explorerbar = 'move';				// 개인화 컬럼 이동 가능
 	    SBGridPropertiesSpmtPrfmnc.contextmenu = true;					// 우클린 메뉴 호출 여부
@@ -629,6 +631,7 @@
             {caption: ['규격'], 			ref: 'spcfctNm', 		width: '80px', 	type: 'output', style: 'text-align:center'},
             {caption: ['상품'], 			ref: 'gdsCd', 			width: '100px', type: 'output', style: 'text-align:center', hidden:true},
             {caption: ['등급'], 			ref: 'gdsGrdNm', 		width: '60px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['상품명'], 			ref: 'spmtPckgUnitNm', 	width: '150px', type: 'output', style: 'text-align:center'},
             {caption: ['수량'], 			ref: 'spmtQntt', 		width: '60px', 	type: 'output', style: 'text-align:right'},
             {caption: ['중량 (Kg)'], 		ref: 'spmtWght',		width: '80px', 	type: 'output', style: 'text-align:right',
     			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
@@ -637,7 +640,6 @@
             {caption: ['배송처'], 		ref: 'dldtn', 			width: '150px', type: 'output', style: 'text-align:center'},
             {caption: ['운임비용 (원)'], 	ref: 'trsprtCst', 		width: '80px', 	type: 'output', style: 'text-align:center',
     			typeinfo : {mask : {alias : 'numeric'}, maxlength: 10}, format : {type:'number', rule:'#,###'}},
-            {caption: ['상품명'], 		ref: 'spmtPckgUnitNm', 	width: '150px', type: 'output', style: 'text-align:center'},
             {caption: ['지시번호'], 		ref: 'spmtCmndno', 		width: '120px', type: 'output', style: 'text-align:center'},
             {caption: ['비고'], 			ref: 'rmrk', 			width: '150px', type: 'output', style: 'text-align:center'}
         ];
