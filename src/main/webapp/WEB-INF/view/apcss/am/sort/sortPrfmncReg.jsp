@@ -587,6 +587,7 @@
             {caption: ["창고","창고"],	    	ref: 'warehouseSeNm', 	type:'output',  width:'120px', style: 'text-align:center'},
             {caption: ["원물재고","수량"],  		ref: 'invntrQntt',   	type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ["원물재고","중량 (Kg)"],  		ref: 'invntrWght',   	type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ['투입지시','지시번호'], 		ref: 'sortCmndno', 		width: '110px', type: 'output', style: 'text-align:center'},
             {caption: ["투입지시","수량"],  		ref: 'cmndQntt', 		type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ["투입지시","중량 (Kg)"],  		ref: 'cmndWght', 		type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ["투입","수량"], 			ref: 'inptQntt',  		type:'input',  width:'80px', style: 'text-align:right;background-color:#FFF8DC;',
@@ -908,11 +909,7 @@
   				itemCd: itemCd,
   				vrtyCd: vrtyCd,
 
-  				inptYmd: inptYmd,
-  	          	// pagination
-  	  	  		//pagingYn : 'Y',
-  	  			//currentPageNo : pageNo,
-  	   		  	//recordCountPerPage : pageSize
+  				inptYmd: inptYmd
   	  		});
   	        const data = await postJsonPromise;
 
@@ -963,6 +960,13 @@
   						cmndQntt: item.cmndQntt,
   						cmndWght: item.cmndWght
   				}
+          		if (gfn_isEmpty(item.sortCmndno) && item.cmndQntt == 0) {
+          			rawMtrInvntr.cmndQntt = null;
+          		}
+          		if (gfn_isEmpty(item.sortCmndno) && item.cmndWght == 0) {
+          			rawMtrInvntr.cmndWght = null;
+          		}
+          		
           		jsonRawMtrInvntr.push(rawMtrInvntr);
 				/*
   				if (index === 0) {
@@ -1452,56 +1456,64 @@
 	const fn_grdRawMtrInvntrValueChanged = function() {
 		var nRow = grdRawMtrInvntr.getRow();
 		var nCol = grdRawMtrInvntr.getCol();
+		let inptQnttCol = grdRawMtrInvntr.getColRef("inptQntt");
+		let inptWghtCol = grdRawMtrInvntr.getColRef("inptWght");
 
 		const usrAttr = grdRawMtrInvntr.getColUserAttr(nCol);
 		if (!gfn_isEmpty(usrAttr) && usrAttr.hasOwnProperty('colNm')) {
 
 			const rowData = grdRawMtrInvntr.getRowData(nRow, false);	// deep copy
-			switch (usrAttr.colNm) {
-				case "inptQntt":
-					let invntrQntt = parseInt(rowData.invntrQntt) || 0;
-					let invntrWght = parseInt(rowData.invntrWght) || 0;
-					let tmpInptQntt = parseInt(rowData.inptQntt) || 0;
+			let invntrQntt = parseInt(rowData.invntrQntt) || 0;
+			let invntrWght = parseInt(rowData.invntrWght) || 0;
+			let tmpInptQntt = parseInt(rowData.inptQntt) || 0;
+			let tmpInptWght = parseInt(rowData.inptWght) || 0;
+			if (usrAttr.colNm == "inptQntt") {
 
-					if (tmpInptQntt <= 0) {
-						rowData.inptQntt = 0;
-						rowData.inptWght = 0;
+				if (tmpInptQntt <= 0) {
+					rowData.inptQntt = 0;
+					rowData.inptWght = 0;
 
-						rowData.checkedYn = "N";
+					rowData.checkedYn = "N";
 
-					} else if (invntrQntt === 0) {
-						if (tmpInptQntt > invntrQntt) {
-							rowData.inptWght = invntrWght;
-							rowData.checkedYn = "Y";
-						}
-					} else {
-						if (tmpInptQntt > invntrQntt) {
-							gfn_comAlert("W0008", "재고수량", "투입수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
-							rowData.inptQntt = 0;
-							rowData.inptWght = 0;
-						} else {
-							rowData.checkedYn = "Y";
-							rowData.inptWght = gfn_apcEstmtWght(invntrWght * tmpInptQntt / invntrQntt, gv_selectedApcCd);
-						}
-					}
-					grdRawMtrInvntr.refresh();
-
-				case "inptWght":
-
-					let tmpInptWght = parseInt(rowData.inptWght) || 0;
-					if (tmpInptWght == 0) {
-						rowData.checkedYn = "N";
-					} else {
+				} else if (invntrQntt === 0) {
+					if (tmpInptQntt > invntrQntt) {
+						rowData.inptWght = invntrWght;
 						rowData.checkedYn = "Y";
 					}
-
+				} else {
+					if (tmpInptQntt > invntrQntt) {
+						gfn_comAlert("W0008", "재고수량", "투입수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
+						rowData.inptQntt = 0;
+						rowData.inptWght = 0;
+					} else {
+						rowData.checkedYn = "Y";
+						rowData.inptWght = gfn_apcEstmtWght(invntrWght * tmpInptQntt / invntrQntt, gv_selectedApcCd);
+					}
+				}
+				grdRawMtrInvntr.refresh();
+				fn_setInptInfo();
+					
+			} else if (usrAttr.colNm == "inptWght") {
+					
+				if(invntrWght - tmpInptWght < 0){
+					gfn_comAlert("W0008", "재고중량", "투입중량");		//	W0008	{0} 보다 {1}이/가 큽니다.
+					rowData.checkedYn = "N";
+					grdRawMtrInvntr.setCellData(nRow, inptQnttCol , 0);
+					grdRawMtrInvntr.setCellData(nRow, inptWghtCol , 0);
 					grdRawMtrInvntr.refresh();
-					fn_setInptInfo();
+		            return;
+				}
 
-					break;
+				if (tmpInptWght == 0) {
+					rowData.checkedYn = "N";
+					grdRawMtrInvntr.setCellData(nRow, inptQnttCol , 0);
+					grdRawMtrInvntr.setCellData(nRow, inptWghtCol , 0);
+				} else {
+					rowData.checkedYn = "Y";
+				}
 
-				default:
-					return;
+				grdRawMtrInvntr.refresh();
+				fn_setInptInfo();
 			}
 		}
 	}
