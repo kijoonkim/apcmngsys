@@ -1011,7 +1011,7 @@
 				grdGdsInvntr.setCellData(nRow, gdsGrdCol, gdsGrdCd, true);
 			}
 		}else{
-			grdGdsInvntr.setCellData(nRow, checkedYnCol, "N")
+			grdGdsInvntr.setCellData(nRow, checkedYnCol, "N");
 		}
 		totspmt();
     }
