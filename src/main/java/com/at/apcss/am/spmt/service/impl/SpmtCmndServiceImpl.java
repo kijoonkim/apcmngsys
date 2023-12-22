@@ -133,10 +133,10 @@ public class SpmtCmndServiceImpl extends BaseServiceImpl implements SpmtCmndServ
 	public int insertSpmtCmndList(List<SpmtCmndVO> spmtCmndList) throws Exception {
 
 		int insertedCnt = 0;
-		String spmtCmndno = cmnsTaskNoService.selectSpmtCmndno(spmtCmndList.get(0).getApcCd(), spmtCmndList.get(0).getCmndYmd());
 		int sn = 1;
 
 		for (SpmtCmndVO spmtCmndVO : spmtCmndList) {
+			String spmtCmndno = cmnsTaskNoService.selectSpmtCmndno(spmtCmndList.get(0).getApcCd(), spmtCmndList.get(0).getCmndYmd());
 			spmtCmndVO.setSpmtCmndno(spmtCmndno);
 			spmtCmndVO.setSpmtCmndSn(sn);
 			int insertResult = insertSpmtCmnd(spmtCmndVO);
