@@ -1487,10 +1487,13 @@
 				case "inptWght":
 
 					let tmpInptWght = parseInt(rowData.inptWght) || 0;
-					if ( tmpInptWght > 0 && rowData.checkedYn !== "Y") {
+					if (tmpInptWght == 0) {
+						rowData.checkedYn = "N";
+					} else {
 						rowData.checkedYn = "Y";
 					}
 
+					grdRawMtrInvntr.refresh();
 					fn_setInptInfo();
 
 					break;
