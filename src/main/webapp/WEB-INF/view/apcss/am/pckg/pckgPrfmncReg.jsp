@@ -149,7 +149,7 @@
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdSortInvntr" style="width:100%;height:235px;"></div>
+					<div id="sb-area-grdSortInvntr" style="width:100%;height:308px;"></div>
 				</div>
 
 				<br/>
@@ -257,7 +257,7 @@
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdPckgPrfmnc" style="width:100%;height:250px;"></div>
+					<div id="sb-area-grdPckgPrfmnc" style="width:100%;height:282px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 
@@ -465,7 +465,7 @@
 
 		jsonApcSpcfct = await gfn_getApcSpcfcts(gv_selectedApcCd, itemCd);
 		SBUxMethod.refresh("srch-slt-spcfctCd");
-		grdPckgPrfmnc.refresh({"combo":true});
+		grdPckgPrfmnc.refresh({"combo":true, "focus":false});
 	}
 
 	/**
@@ -516,7 +516,7 @@
 		}
 
 		jsonSpmtPckgUnit = await gfn_getSpmtPckgUnits(gv_selectedApcCd, itemCd, vrtyCd, spcfctCd);
-		grdPckgPrfmnc.refresh({"combo":true});
+		grdPckgPrfmnc.refresh({"combo":true, "focus": false});
 	}
 
 	/**
@@ -533,6 +533,7 @@
 	    SBGridProperties.selectmode = 'free';
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.scrollbubbling = false;
 		SBGridProperties.frozencols = 2;
         SBGridProperties.columns = [
 			{
@@ -686,7 +687,7 @@
   	  			});
 
   	          	grdSortInvntr.rebuild();
-  	          	//grdSortInvntr.refresh({"combo":true});
+  	          	//grdSortInvntr.refresh({"combo":true, "focus":false});
   	          	totalRecordCount = jsonSortInvntr.length;
   	          	document.querySelector('#cnt-SortInvntr').innerText = totalRecordCount;
 
@@ -718,6 +719,7 @@
 	    SBGridProperties.selectmode = 'free';
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.scrollbubbling = false;
 
         SBGridProperties.columns = [
         	{caption: ["처리"], 		ref: 'itemCd', 		type:'button', width:'60px', style: 'text-align:center',
@@ -864,7 +866,7 @@
 		let nRow = grdPckgPrfmnc.getRows();
 		grdPckgPrfmnc.addRow(true);
 		grdPckgPrfmnc.setCellDisabled(nRow, 0, nRow, grdPckgPrfmnc.getCols() - 1, true);
-		grdPckgPrfmnc.refresh({"combo":true});
+		grdPckgPrfmnc.refresh({"combo":true,"focus":false});
     }
 
 
@@ -892,7 +894,7 @@
   			gfn_comAlert("W0001", "품종");		//	W0002	{0}을/를 선택하세요.
             return;
   		}
-  		
+
     	// grid clear
     	jsonSortInvntr.length = 0;
     	fn_setGrdSortInvntr();
@@ -955,7 +957,7 @@
 		let totPckgInptWght = 0;
 
 		let errPckg = false;
-		
+
 		for ( let i=0; i<allPckgData.length-1; i++ ) {
 			const pckgYmd = allPckgData[i].pckgYmd;
 			const fcltCd = allPckgData[i].fcltCd;
@@ -1416,17 +1418,17 @@
 		const allData = grdSortInvntr.getGridDataAll();
 		let inptQntt = 0;
 		let inptWght = 0;
-	
+
 		allData.forEach((item, index) => {
 			if (item.checkedYn === "Y") {
 				let qntt = parseInt(item.inptQntt) || 0;
 				let wght = parseInt(item.inptWght) || 0;
-	
+
 				inptQntt += qntt;
 				inptWght += wght;
 			}
 		});
-		
+
 		SBUxMethod.set("dtl-inp-inptWght", inptWght);
 		let pckgWght = parseInt(SBUxMethod.get("dtl-inp-pckgWght")) || 0;
 		//SBUxMethod.set("dtl-inp-lossWght", inptWght - sortWght);
@@ -1510,7 +1512,7 @@
 
 						if (gfn_isEmpty(chkInfo)) {
 							rowData.spmtPckgUnitCd = "";
-							grdPckgPrfmnc.refresh({"combo":true});
+							grdPckgPrfmnc.refresh({"combo":true, "focus":false});
 							return;
 						}
 
@@ -2585,7 +2587,7 @@
 					}
 				}
 			}
-			_grdImp.refresh({"combo":true});
+			_grdImp.refresh({"combo":true, "focus":false});
 
 		}
 
@@ -2667,7 +2669,7 @@
 						rowData.itemCd = "";
 						rowData.vrtyCd = "";
 						rowData.spcfctCd = "";
-						_grdImp.refresh({"combo":true});
+						_grdImp.refresh({"combo":true,"focus":false});
 					}
 
 					break;
@@ -2684,7 +2686,7 @@
 		}
 */
 	}
-  	
+
 	const fn_reset = function(){
  		// 검색조건 초기화
 		SBUxMethod.set("srch-dtp-sortYmdFrom",gfn_dateFirstYmd(new Date()));
@@ -2692,7 +2694,7 @@
 		SBUxMethod.set("srch-slt-itemCd","");
 		SBUxMethod.set("srch-slt-vrtyCd","");
 		SBUxMethod.set("srch-slt-spcfctCd","");
-		
+
 		SBUxMethod.set("dtl-dtp-pckgYmd",gfn_dateToYmd(new Date()));
 		SBUxMethod.set("dtl-slt-fcltCd","");
 		SBUxMethod.set("dtl-inp-inptWght","");
