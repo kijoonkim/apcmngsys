@@ -276,8 +276,8 @@
             {caption: ["입고","중량 (Kg)"],  			ref: 'wrhsWght',   		type:'output',  width:'80px', style: 'text-align:right',  typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
             {caption: ["재고","수량"],  			ref: 'invntrCmndQntt', 	type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ["재고","중량(Kg)"],  			ref: 'invntrCmndWght', 	type:'output',  width:'80px', style: 'text-align:right',  typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-            {caption: ["지시","수량"], 				ref: 'cmndQntt',  		type:'input',   width:'80px', style: 'text-align:right; background:#FFF8DC;', typeinfo: {mask : {alias : '#', repeat: '*', unmaskvalue : true}}, format : {type:'number', rule:'#,###'}},
-            {caption: ["지시","중량(Kg)"], 				ref: 'cmndWght',  		type:'input',   width:'80px', style: 'text-align:right; background:#FFF8DC;', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
+            {caption: ["지시","수량"], 				ref: 'cmndQntt',  		type:'input',   width:'80px', style: 'text-align:right; background:#FFF8DC;', typeinfo: {mask : {alias : '#', repeat: '*'}}, format : {type:'number', rule:'#,###'}},
+            {caption: ["지시","중량(Kg)"], 				ref: 'cmndWght',  		type:'input',   width:'80px', style: 'text-align:right; background:#FFF8DC;', typeinfo : {mask : {alias : '#', repeat: '*'}}, format : {type:'number', rule:'#,###'}},
             {caption: ["선별지시 비고","선별지시 비고"], ref: 'rmrk', 		type:'input',   width:'120px', style: 'text-align:center'},
 
  	        {caption: ["생산자코드"],	ref: 'prdcrCd',   	type:'output',  hidden: true},
@@ -608,11 +608,6 @@
 		if(invntrQntt - cmndQntt < 0){
 			gfn_comAlert("W0008", "재고수량", "지시수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
 			grdRawMtrInvntr.setCellData(nRow, nCol , 0);
-            return;
-		}
-		if(cmndQntt < 0){
-			gfn_comAlert("E0000", "지시수량이 0보다 작습니다.");
-			grdRawMtrInvntr.setCellData(nRow, nCol , null);
             return;
 		}
 		if(invntrQntt > 0 && cmndQntt > 0){

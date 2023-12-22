@@ -699,7 +699,7 @@
 			await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd)		// 품종
 			SBUxMethod.set("srch-slt-itemCd", gds.itemCd);
 			SBUxMethod.set("srch-slt-vrtyCd", gds.vrtyCd);
-			fn_onChangeSrchVrtyCd({value: gds.vrtyCd});
+			await fn_onChangeSrchVrtyCd({value: gds.vrtyCd});
 			SBUxMethod.set("srch-slt-spcfctCd", gds.spcfctCd);
 		}
 	}

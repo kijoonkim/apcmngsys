@@ -148,7 +148,7 @@
 					<div class="ad_tbl_toplist">
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdGdsInvntr" style="height:132px;"></div>
+					<div id="sb-area-grdGdsInvntr" style="height:280px;"></div>
 				</div>
 
 				<br>
@@ -332,7 +332,7 @@
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-spmtPrfmnc" style="height:162px;"></div>
+					<div id="sb-area-spmtPrfmnc" style="height:280px;"></div>
 				</div>
 			</div>
 		</div>
@@ -476,7 +476,7 @@
 		} else {
 			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, gv_selectedApcCd, itemCd);				// 규격
 		}
-		
+
 		let rst = await Promise.all([
 			gfn_setSpmtPckgUnitSBSelect('excel-slt-spmtPckgUnit', 	jsonExeclComSpmtPckgUnit, 	gv_selectedApcCd, itemCd),			// 포장구분
 			gfn_setApcSpcfctsSBSelect('excel-slt-spcfct', 			jsonExeclComSpcfct, 		gv_selectedApcCd, itemCd),			// 규격
@@ -484,38 +484,29 @@
 		])
 
 		SBUxMethod.refresh("excel-slt-spmtPckgUnit");
-		SBUxMethod.refresh("srch-slt-spmtPckgUnitCd");
-
-		if(gfn_isEmpty(itemCd)){
-			jsonComSpcfct.length = 0;
-			SBUxMethod.refresh("srch-slt-spcfctCd");
-		}
-
 	}
 
 	const fn_onChangeSrchVrtyCd = async function(obj){
 		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
-		let itemCd = "";
-		if (!gfn_isEmpty(vrtyCd)) {
-			itemCd = _.find(jsonComVrty, {value: vrtyCd}).mastervalue;
-		} else {
-			itemCd = SBUxMethod.get("srch-slt-itemCd");
+
+		if (gfn_isEmpty(vrtyCd)) {
+			return;
 		}
 
-		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
-		if (itemCd != prvItemCd) {
-			SBUxMethod.set("srch-slt-itemCd", itemCd);
-			await fn_onChangeSrchItemCd({value: itemCd});
-			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
-		}
+		itemCd = _.find(jsonComVrty, {value: vrtyCd}).mastervalue;
+
+		SBUxMethod.set("srch-slt-itemCd", itemCd);
+		await fn_onChangeSrchItemCd({value: itemCd});
+		SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
+
 		let rst = await Promise.all([
 			gfn_setSpmtPckgUnitSBSelect('grdGdsInvntr', 			jsonGrdSpmtPckgUnit, 		gv_selectedApcCd, itemCd, vrtyCd),	// 포장구분
 			gfn_setApcGdsGrdSBSelect('grdGdsInvntr', 				jsonGrdGdsGrd, 				gv_selectedApcCd, itemCd, '03'),	// 상품등급(재고그리드)
 			gfn_setApcGdsGrdSBSelect('dtl-slt-gdsGrd', 				jsonDtlGdsGrd, 				gv_selectedApcCd, itemCd, '03')		// 상품등급(상세)
 		]);
 
-		grdGdsInvntr.refresh({"combo":true})
-		SBUxMethod.refresh("srch-slt-spmtPckgUnitCd");
+		grdGdsInvntr.refresh({"combo":true, "focus":false})
+		SBUxMethod.refresh("dtl-slt-gdsGrd");
 		SBUxMethod.refresh("excel-slt-spmtPckgUnit");
 	}
 
@@ -557,6 +548,7 @@
         SBGridPropertiesGdsInvntr.emptyrecords = '데이터가 없습니다.';
         SBGridPropertiesGdsInvntr.selectmode = 'free';
         SBGridPropertiesGdsInvntr.extendlastcol = 'scroll';
+        SBGridPropertiesGdsInvntr.scrollbubbling = false;
         SBGridPropertiesGdsInvntr.oneclickedit = true;
         SBGridPropertiesGdsInvntr.allowcopy = true;
         SBGridPropertiesGdsInvntr.explorerbar = 'move';				// 개인화 컬럼 이동 가능
@@ -586,9 +578,9 @@
             {caption: ["등급"], 			ref: 'gdsGrd',   		width:'100px',  type:'combo',  	style:'text-align:center; background:#FFF8DC;',
     			typeinfo : {ref:'jsonGrdGdsGrd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
             {caption: ['출하수량'], 		ref: 'spmtQntt', 		width: '80px', 	type: 'input', 	style: 'text-align:right; background:#FFF8DC;',
-            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### '}},
+            	typeinfo : {mask : {alias : '#', repeat : '*'}}, format : {type:'number', rule:'#,###'}},
             {caption: ['출하중량 (Kg)'], 	ref: 'spmtWght', 		width: '100px', type: 'input', 	style: 'text-align:right',
-            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
+            	typeinfo : {mask : {alias : '#', repeat : '*'}}, format : {type:'number', rule:'#,###'}},
 			{caption: ['비고'], 			ref: 'rmrk', 			width: '300px', type: 'output', style: 'text-align:center'},
             {caption: ["출하일자"],		ref: 'spmtYmd',   		type:'output',  hidden: true},
             {caption: ["거래처코드"],		ref: 'cnptCd',   		type:'output',  hidden: true},
@@ -618,6 +610,7 @@
 	    SBGridPropertiesSpmtPrfmnc.emptyrecords = '데이터가 없습니다.';
 	    SBGridPropertiesSpmtPrfmnc.selectmode = 'free';
 	    SBGridPropertiesSpmtPrfmnc.extendlastcol = 'scroll';
+	    SBGridPropertiesSpmtPrfmnc.scrollbubbling = false;
 	    SBGridPropertiesSpmtPrfmnc.allowcopy = true;
 	    SBGridPropertiesSpmtPrfmnc.explorerbar = 'move';				// 개인화 컬럼 이동 가능
 	    SBGridPropertiesSpmtPrfmnc.contextmenu = true;					// 우클린 메뉴 호출 여부
@@ -638,6 +631,7 @@
             {caption: ['규격'], 			ref: 'spcfctNm', 		width: '80px', 	type: 'output', style: 'text-align:center'},
             {caption: ['상품'], 			ref: 'gdsCd', 			width: '100px', type: 'output', style: 'text-align:center', hidden:true},
             {caption: ['등급'], 			ref: 'gdsGrdNm', 		width: '60px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['상품명'], 			ref: 'spmtPckgUnitNm', 	width: '150px', type: 'output', style: 'text-align:center'},
             {caption: ['수량'], 			ref: 'spmtQntt', 		width: '60px', 	type: 'output', style: 'text-align:right'},
             {caption: ['중량 (Kg)'], 		ref: 'spmtWght',		width: '80px', 	type: 'output', style: 'text-align:right',
     			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
@@ -645,8 +639,7 @@
             {caption: ['차량번호'], 		ref: 'vhclno', 			width: '100px', type: 'output', style: 'text-align:center'},
             {caption: ['배송처'], 		ref: 'dldtn', 			width: '150px', type: 'output', style: 'text-align:center'},
             {caption: ['운임비용 (원)'], 	ref: 'trsprtCst', 		width: '80px', 	type: 'output', style: 'text-align:center',
-    			typeinfo : {mask : {alias : 'numeric'}, maxlength: 10}, format : {type:'number', rule:'#,### 원'}},
-            {caption: ['상품명'], 		ref: 'spmtPckgUnitNm', 	width: '150px', type: 'output', style: 'text-align:center'},
+    			typeinfo : {mask : {alias : 'numeric'}, maxlength: 10}, format : {type:'number', rule:'#,###'}},
             {caption: ['지시번호'], 		ref: 'spmtCmndno', 		width: '120px', type: 'output', style: 'text-align:center'},
             {caption: ['비고'], 			ref: 'rmrk', 			width: '150px', type: 'output', style: 'text-align:center'}
         ];
@@ -753,7 +746,7 @@
 		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
-		let spmtPckgUnitCd = SBUxMethod.get("srch-slt-spmtPckgUnitCd");
+		let spmtPckgUnitCd = SBUxMethod.get("dtl-slt-spmtPckgUnit");
 		let gdsSeCd = SBUxMethod.get("srch-rdo-gdsSeCd");
 		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
 
@@ -830,7 +823,6 @@
   	          		}
   	  			});
   	          	grdGdsInvntr.rebuild();
-  	          	console.log(jsonGdsInvntr);
 
         	} else {
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
@@ -1021,7 +1013,7 @@
 				grdGdsInvntr.setCellData(nRow, gdsGrdCol, gdsGrdCd, true);
 			}
 		}else{
-			grdGdsInvntr.setCellData(nRow, checkedYnCol, "N")
+			grdGdsInvntr.setCellData(nRow, checkedYnCol, "N");
 		}
 		totspmt();
     }
@@ -1551,19 +1543,18 @@
 				SBUxMethod.set("dtl-inp-rmrk", cmnd.rmrk);
 			}
 			SBUxMethod.set("dtl-inp-outordrno", cmnd.outordrno);
-			SBUxMethod.set("dtl-slt-gdsGrd", cmnd.gdsGrd);
+			await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd)		// 품종
 			SBUxMethod.set("srch-slt-itemCd", cmnd.itemCd);
 			SBUxMethod.set("srch-slt-vrtyCd", cmnd.vrtyCd);
+			await fn_onChangeSrchVrtyCd({value: cmnd.vrtyCd});
 
 			let rst = await Promise.all([
-				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',			jsonComSpcfct, 			gv_apcCd, cmnd.itemCd), 				// 규격
-				gfn_setSpmtPckgUnitSBSelect('dtl-slt-spmtPckgUnit', 	jsonDtlSpmtPckgUnit, 	gv_apcCd, cmnd.itemCd, cmnd.vrtyCd),	// 포장구분
-				gfn_setSpmtPckgUnitSBSelect('grdGdsInvntr', 			jsonGrdSpmtPckgUnit, 	gv_apcCd, cmnd.itemCd, cmnd.vrtyCd)		// 포장구분(그리드)
+				gfn_setSpmtPckgUnitSBSelect('dtl-slt-spmtPckgUnit', 	jsonDtlSpmtPckgUnit, 	gv_apcCd, cmnd.itemCd, cmnd.vrtyCd)	// 포장구분
 			])
-			grdGdsInvntr.refresh({"combo":true})
-			SBUxMethod.refresh("srch-slt-spmtPckgUnitCd");
+			grdGdsInvntr.refresh({"combo":true, "focus":false})
 
 			SBUxMethod.set("srch-slt-spcfctCd", cmnd.spcfctCd);
+			SBUxMethod.set("dtl-slt-gdsGrd", cmnd.gdsGrd);
 			SBUxMethod.set("dtl-slt-spmtPckgUnit", cmnd.spmtPckgUnitCd);
 
 			fn_search();

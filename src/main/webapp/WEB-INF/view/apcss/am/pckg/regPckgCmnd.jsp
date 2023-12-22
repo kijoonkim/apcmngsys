@@ -323,9 +323,9 @@
             {caption: ["포장지시", "지시규격"], 	ref: 'spcfct',   		type:'combo',  	width:'100px',    style:'text-align:center; background:#FFF8DC;',
 				typeinfo : {ref:'jsonComSpcfct', 	displayui : false,	itemcount: 10, label:'label', value:'value', unselect: {label : '선택', value: ''}}},
 	        {caption: ["포장지시","수량"],  	ref: 'pckgQntt',    	type:'input',  	width:'100px',    style:'text-align:right; background:#FFF8DC;',
-	        	format : {type:'number', rule:'#,###'}, typeinfo : {mask : {alias : 'numeric'}}},
+	        	format : {type:'number', rule:'#,###'}, typeinfo : {mask : {alias : '#', repeat: '*'}}},
 	        {caption: ["포장지시","중량 (Kg)"],	ref: 'pckgWght',    	type:'input',  width:'100px',    style:'text-align:right; background:#FFF8DC;',
-	        	format : {type:'number', rule:'#,###'}},
+	        	format : {type:'number', rule:'#,###'}, typeinfo : {mask : {alias : '#', repeat: '*'}}},
 	        {caption: ["지시비고","지시비고"],  	ref: 'rmrk',    		type:'input',  	width:'180px',    style:'text-align:center'}
 	    ];
 	    grdSortInvntr = _SBGrid.create(SBGridProperties);
@@ -390,11 +390,6 @@
 			gfn_comAlert("W0008", "재고수량", "출하수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
 			grdSortInvntr.setCellData(nRow, nCol , 0);
             return;
-		}
-		if(pckgQntt < 0){
-			gfn_comAlert("E0000", "입력한 수량이 0보다 작습니다.");		//	W0008	{0} 보다 {1}이/가 큽니다.
-			grdSortInvntr.setCellData(nRow, nCol , 0);
-			return;
 		}
 
 		if(invntrQntt > 0 && pckgQntt >= 0){

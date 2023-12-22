@@ -337,10 +337,9 @@
 		    {caption: ["등급"], 		ref: 'gdsGrd',   		width:'100px',  type:'combo',    style:'text-align:center; background:#FFF8DC;',
 						typeinfo : {ref:'jsonComGdsGrd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
             {caption: ['지시수량'], 	ref: 'inptCmndQntt', 	width: '80px', type: 'input', style: 'text-align:right; background:#FFF8DC;',
-            	typeinfo : {mask : {alias : 'numeric'}}
-            },
+            	typeinfo : {mask : {alias : '#', repeat: '*'}}, format : {type:'number', rule:'#,###'}},
             {caption: ['지시중량 (Kg)'], 	ref: 'inptCmndWght', 	width: '100px', type: 'output', style: 'text-align:right' ,
-            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
+            	typeinfo : {mask : {alias : '#', repeat: '*'}}, format : {type:'number', rule:'#,###'}},
             {caption: ["단중"], ref: 'wght', type:'output', hidden : true}
         ];
 
@@ -569,18 +568,6 @@
 			grdSpmtCmndTrg.setCellData(nRow, checkedYnCol, "Y");
 		}else{
 			gfn_comAlert("W0008", "재고수량", "지시수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
-			grdSpmtCmndTrg.setCellData(nRow, inptCmndWghtCol, 0);
-			grdSpmtCmndTrg.setCellData(nRow, inptCmndWghtCol , 0);
-			grdSpmtCmndTrg.setCellData(nRow, checkedYnCol, "N");
-			SBUxMethod.set("dtl-inp-apcCnptNm", "");
-			SBUxMethod.set("dtl-inp-apcCnptCd", "");
-			SBUxMethod.set("dtl-inp-dldtn", "");
-			return;
-		}
-		
-		// 입력한 값이 음수일 때
-		if(inptCmndQntt < 0){
-			gfn_comAlert("E0000", "지시수량이 0보다 작습니다.");
 			grdSpmtCmndTrg.setCellData(nRow, inptCmndWghtCol, 0);
 			grdSpmtCmndTrg.setCellData(nRow, inptCmndWghtCol , 0);
 			grdSpmtCmndTrg.setCellData(nRow, checkedYnCol, "N");
