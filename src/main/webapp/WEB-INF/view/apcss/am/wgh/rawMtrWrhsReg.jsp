@@ -895,7 +895,7 @@
    			grdCd: grdCd,
    			wghno: wghno,
    			prdctnYr: prdctnYr,
-   			prcsType: prcsType,
+   			prcsType: gfn_isEmpty(prcsType) ? '' : prcsType,
    			stdGrdList: stdGrd.stdGrdList
     	}
 
@@ -1120,6 +1120,7 @@
   		// 평균
   		SBUxMethod.set("srch-inp-wghtAvg", "");
   		
+
   		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
   		if (!gfn_isEmpty(vrtyCd)) {
   			const vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd});  			
@@ -1129,6 +1130,9 @@
   				SBUxMethod.set("srch-inp-wghtAvg", unitWght);
   			}
   		}
+  		
+  		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+  		fn_setStdGdsSelect(itemCd);
     }
 
  	/**
@@ -1209,6 +1213,8 @@
  		SBUxMethod.set("srch-inp-wghno", "");
  		
  		fn_inputClear();
+ 		
+ 		// 등급 init
  	}
 
 	/** ui event */
