@@ -27,6 +27,7 @@
 				, CM.USER_NM
 				, CM.USER_TYPE
 				, CM.USER_STTS
+				, CM.USER_APRV_YMD
 				, CM.TELNO
 				, CM.BRNO
 				, CM.MBL_TELNO
@@ -103,6 +104,7 @@
 				, CM.USER_NM
 				, CM.USER_TYPE
 				, CM.USER_STTS
+				, CM.USER_APRV_YMD
 				, CM.TELNO
 				, CM.BRNO
 				, CM.MBL_TELNO
@@ -172,9 +174,11 @@
 	    		  , USER_NM
 	    		  , USER_TYPE
 	    		  , USER_STTS
+	    		  , USER_APRV_YMD
 	    		  , TELNO
 	    		  , BRNO
 	    		  , MBL_TELNO
+	    		  , CO_NM
 	    		  , CMPTNC_INST_APRV_SE
 	    		  , CMPTNC_INST_APRV_YMD
 	    		  , CMPTNC_INST
@@ -193,14 +197,15 @@
 	   			  , #{userNm}
 	   			  , #{userType}
 	   			  , #{userStts}
+	   			  , SYSDATE
 	   			  , #{telno}
 	   			  , #{brno}
 	   			  , #{mblTelno}
 	   			  , #{coNm}
 	   			  , #{cmptncInstAprvSe}
-	   			  , #{uoAprvStts}
 	   			  , SYSDATE
 	   			  , #{cmptncInst}
+	   			  , #{uoAprvStts}
 
 	   			  , SYSDATE
 	   			  , #{sysFrstInptUserId}
@@ -219,16 +224,26 @@
 			 	  USER_TYPE				= #{userType}
 			 	, BRNO 					= #{brno}
 			 	, CO_NM 				= #{coNm}
-			 	, MBL_TELNO 				= #{mblTelno}
+			 	, MBL_TELNO 			= #{mblTelno}
 			 	, TELNO 				= #{telno}
-			 	, CMPTNC_INST_APRV_SE 	= #{cmptncInstAprvSe}
-			 	, CMPTNC_INST_APRV_YMD 	= SYSDATE
-			 	, USER_STTS 			= #{userStts}
+
 			 	, UO_APRV_STTS 			= #{uoAprvStts}
 
     	]]>
+    	<if test='userStts != null and userStts != ""'>
+				, USER_STTS 	= #{userStts}
+		</if>
+		<if test='cmptncInstAprvSe != null and cmptncInstAprvSe != ""'>
+				, CMPTNC_INST_APRV_SE 	= #{cmptncInstAprvSe}
+		</if>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}
+		</if>
+		<if test='userStts != null and userStts != "" and userStts == "01"'>
+				, USER_APRV_YMD 		= SYSDATE
+		</if>
+		<if test='cmptncInstAprvSe != null and cmptncInstAprvSe != "" and cmptncInstAprvSe == "Y"'>
+				, CMPTNC_INST_APRV_YMD 	= SYSDATE
 		</if>
     	<![CDATA[
 				, SYS_LAST_CHG_DT		= SYSDATE

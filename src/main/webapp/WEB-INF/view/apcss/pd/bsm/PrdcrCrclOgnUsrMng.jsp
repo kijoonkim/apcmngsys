@@ -172,15 +172,15 @@
 
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
-				<div class="ad_tbl_top">
-					<ul class="ad_tbl_count">
-						<li>
-							<span style="font-size:14px">검색리스트</span>
-							<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
-						</li>
-					</ul>
-				</div>
 				<div class="ad_section_top">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">사용자 리스트</span>
+								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+							</li>
+						</ul>
+					</div>
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrCrclOgnUsrMng" style="height:350px; width: 100%;"></div>
 				</div>
@@ -283,6 +283,7 @@
 									id="dtl-input-brno"
 									name="dtl-input-brno"
 									class="form-control input-sm"
+									mask = "{ 'alias': '999-99-99999', 'autoUnmask': true }"
 									autocomplete="off"
 								></sbux-input>
 							</td>
@@ -309,6 +310,7 @@
 									id="dtl-input-telno"
 									name="dtl-input-telno"
 									class="form-control input-sm"
+									mask="{'alias' : '999-9999-9999'}"
 									autocomplete="off"
 								></sbux-input>
 							</td>
@@ -342,14 +344,25 @@
 							</td>
 							<th scope="row" class="th_bg">1차승인일자</th>
 							<td colspan="2" class="td_input" style="border-right:hidden;" >
+								<!--
 								<sbux-input
 									uitype="text"
 									id="dtl-input-userAprvYmd"
 									name="dtl-input-userAprvYmd"
 									class="form-control input-sm"
 									autocomplete="off"
+									date-format="yyyy/mm/dd"
 									readonly
 								></sbux-input>
+								 -->
+								<sbux-datepicker
+									uitype="popup"
+									id="dtl-input-userAprvYmd"
+									name="dtl-input-userAprvYmd"
+									class="input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-datepicker>
 							</td>
 							<td style="border-right: hidden;"></td>
 						</tr><tr>
@@ -363,6 +376,7 @@
 									unselected-text="선택"
 									class="form-control input-sm"
 									onchange="fn_onChangeSrchItemCd(this)"
+									readonly
 								></sbux-select>
 								*1차승인여부가 '승인' 상태여야 2차승인여부 변경이 가능합니다.
 							</td>
@@ -370,6 +384,7 @@
 							</td>
 							<th scope="row" class="th_bg">2차승인일자</th>
 							<td colspan="2" class="td_input" style="border-right:hidden;" >
+								<!--
 								<sbux-input
 									uitype="text"
 									id="dtl-input-cmptncInstAprvYmd"
@@ -378,6 +393,15 @@
 									autocomplete="off"
 									readonly
 								></sbux-input>
+								 -->
+								<sbux-datepicker
+									uitype="popup"
+									id="dtl-input-cmptncInstAprvYmd"
+									name="dtl-input-cmptncInstAprvYmd"
+									class="input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-datepicker>
 							</td>
 							<td style="border-right: hidden;"></td>
 						</tr>
@@ -513,9 +537,10 @@
 	    	{caption: ["사업자번호"], 	ref: 'brno',   	type:'output',  width:'200px',    style:'text-align:center'},
 	    	{caption: ["비고"], 		ref: 'rmrk',   	type:'output',  width:'200px',    style:'text-align:center'},
 
-	    	{caption: ["전화번호"], 		ref: 'telno',   	type:'output',  hidden : true},
-	    	{caption: ["핸드폰번호"], 		ref: 'mblTelno',   	type:'output',  hidden : true},
-	    	{caption: ["관할기관승인일"], 		ref: 'cmptncInstAprvYmd',   	type:'output',  hidden : true}
+	    	{caption: ["전화번호"], 	ref: 'telno',   			hidden : true},
+	    	{caption: ["핸드폰번호"], 	ref: 'mblTelno',   			hidden : true},
+	    	{caption: ["2차승인일"], 	ref: 'cmptncInstAprvYmd',   hidden : false},
+	    	{caption: ["1차승인일"], 	ref: 'userAprvYmd',   		hidden : false}
 	    ];
 
 	    grdPrdcrCrclOgnUsrMng = _SBGrid.create(SBGridProperties);
@@ -579,11 +604,14 @@
 				  , userNm 		: item.userNm
 				  , userType 	: item.userType
 				  , userStts 	: item.userStts
+				  , userAprvYmd : item.userAprvYmd
 				  , telno 		: item.telno
 				  , brno 		: item.brno
-				  , mblTelno 		: item.mblTelno
+				  , mblTelno 	: item.mblTelno
 				  , coNm 		: item.coNm
 				  , cmptncInstAprvSe 	: item.cmptncInstAprvSe
+				  , cmptncInstAprvYmd : item.cmptncInstAprvYmd
+
 				  , cmptncInst 	: item.cmptncInst
 				}
 				jsonPrdcrCrclOgnUsrMng.push(PrdcrCrclOgnUsrMngVO);
@@ -662,6 +690,7 @@
 		SBUxMethod.set("dtl-input-cmptncInstAprvSe",null);
 		SBUxMethod.set("dtl-input-userAprvYmd",null);
 		SBUxMethod.set("dtl-input-cmptncInst",null);
+		SBUxMethod.attr("dtl-input-cmptncInstAprvSe", "readonly", "true");
 	}
 
 
@@ -672,6 +701,18 @@
 
 		if (!confirm("저장 하시겠습니까?")) return;
 
+		let nRow = grdPrdcrCrclOgnUsrMng.getRow();
+		let rowData = grdPrdcrCrclOgnUsrMng.getRowData(nRow);
+		let cmptncInstAprvSe = "";
+		if(rowData.cmptncInstAprvSe != SBUxMethod.get("dtl-input-cmptncInstAprvSe")){
+			cmptncInstAprvSe = SBUxMethod.get("dtl-input-cmptncInstAprvSe");
+		}
+
+		let userStts = "";
+		if(rowData.userStts != SBUxMethod.get("dtl-input-userStts")){
+			userStts = SBUxMethod.get("dtl-input-userStts");
+		}
+
 		const postJsonPromise = gfn_postJSON("/pd/bsm/updatePrdcrCrclOgnUsrMng.do", {
 			 userId : SBUxMethod.get("dtl-input-userId")//아이디
 			,userType : SBUxMethod.get("dtl-input-userType")//권한
@@ -679,10 +720,10 @@
 			,coNm : SBUxMethod.get("dtl-input-coNm")//법인명
 			,telno : SBUxMethod.get("dtl-input-telno")//전화번호
 			,mblTelno : SBUxMethod.get("dtl-input-mblTelno")//휴대폰번호
-			,cmptncInstAprvYmd : SBUxMethod.get("dtl-input-cmptncInstAprvYmd")//관할기관승인일
-			,userAprvYmd : SBUxMethod.get("dtl-input-userAprvYmd")//사용자승인일
-			,cmptncInstAprvSe : SBUxMethod.get("dtl-input-cmptncInstAprvSe")//2차승인여부
-			,userStts : SBUxMethod.get("dtl-input-userStts")//1차승인여부
+			//,cmptncInstAprvYmd : SBUxMethod.get("dtl-input-cmptncInstAprvYmd")//관할기관승인일
+			//,userAprvYmd : SBUxMethod.get("dtl-input-userAprvYmd")//사용자승인일
+			,cmptncInstAprvSe : cmptncInstAprvSe//2차승인여부
+			,userStts : userStts//1차승인여부
 		});
 
 		const data = await postJsonPromise;
@@ -721,18 +762,23 @@
 		//서치폼에서 클릭시 디테일폼에 데이터출력
 		let rowData = grdPrdcrCrclOgnUsrMng.getRowData(nRow);
 		console.log(rowData.userStts);
-		SBUxMethod.set("dtl-input-userId", rowData.userId);  //  아이디
-		SBUxMethod.set("dtl-input-userNm", rowData.userNm);  //  이름
-		SBUxMethod.set("dtl-input-userType", rowData.userType);  //  권한
-		SBUxMethod.set("dtl-input-userStts", rowData.userStts);  //  1차승인
-		SBUxMethod.set("dtl-input-telno", rowData.telno);  //  전화번호
-		SBUxMethod.set("dtl-input-brno", rowData.brno);  //  사업자번호
-		SBUxMethod.set("dtl-input-mblTelno", rowData.mblTelno);  //  휴대폰번호
-		SBUxMethod.set("dtl-input-cmptncInstAprvYmd", rowData.cmptncInstAprvYmd);  //  관할기관승인일
-		SBUxMethod.set("dtl-input-userAprvYmd", rowData.userAprvYmd);  //  사용자승인일
-		SBUxMethod.set("dtl-input-coNm", rowData.coNm);  //  법인명
-		SBUxMethod.set("dtl-input-cmptncInstAprvSe", rowData.cmptncInstAprvSe);  //  2차승인
-		SBUxMethod.set("dtl-input-cmptncInst", rowData.cmptncInst);  //  관할기관
+		SBUxMethod.set("dtl-input-userId", gfn_nvl(rowData.userId));  //  아이디
+		SBUxMethod.set("dtl-input-userNm", gfn_nvl(rowData.userNm));  //  이름
+		SBUxMethod.set("dtl-input-userType", gfn_nvl(rowData.userType));  //  권한
+		SBUxMethod.set("dtl-input-userStts", gfn_nvl(rowData.userStts));  //  1차승인
+		SBUxMethod.set("dtl-input-telno", gfn_nvl(rowData.telno));  //  전화번호
+		SBUxMethod.set("dtl-input-brno", gfn_nvl(rowData.brno));  //  사업자번호
+		SBUxMethod.set("dtl-input-mblTelno", gfn_nvl(rowData.mblTelno));  //  휴대폰번호
+		SBUxMethod.set("dtl-input-cmptncInstAprvYmd", gfn_nvl(rowData.cmptncInstAprvYmd));  //  관할기관승인일
+		SBUxMethod.set("dtl-input-userAprvYmd", gfn_nvl(rowData.userAprvYmd));  //  사용자승인일
+		SBUxMethod.set("dtl-input-coNm", gfn_nvl(rowData.coNm));  //  법인명
+		if(rowData.userStts == '01'){
+			SBUxMethod.set("dtl-input-cmptncInstAprvSe", gfn_nvl(rowData.cmptncInstAprvSe));  //  2차승인
+			SBUxMethod.attr("dtl-input-cmptncInstAprvSe", "readonly", "false");
+		}else{
+			SBUxMethod.attr("dtl-input-cmptncInstAprvSe", "readonly", "true");
+		}
+		SBUxMethod.set("dtl-input-cmptncInst", gfn_nvl(owData.cmptncInst));  //  관할기관
 	}
 
 	 /*

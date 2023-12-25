@@ -163,6 +163,7 @@
 									id="srch-input-brno"
 									name="srch-input-brno"
 									class="form-control input-sm"
+									mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
 									autocomplete="off"
 								></sbux-input>
 							</td>
@@ -188,15 +189,15 @@
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
 				<!-- 조직 리스트 -->
-				<div class="ad_tbl_top">
-					<ul class="ad_tbl_count">
-						<li>
-							<span style="font-size:14px">검색리스트</span>
-							<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
-						</li>
-					</ul>
-				</div>
 				<div class="ad_section_top">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">검색리스트</span>
+								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+							</li>
+						</ul>
+					</div>
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrOgnCurntMng" style="height:350px; width: 100%;"></div>
 				</div>
@@ -237,6 +238,7 @@
 									id="dtl-input-brno"
 									name="dtl-input-brno"
 									class="form-control input-sm"
+									mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
 									autocomplete="off"
 									readonly
 								></sbux-input>
@@ -250,6 +252,7 @@
 									id="srch-input-crno"
 									name="srch-input-crno"
 									class="form-control input-sm"
+									mask = "{ 'alias': '999999-9999999' , 'autoUnmask': true}"
 									autocomplete="off"
 									readonly
 								></sbux-input>
@@ -260,10 +263,17 @@
 				</table>
 				<br>
 				<!--[pp] 검색결과 상세보기-->
-				<div>
-					<p>판매위임[매입] 및 출하[매출] 실적</p>
-				</div>
 				<div class="ad_section_top">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">판매위임[매입] 및 출하[매출] 실적</span>
+								<!--
+								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+								 -->
+							</li>
+						</ul>
+					</div>
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:600px; width: 100%;"></div>
 				</div>
