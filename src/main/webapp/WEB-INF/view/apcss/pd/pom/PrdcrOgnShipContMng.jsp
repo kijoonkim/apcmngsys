@@ -26,7 +26,7 @@
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
 				</c:if>
 				<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
-					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch01"></sbux-button>
+					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="생산사조직 조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch01"></sbux-button>
 				</c:if>
 				</div>
 			</div>
@@ -186,15 +186,15 @@
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
 				<!-- 조직 리스트 -->
-				<div class="ad_tbl_top">
-					<ul class="ad_tbl_count">
-						<li>
-							<span style="font-size:14px">검색리스트</span>
-							<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
-						</li>
-					</ul>
-				</div>
 				<div class="ad_section_top">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">검색리스트</span>
+								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+							</li>
+						</ul>
+					</div>
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrOgnCurntMng" style="height:350px; width: 100%;"></div>
 				</div>
@@ -204,7 +204,7 @@
 				<!-- 생산자 조직 리스트 -->
 				<div class="box-header" style="display:flex; justify-content: flex-start;" >
 					<div style="margin-left: auto;">
-						<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch01"></sbux-button>
+						<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="생산자조직 조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch01"></sbux-button>
 					</div>
 				</div>
 			</c:if><!-- 관리자 권한인 경우 그리드 표기 -->
@@ -212,9 +212,33 @@
 					<caption>출하조직 표기</caption>
 					<tbody>
 						<tr>
+							<th scope="row" class="th_bg th_border_right">조직구분</th>
+							<td colspan="2" class="td_input">
+								<!--
+								<sbux-input
+									uitype="text"
+									id="dtl-input-apoSe"
+									name="dtl-input-apoSe"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+								 -->
+								<sbux-select
+									id="dtl-input-apoSe"
+									name="dtl-input-apoSe"
+									uitype="single"
+									jsondata-ref="jsonComApoSe"
+									unselected-text="전체"
+									class="form-control input-sm"
+									readonly
+								></sbux-select>
+							<td class="td_input">
 							<th scope="row" class="th_bg th_border_right">법인명</th>
 							<sbux-input uitype="hidden" id="dtl-input-apoCd" name="dtl-input-apoCd"></sbux-input>
+							<!--
 							<sbux-input uitype="hidden" id="dtl-input-apoSe" name="dtl-input-apoSe"></sbux-input>
+							 -->
 							<sbux-input uitype="hidden" id="dtl-input-crno" name="dtl-input-crno"></sbux-input>
 							<td colspan="2" class="td_input">
 								<sbux-input
@@ -234,22 +258,29 @@
 									id="dtl-input-brno"
 									name="dtl-input-brno"
 									class="form-control input-sm"
+									mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
 									autocomplete="off"
 									readonly
 								></sbux-input>
 							</td>
-							<td colspan="5" class="td_input"  style="border-left: hidden;">
+							<td class="td_input"  style="border-left: hidden;">
 							</td>
 						</tr>
 					</tbody>
 				</table>
-				<br>
 				<!--[pp] 검색결과 상세보기-->
 				<!-- 생산자조직 리스트 그리드 -->
-				<div>
-					<p>생산자조직 리스트</p>
-				</div>
 				<div class="ad_section_top">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">생산자조직 리스트</span>
+								<!--
+								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+								 -->
+							</li>
+						</ul>
+					</div>
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:200px; width: 100%;"></div>
 				</div>
@@ -258,8 +289,8 @@
 				<!-- 농가 리스트 -->
 				<div class="box-header" style="display:flex; justify-content: flex-start;" >
 					<div style="margin-left: auto;">
-						<sbux-button id="btnSearchFclt2" name="btnSearchFclt2" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch02"></sbux-button>
-						<sbux-button id="btnSaveFclt2" name="btnSaveFclt2" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
+						<sbux-button id="btnSearchFclt2" name="btnSearchFclt2" uitype="normal" text="농가리스트 조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch02"></sbux-button>
+						<sbux-button id="btnSaveFclt2" name="btnSaveFclt2" uitype="normal" text="농가리스트 저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
 					</div>
 				</div>
 				<table class="table table-bordered tbl_fixed">
@@ -318,13 +349,19 @@
 						</tr>
 					</tbody>
 				</table>
-				<br>
 				<!--[pp] 검색결과 상세보기-->
 				<!-- 농가 리스트 그리드 -->
-				<div>
-					<p>농가 리스트</p>
-				</div>
 				<div class="ad_section_top">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">농가 리스트</span>
+								<!--
+								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+								 -->
+							</li>
+						</ul>
+					</div>
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrOgnCurntMng02" style="height:200px; width: 100%;"></div>
 				</div>
@@ -379,6 +416,11 @@
 	var jsonComAplyTrgtSe = [];//신청대상구분
 	var jsonComTrmtType = [];//취급유형
 	var jsonComSttgUpbrItemSe = [];//품목구분 전문/육성
+	//통합조직,출하조직
+	var jsonComApoSe = [
+		{'text': '통합조직','label': '통합조직', 'value': '1'},
+		{'text': '출자출하조직','label': '출자출하조직', 'value': '2'}
+	];
 	/**
 	 * combo 설정
 	 */
@@ -439,6 +481,8 @@
 	    SBGridProperties.columns = [
 	    	{caption: ["seq"], 			ref: 'apoCd',   	hidden : true},
 	    	{caption: ["등록년도"], 		ref: 'yr',   	type:'output',  width:'100px',    style:'text-align:center'},
+	    	{caption: ["조직구분"], 		ref: 'apoSe',   	type:'combo',  width:'120px',    style:'text-align:center', disabled:true
+	    		,typeinfo : {ref:'jsonComApoSe', label:'label', value:'value', displayui : false}},
 	    	{caption: ["법인구분"], 		ref: 'corpSeCd',type:'combo',  width:'100px',    style:'text-align:center', disabled:true
 	    		,typeinfo : {ref:'jsonComCorpSeCd', label:'label', value:'value', displayui : false}},
 	    	{caption: ["시도"], 			ref: 'ctpv',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
@@ -532,11 +576,14 @@
 	    SBGridProperties.columns = [
 	    	{caption: ["순번"], 			ref: 'cltvtnLandSn',   	type:'output',  width:'60px',    style:'text-align:center'},
 	    	{caption: ["조직원명"], 		ref: 'flnm',   	type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["재배지 주소"], 	ref: 'cltvtnLandAddr',   	type:'output',  width:'150px',    style:'text-align:center'},
+	        {caption: ["재배지 주소"], 	ref: 'cltvtnLandAddr',   	type:'output',  width:'300px',    style:'text-align:center'},
 	        {caption: ["품목"], 			ref: 'itemNm',   	type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["재배면적(㎡)"], 	ref: 'cltvtnSfc',   	type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["생산계획량(톤)"], ref: 'prdctnPlanVlm',   	type:'input',  width:'140px',    style:'text-align:center'},
-	        {caption: ["전속출하계약량(톤)"], ref: 'ecSpmtPlanVlm',   	type:'input',  width:'140px',    style:'text-align:center'},
+	        {caption: ["재배면적(㎡)"], 	ref: 'cltvtnSfc',   	type:'output',  width:'120px',    style:'text-align:center'
+	        	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["생산계획량(톤)"], ref: 'prdctnPlanVlm',   	type:'input',  width:'140px',    style:'text-align:center'
+	        	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["전속출하계약량(톤)"], ref: 'ecSpmtPlanVlm',   	type:'input',  width:'140px',    style:'text-align:center'
+	        	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 	        {caption: ["가입일"], 		ref: 'joinDay',  	type:'datepicker',  width:'110px',    style:'text-align:center', disabled:true
 	        	,typeinfo : {locale : 'ko' , dateformat :'yymmdd'}, format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd' }},
 	        {caption: ["탈퇴일"], 		ref: 'whdwlDay',  	type:'datepicker',  width:'110px',    style:'text-align:center', disabled:true

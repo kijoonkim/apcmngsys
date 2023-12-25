@@ -168,6 +168,7 @@
 									id="srch-input-brno"
 									name="srch-input-brno"
 									class="form-control input-sm"
+									mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true }"
 									autocomplete="off"
 								></sbux-input>
 							</td>
@@ -192,31 +193,40 @@
 
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
-				<div class="ad_tbl_top">
-					<ul class="ad_tbl_count">
-						<li>
-							<span style="font-size:14px">검색리스트</span>
-							<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
-						</li>
-					</ul>
-				</div>
 				<div class="ad_section_top">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">통합조직 리스트</span>
+								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+							</li>
+						</ul>
+					</div>
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdInvShipOgnReqMng" style="height:350px; width: 100%;"></div>
 				</div>
 				<br>
 				<br>
 				<div>
-				>출자출하조직 조회
 				</div>
 				<div class="ad_section_top">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">출하조직 리스트</span>
+								<!--
+								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+								 -->
+							</li>
+						</ul>
+					</div>
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdInvShipOgnReqMng01" style="height:350px; width: 100%;"></div>
 				</div>
 				<br>
 				<br>
 			</c:if><!-- 관리자 권한인 경우 그리드 표기 -->
-			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '21'}">
+			<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00' && loginVO.userType eq '21'}">
 				<table class="table table-bordered tbl_fixed">
 					<caption>사용자 표기</caption>
 					<tbody>
@@ -242,6 +252,7 @@
 									id="dtl-input-brno01"
 									name="dtl-input-brno01"
 									class="form-control input-sm"
+									mask = "{ 'alias': '999-99-99999', 'autoUnmask': true }"
 									autocomplete="off"
 									readonly
 								></sbux-input>
@@ -267,9 +278,18 @@
 					</tbody>
 				</table>
 				<div>
-				>출자출하조직 조회
 				</div>
 				<div class="ad_section_top">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">출하조직 리스트</span>
+								<!--
+								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+								 -->
+							</li>
+						</ul>
+					</div>
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdInvShipOgnReqMng01" style="height:350px; width: 100%;"></div>
 				</div>
@@ -306,15 +326,19 @@
 							<th colspan="2" scope="row" class="th_bg th_border_right">법인구분</th>
 							<th colspan="2" scope="row" class="th_bg th_border_right">법인형태</th>
 							<th colspan="2" scope="row" class="th_bg">법인설립일</th>
+
 						</tr>
 						<tr>
 							<!-- 법인등록번호 -->
 							<td colspan="2" class="td_input">
+								<sbux-input uitype="hidden" id="dtl-input-apoCd" name="dtl-input-apoCd"></sbux-input>
+								<sbux-input uitype="hidden" id="dtl-input-apoSe" name="dtl-input-apoSe"></sbux-input>
 								<sbux-input
 									uitype="text"
 									id="dtl-input-crno"
 									name="dtl-input-crno"
 									class="form-control input-sm"
+									mask = "{ 'alias': '999999-9999999' , 'autoUnmask': true}"
 									autocomplete="off"
 									readonly
 								></sbux-input>
@@ -326,6 +350,7 @@
 									id="dtl-input-brno"
 									name="dtl-input-brno"
 									class="form-control input-sm"
+									mask = "{ 'alias': '999-99-99999', 'autoUnmask': true }"
 									autocomplete="off"
 									readonly
 								></sbux-input>
@@ -343,6 +368,7 @@
 							</td>
 							<!-- 법인구분 -->
 							<td colspan="2" class="td_input">
+								<!--
 								<sbux-input
 									uitype="text"
 									id="dtl-input-corpSeCd"
@@ -351,9 +377,20 @@
 									autocomplete="off"
 									readonly
 								></sbux-input>
+								 -->
+								<sbux-select
+									id="dtl-input-corpSeCd"
+									name="dtl-input-corpSeCd"
+									uitype="single"
+									jsondata-ref="jsonComCorpSeCd"
+									unselected-text="전체"
+									class="form-control input-sm"
+									readonly
+								></sbux-select>
 							</td>
 							<!-- 법인형태 -->
 							<td colspan="2" class="td_input">
+								<!--
 								<sbux-input
 									uitype="text"
 									id="dtl-input-corpDtlSeCd"
@@ -362,9 +399,20 @@
 									autocomplete="off"
 									readonly
 								></sbux-input>
+								 -->
+								<sbux-select
+									id="dtl-input-corpDtlSeCd"
+									name="dtl-input-corpDtlSeCd"
+									uitype="single"
+									jsondata-ref="jsonComCorpDtlSeCd"
+									unselected-text="전체"
+									class="form-control input-sm"
+									readonly
+								></sbux-select>
 							</td>
 							<!-- 법인설립일 -->
 							<td colspan="2" class="td_input">
+								<!--
 								<sbux-input
 									uitype="text"
 									id="dtl-input-corpFndnDay"
@@ -373,6 +421,16 @@
 									autocomplete="off"
 									readonly
 								></sbux-input>
+								 -->
+								<sbux-datepicker
+									uitype="popup"
+									id="dtl-input-corpFndnDay"
+									name="dtl-input-corpFndnDay"
+									class="input-sm"
+									style="width:100%;"
+									autocomplete="off"
+									readonly
+								></sbux-datepicker>
 							</td>
 						</tr>
 						<tr>
@@ -396,6 +454,7 @@
 									id="dtl-input-invstNope"
 									name="dtl-input-invstNope"
 									class="form-control input-sm"
+									mask = "{ 'alias': 'numeric', 'autoGroup': 3,'suffix': '명' , 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 									autocomplete="off"
 									readonly
 								></sbux-input>
@@ -407,6 +466,7 @@
 									id="dtl-input-invstExpndFrmerNope"
 									name="dtl-input-invstExpndFrmerNope"
 									class="form-control input-sm"
+									mask = "{ 'alias': 'numeric', 'autoGroup': 3,'suffix': '명' , 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 									autocomplete="off"
 									readonly
 								></sbux-input>
@@ -418,6 +478,7 @@
 									id="dtl-input-invstAmt"
 									name="dtl-input-invstAmt"
 									class="form-control input-sm"
+									mask = "{ 'alias': 'numeric', 'autoGroup': 3,'suffix': '(천원)' , 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 									autocomplete="off"
 									readonly
 								></sbux-input>
@@ -429,6 +490,7 @@
 									id="dtl-input-frmerInvstAmt"
 									name="dtl-input-frmerInvstAmt"
 									class="form-control input-sm"
+									mask = "{ 'alias': 'numeric', 'autoGroup': 3,'suffix': '(천원)' , 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 									autocomplete="off"
 									readonly
 								></sbux-input>
@@ -440,6 +502,7 @@
 									id="dtl-input-prdcrGrpInvstAmt"
 									name="dtl-input-prdcrGrpInvstAmt"
 									class="form-control input-sm"
+									mask = "{ 'alias': 'numeric', 'autoGroup': 3,'suffix': '(천원)' , 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 									autocomplete="off"
 									readonly
 								></sbux-input>
@@ -451,6 +514,7 @@
 									id="dtl-input-locgovInvstAmt"
 									name="dtl-input-locgovInvstAmt"
 									class="form-control input-sm"
+									mask = "{ 'alias': 'numeric', 'autoGroup': 3,'suffix': '(천원)' , 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 									autocomplete="off"
 									readonly
 								></sbux-input>
@@ -462,6 +526,7 @@
 									id="dtl-input-etcAmt"
 									name="dtl-input-etcAmt"
 									class="form-control input-sm"
+									mask = "{ 'alias': 'numeric', 'autoGroup': 3,'suffix': '(천원)' , 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 									autocomplete="off"
 									readonly
 								></sbux-input>
@@ -470,9 +535,10 @@
 							<td class="td_input">
 								<sbux-input
 									uitype="text"
-									id="dtl-input-12"
-									name="dtl-input-12"
+									id="dtl-input-frmerInvstAmtRt"
+									name="dtl-input-frmerInvstAmtRt"
 									class="form-control input-sm"
+									mask = "{ 'alias': 'numeric', 'autoGroup': 3,'suffix': '(천원)' , 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 									autocomplete="off"
 									readonly
 								></sbux-input>
@@ -553,14 +619,16 @@
 							<th colspan="4" scope="row" class="th_bg">NH(농협) 자금 신청액</th>
 						</tr>
 						<tr>
-							<th colspan="3" scope="row" class="th_bg">2024 자금 신청액</th>
+							<th colspan="3" scope="row" class="th_bg">2024 자금 신청액(천원)</th>
 							<td colspan="4" class="td_input">
 								<sbux-input
 									uitype="text"
 									id="dtl-input-isoFundAplyAmt"
 									name="dtl-input-isoFundAplyAmt"
 									class="form-control input-sm"
-									autocomplete="off"
+									mask = "{ 'alias': 'numeric', 'autoUnmask': true , 'autoGroup': 3, 'groupSeparator': ','}"
+									unmask-phone-dashes = "true"
+									permit-keycodes-set = "num"
 								></sbux-input>
 							</td>
 							<td colspan="8" style="border: none"></td>
@@ -682,6 +750,8 @@
 			gfn_setComCdSBSelect('srch-input-sgg', 			jsonComSgg, 	'CMPTN_INST_SIGUN'), //시군
 			gfn_setComCdSBSelect('srch-input-corpSeCd', 	jsonComCorpSeCd, 	'CORP_SE_CD'), //법인구분
 			gfn_setComCdSBSelect('srch-input-corpDtlSeCd', 	jsonComCorpDtlSeCd, 	'CORP_SHAP'), //법인형태
+			gfn_setComCdSBSelect('dtl-input-corpSeCd', 		jsonComCorpSeCd, 	'CORP_SE_CD'), //법인구분
+			gfn_setComCdSBSelect('dtl-input-corpDtlSeCd', 	jsonComCorpDtlSeCd, 	'CORP_SHAP'), //법인형태
 			//gfn_setComCdSBSelect('srch-input-uoCd', 		jsonComUoCd, 	'UO_CD'), //통합조직코드
 			gfn_setComCdSBSelect('srch-input-aprv', 		jsonComAprv, 	'APRV_UPBR_SE_CD'), //신청구분
 			gfn_setComCdSBSelect('srch-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE'), //신청대상구분
@@ -838,6 +908,7 @@
 
     		,brno : brno
     		,corpNm : corpNm
+    		,apoSe : '1'
 
     		//페이징
     		,pagingYn : 'Y'
@@ -1042,6 +1113,9 @@
 	const fn_subUpdate = async function (isConfirmed){
 		console.log("******************fn_subUpdate**********************************");
 		if (!isConfirmed) return;
+		var a = SBUxMethod.get('dtl-input-isoFundAplyAmt');
+		console.log(a);
+		return;
 
 		const postJsonPromise = gfn_postJSON("/pd/aom/updatePrdcrCrclOgnReqMng.do", {
 			apoCd: SBUxMethod.get('dtl-input-apoCd')//

@@ -43,10 +43,12 @@ public class PrdcrCrclOgnMngVO extends ComVO{
 	private String prdcrGrpInvstAmt;//생산자단체 출자금액
 	private String locgovInvstAmt;	//지자체 출자금액
 	private String etcInvstAmt;			//기타 출자금액
+	private String frmerInvstAmtRt;	//농업인 출자 지분율
 
 	private String rgllbrNope;		//정규직 종사자 수
 	private String dwNope;			//파견직 종사자 수
 	private String dlbrrNope;		//일용직 종사자 수
+	private String tot;		//합계
 
 	private String rprsvFlnm;		//대표자성명
 	private String rprsvTelno;		//대표자전화번호

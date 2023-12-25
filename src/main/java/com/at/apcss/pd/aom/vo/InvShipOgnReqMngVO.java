@@ -25,9 +25,11 @@ public class InvShipOgnReqMngVO extends ComVO{
 	private String corpFndnDay;
 	private String invstAmt;
 	private String frmerInvstAmt;
+	private String frmerInvstAmtRt;
 	private String prdcrGrpInvstAmt;
 	private String locgovInvstAmt;
 	private String etcAmt;
+	private String tot;
 	private String fxno;
 
 	private String isoFundAplyAmt;

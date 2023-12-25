@@ -104,6 +104,7 @@
 				, CM.PRDCR_GRP_INVST_AMT
 				, CM.LOCGOV_INVST_AMT
 				, CM.ETC_INVST_AMT
+				, CM.FRMER_INVST_AMT_RT
 				, CM.FXNO
 
 				, EAM.YR
@@ -122,15 +123,13 @@
 				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
 				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_NM
 				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_EV_APO CM, TB_EV_APLY_MNG EAM
+			  FROM TB_EV_APO_UO_CD UO, TB_EV_APO CM, TB_EV_APLY_MNG EAM
 			 WHERE 1=1
+			   AND UO.ISO_BRNO = CM.BRNO(+)
 			   AND CM.BRNO = EAM.BRNO(+)
     	]]>
     		<if test='uoBrno != null and uoBrno != ""'>
-				AND CM.UO_BRNO = #{uoBrno}
-			</if>
-			<if test='brno != null and brno != ""'>
-				AND CM.BRNO = #{brno}
+				AND UO.UO_BRNO = #{uoBrno}
 			</if>
 
 		<!-- 페이징 -->
