@@ -38,7 +38,7 @@
 							 -->
 							<th scope="row">품목</th>
 							<th>
-								<sbux-input id="gpc-inp-itemNm" name="gpc-inp-itemNm" uitype="text" class="form-control input-sm" onkeyenter="enterKey();"></sbux-input>
+								<sbux-input id="gpc-inp-itemNm" name="gpc-inp-itemNm" uitype="text" class="form-control input-sm" onkeyenter="fn_gpcSelectEnterKey"></sbux-input>
 							</th>
 							<th></th>
 						</tr>
@@ -250,7 +250,7 @@
 	    }
 	}
 
-function enterKey() {
+function fn_gpcSelectEnterKey() {
 		if(window.event.keyCode == 13) {
 			popGpcSelect.search();
 		}

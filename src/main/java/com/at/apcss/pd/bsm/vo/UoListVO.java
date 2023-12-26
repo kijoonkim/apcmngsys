@@ -22,6 +22,8 @@ public class UoListVO extends ComVO{
 	private String isoCrno;			//법인등록번호(출자출하조직)
 	private String rmrk;			//비고
 
+	private String brno;			//사업자번호
+
 
 	private String sysFrstInptUserNm;		//시스템최초입력사용자이름
 	private String sysFrstInptDtYmd;		//시스템최초입력일시ymd

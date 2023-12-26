@@ -28,25 +28,26 @@
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 11%">
-						<col style="width: 22%">
-						<col style="width: 11%">
-						<col style="width: 22%">
-						<col style="width: auto">
+						<col style="width: 20%">
+						<col style="width: 30%">
+						<col style="width: 20%">
+						<col style="width: 30%">
 					</colgroup>
 					<tbody>
 						<tr>
+							<!--
 							<th scope="row">지사</th>
 							<th>
 								<sbux-input id="brno-inp-jisa" name="brno-inp-jisa" uitype="text" class="form-control input-sm" onkeyenter="enterKey();"></sbux-input>
 							</th>
+							 -->
 							<th scope="row">사업자번호</th>
 							<th>
-								<sbux-input id="brno-inp-brno" name="brno-inp-brno" uitype="text" class="form-control input-sm" onkeyenter="enterKey();"></sbux-input>
+								<sbux-input id="brno-inp-brno" name="brno-inp-brno" uitype="text" class="form-control input-sm" onkeyenter="fn_brnoEnterKey"></sbux-input>
 							</th>
 							<th scope="row">법인체명</th>
 							<th>
-								<sbux-input id="brno-inp-corpNm" name="brno-inp-corpNm" uitype="text" class="form-control input-sm" onkeyenter="enterKey();"></sbux-input>
+								<sbux-input id="brno-inp-corpNm" name="brno-inp-corpNm" uitype="text" class="form-control input-sm" onkeyenter="fn_brnoEnterKey"></sbux-input>
 							</th>
 						</tr>
 					</tbody>
@@ -162,10 +163,13 @@
 		setGrid: async function(pageSize, pageNo, isEditable) {
 
 			var brno = nvlScnd(SBUxMethod.get("brno-inp-brno"),'');
+			var corpNm = nvlScnd(SBUxMethod.get("brno-inp-corpNm"),'');
 
 	        const postJsonPromise = gfn_postJSON("/fm/popup/selectBrnoList.do", {
 
 	        	brno : brno, //검색 파라미터
+	        	corpNm : corpNm,
+
 	        	// pagination
 		  		pagingYn : 'Y',
 				currentPageNo : pageNo,
@@ -230,7 +234,7 @@
 	    }
 	}
 
-function enterKey() {
+function fn_brnoEnterKey() {
 		if(window.event.keyCode == 13) {
 			popBrno.search();
 		}

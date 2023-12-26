@@ -310,7 +310,7 @@
 									id="dtl-input-telno"
 									name="dtl-input-telno"
 									class="form-control input-sm"
-									mask="{'alias' : '999-9999-9999'}"
+									mask = "{'alias' : '999-9999-9999' , 'autoUnmask': true}"
 									autocomplete="off"
 								></sbux-input>
 							</td>
@@ -323,6 +323,7 @@
 									id="dtl-input-mblTelno"
 									name="dtl-input-mblTelno"
 									class="form-control input-sm"
+									mask = "{'alias' : '999-9999-9999' , 'autoUnmask': true}"
 									autocomplete="off"
 								></sbux-input>
 							</td>
@@ -452,6 +453,12 @@
 		fn_initSBSelect();
 		fn_dtlSearch();
 	</c:if>
+		//추후 사용자로 접속시 권한,1차승인,2차승인 수정 불가 처리
+		/*
+		SBUxMethod.attr("dtl-input-userType", "readonly", "true");//권한
+		SBUxMethod.attr("dtl-input-userStts", "readonly", "true");//1차승인
+		SBUxMethod.attr("dtl-input-cmptncInstAprvSe", "readonly", "true");//2차승인
+		*/
 		const elements = document.querySelectorAll(".srch-keyup-area");
 
 		for (let i = 0; i < elements.length; i++) {
@@ -666,6 +673,11 @@
 				SBUxMethod.set("dtl-input-coNm", item.coNm);  //  법인명
 				SBUxMethod.set("dtl-input-cmptncInstAprvSe", item.cmptncInstAprvSe);  //  2차승인
 				SBUxMethod.set("dtl-input-cmptncInst", item.cmptncInst);  //  관할기관
+				if(item.userStts == '01'){
+					SBUxMethod.attr("dtl-input-cmptncInstAprvSe", "readonly", "false");
+				}else{
+					SBUxMethod.attr("dtl-input-cmptncInstAprvSe", "readonly", "true");
+				}
 			});
 
         }catch (e) {
@@ -694,24 +706,13 @@
 	}
 
 
+
 	//포털에서 가입하고 넘어오기에 update 만 필요함
 	//저장
 	const fn_saveFmList = async function (){
 		console.log("******************fn_saveFmList**********************************");
 
 		if (!confirm("저장 하시겠습니까?")) return;
-
-		let nRow = grdPrdcrCrclOgnUsrMng.getRow();
-		let rowData = grdPrdcrCrclOgnUsrMng.getRowData(nRow);
-		let cmptncInstAprvSe = "";
-		if(rowData.cmptncInstAprvSe != SBUxMethod.get("dtl-input-cmptncInstAprvSe")){
-			cmptncInstAprvSe = SBUxMethod.get("dtl-input-cmptncInstAprvSe");
-		}
-
-		let userStts = "";
-		if(rowData.userStts != SBUxMethod.get("dtl-input-userStts")){
-			userStts = SBUxMethod.get("dtl-input-userStts");
-		}
 
 		const postJsonPromise = gfn_postJSON("/pd/bsm/updatePrdcrCrclOgnUsrMng.do", {
 			 userId : SBUxMethod.get("dtl-input-userId")//아이디
@@ -720,10 +721,11 @@
 			,coNm : SBUxMethod.get("dtl-input-coNm")//법인명
 			,telno : SBUxMethod.get("dtl-input-telno")//전화번호
 			,mblTelno : SBUxMethod.get("dtl-input-mblTelno")//휴대폰번호
-			//,cmptncInstAprvYmd : SBUxMethod.get("dtl-input-cmptncInstAprvYmd")//관할기관승인일
+			,cmptncInst : SBUxMethod.get("dtl-input-cmptncInst")//관할기관
+			,userStts : SBUxMethod.get("dtl-input-userStts")//1차승인
+			,cmptncInstAprvSe : SBUxMethod.get("dtl-input-cmptncInstAprvSe")//2차승인
+			//,cmptncInstAprvYmd : SBUxMethod.get("dtl-input-cmptncInstAprvYmd")//2차승인일
 			//,userAprvYmd : SBUxMethod.get("dtl-input-userAprvYmd")//사용자승인일
-			,cmptncInstAprvSe : cmptncInstAprvSe//2차승인여부
-			,userStts : userStts//1차승인여부
 		});
 
 		const data = await postJsonPromise;
@@ -732,7 +734,12 @@
 		try {
 			if (_.isEqual("S", data.resultStatus)) {
 				alert("처리 되었습니다.");
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 				fn_search();
+			</c:if>
+			<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+				fn_dtlSearch();
+			</c:if>
 			} else {
 				alert(data.resultMessage);
 			}

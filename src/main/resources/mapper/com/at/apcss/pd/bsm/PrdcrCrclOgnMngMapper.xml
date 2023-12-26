@@ -23,7 +23,9 @@
     <select id="selectPrdcrCrclOgnMng" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO" resultType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.selectPrdcrCrclOgnMng */
-				  CM.APO_CD
+				  (CASE WHEN CM.APO_CD IS NULL THEN (SELECT OGNZ_CD FROM (SELECT OGNZ_CD FROM TB_APC_OGNZ_INFO WHERE BRNO = CM.BRNO GROUP BY OGNZ_CD ORDER BY OGNZ_CD DESC) WHERE ROWNUM = 1)
+				  		ELSE CM.APO_CD
+				  		END) AS APO_CD
 				, CM.APO_NM
 				, CM.APO_SE
 				, CM.APRV
@@ -108,7 +110,7 @@
 			<if test='apoSe != null and apoSe != ""'>
 				AND CM.APO_SE LIKE '%' || #{apoSe} || '%'
 			</if>
-		ORDER BY CM.SYS_LAST_CHG_DT DESC
+		ORDER BY CM.APO_CD ASC
 
 
     </select>
@@ -135,7 +137,9 @@
 
     	<![CDATA[
 			SELECT /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.selectPrdcrCrclOgnMng */
-				  CM.APO_CD
+				  (CASE WHEN CM.APO_CD IS NULL THEN (SELECT OGNZ_CD FROM (SELECT OGNZ_CD FROM TB_APC_OGNZ_INFO WHERE BRNO = CM.BRNO GROUP BY OGNZ_CD ORDER BY OGNZ_CD DESC) WHERE ROWNUM = 1)
+				  		ELSE CM.APO_CD
+				  		END) AS APO_CD
 				, CM.APO_NM
 				, CM.APO_SE
 				, CM.APRV
@@ -220,7 +224,7 @@
 			<if test='apoSe != null and apoSe != ""'>
 				AND CM.APO_SE LIKE '%' || #{apoSe} || '%'
 			</if>
-		ORDER BY CM.SYS_LAST_CHG_DT DESC
+		ORDER BY CM.APO_CD ASC
 
 		<!-- 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
@@ -237,6 +241,7 @@
 	    	  INTO TB_EV_APO
 	    		(
 	    			APO_SE
+	    		  , APO_CD
 	    		  , UO_BRNO
 	    		  , CORP_NM
 	    		  , CRNO
@@ -287,6 +292,7 @@
 	   		VALUES
 	   			(
 	   			    #{apoSe}
+	   			  , (SELECT OGNZ_CD FROM TB_APC_OGNZ_INFO WHERE BRNO = #{brno})
 	   			  , #{uoBrno}
 	   			  , #{corpNm}
 	   			  , #{crno}
@@ -469,7 +475,10 @@
 			 WHERE 1=1
     	]]>
     		<if test='apoCd != null and apoCd != ""'>
-				AND CM.ISO_APO_CD LIKE #{apoCd} || '%'
+				AND CM.ISO_APO_CD = #{apoCd}
+			</if>
+			<if test='brno != null and brno != ""'>
+				AND CM.ISO_BRNO = #{brno}
 			</if>
     </select>
 

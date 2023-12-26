@@ -78,27 +78,27 @@
 
     	]]>
     		<if test='cmptnInst != null and cmptnInst != ""'>
-				AND CM.CMPTN_INST LIKE #{cmptnInst} || '%'
+				AND CM.CMPTN_INST = #{cmptnInst}
 			</if>
 			<if test='ctpv != null and ctpv != ""'>
-				AND CM.II_CODE LIKE '%' || #{ctpv} || '%'
+				AND CM.II_CODE = #{ctpv}
 			</if>
 
 			<if test='corpSeCd != null and corpSeCd != ""'>
-				AND CM.CORP_SE_CD LIKE #{corpSeCd} || '%'
+				AND CM.CORP_SE_CD = #{corpSeCd}
 			</if>
 			<if test='corpDtlSeCd != null and corpDtlSeCd != ""'>
-				AND CM.CORP_DTL_SE_CD LIKE '%' || #{corpDtlSeCd} || '%'
+				AND CM.CORP_DTL_SE_CD = #{corpDtlSeCd}
 			</if>
 
 			<if test='brno != null and brno != ""'>
-				AND CM.BRNO LIKE #{brno} || '%'
+				AND CM.BRNO = #{brno}
 			</if>
 			<if test='corpNm != null and corpNm != ""'>
 				AND CM.CORP_NM LIKE '%' || #{corpNm} || '%'
 			</if>
 			<if test='yr != null and yr != ""'>
-				AND EAM.YR LIKE '%' || #{yr} || '%'
+				AND EAM.YR = #{yr}
 			</if>
 		ORDER BY CM.CORP_NM DESC
     </select>
@@ -179,27 +179,27 @@
 
     	]]>
     		<if test='cmptnInst != null and cmptnInst != ""'>
-				AND CM.CMPTN_INST LIKE #{cmptnInst} || '%'
+				AND CM.CMPTN_INST = #{cmptnInst}
 			</if>
 			<if test='ctpv != null and ctpv != ""'>
-				AND CM.II_CODE LIKE '%' || #{ctpv} || '%'
+				AND CM.II_CODE = #{ctpv}
 			</if>
 
 			<if test='corpSeCd != null and corpSeCd != ""'>
-				AND CM.CORP_SE_CD LIKE #{corpSeCd} || '%'
+				AND CM.CORP_SE_CD = #{corpSeCd}
 			</if>
 			<if test='corpDtlSeCd != null and corpDtlSeCd != ""'>
-				AND CM.CORP_DTL_SE_CD LIKE '%' || #{corpDtlSeCd} || '%'
+				AND CM.CORP_DTL_SE_CD = #{corpDtlSeCd}
 			</if>
 
 			<if test='brno != null and brno != ""'>
-				AND CM.BRNO LIKE #{brno} || '%'
+				AND CM.BRNO = #{brno}
 			</if>
 			<if test='corpNm != null and corpNm != ""'>
 				AND CM.CORP_NM LIKE '%' || #{corpNm} || '%'
 			</if>
 			<if test='yr != null and yr != ""'>
-				AND EAM.YR LIKE '%' || #{yr} || '%'
+				AND EAM.YR = #{yr}
 			</if>
 		ORDER BY CM.CORP_NM DESC
 
@@ -413,10 +413,10 @@
 
     	]]>
     		<if test='apoCd != null and apoCd != ""'>
-				AND CM.APO_CD LIKE #{apoCd} || '%'
+				AND CM.APO_CD = #{apoCd}
 			</if>
 			<if test='prdcrOgnzSn != null and prdcrOgnzSn != ""'>
-				AND CM.PRDCR_OGNZ_SN LIKE '%' || #{prdcrOgnzSn} || '%'
+				AND CM.PRDCR_OGNZ_SN = #{prdcrOgnzSn}
 			</if>
 		ORDER BY CM.PRDCR_OGNZ_SN ASC
 
@@ -455,13 +455,13 @@
 
     	]]>
     		<if test='apoCd != null and apoCd != ""'>
-				AND CM.APO_CD LIKE #{apoCd} || '%'
+				AND CM.APO_CD = #{apoCd}
 			</if>
 			<if test='brno != null and brno != ""'>
-				AND CM.BRNO LIKE #{brno} || '%'
+				AND CM.BRNO = #{brno}
 			</if>
 			<if test='yr != null and yr != ""'>
-				AND EAM.YR LIKE '%' || #{yr} || '%'
+				AND EAM.YR = #{yr}
 			</if>
 		ORDER BY CM.PRDCR_OGNZ_SN ASC
 
@@ -514,13 +514,13 @@
 
     	]]>
     		<if test='apoCd != null and apoCd != ""'>
-				AND CM.APO_CD LIKE #{apoCd} || '%'
+				AND CM.APO_CD = #{apoCd}
 			</if>
 			<if test='brno != null and brno != ""'>
-				AND CM.BRNO LIKE #{brno} || '%'
+				AND CM.BRNO = #{brno}
 			</if>
 			<if test='yr != null and yr != ""'>
-				AND EAM.YR LIKE '%' || #{yr} || '%'
+				AND EAM.YR = #{yr}
 			</if>
 		ORDER BY CM.PRDCR_OGNZ_SN ASC
 

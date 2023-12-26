@@ -598,22 +598,6 @@
 	    grdPrdcrOgnCurntMng02.bind('click','gridClick02');
 	    grdPrdcrOgnCurntMng02.bind('afteredit','fn_AfterEdit02');
 	}
-	//그리드 열 속성의 calc 은 그리드 생성시 작동함  refresh() 해서 데이터 변경시로 유사하게 가능
-	function fn_AfterEdit02(){
-	    if(grdPrdcrOgnCurntMng02.getPrevCol() == grdPrdcrOgnCurntMng02.getColRef('slsEmspapVlm')
-	    		|| grdPrdcrOgnCurntMng02.getPrevCol() == grdPrdcrOgnCurntMng02.getColRef('slsTrstVlm')
-	    		|| grdPrdcrOgnCurntMng02.getPrevCol() == grdPrdcrOgnCurntMng02.getColRef('slsCprtnSortTrstVlm')
-	    		|| grdPrdcrOgnCurntMng02.getPrevCol() == grdPrdcrOgnCurntMng02.getColRef('slsCprtnTrstVlm')
-	    		|| grdPrdcrOgnCurntMng02.getPrevCol() == grdPrdcrOgnCurntMng02.getColRef('slsCprtnSortEmspapVlm')
-	    		|| grdPrdcrOgnCurntMng02.getPrevCol() == grdPrdcrOgnCurntMng02.getColRef('slsEmspapAmt')
-	    		|| grdPrdcrOgnCurntMng02.getPrevCol() == grdPrdcrOgnCurntMng02.getColRef('slsTrstAmt')
-	    		|| grdPrdcrOgnCurntMng02.getPrevCol() == grdPrdcrOgnCurntMng02.getColRef('slsCprtnSortTrstAmt')
-	    		|| grdPrdcrOgnCurntMng02.getPrevCol() == grdPrdcrOgnCurntMng02.getColRef('slsCprtnTrstAmt')
-	    		|| grdPrdcrOgnCurntMng02.getPrevCol() == grdPrdcrOgnCurntMng02.getColRef('slsCprtnSortEmspapAmt')
-	    	){
-	    	grdPrdcrOgnCurntMng02.refresh();
-	    }
-	}
 
 	//해당 컬럼 변경시 리프래시 리스트
 	const columnsToRefresh02 = [

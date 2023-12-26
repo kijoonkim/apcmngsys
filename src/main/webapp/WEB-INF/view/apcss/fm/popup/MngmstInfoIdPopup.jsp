@@ -39,11 +39,11 @@
 						<tr>
 							<th scope="row">법인명</th>
 							<th>
-								<sbux-input id="mngmstInfoId-inp-corpNm" name="mngmstInfoId-inp-corpNm" uitype="text" class="form-control input-sm" onkeyenter="enterKey();"></sbux-input>
+								<sbux-input id="mngmstInfoId-inp-corpNm" name="mngmstInfoId-inp-corpNm" uitype="text" class="form-control input-sm" onkeyenter="fn_mngmstInfoIdEnterKey"></sbux-input>
 							</th>
 							<th scope="row">법인등록번호</th>
 							<th>
-								<sbux-input id="mngmstInfoId-inp-brno" name="mngmstInfoId-inp-brno" uitype="text" class="form-control input-sm" onkeyenter="enterKey();"></sbux-input>
+								<sbux-input id="mngmstInfoId-inp-brno" name="mngmstInfoId-inp-brno" uitype="text" class="form-control input-sm" onkeyenter="fn_mngmstInfoIdEnterKey"></sbux-input>
 							</th>
 							<th></th>
 						</tr>
@@ -234,7 +234,7 @@
 	    }
 	}
 
-function enterKey() {
+function fn_mngmstInfoIdEnterKey() {
 		if(window.event.keyCode == 13) {
 			popMngmstInfoId.search();
 		}

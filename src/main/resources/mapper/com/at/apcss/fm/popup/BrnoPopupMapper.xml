@@ -43,6 +43,9 @@
 		 <if test='brno != null and brno != ""'>
 				AND A.BRNO LIKE '%'||#{brno}||'%'
 		</if>
+		<if test='corpNm != null and corpNm != ""'>
+				AND A.CORP_NM LIKE '%'||#{corpNm}||'%'
+		</if>
 		 GROUP BY BRNO
 		 ORDER BY CORP_NM ASC
 
