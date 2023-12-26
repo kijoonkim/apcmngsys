@@ -346,8 +346,12 @@
 		});
 
         const data = await postJsonPromise;
-
+		
 		try {
+			 if (!_.isEqual("S", data.resultStatus)) {
+	        	gfn_comAlert(data.resultCode, data.resultMessage);
+	        	return;
+	        }
     		jsonApcPrdcr.length = 0;
         	data.resultList.forEach((item, index) => {
 				const prdcrVO = {
