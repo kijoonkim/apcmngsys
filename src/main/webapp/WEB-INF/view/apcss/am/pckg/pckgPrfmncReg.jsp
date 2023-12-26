@@ -1592,7 +1592,7 @@
 				typeinfo : {gotoCurrentClick: true, clearbutton: true}
 
 			},
-			{caption: ["상품명"], 	ref: 'spmtPckgUnitCd',   		type:'combo',  width:'120px',    style:'text-align:center; background:#FFF8DC;',
+			{caption: ["상품명"], 	ref: 'spmtPckgUnitCd',   		type:'combo',  width:'120px',    style:'text-align:center; background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltSpmtPckgUnit',
 					displayui : false,
@@ -1648,10 +1648,10 @@
 				userattr: {
 					colNm: "prdcrCd",
 					normalStyles: "text-align:center;",
-					abnormalStyles: "text-align:center; background:#FF6666;",
+					abnormalStyles: "text-align:center;",
 				},
 			},
-			{caption: ["선별창고"],		ref: 'warehouseSeCdFrom',	type:'combo',  width:'80px',    style:'text-align:center; background:#FFF8DC;',
+			{caption: ["선별창고"],		ref: 'warehouseSeCdFrom',	type:'combo',  width:'80px',    style:'text-align:center; background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltWarehouse',
 					displayui : false,
@@ -1661,8 +1661,8 @@
 				},
 				userattr: {
 					colNm: "warehouseSeCdFrom",
-					normalStyles: "text-align:center; background:#FFF8DC;",
-					abnormalStyles: "text-align:center; background:#FF6666;",
+					normalStyles: "text-align:center; background-color:#FFF8DC;",
+					abnormalStyles: "text-align:center; background-color:#FF6666;",
 				},
 			},
 			/*
@@ -1681,7 +1681,7 @@
 				},
 			},
 			*/
-			{caption: ["포장기"],		ref: 'pckgFcltCd',	type:'combo',  width:'80px',    style:'text-align:center; background:#FFF8DC;',
+			{caption: ["포장기"],		ref: 'pckgFcltCd',	type:'combo',  width:'80px',    style:'text-align:center; background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltPckgFclt',
 					displayui : false,
@@ -1691,11 +1691,11 @@
 				},
 				userattr: {
 					colNm: "pckgFcltCd",
-					normalStyles: "text-align:center; background:#FFF8DC;",
-					abnormalStyles: "text-align:center; background:#FF6666;",
+					normalStyles: "text-align:center; background-color:#FFF8DC;",
+					abnormalStyles: "text-align:center; background-color:#FF6666;",
 				},
 			},
-			{caption: ["보관창고"],	ref: 'warehouseSeCdTo',	type:'combo',  width:'80px',    style:'text-align:center; background:#FFF8DC;',
+			{caption: ["보관창고"],	ref: 'warehouseSeCdTo',	type:'combo',  width:'80px',    style:'text-align:center; background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltWarehouse',
 					displayui : false,
@@ -1705,8 +1705,8 @@
 				},
 				userattr: {
 					colNm: "warehouseSeCdTo",
-					normalStyles: "text-align:center; background:#FFF8DC;",
-					abnormalStyles: "text-align:center; background:#FF6666;",
+					normalStyles: "text-align:center; background-color:#FFF8DC;",
+					abnormalStyles: "text-align:center; background-color:#FF6666;",
 				},
 			},
 		);
@@ -1721,8 +1721,8 @@
 				style: 'text-align:center;background-color:#FFF8DC;',
 				userattr: {
 					colNm: "stdGrd",
-					normalStyles: "text-align:center; background:#FFF8DC;",
-					abnormalStyles: "text-align:center; background:#FF6666;",
+					normalStyles: "text-align:center; background-color:#FFF8DC;",
+					abnormalStyles: "text-align:center; background-color:#FF6666;",
 				},
 				typeinfo: {ref: item.jsonId, label:'grdNm', value:'grdCd', displayui : false, oneclickedit: true}
 			}
@@ -1738,8 +1738,8 @@
 				style: 'text-align:center;',
 				userattr: {
 					colNm: "jgmtGrd",
-					normalStyles: "text-align:center; background:#FFF8DC;",
-					abnormalStyles: "text-align:center; background:#FF6666;",
+					normalStyles: "text-align:center; background-color:#FFF8DC;",
+					abnormalStyles: "text-align:center; background-color:#FF6666;",
 				},
 				typeinfo: {ref: gStdGrdObj.jgmtJsonId, label:'grdNm', value:'grdCd', displayui : false}
 			}
@@ -1751,8 +1751,8 @@
 		});
 
 		_columns.push(
-			{caption: ["수량"],		ref: 'pckgQntt',	type:'input',  width:'60px',    style:'text-align:right; background:#FFF8DC;'},
-	        {caption: ["중량 Kg"],	ref: 'pckgWght',    type:'input',  width:'60px',    style:'text-align:right; background:#FFF8DC;'},
+			{caption: ["수량"],		ref: 'pckgQntt',	type:'input',  width:'60px',    style:'text-align:right; background-color:#FFF8DC;'},
+	        {caption: ["중량 Kg"],	ref: 'pckgWght',    type:'input',  width:'60px',    style:'text-align:right; background-color:#FFF8DC;'},
 	        {caption: ["비고"],		ref: 'rmrk',      	type:'input',  width:'300px',    style:'text-align:center'},
 	        {caption: ["품목"],		ref: 'itemCd',     	type:'input',  width:'80px',    style:'text-align:center', hidden: true},
 	        {caption: ["품종"],		ref: 'vrtyCd',     	type:'input',  width:'80px',    style:'text-align:center', hidden: true},

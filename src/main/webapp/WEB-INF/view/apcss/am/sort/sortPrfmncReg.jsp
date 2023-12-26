@@ -966,7 +966,7 @@
           		if (gfn_isEmpty(item.sortCmndno) && item.cmndWght == 0) {
           			rawMtrInvntr.cmndWght = null;
           		}
-          		
+
           		jsonRawMtrInvntr.push(rawMtrInvntr);
 				/*
   				if (index === 0) {
@@ -1421,7 +1421,7 @@
 					}
 				}
 			}
-			grdRawMtrInvntr.refresh();
+			grdRawMtrInvntr.refresh({"focus":false});
 			fn_setInptInfo();
 		}
  	}
@@ -1443,7 +1443,7 @@
 				rowData.inptQntt = 0;
 				rowData.inptWght = 0;
 			}
-			grdRawMtrInvntr.refresh();
+			grdRawMtrInvntr.refresh({"focus":false});
 			fn_setInptInfo();
 		}
     }
@@ -1490,17 +1490,17 @@
 						rowData.inptWght = gfn_apcEstmtWght(invntrWght * tmpInptQntt / invntrQntt, gv_selectedApcCd);
 					}
 				}
-				grdRawMtrInvntr.refresh();
+				grdRawMtrInvntr.refresh({"focus":false});
 				fn_setInptInfo();
-					
+
 			} else if (usrAttr.colNm == "inptWght") {
-					
+
 				if(invntrWght - tmpInptWght < 0){
 					gfn_comAlert("W0008", "재고중량", "투입중량");		//	W0008	{0} 보다 {1}이/가 큽니다.
 					rowData.checkedYn = "N";
 					grdRawMtrInvntr.setCellData(nRow, inptQnttCol , 0);
 					grdRawMtrInvntr.setCellData(nRow, inptWghtCol , 0);
-					grdRawMtrInvntr.refresh();
+					grdRawMtrInvntr.refresh({"focus":false});
 		            return;
 				}
 
@@ -1512,7 +1512,7 @@
 					rowData.checkedYn = "Y";
 				}
 
-				grdRawMtrInvntr.refresh();
+				grdRawMtrInvntr.refresh({"focus":false});
 				fn_setInptInfo();
 			}
 		}
@@ -1587,7 +1587,7 @@
 					}
 
 					rowData.spcfctCd = chkInfo.spcfctCd;
-					grdSortPrfmnc.refresh();
+					grdSortPrfmnc.refresh({"focus":false});
 					/*
 					if (	_.isEqual(rowData.itemCd, chkInfo.itemCd)
 							&& _.isEqual(rowData.vrtyCd, chkInfo.vrtyCd)
@@ -1630,7 +1630,7 @@
 
 					const wght = gfn_apcEstmtWght(rowData.sortQntt * spcfctWght, gv_selectedApcCd);;
 					rowData.sortWght = wght;
-					grdSortPrfmnc.refresh();
+					grdSortPrfmnc.refresh({"focus":false});
 
 					let inptWght = parseInt(SBUxMethod.get("dtl-inp-inptWght")) || 0;
 					let sortWght = 0;
@@ -1842,7 +1842,7 @@
 				ref: 'itemCd',
 				type:'combo',
 				width:'80px',
-				style:'text-align:center; background:#FFF8DC;',
+				style:'text-align:center; background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltItem',
 					displayui : false,
@@ -1856,17 +1856,17 @@
 				ref: 'vrtyCd',
 				type:'combo',
 				width:'80px',
-				style:'text-align:center; background:#FFF8DC;',
+				style:'text-align:center; background-color:#FFF8DC;',
 				typeinfo : {ref:'jsonExpSltVrty', 		displayui : false,	itemcount: 10, label:'label', value:'value'}},
-			{caption: ["대표생산자"], 		ref: 'prdcrCd',   		type:'combo',  width:'80px',    style:'text-align:center; background:#FFF8DC;',
+			{caption: ["대표생산자"], 		ref: 'prdcrCd',   		type:'combo',  width:'80px',    style:'text-align:center;',
 				typeinfo : {ref:'jsonExpSltPrdcr', 		displayui : false,	itemcount: 10, label:'prdcrNm', value:'prdcrCd'}},
-			{caption: ["원물창고"],		ref: 'warehouseSeCdFrom',	type:'combo',  width:'80px',    style:'text-align:center; background:#FFF8DC;',
+			{caption: ["원물창고"],		ref: 'warehouseSeCdFrom',	type:'combo',  width:'80px',    style:'text-align:center; background-color:#FFF8DC;',
 				typeinfo : {ref:'jsonExpSltWarehouse', 	displayui : false,	itemcount: 10, label:'cdVlNm', value:'cdVl'}},
-			{caption: ["규격"], 		ref: 'spcfctCd',   		type:'combo',  width:'80px',    style:'text-align:center; background:#FFF8DC;',
+			{caption: ["규격"], 		ref: 'spcfctCd',   		type:'combo',  width:'80px',    style:'text-align:center; background-color:#FFF8DC;',
 				typeinfo : {ref:'jsonExpSltSpcfct', 	displayui : false,	itemcount: 10, label:'spcfctNm', value:'spcfctCd'}},
-			{caption: ["선별기"],		ref: 'sortFcltCd',	type:'combo',  width:'80px',    style:'text-align:center; background:#FFF8DC;',
+			{caption: ["선별기"],		ref: 'sortFcltCd',	type:'combo',  width:'80px',    style:'text-align:center; background-color:#FFF8DC;',
 				typeinfo : {ref:'jsonExpSltSortFclt', 		displayui : false,	itemcount: 10, label:'label', value:'value'}},
-			{caption: ["보관창고"],		ref: 'warehouseSeCdTo',	type:'combo',  width:'80px',    style:'text-align:center; background:#FFF8DC;',
+			{caption: ["보관창고"],		ref: 'warehouseSeCdTo',	type:'combo',  width:'80px',    style:'text-align:center; background-color:#FFF8DC;',
 				typeinfo : {ref:'jsonExpSltWarehouse', 	displayui : false,	itemcount: 10, label:'cdVlNm', value:'cdVl'}},
 		);
 
@@ -1902,8 +1902,8 @@
 		});
 
 		_columns.push(
-			{caption: ["수량"],		ref: 'sortQntt',	type:'input',  width:'60px',    style:'text-align:right; background:#FFF8DC;'},
-	        {caption: ["중량 (Kg)"],	ref: 'sortWght',    type:'input',  width:'60px',    style:'text-align:right; background:#FFF8DC;'},
+			{caption: ["수량"],		ref: 'sortQntt',	type:'input',  width:'60px',    style:'text-align:right; background-color:#FFF8DC;'},
+	        {caption: ["중량 (Kg)"],	ref: 'sortWght',    type:'input',  width:'60px',    style:'text-align:right; background-color:#FFF8DC;'},
 	        {caption: ["비고"],		ref: 'rmrk',      	type:'input',  width:'300px',    style:'text-align:left'},
 		);
 
@@ -2639,7 +2639,7 @@
 			}
 		}
 
-		_grdImp.refresh();
+		_grdImp.refresh({"focus":false});
      }
 
 
@@ -2670,7 +2670,7 @@
  						let jgmtGrdCd = stdGrdSelect.getJgmtGrdCd(grdList);
  						rowData.jgmtGrdCd = jgmtGrdCd;
 
- 						_grdImp.refresh();
+ 						_grdImp.refresh({"focus":false});
  					}
  					break;
 
