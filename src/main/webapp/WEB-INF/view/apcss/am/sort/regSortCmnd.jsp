@@ -121,7 +121,7 @@
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdRawMtrInvntr" style="height:235px;"></div>
+					<div id="sb-area-grdRawMtrInvntr" style="height:310px;"></div>
 				</div>
 
 				<br/>
@@ -173,7 +173,7 @@
 					</div>
 				</div>
                 <div class="table-responsive tbl_scroll_sm">
-                    <div id="sb-area-grdSortCmnd" style="height:250px;"></div>
+                    <div id="sb-area-grdSortCmnd" style="height:310px;"></div>
                 </div>
 			</div>
 		</div>
@@ -260,6 +260,7 @@
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList1;	// 우클릭 메뉴 리스트
 		SBGridProperties.frozencols = 2;
+		SBGridProperties.scrollbubbling = false;
 		SBGridProperties.columns = [
 			{
 				caption : ["전체","<input type='checkbox' onchange='fn_checkAllRawMtrInvntr(grdRawMtrInvntr, this);'>"],
@@ -318,6 +319,7 @@
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList2;	// 우클릭 메뉴 리스트
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.columns = [
 	        {caption: ["지시번호","지시번호"], 	ref: 'sortCmndno',  	type:'output',  	width:'130px',    style:'text-align:center'},
 	        {caption: ["지시일자","지시일자"],  	ref: 'sortCmndYmd', 	type:'output',  	width:'130px',    style:'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
@@ -627,12 +629,12 @@
 
     	var fcltCd	= SBUxMethod.get("srch-slt-inptFclt");
     	var sortCmndYmd = SBUxMethod.get("srch-dtp-cmndYmd");
-    	
+
     	if(gfn_isEmpty(sortCmndYmd)){
     		gfn_comAlert("W0001", "지시일자");			//	W0002	{0}을/를 선택하세요.
             return;
     	}
-    	
+
     	if(gfn_isEmpty(fcltCd)){
     		gfn_comAlert("W0001", "투입설비");			//	W0002	{0}을/를 선택하세요.
             return;
@@ -722,9 +724,8 @@
   	  				}
   	          		jsonSortCmnd.push(sortCmnd);
   	  			});
-  	          	grdSortCmnd.refresh();
+  	          	grdSortCmnd.refresh({"focus":false});
   	          	SBUxMethod.set("crtr-ymd", sortCmndYmd);
-
         	} else {
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
