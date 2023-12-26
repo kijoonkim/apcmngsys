@@ -440,7 +440,7 @@
 
         if (menuInfo.bmkYn == "Y"){
         	menuJsonB.push(
-                    {"order": "50", "id": menuNo, "pid": upMenuNo, "text": '★', "value" : "Y"}
+                    {"order": "50", "id": menuNo, "pid": upMenuNo, "text": '⭐', "value" : "Y"}
                 );
         }else if(menuInfo.bmkYn == "N"){
         	menuJsonB.push(
@@ -736,7 +736,7 @@
     		    		if (_.isEqual("S", data.resultStatus)) {
 
     		    			let index = menuJsonB.length-1;
-    		    			menuJsonB[index].text = "☆"
+    		    			menuJsonB[index].text = '☆'
     		    			menuJsonB[index].value = "N"
 
     		    			for(var i; i<menuJson.length; i++){
@@ -762,7 +762,7 @@
     		    		if (_.isEqual("S", data.resultStatus)) {
 
     		    			let index = menuJsonB.length-1;
-    		    			menuJsonB[index].text = "★"
+    		    			menuJsonB[index].text = '⭐'
     		    			menuJsonB[index].value = "Y"
 
     		    			for(var i; i<menuJson.length; i++){

@@ -134,7 +134,7 @@
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdSpmtCmndTrgtDsctn" style="height:201px;"></div>
+					<div id="sb-area-grdSpmtCmndTrgtDsctn" style="height:282px;"></div>
 				</div>
 
 				<br>
@@ -195,7 +195,7 @@
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdSpmtCmndDsctn" style="height:212px;"></div>
+					<div id="sb-area-grdSpmtCmndDsctn" style="height:282px;"></div>
 				</div>
 			</div>
 		</div>
@@ -275,7 +275,7 @@
 			gfn_setSpmtPckgUnitSBSelect('grdSpmtCmndTrg', 	jsonSpmtPckgUnit, 	gv_selectedApcCd, itemCd, vrtyCd),	// 포장구분	(그리드)
 			gfn_setApcGdsGrdSBSelect('grdSpmtCmndTrg', 		jsonComGdsGrd, 		gv_selectedApcCd, itemCd, '03'),	// 상품등급(재고그리드)
 		]);
-		grdSpmtCmndTrg.refresh({"combo":true});
+		grdSpmtCmndTrg.refresh({"combo":true, "focus":false});
 		SBUxMethod.refresh("srch-slt-spmtPckgUnitCd");
 
 	}
@@ -304,6 +304,7 @@
         SBGridPropertiesOrdr.explorerbar = 'move';				// 개인화 컬럼 이동 가능
         SBGridPropertiesOrdr.contextmenu = true;				// 우클린 메뉴 호출 여부
         SBGridPropertiesOrdr.contextmenulist = objMenuList1;	// 우클릭 메뉴 리스트
+        SBGridPropertiesOrdr.scrollbubbling = false;
         SBGridPropertiesOrdr.frozencols = 1;
         SBGridPropertiesOrdr.columns = [
 	    	{caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
@@ -346,6 +347,7 @@
         SBGridPropertiesSpmtCmnd.explorerbar = 'sortmove';			// 개인화 컬럼 이동 가능
         SBGridPropertiesSpmtCmnd.contextmenu = true;				// 우클린 메뉴 호출 여부
         SBGridPropertiesSpmtCmnd.contextmenulist = objMenuList2;	// 우클릭 메뉴 리스트
+        SBGridPropertiesSpmtCmnd.scrollbubbling = false;
         SBGridPropertiesSpmtCmnd.columns = [
             {caption: ['지시일자'], 	ref: 'cmndYmd', 		width: '100px', type: 'output', style: 'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['납기일자'], 	ref: 'wrhsYmd', 		width: '100px', type: 'output', style: 'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
@@ -454,7 +456,7 @@
     	let nRow = grdSpmtCmndTrg.getRow();
     	let nCol = grdSpmtCmndTrg.getCol();
     	let checkedYnCol = grdSpmtCmndTrg.getColRef("checkedYn");
-    	
+
     	if (nCol == checkedYnCol) {
 
        		// 발주수량 - 출하수량 - 출하지시수량 = 가능한 지시수량
@@ -470,7 +472,7 @@
     		let dldtn 			= grdSpmtCmndTrg.getRowData(nRow).dldtn;
     		let inptCmndQnttCol = grdSpmtCmndTrg.getColRef("inptCmndQntt");
     		let inptCmndWghtCol = grdSpmtCmndTrg.getColRef("inptCmndWght");
-    		
+
     		if(psbltyCmndQntt > 0 && invntrQntt > 0){
 
     			if(psbltyCmndQntt > invntrQntt) {
@@ -486,7 +488,7 @@
 
     const fn_delValue = async function(){
     	var nRow = grdSpmtCmndTrg.getRow();
-    		
+
        	let inptCmndQnttCol = grdSpmtCmndTrg.getColRef("inptCmndQntt");
    		let inptCmndWghtCol = grdSpmtCmndTrg.getColRef("inptCmndWght");
        	grdSpmtCmndTrg.setCellData(nRow, inptCmndQnttCol, null);
@@ -497,7 +499,7 @@
 
     	let nRow = grdSpmtCmndTrg.getRow();
 		let nCol = grdSpmtCmndTrg.getCol();
-		
+
 		let invntrQntt 		= grdSpmtCmndTrg.getRowData(nRow).invntrQntt;
 		let spmtQntt 		= grdSpmtCmndTrg.getRowData(nRow).spmtQntt;
 		let outordrQntt 	= grdSpmtCmndTrg.getRowData(nRow).outordrQntt;
@@ -538,7 +540,7 @@
     }
 
 	const fn_search = async function(){
-		
+
 		fn_clearForm();
 
 		let flag = true;
@@ -777,7 +779,7 @@
 		SBUxMethod.set("dtl-inp-cmndYmd", gfn_dateToYmd(new Date()));
 		SBUxMethod.set("dtl-slt-trsprtCo", "");
 	}
-	
+
 	const fn_clearForm = function(){
 		SBUxMethod.set("dtl-inp-rmrk", "");
 	}

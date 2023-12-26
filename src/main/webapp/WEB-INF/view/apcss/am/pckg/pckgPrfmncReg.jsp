@@ -1329,7 +1329,7 @@
 					}
 				}
 			}
-			grdSortInvntr.refresh();
+			grdSortInvntr.refresh({"focus":false});
 			fn_setInptInfo();
 		}
  	}
@@ -1351,7 +1351,7 @@
 				rowData.inptQntt = 0;
 				rowData.inptWght = 0;
 			}
-			grdSortInvntr.refresh();
+			grdSortInvntr.refresh({"focus":false});
 			fn_setInptInfo();
 		}
     }
@@ -1396,17 +1396,17 @@
 						rowData.inptWght = Math.round(invntrWght * tmpInptQntt / invntrQntt);
 					}
 				}
-				grdSortInvntr.refresh();
+				grdSortInvntr.refresh({"focus":false});
 				fn_setInptInfo();
-				
+
 			} else if (usrAttr.colNm == "inptWght") {
-				
+
 				if(invntrWght - tmpInptWght < 0){
 					gfn_comAlert("W0008", "재고중량", "투입중량");		//	W0008	{0} 보다 {1}이/가 큽니다.
 					rowData.checkedYn = "N";
 					grdSortInvntr.setCellData(nRow, inptQnttCol , 0);
 					grdSortInvntr.setCellData(nRow, inptWghtCol , 0);
-					grdSortInvntr.refresh();
+					grdSortInvntr.refresh({"focus":false});
 		            return;
 				}
 
@@ -1418,7 +1418,7 @@
 					rowData.checkedYn = "Y";
 				}
 
-				grdSortInvntr.refresh();
+				grdSortInvntr.refresh({"focus":false});
 				fn_setInptInfo();
 			}
 		}
@@ -1454,7 +1454,7 @@
 		const pckgQntt = parseInt(rowData.pckgQntt) || 0;
 		pckgWght = gfn_apcEstmtWght(pckgQntt * spcfctWght, gv_selectedApcCd);
 		rowData.pckgWght = pckgWght;
-		grdPckgPrfmnc.refresh();
+		grdPckgPrfmnc.refresh({"focus":false});
 
 		fn_setPckgWghtInfo();
  	}
