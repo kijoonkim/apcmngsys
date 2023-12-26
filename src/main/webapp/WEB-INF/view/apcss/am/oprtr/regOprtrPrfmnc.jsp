@@ -464,7 +464,7 @@
 			gfn_comAlert("W0001", "작업구분");		//	W0002	{0}을/를 선택하세요.
 			return;
 		}
-		
+
 		jsonOptrtPrfmnc.length = 0;
 		grdOptrtPrfmnc.refresh();
 
@@ -487,26 +487,31 @@
 		const postJsonPromise = gfn_postJSON("/am/oprtr/selectRegPrfmncList.do", prfmncVO);
         const data = await postJsonPromise;
 		try {
-			jsonPrfmnc.length = 0;
-	      	data.resultList.forEach((item, index) => {
-	      		const prfmncVO = {
-	      			prfmncSeNm	: item.prfmncSeNm
-	      		  , prfmncSeCd	: item.prfmncSeCd
-	      		  , prfmncYmd 	: item.prfmncYmd
-	      		  , fcltNm		: item.fcltNm
-	      		  , spcfctCd	: item.spcfctCd
-	      		  , spcfctNm	: item.spcfctNm
-	      		  , qntt		: item.qntt
-	      		  , wght		: item.wght
-	      		  , oprtrQntt	: item.oprtrQntt
-	      		  , rmrk		: item.rmrk
-	      		  , prfmncno	: item.prfmncno
-	      		  , apcCd		: item.apcCd
-			}
-      		jsonPrfmnc.push(prfmncVO);
+			if (_.isEqual("S", data.resultStatus)) {
+				jsonPrfmnc.length = 0;
+		      	data.resultList.forEach((item, index) => {
+		      		const prfmncVO = {
+		      			prfmncSeNm	: item.prfmncSeNm
+		      		  , prfmncSeCd	: item.prfmncSeCd
+		      		  , prfmncYmd 	: item.prfmncYmd
+		      		  , fcltNm		: item.fcltNm
+		      		  , spcfctCd	: item.spcfctCd
+		      		  , spcfctNm	: item.spcfctNm
+		      		  , qntt		: item.qntt
+		      		  , wght		: item.wght
+		      		  , oprtrQntt	: item.oprtrQntt
+		      		  , rmrk		: item.rmrk
+		      		  , prfmncno	: item.prfmncno
+		      		  , apcCd		: item.apcCd
+				}
+	      		jsonPrfmnc.push(prfmncVO);
 
-		});
-      	grdPrfmnc.refresh();
+				});
+	      		grdPrfmnc.refresh();
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+        	}
+
 	    } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -543,34 +548,38 @@
         const postJsonPromise = gfn_postJSON("/am/oprtr/selectOprtrPrfmncList.do", prfmncVO);
         const data = await postJsonPromise;
 		try {
-			jsonOptrtPrfmnc.length = 0;
-	      	data.resultList.forEach((item, index) => {
-	      		const prfmncVO = {
-		      			prfmncSeNm	: item.prfmncSeNm
-		      		  , prfmncSeCd	: item.prfmncSeCd
-		      		  , fcltNm		: item.fcltNm
-		      		  , fcltCd		: item.fcltCd
-		      		  , prfmncSn	: item.prfmncSn
-		      		  , brdt		: item.brdt
-		      		  , flnm		: item.flnm
-		      		  , jobYmd 		: item.jobYmd
-		      		  , jobBgngHr	: item.jobBgngHr
-		      		  , jobEndHr	: item.jobEndHr
-		      		  , jobHr		: item.jobHr
-		      		  , rmrk		: item.rmrk
-		      		  , prfmncno	: item.prfmncno
-		      		  , apcCd		: item.apcCd
-		      		  , brdt		: item.brdt
-		      		  , delYn		: item.delYn
-		      		  , insertYn	: "N"
-				}
-		      	jsonOptrtPrfmnc.push(prfmncVO);
+			if (_.isEqual("S", data.resultStatus)) {
+				jsonOptrtPrfmnc.length = 0;
+		      	data.resultList.forEach((item, index) => {
+		      		const prfmncVO = {
+			      			prfmncSeNm	: item.prfmncSeNm
+			      		  , prfmncSeCd	: item.prfmncSeCd
+			      		  , fcltNm		: item.fcltNm
+			      		  , fcltCd		: item.fcltCd
+			      		  , prfmncSn	: item.prfmncSn
+			      		  , brdt		: item.brdt
+			      		  , flnm		: item.flnm
+			      		  , jobYmd 		: item.jobYmd
+			      		  , jobBgngHr	: item.jobBgngHr
+			      		  , jobEndHr	: item.jobEndHr
+			      		  , jobHr		: item.jobHr
+			      		  , rmrk		: item.rmrk
+			      		  , prfmncno	: item.prfmncno
+			      		  , apcCd		: item.apcCd
+			      		  , brdt		: item.brdt
+			      		  , delYn		: item.delYn
+			      		  , insertYn	: "N"
+					}
+			      	jsonOptrtPrfmnc.push(prfmncVO);
 
-			});
-	      	grdOptrtPrfmnc.setCellDisabled(0, grdOptrtPrfmnc.getRows() -1, 0, grdOptrtPrfmnc.getCols() - 1, false);
-	      	grdOptrtPrfmnc.rebuild();
-	      	grdOptrtPrfmnc.addRow(true);
-	      	grdOptrtPrfmnc.setCellDisabled(grdOptrtPrfmnc.getRows()-1, 0, grdOptrtPrfmnc.getRows()-1, grdOptrtPrfmnc.getCols() - 1, true);
+				});
+		      	grdOptrtPrfmnc.setCellDisabled(0, grdOptrtPrfmnc.getRows() -1, 0, grdOptrtPrfmnc.getCols() - 1, false);
+		      	grdOptrtPrfmnc.rebuild();
+		      	grdOptrtPrfmnc.addRow(true);
+		      	grdOptrtPrfmnc.setCellDisabled(grdOptrtPrfmnc.getRows()-1, 0, grdOptrtPrfmnc.getRows()-1, grdOptrtPrfmnc.getCols() - 1, true);
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+        	}
 	    } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -680,7 +689,7 @@
 	        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
 	        		fn_search();
 	        	} else {
-	        		gfn_comAlert("E0001");
+	        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
 	        	}
 	        } catch (e) {
 	    		if (!(e instanceof Error)) {
@@ -702,7 +711,6 @@
          		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
          	} else {
          		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
-         		//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
          	}
          } catch(e) {
      		if (!(e instanceof Error)) {
