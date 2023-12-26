@@ -69,9 +69,9 @@ public class LoginServiceImpl extends EgovAbstractServiceImpl implements LoginSe
     	LoginVO loginVO = loginMapper.actionLogin(vo);
 
     	if (loginVO != null) {
-    		System.out.println(String.format("loginVO: %s", loginVO.toString()));
-    		System.out.println(String.format("getId: %s", loginVO.getId()));
-    		System.out.println(String.format("getPassword: %s", loginVO.getPassword()));
+    		//System.out.println(String.format("loginVO: %s", loginVO.toString()));
+    		//System.out.println(String.format("getId: %s", loginVO.getId()));
+    		//System.out.println(String.format("getPassword: %s", loginVO.getPassword()));
     	}
 
     	// 3. 결과를 리턴한다.

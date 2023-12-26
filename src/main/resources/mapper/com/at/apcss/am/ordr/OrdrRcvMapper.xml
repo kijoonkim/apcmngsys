@@ -49,17 +49,17 @@
 				, TPNB
 				, DIAMONDLINE
 				, DLDTN
-				, WRHS_TYPE_2
+				, WRHS_TYPE2
 				, BX_GDS_QNTT
 				, OUTORDR_QNTT
 				, PIECE_QNTT
-				, UNIT
+				, UNIT_CD
 				, BX_UNTPRC
 				, PIECE_UNTPRC
 				, TX_AMT
 				, OUTORDR_AMT
 				, DLDTN_CD
-				, OUTORDR_YMD_2
+				, OUTORDR_YMD2
 				, WRHS_YMD
 				, DLVGDS_NM
 				, DLVGDS_CD
@@ -99,7 +99,7 @@
 				, #{bxGdsQntt}
 				, #{outordrQntt}
 				, #{pieceQntt}
-				, #{unit}
+				, #{unitCd}
 				, #{bxUntprc}
 				, #{pieceUntprc}
 				, #{txAmt}
