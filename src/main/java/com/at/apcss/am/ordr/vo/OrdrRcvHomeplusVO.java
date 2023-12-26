@@ -51,7 +51,7 @@ public class OrdrRcvHomeplusVO extends ComVO{
 	private int bxGdsQntt;   //	입수
 	private int outordrQntt; //	발주수량
 	private int pieceQntt;   //	낱개수량
-	private String unit;        //	단위
+	private String unitCd;        //	단위
 	private double bxUntprc;    //	박스당 단가
 	private double pieceUntprc; //	낱개당 단가
 	private double txAmt;       //	세액

@@ -768,7 +768,7 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 							int pieceQntt = NumberUtils.parseNumber(dtl.getPoEaQty(), Integer.class);
 							homeplusVO.setPieceQntt(pieceQntt);
 							// 단위
-							homeplusVO.setUnit(dtl.getPoUnit());
+							homeplusVO.setUnitCd(dtl.getPoUnit());
 							// 박스당 단가
 							double bxUntprc = NumberUtils.parseNumber(dtl.getPoPrice(), Double.class);
 							homeplusVO.setBxUntprc(bxUntprc);
