@@ -36,6 +36,7 @@
 				, CM.CMPTNC_INST_APRV_SE
 				, CM.CMPTNC_INST_APRV_YMD
 				, CM.CMPTNC_INST
+				, CM.UO_APRV_STTS
 				, CM.DEL_YN		AS DEL_YN
 				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
 				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
@@ -52,29 +53,7 @@
 			   AND DEL_YN = 'N'
     	]]>
     		<if test='userId != null and userId != ""'>
-				AND CM.USER_ID LIKE #{userId} || '%'
-			</if>
-			<if test='userNm != null and userNm != ""'>
-				AND CM.USER_NM LIKE '%' || #{userNm} || '%'
-			</if>
-			<if test='coNm != null and coNm != ""'>
-				AND CM.CO_NM LIKE '%' || #{coNm} || '%'
-			</if>
-
-			<if test='userType != null and userType != ""'>
-				AND CM.USER_TYPE = #{userType}
-			</if>
-			<if test='userStts != null and userStts != ""'>
-				AND CM.USER_STTS = #{userStts}
-			</if>
-			<if test='brno != null and brno != ""'>
-				AND CM.BRNO = #{brno}
-			</if>
-			<if test='cmptncInstAprvSe != null and cmptncInstAprvSe != ""'>
-				AND CM.CMPTNC_INST_APRV_SE = #{cmptncInstAprvSe}
-			</if>
-			<if test='cmptncInst != null and cmptncInst != ""'>
-				AND CM.CMPTNC_INST = #{cmptncInst}
+				AND CM.USER_ID = #{userId}
 			</if>
 		ORDER BY CM.USER_ID DESC
     </select>
@@ -130,7 +109,7 @@
 			   AND DEL_YN = 'N'
     	]]>
     		<if test='userId != null and userId != ""'>
-				AND CM.USER_ID LIKE #{userId} || '%'
+				AND CM.USER_ID = #{userId}
 			</if>
 			<if test='userNm != null and userNm != ""'>
 				AND CM.USER_NM LIKE '%' || #{userNm} || '%'

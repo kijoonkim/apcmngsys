@@ -90,6 +90,17 @@ public class PrdcrCrclOgnUsrMngController extends BaseController{
 		PrdcrCrclOgnUsrMngVO.setSysLastChgPrgrmId(getPrgrmId());
 		PrdcrCrclOgnUsrMngVO.setSysLastChgUserId(getUserId());
 
+		PrdcrCrclOgnUsrMngVO selectData = PrdcrCrclOgnUsrMngService.selectPrdcrCrclOgnUsrMng(PrdcrCrclOgnUsrMngVO);
+
+		//승인 날짜 체크를 위해 값변경이 없으면 수정 없음
+		if(selectData.getUserStts().equals(PrdcrCrclOgnUsrMngVO.getUserStts())) {
+			PrdcrCrclOgnUsrMngVO.setUserStts("");
+		}
+		if(selectData.getCmptncInstAprvSe().equals(PrdcrCrclOgnUsrMngVO.getCmptncInstAprvSe())) {
+			System.out.println("deletePrdcrCrclOgnUsrMng ");
+			PrdcrCrclOgnUsrMngVO.setCmptncInstAprvSe("");
+		}
+
 		int savedCnt = 0;
 
 		try {
@@ -107,6 +118,7 @@ public class PrdcrCrclOgnUsrMngController extends BaseController{
 		logger.debug("/pd/bsm/deletePrdcrCrclOgnUsrMng >>> 호출 >>> ");
 
 		int result = 0;
+
 		try {
 			result =+ PrdcrCrclOgnUsrMngService.deletePrdcrCrclOgnUsrMng(PrdcrCrclOgnUsrMngVO);
 		}catch (Exception e) {

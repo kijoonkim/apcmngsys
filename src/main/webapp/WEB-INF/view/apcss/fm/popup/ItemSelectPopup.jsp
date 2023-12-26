@@ -39,7 +39,7 @@
 						<tr>
 							<th scope="row">품목명</th>
 							<th colspan="2">
-								<sbux-input id="item-inp-itemNm" name="item-inp-itemNm" uitype="text" class="form-control input-sm" onkeyenter="enterKey();"></sbux-input>
+								<sbux-input id="item-inp-itemNm" name="item-inp-itemNm" uitype="text" class="form-control input-sm" onkeyenter="fn_itemSelectEnterKey"></sbux-input>
 							</th>
 							<th colspan="2"></th>
 						</tr>
@@ -229,7 +229,7 @@
 	    }
 	}
 
-function enterKey() {
+function fn_itemSelectEnterKey() {
 		if(window.event.keyCode == 13) {
 			popItemSelect.search();
 		}

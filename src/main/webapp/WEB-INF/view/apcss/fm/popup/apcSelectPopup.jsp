@@ -39,7 +39,7 @@
 						<tr>
 							<th scope="row">APC명</th>
 							<th>
-								<sbux-input id="apc-inp-apcNm" name="apc-inp-apcNm" uitype="text" class="form-control input-sm" onkeyenter="enterKey();"></sbux-input>
+								<sbux-input id="apc-inp-apcNm" name="apc-inp-apcNm" uitype="text" class="form-control input-sm" onkeyenter="fn_apcSelectEnterKey"></sbux-input>
 							</th>
 							<th colspan="3"></th>
 						</tr>
@@ -238,7 +238,7 @@
 	    }
 	}
 
-function enterKey() {
+function fn_apcSelectEnterKey() {
 		if(window.event.keyCode == 13) {
 			popApcSelect.search();
 		}

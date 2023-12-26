@@ -347,10 +347,10 @@
 
     	]]>
     		<if test='apoCd != null and apoCd != ""'>
-				AND CM.APO_CD LIKE #{apoCd} || '%'
+				AND CM.APO_CD = #{apoCd}
 			</if>
 			<if test='prdcrOgnzSn != null and prdcrOgnzSn != ""'>
-				AND CM.PRDCR_OGNZ_SN LIKE '%' || #{prdcrOgnzSn} || '%'
+				AND CM.PRDCR_OGNZ_SN = #{prdcrOgnzSn}
 			</if>
 		ORDER BY CM.PRDCR_OGNZ_SN ASC
 

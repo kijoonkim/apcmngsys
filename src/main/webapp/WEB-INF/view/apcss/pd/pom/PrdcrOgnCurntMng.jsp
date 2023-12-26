@@ -163,6 +163,7 @@
 									id="srch-input-brno"
 									name="srch-input-brno"
 									class="form-control input-sm"
+									mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
 									autocomplete="off"
 								></sbux-input>
 							</td>
@@ -281,7 +282,7 @@
 								 -->
 							</li>
 							<li>
-								<span style="font-size:14px">추가를 눌러 생성후 작성해주세요</span>
+								<span style="font-size:12px">추가를 눌러 생성후 작성해주세요</span>
 							</li>
 						</ul>
 					</div>

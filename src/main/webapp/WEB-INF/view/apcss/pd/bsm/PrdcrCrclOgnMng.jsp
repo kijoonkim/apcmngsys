@@ -1085,9 +1085,9 @@ tps://sbgrid.co.kr/v2_5/document/guide
 			  	'showgoalpageui' : true
 		    };
 	    SBGridProperties.columns = [
+	    	{caption: ["APO_CD"], 	ref: 'apoCd',   	hidden : false, width:'60px',style:'text-align:center' },
 	    	{caption: ["조직구분"], 		ref: 'apoSe',   	type:'combo',  width:'120px',    style:'text-align:center', disabled:true
 	    		,typeinfo : {ref:'jsonComApoSe', label:'label', value:'value', displayui : false}},
-	    	{caption: ["산지유통조직코드"], 	ref: 'apoCd',   	hidden : true},
 	        {caption: ["법인구분"], 		ref: 'corpSeCd',   	type:'combo',  width:'120px',    style:'text-align:center', disabled:true
 	    		,typeinfo : {ref:'jsonComCorpSeCd', label:'label', value:'value', displayui : false}},
 	        {caption: ["시도"], 			ref: 'ctpv',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
@@ -1681,9 +1681,11 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	const fn_searchUoList = async function(){
 
 		let apoCd = SBUxMethod.get('dtl-input-apoCd');
+		let brno = SBUxMethod.get('dtl-input-brno');
 
     	let postJsonPromise = gfn_postJSON("/pd/bsm/selectUoList.do", {
 			apoCd : apoCd
+			,brno : brno
 		});
         let data = await postJsonPromise;
         try{
