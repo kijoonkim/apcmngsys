@@ -134,7 +134,7 @@
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdSpmtCmndTrgtDsctn" style="height:201px;"></div>
+					<div id="sb-area-grdSpmtCmndTrgtDsctn" style="height:282px;"></div>
 				</div>
 
 				<br>
@@ -157,24 +157,11 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg">거래처</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="dtl-inp-apcCnptNm" name="dtl-inp-apcCnptNm" uitype="text" class="form-control input-sm"  disabled></sbux-input>
-								<sbux-input id="dtl-inp-apcCnptCd" name="dtl-inp-apcCnptCd" uitype="hidden" class="form-control input-sm"  disabled></sbux-input>
-							</td>
-							<td></td>
-							<th scope="row" class="th_bg">배송처</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="dtl-inp-dldtn" name="dtl-inp-dldtn" uitype="text" class="form-control input-sm"  disabled></sbux-input>
-							</td>
-							<td></td>
 						    <th scope="row" class="th_bg"><span class="data_required"></span>지시일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="dtl-inp-cmndYmd" name="dtl-inp-cmndYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(dtl-inp-cmndYmd)"></sbux-datepicker>
 							</td>
 							<td colspan="2" class="td_input"></td>
-						</tr>
-						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>운송회사</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-select id="dtl-slt-trsprtCo" name="dtl-slt-trsprtCo" uitype="single" jsondata-ref="jsonTrsprtCo" class="form-control input-sm input-sm-ast inpt_data_reqed"  unselected-text="선택"></sbux-select>
@@ -184,7 +171,6 @@
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input id="dtl-inp-rmrk" name="dtl-inp-rmrk" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
 							</td>
-							<td colspan="4" class="td_input">&nbsp;</td>
 						</tr>
 					</tbody>
 				</table>
@@ -209,7 +195,7 @@
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdSpmtCmndDsctn" style="height:212px;"></div>
+					<div id="sb-area-grdSpmtCmndDsctn" style="height:282px;"></div>
 				</div>
 			</div>
 		</div>
@@ -289,7 +275,7 @@
 			gfn_setSpmtPckgUnitSBSelect('grdSpmtCmndTrg', 	jsonSpmtPckgUnit, 	gv_selectedApcCd, itemCd, vrtyCd),	// 포장구분	(그리드)
 			gfn_setApcGdsGrdSBSelect('grdSpmtCmndTrg', 		jsonComGdsGrd, 		gv_selectedApcCd, itemCd, '03'),	// 상품등급(재고그리드)
 		]);
-		grdSpmtCmndTrg.refresh({"combo":true});
+		grdSpmtCmndTrg.refresh({"combo":true, "focus":false});
 		SBUxMethod.refresh("srch-slt-spmtPckgUnitCd");
 
 	}
@@ -318,6 +304,7 @@
         SBGridPropertiesOrdr.explorerbar = 'move';				// 개인화 컬럼 이동 가능
         SBGridPropertiesOrdr.contextmenu = true;				// 우클린 메뉴 호출 여부
         SBGridPropertiesOrdr.contextmenulist = objMenuList1;	// 우클릭 메뉴 리스트
+        SBGridPropertiesOrdr.scrollbubbling = false;
         SBGridPropertiesOrdr.frozencols = 1;
         SBGridPropertiesOrdr.columns = [
 	    	{caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
@@ -335,7 +322,7 @@
             {caption: ["상품명"], 	ref: 'spmtPckgUnitCd',  width: '200px', type:'combo',      style:'text-align:center; background:#FFF8DC;',
 				typeinfo : {ref:'jsonSpmtPckgUnit', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 		    {caption: ["등급"], 		ref: 'gdsGrd',   		width:'100px',  type:'combo',    style:'text-align:center; background:#FFF8DC;',
-						typeinfo : {ref:'jsonComGdsGrd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
+				typeinfo : {ref:'jsonComGdsGrd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
             {caption: ['지시수량'], 	ref: 'inptCmndQntt', 	width: '80px', type: 'input', style: 'text-align:right; background:#FFF8DC;',
             	typeinfo : {mask : {alias : '#', repeat: '*'}}, format : {type:'number', rule:'#,###'}},
             {caption: ['지시중량 (Kg)'], 	ref: 'inptCmndWght', 	width: '100px', type: 'output', style: 'text-align:right' ,
@@ -360,6 +347,7 @@
         SBGridPropertiesSpmtCmnd.explorerbar = 'sortmove';			// 개인화 컬럼 이동 가능
         SBGridPropertiesSpmtCmnd.contextmenu = true;				// 우클린 메뉴 호출 여부
         SBGridPropertiesSpmtCmnd.contextmenulist = objMenuList2;	// 우클릭 메뉴 리스트
+        SBGridPropertiesSpmtCmnd.scrollbubbling = false;
         SBGridPropertiesSpmtCmnd.columns = [
             {caption: ['지시일자'], 	ref: 'cmndYmd', 		width: '100px', type: 'output', style: 'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['납기일자'], 	ref: 'wrhsYmd', 		width: '100px', type: 'output', style: 'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
@@ -468,13 +456,8 @@
     	let nRow = grdSpmtCmndTrg.getRow();
     	let nCol = grdSpmtCmndTrg.getCol();
     	let checkedYnCol = grdSpmtCmndTrg.getColRef("checkedYn");
-    	
+
     	if (nCol == checkedYnCol) {
-           	if (grdSpmtCmndTrg.getCheckedRows(checkedYnCol).length > 1) {
-           		gfn_comAlert("W0009", "선택된 행");
-       			grdSpmtCmndTrg.setCellData(nRow, checkedYnCol, "N");
-           		return;
-           	}
 
        		// 발주수량 - 출하수량 - 출하지시수량 = 가능한 지시수량
         	let invntrQntt 		= grdSpmtCmndTrg.getRowData(nRow).invntrQntt;
@@ -489,11 +472,7 @@
     		let dldtn 			= grdSpmtCmndTrg.getRowData(nRow).dldtn;
     		let inptCmndQnttCol = grdSpmtCmndTrg.getColRef("inptCmndQntt");
     		let inptCmndWghtCol = grdSpmtCmndTrg.getColRef("inptCmndWght");
-    		
-    		SBUxMethod.set("dtl-inp-apcCnptCd", apcCnptCd);
-    		SBUxMethod.set("dtl-inp-apcCnptNm", apcCnptNm);
-    		SBUxMethod.set("dtl-inp-dldtn", dldtn);
-    		
+
     		if(psbltyCmndQntt > 0 && invntrQntt > 0){
 
     			if(psbltyCmndQntt > invntrQntt) {
@@ -509,24 +488,18 @@
 
     const fn_delValue = async function(){
     	var nRow = grdSpmtCmndTrg.getRow();
-    	let checkedYnCol = grdSpmtCmndTrg.getColRef("checkedYn");
-    		
-       	if (grdSpmtCmndTrg.getCheckedRows(checkedYnCol).length == 0) {
-        	let inptCmndQnttCol = grdSpmtCmndTrg.getColRef("inptCmndQntt");
-    		let inptCmndWghtCol = grdSpmtCmndTrg.getColRef("inptCmndWght");
-        	grdSpmtCmndTrg.setCellData(nRow, inptCmndQnttCol, null);
-        	grdSpmtCmndTrg.setCellData(nRow, inptCmndWghtCol, null);
-        	SBUxMethod.set("dtl-inp-apcCnptNm", "");
-        	SBUxMethod.set("dtl-inp-apcCnptCd", "");
-        	SBUxMethod.set("dtl-inp-dldtn", "");
-       	}
+
+       	let inptCmndQnttCol = grdSpmtCmndTrg.getColRef("inptCmndQntt");
+   		let inptCmndWghtCol = grdSpmtCmndTrg.getColRef("inptCmndWght");
+       	grdSpmtCmndTrg.setCellData(nRow, inptCmndQnttCol, null);
+       	grdSpmtCmndTrg.setCellData(nRow, inptCmndWghtCol, null);
     }
 
     const fn_checkInptQntt = async function(){
 
     	let nRow = grdSpmtCmndTrg.getRow();
 		let nCol = grdSpmtCmndTrg.getCol();
-		
+
 		let invntrQntt 		= grdSpmtCmndTrg.getRowData(nRow).invntrQntt;
 		let spmtQntt 		= grdSpmtCmndTrg.getRowData(nRow).spmtQntt;
 		let outordrQntt 	= grdSpmtCmndTrg.getRowData(nRow).outordrQntt;
@@ -541,25 +514,12 @@
 		let inptCmndWghtCol = grdSpmtCmndTrg.getColRef("inptCmndWght");
 		let checkedYnCol 	= grdSpmtCmndTrg.getColRef("checkedYn");
 
-       	if (grdSpmtCmndTrg.getCheckedRows(checkedYnCol).length > 0 && grdSpmtCmndTrg.getCellData(nRow, checkedYnCol) != 'Y') {
-       		gfn_comAlert("W0009", "선택된 행");
-   			grdSpmtCmndTrg.setCellData(nRow, inptCmndQnttCol, null);
-   			console.log(grdSpmtCmndTrg.getCellData(nRow, inptCmndQnttCol));
-       	}
-       	
-		SBUxMethod.set("dtl-inp-apcCnptCd", apcCnptCd);
-		SBUxMethod.set("dtl-inp-apcCnptNm", apcCnptNm);
-		SBUxMethod.set("dtl-inp-dldtn", dldtn);
-
 		// 지시가능한수량 > 입력한지시수량
 		if(inptCmndQntt > psbltyCmndQntt){
 			gfn_comAlert("W0008", "지시가능수량", "지시수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
 			grdSpmtCmndTrg.setCellData(nRow, nCol , 0);
 			grdSpmtCmndTrg.setCellData(nRow, inptCmndWghtCol , 0);
 			grdSpmtCmndTrg.setCellData(nRow, checkedYnCol, "N");
-			SBUxMethod.set("dtl-inp-apcCnptNm", "");
-			SBUxMethod.set("dtl-inp-apcCnptCd", "");
-			SBUxMethod.set("dtl-inp-dldtn", "");
             return;
 		}
 
@@ -571,22 +531,16 @@
 			grdSpmtCmndTrg.setCellData(nRow, inptCmndWghtCol, 0);
 			grdSpmtCmndTrg.setCellData(nRow, inptCmndWghtCol , 0);
 			grdSpmtCmndTrg.setCellData(nRow, checkedYnCol, "N");
-			SBUxMethod.set("dtl-inp-apcCnptNm", "");
-			SBUxMethod.set("dtl-inp-apcCnptCd", "");
-			SBUxMethod.set("dtl-inp-dldtn", "");
 			return;
 		}
 		if(inptCmndQntt == 0){
 			grdSpmtCmndTrg.setCellData(nRow, inptCmndWghtCol, 0);
 			grdSpmtCmndTrg.setCellData(nRow, checkedYnCol, "N");
-			SBUxMethod.set("dtl-inp-apcCnptNm", "");
-			SBUxMethod.set("dtl-inp-apcCnptCd", "");
-			SBUxMethod.set("dtl-inp-dldtn", "");
 		}
     }
 
 	const fn_search = async function(){
-		
+
 		fn_clearForm();
 
 		let flag = true;
@@ -825,11 +779,8 @@
 		SBUxMethod.set("dtl-inp-cmndYmd", gfn_dateToYmd(new Date()));
 		SBUxMethod.set("dtl-slt-trsprtCo", "");
 	}
-	
+
 	const fn_clearForm = function(){
-		SBUxMethod.set("dtl-inp-apcCnptNm", "");
-		SBUxMethod.set("dtl-inp-apcCnptCd", "");
-		SBUxMethod.set("dtl-inp-dldtn", "");
 		SBUxMethod.set("dtl-inp-rmrk", "");
 	}
 

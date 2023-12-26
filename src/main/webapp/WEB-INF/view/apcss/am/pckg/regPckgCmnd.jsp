@@ -125,7 +125,7 @@
 					</ul>
 				</div>
                 <div class="table-responsive tbl_scroll_sm">
-                    <div id="sb-area-grdSortInvntr" style="height:235px;"></div>
+                    <div id="sb-area-grdSortInvntr" style="height:310px;"></div>
                 </div>
 
 				<br/>
@@ -196,7 +196,7 @@
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdPckgCmnd" style="height:214px;"></div>
+					<div id="sb-area-grdPckgCmnd" style="height:282px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 			</div>
@@ -280,7 +280,7 @@
 		fn_createPckgCmndGrid();
 		fn_getPrdcrs();
 
-		grdSortInvntr.refresh({"combo":true});
+		grdSortInvntr.refresh({"combo":true, "focus":false});
 	});
 
 
@@ -300,6 +300,7 @@
 		SBGridProperties.contextmenulist = objMenuList1;	// 우클릭 메뉴 리스트
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.scrollbubbling = false;
 		SBGridProperties.frozencols = 3;
 	    SBGridProperties.columns = [
 	    	{
@@ -385,7 +386,7 @@
 		let invntrQntt = grdSortInvntr.getRowData(nRow).invntrQntt;
 		let invntrWght = grdSortInvntr.getRowData(nRow).invntrWght;
 		let pckgQntt = grdSortInvntr.getRowData(nRow).pckgQntt;
-		
+
 		if(invntrQntt - pckgQntt < 0){
 			gfn_comAlert("W0008", "재고수량", "출하수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
 			grdSortInvntr.setCellData(nRow, nCol , 0);
@@ -405,7 +406,7 @@
 		}
 
     }
-    
+
     const fn_checkInptWght = async function(){
 
     	let nRow = grdSortInvntr.getRow();
@@ -414,7 +415,7 @@
 		let invntrQntt = grdSortInvntr.getRowData(nRow).invntrQntt;
 		let invntrWght = grdSortInvntr.getRowData(nRow).invntrWght;
 		let pckgWght = grdSortInvntr.getRowData(nRow).pckgWght;
-		
+
 		if(invntrWght - pckgWght < 0){
 			gfn_comAlert("W0008", "재고중량", "출하중량");		//	W0008	{0} 보다 {1}이/가 큽니다.
 			grdSortInvntr.setCellData(nRow, nCol , 0);
@@ -425,7 +426,7 @@
 			grdSortInvntr.setCellData(nRow, nCol , 0);
 			return;
 		}
-		
+
 
 		if(invntrWght > 0 && pckgWght >= 0){
 			grdSortInvntr.setCellData(nRow, 0, "Y");
@@ -452,6 +453,7 @@
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList2;	// 우클릭 메뉴 리스트
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.columns = [
 	        {caption: ["지시번호"],		ref: 'pckgCmndno',  type:'output',  	width:'130px',  style:'text-align:center'},
 	        {caption: ["생산설비"],		ref: 'fcltNm',      type:'output',  	width:'120px',  style:'text-align:center'},
@@ -623,7 +625,7 @@
 
   	  			});
   	       		grdSortInvntr.rebuild();
-  	       		grdSortInvntr.refresh({"combo":true});
+  	       		grdSortInvntr.refresh({"combo":true, "focus":false});
 
         	} else {
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
@@ -684,7 +686,6 @@
   	  			});
   	      		grdPckgCmnd.rebuild();
   	          	SBUxMethod.set("crtr-ymd", pckgCmndYmd);
-
         	} else {
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}

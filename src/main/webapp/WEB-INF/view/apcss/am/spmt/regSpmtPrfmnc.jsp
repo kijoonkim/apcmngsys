@@ -750,6 +750,9 @@
 		let gdsSeCd = SBUxMethod.get("srch-rdo-gdsSeCd");
 		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
 
+		SBUxMethod.set("dtl-inp-spmtQntt", "");
+		SBUxMethod.set("dtl-inp-spmtWght", "");
+
 		if (gfn_isEmpty(pckgYmdFrom) || gfn_isEmpty(pckgYmdTo)) {
   			gfn_comAlert("W0001", "생산일자");		//	W0002	{0}을/를 선택하세요.
             return false;
@@ -850,6 +853,9 @@
 		case spmtQnttCol:	// checkbox
 			fn_checkInptQntt();
 			break;
+		case spmtWghtCol:	// checkbox
+			fn_checkInptWght();
+			break;
 		default:
 			return;
 		}
@@ -865,7 +871,7 @@
 		let gdsGrdCol = grdGdsInvntr.getColRef("gdsGrd")
 		let checkedYnCol = grdGdsInvntr.getColRef("checkedYn")
 
-    	if(nCol == 0){
+    	if(nCol == checkedYnCol){
 
 	    	let invntrQntt = grdGdsInvntr.getRowData(nRow).invntrQntt;
 			let invntrWght = grdGdsInvntr.getRowData(nRow).invntrWght;
@@ -984,27 +990,21 @@
 		let invntrQntt = grdGdsInvntr.getRowData(nRow).invntrQntt;
 		let invntrWght = grdGdsInvntr.getRowData(nRow).invntrWght;
 		let spmtWght = grdGdsInvntr.getRowData(nRow).spmtWght;
-		let spmtQnttCol = grdGdsInvntr.getColRef("spmtQntt")
-		let spmtWghtCol = grdGdsInvntr.getColRef("spmtWght")
-		let spmtPckgUnitCdCol = grdGdsInvntr.getColRef("spmtPckgUnitCd")
-		let gdsGrdCol = grdGdsInvntr.getColRef("gdsGrd")
-		let checkedYnCol = grdGdsInvntr.getColRef("checkedYn")
+		let spmtQnttCol = grdGdsInvntr.getColRef("spmtQntt");
+		let spmtWghtCol = grdGdsInvntr.getColRef("spmtWght");
+		let spmtPckgUnitCdCol = grdGdsInvntr.getColRef("spmtPckgUnitCd");
+		let gdsGrdCol = grdGdsInvntr.getColRef("gdsGrd");
+		let checkedYnCol = grdGdsInvntr.getColRef("checkedYn");
 
 		if(invntrWght - spmtWght < 0){
 			gfn_comAlert("W0008", "재고중량", "출하중량");		//	W0008	{0} 보다 {1}이/가 큽니다.
-			grdGdsInvntr.setCellData(nRow, nCol , 0);
+			grdGdsInvntr.setCellData(nRow, checkedYnCol, "N");
+			grdGdsInvntr.setCellData(nRow, spmtQnttCol , 0);
+			grdGdsInvntr.setCellData(nRow, spmtWghtCol , 0);
             return;
-		}
-		if(invntrWght == spmtWght && invntrQntt > 0){
-			grdGdsInvntr.setCellData(nRow, spmtQnttCol, invntrQntt);
-		}
-
-		if(invntrWght % spmtWght == 0){
-			grdGdsInvntr.setCellData(nRow, spmtQnttCol, (spmtWght / invntrWght * invntrQntt));
 		}
 
 		if(spmtWght > 0){
-			grdGdsInvntr.setCellData(nRow, 0, "Y")
 			let spmtPckgUnitCd = SBUxMethod.get("dtl-slt-spmtPckgUnit");
 			let gdsGrdCd = SBUxMethod.get("dtl-slt-gdsGrd");
 			let spmtCmndno = SBUxMethod.get("dtl-inp-spmtCmndno");
@@ -1014,6 +1014,8 @@
 			}
 		}else{
 			grdGdsInvntr.setCellData(nRow, checkedYnCol, "N");
+			grdGdsInvntr.setCellData(nRow, spmtQnttCol , 0);
+			grdGdsInvntr.setCellData(nRow, spmtWghtCol , 0);
 		}
 		totspmt();
     }
@@ -1216,6 +1218,7 @@
     	let bssInvntrQntt 	= SBUxMethod.get("dtl-inp-bssInvntrQntt");
     	let spmtPrsnDclrno 	= SBUxMethod.get("dtl-inp-spmtPrsnDclrno");
     	let pltSpmtYn 		= "N";
+		let pckgYmd = 0;
 
     	let totBssInvntrQntt = 0;
 
@@ -1261,24 +1264,26 @@
     		let nRow = grdRows[i];
     		let rowData = grdGdsInvntr.getRowData(nRow)
     		let spmtQntt = rowData.spmtQntt
-    		let smptWght = rowData.smptWght;
+    		let spmtWght = rowData.spmtWght;
     		let spmtPckgUnitCd = rowData.spmtPckgUnitCd;
     		let gdsGrd = rowData.gdsGrd;
     		let brndNm = rowData.brndNm;
     		let gdsCd = rowData.gdsCd;
-    		let pckgYmd = rowData.pckgYmd;
     		totSpmtQntt = totSpmtQntt + Number(spmtQntt);
-
-    		if (gfn_diffDate(pckgYmd, spmtYmd) < 0) {
-    			gfn_comAlert("W0015", "출하일자", "상품재고의 생산일자");		//	W0014	{0}이/가 {1} 보다 작습니다.
-    			return;
-    		}
 
 			if (parseInt(pckgYmd) < parseInt(rowData.pckgYmd)) {
 				pckgYmd = rowData.pckgYmd;
 			}
 
-    		if(smptWght == 0){
+    		if (gfn_diffDate(pckgYmd, spmtYmd) < 0) {
+    			gfn_comAlert("W0015", "출하일자", "상품재고의 생산일자");		//	W0014	{0}이/가 {1} 보다 작습니다.
+    			return;
+    		}
+    		if(spmtQntt == 0){
+    			gfn_comAlert("W0001", "출하수량");		//	W0001	{0}이/가 없습니다.
+    			return;
+    		}
+    		if(spmtWght == 0){
     			gfn_comAlert("W0001", "출하중량");		//	W0001	{0}이/가 없습니다.
     			return;
     		}

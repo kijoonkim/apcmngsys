@@ -16,14 +16,15 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 등록결과확인 -->
-					<p>-test-계정 사업자번호 : ${loginVO.brno}</p>
 					<!-- 산지조직관리 -->
 					<sbux-label id="lbl-wghno" name="lbl-wghno" uitype="normal" text="">
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
 					<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+						<!--
 						<sbux-button id="btn-srch-input-outordrInq" name="btn-srch-input-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
+						 -->
 						<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 					</c:if>
@@ -155,6 +156,7 @@
 									id="srch-input-brno"
 									name="srch-input-brno"
 									class="form-control input-sm"
+									mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
 									autocomplete="off"
 								></sbux-input>
 							</td>
@@ -191,16 +193,18 @@
 				<!--[pp] //검색 -->
 
 				<!--[pp] 검색결과 -->
-				<div class="ad_tbl_top">
-					<ul class="ad_tbl_count">
-						<li>
-							<span style="font-size:14px">검색리스트</span>
-							<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
-						</li>
-					</ul>
-				</div>
+				<!--
 				<span style="font-size:16px">출자출하조직이 속한 통합조직 리스트</span><br>
+				 -->
 				<div class="ad_section_top">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">검색리스트</span>
+								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+							</li>
+						</ul>
+					</div>
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrCrclOgnMng" style="height:350px; width: 100%;"></div>
 				</div>
@@ -274,8 +278,20 @@
 				-->
 
 				<!-- 출자출하조직이 속한 통합조직 리스트 그리드 -->
-				<div class="ad_section_top">
-					<span style="font-size:16px">추가 버튼을 누른후 통합조직명,사업자번호 위치 클릭시 팝업이 열립니다.</span>
+				<div class="ad_section_top uoList">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">출자출하조직이 속한 통합조직 리스트</span>
+							</li>
+							<li>
+								<span style="font-size:12px">상세조회시 추가버튼이 생성됩니다</span>
+							</li>
+							<li>
+								<span style="font-size:12px">추가 버튼을 누른후 통합조직명,사업자번호 위치 클릭시 팝업이 열립니다.</span>
+							</li>
+						</ul>
+					</div>
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdUoList" style="height:150px; width: 908px; overflow-x: hidden"></div>
 				</div>
@@ -330,6 +346,7 @@
 									id="dtl-input-crno"
 									name="dtl-input-crno"
 									class="form-control input-sm"
+									mask = "{ 'alias': '999999-9999999' , 'autoUnmask': true}"
 									autocomplete="off"
 								></sbux-input>
 							</td>
@@ -340,6 +357,7 @@
 									id="dtl-input-brno"
 									name="dtl-input-brno"
 									class="form-control input-sm"
+									mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
 									autocomplete="off"
 								></sbux-input>
 							</td>
@@ -357,6 +375,7 @@
 							</td>
 							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>경영체여부</th>
 							<td colspan="3" class="td_input" style="border-right:hidden;" >
+								<!--
 								<sbux-input
 									uitype="text"
 									id="dtl-input-mngmstYn"
@@ -364,6 +383,16 @@
 									class="form-control input-sm"
 									autocomplete="off"
 								></sbux-input>
+								 -->
+								<sbux-select
+									id="dtl-input-mngmstYn"
+									name="dtl-input-mngmstYn"
+									uitype="single"
+									jsondata-ref="jsonComMngmstYn"
+									unselected-text="전체"
+									class="form-control input-sm"
+									onchange="fn_onChangeSrchItemCd(this)"
+								></sbux-select>
 							</td>
 							<th colspan="2" scope="row" class="th_bg">환코드</th>
 							<td colspan="3" class="td_input">
@@ -484,7 +513,7 @@
 							<th colspan="2" scope="row" class="th_bg th_border_right"><span class="data_required" ></span>법인형태</th>
 							<th colspan="2" scope="row" class="th_bg th_border_right"><span class="data_required" ></span>법인설립일</th>
 							<th colspan="2" scope="row" class="th_bg th_border_right"><span class="data_required" ></span>출자출하조직여부</th>
-							<th colspan="2" scope="row" class="th_bg th_border_right"><span class="data_required" ></span>출자지수</th>
+							<th colspan="2" scope="row" class="th_bg th_border_right"><span class="data_required" ></span>출자자수</th>
 							<th colspan="2" scope="row" class="th_bg th_border_right"><span class="data_required" ></span>출자자중 농업인수</th>
 							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>출자금액(천원)</th>
 						</tr>
@@ -507,7 +536,6 @@
 									jsondata-ref="jsonComCorpSeCd"
 									unselected-text="전체"
 									class="form-control input-sm"
-									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 								</td>
 							<td colspan="2" class="td_input">
@@ -528,7 +556,6 @@
 									jsondata-ref="jsonComCorpDtlSeCd"
 									unselected-text="전체"
 									class="form-control input-sm"
-									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 								</td>
 							<td colspan="2" class="td_input">
@@ -571,6 +598,7 @@
 									id="dtl-input-invstNope"
 									name="dtl-input-invstNope"
 									class="form-control input-sm"
+									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 									autocomplete="off"
 								></sbux-input>
 								</td>
@@ -582,6 +610,7 @@
 									id="dtl-input-invstExpndFrmerNope"
 									name="dtl-input-invstExpndFrmerNope"
 									class="form-control input-sm"
+									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 									autocomplete="off"
 								></sbux-input>
 								</td>
@@ -592,6 +621,7 @@
 									id="dtl-input-invstAmt"
 									name="dtl-input-invstAmt"
 									class="form-control input-sm"
+									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 									autocomplete="off"
 								></sbux-input>
 								</td>
@@ -615,6 +645,8 @@
 									name="dtl-input-frmerInvstAmt"
 									class="form-control input-sm"
 									autocomplete="off"
+									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
+									onkeyup="fn_calFrmerInvstAmtRt"
 								></sbux-input>
 							</td>
 							<td>천원</td>
@@ -626,6 +658,7 @@
 									name="dtl-input-prdcrGrpInvstAmt"
 									class="form-control input-sm"
 									autocomplete="off"
+									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 								></sbux-input>
 							</td>
 							<td>천원</td>
@@ -637,10 +670,11 @@
 									name="dtl-input-locgovInvstAmt"
 									class="form-control input-sm"
 									autocomplete="off"
+									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 								></sbux-input>
 							</td>
-							<td></td>
-							<td colspan="2"   style="border-right: hidden;">
+							<td>천원</td>
+							<td colspan="2"   style="border-right: hidden; ">
 							<!-- 기타 -->
 							<sbux-input
 									uitype="text"
@@ -648,9 +682,22 @@
 									name="dtl-input-etcInvstAmt"
 									class="form-control input-sm"
 									autocomplete="off"
+									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 								></sbux-input>
 							</td>
 							<td>천원</td>
+							<!-- 농업인 출자비율 -->
+							<td colspan="2"   style="border-right: hidden;">
+							<sbux-input
+									uitype="text"
+									id="dtl-input-frmerInvstAmtRt"
+									name="dtl-input-frmerInvstAmtRt"
+									class="form-control input-sm"
+									mask = "{ 'alias': 'currency', 'digits': 2, 'suffix': '%' , 'prefix': '', 'autoUnmask': true }"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+							</td>
 						</tr>
 						<tr>
 							<th colspan="14" scope="row" class="th_bg" style="text-align:center;">전체 종사자 수</th>
@@ -669,7 +716,9 @@
 									id="dtl-input-rgllbrNope"
 									name="dtl-input-rgllbrNope"
 									class="form-control input-sm"
+									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 									autocomplete="off"
+									onkeyup="fn_calTot"
 								></sbux-input>
 						</td>
 						<td>명</td>
@@ -680,7 +729,9 @@
 									id="dtl-input-dwNope"
 									name="dtl-input-dwNope"
 									class="form-control input-sm"
+									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 									autocomplete="off"
+									onkeyup="fn_calTot"
 								></sbux-input>
 						</td>
 						<td>명</td>
@@ -691,7 +742,9 @@
 									id="dtl-input-dlbrrNope"
 									name="dtl-input-dlbrrNope"
 									class="form-control input-sm"
+									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 									autocomplete="off"
+									onkeyup="fn_calTot"
 								></sbux-input>
 						</td>
 						<td>명</td>
@@ -702,7 +755,9 @@
 									id="dtl-input-tot"
 									name="dtl-input-tot"
 									class="form-control input-sm"
+									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 									autocomplete="off"
+									readonly
 								></sbux-input>
 						</td>
 						<td>명</td>
@@ -712,7 +767,7 @@
 							<th colspan="8" scope="row" class="th_bg">작성자 정보</th>
 						</tr>
 						<tr>
-							<th colspan="2" scope="row" class="th_bg" style="border-bottom: 1px solid white !important;"><span class="data_required" ></span>성명</th>
+							<th colspan="2" scope="row" class="th_bg" ><span class="data_required" ></span>성명</th>
 							<td colspan="5">
 							<sbux-input
 									uitype="text"
@@ -722,7 +777,7 @@
 									autocomplete="off"
 								></sbux-input>
 								</td>
-							<th colspan="2" scope="row" class="th_bg" style="border-bottom: 1px solid white !important;"><span class="data_required" ></span>직위</th>
+							<th colspan="2" scope="row" class="th_bg" ><span class="data_required" ></span>직위</th>
 							<td colspan="2">
 							<sbux-input
 									uitype="text"
@@ -745,24 +800,22 @@
 						</tr>
 						<tr>
 						<tr>
-							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>전화번호</th>
+							<th colspan="2" scope="row" class="th_bg" style="border-top: 1px solid white !important;"><span class="data_required" ></span>전화번호</th>
 							<td colspan="5">
 							<sbux-input
 									uitype="text"
 									id="dtl-input-rprsvTelno"
 									name="dtl-input-rprsvTelno"
 									class="form-control input-sm"
-									autocomplete="off"
 								></sbux-input>
 								</td>
-							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>전화번호</th>
+							<th colspan="2" scope="row" class="th_bg" style="border-top: 1px solid white !important;"><span class="data_required" ></span>전화번호</th>
 							<td colspan="6">
 							<sbux-input
 									uitype="text"
 									id="dtl-input-picTelno"
 									name="dtl-input-picTelno"
 									class="form-control input-sm"
-									autocomplete="off"
 								></sbux-input>
 								</td>
 						</tr>
@@ -830,7 +883,7 @@
 									id="dtl-input-itemNhBrofYn"
 									name="dtl-input-itemNhBrofYn"
 									uitype="single"
-									jsondata-ref="jsonDSON"
+									jsondata-ref="jsonComItemNhBrofYn"
 									unselected-text="전체"
 									class="form-control input-sm"
 									onchange="fn_onChangeSrchItemCd(this)"
@@ -941,10 +994,28 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		{'text': '승인','label': '승인', 'value': '1'},
 		{'text': '대기중','label': '대기중', 'value': '2'}
 	];
+
+	//경영체여부
+	var jsonComMngmstYn = [
+		{'text': 'Y','label': 'Y', 'value': 'Y'},
+		{'text': 'N','label': 'N', 'value': 'Y'}
+	];
+
+	//경영체여부
+	var jsonComItemNhBrofYn = [
+		{'text': 'Y','label': 'Y', 'value': 'Y'},
+		{'text': 'N','label': 'N', 'value': 'Y'}
+	];
+
 	//참여조직여부
 	var selectApoSe = [
 		{'text': 'Y','label': 'Y', 'value': '1'},
 		{'text': 'N','label': 'N', 'value': '2'}
+	];
+	//통합조직,출하조직
+	var jsonComApoSe = [
+		{'text': '통합조직','label': '통합조직', 'value': '1'},
+		{'text': '출자출하조직','label': '출자출하조직', 'value': '2'}
 	];
 	//승인여부
 	var jsonComEvCertYn = [
@@ -1014,8 +1085,10 @@ tps://sbgrid.co.kr/v2_5/document/guide
 			  	'showgoalpageui' : true
 		    };
 	    SBGridProperties.columns = [
+	    	{caption: ["조직구분"], 		ref: 'apoSe',   	type:'combo',  width:'120px',    style:'text-align:center', disabled:true
+	    		,typeinfo : {ref:'jsonComApoSe', label:'label', value:'value', displayui : false}},
 	    	{caption: ["산지유통조직코드"], 	ref: 'apoCd',   	hidden : true},
-	        {caption: ["법인구분"], 		ref: 'corpSeCd',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
+	        {caption: ["법인구분"], 		ref: 'corpSeCd',   	type:'combo',  width:'120px',    style:'text-align:center', disabled:true
 	    		,typeinfo : {ref:'jsonComCorpSeCd', label:'label', value:'value', displayui : false}},
 	        {caption: ["시도"], 			ref: 'ctpv',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
 	    		,typeinfo : {ref:'jsonComCtpv', label:'label', value:'value', displayui : false}},
@@ -1023,12 +1096,16 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		    	,typeinfo : {ref:'jsonComSgg', label:'label', value:'value', displayui : false}},
 	        {caption: ["법인명"], 		ref: 'corpNm',   	type:'output',  width:'250px',    style:'text-align:center'},
 	        {caption: ["대표자명"], 		ref: 'rprsvFlnm',   	type:'output',  width:'160px',    style:'text-align:center'},
-	        {caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'160px',    style:'text-align:center'},
-	        {caption: ["전화번호"], 		ref: 'rprsvTelno',   	type:'output',  width:'160px',    style:'text-align:center'},
+	        {caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'160px',    style:'text-align:center'
+	        	//,typeinfo : {mask: {alias : '999-99-99999'}}
+	        },
+	        {caption: ["전화번호"], 		ref: 'rprsvTelno',   	type:'output',  width:'160px',    style:'text-align:center'
+	        	,typeinfo : {mask: {alias : '999-9999-9999'}}},
 	        {caption: ["2차승인구분"], 	ref: 'evCertYn',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
 	    		,typeinfo : {ref:'jsonComEvCertYn', label:'label', value:'value', displayui : false}},
-	        {caption: ["참여조직여부"], 	ref: 'apoSe',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
-	    		,typeinfo : {ref:'selectApoSe', label:'label', value:'value', displayui : false}},
+
+	        //{caption: ["참여조직여부"], 	ref: 'apoSe',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
+	    		//,typeinfo : {ref:'selectApoSe', label:'label', value:'value', displayui : false}},
 	        {caption: ["비고"], 			ref: 'rmrk',   	type:'output',  width:'80px',    style:'text-align:center'},
 
 	        {caption: ["상세내역"], 	ref: 'uoBrno',   	hidden : true},
@@ -1461,6 +1538,8 @@ tps://sbgrid.co.kr/v2_5/document/guide
 			,picEml: SBUxMethod.get('dtl-input-picEml')//
 			,fxno: SBUxMethod.get('dtl-input-fxno')//
 			,itemNhBrofYn: SBUxMethod.get('dtl-input-itemNhBrofYn')//
+			,tot: SBUxMethod.get('dtl-input-tot')//
+			,frmerInvstAmtRt: SBUxMethod.get('dtl-input-frmerInvstAmtRt')//
    		});
 
 		const data = await postJsonPromise;
@@ -1580,7 +1659,12 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		SBUxMethod.set('dtl-input-fxno',gfn_nvl(rowData.fxno))//
 		SBUxMethod.set('dtl-input-itemNhBrofYn',gfn_nvl(rowData.itemNhBrofYn))//
 
-		fn_searchUoList();
+		if(rowData.apoSe == '1'){
+			$("div.uoList").hide();
+		}else{
+			$("div.uoList").show();
+			fn_searchUoList();
+		}
 		/*
 		let apoCd = SBUxMethod.get('dtl-input-apoCd');
 		if(!gfn_isEmpty(apoCd)){
@@ -1616,7 +1700,6 @@ tps://sbgrid.co.kr/v2_5/document/guide
 				}
 				jsonUoList.push(uoListVO);
 			});
-        	jsonUoList.length = 0;
         	grdUoList.rebuild();
 
         	//비어 있는 마지막 줄 추가용도?
@@ -1675,7 +1758,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		SBUxMethod.set('dtl-input-picEml',null)//
 		SBUxMethod.set('dtl-input-fxno',null)//
 		SBUxMethod.set('dtl-input-itemNhBrofYn',null)//
-
+		$("div.uoList").hide();
 		//출자출하조직이 속한 통합조직 리스트 입력 추가
 		grdUoList.addRow();
     }
@@ -1725,7 +1808,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		SBUxMethod.set('dtl-input-fxno',null)//
 		SBUxMethod.set('dtl-input-itemNhBrofYn',null)//
 		//출자출하조직이 속한 통합조직 리스트 초기화
-
+		$("div.uoList").hide();
 		grdUoList.rebuild();
 	}
 
@@ -1826,6 +1909,14 @@ tps://sbgrid.co.kr/v2_5/document/guide
 			let colRefIdx2 = grdUoList.getColRef('uoBrno');//ii 통합조직 코드 인덱스
 			let colRefIdx3 = grdUoList.getColRef('uoApoCd');//ii 통합조직 코드 인덱스
 
+			let gridData = grdUoList.getGridDataAll();
+			for(var i=1; i<=gridData.length; i++ ){
+				let uoData = grdUoList.getRowData(i);
+				if ($.trim(rowData.apoCd) === $.trim(uoData.uoApoCd)){
+					gfn_comAlert("E0000", "동일한 통합조직이 있습니다.");
+					return false;
+				}
+			}
 			//그리드 값 세팅
 			grdUoList.setCellData(selGridUoListRow,colRefIdx1,rowData.corpNm,true);
 			grdUoList.setCellData(selGridUoListRow,colRefIdx2,rowData.brno,true);
@@ -1942,6 +2033,31 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		}
 
 	}
-
+	//농업인 출자 지분율 계산
+	function fn_calFrmerInvstAmtRt(){
+		let invstAmt = parseFloat(SBUxMethod.get('dtl-input-invstAmt'));
+		let frmerInvstAmt = parseFloat(SBUxMethod.get('dtl-input-frmerInvstAmt'));
+		let frmerInvstAmtRt = "";
+		if(invstAmt != 0){
+			frmerInvstAmtRt = frmerInvstAmt / invstAmt * 100
+		}
+		SBUxMethod.set('dtl-input-frmerInvstAmtRt',frmerInvstAmtRt);
+	}
+	//
+	function fn_calTot(){
+		let rgllbrNope = 0;
+		if(!gfn_isEmpty(SBUxMethod.get('dtl-input-rgllbrNope'))){
+			rgllbrNope = parseFloat(SBUxMethod.get('dtl-input-rgllbrNope'));
+		}
+		let dwNope = 0;
+		if(!gfn_isEmpty(SBUxMethod.get('dtl-input-dwNope'))){
+			dwNope = parseFloat(SBUxMethod.get('dtl-input-dwNope'));
+		}
+		let dlbrrNope = 0;
+		if(!gfn_isEmpty(SBUxMethod.get('dtl-input-dlbrrNope'))){
+			dlbrrNope = parseFloat(SBUxMethod.get('dtl-input-dlbrrNope'));
+		}
+		SBUxMethod.set('dtl-input-tot',rgllbrNope + dwNope + dlbrrNope);
+	}
 </script>
 </html>

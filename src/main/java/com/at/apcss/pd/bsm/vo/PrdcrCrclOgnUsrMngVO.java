@@ -15,6 +15,7 @@ public class PrdcrCrclOgnUsrMngVO extends ComVO{
 	private String telno;		//전화번호
 	private String brno;		//사업자등록번호
 	private String moblno;		//휴대전화번호
+	private String mblTelno;		//휴대전화번호
 	private String coNm;		//회사명 -> 임시로 법인명으로 사용중
 	private String evCertYn;	//2차승인구분
 	private String cmptnInst;	//관할기관

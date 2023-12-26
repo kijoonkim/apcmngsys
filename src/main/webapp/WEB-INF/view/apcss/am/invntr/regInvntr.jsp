@@ -346,7 +346,6 @@
 			gfn_setComCdSBSelect('inptCmndDsctnList', 		jsonGrdwarehouseSeCd, 	'WAREHOUSE_SE_CD', 	gv_selectedApcCd),	// 창고
 			gfn_setComCdSBSelect('dtl-slt-invntrSeCd', 		jsonComInvntrSeCd, 		'INVNTR_SE_CD'),						// 재고구분
 
-			gfn_setComCdSBSelect('excel-slt-gdsGrd', 		jsonExeclComGdsGrd,		'GDS_GRD'),								// 엑셀 등급
 			gfn_setComCdSBSelect('excel-slt-trsprtSeCd', 	jsonExeclComTrsprtSeCd,	'TRSPRT_SE_CD'),						// 엑셀 등급
 		])
 		SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'true');
@@ -403,7 +402,6 @@
 			SBUxMethod.refresh("srch-slt-spcfctCd");
 			let rst = await Promise.all([
 				gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 				jsonComVrty, 				gv_selectedApcCd, itemCd),	// 품종
-				//stdGrdSelect.setStdGrd(gv_selectedApcCd, _GRD_SE_CD_WRHS, itemCd)
 				fn_getSpmtPckgUnit()
 			]);
 		} else {
@@ -411,7 +409,7 @@
 				gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 				jsonComVrty, 				gv_selectedApcCd, itemCd),	// 품종
 				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',			jsonComSpcfct, 				gv_selectedApcCd, itemCd),	// 규격
 				gfn_setSpmtPckgUnitSBSelect('excel-slt-spmtPckgUnit', 	jsonExeclComSpmtPckgUnit, 	gv_selectedApcCd, itemCd),	// 포장구분
-				//stdGrdSelect.setStdGrd(gv_selectedApcCd, _GRD_SE_CD_WRHS, itemCd)
+				gfn_setApcGdsGrdSBSelect('excel-slt-gdsGrd', 			jsonExeclComGdsGrd, 		gv_selectedApcCd, itemCd, '03'),	// 엑셀 등급
 				fn_getSpmtPckgUnit(itemCd)
 			]);
 		}
@@ -462,28 +460,6 @@
 				SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
 				SBUxMethod.set("srch-slt-spcfctCd", "");
 			}
-
-			/*
-			let itemCd = "";
-			for( i=0; i<jsonComVrty.length; i++ ){
-				if(jsonComVrty[i].value == vrtyCd){
-					itemCd = jsonComVrty[i].mastervalue;
-				}
-			}
-
-			SBUxMethod.set("srch-slt-itemCd", itemCd);
-			let rst = await Promise.all([
-				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 			jsonComSpcfct, 				gv_selectedApcCd, itemCd),	// 규격
-				gfn_setSpmtPckgUnitSBSelect('excel-slt-spmtPckgUnit', 	jsonExeclComSpmtPckgUnit, 	gv_selectedApcCd, itemCd),	// 포장구분
-				stdGrdSelect.setStdGrd(gv_selectedApcCd, _GRD_SE_CD_WRHS, itemCd)
-			])
-
-			if(checkSection == 1){
-				SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'true')
-			}else{
-				SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'false')
-			}
-			 */
 		}
 
 	}
@@ -619,7 +595,7 @@
 
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
 	    inptCmndDsctnList.bind('valuechanged', fn_grdTrnsfQnttValueChanged);
-	    
+
 	    fn_selectGridList();
 	}
 
@@ -850,11 +826,11 @@
 		}
 		inptCmndDsctnList.setCellData(nRow, checkedYnCol, "Y");
 	}
-	
+
 	const fn_checkWarehouseSeCd = function(){
 		let nRow = inptCmndDsctnList.getRow();
 		let checkedYnCol = inptCmndDsctnList.getColRef("checkBox");
-		
+
 		inptCmndDsctnList.setCellData(nRow, checkedYnCol, "Y");
 	}
 
@@ -1327,7 +1303,7 @@
 				ref: 'trsprtSeCd',
 				type:'combo',
 				width:'80px',
-				style:'text-align:center',
+				style:'text-align:center;background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltTrsprtSeCd',
 					displayui : false,
@@ -1341,7 +1317,7 @@
 				ref: 'wrhsSeCd',
 				type:'combo',
 				width:'80px',
-				style:'text-align:center',
+				style:'text-align:center;background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltWrhsSeCd',
 					displayui : false,
@@ -1355,7 +1331,7 @@
 				ref: 'gdsSeCd',
 				type:'combo',
 				width:'80px',
-				style:'text-align:center',
+				style:'text-align:center;background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltGdsSeCd',
 					displayui : false,
@@ -1369,7 +1345,7 @@
 				ref: 'itemCd',
 				type:'combo',
 				width:'80px',
-				style:'text-align:center',
+				style:'text-align:center;background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltItem',
 					displayui : false,
@@ -1383,11 +1359,12 @@
 				ref: 'vrtyCd',
 				type:'combo',
 				width:'80px',
-				style:'text-align:center',
+				style:'text-align:center;background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltVrty',
 					displayui : false,
 					itemcount: 10,
+					style: 'text-align:right;background-color:#FFF8DC;',
 					label:'label',
 					value:'value'
 				}
@@ -1479,7 +1456,7 @@
 				ref: 'warehouseSeCd',
 				type:'combo',
 				width:'80px',
-				style:'text-align:center',
+				style:'text-align:center;background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltWarehouseSe',
 					displayui : false,
@@ -1506,7 +1483,7 @@
 				ref: 'invntrWght',
 				type:'input',
 				width:'60px',
-				style:'text-align:right',
+				style:'text-align:right;background-color:#FFF8DC;',
 				typeinfo: {
             		mask : {alias : '#', repeat: '*', unmaskvalue : true},
             		maxlength: 9,
@@ -1553,7 +1530,7 @@
 				ref: 'wrhsSeCd',
 				type:'combo',
 				width:'80px',
-				style:'text-align:center',
+				style:'text-align:center;background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltWrhsSeCd',
 					displayui : false,
@@ -1567,7 +1544,7 @@
 				ref: 'gdsSeCd',
 				type:'combo',
 				width:'80px',
-				style:'text-align:center',
+				style:'text-align:center;background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltGdsSeCd',
 					displayui : false,
@@ -1581,7 +1558,7 @@
 				ref: 'itemCd',
 				type:'combo',
 				width:'80px',
-				style:'text-align:center',
+				style:'text-align:center;background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltItem',
 					displayui : false,
@@ -1595,7 +1572,7 @@
 				ref: 'vrtyCd',
 				type:'combo',
 				width:'80px',
-				style:'text-align:center',
+				style:'text-align:center;background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltVrty',
 					displayui : false,
@@ -1609,7 +1586,7 @@
 				ref: 'spcfctCd',
 				type:'combo',
 				width:'80px',
-				style:'text-align:center',
+				style:'text-align:center;background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltSpcfct',
 					displayui : false,
@@ -1680,7 +1657,7 @@
 				ref: 'warehouseSeCd',
 				type:'combo',
 				width:'80px',
-				style:'text-align:center',
+				style:'text-align:center;background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltWarehouseSe',
 					displayui : false,
@@ -1707,7 +1684,7 @@
 				ref: 'invntrWght',
 				type:'input',
 				width:'60px',
-				style:'text-align:right',
+				style:'text-align:right;background-color:#FFF8DC;',
 				typeinfo: {
             		mask : {alias : '#', repeat: '*', unmaskvalue : true},
             		maxlength: 9,
@@ -1747,7 +1724,7 @@
 				ref: 'gdsSeCd',
 				type:'combo',
 				width:'80px',
-				style:'text-align:center',
+				style:'text-align:center;background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltGdsSeCd',
 					displayui : false,
@@ -1761,7 +1738,7 @@
 				ref: 'itemCd',
 				type:'combo',
 				width:'80px',
-				style:'text-align:center',
+				style:'text-align:center;background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltItem',
 					displayui : false,
@@ -1775,7 +1752,7 @@
 				ref: 'spmtPckgUnitCd',
 				type:'combo',
 				width:'80px',
-				style:'text-align:center',
+				style:'text-align:center;background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltSpmtPckgUnit',
 					displayui : false,
@@ -1847,7 +1824,7 @@
 				ref: 'warehouseSeCd',
 				type:'combo',
 				width:'80px',
-				style:'text-align:center',
+				style:'text-align:center;background-color:#FFF8DC;',
 				typeinfo : {
 					ref:'jsonExpSltWarehouseSe',
 					displayui : false,
@@ -1861,7 +1838,7 @@
 				ref: 'invntrQntt',
 				type:'input',
 				width:'60px',
-				style:'text-align:right',
+				style:'text-align:right;background-color:#FFF8DC;',
 				typeinfo: {
 					mask : {alias : '#', repeat: '*', unmaskvalue : true},
 					maxlength: 9,
@@ -1874,7 +1851,7 @@
 				ref: 'invntrWght',
 				type:'input',
 				width:'60px',
-				style:'text-align:right',
+				style:'text-align:right;background-color:#FFF8DC;',
 				typeinfo: {
 					mask : {alias : '#', repeat: '*', unmaskvalue : true},
 					maxlength: 9,
@@ -2247,7 +2224,7 @@
 				)
 		}
 
-		if (invntrSeCd == "1"){
+		if (invntrSeCd == "1" || invntrSeCd == "2"){
 			expObjList.push(
 				{
 			        sbGrid: grdExpStdGrd,
@@ -2283,7 +2260,7 @@
 			);
 		}
 
-		if (invntrSeCd == "2" || invntrSeCd == "3"){
+		if (invntrSeCd == "3"){
 			expObjList.push(
 			    {
 			        sbGrid: grdExpGdsGrd,

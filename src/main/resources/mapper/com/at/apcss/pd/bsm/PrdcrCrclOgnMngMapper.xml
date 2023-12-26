@@ -341,11 +341,8 @@
 	    	UPDATE /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.upatePrdcrCrclOgnMng */
 	    		TB_EV_APO
 			   SET
-			 	  	APO_SE					= #{apoSe}
-	    		  , UO_BRNO					= #{uoBrno}
+					UO_BRNO					= #{uoBrno}
 	    		  , CORP_NM					= #{corpNm}
-	    		  , CRNO					= #{crno}
-	    		  , BRNO					= #{brno}
 	    		  , MNGMST_INFO_ID			= #{mngmstInfoId}
 	    		  , MNGMST_YN				= #{mngmstYn}
 	    		  , NONGHYUP_CD				= #{nonghyupCd}
@@ -382,6 +379,8 @@
 	    		  , PIC_EML					= #{picEml}
 	    		  , FXNO					= #{fxno}
 	    		  , ITEM_NH_BROF_YN			= #{itemNhBrofYn}
+	    		  , TOT						= #{tot}
+	    		  , FRMER_INVST_AMT_RT		= #{frmerInvstAmtRt}
     	]]>
     	<![CDATA[
 				, SYS_LAST_CHG_DT		= SYSDATE

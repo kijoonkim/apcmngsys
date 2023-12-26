@@ -38,7 +38,7 @@
 		     , MAX(A.OGNZ_CD)	AS APO_CD
 		  FROM TB_APC_OGNZ_INFO A
 		 WHERE 1=1
-		   AND OGNZ_SE_CD = '1'
+		   AND OGNZ_SE_CD = '21'
 		 ]]>
 		 <if test='brno != null and brno != ""'>
 				AND A.BRNO LIKE '%'||#{brno}||'%'

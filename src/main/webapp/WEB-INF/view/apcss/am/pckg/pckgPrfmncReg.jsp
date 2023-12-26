@@ -1255,7 +1255,6 @@
 			// 규격중량(단중) set
 			const spcfctInfo = _.find(jsonApcSpcfct, {spcfctCd: spcfctCd});
 			if (!gfn_isEmpty(spcfctInfo)) {
-				console.log("wght", spcfctInfo.wght);
 				editableRow.spcfctWght = spcfctInfo.wght;
 			}
 
@@ -1330,7 +1329,7 @@
 					}
 				}
 			}
-			grdSortInvntr.refresh();
+			grdSortInvntr.refresh({"focus":false});
 			fn_setInptInfo();
 		}
  	}
@@ -1352,7 +1351,7 @@
 				rowData.inptQntt = 0;
 				rowData.inptWght = 0;
 			}
-			grdSortInvntr.refresh();
+			grdSortInvntr.refresh({"focus":false});
 			fn_setInptInfo();
 		}
     }
@@ -1365,54 +1364,62 @@
 	const fn_grdSortInvntrValueChanged = function(event) {
 		var nRow = grdSortInvntr.getRow();
 		var nCol = grdSortInvntr.getCol();
+		let inptQnttCol = grdSortInvntr.getColRef("inptQntt");
+		let inptWghtCol = grdSortInvntr.getColRef("inptWght");
 
 		const usrAttr = grdSortInvntr.getColUserAttr(nCol);
 		if (!gfn_isEmpty(usrAttr) && usrAttr.hasOwnProperty('colNm')) {
 
 			const rowData = grdSortInvntr.getRowData(nRow, false);	// deep copy
-			switch (usrAttr.colNm) {
-				case "inptQntt":
-					let invntrQntt = parseInt(rowData.invntrQntt) || 0;
-					let invntrWght = parseInt(rowData.invntrWght) || 0;
-					let tmpInptQntt = parseInt(rowData.inptQntt) || 0;
+			let invntrQntt = parseInt(rowData.invntrQntt) || 0;
+			let invntrWght = parseInt(rowData.invntrWght) || 0;
+			let tmpInptQntt = parseInt(rowData.inptQntt) || 0;
+			let tmpInptWght = parseInt(rowData.inptWght) || 0;
+			if (usrAttr.colNm == "inptQntt") {
 
-					if (tmpInptQntt <= 0) {
+				if (tmpInptQntt <= 0) {
+					rowData.inptQntt = 0;
+					rowData.inptWght = 0;
+					rowData.checkedYn = "N";
+				} else if (invntrQntt === 0) {
+					if (tmpInptQntt > invntrQntt) {
+						rowData.inptWght = invntrWght;
+					}
+				} else {
+					if (tmpInptQntt > invntrQntt) {
+						gfn_comAlert("W0008", "재고수량", "투입수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
 						rowData.inptQntt = 0;
 						rowData.inptWght = 0;
 						rowData.checkedYn = "N";
-					} else if (invntrQntt === 0) {
-						if (tmpInptQntt > invntrQntt) {
-							rowData.inptWght = invntrWght;
-						}
-					} else {
-						if (tmpInptQntt > invntrQntt) {
-							gfn_comAlert("W0008", "재고수량", "투입수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
-							rowData.inptQntt = 0;
-							rowData.inptWght = 0;
-							rowData.checkedYn = "N";
-						} else {
-							rowData.checkedYn = "Y";
-							rowData.inptWght = Math.round(invntrWght * tmpInptQntt / invntrQntt);
-						}
-					}
-					grdSortInvntr.refresh();
-
-				case "inptWght":
-
-					let tmpInptWght = parseInt(rowData.inptWght) || 0;
-					if (tmpInptWght == 0) {
-						rowData.checkedYn = "N";
 					} else {
 						rowData.checkedYn = "Y";
+						rowData.inptWght = Math.round(invntrWght * tmpInptQntt / invntrQntt);
 					}
+				}
+				grdSortInvntr.refresh({"focus":false});
+				fn_setInptInfo();
 
-					grdSortInvntr.refresh();
-					fn_setInptInfo();
+			} else if (usrAttr.colNm == "inptWght") {
 
-					break;
+				if(invntrWght - tmpInptWght < 0){
+					gfn_comAlert("W0008", "재고중량", "투입중량");		//	W0008	{0} 보다 {1}이/가 큽니다.
+					rowData.checkedYn = "N";
+					grdSortInvntr.setCellData(nRow, inptQnttCol , 0);
+					grdSortInvntr.setCellData(nRow, inptWghtCol , 0);
+					grdSortInvntr.refresh({"focus":false});
+		            return;
+				}
 
-				default:
-					return;
+				if (tmpInptWght == 0) {
+					rowData.checkedYn = "N";
+					grdSortInvntr.setCellData(nRow, inptQnttCol , 0);
+					grdSortInvntr.setCellData(nRow, inptWghtCol , 0);
+				} else {
+					rowData.checkedYn = "Y";
+				}
+
+				grdSortInvntr.refresh({"focus":false});
+				fn_setInptInfo();
 			}
 		}
  	}
@@ -1447,7 +1454,7 @@
 		const pckgQntt = parseInt(rowData.pckgQntt) || 0;
 		pckgWght = gfn_apcEstmtWght(pckgQntt * spcfctWght, gv_selectedApcCd);
 		rowData.pckgWght = pckgWght;
-		grdPckgPrfmnc.refresh();
+		grdPckgPrfmnc.refresh({"focus":false});
 
 		fn_setPckgWghtInfo();
  	}
@@ -2226,8 +2233,6 @@
    				stdGrdList: stdGrdList
  	    	}
 
- 	    	console.log(pckgPrfmnc);
-
  	    	pckgPrfmncList.push(pckgPrfmnc);
  		}
 
@@ -2306,7 +2311,6 @@
 		const abnormalList = [];
 
 		for ( let iRow = 1; iRow <= impData.length; iRow++ ) {
-			console.log("iRow", iRow);
 			// 010. 그리드 스타일 초기화
 
  			// validation check

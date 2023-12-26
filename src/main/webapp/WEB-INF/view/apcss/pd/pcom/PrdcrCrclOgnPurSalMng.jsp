@@ -164,6 +164,7 @@
 									id="srch-input-brno"
 									name="srch-input-brno"
 									class="form-control input-sm"
+									mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
 									autocomplete="off"
 								></sbux-input>
 							</td>
@@ -189,15 +190,15 @@
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
 				<!-- 조직 리스트 -->
-				<div class="ad_tbl_top">
-					<ul class="ad_tbl_count">
-						<li>
-							<span style="font-size:14px">검색리스트</span>
-							<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
-						</li>
-					</ul>
-				</div>
 				<div class="ad_section_top">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">검색리스트</span>
+								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+							</li>
+						</ul>
+					</div>
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrOgnCurntMng" style="height:350px; width: 100%;"></div>
 				</div>
@@ -259,30 +260,49 @@
 				</table>
 				<br>
 				<!--[pp] 검색결과 상세보기-->
-
-				<div class="box-header" style="display:flex; justify-content: flex-start;" >
-					<div>
-						<p>통합조직 총 매입현황</p>
-					</div>
-					<div style="margin-left: auto;">
-						<sbux-button id="btnSaveFclt2" name="btnSaveFclt2" uitype="normal" text="매입저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave01"></sbux-button>
-					</div>
-				</div>
 				<div class="ad_section_top">
+					<div class="box-header" style="display:flex; justify-content: flex-start;" >
+						<div style="margin-left: auto;">
+							<sbux-button id="btnSaveFclt2" name="btnSaveFclt2" uitype="normal" text="매입저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave01"></sbux-button>
+						</div>
+					</div>
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">통합조직 총 매입현황</span>
+								<!--
+								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+								 -->
+							</li>
+							<li>
+								<span style="font-size:12px">추가를 눌러 생성 후 작성해주세요</span>
+							</li>
+						</ul>
+					</div>
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:200px; width: 100%;"></div>
 				</div>
 				<br>
 				<!--[pp] 검색결과 상세보기-->
-				<div class="box-header" style="display:flex; justify-content: flex-start;" >
-					<div>
-						<p>통합조직 총 매출현황</p>
-					</div>
-					<div style="margin-left: auto;">
-						<sbux-button id="btnSaveFclt3" name="btnSaveFclt3" uitype="normal" text="매출저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave02"></sbux-button>
-					</div>
-				</div>
 				<div class="ad_section_top">
+					<div class="box-header" style="display:flex; justify-content: flex-start;" >
+						<div style="margin-left: auto;">
+							<sbux-button id="btnSaveFclt3" name="btnSaveFclt3" uitype="normal" text="매출저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave02"></sbux-button>
+						</div>
+					</div>
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">통합조직 총 매출현황</span>
+								<!--
+								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+								 -->
+							</li>
+							<li>
+								<span style="font-size:12px">추가를 눌러 생성 후 작성해주세요</span>
+							</li>
+						</ul>
+					</div>
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrOgnCurntMng02" style="height:200px; width: 100%;"></div>
 				</div>
@@ -446,6 +466,13 @@
 	    SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
+	    	{caption: ["처리","처리"], 		ref: 'delYn',   		type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+	        	if(strValue== null || strValue == ""){
+	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ", " + nCol + ")'>추가</button>";
+	        	}else{
+			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ")'>삭제</button>";
+	        	}
+	        }},
 	    	{caption: ["품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 	    	//{caption: ["품목분류","품목분류"], 	ref: 'ctgryNm',   	type:'combo',  width:'80px',    style:'text-align:center'},
 	    	{caption: ["품목분류","품목분류"], 	ref: 'ctgryCd',   	type:'combo',  width:'80px',    style:'text-align:center'
@@ -459,17 +486,11 @@
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 	        {caption: ["매취","금액"], 		ref: 'prchsEmspapAmt',   type:'input',  width:'100px',    style:'text-align:center'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["합계","물량"], 		ref: 'prchsTotVlm',   		type:'output',  width:'90px',    style:'text-align:center', calc : 'fn_prchsVlmSum'
+	        {caption: ["합계","물량"], 		ref: 'prchsTotVlm',   		type:'output',  width:'90px',    style:'text-align:center; background-color: #92b2c5', calc : 'fn_prchsVlmSum'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["합계","금액"], 		ref: 'prchsTotAmt',   		type:'output',  width:'100px',    style:'text-align:center', calc : 'fn_prchsAmtSum'
+	        {caption: ["합계","금액"], 		ref: 'prchsTotAmt',   		type:'output',  width:'100px',    style:'text-align:center; background-color: #92b2c5', calc : 'fn_prchsAmtSum'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["처리","처리"], 		ref: 'delYn',   		type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
-	        	if(strValue== null || strValue == ""){
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ", " + nCol + ")'>추가</button>";
-	        	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ")'>삭제</button>";
-	        	}
-	        }},
+
 	        {caption: ["상세내역"], 	ref: 'prchsSlsSe',  hidden : true},
 	        {caption: ["상세내역"], 	ref: 'yr',   		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'apoCd',   	hidden : true},
@@ -516,6 +537,13 @@
 	    SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
+	    	{caption: ["처리","처리"], 		ref: 'delYn',   		type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+	        	if(strValue== null || strValue == ""){
+	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ", " + nCol + ")'>추가</button>";
+	        	}else{
+			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ")'>삭제</button>";
+	        	}
+	        }},
 	    	{caption: ["품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 	    	//{caption: ["품목분류","품목분류"], 	ref: 'ctgryNm',   	type:'combo',  width:'80px',    style:'text-align:center'},
 	    	{caption: ["품목분류","품목분류"], 	ref: 'ctgryCd',   	type:'combo',  width:'80px',    style:'text-align:center'
@@ -551,17 +579,11 @@
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 	        {caption: ["매취","금액"], 		ref: 'slsTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["합계","물량"], 		ref: 'slsTotVlm',   	type:'output',  width:'90px',    style:'text-align:center' , calc : 'fn_slsVlmSum'
+	        {caption: ["합계","물량"], 		ref: 'slsTotVlm',   	type:'output',  width:'90px',    style:'text-align:center; background-color: #92b2c5' , calc : 'fn_slsVlmSum'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["합계","금액"], 		ref: 'slsTotAmt',   	type:'output',  width:'100px',    style:'text-align:center', calc : 'fn_slsAmtSum'
+	        {caption: ["합계","금액"], 		ref: 'slsTotAmt',   	type:'output',  width:'100px',    style:'text-align:center; background-color: #92b2c5', calc : 'fn_slsAmtSum'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["처리","처리"], 		ref: 'delYn',   		type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
-	        	if(strValue== null || strValue == ""){
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ", " + nCol + ")'>추가</button>";
-	        	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ")'>삭제</button>";
-	        	}
-	        }},
+
 	        {caption: ["상세내역"], 	ref: 'prchsSlsSe',  hidden : true},
 	        {caption: ["상세내역"], 	ref: 'yr',   		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'apoCd',   	hidden : true},

@@ -119,10 +119,11 @@
 							 , '2'						AS PRFMNC_SE_CD
 							 , (SELECT FN_GET_COM_CD_VL_NM(
 							 	   'SORT_FCLT_CD'
-								 , (SELECT FCLT_CD
+								 , (SELECT MAX(FCLT_CD)
 							          FROM TB_SORT_PRFMNC X
 							         WHERE X.APC_CD = OP.APC_CD
 							           AND X.SORTNO = OP.SORTNO
+							           AND X.DEL_YN = 'N'
 						       		)
 						          , OP.APC_CD)
 						       FROM DUAL)  AS FCLT_NM
@@ -137,6 +138,7 @@
 									   FROM TB_GDS_INVNTR X
 									  WHERE X.APC_CD = OP.APC_CD
 										AND X.PCKGNO = OP.PCKGNO
+										AND X.DEL_YN = 'N'
 									 )
 								 , OP.APC_CD)
 								 FROM DUAL)  AS FCLT_NM
