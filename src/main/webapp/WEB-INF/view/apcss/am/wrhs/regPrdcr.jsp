@@ -308,6 +308,10 @@
 		const postJsonPromise = gfn_postJSON("/am/cmns/selectAgrixPrdcrList.do", prdcrVO);
         const data = await postJsonPromise;
 		try {
+			if (!_.isEqual("S", data.resultStatus)) {
+	        	gfn_comAlert(data.resultCode, data.resultMessage);
+	        	return;
+	        }
 			jsonAgrixPrdcr.length = 0;
 	      	data.resultList.forEach((item, index) => {
 	      		const prdcrVO = {

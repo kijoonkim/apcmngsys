@@ -976,6 +976,10 @@
     	let postJsonPromise = gfn_postJSON("/am/cmns/selectApcCmnsItemList.do", {apcCd : apcCd});
         let data = await postJsonPromise;
         try{
+        	if (!_.isEqual("S", data.resultStatus)) {
+	        	gfn_comAlert(data.resultCode, data.resultMessage);
+	        	return;
+	        }
         	jsonExcelItem.length = 0;
         	data.resultList.forEach((item, index) => {
 				let itemVO = {
@@ -1000,6 +1004,10 @@
     	let postJsonPromise = gfn_postJSON("/am/cmns/selectApcVrtyList.do", {apcCd : apcCd});
         let data = await postJsonPromise;
         try{
+        	if (!_.isEqual("S", data.resultStatus)) {
+	        	gfn_comAlert(data.resultCode, data.resultMessage);
+	        	return;
+	        }
         	jsonExcelVrty.length = 0;
         	data.resultList.forEach((item, index) => {
 				let vrtyVO = {
@@ -1023,6 +1031,10 @@
     	let postJsonPromise = gfn_postJSON("/am/cmns/selectPrdcrList.do", {apcCd : apcCd});
         let data = await postJsonPromise;
         try{
+        	if (!_.isEqual("S", data.resultStatus)) {
+	        	gfn_comAlert(data.resultCode, data.resultMessage);
+	        	return;
+	        }
         	jsonExcelPrdcr.length = 0;
         	data.resultList.forEach((item, index) => {
         		const prdcr = {
@@ -1048,6 +1060,10 @@
     	let postJsonPromise = gfn_postJSON("/co/cd/comCdDtls", {cdId : "WRHS_SE_CD", delYn : "N"});
         let data = await postJsonPromise;
         try{
+        	if (!_.isEqual("S", data.resultStatus)) {
+	        	gfn_comAlert(data.resultCode, data.resultMessage);
+	        	return;
+	        }
         	jsonExcelWrhsSeCd.length = 0;
         	data.resultList.forEach((item, index) => {
         		const wrhsSeCd = {
@@ -1071,6 +1087,10 @@
     	let postJsonPromise = gfn_postJSON("/co/cd/comCdDtls", {apcCd : apcCd, cdId : "GDS_SE_CD", delYn : "N"});
         let data = await postJsonPromise;
         try{
+        	if (!_.isEqual("S", data.resultStatus)) {
+	        	gfn_comAlert(data.resultCode, data.resultMessage);
+	        	return;
+	        }
         	jsonExcelGdsSeCd.length = 0;
         	data.resultList.forEach((item, index) => {
         		const gdsSeCd = {
@@ -1094,6 +1114,10 @@
     	let postJsonPromise = gfn_postJSON("/co/cd/comCdDtls", {cdId : "TRSPRT_SE_CD", delYn : "N"});
         let data = await postJsonPromise;
         try{
+        	if (!_.isEqual("S", data.resultStatus)) {
+	        	gfn_comAlert(data.resultCode, data.resultMessage);
+	        	return;
+	        }
         	jsonExcelWrhsSeCd.length = 0;
         	data.resultList.forEach((item, index) => {
         		const trsprtSeCd = {
