@@ -749,7 +749,7 @@
 		let spmtPckgUnitCd = SBUxMethod.get("dtl-slt-spmtPckgUnit");
 		let gdsSeCd = SBUxMethod.get("srch-rdo-gdsSeCd");
 		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
-		
+
 		SBUxMethod.set("dtl-inp-spmtQntt", "");
 		SBUxMethod.set("dtl-inp-spmtWght", "");
 
@@ -1264,7 +1264,7 @@
     		let nRow = grdRows[i];
     		let rowData = grdGdsInvntr.getRowData(nRow)
     		let spmtQntt = rowData.spmtQntt
-    		let smptWght = rowData.smptWght;
+    		let spmtWght = rowData.spmtWght;
     		let spmtPckgUnitCd = rowData.spmtPckgUnitCd;
     		let gdsGrd = rowData.gdsGrd;
     		let brndNm = rowData.brndNm;
@@ -1279,11 +1279,11 @@
     			gfn_comAlert("W0015", "출하일자", "상품재고의 생산일자");		//	W0014	{0}이/가 {1} 보다 작습니다.
     			return;
     		}
-    		if(smptQntt == 0){
+    		if(spmtQntt == 0){
     			gfn_comAlert("W0001", "출하수량");		//	W0001	{0}이/가 없습니다.
     			return;
     		}
-    		if(smptWght == 0){
+    		if(spmtWght == 0){
     			gfn_comAlert("W0001", "출하중량");		//	W0001	{0}이/가 없습니다.
     			return;
     		}
