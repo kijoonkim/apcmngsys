@@ -238,9 +238,9 @@ public class FarmLandInfoLogController extends BaseController{
 	                    result = farmLandInfoLogService.insertMegerLogFarmLandInfoLog(farmLandInfoLogVO);
 	                }
 	            }
-	        } catch (Exception ex) {
-	            ex.printStackTrace();
-	        }
+			}catch (Exception e) {
+				return getErrorResponseEntity(e);
+			}
 
 
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();

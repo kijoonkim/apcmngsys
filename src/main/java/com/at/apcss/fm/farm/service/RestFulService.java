@@ -181,7 +181,7 @@ public class RestFulService {
 
 		} catch (URISyntaxException e) {
 			this.responseData = this.jsonNoResult;
-			e.printStackTrace();
+			//e.printStackTrace();
 		} catch (HttpClientErrorException e) {
 			   this.responseData = e.getResponseBodyAsString();
 //		} catch ( InternalServerError e) {
@@ -217,10 +217,10 @@ public class RestFulService {
 							oResult = (Object) oMapper.readValue(this.responseData, elementClass);
 						}catch(JsonMappingException e) {
 							oResult = gs.fromJson(this.jsonNoResult, Hashtable.class);
-							e.printStackTrace();
+							//e.printStackTrace();
 						}catch(JsonProcessingException e) {
 							oResult = gs.fromJson(this.jsonNoResult, Hashtable.class);
-							e.printStackTrace();
+							//e.printStackTrace();
 						}
 
 					}else {
@@ -237,7 +237,7 @@ public class RestFulService {
 
 			oResult = gs.fromJson(this.jsonNoResult, Hashtable.class);
 
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 
 		return oResult;

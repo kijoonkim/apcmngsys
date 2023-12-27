@@ -15,7 +15,8 @@
 		<div class="box box-solid">
 		<div class="box-header" style="display:flex; justify-content: flex-start;" >
 			<div>
-				<h3 class="box-title" style="line-height: 30px;">▶ ${comMenuVO.menuNm}</h3>
+				<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
+				<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3>
 			</div>
 			<div style="margin-left: auto;">
 				<sbux-button id="btn-srch-inp-outordrInq" name="btn-srch-inp-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>

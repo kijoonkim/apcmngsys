@@ -245,9 +245,9 @@ public class ApcFarmOgnzInfoController extends BaseController{
 	                    result = apcFarmOgnzInfoService.insertMegerLogApcFarmOgnzInfo(apcFarmOgnzInfoVO);
 	                }
 	            }
-	        } catch (Exception ex) {
-	            ex.printStackTrace();
-	        }
+			}catch (Exception e) {
+				return getErrorResponseEntity(e);
+			}
 
 
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
@@ -349,9 +349,9 @@ public class ApcFarmOgnzInfoController extends BaseController{
 					}
 				}
 
-			 } catch (Exception ex) {
-		            ex.printStackTrace();
-		        }
+			}catch (Exception e) {
+				return getErrorResponseEntity(e);
+			}
 
 				HashMap<String,Object> resultMap = new HashMap<String,Object>();
 				resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);

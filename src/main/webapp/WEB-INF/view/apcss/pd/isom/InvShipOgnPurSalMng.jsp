@@ -15,7 +15,7 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 등록결과확인 -->
+					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set><h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3>
 					<!-- 출자출하조직 관리 매입·매출 -->
 					<sbux-label id="lbl-wghno" name="lbl-wghno" uitype="normal" text="">
 					</sbux-label>
