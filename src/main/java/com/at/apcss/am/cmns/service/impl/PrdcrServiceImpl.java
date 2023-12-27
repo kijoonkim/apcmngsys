@@ -97,12 +97,16 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 		PrdcrDtlVO prdcrDtlVO = new PrdcrDtlVO();
 		prdcrDtlVO.setApcCd(prdcrVO.getApcCd());
 		prdcrDtlVO.setPrdcrCd(prdcrVO.getPrdcrCd());
-		
-		HashMap<String, Object> rtnObj = prdcrDtlService.deletePrdcrDtl(prdcrDtlVO);
-		if (rtnObj != null) {
-			throw new EgovBizException(getMessageForMap(rtnObj));
+
+		List<PrdcrDtlVO> rtnList = prdcrDtlService.selectPrdcrDtlList(prdcrDtlVO);
+
+		if(rtnList.size() > 0) {
+			HashMap<String, Object> rtnObj = prdcrDtlService.deletePrdcrDtl(prdcrDtlVO);
+			if (rtnObj != null) {
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
 		}
-		
+
 		if(0 == prdcrMapper.deletePrdcr(prdcrVO)) {
 			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다."))); // E0000	{0}
 		}
