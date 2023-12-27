@@ -771,7 +771,12 @@
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		fn_fcltMngCreateGrid();
 	</c:if>
+	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+		//통합조직인 경우
+		<c:if test="${loginVO.userType eq '21'}">
 		fn_fcltMngCreateGrid01();
+		</c:if>
+	</c:if>
 	}
 
 	/* Grid 화면 그리기 기능*/
@@ -969,7 +974,7 @@
 		if(gfn_isEmpty(brno)) return;
 
     	let postJsonPromise01 = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
-    		brno : brno
+    		uoBrno : brno
 		});
 
         let data = await postJsonPromise01 ;
@@ -1000,7 +1005,7 @@
 		if(gfn_isEmpty(brno)) return;
 
 		let postJsonPromise = gfn_postJSON("/pd/aom/selectInvShipOgnReqMngList.do", {
-			brno : brno
+			isoBrno : brno
 		});
         let data = await postJsonPromise;
         try{

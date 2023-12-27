@@ -131,6 +131,9 @@
     		<if test='uoBrno != null and uoBrno != ""'>
 				AND UO.UO_BRNO = #{uoBrno}
 			</if>
+			<if test='isoBrno != null and isoBrno != ""'>
+				AND UO.ISO_BRNO = #{isoBrno}
+			</if>
 
 		<!-- 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>

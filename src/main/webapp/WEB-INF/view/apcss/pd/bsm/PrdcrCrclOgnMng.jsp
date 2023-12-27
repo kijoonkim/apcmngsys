@@ -1994,7 +1994,8 @@ tps://sbgrid.co.kr/v2_5/document/guide
 			}
 		}
 		if(saveList.length == 0){
-			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
+			//출자출하조직이 속한리스트 의 메세지 인데 오해의 소지가 있음
+			//gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
 			return;
 		}
 

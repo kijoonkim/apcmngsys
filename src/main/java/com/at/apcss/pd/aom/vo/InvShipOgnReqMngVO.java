@@ -19,6 +19,7 @@ public class InvShipOgnReqMngVO extends ComVO{
 	private String invstExpndFrmerNope;
 
 	private String uoBrno;
+	private String isoBrno;
 
 	private String crno;
 	private String corpSeCd;
