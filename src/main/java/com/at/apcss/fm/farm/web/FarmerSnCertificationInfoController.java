@@ -251,9 +251,9 @@ public class FarmerSnCertificationInfoController extends BaseController{
 	                    result = farmerSnCertificationInfoService.insertMegerLogFarmerSnCertificationInfo(farmerSnCertificationInfoVO);
 	                }
 	            }
-	        } catch (Exception ex) {
-	            ex.printStackTrace();
-	        }
+			}catch (Exception e) {
+				return getErrorResponseEntity(e);
+			}
 
 
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
@@ -355,9 +355,9 @@ public class FarmerSnCertificationInfoController extends BaseController{
 					}
 				}
 
-			 } catch (Exception ex) {
-		            ex.printStackTrace();
-		        }
+			}catch (Exception e) {
+				return getErrorResponseEntity(e);
+			}
 
 				HashMap<String,Object> resultMap = new HashMap<String,Object>();
 				resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
