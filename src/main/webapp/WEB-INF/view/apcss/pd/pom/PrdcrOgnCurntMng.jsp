@@ -378,17 +378,17 @@
     <!-- 품목 팝업 -->
 	<div>
         <sbux-modal
-        	id="modal-gpcList"
-        	name="modal-gpcList"
+        	id="modal-yrGpcList"
+        	name="modal-yrGpcList"
         	uitype="middle"
         	header-title="품목 선택"
-        	body-html-id="body-modal-gpcList"
+        	body-html-id="body-modal-yrGpcList"
         	footer-is-close-button="false"
         	style="width:500px"
        	></sbux-modal>
     </div>
-    <div id="body-modal-gpcList">
-    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/gpcSelectPopup.jsp"></jsp:include>
+    <div id="body-modal-yrGpcList">
+    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/ItemYrGpcPopup.jsp"></jsp:include>
     </div>
 </body>
 <script type="text/javascript">
@@ -428,6 +428,7 @@
 	var jsonComAplyTrgtSe = [];//신청대상구분
 	var jsonComTrmtType = [];//취급유형
 	var jsonComSttgUpbrItemSe = [];//품목구분 전문/육성
+	var jsonComCtgryCd = [];//분류코드
 	//통합조직,출하조직
 	var jsonComApoSe = [
 		{'text': '통합조직','label': '통합조직', 'value': '1'},
@@ -450,7 +451,8 @@
 			gfn_setComCdSBSelect('srch-input-aprv', 		jsonComAprv, 		'APRV_UPBR_SE_CD'), //신청구분
 			gfn_setComCdSBSelect('srch-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE'), //신청대상구분
 			gfn_setComCdSBSelect('dtl-input-trmtType', 		jsonComTrmtType, 	'TRMT_TYPE'), //신청대상구분
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonComSttgUpbrItemSe, 	'STTG_UPBR_ITEM_SE') //품목구분
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonComSttgUpbrItemSe, 	'STTG_UPBR_ITEM_SE'), //품목구분
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonComCtgryCd, 	'CTGRY_CD'), //분류코드
 
 		]);
 	}
@@ -540,7 +542,8 @@
 	    	{caption: ["생산자조직 명"], 	ref: 'prdcrOgnzNm',   	type:'input',  width:'150px',    style:'text-align:center'},
 	        {caption: ["생산자조직 코드"], 	ref: 'prdcrOgnzCd',   	type:'input',  width:'150px',    style:'text-align:center'},
 	        {caption: ["품종"], 			ref: 'itemNm',   	type:'output',  width:'150px',    style:'text-align:center'},
-	        {caption: ["분류"], 			ref: 'ctgryNm',   	type:'output',  width:'150px',    style:'text-align:center'},
+	        {caption: ["분류"], 			ref: 'ctgryCd',   	type:'combo',  width:'150px',    style:'text-align:center', disabled:false , oneclickedit:true
+	    		,typeinfo : {ref:'jsonComCtgryCd', label:'label', value:'value', displayui : true}},
 	        {caption: ["취급유형"], 		ref: 'trmtType',   	type:'combo',  width:'150px',    style:'text-align:center', disabled:false , oneclickedit:true
 			    		,typeinfo : {ref:'jsonComTrmtType', label:'label', value:'value', displayui : true}},
 			{caption: ["전문/육성 구분"], 	ref: 'sttgUpbrItemSe',   type:'combo',  width:'150px',    style:'text-align:center', disabled:false , oneclickedit:true
@@ -549,7 +552,7 @@
 	        {caption: ["상세내역"], 	ref: 'yr',   	hidden : true},
 	        {caption: ["상세내역"], 	ref: 'apoCd',   	hidden : true},
 	    	{caption: ["상세내역"], 	ref: 'itemCd',   	hidden : true},
-	    	{caption: ["상세내역"], 	ref: 'ctgryCd',   	hidden : true},
+	    	//{caption: ["상세내역"], 	ref: 'ctgryCd',   	hidden : true},
 	        {caption: ["상세내역"], 	ref: 'apoSe',		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'brno',		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'crno',		hidden : true}
@@ -588,7 +591,7 @@
 	    	{caption: ["순번"], 			ref: 'cltvtnLandSn',   	type:'output',  width:'60px',    style:'text-align:center'},
 	    	{caption: ["조직원명"], 		ref: 'flnm',   	type:'input',  width:'100px',    style:'text-align:center'},
 	        {caption: ["재배지 주소"], 	ref: 'cltvtnLandAddr',   	type:'input',  width:'300px',    style:'text-align:center'},
-	        {caption: ["품목"], 			ref: 'itemNm',   	type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["품목"], 			ref: 'itemNm',   	type:'output',  width:'120px',    style:'text-align:center' },
 	        {caption: ["재배면적(㎡)"], 	ref: 'cltvtnSfc',   	type:'input',  width:'140px',    style:'text-align:center'
 	        	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 	        {caption: ["(평년)생산량(톤)"], ref: 'avgYrPrdctnVlm',   	type:'input',  width:'140px',    style:'text-align:center'
@@ -604,6 +607,7 @@
 	        {caption: ["상세내역"], 	ref: 'prdcrOgnzNm',   	hidden : true},
 	        {caption: ["상세내역"], 	ref: 'apoCd',   	hidden : true},
 	    	{caption: ["상세내역"], 	ref: 'itemCd',   	hidden : true},
+	    	{caption: ["상세내역"], 	ref: 'ctgryCd',   	hidden : true},
 	    	{caption: ["상세내역"], 	ref: 'trmtType',	hidden : true},
 	        {caption: ["상세내역"], 	ref: 'apoSe',		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'brno',		hidden : true},
@@ -1065,19 +1069,19 @@
 	//생산자조직 리스트 조회
 	async function fn_dtlGridSearch01() {
 
-		let apoCd = SBUxMethod.get('dtl-input-apoCd');
-		if(gfn_isEmpty(apoCd)){return;}
+		let brno = SBUxMethod.get('dtl-input-brno');
 
+		if(gfn_isEmpty(brno)){return;}
 
 		let postJsonPromise01 = gfn_postJSON("/pd/pom/selectTbEvFrmhsApoList.do", {
-			apoCd : apoCd
+			brno : brno
 		});
         let data = await postJsonPromise01;
         try{
         	jsonPrdcrOgnCurntMng01.length = 0;
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
-        		console.log(item);
+        		console.log(item.itemNm);
 				let itemVO = {
 						apoCd: 	item.apoCd
 						,apoSe: item.apoSe
@@ -1118,8 +1122,10 @@
 	//농가리스트 리스트 조회
 	async function fn_dtlGridSearch02() {
 
+		let itemCd = SBUxMethod.get('dtl-input-itemCd');
+		if(gfn_isEmpty(itemCd)){return;}
+
 		let apoCd = SBUxMethod.get('dtl-input-apoCd');
-		if(gfn_isEmpty(apoCd)){return;}
 
 		let prdcrOgnzSn = SBUxMethod.get('dtl-input-prdcrOgnzSn');
 		//let itemCd = SBUxMethod.get('dtl-input-itemCd');
@@ -1134,6 +1140,7 @@
         	jsonPrdcrOgnCurntMng02.length = 0;
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
+        		console.log(item.itemNm);
 				let PrdcrOgnCurntMngVO = {
 						apoCd: 	item.apoCd
 						,apoSe: item.apoSe
@@ -1146,6 +1153,7 @@
 						,sttgUpbrItemSe: item.sttgUpbrItemSe
 						,ctgryCd: 		item.ctgryCd
 						,itemCd: 		item.itemCd
+						,itemNm: 		item.itemNm
 						,trmtType: 		item.trmtType
 						,yr: 			item.yr
 						,delYn: 			item.delYn
@@ -1198,18 +1206,20 @@
         }
 
         //분류,품목,
-        let ctgryNmCol = grdPrdcrOgnCurntMng01.getColRef('ctgryNm');
+        //let ctgryNmCol = grdPrdcrOgnCurntMng01.getColRef('ctgryNm');
         let itemNmCol = grdPrdcrOgnCurntMng01.getColRef('itemNm');
 
         if(selGridRow == '-1'){
 			return;
         } else {
         	//선택한 데이터가 통합조직 일떄
-        	if (selGridCol == ctgryNmCol || selGridCol == itemNmCol){
+        	//if (selGridCol == ctgryNmCol || selGridCol == itemNmCol){
+        	if (selGridCol == itemNmCol){
         		//팝업창 오픈
         		//통합조직 팝업창 id : modal-gpcList
-        		popGpcSelect.init(fn_setGridItem);
-        		SBUxMethod.openModal('modal-gpcList');
+        		let brno = SBUxMethod.get('dtl-input-brno');
+        		popYrGpcSelect.init(brno , fn_setGridItem);
+        		SBUxMethod.openModal('modal-yrGpcList');
         	}
         }
     }
@@ -1225,18 +1235,18 @@
 			//getColRef(ref) ref의 인덱스 값 가져오기
 			let selRef = grdPrdcrOgnCurntMng01.getRefOfCol(selGridCol);
 
-			let colRefIdx1 = grdPrdcrOgnCurntMng01.getColRef("ctgryCd");//분류코드 인덱스
-			let colRefIdx2 = grdPrdcrOgnCurntMng01.getColRef("ctgryNm");//분류명 인덱스
+			//let colRefIdx1 = grdPrdcrOgnCurntMng01.getColRef("ctgryCd");//분류코드 인덱스
+			//let colRefIdx2 = grdPrdcrOgnCurntMng01.getColRef("ctgryNm");//분류명 인덱스
 			let colRefIdx3 = grdPrdcrOgnCurntMng01.getColRef("itemCd");//품목코드 인덱스
 			let colRefIdx4 = grdPrdcrOgnCurntMng01.getColRef("itemNm");//품목명 인덱스
-			let colRefIdx5 = grdPrdcrOgnCurntMng01.getColRef("rmrk");//기타 인덱스
+			//let colRefIdx5 = grdPrdcrOgnCurntMng01.getColRef("rmrk");//기타 인덱스
 
 			//그리드 값 세팅
-			grdPrdcrOgnCurntMng01.setCellData(selGridRow,colRefIdx1,rowData.ctgryCd,true);
-			grdPrdcrOgnCurntMng01.setCellData(selGridRow,colRefIdx2,rowData.ctgryNm,true);
+			//grdPrdcrOgnCurntMng01.setCellData(selGridRow,colRefIdx1,rowData.ctgryCd,true);
+			//grdPrdcrOgnCurntMng01.setCellData(selGridRow,colRefIdx2,rowData.ctgryNm,true);
 			grdPrdcrOgnCurntMng01.setCellData(selGridRow,colRefIdx3,rowData.itemCd,true);
 			grdPrdcrOgnCurntMng01.setCellData(selGridRow,colRefIdx4,rowData.itemNm,true);
-			grdPrdcrOgnCurntMng01.setCellData(selGridRow,colRefIdx5,rowData.rmrk,true);
+			//grdPrdcrOgnCurntMng01.setCellData(selGridRow,colRefIdx5,rowData.rmrk,true);
 		}
 	}
 

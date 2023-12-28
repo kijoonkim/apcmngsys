@@ -288,7 +288,7 @@
 		   			  , #{yr}
 		   			  , #{sttgUpbrItemSe}
 		   			  , (case when #{ctgryCd} is not null then #{ctgryCd}
-		   			  			ELSE (SELECT CTGRY_CD FROM TB_EV_GPC_CD WHERE ITEM_CD = #{itemCd})
+		   			  			ELSE (SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE ITEM_CD = #{itemCd} AND BRNO = #{brno})
 		   			  			END)
 		   			  , #{itemCd}
 		   			  , #{trmtType}
@@ -377,7 +377,7 @@
 	<!-- 농가 리스트 조회 -->
     <select id="selectPrdcrOgnCurntMngDtlList" parameterType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO" resultType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectPrdcrOgnCurntMng */
+			SELECT /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectPrdcrOgnCurntMngDtlList */
 				  CM.APO_CD
 		    	, CM.APO_SE
 		    	, CM.BRNO
@@ -386,7 +386,9 @@
 
 		    	, CM.STTG_UPBR_ITEM_SE
 		    	, CM.CTGRY_CD
+		    	, (SELECT CTGRY_NM FROM TB_GPC_CD WHERE ITEM_CD = CM.ITEM_CD) AS CTGRY_NM
 		    	, CM.ITEM_CD
+		    	, (SELECT ITEM_NM FROM TB_GPC_CD WHERE ITEM_CD = CM.ITEM_CD) AS ITEM_NM
 		    	, CM.TRMT_TYPE
 		    	, CM.PRDCR_OGNZ_SN
 		    	, CM.PRDCR_OGNZ_CD
@@ -435,9 +437,9 @@
 
 				, CM.STTG_UPBR_ITEM_SE
 				, CM.CTGRY_CD
-				, (SELECT CTGRY_NM FROM TB_EV_GPC_CD WHERE ITEM_CD = CM.ITEM_CD) AS CTGRY_NM
+				, (SELECT CTGRY_NM FROM TB_GPC_CD WHERE ITEM_CD = CM.ITEM_CD) AS CTGRY_NM
 				, CM.ITEM_CD
-				, (SELECT ITEM_NM FROM TB_EV_GPC_CD WHERE ITEM_CD = CM.ITEM_CD) AS ITEM_NM
+				, (SELECT ITEM_NM FROM TB_GPC_CD WHERE ITEM_CD = CM.ITEM_CD) AS ITEM_NM
 				, CM.TRMT_TYPE
 				, CM.PRDCR_OGNZ_SN
 				, CM.PRDCR_OGNZ_CD
@@ -494,9 +496,9 @@
 
 				, CM.STTG_UPBR_ITEM_SE
 				, CM.CTGRY_CD
-				, (SELECT CTGRY_NM FROM TB_EV_GPC_CD WHERE ITEM_CD = CM.ITEM_CD) AS CTGRY_NM
+				, (SELECT CTGRY_NM FROM TB_GPC_CD WHERE ITEM_CD = CM.ITEM_CD) AS CTGRY_NM
 				, CM.ITEM_CD
-				, (SELECT ITEM_NM FROM TB_EV_GPC_CD WHERE ITEM_CD = CM.ITEM_CD) AS ITEM_NM
+				, (SELECT ITEM_NM FROM TB_GPC_CD WHERE ITEM_CD = CM.ITEM_CD) AS ITEM_NM
 				, CM.TRMT_TYPE
 				, CM.PRDCR_OGNZ_SN
 				, CM.PRDCR_OGNZ_CD
@@ -548,6 +550,9 @@
 		    	        , PRDCR_OGNZ_NM		= #{prdcrOgnzNm}
 		    	        , RMRK				= #{rmrk}
 
+		    	        , ITEM_CD				= #{itemCd}
+		    	        , CTGRY_CD				= #{ctgryCd}
+
 		    	        , SYS_LAST_CHG_DT		= SYSDATE
 	    				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 	    				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
@@ -592,9 +597,7 @@
 		   			  , #{crno}
 		   			  , #{yr}
 		   			  , #{sttgUpbrItemSe}
-		   			  , (case when #{ctgryCd} is not null then #{ctgryCd}
-		   			  			ELSE (SELECT CTGRY_CD FROM TB_EV_GPC_CD WHERE ITEM_CD = #{itemCd})
-		   			  			END)
+		   			  , #{ctgryCd}
 		   			  , #{itemCd}
 		   			  , #{trmtType}
 

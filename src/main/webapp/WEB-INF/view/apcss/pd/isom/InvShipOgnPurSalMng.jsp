@@ -313,17 +313,17 @@
     <!-- 품목 팝업 -->
 	<div>
         <sbux-modal
-        	id="modal-gpcList"
-        	name="modal-gpcList"
+        	id="modal-yrGpcList"
+        	name="modal-yrGpcList"
         	uitype="middle"
         	header-title="품목 선택"
-        	body-html-id="body-modal-gpcList"
+        	body-html-id="body-modal-yrGpcList"
         	footer-is-close-button="false"
         	style="width:500px"
        	></sbux-modal>
     </div>
-    <div id="body-modal-gpcList">
-    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/gpcSelectPopup.jsp"></jsp:include>
+    <div id="body-modal-yrGpcList">
+    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/ItemYrGpcPopup.jsp"></jsp:include>
     </div>
 </body>
 <script type="text/javascript">
@@ -1281,8 +1281,10 @@
         	if (selGridCol01 == itemNmCol){
         		//팝업창 오픈
         		//통합조직 팝업창 id : modal-gpcList
-        		popGpcSelect.init(fn_setGridItem01);
-        		SBUxMethod.openModal('modal-gpcList');
+        		let brno = SBUxMethod.get('dtl-input-brno');
+        		popYrGpcSelect.init(brno , fn_setGridItem01);
+        		//popYrGpcSelect.init(fn_setGridItem01);
+        		SBUxMethod.openModal('modal-yrGpcList');
         	}
         }
     }
@@ -1350,8 +1352,10 @@
         	if (selGridCol02 == itemNmCol){
         		//팝업창 오픈
         		//통합조직 팝업창 id : modal-gpcList
-        		popGpcSelect.init(fn_setGridItem02);
-        		SBUxMethod.openModal('modal-gpcList');
+        		let brno = SBUxMethod.get('dtl-input-brno');
+        		popYrGpcSelect.init(brno , fn_setGridItem02);
+        		//popYrGpcSelect.init(fn_setGridItem02);
+        		SBUxMethod.openModal('modal-yrGpcList');
         	}
         }
     }

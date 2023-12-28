@@ -31,4 +31,5 @@ public interface ItemSelectPopupMapper {
 	 */
 	public List<ItemSelectPopupVO> selectItemList(ItemSelectPopupVO vo);
 
+	public List<ItemSelectPopupVO> selectYrGpcList(ItemSelectPopupVO vo);
 }
