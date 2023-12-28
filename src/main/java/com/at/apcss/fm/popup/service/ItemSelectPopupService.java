@@ -29,4 +29,6 @@ public interface ItemSelectPopupService {
 	 */
 	public List<ItemSelectPopupVO> selectItemList(ItemSelectPopupVO itemSelectPopupVO) throws Exception;
 
+	public List<ItemSelectPopupVO> selectYrGpcList(ItemSelectPopupVO itemSelectPopupVO) throws Exception;
+
 }

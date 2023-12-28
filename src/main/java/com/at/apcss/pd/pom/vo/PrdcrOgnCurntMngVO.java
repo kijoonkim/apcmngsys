@@ -63,7 +63,9 @@ public class PrdcrOgnCurntMngVO extends ComVO{
 	private String rmrk;
 
 	private String itemCd;
+	private String itemNm;
 	private String ctgryCd;
+	private String ctgryNm;
 	private String trmtType;
 	private String sttgUpbrItemSe;
 

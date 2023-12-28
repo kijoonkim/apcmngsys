@@ -371,17 +371,17 @@
     <!-- 품목 팝업 -->
 	<div>
         <sbux-modal
-        	id="modal-gpcList"
-        	name="modal-gpcList"
+        	id="modal-yrGpcList"
+        	name="modal-yrGpcList"
         	uitype="middle"
         	header-title="품목 선택"
-        	body-html-id="body-modal-gpcList"
+        	body-html-id="body-modal-yrGpcList"
         	footer-is-close-button="false"
         	style="width:500px"
        	></sbux-modal>
     </div>
-    <div id="body-modal-gpcList">
-    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/gpcSelectPopup.jsp"></jsp:include>
+    <div id="body-modal-yrGpcList">
+    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/ItemYrGpcPopup.jsp"></jsp:include>
     </div>
 </body>
 <script type="text/javascript">
@@ -765,8 +765,8 @@
 						,yr:item.yr
 						,sttgUpbrItemSe: item.sttgUpbrItemSe
 						,ctgryCd: 		item.ctgryCd
-						,ctgryNm: 		item.ctgryNm
 						,itemCd: 		item.itemCd
+						,ctgryNm: 		item.ctgryNm
 						,itemNm: 		item.itemNm
 						,trmtType: 		item.trmtType
 
@@ -794,8 +794,10 @@
 	//농가리스트 리스트 조회
 	async function fn_dtlGridSearch02() {
 
+		let itemCd = SBUxMethod.get('dtl-input-itemCd');
+		if(gfn_isEmpty(itemCd)){return;}
+
 		let apoCd = SBUxMethod.get('dtl-input-apoCd');
-		if(gfn_isEmpty(apoCd)){return;}
 
 		let prdcrOgnzSn = SBUxMethod.get('dtl-input-prdcrOgnzSn');
 		//let itemCd = SBUxMethod.get('dtl-input-itemCd');
@@ -821,7 +823,9 @@
 						,prdcrOgnzNm: 	item.prdcrOgnzNm
 						,sttgUpbrItemSe: item.sttgUpbrItemSe
 						,ctgryCd: 		item.ctgryCd
+						,ctgryNm: 		item.ctgryNm
 						,itemCd: 		item.itemCd
+						,itemNm: 		item.itemNm
 						,trmtType: 		item.trmtType
 						,yr: 			item.yr
 						,delYn: 			item.delYn
@@ -1015,3 +1019,4 @@
 
 </script>
 </html>
+

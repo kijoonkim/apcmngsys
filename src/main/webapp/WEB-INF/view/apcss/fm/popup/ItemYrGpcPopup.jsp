@@ -15,11 +15,11 @@
 					</p>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearchItem" name="btnSearchItem" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popItemSelect.search" onkeyup="fn_itemSelectEnterKey();"></sbux-button>
-					<sbux-button id="btnEditItem" name="btnEditItem" uitype="normal" text="편집" class="btn btn-sm btn-outline-danger" onclick="popItemSelect.edit"></sbux-button>
-					<sbux-button id="btnCancelItem" name="btnCancelItem" uitype="normal" text="취소" class="btn btn-sm btn-outline-danger" onclick="popItemSelect.cancel"></sbux-button>
-					<sbux-button id="btnSaveItem" name="btnSaveItem" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="popItemSelect.save" disabled></sbux-button>
-					<sbux-button id="btnEndItem" name="btnEndItem" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="popItemSelect.close"></sbux-button>
+					<sbux-button id="btnSearchItem" name="btnSearchItem" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popYrGpcSelect.search" onkeyup="fn_gpcSelectEnterKey();"></sbux-button>
+					<sbux-button id="btnEditItem" name="btnEditItem" uitype="normal" text="편집" class="btn btn-sm btn-outline-danger" onclick="popYrGpcSelect.edit"></sbux-button>
+					<sbux-button id="btnCancelItem" name="btnCancelItem" uitype="normal" text="취소" class="btn btn-sm btn-outline-danger" onclick="popYrGpcSelect.cancel"></sbux-button>
+					<sbux-button id="btnSaveItem" name="btnSaveItem" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="popYrGpcSelect.save" disabled></sbux-button>
+					<sbux-button id="btnEndItem" name="btnEndItem" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="popYrGpcSelect.close"></sbux-button>
 				</div>
 			</div>
 
@@ -28,20 +28,12 @@
 				<sbux-input id="item-inp-itemCd" name="item-inp-itemCd" uitype="hidden"></sbux-input>
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
-					<colgroup>
-						<col style="width: 11%">
-						<col style="width: 22%">
-						<col style="width: 11%">
-						<col style="width: 22%">
-						<col style="width: auto">
-					</colgroup>
 					<tbody>
 						<tr>
 							<th scope="row">품목명</th>
 							<th colspan="2">
 								<sbux-input id="item-inp-itemNm" name="item-inp-itemNm" uitype="text" class="form-control input-sm" onkeyenter="fn_itemSelectEnterKey"></sbux-input>
 							</th>
-							<th colspan="2"></th>
 						</tr>
 					</tbody>
 				</table>
@@ -52,13 +44,13 @@
 						<ul class="ad_tbl_count">
 							<li>
 								<span style="color: black;">품목 목록</span>
-								<span style="font-size:12px">(조회건수 <span id="item-pop-cnt">0</span>건)</span>
+								<span style="font-size:12px">(조회건수 <span id="yrItem-pop-cnt">0</span>건)</span>
 							</li>
 						</ul>
 					 	<div class="ad_tbl_toplist">
 						</div>
 					</div>
-					<div id="sb-area-grdItemPop" style="width:100%;height:300px;"></div>
+					<div id="sb-area-grdItemPop01" style="width:100%;height:300px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 			</div>
@@ -68,27 +60,27 @@
 <script type="text/javascript">
 
 	/* grid 내 select json */
-	//var jsonItemItemPop= [];	// 대표품목 rprsItemCd	Grid
+	//var jsonItemItemPop01= [];	// 대표품목 rprsItemCd	Grid
 
-	var grdItemPop = null;
-	var jsonItemPop = [];
-	var itemSn;
+	var grdItemPop01 = null;
+	var jsonItemPop01 = [];
+	var brno;
 	/**
 	 * @description 권한 사용자 선택 팝업
 	 */
-	const popItemSelect = {
-		prgrmId: 'itemPopup',
-		modalId: 'modal-itemSelect',
-		gridId: 'grdItemPop',
-		jsonId: 'jsonItemPop',
-		areaId: "sb-area-grdItemPop",
+	const popYrGpcSelect = {
+		prgrmId: 'yrGpcPopup',
+		modalId: 'modal-yrGpcList',
+		gridId: 'grdItemPop01',
+		jsonId: 'jsonItemPop01',
+		areaId: "sb-area-grdItemPop01",
 		prvItemCd: "",
 		objGrid: null,
 		gridJson: [],
 		callbackFnc: function() {},
-		init: async function(_itemSn,_callbackFnc) {
+		init: async function(_brno,_callbackFnc) {
 			console.log("========init===========");
-			itemSn = _itemSn;
+			brno = _brno;
 			SBUxMethod.hide('btnEditItem');
 			SBUxMethod.hide('btnCancelItem');
 			SBUxMethod.hide('btnSaveItem');
@@ -109,8 +101,8 @@
 		createGrid: function(/** {boolean} */ isEditable) {
 			var SBGridProperties = {};
 		    SBGridProperties.parentid = this.areaId;	//'sb-area-grdComAuthUserPop';	//this.sbGridArea;	//'sb-area-grdComAuthUserPop';
-		    SBGridProperties.id = this.gridId;			//'grdItemPop';					//'grdItemPop';
-		    SBGridProperties.jsonref = this.jsonId;		//'jsonItemPop';		//'jsonItemPop';
+		    SBGridProperties.id = this.gridId;			//'grdItemPop01';					//'grdItemPop01';
+		    SBGridProperties.jsonref = this.jsonId;		//'jsonItemPop01';		//'jsonItemPop01';
 		    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 		    SBGridProperties.selectmode = 'byrow';
 		    SBGridProperties.explorerbar = 'sortmove';
@@ -127,33 +119,32 @@
 			  	'showgoalpageui' : true
 		    };
 		    SBGridProperties.columns = [
+		    	{caption: ['분류코드'], 	ref: 'ctgryCd', hidden : true},
+		        {caption: ['분류명'], 	ref: 'ctgryNm', hidden : true},
 		        {caption: ['품목코드'], ref: 'itemCd', width: '50%', type: 'input', style: 'text-align:center'},
-		        {caption: ['품목명'], ref: 'itemNm', width: '50%', type: 'input', style: 'text-align:center'}
+		        {caption: ['품목명'], ref: 'itemNm', width: '50%', type: 'input', style: 'text-align:center'},
 		    ];
 
-		    grdItemPop = _SBGrid.create(SBGridProperties);
-		    grdItemPop.bind('beforepagechanged', this.paging);
-		    grdItemPop.bind('dblclick', popItemSelect.choice);	//'popItemChoice');
+		    grdItemPop01 = _SBGrid.create(SBGridProperties);
+		    grdItemPop01.bind('beforepagechanged', this.paging);
+		    grdItemPop01.bind('dblclick', popYrGpcSelect.choice);	//'popItemChoice');
 		    //this.search();
 		},
 		choice: function() {
-			let nRow = grdItemPop.getRow();
-			let rowData = grdItemPop.getRowData(nRow);
-			console.log(itemSn);
-			rowData.sn = itemSn;
-			console.log(rowData);
-			popItemSelect.close(rowData);
+			let nRow = grdItemPop01.getRow();
+			let rowData = grdItemPop01.getRowData(nRow);
+			popYrGpcSelect.close(rowData);
 		},
 		search: async function(/** {boolean} */ isEditable) {
 			// set pagination
-			grdItemPop.rebuild();
-	    	let pageSize = grdItemPop.getPageSize();
+			grdItemPop01.rebuild();
+	    	let pageSize = grdItemPop01.getPageSize();
 	    	let pageNo = 1;
 
 	    	// grid clear
-	    	jsonItemPop.length = 0;
-	    	grdItemPop.refresh();
-	    	//grdItemPop.clearStatus();
+	    	jsonItemPop01.length = 0;
+	    	grdItemPop01.refresh();
+	    	//grdItemPop01.clearStatus();
 	    	this.setGrid(pageSize, pageNo, isEditable);
 		},
 		setGrid: async function(pageSize, pageNo, isEditable) {
@@ -163,9 +154,10 @@
 
 			console.log("setGrid 호출 / itemNm : " + itemNm + "/ 타입 : " + typeof(itemNm));
 
-	        const postJsonPromise = gfn_postJSON("/fm/popup/selectItemListPopup.do", {
+	        const postJsonPromise = gfn_postJSON("/fm/popup/selectYrGpcListPopup.do", {
 
 	        	itemNm : itemNm, //검색 파라미터
+	        	brno : brno,
 	        	// pagination
 		  		pagingYn : 'Y',
 				currentPageNo : pageNo,
@@ -178,41 +170,43 @@
 	        	/** @type {number} **/
 	    		let totalRecordCount = 0;
 
-	    		jsonItemPop.length = 0;
+	    		jsonItemPop01.length = 0;
 	        	data.resultList.forEach((item, index) => {
 					const itemVal = {
+							ctgryCd : item.ctgryCd,
+							ctgryNm : item.ctgryNm,
 							itemCd 	: item.itemCd,
 							itemNm 	: item.itemNm
 					}
-					jsonItemPop.push(itemVal);
+					jsonItemPop01.push(itemVal);
 
 					if (index === 0) {
 						totalRecordCount = item.totalRecordCount;
 					}
 				});
 
-	        	if (jsonItemPop.length > 0) {
-	        		if(grdItemPop.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-	        			grdItemPop.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-	        			grdItemPop.rebuild();
+	        	if (jsonItemPop01.length > 0) {
+	        		if(grdItemPop01.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+	        			grdItemPop01.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+	        			grdItemPop01.rebuild();
 					}else{
-						grdItemPop.refresh();
+						grdItemPop01.refresh();
 					}
 	        	} else {
-	        		grdItemPop.setPageTotalCount(totalRecordCount);
-	        		grdItemPop.rebuild();
+	        		grdItemPop01.setPageTotalCount(totalRecordCount);
+	        		grdItemPop01.rebuild();
 	        	}
 
 	        	if (isEditable) {
-	        		grdItemPop.setCellDisabled(0, 0, grdItemPop.getRows() - 1, grdItemPop.getCols() - 1, false);
-	        		let nRow = grdItemPop.getRows();
-					grdItemPop.addRow(true);
-					grdItemPop.setCellDisabled(nRow, 0, nRow, grdItemPop.getCols() - 1, true);
+	        		grdItemPop01.setCellDisabled(0, 0, grdItemPop01.getRows() - 1, grdItemPop01.getCols() - 1, false);
+	        		let nRow = grdItemPop01.getRows();
+					grdItemPop01.addRow(true);
+					grdItemPop01.setCellDisabled(nRow, 0, nRow, grdItemPop01.getCols() - 1, true);
 	        	} else {
-	        		grdItemPop.setCellDisabled(0, 0, grdItemPop.getRows() - 1, grdItemPop.getCols() - 1, true);
+	        		grdItemPop01.setCellDisabled(0, 0, grdItemPop01.getRows() - 1, grdItemPop01.getCols() - 1, true);
 	        	}
 
-	        	document.querySelector('#item-pop-cnt').innerText = totalRecordCount;
+	        	document.querySelector('#yrItem-pop-cnt').innerText = totalRecordCount;
 
 	        } catch (e) {
 	    		if (!(e instanceof Error)) {
@@ -222,16 +216,16 @@
 	        }
 	    },
 	    paging: function() {
-	    	let recordCountPerPage = grdItemPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-	    	let currentPageNo = grdItemPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+	    	let recordCountPerPage = grdItemPop01.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+	    	let currentPageNo = grdItemPop01.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
 
-	    	popItemSelect.setGrid(recordCountPerPage, currentPageNo);
+	    	popYrGpcSelect.setGrid(recordCountPerPage, currentPageNo);
 	    }
 	}
 
-function fn_itemSelectEnterKey() {
+function fn_gpcSelectEnterKey() {
 		if(window.event.keyCode == 13) {
-			popItemSelect.search();
+			popYrGpcSelect.search();
 		}
 	}
 

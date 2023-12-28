@@ -962,14 +962,12 @@ tps://sbgrid.co.kr/v2_5/document/guide
 */
 
 	window.addEventListener('DOMContentLoaded', function(e) {
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		fn_init();
 		fn_initSBSelect();
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		fn_search();
 	</c:if>
 	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
-		fn_uoListGrid();//품목그리드
-		fn_initSBSelect();
 		fn_dtlSearch();
 	</c:if>
 		/**
@@ -1042,7 +1040,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 			gfn_setComCdSBSelect('srch-input-corpSeCd', 	jsonComCorpSeCd, 	'CORP_SE_CD'), //법인구분
 			gfn_setComCdSBSelect('srch-input-corpDtlSeCd', 	jsonComCorpDtlSeCd, 	'CORP_SHAP'), //법인형태
 			//상세
-			gfn_setComCdSBSelect('dtl-input-cmptnInst', 	jsonComCmptnInst, 	'C90'), //관할기관
+			gfn_setComCdSBSelect('dtl-input-cmptnInst', 	jsonComCmptnInst, 	'CMPTNC_INST'), //관할기관
 			gfn_setComCdSBSelect('dtl-input-ctpv', 			jsonComCtpv, 	'CMPTN_INST_CTPV'), //시도
 			gfn_setComCdSBSelect('dtl-input-sgg', 			jsonComSgg, 	'CMPTN_INST_SIGUN'),	 //시군
 			gfn_setComCdSBSelect('dtl-input-corpSeCd', 		jsonComCorpSeCd, 	'CORP_SE_CD'), //법인구분
@@ -1050,7 +1048,6 @@ tps://sbgrid.co.kr/v2_5/document/guide
 			//gfn_setComCdSBSelect('srch-input-evCertYn', 	jsonCom, 	''), //2차승인구분
 			//gfn_setComCdSBSelect('srch-input-apoSe', 	jsonCom, 	''), //참여조직여부
 		]);
-		console.log("============fn_initSBSelect=====1=======");
 	}
 
 	var jsonPrdcrCrclOgnMng = []; // 그리드의 참조 데이터 주소 선언
@@ -1059,9 +1056,21 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
-		//그리드 생성
+	//그리드 생성
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		fn_fcltMngCreateGrid();
 		fn_uoListGrid();
+	</c:if>
+	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+		//통합조직인 경우
+		<c:if test="${loginVO.userType eq '21'}">
+		$(".uoList").hide();
+		</c:if>
+		//출하조직인 경우
+		<c:if test="${loginVO.userType eq '22'}">
+		fn_uoListGrid();
+		</c:if>
+	</c:if>
 	}
 
 	/* Grid 화면 그리기 기능*/
@@ -1369,7 +1378,9 @@ tps://sbgrid.co.kr/v2_5/document/guide
         		SBUxMethod.set('dtl-input-fxno',gfn_nvl(item.fxno))
         		SBUxMethod.set('dtl-input-itemNhBrofYn',gfn_nvl(item.itemNhBrofYn))
 			});
+        	<c:if test="${loginVO.userType eq '22'}">
         	fn_searchUoList();
+    		</c:if>
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -1401,7 +1412,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
     	}
     }
 
-    const fn_checkRequiredInput = async function (){
+    function fn_checkRequiredInput(){
     	//레드닷 처리한 필수값들 확인
 
     	var val = SBUxMethod.get("dtl-input-trgtYr");
@@ -1682,6 +1693,14 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
 		let apoCd = SBUxMethod.get('dtl-input-apoCd');
 		let brno = SBUxMethod.get('dtl-input-brno');
+		console.log(apoCd);
+		console.log(brno);
+		if (gfn_isEmpty(apoCd)) {
+			return;
+		}
+		if (gfn_isEmpty(brno)) {
+			return;
+		}
 
     	let postJsonPromise = gfn_postJSON("/pd/bsm/selectUoList.do", {
 			apoCd : apoCd

@@ -1119,10 +1119,8 @@
 		console.log("******************fn_subUpdate**********************************");
 		if (!isConfirmed) return;
 		var a = SBUxMethod.get('dtl-input-isoFundAplyAmt');
-		console.log(a);
-		return;
 
-		const postJsonPromise = gfn_postJSON("/pd/aom/updatePrdcrCrclOgnReqMng.do", {
+		const postJsonPromise = gfn_postJSON("/pd/aom/insertInvShipOgnReqMng.do", {
 			apoCd: SBUxMethod.get('dtl-input-apoCd')//
    	 		,apoSe: SBUxMethod.get('dtl-input-apoSe')//
 			,brno: SBUxMethod.get('dtl-input-brno')//
@@ -1141,7 +1139,7 @@
 				alert("처리 되었습니다.");
 				fn_search();
 			} else {
-				alert(data.resultMessage);
+				//alert(data.resultMessage);
 			}
 		} catch(e) {
 

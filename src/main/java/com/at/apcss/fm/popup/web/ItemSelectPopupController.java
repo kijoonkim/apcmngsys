@@ -62,4 +62,26 @@ public class ItemSelectPopupController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	//품목 리스트 검색
+	@PostMapping(value = "/fm/popup/selectYrGpcListPopup.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectYrGpcListPopup(@RequestBody ItemSelectPopupVO vo, HttpServletRequest request) throws Exception {
+
+		logger.debug("selectItemListPopup.do 호출 <><><><> ");
+		logger.debug(vo.toString());
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<ItemSelectPopupVO> resultList = new ArrayList<>();
+
+		try {
+
+			resultList = itemSelectPopupService.selectYrGpcList(vo);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }

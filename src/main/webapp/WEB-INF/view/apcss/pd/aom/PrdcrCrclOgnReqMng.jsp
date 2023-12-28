@@ -444,7 +444,7 @@
 									id="dtl-input-frmerInvstAmt"
 									name="dtl-input-frmerInvstAmt"
 									class="form-control input-sm"
-									mask = "{ 'alias': 'numeric', 'autoGroup': 3,'suffix': '(천원)' , 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
+									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'suffix': '(천원)' , 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 									autocomplete="off"
 									readonly
 								></sbux-input>
@@ -657,6 +657,7 @@
 									id="dtl-input-rawMtrEnsrCnt"
 									name="dtl-input-rawMtrEnsrCnt"
 									class="form-control input-sm"
+									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 									autocomplete="off"
 								></sbux-input>
 							</td>
@@ -809,18 +810,18 @@
 						<tr>
 							<th colspan="4" scope="row" class="th_bg th_border_right">구분</th>
 							<th colspan="4" scope="row" class="th_bg th_border_right">연도</th>
-							<th colspan="7" scope="row" class="th_bg">NH(농협) 자금 신청액</th>
+							<th colspan="7" scope="row" class="th_bg">NH(농협) 자금 신청액(천원)</th>
 						</tr>
 						<tr>
 							<th colspan="4" scope="row" class="th_bg th_border_right">생산유통통합조직</th>
-							<th colspan="4" scope="row" class="th_bg">2024자금 신청액</th>
+							<th colspan="4" scope="row" class="th_bg">2024자금 신청액(천원)</th>
 							<td colspan="7" class="td_input">
 								<sbux-input
 									uitype="text"
 									id="dtl-input-pruoFundAplyAmt"
 									name="dtl-input-pruoFundAplyAmt"
 									class="form-control input-sm"
-									mask="{ 'alias': 'numeric', 'autoGroup': 3,'suffix': '(천원)' , 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
+									mask="{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 									autocomplete="off"
 									onkeyup="fn_fundAplyAmt"
 								></sbux-input>
@@ -828,14 +829,14 @@
 						</tr>
 						<tr>
 							<th colspan="4" scope="row" class="th_bg th_border_right">출자출하조직</th>
-							<th colspan="4" scope="row" class="th_bg">2024 자금 신청액</th>
+							<th colspan="4" scope="row" class="th_bg">2024 자금 신청액(천원)</th>
 							<td colspan="7" class="td_input">
 								<sbux-input
 									uitype="text"
 									id="dtl-input-isoFundAplyAmt"
 									name="dtl-input-isoFundAplyAmt"
 									class="form-control input-sm"
-									mask="{ 'alias': 'numeric', 'autoGroup': 3,'suffix': '(천원)' , 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
+									mask="{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 									autocomplete="off"
 									onkeyup="fn_fundAplyAmt"
 								></sbux-input>
@@ -988,7 +989,7 @@
 	var jsonComUoCd = [];//통합조직코드
 	var jsonComAprv = [];//통합조직여부
 	var jsonComAplyTrgtSe = [];//신청대상구분
-	var jsonCtgryCd = [];//분류코드
+	var jsonComCtgryCd = [];//분류코드
 	var jsonComSttgUpbrItemSe = [];//품목구분 전문/육성
 	var jsonComIsoHldYn = [];//출자출하조직 보유 여부
 	/**
@@ -1010,7 +1011,7 @@
 			gfn_setComCdSBSelect('srch-input-aprv', 		jsonComAprv, 	'APRV_UPBR_SE_CD'), //통합조직여부
 			gfn_setComCdSBSelect('srch-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE'), //신청대상구분
 			gfn_setComCdSBSelect('dtl-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE'), //신청대상구분
-			gfn_setComCdSBSelect('grdGpcList', 				jsonCtgryCd, 	'CTGRY_CD'), //분류코드
+			gfn_setComCdSBSelect('grdGpcList', 				jsonComCtgryCd, 	'CTGRY_CD'), //분류코드
 			gfn_setComCdSBSelect('grdGpcList', 				jsonComSttgUpbrItemSe, 	'STTG_UPBR_ITEM_SE'), //품목구분
 			gfn_setComCdSBSelect('dtl-input-isoHldYn', 		jsonComIsoHldYn, 	'ISO_HLD_YN'), //출자출하조직 보유 여부
 		]);
@@ -1749,7 +1750,7 @@
 	    	*/
 
 	    	{caption: ["품목분류"], 		ref: 'ctgryCd',   	type:'combo',  width:'150px',    style:'text-align:center',
-	    		typeinfo : {ref:'jsonCtgryCd', label:'label', value:'value', displayui : true}},
+	    		typeinfo : {ref:'jsonComCtgryCd', label:'label', value:'value', displayui : true}},
 
 	    	{caption: ["전문/육성 구분"], 	ref: 'sttgUpbrItemSe',   type:'combo',  width:'150px',    style:'text-align:center',
 	    		typeinfo : {ref:'jsonComSttgUpbrItemSe', label:'label', value:'value', displayui : true}},
@@ -1819,7 +1820,8 @@
         	//비어 있는 마지막 줄 추가용도
         	grdGpcList.addRow();
         	var nCol =grdGpcList.getColRef('sttgUpbrItemSe');
-
+        	console.log(nCol);
+        	window.scrollTo(0, 0);
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);

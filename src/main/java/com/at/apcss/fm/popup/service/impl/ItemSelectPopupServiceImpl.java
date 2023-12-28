@@ -38,4 +38,11 @@ public class ItemSelectPopupServiceImpl extends BaseServiceImpl implements ItemS
 		return resultList;
 	}
 
+	@Override
+	public List<ItemSelectPopupVO> selectYrGpcList(ItemSelectPopupVO vo) throws Exception {
+		List<ItemSelectPopupVO> resultList = itemSelectPopupMapper.selectYrGpcList(vo);
+
+		return resultList;
+	}
+
 }

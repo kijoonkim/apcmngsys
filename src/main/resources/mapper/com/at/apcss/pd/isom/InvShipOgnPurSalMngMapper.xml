@@ -30,8 +30,8 @@
 				, CM.CRNO
 				, CM.CTGRY_CD
 				, CM.ITEM_CD
-				, (SELECT CTGRY_NM FROM TB_EV_GPC_CD WHERE ITEM_CD = CM.ITEM_CD) AS CTGRY_NM
-				, (SELECT ITEM_NM FROM TB_EV_GPC_CD WHERE ITEM_CD = CM.ITEM_CD) AS ITEM_NM
+				, (SELECT CTGRY_NM FROM TB_GPC_CD WHERE ITEM_CD = CM.ITEM_CD) AS CTGRY_NM
+				, (SELECT ITEM_NM FROM TB_GPC_CD WHERE ITEM_CD = CM.ITEM_CD) AS ITEM_NM
 				, CM.PRCHS_SLS_SE
 
 				, CM.PRCHS_TRST_VLM
@@ -119,8 +119,8 @@
 				, CM.CRNO
 				, CM.CTGRY_CD
 				, CM.ITEM_CD
-				, (SELECT CTGRY_NM FROM TB_EV_GPC_CD WHERE ITEM_CD = CM.ITEM_CD) AS CTGRY_NM
-				, (SELECT ITEM_NM FROM TB_EV_GPC_CD WHERE ITEM_CD = CM.ITEM_CD) AS ITEM_NM
+				, (SELECT CTGRY_NM FROM TB_GPC_CD WHERE ITEM_CD = CM.ITEM_CD) AS CTGRY_NM
+				, (SELECT ITEM_NM FROM TB_GPC_CD WHERE ITEM_CD = CM.ITEM_CD) AS ITEM_NM
 				, CM.PRCHS_SLS_SE
 
 				, CM.PRCHS_TRST_VLM
@@ -263,7 +263,7 @@
 		   			  , #{yr}
 
 		   			  , (case when #{ctgryCd} is not null then #{ctgryCd}
-		   			  			ELSE (SELECT CTGRY_CD FROM TB_EV_GPC_CD WHERE ITEM_CD = #{itemCd})
+		   			  			ELSE (SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE ITEM_CD = #{itemCd})
 		   			  			END)
 		   			  , #{itemCd}
 		   			  , '1'
@@ -415,7 +415,7 @@
 		   			  , #{yr}
 
 		   			  , (case when #{ctgryCd} is not null then #{ctgryCd}
-		   			  			ELSE (SELECT CTGRY_CD FROM TB_EV_GPC_CD WHERE ITEM_CD = #{itemCd})
+		   			  			ELSE (SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE ITEM_CD = #{itemCd})
 		   			  			END)
 		   			  , #{itemCd}
 		   			  , '2'
@@ -522,6 +522,7 @@
 					 AND APO_SE		= #{apoSe}
 					 AND CTGRY_CD	= #{ctgryCd}
 					 AND ITEM_CD	= #{itemCd}
+					 AND PRCHS_SLS_SE	= #{prchsSlsSe}
 		]]>
 	</delete>
 

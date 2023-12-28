@@ -29,7 +29,6 @@
 				</c:if>
 				<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
 					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
-					<sbux-button id="test" name="test" uitype="normal" text="test" class="btn btn-sm btn-outline-danger" onclick="fn_test"></sbux-button>
 				</c:if>
 				</div>
 			</div>
@@ -312,17 +311,17 @@
     <!-- 품목 팝업 -->
 	<div>
         <sbux-modal
-        	id="modal-gpcList"
-        	name="modal-gpcList"
+        	id="modal-yrGpcList"
+        	name="modal-yrGpcList"
         	uitype="middle"
         	header-title="품목 선택"
-        	body-html-id="body-modal-gpcList"
+        	body-html-id="body-modal-yrGpcList"
         	footer-is-close-button="false"
         	style="width:500px"
        	></sbux-modal>
     </div>
-    <div id="body-modal-gpcList">
-    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/gpcSelectPopup.jsp"></jsp:include>
+    <div id="body-modal-yrGpcList">
+    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/ItemYrGpcPopup.jsp"></jsp:include>
     </div>
 </body>
 <script type="text/javascript">
@@ -346,7 +345,7 @@
 		SBUxMethod.set("srch-input-yr",year);//
 
 	});
-
+	/*
 	function fn_test(){
 		var aa = grdPrdcrOgnCurntMng01.getGridDataAll();
 		console.log(aa);
@@ -361,7 +360,7 @@
 		var bb = grdPrdcrOgnCurntMng02.getGridDataAll();
 		console.log(bb);
 	}
-
+	*/
 
 	var jsonComCmptnInst = [];//관할기관
 	var jsonComCtpv = [];//시도
@@ -1153,7 +1152,9 @@
 
 	//품목 팝업
 	const fn_choiceGpcList = function() {
-		popGpcSelect.init(fn_setGpcList);
+		let brno = SBUxMethod.get('dtl-input-brno');
+		popYrGpcSelect.init(brno , fn_setGpcList);
+		//popYrGpcSelect.init(fn_setGpcList);
 	}
 	//품목 팝업 콜백함수
 	const fn_setGpcList = function(rowData) {
@@ -1208,8 +1209,10 @@
         	if (selGridCol01 == itemNmCol){
         		//팝업창 오픈
         		//통합조직 팝업창 id : modal-gpcList
-        		popGpcSelect.init(fn_setGridItem01);
-        		SBUxMethod.openModal('modal-gpcList');
+        		let brno = SBUxMethod.get('dtl-input-brno');
+        		popYrGpcSelect.init(brno , fn_setGridItem01);
+        		//popYrGpcSelect.init(fn_setGridItem01);
+        		SBUxMethod.openModal('modal-yrGpcList');
         	}
         }
     }
@@ -1281,8 +1284,10 @@
         	if (selGridCol02 == itemNmCol){
         		//팝업창 오픈
         		//통합조직 팝업창 id : modal-gpcList
-        		popGpcSelect.init(fn_setGridItem02);
-        		SBUxMethod.openModal('modal-gpcList');
+        		let brno = SBUxMethod.get('dtl-input-brno');
+        		popYrGpcSelect.init(brno , fn_setGridItem02);
+        		//popYrGpcSelect.init(fn_setGridItem02);
+        		SBUxMethod.openModal('modal-yrGpcList');
         	}
         }
     }

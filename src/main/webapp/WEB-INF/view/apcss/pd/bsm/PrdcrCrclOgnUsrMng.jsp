@@ -246,7 +246,7 @@
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;" >
 							</td>
-							<th scope="row" class="th_bg">관할기관</th>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>관할기관</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-select
 									id="dtl-input-cmptncInst"
@@ -712,6 +712,14 @@
 	const fn_saveFmList = async function (){
 		console.log("******************fn_saveFmList**********************************");
 
+		if(!fn_checkRequiredInput()){
+			console.log("true");
+			return;
+		}else{
+			console.log("false");
+		}
+
+
 		if (!confirm("저장 하시겠습니까?")) return;
 
 		const postJsonPromise = gfn_postJSON("/pd/bsm/updatePrdcrCrclOgnUsrMng.do", {
@@ -747,6 +755,34 @@
 
 		}
   	}
+
+	//레드닷 처리한 필수값들 확인
+	function fn_checkRequiredInput(){
+		console.log("fn_checkRequiredInput");
+
+
+		let cmptncInst = SBUxMethod.get("dtl-input-cmptncInst");
+		if(gfn_isEmpty(cmptncInst)){
+			gfn_comAlert("W0002", "관할기관");
+			return false;
+		}
+    	let userType = SBUxMethod.get("dtl-input-userType");
+		if(gfn_isEmpty(userType)){
+			gfn_comAlert("W0002", "권한");
+			return false;
+		}
+		let brno = SBUxMethod.get("dtl-input-brno");
+		if(gfn_isEmpty(brno)){
+			gfn_comAlert("W0002", "사업자번호");
+			return false;
+		}
+		let coNm = SBUxMethod.get("dtl-input-coNm");
+		if(gfn_isEmpty(coNm)){
+			gfn_comAlert("W0002", "법인명");
+			return false;
+		}
+    	return true;
+    }
 
 
 
@@ -785,7 +821,7 @@
 		}else{
 			SBUxMethod.attr("dtl-input-cmptncInstAprvSe", "readonly", "true");
 		}
-		SBUxMethod.set("dtl-input-cmptncInst", gfn_nvl(owData.cmptncInst));  //  관할기관
+		SBUxMethod.set("dtl-input-cmptncInst", gfn_nvl(rowData.cmptncInst));  //  관할기관
 	}
 
 	 /*
