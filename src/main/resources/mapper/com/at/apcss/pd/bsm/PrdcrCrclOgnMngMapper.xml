@@ -394,7 +394,7 @@
 	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 
 			 WHERE 1=1
-			   AND APO_CD = #{apo_cd}
+			   AND APO_CD = #{apoCd}
     	]]>
     </update>
 
