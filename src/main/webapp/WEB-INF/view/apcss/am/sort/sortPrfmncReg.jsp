@@ -40,7 +40,14 @@
 						text="초기화"
 						onclick="fn_reset"
 					></sbux-button>
-					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-dark" onclick="fn_search" text="조회"></sbux-button>
+					<sbux-button
+						id="btnSearch"
+						name="btnSearch"
+						uitype="normal"
+						class="btn btn-sm btn-outline-dark"
+						onclick="fn_search"
+						text="조회"
+					></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">

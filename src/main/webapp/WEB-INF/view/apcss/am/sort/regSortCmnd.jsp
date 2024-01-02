@@ -102,7 +102,7 @@
 									onchange="fn_onChangeSrchPrdcrIdentno(this)"
 								/>
 							</td>
-							<td class="td_input" style="border-right: hidden;">
+							<td class="td_input">
 								<sbux-button
 									id="btn-srch-prdcr"
 									name="btn-srch-prdcr"
