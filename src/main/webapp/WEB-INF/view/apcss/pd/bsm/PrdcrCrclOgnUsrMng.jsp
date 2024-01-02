@@ -495,7 +495,8 @@
 		// 검색 SB select
 		let rst = await Promise.all([
 
-			gfn_setComCdSBSelect('srch-input-userType', 	jsonComUserType, 	'USER_TYPE'),	// 권한
+			//gfn_setComCdSBSelect('srch-input-userType', 	jsonComUserType, 	'USER_TYPE'),	// 권한
+			gfn_setComCdSBSelect('srch-input-userType', 	jsonComUserType, 	'USER_TYPE_1'),	// 권한
 			//gfn_setComCdSBSelect('dtl-input-userType', 	jsonComUserType, 	'USER_TYPE'),	// 권한
 			gfn_setComCdSBSelect('dtl-input-userType', 	jsonComUserType, 	'USER_TYPE_1'),	// 권한
 			gfn_setComCdSBSelect('srch-input-userStts', 	jsonComUserStts, 	'USER_STTS'),	// 1차승인
