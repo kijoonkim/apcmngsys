@@ -716,7 +716,7 @@
             	caption: ["규격"],
             	ref: 'spcfctCd',
             	type:'combo',
-            	width:'200px',
+            	width:'100px',
             	style: 'text-align:center;background-color:#FFF8DC;',
             	userattr: {colNm: "spcfctCd"},
             	typeinfo: {
