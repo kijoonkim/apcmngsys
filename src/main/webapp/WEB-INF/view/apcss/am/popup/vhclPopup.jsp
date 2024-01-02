@@ -19,9 +19,9 @@
 					</p>
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-button id="btnSaveVhcl" name="btnSaveVhcl" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="popVhcl.save" disabled></sbux-button>
 					<sbux-button id="btnEditVhcl" name="btnEditVhcl" uitype="normal" text="편집" class="btn btn-sm btn-outline-danger" onclick="popVhcl.edit"></sbux-button>
 					<sbux-button id="btnCancelVhcl" name="btnCancelVhcl" uitype="normal" text="취소" class="btn btn-sm btn-outline-danger" onclick="popVhcl.cancel"></sbux-button>
-					<sbux-button id="btnSaveVhcl" name="btnSaveVhcl" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="popVhcl.save" disabled></sbux-button>
 					<sbux-button id="btnChoiceVhcl" name="btnChoiceVhcl" uitype="normal" text="선택" class="btn btn-sm btn-outline-danger" onclick="popVhcl.choice"></sbux-button>
 					<sbux-button id="btnSearchVhcl" name="btnSearchVhcl" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popVhcl.search"></sbux-button>
 					<sbux-button id="btnEndVhcl" name="btnEndVhcl" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="popVhcl.close"></sbux-button>

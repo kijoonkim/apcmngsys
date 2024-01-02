@@ -19,8 +19,8 @@
 					</p>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearchSpmtCmnd" name="btnSearchSpmtCmnd" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popSpmtCmnd.search"></sbux-button>
 					<sbux-button id="btnChoiceSpmtCmnd" name="btnChoiceSpmtCmnd" uitype="normal" text="선택" class="btn btn-sm btn-outline-danger" onclick="popSpmtCmnd.choice"></sbux-button>
+					<sbux-button id="btnSearchSpmtCmnd" name="btnSearchSpmtCmnd" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popSpmtCmnd.search"></sbux-button>
 					<sbux-button id="btnEndSpmtCmnd" name="btnEndSpmtCmnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-spmtCmnd')"></sbux-button>
 				</div>
 			</div>

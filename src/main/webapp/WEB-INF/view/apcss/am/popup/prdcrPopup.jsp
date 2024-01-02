@@ -20,11 +20,11 @@
 					</p>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearchPrdcr" name="btnSearchPrdcr" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popPrdcr.search"></sbux-button>
+					<sbux-button id="btnSavePrdcr" name="btnSavePrdcr" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="popPrdcr.save" disabled></sbux-button>
 					<sbux-button id="btnEditPrdcr" name="btnEditPrdcr" uitype="normal" text="편집" class="btn btn-sm btn-outline-danger" onclick="popPrdcr.edit"></sbux-button>
 					<sbux-button id="btnCancelPrdcr" name="btnCancelPrdcr" uitype="normal" text="취소" class="btn btn-sm btn-outline-danger" onclick="popPrdcr.cancel"></sbux-button>
-					<sbux-button id="btnSavePrdcr" name="btnSavePrdcr" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="popPrdcr.save" disabled></sbux-button>
 					<sbux-button id="btnChoicePrdcr" name="btnChoicePrdcr" uitype="normal" text="선택" class="btn btn-sm btn-outline-danger" onclick="popPrdcr.choice"></sbux-button>
+					<sbux-button id="btnSearchPrdcr" name="btnSearchPrdcr" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popPrdcr.search"></sbux-button>
 					<sbux-button id="btnEndPrdcr" name="btnEndPrdcr" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="popPrdcr.close"></sbux-button>
 				</div>
 			</div>

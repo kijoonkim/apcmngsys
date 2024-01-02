@@ -394,7 +394,7 @@
 		}
 
 		if(invntrQntt > 0 && pckgQntt >= 0){
-			grdSortInvntr.setCellData(nRow, 12, Math.round(invntrWght / invntrQntt) * pckgQntt);
+			grdSortInvntr.setCellData(nRow, 12, Math.round(invntrWght / invntrQntt * pckgQntt));
 			grdSortInvntr.setCellData(nRow, 0, "Y");
 		}
 		if(pckgQntt == 0 && invntrQntt == 0 && invntrWght > 0){

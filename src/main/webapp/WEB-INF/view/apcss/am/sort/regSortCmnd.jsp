@@ -102,7 +102,7 @@
 									onchange="fn_onChangeSrchPrdcrIdentno(this)"
 								/>
 							</td>
-							<td class="td_input" style="border-right: hidden;">
+							<td class="td_input">
 								<sbux-button
 									id="btn-srch-prdcr"
 									name="btn-srch-prdcr"
@@ -300,7 +300,7 @@
 
     	];
 		grdRawMtrInvntr = _SBGrid.create(SBGridProperties);
-		grdRawMtrInvntr.bind('valuechanged', fn_grdCmndQnttValueChanged);
+		grdRawMtrInvntr.bind('valuechanged','fn_grdCmndQnttValueChanged');
 		grdRawMtrInvntr.bind('select','fn_setValue');
 		grdRawMtrInvntr.bind('deselect','fn_delValue');
 	}
@@ -613,7 +613,7 @@
             return;
 		}
 		if(invntrQntt > 0 && cmndQntt > 0){
-			grdRawMtrInvntr.setCellData(nRow, 11, Math.round(invntrWght / invntrQntt) * cmndQntt);
+			grdRawMtrInvntr.setCellData(nRow, 11, Math.round(invntrWght / invntrQntt * cmndQntt));
 			grdRawMtrInvntr.setCellData(nRow, 0, "Y");
 		}
 		if(cmndQntt == 0 && invntrQntt > 0){

@@ -19,8 +19,8 @@
 					</p>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearchSortInvntr" name="btnSearchSortInvntr" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popSortInvntr.search"></sbux-button>
 					<sbux-button id="btnChoiceSortInvntr" name="btnChoiceSortInvntr" uitype="normal" text="선택" class="btn btn-sm btn-outline-danger" onclick="popSortInvntr.choice"></sbux-button>
+					<sbux-button id="btnSearchSortInvntr" name="btnSearchSortInvntr" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popSortInvntr.search"></sbux-button>
 					<sbux-button id="btnEndSortInvntr" name="btnEndSortInvntr" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-sortInvntr')"></sbux-button>
 				</div>
 			</div>

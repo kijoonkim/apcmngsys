@@ -11,8 +11,8 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearchGds" name="btnSearchGds" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popGds.search"></sbux-button>
 					<sbux-button id="btnChoiceGds" name="btnChoiceGds" uitype="normal" text="선택" class="btn btn-sm btn-outline-danger" onclick="popGds.choice"></sbux-button>
+					<sbux-button id="btnSearchGds" name="btnSearchGds" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popGds.search"></sbux-button>
 					<sbux-button id="btnEndGds" name="btnEndGds" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="popGds.close"></sbux-button>
 				</div>
 			</div>

@@ -17,8 +17,8 @@
 					</p>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearchPrdcrDtl" name="btnSearchPrdcrDtl" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popPrdcrDtl.search"></sbux-button>
 					<sbux-button id="btnSavePrdcrDtl" name="btnSavePrdcrDtl" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="popPrdcrDtl.save"></sbux-button>
+					<sbux-button id="btnSearchPrdcrDtl" name="btnSearchPrdcrDtl" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popPrdcrDtl.search"></sbux-button>
 					<sbux-button id="btnEndPrdcrDtl" name="btnEndPrdcrDtl" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="popPrdcrDtl.close"></sbux-button>
 				</div>
 			</div>

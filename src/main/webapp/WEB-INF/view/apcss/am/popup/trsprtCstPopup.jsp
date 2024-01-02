@@ -22,9 +22,9 @@
 			<div class="box-header">
 				<div class="ad_tbl_top">
 					<div class="ad_tbl_toplist">
-						<sbux-button id="btnSearchTrsprtCst" name="btnSearchTrsprtCst" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popTrsrptCst.search"></sbux-button>
 						<sbux-button id="btnSaveTrsprtCst" name="btnSaveTrsprtCst" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="popTrsrptCst.save"></sbux-button>
 						<sbux-button id="btnChoiceTrsprtCst" name="btnChoiceTrsprtCst" uitype="normal" text="선택" class="btn btn-sm btn-outline-danger" onclick="popTrsrptCst.choice"></sbux-button>
+						<sbux-button id="btnSearchTrsprtCst" name="btnSearchTrsprtCst" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popTrsrptCst.search"></sbux-button>
 						<sbux-button id="btnEndTrsprtCst" name="btnEndTrsprtCst" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="popTrsrptCst.close"></sbux-button>
 					</div>
 				</div>

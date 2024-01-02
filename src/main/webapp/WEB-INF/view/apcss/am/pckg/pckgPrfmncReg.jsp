@@ -549,18 +549,18 @@
             {caption: ['품종','품종'], 			ref: 'vrtyNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
             {caption: ['대표생산자','대표생산자'], 	ref: 'rprsPrdcrNm', 	width: '100px', type: 'output', style: 'text-align:center'},
             {caption: ["창고","창고"],				ref: 'warehouseSeNm', 	width: '120px',	type:'output',  style: 'text-align:center'},
-            {caption: ['선별재고','수량'], 			ref: 'invntrQntt', 		width: '60px', 	type: 'output', style: 'text-align:right',
+            {caption: ['선별재고','수량'], 			ref: 'invntrQntt', 		width: '70px', 	type: 'output', style: 'text-align:right',
             	format : {type:'number', rule:'#,###'}},
-            {caption: ['선별재고','중량 (Kg)'], 	ref: 'invntrWght', 		width: '60px', 	type: 'output', style: 'text-align:right',
+            {caption: ['선별재고','중량 (Kg)'], 	ref: 'invntrWght', 		width: '70px', 	type: 'output', style: 'text-align:right',
             	format : {type:'number', rule:'#,###'}},
             {caption: ["선별재고","재고규격"],		ref: 'spcfctNm', 		width: '120px',	type:'output',  style: 'text-align:center'},
             {caption: ['포장지시','지시번호'], 		ref: 'pckgCmndno', 		width: '110px', type: 'output', style: 'text-align:center'},
             {caption: ['포장지시','지시설비'], 		ref: 'pckgFcltNm', 		width: '80px', 	type: 'output', style: 'text-align:center'},
-            {caption: ['포장지시','수량'], 			ref: 'cmndQntt', 		width: '60px', 	type: 'output', style: 'text-align:right',
+            {caption: ['포장지시','수량'], 			ref: 'cmndQntt', 		width: '70px', 	type: 'output', style: 'text-align:right',
             	format : {type:'number', rule:'#,###'}},
-            {caption: ['포장지시','중량 (Kg)'], 	ref: 'cmndWght', 		width: '60px', 	type: 'output', style: 'text-align:right',
+            {caption: ['포장지시','중량 (Kg)'], 	ref: 'cmndWght', 		width: '70px', 	type: 'output', style: 'text-align:right',
             	format : {type:'number', rule:'#,###'}},
-            {caption: ["포장투입","수량"],			ref: 'inptQntt',  		width: '80px', 	type:'input',  	style: 'text-align:right;background-color:#FFF8DC;',
+            {caption: ["포장투입","수량"],			ref: 'inptQntt',  		width: '70px', 	type:'input',  	style: 'text-align:right;background-color:#FFF8DC;',
             	userattr: {colNm: "inptQntt"},
             	typeinfo: {
             		mask : {alias : '#', repeat: '*', unmaskvalue : true},
@@ -569,7 +569,7 @@
 				},
 				format : {type:'number', rule:'#,###'}
             },
-            {caption: ["포장투입","중량 (Kg)"], 			ref: 'inptWght',  		type:'input',  width:'80px', style: 'text-align:right;background-color:#FFF8DC;',
+            {caption: ["포장투입","중량 (Kg)"], 			ref: 'inptWght',  		type:'input',  width:'70px', style: 'text-align:right;background-color:#FFF8DC;',
             	userattr: {colNm: "inptWght"},
             	typeinfo: {
             		mask : {alias : '#', repeat: '*', unmaskvalue : true},
@@ -1373,6 +1373,8 @@
 			const rowData = grdSortInvntr.getRowData(nRow, false);	// deep copy
 			let invntrQntt = parseInt(rowData.invntrQntt) || 0;
 			let invntrWght = parseInt(rowData.invntrWght) || 0;
+			let cmndQntt = parseInt(rowData.cmndQntt) || 0;
+			let cmndWght = parseInt(rowData.cmndWght) || 0;
 			let tmpInptQntt = parseInt(rowData.inptQntt) || 0;
 			let tmpInptWght = parseInt(rowData.inptWght) || 0;
 			if (usrAttr.colNm == "inptQntt") {
@@ -1386,7 +1388,12 @@
 						rowData.inptWght = invntrWght;
 					}
 				} else {
-					if (tmpInptQntt > invntrQntt) {
+					if (tmpInptQntt > cmndQntt) {
+						gfn_comAlert("W0008", "지시수량", "투입수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
+						rowData.inptQntt = 0;
+						rowData.inptWght = 0;
+						rowData.checkedYn = "N";
+					} else if (tmpInptQntt > invntrQntt) {
 						gfn_comAlert("W0008", "재고수량", "투입수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
 						rowData.inptQntt = 0;
 						rowData.inptWght = 0;
@@ -1400,6 +1407,15 @@
 				fn_setInptInfo();
 
 			} else if (usrAttr.colNm == "inptWght") {
+				
+				if(cmndWght - tmpInptWght < 0){
+					gfn_comAlert("W0008", "지시중량", "투입중량");		//	W0008	{0} 보다 {1}이/가 큽니다.
+					rowData.checkedYn = "N";
+					grdSortInvntr.setCellData(nRow, inptQnttCol , 0);
+					grdSortInvntr.setCellData(nRow, inptWghtCol , 0);
+					grdSortInvntr.refresh({"focus":false});
+		            return;
+				}
 
 				if(invntrWght - tmpInptWght < 0){
 					gfn_comAlert("W0008", "재고중량", "투입중량");		//	W0008	{0} 보다 {1}이/가 큽니다.

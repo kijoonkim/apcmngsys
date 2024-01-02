@@ -27,8 +27,8 @@
 			<div class="box-header">
 				<div class="ad_tbl_top">
 					<div class="ad_tbl_toplist">
-						<sbux-button id="wrhsPltBxPop-btn-search" name="wrhsPltBxPop-btn-search" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popWrhsPltBx.search"></sbux-button>
 						<sbux-button id="wrhsPltBxPop-btn-confirm" name="wrhsPltBxPop-btn-confirm" uitype="normal" text="확정" class="btn btn-sm btn-outline-danger" onclick="popWrhsPltBx.confirm"></sbux-button>
+						<sbux-button id="wrhsPltBxPop-btn-search" name="wrhsPltBxPop-btn-search" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popWrhsPltBx.search"></sbux-button>
 						<sbux-button id="wrhsPltBxPop-btn-close" name="wrhsPltBxPop-btn-close" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="popWrhsPltBx.close"></sbux-button>
 					</div>
 				</div>
