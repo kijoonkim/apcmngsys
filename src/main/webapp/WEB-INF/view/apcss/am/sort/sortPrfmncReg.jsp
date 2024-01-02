@@ -629,7 +629,7 @@
 	        {caption: ["입고번호"],				ref: 'wrhsno', 			hidden: true},
 	        {caption: ["입고구분명"],				ref: 'wrhsSeNm', 		hidden: true},
 	        {caption: ["운송구분명"],				ref: 'trsprtSeNm', 		hidden: true},
-	        {caption: ["박스종류명"],				ref: 'bxKndNm', 		hidden: true}
+	        {caption: ["박스종류명"],				ref: 'bxKndNm', 		hidden: true},
 	        {caption: [" "],					ref: '_',				type:'output', width:'1px'}
     	];
 		grdRawMtrInvntr = _SBGrid.create(SBGridProperties);
