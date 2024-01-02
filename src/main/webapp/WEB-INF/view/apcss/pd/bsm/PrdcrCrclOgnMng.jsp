@@ -200,7 +200,7 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="font-size:14px">검색리스트</span>
+								<span style="font-size:14px">▶검색리스트</span>
 								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
 							</li>
 						</ul>
@@ -282,7 +282,7 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="font-size:14px">출자출하조직이 속한 통합조직 리스트</span>
+								<span style="font-size:14px">▶출자출하조직이 속한 통합조직 리스트</span>
 							</li>
 							<li>
 								<span style="font-size:12px">상세조회시 추가버튼이 생성됩니다</span>
@@ -439,7 +439,7 @@
 									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 							</td>
-							<th colspan="2" scope="row" class="th_bg">시군</th>
+							<th colspan="2" scope="row" class="th_bg"><span class="data_required" >시군</th>
 							<td colspan="3" class="td_input">
 								<sbux-select
 									id="dtl-input-sgg"
@@ -465,6 +465,7 @@
 									name="dtl-input-lotnoAddr"
 									class="form-control input-sm"
 									autocomplete="off"
+									readonly
 								></sbux-input>
 							</td>
 							<td colspan="6" class="td_input" style="border-right:hidden;">
@@ -486,6 +487,7 @@
 									name="dtl-input-zip"
 									class="form-control input-sm"
 									autocomplete="off"
+									readonly
 								></sbux-input>
 							</td>
 							<td colspan="5" class="td_input" style="border-right:hidden;">
@@ -495,6 +497,7 @@
 									name="dtl-input-roadNmAddr"
 									class="form-control input-sm"
 									autocomplete="off"
+									readonly
 								></sbux-input>
 							</td>
 							<td colspan="6" class="td_input" style="border-right:hidden;">
@@ -562,8 +565,8 @@
 							<!-- 법인설립일 -->
 							<sbux-datepicker
 									uitype="popup"
-									id="dtl-input-corpFndnDay01"
-									name="dtl-input-corpFndnDay01"
+									id="dtl-input-corpFndnDay"
+									name="dtl-input-corpFndnDay"
 									class="input-sm"
 									style="width:100%;"
 									autocomplete="off"
@@ -1401,7 +1404,9 @@ tps://sbgrid.co.kr/v2_5/document/guide
     	console.log(mngmstYn);
     	let apoCd = SBUxMethod.get("dtl-input-apoCd");
     	//필수값 체크
-    	//fn_checkRequiredInput();
+    	if(!fn_checkRequiredInput()){
+    		return false;
+    	};
 
     	if (gfn_isEmpty(apoCd)) {
     		// 신규 등록
@@ -1414,10 +1419,196 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
     function fn_checkRequiredInput(){
     	//레드닷 처리한 필수값들 확인
+		//W0002 : {0}을/를 입력하세요.
+    	var corpNm = SBUxMethod.get("dtl-input-corpNm");
+    	if(gfn_isEmpty(corpNm)){
+    		gfn_comAlert("W0002", "법인명");
+    		return false;
+    	}
 
-    	var val = SBUxMethod.get("dtl-input-trgtYr");
+    	var crno = SBUxMethod.get("dtl-input-crno");
+    	if(gfn_isEmpty(crno)){
+    		gfn_comAlert("W0002", "법인등록번호");
+    		return false;
+    	}
 
-    	if(true){
+    	var brno = SBUxMethod.get("dtl-input-brno");
+    	if(gfn_isEmpty(brno)){
+    		gfn_comAlert("W0002", "사업자번호");
+    		return false;
+    	}
+
+    	var mngmstYn = SBUxMethod.get("dtl-input-mngmstYn");
+    	if(gfn_isEmpty(mngmstYn)){
+    		gfn_comAlert("W0002", "경영체여부");
+    		return false;
+    	}
+
+    	var ctpv = SBUxMethod.get("dtl-input-ctpv");
+    	if(gfn_isEmpty(ctpv)){
+    		gfn_comAlert("W0002", "시도");
+    		return false;
+    	}
+
+    	var sgg = SBUxMethod.get("dtl-input-sgg");
+    	if(gfn_isEmpty(sgg)){
+    		gfn_comAlert("W0002", "시군");
+    		return false;
+    	}
+
+    	var zip = SBUxMethod.get("dtl-input-zip");
+    	if(gfn_isEmpty(zip)){
+    		gfn_comAlert("W0002", "주소");
+    		return false;
+    	}
+
+    	var corpSeCd = SBUxMethod.get("dtl-input-corpSeCd");
+    	if(gfn_isEmpty(corpSeCd)){
+    		gfn_comAlert("W0002", "법인구분");
+    		return false;
+    	}
+
+    	var corpDtlSeCd = SBUxMethod.get("dtl-input-corpDtlSeCd");
+    	if(gfn_isEmpty(corpDtlSeCd)){
+    		gfn_comAlert("W0002", "법인형태");
+    		return false;
+    	}
+
+    	var corpFndnDay = SBUxMethod.get("dtl-input-corpFndnDay");
+    	if(gfn_isEmpty(corpFndnDay)){
+    		gfn_comAlert("W0002", "법인설립일");
+    		return false;
+    	}
+
+    	var isoHldYn = SBUxMethod.get("dtl-input-isoHldYn");
+    	if(gfn_isEmpty(isoHldYn)){
+    		gfn_comAlert("W0002", "출자출하조직여부");
+    		return false;
+    	}
+
+    	var invstNope = SBUxMethod.get("dtl-input-invstNope");
+    	if(gfn_isEmpty(invstNope)){
+    		gfn_comAlert("W0002", "출자자수");
+    		return false;
+    	}
+
+    	var invstExpndFrmerNope = SBUxMethod.get("dtl-input-invstExpndFrmerNope");
+    	if(gfn_isEmpty(invstExpndFrmerNope)){
+    		gfn_comAlert("W0002", "출자자중 농업인수");
+    		return false;
+    	}
+
+    	var invstAmt = SBUxMethod.get("dtl-input-invstAmt");
+    	if(gfn_isEmpty(invstAmt)){
+    		gfn_comAlert("W0002", "출자금액");
+    		return false;
+    	}
+
+    	var frmerInvstAmt = SBUxMethod.get("dtl-input-frmerInvstAmt");
+    	if(gfn_isEmpty(frmerInvstAmt)){
+    		gfn_comAlert("W0002", "출자금세부현황 농업인");
+    		return false;
+    	}
+
+    	var prdcrGrpInvstAmt = SBUxMethod.get("dtl-input-prdcrGrpInvstAmt");
+    	if(gfn_isEmpty(prdcrGrpInvstAmt)){
+    		gfn_comAlert("W0002", "출자금세부현황 생산자단체");
+    		return false;
+    	}
+
+    	var locgovInvstAmt = SBUxMethod.get("dtl-input-locgovInvstAmt");
+    	if(gfn_isEmpty(locgovInvstAmt)){
+    		gfn_comAlert("W0002", "출자금세부현황 지자체");
+    		return false;
+    	}
+
+    	var etcInvstAmt = SBUxMethod.get("dtl-input-etcInvstAmt");
+    	if(gfn_isEmpty(etcInvstAmt)){
+    		gfn_comAlert("W0002", "출자금세부현황 기타");
+    		return false;
+    	}
+
+    	var rgllbrNope = SBUxMethod.get("dtl-input-rgllbrNope");
+    	if(gfn_isEmpty(rgllbrNope)){
+    		gfn_comAlert("W0002", "종사자 수 정규직");
+    		return false;
+    	}
+
+    	var dwNope = SBUxMethod.get("dtl-input-dwNope");
+    	if(gfn_isEmpty(dwNope)){
+    		gfn_comAlert("W0002", "종사자 수 파견직");
+    		return false;
+    	}
+
+    	var dlbrrNope = SBUxMethod.get("dtl-input-dlbrrNope");
+    	if(gfn_isEmpty(dlbrrNope)){
+    		gfn_comAlert("W0002", "종사자 수 일용직");
+    		return false;
+    	}
+    	//
+    	var rprsvFlnm = SBUxMethod.get("dtl-input-rprsvFlnm");
+    	if(gfn_isEmpty(rprsvFlnm)){
+    		gfn_comAlert("W0002", "대표자 성명");
+    		return false;
+    	}
+
+    	var rprsvTelno = SBUxMethod.get("dtl-input-rprsvTelno");
+    	if(gfn_isEmpty(rprsvTelno)){
+    		gfn_comAlert("W0002", "대표자 전화번호");
+    		return false;
+    	}
+
+    	var rprsvMoblno = SBUxMethod.get("dtl-input-rprsvMoblno");
+    	if(gfn_isEmpty(rprsvMoblno)){
+    		gfn_comAlert("W0002", "대표자 핸드폰번호");
+    		return false;
+    	}
+
+    	var rprsvEml = SBUxMethod.get("dtl-input-rprsvEml");
+    	if(gfn_isEmpty(rprsvEml)){
+    		gfn_comAlert("W0002", "대표자 이메일주소");
+    		return false;
+    	}
+
+    	var picFlnm = SBUxMethod.get("dtl-input-picFlnm");
+    	if(gfn_isEmpty(picFlnm)){
+    		gfn_comAlert("W0002", "작성자 성명");
+    		return false;
+    	}
+
+    	var picPosition = SBUxMethod.get("dtl-input-picPosition");
+    	if(gfn_isEmpty(picPosition)){
+    		gfn_comAlert("W0002", "작성자 직위");
+    		return false;
+    	}
+
+    	var picTelno = SBUxMethod.get("dtl-input-picTelno");
+    	if(gfn_isEmpty(picTelno)){
+    		gfn_comAlert("W0002", "작성자 전화번호");
+    		return false;
+    	}
+
+    	var picMoblno = SBUxMethod.get("dtl-input-picMoblno");
+    	if(gfn_isEmpty(picMoblno)){
+    		gfn_comAlert("W0002", "작성자 핸드폰번호");
+    		return false;
+    	}
+
+    	var picEml = SBUxMethod.get("dtl-input-picEml");
+    	if(gfn_isEmpty(picEml)){
+    		gfn_comAlert("W0002", "작성자 이메일주소");
+    		return false;
+    	}
+
+    	var fxno = SBUxMethod.get("dtl-input-fxno");
+    	if(gfn_isEmpty(fxno)){
+    		gfn_comAlert("W0002", "작성자 팩스번호");
+    		return false;
+    	}
+
+    	var itemNhBrofYn = SBUxMethod.get("dtl-input-itemNhBrofYn");
+    	if(gfn_isEmpty(itemNhBrofYn)){
+    		gfn_comAlert("W0002", "품목농협 지소 여부");
     		return false;
     	}
 
@@ -1669,6 +1860,8 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		SBUxMethod.set('dtl-input-picEml',gfn_nvl(rowData.picEml))//
 		SBUxMethod.set('dtl-input-fxno',gfn_nvl(rowData.fxno))//
 		SBUxMethod.set('dtl-input-itemNhBrofYn',gfn_nvl(rowData.itemNhBrofYn))//
+		fn_calFrmerInvstAmtRt();
+		fn_calTot();
 
 		if(rowData.apoSe == '1'){
 			$("div.uoList").hide();

@@ -176,7 +176,7 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="font-size:14px">사용자 리스트</span>
+								<span style="font-size:14px">▶사용자 리스트</span>
 								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
 							</li>
 						</ul>
@@ -328,7 +328,9 @@
 								></sbux-input>
 							</td>
 							<td style="border-right: hidden;"></td>
-						</tr><tr>
+						</tr>
+					<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+						<tr>
 							<th scope="row" class="th_bg">1차승인여부</th>
 							<td colspan="4" class="td_input" style="border-right: hidden;">
 								<sbux-select
@@ -406,7 +408,7 @@
 							</td>
 							<td style="border-right: hidden;"></td>
 						</tr>
-
+					</c:if>
 					</tbody>
 				</table>
 			</div>
@@ -713,10 +715,7 @@
 		console.log("******************fn_saveFmList**********************************");
 
 		if(!fn_checkRequiredInput()){
-			console.log("true");
 			return;
-		}else{
-			console.log("false");
 		}
 
 

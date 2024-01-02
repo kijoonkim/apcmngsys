@@ -192,7 +192,7 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="font-size:14px">검색리스트</span>
+								<span style="font-size:14px">▶검색리스트</span>
 								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
 							</li>
 						</ul>
@@ -276,7 +276,7 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="font-size:14px">생산자조직 리스트</span>
+								<span style="font-size:14px">▶생산자조직 리스트</span>
 								<!--
 								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
 								 -->
@@ -357,7 +357,7 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="font-size:14px">농가 리스트</span>
+								<span style="font-size:14px">▶농가 리스트</span>
 								<!--
 								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
 								 -->
