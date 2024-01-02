@@ -136,7 +136,7 @@
     	</if>
 
     	<![CDATA[
-			SELECT /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.selectPrdcrCrclOgnMng */
+			SELECT /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.selectPrdcrCrclOgnMngList */
 				  (CASE WHEN CM.APO_CD IS NULL THEN (SELECT OGNZ_CD FROM (SELECT OGNZ_CD FROM TB_APC_OGNZ_INFO WHERE BRNO = CM.BRNO GROUP BY OGNZ_CD ORDER BY OGNZ_CD DESC) WHERE ROWNUM = 1)
 				  		ELSE CM.APO_CD
 				  		END) AS APO_CD
@@ -291,7 +291,7 @@
 	    		)
 	   		VALUES
 	   			(
-	   			    #{apoSe}
+	   			    (SELECT (CASE WHEN OGNZ_SE_CD = '21' THEN '1' WHEN  OGNZ_SE_CD = '22' THEN '2' END) FROM TB_APC_OGNZ_INFO WHERE BRNO = #{brno})
 	   			  , (SELECT OGNZ_CD FROM TB_APC_OGNZ_INFO WHERE BRNO = #{brno})
 	   			  , #{uoBrno}
 	   			  , #{corpNm}
@@ -394,7 +394,7 @@
 	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 
 			 WHERE 1=1
-			   AND APO_CD	= #{apoCd}
+			   AND APO_CD = #{apo_cd}
     	]]>
     </update>
 

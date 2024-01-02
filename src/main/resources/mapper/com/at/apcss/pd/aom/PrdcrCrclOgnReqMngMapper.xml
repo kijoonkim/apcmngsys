@@ -86,6 +86,7 @@
 			  FROM TB_EV_APO CM , TB_EV_APLY_MNG EAM
 			 WHERE 1=1
 			   AND CM.BRNO = EAM.BRNO(+)
+			   AND CM.APO_SE IS NOT NULL
     	]]>
     		<if test='apoSe != null and apoSe != ""'>
 				AND CM.APO_SE = #{apoSe}

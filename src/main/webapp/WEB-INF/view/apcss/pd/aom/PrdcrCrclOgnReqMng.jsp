@@ -194,7 +194,7 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="font-size:14px">통합조직 리스트</span>
+								<span style="font-size:14px">▶통합조직 리스트</span>
 								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
 							</li>
 						</ul>
@@ -565,7 +565,7 @@
 				</table>
 				<br>
 				<div class="descripton_wrap desc">
-					*위 사항이 실제와 다를 경우, 기본정보관리에ㅁ서 수정하시기 바랍니다.
+					*위 사항이 실제와 다를 경우, 기본정보관리에서 수정하시기 바랍니다.
 					<br>
 					<br>생산유통통합조직등록
 					<br>
@@ -581,7 +581,7 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="font-size:14px">품목 리스트</span>
+								<span style="font-size:14px">▶품목 리스트</span>
 							</li>
 							<li>
 								<span style="font-size:12px">상세조회시 추가버튼이 생성됩니다</span>
@@ -619,11 +619,11 @@
 							<th colspan="3" scope="row" class="th_bg">생산유통통합조직</th>
 							<td colspan="5" class="td_input">
 								<p class="ad_input_row">
-									<sbux-radio id="rdo-apcSeCd1" name="rdo-aprv" uitype="normal" value="1" class="radio_label"></sbux-radio>
+									<sbux-radio id="rdo-apcSeCd1" name="rdo-aprv" uitype="normal" value="1" class="radio_label" onchange="fn_aprvChange"></sbux-radio>
 									<label class="radio_label" for="rdo-apcSeCd1">승인형</label>
 								</p>
 								<p class="ad_input_row">
-									<sbux-radio id="rdo-apcSeCd2" name="rdo-aprv" uitype="normal" value="2" class="radio_label" checked></sbux-radio>
+									<sbux-radio id="rdo-apcSeCd2" name="rdo-aprv" uitype="normal" value="2" class="radio_label" onchange="fn_aprvChange"></sbux-radio>
 									<label class="radio_label" for="rdo-apcSeCd2">육성형</label>
 								</p>
 							</td>
@@ -909,6 +909,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+					<sbux-button id="test" name="test" uitype="normal" text="test" class="btn btn-sm btn-outline-danger" onclick="fn_test"></sbux-button>
 				</div>
 			</div>
 		</div>
@@ -964,6 +965,11 @@
 		  	});
 		}
 	})
+
+	function fn_test(){
+		let a = grdGpcList.getGridDataAll();
+		console.log(a);
+	}
 
 
 	//원물확보 시•군 및 시•도
@@ -1152,6 +1158,7 @@
     	let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
     		cmptnInst : cmptnInst
     		,ctpv : ctpv
+    		,apoSe : "1"
 
     		,corpSeCd : corpSeCd
     		,corpDtlSeCd : corpDtlSeCd
@@ -1753,7 +1760,8 @@
 	    		typeinfo : {ref:'jsonComCtgryCd', label:'label', value:'value', displayui : true}},
 
 	    	{caption: ["전문/육성 구분"], 	ref: 'sttgUpbrItemSe',   type:'combo',  width:'150px',    style:'text-align:center',
-	    		typeinfo : {ref:'jsonComSttgUpbrItemSe', label:'label', value:'value', displayui : true}},
+	    		typeinfo : {ref:'jsonComSttgUpbrItemSe', label:'label', value:'value', displayui : true},
+	    		validate : fn_Validate},
 	    	{caption: ["품목명"], 			ref: 'itemNm',   	type:'output',  width:'150px',    style:'text-align:center'},
 	    	/*
 	        {caption: ["품목코드"], 			ref: 'itemCd',   	hidden : true},
@@ -1777,6 +1785,25 @@
 	  	//클릭 이벤트 바인드
 	    //grdGpcList.bind('click','gridClick');
 	    grdGpcList.bind('dblclick','gridClick');
+	}
+
+	function fn_Validate(objGrid, nRow, nCol, strValue) {
+		console.log(strValue);
+		let aprv = SBUxMethod.get("rdo-aprv");
+		if(strValue != ""){
+			if(gfn_isEmpty(aprv)){
+	        	alert('생산유통통합조직 승인형/육성형을 선택해주세요');
+	        	objGrid.setCellData(nRow,nCol,"",true);
+	        	return "";
+	        }else if(aprv == "2"){
+	        	if(strValue == "2"){
+	        		alert("전문품목만 선택가능합니다.");
+	        		objGrid.setCellData(nRow,nCol,"1",true);
+	        		return "1";
+	        	}
+	        }
+		}
+		return strValue;
 	}
 
 	/* 품목리스트 조회 기능*/
@@ -2021,8 +2048,13 @@
 		}
 		SBUxMethod.set('dtl-input-fundAplyAmtTot',isoFundAplyAmt + pruoFundAplyAmt);
 	}
+	//생산유통통합조직 선택시 전문/육성 구분 초기화
+	function fn_aprvChange() {
+		let grdData = grdGpcList.getGridDataAll();
+		let colIdx = grdGpcList.getColRef("sttgUpbrItemSe");//전문/육성구분 인덱스
+		for (var i = 1; i <= grdData.length; i++) {
+			grdGpcList.setCellData(i,colIdx,"",true);
+		}
+	}
 </script>
 </html>
-
-
-

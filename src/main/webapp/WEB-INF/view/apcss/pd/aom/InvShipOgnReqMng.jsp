@@ -197,7 +197,7 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="font-size:14px">통합조직 리스트</span>
+								<span style="font-size:14px">▶통합조직 리스트</span>
 								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
 							</li>
 						</ul>
@@ -213,7 +213,7 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="font-size:14px">출하조직 리스트</span>
+								<span style="font-size:14px">▶출하조직 리스트</span>
 								<!--
 								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
 								 -->
@@ -283,7 +283,7 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="font-size:14px">출하조직 리스트</span>
+								<span style="font-size:14px">▶출하조직 리스트</span>
 								<!--
 								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
 								 -->
@@ -770,6 +770,7 @@
 	const fn_init = async function() {
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		fn_fcltMngCreateGrid();
+		fn_fcltMngCreateGrid01();
 	</c:if>
 	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
 		//통합조직인 경우
