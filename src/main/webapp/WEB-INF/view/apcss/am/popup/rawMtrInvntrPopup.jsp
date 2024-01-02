@@ -35,20 +35,20 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button
-						id="rawMtrInvntr-btn-search"
-						name="rawMtrInvntr-btn-search"
-						uitype="normal"
-						text="조회"
-						class="btn btn-sm btn-outline-danger"
-						onclick="popRawMtrInvntr.search"
-					></sbux-button>
-					<sbux-button
 						id="rawMtrInvntr-btn-choice"
 						name="rawMtrInvntr-btn-choice"
 						uitype="normal"
 						text="선택"
 						class="btn btn-sm btn-outline-danger"
 						onclick="popRawMtrInvntr.choice"
+					></sbux-button>
+					<sbux-button
+						id="rawMtrInvntr-btn-search"
+						name="rawMtrInvntr-btn-search"
+						uitype="normal"
+						text="조회"
+						class="btn btn-sm btn-outline-danger"
+						onclick="popRawMtrInvntr.search"
 					></sbux-button>
 					<sbux-button
 						id="rawMtrInvntr-btn-close"
