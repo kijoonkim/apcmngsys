@@ -585,12 +585,13 @@
             {caption: ["상품구분","상품구분"],		ref: 'gdsSeNm', 		type:'output',  width:'80px', style: 'text-align:center'},
             {caption: ["지시설비","지시설비"],	    ref: 'fcltNm', 			type:'output',  width:'120px', style: 'text-align:center'},
             {caption: ["창고","창고"],	    	ref: 'warehouseSeNm', 	type:'output',  width:'120px', style: 'text-align:center'},
-            {caption: ["원물재고","수량"],  		ref: 'invntrQntt',   	type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["원물재고","중량 (Kg)"],  		ref: 'invntrWght',   	type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["원물재고","수량"],  		ref: 'invntrQntt',   	type:'output',  width:'70px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["원물재고","중량 (Kg)"],  		ref: 'invntrWght',   	type:'output',  width:'70px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ['투입지시','지시번호'], 		ref: 'sortCmndno', 		width: '110px', type: 'output', style: 'text-align:center'},
-            {caption: ["투입지시","수량"],  		ref: 'cmndQntt', 		type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["투입지시","중량 (Kg)"],  		ref: 'cmndWght', 		type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["투입","수량"], 			ref: 'inptQntt',  		type:'input',  width:'80px', style: 'text-align:right;background-color:#FFF8DC;',
+            {caption: ['투입지시','지시설비'], 		ref: 'fcltNm', 		width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ["투입지시","수량"],  		ref: 'cmndQntt', 		type:'output',  width:'70px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["투입지시","중량 (Kg)"],  		ref: 'cmndWght', 		type:'output',  width:'70px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["선별투입","수량"], 			ref: 'inptQntt',  		type:'input',  width:'70px', style: 'text-align:right;background-color:#FFF8DC;',
             	userattr: {colNm: "inptQntt"},
             	typeinfo: {
             		mask : {alias : '#', repeat: '*', unmaskvalue : true},
@@ -599,7 +600,7 @@
 				},
 				format : {type:'number', rule:'#,###'}
             },
-            {caption: ["투입","중량 (Kg)"], 			ref: 'inptWght',  		type:'input',  width:'80px', style: 'text-align:right;background-color:#FFF8DC;',
+            {caption: ["선별투입","중량 (Kg)"], 		ref: 'inptWght',  		type:'input',  width:'70px', style: 'text-align:right;background-color:#FFF8DC;',
             	userattr: {colNm: "inptWght"},
             	typeinfo: {
             		mask : {alias : '#', repeat: '*', unmaskvalue : true},
@@ -1465,6 +1466,8 @@
 			const rowData = grdRawMtrInvntr.getRowData(nRow, false);	// deep copy
 			let invntrQntt = parseInt(rowData.invntrQntt) || 0;
 			let invntrWght = parseInt(rowData.invntrWght) || 0;
+			let cmndQntt = parseInt(rowData.cmndQntt) || 0;
+			let cmndWght = parseInt(rowData.cmndWght) || 0;
 			let tmpInptQntt = parseInt(rowData.inptQntt) || 0;
 			let tmpInptWght = parseInt(rowData.inptWght) || 0;
 			if (usrAttr.colNm == "inptQntt") {
@@ -1472,19 +1475,23 @@
 				if (tmpInptQntt <= 0) {
 					rowData.inptQntt = 0;
 					rowData.inptWght = 0;
-
 					rowData.checkedYn = "N";
-
 				} else if (invntrQntt === 0) {
 					if (tmpInptQntt > invntrQntt) {
 						rowData.inptWght = invntrWght;
 						rowData.checkedYn = "Y";
 					}
 				} else {
-					if (tmpInptQntt > invntrQntt) {
+					if (tmpInptQntt > cmndQntt) {
+						gfn_comAlert("W0008", "지시수량", "투입수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
+						rowData.inptQntt = 0;
+						rowData.inptWght = 0;
+						rowData.checkedYn = "N";
+					} else if (tmpInptQntt > invntrQntt) {
 						gfn_comAlert("W0008", "재고수량", "투입수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
 						rowData.inptQntt = 0;
 						rowData.inptWght = 0;
+						rowData.checkedYn = "N";
 					} else {
 						rowData.checkedYn = "Y";
 						rowData.inptWght = gfn_apcEstmtWght(invntrWght * tmpInptQntt / invntrQntt, gv_selectedApcCd);
@@ -1495,6 +1502,15 @@
 
 			} else if (usrAttr.colNm == "inptWght") {
 
+				if(cmndWght - tmpInptWght < 0){
+					gfn_comAlert("W0008", "지시중량", "투입중량");		//	W0008	{0} 보다 {1}이/가 큽니다.
+					rowData.checkedYn = "N";
+					grdRawMtrInvntr.setCellData(nRow, inptQnttCol , 0);
+					grdRawMtrInvntr.setCellData(nRow, inptWghtCol , 0);
+					grdRawMtrInvntr.refresh({"focus":false});
+		            return;
+				}
+				
 				if(invntrWght - tmpInptWght < 0){
 					gfn_comAlert("W0008", "재고중량", "투입중량");		//	W0008	{0} 보다 {1}이/가 큽니다.
 					rowData.checkedYn = "N";

@@ -300,7 +300,7 @@
 
     	];
 		grdRawMtrInvntr = _SBGrid.create(SBGridProperties);
-		grdRawMtrInvntr.bind('valuechanged', fn_grdCmndQnttValueChanged);
+		grdRawMtrInvntr.bind('valuechanged','fn_grdCmndQnttValueChanged');
 		grdRawMtrInvntr.bind('select','fn_setValue');
 		grdRawMtrInvntr.bind('deselect','fn_delValue');
 	}

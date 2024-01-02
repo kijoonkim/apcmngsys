@@ -776,8 +776,12 @@
 	const fn_viewSortInpt = async function() {
 		let nRow = grdSortPrfmnc.getRow();
 		var nCol = grdSortPrfmnc.getCol();
+		let checkedCol = grdSortPrfmnc.getColRef("checkedYn");
 
         if (nRow < 2) {
+            return;
+        }
+        if (nCol == checkedCol) {
             return;
         }
         const usrAttr = grdSortPrfmnc.getColUserAttr(nCol);

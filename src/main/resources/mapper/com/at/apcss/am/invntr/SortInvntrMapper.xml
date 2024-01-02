@@ -172,7 +172,7 @@
 		</if>
 
 		<![CDATA[
-			 ORDER BY SI.APC_CD, SI.INPT_YMD, SI.SORTNO
+			 ORDER BY SI.APC_CD, SI.INPT_YMD, SI.SORTNO, PC.PCKG_CMNDNO
     		  ) pt0
 		]]>
 
