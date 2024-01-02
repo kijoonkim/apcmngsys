@@ -619,9 +619,9 @@
   	  						sortno 			: item.sortno,
   	  						sortSn 			: item.sortSn
   	  				}
-  	          		sortInvntr.invntrQntt -= sortInvntr.cmndQntt;
-  	          		sortInvntr.invntrWght -= sortInvntr.cmndWght;
-  	          		jsonSortInvntr.push(sortInvntr);
+					if((sortInvntr.invntrWght - sortInvntr.cmndWght) > 0){
+  	          			jsonSortInvntr.push(sortInvntr);
+					}
 
   	  			});
   	       		grdSortInvntr.rebuild();
