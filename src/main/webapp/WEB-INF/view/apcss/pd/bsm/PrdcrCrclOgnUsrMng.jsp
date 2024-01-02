@@ -312,6 +312,7 @@
 									class="form-control input-sm"
 									mask = "{'alias' : '999-9999-9999' , 'autoUnmask': true}"
 									autocomplete="off"
+									readonly
 								></sbux-input>
 							</td>
 							<td colspan="6" class="td_input"  style="border-right: hidden;">
@@ -325,6 +326,7 @@
 									class="form-control input-sm"
 									mask = "{'alias' : '999-9999-9999' , 'autoUnmask': true}"
 									autocomplete="off"
+									readonly
 								></sbux-input>
 							</td>
 							<td style="border-right: hidden;"></td>
@@ -494,7 +496,8 @@
 		let rst = await Promise.all([
 
 			gfn_setComCdSBSelect('srch-input-userType', 	jsonComUserType, 	'USER_TYPE'),	// 권한
-			gfn_setComCdSBSelect('dtl-input-userType', 	jsonComUserType, 	'USER_TYPE'),	// 권한
+			//gfn_setComCdSBSelect('dtl-input-userType', 	jsonComUserType, 	'USER_TYPE'),	// 권한
+			gfn_setComCdSBSelect('dtl-input-userType', 	jsonComUserType, 	'USER_TYPE_1'),	// 권한
 			gfn_setComCdSBSelect('srch-input-userStts', 	jsonComUserStts, 	'USER_STTS'),	// 1차승인
 			gfn_setComCdSBSelect('dtl-input-userStts', 		jsonComUserStts, 	'USER_STTS'),	// 1차승인
 		 	gfn_setComCdSBSelect('srch-input-cmptncInst', 	jsonComcmptncInst, 	'CMPTNC_INST'), //관할기관
