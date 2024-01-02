@@ -613,7 +613,7 @@
             return;
 		}
 		if(invntrQntt > 0 && cmndQntt > 0){
-			grdRawMtrInvntr.setCellData(nRow, 11, Math.round(invntrWght / invntrQntt) * cmndQntt);
+			grdRawMtrInvntr.setCellData(nRow, 11, Math.round(invntrWght / invntrQntt * cmndQntt));
 			grdRawMtrInvntr.setCellData(nRow, 0, "Y");
 		}
 		if(cmndQntt == 0 && invntrQntt > 0){
