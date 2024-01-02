@@ -193,7 +193,7 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="font-size:14px">검색리스트</span>
+								<span style="font-size:14px">▶검색리스트</span>
 								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
 							</li>
 						</ul>
@@ -238,6 +238,7 @@
 							<td class="td_input">
 							<th scope="row" class="th_bg th_border_right">법인명</th>
 							<sbux-input uitype="hidden" id="dtl-input-apoCd" name="dtl-input-apoCd"></sbux-input>
+							<sbux-input uitype="hidden" id="dtl-input-apoSe" name="dtl-input-apoSe"></sbux-input>
 							<sbux-input uitype="hidden" id="dtl-input-crno" name="dtl-input-crno"></sbux-input>
 							<td colspan="2" class="td_input">
 								<sbux-input
@@ -276,7 +277,7 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="font-size:14px">생산자조직 리스트</span>
+								<span style="font-size:14px">▶생산자조직 리스트</span>
 								<!--
 								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
 								 -->
@@ -359,7 +360,7 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="font-size:14px">농가 리스트</span>
+								<span style="font-size:14px">▶농가 리스트</span>
 								<!--
 								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
 								 -->
@@ -539,8 +540,8 @@
 	        	}
 	        }},
 	    	{caption: ["순번"], 			ref: 'prdcrOgnzSn',   	type:'output',  width:'80px',    style:'text-align:center'},
-	    	{caption: ["생산자조직 명"], 	ref: 'prdcrOgnzNm',   	type:'input',  width:'150px',    style:'text-align:center'},
-	        {caption: ["생산자조직 코드"], 	ref: 'prdcrOgnzCd',   	type:'input',  width:'150px',    style:'text-align:center'},
+	    	{caption: ["생산자조직 명"], 	ref: 'prdcrOgnzNm',   	type:'input',  width:'180px',    style:'text-align:center'},
+	        {caption: ["생산자조직 코드"], 	ref: 'prdcrOgnzCd',   	type:'output',  width:'150px',    style:'text-align:center'},
 	        {caption: ["품종"], 			ref: 'itemNm',   	type:'output',  width:'150px',    style:'text-align:center'},
 	        {caption: ["분류"], 			ref: 'ctgryCd',   	type:'combo',  width:'150px',    style:'text-align:center', disabled:false , oneclickedit:true
 	    		,typeinfo : {ref:'jsonComCtgryCd', label:'label', value:'value', displayui : true}},
@@ -555,7 +556,8 @@
 	    	//{caption: ["상세내역"], 	ref: 'ctgryCd',   	hidden : true},
 	        {caption: ["상세내역"], 	ref: 'apoSe',		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'brno',		hidden : true},
-	        {caption: ["상세내역"], 	ref: 'crno',		hidden : true}
+	        {caption: ["상세내역"], 	ref: 'crno',		hidden : true},
+	        {caption: ["상세내역"], 	ref: 'prdcrOgnzCd',		hidden : true}
 	    ];
 
 	    grdPrdcrOgnCurntMng01 = _SBGrid.create(SBGridProperties);

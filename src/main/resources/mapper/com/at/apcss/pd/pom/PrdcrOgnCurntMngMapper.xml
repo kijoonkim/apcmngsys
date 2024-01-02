@@ -553,6 +553,8 @@
 		    	        , ITEM_CD				= #{itemCd}
 		    	        , CTGRY_CD				= #{ctgryCd}
 
+		    	        , PRDCR_OGNZ_CD = FN_GET_PRDCR_OGNZ_CD (#{apoCd} , #{brno} , #{apoSe} , #{prdcrOgnzSn})
+
 		    	        , SYS_LAST_CHG_DT		= SYSDATE
 	    				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 	    				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
@@ -602,8 +604,9 @@
 		   			  , #{trmtType}
 
 		   			  , SEQ_PRDCR_OGNZ_SN.NEXTVAL
-		   			  , #{prdcrOgnzCd}
+		   			  , FN_GET_PRDCR_OGNZ_CD (#{apoCd} , #{brno} , #{apoSe} , SEQ_PRDCR_OGNZ_SN.CURRVAL+1)
 		   			  , #{prdcrOgnzNm}
+
 		   			  , #{rmrk}
 		   			  , SYSDATE
 	   			  	  , #{sysFrstInptUserId}
