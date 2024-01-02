@@ -118,11 +118,13 @@
 			 AND PC.OUTORDRNO = #{outordrno}
 		</if>
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
+		ORDER BY PCKG_CMNDNO, PCKG_CMND_SN, PCKG_CMND_YMD
 	    		  ) pt0
 				OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
 				FETCH FIRST #{recordCountPerPage} ROWS ONLY
     	</if>
     	<if test='pagingYn == null or pagingYn.equals("N")'>
+		ORDER BY PCKG_CMNDNO, PCKG_CMND_SN, PCKG_CMND_YMD
     		  	) pt0
     	</if>
     </select>
@@ -232,63 +234,58 @@
 	<!-- 2023.09.25  	김호			Initial Creation                            	-->
 	<!-- ==========================================================================	-->
     <select id="selectRegPckgCmndList" parameterType="com.at.apcss.am.pckg.vo.PckgCmndVO" resultType="com.at.apcss.am.pckg.vo.PckgCmndVO">
-   	<![CDATA[
-   		SELECT
-   			  pt0.*
-    		, (SELECT FN_GET_COM_CD_VL_NM('PCKG_FCLT_CD', pt0.FCLT_CD, pt0.APC_CD) FROM DUAL) 	AS FCLT_NM
-			, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)   		AS VRTY_NM
-			, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)    	AS SPCFCT_NM
-			, (SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)	AS GDS_NM
-			, (SELECT FN_GET_CNPT_NM(pt0.CNPT_CD, pt0.APC_CD) FROM DUAL) AS CNPT_NM
-   		 FROM (
-    		SELECT /* com.at.apcss.am.pckg.mapper.PckgCmndMapper.selectRegPckgCmndList */
-			        PC.APC_CD    		        AS APC_CD
-			      ,	PC.PCKG_CMNDNO   	        AS PCKG_CMNDNO
-			      , MAX(PC.PCKG_CMND_YMD)   	AS PCKG_CMND_YMD
-			      , MAX(PC.FCLT_CD)    		    AS FCLT_CD
-			      , MAX(PC.CNPT_CD)  		    AS CNPT_CD
-			      , MAX(PC.DUDT_YMD)  		    AS DUDT_YMD
-			      , PC.ITEM_CD   		        AS ITEM_CD
-			      , PC.VRTY_CD   		        AS VRTY_CD
-			      , PC.SPCFCT_CD    	        AS SPCFCT_CD
-			      , SUM(PC.OUTORDR_QNTT)  	    AS OUTORDR_QNTT
-			      , SUM(PC.OUTORDR_WGHT)    	AS OUTORDR_WGHT
-			      , MAX(PC.BX_GDS_QNTT)    	    AS BX_GDS_QNTT
-			      , SUM(PC.CMND_QNTT)   		AS CMND_QNTT
-			      , SUM(PC.CMND_WGHT)    	    AS CMND_WGHT
-			      , MAX(PC.OUTORDRNO)    	    AS OUTORDRNO
-			      , MAX(PC.GDS_CD)   		    AS GDS_CD
-			      , MAX(PC.RMRK)    			AS RMRK
-			      , MAX(PC.DEL_YN)    		    AS DEL_YN
-			      , MAX(PC.WAREHOUSE_SE_CD)		AS WAREHOUSE_SE_CD
-			      , (SELECT
-			                PCKG_QNTT
-			           FROM TB_PCKG_PRFMNC X
-			          WHERE X.PCKG_CMNDNO = PC.PCKG_CMNDNO
-			            AND X.APC_CD = PC.APC_CD
-			         ) 	AS PCKG_QNTT
-			      , (SELECT
-			                PCKG_WGHT
-			           FROM TB_PCKG_PRFMNC X
-			          WHERE X.PCKG_CMNDNO = PC.PCKG_CMNDNO
-			            AND X.APC_CD = PC.APC_CD
-			         ) 	AS PCKG_WGHT
-			  FROM TB_PCKG_CMND PC
-			 WHERE PC.DEL_YN = 'N'
-			   AND PC.APC_CD = #{apcCd}
-	]]>
+   		<![CDATA[
+	   		SELECT
+	   			  pt0.*
+	    		, (SELECT FN_GET_COM_CD_VL_NM('PCKG_FCLT_CD', pt0.FCLT_CD, pt0.APC_CD) FROM DUAL) 	AS FCLT_NM
+				, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)   		AS VRTY_NM
+				, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)    	AS SPCFCT_NM
+				, (SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)	AS GDS_NM
+				, (SELECT FN_GET_CNPT_NM(pt0.CNPT_CD, pt0.APC_CD) FROM DUAL) AS CNPT_NM
+	   		 FROM (
+	    		SELECT /* com.at.apcss.am.pckg.mapper.PckgCmndMapper.selectRegPckgCmndList */
+				        PC.APC_CD    		        AS APC_CD
+				      ,	PC.PCKG_CMNDNO   	        AS PCKG_CMNDNO
+				      , MAX(PC.PCKG_CMND_YMD)   	AS PCKG_CMND_YMD
+				      , MAX(PC.FCLT_CD)    		    AS FCLT_CD
+				      , MAX(PC.CNPT_CD)  		    AS CNPT_CD
+				      , MAX(PC.DUDT_YMD)  		    AS DUDT_YMD
+				      , PC.ITEM_CD   		        AS ITEM_CD
+				      , PC.VRTY_CD   		        AS VRTY_CD
+				      , PC.SPCFCT_CD    	        AS SPCFCT_CD
+				      , SUM(PC.OUTORDR_QNTT)  	    AS OUTORDR_QNTT
+				      , SUM(PC.OUTORDR_WGHT)    	AS OUTORDR_WGHT
+				      , MAX(PC.BX_GDS_QNTT)    	    AS BX_GDS_QNTT
+				      , SUM(PC.CMND_QNTT)   		AS CMND_QNTT
+				      , SUM(PC.CMND_WGHT)    	    AS CMND_WGHT
+				      , MAX(PC.OUTORDRNO)    	    AS OUTORDRNO
+				      , MAX(PC.GDS_CD)   		    AS GDS_CD
+				      , MAX(PC.RMRK)    			AS RMRK
+				      , MAX(PC.DEL_YN)    		    AS DEL_YN
+				      , MAX(PC.WAREHOUSE_SE_CD)		AS WAREHOUSE_SE_CD
+				      , (SELECT
+				                PCKG_QNTT
+				           FROM TB_PCKG_PRFMNC X
+				          WHERE X.PCKG_CMNDNO = PC.PCKG_CMNDNO
+				            AND X.APC_CD = PC.APC_CD
+				         ) 	AS PCKG_QNTT
+				      , (SELECT
+				                PCKG_WGHT
+				           FROM TB_PCKG_PRFMNC X
+				          WHERE X.PCKG_CMNDNO = PC.PCKG_CMNDNO
+				            AND X.APC_CD = PC.APC_CD
+				         ) 	AS PCKG_WGHT
+				  FROM TB_PCKG_CMND PC
+				 WHERE PC.DEL_YN = 'N'
+				   AND PC.APC_CD = #{apcCd}
+		]]>
 		<if test='pckgCmndYmd != null and pckgCmndYmd != ""'>
-			 AND PC.PCKG_CMND_YMD = #{pckgCmndYmd}
+				   AND PC.PCKG_CMND_YMD = #{pckgCmndYmd}
 		</if>
 		<![CDATA[
-		GROUP BY PC.APC_CD, PC.PCKG_CMNDNO, PC.ITEM_CD, PC.VRTY_CD, PC.SPCFCT_CD
+			  GROUP BY PC.APC_CD, PC.PCKG_CMNDNO, PC.ITEM_CD, PC.VRTY_CD, PC.SPCFCT_CD
+			  ORDER BY PCKG_CMNDNO, PCKG_CMND_YMD
+	    		  ) pt0
 		]]>
-    	<if test='pagingYn == null or pagingYn.equals("N")'>
-    		  ) pt0
-    	</if>
     </select>
-
-
-
-
 </mapper>
