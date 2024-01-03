@@ -703,11 +703,12 @@
 		<c:if test="${loginVO.userType eq '21'}">
 		console.log('통합조직인');
 		fn_dtlSearch();
+		fn_dtlSearch01();
 		</c:if>
 		//출하조직인 경우
 		<c:if test="${loginVO.userType eq '22'}">
 		console.log('출하조직인');
-		fn_dtlSearch01();
+		fn_dtlSearch02();
 		</c:if>
 	</c:if>
 
@@ -968,14 +969,15 @@
     		console.error("failed", e.message);
         }
 	}
-	//통합조직 사용자 조회
+	//사용자 조회
 	const fn_dtlSearch = async function(){
 		console.log('============fn_dtlSearch=============');
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
 
     	let postJsonPromise01 = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
-    		uoBrno : brno
+    	//let postJsonPromise01 = gfn_postJSON("/pd/aom/selectInvShipOgnReqMngList.do", {
+    		brno : brno
 		});
 
         let data = await postJsonPromise01 ;
@@ -999,9 +1001,60 @@
     		console.error("failed", e.message);
         }
 	}
-
-	//출하조직 사용자 조회
+	//출자출하조직 조회
 	const fn_dtlSearch01 = async function(){
+		let brno = '${loginVO.brno}';
+		if(gfn_isEmpty(brno)) return;
+
+		let postJsonPromise = gfn_postJSON("/pd/aom/selectInvShipOgnReqMngList.do", {
+			uoBrno : brno
+		});
+	    let data = await postJsonPromise;
+	    try{
+	    	jsonInvShipOgnReqMng01.length = 0;
+	    	console.log("data==="+data);
+	    	data.resultList.forEach((item, index) => {
+				let InvShipOgnReqMngVO = {
+						apoCd: item.apoCd
+						,corpNm: item.corpNm
+						,rprsvFlnm: item.rprsvFlnm
+						,brno: item.brno
+						,rprsvTelno: item.rprsvTelno
+						,corpDtlSeCd: item.corpDtlSeCd
+						,invstNope: item.invstNope
+						,invstExpndFrmerNope: item.invstExpndFrmerNope
+
+						,crno: item.crno
+						,corpSeCd: item.corpSeCd
+						,corpFndnDay: item.corpFndnDay
+						,invstAmt: item.invstAmt
+						,frmerInvstAmt: item.frmerInvstAmt
+						,prdcrGrpInvstAmt: item.prdcrGrpInvstAmt
+						,locgovInvstAmt: item.locgovInvstAmt
+						,etcAmt: item.etcAmt
+						,rprsvFlnm: item.rprsvFlnm
+						,rprsvTelno: item.rprsvTelno
+						,fxno: item.fxno
+						,isoFundAplyAmt: item.isoFundAplyAmt
+						,aplyTrgtSe: item.aplyTrgtSe
+						,yr: item.yr
+				}
+				jsonInvShipOgnReqMng01.push(InvShipOgnReqMngVO);
+			});
+
+	    	grdInvShipOgnReqMng01.rebuild();
+
+	    }catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+	    }
+	}
+
+
+	//출자출하조직 조회
+	const fn_dtlSearch02 = async function(){
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
 

@@ -151,7 +151,7 @@
 			SELECT pt0.*  /* com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectRegSpmtCmndList */
 			     , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)          AS VRTY_NM
 			     , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)      AS SPCFCT_NM
-			     , (SELECT FN_GET_COM_CD_VL_NM('GDS_GRD', pt0.GDS_GRD) FROM DUAL)                   AS GDS_GRD_NM
+			     , (SELECT FN_GET_GRD_NM_GDS(pt0.APC_CD, pt0.ITEM_CD, pt0.GDS_GRD) FROM DUAL)       AS GDS_GRD_NM
 			     , (SELECT FN_GET_TRSPRT_CO_NM(pt0.TRSPRT_CO_CD, pt0.APC_CD) FROM DUAL)             AS TRSPRT_CO_NM
 			     , (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL)   AS SPMT_PCKG_UNIT_NM
 			     , (SELECT FN_GET_CNPT_NM(pt0.CNPT_CD, pt0.APC_CD) FROM DUAL)                       AS CNPT_NM
