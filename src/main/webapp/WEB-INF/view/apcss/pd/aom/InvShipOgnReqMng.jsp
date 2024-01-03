@@ -974,7 +974,8 @@
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
 
-    	let postJsonPromise01 = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
+    	//let postJsonPromise01 = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
+    	let postJsonPromise01 = gfn_postJSON("/pd/aom/selectInvShipOgnReqMngList.do", {
     		uoBrno : brno
 		});
 
