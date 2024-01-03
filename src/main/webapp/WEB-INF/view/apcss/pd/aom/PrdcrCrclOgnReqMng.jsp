@@ -144,6 +144,7 @@
 							</td>
 						</tr>
 						<tr>
+							<!--
 							<th scope="row" class="th_bg">신청대상구분</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-select
@@ -158,6 +159,7 @@
 							</td>
 							<td class="td_input"  style="border-right: hidden;">
 							</td>
+							 -->
 							<th scope="row" class="th_bg">사업자번호</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input
@@ -180,7 +182,7 @@
 									autocomplete="off"
 								></sbux-input>
 							</td>
-							<td colspan="2" class="td_input">
+							<td colspan="7" class="td_input">
 
 						</tr>
 
@@ -564,7 +566,7 @@
 					</tbody>
 				</table>
 				<br>
-				<div class="descripton_wrap desc">
+				<div class="descripton_wrap desc" style="border:1px solid black; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
 					*위 사항이 실제와 다를 경우, 기본정보관리에서 수정하시기 바랍니다.
 					<br>
 					<br>생산유통통합조직등록
@@ -693,7 +695,7 @@
 					</tbody>
 				</table>
 				<br>
-				<div>
+				<div style="border:1px solid black; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
 				> 전년도에 3개 시•군•구 또는 2개 시•도 이상에서 원물을 확보하고 원예농산물 취급액 100억원 이상, 조직화취급액 70억원 이상, 조직화 취급률 35% 이상의 요건을 갖춘 조직
 				</div>
 				<br>
@@ -779,7 +781,7 @@
 					</tbody>
 				</table>
 				<br>
-				<div>
+				<div style="border:1px solid black; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
 					산지유통활성지원 자금신청 현황
 					<br>
 					<br>* 기존 보유금액 등을 감안하여 신규(또는 추가)로 필요한 금액 입력.
@@ -858,6 +860,7 @@
 						</tr>
 					</tbody>
 				</table>
+				<!--
 				<div>
 				*신청대상구분
 				</div>
@@ -903,6 +906,7 @@
 				<div>
 				*신청대상구분은 aT본사에서만 이용하는 란입니다.
 				</div>
+				 -->
 			</div>
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
@@ -1109,7 +1113,7 @@
 
 	        {caption: ["상세내역"], 	ref: 'pruoFundAplyAmt',   		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'isoFundAplyAmt',   	hidden : true},
-	        {caption: ["상세내역"], 	ref: 'aplyTrgtSe',   	hidden : true}
+	        //{caption: ["상세내역"], 	ref: 'aplyTrgtSe',   	hidden : true}
 
 	    ];
 
@@ -1228,7 +1232,7 @@
 
 						,pruoFundAplyAmt: item.pruoFundAplyAmt
 						,isoFundAplyAmt: item.isoFundAplyAmt
-						,aplyTrgtSe: item.aplyTrgtSe
+						//,aplyTrgtSe: item.aplyTrgtSe
 				}
 				jsonPrdcrCrclOgnReqMng.push(PrdcrCrclOgnReqMngVO);
 				if (index === 0) {
@@ -1322,7 +1326,7 @@
 
 				SBUxMethod.set('dtl-input-pruoFundAplyAmt',gfn_nvl(item.pruoFundAplyAmt))//
 				SBUxMethod.set('dtl-input-isoFundAplyAmt',gfn_nvl(item.isoFundAplyAmt))//
-				SBUxMethod.set('dtl-input-aplyTrgtSe',gfn_nvl(item.aplyTrgtSe))//
+				//SBUxMethod.set('dtl-input-aplyTrgtSe',gfn_nvl(item.aplyTrgtSe))//
 
 			});
 			//품목 그리드 조회
@@ -1444,7 +1448,7 @@
 			,pruoFundAplyAmt: SBUxMethod.get('dtl-input-pruoFundAplyAmt')//
 			,isoFundAplyAmt: SBUxMethod.get('dtl-input-isoFundAplyAmt')//
 			//신청대상구분
-			,aplyTrgtSe: SBUxMethod.get('dtl-input-aplyTrgtSe')//
+			//,aplyTrgtSe: SBUxMethod.get('dtl-input-aplyTrgtSe')//
 		});
 
         const data = await postJsonPromise;
@@ -1566,7 +1570,7 @@
 				,pruoFundAplyAmt: SBUxMethod.get('dtl-input-pruoFundAplyAmt')//
 				,isoFundAplyAmt: SBUxMethod.get('dtl-input-isoFundAplyAmt')//
 				//신청대상구분
-				,aplyTrgtSe: SBUxMethod.get('dtl-input-aplyTrgtSe')//
+				//,aplyTrgtSe: SBUxMethod.get('dtl-input-aplyTrgtSe')//
 	  		};
 		saveList.gpcList = gpcList;
 
@@ -1662,7 +1666,7 @@
 
 		SBUxMethod.set('dtl-input-pruoFundAplyAmt',gfn_nvl(rowData.pruoFundAplyAmt))//
 		SBUxMethod.set('dtl-input-isoFundAplyAmt',gfn_nvl(rowData.isoFundAplyAmt))//
-		SBUxMethod.set('dtl-input-aplyTrgtSe',gfn_nvl(rowData.aplyTrgtSe))//
+		//SBUxMethod.set('dtl-input-aplyTrgtSe',gfn_nvl(rowData.aplyTrgtSe))//
 
 		fn_selectGpcList();
 
