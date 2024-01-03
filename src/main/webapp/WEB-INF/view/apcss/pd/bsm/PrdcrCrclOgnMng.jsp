@@ -1328,6 +1328,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	/* Grid Row 조회 기능*/
 	const fn_dtlSearch = async function(){
 		let brno = '${loginVO.brno}';
+		SBUxMethod.set('dtl-input-brno',gfn_nvl(brno));
 		if(gfn_isEmpty(brno)) return;
 
     	let postJsonPromise = gfn_postJSON("/pd/bsm/selectPrdcrCrclOgnMngList.do", {
@@ -1342,7 +1343,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
         		SBUxMethod.set('dtl-input-uoBrno',gfn_nvl(item.uoBrno))
         		SBUxMethod.set('dtl-input-corpNm',gfn_nvl(item.corpNm))
         		SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno))
-        		SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))
+        		//SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))
         		SBUxMethod.set('dtl-input-mngmstInfoId',gfn_nvl(item.mngmstInfoId))
         		SBUxMethod.set('dtl-input-mngmstYn',gfn_nvl(item.mngmstYn))
         		SBUxMethod.set('dtl-input-nonghyupCd',gfn_nvl(item.nonghyupCd))
@@ -2119,9 +2120,9 @@ tps://sbgrid.co.kr/v2_5/document/guide
 			//setCellData (행,열,입력 데이터,[refresh여부],[행 상태 정보 update로 변경])
 			//selGridUoListRow 선택된 행 값
 			//getColRef(ref) ref의 인덱스 값 가져오기
-			let colRefIdx1 = grdUoList.getColRef('uoCorpNm');//ii 통합조직 인덱스
-			let colRefIdx2 = grdUoList.getColRef('uoBrno');//ii 통합조직 코드 인덱스
-			let colRefIdx3 = grdUoList.getColRef('uoApoCd');//ii 통합조직 코드 인덱스
+			let colRefIdx1 = grdUoList.getColRef('uoCorpNm');//통합조직 인덱스
+			let colRefIdx2 = grdUoList.getColRef('uoBrno');//통합조직 코드 인덱스
+			let colRefIdx3 = grdUoList.getColRef('uoApoCd');//통합조직 코드 인덱스
 
 			let gridData = grdUoList.getGridDataAll();
 			for(var i=1; i<=gridData.length; i++ ){
