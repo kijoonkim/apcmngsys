@@ -60,12 +60,12 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg" >시스템구분</th>
+							<th scope="row" class="th_bg"><span class="data_required"></span>시스템구분</th>
 							<td colspan="" class="td_input" style="border-right:hidden;" >
 								<sbux-select id="srch-slt-sysId" name="srch-slt-sysId" uitype="single"
 									jsondata-ref="jsonComSysId"
 									unselected-text="선택"
-									class="form-control input-sm"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
 								></sbux-select>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
@@ -97,10 +97,9 @@
 						</ul>
 					</div>
 				<div id="sb-area-grdMeun" style="height:284px;"></div>
-				<br/>
 				<div class ="row">
 					<div class="col-sm-6">
-						<div class="ad_tbl_top">
+						<div class="ad_tbl_top2">
 							<ul class="ad_tbl_count">
 								<li><span>화면상세정보</span></li>
 							</ul>
@@ -180,17 +179,17 @@
 						</div>
 					</div>
 					<div class="col-sm-6">
-						<div class="ad_tbl_top">
+						<div class="ad_tbl_top2">
 							<ul class="ad_tbl_count">
 								<li><span>개체목록</span></li>
 							</ul>
 							<div class="ad_tbl_toplist">
-								<sbux-button id="btn_add" name="btn_add" uitype="normal" text="행추가" class="btn btn-xs btn-outline-danger" onclick="fn_addRow" ></sbux-button>&nbsp;
-								<sbux-button id="btn_del" name="btn_del" uitype="normal" text="행삭제" class="btn btn-xs btn-outline-danger" onclick="fn_deleteRow"></sbux-button>
+								<sbux-button id="btnAdd" name="btnAdd" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRow" disabled></sbux-button>
+								<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRow" disabled></sbux-button>
 							</div>
 						</div>
 						<div class ="row">
-							<div id="sb-area-grdComUi" style="width:100%;height:277px;"></div>
+							<div id="sb-area-grdComUi" style="width:100%;height:294px;"></div>
 						</div>
 					</div>
 				</div>
@@ -237,13 +236,13 @@
 	    SBGridProperties.explorerbar = 'sortmove';
 	    SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: ["NO"],   		ref: 'rowSeq',      		type:'output',  width:'50px',    style:'text-align:center'},
-            {caption: ["화면ID"],   	ref: 'menuId',      		type:'output',  width:'150px',    style:'text-align:center'},
-            {caption: ["화면명"],   	ref: 'menuNm',      		type:'output',  width:'200px',    style:'text-align:left'},
-            {caption: ["화면유형"], 	ref: 'menuType',    		type:'output',  hidden: true},
-            {caption: ["화면유형"], 	ref: 'menuTypeNm',    		type:'output',  width:'100PX',    style:'text-align:center'},
-            {caption: ["화면경로"], 	ref: 'pageUrl',     		type:'output',  width:'250px',    style:'text-align:left'},
-            {caption: ["사용여부"], 	ref: 'delYn',       		type:'output',  width:'100px',    style:'text-align:center',
+            {caption: ["NO"],   		ref: 'rowSeq',      		type:'output',  width:'50px',     style:'text-align:center'},
+            {caption: ["화면ID"],   		ref: 'menuId',      		type:'output',  width:'150px',    style:'text-align:center'},
+            {caption: ["화면명"],   		ref: 'menuNm',      		type:'output',  width:'200px',    style:'text-align:left'},
+            {caption: ["화면유형"], 		ref: 'menuType',    		type:'output',  hidden: true},
+            {caption: ["화면유형"], 		ref: 'menuTypeNm',    		type:'output',  width:'100PX',    style:'text-align:center'},
+            {caption: ["화면경로"], 		ref: 'pageUrl',     		type:'output',  width:'250px',    style:'text-align:left'},
+            {caption: ["사용여부"], 		ref: 'delYn',       		type:'output',  width:'100px',    style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
                     return strValue == "N" ? "사용" : "미사용";
                 }},
@@ -251,9 +250,9 @@
             {caption: ["등록프로그램"], 	ref: 'sysFrstInptPrgrmId', 	type:'output',  hidden: true},
             {caption: ["등록일시"], 		ref: 'sysFrstInptDt', 		type:'output',  width:'200px',    style:'text-align:center'},
             {caption: ["최종변경자"],   	ref: 'sysLastChgUserId',   	type:'output',  width:'150px',    style:'text-align:center'},
-            {caption: ["최종변경프로그램"], ref: 'sysLastCngPrgrmId', 	type:'output',  hidden: true},
+            {caption: ["최종변경프로그램"],	ref: 'sysLastCngPrgrmId', 	type:'output',  hidden: true},
             {caption: ["최종변경일시"], 	ref: 'sysLastChgDt', 		type:'output',  width:'200px',    style:'text-align:center'},
-            {caption: ["APC코드"], 			ref: 'apcCd', 				type:'output',  hidden: true}
+            {caption: ["APC코드"], 		ref: 'apcCd', 				type:'output',  hidden: true}
         ];
         grdMenu = _SBGrid.create(SBGridProperties);
         grdMenu.bind('click', 'fn_view');
@@ -270,22 +269,19 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.oneclickedit = true;
         SBGridProperties.columns = [
-            {caption : ["<input type='checkbox' onchange='fn_checkAll(grdComUi, this);'>"],
-                ref: 'checked', type: 'checkbox', style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true}
-            },
-            {caption: ["ID"],       ref: 'entyId',   	type:'input',  width:'200px',    style:'text-align:center'},
-            {caption: ["명칭"],     ref: 'entyNm',   	type:'input',  width:'200px',    style:'text-align:center'},
-            {caption: ["유형"],     ref: 'entyType', 	type:'combo',  width:'150px',    style:'text-align:center',
+        	{caption: ["체크박스"], 	ref: 'checked', 	type: 'checkbox',	width: '40px',	  style:'text-align: center',
+				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}
+        	},
+            {caption: ["ID"],       ref: 'entyId',   	type:'input',  		width:'200px',    style:'text-align:center'},
+            {caption: ["명칭"],     	ref: 'entyNm',   	type:'input',  		width:'200px',    style:'text-align:center'},
+            {caption: ["유형"],     	ref: 'entyType',	type:'combo',  		width:'130px',    style:'text-align:center',
                 typeinfo: {ref: 'jsonGrdEntyType', label: 'label', value: 'value', oneclickedit: true, displayui: false, unselect: {label : '선택', value: ''}}
             },
-            {caption: ["표시여부"], ref: 'delYn',  		type:'combo',  width:'100px',    style:'text-align:center',
+            {caption: ["표시여부"],	ref: 'delYn',		type:'combo',  		width:'100px',    style:'text-align:center',
                 typeinfo: {ref: 'jsonGrdDelYn', label: 'label', value: 'value', oneclickedit: true, displayui: false, unselect: {label : '선택', value: ''}}
             },
-            {caption: ["메뉴ID"],  		ref: 'menuId', 	type:'input', hidden : true},
-            {caption: ["추가여부"],  	ref: 'addYn', 	type:'input', hidden : true}
-
-
+            {caption: ["메뉴ID"],  	ref: 'menuId', 		type:'input', 		hidden : true},
+            {caption: ["추가여부"],  	ref: 'addYn', 		type:'input', 		hidden : true}
         ];
         grdComUi = _SBGrid.create(SBGridProperties);
     }
@@ -298,6 +294,7 @@
 			gfn_comAlert("W0001", "시스템구분");		//	W0002	{0}을/를 선택하세요.
 			return;
 		}
+        fn_clearForm();
         fn_setGridMenu();
     }
 
@@ -350,18 +347,46 @@
         }
     }
 
+    const fn_clearForm = function() {
+        SBUxMethod.set("dtl-inp-menuId", null);
+        SBUxMethod.set("dtl-inp-menuNm", null);
+        SBUxMethod.set("dtl-slt-menuType", null);
+        SBUxMethod.set("dtl-inp-pageUrl", null);
+        SBUxMethod.set("dtl-slt-delYn", null);
+        SBUxMethod.set("dtl-inp-sysFrstInptUserId", null);
+        SBUxMethod.set("dtl-inp-sysFrstInptPrgrmId", null);
+        SBUxMethod.set("dtl-inp-sysFrstInptDt", null);
+        SBUxMethod.set("dtl-inp-sysLastChgUserId", null);
+        SBUxMethod.set("dtl-inp-sysLastChgPrgrmId", null);
+        SBUxMethod.set("dtl-inp-sysLastChgDt", null);
+
+        jsonMenuUi.length = 0;
+    	grdComUi.refresh();
+		var getColRef = grdComUi.getColRef("checked");
+		grdComUi.setFixedcellcheckboxChecked(0, getColRef, false);
+		
+        //버튼 비활성화
+        SBUxMethod.attr("btnSave", "disabled", true);
+        SBUxMethod.attr("btnAdd", "disabled", true);
+        SBUxMethod.attr("btnDelete", "disabled", true);
+    }
+    
   	//상세정보 보기
     const fn_view = async function() {
         var nRow = grdMenu.getRow();
         if (nRow < 1) {
             return;
         }
+        if (grdMenu.getPrevRow() == grdMenu.getRow()) {
+        	return;
+		}
+        fn_clearForm();
         var rowData = grdMenu.getRowData(nRow);
         SBUxMethod.set("dtl-inp-menuId", rowData.menuId);
         SBUxMethod.set("dtl-inp-menuNm", rowData.menuNm);
         SBUxMethod.set("dtl-slt-menuType", rowData.menuType);
         SBUxMethod.set("dtl-inp-pageUrl", rowData.pageUrl);
-        SBUxMethod.set("dtl-inp-delYn", rowData.delYn);
+        SBUxMethod.set("dtl-slt-delYn", rowData.delYn);
         SBUxMethod.set("dtl-inp-sysFrstInptUserId", rowData.sysFrstInptUserId);
         SBUxMethod.set("dtl-inp-sysFrstInptPrgrmId", rowData.sysFrstInptPrgrmId);
         SBUxMethod.set("dtl-inp-sysFrstInptDt", rowData.sysFrstInptDt);
@@ -371,9 +396,6 @@
 
         //선택 행 개체목록 조회
         fn_setUiGridData();
-      	//버튼 활성화
-        SBUxMethod.attr("btnSave", "disabled", false);
-        SBUxMethod.attr("btnDelete", "disabled", false);
     }
 
     const fn_setUiGridData = async function() {
@@ -400,6 +422,10 @@
   				});
   	        	grdComUi.rebuild();
 
+  	        	//버튼 활성화
+				SBUxMethod.attr("btnSave", "disabled", false);
+				SBUxMethod.attr("btnAdd", "disabled", false);
+				SBUxMethod.attr("btnDelete", "disabled", false);
         	} else {
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
@@ -411,10 +437,6 @@
     		console.error("failed", e.message);
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
-
-        //버튼 활성화
-        SBUxMethod.attr("btnAdd", "disabled", false);
-        SBUxMethod.attr("btnDel", "disabled", false);
     }
 
     //저장
@@ -474,7 +496,7 @@
 			}
 		}
 
-        if((!(menuNm === menuRowData.numeNm && pageUrl === menuRowData.pageUrl && delYn === menuRowData.delYn)) && menuUiList.length == 0){
+        if((!(menuNm === menuRowData.menuNm && pageUrl === menuRowData.pageUrl && delYn === menuRowData.delYn)) && menuUiList.length == 0){
         	gfn_comAlert("W0003", "저장")				//W0003	{0}할 대상이 없습니다.
         	return;
         }
@@ -483,7 +505,7 @@
         let insertedCnt = 0;
         if(gfn_comConfirm("Q0001", "저장")){
 
-	        if((menuNm === menuRowData.numeNm && pageUrl === menuRowData.pageUrl && delYn === menuRowData.delYn)){
+	        if((menuNm === menuRowData.menuNm && pageUrl === menuRowData.pageUrl && delYn === menuRowData.delYn)){
 	        	updatedCnt = await fn_updateMenu();
 	        }
 	        if(menuUiList.length > 0){
@@ -543,17 +565,6 @@
     		}
     		console.error("failed", e.message);
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }
-    }
-
-    //그리드 체크박스 전체 선택
-    const fn_checkAll = function(grid, obj)  {
-        var gridList = grdComUi.getGridDataAll();
-        var checkedYn = obj.checked ? "Y" : "N";
-        //체크박스 열 index
-        var getColRef = grdComUi.getColRef("checked");
-        for (var i=0; i<gridList.length; i++) {
-        	grdComUi.setCellData(i+1, getColRef, checkedYn, true, false);
         }
     }
 
