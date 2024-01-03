@@ -38,7 +38,7 @@
 		     , A.ITEM_CD	AS ITEM_CD
 		     , A.ITEM_NM	AS ITEM_NM
 		     --, A.RMRK		AS RMRK
-		  FROM TB_GPC_CD A
+		  FROM TB_EV_GPC_CD A
 		 WHERE A.DEL_YN = 'N'
 		 ]]>
 		<if test='ctgryNm != null and ctgryNm != ""'>

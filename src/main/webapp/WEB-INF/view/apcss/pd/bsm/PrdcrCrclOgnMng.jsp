@@ -371,9 +371,10 @@
 									name="dtl-input-mngmstInfoId"
 									class="form-control input-sm"
 									autocomplete="off"
+									readonly
 								></sbux-input>
 							</td>
-							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>경영체여부</th>
+							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>경영체등록여부</th>
 							<td colspan="3" class="td_input" style="border-right:hidden;" >
 								<!--
 								<sbux-input
@@ -392,6 +393,7 @@
 									unselected-text="전체"
 									class="form-control input-sm"
 									onchange="fn_onChangeSrchItemCd(this)"
+									readonly
 								></sbux-select>
 							</td>
 							<th colspan="2" scope="row" class="th_bg">환코드</th>
@@ -996,16 +998,16 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		{'text': '대기중','label': '대기중', 'value': '2'}
 	];
 
-	//경영체여부
+	//경영체등록여부
 	var jsonComMngmstYn = [
 		{'text': 'Y','label': 'Y', 'value': 'Y'},
-		{'text': 'N','label': 'N', 'value': 'Y'}
+		{'text': 'N','label': 'N', 'value': 'N'}
 	];
 
-	//경영체여부
+	//품목농협 지소 여부
 	var jsonComItemNhBrofYn = [
 		{'text': 'Y','label': 'Y', 'value': 'Y'},
-		{'text': 'N','label': 'N', 'value': 'Y'}
+		{'text': 'N','label': 'N', 'value': 'N'}
 	];
 
 	//참여조직여부
@@ -1241,7 +1243,6 @@ tps://sbgrid.co.kr/v2_5/document/guide
     		,brno : brno
     		,corpNm : corpNm
     		,apoSe : apoSe
-
     		,pagingYn : 'Y'
 			,currentPageNo : pageNo
  		  	,recordCountPerPage : pageSize
@@ -1438,13 +1439,13 @@ tps://sbgrid.co.kr/v2_5/document/guide
     		gfn_comAlert("W0002", "사업자번호");
     		return false;
     	}
-
+		/*
     	var mngmstYn = SBUxMethod.get("dtl-input-mngmstYn");
     	if(gfn_isEmpty(mngmstYn)){
     		gfn_comAlert("W0002", "경영체여부");
     		return false;
     	}
-
+    	*/
     	var ctpv = SBUxMethod.get("dtl-input-ctpv");
     	if(gfn_isEmpty(ctpv)){
     		gfn_comAlert("W0002", "시도");
@@ -1783,7 +1784,6 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
 	//경영체조회 팝업
 	const fn_choiceMngmstInfoId = function() {
-		console.log("======dd=======");
 		popMngmstInfoId.init(fn_setMngmstInfoId);
 	}
 	//경영체조회 팝업 콜백함수
@@ -1825,7 +1825,11 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		SBUxMethod.set('dtl-input-crno',gfn_nvl(rowData.crno))//
 		SBUxMethod.set('dtl-input-brno',gfn_nvl(rowData.brno))//
 		SBUxMethod.set('dtl-input-mngmstInfoId',gfn_nvl(rowData.mngmstInfoId))//
-		SBUxMethod.set('dtl-input-mngmstYn',gfn_nvl(rowData.mngmstYn))//
+		if(gfn_isEmpty(rowData.mngmstInfoId)){
+			SBUxMethod.set('dtl-input-mngmstYn','N')//
+		}else{
+			SBUxMethod.set('dtl-input-mngmstYn','Y')//
+		}
 		SBUxMethod.set('dtl-input-nonghyupCd',gfn_nvl(rowData.nonghyupCd))//
 		SBUxMethod.set('dtl-input-cmptnInst',gfn_nvl(rowData.cmptnInst))//
 		SBUxMethod.set('dtl-input-ctpv',gfn_nvl(rowData.ctpv))//
@@ -1938,7 +1942,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		SBUxMethod.set('dtl-input-crno',null)//
 		SBUxMethod.set('dtl-input-brno',null)//
 		SBUxMethod.set('dtl-input-mngmstInfoId',null)//
-		SBUxMethod.set('dtl-input-mngmstYn',null)//
+		SBUxMethod.set('dtl-input-mngmstYn','N')//
 		SBUxMethod.set('dtl-input-nonghyupCd',null)//
 		SBUxMethod.set('dtl-input-cmptnInst',null)//
 		SBUxMethod.set('dtl-input-ctpv',null)//
@@ -1987,7 +1991,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		SBUxMethod.set('dtl-input-crno',null)//
 		SBUxMethod.set('dtl-input-brno',null)//
 		SBUxMethod.set('dtl-input-mngmstInfoId',null)//
-		SBUxMethod.set('dtl-input-mngmstYn',null)//
+		SBUxMethod.set('dtl-input-mngmstYn','N')//
 		SBUxMethod.set('dtl-input-nonghyupCd',null)//
 		SBUxMethod.set('dtl-input-cmptnInst',null)//
 		SBUxMethod.set('dtl-input-ctpv',null)//
