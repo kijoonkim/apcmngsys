@@ -179,6 +179,13 @@
 	    SBGridProperties.entereditcell = true;			// enter키로 행 이동시 하위 셀 edit창 활성화 여부를 설정하는 속성입니다.
 	    SBGridProperties.entertotab = true;
 	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.paging = {
+	    		  'type' : 'page',
+	    		  'count' : 5,
+	    		  'size' : 20,
+	    		  'sorttype' : 'page',
+	    		  'showgoalpageui' : true
+		};
         SBGridProperties.columns = [
         	{caption: ["체크박스"], 	ref: 'checked', 	type: 'checkbox', 	width: '40px',	style:'text-align: center',
 				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}}},
@@ -201,6 +208,7 @@
             {caption: ["행추가여부"],	ref: 'addYn',		type: 'output',		hidden : true}
         ];
         comCdDtlgrid = _SBGrid.create(SBGridProperties);
+        comCdDtlgrid.bind( "afterpagechanged" , "fn_pagingComCdDtl" );
     }
 
   	//공통코드 목록 조회
@@ -289,7 +297,9 @@
     	if (!gfn_isEmpty(comCdgrid.getRowData(comCdgrid.getRow()).cdId)) {
     		if (comCdgrid.getPrevRow() != comCdgrid.getRow()) {
         		fn_clearComCdDtl();
-    	    	fn_callSelectComCdDtlList();
+            	let recordCountPerPage = comCdDtlgrid.getPageSize();  							// 몇개의 데이터를 가져올지 설정
+            	let currentPageNo = 1;
+            	comCdDtlgrid.movePaging(currentPageNo);
     		}
     	} else {
     		fn_clearComCdDtl();
@@ -297,30 +307,57 @@
     }
 
     // 공통코드 상세 목록 조회 호출
-    async function fn_callSelectComCdDtlList(){
+    async function fn_callSelectComCdDtlList(recordCountPerPage, currentPageNo){
     	let cdId = comCdgrid.getRowData(comCdgrid.getRow()).cdId;
-    	let postJsonPromise = gfn_postJSON("/co/cd/comCdDtls", {cdId : cdId}, null, true);
+    	let postJsonPromise = gfn_postJSON("/co/cd/comCdDtls", {
+    		cdId : cdId,
+			
+			// pagination
+  	  		pagingYn : 'Y',
+  			currentPageNo : currentPageNo,
+   		  	recordCountPerPage : recordCountPerPage
+		}, null, true);
         let data = await postJsonPromise;
 
         try{
-        	comCdDtlGridData = [];
-        	data.resultList.forEach((item, index) => {
-				let comCdDtlList = {
-					cdVl : item.cdVl,
-					cdVlNm : item.cdVlNm,
-					cdVlExpln : item.cdVlExpln,
-					indctSeq : item.indctSeq,
-					apcCd : item.apcCd,
-					cdId : item.cdId,
-					upCdVl : item.upCdVl,
-					cdNumVl : item.cdNumVl,
-					cdChrVl : item.cdChrVl,
-					addYn : 'N'
-				}
-				comCdDtlGridData.push(comCdDtlList);
-			});
-			comCdDtlgrid.rebuild();
-			comCdDtlgrid.setCellDisabled(0, 1, comCdDtlgrid.getRows() - 1, 1, true);
+  			if (_.isEqual("S", data.resultStatus)) {
+  	      		let totalRecordCount = 0;
+  	      		comCdDtlGridData.length = 0;
+	        	data.resultList.forEach((item, index) => {
+					let comCdDtlList = {
+						cdVl : item.cdVl,
+						cdVlNm : item.cdVlNm,
+						cdVlExpln : item.cdVlExpln,
+						indctSeq : item.indctSeq,
+						apcCd : item.apcCd,
+						cdId : item.cdId,
+						upCdVl : item.upCdVl,
+						cdNumVl : item.cdNumVl,
+						cdChrVl : item.cdChrVl,
+						addYn : 'N'
+					}
+					comCdDtlGridData.push(comCdDtlList);
+	
+	  				if (index === 0) {
+	  					totalRecordCount = item.totalRecordCount;
+	  				}
+				});
+	
+	          	if (comCdDtlGridData.length > 0) {
+	          		if (comCdDtlgrid.getPageTotalCount() != totalRecordCount) {	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+	          			comCdDtlgrid.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+	          			comCdDtlgrid.rebuild();
+	  				} else {
+	  					comCdDtlgrid.refresh();
+	  				}
+	          		comCdDtlgrid.setCellDisabled(0, 1, comCdDtlgrid.getRows() - 1, 1, true);
+	          	} else {
+	          		comCdDtlgrid.setPageTotalCount(totalRecordCount);
+	          		comCdDtlgrid.rebuild();
+	          	}
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -338,6 +375,15 @@
 		comCdgrid.setFixedcellcheckboxChecked(0, getColRef, false);
     	fn_clearComCdDtl();
     	fn_callSelectComCdList(recordCountPerPage, currentPageNo);
+    }
+ 	
+ 	// 공통코드 상세 페이징
+    async function fn_pagingComCdDtl(){
+    	let recordCountPerPage = comCdDtlgrid.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+    	let currentPageNo = comCdDtlgrid.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+		var getColRef = comCdDtlgrid.getColRef("checked");
+		comCdDtlgrid.setFixedcellcheckboxChecked(0, getColRef, false);
+    	fn_callSelectComCdDtlList(recordCountPerPage, currentPageNo);
     }
 
     // 공통코드 상세 클리어
