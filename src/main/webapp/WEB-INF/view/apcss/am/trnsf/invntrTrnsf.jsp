@@ -290,7 +290,7 @@
 	    SBGridProperties.paging = {
 			'type' : 'page',
 		  	'count' : 5,
-		  	'size' : 20,
+		  	'size' : 100,
 		  	'sorttype' : 'page',
 		  	'showgoalpageui' : true
 		};
@@ -405,7 +405,7 @@
     		gfn_comAlert("W0001", "이송일자");		//	W0002	{0}을/를 입력하세요.
             return;
     	}
-		
+
     	grdInvntrTrnsf.rebuild();
     	let pageSize = grdInvntrTrnsf.getPageSize();
     	let pageNo = 1;
