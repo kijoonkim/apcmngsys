@@ -83,6 +83,7 @@
 
         try{
   			if (_.isEqual("S", data.resultStatus)) {
+
   	        	jsonDashboard.length = 0;
   	        	data.result[0].dayPrcsSttn.forEach((item, index) => {
   					let dashboard = {

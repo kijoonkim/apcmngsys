@@ -288,7 +288,7 @@
 	    SBGridProperties.paging = {
 			'type' : 'page',
 		  	'count' : 5,
-		  	'size' : 20,
+		  	'size' : 100,
 		  	'sorttype' : 'page',
 		  	'showgoalpageui' : true
 	    };
@@ -385,12 +385,12 @@
 
     	//검색조건
     	let crtrYmd  = SBUxMethod.get("srch-dtp-crtrYmd");	//기준일자
-    	
+
 		if (gfn_isEmpty(crtrYmd)) {
     		gfn_comAlert("W0001", "기준일자");		//	W0002	{0}을/를 입력하세요.
             return;
     	}
-		
+
     	var inptCmndDsctnList;
     	if(checkSection == 1 ){
     		inptCmndDsctnList = rawMtrInvntrGrid;
@@ -533,7 +533,7 @@
 	    SBGridProperties.paging = {
 			'type' : 'page',
 		  	'count' : 5,
-		  	'size' : 20,
+		  	'size' : 100,
 		  	'sorttype' : 'page',
 		  	'showgoalpageui' : true
 	    };
@@ -738,7 +738,7 @@
 	    SBGridProperties.paging = {
 				'type' : 'page',
 			  	'count' : 5,
-			  	'size' : 20,
+			  	'size' : 100,
 			  	'sorttype' : 'page',
 			  	'showgoalpageui' : true
 		};

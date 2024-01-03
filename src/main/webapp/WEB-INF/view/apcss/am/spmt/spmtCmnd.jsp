@@ -212,7 +212,7 @@
     	SBGridProperties.paging = {
 			'type' : 'page',
 		  	'count' : 5,
-		  	'size' : 20,
+		  	'size' : 100,
 		  	'sorttype' : 'page',
 		  	'showgoalpageui' : true
 	    };
@@ -302,7 +302,7 @@
 			gfn_comAlert("W0002", "지시일자");		//	W0002	{0}을/를 입력하세요.
             return;
 		}
-		
+
     	let recordCountPerPage = grdSpmtCmnd.getPageSize();  		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = 1;
     	grdSpmtCmnd.movePaging(currentPageNo);
@@ -336,12 +336,12 @@
     	let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtCmndList.do", spmtCmndVO);
         let data = await postJsonPromise;
         try{
-        	
+
         	if (!_.isEqual("S", data.resultStatus)) {
 	        	gfn_comAlert(data.resultCode, data.resultMessage);
 	        	return;
 	        }
-        	
+
         	jsonSmptCmnd.length = 0;
         	data.resultList.forEach((item, index) => {
 				let spmtCmnd = {

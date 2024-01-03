@@ -253,7 +253,7 @@
     	SBGridProperties.paging = {
     			'type' : 'page',
     		  	'count' : 5,
-    		  	'size' : 20,
+    		  	'size' : 100,
     		  	'sorttype' : 'page',
     		  	'showgoalpageui' : true
     	    };
