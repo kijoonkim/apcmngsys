@@ -32,12 +32,12 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 입고실적조회 -->
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button 
-						id="btnReset" 
-						name="btnReset" 
-						uitype="normal" 
-						text="초기화" 
-						class="btn btn-sm btn-outline-danger" 
+					<sbux-button
+						id="btnReset"
+						name="btnReset"
+						uitype="normal"
+						text="초기화"
+						class="btn btn-sm btn-outline-danger"
 						onclick="fn_reset"
 					></sbux-button>
 					<sbux-button
@@ -48,13 +48,13 @@
 						onclick="fn_delete"
 						text="삭제"
 					></sbux-button>
-					<sbux-button 
-						id="btnSearch" 
-						name="btnSearch" 
-						uitype="normal" 
-						class="btn btn-sm btn-outline-danger" 
-						onclick="fn_search" 
-						text="조회" 
+					<sbux-button
+						id="btnSearch"
+						name="btnSearch"
+						uitype="normal"
+						class="btn btn-sm btn-outline-danger"
+						onclick="fn_search"
+						text="조회"
 					></sbux-button>
 				</div>
 			</div>
@@ -86,22 +86,22 @@
 						<tr>
 							<th scope="row" class="th_bg">입고일자</th>
 							<td class="td_input"style="border-right: hidden;">
-								<sbux-datepicker 
-									uitype="popup" 
-									id="srch-dtp-wrhsYmdFrom" 
-									name="srch-dtp-wrhsYmdFrom" 
-									date-format="yyyy-mm-dd" 
-									class="form-control pull-right input-sm inpt_data_reqed input-sm-ast" 
+								<sbux-datepicker
+									uitype="popup"
+									id="srch-dtp-wrhsYmdFrom"
+									name="srch-dtp-wrhsYmdFrom"
+									date-format="yyyy-mm-dd"
+									class="form-control pull-right input-sm inpt_data_reqed input-sm-ast"
 									onchange="fn_dtpChange(srch-dtp-wrhsYmdFrom)"
 								></sbux-datepicker>
 							</td>
 							<td class="td_input"style="border-right: hidden;">
-								<sbux-datepicker 
-									uitype="popup" 
-									id="srch-dtp-wrhsYmdTo" 
-									name="srch-dtp-wrhsYmdTo" 
-									date-format="yyyy-mm-dd" 
-									class="form-control pull-right input-sm inpt_data_reqed input-sm-ast" 
+								<sbux-datepicker
+									uitype="popup"
+									id="srch-dtp-wrhsYmdTo"
+									name="srch-dtp-wrhsYmdTo"
+									date-format="yyyy-mm-dd"
+									class="form-control pull-right input-sm inpt_data_reqed input-sm-ast"
 									onchange="fn_dtpChange(srch-dtp-wrhsYmdTo)"
 								></sbux-datepicker>
 							</td>
@@ -111,13 +111,13 @@
 								<sbux-select unselected-text="전체" uitype="single" id="srch-slt-itemCd" name="srch-slt-itemCd" class="form-control input-sm" jsondata-ref="jsonComItem" onchange="fn_selectItem"></sbux-select>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input 
-									uitype="text" 
-									id="srch-inp-vrtyCd" 
-									name="srch-inp-vrtyCd" 
-									class="form-control input-sm" 
-									maxlength="33" 
-									show-clear-button="true" 
+								<sbux-input
+									uitype="text"
+									id="srch-inp-vrtyCd"
+									name="srch-inp-vrtyCd"
+									class="form-control input-sm"
+									maxlength="33"
+									show-clear-button="true"
 									readonly
 								></sbux-input>
 							</td>
@@ -358,7 +358,7 @@
 		fn_initSBSelect();
 		fn_getPrdcrs();
 	}
-	
+
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_init();
@@ -394,7 +394,7 @@
 	    SBGridProperties.paging = {
 			'type' : 'page',
 		  	'count' : 5,
-		  	'size' : 20,
+		  	'size' : 100,
 		  	'sorttype' : 'page',
 		  	'showgoalpageui' : true
 	    };
@@ -418,24 +418,24 @@
 	        {caption: ["운송료"],		ref: 'trsprtCst',      type:'output',  width:'120px', hidden:true,   style:'text-align:right', format : {type:'number', rule:'#,### 원 '}},
 	        {caption: ["등급"],		ref: 'grdNm',      type:'output',  width:'80px',    style:'text-align:center'},
 	        {
-	        	caption: ["입고중량 (Kg)"],	
-	        	ref: 'wrhsWght',      
-	        	type:'output',  
-	        	width:'100px',    
-	        	style:'text-align:right', 
-	        	typeinfo : {mask : {alias : 'numeric'}}, 
+	        	caption: ["입고중량 (Kg)"],
+	        	ref: 'wrhsWght',
+	        	type:'output',
+	        	width:'100px',
+	        	style:'text-align:right',
+	        	typeinfo : {mask : {alias : 'numeric'}},
 	        	format : {
-	        		type:'number', 
+	        		type:'number',
 	        		rule:'#,###  '
 	        	}
 	        },
 	        {
-	        	caption: ["현재고중량 (Kg)"],	
+	        	caption: ["현재고중량 (Kg)"],
 	        	ref: 'invntrWght',
-	        	type:'output',  
-	        	width:'100px',    
-	        	style:'text-align:right', 
-	        	typeinfo : {mask : {alias : 'numeric'}}, 
+	        	type:'output',
+	        	width:'100px',
+	        	style:'text-align:right',
+	        	typeinfo : {mask : {alias : 'numeric'}},
 	        	format : {type:'number', rule:'#,##0  '}
 	        },
 	        {caption: ["보관창고"],		ref: 'warehouseSeNm',      type:'output',  width:'100px',    style:'text-align:center'},
@@ -485,10 +485,10 @@
     function fn_excelDwnld() {
     	grdRawMtrWrhs.exportLocalExcel(
     						"입고실적", {
-    							bSaveLabelData: true, 
-    							bNullToBlank: true, 
-    							bSaveSubtotalValue: true, 
-    							bCaptionConvertBr: true, 
+    							bSaveLabelData: true,
+    							bNullToBlank: true,
+    							bSaveSubtotalValue: true,
+    							bCaptionConvertBr: true,
     							arrSaveConvertText: true
     						});
     }
@@ -538,7 +538,7 @@
 	    			});
     		}
 		});
-		
+
 		if (rawMtrInvntrList.length == 0) {
 			gfn_comAlert("W0005", "삭제대상");		//	W0005	{0}이/가 없습니다.
 			return;
@@ -548,7 +548,7 @@
 		if (!gfn_comConfirm("Q0001", "입고실적삭제")) {	//	Q0001	{0} 하시겠습니까?
 	    	return;
 	    }
-		
+
 		const rawMtrWrhsMng = {
     		apcCd: gv_selectedApcCd,
     		rawMtrInvntrList: rawMtrInvntrList
@@ -556,7 +556,7 @@
 
         try {
         	let postUrl = "/am/wrhs/deleteRawMtrPrcsList.do";
-        	
+
     		const postJsonPromise = gfn_postJSON(postUrl, rawMtrWrhsMng);
 			const data = await postJsonPromise;
 
@@ -574,14 +574,14 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
  	}
-	
-	
+
+
 	/**
      * @name fn_search
      * @description 조회 버튼
      */
     const fn_search = async function() {
-		if (	gfn_isEmpty(SBUxMethod.get("srch-dtp-wrhsYmdFrom")) 
+		if (	gfn_isEmpty(SBUxMethod.get("srch-dtp-wrhsYmdFrom"))
 				|| gfn_isEmpty(SBUxMethod.get("srch-dtp-wrhsYmdTo"))){
 			gfn_comAlert("W0001", "입고일자");		//	W0002	{0}을/를 선택하세요.
 		    return;
@@ -634,12 +634,12 @@
 	 	  		});
 
  	        const data = await postJsonPromise;
- 	    	
+
  	    	if (!_.isEqual("S", data.resultStatus)) {
 	        	gfn_comAlert(data.resultCode, data.resultMessage);
 	        	return;
 	        }
- 	    	
+
 			/** @type {number} **/
       		let totalRecordCount = 0;
 
@@ -699,7 +699,7 @@
           		grdRawMtrWrhs.setPageTotalCount(totalRecordCount);
           		grdRawMtrWrhs.rebuild();
          	}
-          	
+
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -899,7 +899,7 @@
 	 * @description 그리드 체크박스 전체 선택
 	 */
     const fn_checkAll = function (grid, obj) {
-		
+
         const checkedYn = obj.checked ? "Y" : "N";
         //체크박스 열 index
         const getColRef = grid.getColRef("checkedYn");
@@ -908,7 +908,7 @@
         }
         grid.refresh();
     }
-	
+
 	$(function(){
 		$(".glyphicon").on("click", function(){
 			SBUxMethod.set("srch-inp-vrtyCd", "");

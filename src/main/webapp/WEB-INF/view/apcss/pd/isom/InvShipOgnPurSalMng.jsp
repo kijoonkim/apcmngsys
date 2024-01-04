@@ -260,6 +260,9 @@
 					</tbody>
 				</table>
 				<br>
+				<div>
+					<span>전체 취급실적 작성(전문/육성 품목 포함 주요품목 작성, 취급액 비중이 낮은 품목은 기타품목으로 통합작성 후 비고란에 기타품목 명 기재</span>
+				</div>
 				<!--[pp] 검색결과 상세보기-->
 				<div class="ad_section_top">
 					<div class="box-header" style="display:flex; justify-content: flex-start;" >
@@ -1305,6 +1308,15 @@
 			//let colRefIdx3 = grdPrdcrOgnCurntMng01.getColRef("itemCd");//품목코드 인덱스
 			//let colRefIdx4 = grdPrdcrOgnCurntMng01.getColRef("itemNm");//품목명 인덱스
 
+			let gridData = grdPrdcrOgnCurntMng01.getGridDataAll();
+			for(var i=1; i<=gridData.length; i++ ){
+				let uoData = grdPrdcrOgnCurntMng01.getRowData(i);
+				if ($.trim(rowData.itemCd) == $.trim(uoData.itemCd) && $.trim(rowData.ctgryCd) == $.trim(uoData.ctgryCd)){
+					gfn_comAlert("E0000", "동일한 품목이 있습니다.");
+					return false;
+				}
+			}
+
 			//그리드 값 세팅
 
 			//grdPrdcrOgnCurntMng01.setCellData(selGridRow01,grdPrdcrOgnCurntMng01.getColRef("ctgryCd"),rowData.ctgryCd,true);
@@ -1374,7 +1386,14 @@
 			//let colRefIdx2 = grdPrdcrOgnCurntMng02.getColRef("ctgryNm");//분류명 인덱스
 			//let colRefIdx3 = grdPrdcrOgnCurntMng02.getColRef("itemCd");//품목코드 인덱스
 			//let colRefIdx4 = grdPrdcrOgnCurntMng02.getColRef("itemNm");//품목명 인덱스
-
+			let gridData = grdPrdcrOgnCurntMng02.getGridDataAll();
+			for(var i=1; i<=gridData.length; i++ ){
+				let uoData = grdPrdcrOgnCurntMng02.getRowData(i);
+				if ($.trim(rowData.itemCd) == $.trim(uoData.itemCd) && $.trim(rowData.ctgryCd) == $.trim(uoData.ctgryCd)){
+					gfn_comAlert("E0000", "동일한 품목이 있습니다.");
+					return false;
+				}
+			}
 			//그리드 값 세팅
 			/*
 			grdPrdcrOgnCurntMng01.setCellData(selGridRow02-1,grdPrdcrOgnCurntMng01.getColRef("ctgryCd"),rowData.ctgryCd,true);

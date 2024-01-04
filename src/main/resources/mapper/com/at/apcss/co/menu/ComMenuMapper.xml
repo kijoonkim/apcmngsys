@@ -480,7 +480,7 @@
 		     , CM.MENU_ID               AS MENU_ID
 		     , CM.MENU_NM               AS MENU_NM
 		     , (SELECT FN_GET_COM_CD_VL_NM('MENU_TYPE', CM.MENU_TYPE) FROM DUAL) AS MENU_TYPE_NM
-     		 , CM.MENU_NM               AS MENU_NM
+     		 , CM.MENU_TYPE             AS MENU_TYPE
 		     , CM.INDCT_SEQ             AS INDCT_SEQ
 		     , CM.PAGE_URL              AS PAGE_URL
 		     , CM.PRSNA_INFO_YN			AS PRSNA_INFO_YN

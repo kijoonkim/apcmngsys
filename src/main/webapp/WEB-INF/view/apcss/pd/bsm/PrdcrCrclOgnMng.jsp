@@ -371,9 +371,10 @@
 									name="dtl-input-mngmstInfoId"
 									class="form-control input-sm"
 									autocomplete="off"
+									readonly
 								></sbux-input>
 							</td>
-							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>경영체여부</th>
+							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>경영체등록여부</th>
 							<td colspan="3" class="td_input" style="border-right:hidden;" >
 								<!--
 								<sbux-input
@@ -392,6 +393,7 @@
 									unselected-text="전체"
 									class="form-control input-sm"
 									onchange="fn_onChangeSrchItemCd(this)"
+									readonly
 								></sbux-select>
 							</td>
 							<th colspan="2" scope="row" class="th_bg">환코드</th>
@@ -996,16 +998,16 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		{'text': '대기중','label': '대기중', 'value': '2'}
 	];
 
-	//경영체여부
+	//경영체등록여부
 	var jsonComMngmstYn = [
 		{'text': 'Y','label': 'Y', 'value': 'Y'},
-		{'text': 'N','label': 'N', 'value': 'Y'}
+		{'text': 'N','label': 'N', 'value': 'N'}
 	];
 
-	//경영체여부
+	//품목농협 지소 여부
 	var jsonComItemNhBrofYn = [
 		{'text': 'Y','label': 'Y', 'value': 'Y'},
-		{'text': 'N','label': 'N', 'value': 'Y'}
+		{'text': 'N','label': 'N', 'value': 'N'}
 	];
 
 	//참여조직여부
@@ -1241,7 +1243,6 @@ tps://sbgrid.co.kr/v2_5/document/guide
     		,brno : brno
     		,corpNm : corpNm
     		,apoSe : apoSe
-
     		,pagingYn : 'Y'
 			,currentPageNo : pageNo
  		  	,recordCountPerPage : pageSize
@@ -1328,6 +1329,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	/* Grid Row 조회 기능*/
 	const fn_dtlSearch = async function(){
 		let brno = '${loginVO.brno}';
+		SBUxMethod.set('dtl-input-brno',gfn_nvl(brno));
 		if(gfn_isEmpty(brno)) return;
 
     	let postJsonPromise = gfn_postJSON("/pd/bsm/selectPrdcrCrclOgnMngList.do", {
@@ -1342,7 +1344,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
         		SBUxMethod.set('dtl-input-uoBrno',gfn_nvl(item.uoBrno))
         		SBUxMethod.set('dtl-input-corpNm',gfn_nvl(item.corpNm))
         		SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno))
-        		SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))
+        		//SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))
         		SBUxMethod.set('dtl-input-mngmstInfoId',gfn_nvl(item.mngmstInfoId))
         		SBUxMethod.set('dtl-input-mngmstYn',gfn_nvl(item.mngmstYn))
         		SBUxMethod.set('dtl-input-nonghyupCd',gfn_nvl(item.nonghyupCd))
@@ -1437,13 +1439,13 @@ tps://sbgrid.co.kr/v2_5/document/guide
     		gfn_comAlert("W0002", "사업자번호");
     		return false;
     	}
-
+		/*
     	var mngmstYn = SBUxMethod.get("dtl-input-mngmstYn");
     	if(gfn_isEmpty(mngmstYn)){
     		gfn_comAlert("W0002", "경영체여부");
     		return false;
     	}
-
+    	*/
     	var ctpv = SBUxMethod.get("dtl-input-ctpv");
     	if(gfn_isEmpty(ctpv)){
     		gfn_comAlert("W0002", "시도");
@@ -1782,7 +1784,6 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
 	//경영체조회 팝업
 	const fn_choiceMngmstInfoId = function() {
-		console.log("======dd=======");
 		popMngmstInfoId.init(fn_setMngmstInfoId);
 	}
 	//경영체조회 팝업 콜백함수
@@ -1824,7 +1825,11 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		SBUxMethod.set('dtl-input-crno',gfn_nvl(rowData.crno))//
 		SBUxMethod.set('dtl-input-brno',gfn_nvl(rowData.brno))//
 		SBUxMethod.set('dtl-input-mngmstInfoId',gfn_nvl(rowData.mngmstInfoId))//
-		SBUxMethod.set('dtl-input-mngmstYn',gfn_nvl(rowData.mngmstYn))//
+		if(gfn_isEmpty(rowData.mngmstInfoId)){
+			SBUxMethod.set('dtl-input-mngmstYn','N')//
+		}else{
+			SBUxMethod.set('dtl-input-mngmstYn','Y')//
+		}
 		SBUxMethod.set('dtl-input-nonghyupCd',gfn_nvl(rowData.nonghyupCd))//
 		SBUxMethod.set('dtl-input-cmptnInst',gfn_nvl(rowData.cmptnInst))//
 		SBUxMethod.set('dtl-input-ctpv',gfn_nvl(rowData.ctpv))//
@@ -1937,7 +1942,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		SBUxMethod.set('dtl-input-crno',null)//
 		SBUxMethod.set('dtl-input-brno',null)//
 		SBUxMethod.set('dtl-input-mngmstInfoId',null)//
-		SBUxMethod.set('dtl-input-mngmstYn',null)//
+		SBUxMethod.set('dtl-input-mngmstYn','N')//
 		SBUxMethod.set('dtl-input-nonghyupCd',null)//
 		SBUxMethod.set('dtl-input-cmptnInst',null)//
 		SBUxMethod.set('dtl-input-ctpv',null)//
@@ -1986,7 +1991,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		SBUxMethod.set('dtl-input-crno',null)//
 		SBUxMethod.set('dtl-input-brno',null)//
 		SBUxMethod.set('dtl-input-mngmstInfoId',null)//
-		SBUxMethod.set('dtl-input-mngmstYn',null)//
+		SBUxMethod.set('dtl-input-mngmstYn','N')//
 		SBUxMethod.set('dtl-input-nonghyupCd',null)//
 		SBUxMethod.set('dtl-input-cmptnInst',null)//
 		SBUxMethod.set('dtl-input-ctpv',null)//
@@ -2119,9 +2124,9 @@ tps://sbgrid.co.kr/v2_5/document/guide
 			//setCellData (행,열,입력 데이터,[refresh여부],[행 상태 정보 update로 변경])
 			//selGridUoListRow 선택된 행 값
 			//getColRef(ref) ref의 인덱스 값 가져오기
-			let colRefIdx1 = grdUoList.getColRef('uoCorpNm');//ii 통합조직 인덱스
-			let colRefIdx2 = grdUoList.getColRef('uoBrno');//ii 통합조직 코드 인덱스
-			let colRefIdx3 = grdUoList.getColRef('uoApoCd');//ii 통합조직 코드 인덱스
+			let colRefIdx1 = grdUoList.getColRef('uoCorpNm');//통합조직 인덱스
+			let colRefIdx2 = grdUoList.getColRef('uoBrno');//통합조직 코드 인덱스
+			let colRefIdx3 = grdUoList.getColRef('uoApoCd');//통합조직 코드 인덱스
 
 			let gridData = grdUoList.getGridDataAll();
 			for(var i=1; i<=gridData.length; i++ ){

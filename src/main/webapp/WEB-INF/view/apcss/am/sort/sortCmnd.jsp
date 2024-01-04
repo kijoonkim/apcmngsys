@@ -217,7 +217,7 @@
 	    SBGridProperties.paging = {
 			'type' : 'page',
 		  	'count' : 5,
-		  	'size' : 20,
+		  	'size' : 100,
 		  	'sorttype' : 'page',
 		  	'showgoalpageui' : true
 	    };
@@ -327,11 +327,11 @@
     		gfn_comAlert("W0001", "지시일자");		//	W0002	{0}을/를 입력하세요.
         	return;
     	}
-		
+
 		grdSortCmnd.rebuild();
 		let pageSize = grdSortCmnd.getPageSize();
 		let pageNo = 1;
-		
+
 		// grid clear
 		jsonSortCmnd.length = 0;
 		grdSortCmnd.clearStatus();
@@ -362,7 +362,7 @@
   		});
         const data = await postJsonPromise;
   		try {
-  			
+
   			if (_.isEqual("S", data.resultStatus)) {
   	          	/** @type {number} **/
   	      		let totalRecordCount = 0;
