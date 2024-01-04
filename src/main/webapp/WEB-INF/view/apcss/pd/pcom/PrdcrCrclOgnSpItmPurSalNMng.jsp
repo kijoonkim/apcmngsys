@@ -346,10 +346,6 @@
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid = async function() {
 
-
-
-		//SBUxMethod.set("fclt-inp-apcNm", SBUxMethod.get("inp-apcNm"));
-
 		let SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng';
 	    SBGridProperties.id = 'grdPrdcrOgnCurntMng';
@@ -392,8 +388,6 @@
 
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid01 = async function() {
-
-		//SBUxMethod.set("fclt-inp-apcNm", SBUxMethod.get("inp-apcNm"));
 
 		let SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng01';

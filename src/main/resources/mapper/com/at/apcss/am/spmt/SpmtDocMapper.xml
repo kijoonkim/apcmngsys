@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : SpmtDocMapper.xml                                   				-->
+<!-- DESC : 전자송품장 mapper                   				                	-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.08.17  	신정철        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.spmt.mapper.SpmtDocMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDocMapper.selectSpmtDocMapList		-->
+	<!-- DESC : 전자송품장 목록 조회.	                         	             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.17  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectSpmtDocMapList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+    	<![CDATA[
+    		SELECT /* com.at.apcss.am.spmt.mapper.SpmtDocMapper.selectSpmtDocMapList */
+			      SC.APC_CD     			AS APC_CD
+			    , SC.SPMTNO     			AS SPMTNO
+			    , SC.WHLSL_MRKT_CD          AS WHSAL_CD
+			    , SC.WHLSL_MRKT_CORP_CD     AS CMP_CD
+			    , SC.SPMT_MB_TYPE           AS SHIP_TYPE
+			    , SC.SPMT_PRNMNT_YMD        AS SHIP_DATE
+			    , SC.SPMT_PLC_NM            AS SHIP_NAME
+			    , SC.SPMT_PLC_CTTPC         AS SHIP_CONTACT
+			    , SC.SPMT_DCLRNO            AS SHIP_DEC_NO
+			    , SC.SPMT_PLC_BANK_CD       AS SHIP_BANK_CD
+			    , SC.SPMT_PLC_ACTNO         AS SHIP_ACC_NUM
+			    , SC.SPMT_PLC_DPSTR         AS SHIP_ACC_DEP
+			    , SC.DLNG_SHAP              AS TRADE_TYPE
+			    , SC.DLNG_SE_CD             AS TRADE_CLASS
+			    , SC.DRVR_NM                AS DRV_NAME
+			    , SC.DRVR_CTTPC             AS DRV_CALL
+			    , SC.VHCLNO                 AS DRV_CAR_NO
+			    , SC.TRSPRT_CST             AS DRV_RATE
+			    , SC.DRVR_BANK_CD           AS DRV_BANK_CD
+			    , SC.DRVR_ACTNO             AS DRV_ACC_NUM
+			    , SC.DRVR_DPSTR             AS DRV_ACC_DEP
+			    , SC.TRSPRT_STTS_CD         AS INVEN_STATE
+			
+			  FROM TB_SPMT_TRSPRT_DOC SC
+			 WHERE SC.DEL_YN = 'N'
+			   AND SC.SPMT_PRNMNT_YMD = #{SHIP_DATE}
+			   AND SC.WHLSL_MRKT_CORP_CD = #{CMP_CD}
+		]]>
+		<if test='WHSAL_CD != null and WHSAL_CD != ""'>
+		       AND SC.WHLSL_MRKT_CD = #{WHSAL_CD}
+		</if>
+    	<![CDATA[
+    		 ORDER BY WHSAL_CD, CMP_CD, SHIP_NAME, APC_CD, SPMTNO
+		]]>
+    </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtDocMapper.selectSpmtDocDtlMapList	-->
+	<!-- DESC : 전자송품장 상세 목록 조회.	                         	             	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.17  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectSpmtDocDtlMapList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+    	<![CDATA[
+    		SELECT /* com.at.apcss.am.spmt.mapper.SpmtDocMapper.selectSpmtDocDtlMapList */
+			      SD.APC_CD         AS APC_CD
+			    , SD.SPMTNO         AS SPMTNO
+			    , SD.SPMT_SN        AS SPMT_SN
+			    , SD.PRDCR_NM       AS PRO_NAME
+			    , SD.PRDCR_DCLRNO   AS PRO_DEC_NO
+			    , SD.PRDCR_CTTPC    AS PRO_CONTACT
+			    , SD.STD_ITEM_CD    AS GOOD_CD
+			    , SD.STD_PCKG_CD    AS POJ_CD
+			    , SD.STD_UNIT_CD    AS DAN_CD
+			    , SD.STD_GRD_CD     AS LV_CD
+			    , SD.STD_PLOR_CD    AS SAN_CD
+			    , SD.STD_ECFRD_CD   AS ECO_CD
+			    , SD.UNIT_QNTT      AS UNIT_QUANTITY
+			    , SD.SPMT_QNTT      AS SHIP_QUANTITY
+			  FROM TB_SPMT_TRSPRT_DOC_DTL SD
+			 WHERE SD.DEL_YN = 'N'
+			   AND SD.APC_CD = #{APC_CD}
+			   AND SD.SPMTNO = #{SPMTNO}
+			 ORDER BY SPMT_SN
+		]]>
+    </select>
+</mapper>
+
+

@@ -21,36 +21,28 @@
 	<!-- 2023.08.24  	하민우        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectOrdrList" parameterType="com.at.apcss.am.ordr.vo.OrdrVO" resultType="com.at.apcss.am.ordr.vo.OrdrVO">
+    	<![CDATA[
+    		SELECT /* com.at.apcss.am.ordr.mapper.OrdrMapper.selectOrdrList */
+    	]]>
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		SELECT
     			  ROWNUM AS ROW_SEQ
     			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, pt0.*
-	    		, (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL)						AS ITEM_NM
-	    		, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
-	    		, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
-	    		, (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL)	AS SPMT_PCKG_UNIT_NM
-	    		, (SELECT FN_GET_COM_CD_VL_NM('OUTORDR_TYPE', pt0.OUTORDR_TYPE) FROM DUAL)          AS OUTORDR_TYPE_NM
-	    		, (SELECT FN_GET_APC_NM(pt0.APC_CD) FROM DUAL)          							AS RCPT_CFMTN_APC_NM
-    		 FROM (
-    	</if>
-    	<if test='pagingYn == null or pagingYn.equals("N")'>
-    		SELECT
-    			  pt0.*
-	    		, (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL)						AS ITEM_NM
-	    		, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
-	    		, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
-	    		, (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL)	AS SPMT_PCKG_UNIT_NM
-	    		, (SELECT FN_GET_COM_CD_VL_NM('OUTORDR_TYPE', pt0.OUTORDR_TYPE) FROM DUAL)          AS OUTORDR_TYPE_NM
-	    		, (SELECT FN_GET_APC_NM(pt0.APC_CD) FROM DUAL)          							AS RCPT_CFMTN_APC_NM
-    		 FROM (
+    			, 
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.ordr.mapper.OrdrMapper.selectOrdrList */
+				  pt0.*
+	    		, (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL)						AS ITEM_NM
+	    		, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
+	    		, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
+	    		, (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL)	AS SPMT_PCKG_UNIT_NM
+	    		, (SELECT FN_GET_COM_CD_VL_NM('OUTORDR_TYPE', pt0.OUTORDR_TYPE) FROM DUAL)          AS OUTORDR_TYPE_NM
+	    		, (SELECT FN_GET_APC_NM(pt0.APC_CD) FROM DUAL)          							AS RCPT_CFMTN_APC_NM
+    		 FROM (
+	    	SELECT 
 	    		   OI.APC_CD							AS APC_CD
-    		  	 , MAX(OI.APC_SE_CD)					AS APC_SE_CD
+    		  	 , OI.APC_SE_CD							AS APC_SE_CD
     		  	 , OI.RCPT_CFMTN_YMD					AS RCPT_CFMTN_YMD
     		  	 , OI.OUTORDR_TYPE						AS OUTORDR_TYPE
 			  	 , OI.OUTORDRNO							AS OUTORDRNO
@@ -85,8 +77,25 @@
     		  	 , OI.DLVGDS_SE_CD						AS DLVGDS_SE_CD
     		  	 , OI.ETC								AS ETC
     		  	 , OI.RCPT_CFMTN_APC_CD					AS RCPT_CFMTN_APC_CD
-    		  	 , MIN(SC.SPMT_CMNDNO)					AS SPMT_CMNDNO
-    		  	 , MAX(SP.SPMT_YMD)						AS SPMT_YMD
+    		  	 , (
+    		  	 	SELECT MIN(X.SPMT_CMNDNO)
+    		  	 	  FROM TB_SPMT_CMND X
+    		  	 	 WHERE X.APC_CD = OI.APC_CD
+    		  	 	   AND X.OUTORDRNO = OI.OUTORDRNO
+    		  	 	   AND X.DEL_YN = 'N'
+    		  	 )	AS SPMT_CMNDNO
+    		  	 , (
+    		  	 	SELECT MIN(PC.SPMT_YMD)
+    		  	 	  FROM
+    		  	 	  	  TB_SPMT_PRFMNC_DTL PD
+    		  	 	  	, TB_SPMT_PRFMNC_COM PC 
+			     	 WHERE PD.APC_CD = PC.APC_CD
+			     	   AND PD.SPMTNO = PC.SPMTNO
+			           AND PD.DEL_YN = 'N'
+			           AND PC.DEL_YN = 'N'
+			           AND PD.APC_CD = OI.APC_CD
+			           AND PD.OUTORDRNO = OI.OUTORDRNO
+    		  	 )	AS SPMT_YMD
 	             , (SELECT GDS_GRD
                       FROM TB_SPMT_PCKG_UNIT X
                      WHERE X.APC_CD = OI.APC_CD
@@ -103,17 +112,13 @@
 	             , (SELECT SUM(INVNTR_QNTT)
 	                  FROM TB_GDS_INVNTR X
 	                 WHERE X.APC_CD = OI.APC_CD
-	                   AND X.ITEM_CD = OI.ITEM_CD
-	                   AND X.VRTY_CD = OI.VRTY_CD
-	                   AND X.SPCFCT_CD = OI.SPCFCT_CD
+	                   AND X.GDS_CD = OI.GDS_CD
 	                   AND X.DEL_YN = 'N'
 	               ) 									AS INVNTR_QNTT
 	             , (SELECT SUM(INVNTR_WGHT)
 	                  FROM TB_GDS_INVNTR X
 	                 WHERE X.APC_CD = OI.APC_CD
-	                   AND X.ITEM_CD = OI.ITEM_CD
-	                   AND X.VRTY_CD = OI.VRTY_CD
-	                   AND X.SPCFCT_CD = OI.SPCFCT_CD
+	                   AND X.GDS_CD = OI.GDS_CD
 	                   AND X.DEL_YN = 'N'
 	               ) 									AS INVNTR_WGHT
 	             , (SELECT SUM(SPMT_QNTT)
@@ -141,37 +146,10 @@
                        AND X.DEL_YN = 'N'
                    ) 									AS CMND_WGHT
     		  	 , OI.DEL_YN							AS DEL_YN
+    		  	 , OI.ORGN_GDS_CD						AS ORGN_GDS_CD
+    		  	 , OI.ORGN_GDS_NM						AS ORGN_GDS_NM
 			  FROM TB_OUTORDR_INFO OI
-			     , TB_SPMT_CMND SC
-			     , (SELECT PC.APC_CD
-			     		 , PC.SPMTNO
-			     		 , PD.ITEM_CD
-			     		 , PD.VRTY_CD
-			     		 , PD.SPCFCT_CD
-			     		 , PD.SPMT_PCKG_UNIT_CD
-			     		 , PC.CNPT_CD
-			     		 , MIN(PC.SPMT_YMD) AS SPMT_YMD
-			     		 , MIN(PD.OUTORDRNO) AS OUTORDRNO
-			     	  FROM TB_SPMT_PRFMNC_COM PC
-			     	     , TB_SPMT_PRFMNC_DTL PD
-			     	 WHERE PC.APC_CD = PD.APC_CD
-			     	   AND PC.SPMTNO = PD.SPMTNO
-			           AND PC.DEL_YN = 'N'
-			           AND PD.DEL_YN = 'N'
-			         GROUP BY PC.APC_CD
-			         		, PC.SPMTNO
-			         		, PD.ITEM_CD
-			         		, PD.VRTY_CD
-			         		, PD.SPCFCT_CD
-			         		, PD.SPMT_PCKG_UNIT_CD
-			         		, PC.CNPT_CD
-			       ) SP
-			 WHERE OI.APC_CD = SC.APC_CD(+)
-			   AND OI.APC_CD = SP.APC_CD(+)
-			   AND OI.OUTORDRNO = SC.OUTORDRNO(+)
-			   AND OI.OUTORDRNO = SP.OUTORDRNO(+)
-			   AND OI.DEL_YN = 'N'
-			   AND SC.DEL_YN(+) = 'N'
+			 WHERE OI.DEL_YN = 'N'
 		]]>
 		<if test='rcptYn != null and rcptYn == "Y"'>
 			   AND ((
@@ -225,55 +203,13 @@
 		   	   AND (SELECT FN_GET_SPMT_PCKG_UNIT_NM(OI.SPMT_PCKG_UNIT_CD, OI.APC_CD) FROM DUAL) LIKE '%' ||  #{spmtPckgUnitNm} || '%'
 		</if>
     	<![CDATA[
-		  GROUP BY OI.APC_CD
-		         , OI.RCPT_CFMTN_YMD
-		       	 , OI.OUTORDR_TYPE
-		       	 , OI.OUTORDRNO
-		         , OI.APC_CNPT_NM
-		         , OI.APC_CNPT_CD
-		         , OI.WRHS_YMD
-		         , OI.OUTORDR_YMD
-		         , OI.ORDR_PRSN
-		         , OI.ORDR_PRSN_CD
-		         , OI.SPLY_PRSN
-		         , OI.SPMT_PCKG_UNIT_CD
-		         , OI.DLDTN
-		         , OI.DLDTN_CD
-		         , OI.ITEM_CD
-		         , OI.VRTY_CD
-		         , OI.SPCFCT_CD
-		         , OI.BX_GDS_QNTT
-		         , OI.OUTORDR_QNTT
-		         , OI.PIECE_QNTT
-		         , OI.UNIT_CD
-		         , OI.BX_UNTPRC
-		         , OI.OUTORDR_UNTPRC
-		         , OI.OUTORDR_UNIT_CD
-		         , OI.LOT
-		         , OI.TX_AMT
-		         , OI.OUTORDR_AMT
-		         , OI.WRHS_TYPE
-		         , OI.DOC_NO
-		         , OI.DOCK_INFO
-		         , OI.CNTR_SE
-		         , OI.BUYER_NM
-		         , OI.CNTR_RCVD_WRHS_YMD
-		         , OI.CNTR_NM
-		         , OI.CNTR_CD
-		         , OI.DLVGDS_SE_CD
-		         , OI.ETC
-		         , OI.RCPT_CFMTN_APC_CD
-		         , OI.DEL_YN
-		  ORDER BY OI.RCPT_CFMTN_YMD DESC NULLS LAST
+		  ORDER BY OI.RCPT_CFMTN_YMD DESC NULLS LAST, OI.WRHS_YMD
+    		  ) pt0
 		]]>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		  ) pt0
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
-    	</if>
-    	<if test='pagingYn == null or pagingYn.equals("N")'>
-    		  ) pt0
     	</if>
     	<!-- End 페이징 -->
     </select>

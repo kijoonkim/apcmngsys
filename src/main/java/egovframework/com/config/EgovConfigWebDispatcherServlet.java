@@ -86,6 +86,7 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 				"/actionLogout.do",
 				"/login.do",
 				"/saveExcel.do",
+				"/am/spmt/getSpmtDoc.do",
 				"/report/**"
 				);
 		registry.addInterceptor(new CustomAuthenticInterceptor())

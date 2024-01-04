@@ -321,5 +321,16 @@ public class OrdrVO extends ComVO {
 	 * 비고
 	 * */
 	private String rmrk;
+	
+	/**
+	 * 원상품코드
+	 */
+	private String orgnGdsCd;
+	
+	/**
+	 * 원상품명
+	 */
+	private String orgnGdsNm;
+	
 
 }

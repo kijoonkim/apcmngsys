@@ -1,7 +1,7 @@
 <%
  /**
   * @Class Name : outordrinfo.jsp
-  * @Description : 발주정보조회 화면
+  * @Description : 발주정보등록 화면
   * @author SI개발부
   * @since 2023.10.23
   * @version 1.0
@@ -420,7 +420,7 @@
     	    };
         SBGridProperties.columns = [
         	{
-        		caption: ["<input type='checkbox' id='allCheckBox' onchange='fn_checkAll(grdOutordrInfo, this);'>"],
+        		caption: ["<input type='checkbox' onchange='fn_checkAll(grdOutordrInfo, this);'>"],
         		ref: 'checked', 		width: '40px', 		type: 'checkbox',
         		style:'text-align: center',
         		typeinfo : {ignoreupdate: true}
@@ -916,13 +916,6 @@
     	let nRow = grdOutordrInfo.getRow();
     	let nCol = grdOutordrInfo.getCol();
     	let checkedCol = grdOutordrInfo.getColRef("checked");
-    	
-    	let checkboxChecked = grdOutordrInfo.getCheckedRows(0, true);
-    	const allCheckbox = grdOutordrInfo.getGridDataAll();
-    	if(checkboxChecked.length == allCheckbox.length){
-    		allCheckBox.checked = true;
-    	}
-    	
     	if(nCol == checkedCol){
     		// 발주수량 - 출하수량 - 출하지시수량 = 가능한 지시수량
 	    	let invntrQntt 		= grdOutordrInfo.getRowData(nRow).invntrQntt;
@@ -956,11 +949,9 @@
 		let inptCmndWghtCol = grdOutordrInfo.getColRef("inptCmndWght");
     	grdOutordrInfo.setCellData(nRow, inptCmndQnttCol, "");
     	grdOutordrInfo.setCellData(nRow, inptCmndWghtCol, "");
-    	const allCheckBox = document.querySelector('#allCheckBox');
-       	allCheckBox.checked = false;
 
     	if (grdOutordrInfo.getCheckedRows(getColRef) == 0) {
-        	let ref = "<input type='checkbox' id='allCheckBox' onchange='fn_checkAll(grdOutordrInfo, this);'>";
+        	let ref = "<input type='checkbox' onchange='fn_checkAll(grdOutordrInfo, this);'>";
         	grdOutordrInfo.setCellData(0, getColRef, ref, true, false);
     	}
     }
