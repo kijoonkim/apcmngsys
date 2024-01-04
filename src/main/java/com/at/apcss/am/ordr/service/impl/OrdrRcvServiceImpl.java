@@ -267,8 +267,10 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 		String apcCd = ordrRcvVO.getApcCd();
 		String lgszMrktCd = ordrRcvVO.getLgszMrktCd();
 
-		String crtrYmdFrom = ordrRcvVO.getCrtrYmdFrom();
-		String crtrYmdTo = ordrRcvVO.getCrtrYmdTo();
+		//String crtrYmdFrom = ordrRcvVO.getCrtrYmdFrom();
+		//String crtrYmdTo = ordrRcvVO.getCrtrYmdTo();
+		
+		String crtrYmd = ordrRcvVO.getCrtrYmd();
 
 		if (!StringUtils.hasText(apcCd)) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "주문서정보");
@@ -278,14 +280,9 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "대형마트구분");
 		}
 
-		if (!StringUtils.hasText(crtrYmdFrom)) {
-			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "수신기준시작일자");
+		if (!StringUtils.hasText(crtrYmd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "수신기준일자");
 		}
-
-		if (!StringUtils.hasText(crtrYmdTo)) {
-			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "수신기준시작일자");
-		}
-
 
 		if (AmConstants.CON_LGSZ_MRKT_CD_EMART.equals(lgszMrktCd)) {
 			//return insertHomplusOrdr(ordrRcvVO);
@@ -294,6 +291,7 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 			ordrRcvVO.setCrtrYmdType("1");
 
 			return insertHomplusOrdr(ordrRcvVO);
+			
 		} else if (AmConstants.CON_LGSZ_MRKT_CD_LOTTEMART.equals(lgszMrktCd)) {
 			//return insertHomplusOrdr(ordrRcvVO);
 		} else if (AmConstants.CON_LGSZ_MRKT_CD_GSRETAIL.equals(lgszMrktCd)) {
@@ -370,7 +368,9 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 		                                                .data(params)
 		                                                .method(Connection.Method.POST)
 		                                                .execute();
+		
 
+		
 		Object obj = jsonParser.parse(loginPageResponse.body());
 		JSONObject jsonObj = (JSONObject) obj;
 
@@ -401,8 +401,12 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 		String pQryIdOrdrDtl = "po.getOrderDetailPopupGoodSql";	// 쿼리id: 주문상세
 
 		String pYmdType = ordrRcvVO.getCrtrYmdType();	// "1";		// DATE_GUBUN		일자구분: 1 배달일자, 2 수신일자, 3 입고일자
-		String pYmdFrom = ordrRcvVO.getCrtrYmdFrom();	// "20231128";		// FROM_DATE
-		String pYmdTo = ordrRcvVO.getCrtrYmdTo();		// "20231128";			// TO_DATE
+//		String pYmdFrom = ordrRcvVO.getCrtrYmdFrom();	// "20231128";		// FROM_DATE
+//		String pYmdTo = ordrRcvVO.getCrtrYmdTo();		// "20231128";			// TO_DATE
+		
+		String pYmdFrom = ordrRcvVO.getCrtrYmd();
+		String pYmdTo = ordrRcvVO.getCrtrYmd();
+		
 		String pPoNo = "";			// PO_NO			구매번호
 		String pRecvStatus = "";		// EDI_RECV_STATUS 	수신구분: NULL, Y, N
 		String pVndrCd = "All";		// VENDOR_CODE		업체코드: 전체 ALL, 쉼표로 분리
