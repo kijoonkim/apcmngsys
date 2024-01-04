@@ -109,14 +109,19 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 
-
-
 		for (let i = 0; i < data.result.length; i++) {
 			let nowData = data.result[i];
 			let date = dateGetMonth(nowData.wrhsSttn.wsDate);
 			chartDataWrhs.push({month:date, wrhs: nowData.wrhsSttn.wgt,wrhsLine: nowData.wrhsSttn.wgt});
 			chartDataSort.push({month:date, sort: nowData.prdctnSttn.sort,pckg: nowData.prdctnSttn.pckg,pckgLine:nowData.prdctnSttn.pckg});
 			chartDataSpmt.push({month:date, spmt: nowData.spmtPrfmnc.wgt,spmtLine: nowData.spmtPrfmnc.wgt});
+			yearList.push(parseInt(nowData.wrhsSttn.wsDate.substring(0,4),10))
+		}
+
+		if(yearList[0] == yearList[yearList.length-1]){
+			chartYear = yearList[0]
+		}else{
+			chartYear = yearList[0] + " ~ " + yearList[yearList.length-1]
 		}
 
 		createChartWrhs();
@@ -134,10 +139,12 @@
 	var chartWrhs;
 	var chartSort;
 	var chartSpmt;
+	var chartYear;
 
-	var chartDataWrhs = []
-	var chartDataSort = []
-	var chartDataSpmt = []
+	var chartDataWrhs = [];
+	var chartDataSort = [];
+	var chartDataSpmt = [];
+	var yearList = [];
 
 	// 차트 생성
 	const createChartWrhs = async function (){
@@ -174,7 +181,7 @@
 				x: {
 					type: 'category',
 					label: {
-						text: "2023",
+						text: chartYear,
 						position: "outer-center"
 					}
 				},
@@ -237,7 +244,7 @@
 				x: {
 					type: 'category',
 					label: {
-						text: "2023",
+						text: chartYear,
 						position: "outer-center"
 					}
 				},
@@ -300,7 +307,7 @@
 				x: {
 					type: 'category',
 					label: {
-						text: "2023",
+						text: chartYear,
 						position: "outer-center"
 					}
 				},
