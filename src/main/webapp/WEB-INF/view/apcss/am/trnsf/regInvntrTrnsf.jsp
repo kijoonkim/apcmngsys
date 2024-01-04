@@ -408,7 +408,7 @@
 		SBGridProperties.frozencols = 4;
 	    SBGridProperties.columns = [
 	    	{
-	    		caption: ["전체","<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>"],
+	    		caption: ["전체","<input type='checkbox' id='allCheckBox' onchange='fn_checkAll(inptCmndDsctnList, this);'>"],
 	    		ref: 'checkBox',      	type:'checkbox',  	width:'50px',
 	    		style:'text-align:center',
 	    		typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
@@ -460,7 +460,7 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	    	{
-	    		caption: ["전체","<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>"],
+	    		caption: ["전체","<input type='checkbox' id='allCheckBox' onchange='fn_checkAll(inptCmndDsctnList, this);'>"],
 	    		ref: 'checkBox',      	type:'checkbox',  	width:'50px',
 	    		style:'text-align:center',
 	    		typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
@@ -514,7 +514,7 @@
 		SBGridProperties.frozencols = 4;
 	    SBGridProperties.columns = [
 	    	{
-	    		caption: ["전체","<input type='checkbox' onchange='fn_checkAll(inptCmndDsctnList, this);'>"],
+	    		caption: ["전체","<input type='checkbox' id='allCheckBox' onchange='fn_checkAll(inptCmndDsctnList, this);'>"],
 	    		ref: 'checkBox',      	type:'checkbox',	width:'50px',
 	    		style:'text-align:center',
 	    		typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
@@ -555,6 +555,13 @@
 	const fn_setValue = function(){
 		let nRow = inptCmndDsctnList.getRow();
     	let nCol = inptCmndDsctnList.getCol();
+    	
+    	let checkboxChecked = inptCmndDsctnList.getCheckedRows(0, true);
+    	const allCheckbox = inptCmndDsctnList.getGridDataAll();
+    	if(checkboxChecked.length == allCheckbox.length){
+    		allCheckBox.checked = true;
+    	}
+    	
     	if(nCol == 0){
 
     		let rowData = inptCmndDsctnList.getRowData(nRow);
@@ -575,6 +582,9 @@
 		let nRow = inptCmndDsctnList.getRow();
     	let trnsfQnttQnttCol = inptCmndDsctnList.getColRef("trnsfQntt");
 		let trnsfWghtQnttCol = inptCmndDsctnList.getColRef("trnsfWght");
+		
+		const allCheckBox = document.querySelector('#allCheckBox');
+		allCheckBox.checked = false;
 
 		inptCmndDsctnList.setCellData(nRow, trnsfQnttQnttCol, 0);
 		inptCmndDsctnList.setCellData(nRow, trnsfWghtQnttCol, 0);
