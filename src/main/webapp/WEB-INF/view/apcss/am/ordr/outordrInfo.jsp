@@ -19,7 +19,6 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<title>title : 발주정보조회</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -188,7 +187,10 @@
 				<!--[pp] 검색결과 -->
 				<div class="ad_tbl_top2">
 					<ul class="ad_tbl_count">
-						<li><span>발주 내역</span></li>
+						<li>
+							<span>발주 내역</span>
+							<span style="font-size:12px">(조회건수 <span id="cnt-outordr">0</span>건)</span>
+						</li>
 					</ul>
 					<div class="ad_tbl_toplist_datepk">
 				 		<table class="table table-bordered tbl_fixed">
@@ -240,7 +242,7 @@
 											id="btnRcptOrdrAll"
 											name="btnReceiptBndl"
 											uitype="normal"
-											onclick="btn_receiptBndl"
+											onclick="fn_receiptBndl"
 											class="btn btn-sm btn-outline-dark"
 											text="일괄 접수"
 										></sbux-button>
@@ -261,7 +263,7 @@
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdOutordrInfo" style="width:100%;height:433px;"></div>
+					<div id="sb-area-grdOutordr" style="width:100%;height:433px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 
@@ -293,8 +295,9 @@
 <script type="text/javascript">
 
 
-	var jsonOutordrInfo 	= [];
-
+	var grdOutordr;
+	
+	var jsonOutordr 		= [];
 	var jsonApcItem			= [];															// 품목
 	var jsonApcVrty			= [];															// 품종
 	var jsonRcptYn			= [{text: "접수", value: "Y"}, {text: "미접수", value: "N"}];															// 접수여부
@@ -305,6 +308,11 @@
 
 	var comboGridRcpYn 		= [{label: "접수", value: "Y"}, {label: "미접수", value: "N"}];	// 접수여부 (그리드)
 
+	
+	/**
+     * @name fn_initSBSelect
+     * @description SBSelect 초기화
+     */
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
 		let rst = await Promise.all([
@@ -312,13 +320,16 @@
 		 	gfn_setApcVrtySBSelect('srch-inp-vrtyCd', 	 	jsonApcVrty, 		gv_selectedApcCd),	// 품종
 			gfn_setComCdSBSelect('srch-slt-outordrType', 	jsonComOutordrType,	'OUTORDR_TYPE'),	// 발주유형
 			gfn_setTrsprtsSBSelect('srch-slt-trsprtCoCd', 	jsonTrsprtCoCd, 	gv_selectedApcCd),	// 운송회사
-			//setRcptYnSBSelect('srch-slt-rcptYn', 		 jsonRcptYn),								// 접수여부
 			gfn_setComCdSBSelect('slt-lgszMrktCd', 			jsonComLgszMrkt,	'LGSZ_MRKT_CD'),	// 발주유형
 		]);
 		SBUxMethod.refresh('srch-slt-rcptYn');
-		SBUxMethod.refresh('grdOutordrInfo');	// 접수여부 (그리드)
+		SBUxMethod.refresh('grdOutordr');	// 접수여부 (그리드)
 	}
 
+	/**
+     * @name fn_init
+     * @description 화면 init
+     */
 	const fn_init = async function() {
 
 		const firstYmd = gfn_dateFirstYmd(new Date());
@@ -332,18 +343,22 @@
 
 		await fn_initSBSelect();
 
-		fn_createOutordrInfoGrid();
+		fn_createOutordrGrid();
 
 		fn_search();
 	}
 
+	
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_init();
 	});
 
 
-
-	const fn_dtpChange = function(){
+	/**
+     * @name fn_dtpChange
+     * @description 발주일자 조회조건 validation
+     */
+	const fn_dtpChange = function() {
 		let outordrYmdFrom = SBUxMethod.get("srch-dtp-outordrYmdFrom");
 		let outordrYmdTo = SBUxMethod.get("srch-dtp-outordrYmdTo");
 		if (gfn_diffDate(outordrYmdFrom, outordrYmdTo) < 0){
@@ -353,55 +368,77 @@
 			return;
 		}
 	}
+	
+	/**
+     * @name fn_dtpChangeCrtr
+     * @description 수신기준일자 조회조건 validation
+     */
 	const fn_dtpChangeCrtr = function(){
 		let crtrYmd = SBUxMethod.get("dtp-crtrYmd");
 		let outordrYmdFrom = SBUxMethod.get("srch-dtp-outordrYmdFrom");
 		if (gfn_diffDate(outordrYmdFrom, crtrYmd) < 0){
-			gfn_comAlert("E0000", "수신일자는 발주일자 시작일 보다 이전일수 없습니다.");	//	E0000	{0}
+			gfn_comAlert("W0015", "수신일자", "발주일자 시작일");		//	W0015	{0}이/가 {1} 보다 작습니다.
 			SBUxMethod.set("dtp-crtrYmd", gfn_dateToYmd(new Date()));
 			return;
 		}
+		
 		let day = new Date();
 		day.setHours(0, 0, 0, 0);
 		let tomorrow = new Date(day.setDate(day.getDate()+1))
 
 		if (gfn_diffDate(crtrYmd, gfn_dateToYmd(tomorrow)) <= 0){
-			gfn_comAlert("E0000", "수신일자는 금일 이후가 될수 없습니다.");					//	E0000	{0}
+			gfn_comAlert("W0014", "수신일자는", "금일");		//	W0014	{0}이/가 {1} 보다 큽니다.
 			SBUxMethod.set("dtp-crtrYmd", gfn_dateToYmd(new Date()));
 			return;
 		}
 	}
 
+	/**
+     * @name fn_dtpChangeCmnd
+     * @description 지시일자 validation
+     */
 	const fn_dtpChangeCmnd = function(){
 		let cmndYmd = SBUxMethod.get("srch-dtp-cmndYmd");
 
 		if (gfn_diffDate(gfn_dateToYmd(new Date()), cmndYmd) < 0){
-			gfn_comAlert("E0000", "지시일자는 금일 보다 이전일수 없습니다.");		//	E0000	{0}
+			gfn_comAlert("W0015", "지시일자는", "금일");		//	W0015	{0}이/가 {1} 보다 작습니다.
 			SBUxMethod.set("srch-dtp-cmndYmd", gfn_dateToYmd(new Date()));
 			return;
 		}
 	}
 
+	/**
+     * @name fn_dtpChangeDudt
+     * @description 납기일자 validation
+     */
 	const fn_dtpChangeDudt = function(){
 		let dudtYmd = SBUxMethod.get("srch-dtp-dudtYmd");
 		if (gfn_diffDate(gfn_dateToYmd(new Date()), dudtYmd) < 0){
-			gfn_comAlert("E0000", "납기일자는 금일 이전일수 없습니다.");		//	E0000	{0}
+			gfn_comAlert("W0015", "납기일자", "금일");		//	W0015	{0}이/가 {1} 보다 작습니다.
 			SBUxMethod.set("srch-dtp-dudtYmd", gfn_dateToYmd(new Date()));
 			return;
 		}
 	}
 
-	function fn_selectItem(){
+	/**
+     * @name fn_selectItem
+     * @description 품목변경 이벤트
+     */
+	function fn_selectItem() {
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		SBUxMethod.set("srch-inp-vrtyNm", "");
 		SBUxMethod.set("srch-inp-vrtyCd", "");
 	}
 
-	function fn_createOutordrInfoGrid() {
+	/**
+     * @name fn_createOutordrGrid
+     * @description 발주정보 그리드 생성
+     */
+	const fn_createOutordrGrid = function() {
         var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdOutordrInfo';
-	    SBGridProperties.id = 'grdOutordrInfo';
-	    SBGridProperties.jsonref = 'jsonOutordrInfo';
+	    SBGridProperties.parentid = 'sb-area-grdOutordr';
+	    SBGridProperties.id = 'grdOutordr';
+	    SBGridProperties.jsonref = 'jsonOutordr';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'free';
 	    SBGridProperties.extendlastcol = 'scroll';
@@ -414,76 +451,264 @@
     	SBGridProperties.paging = {
     			'type' : 'page',
     		  	'count' : 5,
-    		  	'size' : 20,
+    		  	'size' : 50,
     		  	'sorttype' : 'page',
     		  	'showgoalpageui' : true
     	    };
         SBGridProperties.columns = [
         	{
-        		caption: ["<input type='checkbox' onchange='fn_checkAll(grdOutordrInfo, this);'>"],
+        		caption: ["<input type='checkbox' onchange='fn_checkAll(grdOutordr, this);'>"],
         		ref: 'checked', 		width: '40px', 		type: 'checkbox',
         		style:'text-align: center',
         		typeinfo : {ignoreupdate: true}
         	},
-            {caption: ['접수일자'], 		ref: 'rcptCfmtnYmd', 	width: '100px', 	type: 'output',			style:'text-align: center',
-    		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
+            {
+        		caption: ['접수일자'], 		
+        		ref: 'rcptCfmtnYmd', 	
+        		width: '100px', 	
+        		type: 'output',			
+        		style:'text-align: center',
+    		    format : {
+    		    	type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'
+    		    }
+        	},
             {caption: ['발주유형'], 		ref: 'outordrTypeNm', 	width: '70px', 		type: 'output',			style:'text-align: center'},
-            {caption: ['접수여부'], 		ref: 'rcptYn', 			width: '70px', 		type: 'combo',			style:'text-align: center',
-            	typeinfo : {ref:'comboGridRcpYn', label:'label', value:'value'}},
+            {
+            	caption: ['접수여부'], 		
+            	ref: 'rcptYn', 			
+            	width: '70px', 		
+            	type: 'combo',			
+            	style:'text-align: center',
+            	typeinfo : {
+            		ref:'comboGridRcpYn', 
+            		label:'label', 
+            		value:'value'
+            	}
+            },
             {caption: ['발주번호'], 		ref: 'outordrno', 		width: '140px', 	type: 'output',			style:'text-align: center'},
             {caption: ['거래처명'], 		ref: 'apcCnptNm', 		width: '200px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['납기일자'], 		ref: 'wrhsYmd', 		width: '100px', 	type: 'output',			style:'text-align: center',
-    		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
-            {caption: ['발주일자'], 		ref: 'outordrYmd', 		width: '100px', 	type: 'output',			style:'text-align: center',
-        		format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
-            {caption: ['주문자'], 		ref: 'ordrPrsn', 	width: '100px', 	type: 'output',			style:'text-align: center'},
+            {
+            	caption: ['납기일자'], 		
+            	ref: 'wrhsYmd', 		
+            	width: '100px', 	
+            	type: 'output',			
+            	style:'text-align: center',
+    		    format : {
+    		    	type: 'date', 
+    		    	rule: 'yyyy-mm-dd', 
+    		    	origin: 'yyyymmdd'
+    		    }
+            },
+            {
+            	caption: ['발주일자'], 		
+            	ref: 'outordrYmd', 		
+            	width: '100px', 	
+            	type: 'output',			
+            	style:'text-align: center',
+        		format : {
+        			type: 'date', 
+        			rule: 'yyyy-mm-dd', 
+        			origin: 'yyyymmdd'
+        		}
+            },
+            {caption: ['주문자'], 		ref: 'ordrPrsn', 		width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['공급자명'], 		ref: 'splyPrsn', 		width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['발주상품명'], 		ref: 'orgnGdsNm', 		width: '150px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['발주상품코드'], 	ref: 'orgnGdsCd', 		width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['상품명'], 		ref: 'spmtPckgUnitNm', 	width: '150px', 	type: 'output',			style:'text-align: center'},
             {caption: ['상품코드'], 		ref: 'spmtPckgUnitCd', 	width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['배송지'], 		ref: 'dldtn', 			width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['품목'], 			ref: 'itemNm', 			width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['품종'], 			ref: 'vrtyNm', 			width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['규격'], 			ref: 'spcfctNm', 		width: '70px', 		type: 'output',			style:'text-align: center'},
-            {caption: ['입수'], 			ref: 'bxGdsQntt', 		width: '100px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['발주수량'], 		ref: 'outordrQntt', 	width: '70px', 		type: 'output',			style:'text-align: right',
-				format : {type:'number', rule:'#,###'}},
-            {caption: ['낱개수량'], 		ref: 'pieceQntt', 		width: '70px', 		type: 'output',			style:'text-align: right',
-				format : {type:'number', rule:'#,###'}},
+            {
+            	caption: ['입수'], 			
+            	ref: 'bxGdsQntt', 		
+            	width: '100px', 	
+            	type: 'output',			
+            	style:'text-align: right',
+				format : {
+					type:'number', 
+					rule:'#,###'
+				}
+            },
+            {
+            	caption: ['발주수량'], 		
+            	ref: 'outordrQntt', 	
+            	width: '70px', 		
+            	type: 'output',			
+            	style:'text-align: right',
+				format : {
+					type:'number', 
+					rule:'#,###'
+				}
+            },
+            {
+            	caption: ['낱개수량'], 		
+            	ref: 'pieceQntt', 		
+            	width: '70px', 		
+            	type: 'output',			
+            	style:'text-align: right',
+				format : {
+					type:'number', 
+					rule:'#,###'
+				}
+            },
             {caption: ['단위'], 			ref: 'unitCd', 			width: '70px', 		type: 'output',			style:'text-align: center'},
-            {caption: ['박스단가 (원)'], 	ref: 'bxUntprc', 		width: '100px', 	type: 'output',			style:'text-align: right',
-            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-            {caption: ['발주단가 (원)'], 	ref: 'outordrUntprc', 	width: '100px', 	type: 'output',			style:'text-align: right',
-            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
+            {
+            	caption: ['박스단가 (원)'], 	
+            	ref: 'bxUntprc', 		
+            	width: '100px', 	
+            	type: 'output',			
+            	style:'text-align: right',
+            	typeinfo : {
+            		mask : {alias : 'numeric'}
+            	}, 
+            	format : {
+            		type:'number', 
+            		rule:'#,###'
+            	}
+            },
+            {
+            	caption: ['발주단가 (원)'], 	
+            	ref: 'outordrUntprc', 	
+            	width: '100px', 	
+            	type: 'output',			
+            	style:'text-align: right',
+            	typeinfo : {
+            		mask : {alias : 'numeric'}
+            	}, format : {
+            		type:'number', 
+            		rule:'#,###'
+            	}
+            },
             {caption: ['발주단위'], 		ref: 'outordrUnitCd', 	width: '70px', 		type: 'output',			style:'text-align: center'},
             {caption: ['LOT'], 			ref: 'lot', 			width: '100px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['세액 (원)'], 		ref: 'txAmt', 			width: '100px', 	type: 'output',			style:'text-align: right',
-            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-            {caption: ['발주금액 (원)'], 	ref: 'outordrAmt', 		width: '100px', 	type: 'output',			style:'text-align: right',
-            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-  	        {caption: ['재고수량'], 		ref: 'invntrQntt', 		width: '100px', 	type: 'output', 		style:'text-align:right',
-  				format : {type:'number', rule:'#,###'}},
-            {caption: ['출하수량'], 		ref: 'spmtQntt',		width: '100px', 	type: 'output', 		style:'text-align:right',
-  				format : {type:'number', rule:'#,###'}},
-            {caption: ['출하지시수량'], 	ref: 'cmndQntt',		width: '100px', 	type: 'output', 		style:'text-align:right',
-  				format : {type:'number', rule:'#,###'}},
-            {caption: ['지시수량'], 		ref: 'inptCmndQntt', 	width: '80px', 		type: 'input', 			style:'text-align:right; background:#FFF8DC;',
-            	typeinfo : {mask : {alias : 'numeric'}, maxlength : 10}, format : {type:'number', rule:'#,###'}, validate : gfn_chkByte.bind({byteLimit: 10})},
-            {caption: ['지시중량 (Kg)'], 	ref: 'inptCmndWght', 	width: '100px', 	type: 'output', 		style:'text-align:right',
-            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
+            {
+            	caption: ['세액 (원)'], 		ref: 'txAmt', 			width: '100px', 	type: 'output',			style:'text-align: right',
+            	typeinfo : {
+            		mask : {alias : 'numeric'}
+            	}, 
+            	format : {
+            		type:'number', 
+            		rule:'#,###'
+            	}
+            },
+            {
+            	caption: ['발주금액 (원)'], 	
+            	ref: 'outordrAmt', 		
+            	width: '100px', 	
+            	type: 'output',			
+            	style:'text-align: right',
+            	typeinfo : {
+            		mask : {
+            			alias : 'numeric'
+            		}
+            	}, 
+            	format : {
+            		type:'number', 
+            		rule:'#,###'
+            	}
+            },
+  	        {
+            	caption: ['재고수량'], 		
+            	ref: 'invntrQntt', 		
+            	width: '100px', 	
+            	type: 'output', 		
+            	style:'text-align:right',
+  				format : {
+  					type:'number', 
+  					rule:'#,###'
+  				}
+            },
+            {
+            	caption: ['출하수량'], 		
+            	ref: 'spmtQntt',		
+            	width: '100px', 	
+            	type: 'output', 		
+            	style:'text-align:right',
+  				format : {
+  					type:'number',
+  					rule:'#,###'
+  				}
+            },
+            {
+            	caption: ['출하지시수량'], 	
+            	ref: 'cmndQntt',		
+            	width: '100px', 	
+            	type: 'output', 		
+            	style:'text-align:right',
+  				format : {
+  					type:'number', 
+  					rule:'#,###'
+  				}
+            },
+            {
+            	caption: ['지시수량'], 		
+            	ref: 'inptCmndQntt', 	
+            	width: '80px', 		
+            	type: 'input', 			
+            	style:'text-align:right; background:#FFF8DC;',
+            	typeinfo : {
+            		mask : {
+            			alias : 'numeric'
+            		}, 
+            		maxlength : 10
+            	}, 
+            	format : {
+            		type:'number', 
+            		rule:'#,###'
+            	}, 
+            	validate : gfn_chkByte.bind({byteLimit: 10})
+            },
+            {
+            	caption: ['지시중량 (Kg)'], 	
+            	ref: 'inptCmndWght', 	
+            	width: '100px', 	
+            	type: 'output', 		
+            	style:'text-align:right',
+            	typeinfo : {
+            		mask : {alias : 'numeric'}
+            	}, 
+            	format : {
+            		type:'number', 
+            		rule:'#,###'
+            	}
+            },
             {caption: ['입고형태'], 		ref: 'wrhsType', 		width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['문서번호'], 		ref: 'docNo', 			width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['도크정보'], 		ref: 'dockInfo', 		width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['센터구분'], 		ref: 'cntrSe', 			width: '70px', 		type: 'output',			style:'text-align: center'},
             {caption: ['바이어명'], 		ref: 'buyerNm', 		width: '100px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['센터입하일'], 		ref: 'cntrRcvdWrhsYmd', width: '100px', 	type: 'output',			style:'text-align: center',
-    		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
+            {
+            	caption: ['센터입하일'], 		
+            	ref: 'cntrRcvdWrhsYmd', 
+            	width: '100px', 	
+            	type: 'output',			
+            	style:'text-align: center',
+    		    format : {
+    		    	type: 'date', 
+    		    	rule: 'yyyy-mm-dd', 
+    		    	origin: 'yyyymmdd'
+    		    }
+            },
             {caption: ['센터명'], 		ref: 'cntrNm', 			width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['납품구분'], 		ref: 'dlvgdsSeCd', 		width: '70px', 		type: 'output',			style:'text-align: center'},
             {caption: ['기타'], 			ref: 'etc', 			width: '300px', 	type: 'output',			style:'text-align: center'},
             {caption: ['접수APC (농협)'], ref: 'rcptCfmtnApcNm', 	width: '200px', 	type: 'output',			style:'text-align: center'},
             {caption: ['출하지시번호'], 	ref: 'spmtCmndno', 		width: '140px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['출하일자'], 		ref: 'spmtYmd', 		width: '100px', 	type: 'output',			style:'text-align: center',
-    		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
+            {
+            	caption: ['출하일자'], 		
+            	ref: 'spmtYmd', 		
+            	width: '100px', 	
+            	type: 'output',			
+            	style:'text-align: center',
+    		    format : {
+    		    	type: 'date', 
+    		    	rule: 'yyyy-mm-dd', 
+    		    	origin: 'yyyymmdd'
+    		    }
+            },
             {caption: ['지시일자'], 		ref: 'cmndYmd', 		hidden: true},
             {caption: ['발주유형'], 		ref: 'outordrType', 	hidden: true},
             {caption: ['운송회사코드'], 	ref: 'trsprtCoCd', 		hidden: true},
@@ -498,15 +723,20 @@
             {caption: ['규격코드'], 		ref: 'spcfctCd', 		hidden: true},
             {caption: ['삭제유무'], 		ref: 'delYn', 			hidden: true}
         ];
-        grdOutordrInfo = _SBGrid.create(SBGridProperties);
-        grdOutordrInfo.bind( "afterpagechanged" , "fn_pagingOutordrInfoList" );
-        grdOutordrInfo.bind('valuechanged' , 'fn_grdCmndQnttValueChanged');
-        grdOutordrInfo.bind('select' , 'fn_setValue');
-        grdOutordrInfo.bind('deselect' , 'fn_delValue');
+        
+        grdOutordr = _SBGrid.create(SBGridProperties);
+        grdOutordr.bind('afterpagechanged', fn_pagingOutordr);
+        grdOutordr.bind('valuechanged', fn_grdCmndQnttValueChanged);
+        grdOutordr.bind('select' , fn_setValue);
+        grdOutordr.bind('deselect', fn_delValue);
     }
 
-	//그리드 체크박스 전체 선택
-    function fn_checkAll(grid, obj) {
+	/**
+     * @name fn_checkAll
+     * @description 그리드 체크박스 전체 선택
+     */
+    const fn_checkAll = function(grid, obj) {
+		
         var gridList = grid.getGridDataAll();
         var checkedYn = obj.checked ? "true" : "false";
         //체크박스 열 index
@@ -524,24 +754,24 @@
             	grid.clickCell(i+1, getColRef, true, false);
 
            		// 발주수량 - 출하수량 - 출하지시수량 = 가능한 지시수량
-       	    	let invntrQntt 		= grdOutordrInfo.getRowData(i+1).invntrQntt;
-       			let spmtQntt 		= grdOutordrInfo.getRowData(i+1).spmtQntt;
-       			let outordrQntt 	= grdOutordrInfo.getRowData(i+1).outordrQntt;
-       			let cmndQntt 		= grdOutordrInfo.getRowData(i+1).cmndQntt;
+       	    	let invntrQntt 		= grid.getRowData(i+1).invntrQntt;
+       			let spmtQntt 		= grid.getRowData(i+1).spmtQntt;
+       			let outordrQntt 	= grid.getRowData(i+1).outordrQntt;
+       			let cmndQntt 		= grid.getRowData(i+1).cmndQntt;
        			let psbltyCmndQntt 	= outordrQntt - cmndQntt;
-       			let wght 			= grdOutordrInfo.getRowData(i+1).wght;
-       			let inptCmndQnttCol = grdOutordrInfo.getColRef("inptCmndQntt");
-       			let inptCmndWghtCol = grdOutordrInfo.getColRef("inptCmndWght");
+       			let wght 			= grid.getRowData(i+1).wght;
+       			let inptCmndQnttCol = grid.getColRef("inptCmndQntt");
+       			let inptCmndWghtCol = grid.getColRef("inptCmndWght");
 
        			if(psbltyCmndQntt > 0 && invntrQntt > 0){
        				if(psbltyCmndQntt > invntrQntt) {
-       					grdOutordrInfo.setCellData(i+1, inptCmndQnttCol, invntrQntt);
-       					grdOutordrInfo.setCellData(i+1, inptCmndWghtCol, invntrQntt*wght);
+       					grid.setCellData(i+1, inptCmndQnttCol, invntrQntt);
+       					grid.setCellData(i+1, inptCmndWghtCol, invntrQntt*wght);
        		            grid.setCellData(i+1, getColRef, checkedYn, true, false);
        		            checkedList.push(i+1);
        				} else {
-       					grdOutordrInfo.setCellData(i+1, inptCmndQnttCol, psbltyCmndQntt);
-       					grdOutordrInfo.setCellData(i+1, inptCmndWghtCol, psbltyCmndQntt*wght);
+       					grid.setCellData(i+1, inptCmndQnttCol, psbltyCmndQntt);
+       					grid.setCellData(i+1, inptCmndWghtCol, psbltyCmndQntt*wght);
        		            grid.setCellData(i+1, getColRef, checkedYn, true, false);
        		            checkedList.push(i+1);
        				}
@@ -557,8 +787,8 @@
 
     	if (checkedYn == "true") {
 	    	if (checkedList.length == 0) {
-	        	let ref = "<input type='checkbox' onchange='fn_checkAll(grdOutordrInfo, this);'>";
-	        	grdOutordrInfo.setCellData(0, getColRef, ref, true, false);
+	        	let ref = "<input type='checkbox' onchange='fn_checkAll(grdOutordr, this);'>";
+	        	grid.setCellData(0, getColRef, ref, true, false);
 			}
     	}
 
@@ -575,32 +805,43 @@
         "excelDwnld": {
             "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
             "accesskey": "e",					//단축키
-            "callback": fn_excelDwnld,			//콜백함수명
+            "callback": "fn_excelDwnld",			//콜백함수명
         }
     };
 
     // 엑셀 다운로드
-    function fn_excelDwnld() {
-    	grdOutordrInfo.exportLocalExcel("발주정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+	/**
+     * @name fn_excelDwnld
+     * @description 엑셀 다운로드
+     */
+    const fn_excelDwnld = function() {
+    	grdOutordr.exportLocalExcel("발주정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
 
-	// 출하지시 목록 조회 (조회 버튼)
-    async function fn_search() {
-		if (gfn_isEmpty(SBUxMethod.get("srch-dtp-outordrYmdFrom")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-outordrYmdTo"))){
+	/**
+     * @name fn_search
+     * @description 조회버튼
+     */
+    const fn_search = async function() {
+		if (	gfn_isEmpty(SBUxMethod.get("srch-dtp-outordrYmdFrom")) 
+				|| gfn_isEmpty(SBUxMethod.get("srch-dtp-outordrYmdTo"))){
 			gfn_comAlert("W0002", "발주일자");		//	W0002	{0}을/를 입력하세요.
             return;
 		}
 		
-    	let recordCountPerPage = grdOutordrInfo.getPageSize();  		// 몇개의 데이터를 가져올지 설정
+    	let recordCountPerPage = grdOutordr.getPageSize();  		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = 1;
-    	grdOutordrInfo.movePaging(currentPageNo);
+    	grdOutordr.movePaging(currentPageNo);
     }
 
 	let newJsonOutordrInfo = [];
 
-	// 출하지시 목록 조회 호출
-	async function fn_callSelectOutordrInfoList(recordCountPerPage, currentPageNo){
-		jsonOutordrInfo = [];
+	/**
+     * @name fn_setGrdOutordr
+     * @description 발주정보 조회
+     */
+	const fn_setGrdOutordr = async function(recordCountPerPage, currentPageNo) {
+
 		let apcCd = gv_selectedApcCd;
 		let rcptYn = SBUxMethod.get("srch-slt-rcptYn");
 		let outordrYmdFrom = SBUxMethod.get("srch-dtp-outordrYmdFrom");
@@ -611,113 +852,135 @@
 		let cnptNm = SBUxMethod.get("srch-inp-cnptNm");
 		let dudtYmd = SBUxMethod.get("srch-dtp-dudtYmd");
 		let spmtPckgUnitNm = SBUxMethod.get("srch-inp-spmtPckgUnitNm");
-// 		let apcSeCd = ;
-		let OrdrVO = {apcCd 				: apcCd
-//				    , apcSeCd 				: apcSeCd
-			        , rcptYn 				: rcptYn
-					, outordrYmdFrom 		: outordrYmdFrom
-					, outordrYmdTo 			: outordrYmdTo
-					, outordrType 			: outordrType
-					, itemCd 				: itemCd
-					, vrtyCd 				: vrtyCd
-					, apcCnptNm 			: cnptNm
-					, wrhsYmd 				: dudtYmd
-					, spmtPckgUnitNm 		: spmtPckgUnitNm
-					, pagingYn 				: 'Y'
-					, currentPageNo 		: currentPageNo
-					, recordCountPerPage 	: recordCountPerPage};
-    	let postJsonPromise = gfn_postJSON("/am/ordr/selectOrdrList.do", OrdrVO);
-        let data = await postJsonPromise;
-        newJsonOutordrInfo = [];
-        try{
-  			if (_.isEqual("S", data.resultStatus)) {
-  	        	data.resultList.forEach((item, index) => {
-  					let ordr = {
-  						  checked 				: "false"
-  						, rcptCfmtnYmd 			: item.rcptCfmtnYmd
-  						, outordrTypeNm 		: item.outordrTypeNm
-  						, outordrType 			: item.outordrType
-  						, rcptYn 				: null
-  						, outordrno 			: item.outordrno
-  						, apcCnptNm	 			: item.apcCnptNm
-  						, wrhsYmd 				: item.wrhsYmd
-  						, outordrYmd 			: item.outordrYmd
-  						, ordrPrsn 				: item.ordrPrsn
-  						, splyPrsn 				: item.splyPrsn
-  						, spmtPckgUnitNm 		: item.spmtPckgUnitNm
-  						, spmtPckgUnitCd		: item.spmtPckgUnitCd
-  						, dldtn 				: item.dldtn
-  						, itemNm 				: item.itemNm
-  						, vrtyNm 				: item.vrtyNm
-  						, spcfctNm 				: item.spcfctNm
-  						, bxGdsQntt 			: item.bxGdsQntt
-  						, outordrQntt			: item.outordrQntt
-  						, pieceQntt				: item.pieceQntt
-  						, unitCd				: item.unitCd
-  						, bxUntprc				: item.bxUntprc
-  						, outordrUntprc			: item.outordrUntprc
-  						, outordrUnitCd			: item.outordrUnitCd
-  						, lot					: item.lot
-  						, txAmt					: item.txAmt
-  						, outordrAmt			: item.outordrAmt
-  						, wrhsType				: item.wrhsType
-  						, docNo					: item.docNo
-  						, dockInfo				: item.dockInfo
-  						, cntrSe				: item.cntrSe
-  						, buyerNm				: item.buyerNm
-  						, cntrRcvdWrhsYmd		: item.cntrRcvdWrhsYmd
-  						, cntrNm				: item.cntrNm
-  						, dlvgdsSeCd			: item.dlvgdsSeCd
-  						, etc					: item.etc
-  						, rcptCfmtnApcNm		: item.rcptCfmtnApcNm
-  						, spmtCmndno			: item.spmtCmndno
-  						, spmtYmd				: item.spmtYmd
-  						, invntrQntt			: item.invntrQntt
-  						, invntrWght			: item.invntrWght
-  						, spmtQntt				: item.spmtQntt
-  						, spmtWght				: item.spmtWght
-  						, cmndQntt				: item.cmndQntt
-  						, cmndWght				: item.cmndWght
-  						, gdsGrd 				: item.gdsGrd
-  						, wght	 				: item.wght
-  						, apcCd 				: item.apcCd
-  						, apcSeCd 				: item.apcSeCd
-  						, apcCnptCd 			: item.apcCnptCd
-  						, itemCd 				: item.itemCd
-  						, vrtyCd 				: item.vrtyCd
-  						, spcfctCd 				: item.spcfctCd
-  						, delYn					: item.delYn
-  					}
-  					if(!gfn_isEmpty(ordr.rcptCfmtnYmd)){
-  						ordr.rcptYn = 'Y';
-  					} else {
-  						ordr.rcptYn = 'N';
-  					}
-  					jsonOutordrInfo.push(Object.assign({}, ordr));
-  					newJsonOutordrInfo.push(Object.assign({}, ordr));
-  				});
-  	        	if(jsonOutordrInfo.length > 0){
-  					if(grdOutordrInfo.getPageTotalCount() != data.resultList[0].totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-  						grdOutordrInfo.setPageTotalCount(data.resultList[0].totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-  						grdOutordrInfo.rebuild();
-  					}else{
-  						grdOutordrInfo.refresh();
-  					}
-  				}else{
-  					grdOutordrInfo.setPageTotalCount(0);
-  					grdOutordrInfo.rebuild();
-  				}
-  	        	// 체크박스 유무
-  	        	for ( let i=1; i<=grdOutordrInfo.getGridDataAll().length; i++ ){
-  	    			const rowData = grdOutordrInfo.getRowData(i);
-  	    			if (rowData.outordrQntt == rowData.cmndQntt){
-  	    				grdOutordrInfo.setCellDisabled(i, 0, i, 0, true);
-  	    			}
-  	    		}
 
-        	} else {
-        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        	}
+		let ordrVO = {
+					apcCd			: apcCd,
+			        rcptYn 			: rcptYn,
+					outordrYmdFrom 	: outordrYmdFrom,
+					outordrYmdTo 	: outordrYmdTo,
+					outordrType 	: outordrType,
+					itemCd 			: itemCd,
+					vrtyCd 			: vrtyCd,
+					apcCnptNm 		: cnptNm,
+					wrhsYmd 		: dudtYmd,
+					spmtPckgUnitNm 	: spmtPckgUnitNm,
+					
+					pagingYn 			: 'Y',
+					currentPageNo 		: currentPageNo,
+					recordCountPerPage 	: recordCountPerPage
+				};
+        try{
+        	
+        	let postJsonPromise = gfn_postJSON("/am/ordr/selectOrdrList.do", ordrVO);
+            let data = await postJsonPromise;
+            newJsonOutordrInfo = [];
+        	
+  			if (!_.isEqual("S", data.resultStatus)) {
+  				gfn_comAlert(data.resultCode, data.resultMessage);
+  				return;	
+  			}
+  			
+  			jsonOutordr.length = 0;
+  			let totalRecordCount = 0;
+  			
+        	data.resultList.forEach((item, index) => {
+				
+        		let ordr = {
+					  checked 				: "false"
+					, rcptCfmtnYmd 			: item.rcptCfmtnYmd
+					, outordrTypeNm 		: item.outordrTypeNm
+					, outordrType 			: item.outordrType
+					, rcptYn 				: null
+					, outordrno 			: item.outordrno
+					, apcCnptNm	 			: item.apcCnptNm
+					, wrhsYmd 				: item.wrhsYmd
+					, outordrYmd 			: item.outordrYmd
+					, ordrPrsn 				: item.ordrPrsn
+					, splyPrsn 				: item.splyPrsn
+					, spmtPckgUnitNm 		: item.spmtPckgUnitNm
+					, spmtPckgUnitCd		: item.spmtPckgUnitCd
+					, dldtn 				: item.dldtn
+					, itemNm 				: item.itemNm
+					, vrtyNm 				: item.vrtyNm
+					, spcfctNm 				: item.spcfctNm
+					, bxGdsQntt 			: item.bxGdsQntt
+					, outordrQntt			: item.outordrQntt
+					, pieceQntt				: item.pieceQntt
+					, unitCd				: item.unitCd
+					, bxUntprc				: item.bxUntprc
+					, outordrUntprc			: item.outordrUntprc
+					, outordrUnitCd			: item.outordrUnitCd
+					, lot					: item.lot
+					, txAmt					: item.txAmt
+					, outordrAmt			: item.outordrAmt
+					, wrhsType				: item.wrhsType
+					, docNo					: item.docNo
+					, dockInfo				: item.dockInfo
+					, cntrSe				: item.cntrSe
+					, buyerNm				: item.buyerNm
+					, cntrRcvdWrhsYmd		: item.cntrRcvdWrhsYmd
+					, cntrNm				: item.cntrNm
+					, dlvgdsSeCd			: item.dlvgdsSeCd
+					, etc					: item.etc
+					, rcptCfmtnApcNm		: item.rcptCfmtnApcNm
+					, spmtCmndno			: item.spmtCmndno
+					, spmtYmd				: item.spmtYmd
+					, invntrQntt			: item.invntrQntt
+					, invntrWght			: item.invntrWght
+					, spmtQntt				: item.spmtQntt
+					, spmtWght				: item.spmtWght
+					, cmndQntt				: item.cmndQntt
+					, cmndWght				: item.cmndWght
+					, gdsGrd 				: item.gdsGrd
+					, wght	 				: item.wght
+					, apcCd 				: item.apcCd
+					, apcSeCd 				: item.apcSeCd
+					, apcCnptCd 			: item.apcCnptCd
+					, itemCd 				: item.itemCd
+					, vrtyCd 				: item.vrtyCd
+					, spcfctCd 				: item.spcfctCd
+					, delYn					: item.delYn
+					, orgnGdsCd				: item.orgnGdsCd
+					, orgnGdsNm				: item.orgnGdsNm
+				}
+				
+				if (!gfn_isEmpty(ordr.rcptCfmtnYmd)){
+					ordr.rcptYn = 'Y';
+				} else {
+					ordr.rcptYn = 'N';
+				}
+				
+        		if (index === 0) {
+	  				totalRecordCount = item.totalRecordCount;
+	  			}
+        		
+				jsonOutordr.push(Object.assign({}, ordr));
+				newJsonOutordrInfo.push(Object.assign({}, ordr));
+				
+			});
+	        	
+        	if (jsonOutordr.length > 0){
+				if (grdOutordr.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+					grdOutordr.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+					grdOutordr.rebuild();
+				} else {
+					grdOutordr.refresh();
+				}
+			} else {
+				grdOutordr.setPageTotalCount(0);
+				grdOutordr.rebuild();
+			}
+        	
+        	document.querySelector('#cnt-outordr').innerText = totalRecordCount;
+        	
+        	// 체크박스 유무
+        	for ( let i=1; i<=grdOutordr.getGridDataAll().length; i++ ){
+    			const rowData = grdOutordr.getRowData(i);
+    			if (rowData.outordrQntt == rowData.cmndQntt){
+    				grdOutordr.setCellDisabled(i, 0, i, 0, true);
+    			}
+    		}
+
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -727,24 +990,32 @@
         }
 	}
 
-	// 페이징
-    async function fn_pagingOutordrInfoList(){
-    	let recordCountPerPage = grdOutordrInfo.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-    	let currentPageNo = grdOutordrInfo.getSelectPageIndex();
-    	let ref = "<input type='checkbox' onchange='fn_checkAll(grdOutordrInfo, this);'>";
-    	grdOutordrInfo.setCellData(0, grdOutordrInfo.getColRef("checked"), ref, true, false);
-    	fn_callSelectOutordrInfoList(recordCountPerPage, currentPageNo);
+	/**
+     * @name fn_pagingOutordr
+     * @description 발주정보 조회 페이징
+     */
+    const fn_pagingOutordr = async function() {
+    	let recordCountPerPage = grdOutordr.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+    	let currentPageNo = grdOutordr.getSelectPageIndex();
+    	let ref = "<input type='checkbox' onchange='fn_checkAll(grdOutordr, this);'>";
+    	grdOutordr.setCellData(0, grdOutordr.getColRef("checked"), ref, true, false);
+    	fn_setGrdOutordr(recordCountPerPage, currentPageNo);
     }
 
-	// 일괄 접수
-    async function btn_receiptBndl(){
-    	let allData = grdOutordrInfo.getGridDataAll();
+	// 
+	/**
+	 * @name fn_receiptBndl
+	 * @description 발주정보 일괄 접수
+	 */
+    const fn_receiptBndl = async function() {
+		
+    	let allData = grdOutordr.getGridDataAll();
     	let haveSpmtCmndList = [];
 		const rcptOrdrAllList = [];
 
 		for ( let i=1; i<=allData.length; i++ ){
-			const rowData = grdOutordrInfo.getRowData(i);
-			const rowSts = grdOutordrInfo.getRowStatus(i);
+			const rowData = grdOutordr.getRowData(i);
+			const rowSts = grdOutordr.getRowStatus(i);
 			if (rowData.checked == "true") {
 				if (!gfn_isEmpty(rowData.spmtCmndno)) {
 					haveSpmtCmndList.push(i+"행");
@@ -778,16 +1049,18 @@
     		return;
     	}
 
-    	const postJsonPromise = gfn_postJSON("/am/ordr/multiOrdrList.do", rcptOrdrAllList, this.prgrmId);	// 프로그램id 추가
-		const data = await postJsonPromise;
         try {
+        	
+        	const postJsonPromise = gfn_postJSON("/am/ordr/multiOrdrList.do", rcptOrdrAllList);	// 프로그램id 추가
+    		const data = await postJsonPromise;
+        	
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-        		fn_callSelectOutordrInfoList();
         		fn_search();
         	} else {
         		gfn_comAlert(data.resultCode, data.resultMessage);
         	}
+        	
         } catch(e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -805,19 +1078,15 @@
 
 		// set param
 		const lgszMrktCd = SBUxMethod.get("slt-lgszMrktCd");
-		const crtrYmdFrom = SBUxMethod.get("dtp-crtrYmd");
-		const crtrYmdTo = SBUxMethod.get("dtp-crtrYmd");
-
+		const crtrYmd = SBUxMethod.get("dtp-crtrYmd");
+		
 		if (gfn_isEmpty(lgszMrktCd)) {
 			gfn_comAlert("W0001", "대형마트");		//	W0001	{0}을/를 선택하세요.
 			return;
 		}
-		if (gfn_isEmpty(crtrYmdFrom)) {
-			gfn_comAlert("W0001", "수신기준시작일자");		//	W0001	{0}을/를 선택하세요.
-			return;
-		}
-		if (gfn_isEmpty(crtrYmdTo)) {
-			gfn_comAlert("W0001", "수신기준종료일자");		//	W0001	{0}을/를 선택하세요.
+		
+		if (gfn_isEmpty(crtrYmd)) {
+			gfn_comAlert("W0001", "수신기준일자");		//	W0001	{0}을/를 선택하세요.
 			return;
 		}
 
@@ -828,24 +1097,24 @@
 		const rcptOutordr = {
 				apcCd: gv_selectedApcCd,
 				lgszMrktCd: lgszMrktCd,
-				crtrYmdFrom: crtrYmdFrom,
-				crtrYmdTo: crtrYmdTo
+				crtrYmd: crtrYmd
 			}
 
-		const postJsonPromise = gfn_postJSON(
-										"/am/ordr/insertOutordrRcpt.do",
-										rcptOutordr
-									);	// 프로그램id 추가
-		const data = await postJsonPromise;
-
         try {
+        	
+    		const postJsonPromise = gfn_postJSON(
+					"/am/ordr/insertOutordrRcpt.do",
+					rcptOutordr
+				);	// 프로그램id 추가
+			const data = await postJsonPromise;
+        	
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-        		fn_callSelectOutordrInfoList();
         		fn_search();
         	} else {
         		gfn_comAlert(data.resultCode, data.resultMessage);
         	}
+        	
         } catch(e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -853,112 +1122,123 @@
     		console.error("failed", e.message);
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
-
-
 	}
 
+	/**
+	 * @name fn_grdCmndQnttValueChanged
+	 * @description 지시수량 valueChanged Event
+	 */
     const fn_grdCmndQnttValueChanged = async function(){
 
-    	let nRow = grdOutordrInfo.getRow();
-		let nCol = grdOutordrInfo.getCol();
-		let inptCmndQnttCol = grdOutordrInfo.getColRef("inptCmndQntt");
+    	let nRow = grdOutordr.getRow();
+		let nCol = grdOutordr.getCol();
+		let inptCmndQnttCol = grdOutordr.getColRef("inptCmndQntt");
 		switch (nCol) {
-		case inptCmndQnttCol:	// checkbox
-			fn_checkInptQntt();
-			break;
-		default:
-			return;
+			case inptCmndQnttCol:	// checkbox
+				fn_checkInptQntt();
+				break;
+			default:
+				return;
 		}
     }
 
     const fn_checkInptQntt = async function(){
 
-    	let nRow = grdOutordrInfo.getRow();
-		let nCol = grdOutordrInfo.getCol();
+    	let nRow = grdOutordr.getRow();
+		let nCol = grdOutordr.getCol();
 
-		let invntrQntt 		= grdOutordrInfo.getRowData(nRow).invntrQntt;
-		let spmtQntt 		= grdOutordrInfo.getRowData(nRow).spmtQntt;
-		let outordrQntt 	= grdOutordrInfo.getRowData(nRow).outordrQntt;
-		let cmndQntt 		= grdOutordrInfo.getRowData(nRow).cmndQntt;
-		let inptCmndQntt 	= grdOutordrInfo.getRowData(nRow).inptCmndQntt;
+		const rowData = grdOutordr.getRowData(nRow);
+		
+		let invntrQntt 		= rowData.invntrQntt;
+		let spmtQntt 		= rowData.spmtQntt;
+		let outordrQntt 	= rowData.outordrQntt;
+		let cmndQntt 		= rowData.cmndQntt;
+		let inptCmndQntt 	= rowData.inptCmndQntt;
 		let psbltyCmndQntt 	= outordrQntt - cmndQntt;
-		let wght 			= grdOutordrInfo.getRowData(nRow).wght;
-		let inptCmndQnttCol = grdOutordrInfo.getColRef("inptCmndQntt");
-		let inptCmndWghtCol = grdOutordrInfo.getColRef("inptCmndWght");
-		let checkedCol 		= grdOutordrInfo.getColRef("checked");
+		let wght 			= rowData.wght;
+		
+		let inptCmndQnttCol = grdOutordr.getColRef("inptCmndQntt");
+		let inptCmndWghtCol = grdOutordr.getColRef("inptCmndWght");
+		let checkedCol 		= grdOutordr.getColRef("checked");
 
 		// 지시가능한수량 > 입력한지시수량
-		if(inptCmndQntt > psbltyCmndQntt){
+		if (inptCmndQntt > psbltyCmndQntt){
 			gfn_comAlert("W0008", "지시가능수량", "지시수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
-			grdOutordrInfo.setCellData(nRow, inptCmndQnttCol , "");
-			grdOutordrInfo.setCellData(nRow, inptCmndWghtCol, "");
-			grdOutordrInfo.setCellData(nRow, checkedCol, "false");
+			grdOutordr.setCellData(nRow, inptCmndQnttCol , "");
+			grdOutordr.setCellData(nRow, inptCmndWghtCol, "");
+			grdOutordr.setCellData(nRow, checkedCol, "false");
             return;
 		}
-		if(invntrQntt >= inptCmndQntt){
-			grdOutordrInfo.setCellData(nRow, inptCmndWghtCol, inptCmndQntt*wght);
-			grdOutordrInfo.setCellData(nRow, checkedCol, "true");
-		}else{
+		
+		if (invntrQntt >= inptCmndQntt){
+			grdOutordr.setCellData(nRow, inptCmndWghtCol, inptCmndQntt*wght);
+			grdOutordr.setCellData(nRow, checkedCol, "true");
+		} else {
 			gfn_comAlert("W0008", "재고수량", "지시수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
-			grdOutordrInfo.setCellData(nRow, inptCmndQnttCol, "");
-			grdOutordrInfo.setCellData(nRow, inptCmndWghtCol, "");
-			grdOutordrInfo.setCellData(nRow, checkedCol, "false");
+			grdOutordr.setCellData(nRow, inptCmndQnttCol, "");
+			grdOutordr.setCellData(nRow, inptCmndWghtCol, "");
+			grdOutordr.setCellData(nRow, checkedCol, "false");
 			return;
 		}
-		if(inptCmndQntt == 0){
-			grdOutordrInfo.setCellData(nRow, inptCmndQnttCol, "");
-			grdOutordrInfo.setCellData(nRow, inptCmndWghtCol, "");
-			grdOutordrInfo.setCellData(nRow, checkedCol, "false");
+		
+		if (inptCmndQntt == 0){
+			grdOutordr.setCellData(nRow, inptCmndQnttCol, "");
+			grdOutordr.setCellData(nRow, inptCmndWghtCol, "");
+			grdOutordr.setCellData(nRow, checkedCol, "false");
 		}
     }
 
-    const fn_setValue = function(){
-    	let nRow = grdOutordrInfo.getRow();
-    	let nCol = grdOutordrInfo.getCol();
-    	let checkedCol = grdOutordrInfo.getColRef("checked");
-    	if(nCol == checkedCol){
+    const fn_setValue = function() {
+    	let nRow = grdOutordr.getRow();
+    	let nCol = grdOutordr.getCol();    	
+    	
+    	if (nCol == grdOutordr.getColRef("checked")) {
+    		const rowData = grdOutordr.getRowData(nRow);
     		// 발주수량 - 출하수량 - 출하지시수량 = 가능한 지시수량
-	    	let invntrQntt 		= grdOutordrInfo.getRowData(nRow).invntrQntt;
-			let spmtQntt 		= grdOutordrInfo.getRowData(nRow).spmtQntt;
-			let outordrQntt 	= grdOutordrInfo.getRowData(nRow).outordrQntt;
-			let cmndQntt 		= grdOutordrInfo.getRowData(nRow).cmndQntt;
+	    	let invntrQntt 		= rowData.invntrQntt;
+			let spmtQntt 		= rowData.spmtQntt;
+			let outordrQntt 	= rowData.outordrQntt;
+			let cmndQntt 		= rowData.cmndQntt;
 			let psbltyCmndQntt 	= outordrQntt - cmndQntt;
-			let wght 			= grdOutordrInfo.getRowData(nRow).wght;
-			let inptCmndQnttCol = grdOutordrInfo.getColRef("inptCmndQntt");
-			let inptCmndWghtCol = grdOutordrInfo.getColRef("inptCmndWght");
+			let wght 			= rowData.wght;
+			
+			let inptCmndQnttCol = grdOutordr.getColRef("inptCmndQntt");
+			let inptCmndWghtCol = grdOutordr.getColRef("inptCmndWght");
 
 			if(psbltyCmndQntt > 0 && invntrQntt > 0){
 				if(psbltyCmndQntt > invntrQntt) {
-					grdOutordrInfo.setCellData(nRow, inptCmndQnttCol, invntrQntt);
-					grdOutordrInfo.setCellData(nRow, inptCmndWghtCol, invntrQntt*wght);
+					grdOutordr.setCellData(nRow, inptCmndQnttCol, invntrQntt);
+					grdOutordr.setCellData(nRow, inptCmndWghtCol, invntrQntt*wght);
 				} else {
-					grdOutordrInfo.setCellData(nRow, inptCmndQnttCol, psbltyCmndQntt);
-					grdOutordrInfo.setCellData(nRow, inptCmndWghtCol, psbltyCmndQntt*wght);
+					grdOutordr.setCellData(nRow, inptCmndQnttCol, psbltyCmndQntt);
+					grdOutordr.setCellData(nRow, inptCmndWghtCol, psbltyCmndQntt*wght);
 				}
 			} else if (invntrQntt <= 0) {
-		    	grdOutordrInfo.setCellData(nRow, checkedCol, "false");
-				gfn_comAlert("E0000", "재고가 없습니다.");
+				grdOutordr.setCellData(nRow, checkedCol, "false");
+				gfn_comAlert("W0005", "상품재고");		//	W0005	{0}이/가 없습니다.
 			}
     	}
     }
 
     const fn_delValue = async function(){
-    	var nRow = grdOutordrInfo.getRow();
-        var getColRef = grdOutordrInfo.getColRef("checked");
-    	let inptCmndQnttCol = grdOutordrInfo.getColRef("inptCmndQntt");
-		let inptCmndWghtCol = grdOutordrInfo.getColRef("inptCmndWght");
-    	grdOutordrInfo.setCellData(nRow, inptCmndQnttCol, "");
-    	grdOutordrInfo.setCellData(nRow, inptCmndWghtCol, "");
+    	var nRow = grdOutordr.getRow();
+        var getColRef = grdOutordr.getColRef("checked");
+        
+    	let inptCmndQnttCol = grdOutordr.getColRef("inptCmndQntt");
+		let inptCmndWghtCol = grdOutordr.getColRef("inptCmndWght");
+		grdOutordr.setCellData(nRow, inptCmndQnttCol, "");
+		grdOutordr.setCellData(nRow, inptCmndWghtCol, "");
 
-    	if (grdOutordrInfo.getCheckedRows(getColRef) == 0) {
-        	let ref = "<input type='checkbox' onchange='fn_checkAll(grdOutordrInfo, this);'>";
-        	grdOutordrInfo.setCellData(0, getColRef, ref, true, false);
+    	if (grdOutordr.getCheckedRows(getColRef) == 0) {
+        	let ref = "<input type='checkbox' onchange='fn_checkAll(grdOutordr, this);'>";
+        	grdOutordr.setCellData(0, getColRef, ref, true, false);
     	}
     }
 
 	// 출하지시 등록
-    async function fn_regSpmtCmnd(){
-    	let allData = grdOutordrInfo.getGridDataAll();
+    const fn_regSpmtCmnd = async function () {
+		
+    	let allData = grdOutordr.getGridDataAll();
 		let cmndYmd = SBUxMethod.get("srch-dtp-cmndYmd");
 		let trsprtCoCd = SBUxMethod.get("srch-slt-trsprtCoCd");
 		let rmrk = SBUxMethod.get("srch-inp-rmrk");
@@ -974,8 +1254,9 @@
 		}
 
 		for ( let i=1; i<=allData.length; i++ ){
-			const rowData = grdOutordrInfo.getRowData(i);
-			const rowSts = grdOutordrInfo.getRowStatus(i);
+			const rowData = grdOutordr.getRowData(i);
+			const rowSts = grdOutordr.getRowStatus(i);
+			
 			if (rowData.checked == "true"){
 				if (gfn_isEmpty(rowData.inptCmndQntt)){
 					gfn_comAlert("W0002", "지시수량");		//	W0002	{0}을/를 선택하세요.
@@ -1007,13 +1288,13 @@
     		return;
     	}
 
-    	const postJsonPromise = gfn_postJSON("/am/ordr/regSpmtCmndList.do", regSpmtCmndList, this.prgrmId);	// 프로그램id 추가
-		const data = await postJsonPromise;
-
 		try {
+			
+	    	const postJsonPromise = gfn_postJSON("/am/ordr/regSpmtCmndList.do", regSpmtCmndList, this.prgrmId);	// 프로그램id 추가
+			const data = await postJsonPromise;
+			
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-        		fn_callSelectOutordrInfoList();
         		fn_search();
         	} else {
         		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
@@ -1069,7 +1350,7 @@
     	popVrty.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-slt-itemCd"), fn_setVrty, fn_setVrtys);
 	}
 
-     const fn_setVrty = function(vrty) {
+    const fn_setVrty = function(vrty) {
 		if (!gfn_isEmpty(vrty)) {
 			SBUxMethod.setValue('srch-slt-itemCd', vrty.itemCd);
 			SBUxMethod.set('srch-inp-vrtyNm', vrty.vrtyNm);
