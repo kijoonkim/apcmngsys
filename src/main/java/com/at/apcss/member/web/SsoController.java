@@ -583,8 +583,52 @@ public class SsoController extends BaseController {
 	@GetMapping(value = "/actionSSOLoginApcInsReq.do")
 	public String actionSSOLoginApcInsReq(HttpServletRequest request) throws Exception {
 
-		String id = request.getParameter("id");
-
+		// String id = request.getParameter("id");
+		String id = ComConstants.CON_BLANK;
+		String pniToken = StrUtil.NVL(request.getParameter(ComConstants.SYS_SSO_TOKEN));
+		
+		if (ComConstants.CON_BLANK.equals(pniToken)) {
+			pniToken = StrUtil.NVL(request.getSession().getAttribute(ComConstants.SYS_SSO_TOKEN));
+		}
+		
+		if (StringUtils.hasText(pniToken)) {			
+			String localIp = AddressUtil.getClientIp(request);
+			ApiUserService apiUserService = new ApiUserService();
+			String errorCode = apiUserService.executeUserData(pniToken, localIp);
+			
+			if (StringUtils.hasText(errorCode)) {
+				logger.error("@@@@ SSO 에이전트 오류 : {}", errorCode);
+				return "redirect:/login.do";
+			} else {
+				String userData = apiUserService.getUserData();
+				
+				if (StringUtils.hasText(userData)) {
+					
+					logger.error("@@@@ SSO 사용자 정보 : {}", userData);
+					try {
+				        JSONParser jsonParser = new JSONParser();
+				        Object objUser = jsonParser.parse(userData);
+						JSONObject jsonObj = (JSONObject) objUser;
+						
+						id = (String)jsonObj.get("user_id");
+						request.getSession().setAttribute(ComConstants.SYS_SSO_TOKEN, pniToken);
+						
+					} catch (Exception e) {
+						insertSysErrorLog(String.format("sso error: %s / %s", userData, e.getMessage()));
+						return "redirect:/login.do";
+					}
+				}
+			}	
+		} else {
+			logger.error("@@@@ SSO 토큰정보 없음");
+			return "redirect:/login.do";
+		}
+		
+		if (!StringUtils.hasText(id)) {
+			logger.error("@@@@ SSO 토큰정보 없음");
+			return "redirect:/login.do";
+		}
+		
 		LoginVO loginVO = new LoginVO();
 		loginVO.setId(id);
 
@@ -801,8 +845,52 @@ public class SsoController extends BaseController {
 	@GetMapping(value = "/actionSSOLoginApcPt.do")
 	public String actionSSOLoginApcPt(HttpServletRequest request) throws Exception {
 
-		String id = request.getParameter("id");
-
+		// String id = request.getParameter("id");
+		String id = ComConstants.CON_BLANK;
+		String pniToken = StrUtil.NVL(request.getParameter(ComConstants.SYS_SSO_TOKEN));
+		
+		if (ComConstants.CON_BLANK.equals(pniToken)) {
+			pniToken = StrUtil.NVL(request.getSession().getAttribute(ComConstants.SYS_SSO_TOKEN));
+		}
+		
+		if (StringUtils.hasText(pniToken)) {			
+			String localIp = AddressUtil.getClientIp(request);
+			ApiUserService apiUserService = new ApiUserService();
+			String errorCode = apiUserService.executeUserData(pniToken, localIp);
+			
+			if (StringUtils.hasText(errorCode)) {
+				logger.error("@@@@ SSO 에이전트 오류 : {}", errorCode);
+				return "redirect:/login.do";
+			} else {
+				String userData = apiUserService.getUserData();
+				
+				if (StringUtils.hasText(userData)) {
+					
+					logger.error("@@@@ SSO 사용자 정보 : {}", userData);
+					try {
+				        JSONParser jsonParser = new JSONParser();
+				        Object objUser = jsonParser.parse(userData);
+						JSONObject jsonObj = (JSONObject) objUser;
+						
+						id = (String)jsonObj.get("user_id");
+						request.getSession().setAttribute(ComConstants.SYS_SSO_TOKEN, pniToken);
+						
+					} catch (Exception e) {
+						insertSysErrorLog(String.format("sso error: %s / %s", userData, e.getMessage()));
+						return "redirect:/login.do";
+					}
+				}
+			}	
+		} else {
+			logger.error("@@@@ SSO 토큰정보 없음");
+			return "redirect:/login.do";
+		}
+		
+		if (!StringUtils.hasText(id)) {
+			logger.error("@@@@ SSO 토큰정보 없음");
+			return "redirect:/login.do";
+		}
+		
 		LoginVO loginVO = new LoginVO();
 		loginVO.setId(id);
 
