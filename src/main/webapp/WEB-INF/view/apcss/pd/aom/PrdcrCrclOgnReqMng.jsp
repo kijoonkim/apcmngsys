@@ -265,7 +265,7 @@
 									name="dtl-input-mngmstYn"
 									uitype="single"
 									jsondata-ref="jsonComMngmstYn"
-									unselected-text="전체"
+									unselected-text="선택"
 									class="form-control input-sm"
 									readonly
 								></sbux-select>
