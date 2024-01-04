@@ -574,7 +574,7 @@
 		SBGridProperties.frozencols = 2;
 		SBGridProperties.columns = [
 			{
-				caption : ["전체","<input type='checkbox' onchange='fn_checkAll(grdRawMtrInvntr, this);'>"],
+				caption : ["전체","<input type='checkbox' id='allCheckBox' onchange='fn_checkAll(grdRawMtrInvntr, this);'>"],
 				ref: 'checkedYn', type: 'checkbox',  width:'50px',
 				style: 'text-align:center',
 				userattr: {colNm: "checkedYn"},
@@ -1426,6 +1426,11 @@
 						rowData.inptQntt = invntrQntt;
 						rowData.inptWght = invntrWght;
 					}
+					let checkboxChecked = grdRawMtrInvntr.getCheckedRows(0, true);
+			    	const allCheckbox = grdRawMtrInvntr.getGridDataAll();
+			    	if(checkboxChecked.length == allCheckbox.length){
+			    		allCheckBox.checked = true;
+			    	}
 				}
 			}
 			grdRawMtrInvntr.refresh({"focus":false});
@@ -1441,11 +1446,13 @@
 	const fn_delValue = async function(){
 		let nRow = grdRawMtrInvntr.getRow();
     	let nCol = grdRawMtrInvntr.getCol();
+    	const allCheckBox = document.querySelector('#allCheckBox');
 
 		const usrAttr = grdRawMtrInvntr.getColUserAttr(nCol);
 		if (!gfn_isEmpty(usrAttr) && usrAttr.hasOwnProperty('colNm')) {
 			if (nCol == grdRawMtrInvntr.getColRef("checkedYn")) {
 				const rowData = grdRawMtrInvntr.getRowData(nRow, false);
+				allCheckBox.checked = false;
 
 				rowData.inptQntt = 0;
 				rowData.inptWght = 0;
