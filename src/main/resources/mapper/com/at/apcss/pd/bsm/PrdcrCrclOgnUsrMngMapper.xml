@@ -205,7 +205,8 @@
 			 	, CO_NM 				= #{coNm}
 			 	, MBL_TELNO 			= #{mblTelno}
 			 	, TELNO 				= #{telno}
-				, CMPTNC_INST           = #{cmptncInst}
+			 	, CMPTNC_INST 			= #{cmptncInst}
+
 			 	, UO_APRV_STTS 			= #{uoAprvStts}
 
     	]]>
