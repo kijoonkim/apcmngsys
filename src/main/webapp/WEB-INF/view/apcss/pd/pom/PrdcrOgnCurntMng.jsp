@@ -284,9 +284,11 @@
 								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
 								 -->
 							</li>
+							<!--
 							<li>
 								<span style="font-size:12px">추가를 눌러 생성후 작성해주세요</span>
 							</li>
+							 -->
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
@@ -367,9 +369,11 @@
 								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
 								 -->
 							</li>
+							<!--
 							<li>
 								<span style="font-size:12px">추가를 눌러 생성 후 작성해주세요</span>
 							</li>
+							 -->
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
@@ -534,7 +538,7 @@
 	    SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 	    SBGridProperties.oneclickedit = false;//입력 활성화 true 1번클릭 false 더블클릭
 	    SBGridProperties.columns = [
-	        {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+	        {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow01(\"ADD\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
@@ -544,7 +548,10 @@
 	    	{caption: ["순번"], 			ref: 'prdcrOgnzSn',   	type:'output',  width:'80px',    style:'text-align:center'},
 	    	{caption: ["생산자조직 명"], 	ref: 'prdcrOgnzNm',   	type:'input',  width:'180px',    style:'text-align:center'},
 	        //{caption: ["생산자조직 코드"], 	ref: 'prdcrOgnzCd',   	type:'output',  width:'150px',    style:'text-align:center'},
-	        {caption: ["품종"], 			ref: 'itemNm',   	type:'output',  width:'150px',    style:'text-align:center'},
+	        {caption: ["품목"], 			ref: 'itemNm',   	type:'output',  width:'150px',    style:'text-align:center'},
+	        {caption: ["조직선택"], 			ref: 'sel',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+				return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_openMaodalSelect(" + nRow + ")'>선택</button>";
+	        }},
 	        {caption: ["분류"], 			ref: 'ctgryCd',   	type:'combo',  width:'150px',    style:'text-align:center', disabled:false , oneclickedit:true
 	    		,typeinfo : {ref:'jsonComCtgryCd', label:'label', value:'value', displayui : true}},
 	        {caption: ["취급유형"], 		ref: 'trmtType',   	type:'combo',  width:'150px',    style:'text-align:center', disabled:false , oneclickedit:true
@@ -765,6 +772,11 @@
 		let gridData = grdPrdcrOgnCurntMng01.getGridDataAll();
 		let saveList = [];
 
+		//필수값 체크
+    	if(fn_checkRequiredInput()){
+    		return;
+    	}
+
 		let apoCd = SBUxMethod.get('dtl-input-apoCd');
 		let apoSe = SBUxMethod.get('dtl-input-apoSe');
 		let crno = SBUxMethod.get('dtl-input-crno');
@@ -826,6 +838,46 @@
 
 		}
 	}
+	function fn_checkRequiredInput(){
+    	//필수값 확인
+		console.log("======fn_checkRequiredInput======");
+    	//품목 그리드 필수갑 확인
+    	let gridData = grdPrdcrOgnCurntMng01.getGridDataAll();
+
+    	for(var i=1; i<=gridData.length; i++ ){
+    		let rowData = grdPrdcrOgnCurntMng01.getRowData(i);
+    		console.log(rowData);
+    		console.log(gfn_isEmpty(rowData.prdcrOgnzNm));
+    		if(rowData.delYn == 'N'){
+    			if(gfn_isEmpty(rowData.prdcrOgnzNm)){
+    				alert('생산자조직 리스트의 생산자조직 명을 입력해주세요');
+    				grdPrdcrOgnCurntMng01.focus();
+    				return true;
+    			}
+    			if(gfn_isEmpty(rowData.itemCd)){
+    				alert('생산자조직 리스트의 품목을 선택해주세요');
+    				grdPrdcrOgnCurntMng01.focus();
+    				return true;
+    			}
+    			if(gfn_isEmpty(rowData.ctgryCd)){
+    				alert('생산자조직 리스트의 품목분류를 선택해주세요');
+    				grdPrdcrOgnCurntMng01.focus();//그리드 객체로 포커스 이동
+    				return true;
+    			}
+    			if(gfn_isEmpty(rowData.trmtType)){
+    				alert('생산자조직 리스트의 취급유형을 선택해주세요');
+    				grdPrdcrOgnCurntMng01.focus();
+    				return true;
+    			}
+    			if(gfn_isEmpty(rowData.sttgUpbrItemSe)){
+    				alert('생산자조직 리스트의 전문/육성 구분을 선택해주세요');
+    				grdPrdcrOgnCurntMng01.focus();
+    				return true;
+    			}
+    		}
+    	}
+    	return false;
+    }
 
 	//농가 다중 세이브
 	async function fn_saveFmList02() {
@@ -1210,16 +1262,12 @@
         }
 	}
 
-
-	let selGridRow;//선택한 행
-	let selGridCol;//선택한 열
-
     //그리드 클릭이벤트
     function gridClick(){
 		console.log("================grid dbClick================");
 		//grdGpcList 그리드 객체
-        selGridRow = grdPrdcrOgnCurntMng01.getRow();
-        selGridCol = grdPrdcrOgnCurntMng01.getCol();
+        let selGridRow = grdPrdcrOgnCurntMng01.getRow();
+        let selGridCol = grdPrdcrOgnCurntMng01.getCol();
 
 
         let delYnCol = grdPrdcrOgnCurntMng01.getColRef('delYn');
@@ -1251,16 +1299,28 @@
         }
     }
 
+    function fn_openMaodalSelect(nRow){
+    	let delYnCol = grdPrdcrOgnCurntMng01.getColRef('delYn');
+        let delYnValue = grdPrdcrOgnCurntMng01.getCellData(nRow,delYnCol);
+		if(delYnValue == '' || delYnValue == null){
+			return
+		}
+		grdPrdcrOgnCurntMng01.setRow(nRow);
+		let brno = SBUxMethod.get('dtl-input-brno');
+		popYrGpcSelect.init(brno , fn_setGridItem);
+		SBUxMethod.openModal('modal-yrGpcList');
+    }
 
 	// 그리드의 품목 선택 팝업 콜백 함수
 	const fn_setGridItem = function(rowData) {
 		console.log("================fn_setGridItem================");
-		console.log(rowData);
+		//console.log(rowData);
 		if (!gfn_isEmpty(rowData)) {
 			//setCellData (행,열,입력 데이터,[refresh여부],[행 상태 정보 update로 변경])
 			//selGridRow : 선택된 행 값		selGridCol : 선택된 열 값
 			//getColRef(ref) ref의 인덱스 값 가져오기
-			let selRef = grdPrdcrOgnCurntMng01.getRefOfCol(selGridCol);
+			let selGridRow = grdPrdcrOgnCurntMng01.getRow();
+			//let selRef = grdPrdcrOgnCurntMng01.getRefOfCol(selGridCol);
 
 			//let colRefIdx1 = grdPrdcrOgnCurntMng01.getColRef("ctgryCd");//분류코드 인덱스
 			//let colRefIdx2 = grdPrdcrOgnCurntMng01.getColRef("ctgryNm");//분류명 인덱스
@@ -1274,6 +1334,11 @@
 			grdPrdcrOgnCurntMng01.setCellData(selGridRow,colRefIdx3,rowData.itemCd,true);
 			grdPrdcrOgnCurntMng01.setCellData(selGridRow,colRefIdx4,rowData.itemNm,true);
 			//grdPrdcrOgnCurntMng01.setCellData(selGridRow,colRefIdx5,rowData.rmrk,true);
+
+			let grdStatus = grdPrdcrOgnCurntMng01.getRowStatus(selGridRow);
+		 	if(grdStatus != '1'){
+				grdPrdcrOgnCurntMng01.setRowStatus(selGridRow,'update');
+		 	}
 		}
 	}
 
