@@ -250,7 +250,7 @@
 									id="srch-inp-bxQntt"
 									name="srch-inp-bxQntt"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
-									maxlength="6"
+									maxlength="10"
 									autocomplete="off"
 									mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 									onchange="fn_onChangeBxQntt(this)"
@@ -275,7 +275,7 @@
 									id="srch-inp-wrhsWght"
 									name="srch-inp-wrhsWght"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
-									maxlength="7"
+									maxlength="10"
 									autocomplete="off"
 									mask = "{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 									onchange="fn_onChangeWrhsWght(this)"
@@ -1011,7 +1011,7 @@
     		gfn_comAlert("W0001", "입고일자");		//	W0001	{0}을/를 선택하세요.
     		return;
     	}
-    	
+
     	fn_clearInptForm();
 
     	// grid clear
@@ -1119,18 +1119,18 @@
   		SBUxMethod.set("srch-inp-wrhsWght", "");
   		// 평균
   		SBUxMethod.set("srch-inp-wghtAvg", "");
-  		
+
 
   		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
   		if (!gfn_isEmpty(vrtyCd)) {
-  			const vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd});  			
+  			const vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd});
   			if (!gfn_isEmpty(vrtyInfo)) {
   				const wghtRkngSeCd = vrtyInfo.wghtRkngSeCd;
   				const unitWght = parseInt(vrtyInfo.unitWght) || 0;
   				SBUxMethod.set("srch-inp-wghtAvg", unitWght);
   			}
   		}
-  		
+
   		let itemCd = SBUxMethod.get("srch-slt-itemCd");
   		fn_setStdGdsSelect(itemCd);
     }
@@ -1152,7 +1152,7 @@
  		SBUxMethod.set("srch-rdo-gdsSeCd", "1");
  		// 운송구분
  		SBUxMethod.set("srch-rdo-trsprtSeCd", "1");
-		
+
  		// 입고일자
  		SBUxMethod.set("srch-dtp-wrhsYmd", gfn_dateToYmd(new Date()));
 
@@ -1211,9 +1211,9 @@
 
  		// 계량번호
  		SBUxMethod.set("srch-inp-wghno", "");
- 		
+
  		fn_inputClear();
- 		
+
  		// 등급 init
  	}
 
