@@ -25,9 +25,9 @@
 						<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
 					</c:if>
-					<%-- <c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+					<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
 						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
-					</c:if> --%>
+					</c:if>
 				</div>
 			</div>
 			<div class="box-body">
