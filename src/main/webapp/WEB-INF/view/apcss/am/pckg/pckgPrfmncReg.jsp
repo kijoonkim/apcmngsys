@@ -537,7 +537,7 @@
 		SBGridProperties.frozencols = 2;
         SBGridProperties.columns = [
 			{
-				caption : ["전체","<input type='checkbox' onchange='fn_checkAll(grdSortInvntr, this);'>"],
+				caption : ["전체","<input type='checkbox' id='allCheckBox' onchange='fn_checkAll(grdSortInvntr, this);'>"],
 				ref: 'checkedYn', type: 'checkbox',  width:'50px',
 				style: 'text-align:center',
 				userattr: {colNm: "checkedYn"},
@@ -1299,6 +1299,12 @@
 	const fn_setValue = function() {
     	let nRow = grdSortInvntr.getRow();
     	let nCol = grdSortInvntr.getCol();
+    	
+    	let checkboxChecked = grdSortInvntr.getCheckedRows(0, true);
+    	const allCheckbox = grdSortInvntr.getGridDataAll();
+    	if(checkboxChecked.length == allCheckbox.length){
+    		allCheckBox.checked = true;
+    	}
 
 		const usrAttr = grdSortInvntr.getColUserAttr(nCol);
 		if (!gfn_isEmpty(usrAttr) && usrAttr.hasOwnProperty('colNm')) {
@@ -1342,11 +1348,13 @@
 	const fn_delValue = async function(){
     	let nRow = grdSortInvntr.getRow();
     	let nCol = grdSortInvntr.getCol();
+    	const allCheckBox = document.querySelector('#allCheckBox');
 
 		const usrAttr = grdSortInvntr.getColUserAttr(nCol);
 		if (!gfn_isEmpty(usrAttr) && usrAttr.hasOwnProperty('colNm')) {
 			if (nCol == grdSortInvntr.getColRef("checkedYn")) {
 				const rowData = grdSortInvntr.getRowData(nRow, false);
+				allCheckBox.checked = false;
 
 				rowData.inptQntt = 0;
 				rowData.inptWght = 0;
