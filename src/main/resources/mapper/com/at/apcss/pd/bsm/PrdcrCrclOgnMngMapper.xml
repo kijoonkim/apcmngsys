@@ -474,9 +474,6 @@
 			  FROM TB_EV_APO_UO_CD CM
 			 WHERE 1=1
     	]]>
-    		<if test='apoCd != null and apoCd != ""'>
-				AND CM.ISO_APO_CD = #{apoCd}
-			</if>
 			<if test='brno != null and brno != ""'>
 				AND CM.ISO_BRNO = #{brno}
 			</if>

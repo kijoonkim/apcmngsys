@@ -71,7 +71,6 @@
 									jsondata-ref="jsonComCmptnInst"
 									unselected-text="전체"
 									class="form-control input-sm"
-									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 							</td>
 							<td colspan="2" style="border-right: hidden;">&nbsp;</td>
@@ -84,7 +83,6 @@
 									jsondata-ref="jsonComCtpv"
 									unselected-text="전체"
 									class="form-control input-sm"
-									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;" >
@@ -98,7 +96,6 @@
 									jsondata-ref="jsonComSgg"
 									unselected-text="전체"
 									class="form-control input-sm"
-									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 							</td>
 							<td colspan="3" class="td_input" style="border-right: hidden;" >
@@ -114,7 +111,6 @@
 									jsondata-ref="jsonComCorpSeCd"
 									unselected-text="전체"
 									class="form-control input-sm"
-									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;" >
@@ -128,7 +124,6 @@
 									jsondata-ref="jsonComCorpDtlSeCd"
 									unselected-text="전체"
 									class="form-control input-sm"
-									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;" >
@@ -142,7 +137,6 @@
 									jsondata-ref="selectEvCertYn"
 									unselected-text="전체"
 									class="form-control input-sm"
-									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 							</td>
 							<td colspan="3" class="td_input">
@@ -158,6 +152,7 @@
 									class="form-control input-sm"
 									mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
 									autocomplete="off"
+									readonly
 								></sbux-input>
 							</td>
 							<td colspan="2" class="td_input"  style="border-right: hidden;">
@@ -208,9 +203,6 @@
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrCrclOgnMng" style="height:350px; width: 100%;"></div>
 				</div>
-				<br>
-				<br>
-				<div></div>
 			</c:if><!-- 관리자 권한인 경우 그리드 표기 -->
 				<!-- 그리드 식으로 변경 -->
 				<!--
@@ -284,12 +276,14 @@
 							<li>
 								<span style="font-size:14px">▶출자출하조직이 속한 통합조직 리스트</span>
 							</li>
+							<!--
 							<li>
 								<span style="font-size:12px">상세조회시 추가버튼이 생성됩니다</span>
 							</li>
 							<li>
 								<span style="font-size:12px">추가 버튼을 누른후 통합조직명,사업자번호 위치 클릭시 팝업이 열립니다.</span>
 							</li>
+							 -->
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
@@ -392,7 +386,6 @@
 									jsondata-ref="jsonComMngmstYn"
 									unselected-text="전체"
 									class="form-control input-sm"
-									onchange="fn_onChangeSrchItemCd(this)"
 									readonly
 								></sbux-select>
 							</td>
@@ -426,7 +419,7 @@
 									jsondata-ref="jsonComCmptnInst"
 									unselected-text="전체"
 									class="form-control input-sm"
-									onchange="fn_onChangeSrchItemCd(this)"
+									readonly
 								></sbux-select>
 							</td>
 							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>시도</th>
@@ -438,7 +431,6 @@
 									jsondata-ref="jsonComCtpv"
 									unselected-text="전체"
 									class="form-control input-sm"
-									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 							</td>
 							<th colspan="2" scope="row" class="th_bg"><span class="data_required" >시군</th>
@@ -450,7 +442,6 @@
 									jsondata-ref="jsonComSgg"
 									unselected-text="전체"
 									class="form-control input-sm"
-									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 							</td>
 						</tr>
@@ -593,7 +584,6 @@
 									jsondata-ref="selectApoSe"
 									unselected-text="전체"
 									class="form-control input-sm"
-									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 								</td>
 							<td colspan="2" class="td_input">
@@ -891,7 +881,6 @@
 									jsondata-ref="jsonComItemNhBrofYn"
 									unselected-text="전체"
 									class="form-control input-sm"
-									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 								</td>
 						</tr>
@@ -1905,8 +1894,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
 		let apoCd = SBUxMethod.get('dtl-input-apoCd');
 		let brno = SBUxMethod.get('dtl-input-brno');
-		console.log(apoCd);
-		console.log(brno);
+
 		if (gfn_isEmpty(apoCd)) {
 			return;
 		}
@@ -2088,7 +2076,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
     //그리드 클릭이벤트
     function gridUoListClick(){
-		console.log("================gridClick================");
+		console.log("================gridUoListClick================");
 		//grdPrdcrCrclOgnReqClsMng 그리드 객체
         let selGridUoListRow = grdUoList.getRow();
         let selGridUoListCol = grdUoList.getCol();
@@ -2126,6 +2114,11 @@ tps://sbgrid.co.kr/v2_5/document/guide
     }
 
     function fn_openMaodalSelect(nRow){
+    	let delYnCol = grdUoList.getColRef('delYn');
+        let delYnValue = grdUoList.getCellData(nRow,delYnCol);
+		if(delYnValue == '' || delYnValue == null){
+			return
+		}
     	grdUoList.setRow(nRow);
     	popBrno.init(fn_setGridMngmstInfoId);
 		SBUxMethod.openModal('modal-brno');
