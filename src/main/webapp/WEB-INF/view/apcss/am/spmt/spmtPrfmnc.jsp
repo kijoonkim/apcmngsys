@@ -259,7 +259,7 @@
     	    };
         SBGridProperties.columns = [
         	{
-        		caption: ["전체","<input type='checkbox' onchange='fn_checkAll(grdSpmtPrfmnc, this);'>"],
+        		caption: ["전체","<input type='checkbox' id='allCheckBox' onchange='fn_checkAll(grdSpmtPrfmnc, this);'>"],
         		ref: 'checkedYn', type: 'checkbox',  width:'50px',
         		style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
@@ -334,6 +334,12 @@
 		let checkedYnCol = grdSpmtPrfmnc.getColRef("checkedYn");
 		let nCol = grdSpmtPrfmnc.getCol();
 		let nRow = grdSpmtPrfmnc.getRow();
+		
+		let checkboxChecked = grdSpmtPrfmnc.getCheckedRows(0, true);
+    	const allCheckbox = grdSpmtPrfmnc.getGridDataAll();
+    	if(checkboxChecked.length == allCheckbox.length){
+    		allCheckBox.checked = true;
+    	}
 
 		if(nCol == checkedYnCol){
 
@@ -360,6 +366,7 @@
 		let checkedYnCol = grdSpmtPrfmnc.getColRef("checkedYn");
 		let nCol = grdSpmtPrfmnc.getCol();
 		let nRow = grdSpmtPrfmnc.getRow();
+		const allCheckBox = document.querySelector('#allCheckBox');
 
 		if(nCol == checkedYnCol){
 
@@ -368,6 +375,7 @@
 			let rtnGdsYn = grdSpmtPrfmnc.getRowData(nRow).rtnGdsYn;
 
 			if(rtnGdsYn != "Y"){
+				allCheckBox.checked = false;
 				grdSpmtPrfmnc.setCellData(nRow, rtnGdsQnttCol, 0);
 				grdSpmtPrfmnc.setCellData(nRow, rtnGdsWghtCol, 0);
 			}
