@@ -263,7 +263,7 @@
 		SBGridProperties.scrollbubbling = false;
 		SBGridProperties.columns = [
 			{
-				caption : ["전체","<input type='checkbox' onchange='fn_checkAllRawMtrInvntr(grdRawMtrInvntr, this);'>"],
+				caption : ["전체","<input type='checkbox' id='allCheckBox' onchange='fn_checkAllRawMtrInvntr(grdRawMtrInvntr, this);'>"],
 				ref: 'checkedYn', type: 'checkbox',  width:'50px',
 				style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
@@ -557,6 +557,11 @@
 		let cmndQntt = grdRawMtrInvntr.getRowData(nRow).cmndQntt;
 		let cmndWght = grdRawMtrInvntr.getRowData(nRow).cmndWght;
 
+		let checkboxChecked = grdRawMtrInvntr.getCheckedRows(0, true);
+    	const allCheckbox = grdRawMtrInvntr.getGridDataAll();
+    	if(checkboxChecked.length == allCheckbox.length){
+    		allCheckBox.checked = true;
+    	}
 
 		if((cmndQntt == 0 && cmndWght == 0) || (gfn_isEmpty(cmndQntt) && gfn_isEmpty(cmndWght))){
 	    	grdRawMtrInvntr.setCellData(nRow, 10, invntrQntt);
@@ -566,6 +571,8 @@
 
     const fn_delValue = async function(){
     	var nRow = grdRawMtrInvntr.getRow();
+    	const allCheckBox = document.querySelector('#allCheckBox');
+    	allCheckBox.checked = false;
     	grdRawMtrInvntr.setCellData(nRow, 10, 0);
 		grdRawMtrInvntr.setCellData(nRow, 11, 0);
     }
