@@ -278,7 +278,7 @@
 				-->
 
 				<!-- 출자출하조직이 속한 통합조직 리스트 그리드 -->
-				<div class="ad_section_top uoList">
+				<div class="uoList">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
@@ -972,9 +972,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		fn_search();
 	</c:if>
-	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
-		fn_dtlSearch();
-	</c:if>
+
 		/**
 		 * 엔터시 검색 이벤트
 		 */
@@ -1039,20 +1037,26 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		// 검색 SB select
 		let rst = await Promise.all([
 			//검색조건
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 			gfn_setComCdSBSelect('srch-input-cmptnInst', 	jsonComCmptnInst, 	'CMPTNC_INST'), //관할기관
 			gfn_setComCdSBSelect('srch-input-ctpv', 		jsonComCtpv, 	'CMPTN_INST_CTPV'), //시도
 			gfn_setComCdSBSelect('srch-input-sgg', 			jsonComSgg, 	'CMPTN_INST_SIGUN'),	 //시군
 			gfn_setComCdSBSelect('srch-input-corpSeCd', 	jsonComCorpSeCd, 	'CORP_SE_CD'), //법인구분
 			gfn_setComCdSBSelect('srch-input-corpDtlSeCd', 	jsonComCorpDtlSeCd, 	'CORP_SHAP'), //법인형태
+			</c:if>
 			//상세
+			gfn_setComCdSBSelect('dtl-input-corpDtlSeCd', 	jsonComCorpDtlSeCd, 	'CORP_SHAP'), //법인형태
+			gfn_setComCdSBSelect('dtl-input-sgg', 			jsonComSgg, 	'CMPTN_INST_SIGUN'),	 //시군
 			gfn_setComCdSBSelect('dtl-input-cmptnInst', 	jsonComCmptnInst, 	'CMPTNC_INST'), //관할기관
 			gfn_setComCdSBSelect('dtl-input-ctpv', 			jsonComCtpv, 	'CMPTN_INST_CTPV'), //시도
-			gfn_setComCdSBSelect('dtl-input-sgg', 			jsonComSgg, 	'CMPTN_INST_SIGUN'),	 //시군
 			gfn_setComCdSBSelect('dtl-input-corpSeCd', 		jsonComCorpSeCd, 	'CORP_SE_CD'), //법인구분
-			gfn_setComCdSBSelect('dtl-input-corpDtlSeCd', 	jsonComCorpDtlSeCd, 	'CORP_SHAP') //법인형태
 			//gfn_setComCdSBSelect('srch-input-evCertYn', 	jsonCom, 	''), //2차승인구분
 			//gfn_setComCdSBSelect('srch-input-apoSe', 	jsonCom, 	''), //참여조직여부
 		]);
+		<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+		//콤보박스 시간 문제로 이동
+		await fn_dtlSearch();
+		</c:if>
 	}
 
 	var jsonPrdcrCrclOgnMng = []; // 그리드의 참조 데이터 주소 선언
@@ -1080,8 +1084,6 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid = async function() {
-
-		//SBUxMethod.set("fclt-inp-apcNm", SBUxMethod.get("inp-apcNm"));
 
 		let SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdPrdcrCrclOgnMng';
@@ -1183,16 +1185,19 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	    	{caption: ["통합조직코드"], 		ref: 'uoApoCd',		hidden : true},
-	        {caption: ["통합조직명"], 			ref: 'uoCorpNm',	type:'output',  width:'400px',    style:'text-align:center'},
-	        {caption: ["통합조직 사업자번호"], 	ref: 'uoBrno',		type:'output',  width:'400px',    style:'text-align:center'},
-	        {caption: ["처리"], 				ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+	        {caption: ["처리"], 				ref: 'delYn',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdUoList\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdUoList\", " + nRow + ")'>삭제</button>";
 	        	}
-	        }}
+	        }},
+	        {caption: ["조직선택"], 			ref: 'sel',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+				return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_openMaodalSelect(" + nRow + ")'>선택</button>";
+	        }},
+	    	{caption: ["통합조직코드"], 		ref: 'uoApoCd',		hidden : true},
+	        {caption: ["통합조직명"], 			ref: 'uoCorpNm',	type:'output',  width:'400px',    style:'text-align:center'},
+	        {caption: ["통합조직 사업자번호"], 	ref: 'uoBrno',		type:'output',  width:'400px',    style:'text-align:center'},
 	    ];
 
 	    grdUoList = _SBGrid.create(SBGridProperties);
@@ -1205,7 +1210,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
      * 목록 조회
      */
     const fn_search = async function() {
-
+		console.log("fn_search");
     	// set pagination
     	let pageSize = grdPrdcrCrclOgnMng.getPageSize();
     	let pageNo = 1;
@@ -1225,6 +1230,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
+
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
 		let ctpv = SBUxMethod.get("srch-input-ctpv");//
 		let sgg = SBUxMethod.get("srch-input-sgg");//
@@ -1383,6 +1389,8 @@ tps://sbgrid.co.kr/v2_5/document/guide
         		SBUxMethod.set('dtl-input-fxno',gfn_nvl(item.fxno))
         		SBUxMethod.set('dtl-input-itemNhBrofYn',gfn_nvl(item.itemNhBrofYn))
 			});
+        	fn_calFrmerInvstAmtRt();
+    		fn_calTot();
         	<c:if test="${loginVO.userType eq '22'}">
         	fn_searchUoList();
     		</c:if>
@@ -1682,6 +1690,9 @@ tps://sbgrid.co.kr/v2_5/document/guide
 				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 					fn_search();
 				</c:if>
+				<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+					fn_dtlSearch();
+				</c:if>
 				}
         	} else {
         		alert(data.resultMessage);
@@ -1758,6 +1769,9 @@ tps://sbgrid.co.kr/v2_5/document/guide
 					alert("처리 되었습니다.");
 				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 					fn_search();
+				</c:if>
+				<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+					fn_dtlSearch();
 				</c:if>
 				}
 			} else {
@@ -2072,17 +2086,12 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		//alert("성공");
 	}
 
-
-
-	let selGridUoListRow;//선택한 행
-	let selGridUoListCol;//선택한 열
-
     //그리드 클릭이벤트
     function gridUoListClick(){
 		console.log("================gridClick================");
 		//grdPrdcrCrclOgnReqClsMng 그리드 객체
-        selGridUoListRow = grdUoList.getRow();
-        selGridUoListCol = grdUoList.getCol();
+        let selGridUoListRow = grdUoList.getRow();
+        let selGridUoListCol = grdUoList.getCol();
 
         let delYnCol = grdUoList.getColRef('delYn');
         let delYnValue = grdUoList.getCellData(selGridUoListRow,delYnCol);
@@ -2116,6 +2125,12 @@ tps://sbgrid.co.kr/v2_5/document/guide
         }
     }
 
+    function fn_openMaodalSelect(nRow){
+    	grdUoList.setRow(nRow);
+    	popBrno.init(fn_setGridMngmstInfoId);
+		SBUxMethod.openModal('modal-brno');
+    }
+
  	// 그리드의 통합조직선택 선택 팝업 콜백 함수
 	const fn_setGridMngmstInfoId = function(rowData) {
 		console.log("================fn_setGridMngmstInfoId================");
@@ -2124,6 +2139,9 @@ tps://sbgrid.co.kr/v2_5/document/guide
 			//setCellData (행,열,입력 데이터,[refresh여부],[행 상태 정보 update로 변경])
 			//selGridUoListRow 선택된 행 값
 			//getColRef(ref) ref의 인덱스 값 가져오기
+
+			let selGridUoListRow = grdUoList.getRow();
+
 			let colRefIdx1 = grdUoList.getColRef('uoCorpNm');//통합조직 인덱스
 			let colRefIdx2 = grdUoList.getColRef('uoBrno');//통합조직 코드 인덱스
 			let colRefIdx3 = grdUoList.getColRef('uoApoCd');//통합조직 코드 인덱스
@@ -2224,6 +2242,9 @@ tps://sbgrid.co.kr/v2_5/document/guide
         	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 				fn_search();
 			</c:if>
+			<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+				fn_dtlSearch();
+			</c:if>
         	} else {
         		alert(data.resultMessage);
         	}
@@ -2253,6 +2274,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		}
 
 	}
+	//sbUx에서 onchange 되지 않는듯 해서 조회 결과에서 직접 실행 함
 	//농업인 출자 지분율 계산
 	function fn_calFrmerInvstAmtRt(){
 		let invstAmt = parseFloat(SBUxMethod.get('dtl-input-invstAmt'));
@@ -2263,7 +2285,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		}
 		SBUxMethod.set('dtl-input-frmerInvstAmtRt',frmerInvstAmtRt);
 	}
-	//
+	//전체 종사자 수 합계
 	function fn_calTot(){
 		let rgllbrNope = 0;
 		if(!gfn_isEmpty(SBUxMethod.get('dtl-input-rgllbrNope'))){

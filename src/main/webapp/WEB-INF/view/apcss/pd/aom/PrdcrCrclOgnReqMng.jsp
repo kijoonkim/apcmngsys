@@ -1045,10 +1045,6 @@
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid = async function() {
 
-
-
-		//SBUxMethod.set("fclt-inp-apcNm", SBUxMethod.get("inp-apcNm"));
-
 		let SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdPrdcrCrclOgnReqMng';
 	    SBGridProperties.id = 'grdPrdcrCrclOgnReqMng';
@@ -1746,7 +1742,7 @@
 	    SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 	    SBGridProperties.oneclickedit = true;//입력 활성화 true 1번클릭 false 더블클릭
 	    SBGridProperties.columns = [
-	        {caption: ["처리"], 				ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+	        {caption: ["처리"], 				ref: 'delYn',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdGpcList\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
@@ -1771,6 +1767,9 @@
 	        {caption: ["품목코드"], 			ref: 'itemCd',   	hidden : true},
 	        */
 	        {caption: ["품목코드"], 			ref: 'itemCd',   	type:'output',  width:'150px',    style:'text-align:center'},
+	        {caption: ["품목선택"], 				ref: 'sel',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+				return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_openMaodalGpcSelect(" + nRow + ")'>선택</button>";
+	        }},
 	        {caption: ["비고"], 			ref: 'rmrk',   	type:'input',  width:'150px',    style:'text-align:center'},
 	        {caption: ["상세내역"], 	ref: 'picFlnm',   		hidden : true},
 
@@ -1977,15 +1976,12 @@
         }
     }
 
-	let selGridRow;//선택한 행
-	let selGridCol;//선택한 열
-
     //그리드 클릭이벤트
     function gridClick(){
 		console.log("================gridClick================");
 		//grdGpcList 그리드 객체
-        selGridRow = grdGpcList.getRow();
-        selGridCol = grdGpcList.getCol();
+        let selGridRow = grdGpcList.getRow();
+        let selGridCol = grdGpcList.getCol();
 
 
         let delYnCol = grdGpcList.getColRef('delYn');
@@ -2014,6 +2010,16 @@
         	}
         }
     }
+	//품목선택 팝업 버튼
+	function fn_openMaodalGpcSelect(nRow){
+		let delYnCol = grdGpcList.getColRef('delYn');
+        let delYnValue = grdGpcList.getCellData(nRow,delYnCol);
+		console.log(delYnValue);
+
+		grdGpcList.setRow(nRow);
+		popGpcSelect.init(fn_setGridItem);
+		SBUxMethod.openModal('modal-gpcList');
+	}
 
 
 	// 그리드의 품목 선택 팝업 콜백 함수
@@ -2022,9 +2028,9 @@
 		//console.log(rowData);
 		if (!gfn_isEmpty(rowData)) {
 			//setCellData (행,열,입력 데이터,[refresh여부],[행 상태 정보 update로 변경])
-			//selGridRow : 선택된 행 값		selGridCol : 선택된 열 값
-			//getColRef(ref) ref의 인덱스 값 가져오기
-			let selRef = grdGpcList.getRefOfCol(selGridCol);
+			//selGridRow : 선택된 행 값
+
+			let selGridRow = grdGpcList.getRow();
 
 			//let colRefIdx1 = grdGpcList.getColRef("ctgryCd");//분류코드 인덱스
 			//let colRefIdx2 = grdGpcList.getColRef("ctgryNm");//분류명 인덱스
