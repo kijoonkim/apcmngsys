@@ -315,7 +315,7 @@
 							<td colspan="3">Kg</td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">팔레트</th>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>팔레트</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
@@ -921,15 +921,15 @@
      * @description 조회 버튼
      */
     const fn_search = async function() {
-  		
+
 		if (gfn_isEmpty(SBUxMethod.get("dtl-dtp-wghYmd"))) {
     		gfn_comAlert("W0001", "계량일자");		//	W0002	{0}을/를 입력하세요.
             return;
     	}
-		
+
 		var getColRef = grdWghPrfmnc.getColRef("checkedYn");
 		grdWghPrfmnc.setFixedcellcheckboxChecked(0, getColRef, false);
-		
+
 		SBUxMethod.set("lbl-wghno", "");
 		SBUxMethod.set("dtl-inp-wghno", "");
 
@@ -1535,7 +1535,7 @@
 		// 감량(%) >> 감량, 실중량, 입고중량
 		if (parseFloat(SBUxMethod.get("dtl-inp-rdcdRt")) > 100) {
 			gfn_comAlert('W0008', '감량률', '100%');
-			
+
 			SBUxMethod.set("dtl-inp-rdcdRt", "");
 			return;
 		}
