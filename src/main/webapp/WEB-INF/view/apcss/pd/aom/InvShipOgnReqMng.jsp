@@ -383,7 +383,7 @@
 									name="dtl-input-corpSeCd"
 									uitype="single"
 									jsondata-ref="jsonComCorpSeCd"
-									unselected-text="전체"
+									unselected-text="선택"
 									class="form-control input-sm"
 									readonly
 								></sbux-select>
@@ -405,7 +405,7 @@
 									name="dtl-input-corpDtlSeCd"
 									uitype="single"
 									jsondata-ref="jsonComCorpDtlSeCd"
-									unselected-text="전체"
+									unselected-text="선택"
 									class="form-control input-sm"
 									readonly
 								></sbux-select>
@@ -671,7 +671,7 @@
 									name="dtl-input-aplyTrgtSe"
 									uitype="single"
 									jsondata-ref="jsonComAplyTrgtSe"
-									unselected-text="전체"
+									unselected-text="선택"
 									class="form-control input-sm"
 									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>

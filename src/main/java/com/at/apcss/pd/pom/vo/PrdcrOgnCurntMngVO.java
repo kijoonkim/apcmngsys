@@ -84,6 +84,17 @@ public class PrdcrOgnCurntMngVO extends ComVO{
 	private String avgYrPrdctnVlm;
 	private String cltvtnAreaRmrk;
 
+	//생산자조직 관리 메뉴 통합으로 인해 추가
+	//출하계약
+	private String prdctnPlanVlm;
+	private String ecSpmtPlanVlm;
+	private String planRmrk;
+	//생산출하실적
+	private String prdctnVlm;
+	private String ecSpmtVlm;
+	private String spmtPrc;
+	private String spmtRmrk;
+
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;
 	private String sysFrstInptDtYmd;

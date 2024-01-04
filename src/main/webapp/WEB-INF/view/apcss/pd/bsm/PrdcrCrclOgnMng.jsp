@@ -384,7 +384,7 @@
 									name="dtl-input-mngmstYn"
 									uitype="single"
 									jsondata-ref="jsonComMngmstYn"
-									unselected-text="전체"
+									unselected-text="선택"
 									class="form-control input-sm"
 									readonly
 								></sbux-select>
@@ -417,7 +417,7 @@
 									name="dtl-input-cmptnInst"
 									uitype="single"
 									jsondata-ref="jsonComCmptnInst"
-									unselected-text="전체"
+									unselected-text="선택"
 									class="form-control input-sm"
 									readonly
 								></sbux-select>
@@ -429,7 +429,7 @@
 									name="dtl-input-ctpv"
 									uitype="single"
 									jsondata-ref="jsonComCtpv"
-									unselected-text="전체"
+									unselected-text="선택"
 									class="form-control input-sm"
 								></sbux-select>
 							</td>
@@ -440,7 +440,7 @@
 									name="dtl-input-sgg"
 									uitype="single"
 									jsondata-ref="jsonComSgg"
-									unselected-text="전체"
+									unselected-text="선택"
 									class="form-control input-sm"
 								></sbux-select>
 							</td>
@@ -530,7 +530,7 @@
 									name="dtl-input-corpSeCd"
 									uitype="single"
 									jsondata-ref="jsonComCorpSeCd"
-									unselected-text="전체"
+									unselected-text="선택"
 									class="form-control input-sm"
 								></sbux-select>
 								</td>
@@ -550,7 +550,7 @@
 									name="dtl-input-corpDtlSeCd"
 									uitype="single"
 									jsondata-ref="jsonComCorpDtlSeCd"
-									unselected-text="전체"
+									unselected-text="선택"
 									class="form-control input-sm"
 								></sbux-select>
 								</td>
@@ -582,7 +582,7 @@
 									name="dtl-input-isoHldYn"
 									uitype="single"
 									jsondata-ref="selectApoSe"
-									unselected-text="전체"
+									unselected-text="선택"
 									class="form-control input-sm"
 								></sbux-select>
 								</td>
@@ -879,7 +879,7 @@
 									name="dtl-input-itemNhBrofYn"
 									uitype="single"
 									jsondata-ref="jsonComItemNhBrofYn"
-									unselected-text="전체"
+									unselected-text="선택"
 									class="form-control input-sm"
 								></sbux-select>
 								</td>

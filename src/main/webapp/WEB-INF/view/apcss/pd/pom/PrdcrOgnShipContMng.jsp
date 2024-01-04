@@ -229,7 +229,7 @@
 									name="dtl-input-apoSe"
 									uitype="single"
 									jsondata-ref="jsonComApoSe"
-									unselected-text="전체"
+									unselected-text="선택"
 									class="form-control input-sm"
 									readonly
 								></sbux-select>
@@ -340,7 +340,7 @@
 									name="dtl-input-trmtType"
 									uitype="single"
 									jsondata-ref="jsonComTrmtType"
-									unselected-text="전체"
+									unselected-text="선택"
 									class="form-control input-sm"
 									readonly
 								></sbux-select>
