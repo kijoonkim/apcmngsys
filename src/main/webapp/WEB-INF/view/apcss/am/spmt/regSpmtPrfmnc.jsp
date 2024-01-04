@@ -557,7 +557,7 @@
         SBGridPropertiesGdsInvntr.frozencols = 1;
         SBGridPropertiesGdsInvntr.columns = [
         	{
-        		caption : ["<input type='checkbox' onchange='fn_checkAll(grdGdsInvntr, this);'>"],
+        		caption : ["<input type='checkbox' id='allGdsInvntrCheckBox' onchange='fn_checkAll(grdGdsInvntr, this);'>"],
         		ref: 'checkedYn', type: 'checkbox',  width:'40px',
         		style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
@@ -621,7 +621,7 @@
         		caption : ["<input type='checkbox' onchange='fn_checkAll(grdSpmtPrfmnc, this);'>"],
         		ref: 'checkedYn', type: 'checkbox',  width:'40px',
         		style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+        		typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}
         	},
             {caption: ['출하일자'], 		ref: 'spmtYmd', 		width: '100px', type: 'output', style: 'text-align:center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
@@ -870,6 +870,14 @@
 		let spmtPckgUnitCdCol = grdGdsInvntr.getColRef("spmtPckgUnitCd")
 		let gdsGrdCol = grdGdsInvntr.getColRef("gdsGrd")
 		let checkedYnCol = grdGdsInvntr.getColRef("checkedYn")
+		
+		// 체크박스가 모두 활성화 되었을 경우 상단에 체크박스 체크
+		const allGdsInvntrCheckBox = document.querySelector('#allGdsInvntrCheckBox');
+		let checkboxChecked = grdGdsInvntr.getCheckedRows(0, true);
+    	const allCheckbox = grdGdsInvntr.getGridDataAll();
+    	if(checkboxChecked.length == allCheckbox.length){
+    		allGdsInvntrCheckBox.checked = true;
+    	}
 
     	if(nCol == checkedYnCol){
 
@@ -977,6 +985,8 @@
     	let spmtQnttCol = grdGdsInvntr.getColRef("spmtQntt")
 		let spmtWghtCol = grdGdsInvntr.getColRef("spmtWght")
 
+		const allCheckBox = document.querySelector('#allGdsInvntrCheckBox');
+		allCheckBox.checked = false;
     	grdGdsInvntr.setCellData(nRow, spmtQnttCol, 0);
     	grdGdsInvntr.setCellData(nRow, spmtWghtCol, 0);
     	totspmt();

@@ -710,7 +710,8 @@
 
  		// 일자
 		let ymd = gfn_dateToYmd(new Date());
-		SBUxMethod.set("srch-dtp-clclnYmdFrom", ymd);
+		let ymdForm = gfn_dateFirstYmd(new Date());
+		SBUxMethod.set("srch-dtp-clclnYmdFrom", ymdForm);
 		SBUxMethod.set("srch-dtp-clclnYmdTo", ymd);
 		SBUxMethod.set("srch-dtp-clclnYmd", ymd);
 
@@ -857,7 +858,7 @@
  		let clclnYmdTo = SBUxMethod.get("srch-dtp-clclnYmdTo");
  		if(gfn_diffDate(clclnYmdFrom, clclnYmdTo) < 0){
  			gfn_comAlert("W0014", "종료일자", "시작일자");		//	W0014	{0}이/가 {1} 보다 큽니다.
- 			SBUxMethod.set("srch-dtp-clclnYmdFrom", gfn_dateToYmd(new Date()));
+ 			SBUxMethod.set("srch-dtp-clclnYmdFrom", gfn_dateFirstYmd(new Date()));
  			SBUxMethod.set("srch-dtp-clclnYmdTo", gfn_dateToYmd(new Date()));
  			return;
  		}
