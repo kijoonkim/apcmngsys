@@ -230,6 +230,15 @@
 		    	        , WHDWL_DAY				= #{whdwlDay}
 		    	        , CLTVTN_AREA_RMRK		= #{cltvtnAreaRmrk}
 
+		    	        , PRDCTN_PLAN_VLM		= #{prdctnPlanVlm}
+		    	        , EC_SPMT_PLAN_VLM		= #{ecSpmtPlanVlm}
+		    	        , PLAN_RMRK				= #{planRmrk}
+
+		    	        , PRDCTN_VLM			= #{prdctnVlm}
+		    	        , EC_SPMT_VLM			= #{ecSpmtVlm}
+		    	        , SPMT_PRC				= #{spmtPrc}
+		    	        , SPMT_RMRK				= #{spmtRmrk}
+
 		    	        , FLNM		= #{flnm}
 		    	        , CLTVTN_LAND_ADDR		= #{cltvtnLandAddr}
 
@@ -268,6 +277,15 @@
 		    		  , WHDWL_DAY
 		    		  , CLTVTN_AREA_RMRK
 
+		    		  , PRDCTN_PLAN_VLM
+		    		  , EC_SPMT_PLAN_VLM
+		    		  , PLAN_RMRK
+
+		    		  , PRDCTN_VLM
+		    		  , EC_SPMT_VLM
+		    		  , SPMT_PRC
+		    		  , SPMT_RMRK
+
 		    		  , SYS_FRST_INPT_DT
 		    		  , SYS_FRST_INPT_USER_ID
 		    		  , SYS_FRST_INPT_PRGRM_ID
@@ -305,6 +323,15 @@
 		   			  , #{joinDay}
 		   			  , #{whdwlDay}
 		   			  , #{cltvtnAreaRmrk}
+
+		   			  , #{prdctnPlanVlm}
+		   			  , #{ecSpmtPlanVlm}
+		   			  , #{planRmrk}
+
+		   			  , #{prdctnVlm}
+		   			  , #{ecSpmtVlm}
+		   			  , #{spmtPrc}
+		   			  , #{spmtRmrk}
 
 		   			  , SYSDATE
 	   			  	  , #{sysFrstInptUserId}
@@ -403,6 +430,15 @@
 		    	, CM.CLTVTN_LAND_SN
 		    	, CM.FLNM
 		    	, CM.CLTVTN_LAND_ADDR
+
+		    	, CM.PRDCTN_PLAN_VLM
+				, CM.EC_SPMT_PLAN_VLM
+		    	, CM.PLAN_RMRK
+
+		    	, CM.PRDCTN_VLM
+				, CM.EC_SPMT_VLM
+				, CM.SPMT_PRC
+		    	, CM.SPMT_RMRK
 
 				, CM.DEL_YN
 				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT

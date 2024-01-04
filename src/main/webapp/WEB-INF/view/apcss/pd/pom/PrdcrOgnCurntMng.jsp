@@ -600,6 +600,19 @@
 	        	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 	        {caption: ["(평년)생산량(톤)"], ref: 'avgYrPrdctnVlm',   	type:'input',  width:'140px',    style:'text-align:center'
 	        	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+
+	        {caption: ["생산계획량(톤)"], ref: 'prdctnPlanVlm',   	type:'input',  width:'140px',    style:'text-align:center'
+		       	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+		    {caption: ["전속출하계약량(톤)"], ref: 'ecSpmtPlanVlm',   	type:'input',  width:'140px',    style:'text-align:center'
+		       	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+
+		    {caption: ["생산량(결과)(톤)"], ref: 'prdctnVlm',   	type:'input',  width:'140px',    style:'text-align:center'
+		        ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+		    {caption: ["전속출하량(결과)(톤)"], ref: 'ecSpmtVlm',   	type:'input',  width:'140px',    style:'text-align:center'
+		        ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+		    {caption: ["출하대금 지급액(천원)"], ref: 'spmtPrc',   	type:'input',  width:'140px',    style:'text-align:center'
+		        ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+
 	        {caption: ["가입일"], 		ref: 'joinDay',  	type:'datepicker',  width:'110px',    style:'text-align:center'
 	        	,typeinfo : {locale : 'ko' , dateformat :'yymmdd' , yearrange : 150}, format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd' }},
 	        {caption: ["탈퇴일"], 		ref: 'whdwlDay',  	type:'datepicker',  width:'110px',    style:'text-align:center'
@@ -1170,7 +1183,17 @@
 						,whdwlDay: 			item.whdwlDay
 						,cltvtnSfc: 		item.cltvtnSfc
 						,avgYrPrdctnVlm: 	item.avgYrPrdctnVlm
-						,cltvtnAreaRmrk: item.cltvtnAreaRmrk
+						,cltvtnAreaRmrk: 	item.cltvtnAreaRmrk
+
+						,prdctnPlanVlm: 	item.prdctnPlanVlm
+						,ecSpmtPlanVlm: 	item.ecSpmtPlanVlm
+						//,planRmrk: 			item.planRmrk
+
+						,prdctnVlm: 		item.prdctnVlm
+						,ecSpmtVlm: 		item.ecSpmtVlm
+						,spmtPrc: 			item.spmtPrc
+						//,spmtRmrk: 			item.spmtRmrk
+
 				}
 				jsonPrdcrOgnCurntMng02.push(PrdcrOgnCurntMngVO);
 			});
