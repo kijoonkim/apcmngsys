@@ -213,7 +213,7 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="font-size:14px">▶출하조직 리스트</span>
+								<span style="font-size:14px">▶출자출하조직 리스트</span>
 								<!--
 								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
 								 -->
@@ -523,8 +523,8 @@
 							<td colspan="2" class="td_input">
 								<sbux-input
 									uitype="text"
-									id="dtl-input-etcAmt"
-									name="dtl-input-etcAmt"
+									id="dtl-input-etcInvstAmt"
+									name="dtl-input-etcInvstAmt"
 									class="form-control input-sm"
 									mask = "{ 'alias': 'numeric', 'autoGroup': 3,'suffix': '(천원)' , 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 									autocomplete="off"
@@ -587,11 +587,11 @@
 					</tbody>
 				</table>
 				<br>
-				<div>
-				>산지유통활성화 지원 자금 신청현황<br>
+				<div class="descripton_wrap desc" style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
+				<p style="font-size:14px; color: #3c6dbc;">▶산지유통활성화 지원 자금 신청현황</p>
 				기존 보유금액 등을 감안하여 신규(또는 추가)로 필요한 금액 입력.
 				</div>
-
+				<br>
 				<table class="table table-bordered tbl_fixed" style="border: none">
 					<caption>산지유통활성화 지원 자금 신청현황</caption>
 					<colgroup>
@@ -636,9 +636,11 @@
 					</tbody>
 				</table>
 				<br>
-				<div>
-				*신청대상구분
+				<div class="descripton_wrap desc" style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
+				<p style="font-size:14px; color: #3c6dbc;">▶신청대상구분</p>
+				*신청대상구분은 aT본사에서만 이용하는 란입니다.
 				</div>
+				<br>
 				<table class="table table-bordered tbl_fixed" style="border: none">
 					<caption>신청대상구분</caption>
 					<colgroup>
@@ -678,9 +680,6 @@
 						</tr>
 					</tbody>
 				</table>
-				<div>
-				*신청대상구분은 aT본사에서만 이용하는 란입니다.
-				</div>
 				<br>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
@@ -846,26 +845,23 @@
 	        {caption: ["법인형태"], 			ref: 'corpDtlSeCd',  	type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["출자자수"], 			ref: 'invstNope',   	type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["출자자 중 농업인수"], 	ref: 'invstExpndFrmerNope',   	type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["농업인 출자 지분율"], 	ref: 'ii',   	type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["2020~2022 대출액잔액"],ref: 'jj',   	type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["2023 상환예상액"], 	ref: 'kk',   	type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["농업인 출자 지분율"], 	ref: 'frmerInvstAmtRt',   	type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["2023 자금신청액"], 	ref: 'll',   	type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["2023 가용액"], 		ref: 'mm',   	type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["비고"], 				ref: 'nn',   	type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["비고"], 				ref: 'rmrk',   	type:'output',  width:'120px',    style:'text-align:center'},
 
 	        {caption: ["상세내역"], 	ref: 'isoFundAplyAmt',   	hidden : true},
-	        {caption: ["상세내역"], 	ref: 'aplyTrgtSe',   	hidden : true},
-	        {caption: ["상세내역"], 	ref: 'yr',   	hidden : true},
+	        {caption: ["상세내역"], 	ref: 'aplyTrgtSe',   		hidden : true},
+	        {caption: ["상세내역"], 	ref: 'yr',   				hidden : true},
 
-	        {caption: ["상세내역"], 	ref: 'crno',   	hidden : true},
-	        {caption: ["상세내역"], 	ref: 'corpSeCd',   	hidden : true},
-	        {caption: ["상세내역"], 	ref: 'corpFndnDay',   	hidden : true},
-	        {caption: ["상세내역"], 	ref: 'invstAmt',   	hidden : true},
+	        {caption: ["상세내역"], 	ref: 'crno',   				hidden : true},
+	        {caption: ["상세내역"], 	ref: 'corpSeCd',   			hidden : true},
+	        {caption: ["상세내역"], 	ref: 'corpFndnDay',   		hidden : true},
+	        {caption: ["상세내역"], 	ref: 'invstAmt',   			hidden : true},
 	        {caption: ["상세내역"], 	ref: 'frmerInvstAmt',   	hidden : true},
 	        {caption: ["상세내역"], 	ref: 'prdcrGrpInvstAmt',   	hidden : true},
 	        {caption: ["상세내역"], 	ref: 'locgovInvstAmt',   	hidden : true},
-	        {caption: ["상세내역"], 	ref: 'etcAmt',   	hidden : true},
-	        {caption: ["상세내역"], 	ref: 'fxno',   	hidden : true}
+	        {caption: ["상세내역"], 	ref: 'etcInvstAmt',   		hidden : true},
+	        {caption: ["상세내역"], 	ref: 'fxno',   				hidden : true}
 	    ];
 
 	    grdInvShipOgnReqMng01 = _SBGrid.create(SBGridProperties);
@@ -1031,13 +1027,16 @@
 						,frmerInvstAmt: item.frmerInvstAmt
 						,prdcrGrpInvstAmt: item.prdcrGrpInvstAmt
 						,locgovInvstAmt: item.locgovInvstAmt
-						,etcAmt: item.etcAmt
+						,etcInvstAmt: item.etcInvstAmt
 						,rprsvFlnm: item.rprsvFlnm
 						,rprsvTelno: item.rprsvTelno
 						,fxno: item.fxno
 						,isoFundAplyAmt: item.isoFundAplyAmt
 						,aplyTrgtSe: item.aplyTrgtSe
 						,yr: item.yr
+
+						,frmerInvstAmtRt: item.frmerInvstAmtRt
+
 				}
 				jsonInvShipOgnReqMng01.push(InvShipOgnReqMngVO);
 			});
@@ -1079,15 +1078,16 @@
 				SBUxMethod.set("dtl-input-frmerInvstAmt", item.frmerInvstAmt);
 				SBUxMethod.set("dtl-input-prdcrGrpInvstAmt", item.prdcrGrpInvstAmt);
 				SBUxMethod.set("dtl-input-locgovInvstAmt", item.locgovInvstAmt);
-				SBUxMethod.set("dtl-input-etcAmt", item.etcAmt);
+				SBUxMethod.set("dtl-input-etcInvstAmt", item.etcInvstAmt);
 				SBUxMethod.set("dtl-input-rprsvFlnm", item.rprsvFlnm);
 				SBUxMethod.set("dtl-input-rprsvTelno", item.rprsvTelno);
 				SBUxMethod.set("dtl-input-fxno", item.fxno);
 
 				SBUxMethod.set("dtl-input-aplyTrgtSe", item.aplyTrgtSe);
 				SBUxMethod.set("dtl-input-isoFundAplyAmt", item.isoFundAplyAmt);
-			});
 
+				SBUxMethod.set("dtl-input-frmerInvstAmtRt", item.frmerInvstAmtRt);
+			});
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -1206,6 +1206,7 @@
 	//통합조직 리스트 그리드 클릭시 출자출하조직 리스트 조회 이벤트
 	const fn_view = async function(){
 		console.log("******************fn_view**********************************");
+		fn_clearForm();
 
 	    //데이터가 존재하는 그리드 범위 확인
 		var nCol = grdInvShipOgnReqMng.getCol();
@@ -1254,13 +1255,15 @@
 						,frmerInvstAmt: item.frmerInvstAmt
 						,prdcrGrpInvstAmt: item.prdcrGrpInvstAmt
 						,locgovInvstAmt: item.locgovInvstAmt
-						,etcAmt: item.etcAmt
+						,etcInvstAmt: item.etcInvstAmt
 						,rprsvFlnm: item.rprsvFlnm
 						,rprsvTelno: item.rprsvTelno
 						,fxno: item.fxno
 						,isoFundAplyAmt: item.isoFundAplyAmt
 						,aplyTrgtSe: item.aplyTrgtSe
 						,yr: item.yr
+
+						,frmerInvstAmtRt: item.frmerInvstAmtRt
 				}
 				jsonInvShipOgnReqMng01.push(InvShipOgnReqMngVO);
 			});
@@ -1293,6 +1296,7 @@
 		if(nRow == null){
 			nRow = 1;
 		}
+		fn_clearForm();
 
 		//해당 로우 데이터로 출자출하조직 리스트 조회
         let rowData = grdInvShipOgnReqMng01.getRowData(nRow);
@@ -1311,7 +1315,7 @@
 		SBUxMethod.set("dtl-input-frmerInvstAmt", rowData.frmerInvstAmt);
 		SBUxMethod.set("dtl-input-prdcrGrpInvstAmt", rowData.prdcrGrpInvstAmt);
 		SBUxMethod.set("dtl-input-locgovInvstAmt", rowData.locgovInvstAmt);
-		SBUxMethod.set("dtl-input-etcAmt", rowData.etcAmt);
+		SBUxMethod.set("dtl-input-etcInvstAmt", rowData.etcInvstAmt);
 		SBUxMethod.set("dtl-input-rprsvFlnm", rowData.rprsvFlnm);
 		SBUxMethod.set("dtl-input-rprsvTelno", rowData.rprsvTelno);
 		SBUxMethod.set("dtl-input-fxno", rowData.fxno);
@@ -1319,6 +1323,7 @@
 		SBUxMethod.set("dtl-input-aplyTrgtSe", rowData.aplyTrgtSe);
 		SBUxMethod.set("dtl-input-isoFundAplyAmt", rowData.isoFundAplyAmt);
 
+		SBUxMethod.set("dtl-input-frmerInvstAmtRt", rowData.frmerInvstAmtRt);
     }
 
 	//신규
@@ -1347,6 +1352,32 @@
     		}
     		console.error("failed", e.message);
 		}
+	}
+
+	const fn_clearForm = function() {
+
+		SBUxMethod.set("dtl-input-apoCd", null);
+		SBUxMethod.set("dtl-input-crno", null);
+		SBUxMethod.set("dtl-input-brno", null);
+		SBUxMethod.set("dtl-input-corpNm", null);
+		SBUxMethod.set("dtl-input-corpSeCd", null);
+		SBUxMethod.set("dtl-input-corpDtlSeCd", null);
+		SBUxMethod.set("dtl-input-corpFndnDay", null);
+		SBUxMethod.set("dtl-input-invstNope", null);
+		SBUxMethod.set("dtl-input-invstExpndFrmerNope", null);
+		SBUxMethod.set("dtl-input-invstAmt", null);
+		SBUxMethod.set("dtl-input-frmerInvstAmt", null);
+		SBUxMethod.set("dtl-input-prdcrGrpInvstAmt", null);
+		SBUxMethod.set("dtl-input-locgovInvstAmt", null);
+		SBUxMethod.set("dtl-input-etcInvstAmt", null);
+		SBUxMethod.set("dtl-input-rprsvFlnm", null);
+		SBUxMethod.set("dtl-input-rprsvTelno", null);
+		SBUxMethod.set("dtl-input-fxno", null);
+
+		SBUxMethod.set("dtl-input-aplyTrgtSe", null);
+		SBUxMethod.set("dtl-input-isoFundAplyAmt", null);
+
+		SBUxMethod.set("dtl-input-frmerInvstAmtRt", null);
 	}
 
 </script>

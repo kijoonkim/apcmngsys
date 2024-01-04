@@ -256,7 +256,6 @@
 									unselected-text="선택"
 									class="form-control input-sm"
 									onchange="fn_onChangeSrchItemCd(this)"
-									readonly
 								></sbux-select>
 							</td>
 							<td colspan="2" class="td_input" >
@@ -273,7 +272,6 @@
 									unselected-text="선택"
 									class="form-control input-sm"
 									onchange="fn_onChangeSrchItemCd(this)"
-									readonly
 								></sbux-select>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;" >
@@ -287,7 +285,6 @@
 									class="form-control input-sm"
 									mask = "{ 'alias': '999-99-99999', 'autoUnmask': true }"
 									autocomplete="off"
-									readonly
 								></sbux-input>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;" >
