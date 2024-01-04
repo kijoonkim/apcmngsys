@@ -25,9 +25,9 @@
 						<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
 					</c:if>
-					<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+					<%-- <c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
 						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
-					</c:if>
+					</c:if> --%>
 				</div>
 			</div>
 			<div class="box-body">
@@ -256,6 +256,7 @@
 									unselected-text="선택"
 									class="form-control input-sm"
 									onchange="fn_onChangeSrchItemCd(this)"
+									readonly
 								></sbux-select>
 							</td>
 							<td colspan="2" class="td_input" >
@@ -272,6 +273,7 @@
 									unselected-text="선택"
 									class="form-control input-sm"
 									onchange="fn_onChangeSrchItemCd(this)"
+									readonly
 								></sbux-select>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;" >
@@ -285,6 +287,7 @@
 									class="form-control input-sm"
 									mask = "{ 'alias': '999-99-99999', 'autoUnmask': true }"
 									autocomplete="off"
+									readonly
 								></sbux-input>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;" >
@@ -297,11 +300,13 @@
 									name="dtl-input-coNm"
 									class="form-control input-sm"
 									autocomplete="off"
+									readonly
 								></sbux-input>
 							</td>
 							<td colspan="2" class="td_input">
 							</td>
 						</tr>
+					<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 						<tr>
 							<th scope="row" class="th_bg">전화번호</th>
 							<td colspan="4" class="td_input" style="border-right: hidden;">
@@ -331,7 +336,7 @@
 							</td>
 							<td style="border-right: hidden;"></td>
 						</tr>
-					<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+
 						<tr>
 							<th scope="row" class="th_bg">1차승인여부</th>
 							<td colspan="4" class="td_input" style="border-right: hidden;">
