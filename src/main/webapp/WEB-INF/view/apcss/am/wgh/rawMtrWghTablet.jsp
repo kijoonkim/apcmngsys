@@ -388,7 +388,7 @@
 							</td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg" style="border-right: hidden;">팔레트/박스</th>
+							<th scope="row" class="th_bg" style="border-right: hidden;"><span class="data_required"></span>팔레트/박스</th>
 						 	<td colspan="2" class="td_input" style="border-right: hidden;">
 						 		<sbux-button
 									id="dtl-btn-wrhsPltBx"
@@ -730,7 +730,7 @@
     		gfn_comAlert("W0001", "계량일자");		//	W0002	{0}을/를 입력하세요.
             return;
     	}
- 		
+
 		var getColRef = grdWghPrfmnc.getColRef("checkedYn");
 		grdWghPrfmnc.setFixedcellcheckboxChecked(0, getColRef, false);
 
