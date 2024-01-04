@@ -496,11 +496,10 @@
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
 		let rst = await Promise.all([
-
 			//gfn_setComCdSBSelect('srch-input-userType', 	jsonComUserType, 	'USER_TYPE'),	// 권한
 			gfn_setComCdSBSelect('srch-input-userType', 	jsonComUserType, 	'USER_TYPE_1'),	// 권한
 			//gfn_setComCdSBSelect('dtl-input-userType', 	jsonComUserType, 	'USER_TYPE'),	// 권한
-			gfn_setComCdSBSelect('dtl-input-userType', 	jsonComUserType, 	'USER_TYPE_1'),	// 권한
+			gfn_setComCdSBSelect('dtl-input-userType', 		jsonComUserType, 	'USER_TYPE_1'),	// 권한
 			gfn_setComCdSBSelect('srch-input-userStts', 	jsonComUserStts, 	'USER_STTS'),	// 1차승인
 			gfn_setComCdSBSelect('dtl-input-userStts', 		jsonComUserStts, 	'USER_STTS'),	// 1차승인
 		 	gfn_setComCdSBSelect('srch-input-cmptncInst', 	jsonComcmptncInst, 	'CMPTNC_INST'), //관할기관
@@ -614,6 +613,7 @@
         	jsonPrdcrCrclOgnUsrMng.length = 0;
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
+        		console.log(item.cmptncInst);
 				let PrdcrCrclOgnUsrMngVO = {
 					userId 		: item.userId
 				  , userNm 		: item.userNm

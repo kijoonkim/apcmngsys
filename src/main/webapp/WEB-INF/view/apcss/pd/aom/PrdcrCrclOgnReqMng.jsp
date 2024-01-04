@@ -1652,6 +1652,7 @@
 		SBUxMethod.set('dtl-input-pruoFundAplyAmt',gfn_nvl(rowData.pruoFundAplyAmt))//
 		SBUxMethod.set('dtl-input-isoFundAplyAmt',gfn_nvl(rowData.isoFundAplyAmt))//
 		//SBUxMethod.set('dtl-input-aplyTrgtSe',gfn_nvl(rowData.aplyTrgtSe))//
+		fn_fundAplyAmt();
 		fn_calFrmerInvstAmtRt();
 		fn_calTot();
 
@@ -2036,6 +2037,11 @@
 			grdGpcList.setCellData(selGridRow,colRefIdx3,rowData.itemCd,true);
 			grdGpcList.setCellData(selGridRow,colRefIdx4,rowData.itemNm,true);
 			grdGpcList.setCellData(selGridRow,colRefIdx5,rowData.rmrk,true);
+
+			let grdStatus = grdGpcList.getRowStatus(selGridRow);
+		 	if(grdStatus != '1'){
+		 		grdGpcList.setRowStatus(selGridRow,'update');
+		 	}
 		}
 	}
 

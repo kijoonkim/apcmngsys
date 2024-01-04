@@ -2161,6 +2161,11 @@ tps://sbgrid.co.kr/v2_5/document/guide
 			grdUoList.setCellData(selGridUoListRow,colRefIdx1,rowData.corpNm,true);
 			grdUoList.setCellData(selGridUoListRow,colRefIdx2,rowData.brno,true);
 			grdUoList.setCellData(selGridUoListRow,colRefIdx3,rowData.apoCd,true);
+
+			let grdStatus = grdUoList.getRowStatus(selGridUoListRow);
+		 	if(grdStatus != '1'){
+		 		grdUoList.setRowStatus(selGridUoListRow,'update');
+		 	}
 		}
 	}
 

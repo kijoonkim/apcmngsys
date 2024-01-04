@@ -500,6 +500,11 @@
 			//그리드 값 세팅
 			grdPrdcrCrclOgnVluIdctrMng.setCellData(selGridRow,colRefIdx1,rowData.mainCodeNm,true);
 			grdPrdcrCrclOgnVluIdctrMng.setCellData(selGridRow,colRefIdx2,rowData.mainCode,true);
+
+			let grdStatus = grdPrdcrCrclOgnVluIdctrMng.getRowStatus(selGridRow);
+		 	if(grdStatus != '1'){
+		 		grdPrdcrCrclOgnVluIdctrMng.setRowStatus(selGridRow,'update');
+		 	}
 		}
 	}
 
@@ -520,6 +525,11 @@
 			//그리드 값 세팅
 			grdPrdcrCrclOgnVluIdctrMng.setCellData(selGridRow,colRefIdx1,rowData.itemNm,true);
 			grdPrdcrCrclOgnVluIdctrMng.setCellData(selGridRow,colRefIdx2,rowData.itemCd,true);
+
+			let grdStatus = grdPrdcrCrclOgnVluIdctrMng.getRowStatus(selGridRow);
+		 	if(grdStatus != '1'){
+		 		grdPrdcrCrclOgnVluIdctrMng.setRowStatus(selGridRow,'update');
+		 	}
 		}
 	}
 

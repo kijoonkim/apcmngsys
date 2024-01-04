@@ -582,8 +582,7 @@
 		WHEN MATCHED THEN
 				 UPDATE
 					   SET
-		    	        PRDCR_OGNZ_CD		= #{prdcrOgnzCd}
-		    	        , PRDCR_OGNZ_NM		= #{prdcrOgnzNm}
+		    	        PRDCR_OGNZ_NM		= #{prdcrOgnzNm}
 		    	        , RMRK				= #{rmrk}
 
 		    	        , ITEM_CD				= #{itemCd}
