@@ -587,6 +587,8 @@
 
 		    	        , ITEM_CD				= #{itemCd}
 		    	        , CTGRY_CD				= #{ctgryCd}
+		    	        , TRMT_TYPE				= #{trmtType}
+		    	        , STTG_UPBR_ITEM_SE		= #{sttgUpbrItemSe}
 
 		    	        , PRDCR_OGNZ_CD = FN_GET_PRDCR_OGNZ_CD (#{apoCd} , #{brno} , #{apoSe} , #{prdcrOgnzSn})
 

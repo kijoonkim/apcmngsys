@@ -455,6 +455,7 @@
 	            {caption: ["상세내역"], 	ref: 'ctgryCd',   		hidden : true},
 	            {caption: ["상세내역"], 	ref: 'itemCd',   		hidden : true},
 	            {caption: ["상세내역"], 	ref: 'prdcrOgnzSn',   	hidden : true},
+	            {caption: ["상세내역"], 	ref: 'cltvtnLandSn',   	hidden : true},
 	            {caption: ["상세내역"], 	ref: 'prdcrOgnzCd',   	hidden : true},
 	            {caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',   hidden : true},
 	        ];
@@ -703,6 +704,7 @@
 						,itemCd: item.itemCd
 						,prdcrOgnzSn: item.prdcrOgnzSn
 						,prdcrOgnzCd: item.prdcrOgnzCd
+						,cltvtnLandSn: item.cltvtnLandSn
 						,sttgUpbrItemSe: item.sttgUpbrItemSe
 				}
 
