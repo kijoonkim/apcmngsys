@@ -401,10 +401,10 @@
 
         SBGridProperties.columns = [
             {caption: ['메뉴목록'], ref: 'menuNm', width: '80%', type: 'output'},
-            {caption: ["<input type='checkbox' onchange='fn_checkAllAuthMenu(this);'>"],
+            {caption: ["<input type='checkbox' id='allCheckbox' onchange='fn_checkAllAuthMenu(this);'>"],
             	width: '20%',
                 ref: 'useYn', type: 'checkbox',   style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+            	typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}
             },
             /*
             {caption: ['상세'], ref: 'entyList', width: '100%', type: 'output',
