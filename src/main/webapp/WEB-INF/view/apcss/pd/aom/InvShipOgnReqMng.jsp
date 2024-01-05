@@ -203,11 +203,7 @@
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdInvShipOgnReqMng" style="height:350px; width: 100%;"></div>
-				</div>
-				<br>
-				<br>
-				<div>
+					<div id="sb-area-grdInvShipOgnReqMng" style="height:150px; width: 100%;"></div>
 				</div>
 				<div class="ad_section_top">
 					<div class="ad_tbl_top">
@@ -221,10 +217,8 @@
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdInvShipOgnReqMng01" style="height:350px; width: 100%;"></div>
+					<div id="sb-area-grdInvShipOgnReqMng01" style="height:250px; width: 100%;"></div>
 				</div>
-				<br>
-				<br>
 			</c:if><!-- 관리자 권한인 경우 그리드 표기 -->
 			<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00' && loginVO.userType eq '21'}">
 				<table class="table table-bordered tbl_fixed">
@@ -277,25 +271,25 @@
 						</tr>
 					</tbody>
 				</table>
-				<div>
-				</div>
 				<div class="ad_section_top">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="font-size:14px">▶출하조직 리스트</span>
-								<!--
-								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
-								 -->
+								<span style="font-size:14px">▶출자출하조직 리스트</span>
 							</li>
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdInvShipOgnReqMng01" style="height:350px; width: 100%;"></div>
+					<div id="sb-area-grdInvShipOgnReqMng01" style="height:150px; width: 100%;"></div>
 				</div>
-				<br>
-				<br>
 			</c:if>
+				<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">▶출자출하조직 상세내역</span>
+							</li>
+						</ul>
+				</div>
 				<table class="table table-bordered tbl_fixed">
 					<caption>출자출하조직 등록 및 신청</caption>
 					<colgroup>
@@ -586,12 +580,24 @@
 						</tr>
 					</tbody>
 				</table>
-				<br>
+				<!-- <br>
 				<div class="descripton_wrap desc" style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
 				<p style="font-size:14px; color: #3c6dbc;">▶산지유통활성화 지원 자금 신청현황</p>
 				기존 보유금액 등을 감안하여 신규(또는 추가)로 필요한 금액 입력.
 				</div>
-				<br>
+				<br> -->
+
+				<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">▶산지유통활성화 지원 자금 신청현황</span>
+								<!--
+								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+								 -->
+							</li>
+						</ul>
+				</div>
+
 				<table class="table table-bordered tbl_fixed" style="border: none">
 					<caption>산지유통활성화 지원 자금 신청현황</caption>
 					<colgroup>
@@ -635,12 +641,24 @@
 						</tr>
 					</tbody>
 				</table>
-				<br>
+				<!-- <br>
 				<div class="descripton_wrap desc" style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
 				<p style="font-size:14px; color: #3c6dbc;">▶신청대상구분</p>
 				*신청대상구분은 aT본사에서만 이용하는 란입니다.
 				</div>
-				<br>
+				<br> -->
+
+				<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">▶신청대상구분</span>
+								<!--
+								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+								 -->
+							</li>
+						</ul>
+				</div>
+
 				<table class="table table-bordered tbl_fixed" style="border: none">
 					<caption>신청대상구분</caption>
 					<colgroup>
@@ -674,16 +692,16 @@
 									unselected-text="선택"
 									class="form-control input-sm"
 									onchange="fn_onChangeSrchItemCd(this)"
+									readonly
 								></sbux-select>
 							</td>
 							<td colspan="8" style="border: none"></td>
 						</tr>
 					</tbody>
 				</table>
-				<br>
-				<div style="margin-left: auto;">
+				<!-- <div style="margin-left: auto;">
 					<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</section>
