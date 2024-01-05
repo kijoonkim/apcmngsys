@@ -203,7 +203,7 @@
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdInvShipOgnReqMng" style="height:350px; width: 100%;"></div>
+					<div id="sb-area-grdInvShipOgnReqMng" style="height:150px; width: 100%;"></div>
 				</div>
 				<div class="ad_section_top">
 					<div class="ad_tbl_top">
@@ -217,7 +217,7 @@
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdInvShipOgnReqMng01" style="height:350px; width: 100%;"></div>
+					<div id="sb-area-grdInvShipOgnReqMng01" style="height:250px; width: 100%;"></div>
 				</div>
 			</c:if><!-- 관리자 권한인 경우 그리드 표기 -->
 			<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00' && loginVO.userType eq '21'}">
@@ -280,7 +280,7 @@
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdInvShipOgnReqMng01" style="height:350px; width: 100%;"></div>
+					<div id="sb-area-grdInvShipOgnReqMng01" style="height:150px; width: 100%;"></div>
 				</div>
 			</c:if>
 				<div class="ad_tbl_top">
