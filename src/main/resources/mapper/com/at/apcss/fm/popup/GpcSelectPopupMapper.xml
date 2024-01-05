@@ -33,16 +33,16 @@
 
 		<![CDATA[
     	SELECT /* com.at.apcss.fm.popup.mapper.GpcSelectPopupMapper.selectGpcList */
-    		   A.CTGRY_CD   AS CTGRY_CD
-		     , A.CTGRY_NM   AS CTGRY_NM
+    		   A.ITEM_CD   AS CTGRY_CD
+		     , A.ITEM_NM   AS CTGRY_NM
 		     , A.ITEM_CD	AS ITEM_CD
 		     , A.ITEM_NM	AS ITEM_NM
-		     --, A.RMRK		AS RMRK
-		  FROM TB_EV_GPC_CD A
+		     , ''		AS RMRK
+		  FROM TB_ITEM_CRTR A
 		 WHERE A.DEL_YN = 'N'
 		 ]]>
 		<if test='ctgryNm != null and ctgryNm != ""'>
-				AND A.CTGRY_NM LIKE '%'||#{ctgryNm}||'%'
+				AND A.ITEM_NM LIKE '%'||#{ctgryNm}||'%'
 		</if>
 		<if test='itemNm != null and itemNm != ""'>
 				AND A.ITEM_NM LIKE '%'||#{itemNm}||'%'
