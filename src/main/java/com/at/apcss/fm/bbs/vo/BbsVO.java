@@ -18,6 +18,7 @@ public class BbsVO extends ComVO{
 	private String rmrk;
 	private String bbsNo;
 	private String bbsTtl;
+	private String bbsTitle;
 	private String bbsSeCd;
 	private String bbsSeCdNm;
 	private String bbsSbjt;

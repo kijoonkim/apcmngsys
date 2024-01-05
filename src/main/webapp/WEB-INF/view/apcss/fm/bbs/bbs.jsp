@@ -139,7 +139,7 @@
 		                                <tr>
 		                                    <th>제목</th>
 		                                    <td colspan="7">
-		                                        <sbux-input id="dtl-input-bbsTtl" name="dtl-input-bbsTtl" uitype="text" required style="width:100%"></sbux-input>
+		                                        <sbux-input id="dtl-input-bbsTitle" name="dtl-input-bbsTitle" uitype="text" required style="width:100%"></sbux-input>
 		                                    </td>
 		                                </tr>
 		                                <tr>
@@ -343,7 +343,7 @@
         	data.resultList.forEach((item, index) => {
 				const msg = {
 					bbsNo: item.bbsNo,
-					bbsTtl: item.bbsTtl,
+					bbsTitle: item.bbsTtl,
 					bbsSeCd: item.bbsSeCd,
 					bbsSeCdNm: item.bbsSeCdNm,
 					bbsSbjt: item.bbsSbjt,
@@ -365,8 +365,6 @@
 					totalRecordCount = item.totalRecordCount;
 				}
 			});
-
-        	console.log("totalRecordCount", totalRecordCount);
 
         	if (jsonBbsList.length > 0) {
 
@@ -398,7 +396,7 @@
     	SBUxMethod.set("dtl-select-bbsSeCd", '1');
         SBUxMethod.set("dtl-input-bbsNo", null);
         SBUxMethod.attr("dtl-input-bbsNo", "readonly", true);
-        SBUxMethod.set("dtl-input-bbsTtl", null);
+        SBUxMethod.set("dtl-input-bbsTitle", null);
         SBUxMethod.set("dtl-input-bbsSbjt", null);
         SBUxMethod.set("dtl-input-sysFrstInptUserIdNm", null);
         SBUxMethod.set("dtl-input-sysFrstInptDt", null);
@@ -419,7 +417,7 @@
     	SBUxMethod.set("dtl-select-bbsSeCd", null);
         SBUxMethod.set("dtl-input-bbsNo", null);
         SBUxMethod.attr("dtl-input-bbsNo", "readonly", true);
-        SBUxMethod.set("dtl-input-bbsTtl", null);
+        SBUxMethod.set("dtl-input-bbsTitle", null);
         SBUxMethod.set("dtl-input-bbsSbjt", null);
         SBUxMethod.set("dtl-input-sysFrstInptUserIdNm", null);
         SBUxMethod.set("dtl-input-sysFrstInptDt", null);
@@ -449,7 +447,7 @@
             return;
         } */
 
-    	if (!SBUxMethod.get("dtl-input-bbsTtl")) {
+    	if (!SBUxMethod.get("dtl-input-bbsTitle")) {
             alert("제목을 입력하세요.");
             return;
         }
@@ -493,7 +491,7 @@
     	const postJsonPromise = gfn_postJSON("/fm/bbs/insertBbs.do", {
 			bbsNo: SBUxMethod.get('dtl-input-bbsNo'),
 			bbsSeCd: SBUxMethod.get('dtl-select-bbsSeCd'),
-			bbsTtl: SBUxMethod.get('dtl-input-bbsTtl'),
+			bbsTitle: SBUxMethod.get('dtl-input-bbsTitle'),
 			bbsSbjt: SBUxMethod.get('dtl-input-bbsSbjt')
 		});
 
@@ -501,7 +499,6 @@
 
         try {
         	if (_.isEqual("S", data.resultStatus)) {
-        		console.log("게시글 등록 성공");
         		var fileList = $('#bbsfileList')[0].files;
         		if(fileList.length > 0){
         			fn_fileUpload(0);
@@ -516,7 +513,7 @@
         }
 
         // 결과 확인 후 재조회
-        console.log("insert result", data);
+//         console.log("insert result", data);
     }
 
 	/**
@@ -530,7 +527,7 @@
     	const postJsonPromise = gfn_postJSON("/fm/bbs/updateBbs.do", {
 			bbsNo: SBUxMethod.get('dtl-input-orngBbsNo'),
 			bbsSeCd: SBUxMethod.get('dtl-select-bbsSeCd'),
-			bbsTtl: SBUxMethod.get('dtl-input-bbsTtl'),
+			bbsTitle: SBUxMethod.get('dtl-input-bbsTitle'),
 			bbsSbjt: SBUxMethod.get('dtl-input-bbsSbjt')
 		});
 
@@ -538,7 +535,7 @@
 
         try {
         	if (_.isEqual("S", data.resultStatus)) {
-        		console.log("게시글 등록 성공");
+//         		console.log("게시글 등록 성공");
         		var fileList = $('#bbsfileList')[0].files;
         		if(fileList.length > 0){
         			var bbsNo = SBUxMethod.get('dtl-input-orngBbsNo');
@@ -554,7 +551,7 @@
         }
 
         // 결과 확인 후 재조회
-        console.log("update result", data);
+//         console.log("update result", data);
     }
 
 
@@ -632,7 +629,7 @@
          }
 
          // 결과 확인 후 재조회
-         console.log("update result", data);
+//          console.log("update result", data);
     }
 
     //상세정보 보기
@@ -656,13 +653,13 @@
         SBUxMethod.set("dtl-input-orngBbsNo", rowData.bbsNo);
         SBUxMethod.set("dtl-select-bbsSeCd", rowData.bbsSeCd);
         SBUxMethod.set("dtl-input-bbsNo", rowData.bbsNo);
-        SBUxMethod.set("dtl-input-bbsTtl", rowData.bbsTtl);
+        SBUxMethod.set("dtl-input-bbsTitle", rowData.bbsTitle);
         SBUxMethod.set("dtl-input-bbsSbjt", rowData.bbsSbjt);
         SBUxMethod.set("dtl-input-sysFrstInptUserIdNm", rowData.sysFrstInptUserIdNm);
         SBUxMethod.set("dtl-input-sysFrstInptDt", rowData.sysFrstInptDt);
-		console.log(rowData.attCnt);
+// 		console.log(rowData.attCnt);
         if(Number(rowData.attCnt) == 0){
-        	console.log("attCnt = 0");
+//         	console.log("attCnt = 0");
 			return;
         }
         const postJsonPromise = gfn_postJSON("/fm/bbs/selectBbsAttachesList.do", {
@@ -705,12 +702,12 @@
 
 	//첨부파일 업로드
     function fn_fileUpload(bbsNo) {
-    	console.log("===========fn_fileUpload");
+//     	console.log("===========fn_fileUpload");
     	var formData = new FormData();
     	var files = $('#bbsfileList')[0].files;
-		console.log(files);
+// 		console.log(files);
     	if(files.length == 0){return;}
-    	console.log(files);
+//     	console.log(files);
     	for (var i = 0; i < files.length; i++) {
             formData.append('files', files[i]);
         }
@@ -729,12 +726,12 @@
             processData: false,
             contentType: false,
             success: function (response) {
-                console.log(response);
+//                 console.log(response);
                 alert("처리 되었습니다.");
         		fn_search();
             },
             error: function (error) {
-                console.log('Error:', error);
+//                 console.log('Error:', error);
             }
         });
 	}
@@ -753,7 +750,7 @@
 
 	//드랍 이벤트
 	dropArea.on('drop', function (e) {
-		console.log("drop---------");
+// 		console.log("drop---------");
 	    e.preventDefault();
 	    dropArea.removeClass('highlight');
 	    var files = e.originalEvent.dataTransfer.files;
@@ -761,7 +758,7 @@
 	});
 	//input 변경이벤트
 	$('#bbsfile').on('change', function (e) {
-		console.log("change---------");
+// 		console.log("change---------");
 	    var files = $(this)[0].files;
 	    showFiles(files);
 	});
@@ -808,16 +805,16 @@
 	                '</li>');
 	        ulList.append(fileItem);
 	    }
-	    console.log($('#bbsfile')[0].files);
+// 	    console.log($('#bbsfile')[0].files);
 	    $('#bbsfile').val("");
 	}
 
  	// 파일 리스트에서 파일을 제거하는 함수
     function removeFile(index) {
-    	console.log("==============removeFile==============");
+//     	console.log("==============removeFile==============");
 
  		var fileList = $('#bbsfileList')[0].files;
-    	console.log(fileList);
+//     	console.log(fileList);
         var fileListContainer = $('#file-list');
 
         // 선택한 파일을 리스트에서 제거
@@ -833,7 +830,7 @@
             }
         }
         $('#bbsfileList')[0].files = newFileList.files;
-        console.log($('#bbsfileList')[0].files);
+//         console.log($('#bbsfileList')[0].files);
         showFiles(null);
     }
  	//첨부파일 삭제
@@ -856,7 +853,7 @@
          }
 
          // 결과 확인 후 재조회
-         console.log("update result", data);
+//          console.log("update result", data);
     }
 
  	//파일다운로드
