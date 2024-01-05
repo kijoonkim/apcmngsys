@@ -30,6 +30,7 @@ public class InvShipOgnReqMngVO extends ComVO{
 	private String prdcrGrpInvstAmt;
 	private String locgovInvstAmt;
 	private String etcAmt;
+	private String etcInvstAmt;
 	private String tot;
 	private String fxno;
 

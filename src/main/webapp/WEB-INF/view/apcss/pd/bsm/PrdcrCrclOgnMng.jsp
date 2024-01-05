@@ -71,7 +71,6 @@
 									jsondata-ref="jsonComCmptnInst"
 									unselected-text="전체"
 									class="form-control input-sm"
-									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 							</td>
 							<td colspan="2" style="border-right: hidden;">&nbsp;</td>
@@ -84,7 +83,6 @@
 									jsondata-ref="jsonComCtpv"
 									unselected-text="전체"
 									class="form-control input-sm"
-									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;" >
@@ -98,7 +96,6 @@
 									jsondata-ref="jsonComSgg"
 									unselected-text="전체"
 									class="form-control input-sm"
-									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 							</td>
 							<td colspan="3" class="td_input" style="border-right: hidden;" >
@@ -114,7 +111,6 @@
 									jsondata-ref="jsonComCorpSeCd"
 									unselected-text="전체"
 									class="form-control input-sm"
-									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;" >
@@ -128,7 +124,6 @@
 									jsondata-ref="jsonComCorpDtlSeCd"
 									unselected-text="전체"
 									class="form-control input-sm"
-									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;" >
@@ -142,7 +137,6 @@
 									jsondata-ref="selectEvCertYn"
 									unselected-text="전체"
 									class="form-control input-sm"
-									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 							</td>
 							<td colspan="3" class="td_input">
@@ -158,6 +152,7 @@
 									class="form-control input-sm"
 									mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
 									autocomplete="off"
+									readonly
 								></sbux-input>
 							</td>
 							<td colspan="2" class="td_input"  style="border-right: hidden;">
@@ -208,9 +203,6 @@
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrCrclOgnMng" style="height:350px; width: 100%;"></div>
 				</div>
-				<br>
-				<br>
-				<div></div>
 			</c:if><!-- 관리자 권한인 경우 그리드 표기 -->
 				<!-- 그리드 식으로 변경 -->
 				<!--
@@ -279,23 +271,31 @@
 
 				<!-- 출자출하조직이 속한 통합조직 리스트 그리드 -->
 				<div class="uoList">
-					<div class="ad_tbl_top">
+					<!-- <div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
 								<span style="font-size:14px">▶출자출하조직이 속한 통합조직 리스트</span>
 							</li>
+
 							<li>
 								<span style="font-size:12px">상세조회시 추가버튼이 생성됩니다</span>
 							</li>
 							<li>
 								<span style="font-size:12px">추가 버튼을 누른후 통합조직명,사업자번호 위치 클릭시 팝업이 열립니다.</span>
 							</li>
+
 						</ul>
-					</div>
+					</div> -->
+
+					<div  class="ad_tbl_top">
+						<p style="font-size:14px; color: #3c6dbc; text-align: left">▶ 출자출하조직이 속한 통합조직 리스트</p>
+				    </div>
+
+
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdUoList" style="height:150px; width: 908px; overflow-x: hidden"></div>
+					<div id="sb-area-grdUoList" style="height:150px; width: 100%; overflow-x: hidden"></div>
+					<br>
 				</div>
-				<br>
 
 				<table class="table table-bordered tbl_fixed">
 					<caption>사용자관리 수정 화면</caption>
@@ -337,6 +337,7 @@
 									name="dtl-input-corpNm"
 									class="form-control input-sm"
 									autocomplete="off"
+									readonly
 								></sbux-input>
 							</td>
 							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>법인등록번호</th>
@@ -348,6 +349,7 @@
 									class="form-control input-sm"
 									mask = "{ 'alias': '999999-9999999' , 'autoUnmask': true}"
 									autocomplete="off"
+									readonly
 								></sbux-input>
 							</td>
 							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>사업자번호</th>
@@ -359,6 +361,7 @@
 									class="form-control input-sm"
 									mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
 									autocomplete="off"
+									readonly
 								></sbux-input>
 							</td>
 						</tr>
@@ -390,9 +393,8 @@
 									name="dtl-input-mngmstYn"
 									uitype="single"
 									jsondata-ref="jsonComMngmstYn"
-									unselected-text="전체"
+									unselected-text="선택"
 									class="form-control input-sm"
-									onchange="fn_onChangeSrchItemCd(this)"
 									readonly
 								></sbux-select>
 							</td>
@@ -424,9 +426,9 @@
 									name="dtl-input-cmptnInst"
 									uitype="single"
 									jsondata-ref="jsonComCmptnInst"
-									unselected-text="전체"
+									unselected-text="선택"
 									class="form-control input-sm"
-									onchange="fn_onChangeSrchItemCd(this)"
+									readonly
 								></sbux-select>
 							</td>
 							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>시도</th>
@@ -436,9 +438,8 @@
 									name="dtl-input-ctpv"
 									uitype="single"
 									jsondata-ref="jsonComCtpv"
-									unselected-text="전체"
+									unselected-text="선택"
 									class="form-control input-sm"
-									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 							</td>
 							<th colspan="2" scope="row" class="th_bg"><span class="data_required" >시군</th>
@@ -448,9 +449,8 @@
 									name="dtl-input-sgg"
 									uitype="single"
 									jsondata-ref="jsonComSgg"
-									unselected-text="전체"
+									unselected-text="선택"
 									class="form-control input-sm"
-									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 							</td>
 						</tr>
@@ -470,7 +470,7 @@
 									readonly
 								></sbux-input>
 							</td>
-							<td colspan="6" class="td_input" style="border-right:hidden;">
+							<td colspan="6" class="td_input" >
 								<sbux-input
 									uitype="text"
 									id="dtl-input-lotnoDtlAddr"
@@ -502,7 +502,7 @@
 									readonly
 								></sbux-input>
 							</td>
-							<td colspan="6" class="td_input" style="border-right:hidden;">
+							<td colspan="6" class="td_input" >
 								<sbux-input
 									uitype="text"
 									id="dtl-input-roadNmDtlAddr"
@@ -514,13 +514,13 @@
 						</tr>
 						<tr>
 							<th rowspan="8" scope="row" class="th_bg th_border_right">조직형태</th>
-							<th colspan="2" scope="row" class="th_bg th_border_right"><span class="data_required" ></span>법인구분</th>
-							<th colspan="2" scope="row" class="th_bg th_border_right"><span class="data_required" ></span>법인형태</th>
-							<th colspan="2" scope="row" class="th_bg th_border_right"><span class="data_required" ></span>법인설립일</th>
-							<th colspan="2" scope="row" class="th_bg th_border_right"><span class="data_required" ></span>출자출하조직여부</th>
-							<th colspan="2" scope="row" class="th_bg th_border_right"><span class="data_required" ></span>출자자수</th>
-							<th colspan="2" scope="row" class="th_bg th_border_right"><span class="data_required" ></span>출자자중 농업인수</th>
-							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>출자금액(천원)</th>
+							<th colspan="2" scope="row" class="th_bg th_border_right"  style="text-align:center;"><span class="data_required" ></span>법인구분</th>
+							<th colspan="2" scope="row" class="th_bg th_border_right"  style="text-align:center;"><span class="data_required" ></span>법인형태</th>
+							<th colspan="2" scope="row" class="th_bg th_border_right"  style="text-align:center;"><span class="data_required" ></span>법인설립일</th>
+							<th colspan="2" scope="row" class="th_bg th_border_right"  style="text-align:center;"><span class="data_required" ></span>출자출하조직여부</th>
+							<th colspan="2" scope="row" class="th_bg th_border_right"  style="text-align:center;"><span class="data_required" ></span>출자자수</th>
+							<th colspan="2" scope="row" class="th_bg th_border_right"  style="text-align:center;"><span class="data_required" ></span>출자자중 농업인수</th>
+							<th colspan="2" scope="row" class="th_bg"  style="text-align:center;"><span class="data_required" ></span>출자금액(천원)</th>
 						</tr>
 						<tr>
 							<td colspan="2" class="td_input">
@@ -539,7 +539,7 @@
 									name="dtl-input-corpSeCd"
 									uitype="single"
 									jsondata-ref="jsonComCorpSeCd"
-									unselected-text="전체"
+									unselected-text="선택"
 									class="form-control input-sm"
 								></sbux-select>
 								</td>
@@ -559,7 +559,7 @@
 									name="dtl-input-corpDtlSeCd"
 									uitype="single"
 									jsondata-ref="jsonComCorpDtlSeCd"
-									unselected-text="전체"
+									unselected-text="선택"
 									class="form-control input-sm"
 								></sbux-select>
 								</td>
@@ -591,9 +591,8 @@
 									name="dtl-input-isoHldYn"
 									uitype="single"
 									jsondata-ref="selectApoSe"
-									unselected-text="전체"
+									unselected-text="선택"
 									class="form-control input-sm"
-									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 								</td>
 							<td colspan="2" class="td_input">
@@ -633,13 +632,13 @@
 						</tr>
 						<tr>
 						<th colspan="12" style="text-align:center;" scope="row" class="th_bg  th_border_right">출자금세부현황</th>
-						<th rowspan="2" colspan="2" scope="row" class="th_bg th_border_left"><span class="data_required" ></span>농업인 출자 지분율</th>
+						<th rowspan="2" colspan="2" scope="row" class="th_bg th_border_left"  style="text-align:center;"><span class="data_required" ></span>농업인 출자 지분율</th>
 						</tr>
 						<tr>
-							<th colspan="3" scope="row" class="th_bg th_border_right"><span class="data_required" ></span>농업인</th>
-							<th colspan="3" scope="row" class="th_bg th_border_right"><span class="data_required" ></span>생산자단체</th>
-							<th colspan="3" scope="row" class="th_bg th_border_right"><span class="data_required" ></span>지자체</th>
-							<th colspan="3" scope="row" class="th_bg"><span class="data_required" ></span>기타</th>
+							<th colspan="3" scope="row" class="th_bg th_border_right"  style="text-align:center;"><span class="data_required" ></span>농업인</th>
+							<th colspan="3" scope="row" class="th_bg th_border_right"  style="text-align:center;"><span class="data_required" ></span>생산자단체</th>
+							<th colspan="3" scope="row" class="th_bg th_border_right"  style="text-align:center;"><span class="data_required" ></span>지자체</th>
+							<th colspan="3" scope="row" class="th_bg"  style="text-align:center;"><span class="data_required" ></span>기타</th>
 						</tr>
 						<tr>
 							<td colspan="2"   style="border-right: hidden;">
@@ -692,7 +691,7 @@
 							</td>
 							<td>천원</td>
 							<!-- 농업인 출자비율 -->
-							<td colspan="2"   style="border-right: hidden;">
+							<td colspan="2"  >
 							<sbux-input
 									uitype="text"
 									id="dtl-input-frmerInvstAmtRt"
@@ -708,10 +707,10 @@
 							<th colspan="14" scope="row" class="th_bg" style="text-align:center;">전체 종사자 수</th>
 						</tr>
 						<tr>
-							<th colspan="3" scope="row" class="th_bg th_border_right"><span class="data_required" ></span>정규직</th>
-							<th colspan="3" scope="row" class="th_bg th_border_right"><span class="data_required" ></span>파견직</th>
-							<th colspan="3" scope="row" class="th_bg th_border_right"><span class="data_required" ></span>일용직</th>
-							<th colspan="3" scope="row" class="th_bg"><span class="data_required" ></span>합계</th>
+							<th colspan="3" scope="row" class="th_bg th_border_right"  style="text-align:center;"><span class="data_required" ></span>정규직</th>
+							<th colspan="3" scope="row" class="th_bg th_border_right"  style="text-align:center;"><span class="data_required" ></span>파견직</th>
+							<th colspan="3" scope="row" class="th_bg th_border_right"  style="text-align:center;"><span class="data_required" ></span>일용직</th>
+							<th colspan="3" scope="row" class="th_bg"  style="text-align:center;"><span class="data_required" ></span>합계</th>
 						</tr>
 						<tr>
 						<td colspan="2" style="border-right:hidden;">
@@ -768,8 +767,8 @@
 						<td>명</td>
 						</tr>
 						<tr>
-							<th colspan="7" scope="row" class="th_bg th_border_right">대표자 정보</th>
-							<th colspan="8" scope="row" class="th_bg">작성자 정보</th>
+							<th colspan="7" scope="row" class="th_bg th_border_right" style="text-align:center;">대표자 정보</th>
+							<th colspan="8" scope="row" class="th_bg" style="text-align:center;">작성자 정보</th>
 						</tr>
 						<tr>
 							<th colspan="2" scope="row" class="th_bg" ><span class="data_required" ></span>성명</th>
@@ -869,7 +868,7 @@
 								</td>
 						</tr>
 						<tr>
-							<th colspan="7" scope="row" class="th_bg">이메일주소</th>
+							<th colspan="7" scope="row" class="th_bg th_border_right">&nbsp;</th>
 							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>팩스번호</th>
 							<td colspan="6">
 							<sbux-input
@@ -889,9 +888,8 @@
 									name="dtl-input-itemNhBrofYn"
 									uitype="single"
 									jsondata-ref="jsonComItemNhBrofYn"
-									unselected-text="전체"
+									unselected-text="선택"
 									class="form-control input-sm"
-									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 								</td>
 						</tr>
@@ -1198,6 +1196,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	    	{caption: ["통합조직코드"], 		ref: 'uoApoCd',		hidden : true},
 	        {caption: ["통합조직명"], 			ref: 'uoCorpNm',	type:'output',  width:'400px',    style:'text-align:center'},
 	        {caption: ["통합조직 사업자번호"], 	ref: 'uoBrno',		type:'output',  width:'400px',    style:'text-align:center'},
+	        {caption: ["비고"], 		ref: 'rmrk',	type:'output',     style:'text-align:center'}
 	    ];
 
 	    grdUoList = _SBGrid.create(SBGridProperties);
@@ -1905,8 +1904,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
 		let apoCd = SBUxMethod.get('dtl-input-apoCd');
 		let brno = SBUxMethod.get('dtl-input-brno');
-		console.log(apoCd);
-		console.log(brno);
+
 		if (gfn_isEmpty(apoCd)) {
 			return;
 		}
@@ -2088,7 +2086,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
     //그리드 클릭이벤트
     function gridUoListClick(){
-		console.log("================gridClick================");
+		console.log("================gridUoListClick================");
 		//grdPrdcrCrclOgnReqClsMng 그리드 객체
         let selGridUoListRow = grdUoList.getRow();
         let selGridUoListCol = grdUoList.getCol();
@@ -2126,6 +2124,11 @@ tps://sbgrid.co.kr/v2_5/document/guide
     }
 
     function fn_openMaodalSelect(nRow){
+    	let delYnCol = grdUoList.getColRef('delYn');
+        let delYnValue = grdUoList.getCellData(nRow,delYnCol);
+		if(delYnValue == '' || delYnValue == null){
+			return
+		}
     	grdUoList.setRow(nRow);
     	popBrno.init(fn_setGridMngmstInfoId);
 		SBUxMethod.openModal('modal-brno');
@@ -2158,6 +2161,11 @@ tps://sbgrid.co.kr/v2_5/document/guide
 			grdUoList.setCellData(selGridUoListRow,colRefIdx1,rowData.corpNm,true);
 			grdUoList.setCellData(selGridUoListRow,colRefIdx2,rowData.brno,true);
 			grdUoList.setCellData(selGridUoListRow,colRefIdx3,rowData.apoCd,true);
+
+			let grdStatus = grdUoList.getRowStatus(selGridUoListRow);
+		 	if(grdStatus != '1'){
+		 		grdUoList.setRowStatus(selGridUoListRow,'update');
+		 	}
 		}
 	}
 

@@ -1329,6 +1329,10 @@
 			grdPrdcrOgnCurntMng02.setCellData(selGridRow01+1,grdPrdcrOgnCurntMng02.getColRef("itemCd"),rowData.itemCd,true);
 			grdPrdcrOgnCurntMng02.setCellData(selGridRow01+1,grdPrdcrOgnCurntMng02.getColRef("itemNm"),rowData.itemNm,true);
 			*/
+			let grdStatus = grdPrdcrOgnCurntMng01.getRowStatus(selGridRow01);
+		 	if(grdStatus != '1'){
+		 		grdPrdcrOgnCurntMng01.setRowStatus(selGridRow01,'update');
+		 	}
 		}
 	}
 
@@ -1405,6 +1409,11 @@
 			//grdPrdcrOgnCurntMng02.setCellData(selGridRow02,grdPrdcrOgnCurntMng02.getColRef("ctgryNm"),rowData.ctgryNm,true);
 			grdPrdcrOgnCurntMng02.setCellData(selGridRow02,grdPrdcrOgnCurntMng02.getColRef("itemCd"),rowData.itemCd,true);
 			grdPrdcrOgnCurntMng02.setCellData(selGridRow02,grdPrdcrOgnCurntMng02.getColRef("itemNm"),rowData.itemNm,true);
+
+			let grdStatus = grdPrdcrOgnCurntMng02.getRowStatus(selGridRow02);
+		 	if(grdStatus != '1'){
+		 		grdPrdcrOgnCurntMng02.setRowStatus(selGridRow02,'update');
+		 	}
 
 		}
 	}

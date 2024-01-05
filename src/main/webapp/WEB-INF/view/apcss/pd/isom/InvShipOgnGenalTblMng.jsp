@@ -500,6 +500,11 @@
 			//그리드 값 세팅
 			grdInvShipOgnGenalTblMng.setCellData(selGridRow,colRefIdx1,rowData.mainCodeNm,true);
 			grdInvShipOgnGenalTblMng.setCellData(selGridRow,colRefIdx2,rowData.mainCode,true);
+
+			let grdStatus = grdInvShipOgnGenalTblMng.getRowStatus(selGridRow);
+		 	if(grdStatus != '1'){
+		 		grdInvShipOgnGenalTblMng.setRowStatus(selGridRow,'update');
+		 	}
 		}
 	}
 
@@ -520,6 +525,11 @@
 			//그리드 값 세팅
 			grdInvShipOgnGenalTblMng.setCellData(selGridRow,colRefIdx1,rowData.itemNm,true);
 			grdInvShipOgnGenalTblMng.setCellData(selGridRow,colRefIdx2,rowData.itemCd,true);
+
+			let grdStatus = grdInvShipOgnGenalTblMng.getRowStatus(selGridRow);
+		 	if(grdStatus != '1'){
+		 		grdInvShipOgnGenalTblMng.setRowStatus(selGridRow,'update');
+		 	}
 		}
 	}
 

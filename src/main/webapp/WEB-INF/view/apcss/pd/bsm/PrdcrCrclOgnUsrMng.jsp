@@ -25,9 +25,9 @@
 						<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
 					</c:if>
-					<%-- <c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+					<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
 						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
-					</c:if> --%>
+					</c:if>
 				</div>
 			</div>
 			<div class="box-body">
@@ -256,7 +256,6 @@
 									unselected-text="선택"
 									class="form-control input-sm"
 									onchange="fn_onChangeSrchItemCd(this)"
-									readonly
 								></sbux-select>
 							</td>
 							<td colspan="2" class="td_input" >
@@ -273,7 +272,6 @@
 									unselected-text="선택"
 									class="form-control input-sm"
 									onchange="fn_onChangeSrchItemCd(this)"
-									readonly
 								></sbux-select>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;" >
@@ -287,7 +285,6 @@
 									class="form-control input-sm"
 									mask = "{ 'alias': '999-99-99999', 'autoUnmask': true }"
 									autocomplete="off"
-									readonly
 								></sbux-input>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;" >
@@ -499,11 +496,10 @@
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
 		let rst = await Promise.all([
-
 			//gfn_setComCdSBSelect('srch-input-userType', 	jsonComUserType, 	'USER_TYPE'),	// 권한
 			gfn_setComCdSBSelect('srch-input-userType', 	jsonComUserType, 	'USER_TYPE_1'),	// 권한
 			//gfn_setComCdSBSelect('dtl-input-userType', 	jsonComUserType, 	'USER_TYPE'),	// 권한
-			gfn_setComCdSBSelect('dtl-input-userType', 	jsonComUserType, 	'USER_TYPE_1'),	// 권한
+			gfn_setComCdSBSelect('dtl-input-userType', 		jsonComUserType, 	'USER_TYPE_1'),	// 권한
 			gfn_setComCdSBSelect('srch-input-userStts', 	jsonComUserStts, 	'USER_STTS'),	// 1차승인
 			gfn_setComCdSBSelect('dtl-input-userStts', 		jsonComUserStts, 	'USER_STTS'),	// 1차승인
 		 	gfn_setComCdSBSelect('srch-input-cmptncInst', 	jsonComcmptncInst, 	'CMPTNC_INST'), //관할기관
@@ -617,6 +613,7 @@
         	jsonPrdcrCrclOgnUsrMng.length = 0;
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
+        		console.log(item.cmptncInst);
 				let PrdcrCrclOgnUsrMngVO = {
 					userId 		: item.userId
 				  , userNm 		: item.userNm

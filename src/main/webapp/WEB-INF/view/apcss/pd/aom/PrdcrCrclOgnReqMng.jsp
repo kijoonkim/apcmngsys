@@ -265,7 +265,7 @@
 									name="dtl-input-mngmstYn"
 									uitype="single"
 									jsondata-ref="jsonComMngmstYn"
-									unselected-text="전체"
+									unselected-text="선택"
 									class="form-control input-sm"
 									readonly
 								></sbux-select>
@@ -408,7 +408,7 @@
 							<sbux-input
 									uitype="text"
 									id="dtl-input-invstNope"
-									name="dtl-input-invstNope1"
+									name="dtl-input-invstNope"
 									class="form-control input-sm"
 									mask = "{ 'alias': 'numeric', 'autoGroup': 3,'suffix': '명' , 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 									autocomplete="off"
@@ -568,8 +568,10 @@
 				<br>
 				<div class="descripton_wrap desc" style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
 					*위 사항이 실제와 다를 경우, 기본정보관리에서 수정하시기 바랍니다.
-					<br>
-					<br>생산유통통합조직등록
+				</div>
+				<br>
+				<div class="descripton_wrap desc" style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
+					<p style="font-size:14px; color: #3c6dbc;">▶생산유통통합조직등록</p>
 					<br>
 					<br>※사업신청 유의사항
 					<br>-신청관리 입력 시 생산유통통합조직이 총괄하여 2024년도 산지유통확설화사업 참여 출자 출하조직 정보 등록
@@ -578,19 +580,20 @@
 					<br>>사업신청
 					<br>가. 생산유통통합조직 여부
 				</div>
-				<br>
-				<div class="ad_section_top">
+				<div>
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
 								<span style="font-size:14px">▶품목 리스트</span>
 							</li>
+							<!--
 							<li>
 								<span style="font-size:12px">상세조회시 추가버튼이 생성됩니다</span>
 							</li>
 							<li>
 								<span style="font-size:12px">품목은 추가버튼을 눌러 생성 후 작성해주세요</span>
 							</li>
+							 -->
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
@@ -696,9 +699,10 @@
 				</table>
 				<br>
 				<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
-				> 전년도에 3개 시•군•구 또는 2개 시•도 이상에서 원물을 확보하고 원예농산물 취급액 100억원 이상, 조직화취급액 70억원 이상, 조직화 취급률 35% 이상의 요건을 갖춘 조직
+				*전년도에 3개 시•군•구 또는 2개 시•도 이상에서 원물을 확보하고 원예농산물 취급액 100억원 이상, 조직화취급액 70억원 이상, 조직화 취급률 35% 이상의 요건을 갖춘 조직
 				</div>
 				<br>
+				<!--
 				<table class="table table-bordered tbl_fixed">
 					<caption>타 조직 통합여부</caption>
 					<colgroup>
@@ -767,24 +771,16 @@
 									uitype="normal"
                 					step-value="1"
                 				></sbux-spinner>
-                				<!--
-								<sbux-input
-									uitype="text"
-									id="dtl-input-untyYr"
-									name="dtl-input-untyYr"
-									class="form-control input-sm"
-									autocomplete="off"
-								></sbux-input>
-								 -->
 							</td>
 						</tr>
 					</tbody>
 				</table>
 				<br>
+				-->
 				<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
-					산지유통활성지원 자금신청 현황
+					<p style="font-size:14px; color: #3c6dbc;">▶산지유통활성지원 자금신청 현황</p>
 					<br>
-					<br>* 기존 보유금액 등을 감안하여 신규(또는 추가)로 필요한 금액 입력.
+					<p>* 기존 보유금액 등을 감안하여 신규(또는 추가)로 필요한 금액 입력.</p>
 				</div>
 				<br>
 				<table class="table table-bordered tbl_fixed">
@@ -913,7 +909,6 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
-					<sbux-button id="test" name="test" uitype="normal" text="test" class="btn btn-sm btn-outline-danger" onclick="fn_test"></sbux-button>
 				</div>
 			</div>
 		</div>
@@ -969,12 +964,6 @@
 		  	});
 		}
 	})
-
-	function fn_test(){
-		let a = grdGpcList.getGridDataAll();
-		console.log(a);
-	}
-
 
 	//원물확보 시•군 및 시•도
 	var selectRawMtrEnsr = [
@@ -1663,6 +1652,9 @@
 		SBUxMethod.set('dtl-input-pruoFundAplyAmt',gfn_nvl(rowData.pruoFundAplyAmt))//
 		SBUxMethod.set('dtl-input-isoFundAplyAmt',gfn_nvl(rowData.isoFundAplyAmt))//
 		//SBUxMethod.set('dtl-input-aplyTrgtSe',gfn_nvl(rowData.aplyTrgtSe))//
+		fn_fundAplyAmt();
+		fn_calFrmerInvstAmtRt();
+		fn_calTot();
 
 		fn_selectGpcList();
 
@@ -2014,8 +2006,9 @@
 	function fn_openMaodalGpcSelect(nRow){
 		let delYnCol = grdGpcList.getColRef('delYn');
         let delYnValue = grdGpcList.getCellData(nRow,delYnCol);
-		console.log(delYnValue);
-
+        if(delYnValue == '' || delYnValue == null){
+			return
+		}
 		grdGpcList.setRow(nRow);
 		popGpcSelect.init(fn_setGridItem);
 		SBUxMethod.openModal('modal-gpcList');
@@ -2044,6 +2037,11 @@
 			grdGpcList.setCellData(selGridRow,colRefIdx3,rowData.itemCd,true);
 			grdGpcList.setCellData(selGridRow,colRefIdx4,rowData.itemNm,true);
 			grdGpcList.setCellData(selGridRow,colRefIdx5,rowData.rmrk,true);
+
+			let grdStatus = grdGpcList.getRowStatus(selGridRow);
+		 	if(grdStatus != '1'){
+		 		grdGpcList.setRowStatus(selGridRow,'update');
+		 	}
 		}
 	}
 
@@ -2065,6 +2063,33 @@
 		for (var i = 1; i <= grdData.length; i++) {
 			grdGpcList.setCellData(i,colIdx,"",true);
 		}
+	}
+
+	//농업인 출자 지분율 계산
+	function fn_calFrmerInvstAmtRt(){
+		let invstAmt = parseFloat(SBUxMethod.get('dtl-input-invstAmt'));
+		let frmerInvstAmt = parseFloat(SBUxMethod.get('dtl-input-frmerInvstAmt'));
+		let frmerInvstAmtRt = "";
+		if(invstAmt != 0){
+			frmerInvstAmtRt = frmerInvstAmt / invstAmt * 100
+		}
+		SBUxMethod.set('dtl-input-frmerInvstAmtRt',frmerInvstAmtRt);
+	}
+	//전체 종사자 수 합계
+	function fn_calTot(){
+		let rgllbrNope = 0;
+		if(!gfn_isEmpty(SBUxMethod.get('dtl-input-rgllbrNope'))){
+			rgllbrNope = parseFloat(SBUxMethod.get('dtl-input-rgllbrNope'));
+		}
+		let dwNope = 0;
+		if(!gfn_isEmpty(SBUxMethod.get('dtl-input-dwNope'))){
+			dwNope = parseFloat(SBUxMethod.get('dtl-input-dwNope'));
+		}
+		let dlbrrNope = 0;
+		if(!gfn_isEmpty(SBUxMethod.get('dtl-input-dlbrrNope'))){
+			dlbrrNope = parseFloat(SBUxMethod.get('dtl-input-dlbrrNope'));
+		}
+		SBUxMethod.set('dtl-input-tot',rgllbrNope + dwNope + dlbrrNope);
 	}
 </script>
 </html>

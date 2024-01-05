@@ -436,21 +436,21 @@
 	        };
 	        SBGridProperties.columns = [
 	            {caption : ['전문품목명','전문품목명'],
-	            	ref : "col0",   width : '100px',        style : 'text-align:center',     type : 'output'},
+	            	ref : "itemNm",   width : '100px',        style : 'text-align:center',     type : 'output'},
 	            {caption : ['판매위임(매입)금액(천원)','구분'],
-	            	ref : "col1",   width : '150px',        style : 'text-align:center',     type : 'output'},
+	            	ref : "uoSeNm",   width : '150px',        style : 'text-align:center',     type : 'output'},
 	            {caption : ['판매위임(매입)금액(천원)','구분'],
-		            ref : "col2",   width : '150px',        style : 'text-align:center',     type : 'output'},
+		            ref : "seNm",   width : '150px',        style : 'text-align:center',     type : 'output'},
 
 	            {caption : ['판매위임(매입)금액(천원)','매입처'],
-	            	ref : "col3",   width : '150px',        style : 'text-align:center',     type : 'output'},
+	            	ref : "flnm",   width : '150px',        style : 'text-align:center',     type : 'output'},
 	            {caption : ['판매위임(매입)금액(천원)','금액'],
-	            	ref : "col4",   width : '100px',        style : 'text-align:right',      type : 'input',   format : { type:'number' , rule:'#,##0.00' }, merge:false},
+	            	ref : "uoSpmtAmt",   width : '100px',        style : 'text-align:right',      type : 'input',   format : { type:'number' , rule:'#,##0.00' }, merge:false},
 
 	            {caption : ['판매(매출)금액<br>(천원)','판매(매출)금액<br>(천원)'],
-	            	ref : "col5",   width : '100px',        style : 'text-align:right',      type : 'input',   format : { type:'number' , rule:'#,##0.00' }, merge:false},
+	            	ref : "uoOtherSpmtAmt",   width : '100px',        style : 'text-align:right',      type : 'input',   format : { type:'number' , rule:'#,##0.00' }, merge:false},
 	            {caption : ['비고','비고'],
-	            	ref : "col6",   width : '150px',        style : 'text-align:right',      type : 'input',   format : { type:'number' , rule:'#,##0.00' }, merge:false}
+	            	ref : "rmrk",   width : '150px',        style : 'text-align:right',      type : 'input',   format : { type:'number' , rule:'#,##0.00' }, merge:false}
 	        ];
 
 	    grdPrdcrOgnCurntMng01 = _SBGrid.create(SBGridProperties);
@@ -678,7 +678,7 @@
 	const fn_dtlGridSearch = async function(){
 		let brno = SBUxMethod.get("dtl-input-brno");//
 
-    	let postJsonPromise = gfn_postJSON("/pd/pcom/.do", {
+    	let postJsonPromise = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnSpItmPurSalYMngList.do", {
     		brno : brno
 		});
 
@@ -687,15 +687,32 @@
         	jsonPrdcrOgnCurntMng01.length = 0;
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
+        		let itemNm;
+        		if(item.sttgUpbrItemSe == '1'){
+        			itemNm = item.itemNm + '(전문)';
+        		}else if(item.sttgUpbrItemSe == '2'){
+        			itemNm = item.itemNm + '(육성)';
+        		}
 				let PrdcrOgnCurntMngVO = {
-						apoCd: item.apoCd
+						itemNm: itemNm
+						,seNm: item.seNm
+						,flnm: item.flnm
+						,slsCnsgnPrchsAmt: item.slsCnsgnPrchsAmt
+						,uoSpmtAmt: item.uoSpmtAmt
+						,uoOtherSpmtAmt: item.uoOtherSpmtAmt
+						,SpmtAmtTot: item.SpmtAmtTot
+						,rmrk: item.rmrk
+
+						,apoCd: item.apoCd
 						,apoSe: item.apoSe
-						,ctpv: item.ctpv
-						,sgg: item.sgg
-						,corpNm: item.corpNm
-						,crno: item.crno
 						,brno: item.brno
-						,yr:'2023'
+						,crno: item.crno
+						,yr: item.yr
+						,ctgryCd: item.ctgryCd
+						,itemCd: item.itemCd
+						,prdcrOgnzSn: item.prdcrOgnzSn
+						,prdcrOgnzCd: item.prdcrOgnzCd
+						,sttgUpbrItemSe: item.sttgUpbrItemSe
 				}
 				jsonPrdcrOgnCurntMng01.push(PrdcrOgnCurntMngVO);
 				if (index === 0) {

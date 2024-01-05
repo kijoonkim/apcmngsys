@@ -12,8 +12,10 @@ public class MngmstInfoIdPopupVO extends ComVO{
 	private String rprsvNm;			//경영주
 	private String rprsvAddr;		//대표주소
 	private String admstOwnrCorpNm;	//법인명
-	private String brno;			//법인등록번호
+	private String brno;			//사업자등록번호
 	private String mngmstRegno;		//경영체번호
+	private String corpNm;			//법인명
+	private String crno;			//법인등록번호
 
 	private String lotnoAddr;		//지번주소
 

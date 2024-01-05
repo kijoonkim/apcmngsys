@@ -41,7 +41,7 @@
 							<th>
 								<sbux-input id="mngmstInfoId-inp-corpNm" name="mngmstInfoId-inp-corpNm" uitype="text" class="form-control input-sm" onkeyenter="fn_mngmstInfoIdEnterKey"></sbux-input>
 							</th>
-							<th scope="row">법인등록번호</th>
+							<th scope="row">사업자등록번호</th>
 							<th>
 								<sbux-input id="mngmstInfoId-inp-brno" name="mngmstInfoId-inp-brno" uitype="text" class="form-control input-sm" onkeyenter="fn_mngmstInfoIdEnterKey"></sbux-input>
 							</th>
@@ -162,7 +162,7 @@
 		setGrid: async function(pageSize, pageNo, isEditable) {
 
 			var corpNm = nvlScnd(SBUxMethod.get("mngmstInfoId-inp-corpNm"),'');
-			var crno = nvlScnd(SBUxMethod.get("mngmstInfoId-inp-crno"),'');
+			var brno = nvlScnd(SBUxMethod.get("mngmstInfoId-inp-brno"),'');
 
 	        const postJsonPromise = gfn_postJSON("/fm/popup/selectMngmstInfoIdList.do", {
 

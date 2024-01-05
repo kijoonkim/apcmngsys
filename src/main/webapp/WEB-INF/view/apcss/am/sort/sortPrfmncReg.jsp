@@ -1483,6 +1483,7 @@
 			let cmndWght = parseInt(rowData.cmndWght) || 0;
 			let tmpInptQntt = parseInt(rowData.inptQntt) || 0;
 			let tmpInptWght = parseInt(rowData.inptWght) || 0;
+			
 			if (usrAttr.colNm == "inptQntt") {
 
 				if (tmpInptQntt <= 0) {
@@ -1495,7 +1496,7 @@
 						rowData.checkedYn = "Y";
 					}
 				} else {
-					if (tmpInptQntt > cmndQntt) {
+					if (tmpInptQntt > cmndQntt && cmndQntt > 0) {
 						gfn_comAlert("W0008", "지시수량", "투입수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
 						rowData.inptQntt = 0;
 						rowData.inptWght = 0;
@@ -1515,7 +1516,7 @@
 
 			} else if (usrAttr.colNm == "inptWght") {
 
-				if(cmndWght - tmpInptWght < 0){
+				if(cmndWght - tmpInptWght < 0 && cmndWght > 0){
 					gfn_comAlert("W0008", "지시중량", "투입중량");		//	W0008	{0} 보다 {1}이/가 큽니다.
 					rowData.checkedYn = "N";
 					grdRawMtrInvntr.setCellData(nRow, inptQnttCol , 0);
