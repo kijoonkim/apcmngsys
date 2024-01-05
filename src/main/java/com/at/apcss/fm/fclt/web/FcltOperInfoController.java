@@ -182,13 +182,21 @@ public class FcltOperInfoController extends BaseController {
 	/*
 	 * 주소 팝업
 	 */
-	@GetMapping("/fm/popup/jusoPopup.do")
-	public String jusoPopupGet(Model model, HttpServletRequest request) {
-		return "apcss/fm/popup/jusoPopup";
-	}
+//	@GetMapping("/fm/popup/jusoPopup.do")
+//	public String jusoPopupGet(Model model, HttpServletRequest request) {
+//		return "apcss/fm/popup/jusoPopup";
+//	}
+//
+//	@PostMapping("/fm/popup/jusoPopup.do")
+//	public String jusoPopupPost(Model model, HttpServletRequest request) {
+//		return "apcss/fm/popup/jusoPopup";
+//	}
 
-	@PostMapping("/fm/popup/jusoPopup.do")
-	public String jusoPopupPost(Model model, HttpServletRequest request) {
+	/*
+	 * 주소 팝업
+	 */
+	@RequestMapping("/fm/popup/jusoPopup.do")
+	public String jusoPopup(Model model, HttpServletRequest request) {
 		return "apcss/fm/popup/jusoPopup";
 	}
 }
