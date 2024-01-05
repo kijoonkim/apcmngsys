@@ -207,8 +207,26 @@
 				<br>
 				<br>
 			</c:if><!-- 관리자 권한인 경우 그리드 표기 -->
-				<div>신청관리 내역등록</div>
-				<br>
+<!-- 				<div>신청관리 내역등록</div> -->
+<!-- 				<br> -->
+
+				<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">▶신청관리 내역 등록</span>
+								<!--
+								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+								 -->
+							</li>
+							<!--
+							<li>
+								<span style="font-size:12px">추가를 눌러 생성 후 작성해주세요</span>
+							</li>
+							 -->
+						</ul>
+				</div>
+
+
 				<table class="table table-bordered tbl_fixed">
 					<caption>사용자관리 수정 화면</caption>
 					<colgroup>
@@ -565,7 +583,7 @@
 						</tr>
 					</tbody>
 				</table>
-				<br>
+				<!-- <br>
 				<div class="descripton_wrap desc" style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
 					*위 사항이 실제와 다를 경우, 기본정보관리에서 수정하시기 바랍니다.
 				</div>
@@ -579,27 +597,25 @@
 					<br>
 					<br>>사업신청
 					<br>가. 생산유통통합조직 여부
-				</div>
-				<div>
-					<div class="ad_tbl_top">
+				</div> -->
+				<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
 								<span style="font-size:14px">▶품목 리스트</span>
 							</li>
-							<!--
-							<li>
-								<span style="font-size:12px">상세조회시 추가버튼이 생성됩니다</span>
-							</li>
-							<li>
-								<span style="font-size:12px">품목은 추가버튼을 눌러 생성 후 작성해주세요</span>
-							</li>
-							 -->
 						</ul>
-					</div>
-					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdGpcList" style="height:200px; width: 908px;"></div>
 				</div>
-				<br>
+				<div>
+					<!-- SBGrid를 호출합니다. -->
+					<div id="sb-area-grdGpcList" style="height:200px; width: 100%;"></div>
+				</div>
+				<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">▶생산유통통합조직등록</span>
+							</li>
+						</ul>
+				</div>
 				<table class="table table-bordered tbl_fixed" style="border: none">
 					<caption>생산유통통합조직 여부</caption>
 					<col style="width: 5%">
@@ -697,11 +713,11 @@
 						</tr>
 					</tbody>
 				</table>
-				<br>
+				<!-- <br>
 				<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
 				*전년도에 3개 시•군•구 또는 2개 시•도 이상에서 원물을 확보하고 원예농산물 취급액 100억원 이상, 조직화취급액 70억원 이상, 조직화 취급률 35% 이상의 요건을 갖춘 조직
 				</div>
-				<br>
+				<br> -->
 				<!--
 				<table class="table table-bordered tbl_fixed">
 					<caption>타 조직 통합여부</caption>
@@ -777,12 +793,21 @@
 				</table>
 				<br>
 				-->
-				<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
+				<!-- <div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
 					<p style="font-size:14px; color: #3c6dbc;">▶산지유통활성지원 자금신청 현황</p>
 					<br>
 					<p>* 기존 보유금액 등을 감안하여 신규(또는 추가)로 필요한 금액 입력.</p>
 				</div>
-				<br>
+				<br> -->
+
+				<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">▶산지유통활성지원 자금신청 현황</span>
+							</li>
+						</ul>
+				</div>
+
 				<table class="table table-bordered tbl_fixed">
 					<caption>산지유통활성지원 자금신청 현황</caption>
 					<colgroup>
