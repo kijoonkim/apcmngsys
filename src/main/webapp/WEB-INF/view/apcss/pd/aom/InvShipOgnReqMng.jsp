@@ -699,9 +699,10 @@
 						</tr>
 					</tbody>
 				</table> -->
-				<!-- <div style="margin-left: auto;">
+				<div style="margin-left: auto;">
+					<br>
 					<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
-				</div> -->
+				</div>
 			</div>
 		</div>
 	</section>
