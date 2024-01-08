@@ -136,7 +136,6 @@
     		  FROM (
     	</if>
 
-    	<![CDATA[
 			SELECT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectPrdcrCrclOgnReqMngList */
 				  CM.APO_CD
 				, CM.APO_SE
@@ -198,11 +197,21 @@
 				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
 				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_NM
 				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_EV_APO CM , TB_EV_APLY_MNG EAM
+			  FROM (SELECT *
+			  		FROM TB_EV_APO
+			  		WHERE 1=1
+			  		<if test='brno != null and brno != ""'>
+			  		  AND BRNO = #{brno}
+			  		  <if test='userType == "21"'>
+			  		   OR BRNO IN (SELECT ISO_BRNO FROM TB_EV_APO_UO_CD WHERE UO_BRNO = #{brno})
+			  		  </if>
+			  		</if>
+			  		) CM
+			  		, TB_EV_APLY_MNG EAM
 			 WHERE 1=1
 			   AND CM.BRNO = EAM.BRNO(+)
 			   AND CM.APO_SE IS NOT NULL
-    	]]>
+
     		<if test='apoSe != null and apoSe != ""'>
 				AND CM.APO_SE = #{apoSe}
 			</if>
@@ -217,9 +226,6 @@
 			</if>
 			<if test='corpDtlSeCd != null and corpDtlSeCd != ""'>
 				AND CM.CORP_DTL_SE_CD = #{corpDtlSeCd}
-			</if>
-			<if test='brno != null and brno != ""'>
-				AND CM.BRNO = #{brno}
 			</if>
 			<if test='corpNm != null and corpNm != ""'>
 				AND CM.CORP_NM LIKE '%' || #{corpNm} || '%'

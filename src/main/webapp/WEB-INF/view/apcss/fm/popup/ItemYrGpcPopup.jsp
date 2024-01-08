@@ -119,10 +119,12 @@
 			  	'showgoalpageui' : true
 		    };
 		    SBGridProperties.columns = [
-		    	{caption: ['분류코드'], 	ref: 'ctgryCd', hidden : true},
-		        {caption: ['분류명'], 	ref: 'ctgryNm', hidden : true},
-		        {caption: ['품목코드'], ref: 'itemCd', width: '50%', type: 'input', style: 'text-align:center'},
-		        {caption: ['품목명'], ref: 'itemNm', width: '50%', type: 'input', style: 'text-align:center'},
+		    	//{caption: ['분류코드'], 	ref: 'ctgryCd', hidden : true},
+		        //{caption: ['분류명'], 	ref: 'ctgryNm', hidden : true},
+		        {caption: ['분류명'], 	ref: 'brno', hidden : true},
+		        {caption: ['품목코드'], ref: 'itemCd', width: '80px', type: 'input', style: 'text-align:center'},
+		        {caption: ['품목명'], ref: 'itemNm', width: '80px', type: 'input', style: 'text-align:center'},
+		        {caption: ['해당품목 선택조직'], ref: 'corpNm', width: '100px', type: 'input', style: 'text-align:center'},
 		    ];
 
 		    grdItemPop01 = _SBGrid.create(SBGridProperties);
@@ -173,10 +175,12 @@
 	    		jsonItemPop01.length = 0;
 	        	data.resultList.forEach((item, index) => {
 					const itemVal = {
-							ctgryCd : item.ctgryCd,
-							ctgryNm : item.ctgryNm,
+							//ctgryCd : item.ctgryCd,
+							//ctgryNm : item.ctgryNm,
 							itemCd 	: item.itemCd,
-							itemNm 	: item.itemNm
+							itemNm 	: item.itemNm,
+							brno 	: item.brno,
+							corpNm 	: item.corpNm
 					}
 					jsonItemPop01.push(itemVal);
 
