@@ -615,7 +615,7 @@
 			// export grid data
 			jsonExpPrdcr.length = 0;
 
-			jsonExpGdsSeCd 			= gfn_cloneJson(jsonComGdsSeCd);				// 엑셀 상품구분Json
+			jsonExpGdsSeCd 			= gfn_cloneJson(jsonComGdsSeCdPrdcrPop);		// 엑셀 상품구분Json
 			jsonExpWrhsSeCd 		= gfn_cloneJson(jsonComWrhsSeCdPrdcrPop);		// 엑셀 입고구분Json
 			jsonExpTrsprtSeCd 		= gfn_cloneJson(jsonComTrsprtSeCdPrdcrPop);		// 엑셀 운송구분Json
 			jsonExpClclnCrtrCd 		= gfn_cloneJson(jsonComClclnCrtrCdPrdcrPop);	// 엑셀 정산구분Json
