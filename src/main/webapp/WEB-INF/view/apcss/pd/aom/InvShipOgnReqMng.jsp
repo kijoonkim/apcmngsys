@@ -203,7 +203,7 @@
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdInvShipOgnReqMng" style="height:150px; width: 100%;"></div>
+					<div id="sb-area-grdInvShipOgnReqMng" style="height:350px; width: 100%;"></div>
 				</div>
 				<div class="ad_section_top">
 					<div class="ad_tbl_top">
@@ -280,7 +280,7 @@
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdInvShipOgnReqMng01" style="height:150px; width: 100%;"></div>
+					<div id="sb-area-grdInvShipOgnReqMng01" style="height:250px; width: 100%;"></div>
 				</div>
 			</c:if>
 				<div class="ad_tbl_top">
@@ -648,18 +648,18 @@
 				</div>
 				<br> -->
 
-				<div class="ad_tbl_top">
+				<!-- <div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
 								<span style="font-size:14px">▶신청대상구분</span>
-								<!--
+
 								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
-								 -->
+
 							</li>
 						</ul>
-				</div>
+				</div> -->
 
-				<table class="table table-bordered tbl_fixed" style="border: none">
+				<!-- <table class="table table-bordered tbl_fixed" style="border: none">
 					<caption>신청대상구분</caption>
 					<colgroup>
 						<col style="width: 5%">
@@ -698,10 +698,11 @@
 							<td colspan="8" style="border: none"></td>
 						</tr>
 					</tbody>
-				</table>
-				<!-- <div style="margin-left: auto;">
+				</table> -->
+				<div style="margin-left: auto;">
+					<br>
 					<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
-				</div> -->
+				</div>
 			</div>
 		</div>
 	</section>
@@ -773,7 +774,7 @@
 			//gfn_setComCdSBSelect('srch-input-uoCd', 		jsonComUoCd, 	'UO_CD'), //통합조직코드
 			gfn_setComCdSBSelect('srch-input-aprv', 		jsonComAprv, 	'APRV_UPBR_SE_CD'), //신청구분
 			gfn_setComCdSBSelect('srch-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE'), //신청대상구분
-			gfn_setComCdSBSelect('dtl-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE') //신청대상구분
+			//gfn_setComCdSBSelect('dtl-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE') //신청대상구분
 
 		]);
 		console.log("============fn_initSBSelect=====1=======");
@@ -1101,7 +1102,7 @@
 				SBUxMethod.set("dtl-input-rprsvTelno", item.rprsvTelno);
 				SBUxMethod.set("dtl-input-fxno", item.fxno);
 
-				SBUxMethod.set("dtl-input-aplyTrgtSe", item.aplyTrgtSe);
+				//SBUxMethod.set("dtl-input-aplyTrgtSe", item.aplyTrgtSe);
 				SBUxMethod.set("dtl-input-isoFundAplyAmt", item.isoFundAplyAmt);
 
 				SBUxMethod.set("dtl-input-frmerInvstAmtRt", item.frmerInvstAmtRt);
@@ -1163,7 +1164,7 @@
 			,crno: SBUxMethod.get('dtl-input-crno')//
 			,corpNm: SBUxMethod.get('dtl-input-corpNm')//
    	 		,isoFundAplyAmt: SBUxMethod.get('dtl-input-isoFundAplyAmt')//
-			,aplyTrgtSe: SBUxMethod.get('dtl-input-aplyTrgtSe')//
+			//,aplyTrgtSe: SBUxMethod.get('dtl-input-aplyTrgtSe')//
 			,yr: '2023'
 		});
 
@@ -1199,7 +1200,7 @@
 			,crno: SBUxMethod.get('dtl-input-crno')//
 			,corpNm: SBUxMethod.get('dtl-input-corpNm')//
    	 		,isoFundAplyAmt: SBUxMethod.get('dtl-input-isoFundAplyAmt')//
-			,aplyTrgtSe: SBUxMethod.get('dtl-input-aplyTrgtSe')//
+			//,aplyTrgtSe: SBUxMethod.get('dtl-input-aplyTrgtSe')//
 			,yr: '2023'
   		});
 
@@ -1338,7 +1339,7 @@
 		SBUxMethod.set("dtl-input-rprsvTelno", rowData.rprsvTelno);
 		SBUxMethod.set("dtl-input-fxno", rowData.fxno);
 
-		SBUxMethod.set("dtl-input-aplyTrgtSe", rowData.aplyTrgtSe);
+		//SBUxMethod.set("dtl-input-aplyTrgtSe", rowData.aplyTrgtSe);
 		SBUxMethod.set("dtl-input-isoFundAplyAmt", rowData.isoFundAplyAmt);
 
 		SBUxMethod.set("dtl-input-frmerInvstAmtRt", rowData.frmerInvstAmtRt);
@@ -1392,7 +1393,7 @@
 		SBUxMethod.set("dtl-input-rprsvTelno", null);
 		SBUxMethod.set("dtl-input-fxno", null);
 
-		SBUxMethod.set("dtl-input-aplyTrgtSe", null);
+		//SBUxMethod.set("dtl-input-aplyTrgtSe", null);
 		SBUxMethod.set("dtl-input-isoFundAplyAmt", null);
 
 		SBUxMethod.set("dtl-input-frmerInvstAmtRt", null);

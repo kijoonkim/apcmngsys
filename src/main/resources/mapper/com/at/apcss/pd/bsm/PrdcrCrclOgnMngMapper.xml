@@ -23,9 +23,16 @@
     <select id="selectPrdcrCrclOgnMng" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO" resultType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.selectPrdcrCrclOgnMng */
-				  (CASE WHEN CM.APO_CD IS NULL THEN (SELECT OGNZ_CD FROM (SELECT OGNZ_CD FROM TB_APC_OGNZ_INFO WHERE BRNO = CM.BRNO GROUP BY OGNZ_CD ORDER BY OGNZ_CD DESC) WHERE ROWNUM = 1)
-				  		ELSE CM.APO_CD
-				  		END) AS APO_CD
+				  (SELECT OGNZ_CD
+					FROM (SELECT OGNZ_CD
+							FROM TB_APC_OGNZ_INFO
+							WHERE BRNO = CM.BRNO
+							GROUP BY OGNZ_CD
+							ORDER BY OGNZ_CD DESC
+							)
+					WHERE ROWNUM = 1
+				) AS OGNZ_CD
+				, CM.APO_CD
 				, CM.APO_NM
 				, CM.APO_SE
 				, CM.APRV
@@ -137,9 +144,16 @@
 
     	<![CDATA[
 			SELECT /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.selectPrdcrCrclOgnMngList */
-				  (CASE WHEN CM.APO_CD IS NULL THEN (SELECT OGNZ_CD FROM (SELECT OGNZ_CD FROM TB_APC_OGNZ_INFO WHERE BRNO = CM.BRNO GROUP BY OGNZ_CD ORDER BY OGNZ_CD DESC) WHERE ROWNUM = 1)
-				  		ELSE CM.APO_CD
-				  		END) AS APO_CD
+				(SELECT OGNZ_CD
+					FROM (SELECT OGNZ_CD
+							FROM TB_APC_OGNZ_INFO
+							WHERE BRNO = CM.BRNO
+							GROUP BY OGNZ_CD
+							ORDER BY OGNZ_CD DESC
+							)
+					WHERE ROWNUM = 1
+				) AS OGNZ_CD
+				, CM.APO_CD
 				, CM.APO_NM
 				, CM.APO_SE
 				, CM.APRV

@@ -443,7 +443,9 @@
 								></sbux-select>
 							</td>
 							<th colspan="2" scope="row" class="th_bg"><span class="data_required" >시군</th>
-							<td colspan="3" class="td_input">
+
+
+							<!-- <td colspan="3" class="td_input">
 								<sbux-select
 									id="dtl-input-sgg"
 									name="dtl-input-sgg"
@@ -452,7 +454,16 @@
 									unselected-text="선택"
 									class="form-control input-sm"
 								></sbux-select>
+							</td> -->
+
+							<td  colspan="3" class="td_input" >
+								<sbux-select id="dtl-input-sgg" name="dtl-input-sgg"
+								uitype="singleExt"
+								filtering="true"
+								jsondata-ref="jsonComSgg"
+								unselected-text="선택" class=""></sbux-select>
 							</td>
+
 						</tr>
 						<tr>
 							<th colspan="2" rowspan="2" scope="row" class="th_bg">
@@ -1100,6 +1111,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		    };
 	    SBGridProperties.columns = [
 	    	{caption: ["APO_CD"], 	ref: 'apoCd',   	hidden : false, width:'60px',style:'text-align:center' },
+	    	{caption: ["OGNZ_CD"], 	ref: 'ognzCd',   	hidden : false, width:'60px',style:'text-align:center' },
 	    	{caption: ["조직구분"], 		ref: 'apoSe',   	type:'combo',  width:'120px',    style:'text-align:center', disabled:true
 	    		,typeinfo : {ref:'jsonComApoSe', label:'label', value:'value', displayui : false}},
 	        {caption: ["법인구분"], 		ref: 'corpSeCd',   	type:'combo',  width:'120px',    style:'text-align:center', disabled:true
@@ -1261,6 +1273,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 				let PrdcrCrclOgnMngVO = {
 						apoSe: item.apoSe
 						,apoCd: item.apoCd
+						,ognzCd: item.ognzCd
 						,uoBrno: item.uoBrno
 						,corpNm: item.corpNm
 						,crno: item.crno

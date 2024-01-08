@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 public class PrdcrCrclOgnMngVO extends ComVO{
 	private String apoCd;			//산지유통조직코드
+	private String ognzCd;			//산지유통조직코드
 	private String apoNm;			//산지유통조직명
 	private String aprv;			//승인육성형구분
 

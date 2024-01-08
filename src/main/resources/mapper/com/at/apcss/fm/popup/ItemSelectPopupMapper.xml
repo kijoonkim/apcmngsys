@@ -69,19 +69,20 @@
 	    	SELECT /*  com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectCmnsItemList */
 	    		   IC.ITEM_CD
 			     , IC.ITEM_NM
-			     , IC.CTGRY_CD
-			     , IC.CTGRY_NM
+			     , IC.BRNO
+			     , IC.CORP_NM
 			  FROM TB_EV_APO_YR_GPC_CD IC
 			 WHERE IC.DEL_YN = 'N'
 		]]>
 
 		<if test='brno != null and brno != ""'>
-			AND IC.BRNO = #{brno}
+			AND IC.BRNO IN (SELECT UO_BRNO FROM TB_EV_APO_UO_CD WHERE ISO_BRNO = #{brno})
+			 OR IC.BRNO = #{brno}
 		</if>
 		<if test='yr != null and yr != ""'>
 			AND IC.YR = #{yr}
 		</if>
-		 ORDER BY IC.ITEM_NM ASC
+		 ORDER BY IC.BRNO, IC.ITEM_NM ASC
 
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>

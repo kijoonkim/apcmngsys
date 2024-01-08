@@ -58,8 +58,8 @@ function init(){
 // 	var confmKey = "devU01TX0FVVEgyMDIzMTAxMzE0NDgzOTExNDE2NjM=";//121.179.170.22 -finevt //133.186.212.16 -개발
 //	var confmKey = "devU01TX0FVVEgyMDIzMTAxNDIwNTEzNzExNDE2OTQ=";//112.159.23.197 -jsone
 //	var confmKey = "devU01TX0FVVEgyMDIzMTEwMTExMzQ1OTExNDIyODI="; //133.186.212.16 -개발
-	var confmKey = "devU01TX0FVVEgyMDIzMTExMzE5MzExOTExNDI3MTE="; //133.186.212.16 -개발
-
+//	var confmKey = "devU01TX0FVVEgyMDIzMTExMzE5MzExOTExNDI3MTE="; //133.186.212.16 -개발
+	var confmKey = "U01TX0FVVEgyMDIzMTEwOTEwMzQxOTExNDI1Nzc="; //211.56.6.117 운영서버
 	var resultType = "4"; // 도로명주소 검색결과 화면 출력내용, 1 : 도로명, 2 : 도로명+지번+상세보기(관련지번, 관할주민센터), 3 : 도로명+상세보기(상세건물명), 4 : 도로명+지번+상세보기(관련지번, 관할주민센터, 상세건물명)
 	var inputYn= "<%=inputYn%>";
 	console.log("inputYn = "+inputYn);
