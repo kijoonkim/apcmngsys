@@ -305,9 +305,7 @@
 		   			  			END)
 		   			  , #{yr}
 		   			  , #{sttgUpbrItemSe}
-		   			  , (case when #{ctgryCd} is not null then #{ctgryCd}
-		   			  			ELSE (SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE ITEM_CD = #{itemCd} AND BRNO = #{brno})
-		   			  			END)
+		   			  , '0'
 		   			  , #{itemCd}
 		   			  , #{trmtType}
 		   			  , #{prdcrOgnzSn}
