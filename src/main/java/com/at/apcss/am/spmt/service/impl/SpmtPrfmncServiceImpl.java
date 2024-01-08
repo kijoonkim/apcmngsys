@@ -138,7 +138,7 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 
 		return deletedCnt;
 	}
-	
+
 	@Override
 	public HashMap<String, Object> insertSpmtPrfmncTabletList(List<SpmtPrfmncVO> spmtPrfmncList) throws Exception {
 		HashMap<String, Object> resultMap;
@@ -146,18 +146,18 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 		Map<String, List<SpmtPrfmncVO>> collectList = spmtPrfmncList.stream().collect(Collectors.groupingBy(SpmtPrfmncVO::getSpmtCmndno));
 
 		List<String> keyList = collectList.keySet().stream().collect(Collectors.toList());
-		
+
 		for (String key : keyList) {
-			
+
 			List<SpmtPrfmncVO> insertList = new ArrayList<>();
 			List<SpmtPrfmncVO> valueList = collectList.get(key);
-			
+
 			for (SpmtPrfmncVO value : valueList) {
 				insertList.add(value);
 			}
-			
+
 			resultMap = insertSpmtPrfmncList(insertList);
-			
+
 			if(resultMap != null) {
 				throw new EgovBizException(getMessageForMap(resultMap));
 			}
@@ -183,6 +183,7 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 				gdsInvntrVO.setSpcfctCd(spmtPrfmncVO.getSpcfctCd());
 				gdsInvntrVO.setGdsGrd(spmtPrfmncVO.getGdsGrd());
 				gdsInvntrVO.setGdsSeCd(spmtPrfmncVO.getGdsSeCd());
+				gdsInvntrVO.setRprsPrdcrCd(spmtPrfmncVO.getPrdcrCd());
 
 				List<GdsInvntrVO> gdsInvntrList = gdsInvntrService.selectGdsInvntrList(gdsInvntrVO);
 				if(gdsInvntrList.size() > 0) {

@@ -38,10 +38,8 @@
 <script type="text/javascript">
 
 	var jsonEPSApcItem 			= [];	// 품목
-	var jsonEPSApcVrty 			= [];	// 품종
 	var jsonEPSApcPrdcr 		= [];	// 생산자
 	var jsonEPSGdsGrd 			= [];	// 등급(상품)
-	var jsonEPSSpcfct 			= [];	// 규격
 	var jsonEPSSpmtPckgUnit 	= [];	// 포장구분
 
 	var jsonEPSGdsSeCd			= [];	// 상품구분
@@ -59,8 +57,6 @@
 		let result = await Promise.all([
 			 	gfn_setComCdSBSelect('grdExcelSpmtPrfmncPopup',			jsonEPSGdsSeCd, 		'GDS_SE_CD', 		gv_selectedApcCd),	// 상품구분
 			 	gfn_setApcItemSBSelect('grdExcelSpmtPrfmncPopup', 		jsonEPSApcItem, 		gv_selectedApcCd),						// 품목
-			 	gfn_setApcVrtySBSelect('grdExcelSpmtPrfmncPopup', 		jsonEPSApcVrty, 		gv_selectedApcCd, itemCd),				// 품종
-				gfn_setApcSpcfctsSBSelect('grdExcelSpmtPrfmncPopup',	jsonEPSSpcfct, 			gv_selectedApcCd, itemCd),				// 규격
 			 	gfn_setApcGdsGrdSBSelect('grdExcelSpmtPrfmncPopup', 	jsonEPSGdsGrd, 			gv_selectedApcCd, itemCd, '03'),		// 등급
 				gfn_setPrdcrSBSelect('grdExcelSpmtPrfmncPopup', 		jsonEPSApcPrdcr, 	 	gv_selectedApcCd), 						// 생산자 등록
 				gfn_setSpmtPckgUnitSBSelect('grdExcelSpmtPrfmncPopup',	jsonEPSSpmtPckgUnit, 	gv_selectedApcCd, itemCd),				// 포장구분
@@ -80,8 +76,6 @@
 			let spmtYmd 		= $.trim(rowData.spmtYmd);
 
 			let itemCd 			= $.trim(rowData.itemCd);
-			let vrtyCd 			= $.trim(rowData.vrtyCd);
-			let spcfctCd	 	= $.trim(rowData.spcfctCd);
 			let gdsSeCd	 		= $.trim(rowData.gdsSeCd);
 			let gdsGrd 			= $.trim(rowData.gdsGrd);
 			let spmtPckgUnitCd 	= $.trim(rowData.spmtPckgUnitCd);
@@ -89,13 +83,6 @@
 			let warehouseSeCd 	= $.trim(rowData.warehouseSeCd);
 			let trsprtCoCd 		= $.trim(rowData.trsprtCoCd);
 			let cnptCd 			= $.trim(rowData.cnptCd);
-
-
-			/* if(!gfn_isEmpty(spmtYmd)){
-				if((/^(19[7-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/.exec(spmtYmd))){
-					rowData.spmtYmd = "";
-	    		}
-			} */
 
 			if (gfn_isEmpty(spmtYmd)) {
 				spmtYmd = today;
@@ -136,28 +123,14 @@
 					break;
 				}
 			}
-			// 품종 명 or 코드 일치 검사
-			for(var j=0; j<jsonEPSApcVrty.length; j++){
-				if(jsonEPSApcVrty[j].itemCd == rowData.itemCd && (jsonEPSApcVrty[j].vrtyNm == vrtyCd || jsonEPSApcVrty[j].vrtyCd == vrtyCd ) ){
-					rowData.vrtyCd = jsonEPSApcVrty[j].vrtyCd;
-					break;
-				}
-			}
 
-			// 규격 명 or 코드 일치 검사
-			for(var j=0; j<jsonEPSSpcfct.length; j++){
-				if(jsonEPSSpcfct[j].itemCd == rowData.itemCd && (jsonEPSSpcfct[j].spcfctNm == spcfctCd || jsonEPSSpcfct[j].spcfctCd == spcfctCd ) ){
-					rowData.spcfctCd = jsonEPSSpcfct[j].spcfctCd;
-					break;
-				}
-			}
 			// 포장구분 명 or 코드 일치 검사
 			for(var j=0; j<jsonEPSSpmtPckgUnit.length; j++){
 				if(jsonEPSSpmtPckgUnit[j].itemCd == rowData.itemCd
-				&& jsonEPSSpmtPckgUnit[j].vrtyCd == rowData.vrtyCd
-				&& jsonEPSSpmtPckgUnit[j].spcfctCd == rowData.spcfctCd
 				&& (jsonEPSSpmtPckgUnit[j].spmtPckgUnitNm == spmtPckgUnitCd || jsonEPSSpmtPckgUnit[j].spmtPckgUnitCd == spmtPckgUnitCd ) ){
 					rowData.spmtPckgUnitCd = jsonEPSSpmtPckgUnit[j].spmtPckgUnitCd;
+					rowData.vrtyCd = jsonEPSSpmtPckgUnit[j].vrtyCd;
+					rowData.spcfctCd = jsonEPSSpmtPckgUnit[j].spcfctCd;
 					break;
 				}
 			}
@@ -215,10 +188,6 @@
 					typeinfo : {ref:'jsonEPSGdsSeCd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 				{caption: ["품목"], 		ref: 'itemCd',   		type:'combo',  width:'80px',    style:'text-align:center; background:#FFF8DC;',
 					typeinfo : {ref:'jsonEPSApcItem', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
-				{caption: ["품종"], 		ref: 'vrtyCd',   		type:'combo',  width:'80px',    style:'text-align:center; background:#FFF8DC;',
-					typeinfo : {ref:'jsonEPSApcVrty', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
-				{caption: ["규격"], 		ref: 'spcfctCd',   		type:'combo',  width:'80px',    style:'text-align:center; background:#FFF8DC;',
-					typeinfo : {ref:'jsonEPSSpcfct', displayui : false,	itemcount: 10, label:'label', value:'value'}},
 				{caption: ["등급"], 		ref: 'gdsGrd',   		type:'combo',  width:'80px',    style:'text-align:center; background:#FFF8DC;',
 					typeinfo : {ref:'jsonEPSGdsGrd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 				{caption: ["상품명"], 	ref: 'spmtPckgUnitCd', 	type:'combo',  width:'150px',    style:'text-align:center; background:#FFF8DC;',
@@ -252,17 +221,9 @@
 
 		let nCol = grdExcelSpmtPrfmncPopup.getCol();
 		let nRow = grdExcelSpmtPrfmncPopup.getRow();
-		let vrtyCdCol = grdExcelSpmtPrfmncPopup.getColRef("vrtyCd");
-		let spcfctCdCol = grdExcelSpmtPrfmncPopup.getColRef("spcfctCd");
 		let spmtPckgUnitCdCol = grdExcelSpmtPrfmncPopup.getColRef("spmtPckgUnitCd");
 
 		switch (nCol) {
-		case spcfctCdCol:
-			fn_checkSpcfct(nRow);
-			break;
-		case vrtyCdCol:
-			fn_checkVrty(nRow);
-			break;
 		case spmtPckgUnitCdCol:
 			fn_checkSpmtPckgUnit(nRow);
 			break;
@@ -271,90 +232,17 @@
 		}
 	}
 
-	const fn_checkVrty = function(nRow){
-		let vrtyCdCol = grdExcelSpmtPrfmncPopup.getColRef("vrtyCd");
-    	let rowData = grdExcelSpmtPrfmncPopup.getRowData(nRow);
-    	let itemCd = rowData.itemCd;
-    	let vrtyCd = rowData.vrtyCd;
-
-    	let choiceItemCd = "";
-    	if(gfn_isEmpty(itemCd)){
-    		gfn_comAlert("W0005", nRow+"행의 품목") 	// W0005	{0}이/가 없습니다.
-    		grdExcelSpmtPrfmncPopup.setCellData(nRow, vrtyCdCol, "");
-			return false;
-    	}
-
-   		for(var i=0; i<jsonEPSApcVrty.length; i++){
-			let row  = jsonEPSApcVrty[i];
-   			if(vrtyCd == row.vrtyCd){
-   				choiceItemCd = row.itemCd;
-   			}
-   		}
-   		if(itemCd != choiceItemCd){
-   			gfn_comAlert("W0006", nRow+"행의 품목의 품종", "선택한 품종") 	// W0006	{0}와/과 {1}이/가 서로 다릅니다.
-   			grdExcelSpmtPrfmncPopup.setCellData(nRow, vrtyCdCol, "");
-   			return false;
-   		}
-
-   		return true;
-	}
-	const fn_checkSpcfct = function(nRow){
-		let spcfctCdCol = grdExcelSpmtPrfmncPopup.getColRef("spcfctCd");
-    	let rowData = grdExcelSpmtPrfmncPopup.getRowData(nRow);
-    	let itemCd = rowData.itemCd;
-    	let spcfctCd = rowData.spcfctCd;
-    	let spmtPckgUnitCd = rowData.spmtPckgUnitCd;
-
-    	let choiceItemCd = "";
-    	if(gfn_isEmpty(itemCd)){
-    		gfn_comAlert("W0005", nRow+"행의 품목") 	// W0005	{0}이/가 없습니다.
-    		grdExcelSpmtPrfmncPopup.setCellData(nRow, spcfctCdCol, "");
-			return false;
-    	}
-
-   		for(var i=0; i<jsonEPSSpcfct.length; i++){
-			let row  = jsonEPSSpcfct[i];
-   			if(spcfctCd == row.spcfctCd){
-   				choiceItemCd = row.itemCd;
-   			}
-   		}
-   		if(itemCd != choiceItemCd){
-   			gfn_comAlert("W0006", nRow+"행의 품목의 규격", "선택한 규격") 	// W0006	{0}와/과 {1}이/가 서로 다릅니다.
-   			grdExcelSpmtPrfmncPopup.setCellData(nRow, spcfctCdCol, "");
-   			return false;
-   		}
-   		if(!gfn_isEmpty(spmtPckgUnitCd)){
-   			fn_checkSpmtPckgUnit(nRow)
-   		}
-   		return true;
-
-
-	}
 	const fn_checkSpmtPckgUnit = function(nRow){
 
 		let spmtPckgUnitCdCol = grdExcelSpmtPrfmncPopup.getColRef("spmtPckgUnitCd");
     	let rowData = grdExcelSpmtPrfmncPopup.getRowData(nRow);
     	let itemCd = rowData.itemCd;
-    	let vrtyCd = rowData.vrtyCd;
-    	let spcfctCd = rowData.spcfctCd;
     	let spmtPckgUnitCd = rowData.spmtPckgUnitCd;
 
     	let choiceItemCd;
-    	let choiceVrtyCd;
-    	let choiceSpcfctCd;
 
     	if(gfn_isEmpty(itemCd)){
     		gfn_comAlert("W0005", nRow+"행의 품목") 	// W0005	{0}이/가 없습니다.
-    		grdExcelSpmtPrfmncPopup.setCellData(nRow, spmtPckgUnitCdCol, "");
-			return false;
-    	}
-    	if(gfn_isEmpty(vrtyCd)){
-    		gfn_comAlert("W0005", nRow+"행의 품종") 	// W0005	{0}이/가 없습니다.
-    		grdExcelSpmtPrfmncPopup.setCellData(nRow, spmtPckgUnitCdCol, "");
-			return false;
-    	}
-    	if(gfn_isEmpty(spcfctCd)){
-    		gfn_comAlert("W0005", nRow+"행의 규격") 	// W0005	{0}이/가 없습니다.
     		grdExcelSpmtPrfmncPopup.setCellData(nRow, spmtPckgUnitCdCol, "");
 			return false;
     	}
@@ -363,22 +251,10 @@
 			let row  = jsonEPSSpmtPckgUnit[i];
    			if(spmtPckgUnitCd == row.spmtPckgUnitCd){
    				choiceItemCd = row.itemCd;
-   				choiceVrtyCd = row.vrtyCd;
-   				choiceSpcfctCd = row.spcfctCd;
    			}
    		}
    		if(itemCd != choiceItemCd){
    			gfn_comAlert("W0006", nRow+"행의 품목의 상품명", "선택한 상품명") 	// W0006	{0}와/과 {1}이/가 서로 다릅니다.
-   			grdExcelSpmtPrfmncPopup.setCellData(nRow, spmtPckgUnitCdCol, "");
-   			return false;
-   		}
-   		if(vrtyCd != choiceVrtyCd){
-   			gfn_comAlert("W0006", nRow+"행의 품종의 상품명", "선택한 상품명") 	// W0006	{0}와/과 {1}이/가 서로 다릅니다.
-   			grdExcelSpmtPrfmncPopup.setCellData(nRow, spmtPckgUnitCdCol, "");
-   			return false;
-   		}
-   		if(spcfctCd != choiceSpcfctCd){
-   			gfn_comAlert("W0006", nRow+"행의 규격의 상품명", "선택한 상품명") 	// W0006	{0}와/과 {1}이/가 서로 다릅니다.
    			grdExcelSpmtPrfmncPopup.setCellData(nRow, spmtPckgUnitCdCol, "");
    			return false;
    		}
@@ -401,8 +277,6 @@
 			let spmtYmd 		= rowData.spmtYmd;			// 출하일자
 			let gdsSeCd 		= rowData.gdsSeCd;			// 상품구분
 			let itemCd 			= rowData.itemCd;			// 품목
-			let vrtyCd	 		= rowData.vrtyCd;			// 품종
-			let spcfctCd 		= rowData.spcfctCd;			// 규격
 			let gdsGrd 			= rowData.gdsGrd;			// 등급
 			let spmtPckgUnitCd 	= rowData.spmtPckgUnitCd;	// 포장단위
 			let prdcrCd 		= rowData.prdcrCd;			// 생산자
@@ -419,20 +293,6 @@
 				}
 				if(gfn_comboValidation(jsonEPSApcItem, itemCd) != "Y" || gfn_isEmpty(itemCd)){
 					gfn_comAlert("W0005", "품목") 	// W0005	{0}이/가 없습니다.
-					return;
-				}
-				if(gfn_comboValidation(jsonEPSApcVrty, vrtyCd) != "Y" || gfn_isEmpty(vrtyCd)){
-					gfn_comAlert("W0005", "품종") 	// W0005	{0}이/가 없습니다.
-					return;
-				}
-				if(!fn_checkVrty(i)){
-					return;
-				}
-				if(gfn_comboValidation(jsonEPSSpcfct, spcfctCd) != "Y" || gfn_isEmpty(spcfctCd)){
-					gfn_comAlert("W0005", "규격") 	// W0005	{0}이/가 없습니다.
-					return;
-				}
-				if(!fn_checkSpcfct(i)){
 					return;
 				}
 				if(gfn_comboValidation(jsonEPSGdsGrd, gdsGrd) != "Y" || gfn_isEmpty(gdsGrd)){
