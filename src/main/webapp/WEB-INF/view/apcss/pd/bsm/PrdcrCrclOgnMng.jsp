@@ -1100,6 +1100,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		    };
 	    SBGridProperties.columns = [
 	    	{caption: ["APO_CD"], 	ref: 'apoCd',   	hidden : false, width:'60px',style:'text-align:center' },
+	    	{caption: ["OGNZ_CD"], 	ref: 'ognzCd',   	hidden : false, width:'60px',style:'text-align:center' },
 	    	{caption: ["조직구분"], 		ref: 'apoSe',   	type:'combo',  width:'120px',    style:'text-align:center', disabled:true
 	    		,typeinfo : {ref:'jsonComApoSe', label:'label', value:'value', displayui : false}},
 	        {caption: ["법인구분"], 		ref: 'corpSeCd',   	type:'combo',  width:'120px',    style:'text-align:center', disabled:true
@@ -1261,6 +1262,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 				let PrdcrCrclOgnMngVO = {
 						apoSe: item.apoSe
 						,apoCd: item.apoCd
+						,ognzCd: item.ognzCd
 						,uoBrno: item.uoBrno
 						,corpNm: item.corpNm
 						,crno: item.crno
