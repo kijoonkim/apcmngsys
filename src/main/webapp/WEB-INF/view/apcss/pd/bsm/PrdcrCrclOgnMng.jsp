@@ -1574,12 +1574,13 @@ tps://sbgrid.co.kr/v2_5/document/guide
     		gfn_comAlert("W0002", "대표자 핸드폰번호");
     		return false;
     	}
-
+		/*
     	var rprsvEml = SBUxMethod.get("dtl-input-rprsvEml");
     	if(gfn_isEmpty(rprsvEml)){
     		gfn_comAlert("W0002", "대표자 이메일주소");
     		return false;
     	}
+    	*/
 
     	var picFlnm = SBUxMethod.get("dtl-input-picFlnm");
     	if(gfn_isEmpty(picFlnm)){

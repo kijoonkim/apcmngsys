@@ -1075,7 +1075,8 @@
 			  	'showgoalpageui' : true
 		    };
 	    SBGridProperties.columns = [
-	    	{caption: ["seq"], 			ref: 'apoCd',   	hidden : true},
+	    	//{caption: ["seq"], 			ref: 'apoCd',   	hidden : true},
+	    	{caption: ["APO_CD"], 		ref: 'apoCd',   	type:'output',  width:'80px',    style:'text-align:center'},
 	    	{caption: ["통합조직구분"], 	ref: 'apoSe',   	hidden : true},
 	    	{caption: ["법인등록번호"], 	ref: 'crno',   		hidden : true},
 	    	{caption: ["신청년도"], 		ref: 'yr',   	type:'output',  width:'80px',    style:'text-align:center'},
