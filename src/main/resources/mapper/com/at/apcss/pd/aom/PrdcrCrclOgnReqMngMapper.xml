@@ -87,6 +87,7 @@
 			 WHERE 1=1
 			   AND CM.BRNO = EAM.BRNO(+)
 			   AND CM.APO_SE IS NOT NULL
+			   AND CM.APO_CD IS NOT NULL
     	]]>
     		<if test='apoSe != null and apoSe != ""'>
 				AND CM.APO_SE = #{apoSe}
@@ -211,6 +212,7 @@
 			 WHERE 1=1
 			   AND CM.BRNO = EAM.BRNO(+)
 			   AND CM.APO_SE IS NOT NULL
+			   AND CM.APO_CD IS NOT NULL
 
     		<if test='apoSe != null and apoSe != ""'>
 				AND CM.APO_SE = #{apoSe}

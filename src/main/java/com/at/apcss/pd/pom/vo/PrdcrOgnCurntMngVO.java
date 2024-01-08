@@ -88,13 +88,17 @@ public class PrdcrOgnCurntMngVO extends ComVO{
 	//출하계약
 	private String prdctnPlanVlm;
 	private String ecSpmtPlanVlm;
+	private String ecSpmtPlanVlmTot;
 	private String planRmrk;
 	//생산출하실적
 	private String prdctnVlm;
 	private String ecSpmtVlm;
+	private String ecSpmtVlmTot;
+	private String ecSpmtRate;
 	private String spmtPrc;
 	private String spmtPrcTot;
 	private String spmtRmrk;
+	private String cnt;
 
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;

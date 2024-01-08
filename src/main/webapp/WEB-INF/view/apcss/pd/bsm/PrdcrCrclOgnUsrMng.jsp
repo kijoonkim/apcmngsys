@@ -796,7 +796,7 @@
 		console.log("******************fn_view**********************************");
 		var nCol = grdPrdcrCrclOgnUsrMng.getCol();
 		//특정 열 부터 이벤트 적용
-		if (nCol < 1) {
+		if (nCol < 0) {
 			return;
 		}
 		var nRow = grdPrdcrCrclOgnUsrMng.getRow();

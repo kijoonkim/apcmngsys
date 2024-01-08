@@ -818,7 +818,8 @@
 			  	'showgoalpageui' : true
 		    };
 	    SBGridProperties.columns = [
-	    	{caption: ["seq"], 			ref: 'apoCd',   	hidden : true},
+	    	//{caption: ["seq"], 			ref: 'apoCd',   	hidden : true},
+	    	{caption: ["APO_CD"], 		ref: 'apoCd',   	type:'output',  width:'80px',    style:'text-align:center'},
 	    	{caption: ["신청년도"], 		ref: 'yr',   	type:'output',  width:'80px',    style:'text-align:center'},
 	    	{caption: ["통합조직여부"], 	ref: 'aprv',   type:'combo',  width:'80px',    style:'text-align:center', disabled:true
 	    		,typeinfo : {ref:'jsonComAprv', label:'label', value:'value', displayui : false}},
