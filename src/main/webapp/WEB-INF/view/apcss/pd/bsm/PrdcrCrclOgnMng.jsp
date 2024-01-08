@@ -443,7 +443,9 @@
 								></sbux-select>
 							</td>
 							<th colspan="2" scope="row" class="th_bg"><span class="data_required" >시군</th>
-							<td colspan="3" class="td_input">
+
+
+							<!-- <td colspan="3" class="td_input">
 								<sbux-select
 									id="dtl-input-sgg"
 									name="dtl-input-sgg"
@@ -452,7 +454,16 @@
 									unselected-text="선택"
 									class="form-control input-sm"
 								></sbux-select>
+							</td> -->
+
+							<td  colspan="3" class="td_input" >
+								<sbux-select id="dtl-input-sgg" name="dtl-input-sgg"
+								uitype="singleExt"
+								filtering="true"
+								jsondata-ref="jsonComSgg"
+								unselected-text="선택" class=""></sbux-select>
 							</td>
+
 						</tr>
 						<tr>
 							<th colspan="2" rowspan="2" scope="row" class="th_bg">
