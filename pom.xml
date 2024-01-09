@@ -20,6 +20,7 @@
         <org.egovframe.rte.version>4.1.0</org.egovframe.rte.version>
 		<logback.version>1.2.11</logback.version>
 		<java.version>11</java.version>
+		<webapp.lib>${basedir}/src/main/webapp/WEB-INF/lib</webapp.lib>
 		<!--<sonar.projectKey>apcss</sonar.projectKey>-->
     	<!--<sonar.host.url>http://localhost:9000</sonar.host.url>-->
 	</properties>
@@ -226,13 +227,13 @@
 			<version>0.8</version>
 		</dependency>
 
-<!-- https://mvnrepository.com/artifact/org.apache.taglibs/taglibs-standard-impl -->
-<dependency>
-    <groupId>org.apache.taglibs</groupId>
-    <artifactId>taglibs-standard-impl</artifactId>
-    <version>1.2.5</version>
-    <scope>runtime</scope>
-</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.taglibs/taglibs-standard-impl -->
+		<dependency>
+		    <groupId>org.apache.taglibs</groupId>
+		    <artifactId>taglibs-standard-impl</artifactId>
+		    <version>1.2.5</version>
+		    <scope>runtime</scope>
+		</dependency>
 
 
 		<dependency>
@@ -510,6 +511,18 @@
 			<artifactId>PniccJNI</artifactId>
 			<version>1.1</version>
 		</dependency>
+		
+		
+		<!-- surem Repository -->
+		<dependency>
+			<groupId>easycerti</groupId>
+			<artifactId>EzFilter</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${webapp.lib}/com/easycerti/EzFilter.jar</systemPath>
+		</dependency>
+		
+		
 	</dependencies>
 
 	<build>
