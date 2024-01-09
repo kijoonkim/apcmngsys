@@ -263,18 +263,18 @@ public class EgovFileScrty {
 
 		md.reset();
 		md.update(id.getBytes());
-		System.out.println("#######id#####");
-		System.out.println(id.getBytes());
-		System.out.println(new String(id.getBytes()));
+		//System.out.println("#######id#####");
+		//System.out.println(id.getBytes());
+		//System.out.println(new String(id.getBytes()));
 		hashValue = md.digest(password.getBytes());
 		System.out.println("#######password#####");
-		System.out.println(password.getBytes());
-		System.out.println(new String(password.getBytes()));
-		System.out.println("#######result#####");
-		System.out.println(hashValue);
-		System.out.println(new String(hashValue));
-		System.out.println(Base64.encodeBase64(hashValue));
-		System.out.println(new String(Base64.encodeBase64(hashValue)));
+		//System.out.println(password.getBytes());
+		//System.out.println(new String(password.getBytes()));
+		//System.out.println("#######result#####");
+		//System.out.println(hashValue);
+		//System.out.println(new String(hashValue));
+		//System.out.println(Base64.encodeBase64(hashValue));
+		//System.out.println(new String(Base64.encodeBase64(hashValue)));
 		
 		return new String(Base64.encodeBase64(hashValue));
     }
