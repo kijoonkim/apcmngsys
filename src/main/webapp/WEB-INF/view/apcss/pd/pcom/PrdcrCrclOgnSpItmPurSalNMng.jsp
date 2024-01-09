@@ -557,7 +557,7 @@
 						,corpNm: item.corpNm
 						,crno: item.crno
 						,brno: item.brno
-						,yr:'2023'
+						,yr: item.yr
 				}
 				jsonPrdcrOgnCurntMng.push(PrdcrOgnCurntMngVO);
 				if (index === 0) {
@@ -674,7 +674,7 @@
 						,corpNm: item.corpNm
 						,crno: item.crno
 						,brno: item.brno
-						,yr:'2023'
+						,yr: item.yr
 				}
 				jsonPrdcrOgnCurntMng01.push(PrdcrOgnCurntMngVO);
 				if (index === 0) {

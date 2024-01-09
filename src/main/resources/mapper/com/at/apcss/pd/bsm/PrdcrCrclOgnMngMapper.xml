@@ -520,12 +520,12 @@
 	   		VALUES
 	   			(
 	   			    #{uoApoCd}
-	   			  , #{uoApoSe}
+	   			  , '1'
 	   			  , #{uoBrno}
 	   			  , #{uoCorpNm}
 	   			  , #{uoCrno}
 	   			  , (SELECT APO_CD FROM TB_EV_APO WHERE BRNO = #{isoBrno})
-	   			  , #{isoApoSe}
+	   			  , '2'
 	   			  , #{isoBrno}
 	   			  , #{isoCorpNm}
 	   			  , #{isoCrno}
@@ -541,19 +541,20 @@
     </insert>
 
     <!-- 출자출하조직이 속한 통합조직 리스트 update -->
+    <!-- 해당 테이블에서 업데이트 사용할 필요성 x -->
 	<update id="updateUo" parameterType="com.at.apcss.pd.bsm.vo.UoListVO">
     	<![CDATA[
 	    	UPDATE /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.updateUo */
 	    		TB_EV_APO_UO_CD
 			   SET
 			 	  	UO_APO_CD				= #{uoApoCd}
-			 	  , UO_APO_SE				= #{uoApoSe}
+			 	  , UO_APO_SE				= '1'
 	    		  , UO_BRNO					= #{uoBrno}
 	    		  , UO_CORP_NM				= #{uoCorpNm}
 	    		  , UO_CRNO					= #{uoCrno}
 
 	    		  , ISO_APO_CD				= (SELECT APO_CD FROM TB_EV_APO WHERE BRNO = #{isoBrno})
-	    		  , ISO_APO_SE				= #{isoApoSe}
+	    		  , ISO_APO_SE				= '2'
 	    		  , ISO_BRNO				= #{isoBrno}
 	    		  , ISO_CORP_NM				= #{isoCorpNm}
 	    		  , ISO_CRNO				= #{isoCrno}

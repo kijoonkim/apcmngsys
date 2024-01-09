@@ -303,7 +303,7 @@
 		   			  , (case when #{crno} is not null then #{crno}
 		   			  			ELSE (SELECT CRNO FROM TB_EV_APO WHERE APO_CD = #{apoCd})
 		   			  			END)
-		   			  , #{yr}
+		   			  , TO_CHAR(SYSDATE,'YYYY')
 		   			  , #{sttgUpbrItemSe}
 		   			  , '0'
 		   			  , #{itemCd}
@@ -621,6 +621,7 @@
 		    	        , RMRK				= #{rmrk}
 
 		    	        , ITEM_CD				= #{itemCd}
+		    	        , UO_BRNO				= #{uoBrno}
 		    	        , CTGRY_CD				= #{ctgryCd}
 		    	        , TRMT_TYPE				= #{trmtType}
 		    	        , STTG_UPBR_ITEM_SE		= #{sttgUpbrItemSe}
@@ -647,6 +648,7 @@
 		    		  , STTG_UPBR_ITEM_SE
 		    		  , CTGRY_CD
 		    		  , ITEM_CD
+		    		  , UO_BRNO
 		    		  , TRMT_TYPE
 
 		    		  , PRDCR_OGNZ_SN
@@ -669,10 +671,11 @@
 		   			  			END)
 		   			  , #{brno}
 		   			  , #{crno}
-		   			  , #{yr}
+		   			  , TO_CHAR(SYSDATE,'YYYY')
 		   			  , #{sttgUpbrItemSe}
 		   			  , #{ctgryCd}
 		   			  , #{itemCd}
+		   			  , #{uoBrno}
 		   			  , #{trmtType}
 
 		   			  , SEQ_PRDCR_OGNZ_SN.NEXTVAL

@@ -400,7 +400,7 @@
         	header-title="품목 선택"
         	body-html-id="body-modal-yrGpcList"
         	footer-is-close-button="false"
-        	style="width:500px"
+        	style="width:700px"
        	></sbux-modal>
     </div>
     <div id="body-modal-yrGpcList">
@@ -584,12 +584,12 @@
 	        {caption: ["품목선택"], 			ref: 'sel',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 				return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_openMaodalSelect(" + nRow + ")'>선택</button>";
 	        }},
-	        {caption: ["분류"], 			ref: 'ctgryCd',   	type:'combo',  width:'150px',    style:'text-align:center', disabled:false , oneclickedit:true
-	    		,typeinfo : {ref:'jsonComCtgryCd', label:'label', value:'value', displayui : true}},
+	        {caption: ["분류"], 			ref: 'ctgryCd',   	type:'combo',  width:'150px',    style:'text-align:center', disabled:true , oneclickedit:true
+	    		,typeinfo : {ref:'jsonComCtgryCd', label:'label', value:'value', displayui : false}},
 	        {caption: ["취급유형"], 		ref: 'trmtType',   	type:'combo',  width:'150px',    style:'text-align:center', disabled:false , oneclickedit:true
 				,typeinfo : {ref:'jsonComTrmtType', label:'label', value:'value', displayui : true}},
-			{caption: ["전문/육성 구분"], 	ref: 'sttgUpbrItemSe',   type:'combo',  width:'150px',    style:'text-align:center', disabled:false , oneclickedit:true
-				,typeinfo : {ref:'jsonComSttgUpbrItemSe', label:'label', value:'value', displayui : true}},
+			{caption: ["전문/육성 구분"], 	ref: 'sttgUpbrItemSe',   type:'combo',  width:'150px',    style:'text-align:center', disabled:true , oneclickedit:true
+				,typeinfo : {ref:'jsonComSttgUpbrItemSe', label:'label', value:'value', displayui : false}},
 
 			{caption: ["조직원수"], 					ref: 'cnt',   	type:'output',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
@@ -608,7 +608,7 @@
 	        {caption: ["상세내역"], 	ref: 'yr',   	hidden : true},
 	        {caption: ["상세내역"], 	ref: 'apoCd',   	hidden : true},
 	    	{caption: ["상세내역"], 	ref: 'itemCd',   	hidden : true},
-	    	//{caption: ["상세내역"], 	ref: 'ctgryCd',   	hidden : true},
+	    	{caption: ["상세내역"], 	ref: 'uoBrno',   	hidden : true},
 	        {caption: ["상세내역"], 	ref: 'apoSe',		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'brno',		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'crno',		hidden : true},
@@ -761,7 +761,7 @@
 						,crno: item.crno
 						,brno: item.brno
 						,corpSeCd: item.corpSeCd
-						,yr:'2023'
+						,yr: item.yr
 				}
 				jsonPrdcrOgnCurntMng.push(PrdcrOgnCurntMngVO);
 				if (index === 0) {
@@ -852,7 +852,6 @@
 					rowData.apoSe = apoSe;
 					rowData.crno = crno;
 					rowData.brno = brno;
-					rowData.yr = '2023';// test 추후 변경해야함
 				}
 
 				if (rowSts === 3){
@@ -983,7 +982,6 @@
 					rowData.prdcrOgnzCd = prdcrOgnzCd;
 					rowData.prdcrOgnzNm = prdcrOgnzNm;
 					rowData.sttgUpbrItemSe = sttgUpbrItemSe;
-					rowData.yr = '2023';//test
 				}
 
 				if (rowSts === 3){
@@ -1262,6 +1260,7 @@
 						,apoSe: item.apoSe
 						,brno: 	item.brno
 						,crno: 	item.crno
+						,uoBrno: item.uoBrno
 
 						,delYn: item.delYn
 
@@ -1434,15 +1433,15 @@
 			let selGridRow = grdPrdcrOgnCurntMng01.getRow();
 			//let selRef = grdPrdcrOgnCurntMng01.getRefOfCol(selGridCol);
 
-			//let colRefIdx1 = grdPrdcrOgnCurntMng01.getColRef("ctgryCd");//분류코드 인덱스
-			//let colRefIdx2 = grdPrdcrOgnCurntMng01.getColRef("ctgryNm");//분류명 인덱스
+			let colRefIdx1 = grdPrdcrOgnCurntMng01.getColRef("ctgryCd");//분류코드 인덱스
+			let colRefIdx2 = grdPrdcrOgnCurntMng01.getColRef("sttgUpbrItemSe");//품목구분 인덱스
 			let colRefIdx3 = grdPrdcrOgnCurntMng01.getColRef("itemCd");//품목코드 인덱스
 			let colRefIdx4 = grdPrdcrOgnCurntMng01.getColRef("itemNm");//품목명 인덱스
 			//let colRefIdx5 = grdPrdcrOgnCurntMng01.getColRef("rmrk");//기타 인덱스
 
 			//그리드 값 세팅
-			//grdPrdcrOgnCurntMng01.setCellData(selGridRow,colRefIdx1,rowData.ctgryCd,true);
-			//grdPrdcrOgnCurntMng01.setCellData(selGridRow,colRefIdx2,rowData.ctgryNm,true);
+			grdPrdcrOgnCurntMng01.setCellData(selGridRow,colRefIdx1,rowData.ctgryCd,true);
+			grdPrdcrOgnCurntMng01.setCellData(selGridRow,colRefIdx2,rowData.sttgUpbrItemSe,true);
 			grdPrdcrOgnCurntMng01.setCellData(selGridRow,colRefIdx3,rowData.itemCd,true);
 			grdPrdcrOgnCurntMng01.setCellData(selGridRow,colRefIdx4,rowData.itemNm,true);
 			//grdPrdcrOgnCurntMng01.setCellData(selGridRow,colRefIdx5,rowData.rmrk,true);
@@ -1579,7 +1578,6 @@
 			rowData.prdcrOgnzCd = prdcrOgnzCd;
 			rowData.prdcrOgnzNm = prdcrOgnzNm;
 			rowData.sttgUpbrItemSe = sttgUpbrItemSe;
-			rowData.yr = '2023';//test
  			rowData.rowSts = "I";
 
 			console.log(rowData);

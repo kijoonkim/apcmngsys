@@ -857,6 +857,9 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	    	{caption: ["seq"], 			ref: 'apoCd',   	hidden : true},
+	    	{caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+	    		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow01(\"DEL\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ")'>삭제</button>";
+	        }},
 	    	//{caption: ["순번"], 				ref: 'aa',   	type:'output',  width:'50px',    style:'text-align:center'},
 	    	{caption: ["업체명"], 			ref: 'corpNm',   	type:'output',  width:'220px',    style:'text-align:center'},
 	    	{caption: ["대표자명"], 			ref: 'rprsvFlnm',   	type:'output',  width:'120px',    style:'text-align:center'},
@@ -866,10 +869,10 @@
 	        {caption: ["출자자수"], 			ref: 'invstNope',   	type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["출자자 중 농업인수"], 	ref: 'invstExpndFrmerNope',   	type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["농업인 출자 지분율"], 	ref: 'frmerInvstAmtRt',   	type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["2023 자금신청액"], 	ref: 'll',   	type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["2024 자금신청액"], 	ref: 'isoFundAplyAmt',   	type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["비고"], 				ref: 'rmrk',   	type:'output',  width:'120px',    style:'text-align:center'},
 
-	        {caption: ["상세내역"], 	ref: 'isoFundAplyAmt',   	hidden : true},
+	        //{caption: ["상세내역"], 	ref: 'isoFundAplyAmt',   	hidden : true},
 	        {caption: ["상세내역"], 	ref: 'aplyTrgtSe',   		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'yr',   				hidden : true},
 
@@ -912,7 +915,7 @@
 
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
-		let year = SBUxMethod.get("srch-input-year");//
+		let yr = SBUxMethod.get("srch-input-year");//
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
 		let ctpv = SBUxMethod.get("srch-input-ctpv");//
 
@@ -925,6 +928,7 @@
     	let postJsonPromise01 = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
     		cmptnInst : cmptnInst
     		,ctpv : ctpv
+    		,yr : yr
 
     		,corpSeCd : corpSeCd
     		,corpDtlSeCd : corpDtlSeCd
@@ -952,7 +956,7 @@
 						,corpNm: item.corpNm
 						,brno: item.brno
 						,aprv: item.aprv
-						,yr: '2023'
+						,yr: item.yr
 				}
 				jsonInvShipOgnReqMng.push(InvShipOgnReqMngVO);
 				if (index === 0) {
@@ -1166,7 +1170,6 @@
 			,corpNm: SBUxMethod.get('dtl-input-corpNm')//
    	 		,isoFundAplyAmt: SBUxMethod.get('dtl-input-isoFundAplyAmt')//
 			//,aplyTrgtSe: SBUxMethod.get('dtl-input-aplyTrgtSe')//
-			,yr: '2023'
 		});
 
         const data = await postJsonPromise;
@@ -1202,7 +1205,6 @@
 			,corpNm: SBUxMethod.get('dtl-input-corpNm')//
    	 		,isoFundAplyAmt: SBUxMethod.get('dtl-input-isoFundAplyAmt')//
 			//,aplyTrgtSe: SBUxMethod.get('dtl-input-aplyTrgtSe')//
-			,yr: '2023'
   		});
 
 		const data = await postJsonPromise;

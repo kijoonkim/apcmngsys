@@ -86,6 +86,9 @@
 			SBUxMethod.hide('btnSaveItem');
 			SBUxMethod.attr('btnSearchItem', 'disabled', false);
 
+			gfn_setComCdSBSelect('grdItemPop01', 	jsonComCtgryCd, 	'CTGRY_CD'); //분류코드
+			gfn_setComCdSBSelect('grdItemPop01', 	jsonComSttgUpbrItemSe, 	'STTG_UPBR_ITEM_SE'); //품목구분
+
 			if (!gfn_isEmpty(_callbackFnc) && typeof _callbackFnc === 'function') {
 				this.callbackFnc = _callbackFnc;
 			}
@@ -119,12 +122,14 @@
 			  	'showgoalpageui' : true
 		    };
 		    SBGridProperties.columns = [
-		    	//{caption: ['분류코드'], 	ref: 'ctgryCd', hidden : true},
-		        //{caption: ['분류명'], 	ref: 'ctgryNm', hidden : true},
-		        {caption: ['분류명'], 	ref: 'brno', hidden : true},
-		        {caption: ['품목코드'], ref: 'itemCd', width: '80px', type: 'input', style: 'text-align:center'},
-		        {caption: ['품목명'], ref: 'itemNm', width: '80px', type: 'input', style: 'text-align:center'},
-		        {caption: ['해당품목 선택조직'], ref: 'corpNm', width: '100px', type: 'input', style: 'text-align:center'},
+		        {caption: ['품목코드'], 	ref: 'itemCd', width: '80px', type: 'input', style: 'text-align:center'},
+		        {caption: ['품목명'], 		ref: 'itemNm', width: '80px', type: 'input', style: 'text-align:center'},
+		        {caption: ['해당품목 선택조직'], ref: 'corpNm', width: '200px', type: 'input', style: 'text-align:center'},
+		    	{caption: ["품목분류"], 		ref: 'ctgryCd',   	type:'combo',  width:'120px',    style:'text-align:center',
+		    		typeinfo : {ref:'jsonComCtgryCd', label:'label', value:'value', displayui : false}},
+		    	{caption: ["전문/육성 구분"], 	ref: 'sttgUpbrItemSe',   type:'combo',  width:'120px',    style:'text-align:center',
+		    		typeinfo : {ref:'jsonComSttgUpbrItemSe', label:'label', value:'value', displayui : false}},
+		        {caption: ['사업자번호'], 		ref: 'brno', hidden : true},
 		    ];
 
 		    grdItemPop01 = _SBGrid.create(SBGridProperties);
@@ -175,8 +180,8 @@
 	    		jsonItemPop01.length = 0;
 	        	data.resultList.forEach((item, index) => {
 					const itemVal = {
-							//ctgryCd : item.ctgryCd,
-							//ctgryNm : item.ctgryNm,
+							ctgryCd : item.ctgryCd,
+							sttgUpbrItemSe : item.sttgUpbrItemSe,
 							itemCd 	: item.itemCd,
 							itemNm 	: item.itemNm,
 							brno 	: item.brno,

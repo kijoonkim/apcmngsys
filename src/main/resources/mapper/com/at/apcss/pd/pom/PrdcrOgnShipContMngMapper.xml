@@ -214,7 +214,7 @@
 		   			  			END)
 		   			  , #{brno}
 		   			  , #{crno}
-		   			  , #{yr}
+		   			  , TO_CHAR(SYSDATE,'YYYY')
 		   			  , #{sttgUpbrItemSe}
 		   			  , (case when #{ctgryCd} is not null then #{ctgryCd}
 		   			  			ELSE (SELECT ITEM_CD FROM TB_ITEM_CRTR WHERE ITEM_CD = #{itemCd})
