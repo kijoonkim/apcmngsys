@@ -287,5 +287,5 @@ $RECYCLE.BIN/
 # TIBERO
 #!tibero6-6.0.0.jar
 # ezFilter
-!EzFilter.jar
+#!EzFilter.jar
 # End of https://www.toptal.com/developers/gitignore/api/java,macos,maven,intellij,eclipse,windows
