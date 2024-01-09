@@ -462,6 +462,8 @@
 	var jsonComTrmtType = [];//취급유형
 	var jsonComSttgUpbrItemSe = [];//품목구분 전문/육성
 	var jsonComCtgryCd = [];//분류코드
+	var jsonComAprv = [];//통합조직여부
+
 	//통합조직,출하조직
 	var jsonComApoSe = [
 		{'text': '통합조직','label': '통합조직', 'value': '1'},
@@ -486,6 +488,7 @@
 			gfn_setComCdSBSelect('dtl-input-trmtType', 		jsonComTrmtType, 	'TRMT_TYPE'), //신청대상구분
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonComSttgUpbrItemSe, 	'STTG_UPBR_ITEM_SE'), //품목구분
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonComCtgryCd, 	'CTGRY_CD'), //분류코드
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonComAprv, 	'APRV_UPBR_SE_CD'), //통합조직여부
 
 		]);
 	}
@@ -526,6 +529,8 @@
 	    	{caption: ["등록년도"], 		ref: 'yr',   	type:'output',  width:'100px',    style:'text-align:center'},
 	    	{caption: ["조직구분"], 		ref: 'apoSe',   	type:'combo',  width:'120px',    style:'text-align:center', disabled:true
 	    		,typeinfo : {ref:'jsonComApoSe', label:'label', value:'value', displayui : false}},
+	    	{caption: ["통합조직여부"], 	ref: 'aprv',   type:'combo',  width:'80px',    style:'text-align:center', disabled:true
+		    	,typeinfo : {ref:'jsonComAprv', label:'label', value:'value', displayui : false}},
 	    	{caption: ["법인구분"], 		ref: 'corpSeCd',type:'combo',  width:'100px',    style:'text-align:center', disabled:true
 	    		,typeinfo : {ref:'jsonComCorpSeCd', label:'label', value:'value', displayui : false}},
 	    	{caption: ["시도"], 			ref: 'ctpv',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
@@ -563,6 +568,7 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 	    SBGridProperties.oneclickedit = false;//입력 활성화 true 1번클릭 false 더블클릭
+	    SBGridProperties.fixedrowheight=45;
 	    SBGridProperties.columns = [
 	        {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
@@ -595,7 +601,7 @@
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출하비율"], 					ref: 'ecSpmtRate',   	type:'output',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["적합여부"], 		ref: 'aa',   	type:'output',  width:'140px',    style:'text-align:center'
+			{caption: ["적합여부"], 					ref: 'aa',   	type:'output',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
 	        {caption: ["비고"], 			ref: 'rmrk',   		type:'input',  width:'220px',    style:'text-align:center'},
@@ -749,6 +755,7 @@
 						apoCd: item.apoCd
 						,apoSe: item.apoSe
 						,ctpv: item.ctpv
+						,aprv: item.aprv
 						,sgg: item.sgg
 						,corpNm: item.corpNm
 						,crno: item.crno
@@ -1170,6 +1177,18 @@
     }
 
 	async function fn_clearForm() {
+		SBUxMethod.set('dtl-input-apoCd01',null)//통합조직 코드
+		SBUxMethod.set('dtl-input-apoSe01',null)//통합조직 구분
+		SBUxMethod.set('dtl-input-crno01',null)//법인등록번호
+		SBUxMethod.set('dtl-input-brno01',null)//사업자등록번호
+		SBUxMethod.set('dtl-input-prdcrOgnzSn',null)//생산자조직 순번
+		SBUxMethod.set('dtl-input-prdcrOgnzNm',null)//생산자조직 명
+		SBUxMethod.set('dtl-input-prdcrOgnzCd',null)//생산자조직 코드
+		SBUxMethod.set('dtl-input-itemCd',null)//품목 코드
+		SBUxMethod.set('dtl-input-itemNm',null)//품목명
+		SBUxMethod.set('dtl-input-trmtType',null)//취급유형
+		SBUxMethod.set('dtl-input-sttgUpbrItemSe',null)//품목구분 전문/육성
+
 		jsonPrdcrOgnCurntMng01.length= 0;
 		grdPrdcrOgnCurntMng01.rebuild();
 		jsonPrdcrOgnCurntMng02.length= 0;
@@ -1237,7 +1256,7 @@
         	jsonPrdcrOgnCurntMng01.length = 0;
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
-        		console.log(item.itemNm);
+        		console.log(item.cnt);
 				let itemVO = {
 						apoCd: 	item.apoCd
 						,apoSe: item.apoSe
@@ -1442,29 +1461,29 @@
 	const fn_getExpColumns = function() {
 		const _columns = [];
 		_columns.push(
-			{caption: ["조직원명"], 		ref: 'flnm',   	type:'input',  width:'100px',    style:'text-align:center'},
-	        {caption: ["재배지 주소"], 	ref: 'cltvtnLandAddr',   	type:'input',  width:'500px',    style:'text-align:center'},
-	        {caption: ["재배면적(㎡)"], 	ref: 'cltvtnSfc',   	type:'input',  width:'140px',    style:'text-align:center'
+			{caption: ["조직원명","조직원명","조직원명"], 		ref: 'flnm',   	type:'input',  width:'100px',    style:'text-align:center'},
+	        {caption: ["재배지 주소","재배지 주소","재배지 주소"], 	ref: 'cltvtnLandAddr',   	type:'input',  width:'500px',    style:'text-align:center'},
+	        {caption: ["생산","재배면적(㎡)","재배면적(㎡)"], 	ref: 'cltvtnSfc',   	type:'input',  width:'140px',    style:'text-align:center'
 	        	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["(평년)생산량(톤)"], ref: 'avgYrPrdctnVlm',   	type:'input',  width:'140px',    style:'text-align:center'
+	        {caption: ["생산","(평년)생산량(톤)","(평년)생산량(톤)"], ref: 'avgYrPrdctnVlm',   	type:'input',  width:'140px',    style:'text-align:center'
 	        	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
-	        {caption: ["생산계획량(톤)"], ref: 'prdctnPlanVlm',   	type:'input',  width:'140px',    style:'text-align:center'
+	        {caption: ["생산","생산계획량(톤)","생산계획량(톤)"], 	ref: 'prdctnPlanVlm',   	type:'input',  width:'140px',    style:'text-align:center'
 		       	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-		    {caption: ["전속출하계약량(톤)"], ref: 'ecSpmtPlanVlm',   	type:'input',  width:'140px',    style:'text-align:center'
-		       	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+		    {caption: ["생산","생산량(결과)(톤)","생산량(결과)(톤)"], ref: 'prdctnVlm',   	type:'input',  width:'140px',    style:'text-align:center'
+		        ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
-		    {caption: ["생산량(결과)(톤)"], ref: 'prdctnVlm',   	type:'input',  width:'140px',    style:'text-align:center'
+		    {caption: ["계약","전속(약정) ","출하계약량(톤)"], 	ref: 'ecSpmtPlanVlm',   	type:'input',  width:'140px',    style:'text-align:center'
+		       	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+		    {caption: ["출하","전속(약정)","출하량(결과)(톤)"], 	ref: 'ecSpmtVlm',   	type:'input',  width:'140px',    style:'text-align:center'
 		        ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-		    {caption: ["전속출하량(결과)(톤)"], ref: 'ecSpmtVlm',   	type:'input',  width:'140px',    style:'text-align:center'
+		    {caption: ["출하","출하대금","지급액(천원)"], 		ref: 'spmtPrc',   	type:'input',  width:'140px',    style:'text-align:center'
 		        ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-		    {caption: ["출하대금 지급액(천원)"], ref: 'spmtPrc',   	type:'input',  width:'140px',    style:'text-align:center'
-		        ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["가입일"], 		ref: 'joinDay',  	type:'datepicker',  width:'110px',    style:'text-align:center'
+	        {caption: ["가입일","가입일","가입일"], 			ref: 'joinDay',  	type:'datepicker',  width:'110px',    style:'text-align:center'
 	        	,typeinfo : {locale : 'ko' , dateformat :'yymmdd' , yearrange : 150}, format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd' }},
-	        {caption: ["탈퇴일"], 		ref: 'whdwlDay',  	type:'datepicker',  width:'110px',    style:'text-align:center'
+	        {caption: ["탈퇴일","탈퇴일","탈퇴일"], 			ref: 'whdwlDay',  	type:'datepicker',  width:'110px',    style:'text-align:center'
 	        	,typeinfo : {locale : 'ko' , dateformat :'yymmdd' , yearrange : 150}, format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd' }},
-	        {caption: ["비고"],		ref: 'rmrk',      	type:'input',  width:'300px',    style:'text-align:center'},
+	        {caption: ["비고","비고","비고"],				ref: 'rmrk',      	type:'input',  width:'300px',    style:'text-align:center'},
 		);
 
 		return _columns;
@@ -1476,13 +1495,13 @@
 	 */
     const fn_upload = async function() {
 
-		//const itemCd = SBUxMethod.get("srch-slt-itemCd");			// 품목
-		/*
-		if (gfn_isEmpty(itemCd)) {
-			gfn_comAlert("W0001", "품목");		//	W0002	{0}을/를 선택하세요.
+		const brno = SBUxMethod.get('dtl-input-brno01');
+
+		if (gfn_isEmpty(brno)) {
+			gfn_comAlert("W0001", "생산자조직");		//	W0002	{0}을/를 선택하세요.
             return;
 		}
-		*/
+
 
 		popImp.init();
 
@@ -1495,6 +1514,7 @@
 		SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.oneclickedit = true;
 		SBGridProperties.columns = impColumns;
+		SBGridProperties.rowheader="seq";
 		popImp.importExcel(
     			"농가리스트 Import",
     			SBGridProperties,
@@ -1509,9 +1529,6 @@
 	 * @description 엑셀 업로드 저장
 	 */
 	const fn_importExcel = async function(_grdImp) {
-
-		alert("개발중");
-		return false;
 
 		//const itemCd = SBUxMethod.get("srch-slt-itemCd");			// 품목
 
@@ -1538,43 +1555,37 @@
 		let prdcrOgnzNm = SBUxMethod.get('dtl-input-prdcrOgnzNm');
 		let yr = SBUxMethod.get('dtl-input-yr');
 
- 		for ( let iRow = 1; iRow <= impData.length; iRow++ ) {
+ 		for ( let iRow = 3; iRow < impData.length+3; iRow++ ) {
 
- 			// 010. 그리드 스타일 초기화
  			const rowData = _grdImp.getRowData(iRow);
 
  			// validation check
-
- 			// 020. check cell data
-
- 			// col 0 : 포장일자
- 			/*
- 	    	if (gfn_isEmpty(rowData.pckgYmd)) {
- 	    		gfn_comAlert("W0001", "포장일자");		//	W0002	{0}을/를 선택하세요.
+ 	    	if (gfn_isEmpty(rowData.flnm)) {
+ 	    		gfn_comAlert("W0002", "성명");		//	W0002	{0}을/를 입력하세요.
  	            return;
  	    	}
- 			*/
+ 	    	if (gfn_isEmpty(rowData.cltvtnLandAddr)) {
+ 	    		gfn_comAlert("W0002", "재배지 주소");		//	W0002	{0}을/를 입력하세요.
+ 	            return;
+ 	    	}
 
- 			if(gfn_isEmpty(rowData.apoCd)){
-				//서브쿼리로 데이터 넣는 방식으로 변경해도 됨
-				rowData.apoCd = apoCd;
-				rowData.apoSe = apoSe;
-				rowData.crno = crno;
-				rowData.brno = brno;
-				rowData.itemCd = itemCd;
-				rowData.trmtType = trmtType;
-				rowData.prdcrOgnzSn = prdcrOgnzSn;
-				rowData.prdcrOgnzCd = prdcrOgnzCd;
-				rowData.prdcrOgnzNm = prdcrOgnzNm;
-				rowData.sttgUpbrItemSe = sttgUpbrItemSe;
-				rowData.yr = '2023';//test
-			}
-
+ 			rowData.apoCd = apoCd;
+			rowData.apoSe = apoSe;
+			rowData.crno = crno;
+			rowData.brno = brno;
+			rowData.itemCd = itemCd;
+			rowData.trmtType = trmtType;
+			rowData.prdcrOgnzSn = prdcrOgnzSn;
+			rowData.prdcrOgnzCd = prdcrOgnzCd;
+			rowData.prdcrOgnzNm = prdcrOgnzNm;
+			rowData.sttgUpbrItemSe = sttgUpbrItemSe;
+			rowData.yr = '2023';//test
  			rowData.rowSts = "I";
+
+			console.log(rowData);
 
 			//저장할데이터
  	    	const pckgPrfmnc = {
-				//apcCd: gv_selectedApcCd,
 				apoCd: rowData.apoCd,
 				apoSe: rowData.apoSe,
 				crno: rowData.crno,
@@ -1591,7 +1602,22 @@
 				prdcrOgnzSn: rowData.prdcrOgnzSn,
 				prdcrOgnzCd: rowData.prdcrOgnzCd,
 				prdcrOgnzNm: rowData.prdcrOgnzNm,
-   				stdGrdList: stdGrdList
+
+				flnm: rowData.flnm,
+				cltvtnLandAddr: rowData.cltvtnLandAddr,
+
+				joinDay: rowData.joinDay,
+				whdwlDay: rowData.whdwlDay,
+				cltvtnSfc: rowData.cltvtnSfc,
+				avgYrPrdctnVlm: rowData.avgYrPrdctnVlm,
+				cltvtnAreaRmrk: rowData.cltvtnAreaRmrk,
+
+				prdctnPlanVlm: 	rowData.prdctnPlanVlm,
+				ecSpmtPlanVlm: 	rowData.ecSpmtPlanVlm,
+
+				prdctnVlm: rowData.prdctnVlm,
+				ecSpmtVlm: rowData.ecSpmtVlm,
+				spmtPrc: rowData.spmtPrc
  	    	}
 
  	    	pckgPrfmncList.push(pckgPrfmnc);
@@ -1605,14 +1631,9 @@
     		return;
     	}
 
-    	const pckgMng = {
-	    		apcCd: gv_selectedApcCd,
-	    		pckgPrfmncList: pckgPrfmncList
-	    	}
-
     	let postUrl = "/pd/pom/multiSavePrdcrOgnCurntMngList.do";
 
-    	const postJsonPromise = gfn_postJSON(postUrl, pckgMng);
+    	const postJsonPromise = gfn_postJSON(postUrl, pckgPrfmncList);
 		const data = await postJsonPromise;
 
         try {
