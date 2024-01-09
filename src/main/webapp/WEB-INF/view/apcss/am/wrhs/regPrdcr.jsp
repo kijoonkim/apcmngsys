@@ -107,21 +107,9 @@
 							<span>생산자 등록 내역</span>
 						</li>
 					</ul>
-				</div>
-				<table class="table table-bordered tbl_fixed">
-					<colgroup>
-								<col style="width: auto">
-								<col style="width: 75px">
-								<col style="width: 65px">
-					</colgroup>
-					<tbody>
-						<tr>
-							<td style="border-left:hidden"></td>
-							<td style="border-left:hidden">
-								<sbux-button id="btnDwnld" name="btnDwnld" uitype="normal" text="서식받기" class="btn btn-sm btn-outline-danger" onclick="fn_dwnld" style="float: right;">서식받기</sbux-button>
-							</td>
-							<td class="td_input" style="border-right:hidden; border-left:hidden" >
-								<sbux-button
+					<div class="ad_tbl_toplist">
+						<sbux-button id="btnDwnld" name="btnDwnld" uitype="normal" text="서식받기" class="btn btn-sm btn-outline-danger" onclick="fn_dwnld" style="float: right;">서식받기</sbux-button>
+						<sbux-button
 									id="btnUld"
 									name="btnUld"
 									uitype="normal"
@@ -130,10 +118,14 @@
 									onclick="fn_uld"
 									style="float: right;"
 								></sbux-button>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+					</div>
+				</div>
+
+				<div class="table-responsive tbl_scroll_sm">
+					<div id="sb-area-grdApcPrdcr" style="height:283px;"></div>
+				</div>
+			</div>
+
 				<div class="exp-div-excel" style="display: none;width: 1000px;">
 					<div id="sbexp-area-grdExpPrdcr" style="height:1px; width: 100%;"></div>
 					<div id="sbexp-area-grdExpItemCd" style="height:1px; width: 100%;"></div>
@@ -170,11 +162,6 @@
 					<jsp:include page="../../am/popup/apcStdGrdSelect.jsp"></jsp:include>
 					<input type="file" id="btnFileUpload" name="btnFileUpload" style="visibility: hidden;" onchange="importExcelData(event)">
 				</div>
-				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdApcPrdcr" style="height:283px;"></div>
-				</div>
-
-			</div>
 		</div>
 	</section>
 	<!-- 생산작업자 선택 Modal -->
@@ -204,10 +191,10 @@
 
     <!-- 산지 선택 Modal -->
     <div>
-        <sbux-modal id="modal-plorCd" name="modal-plorCd" uitype="middle" header-title="공통코드조회" body-html-id="body-modal-plorCd" footer-is-close-button="false" header-is-close-button="false" style="width:900px"></sbux-modal>
+        <sbux-modal id="modal-comCd" name="modal-comCd" uitype="middle" header-title="공통코드조회" body-html-id="body-modal-comCd" footer-is-close-button="false" header-is-close-button="false" style="width:900px"></sbux-modal>
     </div>
-    <div id="body-modal-plorCd">
-    	<jsp:include page="../../am/popup/comPlorCdPopup.jsp"></jsp:include>
+    <div id="body-modal-comCd">
+    	<jsp:include page="../../am/popup/comCdPopup.jsp"></jsp:include>
     </div>
      <div>
 		<sbux-modal id="modal-excel-gdsInvntr" name="modal-excel-gdsInvntr"
@@ -353,7 +340,7 @@
 	        {caption: ['생산자연계코드'], 	ref: 'prdcrLinkCd', 	type: 'input', 	width: '120px', style: 'text-align:center', sortable: false,
 				validate : gfn_chkByte.bind({byteLimit: 20})},
 			{caption: ["산지코드"],    	ref: 'plorCd',        	type:'outputbutton',   width:'100px', style: 'text-align:center',
-				typeinfo : {callback: fn_grdplorCd}},
+				typeinfo : {callback: fn_grdComCd}},
 	        {caption: ['비고'], 			ref: 'rmrk', 			type: 'input', 	width: '200px', style: 'text-align:center', sortable: false,
 	        	validate : gfn_chkByte.bind({byteLimit: 1000})},
 	        {caption: ['APC코드'], ref: 'apcCd', hidden : true},
@@ -673,38 +660,38 @@
 	 * @name fn_modalComCd
 	 * @description 산지코드선택팝업 호출
 	 */
-	const fn_grdplorCd = function() {
+	const fn_grdComCd = function() {
 		let nRow = grdApcPrdcr.getRow();
 		let plorCd = nRow.plorCd;
 		let cdVlNm = '산지명';
 		let cdVl = 'STD_PLOR_CD';
 
-		SBUxMethod.openModal('modal-plorCd');
+		SBUxMethod.openModal('modal-comCd');
 
-		popPlorCd.init(gv_selectedApcCd, gv_selectedApcNm, plorCd,cdVl,cdVlNm, fn_setplorNm);
+		popComCd.init(gv_selectedApcCd, gv_selectedApcNm, plorCd,cdVl,cdVlNm, fn_setComNm);
 	}
 
 	/**
 	 * @name fn_setFlnm
 	 * @description 산지코드선택 callback
 	 */
-	const fn_setplorNm = function(plorNm) {
+	const fn_setComNm = function(comNm) {
 		let nRow = grdApcPrdcr.getRow();
-		let plorCol = grdApcPrdcr.getColRef("plorCd");
+		let comCdCol = grdApcPrdcr.getColRef("plorCd");
 		let flag = true;
 
-		if (!gfn_isEmpty(plorNm)) {
+		if (!gfn_isEmpty(comNm)) {
 
 			let gridData = grdApcPrdcr.getGridDataAll();
 			if(gridData.length > 2){
 
 				if(flag){
-					grdApcPrdcr.setCellData(nRow, plorCol, plorNm.plorCd);
+					grdApcPrdcr.setCellData(nRow, comCdCol, comNm.comCd);
 					grdApcPrdcr.setRowStatus(nRow,2);
 
 				}else{
 					let plorNm = "";
-					SBUxMethod.openModal('modal-plorCd');
+					SBUxMethod.openModal('modal-comCd');
 					popOprtr.init(gv_selectedApcCd, gv_selectedApcNm, plorNm, fn_setplorNm);
 				}
 			}else{
