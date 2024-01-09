@@ -513,13 +513,11 @@
 		</dependency>
 		
 		
-		<!-- surem Repository -->
+		<!-- easycerti Repository -->
 		<dependency>
-			<groupId>easycerti</groupId>
+			<groupId>com.easycerti</groupId>
 			<artifactId>EzFilter</artifactId>
 			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${webapp.lib}/com/easycerti/EzFilter.jar</systemPath>
 		</dependency>
 		
 		
