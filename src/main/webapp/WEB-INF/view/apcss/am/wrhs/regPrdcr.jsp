@@ -108,9 +108,72 @@
 						</li>
 					</ul>
 				</div>
+				<table class="table table-bordered tbl_fixed">
+					<colgroup>
+								<col style="width: auto">
+								<col style="width: 75px">
+								<col style="width: 65px">
+					</colgroup>
+					<tbody>
+						<tr>
+							<td style="border-left:hidden"></td>
+							<td style="border-left:hidden">
+								<sbux-button id="btnDwnld" name="btnDwnld" uitype="normal" text="서식받기" class="btn btn-sm btn-outline-danger" onclick="fn_dwnld" style="float: right;">서식받기</sbux-button>
+							</td>
+							<td class="td_input" style="border-right:hidden; border-left:hidden" >
+								<sbux-button
+									id="btnUld"
+									name="btnUld"
+									uitype="normal"
+									text="올리기"
+									class="btn btn-sm btn-outline-danger"
+									onclick="fn_uld"
+									style="float: right;"
+								></sbux-button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="exp-div-excel" style="display: none;width: 1000px;">
+					<div id="sbexp-area-grdExpPrdcr" style="height:1px; width: 100%;"></div>
+					<div id="sbexp-area-grdExpItemCd" style="height:1px; width: 100%;"></div>
+					<div id="sbexp-area-grdExpVrty" style="height:1px; width: 100%;"></div>
+					<div id="sbexp-area-grdExpGdsSeCd" style="height:1px; width: 100%;"></div>
+					<div id="sbexp-area-grdExpWrhsSeCd" style="height:1px; width: 100%;"></div>
+					<div id="sbexp-area-grdExpWarehouseSe" style="height:1px; width: 100%;"></div>
+					<div id="sbexp-area-grdExpTrsprtSeCd" style="height:1px; width: 100%;"></div>
+					<div id="sbexp-area-grdExpClclnCrtrCd" style="height:1px; width: 100%;"></div>
+					<input type="file" id="btnFileUploadPrdcr" name="btnFileUploadPrdcr" style="visibility: hidden;" onchange="importExcelDataPrdcr(event)" />
+
+
+					<sbux-select id="excel-slt-gdsGrd"
+							name="excel-slt-gdsGrd"
+							uitype="single"
+							unselected-text="전체"
+							class="form-control input-sm"
+							jsondata-ref="jsonExeclComGdsGrd"
+					></sbux-select>
+					<sbux-select id="excel-slt-trsprtSeCd"
+							name="excel-slt-trsprtSeCd"
+							uitype="single"
+							unselected-text="전체"
+							class="form-control input-sm"
+							jsondata-ref="jsonExeclComGdsGrd"
+					></sbux-select>
+					<sbux-select id="excel-slt-spmtPckgUnit"
+							name="excel-slt-spmtPckgUnit"
+							uitype="single"
+							unselected-text="전체"
+							class="form-control input-sm"
+							jsondata-ref="jsonExeclComSpmtPckgUnit"
+					></sbux-select>
+					<jsp:include page="../../am/popup/apcStdGrdSelect.jsp"></jsp:include>
+					<input type="file" id="btnFileUpload" name="btnFileUpload" style="visibility: hidden;" onchange="importExcelData(event)">
+				</div>
 				<div class="table-responsive tbl_scroll_sm">
 					<div id="sb-area-grdApcPrdcr" style="height:283px;"></div>
 				</div>
+
 			</div>
 		</div>
 	</section>
@@ -138,6 +201,43 @@
     <div id="body-modal-prdcrDtl">
     	<jsp:include page="../../am/popup/prdcrDtlPopup.jsp"></jsp:include>
     </div>
+
+    <!-- 산지 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-plorCd" name="modal-plorCd" uitype="middle" header-title="공통코드조회" body-html-id="body-modal-plorCd" footer-is-close-button="false" header-is-close-button="false" style="width:900px"></sbux-modal>
+    </div>
+    <div id="body-modal-plorCd">
+    	<jsp:include page="../../am/popup/comPlorCdPopup.jsp"></jsp:include>
+    </div>
+     <div>
+		<sbux-modal id="modal-excel-gdsInvntr" name="modal-excel-gdsInvntr"
+			uitype="middle"
+			header-title="재고등록"
+			body-html-id="body-modal-excelGds"
+			footer-is-close-button="false"
+			header-is-close-button="false"
+			style="width:1000px"
+		></sbux-modal>
+	</div>
+
+
+    <!-- 엑셀 import 등록 Modal -->
+    <div>
+        <sbux-modal
+        	id="modal-imp"
+        	name="modal-imp"
+        	uitype="middle"
+        	header-title="생산자등록(Excel)"
+        	body-html-id="body-modal-imp"
+        	footer-is-close-button="false"
+        	header-is-close-button="false"
+        	style="width:1000px"
+		></sbux-modal>
+    </div>
+    <div id="body-modal-imp">
+    	<jsp:include page="../../am/popup/importExcelPopup.jsp"></jsp:include>
+    </div>
+
 </body>
 <script type="text/javascript">
 
@@ -147,6 +247,8 @@
 	var jsonComWrhsSeCd		= [];	// 입고구분 wrhsSeCd	Grid
 	var jsonComTrsprtSeCd	= [];	// 운송구분 trsprtSeCd	Grid
 	var jsonComClclnCrtrCd	= [];	// 정산기준 clclnCrtr	Grid
+	var excelYn = "N";
+
 
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
@@ -179,6 +281,8 @@
 	    SBGridAgrixPrdcrProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridAgrixPrdcrProperties.selectmode = 'free';
 	    SBGridAgrixPrdcrProperties.allowcopy = true;
+	    SBGridAgrixPrdcrProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+	    SBGridAgrixPrdcrProperties.contextmenulist = objMenuList;	// 우클릭 메뉴 리스트
 	    SBGridAgrixPrdcrProperties.extendlastcol = 'scroll';
 	    SBGridAgrixPrdcrProperties.columns = [
 	    	{caption: ["선택"], 		ref: 'empty',   type:'output',  width:'60px',    style:'text-align:center',
@@ -248,6 +352,8 @@
 				validate : gfn_chkByte.bind({byteLimit: 11}), typeinfo : {mask : {alias : '#-', repeat: '*'}}},
 	        {caption: ['생산자연계코드'], 	ref: 'prdcrLinkCd', 	type: 'input', 	width: '120px', style: 'text-align:center', sortable: false,
 				validate : gfn_chkByte.bind({byteLimit: 20})},
+			{caption: ["산지코드"],    	ref: 'plorCd',        	type:'outputbutton',   width:'100px', style: 'text-align:center',
+				typeinfo : {callback: fn_grdplorCd}},
 	        {caption: ['비고'], 			ref: 'rmrk', 			type: 'input', 	width: '200px', style: 'text-align:center', sortable: false,
 	        	validate : gfn_chkByte.bind({byteLimit: 1000})},
 	        {caption: ['APC코드'], ref: 'apcCd', hidden : true},
@@ -256,7 +362,7 @@
 
 	    ];
 	    grdApcPrdcr = _SBGrid.create(SBGridApcPrdcrProperties);
-
+	    grdApcPrdcr.bind("afterimportexcel", setDataAfterImport);
 	    fn_search();
 	}
 
@@ -272,10 +378,7 @@
         }
     };
 
-    // 엑셀 다운로드
-    function fn_excelDwnld() {
-    	grdOptrtPrfmnc.exportLocalExcel("작업자실적", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
-    }
+
 
 	const fn_reset = function(){
 
@@ -350,7 +453,7 @@
 		});
 
         const data = await postJsonPromise;
-		
+
 		try {
 			 if (!_.isEqual("S", data.resultStatus)) {
 	        	gfn_comAlert(data.resultCode, data.resultMessage);
@@ -372,6 +475,7 @@
 				  , clclnCrtrCd 	: item.clclnCrtrCd
 				  , vhclno 			: item.vhclno
 				  , telno			: item.telno
+				  , plorCd			: item.plorCd
 				  , prdcrLinkCd		: item.prdcrLinkCd
 				  , prdcrIdentno	: item.prdcrIdentno
 				  , rmrk 			: item.rmrk
@@ -421,17 +525,27 @@
 	    			return;
 	    		}
 	    	}
-
-			if (rowSts === 3){
-				rowData.apcCd = apcCd;
-				rowData.rowSts = "I";
-				prdcrList.push(rowData);
-			} else if (rowSts === 2){
-				rowData.rowSts = "U";
-				prdcrList.push(rowData);
-			} else {
-				continue;
+			if(excelYn == "Y"){
+				if (rowSts === 0 || rowSts === 2){
+					rowData.apcCd = apcCd;
+					rowData.rowSts = "I";
+					prdcrList.push(rowData);
+				}  else {
+					continue;
+				}
+			}else{
+				if (rowSts === 3){
+					rowData.apcCd = apcCd;
+					rowData.rowSts = "I";
+					prdcrList.push(rowData);
+				} else if (rowSts === 2){
+					rowData.rowSts = "U";
+					prdcrList.push(rowData);
+				} else {
+					continue;
+				}
 			}
+
 		}
 
 		if (prdcrList.length == 0){
@@ -551,6 +665,550 @@
 		SBUxMethod.openModal('modal-prdcrDtl');
 		popPrdcrDtl.init(gv_selectedApcCd, gv_selectedApcNm, rowData);
 	}
+
+
+	/* 산지코드 선택 호출 필수 function  */
+	/* Start */
+	/**
+	 * @name fn_modalComCd
+	 * @description 산지코드선택팝업 호출
+	 */
+	const fn_grdplorCd = function() {
+		let nRow = grdApcPrdcr.getRow();
+		let plorCd = nRow.plorCd;
+		let cdVlNm = '산지명';
+		let cdVl = 'STD_PLOR_CD';
+
+		SBUxMethod.openModal('modal-plorCd');
+
+		popPlorCd.init(gv_selectedApcCd, gv_selectedApcNm, plorCd,cdVl,cdVlNm, fn_setplorNm);
+	}
+
+	/**
+	 * @name fn_setFlnm
+	 * @description 산지코드선택 callback
+	 */
+	const fn_setplorNm = function(plorNm) {
+		let nRow = grdApcPrdcr.getRow();
+		let plorCol = grdApcPrdcr.getColRef("plorCd");
+		let flag = true;
+
+		if (!gfn_isEmpty(plorNm)) {
+
+			let gridData = grdApcPrdcr.getGridDataAll();
+			if(gridData.length > 2){
+
+				if(flag){
+					grdApcPrdcr.setCellData(nRow, plorCol, plorNm.plorCd);
+					grdApcPrdcr.setRowStatus(nRow,2);
+
+				}else{
+					let plorNm = "";
+					SBUxMethod.openModal('modal-plorCd');
+					popOprtr.init(gv_selectedApcCd, gv_selectedApcNm, plorNm, fn_setplorNm);
+				}
+			}else{
+				grdApcPrdcr.setCellData(nRow, plorCol, plorNm.plorCd);
+			}
+
+		}
+
+	}
+	function fn_excelDwnld() {
+		grdApcPrdcr.exportLocalExcel("생산자 목록", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+
+	const fn_dwnld = async function(){
+		await fn_setSltJson();
+		await fn_setExpJson();
+
+		const expColumns = fn_getExpColumns();
+		const expObjList = [
+		{
+			sbGrid: grdExpPrdcr,
+	        parentid: "sbexp-area-grdExpPrdcr",
+	        id: "grdExpPrdcr",
+	        jsonref: "jsonExpPrdcr",
+			columns: expColumns,
+	        sheetName: "생산자등록내역",
+	        title: "",
+	        unit: ""
+		},{
+			sbGrid: grdExpItemCd,
+	        parentid: "sbexp-area-grdExpItemCd",
+	        id: "grdExpItemCd",
+	        jsonref: "jsonExpItemCd",
+			columns: [
+		    	{caption: ["품목코드"],     ref: 'value',  type:'output',  width:'100px',    style:'text-align:center'},
+		        {caption: ["품목명"],     ref: 'text',  type:'output',  width:'100px',    style:'text-align:center'}
+			],
+	        sheetName: "대표품목",
+	        title: "",
+	        unit: ""
+		},{
+			sbGrid: grdExpVrty,
+	        parentid: "sbexp-area-grdExpVrty",
+	        id: "grdExpVrty",
+	        jsonref: "jsonExpVrty",
+			columns: [
+				{caption: ["품목코드"],		ref: 'itemCd',  type:'output',  width:'100px',    style:'text-align:center'},
+				{caption: ["품목명"],		ref: 'itemNm',  type:'output',  width:'100px',    style:'text-align:center'},
+				{caption: ["품종코드"],    ref: 'vrtyCd',  type:'output',  width:'100px',    style:'text-align:center'},
+		    	{caption: ["품종명칭"],    ref: 'vrtyNm',  type:'output',  width:'100px',    style:'text-align:center'}
+			],
+	        sheetName: "대표품종",
+	        title: "",
+	        unit: ""
+		},{
+			sbGrid: grdExpGdsSeCd,
+	        parentid: "sbexp-area-grdExpGdsSeCd",
+	        id: "grdExpGdsSeCd",
+	        jsonref: "jsonExpGdsSeCd",
+			columns: [
+				{caption: ["상품구분코드"],   	ref: 'value',  	type:'output',  width:'100px',    style:'text-align:center'},
+		    	{caption: ["상품구분코드명"],  	ref: 'text',  	type:'output',  width:'100px',    style:'text-align:center'},
+			],
+	        sheetName: "상품구분",
+	        title: "",
+	        unit: ""
+		},{
+			sbGrid: grdExpWrhsSeCd,
+	        parentid: "sbexp-area-grdExpWrhsSeCd",
+	        id: "grdExpWrhsSeCd",
+	        jsonref: "jsonExpWrhsSeCd",
+			columns: [
+		    	{caption: ["입고구분코드"],     ref: 'value',  type:'output',  width:'100px',    style:'text-align:center'},
+		        {caption: ["입고구분코드명"],     ref: 'text',  type:'output',  width:'100px',    style:'text-align:center'}
+
+			],
+	        sheetName: "입고구분",
+	        title: "",
+	        unit: ""
+		},{
+			sbGrid: grdExpTrsprtSeCd,
+	        parentid: "sbexp-area-grdExpTrsprtSeCd",
+	        id: "grdExpTrsprtSeCd",
+	        jsonref: "jsonExpTrsprtSeCd",
+			columns: [
+		    	{caption: ["운송구분코드"],     ref: 'value',  type:'output',  width:'100px',    style:'text-align:center'},
+		        {caption: ["운송구분코드명"],     ref: 'text',  type:'output',  width:'100px',    style:'text-align:center'}
+
+			],
+	        sheetName: "운송구분",
+	        title: "",
+	        unit: ""
+		},{
+			sbGrid: grdExpClclnCrtrCd,
+	        parentid: "sbexp-area-grdExpClclnCrtrCd",
+	        id: "grdExpClclnCrtrCd",
+	        jsonref: "jsonExpClclnCrtrCd",
+			columns: [
+		    	{caption: ["정산구분코드"],     ref: 'value',  type:'output',  width:'100px',    style:'text-align:center'},
+		        {caption: ["정산구분코드명"],     ref: 'text',  type:'output',  width:'100px',    style:'text-align:center'}
+
+			],
+	        sheetName: "정산구분",
+	        title: "",
+	        unit: ""
+		}];
+
+
+
+
+
+		await fn_createExpGrid(expObjList); // fn_createExpGrid함수에 expObjList를 담아서 보내주는 코드
+
+		let fileName = "생산자등록(샘플).xlsx";
+		gfn_exportExcelMulti(fileName, expObjList); // gfn_exportExcelMulti함수에 파일 이름, 오브젝트 리스트를 보내주는 코드
+	}
+	const fn_createExpGrid = async function(_expObjList) {
+		_expObjList.forEach((exp, idx) => {
+			var SBGridProperties = {};
+			SBGridProperties.parentid = exp.parentid;
+			SBGridProperties.id = exp.id;
+			SBGridProperties.jsonref = exp.jsonref;
+			SBGridProperties.emptyrecords = '데이터가 없습니다.';
+			SBGridProperties.selectmode = 'byrow';
+			SBGridProperties.extendlastcol = 'none';
+			SBGridProperties.columns = exp.columns;
+			exp.sbGrid = _SBGrid.create(SBGridProperties);
+			exp.sbGrid.addRow(true);
+		});
+	}
+	const gfn_exportExcelMulti = function(_fileName, _objList) {
+
+		//	엑셀 정보를 담는 변수
+		var objExcelInfo = {
+			strFileName : _fileName,
+			strAction : "/am/excel/saveMultiExcel",
+			bIsStyle: true,
+			bIsMerge: true,
+			bUseFormat: false,
+			bIncludeData: true,
+			bUseCompress: false
+		};
+
+		var dataList = [];
+		var sheetNameList = [];
+		var titleList = [];
+		var unitList = [];
+		var arrAdditionalData = [];
+
+		//넘어온 오브젝트를 이용한 forEach문으로 타이틀리스트에 title을 넣고 unitList에 unit을 넣는 포이치문
+		_objList.forEach((item, index) => {
+			sheetNameList.push(item.sheetName);
+			titleList.push(item.title);
+			unitList.push(item.unit);
+
+			if (index > 0) {
+				var data = item.sbGrid.exportExcel(objExcelInfo, "return");
+				dataList.push(data);
+			}
+		});
+
+		arrAdditionalData.push(
+           {"name": "arrSheetData", "value": JSON.stringify(dataList)},
+           {"name": "arrSheetName", "value": JSON.stringify(sheetNameList)},
+           {"name": "arrTitle", "value": JSON.stringify(titleList)},
+           {"name": "arrUnit", "value": JSON.stringify(unitList)}
+		);
+
+		objExcelInfo.arrAdditionalData = arrAdditionalData;
+		_objList[0].sbGrid.exportExcel(objExcelInfo);
+	}
+
+
+
+
+	var grdExpItemCd;					// 품목
+	var grdExpVrty;						// 품종
+	var grdExpGdsSeCd;		        	// 상품구분
+	var grdExpWarehouseSe;				//보관창고
+	var grdExpWrhsSeCd;					//입고구분
+	var grdExpTrsprtSeCd;		        // 운송구분
+	var grdExpClclnCrtrCd;		    	// 정산기준
+	var grdExpPrdcr;					//엑셀 생산자
+
+	var jsonExpSltItemCd 			= [];				// 품목
+	var jsonExpSltVrty 			    = [];				// 품종
+	var jsonExpSltGdsSeCd 		    = [];		        // 상품구분
+	var jsonExpSltWrhsSeCd 		    = [];				// 입고구분
+	var jsonExpSltWarehouseSe 	    = [];			    // 보관창고
+	var jsonExpSltTrsprtSeCd 	    = [];	            // 운송구분
+	var jsonExpSltClclnCrtrCd 		= [];			    // 정산기준
+
+	var jsonExpPrdcr 			= [];				// 엑셀 생산자
+	var jsonExpItemCd 			= [];				// 품목
+	var jsonExpVrty 			= [];				// 품종
+	var jsonExpGdsSeCd 		    = [];		        // 상품등급
+	var jsonExpWrhsSeCd 		= [];				// 생산자
+	var jsonExpWarehouseSe 	    = [];			    // 보관창고
+	var jsonExpTrsprtSeCd 	    = [];	            // 운송구분
+	var jsonExpClclnCrtrCd 		= [];			    // 정산기준
+
+	const fn_setSltJson = async function() {
+		// 첫 시트에서 쓰일 json을 엑셀에서 쓰는 변수에 담는 함수
+		// set exp/imp combo json
+		jsonExpSltItemCd 			= gfn_cloneJson(jsonApcItemCd);				// 품목
+		jsonExpSltVrty 			= gfn_cloneJson(jsonApcVrtyCd);					// 품종
+		jsonExpSltGdsSeCd 		= gfn_cloneJson(jsonComGdsSeCd);				// 상품구분
+		jsonExpSltWrhsSeCd 		= gfn_cloneJson(jsonComWrhsSeCd);				// 입고구분
+		jsonExpSltWarehouseSe 	= gfn_cloneJson(jsonComWrhsSeCd);				// 보관창고
+		jsonExpSltTrsprtSeCd 	= gfn_cloneJson(jsonComTrsprtSeCd);				// 운송구분
+		jsonExpSltClclnCrtrCd 		= gfn_cloneJson(jsonComClclnCrtrCd);		// 정산기준
+	}
+
+	const fn_setExpJson = async function() {
+		// 첫 시트가 아닌 다른 시트에서 쓰일 json을 엑셀에서 쓰는 변수에 담는 함수
+		// export grid data
+		jsonExpPrdcr.length = 0;
+
+		jsonExpItemCd 			= gfn_cloneJson(jsonApcItemCd);			// 엑셀 품목Json
+		jsonExpVrty 			= gfn_cloneJson(jsonApcVrtyCd);			// 엑셀 품종Json
+		jsonExpGdsSeCd 			= gfn_cloneJson(jsonComGdsSeCd);		// 엑셀 상품구분Json
+		jsonExpWrhsSeCd 		= gfn_cloneJson(jsonComWrhsSeCd);		// 엑셀 입고구분Json
+		jsonExpWarehouseSe 		= gfn_cloneJson(jsonComWrhsSeCd);		// 엑셀 입고구분Json
+		jsonExpTrsprtSeCd 		= gfn_cloneJson(jsonComTrsprtSeCd);		// 엑셀 운송구분Json
+		jsonExpClclnCrtrCd 		= gfn_cloneJson(jsonComClclnCrtrCd);	// 엑셀 정산구분Json
+
+	}
+
+	const fn_uld = function (){
+		document.querySelector("#btnFileUploadPrdcr").value = "";
+		$("#btnFileUploadPrdcr").click();
+	}
+	const importExcelDataPrdcr = function (e){
+		jsonExpPrdcr = 0;
+		grdApcPrdcr.rebuild();
+		grdApcPrdcr.importExcelData(e,1,2);
+     }
+
+	const setDataAfterImport = function (e){
+		let allData = grdApcPrdcr.getGridDataAll();
+		for(var i=1; i<=allData.length; i++){
+			let rowData = grdApcPrdcr.getRowData(i, false) // deep copy;
+
+			let rprsItemCd 		= $.trim(rowData.rprsItemCd);
+			let rprsVrtyCd 		= $.trim(rowData.rprsVrtyCd);
+			let gdsSeCd	 		= $.trim(rowData.gdsSeCd);
+			let wrhsSeCd	 	= $.trim(rowData.wrhsSeCd);
+			let trsprtSeCd	 	= $.trim(rowData.trsprtSeCd);
+			let clclnCrtrCd	 	= $.trim(rowData.clclnCrtrCd);
+			// 상품구분 명 or 코드 일치 검사
+			for(var j=0; j<jsonExpGdsSeCd.length; j++){
+				if(jsonExpGdsSeCd[j].text == gdsSeCd || jsonExpGdsSeCd[j].value == gdsSeCd){
+					rowData.gdsSeCd = jsonExpGdsSeCd[j].value;
+					break;
+				}
+			}
+
+			// 입고구분 명 or 코드 일치 검사
+			for(var j=0; j<jsonExpWrhsSeCd.length; j++){
+				if(jsonExpWrhsSeCd[j].text == wrhsSeCd || jsonExpWrhsSeCd[j].value == wrhsSeCd){
+					rowData.wrhsSeCd = jsonExpWrhsSeCd[j].value;
+					break;
+				}
+			}
+
+			// 운송구분 명 or 코드 일치 검사
+			for(var j=0; j<jsonExpTrsprtSeCd.length; j++){
+				if(jsonExpTrsprtSeCd[j].text == trsprtSeCd || jsonExpTrsprtSeCd[j].value == trsprtSeCd){
+					rowData.trsprtSeCd = jsonExpTrsprtSeCd[j].value;
+					break;
+				}
+			}
+
+			// 정산구분 명 or 코드 일치 검사
+			for(var j=0; j<jsonExpClclnCrtrCd.length; j++){
+				if(jsonExpClclnCrtrCd[j].text == clclnCrtrCd || jsonExpClclnCrtrCd[j].value == clclnCrtrCd){
+					rowData.clclnCrtrCd = jsonExpClclnCrtrCd[j].value;
+					break;
+				}
+			}
+
+			// 품목 명 or 코드 일치 검사
+			for(var j=0; j<jsonExpItemCd.length; j++){
+				if(jsonExpItemCd[j].itemCd == rprsItemCd || jsonExpItemCd[j].itemNm == rprsItemCd){
+					rowData.rprsItemCd = jsonExpItemCd[j].itemCd;
+					break;
+				}
+			}
+			// 품종 명 or 코드 일치 검사
+			for(var j=0; j<jsonExpVrty.length; j++){
+				if(jsonExpVrty[j].itemCd == rowData.rprsItemCd && (jsonExpVrty[j].vrtyNm == rprsVrtyCd || jsonExpVrty[j].vrtyCd == rprsVrtyCd ) ){
+					rowData.rprsVrtyCd = jsonExpVrty[j].vrtyCd;
+					break;
+				}
+			}
+			rowData.delYn = "N";
+			rowData.rowSts = "I";
+			excelYn = "Y";
+			grdApcPrdcr.rebuild();
+		}
+	}
+
+	const fn_getExpColumns = function() {
+		let _columns = fn_getPrdcrColumns();
+
+		return _columns;
+	}
+
+	const fn_getPrdcrColumns = function() {
+		const _columns = [
+
+			{
+				caption: ['번호'],
+				ref: 'prdcrIdentno',
+				type: 'input',
+				width: '60px',
+				style: 'text-align:center',
+				sortable: false,
+				typeinfo : {
+					ref:'jsonExpClclnCrtrCd',
+					displayui : false,
+					itemcount: 10,
+					style: 'text-align:right;background-color:#FFF8DC;',
+					label:'label',
+					value:'value'
+				}
+			},
+			{
+				caption: ["생산자명"],
+				ref: 'prdcrNm',
+				type:'combo',
+				width:'80px',
+				style:'text-align:center;background-color:#FFF8DC;',
+				typeinfo : {
+					ref:'jsonExpClclnCrtrCd',
+					displayui : false,
+					itemcount: 10,
+					style: 'text-align:right;background-color:#FFF8DC;',
+					label:'label',
+					value:'value'
+				}
+			},
+			{
+				caption: ["대표품목"],
+				ref: 'rprsItemCd',
+				type:'combo',
+				width:'80px',
+				style:'text-align:center;background-color:#FFF8DC;',
+				typeinfo : {
+					ref:'jsonExpItemCd',
+					displayui : false,
+					itemcount: 10,
+					label:'label',
+					value:'value'
+				}
+			},
+			{
+				caption: ["대표품종"],
+				ref: 'rprsVrtyCd',
+				type:'combo',
+				width:'80px',
+				style:'text-align:center;background-color:#FFF8DC;',
+				typeinfo : {
+					ref:'jsonExpVrty',
+					displayui : false,
+					itemcount: 10,
+					style: 'text-align:right;background-color:#FFF8DC;',
+					label:'label',
+					value:'value'
+				}
+			},
+			{
+				caption: ["상품구분"],
+				ref: 'gdsSeCd',
+				type:'combo',
+				width:'80px',
+				style:'text-align:center;background-color:#FFF8DC;',
+				typeinfo : {
+					ref:'jsonExpGdsSeCd',
+					displayui : false,
+					itemcount: 10,
+					style: 'text-align:right;background-color:#FFF8DC;',
+					label:'label',
+					value:'value'
+				}
+			},
+			{
+				caption: ["입고구분"],
+				ref: 'wrhsSeCd',
+				type:'combo',
+				width:'80px',
+				style:'text-align:center;background-color:#FFF8DC;',
+				typeinfo : {
+					ref:'jsonExpWrhsSeCd',
+					displayui : false,
+					itemcount: 10,
+					style: 'text-align:right;background-color:#FFF8DC;',
+					label:'label',
+					value:'value'
+				}
+			},{
+				caption: ["운송구분"],
+				ref: 'trsprtSeCd',
+				type:'combo',
+				width:'80px',
+				style:'text-align:center;background-color:#FFF8DC;',
+				typeinfo : {
+					ref:'jsonExpTrsprtSeCd',
+					displayui : false,
+					itemcount: 10,
+					style: 'text-align:right;background-color:#FFF8DC;',
+					label:'label',
+					value:'value'
+				}
+			},{
+				caption: ["정산기준"],
+				ref: 'clclnCrtrCd',
+				type:'combo',
+				width:'80px',
+				style:'text-align:center;background-color:#FFF8DC;',
+				typeinfo : {
+					ref:'jsonExpClclnCrtrCd',
+					displayui : false,
+					itemcount: 10,
+					style: 'text-align:right;background-color:#FFF8DC;',
+					label:'label',
+					value:'value'
+				}
+			},{
+				caption: ["차량번호"],
+				ref: 'vhclno',
+				type:'combo',
+				width:'80px',
+				style:'text-align:center;background-color:#FFF8DC;',
+				typeinfo : {
+					ref:'jsonExpClclnCrtrCd',
+					displayui : false,
+					itemcount: 10,
+					style: 'text-align:right;background-color:#FFF8DC;',
+					label:'label',
+					value:'value'
+				}
+			},{
+				caption: ["전화번호"],
+				ref: 'telno',
+				type:'combo',
+				width:'80px',
+				style:'text-align:center;background-color:#FFF8DC;',
+				typeinfo : {
+					ref:'jsonExpClclnCrtrCd',
+					displayui : false,
+					itemcount: 10,
+					style: 'text-align:right;background-color:#FFF8DC;',
+					label:'label',
+					value:'value'
+				}
+			},{
+				caption: ["생산자연계코드"],
+				ref: 'prdcrLinkCd',
+				type:'combo',
+				width:'80px',
+				style:'text-align:center;background-color:#FFF8DC;',
+				typeinfo : {
+					ref:'jsonExpClclnCrtrCd',
+					displayui : false,
+					itemcount: 10,
+					style: 'text-align:right;background-color:#FFF8DC;',
+					label:'label',
+					value:'value'
+				}
+			},{
+				caption: ["산지코드"],
+				ref: 'plorCd',
+				type:'combo',
+				width:'80px',
+				style:'text-align:center;background-color:#FFF8DC;',
+				typeinfo : {
+					ref:'jsonExpClclnCrtrCd',
+					displayui : false,
+					itemcount: 10,
+					style: 'text-align:right;background-color:#FFF8DC;',
+					label:'label',
+					value:'value'
+				}
+			},{
+				caption: ["비고"],
+				ref: 'rmrk',
+				type:'combo',
+				width:'80px',
+				style:'text-align:center;background-color:#FFF8DC;',
+				typeinfo : {
+					ref:'jsonExpClclnCrtrCd',
+					displayui : false,
+					itemcount: 10,
+					style: 'text-align:right;background-color:#FFF8DC;',
+					label:'label',
+					value:'value'
+				}
+			}
+
+		];
+		return _columns;
+	}
+	/* End */
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
