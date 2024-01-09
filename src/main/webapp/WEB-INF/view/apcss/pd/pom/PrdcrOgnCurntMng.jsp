@@ -668,8 +668,8 @@
 
 	        {caption: ["가입일"], 		ref: 'joinDay',  	type:'datepicker',  width:'110px',    style:'text-align:center'
 	        	,typeinfo : {locale : 'ko' , dateformat :'yymmdd' , yearrange : 150}, format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd' }},
-	        {caption: ["탈퇴일"], 		ref: 'whdwlDay',  	type:'datepicker',  width:'110px',    style:'text-align:center'
-	        	,typeinfo : {locale : 'ko' , dateformat :'yymmdd' , yearrange : 150}, format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd' }},
+	        //{caption: ["탈퇴일"], 		ref: 'whdwlDay',  	type:'datepicker',  width:'110px',    style:'text-align:center'
+	        	//,typeinfo : {locale : 'ko' , dateformat :'yymmdd' , yearrange : 150}, format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd' }},
 	        {caption: ["비고"], 			ref: 'cltvtnAreaRmrk',   	type:'input',  width:'220px',    style:'text-align:center'},
 	        {caption: ["상세내역"], 	ref: 'yr',   	hidden : true},
 	        {caption: ["상세내역"], 	ref: 'prdcrOgnzSn',   	hidden : true},
@@ -1480,8 +1480,8 @@
 		        ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 	        {caption: ["가입일","가입일","가입일"], 			ref: 'joinDay',  	type:'datepicker',  width:'110px',    style:'text-align:center'
 	        	,typeinfo : {locale : 'ko' , dateformat :'yymmdd' , yearrange : 150}, format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd' }},
-	        {caption: ["탈퇴일","탈퇴일","탈퇴일"], 			ref: 'whdwlDay',  	type:'datepicker',  width:'110px',    style:'text-align:center'
-	        	,typeinfo : {locale : 'ko' , dateformat :'yymmdd' , yearrange : 150}, format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd' }},
+	        //{caption: ["탈퇴일","탈퇴일","탈퇴일"], 			ref: 'whdwlDay',  	type:'datepicker',  width:'110px',    style:'text-align:center'
+	        	//,typeinfo : {locale : 'ko' , dateformat :'yymmdd' , yearrange : 150}, format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd' }},
 	        {caption: ["비고","비고","비고"],				ref: 'rmrk',      	type:'input',  width:'300px',    style:'text-align:center'},
 		);
 
@@ -1605,7 +1605,7 @@
 				cltvtnLandAddr: rowData.cltvtnLandAddr,
 
 				joinDay: rowData.joinDay,
-				whdwlDay: rowData.whdwlDay,
+				//whdwlDay: rowData.whdwlDay,
 				cltvtnSfc: rowData.cltvtnSfc,
 				avgYrPrdctnVlm: rowData.avgYrPrdctnVlm,
 				cltvtnAreaRmrk: rowData.cltvtnAreaRmrk,
