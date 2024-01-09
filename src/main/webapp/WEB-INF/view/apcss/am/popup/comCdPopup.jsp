@@ -37,13 +37,19 @@
 						<tr>
 							<th scope="row">APC명</th>
 							<th>
-								<sbux-input id=oprtr-inp-apcNm name="oprtr-inp-apcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
+								<sbux-input id="comCd-inp-apcNm" name="comCd-inp-apcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
 							</th>
 							<th scope="row">
-								<sbux-label id="idxLabel_norm" name="label_norm" uitype="normal" text=""></sbux-label>
+								<sbux-label id="comCd-label_norm" name="comCd-label_norm" uitype="normal" text="" style="font-weight: bold"></sbux-label>
 							</th>
 							<th>
-								<sbux-input id=oprtr-inp-flnm name="oprtr-inp-comNm" uitype="text" maxlength="33" class="form-control input-sm" onkeyenter="fnKeyEnter(oprtr-inp-flnm)"></sbux-input>
+								<sbux-input
+									id="comCd-inp-comNm"
+									name="comCd-inp-comNm"
+									uitype="text"
+									maxlength="33"
+									class="form-control input-sm"
+									onkeyenter="fn_comCdPopKeyEnter()"></sbux-input>
 							</th>
 							<th>&nbsp;</th>
 							<th>&nbsp;</th>
@@ -78,10 +84,10 @@
 
 			this.prvApcCd = _apcCd;
 
-			SBUxMethod.set("label_norm",_cdVlNm);
+			SBUxMethod.set("comCd-label_norm",_cdVlNm);
 			SBUxMethod.set("input_hidden1",_cdVl);
-			SBUxMethod.set("oprtr-inp-apcNm", _apcNm);
-			SBUxMethod.set("oprtr-inp-comNm", _ComCd);
+			SBUxMethod.set("comCd-inp-apcNm", _apcNm);
+			SBUxMethod.set("comCd-inp-comNm", _ComCd);
 
 			if (!gfn_isEmpty(_callbackChoiceFnc) && typeof _callbackChoiceFnc === 'function') {
 				this.callbackSelectFnc = _callbackChoiceFnc;
@@ -137,7 +143,8 @@
 		},
 		search: function(){
 			fn_pagingGrd();
-		}
+		},
+
 
 
 	}
@@ -146,13 +153,13 @@
     	let pageNo = grdComCdPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
     	fn_setcomGrd(pageSize, pageNo);
     }
-	function fnKeyEnter(args){
-		popComCd.search;
+	const fn_comCdPopKeyEnter = function(){
+		fn_pagingGrd();
 	}
 	const fn_setcomGrd = async function(pageSize, pageNo) {
 		let cdVl = SBUxMethod.get("input_hidden1");
 		jsonComCdPop = [];
-		let comNm = SBUxMethod.get("oprtr-inp-comNm");
+		let comNm = SBUxMethod.get("comCd-inp-comNm");
 
 		let postJsonPromise = gfn_postJSON("/co/cd/comCdDtls", {
 			cdId : cdVl,
