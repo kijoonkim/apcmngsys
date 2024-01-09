@@ -271,12 +271,12 @@
 	const fn_search = async function(){
 
 		let cmndYmd = SBUxMethod.get("srch-inp-cmndYmd");
-  		
+
 		if (gfn_isEmpty(cmndYmd)) {
     		gfn_comAlert("W0001", "작업일자");		//	W0002	{0}을/를 입력하세요.
             return;
     	}
-		
+
 		var getColRef = grdPltWrhsSpmt.getColRef("checkedYn");
 		grdPltWrhsSpmt.setFixedcellcheckboxChecked(0, getColRef, false);
 
@@ -290,20 +290,20 @@
     	jsonPltWrhsSpmt.length = 0;
     	await fn_setPltWrhsSpmtList();
 	}
-	
-	const fn_setPltBxMngList = async function(){ 
+
+	const fn_setPltBxMngList = async function(){
     	const postJsonPromise = gfn_postJSON("/am/cmns/selectPltBxMngList.do", {
 			apcCd: gv_selectedApcCd
   		});
 
         const data = await postJsonPromise;
 		try{
-			
+
 			if (!_.isEqual("S", data.resultStatus)) {
 	        	gfn_comAlert(data.resultCode, data.resultMessage);
 	        	return;
 	        }
-			
+
      		jsonPltWrhsSpmt.length = 0;
           	data.resultList.forEach((item, index) => {
           		const pckgCmnd = {
@@ -325,7 +325,7 @@
 				}
       			jsonPltBxMngList.push(pckgCmnd);
   			});
-          	
+
 			pltBxMngList.rebuild();
 		} catch (e) {
 	   		if (!(e instanceof Error)) {
@@ -487,7 +487,7 @@
     	}
    	}
 
-	const fn_setPltWrhsSpmtList = async function(){ 
+	const fn_setPltWrhsSpmtList = async function(){
 		let cmndYmd = SBUxMethod.get("srch-inp-cmndYmd");
     	const postJsonPromise = gfn_postJSON("/am/cmns/selectPltWrhsSpmtList.do", {
 			apcCd: gv_selectedApcCd,
