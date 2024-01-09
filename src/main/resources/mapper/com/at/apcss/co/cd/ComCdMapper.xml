@@ -132,6 +132,9 @@
 			<if test='apcCd != null and apcCd != ""'>
 			   AND CD.APC_CD = #{apcCd}
 	    	</if>
+	    	<if test='cdVlNm != null and cdVlNm != ""'>
+			   AND CD.CD_VL_NM LIKE '%' || #{cdVlNm} ||'%'
+	    	</if>
 
     	<![CDATA[
 			 ORDER BY CD_ID, INDCT_SEQ

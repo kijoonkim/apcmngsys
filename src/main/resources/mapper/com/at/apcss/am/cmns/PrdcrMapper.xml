@@ -38,6 +38,7 @@
 			     , PR.TELNO        	AS TELNO
 			     , PR.PRDCR_LINK_CD	AS PRDCR_LINK_CD
 			     , PR.PRDCR_IDENTNO	AS PRDCR_IDENTNO
+			     , PR.PLOR_CD			AS PLOR_CD
 			     , PR.RMRK          AS RMRK
 			     , PR.DEL_YN        AS DEL_YN
 			  FROM TB_PRDCR_INFO PR
@@ -82,6 +83,7 @@
 			     , PR.TELNO        		AS TELNO
 			     , PR.PRDCR_LINK_CD		AS PRDCR_LINK_CD
 			     , PR.PRDCR_IDENTNO		AS PRDCR_IDENTNO
+			     , PR.PLOR_CD			AS PLOR_CD
 			     , PR.RMRK          	AS RMRK
 			     , PR.FRMHS_NM      	AS FRMHS_NM
 			     , PR.FRMHS_TELNO		AS FRMHS_TELNO
@@ -263,6 +265,7 @@
 			     	, TELNO
 			     	, PRDCR_LINK_CD
 			     	, PRDCR_IDENTNO
+			     	, PLOR_CD
 					, RMRK
 	    		  	, SYS_FRST_INPT_DT
 	    		  	, SYS_FRST_INPT_USER_ID
@@ -285,6 +288,7 @@
 					, #{telno}
 					, #{prdcrLinkCd}
 					, #{prdcrIdentno}
+					, #{plorCd}
 					, #{rmrk}
 					, SYSDATE
 	   			  	, #{sysFrstInptUserId}
@@ -322,6 +326,7 @@
 				, TELNO = #{telno}
 				, PRDCR_LINK_CD = #{prdcrLinkCd}
 				, PRDCR_IDENTNO = #{prdcrIdentno}
+				, PLOR_CD = #{plorCd}
 				, RMRK = #{rmrk}
     	]]>
 		<if test='delYn != null and delYn !=""'>
@@ -354,6 +359,7 @@
 				, GDS_SE_CD = #{gdsSeCd}
 				, WRHS_SE_CD = #{wrhsSeCd}
 				, TRSPRT_SE_CD = #{trsprtSeCd}
+				, PLOR_CD = #{plorCd}
     	]]>
 		<if test='vhclno != null and vhclno !=""'>
 			   	, VHCLNO = #{vhclno}
