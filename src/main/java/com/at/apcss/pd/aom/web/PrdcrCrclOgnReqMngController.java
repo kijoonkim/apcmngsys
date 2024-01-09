@@ -38,6 +38,7 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 		public ResponseEntity<HashMap<String, Object>> selectPrdcrCrclOgnReqMngList(Model model, @RequestBody PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO, HttpServletRequest request) throws Exception{
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 			List<PrdcrCrclOgnReqMngVO> resultList = new ArrayList<>();
+			PrdcrCrclOgnReqMngVO.setUserType(getUserType());
 			try {
 				 resultList = PrdcrCrclOgnReqMngService.selectPrdcrCrclOgnReqMngList(PrdcrCrclOgnReqMngVO);
 			} catch (Exception e) {

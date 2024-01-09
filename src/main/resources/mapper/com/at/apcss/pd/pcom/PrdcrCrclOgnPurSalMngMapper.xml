@@ -223,7 +223,7 @@
 		   			  , (case when #{crno} is not null then #{crno}
 		   			  			ELSE (SELECT CRNO FROM TB_EV_APO WHERE APO_CD = #{apoCd})
 		   			  			END)
-		   			  , #{yr}
+		   			  , TO_CHAR(SYSDATE,'YYYY')
 
 		   			  , (case when #{ctgryCd} is not null then #{ctgryCd}
 		   			  			ELSE (SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE ITEM_CD = #{itemCd})
@@ -339,7 +339,7 @@
 		   			  , (case when #{crno} is not null then #{crno}
 		   			  			ELSE (SELECT CRNO FROM TB_EV_APO WHERE APO_CD = #{apoCd})
 		   			  			END)
-		   			  , #{yr}
+		   			  , TO_CHAR(SYSDATE,'YYYY')
 
 		   			  , (case when #{ctgryCd} is not null then #{ctgryCd}
 		   			  			ELSE (SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE ITEM_CD = #{itemCd})

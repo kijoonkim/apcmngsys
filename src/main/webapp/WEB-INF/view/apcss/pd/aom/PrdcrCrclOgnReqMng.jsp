@@ -255,6 +255,7 @@
 							<sbux-input uitype="hidden" id="dtl-input-apoSe" name="dtl-input-apoSe" class="form-control input-sm" autocomplete="off"></sbux-input>
 							<sbux-input uitype="hidden" id="dtl-input-brno" name="dtl-input-brno" class="form-control input-sm" autocomplete="off"></sbux-input>
 							<sbux-input uitype="hidden" id="dtl-input-crno" name="dtl-input-crno" class="form-control input-sm" autocomplete="off"></sbux-input>
+							<sbux-input uitype="hidden" id="dtl-input-yr" name="dtl-input-yr" class="form-control input-sm" autocomplete="off"></sbux-input>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
@@ -948,7 +949,7 @@
         	header-title="품목 선택"
         	body-html-id="body-modal-gpcList"
         	footer-is-close-button="false"
-        	style="width:500px"
+        	style="width:800px"
        	></sbux-modal>
     </div>
     <div id="body-modal-gpcList">
@@ -1160,7 +1161,7 @@
 
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
-		//let yr = SBUxMethod.get("srch-input-yr");// 보류
+		let yr = SBUxMethod.get("srch-input-yr");// 보류
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
 		let ctpv = SBUxMethod.get("srch-input-ctpv");//
 
@@ -1180,7 +1181,7 @@
 
     		,brno : brno
     		,corpNm : corpNm
-    		//,yr : yr
+    		,yr : yr
 
     		//페이징
     		,pagingYn : 'Y'
@@ -1194,7 +1195,7 @@
         	data.resultList.forEach((item, index) => {
 				let PrdcrCrclOgnReqMngVO = {
 						apoSe: item.apoSe
-						,yr: '2023'
+						,yr: item.yr
 						,apoCd: item.apoCd
 						,apoSe: item.apoSe
 						,corpNm: item.corpNm
@@ -1284,9 +1285,12 @@
 	const fn_dtlSearch = async function(){
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
+		var now = new Date();
+		var year = now.getFullYear();
 
     	let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
     		brno : brno
+    		,
 		});
         let data = await postJsonPromise;
         try{
@@ -1537,9 +1541,6 @@
 		            return;
 		  		}
 				*/
-				if(gfn_isEmpty(rowData.yr)) {
-					rowData.yr = '2023';
-				}
 
 				if (rowSts === 1){
 					rowData.rowSts = "I";
@@ -1562,7 +1563,7 @@
 				,brno: SBUxMethod.get('dtl-input-brno')//
 				,crno: SBUxMethod.get('dtl-input-crno')//
 				,corpNm: SBUxMethod.get('dtl-input-corpNm')//
-				,yr: '2023'
+				,yr: SBUxMethod.get('dtl-input-yr')//
 	   	 		//생산유통통합조직 승인형,육성형
 	   	 		,aprv: SBUxMethod.get('rdo-aprv')//
 	   	 		,isoHldYn: SBUxMethod.get('dtl-input-isoHldYn')//
@@ -1630,6 +1631,7 @@
 
 		//console.log(rowData);
 		SBUxMethod.set('dtl-input-apoCd',gfn_nvl(rowData.apoCd))//
+		SBUxMethod.set('dtl-input-yr',gfn_nvl(rowData.yr))//
 		SBUxMethod.set('dtl-input-apoSe',gfn_nvl(rowData.apoSe))//
 		SBUxMethod.set('dtl-input-corpNm',gfn_nvl(rowData.corpNm))//
 		SBUxMethod.set('dtl-input-brno',gfn_nvl(rowData.brno))//

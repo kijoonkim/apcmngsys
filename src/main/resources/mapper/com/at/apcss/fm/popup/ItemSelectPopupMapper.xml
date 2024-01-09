@@ -71,6 +71,9 @@
 			     , IC.ITEM_NM
 			     , IC.BRNO
 			     , IC.CORP_NM
+			     , IC.STTG_UPBR_ITEM_SE
+			     , IC.CTGRY_CD
+			     , IC.CTGRY_NM
 			  FROM TB_EV_APO_YR_GPC_CD IC
 			 WHERE IC.DEL_YN = 'N'
 		]]>
@@ -80,7 +83,7 @@
 			 OR IC.BRNO = #{brno}
 		</if>
 		<if test='yr != null and yr != ""'>
-			AND IC.YR = #{yr}
+			AND IC.YR = TO_CHAR(SYSDATE,'YYYY')
 		</if>
 		 ORDER BY IC.BRNO, IC.ITEM_NM ASC
 

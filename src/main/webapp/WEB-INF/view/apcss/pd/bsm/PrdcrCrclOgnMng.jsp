@@ -891,7 +891,8 @@
 								></sbux-input>
 								</td>
 						</tr>
-						<tr>
+						<!-- 어그릭스 떄 사용 하던 잔재로 현재 쓰임새가 없어 숨김 처리 -->
+						<tr style="display: none">
 							<th colspan="7" scope="row" class="th_bg">품목농협 지소 여부</th>
 							<td colspan="8">
 							<sbux-select
@@ -904,7 +905,6 @@
 								></sbux-select>
 								</td>
 						</tr>
-
 					</tbody>
 				</table>
 
@@ -1628,12 +1628,13 @@ tps://sbgrid.co.kr/v2_5/document/guide
     		gfn_comAlert("W0002", "작성자 팩스번호");
     		return false;
     	}
-
+		/*
     	var itemNhBrofYn = SBUxMethod.get("dtl-input-itemNhBrofYn");
     	if(gfn_isEmpty(itemNhBrofYn)){
     		gfn_comAlert("W0002", "품목농협 지소 여부");
     		return false;
     	}
+    	*/
 
     	return true;
     }
@@ -2106,7 +2107,9 @@ tps://sbgrid.co.kr/v2_5/document/guide
         let selGridUoListCol = grdUoList.getCol();
 
         let delYnCol = grdUoList.getColRef('delYn');
+        let uoBrnoCol = grdUoList.getColRef('uoBrno');
         let delYnValue = grdUoList.getCellData(selGridUoListRow,delYnCol);
+        let uoBrnoValue = grdUoList.getCellData(selGridUoListRow,uoBrnoCol);
 
         //입력할 데이터 인지 확인
         //추가 행의 경우 DEL_YN을 N 로 변경한 빈 행임
@@ -2114,10 +2117,12 @@ tps://sbgrid.co.kr/v2_5/document/guide
         if(delYnValue != 'N'){
         	return;
         }
+        if(!gfn_isEmpty(uoBrnoValue)){
+        	return;
+        }
 
         //uoCorpNm 법인체명 uoBrno 사업자번호
         let uoCorpNmCol = grdUoList.getColRef('uoCorpNm');
-        let uoBrnoCol = grdUoList.getColRef('uoBrno');
 
         if(selGridUoListRow == '-1'){
 			return;
@@ -2209,6 +2214,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
     }
 
 	//출자출하조직이 속한 통합조직 리스트 업데이트
+	//업데이트가 존재할 필요가 없음
 	const fn_uoListMultiSave = async function (){
 		console.log("******************fn_uoListMultiSave**********************************");
 
@@ -2240,7 +2246,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 					rowData.rowSts = "I";
 					saveList.push(rowData);
 				} else if (rowSts === 2){
-					rowData.rowSts = "U";
+					rowData.rowSts = "I";
 					saveList.push(rowData);
 				} else if (rowSts === 3){
 					rowData.rowSts = "I";

@@ -208,7 +208,13 @@
 			  		  </if>
 			  		</if>
 			  		) CM
-			  		, TB_EV_APLY_MNG EAM
+			  		, (SELECT *
+			  			FROM TB_EV_APLY_MNG
+			  			WHERE 1=1
+			  			<if test='userType == "21" or userType == "22"'>
+			  		  	  AND YR = TO_CHAR(SYSDATE,'YYYY')
+			  			</if>
+			  			) EAM
 			 WHERE 1=1
 			   AND CM.BRNO = EAM.BRNO(+)
 			   AND CM.APO_SE IS NOT NULL
@@ -359,7 +365,7 @@
 		   			  , #{brno}
 		   			  , #{crno}
 		   			  , #{corpNm}
-		   			  , #{yr}
+		   			  TO_CHAR(SYSDATE,'YYYY')
 		   			  , SYSDATE
 		   			  , #{rawMtrEnsrSigunCnt}
 		   			  , #{rawMtrEnsrCtpvCnt}
@@ -434,7 +440,7 @@
 		   			  , #{crno}
 		   			  , #{corpNm}
 
-		   			  , #{yr}
+		   			  , TO_CHAR(SYSDATE,'YYYY')
 		   			  , #{sttgUpbrItemSe}
 		   			  , #{ctgryCd}
 		   			  , (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = #{ctgryCd})

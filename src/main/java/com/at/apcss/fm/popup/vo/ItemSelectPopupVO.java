@@ -16,5 +16,8 @@ public class ItemSelectPopupVO extends ComVO{
 	private String brno;//사업자번호
 	private String corpNm;//사업자번호
 	private String yr;//년도
+
+	private String sttgUpbrItemSe;//품목구분
+
 }
 

@@ -233,6 +233,7 @@
 								></sbux-button>
 							</td>
 							<td style="border-right: hidden;"></td>
+						<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 							<th scope="row" class="th_bg" >이름</th>
 							<td colspan="3" class="td_input" style="border-right:hidden;">
 								<sbux-input
@@ -244,8 +245,11 @@
 									readonly
 								></sbux-input>
 							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;" >
-							</td>
+							<td colspan="2" class="td_input" style="border-right: hidden;" ></td>
+						</c:if>
+						<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+							<td colspan="6" class="td_input" style="border-right: hidden;" ></td>
+						</c:if>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>관할기관</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-select
@@ -285,6 +289,7 @@
 									class="form-control input-sm"
 									mask = "{ 'alias': '999-99-99999', 'autoUnmask': true }"
 									autocomplete="off"
+									readonly
 								></sbux-input>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;" >
@@ -297,7 +302,6 @@
 									name="dtl-input-coNm"
 									class="form-control input-sm"
 									autocomplete="off"
-									readonly
 								></sbux-input>
 							</td>
 							<td colspan="2" class="td_input">
@@ -538,7 +542,7 @@
 		    };
 	    SBGridProperties.columns = [
 	    	{caption: ["아이디"], 	ref: 'userId',   	type:'output',  width:'200px',    style:'text-align:center'},
-	    	{caption: ["이름"], 		ref: 'userNm',   	type:'output',  width:'200px',    style:'text-align:center'},
+	    	//{caption: ["이름"], 		ref: 'userNm',   	type:'output',  width:'200px',    style:'text-align:center'},
 	    	{caption: ["법인명"], 	ref: 'coNm',   	type:'output',  width:'200px',    style:'text-align:center'},
 	    	{caption: ["관할기관"], 	ref: 'cmptncInst',   	type:'combo',  width:'200px',    style:'text-align:center', disabled:true
 	    		,typeinfo : {ref:'jsonComcmptncInst', label:'label', value:'value', displayui : false}},
@@ -552,6 +556,7 @@
 	    	{caption: ["비고"], 		ref: 'rmrk',   	type:'output',  width:'200px',    style:'text-align:center'},
 
 	    	{caption: ["전화번호"], 	ref: 'telno',   			hidden : true},
+	    	{caption: ["이름"], 		ref: 'userNm',   			hidden : true},
 	    	{caption: ["핸드폰번호"], 	ref: 'mblTelno',   			hidden : true},
 	    	{caption: ["2차승인일"], 	ref: 'cmptncInstAprvYmd',   hidden : false},
 	    	{caption: ["1차승인일"], 	ref: 'userAprvYmd',   		hidden : false}

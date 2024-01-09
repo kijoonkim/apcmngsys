@@ -221,7 +221,7 @@
 		   			  , #{brno}
 		   			  , #{crno}
 		   			  , #{corpNm}
-		   			  , #{yr}
+		   			  , TO_CHAR(SYSDATE,'YYYY')
 		   			  , SYSDATE
 		   			  , #{isoFundAplyAmt}
 		   			  , #{aplyTrgtSe}
