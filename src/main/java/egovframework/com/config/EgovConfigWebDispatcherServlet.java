@@ -87,6 +87,7 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 				"/login.do",
 				"/saveExcel.do",
 				"/am/spmt/getSpmtDoc.do",
+				"/fm/popup/jusoPopup.do",
 				"/report/**"
 				);
 		registry.addInterceptor(new CustomAuthenticInterceptor())
@@ -106,7 +107,7 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 	public AuthenticInterceptor authenticInterceptor() {
 		return new AuthenticInterceptor();
 	}
-	
+
 	// -------------------------------------------------------------
 	// RequestMappingHandlerMapping 설정 View Controller 추가
 	// -------------------------------------------------------------
