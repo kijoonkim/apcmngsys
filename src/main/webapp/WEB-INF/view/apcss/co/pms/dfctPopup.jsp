@@ -12,6 +12,7 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div style="margin-left: auto;">
+				    <sbux-button id="btnExcel" name="btnExcel" uitype="normal" text="Excel" class="btn btn-sm btn-outline-danger" onclick="dfctPopup.exportExcel"></sbux-button>
 					<sbux-button id="btnSearchDfct" name="btnSearchDfct" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="dfctPopup.search"></sbux-button>
 					<sbux-button id="btnSaveDfct" name="btnSaveDfct" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="dfctPopup.save"></sbux-button>
 					<sbux-button id="btnEndDfct" name="btnEndDfct" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-dfctMng')"></sbux-button>
@@ -84,6 +85,10 @@
 		    SBGridProperties.selectmode = 'byrow';
 		    SBGridProperties.explorerbar = 'sortmove';
 		    SBGridProperties.extendlastcol = 'scroll';
+		    SBGridProperties.allowcopy = true;
+		    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		    SBGridProperties.contextmenulist = objMenuListCnptMng;		// 우클릭 메뉴 리스트
+		    SBGridProperties.scrollbubbling = false;
 		    SBGridProperties.oneclickedit = true;
 		    SBGridProperties.columns = [
 		        {caption: ['검토요청내용'], 	ref: 'dfctCn', 		width: '280px', type: 'input', style:'text-align:center'},
@@ -103,6 +108,29 @@
 		        {caption: ['결함순번'], 	ref: 'dfctSn', 		hidden : true}
 		    ];
 		    grdDtctPopup = _SBGrid.create(SBGridProperties);
+		},
+		exportExcel: function() {
+			/*
+			datagrid.exportData(param1, param2, param3, param4);
+			param1(필수)[string]: 다운 받을 파일 형식
+			param2(필수)[string]: 다운 받을 파일 제목
+			param3[boolean]: 다운 받을 그리드 데이터 기준 (default:'false')
+			→ true : csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 다운로드
+			→ false : csv/xls/xlsx 형식의 데이터 다운로드를 jsonref 기준으로 다운로드
+			param4[object]: 다운 받을 그리드 데이터 기준 (default:'false')
+			→ arrRemoveCols(선택): csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 할 때 다운로드에서 제외할 열
+			→ combolabel(선택) : csv/xls/xlsx combo/inputcombo 일 때 label 값으로 저장
+			→ true : label 값으로 저장
+			→ false : value 값으로 저장
+			→ sheetName(선택) : xls/xlsx 형식의 데이터 다운로드시 시트명을 설정
+			 */
+			 grdDtctPopup.exportData(
+						"xlsx",
+						"프로그램개발진척관리",
+						true,
+						true
+					);
+
 		},
 		add: function(nRow, nCol) {
 			grdDtctPopup.setCellData(nRow, nCol, "N", true);
@@ -249,5 +277,23 @@
 	        }
 	    },
 	}
+
+	 /**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+    const objMenuListCnptMng = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",					//단축키
+            "callback": fn_excelDwnldCnptMng,			//콜백함수명
+        }
+    };
+    // 엑셀 다운로드
+    function fn_excelDwnldCnptMng() {
+    	grdDtctPopup.exportLocalExcel("수정사항", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+
+
 </script>
 </html>
