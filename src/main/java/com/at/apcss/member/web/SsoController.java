@@ -110,11 +110,13 @@ public class SsoController extends BaseController {
 			}	
 		} else {
 			logger.error("@@@@ SSO 토큰정보 없음");
+			insertSysErrorLog("SSO 토큰정보 없음");
 			return "redirect:/login.do";
 		}
 		
 		if (!StringUtils.hasText(id)) {
 			logger.error("@@@@ SSO 토큰정보 없음");
+			insertSysErrorLog("SSO 토큰정보 없음");
 			return "redirect:/login.do";
 		}
 		
@@ -187,6 +189,7 @@ public class SsoController extends BaseController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 		if (!isAuthenticated) {
 			logger.debug("1");
+			insertSysErrorLog("actionMainApc 로그인정보 없음");
 			//model.addAttribute("loginMessage", message.getMessage("fail.common.login"));
 			return "redirect:/login.do";
 		}
@@ -339,6 +342,7 @@ public class SsoController extends BaseController {
 			
 			if (StringUtils.hasText(errorCode)) {
 				logger.error("@@@@ SSO 에이전트 오류 : {}", errorCode);
+				insertSysErrorLog("actionSSOLoginApcIns SSO 에이전트 오류");
 				return "redirect:/login.do";
 			} else {
 				String userData = apiUserService.getUserData();
@@ -362,11 +366,13 @@ public class SsoController extends BaseController {
 			}	
 		} else {
 			logger.error("@@@@ SSO 토큰정보 없음");
+			insertSysErrorLog("actionSSOLoginApcIns SSO 토큰정보 없음");
 			return "redirect:/login.do";
 		}
 		
 		if (!StringUtils.hasText(id)) {
 			logger.error("@@@@ SSO 토큰정보 없음");
+			insertSysErrorLog("actionSSOLoginApcIns 로그인id 없음");
 			return "redirect:/login.do";
 		}
 		
@@ -422,6 +428,7 @@ public class SsoController extends BaseController {
 			return "redirect:/actionMainApcIns.do";
 		} else {
 			//model.addAttribute("loginMessage", message.getMessage("fail.common.login", request.getLocale()));
+			insertSysErrorLog("actionSSOLoginApcIns 로그인 실패");
 			return "redirect:/login.do";
 		}
 	}
@@ -441,6 +448,7 @@ public class SsoController extends BaseController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 		if (!isAuthenticated) {
 			logger.debug("1");
+			insertSysErrorLog("actionMainApcIns 로그인 정보 없음");
 			//model.addAttribute("loginMessage", message.getMessage("fail.common.login"));
 			return "redirect:/login.do";
 		}
