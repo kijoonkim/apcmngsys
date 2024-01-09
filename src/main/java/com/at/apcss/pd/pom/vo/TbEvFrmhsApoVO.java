@@ -27,6 +27,12 @@ public class TbEvFrmhsApoVO extends ComVO{
 	private String prdcrOgnzNm;
 	private String rmrk;
 
+	private String ecSpmtPlanVlmTot;
+	private String ecSpmtVlmTot;
+	private String ecSpmtRate;
+	private String spmtPrcTot;
+	private String cnt;
+
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;
 	private String sysFrstInptDtYmd;
