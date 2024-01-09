@@ -166,7 +166,9 @@ public class SsoController extends BaseController {
 			// 로그인 인증세션
 			//httpSession.setAttribute("accessUser", resultVO.getId());
 			request.getSession().setAttribute("accessUser", resultVO.getId());
-
+			
+			setSessionInfo(request);
+			
 			return "redirect:/actionMainApc.do";
 		} else {
 			//model.addAttribute("loginMessage", message.getMessage("fail.common.login", request.getLocale()));
@@ -313,16 +315,7 @@ public class SsoController extends BaseController {
 		return "member/mainApc";
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 
 	@GetMapping(value = "/actionSSOLoginApcIns.do")
 	public String actionSSOLoginApcIns(HttpServletRequest request) throws Exception {
@@ -424,6 +417,8 @@ public class SsoController extends BaseController {
 			// 로그인 인증세션
 			//httpSession.setAttribute("accessUser", resultVO.getId());
 			request.getSession().setAttribute("accessUser", resultVO.getId());
+			
+			setSessionInfo(request);
 
 			return "redirect:/actionMainApcIns.do";
 		} else {
@@ -572,21 +567,6 @@ public class SsoController extends BaseController {
 		return "member/mainApcIns";
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
 
 	@GetMapping(value = "/actionSSOLoginApcInsReq.do")
 	public String actionSSOLoginApcInsReq(HttpServletRequest request) throws Exception {
@@ -683,6 +663,8 @@ public class SsoController extends BaseController {
 			// 로그인 인증세션
 			//httpSession.setAttribute("accessUser", resultVO.getId());
 			request.getSession().setAttribute("accessUser", resultVO.getId());
+			
+			setSessionInfo(request);
 
 			return "redirect:/actionMainApcInsReq.do";
 		} else {
@@ -829,25 +811,7 @@ public class SsoController extends BaseController {
 
 		return "member/mainApcInsReq";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 
 
 	@GetMapping(value = "/actionSSOLoginApcPt.do")
@@ -945,6 +909,8 @@ public class SsoController extends BaseController {
 			// 로그인 인증세션
 			//httpSession.setAttribute("accessUser", resultVO.getId());
 			request.getSession().setAttribute("accessUser", resultVO.getId());
+			
+			setSessionInfo(request);
 
 			return "redirect:/actionMainApcPt.do";
 		} else {
