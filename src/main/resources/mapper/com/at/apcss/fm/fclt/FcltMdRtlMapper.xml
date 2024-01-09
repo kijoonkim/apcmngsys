@@ -2700,7 +2700,7 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND A.DUP_YN = 'Y'
+			        AND NVL(A.DUP_YN, 'N') != 'Y'
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
@@ -2719,7 +2719,7 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND A.DUP_YN = 'Y'
+			        AND NVL(A.DUP_YN, 'N') != 'Y'
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
@@ -2738,7 +2738,7 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND A.DUP_YN = 'Y'
+			        AND NVL(A.DUP_YN, 'N') != 'Y'
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
@@ -2757,7 +2757,7 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND A.DUP_YN = 'Y'
+			        AND NVL(A.DUP_YN, 'N') != 'Y'
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
@@ -2796,7 +2796,7 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND A.DUP_YN = 'Y'
+			        AND NVL(A.DUP_YN, 'N') != 'Y'
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
@@ -2816,7 +2816,7 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND A.DUP_YN = 'Y'
+			        AND NVL(A.DUP_YN, 'N') != 'Y'
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
@@ -2836,7 +2836,7 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND A.DUP_YN = 'Y'
+			        AND NVL(A.DUP_YN, 'N') != 'Y'
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
@@ -2856,7 +2856,7 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND A.DUP_YN = 'Y'
+			        AND NVL(A.DUP_YN, 'N') != 'Y'
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
@@ -2896,7 +2896,7 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND A.DUP_YN = 'Y'
+			        AND NVL(A.DUP_YN, 'N') != 'Y'
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
@@ -2917,7 +2917,7 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND A.DUP_YN = 'Y'
+			        AND NVL(A.DUP_YN, 'N') != 'Y'
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
@@ -2938,7 +2938,7 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND A.DUP_YN = 'Y'
+			        AND NVL(A.DUP_YN, 'N') != 'Y'
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
@@ -2959,7 +2959,7 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND A.DUP_YN = 'Y'
+			        AND NVL(A.DUP_YN, 'N') != 'Y'
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
@@ -3002,7 +3002,7 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND A.DUP_YN = 'Y'
+			        AND NVL(A.DUP_YN, 'N') != 'Y'
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
@@ -3047,7 +3047,7 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND A.DUP_YN = 'Y'
+			        AND NVL(A.DUP_YN, 'N') != 'Y'
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
@@ -3086,7 +3086,7 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND A.DUP_YN = 'Y'
+			        AND NVL(A.DUP_YN, 'N') != 'Y'
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
@@ -3132,7 +3132,7 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND A.DUP_YN = 'Y'
+			        AND NVL(A.DUP_YN, 'N') != 'Y'
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
@@ -3166,7 +3166,7 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND A.DUP_YN = 'Y'
+			        AND NVL(A.DUP_YN, 'N') != 'Y'
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
@@ -3186,7 +3186,7 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND A.DUP_YN = 'Y'
+			        AND NVL(A.DUP_YN, 'N') != 'Y'
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
@@ -3206,7 +3206,7 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND A.DUP_YN = 'Y'
+			        AND NVL(A.DUP_YN, 'N') != 'Y'
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
@@ -3226,7 +3226,7 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND A.DUP_YN = 'Y'
+			        AND NVL(A.DUP_YN, 'N') != 'Y'
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
@@ -3266,7 +3266,7 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND A.DUP_YN = 'Y'
+			        AND NVL(A.DUP_YN, 'N') != 'Y'
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
@@ -3287,7 +3287,7 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND A.DUP_YN = 'Y'
+			        AND NVL(A.DUP_YN, 'N') != 'Y'
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
@@ -3308,7 +3308,7 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND A.DUP_YN = 'Y'
+			        AND NVL(A.DUP_YN, 'N') != 'Y'
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
@@ -3329,7 +3329,7 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND A.DUP_YN = 'Y'
+			        AND NVL(A.DUP_YN, 'N') != 'Y'
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
@@ -3370,7 +3370,7 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND A.DUP_YN = 'Y'
+			        AND NVL(A.DUP_YN, 'N') != 'Y'
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
@@ -3392,7 +3392,7 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND A.DUP_YN = 'Y'
+			        AND NVL(A.DUP_YN, 'N') != 'Y'
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
@@ -3414,7 +3414,7 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND A.DUP_YN = 'Y'
+			        AND NVL(A.DUP_YN, 'N') != 'Y'
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
@@ -3436,7 +3436,7 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND A.DUP_YN = 'Y'
+			        AND NVL(A.DUP_YN, 'N') != 'Y'
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
@@ -3480,7 +3480,7 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND A.DUP_YN = 'Y'
+			        AND NVL(A.DUP_YN, 'N') != 'Y'
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
@@ -3527,7 +3527,7 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND A.DUP_YN = 'Y'
+			        AND NVL(A.DUP_YN, 'N') != 'Y'
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
@@ -3568,7 +3568,7 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND A.DUP_YN = 'Y'
+			        AND NVL(A.DUP_YN, 'N') != 'Y'
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
@@ -3616,7 +3616,7 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND A.DUP_YN = 'Y'
+			        AND NVL(A.DUP_YN, 'N') != 'Y'
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
