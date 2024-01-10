@@ -1631,9 +1631,12 @@
 			rowData.sttgUpbrItemSe = sttgUpbrItemSe;
  			rowData.rowSts = "I";
 
-			console.log(rowData);
+ 			//날짜입력시 특수 문자 제거
+			const regex = /[^0-9]/g;	// 숫자가 아닌 문자열을 선택하는 정규식
 			let date = rowData.joinDay;
-			console.log(date.replaceAll("[^0-9]",""));
+			let result = date.replace(regex, "").substr(0,8);//년월일 이상 적는 경우 대비
+			rowData.joinDay = result;
+
 			//저장할데이터
  	    	const pckgPrfmnc = {
 				apoCd: rowData.apoCd,
