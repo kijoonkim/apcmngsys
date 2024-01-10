@@ -1156,7 +1156,7 @@
     		return false;
     	}
 
-    	return true;
+    	return true;a
     }
 
 
@@ -1201,33 +1201,16 @@
 	const fn_subUpdate = async function (isConfirmed){
 		console.log("******************fn_subUpdate**********************************");
 		if (!isConfirmed) return;
-		var a = SBUxMethod.get('dtl-input-isoFundAplyAmt');
-
-		var b = {
-				apoCd: SBUxMethod.get('dtl-input-apoCd')//
-	   	 		,apoSe: SBUxMethod.get('dtl-input-apoSe')//
-				,brno: SBUxMethod.get('dtl-input-brno')//
-				,uoBrno: SBUxMethod.get('dtl-input-uoBrno')//
-				,uoCd: SBUxMethod.get('dtl-input-uoCd')//
-				,crno: SBUxMethod.get('dtl-input-crno')//
-				,corpNm: SBUxMethod.get('dtl-input-corpNm')//
-	   	 		,isoFundAplyAmt: SBUxMethod.get('dtl-input-isoFundAplyAmt')//
-				//,aplyTrgtSe: SBUxMethod.get('dtl-input-aplyTrgtSe')//
-	  		};
-
-		console.log(b);
-		return false;
 
 		const postJsonPromise = gfn_postJSON("/pd/aom/insertInvShipOgnReqMng.do", {
 			apoCd: SBUxMethod.get('dtl-input-apoCd')//
-   	 		,apoSe: SBUxMethod.get('dtl-input-apoSe')//
+   	 		,apoSe: '2'// 해당화면 등록자는 전부 출자출하조직임
 			,brno: SBUxMethod.get('dtl-input-brno')//
 			,uoBrno: SBUxMethod.get('dtl-input-uoBrno')//
 			,uoCd: SBUxMethod.get('dtl-input-uoCd')//
 			,crno: SBUxMethod.get('dtl-input-crno')//
 			,corpNm: SBUxMethod.get('dtl-input-corpNm')//
    	 		,isoFundAplyAmt: SBUxMethod.get('dtl-input-isoFundAplyAmt')//
-			//,aplyTrgtSe: SBUxMethod.get('dtl-input-aplyTrgtSe')//
   		});
 
 		const data = await postJsonPromise;
@@ -1380,8 +1363,6 @@
 		SBUxMethod.set("dtl-input-apoCd", null);
 		SBUxMethod.set("dtl-input-crno", null);
 		SBUxMethod.set("dtl-input-brno", null);
-		SBUxMethod.set("dtl-input-uoBrno", null);
-		SBUxMethod.set("dtl-input-uoCd", null);
 		SBUxMethod.set("dtl-input-corpNm", null);
 		SBUxMethod.set("dtl-input-corpSeCd", null);
 		SBUxMethod.set("dtl-input-corpDtlSeCd", null);
