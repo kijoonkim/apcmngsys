@@ -21,7 +21,7 @@
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectInvShipOgnSpeczItmPurSalMng" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
-    	SELECT *
+    	SELECT *  /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectInvShipOgnSpeczItmPurSalMng */
 		FROM (
 			SELECT
 				ST.APO_CD
@@ -33,6 +33,7 @@
 				, ST.ITEM_CD
 				, ST.STTG_UPBR_ITEM_SE
 				, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = ST.ITEM_CD) AS ITEM_NM
+				, 0 AS ISO_BRNO
 				, ST.PRDCR_OGNZ_SN
 				, ST.PRDCR_OGNZ_CD
 				, ST.PRDCR_OGNZ_NM
@@ -48,6 +49,7 @@
 			AND ST.CTGRY_CD = TOT.CTGRY_CD
 			AND ST.ITEM_CD = TOT.ITEM_CD
 			AND ST.PRDCR_OGNZ_SN = TOT.PRDCR_OGNZ_SN
+			AND ST.YR = #{yr}
 			WHERE 1=1
 			<if test='brno != null and brno != ""'>
 				AND ST.BRNO = #{brno}
@@ -65,6 +67,7 @@
 				, ITEM.ITEM_CD
 				, ITEM.STTG_UPBR_ITEM_SE
 				, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = ITEM.ITEM_CD) AS ITEM_NM
+				, 0 AS ISO_BRNO
 				, 0 AS PRDCR_OGNZ_SN
 				, '99' AS PRDCR_OGNZ_CD
 				, '농가 법인 등' AS PRDCR_OGNZ_NM
@@ -77,12 +80,15 @@
 			FROM (SELECT ITEM_CD , APO_CD , APO_SE , YR , BRNO , STTG_UPBR_ITEM_SE , CTGRY_CD
 						FROM TB_EV_FRMHS_APO
 						WHERE 1=1
+						  AND YR = #{yr}
 						GROUP BY ITEM_CD , APO_CD , APO_SE , YR , BRNO , STTG_UPBR_ITEM_SE , CTGRY_CD
 						) ITEM
 			LEFT JOIN TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT TOT
 			ON ITEM.ITEM_CD = TOT.ITEM_CD
 			AND ITEM.APO_CD = TOT.APO_CD
 			AND TOT.PRDCR_OGNZ_CD = '99'
+			AND TOT.ISO_BRNO = '0'
+			AND TOT.PRDCR_OGNZ_SN = '0'
 			WHERE 1=1
 			<if test='brno != null and brno != ""'>
 				AND ITEM.BRNO = #{brno}
@@ -101,7 +107,7 @@
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectInvShipOgnSpeczItmPurSalMngList" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
-    	SELECT *
+    	SELECT * /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectInvShipOgnSpeczItmPurSalMngList */
 		FROM (
 			SELECT
 				ST.APO_CD
@@ -129,6 +135,7 @@
 			AND ST.CTGRY_CD = TOT.CTGRY_CD
 			AND ST.ITEM_CD = TOT.ITEM_CD
 			AND ST.PRDCR_OGNZ_SN = TOT.PRDCR_OGNZ_SN
+			AND ST.YR = #{yr}
 			WHERE 1=1
 			<if test='brno != null and brno != ""'>
 				AND ST.BRNO = #{brno}
@@ -159,12 +166,15 @@
 			FROM (SELECT ITEM_CD , APO_CD , APO_SE , YR , BRNO , STTG_UPBR_ITEM_SE , CTGRY_CD
 						FROM TB_EV_FRMHS_APO
 						WHERE 1=1
+						  AND YR = #{yr}
 						GROUP BY ITEM_CD , APO_CD , APO_SE , YR , BRNO , STTG_UPBR_ITEM_SE , CTGRY_CD
 						) ITEM
 			LEFT JOIN TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT TOT
 			ON ITEM.ITEM_CD = TOT.ITEM_CD
 			AND ITEM.APO_CD = TOT.APO_CD
 			AND TOT.PRDCR_OGNZ_CD = '99'
+			AND TOT.ISO_BRNO = '0'
+			AND TOT.PRDCR_OGNZ_SN = '0'
 			WHERE 1=1
 			<if test='brno != null and brno != ""'>
 				AND ITEM.BRNO = #{brno}
@@ -211,7 +221,7 @@
 					   AND CLT.CTGRY_CD	 		= #{ctgryCd}
 					   AND CLT.ITEM_CD 			= #{itemCd}
 					   AND CLT.PRDCR_OGNZ_SN 	= #{prdcrOgnzSn}
-					   AND CLT.ISO_BRNO 		= #{isoBrno}
+					   AND CLT.ISO_BRNO 		= '0'
 		WHEN NOT MATCHED THEN
 			 INSERT
 		    		(
@@ -248,7 +258,7 @@
 		    		  , TO_CHAR(SYSDATE,'YYYY')
 		    		  , #{ctgryCd}
 		    		  , #{itemCd}
-		    		  , #{isoBrno}
+		    		  , '0'
 		    		  , #{prdcrOgnzSn}
 		    		  , #{prdcrOgnzCd}
 
