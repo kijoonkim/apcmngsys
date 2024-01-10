@@ -258,8 +258,9 @@
 
 	<delete id="deleteInvShipOgnReqMng" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
 		<![CDATA[
-		DELETE FROM TB_PD_PrdcrCrclOgnVluIdctrMng
-		 WHERE TEST_NO 	= #{testNo}
+		DELETE FROM TB_EV_APO_UO_CD
+		 WHERE ISO_BRNO = #{brno}
+		   AND UO_BRNO = #{uoBrno}
 		]]>
 	</delete>
 
