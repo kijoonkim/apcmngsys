@@ -366,7 +366,7 @@
 		   			  , #{brno}
 		   			  , #{crno}
 		   			  , #{corpNm}
-		   			  TO_CHAR(SYSDATE,'YYYY')
+		   			  , TO_CHAR(SYSDATE,'YYYY')
 		   			  , SYSDATE
 		   			  , #{rawMtrEnsrSigunCnt}
 		   			  , #{rawMtrEnsrCtpvCnt}

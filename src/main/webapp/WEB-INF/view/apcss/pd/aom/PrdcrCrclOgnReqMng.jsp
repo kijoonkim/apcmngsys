@@ -2102,7 +2102,7 @@
 		if(invstAmt != 0){
 			frmerInvstAmtRt = frmerInvstAmt / invstAmt * 100
 		}
-		SBUxMethod.set('dtl-input-frmerInvstAmtRt',frmerInvstAmtRt);
+		SBUxMethod.set('dtl-input-frmerInvstAmtRt',frmerInvstAmtRt.toFixed(2));
 	}
 	//전체 종사자 수 합계
 	function fn_calTot(){
