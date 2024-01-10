@@ -57,6 +57,11 @@ public class CmnsItemVO extends ComVO {
 	 * 농협품목명
 	 */
 	private String nhItemNm;
+
+	/**
+	 * 부류명
+	 */
+	private String clsNm;
 	/**
 	 * 원물감량률
 	 */

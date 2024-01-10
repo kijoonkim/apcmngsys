@@ -49,7 +49,8 @@
     <select id="selectCmnsItemList" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO" resultType="com.at.apcss.am.cmns.vo.CmnsItemVO">
     	<![CDATA[
 	    	SELECT /*  com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectCmnsItemList */
-	    		   IC.ITEM_CD
+	    		   (SELECT FN_GET_COM_CD_VL_NM('CLS_CD',SUBSTR(IC.ITEM_CD,0,2)) FROM DUAL) AS CLS_NM
+	    		 , IC.ITEM_CD
 			     , IC.ITEM_NM
 			     , IC.DEL_YN
 			  FROM TB_ITEM_CRTR IC
