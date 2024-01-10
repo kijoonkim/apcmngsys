@@ -75,7 +75,7 @@
     //$(".sbt-A-wrap").height(bodyHeight - topHeight - 5);
     //});
 
-    const fn_selectTopMenu = (_id) => {
+    const fn_selectTopMenu = async (_id) => {
 
         var data = SBUxMethod.get(_id);
 
@@ -85,6 +85,44 @@
         }
 
         fn_setLeftMenu(data.id);
+
+        if(data.id == "PD"){
+
+        	var noticeTab = SBUxMethod.getTab('tab_menu', 'TAB_PD_002_012');
+
+        	if(noticeTab == null || noticeTab == undefined){
+
+	        	var tabName = "TAB_PD_002_012";
+	            var menuNo = "PD_002_012";
+	            var jsonTabSelect = {
+	                  'id': tabName
+	                , 'pid': '-1'
+	                , 'text': '공지사항'	//'대시보드'
+	                , 'targetid': tabName
+	                , 'targetvalue': tabName + '_value'
+	                , 'targetname': 'frmJson'
+	                , 'link': '/co/menu/openPage.do/' + menuNo	// _url
+	                , 'closeicon': false
+	            };
+	            SBUxMethod.addTab('tab_menu', jsonTabSelect);
+	            //화면이력관리용 data
+	            var data = {
+	            		customData : {prsnaYn : null},
+	            		id : tabName,
+	            		text : "공지사항",
+	            		prslType: "M1"
+	            }
+	            insertComLog(data);
+
+	            await fn_afterAddTab(menuNo);
+        	}else{
+        		SBUxMethod.showTab('tab_menu','TAB_PD_002_012');
+        	}
+
+        }else{
+        	SBUxMethod.hideTab('tab_menu','TAB_PD_002_012');
+        }
+
 
         /*
         fn_actionGoPage(
