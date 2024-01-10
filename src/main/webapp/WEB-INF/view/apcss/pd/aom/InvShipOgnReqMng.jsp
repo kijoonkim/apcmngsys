@@ -711,6 +711,10 @@
 <script type="text/javascript">
 
 	window.addEventListener('DOMContentLoaded', function(e) {
+		var now = new Date();
+		var year = now.getFullYear();
+		SBUxMethod.set("srch-input-yr",year);//
+
 		fn_init();
 		fn_initSBSelect();
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
@@ -729,10 +733,6 @@
 		fn_dtlSearch02();
 		</c:if>
 	</c:if>
-
-		var now = new Date();
-		var year = now.getFullYear();
-		SBUxMethod.set("srch-input-yr",year);//
 
 		const elements = document.querySelectorAll(".srch-keyup-area");
 
@@ -858,7 +858,7 @@
 	    SBGridProperties.columns = [
 	    	{caption: ["seq"], 			ref: 'apoCd',   	hidden : true},
 	    	{caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
-	    		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow01(\"DEL\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ")'>삭제</button>";
+	    		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdInvShipOgnReqMng01\", " + nRow + ")'>삭제</button>";
 	        }},
 	    	//{caption: ["순번"], 				ref: 'aa',   	type:'output',  width:'50px',    style:'text-align:center'},
 	    	{caption: ["업체명"], 			ref: 'corpNm',   	type:'output',  width:'220px',    style:'text-align:center'},
@@ -875,7 +875,7 @@
 	        //{caption: ["상세내역"], 	ref: 'isoFundAplyAmt',   	hidden : true},
 	        {caption: ["상세내역"], 	ref: 'aplyTrgtSe',   		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'yr',   				hidden : true},
-
+	        {caption: ["상세내역"], 	ref: 'uoBrno',   			hidden : true},
 	        {caption: ["상세내역"], 	ref: 'crno',   				hidden : true},
 	        {caption: ["상세내역"], 	ref: 'corpSeCd',   			hidden : true},
 	        {caption: ["상세내역"], 	ref: 'corpFndnDay',   		hidden : true},
@@ -899,7 +899,7 @@
      * 목록 조회
      */
     const fn_search = async function() {
-
+    	fn_clearGrid();
     	// set pagination
     	let pageSize = grdInvShipOgnReqMng.getPageSize();
     	let pageNo = 1;
@@ -912,9 +912,14 @@
     	let currentPageNo = grdInvShipOgnReqMng.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
     	fn_setGrdFcltList(recordCountPerPage, currentPageNo);
     }
+	const fn_pagingBbsList = async function() {
+		jsonInvShipOgnReqMng01.length=0;
+		grdInvShipOgnReqMng01.rebuild();
+    }
 
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
+
 		let yr = SBUxMethod.get("srch-input-year");//
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
 		let ctpv = SBUxMethod.get("srch-input-ctpv");//
@@ -1262,6 +1267,7 @@
         	data.resultList.forEach((item, index) => {
 				let InvShipOgnReqMngVO = {
 						apoCd: item.apoCd
+						,uoBrno: uoBrno
 						,corpNm: item.corpNm
 						,rprsvFlnm: item.rprsvFlnm
 						,brno: item.brno
@@ -1358,13 +1364,15 @@
     }
 
 	//삭제
-	async function fn_deleteRsrc(InvShipOgnReqMngVO){
+	//출자출하조직 리스트 삭제
+	async function fn_deleteRsrc(InvShipOgnReqMngVO,nRow){
 		let postJsonPromise = gfn_postJSON("/pd/aom/deleteInvShipOgnReqMng.do", InvShipOgnReqMngVO);
         let data = await postJsonPromise;
 
         try{
         	if(data.result > 0){
         		alert("삭제 되었습니다.");
+        		grdInvShipOgnReqMng01.deleteRow(nRow);
         	}else{
         		alert("삭제 도중 오류가 발생 되었습니다.");
         	}
@@ -1377,7 +1385,6 @@
 	}
 
 	const fn_clearForm = function() {
-
 		SBUxMethod.set("dtl-input-apoCd", null);
 		SBUxMethod.set("dtl-input-crno", null);
 		SBUxMethod.set("dtl-input-brno", null);
@@ -1401,6 +1408,20 @@
 
 		SBUxMethod.set("dtl-input-frmerInvstAmtRt", null);
 	}
+
+	// Grid Row 추가 및 삭제 기능
+    function fn_procRow(gubun, grid, nRow, nCol) {
+        if (grid === "grdInvShipOgnReqMng01") {
+        	var delMsg = "삭제 하시겠습니까?";
+        	if(confirm(delMsg)){
+        		var vo = grdInvShipOgnReqMng01.getRowData(nRow);
+        		console.log(vo);
+        		//fn_deleteRsrc(vo,nRow);
+        		//grdInvShipOgnReqMng01.deleteRow(nRow);
+        	}
+        }
+    }
+
 
 </script>
 </html>
