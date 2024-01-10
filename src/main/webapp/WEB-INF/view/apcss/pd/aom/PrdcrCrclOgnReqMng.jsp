@@ -960,6 +960,10 @@
 <script type="text/javascript">
 
 	window.addEventListener('DOMContentLoaded', function(e) {
+		var now = new Date();
+		var year = now.getFullYear();
+		SBUxMethod.set("srch-input-yr",year);//
+
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		fn_init();
 		fn_initSBSelect();
@@ -970,9 +974,6 @@
 		fn_initSBSelect();
 		fn_dtlSearch();
 	</c:if>
-		var now = new Date();
-		var year = now.getFullYear();
-		SBUxMethod.set("srch-input-yr",year);//
 
 		/**
 		 * 엔터시 검색 이벤트

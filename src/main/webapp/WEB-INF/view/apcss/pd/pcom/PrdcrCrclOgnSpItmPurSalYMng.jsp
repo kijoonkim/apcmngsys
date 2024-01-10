@@ -285,6 +285,10 @@
 <script type="text/javascript">
 
 	window.addEventListener('DOMContentLoaded', function(e) {
+		var now = new Date();
+		var year = now.getFullYear();
+		SBUxMethod.set("srch-input-yr",year);//
+
 		fn_init();
 		fn_initSBSelect();
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
@@ -293,10 +297,6 @@
 	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
 		fn_dtlSearch();
 	</c:if>
-
-		var now = new Date();
-		var year = now.getFullYear();
-		SBUxMethod.set("srch-input-yr",year);//
 
 	});
 
@@ -443,7 +443,7 @@
 		            ref : "seNm",   width : '150px',        style : 'text-align:center',     type : 'output'},
 
 	            {caption : ['판매위임(매입)금액(천원)','매입처'],
-	            	ref : "flnm",   width : '150px',        style : 'text-align:center',     type : 'output'},
+	            	ref : "prdcrOgnzNm",   width : '150px',        style : 'text-align:center',     type : 'output'},
 	            {caption : ['판매위임(매입)금액(천원)','금액'],
 	            	ref : "uoSpmtAmt",   width : '100px',        style : 'text-align:right',      type : 'input',   format : { type:'number' , rule:'#,##0.00' }, merge:false},
 
@@ -472,26 +472,26 @@
 
 	const fn_test = async function() {
 		jsonPrdcrOgnCurntMng01=[
-			{"itemNm":"사과(전문)", 	"uoSeNm":"출자출하조직",				"seNm":"전속출하",			"flnm":"A",					"uoSpmtAmt":"10160","uoOtherSpmtAmt":"20160","col6":""	},
-			{"itemNm":"사과(전문)", 	"uoSeNm":"출자출하조직",				"seNm":"전속출하",			"flnm":"B", 				"uoSpmtAmt":"10170","uoOtherSpmtAmt":"20170","col6":""	},
-			{"itemNm":"사과(전문)", 	"uoSeNm":"출자출하조직",				"seNm":"생산자조직 외",		"flnm":"농가,법인 등", 		"uoSpmtAmt":"10180","uoOtherSpmtAmt":"20180","col6":""	},
-			{"itemNm":"사과(전문)", 	"uoSeNm":"(통합조직 직속) 생산자조직*",	"seNm":"전속출하",			"flnm":"C",					"uoSpmtAmt":"10190","uoOtherSpmtAmt":"20190","col6":""	},
-			{"itemNm":"사과(전문)", 	"uoSeNm":"(통합조직 직속) 생산자조직*",	"seNm":"전속출하",			"flnm":"D",					"uoSpmtAmt":"10190","uoOtherSpmtAmt":"20190","col6":""	},
-			{"itemNm":"사과(전문)", 	"uoSeNm":"기타매입",					"seNm":"생산자조직 외",		"flnm":"공판장 매입,단순매취 등",	"uoSpmtAmt":"10190","uoOtherSpmtAmt":"20190","col6":""	},
+			{"itemNm":"사과(전문)", 	"uoSeNm":"출자출하조직",				"seNm":"전속출하",			"prdcrOgnzNm":"A",					"uoSpmtAmt":"10160","uoOtherSpmtAmt":"20160","col6":""	},
+			{"itemNm":"사과(전문)", 	"uoSeNm":"출자출하조직",				"seNm":"전속출하",			"prdcrOgnzNm":"B", 				"uoSpmtAmt":"10170","uoOtherSpmtAmt":"20170","col6":""	},
+			{"itemNm":"사과(전문)", 	"uoSeNm":"출자출하조직",				"seNm":"생산자조직 외",		"prdcrOgnzNm":"농가,법인 등", 		"uoSpmtAmt":"10180","uoOtherSpmtAmt":"20180","col6":""	},
+			{"itemNm":"사과(전문)", 	"uoSeNm":"(통합조직 직속) 생산자조직*",	"seNm":"전속출하",			"prdcrOgnzNm":"C",					"uoSpmtAmt":"10190","uoOtherSpmtAmt":"20190","col6":""	},
+			{"itemNm":"사과(전문)", 	"uoSeNm":"(통합조직 직속) 생산자조직*",	"seNm":"전속출하",			"prdcrOgnzNm":"D",					"uoSpmtAmt":"10190","uoOtherSpmtAmt":"20190","col6":""	},
+			{"itemNm":"사과(전문)", 	"uoSeNm":"기타매입",					"seNm":"생산자조직 외",		"prdcrOgnzNm":"공판장 매입,단순매취 등",	"uoSpmtAmt":"10190","uoOtherSpmtAmt":"20190","col6":""	},
 
-			{"itemNm":"딸기(전문)", 	"uoSeNm":"출자출하조직",				"seNm":"전속출하",			"flnm":"E",					"uoSpmtAmt":"10160","uoOtherSpmtAmt":"20160","col6":""	},
-			{"itemNm":"딸기(전문)", 	"uoSeNm":"출자출하조직",				"seNm":"전속출하",			"flnm":"F", 				"uoSpmtAmt":"10170","uoOtherSpmtAmt":"20170","col6":""	},
-			{"itemNm":"딸기(전문)", 	"uoSeNm":"출자출하조직",				"seNm":"생산자조직 외",		"flnm":"농가,법인 등", 		"uoSpmtAmt":"10180","uoOtherSpmtAmt":"20180","col6":""	},
-			{"itemNm":"딸기(전문)", 	"uoSeNm":"(통합조직 직속) 생산자조직*",	"seNm":"전속출하",			"flnm":"G",					"uoSpmtAmt":"10190","uoOtherSpmtAmt":"20190","col6":""	},
-			{"itemNm":"딸기(전문)", 	"uoSeNm":"(통합조직 직속) 생산자조직*",	"seNm":"전속출하",			"flnm":"H",					"uoSpmtAmt":"10190","uoOtherSpmtAmt":"20190","col6":""	},
-			{"itemNm":"딸기(전문)", 	"uoSeNm":"기타매입",					"seNm":"생산자조직 외",		"flnm":"공판장 매입,단순매취 등",	"uoSpmtAmt":"10190","uoOtherSpmtAmt":"20190","col6":""	},
+			{"itemNm":"딸기(전문)", 	"uoSeNm":"출자출하조직",				"seNm":"전속출하",			"prdcrOgnzNm":"E",					"uoSpmtAmt":"10160","uoOtherSpmtAmt":"20160","col6":""	},
+			{"itemNm":"딸기(전문)", 	"uoSeNm":"출자출하조직",				"seNm":"전속출하",			"prdcrOgnzNm":"F", 				"uoSpmtAmt":"10170","uoOtherSpmtAmt":"20170","col6":""	},
+			{"itemNm":"딸기(전문)", 	"uoSeNm":"출자출하조직",				"seNm":"생산자조직 외",		"prdcrOgnzNm":"농가,법인 등", 		"uoSpmtAmt":"10180","uoOtherSpmtAmt":"20180","col6":""	},
+			{"itemNm":"딸기(전문)", 	"uoSeNm":"(통합조직 직속) 생산자조직*",	"seNm":"전속출하",			"prdcrOgnzNm":"G",					"uoSpmtAmt":"10190","uoOtherSpmtAmt":"20190","col6":""	},
+			{"itemNm":"딸기(전문)", 	"uoSeNm":"(통합조직 직속) 생산자조직*",	"seNm":"전속출하",			"prdcrOgnzNm":"H",					"uoSpmtAmt":"10190","uoOtherSpmtAmt":"20190","col6":""	},
+			{"itemNm":"딸기(전문)", 	"uoSeNm":"기타매입",					"seNm":"생산자조직 외",		"prdcrOgnzNm":"공판장 매입,단순매취 등",	"uoSpmtAmt":"10190","uoOtherSpmtAmt":"20190","col6":""	},
 
-			{"itemNm":"배(육성)", 	"uoSeNm":"출자출하조직",				"seNm":"전속출하",			"flnm":"I",					"uoSpmtAmt":"10160","uoOtherSpmtAmt":"20160","col6":""	},
-			{"itemNm":"배(육성)", 	"uoSeNm":"출자출하조직",				"seNm":"전속출하",			"flnm":"J", 				"uoSpmtAmt":"10170","uoOtherSpmtAmt":"20170","col6":""	},
-			{"itemNm":"배(육성)", 	"uoSeNm":"출자출하조직",				"seNm":"생산자조직 외",		"flnm":"농가,법인 등", 		"uoSpmtAmt":"10180","uoOtherSpmtAmt":"20180","col6":""	},
-			{"itemNm":"배(육성)", 	"uoSeNm":"(통합조직 직속) 생산자조직*",	"seNm":"전속출하",			"flnm":"K",					"uoSpmtAmt":"10190","uoOtherSpmtAmt":"20190","col6":""	},
-			{"itemNm":"배(육성)", 	"uoSeNm":"(통합조직 직속) 생산자조직*",	"seNm":"전속출하",			"flnm":"L",					"uoSpmtAmt":"10190","uoOtherSpmtAmt":"20190","col6":""	},
-			{"itemNm":"배(육성)", 	"uoSeNm":"기타매입",					"seNm":"생산자조직 외",		"flnm":"oo농협(외부) 등",		"uoSpmtAmt":"10190","uoOtherSpmtAmt":"20190","col6":""	}
+			{"itemNm":"배(육성)", 	"uoSeNm":"출자출하조직",				"seNm":"전속출하",			"prdcrOgnzNm":"I",					"uoSpmtAmt":"10160","uoOtherSpmtAmt":"20160","col6":""	},
+			{"itemNm":"배(육성)", 	"uoSeNm":"출자출하조직",				"seNm":"전속출하",			"prdcrOgnzNm":"J", 				"uoSpmtAmt":"10170","uoOtherSpmtAmt":"20170","col6":""	},
+			{"itemNm":"배(육성)", 	"uoSeNm":"출자출하조직",				"seNm":"생산자조직 외",		"prdcrOgnzNm":"농가,법인 등", 		"uoSpmtAmt":"10180","uoOtherSpmtAmt":"20180","col6":""	},
+			{"itemNm":"배(육성)", 	"uoSeNm":"(통합조직 직속) 생산자조직*",	"seNm":"전속출하",			"prdcrOgnzNm":"K",					"uoSpmtAmt":"10190","uoOtherSpmtAmt":"20190","col6":""	},
+			{"itemNm":"배(육성)", 	"uoSeNm":"(통합조직 직속) 생산자조직*",	"seNm":"전속출하",			"prdcrOgnzNm":"L",					"uoSpmtAmt":"10190","uoOtherSpmtAmt":"20190","col6":""	},
+			{"itemNm":"배(육성)", 	"uoSeNm":"기타매입",					"seNm":"생산자조직 외",		"prdcrOgnzNm":"oo농협(외부) 등",		"uoSpmtAmt":"10190","uoOtherSpmtAmt":"20190","col6":""	}
 		];
 		grdPrdcrOgnCurntMng01.rebuild();
     }
@@ -709,7 +709,7 @@
 						itemNm: itemNm
 						,seNm: item.seNm
 						,uoSeNm: item.uoSeNm
-						,flnm: item.flnm
+						,prdcrOgnzNm: item.prdcrOgnzNm
 						,slsCnsgnPrchsAmt: item.slsCnsgnPrchsAmt
 						,uoSpmtAmt: item.uoSpmtAmt
 						,uoOtherSpmtAmt: item.uoOtherSpmtAmt

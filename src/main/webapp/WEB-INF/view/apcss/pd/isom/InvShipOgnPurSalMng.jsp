@@ -336,6 +336,10 @@
 //조직 선택후 품목 취급유형 선택후 다시 조회
 
 	window.addEventListener('DOMContentLoaded', function(e) {
+		var now = new Date();
+		var year = now.getFullYear();
+		SBUxMethod.set("srch-input-yr",year);//
+
 		fn_init();
 		fn_initSBSelect();
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
@@ -344,10 +348,6 @@
 	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
 		fn_dtlSearch();
 	</c:if>
-
-		var now = new Date();
-		var year = now.getFullYear();
-		SBUxMethod.set("srch-input-yr",year);//
 
 	});
 

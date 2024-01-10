@@ -286,6 +286,10 @@
 <script type="text/javascript">
 
 	window.addEventListener('DOMContentLoaded', function(e) {
+		var now = new Date();
+		var year = now.getFullYear();
+		SBUxMethod.set("srch-input-yr",year);//
+
 		fn_init();
 		fn_initSBSelect();
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '21'}">
@@ -294,10 +298,6 @@
 	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00' && loginVO.userType ne '21'}">
 		fn_dtlSearch();
 	</c:if>
-
-		var now = new Date();
-		var year = now.getFullYear();
-		SBUxMethod.set("srch-input-yr",year);//
 
 	});
 
@@ -371,6 +371,7 @@
 		    	,typeinfo : {ref:'jsonComSgg', label:'label', value:'value', displayui : false}},
 	        {caption: ["법인명"], 		ref: 'corpNm',  type:'output',  width:'250px',    style:'text-align:center'},
 	        {caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'250px',    style:'text-align:center'},
+	        {caption: ["적합여부"], 		ref: 'stbltYn',   	type:'output',  width:'50px',    style:'text-align:center'},
 	        {caption: ["진행단계"], 		ref: 'aa',   	type:'output',  width:'153px',    style:'text-align:center'},
 	        {caption: ["비고"], 			ref: 'rmrk',   	type:'output',  width:'200px',    style:'text-align:center'}
 	    ];
@@ -436,7 +437,7 @@
 	            {caption : ['판매위임(매입)금액(천원)','구분','구분'],
 	            	ref : "seNm",   		width : '150px',	style : 'text-align:center',	type : 'output'},
 	            {caption : ['판매위임(매입)금액(천원)','위임(매입)처','위임(매입)처'],
-	            	ref : "flnm",			width : '150px',	style : 'text-align:center',	type : 'output'},
+	            	ref : "prdcrOgnzNm",			width : '150px',	style : 'text-align:center',	type : 'output'},
 	            {caption : ['판매위임(매입)금액(천원)','금액','금액'],
 	            	ref : "slsCnsgnPrchsAmt",   width : '100px',	style : 'text-align:right',	type : 'input',   format : { type:'number' , rule:'#,##0.00' }, merge:false},
 	            {caption : ['출하(매출)금액(천원)','통합조직에<br>출하(판매)','통합조직에<br>출하(판매)'],
@@ -468,17 +469,17 @@
 
 	const fn_test = async function() {
 		jsonPrdcrOgnCurntMng01=[
-			{"itemNm":"사과(전문)",	"seNm":"생산자조직(전속출하)",	"flnm":"A",			"slsCnsgnPrchsAmt":"10160","uoSpmtAmt":"20160","uoOtherSpmtAmt":"1670"		,"SpmtAmtTot":"","rmrk":""},
-			{"itemNm":"사과(전문)",	"seNm":"생산자조직(전속출하)",	"flnm":"B", 		"slsCnsgnPrchsAmt":"10170","uoSpmtAmt":"20170","uoOtherSpmtAmt":"1680"		,"SpmtAmtTot":"","rmrk":""},
-			{"itemNm":"사과(전문)",	"seNm":"생산자조직(전속출하)",	"flnm":"C", 		"slsCnsgnPrchsAmt":"10180","uoSpmtAmt":"20180","uoOtherSpmtAmt":"1690"		,"SpmtAmtTot":"","rmrk":""},
-			{"itemNm":"사과(전문)",	"seNm":"생산자조직 외",		"flnm":"농가,법인 등",	"slsCnsgnPrchsAmt":"10190","uoSpmtAmt":"20190","uoOtherSpmtAmt":"1700"		,"SpmtAmtTot":"","rmrk":""},
-			{"itemNm":"딸기(전문)",	"seNm":"생산자조직(전속출하)",	"flnm":"D",			"slsCnsgnPrchsAmt":"10200","uoSpmtAmt":"20200","uoOtherSpmtAmt":"1710"		,"SpmtAmtTot":"","rmrk":""},
-			{"itemNm":"딸기(전문)",	"seNm":"생산자조직(전속출하)",	"flnm":"E",			"slsCnsgnPrchsAmt":"10210","uoSpmtAmt":"20210","uoOtherSpmtAmt":"1720"		,"SpmtAmtTot":"","rmrk":""},
-			{"itemNm":"딸기(전문)",	"seNm":"생산자조직(전속출하)",	"flnm":"F",			"slsCnsgnPrchsAmt":"10220","uoSpmtAmt":"20220","uoOtherSpmtAmt":"1730"		,"SpmtAmtTot":"","rmrk":""},
-			{"itemNm":"딸기(전문)",	"seNm":"생산자조직 외",		"flnm":"농가,법인 등",	"slsCnsgnPrchsAmt":"10230","uoSpmtAmt":"20230","uoOtherSpmtAmt":"1740"		,"SpmtAmtTot":"","rmrk":""},
-			{"itemNm":"배(육성)",	"seNm":"생산자조직(전속출하)",	"flnm":"G",			"slsCnsgnPrchsAmt":"10240","uoSpmtAmt":"20240","uoOtherSpmtAmt":"1750"		,"SpmtAmtTot":"","rmrk":""},
-			{"itemNm":"배(육성)",	"seNm":"생산자조직(전속출하)",	"flnm":"H",			"slsCnsgnPrchsAmt":"10250","uoSpmtAmt":"20250","uoOtherSpmtAmt":"1720"		,"SpmtAmtTot":"","rmrk":""},
-			{"itemNm":"배(육성)",	"seNm":"생산자조직 외",		"flnm":"농가,법인 등",	"slsCnsgnPrchsAmt":"10260","uoSpmtAmt":"20260","uoOtherSpmtAmt":"1730"		,"SpmtAmtTot":"","rmrk":""}
+			{"itemNm":"사과(전문)",	"seNm":"생산자조직(전속출하)",	"prdcrOgnzNm":"A",			"slsCnsgnPrchsAmt":"10160","uoSpmtAmt":"20160","uoOtherSpmtAmt":"1670"		,"SpmtAmtTot":"","rmrk":""},
+			{"itemNm":"사과(전문)",	"seNm":"생산자조직(전속출하)",	"prdcrOgnzNm":"B", 		"slsCnsgnPrchsAmt":"10170","uoSpmtAmt":"20170","uoOtherSpmtAmt":"1680"		,"SpmtAmtTot":"","rmrk":""},
+			{"itemNm":"사과(전문)",	"seNm":"생산자조직(전속출하)",	"prdcrOgnzNm":"C", 		"slsCnsgnPrchsAmt":"10180","uoSpmtAmt":"20180","uoOtherSpmtAmt":"1690"		,"SpmtAmtTot":"","rmrk":""},
+			{"itemNm":"사과(전문)",	"seNm":"생산자조직 외",		"prdcrOgnzNm":"농가,법인 등",	"slsCnsgnPrchsAmt":"10190","uoSpmtAmt":"20190","uoOtherSpmtAmt":"1700"		,"SpmtAmtTot":"","rmrk":""},
+			{"itemNm":"딸기(전문)",	"seNm":"생산자조직(전속출하)",	"prdcrOgnzNm":"D",			"slsCnsgnPrchsAmt":"10200","uoSpmtAmt":"20200","uoOtherSpmtAmt":"1710"		,"SpmtAmtTot":"","rmrk":""},
+			{"itemNm":"딸기(전문)",	"seNm":"생산자조직(전속출하)",	"prdcrOgnzNm":"E",			"slsCnsgnPrchsAmt":"10210","uoSpmtAmt":"20210","uoOtherSpmtAmt":"1720"		,"SpmtAmtTot":"","rmrk":""},
+			{"itemNm":"딸기(전문)",	"seNm":"생산자조직(전속출하)",	"prdcrOgnzNm":"F",			"slsCnsgnPrchsAmt":"10220","uoSpmtAmt":"20220","uoOtherSpmtAmt":"1730"		,"SpmtAmtTot":"","rmrk":""},
+			{"itemNm":"딸기(전문)",	"seNm":"생산자조직 외",		"prdcrOgnzNm":"농가,법인 등",	"slsCnsgnPrchsAmt":"10230","uoSpmtAmt":"20230","uoOtherSpmtAmt":"1740"		,"SpmtAmtTot":"","rmrk":""},
+			{"itemNm":"배(육성)",	"seNm":"생산자조직(전속출하)",	"prdcrOgnzNm":"G",			"slsCnsgnPrchsAmt":"10240","uoSpmtAmt":"20240","uoOtherSpmtAmt":"1750"		,"SpmtAmtTot":"","rmrk":""},
+			{"itemNm":"배(육성)",	"seNm":"생산자조직(전속출하)",	"prdcrOgnzNm":"H",			"slsCnsgnPrchsAmt":"10250","uoSpmtAmt":"20250","uoOtherSpmtAmt":"1720"		,"SpmtAmtTot":"","rmrk":""},
+			{"itemNm":"배(육성)",	"seNm":"생산자조직 외",		"prdcrOgnzNm":"농가,법인 등",	"slsCnsgnPrchsAmt":"10260","uoSpmtAmt":"20260","uoOtherSpmtAmt":"1730"		,"SpmtAmtTot":"","rmrk":""}
 		];
 		grdPrdcrOgnCurntMng01.rebuild();
     }
@@ -552,8 +553,8 @@
     		,corpDtlSeCd : corpDtlSeCd
 
     		,corpNm : corpNm
+    		,yr : yr
     		</c:if>
-    		//,yr : yr
     		<c:if test="${loginVO.userType eq '21'}">
 			,userType : '21'
     		</c:if>
@@ -580,6 +581,7 @@
 						,crno: item.crno
 						,brno: item.brno
 						,yr: item.yr
+						,stbltYn: item.stbltYn
 				}
 				jsonPrdcrOgnCurntMng.push(PrdcrOgnCurntMngVO);
 				if (index === 0) {
@@ -699,7 +701,7 @@
 				let PrdcrOgnCurntMngVO = {
 						itemNm: itemNm
 						,seNm: item.seNm
-						,flnm: item.flnm
+						,prdcrOgnzNm: item.prdcrOgnzNm
 						,slsCnsgnPrchsAmt: item.slsCnsgnPrchsAmt
 						,uoSpmtAmt: item.uoSpmtAmt
 						,uoOtherSpmtAmt: item.uoOtherSpmtAmt

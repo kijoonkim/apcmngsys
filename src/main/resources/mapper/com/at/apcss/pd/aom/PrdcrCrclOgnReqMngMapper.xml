@@ -171,6 +171,7 @@
 				, CM.UO_NM
 				, CM.UNTY_YR
 				, CM.APRV
+				, CM.STBLT_YN
 
 				, EAM.YR
 				, EAM.APLY_DAY
