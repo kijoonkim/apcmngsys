@@ -63,7 +63,7 @@ public class LoginServiceImpl extends EgovAbstractServiceImpl implements LoginSe
 		String enpassword = EgovFileScrty.encryptPassword(vo.getPassword(), vo.getId());
 		vo.setPassword(enpassword);
 
-		System.out.println(String.format("enpassword: %s", enpassword));
+		//System.out.println(String.format("enpassword: %s", enpassword));
 
 		// 2. 아이디와 암호화된 비밀번호가 DB와 일치하는지 확인한다.
     	LoginVO loginVO = loginMapper.actionLogin(vo);
