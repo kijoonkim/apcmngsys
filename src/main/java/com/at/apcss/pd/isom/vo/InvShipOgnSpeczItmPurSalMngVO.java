@@ -24,6 +24,7 @@ public class InvShipOgnSpeczItmPurSalMngVO extends ComVO{
 	private String yr;
 	private String ctgryCd;
 	private String itemCd;
+	private String isoBrno;
 	private String prdcrOgnzSn;
 	private String prdcrOgnzCd;
 	private String prdcrOgnzNm;

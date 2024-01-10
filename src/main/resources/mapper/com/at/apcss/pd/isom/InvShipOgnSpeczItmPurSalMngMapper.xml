@@ -113,6 +113,7 @@
 				, ST.ITEM_CD
 				, ST.STTG_UPBR_ITEM_SE
 				, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = ST.ITEM_CD) AS ITEM_NM
+				, 0 AS ISO_BRNO
 				, ST.PRDCR_OGNZ_SN
 				, ST.PRDCR_OGNZ_CD
 				, ST.PRDCR_OGNZ_NM
@@ -145,6 +146,7 @@
 				, ITEM.ITEM_CD
 				, ITEM.STTG_UPBR_ITEM_SE
 				, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = ITEM.ITEM_CD) AS ITEM_NM
+				, 0 AS ISO_BRNO
 				, 0 AS PRDCR_OGNZ_SN
 				, '99' AS PRDCR_OGNZ_CD
 				, '농가 법인 등' AS PRDCR_OGNZ_NM
@@ -184,6 +186,7 @@
 				AND CLT.CTGRY_CD	 	= #{ctgryCd}
 				AND CLT.ITEM_CD 		= #{itemCd}
 				AND CLT.PRDCR_OGNZ_SN 	= #{prdcrOgnzSn}
+				AND CLT.ISO_BRNO 		= #{isoBrno}
 				)
 		WHEN MATCHED THEN
 				 UPDATE
@@ -208,6 +211,7 @@
 					   AND CLT.CTGRY_CD	 		= #{ctgryCd}
 					   AND CLT.ITEM_CD 			= #{itemCd}
 					   AND CLT.PRDCR_OGNZ_SN 	= #{prdcrOgnzSn}
+					   AND CLT.ISO_BRNO 		= #{isoBrno}
 		WHEN NOT MATCHED THEN
 			 INSERT
 		    		(
@@ -218,6 +222,7 @@
 		    		  , YR
 		    		  , CTGRY_CD
 		    		  , ITEM_CD
+		    		  , ISO_BRNO
 		    		  , PRDCR_OGNZ_SN
 		    		  , PRDCR_OGNZ_CD
 
@@ -243,6 +248,7 @@
 		    		  , TO_CHAR(SYSDATE,'YYYY')
 		    		  , #{ctgryCd}
 		    		  , #{itemCd}
+		    		  , #{isoBrno}
 		    		  , #{prdcrOgnzSn}
 		    		  , #{prdcrOgnzCd}
 
