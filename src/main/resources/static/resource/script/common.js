@@ -213,7 +213,8 @@ async function gfn_setComCdSBSelect(_targetIds, _jsondataRef, _cdId, _apcCd) {
 			const cdVl = {
 				text: item.cdVlNm,
 				label: item.cdVlNm,
-				value: item.cdVl
+				value: item.cdVl,
+				mastervalue : item.cdNumVl
 			}
 			_jsondataRef.push(cdVl);
 		});
