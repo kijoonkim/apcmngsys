@@ -445,12 +445,12 @@
 	            {caption : ['판매위임(매입)금액(천원)','매입처'],
 	            	ref : "prdcrOgnzNm",   width : '150px',        style : 'text-align:center',     type : 'output'},
 	            {caption : ['판매위임(매입)금액(천원)','금액'],
-	            	ref : "uoSpmtAmt",   width : '100px',        style : 'text-align:right',      type : 'input',   format : { type:'number' , rule:'#,##0.00' }, merge:false},
+	            	ref : "uoSpmtAmt",   width : '100px',        style : 'text-align:right',      type : 'input',   format : { type:'number' , rule:'#,###' }, merge:false},
 
 	            {caption : ['판매(매출)금액<br>(천원)','판매(매출)금액<br>(천원)'],
-	            	ref : "uoOtherSpmtAmt",   width : '100px',        style : 'text-align:right',      type : 'input',   format : { type:'number' , rule:'#,##0.00' }, merge:false},
+	            	ref : "uoOtherSpmtAmt",   width : '100px',        style : 'text-align:right',      type : 'input',   format : { type:'number' , rule:'#,###' }, merge:false},
 	            {caption : ['비고','비고'],
-	            	ref : "rmrk",   width : '150px',        style : 'text-align:right',      type : 'input',   format : { type:'number' , rule:'#,##0.00' }, merge:false},
+	            	ref : "rmrk",   width : '150px',        style : 'text-align:right',      type : 'input',   format : { type:'number' , rule:'#,###' }, merge:false},
 
 	            {caption: ["상세내역"], 	ref: 'apoCd',   		hidden : true},
 		        {caption: ["상세내역"], 	ref: 'apoSe',   		hidden : true},
