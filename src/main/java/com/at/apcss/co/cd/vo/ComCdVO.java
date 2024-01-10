@@ -43,12 +43,14 @@ public class ComCdVO extends ComVO {
 	private String upCdVl;
 	private String cdNumVl;
 	private String cdChrVl;
+	private String useYn;
+	private String rmrk;
 
 	/**
 	 * 공통코드 목록
 	 */
 	private List<ComCdVO> comCdList;
-	
+
 	public List<ComCdVO> getComCdList() {
 		return comCdList == null ? null : comCdList.stream().collect(Collectors.toList());
 	}
@@ -56,7 +58,7 @@ public class ComCdVO extends ComVO {
 	public void setComCdList(List<ComCdVO> comCdList) {
 		this.comCdList = comCdList == null ? null : comCdList.stream().collect(Collectors.toList());
 	}
-	
+
 	/**
 	 * 공통코드상세 목록
 	 */

@@ -114,6 +114,8 @@
 			     , CD.CD_NUM_VL		AS CD_NUM_VL
 			     , CD.CD_CHR_VL		AS CD_CHR_VL
 			     , CD.DEL_YN		AS DEL_YN
+                 , CD.USE_YN        AS USE_YN
+                 , CD.RMRK          AS RMRK
 		]]>
 		<if test='apcCd != null and apcCd != ""'>
 			   	 , ROWNUM 			AS ROW_SEQ
