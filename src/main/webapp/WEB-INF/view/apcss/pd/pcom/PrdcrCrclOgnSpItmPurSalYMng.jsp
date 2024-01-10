@@ -290,23 +290,24 @@
 		SBUxMethod.set("srch-input-yr",year);//
 
 		fn_init();
-		fn_initSBSelect();
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
-		fn_search();
-	</c:if>
-	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
-		fn_dtlSearch();
-	</c:if>
 
 	});
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
-		fn_fcltMngCreateGrid();
+		await fn_fcltMngCreateGrid();
 	</c:if>
-		fn_fcltMngCreateGrid01();
+		await fn_fcltMngCreateGrid01();
 		//fn_fcltMngCreateGrid02();
+
+		await fn_initSBSelect();
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+		await fn_search();
+	</c:if>
+	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+		await fn_dtlSearch();
+	</c:if>
 	}
 
 	var jsonComCmptnInst = [];//관할기관
@@ -327,7 +328,7 @@
 			//검색조건
 			gfn_setComCdSBSelect('srch-input-cmptnInst', 	jsonComCmptnInst, 	'CMPTNC_INST'), //관할기관
 			gfn_setComCdSBSelect('srch-input-ctpv', 		jsonComCtpv, 	'CMPTN_INST_CTPV'), //시도
-			//gfn_setComCdSBSelect('srch-input-sgg', 			jsonComSgg, 	'CMPTN_INST_SIGUN'),//시군
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonComSgg, 	'CMPTN_INST_SIGUN'),//시군
 			gfn_setComCdSBSelect('srch-input-corpSeCd', 	jsonComCorpSeCd, 	'CORP_SE_CD'), //법인구분
 			gfn_setComCdSBSelect('srch-input-corpDtlSeCd', 	jsonComCorpDtlSeCd, 	'CORP_SHAP'), //법인형태
 			//gfn_setComCdSBSelect('srch-input-uoCd', 		jsonComUoCd, 	'UO_CD'), //통합조직코드

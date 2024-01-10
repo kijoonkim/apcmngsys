@@ -596,15 +596,15 @@
 
 			{caption: ["조직원수"], 					ref: 'cnt',   	type:'output',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["전속(약정)<br>출하계약량(톤)"], 	ref: 'ecSpmtVlmTot',   	type:'output',  width:'140px',    style:'text-align:center'
+			{caption: ["전속(약정)\n출하계약량(톤)"], 	ref: 'ecSpmtVlmTot',   	type:'output',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["전속(약정)<br>출하량(결과)(톤)"], 	ref: 'ecSpmtPlanVlmTot',   	type:'output',  width:'140px',    style:'text-align:center'
+			{caption: ["전속(약정)\n출하량(결과)(톤)"], 	ref: 'ecSpmtPlanVlmTot',   	type:'output',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["출하대금<br>지급액(천원)"], 		ref: 'spmtPrcTot',   	type:'output',  width:'140px',    style:'text-align:center'
+			{caption: ["출하대금\n지급액(천원)"], 		ref: 'spmtPrcTot',   	type:'output',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출하비율"], 					ref: 'ecSpmtRate',   	type:'output',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["적합여부"], 		ref: 'stbltYn',   	type:'output',  width:'30px',    style:'text-align:center'},
+			{caption: ["적합여부"], 		ref: 'stbltYn',   	type:'output',  width:'50px',    style:'text-align:center'},
 
 	        {caption: ["비고"], 			ref: 'rmrk',   		type:'input',  width:'220px',    style:'text-align:center'},
 	        {caption: ["상세내역"], 	ref: 'yr',   	hidden : true},
@@ -640,6 +640,7 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
+	    SBGridProperties.fixedrowheight=45;
 	    SBGridProperties.rowheader="seq";
 	    SBGridProperties.columns = [
 	        {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
@@ -663,11 +664,11 @@
 		    {caption: ["생산량(결과)(톤)"], ref: 'prdctnVlm',   	type:'input',  width:'140px',    style:'text-align:center'
 		        ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
-		    {caption: ["전속출하계약량(톤)"], ref: 'ecSpmtPlanVlm',   	type:'input',  width:'140px',    style:'text-align:center'
+		    {caption: ["전속(약정)\n출하계약량(톤)"], ref: 'ecSpmtPlanVlm',   	type:'input',  width:'140px',    style:'text-align:center'
 		       	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-		    {caption: ["전속출하량(결과)(톤)"], ref: 'ecSpmtVlm',   	type:'input',  width:'140px',    style:'text-align:center'
+		    {caption: ["전속(약정)\n출하량(결과)(톤)"], ref: 'ecSpmtVlm',   	type:'input',  width:'140px',    style:'text-align:center'
 		        ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-		    {caption: ["출하대금 지급액(천원)"], ref: 'spmtPrc',   	type:'input',  width:'140px',    style:'text-align:center'
+		    {caption: ["출하대금\n지급액(천원)"], ref: 'spmtPrc',   	type:'input',  width:'140px',    style:'text-align:center'
 		        ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
 	        {caption: ["가입일"], 		ref: 'joinDay',  	type:'datepicker',  width:'110px',    style:'text-align:center'
@@ -1488,29 +1489,29 @@
 	const fn_getExpColumns = function() {
 		const _columns = [];
 		_columns.push(
-			{caption: ["조직원명","조직원명","조직원명"], 		ref: 'flnm',   	type:'input',  width:'100px',    style:'text-align:center'},
-	        {caption: ["재배지 주소","재배지 주소","재배지 주소"], 	ref: 'cltvtnLandAddr',   	type:'input',  width:'500px',    style:'text-align:center'},
-	        {caption: ["생산","재배면적(㎡)","재배면적(㎡)"], 	ref: 'cltvtnSfc',   	type:'input',  width:'140px',    style:'text-align:center'
+			{caption: ["조직원명","조직원명"], 		ref: 'flnm',   	type:'input',  width:'100px',    style:'text-align:center'},
+	        {caption: ["재배지 주소","재배지 주소"], 	ref: 'cltvtnLandAddr',   	type:'input',  width:'500px',    style:'text-align:center'},
+	        {caption: ["생산","재배면적(㎡)"], 	ref: 'cltvtnSfc',   	type:'input',  width:'140px',    style:'text-align:center'
 	        	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["생산","(평년)생산량(톤)","(평년)생산량(톤)"], ref: 'avgYrPrdctnVlm',   	type:'input',  width:'140px',    style:'text-align:center'
+	        {caption: ["생산","(평년)생산량(톤)"], ref: 'avgYrPrdctnVlm',   	type:'input',  width:'140px',    style:'text-align:center'
 	        	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
-	        {caption: ["생산","생산계획량(톤)","생산계획량(톤)"], 	ref: 'prdctnPlanVlm',   	type:'input',  width:'140px',    style:'text-align:center'
+	        {caption: ["생산","생산계획량(톤)"], 	ref: 'prdctnPlanVlm',   	type:'input',  width:'140px',    style:'text-align:center'
 		       	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-		    {caption: ["생산","생산량(결과)(톤)","생산량(결과)(톤)"], ref: 'prdctnVlm',   	type:'input',  width:'140px',    style:'text-align:center'
+		    {caption: ["생산","생산량(결과)(톤)"], ref: 'prdctnVlm',   	type:'input',  width:'140px',    style:'text-align:center'
 		        ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
-		    {caption: ["계약","전속(약정) ","출하계약량(톤)"], 	ref: 'ecSpmtPlanVlm',   	type:'input',  width:'140px',    style:'text-align:center'
+		    {caption: ["계약","전속(약정)\n출하계약량(톤)"], 	ref: 'ecSpmtPlanVlm',   	type:'input',  width:'140px',    style:'text-align:center'
 		       	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-		    {caption: ["출하","전속(약정)","출하량(결과)(톤)"], 	ref: 'ecSpmtVlm',   	type:'input',  width:'140px',    style:'text-align:center'
+		    {caption: ["출하","전속(약정)\n출하량(결과)(톤)"], 	ref: 'ecSpmtVlm',   	type:'input',  width:'140px',    style:'text-align:center'
 		        ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-		    {caption: ["출하","출하대금","지급액(천원)"], 		ref: 'spmtPrc',   	type:'input',  width:'140px',    style:'text-align:center'
+		    {caption: ["출하","출하대금\n지급액(천원)"], 		ref: 'spmtPrc',   	type:'input',  width:'140px',    style:'text-align:center'
 		        ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["가입일","가입일","가입일"], 			ref: 'joinDay',  	type:'datepicker',  width:'110px',    style:'text-align:center'
+	        {caption: ["가입일","가입일"], 			ref: 'joinDay',  	type:'datepicker',  width:'110px',    style:'text-align:center'
 	        	,typeinfo : {locale : 'ko' , dateformat :'yymmdd' , yearrange : 150}, format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd' }},
-	        //{caption: ["탈퇴일","탈퇴일","탈퇴일"], 			ref: 'whdwlDay',  	type:'datepicker',  width:'110px',    style:'text-align:center'
+	        //{caption: ["탈퇴일","탈퇴일"], 			ref: 'whdwlDay',  	type:'datepicker',  width:'110px',    style:'text-align:center'
 	        	//,typeinfo : {locale : 'ko' , dateformat :'yymmdd' , yearrange : 150}, format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd' }},
-	        {caption: ["비고","비고","비고"],				ref: 'cltvtnAreaRmrk',      	type:'input',  width:'300px',    style:'text-align:center'},
+	        {caption: ["비고","비고"],				ref: 'cltvtnAreaRmrk',      	type:'input',  width:'300px',    style:'text-align:center'},
 		);
 
 		return _columns;
@@ -1582,7 +1583,7 @@
 		let prdcrOgnzNm = SBUxMethod.get('dtl-input-prdcrOgnzNm');
 		let yr = SBUxMethod.get('dtl-input-yr');
 
- 		for ( let iRow = 3; iRow < impData.length+3; iRow++ ) {
+ 		for ( let iRow = 2; iRow < impData.length+2; iRow++ ) {
 
  			const rowData = _grdImp.getRowData(iRow);
 
@@ -1631,7 +1632,8 @@
  			rowData.rowSts = "I";
 
 			console.log(rowData);
-
+			let date = rowData.joinDay;
+			console.log(date.replaceAll("[^0-9]",""));
 			//저장할데이터
  	    	const pckgPrfmnc = {
 				apoCd: rowData.apoCd,

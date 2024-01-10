@@ -1095,7 +1095,7 @@
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
 				SBUxMethod.set("dtl-input-apoCd", item.apoCd);
-				SBUxMethod.set("dtl-input-crno", item.brno);
+				SBUxMethod.set("dtl-input-crno", item.crno);
 				SBUxMethod.set("dtl-input-brno", item.brno);
 				SBUxMethod.set("dtl-input-corpNm", item.corpNm);
 				SBUxMethod.set("dtl-input-corpSeCd", item.corpSeCd);
@@ -1132,18 +1132,19 @@
     const fn_save = async function() {
     	console.log("******************fn_save**********************************");
 
-    	let apoCd = SBUxMethod.get("dtl-input-apoCd");
+    	//let apoCd = SBUxMethod.get("dtl-input-apoCd");
 
     	//필수값 체크
     	//fn_checkRequiredInput();
-
+		/*
     	if (gfn_isEmpty(apoCd)) {
     		// 신규 등록
 			return;
     	} else {
     		// 변경 저장
-    		fn_subUpdate(confirm("저장 하시겠습니까?"));
     	}
+		*/
+    	fn_subUpdate(confirm("저장 하시겠습니까?"));
     }
 
     const fn_checkRequiredInput = async function (){
@@ -1465,13 +1466,17 @@
 	// Grid Row 추가 및 삭제 기능
     function fn_procRow(gubun, grid, nRow, nCol) {
         if (grid === "grdInvShipOgnReqMng01") {
-        	var delMsg = "삭제 하시겠습니까?";
+        	var vo = grdInvShipOgnReqMng01.getRowData(nRow);
+        	var delMsg = '"' + vo.corpNm + '" 과의 조직관계를 삭제 하시겠습니까?';
         	if(confirm(delMsg)){
-        		var vo = grdInvShipOgnReqMng01.getRowData(nRow);
+        		var reDelMsg = '"' + vo.corpNm + '" 과의 조직관계를 삭제 하시겠습니까?';
+        		if(confirm(reDelMsg)){
         		//console.log(vo);
         		fn_deleteRsrc(vo,nRow);
         		//grdInvShipOgnReqMng01.deleteRow(nRow);
+        		}
         	}
+
         }
     }
 
