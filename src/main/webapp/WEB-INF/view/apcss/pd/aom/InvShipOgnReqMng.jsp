@@ -283,6 +283,21 @@
 					<div id="sb-area-grdInvShipOgnReqMng01" style="height:250px; width: 100%;"></div>
 				</div>
 			</c:if>
+			<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+				<c:if test="${loginVO.userType eq '22'}">
+					<div class="ad_section_top">
+						<div class="ad_tbl_top">
+							<ul class="ad_tbl_count">
+								<li>
+									<span style="font-size:14px">▶출자출하조직이 속한 통합조직 리스트</span>
+								</li>
+							</ul>
+						</div>
+					<!-- SBGrid를 호출합니다. -->
+					<div id="sb-area-grdInvShipOgnReqMng02" style="height:250px; width: 100%;"></div>
+				</div>
+				</c:if>
+			</c:if>
 				<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
@@ -327,6 +342,8 @@
 							<td colspan="2" class="td_input">
 								<sbux-input uitype="hidden" id="dtl-input-apoCd" name="dtl-input-apoCd"></sbux-input>
 								<sbux-input uitype="hidden" id="dtl-input-apoSe" name="dtl-input-apoSe"></sbux-input>
+								<sbux-input uitype="hidden" id="dtl-input-uoBrno" name="dtl-input-uoBrno"></sbux-input>
+								<sbux-input uitype="hidden" id="dtl-input-uoBrno" name="dtl-input-uoCd"></sbux-input>
 								<sbux-input
 									uitype="text"
 									id="dtl-input-crno"
@@ -796,6 +813,9 @@
 		<c:if test="${loginVO.userType eq '21'}">
 		fn_fcltMngCreateGrid01();
 		</c:if>
+		<c:if test="${loginVO.userType eq '22'}">
+		fn_fcltMngCreateGrid02();
+		</c:if>
 	</c:if>
 	}
 
@@ -895,6 +915,60 @@
 
 	}
 
+	var jsonInvShipOgnReqMng02 = []; // 그리드의 참조 데이터 주소 선언
+	var grdInvShipOgnReqMng02;
+
+	/* 출하조직 사용자 화면 출자출하조직이 속한 그리드 리스트 */
+	const fn_fcltMngCreateGrid02 = async function() {
+
+		let SBGridProperties = {};
+	    SBGridProperties.parentid = 'sb-area-grdInvShipOgnReqMng02';
+	    SBGridProperties.id = 'grdInvShipOgnReqMng02';
+	    SBGridProperties.jsonref = 'jsonInvShipOgnReqMng02';
+	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
+	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.columns = [
+	    	{caption: ["seq"], 			ref: 'apoCd',   	hidden : true},
+	    	{caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+	    		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdInvShipOgnReqMng02\", " + nRow + ")'>삭제</button>";
+	        }},
+	    	//{caption: ["순번"], 				ref: 'aa',   	type:'output',  width:'50px',    style:'text-align:center'},
+	    	{caption: ["업체명"], 			ref: 'corpNm',   	type:'output',  width:'220px',    style:'text-align:center'},
+	    	{caption: ["대표자명"], 			ref: 'rprsvFlnm',   	type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["사업자번호"], 			ref: 'brno',   	type:'output',  width:'220px',    style:'text-align:center'},
+	        {caption: ["전화번호"], 			ref: 'rprsvTelno',   	type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["법인형태"], 			ref: 'corpDtlSeCd',  	type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["출자자수"], 			ref: 'invstNope',   	type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["출자자 중 농업인수"], 	ref: 'invstExpndFrmerNope',   	type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["농업인 출자 지분율"], 	ref: 'frmerInvstAmtRt',   	type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["2024 자금신청액"], 	ref: 'isoFundAplyAmt',   	type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["비고"], 				ref: 'rmrk',   	type:'output',  width:'120px',    style:'text-align:center'},
+
+	        //{caption: ["상세내역"], 	ref: 'isoFundAplyAmt',   	hidden : true},
+	        {caption: ["상세내역"], 	ref: 'aplyTrgtSe',   		hidden : true},
+	        {caption: ["상세내역"], 	ref: 'yr',   				hidden : true},
+	        {caption: ["상세내역"], 	ref: 'uoBrno',   			hidden : true},
+	        {caption: ["상세내역"], 	ref: 'crno',   				hidden : true},
+	        {caption: ["상세내역"], 	ref: 'corpSeCd',   			hidden : true},
+	        {caption: ["상세내역"], 	ref: 'corpFndnDay',   		hidden : true},
+	        {caption: ["상세내역"], 	ref: 'invstAmt',   			hidden : true},
+	        {caption: ["상세내역"], 	ref: 'frmerInvstAmt',   	hidden : true},
+	        {caption: ["상세내역"], 	ref: 'prdcrGrpInvstAmt',   	hidden : true},
+	        {caption: ["상세내역"], 	ref: 'locgovInvstAmt',   	hidden : true},
+	        {caption: ["상세내역"], 	ref: 'etcInvstAmt',   		hidden : true},
+	        {caption: ["상세내역"], 	ref: 'fxno',   				hidden : true}
+	    ];
+
+	    grdInvShipOgnReqMng02 = _SBGrid.create(SBGridProperties);
+
+		//grdInvShipOgnReqMng02.refresh({"combo":true});
+	  	//클릭 이벤트 바인드
+	    grdInvShipOgnReqMng02.bind('click','fn_view02');
+
+	}
+
 	/**
      * 목록 조회
      */
@@ -912,7 +986,8 @@
     	let currentPageNo = grdInvShipOgnReqMng.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
     	fn_setGrdFcltList(recordCountPerPage, currentPageNo);
     }
-	const fn_pagingBbsList = async function() {
+
+	const fn_clearGrid = async function() {
 		jsonInvShipOgnReqMng01.length=0;
 		grdInvShipOgnReqMng01.rebuild();
     }
@@ -1044,6 +1119,7 @@
 						,corpNm: item.corpNm
 						,rprsvFlnm: item.rprsvFlnm
 						,brno: item.brno
+						,uoBrno: item.uoBrno
 						,rprsvTelno: item.rprsvTelno
 						,corpDtlSeCd: item.corpDtlSeCd
 						,invstNope: item.invstNope
@@ -1091,38 +1167,53 @@
 		});
         let data = await postJsonPromise;
         try{
-        	jsonInvShipOgnReqMng01.length = 0;
+        	jsonInvShipOgnReqMng02.length = 0;
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
-				SBUxMethod.set("dtl-input-apoCd", item.apoCd);
-				SBUxMethod.set("dtl-input-crno", item.brno);
-				SBUxMethod.set("dtl-input-brno", item.brno);
-				SBUxMethod.set("dtl-input-corpNm", item.corpNm);
-				SBUxMethod.set("dtl-input-corpSeCd", item.corpSeCd);
-				SBUxMethod.set("dtl-input-corpDtlSeCd", item.corpDtlSeCd);
-				SBUxMethod.set("dtl-input-corpFndnDay", item.corpFndnDay);
-				SBUxMethod.set("dtl-input-invstNope", item.invstNope);
-				SBUxMethod.set("dtl-input-invstExpndFrmerNope", item.invstExpndFrmerNope);
-				SBUxMethod.set("dtl-input-invstAmt", item.invstAmt);
-				SBUxMethod.set("dtl-input-frmerInvstAmt", item.frmerInvstAmt);
-				SBUxMethod.set("dtl-input-prdcrGrpInvstAmt", item.prdcrGrpInvstAmt);
-				SBUxMethod.set("dtl-input-locgovInvstAmt", item.locgovInvstAmt);
-				SBUxMethod.set("dtl-input-etcInvstAmt", item.etcInvstAmt);
-				SBUxMethod.set("dtl-input-rprsvFlnm", item.rprsvFlnm);
-				SBUxMethod.set("dtl-input-rprsvTelno", item.rprsvTelno);
-				SBUxMethod.set("dtl-input-fxno", item.fxno);
+				let InvShipOgnReqMngVO = {
+						apoCd: item.apoCd
+						,corpNm: item.corpNm
+						,rprsvFlnm: item.rprsvFlnm
+						,brno: item.brno
+						,uoBrno: item.uoBrno
+						,rprsvTelno: item.rprsvTelno
+						,corpDtlSeCd: item.corpDtlSeCd
+						,invstNope: item.invstNope
+						,invstExpndFrmerNope: item.invstExpndFrmerNope
 
-				//SBUxMethod.set("dtl-input-aplyTrgtSe", item.aplyTrgtSe);
-				SBUxMethod.set("dtl-input-isoFundAplyAmt", item.isoFundAplyAmt);
+						,crno: item.crno
+						,corpSeCd: item.corpSeCd
+						,corpFndnDay: item.corpFndnDay
+						,invstAmt: item.invstAmt
+						,frmerInvstAmt: item.frmerInvstAmt
+						,prdcrGrpInvstAmt: item.prdcrGrpInvstAmt
+						,locgovInvstAmt: item.locgovInvstAmt
+						,etcInvstAmt: item.etcInvstAmt
+						,rprsvFlnm: item.rprsvFlnm
+						,rprsvTelno: item.rprsvTelno
+						,fxno: item.fxno
+						,isoFundAplyAmt: item.isoFundAplyAmt
+						,aplyTrgtSe: item.aplyTrgtSe
+						,yr: item.yr
 
-				SBUxMethod.set("dtl-input-frmerInvstAmtRt", item.frmerInvstAmtRt);
+						,uoApoCd: item.uoApoCd
+						,uoApoSe: item.uoApoSe
+						,uoCorpNm: item.uoCorpNm
+
+						,frmerInvstAmtRt: item.frmerInvstAmtRt
+
+				}
+				jsonInvShipOgnReqMng02.push(InvShipOgnReqMngVO);
 			});
-        }catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        }
+
+	    	grdInvShipOgnReqMng02.rebuild();
+
+	    }catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+	    }
 	}
 
 
@@ -1139,6 +1230,7 @@
 
     	if (gfn_isEmpty(apoCd)) {
     		// 신규 등록
+
 			return;
     	} else {
     		// 변경 저장
@@ -1200,12 +1292,13 @@
 	const fn_subUpdate = async function (isConfirmed){
 		console.log("******************fn_subUpdate**********************************");
 		if (!isConfirmed) return;
-		var a = SBUxMethod.get('dtl-input-isoFundAplyAmt');
 
 		const postJsonPromise = gfn_postJSON("/pd/aom/insertInvShipOgnReqMng.do", {
 			apoCd: SBUxMethod.get('dtl-input-apoCd')//
    	 		,apoSe: SBUxMethod.get('dtl-input-apoSe')//
 			,brno: SBUxMethod.get('dtl-input-brno')//
+			,uoCd: SBUxMethod.get('dtl-input-uoCd')//
+			,uoBrno: SBUxMethod.get('dtl-input-uoBrno')//
 			,crno: SBUxMethod.get('dtl-input-crno')//
 			,corpNm: SBUxMethod.get('dtl-input-corpNm')//
    	 		,isoFundAplyAmt: SBUxMethod.get('dtl-input-isoFundAplyAmt')//
@@ -1252,13 +1345,15 @@
         let rowData = grdInvShipOgnReqMng.getRowData(nRow);
 		console.log(rowData);
 
+		SBUxMethod.set("dtl-input-uoCd", rowData.apoCd);
+		SBUxMethod.set("dtl-input-uoBrno", rowData.brno);
+
 		let uoBrno = rowData.brno
 		let apoCd = rowData.apoCd
 
 		let postJsonPromise = gfn_postJSON("/pd/aom/selectInvShipOgnReqMngList.do", {
 			uoBrno : uoBrno
-    		,apoCd : apoCd
-
+    		//,apoCd : apoCd
 		});
         let data = await postJsonPromise;
         try{
@@ -1267,10 +1362,10 @@
         	data.resultList.forEach((item, index) => {
 				let InvShipOgnReqMngVO = {
 						apoCd: item.apoCd
-						,uoBrno: uoBrno
 						,corpNm: item.corpNm
 						,rprsvFlnm: item.rprsvFlnm
 						,brno: item.brno
+						,uoBrno: item.uoBrno
 						,rprsvTelno: item.rprsvTelno
 						,corpDtlSeCd: item.corpDtlSeCd
 						,invstNope: item.invstNope
@@ -1331,8 +1426,9 @@
 		console.log(rowData);
 
 		SBUxMethod.set("dtl-input-apoCd", rowData.apoCd);
-		SBUxMethod.set("dtl-input-crno", rowData.brno);
+		SBUxMethod.set("dtl-input-crno", rowData.crno);
 		SBUxMethod.set("dtl-input-brno", rowData.brno);
+		//SBUxMethod.set("dtl-input-uoBrno", rowData.uoBrno);
 		SBUxMethod.set("dtl-input-corpNm", rowData.corpNm);
 		SBUxMethod.set("dtl-input-corpSeCd", rowData.corpSeCd);
 		SBUxMethod.set("dtl-input-corpDtlSeCd", rowData.corpDtlSeCd);
@@ -1353,6 +1449,82 @@
 
 		SBUxMethod.set("dtl-input-frmerInvstAmtRt", rowData.frmerInvstAmtRt);
     }
+
+	//출자출하조직이 속한 통합조직 리스트 상세 조회
+	function fn_view02() {
+		console.log("******************fn_view**********************************");
+
+		fn_clearForm02();
+	    //데이터가 존재하는 그리드 범위 확인
+		var nCol = grdInvShipOgnReqMng02.getCol();
+	    if (nCol < 1) {
+	        return;
+	    }
+	    var nRow = grdInvShipOgnReqMng02.getRow();
+		if (nRow < 1) {
+	        return;
+		}
+		if(nRow == null){
+			nRow = 1;
+		}
+		fn_clearForm();
+
+		//해당 로우 데이터로 출자출하조직 리스트 조회
+        let rowData = grdInvShipOgnReqMng02.getRowData(nRow);
+		console.log(rowData);
+
+		SBUxMethod.set("dtl-input-apoCd", rowData.apoCd);
+		SBUxMethod.set("dtl-input-crno", rowData.crno);
+		SBUxMethod.set("dtl-input-brno", rowData.brno);
+		SBUxMethod.set("dtl-input-uoBrno", rowData.uoBrno);
+		SBUxMethod.set("dtl-input-uoCd", rowData.uoApoCd);
+		SBUxMethod.set("dtl-input-corpNm", rowData.corpNm);
+		SBUxMethod.set("dtl-input-corpSeCd", rowData.corpSeCd);
+		SBUxMethod.set("dtl-input-corpDtlSeCd", rowData.corpDtlSeCd);
+		SBUxMethod.set("dtl-input-corpFndnDay", rowData.corpFndnDay);
+		SBUxMethod.set("dtl-input-invstNope", rowData.invstNope);
+		SBUxMethod.set("dtl-input-invstExpndFrmerNope", rowData.invstExpndFrmerNope);
+		SBUxMethod.set("dtl-input-invstAmt", rowData.invstAmt);
+		SBUxMethod.set("dtl-input-frmerInvstAmt", rowData.frmerInvstAmt);
+		SBUxMethod.set("dtl-input-prdcrGrpInvstAmt", rowData.prdcrGrpInvstAmt);
+		SBUxMethod.set("dtl-input-locgovInvstAmt", rowData.locgovInvstAmt);
+		SBUxMethod.set("dtl-input-etcInvstAmt", rowData.etcInvstAmt);
+		SBUxMethod.set("dtl-input-rprsvFlnm", rowData.rprsvFlnm);
+		SBUxMethod.set("dtl-input-rprsvTelno", rowData.rprsvTelno);
+		SBUxMethod.set("dtl-input-fxno", rowData.fxno);
+
+		SBUxMethod.set("dtl-input-isoFundAplyAmt", rowData.isoFundAplyAmt);
+
+		SBUxMethod.set("dtl-input-frmerInvstAmtRt", rowData.frmerInvstAmtRt);
+
+    }
+
+	const fn_clearForm02 = function() {
+		SBUxMethod.set("dtl-input-apoCd", null);
+		SBUxMethod.set("dtl-input-crno", null);
+		SBUxMethod.set("dtl-input-brno", null);
+		SBUxMethod.set("dtl-input-uoBrno", null);
+		SBUxMethod.set("dtl-input-uoCd", null);
+		SBUxMethod.set("dtl-input-corpNm", null);
+		SBUxMethod.set("dtl-input-corpSeCd", null);
+		SBUxMethod.set("dtl-input-corpDtlSeCd", null);
+		SBUxMethod.set("dtl-input-corpFndnDay", null);
+		SBUxMethod.set("dtl-input-invstNope", null);
+		SBUxMethod.set("dtl-input-invstExpndFrmerNope", null);
+		SBUxMethod.set("dtl-input-invstAmt", null);
+		SBUxMethod.set("dtl-input-frmerInvstAmt", null);
+		SBUxMethod.set("dtl-input-prdcrGrpInvstAmt", null);
+		SBUxMethod.set("dtl-input-locgovInvstAmt", null);
+		SBUxMethod.set("dtl-input-etcInvstAmt", null);
+		SBUxMethod.set("dtl-input-rprsvFlnm", null);
+		SBUxMethod.set("dtl-input-rprsvTelno", null);
+		SBUxMethod.set("dtl-input-fxno", null);
+
+		//SBUxMethod.set("dtl-input-aplyTrgtSe", null);
+		SBUxMethod.set("dtl-input-isoFundAplyAmt", null);
+
+		SBUxMethod.set("dtl-input-frmerInvstAmtRt", null);
+	}
 
 	//신규
     function fn_create() {
@@ -1388,6 +1560,8 @@
 		SBUxMethod.set("dtl-input-apoCd", null);
 		SBUxMethod.set("dtl-input-crno", null);
 		SBUxMethod.set("dtl-input-brno", null);
+		SBUxMethod.set("dtl-input-uoBrno", null);
+		SBUxMethod.set("dtl-input-uoCd", null);
 		SBUxMethod.set("dtl-input-corpNm", null);
 		SBUxMethod.set("dtl-input-corpSeCd", null);
 		SBUxMethod.set("dtl-input-corpDtlSeCd", null);

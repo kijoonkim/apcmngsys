@@ -863,6 +863,7 @@
 									mask="{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 									autocomplete="off"
 									onkeyup="fn_fundAplyAmt"
+									readonly
 								></sbux-input>
 							</td>
 						</tr>
@@ -1291,7 +1292,6 @@
 
     	let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
     		brno : brno
-    		,
 		});
         let data = await postJsonPromise;
         try{
