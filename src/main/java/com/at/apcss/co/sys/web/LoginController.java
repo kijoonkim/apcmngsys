@@ -103,6 +103,7 @@ public class LoginController extends BaseController {
 		*/
 		//logger.debug("map {}", map.toString());
 		
+		logger.debug("loginVO {}", loginVO.toString());
 		
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		//LoginVO loginVO = new LoginVO();
