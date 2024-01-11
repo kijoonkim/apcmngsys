@@ -22,26 +22,21 @@
 	<!-- ==========================================================================	-->
     <select id="selectSpmtPckgUnit" parameterType="com.at.apcss.am.cmns.vo.SpmtPckgUnitVO" resultType="com.at.apcss.am.cmns.vo.SpmtPckgUnitVO">
     	<![CDATA[
-    		SELECT pt0.*
-    		     , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 					AS ITEM_NM
-    		     , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) 		AS VRTY_NM
-    		     , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) 	AS SPCFCT_NM
-    		     , (SELECT FN_GET_COM_CD_VL_NM('GDS_GRD', pt0.GDS_GRD) FROM DUAL) 				AS GDS_GRD_NM
-    		 FROM (
-			    	SELECT /* com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.selectSpmtPckgUnit */
-						   SPU.APC_CD               AS APC_CD
-					     , SPU.SPMT_PCKG_UNIT_CD    AS SPMT_PCKG_UNIT_CD
-					     , SPU.SPMT_PCKG_UNIT_NM    AS SPMT_PCKG_UNIT_NM
-					     , SPU.ITEM_CD				AS ITEM_CD
-					     , SPU.VRTY_CD              AS VRTY_CD
-					     , SPU.SPCFCT_CD            AS SPCFCT_CD
-					     , SPU.NTSL_UNTPRC          AS NTSL_UNTPRC
-					     , SPU.DEL_YN               AS DEL_YN
-					     , SPU.GDS_GRD				AS GDS_GRD
-					     , SPU.BRND_NM				AS BRND_NM
-					  FROM TB_SPMT_PCKG_UNIT SPU
-				     WHERE SPU.APC_CD = #{apcCd}
-		     	) pt0
+	    	SELECT /* com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.selectSpmtPckgUnit */
+				   SPU.APC_CD               AS APC_CD
+			     , SPU.SPMT_PCKG_UNIT_CD    AS SPMT_PCKG_UNIT_CD
+			     , SPU.SPMT_PCKG_UNIT_NM    AS SPMT_PCKG_UNIT_NM
+			     , SPU.ITEM_CD				AS ITEM_CD
+			     , SPU.VRTY_CD              AS VRTY_CD
+			     , SPU.SPCFCT_CD            AS SPCFCT_CD
+			     , SPU.NTSL_UNTPRC          AS NTSL_UNTPRC
+			     , SPU.DEL_YN               AS DEL_YN
+			     , SPU.GDS_GRD				AS GDS_GRD
+			     , SPU.BRND_NM				AS BRND_NM
+			  FROM TB_SPMT_PCKG_UNIT SPU
+		     WHERE SPU.APC_CD = #{apcCd}
+		       AND SPU.SPMT_PCKG_UNIT_CD = #{spmtPckgUnitCd}
+		       AND SPU.DEL_YN = 'N'
 		]]>
     </select>
 
@@ -115,6 +110,8 @@
 			   AND SPU.SPMT_PCKG_UNIT_NM LIKE '%' ||  #{spmtPckgUnitNm} || '%'
 		</if>
 		<![CDATA[
+			  ORDER BY APC_CD, ITEM_CD, SPMT_PCKG_UNIT_CD
+		
 			) pt0
 		]]>
 		<!-- Start 페이징 -->
