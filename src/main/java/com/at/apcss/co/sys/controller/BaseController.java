@@ -55,6 +55,13 @@ public abstract class BaseController {
 	private String reportPath;
 
 	private String loginUrl;
+
+	private String filepathRoot;
+	private String filepathAm;
+	private String filepathCo;
+	private String filepathFm;
+	private String filepathPd;
+	
 	
 	@PostConstruct
 	protected void init() {
@@ -63,8 +70,48 @@ public abstract class BaseController {
 		reportType = env.getProperty("spring.report.type");
 		reportPath = env.getProperty("spring.report.path");
 		loginUrl = env.getProperty("apcss.login.url");
+		
+		filepathRoot = env.getProperty("apcss.filepath.root");
+		filepathAm = env.getProperty("apcss.filepath.am");
+		filepathCo = env.getProperty("apcss.filepath.co");
+		filepathFm = env.getProperty("apcss.filepath.fm");
+		filepathPd = env.getProperty("apcss.filepath.pd");
 	}
 
+	/**
+	 * @return [저장파일 경로 : Root]
+	 */
+	protected String getFilepathRoot() {
+		return filepathRoot;
+	}
+	/**
+	 * @return [저장파일 경로 : AM]
+	 */
+	protected String getFilepathAm() {
+		return filepathAm;
+	}
+	/**
+	 * @return [저장파일 경로 : CO]
+	 */
+	protected String getFilepathCo() {
+		return filepathCo;
+	}
+	/**
+	 * @return [저장파일 경로 : FM]
+	 */
+	protected String getFilepathFm() {
+		return filepathFm;
+	}
+	/**
+	 * @return [저장파일 경로 : PD]
+	 */
+	protected String getFilepathPd() {
+		return filepathPd;
+	}
+	
+	/**
+	 * @return [로그인 url]
+	 */
 	protected String getLoginUrl() {
 		return loginUrl;
 	}

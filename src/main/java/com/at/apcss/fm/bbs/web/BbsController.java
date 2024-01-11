@@ -70,8 +70,8 @@ import org.w3c.dom.NodeList;
 public class BbsController extends BaseController {
 
 	//파일 업로드 경로
-	@Value("${upload.path}")
-    private String uploadPath;
+	//@Value("${upload.path}")
+    //private String uploadPath = getFilepathFm();
 
 	// 게시판
 	@Resource(name= "bbsService")
@@ -327,6 +327,8 @@ public class BbsController extends BaseController {
     @PostMapping("/fm/bbs/fileUpload.do")
     public ResponseEntity<HashMap<String, Object>> handleFileUpload(@RequestParam("files") List<MultipartFile> files,@RequestParam("bbsNo") String bbsNo, RedirectAttributes redirectAttributes) throws Exception{
 
+    	String uploadPath = getFilepathFm();
+    	
     	System.out.println("======================/fm/bbs/fileUpload.do==========================");
 
     	//String curWorkingDir = System.getProperty("user.dir");
@@ -394,6 +396,8 @@ public class BbsController extends BaseController {
 
     private String makeFolder(){
 
+    	String uploadPath = getFilepathFm();
+    	
       	String str = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
         //LocalDate를 문자열로 포멧
         String folderPath = str.replace("/", File.separator);
@@ -439,11 +443,12 @@ public class BbsController extends BaseController {
     @GetMapping("/download/{atchflno}")
     public void downloadFile(@PathVariable String atchflno, HttpServletRequest requset, HttpServletResponse response) throws Exception {
 
+    	String uploadPath = getFilepathFm();
+    	
     	System.out.println("============/fm/bbs/downloadFile.do=============");
     	BbsFileVO bbsFileVO = new BbsFileVO();
     	bbsFileVO.setAtchflno(atchflno);
     	BbsFileVO result;
-
 
     	result = bbsService.selectBbsAttaches(bbsFileVO);
 
