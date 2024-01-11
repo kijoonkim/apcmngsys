@@ -469,7 +469,6 @@
 									class="form-control input-sm"
 									filter-source-name="dtl-input-ctpv"
 									jsondata-filter="mastervalue"
-									onchange="fn_sggDtlChange"
 								></sbux-select>
 								 -->
 								<sbux-select
@@ -481,7 +480,6 @@
 									class="form-control input-sm"
 									jsondata-filter="jsonComDtlCtpv"
 									jsondata-filter="mastervalue"
-									onchange="fn_sggDtlChange"
 								></sbux-select>
 								<!--
 								<sbux-select id="dtl-input-sgg2" name="dtl-input-sgg2"
@@ -1114,16 +1112,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		SBUxMethod.set("srch-input-sgg", "");
 	}
 	const fn_ctpvDtlChange = async function(){
-		console.log("ctpv");
-		console.log(SBUxMethod.get("dtl-input-ctpv"));
-		let sggVal = SBUxMethod.get("dtl-input-sgg");
-		if(!gfn_isEmpty(sggVal)){
-			SBUxMethod.set("dtl-input-sgg", null);
-		}
-	}
-	const fn_sggDtlChange = async function(){
-		console.log("sgg");
-		console.log(SBUxMethod.get("dtl-input-sgg"));
+		SBUxMethod.set("dtl-input-sgg", null);
 	}
 
 	var jsonPrdcrCrclOgnMng = []; // 그리드의 참조 데이터 주소 선언

@@ -1,10 +1,7 @@
 package com.at.apcss.pd.aom.service;
 
 import java.util.List;
-import java.util.Map;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO;
 import com.at.apcss.pd.aom.vo.GpcVO;
 
@@ -48,5 +45,7 @@ public interface PrdcrCrclOgnReqMngService {
 	public int insertGpc(GpcVO gpcVO) throws Exception;
 
 	public List<GpcVO> selectGpcList(GpcVO gpcVO) throws Exception;
+
+	public int deleteGpc(GpcVO gpcVO) throws Exception;
 
 }

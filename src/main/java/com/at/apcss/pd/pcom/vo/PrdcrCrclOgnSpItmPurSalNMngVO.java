@@ -25,10 +25,17 @@ public class PrdcrCrclOgnSpItmPurSalNMngVO extends ComVO{
 	private String yr;
 	private String ctgryCd;
 	private String itemCd;
+	private String isoBrno;
 	private String prdcrOgnzSn;
 	private String prdcrOgnzCd;
+	private String prdcrOgnzNm;
 	private String cltvtnLandSn;
 	private String sttgUpbrItemSe;
+
+	private String stbltYn; // 적합여부
+
+	private String typeSe; //실적 구분  1~6
+	private String typeSeNo; //실적 구분 상세 출자출하조직 brno , 생산자조직 sn 값 적용
 
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;
