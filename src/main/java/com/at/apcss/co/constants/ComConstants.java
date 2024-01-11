@@ -162,7 +162,11 @@ public class ComConstants {
 	 * W0015	{0}이/가 {1} 보다 작습니다.
 	 */
 	public final static String MSGCD_TGT_LESS_THAN = "W0015";
-
+	
+	/**
+	 * W0016	{0}이/가 {1} 이상 입니다.
+	 */
+	public final static String MSGCD_TGT_EQUAL_GREATER_THAN = "W0016";
 
 	/* CODE 정보 */
 

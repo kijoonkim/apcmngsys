@@ -38,6 +38,34 @@ public class ComUtil {
 		return nullToDefault(str, ComConstants.CON_BLANK);
 	}
 	
+	public static final double round(double num, int digit) {
+		
+		double result = num;
+		
+		int factor = 10 ^ (digit * -1);
+		
+		result = Math.round(num / factor) * factor;
+		
+		return result;
+	}
 	
+	public static final double round(double num) {		
+		return Math.round(num);
+	}
+	
+	public static final int round(int num, int digit) {
+		
+		int result = num;
+		
+		int factor = 10 ^ (digit * -1);
+		
+		result = (int)(Math.round(num / factor) * factor);
+		
+		return result;
+	}
+	
+	public static final int round(int num) {		
+		return Math.round(num);
+	}
 	
 }
