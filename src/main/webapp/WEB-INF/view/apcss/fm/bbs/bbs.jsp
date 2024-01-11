@@ -65,7 +65,7 @@
                                                 ></sbux-select>
 
 												</td>
-												<th scope="row" class="th_bg">검색</th>
+												<th scope="row" class="th_bg">제목</th>
 												<td class="td_input" style="border-right: hidden;">
 					                            	<sbux-input id="srch-input-bbsTitle" name="srch-input-bbsTitle" uitype="text"
                                                     style="width:400px"
@@ -331,7 +331,7 @@
         const postJsonPromise = gfn_postJSON("/fm/bbs/selectBbsList.do", {
         	bbsSeCd: bbsSeCd,
         	//bbsNo: bbsNo,
-        	bbsTitle: bbsTitle,
+        	bbsTtl: bbsTitle,
         	// pagination
 	  		pagingYn : 'Y',
 			currentPageNo : pageNo,

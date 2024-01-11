@@ -91,8 +91,8 @@
 				AND CM.BBS_NO LIKE #{bbsNo} || '%'
 			</if>
 
-			<if test='bbsTitle != null and bbsTitle != ""'>
-				AND CM.BBS_TITLE LIKE '%' || #{bbsTitle} || '%'
+			<if test='bbsTtl != null and bbsTtl != ""'>
+				AND CM.BBS_TTL LIKE '%' || #{bbsTtl} || '%'
 			</if>
 
 			<if test='bbsSeCd != null and bbsSeCd != ""'>
