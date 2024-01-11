@@ -106,10 +106,24 @@
 								mask = "{ 'mask': '999-99-99999', 'clearIncomplete': true, 'autoUnmask': true }"
 								></sbux-input>
 							</td>
-							<td scope="row" align="right">계좌번호</td>
+							<td scope="row" align="right">
+								<sbux-label
+									id="lbl-actno"
+									name="lbl-actno"
+									uitype="normal"
+									text="계좌번호"
+									tooltip="개인정보 보호를 위해 개인계좌번호는 입력 하지마세요."
+								></sbux-label>
+							</td>
 							<td scope="row">
-								<sbux-input id="inp-actno" name="inp-actno" uitype="text" class="form-control input-sm" maxlength="256"></sbux-input>
-
+								<sbux-input
+									id="inp-actno"
+									name="inp-actno"
+									uitype="text"
+									class="form-control input-sm"
+									placeholder="개인정보 보호를 위해 개인계좌번호는 입력 하지마세요."
+									maxlength="256"
+								></sbux-input>
 							</td>
 							<td scope="row"  align="right">입금은행</td>
 							<td class="td_input" >
@@ -924,6 +938,8 @@
 
             	grdOprtr.setCellDisabled(0, 0, grdOprtr.getRows() -1, grdOprtr.getCols() -1, false);
             	grdOprtr.setCellDisabled(grdOprtr.getRows() -1, 0, grdOprtr.getRows() -1, grdOprtr.getCols() -1, true);
+
+
             }else if(grid === "grdApcVrty"){
 
             	let apcCdCol = grdApcVrty.getColRef("apcCd");
