@@ -86,39 +86,36 @@
 
         fn_setLeftMenu(data.id);
 
+        var noticeTab = SBUxMethod.getTab('tab_menu', 'TAB_PD_002_012');
+
+    	if(noticeTab == null || noticeTab == undefined){
+    		var tabName = "TAB_PD_002_012";
+            var menuNo = "PD_002_012";
+            var jsonTabSelect = {
+                  'id': tabName
+                , 'pid': '-1'
+                , 'text': '공지사항'	//'대시보드'
+                , 'targetid': tabName
+                , 'targetvalue': tabName + '_value'
+                , 'targetname': 'frmJson'
+                , 'link': '/co/menu/openPage.do/' + menuNo	// _url
+                , 'closeicon': false
+            };
+            SBUxMethod.addTab('tab_menu', jsonTabSelect);
+            //화면이력관리용 data
+            var data = {
+            		customData : {prsnaYn : null},
+            		id : tabName,
+            		text : "공지사항",
+            		prslType: "M1"
+            }
+            insertComLog(data);
+
+            await fn_afterAddTab(menuNo);
+    	}
+
         if(data.id == "PD"){
-
-        	var noticeTab = SBUxMethod.getTab('tab_menu', 'TAB_PD_002_012');
-
-        	if(noticeTab == null || noticeTab == undefined){
-
-	        	var tabName = "TAB_PD_002_012";
-	            var menuNo = "PD_002_012";
-	            var jsonTabSelect = {
-	                  'id': tabName
-	                , 'pid': '-1'
-	                , 'text': '공지사항'	//'대시보드'
-	                , 'targetid': tabName
-	                , 'targetvalue': tabName + '_value'
-	                , 'targetname': 'frmJson'
-	                , 'link': '/co/menu/openPage.do/' + menuNo	// _url
-	                , 'closeicon': false
-	            };
-	            SBUxMethod.addTab('tab_menu', jsonTabSelect);
-	            //화면이력관리용 data
-	            var data = {
-	            		customData : {prsnaYn : null},
-	            		id : tabName,
-	            		text : "공지사항",
-	            		prslType: "M1"
-	            }
-	            insertComLog(data);
-
-	            await fn_afterAddTab(menuNo);
-        	}else{
-        		SBUxMethod.showTab('tab_menu','TAB_PD_002_012');
-        	}
-
+       		SBUxMethod.showTab('tab_menu','TAB_PD_002_012');
         }else{
         	SBUxMethod.hideTab('tab_menu','TAB_PD_002_012');
         }
@@ -347,7 +344,7 @@
     }
 
     //화면 이동
-    const maxTebMenuCnt = 10;//메뉴탭 최대 허용 개수(10)
+    const maxTebMenuCnt = 11;//메뉴탭 최대 허용 개수(10)
     const fn_actionGoPage = function (_url, _menuGubun, _menuNo, _menuNm, _topMenuNo) {
         if (_menuGubun === "TOP") {
             fn_setLeftMenu(_menuNo);
