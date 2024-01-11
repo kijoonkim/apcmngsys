@@ -69,6 +69,7 @@ public class LoginController extends BaseController {
 	ComLogService comLogService;
 
 	
+	
 	@GetMapping("/accessDenied")
 	public ResponseEntity<HashMap<String, Object>> accessDenied(
 			HttpServletRequest request,
@@ -288,7 +289,8 @@ public class LoginController extends BaseController {
 
 		model.addAttribute("loginCode", null);
 		model.addAttribute("loginMessage", null);
-
+		model.addAttribute("loginUrl", getLoginUrl());
+		
 		return "main/login";
 	}
 

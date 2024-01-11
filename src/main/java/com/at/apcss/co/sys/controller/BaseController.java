@@ -54,14 +54,21 @@ public abstract class BaseController {
 	private String reportType;
 	private String reportPath;
 
+	private String loginUrl;
+	
 	@PostConstruct
 	protected void init() {
 		reportDbName = env.getProperty("spring.report.dbName");
 		reportUrl = env.getProperty("spring.report.url");
 		reportType = env.getProperty("spring.report.type");
 		reportPath = env.getProperty("spring.report.path");
+		loginUrl = env.getProperty("apcss.login.url");
 	}
 
+	protected String getLoginUrl() {
+		return loginUrl;
+	}
+	
 	/**
 	 * @return [Report DbName 설정]
 	 */
