@@ -109,6 +109,7 @@
 	}
 
 	const fn_apcSttn = async function(){
+
 		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 		const postJsonPromise = gfn_postJSON("/fm/fclt/selectMapSttn.do", {
 			crtrYr			: crtrYr
@@ -127,6 +128,8 @@
           		}
   			});
           	createMap();
+          	jsonApcAreaList.length = 0;
+    		grdApcAreaList.rebuild();
 		}catch (e) {
 
 			if (!(e instanceof Error)) {
