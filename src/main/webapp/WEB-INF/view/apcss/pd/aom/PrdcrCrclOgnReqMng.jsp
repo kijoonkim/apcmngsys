@@ -1163,6 +1163,9 @@
 
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
+
+		fn_clearForm();
+
 		let yr = SBUxMethod.get("srch-input-yr");// 보류
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
 		let ctpv = SBUxMethod.get("srch-input-ctpv");//
@@ -1614,6 +1617,8 @@
 	function fn_view() {
 		console.log("******************fn_view**********************************");
 
+		fn_clearForm();
+
 	    //데이터가 존재하는 그리드 범위 확인
 		var nCol = grdPrdcrCrclOgnReqMng.getCol();
 	    if (nCol < 1) {
@@ -1688,6 +1693,56 @@
 		fn_selectGpcList();
 
     }
+	function fn_clearForm(){
+		jsonGpcList.length=0;
+		grdGpcList.rebuild();
+
+		SBUxMethod.set('dtl-input-apoCd',null)//
+		SBUxMethod.set('dtl-input-yr',null)//
+		SBUxMethod.set('dtl-input-apoSe',null)//
+		SBUxMethod.set('dtl-input-corpNm',null)//
+		SBUxMethod.set('dtl-input-brno',null)//
+		SBUxMethod.set('dtl-input-crno',null)//
+
+		SBUxMethod.set('dtl-input-picFlnm',null)//
+		SBUxMethod.set('dtl-input-lotnoAddr',null)//
+		SBUxMethod.set('dtl-input-lotnoDtlAddr',null)//
+		SBUxMethod.set('dtl-input-zip',null)//
+		SBUxMethod.set('dtl-input-roadNmAddr',null)//
+		SBUxMethod.set('dtl-input-roadNmDtlAddr',null)//
+		SBUxMethod.set('dtl-input-corpSeCd',null)//
+		SBUxMethod.set('dtl-input-corpDtlSeCd',null)//
+		SBUxMethod.set('dtl-input-corpFndnDay',null)//
+		SBUxMethod.set('dtl-input-invstNope',null)//
+		SBUxMethod.set('dtl-input-invstExpndFrmerNope',null)//
+		SBUxMethod.set('dtl-input-invstAmt',null)//
+		SBUxMethod.set('dtl-input-frmerInvstAmt',null)//
+		SBUxMethod.set('dtl-input-prdcrGrpInvstAmt',null)//
+		SBUxMethod.set('dtl-input-locgovInvstAmt',null)//
+		SBUxMethod.set('dtl-input-etcInvstAmt',null)//
+		SBUxMethod.set('dtl-input-rgllbrNope',null)//
+		SBUxMethod.set('dtl-input-dwNope',null)//
+		SBUxMethod.set('dtl-input-dlbrrNope',null)//
+
+
+		SBUxMethod.set('rdo-aprv',null)//
+		SBUxMethod.set('dtl-input-rawMtrEnsr',null)//
+		SBUxMethod.set('dtl-input-rawMtrEnsrCnt',null)//
+		SBUxMethod.set('dtl-input-rawMtrEnsrNm',null)//
+		SBUxMethod.set('dtl-input-isoHldYn',null)//
+
+		SBUxMethod.set('dtl-input-untyYn',null)//
+		SBUxMethod.set('dtl-input-uoNm',null)//
+		SBUxMethod.set('dtl-input-uoBrno',null)//
+		SBUxMethod.set('dtl-input-untyYr',null)//
+
+		SBUxMethod.set('dtl-input-pruoFundAplyAmt',null)//
+		SBUxMethod.set('dtl-input-isoFundAplyAmt',null)//
+
+		SBUxMethod.set('dtl-input-fundAplyAmtTot',null)//
+		SBUxMethod.set('dtl-input-frmerInvstAmtRt',null)//
+		SBUxMethod.set('dtl-input-tot',null)//
+	}
 
 
     function fn_create() {
@@ -1771,6 +1826,7 @@
 	        	}
 	        }},
 	    	{caption: ["통합조직코드"], 	ref: 'apoCd',   	hidden : true},
+	    	{caption: ["통합조직코드"], 	ref: 'brno',   		hidden : true},
 	    	{caption: ["통합조직코드"], 	ref: 'yr',   		hidden : true},
 	    	/*
 	    	{caption: ["분류명"], 		ref: 'ctgryNm',   	type:'output',  width:'150px',    style:'text-align:center'},
@@ -1862,7 +1918,9 @@
 						,itemCd: item.itemCd
 						,itemNm: item.itemNm
 						,rmrk: item.rmrk
-
+						,delYn: item.delYn
+						,apoCd: item.apoCd
+						,brno: item.brno
 				}
 				jsonGpcList.push(GpcListVO);
 			});
@@ -1908,7 +1966,7 @@
     }
 	//품목 리스트 삭제
 	async function fn_deleteRsrc(vo){
-		let postJsonPromise = gfn_postJSON("/pd/aom/deleteUo.do", vo);
+		let postJsonPromise = gfn_postJSON("/pd/aom/deleteGpc.do", vo);
         let data = await postJsonPromise;
 
         try{

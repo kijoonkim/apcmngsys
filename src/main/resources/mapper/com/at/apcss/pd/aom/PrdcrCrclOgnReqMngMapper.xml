@@ -476,6 +476,8 @@
 				, CM.ITEM_NM
 				, CM.RMRK
 
+				, CM.DEL_YN
+
 				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
 				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
 				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
@@ -510,6 +512,17 @@
 			</if>
 		ORDER BY CM.SYS_LAST_CHG_DT DESC
     </select>
+
+    <delete id="deleteGpc" parameterType="com.at.apcss.pd.aom.vo.GpcVO">
+		<![CDATA[
+		DELETE FROM TB_EV_APO_YR_GPC_CD
+		 WHERE BRNO 	= #{brno}
+		   AND ITEM_CD  = #{itemCd}
+		   AND YR		= #{yr}
+		   AND CTGRY_CD	= #{ctgryCd}
+		   AND STTG_UPBR_ITEM_SE	= #{sttgUpbrItemSe}
+		]]>
+	</delete>
 </mapper>
 
 

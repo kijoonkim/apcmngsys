@@ -106,4 +106,11 @@ public class PrdcrCrclOgnReqMngServiceImpl extends BaseServiceImpl implements Pr
 		return resultList;
 	}
 
+	@Override
+	public int deleteGpc(GpcVO gpcVO) throws Exception {
+
+		int insertedCnt = PrdcrCrclOgnReqMngMapper.deleteGpc(gpcVO);
+
+		return insertedCnt;
+	}
 }
