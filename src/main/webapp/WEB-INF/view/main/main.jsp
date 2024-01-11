@@ -89,6 +89,7 @@
         var noticeTab = SBUxMethod.getTab('tab_menu', 'TAB_PD_002_012');
 
     	if(noticeTab == null || noticeTab == undefined){
+
     		var tabName = "TAB_PD_002_012";
             var menuNo = "PD_002_012";
             var jsonTabSelect = {
@@ -112,13 +113,15 @@
             insertComLog(data);
 
             await fn_afterAddTab(menuNo);
+    	}else{
+    		if(data.id == "PD"){
+           		SBUxMethod.showTab('tab_menu','TAB_PD_002_012');
+            }else{
+            	SBUxMethod.hideTab('tab_menu','TAB_PD_002_012');
+            }
     	}
 
-        if(data.id == "PD"){
-       		SBUxMethod.showTab('tab_menu','TAB_PD_002_012');
-        }else{
-        	SBUxMethod.hideTab('tab_menu','TAB_PD_002_012');
-        }
+
 
 
         /*
