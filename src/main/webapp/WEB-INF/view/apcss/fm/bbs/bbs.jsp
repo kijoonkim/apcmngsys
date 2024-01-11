@@ -38,8 +38,8 @@
 			<div style="margin-left: auto;">
 					<div class="sbt-search-button" style="text-align:right;">
 			              <sbux-button id="btn_create" name="btn_create" uitype="normal" class="btn btn-sm btn-outline-danger" text="신규" onclick="fn_create"></sbux-button>
-			              <sbux-button id="btn_delete" name="btn_delete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="fn_delete"></sbux-button>
 			              <sbux-button id="btn_save" name="btn_save" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_save"></sbux-button>
+			              <sbux-button id="btn_delete" name="btn_delete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="fn_delete"></sbux-button>
 			              <sbux-button id="btn_search" name="btn_search" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
 	               </div>
             </div>
@@ -58,7 +58,7 @@
 
 												<th scope="row" class="th_bg">구분</th>
 												<td class="td_input" style="border-right: hidden;">
-					                            	<sbux-select id="srch-select-bbsSeCd" name="srch-select-bbsSeCd" uitype="single"
+					                            	<sbux-select class="form-control input-sm" id="srch-select-bbsSeCd" name="srch-select-bbsSeCd" uitype="single"
                                                     jsondata-ref="jsonComBbsSeCd"
                                                     unselected-text="전체"
                                                     style="width:120px;"
@@ -67,7 +67,7 @@
 												</td>
 												<th scope="row" class="th_bg">제목</th>
 												<td class="td_input" style="border-right: hidden;">
-					                            	<sbux-input id="srch-input-bbsTitle" name="srch-input-bbsTitle" uitype="text"
+					                            	<sbux-input class="form-control input-sm" id="srch-input-bbsTitle" name="srch-input-bbsTitle" uitype="text"
                                                     style="width:400px"
                                                     placeholder=""
                                                 ></sbux-input>
@@ -77,9 +77,8 @@
 
 
 
-                <div class="sbt-con-wrap">
-                	<ul>
-	                    <li style="display:inline-block;float:left;width: 40%;vertical-align:top;">
+                <div class="row">
+                	<div class="col-sm-5">
 		                    <div class="sbt-grid-wrap">
 		                        <div class="ad_tbl_top">
 										<ul class="ad_tbl_count">
@@ -89,15 +88,15 @@
 											</li>
 										</ul>
 								</div>
-		                        <div class="sbt-wrap-body">
-		                            <div class="sbt-grid">
+		                        <div class="sbt-wrap-body" >
+		                            <div class="sbt-grid" >
 		                                <!-- SBGrid를 호출합니다. -->
-		                                <div id="sb-area-grdBbs" style="height:510px;"></div>
+		                                <div id="sb-area-grdBbs" style="height:550px"></div>
 		                            </div>
 		                        </div>
 		                    </div>
-	                    </li>
-	                    <li style="display:inline-block;float:right;width: 60.0%;vertical-align:top;">
+                    </div>
+	                    <div class="col-sm-7">
 		                    <div class="sbt-grid-wrap">
 		                        <div class="ad_tbl_top">
 										<ul class="ad_tbl_count">
@@ -108,7 +107,7 @@
 									</div>
 		                        <div class="sbt-wrap-body">
 		                            <form id="frm1" name="frm1" method="post">
-		                            <sbux-input id="dtl-input-orngBbsNo" name="dtl-input-orngBbsNo" uitype="hidden"></sbux-input>
+		                            <sbux-input class="form-control input-sm" id="dtl-input-orngBbsNo" name="dtl-input-orngBbsNo" uitype="hidden"></sbux-input>
 		                            <table class="table table-bordered tbl_fixed">
 		                                <colgroup>
 
@@ -124,28 +123,28 @@
 		                                <tr>
 		                                    <th scope="row" class="th_bg">구분</th>
 		                                    <td class="td_input" style="border-right: hidden;word-break:break-all">
-		                                    	<sbux-select id="dtl-select-bbsSeCd" name="dtl-select-bbsSeCd" uitype="single"
+		                                    	<sbux-select class="form-control input-sm" id="dtl-select-bbsSeCd" name="dtl-select-bbsSeCd" uitype="single"
 		                                    		jsondata-ref="jsonComBbsSeCd"
 		                                    		unselected-text="선택"
 	                                    		></sbux-select>
 		                                    </td>
 		                                    <th scope="row" class="th_bg">등록번호</th>
 		                                    <td class="td_input" style="border-right: hidden">
-		                                        <sbux-input id="dtl-input-bbsNo" name="dtl-input-bbsNo" uitype="text" required style="width:100%" readonly ></sbux-input>
+		                                        <sbux-input class="form-control input-sm" id="dtl-input-bbsNo" name="dtl-input-bbsNo" uitype="text" required style="width:100%" readonly ></sbux-input>
 		                                    </td>
 		                                    <th scope="row" class="th_bg">등록자</th>
 		                                    <td class="td_input" style="border-right: hidden">
-		                                        <sbux-input id="dtl-input-sysFrstInptUserIdNm" name="dtl-input-sysFrstInptUserIdNm" uitype="text" style="width:100%" readonly></sbux-input>
+		                                        <sbux-input class="form-control input-sm" id="dtl-input-sysFrstInptUserIdNm" name="dtl-input-sysFrstInptUserIdNm" uitype="text" style="width:100%" readonly></sbux-input>
 		                                    </td>
 		                                    <th scope="row" class="th_bg">등록일시</th>
 		                                    <td class="td_input" style="border-right: hidden">
-		                                      <sbux-input id="dtl-input-sysFrstInptDt" name="dtl-input-sysFrstInptDt" uitype="text" style="width:100%" readonly></sbux-input>
+		                                      <sbux-input class="form-control input-sm" id="dtl-input-sysFrstInptDt" name="dtl-input-sysFrstInptDt" uitype="text" style="width:100%" readonly></sbux-input>
 		                                    </td>
 		                                </tr>
 		                                <tr>
 		                                    <th scope="row" class="th_bg">제목</th>
 		                                    <td colspan="7">
-		                                        <sbux-input id="dtl-input-bbsTitle" name="dtl-input-bbsTitle" uitype="text" required style="width:100%"></sbux-input>
+		                                        <sbux-input class="form-control input-sm" id="dtl-input-bbsTitle" name="dtl-input-bbsTitle" uitype="text" required style="width:100%"></sbux-input>
 		                                    </td>
 		                                </tr>
 		                                <tr>
@@ -216,8 +215,7 @@
 		                            </form>
 		                        </div>
 		                    </div>
-	                    </li>
-                    </ul>
+	                    </div>
                 </div>
             </div>
         </div>
@@ -262,7 +260,7 @@
 	    SBGridProperties.paging = {
 			'type' : 'page',
 		  	'count' : 5,
-		  	'size' : 20,
+		  	'size' : 100,
 		  	'sorttype' : 'page',
 		  	'showgoalpageui' : true
 	    };
