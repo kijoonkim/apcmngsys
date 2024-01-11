@@ -35,9 +35,9 @@
 				</div>
 				<div id="sb-area-grdMdRtlOgnz" style="height:258px;"></div>
 				<span style="font-size:11px;">*출자출하조직 또는 참영조직 중 전년도 선정에서 탈락한 조직 포함</span>
-				
+
 				<div style="height: 50px"></div>
-				
+
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
@@ -52,9 +52,9 @@
 				<div id="sb-area-grdAllBdar" style="height:137px;"></div>
 				<span style="font-size:11px;">*물류시설, 상품회사설, 저장고 등 건축면적의 합계</span><br/>
 				<span style="font-size:11px;">*면적 소수점 이하 미표기</span>
-				
+
 				<div style="height: 20px"></div>
-				
+
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
@@ -67,7 +67,7 @@
 				</div>
 				<div id="sb-area-grdLwtpStrg" style="height:137px;"></div>
 				<span style="font-size:11px;">*면적 소수점 이하 미표기</span>
-				
+
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
@@ -80,10 +80,10 @@
 				</div>
 				<div id="sb-area-grdStrgFclt" style="height:137px;"></div>
 				<span style="font-size:11px;">*CA저장 시설 : Controlled Atmosphere Storage(기체조절 저장고)로 장기저장 과일의 신선도 유지 시설</span>
-				
+
 				<div style="height: 40px"></div>
 				<div style="height: 50px"></div>
-				
+
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
@@ -122,10 +122,10 @@
 				<div id="sb-area-grdOwnrAndOper" style="height:137px;"></div>
 				<span style="font-size:11px;">*민간: 농협, 농업법인, 재단버인 등 민간 사업자</span><br/>
 				<span style="font-size:11px;">*공공: 시ㆍ군 지방자치단체</span>
-				
+
 				<div style="height:101px;"></div>
 				<div style="height: 50px"></div>
-				
+
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
@@ -140,7 +140,7 @@
 				<span style="font-size:11px;">*물류ㆍ상품화 시설: 집출하, 선별, 포장, 신선편의, 반가공 등 처리시설</span><br/>
 				<span style="font-size:11px;">*전체면적: APC 전체 물류 및 상품화 시설</span><br/>
 				<span style="font-size:11px;">*평균면적: APC 개소당 물류 및 상품화 시설</span>
-				
+
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
@@ -167,9 +167,9 @@
 				<span style="font-size:11px;">*선별기 : 선별(grading&sorting)시설 본체</span><br/>
 				<span style="font-size:11px;">*측정장비 : 당도·색택·내부손상 등 세부 품질 측정장비(선별기에 부착)</span><br/>
 				<span style="font-size:11px;">*반가공시설 : 신선편의처리, 마늘건조, 깐마늘, 고추건조 등</span>
-				
+
 				<div style="height: 50px"></div>
-				
+
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
@@ -181,7 +181,7 @@
 					</ul>
 				</div>
 				<div id="sb-area-grdInvstAtmFundType" style="height:137px;"></div>
-				
+
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
@@ -229,7 +229,7 @@ const fn_cellCreateMdRtlOgnzNowGrid = function() {
 	fn_createInvstAtmOwnrGrid();
 	// 투자금액 : 운영자
 	fn_createInvstAtmOperPrsnGrid();
-	
+
 	fn_cellMdRtlOgnzNowGrid();
 }
 
@@ -746,14 +746,14 @@ const fn_createInvstAtmOperPrsnGrid = function() {
 
 const fn_cellMdRtlOgnzNowGrid = async function() {
 	let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
-	
-	const postJsonPromise = gfn_postJSON("/fm/fclt/selectMdRtlOgnzNowGridList.do", {crtrYn : crtrYr});
-	
+
+	const postJsonPromise = gfn_postJSON("/fm/fclt/selectMdRtlOgnzNowGridList.do", {crtrYr : crtrYr});
+
 	let data = await postJsonPromise;
 	try {
-		
+
 		mdRtlOgnzNowJsonLengthReset();
-		
+
 	  	data.resultMdRtlOgnz.forEach((item, index) => {
 	  		const mdRtlOgnz = {
 	  				  title : item.title,
@@ -786,7 +786,7 @@ const fn_cellMdRtlOgnzNowGrid = async function() {
 	  		}
 	  		jsonAllBdar.push(allBdar);
 	  	});
-	  	
+
 	  	data.resultLgstcsGds.forEach((item, index) => {
 	  		const lgstcsGds = {
 	  				v0 : item.v0,
@@ -799,7 +799,7 @@ const fn_cellMdRtlOgnzNowGrid = async function() {
 	  		}
 	  		jsonLgstcsGds.push(lgstcsGds);
 	  	});
-	  	
+
 	  	data.resultLwtpStrg.forEach((item, index) => {
 	  		const lwtpStrg = {
 	  				v0 : item.v0,
@@ -810,7 +810,7 @@ const fn_cellMdRtlOgnzNowGrid = async function() {
 	  		}
 	  		jsonLwtpStrg.push(lwtpStrg);
 	  	});
-	  	
+
 	  	data.resultPrprtnClngFclt.forEach((item, index) => {
 	  		const prprtnClngFclt = {
 	  				v0 : item.v0,
@@ -821,7 +821,7 @@ const fn_cellMdRtlOgnzNowGrid = async function() {
 	  		}
 	  		jsonPrprtnClngFclt.push(prprtnClngFclt);
 	  	});
-	  	
+
 	  	data.resultStrgFclt.forEach((item, index) => {
 	  		const strgFclt = {
 	  				v0 : item.v0,
@@ -832,7 +832,7 @@ const fn_cellMdRtlOgnzNowGrid = async function() {
 	  		}
 	  		jsonStrgFclt.push(strgFclt);
 	  	});
-	  	
+
 	  	data.resultFcltMsrmtEqpmnt.forEach((item, index) => {
 	  		const fcltMsrmtEqpmnt = {
 	  				v0 : item.v0,
@@ -844,7 +844,7 @@ const fn_cellMdRtlOgnzNowGrid = async function() {
 	  		}
 	  		jsonFcltMsrmtEqpmnt.push(fcltMsrmtEqpmnt);
 	  	});
-	  	
+
 	  	data.resultInvstAtmAll.forEach((item, index) => {
 	  		const invstAtmAll = {
 	  				v0 : item.v0,
@@ -854,7 +854,7 @@ const fn_cellMdRtlOgnzNowGrid = async function() {
 	  		}
 	  		jsonInvstAtmAll.push(invstAtmAll);
 	  	});
-	  	
+
 	  	data.resultInvstAtmFundType.forEach((item, index) => {
 	  		const invstAtmFundType = {
 	  				v0 : item.v0,
@@ -865,7 +865,7 @@ const fn_cellMdRtlOgnzNowGrid = async function() {
 	  		}
 	  		jsonInvstAtmFundType.push(invstAtmFundType);
 	  	});
-	  	
+
 	  	data.resultInvstAtmOwnr.forEach((item, index) => {
 	  		const invstAtmOwnr = {
 	  				v0 : item.v0,
@@ -878,7 +878,7 @@ const fn_cellMdRtlOgnzNowGrid = async function() {
 	  		}
 	  		jsonInvstAtmOwnr.push(invstAtmOwnr);
 	  	});
-	  	
+
 	  	data.resultInvstAtmOperPrsn.forEach((item, index) => {
 	  		const invstAtmOperPrsn = {
 	  				v0 : item.v0,
@@ -891,10 +891,10 @@ const fn_cellMdRtlOgnzNowGrid = async function() {
 	  		}
 	  		jsonInvstAtmOperPrsn.push(invstAtmOperPrsn);
 	  	});
-	  	
+
 	  	mdRtlOgnzNowGridRebuild();
 	  	fn_rowStyleCssMdRtlOgnz();
-	  		
+
 	  }	catch (e) {
 	 		if (!(e instanceof Error)) {
 	 			e = new Error(e);
