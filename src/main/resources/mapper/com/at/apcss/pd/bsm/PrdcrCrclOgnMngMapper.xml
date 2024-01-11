@@ -96,7 +96,7 @@
 				AND CM.CMPTN_INST LIKE #{cmptnInst} || '%'
 			</if>
 			<if test='ctpv != null and ctpv != ""'>
-				AND CM.II_CODE LIKE '%' || #{ctpv} || '%'
+				AND CM.CTPV LIKE '%' || #{ctpv} || '%'
 			</if>
 			<if test='sgg != null and sgg != ""'>
 				AND CM.SGG LIKE '%' || #{sgg} || '%'
@@ -217,7 +217,7 @@
 				AND CM.CMPTN_INST LIKE #{cmptnInst} || '%'
 			</if>
 			<if test='ctpv != null and ctpv != ""'>
-				AND CM.II_CODE LIKE '%' || #{ctpv} || '%'
+				AND CM.CTPV LIKE '%' || #{ctpv} || '%'
 			</if>
 			<if test='sgg != null and sgg != ""'>
 				AND CM.SGG LIKE '%' || #{sgg} || '%'
