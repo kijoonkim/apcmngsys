@@ -12,6 +12,19 @@
 	<%@ include file="../frame/inc/headerScript.jsp" %>
 </head>
 <body oncontextmenu="return false">
+
+<%
+	String needsCustomLogin = request.getParameter("needsCustomLogin");
+	if (!"IneedCustomLogin".equals(needsCustomLogin)) {
+		String protocol = request.isSecure() ? "https" : "http";
+		String loginUrl = (String)request.getAttribute("loginUrl");
+		
+		if (loginUrl != null && !"".equals(loginUrl)) {
+			response.sendRedirect(protocol + "://" + loginUrl);
+		}	
+	}
+%>
+
     <div class="apc-wrap">
         <div class="apc-login-wrap">
             <div class="apc-login-box">
@@ -270,6 +283,8 @@
     	}
     }
 
+
+    
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
         // setting saved userId
