@@ -642,6 +642,7 @@
 									class="form-control input-sm"
 									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 									autocomplete="off"
+									readonly
 								></sbux-input>
 								</td>
 						</tr>
@@ -665,7 +666,7 @@
 									class="form-control input-sm"
 									autocomplete="off"
 									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
-									onkeyup="fn_calFrmerInvstAmtRt"
+									onchange="fn_calInvstAmtTot"
 								></sbux-input>
 							</td>
 							<td>천원</td>
@@ -678,6 +679,7 @@
 									class="form-control input-sm"
 									autocomplete="off"
 									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
+									onchange="fn_calInvstAmtTot"
 								></sbux-input>
 							</td>
 							<td>천원</td>
@@ -690,6 +692,7 @@
 									class="form-control input-sm"
 									autocomplete="off"
 									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
+									onchange="fn_calInvstAmtTot"
 								></sbux-input>
 							</td>
 							<td>천원</td>
@@ -702,6 +705,7 @@
 									class="form-control input-sm"
 									autocomplete="off"
 									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
+									onchange="fn_calInvstAmtTot"
 								></sbux-input>
 							</td>
 							<td>천원</td>
@@ -1417,7 +1421,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
         		SBUxMethod.set('dtl-input-fxno',gfn_nvl(item.fxno))
         		SBUxMethod.set('dtl-input-itemNhBrofYn',gfn_nvl(item.itemNhBrofYn))
 			});
-        	fn_calFrmerInvstAmtRt();
+        	fn_calInvstAmtTot();
     		fn_calTot();
         	<c:if test="${loginVO.userType eq '22'}">
         	fn_searchUoList();
@@ -1909,7 +1913,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		SBUxMethod.set('dtl-input-picEml',gfn_nvl(rowData.picEml))//
 		SBUxMethod.set('dtl-input-fxno',gfn_nvl(rowData.fxno))//
 		SBUxMethod.set('dtl-input-itemNhBrofYn',gfn_nvl(rowData.itemNhBrofYn))//
-		fn_calFrmerInvstAmtRt();
+		fn_calInvstAmtTot();
 		fn_calTot();
 
 		if(rowData.apoSe == '1'){
@@ -2318,7 +2322,6 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		}
 
 	}
-	//sbUx에서 onchange 되지 않는듯 해서 조회 결과에서 직접 실행 함
 	//농업인 출자 지분율 계산
 	function fn_calFrmerInvstAmtRt(){
 		let invstAmt = parseFloat(SBUxMethod.get('dtl-input-invstAmt'));
@@ -2329,6 +2332,19 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		}
 		SBUxMethod.set('dtl-input-frmerInvstAmtRt',frmerInvstAmtRt);
 	}
+	//출자금액 합계
+	function fn_calInvstAmtTot(){
+
+		let frmerInvstAmt = parseFloat(SBUxMethod.get('dtl-input-frmerInvstAmt'));
+		let prdcrGrpInvstAmt = parseFloat(SBUxMethod.get('dtl-input-prdcrGrpInvstAmt'));
+		let locgovInvstAmt = parseFloat(SBUxMethod.get('dtl-input-locgovInvstAmt'));
+		let etcInvstAmt = parseFloat(SBUxMethod.get('dtl-input-etcInvstAmt'));
+
+		let invstAmt = frmerInvstAmt + prdcrGrpInvstAmt + locgovInvstAmt + etcInvstAmt;
+		SBUxMethod.set('dtl-input-invstAmt',invstAmt);
+		fn_calFrmerInvstAmtRt();
+	}
+
 	//전체 종사자 수 합계
 	function fn_calTot(){
 		let rgllbrNope = 0;
