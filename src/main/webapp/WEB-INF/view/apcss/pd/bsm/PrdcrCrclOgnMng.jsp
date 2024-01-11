@@ -479,7 +479,7 @@
 									jsondata-ref="jsonComDtlSgg"
 									unselected-text="선택"
 									class="form-control input-sm"
-									jsondata-filter="jsonComDtlCtpv"
+									filter-source-name="dtl-input-ctpv"
 									jsondata-filter="mastervalue"
 									onchange="fn_sggDtlChange"
 								></sbux-select>
