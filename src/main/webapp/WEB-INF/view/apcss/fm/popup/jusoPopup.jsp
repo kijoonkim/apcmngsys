@@ -2,11 +2,46 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+
 <%
+	//request.setCharacterEncoding("UTF-8");		//한글이 깨지면 주석 제거(UTF-8일 경우)
+	String encodingType = "UTF-8";				//UTF-8일 경우 주석 제거
+
+	//request.setCharacterEncoding("EUC-KR");		//한글이 깨지면 주석 제거(EUC-KR일 경우)
+	//String encodingType = "EUC-KR";				//EUC-KR일 경우 주석 제거
+
+	/*
+	도로명주소 팝업API 승인키
+	'승인되지 않은 KEY 입니다.' 메시지 출력 시
+	주소기반산업지원서비스 홈페이지 - 기술제공 - API신청 - API 신청하기에서
+	신청내역 클릭 후 승인키 발급받은 본인이 본인인증하여 승인키 확인
+	*/
+	String confmKey = "U01TX0FVVEgyMDIzMTEwOTEwMzQxOTExNDI1Nzc="; //도로명주소 팝업 API 승인키 입력
+
+	/*
+	검색결과 화면 출력유형
+	1 : 도로명
+	2 : 도로명+지번
+	3 : 도로명+상세건물명
+	4 : 도로명+지번+상세건물명 (기본)
+	*/
+	String resultType = "4";
+
+	//상세주소 사용 유무(Y, N)
+	String useDetailAddr = "N";
+
+	/*
+	사용할 css 경로(회사로고, 배경화면, 색상테마)
+	주소기반산업지원서비스 홈페이지 - 기술제공 - API신청 - API 신청하기에서
+	CSS 파일 경로 - 샘플소스 다운로드하여 사용
+	사용하지 않을 경우 공란("")
+	*/
+	String cssUrl = "";
+
+	//http, https 체크
+	String protocol = request.isSecure() ? "https" : "http";
 	//request.setCharacterEncoding("UTF-8");  //한글깨지면 주석제거
-	//request.setCharacterEncoding("EUC-KR");  //해당시스템의 인코딩타입이 EUC-KR일경우에
+		//request.setCharacterEncoding("EUC-KR");  //해당시스템의 인코딩타입이 EUC-KR일경우에
 	String inputYn = request.getParameter("inputYn");
 	String roadFullAddr = request.getParameter("roadFullAddr");
 	String roadAddrPart1 = request.getParameter("roadAddrPart1");
@@ -35,57 +70,41 @@
 	String lnbrSlno  = request.getParameter("lnbrSlno");
 	/** 2017년 3월 추가제공 **/
 	String emdNo  = request.getParameter("emdNo");
-
 %>
-</head>
+
+<script type="text/javascript" src="<%=protocol%>://business.juso.go.kr/juso_support_center/assets/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="<%=protocol%>://business.juso.go.kr/juso_support_center/assets/js/popup/roadPopupApi.js?confmKey=<%=confmKey%>&resultType=<%=resultType%>&useDetailAddr=<%=useDetailAddr%>&encodingType=<%=encodingType%>&cssUrl=<%=cssUrl%>"></script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>주소정보연계 | 도로명주소 안내시스템</title>
 <script language="javascript">
-// opener관련 오류가 발생하는 경우 아래 주석을 해지하고, 사용자의 도메인정보를 입력합니다. ("주소입력화면 소스"도 동일하게 적용시켜야 합니다.)
-//document.domain = "abc.go.kr";
-//document.domain = "localhost:8080";
 
-/*
-		모의 해킹 테스트 시 팝업API를 호출하시면 IP가 차단 될 수 있습니다.
-		주소팝업API를 제외하시고 테스트 하시기 바랍니다.
-*/
-
-//주소 연계 신청
-//https://m1.juso.go.kr/addrlink/adresDbCntc/cntcReqst.do
-
-function init(){
-	console.log("============init================");
-	var url = location.href;
-// 	var confmKey = "승인키";
-// 	var confmKey = "devU01TX0FVVEgyMDIzMTAxMzE0NDgzOTExNDE2NjM=";//121.179.170.22 -finevt //133.186.212.16 -개발
-//	var confmKey = "devU01TX0FVVEgyMDIzMTAxNDIwNTEzNzExNDE2OTQ=";//112.159.23.197 -jsone
-//	var confmKey = "devU01TX0FVVEgyMDIzMTEwMTExMzQ1OTExNDIyODI="; //133.186.212.16 -개발
-//	var confmKey = "devU01TX0FVVEgyMDIzMTExMzE5MzExOTExNDI3MTE="; //133.186.212.16 -개발
-	var confmKey = "U01TX0FVVEgyMDIzMTEwOTEwMzQxOTExNDI1Nzc="; //211.56.6.117 운영서버
-	var resultType = "4"; // 도로명주소 검색결과 화면 출력내용, 1 : 도로명, 2 : 도로명+지번+상세보기(관련지번, 관할주민센터), 3 : 도로명+상세보기(상세건물명), 4 : 도로명+지번+상세보기(관련지번, 관할주민센터, 상세건물명)
-	var inputYn= "<%=inputYn%>";
-	console.log("inputYn = "+inputYn);
-	if(inputYn != "Y"){
+//IE에서 opener관련 오류가 발생하는 경우, window에 이름을 명시해줍니다.
+//window.name="jusoPopup";
+ function init(){
+	 console.log("============init================");
+	 var url = location.href;
+	 var confmKey = "U01TX0FVVEgyMDIzMTEwOTEwMzQxOTExNDI1Nzc="; //211.56.6.117 운영서버
+	 var resultType = "4"; // 도로명주소 검색결과 화면 출력내용, 1 : 도로명, 2 : 도로명+지번+상세보기(관련지번, 관할주민센터), 3 : 도로명+상세보기(상세건물명), 4 : 도로명+지번+상세보기(관련지번, 관할주민센터, 상세건물명)
+	 var inputYn= "<%=inputYn%>";
+	 console.log("inputYn = "+inputYn);
+	 if(inputYn != "Y"){
 		document.form.confmKey.value = confmKey;
 		document.form.returnUrl.value = url;
 		document.form.resultType.value = resultType;
 		document.form.action="https://business.juso.go.kr/addrlink/addrLinkUrl.do"; //인터넷망
 		//document.form.action="https://business.juso.go.kr/addrlink/addrMobileLinkUrl.do"; //모바일 웹인 경우, 인터넷망
 		document.form.submit();
-	}else{
-		opener.jusoCallBack("<%=roadFullAddr%>","<%=roadAddrPart1%>","<%=addrDetail%>","<%=roadAddrPart2%>","<%=engAddr%>","<%=jibunAddr%>","<%=zipNo%>", "<%=admCd%>", "<%=rnMgtSn%>", "<%=bdMgtSn%>", "<%=detBdNmList%>", "<%=bdNm%>", "<%=bdKdcd%>", "<%=siNm%>", "<%=sggNm%>", "<%=emdNm%>", "<%=liNm%>", "<%=rn%>", "<%=udrtYn%>", "<%=buldMnnm%>", "<%=buldSlno%>", "<%=mtYn%>", "<%=lnbrMnnm%>", "<%=lnbrSlno%>", "<%=emdNo%>");
-		window.close();
-		}
-}
+	 }else{
+		 opener.jusoCallBack("<%=roadFullAddr%>","<%=roadAddrPart1%>","<%=addrDetail%>","<%=roadAddrPart2%>","<%=engAddr%>","<%=jibunAddr%>","<%=zipNo%>", "<%=admCd%>", "<%=rnMgtSn%>", "<%=bdMgtSn%>", "<%=detBdNmList%>", "<%=bdNm%>", "<%=bdKdcd%>", "<%=siNm%>", "<%=sggNm%>", "<%=emdNm%>", "<%=liNm%>", "<%=rn%>", "<%=udrtYn%>", "<%=buldMnnm%>", "<%=buldSlno%>", "<%=mtYn%>", "<%=lnbrMnnm%>", "<%=lnbrSlno%>", "<%=emdNo%>");
+		 window.close();
+	 }
+
+ }
 </script>
-<body onload="init();" oncontextmenu="return false">
-	<form id="form" name="form" method="post">
-		<input type="hidden" id="confmKey" name="confmKey" value=""/>
-		<input type="hidden" id="returnUrl" name="returnUrl" value=""/>
-		<input type="hidden" id="resultType" name="resultType" value=""/>
-		<!-- 해당시스템의 인코딩타입이 EUC-KR일경우에만 추가 START-->
-		<!--
-		<input type="hidden" id="encodingType" name="encodingType" value="EUC-KR"/>
-		 -->
-		<!-- 해당시스템의 인코딩타입이 EUC-KR일경우에만 추가 END-->
-	</form>
+
+</head>
+<body onload="init();" class ="visualSection">
 </body>
 </html>
