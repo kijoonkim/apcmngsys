@@ -222,15 +222,17 @@
 								></sbux-input>
 							</td>
 							<td style="border-right: hidden;">
+							<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 								<sbux-button
-									id="srch-btn-pwd"
-									name="srch-btn-pwd"
+									id="dtl-btn-pwd"
+									name="dtl-btn-pwd"
 									uitype="normal"
 									onclick="fn_updatePwd"
 									text="비밀번호초기화"
 									style="font-size: x-small;"
 									class="btn btn-xs btn-outline-dark"
 								></sbux-button>
+							</c:if>
 							</td>
 							<td style="border-right: hidden;"></td>
 						<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
@@ -260,6 +262,7 @@
 									unselected-text="선택"
 									class="form-control input-sm"
 									onchange="fn_onChangeSrchItemCd(this)"
+									readonly
 								></sbux-select>
 							</td>
 							<td colspan="2" class="td_input" >
@@ -276,6 +279,7 @@
 									unselected-text="선택"
 									class="form-control input-sm"
 									onchange="fn_onChangeSrchItemCd(this)"
+									readonly
 								></sbux-select>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;" >
@@ -302,6 +306,7 @@
 									name="dtl-input-coNm"
 									class="form-control input-sm"
 									autocomplete="off"
+									readonly
 								></sbux-input>
 							</td>
 							<td colspan="2" class="td_input">
@@ -454,15 +459,8 @@
 <script type="text/javascript">
 
 	window.addEventListener('DOMContentLoaded', function(e) {
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		fn_init();
-		fn_initSBSelect();
-		fn_search();
-	</c:if>
-	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
-		fn_initSBSelect();
-		fn_dtlSearch();
-	</c:if>
+
 		//추후 사용자로 접속시 권한,1차승인,2차승인 수정 불가 처리
 		/*
 		SBUxMethod.attr("dtl-input-userType", "readonly", "true");//권한
@@ -520,6 +518,17 @@
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
 		fn_fcltMngCreateGrid();
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+		await fn_initSBSelect();
+		await fn_search();
+		SBUxMethod.attr("dtl-input-userType", "readonly", "false");//권한
+		SBUxMethod.attr("dtl-input-coNm", "readonly", "false");//법인명
+		//SBUxMethod.attr("dtl-input-cmptncInst", "readonly", "false");//관할기관
+	</c:if>
+	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+		await fn_initSBSelect();
+		await fn_dtlSearch();
+	</c:if>
 	}
 
 	/* Grid 화면 그리기 기능*/
