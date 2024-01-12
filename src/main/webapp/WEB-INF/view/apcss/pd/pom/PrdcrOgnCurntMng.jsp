@@ -220,16 +220,8 @@
 						<tr>
 							<th scope="row" class="th_bg th_border_right">조직구분</th>
 							<td colspan="2" class="td_input">
-								<!--
-								<sbux-input
-									uitype="text"
-									id="dtl-input-apoSe"
-									name="dtl-input-apoSe"
-									class="form-control input-sm"
-									autocomplete="off"
-									readonly
-								></sbux-input>
-								 -->
+								<sbux-input uitype="hidden" id="dtl-input-apoCd" name="dtl-input-apoCd"></sbux-input>
+								<sbux-input uitype="hidden" id="dtl-input-crno" name="dtl-input-crno"></sbux-input>
 								<sbux-select
 									id="dtl-input-apoSe"
 									name="dtl-input-apoSe"
@@ -239,13 +231,11 @@
 									class="form-control input-sm"
 									readonly
 								></sbux-select>
-							<td class="td_input">
-							<th scope="row" class="th_bg th_border_right">법인명</th>
-							<sbux-input uitype="hidden" id="dtl-input-apoCd" name="dtl-input-apoCd"></sbux-input>
+							</td>
 							<!--
-							<sbux-input uitype="hidden" id="dtl-input-apoSe" name="dtl-input-apoSe"></sbux-input>
+							<td class="td_input">
 							 -->
-							<sbux-input uitype="hidden" id="dtl-input-crno" name="dtl-input-crno"></sbux-input>
+							<th scope="row" class="th_bg th_border_right">법인명</th>
 							<td colspan="2" class="td_input">
 								<sbux-input
 									uitype="text"
@@ -256,7 +246,9 @@
 									readonly
 								></sbux-input>
 							</td>
+							<!--
 							<td class="td_input"  style="border-left: hidden;">
+							 -->
 							<th scope="row" class="th_bg th_border_right">사업자번호</th>
 							<td colspan="2" class="td_input">
 								<sbux-input
@@ -269,8 +261,8 @@
 									readonly
 								></sbux-input>
 							</td>
-							<td class="td_input"  style="border-left: hidden;">
 							<!--
+							<td class="td_input"  style="border-left: hidden;">
 							<td colspan="5" class="td_input"  style="border-left: hidden;">
 							 -->
 							</td>
@@ -559,6 +551,7 @@
 
 
 	/* Grid 화면 그리기 기능*/
+	//생산자조직 리스트
 	const fn_fcltMngCreateGrid01 = async function() {
 
 		let SBGridProperties = {};
@@ -611,6 +604,7 @@
 	        {caption: ["상세내역"], 	ref: 'apoCd',   	hidden : true},
 	    	{caption: ["상세내역"], 	ref: 'itemCd',   	hidden : true},
 	    	{caption: ["상세내역"], 	ref: 'uoBrno',   	hidden : true},
+	    	{caption: ["상세내역"], 	ref: 'uoApoCd',   	hidden : true},
 	        {caption: ["상세내역"], 	ref: 'apoSe',		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'brno',		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'crno',		hidden : true},
@@ -630,6 +624,7 @@
 
 
 	/* Grid 화면 그리기 기능*/
+	//농가 리스트
 	const fn_fcltMngCreateGrid02 = async function() {
 
 		let SBGridProperties = {};
@@ -1632,7 +1627,7 @@
  			rowData.rowSts = "I";
 
  			//날짜입력시 특수 문자 제거
-			const regex = /[^0-9]/g;	// 숫자가 아닌 문자열을 선택하는 정규식
+			const regex = "/[^0-9]/g";	// 숫자가 아닌 문자열을 선택하는 정규식
 			let date = rowData.joinDay;
 			let result = date.replace(regex, "").substr(0,8);//년월일 이상 적는 경우 대비
 			rowData.joinDay = result;
