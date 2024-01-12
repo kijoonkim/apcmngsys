@@ -1627,10 +1627,9 @@
  			rowData.rowSts = "I";
 
  			//날짜입력시 특수 문자 제거
-			const regex = "/[^0-9]/g";	// 숫자가 아닌 문자열을 선택하는 정규식
-			let date = rowData.joinDay;
-			let result = date.replace(regex, "").substr(0,8);//년월일 이상 적는 경우 대비
-			rowData.joinDay = result;
+			let dateVal = rowData.joinDay;
+			let result = fn_numReturn(dateVal);
+			rowData.joinDay = result.substr(0,8);//년월일 이상 적는 경우 대비
 
 			//저장할데이터
  	    	const pckgPrfmnc = {
@@ -1699,6 +1698,15 @@
     		console.error("failed", e.message);
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
+	}
+
+	//숫자 반환 함수
+	function fn_numReturn(dateString) {
+	    // 숫자만 추출하여 문자열로 반환
+	    var numbers = dateString.toString().match(/\d+/g);
+
+	    // 추출된 숫자가 없는 경우 빈 문자열 반환
+	    return numbers ? numbers.join('') : '';
 	}
 
 	//콤보 세팅

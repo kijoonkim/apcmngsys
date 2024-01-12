@@ -155,7 +155,6 @@
 									class="form-control input-sm"
 									mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
 									autocomplete="off"
-									readonly
 								></sbux-input>
 							</td>
 							<td colspan="2" class="td_input"  style="border-right: hidden;">
@@ -1285,6 +1284,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
         	jsonPrdcrCrclOgnMng.length = 0;
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
+        		console.log(item.mngmstInfoId);
 				let PrdcrCrclOgnMngVO = {
 						apoSe: item.apoSe
 						,apoCd: item.apoCd
@@ -1464,6 +1464,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
     function fn_checkRequiredInput(){
     	//레드닷 처리한 필수값들 확인
+    	//W0001	{0}을/를 선택하세요.
 		//W0002 : {0}을/를 입력하세요.
 
     	var corpNm = SBUxMethod.get("dtl-input-corpNm");
@@ -1493,19 +1494,19 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
     	var ctpv = SBUxMethod.get("dtl-input-cmptnInst");
     	if(gfn_isEmpty(ctpv)){
-    		gfn_comAlert("W0002", "관할기관");
+    		gfn_comAlert("W0001", "관할기관");
     		return false;
     	}
 
     	var ctpv = SBUxMethod.get("dtl-input-ctpv");
     	if(gfn_isEmpty(ctpv)){
-    		gfn_comAlert("W0002", "시도");
+    		gfn_comAlert("W0001", "시도");
     		return false;
     	}
 
     	var sgg = SBUxMethod.get("dtl-input-sgg");
     	if(gfn_isEmpty(sgg)){
-    		gfn_comAlert("W0002", "시군");
+    		gfn_comAlert("W0001", "시군");
     		return false;
     	}
 
@@ -1517,25 +1518,25 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
     	var corpSeCd = SBUxMethod.get("dtl-input-corpSeCd");
     	if(gfn_isEmpty(corpSeCd)){
-    		gfn_comAlert("W0002", "법인구분");
+    		gfn_comAlert("W0001", "법인구분");
     		return false;
     	}
 
     	var corpDtlSeCd = SBUxMethod.get("dtl-input-corpDtlSeCd");
     	if(gfn_isEmpty(corpDtlSeCd)){
-    		gfn_comAlert("W0002", "법인형태");
+    		gfn_comAlert("W0001", "법인형태");
     		return false;
     	}
 
     	var corpFndnDay = SBUxMethod.get("dtl-input-corpFndnDay");
     	if(gfn_isEmpty(corpFndnDay)){
-    		gfn_comAlert("W0002", "법인설립일");
+    		gfn_comAlert("W0001", "법인설립일");
     		return false;
     	}
 
     	var isoHldYn = SBUxMethod.get("dtl-input-isoHldYn");
     	if(gfn_isEmpty(isoHldYn)){
-    		gfn_comAlert("W0002", "출자출하조직여부");
+    		gfn_comAlert("W0001", "출자출하조직여부");
     		return false;
     	}
 
@@ -1662,7 +1663,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		/*
     	var itemNhBrofYn = SBUxMethod.get("dtl-input-itemNhBrofYn");
     	if(gfn_isEmpty(itemNhBrofYn)){
-    		gfn_comAlert("W0002", "품목농협 지소 여부");
+    		gfn_comAlert("W0001", "품목농협 지소 여부");
     		return false;
     	}
     	*/
