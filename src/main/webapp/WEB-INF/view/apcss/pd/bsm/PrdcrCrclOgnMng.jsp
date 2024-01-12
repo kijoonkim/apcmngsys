@@ -1472,12 +1472,13 @@ tps://sbgrid.co.kr/v2_5/document/guide
     		gfn_comAlert("W0002", "법인명");
     		return false;
     	}
-
+		/*
     	var crno = SBUxMethod.get("dtl-input-crno");
     	if(gfn_isEmpty(crno)){
     		gfn_comAlert("W0002", "법인등록번호");
     		return false;
     	}
+    	*/
 
     	var brno = SBUxMethod.get("dtl-input-brno");
     	if(gfn_isEmpty(brno)){

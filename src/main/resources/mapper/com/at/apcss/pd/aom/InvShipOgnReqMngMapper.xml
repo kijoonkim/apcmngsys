@@ -199,6 +199,8 @@
 					   SET
 		    	          ISO_FUND_APLY_AMT			= #{isoFundAplyAmt}
 		    	        , APLY_TRGT_SE				= #{aplyTrgtSe}
+		    	        , UO_BRNO					= #{uoBrno}
+		    	        , UO_CD						= #{uoCd}
 		    	]]>
 		    	        --, APLY_DAY	= SYSDATE
 		    	<![CDATA[
