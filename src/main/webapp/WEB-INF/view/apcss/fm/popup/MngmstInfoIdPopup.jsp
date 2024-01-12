@@ -90,7 +90,8 @@
 		objGrid: null,
 		gridJson: [],
 		callbackFnc: function() {},
-		init: async function(_callbackFnc) {
+		brno: null,
+		init: async function(_callbackFnc , _brno) {
 
 			SBUxMethod.hide('btnEditMngmstInfoId');
 			SBUxMethod.hide('btnCancelMngmstInfoId');
@@ -99,6 +100,10 @@
 
 			if (!gfn_isEmpty(_callbackFnc) && typeof _callbackFnc === 'function') {
 				this.callbackFnc = _callbackFnc;
+			}
+			if(!gfn_isEmpty(_brno)){
+				this.brno = _brno;
+				console.log("init "+this.brno);
 			}
 			this.createGrid();
 			this.search();
@@ -162,12 +167,18 @@
 		setGrid: async function(pageSize, pageNo, isEditable) {
 
 			var corpNm = nvlScnd(SBUxMethod.get("mngmstInfoId-inp-corpNm"),'');
-			var brno = nvlScnd(SBUxMethod.get("mngmstInfoId-inp-brno"),'');
+			let inpBrno = nvlScnd(SBUxMethod.get("mngmstInfoId-inp-brno"),'');
+			//계정 사업자 번호로만 검색되게 변경 요청
+			//관리자 계정의 경우 계정 사업자 번호가 없으므로 검색가능
+			if(!gfn_isEmpty(this.brno)){
+				inpBrno = this.brno;
+			}
+			console.log("init "+inpBrno);
 
 	        const postJsonPromise = gfn_postJSON("/fm/popup/selectMngmstInfoIdList.do", {
 
 	        	corpNm : corpNm, //검색 파라미터
-	        	brno : brno,
+	        	brno : inpBrno,
 	        	// pagination
 		  		pagingYn : 'Y',
 				currentPageNo : pageNo,
