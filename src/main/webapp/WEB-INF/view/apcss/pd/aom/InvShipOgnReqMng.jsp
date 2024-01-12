@@ -1146,7 +1146,7 @@
         }
 	}
 
-	var comUoBrno = [];
+	var comUoBrno = [];//통합조직 선택
 
 	/* 출자출하조직이 속한 통합조직 리스트 조회 */
 	const fn_searchUoList = async function(){
@@ -1187,6 +1187,8 @@
     		console.error("failed", e.message);
         }
 	}
+
+
 	//통합조직 콤보박스 선택시 값 변경
 	//const fn_changeSelUoBrno = async function() {
 	function fn_changeSelUoBrno(){
