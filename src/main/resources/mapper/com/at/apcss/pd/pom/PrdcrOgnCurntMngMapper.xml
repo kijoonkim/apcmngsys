@@ -698,6 +698,7 @@
 		DELETE FROM TB_EV_FRMHS_APO
 		 WHERE APO_CD			= #{apoCd}
 		   AND PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
+		   AND UO_BRNO			= #{uoBrno}
 		]]>
 	</delete>
 </mapper>
