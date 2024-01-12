@@ -271,8 +271,9 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="font-size:14px">통합조직 총 매입현황</span>
+								<b>&lt;통합조직 총 매입현황&gt;</b>
 								<!--
+								<span style="font-size:14px"></span>
 								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
 								 -->
 							</li>
@@ -294,10 +295,13 @@
 							<sbux-button id="btnSaveFclt3" name="btnSaveFclt3" uitype="normal" text="매출저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave02"></sbux-button>
 						</div>
 					</div>
+					<div>
+						<b>&lt;통합조직 총 매출현황&gt;</b>
+					</div>
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="font-size:14px">매출현황</span>
+								<span style="font-size:14px">1.매출현황</span>
 								<!--
 								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
 								 -->
@@ -323,7 +327,7 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="font-size:14px">출하처별 출하실적 명세</span>
+								<span style="font-size:14px">2.출하처별 출하실적 명세</span>
 								<!--
 								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
 								 -->
