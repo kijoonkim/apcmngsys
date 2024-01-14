@@ -10,6 +10,8 @@ import lombok.Setter;
 public class PrdcrCrclOgnSpItmPurSalYMngVO extends ComVO{
 	private String itemNm;
 	private String seNm;
+	private String seDtlNm;
+	private String prchsNm;
 	private String uoSeNm;
 	private String flnm;
 	private String slsCnsgnPrchsAmt;
@@ -31,6 +33,7 @@ public class PrdcrCrclOgnSpItmPurSalYMngVO extends ComVO{
 	private String prdcrOgnzNm;
 	private String cltvtnLandSn;
 	private String sttgUpbrItemSe;
+	private String sttgUpbrItemNm;
 
 	private String stbltYn; // 적합여부
 
