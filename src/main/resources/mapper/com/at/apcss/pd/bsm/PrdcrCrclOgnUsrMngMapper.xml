@@ -53,7 +53,7 @@
 			   AND DEL_YN = 'N'
     	]]>
     		<if test='userId != null and userId != ""'>
-				AND CM.USER_ID = #{userId}
+				AND CM.USER_ID  LIKE '%' || #{userId} || '%'
 			</if>
 		ORDER BY CM.USER_ID DESC
     </select>
@@ -109,7 +109,7 @@
 			   AND DEL_YN = 'N'
     	]]>
     		<if test='userId != null and userId != ""'>
-				AND CM.USER_ID = #{userId}
+				AND CM.USER_ID LIKE '%' || #{userId}  || '%'
 			</if>
 			<if test='userNm != null and userNm != ""'>
 				AND CM.USER_NM LIKE '%' || #{userNm} || '%'
@@ -125,7 +125,7 @@
 				AND CM.USER_STTS = #{userStts}
 			</if>
 			<if test='brno != null and brno != ""'>
-				AND CM.BRNO = #{brno}
+				AND CM.BRNO LIKE '%' || #{brno} || '%'
 			</if>
 			<if test='cmptncInstAprvSe != null and cmptncInstAprvSe != ""'>
 				AND CM.CMPTNC_INST_APRV_SE = #{cmptncInstAprvSe}
