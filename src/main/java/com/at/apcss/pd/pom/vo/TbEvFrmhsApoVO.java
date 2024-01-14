@@ -11,6 +11,7 @@ public class TbEvFrmhsApoVO extends ComVO{
 	//생산자조직 TB_EV_FRMHS_APO
 	private String yr;
 	private String apoCd;
+	private String uoCd;
 	private String apoSe;
 	private String brno;
 	private String uoBrno;

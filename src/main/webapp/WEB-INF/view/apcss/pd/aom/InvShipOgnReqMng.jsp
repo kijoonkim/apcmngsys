@@ -1037,7 +1037,7 @@
 				//SBUxMethod.set('dtl-input-crno01',gfn_nvl(item.crno))//법인등록번호
 				SBUxMethod.set('dtl-input-brno01',gfn_nvl(item.brno))//사업자등록번호
 			});
-
+        	fn_searchUoList();
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);

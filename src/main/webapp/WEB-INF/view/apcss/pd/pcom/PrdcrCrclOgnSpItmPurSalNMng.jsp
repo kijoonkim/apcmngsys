@@ -220,6 +220,7 @@
 							<th scope="row" class="th_bg th_border_right">법인명</th>
 							<sbux-input uitype="hidden" id="dtl-input-apoCd" name="dtl-input-apoCd"></sbux-input>
 							<sbux-input uitype="hidden" id="dtl-input-apoSe" name="dtl-input-apoSe"></sbux-input>
+							<sbux-input uitype="hidden" id="dtl-input-yr" name="dtl-input-yr"></sbux-input>
 							<td colspan="2" class="td_input">
 								<sbux-input
 									uitype="text"
@@ -275,7 +276,7 @@
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:420px; width: 100%;"></div>
+					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:600px; width: 100%;"></div>
 				</div>
 
 			</div>
@@ -387,6 +388,7 @@
 	var grdPrdcrOgnCurntMng01;
 
 	/* Grid 화면 그리기 기능*/
+	/*
 	const fn_fcltMngCreateGrid01 = async function() {
 
 		let SBGridProperties = {};
@@ -441,6 +443,59 @@
 	            	ref : "col4",   width : '100px',        style : 'text-align:right',      type : 'input',   format : { type:'number' , rule:'#,##0.00' }, merge:false},
 	            {caption : ['비고','비고'],
 	            	ref : "col5",   width : '150px',        style : 'text-align:right',      type : 'input',   format : { type:'number' , rule:'#,##0.00' }, merge:false}
+	        ];
+
+	    grdPrdcrOgnCurntMng01 = _SBGrid.create(SBGridProperties);
+	    //grdPrdcrOgnCurntMng01.bind('click','gridClick01');
+	    grdPrdcrOgnCurntMng01.bind('afteredit','fn_AfterEdit01');
+	}
+	*/
+	/* Grid 화면 그리기 기능*/
+	const fn_fcltMngCreateGrid01 = async function() {
+
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng01';
+	    SBGridProperties.id = 'grdPrdcrOgnCurntMng01';
+	    SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng01';
+	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
+	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.mergecells = 'bycol';//동일한 열 병합처리
+	    SBGridProperties.datamergefalseskip = true;// merge false 된 열 병합 제외
+	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.columns = [
+	            {caption : ['전문품목명','전문품목명'],
+	            	ref : "itemNm",   width : '100px',        style : 'text-align:center',     type : 'output'},
+	            {caption : ['판매위임(매입)금액(천원)','구분'],
+	            	ref : "seNm",   width : '150px',        style : 'text-align:center',     type : 'output'},
+	            //{caption : ['판매위임(매입)금액(천원)','구분'],
+		            //ref : "seDtlNm",   width : '150px',        style : 'text-align:center',     type : 'output'},
+		        {caption : ['판매위임(매입)금액(천원)','품목구분'],
+			        ref : "sttgUpbrItemNm",   width : '80px',        style : 'text-align:center',     type : 'output' , merge:false},
+
+	            {caption : ['판매위임(매입)금액(천원)','매입처'],
+	            	ref : "prchsNm",   width : '150px',        style : 'text-align:center',     type : 'output'},
+
+	            {caption : ['판매위임(매입)금액(천원)','금액'],
+	            	ref : "slsCnsgnPrchsAmt",   width : '100px',        style : 'text-align:right',      type : 'input',   format : { type:'number' , rule:'#,###' }, merge:false},
+
+	            {caption : ['판매(매출)금액<br>(천원)','판매(매출)금액<br>(천원)'],
+	            	ref : "slsCnsgnSlsAmt",   width : '100px',        style : 'text-align:right',      type : 'input',   format : { type:'number' , rule:'#,###' }, merge:false},
+	            {caption : ['비고','비고'],
+	            	ref : "rmrk",   width : '150px',        style : 'text-align:right',      type : 'input'},
+
+	            {caption: ["상세내역"], 	ref: 'apoCd',   		hidden : true},
+		        {caption: ["상세내역"], 	ref: 'apoSe',   		hidden : true},
+		        {caption: ["상세내역"], 	ref: 'brno',   			hidden : true},
+		        {caption: ["상세내역"], 	ref: 'crno',   			hidden : true},
+		        {caption: ["상세내역"], 	ref: 'yr',   			hidden : true},
+		        {caption: ["상세내역"], 	ref: 'ctgryCd',   		hidden : true},
+		        {caption: ["상세내역"], 	ref: 'itemCd',   		hidden : true},
+		        {caption: ["상세내역"], 	ref: 'prdcrOgnzSn',   	hidden : true},
+		        {caption: ["상세내역"], 	ref: 'prdcrOgnzCd',   	hidden : true},
+		        {caption: ["상세내역"], 	ref: 'cltvtnLandSn',   	hidden : true},
+		        {caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',   	hidden : true},
+		        {caption: ["상세내역"], 	ref: 'typeSeNo',   	hidden : true},
 	        ];
 
 	    grdPrdcrOgnCurntMng01 = _SBGrid.create(SBGridProperties);
@@ -608,7 +663,7 @@
 				SBUxMethod.set('dtl-input-corpNm',gfn_nvl(item.corpNm))//법인명
 				SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno))//법인등록번호
 				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))//사업자등록번호
-
+				SBUxMethod.set('dtl-input-yr',gfn_nvl(item.yr))//사업자등록번호
 			});
 
         }catch (e) {
@@ -643,6 +698,7 @@
 		SBUxMethod.set('dtl-input-corpNm',gfn_nvl(rowData.corpNm))//법인명
 		SBUxMethod.set('dtl-input-crno',gfn_nvl(rowData.crno))//법인등록번호
 		SBUxMethod.set('dtl-input-brno',gfn_nvl(rowData.brno))//사업자등록번호
+		SBUxMethod.set('dtl-input-yr',gfn_nvl(rowData.yr))//등록년도
 		fn_clearForm();
     }
 	//그리드 초기화
@@ -656,9 +712,11 @@
 	//판매위임[매입] 및 출하[매출] 실적 그리드 조회
 	const fn_dtlGridSearch = async function(){
 		let brno = SBUxMethod.get("dtl-input-brno");//
+		let yr = SBUxMethod.get("dtl-input-yr");//
 
-    	let postJsonPromise = gfn_postJSON("/pd/pcom/.do", {
+    	let postJsonPromise = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnSpItmPurSalNMngList.do", {
     		brno : brno
+    		, yr : yr
 		});
 
         let data = await postJsonPromise ;
@@ -667,14 +725,35 @@
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
 				let PrdcrOgnCurntMngVO = {
-						apoCd: item.apoCd
-						,apoSe: item.apoSe
-						,ctpv: item.ctpv
-						,sgg: item.sgg
-						,corpNm: item.corpNm
-						,crno: item.crno
-						,brno: item.brno
+						typeSeNo: item.typeSeNo
+						,seNm: item.seNm
+						,seDtlNm: item.seDtlNm
+						,prchsNm: item.prchsNm
+
+						,isoBrno: item.isoBrno
+						,prdcrOgnzSn: item.prdcrOgnzSn
+						,prdcrOgnzCd: item.prdcrOgnzCd
+						,prdcrOgnzNm: item.prdcrOgnzNm
+						,cltvtnLandSn: item.cltvtnLandSn
+						,sttgUpbrItemSe: item.sttgUpbrItemSe
+						,sttgUpbrItemNm: item.sttgUpbrItemNm
+						,itemCd: item.itemCd
+						,itemNm: item.itemNm
 						,yr: item.yr
+
+						,slsCnsgnPrchsAmt: item.slsCnsgnPrchsAmt
+						,slsCnsgnSlsAmt: item.slsCnsgnSlsAmt
+						,rmrk: item.rmrk
+
+						//,uoSpmtAmt: item.uoSpmtAmt
+						//,uoOtherSpmtAmt: item.uoOtherSpmtAmt
+						//,SpmtAmtTot: item.SpmtAmtTot
+
+						//,apoCd: item.apoCd
+						//,apoSe: item.apoSe
+						//,brno: item.brno
+						//,crno: item.crno
+						,ctgryCd: '0'
 				}
 				jsonPrdcrOgnCurntMng01.push(PrdcrOgnCurntMngVO);
 				if (index === 0) {
@@ -689,6 +768,69 @@
     		}
     		console.error("failed", e.message);
         }
+	}
+
+	//실적 저장
+	const fn_listSave = async function(){
+
+		let gridData01 = grdPrdcrOgnCurntMng01.getGridDataAll();
+		let saveList = [];
+
+		let apoCd = SBUxMethod.get('dtl-input-apoCd');
+		let apoSe = SBUxMethod.get('dtl-input-apoSe');
+		let crno = SBUxMethod.get('dtl-input-crno');
+		let brno = SBUxMethod.get('dtl-input-brno');
+
+		//그리드의 해드가 두줄이상인경우 for문 시작과 끝을 늘린만큼 늘려야함
+		for(var i=2; i<=gridData01.length + 1; i++ ){
+			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i);
+			let rowSts01 = grdPrdcrOgnCurntMng01.getRowStatus(i);
+			//let delYn = rowData01.delYn;
+
+			rowData01.apoCd = apoCd;
+			rowData01.apoSe = apoSe;
+			rowData01.crno = crno;
+			rowData01.brno = brno;
+
+			if (rowSts01 === 3){
+				rowData01.rowSts = "I";
+				saveList.push(rowData01);
+			} else if (rowSts01 === 2){
+				rowData01.rowSts = "I";
+				saveList.push(rowData01);
+			} else if (rowSts01 === 1){
+				rowData01.rowSts = "I";
+				saveList.push(rowData01);
+			} else {
+				continue;
+			}
+		}
+		if(saveList.length == 0){
+			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
+			return;
+		}
+
+		let regMsg = "저장 하시겠습니까?";
+		if(confirm(regMsg)){
+
+			let postJsonPromise = gfn_postJSON("/pd/pcom/multiSavePrdcrCrclOgnSpItmPurSalNMngList.do", saveList);
+	        let data = await postJsonPromise;
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+	        		fn_dtlGridSearch();
+	        		//fn_searchFcltList();
+	        	} else {
+	        		alert(data.resultMessage);
+	        	}
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        }
+
+		}
 	}
 
 </script>
