@@ -74,6 +74,13 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 
 		return resultList;
 	}
+	@Override
+	public List<GdsInvntrVO> selectGdsInvntrTotalList(GdsInvntrVO gdsInvntrVO) throws Exception {
+
+		List<GdsInvntrVO> resultList = gdsInvntrMapper.selectGdsInvntrTotalList(gdsInvntrVO);
+
+		return resultList;
+	}
 
 	@Override
 	public List<GdsInvntrVO> selectUpdateGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception {
@@ -458,6 +465,14 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 	public List<GdsInvntrVO> selectDailyGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception {
 
 		List<GdsInvntrVO> resultList = gdsInvntrMapper.selectDailyGdsInvntrList(gdsInvntrVO);
+
+		return resultList;
+	}
+
+	@Override
+	public List<GdsInvntrVO> selectDailyGdsInvntrTotalList(GdsInvntrVO gdsInvntrVO) throws Exception {
+
+		List<GdsInvntrVO> resultList = gdsInvntrMapper.selectDailyGdsInvntrTotalList(gdsInvntrVO);
 
 		return resultList;
 	}

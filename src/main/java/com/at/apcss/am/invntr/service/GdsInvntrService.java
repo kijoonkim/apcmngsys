@@ -38,12 +38,28 @@ public interface GdsInvntrService {
 	public List<GdsInvntrVO> selectGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception;
 
 	/**
+	 * 상품재고 목록 집계조회
+	 * @param gdsInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<GdsInvntrVO> selectGdsInvntrTotalList(GdsInvntrVO gdsInvntrVO) throws Exception;
+
+	/**
 	 * 상품재고 일일재고 목록 조회
 	 * @param gdsInvntrVO
 	 * @return
 	 * @throws Exception
 	 */
 	public List<GdsInvntrVO> selectDailyGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception;
+
+	/**
+	 * 상품재고 일일재고 목록 조회
+	 * @param gdsInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<GdsInvntrVO> selectDailyGdsInvntrTotalList(GdsInvntrVO gdsInvntrVO) throws Exception;
 
 	/**
 	 * 상품재고 목록 조회

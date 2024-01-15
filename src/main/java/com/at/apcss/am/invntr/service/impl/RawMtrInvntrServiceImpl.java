@@ -79,6 +79,13 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		return resultList;
 	}
 
+	@Override
+	public List<RawMtrInvntrVO> selectRawMtrInvntrTotalList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
+
+		List<RawMtrInvntrVO> resultList = rawMtrInvntrMapper.selectRawMtrInvntrTotalList(rawMtrInvntrVO);
+		return resultList;
+	}
+
 
 	@Override
 	public List<RawMtrInvntrVO> selectRawMtrInvntrListForPrcs(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
@@ -557,6 +564,11 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		List<RawMtrInvntrVO> resultList = rawMtrInvntrMapper.selectDailyRawMtrInvntrList(rawMtrInvntrVO);
 		return resultList;
 	}
+	@Override
+	public List<RawMtrInvntrVO> selectDailyRawMtrInvntrTotalList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
+		List<RawMtrInvntrVO> resultList = rawMtrInvntrMapper.selectDailyRawMtrInvntrTotalList(rawMtrInvntrVO);
+		return resultList;
+	}
 
 
 	@Override
@@ -744,6 +756,8 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 
 		return null;
 	}
+
+
 
 
 }
