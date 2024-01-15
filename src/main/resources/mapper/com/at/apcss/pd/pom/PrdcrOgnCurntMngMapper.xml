@@ -706,6 +706,15 @@
 		DELETE FROM TB_EV_FRMHS_APO
 		 WHERE APO_CD			= #{apoCd}
 		   AND PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
+		   AND YR				= #{yr}
+		]]>
+	</delete>
+	<delete id="deleteTbEvFrmhsPrdctnEcSpmtSttnApo" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
+		<![CDATA[
+		DELETE FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN
+		 WHERE APO_CD			= #{apoCd}
+		   AND PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
+		   AND YR				= #{yr}
 		]]>
 	</delete>
 </mapper>

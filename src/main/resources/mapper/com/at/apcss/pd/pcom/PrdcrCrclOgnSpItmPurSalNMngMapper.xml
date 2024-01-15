@@ -66,7 +66,7 @@ FROM
 		AND TYPE_SE_NO = '5'
 	) TOT
 WHERE 1=1
- AND UOFA.BRNO = TOT.ISO_BRNO(+)
+ AND UOFA.BRNO = TOT.BRNO(+)
  AND UOFA.ITEM_CD = ITEM.ITEM_CD(+)
 --=='6' AS TYPE_SE_NO===통합조직 직속 생산자조직 소계======================================
 UNION ALL
@@ -346,6 +346,7 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 				AND CLT.YR	 			= #{yr}
 				AND CLT.CTGRY_CD	 	= #{ctgryCd}
 				AND CLT.ITEM_CD 		= #{itemCd}
+				AND CLT.ISO_BRNO 		= #{isoBrno}
 				AND CLT.PRDCR_OGNZ_SN 	= #{prdcrOgnzSn}
 				AND CLT.CLTVTN_LAND_SN 	= #{cltvtnLandSn}
 				AND CLT.TYPE_SE_NO		= #{typeSeNo}
@@ -371,6 +372,7 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 					   AND CLT.YR	 			= #{yr}
 					   AND CLT.CTGRY_CD	 		= #{ctgryCd}
 					   AND CLT.ITEM_CD 			= #{itemCd}
+					   AND CLT.ISO_BRNO 		= #{isoBrno}
 					   AND CLT.PRDCR_OGNZ_SN 	= #{prdcrOgnzSn}
 					   AND CLT.CLTVTN_LAND_SN 	= #{cltvtnLandSn}
 					   AND CLT.TYPE_SE_NO		= #{typeSeNo}
@@ -384,6 +386,7 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 		    		  , YR
 		    		  , CTGRY_CD
 		    		  , ITEM_CD
+		    		  , ISO_BRNO
 		    		  , PRDCR_OGNZ_SN
 		    		  , PRDCR_OGNZ_CD
 		    		  , CLTVTN_LAND_SN
@@ -410,6 +413,7 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 		    		  , TO_CHAR(SYSDATE,'YYYY')
 		    		  , #{ctgryCd}
 		    		  , #{itemCd}
+		    		  , #{isoBrno}
 		    		  , #{prdcrOgnzSn}
 		    		  , #{prdcrOgnzCd}
 		    		  , #{cltvtnLandSn}
