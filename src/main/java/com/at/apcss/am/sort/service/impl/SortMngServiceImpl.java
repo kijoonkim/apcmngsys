@@ -703,18 +703,28 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 						return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "품목조회정보");
 					}
 					
+					/*
 					double sortRdcdRt = cmnsItemVO.getSortRdcdRt();
 					
 					if (sortRdcdRt >= 100) {
 						return ComUtil.getResultMap(ComConstants.MSGCD_TGT_EQUAL_GREATER_THAN, "감량률||100%");
 					}
 					
+
 					double calFctr = 100 / (100 - sortRdcdRt);
 					sortQntt = (int)ComUtil.round(sortQntt * calFctr);
 					sortWght = ComUtil.round(sortWght * calFctr);
+					
 					logger.debug("calFctr: {}", calFctr);
+					 */
 					logger.debug("sortQntt: {}", sortQntt);
 					logger.debug("sortWght: {}", sortWght);
+					
+					double inptWght = sort.getInptWght();
+					if (inptWght > sortWght && sortWght > 0) {
+						sortQntt = (int)ComUtil.round(sortQntt / sortWght * inptWght);
+						sortWght = inptWght;
+					}
 					
 					for ( RawMtrInvntrVO orgnInv : rawMtrInvntrVOList ) {
 						logger.debug(
