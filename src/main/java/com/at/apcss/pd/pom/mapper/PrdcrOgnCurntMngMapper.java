@@ -53,4 +53,7 @@ public interface PrdcrOgnCurntMngMapper {
 	public int insertTbEvFrmhsApo(TbEvFrmhsApoVO tbEvFrmhsApoVO);
 
 	public int deleteTbEvFrmhsApo(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception;
+	
+	public int deleteTbEvFrmhsPrdctnEcSpmtSttnApo(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception;
+	
 }

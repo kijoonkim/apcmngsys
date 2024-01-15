@@ -523,7 +523,7 @@
 			        ref : "sttgUpbrItemNm",   width : '80px',        style : 'text-align:center',     type : 'output' , merge:false},
 
 	            {caption : ['판매위임(매입)금액(천원)','매입처'],
-	            	ref : "prchsNm",   width : '150px',        style : 'text-align:center',     type : 'output'},
+	            	ref : "prchsNm",   width : '150px',        style : 'text-align:center',     type : 'output', merge:false},
 	            {caption : ['판매위임(매입)금액(천원)','금액'],
 		            ref : "slsCnsgnPrchsAmt",   width : '100px',	style : 'text-align:right',	type : 'input',   format : { type:'number' , rule:'#,###' }, merge:false},
 	            {caption : ['출하(매출)금액(천원)','통합조직에\n출하(판매)'],
@@ -545,8 +545,9 @@
 		        {caption: ["상세내역"], 	ref: 'prdcrOgnzSn',   	hidden : true},
 		        {caption: ["상세내역"], 	ref: 'prdcrOgnzCd',   	hidden : true},
 		        {caption: ["상세내역"], 	ref: 'cltvtnLandSn',   	hidden : true},
-		        {caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',   	hidden : true},
-		        {caption: ["상세내역"], 	ref: 'typeSeNo',   	hidden : true},
+		        {caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
+		        {caption: ["상세내역"], 	ref: 'typeSeNo',   		hidden : true},
+		        {caption: ["상세내역"], 	ref: 'isoBrno',   		hidden : true},
 	        ];
 
 	    grdPrdcrOgnCurntMng01 = _SBGrid.create(SBGridProperties);
@@ -556,17 +557,17 @@
 
 	const fn_test = async function() {
 		jsonPrdcrOgnCurntMng01=[
-			{"itemNm":"사과(전문)",	"seNm":"생산자조직(전속출하)",	"prdcrOgnzNm":"A",			"slsCnsgnPrchsAmt":"10160","uoSpmtAmt":"20160","uoOtherSpmtAmt":"1670"		,"SpmtAmtTot":"","rmrk":""},
-			{"itemNm":"사과(전문)",	"seNm":"생산자조직(전속출하)",	"prdcrOgnzNm":"B", 		"slsCnsgnPrchsAmt":"10170","uoSpmtAmt":"20170","uoOtherSpmtAmt":"1680"		,"SpmtAmtTot":"","rmrk":""},
-			{"itemNm":"사과(전문)",	"seNm":"생산자조직(전속출하)",	"prdcrOgnzNm":"C", 		"slsCnsgnPrchsAmt":"10180","uoSpmtAmt":"20180","uoOtherSpmtAmt":"1690"		,"SpmtAmtTot":"","rmrk":""},
-			{"itemNm":"사과(전문)",	"seNm":"생산자조직 외",		"prdcrOgnzNm":"농가,법인 등",	"slsCnsgnPrchsAmt":"10190","uoSpmtAmt":"20190","uoOtherSpmtAmt":"1700"		,"SpmtAmtTot":"","rmrk":""},
-			{"itemNm":"딸기(전문)",	"seNm":"생산자조직(전속출하)",	"prdcrOgnzNm":"D",			"slsCnsgnPrchsAmt":"10200","uoSpmtAmt":"20200","uoOtherSpmtAmt":"1710"		,"SpmtAmtTot":"","rmrk":""},
-			{"itemNm":"딸기(전문)",	"seNm":"생산자조직(전속출하)",	"prdcrOgnzNm":"E",			"slsCnsgnPrchsAmt":"10210","uoSpmtAmt":"20210","uoOtherSpmtAmt":"1720"		,"SpmtAmtTot":"","rmrk":""},
-			{"itemNm":"딸기(전문)",	"seNm":"생산자조직(전속출하)",	"prdcrOgnzNm":"F",			"slsCnsgnPrchsAmt":"10220","uoSpmtAmt":"20220","uoOtherSpmtAmt":"1730"		,"SpmtAmtTot":"","rmrk":""},
-			{"itemNm":"딸기(전문)",	"seNm":"생산자조직 외",		"prdcrOgnzNm":"농가,법인 등",	"slsCnsgnPrchsAmt":"10230","uoSpmtAmt":"20230","uoOtherSpmtAmt":"1740"		,"SpmtAmtTot":"","rmrk":""},
-			{"itemNm":"배(육성)",	"seNm":"생산자조직(전속출하)",	"prdcrOgnzNm":"G",			"slsCnsgnPrchsAmt":"10240","uoSpmtAmt":"20240","uoOtherSpmtAmt":"1750"		,"SpmtAmtTot":"","rmrk":""},
-			{"itemNm":"배(육성)",	"seNm":"생산자조직(전속출하)",	"prdcrOgnzNm":"H",			"slsCnsgnPrchsAmt":"10250","uoSpmtAmt":"20250","uoOtherSpmtAmt":"1720"		,"SpmtAmtTot":"","rmrk":""},
-			{"itemNm":"배(육성)",	"seNm":"생산자조직 외",		"prdcrOgnzNm":"농가,법인 등",	"slsCnsgnPrchsAmt":"10260","uoSpmtAmt":"20260","uoOtherSpmtAmt":"1730"		,"SpmtAmtTot":"","rmrk":""}
+			{"itemNm":"사과(전문)",	"seNm":"생산자조직(전속출하)",	"prchsNm":"A",			"slsCnsgnPrchsAmt":"10160","uoSpmtAmt":"20160","uoOtherSpmtAmt":"1670"		,"SpmtAmtTot":"","rmrk":""},
+			{"itemNm":"사과(전문)",	"seNm":"생산자조직(전속출하)",	"prchsNm":"B", 			"slsCnsgnPrchsAmt":"10170","uoSpmtAmt":"20170","uoOtherSpmtAmt":"1680"		,"SpmtAmtTot":"","rmrk":""},
+			{"itemNm":"사과(전문)",	"seNm":"생산자조직(전속출하)",	"prchsNm":"C", 			"slsCnsgnPrchsAmt":"10180","uoSpmtAmt":"20180","uoOtherSpmtAmt":"1690"		,"SpmtAmtTot":"","rmrk":""},
+			{"itemNm":"사과(전문)",	"seNm":"생산자조직 외",		"prchsNm":"농가,법인 등",	"slsCnsgnPrchsAmt":"10190","uoSpmtAmt":"20190","uoOtherSpmtAmt":"1700"		,"SpmtAmtTot":"","rmrk":""},
+			{"itemNm":"딸기(전문)",	"seNm":"생산자조직(전속출하)",	"prchsNm":"D",			"slsCnsgnPrchsAmt":"10200","uoSpmtAmt":"20200","uoOtherSpmtAmt":"1710"		,"SpmtAmtTot":"","rmrk":""},
+			{"itemNm":"딸기(전문)",	"seNm":"생산자조직(전속출하)",	"prchsNm":"E",			"slsCnsgnPrchsAmt":"10210","uoSpmtAmt":"20210","uoOtherSpmtAmt":"1720"		,"SpmtAmtTot":"","rmrk":""},
+			{"itemNm":"딸기(전문)",	"seNm":"생산자조직(전속출하)",	"prchsNm":"F",			"slsCnsgnPrchsAmt":"10220","uoSpmtAmt":"20220","uoOtherSpmtAmt":"1730"		,"SpmtAmtTot":"","rmrk":""},
+			{"itemNm":"딸기(전문)",	"seNm":"생산자조직 외",		"prchsNm":"농가,법인 등",	"slsCnsgnPrchsAmt":"10230","uoSpmtAmt":"20230","uoOtherSpmtAmt":"1740"		,"SpmtAmtTot":"","rmrk":""},
+			{"itemNm":"배(육성)",	"seNm":"생산자조직(전속출하)",	"prchsNm":"G",			"slsCnsgnPrchsAmt":"10240","uoSpmtAmt":"20240","uoOtherSpmtAmt":"1750"		,"SpmtAmtTot":"","rmrk":""},
+			{"itemNm":"배(육성)",	"seNm":"생산자조직(전속출하)",	"prchsNm":"H",			"slsCnsgnPrchsAmt":"10250","uoSpmtAmt":"20250","uoOtherSpmtAmt":"1720"		,"SpmtAmtTot":"","rmrk":""},
+			{"itemNm":"배(육성)",	"seNm":"생산자조직 외",		"prchsNm":"농가,법인 등",	"slsCnsgnPrchsAmt":"10260","uoSpmtAmt":"20260","uoOtherSpmtAmt":"1730"		,"SpmtAmtTot":"","rmrk":""}
 		];
 		grdPrdcrOgnCurntMng01.rebuild();
     }
@@ -574,7 +575,7 @@
 
 	//해당 컬럼 변경시 리프래시 리스트
 	const columnsToRefresh01 = [
-			'uoSpmtAmt','uoOtherSpmtAmt','SpmtAmtTot'
+			'slsCnsgnPrchsAmt','uoSpmtAmt','uoOtherSpmtAmt','SpmtAmtTot'
 		];
 
 	//그리드 열 속성의 calc 은 그리드 생성시 작동함  refresh() 해서 데이터 변경시로 유사하게 가능
@@ -586,13 +587,95 @@
 	    }
 	}
 
-	//그리드 매입 물량 합계 함수
+	//통합조직 출하 합계 함수
 	function fn_calcSum(objGrid, nRow, nCol) {
+		console.log("==========fn_calcSum=======");
 		var strSum
 		var value01 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('uoSpmtAmt')));
 		var value02 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('uoOtherSpmtAmt')));
 		strSum = (value01 + value02).toString();
+		fn_totSum(objGrid, nRow, nCol);
 	    return strSum;
+	}
+
+	//통합조직 이외 출하 합계 함수
+	function fn_totSum(objGrid, nRow, nCol) {
+		console.log("==========fn_uoSpmtAmtSum=======");
+		let slsCnsgnPrchsAmt = objGrid.getColRef("slsCnsgnPrchsAmt");//판매 위임 매입
+		let uoSpmtAmt = objGrid.getColRef("uoSpmtAmt");//통합 이외 출하
+		let uoOtherSpmtAmt = objGrid.getColRef("uoOtherSpmtAmt");//통합 이외 출하
+		let uoSpmtAmtVal = objGrid.getCellData(Number(nRow), uoSpmtAmt);
+		let itemCd = objGrid.getColRef("itemCd");//품목코드
+		let itemCdVal = objGrid.getCellData(Number(nRow), itemCd);
+
+		let gridData01 = objGrid.getGridDataAll();
+		let strSum1 = 0;
+		let strSum2 = 0;
+		let strSum3 = 0;
+		let targetRow1;
+		for(var i=2; i <= gridData01.length+1; i++ ){
+			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i);
+
+			if(rowData01.typeSeNo == '5' && rowData01.itemCd == itemCdVal){
+				strSum1 += Number(rowData01.slsCnsgnPrchsAmt);
+				strSum2 += Number(rowData01.uoSpmtAmt);
+				strSum3 += Number(rowData01.uoOtherSpmtAmt);
+			}
+			//소계 위치 row
+			if(rowData01.typeSeNo == '6' && rowData01.itemCd == itemCdVal){
+				targetRow = i;
+			}
+		}
+		objGrid.setCellData(Number(targetRow), slsCnsgnPrchsAmt , strSum1 );
+		objGrid.setCellData(Number(targetRow), uoSpmtAmt , strSum2 );
+		objGrid.setCellData(Number(targetRow), uoOtherSpmtAmt , strSum3 );
+		fn_totalTotSum(objGrid, nRow, nCol);
+	}
+
+	//판매위임 매입 금액 합계 함수
+	function fn_totalTotSum(objGrid, nRow, nCol) {
+		console.log("==========fn_totalTotSum=======");
+		let slsCnsgnPrchsAmt = objGrid.getColRef("slsCnsgnPrchsAmt");//판매위임 매입 금액
+		let uoSpmtAmt = objGrid.getColRef("uoSpmtAmt");//통합 출하
+		let uoOtherSpmtAmt = objGrid.getColRef("uoOtherSpmtAmt");//통합 이외 출하
+		let SpmtAmtTot = objGrid.getColRef("SpmtAmtTot");//출하 합계
+		let slsCnsgnPrchsAmtVal = objGrid.getCellData(Number(nRow), slsCnsgnPrchsAmt);
+
+		let itemCd = objGrid.getColRef("itemCd");//품목코드
+		let itemCdVal = objGrid.getCellData(Number(nRow), itemCd);
+
+		let gridData01 = objGrid.getGridDataAll();
+		let strSum1 = 0;
+		let strSum2 = 0;
+		let strSum3 = 0;
+		let strSum4 = 0;
+		let targetRow;
+		for(var i=2; i <= gridData01.length+1; i++ ){
+			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i);
+			if(rowData01.itemCd == itemCdVal){
+				if(rowData01.typeSeNo == '6'){
+					strSum1 += Number(rowData01.slsCnsgnPrchsAmt);
+					strSum2 += Number(rowData01.uoSpmtAmt);
+					strSum3 += Number(rowData01.uoOtherSpmtAmt);
+					strSum4 += Number(rowData01.SpmtAmtTot);
+				}
+				if(rowData01.typeSeNo == '7'){
+					strSum1 += Number(rowData01.slsCnsgnPrchsAmt);
+					strSum2 += Number(rowData01.uoSpmtAmt);
+					strSum3 += Number(rowData01.uoOtherSpmtAmt);
+					strSum4 += Number(rowData01.SpmtAmtTot);
+				}
+				//합계 위치 row
+				if(rowData01.typeSeNo == '8'){
+					targetRow = i;
+				}
+			}
+		}
+
+		objGrid.setCellData(targetRow, slsCnsgnPrchsAmt , strSum1 );
+		objGrid.setCellData(targetRow, uoSpmtAmt , strSum2 );
+		objGrid.setCellData(targetRow, uoOtherSpmtAmt , strSum3 );
+		objGrid.setCellData(targetRow, SpmtAmtTot , strSum4 );
 	}
 
 	/**
@@ -848,7 +931,7 @@
         }
 	}
 
-	//생산자조직 외 인경우 disabled 처리
+	//그리드 커스텀 배경 및 disabled 처리
 	const fn_gridCustom = async function(){
 		let gridData01 = grdPrdcrOgnCurntMng01.getGridDataAll();
 		for(var i=2; i <= gridData01.length+1; i++ ){

@@ -86,7 +86,7 @@ SELECT
 	, '' AS STTG_UPBR_ITEM_NM
 	, ITEM.YR AS YR
 	, 0 AS SLS_CNSGN_PRCHS_AMT
-	, TOT.SLS_CNSGN_SLS_AMT
+	, NVL(TOT.SLS_CNSGN_SLS_AMT, 0) AS SLS_CNSGN_SLS_AMT
 	, TOT.RMRK
 FROM
 	(SELECT ITEM_CD , YR
@@ -156,7 +156,7 @@ SELECT
 	, '' AS STTG_UPBR_ITEM_NM
 	, ITEM.YR AS YR
 	, 0 AS SLS_CNSGN_PRCHS_AMT
-	, 0 AS SLS_CNSGN_SLS_AMT
+	, NVL(TOT.SLS_CNSGN_SLS_AMT, 0) AS SLS_CNSGN_SLS_AMT
 	, TOT.RMRK
 FROM
 	(SELECT ITEM_CD , YR
@@ -221,7 +221,42 @@ WHERE 1=1
  AND UOFA.BRNO = TOT.ISO_BRNO(+)
  AND UOFA.ITEM_CD = ITEM.ITEM_CD(+)
 
---=='7' AS TYPE_SE_NO=========================================
+ --=='6' AS TYPE_SE_NO===통합조직 직속 생산자조직 소계======================================
+UNION ALL
+
+SELECT
+	'6' AS TYPE_SE_NO
+	, '(통합조직 직속)생산자조직' AS SE_NM
+	, '전속출하'  AS SE_DTL_NM
+	, '소계' AS PRCHS_NM
+	, '0'  AS ISO_BRNO
+	, 0 AS PRDCR_OGNZ_SN
+	, '0' AS PRDCR_OGNZ_CD
+	,'0' AS CLTVTN_LAND_SN
+	, ITEM.ITEM_CD AS ITEM_CD
+	, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = ITEM.ITEM_CD) AS ITEM_NM
+	, '' AS STTG_UPBR_ITEM_SE
+	, '' AS STTG_UPBR_ITEM_NM
+	, ITEM.YR AS YR
+	, 0 AS SLS_CNSGN_PRCHS_AMT
+	, TOT.SLS_CNSGN_SLS_AMT
+	, TOT.RMRK
+FROM
+	(SELECT ITEM_CD , YR
+		FROM TB_EV_APO_YR_GPC_CD
+		WHERE BRNO = #{brno}
+		AND YR =#{yr}
+	) ITEM ,
+	(SELECT *
+		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+		WHERE BRNO = #{brno}
+		AND YR =#{yr}
+		AND TYPE_SE_NO = '6'
+	) TOT
+WHERE 1=1
+	AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
+
+--=='7' AS TYPE_SE_NO===기타매입======================================
 UNION ALL
 
 SELECT
@@ -256,7 +291,7 @@ FROM
 WHERE 1=1
 	AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
 
---=='8' AS TYPE_SE_NO=========================================
+--=='8' AS TYPE_SE_NO===합계======================================
 UNION ALL
 
 SELECT
@@ -368,7 +403,7 @@ SELECT
 	, '' AS STTG_UPBR_ITEM_NM
 	, ITEM.YR AS YR
 	, 0 AS SLS_CNSGN_PRCHS_AMT
-	, TOT.SLS_CNSGN_SLS_AMT
+	, NVL(TOT.SLS_CNSGN_SLS_AMT, 0) AS SLS_CNSGN_SLS_AMT
 	, TOT.RMRK
 FROM
 	(SELECT ITEM_CD , YR
@@ -403,7 +438,7 @@ SELECT
 	, '' AS STTG_UPBR_ITEM_NM
 	, ITEM.YR AS YR
 	, TOT.SLS_CNSGN_PRCHS_AMT
-	, TOT.SLS_CNSGN_SLS_AMT
+	, NVL(TOT.SLS_CNSGN_SLS_AMT, 0) AS SLS_CNSGN_SLS_AMT
 	, TOT.RMRK
 FROM
 	(SELECT ITEM_CD , YR
@@ -503,7 +538,42 @@ WHERE 1=1
  AND UOFA.BRNO = TOT.ISO_BRNO(+)
  AND UOFA.ITEM_CD = ITEM.ITEM_CD(+)
 
---=='7' AS TYPE_SE_NO=========================================
+--=='6' AS TYPE_SE_NO===통합조직 직속 생산자조직 소계======================================
+UNION ALL
+
+SELECT
+	'6' AS TYPE_SE_NO
+	, '(통합조직 직속)생산자조직' AS SE_NM
+	, '전속출하'  AS SE_DTL_NM
+	, '소계' AS PRCHS_NM
+	, '0'  AS ISO_BRNO
+	, 0 AS PRDCR_OGNZ_SN
+	, '0' AS PRDCR_OGNZ_CD
+	,'0' AS CLTVTN_LAND_SN
+	, ITEM.ITEM_CD AS ITEM_CD
+	, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = ITEM.ITEM_CD) AS ITEM_NM
+	, '' AS STTG_UPBR_ITEM_SE
+	, '' AS STTG_UPBR_ITEM_NM
+	, ITEM.YR AS YR
+	, 0 AS SLS_CNSGN_PRCHS_AMT
+	, TOT.SLS_CNSGN_SLS_AMT
+	, TOT.RMRK
+FROM
+	(SELECT ITEM_CD , YR
+		FROM TB_EV_APO_YR_GPC_CD
+		WHERE BRNO = #{brno}
+		AND YR =#{yr}
+	) ITEM ,
+	(SELECT *
+		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+		WHERE BRNO = #{brno}
+		AND YR =#{yr}
+		AND TYPE_SE_NO = '6'
+	) TOT
+WHERE 1=1
+	AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
+
+--=='7' AS TYPE_SE_NO===기타매입======================================
 UNION ALL
 
 SELECT
@@ -521,7 +591,7 @@ SELECT
 	, '' AS STTG_UPBR_ITEM_NM
 	, ITEM.YR AS YR
 	, TOT.SLS_CNSGN_PRCHS_AMT
-	, TOT.SLS_CNSGN_SLS_AMT
+	, NVL(TOT.SLS_CNSGN_SLS_AMT, 0) AS SLS_CNSGN_SLS_AMT
 	, TOT.RMRK
 FROM
 	(SELECT ITEM_CD , YR
@@ -538,7 +608,7 @@ FROM
 WHERE 1=1
 	AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
 
---=='8' AS TYPE_SE_NO=========================================
+--=='8' AS TYPE_SE_NO===합계======================================
 UNION ALL
 
 SELECT
@@ -588,6 +658,8 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , SE_DTL_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 				AND CLT.YR	 			= #{yr}
 				AND CLT.CTGRY_CD	 	= #{ctgryCd}
 				AND CLT.ITEM_CD 		= #{itemCd}
+				AND CLT.ISO_BRNO 		= #{isoBrno}
+				AND CLT.ISO_BRNO 		= #{isoBrno}
 				AND CLT.PRDCR_OGNZ_SN 	= #{prdcrOgnzSn}
 				AND CLT.CLTVTN_LAND_SN 	= #{cltvtnLandSn}
 				AND CLT.TYPE_SE_NO		= #{typeSeNo}
@@ -613,6 +685,7 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , SE_DTL_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 					   AND CLT.YR	 			= #{yr}
 					   AND CLT.CTGRY_CD	 		= #{ctgryCd}
 					   AND CLT.ITEM_CD 			= #{itemCd}
+					   AND CLT.ISO_BRNO 		= #{isoBrno}
 					   AND CLT.PRDCR_OGNZ_SN 	= #{prdcrOgnzSn}
 					   AND CLT.CLTVTN_LAND_SN 	= #{cltvtnLandSn}
 					   AND CLT.TYPE_SE_NO		= #{typeSeNo}
@@ -626,6 +699,7 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , SE_DTL_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 		    		  , YR
 		    		  , CTGRY_CD
 		    		  , ITEM_CD
+		    		  , ISO_BRNO
 		    		  , PRDCR_OGNZ_SN
 		    		  , PRDCR_OGNZ_CD
 		    		  , CLTVTN_LAND_SN
@@ -652,6 +726,7 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , SE_DTL_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 		    		  , TO_CHAR(SYSDATE,'YYYY')
 		    		  , #{ctgryCd}
 		    		  , #{itemCd}
+		    		  , #{isoBrno}
 		    		  , #{prdcrOgnzSn}
 		    		  , #{prdcrOgnzCd}
 		    		  , #{cltvtnLandSn}

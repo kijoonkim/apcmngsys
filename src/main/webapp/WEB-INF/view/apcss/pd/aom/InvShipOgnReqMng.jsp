@@ -793,6 +793,9 @@
 		fn_fcltMngCreateGrid01();
 	</c:if>
 	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+		var now = new Date();
+		var year = now.getFullYear();
+		SBUxMethod.set("dtl-input-yr",year);//
 		//통합조직인 경우
 		<c:if test="${loginVO.userType eq '21'}">
 		fn_fcltMngCreateGrid01();
@@ -1018,10 +1021,12 @@
 		console.log('============fn_dtlSearch=============');
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
+		let yr = SBUxMethod.get("dtl-input-yr");//
 
     	let postJsonPromise01 = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
     	//let postJsonPromise01 = gfn_postJSON("/pd/aom/selectInvShipOgnReqMngList.do", {
     		brno : brno
+    		,yr : yr
 		});
 
         let data = await postJsonPromise01 ;
