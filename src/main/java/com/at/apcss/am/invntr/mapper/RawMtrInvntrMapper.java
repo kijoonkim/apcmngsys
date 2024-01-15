@@ -49,6 +49,14 @@ public interface RawMtrInvntrMapper {
 	public List<RawMtrInvntrVO> selectRawMtrInvntrList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 
 	/**
+	 * 원물재고 목록 집계조회
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<RawMtrInvntrVO> selectRawMtrInvntrTotalList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+
+	/**
 	 * 원물재고 작업대상 목록 조회
 	 * @param rawMtrInvntrVO
 	 * @return
@@ -63,7 +71,7 @@ public interface RawMtrInvntrMapper {
 	 * @throws Exception
 	 */
 	public List<RawMtrInvntrVO> selectRawMtrInvntrListForSort(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
-		
+
 	/**
 	 * 원물일일재고 목록 조회
 	 * @param rawMtrInvntrVO
@@ -71,6 +79,13 @@ public interface RawMtrInvntrMapper {
 	 * @throws Exception
 	 */
 	public List<RawMtrInvntrVO> selectDailyRawMtrInvntrList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+	/**
+	 * 원물일일재고 목록 조회
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<RawMtrInvntrVO> selectDailyRawMtrInvntrTotalList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 
 	/**
 	 * 원물재고 등록
@@ -168,8 +183,8 @@ public interface RawMtrInvntrMapper {
 	 * @throws Exception
 	 */
 	public int updateInvntrPrcs(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
-	
-	
+
+
 	/**
 	 * 원물재고 변경이력 등록
 	 * @param rawMtrInvntrVO

@@ -233,6 +233,147 @@
     	<!-- End 페이징 -->
     </select>
 
+<!-- =============================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.selectRawMtrInvntrList	-->
+	<!-- DESC : 원물재고 목록 집계조회.	                                       				-->
+	<!-- =============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	==============================================	-->
+	<!-- 2024.01.15  	박승진        		Initial Creation                            -->
+	<!-- =============================================================================	-->
+    <select id="selectRawMtrInvntrTotalList" parameterType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO" resultType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO">
+    	<![CDATA[
+    		SELECT /* com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.selectRawMtrInvntrTotalList */
+		]]>
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			,
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+    			  pt0.*
+    			, (SELECT FN_GET_APC_NM(pt0.APC_CD) FROM DUAL) AS APC_NM
+				, (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
+                , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
+                , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
+                , (SELECT FN_GET_GRD_NM_RAWMTR(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL) AS GRD_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) AS WRHS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('TRSPRT_SE_CD', pt0.TRSPRT_SE_CD) FROM DUAL) AS TRSPRT_SE_NM
+                , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
+                , (SELECT FN_GET_PLT_BX_NM('B', pt0.BX_KND, pt0.APC_CD) FROM DUAL) AS BX_KND_NM
+    			, (SELECT MAX(X.SORT_CMNDNO) FROM TB_SORT_CMND X WHERE X.APC_CD = pt0.APC_CD AND X.PLTNO = pt0.PLTNO AND X.SORT_CMND_YMD = #{inptYmd} AND X.DEL_YN = 'N') AS SORT_CMNDNO
+    			, (SELECT SUM(X.CMND_QNTT) FROM TB_SORT_CMND X WHERE X.APC_CD = pt0.APC_CD AND X.PLTNO = pt0.PLTNO AND X.SORT_CMND_YMD = #{inptYmd} AND X.DEL_YN = 'N') AS CMND_QNTT
+   			 	, (SELECT SUM(X.CMND_WGHT) FROM TB_SORT_CMND X WHERE X.APC_CD = pt0.APC_CD AND X.PLTNO = pt0.PLTNO AND X.SORT_CMND_YMD = #{inptYmd} AND X.DEL_YN = 'N') AS CMND_WGHT
+				, pt0.INVNTR_QNTT - NVL((SELECT SUM(X.CMND_QNTT) FROM TB_SORT_CMND X WHERE X.APC_CD = pt0.APC_CD AND X.PLTNO = pt0.PLTNO AND X.SORT_CMND_YMD = #{inptYmd} AND X.DEL_YN = 'N'), 0) AS INVNTR_CMND_QNTT
+   			 	, pt0.INVNTR_WGHT - NVL((SELECT SUM(X.CMND_WGHT) FROM TB_SORT_CMND X WHERE X.APC_CD = pt0.APC_CD AND X.PLTNO = pt0.PLTNO AND X.SORT_CMND_YMD = #{inptYmd} AND X.DEL_YN = 'N'), 0) AS INVNTR_CMND_WGHT
+    		  FROM (
+
+	    	SELECT
+				  MAX(RI.APC_CD)         	AS APC_CD
+				, MAX(RI.WRHSNO)         	AS WRHSNO
+				, MAX(RI.PLTNO)          	AS PLTNO
+				, MAX(RI.WRHS_YMD)       	AS WRHS_YMD
+				, RI.PRDCR_CD       	AS PRDCR_CD
+				, RI.ITEM_CD        	AS ITEM_CD
+				, RI.VRTY_CD        	AS VRTY_CD
+				, RI.GDS_SE_CD      	AS GDS_SE_CD
+				, RI.WRHS_SE_CD    	AS WRHS_SE_CD
+				, RI.TRSPRT_SE_CD   	AS TRSPRT_SE_CD
+				, RI.WAREHOUSE_SE_CD	AS WAREHOUSE_SE_CD
+				, MAX(RI.BX_KND)         	AS BX_KND
+				, MAX(RI.GRD_CD)				AS GRD_CD
+				, SUM(RI.WRHS_QNTT)      	AS WRHS_QNTT
+				, SUM(RI.WRHS_WGHT)      	AS WRHS_WGHT
+				, SUM(RI.INPT_QNTT)      	AS INPT_QNTT
+				, SUM(RI.INPT_WGHT)      	AS INPT_WGHT
+				, SUM(RI.INVNTR_QNTT)    	AS INVNTR_QNTT
+				, SUM(RI.INVNTR_WGHT)    	AS INVNTR_WGHT
+				, MAX(RI.RMRK)				AS RMRK
+				, SUM(RI.INPT_PRGRS_QNTT)	AS INPT_PRGRS_QNTT
+				, SUM(RI.INPT_PRGRS_WGHT)	AS INPT_PRGRS_WGHT
+
+
+			  FROM TB_RAW_MTR_INVNTR RI
+
+			 WHERE RI.DEL_YN = 'N'
+			   AND RI.INVNTR_WGHT > 0
+		]]>
+		<if test='apcCd != null and apcCd != ""'>
+			   AND RI.APC_CD = #{apcCd}
+		</if>
+		<if test='wrhsno != null and wrhsno != ""'>
+			   AND RI.WRHSNO = #{wrhsno}
+		</if>
+		<if test='pltno != null and pltno != ""'>
+			   AND RI.PLTNO = #{pltno}
+		</if>
+		<if test='wrhsYmd != null and wrhsYmd != ""'>
+			   AND RI.WRHS_YMD = #{wrhsYmd}
+		</if>
+		<if test='wrhsYmdFrom != null and wrhsYmdFrom != ""'>
+			   AND RI.WRHS_YMD <![CDATA[>=]]> #{wrhsYmdFrom}
+		</if>
+		<if test='wrhsYmdTo != null and wrhsYmdTo != ""'>
+			   AND RI.WRHS_YMD <![CDATA[<=]]> #{wrhsYmdTo}
+		</if>
+		<if test='prdcrCd != null and prdcrCd != ""'>
+			   AND RI.PRDCR_CD = #{prdcrCd}
+		</if>
+		<if test='itemCd != null and itemCd != ""'>
+			   AND RI.ITEM_CD = #{itemCd}
+		</if>
+		<if test='vrtyCd != null and vrtyCd != ""'>
+			   AND RI.VRTY_CD IN (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{vrtyCd})))
+		</if>
+		<if test='gdsSeCd != null and gdsSeCd != ""'>
+			   AND RI.GDS_SE_CD = #{gdsSeCd}
+		</if>
+		<if test='wrhsSeCd != null and wrhsSeCd != ""'>
+			   AND RI.WRHS_SE_CD = #{wrhsSeCd}
+		</if>
+		<if test='trsprtSeCd != null and trsprtSeCd != ""'>
+			   AND RI.TRSPRT_SE_CD = #{trsprtSeCd}
+		</if>
+		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
+			   AND RI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+		</if>
+		<if test='bxKnd != null and bxKnd != ""'>
+			   AND RI.BX_KND = #{bxKnd}
+		</if>
+
+<!-- 		원물입고 내역 검색조건 -->
+		<if test='crtrYmd != null and crtrYmd != ""'>
+			   AND RI.WRHS_YMD = #{crtrYmd}
+		</if>
+		<if test='prdcr != null and prdcr != ""'>
+			   AND RI.PRDCR_CD = #{prdcr}
+		</if>
+		<if test='gdsSe != null and gdsSe != ""'>
+			   AND RI.GDS_SE_CD = #{gdsSe}
+		</if>
+		<if test='wrhsSe != null and wrhsSe != ""'>
+			   AND RI.WRHS_SE_CD = #{wrhsSe}
+		</if>
+
+
+		<![CDATA[
+			 GROUP BY RI.PRDCR_CD,RI.ITEM_CD,RI.VRTY_CD,RI.GDS_SE_CD,RI.WRHS_SE_CD,RI.TRSPRT_SE_CD, RI.WAREHOUSE_SE_CD
+		 	 ORDER BY APC_CD, WRHS_YMD, WRHSNO
+    		  ) pt0
+		]]>
+
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+
 	<!-- =============================================================================	-->
 	<!-- NAME : com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.selectRawMtrInvntrListForPrcs	-->
 	<!-- DESC : 원물재고 작업대상 목록 조회.	                                       			-->
@@ -549,6 +690,134 @@
 
 		<![CDATA[
 		 	 ORDER BY DRI.APC_CD, DRI.WRHS_YMD, DRI.WRHSNO
+    		  ) pt0
+		]]>
+
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+
+    <!-- =====================================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.selectDailyRawMtrInvntrList	-->
+	<!-- DESC : 원물일일재고 목록 집계조회.	                                       					-->
+	<!-- ====================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      						-->
+	<!-- ===========  	============  	=====================================================	-->
+	<!-- 2024.01.15  	박승진        		Initial Creation                            		-->
+	<!-- ====================================================================================	-->
+    <select id="selectDailyRawMtrInvntrTotalList" parameterType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO" resultType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO">
+    	<![CDATA[
+    		SELECT /* com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.selectDailyRawMtrInvntrTotalList */
+		]]>
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+				,
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+    			  pt0.*
+    			, (SELECT FN_GET_APC_NM(pt0.APC_CD) FROM DUAL) AS APC_NM
+				, (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
+                , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
+                , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
+                , (SELECT FN_GET_GRD_NM_RAWMTR(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL) AS GRD_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) AS WRHS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('TRSPRT_SE_CD', pt0.TRSPRT_SE_CD) FROM DUAL) AS TRSPRT_SE_NM
+                , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
+                , (SELECT FN_GET_PLT_BX_NM('B', pt0.BX_KND, pt0.APC_CD) FROM DUAL) AS BX_KND_NM
+    			, (SELECT FN_GET_GRD_NM(pt0.ITEM_CD, pt0.GRD_CD, pt0.APC_CD) FROM DUAL) AS GRD_NM
+    		  FROM (
+
+			    	SELECT
+					       MAX(DRI.APC_CD)                       AS APC_CD
+					     , MAX(DRI.CRTR_YMD)                     AS CRTR_YMD
+					     , MAX(DRI.WRHSNO)                       AS WRHSNO
+					     , MAX(DRI.PLTNO)                        AS PLTNO
+					     , MAX(DRI.WRHS_YMD)                     AS WRHS_YMD
+					     , DRI.PRDCR_CD                     AS PRDCR_CD
+					     , DRI.ITEM_CD                      AS ITEM_CD
+					     , DRI.VRTY_CD                      AS VRTY_CD
+					     , DRI.GDS_SE_CD                    AS GDS_SE_CD
+					     , DRI.WRHS_SE_CD                   AS WRHS_SE_CD
+					     , DRI.TRSPRT_SE_CD                 AS TRSPRT_SE_CD
+					     , DRI.WAREHOUSE_SE_CD              AS WAREHOUSE_SE_CD
+					     , MAX(DRI.BX_KND)                       AS BX_KND
+					     , SUM(DRI.WRHS_QNTT)                    AS WRHS_QNTT
+					     , SUM(DRI.WRHS_WGHT)                    AS WRHS_WGHT
+					     , SUM(DRI.INPT_QNTT)                    AS INPT_QNTT
+					     , SUM(DRI.INPT_WGHT)                    AS INPT_WGHT
+					     , SUM(DRI.INVNTR_QNTT)                  AS INVNTR_QNTT
+					     , SUM(DRI.INVNTR_WGHT)                  AS INVNTR_WGHT
+					     , SUM(DRI.TRNSF_QNTT)                   AS TRNSF_QNTT
+					     , SUM(DRI.TRNSF_WGHT)                   AS TRNSF_WGHT
+					     , SUM(DRI.INPT_PRGRS_QNTT)              AS INPT_PRGRS_QNTT
+					     , SUM(DRI.INPT_PRGRS_WGHT)              AS INPT_PRGRS_WGHT
+					     , MAX(DRI.GRD_CD)                       AS GRD_CD
+					     , MAX(DRI.PRDCTN_YR)                    AS PRDCTN_YR
+					     , MAX(DRI.GRD_IDNTY_PRSN)               AS GRD_IDNTY_PRSN
+
+
+
+					  FROM TB_DAILY_RAW_MTR_INVNTR DRI
+				     WHERE DRI.DEL_YN = 'N'
+				       AND DRI.INVNTR_QNTT > 0
+				       AND DRI.INVNTR_WGHT > 0
+		]]>
+		<if test='apcCd != null and apcCd != ""'>
+			   AND DRI.APC_CD = #{apcCd}
+		</if>
+		<if test='crtrYmd != null and crtrYmd != ""'>
+			   AND DRI.CRTR_YMD = #{crtrYmd}
+		</if>
+		<if test='pltno != null and pltno != ""'>
+			   AND DRI.PLTNO = #{pltno}
+		</if>
+		<if test='prdcrCd != null and prdcrCd != ""'>
+			   AND DRI.PRDCR_CD = #{prdcrCd}
+		</if>
+		<if test='itemCd != null and itemCd != ""'>
+			   AND DRI.ITEM_CD = #{itemCd}
+		</if>
+		<if test='vrtyCd != null and vrtyCd != ""'>
+			   AND DRI.VRTY_CD IN (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{vrtyCd})))
+		</if>
+		<if test='gdsSeCd != null and gdsSeCd != ""'>
+			   AND DRI.GDS_SE_CD = #{gdsSeCd}
+		</if>
+		<if test='wrhsSeCd != null and wrhsSeCd != ""'>
+			   AND DRI.WRHS_SE_CD = #{wrhsSeCd}
+		</if>
+		<if test='trsprtSeCd != null and trsprtSeCd != ""'>
+			   AND DRI.TRSPRT_SE_CD = #{trsprtSeCd}
+		</if>
+		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
+			   AND DRI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+		</if>
+		<if test='bxKnd != null and bxKnd != ""'>
+			   AND DRI.BX_KND = #{bxKnd}
+		</if>
+		<if test='prdcr != null and prdcr != ""'>
+			   AND DRI.PRDCR_CD = #{prdcr}
+		</if>
+		<if test='gdsSe != null and gdsSe != ""'>
+			   AND DRI.GDS_SE_CD = #{gdsSe}
+		</if>
+		<if test='wrhsSe != null and wrhsSe != ""'>
+			   AND DRI.WRHS_SE_CD = #{wrhsSe}
+		</if>
+
+
+		<![CDATA[
+			 GROUP BY DRI.PRDCR_CD,DRI.ITEM_CD,DRI.VRTY_CD,DRI.GDS_SE_CD,DRI.WRHS_SE_CD,DRI.TRSPRT_SE_CD, DRI.WAREHOUSE_SE_CD
+		 	 ORDER BY APC_CD, WRHS_YMD, WRHSNO
     		  ) pt0
 		]]>
 

@@ -70,6 +70,14 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 	}
 
 	@Override
+	public List<SortInvntrVO> selectSortInvntrDsctnTotalList(SortInvntrVO sortInvntrVO) throws Exception {
+
+		List<SortInvntrVO> resultList = sortInvntrMapper.selectSortInvntrDsctnTotalList(sortInvntrVO);
+
+		return resultList;
+	}
+
+	@Override
 	public List<SortInvntrVO> selectSortInvntrList(SortInvntrVO sortInvntrVO) throws Exception {
 
 		List<SortInvntrVO> resultList = sortInvntrMapper.selectSortInvntrList(sortInvntrVO);
@@ -400,9 +408,9 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 
 	@Override
 	public List<SortInvntrVO> selectPckgCmndTrgetList(SortInvntrVO sortInvntrVO) throws Exception {
-		
+
 		List<SortInvntrVO> resultList = sortInvntrMapper.selectPckgCmndTrgetList(sortInvntrVO);
-		
+
 		return resultList;
 	}
 
@@ -447,6 +455,14 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 	public List<SortInvntrVO> selectDailySortInvntrList(SortInvntrVO sortInvntrVO) throws Exception {
 
 		List<SortInvntrVO> resultList = sortInvntrMapper.selectDailySortInvntrList(sortInvntrVO);
+
+		return resultList;
+	}
+
+	@Override
+	public List<SortInvntrVO> selectDailySortInvntrTotalList(SortInvntrVO sortInvntrVO) throws Exception {
+
+		List<SortInvntrVO> resultList = sortInvntrMapper.selectDailySortInvntrTotalList(sortInvntrVO);
 
 		return resultList;
 	}

@@ -61,6 +61,30 @@ public class GdsInvntrController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 
 	}
+
+	@PostMapping(value = "/am/invntr/selectGdsInvntrTotalList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectGdsInvntrTotalList(@RequestBody GdsInvntrVO gdsInvntrVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<GdsInvntrVO> resultList = new ArrayList<>();
+		try {
+			resultList = gdsInvntrService.selectGdsInvntrTotalList(gdsInvntrVO);
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+
+	}
+
 	@PostMapping(value = "/am/invntr/selectDailyGdsInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectDailyGdsInvntrList(@RequestBody GdsInvntrVO gdsInvntrVO, HttpServletRequest request) throws Exception {
 
@@ -68,6 +92,29 @@ public class GdsInvntrController extends BaseController {
 		List<GdsInvntrVO> resultList = new ArrayList<>();
 		try {
 			resultList = gdsInvntrService.selectDailyGdsInvntrList(gdsInvntrVO);
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+
+	}
+
+	@PostMapping(value = "/am/invntr/selectDailyGdsInvntrTotalList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectDailyGdsInvntrTotalList(@RequestBody GdsInvntrVO gdsInvntrVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<GdsInvntrVO> resultList = new ArrayList<>();
+		try {
+			resultList = gdsInvntrService.selectDailyGdsInvntrTotalList(gdsInvntrVO);
 		} catch (Exception e) {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
@@ -133,7 +180,7 @@ public class GdsInvntrController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	@PostMapping(value = "/am/invntr/insertGdsInvntrListForImport.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> insertGdsInvntrListForImport(@RequestBody List<GdsInvntrVO> gdsInvntrList, HttpServletRequest request) throws Exception {
 

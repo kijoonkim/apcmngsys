@@ -383,6 +383,118 @@
 	    	<!-- End 페이징 -->
     </select>
 
+	<!-- =================================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectDailySortInvntrList	-->
+	<!-- DESC : 선별일일재고 목록 집계조회.	                                       				-->
+	<!-- =================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	==================================================	-->
+	<!-- 2024.01.14  	박승진        		Initial Creation                            	-->
+	<!-- =================================================================================	-->
+    <select id="selectDailySortInvntrTotalList" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO" resultType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+    	<![CDATA[
+    		SELECT
+		]]>
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			,
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+    			  pt0.*
+    			, (SELECT FN_GET_APC_NM(pt0.APC_CD) FROM DUAL) 													AS APC_NM
+    			, (SELECT FN_GET_COM_CD_VL_NM('SORT_FCLT_CD', pt0.FCLT_CD, pt0.APC_CD) FROM DUAL) 				AS FCLT_NM
+				, (SELECT FN_GET_PRDCR_NM(pt0.RPRS_PRDCR_CD, pt0.APC_CD) FROM DUAL) 							AS PRDCR_NM
+				, (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 									AS ITEM_NM
+				, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) 						AS VRTY_NM
+				, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) 					AS SPCFCT_NM
+				, (SELECT FN_GET_GRD_NM_SORT(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL) 					AS GRD_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD, pt0.APC_CD) FROM DUAL) 				AS GDS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) 							AS WRHS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) 	AS WAREHOUSE_SE_NM
+    		  FROM (
+			    	SELECT /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectDailySortInvntrList */
+					       MAX(DSI.APC_CD)               AS APC_CD
+					     , MAX(DSI.CRTR_YMD)             AS CRTR_YMD
+					     , MAX(DSI.SORTNO)               AS SORTNO
+					     , MAX(DSI.SORT_SN)              AS SORT_SN
+					     , MAX(DSI.INPT_YMD)             AS INPT_YMD
+					     , MAX(DSI.FCLT_CD)              AS FCLT_CD
+					     , DSI.RPRS_PRDCR_CD        AS RPRS_PRDCR_CD
+					     , DSI.ITEM_CD              AS ITEM_CD
+					     , DSI.VRTY_CD              AS VRTY_CD
+					     , DSI.SPCFCT_CD            AS SPCFCT_CD
+					     , DSI.GRD_CD               AS GRD_CD
+					     , DSI.GDS_SE_CD            AS GDS_SE_CD
+					     , DSI.WRHS_SE_CD           AS WRHS_SE_CD
+					     , DSI.WAREHOUSE_SE_CD      AS WAREHOUSE_SE_CD
+					     , MAX(DSI.PRDCTN_YR)            AS PRDCTN_YR
+					     , MAX(DSI.RMRK)                 AS RMRK
+					     , SUM(DSI.SORT_QNTT)            AS SORT_QNTT
+					     , SUM(DSI.SORT_WGHT)            AS SORT_WGHT
+					     , SUM(DSI.PCKG_QNTT)            AS PCKG_QNTT
+					     , SUM(DSI.PCKG_WGHT)            AS PCKG_WGHT
+					     , SUM(DSI.INVNTR_QNTT)          AS INVNTR_QNTT
+					     , SUM(DSI.INVNTR_WGHT)          AS INVNTR_WGHT
+					     , SUM(DSI.TRNSF_QNTT)           AS TRNSF_QNTT
+					     , SUM(DSI.TRNSF_WGHT)           AS TRNSF_WGHT
+					     , SUM(DSI.INPT_PRGRS_WGHT)      AS INPT_PRGRS_WGHT
+					     , SUM(DSI.INPT_PRGRS_QNTT)      AS INPT_PRGRS_QNTT
+
+					  FROM TB_DAILY_SORT_INVNTR DSI
+					 WHERE DSI.INVNTR_QNTT > 0
+					   AND DSI.INVNTR_WGHT > 0
+		]]>
+
+			<if test='apcCd != null and apcCd != ""'>
+					   AND DSI.APC_CD = #{apcCd}
+			</if>
+			<if test='crtrYmd != null and crtrYmd != ""'>
+					   AND DSI.CRTR_YMD = #{crtrYmd}
+			</if>
+			<if test='rprsPrdcrCd != null and rprsPrdcrCd != ""'>
+					   AND DSI.RPRS_PRDCR_CD = #{rprsPrdcrCd}
+			</if>
+			<if test='itemCd != null and itemCd != ""'>
+					   AND DSI.ITEM_CD = #{itemCd}
+			</if>
+			<if test='vrtyCd != null and vrtyCd != ""'>
+				 	   AND DSI.VRTY_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{vrtyCd})))
+			</if>
+			<if test='spcfctCd != null and spcfctCd != ""'>
+					   AND DSI.SPCFCT_CD = #{spcfctCd}
+			</if>
+			<if test='grdCd != null and grdCd != ""'>
+					   AND DSI.GRD_CD = #{grdCd}
+			</if>
+			<if test='gdsSeCd != null and gdsSeCd != ""'>
+					   AND DSI.GDS_SE_CD = #{gdsSeCd}
+			</if>
+			<if test='wrhsSeCd != null and wrhsSeCd != ""'>
+					   AND DSI.WRHS_SE_CD = #{wrhsSeCd}
+			</if>
+			<if test='warehouseSeCd != null and warehouseSeCd != ""'>
+					   AND DSI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+			</if>
+			<if test='prdctnYr != null and prdctnYr != ""'>
+					   AND DSI.PRDCTN_YR = #{prdctnYr}
+			</if>
+
+			<![CDATA[
+				 GROUP BY DSI.GRD_CD,DSI.INPT_YMD,DSI.RPRS_PRDCR_CD,DSI.ITEM_CD,DSI.VRTY_CD,DSI.SPCFCT_CD,DSI.GDS_SE_CD,DSI.WRHS_SE_CD,DSI.WAREHOUSE_SE_CD
+				 ORDER BY APC_CD, INPT_YMD, SORTNO
+	    		  ) pt0
+			]]>
+
+			<!-- Start 페이징 -->
+	    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+				OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+				FETCH FIRST #{recordCountPerPage} ROWS ONLY
+	    	</if>
+	    	<!-- End 페이징 -->
+    </select>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrDsctnList	-->
@@ -434,7 +546,7 @@
 				, SI.PCKG_WGHT 				AS PCKG_WGHT
 				, SI.INVNTR_QNTT 			AS INVNTR_QNTT
 				, SI.INVNTR_WGHT 			AS INVNTR_WGHT
-				, SI.DEL_YN 				AS DEL_YN
+				, SI.DEL_YN 				AS DIEL_YN
 				, SI.PRDCTN_YR 				AS PRDCTN_YR
 			 FROM TB_SORT_INVNTR SI
 			WHERE SI.DEL_YN = 'N'
@@ -486,6 +598,108 @@
     	<!-- End 페이징 -->
     </select>
 
+<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrDsctnList	-->
+	<!-- DESC : 선별재고 내역 목록 집계조회.	                                       				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.01.15  	박승진        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectSortInvntrDsctnTotalList" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO" resultType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+    	<![CDATA[
+    		SELECT
+		]]>
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			,
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+    			  pt0.*
+    			, (SELECT FN_GET_GRD_NM_SORT(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL) 				AS GRD_NM
+    			, (SELECT FN_GET_COM_CD_VL_NM('SORT_FCLT_CD', pt0.FCLT_CD, pt0.APC_CD) FROM DUAL) 			AS FCLT_NM
+    			, (SELECT FN_GET_PRDCR_NM(pt0.RPRS_PRDCR_CD, pt0.APC_CD) FROM DUAL) 						AS PRDCR_NM
+    			, (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 								AS ITEM_NM
+    			, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) 					AS VRTY_NM
+    			, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) 				AS SPCFCT_NM
+    			, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD',pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
+                , pt0.SORTNO || '-' || pt0.SORT_SN 															AS SORTNO_INDCT
+    		  FROM (
+	       SELECT /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrDsctnList */
+				  MAX(SI.APC_CD) 				AS APC_CD
+				, MAX(SI.SORTNO) 				AS SORTNO
+				, MAX(SI.SORT_SN)				AS SORT_SN
+				, SI.GRD_CD 				AS GRD_CD
+				, MAX(SI.INPT_YMD) 				AS INPT_YMD
+				, MAX(SI.FCLT_CD) 				AS FCLT_CD
+				, SI.RPRS_PRDCR_CD 			AS RPRS_PRDCR_CD
+				, SI.ITEM_CD 				AS ITEM_CD
+				, SI.VRTY_CD 				AS VRTY_CD
+				, SI.SPCFCT_CD 				AS SPCFCT_CD
+				, SI.GDS_SE_CD 				AS GDS_SE_CD
+				, MAX(SI.WRHS_SE_CD) 			AS WRHS_SE_CD
+				, SI.WAREHOUSE_SE_CD 		AS WAREHOUSE_SE_CD
+				, SUM(SI.SORT_QNTT) 				AS SORT_QNTT
+				, SUM(SI.SORT_WGHT) 				AS SORT_WGHT
+				, SUM(SI.PCKG_QNTT) 				AS PCKG_QNTT
+				, SUM(SI.PCKG_WGHT) 				AS PCKG_WGHT
+				, SUM(SI.INVNTR_QNTT) 			AS INVNTR_QNTT
+				, SUM(SI.INVNTR_WGHT) 			AS INVNTR_WGHT
+
+			 FROM TB_SORT_INVNTR SI
+			WHERE SI.DEL_YN = 'N'
+			  AND SI.APC_CD = #{apcCd}
+			  AND SI.INVNTR_WGHT > 0
+		]]>
+		<!-- 	 선별재고 내역 검색조건 -->
+		<if test='crtrYmd != null and crtrYmd != ""'>
+			   AND SI.INPT_YMD = #{crtrYmd}
+		</if>
+
+		<if test='sortYmdFrom != null and sortYmdFrom != ""'>
+			   AND SI.INPT_YMD <![CDATA[>=]]> #{sortYmdFrom}
+		</if>
+
+		<if test='sortYmdTo != null and sortYmdTo != ""'>
+			   AND SI.INPT_YMD <![CDATA[<=]]> #{sortYmdTo}
+		</if>
+
+		<if test='itemCd != null and itemCd != ""'>
+			   AND SI.ITEM_CD = #{itemCd}
+		</if>
+		<if test='vrtyCd != null and vrtyCd != ""'>
+			 AND SI.VRTY_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{vrtyCd})))
+		</if>
+		<if test='prdcrCd != null and prdcrCd != ""'>
+			   AND SI.RPRS_PRDCR_CD = #{prdcrCd}
+		</if>
+		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
+			   AND SI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+		</if>
+		<if test='gdsSeCd != null and gdsSeCd != ""'>
+			   AND SI.GDS_SE_CD = #{gdsSeCd}
+		</if>
+		<if test='wrhsSeCd != null and wrhsSeCd != ""'>
+			   AND SI.WRHS_SE_CD = #{wrhsSeCd}
+		</if>
+		<if test='spcfctCd != null and spcfctCd != ""'>
+			   AND SI.SPCFCT_CD = #{spcfctCd}
+		</if>
+    	<![CDATA[
+    		GROUP BY SI.GRD_CD,SI.RPRS_PRDCR_CD,SI.ITEM_CD,SI.VRTY_CD,SI.SPCFCT_CD,SI.GDS_SE_CD,SI.WAREHOUSE_SE_CD
+
+    		  ) pt0
+		]]>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.insertSortInvntr		-->
