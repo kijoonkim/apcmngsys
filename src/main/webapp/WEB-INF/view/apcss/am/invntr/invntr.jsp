@@ -285,7 +285,7 @@
 		SBGridProperties.explorerbar = 'sortmove';			// 개인화 컬럼 이동 가능
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList1;	// 우클릭 메뉴 리스트
-	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.extendlastcol = 'none';
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.paging = {
 			'type' : 'page',
@@ -318,7 +318,7 @@
 	        {caption: ["현 재고","중량 (Kg)"],		ref: 'invntrWght',      type:'output',  width:'85px',    style:'text-align:center',
 	        	format : {type:'number', rule:'#,###'}
 	        },
-	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  hidden: true}
+	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'85px', style:'text-align:center'}
 	    ];
 
 	    rawMtrInvntrGrid = _SBGrid.create(SBGridProperties);
@@ -658,8 +658,15 @@
           }
           let hiddenColIndex1 = rawMtrInvntrGrid.getColRef('pltno');
           let hiddenColIndex2 = rawMtrInvntrGrid.getColRef('wrhsYmd');
+          let hiddenColIndex3 = rawMtrInvntrGrid.getColRef('rmrk');
+
           rawMtrInvntrGrid.setColHidden(hiddenColIndex1,true,true);
           rawMtrInvntrGrid.setColHidden(hiddenColIndex2,true,true);
+          rawMtrInvntrGrid.setColHidden(hiddenColIndex3,true,true);
+
+          let resizeColIndex1 = rawMtrInvntrGrid.getColRef('invntrWght');
+          rawMtrInvntrGrid.setColWidthAutoResize(resizeColIndex1, 'data');
+
     }
 	//원물재고 내역집계조회 끝
 
@@ -677,7 +684,7 @@
 		SBGridProperties.explorerbar = 'sortmove';			// 개인화 컬럼 이동 가능
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList2;	// 우클릭 메뉴 리스트
-	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.extendlastcol = 'none';
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.paging = {
 			'type' : 'page',
@@ -709,7 +716,7 @@
 	        {caption: ["현 재고","중량 (Kg)"],		ref: 'invntrWght',      type:'output',  width:'85px',    style:'text-align:center',
 	        	format : {type:'number', rule:'#,###'}
 	        },
-	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',   hidden: true}
+	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'85px', style:'text-align:center'}
 	    ];
 
 	    sortInvntrGrid = _SBGrid.create(SBGridProperties);
@@ -963,9 +970,12 @@
           let hiddenColIndex1 = sortInvntrGrid.getColRef('sortno');
           let hiddenColIndex2 = sortInvntrGrid.getColRef('inptYmd');
           let hiddenColIndex3 = sortInvntrGrid.getColRef('fcltNm');
+          let hiddenColIndex4 = sortInvntrGrid.getColRef('rmrk');
+
           sortInvntrGrid.setColHidden(hiddenColIndex1,true,true);
           sortInvntrGrid.setColHidden(hiddenColIndex2,true,true);
           sortInvntrGrid.setColHidden(hiddenColIndex3,true,true);
+          sortInvntrGrid.setColHidden(hiddenColIndex4,true,true);
     }
 	//선별재고 내역 집계조회 끝
 
@@ -983,7 +993,7 @@
 		SBGridProperties.explorerbar = 'sortmove';			// 개인화 컬럼 이동 가능
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList3;	// 우클릭 메뉴 리스트
-	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.extendlastcol = 'none';
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.paging = {
 				'type' : 'page',
@@ -1016,7 +1026,7 @@
 	        {caption: ["현 재고","중량 (Kg)"],		ref: 'invntrWght',      type:'output',  width:'85px',    style:'text-align:center',
 	        	format : {type:'number', rule:'#,###'}
 	        },
-	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  hidden:true}
+	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'85px', style:'text-align:center'}
 	    ];
 
 	    gdsInvntrGrid = _SBGrid.create(SBGridProperties);
@@ -1275,10 +1285,12 @@
           let hiddenColIndex2 = gdsInvntrGrid.getColRef('pckgSn');
           let hiddenColIndex3 = gdsInvntrGrid.getColRef('pckgYmd');
           let hiddenColIndex4 = gdsInvntrGrid.getColRef('fcltNm');
+          let hiddenColIndex5 = gdsInvntrGrid.getColRef('rmrk');
           gdsInvntrGrid.setColHidden(hiddenColIndex1,true,true);
           gdsInvntrGrid.setColHidden(hiddenColIndex2,true,true);
           gdsInvntrGrid.setColHidden(hiddenColIndex3,true,true);
           gdsInvntrGrid.setColHidden(hiddenColIndex4,true,true);
+          gdsInvntrGrid.setColHidden(hiddenColIndex5,true,true);
     }
 	//상품재고 내역 집계조회 끝
 
