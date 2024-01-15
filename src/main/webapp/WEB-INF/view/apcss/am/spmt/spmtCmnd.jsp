@@ -221,6 +221,7 @@
 				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}},
             {caption: ['지시일자'], 	ref: 'cmndYmd', 		width: '100px',	type: 'output',		style:'text-align: center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
+           	{caption: ["출하지시번호"],	ref: 'spmtCmndno', 		width: '140px', type:'output',  	style:'text-align: center'},
             {caption: ['거래처'], 	ref: 'cnptNm', 			width: '200px',	type: 'output',		style:'text-align: center'},
             {caption: ['운송회사'], 	ref: 'trsprtCoNm', 		width: '140px',	type: 'output',		style:'text-align: center'},
             {caption: ['배송처'], 	ref: 'dldtn', 			width: '200px',	type: 'output',		style:'text-align: center'},
@@ -233,7 +234,7 @@
             {caption: ['품종'], 		ref: 'vrtyNm', 			width: '100px',	type: 'output',		style:'text-align: center'},
             {caption: ['규격'], 		ref: 'spcfctNm', 		width: '100px',	type: 'output',		style:'text-align: center'},
             {caption: ['비고'], 		ref: 'rmrk', 			width: '300px',	type: 'output'},
-            {caption: ["출하지시번호"],	ref: 'spmtCmndno', 		type:'output',  hidden: true},
+
             {caption: ["출하지시순번"],	ref: 'spmtCmndSn', 		type:'output',  hidden: true},
         ];
         grdSpmtCmnd = _SBGrid.create(SBGridProperties);
