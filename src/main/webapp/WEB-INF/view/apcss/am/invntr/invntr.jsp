@@ -1013,7 +1013,7 @@
 	        {caption: ["품종","품종"],				ref: 'vrtyNm',      	type:'output',  width:'90px',    style:'text-align:center'},
 	        {caption: ["규격","규격"],				ref: 'spcfctNm',      	type:'output',  width:'90px',    style:'text-align:center'},
 	        {caption: ["등급","등급"],				ref: 'gdsGrdNm',      	type:'output',  width:'90px',    style:'text-align:center'},
-	        {caption: ["상품명","상품명"],				ref: 'gdsNm',      	type:'output',  width:'110px',    style:'text-align:center'},
+	        {caption: ["상품명","상품명"],				ref: 'spmtPckgUnitNm',      	type:'output',  width:'110px',    style:'text-align:center'},
 	        {caption: ["창고","창고"],				ref: 'warehouseSeNm',   type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["포장","수량"],				ref: 'pckgQntt',      	type:'output',  width:'85px',    style:'text-align:center'},
 	        {caption: ["포장","중량 (Kg)"],		ref: 'pckgWght',      	type:'output',  width:'85px',    style:'text-align:center',
@@ -1145,7 +1145,7 @@
   	       				  , vrtyNm			: item.vrtyNm
   	       				  , spcfctNm		: item.spcfctNm
   	       				  , gdsGrdNm		: item.gdsGrdNm
-  	       				  , gdsNm			: item.gdsNm
+  	       				  , spmtPckgUnitNm			: item.spmtPckgUnitNm
   	       				  , warehouseSeNm	: item.warehouseSeNm
   	       				  , pckgQntt		: item.pckgQntt
   	       				  , pckgWght		: item.pckgWght
@@ -1243,7 +1243,7 @@
   	       				  , itemNm			: item.itemNm
   	       				  , vrtyNm			: item.vrtyNm
   	       				  , spcfctNm		: item.spcfctNm
-  	       				  , gdsNm		    : item.gdsNm
+  	       				  , spmtPckgUnitNm		    : item.spmtPckgUnitNm
   	       				  , gdsGrdNm		: item.gdsGrdNm
   	       				  , warehouseSeNm	: item.warehouseSeNm
   	       				  , pckgQntt		: item.pckgQntt
