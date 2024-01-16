@@ -33,6 +33,12 @@
 					-->
 				</c:if>
 				<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+					<c:if test="${loginVO.userType eq '21'}">
+					<sbux-button id="btnSearchFclt01" name="btnSearchFclt01" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlSearch01"></sbux-button>
+					</c:if>
+					<c:if test="${loginVO.userType eq '22'}">
+					<sbux-button id="btnSearchFclt02" name="btnSearchFclt02" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlSearch02"></sbux-button>
+					</c:if>
 					<sbux-button id="btnSaveFclt01" name="btnSaveFclt01" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 				</c:if>
 				</div>
@@ -801,7 +807,7 @@
 		fn_fcltMngCreateGrid01();
 		</c:if>
 		<c:if test="${loginVO.userType eq '22'}">
-		fn_searchUoList();
+		//fn_searchUoList();
 		</c:if>
 	</c:if>
 
@@ -901,6 +907,7 @@
 	        {caption: ["상세내역"], 	ref: 'aplyTrgtSe',   		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'yr',   				hidden : true},
 	        {caption: ["상세내역"], 	ref: 'uoBrno',   			hidden : true},
+	        {caption: ["상세내역"], 	ref: 'uoBrnoDel',   		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'uoCd',   				hidden : true},
 	        {caption: ["상세내역"], 	ref: 'crno',   				hidden : true},
 	        {caption: ["상세내역"], 	ref: 'corpSeCd',   			hidden : true},
@@ -1042,7 +1049,6 @@
 				//SBUxMethod.set('dtl-input-crno01',gfn_nvl(item.crno))//법인등록번호
 				SBUxMethod.set('dtl-input-brno01',gfn_nvl(item.brno))//사업자등록번호
 			});
-        	fn_searchUoList();
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -1069,6 +1075,7 @@
 						,rprsvFlnm: item.rprsvFlnm
 						,brno: item.brno
 						,uoBrno: item.uoBrno
+						,uoBrnoDel: item.uoBrnoDel
 						,uoCd: item.uoCd
 						,rprsvTelno: item.rprsvTelno
 						,corpDtlSeCd: item.corpDtlSeCd
@@ -1097,7 +1104,7 @@
 			});
 
 	    	grdInvShipOgnReqMng01.rebuild();
-
+	    	fn_clearForm01();
 	    }catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -1143,6 +1150,8 @@
 
 				SBUxMethod.set("dtl-input-frmerInvstAmtRt", item.frmerInvstAmtRt);
 			});
+        	//출자출하조직 사용자 화면에서는 그리드 선택하는 과정이 없어 추가
+			fn_searchUoList();
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -1268,7 +1277,22 @@
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		alert("처리 되었습니다.");
+        	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
         		fn_search();
+        	</c:if>
+        	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+        		//통합조직인 경우
+        		<c:if test="${loginVO.userType eq '21'}">
+        		//console.log('통합조직인');
+        		//fn_dtlSearch();
+        		fn_dtlSearch01();
+        		</c:if>
+        		//출하조직인 경우
+        		<c:if test="${loginVO.userType eq '22'}">
+        		//console.log('출하조직인');
+        		fn_dtlSearch02();
+        		</c:if>
+        	</c:if>
         	} else {
         		alert(data.resultMessage);
         	}
@@ -1304,7 +1328,22 @@
 		try {
 			if (_.isEqual("S", data.resultStatus)) {
 				alert("처리 되었습니다.");
-				fn_search();
+				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+        		fn_search();
+        	</c:if>
+        	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+        		//통합조직인 경우
+        		<c:if test="${loginVO.userType eq '21'}">
+        		//console.log('통합조직인');
+        		//fn_dtlSearch();
+        		fn_dtlSearch01();
+        		</c:if>
+        		//출하조직인 경우
+        		<c:if test="${loginVO.userType eq '22'}">
+        		//console.log('출하조직인');
+        		fn_dtlSearch02();
+        		</c:if>
+        	</c:if>
 			} else {
 				//alert(data.resultMessage);
 			}
@@ -1355,10 +1394,10 @@
         	jsonInvShipOgnReqMng01.length = 0;
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
-				console.log(item.yr);
         		let InvShipOgnReqMngVO = {
 						apoCd: item.apoCd
 						,uoBrno: item.uoBrno
+						,uoBrnoDel: item.uoBrnoDel
 						,uoCd: item.uoCd
 						,corpNm: item.corpNm
 						,rprsvFlnm: item.rprsvFlnm
@@ -1496,6 +1535,11 @@
 	//삭제
 	//출자출하조직 리스트 삭제
 	async function fn_deleteRsrc(InvShipOgnReqMngVO,nRow){
+		console.log("===========fn_deleteRsrc===========");
+		//console.log(InvShipOgnReqMngVO);
+		//console.log(typeof InvShipOgnReqMngVO);
+		//console.log(nRow);
+		//console.log(typeof nRow);
 		let postJsonPromise = gfn_postJSON("/pd/aom/deleteInvShipOgnReqMng.do", InvShipOgnReqMngVO);
         let data = await postJsonPromise;
 
@@ -1547,15 +1591,17 @@
 
 	// Grid Row 추가 및 삭제 기능
     function fn_procRow(gubun, grid, nRow, nCol) {
+		console.log("===========fn_procRow===========");
+		//console.log(nRow);
+		//console.log(typeof nRow);
         if (grid === "grdInvShipOgnReqMng01") {
-        	var vo = grdInvShipOgnReqMng01.getRowData(nRow);
+        	let vo = grdInvShipOgnReqMng01.getRowData(nRow);
         	var delMsg = '"' + vo.corpNm + '" 과의 조직관계를 삭제 하시겠습니까?';
         	if(confirm(delMsg)){
         		var reDelMsg = '"' + vo.corpNm + '" 과의 조직관계를 삭제 하시겠습니까?';
         		if(confirm(reDelMsg)){
         		//console.log(vo);
         		fn_deleteRsrc(vo,nRow);
-        		//grdInvShipOgnReqMng01.deleteRow(nRow);
         		}
         	}
 

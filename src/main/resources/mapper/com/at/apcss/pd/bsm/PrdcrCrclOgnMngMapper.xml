@@ -36,8 +36,8 @@
 				, CM.APO_NM
 				, CM.APO_SE
 				, CM.APRV
-				, CM.BRNO
-				, CM.CORP_NM
+				, (CASE WHEN CM.BRNO IS NOT NULL THEN CM.BRNO ELSE TCU.BRNO END) AS BRNO
+				, (CASE WHEN CM.CORP_NM IS NOT NULL THEN CM.CORP_NM ELSE TCU.CO_NM END) AS CORP_NM
 				, CM.CORP_SE_CD
 				, CM.CORP_DTL_SE_CD
 				, CM.NONGHYUP_CD
@@ -70,13 +70,14 @@
 				, CM.ETC_INVST_AMT
 				, CM.MNGMST_INFO_ID
 				, CM.MNGMST_YN
-				, CM.CRNO
+				, (CASE WHEN CM.CRNO IS NOT NULL THEN CM.CRNO ELSE TCU.CRNO END) AS CRNO
 				, CM.ISO_HLD_YN
 				, CM.UO_BRNO
 				, CM.RGLLBR_NOPE
 				, CM.DW_NOPE
 				, CM.DLBRR_NOPE
 				, CM.ITEM_NH_BROF_YN
+				, CM.WRT_YN
 
 				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
 				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
@@ -158,7 +159,7 @@
 				, CM.APO_SE
 				, CM.APRV
 				, (CASE WHEN CM.BRNO IS NOT NULL THEN CM.BRNO ELSE TCU.BRNO END) AS BRNO
-				, (CASE WHEN CM.BRNO IS NOT NULL THEN CM.BRNO ELSE TCU.CO_NM END) AS CORP_NM
+				, (CASE WHEN CM.CORP_NM IS NOT NULL THEN CM.CORP_NM ELSE TCU.CO_NM END) AS CORP_NM
 				, CM.CORP_SE_CD
 				, CM.CORP_DTL_SE_CD
 				, CM.NONGHYUP_CD
@@ -198,6 +199,7 @@
 				, CM.DW_NOPE
 				, CM.DLBRR_NOPE
 				, CM.ITEM_NH_BROF_YN
+				, CM.WRT_YN
 
 				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
 				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
@@ -297,6 +299,7 @@
 	    		  , PIC_EML
 	    		  , FXNO
 	    		  , ITEM_NH_BROF_YN
+	    		  , WRT_YN
 	    		  , SYS_FRST_INPT_DT
 	    		  , SYS_FRST_INPT_USER_ID
 	    		  , SYS_FRST_INPT_PRGRM_ID
@@ -348,6 +351,7 @@
 	   			  , #{picEml}
 	   			  , #{fxno}
 	   			  , #{itemNhBrofYn}
+	   			  , 'Y'
 	   			  , SYSDATE
 	   			  , #{sysFrstInptUserId}
 	   			  , #{sysFrstInptPrgrmId}
@@ -402,6 +406,7 @@
 	    		  , ITEM_NH_BROF_YN			= #{itemNhBrofYn}
 	    		  , TOT						= #{tot}
 	    		  , FRMER_INVST_AMT_RT		= #{frmerInvstAmtRt}
+	    		  , WRT_YN					= 'Y'
     	]]>
     	<![CDATA[
 				, SYS_LAST_CHG_DT		= SYSDATE

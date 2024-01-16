@@ -1196,7 +1196,7 @@
         let data = await postJsonPromise;
         try{
         	jsonPrdcrCrclOgnReqMng.length = 0;
-        	console.log("data==="+data);
+        	//console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
 				let PrdcrCrclOgnReqMngVO = {
 						apoSe: item.apoSe
@@ -1298,7 +1298,7 @@
 		});
         let data = await postJsonPromise;
         try{
-        	console.log("data==="+data);
+        	//console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
 				SBUxMethod.set('dtl-input-apoCd',gfn_nvl(item.apoCd))//
 				SBUxMethod.set('dtl-input-apoSe',gfn_nvl(item.apoSe))//
@@ -1350,7 +1350,8 @@
 			});
 			//품목 그리드 조회
 			fn_selectGpcList();
-
+			//합계 계산
+			fn_fundAplyAmt();
         	//조회후 포커스가 이상한곳으로 가있는 경우가 있어서 추가
         	window.scrollTo(0, 0);
         }catch (e) {
@@ -1377,7 +1378,7 @@
     	}
 
     	if (gfn_isEmpty(apoCd)) {
-    		console.log("apoCd null");
+    		//console.log("apoCd null");
     		return;
     		// 신규 등록
 			//fn_subInsert(confirm("등록 하시겠습니까?"));
@@ -1399,17 +1400,17 @@
 
     		if(rowData.delYn == 'N'){
     			if(gfn_isEmpty(rowData.ctgryCd)){
-    				alert('품목 그리드의 품목분류를 선택해주세요');
+    				alert('품목 리스트의 품목분류를 선택해주세요');
     				grdGpcList.focus();//그리드 객체로 포커스 이동
     				return true;
     			}
     			if(gfn_isEmpty(rowData.itemCd)){
-    				alert('품목 그리드의 품목을 선택해주세요');
+    				alert('품목 리스트의 품목을 선택해주세요');
     				grdGpcList.focus();
     				return true;
     			}
     			if(gfn_isEmpty(rowData.sttgUpbrItemSe)){
-    				alert('품목 그리드의 전문/육성 구분을 선택해주세요');
+    				alert('품목 리스트의 전문/육성 구분을 선택해주세요');
     				grdGpcList.focus();
     				return true;
     			}
@@ -1424,7 +1425,7 @@
      * 신규 등록
      */
     const fn_subInsert = async function (isConfirmed){
-		console.log("******************fn_subInsert**********************************");
+		//console.log("******************fn_subInsert**********************************");
 		if (!isConfirmed) return;
 
 		var rawMtrEnsr = SBUxMethod.get('dtl-input-rawMtrEnsr')//
@@ -1471,7 +1472,7 @@
 		});
 
         const data = await postJsonPromise;
-        console.log("insert result", data);
+        //console.log("insert result", data);
 
         try {
         	if (_.isEqual("S", data.resultStatus)) {
@@ -1615,7 +1616,7 @@
 
 	//그리드 클릭시 상세보기 이벤트
 	function fn_view() {
-		console.log("******************fn_view**********************************");
+		//console.log("******************fn_view**********************************");
 
 		fn_clearForm();
 
@@ -1746,7 +1747,7 @@
 
 
     function fn_create() {
-    	console.log("******************fn_create**********************************");
+    	//console.log("******************fn_create**********************************");
     	SBUxMethod.set('dtl-input-untyYn',null)//
     	SBUxMethod.set('dtl-input-uoNm',null)//
     	SBUxMethod.set('dtl-input-uoBrno',null)//
@@ -1868,7 +1869,7 @@
 	}
 
 	function fn_Validate(objGrid, nRow, nCol, strValue) {
-		console.log(strValue);
+		//console.log(strValue);
 		let aprv = SBUxMethod.get("rdo-aprv");
 		if(strValue != ""){
 			if(gfn_isEmpty(aprv)){
@@ -1908,7 +1909,7 @@
         let data = await postJsonPromise;
         try{
         	jsonGpcList.length = 0;
-        	console.log("data==="+data);
+        	//console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
 				let GpcListVO = {
 						 yr: item.yr
@@ -1929,7 +1930,7 @@
         	//비어 있는 마지막 줄 추가용도
         	grdGpcList.addRow();
         	var nCol =grdGpcList.getColRef('sttgUpbrItemSe');
-        	console.log(nCol);
+        	//console.log(nCol);
         	window.scrollTo(0, 0);
         }catch (e) {
     		if (!(e instanceof Error)) {
