@@ -189,4 +189,21 @@ public class PrdcrOgnCurntMngController extends BaseController{
 		resultMap.put("result", result);
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	//농가 삭제
+	@PostMapping(value = "/pd/pom/deleteTbEvFrmhsPrdctnEcSpmtSttnApo.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteTbEvFrmhsPrdctnEcSpmtSttnApo(@RequestBody TbEvFrmhsApoVO tbEvFrmhsApoVO, HttpServletRequest request) throws Exception {
+		logger.debug("/pd/pom/deleteTbEvFrmhsApo >>> 호출 >>> ");
+
+		int result = 0;
+		try {
+			result =+ PrdcrOgnCurntMngService.deleteTbEvFrmhsPrdctnEcSpmtSttnApo(tbEvFrmhsApoVO);
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		resultMap.put("result", result);
+		return getSuccessResponseEntity(resultMap);
+	}
 }
