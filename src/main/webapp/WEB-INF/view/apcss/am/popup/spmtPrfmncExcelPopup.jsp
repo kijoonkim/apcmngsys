@@ -83,6 +83,7 @@
 			let warehouseSeCd 	= $.trim(rowData.warehouseSeCd);
 			let trsprtCoCd 		= $.trim(rowData.trsprtCoCd);
 			let cnptCd 			= $.trim(rowData.cnptCd);
+			let spmtQntt 		= $.trim(rowData.spmtQntt);
 
 			if (gfn_isEmpty(spmtYmd)) {
 				spmtYmd = today;
@@ -131,6 +132,10 @@
 					rowData.spmtPckgUnitCd = jsonEPSSpmtPckgUnit[j].spmtPckgUnitCd;
 					rowData.vrtyCd = jsonEPSSpmtPckgUnit[j].vrtyCd;
 					rowData.spcfctCd = jsonEPSSpmtPckgUnit[j].spcfctCd;
+					if(!gfn_isEmpty(spmtQntt)){
+						let wght = Math.round(spmtQntt * jsonEPSSpmtPckgUnit[j].spcfctWght)
+						rowData.spmtWght = wght;
+					}
 					break;
 				}
 			}
@@ -204,7 +209,7 @@
 		        	format : {type:'number', rule:'#,###'}},
 				{caption: ["수량"],			ref: 'spmtQntt',      	type:'input',  width:'60px',    style:'text-align:right; background:#FFF8DC;',
 		        	format : {type:'number', rule:'#,###'}},
-		        {caption: ["중량 (Kg)"],		ref: 'spmtWght',    	type:'input',  width:'80px',    style:'text-align:right; background:#FFF8DC;',
+		        {caption: ["중량 (Kg)"],		ref: 'spmtWght',    	type:'output',  width:'80px',    style:'text-align:right; background:#FFF8DC;',
 			        format : {type:'number', rule:'#,###'}},
 		        {caption: ["비고"],			ref: 'rmrk',      		type:'input',  width:'300px',    style:'text-align:center'},
 		];
@@ -222,10 +227,14 @@
 		let nCol = grdExcelSpmtPrfmncPopup.getCol();
 		let nRow = grdExcelSpmtPrfmncPopup.getRow();
 		let spmtPckgUnitCdCol = grdExcelSpmtPrfmncPopup.getColRef("spmtPckgUnitCd");
+		let spmtQnttCol = grdExcelSpmtPrfmncPopup.getColRef("spmtQntt");
 
 		switch (nCol) {
 		case spmtPckgUnitCdCol:
 			fn_checkSpmtPckgUnit(nRow);
+			break;
+		case spmtQnttCol:
+			fn_changeSpmtQntt(nRow);
 			break;
 		default:
 			return;
@@ -240,6 +249,8 @@
     	let spmtPckgUnitCd = rowData.spmtPckgUnitCd;
 
     	let choiceItemCd;
+    	let choiceVrtyCd;
+    	let choiceSpfctCd;
 
     	if(gfn_isEmpty(itemCd)){
     		gfn_comAlert("W0005", nRow+"행의 품목") 	// W0005	{0}이/가 없습니다.
@@ -251,16 +262,53 @@
 			let row  = jsonEPSSpmtPckgUnit[i];
    			if(spmtPckgUnitCd == row.spmtPckgUnitCd){
    				choiceItemCd = row.itemCd;
+   				choiceVrtyCd = row.vrtyCd;
+   				choiceSpfctCd = row.spfctCd;
    			}
    		}
    		if(itemCd != choiceItemCd){
    			gfn_comAlert("W0006", nRow+"행의 품목의 상품명", "선택한 상품명") 	// W0006	{0}와/과 {1}이/가 서로 다릅니다.
    			grdExcelSpmtPrfmncPopup.setCellData(nRow, spmtPckgUnitCdCol, "");
    			return false;
+   		}else{
+   			rowData.vrtyCd = choiceVrtyCd;
+   			rowData.spcfctCd = choiceSpfctCd;
    		}
+   		fn_changeSpmtQntt(nRow);
 
    		return true;
 
+	}
+
+	const fn_changeSpmtQntt = function(nRow){
+		let spmtQnttCol = grdExcelSpmtPrfmncPopup.getColRef("spmtQntt");
+		let spmtWghtCol = grdExcelSpmtPrfmncPopup.getColRef("spmtWght");
+    	let rowData = grdExcelSpmtPrfmncPopup.getRowData(nRow);
+    	let spmtQntt = rowData.spmtQntt;
+    	let spmtPckgUnitCd = rowData.spmtPckgUnitCd;
+
+    	if(spmtQntt > 0) {
+    		if(gfn_isEmpty(spmtPckgUnitCd)){
+        		gfn_comAlert("W0005", "상품명") 	// W0005	{0}이/가 없습니다.
+        		return false;
+        	}else{
+
+    			for(var j=0; j<jsonEPSSpmtPckgUnit.length; j++){
+
+    				if(jsonEPSSpmtPckgUnit[j].itemCd == rowData.itemCd
+    				&& (jsonEPSSpmtPckgUnit[j].spmtPckgUnitNm == spmtPckgUnitCd || jsonEPSSpmtPckgUnit[j].spmtPckgUnitCd == spmtPckgUnitCd ) ){
+   						let wght = Math.round(spmtQntt * jsonEPSSpmtPckgUnit[j].spcfctWght)
+   						grdExcelSpmtPrfmncPopup.setCellData(nRow, spmtWghtCol, wght);
+    					break;
+    				}
+    			}
+        	}
+    	}else {
+    		grdExcelSpmtPrfmncPopup.setCellData(nRow, spmtWghtCol, 0);
+    		return false;
+    	}
+
+    	return true;
 	}
 
 	const fn_saveSpmtPrfmncPopup = async function(){
@@ -323,10 +371,6 @@
 
 				if(spmtQntt == 0){
 					gfn_comAlert("W0005", "수량") 	// W0005	{0}이/가 없습니다.
-					return;
-				}
-				if(spmtWght == 0){
-					gfn_comAlert("W0005", "중량") 	// W0005	{0}이/가 없습니다.
 					return;
 				}
 
