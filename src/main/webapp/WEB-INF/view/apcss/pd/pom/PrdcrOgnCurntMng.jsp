@@ -220,16 +220,10 @@
 						<tr>
 							<th scope="row" class="th_bg th_border_right">조직구분</th>
 							<td colspan="2" class="td_input">
-								<!--
-								<sbux-input
-									uitype="text"
-									id="dtl-input-apoSe"
-									name="dtl-input-apoSe"
-									class="form-control input-sm"
-									autocomplete="off"
-									readonly
-								></sbux-input>
-								 -->
+								<sbux-input uitype="hidden" id="dtl-input-apoCd" name="dtl-input-apoCd"></sbux-input>
+								<sbux-input uitype="hidden" id="dtl-input-crno" name="dtl-input-crno"></sbux-input>
+								<sbux-input uitype="hidden" id="dtl-input-uoBrno" name="dtl-input-uoBrno"></sbux-input>
+								<sbux-input uitype="hidden" id="dtl-input-uoCd" name="dtl-input-uoCd"></sbux-input>
 								<sbux-select
 									id="dtl-input-apoSe"
 									name="dtl-input-apoSe"
@@ -239,13 +233,11 @@
 									class="form-control input-sm"
 									readonly
 								></sbux-select>
-							<td class="td_input">
-							<th scope="row" class="th_bg th_border_right">법인명</th>
-							<sbux-input uitype="hidden" id="dtl-input-apoCd" name="dtl-input-apoCd"></sbux-input>
+							</td>
 							<!--
-							<sbux-input uitype="hidden" id="dtl-input-apoSe" name="dtl-input-apoSe"></sbux-input>
+							<td class="td_input">
 							 -->
-							<sbux-input uitype="hidden" id="dtl-input-crno" name="dtl-input-crno"></sbux-input>
+							<th scope="row" class="th_bg th_border_right">법인명</th>
 							<td colspan="2" class="td_input">
 								<sbux-input
 									uitype="text"
@@ -256,7 +248,9 @@
 									readonly
 								></sbux-input>
 							</td>
+							<!--
 							<td class="td_input"  style="border-left: hidden;">
+							 -->
 							<th scope="row" class="th_bg th_border_right">사업자번호</th>
 							<td colspan="2" class="td_input">
 								<sbux-input
@@ -269,11 +263,23 @@
 									readonly
 								></sbux-input>
 							</td>
-							<td class="td_input"  style="border-left: hidden;">
-							<!--
-							<td colspan="5" class="td_input"  style="border-left: hidden;">
-							 -->
+							<th scope="row" class="th_bg th_border_right">통합조직 선택</th>
+							<td colspan="2" class="td_input">
+								<sbux-select
+									id="dtl-input-selUoBrno"
+									name="dtl-input-selUoBrno"
+									uitype="single"
+									jsondata-ref="comUoBrno"
+									unselected-text="선택"
+									class="form-control input-sm"
+									onchange="fn_changeSelUoBrno"
+								></sbux-select>
 							</td>
+							<!--
+							<td class="td_input"  style="border-left: hidden;">
+							<td colspan="5" class="td_input"  style="border-left: hidden;">
+							</td>
+							 -->
 						</tr>
 					</tbody>
 				</table>
@@ -559,6 +565,7 @@
 
 
 	/* Grid 화면 그리기 기능*/
+	//생산자조직 리스트
 	const fn_fcltMngCreateGrid01 = async function() {
 
 		let SBGridProperties = {};
@@ -596,9 +603,9 @@
 
 			{caption: ["조직원수"], 					ref: 'cnt',   	type:'output',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["전속(약정)\n출하계약량(톤)"], 	ref: 'ecSpmtVlmTot',   	type:'output',  width:'140px',    style:'text-align:center'
+			{caption: ["전속(약정)\n출하계약량(톤)"], 	ref: 'ecSpmtPlanVlmTot',   	type:'output',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["전속(약정)\n출하량(결과)(톤)"], 	ref: 'ecSpmtPlanVlmTot',   	type:'output',  width:'140px',    style:'text-align:center'
+			{caption: ["전속(약정)\n출하량(결과)(톤)"], 	ref: 'ecSpmtVlmTot',   	type:'output',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출하대금\n지급액(천원)"], 		ref: 'spmtPrcTot',   	type:'output',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
@@ -611,6 +618,7 @@
 	        {caption: ["상세내역"], 	ref: 'apoCd',   	hidden : true},
 	    	{caption: ["상세내역"], 	ref: 'itemCd',   	hidden : true},
 	    	{caption: ["상세내역"], 	ref: 'uoBrno',   	hidden : true},
+	    	{caption: ["상세내역"], 	ref: 'uoApoCd',   	hidden : true},
 	        {caption: ["상세내역"], 	ref: 'apoSe',		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'brno',		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'crno',		hidden : true},
@@ -630,6 +638,7 @@
 
 
 	/* Grid 화면 그리기 기능*/
+	//농가 리스트
 	const fn_fcltMngCreateGrid02 = async function() {
 
 		let SBGridProperties = {};
@@ -820,7 +829,9 @@
 				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))//사업자등록번호
 			});
 			//생산자조직 리스트 조회
-        	fn_dtlGridSearch01();
+        	//fn_dtlGridSearch01();
+			//출자출하조직이 속한 통합조직 리스트 콤보 생성
+        	fn_searchUoList();
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -844,6 +855,8 @@
 		let apoSe = SBUxMethod.get('dtl-input-apoSe');
 		let crno = SBUxMethod.get('dtl-input-crno');
 		let brno = SBUxMethod.get('dtl-input-brno');
+		let uoBrno = SBUxMethod.get('dtl-input-uoBrno');
+		let uoCd = SBUxMethod.get('dtl-input-uoCd');
 
 		for(var i=1; i<=gridData.length; i++ ){
 
@@ -858,6 +871,8 @@
 					rowData.apoSe = apoSe;
 					rowData.crno = crno;
 					rowData.brno = brno;
+					rowData.uoBrno = uoBrno;
+					rowData.uoCd = uoCd;
 				}
 
 				if (rowSts === 3){
@@ -1095,7 +1110,7 @@
             		if(confirm(delMsg)){
             			var rowVal = grdPrdcrOgnCurntMng01.getRowData(nRow);
             			fn_deleteRsrc01(rowVal);
-            			grdPrdcrOgnCurntMng01.deleteRow(nRow);
+            			fn_dtlGridSearch01();
             		}
             	}else{
             		grdPrdcrOgnCurntMng01.deleteRow(nRow);
@@ -1121,7 +1136,7 @@
             		if(confirm(delMsg)){
             			var rowVal = grdPrdcrOgnCurntMng02.getRowData(nRow);
             			fn_deleteRsrc02(rowVal);
-            			grdPrdcrOgnCurntMng02.deleteRow(nRow);
+            			fn_dtlGridSearch02();
             		}
             	}else{
             		grdPrdcrOgnCurntMng02.deleteRow(nRow);
@@ -1132,8 +1147,6 @@
 
   	//생산자조직 리스트 선택 데이터 삭제
 	async function fn_deleteRsrc01(PrdcrOgnCurntMngVO){
-
-		if(true){console.log("생산자조직 리스트 선택 데이터 삭제 보류"); return;}
 
 		//prdcrOgnzSn 값 필수
 		let postJsonPromise = gfn_postJSON("/pd/pom/deleteTbEvFrmhsApo.do", PrdcrOgnCurntMngVO);
@@ -1198,8 +1211,78 @@
 		SBUxMethod.set('dtl-input-corpNm',gfn_nvl(rowData.corpNm))//법인명
 		SBUxMethod.set('dtl-input-crno',gfn_nvl(rowData.crno))//법인등록번호
 		SBUxMethod.set('dtl-input-brno',gfn_nvl(rowData.brno))//사업자등록번호
+		//통합조직 일 때 통합조직 선택 콤보 초기화 및 비활성하
+		console.log(rowData.apoSe);
+		if(rowData.apoSe == '1'){
+			SBUxMethod.attr('dtl-input-selUoBrno','readonly',true);
+			SBUxMethod.set('dtl-input-selUoBrno' , null);
+			SBUxMethod.set('dtl-input-uoBrno' , null);
+			SBUxMethod.set('dtl-input-uoCd' , null);
+		}else if(rowData.apoSe == '2'){
+			SBUxMethod.attr('dtl-input-selUoBrno','readonly',false);
+			fn_searchUoList();
+		}
+
 		fn_clearForm();
     }
+
+	var comUoBrno = [];//통합조직 선택
+
+	/* 출자출하조직이 속한 통합조직 리스트 조회 */
+	const fn_searchUoList = async function(){
+		//출자출하조직이 아닌경우
+		<c:if test="${loginVO.userType ne '22'}">
+		let brno = SBUxMethod.get('dtl-input-brno');
+		</c:if>
+		//출자출하조직인 경우
+		<c:if test="${loginVO.userType eq '22'}">
+		let brno = '${loginVO.brno}';
+		</c:if>
+
+    	let postJsonPromise = gfn_postJSON("/pd/bsm/selectUoList.do", {
+			brno : brno
+		});
+        let data = await postJsonPromise;
+        try{
+        	comUoBrno = [];
+        	data.resultList.forEach((item, index) => {
+        		let uoListVO = {
+						'text'		: item.uoCorpNm
+						, 'label'	: item.uoCorpNm
+						, 'value'	: item.uoBrno
+						, 'uoApoCd' : item.uoApoCd
+
+				}
+        		comUoBrno.push(uoListVO);
+			});
+        	SBUxMethod.refresh('dtl-input-selUoBrno');
+        	console.log(comUoBrno);
+        	if(comUoBrno.length == 1){
+
+        	}
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
+	}
+	//통합조직 콤보박스 선택시 값 변경
+	//const fn_changeSelUoBrno = async function() {
+	function fn_changeSelUoBrno(){
+		let selVal = SBUxMethod.get('dtl-input-selUoBrno');
+		let selCombo = _.find(comUoBrno, {value : selVal});
+		console.log(selCombo);
+
+		if( typeof selCombo == "undefined" || selCombo == null || selCombo == "" ){
+			SBUxMethod.set('dtl-input-uoBrno' , null);
+			SBUxMethod.set('dtl-input-uoCd' , null);
+		}else{
+			SBUxMethod.set('dtl-input-uoBrno',selCombo.value);
+			SBUxMethod.set('dtl-input-uoCd',selCombo.uoApoCd);
+		}
+		fn_clearForm();
+	}
 
 	async function fn_clearForm() {
 		SBUxMethod.set('dtl-input-apoCd01',null)//통합조직 코드
@@ -1268,6 +1351,16 @@
 
 	//생산자조직 리스트 조회
 	async function fn_dtlGridSearch01() {
+		let apoSeVal = SBUxMethod.get('dtl-input-apoSe');
+		let uoBrnoVal = SBUxMethod.get('dtl-input-uoBrno');
+		if(apoSeVal == '2'){
+			if(gfn_isEmpty(uoBrnoVal)){
+				alert("통합조직을 선택해 주세요");
+				return;
+			}
+		}else if(apoSeVal == '1'){
+			uoBrnoVal = null;
+		}
 
 		let brno = SBUxMethod.get('dtl-input-brno');
 
@@ -1277,6 +1370,7 @@
 
 		let postJsonPromise01 = gfn_postJSON("/pd/pom/selectTbEvFrmhsApoList.do", {
 			brno : brno
+			,uoBrno : uoBrnoVal
 		});
         let data = await postJsonPromise01;
         try{
@@ -1507,8 +1601,10 @@
 		        ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 		    {caption: ["출하","출하대금\n지급액(천원)"], 		ref: 'spmtPrc',   	type:'input',  width:'140px',    style:'text-align:center'
 		        ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["가입일","가입일"], 			ref: 'joinDay',  	type:'datepicker',  width:'110px',    style:'text-align:center'
+	        {caption: ["가입일\n(YYYY-MM-DD)","가입일\n(YYYY-MM-DD)"], 			ref: 'joinDay',  	type:'datepicker',  width:'110px',    style:'text-align:center'
 	        	,typeinfo : {locale : 'ko' , dateformat :'yymmdd' , yearrange : 150}, format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd' }},
+	        //{caption: ["가입일","가입일"], 			ref: 'joinDay',  	type:'input',  width:'110px',    style:'text-align:center'
+	        	//,typeinfo : {mask : {alias : 'numeric'}}},
 	        //{caption: ["탈퇴일","탈퇴일"], 			ref: 'whdwlDay',  	type:'datepicker',  width:'110px',    style:'text-align:center'
 	        	//,typeinfo : {locale : 'ko' , dateformat :'yymmdd' , yearrange : 150}, format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd' }},
 	        {caption: ["비고","비고"],				ref: 'cltvtnAreaRmrk',      	type:'input',  width:'300px',    style:'text-align:center'},
@@ -1547,8 +1643,8 @@
     			"농가리스트 Import",
     			SBGridProperties,
     			fn_importExcel,
-    			//fn_setDataAfterImport,
-    			//fn_grdImpValueChanged
+    			fn_setDataAfterImport,
+    			fn_grdImpValueChanged
 			);
     }
 
@@ -1632,10 +1728,9 @@
  			rowData.rowSts = "I";
 
  			//날짜입력시 특수 문자 제거
-			const regex = /[^0-9]/g;	// 숫자가 아닌 문자열을 선택하는 정규식
-			let date = rowData.joinDay;
-			let result = date.replace(regex, "").substr(0,8);//년월일 이상 적는 경우 대비
-			rowData.joinDay = result;
+			let dateVal = rowData.joinDay;
+			let result = formatDateToYYYYMMDD(dateVal);
+			rowData.joinDay = result.substr(0,8);//년월일 이상 적는 경우 대비
 
 			//저장할데이터
  	    	const pckgPrfmnc = {
@@ -1706,6 +1801,72 @@
         }
 	}
 
+	//숫자 반환 함수
+	function fn_numReturn(dateString) {
+	    // 숫자만 추출하여 문자열로 반환
+	    var numbers = dateString.toString().match(/\d+/g);
+
+	    // 추출된 숫자가 없는 경우 빈 문자열 반환
+	    return numbers ? numbers.join('') : '';
+	}
+
+	function formatDateToYYYYMMDD(inputDate) {
+	    // 정규식을 사용하여 날짜 형식에서 연도, 월, 일을 추출
+	    var match = inputDate.toString().match(/(\d{4})[-./년](\d{1,2})[-./월](\d{1,2})일?/);
+
+	    // 추출된 연도, 월, 일을 사용하여 YYYYMMDD 형태의 문자열로 반환
+	    if (match) {
+	        var year = match[1];
+	        var month = match[2].padStart(2, '0'); // 월이 한 자리 수일 경우 앞에 0 추가
+	        var day = match[3].padStart(2, '0');   // 일이 한 자리 수일 경우 앞에 0 추가
+	        return year + month + day;
+	    } else {
+	        // 매치되는 형식이 없을 경우 예외 처리 또는 기본값 반환
+	    	return inputDate;
+	    }
+	}
+
+	function formatData(input) {
+	    if (typeof input === 'number') {
+	        // 숫자인 경우
+	        const inputString = input.toString();
+	        if (inputString.length === 5) {
+	            // 5자리인 경우: Excel 날짜 서식 YYYYMMDD로 변환
+	            return excelSerialToKoreanDate(input);
+	        } else {
+	            // 6자리 이상인 경우: 앞에서부터 8자리까지 잘라서 리턴
+	            // YY/MM/DD
+	            // YYYY/M/D
+	            return inputString.substring(0, 8);
+	        }
+	    } else if (typeof input === 'string') {
+	        // 문자열인 경우: 특수문자 제외하고 앞에서부터 8자리까지 잘라서 리턴
+	        //YYYY년 MM월 DD일
+	        //YY년 MM월 DD일
+	        //YYYY.MM.DD
+	        //YYYY/MM/DD
+	        //YYYY-YMM-DD
+	        //YYYYMMDD
+	        const sanitizedString = input.replace(/[^0-9a-zA-Z]/g, '');
+	        return sanitizedString.substring(0, 8);
+	    } else {
+	        // 다른 형식인 경우
+	        return null; // 또는 다른 처리를 원하는 대로 수행
+	    }
+	}
+
+	// Excel 시리얼 넘버를 YYYY-MM-DD로 변환하는 함수
+	function excelSerialToKoreanDate(serial) {
+	    const MS_PER_DAY = 24 * 60 * 60 * 1000; // milliseconds per day
+	    let date = new Date((serial - 2) * MS_PER_DAY + Date.UTC(1900, 0, 1));
+
+	    let year = date.getFullYear();
+	    let month = (date.getMonth() + 1).toString().padStart(2, '0');
+	    let day = date.getDate().toString().padStart(2, '0');
+
+	    return '' + year + month + day;
+	}
+
 	//콤보 세팅
     const fn_setSltJson = async function() {
 
@@ -1727,10 +1888,10 @@
      */
 	const fn_grdImpValueChanged = function(_grdImp) {
   		//valuechanged 이벤트
-
-		//var nRow = _grdImp.getRow();
-		//var nCol = _grdImp.getCol();
-
+		console.log("fn_grdImpValueChanged");
+		console.log(_grdImp);
+		var nRow = _grdImp.getRow();
+		var nCol = _grdImp.getCol();
 	}
 
 	/**
@@ -1738,7 +1899,8 @@
 	 * @description afterimportexcel 이벤트
 	 */
 	const fn_setDataAfterImport = function(_grdImp) {
-
+		console.log("fn_setDataAfterImport");
+		console.log(_grdImp);
 		let impData = _grdImp.getGridDataAll();
 
 		const today = gfn_dateToYmd(new Date());
@@ -1746,31 +1908,22 @@
 		const abnormalList = [];
 
 		for ( let iRow = 1; iRow <= impData.length; iRow++ ) {
-			// 010. 그리드 스타일 초기화
 
- 			// validation check
+			const rowData = _grdImp.getRowData(iRow+1, false);	// deep copy
+			if(typeof rowData == "undefined" || rowData == null || rowData == "" ){
+				continue;
+			}
+			let dateVal = rowData.joinDay;
+			console.log(dateVal);
+			if (!gfn_isEmpty(rowData.joinDay)) {
+				//날짜입력시 특수 문자 제거
+				let result = formatData(dateVal);
+				console.log(result);
+				rowData.joinDay = result;//년월일 이상 적는 경우 대비
+			}
 
- 			// 020. check cell data
-			const rowData = _grdImp.getRowData(iRow, false);	// deep copy
-
- 			// 020. check cell data
-
-			// col 6 : 포장구분|출하포장단위
-			/*
-			if (!gfn_isEmpty(rowData.spmtPckgUnitCd)) {
-				if (typeof rowData.spmtPckgUnitCd === "string") {
-					rowData.spmtPckgUnitCd = rowData.spmtPckgUnitCd.trim();
-				} else if (typeof rowData.spmtPckgUnitCd === "number") {
-					rowData.spmtPckgUnitCd = rowData.spmtPckgUnitCd.toString();
-					rowData.spmtPckgUnitCd = gfn_lpad(rowData.spmtPckgUnitCd, 4, '0');
-				} else {
-
-				}
-			*/
-			//_grdImp.refresh({"combo":true, "focus":false});
-
+			_grdImp.refresh({"combo":true, "focus":false});
 		}
-
 		_grdImp.refresh();
 
      }

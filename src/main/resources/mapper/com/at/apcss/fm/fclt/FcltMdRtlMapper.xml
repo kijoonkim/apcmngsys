@@ -1350,6 +1350,7 @@
 			        AND     A.APC_CD    =  B.APC_CD(+)
 			      )
 			GROUP BY S0
+			ORDER BY S0
 			]]>
     </select>
 
@@ -2286,6 +2287,7 @@
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD IS NOT NULL)
 			GROUP BY S0
+			ORDER BY S0
 			]]>
     </select>
 
@@ -2326,6 +2328,7 @@
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD IS NOT NULL)
 			GROUP BY S0
+			ORDER BY S0
 			]]>
     </select>
 
@@ -2386,6 +2389,7 @@
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD =  B.APC_CD(+))
 			GROUP BY S0
+			ORDER BY S0
 			]]>
     </select>
 
@@ -2422,6 +2426,7 @@
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD =  B.APC_CD(+))
 			GROUP BY S0
+			ORDER BY S0
 			]]>
     </select>
 
@@ -2458,6 +2463,7 @@
 			        AND     A.CTPV_CD   IS NOT NULL
 			        AND     A.APC_CD    =  B.APC_CD(+))
 			GROUP BY S0
+			ORDER BY S0
 			]]>
     </select>
 
@@ -2494,6 +2500,7 @@
 			        AND     A.CTPV_CD   IS NOT NULL
 			        AND     A.APC_CD    =  B.APC_CD(+))
 			GROUP BY S0
+			ORDER BY S0
 			]]>
     </select>
 
@@ -2538,6 +2545,7 @@
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD = B.APC_CD(+))
 			GROUP BY S0
+			ORDER BY S0
 			]]>
     </select>
 
@@ -2582,6 +2590,7 @@
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD =  B.APC_CD(+))
 			GROUP BY S0
+			ORDER BY S0
 			]]>
     </select>
 
@@ -2628,6 +2637,7 @@
 			        AND     A.APC_CD =  B.APC_CD(+)
 			      )
 			GROUP BY S0
+			ORDER BY S0
 			]]>
     </select>
 
@@ -2674,6 +2684,7 @@
 			        AND     A.APC_CD =  B.APC_CD(+)
 			      )
 			GROUP BY S0
+			ORDER BY S0
 			]]>
     </select>
 
@@ -3011,6 +3022,7 @@
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD = B.APC_CD)
 			GROUP BY S0
+			ORDER BY S0
 			]]>
     </select>
 	<!-- ==========================================================================	-->
@@ -3056,6 +3068,7 @@
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD = B.APC_CD)
 			GROUP BY S0
+			ORDER BY S0
 			]]>
     </select>
 	<!-- ==========================================================================	-->
@@ -3095,6 +3108,7 @@
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD = B.APC_CD)
 			GROUP BY S0
+			ORDER BY S0
 			]]>
     </select>
 	<!-- ==========================================================================	-->
@@ -3141,6 +3155,7 @@
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD = B.APC_CD)
 			GROUP BY S0
+			ORDER BY S0
 			]]>
     </select>
 	<!-- ==========================================================================	-->
@@ -3490,6 +3505,7 @@
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD = B.APC_CD)
 			GROUP BY S0
+			ORDER BY S0
 			]]>
     </select>
 
@@ -3537,6 +3553,7 @@
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD = B.APC_CD)
 			GROUP BY S0
+			ORDER BY S0
 			]]>
     </select>
 
@@ -3578,6 +3595,7 @@
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD = B.APC_CD)
 			GROUP BY S0
+			ORDER BY S0
 			]]>
     </select>
 
@@ -3626,6 +3644,7 @@
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD = B.APC_CD)
 			GROUP BY S0
+			ORDER BY S0
 			]]>
     </select>
 

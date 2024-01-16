@@ -21,80 +21,166 @@
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectInvShipOgnSpeczItmPurSalMng" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
-    	SELECT *  /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectInvShipOgnSpeczItmPurSalMng */
-		FROM (
-			SELECT
-				ST.APO_CD
-				, ST.APO_SE
-				,'생산자조직(전속출하)' AS SE_NM
-				, ST.BRNO
-				, ST.YR
-				, ST.CTGRY_CD
-				, ST.ITEM_CD
-				, ST.STTG_UPBR_ITEM_SE
-				, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = ST.ITEM_CD) AS ITEM_NM
-				, 0 AS ISO_BRNO
-				, ST.PRDCR_OGNZ_SN
-				, ST.PRDCR_OGNZ_CD
-				, ST.PRDCR_OGNZ_NM
-				, (SELECT SUM(SPMT_PRC) FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN WHERE PRDCR_OGNZ_SN =  ST.PRDCR_OGNZ_SN) AS SLS_CNSGN_PRCHS_AMT
-				, TOT.UO_SPMT_AMT
-				, TOT.UO_OTHER_SPMT_AMT
-				, TOT.RMRK
-			FROM TB_EV_FRMHS_APO ST
-			LEFT JOIN TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT TOT
-			ON ST.APO_CD = TOT.APO_CD
-			AND ST.APO_SE = TOT.APO_SE
-			AND ST.YR = TOT.YR
-			AND ST.CTGRY_CD = TOT.CTGRY_CD
-			AND ST.ITEM_CD = TOT.ITEM_CD
-			AND ST.PRDCR_OGNZ_SN = TOT.PRDCR_OGNZ_SN
-			AND ST.YR = #{yr}
-			WHERE 1=1
-			<if test='brno != null and brno != ""'>
-				AND ST.BRNO = #{brno}
-			</if>
+SELECT * FROM (    /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectInvShipOgnSpeczItmPurSalMng */
+--=='5' AS TYPE_SE_NO===출자출하조직 생산자조직======================================
 
-			UNION ALL
+SELECT
+	'5' AS TYPE_SE_NO
+	,'(생산자조직)전속출하' AS SE_NM
+	, UOFA.PRDCR_OGNZ_NM AS PRCHS_NM
+	, '0'  AS ISO_BRNO
+	, UOFA.PRDCR_OGNZ_SN AS PRDCR_OGNZ_SN
+	, '0' AS PRDCR_OGNZ_CD
+	, '0' AS CLTVTN_LAND_SN
+	, ITEM.ITEM_CD AS ITEM_CD
+		, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = ITEM.ITEM_CD) AS ITEM_NM
+	, UOFA.STTG_UPBR_ITEM_SE
+	, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = UOFA.STTG_UPBR_ITEM_SE) AS STTG_UPBR_ITEM_NM
+	, ITEM.YR AS YR
+	, UOFA.SPMT_PRC_TOT AS SLS_CNSGN_PRCHS_AMT
+	, TOT.SLS_CNSGN_SLS_AMT
+	, TOT.UO_SPMT_AMT
+	, TOT.UO_OTHER_SPMT_AMT
 
-			SELECT
-				ITEM.APO_CD
-				, ITEM.APO_SE
-				,'생산자조직 외' AS SE_NM
-				, ITEM.BRNO
-				, ITEM.YR
-				, ITEM.CTGRY_CD
-				, ITEM.ITEM_CD
-				, ITEM.STTG_UPBR_ITEM_SE
-				, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = ITEM.ITEM_CD) AS ITEM_NM
-				, 0 AS ISO_BRNO
-				, 0 AS PRDCR_OGNZ_SN
-				, '99' AS PRDCR_OGNZ_CD
-				, '농가 법인 등' AS PRDCR_OGNZ_NM
-				,  (CASE WHEN TOT.SLS_CNSGN_PRCHS_AMT IS NOT NULL THEN TOT.SLS_CNSGN_PRCHS_AMT
-					ELSE ''
-					END) AS SLS_CNSGN_PRCHS_AMT
-				, TOT.UO_SPMT_AMT
-				, TOT.UO_OTHER_SPMT_AMT
-				, TOT.RMRK
-			FROM (SELECT ITEM_CD , APO_CD , APO_SE , YR , BRNO , STTG_UPBR_ITEM_SE , CTGRY_CD
-						FROM TB_EV_FRMHS_APO
-						WHERE 1=1
-						  AND YR = #{yr}
-						GROUP BY ITEM_CD , APO_CD , APO_SE , YR , BRNO , STTG_UPBR_ITEM_SE , CTGRY_CD
-						) ITEM
-			LEFT JOIN TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT TOT
-			ON ITEM.ITEM_CD = TOT.ITEM_CD
-			AND ITEM.APO_CD = TOT.APO_CD
-			AND TOT.PRDCR_OGNZ_CD = '99'
-			AND TOT.ISO_BRNO = '0'
-			AND TOT.PRDCR_OGNZ_SN = '0'
-			WHERE 1=1
-			<if test='brno != null and brno != ""'>
-				AND ITEM.BRNO = #{brno}
-			</if>
-			)
-		ORDER BY ITEM_CD , PRDCR_OGNZ_SN DESC
+	, TOT.RMRK
+FROM
+	(SELECT
+			FA.PRDCR_OGNZ_SN
+			,FA.PRDCR_OGNZ_NM
+			,FA.BRNO
+			,FA.ITEM_CD
+			,FA.STTG_UPBR_ITEM_SE
+			,(SELECT SUM(SPMT_PRC) FROM  TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN WHERE PRDCR_OGNZ_SN = FA.PRDCR_OGNZ_SN  AND  ITEM_CD = FA.ITEM_CD
+			) AS SPMT_PRC_TOT
+		FROM TB_EV_FRMHS_APO FA
+		WHERE FA.BRNO = #{brno}
+		  --AND UO_BRNO =
+		  --AND FA.STBLT_YN = 'Y'  --적합여부 추후 추가
+	)  UOFA ,
+	(SELECT ITEM_CD , YR
+		FROM TB_EV_APO_YR_GPC_CD
+		WHERE BRNO = #{uoBrno}
+		AND YR = #{yr}
+	) ITEM ,
+	(SELECT *
+		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+		WHERE BRNO = #{brno}
+		AND YR =#{yr}
+		AND TYPE_SE_NO = '5'
+	) TOT
+WHERE 1=1
+ AND UOFA.BRNO = TOT.BRNO(+)
+ AND UOFA.ITEM_CD = ITEM.ITEM_CD(+)
+
+ --=='6' AS TYPE_SE_NO===통합조직 직속 생산자조직 소계======================================
+UNION ALL
+
+SELECT
+	'6' AS TYPE_SE_NO
+	,'(생산자조직)전속출하' AS SE_NM
+	, '소계' AS PRCHS_NM
+	, '0'  AS ISO_BRNO
+	, 0 AS PRDCR_OGNZ_SN
+	, '0' AS PRDCR_OGNZ_CD
+	,'0' AS CLTVTN_LAND_SN
+	, ITEM.ITEM_CD AS ITEM_CD
+	, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = ITEM.ITEM_CD) AS ITEM_NM
+	, '' AS STTG_UPBR_ITEM_SE
+	, '소계' AS STTG_UPBR_ITEM_NM
+	, ITEM.YR AS YR
+	, 0 AS SLS_CNSGN_PRCHS_AMT
+	, TOT.SLS_CNSGN_SLS_AMT
+	, TOT.UO_SPMT_AMT
+	, TOT.UO_OTHER_SPMT_AMT
+	, TOT.RMRK
+FROM
+	(SELECT ITEM_CD , YR
+		FROM TB_EV_APO_YR_GPC_CD
+		WHERE BRNO = #{uoBrno}
+		AND YR =#{yr}
+	) ITEM ,
+	(SELECT *
+		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+		WHERE BRNO = #{brno}
+		AND YR =#{yr}
+		AND TYPE_SE_NO = '6'
+	) TOT
+WHERE 1=1
+	AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
+
+--=='7' AS TYPE_SE_NO===기타매입======================================
+UNION ALL
+
+SELECT
+	'7' AS TYPE_SE_NO
+	,'생산자조직 외' AS SE_NM
+	, '농가 , 법인 등' AS PRCHS_NM
+	, '0'  AS ISO_BRNO
+	, 0 AS PRDCR_OGNZ_SN
+	, '0' AS PRDCR_OGNZ_CD
+	, '0' AS CLTVTN_LAND_SN
+	, ITEM.ITEM_CD AS ITEM_CD
+	, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = ITEM.ITEM_CD) AS ITEM_NM
+	, '' AS STTG_UPBR_ITEM_SE
+	, '' AS STTG_UPBR_ITEM_NM
+	, ITEM.YR AS YR
+	, TOT.SLS_CNSGN_PRCHS_AMT
+	, TOT.SLS_CNSGN_SLS_AMT
+	, TOT.UO_SPMT_AMT
+	, TOT.UO_OTHER_SPMT_AMT
+	, TOT.RMRK
+FROM
+	(SELECT ITEM_CD , YR
+		FROM TB_EV_APO_YR_GPC_CD
+		WHERE BRNO = #{uoBrno}
+		AND YR =#{yr}
+	) ITEM ,
+	(SELECT *
+		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+		WHERE BRNO = #{brno}
+		AND YR =#{yr}
+		AND TYPE_SE_NO = '7'
+	) TOT
+WHERE 1=1
+	AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
+
+--=='8' AS TYPE_SE_NO===합계======================================
+UNION ALL
+
+SELECT
+	'8' AS TYPE_SE_NO
+	,'합계' AS SE_NM
+	, '' AS PRCHS_NM
+	, '0'  AS ISO_BRNO
+	, 0 AS PRDCR_OGNZ_SN
+	, '0' AS PRDCR_OGNZ_CD
+	, '0' AS CLTVTN_LAND_SN
+	, ITEM.ITEM_CD AS ITEM_CD
+	, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = ITEM.ITEM_CD) AS ITEM_NM
+	, '' AS STTG_UPBR_ITEM_SE
+	, '' AS STTG_UPBR_ITEM_NM
+	, ITEM.YR AS YR
+	, 0 AS SLS_CNSGN_PRCHS_AMT
+	, 0 AS SLS_CNSGN_SLS_AMT
+	, 0 AS UO_SPMT_AMT
+	, 0 AS UO_OTHER_SPMT_AMT
+	, TOT.RMRK
+FROM
+	(SELECT ITEM_CD , YR
+		FROM TB_EV_APO_YR_GPC_CD
+		WHERE BRNO = #{uoBrno}
+		AND YR =#{yr}
+	) ITEM ,
+	(SELECT *
+		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+		WHERE BRNO = #{brno}
+		AND YR = #{yr}
+		AND TYPE_SE_NO = '8'
+	) TOT
+WHERE 1=1
+	AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
+)
+ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
     </select>
 
 
@@ -107,80 +193,165 @@
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectInvShipOgnSpeczItmPurSalMngList" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
-    	SELECT * /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectInvShipOgnSpeczItmPurSalMngList */
-		FROM (
-			SELECT
-				ST.APO_CD
-				, ST.APO_SE
-				,'생산자조직(전속출하)' AS SE_NM
-				, ST.BRNO
-				, ST.YR
-				, ST.CTGRY_CD
-				, ST.ITEM_CD
-				, ST.STTG_UPBR_ITEM_SE
-				, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = ST.ITEM_CD) AS ITEM_NM
-				, 0 AS ISO_BRNO
-				, ST.PRDCR_OGNZ_SN
-				, ST.PRDCR_OGNZ_CD
-				, ST.PRDCR_OGNZ_NM
-				, (SELECT SUM(SPMT_PRC) FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN WHERE PRDCR_OGNZ_SN =  ST.PRDCR_OGNZ_SN) AS SLS_CNSGN_PRCHS_AMT
-				, TOT.UO_SPMT_AMT
-				, TOT.UO_OTHER_SPMT_AMT
-				, TOT.RMRK
-			FROM TB_EV_FRMHS_APO ST
-			LEFT JOIN TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT TOT
-			ON ST.APO_CD = TOT.APO_CD
-			AND ST.APO_SE = TOT.APO_SE
-			AND ST.YR = TOT.YR
-			AND ST.CTGRY_CD = TOT.CTGRY_CD
-			AND ST.ITEM_CD = TOT.ITEM_CD
-			AND ST.PRDCR_OGNZ_SN = TOT.PRDCR_OGNZ_SN
-			AND ST.YR = #{yr}
-			WHERE 1=1
-			<if test='brno != null and brno != ""'>
-				AND ST.BRNO = #{brno}
-			</if>
+SELECT * FROM (    /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectInvShipOgnSpeczItmPurSalMngList */
+--=='5' AS TYPE_SE_NO===출자출하조직 생산자조직======================================
 
-			UNION ALL
+SELECT
+	'5' AS TYPE_SE_NO
+	,'(생산자조직)전속출하' AS SE_NM
+	, UOFA.PRDCR_OGNZ_NM AS PRCHS_NM
+	, '0'  AS ISO_BRNO
+	, UOFA.PRDCR_OGNZ_SN AS PRDCR_OGNZ_SN
+	, '0' AS PRDCR_OGNZ_CD
+	, '0' AS CLTVTN_LAND_SN
+	, ITEM.ITEM_CD AS ITEM_CD
+		, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = ITEM.ITEM_CD) AS ITEM_NM
+	, UOFA.STTG_UPBR_ITEM_SE
+	, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = UOFA.STTG_UPBR_ITEM_SE) AS STTG_UPBR_ITEM_NM
+	, ITEM.YR AS YR
+	, UOFA.SPMT_PRC_TOT AS SLS_CNSGN_PRCHS_AMT
+	, TOT.SLS_CNSGN_SLS_AMT
+	, TOT.UO_SPMT_AMT
+	, TOT.UO_OTHER_SPMT_AMT
+	, TOT.RMRK
+FROM
+	(SELECT
+			FA.PRDCR_OGNZ_SN
+			,FA.PRDCR_OGNZ_NM
+			,FA.BRNO
+			,FA.ITEM_CD
+			,FA.STTG_UPBR_ITEM_SE
+			,(SELECT SUM(SPMT_PRC) FROM  TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN WHERE PRDCR_OGNZ_SN = FA.PRDCR_OGNZ_SN  AND  ITEM_CD = FA.ITEM_CD
+			) AS SPMT_PRC_TOT
+		FROM TB_EV_FRMHS_APO FA
+		WHERE FA.BRNO = #{brno}
+		  --AND UO_BRNO =
+		  --AND FA.STBLT_YN = 'Y'  --적합여부 추후 추가
+	)  UOFA ,
+	(SELECT ITEM_CD , YR
+		FROM TB_EV_APO_YR_GPC_CD
+		WHERE BRNO = #{uoBrno}
+		AND YR = #{yr}
+	) ITEM ,
+	(SELECT *
+		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+		WHERE BRNO = #{brno}
+		AND YR = #{yr}
+		AND TYPE_SE_NO = '5'
+	) TOT
+WHERE 1=1
+ AND UOFA.BRNO = TOT.BRNO(+)
+ AND UOFA.ITEM_CD = ITEM.ITEM_CD(+)
 
-			SELECT
-				ITEM.APO_CD
-				, ITEM.APO_SE
-				,'생산자조직 외' AS SE_NM
-				, ITEM.BRNO
-				, ITEM.YR
-				, ITEM.CTGRY_CD
-				, ITEM.ITEM_CD
-				, ITEM.STTG_UPBR_ITEM_SE
-				, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = ITEM.ITEM_CD) AS ITEM_NM
-				, 0 AS ISO_BRNO
-				, 0 AS PRDCR_OGNZ_SN
-				, '99' AS PRDCR_OGNZ_CD
-				, '농가 법인 등' AS PRDCR_OGNZ_NM
-				,  (CASE WHEN TOT.SLS_CNSGN_PRCHS_AMT IS NOT NULL THEN TOT.SLS_CNSGN_PRCHS_AMT
-					ELSE ''
-					END) AS SLS_CNSGN_PRCHS_AMT
-				, TOT.UO_SPMT_AMT
-				, TOT.UO_OTHER_SPMT_AMT
-				, TOT.RMRK
-			FROM (SELECT ITEM_CD , APO_CD , APO_SE , YR , BRNO , STTG_UPBR_ITEM_SE , CTGRY_CD
-						FROM TB_EV_FRMHS_APO
-						WHERE 1=1
-						  AND YR = #{yr}
-						GROUP BY ITEM_CD , APO_CD , APO_SE , YR , BRNO , STTG_UPBR_ITEM_SE , CTGRY_CD
-						) ITEM
-			LEFT JOIN TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT TOT
-			ON ITEM.ITEM_CD = TOT.ITEM_CD
-			AND ITEM.APO_CD = TOT.APO_CD
-			AND TOT.PRDCR_OGNZ_CD = '99'
-			AND TOT.ISO_BRNO = '0'
-			AND TOT.PRDCR_OGNZ_SN = '0'
-			WHERE 1=1
-			<if test='brno != null and brno != ""'>
-				AND ITEM.BRNO = #{brno}
-			</if>
-			)
-		ORDER BY ITEM_CD , PRDCR_OGNZ_SN DESC
+ --=='6' AS TYPE_SE_NO===통합조직 직속 생산자조직 소계======================================
+UNION ALL
+
+SELECT
+	'6' AS TYPE_SE_NO
+	,'(생산자조직)전속출하' AS SE_NM
+	, '소계' AS PRCHS_NM
+	, '0'  AS ISO_BRNO
+	, 0 AS PRDCR_OGNZ_SN
+	, '0' AS PRDCR_OGNZ_CD
+	,'0' AS CLTVTN_LAND_SN
+	, ITEM.ITEM_CD AS ITEM_CD
+	, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = ITEM.ITEM_CD) AS ITEM_NM
+	, '' AS STTG_UPBR_ITEM_SE
+	, '소계' AS STTG_UPBR_ITEM_NM
+	, ITEM.YR AS YR
+	, 0 AS SLS_CNSGN_PRCHS_AMT
+	, TOT.SLS_CNSGN_SLS_AMT
+	, TOT.UO_SPMT_AMT
+	, TOT.UO_OTHER_SPMT_AMT
+	, TOT.RMRK
+FROM
+	(SELECT ITEM_CD , YR
+		FROM TB_EV_APO_YR_GPC_CD
+		WHERE BRNO = #{uoBrno}
+		AND YR = #{yr}
+	) ITEM ,
+	(SELECT *
+		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+		WHERE BRNO = #{brno}
+		AND YR = #{yr}
+		AND TYPE_SE_NO = '6'
+	) TOT
+WHERE 1=1
+	AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
+
+--=='7' AS TYPE_SE_NO===기타매입======================================
+UNION ALL
+
+SELECT
+	'7' AS TYPE_SE_NO
+	,'생산자조직 외' AS SE_NM
+	, '농가 , 법인 등' AS PRCHS_NM
+	, '0'  AS ISO_BRNO
+	, 0 AS PRDCR_OGNZ_SN
+	, '0' AS PRDCR_OGNZ_CD
+	, '0' AS CLTVTN_LAND_SN
+	, ITEM.ITEM_CD AS ITEM_CD
+	, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = ITEM.ITEM_CD) AS ITEM_NM
+	, '' AS STTG_UPBR_ITEM_SE
+	, '' AS STTG_UPBR_ITEM_NM
+	, ITEM.YR AS YR
+	, TOT.SLS_CNSGN_PRCHS_AMT
+	, TOT.SLS_CNSGN_SLS_AMT
+	, TOT.UO_SPMT_AMT
+	, TOT.UO_OTHER_SPMT_AMT
+	, TOT.RMRK
+FROM
+	(SELECT ITEM_CD , YR
+		FROM TB_EV_APO_YR_GPC_CD
+		WHERE BRNO = #{uoBrno}
+		AND YR = #{yr}
+	) ITEM ,
+	(SELECT *
+		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+		WHERE BRNO = #{brno}
+		AND YR = #{yr}
+		AND TYPE_SE_NO = '7'
+	) TOT
+WHERE 1=1
+	AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
+
+--=='8' AS TYPE_SE_NO===합계======================================
+UNION ALL
+
+SELECT
+	'8' AS TYPE_SE_NO
+	,'합계' AS SE_NM
+	, '' AS PRCHS_NM
+	, '0'  AS ISO_BRNO
+	, 0 AS PRDCR_OGNZ_SN
+	, '0' AS PRDCR_OGNZ_CD
+	, '0' AS CLTVTN_LAND_SN
+	, ITEM.ITEM_CD AS ITEM_CD
+	, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = ITEM.ITEM_CD) AS ITEM_NM
+	, '' AS STTG_UPBR_ITEM_SE
+	, '' AS STTG_UPBR_ITEM_NM
+	, ITEM.YR AS YR
+	, 0 AS SLS_CNSGN_PRCHS_AMT
+	, 0 AS SLS_CNSGN_SLS_AMT
+	, 0 AS UO_SPMT_AMT
+	, 0 AS UO_OTHER_SPMT_AMT
+	, TOT.RMRK
+FROM
+	(SELECT ITEM_CD , YR
+		FROM TB_EV_APO_YR_GPC_CD
+		WHERE BRNO = #{uoBrno}
+		AND YR = #{yr}
+	) ITEM ,
+	(SELECT *
+		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+		WHERE BRNO = #{brno}
+		AND YR = #{yr}
+		AND TYPE_SE_NO = '8'
+	) TOT
+WHERE 1=1
+	AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
+)
+ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
     </select>
 
 
@@ -196,7 +367,8 @@
 				AND CLT.CTGRY_CD	 	= #{ctgryCd}
 				AND CLT.ITEM_CD 		= #{itemCd}
 				AND CLT.PRDCR_OGNZ_SN 	= #{prdcrOgnzSn}
-				AND CLT.ISO_BRNO 		= #{isoBrno}
+				AND CLT.CLTVTN_LAND_SN 	= #{cltvtnLandSn}
+				AND CLT.TYPE_SE_NO		= #{typeSeNo}
 				)
 		WHEN MATCHED THEN
 				 UPDATE
@@ -221,7 +393,8 @@
 					   AND CLT.CTGRY_CD	 		= #{ctgryCd}
 					   AND CLT.ITEM_CD 			= #{itemCd}
 					   AND CLT.PRDCR_OGNZ_SN 	= #{prdcrOgnzSn}
-					   AND CLT.ISO_BRNO 		= '0'
+					   AND CLT.CLTVTN_LAND_SN 	= #{cltvtnLandSn}
+					   AND CLT.TYPE_SE_NO		= #{typeSeNo}
 		WHEN NOT MATCHED THEN
 			 INSERT
 		    		(
@@ -235,6 +408,8 @@
 		    		  , ISO_BRNO
 		    		  , PRDCR_OGNZ_SN
 		    		  , PRDCR_OGNZ_CD
+		    		  , CLTVTN_LAND_SN
+		    		  , TYPE_SE_NO
 
 		    		  , SLS_CNSGN_PRCHS_AMT
 		    		  , UO_SPMT_AMT
@@ -258,9 +433,11 @@
 		    		  , TO_CHAR(SYSDATE,'YYYY')
 		    		  , #{ctgryCd}
 		    		  , #{itemCd}
-		    		  , '0'
+		    		  , #{isoBrno}
 		    		  , #{prdcrOgnzSn}
 		    		  , #{prdcrOgnzCd}
+		    		  , #{cltvtnLandSn}
+		    		  , #{typeSeNo}
 
 		   			  , #{slsCnsgnPrchsAmt}
 		   			  , #{uoSpmtAmt}

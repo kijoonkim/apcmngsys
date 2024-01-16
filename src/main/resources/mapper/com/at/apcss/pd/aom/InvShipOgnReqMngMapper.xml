@@ -111,11 +111,8 @@
 				, EAM.APLY_DAY
 				, EAM.ISO_FUND_APLY_AMT
 				, EAM.APLY_TRGT_SE
-
-				, UO.UO_APO_CD
-				, UO.UO_APO_SE
-				, UO.UO_BRNO
-				, UO.UO_CORP_NM
+				, EAM.UO_CD
+				, EAM.UO_BRNO
 
 				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
 				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
@@ -131,7 +128,7 @@
 			  FROM TB_EV_APO_UO_CD UO, TB_EV_APO CM, TB_EV_APLY_MNG EAM
 			 WHERE 1=1
 			   AND UO.ISO_BRNO = CM.BRNO(+)
-			   AND UO.UO_BRNO = EAM.UO_BRNO(+)
+			   AND CM.BRNO = EAM.BRNO(+)
 			   AND CM.BRNO IS NOT NULL
     	]]>
     		<if test='uoBrno != null and uoBrno != ""'>
@@ -195,20 +192,22 @@
 		USING DUAL
 			ON (
 				CLT.APO_CD  = #{apoCd}
-				AND CLT.UO_BRNO  = #{uoBrno}
+				AND CLT.YR  = #{yr}
 				)
 		WHEN MATCHED THEN
 				 UPDATE
 					   SET
 		    	          ISO_FUND_APLY_AMT			= #{isoFundAplyAmt}
 		    	        , APLY_TRGT_SE				= #{aplyTrgtSe}
+		    	        , UO_BRNO					= #{uoBrno}
+		    	        , UO_CD						= #{uoCd}
 		    	]]>
 		    	        --, APLY_DAY	= SYSDATE
 		    	<![CDATA[
 
 					 WHERE 1=1
-					 AND CLT.APO_CD		= #{apoCd}
-					 AND CLT.UO_BRNO  = #{uoBrno}
+					 AND CLT.APO_CD	= #{apoCd}
+					 AND CLT.YR  	= #{yr}
 		WHEN NOT MATCHED THEN
 			 INSERT
 		    		(

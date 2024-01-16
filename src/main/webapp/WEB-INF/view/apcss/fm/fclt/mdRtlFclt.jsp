@@ -15,7 +15,7 @@
 	<section>
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
-			
+
 				<div class="ad_tbl_toplist">
 					<sbux-button id="btnMap" name="btnMap" uitype="normal" text="APC전수조사" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 					<sbux-button id="btnMdRtlOgnzNow" name="btnMdRtlOgnzNow" uitype="normal" text="산지유통시설" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
@@ -25,7 +25,7 @@
 					<sbux-button id="btnMdRtlFcltOperPrfmnc" name="btnMdRtlFcltOperPrfmnc" uitype="normal" text="산지유통시설운영실적" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 					<sbux-button id="btnGvrngmtSprtRgnOperPrfmnc" name="btnGvrngmtSprtRgnOperPrfmnc" uitype="normal" text="정부지원지역별운영실적" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 				</div>
-					
+
 				<div style="margin-left: auto;">
 					<table style="border: 0px; margin-bottom: 6px">
 						<tr>
@@ -47,11 +47,11 @@
 							</td>
 						</tr>
 					</table>
-				
-					
+
+
 				</div>
 			</div>
-			
+
 			<div class="box-body">
 				<div id="tab_content">
 					<!-- 지도 탭 화면 -->
@@ -108,12 +108,12 @@
 		});
 		$('[id=btnMap]').click();
 	});
-	
+
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_initSBSelect();
 		fn_search();
 	})
-	
+
 	// 이력 조회 (조회 버튼)
     async function fn_search() {
 		if(searchTarget == "MdRtlOgnzNow"){
@@ -158,16 +158,18 @@
 				fn_cellGvrngmtSprtRgnOperPrfmncGrid();
 			}
 			newSearchTarget = searchTarget;
+		} else if(searchTarget == "Map"){
+			fn_apcSttn();
 		}
     }
-	
+
 	var jsonCrtrYr = [];	// 기준년도 검색
-	
+
 	const fn_initSBSelect = async function() {
 		let result = await Promise.all([
 			gfn_setCrtrYr('srch-slt-crtrYr', jsonCrtrYr, gv_selectedApcCd)		// 기준년도 목록
 		]);
 	}
-	
+
 </script>
 </html>

@@ -26,126 +26,131 @@
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body oncontextmenu="return false">
+	<section class="content container-fluid">
 	<div class="sbt-A-wrap">
-        <div class="main">
+        <div class="box box-solid">
             <!--main content-->
-            <div class="content">
-                <!--full content-->
-                <div class="sbt-wrap-full">
-                    <!--Button 영역-->
-                    <div class="sbt-search-button" style="text-align:right;">
-                    	<!--
-                   		<sbux-button id="test" name="test" uitype="normal" wrap-class="sbt-btn-reset" text="test" onclick="fn_fileUpload(0)"></sbux-button>
-                    	 -->
-                        <sbux-button id="btn_create" name="btn_create" uitype="normal" wrap-class="sbt-btn-reset" text="신규" onclick="fn_create"></sbux-button>
-                        <sbux-button id="btn_delete" name="btn_delete" uitype="normal" wrap-class="sbt-btn-reset" text="삭제" onclick="fn_delete"></sbux-button>
-                        <sbux-button id="btn_save" name="btn_save" uitype="normal" wrap-class="sbt-btn-reset" text="저장" onclick="fn_save"></sbux-button>
-                        <sbux-button id="btn_search" name="btn_search" uitype="normal" wrap-class="sbt-btn-search" text="조회" onclick="fn_search"></sbux-button>
-                    </div>
+        <div class="box-header" style="display:flex; justify-content: flex-start;">
+        	<div>
+				<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
+				<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- APC게시판 -->
+			</div>
+			<div style="margin-left: auto;">
+					<div class="sbt-search-button" style="text-align:right;">
+			              <sbux-button id="btn_create" name="btn_create" uitype="normal" class="btn btn-sm btn-outline-danger" text="신규" onclick="fn_create"></sbux-button>
+			              <sbux-button id="btn_save" name="btn_save" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_save"></sbux-button>
+			              <sbux-button id="btn_delete" name="btn_delete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="fn_delete"></sbux-button>
+			              <sbux-button id="btn_search" name="btn_search" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
+	               </div>
+            </div>
+        </div>
                     <!--조회 영역-->
-			        <div class="sbt-con-wrap">
-                        <form id="frm" name="frm" method="post">
-				        <div class="sbt-search-wrap">
-                            <div class="sbt-wrap-body-con">
-                                <div class="sbt-wrap-body">
+			        <div class="box-body">
+			        	<table class="table table-bordered tbl_fixed">
+											<colgroup>
+												<col style="width:10%">
+												<col style="width:20%">
+												<col style="width:10%">
+												<col style="width:20%">
+												<col style="width:40%">
+											</colgroup>
+											<tr>
 
-                                    <div class="sbt-search-row">
-                                        <!--col -->
-                                        <div class="sbt-search-col popup-search-col">
-                                            <div class="sbt-col-left">
-                                                <sbux-label id="srch-label-bbsSeCd" name="srch-label-bbsSeCd" uitype="normal" text="구분"></sbux-label>
-                                            </div>
-                                            <div class="sbt-col-right">
-                                                <sbux-select id="srch-select-bbsSeCd" name="srch-select-bbsSeCd" uitype="single"
+												<th scope="row" class="th_bg">구분</th>
+												<td class="td_input" style="border-right: hidden;">
+					                            	<sbux-select class="form-control input-sm" id="srch-select-bbsSeCd" name="srch-select-bbsSeCd" uitype="single"
                                                     jsondata-ref="jsonComBbsSeCd"
                                                     unselected-text="전체"
                                                     style="width:120px;"
                                                 ></sbux-select>
-                                            </div>
-                                            <div class="sbt-col-left">
-                                                <sbux-label id="srch-label-bbsTitle" name="srch.label.bbsTitle" uitype="normal" text="내용"></sbux-label>
-                                            </div>
-                                            <div class="sbt-col-right">
-                                                <sbux-input id="srch-input-bbsTitle" name="srch-input-bbsTitle" uitype="text"
+
+												</td>
+												<th scope="row" class="th_bg">제목</th>
+												<td class="td_input" style="border-right: hidden;">
+					                            	<sbux-input class="form-control input-sm" id="srch-input-bbsTitle" name="srch-input-bbsTitle" uitype="text"
                                                     style="width:400px"
                                                     placeholder=""
                                                 ></sbux-input>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="sbt-con-wrap">
-                	<ul>
-	                    <li style="display:inline-block;float:left;width: 49.5%;vertical-align:top;">
+												</td>
+											</tr>
+										</table>
+
+
+
+                <div class="row">
+                	<div class="col-sm-5">
 		                    <div class="sbt-grid-wrap">
-		                        <div class="sbt-wrap-header">
-		                            <span>icon</span>
-		                            <h3>게시판목록 <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span></h3>
-		                        </div>
-		                        <div class="sbt-wrap-body">
-		                            <div class="sbt-grid">
+		                        <div class="ad_tbl_top">
+										<ul class="ad_tbl_count">
+											<li>
+												<span style="font-size:14px">게시판목록</span>
+												<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+											</li>
+										</ul>
+								</div>
+		                        <div class="sbt-wrap-body" >
+		                            <div class="sbt-grid" >
 		                                <!-- SBGrid를 호출합니다. -->
-		                                <div id="sb-area-grdBbs" style="height:550px;"></div>
+		                                <div id="sb-area-grdBbs" style="height:550px"></div>
 		                            </div>
 		                        </div>
 		                    </div>
-	                    </li>
-	                    <li style="display:inline-block;float:right;width: 49.5%;vertical-align:top;">
+                    </div>
+	                    <div class="col-sm-7">
 		                    <div class="sbt-grid-wrap">
-		                        <div class="sbt-wrap-header">
-		                            <span>icon</span>
-		                            <h3>게시판상세정보1</h3>
-		                        </div>
+		                        <div class="ad_tbl_top">
+										<ul class="ad_tbl_count">
+											<li>
+												<span style="font-size:14px;padding-left: 10px;">게시판상세정보</span>
+											</li>
+										</ul>
+									</div>
 		                        <div class="sbt-wrap-body">
 		                            <form id="frm1" name="frm1" method="post">
-		                            <sbux-input id="dtl-input-orngBbsNo" name="dtl-input-orngBbsNo" uitype="hidden"></sbux-input>
-		                            <table class="tbl">
+		                            <sbux-input class="form-control input-sm" id="dtl-input-orngBbsNo" name="dtl-input-orngBbsNo" uitype="hidden"></sbux-input>
+		                            <table class="table table-bordered tbl_fixed">
 		                                <colgroup>
+
 		                                    <col style="width:10%">
 		                                    <col style="width:15%">
 		                                    <col style="width:10%">
 		                                    <col style="width:10%">
-		                                    <col style="width:10%">
 		                                    <col style="width:15%">
 		                                    <col style="width:10%">
-		                                    <col style="width:20%">
+		                                    <col style="width:15%">
+		                                    <col style="width:15%">
 		                                </colgroup>
 		                                <tr>
-		                                    <th>구분</th>
-		                                    <td>
-		                                    	<sbux-select id="dtl-select-bbsSeCd" name="dtl-select-bbsSeCd" uitype="single"
+		                                    <th scope="row" class="th_bg">구분</th>
+		                                    <td class="td_input" style="border-right: hidden;word-break:break-all">
+		                                    	<sbux-select class="form-control input-sm" id="dtl-select-bbsSeCd" name="dtl-select-bbsSeCd" uitype="single"
 		                                    		jsondata-ref="jsonComBbsSeCd"
 		                                    		unselected-text="선택"
 	                                    		></sbux-select>
 		                                    </td>
-		                                    <th>등록번호</th>
-		                                    <td>
-		                                        <sbux-input id="dtl-input-bbsNo" name="dtl-input-bbsNo" uitype="text" required style="width:100%" readonly ></sbux-input>
+		                                    <th scope="row" class="th_bg">등록번호</th>
+		                                    <td class="td_input" style="border-right: hidden">
+		                                        <sbux-input class="form-control input-sm" id="dtl-input-bbsNo" name="dtl-input-bbsNo" uitype="text" required style="width:100%" readonly ></sbux-input>
 		                                    </td>
-		                                    <th>등록자</th>
-		                                    <td>
-		                                        <sbux-input id="dtl-input-sysFrstInptUserIdNm" name="dtl-input-sysFrstInptUserIdNm" uitype="text" style="width:100%" readonly></sbux-input>
+		                                    <th scope="row" class="th_bg">등록자</th>
+		                                    <td class="td_input" style="border-right: hidden">
+		                                        <sbux-input class="form-control input-sm" id="dtl-input-sysFrstInptUserIdNm" name="dtl-input-sysFrstInptUserIdNm" uitype="text" style="width:100%" readonly></sbux-input>
 		                                    </td>
-		                                    <th>등록일시</th>
-		                                    <td>
-		                                      <sbux-input id="dtl-input-sysFrstInptDt" name="dtl-input-sysFrstInptDt" uitype="text" style="width:100%" readonly></sbux-input>
-		                                    </td>
-		                                </tr>
-		                                <tr>
-		                                    <th>제목</th>
-		                                    <td colspan="7">
-		                                        <sbux-input id="dtl-input-bbsTitle" name="dtl-input-bbsTitle" uitype="text" required style="width:100%"></sbux-input>
+		                                    <th scope="row" class="th_bg">등록일시</th>
+		                                    <td class="td_input" style="border-right: hidden">
+		                                      <sbux-input class="form-control input-sm" id="dtl-input-sysFrstInptDt" name="dtl-input-sysFrstInptDt" uitype="text" style="width:100%" readonly></sbux-input>
 		                                    </td>
 		                                </tr>
 		                                <tr>
-		                                    <th>내용</th>
+		                                    <th scope="row" class="th_bg">제목</th>
 		                                    <td colspan="7">
-		                                        <sbux-textarea  rows="27" cols="120"  id="dtl-input-bbsSbjt" name="dtl-input-bbsSbjt"  uitype="normal"></sbux-textarea>
+		                                        <sbux-input class="form-control input-sm" id="dtl-input-bbsTitle" name="dtl-input-bbsTitle" uitype="text" required style="width:100%"></sbux-input>
+		                                    </td>
+		                                </tr>
+		                                <tr>
+		                                    <th scope="row" class="th_bg">내용</th>
+		                                    <td colspan="7">
+		                                        <sbux-textarea  rows="16" cols="120"  id="dtl-input-bbsSbjt" name="dtl-input-bbsSbjt"  uitype="normal" style="width:100%;overflow-y: auto"></sbux-textarea>
 		                                    </td>
 		                                </tr>
 		                                <!-- <tr>
@@ -155,8 +160,8 @@
 		                                    </td>
 		                                </tr> -->
 		                                <tr>
-		                                	<th>첨부파일</th>
-		                                    <td colspan="7">
+		                                	<th scope="row" class="th_bg">첨부파일</th>
+		                                    <td colspan="8">
 		                                    	<!--
 			                                	<sbux-fileupload id="file" name="file" uitype="multiple"
 													upload-url="/fm/bbs/fileUpload.do"
@@ -210,13 +215,12 @@
 		                            </form>
 		                        </div>
 		                    </div>
-	                    </li>
-                    </ul>
+	                    </div>
                 </div>
             </div>
         </div>
     </div>
-
+	</section>
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
 
@@ -251,26 +255,26 @@
 	    SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.rowheader = 'seq';
 		SBGridProperties.rowheadercaption = {seq: 'No'};
-        SBGridProperties.rowheaderwidth = {seq: '60'};
+        SBGridProperties.rowheaderwidth = {seq: '30'};
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.paging = {
 			'type' : 'page',
 		  	'count' : 5,
-		  	'size' : 20,
+		  	'size' : 100,
 		  	'sorttype' : 'page',
 		  	'showgoalpageui' : true
 	    };
         SBGridProperties.columns = [
             {caption : ["<input type='checkbox' onchange='fn_checkAll(this);'>"],
-                ref: 'checked', type: 'checkbox',   style: 'text-align:center',
+                ref: 'checked', type: 'checkbox',width:'5%'   ,style: 'text-align:center',
                 typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}
             },
 //             {caption: ["번호"],	ref: 'bbsNo',      type:'output',  width:'10%',    style:'text-align:center'},
-            {caption: ["유형"],  	ref: 'bbsSeCdNm',    type:'output',  width:'10%',    style:'text-align:center'},
-            {caption: ["제목"], 	ref: 'bbsTitle',     	type:'output',  width:'60%',    style:'text-align:left'},
+            {caption: ["유형"],  	ref: 'bbsSeCdNm',    type:'output',  width:'15%',    style:'text-align:center'},
+            {caption: ["제목"], 	ref: 'bbsTitle',     	type:'output',  width:'50%',    style:'text-align:left'},
             {caption: ["내용"],      	ref: 'bbsSbjt',        type:'output',  hidden: true},
             {caption: ["등록자"],	ref: 'sysFrstInptUserIdNm',   type:'output' ,width:'10%'  , style:'text-align:center'},
-            {caption: ["등록일"],	ref: 'sysFrstInptDtYmd',   type:'output' ,width:'10%'  , style:'text-align:center'},
+            {caption: ["등록일"],	ref: 'sysFrstInptDtYmd',   type:'output' ,width:'20%'  , style:'text-align:center'},
             {caption: ["최초등록자ID"],	ref: 'creUserId',   type:'output',  hidden: true},
             {caption: ["최초등록일시"],	ref: 'creDateTime', type:'output',  hidden: true},
             {caption: ["최종변경자ID"],	ref: 'updUserId',   type:'output',  hidden: true},
@@ -325,7 +329,7 @@
         const postJsonPromise = gfn_postJSON("/fm/bbs/selectBbsList.do", {
         	bbsSeCd: bbsSeCd,
         	//bbsNo: bbsNo,
-        	bbsTitle: bbsTitle,
+        	bbsTtl: bbsTitle,
         	// pagination
 	  		pagingYn : 'Y',
 			currentPageNo : pageNo,
@@ -491,7 +495,7 @@
     	const postJsonPromise = gfn_postJSON("/fm/bbs/insertBbs.do", {
 			bbsNo: SBUxMethod.get('dtl-input-bbsNo'),
 			bbsSeCd: SBUxMethod.get('dtl-select-bbsSeCd'),
-			bbsTitle: SBUxMethod.get('dtl-input-bbsTitle'),
+			bbsTtl: SBUxMethod.get('dtl-input-bbsTitle'),
 			bbsSbjt: SBUxMethod.get('dtl-input-bbsSbjt')
 		});
 
@@ -527,7 +531,7 @@
     	const postJsonPromise = gfn_postJSON("/fm/bbs/updateBbs.do", {
 			bbsNo: SBUxMethod.get('dtl-input-orngBbsNo'),
 			bbsSeCd: SBUxMethod.get('dtl-select-bbsSeCd'),
-			bbsTitle: SBUxMethod.get('dtl-input-bbsTitle'),
+			bbsTtl: SBUxMethod.get('dtl-input-bbsTitle'),
 			bbsSbjt: SBUxMethod.get('dtl-input-bbsSbjt')
 		});
 
@@ -867,7 +871,7 @@
         #drop-area {
             border: 2px dashed #ccc;
             padding: 20px;
-            width: 90%;
+            width: 100%;
             text-align: center;
             cursor: pointer;
         }

@@ -88,7 +88,7 @@
 	        	}
 	        }},
 	        {caption: ["작업자명"], 	ref: 'flnm',  	type:'input',  width:'100px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100}), typeinfo : {mask : {alias : 'k'}, maxlength : 33}},
-	        {caption: ["생년월일"], 	ref: 'brdt',   	type:'input',  width:'100px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 10}), typeinfo : {maxlength : 10}, format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}},
+	        {caption: ["생년월일"], 	ref: 'brdt',   	type:'input',  width:'100px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 10}), typeinfo : {maxlength : 10}, format : {type:'date', rule:'yyyy-**-**', origin:'YYYYMMDD'}},
 	        {caption: ["전화번호"], 	ref: 'telno',   type:'input',  width:'120px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 11}), typeinfo : {maxlength : 11}, format : {type:'custom', callback : fnNewCallNumber}},
 	        {caption: ["주소"], 		ref: 'addr',    type:'input',  width:'320px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 200}), typeinfo : {maxlength : 66}},
 	        {caption: ["입사일자"], 	ref: 'jncmpYmd',type:'datepicker', width:'100px',style:'text-align:center', typeinfo: {dateformat: 'yyyy-mm-dd'}, format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}     },

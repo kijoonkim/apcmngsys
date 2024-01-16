@@ -19,8 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<title>title : 선별실적등록</title>
-   	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
+	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body oncontextmenu="return false">
@@ -307,6 +306,8 @@
 					<div id="sbexp-area-grdExpSpcfct" style="height:1px; width: 100%;"></div>
 					<div id="sbexp-area-grdExpSortFclt" style="height:1px; width: 100%;"></div>
 					<div id="sbexp-area-grdExpGdsGrd" style="height:1px; width: 100%;"></div>
+					<div id="sbexp-area-grdExpPckgGrd" style="height:1px; width: 100%;"></div>
+					<div id="sbexp-area-grdExpSpmtPckgUnit" style="height:1px; width: 100%;"></div>
 					<sbux-select id="excel-slt-prdcr"
 								name="excel-slt-prdcr"
 								uitype="single"
@@ -414,7 +415,7 @@
 	var jsonExeclSpcfct				= [];	// 엑셀 규격
 	var jsonExeclComGdsGrd			= [];	// 엑셀 등급
 	var jsonExeclComVrty			= [];	// 엑셀 품종
-
+	var jsonExeclComSpmtPckgUnit	= [];
 
     /* SBGrid */
 	var grdRawMtrInvntr;
@@ -435,6 +436,7 @@
 		 	gfn_setPrdcrSBSelect('excel-slt-prdcr', 				jsonExeclComPrdcr, 			gv_selectedApcCd),						// 생산자(엑셀)
 		 	gfn_setApcVrtySBSelect('excel-slt-vrty', 				jsonExeclComVrty, 			gv_selectedApcCd),						// 품종(엑셀)
 		 	gfn_setApcSpcfctsSBSelect('excel-slt-spcfct', 			jsonExeclSpcfct, 			gv_selectedApcCd),						// 규격(엑셀)
+			gfn_setSpmtPckgUnitSBSelect('excel-slt-spmtPckgUnit', 	jsonExeclComSpmtPckgUnit, 	gv_selectedApcCd),						// 포장구분(엑셀)		 	
 		 	fn_getWarehouse(),
 		 	fn_getApcSpcfct(),
 		 	fn_getSpmtPckgUnit()
@@ -1831,6 +1833,8 @@
 	var jsonExpSltPrdcr 			= [];	// 생산자
 	var jsonExpSltWarehouse 		= [];	// 창고
 	var jsonExpSltSortFclt 			= [];	// 선별기
+	var jsonExpSltSpmtPckgUnit		= [];	// 출하포장단위
+	
 
 	var grdExpSortPrfmnc;			// 엑셀 포장실적그리드
 	var grdExpItem;					// 엑셀 품목그리드
@@ -1840,7 +1844,9 @@
 	var grdExpPrdcr;				// 엑셀 생산자그리드
 	var grdExpWarehouse;			// 엑셀 창고그리드
 	var grdExpSortFclt;				// 엑셀 선별기그리드
-
+	var grdExpSpmtPckgUnit;			// 엑셀 포장구분그리드
+	var grdExpPckgGrd;				// 엑셀 포장등급그리드
+	
 	var jsonExpSortPrfmnc 			= [];	// 엑셀 원물재고Json
 	var jsonExpItem 				= [];	// 엑셀 품목Json
 	var jsonExpVrty 				= [];	// 엑셀 품종Json
@@ -1849,6 +1855,8 @@
 	var jsonExpPrdcr 				= [];	// 엑셀 생산자Json
 	var jsonExpWarehouse 			= [];	// 엑셀 보관창고Json
 	var jsonExpSortFclt 			= [];	// 엑셀 선별기Json
+	var jsonExpSltSpmtPckgUnit		= [];	// 출하포장단위
+	var jsonExpPckgGrd 				= [];	// 엑셀 포장등급Json
 
 	const fn_getExpColumns = function() {
 		const _columns = [];
@@ -1887,17 +1895,92 @@
 				type:'combo',
 				width:'80px',
 				style:'text-align:center; background-color:#FFF8DC;',
-				typeinfo : {ref:'jsonExpSltVrty', 		displayui : false,	itemcount: 10, label:'label', value:'value'}},
-			{caption: ["대표생산자"], 		ref: 'prdcrCd',   		type:'combo',  width:'80px',    style:'text-align:center;',
-				typeinfo : {ref:'jsonExpSltPrdcr', 		displayui : false,	itemcount: 10, label:'prdcrNm', value:'prdcrCd'}},
-			{caption: ["원물창고"],		ref: 'warehouseSeCdFrom',	type:'combo',  width:'80px',    style:'text-align:center; background-color:#FFF8DC;',
-				typeinfo : {ref:'jsonExpSltWarehouse', 	displayui : false,	itemcount: 10, label:'cdVlNm', value:'cdVl'}},
-			{caption: ["규격"], 		ref: 'spcfctCd',   		type:'combo',  width:'80px',    style:'text-align:center; background-color:#FFF8DC;',
-				typeinfo : {ref:'jsonExpSltSpcfct', 	displayui : false,	itemcount: 10, label:'spcfctNm', value:'spcfctCd'}},
-			{caption: ["선별기"],		ref: 'sortFcltCd',	type:'combo',  width:'80px',    style:'text-align:center; background-color:#FFF8DC;',
-				typeinfo : {ref:'jsonExpSltSortFclt', 		displayui : false,	itemcount: 10, label:'label', value:'value'}},
-			{caption: ["보관창고"],		ref: 'warehouseSeCdTo',	type:'combo',  width:'80px',    style:'text-align:center; background-color:#FFF8DC;',
-				typeinfo : {ref:'jsonExpSltWarehouse', 	displayui : false,	itemcount: 10, label:'cdVlNm', value:'cdVl'}},
+				typeinfo : {
+					ref:'jsonExpSltVrty', 		
+					displayui : false,	
+					itemcount: 10, 
+					label:'label', 
+					value:'value'
+				}
+			},
+			{
+				caption: ["대표생산자"], 		
+				ref: 'prdcrCd',   		
+				type:'combo',  
+				width:'80px',    
+				style:'text-align:center;',
+				typeinfo : {
+					ref:'jsonExpSltPrdcr', 		
+					displayui : false,	
+					itemcount: 10, 
+					label:'prdcrNm', 
+					value:'prdcrCd'
+				}
+			},
+			{
+				caption: ["원물창고"],		
+				ref: 'warehouseSeCdFrom',	
+				type:'combo',  
+				width:'80px',    
+				style:'text-align:center; background-color:#FFF8DC;',
+				typeinfo : {
+					ref:'jsonExpSltWarehouse', 	
+					displayui : false,	
+					itemcount: 10, 
+					label:'cdVlNm', 
+					value:'cdVl'
+				}
+			},
+			{
+				caption: ["투입중량 (Kg)"],	
+				ref: 'inptWght',    
+				type:'input',  
+				width:'60px',    
+				style:'text-align:right;'
+			},
+			{
+				caption: ["규격"], 		
+				ref: 'spcfctCd',   		
+				type:'combo',  
+				width:'80px',    
+				style:'text-align:center; background-color:#FFF8DC;',
+				typeinfo : {
+					ref:'jsonExpSltSpcfct', 	
+					displayui : false,	
+					itemcount: 10, 
+					label:'spcfctNm', 
+					value:'spcfctCd'
+				}
+			},
+			// 투입중량
+			{
+				caption: ["선별기"],		
+				ref: 'sortFcltCd',	
+				type:'combo',  
+				width:'80px',    
+				style:'text-align:center; background-color:#FFF8DC;',
+				typeinfo : {
+					ref:'jsonExpSltSortFclt', 		
+					displayui : false,	
+					itemcount: 10, 
+					label:'label', 
+					value:'value'
+				}
+			},
+			{
+				caption: ["보관창고"],		
+				ref: 'warehouseSeCdTo',	
+				type:'combo',  
+				width:'80px',    
+				style:'text-align:center; background-color:#FFF8DC;',
+				typeinfo : {
+					ref:'jsonExpSltWarehouse', 	
+					displayui : false,	
+					itemcount: 10, 
+					label:'cdVlNm', 
+					value:'cdVl'
+				}
+			},
 		);
 
 		const columnsStdGrd = [];
@@ -1932,11 +2015,89 @@
 		});
 
 		_columns.push(
-			{caption: ["수량"],		ref: 'sortQntt',	type:'input',  width:'60px',    style:'text-align:right; background-color:#FFF8DC;'},
-	        {caption: ["중량 (Kg)"],	ref: 'sortWght',    type:'input',  width:'60px',    style:'text-align:right; background-color:#FFF8DC;'},
-	        {caption: ["비고"],		ref: 'rmrk',      	type:'input',  width:'300px',    style:'text-align:left'},
+			{
+				caption: ["수량"],		
+				ref: 'sortQntt',	
+				type:'input',  
+				width:'60px',    
+				style:'text-align:right; background-color:#FFF8DC;'
+			},
+	        {
+				caption: ["중량 (Kg)"],	
+				ref: 'sortWght',    
+				type:'input',  
+				width:'60px',    
+				style:'text-align:right; background-color:#FFF8DC;'
+			},
+	        {
+	        	caption : ["포장(Y/N)"], 
+	        	ref: 'checkedYn', 
+	        	type: 'checkbox',  
+	        	width:'100px', 
+	        	style: 'text-align:center', 
+	        	userattr: {colNm: "checkedYn"},
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+            },
+            {
+            	caption: ["상품명 (포장시 필수)"],
+            	ref: 'spmtPckgUnitCd',
+            	type:'combo',
+            	width:'200px',
+            	style: 'text-align:center;',
+            	userattr: {colNm: "spmtPckgUnitCd"},
+            	typeinfo: {
+            		ref:'jsonExpSltSpmtPckgUnit',
+					displayui : false,
+					itemcount: 10,
+					label:'spmtPckgUnitNm',
+					value:'spmtPckgUnitCd'
+            	}
+            },
 		);
 
+		// 상품등급
+		const columnsGdsGrd = [];
+		gjsonExtGrdObjKnd.forEach((item, index) => {
+			const _jsonId = gStdGrdObj.jsonExtPrefix + gStdGrdObj.idList[index];
+			const grd = {
+				caption: [item.grdKndNm],
+				ref: gStdGrdObj.colExtPrfx + item.grdKnd,
+				type:'combo',
+				width:'100px',
+				style: 'text-align:center;',
+				userattr: {colNm: "gdsStdGrd"},
+				typeinfo: {
+					ref: _jsonId,
+					label:'grdNm',
+					value:'grdCd',
+					displayui : false,
+					oneclickedit: true
+				}
+			}
+			columnsGdsGrd.push(grd);
+		});
+
+		if (gjsonExtGrdObjKnd.length > 1 && gjsonExtGrdObjJgmt.length > 0) {
+			const jgmtGrd = {
+					caption: ["상품판정"],
+					ref: "gdsJgmtGrdCd",
+					type:'combo',
+					width:'80px',
+					style: 'text-align:center;',
+					userattr: {colNm: "gdsJgmtGrd"},
+					typeinfo: {ref: gStdGrdObj.jgmtExtJsonId, label:'grdNm', value:'grdCd', displayui : false}
+			}
+			SBGridProperties.columns.push(jgmtGrd);
+		}
+
+		columnsGdsGrd.forEach((item, index) => {
+			_columns.push(item);
+		});
+		
+		_columns.push(
+			{caption: ["비고"],		ref: 'rmrk',      	type:'input',  width:'300px',    style:'text-align:left'},
+		);
+		
 		return _columns;
 	}
 
@@ -1950,12 +2111,14 @@
 		jsonExpSltGdsGrd 			= gfn_cloneJson(jsonExeclComGdsGrd);		// 엑셀 등급Json
 		jsonExpSltSpcfct 			= gfn_cloneJson(jsonExeclSpcfct);			// 엑셀 규격Json
 		jsonExpSltPrdcr 			= gfn_cloneJson(jsonExeclComPrdcr);			// 엑셀 생산자Json
-		jsonExpSltWarehouse 		= gfn_cloneJson(jsonComWarehouse);		// 엑셀 창고 Json
+		jsonExpSltWarehouse 		= gfn_cloneJson(jsonComWarehouse);			// 엑셀 창고 Json
 		jsonExpSltSortFclt 			= gfn_cloneJson(jsonComFclt);				// 엑셀 선별기Json
-
+		jsonExpSltSpmtPckgUnit 		= gfn_cloneJson(jsonExeclComSpmtPckgUnit);	// 엑셀 포장구분Json
+		
 		jsonExpSltItem				= gfn_getJsonFilter(jsonExpSltItem, "itemCd", itemCd);
 		jsonExpSltVrty				= gfn_getJsonFilter(jsonExpSltVrty, "itemCd", itemCd);
 		jsonExpSltSpcfct			= gfn_getJsonFilter(jsonExpSltSpcfct, "itemCd", itemCd);
+		jsonExpSltSpmtPckgUnit		= gfn_getJsonFilter(jsonExpSltSpmtPckgUnit, "itemCd", itemCd);
 	}
 
 	const fn_setExpJson = async function() {
@@ -1971,7 +2134,7 @@
 		jsonExpPrdcr 			= gfn_cloneJson(jsonExeclComPrdcr);			// 엑셀 생산자Json
 		jsonExpWarehouse 		= gfn_cloneJson(jsonExeclComWarehouse);		// 엑셀 창고Json
 		jsonExpSortFclt 		= gfn_cloneJson(jsonComFclt);				// 엑셀 선별기Json
-
+		jsonExpSpmtPckgUnit 	= gfn_cloneJson(jsonExeclComSpmtPckgUnit);	// 엑셀 포장구분Json
 		fn_setExpGrdJson();
 	}
 
@@ -2001,6 +2164,32 @@
 	    		});
 	    	});
 		}
+	    
+	    jsonExpPckgGrd.length = 0;
+	    gjsonExtGrdObjKnd.forEach((item, index) => {
+	    	const jsonTemp = gStdGrdObj.getExtJson(gStdGrdObj.idList[index]);
+	    	jsonTemp.forEach((stdGrd) => {
+	    		jsonExpPckgGrd.push({
+					grdKnd: item.grdKnd,
+		    		grdKndNm: item.grdKndNm,
+		    		grdCd: stdGrd.grdCd,
+		    		grdNm: stdGrd.grdNm,
+	    		});
+	    	});
+		});
+
+	    if (gjsonExtGrdObjKnd.length > 1 && gjsonExtGrdObjJgmt.length > 0) {
+
+	    	gjsonExtGrdObjJgmt.forEach((stdGrd) => {
+	    		jsonExpPckgGrd.push({
+					grdKnd: "jgmt",
+		    		grdKndNm: "판정등급",
+		    		grdCd: stdGrd.grdCd,
+		    		grdNm: stdGrd.grdNm,
+	    		});
+	    	});
+		}
+	    
 	}
 
 	const fn_createExpGrid = async function(_expObjList) {
@@ -2132,6 +2321,35 @@
 			    	{caption: ["선별기명"],   ref: 'text',  	type:'output',  width:'100px',    style:'text-align:center'}
 				],
 		        sheetName: "선별기",
+		        title: "",
+		        unit: ""
+		    },{
+		        sbGrid: grdExpGdsGrd,
+		        parentid: "sbexp-area-grdExpSpmtPckgUnit",
+		        id: "grdExpSpmtPckgUnit",
+		        jsonref: "jsonExpSpmtPckgUnit",
+				columns: [
+					{caption: ["품목코드"],		ref: 'itemCd',  	type:'output',  width:'100px',    style:'text-align:center'},
+					{caption: ["품목명"],		ref: 'itemNm',  	type:'output',  width:'100px',    style:'text-align:center'},
+					{caption: ["품종명칭"],   	ref: 'vrtyNm',  	type:'output',  width:'100px',    style:'text-align:center'},
+					{caption: ["규격명"],    	ref: 'spcfctNm',  	type:'output',  width:'100px',    style:'text-align:center'},
+					{caption: ["포장코드"],   	ref: 'spmtPckgUnitCd',  type:'output',  width:'100px',    style:'text-align:center'},
+			    	{caption: ["포장단위명"],	ref: 'spmtPckgUnitNm',  type:'output',  width:'160px',    style:'text-align:center'}
+				],
+		        sheetName: "포장구분",
+		        title: "",
+		        unit: ""
+		    },{
+		        sbGrid: grdExpGdsGrd,
+		        parentid: "sbexp-area-grdExpPckgGrd",
+		        id: "grdExpPckgGrd",
+		        jsonref: "jsonExpPckgGrd",
+				columns: [
+					{caption: ["등급종류"],	ref: 'grdKndNm',  type:'output',  width:'100px',    style:'text-align:center'},
+					{caption: ["등급코드"],	ref: 'grdCd',  type:'output',  width:'100px',    style:'text-align:center'},
+					{caption: ["등급명"],	ref: 'grdNm',  type:'output',  width:'100px',    style:'text-align:center'},
+				],
+		        sheetName: "포장등급",
 		        title: "",
 		        unit: ""
 		    }
@@ -2284,7 +2502,7 @@
  	    	}
  	    	/*
  	    	if (gfn_isEmpty(rowData.prdcrCd)) {
- 	    		gfn_comAlert("W0001", "대표생산자");		//	//	W0002	{0}을/를 입력하세요.
+ 	    		gfn_comAlert("W0001", "대표생산자");		//	W0002	{0}을/를 입력하세요.
  	            return;
  	    	}
  	    	*/
@@ -2305,15 +2523,31 @@
  	    	}
 
  	    	if (gfn_isEmpty(rowData.sortQntt)) {
- 	    		gfn_comAlert("W0001", "수량");		//	//	W0002	{0}을/를 입력하세요.
+ 	    		gfn_comAlert("W0001", "수량");		//	W0002	{0}을/를 입력하세요.
  	            return;
  	    	}
 
  	    	if (gfn_isEmpty(rowData.sortWght)) {
- 	    		gfn_comAlert("W0001", "중량");		//	//	W0002	{0}을/를 입력하세요.
+ 	    		gfn_comAlert("W0001", "중량");		//	W0002	{0}을/를 입력하세요.
  	            return;
  	    	}
 
+ 	    	let sortWght = parseFloat(rowData.sortWght) || 0;
+ 	    	let inptWght = parseFloat(rowData.inptWght) || 0;
+ 	    	
+ 	    	if (inptWght > 0 && sortWght > inptWght) {
+ 	    		gfn_comAlert("W0015", "투입중량", "선별중량");		//	W0015	{0}이/가 {1} 보다 작습니다.
+ 	            return;
+ 	    	}
+ 	    	
+ 	    	
+ 	    	if (_.isEqual(rowData.checkedYn, "Y")) {
+ 	    		if (gfn_isEmpty(rowData.spmtPckgUnitCd)) {
+ 	 	    		gfn_comAlert("W0001", "포장상품명");		//	//	W0002	{0}을/를 입력하세요.
+ 	 	            return;
+ 	 	    	}
+ 	    	}
+ 	    	
  	    	let grdCd = null;
  	    	// 판정등급
 			if (gjsonStdGrdObjKnd.length > 1 && gjsonStdGrdObjJgmt.length > 0) {
@@ -2361,6 +2595,45 @@
 	            return;
 	    	}
 
+	    	const gdsStdGrdList = [];
+    		let gdsJgmtGrdCd;
+    		hasError = false;
+    		
+	    	if (_.isEqual(rowData.checkedYn, "Y")) {
+
+				gjsonExtGrdObjKnd.forEach((knd, idx) => {
+
+					const gdsColId = gStdGrdObj.colExtPrfx + knd.grdKnd;
+					let stdGrd = {
+						grdSeCd: _GRD_SE_CD_GDS,
+						itemCd: rowData.itemCd,
+						grdKnd: knd.grdKnd,
+						grdCd: rowData[gdsColId]
+					}
+
+					if (idx === 0) {
+						gdsJgmtGrdCd = rowData[gdsColId];
+					}
+
+					gdsStdGrdList.push(stdGrd);
+				});
+
+				if (gjsonExtGrdObjKnd.length > 1 && gjsonExtGrdObjJgmt.length > 0) {
+					gdsJgmtGrdCd = rowData['gdsJgmtGrdCd'];
+				}
+
+				if (gfn_isEmpty(gdsJgmtGrdCd)) {
+					gfn_comAlert("W0005", "포장 상품등급");		//	W0005	{0}이/가 없습니다.
+
+					hasError = true;
+					return false;
+				}	    		
+	    	}
+	    	
+			if (hasError) {
+				return;
+			}
+			
  	    	const sortPrfmnc = {
 				apcCd: gv_selectedApcCd,
 				inptYmd: rowData.sortYmd,
@@ -2375,7 +2648,12 @@
    				rmrk: rowData.rmrk,
    				sortQntt: rowData.sortQntt,
    				sortWght: rowData.sortWght,
-   				stdGrdList: stdGrdList
+   				inptWght: inptWght,
+				stdGrdList: stdGrdList,
+				autoPckgInptYn: rowData.checkedYn,
+				spmtPckgUnitCd: rowData.spmtPckgUnitCd,
+				gdsGrd: gdsJgmtGrdCd,
+				gdsStdGrdList: gdsStdGrdList
  	    	}
 
  	    	sortPrfmncList.push(sortPrfmnc);
@@ -2615,6 +2893,63 @@
 				}
 			}
 
+			if (_.isEqual(rowData.checkedYn, "y")) {
+				rowData.checkedYn = "Y";
+			}
+			
+			// 포장구분|출하포장단위
+			if (!gfn_isEmpty(rowData.spmtPckgUnitCd)) {
+				if (typeof rowData.spmtPckgUnitCd === "string") {
+					rowData.spmtPckgUnitCd = rowData.spmtPckgUnitCd.trim();
+				} else if (typeof rowData.spmtPckgUnitCd === "number") {
+					rowData.spmtPckgUnitCd = rowData.spmtPckgUnitCd.toString();
+					rowData.spmtPckgUnitCd = gfn_lpad(rowData.spmtPckgUnitCd, 4, '0');
+				} else {
+
+				}
+
+				let chkInfo = _.find(
+									jsonExpSltSpmtPckgUnit,
+									{
+										spmtPckgUnitCd: rowData.spmtPckgUnitCd
+									}
+								);
+
+				if (gfn_isEmpty(chkInfo)) {
+					// 명칭으로 검색
+					chkInfo = _.find(
+									jsonExpSltSpmtPckgUnit,
+									{
+										spmtPckgUnitNm: rowData.spmtPckgUnitCd
+									}
+								);
+					if (!gfn_isEmpty(chkInfo)) {
+						if (
+								!_.isEqual(rowData.itemCd, chkInfo.itemCd)
+								||
+								!_.isEqual(rowData.vrtyCd, chkInfo.vrtyCd)
+							) {
+							rowData.spmtPckgUnitCd = "";
+						} else {
+							rowData.spmtPckgUnitCd = chkInfo.spmtPckgUnitCd;
+						}
+					} else {
+						// clear && style 변경
+						rowData.spmtPckgUnitCd = "";
+					}
+				} else {
+					if (
+							!_.isEqual(rowData.itemCd, chkInfo.itemCd)
+							||
+							!_.isEqual(rowData.vrtyCd, chkInfo.vrtyCd)
+						) {
+						rowData.spmtPckgUnitCd = "";
+					} else {
+						rowData.spmtPckgUnitCd = chkInfo.spmtPckgUnitCd;
+					}
+				}
+			}
+			
 			const grdList = [];
 			// 상세등급
 			gjsonStdGrdObjKnd.forEach((item, index) => {
@@ -2650,7 +2985,7 @@
 			if (gjsonStdGrdObjKnd.length > 1 && gjsonStdGrdObjJgmt.length > 0) {
 
 				if (grdList.length > 0) {
-					let jgmtGrdCd = stdGrdSelect.getJgmtGrdCd(grdList);
+					let jgmtGrdCd = gStdGrdObj.getJgmtGrdCd(grdList);
 					rowData.jgmtGrdCd = jgmtGrdCd;
 				} else {
 					if (!gfn_isEmpty(rowData.jgmtGrdCd)) {
@@ -2667,6 +3002,41 @@
 					}
 				}
 			}
+			
+			const gdsGrdList = [];
+			// 상세등급
+			gjsonExtGrdObjKnd.forEach((item, index) => {
+				let colNm = gStdGrdObj.colExtPrfx + item.grdKnd;
+				const id = gStdGrdObj.idList[index];
+				let jsonObj = gStdGrdObj.getExtJson(id);
+				console.log("colNm", colNm);
+				console.log("rowData[colNm]", rowData[colNm]);
+				if (typeof rowData[colNm] === "string") {
+					rowData[colNm] = rowData[colNm].trim();
+				} else if (typeof rowData[colNm] === "number") {
+					rowData[colNm] = rowData[colNm].toString();
+					rowData[colNm] = gfn_lpad(rowData[colNm], 2, '0');
+				} else {
+
+				}
+				console.log("rowData[colNm]", rowData[colNm]);
+
+				if (!gfn_isEmpty(rowData[colNm])) {
+					let grdInfo = _.find(jsonObj, {grdCd: rowData[colNm]});
+					if (gfn_isEmpty(grdInfo)) {
+						grdInfo = _.find(jsonObj, {grdNm: rowData[colNm]});
+						console.log("grdInfo", grdInfo);
+						if (!gfn_isEmpty(grdInfo)) {
+							rowData[colNm] = grdInfo.grdCd;
+						} else {
+							// 없는 상세등급 이므로 상세등급 clear
+							rowData[colNm] = "";
+						}
+					}
+				}
+
+				gdsGrdList.push(rowData[colNm]);
+			});
 		}
 
 		_grdImp.refresh({"focus":false});

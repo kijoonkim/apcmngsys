@@ -82,21 +82,25 @@
 			mappingFnc: function() {},
 			changedFnc: function() {},
 			valuechanged: function() {
+				console.log("valuechanged");
 				if (!gfn_isEmpty(popImp.changedFnc) && typeof popImp.changedFnc === 'function') {
 					popImp.changedFnc(grdImpPop);
 				}
 			},
 			init: function() {
+				console.log("init");
 				document.querySelector("#impPop-file-upload").value = "";
 				grdImpPop = null;
 				jsonImpPop.length = 0;
 			},
 			afterImport: function(e) {
+				console.log("afterImport");
 				if (!gfn_isEmpty(popImp.mappingFnc) && typeof popImp.mappingFnc === 'function') {
 					popImp.mappingFnc(grdImpPop);
 				}
 			},
 			afterUpload: async function(_file) {
+				console.log("afterUpload");
 				SBUxMethod.openModal(popImp.modalId);
 
 				jsonImpPop.length = 0;
@@ -111,7 +115,7 @@
 						_mappingFnc,
 						_changedFnc,
 						_callbackFnc) {	// return grid
-
+				console.log("importExcel");
 				document.querySelector('#impPop-spn-title').innerText = _title;
 
 				if (!gfn_isEmpty(_saveFnc) && typeof _saveFnc === 'function') {
@@ -132,6 +136,7 @@
 				document.querySelector("#impPop-file-upload").click();
 			},
 			createGrid: function() {
+				console.log("createGrid");
 				this.objSBGridProp.parentid = this.sbAreaId;
 				this.objSBGridProp.id = this.gridId;
 				this.objSBGridProp.jsonref = this.jsonref;
@@ -140,11 +145,13 @@
 				grdImpPop.bind('valuechanged', this.valuechanged);
 			},
 			save: async function() {
+				console.log("save");
 				if (!gfn_isEmpty(this.saveFnc) && typeof this.saveFnc === 'function') {
 					await this.saveFnc(grdImpPop);
 				}
 			},
 			close: function() {
+				console.log("close");
 				gfn_closeModal(this.modalId, this.callbackFnc);
 			},
 		}

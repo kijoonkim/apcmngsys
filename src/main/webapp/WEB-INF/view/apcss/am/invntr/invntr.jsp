@@ -33,6 +33,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectGridList"></sbux-button>
+					<sbux-button id="btnTotalSearch" name="btnTotalSearch" uitype="normal" text="상세조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectGridTotalList"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -225,6 +226,7 @@
 	}
 
 	var checkSection = 1;
+	var checkDetail = 1;
 
 
 	// only document
@@ -283,7 +285,7 @@
 		SBGridProperties.explorerbar = 'sortmove';			// 개인화 컬럼 이동 가능
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList1;	// 우클릭 메뉴 리스트
-	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.extendlastcol = 'none';
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.paging = {
 			'type' : 'page',
@@ -294,8 +296,8 @@
 	    };
 	    SBGridProperties.columns = [
 	        {caption: ["입고번호","입고번호"],		ref: 'wrhsno',      type:'output', hidden: true},
-	        {caption: ["팔레트번호","팔레트번호"],	ref: 'pltno',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["입고일자","입고일자"],		ref: 'wrhsYmd',      type:'output',  width:'90px',    style:'text-align:center',
+            {caption: ["팔레트번호","팔레트번호"],    ref: 'pltno',      type:'output',  width:'105px',    style:'text-align:center'},
+            {caption: ["입고일자","입고일자"],        ref: 'wrhsYmd',      type:'output',  width:'90px',    style:'text-align:center',
 	        	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 	        {caption: ["생산자","생산자"],			ref: 'prdcrNm',      type:'output',  width:'90px',    style:'text-align:center'},
 	        {caption: ["품목","품목"],				ref: 'itemNm',      type:'output',  width:'90px',    style:'text-align:center'},
@@ -316,7 +318,7 @@
 	        {caption: ["현 재고","중량 (Kg)"],		ref: 'invntrWght',      type:'output',  width:'85px',    style:'text-align:center',
 	        	format : {type:'number', rule:'#,###'}
 	        },
-	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'90px',    style:'text-align:center'}
+	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'85px', style:'text-align:center'}
 	    ];
 
 	    rawMtrInvntrGrid = _SBGrid.create(SBGridProperties);
@@ -390,6 +392,45 @@
     		gfn_comAlert("W0001", "기준일자");		//	W0002	{0}을/를 입력하세요.
             return;
     	}
+		checkDetail = 1;
+    	var inptCmndDsctnList;
+    	if(checkSection == 1 ){
+    		inptCmndDsctnList = rawMtrInvntrGrid;
+    	}else if(checkSection == 2){
+    		inptCmndDsctnList = sortInvntrGrid;
+    	}else if(checkSection == 3){
+    		inptCmndDsctnList = gdsInvntrGrid;
+    	}
+
+
+
+    	inptCmndDsctnList.rebuild();
+    	let pageSize = inptCmndDsctnList.getPageSize();
+    	let pageNo = 1;
+
+    	// grid clear
+    	jsonRawMtrInvntr.length = 0;
+    	jsonSortInvntr.length = 0;
+    	jsonGdsInvntr.length = 0;
+    	inptCmndDsctnList.clearStatus();
+
+    	if(checkSection == 1 ){
+    		fn_callSelectGrid1List(pageSize, pageNo);
+    	}else if(checkSection == 2){
+    		fn_callSelectGrid2List(pageSize, pageNo);
+    	}else if(checkSection == 3){
+    		fn_callSelectGrid3List(pageSize, pageNo);
+    	}
+	}
+
+	const fn_selectGridTotalList = async function (){
+    	//검색조건
+    	let crtrYmd  = SBUxMethod.get("srch-dtp-crtrYmd");	//기준일자
+    	checkDetail = 2;
+		if (gfn_isEmpty(crtrYmd)) {
+    		gfn_comAlert("W0001", "기준일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+    	}
 
     	var inptCmndDsctnList;
     	if(checkSection == 1 ){
@@ -410,14 +451,17 @@
     	inptCmndDsctnList.clearStatus();
 
     	if(checkSection == 1 ){
-    		fn_callSelectGrid1List(pageSize, pageNo);
+    		fn_callSelectGrid1TotalList(pageSize, pageNo);
     	}else if(checkSection == 2){
-    		fn_callSelectGrid2List(pageSize, pageNo);
+    		fn_callSelectGrid2TotalList(pageSize, pageNo);
     	}else if(checkSection == 3){
-    		fn_callSelectGrid3List(pageSize, pageNo);
+    		fn_callSelectGrid3TotalList(pageSize, pageNo);
     	}
+
+
 	}
     var newSortInptPrfmncGridData = [];
+
 	const fn_callSelectGrid1List = async function(pageSize, pageNo) {
 
 		let crtrYmd = SBUxMethod.get("srch-dtp-crtrYmd");
@@ -495,6 +539,7 @@
   	  				}else{
   	  					rawMtrInvntrGrid.refresh();
   	  				}
+
   	          	} else {
   	          		rawMtrInvntrGrid.setPageTotalCount(totalRecordCount);
   	          		rawMtrInvntrGrid.rebuild();
@@ -511,8 +556,119 @@
     		console.error("failed", e.message);
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
           }
+
     }
 	//원물재고 내역 조회 끝
+
+	const fn_callSelectGrid1TotalList = async function(pageSize, pageNo) {
+
+		let crtrYmd = SBUxMethod.get("srch-dtp-crtrYmd");
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		let vrtyCd = SBUxMethod.get("srch-inp-vrtyCd");
+		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
+		let gdsSeCd = SBUxMethod.get("srch-slt-gdsSeCd");
+		let wrhsSeCd = SBUxMethod.get("srch-slt-wrhsSeCd");
+		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSe");
+		let url = "";
+		if(crtrYmd == gfn_dateToYmd(new Date()) || crtrYmd == null){
+			url = "/am/invntr/selectRawMtrInvntrTotalList.do";
+			crtrYmd = "";
+		}else{
+			// 재고 이력 테이블
+			url = "/am/invntr/selectDailyRawMtrInvntrTotalList.do";
+		}
+		// 재고 집계이력 테이블
+
+
+
+		const postJsonPromise1 = gfn_postJSON(url, {
+			  apcCd					: gv_selectedApcCd
+			, crtrYmd				: crtrYmd
+			, itemCd				: itemCd
+			, vrtyCd				: vrtyCd
+			, prdcrCd				: prdcrCd
+			, gdsSeCd				: gdsSeCd
+			, wrhsSeCd				: wrhsSeCd
+			, warehouseSeCd			: warehouseSeCd
+          	// pagination
+  	  		, pagingYn 				: 'Y'
+  	  		, currentPageNo 		: pageNo
+  	  		, recordCountPerPage 	: pageSize
+
+  		});
+
+        let data1 = await postJsonPromise1;
+
+  		try {
+  			if (_.isEqual("S", data1.resultStatus)) {
+  	          	/** @type {number} **/
+  	      		let totalRecordCount = 0;
+
+  	      		jsonRawMtrInvntr.length = 0;
+  	          	data1.resultList.forEach((item, index) => {
+  	          		const rawMtrInvntr = {
+  	       				wrhsno			: item.wrhsno
+  	       			  , pltno			: item.pltno
+  	       			  , wrhsYmd			: item.wrhsYmd
+  	       			  , prdcrNm			: item.prdcrNm
+  	       			  , itemNm			: item.itemNm
+  	       			  , vrtyNm			: item.vrtyNm
+  	       			  , gdsSeNm			: item.gdsSeNm
+  	       			  , wrhsSeNm		: item.wrhsSeNm
+  	       			  , trsprtSeNm		: item.trsprtSeNm
+  	       			  , warehouseSeNm	: item.warehouseSeNm
+  	       			  , bxknd			: item.bxknd
+  	       			  , grdNm			: item.grdNm
+  	       			  , wrhsQntt		: item.wrhsQntt
+  	       			  , wrhsWght		: item.wrhsWght
+  	       			  , inptQntt		: item.inptQntt
+  	       			  , inptWght		: item.inptWght
+  	       			  , invntrQntt		: item.invntrQntt
+  	       			  , invntrWght		: item.invntrWght
+  	       			  , rmrk			: item.rmrk
+  	  				}
+  	          		jsonRawMtrInvntr.push(rawMtrInvntr);
+
+  	  				if (index === 0) {
+  	  					totalRecordCount = item.totalRecordCount;
+  	  				}
+  	  			});
+  	          	if (jsonRawMtrInvntr.length > 0) {
+  	          		if(rawMtrInvntrGrid.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+  	          			rawMtrInvntrGrid.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+  	          			rawMtrInvntrGrid.rebuild();
+  	  				}else{
+  	  					rawMtrInvntrGrid.refresh();
+  	  				}
+  	          	} else {
+  	          		rawMtrInvntrGrid.setPageTotalCount(totalRecordCount);
+  	          		rawMtrInvntrGrid.rebuild();
+  	          	}
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+
+          } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+          }
+          let hiddenColIndex1 = rawMtrInvntrGrid.getColRef('pltno');
+          let hiddenColIndex2 = rawMtrInvntrGrid.getColRef('wrhsYmd');
+          let hiddenColIndex3 = rawMtrInvntrGrid.getColRef('rmrk');
+
+          rawMtrInvntrGrid.setColHidden(hiddenColIndex1,true,true);
+          rawMtrInvntrGrid.setColHidden(hiddenColIndex2,true,true);
+          rawMtrInvntrGrid.setColHidden(hiddenColIndex3,true,true);
+
+          let resizeColIndex1 = rawMtrInvntrGrid.getColRef('invntrWght');
+          rawMtrInvntrGrid.setColWidthAutoResize(resizeColIndex1, 'data');
+
+    }
+	//원물재고 내역집계조회 끝
 
 	var jsonSortInvntr = []; // 그리드의 참조 데이터 주소 선언
 
@@ -528,7 +684,7 @@
 		SBGridProperties.explorerbar = 'sortmove';			// 개인화 컬럼 이동 가능
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList2;	// 우클릭 메뉴 리스트
-	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.extendlastcol = 'none';
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.paging = {
 			'type' : 'page',
@@ -538,10 +694,10 @@
 		  	'showgoalpageui' : true
 	    };
 	    SBGridProperties.columns = [
-	        {caption: ["선별번호","선별번호"],		ref: 'sortno',      	type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["투입일자","투입일자"],		ref: 'inptYmd',      	type:'output',  width:'105px',    style:'text-align:center',
+            {caption: ["선별번호","선별번호"],        ref: 'sortno',          type:'output',  width:'105px',    style:'text-align:center'},
+            {caption: ["투입일자","투입일자"],        ref: 'inptYmd',          type:'output',  width:'105px',    style:'text-align:center',
 	        	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-	        {caption: ["설비","설비"],				ref: 'fcltNm',      	type:'output',  width:'105px',    style:'text-align:center'},
+            {caption: ["설비","설비"],                ref: 'fcltNm',          type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["생산자","생산자"],			ref: 'prdcrNm',      	type:'output',  width:'90px',    style:'text-align:center'},
 	        {caption: ["품목","품목"],				ref: 'itemNm',     		type:'output',  width:'90px',    style:'text-align:center'},
 	        {caption: ["품종","품종"],				ref: 'vrtyNm',      	type:'output',  width:'90px',    style:'text-align:center'},
@@ -560,7 +716,7 @@
 	        {caption: ["현 재고","중량 (Kg)"],		ref: 'invntrWght',      type:'output',  width:'85px',    style:'text-align:center',
 	        	format : {type:'number', rule:'#,###'}
 	        },
-	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'105px',    style:'text-align:center'}
+	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'85px', style:'text-align:center'}
 	    ];
 
 	    sortInvntrGrid = _SBGrid.create(SBGridProperties);
@@ -719,6 +875,110 @@
     }
 	//선별재고 내역 조회 끝
 
+	const fn_callSelectGrid2TotalList = async function(pageSize, pageNo) {
+		let crtrYmd = SBUxMethod.get("srch-dtp-crtrYmd");
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		let vrtyCd = SBUxMethod.get("srch-inp-vrtyCd");
+		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
+		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
+		let gdsSeCd = SBUxMethod.get("srch-slt-gdsSeCd");
+		let wrhsSeCd = SBUxMethod.get("srch-slt-wrhsSeCd");
+		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSe");
+
+		let url = "";
+		if(crtrYmd == gfn_dateToYmd(new Date())){
+			url = "/am/invntr/selectSortInvntrDsctnTotalList.do";
+			crtrYmd = "";
+		}else{
+			// 재고 이력 테이블
+			url = "/am/invntr/selectDailySortInvntrTotalList.do";
+		}
+
+		const postJsonPromise2 = gfn_postJSON(url, {
+			apcCd				: gv_selectedApcCd
+		  ,	crtrYmd				: crtrYmd
+		  ,	itemCd				: itemCd
+		  ,	vrtyCd				: vrtyCd
+		  ,	spcfctCd			: spcfctCd
+		  ,	prdcrCd				: prdcrCd
+		  ,	gdsSeCd				: gdsSeCd
+		  ,	wrhsSeCd			: wrhsSeCd
+		  ,	warehouseSeCd		: warehouseSeCd
+          	// pagination
+  	  	  ,	pagingYn 			: 'Y'
+  	      ,	currentPageNo 		: pageNo
+  	      , recordCountPerPage 	: pageSize
+  		});
+
+        let data2 = await postJsonPromise2;
+
+  		try {
+  			if (_.isEqual("S", data2.resultStatus)) {
+  	          	/** @type {number} **/
+  	      		let totalRecordCount = 0;
+
+  	      		jsonSortInvntr.length = 0;
+  	          	data2.resultList.forEach((item, index) => {
+  	          		const sortInvntr = {
+  	          			sortno			: item.sortno
+  	       			  ,	grdNm			: item.grdNm
+  	       			  ,	inptYmd			: item.inptYmd
+  	       			  ,	fcltNm			: item.fcltNm
+  	       			  ,	prdcrNm			: item.prdcrNm
+  	       			  ,	itemNm			: item.itemNm
+  	       			  ,	vrtyNm			: item.vrtyNm
+  	       			  ,	spcfctNm		: item.spcfctNm
+  	       			  ,	warehouseSeNm	: item.warehouseSeNm
+  	       			  ,	sortQntt		: item.sortQntt
+  	       			  ,	sortWght		: item.sortWght
+  	       			  ,	pckgQntt		: item.pckgQntt
+  	       			  ,	pckgWght		: item.pckgWght
+  	       			  ,	invntrQntt		: item.invntrQntt
+  	       			  ,	invntrWght		: item.invntrWght
+  	       			  ,	rmrk			: item.rmrk
+
+  	  				}
+  	          		jsonSortInvntr.push(sortInvntr);
+
+  	  				if (index === 0) {
+  	  					totalRecordCount = item.totalRecordCount;
+  	  				}
+  	  			});
+  	          	if (jsonSortInvntr.length > 0) {
+  	          		if(sortInvntrGrid.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+  	          			sortInvntrGrid.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+  	          			sortInvntrGrid.rebuild();
+  	  				}else{
+  	  					sortInvntrGrid.refresh();
+  	  				}
+  	          	} else {
+  	          		sortInvntrGrid.setPageTotalCount(totalRecordCount);
+  	          		sortInvntrGrid.rebuild();
+  	          	}
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+
+          } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+          }
+          let hiddenColIndex1 = sortInvntrGrid.getColRef('sortno');
+          let hiddenColIndex2 = sortInvntrGrid.getColRef('inptYmd');
+          let hiddenColIndex3 = sortInvntrGrid.getColRef('fcltNm');
+          let hiddenColIndex4 = sortInvntrGrid.getColRef('rmrk');
+
+          sortInvntrGrid.setColHidden(hiddenColIndex1,true,true);
+          sortInvntrGrid.setColHidden(hiddenColIndex2,true,true);
+          sortInvntrGrid.setColHidden(hiddenColIndex3,true,true);
+          sortInvntrGrid.setColHidden(hiddenColIndex4,true,true);
+    }
+	//선별재고 내역 집계조회 끝
+
 	var jsonGdsInvntr = []; // 그리드의 참조 데이터 주소 선언
 
 	function fn_createGrid3() {
@@ -733,7 +993,7 @@
 		SBGridProperties.explorerbar = 'sortmove';			// 개인화 컬럼 이동 가능
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList3;	// 우클릭 메뉴 리스트
-	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.extendlastcol = 'none';
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.paging = {
 				'type' : 'page',
@@ -743,11 +1003,11 @@
 			  	'showgoalpageui' : true
 		};
 	    SBGridProperties.columns = [
-	        {caption: ["포장번호","포장번호"],		ref: 'pckgno',      	type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["순번","순번"],				ref: 'pckgSn',      	type:'output',  width:'55px',    style:'text-align:center'},
-	        {caption: ["포장일자","포장일자"],		ref: 'pckgYmd',      	type:'output',  width:'105px',    style:'text-align:center',
+            {caption: ["포장번호","포장번호"],        ref: 'pckgno',          type:'output',  width:'105px',    style:'text-align:center'},
+            {caption: ["순번","순번"],                ref: 'pckgSn',          type:'output',  width:'55px',    style:'text-align:center'},
+            {caption: ["포장일자","포장일자"],        ref: 'pckgYmd',          type:'output',  width:'105px',    style:'text-align:center',
 	        	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-	        {caption: ["설비","설비"],				ref: 'fcltNm',      	type:'output',  width:'105px',    style:'text-align:center'},
+	        {caption: ["설비","설비"],                ref: 'fcltNm',          type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["생산자","생산자"],			ref: 'prdcrNm',      	type:'output',  width:'90px',    style:'text-align:center'},
 	        {caption: ["품목","품목"],				ref: 'itemNm',      	type:'output',  width:'90px',    style:'text-align:center'},
 	        {caption: ["품종","품종"],				ref: 'vrtyNm',      	type:'output',  width:'90px',    style:'text-align:center'},
@@ -766,7 +1026,7 @@
 	        {caption: ["현 재고","중량 (Kg)"],		ref: 'invntrWght',      type:'output',  width:'85px',    style:'text-align:center',
 	        	format : {type:'number', rule:'#,###'}
 	        },
-	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'105px',    style:'text-align:center'}
+	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'85px', style:'text-align:center'}
 	    ];
 
 	    gdsInvntrGrid = _SBGrid.create(SBGridProperties);
@@ -923,8 +1183,116 @@
     		console.error("failed", e.message);
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
           }
+
     }
 	//상품재고 내역 조회 끝
+
+
+	const fn_callSelectGrid3TotalList = async function(pageSize, pageNo) {
+
+     	let crtrYmd = SBUxMethod.get("srch-dtp-crtrYmd");
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		let vrtyCd = SBUxMethod.get("srch-inp-vrtyCd");
+		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
+		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
+		let gdsSeCd = SBUxMethod.get("srch-slt-gdsSeCd");
+		let wrhsSeCd = SBUxMethod.get("srch-slt-wrhsSeCd");
+		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSe");
+
+		let url = "";
+		if(crtrYmd == gfn_dateToYmd(new Date())){
+			url = "/am/invntr/selectGdsInvntrTotalList.do";
+			crtrYmd = "";
+		}else{
+			// 재고 이력 테이블
+			url = "/am/invntr/selectDailyGdsInvntrTotalList.do";
+		}
+
+// 		selectUpdateGdsInvntrList
+		const postJsonPromise = gfn_postJSON(url, {
+			 apcCd				: gv_selectedApcCd
+		   , itemCd				: itemCd
+		   , vrtyCd				: vrtyCd
+		   , spcfctCd			: spcfctCd
+		   , rprsPrdcrCd		: prdcrCd
+		   , gdsSeCd			: gdsSeCd
+		   , wrhsSeCd			: wrhsSeCd
+		   , warehouseSeCd		: warehouseSeCd
+		   , crtrYmd			: crtrYmd
+          	// pagination
+  	  	   , pagingYn 			: 'Y'
+  	  	   , currentPageNo 		: pageNo
+  	  	   , recordCountPerPage : pageSize
+  		});
+
+        let data = await postJsonPromise;
+  		try {
+  			if (_.isEqual("S", data.resultStatus)) {
+  	          	/** @type {number} **/
+  	      		let totalRecordCount = 0;
+
+  	      		jsonGdsInvntr.length = 0;
+  	          	data.resultList.forEach((item, index) => {
+  	          		const gdsInvntr = {
+  	          				pckgno			: item.pckgno
+  	          			  , pckgSn			: item.pckgSn
+  	          			  , pckgYmd			: item.pckgYmd
+  	       				  , fcltNm			: item.fcltNm
+  	       				  , itemNm			: item.itemNm
+  	       				  , vrtyNm			: item.vrtyNm
+  	       				  , spcfctNm		: item.spcfctNm
+  	       				  , gdsGrdNm		: item.gdsGrdNm
+  	       				  , warehouseSeNm	: item.warehouseSeNm
+  	       				  , pckgQntt		: item.pckgQntt
+  	       				  , pckgWght		: item.pckgWght
+  	       				  , spmtQntt		: item.spmtQntt
+  	       				  , spmtWght		: item.spmtWght
+  	       				  , invntrQntt		: item.invntrQntt
+  	       				  , invntrWght		: item.invntrWght
+  	       				  , rmrk			: item.rmrk
+  	       				  , prdcrNm 		: item.prdcrNm
+  	  				}
+  	          		jsonGdsInvntr.push(gdsInvntr);
+
+  	  				if (index === 0) {
+  	  					totalRecordCount = item.totalRecordCount;
+  	  				}
+  	  			});
+  	          	if (jsonGdsInvntr.length > 0) {
+  	          		if(gdsInvntrGrid.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+  	          			gdsInvntrGrid.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+  	          			gdsInvntrGrid.rebuild();
+  	  				}else{
+  	  					gdsInvntrGrid.refresh();
+  	  				}
+  	          	} else {
+  	          		gdsInvntrGrid.setPageTotalCount(totalRecordCount);
+  	          		gdsInvntrGrid.rebuild();
+  	          	}
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+
+          } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+          }
+          let hiddenColIndex1 = gdsInvntrGrid.getColRef('pckgno');
+          let hiddenColIndex2 = gdsInvntrGrid.getColRef('pckgSn');
+          let hiddenColIndex3 = gdsInvntrGrid.getColRef('pckgYmd');
+          let hiddenColIndex4 = gdsInvntrGrid.getColRef('fcltNm');
+          let hiddenColIndex5 = gdsInvntrGrid.getColRef('rmrk');
+          gdsInvntrGrid.setColHidden(hiddenColIndex1,true,true);
+          gdsInvntrGrid.setColHidden(hiddenColIndex2,true,true);
+          gdsInvntrGrid.setColHidden(hiddenColIndex3,true,true);
+          gdsInvntrGrid.setColHidden(hiddenColIndex4,true,true);
+          gdsInvntrGrid.setColHidden(hiddenColIndex5,true,true);
+    }
+	//상품재고 내역 집계조회 끝
 
 // 	function fn_closeModal(modalId){
 // 		SBUxMethod.closeModal(modalId);
@@ -1007,13 +1375,26 @@
     	}
     	let pageSize = inptCmndDsctnList.getPageSize();   			// 몇개의 데이터를 가져올지 설정
     	let pageNo = inptCmndDsctnList.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-    	if(checkSection == 1 ){
-    		fn_callSelectGrid1List(pageSize, pageNo);
-    	}else if(checkSection == 2){
-    		fn_callSelectGrid2List(pageSize, pageNo);
-    	}else if(checkSection == 3){
-    		fn_callSelectGrid3List(pageSize, pageNo);
-    	}
+
+		if(checkDetail == 1){
+			if(checkSection == 1 ){
+	    		fn_callSelectGrid1List(pageSize, pageNo);
+	    	}else if(checkSection == 2){
+	    		fn_callSelectGrid2List(pageSize, pageNo);
+	    	}else if(checkSection == 3){
+	    		fn_callSelectGrid3List(pageSize, pageNo);
+	    	}
+		}else if(checkDetail == 2){
+			if(checkSection == 1 ){
+
+	    		fn_callSelectGrid1TotalList(pageSize, pageNo);
+
+	    	}else if(checkSection == 2){
+	    		fn_callSelectGrid2TotalList(pageSize, pageNo);
+	    	}else if(checkSection == 3){
+	    		fn_callSelectGrid3TotalList(pageSize, pageNo);
+	    	}
+		}
     }
 
     /* 생산자 팝업 호출 필수 function  */

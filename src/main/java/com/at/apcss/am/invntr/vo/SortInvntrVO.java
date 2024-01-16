@@ -282,6 +282,7 @@ public class SortInvntrVO extends ComVO {
 	 */
 	private String prcsType;
 
+	private String spmtPckgUnitCd;
 
 
 	private List<InvntrDtlVO> excldInvntrList;

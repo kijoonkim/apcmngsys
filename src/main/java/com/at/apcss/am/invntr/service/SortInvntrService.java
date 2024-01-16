@@ -46,13 +46,21 @@ public interface SortInvntrService {
 	public List<SortInvntrVO> selectSortInvntrDsctnList(SortInvntrVO sortInvntrVO) throws Exception;
 
 	/**
+	 * 선별재고 목록 집계조회
+	 * @param sortInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SortInvntrVO> selectSortInvntrDsctnTotalList(SortInvntrVO sortInvntrVO) throws Exception;
+
+	/**
 	 * 선별재고 포장대상 목록 조회
 	 * @param sortInvntrVO
 	 * @return
 	 * @throws Exception
 	 */
 	public List<SortInvntrVO> selectSortInvntrListForPckg(SortInvntrVO sortInvntrVO) throws Exception;
-	
+
 	/**
 	 * 선별일일재고 목록 조회
 	 * @param sortInvntrVO
@@ -60,6 +68,14 @@ public interface SortInvntrService {
 	 * @throws Exception
 	 */
 	public List<SortInvntrVO> selectDailySortInvntrList(SortInvntrVO sortInvntrVO) throws Exception;
+
+	/**
+	 * 선별일일재고 목록 조회
+	 * @param sortInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SortInvntrVO> selectDailySortInvntrTotalList(SortInvntrVO sortInvntrVO) throws Exception;
 
 	/**
 	 * 선별재고 등록
@@ -158,7 +174,7 @@ public interface SortInvntrService {
 	public HashMap<String, Object> deleteInvntrPckgInpt(SortInvntrVO sortInvntrVO) throws Exception;
 
 	/**
-	 * 
+	 *
 	 * @param sortInvntrVO
 	 * @return
 	 * @throws Exception

@@ -485,7 +485,7 @@
 				, TOT.EC_SPMT_VLM_TOT
 				, TOT.EC_SPMT_PLAN_VLM_TOT
 				, TOT.SPMT_PRC_TOT
-				, (NVL( TOT.EC_SPMT_PLAN_VLM_TOT / NULLIF( TOT.EC_SPMT_VLM_TOT, 0 ) , 0 ) * 100 ) AS EC_SPMT_RATE
+				, (NVL( TOT.EC_SPMT_VLM_TOT / NULLIF( TOT.EC_SPMT_PLAN_VLM_TOT, 0 ) , 0 ) * 100 ) AS EC_SPMT_RATE
 
 				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
 				, TO_CHAR(CM.SYS_LAST_CHG_DT,'YYYY-MM-DD')		AS SYS_LAST_CHG_DT_YMD
@@ -548,6 +548,8 @@
 				, CM.BRNO
 				, CM.CRNO
 				, CM.YR
+				, CM.UO_BRNO
+				, CM.UO_CD
 
 				, CM.STTG_UPBR_ITEM_SE
 				, CM.CTGRY_CD
@@ -592,6 +594,9 @@
 			<if test='brno != null and brno != ""'>
 				AND CM.BRNO = #{brno}
 			</if>
+			<if test='uoBrno != null and uoBrno != ""'>
+				AND CM.UO_BRNO = #{uoBrno}
+			</if>
 			<if test='yr != null and yr != ""'>
 				AND EAM.YR = #{yr}
 			</if>
@@ -622,6 +627,7 @@
 
 		    	        , ITEM_CD				= #{itemCd}
 		    	        , UO_BRNO				= #{uoBrno}
+		    	        , UO_CD					= #{uoCd}
 		    	        , CTGRY_CD				= #{ctgryCd}
 		    	        , TRMT_TYPE				= #{trmtType}
 		    	        , STTG_UPBR_ITEM_SE		= #{sttgUpbrItemSe}
@@ -649,6 +655,7 @@
 		    		  , CTGRY_CD
 		    		  , ITEM_CD
 		    		  , UO_BRNO
+		    		  , UO_CD
 		    		  , TRMT_TYPE
 
 		    		  , PRDCR_OGNZ_SN
@@ -676,6 +683,7 @@
 		   			  , #{ctgryCd}
 		   			  , #{itemCd}
 		   			  , #{uoBrno}
+		   			  , #{uoCd}
 		   			  , #{trmtType}
 
 		   			  , SEQ_PRDCR_OGNZ_SN.NEXTVAL
@@ -698,6 +706,15 @@
 		DELETE FROM TB_EV_FRMHS_APO
 		 WHERE APO_CD			= #{apoCd}
 		   AND PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
+		   AND YR				= #{yr}
+		]]>
+	</delete>
+	<delete id="deleteTbEvFrmhsPrdctnEcSpmtSttnApo" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
+		<![CDATA[
+		DELETE FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN
+		 WHERE APO_CD			= #{apoCd}
+		   AND PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
+		   AND YR				= #{yr}
 		]]>
 	</delete>
 </mapper>

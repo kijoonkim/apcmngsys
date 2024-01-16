@@ -11,8 +11,12 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.at.apcss.am.cmns.service.CmnsItemService;
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.cmns.service.CmnsValidationService;
+import com.at.apcss.am.cmns.service.SpmtPckgUnitService;
+import com.at.apcss.am.cmns.vo.CmnsItemVO;
+import com.at.apcss.am.cmns.vo.SpmtPckgUnitVO;
 import com.at.apcss.am.invntr.service.RawMtrInvntrService;
 import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
 import com.at.apcss.am.invntr.vo.SortInvntrVO;
@@ -68,6 +72,13 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 	@Resource(name="pckgMngService")
 	private PckgMngService pckgMngService;
 
+	@Resource(name="cmnsItemService")
+	private CmnsItemService cmnsItemService;
+		
+	@Resource(name="spmtPckgUnitService")
+	private SpmtPckgUnitService spmtPckgUnitService;
+	
+	
 	@Resource(name="cmnsValidationService")
 	private CmnsValidationService cmnsValidationService;
 
@@ -530,6 +541,18 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상품등급")));
 				}
 				
+				SpmtPckgUnitVO pckgUnitParam = new SpmtPckgUnitVO();
+				pckgUnitParam.setApcCd(pckgVO.getApcCd());
+				pckgUnitParam.setSpmtPckgUnitCd(pckgVO.getSpmtPckgUnitCd());
+				// 출하포장단위로 규격코드 조회
+				SpmtPckgUnitVO spmtPckgUnitVO = spmtPckgUnitService.selectSpmtPckgUnit(pckgUnitParam);
+				
+				if (spmtPckgUnitVO == null || !StringUtils.hasText(spmtPckgUnitVO.getSpmtPckgUnitCd())) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상품조회결과")));
+				}
+				
+				pckgVO.setSpcfctCd(spmtPckgUnitVO.getSpcfctCd());
+				
 				pckgPrfmncList.add(pckgVO);
 			}
 
@@ -649,6 +672,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 			
 			// 생산자, 품목, 품종에 따른 원물재고를 가져온다.
 			// 투입진행 중 건은 제외한다.
+			// 품목별 
 			
 			int sn = 0;
 			labelLoopSort:
@@ -668,6 +692,39 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 					
 					int sortQntt = sort.getRmnQntt();
 					double sortWght = sort.getRmnWght();
+					
+					// 감량률 조회
+					CmnsItemVO itemParam = new CmnsItemVO();
+					itemParam.setApcCd(apcCd);
+					itemParam.setItemCd(itemCd);
+					
+					CmnsItemVO cmnsItemVO = cmnsItemService.selectCmnsApcItem(itemParam);
+					if (cmnsItemVO == null || !StringUtils.hasText(cmnsItemVO.getItemCd())) {
+						return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "품목조회정보");
+					}
+					
+					/*
+					double sortRdcdRt = cmnsItemVO.getSortRdcdRt();
+					
+					if (sortRdcdRt >= 100) {
+						return ComUtil.getResultMap(ComConstants.MSGCD_TGT_EQUAL_GREATER_THAN, "감량률||100%");
+					}
+					
+
+					double calFctr = 100 / (100 - sortRdcdRt);
+					sortQntt = (int)ComUtil.round(sortQntt * calFctr);
+					sortWght = ComUtil.round(sortWght * calFctr);
+					
+					logger.debug("calFctr: {}", calFctr);
+					 */
+					logger.debug("sortQntt: {}", sortQntt);
+					logger.debug("sortWght: {}", sortWght);
+					
+					double inptWght = sort.getInptWght();
+					if (inptWght > sortWght && sortWght > 0) {
+						sortQntt = (int)ComUtil.round(sortQntt / sortWght * inptWght);
+						sortWght = inptWght;
+					}
 					
 					for ( RawMtrInvntrVO orgnInv : rawMtrInvntrVOList ) {
 						logger.debug(
@@ -997,6 +1054,9 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 			List<PckgPrfmncVO> pckgPrfmncList = new ArrayList<>();
 
 			for ( SortPrfmncVO sortVO : pckgList ) {
+				
+				logger.debug("@@@상품코드: {}", sortVO.getSpmtPckgUnitCd());
+				
 				SortInvntrVO invntrVO = new SortInvntrVO();
 				BeanUtils.copyProperties(sortVO, invntrVO);
 
@@ -1013,7 +1073,34 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 				pckgVO.setPckgYmd(sortVO.getInptYmd());
 				pckgVO.setPckgQntt(sortVO.getSortQntt());
 				pckgVO.setPckgWght(sortVO.getSortWght());
-				pckgVO.setGdsGrd(sortVO.getGrdCd());
+				//pckgVO.setGdsGrd(sortVO.getGrdCd());
+				
+				pckgVO.setSpmtPckgUnitCd(sortVO.getSpmtPckgUnitCd());
+				pckgVO.setGdsGrd(sortVO.getGdsGrd());
+				pckgVO.setStdGrdList(sortVO.getGdsStdGrdList());
+				
+				if (!StringUtils.hasText(pckgVO.getSpmtPckgUnitCd())) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상품명")));
+				}
+				if (!StringUtils.hasText(pckgVO.getGdsGrd())) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상품등급")));
+				}
+				if (pckgVO.getStdGrdList() == null || pckgVO.getStdGrdList().isEmpty()) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상품등급")));
+				}
+				
+				SpmtPckgUnitVO pckgUnitParam = new SpmtPckgUnitVO();
+				pckgUnitParam.setApcCd(pckgVO.getApcCd());
+				pckgUnitParam.setSpmtPckgUnitCd(pckgVO.getSpmtPckgUnitCd());
+				// 출하포장단위로 규격코드 조회
+				SpmtPckgUnitVO spmtPckgUnitVO = spmtPckgUnitService.selectSpmtPckgUnit(pckgUnitParam);
+				
+				if (spmtPckgUnitVO == null || !StringUtils.hasText(spmtPckgUnitVO.getSpmtPckgUnitCd())) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상품조회결과")));
+				}
+				
+				pckgVO.setSpcfctCd(spmtPckgUnitVO.getSpcfctCd());
+				
 				pckgPrfmncList.add(pckgVO);
 			}
 

@@ -74,6 +74,13 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 
 		return resultList;
 	}
+	@Override
+	public List<GdsInvntrVO> selectGdsInvntrTotalList(GdsInvntrVO gdsInvntrVO) throws Exception {
+
+		List<GdsInvntrVO> resultList = gdsInvntrMapper.selectGdsInvntrTotalList(gdsInvntrVO);
+
+		return resultList;
+	}
 
 	@Override
 	public List<GdsInvntrVO> selectUpdateGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception {
@@ -269,7 +276,7 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상품재고");
 		}
 
-		if (gdsInvntrVO.getSpmtWght() > invntrInfo.getInvntrWght()) {
+		if (gdsInvntrVO.getSpmtQntt() > invntrInfo.getInvntrQntt()) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "재고량||출하량");		// W0008	{0} 보다 {1}이/가 큽니다.
 		}
 
@@ -458,6 +465,14 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 	public List<GdsInvntrVO> selectDailyGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception {
 
 		List<GdsInvntrVO> resultList = gdsInvntrMapper.selectDailyGdsInvntrList(gdsInvntrVO);
+
+		return resultList;
+	}
+
+	@Override
+	public List<GdsInvntrVO> selectDailyGdsInvntrTotalList(GdsInvntrVO gdsInvntrVO) throws Exception {
+
+		List<GdsInvntrVO> resultList = gdsInvntrMapper.selectDailyGdsInvntrTotalList(gdsInvntrVO);
 
 		return resultList;
 	}

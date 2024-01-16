@@ -329,6 +329,7 @@
 								<sbux-input uitype="hidden" id="dtl-input-apoSe" name="dtl-input-apoSe"></sbux-input>
 								<sbux-input uitype="hidden" id="dtl-input-uoBrno" name="dtl-input-uoBrno"></sbux-input>
 								<sbux-input uitype="hidden" id="dtl-input-uoCd" name="dtl-input-uoCd"></sbux-input>
+								<sbux-input uitype="hidden" id="dtl-input-yr" name="dtl-input-yr"></sbux-input>
 								<sbux-input
 									uitype="text"
 									id="dtl-input-crno"
@@ -627,7 +628,7 @@
 							<th colspan="4" scope="row" class="th_bg">NH(농협) 자금 신청액</th>
 						</tr>
 						<tr>
-							<th colspan="3" scope="row" class="th_bg">2024 자금 신청액(천원)</th>
+							<th colspan="3" scope="row" class="th_bg"><span class="data_required" ></span>2024 자금 신청액(천원)</th>
 							<td colspan="4" class="td_input">
 								<sbux-input
 									uitype="text"
@@ -638,6 +639,21 @@
 									unmask-phone-dashes = "true"
 									permit-keycodes-set = "num"
 								></sbux-input>
+							</td>
+							<td colspan="8" style="border: none"></td>
+						</tr>
+						<tr>
+							<th colspan="3" scope="row" class="th_bg"><span class="data_required" ></span>통합조직 선택</th>
+							<td colspan="4" class="td_input">
+								<sbux-select
+									id="dtl-input-selUoBrno"
+									name="dtl-input-selUoBrno"
+									uitype="single"
+									jsondata-ref="comUoBrno"
+									unselected-text="선택"
+									class="form-control input-sm"
+									onchange="fn_changeSelUoBrno"
+								></sbux-select>
 							</td>
 							<td colspan="8" style="border: none"></td>
 						</tr>
@@ -718,23 +734,6 @@
 		SBUxMethod.set("srch-input-yr",year);//
 
 		fn_init();
-		fn_initSBSelect();
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
-		fn_search();
-	</c:if>
-	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
-		//통합조직인 경우
-		<c:if test="${loginVO.userType eq '21'}">
-		console.log('통합조직인');
-		fn_dtlSearch();
-		fn_dtlSearch01();
-		</c:if>
-		//출하조직인 경우
-		<c:if test="${loginVO.userType eq '22'}">
-		console.log('출하조직인');
-		fn_dtlSearch02();
-		</c:if>
-	</c:if>
 
 		const elements = document.querySelectorAll(".srch-keyup-area");
 
@@ -794,9 +793,33 @@
 		fn_fcltMngCreateGrid01();
 	</c:if>
 	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+		var now = new Date();
+		var year = now.getFullYear();
+		SBUxMethod.set("dtl-input-yr",year);//
 		//통합조직인 경우
 		<c:if test="${loginVO.userType eq '21'}">
 		fn_fcltMngCreateGrid01();
+		</c:if>
+		<c:if test="${loginVO.userType eq '22'}">
+		fn_searchUoList();
+		</c:if>
+	</c:if>
+
+		fn_initSBSelect();
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+		fn_search();
+	</c:if>
+	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+		//통합조직인 경우
+		<c:if test="${loginVO.userType eq '21'}">
+		//console.log('통합조직인');
+		fn_dtlSearch();
+		fn_dtlSearch01();
+		</c:if>
+		//출하조직인 경우
+		<c:if test="${loginVO.userType eq '22'}">
+		//console.log('출하조직인');
+		fn_dtlSearch02();
 		</c:if>
 	</c:if>
 	}
@@ -878,6 +901,7 @@
 	        {caption: ["상세내역"], 	ref: 'aplyTrgtSe',   		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'yr',   				hidden : true},
 	        {caption: ["상세내역"], 	ref: 'uoBrno',   			hidden : true},
+	        {caption: ["상세내역"], 	ref: 'uoCd',   				hidden : true},
 	        {caption: ["상세내역"], 	ref: 'crno',   				hidden : true},
 	        {caption: ["상세내역"], 	ref: 'corpSeCd',   			hidden : true},
 	        {caption: ["상세내역"], 	ref: 'corpFndnDay',   		hidden : true},
@@ -997,10 +1021,12 @@
 		console.log('============fn_dtlSearch=============');
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
+		let yr = SBUxMethod.get("dtl-input-yr");//
 
     	let postJsonPromise01 = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
     	//let postJsonPromise01 = gfn_postJSON("/pd/aom/selectInvShipOgnReqMngList.do", {
     		brno : brno
+    		,yr : yr
 		});
 
         let data = await postJsonPromise01 ;
@@ -1016,7 +1042,7 @@
 				//SBUxMethod.set('dtl-input-crno01',gfn_nvl(item.crno))//법인등록번호
 				SBUxMethod.set('dtl-input-brno01',gfn_nvl(item.brno))//사업자등록번호
 			});
-
+        	fn_searchUoList();
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -1125,6 +1151,63 @@
         }
 	}
 
+	var comUoBrno = [];//통합조직 선택
+
+	/* 출자출하조직이 속한 통합조직 리스트 조회 */
+	const fn_searchUoList = async function(){
+		//출자출하조직이 아닌경우
+		<c:if test="${loginVO.userType ne '22'}">
+		let brno = SBUxMethod.get('dtl-input-brno');
+		</c:if>
+		//출자출하조직인 경우
+		<c:if test="${loginVO.userType eq '22'}">
+		let brno = '${loginVO.brno}';
+		</c:if>
+
+    	let postJsonPromise = gfn_postJSON("/pd/bsm/selectUoList.do", {
+			brno : brno
+		});
+        let data = await postJsonPromise;
+        try{
+        	comUoBrno = [];
+        	data.resultList.forEach((item, index) => {
+        		let uoListVO = {
+						'text'		: item.uoCorpNm
+						, 'label'	: item.uoCorpNm
+						, 'value'	: item.uoBrno
+						, 'uoApoCd' : item.uoApoCd
+
+				}
+        		comUoBrno.push(uoListVO);
+			});
+        	SBUxMethod.refresh('dtl-input-selUoBrno');
+        	console.log(comUoBrno);
+        	if(comUoBrno.length == 1){
+
+        	}
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
+	}
+
+
+	//통합조직 콤보박스 선택시 값 변경
+	//const fn_changeSelUoBrno = async function() {
+	function fn_changeSelUoBrno(){
+		let selVal = SBUxMethod.get('dtl-input-selUoBrno');
+		let selCombo = _.find(comUoBrno, {value : selVal});
+		console.log(selCombo);
+		if( typeof selCombo == "undefined" || selCombo == null || selCombo == "" ){
+			SBUxMethod.set('dtl-input-uoBrno' , null);
+			SBUxMethod.set('dtl-input-uoCd' , null);
+		}else{
+			SBUxMethod.set('dtl-input-uoBrno',selCombo.value);
+			SBUxMethod.set('dtl-input-uoCd',selCombo.uoApoCd);
+		}
+	}
 
 	/**
      * 저장 버튼
@@ -1132,31 +1215,32 @@
     const fn_save = async function() {
     	console.log("******************fn_save**********************************");
 
-    	//let apoCd = SBUxMethod.get("dtl-input-apoCd");
-
     	//필수값 체크
-    	//fn_checkRequiredInput();
-		/*
-    	if (gfn_isEmpty(apoCd)) {
-    		// 신규 등록
-			return;
-    	} else {
-    		// 변경 저장
-    	}
-		*/
-    	fn_subUpdate(confirm("저장 하시겠습니까?"));
-    }
-
-    const fn_checkRequiredInput = async function (){
-    	//레드닷 처리한 필수값들 확인
-
-    	var val = SBUxMethod.get("dtl-input-trgtYr");
-
-    	if(true){
+    	if(!fn_checkRequiredInput()){
     		return false;
     	}
 
-    	return true;a
+    	fn_subUpdate(confirm("저장 하시겠습니까?"));
+    }
+
+    function fn_checkRequiredInput(){
+    	//레드닷 처리한 필수값들 확인
+    	//W0001	{0}을/를 선택하세요.
+		//W0002 : {0}을/를 입력하세요.
+
+    	let isoFundAplyAmt = SBUxMethod.get("dtl-input-isoFundAplyAmt");
+    	if(gfn_isEmpty(isoFundAplyAmt)){
+    		gfn_comAlert("W0002", "자금 신청액");
+    		return false;
+    	}
+
+    	let selUoBrno = SBUxMethod.get("dtl-input-selUoBrno");
+    	if(gfn_isEmpty(selUoBrno)){
+    		gfn_comAlert("W0001", "통합조직");
+    		return false;
+    	}
+
+    	return true;
     }
 
 
@@ -1210,6 +1294,7 @@
 			,uoCd: SBUxMethod.get('dtl-input-uoCd')//
 			,crno: SBUxMethod.get('dtl-input-crno')//
 			,corpNm: SBUxMethod.get('dtl-input-corpNm')//
+			,yr: SBUxMethod.get('dtl-input-yr')//
    	 		,isoFundAplyAmt: SBUxMethod.get('dtl-input-isoFundAplyAmt')//
   		});
 
@@ -1253,11 +1338,12 @@
         let rowData = grdInvShipOgnReqMng.getRowData(nRow);
 		console.log(rowData);
 
-		SBUxMethod.set("dtl-input-uoCd", rowData.apoCd);
-		SBUxMethod.set("dtl-input-uoBrno", rowData.brno);
+		//콤보박스로 선택할수 있게 변경 됨
+		//SBUxMethod.set("dtl-input-uoCd", rowData.apoCd);
+		//SBUxMethod.set("dtl-input-uoBrno", rowData.brno);
 
 		let uoBrno = rowData.brno
-		let apoCd = rowData.apoCd
+		//let apoCd = rowData.apoCd
 
 		let postJsonPromise = gfn_postJSON("/pd/aom/selectInvShipOgnReqMngList.do", {
 			uoBrno : uoBrno
@@ -1269,9 +1355,11 @@
         	jsonInvShipOgnReqMng01.length = 0;
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
-				let InvShipOgnReqMngVO = {
+				console.log(item.yr);
+        		let InvShipOgnReqMngVO = {
 						apoCd: item.apoCd
-						,uoBrno: uoBrno
+						,uoBrno: item.uoBrno
+						,uoCd: item.uoCd
 						,corpNm: item.corpNm
 						,rprsvFlnm: item.rprsvFlnm
 						,brno: item.brno
@@ -1313,7 +1401,8 @@
     }
 
 	//출자출하조직 상세 조회
-	function fn_view01() {
+	//function fn_view01() {
+	const fn_view01 = async function(){
 		console.log("******************fn_view**********************************");
 
 	    //데이터가 존재하는 그리드 범위 확인
@@ -1335,7 +1424,7 @@
 		console.log(rowData);
 
 		SBUxMethod.set("dtl-input-apoCd", rowData.apoCd);
-		SBUxMethod.set("dtl-input-crno", rowData.brno);
+		SBUxMethod.set("dtl-input-crno", rowData.crno);
 		SBUxMethod.set("dtl-input-brno", rowData.brno);
 		SBUxMethod.set("dtl-input-corpNm", rowData.corpNm);
 		SBUxMethod.set("dtl-input-corpSeCd", rowData.corpSeCd);
@@ -1351,11 +1440,18 @@
 		SBUxMethod.set("dtl-input-rprsvFlnm", rowData.rprsvFlnm);
 		SBUxMethod.set("dtl-input-rprsvTelno", rowData.rprsvTelno);
 		SBUxMethod.set("dtl-input-fxno", rowData.fxno);
+		SBUxMethod.set("dtl-input-yr", rowData.yr);
 
 		//SBUxMethod.set("dtl-input-aplyTrgtSe", rowData.aplyTrgtSe);
 		SBUxMethod.set("dtl-input-isoFundAplyAmt", rowData.isoFundAplyAmt);
 
 		SBUxMethod.set("dtl-input-frmerInvstAmtRt", rowData.frmerInvstAmtRt);
+
+		SBUxMethod.set("dtl-input-uoCd", rowData.uoCd);
+		SBUxMethod.set("dtl-input-uoBrno", rowData.uoBrno);
+		await fn_searchUoList();
+		await SBUxMethod.set("dtl-input-selUoBrno", rowData.uoBrno);
+
     }
 
 	const fn_clearForm01 = function() {
@@ -1382,6 +1478,10 @@
 		SBUxMethod.set("dtl-input-isoFundAplyAmt", null);
 
 		SBUxMethod.set("dtl-input-frmerInvstAmtRt", null);
+
+		SBUxMethod.set("dtl-input-uoCd", null);
+		SBUxMethod.set("dtl-input-uoBrno", null);
+		SBUxMethod.set("dtl-input-selUoBrno", null);
 	}
 
 	//신규
@@ -1423,6 +1523,7 @@
 		SBUxMethod.set("dtl-input-brno", null);
 		SBUxMethod.set("dtl-input-uoBrno", null);
 		SBUxMethod.set("dtl-input-uoCd", null);
+		SBUxMethod.set("dtl-input-selUoBrno", null);
 		SBUxMethod.set("dtl-input-corpNm", null);
 		SBUxMethod.set("dtl-input-corpSeCd", null);
 		SBUxMethod.set("dtl-input-corpDtlSeCd", null);

@@ -155,7 +155,6 @@
 									class="form-control input-sm"
 									mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
 									autocomplete="off"
-									readonly
 								></sbux-input>
 							</td>
 							<td colspan="2" class="td_input"  style="border-right: hidden;">
@@ -340,7 +339,6 @@
 									name="dtl-input-corpNm"
 									class="form-control input-sm"
 									autocomplete="off"
-									readonly
 								></sbux-input>
 							</td>
 							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>법인등록번호</th>
@@ -413,7 +411,7 @@
 							</td>
 						</tr>
 						<tr>
-							<th colspan="2" scope="row" class="th_bg">관할기관</th>
+							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>관할기관</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<!--
 								<sbux-input
@@ -431,7 +429,6 @@
 									jsondata-ref="jsonComCmptnInst"
 									unselected-text="선택"
 									class="form-control input-sm"
-									readonly
 								></sbux-select>
 							</td>
 							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>시도</th>
@@ -443,31 +440,22 @@
 									jsondata-ref="jsonComDtlCtpv"
 									unselected-text="선택"
 									class="form-control input-sm"
+									onchange="fn_ctpvDtlChange"
 								></sbux-select>
 							</td>
-							<th colspan="2" scope="row" class="th_bg"><span class="data_required" >시군</th>
-
-
-							<!-- <td colspan="3" class="td_input">
+							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>시군</th>
+							<td  colspan="3" class="td_input" >
 								<sbux-select
 									id="dtl-input-sgg"
 									name="dtl-input-sgg"
 									uitype="single"
-									jsondata-ref="jsonComSgg"
+									jsondata-ref="jsonComDtlSgg"
 									unselected-text="선택"
 									class="form-control input-sm"
-								></sbux-select>
-							</td> -->
-
-							<td  colspan="3" class="td_input" >
-								<sbux-select id="dtl-input-sgg" name="dtl-input-sgg"
-								uitype="singleExt"
-								filtering="true"
-								jsondata-ref="jsonComDtlSgg"
-								unselected-text="선택" class=""
+									filter-source-name="dtl-input-ctpv"
+									jsondata-filter="mastervalue"
 								></sbux-select>
 							</td>
-
 						</tr>
 						<tr>
 							<th colspan="2" rowspan="2" scope="row" class="th_bg">
@@ -642,6 +630,7 @@
 									class="form-control input-sm"
 									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 									autocomplete="off"
+									readonly
 								></sbux-input>
 								</td>
 						</tr>
@@ -665,7 +654,7 @@
 									class="form-control input-sm"
 									autocomplete="off"
 									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
-									onkeyup="fn_calFrmerInvstAmtRt"
+									onchange="fn_calInvstAmtTot"
 								></sbux-input>
 							</td>
 							<td>천원</td>
@@ -678,6 +667,7 @@
 									class="form-control input-sm"
 									autocomplete="off"
 									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
+									onchange="fn_calInvstAmtTot"
 								></sbux-input>
 							</td>
 							<td>천원</td>
@@ -690,6 +680,7 @@
 									class="form-control input-sm"
 									autocomplete="off"
 									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
+									onchange="fn_calInvstAmtTot"
 								></sbux-input>
 							</td>
 							<td>천원</td>
@@ -702,6 +693,7 @@
 									class="form-control input-sm"
 									autocomplete="off"
 									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
+									onchange="fn_calInvstAmtTot"
 								></sbux-input>
 							</td>
 							<td>천원</td>
@@ -1056,19 +1048,21 @@ tps://sbgrid.co.kr/v2_5/document/guide
 			//검색조건
 			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 			gfn_setComCdSBSelect('srch-input-cmptnInst', 	jsonComCmptnInst, 	'CMPTNC_INST'), 	//관할기관
-			gfn_setComCdSBSelect('srch-input-ctpv', 		jsonComCtpv, 	'CMPTN_INST_CTPV'), 	//시도
-			gfn_setComCdSBSelect('srch-input-sgg', 			jsonComSgg, 	'CMPTN_INST_SIGUN'),	 //시군
-			gfn_setComCdSBSelect('grdPrdcrCrclOgnMng', 		jsonGrdSgg, 	'CMPTN_INST_SIGUN'),	 //시군
-			gfn_setComCdSBSelect('grdPrdcrCrclOgnMng', 		jsonGrdCtpv, 	'CMPTN_INST_CTPV'), 	//시도
+			gfn_setComCdSBSelect('srch-input-ctpv', 		jsonComCtpv, 		'CMPTN_INST_CTPV'), 	//시도
+			gfn_setComCdSBSelect('srch-input-sgg', 			jsonComSgg, 		'CMPTN_INST_SIGUN'),	 //시군
+			gfn_setComCdSBSelect('grdPrdcrCrclOgnMng', 		jsonGrdSgg, 		'CMPTN_INST_SIGUN'),	 //시군
+			gfn_setComCdSBSelect('grdPrdcrCrclOgnMng', 		jsonGrdCtpv, 		'CMPTN_INST_CTPV'), 	//시도
 			gfn_setComCdSBSelect('srch-input-corpSeCd', 	jsonComCorpSeCd, 	'CORP_SE_CD'), 		//법인구분
-			gfn_setComCdSBSelect('srch-input-corpDtlSeCd', 	jsonComCorpDtlSeCd, 	'CORP_SHAP'), 	//법인형태
+			gfn_setComCdSBSelect('srch-input-corpDtlSeCd', 	jsonComCorpDtlSeCd, 'CORP_SHAP'), 	//법인형태
 			</c:if>
 			//상세
-			gfn_setComCdSBSelect('dtl-input-corpDtlSeCd', 	jsonComCorpDtlSeCd, 	'CORP_SHAP'), 	//법인형태
+			gfn_setComCdSBSelect('dtl-input-corpDtlSeCd', 	jsonComCorpDtlSeCd, 'CORP_SHAP'), 	//법인형태
 			gfn_setComCdSBSelect('dtl-input-ctpv', 			jsonComDtlCtpv, 	'CMPTN_INST_CTPV'), //시도
-			gfn_setComCdSBSelect('dtl-input-sgg', 			jsonComDtlSgg, 	'CMPTN_INST_SIGUN'),	//시군
-			gfn_setComCdSBSelect('grdPrdcrCrclOgnMng', 		jsonGrdSgg, 	'CMPTN_INST_SIGUN'),	//시군
-			gfn_setComCdSBSelect('grdPrdcrCrclOgnMng', 		jsonGrdCtpv, 	'CMPTN_INST_CTPV'), 	//시도
+			gfn_setComCdSBSelect('dtl-input-sgg', 			jsonComDtlSgg, 		'CMPTN_INST_SIGUN'),	//시군
+
+
+			gfn_setComCdSBSelect('grdPrdcrCrclOgnMng', 		jsonGrdSgg, 		'CMPTN_INST_SIGUN'),	//시군
+			gfn_setComCdSBSelect('grdPrdcrCrclOgnMng', 		jsonGrdCtpv, 		'CMPTN_INST_CTPV'), 	//시도
 			gfn_setComCdSBSelect('dtl-input-cmptnInst', 	jsonComCmptnInst, 	'CMPTNC_INST'), 	//관할기관
 			gfn_setComCdSBSelect('dtl-input-corpSeCd', 		jsonComCorpSeCd, 	'CORP_SE_CD'), 		//법인구분
 			//gfn_setComCdSBSelect('srch-input-evCertYn', 	jsonCom, 	''), //2차승인구분
@@ -1082,6 +1076,10 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
 	const fn_ctpvChange = async function(){
 		SBUxMethod.set("srch-input-sgg", "");
+	}
+
+	const fn_ctpvDtlChange = async function(){
+		//SBUxMethod.set("dtl-input-sgg", null);
 	}
 
 	var jsonPrdcrCrclOgnMng = []; // 그리드의 참조 데이터 주소 선언
@@ -1286,6 +1284,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
         	jsonPrdcrCrclOgnMng.length = 0;
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
+        		console.log(item.mngmstInfoId);
 				let PrdcrCrclOgnMngVO = {
 						apoSe: item.apoSe
 						,apoCd: item.apoCd
@@ -1383,8 +1382,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
         		SBUxMethod.set('dtl-input-mngmstYn',gfn_nvl(item.mngmstYn))
         		SBUxMethod.set('dtl-input-nonghyupCd',gfn_nvl(item.nonghyupCd))
         		SBUxMethod.set('dtl-input-cmptnInst',gfn_nvl(item.cmptnInst))
-        		SBUxMethod.set('dtl-input-ctpv',gfn_nvl(item.ctpv))
-        		SBUxMethod.set('dtl-input-sgg',gfn_nvl(item.sgg))
+
         		SBUxMethod.set('dtl-input-zip',gfn_nvl(item.zip))
         		SBUxMethod.set('dtl-input-lotnoAddr',gfn_nvl(item.lotnoAddr))
         		SBUxMethod.set('dtl-input-lotnoDtlAddr',gfn_nvl(item.lotnoDtlAddr))
@@ -1416,8 +1414,17 @@ tps://sbgrid.co.kr/v2_5/document/guide
         		SBUxMethod.set('dtl-input-picEml',gfn_nvl(item.picEml))
         		SBUxMethod.set('dtl-input-fxno',gfn_nvl(item.fxno))
         		SBUxMethod.set('dtl-input-itemNhBrofYn',gfn_nvl(item.itemNhBrofYn))
+
+        		SBUxMethod.set('dtl-input-ctpv',gfn_nvl(item.ctpv));
+        		gfn_setComCdSBSelect('dtl-input-sgg', 			jsonComDtlSgg, 		'CMPTN_INST_SIGUN');
+        		SBUxMethod.set('dtl-input-sgg',gfn_nvl(item.sgg));
+
 			});
-        	fn_calFrmerInvstAmtRt();
+
+
+
+
+        	fn_calInvstAmtTot();
     		fn_calTot();
         	<c:if test="${loginVO.userType eq '22'}">
         	fn_searchUoList();
@@ -1457,18 +1464,21 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
     function fn_checkRequiredInput(){
     	//레드닷 처리한 필수값들 확인
+    	//W0001	{0}을/를 선택하세요.
 		//W0002 : {0}을/를 입력하세요.
+
     	var corpNm = SBUxMethod.get("dtl-input-corpNm");
     	if(gfn_isEmpty(corpNm)){
     		gfn_comAlert("W0002", "법인명");
     		return false;
     	}
-
+		/*
     	var crno = SBUxMethod.get("dtl-input-crno");
     	if(gfn_isEmpty(crno)){
     		gfn_comAlert("W0002", "법인등록번호");
     		return false;
     	}
+    	*/
 
     	var brno = SBUxMethod.get("dtl-input-brno");
     	if(gfn_isEmpty(brno)){
@@ -1482,15 +1492,22 @@ tps://sbgrid.co.kr/v2_5/document/guide
     		return false;
     	}
     	*/
+
+    	var ctpv = SBUxMethod.get("dtl-input-cmptnInst");
+    	if(gfn_isEmpty(ctpv)){
+    		gfn_comAlert("W0001", "관할기관");
+    		return false;
+    	}
+
     	var ctpv = SBUxMethod.get("dtl-input-ctpv");
     	if(gfn_isEmpty(ctpv)){
-    		gfn_comAlert("W0002", "시도");
+    		gfn_comAlert("W0001", "시도");
     		return false;
     	}
 
     	var sgg = SBUxMethod.get("dtl-input-sgg");
     	if(gfn_isEmpty(sgg)){
-    		gfn_comAlert("W0002", "시군");
+    		gfn_comAlert("W0001", "시군");
     		return false;
     	}
 
@@ -1502,25 +1519,25 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
     	var corpSeCd = SBUxMethod.get("dtl-input-corpSeCd");
     	if(gfn_isEmpty(corpSeCd)){
-    		gfn_comAlert("W0002", "법인구분");
+    		gfn_comAlert("W0001", "법인구분");
     		return false;
     	}
 
     	var corpDtlSeCd = SBUxMethod.get("dtl-input-corpDtlSeCd");
     	if(gfn_isEmpty(corpDtlSeCd)){
-    		gfn_comAlert("W0002", "법인형태");
+    		gfn_comAlert("W0001", "법인형태");
     		return false;
     	}
 
     	var corpFndnDay = SBUxMethod.get("dtl-input-corpFndnDay");
     	if(gfn_isEmpty(corpFndnDay)){
-    		gfn_comAlert("W0002", "법인설립일");
+    		gfn_comAlert("W0001", "법인설립일");
     		return false;
     	}
 
     	var isoHldYn = SBUxMethod.get("dtl-input-isoHldYn");
     	if(gfn_isEmpty(isoHldYn)){
-    		gfn_comAlert("W0002", "출자출하조직여부");
+    		gfn_comAlert("W0001", "출자출하조직여부");
     		return false;
     	}
 
@@ -1647,7 +1664,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		/*
     	var itemNhBrofYn = SBUxMethod.get("dtl-input-itemNhBrofYn");
     	if(gfn_isEmpty(itemNhBrofYn)){
-    		gfn_comAlert("W0002", "품목농협 지소 여부");
+    		gfn_comAlert("W0001", "품목농협 지소 여부");
     		return false;
     	}
     	*/
@@ -1828,7 +1845,9 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
 	//경영체조회 팝업
 	const fn_choiceMngmstInfoId = function() {
-		popMngmstInfoId.init(fn_setMngmstInfoId);
+		//계정 사업자번호
+		let brno = '${loginVO.brno}';
+		popMngmstInfoId.init(fn_setMngmstInfoId , brno);
 	}
 	//경영체조회 팝업 콜백함수
 	//법인명,사업자번호,경영체번호
@@ -1836,16 +1855,17 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		if (!gfn_isEmpty(rowData)) {
 			SBUxMethod.set("dtl-input-mngmstInfoId", rowData.mngmstRegno);//경영체번호
 			SBUxMethod.set("dtl-input-mngmstYn", 'Y');//경영체여부
-			SBUxMethod.set("dtl-input-corpNm", rowData.admstOwnrCorpNm);//법인명
-			SBUxMethod.set("dtl-input-brno", rowData.brno);				//사업자등록번호
+			//SBUxMethod.set("dtl-input-corpNm", rowData.admstOwnrCorpNm);//법인명
+			//SBUxMethod.set("dtl-input-brno", rowData.brno);				//사업자등록번호
 		}
 	}
 
 
 	//그리드 클릭시 상세보기 이벤트
-	function fn_view() {
+	const fn_view = async function (){
+	//function fn_view() {
 		console.log("******************fn_view**********************************");
-
+		fn_clearForm();
 	    //데이터가 존재하는 그리드 범위 확인
 		var nCol = grdPrdcrCrclOgnMng.getCol();
 	    if (nCol < 1) {
@@ -1876,8 +1896,8 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		}
 		SBUxMethod.set('dtl-input-nonghyupCd',gfn_nvl(rowData.nonghyupCd))//
 		SBUxMethod.set('dtl-input-cmptnInst',gfn_nvl(rowData.cmptnInst))//
-		SBUxMethod.set('dtl-input-ctpv',gfn_nvl(rowData.ctpv))//
-		SBUxMethod.set('dtl-input-sgg',gfn_nvl(rowData.sgg))//
+
+		//SBUxMethod.set('dtl-input-ctpv',gfn_nvl(rowData.ctpv))//
 		SBUxMethod.set('dtl-input-zip',gfn_nvl(rowData.zip))//
 		SBUxMethod.set('dtl-input-lotnoAddr',gfn_nvl(rowData.lotnoAddr))//
 		SBUxMethod.set('dtl-input-lotnoDtlAddr',gfn_nvl(rowData.lotnoDtlAddr))//
@@ -1909,7 +1929,12 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		SBUxMethod.set('dtl-input-picEml',gfn_nvl(rowData.picEml))//
 		SBUxMethod.set('dtl-input-fxno',gfn_nvl(rowData.fxno))//
 		SBUxMethod.set('dtl-input-itemNhBrofYn',gfn_nvl(rowData.itemNhBrofYn))//
-		fn_calFrmerInvstAmtRt();
+
+		SBUxMethod.set('dtl-input-ctpv',gfn_nvl(rowData.ctpv));
+		gfn_setComCdSBSelect('dtl-input-sgg', 			jsonComDtlSgg, 		'CMPTN_INST_SIGUN');
+		SBUxMethod.set('dtl-input-sgg',gfn_nvl(rowData.sgg));
+
+		fn_calInvstAmtTot();
 		fn_calTot();
 
 		if(rowData.apoSe == '1'){
@@ -2318,7 +2343,6 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		}
 
 	}
-	//sbUx에서 onchange 되지 않는듯 해서 조회 결과에서 직접 실행 함
 	//농업인 출자 지분율 계산
 	function fn_calFrmerInvstAmtRt(){
 		let invstAmt = parseFloat(SBUxMethod.get('dtl-input-invstAmt'));
@@ -2329,6 +2353,19 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		}
 		SBUxMethod.set('dtl-input-frmerInvstAmtRt',frmerInvstAmtRt);
 	}
+	//출자금액 합계
+	function fn_calInvstAmtTot(){
+
+		let frmerInvstAmt = parseFloat(SBUxMethod.get('dtl-input-frmerInvstAmt'));
+		let prdcrGrpInvstAmt = parseFloat(SBUxMethod.get('dtl-input-prdcrGrpInvstAmt'));
+		let locgovInvstAmt = parseFloat(SBUxMethod.get('dtl-input-locgovInvstAmt'));
+		let etcInvstAmt = parseFloat(SBUxMethod.get('dtl-input-etcInvstAmt'));
+
+		let invstAmt = frmerInvstAmt + prdcrGrpInvstAmt + locgovInvstAmt + etcInvstAmt;
+		SBUxMethod.set('dtl-input-invstAmt',invstAmt);
+		fn_calFrmerInvstAmtRt();
+	}
+
 	//전체 종사자 수 합계
 	function fn_calTot(){
 		let rgllbrNope = 0;
@@ -2345,5 +2382,6 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		}
 		SBUxMethod.set('dtl-input-tot',rgllbrNope + dwNope + dlbrrNope);
 	}
+
 </script>
 </html>

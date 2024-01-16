@@ -45,4 +45,6 @@ public interface PrdcrCrclOgnReqMngMapper {
 	public int insertEvAplyMng(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO);
 
 	public List<GpcVO> selectGpcList(GpcVO gpcVO);
+
+	public int deleteGpc(GpcVO gpcVO);
 }
