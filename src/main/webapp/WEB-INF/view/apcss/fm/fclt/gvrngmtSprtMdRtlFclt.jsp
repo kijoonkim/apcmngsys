@@ -376,7 +376,8 @@ const fn_createFcltEqpmntAllBdarGrid = function() {
 			position: 'bottom',
 			columns: {
 			standard: [0],
-			sum: [1,2,3,4,5,6],
+			sum: [1,3,5],
+			avg: [2,4,6]
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -418,7 +419,8 @@ const fn_createLgstcsGdsFcltBdarGrid = function() {
 			position: 'bottom',
 			columns: {
 			standard: [0],
-			sum: [1,2,3,4,5,6],
+			sum: [1,3,5],
+			avg: [2,4,6]
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -460,7 +462,8 @@ const fn_createBzeatCntLwtpStrgGrid = function() {
 			position: 'bottom',
 			columns: {
 			standard: [0],
-			sum: [1,2,3,4],
+			sum: [1,2,3],
+			avg: [4]
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -498,7 +501,8 @@ const fn_createBzeatCntPrprtnClngFcltGrid = function() {
 			position: 'bottom',
 			columns: {
 			standard: [0],
-			sum: [1,2,3,4],
+			sum: [1,2,3],
+			avg: [4]
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -536,7 +540,8 @@ const fn_createBzeatCntStrgFcltGrid = function() {
 			position: 'bottom',
 			columns: {
 			standard: [0],
-			sum: [1,2,3,4],
+			sum: [1,2,3],
+			avg: [4]
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -614,7 +619,8 @@ const fn_createBzeatCntInvstAtmAllGrid = function() {
 			position: 'bottom',
 			columns: {
 			standard: [0],
-			sum: [1,2,3],
+			sum: [1,2],
+			avg: [3]
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -688,7 +694,8 @@ const fn_createBzeatCntInvstAtmOwnrGrid = function() {
 			position: 'bottom',
 			columns: {
 			standard: [0],
-			sum: [1,2,3,4,5,6],
+			sum: [1,2,4,5],
+			avg: [3,6]
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -730,7 +737,8 @@ const fn_createBzeatCntInvstAtmOperPrsnGrid = function() {
 			position: 'bottom',
 			columns: {
 			standard: [0],
-			sum: [1,2,3,4,5,6],
+			sum: [1,2,4,5],
+			avg: [3,6]
 		},
 		grandtotalrow : {
 			titlecol: 0,
