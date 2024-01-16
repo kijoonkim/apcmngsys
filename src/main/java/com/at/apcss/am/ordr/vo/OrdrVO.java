@@ -332,5 +332,13 @@ public class OrdrVO extends ComVO {
 	 */
 	private String orgnGdsNm;
 	
+	/**
+	 * 대형마켓코드
+	 */
+	private String lgszMrktCd;
+	/**
+	 * 대형마켓명
+	 */
+	private String lgszMrktNm;
 
 }
