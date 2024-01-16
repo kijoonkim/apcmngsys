@@ -127,4 +127,10 @@ public class PrdcrOgnCurntMngServiceImpl extends BaseServiceImpl implements Prdc
 		PrdcrOgnCurntMngMapper.deleteTbEvFrmhsPrdctnEcSpmtSttnApo(tbEvFrmhsApoVO);
 		return insertedCnt;
 	}
+
+	@Override
+	public int deleteTbEvFrmhsPrdctnEcSpmtSttnApo(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception {
+		int insertedCnt = PrdcrOgnCurntMngMapper.deleteTbEvFrmhsPrdctnEcSpmtSttnApo(tbEvFrmhsApoVO);
+		return insertedCnt;
+	}
 }

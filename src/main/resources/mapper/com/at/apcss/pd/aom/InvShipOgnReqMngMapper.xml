@@ -24,7 +24,7 @@
     	<![CDATA[
 			SELECT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectPrdcrCrclOgnReqMng */
 				  CM.APO_CD
-
+				, CM.APO_SE
 				, CM.CORP_NM
 				, CM.BRNO
 				, CM.INVST_NOPE
@@ -87,7 +87,7 @@
     	<![CDATA[
 			SELECT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectInvShipOgnReqMngList */
 				  CM.APO_CD
-
+				, CM.APO_SE
 				, CM.CORP_NM
 				, CM.BRNO
 				, CM.INVST_NOPE
