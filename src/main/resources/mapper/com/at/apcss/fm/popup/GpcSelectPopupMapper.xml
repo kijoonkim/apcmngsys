@@ -32,22 +32,26 @@
     	<!-- End 페이징 -->
 
 		<![CDATA[
-    	SELECT /* com.at.apcss.fm.popup.mapper.GpcSelectPopupMapper.selectGpcList */
-    		   A.ITEM_CD   AS CTGRY_CD
-		     , A.ITEM_NM   AS CTGRY_NM
-		     , A.ITEM_CD	AS ITEM_CD
-		     , A.ITEM_NM	AS ITEM_NM
-		     , ''		AS RMRK
-		  FROM TB_ITEM_CRTR A
-		 WHERE A.DEL_YN = 'N'
+    	SELECT
+			ITEM_NM
+			,(SELECT MIN(ITEM_CD)
+				FROM TB_ITEM_CRTR
+				WHERE ITEM_NM = IC.ITEM_NM
+			) AS ITEM_CD
+		FROM (SELECT ITEM_NM
+				FROM TB_ITEM_CRTR
+				WHERE DEL_YN = 'N'
+				  AND ITEM_NM != '기타'
+				GROUP BY ITEM_NM) IC
+		WHERE 1=1
 		 ]]>
 		<if test='ctgryNm != null and ctgryNm != ""'>
-				AND A.ITEM_NM LIKE '%'||#{ctgryNm}||'%'
+				AND IC.ITEM_NM LIKE '%'||#{ctgryNm}||'%'
 		</if>
 		<if test='itemNm != null and itemNm != ""'>
-				AND A.ITEM_NM LIKE '%'||#{itemNm}||'%'
+				AND IC.ITEM_NM LIKE '%'||#{itemNm}||'%'
 		</if>
-		 ORDER BY ITEM_NM ASC
+		 ORDER BY IC.ITEM_NM ASC
 
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
