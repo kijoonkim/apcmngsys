@@ -263,8 +263,7 @@ const fn_createOperOgnzAvgTrmtPrfmncGrid = function() {
 			position: 'bottom',
 			columns: {
 			standard: [0],
-			sum: [3,4],
-			avg: [1,2]
+			avg: [1,2,3,4]
 		},
 		grandtotalrow : {
 			titlecol: 0,
