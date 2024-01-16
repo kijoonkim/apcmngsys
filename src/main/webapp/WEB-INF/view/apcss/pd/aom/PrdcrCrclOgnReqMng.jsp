@@ -944,17 +944,17 @@
     <!-- 품목 팝업 -->
 	<div>
         <sbux-modal
-        	id="modal-gpcList"
-        	name="modal-gpcList"
+        	id="modal-itemSelect"
+        	name="modal-itemSelect"
         	uitype="middle"
         	header-title="품목 선택"
-        	body-html-id="body-modal-gpcList"
+        	body-html-id="body-modal-itemSelect"
         	footer-is-close-button="false"
         	style="width:800px"
        	></sbux-modal>
     </div>
-    <div id="body-modal-gpcList">
-    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/gpcSelectPopup.jsp"></jsp:include>
+    <div id="body-modal-itemSelect">
+    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/ItemSelectPopup.jsp"></jsp:include>
     </div>
 
 </body>
@@ -2097,15 +2097,15 @@
 			return
 		}
 		grdGpcList.setRow(nRow);
-		popGpcSelect.init(fn_setGridItem);
-		SBUxMethod.openModal('modal-gpcList');
+		popItemSelect.init(fn_setGridItem);
+		SBUxMethod.openModal('modal-itemSelect');
 	}
 
 
 	// 그리드의 품목 선택 팝업 콜백 함수
 	const fn_setGridItem = function(rowData) {
 		console.log("================fn_setGridItem================");
-		//console.log(rowData);
+		console.log(rowData);
 		if (!gfn_isEmpty(rowData)) {
 			//setCellData (행,열,입력 데이터,[refresh여부],[행 상태 정보 update로 변경])
 			//selGridRow : 선택된 행 값

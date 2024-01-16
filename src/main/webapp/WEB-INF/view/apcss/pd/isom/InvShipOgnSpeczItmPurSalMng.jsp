@@ -994,7 +994,7 @@
 		let uoBrno = SBUxMethod.get('dtl-input-uoBrno');
 
 		//그리드의 해드가 두줄이상인경우 for문 시작과 끝을 늘린만큼 늘려야함
-		for(var i=3; i<=gridData01.length + 1; i++ ){
+		for(var i = 2; i < gridData01.length +1; i++ ){
 			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i);
 			let rowSts01 = grdPrdcrOgnCurntMng01.getRowStatus(i);
 			let delYn = rowData01.delYn;
@@ -1017,7 +1017,10 @@
 					}
 				}
 			}
+			rowData01.rowSts = "I";
+			saveList.push(rowData01);
 
+			/*
 			if (rowSts01 === 3){
 				rowData01.rowSts = "I";
 				saveList.push(rowData01);
@@ -1030,6 +1033,8 @@
 			} else {
 				continue;
 			}
+			*/
+
 		}
 		if(saveList.length == 0){
 			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.

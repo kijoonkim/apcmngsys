@@ -1284,7 +1284,6 @@ tps://sbgrid.co.kr/v2_5/document/guide
         	jsonPrdcrCrclOgnMng.length = 0;
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
-        		console.log(item.mngmstInfoId);
 				let PrdcrCrclOgnMngVO = {
 						apoSe: item.apoSe
 						,apoCd: item.apoCd
