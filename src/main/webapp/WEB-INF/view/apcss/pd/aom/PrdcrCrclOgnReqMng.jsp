@@ -1400,17 +1400,17 @@
 
     		if(rowData.delYn == 'N'){
     			if(gfn_isEmpty(rowData.ctgryCd)){
-    				alert('품목 그리드의 품목분류를 선택해주세요');
+    				alert('품목 리스트의 품목분류를 선택해주세요');
     				grdGpcList.focus();//그리드 객체로 포커스 이동
     				return true;
     			}
     			if(gfn_isEmpty(rowData.itemCd)){
-    				alert('품목 그리드의 품목을 선택해주세요');
+    				alert('품목 리스트의 품목을 선택해주세요');
     				grdGpcList.focus();
     				return true;
     			}
     			if(gfn_isEmpty(rowData.sttgUpbrItemSe)){
-    				alert('품목 그리드의 전문/육성 구분을 선택해주세요');
+    				alert('품목 리스트의 전문/육성 구분을 선택해주세요');
     				grdGpcList.focus();
     				return true;
     			}
