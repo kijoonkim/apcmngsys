@@ -1441,6 +1441,7 @@
         let data = await postJsonPromise02;
         try{
         	jsonPrdcrOgnCurntMng02.length = 0;
+        	jsonExpUpload.length = 0;
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
         		console.log(item.itemNm);
@@ -1482,6 +1483,7 @@
 
 				}
 				jsonPrdcrOgnCurntMng02.push(PrdcrOgnCurntMngVO);
+				jsonExpUpload.push(PrdcrOgnCurntMngVO)
 			});
 
         	grdPrdcrOgnCurntMng02.rebuild();
