@@ -350,7 +350,8 @@ const fn_createLgstcsGdsFcltGrid = function() {
 			position: 'bottom',
 			columns: {
 			standard: [0],
-			sum: [1,2,3,4,5,6],
+			sum: [1,3,5],
+			avg: [2,4,6]
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -392,7 +393,8 @@ const fn_createMdLwtpStrgGrid = function() {
 			position: 'bottom',
 			columns: {
 			standard: [0],
-			sum: [1,2,3,4],
+			sum: [1,2,3],
+			avg: [4]
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -430,7 +432,8 @@ const fn_createRgnPrprtnClngFcltGrid = function() {
 			position: 'bottom',
 			columns: {
 			standard: [0],
-			sum: [1,2,3,4],
+			sum: [1,2,3],
+			avg: [4]
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -468,7 +471,8 @@ const fn_createRgnStrgFcltGrid = function() {
 			position: 'bottom',
 			columns: {
 			standard: [0],
-			sum: [1,2,3,4],
+			sum: [1,2,3],
+			avg: [4]
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -506,7 +510,8 @@ const fn_createRgnFcltMsrmtEqpmntGrid = function() {
 			position: 'bottom',
 			columns: {
 			standard: [0],
-			sum: [1,2,3,4],
+			sum: [1,2,3],
+			avg: [4]
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -542,10 +547,11 @@ const fn_createRgnInvstAtmAllGrid = function() {
     SBGridProperties.total = {
 			type: 'grand',
 			position: 'bottom',
-			columns: {
+		columns: {
 			standard: [0],
-			sum: [1,2,3,4,5,6],
-		},
+			sum: [1,2,3,4,5],
+			avg: [6]
+   		},
 		grandtotalrow : {
 			titlecol: 0,
 			titlevalue: '합계',
@@ -586,7 +592,8 @@ const fn_createRgnInvstAtmOwnrGrid = function() {
 			position: 'bottom',
 			columns: {
 			standard: [0],
-			sum: [1,2,3,4,5,6],
+			sum: [1,2,4,5],
+			avg: [3,6]
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -628,7 +635,8 @@ const fn_createRgnInvstAtmOperPrsnGrid = function() {
 			position: 'bottom',
 			columns: {
 			standard: [0],
-			sum: [1,2,3,4,5,6],
+			sum: [1,2,4,5],
+			avg: [3,6]
 		},
 		grandtotalrow : {
 			titlecol: 0,
