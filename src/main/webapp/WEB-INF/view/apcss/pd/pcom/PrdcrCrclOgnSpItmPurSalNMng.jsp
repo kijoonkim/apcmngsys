@@ -898,6 +898,9 @@
 			rowData01.crno = crno;
 			rowData01.brno = brno;
 
+			rowData01.rowSts = "I";
+			saveList.push(rowData01);
+			/*
 			if (rowSts01 === 3){
 				rowData01.rowSts = "I";
 				saveList.push(rowData01);
@@ -910,6 +913,7 @@
 			} else {
 				continue;
 			}
+			*/
 		}
 		if(saveList.length == 0){
 			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
