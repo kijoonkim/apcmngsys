@@ -561,7 +561,7 @@
                 , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) 					AS SPCFCT_NM
 				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) 							AS GDS_SE_NM
 				, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) 	AS WAREHOUSE_SE_NM
-				, (SELECT FN_GET_GDS_NM(pt0.GDS_CD,pt0.APC_CD) FROM DUAL) 										AS GDS_NM
+				, (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL) 				AS SPMT_PCKG_UNIT_NM
     		  FROM (
 			    	SELECT /*  */
 					       MAX(DGI.APC_CD)               AS APC_CD
@@ -577,6 +577,7 @@
 					     , DGI.GDS_GRD             		 AS GDS_GRD
 					     , MAX(DGI.PCKG_SE_CD)           AS PCKG_SE_CD
 					     , DGI.WAREHOUSE_SE_CD      	 AS WAREHOUSE_SE_CD
+					     , MAX(SPMT_PCKG_UNIT_CD)    	 AS SPMT_PCKG_UNIT_CD
 					     , MAX(DGI.GDS_SE_CD)            AS GDS_SE_CD
 					     , MAX(DGI.PLOR_CD)              AS PLOR_CD
 					     , MAX(DGI.RMRK)                 AS RMRK
