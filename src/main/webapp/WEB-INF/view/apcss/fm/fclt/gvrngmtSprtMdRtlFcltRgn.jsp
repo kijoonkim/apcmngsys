@@ -345,7 +345,8 @@ const fn_createGvrngmtSprtLgstcsGdsFcltGrid = function() {
 			position: 'bottom',
 			columns: {
 			standard: [0],
-			sum: [1,2,3,4,5,6],
+			sum: [1,3,5],
+			avg: [2,4,6]
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -387,7 +388,8 @@ const fn_createGvrngmtSprtLwtpStrgGrid = function() {
 			position: 'bottom',
 			columns: {
 			standard: [0],
-			sum: [1,2,3,4],
+			sum: [1,2,3],
+			avg: [4]
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -425,7 +427,8 @@ const fn_createGvrngmtSprtPrprtnClngFcltGrid = function() {
 			position: 'bottom',
 			columns: {
 			standard: [0],
-			sum: [1,2,3,4],
+			sum: [1,2,3],
+			avg: [4]
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -463,7 +466,8 @@ const fn_createGvrngmtSprtStrgFcltGrid = function() {
 			position: 'bottom',
 			columns: {
 			standard: [0],
-			sum: [1,2,3,4],
+			sum: [1,2,3],
+			avg: [4]
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -501,7 +505,8 @@ const fn_createGvrngmtSprtFcltMsrmtEqpmntGrid = function() {
 			position: 'bottom',
 			columns: {
 			standard: [0],
-			sum: [1,2,3,4],
+			sum: [1,2,3],
+			avg: [4]
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -539,7 +544,8 @@ const fn_createGvrngmtSprtRgnInvstAtmAllGrid = function() {
 			position: 'bottom',
 			columns: {
 			standard: [0],
-			sum: [1,2,3,4,5,6],
+			sum: [1,2,3,4,5],
+			avg: [6]
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -581,7 +587,8 @@ const fn_createMdInvstAtmOwnrGrid = function() {
 			position: 'bottom',
 			columns: {
 			standard: [0],
-			sum: [1,2,3,4,5,6],
+			sum: [1,2,4,5],
+			avg: [3,6]
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -623,7 +630,8 @@ const fn_createMdInvstAtmOperPrsnGrid = function() {
 			position: 'bottom',
 			columns: {
 			standard: [0],
-			sum: [1,2,3,4,5,6],
+			sum: [1,2,4,5],
+			avg: [3,6]
 		},
 		grandtotalrow : {
 			titlecol: 0,
