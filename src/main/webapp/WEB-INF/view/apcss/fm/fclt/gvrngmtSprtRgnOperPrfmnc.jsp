@@ -189,7 +189,8 @@ const fn_createGvrngmtSprtOperOgnzTrmtPrfmncGrid = function() {
 			position: 'bottom',
 			columns: {
 			standard: [0],
-			sum: [1,2,3,4],
+			sum: [1,3],
+			avg: [2,4]
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -265,7 +266,7 @@ const fn_createMdRtlFcltPrcsPrfmncAvgGrid = function() {
 			position: 'bottom',
 			columns: {
 			standard: [0],
-			sum: [1,2,3,4],
+			avg: [1,2,3,4],
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -345,7 +346,7 @@ const fn_createRgnOperOgnzTrmtPrfmncAvgGrid = function() {
 			position: 'bottom',
 			columns: {
 			standard: [0],
-			sum: [1,2,3,4,5,6],
+			avg: [1,2,3,4,5,6],
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -429,7 +430,7 @@ const fn_createRgnOperOgnzApcPrcsPrfmncAvgGrid = function() {
 			position: 'bottom',
 			columns: {
 			standard: [0],
-			sum: [1,2,3,4,5,6],
+			avg: [1,2,3,4,5,6],
 		},
 		grandtotalrow : {
 			titlecol: 0,
