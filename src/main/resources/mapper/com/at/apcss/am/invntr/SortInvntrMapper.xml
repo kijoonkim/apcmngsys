@@ -484,8 +484,9 @@
 
 			<![CDATA[
 				 GROUP BY DSI.GRD_CD,DSI.INPT_YMD,DSI.RPRS_PRDCR_CD,DSI.ITEM_CD,DSI.VRTY_CD,DSI.SPCFCT_CD,DSI.GDS_SE_CD,DSI.WRHS_SE_CD,DSI.WAREHOUSE_SE_CD
-				 ORDER BY APC_CD, INPT_YMD, SORTNO
+
 	    		  ) pt0
+	    		 ORDER BY ITEM_NM,VRTY_NM,PRDCR_NM,WRHS_SE_NM,WAREHOUSE_SE_NM
 			]]>
 
 			<!-- Start 페이징 -->
@@ -689,9 +690,11 @@
 			   AND SI.SPCFCT_CD = #{spcfctCd}
 		</if>
     	<![CDATA[
+
     		GROUP BY SI.GRD_CD,SI.RPRS_PRDCR_CD,SI.ITEM_CD,SI.VRTY_CD,SI.SPCFCT_CD,SI.GDS_SE_CD,SI.WAREHOUSE_SE_CD
 
     		  ) pt0
+    		ORDER BY ITEM_NM,VRTY_NM,PRDCR_NM,WAREHOUSE_SE_NM
 		]]>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
