@@ -907,6 +907,7 @@
 	        {caption: ["상세내역"], 	ref: 'aplyTrgtSe',   		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'yr',   				hidden : true},
 	        {caption: ["상세내역"], 	ref: 'uoBrno',   			hidden : true},
+	        {caption: ["상세내역"], 	ref: 'uoBrnoDel',   		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'uoCd',   				hidden : true},
 	        {caption: ["상세내역"], 	ref: 'crno',   				hidden : true},
 	        {caption: ["상세내역"], 	ref: 'corpSeCd',   			hidden : true},
@@ -1074,6 +1075,7 @@
 						,rprsvFlnm: item.rprsvFlnm
 						,brno: item.brno
 						,uoBrno: item.uoBrno
+						,uoBrnoDel: item.uoBrnoDel
 						,uoCd: item.uoCd
 						,rprsvTelno: item.rprsvTelno
 						,corpDtlSeCd: item.corpDtlSeCd
@@ -1392,10 +1394,10 @@
         	jsonInvShipOgnReqMng01.length = 0;
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
-				//console.log(item.yr);
         		let InvShipOgnReqMngVO = {
 						apoCd: item.apoCd
 						,uoBrno: item.uoBrno
+						,uoBrnoDel: item.uoBrnoDel
 						,uoCd: item.uoCd
 						,corpNm: item.corpNm
 						,rprsvFlnm: item.rprsvFlnm
@@ -1533,6 +1535,11 @@
 	//삭제
 	//출자출하조직 리스트 삭제
 	async function fn_deleteRsrc(InvShipOgnReqMngVO,nRow){
+		console.log("===========fn_deleteRsrc===========");
+		//console.log(InvShipOgnReqMngVO);
+		//console.log(typeof InvShipOgnReqMngVO);
+		//console.log(nRow);
+		//console.log(typeof nRow);
 		let postJsonPromise = gfn_postJSON("/pd/aom/deleteInvShipOgnReqMng.do", InvShipOgnReqMngVO);
         let data = await postJsonPromise;
 
@@ -1584,15 +1591,17 @@
 
 	// Grid Row 추가 및 삭제 기능
     function fn_procRow(gubun, grid, nRow, nCol) {
+		console.log("===========fn_procRow===========");
+		//console.log(nRow);
+		//console.log(typeof nRow);
         if (grid === "grdInvShipOgnReqMng01") {
-        	var vo = grdInvShipOgnReqMng01.getRowData(nRow);
+        	let vo = grdInvShipOgnReqMng01.getRowData(nRow);
         	var delMsg = '"' + vo.corpNm + '" 과의 조직관계를 삭제 하시겠습니까?';
         	if(confirm(delMsg)){
         		var reDelMsg = '"' + vo.corpNm + '" 과의 조직관계를 삭제 하시겠습니까?';
         		if(confirm(reDelMsg)){
         		//console.log(vo);
         		fn_deleteRsrc(vo,nRow);
-        		//grdInvShipOgnReqMng01.deleteRow(nRow);
         		}
         	}
 
