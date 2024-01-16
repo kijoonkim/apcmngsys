@@ -1392,7 +1392,7 @@
         	jsonInvShipOgnReqMng01.length = 0;
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
-				console.log(item.yr);
+				//console.log(item.yr);
         		let InvShipOgnReqMngVO = {
 						apoCd: item.apoCd
 						,uoBrno: item.uoBrno
