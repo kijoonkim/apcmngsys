@@ -603,9 +603,9 @@
 
 			{caption: ["조직원수"], 					ref: 'cnt',   	type:'output',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["전속(약정)\n출하계약량(톤)"], 	ref: 'ecSpmtVlmTot',   	type:'output',  width:'140px',    style:'text-align:center'
+			{caption: ["전속(약정)\n출하계약량(톤)"], 	ref: 'ecSpmtPlanVlmTot',   	type:'output',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["전속(약정)\n출하량(결과)(톤)"], 	ref: 'ecSpmtPlanVlmTot',   	type:'output',  width:'140px',    style:'text-align:center'
+			{caption: ["전속(약정)\n출하량(결과)(톤)"], 	ref: 'ecSpmtVlmTot',   	type:'output',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출하대금\n지급액(천원)"], 		ref: 'spmtPrcTot',   	type:'output',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
@@ -1601,7 +1601,7 @@
 		        ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 		    {caption: ["출하","출하대금\n지급액(천원)"], 		ref: 'spmtPrc',   	type:'input',  width:'140px',    style:'text-align:center'
 		        ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["가입일","가입일"], 			ref: 'joinDay',  	type:'datepicker',  width:'110px',    style:'text-align:center'
+	        {caption: ["가입일\n(YYYY-MM-DD)","가입일\n(YYYY-MM-DD)"], 			ref: 'joinDay',  	type:'datepicker',  width:'110px',    style:'text-align:center'
 	        	,typeinfo : {locale : 'ko' , dateformat :'yymmdd' , yearrange : 150}, format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd' }},
 	        //{caption: ["가입일","가입일"], 			ref: 'joinDay',  	type:'input',  width:'110px',    style:'text-align:center'
 	        	//,typeinfo : {mask : {alias : 'numeric'}}},
@@ -1835,10 +1835,18 @@
 	            return excelSerialToKoreanDate(input);
 	        } else {
 	            // 6자리 이상인 경우: 앞에서부터 8자리까지 잘라서 리턴
+	            // YY/MM/DD
+	            // YYYY/M/D
 	            return inputString.substring(0, 8);
 	        }
 	    } else if (typeof input === 'string') {
 	        // 문자열인 경우: 특수문자 제외하고 앞에서부터 8자리까지 잘라서 리턴
+	        //YYYY년 MM월 DD일
+	        //YY년 MM월 DD일
+	        //YYYY.MM.DD
+	        //YYYY/MM/DD
+	        //YYYY-YMM-DD
+	        //YYYYMMDD
 	        const sanitizedString = input.replace(/[^0-9a-zA-Z]/g, '');
 	        return sanitizedString.substring(0, 8);
 	    } else {
@@ -1850,7 +1858,7 @@
 	// Excel 시리얼 넘버를 YYYY-MM-DD로 변환하는 함수
 	function excelSerialToKoreanDate(serial) {
 	    const MS_PER_DAY = 24 * 60 * 60 * 1000; // milliseconds per day
-	    let date = new Date((serial - 1) * MS_PER_DAY + Date.UTC(1900, 0, 1));
+	    let date = new Date((serial - 2) * MS_PER_DAY + Date.UTC(1900, 0, 1));
 
 	    let year = date.getFullYear();
 	    let month = (date.getMonth() + 1).toString().padStart(2, '0');
