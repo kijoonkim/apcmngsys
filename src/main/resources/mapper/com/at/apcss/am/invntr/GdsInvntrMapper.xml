@@ -87,6 +87,7 @@
 				, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
                 , (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL) 	AS SPMT_PCKG_UNIT_NM
                 , (SELECT FN_GET_GRD_NM_SORT(pt0.APC_CD, pt0.ITEM_CD, pt0.SORT_GRD_CD) FROM DUAL) 	AS SORT_GRD_NM
+                , (SELECT FN_GET_GDS_NM(pt0.GDS_CD,pt0.APC_CD) FROM DUAL)							AS GDS_NM
                 , pt0.PCKGNO || '-' || pt0.PCKG_SN AS PCKGNO_INDCT
     		  FROM (
 	    	SELECT /* com.at.apcss.am.invntr.mapper.GdsInvntrMapper.selectGdsInvntrList */
@@ -226,6 +227,7 @@
 				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) 				AS GDS_SE_NM
 				, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
                 , (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL) 	AS SPMT_PCKG_UNIT_NM
+                , (SELECT FN_GET_GDS_NM(pt0.GDS_CD,pt0.APC_CD) FROM DUAL) 										AS GDS_NM
                 , pt0.PCKGNO || '-' || pt0.PCKG_SN AS PCKGNO_INDCT
     		  FROM (
 	    	SELECT /* com.at.apcss.am.invntr.mapper.GdsInvntrMapper.selectGdsInvntrList */
@@ -305,8 +307,9 @@
 
     	<![CDATA[
     	     GROUP BY GI.RPRS_PRDCR_CD,GI.ITEM_CD,GI.VRTY_CD,GI.SPCFCT_CD,GI.GDS_GRD,GI.WAREHOUSE_SE_CD
-			 ORDER BY PCKG_YMD, PCKGNO, PCKG_SN
+
     		  ) pt0
+    		 ORDER BY ITEM_NM,VRTY_NM,SPCFCT_NM,GDS_GRD_NM,GDS_SE_NM,WAREHOUSE_SE_NM,PRDCR_NM
 		]]>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
@@ -348,6 +351,7 @@
 				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
 				, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
                 , (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL) AS SPMT_PCKG_UNIT_NM
+
     		  FROM (
 	    	SELECT /* com.at.apcss.am.invntr.mapper.GdsInvntrMapper.selectUpdateGdsInvntrList */
 			      GI.APC_CD			AS APC_CD
@@ -449,6 +453,7 @@
 				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) 							AS GDS_SE_NM
 				, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) 	AS WAREHOUSE_SE_NM
                 , (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL) 				AS SPMT_PCKG_UNIT_NM
+                , (SELECT FN_GET_GDS_NM(pt0.GDS_CD,pt0.APC_CD) FROM DUAL) 										AS GDS_NM
     		  FROM (
 			    	SELECT /*  */
 					       DGI.APC_CD               AS APC_CD
@@ -556,7 +561,7 @@
                 , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) 					AS SPCFCT_NM
 				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) 							AS GDS_SE_NM
 				, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) 	AS WAREHOUSE_SE_NM
-
+				, (SELECT FN_GET_GDS_NM(pt0.GDS_CD,pt0.APC_CD) FROM DUAL) 										AS GDS_NM
     		  FROM (
 			    	SELECT /*  */
 					       MAX(DGI.APC_CD)               AS APC_CD
@@ -622,8 +627,9 @@
 
     	<![CDATA[
     		 GROUP BY DGI.RPRS_PRDCR_CD, DGI.ITEM_CD,DGI.VRTY_CD,DGI.SPCFCT_CD,DGI.GDS_GRD,DGI.WAREHOUSE_SE_CD
-			 ORDER BY PCKG_YMD, PCKGNO, PCKG_SN
+
     		  ) pt0
+    		 ORDER BY ITEM_NM,VRTY_NM,SPCFCT_NM,GDS_GRD_NM,GDS_SE_NM,WAREHOUSE_SE_NM,PRDCR_NM
 		]]>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
