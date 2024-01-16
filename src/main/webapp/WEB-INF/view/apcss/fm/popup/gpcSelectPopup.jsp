@@ -4,6 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<!-- 평가등록 산지조직관리 품목 선택 -->
 </head>
 <body oncontextmenu="return false">
 	<section>
@@ -113,8 +114,8 @@
 			*/
 		},
 		close: function(_gpc) {
-			console.log(_gpc);
-			console.log(this.modalId);
+			//console.log(_gpc);
+			//console.log(this.modalId);
 			gfn_closeModal(this.modalId, this.callbackFnc, _gpc);
 		},
 		createGrid: function(/** {boolean} */ isEditable) {

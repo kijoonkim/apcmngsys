@@ -4,7 +4,6 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<!-- 평가등록 품목 선택 팝업 -->
 </head>
 <body oncontextmenu="return false">
 	<section>

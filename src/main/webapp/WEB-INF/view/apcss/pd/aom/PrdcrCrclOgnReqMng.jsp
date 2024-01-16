@@ -944,17 +944,17 @@
     <!-- 품목 팝업 -->
 	<div>
         <sbux-modal
-        	id="modal-itemSelect"
-        	name="modal-itemSelect"
+        	id="modal-gpcList"
+        	name="modal-gpcList"
         	uitype="middle"
         	header-title="품목 선택"
-        	body-html-id="body-modal-itemSelect"
+        	body-html-id="body-modal-gpcList"
         	footer-is-close-button="false"
         	style="width:800px"
        	></sbux-modal>
     </div>
-    <div id="body-modal-itemSelect">
-    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/ItemSelectPopup.jsp"></jsp:include>
+    <div id="body-modal-gpcList">
+    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/gpcSelectPopup.jsp"></jsp:include>
     </div>
 
 </body>
@@ -1196,7 +1196,7 @@
         let data = await postJsonPromise;
         try{
         	jsonPrdcrCrclOgnReqMng.length = 0;
-        	console.log("data==="+data);
+        	//console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
 				let PrdcrCrclOgnReqMngVO = {
 						apoSe: item.apoSe
@@ -1298,7 +1298,7 @@
 		});
         let data = await postJsonPromise;
         try{
-        	console.log("data==="+data);
+        	//console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
 				SBUxMethod.set('dtl-input-apoCd',gfn_nvl(item.apoCd))//
 				SBUxMethod.set('dtl-input-apoSe',gfn_nvl(item.apoSe))//
@@ -1350,7 +1350,8 @@
 			});
 			//품목 그리드 조회
 			fn_selectGpcList();
-
+			//합계 계산
+			fn_fundAplyAmt();
         	//조회후 포커스가 이상한곳으로 가있는 경우가 있어서 추가
         	window.scrollTo(0, 0);
         }catch (e) {
@@ -1377,7 +1378,7 @@
     	}
 
     	if (gfn_isEmpty(apoCd)) {
-    		console.log("apoCd null");
+    		//console.log("apoCd null");
     		return;
     		// 신규 등록
 			//fn_subInsert(confirm("등록 하시겠습니까?"));
@@ -1424,7 +1425,7 @@
      * 신규 등록
      */
     const fn_subInsert = async function (isConfirmed){
-		console.log("******************fn_subInsert**********************************");
+		//console.log("******************fn_subInsert**********************************");
 		if (!isConfirmed) return;
 
 		var rawMtrEnsr = SBUxMethod.get('dtl-input-rawMtrEnsr')//
@@ -1471,7 +1472,7 @@
 		});
 
         const data = await postJsonPromise;
-        console.log("insert result", data);
+        //console.log("insert result", data);
 
         try {
         	if (_.isEqual("S", data.resultStatus)) {
@@ -1615,7 +1616,7 @@
 
 	//그리드 클릭시 상세보기 이벤트
 	function fn_view() {
-		console.log("******************fn_view**********************************");
+		//console.log("******************fn_view**********************************");
 
 		fn_clearForm();
 
@@ -1746,7 +1747,7 @@
 
 
     function fn_create() {
-    	console.log("******************fn_create**********************************");
+    	//console.log("******************fn_create**********************************");
     	SBUxMethod.set('dtl-input-untyYn',null)//
     	SBUxMethod.set('dtl-input-uoNm',null)//
     	SBUxMethod.set('dtl-input-uoBrno',null)//
@@ -1868,7 +1869,7 @@
 	}
 
 	function fn_Validate(objGrid, nRow, nCol, strValue) {
-		console.log(strValue);
+		//console.log(strValue);
 		let aprv = SBUxMethod.get("rdo-aprv");
 		if(strValue != ""){
 			if(gfn_isEmpty(aprv)){
@@ -1908,7 +1909,7 @@
         let data = await postJsonPromise;
         try{
         	jsonGpcList.length = 0;
-        	console.log("data==="+data);
+        	//console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
 				let GpcListVO = {
 						 yr: item.yr
@@ -1929,7 +1930,7 @@
         	//비어 있는 마지막 줄 추가용도
         	grdGpcList.addRow();
         	var nCol =grdGpcList.getColRef('sttgUpbrItemSe');
-        	console.log(nCol);
+        	//console.log(nCol);
         	window.scrollTo(0, 0);
         }catch (e) {
     		if (!(e instanceof Error)) {
@@ -2097,15 +2098,15 @@
 			return
 		}
 		grdGpcList.setRow(nRow);
-		popItemSelect.init(fn_setGridItem);
-		SBUxMethod.openModal('modal-itemSelect');
+		popGpcSelect.init(fn_setGridItem);
+		SBUxMethod.openModal('modal-gpcList');
 	}
 
 
 	// 그리드의 품목 선택 팝업 콜백 함수
 	const fn_setGridItem = function(rowData) {
 		console.log("================fn_setGridItem================");
-		console.log(rowData);
+		//console.log(rowData);
 		if (!gfn_isEmpty(rowData)) {
 			//setCellData (행,열,입력 데이터,[refresh여부],[행 상태 정보 update로 변경])
 			//selGridRow : 선택된 행 값

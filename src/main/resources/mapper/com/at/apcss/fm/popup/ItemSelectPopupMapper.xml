@@ -31,19 +31,14 @@
     	</if>
     	<!-- End 페이징 -->
 
-		SELECT
-			ITEM_NM
-			,(SELECT MIN(ITEM_CD)
-				FROM TB_ITEM_CRTR
-				WHERE ITEM_NM = IC.ITEM_NM
-			) AS ITEM_CD
-		FROM (SELECT ITEM_NM
-				FROM TB_ITEM_CRTR
-				WHERE DEL_YN = 'N'
-				  AND ITEM_NM != '기타'
-				GROUP BY ITEM_NM) IC
-		WHERE 1=1
-
+		<![CDATA[
+	    	SELECT /*  com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectCmnsItemList */
+	    		   IC.ITEM_CD
+			     , IC.ITEM_NM
+			  FROM TB_ITEM_CRTR IC
+			 WHERE IC.DEL_YN = 'N'
+			   AND ITEM_NM != '기타'
+		]]>
 
 		<if test='itemNm != null and itemNm != ""'>
 			AND IC.ITEM_NM LIKE '%' || #{itemNm} || '%'
