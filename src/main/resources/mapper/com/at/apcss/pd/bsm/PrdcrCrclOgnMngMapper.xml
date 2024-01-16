@@ -77,6 +77,7 @@
 				, CM.DW_NOPE
 				, CM.DLBRR_NOPE
 				, CM.ITEM_NH_BROF_YN
+				, CM.WRT_YN
 
 				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
 				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
@@ -198,6 +199,7 @@
 				, CM.DW_NOPE
 				, CM.DLBRR_NOPE
 				, CM.ITEM_NH_BROF_YN
+				, CM.WRT_YN
 
 				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
 				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
@@ -297,6 +299,7 @@
 	    		  , PIC_EML
 	    		  , FXNO
 	    		  , ITEM_NH_BROF_YN
+	    		  , WRT_YN
 	    		  , SYS_FRST_INPT_DT
 	    		  , SYS_FRST_INPT_USER_ID
 	    		  , SYS_FRST_INPT_PRGRM_ID
@@ -348,6 +351,7 @@
 	   			  , #{picEml}
 	   			  , #{fxno}
 	   			  , #{itemNhBrofYn}
+	   			  , 'Y'
 	   			  , SYSDATE
 	   			  , #{sysFrstInptUserId}
 	   			  , #{sysFrstInptPrgrmId}
@@ -402,6 +406,7 @@
 	    		  , ITEM_NH_BROF_YN			= #{itemNhBrofYn}
 	    		  , TOT						= #{tot}
 	    		  , FRMER_INVST_AMT_RT		= #{frmerInvstAmtRt}
+	    		  , WRT_YN					= 'Y'
     	]]>
     	<![CDATA[
 				, SYS_LAST_CHG_DT		= SYSDATE
