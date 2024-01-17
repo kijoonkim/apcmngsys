@@ -745,7 +745,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 						if (
 							itemCd.equals(orgnInv.getItemCd())
 							&& vrtyCd.equals(orgnInv.getVrtyCd())
-							&& prdcrCd.equals(orgnInv.getPrdcrCd())
+							&& (!StringUtils.hasText(prdcrCd) || prdcrCd.equals(orgnInv.getPrdcrCd()))
 							&& warehouseSeCdFrom.equals(orgnInv.getWarehouseSeCd())) {
 							
 							if (sortWght > invRmnWght) {
