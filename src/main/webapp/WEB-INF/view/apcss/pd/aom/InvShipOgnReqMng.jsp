@@ -813,21 +813,21 @@
 		</c:if>
 	</c:if>
 
-		fn_initSBSelect();
+		await fn_initSBSelect();
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
-		fn_search();
+		await fn_search();
 	</c:if>
 	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
 		//통합조직인 경우
 		<c:if test="${loginVO.userType eq '21'}">
 		//console.log('통합조직인');
-		fn_dtlSearch();
-		fn_dtlSearch01();
+		await fn_dtlSearch();
+		await fn_dtlSearch01();
 		</c:if>
 		//출하조직인 경우
 		<c:if test="${loginVO.userType eq '22'}">
 		//console.log('출하조직인');
-		fn_dtlSearch02();
+		await fn_dtlSearch02();
 		</c:if>
 	</c:if>
 	}
