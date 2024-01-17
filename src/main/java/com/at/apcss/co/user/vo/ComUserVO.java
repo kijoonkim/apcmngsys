@@ -38,4 +38,6 @@ public class ComUserVO extends ComVO {
 	private String userSttsNm;
 	private String delYn;
 	private String reverseYn;
+	private String crno;
+	private String brdt;
 }

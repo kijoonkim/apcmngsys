@@ -335,6 +335,9 @@
 				, BRDT	= #{brthdy}
 				, SXDC	= #{sexdstn}
 				, REG_SE_CD	= #{saveCd}
+				, SYS_LAST_CHG_DT = SYSDATE
+				, SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
 		WHEN NOT MATCHED THEN
 			 INSERT /* com.at.apcss.fm.farm.mapper.FarmerInfoMapper.insertMegerfarmerInfo */
 	    		(
