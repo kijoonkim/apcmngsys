@@ -10,6 +10,7 @@ import lombok.Setter;
 public class InvShipOgnReqMngVO extends ComVO{
 	private String apoCd;
 	private String apoSe;
+	private String wrtYn;
 	private String corpNm;
 	private String rprsvFlnm;
 	private String brno;

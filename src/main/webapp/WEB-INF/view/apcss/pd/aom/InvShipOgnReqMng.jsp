@@ -1029,6 +1029,7 @@
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
 		let yr = SBUxMethod.get("dtl-input-yr");//
+		let wrtYn = null;
 
     	let postJsonPromise01 = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
     	//let postJsonPromise01 = gfn_postJSON("/pd/aom/selectInvShipOgnReqMngList.do", {
@@ -1048,7 +1049,17 @@
 				SBUxMethod.set('dtl-input-corpNm01',gfn_nvl(item.corpNm))//법인명
 				//SBUxMethod.set('dtl-input-crno01',gfn_nvl(item.crno))//법인등록번호
 				SBUxMethod.set('dtl-input-brno01',gfn_nvl(item.brno))//사업자등록번호
+				wrtYn = item.wrtYn;
 			});
+        	if(wrtYn != 'Y'){
+        		alert("산지조직관리 작성이 필요합니다.");
+        		$(".btn").hide();// 모든 버튼 숨기기
+    			SBUxMethod.clearAllData();//모든 데이터 클리어
+    			//하위 출자출하조직 그리드 데이터 제거
+    			jsonInvShipOgnReqMng01.length = 0;
+    			grdInvShipOgnReqMng01.rebuild();
+				return false;
+        	}
 
         	let userType = '${loginVO.userType}';
         	let apoSe = SBUxMethod.get('dtl-input-apoSe01');
@@ -1062,7 +1073,6 @@
     			alert("해당 계정의 권한과 기존데이터의 타입이 맞지 않습니다"+
     					"\n관리자에게 문의 해주세요");
     			$(".btn").hide();// 모든 버튼 숨기기
-    			//$(".uoList").hide();
     			SBUxMethod.clearAllData();//모든 데이터 클리어
     			//하위 출자출하조직 그리드 데이터 제거
     			jsonInvShipOgnReqMng01.length = 0;
@@ -1140,6 +1150,8 @@
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
 
+		let wrtYn = null;
+
 		let postJsonPromise = gfn_postJSON("/pd/aom/selectInvShipOgnReqMngList.do", {
 			isoBrno : brno
 		});
@@ -1171,7 +1183,16 @@
 				SBUxMethod.set("dtl-input-isoFundAplyAmt", item.isoFundAplyAmt);
 
 				SBUxMethod.set("dtl-input-frmerInvstAmtRt", item.frmerInvstAmtRt);
+				wrtYn = item.wrtYn;
 			});
+
+        	if(wrtYn != 'Y'){
+        		alert("산지조직관리 작성이 필요합니다.");
+				$(".btn").hide();// 모든 버튼 숨기기
+				$(".uoList").hide();
+				SBUxMethod.clearAllData();//모든 데이터 클리어
+				return false;
+        	}
 
         	let userType = '${loginVO.userType}';
         	let apoSe = SBUxMethod.get('dtl-input-apoSe');
