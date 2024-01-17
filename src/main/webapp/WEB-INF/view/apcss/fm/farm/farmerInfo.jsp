@@ -23,7 +23,11 @@
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchFcltList"></sbux-button>
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
-					<sbux-button id="btnSaveFrm" name="btnSaveFrm" uitype="normal" text="연계 등록" class="btn btn-sm btn-outline-danger" onclick="fn_saveFrmerSn"></sbux-button>
+					<sbux-button id="btnSaveFrm" name="btnSaveFrm" uitype="normal" text="연계 등록(농업인일련번호)" class="btn btn-sm btn-outline-danger" onclick="fn_saveFrmerSn"></sbux-button>
+					<sbux-button id="btnSaveFrmBtdt" name="btnSaveFrmBtdt" uitype="normal" text="연계 등록(성명생년월일)" class="btn btn-sm btn-outline-danger" onclick="fn_saveBrdt"></sbux-button>
+					<sbux-button id="btnSaveFrmBcno" name="btnSaveFrmBcno" uitype="normal" text="연계 등록(법인등록번호)" class="btn btn-sm btn-outline-danger" onclick="fn_saveBcno"></sbux-button>
+					<sbux-button id="btnSaveFrmBtdtAll" name="btnSaveFrmBtdtAll" uitype="normal" text="연계 등록(사용자전체)" class="btn btn-sm btn-outline-danger" onclick="fn_saveBrdtAll"></sbux-button>
+					<sbux-button id="btnSaveFrmBcnoAll" name="btnSaveFrmBcnoAll" uitype="normal" text="연계 등록(법인전체)" class="btn btn-sm btn-outline-danger" onclick="fn_saveBcnoAll"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -41,11 +45,18 @@
 							<td class="td_input" style="border-right:hidden;">
 									<sbux-input id="srch-inp-bzobRgno" name="srch-inp-bzobRgno" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 							</td>
+							<th class="th_bg">성명</th>
+							<td class="td_input" style="border-right:hidden;">
+									<sbux-input id="srch-inp-reprNm" name="srch-inp-reprNm" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							</td>
 							<th class="th_bg">생년월일</th>
 							<td class="td_input" style="border-right:hidden;">
 									<sbux-input id="srch-inp-brthdy" name="srch-inp-brthdy" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 							</td>
-<!-- 							<td colspan="2" style="border-left: hidden;"></td> -->
+							<th class="th_bg">법인등록번호</th>
+							<td class="td_input" style="border-right:hidden;">
+									<sbux-input id="srch-inp-bzmCorpNo" name="srch-inp-bzmCorpNo" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							</td>
 						</tr>
 
 					</tbody>
@@ -234,12 +245,14 @@
 		let frmerSn = SBUxMethod.get("srch-inp-frmerSn");//
 		let bzobRgno = SBUxMethod.get("srch-inp-bzobRgno");//
 		let brthdy = SBUxMethod.get("srch-inp-brthdy");
+		let reprNm = SBUxMethod.get("srch-inp-reprNm");
 		//let apcCd = SBUxMethod.get("inp-apcCd");
     	//let postJsonPromise = gfn_postJSON("/fm/farm/selectfarmerInfo.do", {apcCd : apcCd});
     	let postJsonPromise = gfn_postJSON("/fm/farm/selectFarmerInfoList.do", {
     		 frmerSn : frmerSn
     		,bzobRgno : bzobRgno
     		,brthdy : brthdy
+    		,reprNm : reprNm
 		});
         let data = await postJsonPromise;
         try{
@@ -558,6 +571,156 @@
 
 
 
+	/* 농업인 성명/생년월일 연계 저장*/
+	const fn_saveBrdt= async function(){
+		let reprNm = SBUxMethod.get("srch-inp-reprNm"); //성명
+		let brthdy = SBUxMethod.get("srch-inp-brthdy"); // 생년월일
+
+		if (gfn_isEmpty(reprNm)) {
+  			gfn_comAlert("W0002", "성명");		//	W0002	{0}을/를 입력하세요.
+            return;
+  		}
+		if (gfn_isEmpty(brthdy)) {
+  			gfn_comAlert("W0002", "생년월일");		//	W0002	{0}을/를 입력하세요.
+            return;
+  		}
+
+		let regMsg = "저장 하시겠습니까?";
+		if(confirm(regMsg)){
+
+			//let postJsonPromise = gfn_postJSON("/co/cd/multiSaveComCdDtlList.do", saveList);
+			// let postJsonPromise = gfn_postJSON("/fm/farm/multiSaveReleyfarmerInfoList.do", {
+			let postJsonPromise = gfn_postJSON("/fm/farm/multiSaveReleyFarmerInfoJsoneBrdtList.do", {
+				  reprNm : reprNm
+	    		 ,brthdy : brthdy
+	 		});
+	        let data = await postJsonPromise;
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+	        		fn_searchFcltList();
+	        	} else {
+	        		alert(data.resultMessage);
+	        	}
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        }
+
+		}
+	}
+
+
+
+	/* 농업인 법인등록번호 연계 저장*/
+	const fn_saveBcno= async function(){
+		let crno = SBUxMethod.get("srch-inp-bzmCorpNo");
+
+		if (gfn_isEmpty(crno)) {
+  			gfn_comAlert("W0002", "법인등록번호");		//	W0002	{0}을/를 입력하세요.
+            return;
+  		}
+
+		let regMsg = "저장 하시겠습니까?";
+		if(confirm(regMsg)){
+
+			//let postJsonPromise = gfn_postJSON("/co/cd/multiSaveComCdDtlList.do", saveList);
+			// let postJsonPromise = gfn_postJSON("/fm/farm/multiSaveReleyfarmerInfoList.do", {
+			let postJsonPromise = gfn_postJSON("/fm/farm/multiSaveReleyFarmerInfoJsoneBcnoList.do", {
+				crno : crno
+	 		});
+	        let data = await postJsonPromise;
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+	        		fn_searchFcltList();
+	        	} else {
+	        		alert(data.resultMessage);
+	        	}
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        }
+
+		}
+	}
+
+
+
+	/* 농업인 법인등록번호(전체) 연계 저장*/
+	const fn_saveBcnoAll= async function(){
+		let crno = SBUxMethod.get("srch-inp-bzmCorpNo");
+
+		/* if (gfn_isEmpty(crno)) {
+  			gfn_comAlert("W0002", "법인등록번호");		//	W0002	{0}을/를 입력하세요.
+            return;
+  		} */
+
+		let regMsg = "저장 하시겠습니까?";
+		if(confirm(regMsg)){
+
+			//let postJsonPromise = gfn_postJSON("/co/cd/multiSaveComCdDtlList.do", saveList);
+			// let postJsonPromise = gfn_postJSON("/fm/farm/multiSaveReleyfarmerInfoList.do", {
+			let postJsonPromise = gfn_postJSON("/fm/farm/multiSaveReleyFarmerInfoJsoneBcnoAllList.do", {
+				test : ""
+	 		});
+	        let data = await postJsonPromise;
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+	        		fn_searchFcltList();
+	        	} else {
+	        		alert(data.resultMessage);
+	        	}
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        }
+
+		}
+	}
+
+
+	/* 농업인 법인등록번호(전체) 연계 저장*/
+	const fn_saveBrdtAll= async function(){
+		let crno = SBUxMethod.get("srch-inp-bzmCorpNo");
+
+		/* if (gfn_isEmpty(crno)) {
+  			gfn_comAlert("W0002", "법인등록번호");		//	W0002	{0}을/를 입력하세요.
+            return;
+  		} */
+
+		let regMsg = "저장 하시겠습니까?";
+		if(confirm(regMsg)){
+
+			//let postJsonPromise = gfn_postJSON("/co/cd/multiSaveComCdDtlList.do", saveList);
+			// let postJsonPromise = gfn_postJSON("/fm/farm/multiSaveReleyfarmerInfoList.do", {
+			let postJsonPromise = gfn_postJSON("/fm/farm/multiSaveReleyFarmerInfoJsoneBrdtAllList.do", {
+				test : ""
+	 		});
+	        let data = await postJsonPromise;
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+	        		fn_searchFcltList();
+	        	} else {
+	        		alert(data.resultMessage);
+	        	}
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        }
+
+		}
+	}
 
 
 
