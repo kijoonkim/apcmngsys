@@ -14,6 +14,7 @@ import lombok.ToString;
 public class PrdcrCrclOgnReqMngVO extends ComVO{
 	private String apoCd;
 	private String apoSe;
+	private String wrtYn;
 	private String userType;
 
 	private String cmptnInst;

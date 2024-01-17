@@ -501,7 +501,7 @@
 	<!-- 출자출하조직이 속한 통합조직 리스트 insert -->
 	<insert id="insertUo" parameterType="com.at.apcss.pd.bsm.vo.UoListVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.insertPrdcrCrclOgnMng */
+	    	INSERT /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.insertUo */
 	    	  INTO TB_EV_APO_UO_CD
 	    		(
 	    		    UO_APO_CD

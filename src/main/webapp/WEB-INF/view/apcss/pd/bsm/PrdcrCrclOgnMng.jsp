@@ -1382,7 +1382,11 @@ tps://sbgrid.co.kr/v2_5/document/guide
         		SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno))
         		//SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))
         		SBUxMethod.set('dtl-input-mngmstInfoId',gfn_nvl(item.mngmstInfoId))
-        		SBUxMethod.set('dtl-input-mngmstYn',gfn_nvl(item.mngmstYn))
+        		if(gfn_isEmpty(item.mngmstInfoId)){
+        			SBUxMethod.set('dtl-input-mngmstYn','N')//
+        		}else{
+        			SBUxMethod.set('dtl-input-mngmstYn','Y')//
+        		}
         		SBUxMethod.set('dtl-input-nonghyupCd',gfn_nvl(item.nonghyupCd))
         		SBUxMethod.set('dtl-input-cmptnInst',gfn_nvl(item.cmptnInst))
 
@@ -1879,7 +1883,6 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
 	//그리드 클릭시 상세보기 이벤트
 	const fn_view = async function (){
-	//function fn_view() {
 		console.log("******************fn_view**********************************");
 		fn_clearForm();
 	    //데이터가 존재하는 그리드 범위 확인
@@ -2299,6 +2302,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		  			alert("통합조직을 선택해주세요");
 		            return;
 		  		}
+
 				if (rowSts === 1){
 					rowData.rowSts = "I";
 					saveList.push(rowData);
@@ -2311,6 +2315,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 				} else {
 					continue;
 				}
+
 			}
 		}
 		if(saveList.length == 0){
