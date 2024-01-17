@@ -630,7 +630,7 @@
         	jsonPrdcrCrclOgnUsrMng.length = 0;
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
-        		console.log(item.cmptncInst);
+        		//console.log(item.cmptncInst);
 				let PrdcrCrclOgnUsrMngVO = {
 					userId 		: item.userId
 				  , userNm 		: item.userNm
@@ -780,7 +780,7 @@
 
 	//레드닷 처리한 필수값들 확인
 	function fn_checkRequiredInput(){
-		console.log("fn_checkRequiredInput");
+		console.log("============fn_checkRequiredInput==============");
 
 
 		let cmptncInst = SBUxMethod.get("dtl-input-cmptncInst");
@@ -826,7 +826,7 @@
 
 		//서치폼에서 클릭시 디테일폼에 데이터출력
 		let rowData = grdPrdcrCrclOgnUsrMng.getRowData(nRow);
-		console.log(rowData.userStts);
+		//console.log(rowData.userStts);
 		SBUxMethod.set("dtl-input-userId", gfn_nvl(rowData.userId));  //  아이디
 		SBUxMethod.set("dtl-input-userNm", gfn_nvl(rowData.userNm));  //  이름
 		SBUxMethod.set("dtl-input-userType", gfn_nvl(rowData.userType));  //  권한

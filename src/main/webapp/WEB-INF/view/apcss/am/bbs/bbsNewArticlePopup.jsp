@@ -211,7 +211,7 @@
 
 
  // 허용하려는 확장자들
-    const allowedExtensionsBbsNewArticle = ['.gif' , '.jpg' , '.jpeg' , '.png' , '.xls' , '.xlsx' , 'zip'];
+    const allowedExtensionsBbsNewArticle = ['.gif' , '.jpg' , '.jpeg' , '.png' , '.xls' , '.xlsx' , '.zip' , '.pdf'];
 
 	function bbsNewShowFiles(newfiles) {
 		console.log("=====bbsNewShowFiles");

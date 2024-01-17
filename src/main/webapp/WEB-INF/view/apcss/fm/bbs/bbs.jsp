@@ -768,7 +768,7 @@
 	});
 
 	// 허용하려는 확장자들
-    const allowedExtensions = ['.gif' , '.jpg' , '.jpeg' , '.png' , '.xls' , '.xlsx' , 'zip'];
+    const allowedExtensions = ['.gif' , '.jpg' , '.jpeg' , '.png' , '.xls' , '.xlsx' , '.zip' , '.pdf'];
 
 	function showFiles(newfiles) {
 
