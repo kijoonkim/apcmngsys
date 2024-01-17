@@ -21,9 +21,12 @@
 				</div>
 				<div style="margin-left: auto;">
 					<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+						<!--
 						<sbux-button id="btnUpdatePwFclt" name="btnUpdatePwFclt" uitype="normal" text="비밀번호 초기화(통합조직/출자출하조직 전체)" class="btn btn-sm btn-outline-danger" onclick="fn_updatePwFmList"></sbux-button>
+						 -->
 						<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
+						<sbux-button id="btnDeleteFclt" name="btnDeleteFclt" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
 					</c:if>
 					<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
 						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
@@ -907,7 +910,31 @@
 		}
 	}
 
+	async function fn_delete(){
+		let userId = SBUxMethod.get("dtl-input-userId");
+		if(gfn_isEmpty(userId)) return;
 
+		if (!confirm("선택된 유저를 삭제 하시겠습니까?")) return;
+
+		let postJsonPromise = gfn_postJSON("/pd/bsm/deleteUo.do", {
+			userId : userId
+		});
+        let data = await postJsonPromise;
+
+        try{
+        	if(data.result > 0){
+        		alert("삭제 되었습니다.");
+        	}else{
+        		alert("삭제 도중 오류가 발생 되었습니다.");
+        	}
+        }catch (e) {
+        	if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+		}
+
+	}
 
 </script>
 </html>
