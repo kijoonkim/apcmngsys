@@ -326,10 +326,12 @@ public class BbsController extends BaseController {
 	// 첨부파일 업로드
     @PostMapping("/fm/bbs/fileUpload.do")
     public ResponseEntity<HashMap<String, Object>> handleFileUpload(@RequestParam("files") List<MultipartFile> files,@RequestParam("bbsNo") String bbsNo, RedirectAttributes redirectAttributes) throws Exception{
+    	System.out.println("======================/fm/bbs/fileUpload.do==========================");
 
     	String uploadPath = getFilepathFm();
-    	
-    	System.out.println("======================/fm/bbs/fileUpload.do==========================");
+
+    	//application.properties
+    	//Globals.fileUpload.Extensions 확장자 체크
 
     	//String curWorkingDir = System.getProperty("user.dir");
 		//System.out.println("현재 작업 폴더 : " + curWorkingDir);
@@ -357,8 +359,8 @@ public class BbsController extends BaseController {
     		String[] uuids = uuid.toString().split("-");
 
     		String uniqueName = uuids[0];
-    		//System.out.println("생성된 고유문자열" + uniqueName);
-    		//System.out.println("확장자명" + fileExtension);
+    		System.out.println("생성된 고유문자열" + uniqueName);
+    		System.out.println("확장자명" + fileExtension);
 
     		String folderPath = makeFolder();
     		//uploadPath 업로드 경로
@@ -397,7 +399,7 @@ public class BbsController extends BaseController {
     private String makeFolder(){
 
     	String uploadPath = getFilepathFm();
-    	
+
       	String str = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
         //LocalDate를 문자열로 포멧
         String folderPath = str.replace("/", File.separator);
@@ -444,7 +446,7 @@ public class BbsController extends BaseController {
     public void downloadFile(@PathVariable String atchflno, HttpServletRequest requset, HttpServletResponse response) throws Exception {
 
     	String uploadPath = getFilepathFm();
-    	
+
     	System.out.println("============/fm/bbs/downloadFile.do=============");
     	BbsFileVO bbsFileVO = new BbsFileVO();
     	bbsFileVO.setAtchflno(atchflno);

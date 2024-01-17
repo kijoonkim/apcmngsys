@@ -286,7 +286,7 @@
 	   		VALUES
 	   			(
 	   			    SQ_APC_ATTACH.nextval
-	   			  , (SELECT NVL(MAX(BBS_NO),0) FROM TB_BBS)
+	   			  , #{atchflno}
 				  , #{atchflNm}
 				  , #{atchflOrgnNm}
 				  , #{atchflSz}

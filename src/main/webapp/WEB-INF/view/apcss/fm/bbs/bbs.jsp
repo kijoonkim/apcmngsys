@@ -37,9 +37,11 @@
 			</div>
 			<div style="margin-left: auto;">
 					<div class="sbt-search-button" style="text-align:right;">
+						<c:if test="${loginVO.userType ne '21' && loginVO.userType ne '22'}">
 			              <sbux-button id="btn_create" name="btn_create" uitype="normal" class="btn btn-sm btn-outline-danger" text="신규" onclick="fn_create"></sbux-button>
 			              <sbux-button id="btn_save" name="btn_save" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_save"></sbux-button>
 			              <sbux-button id="btn_delete" name="btn_delete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="fn_delete"></sbux-button>
+						</c:if>
 			              <sbux-button id="btn_search" name="btn_search" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
 	               </div>
             </div>
@@ -239,6 +241,7 @@
     			jsonComBbsSeCd,
 			'BBS_SE_CD');
     	fn_search();
+
     });
 
     //grid 초기화
@@ -715,12 +718,14 @@
     	for (var i = 0; i < files.length; i++) {
             formData.append('files', files[i]);
         }
-    	if(Number(bbsNo) > 0){
-			//게시판 번호
-    		formData.append('bbsNo', "0");
+		let bbsNoVal = SBUxMethod.get("dtl-input-bbsNo");
+
+    	if(gfn_isEmpty(bbsNoVal)){
+			//게시판가 없을시
+    		return false
     	}else{
     		//게시판 번호
-    		formData.append('bbsNo', bbsNo);
+    		formData.append('bbsNo', bbsNoVal);
     	}
 
         $.ajax({
