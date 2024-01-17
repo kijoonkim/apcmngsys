@@ -549,13 +549,16 @@
 
 	//판매위임 매입 금액 합계 함수
 	function fn_uoSpmtAmtSum(objGrid, nRow, nCol) {
+
+		let gridData01 = objGrid.getGridDataAll();
+		if(gridData01.length == 0) return;
+
 		let slsCnsgnPrchsAmt = objGrid.getColRef("slsCnsgnPrchsAmt");//판매위임 매입 금액
 		let slsCnsgnPrchsAmtVal = objGrid.getCellData(nRow, slsCnsgnPrchsAmt);
 
 		let itemCd = objGrid.getColRef("itemCd");//품목코드
 		let itemCdVal = objGrid.getCellData(nRow, itemCd);
 
-		let gridData01 = objGrid.getGridDataAll();
 		let strSum = 0;
 		for(var i=2; i <= gridData01.length+1; i++ ){
 			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i);
@@ -572,6 +575,10 @@
 
 	//최종 합계 함수
 	function fn_totalTotSum(objGrid, nRow, nCol) {
+
+		let gridData01 = objGrid.getGridDataAll();
+		if(gridData01.length == 0) return;
+
 		let slsCnsgnPrchsAmt = objGrid.getColRef("slsCnsgnPrchsAmt");//판매위임 매입 금액
 		let slsCnsgnSlsAmt = objGrid.getColRef("slsCnsgnSlsAmt");//판매위임 매출 금액
 		let slsCnsgnSlsAmtVal = objGrid.getCellData(nRow, slsCnsgnSlsAmt);
@@ -579,7 +586,6 @@
 		let itemCd = objGrid.getColRef("itemCd");//품목코드
 		let itemCdVal = objGrid.getCellData(nRow, itemCd);
 
-		let gridData01 = objGrid.getGridDataAll();
 		let strSum1 = 0;
 		let strSum2 = 0;
 		let targetRow;

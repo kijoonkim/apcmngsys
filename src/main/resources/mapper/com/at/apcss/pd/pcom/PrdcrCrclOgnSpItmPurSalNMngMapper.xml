@@ -67,7 +67,7 @@ FROM
 	) TOT
 WHERE 1=1
  AND UOFA.BRNO = TOT.BRNO(+)
- AND UOFA.ITEM_CD = ITEM.ITEM_CD(+)
+ AND ITEM.ITEM_CD = UOFA.ITEM_CD(+)
 --=='6' AS TYPE_SE_NO===통합조직 직속 생산자조직 소계======================================
 UNION ALL
 
@@ -228,7 +228,7 @@ FROM
 	) TOT
 WHERE 1=1
  AND UOFA.BRNO = TOT.ISO_BRNO(+)
- AND UOFA.ITEM_CD = ITEM.ITEM_CD(+)
+ AND ITEM.ITEM_CD = UOFA.ITEM_CD(+)
 --=='6' AS TYPE_SE_NO===통합조직 직속 생산자조직 소계======================================
 UNION ALL
 

@@ -601,14 +601,16 @@
 	//통합조직 이외 출하 합계 함수
 	function fn_totSum(objGrid, nRow, nCol) {
 		console.log("==========fn_uoSpmtAmtSum=======");
+
+		let gridData01 = objGrid.getGridDataAll();
+		if(gridData01.length == 0) return;
+
 		let slsCnsgnPrchsAmt = objGrid.getColRef("slsCnsgnPrchsAmt");//판매 위임 매입
 		let uoSpmtAmt = objGrid.getColRef("uoSpmtAmt");//통합 이외 출하
 		let uoOtherSpmtAmt = objGrid.getColRef("uoOtherSpmtAmt");//통합 이외 출하
-		let uoSpmtAmtVal = objGrid.getCellData(Number(nRow), uoSpmtAmt);
 		let itemCd = objGrid.getColRef("itemCd");//품목코드
 		let itemCdVal = objGrid.getCellData(Number(nRow), itemCd);
 
-		let gridData01 = objGrid.getGridDataAll();
 		let strSum1 = 0;
 		let strSum2 = 0;
 		let strSum3 = 0;
@@ -635,6 +637,10 @@
 	//판매위임 매입 금액 합계 함수
 	function fn_totalTotSum(objGrid, nRow, nCol) {
 		console.log("==========fn_totalTotSum=======");
+
+		let gridData01 = objGrid.getGridDataAll();
+		if(gridData01.length == 0) return;
+
 		let slsCnsgnPrchsAmt = objGrid.getColRef("slsCnsgnPrchsAmt");//판매위임 매입 금액
 		let uoSpmtAmt = objGrid.getColRef("uoSpmtAmt");//통합 출하
 		let uoOtherSpmtAmt = objGrid.getColRef("uoOtherSpmtAmt");//통합 이외 출하
@@ -644,7 +650,6 @@
 		let itemCd = objGrid.getColRef("itemCd");//품목코드
 		let itemCdVal = objGrid.getCellData(Number(nRow), itemCd);
 
-		let gridData01 = objGrid.getGridDataAll();
 		let strSum1 = 0;
 		let strSum2 = 0;
 		let strSum3 = 0;
