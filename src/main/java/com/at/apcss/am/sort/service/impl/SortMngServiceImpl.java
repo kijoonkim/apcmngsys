@@ -1239,6 +1239,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 				SortInptPrfmncVO sortInptVO = new SortInptPrfmncVO();
 				BeanUtils.copyProperties(sortMngVO, sortInptVO);
 				sortInptVO.setWrhsno(inpt.getWrhsno());
+				sortInptVO.setInptSn(inpt.getInptSn());
 
 				rtnObj = sortInptPrfmncService.deleteSortInptPrfmnc(sortInptVO);
 				if (rtnObj != null) {

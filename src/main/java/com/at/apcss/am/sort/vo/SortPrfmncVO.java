@@ -60,6 +60,13 @@ public class SortPrfmncVO extends ComVO {
 	private String inptYmd;
 	private String inptYmdFrom;
 	private String inptYmdTo;
+	
+	/**
+	 * 투입순번
+	 */
+	private int inptSn;
+
+	
 	/**
 	 * 설비코드
 	 */
