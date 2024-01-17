@@ -60,6 +60,27 @@ public class SpmtPrfmncController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	// 출하실적 집계조회
+		@PostMapping(value = "/am/spmt/selectSpmtPrfmncTotalList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+		public ResponseEntity<HashMap<String, Object>> selectSpmtPrfmncTotalList(@RequestBody SpmtPrfmncVO SpmtPrfmncVO, HttpServletRequest request) throws Exception {
+
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			List<SpmtPrfmncVO> resultList = new ArrayList<>();
+			try {
+				resultList = spmtPrfmncService.selectSpmtPrfmncTotalList(SpmtPrfmncVO);
+			} catch (Exception e) {
+				logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+				return getErrorResponseEntity(e);
+			} finally {
+				HashMap<String, Object> rtnObj = setMenuComLog(request);
+				if (rtnObj != null) {
+					return getErrorResponseEntity(rtnObj);
+				}
+			}
+			resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+			return getSuccessResponseEntity(resultMap);
+		}
+
 
 	// 출하실적 등록
 	@PostMapping(value = "/am/spmt/insertSpmtPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
@@ -91,7 +112,7 @@ public class SpmtPrfmncController extends BaseController {
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	// 출하실적 등록 태블릿
 	@PostMapping(value = "/am/spmt/insertSpmtPrfmncTabletList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> insertSpmtPrfmncTabletList(@RequestBody List<SpmtPrfmncVO> SpmtPrfmncList, HttpServletRequest request) throws Exception {
@@ -122,7 +143,7 @@ public class SpmtPrfmncController extends BaseController {
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	// 출하반품 등록
 	@PostMapping(value = "/am/spmt/insertRtnSpmtPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> insertRtnSpmtPrfmncList(@RequestBody List<SpmtPrfmncVO> SpmtPrfmncList, HttpServletRequest request) throws Exception {

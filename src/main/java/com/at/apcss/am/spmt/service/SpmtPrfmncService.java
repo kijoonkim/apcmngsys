@@ -38,6 +38,14 @@ public interface SpmtPrfmncService {
 	public List<SpmtPrfmncVO> selectSpmtPrfmncList(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
 
 	/**
+	 * 출하실적 목록 집계조회
+	 * @param spmtPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SpmtPrfmncVO> selectSpmtPrfmncTotalList(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+
+	/**
 	 * 출하실적 공통 등록
 	 * @param spmtPrfmncVO
 	 * @return
@@ -92,7 +100,7 @@ public interface SpmtPrfmncService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertSpmtPrfmncList(List<SpmtPrfmncVO> spmtPrfmnc) throws Exception;
-	
+
 	/**
 	 * 출하실적 등록 태블릿
 	 * @param List<SpmtPrfmncVO>
@@ -100,7 +108,7 @@ public interface SpmtPrfmncService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertSpmtPrfmncTabletList(List<SpmtPrfmncVO> spmtPrfmnc) throws Exception;
-	
+
 	/**
 	 * 출하반품 등록
 	 * @param List<SpmtPrfmncVO>

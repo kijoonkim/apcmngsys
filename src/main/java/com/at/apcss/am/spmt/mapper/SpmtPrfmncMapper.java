@@ -48,6 +48,14 @@ public interface SpmtPrfmncMapper {
 	public List<SpmtPrfmncVO> selectSpmtPrfmncList(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
 
 	/**
+	 * 출하실적 목록 집계조회
+	 * @param spmtPrfmncVO
+	 * @return List<SpmtPrfmncVO>
+	 * @throws Exception
+	 */
+	public List<SpmtPrfmncVO> selectSpmtPrfmncTotalList(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+
+	/**
 	 * 출하실적 공통 등록
 	 * @param spmtPrfmncVO
 	 * @return
