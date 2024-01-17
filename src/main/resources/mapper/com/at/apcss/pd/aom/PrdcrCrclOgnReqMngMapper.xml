@@ -25,6 +25,7 @@
 			SELECT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectPrdcrCrclOgnReqMng */
 				  CM.APO_CD
 				, CM.APO_SE
+				, CM.WRT_YN
 				, CM.CTPV
 				, CM.SGG
 				, CM.CORP_NM
@@ -140,6 +141,7 @@
 			SELECT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectPrdcrCrclOgnReqMngList */
 				  CM.APO_CD
 				, CM.APO_SE
+				, CM.WRT_YN
 				, CM.CTPV
 				, CM.SGG
 				, CM.CORP_NM
