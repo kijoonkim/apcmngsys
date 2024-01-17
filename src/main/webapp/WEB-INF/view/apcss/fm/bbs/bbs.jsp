@@ -204,10 +204,12 @@
 												</form>
 												 -->
 												 <div id="drop-area">
+												 <c:if test="${loginVO.userType ne '21' && loginVO.userType ne '22'}">
 												    <p>첨부파일을 여기에 드래그 해주세요</p>
 												    <label for="bbsfile" class="custom-file-upload">첨부파일</label>
 												    <input type="file" name="files" id="bbsfile" multiple style="display: none;" accept=".gif , .jpg , .jpeg , .png , .xls , .xlsx">
 												    <input type="file" name="filesa" id="bbsfileList" multiple style="display: none;">
+												 </c:if>
 												    <ul id="org-file-list"></ul>
 												    <ul id="file-list"></ul>
 												</div>
@@ -747,7 +749,7 @@
 
 	//첨부파일 드래그 앤 드랍 구현
     var dropArea = $('#drop-area');
-
+    <c:if test="${loginVO.userType ne '21' && loginVO.userType ne '22'}">
 	dropArea.on('dragover', function (e) {
 	    e.preventDefault();
 	    dropArea.addClass('highlight');
@@ -765,6 +767,7 @@
 	    var files = e.originalEvent.dataTransfer.files;
 	    showFiles(files);
 	});
+	</c:if>
 	//input 변경이벤트
 	$('#bbsfile').on('change', function (e) {
 // 		console.log("change---------");
@@ -810,7 +813,9 @@
 	    	var fileName = realFileList[i].name;
 	        var fileItem = $('<li class="file-item">' +
 	                '<span class="file-name">' + fileName + '</span>' +
+	                <c:if test="${loginVO.userType ne '21' && loginVO.userType ne '22'}">
 	                '<span class="remove-file" onclick="removeFile(' + i + ')">삭제</span>' +
+	                </c:if>
 	                '</li>');
 	        ulList.append(fileItem);
 	    }
