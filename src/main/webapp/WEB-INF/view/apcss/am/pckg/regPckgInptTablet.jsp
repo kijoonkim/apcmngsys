@@ -303,11 +303,11 @@
 	const fn_dtpChange = function(){
 		let inptYmd = SBUxMethod.get("srch-dtp-inptYmd");
 		let toDayYmd = gfn_dateToYmd(new Date());
-		if(gfn_diffDate(toDayYmd, inptYmd) < 0){
-			gfn_comAlert("E0000", "투입일자는 금일 이전으로 등록 할 수 없습니다."); //W0001{0}
-			SBUxMethod.set("srch-dtp-inptYmd", gfn_dateToYmd(new Date()));
-			return;
-		}
+		//if(gfn_diffDate(toDayYmd, inptYmd) < 0){
+		//	gfn_comAlert("E0000", "투입일자는 금일 이전으로 등록 할 수 없습니다."); //W0001{0}
+		//	SBUxMethod.set("srch-dtp-inptYmd", gfn_dateToYmd(new Date()));
+		//	return;
+		//}
 	}
 
 	function fn_createGrid() {
@@ -356,7 +356,7 @@
 			gfn_comAlert("W0002", "투입일자");		//	W0002	{0}을/를 입력하세요.
             return;
 		}
-		
+
 		var getColRef = grdPckgInpt.getColRef("checkedYn");
 		grdPckgInpt.setFixedcellcheckboxChecked(0, getColRef, false);
     	fn_setGrdPckgInpt();
@@ -465,6 +465,7 @@
 		let pckgCmndno = SBUxMethod.get("srch-inp-pckgCmndno");
 
 		let inptYmd = SBUxMethod.get("srch-dtp-inptYmd");
+		let toDayYmd = gfn_dateToYmd(new Date());
 
 		let inptQntt = parseInt(SBUxMethod.get("srch-inp-inptQntt")) || 0;
 		let inptWght = parseInt(SBUxMethod.get("srch-inp-inptWght")) || 0;
@@ -488,6 +489,11 @@
 
 		if (gfn_isEmpty(inptYmd)) {
 			gfn_comAlert("W0005", "투입일자");		//	W0005	{0}이/가 없습니다.
+			return;
+		}
+		if(gfn_diffDate(inptYmd,toDayYmd) > 0){
+			gfn_comAlert("E0000", "투입일자는 금일 이전 등록 할 수 없습니다."); //W0001{0}
+			SBUxMethod.set("dtl-dtp-inptYmd", gfn_dateToYmd(new Date()));
 			return;
 		}
 
