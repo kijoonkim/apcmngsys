@@ -85,7 +85,6 @@
     		  FROM (
     	</if>
 
-    	<![CDATA[
 			SELECT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectInvShipOgnReqMngList */
 				  CM.APO_CD
 				, CM.APO_SE
@@ -130,20 +129,24 @@
 				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
 				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_NM
 				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_EV_APO_UO_CD UO, TB_EV_APO CM, TB_EV_APLY_MNG EAM
+			  FROM TB_EV_APO_UO_CD UO,
+			  		TB_EV_APO CM,
+			  		(SELECT *
+			  			FROM TB_EV_APLY_MNG
+			  			WHERE 1=1
+			  			<if test='yr != null and yr != ""'>
+							AND YR = #{yr}
+						</if>
+			  		) EAM
 			 WHERE 1=1
 			   AND UO.ISO_BRNO = CM.BRNO(+)
 			   AND CM.BRNO = EAM.BRNO(+)
 			   AND CM.BRNO IS NOT NULL
-    	]]>
     		<if test='uoBrno != null and uoBrno != ""'>
 				AND UO.UO_BRNO = #{uoBrno}
 			</if>
 			<if test='isoBrno != null and isoBrno != ""'>
 				AND UO.ISO_BRNO = #{isoBrno}
-			</if>
-			<if test='yr != null and yr != ""'>
-				AND EAM.YR = #{yr}
 			</if>
 
 		<!-- 페이징 -->

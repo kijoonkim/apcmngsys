@@ -21,7 +21,6 @@
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectPrdcrCrclOgnReqMng" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO" resultType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
-    	<![CDATA[
 			SELECT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectPrdcrCrclOgnReqMng */
 				  CM.APO_CD
 				, CM.APO_SE
@@ -84,12 +83,18 @@
 				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
 				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_NM
 				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_EV_APO CM , TB_EV_APLY_MNG EAM
+			  FROM TB_EV_APO CM ,
+			  		(SELECT *
+			  			FROM TB_EV_APLY_MNG
+			  			WHERE 1=1
+			  			<if test='yr != null and yr != ""'>
+						  AND YR = #{yr}
+						</if>
+			  		) EAM
 			 WHERE 1=1
 			   AND CM.BRNO = EAM.BRNO(+)
 			   AND CM.APO_SE IS NOT NULL
 			   AND CM.APO_CD IS NOT NULL
-    	]]>
     		<if test='apoSe != null and apoSe != ""'>
 				AND CM.APO_SE = #{apoSe}
 			</if>
@@ -111,9 +116,7 @@
 			<if test='corpNm != null and corpNm != ""'>
 				AND CM.CORP_NM LIKE '%' || #{corpNm} || '%'
 			</if>
-			<if test='yr != null and yr != ""'>
-				AND EAM.YR = #{yr}
-			</if>
+
 
 		ORDER BY CM.CORP_NM DESC
     </select>
@@ -215,8 +218,8 @@
 			  		, (SELECT *
 			  			FROM TB_EV_APLY_MNG
 			  			WHERE 1=1
-			  			<if test='userType == "21" or userType == "22"'>
-			  		  	  AND YR = TO_CHAR(SYSDATE,'YYYY')
+			  			<if test='yr != null and yr != ""'>
+			  		  	  AND YR = #{yr}
 			  			</if>
 			  			) EAM
 			 WHERE 1=1
@@ -241,9 +244,6 @@
 			</if>
 			<if test='corpNm != null and corpNm != ""'>
 				AND CM.CORP_NM LIKE '%' || #{corpNm} || '%'
-			</if>
-			<if test='yr != null and yr != ""'>
-				AND EAM.YR = #{yr}
 			</if>
 
 		ORDER BY CM.APO_SE ASC , CORP_NM ASC
