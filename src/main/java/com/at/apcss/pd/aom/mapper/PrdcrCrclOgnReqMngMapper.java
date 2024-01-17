@@ -47,4 +47,7 @@ public interface PrdcrCrclOgnReqMngMapper {
 	public List<GpcVO> selectGpcList(GpcVO gpcVO);
 
 	public int deleteGpc(GpcVO gpcVO);
+
+	public int updateCorpDdlnSeCd(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO);
+
 }

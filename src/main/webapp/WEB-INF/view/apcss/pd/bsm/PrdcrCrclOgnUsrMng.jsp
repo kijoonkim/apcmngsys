@@ -916,7 +916,7 @@
 
 		if (!confirm("선택된 유저를 삭제 하시겠습니까?")) return;
 
-		let postJsonPromise = gfn_postJSON("/pd/bsm/deleteUo.do", {
+		let postJsonPromise = gfn_postJSON("/pd/bsm/deletePrdcrCrclOgnUsrMng.do", {
 			userId : userId
 		});
         let data = await postJsonPromise;
@@ -924,6 +924,7 @@
         try{
         	if(data.result > 0){
         		alert("삭제 되었습니다.");
+        		fn_search();
         	}else{
         		alert("삭제 도중 오류가 발생 되었습니다.");
         	}

@@ -34,6 +34,7 @@
 				</c:if>
 				<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
 					<sbux-button id="btnSaveFclt01" name="btnSaveFclt01" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+					<sbux-button id="btnCorpDdlnSeCd" name="btnCorpDdlnSeCd" uitype="normal" text="법인체마감" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCd"></sbux-button>
 				</c:if>
 				</div>
 			</div>
@@ -961,8 +962,8 @@
 <script type="text/javascript">
 
 	window.addEventListener('DOMContentLoaded', function(e) {
-		var now = new Date();
-		var year = now.getFullYear();
+		let now = new Date();
+		let year = now.getFullYear();
 		SBUxMethod.set("srch-input-yr",year);//
 
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
@@ -1290,13 +1291,16 @@
 	const fn_dtlSearch = async function(){
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
-		var now = new Date();
-		var year = now.getFullYear();
+		//사용자는 현재년도만 필요함
+		let now = new Date();
+		let year = now.getFullYear();
 
 		let wrtYn = null;
+		let corpDdlnSeCd = null;
 
     	let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
     		brno : brno
+    		,yr : year
 		});
         let data = await postJsonPromise;
         try{
@@ -1350,17 +1354,8 @@
 				//SBUxMethod.set('dtl-input-aplyTrgtSe',gfn_nvl(item.aplyTrgtSe))//
 
 				wrtYn = item.wrtYn;
-
+				corpDdlnSeCd = item.corpDdlnSeCd;
 			});
-
-        	if(wrtYn != 'Y'){
-        		alert("산지조직관리 작성이 필요합니다.");
-				$(".btn").hide();// 모든 버튼 숨기기
-				$(".sb-area-grdGpcList").hide();
-
-				SBUxMethod.clearAllData();//모든 데이터 클리어
-				return false;
-        	}
 
         	let userType = '${loginVO.userType}';
         	let apoSe = SBUxMethod.get('dtl-input-apoSe');
@@ -1378,6 +1373,51 @@
     			SBUxMethod.clearAllData();//모든 데이터 클리어
     			return false;
     		}
+    		//산지조직관리 신청 확인
+    		if(wrtYn != 'Y'){
+        		alert("산지조직관리 작성이 필요합니다.");
+				$(".btn").hide();// 모든 버튼 숨기기
+				$(".sb-area-grdGpcList").hide();
+
+				SBUxMethod.clearAllData();//모든 데이터 클리어
+				return false;
+        	}
+			//마감 확인
+        	if(corpDdlnSeCd == 'Y'){
+				$(".btn").hide();// 모든 버튼 숨기기
+				//작성란 비활성화
+				SBUxMethod.attr('rdo-aprv','readonly',true);
+				SBUxMethod.attr('dtl-input-rawMtrEnsr','readonly',true);
+
+				SBUxMethod.attr('dtl-input-rawMtrEnsrCnt','readonly',true);
+				SBUxMethod.attr('dtl-input-rawMtrEnsrNm','readonly',true);
+				SBUxMethod.attr('dtl-input-isoHldYn','readonly',true);
+
+				SBUxMethod.attr('dtl-input-untyYn','readonly',true);
+				SBUxMethod.attr('dtl-input-uoNm','readonly',true);
+				SBUxMethod.attr('dtl-input-uoBrno','readonly',true);
+
+				SBUxMethod.attr('dtl-input-untyYr','readonly',true);
+				SBUxMethod.attr('dtl-input-pruoFundAplyAmt','readonly',true);
+
+				return false;
+        	}else{
+        		$(".btn").show();// 모든 버튼 숨기기
+				//작성란 비활성화
+				SBUxMethod.attr('rdo-aprv','readonly',false);
+				SBUxMethod.attr('dtl-input-rawMtrEnsr','readonly',false);
+
+				SBUxMethod.attr('dtl-input-rawMtrEnsrCnt','readonly',false);
+				SBUxMethod.attr('dtl-input-rawMtrEnsrNm','readonly',false);
+				SBUxMethod.attr('dtl-input-isoHldYn','readonly',false);
+
+				SBUxMethod.attr('dtl-input-untyYn','readonly',false);
+				SBUxMethod.attr('dtl-input-uoNm','readonly',false);
+				SBUxMethod.attr('dtl-input-uoBrno','readonly',false);
+
+				SBUxMethod.attr('dtl-input-untyYr','readonly',false);
+				SBUxMethod.attr('dtl-input-pruoFundAplyAmt','readonly',false);
+        	}
 
 			//품목 그리드 조회
 			fn_selectGpcList();
@@ -2224,6 +2264,36 @@
 			dlbrrNope = parseFloat(SBUxMethod.get('dtl-input-dlbrrNope'));
 		}
 		SBUxMethod.set('dtl-input-tot',rgllbrNope + dwNope + dlbrrNope);
+	}
+
+
+	//법인체 마감
+	async function fn_corpDdlnSeCd(){
+		let brno = SBUxMethod.get('dtl-input-brno');
+		//현재년도
+		let now = new Date();
+		let year = now.getFullYear();
+
+		let postJsonPromise = gfn_postJSON("/pd/aom/updateCorpDdlnSeCd.do", {
+			brno : brno
+			,yr : year
+			,corpDdlnSeCd : 'Y'
+		});
+        let data = await postJsonPromise;
+
+        try{
+        	if(data.result > 0){
+        		alert("법인체 마감 되었습니다.");
+        		fn_dtlSearch();
+        	}else{
+        		alert("법인체 마감 도중 오류가 발생 되었습니다.");
+        	}
+        }catch (e) {
+        	if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+		}
 	}
 </script>
 </html>

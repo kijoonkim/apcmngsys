@@ -111,6 +111,7 @@
 
 				, EAM.YR
 				, EAM.APLY_DAY
+				, EAM.CORP_DDLN_SE_CD
 				, EAM.ISO_FUND_APLY_AMT
 				, EAM.APLY_TRGT_SE
 				, EAM.UO_CD
@@ -140,6 +141,9 @@
 			</if>
 			<if test='isoBrno != null and isoBrno != ""'>
 				AND UO.ISO_BRNO = #{isoBrno}
+			</if>
+			<if test='yr != null and yr != ""'>
+				AND EAM.YR = #{yr}
 			</if>
 
 		<!-- 페이징 -->
@@ -251,7 +255,6 @@
 			   SET
 			 	  ISO_FUND_APLY_AMT			= #{isoFundAplyAmt}
 		    	, APLY_TRGT_SE				= #{aplyTrgtSe}
-
     	]]>
 
 			 WHERE 1=1
@@ -261,7 +264,7 @@
 
 	<delete id="deleteInvShipOgnReqMng" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
 		<![CDATA[
-		DELETE FROM TB_EV_APO_UO_CD
+		DELETE FROM TB_EV_APO_UO_CD	/* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.deleteInvShipOgnReqMng */
 		 WHERE ISO_BRNO = #{brno}
 		   AND UO_BRNO = #{uoBrnoDel}
 		]]>

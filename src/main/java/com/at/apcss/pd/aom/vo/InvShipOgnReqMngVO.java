@@ -44,6 +44,7 @@ public class InvShipOgnReqMngVO extends ComVO{
 	private String aplyTrgtSe;
 	private String yr;
 	private String aplyDay;
+	private String corpDdlnSeCd;
 
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;

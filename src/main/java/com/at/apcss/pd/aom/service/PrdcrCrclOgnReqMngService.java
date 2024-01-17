@@ -48,4 +48,6 @@ public interface PrdcrCrclOgnReqMngService {
 
 	public int deleteGpc(GpcVO gpcVO) throws Exception;
 
+	public int updateCorpDdlnSeCd(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception;
+
 }

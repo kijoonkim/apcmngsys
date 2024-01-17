@@ -60,7 +60,7 @@
 
 				, EAM.YR
 				, EAM.APLY_DAY
-
+				, EAM.CORP_DDLN_SE_CD
 				,(CASE WHEN TRIM(RAW_MTR_ENSR_SIGUN_CNT) IS NOT NULL THEN '1'
 						WHEN TRIM(RAW_MTR_ENSR_CTPV_CNT) IS NOT NULL THEN '2'
 						END
@@ -177,6 +177,7 @@
 
 				, EAM.YR
 				, EAM.APLY_DAY
+				, EAM.CORP_DDLN_SE_CD
 				,(CASE WHEN TRIM(RAW_MTR_ENSR_SIGUN_CNT) IS NOT NULL THEN '1'
 						WHEN TRIM(RAW_MTR_ENSR_CTPV_CNT) IS NOT NULL THEN '2'
 						END
@@ -312,7 +313,8 @@
 
 	<delete id="deletePrdcrCrclOgnReqMng" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
 		<![CDATA[
-		DELETE FROM TB_PD_PrdcrCrclOgnVluIdctrMng
+		DELETE 	/* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.deletePrdcrCrclOgnReqMng */
+		FROM TB_PD_PrdcrCrclOgnVluIdctrMng
 		 WHERE TEST_NO 	= #{testNo}
 		]]>
 	</delete>
@@ -517,7 +519,7 @@
 
     <delete id="deleteGpc" parameterType="com.at.apcss.pd.aom.vo.GpcVO">
 		<![CDATA[
-		DELETE FROM TB_EV_APO_YR_GPC_CD
+		DELETE FROM TB_EV_APO_YR_GPC_CD	/* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.deleteGpc */
 		 WHERE BRNO 	= #{brno}
 		   AND ITEM_CD  = #{itemCd}
 		   AND YR		= #{yr}
@@ -525,6 +527,18 @@
 		   AND STTG_UPBR_ITEM_SE	= #{sttgUpbrItemSe}
 		]]>
 	</delete>
+
+	<!-- 법인체마감 -->
+	<update id="updateCorpDdlnSeCd" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
+	    	UPDATE /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.updateBrno */
+	    		TB_EV_APLY_MNG
+			   SET
+			 	  CORP_DDLN_SE_CD	= #{corpDdlnSeCd}
+			 WHERE 1=1
+			   AND BRNO 	= #{brno}
+		   	   AND YR		= #{yr}
+    </update>
+
 </mapper>
 
 

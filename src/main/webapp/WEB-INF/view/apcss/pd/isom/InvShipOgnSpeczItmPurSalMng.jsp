@@ -1101,7 +1101,7 @@
         		comUoBrno.push(uoListVO);
 			});
         	SBUxMethod.refresh('dtl-input-selUoBrno');
-        	console.log(comUoBrno);
+        	//console.log(comUoBrno);
         	if(comUoBrno.length == 1){
 
         	}

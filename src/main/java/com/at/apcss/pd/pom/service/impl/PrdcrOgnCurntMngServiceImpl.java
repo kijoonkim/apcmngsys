@@ -111,6 +111,8 @@ public class PrdcrOgnCurntMngServiceImpl extends BaseServiceImpl implements Prdc
 		int savedCnt = 0;
 		for (TbEvFrmhsApoVO tbEvFrmhsApoVO : tbEvFrmhsApoVOList) {
 			savedCnt += insertTbEvFrmhsApo(tbEvFrmhsApoVO);
+			//생산자조직 품목,취급유형,전문육성구분 수정
+			updateTbEvFrmhsPrdctnEcSpmtSttnApo(tbEvFrmhsApoVO);
 		}
 		return savedCnt;
 	}
@@ -123,14 +125,20 @@ public class PrdcrOgnCurntMngServiceImpl extends BaseServiceImpl implements Prdc
 
 	@Override
 	public int deleteTbEvFrmhsApo(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception {
-		int insertedCnt =PrdcrOgnCurntMngMapper.deleteTbEvFrmhsApo(tbEvFrmhsApoVO);
+		int deletedCnt =PrdcrOgnCurntMngMapper.deleteTbEvFrmhsApo(tbEvFrmhsApoVO);
 		PrdcrOgnCurntMngMapper.deleteTbEvFrmhsPrdctnEcSpmtSttnApo(tbEvFrmhsApoVO);
-		return insertedCnt;
+		return deletedCnt;
 	}
 
 	@Override
 	public int deleteTbEvFrmhsPrdctnEcSpmtSttnApo(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception {
-		int insertedCnt = PrdcrOgnCurntMngMapper.deleteTbEvFrmhsPrdctnEcSpmtSttnApo(tbEvFrmhsApoVO);
-		return insertedCnt;
+		int deletedCnt = PrdcrOgnCurntMngMapper.deleteTbEvFrmhsPrdctnEcSpmtSttnApo(tbEvFrmhsApoVO);
+		return deletedCnt;
+	}
+
+	@Override
+	public int updateTbEvFrmhsPrdctnEcSpmtSttnApo(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception {
+		int updatedCnt = PrdcrOgnCurntMngMapper.updateTbEvFrmhsPrdctnEcSpmtSttnApo(tbEvFrmhsApoVO);
+		return updatedCnt;
 	}
 }
