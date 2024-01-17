@@ -2200,10 +2200,13 @@
 		let invstAmt = parseFloat(SBUxMethod.get('dtl-input-invstAmt'));
 		let frmerInvstAmt = parseFloat(SBUxMethod.get('dtl-input-frmerInvstAmt'));
 		let frmerInvstAmtRt = "";
-		if(invstAmt != 0){
+		if(invstAmt != 0 || frmerInvstAmt != 0){
 			frmerInvstAmtRt = frmerInvstAmt / invstAmt * 100
+			SBUxMethod.set('dtl-input-frmerInvstAmtRt',frmerInvstAmtRt.toFixed(2));
+		}else{
+			SBUxMethod.set('dtl-input-frmerInvstAmtRt','');
 		}
-		SBUxMethod.set('dtl-input-frmerInvstAmtRt',frmerInvstAmtRt.toFixed(2));
+
 	}
 	//전체 종사자 수 합계
 	function fn_calTot(){
