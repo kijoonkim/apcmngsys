@@ -27,9 +27,9 @@
 						 -->
 						<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
-						<sbux-button id="btnSaveFclt11" name="btnSaveFclt11" uitype="normal" text="test" class="btn btn-sm btn-outline-danger" onclick="fn_test"></sbux-button>
 					</c:if>
 					<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+						<sbux-button id="btnSearchFclt01" name="btnSearchFclt01" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlSearch"></sbux-button>
 						<sbux-button id="btnSaveFclt01" name="btnSaveFclt01" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 					</c:if>
 				</div>
@@ -1750,7 +1750,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		let gridData = grdUoList.getGridDataAll();
-				if(gridData.length > 1){
+				if(gridData.length > 0){
 					fn_uoListMultiSave();
 				}else{
 					alert("처리 되었습니다.");
@@ -1830,7 +1830,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		try {
 			if (_.isEqual("S", data.resultStatus)) {
 				let gridData = grdUoList.getGridDataAll();
-				if(gridData.length > 1){
+				if(gridData.length > 0){
 					fn_uoListMultiSave();
 				}else{
 					alert("처리 되었습니다.");
@@ -2404,9 +2404,5 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		SBUxMethod.set('dtl-input-tot',rgllbrNope + dwNope + dlbrrNope);
 	}
 
-	function fn_test(){
-		$(".btn").hide();// 모든 버튼 숨기기
-		SBUxMethod.clearAllData();//모든 데이터 클리어
-	}
 </script>
 </html>

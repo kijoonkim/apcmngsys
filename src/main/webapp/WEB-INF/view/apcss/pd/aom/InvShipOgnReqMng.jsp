@@ -290,11 +290,11 @@
 				</div>
 			</c:if>
 				<div class="ad_tbl_top">
-						<ul class="ad_tbl_count">
-							<li>
-								<span style="font-size:14px">▶출자출하조직 상세내역</span>
-							</li>
-						</ul>
+					<ul class="ad_tbl_count">
+						<li>
+							<span style="font-size:14px">▶출자출하조직 상세내역</span>
+						</li>
+					</ul>
 				</div>
 				<table class="table table-bordered tbl_fixed">
 					<caption>출자출하조직 등록 및 신청</caption>
@@ -1056,8 +1056,8 @@
         		$(".btn").hide();// 모든 버튼 숨기기
     			SBUxMethod.clearAllData();//모든 데이터 클리어
     			//하위 출자출하조직 그리드 데이터 제거
-    			jsonInvShipOgnReqMng01.length = 0;
-    			grdInvShipOgnReqMng01.rebuild();
+    			$(".ad_section_top").hide();
+
 				return false;
         	}
 

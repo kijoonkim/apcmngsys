@@ -890,7 +890,7 @@
 				}
 				//모든데이터 저장 처리
 				rowData.rowSts = "I";
-				gpcList.push(rowData);
+				saveList.push(rowData);
 				/*
 				if (rowSts === 3){
 					rowData.rowSts = "I";

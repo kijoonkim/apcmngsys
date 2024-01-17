@@ -70,7 +70,7 @@ FROM
 	) TOT
 WHERE 1=1
  AND UOFA.BRNO = TOT.BRNO(+)
- AND UOFA.ITEM_CD = ITEM.ITEM_CD(+)
+ AND ITEM.ITEM_CD = UOFA.ITEM_CD(+)
 
  --=='6' AS TYPE_SE_NO===통합조직 직속 생산자조직 소계======================================
 UNION ALL
@@ -225,13 +225,12 @@ FROM
 			) AS SPMT_PRC_TOT
 		FROM TB_EV_FRMHS_APO FA
 		WHERE FA.BRNO = #{brno}
-		  --AND UO_BRNO =
 		  --AND FA.STBLT_YN = 'Y'  --적합여부 추후 추가
 	)  UOFA ,
 	(SELECT ITEM_CD , YR
 		FROM TB_EV_APO_YR_GPC_CD
 		WHERE BRNO = #{uoBrno}
-		AND YR = #{yr}
+		  AND YR = #{yr}
 	) ITEM ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
@@ -241,7 +240,7 @@ FROM
 	) TOT
 WHERE 1=1
  AND UOFA.BRNO = TOT.BRNO(+)
- AND UOFA.ITEM_CD = ITEM.ITEM_CD(+)
+ AND ITEM.ITEM_CD = UOFA.ITEM_CD(+)
 
  --=='6' AS TYPE_SE_NO===통합조직 직속 생산자조직 소계======================================
 UNION ALL

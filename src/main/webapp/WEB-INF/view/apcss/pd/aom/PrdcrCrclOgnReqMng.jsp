@@ -606,7 +606,7 @@
 							</li>
 						</ul>
 				</div>
-				<div>
+				<div class="sb-area-grdGpcList">
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdGpcList" style="height:200px; width: 100%;"></div>
 				</div>
@@ -1356,7 +1356,8 @@
         	if(wrtYn != 'Y'){
         		alert("산지조직관리 작성이 필요합니다.");
 				$(".btn").hide();// 모든 버튼 숨기기
-				$(".uoList").hide();
+				$(".sb-area-grdGpcList").hide();
+
 				SBUxMethod.clearAllData();//모든 데이터 클리어
 				return false;
         	}
