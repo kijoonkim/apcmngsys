@@ -1204,23 +1204,6 @@
 				corpDdlnSeCd = item.corpDdlnSeCd;
 			});
 
-        	let userType = '${loginVO.userType}';
-        	let apoSe = SBUxMethod.get('dtl-input-apoSe');
-        	if(userType == '21'){
-    			userType = '1'
-    		}else if(userType == '22'){
-    			userType = '2'
-    		}
-    		//유저 권한과 데이터가 맞지 않는 경우 오류 처리
-    		if(userType != apoSe){
-    			alert("해당 계정의 권한과 기존데이터의 타입이 맞지 않습니다"+
-    					"\n관리자에게 문의 해주세요");
-    			$(".btn").hide();// 모든 버튼 숨기기
-    			$(".uoList").hide();
-    			SBUxMethod.clearAllData();//모든 데이터 클리어
-    			return false;
-    		}
-
 			//산지조직신청 확인
     		if(wrtYn != 'Y'){
         		alert("산지조직관리 작성이 필요합니다.");
