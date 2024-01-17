@@ -255,7 +255,7 @@
 						<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
 							<td colspan="6" class="td_input" style="border-right: hidden;" ></td>
 						</c:if>
-							<th scope="row" class="th_bg"><span class="data_required" ></span>관할기관</th>
+							<th scope="row" class="th_bg">관할기관</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-select
 									id="dtl-input-cmptncInst"
@@ -782,12 +782,14 @@
 	function fn_checkRequiredInput(){
 		console.log("============fn_checkRequiredInput==============");
 
-
+		//관할기관 필수로 할필요 없음
+		/*
 		let cmptncInst = SBUxMethod.get("dtl-input-cmptncInst");
 		if(gfn_isEmpty(cmptncInst)){
 			gfn_comAlert("W0002", "관할기관");
 			return false;
 		}
+		*/
     	let userType = SBUxMethod.get("dtl-input-userType");
 		if(gfn_isEmpty(userType)){
 			gfn_comAlert("W0002", "권한");
