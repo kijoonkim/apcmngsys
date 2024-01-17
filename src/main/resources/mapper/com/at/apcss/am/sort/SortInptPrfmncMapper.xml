@@ -79,6 +79,7 @@
 	    	SELECT /* com.at.apcss.am.sort.mapper.SortInptPrfmncMapper.selectSortInptCnclList */
 				  SIP.APC_CD	AS APC_CD
 				, SIP.WRHSNO	AS WRHSNO
+				, SIP.INPT_SN	AS INPT_SN
 				, SIP.INPT_YMD	AS INPT_YMD
 				, SIP.QNTT		AS QNTT
 				, SIP.WGHT		AS WGHT
