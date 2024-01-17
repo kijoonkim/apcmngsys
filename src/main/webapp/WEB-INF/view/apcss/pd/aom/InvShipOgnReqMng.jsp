@@ -38,6 +38,7 @@
 					</c:if>
 					<c:if test="${loginVO.userType eq '22'}">
 					<sbux-button id="btnSearchFclt02" name="btnSearchFclt02" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlSearch02"></sbux-button>
+					<sbux-button id="btnCorpDdlnSeCd" name="btnCorpDdlnSeCd" uitype="normal" text="법인체마감" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCd"></sbux-button>
 					</c:if>
 					<sbux-button id="btnSaveFclt01" name="btnSaveFclt01" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 				</c:if>
@@ -336,6 +337,7 @@
 								<sbux-input uitype="hidden" id="dtl-input-uoBrno" name="dtl-input-uoBrno"></sbux-input>
 								<sbux-input uitype="hidden" id="dtl-input-uoCd" name="dtl-input-uoCd"></sbux-input>
 								<sbux-input uitype="hidden" id="dtl-input-yr" name="dtl-input-yr"></sbux-input>
+								<sbux-input uitype="hidden" id="dtl-input-corpDdlnSeCd" name="dtl-input-corpDdlnSeCd"></sbux-input>
 								<sbux-input
 									uitype="text"
 									id="dtl-input-crno"
@@ -1090,10 +1092,15 @@
 	//출자출하조직 조회
 	const fn_dtlSearch01 = async function(){
 		let brno = '${loginVO.brno}';
+		//현재년도
+		let now = new Date();
+		let year = now.getFullYear();
+
 		if(gfn_isEmpty(brno)) return;
 
 		let postJsonPromise = gfn_postJSON("/pd/aom/selectInvShipOgnReqMngList.do", {
 			uoBrno : brno
+			,yr : year
 		});
 	    let data = await postJsonPromise;
 	    try{
@@ -1103,6 +1110,7 @@
 				let InvShipOgnReqMngVO = {
 						apoCd: item.apoCd
 						,corpNm: item.corpNm
+						,corpDdlnSeCd: item.corpDdlnSeCd
 						,rprsvFlnm: item.rprsvFlnm
 						,brno: item.brno
 						,uoBrno: item.uoBrno
@@ -1148,12 +1156,18 @@
 	//출자출하조직 조회
 	const fn_dtlSearch02 = async function(){
 		let brno = '${loginVO.brno}';
+		//현재년도
+		let now = new Date();
+		let year = now.getFullYear();
+
 		if(gfn_isEmpty(brno)) return;
 
 		let wrtYn = null;
+		let corpDdlnSeCd = null;
 
 		let postJsonPromise = gfn_postJSON("/pd/aom/selectInvShipOgnReqMngList.do", {
 			isoBrno : brno
+			,yr : year
 		});
         let data = await postJsonPromise;
         try{
@@ -1164,7 +1178,9 @@
 				SBUxMethod.set("dtl-input-apoSe", item.apoSe);
 				SBUxMethod.set("dtl-input-crno", item.crno);
 				SBUxMethod.set("dtl-input-brno", item.brno);
+				SBUxMethod.set("dtl-input-uoBrno", item.uoBrno);
 				SBUxMethod.set("dtl-input-corpNm", item.corpNm);
+				SBUxMethod.set("dtl-input-corpDdlnSeCd", item.corpDdlnSeCd);//법인체 마감
 				SBUxMethod.set("dtl-input-corpSeCd", item.corpSeCd);
 				SBUxMethod.set("dtl-input-corpDtlSeCd", item.corpDtlSeCd);
 				SBUxMethod.set("dtl-input-corpFndnDay", item.corpFndnDay);
@@ -1183,16 +1199,10 @@
 				SBUxMethod.set("dtl-input-isoFundAplyAmt", item.isoFundAplyAmt);
 
 				SBUxMethod.set("dtl-input-frmerInvstAmtRt", item.frmerInvstAmtRt);
-				wrtYn = item.wrtYn;
-			});
 
-        	if(wrtYn != 'Y'){
-        		alert("산지조직관리 작성이 필요합니다.");
-				$(".btn").hide();// 모든 버튼 숨기기
-				$(".uoList").hide();
-				SBUxMethod.clearAllData();//모든 데이터 클리어
-				return false;
-        	}
+				wrtYn = item.wrtYn;
+				corpDdlnSeCd = item.corpDdlnSeCd;
+			});
 
         	let userType = '${loginVO.userType}';
         	let apoSe = SBUxMethod.get('dtl-input-apoSe');
@@ -1211,8 +1221,32 @@
     			return false;
     		}
 
-        	//출자출하조직 사용자 화면에서는 그리드 선택하는 과정이 없어 추가
-			fn_searchUoList();
+			//산지조직신청 확인
+    		if(wrtYn != 'Y'){
+        		alert("산지조직관리 작성이 필요합니다.");
+				$(".btn").hide();// 모든 버튼 숨기기
+				$(".uoList").hide();
+				SBUxMethod.clearAllData();//모든 데이터 클리어
+				return false;
+        	}
+
+    		//출자출하조직 사용자 화면에서는 그리드 선택하는 과정이 없어 추가
+			await fn_searchUoList();
+			let uoBrno = SBUxMethod.get("dtl-input-uoBrno");
+			await SBUxMethod.set("dtl-input-selUoBrno", uoBrno);
+
+    		//마감 확인
+    		console.log('corpDdlnSeCd = ' +corpDdlnSeCd);
+        	if(corpDdlnSeCd == 'Y'){
+        		$(".btn").hide();// 모든 버튼 숨기기
+        		SBUxMethod.attr('dtl-input-selUoBrno','readonly',true);
+        		SBUxMethod.attr('dtl-input-isoFundAplyAmt','readonly',true);
+        	}else{
+        		$(".btn").show();// 모든 버튼 보이게
+        		SBUxMethod.attr('dtl-input-selUoBrno','readonly',false);
+        		SBUxMethod.attr('dtl-input-isoFundAplyAmt','readonly',false);
+        	}
+
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -1251,7 +1285,7 @@
         		comUoBrno.push(uoListVO);
 			});
         	SBUxMethod.refresh('dtl-input-selUoBrno');
-        	console.log(comUoBrno);
+        	//console.log(comUoBrno);
         	if(comUoBrno.length == 1){
 
         	}
@@ -1284,6 +1318,9 @@
      */
     const fn_save = async function() {
     	console.log("******************fn_save**********************************");
+
+    	let brno = SBUxMethod.get('dtl-input-brno')//
+    	if(gfn_isEmpty(brno)) return;
 
     	//필수값 체크
     	if(!fn_checkRequiredInput()){
@@ -1501,7 +1538,6 @@
     }
 
 	//출자출하조직 상세 조회
-	//function fn_view01() {
 	const fn_view01 = async function(){
 		console.log("******************fn_view**********************************");
 
@@ -1551,6 +1587,16 @@
 		SBUxMethod.set("dtl-input-uoBrno", rowData.uoBrno);
 		await fn_searchUoList();
 		await SBUxMethod.set("dtl-input-selUoBrno", rowData.uoBrno);
+
+		if(rowData.corpDdlnSeCd == 'Y'){
+			$(".btn").hide();// 모든 버튼 숨기기
+			SBUxMethod.attr('dtl-input-selUoBrno','readonly',true);
+			SBUxMethod.attr('dtl-input-isoFundAplyAmt','readonly',true);
+		}else{
+			$(".btn").show();// 모든 버튼 숨기기
+			SBUxMethod.attr('dtl-input-selUoBrno','readonly',false);
+			SBUxMethod.attr('dtl-input-isoFundAplyAmt','readonly',false);
+		}
 
     }
 
@@ -1669,6 +1715,33 @@
         }
     }
 
+	//법인체 마감
+	async function fn_corpDdlnSeCd(){
+		let brno = SBUxMethod.get('dtl-input-brno');
+		//현재년도
+		let now = new Date();
+		let year = now.getFullYear();
 
+		let postJsonPromise = gfn_postJSON("/pd/aom/updateCorpDdlnSeCd.do", {
+			brno : brno
+			,yr : year
+			,corpDdlnSeCd : 'Y'
+		});
+        let data = await postJsonPromise;
+
+        try{
+        	if(data.result > 0){
+        		alert("법인체 마감 되었습니다.");
+        		fn_dtlSearch02();
+        	}else{
+        		alert("법인체 마감 도중 오류가 발생 되었습니다.");
+        	}
+        }catch (e) {
+        	if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+		}
+	}
 </script>
 </html>

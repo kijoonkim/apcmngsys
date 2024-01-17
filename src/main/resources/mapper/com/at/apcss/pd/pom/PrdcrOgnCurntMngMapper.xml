@@ -612,7 +612,7 @@
 
 	<insert id="insertTbEvFrmhsApo" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
     	<![CDATA[
-    	MERGE INTO TB_EV_FRMHS_APO CLT  /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertTbEvFrmhsApo */
+    	MERGE INTO TB_EV_FRMHS_APO CLT  /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.insertTbEvFrmhsApo */
 		USING DUAL
 			ON (
 					CLT.APO_CD  = #{apoCd}
@@ -700,17 +700,28 @@
 		   			)
     	]]>
     </insert>
+    <update id="updateTbEvFrmhsPrdctnEcSpmtSttnApo" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
+	    	UPDATE /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.updateTbEvFrmhsPrdctnEcSpmtSttnApo */
+	    		TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN
+			   SET
+			 	  ITEM_CD				= #{itemCd}
+			 	, TRMT_TYPE				= #{trmtType}
+			 	, STTG_UPBR_ITEM_SE		= #{sttgUpbrItemSe}
+			 WHERE 1=1
+			   AND PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
+		   	   AND YR				= #{yr}
+    </update>
 
 	<delete id="deleteTbEvFrmhsApo" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
 		<![CDATA[
-		DELETE FROM TB_EV_FRMHS_APO
+		DELETE FROM TB_EV_FRMHS_APO	/* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.deleteTbEvFrmhsApo */
 		 WHERE PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
 		   AND YR				= #{yr}
 		]]>
 	</delete>
 	<delete id="deleteTbEvFrmhsPrdctnEcSpmtSttnApo" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
 		<![CDATA[
-		DELETE FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN
+		DELETE FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN	/* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.deleteTbEvFrmhsPrdctnEcSpmtSttnApo */
 		 WHERE PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
 		   AND YR				= #{yr}
 		]]>

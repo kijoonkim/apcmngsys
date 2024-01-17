@@ -190,4 +190,21 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 			return getSuccessResponseEntity(resultMap);
 		}
 
+		//법인체 마감
+		@PostMapping(value = "/pd/aom/updateCorpDdlnSeCd.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> updateCorpDdlnSeCd(@RequestBody PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO, HttpServletRequest request) throws Exception {
+			logger.debug("/pd/aom/updateCorpDdlnSeCd >>> 호출 >>> ");
+
+			int result = 0;
+			try {
+				result =+ PrdcrCrclOgnReqMngService.updateCorpDdlnSeCd(PrdcrCrclOgnReqMngVO);
+			}catch (Exception e) {
+				return getErrorResponseEntity(e);
+			}
+
+			HashMap<String,Object> resultMap = new HashMap<String,Object>();
+			resultMap.put("result", result);
+			return getSuccessResponseEntity(resultMap);
+		}
+
 }

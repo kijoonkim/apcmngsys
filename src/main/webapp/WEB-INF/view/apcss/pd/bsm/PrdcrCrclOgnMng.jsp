@@ -1750,6 +1750,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		let gridData = grdUoList.getGridDataAll();
+        		console.log(gridData.length);
 				if(gridData.length > 0){
 					fn_uoListMultiSave();
 				}else{
@@ -1826,26 +1827,33 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
 		const data = await postJsonPromise;
 		console.log("update result", data);
+		console.log(data.resultStatus);
 
 		try {
 			if (_.isEqual("S", data.resultStatus)) {
-				let gridData = grdUoList.getGridDataAll();
-				if(gridData.length > 0){
-					fn_uoListMultiSave();
+				let apoSe = SBUxMethod.get('dtl-input-apoSe')//
+				if(apoSe == '2'){
+					let gridData = grdUoList.getGridDataAll();
+					if(gridData.length > 0){
+						fn_uoListMultiSave();
+					}else{
+						alert("처리 되었습니다.");
+					<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+						fn_search();
+					</c:if>
+					<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+						fn_dtlSearch();
+					</c:if>
+					}
 				}else{
 					alert("처리 되었습니다.");
-				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
-					fn_search();
-				</c:if>
-				<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
 					fn_dtlSearch();
-				</c:if>
 				}
 			} else {
 				alert(data.resultMessage);
 			}
 		} catch(e) {
-
+			console.log(data.resultMessage);
 		}
 
    }
@@ -2321,6 +2329,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		if(saveList.length == 0){
 			//출자출하조직이 속한리스트 의 메세지 인데 오해의 소지가 있음
 			//gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
+			gfn_comAlert("I0001") // 변경 대상이 없어도 처리 됬습니다 띄우기로 함
 			return;
 		}
 

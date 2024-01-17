@@ -113,4 +113,9 @@ public class PrdcrCrclOgnReqMngServiceImpl extends BaseServiceImpl implements Pr
 
 		return insertedCnt;
 	}
+
+	@Override
+	public int updateCorpDdlnSeCd(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception {
+		return PrdcrCrclOgnReqMngMapper.updateCorpDdlnSeCd(PrdcrCrclOgnReqMngVO);
+	}
 }
