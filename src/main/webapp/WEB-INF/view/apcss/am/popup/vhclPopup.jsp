@@ -142,6 +142,8 @@
 			this.prvApcCd = _apcCd;
 		},
 		close: function(_vhcl) {
+			this.createGrid();
+			this.search();
 			gfn_closeModal(this.modalId, this.callbackFnc, _vhcl);
 		},
 		createGrid: function(/** {boolean} */ isEditable) {
