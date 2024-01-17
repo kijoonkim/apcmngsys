@@ -856,7 +856,7 @@
 		var userId = SBUxMethod.get("dtl-input-userId");
 		if(gfn_isEmpty(userId)) return;
 
-		if (!confirm("비밀번호 초기화 하시겠습니까?")) return;
+		if (!confirm("비밀번호 초기화 하시겠습니까?\n초기화시 아이디로 비밀번호가 변경됩니다.")) return;
 
 		let postJsonPromise = gfn_postJSON("/co/user/updComUserPwd.do", {
 			userId : userId
