@@ -33,6 +33,7 @@ public interface FarmerInfoService {
 	public FarmerInfoVO selectFarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
 
 	public List<FarmerInfoVO> selectFarmerInfoList(FarmerInfoVO farmerInfoVO) throws Exception;
+	public List<FarmerInfoVO> selectFarmerInfoEvApoList(FarmerInfoVO farmerInfoVO) throws Exception;
 
 	public int insertFarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
 

@@ -27,7 +27,8 @@
 					<sbux-button id="btnSaveFrmBtdt" name="btnSaveFrmBtdt" uitype="normal" text="연계 등록(성명생년월일)" class="btn btn-sm btn-outline-danger" onclick="fn_saveBrdt"></sbux-button>
 					<sbux-button id="btnSaveFrmBcno" name="btnSaveFrmBcno" uitype="normal" text="연계 등록(법인등록번호)" class="btn btn-sm btn-outline-danger" onclick="fn_saveBcno"></sbux-button>
 					<sbux-button id="btnSaveFrmBtdtAll" name="btnSaveFrmBtdtAll" uitype="normal" text="연계 등록(사용자전체)" class="btn btn-sm btn-outline-danger" onclick="fn_saveBrdtAll"></sbux-button>
-					<sbux-button id="btnSaveFrmBcnoAll" name="btnSaveFrmBcnoAll" uitype="normal" text="연계 등록(법인전체)" class="btn btn-sm btn-outline-danger" onclick="fn_saveBcnoAll"></sbux-button>
+					<sbux-button id="btnSaveFrmBcnoAll" name="btnSaveFrmBcnoAll" uitype="normal" text="연계 등록(사용자법인전체)" class="btn btn-sm btn-outline-danger" onclick="fn_saveBcnoAll"></sbux-button>
+					<sbux-button id="btnSaveFrmBcnoDeptAll" name="btnSaveFrmBcnoDeptAll" uitype="normal" text="연계 등록(산지조직법인전체)" class="btn btn-sm btn-outline-danger" onclick="fn_saveBcnoDeptAll"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -702,6 +703,41 @@
 			//let postJsonPromise = gfn_postJSON("/co/cd/multiSaveComCdDtlList.do", saveList);
 			// let postJsonPromise = gfn_postJSON("/fm/farm/multiSaveReleyfarmerInfoList.do", {
 			let postJsonPromise = gfn_postJSON("/fm/farm/multiSaveReleyFarmerInfoJsoneBrdtAllList.do", {
+				test : ""
+	 		});
+	        let data = await postJsonPromise;
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+	        		fn_searchFcltList();
+	        	} else {
+	        		alert(data.resultMessage);
+	        	}
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        }
+
+		}
+	}
+
+	/* 농업인 법인등록번호(전체) 연계 저장*/
+	const fn_saveBcnoDeptAll= async function(){
+		let crno = SBUxMethod.get("srch-inp-bzmCorpNo");
+
+		/* if (gfn_isEmpty(crno)) {
+  			gfn_comAlert("W0002", "법인등록번호");		//	W0002	{0}을/를 입력하세요.
+            return;
+  		} */
+
+		let regMsg = "저장 하시겠습니까?";
+		if(confirm(regMsg)){
+
+			//let postJsonPromise = gfn_postJSON("/co/cd/multiSaveComCdDtlList.do", saveList);
+			// let postJsonPromise = gfn_postJSON("/fm/farm/multiSaveReleyfarmerInfoList.do", {
+			let postJsonPromise = gfn_postJSON("/fm/farm/multiSaveReleyFarmerInfoJsoneBcnoDeptAllList.do", {
 				test : ""
 	 		});
 	        let data = await postJsonPromise;
