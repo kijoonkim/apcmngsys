@@ -33,6 +33,7 @@ public interface FarmerInfoMapper {
 	public FarmerInfoVO selectFarmerInfo(FarmerInfoVO farmerInfoVO);
 
 	public List<FarmerInfoVO> selectFarmerInfoList(FarmerInfoVO farmerInfoVO);
+	public List<FarmerInfoVO> selectFarmerInfoEvApoList(FarmerInfoVO farmerInfoVO);
 
 	public int insertFarmerInfo(FarmerInfoVO farmerInfoVO);
 

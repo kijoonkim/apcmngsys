@@ -122,6 +122,15 @@
 			</if>
 		ORDER BY SYS_LAST_CHG_DT DESC
     </select>
+    <select id="selectFarmerInfoEvApoList" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoVO" resultType="com.at.apcss.fm.farm.vo.FarmerInfoVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.fm.farm.mapper.FarmerInfoMapper.selectFarmerInfoEvApoList */
+				  CRNO
+			  FROM TB_EV_APO
+		   	 WHERE 1=1
+		   	   AND CRNO IS NOT NULL
+    	]]>
+    </select>
 
 
 	<insert id="insertFarmerInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoVO">

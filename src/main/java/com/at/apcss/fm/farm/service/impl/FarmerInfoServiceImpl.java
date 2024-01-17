@@ -52,6 +52,12 @@ public class FarmerInfoServiceImpl extends BaseServiceImpl implements FarmerInfo
 		List<FarmerInfoVO> resultList = farmerInfoMapper.selectFarmerInfoList(farmerInfoVO);
 		return resultList;
 	}
+	@Override
+	public List<FarmerInfoVO> selectFarmerInfoEvApoList(FarmerInfoVO farmerInfoVO) throws Exception {
+
+		List<FarmerInfoVO> resultList = farmerInfoMapper.selectFarmerInfoEvApoList(farmerInfoVO);
+		return resultList;
+	}
 
 	@Override
 	public int insertFarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception {

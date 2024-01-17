@@ -1213,6 +1213,243 @@ System.out.println("birthUrlstr ======================"+birthUrlstr);
 
 
 
+		@PostMapping(value = "/fm/farm/multiSaveReleyFarmerInfoJsoneBcnoDeptAllList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> multiSaveReleyFarmerInfoJsoneBcnoDeptAllList(@RequestBody FarmerInfoVO farmerInfoVO, HttpServletRequest request) throws Exception {
+
+			logger.debug("/fm/farm/multiSaveReleyFarmerInfoJsoneBcnoDeptAllList >>> 농업인 번호 연계호출 jsone >>> ");
+
+			int savedCnt = 0;
+			int result = 0;
+			String frmerSn = "";
+			String crno = "";
+
+
+			HashMap<String,Object> resultMap = new HashMap<String,Object>();
+			List<FarmerInfoVO> resultList = new ArrayList<>();
+
+			try {
+				resultList =  farmerInfoService.selectFarmerInfoEvApoList(farmerInfoVO);
+
+			} catch(Exception e) {
+				return getErrorResponseEntity(e);
+			}
+
+
+//			HashMap<String,Object> resultMap = new HashMap<String,Object>();
+			logger.info("=============multiSaveReleyFarmerInfoJsoneBcnoAllList=========start====");
+
+			int updatedCnt = 0;
+			if (resultList.size() > 0) {
+				for (FarmerInfoVO farmerInfoVOResult : resultList) {
+					if(!farmerInfoVOResult.getCrno().equals("") && !farmerInfoVOResult.getCrno().equals(null)) {
+
+						crno = farmerInfoVOResult.getCrno();
+					}
+
+					try {
+
+
+
+
+
+
+
+
+
+
+
+						if(!crno.equals("") && !crno.equals(null)) {
+							String accessTokenaCrno = "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDkzOTQ2NjksImFwaU5tIjoic2VhcmNoQ29ycEZhcm1lck5vIiwiaXNzIjoiU1lTVEVNIn0.ODINmzO1q93pfyCvsB1r-en3ebWIPOLRfUpfcMGKcbA";
+							String version = "1.0";
+							//String responseType = "xml";
+							String responseType = "json";
+							//String pCrno = farmerInfoVO.getCrno();
+							String pCrno = crno;
+
+							String crnoUrlstr = "https://uni.agrix.go.kr/api/srvc/searchCorpFarmerNo?accessToken="+accessTokenaCrno+"&version="+version+"&responseType="+responseType+"&bzmCorpNo="+pCrno;
+
+
+
+							ObjectMapper objectMapper = new ObjectMapper();
+							String jsonStr = "";
+							//	jsonStr = objectMapper.writeValueAsString(hMap);
+							RestFulService restFulService = new RestFulService();
+							System.out.println("=====================");
+							//Map rtnData = (Map) restFulService.clear().get().contentType(new MediaType(MediaType.APPLICATION_JSON)).baseUrl(url).body(jsonStr).execute().bodyToData(Map.class);
+
+							Map rtnData = (Map) restFulService.clear().get().contentType(new MediaType(MediaType.APPLICATION_JSON)).baseUrl(crnoUrlstr).body(jsonStr).execute().bodyToData(Map.class);
+
+							System.out.println(rtnData);
+							System.out.println("rtnData======20240117=====: "+rtnData);
+							Map<String, Object> mapItems = (Map<String, Object>) rtnData.get("items");
+							if(mapItems != null) {
+								for (String key : mapItems.keySet()) {
+									System.out.println("key = " + key);
+									System.out.println(mapItems.get(key));
+
+									if ("item".equals(key)) {
+										List<Map> list = (List<Map>) mapItems.get(key);
+
+										for (Map<String, String> mapItem : list) {
+
+											for (String key2 : mapItem.keySet()) {
+												System.out.println("key2item key2 ===== " + key2);
+												System.out.println("mapItem.get(key2) ====  "+mapItem.get(key2));
+
+												//key2item key2 ===== frmerSn
+												//mapItem.get(key2) ====  R5JR11
+												if(key2.equals("frmerSn")) {
+													if(mapItem.get(key2) != null) {
+														frmerSn = mapItem.get(key2);
+													}
+												}
+
+
+												//									  savedCnt = apcFarmOgnzInfoService.insertMegerapcFarmOgnzInfoMap(mapItem);
+												//					                  result = apcFarmOgnzInfoService.insertMegerLogapcFarmOgnzInfoMap(mapItem);
+												//server.aaa(m)
+												//mapper.insert
+												//intser into aaa(a, b,c) values(#{brthdy}, #{brthdy2}, #{brthdy})
+											}
+
+											//savedCnt = apcFarmOgnzInfoService.insertMegerApcFarmOgnzInfoMap(mapItem);
+											//result = apcFarmOgnzInfoService.insertMegerLogApcFarmOgnzInfoMap(mapItem);
+
+										}
+									}
+								}
+							}
+
+						}
+
+
+
+
+
+
+
+
+
+
+
+
+						if(!crno.equals("") && !crno.equals(null)) {
+
+
+							String url = "https://uni.agrix.go.kr/api/srvc/farmerInfo?accessToken=eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDcyOTI3NzMsImFwaU5tIjoiZmFybWVySW5mbyIsImlzcyI6IlNZU1RFTSJ9.f9oToC5zUynRzK5zCgu-zgvZNJ0bN-MSzA_FQxtaEPY&version=1.0&responseType=json&frmerSn=AGUN47";
+
+							System.out.println("==========================11");
+
+							System.out.println("==========================1");
+
+							try {
+								//result =+ farmerInfoService.deletefarmerInfo(farmerInfoVO);
+
+								String accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDcyOTI3NzMsImFwaU5tIjoiZmFybWVySW5mbyIsImlzcyI6IlNZU1RFTSJ9.f9oToC5zUynRzK5zCgu-zgvZNJ0bN-MSzA_FQxtaEPY";
+								String version = "1.0";
+								//String responseType = "xml";
+								String responseType = "json";
+//					                String pFrmerSn =  farmerInfoVO.getFrmerSn(); //AGUN47
+								String pFrmerSn =  frmerSn; //AGUN47
+
+								String urlstr = "https://uni.agrix.go.kr/api/srvc/farmerInfo?accessToken="+accessToken+"&version="+version+"&responseType="+responseType+"&frmerSn="+pFrmerSn;
+								System.out.println("urlstr============"+urlstr);
+
+								//HashMap<String, Object> hMap = new HashMap<>();
+								//	hMap.put("frmerSn", "AGUN47");
+
+								ObjectMapper objectMapper = new ObjectMapper();
+								String jsonStr = "";
+								//	jsonStr = objectMapper.writeValueAsString(hMap);
+								RestFulService restFulService = new RestFulService();
+								System.out.println("=====================");
+								//Map rtnData = (Map) restFulService.clear().get().contentType(new MediaType(MediaType.APPLICATION_JSON)).baseUrl(url).body(jsonStr).execute().bodyToData(Map.class);
+
+								Map rtnData = (Map) restFulService.clear().get().contentType(new MediaType(MediaType.APPLICATION_JSON)).baseUrl(urlstr).body(jsonStr).execute().bodyToData(Map.class);
+
+								System.out.println(rtnData);
+								Map<String, Object> mapItems = (Map<String, Object>) rtnData.get("items");
+
+								for (String key : mapItems.keySet()) {
+									System.out.println("key = " + key);
+									System.out.println(mapItems.get(key));
+
+									if ("item".equals(key)) {
+										List<Map> list = (List<Map>) mapItems.get(key);
+
+										for (Map<String, String> mapItem : list) {
+
+											for (String key2 : mapItem.keySet()) {
+												System.out.println("item key2 = " + key2);
+												System.out.println(mapItem.get(key2));
+//													  savedCnt = farmerInfoService.insertMegerfarmerInfoMap(mapItem);
+//									                  result = farmerInfoService.insertMegerLogfarmerInfoMap(mapItem);
+												//server.aaa(m)
+												//mapper.insert
+												//intser into aaa(a, b,c) values(#{brthdy}, #{brthdy2}, #{brthdy})
+											}
+											mapItem.put("sysFrstInptUserId", getUserId());
+											mapItem.put("sysFrstInptPrgrmId", getPrgrmId());
+											mapItem.put("sysLastChgUserId", getUserId());
+											mapItem.put("sysLastChgPrgrmId", getPrgrmId());
+											mapItem.put("saveCd", "AGRIX");
+											savedCnt = farmerInfoService.insertMegerFarmerInfoMap(mapItem);
+											result = farmerInfoService.insertMegerLogFarmerInfoMap(mapItem);
+
+										}
+									}
+								}
+
+							} catch (Exception ex) {
+								ex.printStackTrace();
+							}
+
+
+
+
+						}
+
+
+
+
+
+
+
+
+
+
+					} catch (Exception e) {
+						logger.debug(e.getMessage());
+						return getErrorResponseEntity(e);
+					}
+
+				}
+			}
+
+
+
+
+
+
+
+
+
+
+//			HashMap<String,Object> resultMap = new HashMap<String,Object>();
+			resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
+			resultMap.put("result", result);
+			return getSuccessResponseEntity(resultMap);
+
+
+		}
+
+
+
+
+
+
+
+
 
 
 
