@@ -224,6 +224,7 @@
 								<sbux-input uitype="hidden" id="dtl-input-crno" name="dtl-input-crno"></sbux-input>
 								<sbux-input uitype="hidden" id="dtl-input-uoBrno" name="dtl-input-uoBrno"></sbux-input>
 								<sbux-input uitype="hidden" id="dtl-input-uoCd" name="dtl-input-uoCd"></sbux-input>
+								<sbux-input uitype="hidden" id="dtl-input-yr" name="dtl-input-yr"></sbux-input>
 								<sbux-select
 									id="dtl-input-apoSe"
 									name="dtl-input-apoSe"
@@ -323,6 +324,7 @@
 							<sbux-input uitype="hidden" id="dtl-input-apoSe01" name="dtl-input-apoSe01"></sbux-input>
 							<sbux-input uitype="hidden" id="dtl-input-brno01" name="dtl-input-brno01"></sbux-input>
 							<sbux-input uitype="hidden" id="dtl-input-crno01" name="dtl-input-crno01"></sbux-input>
+							<sbux-input uitype="hidden" id="dtl-input-yr01" name="dtl-input-yr01"></sbux-input>
 							<sbux-input uitype="hidden" id="dtl-input-prdcrOgnzSn" name="dtl-input-prdcrOgnzSn"></sbux-input>
 							<sbux-input uitype="hidden" id="dtl-input-prdcrOgnzCd" name="dtl-input-prdcrOgnzCd"></sbux-input>
 							<sbux-input uitype="hidden" id="dtl-input-sttgUpbrItemSe" name="dtl-input-sttgUpbrItemSe"></sbux-input>
@@ -429,6 +431,16 @@
     <div id="body-modal-imp">
     	<jsp:include page="../../fm/popup/importExcelPopup.jsp"></jsp:include>
     </div>
+    <!-- 프로그래스 로딩바 진행률 관련 -->
+    <sbux-progress id="progOpen" name="progOpen" uitype="bar" indicator-type="load"
+			show-openlayer="true" is-fixed="true"
+			openlayer-title="<span class='empRed'>데이터 로딩 중입니다.</span> 잠시만 기다려 주십시오."
+			>
+		<sbux-progress-bar striped="true" show-motion="true">
+		<sbux-bar valuenow= "50" body-color="#f25c5c"  label="*%" label-style="color:black;font-weight:bold;"></bar>
+		</sbux-progress-bar>
+	</sbux-progress>
+	<sbux-progress id="loadingOpen" name="loadingOpen" uitype="loading" openlayer-title="On Loading..." show-openlayer="true"></sbux-progress>
 </body>
 <script type="text/javascript">
 //생산자조직 등록의 경우
@@ -857,6 +869,7 @@
 		let brno = SBUxMethod.get('dtl-input-brno');
 		let uoBrno = SBUxMethod.get('dtl-input-uoBrno');
 		let uoCd = SBUxMethod.get('dtl-input-uoCd');
+		let yr = SBUxMethod.get('dtl-input-yr');
 
 		for(var i=1; i<=gridData.length; i++ ){
 
@@ -873,6 +886,7 @@
 					rowData.brno = brno;
 					rowData.uoBrno = uoBrno;
 					rowData.uoCd = uoCd;
+					rowData.yr = yr;
 				}
 
 				if (rowSts === 3){
@@ -974,13 +988,13 @@
 		let apoSe = SBUxMethod.get('dtl-input-apoSe01');
 		let crno = SBUxMethod.get('dtl-input-crno01');
 		let brno = SBUxMethod.get('dtl-input-brno01');
+		let yr = SBUxMethod.get('dtl-input-yr01');
 		let itemCd = SBUxMethod.get('dtl-input-itemCd');
 		let trmtType = SBUxMethod.get('dtl-input-trmtType');
 		let sttgUpbrItemSe = SBUxMethod.get('dtl-input-sttgUpbrItemSe');
 		let prdcrOgnzSn = SBUxMethod.get('dtl-input-prdcrOgnzSn');
 		let prdcrOgnzCd = SBUxMethod.get('dtl-input-prdcrOgnzCd');
 		let prdcrOgnzNm = SBUxMethod.get('dtl-input-prdcrOgnzNm');
-		let yr = SBUxMethod.get('dtl-input-yr');
 		//let prdcrOgnzCd = SBUxMethod.get('dtl-input-prdcrOgnzCd');
 
 		for(var i=1; i<=gridData.length; i++ ){
@@ -997,6 +1011,7 @@
 					rowData.apoSe = apoSe;
 					rowData.crno = crno;
 					rowData.brno = brno;
+					rowData.brno = yr;
 					rowData.itemCd = itemCd;
 					rowData.trmtType = trmtType;
 					rowData.prdcrOgnzSn = prdcrOgnzSn;
@@ -1205,19 +1220,20 @@
 		}
 
 		let rowData = grdPrdcrOgnCurntMng.getRowData(nRow);
-		console.log(rowData);
+		//console.log(rowData);
 		SBUxMethod.set('dtl-input-apoCd',gfn_nvl(rowData.apoCd))//통합조직 코드
 		SBUxMethod.set('dtl-input-apoSe',gfn_nvl(rowData.apoSe))//통합조직 구분
 		SBUxMethod.set('dtl-input-corpNm',gfn_nvl(rowData.corpNm))//법인명
 		SBUxMethod.set('dtl-input-crno',gfn_nvl(rowData.crno))//법인등록번호
 		SBUxMethod.set('dtl-input-brno',gfn_nvl(rowData.brno))//사업자등록번호
+		SBUxMethod.set('dtl-input-yr',gfn_nvl(rowData.yr))//사업자등록번호
 		//통합조직 일 때 통합조직 선택 콤보 초기화 및 비활성하
-		console.log(rowData.apoSe);
+		//console.log(rowData.apoSe);
+		SBUxMethod.set('dtl-input-selUoBrno' , null);
+		SBUxMethod.set('dtl-input-uoBrno' , null);
+		SBUxMethod.set('dtl-input-uoCd' , null);
 		if(rowData.apoSe == '1'){
 			SBUxMethod.attr('dtl-input-selUoBrno','readonly',true);
-			SBUxMethod.set('dtl-input-selUoBrno' , null);
-			SBUxMethod.set('dtl-input-uoBrno' , null);
-			SBUxMethod.set('dtl-input-uoCd' , null);
 		}else if(rowData.apoSe == '2'){
 			SBUxMethod.attr('dtl-input-selUoBrno','readonly',false);
 			fn_searchUoList();
@@ -1238,7 +1254,7 @@
 		<c:if test="${loginVO.userType eq '22'}">
 		let brno = '${loginVO.brno}';
 		</c:if>
-
+		SBUxMethod.openProgress("loadingOpen");
     	let postJsonPromise = gfn_postJSON("/pd/bsm/selectUoList.do", {
 			brno : brno
 		});
@@ -1260,6 +1276,7 @@
         	if(comUoBrno.length == 1){
 
         	}
+        	SBUxMethod.closeProgress("loadingOpen");
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -1322,7 +1339,7 @@
 		}
 
 		let rowData = grdPrdcrOgnCurntMng01.getRowData(nRow);
-		console.log(rowData.delYn);
+		console.log(rowData.yr);
 		/*
 		if(gfn_isEmpty(rowData.delYn)){
 			return;
@@ -1333,6 +1350,7 @@
 		SBUxMethod.set('dtl-input-apoSe01',gfn_nvl(rowData.apoSe))//통합조직 구분
 		SBUxMethod.set('dtl-input-crno01',gfn_nvl(rowData.crno))//법인등록번호
 		SBUxMethod.set('dtl-input-brno01',gfn_nvl(rowData.brno))//사업자등록번호
+		SBUxMethod.set('dtl-input-yr01',gfn_nvl(rowData.yr))//등록년도
 		SBUxMethod.set('dtl-input-prdcrOgnzSn',gfn_nvl(rowData.prdcrOgnzSn))//생산자조직 순번
 		SBUxMethod.set('dtl-input-prdcrOgnzNm',gfn_nvl(rowData.prdcrOgnzNm))//생산자조직 명
 		SBUxMethod.set('dtl-input-prdcrOgnzCd',gfn_nvl(rowData.prdcrOgnzCd))//생산자조직 코드
@@ -1347,6 +1365,7 @@
 	async function fn_clearForm01() {
 		jsonPrdcrOgnCurntMng02.length= 0;
 		grdPrdcrOgnCurntMng02.rebuild();
+        jsonExpUpload.length = 0;
 	}
 
 	//생산자조직 리스트 조회
@@ -1681,10 +1700,16 @@
 		let prdcrOgnzNm = SBUxMethod.get('dtl-input-prdcrOgnzNm');
 		let yr = SBUxMethod.get('dtl-input-yr');
 
- 		for ( let iRow = 2; iRow < impData.length+2; iRow++ ) {
+		let regMsg = "기존데이터를 삭제 처리 하시겠습니까?";
+		if(confirm(regMsg)){
+			//농가리스트 삭제 처리
+			await fn_cltbtnSnDeleteRsrc(prdcrOgnzSn , yr);
+		}
+
+ 		for ( let iRow = 2; iRow <= impData.length+1; iRow++ ) {
 
  			const rowData = _grdImp.getRowData(iRow);
-
+			console.log(rowData);
  			// validation check
  	    	if (gfn_isEmpty(rowData.flnm)) {
  	    		gfn_comAlert("W0002", "성명");		//	W0002	{0}을/를 입력하세요.
@@ -1833,7 +1858,7 @@
 	        // 숫자인 경우
 	        const inputString = input.toString();
 	        if (inputString.length === 5) {
-	            // 5자리인 경우: Excel 날짜 서식 YYYYMMDD로 변환
+	            // 5자리인 경우: Excel 날짜 서식 시리얼을 YYYYMMDD로 변환
 	            return excelSerialToKoreanDate(input);
 	        } else {
 	            // 6자리 이상인 경우: 앞에서부터 8자리까지 잘라서 리턴
@@ -2029,6 +2054,33 @@
 		objExcelInfo.arrAdditionalData = arrAdditionalData;
 		_objList[0].sbGrid.exportExcel(objExcelInfo);
 	}
+
+	//엑셀업로드 저장시 기존 농가리스트 삭제
+	async function fn_cltbtnSnDeleteRsrc(prdcrOgnzSn, yr){
+		console.log("==========fn_cltbtnSnDeleteRsrc============");
+		let postJsonPromise = gfn_postJSON("/pd/pom/deleteTbEvFrmhsPrdctnEcSpmtSttnApo.do", {
+				prdcrOgnzSn : prdcrOgnzSn
+				,yr : yr
+		})
+        let data = await postJsonPromise;
+
+        try{
+        	if(data.result > 0){
+        		console.log("삭제 되었습니다.");
+        		alert("삭제 되었습니다.");
+        	}else{
+        		console.log("삭제 도중 오류가 발생 되었습니다.");
+        		alert("삭제 도중 오류가 발생 되었습니다.");
+        	}
+        }catch (e) {
+        	if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+		}
+
+	}
+
 </script>
 </html>
 

@@ -1049,6 +1049,27 @@
 				//SBUxMethod.set('dtl-input-crno01',gfn_nvl(item.crno))//법인등록번호
 				SBUxMethod.set('dtl-input-brno01',gfn_nvl(item.brno))//사업자등록번호
 			});
+
+        	let userType = '${loginVO.userType}';
+        	let apoSe = SBUxMethod.get('dtl-input-apoSe01');
+        	if(userType == '21'){
+    			userType = '1'
+    		}else if(userType == '22'){
+    			userType = '2'
+    		}
+    		//유저 권한과 데이터가 맞지 않는 경우 오류 처리
+    		if(userType != apoSe){
+    			alert("해당 계정의 권한과 기존데이터의 타입이 맞지 않습니다"+
+    					"\n관리자에게 문의 해주세요");
+    			$(".btn").hide();// 모든 버튼 숨기기
+    			//$(".uoList").hide();
+    			SBUxMethod.clearAllData();//모든 데이터 클리어
+    			//하위 출자출하조직 그리드 데이터 제거
+    			jsonInvShipOgnReqMng01.length = 0;
+    			grdInvShipOgnReqMng01.rebuild();
+    			return false;
+    		}
+
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -1128,6 +1149,7 @@
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
 				SBUxMethod.set("dtl-input-apoCd", item.apoCd);
+				SBUxMethod.set("dtl-input-apoSe", item.apoSe);
 				SBUxMethod.set("dtl-input-crno", item.crno);
 				SBUxMethod.set("dtl-input-brno", item.brno);
 				SBUxMethod.set("dtl-input-corpNm", item.corpNm);
@@ -1150,6 +1172,24 @@
 
 				SBUxMethod.set("dtl-input-frmerInvstAmtRt", item.frmerInvstAmtRt);
 			});
+
+        	let userType = '${loginVO.userType}';
+        	let apoSe = SBUxMethod.get('dtl-input-apoSe');
+        	if(userType == '21'){
+    			userType = '1'
+    		}else if(userType == '22'){
+    			userType = '2'
+    		}
+    		//유저 권한과 데이터가 맞지 않는 경우 오류 처리
+    		if(userType != apoSe){
+    			alert("해당 계정의 권한과 기존데이터의 타입이 맞지 않습니다"+
+    					"\n관리자에게 문의 해주세요");
+    			$(".btn").hide();// 모든 버튼 숨기기
+    			$(".uoList").hide();
+    			SBUxMethod.clearAllData();//모든 데이터 클리어
+    			return false;
+    		}
+
         	//출자출하조직 사용자 화면에서는 그리드 선택하는 과정이 없어 추가
 			fn_searchUoList();
         }catch (e) {

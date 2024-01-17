@@ -27,6 +27,7 @@
 						 -->
 						<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+						<sbux-button id="btnSaveFclt11" name="btnSaveFclt11" uitype="normal" text="test" class="btn btn-sm btn-outline-danger" onclick="fn_test"></sbux-button>
 					</c:if>
 					<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
 						<sbux-button id="btnSaveFclt01" name="btnSaveFclt01" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
@@ -328,6 +329,7 @@
 							</th>
 							<!-- <td style="border-right:hidden;"></td> -->
 							<sbux-input uitype="hidden" id="dtl-input-apoCd" name="dtl-input-apoCd" class="form-control input-sm" autocomplete="off"></sbux-input>
+							<sbux-input uitype="hidden" id="dtl-input-apoSe" name="dtl-input-apoSe" class="form-control input-sm" autocomplete="off"></sbux-input>
 							<th colspan="13" scope="row" class="th_bg"  style="text-align:center;">업체정보</th>
 						</tr>
 						<tr>
@@ -1094,6 +1096,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		fn_uoListGrid();
 	</c:if>
 	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+		//fn_dtlSearch();
 		//통합조직인 경우
 		<c:if test="${loginVO.userType eq '21'}">
 		$(".uoList").hide();
@@ -1358,7 +1361,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
         }
 	}
 
-	/* Grid Row 조회 기능*/
+	//사용자 화면 조회
 	const fn_dtlSearch = async function(){
 		let brno = '${loginVO.brno}';
 		SBUxMethod.set('dtl-input-brno',gfn_nvl(brno));
@@ -1371,6 +1374,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
         try{
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
+        		console.log("item.apoSe==="+item.apoSe);
         		SBUxMethod.set('dtl-input-apoCd',gfn_nvl(item.apoCd))
         		SBUxMethod.set('dtl-input-apoSe',gfn_nvl(item.apoSe))
         		SBUxMethod.set('dtl-input-uoBrno',gfn_nvl(item.uoBrno))
@@ -1419,9 +1423,22 @@ tps://sbgrid.co.kr/v2_5/document/guide
         		SBUxMethod.set('dtl-input-sgg',gfn_nvl(item.sgg));
 
 			});
-
-
-
+        	let userType = '${loginVO.userType}';
+        	let apoSe = SBUxMethod.get('dtl-input-apoSe');
+        	if(userType == '21'){
+    			userType = '1'
+    		}else if(userType == '22'){
+    			userType = '2'
+    		}
+    		//유저 권한과 데이터가 맞지 않는 경우 오류 처리
+    		if(userType != apoSe){
+    			alert("해당 계정의 권한과 기존데이터의 타입이 맞지 않습니다"+
+    					"\n관리자에게 문의 해주세요");
+    			$(".btn").hide();// 모든 버튼 숨기기
+    			$(".uoList").hide();
+    			SBUxMethod.clearAllData();//모든 데이터 클리어
+    			return false;
+    		}
 
         	fn_calInvstAmtTot();
     		fn_calTot();
@@ -2382,5 +2399,9 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		SBUxMethod.set('dtl-input-tot',rgllbrNope + dwNope + dlbrrNope);
 	}
 
+	function fn_test(){
+		$(".btn").hide();// 모든 버튼 숨기기
+		SBUxMethod.clearAllData();//모든 데이터 클리어
+	}
 </script>
 </html>

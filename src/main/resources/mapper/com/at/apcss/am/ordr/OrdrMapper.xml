@@ -39,44 +39,53 @@
 	    		, (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL)	AS SPMT_PCKG_UNIT_NM
 	    		, (SELECT FN_GET_COM_CD_VL_NM('OUTORDR_TYPE', pt0.OUTORDR_TYPE) FROM DUAL)          AS OUTORDR_TYPE_NM
 	    		, (SELECT FN_GET_APC_NM(pt0.APC_CD) FROM DUAL)          							AS RCPT_CFMTN_APC_NM
+	    		, (SELECT FN_GET_COM_CD_VL_NM('LGSZ_MRKT_CD', pt0.LGSZ_MRKT_CD) FROM DUAL)          AS LGSZ_MRKT_NM
     		 FROM (
 	    	SELECT 
-	    		   OI.APC_CD							AS APC_CD
-    		  	 , OI.APC_SE_CD							AS APC_SE_CD
-    		  	 , OI.RCPT_CFMTN_YMD					AS RCPT_CFMTN_YMD
-    		  	 , OI.OUTORDR_TYPE						AS OUTORDR_TYPE
-			  	 , OI.OUTORDRNO							AS OUTORDRNO
-    		  	 , OI.APC_CNPT_NM						AS APC_CNPT_NM
-    		  	 , OI.APC_CNPT_CD						AS APC_CNPT_CD
-    		  	 , OI.WRHS_YMD							AS WRHS_YMD
-    		  	 , OI.OUTORDR_YMD						AS OUTORDR_YMD
-    		  	 , OI.ORDR_PRSN							AS ORDR_PRSN
-    		  	 , OI.SPLY_PRSN							AS SPLY_PRSN
-    		  	 , OI.SPMT_PCKG_UNIT_CD					AS SPMT_PCKG_UNIT_CD
-    		  	 , OI.DLDTN								AS DLDTN
-    		  	 , OI.ITEM_CD							AS ITEM_CD
-    		  	 , OI.VRTY_CD							AS VRTY_CD
-    		  	 , OI.SPCFCT_CD							AS SPCFCT_CD
-    		  	 , OI.BX_GDS_QNTT						AS BX_GDS_QNTT
-    		  	 , OI.OUTORDR_QNTT						AS OUTORDR_QNTT
-    	   	  	 , OI.PIECE_QNTT						AS PIECE_QNTT
-    	 	  	 , OI.UNIT_CD							AS UNIT_CD
-    		  	 , OI.BX_UNTPRC							AS BX_UNTPRC
-    		  	 , OI.OUTORDR_UNTPRC					AS OUTORDR_UNTPRC
-    		  	 , OI.OUTORDR_UNIT_CD					AS OUTORDR_UNIT_CD
-    		  	 , OI.LOT								AS LOT
-    		  	 , OI.TX_AMT							AS TX_AMT
-    		  	 , OI.OUTORDR_AMT						AS OUTORDR_AMT
-    		  	 , OI.WRHS_TYPE							AS WRHS_TYPE
-    		  	 , OI.DOC_NO							AS DOC_NO
-    		  	 , OI.DOCK_INFO							AS DOCK_INFO
-    		  	 , OI.CNTR_SE							AS CNTR_SE
-    		  	 , OI.BUYER_NM							AS BUYER_NM
-    		  	 , OI.CNTR_RCVD_WRHS_YMD				AS CNTR_RCVD_WRHS_YMD
-    		  	 , OI.CNTR_NM							AS CNTR_NM
-    		  	 , OI.DLVGDS_SE_CD						AS DLVGDS_SE_CD
-    		  	 , OI.ETC								AS ETC
-    		  	 , OI.RCPT_CFMTN_APC_CD					AS RCPT_CFMTN_APC_CD
+	    		   OI.APC_CD				AS APC_CD
+    		  	 , OI.APC_SE_CD				AS APC_SE_CD
+    		  	 , OI.RCPT_CFMTN_YMD		AS RCPT_CFMTN_YMD
+    		  	 , OI.RCPTN_SE_CD           AS RCPTN_SE_CD
+    		  	 , CASE OI.RCPTN_SE_CD
+    		  	 	WHEN '10' THEN '21'
+    		  	 	WHEN '20' THEN '41'
+    		  	 	WHEN '30' THEN '11'
+    		  	 	WHEN '40' THEN '31'
+    		  	 	ELSE NULL
+    		  	   END						AS LGSZ_MRKT_CD
+    		  	 , OI.OUTORDR_TYPE			AS OUTORDR_TYPE
+			  	 , OI.OUTORDRNO				AS OUTORDRNO
+    		  	 , OI.APC_CNPT_NM			AS APC_CNPT_NM
+    		  	 , OI.APC_CNPT_CD			AS APC_CNPT_CD
+    		  	 , OI.WRHS_YMD				AS WRHS_YMD
+    		  	 , OI.OUTORDR_YMD			AS OUTORDR_YMD
+    		  	 , OI.ORDR_PRSN				AS ORDR_PRSN
+    		  	 , OI.SPLY_PRSN				AS SPLY_PRSN
+    		  	 , OI.SPMT_PCKG_UNIT_CD		AS SPMT_PCKG_UNIT_CD
+    		  	 , OI.DLDTN					AS DLDTN
+    		  	 , OI.ITEM_CD				AS ITEM_CD
+    		  	 , OI.VRTY_CD				AS VRTY_CD
+    		  	 , OI.SPCFCT_CD				AS SPCFCT_CD
+    		  	 , OI.BX_GDS_QNTT			AS BX_GDS_QNTT
+    		  	 , OI.OUTORDR_QNTT			AS OUTORDR_QNTT
+    	   	  	 , OI.PIECE_QNTT			AS PIECE_QNTT
+    	 	  	 , OI.UNIT_CD				AS UNIT_CD
+    		  	 , OI.BX_UNTPRC				AS BX_UNTPRC
+    		  	 , OI.OUTORDR_UNTPRC		AS OUTORDR_UNTPRC
+    		  	 , OI.OUTORDR_UNIT_CD		AS OUTORDR_UNIT_CD
+    		  	 , OI.LOT					AS LOT
+    		  	 , OI.TX_AMT				AS TX_AMT
+    		  	 , OI.OUTORDR_AMT			AS OUTORDR_AMT
+    		  	 , OI.WRHS_TYPE				AS WRHS_TYPE
+    		  	 , OI.DOC_NO				AS DOC_NO
+    		  	 , OI.DOCK_INFO				AS DOCK_INFO
+    		  	 , OI.CNTR_SE				AS CNTR_SE
+    		  	 , OI.BUYER_NM				AS BUYER_NM
+    		  	 , OI.CNTR_RCVD_WRHS_YMD	AS CNTR_RCVD_WRHS_YMD
+    		  	 , OI.CNTR_NM				AS CNTR_NM
+    		  	 , OI.DLVGDS_SE_CD			AS DLVGDS_SE_CD
+    		  	 , OI.ETC					AS ETC
+    		  	 , OI.RCPT_CFMTN_APC_CD		AS RCPT_CFMTN_APC_CD
     		  	 , (
     		  	 	SELECT MIN(X.SPMT_CMNDNO)
     		  	 	  FROM TB_SPMT_CMND X
@@ -101,53 +110,53 @@
                      WHERE X.APC_CD = OI.APC_CD
                        AND X.SPMT_PCKG_UNIT_CD = OI.SPMT_PCKG_UNIT_CD
                        AND X.DEL_YN = 'N'
-                   ) 									AS GDS_GRD
+                   ) 						AS GDS_GRD
 	             , (SELECT WGHT
                       FROM TB_APC_SPCFCT_CRTR X
                      WHERE X.APC_CD = OI.APC_CD
 		               AND X.ITEM_CD = OI.ITEM_CD
 		               AND X.SPCFCT_CD = OI.SPCFCT_CD
 		               AND X.DEL_YN = 'N'
-                   ) 									AS WGHT
+                   ) 						AS WGHT
 	             , (SELECT SUM(INVNTR_QNTT)
 	                  FROM TB_GDS_INVNTR X
 	                 WHERE X.APC_CD = OI.APC_CD
 	                   AND X.GDS_CD = OI.GDS_CD
 	                   AND X.DEL_YN = 'N'
-	               ) 									AS INVNTR_QNTT
+	               ) 						AS INVNTR_QNTT
 	             , (SELECT SUM(INVNTR_WGHT)
 	                  FROM TB_GDS_INVNTR X
 	                 WHERE X.APC_CD = OI.APC_CD
 	                   AND X.GDS_CD = OI.GDS_CD
 	                   AND X.DEL_YN = 'N'
-	               ) 									AS INVNTR_WGHT
+	               ) 						AS INVNTR_WGHT
 	             , (SELECT SUM(SPMT_QNTT)
 	                  FROM TB_SPMT_PRFMNC_DTL X
 	                 WHERE X.APC_CD = OI.APC_CD
 	                   AND X.OUTORDRNO = OI.OUTORDRNO
 	                   AND X.DEL_YN = 'N'
-	               ) 									AS SPMT_QNTT
+	               ) 						AS SPMT_QNTT
 	             , (SELECT SUM(SPMT_WGHT)
 	                  FROM TB_SPMT_PRFMNC_DTL X
 	                 WHERE X.APC_CD = OI.APC_CD
 	                   AND X.OUTORDRNO = OI.OUTORDRNO
 	                   AND X.DEL_YN = 'N'
-	               ) 									AS SPMT_WGHT
+	               ) 						AS SPMT_WGHT
                  , (SELECT SUM(CMND_QNTT)
                       FROM TB_SPMT_CMND X
                      WHERE X.APC_CD = OI.APC_CD
                        AND X.OUTORDRNO = OI.OUTORDRNO
                        AND X.DEL_YN = 'N'
-                   ) 									AS CMND_QNTT
+                   ) 						AS CMND_QNTT
                  , (SELECT SUM(CMND_WGHT)
                       FROM TB_SPMT_CMND X
                      WHERE X.APC_CD = OI.APC_CD
                        AND X.OUTORDRNO = OI.OUTORDRNO
                        AND X.DEL_YN = 'N'
-                   ) 									AS CMND_WGHT
-    		  	 , OI.DEL_YN							AS DEL_YN
-    		  	 , OI.ORGN_GDS_CD						AS ORGN_GDS_CD
-    		  	 , OI.ORGN_GDS_NM						AS ORGN_GDS_NM
+                   ) 						AS CMND_WGHT
+    		  	 , OI.DEL_YN				AS DEL_YN
+    		  	 , OI.ORGN_GDS_CD			AS ORGN_GDS_CD
+    		  	 , OI.ORGN_GDS_NM			AS ORGN_GDS_NM
 			  FROM TB_OUTORDR_INFO OI
 			 WHERE OI.DEL_YN = 'N'
 		]]>

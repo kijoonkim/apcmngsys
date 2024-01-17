@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : OrdrGdsMapper.xml                                   				-->
+<!-- DESC : 발주상품 mapper                                          			   		-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.09.11  	하민우        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.cmns.mapper.OrdrGdsMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.OrdrGdsMapper.selectOrdrGds				-->
+	<!-- DESC : 발주상품정보 조회.	                                       					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.09.11  	신정철        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+    <select id="selectOrdrGds" parameterType="com.at.apcss.am.cmns.vo.OrdrGdsVO" resultType="com.at.apcss.am.cmns.vo.OrdrGdsVO">
+    	
+    	<![CDATA[
+		   	SELECT /* com.at.apcss.am.cmns.mapper.OrdrGdsMapper.selectOrdrGds */
+				  MG.APC_CD				AS APC_CD
+				, MG.LGSZ_MRKT_CD		AS LGSZ_MRKT_CD
+				, MG.ORGN_GDS_CD		AS ORGN_GDS_CD
+				, MG.ORGN_GDS_NM		AS ORGN_GDS_NM
+				, MG.APLCN_YMD			AS APLCN_YMD
+				, MG.GDS_CD				AS GDS_CD
+				, MG.DEL_YN				AS DEL_YN
+				, GC.ITEM_CD			AS ITEM_CD
+				, GC.VRTY_CD			AS VRTY_CD
+				, GC.SPCFCT_CD			AS SPCFCT_CD
+				, GC.GDS_GRD			AS GDS_GRD
+				, GC.BRND_NM			AS BRND_NM
+				, GC.PLOR_CD			AS PLOR_CD
+				, GC.SPMT_PCKG_UNIT_CD	AS SPMT_PCKG_UNIT_CD
+				, GC.BX_GDS_QNTT		AS BX_GDS_QNTT
+				, GC.WGHT				AS WGHT
+				, (SELECT FN_GET_ITEM_NM(GC.ITEM_CD, GC.APC_CD) FROM DUAL) AS ITEM_NM
+				, (SELECT FN_GET_VRTY_NM(GC.ITEM_CD, GC.VRTY_CD, GC.APC_CD) FROM DUAL) AS VRTY_NM
+				, (SELECT FN_GET_SPCFCT_NM(GC.ITEM_CD, GC.SPCFCT_CD, GC.APC_CD) FROM DUAL) AS SPCFCT_NM
+				, (SELECT FN_GET_SPMT_PCKG_UNIT_NM(GC.SPMT_PCKG_UNIT_CD, GC.APC_CD) FROM DUAL) AS SPMT_PCKG_UNIT_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('STD_PLOR_CD', GC.PLOR_CD, GC.APC_CD) FROM DUAL) AS PLOR_NM
+				
+			  FROM TB_LGSZ_MRKT_GDS MG
+			  
+			  LEFT JOIN TB_GDS_CD GC
+			    ON GC.APC_CD = MG.APC_CD
+			   AND GC.GDS_CD = MG.GDS_CD
+			   AND GC.DEL_YN = 'N'
+			
+			 WHERE MG.APC_CD = #{apcCd}
+			   AND MG.LGSZ_MRKT_CD = #{lgszMrktCd}
+			   AND MG.ORGN_GDS_CD = #{orgnGdsCd}
+			   AND MG.APLCN_YMD = #{aplcnYmd}
+		]]>
+    </select>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.OrdrGdsMapper.selectOrdrGdsList			-->
+	<!-- DESC : 발주상품정보 목록 조회.                                      				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.09.11  	신정철        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+    <select id="selectOrdrGdsList" parameterType="com.at.apcss.am.cmns.vo.OrdrGdsVO" resultType="com.at.apcss.am.cmns.vo.OrdrGdsVO">
+    	<![CDATA[
+    		SELECT /* com.at.apcss.am.cmns.mapper.OrdrGdsMapper.selectOrdrGdsList */
+		]]>
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			,
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+				pt0.*
+			  FROM (
+		   	SELECT
+				  MG.APC_CD				AS APC_CD
+				, MG.LGSZ_MRKT_CD		AS LGSZ_MRKT_CD
+				, MG.ORGN_GDS_CD		AS ORGN_GDS_CD
+				, MG.ORGN_GDS_NM		AS ORGN_GDS_NM
+				, MG.APLCN_YMD			AS APLCN_YMD
+				, MG.GDS_CD				AS GDS_CD
+				, GC.ITEM_CD			AS ITEM_CD
+				, GC.VRTY_CD			AS VRTY_CD
+				, GC.SPCFCT_CD			AS SPCFCT_CD
+				, GC.GDS_GRD			AS GDS_GRD
+				, GC.BRND_NM			AS BRND_NM
+				, GC.PLOR_CD			AS PLOR_CD
+				, GC.SPMT_PCKG_UNIT_CD	AS SPMT_PCKG_UNIT_CD
+				, GC.BX_GDS_QNTT		AS BX_GDS_QNTT
+				, GC.WGHT				AS WGHT
+				, MG.DEL_YN				AS DEL_YN
+				, (SELECT FN_GET_ITEM_NM(GC.ITEM_CD, GC.APC_CD) FROM DUAL) AS ITEM_NM
+				, (SELECT FN_GET_VRTY_NM(GC.ITEM_CD, GC.VRTY_CD, GC.APC_CD) FROM DUAL) AS VRTY_NM
+				, (SELECT FN_GET_SPCFCT_NM(GC.ITEM_CD, GC.SPCFCT_CD, GC.APC_CD) FROM DUAL) AS SPCFCT_NM
+				, (SELECT FN_GET_SPMT_PCKG_UNIT_NM(GC.SPMT_PCKG_UNIT_CD, GC.APC_CD) FROM DUAL) AS SPMT_PCKG_UNIT_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('STD_PLOR_CD', GC.PLOR_CD, GC.APC_CD) FROM DUAL) AS PLOR_NM
+				
+			  FROM TB_LGSZ_MRKT_GDS MG
+			  
+			  LEFT JOIN TB_GDS_CD GC
+			    ON GC.APC_CD = MG.APC_CD
+			   AND GC.GDS_CD = MG.GDS_CD
+			   AND GC.DEL_YN = 'N'
+			
+			 WHERE MG.APC_CD = #{apcCd}
+			   AND MG.LGSZ_MRKT_CD = #{lgszMrktCd}
+			   AND MG.DEL_YN = 'N'
+		]]>
+		<if test='itemCd != null and itemCd !=""'>
+		   	   AND MG.ORGN_GDS_NM LIKE '%' || #{itemCd} || '%'
+		</if>
+		<if test='orgnGdsCd != null and orgnGdsCd !=""'>
+		   	   AND MG.ORGN_GDS_CD LIKE #{orgnGdsCd} || '%'
+		</if>
+		<if test='orgnGdsNm != null and orgnGdsNm !=""'>
+		   	   AND MG.ORGN_GDS_NM LIKE '%' || #{orgnGdsNm} || '%'
+		</if>
+		
+    	<![CDATA[
+			 ORDER BY ORGN_GDS_NM, ORGN_GDS_CD, APLCN_YMD
+    		  ) pt0
+		]]>
+		<if test='gdsNm != null and gdsNm !=""'>
+		   	   AND pt0.SPMT_PCKG_UNIT_NM LIKE '%' || #{gdsNm} || '%'
+		</if>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.OrdrGdsMapper.insertOrdrGds				-->
+	<!-- DESC : 발주상품정보 등록.                                      					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.09.11  	신정철        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+    <insert id="insertOrdrGds" parameterType="com.at.apcss.am.cmns.vo.OrdrGdsVO">
+    	<![CDATA[
+			INSERT /* com.at.apcss.am.cmns.mapper.OrdrGdsMapper.insertOrdrGds */
+	    		INTO TB_LGSZ_MRKT_GDS (
+					  APC_CD
+					, LGSZ_MRKT_CD
+					, ORGN_GDS_CD
+					, ORGN_GDS_NM
+					, APLCN_YMD
+					, GDS_CD
+					, SYS_FRST_INPT_DT
+					, SYS_FRST_INPT_USER_ID
+	    		    , SYS_FRST_INPT_PRGRM_ID
+	    		    , SYS_LAST_CHG_DT
+	    		    , SYS_LAST_CHG_USER_ID
+	    		    , SYS_LAST_CHG_PRGRM_ID
+				) VALUES (
+					  #{apcCd}
+					, #{lgszMrktCd}
+					, #{orgnGdsCd}
+					, #{orgnGdsNm}
+					, #{aplcnYmd}
+					, #{gdsCd}
+	    		    , SYSDATE
+	    		    , #{sysFrstInptUserId}
+	    		    , #{sysFrstInptPrgrmId}
+	    		    , SYSDATE
+	    		    , #{sysLastChgUserId}
+	    		    , #{sysLastChgPrgrmId}
+	   			)
+    	]]>
+    </insert>
+    
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.OrdrGdsMapper.updateOrdrGds				-->
+	<!-- DESC : 발주상품정보 변경.                                      					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.09.11  	신정철        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+    <update id="updateOrdrGds" parameterType="com.at.apcss.am.cmns.vo.OrdrGdsVO">
+    	<![CDATA[
+			UPDATE /* com.at.apcss.am.cmns.mapper.OrdrGdsMapper.updateOrdrGds */
+				TB_LGSZ_MRKT_GDS SET
+			      SYS_LAST_CHG_DT 			= SYSDATE
+   		 		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+   		 		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+				, ORGN_GDS_NM	= #{orgnGdsNm}
+				, GDS_CD		= #{gdsCd}
+			 WHERE APC_CD = #{apcCd}
+			   AND LGSZ_MRKT_CD = #{lgszMrktCd}
+			   AND ORGN_GDS_CD = #{orgnGdsCd}
+			   AND APLCN_YMD = #{aplcnYmd}
+    	]]>
+    </update>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.OrdrGdsMapper.updateOrdrGdsForDelY		-->
+	<!-- DESC : 발주상품정보 변경. set delYn 'Y'                         					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.09.11  	신정철        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+    <update id="updateOrdrGdsForDelY" parameterType="com.at.apcss.am.cmns.vo.OrdrGdsVO">
+    	<![CDATA[
+			UPDATE /* com.at.apcss.am.cmns.mapper.OrdrGdsMapper.updateOrdrGdsForDelY */
+				TB_LGSZ_MRKT_GDS SET
+			      SYS_LAST_CHG_DT 			= SYSDATE
+   		 		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+   		 		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+				, DEL_YN	= 'Y'
+			 WHERE APC_CD = #{apcCd}
+			   AND LGSZ_MRKT_CD = #{lgszMrktCd}
+			   AND ORGN_GDS_CD = #{orgnGdsCd}
+			   AND APLCN_YMD = #{aplcnYmd}
+    	]]>
+    </update>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.OrdrGdsMapper.deleteOrdrGds				-->
+	<!-- DESC : 발주상품정보 삭제.                                      					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.09.11  	신정철        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+    <delete id="deleteOrdrGds" parameterType="com.at.apcss.am.cmns.vo.OrdrGdsVO">
+    	<![CDATA[
+			DELETE /* com.at.apcss.am.cmns.mapper.OrdrGdsMapper.updateOrdrGdsForDelY */
+				TB_LGSZ_MRKT_GDS
+			 WHERE APC_CD = #{apcCd}
+			   AND LGSZ_MRKT_CD = #{lgszMrktCd}
+			   AND ORGN_GDS_CD = #{orgnGdsCd}
+			   AND APLCN_YMD = #{aplcnYmd}
+    	]]>
+    </delete>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.OrdrGdsMapper.updateSpMrktOrdrGdsUpdt	-->
+	<!-- DESC : 발주상품정보 갱신.                                      					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.09.11  	신정철        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+    <insert id="updateSpMrktOrdrGdsUpdt" statementType="CALLABLE" parameterType="com.at.apcss.am.cmns.vo.OrdrGdsVO">
+    	<![CDATA[
+			{call /* com.at.apcss.am.cmns.mapper.OrdrGdsMapper.updateSpMrktOrdrGdsUpdt */
+				SP_MRKT_ORDR_GDS_UPDT (
+					  #{sysLastChgUserId}
+	   		  		, #{sysLastChgPrgrmId}
+					, #{apcCd}
+					, #{lgszMrktCd}
+					, #{orgnGdsCd}
+					, #{aplcnYmd}
+					, #{rtnCd, jdbcType=VARCHAR, mode=OUT}
+					, #{rtnMsg, jdbcType=VARCHAR, mode=OUT}
+				)
+			}
+		]]>
+    </insert>
+
+    
+</mapper>
+
+
