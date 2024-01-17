@@ -2299,6 +2299,11 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		  			alert("통합조직을 선택해주세요");
 		            return;
 		  		}
+				//모든 데이터 저장하게 변경
+				rowData.rowSts = "I";
+				saveList.push(rowData);
+
+				/*
 				if (rowSts === 1){
 					rowData.rowSts = "I";
 					saveList.push(rowData);
@@ -2311,6 +2316,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 				} else {
 					continue;
 				}
+				*/
 			}
 		}
 		if(saveList.length == 0){

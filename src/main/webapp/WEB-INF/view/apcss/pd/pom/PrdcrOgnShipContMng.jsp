@@ -881,7 +881,6 @@
 
 			if(delYn == 'N'){
 				if(gfn_isEmpty(rowData.apoCd)){
-					//서브쿼리로 데이터 넣는 방식으로 변경해도 됨
 					rowData.apoCd = apoCd;
 					rowData.apoSe = apoSe;
 					rowData.crno = crno;
@@ -893,7 +892,10 @@
 					rowData.prdcrOgnzNm = prdcrOgnzNm;
 					rowData.sttgUpbrItemSe = sttgUpbrItemSe;
 				}
-
+				//모든데이터 저장 처리
+				rowData.rowSts = "I";
+				gpcList.push(rowData);
+				/*
 				if (rowSts === 3){
 					rowData.rowSts = "I";
 					saveList.push(rowData);
@@ -906,6 +908,7 @@
 				} else {
 					continue;
 				}
+				*/
 			}
 		}
 		if(saveList.length == 0){

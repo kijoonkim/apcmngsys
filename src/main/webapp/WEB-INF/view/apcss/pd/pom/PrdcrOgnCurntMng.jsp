@@ -888,7 +888,10 @@
 					rowData.uoCd = uoCd;
 					rowData.yr = yr;
 				}
-
+				//모든데이터 저장 처리
+				rowData.rowSts = "I";
+				gpcList.push(rowData);
+				/*
 				if (rowSts === 3){
 					rowData.rowSts = "I";
 					saveList.push(rowData);
@@ -901,6 +904,7 @@
 				} else {
 					continue;
 				}
+				*/
 			}
 		}
 		if(saveList.length == 0){
@@ -1006,7 +1010,6 @@
 			if(delYn == 'N'){
 
 				if(gfn_isEmpty(rowData.apoCd)){
-					//서브쿼리로 데이터 넣는 방식으로 변경해도 됨
 					rowData.apoCd = apoCd;
 					rowData.apoSe = apoSe;
 					rowData.crno = crno;
@@ -1020,6 +1023,10 @@
 					rowData.sttgUpbrItemSe = sttgUpbrItemSe;
 				}
 
+				//모든데이터 저장 처리
+				rowData.rowSts = "I";
+				gpcList.push(rowData);
+				/*
 				if (rowSts === 3){
 					rowData.rowSts = "I";
 					saveList.push(rowData);
@@ -1032,6 +1039,7 @@
 				} else {
 					continue;
 				}
+				*/
 			}
 		}
 		if(saveList.length == 0){
@@ -1692,13 +1700,13 @@
 		let apoSe = SBUxMethod.get('dtl-input-apoSe01');
 		let crno = SBUxMethod.get('dtl-input-crno01');
 		let brno = SBUxMethod.get('dtl-input-brno01');
+		let yr = SBUxMethod.get('dtl-input-yr01');
 		let itemCd = SBUxMethod.get('dtl-input-itemCd');
 		let trmtType = SBUxMethod.get('dtl-input-trmtType');
 		let sttgUpbrItemSe = SBUxMethod.get('dtl-input-sttgUpbrItemSe');
 		let prdcrOgnzSn = SBUxMethod.get('dtl-input-prdcrOgnzSn');
 		let prdcrOgnzCd = SBUxMethod.get('dtl-input-prdcrOgnzCd');
 		let prdcrOgnzNm = SBUxMethod.get('dtl-input-prdcrOgnzNm');
-		let yr = SBUxMethod.get('dtl-input-yr');
 
 		let regMsg = "기존데이터를 삭제 처리 하시겠습니까?";
 		if(confirm(regMsg)){
@@ -1709,7 +1717,7 @@
  		for ( let iRow = 2; iRow <= impData.length+1; iRow++ ) {
 
  			const rowData = _grdImp.getRowData(iRow);
-			console.log(rowData);
+			//console.log(rowData);
  			// validation check
  	    	if (gfn_isEmpty(rowData.flnm)) {
  	    		gfn_comAlert("W0002", "성명");		//	W0002	{0}을/를 입력하세요.
@@ -2065,13 +2073,17 @@
         let data = await postJsonPromise;
 
         try{
+        	//console.log(data);
+        	console.log("삭제 되었습니다.");
+    		alert("삭제 되었습니다.");
+    		/*
         	if(data.result > 0){
         		console.log("삭제 되었습니다.");
-        		alert("삭제 되었습니다.");
         	}else{
-        		console.log("삭제 도중 오류가 발생 되었습니다.");
-        		alert("삭제 도중 오류가 발생 되었습니다.");
+        		console.log("삭제 할 데이터가 없습니다.");
+        		//alert("삭제 도중 오류가 발생 되었습니다.");
         	}
+    		*/
         }catch (e) {
         	if (!(e instanceof Error)) {
     			e = new Error(e);

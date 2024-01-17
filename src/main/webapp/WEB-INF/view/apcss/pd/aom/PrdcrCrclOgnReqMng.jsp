@@ -1566,7 +1566,12 @@
 		            return;
 		  		}
 				*/
+				//모든데이터 저장 처리
+				rowData.rowSts = "I";
+				gpcList.push(rowData);
 
+
+				/*
 				if (rowSts === 1){
 					rowData.rowSts = "I";
 					gpcList.push(rowData);
@@ -1579,6 +1584,7 @@
 				} else {
 					continue;
 				}
+				*/
 			}
 		}
 
@@ -2028,6 +2034,11 @@
 		  			alert("품목을 선택해주세요");
 		            return;
 		  		}
+
+				//모든데이터 저장 처리
+				rowData.rowSts = "I";
+				gpcList.push(rowData);
+				/*
 				if (rowSts === 1){
 					rowData.rowSts = "I";
 					saveList.push(rowData);
@@ -2040,6 +2051,7 @@
 				} else {
 					continue;
 				}
+				*/
 			}
 		}
 		if(saveList.length == 0){
