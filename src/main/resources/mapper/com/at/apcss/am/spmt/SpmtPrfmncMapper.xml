@@ -196,6 +196,186 @@
     	<!-- End 페이징 -->
     </select>
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtPrfmncList	-->
+	<!-- DESC : 출하실적조회 목록 집계조회.	                         	             	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.01.16  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectSpmtPrfmncTotalList" parameterType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO" resultType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    			, (SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)							AS GDS_NM
+    			, (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 						AS ITEM_NM
+    			, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
+    		 	, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
+    		 	, (SELECT FN_GET_CNPT_NM(pt0.CNPT_CD, pt0.APC_CD) FROM DUAL)						AS CNPT_NM
+    		 	, (SELECT FN_GET_TRSPRT_CO_NM(pt0.TRSPRT_CO_CD, pt0.APC_CD) FROM DUAL)				AS TRSPRT_CO_NM
+    		 	, (SELECT FN_GET_GRD_NM_GDS(pt0.APC_CD, pt0.ITEM_CD, pt0.GDS_GRD) FROM DUAL) 		AS GDS_GRD_NM
+    		 	, (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL)   	AS SPMT_PCKG_UNIT_NM
+    		 	, SUM(pt0.SPMT_QNTT) OVER()			AS TOT_SPMT_QNTT
+	    		, SUM(pt0.SPMT_WGHT) OVER()			AS TOT_SPMT_WGHT
+    		 FROM (
+    	</if>
+    	<if test='pagingYn == null or pagingYn.equals("N")'>
+    		SELECT
+    			  pt0.*
+    			, (SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)							AS GDS_NM
+    			, (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 						AS ITEM_NM
+    			, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
+    		 	, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
+    		 	, (SELECT FN_GET_CNPT_NM(pt0.CNPT_CD, pt0.APC_CD) FROM DUAL)						AS CNPT_NM
+    		 	, (SELECT FN_GET_TRSPRT_CO_NM(pt0.TRSPRT_CO_CD, pt0.APC_CD) FROM DUAL)				AS TRSPRT_CO_NM
+    		 	, (SELECT FN_GET_GRD_NM_GDS(pt0.APC_CD, pt0.ITEM_CD, pt0.GDS_GRD) FROM DUAL) 		AS GDS_GRD_NM
+    		 	, (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL)   AS SPMT_PCKG_UNIT_NM
+    		 	, SUM(pt0.SPMT_QNTT) OVER()			AS TOT_SPMT_QNTT
+	    		, SUM(pt0.SPMT_WGHT) OVER()			AS TOT_SPMT_WGHT
+    		 FROM (
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+		    	SELECT /* com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtPrfmncTotalList */
+				       PD.SPMTNO						AS SPMTNO
+				     , PD.APC_CD						AS APC_CD
+				     , PC.SPMT_YMD						AS SPMT_YMD
+				     , PD.BRND_NM						AS BRND_NM
+				     , MAX(PD.GDS_CD)						AS GDS_CD
+				     , PD.ITEM_CD						AS ITEM_CD
+				     , PD.VRTY_CD						AS VRTY_CD
+				     , PD.SPCFCT_CD						AS SPCFCT_CD
+				     , PC.CNPT_CD						AS CNPT_CD
+				     , MAX(PC.DLDTN)					        AS DLDTN
+				     , MAX(PC.TRSPRT_CO_CD)				    AS TRSPRT_CO_CD
+				     , MAX(PC.VHCLNO)					    AS VHCLNO
+				     , SUM(PC.TRSPRT_CST)				    AS TRSPRT_CST
+				     , PD.GDS_GRD                       AS GDS_GRD
+                     , PD.SPMT_PCKG_UNIT_CD             AS SPMT_PCKG_UNIT_CD
+				     , CASE WHEN MAX(PC.RTN_GDS_YN) = 'Y'
+                            THEN SUM(PD.SPMT_QNTT)
+                            ELSE ''
+                            END AS RTN_GDS_QNTT
+                     , CASE WHEN MAX(PC.RTN_GDS_YN) = 'Y'
+                            THEN SUM(PD.SPMT_WGHT)
+                            ELSE ''
+                            END AS RTN_GDS_WGHT
+                     , CASE WHEN MAX(PC.RTN_GDS_YN) = 'Y'
+                            THEN ''
+                            ELSE SUM(PD.SPMT_QNTT)
+                            END AS SPMT_QNTT
+                     , CASE WHEN MAX(PC.RTN_GDS_YN) = 'Y'
+                            THEN ''
+                            ELSE SUM(PD.SPMT_WGHT)
+                            END AS SPMT_WGHT
+				     , MAX(PC.RMRK)                          AS RMRK
+				     , NVL(MAX(PC.RTN_GDS_YN), 'N')          AS RTN_GDS_YN
+				     , DECODE(MAX(PC.RTN_GDS_YN), 'Y', '반품', '출하') AS RTN_GDS_NM
+				     , MAX(PD.ORGN_SPMTNO)                   AS ORGN_SPMTNO
+				     , MAX(PD.ORGN_PCKGNO)                   AS ORGN_PCKGNO
+				     , MAX(PD.ORGN_PCKG_SN)                  AS ORGN_PCKG_SN
+				     , SUM(PD.SPMT_QNTT) - NVL((SELECT SUM(X.SPMT_QNTT)
+				          FROM TB_SPMT_PRFMNC_DTL X
+				         WHERE PD.APC_CD = X.APC_CD
+				           AND PD.SPMTNO = X.ORGN_SPMTNO
+				           AND X.DEL_YN = 'N'
+				       ), 0) AS RTN_PSBLEY_QNTT
+				     , SUM(PD.SPMT_WGHT) - NVL((SELECT SUM(X.SPMT_WGHT)
+				          FROM TB_SPMT_PRFMNC_DTL X
+				         WHERE PD.APC_CD = X.APC_CD
+				           AND X.ORGN_SPMTNO = PD.SPMTNO
+				           AND X.DEL_YN = 'N'
+				           GROUP BY X.APC_CD,X.ORGN_SPMTNO,X.ORGN_PCKGNO
+				       ), 0) AS RTN_PSBLEY_WGHT
+				     , (SELECT DDLN_YN
+				          FROM TB_DDLN_MNG X
+				         WHERE X.APC_CD = PD.APC_CD
+				           AND SUBSTR(PC.SPMT_YMD, 1,4) = X.CRTR_YR
+				           AND SUBSTR(PC.SPMT_YMD, 5,2) = X.CRTR_MM
+				       ) AS DDLN_YN
+				     , CASE WHEN 0 < (SELECT COUNT(*) FROM TB_SLS_PRFMNC X WHERE X.APC_CD = PD.APC_CD AND X.SPMTNO = PD.SPMTNO AND X.CFMTN_YN = 'Y' AND X.DEL_YN = 'N')
+                            THEN 'Y'
+				            ELSE 'N'
+                       END AS CFMTN_YN
+				     , MAX(PWS.SN)                   AS SN
+                     , MAX(PWS.PLT_BX_CD)            AS PLT_BX_CD
+                     , SUM(PWS.QNTT)                 AS BSS_INVNTR_QNTT
+                     , CASE WHEN MAX(PWS.PLT_BX_CD) IS NOT NULL THEN 'Y'
+                            ELSE 'N'
+                       END AS PLT_SPMT_YN
+
+				  FROM TB_SPMT_PRFMNC_COM		PC
+				     , TB_SPMT_PRFMNC_DTL		PD
+                     , TB_PLT_WRHS_SPMT         PWS
+				 WHERE PC.APC_CD = PD.APC_CD
+				   AND PC.SPMTNO = PD.SPMTNO
+                   AND PC.APC_CD = PWS.APC_CD(+)
+                   AND PC.SPMTNO = PWS.PRCS_NO(+)
+                   AND PC.SPMT_YMD = PWS.JOB_YMD(+)
+                   AND PWS.DEL_YN(+) = 'N'
+				   AND PC.DEL_YN = 'N'
+				   AND PD.DEL_YN = 'N'
+
+		]]>
+			<if test='apcCd != null and apcCd != ""'>
+				   AND PC.APC_CD = #{apcCd}
+			</if>
+			<if test='spmtYmdFrom != null and spmtYmdFrom != ""'>
+			   	   AND PC.SPMT_YMD <![CDATA[>=]]> #{spmtYmdFrom}
+			</if>
+			<if test='spmtYmdTo != null and spmtYmdTo != ""'>
+			   	   AND PC.SPMT_YMD <![CDATA[<=]]> #{spmtYmdTo}
+			</if>
+			<if test='cnptNm != null and cnptNm != ""'>
+				   AND (SELECT FN_GET_CNPT_NM(PC.CNPT_CD, PC.APC_CD) FROM DUAL) LIKE '%' ||  #{cnptNm} || '%'
+			</if>
+			<if test='cnptCd != null and cnptCd != ""'>
+				   AND PC.CNPT_CD = #{cnptCd}
+			</if>
+			<if test='trsprtCoCd != null and trsprtCoCd != ""'>
+			       AND PC.TRSPRT_CO_CD = #{trsprtCoCd}
+			</if>
+			<if test='rtnGdsYn != null and rtnGdsYn != ""'>
+			       AND NVL(PC.RTN_GDS_YN, 'N') = #{rtnGdsYn}
+			</if>
+			<if test='spmtPckgUnitNm != null and spmtPckgUnitNm != ""'>
+			       AND (SELECT FN_GET_SPMT_PCKG_UNIT_NM(PD.SPMT_PCKG_UNIT_CD, PD.APC_CD) FROM DUAL) LIKE '%' || #{spmtPckgUnitNm} || '%'
+			</if>
+			<if test='itemCd != null and itemCd != ""'>
+			       AND PD.ITEM_CD = #{itemCd}
+			</if>
+			<if test='vrtyCd != null and vrtyCd != ""'>
+			       AND PD.VRTY_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{vrtyCd})))
+			</if>
+			<if test='warehouseSeCd != null and warehouseSeCd != ""'>
+			       -- AND GI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+			</if>
+			<if test='dldtn != null and dldtn != ""'>
+			       AND PC.DLDTN LIKE '%' ||  #{dldtn} || '%'
+			</if>
+			<if test='vhclno != null and vhclno != ""'>
+			       AND PC.VHCLNO LIKE '%' ||  #{vhclno} || '%'
+			</if>
+		<![CDATA[
+					GROUP BY PD.APC_CD,PD.SPMTNO,PC.SPMT_YMD, PD.BRND_NM, PC.CNPT_CD, PD.ITEM_CD,PD.VRTY_CD,PD.SPCFCT_CD,PD.GDS_GRD,PD.SPMT_PCKG_UNIT_CD
+		 			ORDER BY PD.SPMTNO,PD.BRND_NM, PC.CNPT_CD, PD.ITEM_CD,PD.VRTY_CD,PD.SPCFCT_CD,PD.GDS_GRD,PD.SPMT_PCKG_UNIT_CD
+		]]>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<if test='pagingYn == null or pagingYn.equals("N")'>
+    		  ) pt0
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+
     <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtPrfmncDtl	-->
 	<!-- DESC : 출하실적 상세 목록 조회.	                         	            -->

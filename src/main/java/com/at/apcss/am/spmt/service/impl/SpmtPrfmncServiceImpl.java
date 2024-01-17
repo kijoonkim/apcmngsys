@@ -92,6 +92,14 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 	}
 
 	@Override
+	public List<SpmtPrfmncVO> selectSpmtPrfmncTotalList(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
+
+		List<SpmtPrfmncVO> resultList = spmtPrfmncMapper.selectSpmtPrfmncTotalList(spmtPrfmncVO);
+
+		return resultList;
+	}
+
+	@Override
 	public int insertSpmtPrfmncCom(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
 
 		int insertedCnt = spmtPrfmncMapper.insertSpmtPrfmncCom(spmtPrfmncVO);
