@@ -1043,9 +1043,9 @@
         try{
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
-        		console.log(item);
-        		console.log(item.corpNm);
-        		console.log(item.brno);
+        		//console.log(item);
+        		//console.log(item.corpNm);
+        		//console.log(item.brno);
 				SBUxMethod.set('dtl-input-apoCd01',gfn_nvl(item.apoCd))//통합조직 코드
 				SBUxMethod.set('dtl-input-apoSe01',gfn_nvl(item.apoSe))//통합조직 구분
 				SBUxMethod.set('dtl-input-corpNm01',gfn_nvl(item.corpNm))//법인명
@@ -1053,6 +1053,37 @@
 				SBUxMethod.set('dtl-input-brno01',gfn_nvl(item.brno))//사업자등록번호
 				wrtYn = item.wrtYn;
 			});
+
+
+    		let userType = '${loginVO.userType}';
+        	let apoSe = SBUxMethod.get('dtl-input-apoSe01');
+        	//조회를 못하는 경우면 apoSe 값이 없음
+        	if(!gfn_isEmpty(apoSe)){
+        		if(userType == '21'){
+        			userType = '1'
+        		}else if(userType == '22'){
+        			userType = '2'
+        		}
+        		//유저 권한과 데이터가 맞지 않는 경우 오류 처리
+        		if(userType != apoSe){
+        			alert("해당 계정의 권한과 기존데이터의 타입이 맞지 않습니다"+
+        					"\n관리자에게 문의 해주세요");
+        			$(".btn").hide();// 모든 버튼 숨기기
+        			SBUxMethod.clearAllData();//모든 데이터 클리어
+        			//하위 출자출하조직 그리드 데이터 제거
+        			jsonInvShipOgnReqMng01.length = 0;
+        			grdInvShipOgnReqMng01.rebuild();
+        			return false;
+        		}
+        	}else{
+        		$(".btn").hide();// 모든 버튼 숨기기
+    			SBUxMethod.clearAllData();//모든 데이터 클리어
+    			//하위 출자출하조직 그리드 데이터 제거
+    			jsonInvShipOgnReqMng01.length = 0;
+    			grdInvShipOgnReqMng01.rebuild();
+    			return false;
+        	}
+
         	if(wrtYn != 'Y'){
         		alert("산지조직관리 작성이 필요합니다.");
         		$(".btn").hide();// 모든 버튼 숨기기
@@ -1063,24 +1094,7 @@
 				return false;
         	}
 
-        	let userType = '${loginVO.userType}';
-        	let apoSe = SBUxMethod.get('dtl-input-apoSe01');
-        	if(userType == '21'){
-    			userType = '1'
-    		}else if(userType == '22'){
-    			userType = '2'
-    		}
-    		//유저 권한과 데이터가 맞지 않는 경우 오류 처리
-    		if(userType != apoSe){
-    			alert("해당 계정의 권한과 기존데이터의 타입이 맞지 않습니다"+
-    					"\n관리자에게 문의 해주세요");
-    			$(".btn").hide();// 모든 버튼 숨기기
-    			SBUxMethod.clearAllData();//모든 데이터 클리어
-    			//하위 출자출하조직 그리드 데이터 제거
-    			jsonInvShipOgnReqMng01.length = 0;
-    			grdInvShipOgnReqMng01.rebuild();
-    			return false;
-    		}
+
 
         }catch (e) {
     		if (!(e instanceof Error)) {
@@ -1203,6 +1217,32 @@
 				wrtYn = item.wrtYn;
 				corpDdlnSeCd = item.corpDdlnSeCd;
 			});
+
+
+    		let userType = '${loginVO.userType}';
+        	let apoSe = SBUxMethod.get('dtl-input-apoSe');
+        	//조직관계 데이터가 없어 조회를 못하는 경우면 apoSe 값이 없음
+        	if(!gfn_isEmpty(apoSe)){
+        		if(userType == '21'){
+        			userType = '1'
+        		}else if(userType == '22'){
+        			userType = '2'
+        		}
+        		//유저 권한과 데이터가 맞지 않는 경우 오류 처리
+        		if(userType != apoSe){
+        			alert("해당 계정의 권한과 기존데이터의 타입이 맞지 않습니다"+
+        					"\n관리자에게 문의 해주세요");
+        			$(".btn").hide();// 모든 버튼 숨기기
+        			$(".uoList").hide();
+        			SBUxMethod.clearAllData();//모든 데이터 클리어
+        			return false;
+        		}
+        	}else{
+        		$(".btn").hide();// 모든 버튼 숨기기
+    			$(".uoList").hide();
+    			SBUxMethod.clearAllData();//모든 데이터 클리어
+    			return false;
+        	}
 
 			//산지조직신청 확인
     		if(wrtYn != 'Y'){
