@@ -636,7 +636,7 @@
 							<th colspan="4" scope="row" class="th_bg">NH(농협) 자금 신청액</th>
 						</tr>
 						<tr>
-							<th colspan="3" scope="row" class="th_bg"><span class="data_required" ></span>2024 자금 신청액(천원)</th>
+							<th colspan="3" scope="row" class="th_bg"><span class="data_required" ></span>2024 신규 자금 신청액(천원)</th>
 							<td colspan="4" class="td_input">
 								<sbux-input
 									uitype="text"
