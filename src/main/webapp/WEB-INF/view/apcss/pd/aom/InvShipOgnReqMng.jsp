@@ -38,7 +38,6 @@
 					</c:if>
 					<c:if test="${loginVO.userType eq '22'}">
 					<sbux-button id="btnSearchFclt02" name="btnSearchFclt02" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlSearch02"></sbux-button>
-					<sbux-button id="btnCorpDdlnSeCd" name="btnCorpDdlnSeCd" uitype="normal" text="법인체마감" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCd"></sbux-button>
 					</c:if>
 					<sbux-button id="btnSaveFclt01" name="btnSaveFclt01" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 				</c:if>
@@ -791,8 +790,7 @@
 
 
 
-	var jsonInvShipOgnReqMng = []; // 그리드의 참조 데이터 주소 선언
-	var grdInvShipOgnReqMng;
+
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
@@ -832,6 +830,9 @@
 	</c:if>
 	}
 
+	var jsonInvShipOgnReqMng = []; // 그리드의 참조 데이터 주소 선언
+	var grdInvShipOgnReqMng;
+
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid = async function() {
 
@@ -861,9 +862,9 @@
 	        {caption: ["시군구"], 		ref: 'sgg',   	type:'combo',  width:'150px',    style:'text-align:center', disabled:true
 			    		,typeinfo : {ref:'jsonComSgg', label:'label', value:'value', displayui : false}},
 	        {caption: ["법인명"], 		ref: 'corpNm',  type:'output',  width:'150px',    style:'text-align:center'},
-	        {caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'150px',    style:'text-align:center'},
-	        {caption: ["진행단계"], 		ref: 'aa',   	type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["비고"], 			ref: 'bb',   	type:'output',  width:'220px',    style:'text-align:center'}
+	        {caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["법인체마감"], 		ref: 'corpDdlnSeCd',   	type:'output',  width:'90px',    style:'text-align:center'},
+	        {caption: ["비고"], 			ref: 'rmrk',   	type:'output',  width:'220px',    style:'text-align:center'}
 	    ];
 
 	    grdInvShipOgnReqMng = _SBGrid.create(SBGridProperties);
@@ -896,7 +897,8 @@
 	    	//{caption: ["순번"], 				ref: 'aa',   	type:'output',  width:'50px',    style:'text-align:center'},
 	    	{caption: ["업체명"], 			ref: 'corpNm',   	type:'output',  width:'220px',    style:'text-align:center'},
 	    	{caption: ["대표자명"], 			ref: 'rprsvFlnm',   	type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["사업자번호"], 			ref: 'brno',   	type:'output',  width:'220px',    style:'text-align:center'},
+	        {caption: ["사업자번호"], 			ref: 'brno',   	type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["법인체마감여부"], 		ref: 'corpDdlnSeCd',   	type:'output',  width:'90px',    style:'text-align:center'},
 	        {caption: ["전화번호"], 			ref: 'rprsvTelno',   	type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["법인형태"], 			ref: 'corpDtlSeCd',  	type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["출자자수"], 			ref: 'invstNope',   	type:'output',  width:'120px',    style:'text-align:center'},
@@ -951,7 +953,8 @@
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
 
-		let yr = SBUxMethod.get("srch-input-year");//
+		let yr = SBUxMethod.get("srch-input-yr");//
+		console.log(yr);
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
 		let ctpv = SBUxMethod.get("srch-input-ctpv");//
 
@@ -993,6 +996,7 @@
 						,brno: item.brno
 						,aprv: item.aprv
 						,yr: item.yr
+						,corpDdlnSeCd: item.corpDdlnSeCd
 				}
 				jsonInvShipOgnReqMng.push(InvShipOgnReqMngVO);
 				if (index === 0) {
@@ -1032,6 +1036,7 @@
 		if(gfn_isEmpty(brno)) return;
 		let yr = SBUxMethod.get("dtl-input-yr");//
 		let wrtYn = null;
+		let corpDdlnSeCd = null;
 
     	let postJsonPromise01 = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
     	//let postJsonPromise01 = gfn_postJSON("/pd/aom/selectInvShipOgnReqMngList.do", {
@@ -1052,6 +1057,7 @@
 				//SBUxMethod.set('dtl-input-crno01',gfn_nvl(item.crno))//법인등록번호
 				SBUxMethod.set('dtl-input-brno01',gfn_nvl(item.brno))//사업자등록번호
 				wrtYn = item.wrtYn;
+				corpDdlnSeCd = item.corpDdlnSeCd;
 			});
 
 
@@ -1083,7 +1089,7 @@
     			grdInvShipOgnReqMng01.rebuild();
     			return false;
         	}
-
+			//산지조직관리 작성여부
         	if(wrtYn != 'Y'){
         		alert("산지조직관리 작성이 필요합니다.");
         		$(".btn").hide();// 모든 버튼 숨기기
@@ -1091,6 +1097,14 @@
     			//하위 출자출하조직 그리드 데이터 제거
     			$(".ad_section_top").hide();
 
+				return false;
+        	}
+        	//법인체마감 여부
+        	if(corpDdlnSeCd == 'Y'){
+        		//alert("산지조직관리 작성이 필요합니다.");
+        		$(".btn").hide();// 모든 버튼 숨기기
+        		SBUxMethod.attr('dtl-input-selUoBrno','readonly',true);
+        		SBUxMethod.attr('dtl-input-isoFundAplyAmt','readonly',true);
 				return false;
         	}
 
@@ -1259,7 +1273,6 @@
 			await SBUxMethod.set("dtl-input-selUoBrno", uoBrno);
 
     		//마감 확인
-    		console.log('corpDdlnSeCd = ' +corpDdlnSeCd);
         	if(corpDdlnSeCd == 'Y'){
         		$(".btn").hide();// 모든 버튼 숨기기
         		SBUxMethod.attr('dtl-input-selUoBrno','readonly',true);
@@ -1544,14 +1557,13 @@
 						,yr: item.yr
 
 						,frmerInvstAmtRt: item.frmerInvstAmtRt
+
+						,corpDdlnSeCd: item.corpDdlnSeCd
 				}
 				jsonInvShipOgnReqMng01.push(InvShipOgnReqMngVO);
 			});
 
         	grdInvShipOgnReqMng01.rebuild();
-
-        	//비어 있는 마지막 줄 추가용도?
-        	//grdInvShipOgnReqMng01.addRow();
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -1738,33 +1750,5 @@
         }
     }
 
-	//법인체 마감
-	async function fn_corpDdlnSeCd(){
-		let brno = SBUxMethod.get('dtl-input-brno');
-		//현재년도
-		let now = new Date();
-		let year = now.getFullYear();
-
-		let postJsonPromise = gfn_postJSON("/pd/aom/updateCorpDdlnSeCd.do", {
-			brno : brno
-			,yr : year
-			,corpDdlnSeCd : 'Y'
-		});
-        let data = await postJsonPromise;
-
-        try{
-        	if(data.result > 0){
-        		alert("법인체 마감 되었습니다.");
-        		fn_dtlSearch02();
-        	}else{
-        		alert("법인체 마감 도중 오류가 발생 되었습니다.");
-        	}
-        }catch (e) {
-        	if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-		}
-	}
 </script>
 </html>

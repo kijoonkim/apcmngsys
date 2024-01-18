@@ -34,7 +34,7 @@
 				</c:if>
 				<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
 					<sbux-button id="btnSaveFclt01" name="btnSaveFclt01" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
-					<sbux-button id="btnCorpDdlnSeCd" name="btnCorpDdlnSeCd" uitype="normal" text="법인체마감" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCd"></sbux-button>
+					<sbux-button id="btnCorpDdlnSeCd01" name="btnCorpDdlnSeCd01" uitype="normal" text="법인체마감" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCd"></sbux-button>
 				</c:if>
 				</div>
 			</div>
@@ -88,8 +88,8 @@
 								></sbux-select>
 							</td>
 							<td style="border-right: hidden;"></td>
-							<th colspan="2" scope="row" class="th_bg" >시도</th>
-							<td colspan="2" class="td_input" style="border-right:hidden;">
+							<th colspan="1" scope="row" class="th_bg" >시도</th>
+							<td colspan="3" class="td_input" style="border-right:hidden;">
 								<sbux-select
 									id="srch-input-ctpv"
 									name="srch-input-ctpv"
@@ -130,8 +130,8 @@
 							</td>
 							<td class="td_input" style="border-right: hidden;" >
 							</td>
-							<th colspan="2" scope="row" class="th_bg">통합조직여부</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
+							<th colspan="1" scope="row" class="th_bg">통합조직여부</th>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-select
 									id="srch-input-aprv"
 									name="srch-input-aprv"
@@ -173,8 +173,8 @@
 							</td>
 							<td class="td_input">
 							</td>
-							<th colspan="2" scope="row" class="th_bg">법인명</th>
-							<td colspan="2" class="td_input" style="border-right:hidden;" >
+							<th scope="row" class="th_bg">법인명</th>
+							<td colspan="3" class="td_input" style="border-right:hidden;" >
 								<sbux-input
 									uitype="text"
 									id="srch-input-corpNm"
@@ -183,8 +183,20 @@
 									autocomplete="off"
 								></sbux-input>
 							</td>
-							<td colspan="7" class="td_input">
-
+							<td class="td_input">
+							<th colspan="1" scope="row" class="th_bg">법인체마감여부</th>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
+								<sbux-select
+									id="srch-input-corpDdlnSeCd"
+									name="srch-input-corpDdlnSeCd"
+									uitype="single"
+									jsondata-ref="ComCorpDdlnSeCd"
+									unselected-text="전체"
+									class="form-control input-sm"
+								></sbux-select>
+							</td>
+							<td colspan="2" class="td_input">
+							</td>
 						</tr>
 
 					</tbody>
@@ -193,7 +205,17 @@
 
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
-				<div class="ad_section_top">
+				<div style="display:flex; justify-content: flex-start; margin-top: 10px;" >
+					<div>
+					</div>
+					<div style="margin-left: auto;">
+						<sbux-button id="btnCorpDdlnSeCdY" name="btnCorpDdlnSeCdY" uitype="normal" text="법인체선택마감" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCd(1)"></sbux-button>
+						<sbux-button id="btnCorpDdlnSeCdN" name="btnCorpDdlnSeCdN" uitype="normal" text="법인체선택마감해제" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCd(2)"></sbux-button>
+						<sbux-button id="btnCorpDdlnSeCdAllY" name="btnCorpDdlnSeCdAllY" uitype="normal" text="법인체일괄마감" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCdAll(1)"></sbux-button>
+						<sbux-button id="btnCorpDdlnSeCdAllN" name="btnCorpDdlnSeCdAllN" uitype="normal" text="법인체일괄마감해제" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCdAll(2)"></sbux-button>
+					</div>
+				</div>
+				<div style="">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
@@ -966,16 +988,7 @@
 		let year = now.getFullYear();
 		SBUxMethod.set("srch-input-yr",year);//
 
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		fn_init();
-		fn_initSBSelect();
-		fn_search();
-	</c:if>
-	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
-		fn_gpcListGrid();
-		fn_initSBSelect();
-		fn_dtlSearch();
-	</c:if>
 
 		/**
 		 * 엔터시 검색 이벤트
@@ -1002,13 +1015,19 @@
 	//경영체여부
 	var jsonComItemNhBrofYn = [
 		{'text': 'Y','label': 'Y', 'value': 'Y'},
-		{'text': 'N','label': 'N', 'value': 'Y'}
+		{'text': 'N','label': 'N', 'value': 'N'}
 	];
 	//타 조직 통합 여부
 	var jsonComUntuYn = [
 		{'text': 'Y','label': 'Y', 'value': 'Y'},
-		{'text': 'N','label': 'N', 'value': 'Y'}
+		{'text': 'N','label': 'N', 'value': 'N'}
 	];
+	//타 조직 통합 여부
+	var ComCorpDdlnSeCd = [
+		{'text': 'Y','label': 'Y', 'value': 'Y'},
+		{'text': 'N','label': 'N', 'value': 'N'}
+	];
+
 	var jsonComCmptnInst = [];//관할기관
 	var jsonComCtpv = [];//시도
 	var jsonComSgg = [];//시군
@@ -1051,8 +1070,18 @@
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
-		fn_fcltMngCreateGrid();
-		fn_gpcListGrid();
+
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+		await fn_fcltMngCreateGrid();
+		await fn_gpcListGrid();
+		await fn_initSBSelect();
+		await fn_search();
+	</c:if>
+	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+		await fn_gpcListGrid();
+		await fn_initSBSelect();
+		await fn_dtlSearch();
+	</c:if>
 	}
 
 	//그리드 변수
@@ -1092,7 +1121,7 @@
 				    	,typeinfo : {ref:'jsonComSgg', label:'label', value:'value', displayui : false}},
 	        {caption: ["법인명"], 		ref: 'corpNm',  type:'output',  width:'150px',    style:'text-align:center'},
 	        {caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'150px',    style:'text-align:center'},
-	        {caption: ["진행단계"], 		ref: 'aa',   	type:'output',  width:'80px',    style:'text-align:center'},
+	        {caption: ["법인체마감여부"], 		ref: 'corpDdlnSeCd',   	type:'output',  width:'90px',    style:'text-align:center'},
 	        {caption: ["비고"], 			ref: 'rmrk',   	type:'output',  width:'220px',    style:'text-align:center'},
 
 	        {caption: ["상세내역"], 	ref: 'picFlnm',   		hidden : true},
@@ -1167,7 +1196,8 @@
 
 		fn_clearForm();
 
-		let yr = SBUxMethod.get("srch-input-yr");// 보류
+		let yr = SBUxMethod.get("srch-input-yr");//
+		console.log(yr);
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
 		let ctpv = SBUxMethod.get("srch-input-ctpv");//
 
@@ -1250,6 +1280,7 @@
 
 						,pruoFundAplyAmt: item.pruoFundAplyAmt
 						,isoFundAplyAmt: item.isoFundAplyAmt
+						,corpDdlnSeCd: item.corpDdlnSeCd
 						//,aplyTrgtSe: item.aplyTrgtSe
 				}
 				jsonPrdcrCrclOgnReqMng.push(PrdcrCrclOgnReqMngVO);
@@ -2275,9 +2306,20 @@
 	}
 
 
-	//법인체 마감
-	async function fn_corpDdlnSeCd(){
+	//법인체 선택마감
+	async function fn_corpDdlnSeCd(yn){
 		let brno = SBUxMethod.get('dtl-input-brno');
+		//let apoSe = SBUxMethod.get('dtl-input-apoSe');
+
+		let corpDdlnSeCd = null;
+		if(yn == 1){
+			corpDdlnSeCd = 'Y'
+		}else if(yn == 2){
+			corpDdlnSeCd = 'N'
+		}
+
+		if(gfn_isEmpty(brno)) return;
+
 		//현재년도
 		let now = new Date();
 		let year = now.getFullYear();
@@ -2285,14 +2327,49 @@
 		let postJsonPromise = gfn_postJSON("/pd/aom/updateCorpDdlnSeCd.do", {
 			brno : brno
 			,yr : year
-			,corpDdlnSeCd : 'Y'
+			,corpDdlnSeCd : corpDdlnSeCd
+			//,apoSe : apoSe
 		});
         let data = await postJsonPromise;
 
         try{
         	if(data.result > 0){
         		alert("법인체 마감 되었습니다.");
-        		fn_dtlSearch();
+        		fn_search();
+        	}else{
+        		alert("법인체 마감 도중 오류가 발생 되었습니다.");
+        	}
+        }catch (e) {
+        	if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+		}
+	}
+	//법인체 일괄 마감
+	async function fn_corpDdlnSeCdAll(yn){
+
+		let corpDdlnSeCd = null;
+		if(yn == 1){
+			corpDdlnSeCd = 'Y'
+		}else if(yn == 2){
+			corpDdlnSeCd = 'N'
+		}
+
+		//현재년도
+		let now = new Date();
+		let year = now.getFullYear();
+
+		let postJsonPromise = gfn_postJSON("/pd/aom/updateCorpDdlnSeCd.do", {
+			yr : year
+			,corpDdlnSeCd : corpDdlnSeCd
+		});
+        let data = await postJsonPromise;
+
+        try{
+        	if(data.result > 0){
+        		alert("법인체 마감 되었습니다.");
+        		fn_search();
         	}else{
         		alert("법인체 마감 도중 오류가 발생 되었습니다.");
         	}

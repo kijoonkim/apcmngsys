@@ -1371,10 +1371,12 @@ tps://sbgrid.co.kr/v2_5/document/guide
     		brno : brno
 		});
         let data = await postJsonPromise;
+        let sgg;
         try{
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
         		console.log("item.apoSe==="+item.apoSe);
+        		sgg = item.sgg
         		SBUxMethod.set('dtl-input-apoCd',gfn_nvl(item.apoCd))
         		SBUxMethod.set('dtl-input-apoSe',gfn_nvl(item.apoSe))
         		SBUxMethod.set('dtl-input-uoBrno',gfn_nvl(item.uoBrno))
@@ -1424,10 +1426,10 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
         		SBUxMethod.set('dtl-input-ctpv',gfn_nvl(item.ctpv));
 
-        		await gfn_setComCdSBSelect('dtl-input-sgg', 			jsonComDtlSgg, 		'CMPTN_INST_SIGUN');
-        		await SBUxMethod.set('dtl-input-sgg',gfn_nvl(item.sgg));
-
 			});
+
+        	await gfn_setComCdSBSelect('dtl-input-sgg', 			jsonComDtlSgg, 		'CMPTN_INST_SIGUN');
+    		await SBUxMethod.set('dtl-input-sgg',sgg);
 
         	let userType = '${loginVO.userType}';
         	let apoSe = SBUxMethod.get('dtl-input-apoSe');

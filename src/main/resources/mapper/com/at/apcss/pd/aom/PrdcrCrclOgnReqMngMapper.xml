@@ -535,8 +535,10 @@
 			   SET
 			 	  CORP_DDLN_SE_CD	= #{corpDdlnSeCd}
 			 WHERE 1=1
-			   AND BRNO 	= #{brno}
-		   	   AND YR		= #{yr}
+				<if test='brno != null and brno != ""'>
+				AND BRNO 	= #{brno}
+				</if>
+				AND YR		= #{yr}
     </update>
 
 </mapper>
