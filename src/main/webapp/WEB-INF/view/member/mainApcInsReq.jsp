@@ -90,6 +90,41 @@
 
         fn_setLeftMenu(data.id);
 
+        var noticeTab = SBUxMethod.getTab('tab_menu', 'TAB_PD_009');
+
+    	if(noticeTab == null || noticeTab == undefined){
+
+    		var tabName = "TAB_PD_009";
+            var menuNo = "PD_009";
+            var jsonTabSelect = {
+                  'id': tabName
+                , 'pid': '-1'
+                , 'text': '공지사항'	//'대시보드'
+                , 'targetid': tabName
+                , 'targetvalue': tabName + '_value'
+                , 'targetname': 'frmJson'
+                , 'link': '/co/menu/openPage.do/' + menuNo	// _url
+                , 'closeicon': false
+            };
+            SBUxMethod.addTab('tab_menu', jsonTabSelect);
+            //화면이력관리용 data
+            var data = {
+            		customData : {prsnaYn : null},
+            		id : tabName,
+            		text : "공지사항",
+            		prslType: "M1"
+            }
+            insertComLog(data);
+
+            await fn_afterAddTab(menuNo);
+    	}else{
+    		if(data.id == "PD" || data.id == "FM"){
+           		SBUxMethod.showTab('tab_menu','TAB_PD_009');
+            }else{
+            	SBUxMethod.hideTab('tab_menu','TAB_PD_009');
+            }
+    	}
+
         /*
         fn_actionGoPage(
             url

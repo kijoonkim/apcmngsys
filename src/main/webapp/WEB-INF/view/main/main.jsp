@@ -86,12 +86,12 @@
 
         fn_setLeftMenu(data.id);
 
-        var noticeTab = SBUxMethod.getTab('tab_menu', 'TAB_PD_002_012');
+        var noticeTab = SBUxMethod.getTab('tab_menu', 'TAB_PD_009');
 
     	if(noticeTab == null || noticeTab == undefined){
 
-    		var tabName = "TAB_PD_002_012";
-            var menuNo = "PD_002_012";
+    		var tabName = "TAB_PD_009";
+            var menuNo = "PD_009";
             var jsonTabSelect = {
                   'id': tabName
                 , 'pid': '-1'
@@ -115,9 +115,9 @@
             await fn_afterAddTab(menuNo);
     	}else{
     		if(data.id == "PD" || data.id == "FM"){
-           		SBUxMethod.showTab('tab_menu','TAB_PD_002_012');
+           		SBUxMethod.showTab('tab_menu','TAB_PD_009');
             }else{
-            	SBUxMethod.hideTab('tab_menu','TAB_PD_002_012');
+            	SBUxMethod.hideTab('tab_menu','TAB_PD_009');
             }
     	}
 
