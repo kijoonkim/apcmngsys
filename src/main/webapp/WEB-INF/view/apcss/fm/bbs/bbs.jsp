@@ -860,6 +860,7 @@
          	if (_.isEqual("S", data.resultStatus)) {
 				$("#att_"+atchflno).remove();
          		alert("삭제 되었습니다.");
+         		fn_search();
          	} else {
          		alert(data.resultMessage);
          	}
