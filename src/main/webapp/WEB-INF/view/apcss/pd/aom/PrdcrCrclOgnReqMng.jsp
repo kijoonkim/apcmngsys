@@ -839,7 +839,7 @@
 						</tr>
 						<tr>
 							<th colspan="4" scope="row" class="th_bg th_border_right">생산유통통합조직</th>
-							<th colspan="4" scope="row" class="th_bg">2024자금 신청액(천원)</th>
+							<th colspan="4" scope="row" class="th_bg">2024 신규 자금 신청액(천원)</th>
 							<td colspan="7" class="td_input">
 								<sbux-input
 									uitype="text"
@@ -854,7 +854,7 @@
 						</tr>
 						<tr>
 							<th colspan="4" scope="row" class="th_bg th_border_right">출자출하조직</th>
-							<th colspan="4" scope="row" class="th_bg">2024 자금 신청액(천원)</th>
+							<th colspan="4" scope="row" class="th_bg">2024 신규 자금 신청액(천원)</th>
 							<td colspan="7" class="td_input">
 								<sbux-input
 									uitype="text"
