@@ -159,8 +159,8 @@ public class EgovConfigAppCommon {
 	@Bean
 	public CommonsMultipartResolver springRegularCommonsMultipartResolver() {
 		CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
-		commonsMultipartResolver.setMaxUploadSize(104857600);	// 8388608	100000000 104857600
-		commonsMultipartResolver.setMaxInMemorySize(104857600);
+		commonsMultipartResolver.setMaxUploadSize(157286400);	// 8388608	100000000 104857600 157286400
+		commonsMultipartResolver.setMaxInMemorySize(157286400);
 		return commonsMultipartResolver;
 	}
 
@@ -171,8 +171,8 @@ public class EgovConfigAppCommon {
 	@Bean
 	public EgovMultipartResolver localMultiCommonsMultipartResolver() {
 		EgovMultipartResolver egovMultipartResolver = new EgovMultipartResolver();
-		egovMultipartResolver.setMaxUploadSize(104857600);	// 8388608	100000000 104857600
-		egovMultipartResolver.setMaxInMemorySize(104857600);
+		egovMultipartResolver.setMaxUploadSize(157286400);	// 8388608	100000000 104857600 157286400
+		egovMultipartResolver.setMaxInMemorySize(157286400);
 		return egovMultipartResolver;
 	}
 
