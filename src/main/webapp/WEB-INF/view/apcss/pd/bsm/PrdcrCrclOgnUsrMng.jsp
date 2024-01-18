@@ -27,8 +27,6 @@
 						<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
 						<sbux-button id="btnDeleteFclt" name="btnDeleteFclt" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
-						<sbux-button id="btnCorpDdlnSeCd01" name="btnCorpDdlnSeCd01" uitype="normal" text="법인체마감" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCd01"></sbux-button>
-						<sbux-button id="btnCorpDdlnSeCd02" name="btnCorpDdlnSeCd02" uitype="normal" text="법인체해제" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCd02"></sbux-button>
 					</c:if>
 					<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
 						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
@@ -939,73 +937,6 @@
     		console.error("failed", e.message);
 		}
 
-	}
-
-
-	//법인체 마감
-	async function fn_corpDdlnSeCd01(){
-		let brno = SBUxMethod.get('dtl-input-brno');
-		console.log(brno);
-		if(gfn_isEmpty(brno)) return;
-		let userType = SBUxMethod.get('dtl-input-userType');
-		if(userType ){
-
-		}
-
-		//현재년도
-		let now = new Date();
-		let year = now.getFullYear();
-
-		let postJsonPromise = gfn_postJSON("/pd/aom/updateCorpDdlnSeCd.do", {
-			brno : brno
-			,yr : year
-			,corpDdlnSeCd : 'Y'
-		});
-        let data = await postJsonPromise;
-
-        try{
-        	if(data.result > 0){
-        		alert("법인체 마감 해제 되었습니다.");
-        	}else{
-        		alert("법인체 마감 해제 도중 오류가 발생 되었습니다.");
-        	}
-        }catch (e) {
-        	if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-		}
-	}
-
-	//법인체 마감 해제
-	async function fn_corpDdlnSeCd02(){
-		let brno = SBUxMethod.get('dtl-input-brno');
-		console.log(brno);
-		if(gfn_isEmpty(brno)) return;
-
-		//현재년도
-		let now = new Date();
-		let year = now.getFullYear();
-
-		let postJsonPromise = gfn_postJSON("/pd/aom/updateCorpDdlnSeCd.do", {
-			brno : brno
-			,yr : year
-			,corpDdlnSeCd : 'N'
-		});
-        let data = await postJsonPromise;
-
-        try{
-        	if(data.result > 0){
-        		alert("법인체 마감 해제 되었습니다.");
-        	}else{
-        		alert("법인체 마감 해제 도중 오류가 발생 되었습니다.");
-        	}
-        }catch (e) {
-        	if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-		}
 	}
 
 </script>

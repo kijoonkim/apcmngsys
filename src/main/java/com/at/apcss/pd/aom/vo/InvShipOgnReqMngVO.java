@@ -44,7 +44,7 @@ public class InvShipOgnReqMngVO extends ComVO{
 	private String aplyTrgtSe;
 	private String yr;
 	private String aplyDay;
-	private String corpDdlnSeCd;
+	private String corpDdlnSeCd;//법인체마감
 
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;
