@@ -79,7 +79,7 @@
         //$(".sbt-A-wrap").height(bodyHeight - topHeight - 5);
     //});
 
-    const fn_selectTopMenu = (_id) => {
+    const fn_selectTopMenu = async (_id) => {
 
 		var data = SBUxMethod.get(_id);
 
