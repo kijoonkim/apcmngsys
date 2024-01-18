@@ -1423,10 +1423,12 @@ tps://sbgrid.co.kr/v2_5/document/guide
         		SBUxMethod.set('dtl-input-itemNhBrofYn',gfn_nvl(item.itemNhBrofYn))
 
         		SBUxMethod.set('dtl-input-ctpv',gfn_nvl(item.ctpv));
-        		gfn_setComCdSBSelect('dtl-input-sgg', 			jsonComDtlSgg, 		'CMPTN_INST_SIGUN');
-        		SBUxMethod.set('dtl-input-sgg',gfn_nvl(item.sgg));
+
+        		await gfn_setComCdSBSelect('dtl-input-sgg', 			jsonComDtlSgg, 		'CMPTN_INST_SIGUN');
+        		await SBUxMethod.set('dtl-input-sgg',gfn_nvl(item.sgg));
 
 			});
+
         	let userType = '${loginVO.userType}';
         	let apoSe = SBUxMethod.get('dtl-input-apoSe');
         	if(userType == '21'){
@@ -1958,8 +1960,8 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		SBUxMethod.set('dtl-input-itemNhBrofYn',gfn_nvl(rowData.itemNhBrofYn))//
 
 		SBUxMethod.set('dtl-input-ctpv',gfn_nvl(rowData.ctpv));
-		gfn_setComCdSBSelect('dtl-input-sgg', 			jsonComDtlSgg, 		'CMPTN_INST_SIGUN');
-		SBUxMethod.set('dtl-input-sgg',gfn_nvl(rowData.sgg));
+		await gfn_setComCdSBSelect('dtl-input-sgg', 			jsonComDtlSgg, 		'CMPTN_INST_SIGUN');
+		await SBUxMethod.set('dtl-input-sgg',gfn_nvl(rowData.sgg));
 
 		fn_calInvstAmtTot();
 		fn_calTot();
