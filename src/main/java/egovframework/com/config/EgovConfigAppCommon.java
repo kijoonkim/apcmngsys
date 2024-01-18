@@ -171,7 +171,7 @@ public class EgovConfigAppCommon {
 	@Bean
 	public EgovMultipartResolver localMultiCommonsMultipartResolver() {
 		EgovMultipartResolver egovMultipartResolver = new EgovMultipartResolver();
-		egovMultipartResolver.setMaxUploadSize(8388608);	// 8388608	100000000 104857600
+		egovMultipartResolver.setMaxUploadSize(104857600);	// 8388608	100000000 104857600
 		egovMultipartResolver.setMaxInMemorySize(104857600);
 		return egovMultipartResolver;
 	}
