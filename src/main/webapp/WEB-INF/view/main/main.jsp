@@ -114,7 +114,7 @@
 
             await fn_afterAddTab(menuNo);
     	}else{
-    		if(data.id == "PD"){
+    		if(data.id == "PD" || data.id == "FM"){
            		SBUxMethod.showTab('tab_menu','TAB_PD_002_012');
             }else{
             	SBUxMethod.hideTab('tab_menu','TAB_PD_002_012');
