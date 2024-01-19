@@ -2334,10 +2334,18 @@
 
         try{
         	if(data.result > 0){
-        		alert("법인체 마감 되었습니다.");
+        		if(yn == 1){
+        			alert("법인체 마감 되었습니다.");
+        		}else if(yn == 2){
+        			alert("법인체 마감 해제 되었습니다.");
+        		}
         		fn_search();
         	}else{
-        		alert("법인체 마감 도중 오류가 발생 되었습니다.");
+        		if(yn == 1){
+        			alert("법인체 마감 도중 오류가 발생 되었습니다.");
+        		}else if(yn == 2){
+        			alert("법인체 마감 해제 도중 오류가 발생 되었습니다.");
+        		}
         	}
         }catch (e) {
         	if (!(e instanceof Error)) {
@@ -2368,10 +2376,18 @@
 
         try{
         	if(data.result > 0){
-        		alert("법인체 마감 되었습니다.");
+        		if(yn == 1){
+        			alert("법인체 마감 되었습니다.");
+        		}else if(yn == 2){
+        			alert("법인체 마감 해제 되었습니다.");
+        		}
         		fn_search();
         	}else{
-        		alert("법인체 마감 도중 오류가 발생 되었습니다.");
+        		if(yn == 1){
+        			alert("법인체 마감 도중 오류가 발생 되었습니다.");
+        		}else if(yn == 2){
+        			alert("법인체 마감 해제 도중 오류가 발생 되었습니다.");
+        		}
         	}
         }catch (e) {
         	if (!(e instanceof Error)) {
