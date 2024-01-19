@@ -57,6 +57,7 @@ public class PrdcrCrclOgnReqMngVO extends ComVO{
 
 	private String uoCd;
 	private String yr;
+	private String yrChk;
 	private String aplyDay;
 	private String corpDdlnSeCd;
 	private String rawMtrEnsr;//값 확인용

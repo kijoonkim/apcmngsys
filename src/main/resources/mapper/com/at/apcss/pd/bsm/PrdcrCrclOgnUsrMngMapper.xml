@@ -236,11 +236,16 @@
     </update>
 
 
-	<delete id="deletePrdcrCrclOgnUsrMng" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnUsrMngVO">
+	<delete id="deleteUser" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnUsrMngVO">
 		<![CDATA[
 		DELETE FROM TB_COM_USER
 		 WHERE USER_ID 	= #{userId}
 		]]>
 	</delete>
-
+	<delete id="deleteAuthUser" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnUsrMngVO">
+		<![CDATA[
+		DELETE FROM TB_COM_AUTH_USER
+		 WHERE USER_ID 	= #{userId}
+		]]>
+	</delete>
 </mapper>

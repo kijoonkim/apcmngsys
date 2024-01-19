@@ -40,6 +40,6 @@ public interface PrdcrCrclOgnUsrMngService {
 
 	public int multiSavePrdcrCrclOgnUsrMngList(List<PrdcrCrclOgnUsrMngVO> PrdcrCrclOgnUsrMngVOList) throws Exception;
 
-	public int deletePrdcrCrclOgnUsrMng(PrdcrCrclOgnUsrMngVO PrdcrCrclOgnUsrMngVO) throws Exception;
+	public int deleteUser(PrdcrCrclOgnUsrMngVO PrdcrCrclOgnUsrMngVO) throws Exception;
 
 }

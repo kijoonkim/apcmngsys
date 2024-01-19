@@ -27,6 +27,7 @@
 						<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
 						<sbux-button id="btnDeleteFclt" name="btnDeleteFclt" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
+						<sbux-button id="test" name="test" uitype="normal" text="test" class="btn btn-sm btn-outline-danger" onclick="fn_test"></sbux-button>
 					</c:if>
 					<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
 						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
@@ -278,7 +279,7 @@
 									id="dtl-input-userType"
 									name="dtl-input-userType"
 									uitype="single"
-									jsondata-ref="jsonComUserType"
+									jsondata-ref="jsonComUserDtlType"
 									unselected-text="선택"
 									class="form-control input-sm"
 									onchange="fn_onChangeSrchItemCd(this)"
@@ -493,6 +494,8 @@
 
 	var jsonComcmptncInst = [];//관할기관
 	var jsonComUserType = [];//권한
+	var jsonComUserDtlType = [];//권한
+	var jsonComUserGrdType = [];//권한
 	var jsonComUserStts = [];//1차승인
 
 	/**
@@ -501,10 +504,10 @@
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
 		let rst = await Promise.all([
-			//gfn_setComCdSBSelect('srch-input-userType', 	jsonComUserType, 	'USER_TYPE'),	// 권한
-			gfn_setComCdSBSelect('srch-input-userType', 	jsonComUserType, 	'USER_TYPE_1'),	// 권한
-			//gfn_setComCdSBSelect('dtl-input-userType', 	jsonComUserType, 	'USER_TYPE'),	// 권한
-			gfn_setComCdSBSelect('dtl-input-userType', 		jsonComUserType, 	'USER_TYPE_1'),	// 권한
+			gfn_setComCdSBSelect('srch-input-userType', 	jsonComUserType, 		'USER_TYPE'),	// 권한
+			gfn_setComCdSBSelect('srch-input-userType', 	jsonComUserGrdType, 	'USER_TYPE'),	// 권한
+			gfn_setComCdSBSelect('dtl-input-userType', 		jsonComUserDtlType, 	'USER_TYPE_1'),	// 권한
+
 			gfn_setComCdSBSelect('srch-input-userStts', 	jsonComUserStts, 	'USER_STTS'),	// 1차승인
 			gfn_setComCdSBSelect('dtl-input-userStts', 		jsonComUserStts, 	'USER_STTS'),	// 1차승인
 		 	gfn_setComCdSBSelect('srch-input-cmptncInst', 	jsonComcmptncInst, 	'CMPTNC_INST'), //관할기관
@@ -524,8 +527,8 @@
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		await fn_initSBSelect();
 		await fn_search();
-		SBUxMethod.attr("dtl-input-userType", "readonly", "false");//권한
-		SBUxMethod.attr("dtl-input-coNm", "readonly", "false");//법인명
+		//SBUxMethod.attr("dtl-input-userType", "readonly", "false");//권한
+		//SBUxMethod.attr("dtl-input-coNm", "readonly", "false");//법인명
 		//SBUxMethod.attr("dtl-input-cmptncInst", "readonly", "false");//관할기관
 	</c:if>
 	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
@@ -563,7 +566,7 @@
 	    	{caption: ["2차승인"], 	ref: 'cmptncInstAprvSe',   	type:'combo',  width:'200px',    style:'text-align:center', disabled:true
 			    ,typeinfo : {ref:'jsoncmptncInstAprvSe', label:'label', value:'value', displayui : false}},
 	    	{caption: ["권한"], 		ref: 'userType',   	type:'combo',  width:'200px',    style:'text-align:center', disabled:true
-				,typeinfo : {ref:'jsonComUserType', label:'label', value:'value', displayui : false}},
+				,typeinfo : {ref:'jsonComUserGrdType', label:'label', value:'value', displayui : false}},
 	    	{caption: ["사업자번호"], 	ref: 'brno',   	type:'output',  width:'200px',    style:'text-align:center'},
 	    	{caption: ["비고"], 		ref: 'rmrk',   	type:'output',  width:'200px',    style:'text-align:center'},
 
@@ -918,7 +921,7 @@
 
 		if (!confirm("선택된 유저를 삭제 하시겠습니까?")) return;
 
-		let postJsonPromise = gfn_postJSON("/pd/bsm/deletePrdcrCrclOgnUsrMng.do", {
+		let postJsonPromise = gfn_postJSON("/pd/bsm/deleteUser.do", {
 			userId : userId
 		});
         let data = await postJsonPromise;
@@ -930,6 +933,26 @@
         	}else{
         		alert("삭제 도중 오류가 발생 되었습니다.");
         	}
+        }catch (e) {
+        	if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+		}
+
+	}
+
+	async function fn_test(){
+		let userId = SBUxMethod.get("dtl-input-userId");
+		if(gfn_isEmpty(userId)) return;
+
+		let postJsonPromise = gfn_postJSON("/brnoChange.do", {
+			userId : userId
+		});
+        let data = await postJsonPromise;
+
+        try{
+        	console.log(data);
         }catch (e) {
         	if (!(e instanceof Error)) {
     			e = new Error(e);

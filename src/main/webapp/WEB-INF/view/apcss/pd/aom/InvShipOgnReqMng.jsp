@@ -894,7 +894,6 @@
 	    	{caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	    		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdInvShipOgnReqMng01\", " + nRow + ")'>삭제</button>";
 	        }},
-	    	//{caption: ["순번"], 				ref: 'aa',   	type:'output',  width:'50px',    style:'text-align:center'},
 	    	{caption: ["업체명"], 			ref: 'corpNm',   	type:'output',  width:'220px',    style:'text-align:center'},
 	    	{caption: ["대표자명"], 			ref: 'rprsvFlnm',   	type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["사업자번호"], 			ref: 'brno',   	type:'output',  width:'100px',    style:'text-align:center'},

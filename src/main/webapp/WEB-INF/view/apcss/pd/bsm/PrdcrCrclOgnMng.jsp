@@ -1367,7 +1367,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		SBUxMethod.set('dtl-input-brno',gfn_nvl(brno));
 		if(gfn_isEmpty(brno)) return;
 
-    	let postJsonPromise = gfn_postJSON("/pd/bsm/selectPrdcrCrclOgnMngList.do", {
+    	let postJsonPromise = gfn_postJSON("/pd/bsm/selectPrdcrCrclOgnMng.do", {
     		brno : brno
 		});
         let data = await postJsonPromise;

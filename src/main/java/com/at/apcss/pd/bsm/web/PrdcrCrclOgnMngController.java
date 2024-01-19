@@ -34,6 +34,23 @@ public class PrdcrCrclOgnMngController extends BaseController{
 	}
 
 	// 조회
+	@PostMapping(value = "/pd/bsm/selectPrdcrCrclOgnMng.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectPrdcrCrclOgnMng(Model model, @RequestBody PrdcrCrclOgnMngVO PrdcrCrclOgnMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PrdcrCrclOgnMngVO> resultList = new ArrayList<>();
+
+		try {
+			PrdcrCrclOgnMngVO result = PrdcrCrclOgnMngService.selectPrdcrCrclOgnMng(PrdcrCrclOgnMngVO);
+			resultList.add(result);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 조회
 	@PostMapping(value = "/pd/bsm/selectPrdcrCrclOgnMngList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectPrdcrCrclOgnMngList(Model model, @RequestBody PrdcrCrclOgnMngVO PrdcrCrclOgnMngVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();

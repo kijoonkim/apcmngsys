@@ -4,12 +4,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.fm.bbs.mapper.BbsMapper;
-import com.at.apcss.fm.bbs.service.BbsService;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnUsrMngMapper;
 import com.at.apcss.pd.bsm.service.PrdcrCrclOgnUsrMngService;
 import com.at.apcss.pd.bsm.vo.PrdcrCrclOgnUsrMngVO;
@@ -82,8 +78,10 @@ public class PrdcrCrclOgnUsrMngServiceImpl extends BaseServiceImpl implements Pr
 	}
 
 	@Override
-	public int deletePrdcrCrclOgnUsrMng(PrdcrCrclOgnUsrMngVO PrdcrCrclOgnUsrMngVO) throws Exception {
-		return PrdcrCrclOgnUsrMngMapper.deletePrdcrCrclOgnUsrMng(PrdcrCrclOgnUsrMngVO);
+	public int deleteUser(PrdcrCrclOgnUsrMngVO PrdcrCrclOgnUsrMngVO) throws Exception {
+		int deleteCnt = PrdcrCrclOgnUsrMngMapper.deleteUser(PrdcrCrclOgnUsrMngVO);
+		PrdcrCrclOgnUsrMngMapper.deleteAuthUser(PrdcrCrclOgnUsrMngVO);
+		return deleteCnt;
 	}
 
 }
