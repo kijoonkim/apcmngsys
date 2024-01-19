@@ -23,16 +23,7 @@
     <select id="selectPrdcrCrclOgnMng" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO" resultType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.selectPrdcrCrclOgnMng */
-				  (SELECT OGNZ_CD
-					FROM (SELECT OGNZ_CD
-							FROM TB_APC_OGNZ_INFO
-							WHERE BRNO = CM.BRNO
-							GROUP BY OGNZ_CD
-							ORDER BY OGNZ_CD DESC
-							)
-					WHERE ROWNUM = 1
-				) AS OGNZ_CD
-				, CM.APO_CD
+				CM.APO_CD
 				, CM.APO_NM
 				, CM.APO_SE
 				, CM.APRV
@@ -93,31 +84,7 @@
 			  FROM TB_EV_APO CM
 			 WHERE 1=1
     	]]>
-    		<if test='cmptnInst != null and cmptnInst != ""'>
-				AND CM.CMPTN_INST LIKE #{cmptnInst} || '%'
-			</if>
-			<if test='ctpv != null and ctpv != ""'>
-				AND CM.CTPV LIKE '%' || #{ctpv} || '%'
-			</if>
-			<if test='sgg != null and sgg != ""'>
-				AND CM.SGG LIKE '%' || #{sgg} || '%'
-			</if>
-			<if test='corpSeCd != null and corpSeCd != ""'>
-				AND CM.CORP_SE_CD LIKE #{corpSeCd} || '%'
-			</if>
-			<if test='corpDtlSeCd != null and corpDtlSeCd != ""'>
-				AND CM.CORP_DTL_SE_CD LIKE '%' || #{corpDtlSeCd} || '%'
-			</if>
-
-			<if test='brno != null and brno != ""'>
-				AND CM.BRNO LIKE #{brno} || '%'
-			</if>
-			<if test='corpNm != null and corpNm != ""'>
-				AND CM.CORP_NM LIKE '%' || #{corpNm} || '%'
-			</if>
-			<if test='apoSe != null and apoSe != ""'>
-				AND CM.APO_SE LIKE '%' || #{apoSe} || '%'
-			</if>
+			   AND CM.BRNO = #{brno}
 		ORDER BY CM.APO_CD ASC
 
 

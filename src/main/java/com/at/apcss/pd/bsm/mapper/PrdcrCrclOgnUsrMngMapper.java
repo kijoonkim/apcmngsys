@@ -37,5 +37,7 @@ public interface PrdcrCrclOgnUsrMngMapper {
 
 	public int updatePrdcrCrclOgnUsrMng(PrdcrCrclOgnUsrMngVO PrdcrCrclOgnUsrMngVO);
 
-	public int deletePrdcrCrclOgnUsrMng(PrdcrCrclOgnUsrMngVO PrdcrCrclOgnUsrMngVO) throws Exception;
+	public int deleteUser(PrdcrCrclOgnUsrMngVO PrdcrCrclOgnUsrMngVO) throws Exception;
+
+	public int deleteAuthUser(PrdcrCrclOgnUsrMngVO PrdcrCrclOgnUsrMngVO) throws Exception;
 }

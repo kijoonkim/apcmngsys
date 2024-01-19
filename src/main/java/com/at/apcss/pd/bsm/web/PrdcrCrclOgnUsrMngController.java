@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
+import com.at.apcss.co.sys.vo.LoginVO;
 import com.at.apcss.pd.bsm.service.PrdcrCrclOgnUsrMngService;
 import com.at.apcss.pd.bsm.vo.PrdcrCrclOgnUsrMngVO;
 
@@ -112,15 +113,16 @@ public class PrdcrCrclOgnUsrMngController extends BaseController{
 		resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
 		return getSuccessResponseEntity(resultMap);
 	}
-
-	@PostMapping(value = "/pd/bsm/deletePrdcrCrclOgnUsrMng.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	//사용자 삭제
+	//apc 시스템과 평가등록 시스템이 다른데 잘못가입하는 사람들이 생겨 추가
+	@PostMapping(value = "/pd/bsm/deleteUser.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deletePrdcrCrclOgnUsrMng(@RequestBody PrdcrCrclOgnUsrMngVO PrdcrCrclOgnUsrMngVO, HttpServletRequest request) throws Exception {
-		logger.debug("/pd/bsm/deletePrdcrCrclOgnUsrMng >>> 호출 >>> ");
+		logger.debug("/pd/bsm/deleteUser >>> 호출 >>> ");
 
 		int result = 0;
 
 		try {
-			result =+ PrdcrCrclOgnUsrMngService.deletePrdcrCrclOgnUsrMng(PrdcrCrclOgnUsrMngVO);
+			result =+ PrdcrCrclOgnUsrMngService.deleteUser(PrdcrCrclOgnUsrMngVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}

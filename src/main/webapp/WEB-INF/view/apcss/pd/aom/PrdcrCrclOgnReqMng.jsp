@@ -73,6 +73,16 @@
 									uitype="normal"
                 					step-value="1"
                 				></sbux-spinner>
+                				<sbux-checkbox
+                					id="srch-input-yrChk"
+                					name="srch-input-yrChk"
+                					uitype="normal"
+									text="해당년도 신청사용자만 보기"
+									text-left-padding="5px"
+									text-right-padding="25px"
+									true-value="Y"
+									false-value="N"
+									></sbux-checkbox>
 							</td>
 							<td style="border-right: hidden;"></td>
 							<th scope="row" class="th_bg" >관할기관</th>
@@ -88,7 +98,7 @@
 								></sbux-select>
 							</td>
 							<td style="border-right: hidden;"></td>
-							<th colspan="1" scope="row" class="th_bg" >시도</th>
+							<th colspan="2" scope="row" class="th_bg" >시도</th>
 							<td colspan="3" class="td_input" style="border-right:hidden;">
 								<sbux-select
 									id="srch-input-ctpv"
@@ -100,7 +110,7 @@
 									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 							</td>
-							<td colspan="2" class="td_input">
+							<td colspan="1" class="td_input">
 							</td>
 						</tr>
 						<tr>
@@ -130,7 +140,7 @@
 							</td>
 							<td class="td_input" style="border-right: hidden;" >
 							</td>
-							<th colspan="1" scope="row" class="th_bg">통합조직여부</th>
+							<th colspan="2" scope="row" class="th_bg">통합조직여부</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-select
 									id="srch-input-aprv"
@@ -141,7 +151,7 @@
 									class="form-control input-sm"
 								></sbux-select>
 							</td>
-							<td colspan="2" class="td_input">
+							<td colspan="1" class="td_input">
 							</td>
 						</tr>
 						<tr>
@@ -184,7 +194,7 @@
 								></sbux-input>
 							</td>
 							<td class="td_input">
-							<th colspan="1" scope="row" class="th_bg">법인체마감여부</th>
+							<th colspan="2" scope="row" class="th_bg">법인체마감여부</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-select
 									id="srch-input-corpDdlnSeCd"
@@ -195,7 +205,7 @@
 									class="form-control input-sm"
 								></sbux-select>
 							</td>
-							<td colspan="2" class="td_input">
+							<td colspan="1" class="td_input">
 							</td>
 						</tr>
 
@@ -1207,6 +1217,8 @@
 		let brno = SBUxMethod.get("srch-input-brno");//
 		let corpNm = SBUxMethod.get("srch-input-corpNm");//
 
+		let corpDdlnSeCd = SBUxMethod.get("srch-input-corpDdlnSeCd");//
+
     	let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
     		cmptnInst : cmptnInst
     		,ctpv : ctpv
@@ -1218,6 +1230,8 @@
     		,brno : brno
     		,corpNm : corpNm
     		,yr : yr
+
+    		,corpDdlnSeCd : corpDdlnSeCd
 
     		//페이징
     		,pagingYn : 'Y'

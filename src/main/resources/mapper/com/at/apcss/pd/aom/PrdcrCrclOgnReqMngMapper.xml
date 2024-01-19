@@ -245,6 +245,12 @@
 			<if test='corpNm != null and corpNm != ""'>
 				AND CM.CORP_NM LIKE '%' || #{corpNm} || '%'
 			</if>
+			<if test='corpDdlnSeCd != null and corpDdlnSeCd != ""'>
+				AND CM.CORP_DDLN_SE_CD LIKE '%' || #{corpDdlnSeCd} || '%'
+			</if>
+			<if test='yrChk == "Y"'>
+				AND EAM.YR = #{yr}
+			</if>
 
 		ORDER BY CM.APO_SE ASC , CORP_NM ASC
 		<!-- 페이징 -->
