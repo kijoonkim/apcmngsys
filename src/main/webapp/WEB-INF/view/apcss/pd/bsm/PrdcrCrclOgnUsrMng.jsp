@@ -27,7 +27,7 @@
 						<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
 						<sbux-button id="btnDeleteFclt" name="btnDeleteFclt" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
-						<sbux-button id="test" name="test" uitype="normal" text="test" class="btn btn-sm btn-outline-danger" onclick="fn_test"></sbux-button>
+						<sbux-button id="test" name="test" uitype="normal" text="사용자 변경" class="btn btn-sm btn-outline-danger" onclick="fn_userChange"></sbux-button>
 					</c:if>
 					<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
 						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
@@ -153,6 +153,7 @@
 									id="srch-input-brno"
 									name="srch-input-brno"
 									class="form-control input-sm"
+									mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
 									autocomplete="off"
 								></sbux-input>
 							</td>
@@ -505,7 +506,7 @@
 		// 검색 SB select
 		let rst = await Promise.all([
 			gfn_setComCdSBSelect('srch-input-userType', 	jsonComUserType, 		'USER_TYPE'),	// 권한
-			gfn_setComCdSBSelect('srch-input-userType', 	jsonComUserGrdType, 	'USER_TYPE'),	// 권한
+			gfn_setComCdSBSelect('grdPrdcrCrclOgnUsrMng', 	jsonComUserGrdType, 	'USER_TYPE'),	// 권한
 			gfn_setComCdSBSelect('dtl-input-userType', 		jsonComUserDtlType, 	'USER_TYPE_1'),	// 권한
 
 			gfn_setComCdSBSelect('srch-input-userStts', 	jsonComUserStts, 	'USER_STTS'),	// 1차승인
@@ -942,17 +943,29 @@
 
 	}
 
-	async function fn_test(){
+	async function fn_userChange(){
 		let userId = SBUxMethod.get("dtl-input-userId");
 		if(gfn_isEmpty(userId)) return;
+		let brno = SBUxMethod.get("dtl-input-brno");
+		let userType = SBUxMethod.get("dtl-input-userType");
+		//통합,출자출하 조직만 가능하게 설정
+		if(userType != '21' && userType != '22'){
+			alert('통합조직 or 출자출하조직인 경우만 가능합니다');
+			return;
+		}
+		if (!confirm("선택된 유저로 접속하시겠습니까?")) return;
 
-		let postJsonPromise = gfn_postJSON("/brnoChange.do", {
+		let postJsonPromise = gfn_postJSON("/userChange.do", {
 			userId : userId
+			,brno : brno
+			,userType : userType
 		});
         let data = await postJsonPromise;
 
         try{
         	console.log(data);
+        	//iframe 부모요소에 접근해야 전체 새로고침 가능
+        	window.parent.document.location.reload();
         }catch (e) {
         	if (!(e instanceof Error)) {
     			e = new Error(e);

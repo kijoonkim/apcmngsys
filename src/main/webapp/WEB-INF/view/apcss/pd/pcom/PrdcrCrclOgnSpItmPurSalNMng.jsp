@@ -26,7 +26,6 @@
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
 				</c:if>
 				<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
-					<sbux-button id="test" name="test" uitype="normal" text="testView" class="btn btn-sm btn-outline-danger" onclick="fn_test"></sbux-button>
 					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
 					<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
 				</c:if>
@@ -207,7 +206,6 @@
 
 				<div class="box-header" style="display:flex; justify-content: flex-start;" >
 					<div style="margin-left: auto;">
-						<sbux-button id="test" name="test" uitype="normal" text="testView" class="btn btn-sm btn-outline-danger" onclick="fn_test"></sbux-button>
 						<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
 						<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
 					</div>
@@ -476,10 +474,9 @@
 	            {caption : ['판매위임(매입)금액(천원)','매입처'],
 	            	ref : "prchsNm",   width : '150px',        style : 'text-align:center',     type : 'output', merge:false},
 
-	            {caption : ['판매위임(매입)금액(천원)','금액'],
+	            {caption : ['판매위임(매입)금액(천원)','금액'], calc : 'fn_calcSlsCnsgnPrchsAmt',
 	            	ref : "slsCnsgnPrchsAmt",   width : '100px',        style : 'text-align:right',      type : 'input',   format : { type:'number' , rule:'#,###' }, merge:false},
-
-	            {caption : ['판매(매출)금액<br>(천원)','판매(매출)금액<br>(천원)'],
+	            {caption : ['판매(매출)금액\n(천원)','판매(매출)금액<br>(천원)'], calc : 'fn_calcSlsCnsgnSlsAmt',
 	            	ref : "slsCnsgnSlsAmt",   width : '100px',        style : 'text-align:right',      type : 'input',   format : { type:'number' , rule:'#,###' }, merge:false},
 	            {caption : ['비고','비고'],
 	            	ref : "rmrk",   width : '150px',        style : 'text-align:right',      type : 'input'},
@@ -504,22 +501,6 @@
 	    grdPrdcrOgnCurntMng01.bind('afteredit','fn_AfterEdit01');
 	}
 
-	const fn_test = async function() {
-		jsonPrdcrOgnCurntMng01=[
-			{"col0":"복숭아(전문)",		"col1":"전속출하(생산자조직)",	"col2":"A",				"col3":"10160",	"col4":"20160","col5":""},
-			{"col0":"복숭아(전문)",		"col1":"전속출하(생산자조직)",	"col2":"B",				"col3":"10170",	"col4":"20170","col5":""},
-			{"col0":"복숭아(전문)",		"col1":"생산자조직 외",			"col2":"공판장 매입 등",	"col3":"10180",	"col4":"20180","col5":""},
-			{"col0":"복숭아(전문)",		"col1":"생산자조직 외",			"col2":"단순매취 등",		"col3":"10190",	"col4":"20190","col5":""},
-
-			{"col0":"양파(육성)",			"col1":"전속출하(생산자조직)",	"col2":"C",				"col3":"10200",	"col4":"20200","col5":""},
-			{"col0":"양파(육성)",			"col1":"전속출하(생산자조직)",	"col2":"D",				"col3":"10210",	"col4":"20210","col5":""},
-			{"col0":"양파(육성)",			"col1":"생산자조직 외",			"col2":"공판장 매입 등",	"col3":"10220",	"col4":"20220","col5":""},
-			{"col0":"양파(육성)",			"col1":"생산자조직 외",			"col2":"단순매취 등",		"col3":"10230",	"col4":"20230","col5":""}
-		];
-		grdPrdcrOgnCurntMng01.rebuild();
-    }
-
-
 	//해당 컬럼 변경시 리프래시 리스트
 	const columnsToRefresh01 = [
 		  'slsCnsgnPrchsAmt', 'slsCnsgnSlsAmt'
@@ -534,82 +515,81 @@
 	    }
 	}
 
-	//그리드 매입 물량 합계 함수
-	function fn_calcSum(objGrid, nRow, nCol) {
-		var strSum
-		var delYn = objGrid.getData(Number(nRow), objGrid.getColRef('delYn'));
-		if(delYn == 'N'){
-		    var value01 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('prchsTrstVlm')));
-		    var value02 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('prchsEmspapVlm')));
-		    strSum = (value01 + value02).toString();
-		}
-		fn_totalTotSum(objGrid, nRow, nCol);
-	    return strSum;
-	}
-
-	//판매위임 매입 금액 합계 함수
-	function fn_uoSpmtAmtSum(objGrid, nRow, nCol) {
-
-		let gridData01 = objGrid.getGridDataAll();
-		if(gridData01.length == 0) return;
-
-		let slsCnsgnPrchsAmt = objGrid.getColRef("slsCnsgnPrchsAmt");//판매위임 매입 금액
-		let slsCnsgnPrchsAmtVal = objGrid.getCellData(nRow, slsCnsgnPrchsAmt);
-
-		let itemCd = objGrid.getColRef("itemCd");//품목코드
-		let itemCdVal = objGrid.getCellData(nRow, itemCd);
-
-		let strSum = 0;
-		for(var i=2; i <= gridData01.length+1; i++ ){
-			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i);
-
-			if(rowData01.typeSeNo == '5' && rowData01.itemCd == itemCdVal){
-				strSum += Number(rowData01.slsCnsgnPrchsAmt);
-			}
-		}
-
-		objGrid.setCellData(targetRow, SpmtAmtTot , strSum4 );
-		fn_totalTotSum(objGrid, nRow, nCol);
-	}
-
-
-	//최종 합계 함수
-	function fn_totalTotSum(objGrid, nRow, nCol) {
-
-		let gridData01 = objGrid.getGridDataAll();
-		if(gridData01.length == 0) return;
-
-		let slsCnsgnPrchsAmt = objGrid.getColRef("slsCnsgnPrchsAmt");//판매위임 매입 금액
-		let slsCnsgnSlsAmt = objGrid.getColRef("slsCnsgnSlsAmt");//판매위임 매출 금액
-		let slsCnsgnSlsAmtVal = objGrid.getCellData(nRow, slsCnsgnSlsAmt);
-
-		let itemCd = objGrid.getColRef("itemCd");//품목코드
-		let itemCdVal = objGrid.getCellData(nRow, itemCd);
-
-		let strSum1 = 0;
-		let strSum2 = 0;
-		let targetRow;
-		for(var i=2; i <= gridData01.length+1; i++ ){
-			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i);
-			if(rowData01.itemCd == itemCdVal){
-				if(rowData01.typeSeNo == '6'){
-					strSum1 += Number(rowData01.slsCnsgnPrchsAmt);
-					strSum2 += Number(rowData01.slsCnsgnSlsAmt);
-				}
-				if(rowData01.typeSeNo == '7'){
-					strSum1 += Number(rowData01.slsCnsgnPrchsAmt);
-					strSum2 += Number(rowData01.slsCnsgnSlsAmt);
-				}
-				//합계 위치 row
-				if(rowData01.typeSeNo == '8'){
-					targetRow = i;
+	//판매위임(매입)금액(천원) 소계 합계
+	function fn_calcSlsCnsgnPrchsAmt(objGrid, nRow, nCol) {
+		console.log("fn_calcSlsCnsgnPrchsAmt");
+		console.log(nRow);
+		let rowData = objGrid.getRowData(Number(nRow));
+		let grdData = objGrid.getGridDataAll();
+		let itemCd = rowData.itemCd;
+		if(rowData.typeSeNo == '6'){
+			let sumVal = 0;
+			for (var i = 2; i < grdData.length + 1; i++) {
+				let rowData01 = objGrid.getRowData(i);
+				if(rowData01.typeSeNo == '5' && rowData01.itemCd == itemCd){
+					if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt)){
+						sumVal += Number(rowData01.slsCnsgnPrchsAmt);
+					}
 				}
 			}
+			return sumVal;
+		}else if(rowData.typeSeNo == '8'){
+			let sumVal = 0;
+			for (var i = 2; i < grdData.length + 1; i++) {
+				let rowData01 = objGrid.getRowData(i);
+				if(rowData01.itemCd == itemCd){
+					if(rowData01.typeSeNo == '5' || rowData01.typeSeNo == '7'){
+						if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt)){
+							sumVal += Number(rowData01.slsCnsgnPrchsAmt);
+						}
+					}
+				}
+			}
+			return sumVal;
+		}else{
+			return rowData.slsCnsgnPrchsAmt;
 		}
 
-		objGrid.setCellData(targetRow, slsCnsgnPrchsAmt , strSum1 );
-		objGrid.setCellData(targetRow, slsCnsgnSlsAmt , strSum2 );
+	    return '';
 	}
+	//판매(매출)금액(천원) 소계 합계
+	function fn_calcSlsCnsgnSlsAmt(objGrid, nRow, nCol) {
+		console.log("fn_calcSlsCnsgnPrchsAmt");
+		console.log(nRow);
+		let rowData = objGrid.getRowData(Number(nRow));
+		let grdData = objGrid.getGridDataAll();
+		let itemCd = rowData.itemCd;
+		if(rowData.typeSeNo == '6'){
+			let sumVal = 0;
+			for (var i = 2; i < grdData.length + 1; i++) {
+				let rowData01 = objGrid.getRowData(i);
+				if(rowData01.typeSeNo == '5' && rowData01.itemCd == itemCd){
+					if(!gfn_isEmpty(rowData01.slsCnsgnSlsAmt)){
+						sumVal += Number(rowData01.slsCnsgnSlsAmt);
+					}
+				}
+			}
+			return sumVal;
+		}else if(rowData.typeSeNo == '8'){
+			let sumVal = 0;
+			for (var i = 2; i < grdData.length + 1; i++) {
+				let rowData01 = objGrid.getRowData(i);
+				if(rowData01.itemCd == itemCd){
+					if(rowData01.typeSeNo == '5' || rowData01.typeSeNo == '7'){
+						if(!gfn_isEmpty(rowData01.slsCnsgnSlsAmt)){
+							sumVal += Number(rowData01.slsCnsgnSlsAmt);
+						}
+					}
+				}
+			}
+			return sumVal;
+		}else{
+			return rowData.slsCnsgnSlsAmt;
+		}
+
+	    return '';
+	}
+
 
 	/**
      * 목록 조회
@@ -837,6 +817,7 @@
 		for(var i=2; i <= gridData01.length+1; i++ ){
 			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i);
 			let slsCnsgnPrchsAmt = grdPrdcrOgnCurntMng01.getColRef("slsCnsgnPrchsAmt");//판매위임 금액 인덱스
+			let slsCnsgnSlsAmt = grdPrdcrOgnCurntMng01.getColRef("slsCnsgnSlsAmt");//판매 매출 금액 인덱스
 			//let uoSpmtAmt = grdPrdcrOgnCurntMng01.getColRef("uoSpmtAmt");//통합조직 출하 금액
 			//let uoOtherSpmtAmt = grdPrdcrOgnCurntMng01.getColRef("uoOtherSpmtAmt");//통합조직 이외 출하 금액
 			let seNm = grdPrdcrOgnCurntMng01.getColRef("seNm");//구분
@@ -851,6 +832,9 @@
 			if(rowData01.typeSeNo == '5'){
 				//disabled 처리
 				grdPrdcrOgnCurntMng01.setCellDisabled(i, slsCnsgnPrchsAmt, i, slsCnsgnPrchsAmt, true);
+				if(gfn_isEmpty(rowData01.prchsNm)){
+					grdPrdcrOgnCurntMng01.setCellDisabled(i, slsCnsgnSlsAmt, i, slsCnsgnSlsAmt, true);
+				}
 				// 배경 속성 추가
 				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, slsCnsgnPrchsAmt, i, slsCnsgnPrchsAmt, 'lightblue');
 				//grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, uoSpmtAmt, i, uoSpmtAmt, 'lightgreen');
@@ -858,11 +842,11 @@
 			//생산자조직 소계
 			if(rowData01.typeSeNo == '6'){
 				//disabled 처리
-				grdPrdcrOgnCurntMng01.setCellDisabled(i, slsCnsgnPrchsAmt, i, slsCnsgnPrchsAmt, true);
+				grdPrdcrOgnCurntMng01.setCellDisabled(i, slsCnsgnPrchsAmt, i, slsCnsgnSlsAmt, true);
 				grdPrdcrOgnCurntMng01.setCellDisabled(i, rmrk, i, rmrk, true);
 				// 배경 속성 추가
 				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, sttgUpbrItemNm, i, rmrk, 'lightgray');
-				grdPrdcrOgnCurntMng01.setMergeByFree(i,sttgUpbrItemNm,i,prchsNm,true);
+				//grdPrdcrOgnCurntMng01.setMergeByFree(i,sttgUpbrItemNm,i,prchsNm,true);
 			}
 			//생산자조직 외
 			if(rowData01.typeSeNo == '7'){

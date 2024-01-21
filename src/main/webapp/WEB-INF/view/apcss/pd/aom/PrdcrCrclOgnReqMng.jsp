@@ -178,6 +178,7 @@
 									id="srch-input-brno"
 									name="srch-input-brno"
 									class="form-control input-sm"
+									mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
 									autocomplete="off"
 								></sbux-input>
 							</td>

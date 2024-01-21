@@ -26,7 +26,6 @@
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
 				</c:if>
 				<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00' && loginVO.userType ne '21'}">
-					<sbux-button id="test" name="test" uitype="normal" text="testView" class="btn btn-sm btn-outline-danger" onclick="fn_test"></sbux-button>
 					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
 					<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
 				</c:if>
@@ -208,7 +207,6 @@
 
 				<div class="box-header" style="display:flex; justify-content: flex-start;" >
 					<div style="margin-left: auto;">
-						<sbux-button id="test" name="test" uitype="normal" text="testView" class="btn btn-sm btn-outline-danger" onclick="fn_test"></sbux-button>
 						<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
 						<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
 					</div>
@@ -554,23 +552,6 @@
 	    //grdPrdcrOgnCurntMng01.bind('click','gridClick01');
 	    grdPrdcrOgnCurntMng01.bind('afteredit','fn_AfterEdit01');
 	}
-
-	const fn_test = async function() {
-		jsonPrdcrOgnCurntMng01=[
-			{"itemNm":"사과(전문)",	"seNm":"생산자조직(전속출하)",	"prchsNm":"A",			"slsCnsgnPrchsAmt":"10160","uoSpmtAmt":"20160","uoOtherSpmtAmt":"1670"		,"SpmtAmtTot":"","rmrk":""},
-			{"itemNm":"사과(전문)",	"seNm":"생산자조직(전속출하)",	"prchsNm":"B", 			"slsCnsgnPrchsAmt":"10170","uoSpmtAmt":"20170","uoOtherSpmtAmt":"1680"		,"SpmtAmtTot":"","rmrk":""},
-			{"itemNm":"사과(전문)",	"seNm":"생산자조직(전속출하)",	"prchsNm":"C", 			"slsCnsgnPrchsAmt":"10180","uoSpmtAmt":"20180","uoOtherSpmtAmt":"1690"		,"SpmtAmtTot":"","rmrk":""},
-			{"itemNm":"사과(전문)",	"seNm":"생산자조직 외",		"prchsNm":"농가,법인 등",	"slsCnsgnPrchsAmt":"10190","uoSpmtAmt":"20190","uoOtherSpmtAmt":"1700"		,"SpmtAmtTot":"","rmrk":""},
-			{"itemNm":"딸기(전문)",	"seNm":"생산자조직(전속출하)",	"prchsNm":"D",			"slsCnsgnPrchsAmt":"10200","uoSpmtAmt":"20200","uoOtherSpmtAmt":"1710"		,"SpmtAmtTot":"","rmrk":""},
-			{"itemNm":"딸기(전문)",	"seNm":"생산자조직(전속출하)",	"prchsNm":"E",			"slsCnsgnPrchsAmt":"10210","uoSpmtAmt":"20210","uoOtherSpmtAmt":"1720"		,"SpmtAmtTot":"","rmrk":""},
-			{"itemNm":"딸기(전문)",	"seNm":"생산자조직(전속출하)",	"prchsNm":"F",			"slsCnsgnPrchsAmt":"10220","uoSpmtAmt":"20220","uoOtherSpmtAmt":"1730"		,"SpmtAmtTot":"","rmrk":""},
-			{"itemNm":"딸기(전문)",	"seNm":"생산자조직 외",		"prchsNm":"농가,법인 등",	"slsCnsgnPrchsAmt":"10230","uoSpmtAmt":"20230","uoOtherSpmtAmt":"1740"		,"SpmtAmtTot":"","rmrk":""},
-			{"itemNm":"배(육성)",	"seNm":"생산자조직(전속출하)",	"prchsNm":"G",			"slsCnsgnPrchsAmt":"10240","uoSpmtAmt":"20240","uoOtherSpmtAmt":"1750"		,"SpmtAmtTot":"","rmrk":""},
-			{"itemNm":"배(육성)",	"seNm":"생산자조직(전속출하)",	"prchsNm":"H",			"slsCnsgnPrchsAmt":"10250","uoSpmtAmt":"20250","uoOtherSpmtAmt":"1720"		,"SpmtAmtTot":"","rmrk":""},
-			{"itemNm":"배(육성)",	"seNm":"생산자조직 외",		"prchsNm":"농가,법인 등",	"slsCnsgnPrchsAmt":"10260","uoSpmtAmt":"20260","uoOtherSpmtAmt":"1730"		,"SpmtAmtTot":"","rmrk":""}
-		];
-		grdPrdcrOgnCurntMng01.rebuild();
-    }
 
 
 	//해당 컬럼 변경시 리프래시 리스트
@@ -954,6 +935,9 @@
 			if(rowData01.typeSeNo == '5'){
 				//disabled 처리
 				grdPrdcrOgnCurntMng01.setCellDisabled(i, slsCnsgnPrchsAmt, i, slsCnsgnPrchsAmt, true);
+				if(gfn_isEmpty(rowData01.prchsNm)){
+					grdPrdcrOgnCurntMng01.setCellDisabled(i, uoSpmtAmt, i, uoOtherSpmtAmt, true);
+				}
 				// 배경 속성 추가
 				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, slsCnsgnPrchsAmt, i, slsCnsgnPrchsAmt, 'lightblue');
 				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, uoSpmtAmt, i, uoSpmtAmt, 'lightgreen');

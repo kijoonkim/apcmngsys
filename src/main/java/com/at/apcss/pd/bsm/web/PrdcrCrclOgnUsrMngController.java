@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.log.vo.ComLogVO;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.co.sys.vo.LoginVO;
 import com.at.apcss.pd.bsm.service.PrdcrCrclOgnUsrMngService;
@@ -129,6 +130,49 @@ public class PrdcrCrclOgnUsrMngController extends BaseController{
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		resultMap.put("result", result);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/userChange.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> userChange(@RequestBody PrdcrCrclOgnUsrMngVO loginVo, HttpServletRequest request) throws Exception {
+
+		logger.debug("**************userChange************************");
+
+		//로그인 이력 저장
+		ComLogVO comLogVo = new ComLogVO();
+		String userId = loginVo.getUserId();
+		String brno = loginVo.getBrno();
+		String userType = loginVo.getUserType();
+		String menuId ="userChange";
+
+		try{
+			LoginVO sessionLoginVo =(LoginVO) request.getSession().getAttribute("loginVO");
+
+			String orgUserId = sessionLoginVo.getId();
+
+			sessionLoginVo.setUserId(userId);
+			sessionLoginVo.setUserType(userType);
+			sessionLoginVo.setBrno(brno);
+			sessionLoginVo.setId(userId);
+			request.getSession().setAttribute("loginVO", sessionLoginVo);
+
+			comLogVo.setUserId(userId);
+			comLogVo.setUserIp(getUserIp(request));
+			comLogVo.setMenuId(menuId);
+			comLogVo.setSysFrstInptUserId(orgUserId);
+			comLogVo.setSysLastChgUserId(orgUserId);
+			comLogVo.setSysFrstInptPrgrmId(menuId);
+			comLogVo.setSysLastChgPrgrmId(menuId);
+			comLogVo.setUserNm(sessionLoginVo.getName());
+			comLogVo.setUserType(userType);
+			comLogVo.setApcCd(sessionLoginVo.getApcCd());
+			comLogVo.setLgnScsYn("Y");
+
+		}catch (Exception e){
+			logger.debug("**************userChange***eeee*********************");
+		}
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		//resultMap.put("result", result);
 		return getSuccessResponseEntity(resultMap);
 	}
 
