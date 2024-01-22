@@ -47,8 +47,11 @@
 	var jsonApcAreaList = [];
 
 	window.addEventListener('DOMContentLoaded', async function(e) {
-		fn_apcSttn();
-		fn_createGrid();
+
+		let result = await Promise.all([
+			fn_createGrid(),
+			fn_search(),
+		]);
 
 	});
 
@@ -111,6 +114,15 @@
 	const fn_apcSttn = async function(){
 
 		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
+
+		if(gfn_isEmpty(crtrYr)){
+
+			let result = await Promise.all([
+				gfn_setCrtrYr('srch-slt-crtrYr', jsonCrtrYr),		// 기준년도 목록
+			])
+			crtrYr = jsonCrtrYr[0].value;
+		}
+
 		const postJsonPromise = gfn_postJSON("/fm/fclt/selectMapSttn.do", {
 			crtrYr			: crtrYr
   		});

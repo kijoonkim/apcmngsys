@@ -109,9 +109,12 @@
 		$('[id=btnMap]').click();
 	});
 
-	window.addEventListener('DOMContentLoaded', function(e) {
-		fn_initSBSelect();
-		fn_search();
+	window.addEventListener('DOMContentLoaded', async function(e) {
+
+		let result = await Promise.all([
+			fn_initSBSelect(),
+			fn_search(),
+		])
 	})
 
 	// 이력 조회 (조회 버튼)
@@ -166,9 +169,12 @@
 	var jsonCrtrYr = [];	// 기준년도 검색
 
 	const fn_initSBSelect = async function() {
+
+
 		let result = await Promise.all([
-			gfn_setCrtrYr('srch-slt-crtrYr', jsonCrtrYr, gv_selectedApcCd)		// 기준년도 목록
-		]);
+			gfn_setCrtrYr('srch-slt-crtrYr', jsonCrtrYr),		// 기준년도 목록
+		])
+		SBUxMethod.set("srch-slt-crtrYr", jsonCrtrYr[0].value)
 	}
 
 </script>
