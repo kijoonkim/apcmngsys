@@ -172,6 +172,7 @@ public class PrdcrCrclOgnUsrMngController extends BaseController{
 			comLogVo.setUserType(userType);
 			comLogVo.setApcCd(sessionLoginVo.getApcCd());
 			comLogVo.setLgnScsYn("Y");
+			comLogVo.setPrslType("L1");
 			comLogService.insertMenuHstry(comLogVo);
 		}catch (Exception e){
 			logger.debug("**************userChange***eeee*********************");
