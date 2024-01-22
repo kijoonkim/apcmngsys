@@ -408,6 +408,7 @@
 									id="dtl-input-nonghyupCd"
 									name="dtl-input-nonghyupCd"
 									class="form-control input-sm"
+									maxlength="6"
 									autocomplete="off"
 								></sbux-input>
 							</td>
