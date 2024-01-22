@@ -21,7 +21,7 @@
 					<h3 class="box-title" style="line-height: 30px;"> 4. 정부지원 산지유통시설 지역별 현황</h3>
 				</div>
 			</div>
-			
+
 			<div class="col-sm-6">
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
@@ -35,9 +35,9 @@
 					</ul>
 				</div>
 				<div id="sb-area-grdGvrngmtSprtMdRtlOgnzType" style="height:337px;"></div>
-				
+
 				<div style="height: 50px;"></div>
-				
+
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
@@ -55,7 +55,7 @@
 				<span style="font-size:11px;">*전체면적: APC 전체 물류 및 상품화 시설</span>
 				<br/>
 				<span style="font-size:11px;">*평균면적: APC 개소당 물류 및 상품화 시설</span>
-				
+
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
@@ -68,7 +68,7 @@
 				</div>
 				<div id="sb-area-grdGvrngmtSprtStrgFclt" style="height:337px;"></div>
 				<span style="font-size:11px;">*CA저장 시설 : Controlled Atmosphere Storage(기체조절 저장고)로 장기저장 과일의 신선도 유지 시설</span>
-				
+
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
@@ -83,9 +83,9 @@
 				<span style="font-size:11px;">*선별기 : 선별(grading&sorting)시설 본체</span><br/>
 				<span style="font-size:11px;">*측정장비 : 당도·색택·내부손상 등 세부 품질 측정장비(선별기에 부착)</span><br/>
 				<span style="font-size:11px;">*반가공시설 : 신선편의처리, 마늘건조, 깐마늘, 고추건조 등</span>
-				
+
 				<div style="height: 50px;"></div>
-				
+
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
@@ -98,7 +98,7 @@
 					</ul>
 				</div>
 				<div id="sb-area-grdGvrngmtSprtRgnInvstAtmAll" style="height:337px;"></div>
-				
+
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
@@ -123,9 +123,9 @@
 					</ul>
 				</div>
 				<div id="sb-area-grdGvrngmtSprtRgnOperPrsn" style="height:337px;"></div>
-			
+
 				<div style="height: 50px;"></div>
-			
+
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
@@ -138,7 +138,7 @@
 				</div>
 				<div id="sb-area-grdGvrngmtSprtLwtpStrg" style="height:337px;"></div>
 				<span style="font-size:11px;"><br/><br/><br/></span>
-				
+
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
@@ -151,9 +151,9 @@
 				</div>
 				<div id="sb-area-grdGvrngmtSprtPrprtnClngFclt" style="height:337px;"></div>
 				<span style="font-size:11px;">*예냉시설:  수확 후 또는 운송 이전에 농산물의 품온을 짧은 시간 내에 적정온도로 냉각하는 시설</span>
-				
+
 				<div style="height: 507px;"></div>
-				
+
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
@@ -193,7 +193,7 @@ const fn_cellCreateGvrngmtSprtMdRtlFcltRgnGrid = function() {
 	fn_createMdInvstAtmOwnrGrid();
 	// 산지유통시설 시설·장비 - 지역별 투자금액 : 운영자
 	fn_createMdInvstAtmOperPrsnGrid();
-	
+
 	fn_cellGvrngmtSprtMdRtlFcltRgnGrid();
 }
 
@@ -389,7 +389,6 @@ const fn_createGvrngmtSprtLwtpStrgGrid = function() {
 			columns: {
 			standard: [0],
 			sum: [1,2,3],
-			avg: [4]
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -428,7 +427,6 @@ const fn_createGvrngmtSprtPrprtnClngFcltGrid = function() {
 			columns: {
 			standard: [0],
 			sum: [1,2,3],
-			avg: [4]
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -467,7 +465,6 @@ const fn_createGvrngmtSprtStrgFcltGrid = function() {
 			columns: {
 			standard: [0],
 			sum: [1,2,3],
-			avg: [4]
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -506,7 +503,6 @@ const fn_createGvrngmtSprtFcltMsrmtEqpmntGrid = function() {
 			columns: {
 			standard: [0],
 			sum: [1,2,3],
-			avg: [4]
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -662,14 +658,14 @@ const fn_createMdInvstAtmOperPrsnGrid = function() {
 
 const fn_cellGvrngmtSprtMdRtlFcltRgnGrid = async function() {
 	let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
-	
+
 	const postJsonPromise = gfn_postJSON("/fm/fclt/selectGvrngmtSprtMdRtlOgnzTypeGridList.do", {crtrYr : crtrYr});
-	
+
 	let data = await postJsonPromise;
 	try {
-		
+
 		gvrngmtSprtMdRtlFcltRgnJsonLengthReset();
-		
+
 	  	data.resultGvrngmtSprtMdRtlOgnzType.forEach((item, index) => {
 	  		const gvrngmtSprtMdRtlOgnzType = {
 	  				  v0 : item.v0,
@@ -783,15 +779,34 @@ const fn_cellGvrngmtSprtMdRtlFcltRgnGrid = async function() {
 			}
 	  		jsonMdInvstAtmOperPrsn.push(mdInvstAtmOperPrsn);
 	  	});
-	  	
+
 	  	gvrngmtSprtMdRtlFcltRgnridRebuild();
-	  		
+
 	  }	catch (e) {
 	 		if (!(e instanceof Error)) {
 	 			e = new Error(e);
 	 		}
 	 		console.error("failed", e.message);
 		}
+	  //grdGvrngmtSprtLwtpStrg
+	  var grdGvrngmtSprtLwtpStrgAvg = grdGvrngmtSprtLwtpStrg.getRowData(parseInt(grdGvrngmtSprtLwtpStrg.getTotalRowIndex()));
+	  var grdGvrngmtSprtLwtpStrgAvgValue = parseInt(grdGvrngmtSprtLwtpStrgAvg.v3) / parseInt(grdGvrngmtSprtLwtpStrgAvg.v2)
+	  grdGvrngmtSprtLwtpStrg.setCellData(parseInt(grdGvrngmtSprtLwtpStrg.getTotalRowIndex()), 4, grdGvrngmtSprtLwtpStrgAvgValue);
+		//grdGvrngmtSprtStrgFclt
+	  var grdGvrngmtSprtStrgFcltAvg = grdGvrngmtSprtStrgFclt.getRowData(parseInt(grdGvrngmtSprtStrgFclt.getTotalRowIndex()));
+	  var grdGvrngmtSprtStrgFcltAvgValue = parseInt(grdGvrngmtSprtStrgFcltAvg.v3) / parseInt(grdGvrngmtSprtStrgFcltAvg.v2)
+	  grdGvrngmtSprtStrgFclt.setCellData(parseInt(grdGvrngmtSprtStrgFclt.getTotalRowIndex()), 4, grdGvrngmtSprtStrgFcltAvgValue);
+	  //grdGvrngmtSprtPrprtnClngFclt
+	  var grdGvrngmtSprtPrprtnClngFcltAvg = grdGvrngmtSprtPrprtnClngFclt.getRowData(parseInt(grdGvrngmtSprtPrprtnClngFclt.getTotalRowIndex()));
+	  var grdGvrngmtSprtPrprtnClngFcltAvgValue = parseInt(grdGvrngmtSprtPrprtnClngFcltAvg.v3) / parseInt(grdGvrngmtSprtPrprtnClngFcltAvg.v2)
+	  grdGvrngmtSprtPrprtnClngFclt.setCellData(parseInt(grdGvrngmtSprtPrprtnClngFclt.getTotalRowIndex()), 4, grdGvrngmtSprtPrprtnClngFcltAvgValue);
+
+	  //grdGvrngmtSprtFcltMsrmtEqpmnt
+	  var grdGvrngmtSprtFcltMsrmtEqpmntAvg = grdGvrngmtSprtFcltMsrmtEqpmnt.getRowData(parseInt(grdGvrngmtSprtFcltMsrmtEqpmnt.getTotalRowIndex()));
+	  var grdGvrngmtSprtFcltMsrmtEqpmntAvgValue = parseInt(grdGvrngmtSprtFcltMsrmtEqpmntAvg.v3) / parseInt(grdGvrngmtSprtFcltMsrmtEqpmntAvg.v2)
+	  grdGvrngmtSprtFcltMsrmtEqpmnt.setCellData(parseInt(grdGvrngmtSprtFcltMsrmtEqpmnt.getTotalRowIndex()), 4, grdGvrngmtSprtFcltMsrmtEqpmntAvgValue);
+
+
 	  return true;
 }
 
@@ -806,11 +821,11 @@ const gvrngmtSprtMdRtlFcltRgnJsonLengthReset = function() {
 	jsonGvrngmtSprtRgnInvstAtmAll.length = 0;
 	jsonMdInvstAtmOwnr.length = 0;
 	jsonMdInvstAtmOperPrsn.length = 0;
-	
+
 }
 
 const gvrngmtSprtMdRtlFcltRgnridRebuild = function() {
-	
+
 	grdGvrngmtSprtMdRtlOgnzType.rebuild();
 	grdGvrngmtSprtRgnOperPrsn.rebuild();
 	grdGvrngmtSprtLgstcsGdsFclt.rebuild();
