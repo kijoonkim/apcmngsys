@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.log.service.ComLogService;
 import com.at.apcss.co.log.vo.ComLogVO;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.co.sys.vo.LoginVO;
@@ -27,6 +29,9 @@ public class PrdcrCrclOgnUsrMngController extends BaseController{
 
 	@Resource(name= "PrdcrCrclOgnUsrMngService")
 	private PrdcrCrclOgnUsrMngService PrdcrCrclOgnUsrMngService;
+
+	@Autowired
+	ComLogService comLogService;
 
 	//화면이동
 	@RequestMapping(value = "/pd/bsm/PrdcrCrclOgnUsrMng.do")
@@ -167,7 +172,7 @@ public class PrdcrCrclOgnUsrMngController extends BaseController{
 			comLogVo.setUserType(userType);
 			comLogVo.setApcCd(sessionLoginVo.getApcCd());
 			comLogVo.setLgnScsYn("Y");
-
+			comLogService.insertMenuHstry(comLogVo);
 		}catch (Exception e){
 			logger.debug("**************userChange***eeee*********************");
 		}
