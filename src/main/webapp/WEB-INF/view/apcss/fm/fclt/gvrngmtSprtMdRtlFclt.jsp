@@ -35,9 +35,9 @@
 				</div>
 				<div id="sb-area-grdBzeatCntMdRtlOgnzType" style="height:259px;"></div>
 				<span style="font-size:11px;">*출자출하조직 또는 참여조직 중 전년도 선정에서 탈락한 조직 포함</span>
-				
+
 				<div style="height: 50px"></div>
-				
+
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
@@ -51,9 +51,9 @@
 				</div>
 				<div id="sb-area-grdFcltEqpmntAllBdar" style="height:137px;"></div>
 				<span style="font-size:11px;">*물류시설, 상품화시설, 저장고 등 건축면적의 합계</span>
-				
+
 				<div style="height: 40px"></div>
-				
+
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
@@ -66,7 +66,7 @@
 				</div>
 				<div id="sb-area-grdBzeatCntLwtpStrg" style="height:137px;"></div>
 				<span style="font-size:11px;">*예냉시설 : 수확 후 또는 운송 이전에 농산물의 품온을 짧은 시간 내에 적정온도로 냉각하는 시설</span>
-				
+
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
@@ -79,9 +79,9 @@
 				</div>
 				<div id="sb-area-grdBzeatCntStrgFclt" style="height:137px;"></div>
 				<span style="font-size:11px;">*CA저장 시설 : Controlled Atmosphere Storage(기체조절 저장고)로 장기저장 과일의 신선도 유지 시설</span>
-				
-				
-				
+
+
+
 			</div>
 			<div class="col-sm-6">
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
@@ -97,9 +97,9 @@
 				<div id="sb-area-grdBzeatCntOwnrAndOper" style="height:137px;"></div>
 				<span style="font-size:11px;">*민간: 농협, 농업법인, 재단버인 등 민간 사업자</span><br/>
 				<span style="font-size:11px;">*공공: 시ㆍ군 지방자치단체</span>
-				
+
 				<div style="height: 153px;"></div>
-				
+
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
@@ -116,7 +116,7 @@
 				<span style="font-size:11px;">*전체면적: APC 전체 물류 및 상품화 시설</span>
 				<br/>
 				<span style="font-size:11px;">*평균면적: APC 개소당 물류 및 상품화 시설</span>
-				
+
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
@@ -129,7 +129,7 @@
 				</div>
 				<div id="sb-area-grdBzeatCntPrprtnClngFclt" style="height:137px;"></div>
 				<span style="font-size:11px;">*예냉시설:  수확 후 또는 운송 이전에 농산물의 품온을 짧은 시간 내에 적정온도로 냉각하는 시설</span>
-				
+
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
@@ -144,14 +144,14 @@
 				<span style="font-size:11px;">*선별기 : 선별(grading&sorting)시설 본체</span><br/>
 				<span style="font-size:11px;">*측정장비 : 당도·색택·내부손상 등 세부 품질 측정장비(선별기에 부착)</span><br/>
 				<span style="font-size:11px;">*반가공시설 : 신선편의처리, 마늘건조, 깐마늘, 고추건조 등</span>
-				
+
 			</div>
-			
-			
-			
+
+
+
 			<div class="col-sm-6">
 				<div style="height: 50px;"></div>
-				
+
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
@@ -164,9 +164,9 @@
 					</ul>
 				</div>
 				<div id="sb-area-grdBzeatCntInvstAtmAll" style="height:137px;"></div>
-				
-				
-				
+
+
+
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
@@ -179,12 +179,12 @@
 				</div>
 				<div id="sb-area-grdBzeatCntInvstAtmOwnr" style="height:137px;"></div>
 				<span style="font-size:11px;"><br/><br/><br/></span>
-				
-				
+
+
 			</div>
 			<div class="col-sm-6">
 				<div style="height: 50px;"></div>
-			
+
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
@@ -196,7 +196,7 @@
 					</ul>
 				</div>
 				<div id="sb-area-grdBzeatCntInvstAtmFundType" style="height:137px;"></div>
-				
+
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
@@ -244,7 +244,7 @@ const fn_cellCreateGvrngmtSprtMdRtlFcltGrid = function() {
 	fn_createBzeatCntInvstAtmOwnrGrid();
 	// 정부자원산지유통시설 시설 - 투자금액 : 운영자
 	fn_createBzeatCntInvstAtmOperPrsnGrid();
-	
+
 	fn_cellGvrngmtSprtMdRtlFcltGrid();
 }
 
@@ -463,7 +463,6 @@ const fn_createBzeatCntLwtpStrgGrid = function() {
 			columns: {
 			standard: [0],
 			sum: [1,2,3],
-			avg: [4]
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -502,7 +501,6 @@ const fn_createBzeatCntPrprtnClngFcltGrid = function() {
 			columns: {
 			standard: [0],
 			sum: [1,2,3],
-			avg: [4]
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -541,7 +539,6 @@ const fn_createBzeatCntStrgFcltGrid = function() {
 			columns: {
 			standard: [0],
 			sum: [1,2,3],
-			avg: [4]
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -768,14 +765,14 @@ const fn_createBzeatCntInvstAtmOperPrsnGrid = function() {
 }
 const fn_cellGvrngmtSprtMdRtlFcltGrid = async function() {
 	let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
-	
+
 	const postJsonPromise = gfn_postJSON("/fm/fclt/selectGvrngmtSprtMdRtlFcltGridList.do", {crtrYr : crtrYr});
-	
+
 	let data = await postJsonPromise;
 	try {
-		
+
 		gvrngmtSprtMdRtlFcltJsonLengthReset();
-		
+
 	  	data.resultBzeatCntMdRtlOgnzType.forEach((item, index) => {
 	  		const bzeatCntMdRtlOgnzType = {
 	  			title : item.title,
@@ -904,16 +901,29 @@ const fn_cellGvrngmtSprtMdRtlFcltGrid = async function() {
 			}
 	  		jsonBzeatCntInvstOperPrsn.push(bzeatCntInvstOperPrsn);
 	  	});
-	  	
+
 	  	gvrngmtSprtMdRtlFcltGridRebuild();
 	  	fn_rowStyleCssBzeatCntMdRtlOgnzType();
-	  		
+
 	  }	catch (e) {
 	 		if (!(e instanceof Error)) {
 	 			e = new Error(e);
 	 		}
 	 		console.error("failed", e.message);
 		}
+	  var grdBzeatCntLwtpStrgAvg = grdBzeatCntLwtpStrg.getRowData(parseInt(grdBzeatCntLwtpStrg.getTotalRowIndex()));
+	  var grdBzeatCntLwtpStrgAvgValue = parseInt(grdBzeatCntLwtpStrgAvg.v3) / parseInt(grdBzeatCntLwtpStrgAvg.v2)
+	  grdBzeatCntLwtpStrg.setCellData(parseInt(grdBzeatCntLwtpStrg.getTotalRowIndex()), 4, grdBzeatCntLwtpStrgAvgValue);
+
+	  var grdBzeatCntPrprtnClngFcltAvg = grdBzeatCntPrprtnClngFclt.getRowData(parseInt(grdBzeatCntPrprtnClngFclt.getTotalRowIndex()));
+	  var grdBzeatCntPrprtnClngFcltAvgValue = parseInt(grdBzeatCntPrprtnClngFcltAvg.v3) / parseInt(grdBzeatCntPrprtnClngFcltAvg.v2)
+	  grdBzeatCntPrprtnClngFclt.setCellData(parseInt(grdBzeatCntPrprtnClngFclt.getTotalRowIndex()), 4, grdBzeatCntPrprtnClngFcltAvgValue);
+
+	  var grdBzeatCntStrgFcltAvg = grdBzeatCntStrgFclt.getRowData(parseInt(grdBzeatCntStrgFclt.getTotalRowIndex()));
+	  var grdBzeatCntStrgFcltAvgValue = parseInt(grdBzeatCntStrgFcltAvg.v3) / parseInt(grdBzeatCntStrgFcltAvg.v2)
+	  grdBzeatCntStrgFclt.setCellData(parseInt(grdBzeatCntStrgFclt.getTotalRowIndex()), 4, grdBzeatCntStrgFcltAvgValue);
+
+
 	  return true;
 }
 
@@ -933,7 +943,7 @@ const gvrngmtSprtMdRtlFcltJsonLengthReset = function() {
 }
 
 const gvrngmtSprtMdRtlFcltGridRebuild = function() {
-	
+
 	grdBzeatCntMdRtlOgnzType.rebuild();
 	grdBzeatCntOwnrAndOper.rebuild();
 	grdFcltEqpmntAllBdar.rebuild();

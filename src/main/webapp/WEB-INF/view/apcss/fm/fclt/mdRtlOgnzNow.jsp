@@ -231,6 +231,7 @@ const fn_cellCreateMdRtlOgnzNowGrid = function() {
 	fn_createInvstAtmOperPrsnGrid();
 
 	fn_cellMdRtlOgnzNowGrid();
+
 }
 
 //그리드 id, 그리드 json
@@ -452,7 +453,6 @@ const fn_createLwtpStrgGrid = function() {
 			columns: {
 			standard: [0],
 			sum: [1,2,3],
-			avg: [4]
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -492,7 +492,6 @@ const fn_createPrprtnClngFcltGrid = function() {
 			columns: {
 			standard: [0],
 			sum: [1,2,3],
-			avg: [4]
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -532,7 +531,6 @@ const fn_createStrgFcltGrid = function() {
 			columns: {
 			standard: [0],
 			sum: [1,2,3],
-			avg: [4]
 		},
 		grandtotalrow : {
 			titlecol: 0,
@@ -920,6 +918,21 @@ const fn_cellMdRtlOgnzNowGrid = async function() {
 	 		}
 	 		console.error("failed", e.message);
 		}
+	 //grdPrprtnClngFclt
+	 var grdPrprtnClngFcltAvg = grdPrprtnClngFclt.getRowData(parseInt(grdPrprtnClngFclt.getTotalRowIndex()));
+	 console.log(grdPrprtnClngFcltAvg);
+	 var grdPrprtnClngFcltAvgValue = parseInt(grdPrprtnClngFcltAvg.v3) / parseInt(grdPrprtnClngFcltAvg.v2)
+	  grdPrprtnClngFclt.setCellData(4, 4, grdPrprtnClngFcltAvgValue);
+
+
+	  var grdLwtpStrgAvg = grdLwtpStrg.getRowData(parseInt(grdLwtpStrg.getTotalRowIndex()));
+	  var grdLwtpStrgAvgValue = parseInt(grdLwtpStrgAvg.v3) / parseInt(grdLwtpStrgAvg.v2)
+	  grdLwtpStrg.setCellData(4, 4, grdLwtpStrgAvgValue);
+
+
+	  var grdStrgFcltAvg = grdStrgFclt.getRowData(parseInt(grdStrgFclt.getTotalRowIndex()));
+	  var grdStrgFcltAvgValue = parseInt(grdStrgFcltAvg.v3) / parseInt(grdStrgFcltAvg.v2)
+	  grdStrgFclt.setCellData(4, 4, grdStrgFcltAvgValue);
 	  return true;
 }
 
