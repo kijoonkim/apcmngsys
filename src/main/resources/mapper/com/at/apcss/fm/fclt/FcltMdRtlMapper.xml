@@ -396,6 +396,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -421,6 +422,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -463,6 +465,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -483,6 +486,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -520,6 +524,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -537,6 +542,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -573,6 +579,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -590,6 +597,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -627,6 +635,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -644,6 +653,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -1109,6 +1119,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD   IS NOT NULL
@@ -1144,6 +1155,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD   IS NOT NULL
@@ -1179,6 +1191,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD   IS NOT NULL
@@ -1214,6 +1227,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD   IS NOT NULL
@@ -1649,6 +1663,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
@@ -1675,6 +1690,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
@@ -1717,6 +1733,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
@@ -1738,6 +1755,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
@@ -1793,6 +1811,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
@@ -1830,6 +1849,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
@@ -1848,6 +1868,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
@@ -1885,6 +1906,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
@@ -1903,6 +1925,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
@@ -2383,6 +2406,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
@@ -2420,6 +2444,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
@@ -2457,6 +2482,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
@@ -2494,6 +2520,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
@@ -2715,6 +2742,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -2734,6 +2762,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -2753,6 +2782,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -2772,6 +2802,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -2811,6 +2842,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -2831,6 +2863,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -2851,6 +2884,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -2871,6 +2905,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -2911,6 +2946,7 @@
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -2932,6 +2968,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -2953,6 +2990,7 @@
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -2974,6 +3012,7 @@
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -3017,6 +3056,7 @@
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -3063,6 +3103,7 @@
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -3103,6 +3144,7 @@
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -3150,6 +3192,7 @@
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -3185,6 +3228,7 @@
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -3205,6 +3249,7 @@
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -3225,6 +3270,7 @@
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -3245,6 +3291,7 @@
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -3285,6 +3332,7 @@
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -3306,6 +3354,7 @@
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -3327,6 +3376,7 @@
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -3348,6 +3398,7 @@
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -3389,6 +3440,7 @@
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -3411,6 +3463,7 @@
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -3433,6 +3486,7 @@
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -3455,6 +3509,7 @@
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL
@@ -3499,6 +3554,7 @@
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
@@ -3547,6 +3603,7 @@
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
@@ -3589,6 +3646,7 @@
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
@@ -3638,6 +3696,7 @@
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
