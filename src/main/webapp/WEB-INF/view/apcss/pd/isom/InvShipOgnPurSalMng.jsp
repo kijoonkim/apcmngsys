@@ -465,6 +465,7 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ")'>삭제</button>";
 	        	}
 	        }},
+	        {caption: ["품목","품목"], 		ref: 'sttgUpbrItemSeNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 	    	{caption: ["품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 	    	//{caption: ["품목분류","품목분류"], 	ref: 'ctgryNm',   	type:'combo',  width:'80px',    style:'text-align:center'},
 	    	{caption: ["품목분류","품목분류"], 	ref: 'ctgryCd',   	type:'combo',  width:'80px',    style:'text-align:center'
@@ -486,6 +487,7 @@
 	        {caption: ["합계","금액"], 		ref: 'prchsTotAmt',   		type:'output',  width:'100px',    style:'text-align:center', calc : 'fn_prchsAmtSum'},
 
 	        {caption: ["상세내역"], 	ref: 'prchsSlsSe',  hidden : true},
+	        {caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
 	        {caption: ["상세내역"], 	ref: 'yr',   		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'apoCd',   	hidden : true},
 	    	{caption: ["상세내역"], 	ref: 'itemCd',   	hidden : true},
@@ -550,6 +552,7 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ")'>삭제</button>";
 	        	}
 	        }},
+	        {caption: ["품목","품목","품목","품목"], 		ref: 'sttgUpbrItemSeNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 	    	{caption: ["품목","품목","품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 	    	//{caption: ["품목분류","품목분류","품목분류"], 	ref: 'ctgryNm',   	type:'combo',  width:'80px',    style:'text-align:center'},
 	    	{caption: ["품목분류","품목분류","품목분류","품목분류"], 	ref: 'ctgryCd',   	type:'combo',  width:'80px',    style:'text-align:center'
@@ -731,6 +734,7 @@
 	    	*/
 
 	        {caption: ["상세내역"], 	ref: 'prchsSlsSe',  hidden : true},
+	        {caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
 	        {caption: ["상세내역"], 	ref: 'yr',   		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'apoCd',   	hidden : true},
 	    	{caption: ["상세내역"], 	ref: 'itemCd',   	hidden : true},

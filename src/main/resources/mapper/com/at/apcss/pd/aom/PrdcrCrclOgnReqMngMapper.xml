@@ -177,6 +177,7 @@
 				, CM.UNTY_YR
 				, CM.APRV
 				, CM.STBLT_YN
+				, CM.MNGMST_YN
 
 				, EAM.YR
 				, EAM.APLY_DAY

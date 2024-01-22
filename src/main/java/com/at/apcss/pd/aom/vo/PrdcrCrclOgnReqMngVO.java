@@ -26,6 +26,7 @@ public class PrdcrCrclOgnReqMngVO extends ComVO{
 	private String crno;
 	private String corpNm;
 	private String picFlnm;
+	private String mngmstYn;
 
 	private String lotnoAddr;
 	private String lotnoDtlAddr;
