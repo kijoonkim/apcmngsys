@@ -34,7 +34,7 @@
 				</c:if>
 				<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
 					<sbux-button id="btnSaveFclt01" name="btnSaveFclt01" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
-					<sbux-button id="btnCorpDdlnSeCd01" name="btnCorpDdlnSeCd01" uitype="normal" text="법인체마감" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCd"></sbux-button>
+					<sbux-button id="btnCorpDdlnSeCd01" name="btnCorpDdlnSeCd01" uitype="normal" text="법인체마감" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCd(1)"></sbux-button>
 				</c:if>
 				</div>
 			</div>
