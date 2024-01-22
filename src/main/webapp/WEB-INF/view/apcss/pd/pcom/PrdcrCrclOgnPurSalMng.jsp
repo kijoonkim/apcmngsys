@@ -495,8 +495,7 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ")'>삭제</button>";
 	        	}
 	        }},
-	        {caption: ["품목","품목"], 	ref: 't',   	type:'combo',  width:'80px',    style:'text-align:center'
-	    		,typeinfo : {ref:'jsonCtgryCd', label:'label', value:'value', displayui : true}},
+	        {caption: ["품목","품목"], 	ref: 'sttgUpbrItemSeNm',   	type:'combo',  width:'80px',    style:'text-align:center'},
 	    	//{caption: ["품목분류","품목분류"], 	ref: 'ctgryNm',   	type:'combo',  width:'80px',    style:'text-align:center'},
 	    	{caption: ["품목","품목"], 	ref: 'ctgryCd',   	type:'combo',  width:'80px',    style:'text-align:center'
 	    		,typeinfo : {ref:'jsonCtgryCd', label:'label', value:'value', displayui : true}},
@@ -516,6 +515,7 @@
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
 	        {caption: ["상세내역"], 	ref: 'prchsSlsSe',  hidden : true},
+	        {caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
 	        {caption: ["상세내역"], 	ref: 'yr',   		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'apoCd',   	hidden : true},
 	    	{caption: ["상세내역"], 	ref: 'itemCd',   	hidden : true},
@@ -568,8 +568,7 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ")'>삭제</button>";
 	        	}
 	        }},
-	        {caption: ["품목","품목"], 	ref: 't',   	type:'combo',  width:'80px',    style:'text-align:center'
-	    		,typeinfo : {ref:'jsonCtgryCd', label:'label', value:'value', displayui : true}},
+	        {caption: ["품목","품목"], 	ref: 'sttgUpbrItemSeNm',   	type:'combo',  width:'80px',    style:'text-align:center'},
 	    	//{caption: ["품목분류","품목분류"], 	ref: 'ctgryNm',   	type:'combo',  width:'80px',    style:'text-align:center'},
 	    	{caption: ["품목","품목"], 	ref: 'ctgryCd',   	type:'combo',  width:'80px',    style:'text-align:center'
 	    		,typeinfo : {ref:'jsonCtgryCd', label:'label', value:'value', displayui : true}},
@@ -595,6 +594,7 @@
 
 
 	        {caption: ["상세내역"], 	ref: 'prchsSlsSe',  hidden : true},
+	        {caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
 	        {caption: ["상세내역"], 	ref: 'yr',   		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'apoCd',   	hidden : true},
 	    	{caption: ["상세내역"], 	ref: 'itemCd',   	hidden : true},

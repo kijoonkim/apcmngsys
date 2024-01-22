@@ -1358,6 +1358,7 @@
 				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))//
 				SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno))//
 
+				SBUxMethod.set('dtl-input-mngmstYn',gfn_nvl(item.mngmstYn))//
 				SBUxMethod.set('dtl-input-picFlnm',gfn_nvl(item.picFlnm))//
 				SBUxMethod.set('dtl-input-lotnoAddr',gfn_nvl(item.lotnoAddr))//
 				SBUxMethod.set('dtl-input-lotnoDtlAddr',gfn_nvl(item.lotnoDtlAddr))//
@@ -1401,6 +1402,9 @@
 
 				wrtYn = item.wrtYn;
 				corpDdlnSeCd = item.corpDdlnSeCd;
+
+				fn_calFrmerInvstAmtRt();
+				fn_calTot();
 			});
 
         	let userType = '${loginVO.userType}';
