@@ -168,6 +168,11 @@ public class ComConstants {
 	 */
 	public final static String MSGCD_TGT_EQUAL_GREATER_THAN = "W0016";
 
+	/**
+	 * W0017	{0}이/가 부족합니다.
+	 */
+	public final static String MSGCD_TGT_LACK = "W0017";
+	
 	/* CODE 정보 */
 
 	/* 권한유형 */
