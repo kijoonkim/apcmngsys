@@ -1480,7 +1480,8 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
     	if (gfn_isEmpty(apoCd)) {
     		// 신규 등록
-			fn_subInsert(confirm("등록 하시겠습니까?"));
+    		return;
+			//fn_subInsert(confirm("등록 하시겠습니까?"));
     	} else {
     		// 변경 저장
     		fn_subUpdate(confirm("저장 하시겠습니까?"));
