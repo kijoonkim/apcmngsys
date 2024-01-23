@@ -495,12 +495,12 @@
 	   			  , '1'
 	   			  , #{uoBrno}
 	   			  , #{uoCorpNm}
-	   			  , #{uoCrno}
+	   			  , (SELECT NVL(CRNO,'') FROM TB_EV_APO WHERE BRNO = #{uoBrno})
 	   			  , (SELECT APO_CD FROM TB_EV_APO WHERE BRNO = #{isoBrno})
 	   			  , '2'
 	   			  , #{isoBrno}
 	   			  , #{isoCorpNm}
-	   			  , #{isoCrno}
+	   			  , (SELECT NVL(CRNO,'') FROM TB_EV_APO WHERE BRNO = #{isoBrno})
 
 	   			  , SYSDATE
 	   			  , #{sysFrstInptUserId}
@@ -523,13 +523,13 @@
 			 	  , UO_APO_SE				= '1'
 	    		  , UO_BRNO					= #{uoBrno}
 	    		  , UO_CORP_NM				= #{uoCorpNm}
-	    		  , UO_CRNO					= #{uoCrno}
+	    		  , UO_CRNO					= (SELECT NVL(CRNO,'') FROM TB_EV_APO WHERE BRNO = #{uoBrno})
 
 	    		  , ISO_APO_CD				= (SELECT APO_CD FROM TB_EV_APO WHERE BRNO = #{isoBrno})
 	    		  , ISO_APO_SE				= '2'
 	    		  , ISO_BRNO				= #{isoBrno}
 	    		  , ISO_CORP_NM				= #{isoCorpNm}
-	    		  , ISO_CRNO				= #{isoCrno}
+	    		  , ISO_CRNO				= (SELECT NVL(CRNO,'') FROM TB_EV_APO WHERE BRNO = #{isoBrno})
 
     	]]>
     	<![CDATA[

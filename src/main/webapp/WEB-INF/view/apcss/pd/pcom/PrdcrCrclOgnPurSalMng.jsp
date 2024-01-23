@@ -218,6 +218,7 @@
 							<th scope="row" class="th_bg th_border_right">법인명</th>
 							<sbux-input uitype="hidden" id="dtl-input-apoCd" name="dtl-input-apoCd"></sbux-input>
 							<sbux-input uitype="hidden" id="dtl-input-apoSe" name="dtl-input-apoSe"></sbux-input>
+							<sbux-input uitype="hidden" id="dtl-input-yr" name="dtl-input-yr"></sbux-input>
 							<td colspan="2" class="td_input">
 								<sbux-input
 									uitype="text"
@@ -865,6 +866,7 @@
 				SBUxMethod.set('dtl-input-corpNm',gfn_nvl(item.corpNm))//법인명
 				SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno))//법인등록번호
 				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))//사업자등록번호
+				SBUxMethod.set('dtl-input-yr',gfn_nvl(item.yr))//등록년도
 			});
         	fn_dtlGridSearch();
         }catch (e) {
@@ -1112,6 +1114,7 @@
 		SBUxMethod.set('dtl-input-corpNm',gfn_nvl(rowData.corpNm))//법인명
 		SBUxMethod.set('dtl-input-crno',gfn_nvl(rowData.crno))//법인등록번호
 		SBUxMethod.set('dtl-input-brno',gfn_nvl(rowData.brno))//사업자등록번호
+		SBUxMethod.set('dtl-input-yr',gfn_nvl(rowData.yr))//등록년도
 		fn_clearForm();
     }
 	//매입 매출 그리드 초기화
@@ -1128,15 +1131,13 @@
 
 		let apoCd = SBUxMethod.get('dtl-input-apoCd');
 		if(gfn_isEmpty(apoCd)){return;}
-		let apoSe = SBUxMethod.get('dtl-input-apoSe');
-		let itemCd = SBUxMethod.get('dtl-input-itemCd');
-		let ctgryCd = SBUxMethod.get('dtl-input-ctgryCd');
+		let brno = SBUxMethod.get('dtl-input-brno');
+		if(gfn_isEmpty(brno)){return;}
+		let yr = SBUxMethod.get('dtl-input-yr');
 
 		let postJsonPromise01 = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnPurSalMngList.do", {
-			apoCd : apoCd
-    		,apoSe : apoSe
-    		,itemCd : itemCd
-    		,ctgryCd : ctgryCd
+			brno : brno
+    		,yr : yr
 		});
         let data = await postJsonPromise01;
         try{

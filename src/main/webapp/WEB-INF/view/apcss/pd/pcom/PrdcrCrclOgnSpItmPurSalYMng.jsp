@@ -488,7 +488,7 @@
 	    //SBGridProperties.whitespacemerge = true;//빈칸 자동병합
 	    //SBGridProperties.mergecellsverticalalign = 'bottom';
 	    SBGridProperties.columns = [
-	            {caption : ['전문품목명','전문품목명'],
+	            {caption : ['품목명','품목명'],
 	            	ref : "itemNm",   width : '100px',        style : 'text-align:center',     type : 'output'},
 	            {caption : ['판매위임(매입)금액(천원)','구분'],
 	            	ref : "seNm",   width : '150px',        style : 'text-align:center',     type : 'output'},
@@ -989,6 +989,37 @@
 			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i);
 			let rowSts01 = grdPrdcrOgnCurntMng01.getRowStatus(i);
 			//let delYn = rowData01.delYn;
+
+			//매입 값이 있을경우 매출 값을 입력 필수
+			if(rowData01.typeSeNo == '2' || rowData01.typeSeNo == '6'){
+				if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) &&  Number(rowData01.slsCnsgnPrchsAmt) != 0){
+					if(gfn_isEmpty(rowData01.slsCnsgnSlsAmt)){
+						alert('매입 값이 있을경우 매출 금액 입력이 필수 입니다.');
+						grdPrdcrOgnCurntMng01.selectRow(i);
+						return false;
+					}
+				}
+			}
+
+			//매입 값이 있을경우 매출 값을 입력 필수
+			if(rowData01.typeSeNo == '3' || rowData01.typeSeNo == '7' ){
+				if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) &&  Number(rowData01.slsCnsgnPrchsAmt) != 0){
+					if(gfn_isEmpty(rowData01.slsCnsgnSlsAmt)){
+						alert('매입 값이 있을경우 매출 금액 입력이 필수 입니다.');
+						grdPrdcrOgnCurntMng01.selectRow(i);
+						return false;
+					}
+				}
+				if(!gfn_isEmpty(rowData01.slsCnsgnSlsAmt) &&  Number(rowData01.slsCnsgnSlsAmt) != 0){
+					if(gfn_isEmpty(rowData01.slsCnsgnPrchsAmt)){
+						alert('매출 값이 있을경우 매입 금액 입력이 필수 입니다.');
+						grdPrdcrOgnCurntMng01.selectRow(i);
+						return false;
+					}
+				}
+			}
+
+
 
 			rowData01.apoCd = apoCd;
 			rowData01.apoSe = apoSe;

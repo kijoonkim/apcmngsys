@@ -2302,12 +2302,12 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
 			let rowData = grdUoList.getRowData(i);
 			let rowSts = grdUoList.getRowStatus(i);
-			console.log(i+"행 상태값 : "+rowSts);
+			//console.log(i+"행 상태값 : "+rowSts);
 			let uoBrno = rowData.uoBrno;
 			let uoCorpNm = rowData.uoCorpNm;
 			let uoApoCd = rowData.uoApoCd;
 			let delYn = rowData.delYn;
-			console.log(i+"행 uoApoCd : "+uoApoCd);
+			//console.log(i+"행 uoApoCd : "+uoApoCd);
 			rowData.isoBrno = isoBrno;
 			rowData.isoCorpNm = isoCorpNm;
 

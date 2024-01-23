@@ -30,7 +30,6 @@
 				, CM.CRNO
 				, CM.CTGRY_CD
 				, CM.ITEM_CD
-				, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = CM.ITEM_CD) AS CTGRY_NM
 				, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = CM.ITEM_CD) AS ITEM_NM
 				, CM.PRCHS_SLS_SE
 
@@ -92,17 +91,20 @@
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectPrdcrCrclOgnPurSalMngList" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
-    	<![CDATA[
+		SELECT * FROM
+		(
 			SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectPrdcrCrclOgnPurSalMngList */
-				  CM.YR
+				ITEM.YR
+				, ITEM.ITEM_CD
+				, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = ITEM.ITEM_CD) AS ITEM_NM
+				, ITEM.CTGRY_CD
+				, ITEM.STTG_UPBR_ITEM_SE
+
 				, CM.APO_CD
 				, CM.APO_SE
 				, CM.BRNO
 				, CM.CRNO
-				, CM.CTGRY_CD
-				, CM.ITEM_CD
-				, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = CM.ITEM_CD) AS CTGRY_NM
-				, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = CM.ITEM_CD) AS ITEM_NM
+
 				, CM.PRCHS_SLS_SE
 
 				, CM.PRCHS_TRST_VLM
@@ -140,17 +142,85 @@
 				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
 				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_ID_NM
 				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_EV_UO_ALL_PRCHS_SLS CM
+			  FROM TB_EV_UO_ISO_ALL_PRCHS_SLS CM ,
+			  	(SELECT *
+			  		FROM TB_EV_APO_YR_GPC_CD
+			  		WHERE 1=1
+					<if test='brno != null and brno != ""'>
+					  AND BRNO = #{brno}
+					</if>
+					<if test='yr != null and yr != ""'>
+					  AND YR = #{yr}
+					</if>
+			  	) ITEM
 			 WHERE 1=1
+			   AND ITEM.ITEM_CD = CM.ITEM_CD(+)
+			   AND ITEM.BRNO = CM.BRNO(+)
+			   AND ITEM.STTG_UPBR_ITEM_SE = CM.STTG_UPBR_ITEM_SE(+)
+			   AND CM.APO_SE = '1'
 
-    	]]>
-    		<if test='apoCd != null and apoCd != ""'>
-				AND CM.APO_CD = #{apoCd}
+			UNION ALL
+
+			SELECT
+				CM.YR
+				, CM.ITEM_CD
+				, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = CM.ITEM_CD) AS ITEM_NM
+				, CM.CTGRY_CD
+				, CM.STTG_UPBR_ITEM_SE
+
+				, CM.APO_CD
+				, CM.APO_SE
+				, CM.BRNO
+				, CM.CRNO
+
+				, CM.PRCHS_SLS_SE
+
+				, CM.PRCHS_TRST_VLM
+				, CM.PRCHS_TRST_AMT
+				, CM.PRCHS_EMSPAP_VLM
+				, CM.PRCHS_EMSPAP_AMT
+
+				, CM.SLS_CPRTN_SORT_TRST_VLM
+				, CM.SLS_CPRTN_SORT_TRST_AMT
+				, CM.SLS_CPRTN_TRST_VLM
+				, CM.SLS_CPRTN_TRST_AMT
+				, CM.SLS_CPRTN_SORT_EMSPAP_VLM
+				, CM.SLS_CPRTN_SORT_EMSPAP_AMT
+
+				, CM.SLS_SMPL_TRST_VLM
+				, CM.SLS_SMPL_TRST_AMT
+				, CM.SLS_SMPL_EMSPAP_VLM
+				, CM.SLS_SMPL_EMSPAP_AMT
+
+				, CM.SLS_EMSPAP_VLM
+				, CM.SLS_EMSPAP_AMT
+				, CM.SLS_TRST_VLM
+				, CM.SLS_TRST_AMT
+
+				, CM.RMRK
+
+				, CM.DEL_YN		AS DEL_YN
+				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
+				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
+				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
+				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_FRST_INPT_USER_ID) AS SYS_FRST_INPT_USER_ID_NM
+				, CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
+				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
+				, TO_CHAR(CM.SYS_LAST_CHG_DT,'YYYY-MM-DD')		AS SYS_LAST_CHG_DT_YMD
+				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
+				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_ID_NM
+				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
+			FROM TB_EV_UO_ISO_ALL_PRCHS_SLS CM
+			WHERE 1=1
+			  AND STTG_UPBR_ITEM_SE = '3'
+			<if test='brno != null and brno != ""'>
+			  AND BRNO = #{brno}
 			</if>
-			<if test='apoSe != null and apoSe != ""'>
-				AND CM.APO_SE = #{apoSe}
+			<if test='yr != null and yr != ""'>
+			  AND YR = #{yr}
 			</if>
-		ORDER BY CM.ITEM_CD DESC
+		)
+		ORDER BY STTG_UPBR_ITEM_SE , ITEM_CD DESC
     </select>
 
 
