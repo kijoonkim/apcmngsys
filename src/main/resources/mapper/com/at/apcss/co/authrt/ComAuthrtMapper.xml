@@ -506,6 +506,7 @@
     			  ROWNUM AS ROW_SEQ
     			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
     			, pt0.*
+    			, (SELECT FN_GET_COM_CD_VL_NM('USER_TYPE', pt0.USER_TYPE) FROM DUAL) AS USER_TYPE_NM
     		  FROM (
     	</if>
     	<!-- End 페이징 -->
