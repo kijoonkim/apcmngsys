@@ -144,7 +144,7 @@ function fn_createUserInfoChgGrid() {
 	         {caption: ["사용자유형"],   	ref: 'userTypeNm',  type:'output',  	width:'105px', 	style:'text-align:center'},
 	         {caption: ["메일주소"],	    ref: 'eml', 		type:'input',  		width:'200px', 	style:'text-align:center',
 				validate : gfn_chkByte.bind({byteLimit: 320})},
-	         {caption: ["전화번호"],  		ref: 'telno',   	type:'input',  		width:'105px', 	style:'text-align:center',
+	         {caption: ["전화번호"],  		ref: 'mblTelno',   	type:'input',  		width:'105px', 	style:'text-align:center',
 	        	validate : gfn_chkByte.bind({byteLimit: 11})},
 	         {caption: ["직책명"],  		ref: 'jbttlNm',   	type:'input',   	width:'105px', 	style:'text-align:center',
 				validate : gfn_chkByte.bind({byteLimit: 100})},
@@ -218,6 +218,7 @@ async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
 			  , endLgnDt	: item.endLgnDt
 			  , delYn		: item.delYn
 			  , reverseLckYn: item.reverseLckYn
+			  , mblTelno	: item.mblTelno
 			}
 			userInfoChgGridData.push(Object.assign({}, userAprvReg));
 			newUserInfoChgGridData.push(Object.assign({}, userAprvReg));
@@ -275,7 +276,7 @@ async function fn_reset(){
 				userAprvRegGridData.push({
 					userId: item.userId,
 					eml: item.eml,
-					telno: item.telno,
+					mblTelno: item.mblTelno,
 					jbttlNm: item.jbttlNm,
 					tkcgTaskNm: item.tkcgTaskNm,
 					delYn: item.delYn,
