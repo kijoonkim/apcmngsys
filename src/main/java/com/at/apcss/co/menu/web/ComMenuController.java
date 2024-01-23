@@ -284,7 +284,10 @@ public class ComMenuController extends BaseController {
 				comUiVO.setSysLastChgUserId(getUserId());
 				comUiVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
-			insertdCnt = comMenuService.multiSaveComUiList(comUiList);
+			HashMap<String, Object> rtnObj = comMenuService.multiSaveComUiList(comUiList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {

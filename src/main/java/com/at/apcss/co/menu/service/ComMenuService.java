@@ -1,5 +1,6 @@
 package com.at.apcss.co.menu.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.co.menu.vo.ComMenuVO;
@@ -119,8 +120,7 @@ public interface ComMenuService {
 	 * @param List<ComUiVO>
 	 * @return Integer
 	 */
-	public int multiSaveComUiList(List<ComUiVO> comUiList) throws Exception;
-
+	public HashMap<String, Object> multiSaveComUiList(List<ComUiVO> comUiList) throws Exception;
 
 	/**
 	 * 유형별 메뉴 목록 조회
