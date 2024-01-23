@@ -124,13 +124,13 @@ function fn_createUserListInqGrid() {
     		  	'showgoalpageui' : true
     	};
 	    SBGridProperties1.columns = [
-	         {caption: ["사용자ID"],			ref: 'userId',      type:'output',	width:'150px', style:'text-align:center'},
+	         {caption: ["사용자ID"],		ref: 'userId',      type:'output',	width:'150px', style:'text-align:center'},
 	         {caption: ["사용자명"], 		ref: 'userNm',     	type:'output',  width:'95px', style:'text-align:center'},
 	         {caption: ["APC명"], 	 		ref: 'apcNm',    	type:'output',  width:'150px', style:'text-align:center'},
 	         {caption: ["사용자유형"],    	ref: 'userTypeNm',  type:'output',  width:'150px', style:'text-align:center'},
-	         {caption: ["메일주소"],	    	ref: 'eml',   		type:'output',  width:'200px', style:'text-align:center'},
-	         {caption: ["전화번호"],	    	ref: 'telno', 		type:'output',  width:'150px', style:'text-align:center'},
-	         {caption: ["직책명"],  			ref: 'jbttlNm',   	type:'output',  width:'90px', style:'text-align:center'},
+	         {caption: ["메일주소"],	    ref: 'eml',   		type:'output',  width:'200px', style:'text-align:center'},
+	         {caption: ["전화번호"],	    ref: 'mblTelno', 	type:'output',  width:'150px', style:'text-align:center'},
+	         {caption: ["직책명"],  		ref: 'jbttlNm',   	type:'output',  width:'90px', style:'text-align:center'},
 	         {caption: ["담당업무"],  		ref: 'tkcgTaskNm',  type:'output',  width:'110px', style:'text-align:center'},
 	         {caption: ["사용유무"],  		ref: 'reverseYn',  	type:'output',  width:'100px', style:'text-align:center'},
 	         {caption: ["잠김여부"],  		ref: 'lckYn',   	type:'output',  width:'100px', style:'text-align:center'},
@@ -191,6 +191,7 @@ async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
   					  , reverseYn	: item.reverseYn
   					  , lckYn		: item.lckYn
   					  , endLgnDt	: item.endLgnDt
+  					  , mblTelno	: item.mblTelno
   					}
 
   					userListInqGridData.push(Object.assign({}, userListInq));

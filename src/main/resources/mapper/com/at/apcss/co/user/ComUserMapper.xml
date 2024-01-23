@@ -38,6 +38,7 @@
 				, CU.LGN_FAIL_NMTM      AS LGN_FAIL_NMTM
 				, CU.END_LGN_DT         AS END_LGN_DT
 				, CU.END_LGN_IP         AS END_LGN_IP
+				, CU.MBL_TELNO              AS MBL_TELNO
 				, CU.DEL_YN                 AS DEL_YN
 				, CU.SYS_FRST_INPT_DT       AS SYS_FRST_INPT_DT
 				, CU.SYS_FRST_INPT_USER_ID  AS SYS_FRST_INPT_USER_ID
@@ -93,6 +94,7 @@
 				, CU.RMRK				 	AS RMRK
 				, CU.JBTTL_NM 				AS JBTTL_NM
 				, CU.TKCG_TASK_NM 			AS TKCG_TASK_NM
+				, CU.MBL_TELNO              AS MBL_TELNO
 				, CU.DEL_YN                 AS DEL_YN
 				, (SELECT FN_GET_COM_CD_VL_NM('REVERSE_YN',CU.DEL_YN) FROM DUAL) AS REVERSE_YN
 				, CU.CRNO                   AS CRNO
@@ -181,6 +183,7 @@
 				, CU.RMRK				 	AS RMRK
 				, CU.JBTTL_NM 				AS JBTTL_NM
 				, CU.TKCG_TASK_NM 			AS TKCG_TASK_NM
+				, CU.MBL_TELNO              AS MBL_TELNO
 				, CU.DEL_YN                 AS DEL_YN
 				, (SELECT FN_GET_COM_CD_VL_NM('REVERSE_YN',CU.DEL_YN) FROM DUAL) AS REVERSE_YN
 				, CU.SYS_FRST_INPT_DT       AS SYS_FRST_INPT_DT
@@ -257,8 +260,8 @@
     	   , SYS_LAST_CHG_USER_ID 	= #{sysLastChgUserId}
     	   , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
     	]]>
-    	<if test='telno != null and telno != ""'>
-    		 , TELNO 					= #{telno}
+    	<if test='mblTelno != null and mblTelno != ""'>
+    		 , MBL_TELNO 					= #{mblTelno}
     	</if>
     	<if test='jbttlNm != null and jbttlNm != ""'>
     		 , JBTTL_NM 				= #{jbttlNm}
