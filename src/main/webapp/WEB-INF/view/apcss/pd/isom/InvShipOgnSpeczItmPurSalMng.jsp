@@ -511,7 +511,7 @@
 	    SBGridProperties.fixedrowheight=45;
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	            {caption : ['전문품목명','전문품목명'],
+	            {caption : ['품목명','품목명'],
 	            	ref : "itemNm",   width : '100px',        style : 'text-align:center',     type : 'output'},
 	            {caption : ['판매위임(매입)금액(천원)','구분'],
 	            	ref : "seNm",   width : '150px',        style : 'text-align:center',     type : 'output'},
@@ -994,24 +994,58 @@
 			let rowSts01 = grdPrdcrOgnCurntMng01.getRowStatus(i);
 			let delYn = rowData01.delYn;
 
+			//매입or매출 값이 있을경우 매입 매출 값을 입력 필수
+			console.log("slsCnsgnPrchsAmt = "+rowData01.slsCnsgnPrchsAmt);
+			console.log("slsCnsgnPrchsAmt = "+rowData01.uoSpmtAmt);
+			console.log("slsCnsgnPrchsAmt = "+rowData01.uoOtherSpmtAmt);
+			if(rowData01.typeSeNo == '5'){
+				if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) &&  Number(rowData01.slsCnsgnPrchsAmt) != 0){
+					if(gfn_isEmpty(rowData01.uoSpmtAmt) && gfn_isEmpty(rowData01.uoOtherSpmtAmt)){
+						alert('매입 값이 있을경우 매출 금액 입력이 필수 입니다.');
+						grdPrdcrOgnCurntMng01.selectRow(i);
+						return false;
+					}
+				}
+
+				if((!gfn_isEmpty(rowData01.uoSpmtAmt) &&  Number(rowData01.uoSpmtAmt) != 0 )
+						|| (!gfn_isEmpty(rowData01.uoOtherSpmtAmt) && Number(rowData01.uoOtherSpmtAmt) != 0)){
+					if(gfn_isEmpty(rowData01.slsCnsgnPrchsAmt)){
+						alert('매출 값이 있을경우 매입 금액 입력이 필수 입니다.');
+						grdPrdcrOgnCurntMng01.selectRow(i);
+		 	            return;
+					}
+				}
+			}
+
+			//'생산자조직 외' 인 경우
+			//매입or매출 값이 있을경우 매입 매출 값을 입력 필수
+			if(rowData01.typeSeNo == '7'){
+				if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) &&  Number(rowData01.slsCnsgnPrchsAmt) != 0){
+					if(gfn_isEmpty(rowData01.uoSpmtAmt) && gfn_isEmpty(rowData01.uoOtherSpmtAmt)){
+						alert('매입 값이 있을경우 매출 금액 입력이 필수 입니다.');
+						grdPrdcrOgnCurntMng01.selectRow(i);
+						return false;
+					}
+				}
+				//매출 금액 둘중하나라도 존재하는 경우
+				if((!gfn_isEmpty(rowData01.uoSpmtAmt) &&  Number(rowData01.uoSpmtAmt) != 0 )
+						|| (!gfn_isEmpty(rowData01.uoOtherSpmtAmt) && Number(rowData01.uoOtherSpmtAmt) != 0)){
+					//매입금액을 작성해야함
+					if(gfn_isEmpty(rowData01.slsCnsgnPrchsAmt)){
+						alert('매출 값이 있을경우 매입 금액 입력이 필수 입니다.');
+						grdPrdcrOgnCurntMng01.selectRow(i);
+		 	            return;
+					}
+				}
+			}
+
 			rowData01.apoCd = apoCd;
 			rowData01.apoSe = apoSe;
 			rowData01.crno = crno;
 			rowData01.brno = brno;
 			rowData01.prdcrOgnzCd = uoBrno;
 
-			//'생산자조직 외' 인 경우
-			if(rowData01.prdcrOgnzCd == 99){
-				//매출 금액 둘중하나라도 존재하는 경우
-				if(!gfn_isEmpty(rowData01.uoSpmtAmt) || !gfn_isEmpty(rowData01.uoOtherSpmtAmt)){
-					//매입금액을 작성해야함
-					if(gfn_isEmpty(rowData01.slsCnsgnPrchsAmt)){
-						gfn_comAlert("W0002", "매입금액");		//	W0002	{0}을/를 입력하세요.
-						grdPrdcrOgnCurntMng01.setRow(i);
-		 	            return;
-					}
-				}
-			}
+
 			rowData01.rowSts = "I";
 			saveList.push(rowData01);
 
