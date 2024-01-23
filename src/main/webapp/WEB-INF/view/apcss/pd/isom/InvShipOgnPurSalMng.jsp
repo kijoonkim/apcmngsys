@@ -22,7 +22,7 @@
 				</div>
 				<div style="margin-left: auto;">
 				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
-					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
+					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="출자출하조직 조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<!--
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
 					 -->
@@ -219,6 +219,7 @@
 							<th scope="row" class="th_bg th_border_right">법인명</th>
 							<sbux-input uitype="hidden" id="dtl-input-apoCd" name="dtl-input-apoCd"></sbux-input>
 							<sbux-input uitype="hidden" id="dtl-input-apoSe" name="dtl-input-apoSe"></sbux-input>
+							<sbux-input uitype="hidden" id="dtl-input-uoBrno" name="dtl-input-uoBrno"></sbux-input>
 							<td colspan="2" class="td_input">
 								<sbux-input
 									uitype="text"
@@ -229,7 +230,9 @@
 									readonly
 								></sbux-input>
 							</td>
+							<!--
 							<td class="td_input"  style="border-left: hidden;">
+							 -->
 							<th scope="row" class="th_bg th_border_right">사업자번호</th>
 							<td colspan="2" class="td_input">
 								<sbux-input
@@ -242,7 +245,9 @@
 									readonly
 								></sbux-input>
 							</td>
+							<!--
 							<td class="td_input"  style="border-left: hidden;">
+							 -->
 							</td>
 							<th scope="row" class="th_bg th_border_right">법인등록번호</th>
 							<td colspan="2" class="td_input">
@@ -255,7 +260,21 @@
 									readonly
 								></sbux-input>
 							</td>
+							<!--
 							<td class="td_input"  style="border-left: hidden;">
+							 -->
+							<th scope="row" class="th_bg th_border_right">통합조직 선택</th>
+							<td colspan="2" class="td_input">
+								<sbux-select
+									id="dtl-input-selUoBrno"
+									name="dtl-input-selUoBrno"
+									uitype="single"
+									jsondata-ref="comUoBrno"
+									unselected-text="선택"
+									class="form-control input-sm"
+									onchange="fn_changeSelUoBrno"
+								></sbux-select>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -364,6 +383,10 @@
 	var jsonComAprv = [];//신청구분
 	var jsonComAplyTrgtSe = [];//신청대상구분
 	var jsonCtgryCd = [];//분류코드
+	var jsonGrdCtgryCd_1 = [];//분류코드
+	var jsonGrdCtgryCd_2 = [];//분류코드
+	var jsonGrdSttgUpbrItemSe_1 = [];//취급코드
+	var jsonGrdSttgUpbrItemSe_2 = [];//취급코드
 	/**
 	 * combo 설정
 	 */
@@ -381,8 +404,11 @@
 			gfn_setComCdSBSelect('srch-input-aprv', 		jsonComAprv, 	'APRV_UPBR_SE_CD'), //신청구분
 			gfn_setComCdSBSelect('srch-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE'), //신청대상구분
 			//gfn_setComCdSBSelect('dtl-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE'), //신청대상구분
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng02', 	jsonCtgryCd, 	'CTGRY_CD'), //분류코드
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonCtgryCd, 	'CTGRY_CD'), //분류코드
+
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonGrdCtgryCd_1, 	'CTGRY_CD'), //분류코드
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng02', 	jsonGrdCtgryCd_2, 	'CTGRY_CD'), //분류코드
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonGrdSttgUpbrItemSe_1, 	'STTG_UPBR_ITEM_SE_1'), //취급코드
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng02', 	jsonGrdSttgUpbrItemSe_2, 	'STTG_UPBR_ITEM_SE_1'), //취급코드
 
 		]);
 		console.log("============fn_initSBSelect=====1=======");
@@ -465,11 +491,12 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ")'>삭제</button>";
 	        	}
 	        }},
-	        {caption: ["품목","품목"], 		ref: 'sttgUpbrItemSeNm',   	type:'output',  width:'80px',    style:'text-align:center'},
+	        {caption: ["품목","품목"], 		ref: 'sttgUpbrItemSeNm',   	type:'output',  width:'80px',    style:'text-align:center'
+	    		,typeinfo : {ref:'jsonGrdSttgUpbrItemSe_1', label:'label', value:'value', displayui : true}},
 	    	{caption: ["품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 	    	//{caption: ["품목분류","품목분류"], 	ref: 'ctgryNm',   	type:'combo',  width:'80px',    style:'text-align:center'},
 	    	{caption: ["품목분류","품목분류"], 	ref: 'ctgryCd',   	type:'combo',  width:'80px',    style:'text-align:center'
-	    		,typeinfo : {ref:'jsonCtgryCd', label:'label', value:'value', displayui : true}},
+	    		,typeinfo : {ref:'jsonGrdCtgryCd_1', label:'label', value:'value', displayui : true}},
 
 	        {caption: ["공선수탁·공동수탁","물량"], 		ref: 'prchsTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
@@ -552,48 +579,49 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ")'>삭제</button>";
 	        	}
 	        }},
-	        {caption: ["품목","품목","품목","품목"], 		ref: 'sttgUpbrItemSeNm',   	type:'output',  width:'80px',    style:'text-align:center'},
+	        {caption: ["품목","품목","품목","품목"], 		ref: 'sttgUpbrItemSeNm',   	type:'output',  width:'80px',    style:'text-align:center'
+				,typeinfo : {ref:'jsonGrdSttgUpbrItemSe_2', label:'label', value:'value', displayui : true}},
 	    	{caption: ["품목","품목","품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 	    	//{caption: ["품목분류","품목분류","품목분류"], 	ref: 'ctgryNm',   	type:'combo',  width:'80px',    style:'text-align:center'},
 	    	{caption: ["품목분류","품목분류","품목분류","품목분류"], 	ref: 'ctgryCd',   	type:'combo',  width:'80px',    style:'text-align:center'
-				,typeinfo : {ref:'jsonCtgryCd', label:'label', value:'value', displayui : true}},
+				,typeinfo : {ref:'jsonGrdCtgryCd_2', label:'label', value:'value', displayui : true}},
 
 			{caption: ["출자출하조직 취급실적","총취급실적","총취급실적","물량"]
-				,ref: 'slsCprtnSortTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+				,ref: 'a',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","총취급실적","총취급실적","금액"]
-				,ref: 'slsCprtnSortTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+				,ref: 'a',   	type:'input',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","자체수출","물량"]
-				,ref: 'slsCprtnSortTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+				,ref: 'ddcExprtVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","자체수출","금액"]
-				,ref: 'slsCprtnSortTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+				,ref: 'ddcExprtAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","자체공판장","물량"]
-				,ref: 'slsCprtnSortTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+				,ref: 'ddcVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","자체공판장","금액"]
-				,ref: 'slsCprtnSortTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+				,ref: 'ddcAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","군납","물량"]
-				,ref: 'slsCprtnSortTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+				,ref: 'ddcArmyDlvgdsVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","군납","금액"]
-				,ref: 'slsCprtnSortTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+				,ref: 'ddcArmyDlvgdsAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","학교급식","물량"]
-				,ref: 'slsCprtnSortTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+				,ref: 'ddcMlsrVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","학교급식","금액"]
-				,ref: 'slsCprtnSortTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+				,ref: 'ddcMlsrAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","공제대상 소계","물량"]
-				,ref: 'slsCprtnSortTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+				,ref: 'ddcTotVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","공제대상 소계","금액"]
-				,ref: 'slsCprtnSortTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+				,ref: 'ddcTotAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
 
@@ -606,22 +634,22 @@
 
 
 			{caption: ["출자출하조직의 통합조직 출하실적","총 출하실적","총 출하실적","물량"]
-				,ref: 'slsCprtnSortTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+				,ref: 'spmtPrfmncTotVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","총 출하실적","총 출하실적","금액"]
-				,ref: 'slsCprtnSortTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+				,ref: 'spmtPrfmncTotAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","단순기표","단순기표","물량"]
-				,ref: 'slsCprtnSortTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+				,ref: 'smplInptVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","단순기표","단순기표","금액"]
-				,ref: 'slsCprtnSortTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+				,ref: 'smplInptAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","출하실적","출하실적","물량"]
-				,ref: 'slsCprtnSortTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+				,ref: 'spmtPrfmncVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","출하실적","출하실적","금액(B)"]
-				,ref: 'slsCprtnSortTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+				,ref: 'spmtPrfmncAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
 			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공선수탁","물량"]
@@ -631,29 +659,29 @@
 				,ref: 'slsCprtnSortTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공선매취","물량"]
-				,ref: 'slsCprtnSortTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+				,ref: 'slsCprtnSortEmspapVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공선매취","금액"]
-				,ref: 'slsCprtnSortTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+				,ref: 'slsCprtnSortEmspapAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공동수탁","물량"]
-				,ref: 'slsCprtnSortTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+				,ref: 'slsCprtnTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공동수탁","금액"]
-				,ref: 'slsCprtnSortTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+				,ref: 'slsCprtnTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","합계","물량"]
-				,ref: 'slsCprtnSortTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+				,ref: 'slsCprtnTotVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","합계","금액"]
-				,ref: 'slsCprtnSortTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+				,ref: 'slsCprtnTotAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 			,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
 			{caption: ["출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)"]
-				,ref: 'slsCprtnSortTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+				,ref: 'spmtRtVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)"]
-				,ref: 'slsCprtnSortTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+				,ref: 'spmtRtAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
 
@@ -984,7 +1012,7 @@
 				SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno))//법인등록번호
 				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))//사업자등록번호
 			});
-        	fn_dtlGridSearch();
+        	fn_searchUoList();
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -1226,15 +1254,26 @@
 
 		let rowData = grdPrdcrOgnCurntMng.getRowData(nRow);
 		console.log(rowData);
+		fn_clearForm();
+
 		SBUxMethod.set('dtl-input-apoCd',gfn_nvl(rowData.apoCd))//통합조직 코드
 		SBUxMethod.set('dtl-input-apoSe',gfn_nvl(rowData.apoSe))//통합조직 구분
 		SBUxMethod.set('dtl-input-corpNm',gfn_nvl(rowData.corpNm))//법인명
 		SBUxMethod.set('dtl-input-crno',gfn_nvl(rowData.crno))//법인등록번호
 		SBUxMethod.set('dtl-input-brno',gfn_nvl(rowData.brno))//사업자등록번호
-		fn_clearForm();
+
+		fn_searchUoList();
     }
 	//매입 매출 그리드 초기화
 	async function fn_clearForm() {
+		SBUxMethod.set('dtl-input-apoCd',null)//통합조직 코드
+		SBUxMethod.set('dtl-input-apoSe',null)//통합조직 구분
+		SBUxMethod.set('dtl-input-corpNm',null)//법인명
+		SBUxMethod.set('dtl-input-crno',null)//법인등록번호
+		SBUxMethod.set('dtl-input-brno',null)//사업자등록번호
+		SBUxMethod.set('dtl-input-uoBrno',null)//선택한 통합조직
+		SBUxMethod.set('dtl-input-selUoBrno',null)//상위 통합조직 리스트
+
 		jsonPrdcrOgnCurntMng01.length= 0;
 		grdPrdcrOgnCurntMng01.rebuild();
 		jsonPrdcrOgnCurntMng02.length= 0;
@@ -1250,12 +1289,19 @@
 		let apoSe = SBUxMethod.get('dtl-input-apoSe');
 		let itemCd = SBUxMethod.get('dtl-input-itemCd');
 		let ctgryCd = SBUxMethod.get('dtl-input-ctgryCd');
+		let uoBrno = SBUxMethod.get('dtl-input-uoBrno');
+
+		if(gfn_isEmpty(uoBrno)){
+			alert("통합조직을 선택해 주세요");
+			return;
+		}
 
 		let postJsonPromise01 = gfn_postJSON("/pd/isom/selectInvShipOgnPurSalMngList.do", {
 			apoCd : apoCd
     		,apoSe : apoSe
     		,itemCd : itemCd
     		,ctgryCd : ctgryCd
+    		,uoBrno : uoBrno
 		});
         let data = await postJsonPromise01;
         try{
@@ -1370,7 +1416,6 @@
 		//grdGpcList 그리드 객체
         selGridRow01 = grdPrdcrOgnCurntMng01.getRow();
         selGridCol01 = grdPrdcrOgnCurntMng01.getCol();
-
 
         let delYnCol = grdPrdcrOgnCurntMng01.getColRef('delYn');
         let delYnValue = grdPrdcrOgnCurntMng01.getCellData(selGridRow01,delYnCol);
@@ -1525,6 +1570,64 @@
 		 		grdPrdcrOgnCurntMng02.setRowStatus(selGridRow02,'update');
 		 	}
 
+		}
+	}
+
+	var comUoBrno = [];//통합조직 선택
+
+	/* 출자출하조직이 속한 통합조직 리스트 조회 */
+	const fn_searchUoList = async function(){
+		//출자출하조직이 아닌경우
+		<c:if test="${loginVO.userType ne '22'}">
+		let brno = SBUxMethod.get('dtl-input-brno');
+		</c:if>
+		//출자출하조직인 경우
+		<c:if test="${loginVO.userType eq '22'}">
+		let brno = '${loginVO.brno}';
+		</c:if>
+
+    	let postJsonPromise = gfn_postJSON("/pd/bsm/selectUoList.do", {
+			brno : brno
+		});
+        let data = await postJsonPromise;
+        try{
+        	comUoBrno = [];
+        	data.resultList.forEach((item, index) => {
+        		let uoListVO = {
+						'text'		: item.uoCorpNm
+						, 'label'	: item.uoCorpNm
+						, 'value'	: item.uoBrno
+						, 'uoApoCd' : item.uoApoCd
+
+				}
+        		comUoBrno.push(uoListVO);
+			});
+        	SBUxMethod.refresh('dtl-input-selUoBrno');
+        	//console.log(comUoBrno);
+        	if(comUoBrno.length == 1){
+
+        	}
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
+	}
+
+
+	//통합조직 콤보박스 선택시 값 변경
+	//const fn_changeSelUoBrno = async function() {
+	function fn_changeSelUoBrno(){
+		let selVal = SBUxMethod.get('dtl-input-selUoBrno');
+		let selCombo = _.find(comUoBrno, {value : selVal});
+		console.log(selCombo);
+		if( typeof selCombo == "undefined" || selCombo == null || selCombo == "" ){
+			SBUxMethod.set('dtl-input-uoBrno' , null);
+			//SBUxMethod.set('dtl-input-uoCd' , null);
+		}else{
+			SBUxMethod.set('dtl-input-uoBrno',selCombo.value);
+			//SBUxMethod.set('dtl-input-uoCd',selCombo.uoApoCd);
 		}
 	}
 

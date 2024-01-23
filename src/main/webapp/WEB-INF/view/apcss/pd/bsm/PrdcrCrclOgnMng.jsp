@@ -1365,7 +1365,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	//사용자 화면 조회
 	const fn_dtlSearch = async function(){
 		let brno = '${loginVO.brno}';
-		SBUxMethod.set('dtl-input-brno',gfn_nvl(brno));
+		//SBUxMethod.set('dtl-input-brno',gfn_nvl(brno));
 		if(gfn_isEmpty(brno)) return;
 
     	let postJsonPromise = gfn_postJSON("/pd/bsm/selectPrdcrCrclOgnMng.do", {
@@ -1383,7 +1383,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
         		SBUxMethod.set('dtl-input-uoBrno',gfn_nvl(item.uoBrno))
         		SBUxMethod.set('dtl-input-corpNm',gfn_nvl(item.corpNm))
         		SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno))
-        		//SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))
+        		SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))
         		SBUxMethod.set('dtl-input-mngmstInfoId',gfn_nvl(item.mngmstInfoId))
         		if(gfn_isEmpty(item.mngmstInfoId)){
         			SBUxMethod.set('dtl-input-mngmstYn','N')//
@@ -1479,7 +1479,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
     	};
 
     	if (gfn_isEmpty(apoCd)) {
-    		// 신규 등록
+    		// 신규 등록 (회원가입할떄 자동 받음)
     		return;
 			//fn_subInsert(confirm("등록 하시겠습니까?"));
     	} else {

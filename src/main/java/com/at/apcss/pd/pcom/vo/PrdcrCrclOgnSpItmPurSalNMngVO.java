@@ -34,6 +34,7 @@ public class PrdcrCrclOgnSpItmPurSalNMngVO extends ComVO{
 	private String prdcrOgnzNm;
 	private String cltvtnLandSn;
 	private String trmtType;
+	private String trmtTypeNm;
 	private String sttgUpbrItemSe;
 	private String sttgUpbrItemNm;
 
