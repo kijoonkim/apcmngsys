@@ -261,7 +261,7 @@
 	    SBGridProperties.paging = {
 			'type' : 'page',
 		  	'count' : 5,
-		  	'size' : 20,
+		  	'size' : 100,
 		  	'sorttype' : 'page',
 		  	'showgoalpageui' : true
 	    };
@@ -289,8 +289,15 @@
     const fn_pagingGrdComAuthUser = async function() {
     	let recordCountPerPage = grdComAuthUser.getPageSize();   		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = grdComAuthUser.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-    	fn_clearForm();
-    	fn_setGrdComAuth(recordCountPerPage, currentPageNo);
+
+    	let nRow = grdComAuth.getRow();
+        if (nRow < 0 ) {
+            return;
+        }
+
+        let rowData = grdComAuth.getRowData(nRow);
+
+        fn_setGrdComAuthUser(recordCountPerPage, currentPageNo, rowData.authrtId);
     }
 
  	/**
@@ -306,7 +313,7 @@
     	let pageNo = 1;
 
     	jsonComAuth.length = 0;
-    	grdComAuth.movePaging(pageNo);
+    	fn_setGrdComAuth(pageSize, pageNo)
     }
 
     /**
@@ -316,8 +323,6 @@
      * @param {number} pageNo
      */
     const fn_setGrdComAuth = async function(pageSize, pageNo) {
-
-    	grdComAuth.clearStatus();
 
 		let authrtNm = SBUxMethod.get("srch-inp-authrtNm");
 		let apcCd = gv_selectedApcCd;
@@ -397,8 +402,6 @@
      */
     const fn_setGrdComAuthUser = async function(pageSize, pageNo, authrtId) {
 
-     	grdComAuthUser.clearStatus();
-
 		const postJsonPromise = gfn_postJSON("/co/authrt/selectComAuthrtUserList.do", {
          	authrtId: authrtId,
         	// pagination
@@ -432,9 +435,10 @@
   					}
   				});
 
+
   	        	if (jsonComAuthUser.length > 0) {
 
-  	        		if(grdComAuth.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+  	        		if(grdComAuthUser.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
   	        			grdComAuthUser.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
   	        			grdComAuthUser.rebuild();
   					}else{
