@@ -290,6 +290,7 @@
 							<sbux-input uitype="hidden" id="dtl-input-brno" name="dtl-input-brno" class="form-control input-sm" autocomplete="off"></sbux-input>
 							<sbux-input uitype="hidden" id="dtl-input-crno" name="dtl-input-crno" class="form-control input-sm" autocomplete="off"></sbux-input>
 							<sbux-input uitype="hidden" id="dtl-input-yr" name="dtl-input-yr" class="form-control input-sm" autocomplete="off"></sbux-input>
+							<sbux-input uitype="hidden" id="dtl-input-corpDdlnSeCd" name="dtl-input-corpDdlnSeCd" class="form-control input-sm" autocomplete="off"></sbux-input>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
@@ -1400,6 +1401,9 @@
 				SBUxMethod.set('dtl-input-isoFundAplyAmt',gfn_nvl(item.isoFundAplyAmt))//
 				//SBUxMethod.set('dtl-input-aplyTrgtSe',gfn_nvl(item.aplyTrgtSe))//
 
+
+				SBUxMethod.set('dtl-input-corpDdlnSeCd',gfn_nvl(item.corpDdlnSeCd))//
+
 				wrtYn = item.wrtYn;
 				corpDdlnSeCd = item.corpDdlnSeCd;
 
@@ -1457,10 +1461,8 @@
 
 				SBUxMethod.attr('dtl-input-untyYr','readonly',true);
 				SBUxMethod.attr('dtl-input-pruoFundAplyAmt','readonly',true);
-
-				return false;
         	}else{
-        		$(".btn").show();// 모든 버튼 숨기기
+        		$(".btn").show();// 모든 버튼 보이기
 				//작성란 비활성화
 				SBUxMethod.attr('rdo-aprv','readonly',false);
 				SBUxMethod.attr('dtl-input-rawMtrEnsr','readonly',false);
@@ -1955,10 +1957,13 @@
 	    SBGridProperties.oneclickedit = true;//입력 활성화 true 1번클릭 false 더블클릭
 	    SBGridProperties.columns = [
 	        {caption: ["처리"], 				ref: 'delYn',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
-	        	if(strValue== null || strValue == ""){
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdGpcList\", " + nRow + ", " + nCol + ")'>추가</button>";
-	        	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdGpcList\", " + nRow + ")'>삭제</button>";
+	        	let corpDdlnSeCd = SBUxMethod.get("dtl-input-corpDdlnSeCd");
+	        	if(corpDdlnSeCd != 'Y'){
+	        		if(strValue== null || strValue == ""){
+		        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdGpcList\", " + nRow + ", " + nCol + ")'>추가</button>";
+		        	}else{
+				        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdGpcList\", " + nRow + ")'>삭제</button>";
+		        	}
 	        	}
 	        }},
 	    	{caption: ["통합조직코드"], 	ref: 'apoCd',   	hidden : true},
@@ -2062,8 +2067,11 @@
 			});
 
         	grdGpcList.rebuild();
-        	//비어 있는 마지막 줄 추가용도
-        	grdGpcList.addRow();
+        	let corpDdlnSeCd = SBUxMethod.get("dtl-input-corpDdlnSeCd");
+        	if(corpDdlnSeCd != 'Y'){
+        		//비어 있는 마지막 줄 추가용도
+            	grdGpcList.addRow();
+        	}
         	var nCol =grdGpcList.getColRef('sttgUpbrItemSe');
         	//console.log(nCol);
         	window.scrollTo(0, 0);

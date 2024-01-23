@@ -385,6 +385,8 @@
 	var jsonComAprv = [];//신청구분
 	var jsonComAplyTrgtSe = [];//신청대상구분
 	var jsonCtgryCd = [];//분류코드
+	var jsonGrdCtgryCd1 = [];//분류코드
+	var jsonGrdCtgryCd2 = [];//분류코드
 	/**
 	 * combo 설정
 	 */
@@ -402,8 +404,8 @@
 			gfn_setComCdSBSelect('srch-input-aprv', 		jsonComAprv, 	'APRV_UPBR_SE_CD'), //신청구분
 			gfn_setComCdSBSelect('srch-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE'), //신청대상구분
 			//gfn_setComCdSBSelect('dtl-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE'), //신청대상구분
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng02', 	jsonCtgryCd, 	'CTGRY_CD'), //분류코드
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonCtgryCd, 	'CTGRY_CD'), //분류코드
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng02', 	jsonGrdCtgryCd1, 	'CTGRY_CD'), //분류코드
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonGrdCtgryCd2, 	'CTGRY_CD'), //분류코드
 
 		]);
 		console.log("============fn_initSBSelect=====1=======");
