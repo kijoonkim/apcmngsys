@@ -356,7 +356,8 @@
   						authrtExpln: item.authrtExpln,
   						apcCd: item.apcCd,
   						apcNm: item.apcNm,
-  						sysId: item.sysId
+  						sysId: item.sysId,
+  						userTypeNm : item.userTypeNm
   					}
   					jsonComAuth.push(authrt);
 
@@ -426,7 +427,8 @@
   						userId: item.userId,
   						userNm: item.userNm,
   						apcCd: item.apcCd,
-  						apcNm: item.apcNm
+  						apcNm: item.apcNm,
+  						userTypeNm : item.userTypeNm
   					}
   					jsonComAuthUser.push(user);
 
