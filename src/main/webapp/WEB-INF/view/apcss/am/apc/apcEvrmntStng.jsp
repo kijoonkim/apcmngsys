@@ -1170,8 +1170,7 @@
             	if(grdApcSpcfct.getRowStatus(nRow) == 0 || grdApcSpcfct.getRowStatus(nRow) == 2){
             		if(gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
             			var cmnsSpcfctVO = grdApcSpcfct.getRowData(nRow);
-            			fn_deleteSpcfct(cmnsSpcfctVO);
-            			grdApcSpcfct.deleteRow(nRow);
+            			fn_deleteSpcfct(cmnsSpcfctVO, nRow);
             		}
             	}else{
             		grdApcSpcfct.deleteRow(nRow);
@@ -1180,8 +1179,7 @@
             	if(grdSpmtPckgUnit.getRowStatus(nRow) == 0 || grdSpmtPckgUnit.getRowStatus(nRow) == 2){
             		if(gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
             			var spmtPckgUnitVO = grdSpmtPckgUnit.getRowData(nRow);
-            			fn_deleteSpmtPckgUnit(spmtPckgUnitVO);
-            			grdSpmtPckgUnit.deleteRow(nRow);
+            			fn_deleteSpmtPckgUnit(spmtPckgUnitVO, nRow);
             		}
             	}else{
             		grdSpmtPckgUnit.deleteRow(nRow);

@@ -67,5 +67,13 @@ public interface SpmtPckgUnitMapper {
 	 * @return SpmtPckgUnitVO
 	 * @throws Exception
 	 */
-	public SpmtPckgUnitVO getSpmtPckgUnitCd(SpmtPckgUnitVO spmtPckgUnitVO);
+	public SpmtPckgUnitVO getSpmtPckgUnitCd(SpmtPckgUnitVO spmtPckgUnitVO) throws Exception;
+
+	/**
+	 * 출하포장단위 삭제 가능 여부
+	 * @param SpmtPckgUnitVO
+	 * @return List<SpmtPckgUnitVO>
+	 * @throws Exception
+	 */
+	public List<SpmtPckgUnitVO> spmtPckgUnitDelible(SpmtPckgUnitVO SpmtPckgUnitVO) throws Exception;
 }

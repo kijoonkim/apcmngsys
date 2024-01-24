@@ -293,13 +293,13 @@
 	    }
 	}
 
-	const fn_deleteSpcfct = async function(cmnsSpcfctVO){
+	const fn_deleteSpcfct = async function(cmnsSpcfctVO, nRow){
 
 		let postJsonPromise = gfn_postJSON("/am/cmns/deleteApcSpcfct.do", cmnsSpcfctVO);
         let data = await postJsonPromise;
-
         try {
         	if (_.isEqual("S", data.resultStatus)) {
+        		grdApcSpcfct.deleteRow(nRow);
         		return;
         	} else {
         		gfn_comAlert(data.resultCode, data.resultMessage);

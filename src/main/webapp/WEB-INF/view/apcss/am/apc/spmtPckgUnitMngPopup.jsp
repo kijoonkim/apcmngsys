@@ -375,13 +375,13 @@
 		}
 	}
 
-	const fn_deleteSpmtPckgUnit = async function(spmtPckgUnitVO){
+	const fn_deleteSpmtPckgUnit = async function(spmtPckgUnitVO, nRow){
 		let postJsonPromise = gfn_postJSON("/am/cmns/deleteSpmtPckgUnit.do", spmtPckgUnitVO);
         let data = await postJsonPromise;
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
-        		fn_selectSpmtPckgUnit();
+        		grdSpmtPckgUnit.deleteRow(nRow);
         	} else {
         		gfn_comAlert(data.resultCode, data.resultMessage);
         	}

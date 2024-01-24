@@ -63,13 +63,8 @@ public class SpmtSlsUntprcRegServiceImpl extends BaseServiceImpl implements Spmt
 	@Override
 	public HashMap<String, Object> deleteSpmtSlsUntprcReg(SpmtSlsUntprcRegVO spmtSlsUntprcRegVO) throws Exception {
 
-		String errMsg = cmnsValidationService.selectChkCdDelible(spmtSlsUntprcRegVO.getApcCd(), "SPMT_SLS_UNTPRC", spmtSlsUntprcRegVO.getSpmtSlsUntprcCd());
-		if(errMsg == null) {
-			if(0 == spmtSlsUntprcRegMapper.deleteSpmtSlsUntprcReg(spmtSlsUntprcRegVO)) {
-				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
-			}
-		}else {
-			return ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, errMsg); // E0000	{0}
+		if(0 == spmtSlsUntprcRegMapper.deleteSpmtSlsUntprcReg(spmtSlsUntprcRegVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
 		}
 		return null;
 	}

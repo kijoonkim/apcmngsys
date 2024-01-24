@@ -154,6 +154,8 @@
 	        {caption: ["처리"], 		ref: 'delYn',  type:'button',  width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdStdGrd\", " + nRow + ", " + nCol + ")'>추가</button>";
+	        	}else if(strValue == "03"){
+	        		return ""
 	        	}else{
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdStdGrd\", " + nRow + ")'>삭제</button>";
 	        	}
@@ -280,6 +282,11 @@
   			if (_.isEqual("S", data.resultStatus)) {
   		    	jsonStdGrd.length = 0;
   		    	data.resultList.forEach((item, index) => {
+
+  		    		let delYn = item.delYn;
+  		    		if(grdSeCd == "03"){
+  		    			delYn = "03"
+  		    		}
   					let stdGrdVO = {
   						apcCd 		: item.apcCd
   					  , itemCd 		: item.itemCd
@@ -289,12 +296,14 @@
   					  , stdGrdType	: item.stdGrdType
   					  , sn			: item.sn
   					  , adtnRt		: item.adtnRt
-  					  , delYn		: item.delYn
+  					  , delYn		: delYn
   					}
   					jsonStdGrd.push(stdGrdVO);
   				});
   		    	grdStdGrd.rebuild();
-  		    	grdStdGrd.addRow(true);
+  		    	if(grdSeCd != "03"){
+	  		    	grdStdGrd.addRow(true);
+  		    	}
   		    	grdStdGrd.setCellDisabled(grdStdGrd.getRows() -1, 0, grdStdGrd.getRows() -1, grdStdGrd.getCols() -1, true);
 
         	} else {
@@ -334,7 +343,11 @@
   					jsonStdGrdJgmt.push(stdGrdJgmtVO);
   				});
   		    	grdStdGrdJgmt.rebuild();
-  		    	grdStdGrdJgmt.addRow(true);
+
+  		    	if(grdSeCd != "03"){
+  		    		grdStdGrdJgmt.addRow(true);
+  		    	}
+
   		    	grdStdGrdJgmt.setCellDisabled(grdStdGrdJgmt.getRows() -1, 0, grdStdGrdJgmt.getRows() -1, grdStdGrdJgmt.getCols() -1, true);
 
         	} else {
@@ -541,7 +554,6 @@
 	const fn_deleteGrdJgmt = async function(stdGrdJgmtVO, nRow){
         let postJsonPromise = gfn_postJSON("/am/cmns/deleteStdGrdJgmt.do", stdGrdJgmtVO);
         let data = await postJsonPromise;
-
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
