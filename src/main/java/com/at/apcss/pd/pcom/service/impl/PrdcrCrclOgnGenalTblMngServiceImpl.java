@@ -4,12 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
-import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.fm.bbs.mapper.BbsMapper;
-import com.at.apcss.fm.bbs.service.BbsService;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper;
 import com.at.apcss.pd.pcom.service.PrdcrCrclOgnGenalTblMngService;
 import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO;
@@ -45,45 +40,17 @@ public class PrdcrCrclOgnGenalTblMngServiceImpl extends BaseServiceImpl implemen
 	}
 
 	@Override
-	public List<PrdcrCrclOgnGenalTblMngVO> selectPrdcrCrclOgnGenalTblMngList(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception {
+	public List<PrdcrCrclOgnGenalTblMngVO> selectPrdcrCrclOgnGenalTblMngUoList(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception {
 
-		List<PrdcrCrclOgnGenalTblMngVO> resultList = PrdcrCrclOgnGenalTblMngMapper.selectPrdcrCrclOgnGenalTblMngList(PrdcrCrclOgnGenalTblMngVO);
+		List<PrdcrCrclOgnGenalTblMngVO> resultList = PrdcrCrclOgnGenalTblMngMapper.selectPrdcrCrclOgnGenalTblMngUoList(PrdcrCrclOgnGenalTblMngVO);
 		return resultList;
 	}
 
 	@Override
-	public int insertPrdcrCrclOgnGenalTblMng(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception {
+	public List<PrdcrCrclOgnGenalTblMngVO> selectPrdcrCrclOgnGenalTblMngList(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception {
 
-		int insertedCnt = PrdcrCrclOgnGenalTblMngMapper.insertPrdcrCrclOgnGenalTblMng(PrdcrCrclOgnGenalTblMngVO);
-
-		return insertedCnt;
-	}
-
-	@Override
-	public int updatePrdcrCrclOgnGenalTblMng(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception {
-
-		int updatedCnt = PrdcrCrclOgnGenalTblMngMapper.updatePrdcrCrclOgnGenalTblMng(PrdcrCrclOgnGenalTblMngVO);
-
-		return updatedCnt;
-	}
-
-	@Override
-	public int multiSavePrdcrCrclOgnGenalTblMngList(List<PrdcrCrclOgnGenalTblMngVO> PrdcrCrclOgnGenalTblMngVOList) throws Exception {
-		int savedCnt = 0;
-		for (PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO : PrdcrCrclOgnGenalTblMngVOList) {
-			if(ComConstants.ROW_STS_INSERT.equals(PrdcrCrclOgnGenalTblMngVO.getRowSts())) {
-				savedCnt += insertPrdcrCrclOgnGenalTblMng(PrdcrCrclOgnGenalTblMngVO);
-			}
-			if(ComConstants.ROW_STS_UPDATE.equals(PrdcrCrclOgnGenalTblMngVO.getRowSts())) {
-				savedCnt += updatePrdcrCrclOgnGenalTblMng(PrdcrCrclOgnGenalTblMngVO);
-			}
-		}
-		return savedCnt;
-	}
-
-	@Override
-	public int deletePrdcrCrclOgnGenalTblMng(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception {
-		return PrdcrCrclOgnGenalTblMngMapper.deletePrdcrCrclOgnGenalTblMng(PrdcrCrclOgnGenalTblMngVO);
+		List<PrdcrCrclOgnGenalTblMngVO> resultList = PrdcrCrclOgnGenalTblMngMapper.selectPrdcrCrclOgnGenalTblMngList(PrdcrCrclOgnGenalTblMngVO);
+		return resultList;
 	}
 
 }

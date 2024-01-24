@@ -8,40 +8,40 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PrdcrCrclOgnGenalTblMngVO extends ComVO{
-	private String testNo;
-	private String aa;
-	private String bb;
-	private String cc;
-	private String ccCode;
-	private String dd;
-	private String ddCode;
-	private String ee;
-	private String ff;
-	private String gg;
-	private String hh;
-	private String ii;
-	private String iiCode;
-	private String jj;
-	private String kk;
-	private String ll;
-	private String mm;
-	private String nn;
-	private String oo;
-	private String pp;
-	private String qq;
-	private String rr;
-	private String ss;
-	private String tt;
-	private String uu;
-	private String vv;
-	private String ww;
-	private String xx;
-	private String yy;
-	private String zz;
+	private String yr;
+	private String apoCd;
+	private String uoCd;
+	private String apoSe;
+	private String brno;
+	private String uoBrno;
+	private String crno;
+	private String corpNm;
+	private String ctpv;
+	private String sgg;
+	private String cmptnInst;
+	private String corpSeCd;
+	private String corpDtlSeCd;
+
+	private String aprv;
+
+	private String stbltYn;
+
+	private String itemNm;
+	private String itemCd;
+
+	private String sttgUpbrItemSe;
+	private String sttgUpbrItemNm;
+
+	private String ctgryCd;
+	private String ctgryNm;
+
+	private String totTrmtPrfmnc;//통합조직총취급액(A)
+	private String totSpmtPrfmnc;//생산자조직 전속출하액
+	private String totTrmtRt;//전속취급률
+
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;
 	private String sysFrstInptDtYmd;
 	private String sysLastChgDtYmd;
-
 
 }

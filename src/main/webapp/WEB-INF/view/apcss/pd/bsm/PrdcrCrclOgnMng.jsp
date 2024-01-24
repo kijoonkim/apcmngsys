@@ -523,7 +523,7 @@
 							<th colspan="2" scope="row" class="th_bg th_border_right"  style="text-align:center;"><span class="data_required" ></span>법인구분</th>
 							<th colspan="2" scope="row" class="th_bg th_border_right"  style="text-align:center;"><span class="data_required" ></span>법인형태</th>
 							<th colspan="2" scope="row" class="th_bg th_border_right"  style="text-align:center;"><span class="data_required" ></span>법인설립일</th>
-							<th colspan="2" scope="row" class="th_bg th_border_right"  style="text-align:center;"><span class="data_required" ></span>출자출하조직여부</th>
+							<th colspan="2" scope="row" class="th_bg th_border_right"  style="text-align:center;"><span class="data_required" ></span>출자출하조직보유여부</th>
 							<th colspan="2" scope="row" class="th_bg th_border_right"  style="text-align:center;"><span class="data_required" ></span>출자자수</th>
 							<th colspan="2" scope="row" class="th_bg th_border_right"  style="text-align:center;"><span class="data_required" ></span>출자자중 농업인수</th>
 							<th colspan="2" scope="row" class="th_bg"  style="text-align:center;"><span class="data_required" ></span>출자금액(천원)</th>

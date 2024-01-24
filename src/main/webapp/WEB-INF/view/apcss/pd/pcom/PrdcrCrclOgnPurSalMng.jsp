@@ -575,7 +575,7 @@
 	//매입 합계 금액
 	function fn_prchsAmtSum(objGrid, nRow, nCol){
 		let rowData = objGrid.getRowData(Number(nRow));
-
+		console.log(rowData.prchsTotAmt);
 		let sumVal = 0;
 		//금액의 경우 기타인 경우만 합산 처리
 		if(rowData.sttgUpbrItemSe == '3'){
@@ -714,9 +714,9 @@
 	    SBGridProperties.columns = [
 	    	{caption: ["처리","처리"], 		ref: 'delYn',   		type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ", " + nCol + ")'>추가</button>";
+	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng03\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ")'>삭제</button>";
+			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng03\", " + nRow + ")'>삭제</button>";
 	        	}
 	        }},
 	        {caption: ["품목","품목"], 	ref: 'sttgUpbrItemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
@@ -768,23 +768,32 @@
 
 	//해당 컬럼 변경시 리프래시 리스트
 	const columnsToRefresh03 = [
-		  'pblcWhlslMrktVlm', 'pblcWhlslMrktAmt'
-		  , 'onlnWhlslMrktVlm', 'onlnWhlslMrktAmt'
-		  , 'lgszRtlVlm', 'lgszRtlAmt'
-		  , 'armyDlvgdsVlm', 'armyDlvgdsAmt'
-		  , 'eatoutMtrlMlsrVlm', 'eatoutMtrlMlsrAmt'
-		  , 'mnfcRtlVlm', 'mnfcRtlAmt'
-		  , 'exprtVlm', 'exprtAmt'
-		  , 'onlnDlngPrfmncVlm', 'onlnDlngPrfmncAmt'
-		  , 'etcVlm', 'etcAmt'
+		  'pblcWhlslMrktVlm'
+		  , 'pblcWhlslMrktAmt'
+		  , 'onlnWhlslMrktVlm'
+		  , 'onlnWhlslMrktAmt'
+		  , 'lgszRtlVlm'
+		  , 'lgszRtlAmt'
+		  , 'armyDlvgdsVlm'
+		  , 'armyDlvgdsAmt'
+		  , 'eatoutMtrlMlsrVlm'
+		  , 'eatoutMtrlMlsrAmt'
+		  , 'mnfcRtlVlm'
+		  , 'mnfcRtlAmt'
+		  , 'exprtVlm'
+		  , 'exprtAmt'
+		  , 'onlnDlngPrfmncVlm'
+		  , 'onlnDlngPrfmncAmt'
+		  , 'etcVlm'
+		  , 'etcAmt'
 		];
 
 	//그리드 열 속성의 calc 은 그리드 생성시 작동함  refresh() 해서 데이터 변경시로 유사하게 가능
 	function fn_AfterEdit03(){
-		let prevCol = grdPrdcrOgnCurntMng02.getPrevCol();
-		let prevRef = grdPrdcrOgnCurntMng02.getRefOfCol(prevCol);
-	    if(columnsToRefresh02.includes(prevRef)){
-	    	grdPrdcrOgnCurntMng02.refresh();
+		let prevCol = grdPrdcrOgnCurntMng03.getPrevCol();
+		let prevRef = grdPrdcrOgnCurntMng03.getRefOfCol(prevCol);
+	    if(columnsToRefresh03.includes(prevRef)){
+	    	grdPrdcrOgnCurntMng03.refresh();
 	    }
 	}
 
@@ -1009,7 +1018,7 @@
 		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
 
-			let postJsonPromise = gfn_postJSON("/pd/isom/multiSaveInvShipOgnPurSalMngList01.do", saveList);
+			let postJsonPromise = gfn_postJSON("/pd/pcom/multiSavePrdcrCrclOgnPurSalMngList01.do", saveList);
 	        let data = await postJsonPromise;
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
@@ -1065,7 +1074,7 @@
 		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
 
-			let postJsonPromise = gfn_postJSON("/pd/isom/multiSaveInvShipOgnPurSalMngList02.do", saveList);
+			let postJsonPromise = gfn_postJSON("/pd/pcom/multiSavePrdcrCrclOgnPurSalMngList02.do", saveList);
 	        let data = await postJsonPromise;
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
@@ -1121,7 +1130,7 @@
 		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
 
-			let postJsonPromise = gfn_postJSON("/pd/isom/multiSaveInvShipOgnPurSalMngList03.do", saveList);
+			let postJsonPromise = gfn_postJSON("/pd/pcom/multiSavePrdcrCrclOgnPurSalMngList03.do", saveList);
 	        let data = await postJsonPromise;
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
@@ -1153,14 +1162,14 @@
 
             if (grid === "grdPrdcrOgnCurntMng02") {
             	grdPrdcrOgnCurntMng02.setCellData(nRow, grdPrdcrOgnCurntMng02.getColRef("delYn"), "N", true);
-            	grdPrdcrOgnCurntMng02.setCellData(nRow, grdPrdcrOgnCurntMng01.getColRef("sttgUpbrItemNm"), "기타", true);
-            	grdPrdcrOgnCurntMng02.setCellData(nRow, grdPrdcrOgnCurntMng01.getColRef("sttgUpbrItemSe"), "3", true);
+            	grdPrdcrOgnCurntMng02.setCellData(nRow, grdPrdcrOgnCurntMng02.getColRef("sttgUpbrItemNm"), "기타", true);
+            	grdPrdcrOgnCurntMng02.setCellData(nRow, grdPrdcrOgnCurntMng02.getColRef("sttgUpbrItemSe"), "3", true);
             	grdPrdcrOgnCurntMng02.addRow(true);
             }
             if (grid === "grdPrdcrOgnCurntMng03") {
             	grdPrdcrOgnCurntMng03.setCellData(nRow, grdPrdcrOgnCurntMng03.getColRef("delYn"), "N", true);
-            	grdPrdcrOgnCurntMng03.setCellData(nRow, grdPrdcrOgnCurntMng01.getColRef("sttgUpbrItemNm"), "기타", true);
-            	grdPrdcrOgnCurntMng03.setCellData(nRow, grdPrdcrOgnCurntMng01.getColRef("sttgUpbrItemSe"), "3", true);
+            	grdPrdcrOgnCurntMng03.setCellData(nRow, grdPrdcrOgnCurntMng03.getColRef("sttgUpbrItemNm"), "기타", true);
+            	grdPrdcrOgnCurntMng03.setCellData(nRow, grdPrdcrOgnCurntMng03.getColRef("sttgUpbrItemSe"), "3", true);
             	grdPrdcrOgnCurntMng03.addRow(true);
             }
 
@@ -1291,6 +1300,8 @@
 		if(gfn_isEmpty(brno)){return;}
 		let yr = SBUxMethod.get('dtl-input-yr');
 
+		fn_clearGrid();
+
 		let postJsonPromise01 = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnPurSalMngList.do", {
 			brno : brno
     		,yr : yr
@@ -1314,8 +1325,8 @@
     						,sttgUpbrItemNm: item.sttgUpbrItemNm
 
     						,ctgryCd: 		item.ctgryCd
+    						//,ctgryNm: 		item.ctgryNm
     						,itemCd: 		item.itemCd
-    						,ctgryNm: 		item.ctgryNm
     						,itemNm: 		item.itemNm
 
     						,prchsSlsSe: 	item.prchsSlsSe
@@ -1343,8 +1354,8 @@
     						,sttgUpbrItemNm: item.sttgUpbrItemNm
 
     						,ctgryCd: 		item.ctgryCd
+    						//,ctgryNm: 		item.ctgryNm
     						,itemCd: 		item.itemCd
-    						,ctgryNm: 		item.ctgryNm
     						,itemNm: 		item.itemNm
 
     						,prchsSlsSe: 		item.prchsSlsSe
@@ -1370,12 +1381,13 @@
     						,delYn: item.delYn
     						,yr: item.yr
 
-    						,ctgryCd: 		item.ctgryCd
-    						,itemCd: 		item.itemCd
-    						,itemNm: 		item.itemNm
-    						,ctgryNm: 		item.ctgryNm
     						,sttgUpbrItemSe: item.sttgUpbrItemSe
     						,sttgUpbrItemNm: item.sttgUpbrItemNm
+
+    						,ctgryCd: 		item.ctgryCd
+    						//,ctgryNm: 		item.ctgryNm
+    						,itemCd: 		item.itemCd
+    						,itemNm: 		item.itemNm
 
     						,prchsSlsSe: 		item.prchsSlsSe
 

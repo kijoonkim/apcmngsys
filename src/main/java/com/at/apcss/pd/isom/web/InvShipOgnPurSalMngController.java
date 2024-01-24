@@ -99,6 +99,7 @@ public class InvShipOgnPurSalMngController extends BaseController{
 			resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
 			return getSuccessResponseEntity(resultMap);
 		}
+
 		//매출 저장
 		@PostMapping(value = "/pd/isom/multiSaveInvShipOgnPurSalMngList02.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 		public ResponseEntity<HashMap<String, Object>> multiSaveInvShipOgnPurSalMngList02(@RequestBody List<InvShipOgnPurSalMngVO> InvShipOgnPurSalMngVOList, HttpServletRequest request) throws Exception {
@@ -115,6 +116,30 @@ public class InvShipOgnPurSalMngController extends BaseController{
 				}
 
 				savedCnt = invShipOgnPurSalMngService.multiSaveInvShipOgnPurSalMngList02(InvShipOgnPurSalMngVOList);
+			}catch (Exception e) {
+				return getErrorResponseEntity(e);
+			}
+
+			resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
+			return getSuccessResponseEntity(resultMap);
+		}
+
+		//매출 저장
+		@PostMapping(value = "/pd/isom/multiSaveInvShipOgnPurSalMngList03.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> multiSaveInvShipOgnPurSalMngList03(@RequestBody List<InvShipOgnPurSalMngVO> InvShipOgnPurSalMngVOList, HttpServletRequest request) throws Exception {
+
+			HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+			int savedCnt = 0;
+			try {
+				for (InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO : InvShipOgnPurSalMngVOList) {
+					InvShipOgnPurSalMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+					InvShipOgnPurSalMngVO.setSysFrstInptUserId(getUserId());
+					InvShipOgnPurSalMngVO.setSysLastChgPrgrmId(getPrgrmId());
+					InvShipOgnPurSalMngVO.setSysLastChgUserId(getUserId());
+				}
+
+				savedCnt = invShipOgnPurSalMngService.multiSaveInvShipOgnPurSalMngList03(InvShipOgnPurSalMngVOList);
 			}catch (Exception e) {
 				return getErrorResponseEntity(e);
 			}

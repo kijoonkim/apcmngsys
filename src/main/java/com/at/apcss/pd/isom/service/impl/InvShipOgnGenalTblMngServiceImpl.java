@@ -4,12 +4,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.fm.bbs.mapper.BbsMapper;
-import com.at.apcss.fm.bbs.service.BbsService;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.pd.isom.mapper.InvShipOgnGenalTblMngMapper;
 import com.at.apcss.pd.isom.service.InvShipOgnGenalTblMngService;
 import com.at.apcss.pd.isom.vo.InvShipOgnGenalTblMngVO;
@@ -52,38 +48,10 @@ public class InvShipOgnGenalTblMngServiceImpl extends BaseServiceImpl implements
 	}
 
 	@Override
-	public int insertInvShipOgnGenalTblMng(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception {
+	public List<InvShipOgnGenalTblMngVO> selectInvShipOgnGenalTblMngIsoList(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception {
 
-		int insertedCnt = InvShipOgnGenalTblMngMapper.insertInvShipOgnGenalTblMng(InvShipOgnGenalTblMngVO);
-
-		return insertedCnt;
-	}
-
-	@Override
-	public int updateInvShipOgnGenalTblMng(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception {
-
-		int updatedCnt = InvShipOgnGenalTblMngMapper.updateInvShipOgnGenalTblMng(InvShipOgnGenalTblMngVO);
-
-		return updatedCnt;
-	}
-
-	@Override
-	public int multiSaveInvShipOgnGenalTblMngList(List<InvShipOgnGenalTblMngVO> InvShipOgnGenalTblMngVOList) throws Exception {
-		int savedCnt = 0;
-		for (InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO : InvShipOgnGenalTblMngVOList) {
-			if(ComConstants.ROW_STS_INSERT.equals(InvShipOgnGenalTblMngVO.getRowSts())) {
-				savedCnt += insertInvShipOgnGenalTblMng(InvShipOgnGenalTblMngVO);
-			}
-			if(ComConstants.ROW_STS_UPDATE.equals(InvShipOgnGenalTblMngVO.getRowSts())) {
-				savedCnt += updateInvShipOgnGenalTblMng(InvShipOgnGenalTblMngVO);
-			}
-		}
-		return savedCnt;
-	}
-
-	@Override
-	public int deleteInvShipOgnGenalTblMng(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception {
-		return InvShipOgnGenalTblMngMapper.deleteInvShipOgnGenalTblMng(InvShipOgnGenalTblMngVO);
+		List<InvShipOgnGenalTblMngVO> resultList = InvShipOgnGenalTblMngMapper.selectInvShipOgnGenalTblMngIsoList(InvShipOgnGenalTblMngVO);
+		return resultList;
 	}
 
 }

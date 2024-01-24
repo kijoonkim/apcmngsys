@@ -64,6 +64,14 @@ public class InvShipOgnPurSalMngServiceImpl extends BaseServiceImpl implements I
 	}
 
 	@Override
+	public int insertInvShipOgnPurSalMng03(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception {
+
+		int insertedCnt = InvShipOgnPurSalMngMapper.insertInvShipOgnPurSalMng03(InvShipOgnPurSalMngVO);
+
+		return insertedCnt;
+	}
+
+	@Override
 	public int updateInvShipOgnPurSalMng(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception {
 
 		int updatedCnt = InvShipOgnPurSalMngMapper.updateInvShipOgnPurSalMng(InvShipOgnPurSalMngVO);
@@ -93,14 +101,15 @@ public class InvShipOgnPurSalMngServiceImpl extends BaseServiceImpl implements I
 		int savedCnt = 0;
 		for (InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO : InvShipOgnPurSalMngVOList) {
 			savedCnt += insertInvShipOgnPurSalMng02(InvShipOgnPurSalMngVO);
-			/*
-			if(ComConstants.ROW_STS_INSERT.equals(InvShipOgnPurSalMngVO.getRowSts())) {
-				savedCnt += insertInvShipOgnPurSalMng02(InvShipOgnPurSalMngVO);
-			}
-			if(ComConstants.ROW_STS_UPDATE.equals(InvShipOgnPurSalMngVO.getRowSts())) {
-				savedCnt += updateInvShipOgnPurSalMng(InvShipOgnPurSalMngVO);
-			}
-			*/
+		}
+		return savedCnt;
+	}
+
+	@Override
+	public int multiSaveInvShipOgnPurSalMngList03(List<InvShipOgnPurSalMngVO> InvShipOgnPurSalMngVOList) throws Exception {
+		int savedCnt = 0;
+		for (InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO : InvShipOgnPurSalMngVOList) {
+			savedCnt += insertInvShipOgnPurSalMng03(InvShipOgnPurSalMngVO);
 		}
 		return savedCnt;
 	}
