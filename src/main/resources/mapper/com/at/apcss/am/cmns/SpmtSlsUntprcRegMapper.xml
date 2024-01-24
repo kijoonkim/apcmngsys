@@ -51,6 +51,8 @@
 			     , TB_SPMT_PCKG_UNIT        SPU
 			 WHERE SUR.SPMT_PCKG_UNIT_CD = SPU.SPMT_PCKG_UNIT_CD
 			   AND SUR.APC_CD = SPU.APC_CD
+			   AND SUR.DEL_YN = 'N'
+			   AND SPU.DEL_YN = 'N'
 			   AND SUR.APC_CD = #{apcCd}
 			   AND SPU.ITEM_CD	= #{itemCd}
 			   AND SPU.VRTY_CD	= #{vrtyCd}
@@ -146,15 +148,15 @@
 	<!-- ===========  	============  	===================================================	-->
 	<!-- 2023.08.01  	김 호        	Initial Creation                            		-->
 	<!-- ==================================================================================	-->
-	<delete id="deleteSpmtSlsUntprcReg" parameterType="com.at.apcss.am.cmns.vo.SpmtSlsUntprcRegVO">
+	<update id="deleteSpmtSlsUntprcReg" parameterType="com.at.apcss.am.cmns.vo.SpmtSlsUntprcRegVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.am.cmns.mapper.SpmtSlsUntprcRegMapper.deleteSpmtSlsUntprcReg */
-			  FROM TB_SPMT_SLS_UNTPRC_REG
-			 WHERE APC_CD					= #{apcCd}
-			   AND SPMT_PCKG_UNIT_CD 		= #{spmtPckgUnitCd}
-			   AND SPMT_SLS_UNTPRC_CD		= #{spmtSlsUntprcCd}
+			UPDATE TB_SPMT_SLS_UNTPRC_REG /* com.at.apcss.am.cmns.mapper.SpmtSlsUntprcRegMapper.deleteSpmtSlsUntprcReg */
+			   SET DEL_YN 				= 'Y'
+			 WHERE APC_CD				= #{apcCd}
+			   AND SPMT_PCKG_UNIT_CD 	= #{spmtPckgUnitCd}
+			   AND SPMT_SLS_UNTPRC_CD	= #{spmtSlsUntprcCd}
 		]]>
-	</delete>
+	</update>
 
 	<!-- ==============================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.SpmtSlsUntprcRegMapper.getSpmtSlsUntprcReg	-->

@@ -83,4 +83,13 @@ public class SpmtPckgUnitVO extends ComVO{
 	 */
 	private String brndNm;
 
+	/**
+	 * 등록 수
+	 */
+	private int cnt;
+	/**
+	 * 삭제 불가능 사유
+	 */
+	private String delible;
+
 }

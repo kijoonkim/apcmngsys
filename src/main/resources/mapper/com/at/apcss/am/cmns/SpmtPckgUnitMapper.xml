@@ -111,7 +111,7 @@
 		</if>
 		<![CDATA[
 			  ORDER BY APC_CD, ITEM_CD, SPMT_PCKG_UNIT_CD
-		
+
 			) pt0
 		]]>
 		<!-- Start 페이징 -->
@@ -195,7 +195,6 @@
 				, SPCFCT_CD					= #{spcfctCd}
 				, GDS_GRD					= #{gdsGrd}
 				, NTSL_UNTPRC  				= #{ntslUntprc}
-	    		, DEL_YN					= #{delYn}
 			 WHERE SPMT_PCKG_UNIT_CD 		= #{spmtPckgUnitCd}
 			   AND APC_CD					= #{apcCd}
 		]]>
@@ -209,14 +208,14 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteSpmtPckgUnit" parameterType="com.at.apcss.am.cmns.vo.SpmtPckgUnitVO">
+	<update id="deleteSpmtPckgUnit" parameterType="com.at.apcss.am.cmns.vo.SpmtPckgUnitVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.deleteSpmtPckgUnit */
-			  FROM TB_SPMT_PCKG_UNIT
-			WHERE SPMT_PCKG_UNIT_CD 		= #{spmtPckgUnitCd}
-			   AND APC_CD					= #{apcCd}
+			UPDATE TB_SPMT_PCKG_UNIT /* com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.deleteSpmtPckgUnit */
+			   SET DEL_YN 				= 'Y'
+			WHERE SPMT_PCKG_UNIT_CD 	= #{spmtPckgUnitCd}
+			  AND APC_CD				= #{apcCd}
 		]]>
-	</delete>
+	</update>
 
 
 	<!-- ==========================================================================	-->
@@ -231,6 +230,70 @@
     	<![CDATA[
 	    	/* com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.getSpmtPckgUnitCd */
 			SELECT FN_GET_ID_SPMT_PCKG_UNIT_CD(#{apcCd}) AS SPMT_PCKG_UNIT_CD FROM DUAL
+		]]>
+    </select>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.spmtPckgUnitDelible	-->
+	<!-- DESC : 상품명 삭제 가능 여부.	                                       		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.31  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="spmtPckgUnitDelible" parameterType="com.at.apcss.am.cmns.vo.SpmtPckgUnitVO" resultType="com.at.apcss.am.cmns.vo.SpmtPckgUnitVO">
+    	<![CDATA[
+	    	 SELECT X.* /* com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.spmtPckgUnitDelible */
+			   FROM (
+			          SELECT
+			                 '포장실적' AS DELIBLE
+			                 , (SELECT COUNT(*)
+			                     FROM TB_PCKG_PRFMNC X
+			                        , TB_GDS_INVNTR Y
+			                    WHERE X.APC_CD = Y.APC_CD
+			                      AND X.PCKGNO = Y.PCKGNO
+			                      AND X.APC_CD = #{apcCd}
+			                      AND Y.ITEM_CD = #{itemCd}
+			                      AND Y.SPMT_PCKG_UNIT_CD = #{spmtPckgUnitCd}
+			                      AND X.DEL_YN = 'N'
+			                      AND Y.DEL_YN = 'N'
+			                  )  AS CNT
+			            FROM DUAL
+			          UNION ALL
+			          SELECT
+			                 '상품재고' AS DELIBLE
+			                , (SELECT COUNT(*)
+			                     FROM TB_GDS_INVNTR X
+			                    WHERE X.APC_CD = #{apcCd}
+			                      AND X.ITEM_CD = #{itemCd}
+			                      AND X.SPMT_PCKG_UNIT_CD = #{spmtPckgUnitCd}
+			                      AND X.DEL_YN = 'N'
+			                 )  AS CNT
+			             FROM DUAL
+			           UNION ALL
+			           SELECT
+			                  '출하지시' AS DELIBLE
+			                 , (SELECT COUNT(*)
+			                      FROM TB_SPMT_CMND X
+			                     WHERE X.APC_CD = #{apcCd}
+			                       AND X.ITEM_CD = #{itemCd}
+			                       AND X.SPMT_PCKG_UNIT_CD = #{spmtPckgUnitCd}
+			                       AND X.DEL_YN = 'N'
+			                  )  AS CNT
+			             FROM DUAL
+			           UNION ALL
+			           SELECT
+			                   '출하실적' AS DELIBLE
+			                  , (SELECT COUNT(*)
+			                       FROM TB_SPMT_PRFMNC_DTL X
+			                      WHERE X.APC_CD = #{apcCd}
+			                        AND X.ITEM_CD = #{itemCd}
+			                        AND X.SPMT_PCKG_UNIT_CD = #{spmtPckgUnitCd}
+			                        AND X.DEL_YN = 'N'
+			                   )  AS CNT
+			             FROM DUAL
+			         ) X
+			 WHERE CNT > 0
 		]]>
     </select>
 

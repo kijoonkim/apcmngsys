@@ -266,31 +266,70 @@
 							<span style="font-size:12px">(감량률 <span id="rt-sortRdcd">0</span>%)</span>
 						</li>
 					</ul>
-					<div class="ad_tbl_toplist">
-						<sbux-button
-							id="btnSave"
-							name="btnSave"
-							uitype="normal"
-							class="btn btn-sm btn-outline-dark"
-							onclick="fn_save"
-							text="저장"
-						></sbux-button>
-						<sbux-button
-							id="btnDwnld"
-							name="btnDwnld"
-							uitype="normal"
-							text="서식받기"
-							class="btn btn-sm btn-outline-danger"
-							onclick="fn_dwnld"
-						></sbux-button>
-						<sbux-button
-							id="btnUld"
-							name="btnUld"
-							uitype="normal"
-							text="올리기"
-							class="btn btn-sm btn-outline-danger"
-							onclick="fn_upload"
-						></sbux-button>
+					<div class="ad_tbl_toplist_datepk">
+						<table class="table table-bordered tbl_fixed">
+				 			<caption>검색 조건 설정</caption>
+							<colgroup>
+								<col style="width: auto">
+								<col style="width: 90px">
+								<col style="width: 110px">
+								<col style="width: 70px">
+								<col style="width: 70px">
+								<col style="width: 70px">
+							</colgroup>
+							<tbody>
+								<tr>
+									<td style="border-left:hidden"></td>
+									<td class="td_input" style="border-right:hidden; border-left:hidden" >
+										<span>투입량 유형 :</span>
+									</td>
+									<td class="td_input" style="border-right:hidden; border-left:hidden" >
+										<sbux-select
+											unselected-text=""
+											uitype="single"
+											id="slt-inptType"
+											name="slt-inptType"
+											class="form-control input-sm"
+											jsondata-ref="jsonInptType"
+											onchange=""
+										/>
+									</td>
+									<td class="td_input" style="border-right:hidden;">
+										<sbux-button
+											id="btnSave"
+											name="btnSave"
+											uitype="normal"
+											class="btn btn-sm btn-outline-dark"
+											onclick="fn_save"
+											text="저장"
+										></sbux-button>
+									</td>
+									<td class="td_input" style="border-right:hidden;">
+										<sbux-button
+											id="btnDwnld"
+											name="btnDwnld"
+											uitype="normal"
+											text="서식받기"
+											class="btn btn-sm btn-outline-danger"
+											onclick="fn_dwnld"
+										></sbux-button>
+									</td>
+									<td class="td_input" style="border-right:hidden;">
+										<sbux-button
+											id="btnUld"
+											name="btnUld"
+											uitype="normal"
+											text="올리기"
+											class="btn btn-sm btn-outline-danger"
+											onclick="fn_upload"
+										></sbux-button>
+									</td>
+								</tr>
+							</tbody>
+				 		</table>
+						
+						
+						
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
@@ -406,6 +445,8 @@
 	var jsonComWarehouse	= [];	// 창고		WAREHOUSE_SE_CD
 	var jsonSpmtPckgUnit	= [];	// 출하포장단위
 
+	var jsonInptType = [{text: '수량', value: 'qntt'}, {text: '중량', value: 'wght'}];
+	
 	/* 생산자 자동완성 */
     var jsonPrdcr			= [];
     var jsonPrdcrAutocomplete = [];
@@ -507,7 +548,7 @@
 		SBUxMethod.set("srch-dtp-wrhsYmdFrom", firstYmd);
 		SBUxMethod.set("srch-dtp-wrhsYmdTo", lastYmd);
 		SBUxMethod.set("dtl-dtp-inptYmd", nowYmd);
-
+		SBUxMethod.set("slt-inptType", "qntt");
 		let result = await Promise.all([
 				fn_initSBSelect(),
 				fn_getPrdcrs()
@@ -618,21 +659,23 @@
 				format : {type:'number', rule:'#,###'}
          	},
 
- 	        {caption: ["생산자코드"],				ref: 'prdcrCd',   		hidden: true},
-	        {caption: ["품목코드"],				ref: 'itemCd',   		hidden: true},
-	        {caption: ["품종코드"],				ref: 'vrtyCd',   		hidden: true},
-	        {caption: ["상품구분코드"],				ref: 'gdsSeCd',   		hidden: true},
-	        {caption: ["입고구분코드"],				ref: 'wrhsSeCd',   		hidden: true},
-	        {caption: ["운송구분코드"],				ref: 'trsprtSeCd', 		hidden: true},
-	        {caption: ["창고구분코드"],				ref: 'warehouseSeCd', 	hidden: true},
-	        {caption: ["설비"],					ref: 'fcltCd', 			hidden: true},
-	        {caption: ["등급코드"],				ref: 'grdCd',   		hidden: true},
-	        {caption: ["박스종류코드"],				ref: 'bxKnd',   		hidden: true},
-	        {caption: ["입고번호"],				ref: 'wrhsno', 			hidden: true},
-	        {caption: ["입고구분명"],				ref: 'wrhsSeNm', 		hidden: true},
-	        {caption: ["운송구분명"],				ref: 'trsprtSeNm', 		hidden: true},
-	        {caption: ["박스종류명"],				ref: 'bxKndNm', 		hidden: true},
-	        {caption: [" "],					ref: '_',				type:'output', width:'1px'}
+ 	        {caption: ["생산자코드"],	ref: 'prdcrCd',   		hidden: true},
+	        {caption: ["품목코드"],		ref: 'itemCd',   		hidden: true},
+	        {caption: ["품종코드"],		ref: 'vrtyCd',   		hidden: true},
+	        {caption: ["상품구분코드"],	ref: 'gdsSeCd',   		hidden: true},
+	        {caption: ["입고구분코드"],	ref: 'wrhsSeCd',   		hidden: true},
+	        {caption: ["운송구분코드"],	ref: 'trsprtSeCd', 		hidden: true},
+	        {caption: ["창고구분코드"],	ref: 'warehouseSeCd', 	hidden: true},
+	        {caption: ["설비"],		ref: 'fcltCd', 			hidden: true},
+	        {caption: ["등급코드"],		ref: 'grdCd',   		hidden: true},
+	        {caption: ["박스종류코드"],	ref: 'bxKnd',   		hidden: true},
+	        {caption: ["입고번호"],		ref: 'wrhsno', 			hidden: true},
+	        {caption: ["입고구분명"],	ref: 'wrhsSeNm', 		hidden: true},
+	        {caption: ["운송구분명"],	ref: 'trsprtSeNm', 		hidden: true},
+	        {caption: ["박스종류명"],	ref: 'bxKndNm', 		hidden: true},
+	        {caption: ["입고수량"],		ref: 'wrhsQntt', 		hidden: true},
+	        {caption: ["입고중량"],		ref: 'wrhsWght', 		hidden: true},
+	        {caption: [" "],		ref: '_',				type:'output', width:'1px'}
     	];
 		grdRawMtrInvntr = _SBGrid.create(SBGridProperties);
 		grdRawMtrInvntr.bind('valuechanged' , fn_grdRawMtrInvntrValueChanged);
@@ -1486,6 +1529,9 @@
 			let tmpInptQntt = parseInt(rowData.inptQntt) || 0;
 			let tmpInptWght = parseInt(rowData.inptWght) || 0;
 			
+			let wrhsQntt = parseInt(rowData.wrhsQntt) || 0;
+			let wrhsWght = parseInt(rowData.wrhsWght) || 0;
+			
 			if (usrAttr.colNm == "inptQntt") {
 
 				if (tmpInptQntt <= 0) {
@@ -1510,7 +1556,13 @@
 						rowData.checkedYn = "N";
 					} else {
 						rowData.checkedYn = "Y";
-						rowData.inptWght = gfn_apcEstmtWght(invntrWght * tmpInptQntt / invntrQntt, gv_selectedApcCd);
+						//rowData.inptWght = gfn_apcEstmtWght(invntrWght * tmpInptQntt / invntrQntt, gv_selectedApcCd);
+						if (wrhsQntt > 0) {
+							rowData.inptWght = gfn_apcEstmtWght(wrhsWght * tmpInptQntt / wrhsQntt, gv_selectedApcCd);	
+						} else {
+							rowData.inptWght = gfn_apcEstmtWght(invntrWght * tmpInptQntt / invntrQntt, gv_selectedApcCd);
+						}
+						
 					}
 				}
 				grdRawMtrInvntr.refresh({"focus":false});
@@ -1861,6 +1913,19 @@
 	const fn_getExpColumns = function() {
 		const _columns = [];
 
+		const _inpt = {
+				caption: ["총 투입수량"],	
+				ref: 'inptQntt',    
+				type:'input',  
+				width:'80px',    
+				style:'text-align:right;'
+			};
+		
+		if (_.isEqual("wght", SBUxMethod.get("slt-inptType"))) {
+			_inpt.caption = ["총 투입중량(Kg)"];
+			_inpt.ref = "inptWght";
+		}
+		
 		_columns.push(
 			{
 				caption: ["선별일자"],
@@ -1931,13 +1996,10 @@
 					value:'cdVl'
 				}
 			},
-			{
-				caption: ["투입중량 (Kg)"],	
-				ref: 'inptWght',    
-				type:'input',  
-				width:'60px',    
-				style:'text-align:right;'
-			},
+			
+			// 투입수량 or 투입중량
+			_inpt,
+			
 			{
 				caption: ["규격"], 		
 				ref: 'spcfctCd',   		
@@ -1952,7 +2014,6 @@
 					value:'spcfctCd'
 				}
 			},
-			// 투입중량
 			{
 				caption: ["선별기"],		
 				ref: 'sortFcltCd',	
@@ -2265,9 +2326,11 @@
 		        jsonref: "jsonExpPrdcr",
 				columns: [
 			    	{caption: ["생산자코드"],	ref: 'prdcrCd',  	type: 'output', width:'100px',    style:'text-align:center'},
-			    	{caption: ["생산자명"],   ref: 'prdcrNm',  	type: 'output', width:'100px',    style:'text-align:center'},
-			    	{caption: ['대표품목'],	ref: 'rprsItemCd', 	type: 'output', width: '80px', style: 'text-align:center'},
-			        {caption: ['대표품종'], 	ref: 'rprsVrtyCd', 	type: 'output', width: '80px', style: 'text-align:center'}
+			    	{caption: ["생산자명"],   	ref: 'prdcrNm',  	type: 'output', width:'100px',    style:'text-align:center'},
+			    	{caption: ['대표품목'],		ref: 'rprsItemCd', 	type: 'output', width: '80px', style: 'text-align:center'},
+			    	{caption: ['대표품목명'],	ref: 'rprsItemNm', 	type: 'output', width: '100px', style: 'text-align:center'},
+			        {caption: ['대표품종'], 	ref: 'rprsVrtyCd', 	type: 'output', width: '80px', style: 'text-align:center'},
+			    	{caption: ['대표품종명'], 	ref: 'rprsVrtyNm', 	type: 'output', width: '100px', style: 'text-align:center'}
 				],
 		        sheetName: "생산자",
 		        title: "",
@@ -2531,10 +2594,12 @@
  	    		gfn_comAlert("W0001", "중량");		//	W0002	{0}을/를 입력하세요.
  	            return;
  	    	}
-
- 	    	let sortWght = parseFloat(rowData.sortWght) || 0;
- 	    	let inptWght = parseFloat(rowData.inptWght) || 0;
  	    	
+ 	    	let sortQntt = parseFloat(rowData.sortQntt) || 0;
+ 	    	let sortWght = parseFloat(rowData.sortWght) || 0;
+ 	    	let inptQntt = parseFloat(rowData.inptQntt) || 0;
+ 	    	let inptWght = parseFloat(rowData.inptWght) || 0;
+
  	    	if (inptWght > 0 && sortWght > inptWght) {
  	    		gfn_comAlert("W0015", "투입중량", "선별중량");		//	W0015	{0}이/가 {1} 보다 작습니다.
  	            return;
@@ -2648,6 +2713,7 @@
    				rmrk: rowData.rmrk,
    				sortQntt: rowData.sortQntt,
    				sortWght: rowData.sortWght,
+   				inptQntt: inptQntt,
    				inptWght: inptWght,
 				stdGrdList: stdGrdList,
 				autoPckgInptYn: rowData.checkedYn,

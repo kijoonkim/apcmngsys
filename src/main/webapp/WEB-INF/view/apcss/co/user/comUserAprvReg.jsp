@@ -183,7 +183,7 @@
 	        	typeinfo : {ref:'userType', label:'label', value:'value', displayui : true}
 	        },
 	        {caption: ["메일주소"],  	ref: 'eml',  		type:'output', 		width:'175px', style:'text-align:center'},
-	    	{caption: ["전화번호"],  	ref: 'telno',   	type:'output',  	width:'175px', style:'text-align:center'},
+	    	{caption: ["전화번호"],  	ref: 'mblTelno',   	type:'output',  	width:'175px', style:'text-align:center'},
 	        {caption: ["직책 명"],  	ref: 'jbttlNm',   	type:'output',  	width:'175px', style:'text-align:center'},
 	        {caption: ["담당업무"],  	ref: 'tkcgTaskNm',  type:'output',  	width:'175px', style:'text-align:center'},
 			{caption: ["사용자상태"],	ref: 'userStts',  	type:'output',  	hidden: true},
@@ -248,7 +248,8 @@
   	  						eml: 		item.eml,
   	  						telno: 		item.telno,
   	  						jbttlNm: 	item.jbttlNm,
-  	  						tkcgTaskNm: item.tkcgTaskNm
+  	  						tkcgTaskNm: item.tkcgTaskNm,
+  	  						mblTelno:	item.mblTelno
   	  				}
   	          		jsonUserAprv.push(userAprv);
 

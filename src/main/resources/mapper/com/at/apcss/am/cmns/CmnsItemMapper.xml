@@ -49,7 +49,7 @@
     <select id="selectCmnsItemList" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO" resultType="com.at.apcss.am.cmns.vo.CmnsItemVO">
     	<![CDATA[
 	    	SELECT /*  com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectCmnsItemList */
-	    		   (SELECT FN_GET_COM_CD_VL_NM('CLS_CD',SUBSTR(IC.ITEM_CD,0,2)) FROM DUAL) AS CLS_NM
+	    		   (SELECT FN_GET_COM_CD_VL_NM('CLS_CD', SUBSTR(IC.ITEM_CD, 0, 2)) FROM DUAL) AS CLS_NM
 	    		 , IC.ITEM_CD
 			     , IC.ITEM_NM
 			     , IC.DEL_YN
@@ -70,6 +70,9 @@
                        AND X.ITEM_CD = IC.ITEM_CD
                   )
 			</if>
+		<![CDATA[
+			ORDER BY IC.ITEM_CD
+		]]>
     </select>
 
 	<!-- ==========================================================================	-->
@@ -96,6 +99,7 @@
 			  FROM TB_APC_ITEM_CRTR AIC
 			 WHERE AIC.DEL_YN = 'N'
 			   AND AIC.APC_CD = #{apcCd}
+			 ORDER BY AIC.ITEM_CD
 		]]>
     </select>
 

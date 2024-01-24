@@ -76,4 +76,12 @@ public interface SpmtPckgUnitService {
 	 */
 	public HashMap<String, Object> multiSaveSpmtPckgUnitList(List<SpmtPckgUnitVO> spmtPckgUnitList) throws Exception;
 
+	/**
+	 * 출하포장단위 삭제 가능 여부
+	 * @param SpmtPckgUnitVO
+	 * @return String
+	 * @throws Exception
+	 */
+	public String spmtPckgUnitDelible(SpmtPckgUnitVO SpmtPckgUnitVO) throws Exception;
+
 }

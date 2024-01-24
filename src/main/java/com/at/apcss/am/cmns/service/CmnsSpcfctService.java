@@ -118,4 +118,12 @@ public interface CmnsSpcfctService {
 	 * @throws Exception
 	 */
 	public int deleteApcSpcfctAll(CmnsSpcfctVO cmnsSpcfctVO) throws Exception;
+
+	/**
+	 * APC 규격 삭제 가능 여부
+	 * @param cmnsSpcfctVO
+	 * @return String
+	 * @throws Exception
+	 */
+	public String spcfctDelible(CmnsSpcfctVO cmnsSpcfctVO) throws Exception;
 }

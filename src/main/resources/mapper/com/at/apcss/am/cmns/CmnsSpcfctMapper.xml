@@ -3,22 +3,22 @@
 
 <!-- ==========================================================================	-->
 <!-- NAME : CmnsSpcfctMapper.xml                                   				-->
-<!-- DESC : 규격 mapper                                             				-->
+<!-- DESC : 규격 mapper                                             			-->
 <!-- ==========================================================================	-->
 <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 <!-- ===========  	============  	===========================================	-->
-<!-- 2023.07.14  	김 호        		Initial Creation                            -->
+<!-- 2023.07.14  	김 호        		Initial Creation                        -->
 <!-- ==========================================================================	-->
 
 <mapper namespace="com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper">
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.selectCmnsSpcfct		-->
-	<!-- DESC : 규격 마스터 단건 조회.	                                       			-->
+	<!-- DESC : 규격 마스터 단건 조회.	                                       		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectCmnsSpcfct" parameterType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO" resultType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO">
     	<![CDATA[
@@ -35,11 +35,11 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.selectCmnsSpcfctList	-->
-	<!-- DESC : 규격 마스터 목록 조회.	                                       			-->
+	<!-- DESC : 규격 마스터 목록 조회.	                                       		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectCmnsSpcfctList" parameterType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO" resultType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO">
     	<![CDATA[
@@ -79,11 +79,11 @@
 
     <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.insertCmnsSpcfct		-->
-	<!-- DESC : 규격 마스터 등록.	                                       				-->
+	<!-- DESC : 규격 마스터 등록.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <insert id="insertCmnsSpcfct" parameterType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO">
     	<![CDATA[
@@ -125,11 +125,11 @@
 
     <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.updateCmnsSpcfct		-->
-	<!-- DESC : 규격 마스터 변경.	                                       				-->
+	<!-- DESC : 규격 마스터 변경.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
 	<update id="updateCmnsSpcfct" parameterType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO">
 		<![CDATA[
@@ -152,11 +152,11 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.deleteCmnsSpcfct		-->
-	<!-- DESC : 규격 마스터 삭제.	                                       				-->
+	<!-- DESC : 규격 마스터 삭제.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
 	<delete id="deleteCmnsSpcfct" parameterType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO">
 		<![CDATA[
@@ -172,11 +172,11 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.selectApcSpcfct		-->
-	<!-- DESC : APC 규격 단건 조회.	                                       				-->
+	<!-- DESC : APC 규격 단건 조회.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectApcSpcfct" parameterType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO" resultType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO">
     	<![CDATA[
@@ -194,12 +194,12 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.selectApcSpcfctList		-->
-	<!-- DESC : APC 규격 목록 조회.	                                       				-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.selectApcSpcfctList	-->
+	<!-- DESC : APC 규격 목록 조회.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectApcSpcfctList" parameterType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO" resultType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO">
     	<![CDATA[
@@ -237,11 +237,11 @@
 
     <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.insertApcSpcfct		-->
-	<!-- DESC : APC 규격 등록.	                                       					-->
+	<!-- DESC : APC 규격 등록.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <insert id="insertApcSpcfct" parameterType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO">
     	<![CDATA[
@@ -284,12 +284,12 @@
     </insert>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.updateApcSpcfct			-->
-	<!-- DESC : APC 규격 변경.	                                       					-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.updateApcSpcfct		-->
+	<!-- DESC : APC 규격 변경.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
 	<update id="updateApcSpcfct" parameterType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO">
 		<![CDATA[
@@ -313,11 +313,11 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.deleteApcSpcfct		-->
-	<!-- DESC : APC 규격 삭제.	                                       					-->
+	<!-- DESC : APC 규격 삭제.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
 	<delete id="deleteApcSpcfct" parameterType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO">
 		<![CDATA[
@@ -331,11 +331,11 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.deleteApcSpcfctAll		-->
-	<!-- DESC : APC 규격 전체 삭제.	                                       					-->
+	<!-- DESC : APC 규격 전체 삭제.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.09.04  	김 호        	Initial Creation                            	-->
+	<!-- 2023.09.04  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
 	<delete id="deleteApcSpcfctAll" parameterType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO">
 		<![CDATA[
@@ -345,4 +345,128 @@
 			   AND APC_CD = #{apcCd}
 		]]>
 	</delete>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.spcfctDelible			-->
+	<!-- DESC : APC 삭제 가능 여부	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.01.23  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="spcfctDelible" parameterType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO" resultType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO">
+    	<![CDATA[
+    		SELECT X.* /* com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.spcfctDelible */
+			  FROM (
+			         SELECT
+			                '선별실적' AS DELIBLE
+			               , (SELECT COUNT(*)
+			                    FROM TB_SORT_PRFMNC X
+			                       , TB_SORT_INVNTR Y
+			                   WHERE X.APC_CD = Y.APC_CD
+			                     AND X.SORTNO = Y.SORTNO
+			                     AND X.APC_CD = #{apcCd}
+			                     AND Y.ITEM_CD = #{itemCd}
+			                     AND Y.SPCFCT_CD = #{spcfctCd}
+			                     AND X.DEL_YN = 'N'
+			                     AND Y.DEL_YN = 'N'
+			                  )  AS CNT
+			           FROM DUAL
+			         UNION ALL
+			         SELECT
+			                '선별재고' AS DELIBLE
+			                , (SELECT COUNT(*)
+			                    FROM TB_SORT_INVNTR X
+			                   WHERE X.APC_CD = #{apcCd}
+			                     AND X.ITEM_CD = #{itemCd}
+			                     AND X.SPCFCT_CD = #{spcfctCd}
+			                     AND X.DEL_YN = 'N'
+			                  )  AS CNT
+			           FROM DUAL
+			          UNION ALL
+			          SELECT
+			                '포장지시' AS DELIBLE
+			               , (SELECT COUNT(*)
+			                    FROM TB_PCKG_CMND X
+			                   WHERE X.APC_CD = #{apcCd}
+			                     AND X.ITEM_CD = #{itemCd}
+			                     AND X.SPCFCT_CD = #{spcfctCd}
+			                     AND X.DEL_YN = 'N'
+			                  )  AS CNT
+			            FROM DUAL
+			          UNION ALL
+			          SELECT
+			                 '포장실적' AS DELIBLE
+			                 , (SELECT COUNT(*)
+			                     FROM TB_PCKG_PRFMNC X
+			                        , TB_GDS_INVNTR Y
+			                    WHERE X.APC_CD = Y.APC_CD
+			                      AND X.PCKGNO = Y.PCKGNO
+			                      AND X.APC_CD = #{apcCd}
+			                      AND Y.ITEM_CD = #{itemCd}
+			                      AND Y.SPCFCT_CD = #{spcfctCd}
+			                      AND X.DEL_YN = 'N'
+			                      AND Y.DEL_YN = 'N'
+			                  )  AS CNT
+			            FROM DUAL
+			          UNION ALL
+			          SELECT
+			                 '상품재고' AS DELIBLE
+			                , (SELECT COUNT(*)
+			                     FROM TB_GDS_INVNTR X
+			                    WHERE X.APC_CD = #{apcCd}
+			                      AND X.ITEM_CD = #{itemCd}
+			                      AND X.SPCFCT_CD = #{spcfctCd}
+			                      AND X.DEL_YN = 'N'
+			                 )  AS CNT
+			             FROM DUAL
+			           UNION ALL
+			           SELECT
+						      '상품명' AS DELIBLE
+						     , (SELECT COUNT(*)
+						          FROM TB_SPMT_PCKG_UNIT X
+						         WHERE X.APC_CD = #{apcCd}
+						           AND X.ITEM_CD = #{itemCd}
+						           AND X.SPCFCT_CD = #{spcfctCd}
+						           AND X.DEL_YN = 'N'
+						      )  AS CNT
+						 FROM DUAL
+			           UNION ALL
+			           SELECT
+			                  '출하지시' AS DELIBLE
+			                 , (SELECT COUNT(*)
+			                      FROM TB_SPMT_CMND X
+			                     WHERE X.APC_CD = #{apcCd}
+			                       AND X.ITEM_CD = #{itemCd}
+			                       AND X.SPCFCT_CD = #{spcfctCd}
+			                       AND X.DEL_YN = 'N'
+			                  )  AS CNT
+			             FROM DUAL
+			           UNION ALL
+			           SELECT
+			                   '출하실적' AS DELIBLE
+			                  , (SELECT COUNT(*)
+			                       FROM TB_SPMT_PRFMNC_DTL X
+			                      WHERE X.APC_CD = #{apcCd}
+			                        AND X.ITEM_CD = #{itemCd}
+			                        AND X.SPCFCT_CD = #{spcfctCd}
+			                        AND X.DEL_YN = 'N'
+			                   )  AS CNT
+			             FROM DUAL
+			           UNION ALL
+			           SELECT
+			                  '매출실적' AS DELIBLE
+			                 , (SELECT COUNT(*)
+			                      FROM TB_SLS_PRFMNC X
+			                     WHERE X.APC_CD = #{apcCd}
+			                       AND X.ITEM_CD = #{itemCd}
+			                       AND X.SPCFCT_CD = #{spcfctCd}
+			                       AND X.DEL_YN = 'N'
+			                  )  AS CNT
+			             FROM DUAL
+			         ) X
+			 WHERE CNT > 0
+	    ]]>
+    </select>
+
 </mapper>

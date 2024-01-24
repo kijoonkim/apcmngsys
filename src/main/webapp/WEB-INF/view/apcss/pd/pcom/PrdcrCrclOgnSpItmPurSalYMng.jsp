@@ -488,15 +488,16 @@
 	    //SBGridProperties.whitespacemerge = true;//빈칸 자동병합
 	    //SBGridProperties.mergecellsverticalalign = 'bottom';
 	    SBGridProperties.columns = [
-	            {caption : ['전문품목명','전문품목명'],
+	            {caption : ['품목명','품목명'],
 	            	ref : "itemNm",   width : '100px',        style : 'text-align:center',     type : 'output'},
 	            {caption : ['판매위임(매입)금액(천원)','구분'],
 	            	ref : "seNm",   width : '150px',        style : 'text-align:center',     type : 'output'},
 	            {caption : ['판매위임(매입)금액(천원)','구분'],
 		            ref : "seDtlNm",   width : '150px',        style : 'text-align:center',     type : 'output'},
-		        {caption : ['판매위임(매입)금액(천원)','품목구분'],
-			        ref : "sttgUpbrItemNm",   width : '80px',        style : 'text-align:center',     type : 'output' , merge:false},
-
+		        //{caption : ['판매위임(매입)금액(천원)','품목구분'],
+			        //ref : "sttgUpbrItemNm",   width : '80px',        style : 'text-align:center',     type : 'output' , merge:false},
+			    {caption : ['판매위임(매입)금액(천원)','취급유형'],
+					ref : "trmtTypeNm",   width : '80px',        style : 'text-align:center',     type : 'output' , merge:false},
 	            {caption : ['판매위임(매입)금액(천원)','매입처'],
 	            	ref : "prchsNm",   width : '150px',        style : 'text-align:center',     type : 'output', merge:false},
 
@@ -521,6 +522,7 @@
 		        {caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
 		        {caption: ["상세내역"], 	ref: 'typeSeNo',   		hidden : true},
 		        {caption: ["상세내역"], 	ref: 'isoBrno',   		hidden : true},
+		        {caption: ["상세내역"], 	ref: 'trmtType',   		hidden : true},
 	        ];
 
 	    grdPrdcrOgnCurntMng01 = _SBGrid.create(SBGridProperties);
@@ -833,7 +835,7 @@
 						,prdcrOgnzNm: item.prdcrOgnzNm
 						,cltvtnLandSn: item.cltvtnLandSn
 						,sttgUpbrItemSe: item.sttgUpbrItemSe
-						,sttgUpbrItemNm: item.sttgUpbrItemNm
+						//,sttgUpbrItemNm: item.sttgUpbrItemNm
 						,itemCd: item.itemCd
 						,itemNm: item.itemNm
 						,yr: item.yr
@@ -851,6 +853,8 @@
 						//,brno: item.brno
 						//,crno: item.crno
 						,ctgryCd: '0'
+						,trmtType: item.trmtType
+						,trmtTypeNm: item.trmtTypeNm
 				}
 				jsonPrdcrOgnCurntMng01.push(PrdcrOgnCurntMngVO);
 				if (index === 0) {
@@ -874,7 +878,8 @@
 
 		let seNm = grdPrdcrOgnCurntMng01.getColRef("seNm");//구분
 		let seDtlNm = grdPrdcrOgnCurntMng01.getColRef("seDtlNm");//구분상세
-		let sttgUpbrItemNm = grdPrdcrOgnCurntMng01.getColRef("sttgUpbrItemNm");//품목구분
+		//let sttgUpbrItemNm = grdPrdcrOgnCurntMng01.getColRef("sttgUpbrItemNm");//품목구분
+		let trmtTypeNm = grdPrdcrOgnCurntMng01.getColRef("trmtTypeNm");//취급유형
 		let prchsNm = grdPrdcrOgnCurntMng01.getColRef("prchsNm");//매입처
 		let slsCnsgnPrchsAmt = grdPrdcrOgnCurntMng01.getColRef("slsCnsgnPrchsAmt");//판매위임 매입 금액 인덱스
 		let slsCnsgnSlsAmt = grdPrdcrOgnCurntMng01.getColRef("slsCnsgnSlsAmt");//판매위임 매출 금액 인덱스
@@ -897,11 +902,13 @@
 			//통합조직에 속한 출자출하조직 소계
 			if(rowData01.typeSeNo == '2'){
 				//disabled 처리
-				grdPrdcrOgnCurntMng01.setCellDisabled(i, sttgUpbrItemNm, i, slsCnsgnPrchsAmt, true);
+				grdPrdcrOgnCurntMng01.setCellDisabled(i, trmtTypeNm, i, slsCnsgnPrchsAmt, true);
 				grdPrdcrOgnCurntMng01.setCellDisabled(i, rmrk, i, rmrk, true);
 				// 배경 속성 추가
-				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, prchsNm, i, slsCnsgnPrchsAmt, 'lightgray');
+				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, trmtTypeNm, i, slsCnsgnPrchsAmt, 'lightgray');
 				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, rmrk, i, rmrk, 'lightgray');
+				//셀단위 병합
+				grdPrdcrOgnCurntMng01.setMergeByFree(i,trmtTypeNm,i,prchsNm,true);
 			}
 			//통합조직에 속한 출자출하조직 생산자조직 외
 			if(rowData01.typeSeNo == '3'){
@@ -933,11 +940,13 @@
 
 			if(rowData01.typeSeNo == '6'){
 				//disabled 처리
-				grdPrdcrOgnCurntMng01.setCellDisabled(i, sttgUpbrItemNm, i, slsCnsgnPrchsAmt, true);
+				grdPrdcrOgnCurntMng01.setCellDisabled(i, trmtTypeNm, i, slsCnsgnPrchsAmt, true);
 				grdPrdcrOgnCurntMng01.setCellDisabled(i, rmrk, i, rmrk, true);
 				// 배경 속성 추가
-				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, prchsNm, i, slsCnsgnPrchsAmt, 'lightgray');
+				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, trmtTypeNm, i, slsCnsgnPrchsAmt, 'lightgray');
 				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, rmrk, i, rmrk, 'lightgray');
+				//셀단위 병합
+				grdPrdcrOgnCurntMng01.setMergeByFree(i,trmtTypeNm,i,prchsNm,true);
 			}
 
 			//기타매입 생산자조직 외
@@ -980,6 +989,37 @@
 			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i);
 			let rowSts01 = grdPrdcrOgnCurntMng01.getRowStatus(i);
 			//let delYn = rowData01.delYn;
+
+			//매입 값이 있을경우 매출 값을 입력 필수
+			if(rowData01.typeSeNo == '2' || rowData01.typeSeNo == '6'){
+				if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) &&  Number(rowData01.slsCnsgnPrchsAmt) != 0){
+					if(gfn_isEmpty(rowData01.slsCnsgnSlsAmt)){
+						alert('매입 값이 있을경우 매출 금액 입력이 필수 입니다.');
+						grdPrdcrOgnCurntMng01.selectRow(i);
+						return false;
+					}
+				}
+			}
+
+			//매입 값이 있을경우 매출 값을 입력 필수
+			if(rowData01.typeSeNo == '3' || rowData01.typeSeNo == '7' ){
+				if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) &&  Number(rowData01.slsCnsgnPrchsAmt) != 0){
+					if(gfn_isEmpty(rowData01.slsCnsgnSlsAmt)){
+						alert('매입 값이 있을경우 매출 금액 입력이 필수 입니다.');
+						grdPrdcrOgnCurntMng01.selectRow(i);
+						return false;
+					}
+				}
+				if(!gfn_isEmpty(rowData01.slsCnsgnSlsAmt) &&  Number(rowData01.slsCnsgnSlsAmt) != 0){
+					if(gfn_isEmpty(rowData01.slsCnsgnPrchsAmt)){
+						alert('매출 값이 있을경우 매입 금액 입력이 필수 입니다.');
+						grdPrdcrOgnCurntMng01.selectRow(i);
+						return false;
+					}
+				}
+			}
+
+
 
 			rowData01.apoCd = apoCd;
 			rowData01.apoSe = apoSe;

@@ -107,6 +107,7 @@
 	var grdPrdcrPop = null;
 	var jsonPrdcrPop = [];
 	var excelYn = "N";
+	var editMode = false;
 
 	const excelDwnldPrdcrPop = function () {
 		grdPrdcrPop.exportLocalExcel("생산자 목록", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
@@ -172,7 +173,9 @@
 			this.prvApcCd = _apcCd;
 		},
 		close: function(_prdcr) {
-			this.createGrid();
+			if(editMode){
+				this.cancel();
+			}
 			gfn_closeModal(this.modalId, this.callbackFnc, _prdcr);
 		},
 		createGrid: function(/** {boolean} */ isEditable) {
@@ -243,11 +246,15 @@
 				return;
 			} else {
 				let rowData = grdPrdcrPop.getRowData(nRow);
-				popPrdcr.close(rowData);
+				SBUxMethod.set("srch-inp-prdcrCd", rowData.prdcrCd);
+				SBUxMethod.set("srch-inp-prdcrNm", rowData.prdcrNm);
+				SBUxMethod.set("srch-inp-prdcrIdentno", rowData.prdcrIdentno);
+				SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+				SBUxMethod.closeModal(popPrdcr.modalId);
 			}
 		},
 		edit: async function() {
-
+			editMode = true;
 			SBUxMethod.hide('btnEditPrdcr');
 			SBUxMethod.show('btnCancelPrdcr');
 			SBUxMethod.attr('btnSavePrdcr', 'disabled', false);
@@ -266,7 +273,7 @@
 			grdPrdcrPop.unbind('dblclick');
 		},
 		cancel: function() {
-
+			editMode = false;
 			SBUxMethod.show('btnEditPrdcr');
 			SBUxMethod.hide('btnCancelPrdcr');
 			SBUxMethod.attr('btnSavePrdcr', 'disabled', true);

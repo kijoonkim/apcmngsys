@@ -462,15 +462,16 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	            {caption : ['전문품목명','전문품목명'],
+	            {caption : ['품목명','품목명'],
 	            	ref : "itemNm",   width : '100px',        style : 'text-align:center',     type : 'output'},
 	            {caption : ['판매위임(매입)금액(천원)','구분'],
 	            	ref : "seNm",   width : '150px',        style : 'text-align:center',     type : 'output'},
 	            //{caption : ['판매위임(매입)금액(천원)','구분'],
 		            //ref : "seDtlNm",   width : '150px',        style : 'text-align:center',     type : 'output'},
-		        {caption : ['판매위임(매입)금액(천원)','품목구분'],
-			        ref : "sttgUpbrItemNm",   width : '80px',        style : 'text-align:center',     type : 'output' , merge:false},
-
+		        //{caption : ['판매위임(매입)금액(천원)','품목구분'],
+			        //ref : "sttgUpbrItemNm",   width : '80px',        style : 'text-align:center',     type : 'output' , merge:false},
+			    {caption : ['판매위임(매입)금액(천원)','취급유형'],
+					ref : "trmtTypeNm",   width : '80px',        style : 'text-align:center',     type : 'output' , merge:false},
 	            {caption : ['판매위임(매입)금액(천원)','매입처'],
 	            	ref : "prchsNm",   width : '150px',        style : 'text-align:center',     type : 'output', merge:false},
 
@@ -494,6 +495,7 @@
 		        {caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
 		        {caption: ["상세내역"], 	ref: 'isoBrno',   		hidden : true},
 		        {caption: ["상세내역"], 	ref: 'typeSeNo',   		hidden : true},
+		        {caption: ["상세내역"], 	ref: 'trmtType',   		hidden : true},
 	        ];
 
 	    grdPrdcrOgnCurntMng01 = _SBGrid.create(SBGridProperties);
@@ -777,7 +779,7 @@
 						,prdcrOgnzNm: item.prdcrOgnzNm
 						,cltvtnLandSn: item.cltvtnLandSn
 						,sttgUpbrItemSe: item.sttgUpbrItemSe
-						,sttgUpbrItemNm: item.sttgUpbrItemNm
+						//,sttgUpbrItemNm: item.sttgUpbrItemNm
 						,itemCd: item.itemCd
 						,itemNm: item.itemNm
 						,yr: item.yr
@@ -795,6 +797,8 @@
 						//,brno: item.brno
 						//,crno: item.crno
 						,ctgryCd: '0'
+						,trmtType: item.trmtType
+						,trmtTypeNm: item.trmtTypeNm
 				}
 				jsonPrdcrOgnCurntMng01.push(PrdcrOgnCurntMngVO);
 				if (index === 0) {
@@ -822,7 +826,8 @@
 			//let uoOtherSpmtAmt = grdPrdcrOgnCurntMng01.getColRef("uoOtherSpmtAmt");//통합조직 이외 출하 금액
 			let seNm = grdPrdcrOgnCurntMng01.getColRef("seNm");//구분
 			let prchsNm = grdPrdcrOgnCurntMng01.getColRef("prchsNm");//매입처
-			let sttgUpbrItemNm = grdPrdcrOgnCurntMng01.getColRef("sttgUpbrItemNm");//품목구분
+			//let sttgUpbrItemNm = grdPrdcrOgnCurntMng01.getColRef("sttgUpbrItemNm");//품목구분
+			let trmtTypeNm = grdPrdcrOgnCurntMng01.getColRef("trmtTypeNm");//취급유형
 			let rmrk = grdPrdcrOgnCurntMng01.getColRef("rmrk");//비고
 			//uoOtherSpmtAmt uoSpmtAmt
 			//grdPrdcrOgnCurntMng01.setCellStyle('background-color', nRow, nCol, nRow, nCol, 'lightgray');
@@ -845,8 +850,8 @@
 				grdPrdcrOgnCurntMng01.setCellDisabled(i, slsCnsgnPrchsAmt, i, slsCnsgnSlsAmt, true);
 				grdPrdcrOgnCurntMng01.setCellDisabled(i, rmrk, i, rmrk, true);
 				// 배경 속성 추가
-				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, sttgUpbrItemNm, i, rmrk, 'lightgray');
-				//grdPrdcrOgnCurntMng01.setMergeByFree(i,sttgUpbrItemNm,i,prchsNm,true);
+				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, trmtTypeNm, i, rmrk, 'lightgray');
+				grdPrdcrOgnCurntMng01.setMergeByFree(i,trmtTypeNm,i,prchsNm,true);
 			}
 			//생산자조직 외
 			if(rowData01.typeSeNo == '7'){
@@ -882,6 +887,24 @@
 			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i);
 			let rowSts01 = grdPrdcrOgnCurntMng01.getRowStatus(i);
 			//let delYn = rowData01.delYn;
+
+			//매입 값이 있을경우 매출 값을 입력 필수
+			if(rowData01.typeSeNo == '5'){
+				if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) &&  Number(rowData01.slsCnsgnPrchsAmt) != 0){
+					if(gfn_isEmpty(rowData01.slsCnsgnSlsAmt)){
+						alert('매입 값이 있을경우 매출 금액 입력이 필수 입니다.');
+						grdPrdcrOgnCurntMng01.selectRow(i);
+						return false;
+					}
+				}
+				if(!gfn_isEmpty(rowData01.slsCnsgnSlsAmt) &&  Number(rowData01.slsCnsgnSlsAmt) != 0){
+					if(gfn_isEmpty(rowData01.slsCnsgnPrchsAmt)){
+						alert('매출 값이 있을경우 매입 금액 입력이 필수 입니다.');
+						grdPrdcrOgnCurntMng01.selectRow(i);
+						return false;
+					}
+				}
+			}
 
 			rowData01.apoCd = apoCd;
 			rowData01.apoSe = apoSe;

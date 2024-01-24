@@ -116,9 +116,8 @@ public class CmnsSpcfctServiceImpl extends BaseServiceImpl implements CmnsSpcfct
 	@Override
 	public HashMap<String, Object> deleteApcSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception {
 
-		String errMsg = cmnsValidationService.selectChkCdDelible(cmnsSpcfctVO.getApcCd(), "SPCFCT_CD", cmnsSpcfctVO.getSpcfctCd());
+		String errMsg = spcfctDelible(cmnsSpcfctVO);
 		if(errMsg == null) {
-
 			if(0 == cmnsSpcfctMapper.deleteApcSpcfct(cmnsSpcfctVO)) {
 				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다."))); // E0000	{0}
 			}
@@ -149,6 +148,28 @@ public class CmnsSpcfctServiceImpl extends BaseServiceImpl implements CmnsSpcfct
 					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다."))); // E0000	{0}
 				}
 			}
+		}
+
+		return null;
+	}
+
+	@Override
+	public String spcfctDelible(CmnsSpcfctVO cmnsSpcfctVO) throws Exception {
+
+		List<CmnsSpcfctVO> resultList = cmnsSpcfctMapper.spcfctDelible(cmnsSpcfctVO);
+
+		if(resultList.size() > 0) {
+			String delible = "해당 규격은 ";
+			for (int i = 0; i < resultList.size(); i++) {
+				if(i == 0) {
+					delible += resultList.get(i).getDelible();
+				}else {
+					delible += ", "+resultList.get(i).getDelible();
+				}
+			}
+			delible += "이/가 존재 합니다.";
+
+			return delible;
 		}
 
 		return null;
