@@ -343,6 +343,7 @@
 		USING DUAL
 			ON (
 				CLT.APO_CD  = #{apoCd}
+				AND CLT.YR  = #{yr}
 				)
 		WHEN MATCHED THEN
 				 UPDATE /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertEvAplyMng */
@@ -359,6 +360,7 @@
 
 					 WHERE 1=1
 					 AND CLT.APO_CD		= #{apoCd}
+					 AND CLT.YR  		= #{yr}
 		WHEN NOT MATCHED THEN
 			 INSERT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertEvAplyMng */
 		    		(
@@ -384,7 +386,7 @@
 		   			  , #{brno}
 		   			  , #{crno}
 		   			  , #{corpNm}
-		   			  , TO_CHAR(SYSDATE,'YYYY')
+		   			  , #{yr}
 		   			  , SYSDATE
 		   			  , #{rawMtrEnsrSigunCnt}
 		   			  , #{rawMtrEnsrCtpvCnt}
