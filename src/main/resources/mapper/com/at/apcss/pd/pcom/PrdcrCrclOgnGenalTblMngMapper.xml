@@ -21,61 +21,10 @@
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectPrdcrCrclOgnGenalTblMng" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
-    	<![CDATA[
-			SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectPrdcrCrclOgnGenalTblMng */
-				  CM.TEST_NO
-				, CM.AA
-				, CM.BB
-				, CM.CC
-				, CM.DD
-				, CM.EE
-				, CM.FF
-				, CM.GG
-				, CM.HH
-				, CM.II
-				, CM.II_CODE
-				, CM.JJ
-				, CM.KK
-				, CM.LL
-				, CM.MM
-				, CM.NN
-				, CM.OO
-				, CM.PP
-				, CM.QQ
-				, CM.RR
-				, CM.SS
-				, CM.TT
-				, CM.UU
-				, CM.VV
-				, CM.WW
-				, CM.XX
-				, CM.YY
-				, CM.ZZ
-				, CM.DEL_YN		AS DEL_YN
-				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
-				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
-				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
-				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_FRST_INPT_USER_ID) AS SYS_FRST_INPT_USER_ID_NM
-				, CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
-				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
-				, TO_CHAR(CM.SYS_LAST_CHG_DT,'YYYY-MM-DD')		AS SYS_LAST_CHG_DT_YMD
-				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
-				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_ID_NM
-				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_PD_PrdcrCrclOgnVluIdctrMng CM
-			 WHERE 1=1
-
-    	]]>
-    		<if test='ccCode != null and ccCode != ""'>
-				AND CM.CC_CODE LIKE #{ccCode} || '%'
-			</if>
-			<if test='iiCode != null and iiCode != ""'>
-				AND CM.II_CODE LIKE '%' || #{iiCode} || '%'
-			</if>
-			<if test='testNo != null and testNo != ""'>
-				AND CM.TEST_NO LIKE '%' || #{testNo} || '%'
-			</if>
-		ORDER BY CM.SYS_LAST_CHG_DT DESC
+    	SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectPrdcrCrclOgnGenalTblMng */
+			'a' as BRNO
+		FROM DUAL
+		WHERE 1=1
     </select>
 
 
@@ -88,201 +37,117 @@
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectPrdcrCrclOgnGenalTblMngList" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
-    	<![CDATA[
-			SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectPrdcrCrclOgnGenalTblMngList */
-				  CM.TEST_NO
-				, CM.AA
-				, CM.BB
-				, CM.CC
-				, CM.CC_CODE
-				, CM.DD
-				, CM.DD_CODE
-				, CM.EE
-				, CM.FF
-				, CM.GG
-				, CM.HH
-				, CM.II
-				, CM.II_CODE
-				, CM.JJ
-				, CM.KK
-				, CM.LL
-				, CM.MM
-				, CM.NN
-				, CM.OO
-				, CM.PP
-				, CM.QQ
-				, CM.RR
-				, CM.SS
-				, CM.TT
-				, CM.UU
-				, CM.VV
-				, CM.WW
-				, CM.XX
-				, CM.YY
-				, CM.ZZ
-				, CM.DEL_YN		AS DEL_YN
-				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
-				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
-				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
-				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_FRST_INPT_USER_ID) AS SYS_FRST_INPT_USER_ID_NM
-				, CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
-				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
-				, TO_CHAR(CM.SYS_LAST_CHG_DT,'YYYY-MM-DD')		AS SYS_LAST_CHG_DT_YMD
-				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
-				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_ID_NM
-				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_PD_PrdcrCrclOgnVluIdctrMng CM
-			  WHERE 1=1
-    	]]>
-    		<if test='ccCode != null and ccCode != ""'>
-				AND CM.CC_CODE LIKE #{ccCode} || '%'
-			</if>
-			<if test='iiCode != null and iiCode != ""'>
-				AND CM.II_CODE LIKE '%' || #{iiCode} || '%'
-			</if>
-			<if test='testNo != null and testNo != ""'>
-				AND CM.TEST_NO LIKE '%' || #{testNo} || '%'
-			</if>
+    	SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectPrdcrCrclOgnGenalTblMngList */
+			ITEM.ITEM_CD
+			, ITEM.ITEM_NM
+			, ITEM.STTG_UPBR_ITEM_SE
+			, ITEM.STTG_UPBR_ITEM_NM
+			, ITEM.CTGRY_CD
+			, ITEM.CTGRY_NM
+			, TOTA.SLS_TOT_AMT AS TOT_TRMT_PRFMNC
+			, TOTB.SLS_TOT_AMT AS TOT_SPMT_PRFMNC
+			, (NVL( TOTB.SLS_TOT_AMT / NULLIF( TOTA.SLS_TOT_AMT, 0 ) , 0 ) * 100 ) AS TOT_TRMT_RT
+		FROM
+			(SELECT
+					ITEM_CD
+					, YR
+					, STTG_UPBR_ITEM_SE
+					, CTGRY_CD
+					,(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = AYGC.ITEM_CD) AS ITEM_NM
+					,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = AYGC.CTGRY_CD) AS CTGRY_NM
+					,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = AYGC.STTG_UPBR_ITEM_SE) AS STTG_UPBR_ITEM_NM
+				FROM TB_EV_APO_YR_GPC_CD AYGC
+				WHERE BRNO = #{brno}
+		  		  AND YR = #{yr}
+			) ITEM ,
+			(SELECT BRNO , ITEM_CD , SUM( NVL( SLS_CNSGN_SLS_AMT , 0 ) ) AS SLS_TOT_AMT
+			  		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+			  		WHERE 1=1
+			  		  AND APO_SE = '1'
+			  		  AND TYPE_SE_NO IN ('2','3','5','7')
+
+			  		  <if test='brno != null and brno != ""'>
+					  AND BRNO = #{brno}
+					  </if>
+					  <if test='yr != null and yr != ""'>
+					  AND YR = #{yr}
+					  </if>
+
+					  GROUP BY  BRNO , ITEM_CD
+			) TOTA ,
+			(SELECT BRNO , ITEM_CD , SUM( NVL( SLS_CNSGN_SLS_AMT , 0 ) ) AS SLS_TOT_AMT
+			  		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+			  		WHERE 1=1
+			  		  AND APO_SE = '1'
+			  		  AND TYPE_SE_NO IN ('2','5')
+
+			  		  <if test='brno != null and brno != ""'>
+					  AND BRNO = #{brno}
+					  </if>
+					  <if test='yr != null and yr != ""'>
+					  AND YR = #{yr}
+					  </if>
+
+					  GROUP BY  BRNO , ITEM_CD
+			) TOTB
+		WHERE 1=1
+		  AND ITEM.ITEM_CD = TOTA.ITEM_CD(+)
+		  AND ITEM.ITEM_CD = TOTB.ITEM_CD(+)
     </select>
 
+	<select id="selectPrdcrCrclOgnGenalTblMngUoList" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
 
-	<insert id="insertPrdcrCrclOgnGenalTblMng" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
-    	<![CDATA[
-	    	INSERT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.insertPrdcrCrclOgnGenalTblMng */
-	    	  INTO TB_PD_PrdcrCrclOgnVluIdctrMng
-	    		(
-	    			TEST_NO
-	    		  , AA
-	    		  , BB
-	    		  , CC
-	    		  , CC_CODE
-	    		  , DD
-	    		  , DD_CODE
-	    		  , EE
-	    		  , FF
-	    		  , GG
-	    		  , HH
-	    		  , II
-	    		  , II_CODE
-	    		  , JJ
-	    		  , KK
-	    		  , LL
-	    		  , MM
-	    		  , NN
-	    		  , OO
-	    		  , PP
-	    		  , QQ
-	    		  , RR
-	    		  , SS
-	    		  , TT
-	    		  , UU
-	    		  , VV
-	    		  , WW
-	    		  , XX
-	    		  , YY
-	    		  , ZZ
-	    		  , SYS_FRST_INPT_DT
-	    		  , SYS_FRST_INPT_USER_ID
-	    		  , SYS_FRST_INPT_PRGRM_ID
-	    		  , SYS_LAST_CHG_DT
-	    		  , SYS_LAST_CHG_USER_ID
-	    		  , SYS_LAST_CHG_PRGRM_ID
-	    		)
-	   		VALUES
-	   			(
-	   			    (SELECT NVL(MAX(TEST_NO),0)+1 FROM TB_PD_PrdcrCrclOgnVluIdctrMng)
-	   			  , #{aa}
-	   			  , #{bb}
-	   			  , #{cc}
-	   			  , #{ccCode}
-	   			  , #{dd}
-	   			  , #{ddCode}
-	   			  , #{ee}
-	   			  , #{ff}
-	   			  , #{gg}
-	   			  , #{hh}
-	   			  , #{ii}
-	   			  , #{iiCode}
-	   			  , #{jj}
-	   			  , #{kk}
-	   			  , #{ll}
-	   			  , #{mm}
-	   			  , #{nn}
-	   			  , #{oo}
-	   			  , #{pp}
-	   			  , #{qq}
-	   			  , #{rr}
-	   			  , #{ss}
-	   			  , #{tt}
-	   			  , #{uu}
-	   			  , #{vv}
-	   			  , #{ww}
-	   			  , #{xx}
-	   			  , #{yy}
-	   			  , #{zz}
-	   			  , SYSDATE
-	   			  , #{sysFrstInptUserId}
-	   			  , #{sysFrstInptPrgrmId}
-	   			  , SYSDATE
-	   			  , #{sysLastChgUserId}
-	   			  , #{sysLastChgPrgrmId}
-	   			)
-    	]]>
-    </insert>
-	<update id="updatePrdcrCrclOgnGenalTblMng" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
-    	<![CDATA[
-	    	UPDATE /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.upatePrdcrCrclOgnGenalTblMng */
-	    		TB_PD_PrdcrCrclOgnVluIdctrMng
-			   SET
-			 	  AA	= #{aa}
-			 	, BB 	= #{bb}
-			 	, CC 	= #{cc}
-			 	, CC_CODE 	= #{ccCode}
-			 	, DD 	= #{dd}
-			 	, DD_CODE 	= #{ddCode}
-			 	, EE 	= #{ee}
-			 	, FF 	= #{ff}
-			 	, GG 	= #{gg}
-			 	, HH 	= #{hh}
-			 	, II 	= #{ii}
-			 	, II_CODE 	= #{iiCode}
-			 	, JJ 	= #{jj}
-			 	, KK 	= #{kk}
-			 	, LL 	= #{ll}
-			 	, MM 	= #{mm}
-			 	, NN 	= #{nn}
-			 	, OO 	= #{oo}
-			 	, PP 	= #{pp}
-			 	, QQ 	= #{qq}
-			 	, RR 	= #{rr}
-			 	, SS 	= #{ss}
-			 	, TT 	= #{tt}
-			 	, UU 	= #{uu}
-			 	, VV 	= #{vv}
-			 	, WW 	= #{ww}
-			 	, XX 	= #{xx}
-			 	, YY 	= #{yy}
-			 	, ZZ 	= #{zz}
-    	]]>
-		<if test='delYn != null and delYn != ""'>
-				, DEL_YN 	= #{delYn}
-		</if>
-    	<![CDATA[
-				, SYS_LAST_CHG_DT		= SYSDATE
-	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+		SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectPrdcrCrclOgnGenalTblMngUoList */
+			TEA.APO_CD
+			,TEA.APO_SE
+			,TEA.BRNO
+			,TEA.CRNO
+			,TEA.CTPV
+			,TEA.SGG
+			,TEA.CORP_NM
+			,TEA.CORP_SE_CD
+			,TEAM.YR
+		FROM TB_EV_APO TEA
+			,TB_EV_APLY_MNG TEAM
+		WHERE 1=1
+		  AND TEA.BRNO = TEAM.BRNO(+)
+		  AND TEA.APO_SE = '1'
+		  <if test='brno != null and brno != ""'>
+		  AND TEA.BRNO = #{brno}
+		  </if>
+		  <if test='yr != null and yr != ""'>
+		  AND TEAM.YR = #{yr}
+		  </if>
+		  <if test='cmptnInst != null and cmptnInst != ""'>
+		  AND TEA.CMPTN_INST = #{cmptnInst}
+		  </if>
+		  <if test='ctpv != null and ctpv != ""'>
+		  AND TEA.CTPV = #{ctpv}
+		  </if>
 
-			 WHERE 1=1
-			   AND TEST_NO	= #{testNo}
-    	]]>
-    </update>
+		  <if test='corpSeCd != null and corpSeCd != ""'>
+		  AND TEA.CORP_SE_CD = #{corpSeCd}
+		  </if>
+		  <if test='corpDtlSeCd != null and corpDtlSeCd != ""'>
+		  AND TEA.CORP_DTL_SE_CD = #{corpDtlSeCd}
+		  </if>
+		  <if test='corpNm != null and corpNm != ""'>
+		  AND CM.CORP_NM LIKE '%' || #{corpNm} || '%'
+		  </if>
 
-
-	<delete id="deletePrdcrCrclOgnGenalTblMng" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
-		<![CDATA[
-		DELETE FROM TB_PD_PrdcrCrclOgnVluIdctrMng
-		 WHERE TEST_NO 	= #{testNo}
-		]]>
-	</delete>
-
+		 <!-- 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    </select>
 </mapper>

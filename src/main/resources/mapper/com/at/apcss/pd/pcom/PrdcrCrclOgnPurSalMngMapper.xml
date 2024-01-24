@@ -68,7 +68,7 @@
 				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
 				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_ID_NM
 				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_EV_UO_ALL_PRCHS_SLS CM
+			  FROM TB_EV_UO_ISO_ALL_PRCHS_SLS CM
 			 WHERE 1=1
 
     	]]>
@@ -114,7 +114,7 @@
 				, CM.PRCHS_EMSPAP_VLM
 				, CM.PRCHS_EMSPAP_AMT
 
-				, '' AS PRCHS_TOT_AMT
+				, '' AS PRCHS_TOT_VLM
 				, NVL(TOT.PRCHS_TOT_AMT,'') AS PRCHS_TOT_AMT
 
 				/*매출*/
@@ -183,13 +183,15 @@
 			  		WHERE 1=1
 			  		  AND APO_SE = '1'
 			  		  AND TYPE_SE_NO IN ('1','3','5','7')
-			  		  GROUP BY  BRNO , ITEM_CD
+
 			  		  <if test='brno != null and brno != ""'>
 					  AND BRNO = #{brno}
 					  </if>
 					  <if test='yr != null and yr != ""'>
 					  AND YR = #{yr}
 					  </if>
+
+					  GROUP BY  BRNO , ITEM_CD
 			  		) TOT
 			 WHERE 1=1
 			   AND ITEM.ITEM_CD = CM.ITEM_CD(+)
@@ -290,13 +292,15 @@
 			  		WHERE 1=1
 			  		  AND APO_SE = '1'
 			  		  AND TYPE_SE_NO IN ('2','3','5','7')
-			  		  GROUP BY  BRNO , ITEM_CD
+
 			  		  <if test='brno != null and brno != ""'>
 					  AND BRNO = #{brno}
 					  </if>
 					  <if test='yr != null and yr != ""'>
 					  AND YR = #{yr}
 					  </if>
+
+					  GROUP BY  BRNO , ITEM_CD
 			  		) TOT
 			 WHERE 1=1
 			   AND ITEM.ITEM_CD = CM.ITEM_CD(+)
@@ -393,7 +397,7 @@
 
 	<insert id="insertPrdcrCrclOgnPurSalMng01" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
     	<![CDATA[
-    	MERGE INTO TB_EV_UO_ALL_PRCHS_SLS CLT  /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.insertPrdcrCrclOgnPurSalMng01 */
+    	MERGE INTO TB_EV_UO_ISO_ALL_PRCHS_SLS CLT  /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.insertPrdcrCrclOgnPurSalMng01 */
 		USING DUAL
 			ON (
 					CLT.BRNO   				= #{brno}
@@ -486,7 +490,7 @@
 
     <insert id="insertPrdcrCrclOgnPurSalMng02" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
     	<![CDATA[
-    	MERGE INTO TB_EV_UO_ALL_PRCHS_SLS CLT  /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.insertPrdcrCrclOgnPurSalMng02 */
+    	MERGE INTO TB_EV_UO_ISO_ALL_PRCHS_SLS CLT  /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.insertPrdcrCrclOgnPurSalMng02 */
 		USING DUAL
 			ON (
 					CLT.BRNO   				= #{brno}
@@ -590,7 +594,7 @@
 
     <insert id="insertPrdcrCrclOgnPurSalMng03" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
     	<![CDATA[
-    	MERGE INTO TB_EV_UO_ALL_PRCHS_SLS CLT  /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.insertPrdcrCrclOgnPurSalMng03 */
+    	MERGE INTO TB_EV_UO_ISO_ALL_PRCHS_SLS CLT  /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.insertPrdcrCrclOgnPurSalMng03 */
 		USING DUAL
 			ON (
 					CLT.BRNO   				= #{brno}
@@ -775,7 +779,7 @@
 
 	<delete id="deletePrdcrCrclOgnPurSalMng" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
 		<![CDATA[
-		DELETE FROM TB_EV_UO_ALL_PRCHS_SLS
+		DELETE FROM TB_EV_UO_ISO_ALL_PRCHS_SLS
 		 WHERE 1=1
 					 AND APO_CD		= #{apoCd}
 					 AND CTGRY_CD	= #{ctgryCd}

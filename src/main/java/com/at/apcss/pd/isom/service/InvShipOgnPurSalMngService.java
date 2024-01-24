@@ -38,11 +38,15 @@ public interface InvShipOgnPurSalMngService {
 
 	public int insertInvShipOgnPurSalMng02(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
 
+	public int insertInvShipOgnPurSalMng03(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
+
 	public int updateInvShipOgnPurSalMng(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
 
 	public int multiSaveInvShipOgnPurSalMngList01(List<InvShipOgnPurSalMngVO> InvShipOgnPurSalMngVOList) throws Exception;
 
 	public int multiSaveInvShipOgnPurSalMngList02(List<InvShipOgnPurSalMngVO> InvShipOgnPurSalMngVOList) throws Exception;
+
+	public int multiSaveInvShipOgnPurSalMngList03(List<InvShipOgnPurSalMngVO> InvShipOgnPurSalMngVOList) throws Exception;
 
 	public int deleteInvShipOgnPurSalMng(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
 

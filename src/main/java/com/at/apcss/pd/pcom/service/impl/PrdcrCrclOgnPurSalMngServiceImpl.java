@@ -63,6 +63,14 @@ public class PrdcrCrclOgnPurSalMngServiceImpl extends BaseServiceImpl implements
 	}
 
 	@Override
+	public int insertPrdcrCrclOgnPurSalMng03(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO) throws Exception {
+
+		int insertedCnt = PrdcrCrclOgnPurSalMngMapper.insertPrdcrCrclOgnPurSalMng03(PrdcrCrclOgnPurSalMngVO);
+
+		return insertedCnt;
+	}
+
+	@Override
 	public int updatePrdcrCrclOgnPurSalMng(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO) throws Exception {
 
 		int updatedCnt = PrdcrCrclOgnPurSalMngMapper.updatePrdcrCrclOgnPurSalMng(PrdcrCrclOgnPurSalMngVO);
@@ -92,14 +100,15 @@ public class PrdcrCrclOgnPurSalMngServiceImpl extends BaseServiceImpl implements
 		int savedCnt = 0;
 		for (PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO : PrdcrCrclOgnPurSalMngVOList) {
 			savedCnt += insertPrdcrCrclOgnPurSalMng02(PrdcrCrclOgnPurSalMngVO);
-			/*
-			if(ComConstants.ROW_STS_INSERT.equals(PrdcrCrclOgnPurSalMngVO.getRowSts())) {
-				savedCnt += insertPrdcrCrclOgnPurSalMng02(PrdcrCrclOgnPurSalMngVO);
-			}
-			if(ComConstants.ROW_STS_UPDATE.equals(PrdcrCrclOgnPurSalMngVO.getRowSts())) {
-				savedCnt += updatePrdcrCrclOgnPurSalMng(PrdcrCrclOgnPurSalMngVO);
-			}
-			*/
+		}
+		return savedCnt;
+	}
+
+	@Override
+	public int multiSavePrdcrCrclOgnPurSalMngList03(List<PrdcrCrclOgnPurSalMngVO> PrdcrCrclOgnPurSalMngVOList) throws Exception {
+		int savedCnt = 0;
+		for (PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO : PrdcrCrclOgnPurSalMngVOList) {
+			savedCnt += insertPrdcrCrclOgnPurSalMng03(PrdcrCrclOgnPurSalMngVO);
 		}
 		return savedCnt;
 	}

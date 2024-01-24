@@ -12,6 +12,7 @@ public class InvShipOgnPurSalMngVO extends ComVO{
 	private String apoCd;
 	private String apoSe;
 	private String brno;
+	private String uoBrno;
 	private String ccCode;
 	private String crno;
 	private String ctgryCd;
@@ -28,6 +29,9 @@ public class InvShipOgnPurSalMngVO extends ComVO{
 	private String prchsEmspapVlm;
 	private String prchsEmspapAmt;
 
+	private String prchsTotVlm;
+	private String prchsTotAmt;
+
 	private String slsCprtnSortTrstVlm;
 	private String slsCprtnSortTrstAmt;
 	private String slsCprtnTrstVlm;
@@ -43,6 +47,9 @@ public class InvShipOgnPurSalMngVO extends ComVO{
 	private String slsTrstAmt;
 	private String slsEmspapVlm;
 	private String slsEmspapAmt;
+
+	private String slsTotVlm;
+	private String slsTotAmt;
 
 	private String ddcExprtVlm;
 	private String ddcExprtAmt;

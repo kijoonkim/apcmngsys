@@ -1,10 +1,7 @@
 package com.at.apcss.pd.isom.service;
 
 import java.util.List;
-import java.util.Map;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.pd.isom.vo.InvShipOgnGenalTblMngVO;
 
 
@@ -34,12 +31,6 @@ public interface InvShipOgnGenalTblMngService {
 
 	public List<InvShipOgnGenalTblMngVO> selectInvShipOgnGenalTblMngList(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception;
 
-	public int insertInvShipOgnGenalTblMng(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception;
-
-	public int updateInvShipOgnGenalTblMng(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception;
-
-	public int multiSaveInvShipOgnGenalTblMngList(List<InvShipOgnGenalTblMngVO> InvShipOgnGenalTblMngVOList) throws Exception;
-
-	public int deleteInvShipOgnGenalTblMng(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception;
+	public List<InvShipOgnGenalTblMngVO> selectInvShipOgnGenalTblMngIsoList(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception;
 
 }

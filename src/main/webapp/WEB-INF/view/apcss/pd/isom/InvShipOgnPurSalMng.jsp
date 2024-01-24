@@ -498,13 +498,13 @@
 	    	{caption: ["품목분류","품목분류"], 	ref: 'ctgryCd',   	type:'combo',  width:'80px',    style:'text-align:center'
 	    		,typeinfo : {ref:'jsonGrdCtgryCd_1', label:'label', value:'value', displayui : true}},
 
-	        {caption: ["공선수탁·공동수탁","물량"], 		ref: 'prchsTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+	        {caption: ["공선수탁·공동수탁","물량"], ref: 'prchsTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["공선수탁·공동수탁","금액"], 		ref: 'prchsTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+	        {caption: ["공선수탁·공동수탁","금액"], ref: 'prchsTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["공선매취","물량"], 		ref: 'prchsEmspapVlm',   type:'input',  width:'90px',    style:'text-align:center'
+	        {caption: ["공선매취","물량"], 	ref: 'prchsEmspapVlm',   type:'input',  width:'90px',    style:'text-align:center'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["공선매취","금액"], 		ref: 'prchsEmspapAmt',   type:'input',  width:'100px',    style:'text-align:center'
+	        {caption: ["공선매취","금액"], 	ref: 'prchsEmspapAmt',   type:'input',  width:'100px',    style:'text-align:center'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 	    	{caption: ["기타","물량"], 		ref: 'etcVlm',   type:'input',  width:'90px',    style:'text-align:center'
 		    	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
@@ -521,6 +521,7 @@
 	    	//{caption: ["상세내역"], 	ref: 'ctgryCd',		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'apoSe',		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'brno',		hidden : true},
+	        {caption: ["상세내역"], 	ref: 'uoBrno',		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'crno',		hidden : true}
 	    ];
 
@@ -531,7 +532,7 @@
 
 	//해당 컬럼 변경시 리프래시 리스트
 	const columnsToRefresh01 = [
-		  'prchsTrstVlm', 'prchsTrstAmt', 'prchsEmspapVlm', 'prchsEmspapAmt'
+		  'prchsTrstVlm', 'prchsTrstAmt', 'prchsEmspapVlm', 'prchsEmspapAmt', 'etcVlm', 'etcAmt'
 		];
 
 	//그리드 열 속성의 calc 은 그리드 생성시 작동함  refresh() 해서 데이터 변경시로 유사하게 가능
@@ -543,17 +544,31 @@
 	    }
 	}
 
-	/*
-	function fn_AfterEdit01(){
-	    if(grdPrdcrOgnCurntMng01.getPrevCol() == grdPrdcrOgnCurntMng01.getColRef('prchsTrstVlm')
-	    		|| grdPrdcrOgnCurntMng01.getPrevCol() == grdPrdcrOgnCurntMng01.getColRef('prchsTrstAmt')
-	    		|| grdPrdcrOgnCurntMng01.getPrevCol() == grdPrdcrOgnCurntMng01.getColRef('prchsEmspapVlm')
-	    		|| grdPrdcrOgnCurntMng01.getPrevCol() == grdPrdcrOgnCurntMng01.getColRef('prchsEmspapAmt')
-	    	){
-	    	grdPrdcrOgnCurntMng01.refresh();
-	    }
+	//매입 합계 물량
+	function fn_prchsVlmSum(objGrid, nRow, nCol){
+		let rowData = objGrid.getRowData(Number(nRow));
+		let sumVal = 0;
+		sumVal = Number(rowData.prchsTrstVlm) + Number(rowData.prchsEmspapVlm) + Number(rowData.etcVlm);
+
+		return sumVal;
 	}
-	*/
+
+	//매입 합계 금액
+	function fn_prchsAmtSum(objGrid, nRow, nCol){
+		let rowData = objGrid.getRowData(Number(nRow));
+		console.log(rowData.prchsTotAmt);
+		let sumVal = 0;
+		//금액의 경우 기타인 경우만 합산 처리
+		if(rowData.sttgUpbrItemSe == '3'){
+
+			sumVal = Number(rowData.prchsTrstAmt) + Number(rowData.prchsEmspapAmt) + Number(rowData.etcAmt);
+
+			return sumVal;
+		}else{
+			sumVal = rowData.prchsTotAmt;
+		}
+		return sumVal;
+	}
 
 	var jsonPrdcrOgnCurntMng02 = []; // 그리드의 참조 데이터 주소 선언
 	var grdPrdcrOgnCurntMng02;
@@ -587,10 +602,12 @@
 				,typeinfo : {ref:'jsonGrdCtgryCd_2', label:'label', value:'value', displayui : true}},
 
 			{caption: ["출자출하조직 취급실적","총취급실적","총취급실적","물량"]
-				,ref: 'a',   	type:'input',  width:'90px',    style:'text-align:center'
+				,ref: 'allTotVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+				//,calc : 'fn_allTotAmtVlm'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","총취급실적","총취급실적","금액"]
-				,ref: 'a',   	type:'input',  width:'100px',    style:'text-align:center'
+				,ref: 'allTotAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+				//,calc : 'fn_allTotAmtSum'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","자체수출","물량"]
@@ -619,24 +636,26 @@
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","공제대상 소계","물량"]
 				,ref: 'ddcTotVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+				//, calc : 'fn_ddcTotVlm'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","공제대상 소계","금액"]
 				,ref: 'ddcTotAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+				//, calc : 'fn_ddcTotAmt'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
 
 			{caption: ["출자출하조직 취급실적","조정 취급실적","조정 취급실적","물량"]
-				,ref: 'slsCprtnSortTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+				,ref: 'ajmtVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["출자출하조직 취급실적","조정 취급실적","조정 취급실적","금액(A)"]
-				,ref: 'slsCprtnSortTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+			{caption: ["출자출하조직 취급실적","조정 취급실적","조정 취급실적","금액(A)"]//전문품목 매입매출 화면의 매출 총합
+				,ref: 'ajmtAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
 
 			{caption: ["출자출하조직의 통합조직 출하실적","총 출하실적","총 출하실적","물량"]
 				,ref: 'spmtPrfmncTotVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["출자출하조직의 통합조직 출하실적","총 출하실적","총 출하실적","금액"]
+			{caption: ["출자출하조직의 통합조직 출하실적","총 출하실적","총 출하실적","금액"]//전문품목 매입매출 화면의 매입 총합
 				,ref: 'spmtPrfmncTotAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","단순기표","단순기표","물량"]
@@ -647,9 +666,11 @@
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","출하실적","출하실적","물량"]
 				,ref: 'spmtPrfmncVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+				//,calc: 'fn_spmtPrfmncVlm'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","출하실적","출하실적","금액(B)"]
 				,ref: 'spmtPrfmncAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+				//,calc: 'fn_spmtPrfmncAmt'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
 			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공선수탁","물량"]
@@ -672,94 +693,21 @@
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","합계","물량"]
 				,ref: 'slsCprtnTotVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+				//,calc: 'fn_slsCprtnTotVlm'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","합계","금액"]
 				,ref: 'slsCprtnTotAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+				//,calc: 'fn_slsCprtnTotAmt'
 			,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
 			{caption: ["출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)"]
 				,ref: 'spmtRtVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+				//,calc: 'fn_spmtRtVlm'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)"]
 				,ref: 'spmtRtAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+				//,calc: 'fn_spmtRtAmt'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-
-
-			/*
-	    	{caption: ["공선수탁","공선수탁","물량"], 		ref: 'slsCprtnSortTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
-	    	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["공선수탁","공선수탁","금액"], 		ref: 'slsCprtnSortTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
-	    	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	    	{caption: ["공동수탁","공동수탁","물량"], 		ref: 'slsCprtnTrstVlm',   		type:'input',  width:'90px',    style:'text-align:center'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["공동수탁","공동수탁","금액"], 		ref: 'slsCprtnTrstAmt',   		type:'input',  width:'100px',    style:'text-align:center'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["공선매취","공선매취","물량"], 		ref: 'slsCprtnSortEmspapVlm',   type:'input',  width:'90px',    style:'text-align:center'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["공선매취","공선매취","금액"], 		ref: 'slsCprtnSortEmspapAmt',   type:'input',  width:'100px',    style:'text-align:center'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-
-	    	{caption: ["단순수탁","단순수탁","물량"], 		ref: 'slsSmplTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
-		    	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-		    {caption: ["단순수탁","단순수탁","금액"], 		ref: 'slsSmplTrstAmt',		type:'input',  width:'100px',    style:'text-align:center'
-		    	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-		    {caption: ["단순매취","단순매취","물량"], 		ref: 'slsSmplEmspapVlm',	type:'input',  width:'90px',    style:'text-align:center'
-		    	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-		    {caption: ["단순매취","단순매취","금액"], 		ref: 'slsSmplEmspapAmt',	type:'input',  width:'100px',    style:'text-align:center'
-		    	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-
-	        {caption: ["수탁","수탁","물량"], 		ref: 'slsTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["수탁","수탁","금액"], 		ref: 'slsTrstAmt',		type:'input',  width:'100px',    style:'text-align:center'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["매취","매취","물량"], 		ref: 'slsEmspapVlm',	type:'input',  width:'90px',    style:'text-align:center'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["매취","매취","금액"], 		ref: 'slsEmspapAmt',	type:'input',  width:'100px',    style:'text-align:center'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["합계","합계","물량"], 				ref: 'slsTotVlm',   		type:'output',  width:'90px',    style:'text-align:center', calc : 'fn_slsVlmSum'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["합계","합계","금액"], 				ref: 'slsTotAmt',   		type:'output',  width:'100px',    style:'text-align:center', calc : 'fn_slsAmtSum'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-
-	        {caption: ["공제대상물량","자체수출","물량"], 		ref: 'ddcExprtVlm',   	type:'input',  width:'90px',    style:'text-align:center'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["공제대상물량","자체수출","금액"], 		ref: 'ddcExprtAmt',		type:'input',  width:'100px',    style:'text-align:center'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["공제대상물량","자체공판장","물량"], 	ref: 'ddcVlm',   		type:'input',  width:'90px',    style:'text-align:center'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["공제대상물량","자체공판장","금액"], 	ref: 'ddcAmt',   		type:'input',  width:'100px',    style:'text-align:center'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["공제대상물량","군납","물량"], 		ref: 'ddcArmyDlvgdsVlm',type:'input',  width:'90px',    style:'text-align:center'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["공제대상물량","군납","금액"], 		ref: 'ddcArmyDlvgdsAmt',type:'input',  width:'100px',    style:'text-align:center'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["공제대상물량","학교급식","물량"], 		ref: 'ddcMlsrVlm',   	type:'input',  width:'90px',    style:'text-align:center'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["공제대상물량","학교급식","금액"], 		ref: 'ddcMlsrAmt',   	type:'input',  width:'100px',    style:'text-align:center'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["공제대상물량","공제대상 소계","물량"], 	ref: 'ddcTotVlm',   	type:'output',  width:'90px',    style:'text-align:center; background-color: #92b2c5', calc : 'fn_ddcVlmSum'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["공제대상물량","공제대상 소계","금액"], 	ref: 'ddcTotAmt',   	type:'output',  width:'100px',    style:'text-align:center; background-color: #92b2c5', calc : 'fn_ddcAmtSum'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-
-	        {caption: ["조정 취급액","조정 취급액 소계","물량"], 	ref: 'ajmtVlm',   	type:'input',  width:'90px',    style:'text-align:center'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["조정 취급액","조정 취급액 소계","금액"], 	ref: 'ajmtAmt',   	type:'input',  width:'100px',    style:'text-align:center'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-
-	        {caption: ["출자출하조직 통합조직 출하액","출하실적","물량"], 		ref: 'spmtPrfmncVlm',   	type:'input',  width:'90px',    style:'text-align:center'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["출자출하조직 통합조직 출하액","출하실적","금액"], 		ref: 'spmtPrfmncAmt',   	type:'input',  width:'100px',    style:'text-align:center'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["출자출하조직 통합조직 출하액","단순기표","물량"], 		ref: 'smplInptVlm',   	type:'input',  width:'90px',    style:'text-align:center'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["출자출하조직 통합조직 출하액","단순기표","금액"], 		ref: 'smplInptAmt',   	type:'input',  width:'100px',    style:'text-align:center'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["출자출하조직 통합조직 출하액","출하실적","물량"], 		ref: 'spmtTotVlm',   	type:'input',  width:'90px',    style:'text-align:center; background-color: #92b2c5', calc : 'fn_testVlmSum'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["출자출하조직 통합조직 출하액","출하실적","금액"], 		ref: 'spmtTotAmt',   	type:'input',  width:'100px',    style:'text-align:center; background-color: #92b2c5', calc : 'fn_testAmtSum'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	    	*/
 
 	        {caption: ["상세내역"], 	ref: 'prchsSlsSe',  hidden : true},
 	        {caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
@@ -769,6 +717,7 @@
 	    	//{caption: ["상세내역"], 	ref: 'ctgryCd',		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'apoSe',		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'brno',		hidden : true},
+	        {caption: ["상세내역"], 	ref: 'uoBrno',		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'crno',		hidden : true}
 	    ];
 
@@ -795,108 +744,19 @@
 	    	grdPrdcrOgnCurntMng02.refresh();
 	    }
 	}
+	/*
+	fn_allTotAmtVlm
+	fn_allTotAmtAmt
+	fn_ddcTotVlm
+	fn_ddcTotAmt
+	fn_slsCprtnTotVlm
+	fn_slsCprtnTotAmt
+	fn_spmtRtVlm
+	fn_spmtRtAmt
+	fn_spmtPrfmncVlm
+	fn_spmtPrfmncAmt
+	*/
 
-	//그리드 매입 물량 합계 함수
-	function fn_prchsVlmSum(objGrid, nRow, nCol) {
-		var strSum
-		var delYn = objGrid.getData(Number(nRow), objGrid.getColRef('delYn'));
-		if(delYn == 'N'){
-		    var value01 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('prchsTrstVlm')));
-		    var value02 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('prchsEmspapVlm')));
-		    strSum = (value01 + value02).toString();
-		}
-	    return strSum;
-	}
-	//그리드 매입 금액 합계 함수
-	function fn_prchsAmtSum(objGrid, nRow, nCol) {
-		var strSum
-		var delYn = objGrid.getData(Number(nRow), objGrid.getColRef('delYn'));
-		if(delYn == 'N'){
-		    var value01 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('prchsTrstAmt')));
-		    var value02 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('prchsEmspapAmt')));
-		    strSum = (value01 + value02).toString();
-		}
-	    return strSum;
-	}
-	//그리드 매출 물량 합계 함수
-	function fn_slsVlmSum(objGrid, nRow, nCol) {
-		var strSum
-		var delYn = objGrid.getData(Number(nRow), objGrid.getColRef('delYn'));
-		if(delYn == 'N'){
-		    var value01 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('slsEmspapVlm')));
-		    var value02 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('slsTrstVlm')));
-
-		    var value03 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('aa')));
-		    var value04 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('cc')));
-		    var value05 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('ee')));
-		    strSum = (value01 + value02 + value03 + value04 + value05).toString();
-		}
-	    return strSum;
-	}
-	//그리드 매출 금액 합계 함수
-	function fn_slsAmtSum(objGrid, nRow, nCol) {
-		var strSum
-		var delYn = objGrid.getData(Number(nRow), objGrid.getColRef('delYn'));
-		if(delYn == 'N'){
-		    var value01 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('slsEmspapAmt')));
-		    var value02 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('slsTrstAmt')));
-
-		    var value03 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('bb')));
-		    var value04 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('dd')));
-		    var value05 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('ff')));
-		    strSum = (value01 + value02 + value03 + value04 + value05).toString();
-		}
-	    return strSum;
-	}
-	//그리드 공제대상 물량 소계 함수
-	function fn_ddcVlmSum(objGrid, nRow, nCol) {
-		var strSum
-		var delYn = objGrid.getData(Number(nRow), objGrid.getColRef('delYn'));
-		if(delYn == 'N'){
-	    	var value01 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('ddcExprtVlm')));
-	    	var value02 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('ddcVlm')));
-	    	var value03 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('ddcArmyDlvgdsVlm')));
-	    	var value04 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('ddcMlsrVlm')));
-	    	strSum = (value01 + value02 + value03 + value04).toString();
-		}
-	    return strSum;
-	}
-	//그리드 공제대상 금액 소계 함수
-	function fn_ddcAmtSum(objGrid, nRow, nCol) {
-		var strSum
-		var delYn = objGrid.getData(Number(nRow), objGrid.getColRef('delYn'));
-		if(delYn == 'N'){
-			var value01 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('ddcExprtAmt')));
-	    	var value02 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('ddcAmt')));
-	    	var value03 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('ddcArmyDlvgdsAmt')));
-	    	var value04 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('ddcMlsrAmt')));
-	    	strSum = (value01 + value02 + value03 + value04).toString();
-		}
-	    return strSum;
-	}
-
-	//그리드 출자출하조직 통합조직 출하액 출하실적 물량 합계 함수
-	function fn_testVlmSum(objGrid, nRow, nCol) {
-		var strSum
-		var delYn = objGrid.getData(Number(nRow), objGrid.getColRef('delYn'));
-		if(delYn == 'N'){
-	    	var value01 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('aaa')));
-	    	var value02 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('ccc')));
-	    	strSum = (value01 + value02).toString();
-		}
-	    return strSum;
-	}
-	//그리드 출자출하조직 통합조직 출하액 출하실적 금액 합계 함수
-	function fn_testAmtSum(objGrid, nRow, nCol) {
-		var strSum
-		var delYn = objGrid.getData(Number(nRow), objGrid.getColRef('delYn'));
-		if(delYn == 'N'){
-			var value01 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('bbb')));
-	    	var value02 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('ddd')));
-	    	strSum = (value01 + value02).toString();
-		}
-	    return strSum;
-	}
 
 
 	/**
@@ -1318,9 +1178,12 @@
     						,delYn: item.delYn
     						,yr: item.yr
 
+    						,sttgUpbrItemSe: item.sttgUpbrItemSe
+    						,sttgUpbrItemNm: item.sttgUpbrItemNm
+
     						,ctgryCd: 		item.ctgryCd
     						,itemCd: 		item.itemCd
-    						,ctgryNm: 		item.ctgryNm
+    						//,ctgryNm: 		item.ctgryNm
     						,itemNm: 		item.itemNm
     						,prchsSlsSe: 	item.prchsSlsSe
 
@@ -1339,9 +1202,12 @@
     						,delYn: item.delYn
     						,yr: item.yr
 
+    						,sttgUpbrItemSe: item.sttgUpbrItemSe
+    						,sttgUpbrItemNm: item.sttgUpbrItemNm
+
     						,ctgryCd: 		item.ctgryCd
     						,itemCd: 		item.itemCd
-    						,ctgryNm: 		item.ctgryNm
+    						//,ctgryNm: 		item.ctgryNm
     						,itemNm: 		item.itemNm
     						,prchsSlsSe: 	item.prchsSlsSe
 

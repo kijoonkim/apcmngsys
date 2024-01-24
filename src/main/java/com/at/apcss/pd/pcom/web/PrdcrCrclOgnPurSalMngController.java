@@ -123,6 +123,30 @@ public class PrdcrCrclOgnPurSalMngController extends BaseController{
 			return getSuccessResponseEntity(resultMap);
 		}
 
+		//매출 저장
+		@PostMapping(value = "/pd/pcom/multiSavePrdcrCrclOgnPurSalMngList03.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> multiSavePrdcrCrclOgnPurSalMngList03(@RequestBody List<PrdcrCrclOgnPurSalMngVO> PrdcrCrclOgnPurSalMngVOList, HttpServletRequest request) throws Exception {
+
+			HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+			int savedCnt = 0;
+			try {
+				for (PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO : PrdcrCrclOgnPurSalMngVOList) {
+					PrdcrCrclOgnPurSalMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+					PrdcrCrclOgnPurSalMngVO.setSysFrstInptUserId(getUserId());
+					PrdcrCrclOgnPurSalMngVO.setSysLastChgPrgrmId(getPrgrmId());
+					PrdcrCrclOgnPurSalMngVO.setSysLastChgUserId(getUserId());
+				}
+
+				savedCnt = PrdcrCrclOgnPurSalMngService.multiSavePrdcrCrclOgnPurSalMngList03(PrdcrCrclOgnPurSalMngVOList);
+			}catch (Exception e) {
+				return getErrorResponseEntity(e);
+			}
+
+			resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
+			return getSuccessResponseEntity(resultMap);
+		}
+
 		@PostMapping(value = "/pd/pcom/deletePrdcrCrclOgnPurSalMng.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 		public ResponseEntity<HashMap<String, Object>> deletePrdcrCrclOgnPurSalMng(@RequestBody PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO, HttpServletRequest request) throws Exception {
 			logger.debug("/pd/pcom/deletePrdcrCrclOgnPurSalMng >>> 호출 >>> ");

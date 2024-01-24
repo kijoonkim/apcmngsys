@@ -50,6 +50,10 @@ public class PrdcrCrclOgnPurSalMngVO extends ComVO{
 	private String slsTrstAmt;
 	private String slsEmspapVlm;
 	private String slsEmspapAmt;
+
+	private String ddcVlm;
+	private String ddcAmt;
+
 	/*출하실적*/
 
 	private String pblcWhlslMrktVlm;//공영 도매시장 물량

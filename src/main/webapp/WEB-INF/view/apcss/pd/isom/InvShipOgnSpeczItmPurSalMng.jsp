@@ -819,6 +819,7 @@
 		if(nRow == null){
 			nRow = 1;
 		}
+		fn_clearForm();
 
 		let rowData = grdPrdcrOgnCurntMng.getRowData(nRow);
 		console.log(rowData);
@@ -828,8 +829,8 @@
 		SBUxMethod.set('dtl-input-crno',gfn_nvl(rowData.crno))//법인등록번호
 		SBUxMethod.set('dtl-input-brno',gfn_nvl(rowData.brno))//사업자등록번호
 		SBUxMethod.set('dtl-input-yr',gfn_nvl(rowData.yr))//등록년도
+
 		fn_searchUoList();
-		fn_clearForm();
     }
 	//그리드 초기화
 	async function fn_clearForm() {
@@ -901,6 +902,8 @@
 						,ctgryCd: '0'
 						,trmtType: item.trmtType
 						,trmtTypeNm: item.trmtTypeNm
+
+						,uoBrno : item.uoBrno
 				}
 
 				jsonPrdcrOgnCurntMng01.push(PrdcrOgnCurntMngVO);
@@ -1044,7 +1047,7 @@
 			rowData01.crno = crno;
 			rowData01.brno = brno;
 			rowData01.prdcrOgnzCd = uoBrno;
-
+			rowData01.uoBrno = uoBrno;
 
 			rowData01.rowSts = "I";
 			saveList.push(rowData01);
