@@ -276,7 +276,7 @@ public class ComMenuController extends BaseController {
 	@PostMapping(value = "/co/menu/multiSaveComUiList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> multiSaveComUiList(@RequestBody List<ComUiVO> comUiList, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		int insertdCnt = 0;
+
 		try {
 			for(ComUiVO comUiVO : comUiList) {
 				comUiVO.setSysFrstInptUserId(getUserId());
@@ -284,7 +284,10 @@ public class ComMenuController extends BaseController {
 				comUiVO.setSysLastChgUserId(getUserId());
 				comUiVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
-			insertdCnt = comMenuService.multiSaveComUiList(comUiList);
+			HashMap<String, Object> rtnObj = comMenuService.multiSaveComUiList(comUiList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
@@ -293,7 +296,6 @@ public class ComMenuController extends BaseController {
 				return getErrorResponseEntity(rtnObj);
 			}
 		}
-		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertdCnt);
 
 		return getSuccessResponseEntity(resultMap);
 	}

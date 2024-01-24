@@ -442,9 +442,11 @@
     //저장
     const fn_save = async function() {
 
+        let menuId = SBUxMethod.get('dtl-inp-menuId');
 		let menuNm = SBUxMethod.get("dtl-inp-menuNm");
 		let pageUrl = SBUxMethod.get("dtl-inp-pageUrl");
 		let delYn = SBUxMethod.get("dtl-slt-delYn");
+		let nRow = grdMenu.getRow();
 
         if (gfn_isEmpty(menuNm)) {
         	gfn_comAlert("W0002", "화면명");				// W0002   {0}을/를 입력하세요.
@@ -463,6 +465,18 @@
         let menuRowData = grdMenu.getRowData(grdMenu.getRow());
 
         menuUiList = [];
+        menuInfoList = [];
+
+        if(!(menuNm === menuRowData.menuNm && pageUrl === menuRowData.pageUrl && delYn === menuRowData.delYn)){
+            let menuVO = {
+            		menuId : menuId,
+            		menuNm : menuNm,
+            		pageUrl : pageUrl,
+            		delYn : delYn
+            };
+            
+            menuInfoList.push(menuVO);
+        }
 
         for ( let i=0; i<grdRows.length; i++ ){
 
@@ -485,6 +499,8 @@
 	            return;
 	        }
 
+	        rowData.menuInfoList = menuInfoList;
+	        
 			if (rowSts === 3){
 				rowData.rowSts = "I";
 				menuUiList.push(rowData);
@@ -496,75 +512,33 @@
 			}
 		}
 
-        if((!(menuNm === menuRowData.menuNm && pageUrl === menuRowData.pageUrl && delYn === menuRowData.delYn)) && menuUiList.length == 0){
+        if((menuNm === menuRowData.menuNm && pageUrl === menuRowData.pageUrl && delYn === menuRowData.delYn) && menuUiList.length == 0){
         	gfn_comAlert("W0003", "저장")				//W0003	{0}할 대상이 없습니다.
         	return;
+        } else if (!(menuNm === menuRowData.menuNm && pageUrl === menuRowData.pageUrl && delYn === menuRowData.delYn) && menuUiList.length == 0) {
+        	menuUiList = [{menuInfoList : menuInfoList}];
         }
-
-        let updatedCnt = 0;
-        let insertedCnt = 0;
+        
         if(gfn_comConfirm("Q0001", "저장")){
+            let postJsonPromise = gfn_postJSON("/co/menu/multiSaveComUiList.do", menuUiList);
+            let data = await postJsonPromise;
+            try{
+      			if (_.isEqual("S", data.resultStatus)) {
+      				await fn_setGridMenu();
+      				grdMenu.setRow(nRow);
+      				fn_view();
+      	        	gfn_comAlert("I0001");					// I0001 처리 되었습니다.
+            	} else {
+            		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            	}
 
-	        if((menuNm === menuRowData.menuNm && pageUrl === menuRowData.pageUrl && delYn === menuRowData.delYn)){
-	        	updatedCnt = await fn_updateMenu();
-	        }
-	        if(menuUiList.length > 0){
-	        	insertedCnt = await fn_saveMenuUi(menuUiList);
-	        }
-        }
-
-        if(updatedCnt + insertedCnt > 0){
-        	fn_setGridData();
-        	gfn_comAlert("I0001");					// I0001 처리 되었습니다.
-        }
-    }
-
-    const fn_updateMenu = async function(){
-        let menuId = SBUxMethod.get('dtl-inp-menuId');
-        let menuNm = SBUxMethod.get("dtl-inp-menuNm");
-		let pageUrl = SBUxMethod.get("dtl-inp-pageUrl");
-		let delYn = SBUxMethod.get("dtl-slt-delYn");
-
-        let menuVO = {
-        		menuId : menuId,
-        		menuNm : menuNm,
-        		pageUrl : pageUrl,
-        		delYn : delYn
-        }
-        let postJsonPromise = gfn_postJSON("/co/menu/updateMenu.do", menuVO);
-        let data = await postJsonPromise;
-        try{
-  			if (_.isEqual("S", data.resultStatus)) {
-  	        	return data.result;
-        	} else {
-        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        	}
-
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }
-    }
-
-    const fn_saveMenuUi = async function(comUiList){
-        let postJsonPromise = gfn_postJSON("/co/menu/multiSaveComUiList.do", comUiList);
-        let data = await postJsonPromise;
-        try{
-  			if (_.isEqual("S", data.resultStatus)) {
-  	        	return data.result;
-        	} else {
-        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        	}
-
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            } catch (e) {
+        		if (!(e instanceof Error)) {
+        			e = new Error(e);
+        		}
+        		console.error("failed", e.message);
+            	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
         }
     }
 
@@ -585,6 +559,7 @@
     			grdComUi.deleteRow(nRow);
     		}else {
     			delList.push(rowData);
+    			grdComUi.deleteRow(nRow);
     		}
     	}
 
@@ -607,7 +582,6 @@
 
     	try{
        		if(_.isEqual("S", data.resultStatus)){
-       			fn_setUiGridData();
        			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
        		}else{
        			gfn_comAlert("E0001");					// E0001 오류가 발생하였습니다.

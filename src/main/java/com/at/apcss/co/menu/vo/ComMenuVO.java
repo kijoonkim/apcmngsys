@@ -31,7 +31,7 @@ public class ComMenuVO extends ComVO {
 	private List<String> authrtTypeList;
 	public List<String> getAuthrtTypeList() {
 		return this.authrtTypeList == null ? null : authrtTypeList.stream().collect(Collectors.toList());
-	}	
+	}	 
 	public void setAuthrtTypeList(List<String> authrtTypeList) {
 		this.authrtTypeList = authrtTypeList == null ? null : authrtTypeList.stream().collect(Collectors.toList());
 	}
