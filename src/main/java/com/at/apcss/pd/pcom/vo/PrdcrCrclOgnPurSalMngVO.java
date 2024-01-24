@@ -18,13 +18,20 @@ public class PrdcrCrclOgnPurSalMngVO extends ComVO{
 	private String itemCd;
 	private String ctgryNm;
 	private String itemNm;
-	private String prchsSlsSe;
+	private String sttgUpbrItemSe;
+	private String sttgUpbrItemNm;
 
+	private String prchsSlsSe;
+	//매입
 	private String prchsTrstVlm;
 	private String prchsTrstAmt;
 	private String prchsEmspapVlm;
 	private String prchsEmspapAmt;
 
+	private String prchsTotVlm;
+	private String prchsTotAmt;
+
+	//매출
 	private String slsCprtnSortTrstVlm;
 	private String slsCprtnSortTrstAmt;
 	private String slsCprtnTrstVlm;
@@ -36,10 +43,41 @@ public class PrdcrCrclOgnPurSalMngVO extends ComVO{
 	private String slsSmplEmspapVlm;
 	private String slsSmplEmspapAmt;
 
+	private String slsTotVlm;
+	private String slsTotAmt;
+
 	private String slsTrstVlm;
 	private String slsTrstAmt;
 	private String slsEmspapVlm;
 	private String slsEmspapAmt;
+	/*출하실적*/
+
+	private String pblcWhlslMrktVlm;//공영 도매시장 물량
+	private String pblcWhlslMrktAmt;//공영 도매시장 금액
+
+	private String onlnWhlslMrktVlm;//온라인 도매시장 물량
+	private String onlnWhlslMrktAmt;//온라인 도매시장 금액
+
+	private String lgszRtlVlm;//대형 유통업체 물량
+	private String lgszRtlAmt;//대형 유통업체 금액
+
+	private String armyDlvgdsVlm;//군납 물량
+	private String armyDlvgdsAmt;//군납 금액
+
+	private String eatoutMtrlMlsrVlm;//외식 식자재 및 단체급식 물량
+	private String eatoutMtrlMlsrAmt;//외식 식자재 및 단체급식 금액
+
+	private String mnfcRtlVlm;//가공업체 물량
+	private String mnfcRtlAmt;//가공업체 금액
+
+	private String exprtVlm;//수출 물량
+	private String exprtAmt;//수출 금액
+
+	private String onlnDlngPrfmncVlm;//온라인 거래실적 (e커머스, TV홈쇼핑 등 포함) 물량
+	private String onlnDlngPrfmncAmt;//온라인 거래실적 (e커머스, TV홈쇼핑 등 포함) 금액
+
+	private String etcVlm;//기타 물량
+	private String etcAmt;//기타 금액
 
 	private String rmrk;
 
