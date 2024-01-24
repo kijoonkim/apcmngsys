@@ -126,7 +126,7 @@
 									uitype="text"
 									id="srch-input-userId"
 									name="srch-input-userId"
-									class="form-control input-sm"
+									class="form-control input-sm srch-keyup-area"
 									autocomplete="off"
 								></sbux-input>
 							</td>
@@ -138,7 +138,7 @@
 									uitype="text"
 									id="srch-input-userNm"
 									name="srch-input-userNm"
-									class="form-control input-sm"
+									class="form-control input-sm srch-keyup-area"
 									autocomplete="off"
 								></sbux-input>
 							</td>
@@ -152,7 +152,7 @@
 									uitype="text"
 									id="srch-input-brno"
 									name="srch-input-brno"
-									class="form-control input-sm"
+									class="form-control input-sm srch-keyup-area"
 									mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
 									autocomplete="off"
 								></sbux-input>
@@ -165,7 +165,7 @@
 									uitype="text"
 									id="srch-input-coNm"
 									name="srch-input-coNm"
-									class="form-control input-sm"
+									class="form-control input-sm srch-keyup-area"
 									autocomplete="off"
 								></sbux-input>
 							</td>
