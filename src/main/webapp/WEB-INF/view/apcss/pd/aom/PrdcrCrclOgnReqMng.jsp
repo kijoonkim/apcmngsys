@@ -1090,6 +1090,9 @@
 		await fn_search();
 	</c:if>
 	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+		var now = new Date();
+		var year = now.getFullYear();
+		SBUxMethod.set("dtl-input-yr",year);//
 		await fn_gpcListGrid();
 		await fn_initSBSelect();
 		await fn_dtlSearch();
@@ -1358,6 +1361,7 @@
 				SBUxMethod.set('dtl-input-corpNm',gfn_nvl(item.corpNm))//
 				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))//
 				SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno))//
+				SBUxMethod.set('dtl-input-yr',gfn_nvl(item.yr))//
 
 				SBUxMethod.set('dtl-input-mngmstYn',gfn_nvl(item.mngmstYn))//
 				SBUxMethod.set('dtl-input-picFlnm',gfn_nvl(item.picFlnm))//
@@ -1573,7 +1577,13 @@
 			rawMtrEnsrCtpvCnt = rawMtrEnsrCnt;
 			ctpvNm = rawMtrEnsrNm;
 		}
+		let yr = SBUxMethod.get('dtl-input-yr')//
 
+		if(gfn_isEmpty(yr)){
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
 
    	 	const postJsonPromise = gfn_postJSON("/pd/aom/insertPrdcrCrclOgnReqMng.do", {
 
@@ -1582,6 +1592,7 @@
 			,brno: SBUxMethod.get('dtl-input-brno')//
 			,crno: SBUxMethod.get('dtl-input-crno')//
 			,corpNm: SBUxMethod.get('dtl-input-corpNm')//
+			,yr : yr
    	 		//생산유통통합조직 승인형,육성형
    	 		,aprv: SBUxMethod.get('rdo-aprv')//
    	 		//원물확보 시군 및 시도 개소 수

@@ -1055,6 +1055,7 @@
 				SBUxMethod.set('dtl-input-corpNm01',gfn_nvl(item.corpNm))//법인명
 				//SBUxMethod.set('dtl-input-crno01',gfn_nvl(item.crno))//법인등록번호
 				SBUxMethod.set('dtl-input-brno01',gfn_nvl(item.brno))//사업자등록번호
+				SBUxMethod.set('dtl-input-yr',gfn_nvl(item.yr))//사업자등록번호
 				wrtYn = item.wrtYn;
 				corpDdlnSeCd = item.corpDdlnSeCd;
 			});
@@ -1394,12 +1395,21 @@
 		console.log("******************fn_subInsert**********************************");
 		if (!isConfirmed) return;
 
+		let yr = SBUxMethod.get('dtl-input-yr')//
+
+		if(gfn_isEmpty(yr)){
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
+
    	 	const postJsonPromise = gfn_postJSON("/pd/aom/insertPrdcrCrclOgnReqMng.do", {
    	 		apoCd: SBUxMethod.get('dtl-input-apoCd')//
    	 		,apoSe: SBUxMethod.get('dtl-input-apoSe')//
 			,brno: SBUxMethod.get('dtl-input-brno')//
 			,crno: SBUxMethod.get('dtl-input-crno')//
 			,corpNm: SBUxMethod.get('dtl-input-corpNm')//
+			,yr : yr
    	 		,isoFundAplyAmt: SBUxMethod.get('dtl-input-isoFundAplyAmt')//
 			//,aplyTrgtSe: SBUxMethod.get('dtl-input-aplyTrgtSe')//
 		});
