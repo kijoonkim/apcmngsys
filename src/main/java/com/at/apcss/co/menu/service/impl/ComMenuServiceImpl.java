@@ -2,6 +2,7 @@ package com.at.apcss.co.menu.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -133,19 +134,21 @@ public class ComMenuServiceImpl extends BaseServiceImpl implements ComMenuServic
 			menuInfoList.get(0).setSysLastChgPrgrmId(comUiList.get(0).getSysLastChgPrgrmId());
 			menuInfoList.get(0).setSysLastChgUserId(comUiList.get(0).getSysLastChgUserId());
 			
-			if(0 == updateMenu(menuInfoList.get(0))) {
+			if (0 == updateMenu(menuInfoList.get(0))) {
 				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
 			}
 		}
 		
-		for (ComUiVO comUiVO : comUiList) {
-			if("I".equals(comUiVO.getRowSts())){
-				if(0 == insertComUi(comUiVO)) {
-					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
-				}
-			}else if("U".equals(comUiVO.getRowSts())) {
-				if(0 == updateComUi(comUiVO)) {
-					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+		if (!Objects.isNull(comUiList.get(0).getEntyId())) {
+			for (ComUiVO comUiVO : comUiList) {
+				if ("I".equals(comUiVO.getRowSts())){
+					if (0 == insertComUi(comUiVO)) {
+						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+					}
+				} else if ("U".equals(comUiVO.getRowSts())) {
+					if (0 == updateComUi(comUiVO)) {
+						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+					}
 				}
 			}
 		}

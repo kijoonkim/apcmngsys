@@ -516,15 +516,15 @@
         	gfn_comAlert("W0003", "저장")				//W0003	{0}할 대상이 없습니다.
         	return;
         } else if (!(menuNm === menuRowData.menuNm && pageUrl === menuRowData.pageUrl && delYn === menuRowData.delYn) && menuUiList.length == 0) {
-        	menuUiList = [{menuUiList : menuUiList}];
+        	menuUiList = [{menuInfoList : menuInfoList}];
         }
-
+        
         if(gfn_comConfirm("Q0001", "저장")){
             let postJsonPromise = gfn_postJSON("/co/menu/multiSaveComUiList.do", menuUiList);
             let data = await postJsonPromise;
             try{
       			if (_.isEqual("S", data.resultStatus)) {
-      				fn_search();
+      				await fn_setGridMenu();
       				grdMenu.setRow(nRow);
       				fn_view();
       	        	gfn_comAlert("I0001");					// I0001 처리 되었습니다.
