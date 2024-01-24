@@ -53,5 +53,13 @@ public class CmnsSpcfctVO extends CmnsItemVO {
 	 * 순번
 	 */
 	private String sn;
+	/**
+	 * 등록 수
+	 */
+	private int cnt;
+	/**
+	 * 삭제 불가능 사유
+	 */
+	private String delible;
 
 }

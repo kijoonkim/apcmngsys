@@ -26,7 +26,7 @@ public interface CmnsSpcfctMapper {
 	/**
 	 * 규격 마스터 정보 단건 조회
 	 * @param cmnsSpcfctVO
-	 * @return
+	 * @return CmnsSpcfctVO
 	 * @throws Exception
 	 */
 	public CmnsSpcfctVO selectCmnsSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception;
@@ -34,7 +34,7 @@ public interface CmnsSpcfctMapper {
 	/**
 	 * 규격 마스터 정보 목록 조회
 	 * @param cmnsSpcfctVO
-	 * @return
+	 * @return List<CmnsSpcfctVO>
 	 * @throws Exception
 	 */
 	public List<CmnsSpcfctVO> selectCmnsSpcfctList(CmnsSpcfctVO cmnsSpcfctVO) throws Exception;
@@ -42,7 +42,7 @@ public interface CmnsSpcfctMapper {
 	/**
 	 * 규격 마스터 정보 등록
 	 * @param cmnsSpcfctVO
-	 * @return
+	 * @return Integer
 	 * @throws Exception
 	 */
 	public int insertCmnsSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception;
@@ -50,7 +50,7 @@ public interface CmnsSpcfctMapper {
 	/**
 	 * 규격 마스터 정보 변경
 	 * @param cmnsSpcfctVO
-	 * @return
+	 * @return Integer
 	 * @throws Exception
 	 */
 	public int updateCmnsSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception;
@@ -58,7 +58,7 @@ public interface CmnsSpcfctMapper {
 	/**
 	 * 규격 마스터 정보 삭제
 	 * @param cmnsSpcfctVO
-	 * @return
+	 * @return Integer
 	 * @throws Exception
 	 */
 	public int deleteCmnsSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception;
@@ -69,7 +69,7 @@ public interface CmnsSpcfctMapper {
 	/**
 	 * APC 규격 정보 단건 조회
 	 * @param cmnsSpcfctVO
-	 * @return
+	 * @return CmnsSpcfctVO
 	 * @throws Exception
 	 */
 	public CmnsSpcfctVO selectApcSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception;
@@ -77,7 +77,7 @@ public interface CmnsSpcfctMapper {
 	/**
 	 * APC 규격 정보 목록 조회
 	 * @param cmnsSpcfctVO
-	 * @return
+	 * @return List<CmnsSpcfctVO>
 	 * @throws Exception
 	 */
 	public List<CmnsSpcfctVO> selectApcSpcfctList(CmnsSpcfctVO cmnsSpcfctVO) throws Exception;
@@ -85,7 +85,7 @@ public interface CmnsSpcfctMapper {
 	/**
 	 * APC 규격 정보 등록
 	 * @param cmnsSpcfctVO
-	 * @return
+	 * @return Integer
 	 * @throws Exception
 	 */
 	public int insertApcSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception;
@@ -93,7 +93,7 @@ public interface CmnsSpcfctMapper {
 	/**
 	 * APC 규격 정보 변경
 	 * @param cmnsSpcfctVO
-	 * @return
+	 * @return Integer
 	 * @throws Exception
 	 */
 	public int updateApcSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception;
@@ -101,15 +101,23 @@ public interface CmnsSpcfctMapper {
 	/**
 	 * APC 규격 정보 삭제
 	 * @param cmnsSpcfctVO
-	 * @return
+	 * @return Integer
 	 * @throws Exception
 	 */
 	public int deleteApcSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception;
 	/**
 	 * APC 규격 정보 삭제
 	 * @param cmnsSpcfctVO
-	 * @return
+	 * @return Integer
 	 * @throws Exception
 	 */
 	public int deleteApcSpcfctAll(CmnsSpcfctVO cmnsSpcfctVO) throws Exception;
+
+	/**
+	 * APC 규격 삭제 가능 여부
+	 * @param cmnsSpcfctVO
+	 * @return List<CmnsSpcfctVO>
+	 * @throws Exception
+	 */
+	public List<CmnsSpcfctVO> spcfctDelible(CmnsSpcfctVO cmnsSpcfctVO) throws Exception;
 }

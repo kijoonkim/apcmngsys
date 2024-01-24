@@ -243,7 +243,7 @@ public class CmnsSpcfctController extends BaseController {
 		try {
 			HashMap<String, Object> rtnObj = cmnsSpcfctService.deleteApcSpcfct(cmnsSpcfctVO);
 			if(rtnObj != null) {
-				getErrorResponseEntity(rtnObj);
+				return getErrorResponseEntity(rtnObj);
 			}
 		} catch (Exception e) {
 			logger.debug(e.getMessage());

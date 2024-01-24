@@ -81,7 +81,7 @@ public class SpmtPckgUnitServiceImpl extends BaseServiceImpl implements SpmtPckg
 	@Override
 	public HashMap<String, Object> deleteSpmtPckgUnit(SpmtPckgUnitVO spmtPckgUnitVO) throws Exception {
 
-		String errMsg = cmnsValidationService.selectChkCdDelible(spmtPckgUnitVO.getApcCd(), "PCKG_UNIT_CD", spmtPckgUnitVO.getSpmtPckgUnitCd());
+		String errMsg = spmtPckgUnitDelible(spmtPckgUnitVO);
 		if(errMsg == null) {
 			SpmtSlsUntprcRegVO spmtSlsUntprcReg = new SpmtSlsUntprcRegVO();
 
@@ -93,7 +93,7 @@ public class SpmtPckgUnitServiceImpl extends BaseServiceImpl implements SpmtPckg
 				HashMap<String, Object> resultSlsMap = spmtSlsUntprcRegService.deleteSpmtSlsUntprcReg(spmtSlsUntprcRegVO);
 
 				if(resultSlsMap != null) {
-					return resultSlsMap;
+					throw new EgovBizException(getMessageForMap(resultSlsMap));
 				}
 			}
 
@@ -160,6 +160,27 @@ public class SpmtPckgUnitServiceImpl extends BaseServiceImpl implements SpmtPckg
 					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
 				}
 			}
+		}
+
+		return null;
+	}
+
+	@Override
+	public String spmtPckgUnitDelible(SpmtPckgUnitVO SpmtPckgUnitVO) throws Exception {
+		List<SpmtPckgUnitVO> resultList = spmtPckgUnitMapper.spmtPckgUnitDelible(SpmtPckgUnitVO);
+
+		if(resultList.size() > 0) {
+			String delible = "해당 상품명은 ";
+			for (int i = 0; i < resultList.size(); i++) {
+				if(i == 0) {
+					delible += resultList.get(i).getDelible();
+				}else {
+					delible += ", "+resultList.get(i).getDelible();
+				}
+			}
+			delible += "이/가 존재 합니다.";
+
+			return delible;
 		}
 
 		return null;
