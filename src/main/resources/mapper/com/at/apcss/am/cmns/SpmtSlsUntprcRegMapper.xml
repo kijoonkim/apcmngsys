@@ -51,6 +51,8 @@
 			     , TB_SPMT_PCKG_UNIT        SPU
 			 WHERE SUR.SPMT_PCKG_UNIT_CD = SPU.SPMT_PCKG_UNIT_CD
 			   AND SUR.APC_CD = SPU.APC_CD
+			   AND SUR.DEL_YN = 'N'
+			   AND SPU.DEL_YN = 'N'
 			   AND SUR.APC_CD = #{apcCd}
 			   AND SPU.ITEM_CD	= #{itemCd}
 			   AND SPU.VRTY_CD	= #{vrtyCd}
