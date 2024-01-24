@@ -250,7 +250,7 @@
 				SBUxMethod.set("srch-inp-prdcrNm", rowData.prdcrNm);
 				SBUxMethod.set("srch-inp-prdcrIdentno", rowData.prdcrIdentno);
 				SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
-				SBUxMethod.closeModal(popPrdcr.modalId);
+				gfn_closeModal(popPrdcr.modalId, popPrdcr.callbackFnc, rowData);
 			}
 		},
 		edit: async function() {
