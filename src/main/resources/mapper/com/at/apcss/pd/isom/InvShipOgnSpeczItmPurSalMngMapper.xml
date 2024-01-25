@@ -261,6 +261,7 @@ FROM
 			) AS SPMT_PRC_TOT
 		FROM TB_EV_FRMHS_APO FA
 		WHERE FA.BRNO = #{brno}
+		  AND ITEM_CD IN  (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = #{yr} AND BRNO = #{uoBrno})
 		  AND FA.UO_BRNO = #{uoBrno}
 		  AND YR = #{yr}
 		  --AND FA.STBLT_YN = 'Y'  --적합여부 추후 추가

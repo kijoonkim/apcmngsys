@@ -488,7 +488,7 @@
 	            {caption : ['판매(매출)금액\n(천원)','판매(매출)금액<br>(천원)'], calc : 'fn_calcSlsCnsgnSlsAmt',
 	            	ref : "slsCnsgnSlsAmt",   width : '100px',        style : 'text-align:right',      type : 'input',   format : { type:'number' , rule:'#,###' }, merge:false},
 	            {caption : ['비고','비고'],
-	            	ref : "rmrk",   width : '150px',        style : 'text-align:right',      type : 'input'},
+	            	ref : "rmrk",   width : '150px',        style : 'text-align:right',      type : 'input', merge:false},
 
 	            {caption: ["상세내역"], 	ref: 'apoCd',   		hidden : true},
 		        {caption: ["상세내역"], 	ref: 'apoSe',   		hidden : true},
