@@ -379,7 +379,7 @@
 	const fn_search = async function(){
 
 		let rst = await Promise.all([
-			fn_setGrdAgrixAprdcr(),
+			//fn_setGrdAgrixAprdcr(),
 			fn_setGrdApcPrdcr(),
 		])
 	}
