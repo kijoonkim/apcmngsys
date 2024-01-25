@@ -1224,6 +1224,8 @@
 
 		let corpDdlnSeCd = SBUxMethod.get("srch-input-corpDdlnSeCd");//
 
+		let aprv = SBUxMethod.get("srch-input-aprv");//
+
 		//sbgrid 체크박스 값 사용
 		let yrChk = SBUxMethod.get("srch-input-yrChk");//
 		let keys = Object.getOwnPropertyNames(yrChk);
@@ -1249,6 +1251,7 @@
     		,yrChk : yrChkVal
 
     		,corpDdlnSeCd : corpDdlnSeCd
+    		,aprv : aprv
 
     		//페이징
     		,pagingYn : 'Y'
@@ -2054,7 +2057,7 @@
 	const fn_selectGpcList = async function(){
 		console.log("===========fn_selectGpcList===========");
 		let apoCd = SBUxMethod.get('dtl-input-apoCd')//
-
+		let yr = SBUxMethod.get('dtl-input-yr')//
 		//없는경우 품목그리드 초기화
 		//apoCd 가 없는 경우가 없어야 한데 현재는 있어서 추가 함
 		if(gfn_isEmpty(apoCd)){
@@ -2068,6 +2071,7 @@
     		,brno : SBUxMethod.get('dtl-input-brno')//
     		,crno : SBUxMethod.get('dtl-input-crno')//
     		,corpNm : SBUxMethod.get('dtl-input-corpNm')//
+    		,yr : yr
 		});
         let data = await postJsonPromise;
         try{

@@ -972,6 +972,8 @@
 
 		let brno = SBUxMethod.get("srch-input-brno");//
 		let corpNm = SBUxMethod.get("srch-input-corpNm");//
+		
+		let aprv = SBUxMethod.get("srch-input-aprv");//
 
 		//sbgrid 체크박스 값 사용
 		let yrChk = SBUxMethod.get("srch-input-yrChk");//
@@ -995,6 +997,7 @@
     		,brno : brno
     		,corpNm : corpNm
     		,apoSe : '1'
+    		,aprv : aprv
 
     		//페이징
     		,pagingYn : 'Y'

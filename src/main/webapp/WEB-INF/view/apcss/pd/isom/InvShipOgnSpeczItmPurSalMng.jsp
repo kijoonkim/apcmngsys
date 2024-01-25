@@ -701,8 +701,11 @@
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
 		</c:if>
+
     	let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
     		brno : brno
+    		,apoSe : '2'
+
     		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
     		,cmptnInst : cmptnInst
     		,ctpv : ctpv
@@ -713,11 +716,10 @@
     		,corpNm : corpNm
     		,yr : yr
     		</c:if>
+
     		<c:if test="${loginVO.userType eq '21'}">
 			,userType : '21'
     		</c:if>
-
-    		,apoSe : '2'
 
     		//페이징
     		,pagingYn : 'Y'
