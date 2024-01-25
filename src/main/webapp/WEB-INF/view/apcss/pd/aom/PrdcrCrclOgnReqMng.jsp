@@ -1376,7 +1376,10 @@
 				SBUxMethod.set('dtl-input-corpNm',gfn_nvl(item.corpNm))//
 				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))//
 				SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno))//
-				SBUxMethod.set('dtl-input-yr',gfn_nvl(item.yr))//
+
+				//신청 데이터가 없는 경우 년도가 빠지는 문제가 발생함
+				//SBUxMethod.set('dtl-input-yr',gfn_nvl(item.yr))//
+				SBUxMethod.set('dtl-input-yr',year)//
 
 				SBUxMethod.set('dtl-input-mngmstYn',gfn_nvl(item.mngmstYn))//
 				SBUxMethod.set('dtl-input-picFlnm',gfn_nvl(item.picFlnm))//
@@ -1725,13 +1728,20 @@
 			}
 		}
 
+		let yr = SBUxMethod.get('dtl-input-yr')//;
+		if(gfn_isEmpty(yr)){
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
+
 		var saveList = {
 				apoCd: SBUxMethod.get('dtl-input-apoCd')//
 				,apoSe: SBUxMethod.get('dtl-input-apoSe')//
 				,brno: SBUxMethod.get('dtl-input-brno')//
 				,crno: SBUxMethod.get('dtl-input-crno')//
 				,corpNm: SBUxMethod.get('dtl-input-corpNm')//
-				,yr: SBUxMethod.get('dtl-input-yr')//
+				,yr: yr
 	   	 		//생산유통통합조직 승인형,육성형
 	   	 		,aprv: SBUxMethod.get('rdo-aprv')//
 	   	 		,isoHldYn: SBUxMethod.get('dtl-input-isoHldYn')//

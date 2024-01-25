@@ -905,7 +905,10 @@
 	    		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdInvShipOgnReqMng01\", " + nRow + ")'>삭제</button>";
 	        }},
 	    	{caption: ["업체명"], 			ref: 'corpNm',   	type:'output',  width:'220px',    style:'text-align:center'},
-	    	{caption: ["대표자명"], 			ref: 'rprsvFlnm',   	type:'output',  width:'120px',    style:'text-align:center'},
+	    	{caption: ["대표자명"], 			ref: 'rprsvFlnm',   	type:'output',  width:'80px',    style:'text-align:center'},
+	    	{caption: ["신청여부"], 			ref: 'aplyChk',   	type:'output',  width:'60px',    style:'text-align:center'},
+	    	{caption: ["계정권한"], 			ref: 'userType',   	type:'output',  width:'130px',    style:'text-align:center'},
+	    	{caption: ["신청일"], 				ref: 'aplyDay',   	type:'output',  width:'85px',    style:'text-align:center'},
 	        {caption: ["사업자번호"], 			ref: 'brno',   	type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["법인체마감여부"], 		ref: 'corpDdlnSeCd',   	type:'output',  width:'90px',    style:'text-align:center'},
 	        {caption: ["전화번호"], 			ref: 'rprsvTelno',   	type:'output',  width:'120px',    style:'text-align:center'},
@@ -972,7 +975,7 @@
 
 		let brno = SBUxMethod.get("srch-input-brno");//
 		let corpNm = SBUxMethod.get("srch-input-corpNm");//
-		
+
 		let aprv = SBUxMethod.get("srch-input-aprv");//
 
 		//sbgrid 체크박스 값 사용
@@ -1189,6 +1192,10 @@
 						,yr: item.yr
 
 						,frmerInvstAmtRt: item.frmerInvstAmtRt
+
+						,aplyChk: item.aplyChk
+						,aplyDay: item.aplyDay
+						,userType: item.userType
 
 				}
 				jsonInvShipOgnReqMng01.push(InvShipOgnReqMngVO);
@@ -1592,6 +1599,10 @@
 						,frmerInvstAmtRt: item.frmerInvstAmtRt
 
 						,corpDdlnSeCd: item.corpDdlnSeCd
+
+						,aplyChk: item.aplyChk
+						,aplyDay: item.aplyDay
+						,userType: item.userType
 				}
 				jsonInvShipOgnReqMng01.push(InvShipOgnReqMngVO);
 			});
