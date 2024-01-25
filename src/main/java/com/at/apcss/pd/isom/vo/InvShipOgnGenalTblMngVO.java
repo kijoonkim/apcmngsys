@@ -28,6 +28,15 @@ public class InvShipOgnGenalTblMngVO extends ComVO{
 	private String sttgUpbrItemSe;
 	private String aprv;
 
+	private String uoSpmtAmt;
+	private String uoSpmtAmtOther;
+	private String uoOtherSpmtAmt;
+	private String uoOtherSpmtAmtOther;
+
+	private String uoSpmtAmtRt;
+	private String uoSpmtAmtTotRt;
+	private String uoSpmtAmtTot;
+
 	private String stbltYn;
 
 	private String sysFrstInptUserIdNm;

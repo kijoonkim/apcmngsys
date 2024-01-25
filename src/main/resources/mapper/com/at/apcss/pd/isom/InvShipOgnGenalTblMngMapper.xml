@@ -38,9 +38,76 @@
 	<!-- ==========================================================================	-->
     <select id="selectInvShipOgnGenalTblMngList" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnGenalTblMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnGenalTblMngVO">
 		SELECT /* com.at.apcss.pd.isom.mapper.InvShipOgnGenalTblMngMapper.selectInvShipOgnGenalTblMngList */
-			'a' as BRNO
-		FROM DUAL
+			ITEM.ITEM_CD
+			, ITEM.ITEM_NM
+			, ITEM.STTG_UPBR_ITEM_SE
+			, ITEM.STTG_UPBR_ITEM_NM
+			, ITEM.CTGRY_CD
+			, ITEM.CTGRY_NM
+
+			, TOTA.UO_SPMT_AMT 			AS UO_SPMT_AMT
+			, TOTA.UO_OTHER_SPMT_AMT 	AS UO_SPMT_AMT_OTHER
+
+			, TOTB.UO_SPMT_AMT 			AS UO_OTHER_SPMT_AMT
+			, TOTB.UO_OTHER_SPMT_AMT 	AS UO_OTHER_SPMT_AMT_OTHER
+
+			, (TOTA.UO_SPMT_AMT + TOTA.UO_OTHER_SPMT_AMT + TOTB.UO_SPMT_AMT + TOTB.UO_OTHER_SPMT_AMT) AS UO_SPMT_AMT
+
+			, (NVL( TOTA.UO_SPMT_AMT / NULLIF( TOTA.UO_SPMT_AMT + TOTB.UO_SPMT_AMT , 0 ) , 0 ) * 100 ) AS UO_SPMT_AMT_RT
+			, (NVL( (TOTA.UO_SPMT_AMT + TOTA.UO_OTHER_SPMT_AMT) / NULLIF( TOTA.UO_SPMT_AMT + TOTA.UO_OTHER_SPMT_AMT + TOTB.UO_SPMT_AMT + TOTB.UO_OTHER_SPMT_AMT, 0 ) , 0 ) * 100 ) AS UO_SPMT_AMT_TOT_RT
+		FROM
+			(SELECT
+					ITEM_CD
+					, YR
+					, STTG_UPBR_ITEM_SE
+					, CTGRY_CD
+					,(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = AYGC.ITEM_CD) AS ITEM_NM
+					,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = AYGC.CTGRY_CD) AS CTGRY_NM
+					,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = AYGC.STTG_UPBR_ITEM_SE) AS STTG_UPBR_ITEM_NM
+				FROM TB_EV_APO_YR_GPC_CD AYGC
+				WHERE BRNO = #{brno}
+		  		  AND YR = #{yr}
+			) ITEM ,
+			(SELECT
+					BRNO
+					, ITEM_CD
+					, SUM( NVL( UO_SPMT_AMT , 0 ) ) AS UO_SPMT_AMT
+					, SUM( NVL( UO_OTHER_SPMT_AMT , 0 ) ) AS UO_OTHER_SPMT_AMT
+			  	FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+			  	WHERE 1=1
+			  	  AND APO_SE = '2'
+			  	  AND TYPE_SE_NO IN ('5','7')
+
+			  	  <if test='brno != null and brno != ""'>
+			  	  AND BRNO = #{brno}
+			  	  </if>
+			  	  <if test='yr != null and yr != ""'>
+			  	  AND YR = #{yr}
+			  	  </if>
+
+					  GROUP BY  BRNO , ITEM_CD
+			) TOTA ,
+			(SELECT
+					BRNO
+					, ITEM_CD
+					, SUM( NVL( UO_SPMT_AMT , 0 ) ) AS UO_SPMT_AMT
+					, SUM( NVL( UO_OTHER_SPMT_AMT , 0 ) ) AS UO_OTHER_SPMT_AMT
+			  	FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+			  	WHERE 1=1
+			  	  AND APO_SE = '2'
+			  	  AND TYPE_SE_NO IN ('5')
+
+			  	  <if test='brno != null and brno != ""'>
+			  	  AND BRNO = #{brno}
+			  	  </if>
+			  	  <if test='yr != null and yr != ""'>
+			  	  AND YR = #{yr}
+			  	  </if>
+				GROUP BY  BRNO , ITEM_CD
+			) TOTB
 		WHERE 1=1
+		  AND ITEM.ITEM_CD = TOTA.ITEM_CD(+)
+		  AND ITEM.ITEM_CD = TOTB.ITEM_CD(+)
     </select>
 
 

@@ -1224,6 +1224,17 @@
 
 		let corpDdlnSeCd = SBUxMethod.get("srch-input-corpDdlnSeCd");//
 
+		//sbgrid 체크박스 값 사용
+		let yrChk = SBUxMethod.get("srch-input-yrChk");//
+		let keys = Object.getOwnPropertyNames(yrChk);
+		let yrChkVal = null;
+		for(let i=0; i<keys.length; i++){
+			if(yrChk[keys[i]]){
+				yrChkVal = yrChk[keys[i]];
+			}
+		}
+
+
     	let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
     		cmptnInst : cmptnInst
     		,ctpv : ctpv
@@ -1235,6 +1246,7 @@
     		,brno : brno
     		,corpNm : corpNm
     		,yr : yr
+    		,yrChk : yrChkVal
 
     		,corpDdlnSeCd : corpDdlnSeCd
 

@@ -78,6 +78,16 @@
 									uitype="normal"
                 					step-value="1"
                 				></sbux-spinner>
+                				<sbux-checkbox
+                					id="srch-input-yrChk"
+                					name="srch-input-yrChk"
+                					uitype="normal"
+									text="해당년도 신청사용자만 보기"
+									text-left-padding="5px"
+									text-right-padding="25px"
+									true-value="Y"
+									false-value="N"
+									></sbux-checkbox>
 							</td>
 							<td style="border-right: hidden;"></td>
 							<th scope="row" class="th_bg" >관할기관</th>
@@ -963,10 +973,21 @@
 		let brno = SBUxMethod.get("srch-input-brno");//
 		let corpNm = SBUxMethod.get("srch-input-corpNm");//
 
+		//sbgrid 체크박스 값 사용
+		let yrChk = SBUxMethod.get("srch-input-yrChk");//
+		let keys = Object.getOwnPropertyNames(yrChk);
+		let yrChkVal = null;
+		for(let i=0; i<keys.length; i++){
+			if(yrChk[keys[i]]){
+				yrChkVal = yrChk[keys[i]];
+			}
+		}
+
     	let postJsonPromise01 = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
     		cmptnInst : cmptnInst
     		,ctpv : ctpv
     		,yr : yr
+    		,yrChk : yrChkVal
 
     		,corpSeCd : corpSeCd
     		,corpDtlSeCd : corpDtlSeCd
