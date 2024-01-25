@@ -531,7 +531,7 @@
 				AND CM.CORP_NM LIKE '%' || #{corpNm} || '%'
 			</if>
 			<if test='yr != null and yr != ""'>
-				AND EAM.YR = #{yr}
+				AND CM.YR = #{yr}
 			</if>
 		ORDER BY CM.SYS_LAST_CHG_DT DESC
     </select>

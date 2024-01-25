@@ -20,14 +20,13 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
-				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
-					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="출자출하조직 조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
-					<!--
+				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '21'}">
+					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
-					 -->
 				</c:if>
-				<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+				<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00' && loginVO.userType ne '21'}">
 					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
+					<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
 				</c:if>
 				</div>
 			</div>
@@ -179,10 +178,13 @@
 								></sbux-input>
 							</td>
 							<td colspan="2" class="td_input">
+
 						</tr>
+
 					</tbody>
 				</table>
-
+			</c:if>
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '21'}">
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
 				<!-- 조직 리스트 -->
@@ -198,14 +200,14 @@
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrOgnCurntMng" style="height:350px; width: 100%;"></div>
 				</div>
+				<!--[pp] 검색결과 -->
 
 				<br>
+
 				<div class="box-header" style="display:flex; justify-content: flex-start;" >
 					<div style="margin-left: auto;">
 						<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
-						<!--
 						<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
-						 -->
 					</div>
 				</div>
 			</c:if><!-- 관리자 권한인 경우 그리드 표기 -->
@@ -216,8 +218,8 @@
 							<th scope="row" class="th_bg th_border_right">법인명</th>
 							<sbux-input uitype="hidden" id="dtl-input-apoCd" name="dtl-input-apoCd"></sbux-input>
 							<sbux-input uitype="hidden" id="dtl-input-apoSe" name="dtl-input-apoSe"></sbux-input>
-							<sbux-input uitype="hidden" id="dtl-input-uoBrno" name="dtl-input-uoBrno"></sbux-input>
 							<sbux-input uitype="hidden" id="dtl-input-yr" name="dtl-input-yr"></sbux-input>
+							<sbux-input uitype="hidden" id="dtl-input-uoBrno" name="dtl-input-uoBrno"></sbux-input>
 							<td colspan="2" class="td_input">
 								<sbux-input
 									uitype="text"
@@ -254,6 +256,7 @@
 									id="srch-input-crno"
 									name="srch-input-crno"
 									class="form-control input-sm"
+									mask = "{ 'alias': '999999-9999999' , 'autoUnmask': true}"
 									autocomplete="off"
 									readonly
 								></sbux-input>
@@ -277,6 +280,7 @@
 					</tbody>
 				</table>
 				<!--[pp] 검색결과 상세보기-->
+				<!-- 생산자조직 리스트 그리드 -->
 				<div class="ad_section_top">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
@@ -286,9 +290,8 @@
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:300px; width: 100%;"></div>
+					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:200px; width: 100%;"></div>
 				</div>
-
 			</div>
 		</div>
 	</section>
@@ -313,54 +316,62 @@
 		}
 	})
 
+	/* 초기화면 로딩 기능*/
+	const fn_init = async function() {
+		var now = new Date();
+		var year = now.getFullYear();
+		SBUxMethod.set("srch-input-yr",year);//
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '21'}">
+		fn_fcltMngCreateGrid();
+	</c:if>
+		fn_fcltMngCreateGrid01();
+		//fn_fcltMngCreateGrid02();
+
+		await fn_initSBSelect();
+
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '21'}">
+		await fn_search();
+	</c:if>
+	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00' && loginVO.userType ne '21'}">
+		SBUxMethod.set("dtl-input-yr",year);//
+		await fn_dtlSearch();
+	</c:if>
+	}
+
 	var jsonComCmptnInst = [];//관할기관
 	var jsonComCtpv = [];//시도
 	var jsonComSgg = [];//시군
 	var jsonComCorpSeCd = [];//법인구분
 	var jsonComCorpDtlSeCd = [];//법인형태
+	var jsonComUoCd = [];//통합조직코드
 	var jsonComAprv = [];//신청구분
+	var jsonComAplyTrgtSe = [];//신청대상구분
 
-	var jsonGrdComCtpv = [];//시도
-	var jsonGrdComSgg = [];//시군
+	var jsonGrdCtpv = [];//시도
+	var jsonGrdSgg = [];//시군
+	var jsonGrdCorpSeCd = [];//법인구분
 	/**
-	 * 조회 조건 select combo 설정
+	 * combo 설정
 	 */
 	const fn_initSBSelect = async function() {
+		console.log("============fn_initSBSelect============");
 		// 검색 SB select
 		let rst = await Promise.all([
-
+			//검색조건
 			gfn_setComCdSBSelect('srch-input-cmptnInst', 	jsonComCmptnInst, 	'CMPTNC_INST'), //관할기관
 			gfn_setComCdSBSelect('srch-input-ctpv', 		jsonComCtpv, 	'CMPTN_INST_CTPV'), //시도
-			gfn_setComCdSBSelect('srch-input-sgg', 			jsonComSgg, 	'CMPTN_INST_SIGUN'),//시군
 			gfn_setComCdSBSelect('srch-input-corpSeCd', 	jsonComCorpSeCd, 	'CORP_SE_CD'), //법인구분
 			gfn_setComCdSBSelect('srch-input-corpDtlSeCd', 	jsonComCorpDtlSeCd, 	'CORP_SHAP'), //법인형태
 			gfn_setComCdSBSelect('srch-input-aprv', 		jsonComAprv, 	'APRV_UPBR_SE_CD'), //신청구분
+			gfn_setComCdSBSelect('srch-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE'), //신청대상구분
 
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdComCtpv, 	'CMPTN_INST_CTPV'), //시도
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdComSgg, 	'CMPTN_INST_SIGUN'),//시군
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdCtpv, 		'CMPTN_INST_CTPV'), //시도
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdSgg, 		'CMPTN_INST_SIGUN'),//시군
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdCorpSeCd, 	'CORP_SE_CD'),//법인구분
+
 		]);
-
-		SBUxMethod.set("dtl-rdo-gdsSeCd", '1');
 	}
 
-
-	/* 초기화면 로딩 기능*/
-	const fn_init = async function() {
-		var now = new Date();
-		var year = now.getFullYear();
-		await fn_initSBSelect();
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
-		SBUxMethod.set("srch-input-yr",year);//
-		fn_fcltMngCreateGrid();
-		fn_fcltMngCreateGrid01();
-		await fn_search();
-	</c:if>
-	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
-		SBUxMethod.set("dtl-input-yr",year);//
-		fn_fcltMngCreateGrid01();
-		await fn_dtlSearch();
-	</c:if>
-	}
 
 	var jsonPrdcrOgnCurntMng = []; // 그리드의 참조 데이터 주소 선언
 	var grdPrdcrOgnCurntMng
@@ -386,26 +397,24 @@
 	    SBGridProperties.columns = [
 	    	{caption: ["seq"], 			ref: 'apoCd',   	hidden : true},
 	    	{caption: ["등록년도"], 		ref: 'yr',   	type:'output',  width:'100px',    style:'text-align:center'},
+	    	{caption: ["법인구분"], 		ref: 'corpSeCd',type:'output',  width:'100px',    style:'text-align:center', disabled:true
+	    		,typeinfo : {ref:'jsonGrdCorpSeCd', label:'label', value:'value', displayui : false}},
 	    	{caption: ["시도"], 			ref: 'ctpv',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
-	    		,typeinfo : {ref:'jsonGrdComCtpv', label:'label', value:'value', displayui : false}},
+	    		,typeinfo : {ref:'jsonGrdCtpv', label:'label', value:'value', displayui : false}},
 	        {caption: ["시군구"], 		ref: 'sgg',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
-		    	,typeinfo : {ref:'jsonGrdComSgg', label:'label', value:'value', displayui : false}},
+		    	,typeinfo : {ref:'jsonGrdSgg', label:'label', value:'value', displayui : false}},
 	        {caption: ["법인명"], 		ref: 'corpNm',  type:'output',  width:'250px',    style:'text-align:center'},
 	        {caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'250px',    style:'text-align:center'},
+	        {caption: ["적합여부"], 		ref: 'stbltYn',   	type:'output',  width:'50px',    style:'text-align:center'},
+	        {caption: ["진행단계"], 		ref: 'aa',   	type:'output',  width:'153px',    style:'text-align:center'},
 	        {caption: ["비고"], 			ref: 'rmrk',   	type:'output',  width:'200px',    style:'text-align:center'}
 	    ];
 
 	    grdPrdcrOgnCurntMng = _SBGrid.create(SBGridProperties);
-	    /*
-	    let rst = await Promise.all([
-	    	fn_initSBSelectFclt(),
-		    fn_searchFcltList()
-		])
-		*/
-		//grdPrdcrOgnCurntMng.refresh({"combo":true});
+
 	  	//클릭 이벤트 바인드
-	    //grdPrdcrOgnCurntMng.bind('click','gridClick');
-	    grdPrdcrOgnCurntMng.bind('click','fn_view');
+	   	grdPrdcrOgnCurntMng.bind('click','fn_view');
+	   	grdPrdcrOgnCurntMng.bind('beforepagechanged', 'fn_pagingBbsList');
 
 	}
 
@@ -427,15 +436,19 @@
 	    SBGridProperties.columns = [
 	    	{caption: ["출자출하조직명","출자출하조직명"], 					ref: 'corpNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
 			{caption: ["품목","품목"], 								ref: 'itemNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
-			{caption: ["통합조직 판매위임액","생산자조직\n출하(A)(천원)"], 	ref: 'uoSpmtAmt',   	type:'output',  width:'100px',    style:'text-align:center;'},
-			{caption: ["통합조직 판매위임액","생산자조직 외\n출하(B)(천원)"], 	ref: 'uoSpmtAmtOther',   	type:'output',  width:'100px',    style:'text-align:center;'},
-			{caption: ["자체판매액","생산자조직\n출하(C)(천원)"], 			ref: 'uoOtherSpmtAmt',   	type:'output',  width:'100px',    style:'text-align:center;'},
-			{caption: ["자체판매액","생산자조직 외\n출하(D)(천원)"], 		ref: 'uoOtherSpmtAmtOther',   	type:'output',  width:'100px',    style:'text-align:center;'},
-			{caption: ["출자출하조직\n총 판매액\n(E=A+B+C+D)\n(천원)","출자출하조직\n총 판매액\n(E=A+B+C+D)\n(천원)"]
+			{caption: ["통합조직 판매위임액","생산자조직\n출하(A)(천원)"], 	ref: 'uoSpmtAmt',   	type:'output',  width:'100px',    style:'text-align:center;'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			{caption: ["통합조직 판매위임액","생산자조직 외\n출하(B)(천원)"], 	ref: 'uoSpmtAmtOther',   	type:'output',  width:'100px',    style:'text-align:center;'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			{caption: ["자체판매액","생산자조직\n출하(C)(천원)"], 			ref: 'uoOtherSpmtAmt',   	type:'output',  width:'100px',    style:'text-align:center;'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			{caption: ["자체판매액","생산자조직 외\n출하(D)(천원)"], 		ref: 'uoOtherSpmtAmtOther',   	type:'output',  width:'100px',    style:'text-align:center;'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			{caption: ["출자출하조직\n총 판매액\n(E=A+B+C+D)\n(천원)","출자출하조직\n총 판매액\n(E=A+B+C+D)\n(천원)"],typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}
 				, ref: 'uoSpmtAmtTot',   	type:'output',  width:'100px',    style:'text-align:center;'},
-			{caption: ["출자출하조직의\n통합조직 판매위임비율","생산자조직출하\n[A/(A+C)]"]
+			{caption: ["출자출하조직의\n통합조직 판매위임비율","생산자조직출하\n[A/(A+C)]"] ,format: {type: 'string', rule: '@" %"'}
 				, ref: 'uoSpmtAmtRt',   	type:'output',  width:'100px',    style:'text-align:center;'},
-			{caption: ["출자출하조직의\n통합조직 판매위임비율","전체출하\n[(A+B)/E]"]
+			{caption: ["출자출하조직의\n통합조직 판매위임비율","전체출하\n[(A+B)/E]"] ,format: {type: 'string', rule: '@" %"'}
 				, ref: 'uoSpmtAmtTotRt',   	type:'output',  width:'100px',    style:'text-align:center;'},
 			{caption: ["적합여부","적합여부"], 						ref: 'stbltYn',   	type:'output',  width:'100px',    style:'text-align:center;'},
 			{caption: ["탈락사유","탈락사유"], 						ref: 'stbltYnNm',   type:'output',  width:'100px',    style:'text-align:center;'},
@@ -485,6 +498,7 @@
 
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
+		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		let yr = SBUxMethod.get("srch-input-yr");//
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
 		let ctpv = SBUxMethod.get("srch-input-ctpv");//
@@ -494,19 +508,30 @@
 
 		let brno = SBUxMethod.get("srch-input-brno");//
 		let corpNm = SBUxMethod.get("srch-input-corpNm");//
+		</c:if>
+		<c:if test="${loginVO.userType eq '21'}">
+		let brno = '${loginVO.brno}';
+		if(gfn_isEmpty(brno)) return;
+		</c:if>
 
-    	let postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnGenalTblMngIsoList.do", {
-    		cmptnInst : cmptnInst
+    	let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
+    		brno : brno
+    		,apoSe : '2'
+
+    		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+    		,cmptnInst : cmptnInst
     		,ctpv : ctpv
 
     		,corpSeCd : corpSeCd
     		,corpDtlSeCd : corpDtlSeCd
 
-    		,brno : brno
     		,corpNm : corpNm
-    		//,yr : yr
+    		,yr : yr
+    		</c:if>
 
-    		,apoSe : '2'
+    		<c:if test="${loginVO.userType eq '21'}">
+			,userType : '21'
+    		</c:if>
 
     		//페이징
     		,pagingYn : 'Y'
@@ -528,6 +553,7 @@
 						,crno: item.crno
 						,brno: item.brno
 						,yr: item.yr
+						,stbltYn: item.stbltYn
 				}
 				jsonPrdcrOgnCurntMng.push(PrdcrOgnCurntMngVO);
 				if (index === 0) {
@@ -598,23 +624,26 @@
 		let itemCd = SBUxMethod.get('dtl-input-itemCd');
 		let ctgryCd = SBUxMethod.get('dtl-input-ctgryCd');
 		let uoBrno = SBUxMethod.get('dtl-input-uoBrno');
+		let brno = SBUxMethod.get('dtl-input-brno');
+		let yr = SBUxMethod.get('dtl-input-yr');
 
 		if(gfn_isEmpty(uoBrno)){
 			alert("통합조직을 선택해 주세요");
 			return;
 		}
 
-		let postJsonPromise01 = gfn_postJSON("/pd/isom/selectInvShipOgnPurSalMngList.do", {
+		let postJsonPromise01 = gfn_postJSON("/pd/isom/selectInvShipOgnGenalTblMngList.do", {
 			apoCd : apoCd
     		,apoSe : apoSe
     		,itemCd : itemCd
     		,ctgryCd : ctgryCd
     		,uoBrno : uoBrno
+    		,brno : brno
+    		,yr : yr
 		});
         let data = await postJsonPromise01;
         try{
         	jsonPrdcrOgnCurntMng01.length = 0;
-        	jsonPrdcrOgnCurntMng02.length = 0;
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
         		let PrdcrOgnCurntMngVO01 = {
@@ -622,28 +651,35 @@
    						,apoSe: item.apoSe
    						,brno: 	item.brno
    						,crno: 	item.crno
+   						,corpNm: item.corpNm
    						,delYn: item.delYn
    						,yr: item.yr
 
    						,sttgUpbrItemSe: item.sttgUpbrItemSe
    						,sttgUpbrItemNm: item.sttgUpbrItemNm
 
-   						,ctgryCd: 		item.ctgryCd
    						,itemCd: 		item.itemCd
-   						//,ctgryNm: 		item.ctgryNm
    						,itemNm: 		item.itemNm
-   						,prchsSlsSe: 	item.prchsSlsSe
 
-   						,prchsTrstVlm: 		item.prchsTrstVlm
-   						,prchsTrstAmt: 		item.prchsTrstAmt
-   						,prchsEmspapVlm: 	item.prchsEmspapVlm
-   						,prchsEmspapAmt: 	item.prchsEmspapAmt
+   						,ctgryCd: 		item.ctgryCd
+   						,ctgryNm: 		item.ctgryNm
+
+   						,uoSpmtAmt: 			item.uoSpmtAmt
+   						,uoSpmtAmtOther: 		item.uoSpmtAmtOther
+   						,uoOtherSpmtAmt: 		item.uoOtherSpmtAmt
+   						,uoOtherSpmtAmtOther: 	item.uoOtherSpmtAmtOther
+
+   						,uoSpmtAmtRt: 			item.uoSpmtAmtRt
+   						,uoSpmtAmtTotRt: 		item.uoSpmtAmtTotRt
+   						,uoSpmtAmtTot: 			item.uoSpmtAmtTot
    				};
        			jsonPrdcrOgnCurntMng01.push(PrdcrOgnCurntMngVO01);
 			});
 
         	grdPrdcrOgnCurntMng01.rebuild();
 
+        	let rowData = grdPrdcrOgnCurntMng01.getRowData(2);
+			console.log(rowData);
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -678,6 +714,7 @@
 		SBUxMethod.set('dtl-input-corpNm',gfn_nvl(rowData.corpNm))//법인명
 		SBUxMethod.set('dtl-input-crno',gfn_nvl(rowData.crno))//법인등록번호
 		SBUxMethod.set('dtl-input-brno',gfn_nvl(rowData.brno))//사업자등록번호
+		SBUxMethod.set('dtl-input-yr',gfn_nvl(rowData.yr))//등록년도
 
 		fn_searchUoList();
     }
@@ -689,6 +726,7 @@
 		SBUxMethod.set('dtl-input-corpNm',null)//법인명
 		SBUxMethod.set('dtl-input-crno',null)//법인등록번호
 		SBUxMethod.set('dtl-input-brno',null)//사업자등록번호
+		SBUxMethod.set('dtl-input-yr',null)//등록년도
 		SBUxMethod.set('dtl-input-uoBrno',null)//선택한 통합조직
 		SBUxMethod.set('dtl-input-selUoBrno',null)//상위 통합조직 리스트
 

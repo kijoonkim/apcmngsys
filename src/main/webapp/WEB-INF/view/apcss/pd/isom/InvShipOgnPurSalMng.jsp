@@ -21,14 +21,17 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
-				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
-					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="출자출하조직 조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
+				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '21'}">
+					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<!--
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
 					 -->
 				</c:if>
-				<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+				<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00' && loginVO.userType ne '21'}">
 					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
+					<!--
+					<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
+					 -->
 				</c:if>
 				</div>
 			</div>
@@ -185,7 +188,8 @@
 
 					</tbody>
 				</table>
-
+			</c:if>
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '21'}">
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
 				<!-- 조직 리스트 -->
@@ -201,8 +205,10 @@
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrOgnCurntMng" style="height:350px; width: 100%;"></div>
 				</div>
+				<!--[pp] 검색결과 -->
 
 				<br>
+
 				<div class="box-header" style="display:flex; justify-content: flex-start;" >
 					<div style="margin-left: auto;">
 						<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
@@ -219,6 +225,7 @@
 							<th scope="row" class="th_bg th_border_right">법인명</th>
 							<sbux-input uitype="hidden" id="dtl-input-apoCd" name="dtl-input-apoCd"></sbux-input>
 							<sbux-input uitype="hidden" id="dtl-input-apoSe" name="dtl-input-apoSe"></sbux-input>
+							<sbux-input uitype="hidden" id="dtl-input-yr" name="dtl-input-yr"></sbux-input>
 							<sbux-input uitype="hidden" id="dtl-input-uoBrno" name="dtl-input-uoBrno"></sbux-input>
 							<td colspan="2" class="td_input">
 								<sbux-input
@@ -256,6 +263,7 @@
 									id="srch-input-crno"
 									name="srch-input-crno"
 									class="form-control input-sm"
+									mask = "{ 'alias': '999999-9999999' , 'autoUnmask': true}"
 									autocomplete="off"
 									readonly
 								></sbux-input>
@@ -364,15 +372,26 @@
 		SBUxMethod.set("srch-input-yr",year);//
 
 		fn_init();
-		fn_initSBSelect();
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
-		fn_search();
-	</c:if>
-	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
-		fn_dtlSearch();
-	</c:if>
 
 	});
+
+	/* 초기화면 로딩 기능*/
+	const fn_init = async function() {
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '21'}">
+		fn_fcltMngCreateGrid();
+	</c:if>
+		fn_fcltMngCreateGrid01();
+		fn_fcltMngCreateGrid02();
+
+		await fn_initSBSelect();
+
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '21'}">
+		await fn_search();
+	</c:if>
+	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00' && loginVO.userType ne '21'}">
+		await fn_dtlSearch();
+	</c:if>
+	}
 
 	var jsonComCmptnInst = [];//관할기관
 	var jsonComCtpv = [];//시도
@@ -382,11 +401,17 @@
 	var jsonComUoCd = [];//통합조직코드
 	var jsonComAprv = [];//신청구분
 	var jsonComAplyTrgtSe = [];//신청대상구분
+
+	var jsonGrdCtpv = [];//시도
+	var jsonGrdSgg = [];//시군
+	var jsonGrdCorpSeCd = [];//법인구분
+
 	var jsonCtgryCd = [];//분류코드
 	var jsonGrdCtgryCd_1 = [];//분류코드
 	var jsonGrdCtgryCd_2 = [];//분류코드
 	var jsonGrdSttgUpbrItemSe_1 = [];//취급코드
 	var jsonGrdSttgUpbrItemSe_2 = [];//취급코드
+
 	/**
 	 * combo 설정
 	 */
@@ -397,35 +422,24 @@
 			//검색조건
 			gfn_setComCdSBSelect('srch-input-cmptnInst', 	jsonComCmptnInst, 	'CMPTNC_INST'), //관할기관
 			gfn_setComCdSBSelect('srch-input-ctpv', 		jsonComCtpv, 	'CMPTN_INST_CTPV'), //시도
-			//gfn_setComCdSBSelect('srch-input-sgg', 			jsonComSgg, 	'CMPTN_INST_SIGUN'),//시군
 			gfn_setComCdSBSelect('srch-input-corpSeCd', 	jsonComCorpSeCd, 	'CORP_SE_CD'), //법인구분
 			gfn_setComCdSBSelect('srch-input-corpDtlSeCd', 	jsonComCorpDtlSeCd, 	'CORP_SHAP'), //법인형태
-			//gfn_setComCdSBSelect('srch-input-uoCd', 		jsonComUoCd, 	'UO_CD'), //통합조직코드
 			gfn_setComCdSBSelect('srch-input-aprv', 		jsonComAprv, 	'APRV_UPBR_SE_CD'), //신청구분
 			gfn_setComCdSBSelect('srch-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE'), //신청대상구분
-			//gfn_setComCdSBSelect('dtl-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE'), //신청대상구분
+
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdCtpv, 		'CMPTN_INST_CTPV'), //시도
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdSgg, 		'CMPTN_INST_SIGUN'),//시군
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdCorpSeCd, 	'CORP_SE_CD'),//법인구분
 
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonGrdCtgryCd_1, 	'CTGRY_CD'), //분류코드
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng02', 	jsonGrdCtgryCd_2, 	'CTGRY_CD'), //분류코드
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonGrdSttgUpbrItemSe_1, 	'STTG_UPBR_ITEM_SE_1'), //취급코드
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng02', 	jsonGrdSttgUpbrItemSe_2, 	'STTG_UPBR_ITEM_SE_1'), //취급코드
-
 		]);
-		console.log("============fn_initSBSelect=====1=======");
 	}
-
 
 	var jsonPrdcrOgnCurntMng = []; // 그리드의 참조 데이터 주소 선언
 	var grdPrdcrOgnCurntMng
-
-	/* 초기화면 로딩 기능*/
-	const fn_init = async function() {
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
-		fn_fcltMngCreateGrid();
-	</c:if>
-		fn_fcltMngCreateGrid01();
-		fn_fcltMngCreateGrid02();
-	}
 
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid = async function() {
@@ -448,13 +462,15 @@
 	    SBGridProperties.columns = [
 	    	{caption: ["seq"], 			ref: 'apoCd',   	hidden : true},
 	    	{caption: ["등록년도"], 		ref: 'yr',   	type:'output',  width:'100px',    style:'text-align:center'},
-	    	{caption: ["법인구분"], 		ref: 'corpSeCd',type:'output',  width:'100px',    style:'text-align:center'},
+	    	{caption: ["법인구분"], 		ref: 'corpSeCd',type:'output',  width:'100px',    style:'text-align:center', disabled:true
+	    		,typeinfo : {ref:'jsonGrdCorpSeCd', label:'label', value:'value', displayui : false}},
 	    	{caption: ["시도"], 			ref: 'ctpv',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
-	    		,typeinfo : {ref:'jsonComCtpv', label:'label', value:'value', displayui : false}},
+	    		,typeinfo : {ref:'jsonGrdCtpv', label:'label', value:'value', displayui : false}},
 	        {caption: ["시군구"], 		ref: 'sgg',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
-		    	,typeinfo : {ref:'jsonComSgg', label:'label', value:'value', displayui : false}},
+		    	,typeinfo : {ref:'jsonGrdSgg', label:'label', value:'value', displayui : false}},
 	        {caption: ["법인명"], 		ref: 'corpNm',  type:'output',  width:'250px',    style:'text-align:center'},
 	        {caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'250px',    style:'text-align:center'},
+	        {caption: ["적합여부"], 		ref: 'stbltYn',   	type:'output',  width:'50px',    style:'text-align:center'},
 	        {caption: ["진행단계"], 		ref: 'aa',   	type:'output',  width:'153px',    style:'text-align:center'},
 	        {caption: ["비고"], 			ref: 'rmrk',   	type:'output',  width:'200px',    style:'text-align:center'}
 	    ];
@@ -491,8 +507,7 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ")'>삭제</button>";
 	        	}
 	        }},
-	        {caption: ["품목","품목"], 		ref: 'sttgUpbrItemSeNm',   	type:'output',  width:'80px',    style:'text-align:center'
-	    		,typeinfo : {ref:'jsonGrdSttgUpbrItemSe_1', label:'label', value:'value', displayui : true}},
+	        {caption: ["품목","품목"], 		ref: 'sttgUpbrItemSeNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 	    	{caption: ["품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 	    	//{caption: ["품목분류","품목분류"], 	ref: 'ctgryNm',   	type:'combo',  width:'80px',    style:'text-align:center'},
 	    	{caption: ["품목분류","품목분류"], 	ref: 'ctgryCd',   	type:'combo',  width:'80px',    style:'text-align:center'
@@ -594,8 +609,7 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ")'>삭제</button>";
 	        	}
 	        }},
-	        {caption: ["품목","품목","품목","품목"], 		ref: 'sttgUpbrItemSeNm',   	type:'output',  width:'80px',    style:'text-align:center'
-				,typeinfo : {ref:'jsonGrdSttgUpbrItemSe_2', label:'label', value:'value', displayui : true}},
+	        {caption: ["품목","품목","품목","품목"], 		ref: 'sttgUpbrItemSeNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 	    	{caption: ["품목","품목","품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 	    	//{caption: ["품목분류","품목분류","품목분류"], 	ref: 'ctgryNm',   	type:'combo',  width:'80px',    style:'text-align:center'},
 	    	{caption: ["품목분류","품목분류","품목분류","품목분류"], 	ref: 'ctgryCd',   	type:'combo',  width:'80px',    style:'text-align:center'
@@ -779,6 +793,7 @@
 
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
+		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		let yr = SBUxMethod.get("srch-input-yr");//
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
 		let ctpv = SBUxMethod.get("srch-input-ctpv");//
@@ -788,19 +803,31 @@
 
 		let brno = SBUxMethod.get("srch-input-brno");//
 		let corpNm = SBUxMethod.get("srch-input-corpNm");//
+		</c:if>
+		<c:if test="${loginVO.userType eq '21'}">
+		let brno = '${loginVO.brno}';
+		if(gfn_isEmpty(brno)) return;
+		</c:if>
 
     	let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
-    		cmptnInst : cmptnInst
+    		brno : brno
+    		,apoSe : '2'
+
+    		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+    		,cmptnInst : cmptnInst
     		,ctpv : ctpv
 
     		,corpSeCd : corpSeCd
     		,corpDtlSeCd : corpDtlSeCd
 
-    		,brno : brno
     		,corpNm : corpNm
-    		//,yr : yr
+    		,yr : yr
+    		</c:if>
 
-    		,apoSe : '2'
+    		<c:if test="${loginVO.userType eq '21'}">
+			,userType : '21'
+    		</c:if>
+
 
     		//페이징
     		,pagingYn : 'Y'
@@ -822,6 +849,7 @@
 						,crno: item.crno
 						,brno: item.brno
 						,yr: item.yr
+						,stbltYn: item.stbltYn
 				}
 				jsonPrdcrOgnCurntMng.push(PrdcrOgnCurntMngVO);
 				if (index === 0) {
@@ -1150,6 +1178,7 @@
 		let itemCd = SBUxMethod.get('dtl-input-itemCd');
 		let ctgryCd = SBUxMethod.get('dtl-input-ctgryCd');
 		let uoBrno = SBUxMethod.get('dtl-input-uoBrno');
+		let brno = SBUxMethod.get('dtl-input-brno');
 
 		if(gfn_isEmpty(uoBrno)){
 			alert("통합조직을 선택해 주세요");
@@ -1162,6 +1191,7 @@
     		,itemCd : itemCd
     		,ctgryCd : ctgryCd
     		,uoBrno : uoBrno
+    		,brno : brno
 		});
         let data = await postJsonPromise01;
         try{
