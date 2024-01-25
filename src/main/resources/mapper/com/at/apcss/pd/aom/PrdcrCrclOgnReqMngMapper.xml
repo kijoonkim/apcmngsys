@@ -242,7 +242,7 @@
 				AND CM.CMPTN_INST = #{cmptnInst}
 			</if>
 			<if test='ctpv != null and ctpv != ""'>
-				AND CM.II_CODE = #{ctpv}
+				AND CM.CTPV = #{ctpv}
 			</if>
 			<if test='corpSeCd != null and corpSeCd != ""'>
 				AND CM.CORP_SE_CD = #{corpSeCd}
@@ -252,6 +252,9 @@
 			</if>
 			<if test='corpNm != null and corpNm != ""'>
 				AND CM.CORP_NM LIKE '%' || #{corpNm} || '%'
+			</if>
+			<if test='aprv != null and aprv != ""'>
+				AND CM.APRV = #{aprv}
 			</if>
 			<if test='corpDdlnSeCd != null and corpDdlnSeCd != ""'>
 				AND EAM.CORP_DDLN_SE_CD = #{corpDdlnSeCd}
