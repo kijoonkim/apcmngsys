@@ -628,6 +628,11 @@
     		console.error("failed", e.message);
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
+        let rtnGdsQnttColIndex = grdSpmtPrfmnc.getColRef('rtnGdsQntt');
+    	let rtnGdsWghtColIndex = grdSpmtPrfmnc.getColRef('rtnGdsWght');
+        grdSpmtPrfmnc.setColHidden(rtnGdsQnttColIndex,false,true);
+	    grdSpmtPrfmnc.setColHidden(rtnGdsWghtColIndex,false,true);
+
 	}
 	// 출하실적 목록 조회 호출
 	const fn_callSelectSpmtPrfmncTotalList = async function (recordCountPerPage, currentPageNo){
