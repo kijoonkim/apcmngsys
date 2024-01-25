@@ -87,6 +87,7 @@
 
 	var grdVhclPop = null;
 	var jsonVhclPop = [];
+	var editMode = false;
 
 	const excelDwnldVhclPop = function () {
 		grdVhclPop.exportLocalExcel("차량 목록", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
@@ -142,7 +143,10 @@
 			this.prvApcCd = _apcCd;
 		},
 		close: function(_vhcl) {
-			this.createGrid();
+			//this.createGrid();
+			if(editMode){
+				this.cancel();
+			}
 			gfn_closeModal(this.modalId, this.callbackFnc, _vhcl);
 		},
 		createGrid: function(/** {boolean} */ isEditable) {
@@ -198,11 +202,11 @@
 				return;
 			} else {
 				let rowData = grdVhclPop.getRowData(nRow);
-				popVhcl.close(rowData);
+				gfn_closeModal(popVhcl.modalId, popVhcl.callbackFnc, rowData);
 			}
 		},
 		edit: async function() {
-
+			editMode = true;
 			SBUxMethod.hide('btnEditVhcl');
 			SBUxMethod.show('btnCancelVhcl');
 			SBUxMethod.attr('btnSaveVhcl', 'disabled', false);
@@ -220,7 +224,7 @@
 
 		},
 		cancel: function() {
-
+			editMode = false;
 			SBUxMethod.show('btnEditVhcl');
 			SBUxMethod.hide('btnCancelVhcl');
 			SBUxMethod.attr('btnSaveVhcl', 'disabled', true);
@@ -254,17 +258,20 @@
 				const data = await postJsonPromise;
 		        try {
 		        	if (_.isEqual("S", data.resultStatus)) {
-		        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+		        		//gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+		        		gfn_comAlert(data.resultCode, data.resultMessage);
 		        		this.searchInEdit();
 		        	} else {
-		        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		        		//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		        		gfn_comAlert(data.resultCode, data.resultMessage);
 		        	}
 		        } catch(e) {
 		    		if (!(e instanceof Error)) {
 		    			e = new Error(e);
 		    		}
 		    		console.error("failed", e.message);
-		        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		        	//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		    		gfn_comAlert(data.resultCode, data.resultMessage);
 		        }
         	} else {
         		grdVhclPop.deleteRow(nRow);
@@ -304,7 +311,8 @@
 			}
 
 			if (vhclList.length == 0){
-				gfn_comAlert("W0003", "저장");		//	W0003	{0}할 대상이 없습니다.
+				//gfn_comAlert("W0003", "저장");		//	W0003	{0}할 대상이 없습니다.
+
 	            return;
 			}
 
@@ -317,17 +325,20 @@
 			const data = await postJsonPromise;
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
-	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+	        		//gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+	        		gfn_comAlert(data.resultCode, data.resultMessage);
 	        		this.searchInEdit();
 	        	} else {
-	        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	        		//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	        		gfn_comAlert(data.resultCode, data.resultMessage);
 	        	}
 	        } catch(e) {
 	    		if (!(e instanceof Error)) {
 	    			e = new Error(e);
 	    		}
 	    		console.error("failed", e.message);
-	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	        	//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	    		gfn_comAlert(data.resultCode, data.resultMessage);
 	        }
 		},
 		search: async function() {
