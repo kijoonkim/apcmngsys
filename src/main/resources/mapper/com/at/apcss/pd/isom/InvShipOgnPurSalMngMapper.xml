@@ -180,6 +180,12 @@
 				, CM.AJMT_VLM
 				, CM.AJMT_AMT
 
+				/* 총 실적 */
+				, CM.TOT_TRMT_PRFMNC_VLM
+				, CM.TOT_TRMT_PRFMNC_AMT
+				, CM.TOT_SPMT_PRFMNC_VLM
+				, CM.TOT_SPMT_PRFMNC_AMT
+
 				, CM.RMRK
 
 				, CM.DEL_YN		AS DEL_YN
@@ -299,6 +305,12 @@
 
 				, CM.AJMT_VLM
 				, CM.AJMT_AMT
+
+				/* 총 실적 */
+				, CM.TOT_TRMT_PRFMNC_VLM
+				, CM.TOT_TRMT_PRFMNC_AMT
+				, CM.TOT_SPMT_PRFMNC_VLM
+				, CM.TOT_SPMT_PRFMNC_AMT
 
 				, CM.RMRK
 
@@ -420,6 +432,12 @@
 
 				, CM.AJMT_VLM
 				, CM.AJMT_AMT
+
+				/* 총 실적 */
+				, CM.TOT_TRMT_PRFMNC_VLM
+				, CM.TOT_TRMT_PRFMNC_AMT
+				, CM.TOT_SPMT_PRFMNC_VLM
+				, CM.TOT_SPMT_PRFMNC_AMT
 
 				, CM.RMRK
 

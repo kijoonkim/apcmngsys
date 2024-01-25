@@ -616,12 +616,12 @@
 				,typeinfo : {ref:'jsonGrdCtgryCd_2', label:'label', value:'value', displayui : true}},
 
 			{caption: ["출자출하조직 취급실적","총취급실적","총취급실적","물량"]
-				,ref: 'allTotVlm',   	type:'input',  width:'90px',    style:'text-align:center'
-				//,calc : 'fn_allTotAmtVlm'
+				,ref: 'totTrmtPrfmncVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+				//,calc : 'fn_totTrmtPrfmncVlm'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","총취급실적","총취급실적","금액"]
-				,ref: 'allTotAmt',   	type:'input',  width:'100px',    style:'text-align:center'
-				//,calc : 'fn_allTotAmtSum'
+				,ref: 'totTrmtPrfmncAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+				//,calc : 'fn_totTrmtPrfmncAmt'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","자체수출","물량"]
@@ -667,10 +667,10 @@
 
 
 			{caption: ["출자출하조직의 통합조직 출하실적","총 출하실적","총 출하실적","물량"]
-				,ref: 'spmtPrfmncTotVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+				,ref: 'totSpmtPrfmncVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","총 출하실적","총 출하실적","금액"]//전문품목 매입매출 화면의 매입 총합
-				,ref: 'spmtPrfmncTotAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+				,ref: 'totSpmtPrfmncAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","단순기표","단순기표","물량"]
 				,ref: 'smplInptVlm',   	type:'input',  width:'90px',    style:'text-align:center'

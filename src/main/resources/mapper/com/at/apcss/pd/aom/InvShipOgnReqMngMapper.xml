@@ -108,6 +108,18 @@
 				, ( ROUND ( FRMER_INVST_AMT / DECODE(INVST_AMT, 0, NULL, INVST_AMT)  * 100, 2) ) AS FRMER_INVST_AMT_RT
 				, CM.FXNO
 
+				, (SELECT 'Y'
+					FROM TB_EV_APLY_MNG
+					WHERE BRNO = CM.BRNO
+					  AND YR = EAM.YR
+				) AS APLY_CHK
+
+				, (CASE WHEN CM.APO_SE = '1' THEN '통합조직 가입'
+						WHEN CM.APO_SE = '2' THEN '출자출하조직 가입'
+						ELSE '없음'
+						END
+				) AS USER_TYPE
+
 				, EAM.YR
 				, EAM.APLY_DAY
 				, (CASE WHEN CM.APO_SE = '1' THEN EAM.CORP_DDLN_SE_CD
