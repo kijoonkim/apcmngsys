@@ -281,9 +281,9 @@
             {caption: ['출하(반품)','중량 (Kg)'], 		ref: 'spmtWght', 	width: '80px',	type: 'output',	style:'text-align: right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
             {caption: ['반품','수량'], 			ref: 'rtnGdsQntt', 	width: '60px',	type: 'input',	style:'text-align: right',
-            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}, hidden: true},
+            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
             {caption: ['반품','중량 (Kg)'], 		ref: 'rtnGdsWght', 	width: '80px',	type: 'output',	style:'text-align: right',
-            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}, hidden: true},
+            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
             {caption: ['배송지','배송지'], 			ref: 'dldtn', 		width: '150px',	type: 'output',	style:'text-align: center'},
             {caption: ['운송사','운송사'], 			ref: 'trsprtCoNm', 	width: '120px',	type: 'output',	style:'text-align: center'},
             {caption: ['차량번호','차량번호'], 		ref: 'vhclno',		width: '100px',	type: 'output',	style:'text-align: center'},
@@ -494,6 +494,8 @@
     	let recordCountPerPage = grdSpmtPrfmnc.getPageSize();  		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = 1;
     	grdSpmtPrfmnc.movePaging(currentPageNo);
+
+
     }
 
     const fn_TotalSearch = async function() {
@@ -720,6 +722,7 @@
   					if(grdSpmtPrfmnc.getPageTotalCount() != data.resultList[0].totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
   						grdSpmtPrfmnc.setPageTotalCount(data.resultList[0].totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
   						grdSpmtPrfmnc.rebuild();
+
   					}else{
   						grdSpmtPrfmnc.refresh();
   					}
@@ -738,6 +741,10 @@
     		console.error("failed", e.message);
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
+        let rtnGdsQnttColIndex = grdSpmtPrfmnc.getColRef('rtnGdsQntt');
+    	let rtnGdsWghtColIndex = grdSpmtPrfmnc.getColRef('rtnGdsWght');
+        grdSpmtPrfmnc.setColHidden(rtnGdsQnttColIndex,true,true);
+	    grdSpmtPrfmnc.setColHidden(rtnGdsWghtColIndex,true,true);
 	}
 
 
@@ -752,6 +759,7 @@
 			fn_callSelectSpmtPrfmncList(recordCountPerPage, currentPageNo);
 		}else if(checkDetail == 2){
 			fn_callSelectSpmtPrfmncTotalList(recordCountPerPage, currentPageNo);
+
 		}
 
     }

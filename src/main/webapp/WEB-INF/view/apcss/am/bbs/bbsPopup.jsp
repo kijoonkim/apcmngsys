@@ -96,7 +96,7 @@
 			                                <tr>
 			                                    <th scope="row">내용</th>
 			                                    <td colspan="8">
-			                                        <sbux-textarea  rows="10" cols="110"  id="dtl-input-bbsSbjt" name="dtl-input-bbsSbjt"  uitype="normal" readonly></sbux-textarea>
+			                                        <sbux-textarea  rows="10" cols="105"  id="dtl-input-bbsSbjt" name="dtl-input-bbsSbjt"  uitype="normal" readonly></sbux-textarea>
 			                                    </td>
 			                                </tr>
 			                                <tr>
