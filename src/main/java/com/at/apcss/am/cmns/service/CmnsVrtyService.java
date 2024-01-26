@@ -118,4 +118,11 @@ public interface CmnsVrtyService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> multiSaveApcVrtyList(List<CmnsVrtyVO> cmnsVrtyList) throws Exception;
+	/**
+	 * APC 품종 삭제 가능 여부
+	 * @param cmnsVrtyVO
+	 * @return String
+	 * @throws Exception
+	 */
+	public String vrtyDelible(CmnsVrtyVO cmnsVrtyVO) throws Exception;
 }

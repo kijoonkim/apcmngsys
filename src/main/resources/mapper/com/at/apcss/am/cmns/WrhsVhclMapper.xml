@@ -177,6 +177,63 @@
 		]]>
 	</delete>
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.WrhsVhclMapper.vhclDelible				-->
+	<!-- DESC : 차량정보 삭제 가능 여부.	                                       	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.01.24  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="vhclDelible" parameterType="com.at.apcss.am.cmns.vo.WrhsVhclVO" resultType="com.at.apcss.am.cmns.vo.WrhsVhclVO">
+    	<![CDATA[
+    		SELECT X.* /* com.at.apcss.am.cmns.mapper.WrhsVhclMapper.vhclDelible */
+			  FROM (
+			         SELECT
+			                '입고실적' AS DELIBLE
+			               , (SELECT COUNT(*)
+			                    FROM TB_RAW_MTR_WRHS_PRFMNC X
+			                   WHERE X.APC_CD = #{apcCd}
+			                     AND X.VHCLNO = #{vhclno}
+			                     AND X.DEL_YN = 'N'
+			                  )  AS CNT
+			           FROM DUAL
+			         UNION ALL
+			         SELECT
+			                '원물운임' AS DELIBLE
+			               , (SELECT COUNT(*)
+			                    FROM TB_RAW_MTR_TRSPRT_CST X
+			                   WHERE X.APC_CD = #{apcCd}
+			                     AND X.VHCLNO = #{vhclno}
+			                     AND X.DEL_YN = 'N'
+			                  )  AS CNT
+			           FROM DUAL
+			         UNION ALL
+			         SELECT
+			                '계량실적' AS DELIBLE
+			                , (SELECT COUNT(*)
+			                    FROM TB_WGH_PRFMNC_COM X
+			                   WHERE X.APC_CD = #{apcCd}
+			                     AND X.VHCLNO = #{vhclno}
+			                     AND X.DEL_YN = 'N'
+			                  )  AS CNT
+			           FROM DUAL
+			         UNION ALL
+			         SELECT
+			                '출하실적' AS DELIBLE
+			              , (SELECT COUNT(*)
+			                    FROM TB_SPMT_PRFMNC_COM X
+			                   WHERE X.APC_CD = #{apcCd}
+			                     AND X.VHCLNO = #{vhclno}
+			                     AND X.DEL_YN = 'N'
+			                 ) AS CNT
+			           FROM DUAL
+			         ) X
+			 WHERE CNT > 0
+		]]>
+
+    </select>
+
 </mapper>
 
 

@@ -35,6 +35,11 @@ public class RawMtrTrsprtCstController extends BaseController {
 			resultList = rawMtrTrsprtCstService.selectRawMtrTrsprtCstList(RawMtrTrsprtCstVO);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -47,14 +52,20 @@ public class RawMtrTrsprtCstController extends BaseController {
 	public ResponseEntity<HashMap<String, Object>> deleteRawMtrTrsprtCst(@RequestBody RawMtrTrsprtCstVO RawMtrTrsprtCstVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		int result = 0;
 		try {
-			result += rawMtrTrsprtCstService.deleteRawMtrTrsprtCst(RawMtrTrsprtCstVO);
+			HashMap<String, Object> rtnObj = rawMtrTrsprtCstService.deleteRawMtrTrsprtCst(RawMtrTrsprtCstVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
-
-		resultMap.put("result", result);
 
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -77,6 +88,11 @@ public class RawMtrTrsprtCstController extends BaseController {
 
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, inserted);

@@ -37,7 +37,7 @@ public interface StdGrdMapper {
 	/**
 	 * APC 표준등급 등급종류 발번
 	 * @param stdGrdVO
-	 * @return
+	 * @return StdGrdVO
 	 * @throws Exception
 	 */
 	public StdGrdVO selectNewGrdKnd(StdGrdVO stdGrdVO) throws Exception;
@@ -53,7 +53,7 @@ public interface StdGrdMapper {
 	/**
 	 * APC 등급 정보 등록
 	 * @param StdGrdVO
-	 * @return integer
+	 * @return Integer
 	 * @throws Exception
 	 */
 	public int insertStdGrd(StdGrdVO stdGrdVO) throws Exception;
@@ -61,7 +61,7 @@ public interface StdGrdMapper {
 	/**
 	 * APC 등급 정보 변경
 	 * @param StdGrdVO
-	 * @return integer
+	 * @return Integer
 	 * @throws Exception
 	 */
 	public int updateStdGrd(StdGrdVO stdGrdVO) throws Exception;
@@ -69,7 +69,7 @@ public interface StdGrdMapper {
 	/**
 	 * APC 등급 정보 삭제
 	 * @param StdGrdVO
-	 * @return integer
+	 * @return Integer
 	 * @throws Exception
 	 */
 	public int deleteStdGrd(StdGrdVO stdGrdVO) throws Exception;
@@ -77,7 +77,7 @@ public interface StdGrdMapper {
 	/**
 	 * APC 등급 정보 전체 삭제
 	 * @param StdGrdVO
-	 * @return integer
+	 * @return Integer
 	 * @throws Exception
 	 */
 	public int deleteStdGrdAll(StdGrdVO stdGrdVO) throws Exception;
@@ -101,7 +101,7 @@ public interface StdGrdMapper {
 	/**
 	 * APC 등급 정보 상세 등록
 	 * @param StdGrdDtlVO
-	 * @return integer
+	 * @return Integer
 	 * @throws Exception
 	 */
 	public int insertStdGrdDtl(StdGrdDtlVO stdGrdDtlVO) throws Exception;
@@ -109,7 +109,7 @@ public interface StdGrdMapper {
 	/**
 	 * APC 등급 정보 상세 변경
 	 * @param StdGrdDtlVO
-	 * @return integer
+	 * @return Integer
 	 * @throws Exception
 	 */
 	public int updateStdGrdDtl(StdGrdDtlVO stdGrdDtlVO) throws Exception;
@@ -117,7 +117,7 @@ public interface StdGrdMapper {
 	/**
 	 * APC 등급 정보 상세 삭제
 	 * @param StdGrdDtlVO
-	 * @return integer
+	 * @return Integer
 	 * @throws Exception
 	 */
 	public int deleteStdGrdDtl(StdGrdDtlVO stdGrdDtlVO) throws Exception;
@@ -125,7 +125,7 @@ public interface StdGrdMapper {
 	/**
 	 * APC 등급 정보 상세 전체 삭제
 	 * @param StdGrdDtlVO
-	 * @return integer
+	 * @return Integer
 	 * @throws Exception
 	 */
 	public int deleteStdGrdDtlAll(StdGrdDtlVO stdGrdDtlVO) throws Exception;
@@ -134,7 +134,7 @@ public interface StdGrdMapper {
 	/**
 	 * APC 등급 세부 정보 단건 조회
 	 * @param StdGrdJgmtVO
-	 * @return
+	 * @return StdGrdJgmtVO
 	 * @throws Exception
 	 */
 	public StdGrdJgmtVO selectStdGrdJgmt(StdGrdJgmtVO StdGrdJgmtVO) throws Exception;
@@ -142,7 +142,7 @@ public interface StdGrdMapper {
 	/**
 	 * APC 등급 세부 정보 목록 조회
 	 * @param StdGrdJgmtVO
-	 * @return
+	 * @return List<StdGrdJgmtVO>
 	 * @throws Exception
 	 */
 	public List<StdGrdJgmtVO> selectStdGrdJgmtList(StdGrdJgmtVO StdGrdJgmtVO) throws Exception;
@@ -150,7 +150,7 @@ public interface StdGrdMapper {
 	/**
 	 * APC 등급 세부 정보 등록
 	 * @param StdGrdJgmtVO
-	 * @return
+	 * @return Integer
 	 * @throws Exception
 	 */
 	public int insertStdGrdJgmt(StdGrdJgmtVO StdGrdJgmtVO) throws Exception;
@@ -158,7 +158,7 @@ public interface StdGrdMapper {
 	/**
 	 * APC 등급 세부 정보 변경
 	 * @param StdGrdJgmtVO
-	 * @return
+	 * @return Integer
 	 * @throws Exception
 	 */
 	public int updateStdGrdJgmt(StdGrdJgmtVO StdGrdJgmtVO) throws Exception;
@@ -166,7 +166,7 @@ public interface StdGrdMapper {
 	/**
 	 * APC 등급 세부 정보  삭제
 	 * @param StdGrdJgmtVO
-	 * @return
+	 * @return Integer
 	 * @throws Exception
 	 */
 	public int deleteStdGrdJgmt(StdGrdJgmtVO StdGrdJgmtVO) throws Exception;
@@ -174,8 +174,38 @@ public interface StdGrdMapper {
 	/**
 	 * APC 등급 세부 정보 전체 삭제
 	 * @param StdGrdJgmtVO
-	 * @return
+	 * @return Integer
 	 * @throws Exception
 	 */
 	public int deleteStdGrdJgmtAll(StdGrdJgmtVO StdGrdJgmtVO) throws Exception;
+
+	/**
+	 * APC 등급 삭제 가능 여부
+	 * @param StdGrdVO
+	 * @return List<StdGrdVO>
+	 * @throws Exception
+	 */
+	public List<StdGrdVO> grdDtlInvntrDelible(StdGrdDtlVO stdGrdDtlVO) throws Exception;
+	/**
+	 * APC 등급 삭제 가능 여부(판정등급 없음)
+	 * @param StdGrdVO
+	 * @return List<StdGrdVO>
+	 * @throws Exception
+	 */
+	public List<StdGrdVO> grdDtlInvntrDelibleNotJgmt(StdGrdDtlVO stdGrdDtlVO) throws Exception;
+
+	/**
+	 * APC 판정 등급 삭제 가능 여부
+	 * @param StdGrdJgmtVO
+	 * @return List<StdGrdJgmtVO>
+	 * @throws Exception
+	 */
+	public List<StdGrdJgmtVO> grdJgmtInvntrDelible(StdGrdJgmtVO stdGrdJgmtVO) throws Exception;
+	/**
+	 * APC 등급 판정 등급 체크
+	 * @param StdGrdVO
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public int grdJgmtCheck(StdGrdDtlVO stdGrdDtlVO) throws Exception;
 }

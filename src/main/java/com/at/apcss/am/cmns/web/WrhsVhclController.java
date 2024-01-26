@@ -93,9 +93,13 @@ public class WrhsVhclController extends BaseController {
 	public ResponseEntity<HashMap<String, Object>> deleteWrhsVhclList(@RequestBody WrhsVhclVO wrhsVhclVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		int result = 0;
 		try {
-			result = wrhsVhclService.deleteWrhsVhcl(wrhsVhclVO);
+
+			HashMap<String, Object> rtnObj = wrhsVhclService.deleteWrhsVhcl(wrhsVhclVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
@@ -104,8 +108,6 @@ public class WrhsVhclController extends BaseController {
 				return getErrorResponseEntity(rtnObj);
 			}
 		}
-
-		resultMap.put("result", result);
 
 		return getSuccessResponseEntity(resultMap);
 	}

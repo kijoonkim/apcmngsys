@@ -14,11 +14,11 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectCmnsApcItem		-->
-	<!-- DESC : APC 품목 단건 조회.	                                       				-->
+	<!-- DESC : APC 품목 단건 조회.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.09.05  	김 호        	Initial Creation                            	-->
+	<!-- 2023.09.05  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectCmnsApcItem" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO" resultType="com.at.apcss.am.cmns.vo.CmnsItemVO">
     	<![CDATA[
@@ -77,11 +77,11 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectApcCmnsItemList	-->
-	<!-- DESC : APC 품목 전체 목록 조회.	                                       			-->
+	<!-- DESC : APC 품목 전체 목록 조회.	                                       	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectApcCmnsItemList" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO" resultType="com.at.apcss.am.cmns.vo.CmnsItemVO">
     	<![CDATA[
@@ -182,6 +182,163 @@
 		]]>
 	</delete>
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.itemDelible				-->
+	<!-- DESC : APC 품목 삭제 가능 여부.	                                       	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.01.24  	김 호        	Initial Creation                           	-->
+	<!-- ==========================================================================	-->
+    <select id="itemDelible" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO" resultType="com.at.apcss.am.cmns.vo.CmnsItemVO">
+    	<![CDATA[
+    		SELECT X.* /* com.at.apcss.am.cmns.mapper.CmnsItemMapper.itemDelible */
+			  FROM (
+			         SELECT
+			                '입고실적' AS DELIBLE
+			               , (SELECT COUNT(*)
+			                    FROM TB_RAW_MTR_WRHS_PRFMNC X
+			                       , TB_RAW_MTR_INVNTR Y
+			                   WHERE X.APC_CD = Y.APC_CD
+			                     AND X.WRHSNO = Y.WRHSNO
+			                     AND X.APC_CD = #{apcCd}
+			                     AND Y.ITEM_CD = #{itemCd}
+			                     AND X.DEL_YN = 'N'
+			                     AND Y.DEL_YN = 'N'
+			                  )  AS CNT
+			           FROM DUAL
+			         UNION ALL
+			         SELECT
+			                '원물재고' AS DELIBLE
+			                , (SELECT COUNT(*)
+			                    FROM TB_RAW_MTR_INVNTR X
+			                   WHERE X.APC_CD = #{apcCd}
+			                     AND X.ITEM_CD = #{itemCd}
+			                     AND X.DEL_YN = 'N'
+			                  )  AS CNT
+			           FROM DUAL
+			         UNION ALL
+			         SELECT
+			                '선별실적' AS DELIBLE
+			               , (SELECT COUNT(*)
+			                    FROM TB_SORT_PRFMNC X
+			                       , TB_SORT_INVNTR Y
+			                   WHERE X.APC_CD = Y.APC_CD
+			                     AND X.SORTNO = Y.SORTNO
+			                     AND X.APC_CD = #{apcCd}
+			                     AND Y.ITEM_CD = #{itemCd}
+			                     AND X.DEL_YN = 'N'
+			                     AND Y.DEL_YN = 'N'
+			                  )  AS CNT
+			           FROM DUAL
+			         UNION ALL
+			         SELECT
+			                '선별재고' AS DELIBLE
+			                , (SELECT COUNT(*)
+			                    FROM TB_SORT_INVNTR X
+			                   WHERE X.APC_CD = #{apcCd}
+			                     AND X.ITEM_CD = #{itemCd}
+			                     AND X.DEL_YN = 'N'
+			                  )  AS CNT
+			           FROM DUAL
+			          UNION ALL
+			          SELECT
+			                '포장지시' AS DELIBLE
+			               , (SELECT COUNT(*)
+			                    FROM TB_PCKG_CMND X
+			                   WHERE X.APC_CD = #{apcCd}
+			                     AND X.ITEM_CD = #{itemCd}
+			                     AND X.DEL_YN = 'N'
+			                  )  AS CNT
+			            FROM DUAL
+			          UNION ALL
+			          SELECT
+			                 '포장실적' AS DELIBLE
+			                 , (SELECT COUNT(*)
+			                     FROM TB_PCKG_PRFMNC X
+			                        , TB_GDS_INVNTR Y
+			                    WHERE X.APC_CD = Y.APC_CD
+			                      AND X.PCKGNO = Y.PCKGNO
+			                      AND X.APC_CD = #{apcCd}
+			                      AND Y.ITEM_CD = #{itemCd}
+			                      AND X.DEL_YN = 'N'
+			                      AND Y.DEL_YN = 'N'
+			                  )  AS CNT
+			            FROM DUAL
+			          UNION ALL
+			          SELECT
+			                 '상품재고' AS DELIBLE
+			                , (SELECT COUNT(*)
+			                     FROM TB_GDS_INVNTR X
+			                    WHERE X.APC_CD = #{apcCd}
+			                      AND X.ITEM_CD = #{itemCd}
+			                      AND X.DEL_YN = 'N'
+			                 )  AS CNT
+			             FROM DUAL
+			           UNION ALL
+			           SELECT
+			                  '상품' AS DELIBLE
+			                 , (SELECT COUNT(*)
+			                      FROM TB_SPMT_PCKG_UNIT X
+			                     WHERE X.APC_CD = #{apcCd}
+			                       AND X.ITEM_CD = #{itemCd}
+			                       AND X.DEL_YN = 'N'
+			                  )  AS CNT
+			             FROM DUAL
+			           UNION ALL
+			           SELECT
+			                  '출하지시' AS DELIBLE
+			                 , (SELECT COUNT(*)
+			                      FROM TB_SPMT_CMND X
+			                     WHERE X.APC_CD = #{apcCd}
+			                       AND X.ITEM_CD = #{itemCd}
+			                       AND X.DEL_YN = 'N'
+			                  )  AS CNT
+			             FROM DUAL
+			           UNION ALL
+			           SELECT
+			                   '출하실적' AS DELIBLE
+			                  , (SELECT COUNT(*)
+			                       FROM TB_SPMT_PRFMNC_DTL X
+			                      WHERE X.APC_CD = #{apcCd}
+			                        AND X.ITEM_CD = #{itemCd}
+			                        AND X.DEL_YN = 'N'
+			                   )  AS CNT
+			             FROM DUAL
+			           UNION ALL
+			           SELECT
+			                  '매출실적' AS DELIBLE
+			                 , (SELECT COUNT(*)
+			                      FROM TB_SLS_PRFMNC X
+			                     WHERE X.APC_CD = #{apcCd}
+			                       AND X.ITEM_CD = #{itemCd}
+			                       AND X.DEL_YN = 'N'
+			                  )  AS CNT
+			             FROM DUAL
+			           UNION ALL
+			           SELECT
+			                  '정산단가' AS DELIBLE
+			                 , (SELECT COUNT(*)
+			                      FROM TB_CLCLN_UNTPRC X
+			                     WHERE X.APC_CD = #{apcCd}
+			                       AND X.ITEM_CD = #{itemCd}
+			                       AND X.DEL_YN = 'N'
+			                  )  AS CNT
+			            FROM DUAL
+			           UNION ALL
+			           SELECT
+			                  '정산실적' AS DELIBLE
+			                 , (SELECT COUNT(*)
+			                      FROM TB_CLCLN_PRFMNC X
+			                     WHERE X.APC_CD = #{apcCd}
+			                       AND X.ITEM_CD = #{itemCd}
+			                       AND X.DEL_YN = 'N'
+			                  )  AS CNT
+			            FROM DUAL
+			         ) X
+			 WHERE CNT > 0
+		]]>
+    </select>
 </mapper>
 
 

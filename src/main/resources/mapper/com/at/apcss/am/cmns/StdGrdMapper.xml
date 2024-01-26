@@ -39,6 +39,7 @@
 			   AND SG.ITEM_CD 	= #{itemCd}
 			   AND SG.GRD_SE_CD = #{grdSeCd}
 			   AND SG.GRD_KND	= #{grdKnd}
+			   AND SG.DEL_YN 	= 'N'
 			 ORDER BY SG.APC_CD, SG.ITEM_CD, SG.SN
 		]]>
     </select>
@@ -63,8 +64,8 @@
 			  FROM DUAL
 		]]>
     </select>
-    
-    
+
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrdList			-->
 	<!-- DESC : APC 등급 목록 조회.	                                       				-->
@@ -88,6 +89,7 @@
 			     , SG.DEL_YN            AS DEL_YN
 			  FROM TB_APC_STD_GRD SG
 			 WHERE SG.APC_CD	= #{apcCd}
+			   AND SG.DEL_YN 	= 'N'
 		]]>
 		<if test='itemCd != null and itemCd != ""'>
 			   AND SG.ITEM_CD = #{itemCd}
@@ -194,16 +196,16 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-	<delete id="deleteStdGrd" parameterType="com.at.apcss.am.cmns.vo.StdGrdVO">
+	<update id="deleteStdGrd" parameterType="com.at.apcss.am.cmns.vo.StdGrdVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrd */
-			  FROM TB_APC_Std_GRD
+			UPDATE TB_APC_Std_GRD  /* com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrd */
+			   SET DEL_YN 		= 'Y'
 			 WHERE APC_CD 		= #{apcCd}
 			   AND ITEM_CD 		= #{itemCd}
 			   AND GRD_SE_CD 	= #{grdSeCd}
 			   AND GRD_KND 		= #{grdKnd}
 		]]>
-	</delete>
+	</update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdAll			-->
@@ -213,14 +215,14 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.09.04  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-	<delete id="deleteStdGrdAll" parameterType="com.at.apcss.am.cmns.vo.StdGrdVO">
+	<update id="deleteStdGrdAll" parameterType="com.at.apcss.am.cmns.vo.StdGrdVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.am.cmns.mapper.CmnsGrdMapper.deleteStdGrdAll */
-			  FROM TB_APC_STD_GRD
+			UPDATE TB_APC_STD_GRD /* com.at.apcss.am.cmns.mapper.CmnsGrdMapper.deleteStdGrdAll */
+			   SET DEL_YN 		= 'Y'
 			 WHERE APC_CD 		= #{apcCd}
 			   AND ITEM_CD 		= #{itemCd}
 		]]>
-	</delete>
+	</update>
 
 
 	<!-- ==========================================================================	-->
@@ -246,16 +248,16 @@
 			     , SGD.GRD_NM           AS GRD_NM
 			     , SGD.GRD_VL           AS GRD_VL
 			     , SGD.SN               AS SN
-			     
+
   			  FROM TB_APC_STD_GRD SG
-  			  
+
   			  JOIN TB_APC_STD_GRD_DTL SGD
   			    ON SGD.APC_CD = SG.APC_CD
   			   AND SGD.ITEM_CD = SG.ITEM_CD
   			   AND SGD.GRD_SE_CD = SG.GRD_SE_CD
   			   AND SGD.GRD_KND = SG.GRD_KND
   			   AND SGD.DEL_YN = 'N'
-  			  
+
 			 WHERE SG.APC_CD	= #{apcCd}
 			   AND SG.GRD_SE_CD = #{grdSeCd}
 			   AND SG.ITEM_CD 	= #{itemCd}
@@ -288,16 +290,16 @@
 			     , SGD.GRD_VL           AS GRD_VL
 			     , SGD.SN               AS SN
 			     , SGD.DEL_YN           AS DEL_YN
-			     
+
   			  FROM TB_APC_STD_GRD SG
-  			  
+
   			  JOIN TB_APC_STD_GRD_DTL SGD
   			    ON SGD.APC_CD = SG.APC_CD
   			   AND SGD.ITEM_CD = SG.ITEM_CD
   			   AND SGD.GRD_SE_CD = SG.GRD_SE_CD
   			   AND SGD.GRD_KND = SG.GRD_KND
   			   AND SGD.DEL_YN = 'N'
-  			   
+
 			 WHERE SG.APC_CD		= #{apcCd}
 			   AND SG.GRD_SE_CD 	= #{grdSeCd}
 		]]>
@@ -405,17 +407,17 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-	<delete id="deleteStdGrdDtl" parameterType="com.at.apcss.am.cmns.vo.StdGrdJgmtVO">
+	<update id="deleteStdGrdDtl" parameterType="com.at.apcss.am.cmns.vo.StdGrdJgmtVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdDtl */
-			  FROM TB_APC_Std_GRD_DTL
+			UPDATE TB_APC_Std_GRD_DTL /* com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdDtl */
+			   SET DEL_YN 		= 'Y'
 			 WHERE APC_CD 		= #{apcCd}
 			   AND ITEM_CD 		= #{itemCd}
 			   AND GRD_SE_CD 	= #{grdSeCd}
 			   AND GRD_KND 		= #{grdKnd}
 			   AND GRD_CD		= #{grdCd}
 		]]>
-	</delete>
+	</update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdDtlAll			-->
@@ -425,14 +427,14 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.09.04  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-	<delete id="deleteStdGrdDtlAll" parameterType="com.at.apcss.am.cmns.vo.StdGrdJgmtVO">
+	<update id="deleteStdGrdDtlAll" parameterType="com.at.apcss.am.cmns.vo.StdGrdJgmtVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdDtlAll */
-			  FROM TB_APC_STD_GRD_DTL
+			UPDATE TB_APC_STD_GRD_DTL /* com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdDtlAll */
+			   SET DEL_YN 		= 'Y'
 			 WHERE APC_CD 		= #{apcCd}
 			   AND ITEM_CD 		= #{itemCd}
 		]]>
-	</delete>
+	</update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrdJgmtList		-->
@@ -457,7 +459,8 @@
 			     , SGJ.SN                AS SN
 			     , SGJ.DEL_YN            AS DEL_YN
   			  FROM TB_APC_STD_GRD_JGMT SGJ
-			 WHERE SGJ.APC_CD		= #{apcCd}
+			 WHERE SGJ.DEL_YN 		= 'N'
+			   AND SGJ.APC_CD		= #{apcCd}
 			   AND SGJ.ITEM_CD 		= #{itemCd}
 			   AND SGJ.GRD_SE_CD 	= #{grdSeCd}
 		]]>
@@ -566,16 +569,16 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-	<delete id="deleteStdGrdJgmt" parameterType="com.at.apcss.am.cmns.vo.StdGrdJgmtVO">
+	<update id="deleteStdGrdJgmt" parameterType="com.at.apcss.am.cmns.vo.StdGrdJgmtVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdJgmt */
-			  FROM TB_APC_STD_GRD_JGMT
+			UPDATE TB_APC_STD_GRD_JGMT /* com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdJgmt */
+			   SET DEL_YN 		= 'Y'
 			 WHERE APC_CD 		= #{apcCd}
 			   AND ITEM_CD 		= #{itemCd}
 			   AND GRD_SE_CD 	= #{grdSeCd}
 			   AND GRD_CD		= #{grdCd}
 		]]>
-	</delete>
+	</update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdJgmtAll		-->
@@ -585,12 +588,328 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.09.04  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-	<delete id="deleteStdGrdJgmtAll" parameterType="com.at.apcss.am.cmns.vo.StdGrdJgmtVO">
+	<update id="deleteStdGrdJgmtAll" parameterType="com.at.apcss.am.cmns.vo.StdGrdJgmtVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdJgmtAll */
-			  FROM TB_APC_STD_GRD_JGMT
+			UPDATE TB_APC_STD_GRD_JGMT /* com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdJgmtAll */
+			   SET DEL_YN 		= 'Y'
 			 WHERE APC_CD 		= #{apcCd}
 			   AND ITEM_CD 		= #{itemCd}
 		]]>
-	</delete>
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.grdDtlInvntrDelible		-->
+	<!-- DESC : APC 등급 삭제여부 조회.	                                    		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="grdDtlInvntrDelible" parameterType="com.at.apcss.am.cmns.vo.StdGrdDtlVO" resultType="com.at.apcss.am.cmns.vo.StdGrdDtlVO">
+    	<choose>
+    		<when test='grdSeCd == "01"'>
+				<![CDATA[
+					SELECT X.*	/* com.at.apcss.am.cmns.mapper.StdGrdMapper.grdDtlInvntrDelible */
+					  FROM (
+					        SELECT
+					               '입고실적' AS DELIBLE
+					              , (SELECT COUNT(*)
+					                  FROM TB_RAW_MTR_STD_GRD X
+					                     , TB_RAW_MTR_WRHS_PRFMNC Y
+					                 WHERE X.APC_CD = Y.APC_CD
+					                   AND X.WRHSNO = Y.PLTNO
+					                   AND X.APC_CD = #{apcCd}
+					                   AND X.ITEM_CD = #{itemCd}
+					                   AND X.GRD_KND = #{grdKnd}
+					                   AND X.GRD_CD = #{grdCd}
+					                   AND X.DEL_YN = 'N'
+					                   AND Y.DEL_YN = 'N'
+					               )  AS CNT
+					          FROM DUAL
+					         UNION ALL
+					         SELECT
+					               '원물재고' AS DELIBLE
+					              , (SELECT COUNT(*)
+					                  FROM TB_RAW_MTR_STD_GRD X
+					                     , TB_RAW_MTR_WRHS_PRFMNC Y
+					                 WHERE X.APC_CD = Y.APC_CD(+)
+					                   AND X.WRHSNO = Y.PLTNO(+)
+					                   AND X.APC_CD = #{apcCd}
+					                   AND X.ITEM_CD = #{itemCd}
+					                   AND X.GRD_KND = #{grdKnd}
+					                   AND X.GRD_CD = #{grdCd}
+					                   AND X.DEL_YN = 'N'
+					                   AND Y.DEL_YN = 'N'
+					                   AND Y.PLTNO IS NULL
+					               )  AS CNT
+					          FROM DUAL
+					         ) X
+					 WHERE CNT > 0
+				]]>
+    		</when>
+    		<when test='grdSeCd == "02"'>
+				<![CDATA[
+					SELECT X.*	/* com.at.apcss.am.cmns.mapper.StdGrdMapper.grdDtlInvntrDelible */
+					  FROM (
+					        SELECT
+					               '선별실적' AS DELIBLE
+					              , (SELECT COUNT(*)
+					                  FROM TB_SORT_STD_GRD X
+					                     , TB_SORT_PRFMNC Y
+					                 WHERE X.APC_CD = Y.APC_CD
+					                   AND X.SORTNO = Y.SORTNO
+					                   AND X.APC_CD = #{apcCd}
+					                   AND X.ITEM_CD = #{itemCd}
+					                   AND X.GRD_KND = #{grdKnd}
+					                   AND X.GRD_CD = #{grdCd}
+					                   AND X.DEL_YN = 'N'
+					                   AND Y.DEL_YN = 'N'
+					               )  AS CNT
+					          FROM DUAL
+					         UNION ALL
+					          SELECT
+					               '선별재고' AS DELIBLE
+					              , (SELECT COUNT(*)
+					                  FROM TB_SORT_STD_GRD X
+					                     , TB_SORT_PRFMNC Y
+					                 WHERE X.APC_CD = Y.APC_CD(+)
+					                   AND X.SORTNO = Y.SORTNO(+)
+					                   AND X.APC_CD = #{apcCd}
+					                   AND X.ITEM_CD = #{itemCd}
+					                   AND X.GRD_KND = #{grdKnd}
+					                   AND X.GRD_CD = #{grdCd}
+					                   AND X.DEL_YN = 'N'
+					                   AND Y.DEL_YN = 'N'
+					                   AND Y.SORTNO IS NULL
+					               )  AS CNT
+					          FROM DUAL
+					         ) X
+					 WHERE CNT > 0
+				]]>
+    		</when>
+    		<when test='grdSeCd == "03"'>
+    			<![CDATA[
+	    			SELECT X.*	/* com.at.apcss.am.cmns.mapper.StdGrdMapper.grdDtlInvntrDelible */
+					   FROM (
+					        SELECT
+					               '상품재고' AS DELIBLE
+					              , (SELECT COUNT(*)
+					                  FROM TB_GDS_INVNTR X
+					                 WHERE X.APC_CD = #{apcCd}
+					                   AND X.ITEM_CD = #{itemCd}
+					                   AND X.GDS_GRD = #{grdCd}
+					                   AND X.DEL_YN = 'N'
+					               )  AS CNT
+					          FROM DUAL
+					        UNION ALL
+					        SELECT '출하지시' AS DELIBLE
+					              , (SELECT COUNT(*)
+					                  FROM TB_SPMT_CMND X
+					                 WHERE X.APC_CD = #{apcCd}
+					                   AND X.ITEM_CD = #{itemCd}
+					                   AND X.GDS_GRD = #{grdCd}
+					                   AND X.DEL_YN = 'N'
+					               ) AS CNT
+					          FROM DUAL
+					        UNION ALL
+					        SELECT '출하실적' AS DELIBLE
+					              , (SELECT COUNT(*)
+					                  FROM TB_SPMT_PRFMNC_DTL X
+					                 WHERE X.APC_CD = #{apcCd}
+					                   AND X.ITEM_CD = #{itemCd}
+					                   AND X.GDS_GRD = #{grdCd}
+					                   AND X.DEL_YN = 'N'
+					               ) AS CNT
+					          FROM DUAL
+					        UNION ALL
+					        SELECT '매출실적' AS DELIBLE
+					              , (SELECT COUNT(*)
+					                  FROM TB_SLS_PRFMNC X
+					                 WHERE X.APC_CD = #{apcCd}
+					                   AND X.ITEM_CD = #{itemCd}
+					                   AND X.GRD_CD = #{grdCd}
+					                   AND X.DEL_YN = 'N'
+					               ) AS CNT
+					          FROM DUAL
+					         ) X
+					 WHERE CNT > 0
+				 ]]>
+    		</when>
+    	</choose>
+    </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.grdDtlInvntrDelibleNotJgmt	-->
+	<!-- DESC : APC 등급 삭제여부 조회. 판정등급 없음	                            -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="grdDtlInvntrDelibleNotJgmt" parameterType="com.at.apcss.am.cmns.vo.StdGrdDtlVO" resultType="com.at.apcss.am.cmns.vo.StdGrdDtlVO">
+    	<choose>
+    		<when test='grdSeCd == "01"'>
+				<![CDATA[
+					SELECT X.*	/* com.at.apcss.am.cmns.mapper.StdGrdMapper.grdDtlInvntrDelibleNotJgmt */
+					  FROM (
+					        SELECT '입고실적' AS DELIBLE
+					              , (SELECT COUNT(*)
+					                   FROM TB_RAW_MTR_WRHS_PRFMNC RMP
+					                      , TB_RAW_MTR_INVNTR RMI
+					                  WHERE RMP.APC_CD = RMI.APC_CD
+					                    AND RMP.WRHSNO = RMI.WRHSNO
+					                    AND RMP.APC_CD = #{apcCd}
+					                    AND RMI.ITEM_CD = #{itemCd}
+					                    AND RMI.GRD_CD = #{grdCd}
+					                    AND RMP.DEL_YN = 'N'
+					                    AND RMI.DEL_YN = 'N'
+					               ) AS CNT
+					          FROM DUAL
+					        UNION ALL
+					        SELECT '원물재고' AS DELIBLE
+					              , (SELECT COUNT(*)
+					                   FROM TB_RAW_MTR_INVNTR RMI
+					                  WHERE RMI.APC_CD = #{apcCd}
+					                    AND RMI.ITEM_CD = #{itemCd}
+					                    AND RMI.GRD_CD = #{grdCd}
+					                    AND RMI.DEL_YN = 'N'
+					               ) AS CNT
+					          FROM DUAL
+					       ) X
+				]]>
+    		</when>
+    		<when test='grdSeCd == "02"'>
+				<![CDATA[
+					SELECT X.*	/* com.at.apcss.am.cmns.mapper.StdGrdMapper.grdDtlInvntrDelible */
+					  FROM (
+					        SELECT '선별실적' AS DELIBLE
+					              , (SELECT COUNT(*)
+					                   FROM TB_SORT_PRFMNC SP
+					                      , TB_SORT_INVNTR SI
+					                  WHERE SP.APC_CD = SI.APC_CD
+					                    AND SP.SORTNO = SI.SORTNO
+					                    AND SP.APC_CD = #{apcCd}
+					                    AND SI.ITEM_CD = #{itemCd}
+					                    AND SI.GRD_CD = #{grdCd}
+					                    AND SI.DEL_YN = 'N'
+					                    AND SP.DEL_YN = 'N'
+					               ) AS CNT
+					          FROM DUAL
+					         UNION ALL
+					         SELECT '선별재고' AS DELIBLE
+					              , (SELECT COUNT(*)
+					                   FROM TB_SORT_PRFMNC SP
+					                      , TB_SORT_INVNTR SI
+					                  WHERE SP.APC_CD(+) = SI.APC_CD
+					                    AND SP.SORTNO(+) = SI.SORTNO
+					                    AND SP.APC_CD = #{apcCd}
+					                    AND SI.ITEM_CD = #{itemCd}
+					                    AND SI.GRD_CD = #{grdCd}
+					                    AND SI.DEL_YN = 'N'
+					                    AND SP.DEL_YN = 'N'
+					               ) AS CNT
+					          FROM DUAL
+					       ) X
+				]]>
+    		</when>
+    	</choose>
+    </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.grdJgmtInvntrDelible		-->
+	<!-- DESC : APC 등급 삭제여부 조회. 판정등급 없음	                            -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="grdJgmtInvntrDelible" parameterType="com.at.apcss.am.cmns.vo.StdGrdJgmtVO" resultType="com.at.apcss.am.cmns.vo.StdGrdJgmtVO">
+    	<choose>
+    		<when test='grdSeCd == "01"'>
+				<![CDATA[
+					SELECT X.*	/* com.at.apcss.am.cmns.mapper.StdGrdMapper.grdJgmtInvntrDelible */
+					  FROM (
+					        SELECT
+					               '입고실적' AS DELIBLE
+					              , (SELECT COUNT(*)
+					                  FROM TB_RAW_MTR_WRHS_PRFMNC X
+					                     , TB_RAW_MTR_INVNTR Y
+					                 WHERE X.APC_CD = Y.APC_CD
+					                   AND X.WRHSNO = Y.WRHSNO
+					                   AND X.APC_CD = #{apcCd}
+					                   AND Y.ITEM_CD = #{itemCd}
+					                   AND Y.GRD_CD = #{grdCd}
+					                   AND X.DEL_YN = 'N'
+					                   AND Y.DEL_YN = 'N'
+					               )  AS CNT
+					          FROM DUAL
+					         UNION ALL
+					         SELECT
+					               '원물재고' AS DELIBLE
+					              , (SELECT COUNT(*)
+					                  FROM TB_RAW_MTR_INVNTR X
+					                 WHERE X.APC_CD = #{apcCd}
+					                   AND X.ITEM_CD = #{itemCd}
+					                   AND X.GRD_CD = #{grdCd}
+					                   AND X.DEL_YN = 'N'
+					               )  AS CNT
+					          FROM DUAL
+					         ) X
+					 WHERE CNT > 0
+				]]>
+    		</when>
+    		<when test='grdSeCd == "02"'>
+				<![CDATA[
+					SELECT X.*	/* com.at.apcss.am.cmns.mapper.StdGrdMapper.grdJgmtInvntrDelible */
+					  FROM (
+					        SELECT
+					               '선별실적' AS DELIBLE
+					              , (SELECT COUNT(*)
+					                  FROM TB_SORT_PRFMNC X
+					                     , TB_SORT_INVNTR Y
+					                 WHERE X.APC_CD = Y.APC_CD
+					                   AND X.SORTNO = Y.SORTNO
+					                   AND X.APC_CD = #{apcCd}
+					                   AND Y.ITEM_CD = #{itemCd}
+					                   AND Y.GRD_CD = #{grdCd}
+					                   AND X.DEL_YN = 'N'
+					                   AND Y.DEL_YN = 'N'
+					               )  AS CNT
+					          FROM DUAL
+					         UNION ALL
+					         SELECT
+					               '선별재고' AS DELIBLE
+					              , (SELECT COUNT(*)
+					                  FROM TB_SORT_INVNTR X
+					                 WHERE X.APC_CD = #{apcCd}
+					                   AND X.ITEM_CD = #{itemCd}
+					                   AND X.GRD_CD = #{grdCd}
+					                   AND X.DEL_YN = 'N'
+					               )  AS CNT
+					          FROM DUAL
+					         ) X
+					 WHERE CNT > 0
+				]]>
+    		</when>
+    	</choose>
+    </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.grdJgmtCheck				-->
+	<!-- DESC : APC 등급 판정등급 체크 .	                                    	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="grdJgmtCheck" parameterType="com.at.apcss.am.cmns.vo.StdGrdVO" resultType="_int">
+    	<![CDATA[
+    		SELECT COUNT(*) /* com.at.apcss.am.cmns.mapper.StdGrdMapper.grdJgmtCheck */
+			  FROM TB_APC_STD_GRD_JGMT
+			 WHERE APC_CD = #{apcCd}
+			   AND ITEM_CD = #{itemCd}
+			   AND GRD_SE_CD = #{gdsSeCd}
+    	]]>
+    </select>
+
 </mapper>

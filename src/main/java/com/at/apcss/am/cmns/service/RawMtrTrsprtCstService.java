@@ -1,5 +1,6 @@
 package com.at.apcss.am.cmns.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.cmns.vo.RawMtrTrsprtCstVO;
@@ -50,7 +51,7 @@ public interface RawMtrTrsprtCstService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int deleteRawMtrTrsprtCst(RawMtrTrsprtCstVO RawMtrTrsprtCstVO) throws Exception;
+	public HashMap<String, Object> deleteRawMtrTrsprtCst(RawMtrTrsprtCstVO RawMtrTrsprtCstVO) throws Exception;
 
 	/**
 	 * 원물운임비용 멀티등록

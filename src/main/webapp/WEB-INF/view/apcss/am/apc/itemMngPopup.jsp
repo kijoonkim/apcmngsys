@@ -483,6 +483,12 @@
 
 	const fn_searchApcVrtyList = async function(){
 
+		let itemCol = grdApcItem.getCol();
+		let emptyCol = grdApcItem.getColRef("empty")
+		if(itemCol == emptyCol){
+			return;
+		}
+
 		let nRow = grdApcItem.getRow();
         if (nRow < 1 && (SBUxMethod.get("vrty-inp-itemCd") == null || SBUxMethod.get("vrty-inp-itemCd") == "")) {
             return;

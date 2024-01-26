@@ -38,7 +38,7 @@ public interface RgnTrsprtCstMapper {
 	 * @throws Exception
 	 */
 	public List<RgnTrsprtCstVO> selectRgnTrsprtCstList(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception;
-	
+
 	/**
 	 * 지역별 운임비 등록
 	 * @param rgnTrsprtCstVO
@@ -61,5 +61,13 @@ public interface RgnTrsprtCstMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	public int deleteRgnTrsprtCst(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception;	
+	public int deleteRgnTrsprtCst(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception;
+
+	/**
+	 * 원물운임비용 삭제 가능 여부
+	 * @param RgnTrsprtCstVO
+	 * @return List<RgnTrsprtCstVO>
+	 * @throws Exception
+	 */
+	public List<RgnTrsprtCstVO> rgnTrsprtCstDelible(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception;
 }

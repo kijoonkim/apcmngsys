@@ -24,7 +24,7 @@ public interface RgnTrsprtCstService {
 	/**
 	 * 지역별 운임비 단건 조회
 	 * @param rgnTrsprtCstVO
-	 * @return
+	 * @return RgnTrsprtCstVO
 	 * @throws Exception
 	 */
 	public RgnTrsprtCstVO selectRgnTrsprtCst(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception;
@@ -32,15 +32,15 @@ public interface RgnTrsprtCstService {
 	/**
 	 * 지역별 운임비 목록 조회
 	 * @param rgnTrsprtCstVO
-	 * @return
+	 * @return List<RgnTrsprtCstVO>
 	 * @throws Exception
 	 */
 	public List<RgnTrsprtCstVO> selectRgnTrsprtCstList(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception;
-	
+
 	/**
 	 * 지역별 운임비 등록
 	 * @param rgnTrsprtCstVO
-	 * @return
+	 * @return Integer
 	 * @throws Exception
 	 */
 	public int insertRgnTrsprtCst(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception;
@@ -48,7 +48,7 @@ public interface RgnTrsprtCstService {
 	/**
 	 * 지역별 운임비 변경
 	 * @param rgnTrsprtCstVO
-	 * @return
+	 * @return Integer
 	 * @throws Exception
 	 */
 	public int updateRgnTrsprtCst(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception;
@@ -56,26 +56,35 @@ public interface RgnTrsprtCstService {
 	/**
 	 * 지역별 운임비 삭제
 	 * @param rgnTrsprtCstVO
-	 * @return
+	 * @return Integer
 	 * @throws Exception
 	 */
-	public int deleteRgnTrsprtCst(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception;
+	public HashMap<String, Object> deleteRgnTrsprtCst(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception;
 
 	/**
 	 * 지역별 운임비 등록
-	 * 
+	 *
 	 * @param vhclList
-	 * @return
+	 * @return HashMap<String, Object>
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> multiRgnTrsprtCst(List<RgnTrsprtCstVO> vhclList) throws Exception;
-	
+
 	/**
 	 * APC환경설정 입고차량정보 등록
-	 * 
+	 *
 	 * @param rgnTrsprtCstVO
-	 * @return
+	 * @return HashMap<String, Object>
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> multiApcVhclMngList(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception;
+
+	/**
+	 * 지역별 운임비 등록
+	 *
+	 * @param rgnTrsprtCstVO
+	 * @return String
+	 * @throws Exception
+	 */
+	public String rgnTrsprtCstDelible(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception;
 }

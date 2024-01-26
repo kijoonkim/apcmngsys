@@ -28,7 +28,7 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(callSuper = false)
 public class RgnTrsprtCstVO extends ComVO {
-	
+
 	/**
 	 * APC코드
 	 */
@@ -49,12 +49,12 @@ public class RgnTrsprtCstVO extends ComVO {
 	 * 비고
 	 */
 	private String rmrk;
-	
+
 	/**
 	 * 차량정보 목록
 	 */
 	private List<WrhsVhclVO> wrhsVhclList;
-	
+
 	public List<WrhsVhclVO> getWrhsVhclList() {
 		return wrhsVhclList == null ? null : wrhsVhclList.stream().collect(Collectors.toList());
 	}
@@ -62,12 +62,12 @@ public class RgnTrsprtCstVO extends ComVO {
 	public void setWrhsVhclList(List<WrhsVhclVO> wrhsVhclList) {
 		this.wrhsVhclList = wrhsVhclList == null ? null : wrhsVhclList.stream().collect(Collectors.toList());
 	}
-	
+
 	/**
 	 * 운송지역별 운임비 목록
 	 */
 	private List<RgnTrsprtCstVO> rgnTrsprtCstList;
-	
+
 	public List<RgnTrsprtCstVO> getRgnTrsprtCstList() {
 		return rgnTrsprtCstList == null ? null : rgnTrsprtCstList.stream().collect(Collectors.toList());
 	}
@@ -75,4 +75,13 @@ public class RgnTrsprtCstVO extends ComVO {
 	public void setRgnTrsprtCstList(List<RgnTrsprtCstVO> rgnTrsprtCstList) {
 		this.rgnTrsprtCstList = rgnTrsprtCstList == null ? null : rgnTrsprtCstList.stream().collect(Collectors.toList());
 	}
+
+	/**
+	 * 등록 수
+	 */
+	private int cnt;
+	/**
+	 * 삭제 불가능 사유
+	 */
+	private String delible;
 }

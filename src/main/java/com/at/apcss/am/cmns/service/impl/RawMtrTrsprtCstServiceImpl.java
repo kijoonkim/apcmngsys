@@ -1,9 +1,11 @@
 package com.at.apcss.am.cmns.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,7 @@ import com.at.apcss.am.cmns.vo.RawMtrTrsprtCstVO;
 import com.at.apcss.am.cmns.vo.WrhsVhclVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : RawMtrTrsprtCstServiceImpl.java
@@ -55,8 +58,13 @@ public class RawMtrTrsprtCstServiceImpl extends BaseServiceImpl implements RawMt
 	}
 
 	@Override
-	public int deleteRawMtrTrsprtCst(RawMtrTrsprtCstVO RawMtrTrsprtCstVO) throws Exception {
-		return rawMtrTrsprtCstMapper.deleteRawMtrTrsprtCst(RawMtrTrsprtCstVO);
+	public HashMap<String, Object> deleteRawMtrTrsprtCst(RawMtrTrsprtCstVO RawMtrTrsprtCstVO) throws Exception {
+
+		if(0 == rawMtrTrsprtCstMapper.deleteRawMtrTrsprtCst(RawMtrTrsprtCstVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
+		return null;
+
 	}
 
 	@Override

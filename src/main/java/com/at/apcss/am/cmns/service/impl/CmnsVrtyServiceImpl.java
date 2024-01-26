@@ -116,7 +116,7 @@ public class CmnsVrtyServiceImpl extends BaseServiceImpl implements CmnsVrtyServ
 	@Override
 	public HashMap<String, Object> deleteApcVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception {
 
-		String errMsg = cmnsValidationService.selectChkCdDelible(cmnsVrtyVO.getApcCd(), "VRTY_CD", cmnsVrtyVO.getItemCd());
+		String errMsg = vrtyDelible(cmnsVrtyVO);
 
 		if(errMsg == null ) {
 
@@ -153,6 +153,30 @@ public class CmnsVrtyServiceImpl extends BaseServiceImpl implements CmnsVrtyServ
 				}
 			}
 		}
+		return null;
+	}
+
+	// 품종 삭제 가능 여부
+	@Override
+	public String vrtyDelible(CmnsVrtyVO cmnsVrtyVO) throws Exception {
+		// 품종 관련 테이블 등록 리스트 찾기
+		List<CmnsVrtyVO> resultList = cmnsVrtyMapper.vrtyDelible(cmnsVrtyVO);
+
+
+		if(resultList.size() > 0) {
+			String delible = "해당 품종은 ";
+			for (int i = 0; i < resultList.size(); i++) {
+				if(i == 0) {
+					delible += resultList.get(i).getDelible();
+				}else {
+					delible += ", "+resultList.get(i).getDelible();
+				}
+			}
+			delible += "이/가 존재 합니다.";
+
+			return delible;
+		}
+
 		return null;
 	}
 

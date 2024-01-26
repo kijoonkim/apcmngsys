@@ -28,7 +28,7 @@ public interface WrhsVhclService {
 	 * @throws Exception
 	 */
 	public WrhsVhclVO selectWrhsVhcl(WrhsVhclVO wrhsVhclVO) throws Exception;
-	
+
 	/**
 	 * 입고차량정보 목록 조회
 	 * @param wrhsVhclVO
@@ -36,7 +36,7 @@ public interface WrhsVhclService {
 	 * @throws Exception
 	 */
 	public List<WrhsVhclVO> selectWrhsVhclList(WrhsVhclVO wrhsVhclVO) throws Exception;
-	
+
 	/**
 	 * 입고차량정보 등록
 	 * @param wrhsVhclVO
@@ -44,7 +44,7 @@ public interface WrhsVhclService {
 	 * @throws Exception
 	 */
 	public int insertWrhsVhcl(WrhsVhclVO wrhsVhclVO) throws Exception;
-	
+
 	/**
 	 * 입고차량정보 변경
 	 * @param wrhsVhclVO
@@ -52,15 +52,15 @@ public interface WrhsVhclService {
 	 * @throws Exception
 	 */
 	public int updateWrhsVhcl(WrhsVhclVO wrhsVhclVO) throws Exception;
-	
+
 	/**
 	 * 입고차량정보 삭제
 	 * @param wrhsVhclVO
 	 * @return
 	 * @throws Exception
 	 */
-	public int deleteWrhsVhcl(WrhsVhclVO wrhsVhclVO) throws Exception;
-	
+	public HashMap<String, Object> deleteWrhsVhcl(WrhsVhclVO wrhsVhclVO) throws Exception;
+
 	/**
 	 * 입고차량정보 등록
 	 * @param vhclList
@@ -68,4 +68,12 @@ public interface WrhsVhclService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> multiVhclList(List<WrhsVhclVO> vhclList) throws Exception;
+
+	/**
+	 * 입고차량정보 삭제 가능 여부
+	 * @param wrhsVhclVO
+	 * @return
+	 * @throws Exception
+	 */
+	public String vhclDelible(WrhsVhclVO wrhsVhclVO) throws Exception;
 }

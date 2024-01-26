@@ -114,19 +114,20 @@ public class CmnsItemServiceImpl extends BaseServiceImpl implements CmnsItemServ
 	@Override
 	public HashMap<String, Object> deleteCmnsItem(CmnsItemVO cmnsItemVO) throws Exception {
 
-		String errMsg = cmnsValidationService.selectChkCdDelible(cmnsItemVO.getApcCd(), "ITEM_CD", cmnsItemVO.getItemCd());
+		String errMsg = itemDelible(cmnsItemVO);
 
-		StdGrdVO stdGrdVO = new StdGrdVO();
-		StdGrdJgmtVO stdGrdJgmtVO = new StdGrdJgmtVO();
-		CmnsSpcfctVO spcfctVO = new CmnsSpcfctVO();
-		CmnsVrtyVO vrtyVO = new CmnsVrtyVO();
-		SpmtPckgUnitVO spmtPckgUnitVO = new SpmtPckgUnitVO();
-		BeanUtils.copyProperties(cmnsItemVO, stdGrdVO);
-		BeanUtils.copyProperties(cmnsItemVO, stdGrdJgmtVO);
-		BeanUtils.copyProperties(cmnsItemVO, spcfctVO);
-		BeanUtils.copyProperties(cmnsItemVO, vrtyVO);
-		BeanUtils.copyProperties(cmnsItemVO, spmtPckgUnitVO);
 		if(errMsg == null) {
+
+			StdGrdVO stdGrdVO = new StdGrdVO();
+			StdGrdJgmtVO stdGrdJgmtVO = new StdGrdJgmtVO();
+			CmnsSpcfctVO spcfctVO = new CmnsSpcfctVO();
+			CmnsVrtyVO vrtyVO = new CmnsVrtyVO();
+			SpmtPckgUnitVO spmtPckgUnitVO = new SpmtPckgUnitVO();
+			BeanUtils.copyProperties(cmnsItemVO, stdGrdVO);
+			BeanUtils.copyProperties(cmnsItemVO, stdGrdJgmtVO);
+			BeanUtils.copyProperties(cmnsItemVO, spcfctVO);
+			BeanUtils.copyProperties(cmnsItemVO, vrtyVO);
+			BeanUtils.copyProperties(cmnsItemVO, spmtPckgUnitVO);
 
 			List<StdGrdVO> stdGrdList = stdGrdService.selectStdGrdList(stdGrdVO);
 
@@ -205,6 +206,27 @@ public class CmnsItemServiceImpl extends BaseServiceImpl implements CmnsItemServ
 		int updatedCnt = cmnsItemMapper.updateApcCmnsItem(cmnsItemVO);
 
 		return updatedCnt;
+	}
+
+	@Override
+	public String itemDelible(CmnsItemVO cmnsItemVO) throws Exception {
+		List<CmnsItemVO> resultList = cmnsItemMapper.itemDelible(cmnsItemVO);
+
+		if(resultList.size() > 0) {
+			String delible = "해당 품목은 ";
+			for (int i = 0; i < resultList.size(); i++) {
+				if(i == 0) {
+					delible += resultList.get(i).getDelible();
+				}else {
+					delible += ", "+resultList.get(i).getDelible();
+				}
+			}
+			delible += "이/가 존재 합니다.";
+
+			return delible;
+		}
+
+		return null;
 	}
 
 }

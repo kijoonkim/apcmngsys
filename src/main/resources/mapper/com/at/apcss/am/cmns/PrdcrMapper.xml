@@ -194,7 +194,11 @@
 			     , AFI.RMRK                         AS RMRK
 
 			  FROM TB_AX_FRMER_INFO AFI
+                 , TB_COM_USER CU
 			 WHERE AFI.DEL_YN = 'N'
+               AND CU.DEL_YN = 'N'
+               AND AFI.BRNO = CU.BRNO
+               AND CU.APC_CD = #{apcCd}
 			   AND NOT EXISTS (
 			                    SELECT 1
 			                      FROM TB_PRDCR_INFO X
