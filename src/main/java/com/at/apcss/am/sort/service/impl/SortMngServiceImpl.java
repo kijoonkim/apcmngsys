@@ -1217,8 +1217,9 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 				logger.debug("no wrhsno");
 				return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "재고량||투입량");		// W0008	{0} 보다 {1}이/가 큽니다.
 			}
-			if (sort.getRmnWght() > 0) {
-				logger.debug("rmnWght");
+			
+			if (sort.getRmnQntt() > 0 && sort.getRmnWght() > 0) {
+				logger.debug("sn: {}, rmnQntt: {}, rmnWght: {}", sort.getSortSn(), sort.getRmnQntt(), sort.getRmnWght());
 				return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "재고량||투입량");		// W0008	{0} 보다 {1}이/가 큽니다.
 			}
 		}
