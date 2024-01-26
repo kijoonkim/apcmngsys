@@ -192,6 +192,12 @@ public class CmnsVrtyController extends BaseController {
 
 		try {
 			insertedCnt = cmnsVrtyService.insertApcVrty(cmnsVrtyVO);
+
+			if(insertedCnt != 0) {
+				resultMap.put(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다.");
+				return getErrorResponseEntity(resultMap);
+			}
+
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -201,8 +207,6 @@ public class CmnsVrtyController extends BaseController {
 				return getErrorResponseEntity(rtnObj);
 			}
 		}
-
-		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
 
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -226,12 +230,16 @@ public class CmnsVrtyController extends BaseController {
 
 		try {
 			updatedCnt = cmnsVrtyService.updateApcVrty(cmnsVrtyVO);
+
+			if(updatedCnt != 0) {
+				resultMap.put(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다.");
+				return  getErrorResponseEntity(resultMap);
+			}
+
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-
-		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
 
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -251,7 +259,11 @@ public class CmnsVrtyController extends BaseController {
 		cmnsVrtyVO.setSysLastChgPrgrmId(getPrgrmId());
 
 		try {
-			resultMap = cmnsVrtyService.deleteApcVrty(cmnsVrtyVO);
+
+			HashMap<String, Object> rtnObj = cmnsVrtyService.deleteApcVrty(cmnsVrtyVO);
+			if(rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -271,11 +283,6 @@ public class CmnsVrtyController extends BaseController {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
-		// validation check
-
-		// audit 항목
-		int savedCnt = 0;
-
 		try {
 			for (CmnsVrtyVO cmnsVrtyVO : cmnsVrtyList) {
 				cmnsVrtyVO.setSysFrstInptUserId(getUserId());
@@ -285,7 +292,7 @@ public class CmnsVrtyController extends BaseController {
 			}
 			HashMap<String, Object> rtnObj = cmnsVrtyService.multiSaveApcVrtyList(cmnsVrtyList);
             if(rtnObj != null) {
-                getErrorResponseEntity(rtnObj);
+            	return getErrorResponseEntity(rtnObj);
             }
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
@@ -296,8 +303,6 @@ public class CmnsVrtyController extends BaseController {
 				return getErrorResponseEntity(rtnObj);
 			}
 		}
-
-		resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
 
 		return getSuccessResponseEntity(resultMap);
 	}

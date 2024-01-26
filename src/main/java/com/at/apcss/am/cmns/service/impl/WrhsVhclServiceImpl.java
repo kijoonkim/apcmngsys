@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import com.at.apcss.am.cmns.service.WrhsVhclService;
 import com.at.apcss.am.cmns.vo.WrhsVhclVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : WrhsVhclServiceImpl.java
@@ -31,15 +33,15 @@ import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
  */
 @Service("wrhsVhclService")
 public class WrhsVhclServiceImpl extends BaseServiceImpl implements WrhsVhclService {
-	
+
 	@Autowired
 	private WrhsVhclMapper wrhsVhclMapper;
-	
+
 	@Override
 	public WrhsVhclVO selectWrhsVhcl(WrhsVhclVO wrhsVhclVO) throws Exception {
-		
+
 		WrhsVhclVO resultVO = wrhsVhclMapper.selectWrhsVhcl(wrhsVhclVO);
-		
+
 		return resultVO;
 	}
 
@@ -47,7 +49,7 @@ public class WrhsVhclServiceImpl extends BaseServiceImpl implements WrhsVhclServ
 	public List<WrhsVhclVO> selectWrhsVhclList(WrhsVhclVO wrhsVhclVO) throws Exception {
 
 		List<WrhsVhclVO> resultList = wrhsVhclMapper.selectWrhsVhclList(wrhsVhclVO);
-		
+
 		return resultList;
 	}
 
@@ -55,7 +57,7 @@ public class WrhsVhclServiceImpl extends BaseServiceImpl implements WrhsVhclServ
 	public int insertWrhsVhcl(WrhsVhclVO wrhsVhclVO) throws Exception {
 
 		int insertedCnt = wrhsVhclMapper.insertWrhsVhcl(wrhsVhclVO);
-		
+
 		return insertedCnt;
 	}
 
@@ -63,29 +65,39 @@ public class WrhsVhclServiceImpl extends BaseServiceImpl implements WrhsVhclServ
 	public int updateWrhsVhcl(WrhsVhclVO wrhsVhclVO) throws Exception {
 
 		int updatedCnt = wrhsVhclMapper.updateWrhsVhcl(wrhsVhclVO);
-		
+
 		return updatedCnt;
 	}
 
 	@Override
-	public int deleteWrhsVhcl(WrhsVhclVO wrhsVhclVO) throws Exception {
+	public HashMap<String, Object> deleteWrhsVhcl(WrhsVhclVO wrhsVhclVO) throws Exception {
 
-		int deletedCnt = wrhsVhclMapper.deleteWrhsVhcl(wrhsVhclVO);
-		
-		return deletedCnt;
+		String errMsg = vhclDelible(wrhsVhclVO);
+		if(errMsg == null) {
+
+			if(0 == wrhsVhclMapper.deleteWrhsVhcl(wrhsVhclVO)) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+			}
+
+		}else {
+
+			return ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, errMsg); // E0000	{0}
+		}
+
+		return null;
+
 	}
-	
+
 	@Override
 	public HashMap<String, Object> multiVhclList(List<WrhsVhclVO> vhclList) throws Exception {
-		// TODO Auto-generated method stub
-	
+
 		List<WrhsVhclVO> insertList = new ArrayList<>();
 		List<WrhsVhclVO> updateList = new ArrayList<>();
-		
+
 		for ( WrhsVhclVO wrhsVhclVO : vhclList ) {
 			WrhsVhclVO vo = new WrhsVhclVO();
 			BeanUtils.copyProperties(wrhsVhclVO, vo);
-			
+
 			if (ComConstants.ROW_STS_INSERT.equals(wrhsVhclVO.getRowSts())) {
 				insertList.add(vo);
 			}
@@ -93,14 +105,35 @@ public class WrhsVhclServiceImpl extends BaseServiceImpl implements WrhsVhclServ
 				updateList.add(vo);
 			}
 		}
-		
+
 		for ( WrhsVhclVO wrhsVhclVO : insertList ) {
 			wrhsVhclMapper.insertWrhsVhcl(wrhsVhclVO);
 		}
-		
+
 		for ( WrhsVhclVO wrhsVhclVO : updateList ) {
 			wrhsVhclMapper.updateWrhsVhcl(wrhsVhclVO);
 		}
+		return null;
+	}
+
+	@Override
+	public String vhclDelible(WrhsVhclVO wrhsVhclVO) throws Exception {
+		List<WrhsVhclVO> resultList = wrhsVhclMapper.vhclDelible(wrhsVhclVO);
+
+		if(resultList.size() > 0) {
+			String delible = "해당 차량은 ";
+			for (int i = 0; i < resultList.size(); i++) {
+				if(i == 0) {
+					delible += resultList.get(i).getDelible();
+				}else {
+					delible += ", "+resultList.get(i).getDelible();
+				}
+			}
+			delible += "이/가 존재 합니다.";
+
+			return delible;
+		}
+
 		return null;
 	}
 }

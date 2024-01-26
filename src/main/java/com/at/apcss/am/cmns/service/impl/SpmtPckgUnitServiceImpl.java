@@ -102,7 +102,7 @@ public class SpmtPckgUnitServiceImpl extends BaseServiceImpl implements SpmtPckg
 			}
 		}else {
 
-			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, errMsg))); // E0000	{0}
+			return ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, errMsg); // E0000	{0}
 		}
 
 		return null;

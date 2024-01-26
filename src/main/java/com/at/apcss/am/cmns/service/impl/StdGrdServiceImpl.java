@@ -1,5 +1,6 @@
 package com.at.apcss.am.cmns.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -276,24 +277,15 @@ public class StdGrdServiceImpl extends BaseServiceImpl implements StdGrdService 
 		for (StdGrdDtlVO stdGrdDtl : stdGrdDtlList) {
 
 			HashMap<String, Object> rtnObj = deleteStdGrdDtl(stdGrdDtl);
-			if(rtnObj !=null ) {
+			if(rtnObj != null ) {
 				return rtnObj;
 			}
 		}
 
-
-		// 임시 주석 2023-12-11
-		// String errMsg = cmnsValidationService.selectChkCdDelible(stdGrdVO.getApcCd(), "GRD_KND", stdGrdVO.getGrdKnd());
-		String errMsg = null;
-		if(errMsg == null ) {
-
-			if(0 == stdGrdMapper.deleteStdGrd(stdGrdVO)) {
-				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
-			}
-
-		}else {
-			return ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, errMsg); // E0000	{0}
+		if(0 == stdGrdMapper.deleteStdGrd(stdGrdVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다."))); // E0000	{0}
 		}
+
 		return null;
 
 	}
@@ -331,13 +323,12 @@ public class StdGrdServiceImpl extends BaseServiceImpl implements StdGrdService 
 
 	@Override
 	public HashMap<String, Object> deleteStdGrdDtl(StdGrdDtlVO stdGrdDtlVO) throws Exception {
-		// 임시 주석 2023-12-11
-		//String errMsg = cmnsValidationService.selectChkCdDelible(stdGrdDtlVO.getApcCd(), "GRD_CD", stdGrdDtlVO.getGrdCd());
-		String errMsg = null;
+
+		String errMsg = grdDtlInvntrDelible(stdGrdDtlVO);
 		if(errMsg == null ) {
 
 			if(0 == stdGrdMapper.deleteStdGrdDtl(stdGrdDtlVO)) {
-				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다."))); // E0000	{0}
 			}
 
 		}else {
@@ -384,15 +375,13 @@ public class StdGrdServiceImpl extends BaseServiceImpl implements StdGrdService 
 
 	@Override
 	public HashMap<String, Object> deleteStdGrdJgmt(StdGrdJgmtVO StdGrdJgmtVO) throws Exception {
-
-		// 임시 주석 2023-12-11
-		//String errMsg = cmnsValidationService.selectChkCdDelible(StdGrdJgmtVO.getApcCd(), "JGMT_GRD_CD", StdGrdJgmtVO.getGrdCd());
-		String errMsg = null;
+		String errMsg = grdJgmtInvntrDelible(StdGrdJgmtVO);
 		if(errMsg == null ) {
 
-			if(0 == stdGrdMapper.deleteStdGrdJgmt(StdGrdJgmtVO)) {
-				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+			if (0 == stdGrdMapper.deleteStdGrdJgmt(StdGrdJgmtVO)) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000 {0}
 			}
+
 
 		}else {
 			return ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, errMsg); // E0000	{0}
@@ -404,6 +393,56 @@ public class StdGrdServiceImpl extends BaseServiceImpl implements StdGrdService 
 	public int deleteStdGrdJgmtAll(StdGrdJgmtVO StdGrdJgmtVO) throws Exception {
 		int deletedCnt = stdGrdMapper.deleteStdGrdJgmtAll(StdGrdJgmtVO);
 		return deletedCnt;
+	}
+
+	@Override
+	public String grdDtlInvntrDelible(StdGrdDtlVO stdGrdDtlVO) throws Exception {
+		List<StdGrdVO> resultList = new ArrayList<>();
+		int jgmtCnt = stdGrdMapper.grdJgmtCheck(stdGrdDtlVO);
+
+		if (jgmtCnt > 0) {
+			resultList = stdGrdMapper.grdDtlInvntrDelible(stdGrdDtlVO);
+		}else {
+			resultList = stdGrdMapper.grdDtlInvntrDelibleNotJgmt(stdGrdDtlVO);
+		}
+
+		if(resultList.size() > 0) {
+			String delible = "해당 상세 등급은 ";
+			for (int i = 0; i < resultList.size(); i++) {
+				if(i == 0) {
+					delible += resultList.get(i).getDelible();
+				}else {
+					delible += ", "+resultList.get(i).getDelible();
+				}
+			}
+			delible += "이/가 존재 합니다.";
+
+			return delible;
+		}
+
+		return null;
+	}
+
+	@Override
+	public String grdJgmtInvntrDelible(StdGrdJgmtVO stdGrdJgmtVO) throws Exception {
+
+		List<StdGrdJgmtVO> resultList = stdGrdMapper.grdJgmtInvntrDelible(stdGrdJgmtVO);
+
+		if(resultList.size() > 0) {
+			String delible = "해당 판정 등급은 ";
+			for (int i = 0; i < resultList.size(); i++) {
+				if(i == 0) {
+					delible += resultList.get(i).getDelible();
+				}else {
+					delible += ", "+resultList.get(i).getDelible();
+				}
+			}
+			delible += "이/가 존재 합니다.";
+
+			return delible;
+		}
+
+		return null;
 	}
 
 

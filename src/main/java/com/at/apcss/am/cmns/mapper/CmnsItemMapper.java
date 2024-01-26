@@ -46,6 +46,7 @@ public interface CmnsItemMapper {
 	 * @throws Exception
 	 */
 	public List<CmnsItemVO> selectApcCmnsItemList(CmnsItemVO cmnsItemVO) throws Exception;
+
 	/**
 	 * 품목정보 등록
 	 * @param cmnsItemVO
@@ -85,5 +86,13 @@ public interface CmnsItemMapper {
 	 * @throws Exception
 	 */
 	public CmnsItemVO selectCmnsApcItem(CmnsItemVO cmnsItemVO) throws Exception;
+
+	/**
+	 * APC 품목 삭제 가능 여부
+	 * @param cmnsItemVO
+	 * @return List<CmnsItemVO>
+	 * @throws Exception
+	 */
+	public List<CmnsItemVO> itemDelible(CmnsItemVO cmnsItemVO) throws Exception;
 
 }

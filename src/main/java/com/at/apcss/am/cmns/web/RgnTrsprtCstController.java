@@ -49,9 +49,13 @@ public class RgnTrsprtCstController extends BaseController {
 	public ResponseEntity<HashMap<String, Object>> deleteRgnTrsprtCstList(@RequestBody RgnTrsprtCstVO rgnTrsprtCstVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		int result = 0;
 		try {
-			result = rgnTrsprtCstService.deleteRgnTrsprtCst(rgnTrsprtCstVO);
+
+			HashMap<String, Object> rtnObj = rgnTrsprtCstService.deleteRgnTrsprtCst(rgnTrsprtCstVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
@@ -61,8 +65,6 @@ public class RgnTrsprtCstController extends BaseController {
 			}
 		}
 
-		resultMap.put("result", result);
-
 		return getSuccessResponseEntity(resultMap);
 	}
 
@@ -70,11 +72,11 @@ public class RgnTrsprtCstController extends BaseController {
 	public ResponseEntity<HashMap<String, Object>> multiApcVhclMngList(@RequestBody RgnTrsprtCstVO apcWrhsVhclMngList, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		
+
 		List<WrhsVhclVO> wrhsVhclList = apcWrhsVhclMngList.getWrhsVhclList();
 		List<RgnTrsprtCstVO> rgnTrsprtCstList = apcWrhsVhclMngList.getRgnTrsprtCstList();
 		RgnTrsprtCstVO saveList = new RgnTrsprtCstVO();
-		
+
 		try {
 			for ( WrhsVhclVO wrhsVhclVO : wrhsVhclList ) {
 				wrhsVhclVO.setVhclno(wrhsVhclVO.getVhclno().replaceAll(" ", ""));

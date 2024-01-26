@@ -115,6 +115,32 @@
 		]]>
 	</delete>
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.RgnTrsprtCstMapper.rgnTrsprtCstDelible	-->
+	<!-- DESC : 원물운임비용 삭제 가능 여부.	                                    -->
+	<!-- ========================================================================== -->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.01.25  	김호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="rgnTrsprtCstDelible" parameterType="com.at.apcss.am.cmns.vo.RgnTrsprtCstVO" resultType="com.at.apcss.am.cmns.vo.RgnTrsprtCstVO">
+    	<![CDATA[
+    		SELECT X.* /* com.at.apcss.am.cmns.mapper.RawMtrTrsprtCstMapper.rgnTrsprtCstDelible */
+			  FROM (
+			         SELECT
+			                '원물운임' AS DELIBLE
+			               , (SELECT COUNT(*)
+			                    FROM TB_RAW_MTR_TRSPRT_CST X
+			                   WHERE X.APC_CD = #{apcCd}
+			                     AND X.TRSPRT_RGN_CD = #{trsprtRgnCd}
+			                     AND X.DEL_YN = 'N'
+			                  )  AS CNT
+			           FROM DUAL
+			         ) X
+			 WHERE CNT > 0
+		]]>
+    </select>
+
 </mapper>
 
 

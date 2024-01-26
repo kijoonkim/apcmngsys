@@ -85,5 +85,13 @@ public interface CmnsItemService {
 	 */
 	public int updateApcCmnsItem(CmnsItemVO cmnsItemVO) throws Exception;
 
+	/**
+	 * APC 품목 삭제 가능 여부
+	 * @param cmnsItemVO
+	 * @return String
+	 * @throws Exception
+	 */
+	public String itemDelible(CmnsItemVO cmnsItemVO) throws Exception;
+
 
 }

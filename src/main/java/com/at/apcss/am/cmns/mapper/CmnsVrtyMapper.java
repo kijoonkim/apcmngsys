@@ -26,7 +26,7 @@ public interface CmnsVrtyMapper {
 	/**
 	 * 품종 마스터 정보 단건 조회
 	 * @param cmnsVrtyVO
-	 * @return
+	 * @return CmnsVrtyVO
 	 * @throws Exception
 	 */
 	public CmnsVrtyVO selectCmnsVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception;
@@ -34,7 +34,7 @@ public interface CmnsVrtyMapper {
 	/**
 	 * 품종 마스터 정보 목록 조회
 	 * @param cmnsVrtyVO
-	 * @return
+	 * @return List<CmnsVrtyVO>
 	 * @throws Exception
 	 */
 	public List<CmnsVrtyVO> selectCmnsVrtyList(CmnsVrtyVO cmnsVrtyVO) throws Exception;
@@ -42,7 +42,7 @@ public interface CmnsVrtyMapper {
 	/**
 	 * 품종 마스터 정보 등록
 	 * @param cmnsVrtyVO
-	 * @return
+	 * @return Integer
 	 * @throws Exception
 	 */
 	public int insertCmnsVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception;
@@ -50,7 +50,7 @@ public interface CmnsVrtyMapper {
 	/**
 	 * 품종 마스터 정보 변경
 	 * @param cmnsVrtyVO
-	 * @return
+	 * @return Integer
 	 * @throws Exception
 	 */
 	public int updateCmnsVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception;
@@ -58,7 +58,7 @@ public interface CmnsVrtyMapper {
 	/**
 	 * 품종 마스터 정보 삭제
 	 * @param cmnsVrtyVO
-	 * @return
+	 * @return Integer
 	 * @throws Exception
 	 */
 	public int deleteCmnsVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception;
@@ -77,7 +77,7 @@ public interface CmnsVrtyMapper {
 	/**
 	 * APC 품종 정보 목록 조회
 	 * @param cmnsVrtyVO
-	 * @return
+	 * @return List<CmnsVrtyVO>
 	 * @throws Exception
 	 */
 	public List<CmnsVrtyVO> selectApcVrtyList(CmnsVrtyVO cmnsVrtyVO) throws Exception;
@@ -85,7 +85,7 @@ public interface CmnsVrtyMapper {
 	/**
 	 * APC 품종 정보 등록
 	 * @param cmnsVrtyVO
-	 * @return
+	 * @return Integer
 	 * @throws Exception
 	 */
 	public int insertApcVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception;
@@ -93,7 +93,7 @@ public interface CmnsVrtyMapper {
 	/**
 	 * APC 품종 정보 변경
 	 * @param cmnsVrtyVO
-	 * @return
+	 * @return Integer
 	 * @throws Exception
 	 */
 	public int updateApcVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception;
@@ -101,7 +101,7 @@ public interface CmnsVrtyMapper {
 	/**
 	 * APC 품종 정보 삭제
 	 * @param cmnsVrtyVO
-	 * @return
+	 * @return Integer
 	 * @throws Exception
 	 */
 	public int deleteApcVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception;
@@ -109,8 +109,16 @@ public interface CmnsVrtyMapper {
 	/**
 	 * APC 품종 정보 전체 삭제
 	 * @param cmnsVrtyVO
-	 * @return
+	 * @return Integer
 	 * @throws Exception
 	 */
 	public int deleteApcVrtyAll(CmnsVrtyVO cmnsVrtyVO) throws Exception;
+
+	/**
+	 * APC 품종 삭제 가능 여부
+	 * @param cmnsVrtyVO
+	 * @return List<CmnsVrtyVO>
+	 * @throws Exception
+	 */
+	public List<CmnsVrtyVO> vrtyDelible(CmnsVrtyVO cmnsVrtyVO) throws Exception;
 }

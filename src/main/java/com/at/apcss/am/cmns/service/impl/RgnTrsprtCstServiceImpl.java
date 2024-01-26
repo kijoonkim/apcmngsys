@@ -37,34 +37,34 @@ import com.at.apcss.co.sys.util.ComUtil;
  */
 @Service("rgnTrsprtCstService")
 public class RgnTrsprtCstServiceImpl extends BaseServiceImpl implements RgnTrsprtCstService {
-	
+
 	@Autowired
 	private RgnTrsprtCstMapper rgnTrsprtCstMapper;
-	
+
 	@Resource(name = "wrhsVhclService")
 	private WrhsVhclService wrhsVhclService;
-	
+
 	@Override
 	public RgnTrsprtCstVO selectRgnTrsprtCst(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception {
-		
+
 		RgnTrsprtCstVO resultVO = rgnTrsprtCstMapper.selectRgnTrsprtCst(rgnTrsprtCstVO);
-		
+
 		return resultVO;
 	}
 
 	@Override
 	public List<RgnTrsprtCstVO> selectRgnTrsprtCstList(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception {
-		
+
 		List<RgnTrsprtCstVO> resultList = rgnTrsprtCstMapper.selectRgnTrsprtCstList(rgnTrsprtCstVO);
 
 		return resultList;
 	}
-	
+
 	@Override
 	public int insertRgnTrsprtCst(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception {
-		
+
 		int insertedCnt = rgnTrsprtCstMapper.insertRgnTrsprtCst(rgnTrsprtCstVO);
-		
+
 		return insertedCnt;
 	}
 
@@ -72,16 +72,28 @@ public class RgnTrsprtCstServiceImpl extends BaseServiceImpl implements RgnTrspr
 	public int updateRgnTrsprtCst(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception {
 
 		int updatedCnt = rgnTrsprtCstMapper.updateRgnTrsprtCst(rgnTrsprtCstVO);
-		
+
 		return updatedCnt;
 	}
 
 	@Override
-	public int deleteRgnTrsprtCst(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception {
+	public HashMap<String, Object> deleteRgnTrsprtCst(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception {
 
-		int deletedCnt = rgnTrsprtCstMapper.deleteRgnTrsprtCst(rgnTrsprtCstVO);
-		
-		return deletedCnt;
+
+		String errMsg = rgnTrsprtCstDelible(rgnTrsprtCstVO);
+		if(errMsg == null) {
+
+			if(0 == rgnTrsprtCstMapper.deleteRgnTrsprtCst(rgnTrsprtCstVO)) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+			}
+
+		}else {
+
+			return ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, errMsg); // E0000	{0}
+		}
+
+		return null;
+
 	}
 
 	@Override
@@ -112,7 +124,7 @@ public class RgnTrsprtCstServiceImpl extends BaseServiceImpl implements RgnTrspr
 		}
 		return null;
 	}
-	
+
 	@Override
 	public HashMap<String, Object> multiApcVhclMngList(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception {
 		// TODO Auto-generated method stub
@@ -132,7 +144,28 @@ public class RgnTrsprtCstServiceImpl extends BaseServiceImpl implements RgnTrspr
 				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
 			}
 		}
-		
+
+		return null;
+	}
+
+	@Override
+	public String rgnTrsprtCstDelible(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception {
+		List<RgnTrsprtCstVO> resultList = rgnTrsprtCstMapper.rgnTrsprtCstDelible(rgnTrsprtCstVO);
+
+		if(resultList.size() > 0) {
+			String delible = "해당 운송지역은 ";
+			for (int i = 0; i < resultList.size(); i++) {
+				if(i == 0) {
+					delible += resultList.get(i).getDelible();
+				}else {
+					delible += ", "+resultList.get(i).getDelible();
+				}
+			}
+			delible += "이/가 존재 합니다.";
+
+			return delible;
+		}
+
 		return null;
 	}
 

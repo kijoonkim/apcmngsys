@@ -22,44 +22,52 @@ import com.at.apcss.am.cmns.vo.WrhsVhclVO;
  */
 @Mapper
 public interface WrhsVhclMapper {
-	
+
 	/**
 	 * 입고차량정보 단건 조회
 	 * @param wrhsVhclVO
-	 * @return
+	 * @return WrhsVhclVO
 	 * @throws Exception
 	 */
 	public WrhsVhclVO selectWrhsVhcl(WrhsVhclVO wrhsVhclVO) throws Exception;
-	
+
 	/**
 	 * 입고차량정보 목록 조회
 	 * @param wrhsVhclVO
-	 * @return
+	 * @return List<WrhsVhclVO>
 	 * @throws Exception
 	 */
 	public List<WrhsVhclVO> selectWrhsVhclList(WrhsVhclVO wrhsVhclVO) throws Exception;
-	
+
 	/**
 	 * 입고차량정보 등록
 	 * @param wrhsVhclVO
-	 * @return
+	 * @return Integer
 	 * @throws Exception
 	 */
 	public int insertWrhsVhcl(WrhsVhclVO wrhsVhclVO) throws Exception;
-	
+
 	/**
 	 * 입고차량정보 변경
 	 * @param wrhsVhclVO
-	 * @return
+	 * @return Integer
 	 * @throws Exception
 	 */
 	public int updateWrhsVhcl(WrhsVhclVO wrhsVhclVO) throws Exception;
-	
+
 	/**
 	 * 입고차량정보 삭제
 	 * @param wrhsVhclVO
-	 * @return
+	 * @return Integer
 	 * @throws Exception
 	 */
 	public int deleteWrhsVhcl(WrhsVhclVO wrhsVhclVO) throws Exception;
+
+	/**
+	 * 입고차량정보 삭제 가능 여부
+	 * @param wrhsVhclVO
+	 * @return List<WrhsVhclVO>
+	 * @throws Exception
+	 */
+	public List<WrhsVhclVO> vhclDelible(WrhsVhclVO wrhsVhclVO) throws Exception;
 }
