@@ -798,10 +798,22 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 								&& (!StringUtils.hasText(prdcrCd) || prdcrCd.equals(orgnInv.getPrdcrCd()))
 								&& warehouseSeCdFrom.equals(orgnInv.getWarehouseSeCd())) {
 								
+								logger.debug(
+										"orgnInv 1 $#@ s: {}, no: {}, wrhsQntt: {}, wrhsWght: {}, invRmnQntt: {}, invRmnWght: {}",
+										sn,
+										orgnInv.getWrhsno(),
+										wrhsQntt, 
+										wrhsWght, 
+										invRmnQntt,
+										invRmnWght
+										);
+								
 								if (sortQntt > invRmnQntt) {
 									sortQntt -= invRmnQntt;						
 									sortWght = ComUtil.round(invRmnQntt * wrhsWght / wrhsQntt);
-									
+									if (sortWght > invRmnWght) {
+										sortWght = invRmnWght;
+									}
 									orgnInv.setRmnQntt(0);
 									orgnInv.setRmnWght(0);
 									
@@ -811,6 +823,9 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 								} else {
 									invRmnQntt -= sortQntt;
 									sortWght = sortQntt * wrhsWght / wrhsQntt;
+									if (sortWght > invRmnWght) {
+										sortWght = invRmnWght;
+									}
 									invRmnWght -= sortWght;
 									orgnInv.setRmnQntt(invRmnQntt);
 									orgnInv.setRmnWght(invRmnWght);
@@ -871,10 +886,22 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 									continue;
 								}
 
+								logger.debug(
+										"orgnInv$#@ s: {}, no: {}, wrhsQntt: {}, wrhsWght: {}, invRmnQntt: {}, invRmnWght: {}",
+										sn,
+										orgnInv.getWrhsno(),
+										wrhsQntt, 
+										wrhsWght, 
+										invRmnQntt,
+										invRmnWght
+										);
+								
 								if (sortQntt > invRmnQntt) {
 									sortQntt -= invRmnQntt;
 									sortWght = ComUtil.round(sortQntt * wrhsWght / wrhsQntt);
-									
+									if (sortWght > invRmnWght) {
+										sortWght = invRmnWght;
+									}
 									orgnInv.setRmnQntt(0);
 									orgnInv.setRmnWght(0);
 									
@@ -884,6 +911,10 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 								} else {
 									invRmnQntt -= sortQntt;
 									sortWght = sortQntt * wrhsWght / wrhsQntt;
+									if (sortWght > invRmnWght) {
+										sortWght = invRmnWght;
+									}
+									
 									invRmnWght -= sortWght;
 									orgnInv.setRmnQntt(invRmnQntt);
 									orgnInv.setRmnWght(invRmnWght);
