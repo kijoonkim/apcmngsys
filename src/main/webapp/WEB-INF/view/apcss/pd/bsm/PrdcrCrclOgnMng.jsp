@@ -1286,6 +1286,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
         let data = await postJsonPromise;
         try{
         	jsonPrdcrCrclOgnMng.length = 0;
+        	let totalRecordCount = 0;
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
 				let PrdcrCrclOgnMngVO = {

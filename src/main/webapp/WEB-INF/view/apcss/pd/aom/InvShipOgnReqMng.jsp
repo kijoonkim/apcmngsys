@@ -1011,6 +1011,7 @@
         let data = await postJsonPromise01 ;
         try{
         	jsonInvShipOgnReqMng.length = 0;
+        	let totalRecordCount = 0;
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
 				let InvShipOgnReqMngVO = {
