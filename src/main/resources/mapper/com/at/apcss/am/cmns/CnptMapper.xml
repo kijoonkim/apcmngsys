@@ -46,7 +46,8 @@
 		     , CT.RMRK              AS RMRK
 		     , CT.DEL_YN            AS DEL_YN
 		  FROM TB_CNPT_INFO CT
-		 WHERE APC_CD 		= #{apcCd}
+		 WHERE CT.DEL_YN 	= 'N'
+		   AND CT.APC_CD 		= #{apcCd}
 		]]>
 		<if test='cnptNm != null and cnptNm !=""'>
 		   AND CT.CNPT_NM LIKE '%' || #{cnptNm} || '%'
@@ -83,7 +84,6 @@
     		  , CLS
 		      , BZSTAT
     		  , RMRK
-    		  , DEL_YN
     		  , SYS_FRST_INPT_DT
     		  , SYS_FRST_INPT_USER_ID
     		  , SYS_FRST_INPT_PRGRM_ID
@@ -104,7 +104,6 @@
     		  , #{cls}
 		      , #{bzstat}
     		  , #{rmrk}
-    		  , #{delYn}
     		  , SYSDATE
     		  , #{sysFrstInptUserId}
     		  , #{sysFrstInptPrgrmId}
@@ -151,21 +150,22 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteCnpt" parameterType="com.at.apcss.am.cmns.vo.CnptVO">
+	<update id="deleteCnpt" parameterType="com.at.apcss.am.cmns.vo.CnptVO">
 		<![CDATA[
-		DELETE FROM TB_CNPT_INFO
+		UPDATE TB_CNPT_INFO /* com.at.apcss.am.cmns.mapper.CnptMapper.deleteCnpt */
+		   SET DEL_YN 		= 'Y'
 		 WHERE APC_CD		= #{apcCd}
 		   AND CNPT_CD 		= #{cnptCd}
 		]]>
-	</delete>
+	</update>
 
     <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CnptMapper.selectLgszMrkt				-->
-	<!-- DESC : 대형마켓정보 조회.	                                       				-->
+	<!-- DESC : 대형마켓정보 조회.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.08.10  	정희운       		Initial Creation                            -->
+	<!-- 2023.08.10  	정희운       		Initial Creation                        -->
 	<!-- ==========================================================================	-->
     <select id="selectLgszMrkt" parameterType="com.at.apcss.am.cmns.vo.LgszMrktVO" resultType="com.at.apcss.am.cmns.vo.LgszMrktVO">
     	<![CDATA[
@@ -179,18 +179,18 @@
 			    , LM.USE_YN				AS USE_YN
 			    , LM.LAST_PRCS_DT		AS LAST_PRCS_DT
 			  FROM TB_LGSZ_MRKT_MNG LM
-			 WHERE APC_CD = #{apcCd}
-			   AND LGSZ_MRKT_CD = #{lgszMrktCd}
+			 WHERE LM.APC_CD 		= #{apcCd}
+			   AND LM.LGSZ_MRKT_CD 	= #{lgszMrktCd}
 		]]>
     </select>
 
     <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CnptMapper.selectLgszMrktList			-->
-	<!-- DESC : 대형마켓정보 조회.	                                       					-->
+	<!-- DESC : 대형마켓정보 조회.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.08.10  	정희운       		Initial Creation                            -->
+	<!-- 2023.08.10  	정희운       		Initial Creation                        -->
 	<!-- ==========================================================================	-->
     <select id="selectLgszMrktList" parameterType="com.at.apcss.am.cmns.vo.LgszMrktVO" resultType="com.at.apcss.am.cmns.vo.LgszMrktVO">
     	<![CDATA[
@@ -205,17 +205,17 @@
 			    , LM.USE_YN				AS USE_YN
 			    , LM.LAST_PRCS_DT		AS LAST_PRCS_DT
 			  FROM TB_LGSZ_MRKT_MNG LM
-			 WHERE APC_CD = #{apcCd}
+			 WHERE LM.APC_CD = #{apcCd}
 		]]>
     </select>
 
     <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CnptMapper.updateLgszMrkt				-->
-	<!-- DESC : 대형마켓정보 변경.	                                       					-->
+	<!-- DESC : 대형마켓정보 변경.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.08.10  	정희운       		Initial Creation                            -->
+	<!-- 2023.08.10  	정희운       		Initial Creation                        -->
 	<!-- ==========================================================================	-->
 	<update id="updateLgszMrkt" parameterType="com.at.apcss.am.cmns.vo.LgszMrktVO">
 		<![CDATA[
@@ -239,11 +239,11 @@
 
     <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CnptMapper.insertLgszMrkt				-->
-	<!-- DESC : 대형마켓정보 등록.	                                       				-->
+	<!-- DESC : 대형마켓정보 등록.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.08.10  	정희운       		Initial Creation                            -->
+	<!-- 2023.08.10  	정희운       		Initial Creation                        -->
 	<!-- ==========================================================================	-->
 	<insert id="insertLgszMrkt" parameterType="com.at.apcss.am.cmns.vo.LgszMrktVO">
 		<![CDATA[
@@ -282,6 +282,51 @@
 	   			)
 		]]>
 	</insert>
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CnptMapper.cnptDelible					-->
+	<!-- DESC : 거래처 삭제 가능 여부 .	                                       		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.01.25  	정희운       		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+    <select id="cnptDelible" parameterType="com.at.apcss.am.cmns.vo.CnptVO" resultType="com.at.apcss.am.cmns.vo.CnptVO">
+    	<![CDATA[
+	    	SELECT X.* /* com.at.apcss.am.cmns.mapper.CnptMapper.cnptDelible */
+			  FROM (
+			           SELECT
+			                  '출하지시' AS DELIBLE
+			                 , (SELECT COUNT(*)
+			                      FROM TB_SPMT_CMND X
+			                     WHERE X.APC_CD = #{apcCd}
+			                       AND X.CNPT_CD = #{cnptCd}
+			                       AND X.DEL_YN = 'N'
+			                  )  AS CNT
+			             FROM DUAL
+			           UNION ALL
+			           SELECT
+			                   '출하실적' AS DELIBLE
+			                  , (SELECT COUNT(*)
+			                       FROM TB_SPMT_PRFMNC_COM X
+			                      WHERE X.APC_CD = #{apcCd}
+			                        AND X.CNPT_CD = #{cnptCd}
+			                        AND X.DEL_YN = 'N'
+			                   )  AS CNT
+			             FROM DUAL
+			           UNION ALL
+			           SELECT
+			                  '매출실적' AS DELIBLE
+			                 , (SELECT COUNT(*)
+			                      FROM TB_SLS_PRFMNC X
+			                     WHERE X.APC_CD = #{apcCd}
+			                       AND X.CNPT_CD = #{cnptCd}
+			                       AND X.DEL_YN = 'N'
+			                  )  AS CNT
+			             FROM DUAL
+			         ) X
+ 			WHERE CNT > 0
+		]]>
+    </select>
 </mapper>
 
 

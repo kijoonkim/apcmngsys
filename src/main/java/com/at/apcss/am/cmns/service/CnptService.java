@@ -69,7 +69,7 @@ public interface CnptService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int deleteCnpt(CnptVO cnptVO) throws Exception;
+	public HashMap<String, Object> deleteCnpt(CnptVO cnptVO) throws Exception;
 
 	/**
 	 * 대형마켓 접속정보 조회
@@ -79,7 +79,7 @@ public interface CnptService {
 	 * @throws Exception
 	 */
 	public LgszMrktVO selectLgszMrkt(String apcCd, String lgszMrktCd) throws Exception;
-	
+
 	/**
 	 * 대형마켓 접속정보 조회
 	 * @param lgszMrktVO
@@ -87,7 +87,7 @@ public interface CnptService {
 	 * @throws Exception
 	 */
 	public LgszMrktVO selectLgszMrkt(LgszMrktVO lgszMrktVO) throws Exception;
-	
+
 	/**
 	 * 대형마켓 목록 조회
 	 * @param LgszMrktVO
@@ -120,5 +120,13 @@ public interface CnptService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> multiCnptLgszMrktList(List<CnptVO> cnptList, List<LgszMrktVO> lgszMrktList) throws Exception;
+
+	/**
+	 * 거래처정보 삭제 가능 여부
+	 * @param CnptVO
+	 * @return String
+	 * @throws Exception
+	 */
+	public String cnptDelible(CnptVO cnptVO) throws Exception;
 
 }

@@ -131,9 +131,13 @@ public class CnptController extends BaseController {
 	public ResponseEntity<HashMap<String, Object>> deleteCnpt(@RequestBody CnptVO cnptVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		int deletedCnt = 0;
 		try {
-			deletedCnt = cnptService.deleteCnpt(cnptVO);
+
+			HashMap<String, Object> rtnObj = cnptService.deleteCnpt(cnptVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
@@ -142,8 +146,6 @@ public class CnptController extends BaseController {
 				return getErrorResponseEntity(rtnObj);
 			}
 		}
-
-		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
 
 		return getSuccessResponseEntity(resultMap);
 	}

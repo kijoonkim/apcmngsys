@@ -72,4 +72,13 @@ public class CnptVO extends ComVO {
 	 * 비고
 	 */
 	private String rmrk;
+
+	/**
+	 * 등록 수
+	 */
+	private int cnt;
+	/**
+	 * 삭제 불가능 사유
+	 */
+	private String delible;
 }
