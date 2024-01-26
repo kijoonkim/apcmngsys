@@ -257,11 +257,13 @@
 
 	}
 
-	const fn_deleteCnpt = async function(cnpt){
-		let postJsonPromise1 = gfn_postJSON("/am/cmns/deleteCnpt.do", cnpt);
+	const fn_deleteCnpt = async function(cnpt, nRow){
+		let postJsonPromise = gfn_postJSON("/am/cmns/deleteCnpt.do", cnpt);
 		let data = await postJsonPromise;
+
         try {
         	if (_.isEqual("S", data.resultStatus)) {
+        		grdCnpt.deleteRow(nRow);
         	} else {
         		gfn_comAlert(data.resultCode, data.resultMessage);
         	}
@@ -269,7 +271,7 @@
         	console.error("failed", e.message);
         }
 	}
-	
+
 	var grdLgszMrkt;
     var jsonLgszMrkt =[];
     const fn_lgszMrktMngCreateGrid = async function() {
@@ -287,27 +289,27 @@
             {caption: ["발주정보 URL"], 	ref: 'outordrInfoUrl',  	type:'input',  width:'300px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 2000}), typeinfo : {maxlength : 2000}},
             {caption: ["사용자ID"], 		ref: 'userId',  	type:'input',  width:'100px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 200}), typeinfo : {maxlength : 40}},
             {
-            	caption: ["패스워드"], 		
-            	ref: 'pswdDisp',  	
-            	type:'input',  
-            	width:'120px',    
+            	caption: ["패스워드"],
+            	ref: 'pswdDisp',
+            	type:'input',
+            	width:'120px',
             	style:'text-align:center',
             	userattr: {colNm: "pswd"},
-            	validate : gfn_chkByte.bind({byteLimit: 40}), 
+            	validate : gfn_chkByte.bind({byteLimit: 40}),
             	typeinfo : {maxlength : 256}
             },
             {caption: ["사용유무"], 		ref: 'useYn',   	type:'combo',  	width:'100px',    style:'text-align:center',
 						typeinfo : {ref:'comboUesYnJsData', label:'label', value:'value', displayui : false, itemcount: 10}},
             {caption: ["최종처리일시"], 	ref: 'lastPrcsDt',  	type:'output',  width:'280px',    style:'text-align:center'},
             {
-            	caption: ["패스워드"], 		
-            	ref: 'pswd',  	
+            	caption: ["패스워드"],
+            	ref: 'pswd',
             	type:'output',
-            	width:'120px',    
+            	width:'120px',
             	style:'text-align:center',
             	hidden: true
             },
-            
+
         ];
         grdLgszMrkt = _SBGrid.create(SBGridProperties);
         grdLgszMrkt.bind('valuechanged', fn_grdLgszMrktValueChanged);
@@ -383,7 +385,7 @@
 		let checkEml = new RegExp(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i);
 		return checkEml.test(eml);
 	}
-	
+
  	/**
      * @name fn_grdLgszMrktValueChanged
      * @description 대형마켓정보 변경 event 처리
@@ -394,7 +396,7 @@
 		var nCol = grdLgszMrkt.getCol();
 
 		const usrAttr = grdLgszMrkt.getColUserAttr(nCol);
-		
+
 		if (!gfn_isEmpty(usrAttr) && usrAttr.hasOwnProperty('colNm')) {
 
 			const rowData = grdLgszMrkt.getRowData(nRow, false);	// deep copy
@@ -408,7 +410,7 @@
 			}
 		}
 	}
-	
-	
+
+
 </script>
 </html>

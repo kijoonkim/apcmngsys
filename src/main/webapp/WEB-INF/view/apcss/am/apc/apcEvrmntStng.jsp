@@ -834,7 +834,7 @@
 
     // Row 추가 및 삭제 기능
 
-    function fn_procRow(gubun, grid, nRow, nCol) {
+    const fn_procRow = async function (gubun, grid, nRow, nCol) {
         if (gubun === "ADD") {
             if (grid === "grdCnpt") {
 
@@ -1053,8 +1053,7 @@
             	if(grdCnpt.getRowStatus(nRow) == 0 || grdCnpt.getRowStatus(nRow) == 2){
             		if(gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
             			var cnpt = grdCnpt.getRowData(nRow);
-            			fn_deleteCnpt(cnpt);
-            			grdCnpt.deleteRow(nRow);
+            			fn_deleteCnpt(cnpt, nRow);
             		}
             	}else{
             		grdCnpt.deleteRow(nRow);

@@ -43,7 +43,7 @@ public class CnptServiceImpl extends BaseServiceImpl implements CnptService {
 	/** 암호화서비스 */
     @Resource(name="comCryptoService")
     ComCryptoService comCryptoService;
-	
+
 	@Override
 	public CnptVO selectCnpt(CnptVO cnptVO) throws Exception {
 
@@ -91,39 +91,48 @@ public class CnptServiceImpl extends BaseServiceImpl implements CnptService {
 	}
 
 	@Override
-	public int deleteCnpt(CnptVO cnptVO) throws Exception {
+	public HashMap<String, Object> deleteCnpt(CnptVO cnptVO) throws Exception {
 
-		int deletedCnt = cnptMapper.deleteCnpt(cnptVO);
 
-		return deletedCnt;
+		String errMsg = cnptDelible(cnptVO);
+		if(errMsg == null) {
+			if(0 == cnptMapper.deleteCnpt(cnptVO)) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다."))); // E0000	{0}
+			}
+
+		}else {
+			return ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, errMsg); // E0000	{0}
+		}
+
+		return null;
 	}
 
 	@Override
 	public LgszMrktVO selectLgszMrkt(String apcCd, String lgszMrktCd) throws Exception {
-		
+
 		LgszMrktVO lgszMrktVO = new LgszMrktVO();
 		lgszMrktVO.setApcCd(apcCd);
 		lgszMrktVO.setLgszMrktCd(lgszMrktCd);
-		
+
 		LgszMrktVO resultVO = selectLgszMrkt(lgszMrktVO);
 
-		if (StringUtils.hasText(resultVO.getPswd())) {			
+		if (StringUtils.hasText(resultVO.getPswd())) {
 			String decryptedPswd = comCryptoService.decrypt(resultVO.getPswd());
 			resultVO.setPswd(decryptedPswd);
 		}
-		
+
 		return resultVO;
 	}
 
 	@Override
 	public LgszMrktVO selectLgszMrkt(LgszMrktVO lgszMrktVO) throws Exception {
-		
+
 		LgszMrktVO resultVO = cnptMapper.selectLgszMrkt(lgszMrktVO);
 
 		return resultVO;
 	}
 
-	
+
 	@Override
 	public List<LgszMrktVO> selectLgszMrktList(LgszMrktVO lgszMrktVO) throws Exception {
 
@@ -159,12 +168,12 @@ public class CnptServiceImpl extends BaseServiceImpl implements CnptService {
 
 		if(lgszMrktList.size() > 0) {
 			for (LgszMrktVO lgszMrktVO : lgszMrktList) {
-				
+
 				if (StringUtils.hasText(lgszMrktVO.getPswd())) {
 					String hashedPswd = comCryptoService.encrypt(lgszMrktVO.getPswd());
 					lgszMrktVO.setPswd(hashedPswd);
 				}
-				
+
 				if(0 == updateLgszMrkt(lgszMrktVO)) {
 					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
 				}
@@ -185,6 +194,27 @@ public class CnptServiceImpl extends BaseServiceImpl implements CnptService {
 					}
 				}
 			}
+		}
+
+		return null;
+	}
+
+	@Override
+	public String cnptDelible(CnptVO cnptVO) throws Exception {
+		List<CnptVO> resultList = cnptMapper.cnptDelible(cnptVO);
+
+		if(resultList.size() > 0) {
+			String delible = "해당 거래처는 ";
+			for (int i = 0; i < resultList.size(); i++) {
+				if(i == 0) {
+					delible += resultList.get(i).getDelible();
+				}else {
+					delible += ", "+resultList.get(i).getDelible();
+				}
+			}
+			delible += "이/가 존재 합니다.";
+
+			return delible;
 		}
 
 		return null;

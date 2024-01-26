@@ -399,11 +399,13 @@ public class StdGrdServiceImpl extends BaseServiceImpl implements StdGrdService 
 	public String grdDtlInvntrDelible(StdGrdDtlVO stdGrdDtlVO) throws Exception {
 		List<StdGrdVO> resultList = new ArrayList<>();
 		int jgmtCnt = stdGrdMapper.grdJgmtCheck(stdGrdDtlVO);
-
+		String grdSeCd = stdGrdDtlVO.getGrdSeCd();
 		if (jgmtCnt > 0) {
 			resultList = stdGrdMapper.grdDtlInvntrDelible(stdGrdDtlVO);
 		}else {
-			resultList = stdGrdMapper.grdDtlInvntrDelibleNotJgmt(stdGrdDtlVO);
+			if("01".equals(grdSeCd) || "02".equals(grdSeCd)) {
+				resultList = stdGrdMapper.grdDtlInvntrDelibleNotJgmt(stdGrdDtlVO);
+			}
 		}
 
 		if(resultList.size() > 0) {

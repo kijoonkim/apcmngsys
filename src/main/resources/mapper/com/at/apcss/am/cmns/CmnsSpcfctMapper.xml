@@ -464,17 +464,6 @@
 			                       AND X.DEL_YN = 'N'
 			                  )  AS CNT
 			             FROM DUAL
-			           UNION ALL
-			           SELECT
-			                  '매출실적' AS DELIBLE
-			                 , (SELECT COUNT(*)
-			                      FROM TB_SLS_PRFMNC X
-			                     WHERE X.APC_CD = #{apcCd}
-			                       AND X.ITEM_CD = #{itemCd}
-			                       AND X.SPCFCT_CD = #{spcfctCd}
-			                       AND X.DEL_YN = 'N'
-			                  )  AS CNT
-			             FROM DUAL
 			         ) X
 			 WHERE CNT > 0
 	    ]]>

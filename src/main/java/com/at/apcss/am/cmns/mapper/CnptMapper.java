@@ -31,7 +31,7 @@ public interface CnptMapper {
 	 * @throws Exception
 	 */
 	public CnptVO selectCnpt(CnptVO cnptVO) throws Exception;
-	
+
 	/**
 	 * 거래처정보 목록 조회
 	 * @param CnptVO
@@ -71,10 +71,10 @@ public interface CnptMapper {
 	 * @throws Exception
 	 */
 	public LgszMrktVO selectLgszMrkt(LgszMrktVO lgszMrktVO) throws Exception;
-	
+
 	/**
 	 * 대형마켓 목록 조회
-	 * 
+	 *
 	 * @param LgszMrktVO
 	 * @return
 	 * @throws Exception
@@ -83,22 +83,27 @@ public interface CnptMapper {
 
 	/**
 	 * 대형마트 변경
-	 * 
+	 *
 	 * @param CnptVO
 	 * @return
 	 * @throws Exception
 	 */
 	public int updateLgszMrkt(LgszMrktVO lgszMrktVO) throws Exception;
-	
+
 	/**
 	 * 대형마트 등록
-	 * 
+	 *
 	 * @param CnptVO
 	 * @return
 	 * @throws Exception
 	 */
 	public int insertLgszMrkt(LgszMrktVO lgszMrktVO) throws Exception;
-	
-	
-	
+
+	/**
+	 * 거래처정보 삭제 가능 여부
+	 * @param CnptVO
+	 * @return List<CnptVO>
+	 * @throws Exception
+	 */
+	public List<CnptVO> cnptDelible(CnptVO cnptVO) throws Exception;
 }

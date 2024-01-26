@@ -196,16 +196,15 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-	<update id="deleteStdGrd" parameterType="com.at.apcss.am.cmns.vo.StdGrdVO">
+	<delete id="deleteStdGrd" parameterType="com.at.apcss.am.cmns.vo.StdGrdVO">
 		<![CDATA[
-			UPDATE TB_APC_Std_GRD  /* com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrd */
-			   SET DEL_YN 		= 'Y'
+			DELETE TB_APC_Std_GRD  /* com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrd */
 			 WHERE APC_CD 		= #{apcCd}
 			   AND ITEM_CD 		= #{itemCd}
 			   AND GRD_SE_CD 	= #{grdSeCd}
 			   AND GRD_KND 		= #{grdKnd}
 		]]>
-	</update>
+	</delete>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdAll			-->
@@ -215,14 +214,13 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.09.04  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-	<update id="deleteStdGrdAll" parameterType="com.at.apcss.am.cmns.vo.StdGrdVO">
+	<delete id="deleteStdGrdAll" parameterType="com.at.apcss.am.cmns.vo.StdGrdVO">
 		<![CDATA[
-			UPDATE TB_APC_STD_GRD /* com.at.apcss.am.cmns.mapper.CmnsGrdMapper.deleteStdGrdAll */
-			   SET DEL_YN 		= 'Y'
+			DELETE FROM TB_APC_STD_GRD /* com.at.apcss.am.cmns.mapper.CmnsGrdMapper.deleteStdGrdAll */
 			 WHERE APC_CD 		= #{apcCd}
 			   AND ITEM_CD 		= #{itemCd}
 		]]>
-	</update>
+	</delete>
 
 
 	<!-- ==========================================================================	-->
@@ -407,17 +405,16 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-	<update id="deleteStdGrdDtl" parameterType="com.at.apcss.am.cmns.vo.StdGrdJgmtVO">
+	<delete id="deleteStdGrdDtl" parameterType="com.at.apcss.am.cmns.vo.StdGrdJgmtVO">
 		<![CDATA[
-			UPDATE TB_APC_Std_GRD_DTL /* com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdDtl */
-			   SET DEL_YN 		= 'Y'
+			DELETE TB_APC_Std_GRD_DTL /* com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdDtl */
 			 WHERE APC_CD 		= #{apcCd}
 			   AND ITEM_CD 		= #{itemCd}
 			   AND GRD_SE_CD 	= #{grdSeCd}
 			   AND GRD_KND 		= #{grdKnd}
 			   AND GRD_CD		= #{grdCd}
 		]]>
-	</update>
+	</delete>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdDtlAll			-->
@@ -427,14 +424,13 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.09.04  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-	<update id="deleteStdGrdDtlAll" parameterType="com.at.apcss.am.cmns.vo.StdGrdJgmtVO">
+	<delete id="deleteStdGrdDtlAll" parameterType="com.at.apcss.am.cmns.vo.StdGrdJgmtVO">
 		<![CDATA[
-			UPDATE TB_APC_STD_GRD_DTL /* com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdDtlAll */
-			   SET DEL_YN 		= 'Y'
+			DELETE TB_APC_STD_GRD_DTL /* com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdDtlAll */
 			 WHERE APC_CD 		= #{apcCd}
 			   AND ITEM_CD 		= #{itemCd}
 		]]>
-	</update>
+	</delete>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrdJgmtList		-->
@@ -569,16 +565,15 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-	<update id="deleteStdGrdJgmt" parameterType="com.at.apcss.am.cmns.vo.StdGrdJgmtVO">
+	<delete id="deleteStdGrdJgmt" parameterType="com.at.apcss.am.cmns.vo.StdGrdJgmtVO">
 		<![CDATA[
-			UPDATE TB_APC_STD_GRD_JGMT /* com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdJgmt */
-			   SET DEL_YN 		= 'Y'
+			DELETE FROM TB_APC_STD_GRD_JGMT /* com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdJgmt */
 			 WHERE APC_CD 		= #{apcCd}
 			   AND ITEM_CD 		= #{itemCd}
 			   AND GRD_SE_CD 	= #{grdSeCd}
 			   AND GRD_CD		= #{grdCd}
 		]]>
-	</update>
+	</delete>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdJgmtAll		-->
@@ -588,14 +583,13 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.09.04  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-	<update id="deleteStdGrdJgmtAll" parameterType="com.at.apcss.am.cmns.vo.StdGrdJgmtVO">
+	<delete id="deleteStdGrdJgmtAll" parameterType="com.at.apcss.am.cmns.vo.StdGrdJgmtVO">
 		<![CDATA[
-			UPDATE TB_APC_STD_GRD_JGMT /* com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdJgmtAll */
-			   SET DEL_YN 		= 'Y'
+			DELETE TB_APC_STD_GRD_JGMT /* com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdJgmtAll */
 			 WHERE APC_CD 		= #{apcCd}
 			   AND ITEM_CD 		= #{itemCd}
 		]]>
-	</update>
+	</delete>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.grdDtlInvntrDelible		-->
@@ -776,6 +770,7 @@
 					               ) AS CNT
 					          FROM DUAL
 					       ) X
+					WHERE CNT > 0
 				]]>
     		</when>
     		<when test='grdSeCd == "02"'>
@@ -810,6 +805,7 @@
 					               ) AS CNT
 					          FROM DUAL
 					       ) X
+					WHERE CNT > 0
 				]]>
     		</when>
     	</choose>
@@ -908,7 +904,7 @@
 			  FROM TB_APC_STD_GRD_JGMT
 			 WHERE APC_CD = #{apcCd}
 			   AND ITEM_CD = #{itemCd}
-			   AND GRD_SE_CD = #{gdsSeCd}
+			   AND GRD_SE_CD = #{grdSeCd}
     	]]>
     </select>
 
