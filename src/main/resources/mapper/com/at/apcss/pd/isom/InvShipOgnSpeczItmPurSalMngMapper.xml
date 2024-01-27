@@ -21,7 +21,7 @@
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectInvShipOgnSpeczItmPurSalMng" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
-SELECT * FROM (    /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectInvShipOgnSpeczItmPurSalMngList */
+SELECT * FROM (    /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectInvShipOgnSpeczItmPurSalMng */
 --=='5' AS TYPE_SE_NO===출자출하조직 생산자조직======================================
 
 SELECT
@@ -44,6 +44,7 @@ SELECT
 	, TOT.UO_SPMT_AMT
 	, TOT.UO_OTHER_SPMT_AMT
 	, TOT.RMRK
+	, TOT.STBLT_YN
 FROM
 	(SELECT
 			FA.PRDCR_OGNZ_SN
@@ -105,6 +106,7 @@ SELECT
 	, TOT.UO_SPMT_AMT
 	, TOT.UO_OTHER_SPMT_AMT
 	, TOT.RMRK
+	, TOT.STBLT_YN
 FROM
 	(SELECT
 			ITEM_CD
@@ -147,6 +149,7 @@ SELECT
 	, TOT.UO_SPMT_AMT
 	, TOT.UO_OTHER_SPMT_AMT
 	, TOT.RMRK
+	, TOT.STBLT_YN
 FROM
 	(SELECT
 			ITEM_CD
@@ -189,6 +192,7 @@ SELECT
 	, 0 AS UO_SPMT_AMT
 	, 0 AS UO_OTHER_SPMT_AMT
 	, TOT.RMRK
+	, TOT.STBLT_YN
 FROM
 	(SELECT
 			ITEM_CD
@@ -245,6 +249,7 @@ SELECT
 	, TOT.UO_OTHER_SPMT_AMT
 	, TOT.RMRK
 	, UOFA.BRNO AS UO_BRNO
+	, TOT.STBLT_YN
 FROM
 	(SELECT
 			FA.PRDCR_OGNZ_SN
@@ -264,7 +269,7 @@ FROM
 		  AND ITEM_CD IN  (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = #{yr} AND BRNO = #{uoBrno})
 		  AND FA.UO_BRNO = #{uoBrno}
 		  AND YR = #{yr}
-		  --AND FA.STBLT_YN = 'Y'  --적합여부 추후 추가
+		  AND FA.STBLT_YN = 'Y'
 	)  UOFA ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
@@ -302,6 +307,7 @@ SELECT
 	, TOT.UO_OTHER_SPMT_AMT
 	, TOT.RMRK
 	, TO_CHAR (ITEM.BRNO) AS UO_BRNO
+	, TOT.STBLT_YN
 FROM
 	(SELECT
 			ITEM_CD
@@ -347,6 +353,7 @@ SELECT
 	, TOT.UO_OTHER_SPMT_AMT
 	, TOT.RMRK
 	, TO_CHAR (ITEM.BRNO) AS UO_BRNO
+	, TOT.STBLT_YN
 FROM
 	(SELECT
 			ITEM_CD
@@ -392,6 +399,7 @@ SELECT
 	, 0 AS UO_OTHER_SPMT_AMT
 	, TOT.RMRK
 	, TO_CHAR (ITEM.BRNO) AS UO_BRNO
+	, TOT.STBLT_YN
 FROM
 	(SELECT
 			ITEM_CD
@@ -419,7 +427,7 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 
 	<insert id="insertInvShipOgnSpeczItmPurSalMng" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
     	<![CDATA[
-    	MERGE INTO TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT CLT  /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.insertPrdcrCrclOgnPurSalMng */
+    	MERGE INTO TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT CLT  /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.insertInvShipOgnSpeczItmPurSalMng */
 		USING DUAL
 			ON (
 					CLT.APO_CD   		= #{apoCd}
@@ -439,6 +447,7 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 		    	        SLS_CNSGN_PRCHS_AMT		= #{slsCnsgnPrchsAmt}
 		    	        , UO_SPMT_AMT			= #{uoSpmtAmt}
 		    	        , UO_OTHER_SPMT_AMT		= #{uoOtherSpmtAmt}
+		    	        , TRMT_TYPE				= #{trmtType}
 
 		    	        , RMRK					= #{rmrk}
 
@@ -475,6 +484,7 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 		    		  , CLTVTN_LAND_SN
 		    		  , TYPE_SE_NO
 		    		  , UO_BRNO
+		    		  , TRMT_TYPE
 
 		    		  , SLS_CNSGN_PRCHS_AMT
 		    		  , UO_SPMT_AMT
@@ -504,6 +514,7 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 		    		  , #{cltvtnLandSn}
 		    		  , #{typeSeNo}
 		    		  , #{uoBrno}
+		    		  , #{trmtType}
 
 		   			  , #{slsCnsgnPrchsAmt}
 		   			  , #{uoSpmtAmt}
@@ -520,60 +531,184 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 		   			)
     	]]>
     </insert>
-	<update id="updateInvShipOgnSpeczItmPurSalMng" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
-    	<![CDATA[
-	    	UPDATE /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.upateInvShipOgnSpeczItmPurSalMng */
-	    		TB_PD_PrdcrCrclOgnVluIdctrMng
+
+	<select id="selectItemStbltYnList" parameterType="com.at.apcss.pd.isom.vo.ItemStbltYnVO" resultType="com.at.apcss.pd.isom.vo.ItemStbltYnVO">
+		SELECT	/* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectItemStbltYn */
+			TOTAL.ITEM_CD
+			,TOTAL.ITEM_NM
+			,TOTAL.STTG_UPBR_ITEM_SE
+			,TOTAL.STTG_UPBR_ITEM_NM
+			,TOTAL.CTGRY_CD
+			,TOTAL.CTGRY_NM
+			,TOTAL.BRNO
+			,TOTAL.UO_BRNO
+			,TOTAL.YR
+			,TOTAL.APRV
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'APRV_UPBR_SE_CD' AND CD_VL = TOTAL.APRV) AS APRV_NM
+			,TOTAL.CORP_NM
+			,TOTAL.UO_SPMT_AMT
+			,TOTAL.UO_SPMT_AMT_OTHER
+			,TOTAL.UO_OTHER_SPMT_AMT
+			,TOTAL.UO_OTHER_SPMT_AMT_OTHER
+			,TOTAL.UO_SPMT_AMT_TOT
+			,TOTAL.UO_SPMT_AMT_RT
+			,TOTAL.UO_SPMT_AMT_TOT_RT
+
+			,TOTAL.CHK_A_A
+			,TOTAL.CHK_A_B
+			,TOTAL.CHK_A_C
+
+			,TOTAL.CHK_B_A
+			,TOTAL.CHK_B_B
+			,TOTAL.CHK_B_C
+			, (CASE WHEN TOTAL.APRV = '1' AND STTG_UPBR_ITEM_SE = '1' THEN
+																(CASE WHEN  TOTAL.CHK_A_A = 'Y' AND TOTAL.CHK_A_B = 'Y' AND TOTAL.CHK_A_C = 'Y'
+																			THEN 'Y'
+																			ELSE 'N' END)
+					WHEN TOTAL.APRV = '1' AND STTG_UPBR_ITEM_SE = '2' THEN 'Y'
+					WHEN  TOTAL.APRV = '2' THEN
+																(CASE WHEN  TOTAL.CHK_B_A = 'Y' AND TOTAL.CHK_B_B = 'Y' AND TOTAL.CHK_B_C = 'Y'
+																			THEN 'Y'
+																			ELSE 'N' END)
+					ELSE 'N' END
+			) AS STBLT_YN
+
+		FROM
+				(SELECT
+					TOT.ITEM_CD
+					,TOT.ITEM_NM
+					,TOT.STTG_UPBR_ITEM_SE
+					,TOT.STTG_UPBR_ITEM_NM
+					,TOT.CTGRY_CD
+					,TOT.CTGRY_NM
+					,TOT.BRNO
+					,TOT.UO_BRNO
+					,TOT.YR
+					,TOT.APRV
+					,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'APRV_UPBR_SE_CD' AND CD_VL = TOT.APRV) AS APRV_NM
+					,TOT.CORP_NM
+					,TOT.UO_SPMT_AMT
+					,TOT.UO_SPMT_AMT_OTHER
+					,TOT.UO_OTHER_SPMT_AMT
+					,TOT.UO_OTHER_SPMT_AMT_OTHER
+					,TOT.UO_SPMT_AMT_TOT
+					,TOT.UO_SPMT_AMT_RT
+					,TOT.UO_SPMT_AMT_TOT_RT
+
+					,(CASE WHEN TOT.UO_SPMT_AMT >= 500000 THEN 'Y' ELSE 'N' END) AS CHK_A_A
+					,(CASE WHEN TOT.UO_SPMT_AMT_RT >= 50 THEN 'Y' ELSE 'N' END) AS CHK_A_B
+					,(CASE WHEN TOT.UO_SPMT_AMT_RT >= 40 THEN 'Y' ELSE 'N' END) AS CHK_A_C
+
+					,(CASE WHEN TOT.UO_SPMT_AMT >= 300000 THEN 'Y' ELSE 'N' END) AS CHK_B_A
+					,(CASE WHEN TOT.UO_SPMT_AMT_RT >= 100 THEN 'Y' ELSE 'N' END) AS CHK_B_B
+					,(CASE WHEN TOT.UO_SPMT_AMT_RT >=  20 THEN 'Y' ELSE 'N' END) AS CHK_B_C
+				FROM
+					(SELECT
+							ITEM.ITEM_CD
+							, ITEM.ITEM_NM
+							, ITEM.STTG_UPBR_ITEM_SE
+							, ITEM.STTG_UPBR_ITEM_NM
+							, ITEM.CTGRY_CD
+							, ITEM.CTGRY_NM
+							, ITEM.BRNO
+							, ITEM.UO_BRNO
+							, ITEM.YR
+							, (SELECT APRV FROM TB_EV_APO WHERE BRNO = ITEM.UO_BRNO) AS APRV
+							, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = ITEM.BRNO) AS CORP_NM
+
+							, TOTA.UO_SPMT_AMT 			AS UO_SPMT_AMT
+							, TOTA.UO_OTHER_SPMT_AMT 	AS UO_SPMT_AMT_OTHER
+
+							, TOTB.UO_SPMT_AMT 			AS UO_OTHER_SPMT_AMT
+							, TOTB.UO_OTHER_SPMT_AMT 	AS UO_OTHER_SPMT_AMT_OTHER
+
+							, (TOTA.UO_SPMT_AMT + TOTA.UO_OTHER_SPMT_AMT + TOTB.UO_SPMT_AMT + TOTB.UO_OTHER_SPMT_AMT) AS UO_SPMT_AMT_TOT
+
+							, ROUND(NVL( TOTA.UO_SPMT_AMT / NULLIF( TOTA.UO_SPMT_AMT + TOTB.UO_SPMT_AMT , 0 ) , 0 ) * 100 , 2 ) AS UO_SPMT_AMT_RT
+							, ROUND(NVL( (TOTA.UO_SPMT_AMT + TOTA.UO_OTHER_SPMT_AMT) / NULLIF( TOTA.UO_SPMT_AMT + TOTA.UO_OTHER_SPMT_AMT + TOTB.UO_SPMT_AMT + TOTB.UO_OTHER_SPMT_AMT, 0 ) , 0 ) * 100 , 2) AS UO_SPMT_AMT_TOT_RT
+						FROM
+							(SELECT
+									ITEM_CD
+									, YR
+									, STTG_UPBR_ITEM_SE
+									, CTGRY_CD
+									, TO_CHAR(BRNO) AS UO_BRNO
+									, #{brno} AS BRNO
+									,(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = AYGC.ITEM_CD) AS ITEM_NM
+									,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = AYGC.CTGRY_CD) AS CTGRY_NM
+									,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = AYGC.STTG_UPBR_ITEM_SE) AS STTG_UPBR_ITEM_NM
+								FROM TB_EV_APO_YR_GPC_CD AYGC
+								WHERE 1=1
+								<if test='uoBrno != null and uoBrno != ""'>
+							  	  AND BRNO = #{uoBrno}
+							  	</if>
+							  	<if test='yr != null and yr != ""'>
+							  	  AND YR = #{yr}
+							  	</if>
+							) ITEM ,
+							(SELECT
+									BRNO
+									, ITEM_CD
+									, SUM( NVL( UO_SPMT_AMT , 0 ) ) AS UO_SPMT_AMT
+									, SUM( NVL( UO_OTHER_SPMT_AMT , 0 ) ) AS UO_OTHER_SPMT_AMT
+								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+								WHERE 1=1
+								AND APO_SE = '2'
+								AND TYPE_SE_NO IN ('5')
+
+								<if test='uoBrno != null and uoBrno != ""'>
+							  	  AND UO_BRNO = #{uoBrno}
+							  	</if>
+							  	<if test='brno != null and brno != ""'>
+							  	  AND BRNO = #{brno}
+							  	</if>
+							  	<if test='yr != null and yr != ""'>
+							  	  AND YR = #{yr}
+							  	</if>
+
+									GROUP BY  BRNO , ITEM_CD
+							) TOTA ,
+							(SELECT
+									BRNO
+									, ITEM_CD
+									, SUM( NVL( UO_SPMT_AMT , 0 ) ) AS UO_SPMT_AMT
+									, SUM( NVL( UO_OTHER_SPMT_AMT , 0 ) ) AS UO_OTHER_SPMT_AMT
+								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+								WHERE 1=1
+								AND APO_SE = '2'
+								AND TYPE_SE_NO IN ('7')
+
+								<if test='uoBrno != null and uoBrno != ""'>
+							  	  AND UO_BRNO = #{uoBrno}
+							  	</if>
+							  	<if test='brno != null and brno != ""'>
+							  	  AND BRNO = #{brno}
+							  	</if>
+							  	<if test='yr != null and yr != ""'>
+							  	  AND YR = #{yr}
+							  	</if>
+
+								GROUP BY  BRNO , ITEM_CD
+							) TOTB
+						WHERE 1=1
+						AND ITEM.ITEM_CD = TOTA.ITEM_CD(+)
+						AND ITEM.ITEM_CD = TOTB.ITEM_CD(+)
+				)TOT
+		)TOTAL
+
+    </select>
+
+    <!-- 적합여부 업데이트 -->
+	<update id="updateItemStbltYn" parameterType="com.at.apcss.pd.isom.vo.ItemStbltYnVO">
+	    	UPDATE /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.updateItemStbltYn */
+	    		TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 			   SET
-			 	  AA	= #{aa}
-			 	, BB 	= #{bb}
-			 	, CC 	= #{cc}
-			 	, CC_CODE 	= #{ccCode}
-			 	, DD 	= #{dd}
-			 	, DD_CODE 	= #{ddCode}
-			 	, EE 	= #{ee}
-			 	, FF 	= #{ff}
-			 	, GG 	= #{gg}
-			 	, HH 	= #{hh}
-			 	, II 	= #{ii}
-			 	, II_CODE 	= #{iiCode}
-			 	, JJ 	= #{jj}
-			 	, KK 	= #{kk}
-			 	, LL 	= #{ll}
-			 	, MM 	= #{mm}
-			 	, NN 	= #{nn}
-			 	, OO 	= #{oo}
-			 	, PP 	= #{pp}
-			 	, QQ 	= #{qq}
-			 	, RR 	= #{rr}
-			 	, SS 	= #{ss}
-			 	, TT 	= #{tt}
-			 	, UU 	= #{uu}
-			 	, VV 	= #{vv}
-			 	, WW 	= #{ww}
-			 	, XX 	= #{xx}
-			 	, YY 	= #{yy}
-			 	, ZZ 	= #{zz}
-    	]]>
-		<if test='delYn != null and delYn != ""'>
-				, DEL_YN 	= #{delYn}
-		</if>
-    	<![CDATA[
-				, SYS_LAST_CHG_DT		= SYSDATE
-	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
-
+			 	  STBLT_YN	= #{stbltYn}
 			 WHERE 1=1
-			   AND TEST_NO	= #{testNo}
-    	]]>
+			   AND APO_SE 	= '2'
+			   AND UO_BRNO 	= #{uoBrno}
+			   AND BRNO 	= #{brno}
+			   AND YR 		= #{yr}
+			   AND ITEM_CD 	= #{itemCd}
     </update>
-
-
-	<delete id="deleteInvShipOgnSpeczItmPurSalMng" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
-		<![CDATA[
-		DELETE FROM TB_PD_PrdcrCrclOgnVluIdctrMng
-		 WHERE TEST_NO 	= #{testNo}
-		]]>
-	</delete>
-
 </mapper>

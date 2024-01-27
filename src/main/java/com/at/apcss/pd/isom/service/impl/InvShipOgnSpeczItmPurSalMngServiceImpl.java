@@ -1,18 +1,16 @@
 package com.at.apcss.pd.isom.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.fm.bbs.mapper.BbsMapper;
-import com.at.apcss.fm.bbs.service.BbsService;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper;
 import com.at.apcss.pd.isom.service.InvShipOgnSpeczItmPurSalMngService;
 import com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO;
+import com.at.apcss.pd.isom.vo.ItemStbltYnVO;
 
 
 /**
@@ -62,15 +60,25 @@ public class InvShipOgnSpeczItmPurSalMngServiceImpl extends BaseServiceImpl impl
 	@Override
 	public int updateInvShipOgnSpeczItmPurSalMng(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO) throws Exception {
 
-		int updatedCnt = InvShipOgnSpeczItmPurSalMngMapper.updateInvShipOgnSpeczItmPurSalMng(InvShipOgnSpeczItmPurSalMngVO);
+		int updatedCnt = 0;
 
 		return updatedCnt;
+	}
+	@Override
+	public int deleteInvShipOgnSpeczItmPurSalMng(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO) throws Exception {
+		return 0;
 	}
 
 	@Override
 	public int multiSaveInvShipOgnSpeczItmPurSalMngList(List<InvShipOgnSpeczItmPurSalMngVO> InvShipOgnSpeczItmPurSalMngVOList) throws Exception {
 		int savedCnt = 0;
+		String yrVal = null;// 등록년도
+		String brnoVal = null;//출자출하조직 사업자번호
+		String uoBrnoVal = null;//통합조직 사업자번호
 		for (InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO : InvShipOgnSpeczItmPurSalMngVOList) {
+			yrVal = InvShipOgnSpeczItmPurSalMngVO.getYr();
+			brnoVal = InvShipOgnSpeczItmPurSalMngVO.getBrno();
+			uoBrnoVal = InvShipOgnSpeczItmPurSalMngVO.getUoBrno();
 			if(ComConstants.ROW_STS_INSERT.equals(InvShipOgnSpeczItmPurSalMngVO.getRowSts())) {
 				savedCnt += insertInvShipOgnSpeczItmPurSalMng(InvShipOgnSpeczItmPurSalMngVO);
 			}
@@ -78,12 +86,41 @@ public class InvShipOgnSpeczItmPurSalMngServiceImpl extends BaseServiceImpl impl
 				savedCnt += updateInvShipOgnSpeczItmPurSalMng(InvShipOgnSpeczItmPurSalMngVO);
 			}
 		}
+		int stbltYnUpdateCnt = 0;
+		//전문품목 매입 매출 저장 완료 후 적합여부 체크
+		if(yrVal != null && !yrVal.equals("")
+			&& brnoVal != null && !brnoVal.equals("")
+			&& uoBrnoVal != null && !uoBrnoVal.equals("")){
+			List<ItemStbltYnVO> resultVoList = new ArrayList<>();
+			ItemStbltYnVO ItemStbltYnVo = new ItemStbltYnVO();
+
+			ItemStbltYnVo.setYr(yrVal);
+			ItemStbltYnVo.setBrno(brnoVal);
+			ItemStbltYnVo.setUoBrno(uoBrnoVal);
+			resultVoList = selectItemStbltYnList(ItemStbltYnVo);
+			//조회 결과가 있을 경우에만 업데이트
+			if(resultVoList != null) {
+				for (ItemStbltYnVO resultVo : resultVoList) {
+					stbltYnUpdateCnt += updateItemStbltYn(resultVo);
+				}
+			}
+		}
 		return savedCnt;
 	}
-
+	//품목별 적합여부 리스트
 	@Override
-	public int deleteInvShipOgnSpeczItmPurSalMng(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO) throws Exception {
-		return InvShipOgnSpeczItmPurSalMngMapper.deleteInvShipOgnSpeczItmPurSalMng(InvShipOgnSpeczItmPurSalMngVO);
+	public List<ItemStbltYnVO> selectItemStbltYnList(ItemStbltYnVO ItemStbltYnVo) throws Exception {
+
+		List<ItemStbltYnVO> resultList = InvShipOgnSpeczItmPurSalMngMapper.selectItemStbltYnList(ItemStbltYnVo);
+		return resultList;
+	}
+	//적합여부 업데이트
+	@Override
+	public int updateItemStbltYn(ItemStbltYnVO ItemStbltYnVo) throws Exception {
+
+		int insertedCnt = InvShipOgnSpeczItmPurSalMngMapper.updateItemStbltYn(ItemStbltYnVo);
+
+		return insertedCnt;
 	}
 
 }

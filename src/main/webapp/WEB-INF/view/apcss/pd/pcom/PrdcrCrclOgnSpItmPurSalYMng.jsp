@@ -558,13 +558,13 @@
 	function fn_calcSlsCnsgnPrchsAmt(objGrid, nRow, nCol) {
 		let rowData = objGrid.getRowData(Number(nRow));
 		let grdData = objGrid.getGridDataAll();
-		console.log(nRow + " : " + rowData.slsCnsgnPrchsAmt);
+		//console.log(nRow + " : " + rowData.slsCnsgnPrchsAmt);
 		let itemCd = rowData.itemCd;
 		if(rowData.typeSeNo == '2'){
 			let sumVal = 0;
 			for (var i = 2; i < grdData.length + 1; i++) {
 				let rowData01 = objGrid.getRowData(i);
-				console.log(i + " : " + rowData01.slsCnsgnPrchsAmt);
+				//console.log(i + " : " + rowData01.slsCnsgnPrchsAmt);
 				if(rowData01.typeSeNo == '1' && rowData01.itemCd == itemCd){
 					if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt)){
 						sumVal += Number(rowData01.slsCnsgnPrchsAmt);
@@ -800,7 +800,7 @@
 		}
 
 		let rowData = grdPrdcrOgnCurntMng.getRowData(nRow);
-		console.log(rowData);
+		//console.log(rowData);
 		SBUxMethod.set('dtl-input-apoCd',gfn_nvl(rowData.apoCd))//통합조직 코드
 		SBUxMethod.set('dtl-input-apoSe',gfn_nvl(rowData.apoSe))//통합조직 구분
 		SBUxMethod.set('dtl-input-corpNm',gfn_nvl(rowData.corpNm))//법인명
@@ -975,10 +975,10 @@
 			}
 		}
 		//판매 위임 매입 금액 세로 셀단위 병합
-		console.log(arr1);
-		console.log(typeof arr1);
-		console.log(arr2);
-		console.log(typeof arr2);
+		//console.log(arr1);
+		//console.log(typeof arr1);
+		//console.log(arr2);
+		//console.log(typeof arr2);
 		//grdPrdcrOgnCurntMng01.setMergeByFree([0],slsCnsgnSlsAmt,[typeSeOne.length-1],slsCnsgnSlsAmt,true);
 		//grdPrdcrOgnCurntMng01.setMergeByFree([0],slsCnsgnSlsAmt,[typeSeFive.length-1],slsCnsgnSlsAmt,true);
 	}

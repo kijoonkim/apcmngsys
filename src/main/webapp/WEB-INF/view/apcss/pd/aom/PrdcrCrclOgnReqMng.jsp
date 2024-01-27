@@ -177,7 +177,7 @@
 									uitype="text"
 									id="srch-input-brno"
 									name="srch-input-brno"
-									class="form-control input-sm"
+									class="form-control input-sm srch-keyup-area"
 									mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
 									autocomplete="off"
 								></sbux-input>
@@ -190,7 +190,7 @@
 									uitype="text"
 									id="srch-input-corpNm"
 									name="srch-input-corpNm"
-									class="form-control input-sm"
+									class="form-control input-sm srch-keyup-area"
 									autocomplete="off"
 								></sbux-input>
 							</td>
@@ -2023,11 +2023,20 @@
 	        */
 	        {caption: ["품목코드"], 			ref: 'itemCd',   	type:'output',  width:'150px',    style:'text-align:center'},
 	        {caption: ["품목선택"], 				ref: 'sel',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
-				return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_openMaodalGpcSelect(" + nRow + ")'>선택</button>";
+	        	let corpDdlnSeCd = SBUxMethod.get("dtl-input-corpDdlnSeCd");
+	        	let delYnCol = objGrid.getColRef('delYn');
+	        	let delYnVal = objGrid.getCellData(nRow,delYnCol);
+	        	console.log(delYnVal);
+	        	if(corpDdlnSeCd != 'Y'){
+	        		if(delYnVal == 'N'){
+	        			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_openMaodalGpcSelect(" + nRow + ")'>선택</button>";
+	        		}
+	        	}
+	        	return "";
 	        }},
 	        {caption: ["비고"], 			ref: 'rmrk',   	type:'input',  width:'150px',    style:'text-align:center'},
-	        {caption: ["상세내역"], 	ref: 'picFlnm',   		hidden : true},
-
+	        {caption: ["상세내역"], 	ref: 'orgCtgryCd',   		hidden : true},
+	        {caption: ["상세내역"], 	ref: 'orgSttgUpbrItemSe',   hidden : true},
 	    ];
 
 	    grdGpcList = _SBGrid.create(SBGridProperties);

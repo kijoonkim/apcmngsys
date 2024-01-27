@@ -774,6 +774,8 @@
 	var jsonComUoCd = [];//통합조직코드
 	var jsonComAprv = [];//신청구분
 	var jsonComAplyTrgtSe = [];//신청대상구분
+	var jsonGrdCorpDtlSeCd = [];//법인형태
+
 	/**
 	 * combo 설정
 	 */
@@ -793,6 +795,9 @@
 			gfn_setComCdSBSelect('srch-input-aprv', 		jsonComAprv, 	'APRV_UPBR_SE_CD'), //신청구분
 			gfn_setComCdSBSelect('srch-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE'), //신청대상구분
 			//gfn_setComCdSBSelect('dtl-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE') //신청대상구분
+
+			gfn_setComCdSBSelect('grdInvShipOgnReqMng01', 	jsonGrdCorpDtlSeCd, 	'CORP_SHAP'), //법인형태
+			jsonGrdCorpDtlSeCd
 
 		]);
 		console.log("============fn_initSBSelect=====1=======");
@@ -912,7 +917,9 @@
 	        {caption: ["사업자번호"], 			ref: 'brno',   	type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["법인체마감여부"], 		ref: 'corpDdlnSeCd',   	type:'output',  width:'90px',    style:'text-align:center'},
 	        {caption: ["전화번호"], 			ref: 'rprsvTelno',   	type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["법인형태"], 			ref: 'corpDtlSeCd',  	type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["법인형태"], 			ref: 'corpDtlSeCd',  	type:'combo',  width:'120px',    style:'text-align:center', disabled:true
+	    		,typeinfo : {ref:'jsonGrdCorpDtlSeCd', label:'label', value:'value', displayui : false}},
+	    	//{caption: ["법인형태 코드"], 			ref: 'corpDtlSeCd',   	type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["출자자수"], 			ref: 'invstNope',   	type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["출자자 중 농업인수"], 	ref: 'invstExpndFrmerNope',   	type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["농업인 출자 지분율"], 	ref: 'frmerInvstAmtRt',   	type:'output',  width:'120px',    style:'text-align:center'},

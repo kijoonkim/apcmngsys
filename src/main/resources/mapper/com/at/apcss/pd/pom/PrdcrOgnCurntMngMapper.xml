@@ -562,12 +562,13 @@
 				, CM.PRDCR_OGNZ_NM
 				, CM.RMRK
 				, CM.DEL_YN
+				, CM.STBLT_YN
 
 				, TOT.CNT
 				, TOT.EC_SPMT_VLM_TOT
 				, TOT.EC_SPMT_PLAN_VLM_TOT
 				, TOT.SPMT_PRC_TOT
-				, ROUND(NVL( TOT.EC_SPMT_PLAN_VLM_TOT / NULLIF( TOT.EC_SPMT_VLM_TOT, 0 ) , 0 ) * 100 , 2 ) AS EC_SPMT_RATE
+				, ROUND(NVL( TOT.EC_SPMT_VLM_TOT / NULLIF( TOT.EC_SPMT_PLAN_VLM_TOT, 0 ) , 0 ) * 100 , 2 ) AS EC_SPMT_RATE
 
 				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
 				, TO_CHAR(CM.SYS_LAST_CHG_DT,'YYYY-MM-DD')		AS SYS_LAST_CHG_DT_YMD
@@ -726,4 +727,103 @@
 		   AND YR				= #{yr}
 		]]>
 	</delete>
+
+
+
+	<!-- 적합여부 업데이트 -->
+	<update id="updateTbEvFrmhsApoStbltYn" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
+	    	UPDATE /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.updateTbEvFrmhsApoStbltYn */
+	    		TB_EV_FRMHS_APO
+			   SET
+			 	  STBLT_YN	= #{stbltYn}
+			 WHERE 1=1
+			   AND PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
+		   	   AND YR				= #{yr}
+    </update>
+
+    <!-- 적합여부 조회 -->
+    <select id="selectTbEvFrmhsApoStbltYn" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO" resultType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
+    	SELECT
+			BRNO
+			,UO_BRNO
+			,PRDCR_OGNZ_SN
+			,YR
+			,APRV
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'APRV_UPBR_SE_CD' AND CD_VL = APRV) AS APRV_NM
+			,TRMT_TYPE
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'TRMT_TYPE' AND CD_VL = TRMT_TYPE) AS TRMT_TYPE_NM
+			,CNT
+			,SPMT_PRC_TOT
+			,EC_SPMT_RATE
+			,(CASE WHEN APRV = '1' THEN
+									(CASE WHEN TO_NUMBER(CNT) >= 5 AND TO_NUMBER(SPMT_PRC_TOT) >= 200000 AND TO_NUMBER(EC_SPMT_RATE) >= 80
+										THEN 'Y'
+										ELSE 'N' END)
+					WHEN APRV = '2' THEN
+									(CASE WHEN TRMT_TYPE = '1' THEN
+																	(CASE WHEN TO_NUMBER(CNT) >= 5  AND TO_NUMBER(SPMT_PRC_TOT) >= 50000 AND TO_NUMBER(EC_SPMT_RATE) >= 80
+																		THEN 'Y'
+																		ELSE 'N' END)
+											WHEN TRMT_TYPE = '2' THEN
+																	(CASE WHEN TO_NUMBER(CNT) >= 5 AND TO_NUMBER(SPMT_PRC_TOT) >= 50000
+																		THEN 'Y'
+																		ELSE 'N' END)
+											WHEN TRMT_TYPE = '3' THEN
+																	(CASE WHEN TO_NUMBER(SPMT_PRC_TOT) >= 50000
+																		THEN 'Y'
+																		ELSE 'N' END)
+															ELSE 'N' END)
+					ELSE 'N'
+					END) AS STBLT_YN
+		FROM (SELECT
+			TEFA.BRNO
+			,TEFA.UO_BRNO
+			,TEFA.PRDCR_OGNZ_SN
+			,TEFA.YR
+			,TEFA.APO_SE
+			,NVL(TEFA.TRMT_TYPE,'0') AS TRMT_TYPE
+			,(SELECT APO_SE FROM TB_EV_APO WHERE BRNO = TEFA.BRNO) AS APO_SE_CHK
+			,(SELECT NVL(APRV,'0')
+				FROM TB_EV_APO
+				WHERE BRNO = (CASE WHEN TEFA.APO_SE = '1'
+									THEN NVL(TEFA.BRNO,'')
+									ELSE NVL(TEFA.UO_BRNO,'') END)
+			) AS APRV
+			,CNT
+			,TEFPSS.SPMT_PRC_TOT
+			,TEFPSS.EC_SPMT_VLM_TOT
+			,TEFPSS.EC_SPMT_PLAN_VLM_TOT
+			,ROUND(NVL( TEFPSS.EC_SPMT_VLM_TOT/ NULLIF( TEFPSS.EC_SPMT_PLAN_VLM_TOT, 0 ) , 0 ) * 100 , 2 ) AS EC_SPMT_RATE
+		FROM (SELECT *
+					FROM TB_EV_FRMHS_APO
+					WHERE 1=1
+					<if test='prdcrOgnzSn != null and prdcrOgnzSn != ""'>
+					  AND PRDCR_OGNZ_SN = #{prdcrOgnzSn}
+					</if>
+					<if test='yr != null and yr != ""'>
+					  AND YR = #{yr}
+					</if>
+					) TEFA
+		LEFT JOIN (SELECT
+								PRDCR_OGNZ_SN
+								,YR
+								,BRNO
+								,COUNT(PRDCR_OGNZ_SN) AS CNT
+								,SUM(NVL(SPMT_PRC,0)) AS SPMT_PRC_TOT
+								,SUM(NVL(EC_SPMT_VLM,0)) AS EC_SPMT_VLM_TOT
+								,SUM(NVL(EC_SPMT_PLAN_VLM,0)) AS EC_SPMT_PLAN_VLM_TOT
+							FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN
+							WHERE 1=1
+							<if test='prdcrOgnzSn != null and prdcrOgnzSn != ""'>
+							  AND PRDCR_OGNZ_SN = #{prdcrOgnzSn}
+							</if>
+							<if test='yr != null and yr != ""'>
+							  AND YR = #{yr}
+							</if>
+							GROUP BY PRDCR_OGNZ_SN , YR , BRNO
+							)TEFPSS
+		ON TEFA.PRDCR_OGNZ_SN = TEFPSS.PRDCR_OGNZ_SN
+		AND TEFA.YR = TEFPSS.YR
+		AND TEFA.BRNO = TEFPSS.BRNO)
+    </select>
 </mapper>

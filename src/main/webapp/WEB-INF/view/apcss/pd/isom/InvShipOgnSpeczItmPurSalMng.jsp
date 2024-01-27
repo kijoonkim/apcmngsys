@@ -572,7 +572,7 @@
 
 	//통합조직 출하 합계 함수
 	function fn_calcSum(objGrid, nRow, nCol) {
-		console.log("==========fn_calcSum=======");
+		//console.log("==========fn_calcSum=======");
 		var strSum
 		var value01 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('uoSpmtAmt')));
 		var value02 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('uoOtherSpmtAmt')));
@@ -583,7 +583,7 @@
 
 	//통합조직 이외 출하 합계 함수
 	function fn_totSum(objGrid, nRow, nCol) {
-		console.log("==========fn_uoSpmtAmtSum=======");
+		//console.log("==========fn_uoSpmtAmtSum=======");
 
 		let gridData01 = objGrid.getGridDataAll();
 		if(gridData01.length == 0) return;
@@ -619,7 +619,7 @@
 
 	//판매위임 매입 금액 합계 함수
 	function fn_totalTotSum(objGrid, nRow, nCol) {
-		console.log("==========fn_totalTotSum=======");
+		//console.log("==========fn_totalTotSum=======");
 
 		let gridData01 = objGrid.getGridDataAll();
 		if(gridData01.length == 0) return;
@@ -825,7 +825,7 @@
 		fn_clearForm();
 
 		let rowData = grdPrdcrOgnCurntMng.getRowData(nRow);
-		console.log(rowData);
+		//console.log(rowData);
 		SBUxMethod.set('dtl-input-apoCd',gfn_nvl(rowData.apoCd))//통합조직 코드
 		SBUxMethod.set('dtl-input-apoSe',gfn_nvl(rowData.apoSe))//통합조직 구분
 		SBUxMethod.set('dtl-input-corpNm',gfn_nvl(rowData.corpNm))//법인명
@@ -919,7 +919,6 @@
 
         	//생산자조직 외 인경우 disabled 해제
         	fn_gridCustom();
-
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -996,15 +995,15 @@
 		let uoBrno = SBUxMethod.get('dtl-input-uoBrno');
 
 		//그리드의 해드가 두줄이상인경우 for문 시작과 끝을 늘린만큼 늘려야함
-		for(var i = 2; i < gridData01.length +1; i++ ){
+		for(var i = 2; i <= gridData01.length +1; i++ ){
 			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i);
 			let rowSts01 = grdPrdcrOgnCurntMng01.getRowStatus(i);
 			let delYn = rowData01.delYn;
 
 			//매입or매출 값이 있을경우 매입 매출 값을 입력 필수
-			console.log("slsCnsgnPrchsAmt = "+rowData01.slsCnsgnPrchsAmt);
-			console.log("slsCnsgnPrchsAmt = "+rowData01.uoSpmtAmt);
-			console.log("slsCnsgnPrchsAmt = "+rowData01.uoOtherSpmtAmt);
+			//console.log("slsCnsgnPrchsAmt = "+rowData01.slsCnsgnPrchsAmt);
+			//console.log("slsCnsgnPrchsAmt = "+rowData01.uoSpmtAmt);
+			//console.log("slsCnsgnPrchsAmt = "+rowData01.uoOtherSpmtAmt);
 			if(rowData01.typeSeNo == '5'){
 				if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) &&  Number(rowData01.slsCnsgnPrchsAmt) != 0){
 					if(gfn_isEmpty(rowData01.uoSpmtAmt) && gfn_isEmpty(rowData01.uoOtherSpmtAmt)){
@@ -1078,7 +1077,7 @@
 		}
 
 		let regMsg = "저장 하시겠습니까?";
-		console.log(saveList);
+		//console.log(saveList);
 
 		if(confirm(regMsg)){
 
@@ -1150,7 +1149,7 @@
 	function fn_changeSelUoBrno(){
 		let selVal = SBUxMethod.get('dtl-input-selUoBrno');
 		let selCombo = _.find(comUoBrno, {value : selVal});
-		console.log(selCombo);
+		//console.log(selCombo);
 		if( typeof selCombo == "undefined" || selCombo == null || selCombo == "" ){
 			SBUxMethod.set('dtl-input-uoBrno' , null);
 			//SBUxMethod.set('dtl-input-uoCd' , null);

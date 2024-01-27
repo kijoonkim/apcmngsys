@@ -164,7 +164,7 @@
 									uitype="text"
 									id="srch-input-brno"
 									name="srch-input-brno"
-									class="form-control input-sm"
+									class="form-control input-sm srch-keyup-area"
 									mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
 									autocomplete="off"
 								></sbux-input>
@@ -177,7 +177,7 @@
 									uitype="text"
 									id="srch-input-corpNm"
 									name="srch-input-corpNm"
-									class="form-control input-sm"
+									class="form-control input-sm srch-keyup-area"
 									autocomplete="off"
 								></sbux-input>
 							</td>
@@ -459,16 +459,38 @@
 		SBUxMethod.set("srch-input-yr",year);//
 
 		fn_init();
-		fn_initSBSelect();
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '21'}">
-		fn_search();
-	</c:if>
-	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00' && loginVO.userType ne '21'}">
-		fn_dtlSearch();
-	</c:if>
 
+		const elements = document.querySelectorAll(".srch-keyup-area");
+
+		for (let i = 0; i < elements.length; i++) {
+		  	const el = elements.item(i);
+		  	el.addEventListener("keyup", (event) => {
+		  		if (event.keyCode === 13 && !event.altKey && !event.ctrlKey && !event.shiftKey) {
+		  			fn_search();
+		  		}
+		  		//key	Enter
+		  		//keyCode
+		  	});
+		}
 
 	});
+
+	/* 초기화면 로딩 기능*/
+	const fn_init = async function() {
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '21'}">
+		fn_fcltMngCreateGrid();
+	</c:if>
+		fn_fcltMngCreateGrid01();
+		fn_fcltMngCreateGrid02();
+
+		await fn_initSBSelect();
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '21'}">
+		await fn_search();
+	</c:if>
+	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00' && loginVO.userType ne '21'}">
+		await fn_dtlSearch();
+	</c:if>
+	}
 
 	var jsonComCmptnInst = [];//관할기관
 	var jsonComCtpv = [];//시도
@@ -516,14 +538,7 @@
 	var jsonPrdcrOgnCurntMng = []; // 그리드의 참조 데이터 주소 선언
 	var grdPrdcrOgnCurntMng
 
-	/* 초기화면 로딩 기능*/
-	const fn_init = async function() {
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '21'}">
-		fn_fcltMngCreateGrid();
-	</c:if>
-		fn_fcltMngCreateGrid01();
-		fn_fcltMngCreateGrid02();
-	}
+
 
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid = async function() {
@@ -606,14 +621,14 @@
 	        {caption: ["품목선택"], 			ref: 'sel',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 				return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_openMaodalSelect(" + nRow + ")'>선택</button>";
 	        }},
-	        {caption: ["분류"], 			ref: 'ctgryCd',   	type:'combo',  width:'150px',    style:'text-align:center', disabled:true , oneclickedit:true
+	        {caption: ["분류"], 			ref: 'ctgryCd',   	type:'combo',  width:'100px',    style:'text-align:center', disabled:true , oneclickedit:true
 	    		,typeinfo : {ref:'jsonComCtgryCd', label:'label', value:'value', displayui : false}},
-	        {caption: ["취급유형"], 		ref: 'trmtType',   	type:'combo',  width:'150px',    style:'text-align:center', disabled:false , oneclickedit:true
+	        {caption: ["취급유형"], 		ref: 'trmtType',   	type:'combo',  width:'100px',    style:'text-align:center', disabled:false , oneclickedit:true
 				,typeinfo : {ref:'jsonComTrmtType', label:'label', value:'value', displayui : true}},
-			{caption: ["전문/육성 구분"], 	ref: 'sttgUpbrItemSe',   type:'combo',  width:'150px',    style:'text-align:center', disabled:true , oneclickedit:true
+			{caption: ["전문/육성 구분"], 	ref: 'sttgUpbrItemSe',   type:'combo',  width:'100px',    style:'text-align:center', disabled:true , oneclickedit:true
 				,typeinfo : {ref:'jsonComSttgUpbrItemSe', label:'label', value:'value', displayui : false}},
 
-			{caption: ["조직원수"], 					ref: 'cnt',   	type:'output',  width:'140px',    style:'text-align:center'
+			{caption: ["조직원수"], 					ref: 'cnt',   	type:'output',  width:'80px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["전속(약정)\n출하계약량(톤)"], 	ref: 'ecSpmtPlanVlmTot',   	type:'output',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
@@ -1015,7 +1030,7 @@
 					rowData.apoSe = apoSe;
 					rowData.crno = crno;
 					rowData.brno = brno;
-					rowData.brno = yr;
+					rowData.yr = yr;
 					rowData.itemCd = itemCd;
 					rowData.trmtType = trmtType;
 					rowData.prdcrOgnzSn = prdcrOgnzSn;
@@ -1427,7 +1442,7 @@
 						,ecSpmtPlanVlmTot: 	item.ecSpmtPlanVlmTot
 						,spmtPrcTot: 		item.spmtPrcTot
 						,ecSpmtRate: 		item.ecSpmtRate
-						,stbltYn: 			item.stbltYn
+						,stbltYn: 			item.stbltYn//적합여부
 
 						,prdcrOgnzSn: 	item.prdcrOgnzSn
 						,prdcrOgnzCd: 	item.prdcrOgnzCd
