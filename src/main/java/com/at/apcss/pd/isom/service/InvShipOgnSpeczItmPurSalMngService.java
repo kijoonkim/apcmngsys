@@ -1,11 +1,9 @@
 package com.at.apcss.pd.isom.service;
 
 import java.util.List;
-import java.util.Map;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO;
+import com.at.apcss.pd.isom.vo.ItemStbltYnVO;
 
 
 /**
@@ -42,4 +40,7 @@ public interface InvShipOgnSpeczItmPurSalMngService {
 
 	public int deleteInvShipOgnSpeczItmPurSalMng(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO) throws Exception;
 
+	public List<ItemStbltYnVO> selectItemStbltYnList(ItemStbltYnVO ItemStbltYnVo) throws Exception;
+
+	public int updateItemStbltYn(ItemStbltYnVO ItemStbltYnVo) throws Exception;
 }

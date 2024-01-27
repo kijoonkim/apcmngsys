@@ -5,6 +5,7 @@ import java.util.List;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO;
+import com.at.apcss.pd.isom.vo.ItemStbltYnVO;
 
 /**
  * 게시판 Mapper 인터페이스
@@ -35,7 +36,8 @@ public interface InvShipOgnSpeczItmPurSalMngMapper {
 
 	public int insertInvShipOgnSpeczItmPurSalMng(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO);
 
-	public int updateInvShipOgnSpeczItmPurSalMng(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO);
+	public List<ItemStbltYnVO> selectItemStbltYnList(ItemStbltYnVO ItemStbltYnVo);
 
-	public int deleteInvShipOgnSpeczItmPurSalMng(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO) throws Exception;
+	public int updateItemStbltYn(ItemStbltYnVO ItemStbltYnVo);
+
 }

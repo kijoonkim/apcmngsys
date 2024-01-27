@@ -29,12 +29,15 @@ public class TbEvFrmhsApoVO extends ComVO{
 	private String prdcrOgnzNm;
 	private String rmrk;
 
-	private String ecSpmtPlanVlmTot;
-	private String ecSpmtVlmTot;
-	private String ecSpmtRate;
-	private String spmtPrcTot;
-	private String cnt;
-	private String stbltYn;
+	private String aprv;//승인형 육성형
+	private String aprvNm;
+	private String trmtTypeNm;
+	private String ecSpmtPlanVlmTot;//전속(약정)출하계획량
+	private String ecSpmtVlmTot;//전속(약정)출하량
+	private String ecSpmtRate;//출하비율
+	private String spmtPrcTot;//출하대금지급액
+	private String cnt;//조직원수
+	private String stbltYn;//적합여부
 
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;

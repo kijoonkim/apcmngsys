@@ -527,8 +527,8 @@
 
 	//판매위임(매입)금액(천원) 소계 합계
 	function fn_calcSlsCnsgnPrchsAmt(objGrid, nRow, nCol) {
-		console.log("fn_calcSlsCnsgnPrchsAmt");
-		console.log(nRow);
+		//console.log("fn_calcSlsCnsgnPrchsAmt");
+		//console.log(nRow);
 		let rowData = objGrid.getRowData(Number(nRow));
 		let grdData = objGrid.getGridDataAll();
 		let itemCd = rowData.itemCd;
@@ -564,8 +564,8 @@
 	}
 	//판매(매출)금액(천원) 소계 합계
 	function fn_calcSlsCnsgnSlsAmt(objGrid, nRow, nCol) {
-		console.log("fn_calcSlsCnsgnPrchsAmt");
-		console.log(nRow);
+		//console.log("fn_calcSlsCnsgnPrchsAmt");
+		//console.log(nRow);
 		let rowData = objGrid.getRowData(Number(nRow));
 		let grdData = objGrid.getGridDataAll();
 		let itemCd = rowData.itemCd;
@@ -653,6 +653,7 @@
         let data = await postJsonPromise ;
         try{
         	jsonPrdcrOgnCurntMng.length = 0;
+        	let totalRecordCount = 0;
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
 				let PrdcrOgnCurntMngVO = {
@@ -743,7 +744,7 @@
 		}
 
 		let rowData = grdPrdcrOgnCurntMng.getRowData(nRow);
-		console.log(rowData);
+		//console.log(rowData);
 		SBUxMethod.set('dtl-input-apoCd',gfn_nvl(rowData.apoCd))//통합조직 코드
 		SBUxMethod.set('dtl-input-apoSe',gfn_nvl(rowData.apoSe))//통합조직 구분
 		SBUxMethod.set('dtl-input-corpNm',gfn_nvl(rowData.corpNm))//법인명
@@ -773,6 +774,7 @@
         let data = await postJsonPromise ;
         try{
         	jsonPrdcrOgnCurntMng01.length = 0;
+        	let totalRecordCount = 0;
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
 				let PrdcrOgnCurntMngVO = {

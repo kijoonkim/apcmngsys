@@ -633,6 +633,7 @@
         let data = await postJsonPromise;
         try{
         	jsonPrdcrCrclOgnUsrMng.length = 0;
+        	let totalRecordCount = 0;
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
         		//console.log(item.cmptncInst);

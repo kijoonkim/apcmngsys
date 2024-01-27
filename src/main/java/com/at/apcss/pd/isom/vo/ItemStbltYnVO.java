@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class InvShipOgnGenalTblMngVO extends ComVO{
+public class ItemStbltYnVO extends ComVO{
 	private String yr;
 	private String apoCd;
 	private String uoCd;
@@ -25,8 +25,13 @@ public class InvShipOgnGenalTblMngVO extends ComVO{
 	private String itemNm;
 	private String itemCd;
 
+	private String ctgryNm;
+	private String ctgryCd;
+
 	private String sttgUpbrItemSe;
+	private String sttgUpbrItemNm;
 	private String aprv;
+	private String aprvNm;
 
 	private String uoSpmtAmt;
 	private String uoSpmtAmtOther;
@@ -50,6 +55,5 @@ public class InvShipOgnGenalTblMngVO extends ComVO{
 	private String sysLastChgUserIdNm;
 	private String sysFrstInptDtYmd;
 	private String sysLastChgDtYmd;
-
 
 }
