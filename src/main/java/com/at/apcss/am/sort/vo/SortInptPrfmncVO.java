@@ -48,6 +48,11 @@ public class SortInptPrfmncVO extends ComVO {
 	 * 투입순번
 	 */
 	private int inptSn;
+	
+	/**
+	 * 투입진행여부
+	 */
+	private String inptPrgrsYn;
 
 	/**
 	 * 투입일자

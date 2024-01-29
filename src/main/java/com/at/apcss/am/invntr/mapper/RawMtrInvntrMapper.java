@@ -49,6 +49,16 @@ public interface RawMtrInvntrMapper {
 	public List<RawMtrInvntrVO> selectRawMtrInvntrList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 
 	/**
+	 * 원물재고 선별대상 목록 조회
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<RawMtrInvntrVO> selectRawMtrInvntrListForRslt(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+
+	
+	
+	/**
 	 * 원물재고 목록 집계조회
 	 * @param rawMtrInvntrVO
 	 * @return
@@ -127,6 +137,14 @@ public interface RawMtrInvntrMapper {
 	 */
 	public int updateInvntrSortPrfmnc(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 
+	/**
+	 * 원물재고 변경 - (선투입)선별등록
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateInvntrSortInptRslt(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+	
 	/**
 	 * 원물재고 표준등급 등록
 	 * @param rawMtrStdGrdVO

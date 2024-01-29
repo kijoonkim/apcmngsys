@@ -347,10 +347,17 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "원물재고");
 			}
 
-			if (invntrVO.getInptWght() > invntrInfo.getInvntrWght()) {
-				return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "재고량||투입량");		// W0008	{0} 보다 {1}이/가 큽니다.
+			if (ComConstants.CON_YES.equals(orgnInv.getInptPrgrsYn())) {
+				if (invntrVO.getInptWght() > invntrInfo.getInptPrgrsWght()) {
+					return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "투입진행량||투입량");	// W0008	{0} 보다 {1}이/가 큽니다.
+				}
+			} else {
+				if (invntrVO.getInptWght() > invntrInfo.getInvntrWght()) {
+					return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "재고량||투입량");		// W0008	{0} 보다 {1}이/가 큽니다.
+				}
 			}
-
+			
+			invntrVO.setInptPrgrsYn(orgnInv.getInptPrgrsYn());
 			invntrVO.setPrdcrCd(invntrInfo.getPrdcrCd());
 			invntrVO.setGdsSeCd(invntrInfo.getGdsSeCd());
 			invntrVO.setWrhsSeCd(invntrInfo.getWrhsSeCd());
@@ -613,6 +620,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 				BeanUtils.copyProperties(sortMngVO, mngVO);
 				mngVO.setSortKey(sortKey);
 				mngVO.setSortYmd(sort.getInptYmd());
+				mngVO.setIsImpYn(ComConstants.CON_YES);
 			}
 			
 			sortPrfmncList.add(sort);
@@ -716,7 +724,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 			int sn = 0;
 			labelLoopSort:
 				for ( SortPrfmncVO sort : prfmncList ) {
-					
+					String inptYmd = sort.getInptYmd();
 					sn++;
 					sort.setRmnQntt(sort.getSortQntt());
 					sort.setRmnWght(sort.getSortWght());
@@ -837,7 +845,15 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 									sortWght = 0;
 								}
 								
+								sort.setWrhsno(orgnInv.getWrhsno());
+								sort.setRprsPrdcrCd(orgnInv.getPrdcrCd());
+								sort.setGdsSeCd(orgnInv.getGdsSeCd());
+								sort.setWrhsSeCd(orgnInv.getWrhsSeCd());
+								sort.setPrdctnYr(orgnInv.getPrdctnYr());
+								
 								if (sortQntt <= 0) {
+									sort.setRmnQntt(0);
+									sort.setRmnWght(0);
 									// 원물재고가 선정이 되었으므로 통과
 									continue labelLoopSort;
 								}
@@ -926,6 +942,12 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 									sortWght = 0;
 								}
 								
+								sort.setWrhsno(orgnInv.getWrhsno());
+								sort.setRprsPrdcrCd(orgnInv.getPrdcrCd());
+								sort.setGdsSeCd(orgnInv.getGdsSeCd());
+								sort.setWrhsSeCd(orgnInv.getWrhsSeCd());
+								sort.setPrdctnYr(orgnInv.getPrdctnYr());
+								
 								RawMtrInvntrVO invntrVO = new RawMtrInvntrVO();
 								BeanUtils.copyProperties(sortMngVO, invntrVO);
 								BeanUtils.copyProperties(orgnInv, invntrVO,
@@ -936,7 +958,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 										ComConstants.PROP_SYS_LAST_CHG_DT,
 										ComConstants.PROP_SYS_LAST_CHG_USER_ID,
 										ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
-								
+								invntrVO.setInptYmd(inptYmd);
 								invntrVO.setSortQntt(0);
 								invntrVO.setSortWght(0);
 								invntrVO.setRmrk(ComConstants.CON_BLANK);
@@ -952,8 +974,12 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 										invntrVO.getSortWght());
 								
 								if (sortQntt <= 0) {
+									sort.setRmnQntt(0);
+									sort.setRmnWght(0);
 									// 원물재고가 선정이 되었으므로 통과
 									continue labelLoopSort;
+								} else {
+									
 								}
 							}
 						}
@@ -1008,7 +1034,15 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 									sortWght = 0;
 								}
 								
+								sort.setWrhsno(orgnInv.getWrhsno());
+								sort.setRprsPrdcrCd(orgnInv.getPrdcrCd());
+								sort.setGdsSeCd(orgnInv.getGdsSeCd());
+								sort.setWrhsSeCd(orgnInv.getWrhsSeCd());
+								sort.setPrdctnYr(orgnInv.getPrdctnYr());
+								
 								if (sortWght <= 0) {
+									sort.setRmnQntt(0);
+									sort.setRmnWght(0);
 									// 원물재고가 선정이 되었으므로 통과
 									continue labelLoopSort;
 								}
@@ -1088,7 +1122,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 								invntrVO.setSortQntt(0);
 								invntrVO.setSortWght(0);
 								invntrVO.setRmrk(ComConstants.CON_BLANK);
-								
+								invntrVO.setInptYmd(inptYmd);
 								rawMtrInvntrVOList.add(invntrVO);
 								excldWrhsnoList.add(invntrVO.getWrhsno());
 								
@@ -1100,6 +1134,8 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 										invntrVO.getSortWght());
 								
 								if (sortWght <= 0) {
+									sort.setRmnQntt(0);
+									sort.setRmnWght(0);
 									// 원물재고가 선정이 되었으므로 통과
 									continue labelLoopSort;
 								}
@@ -1154,63 +1190,66 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 				rawMtrInvntrVOList.add(invntrVO);
 			}
 		}
-
-		for ( RawMtrInvntrVO inv : rawMtrInvntrVOList ) {
-			
-			String inptYmd = ComConstants.CON_BLANK;
-			String wrhsno = inv.getWrhsno();
-			String prdcrCd = inv.getPrdcrCd();
-			String gdsSeCd = inv.getGdsSeCd();
-			String wrhsSeCd = inv.getWrhsSeCd();
-			String prdctnYr = inv.getPrdctnYr();
-						
-			// 지정 투입수량, 투입중량
-			int inptQntt = inv.getInptQntt();
-			double inptWght = inv.getInptWght();
-			
-			int sortQntt = inv.getSortQntt();
-			double sortWght = inv.getSortWght();
-			
-			for ( SortPrfmncVO sort : prfmncList ) {
+		
+		if (!ComConstants.CON_YES.equals(sortMngVO.getIsImpYn())) {
+			for ( RawMtrInvntrVO inv : rawMtrInvntrVOList ) {
 				
-				if (StringUtils.hasText(sort.getWrhsno()) && sort.getRmnWght() <= 0) {
-					continue;
+				String inptYmd = ComConstants.CON_BLANK;
+				String wrhsno = inv.getWrhsno();
+				String prdcrCd = inv.getPrdcrCd();
+				String gdsSeCd = inv.getGdsSeCd();
+				String wrhsSeCd = inv.getWrhsSeCd();
+				String prdctnYr = inv.getPrdctnYr();
+							
+				// 지정 투입수량, 투입중량
+				int inptQntt = inv.getInptQntt();
+				double inptWght = inv.getInptWght();
+				
+				int sortQntt = inv.getSortQntt();
+				double sortWght = inv.getSortWght();
+				
+				for ( SortPrfmncVO sort : prfmncList ) {
+					
+					if (StringUtils.hasText(sort.getWrhsno()) && sort.getRmnWght() <= 0) {
+						continue;
+					}
+
+					int applQntt = 0;
+					double applWght = 0;
+
+					if (inptWght - sortWght < sort.getRmnWght()) {
+						applQntt = inptQntt - sortQntt;
+						applWght = inptWght - sortWght;
+					} else {
+						applQntt = sort.getRmnQntt();
+						applWght = sort.getRmnWght();
+					}
+
+					sort.setWrhsno(wrhsno);
+					sort.setRprsPrdcrCd(prdcrCd);
+					sort.setGdsSeCd(gdsSeCd);
+					sort.setWrhsSeCd(wrhsSeCd);
+					sort.setPrdctnYr(prdctnYr);
+
+					sortQntt += applQntt;
+					sortWght += applWght;
+
+					sort.setRmnQntt(sort.getRmnQntt() - applQntt);
+					sort.setRmnWght(sort.getRmnWght() - applWght);
+
+					if (!StringUtils.hasText(inptYmd)) {
+						inptYmd = sort.getInptYmd();
+					}
 				}
 
-				int applQntt = 0;
-				double applWght = 0;
-
-				if (inptWght - sortWght < sort.getRmnWght()) {
-					applQntt = inptQntt - sortQntt;
-					applWght = inptWght - sortWght;
-				} else {
-					applQntt = sort.getRmnQntt();
-					applWght = sort.getRmnWght();
-				}
-
-				sort.setWrhsno(wrhsno);
-				sort.setRprsPrdcrCd(prdcrCd);
-				sort.setGdsSeCd(gdsSeCd);
-				sort.setWrhsSeCd(wrhsSeCd);
-				sort.setPrdctnYr(prdctnYr);
-
-				sortQntt += applQntt;
-				sortWght += applWght;
-
-				sort.setRmnQntt(sort.getRmnQntt() - applQntt);
-				sort.setRmnWght(sort.getRmnWght() - applWght);
-
-				if (!StringUtils.hasText(inptYmd)) {
-					inptYmd = sort.getInptYmd();
-				}
+				inv.setInptYmd(inptYmd);
+				inv.setSortQntt(sortQntt);
+				inv.setSortWght(sortWght);
+				
+				logger.debug("!@#$ no: {}, inpt: {}, sort: {}", inv.getWrhsno(), inv.getInptWght(), inv.getSortWght());
 			}
-
-			inv.setInptYmd(inptYmd);
-			inv.setSortQntt(sortQntt);
-			inv.setSortWght(sortWght);
-			
-			logger.debug("!@#$ no: {}, inpt: {}, sort: {}", inv.getWrhsno(), inv.getInptWght(), inv.getSortWght());
 		}
+		
 
 		for ( SortPrfmncVO sort : prfmncList ) {
 			if (!StringUtils.hasText(sort.getWrhsno())) {

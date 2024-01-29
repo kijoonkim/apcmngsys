@@ -343,6 +343,10 @@ public class RawMtrInvntrVO extends ComVO {
 	 */
 	private int inptSn;
 
+	/**
+	 * 투입진행여부
+	 */
+	private String inptPrgrsYn;
 
 	/**
 	 * 변경이력
