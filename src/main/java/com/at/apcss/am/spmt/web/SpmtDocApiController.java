@@ -49,8 +49,9 @@ public class SpmtDocApiController extends BaseController {
 	// 전자송품장 내역 조회
 	@GetMapping(value = "/am/spmt/getSpmtDoc.do")
 	public ResponseEntity<HashMap<String, Object>> getSpmtPrfmncList(
-			@RequestParam(name="CMP_CD") String cmpCd, 
-			@RequestParam(name="SHIP_DATE") String shipDate, 
+			@RequestParam(name="CMP_CD") String cmpCd,
+			@RequestParam(name="REG_DATE") String regDate,
+			@RequestParam(name="SHIP_DATE", required=false) String shipDate, 
 			@RequestParam(name="WHSAL_CD", required=false) String whsalCd,
 			HttpServletRequest request) throws Exception {
 
@@ -64,6 +65,7 @@ public class SpmtDocApiController extends BaseController {
 		HashMap<String, Object> paramMap = new HashMap<>();
 		
 		paramMap.put("CMP_CD", cmpCd);
+		paramMap.put("REG_DATE", regDate);
 		paramMap.put("SHIP_DATE", shipDate);
 		paramMap.put("WHSAL_CD", whsalCd);
 		
@@ -71,9 +73,9 @@ public class SpmtDocApiController extends BaseController {
 			if (paramMap.get("CMP_CD") == null) {
 				resultCode = "1";
 				resultMessage = "도매시장법인코드가 없습니다.";
-			} else if (paramMap.get("SHIP_DATE") == null) {
+			} else if (paramMap.get("REG_DATE") == null) {
 				resultCode = "1";
-				resultMessage = "출하예정일자가 없습니다.";
+				resultMessage = "등록일자가 없습니다.";
 			} else {
 				resultList = spmtDocService.selectSpmtDocList(paramMap);
 				
@@ -114,9 +116,9 @@ public class SpmtDocApiController extends BaseController {
 			if (paramMap.get("CMP_CD") == null) {
 				resultCode = "1";
 				resultMessage = "도매시장법인코드가 없습니다.";
-			} else if (paramMap.get("SHIP_DATE") == null) {
+			} else if (paramMap.get("REG_DATE") == null) {
 				resultCode = "1";
-				resultMessage = "출하예정일자가 없습니다.";
+				resultMessage = "등록일자가 없습니다.";
 			} else {
 				resultList = spmtDocService.selectSpmtDocList(paramMap);
 				
