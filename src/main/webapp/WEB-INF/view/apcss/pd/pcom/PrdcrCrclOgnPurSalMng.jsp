@@ -247,8 +247,8 @@
 							<td colspan="2" class="td_input">
 								<sbux-input
 									uitype="text"
-									id="srch-input-crno"
-									name="srch-input-crno"
+									id="dtl-input-crno"
+									name="dtl-input-crno"
 									class="form-control input-sm"
 									autocomplete="off"
 									readonly
@@ -961,6 +961,7 @@
 						,yr: item.yr
 						,corpSeCd: item.corpSeCd
 				}
+				console.log(item.corpSeCd);
 				jsonPrdcrOgnCurntMng.push(PrdcrOgnCurntMngVO);
 				if (index === 0) {
 					totalRecordCount = item.totalRecordCount;

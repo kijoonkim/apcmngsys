@@ -248,8 +248,8 @@
 							<td colspan="2" class="td_input">
 								<sbux-input
 									uitype="text"
-									id="srch-input-crno"
-									name="srch-input-crno"
+									id="dtl-input-crno"
+									name="dtl-input-crno"
 									class="form-control input-sm"
 									mask = "{ 'alias': '999999-9999999' , 'autoUnmask': true}"
 									autocomplete="off"
