@@ -2096,7 +2096,7 @@
 		}
     	let postJsonPromise = gfn_postJSON("/pd/aom/selectGpcList.do", {
     		// apoCd : apoCd
-    		,apoSe : '1'
+    		apoSe : '1'
     		,brno : SBUxMethod.get('dtl-input-brno')//
     		,crno : SBUxMethod.get('dtl-input-crno')//
     		//,corpNm : SBUxMethod.get('dtl-input-corpNm')//
