@@ -1730,6 +1730,12 @@
 		let prdcrOgnzSn = SBUxMethod.get('dtl-input-prdcrOgnzSn');
 		let prdcrOgnzCd = SBUxMethod.get('dtl-input-prdcrOgnzCd');
 		let prdcrOgnzNm = SBUxMethod.get('dtl-input-prdcrOgnzNm');
+		//년도값이 비어 있으면 현재 년도 넣기
+		if(gfn_isEmpty(yr)){
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
 
 		let regMsg = "기존데이터를 삭제 처리 하시겠습니까?";
 		if(confirm(regMsg)){
@@ -1777,6 +1783,7 @@
 			rowData.apoSe = apoSe;
 			rowData.crno = crno;
 			rowData.brno = brno;
+			rowData.yr = yr;
 			rowData.itemCd = itemCd;
 			rowData.trmtType = trmtType;
 			rowData.prdcrOgnzSn = prdcrOgnzSn;
