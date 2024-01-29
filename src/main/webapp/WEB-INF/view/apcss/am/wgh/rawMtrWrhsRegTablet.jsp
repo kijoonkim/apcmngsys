@@ -566,14 +566,7 @@
      * @description 초기화 버튼
      */
      const fn_reset = function() {
-    	SBUxMethod.set("srch-chk-fxngItem", "false");
-    	SBUxMethod.set("srch-chk-fxngWghtAvg", "false");
-    	SBUxMethod.set("srch-chk-fxngBxKnd", "false");
-    	SBUxMethod.set("srch-chk-fxngWarehouseSeCd", "false");
-    	SBUxMethod.refresh("srch-chk-fxngItem");
-    	SBUxMethod.refresh("srch-chk-fxngWghtAvg");
-    	SBUxMethod.refresh("srch-chk-fxngBxKnd");
-    	SBUxMethod.refresh("srch-chk-fxngWarehouseSeCd");
+
 		fn_clearForm();
 	}
 
@@ -760,12 +753,12 @@
      * @description 조회 버튼
      */
     const fn_search = async function() {
-  		
+
 		if (gfn_isEmpty(SBUxMethod.get("srch-dtp-wrhsYmd"))) {
     		gfn_comAlert("W0001", "입고일자");		//	W0002	{0}을/를 입력하세요.
             return;
     	}
-		
+
 		var getColRef = grdRawMtrWrhs.getColRef("checkedYn");
 		grdRawMtrWrhs.setFixedcellcheckboxChecked(0, getColRef, false);
 
@@ -1066,7 +1059,7 @@
   				jsonRawMtrWrhs.push(rawMtrWrhs);
   			});
           	totalRecordCount = jsonRawMtrWrhs.length;
-          	
+
 			grdRawMtrWrhs.rebuild();
           	document.querySelector('#cnt-wrhs').innerText = totalRecordCount;
           	SBUxMethod.set("crtr-ymd", wrhsYmd);
@@ -1116,24 +1109,25 @@
 			SBUxMethod.attr("srch-inp-prdcrNm", "style", "");	//skyblue
 
 			// 품목
-			SBUxMethod.set("srch-slt-itemCd", null);
+			SBUxMethod.set("srch-slt-itemCd", "");
 			// 품종
-			SBUxMethod.set("srch-slt-vrtyCd", null);
+			SBUxMethod.set("srch-slt-vrtyCd", "");
 		}
 
 		if (!SBUxMethod.get("srch-chk-fxngWghtAvg")["srch-chk-fxngWghtAvg"]) {
 	 		// 평균
 			SBUxMethod.set("srch-inp-wghtAvg", "");
+
 		}
 
 		if (!SBUxMethod.get("srch-chk-fxngBxKnd")["srch-chk-fxngBxKnd"]) {
 			// 박스종류
-	 		SBUxMethod.set("srch-slt-bxKnd", null);
+	 		SBUxMethod.set("srch-slt-bxKnd", "");
 		}
 
 		if (!SBUxMethod.get("srch-chk-fxngWarehouseSeCd")["srch-chk-fxngWarehouseSeCd"]) {
 			// 창고
-	 		SBUxMethod.set("srch-slt-warehouseSeCd", null);
+	 		SBUxMethod.set("srch-slt-warehouseSeCd", "");
 		}
 
 		// 수량
@@ -1141,7 +1135,7 @@
  		// 중량
  		SBUxMethod.set("srch-inp-wrhsWght", "");
 
-		fn_onChangeSrchItemCd({value: null});
+		//fn_onChangeSrchItemCd({value: null});
 	}
 
 	const fn_close = function(){
