@@ -631,11 +631,12 @@
             {caption: ["품목","품목"],	    		ref: 'itemNm',   		type: 'output', width:'80px', 	style: 'text-align:center'},
             {caption: ["품종","품종"],	    		ref: 'vrtyNm',   		type: 'output', width:'100px', 	style: 'text-align:center'},
             {caption: ["등급","등급"],	    		ref: 'grdNm',   		type: 'output', width:'80px', 	style: 'text-align:center'},
-            {caption: ["상품구분","상품구분"],		ref: 'gdsSeNm', 		type: 'output', width:'80px', 	style: 'text-align:center'},
-            {caption: ["지시설비","지시설비"],		ref: 'fcltNm', 			type: 'output', width:'120px', 	style: 'text-align:center'},
+            {caption: ["상품구분","상품구분"],			ref: 'gdsSeNm', 		type: 'output', width:'80px', 	style: 'text-align:center'},
+            {caption: ["지시설비","지시설비"],			ref: 'fcltNm', 			type: 'output', width:'120px', 	style: 'text-align:center'},
             {caption: ["창고","창고"],	    		ref: 'warehouseSeNm', 	type: 'output', width:'120px', 	style: 'text-align:center'},
-            {caption: ["원물재고","수량"],  		ref: 'invntrQntt',   	type: 'output', width:'70px', 	style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["원물재고","중량 (Kg)"],		ref: 'invntrWght',   	type: 'output', width:'70px', 	style: 'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["원물재고(투입진행)","투입"],	   	ref: 'inptPrgrsYn', 	type: 'output', width:'50px', 	style: 'text-align:center'},
+            {caption: ["원물재고(투입진행)","수량"],  		ref: 'invntrQntt',   	type: 'output', width:'70px', 	style: 'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["원물재고(투입진행)","중량 (Kg)"],	ref: 'invntrWght',   	type: 'output', width:'70px', 	style: 'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ["투입지시","지시번호"], 		ref: 'sortCmndno', 		type: 'output',	width:'110px', 	style: 'text-align:center'},
             {caption: ["투입지시","지시설비"], 		ref: 'fcltNm', 			type: 'output',	width:'80px', 	style: 'text-align:center'},
             {caption: ["투입지시","수량"],  		ref: 'cmndQntt', 		type: 'output', width:'70px', 	style: 'text-align:right', format : {type:'number', rule:'#,###'}},
@@ -675,6 +676,7 @@
 	        {caption: ["박스종류명"],	ref: 'bxKndNm', 		hidden: true},
 	        {caption: ["입고수량"],		ref: 'wrhsQntt', 		hidden: true},
 	        {caption: ["입고중량"],		ref: 'wrhsWght', 		hidden: true},
+	        {caption: ["투입진행여부"],	ref: 'inptPrgrsYn', 	hidden: true},
 	        {caption: [" "],		ref: '_',				type:'output', width:'1px'}
     	];
 		grdRawMtrInvntr = _SBGrid.create(SBGridProperties);
@@ -953,7 +955,7 @@
 
   		try {
 
-  			const postJsonPromise = gfn_postJSON("/am/invntr/selectRawMtrInvntrList.do", {
+  			const postJsonPromise = gfn_postJSON("/am/invntr/selectRawMtrInvntrListForRslt.do", {
   				apcCd: gv_selectedApcCd,
   				wrhsYmdFrom: wrhsYmdFrom,
   				wrhsYmdTo: wrhsYmdTo,
@@ -997,6 +999,8 @@
   						inptWght: 0, //item.inptWght,
   						invntrQntt: item.invntrQntt,
   						invntrWght: item.invntrWght,
+  						inptPrgrsQntt: item.inptPrgrsQntt,
+  						inptPrgrsWght: item.inptPrgrsWght,
   						apcNm: item.apcNm,
   						prdcrNm: item.prdcrNm,
   						itemNm: item.itemNm,
@@ -1012,6 +1016,12 @@
   						cmndQntt: item.cmndQntt,
   						cmndWght: item.cmndWght
   				}
+          		if (parseFloat(item.inptPrgrsWght) || 0 > 0) {
+          			rawMtrInvntr.inptPrgrsYn = "Y";
+          			rawMtrInvntr.invntrQntt = item.inptPrgrsQntt;
+          			rawMtrInvntr.invntrWght = item.inptPrgrsWght;
+          		}
+          		
           		if (gfn_isEmpty(item.sortCmndno) && item.cmndQntt == 0) {
           			rawMtrInvntr.cmndQntt = null;
           		}
@@ -1104,6 +1114,7 @@
     			rawMtrInvntrList.push({
     				wrhsno: item.wrhsno,
     				sortCmndno: item.sortCmndno,
+    				inptPrgrsYn: item.inptPrgrsYn,
     				inptQntt: qntt,
     				inptWght: wght
     			});

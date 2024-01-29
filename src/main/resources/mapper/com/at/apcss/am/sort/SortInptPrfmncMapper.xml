@@ -218,6 +218,33 @@
     </insert>
 
 	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortInptPrfmncMapper.updateSortInptRslt	-->
+	<!-- DESC : 선별투입실적 완료.	                                       					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateSortInptRslt" parameterType="com.at.apcss.am.sort.vo.SortInptPrfmncVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.am.sort.mapper.SortInptPrfmncMapper.updateSortInptRslt */
+				TB_SORT_INPT_PRFMNC
+			   SET
+			   	  SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+				, RMRK 			= #{rmrk}
+				, SORTNO		= #{sortno}
+		]]>
+		<![CDATA[
+			 WHERE APC_CD = #{apcCd}
+			   AND WRHSNO = #{wrhsno}
+			   AND SORTNO IS NULL
+			   AND DEL_YN = 'N'
+		]]>
+    </update>
+
+	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.sort.mapper.SortInptPrfmncMapper.updateSortInptPrfmnc	-->
 	<!-- DESC : 선별투입실적 변경.	                                       					-->
 	<!-- ==========================================================================	-->

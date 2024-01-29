@@ -79,6 +79,14 @@ public interface SortInptPrfmncMapper {
 	 * @return
 	 * @throws Exception
 	 */
+	public int updateSortInptRslt(SortInptPrfmncVO sortInptPrfmncVO) throws Exception;
+	
+	/**
+	 * 선별투입실적 변경
+	 * @param sortInptPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
 	public int updateSortInptPrfmnc(SortInptPrfmncVO sortInptPrfmncVO) throws Exception;
 
 	/**

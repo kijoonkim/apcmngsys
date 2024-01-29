@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.at.apcss.am.sort.mapper.SortInptPrfmncMapper;
 import com.at.apcss.am.sort.service.SortInptPrfmncService;
 import com.at.apcss.am.sort.vo.SortInptPrfmncVO;
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
@@ -78,7 +79,12 @@ public class SortInptPrfmncServiceImpl extends BaseServiceImpl implements SortIn
 	public HashMap<String, Object> insertSortInptPrfmncList(List<SortInptPrfmncVO> sortInptPrfmncList) throws Exception {
 
 		for ( SortInptPrfmncVO sortInptPrfmncVO : sortInptPrfmncList ) {
-			sortInptPrfmncMapper.insertSortInptPrfmnc(sortInptPrfmncVO);
+			
+			if (ComConstants.CON_YES.equals(sortInptPrfmncVO.getInptPrgrsYn())) {
+				sortInptPrfmncMapper.updateSortInptRslt(sortInptPrfmncVO);
+			} else {
+				sortInptPrfmncMapper.insertSortInptPrfmnc(sortInptPrfmncVO);
+			}
 		}
 
 		return null;
