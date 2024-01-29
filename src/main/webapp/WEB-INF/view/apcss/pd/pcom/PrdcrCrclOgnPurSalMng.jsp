@@ -1172,12 +1172,12 @@
 			let rowSts03 = grdPrdcrOgnCurntMng03.getRowStatus(i);
 			let delYn = rowData03.delYn;
 
-			if(rowData03.etcVlm >= 0){
+			if(rowData03.etcVlm < 0){
 				alert('기타 물량의 값은 음수일수 없습니다');
 				grdPrdcrOgnCurntMng03.selectRow(i);
 				return false;
 			}
-			if(rowData03.etcAmt >= 0){
+			if(rowData03.etcAmt < 0){
 				alert('기타 금액의 값은 음수일수 없습니다');
 				grdPrdcrOgnCurntMng03.selectRow(i);
 				return false;

@@ -278,7 +278,7 @@
 								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 								WHERE 1=1
 								AND APO_SE = '1'
-								AND TYPE_SE_NO IN ('2','5')
+								AND TYPE_SE_NO IN ('2','6')
 
 								<if test='brno != null and brno != ""'>
 							  	  AND BRNO = #{brno}
@@ -296,7 +296,7 @@
 								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 								WHERE 1=1
 								AND APO_SE = '1'
-								AND TYPE_SE_NO IN ('2','3','5','7')
+								AND TYPE_SE_NO IN ('2','3','6','7')
 
 							  	<if test='brno != null and brno != ""'>
 							  	  AND BRNO = #{brno}
