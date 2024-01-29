@@ -848,27 +848,27 @@
 				stbltYnNmMng.push('출하비율 요건 미달');
 			}
 		}else if(item.aprv == '2'){
-			if(item.trmtType = '1'){
+			if(item.trmtType == '1'){
 				if(!(item.cnt >= 5)){
 					stbltYnNmMng.push('조직원수 요건 미달');
 				}
-				if(!(item.spmtPrcTot >= 200000)){
+				if(!(item.spmtPrcTot >= 50000)){
 					stbltYnNmMng.push('출하대금지급액 요건 미달');
 				}
 				if(!(item.ecSpmtRate >= 80)){
 					stbltYnNmMng.push('출하비율 요건 미달');
 				}
 			}
-			if(item.trmtType = '2'){
+			if(item.trmtType == '2'){
 				if(!(item.cnt >= 5)){
 					stbltYnNmMng.push('조직원수 요건 미달');
 				}
-				if(!(item.spmtPrcTot >= 200000)){
+				if(!(item.spmtPrcTot >= 50000)){
 					stbltYnNmMng.push('출하대금지급액 요건 미달');
 				}
 			}
-			if(item.trmtType = '3'){
-				if(!(item.spmtPrcTot >= 200000)){
+			if(item.trmtType == '3'){
+				if(!(item.spmtPrcTot >= 50000)){
 					stbltYnNmMng.push('출하대금지급액 요건 미달');
 				}
 			}
