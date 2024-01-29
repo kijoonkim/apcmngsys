@@ -260,8 +260,8 @@
 							<td colspan="2" class="td_input">
 								<sbux-input
 									uitype="text"
-									id="srch-input-crno"
-									name="srch-input-crno"
+									id="dtl-input-crno"
+									name="dtl-input-crno"
 									class="form-control input-sm"
 									mask = "{ 'alias': '999999-9999999' , 'autoUnmask': true}"
 									autocomplete="off"
@@ -402,9 +402,9 @@
 	var jsonComAprv = [];//신청구분
 	var jsonComAplyTrgtSe = [];//신청대상구분
 
-	var jsonGrdCtpv = [];//시도
-	var jsonGrdSgg = [];//시군
-	var jsonGrdCorpSeCd = [];//법인구분
+	var jsonGrdComCtpv = [];//시도
+	var jsonGrdComSgg = [];//시군
+	var jsonGrdComCorpSeCd = [];//법인구분
 
 	var jsonCtgryCd = [];//분류코드
 	var jsonGrdCtgryCd_1 = [];//분류코드
@@ -427,9 +427,9 @@
 			gfn_setComCdSBSelect('srch-input-aprv', 		jsonComAprv, 	'APRV_UPBR_SE_CD'), //신청구분
 			gfn_setComCdSBSelect('srch-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE'), //신청대상구분
 
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdCtpv, 		'CMPTN_INST_CTPV'), //시도
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdSgg, 		'CMPTN_INST_SIGUN'),//시군
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdCorpSeCd, 	'CORP_SE_CD'),//법인구분
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdComCtpv, 		'CMPTN_INST_CTPV'), //시도
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdComSgg, 		'CMPTN_INST_SIGUN'),//시군
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdComCorpSeCd, 	'CORP_SE_CD'),//법인구분
 
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonGrdCtgryCd_1, 	'CTGRY_CD'), //분류코드
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng02', 	jsonGrdCtgryCd_2, 	'CTGRY_CD'), //분류코드
@@ -463,11 +463,11 @@
 	    	{caption: ["seq"], 			ref: 'apoCd',   	hidden : true},
 	    	{caption: ["등록년도"], 		ref: 'yr',   	type:'output',  width:'100px',    style:'text-align:center'},
 	    	{caption: ["법인구분"], 		ref: 'corpSeCd',type:'combo',  width:'100px',    style:'text-align:center', disabled:true
-	    		,typeinfo : {ref:'jsonGrdCorpSeCd', label:'label', value:'value', displayui : false}},
+	    		,typeinfo : {ref:'jsonGrdComCorpSeCd', label:'label', value:'value', displayui : false}},
 	    	{caption: ["시도"], 			ref: 'ctpv',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
-	    		,typeinfo : {ref:'jsonGrdCtpv', label:'label', value:'value', displayui : false}},
+	    		,typeinfo : {ref:'jsonGrdComCtpv', label:'label', value:'value', displayui : false}},
 	        {caption: ["시군구"], 		ref: 'sgg',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
-		    	,typeinfo : {ref:'jsonGrdSgg', label:'label', value:'value', displayui : false}},
+		    	,typeinfo : {ref:'jsonGrdComSgg', label:'label', value:'value', displayui : false}},
 	        {caption: ["법인명"], 		ref: 'corpNm',  type:'output',  width:'250px',    style:'text-align:center'},
 	        {caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'250px',    style:'text-align:center'},
 	        //{caption: ["적합여부"], 		ref: 'stbltYn',   	type:'output',  width:'50px',    style:'text-align:center'},
