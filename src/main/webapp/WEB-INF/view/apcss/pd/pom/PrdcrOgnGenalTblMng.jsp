@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -407,7 +406,18 @@
 	var jsonPrdcrOgnCurntMng = []; // 그리드의 참조 데이터 주소 선언
 	var grdPrdcrOgnCurntMng
 
+	const objMenuList = {
+	        "excelDwnld": {
+	            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+	            "accesskey": "e",					//단축키
+	            "callback": fn_excelDwnld,			//콜백함수명
+	        }
+	    };
 
+
+	function fn_excelDwnld() {
+		grdPrdcrOgnCurntMng.exportLocalExcel("생산자조직 관리(총괄표)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
 
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid = async function() {
@@ -418,6 +428,8 @@
 	    SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+	    SBGridProperties.contextmenulist = objMenuList;	// 우클릭 메뉴 리스트
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.paging = {
@@ -458,6 +470,18 @@
 	var jsonPrdcrOgnCurntMng01 = []; // 그리드의 참조 데이터 주소 선언
 	var grdPrdcrOgnCurntMng01;
 
+	const objMenuList01 = {
+	        "excelDwnld": {
+	            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+	            "accesskey": "e",					//단축키
+	            "callback": fn_excelDwnld01,			//콜백함수명
+	        }
+	    };
+
+
+	function fn_excelDwnld01() {
+		grdPrdcrOgnCurntMng01.exportLocalExcel("생산자조직 관리(생산자 조직)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
 
 	/* Grid 화면 그리기 기능*/
 	//생산자조직 리스트
@@ -469,6 +493,8 @@
 	    SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng01';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+	    SBGridProperties.contextmenulist = objMenuList01;	// 우클릭 메뉴 리스트
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 	    SBGridProperties.oneclickedit = false;//입력 활성화 true 1번클릭 false 더블클릭

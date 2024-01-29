@@ -366,6 +366,19 @@
 	var jsonPrdcrOgnCurntMng = []; // 그리드의 참조 데이터 주소 선언
 	var grdPrdcrOgnCurntMng
 
+	const objMenuList = {
+	        "excelDwnld": {
+	            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+	            "accesskey": "e",					//단축키
+	            "callback": fn_excelDwnld,			//콜백함수명
+	        }
+	    };
+
+
+	function fn_excelDwnld() {
+		grdPrdcrOgnCurntMng.exportLocalExcel("통합조직관리(조직 리스트)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+	
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid = async function() {
 
@@ -375,6 +388,8 @@
 	    SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+	    SBGridProperties.contextmenulist = objMenuList;	// 우클릭 메뉴 리스트
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.paging = {
@@ -497,6 +512,20 @@
 	    grdPrdcrOgnCurntMng01.bind('afteredit','fn_AfterEdit01');
 	}
 	*/
+	
+	const objMenuList01 = {
+	        "excelDwnld": {
+	            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+	            "accesskey": "e",					//단축키
+	            "callback": fn_excelDwnld01,			//콜백함수명
+	        }
+	    };
+
+
+	function fn_excelDwnld01() {
+		grdPrdcrOgnCurntMng01.exportLocalExcel("통합조직관리(전문품목 매입.매출-출자출하조직보유)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+	
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid01 = async function() {
 
@@ -508,6 +537,8 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.mergecells = 'bycol';//동일한 열 병합처리
 	    SBGridProperties.datamergefalseskip = true;// merge false 된 열 병합 제외
+	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+	    SBGridProperties.contextmenulist = objMenuList01;	// 우클릭 메뉴 리스트
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    //SBGridProperties.whitespacemerge = true;//빈칸 자동병합
