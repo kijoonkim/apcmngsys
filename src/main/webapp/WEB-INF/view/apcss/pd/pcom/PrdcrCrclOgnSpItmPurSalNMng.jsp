@@ -379,7 +379,8 @@
 	        {caption: ["법인명"], 		ref: 'corpNm',  type:'output',  width:'250px',    style:'text-align:center'},
 	        {caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'250px',    style:'text-align:center'},
 	        {caption: ["진행단계"], 		ref: 'aa',   	type:'output',  width:'153px',    style:'text-align:center'},
-	        {caption: ["비고"], 			ref: 'rmrk',   	type:'output',  width:'200px',    style:'text-align:center'}
+	        {caption: ["비고"], 			ref: 'rmrk',   	type:'output',  width:'200px',    style:'text-align:center'},
+	        {caption: ["상세내역"], 	ref: 'crno',		hidden : true}
 	    ];
 
 	    grdPrdcrOgnCurntMng = _SBGrid.create(SBGridProperties);
@@ -665,6 +666,7 @@
 						,crno: item.crno
 						,brno: item.brno
 						,yr: item.yr
+						,corpSeCd: item.corpSeCd
 				}
 				jsonPrdcrOgnCurntMng.push(PrdcrOgnCurntMngVO);
 				if (index === 0) {
