@@ -27,6 +27,7 @@
 			    , SC.SPMTNO     			AS SPMTNO
 			    , SC.WHLSL_MRKT_CD          AS WHSAL_CD
 			    , SC.WHLSL_MRKT_CORP_CD     AS CMP_CD
+			    , TO_CHAR(SC.SYS_FRST_INPT_DT, 'YYYYMMDD')	AS REG_DATE
 			    , SC.SPMT_MB_TYPE           AS SHIP_TYPE
 			    , SC.SPMT_PRNMNT_YMD        AS SHIP_DATE
 			    , SC.SPMT_PLC_NM            AS SHIP_NAME
@@ -48,9 +49,13 @@
 			
 			  FROM TB_SPMT_TRSPRT_DOC SC
 			 WHERE SC.DEL_YN = 'N'
-			   AND SC.SPMT_PRNMNT_YMD = #{SHIP_DATE}
+			   AND SC.SYS_FRST_INPT_DT >= TO_DATE(#{REG_DATE}, 'YYYYMMDD')
+			   AND SC.SYS_FRST_INPT_DT < TO_DATE(#{REG_DATE}, 'YYYYMMDD') + 1
 			   AND SC.WHLSL_MRKT_CORP_CD = #{CMP_CD}
 		]]>
+		<if test='SHIP_DATE != null and SHIP_DATE != ""'>
+		       AND SC.SPMT_PRNMNT_YMD = #{SHIP_DATE}
+		</if>
 		<if test='WHSAL_CD != null and WHSAL_CD != ""'>
 		       AND SC.WHLSL_MRKT_CD = #{WHSAL_CD}
 		</if>
