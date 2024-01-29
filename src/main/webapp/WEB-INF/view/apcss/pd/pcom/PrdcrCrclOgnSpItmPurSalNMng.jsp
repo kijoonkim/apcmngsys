@@ -161,7 +161,7 @@
 									uitype="text"
 									id="srch-input-brno"
 									name="srch-input-brno"
-									class="form-control input-sm"
+									class="form-control input-sm srch-keyup-area"
 									mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
 									autocomplete="off"
 								></sbux-input>
@@ -174,7 +174,7 @@
 									uitype="text"
 									id="srch-input-corpNm"
 									name="srch-input-corpNm"
-									class="form-control input-sm"
+									class="form-control input-sm srch-keyup-area"
 									autocomplete="off"
 								></sbux-input>
 							</td>
@@ -290,6 +290,21 @@
 
 		fn_init();
 
+		/**
+		 * 엔터시 검색 이벤트
+		 */
+		const elements = document.querySelectorAll(".srch-keyup-area");
+
+		for (let i = 0; i < elements.length; i++) {
+		  	const el = elements.item(i);
+		  	el.addEventListener("keyup", (event) => {
+		  		if (event.keyCode === 13 && !event.altKey && !event.ctrlKey && !event.shiftKey) {
+		  			fn_search();
+		  		}
+		  		//key	Enter
+		  		//keyCode
+		  	});
+		}
 	});
 
 	/* 초기화면 로딩 기능*/
