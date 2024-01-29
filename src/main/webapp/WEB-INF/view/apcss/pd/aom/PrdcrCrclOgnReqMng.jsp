@@ -1596,6 +1596,7 @@
 			rawMtrEnsrCtpvCnt = rawMtrEnsrCnt;
 			ctpvNm = rawMtrEnsrNm;
 		}
+
 		let yr = SBUxMethod.get('dtl-input-yr')//
 
 		if(gfn_isEmpty(yr)){
@@ -1673,6 +1674,13 @@
 			rawMtrEnsrCtpvCnt = rawMtrEnsrCnt;
 			ctpvNm = rawMtrEnsrNm;
 		}
+		let yr = SBUxMethod.get('dtl-input-yr')//
+
+		if(gfn_isEmpty(yr)){
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
 
 		let gridData = grdGpcList.getGridDataAll();
 		let gpcList = [];
@@ -1699,6 +1707,7 @@
 			rowData.brno = brno;
 			rowData.crno = crno;
 			rowData.corpNm = corpNm;
+			rowData.yr = yr;
 
 			if(delYn == 'N'){
 				/*
@@ -1729,12 +1738,7 @@
 			}
 		}
 
-		let yr = SBUxMethod.get('dtl-input-yr')//;
-		if(gfn_isEmpty(yr)){
-			let now = new Date();
-			let year = now.getFullYear();
-			yr = year;
-		}
+
 
 		var saveList = {
 				apoCd: SBUxMethod.get('dtl-input-apoCd')//
@@ -2078,6 +2082,11 @@
 		console.log("===========fn_selectGpcList===========");
 		let apoCd = SBUxMethod.get('dtl-input-apoCd')//
 		let yr = SBUxMethod.get('dtl-input-yr')//
+		if(gfn_isEmpty(yr)){
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
 		//없는경우 품목그리드 초기화
 		//apoCd 가 없는 경우가 없어야 한데 현재는 있어서 추가 함
 		if(gfn_isEmpty(apoCd)){
@@ -2086,11 +2095,11 @@
 			return;
 		}
     	let postJsonPromise = gfn_postJSON("/pd/aom/selectGpcList.do", {
-    		 apoCd : apoCd
-    		,apoSe : SBUxMethod.get('dtl-input-apoSe')//
+    		// apoCd : apoCd
+    		,apoSe : '1'
     		,brno : SBUxMethod.get('dtl-input-brno')//
     		,crno : SBUxMethod.get('dtl-input-crno')//
-    		,corpNm : SBUxMethod.get('dtl-input-corpNm')//
+    		//,corpNm : SBUxMethod.get('dtl-input-corpNm')//
     		,yr : yr
 		});
         let data = await postJsonPromise;
