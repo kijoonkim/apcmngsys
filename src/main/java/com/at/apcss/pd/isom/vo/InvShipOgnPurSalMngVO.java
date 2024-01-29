@@ -19,11 +19,13 @@ public class InvShipOgnPurSalMngVO extends ComVO{
 	private String itemCd;
 	private String ctgryNm;
 	private String itemNm;
+
 	private String sttgUpbrItemSe;
 	private String sttgUpbrItemNm;
 
 	private String prchsSlsSe;
 
+	/* 매입 */
 	private String prchsTrstVlm;
 	private String prchsTrstAmt;
 	private String prchsEmspapVlm;
@@ -32,6 +34,10 @@ public class InvShipOgnPurSalMngVO extends ComVO{
 	private String prchsTotVlm;
 	private String prchsTotAmt;
 
+	private String etcVlm;
+	private String etcAmt;
+
+	/* 매출 */
 	private String slsCprtnSortTrstVlm;
 	private String slsCprtnSortTrstAmt;
 	private String slsCprtnTrstVlm;
@@ -51,6 +57,7 @@ public class InvShipOgnPurSalMngVO extends ComVO{
 	private String slsTotVlm;
 	private String slsTotAmt;
 
+	/*공제*/
 	private String ddcExprtVlm;
 	private String ddcExprtAmt;
 	private String ddcVlm;
@@ -67,6 +74,12 @@ public class InvShipOgnPurSalMngVO extends ComVO{
 
 	private String ajmtVlm;
 	private String ajmtAmt;
+
+	/* 총 매입 매출*/
+	private String totTrmtPrfmncVlm;
+	private String totTrmtPrfmncAmt;
+	private String totSpmtPrfmncVlm;
+	private String totSpmtPrfmncAmt;
 
 	private String rmrk;
 

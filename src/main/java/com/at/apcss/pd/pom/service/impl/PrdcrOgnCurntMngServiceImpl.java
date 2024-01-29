@@ -109,12 +109,18 @@ public class PrdcrOgnCurntMngServiceImpl extends BaseServiceImpl implements Prdc
 		int updatedCnt = PrdcrOgnCurntMngMapper.updateTbEvFrmhsApoStbltYn(tbEvFrmhsApoVO);
 		return updatedCnt;
 	}
-	//
-	//생산자 조직
+	//생산조직 적합여부 조회
 	@Override
 	public TbEvFrmhsApoVO selectTbEvFrmhsApoStbltYn(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception {
 		TbEvFrmhsApoVO resultVO = PrdcrOgnCurntMngMapper.selectTbEvFrmhsApoStbltYn(tbEvFrmhsApoVO);
 		return resultVO;
+	}
+
+	//생산조직 적합여부 조회 리스트
+	@Override
+	public List<TbEvFrmhsApoVO> selectTbEvFrmhsApoStbltYnList(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception {
+		List<TbEvFrmhsApoVO> resultVoList = PrdcrOgnCurntMngMapper.selectTbEvFrmhsApoStbltYnList(tbEvFrmhsApoVO);
+		return resultVoList;
 	}
 
 	@Override

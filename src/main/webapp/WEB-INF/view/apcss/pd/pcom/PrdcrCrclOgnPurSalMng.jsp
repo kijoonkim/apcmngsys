@@ -506,7 +506,7 @@
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    //SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
+	    //SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	    	{caption: ["처리","처리"], 		ref: 'delYn',   		type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
@@ -522,17 +522,17 @@
 	    		,typeinfo : {ref:'jsonGrdCtgryCd01', label:'label', value:'value', displayui : true}},
 	    	{caption: ["품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 
-	        {caption: ["수탁","물량"], 		ref: 'prchsTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+	        {caption: ["수탁","물량(톤)"], 		ref: 'prchsTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["수탁","금액"], 		ref: 'prchsTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+	        {caption: ["수탁","금액(천원)"], 		ref: 'prchsTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["매취","물량"], 		ref: 'prchsEmspapVlm',   type:'input',  width:'90px',    style:'text-align:center'
+	        {caption: ["매취","물량(톤)"], 		ref: 'prchsEmspapVlm',   type:'input',  width:'90px',    style:'text-align:center'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["매취","금액"], 		ref: 'prchsEmspapAmt',   type:'input',  width:'100px',    style:'text-align:center'
+	        {caption: ["매취","금액(천원)"], 		ref: 'prchsEmspapAmt',   type:'input',  width:'100px',    style:'text-align:center'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["합계","물량"], 		ref: 'prchsTotVlm',   		type:'output',  width:'90px',    style:'text-align:center; background-color: #92b2c5', calc : 'fn_prchsVlmSum'
+	        {caption: ["합계","물량(톤)"], 		ref: 'prchsTotVlm',   		type:'output',  width:'90px',    style:'text-align:center; background-color: #92b2c5', calc : 'fn_prchsVlmSum'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["합계","금액"], 		ref: 'prchsTotAmt',   		type:'output',  width:'100px',    style:'text-align:center; background-color: #92b2c5', calc : 'fn_prchsAmtSum'
+	        {caption: ["합계","금액(천원)"], 		ref: 'prchsTotAmt',   		type:'output',  width:'100px',    style:'text-align:center; background-color: #92b2c5', calc : 'fn_prchsAmtSum'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
 	        {caption: ["상세내역"], 	ref: 'prchsSlsSe',  hidden : true},
@@ -564,6 +564,7 @@
 	    	grdPrdcrOgnCurntMng01.refresh();
 	    }
 	}
+
 	//매입 합계 물량
 	function fn_prchsVlmSum(objGrid, nRow, nCol){
 		let rowData = objGrid.getRowData(Number(nRow));
@@ -575,7 +576,7 @@
 	//매입 합계 금액
 	function fn_prchsAmtSum(objGrid, nRow, nCol){
 		let rowData = objGrid.getRowData(Number(nRow));
-		console.log(rowData.prchsTotAmt);
+		//console.log(rowData.prchsTotAmt);
 		let sumVal = 0;
 		//금액의 경우 기타인 경우만 합산 처리
 		if(rowData.sttgUpbrItemSe == '3'){
@@ -619,22 +620,22 @@
 	    		,typeinfo : {ref:'jsonGrdCtgryCd02', label:'label', value:'value', displayui : true}},
 	    	{caption: ["품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 
-	        {caption: ["수탁","물량"], 		ref: 'slsEmspapVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+	        {caption: ["수탁","물량(톤)"], 		ref: 'slsEmspapVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["수탁","금액"], 		ref: 'slsEmspapAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+	        {caption: ["수탁","금액(천원)"], 		ref: 'slsEmspapAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["매취","물량"], 		ref: 'slsTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+	        {caption: ["매취","물량(톤)"], 		ref: 'slsTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["매취","금액"], 		ref: 'slsTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+	        {caption: ["매취","금액(천원)"], 		ref: 'slsTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["합계","물량"], 		ref: 'slsTotVlm',   	type:'output',  width:'90px',    style:'text-align:center; background-color: #92b2c5' , calc : 'fn_slsVlmSum'
+	        {caption: ["합계","물량(톤)"], 		ref: 'slsTotVlm',   	type:'output',  width:'90px',    style:'text-align:center; background-color: #92b2c5' , calc : 'fn_slsVlmSum'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["합계","금액"], 		ref: 'slsTotAmt',   	type:'output',  width:'100px',    style:'text-align:center; background-color: #92b2c5', calc : 'fn_slsAmtSum'
+	        {caption: ["합계","금액(천원)"], 		ref: 'slsTotAmt',   	type:'output',  width:'100px',    style:'text-align:center; background-color: #92b2c5', calc : 'fn_slsAmtSum'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
-	    	{caption: ["자체공판장 매출액","물량"], 	ref: 'ddcVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+	    	{caption: ["자체공판장 매출액","물량(톤)"], 	ref: 'ddcVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["자체공판장 매출액","금액"], 	ref: 'ddcAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+	        {caption: ["자체공판장 매출액","금액(천원)"], 	ref: 'ddcAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
 
@@ -725,29 +726,33 @@
 	    		,typeinfo : {ref:'jsonGrdCtgryCd03', label:'label', value:'value', displayui : true}},
 	    	{caption: ["품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 
-	    	{caption: ["합계","물량"], 		ref: 'slsTotVlm',   	type:'output',  width:'90px',    style:'text-align:center; background-color: #92b2c5' , calc : 'fn_slsTotVlmSum'
+	    	{caption: ["합계","물량(톤)"], 		ref: 'slsTotVlm',   	type:'output',  width:'90px',    style:'text-align:center; background-color: #92b2c5'
+	    		, calc : 'fn_slsTotVlmSum'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["합계","금액"], 		ref: 'slsTotAmt',   	type:'output',  width:'100px',    style:'text-align:center; background-color: #92b2c5', calc : 'fn_slsTotAmtSum'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["합계","금액(천원)"], 		ref: 'slsTotAmt',   	type:'output',  width:'100px',    style:'text-align:center; background-color: #92b2c5'
+	        	, calc : 'fn_slsTotAmtSum'
+	        	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
-	    	{caption: ["공영\n도매시장","물량"], 		ref: 'pblcWhlslMrktVlm',   	type:'input',  width:'90px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["공영\n도매시장","금액"], 		ref: 'pblcWhlslMrktAmt',   	type:'input',  width:'100px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["온라인\n도매시장","물량"], 		ref: 'onlnWhlslMrktVlm',   	type:'input',  width:'90px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["온라인\n도매시장","금액"], 		ref: 'onlnWhlslMrktAmt',   	type:'input',  width:'100px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["대형\n유통업체","물량"], 		ref: 'lgszRtlVlm',   	type:'input',  width:'90px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["대형\n유통업체","금액"], 		ref: 'lgszRtlAmt',   	type:'input',  width:'100px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["군납","물량"], 		ref: 'armyDlvgdsVlm',   	type:'input',  width:'90px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["군납","금액"], 		ref: 'armyDlvgdsAmt',   	type:'input',  width:'100px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["외식, 식자재\n및 단체급식","물량"], 		ref: 'eatoutMtrlMlsrVlm',   	type:'input',  width:'90px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["외식, 식자재\n및 단체급식","금액"], 		ref: 'eatoutMtrlMlsrAmt',   	type:'input',  width:'100px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["가공업체","물량"], 		ref: 'mnfcRtlVlm',   	type:'input',  width:'90px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["가공업체","금액"], 		ref: 'mnfcRtlAmt',   	type:'input',  width:'100px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["수출","물량"], 		ref: 'exprtVlm',   	type:'input',  width:'90px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["수출","금액"], 		ref: 'exprtAmt',   	type:'input',  width:'100px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["온라인 거래실적\n(e커머스, TV홈쇼핑 등 포함)","물량"], 		ref: 'onlnDlngPrfmncVlm',   	type:'input',  width:'90px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["온라인 거래실적\n(e커머스, TV홈쇼핑 등 포함)","금액"], 		ref: 'onlnDlngPrfmncAmt',   	type:'input',  width:'100px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["기타","물량"], 		ref: 'etcVlm',   	type:'input',  width:'90px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["기타","금액"], 		ref: 'etcAmt',   	type:'input',  width:'100px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	    	{caption: ["공영\n도매시장","물량(톤)"], 		ref: 'pblcWhlslMrktVlm',   	type:'input',  width:'90px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["공영\n도매시장","금액(천원)"], 		ref: 'pblcWhlslMrktAmt',   	type:'input',  width:'100px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["온라인\n도매시장","물량(톤)"], 		ref: 'onlnWhlslMrktVlm',   	type:'input',  width:'90px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["온라인\n도매시장","금액(천원)"], 		ref: 'onlnWhlslMrktAmt',   	type:'input',  width:'100px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["대형\n유통업체","물량(톤)"], 		ref: 'lgszRtlVlm',   	type:'input',  width:'90px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["대형\n유통업체","금액(천원)"], 		ref: 'lgszRtlAmt',   	type:'input',  width:'100px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["군납","물량(톤)"], 		ref: 'armyDlvgdsVlm',   	type:'input',  width:'90px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["군납","금액(천원)"], 		ref: 'armyDlvgdsAmt',   	type:'input',  width:'100px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["외식, 식자재\n및 단체급식","물량(톤)"], 		ref: 'eatoutMtrlMlsrVlm',   	type:'input',  width:'90px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["외식, 식자재\n및 단체급식","금액(천원)"], 		ref: 'eatoutMtrlMlsrAmt',   	type:'input',  width:'100px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["가공업체","물량(톤)"], 		ref: 'mnfcRtlVlm',   	type:'input',  width:'90px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["가공업체","금액(천원)"], 		ref: 'mnfcRtlAmt',   	type:'input',  width:'100px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["수출","물량(톤)"], 		ref: 'exprtVlm',   	type:'input',  width:'90px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["수출","금액(천원)"], 		ref: 'exprtAmt',   	type:'input',  width:'100px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["온라인 거래실적\n(e커머스, TV홈쇼핑 등 포함)","물량(톤)"], 		ref: 'onlnDlngPrfmncVlm',   	type:'input',  width:'90px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["온라인 거래실적\n(e커머스, TV홈쇼핑 등 포함)","금액(천원)"], 		ref: 'onlnDlngPrfmncAmt',   	type:'input',  width:'100px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["기타","물량(톤)"], 		ref: 'etcVlm',   	type:'input',  width:'90px',    style:'text-align:center' , calc : 'fn_etcVlm'
+	        	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["기타","금액(천원)"], 		ref: 'etcAmt',   	type:'input',  width:'100px',    style:'text-align:center', calc : 'fn_etcAmt'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
 	        {caption: ["상세내역"], 	ref: 'prchsSlsSe',  hidden : true},
 	        {caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
@@ -784,15 +789,17 @@
 		  , 'exprtAmt'
 		  , 'onlnDlngPrfmncVlm'
 		  , 'onlnDlngPrfmncAmt'
-		  , 'etcVlm'
-		  , 'etcAmt'
+		  //, 'etcVlm'
+		  //, 'etcAmt'
+		  //, 'slsTotVlm'
+		  //, 'slsTotAmt'
 		];
 
 	//그리드 열 속성의 calc 은 그리드 생성시 작동함  refresh() 해서 데이터 변경시로 유사하게 가능
 	function fn_AfterEdit03(){
 		let prevCol = grdPrdcrOgnCurntMng03.getPrevCol();
 		let prevRef = grdPrdcrOgnCurntMng03.getRefOfCol(prevCol);
-	    if(columnsToRefresh03.includes(prevRef)){
+		if(columnsToRefresh03.includes(prevRef)){
 	    	grdPrdcrOgnCurntMng03.refresh();
 	    }
 	}
@@ -801,16 +808,19 @@
 	function fn_slsTotVlmSum(objGrid, nRow, nCol){
 		let rowData = objGrid.getRowData(Number(nRow));
 		let sumVal = 0;
-		sumVal = Number(rowData.pblcWhlslMrktVlm)
-				+ Number(rowData.onlnWhlslMrktVlm)
-				+ Number(rowData.lgszRtlVlm)
-				+ Number(rowData.armyDlvgdsVlm)
-				+ Number(rowData.eatoutMtrlMlsrVlm)
-				+ Number(rowData.mnfcRtlVlm)
-				+ Number(rowData.exprtVlm)
-				+ Number(rowData.onlnDlngPrfmncVlm)
-				+ Number(rowData.etcVlm);
-
+		if(rowData.sttgUpbrItemSe == '3'){
+			sumVal = Number(rowData.pblcWhlslMrktVlm)
+			+ Number(rowData.onlnWhlslMrktVlm)
+			+ Number(rowData.lgszRtlVlm)
+			+ Number(rowData.armyDlvgdsVlm)
+			+ Number(rowData.eatoutMtrlMlsrVlm)
+			+ Number(rowData.mnfcRtlVlm)
+			+ Number(rowData.exprtVlm)
+			+ Number(rowData.onlnDlngPrfmncVlm)
+			+ Number(rowData.etcVlm);
+		}else{
+			sumVal = rowData.slsTotVlm;
+		}
 		return sumVal;
 	}
 	//매출 합계 금액
@@ -819,7 +829,6 @@
 		let sumVal = 0;
 		//금액의 경우 기타인 경우만 합산 처리
 		if(rowData.sttgUpbrItemSe == '3'){
-
 			sumVal = Number(rowData.pblcWhlslMrktAmt)
 					+ Number(rowData.onlnWhlslMrktAmt)
 					+ Number(rowData.lgszRtlAmt)
@@ -829,30 +838,47 @@
 					+ Number(rowData.exprtAmt)
 					+ Number(rowData.onlnDlngPrfmncAmt)
 					+ Number(rowData.etcAmt);
-
 			return sumVal;
-		}else if(rowData.sttgUpbrItemSe == '1' || rowData.sttgUpbrItemSe == '2'){
-			sumVal = rowData.slsTotAmt;
-
-			etcVal = Number(rowData.slsTotAmt)
-					- Number(rowData.pblcWhlslMrktAmt)
-					- Number(rowData.onlnWhlslMrktAmt)
-					- Number(rowData.lgszRtlAmt)
-					- Number(rowData.armyDlvgdsAmt)
-					- Number(rowData.eatoutMtrlMlsrAmt)
-					- Number(rowData.mnfcRtlAmt)
-					- Number(rowData.exprtAmt)
-					- Number(rowData.onlnDlngPrfmncAmt);
-
-			let etcAmtCol = objGrid.getColRef("etcAmt");
-
-			objGrid.setCellData(Number(nRow), etcAmtCol , etcVal );
 		}else{
 			sumVal = rowData.slsTotAmt;
 		}
 		return sumVal;
 	}
+	//기타 물량
+	function fn_etcVlm(objGrid, nRow, nCol){
+		let rowData = grdPrdcrOgnCurntMng03.getRowData(Number(nRow));
+		if(rowData.prchsSlsSe == '2'){
+			let sumVal = Number(rowData.slsTotVlm)
+			- Number(rowData.pblcWhlslMrktVlm)
+			- Number(rowData.onlnWhlslMrktVlm)
+			- Number(rowData.lgszRtlVlm)
+			- Number(rowData.armyDlvgdsVlm)
+			- Number(rowData.eatoutMtrlMlsrVlm)
+			- Number(rowData.mnfcRtlVlm)
+			- Number(rowData.exprtVlm)
+			- Number(rowData.onlnDlngPrfmncVlm);
+			return sumVal;
+		}
+		return rowData.etcVlm;
+	}
 
+	//기타 금액
+	function fn_etcAmt(objGrid, nRow, nCol){
+		let rowData = grdPrdcrOgnCurntMng03.getRowData(Number(nRow));;
+		if(rowData.prchsSlsSe == '2'){
+			let sumVal = Number(rowData.slsTotAmt)
+				- Number(rowData.pblcWhlslMrktAmt)
+				- Number(rowData.onlnWhlslMrktAmt)
+				- Number(rowData.lgszRtlAmt)
+				- Number(rowData.armyDlvgdsAmt)
+				- Number(rowData.eatoutMtrlMlsrAmt)
+				- Number(rowData.mnfcRtlAmt)
+				- Number(rowData.exprtAmt)
+				- Number(rowData.onlnDlngPrfmncAmt);
+			return sumVal;
+		}
+		return rowData.etcAmt;
+	}
 
 	/**
      * 목록 조회
@@ -999,6 +1025,16 @@
 			let rowSts01 = grdPrdcrOgnCurntMng01.getRowStatus(i);
 			let delYn = rowData01.delYn;
 
+			let prchsTrstAmtVal = Number(rowData01.prchsTrstAmt);
+			let prchsEmspapAmtVal = Number(rowData01.prchsEmspapAmt);
+			let prchsTotAmtVal = Number(rowData01.prchsTotAmt);
+			let chkVal = prchsTrstAmtVal + prchsEmspapAmtVal == prchsTotAmtVal
+			if(!chkVal){
+				alert('수탁+매취 의 합계가 합계 금액과 같아야 합니다.');
+				grdPrdcrOgnCurntMng01.selectRow(i);
+				return false;
+			}
+
 			if(delYn == 'N'){
 
 				rowData01.apoCd = apoCd;
@@ -1056,6 +1092,16 @@
 			let rowSts02 = grdPrdcrOgnCurntMng02.getRowStatus(i);
 			let delYn = rowData02.delYn;
 
+			let slsEmspapAmtVal = Number(rowData02.slsEmspapAmt);
+			let slsTrstAmtVal = Number(rowData02.slsTrstAmt);
+			let slsTotAmtVal = Number(rowData02.slsTotAmt);
+			let chkVal = slsEmspapAmtVal + slsTrstAmtVal == slsTotAmtVal
+			if(!chkVal){
+				alert('수탁+매취 의 합계가 합계 금액과 같아야 합니다.');
+				grdPrdcrOgnCurntMng02.selectRow(i);
+				return false;
+			}
+
 			if(delYn == 'N'){
 				rowData02.apoCd = apoCd;
 				rowData02.apoSe = apoSe;
@@ -1111,6 +1157,17 @@
 			let rowData03 = grdPrdcrOgnCurntMng03.getRowData(i);
 			let rowSts03 = grdPrdcrOgnCurntMng03.getRowStatus(i);
 			let delYn = rowData03.delYn;
+
+			if(rowData03.etcVlm >= 0){
+				alert('기타 물량의 값은 음수일수 없습니다');
+				grdPrdcrOgnCurntMng03.selectRow(i);
+				return false;
+			}
+			if(rowData03.etcAmt >= 0){
+				alert('기타 금액의 값은 음수일수 없습니다');
+				grdPrdcrOgnCurntMng03.selectRow(i);
+				return false;
+			}
 
 			if(delYn == 'N'){
 				rowData03.apoCd = apoCd;
@@ -1311,6 +1368,7 @@
         try{
         	jsonPrdcrOgnCurntMng01.length = 0;
         	jsonPrdcrOgnCurntMng02.length = 0;
+        	jsonPrdcrOgnCurntMng03.length = 0;
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
         		if(item.prchsSlsSe == '1'){
@@ -1418,7 +1476,6 @@
     						,etcVlm: 			item.etcVlm
     						,etcAmt: 			item.etcAmt
     				};
-
     				jsonPrdcrOgnCurntMng02.push(PrdcrOgnCurntMngVO02);
     				jsonPrdcrOgnCurntMng03.push(PrdcrOgnCurntMngVO03);
 
@@ -1554,7 +1611,7 @@
 	// 그리드의 품목 선택 팝업 콜백 함수
 	const fn_setGridItem02 = function(rowData) {
 		console.log("================fn_setGridItem02================");
-		console.log(rowData);
+		//console.log(rowData);
 		if (!gfn_isEmpty(rowData)) {
 			//setCellData (행,열,입력 데이터,[refresh여부],[행 상태 정보 update로 변경])
 			//selGridRow : 선택된 행 값		selGridCol : 선택된 열 값
@@ -1622,7 +1679,7 @@
 	// 그리드의 품목 선택 팝업 콜백 함수
 	const fn_setGridItem03 = function(rowData) {
 		console.log("================fn_setGridItem03================");
-		console.log(rowData);
+		//console.log(rowData);
 		if (!gfn_isEmpty(rowData)) {
 			//setCellData (행,열,입력 데이터,[refresh여부],[행 상태 정보 update로 변경])
 			//selGridRow : 선택된 행 값		selGridCol : 선택된 열 값

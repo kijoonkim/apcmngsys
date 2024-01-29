@@ -160,7 +160,7 @@
 									uitype="text"
 									id="srch-input-brno"
 									name="srch-input-brno"
-									class="form-control input-sm"
+									class="form-control input-sm srch-keyup-area"
 									mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
 									autocomplete="off"
 								></sbux-input>
@@ -173,7 +173,7 @@
 									uitype="text"
 									id="srch-input-corpNm"
 									name="srch-input-corpNm"
-									class="form-control input-sm"
+									class="form-control input-sm srch-keyup-area"
 									autocomplete="off"
 								></sbux-input>
 							</td>
@@ -198,7 +198,7 @@
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdPrdcrOgnCurntMng" style="height:350px; width: 100%;"></div>
+					<div id="sb-area-grdPrdcrOgnCurntMng" style="height:200px; width: 100%;"></div>
 				</div>
 				<!--[pp] 검색결과 -->
 
@@ -290,7 +290,7 @@
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:200px; width: 100%;"></div>
+					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:350px; width: 100%;"></div>
 				</div>
 			</div>
 		</div>
@@ -432,6 +432,7 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.fixedrowheight=45;
+	    SBGridProperties.rowheight = 57;
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	    	{caption: ["출자출하조직명","출자출하조직명"], 					ref: 'corpNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
@@ -451,7 +452,8 @@
 			{caption: ["출자출하조직의\n통합조직 판매위임비율","전체출하\n[(A+B)/E]"] ,format: {type: 'string', rule: '@" %"'}
 				, ref: 'uoSpmtAmtTotRt',   	type:'output',  width:'100px',    style:'text-align:center;'},
 			{caption: ["적합여부","적합여부"], 						ref: 'stbltYn',   	type:'output',  width:'100px',    style:'text-align:center;'},
-			{caption: ["탈락사유","탈락사유"], 						ref: 'stbltYnNm',   type:'output',  width:'100px',    style:'text-align:center;'},
+			{caption: ["탈락사유","탈락사유"], 		ref: 'stbltYnNm',   	type:'textarea',  width:'150px',    style:'padding-left:10px'
+				,typeinfo : {textareanewline : true},disabled:true },
 			{caption: ["상세내역"], 	ref: 'apoCd',   		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'apoSe',   		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'brno',   			hidden : true},
@@ -673,6 +675,9 @@
    						,uoSpmtAmtRt: 			item.uoSpmtAmtRt
    						,uoSpmtAmtTotRt: 		item.uoSpmtAmtTotRt
    						,uoSpmtAmtTot: 			item.uoSpmtAmtTot
+
+   						,stbltYn: 			item.stbltYn
+   						,stbltYnNm: fn_calStbltYn(item)
    				};
        			jsonPrdcrOgnCurntMng01.push(PrdcrOgnCurntMngVO01);
 			});
@@ -687,6 +692,35 @@
     		}
     		console.error("failed", e.message);
         }
+	}
+	//탈락적합 사유
+	function fn_calStbltYn(item) {
+		let stbltYnNmMng = [];
+		if(item.aprv == '1'){
+			if(item.sttgUpbrItemSe == '1'){
+				if(item.chkAA != 'Y'){
+					stbltYnNmMng.push('조직원수 요건 미달');
+				}
+				if(item.chkAB != 'Y'){
+					stbltYnNmMng.push('출하대금지급액 요건 미달');
+				}
+				if(item.chkAC != 'Y'){
+					stbltYnNmMng.push('출하비율 요건 미달');
+				}
+			}
+		}else if(item.aprv == '2'){
+			if(item.chkBA != 'Y'){
+				stbltYnNmMng.push('조직원수 요건 미달');
+			}
+			if(item.chkBB != 'Y'){
+				stbltYnNmMng.push('출하대금지급액 요건 미달');
+			}
+			if(item.chkBC != 'Y'){
+				stbltYnNmMng.push('출하비율 요건 미달');
+			}
+		}
+		//console.log(stbltYnNmMng.join("\n"));
+		return stbltYnNmMng.join("\n");
 	}
 
 	//통합조직 리스트 그리드 클릭시  이벤트

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.pd.pcom.service.PrdcrCrclOgnGenalTblMngService;
+import com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO;
 import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO;
 
 @Controller
@@ -49,11 +50,11 @@ public class PrdcrCrclOgnGenalTblMngController extends BaseController{
 
 	// 총괄표 조회
 	@PostMapping(value = "/pd/pcom/selectPrdcrCrclOgnGenalTblMngList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectPrdcrCrclOgnGenalTblMngList(Model model, @RequestBody PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO, HttpServletRequest request) throws Exception{
+	public ResponseEntity<HashMap<String, Object>> selectPrdcrCrclOgnGenalTblMngList(Model model, @RequestBody ItemUoStbltYnVO ItemUoStbltYnVo, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		List<PrdcrCrclOgnGenalTblMngVO> resultList = new ArrayList<>();
+		List<ItemUoStbltYnVO> resultList = new ArrayList<>();
 		try {
-			 resultList = PrdcrCrclOgnGenalTblMngService.selectPrdcrCrclOgnGenalTblMngList(PrdcrCrclOgnGenalTblMngVO);
+			 resultList = PrdcrCrclOgnGenalTblMngService.selectPrdcrCrclOgnGenalTblMngList(ItemUoStbltYnVo);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);

@@ -901,14 +901,14 @@
 			//매입 값이 있을경우 매출 값을 입력 필수
 			if(rowData01.typeSeNo == '5'){
 				if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) &&  Number(rowData01.slsCnsgnPrchsAmt) != 0){
-					if(gfn_isEmpty(rowData01.slsCnsgnSlsAmt)){
+					if(gfn_isEmpty(rowData01.slsCnsgnSlsAmt) || Number(rowData01.slsCnsgnSlsAmt) == 0){
 						alert('매입 값이 있을경우 매출 금액 입력이 필수 입니다.');
 						grdPrdcrOgnCurntMng01.selectRow(i);
 						return false;
 					}
 				}
 				if(!gfn_isEmpty(rowData01.slsCnsgnSlsAmt) &&  Number(rowData01.slsCnsgnSlsAmt) != 0){
-					if(gfn_isEmpty(rowData01.slsCnsgnPrchsAmt)){
+					if(gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) || Number(rowData01.slsCnsgnPrchsAmt) == 0){
 						alert('매출 값이 있을경우 매입 금액 입력이 필수 입니다.');
 						grdPrdcrOgnCurntMng01.selectRow(i);
 						return false;
