@@ -37,6 +37,8 @@ public class TbEvFrmhsApoVO extends ComVO{
 	private String ecSpmtPlanVlmTot;//전속(약정)출하계획량
 	private String ecSpmtVlmTot;//전속(약정)출하량
 	private String ecSpmtRate;//출하비율
+	private String ecSpmtRateA;//출하비율A
+	private String ecSpmtRateB;//출하비율B
 	private String spmtPrcTot;//출하대금지급액
 	private String prdctnVlmTot;//생산량(결과)
 	private String cnt;//조직원수

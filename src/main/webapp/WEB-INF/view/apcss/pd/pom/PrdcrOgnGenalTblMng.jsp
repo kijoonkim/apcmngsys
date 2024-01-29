@@ -485,17 +485,19 @@
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["생산량\n(결과)(톤)[A]"], 	ref: 'prdctnVlmTot',   	type:'output',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["전속(약정)\n출하계약량(톤)"], 	ref: 'ecSpmtPlanVlmTot',   	type:'output',  width:'100px',    style:'text-align:center'
+			{caption: ["전속(약정)\n출하계약량(톤)[B]"], 	ref: 'ecSpmtPlanVlmTot',   	type:'output',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["전속(약정)출하량\n(결과)(톤)[B]"], 	ref: 'ecSpmtVlmTot',   	type:'output',  width:'100px',    style:'text-align:center'
+			{caption: ["전속(약정)출하량\n(결과)(톤)[C]"], 	ref: 'ecSpmtVlmTot',   	type:'output',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출하대금\n지급액(천원)"], 		ref: 'spmtPrcTot',   	type:'output',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			//{caption: ["출하비율(%)"], 					ref: 'ecSpmtRate',   	type:'output',  width:'70px',    style:'text-align:center'
 				//,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}},
 				// ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
-			{caption: ["출하비율(%)\n[B/A]"] ,format: {type: 'string', rule: '@" %"'}
-				, ref: 'ecSpmtRate',   	type:'output',  width:'100px',    style:'text-align:center;'},
+			{caption: ["출하비율A(%)\n[C/A]"] ,format: {type: 'string', rule: '@" %"'}
+				, ref: 'ecSpmtRateA',   	type:'output',  width:'100px',    style:'text-align:center;'},
+			{caption: ["출하비율B(%)\n[C/B]"] ,format: {type: 'string', rule: '@" %"'}
+				, ref: 'ecSpmtRateB',   	type:'output',  width:'100px',    style:'text-align:center;'},
 			{caption: ["적합여부"], 		ref: 'stbltYn',   	type:'output',  width:'50px',    style:'text-align:center'},
 			{caption: ["탈락사유"], 		ref: 'stbltYnNm',   	type:'textarea',  width:'150px',    style:'padding-left:10px'
 				,typeinfo : {textareanewline : true},disabled:true },
@@ -811,7 +813,8 @@
 
 						,ecSpmtPlanVlmTot: item.ecSpmtPlanVlmTot//전속(약정)출하계획량
 						,ecSpmtVlmTot: item.ecSpmtVlmTot//전속(약정)출하량
-						,ecSpmtRate: parseFloat(item.ecSpmtRate)//출하비율
+						,ecSpmtRateA: parseFloat(item.ecSpmtRateA)//출하비율A
+						,ecSpmtRateB: parseFloat(item.ecSpmtRateB)//출하비율B
 						,spmtPrcTot: item.spmtPrcTot//출하대금지급액
 						,prdctnVlmTot: 	item.prdctnVlmTot
 						,cnt: item.cnt//조직원수
@@ -846,7 +849,7 @@
 			if(!(item.spmtPrcTot >= 200000)){
 				stbltYnNmMng.push('출하대금지급액 요건 미달');
 			}
-			if(!(item.ecSpmtRate >= 80)){
+			if(!(item.ecSpmtRateA >= 80)){
 				stbltYnNmMng.push('출하비율 요건 미달');
 			}
 		}else if(item.aprv == '2'){
@@ -857,7 +860,7 @@
 				if(!(item.spmtPrcTot >= 50000)){
 					stbltYnNmMng.push('출하대금지급액 요건 미달');
 				}
-				if(!(item.ecSpmtRate >= 80)){
+				if(!(item.ecSpmtRateB >= 80)){
 					stbltYnNmMng.push('출하비율 요건 미달');
 				}
 			}
