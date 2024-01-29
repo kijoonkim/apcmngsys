@@ -206,4 +206,19 @@ public class PrdcrOgnCurntMngController extends BaseController{
 		resultMap.put("result", result);
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	// 농가 리스트 조회
+	@PostMapping(value = "/pd/pom/selectTbEvFrmhsApoStbltYnList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectTbEvFrmhsApoStbltYnList(Model model, @RequestBody TbEvFrmhsApoVO TbEvFrmhsApoVo, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<TbEvFrmhsApoVO> resultList = new ArrayList<>();
+		try {
+			 resultList = PrdcrOgnCurntMngService.selectTbEvFrmhsApoStbltYnList(TbEvFrmhsApoVo);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
 }

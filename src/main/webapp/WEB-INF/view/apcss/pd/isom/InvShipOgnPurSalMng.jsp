@@ -470,8 +470,8 @@
 		    	,typeinfo : {ref:'jsonGrdSgg', label:'label', value:'value', displayui : false}},
 	        {caption: ["법인명"], 		ref: 'corpNm',  type:'output',  width:'250px',    style:'text-align:center'},
 	        {caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'250px',    style:'text-align:center'},
-	        {caption: ["적합여부"], 		ref: 'stbltYn',   	type:'output',  width:'50px',    style:'text-align:center'},
-	        {caption: ["진행단계"], 		ref: 'aa',   	type:'output',  width:'153px',    style:'text-align:center'},
+	        //{caption: ["적합여부"], 		ref: 'stbltYn',   	type:'output',  width:'50px',    style:'text-align:center'},
+	        //{caption: ["진행단계"], 		ref: 'aa',   	type:'output',  width:'153px',    style:'text-align:center'},
 	        {caption: ["비고"], 			ref: 'rmrk',   	type:'output',  width:'200px',    style:'text-align:center'}
 	    ];
 
@@ -507,26 +507,26 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ")'>삭제</button>";
 	        	}
 	        }},
-	        {caption: ["품목","품목"], 		ref: 'sttgUpbrItemSeNm',   	type:'output',  width:'80px',    style:'text-align:center'},
+	        {caption: ["품목","품목"], 		ref: 'sttgUpbrItemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 	    	{caption: ["품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 	    	//{caption: ["품목분류","품목분류"], 	ref: 'ctgryNm',   	type:'combo',  width:'80px',    style:'text-align:center'},
 	    	{caption: ["품목분류","품목분류"], 	ref: 'ctgryCd',   	type:'combo',  width:'80px',    style:'text-align:center'
 	    		,typeinfo : {ref:'jsonGrdCtgryCd_1', label:'label', value:'value', displayui : true}},
 
-	        {caption: ["공선수탁·공동수탁","물량"], ref: 'prchsTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+	        {caption: ["공선수탁·공동수탁","물량(톤)"], ref: 'prchsTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["공선수탁·공동수탁","금액"], ref: 'prchsTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+	        {caption: ["공선수탁·공동수탁","금액(천원)"], ref: 'prchsTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["공선매취","물량"], 	ref: 'prchsEmspapVlm',   type:'input',  width:'90px',    style:'text-align:center'
+	        {caption: ["공선매취","물량(톤)"], 	ref: 'prchsEmspapVlm',   type:'input',  width:'90px',    style:'text-align:center'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["공선매취","금액"], 	ref: 'prchsEmspapAmt',   type:'input',  width:'100px',    style:'text-align:center'
+	        {caption: ["공선매취","금액(천원)"], 	ref: 'prchsEmspapAmt',   type:'input',  width:'100px',    style:'text-align:center'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	    	{caption: ["기타","물량"], 		ref: 'etcVlm',   type:'input',  width:'90px',    style:'text-align:center'
+	    	{caption: ["기타","물량(톤)"], 		ref: 'etcVlm',   type:'input',  width:'90px',    style:'text-align:center'
 		    	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-		    {caption: ["기타","금액"], 		ref: 'etcAmt',   type:'input',  width:'100px',    style:'text-align:center'
+		    {caption: ["기타","금액(천원)"], 		ref: 'etcAmt',   type:'input',  width:'100px',    style:'text-align:center'
 		    	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["합계","물량"], 		ref: 'prchsTotVlm',   		type:'output',  width:'90px',    style:'text-align:center', calc : 'fn_prchsVlmSum'},
-	        {caption: ["합계","금액"], 		ref: 'prchsTotAmt',   		type:'output',  width:'100px',    style:'text-align:center', calc : 'fn_prchsAmtSum'},
+	        {caption: ["합계","물량(톤)"], 		ref: 'prchsTotVlm',   		type:'output',  width:'90px',    style:'text-align:center', calc : 'fn_prchsVlmSum'},
+	        {caption: ["합계","금액(천원)"], 		ref: 'prchsTotAmt',   		type:'output',  width:'100px',    style:'text-align:center', calc : 'fn_prchsAmtSum'},
 
 	        {caption: ["상세내역"], 	ref: 'prchsSlsSe',  hidden : true},
 	        {caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
@@ -564,24 +564,14 @@
 		let rowData = objGrid.getRowData(Number(nRow));
 		let sumVal = 0;
 		sumVal = Number(rowData.prchsTrstVlm) + Number(rowData.prchsEmspapVlm) + Number(rowData.etcVlm);
-
 		return sumVal;
 	}
 
 	//매입 합계 금액
 	function fn_prchsAmtSum(objGrid, nRow, nCol){
 		let rowData = objGrid.getRowData(Number(nRow));
-		console.log(rowData.prchsTotAmt);
 		let sumVal = 0;
-		//금액의 경우 기타인 경우만 합산 처리
-		if(rowData.sttgUpbrItemSe == '3'){
-
-			sumVal = Number(rowData.prchsTrstAmt) + Number(rowData.prchsEmspapAmt) + Number(rowData.etcAmt);
-
-			return sumVal;
-		}else{
-			sumVal = rowData.prchsTotAmt;
-		}
+		sumVal = Number(rowData.prchsTrstAmt) + Number(rowData.prchsEmspapAmt) + Number(rowData.etcAmt);
 		return sumVal;
 	}
 
@@ -609,118 +599,118 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ")'>삭제</button>";
 	        	}
 	        }},
-	        {caption: ["품목","품목","품목","품목"], 		ref: 'sttgUpbrItemSeNm',   	type:'output',  width:'80px',    style:'text-align:center'},
+	        {caption: ["품목","품목","품목","품목"], 		ref: 'sttgUpbrItemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 	    	{caption: ["품목","품목","품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 	    	//{caption: ["품목분류","품목분류","품목분류"], 	ref: 'ctgryNm',   	type:'combo',  width:'80px',    style:'text-align:center'},
 	    	{caption: ["품목분류","품목분류","품목분류","품목분류"], 	ref: 'ctgryCd',   	type:'combo',  width:'80px',    style:'text-align:center'
 				,typeinfo : {ref:'jsonGrdCtgryCd_2', label:'label', value:'value', displayui : true}},
 
-			{caption: ["출자출하조직 취급실적","총취급실적","총취급실적","물량"]
+			{caption: ["출자출하조직 취급실적","총취급실적","총취급실적","물량(톤)"]
 				,ref: 'totTrmtPrfmncVlm',   	type:'input',  width:'90px',    style:'text-align:center'
-				//,calc : 'fn_totTrmtPrfmncVlm'
+				,calc : 'fn_totTrmtPrfmncVlm'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["출자출하조직 취급실적","총취급실적","총취급실적","금액"]
+			{caption: ["출자출하조직 취급실적","총취급실적","총취급실적","금액(천원)"]
 				,ref: 'totTrmtPrfmncAmt',   	type:'input',  width:'100px',    style:'text-align:center'
-				//,calc : 'fn_totTrmtPrfmncAmt'
+				,calc : 'fn_totTrmtPrfmncAmt'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
-			{caption: ["출자출하조직 취급실적","취급액 공제 실적","자체수출","물량"]
+			{caption: ["출자출하조직 취급실적","취급액 공제 실적","자체수출","물량(톤)"]
 				,ref: 'ddcExprtVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["출자출하조직 취급실적","취급액 공제 실적","자체수출","금액"]
+			{caption: ["출자출하조직 취급실적","취급액 공제 실적","자체수출","금액(천원)"]
 				,ref: 'ddcExprtAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["출자출하조직 취급실적","취급액 공제 실적","자체공판장","물량"]
+			{caption: ["출자출하조직 취급실적","취급액 공제 실적","자체공판장","물량(톤)"]
 				,ref: 'ddcVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["출자출하조직 취급실적","취급액 공제 실적","자체공판장","금액"]
+			{caption: ["출자출하조직 취급실적","취급액 공제 실적","자체공판장","금액(천원)"]
 				,ref: 'ddcAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["출자출하조직 취급실적","취급액 공제 실적","군납","물량"]
+			{caption: ["출자출하조직 취급실적","취급액 공제 실적","군납","물량(톤)"]
 				,ref: 'ddcArmyDlvgdsVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["출자출하조직 취급실적","취급액 공제 실적","군납","금액"]
+			{caption: ["출자출하조직 취급실적","취급액 공제 실적","군납","금액(천원)"]
 				,ref: 'ddcArmyDlvgdsAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["출자출하조직 취급실적","취급액 공제 실적","학교급식","물량"]
+			{caption: ["출자출하조직 취급실적","취급액 공제 실적","학교급식","물량(톤)"]
 				,ref: 'ddcMlsrVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["출자출하조직 취급실적","취급액 공제 실적","학교급식","금액"]
+			{caption: ["출자출하조직 취급실적","취급액 공제 실적","학교급식","금액(천원)"]
 				,ref: 'ddcMlsrAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["출자출하조직 취급실적","취급액 공제 실적","공제대상 소계","물량"]
-				,ref: 'ddcTotVlm',   	type:'input',  width:'90px',    style:'text-align:center'
-				//, calc : 'fn_ddcTotVlm'
+			{caption: ["출자출하조직 취급실적","취급액 공제 실적","공제대상 소계","물량(톤)"]
+				,ref: 'ddcTotVlm',   	type:'output',  width:'90px',    style:'text-align:center'
+				, calc : 'fn_ddcTotVlm'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["출자출하조직 취급실적","취급액 공제 실적","공제대상 소계","금액"]
-				,ref: 'ddcTotAmt',   	type:'input',  width:'100px',    style:'text-align:center'
-				//, calc : 'fn_ddcTotAmt'
+			{caption: ["출자출하조직 취급실적","취급액 공제 실적","공제대상 소계","금액(천원)"]
+				,ref: 'ddcTotAmt',   	type:'output',  width:'100px',    style:'text-align:center'
+				, calc : 'fn_ddcTotAmt'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
 
-			{caption: ["출자출하조직 취급실적","조정 취급실적","조정 취급실적","물량"]
+			{caption: ["출자출하조직 취급실적","조정 취급실적","조정 취급실적","물량(톤)"]
 				,ref: 'ajmtVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","조정 취급실적","조정 취급실적","금액(A)"]//전문품목 매입매출 화면의 매출 총합
-				,ref: 'ajmtAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+				,ref: 'ajmtAmt',   	type:'output',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
 
-			{caption: ["출자출하조직의 통합조직 출하실적","총 출하실적","총 출하실적","물량"]
+			{caption: ["출자출하조직의 통합조직 출하실적","총 출하실적","총 출하실적","물량(톤)"]
 				,ref: 'totSpmtPrfmncVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["출자출하조직의 통합조직 출하실적","총 출하실적","총 출하실적","금액"]//전문품목 매입매출 화면의 매입 총합
+			{caption: ["출자출하조직의 통합조직 출하실적","총 출하실적","총 출하실적","금액(천원)"]//전문품목 매입매출 화면의 매입 총합
 				,ref: 'totSpmtPrfmncAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["출자출하조직의 통합조직 출하실적","단순기표","단순기표","물량"]
+			{caption: ["출자출하조직의 통합조직 출하실적","단순기표","단순기표","물량(톤)"]
 				,ref: 'smplInptVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["출자출하조직의 통합조직 출하실적","단순기표","단순기표","금액"]
+			{caption: ["출자출하조직의 통합조직 출하실적","단순기표","단순기표","금액(천원)"]
 				,ref: 'smplInptAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["출자출하조직의 통합조직 출하실적","출하실적","출하실적","물량"]
-				,ref: 'spmtPrfmncVlm',   	type:'input',  width:'90px',    style:'text-align:center'
-				//,calc: 'fn_spmtPrfmncVlm'
+			{caption: ["출자출하조직의 통합조직 출하실적","출하실적","출하실적","물량(톤)"]
+				,ref: 'spmtPrfmncVlm',   	type:'output',  width:'90px',    style:'text-align:center'
+				,calc: 'fn_spmtPrfmncVlm'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","출하실적","출하실적","금액(B)"]
-				,ref: 'spmtPrfmncAmt',   	type:'input',  width:'100px',    style:'text-align:center'
-				//,calc: 'fn_spmtPrfmncAmt'
+				,ref: 'spmtPrfmncAmt',   	type:'output',  width:'100px',    style:'text-align:center'
+				,calc: 'fn_spmtPrfmncAmt'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
-			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공선수탁","물량"]
+			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공선수탁","물량(톤)"]
 				,ref: 'slsCprtnSortTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공선수탁","금액"]
+			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공선수탁","금액(천원)"]
 				,ref: 'slsCprtnSortTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공선매취","물량"]
+			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공선매취","물량(톤)"]
 				,ref: 'slsCprtnSortEmspapVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공선매취","금액"]
+			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공선매취","금액(천원)"]
 				,ref: 'slsCprtnSortEmspapAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공동수탁","물량"]
+			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공동수탁","물량(톤)"]
 				,ref: 'slsCprtnTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공동수탁","금액"]
+			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공동수탁","금액(천원)"]
 				,ref: 'slsCprtnTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","합계","물량"]
-				,ref: 'slsCprtnTotVlm',   	type:'input',  width:'90px',    style:'text-align:center'
-				//,calc: 'fn_slsCprtnTotVlm'
+			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","합계","물량(톤)"]
+				,ref: 'slsCprtnTotVlm',   	type:'output',  width:'90px',    style:'text-align:center'
+				,calc: 'fn_slsCprtnTotVlm'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","합계","금액"]
-				,ref: 'slsCprtnTotAmt',   	type:'input',  width:'100px',    style:'text-align:center'
-				//,calc: 'fn_slsCprtnTotAmt'
+			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","합계","금액(천원)"]
+				,ref: 'slsCprtnTotAmt',   	type:'output',  width:'100px',    style:'text-align:center'
+				,calc: 'fn_slsCprtnTotAmt'
 			,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
 			{caption: ["출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)"]
-				,ref: 'spmtRtVlm',   	type:'input',  width:'90px',    style:'text-align:center'
-				//,calc: 'fn_spmtRtVlm'
+				,ref: 'spmtRtVlm',   	type:'output',  width:'90px',    style:'text-align:center'
+				,calc: 'fn_spmtRtVlm'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)"]
-				,ref: 'spmtRtAmt',   	type:'input',  width:'100px',    style:'text-align:center'
-				//,calc: 'fn_spmtRtAmt'
+				,ref: 'spmtRtAmt',   	type:'output',  width:'100px',    style:'text-align:center'
+				,calc: 'fn_spmtRtAmt'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
 	        {caption: ["상세내역"], 	ref: 'prchsSlsSe',  hidden : true},
@@ -758,20 +748,98 @@
 	    	grdPrdcrOgnCurntMng02.refresh();
 	    }
 	}
-	/*
-	fn_allTotAmtVlm
-	fn_allTotAmtAmt
-	fn_ddcTotVlm
-	fn_ddcTotAmt
-	fn_slsCprtnTotVlm
-	fn_slsCprtnTotAmt
-	fn_spmtRtVlm
-	fn_spmtRtAmt
-	fn_spmtPrfmncVlm
-	fn_spmtPrfmncAmt
-	*/
 
+	function fn_totTrmtPrfmncVlm(objGrid, nRow, nCol){
+		let rowData = objGrid.getRowData(Number(nRow));
+		let sumVal = 0;
+		sumVal = Number(rowData.ddcExprtVlm)
+				+ Number(rowData.ddcVlm)
+				+ Number(rowData.ddcArmyDlvgdsVlm)
+				+ Number(rowData.ddcMlsrVlm)
+				+ Number(rowData.ajmtVlm);
+		return sumVal;
+	}
+	function fn_totTrmtPrfmncAmt(objGrid, nRow, nCol){
+		let rowData = objGrid.getRowData(Number(nRow));
+		let sumVal = 0;
+		sumVal = Number(rowData.ddcExprtAmt)
+				+ Number(rowData.ddcAmt)
+				+ Number(rowData.ddcArmyDlvgdsAmt)
+				+ Number(rowData.ddcMlsrAmt)
+				+ Number(rowData.ajmtAmt);
+		return sumVal;
+	}
 
+	function fn_ddcTotVlm(objGrid, nRow, nCol){
+		let rowData = objGrid.getRowData(Number(nRow));
+		let sumVal = 0;
+		sumVal = Number(rowData.ddcExprtVlm)
+				+ Number(rowData.ddcVlm)
+				+ Number(rowData.ddcArmyDlvgdsVlm)
+				+ Number(rowData.ddcMlsrVlm);
+		return sumVal;
+	}
+	function fn_ddcTotAmt(objGrid, nRow, nCol){
+		let rowData = objGrid.getRowData(Number(nRow));
+		let sumVal = 0;
+		sumVal = Number(rowData.ddcExprtAmt)
+				+ Number(rowData.ddcAmt)
+				+ Number(rowData.ddcArmyDlvgdsAmt)
+				+ Number(rowData.ddcMlsrAmt);
+		return sumVal;
+	}
+	//출하실적 물량
+	function fn_spmtPrfmncVlm(objGrid, nRow, nCol){
+		let rowData = objGrid.getRowData(Number(nRow));
+		let sumVal = 0;
+		sumVal = Number(rowData.totSpmtPrfmncVlm)
+				- Number(rowData.smplInptVlm);
+		return sumVal;
+	}
+	//출하실적 금액
+	function fn_spmtPrfmncAmt(objGrid, nRow, nCol){
+		let rowData = objGrid.getRowData(Number(nRow));
+		let sumVal = 0;
+		sumVal = Number(rowData.totSpmtPrfmncAmt)
+				- Number(rowData.smplInptAmt);
+		return sumVal;
+	}
+
+	function fn_slsCprtnTotVlm(objGrid, nRow, nCol){
+		let rowData = objGrid.getRowData(Number(nRow));
+		let sumVal = 0;
+		sumVal = Number(rowData.slsCprtnTrstVlm)
+				+ Number(rowData.slsCprtnSortEmspapVlm)
+				+ Number(rowData.slsCprtnSortTrstVlm);
+		return sumVal;
+	}
+
+	function fn_slsCprtnTotAmt(objGrid, nRow, nCol){
+		let rowData = objGrid.getRowData(Number(nRow));
+		let sumVal = 0;
+		sumVal = Number(rowData.slsCprtnTrstAmt)
+				+ Number(rowData.slsCprtnSortEmspapAmt)
+				+ Number(rowData.slsCprtnSortTrstAmt);
+		return sumVal;
+	}
+	//출자출하조직 출하율
+	function fn_spmtRtVlm(objGrid, nRow, nCol){
+		let rowData = objGrid.getRowData(Number(nRow));
+		let sumVal = 0;
+		if(rowData.ajmtVlm > 0 && rowData.spmtPrfmncVlm > 0){
+			sumVal = Number(rowData.spmtPrfmncVlm) / Number(rowData.ajmtVlm) * 100
+		}
+		return sumVal;
+	}
+	//출자출하조직 출하율
+	function fn_spmtRtAmt(objGrid, nRow, nCol){
+		let rowData = objGrid.getRowData(Number(nRow));
+		let sumVal = 0;
+		if(rowData.ajmtAmt > 0 && rowData.spmtPrfmncAmt > 0){
+			sumVal = Number(rowData.spmtPrfmncAmt) / Number(rowData.ajmtAmt) * 100
+		}
+		return sumVal;
+	}
 
 	/**
      * 목록 조회
@@ -930,25 +998,37 @@
 
 			if(delYn == 'N'){
 
-				if(gfn_isEmpty(rowData01.apoCd)){
-					rowData01.apoCd = apoCd;
-					rowData01.apoSe = apoSe;
-					rowData01.crno = crno;
-					rowData01.brno = brno;
+				if(Number(rowData01.prchsTrstAmt) > 0){
+					if(gfn_isEmpty(rowData01.prchsTrstVlm)){
+						alert('공선수탁,공동수탁 금액이 존재하는 경우 물량 작성이 필요합니다');
+						grdPrdcrOgnCurntMng01.selectRow(i);
+						return false;
+					}
 				}
 
-				if (rowSts01 === 3){
-					rowData01.rowSts = "I";
-					saveList.push(rowData01);
-				} else if (rowSts01 === 2){
-					rowData01.rowSts = "I";
-					saveList.push(rowData01);
-				} else if (rowSts01 === 1){
-					rowData01.rowSts = "I";
-					saveList.push(rowData01);
-				} else {
-					continue;
+				if(Number(rowData01.prchsEmspapAmt) > 0){
+					if(gfn_isEmpty(rowData01.prchsEmspapVlm)){
+						alert('공선매취 금액이 존재하는 경우 물량 작성이 필요합니다');
+						grdPrdcrOgnCurntMng01.selectRow(i);
+						return false;
+					}
 				}
+
+				if(Number(rowData01.etcAmt) > 0){
+					if(gfn_isEmpty(rowData01.etcVlm)){
+						alert('기타 금액이 존재하는 경우 물량 작성이 필요합니다');
+						grdPrdcrOgnCurntMng01.selectRow(i);
+						return false;
+					}
+				}
+
+				rowData01.apoCd = apoCd;
+				rowData01.apoSe = apoSe;
+				rowData01.crno = crno;
+				rowData01.brno = brno;
+
+				rowData01.rowSts = "I";
+				saveList.push(rowData01);
 			}
 		}
 		if(saveList.length == 0){
@@ -989,6 +1069,7 @@
 		let apoSe = SBUxMethod.get('dtl-input-apoSe');
 		let crno = SBUxMethod.get('dtl-input-crno');
 		let brno = SBUxMethod.get('dtl-input-brno');
+		let uoBrno = SBUxMethod.get('dtl-input-uoBrno');
 
 		//그리드의 해드가 두줄이상인경우 for문 시작과 끝을 늘린만큼 늘려야함
 		for(var i=3; i<=gridData02.length + 2; i++ ){
@@ -998,25 +1079,14 @@
 			let delYn = rowData02.delYn;
 
 			if(delYn == 'N'){
-				if(gfn_isEmpty(rowData02.apoCd)){
-					rowData02.apoCd = apoCd;
-					rowData02.apoSe = apoSe;
-					rowData02.crno = crno;
-					rowData02.brno = brno;
-				}
+				rowData02.apoCd = apoCd;
+				rowData02.apoSe = apoSe;
+				rowData02.crno = crno;
+				rowData02.brno = brno;
+				rowData02.brno = brno;
 
-				if (rowSts02 === 3){
-					rowData02.rowSts = "I";
-					saveList.push(rowData02);
-				} else if (rowSts02 === 2){
-					rowData02.rowSts = "I";
-					saveList.push(rowData02);
-				} else if (rowSts02 === 1){
-					rowData02.rowSts = "I";
-					saveList.push(rowData02);
-				} else {
-					continue;
-				}
+				rowData02.rowSts = "I";
+				saveList.push(rowData02);
 			}
 		}
 		if(saveList.length == 0){
@@ -1052,20 +1122,16 @@
 		console.log("==========fn_procRow=========");
         if (gubun === "ADD") {
             if (grid === "grdPrdcrOgnCurntMng01") {
-            	//grdPrdcrOgnCurntMng01.setCellData(nRow, nCol, "N", true);
-            	//console.log(nRow);
             	grdPrdcrOgnCurntMng01.setCellData(nRow, grdPrdcrOgnCurntMng01.getColRef("delYn"), "N", true);
-            	//grdPrdcrOgnCurntMng02.setCellData(nRow+1, grdPrdcrOgnCurntMng02.getColRef("delYn"), "N", true);
+            	grdPrdcrOgnCurntMng01.setCellData(nRow, grdPrdcrOgnCurntMng01.getColRef("sttgUpbrItemNm"), "기타", true);
+            	grdPrdcrOgnCurntMng01.setCellData(nRow, grdPrdcrOgnCurntMng01.getColRef("sttgUpbrItemSe"), "3", true);
             	grdPrdcrOgnCurntMng01.addRow(true);
-            	//grdPrdcrOgnCurntMng02.addRow(true);
             }
 
             if (grid === "grdPrdcrOgnCurntMng02") {
-            	//grdPrdcrOgnCurntMng01.setCellData(nRow, nCol, "N", true);
-            	//console.log(nRow);
-            	//grdPrdcrOgnCurntMng01.setCellData(nRow-1, grdPrdcrOgnCurntMng01.getColRef("delYn"), "N", true);
             	grdPrdcrOgnCurntMng02.setCellData(nRow, grdPrdcrOgnCurntMng02.getColRef("delYn"), "N", true);
-            	//grdPrdcrOgnCurntMng01.addRow(true);
+            	grdPrdcrOgnCurntMng02.setCellData(nRow, grdPrdcrOgnCurntMng02.getColRef("sttgUpbrItemNm"), "기타", true);
+            	grdPrdcrOgnCurntMng02.setCellData(nRow, grdPrdcrOgnCurntMng02.getColRef("sttgUpbrItemSe"), "3", true);
             	grdPrdcrOgnCurntMng02.addRow(true);
             }
 
@@ -1106,7 +1172,6 @@
 	async function fn_deleteRsrc(vo){
 
 		if(true)return;
-
 		let postJsonPromise = gfn_postJSON("/pd/isom/deleteInvShipOgnPurSalMng.do", vo);
         let data = await postJsonPromise;
 
@@ -1222,6 +1287,11 @@
     						,prchsTrstAmt: 		item.prchsTrstAmt
     						,prchsEmspapVlm: 	item.prchsEmspapVlm
     						,prchsEmspapAmt: 	item.prchsEmspapAmt
+
+    						,prchsTotVlm: 		item.prchsTotVlm
+    						,prchsTotAmt: 		item.prchsTotAmt
+    						,etcVlm: 			item.etcVlm
+    						,etcAmt: 			item.etcAmt
     				};
         			jsonPrdcrOgnCurntMng01.push(PrdcrOgnCurntMngVO01);
         		}else if(item.prchsSlsSe == '2'){
@@ -1275,7 +1345,16 @@
 
     						,ajmtVlm: 		item.ajmtVlm
     						,ajmtAmt: 		item.ajmtAmt
+
+    						,slsTotVlm: 		item.slsTotVlm
+    						,slsTotAmt: 		item.slsTotAmt
+
+    						,totTrmtPrfmncVlm: 		item.totTrmtPrfmncVlm
+    						,totTrmtPrfmncAmt: 		item.totTrmtPrfmncAmt
+    						,totSpmtPrfmncVlm: 		item.totSpmtPrfmncVlm
+    						,totSpmtPrfmncAmt: 		item.totSpmtPrfmncAmt
     				};
+        			console.log(item.sttgUpbrItemNm);
 					jsonPrdcrOgnCurntMng02.push(PrdcrOgnCurntMngVO02);
         		}
 			});
@@ -1286,12 +1365,90 @@
         	//비어 있는 마지막 줄 추가용도?
         	grdPrdcrOgnCurntMng01.addRow();
         	grdPrdcrOgnCurntMng02.addRow();
+
+        	fn_gridCustom();
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
     		}
     		console.error("failed", e.message);
         }
+	}
+	//그리드 커스텀 배경 및 disabled 처리
+	const fn_gridCustom = async function(){
+		console.log("=========fn_gridCustom================");
+
+		let prchsTrstAmt = grdPrdcrOgnCurntMng01.getColRef("prchsTrstAmt");//
+		let prchsEmspapAmt = grdPrdcrOgnCurntMng01.getColRef("prchsEmspapAmt");//
+		let etcAmt = grdPrdcrOgnCurntMng01.getColRef("etcAmt");//
+		let prchsTotVlm = grdPrdcrOgnCurntMng01.getColRef("prchsTotVlm");//
+		let prchsTotAmt = grdPrdcrOgnCurntMng01.getColRef("prchsTotAmt");//
+		let gridData01 = grdPrdcrOgnCurntMng01.getGridDataAll();
+		for(var i=2; i <= gridData01.length+1; i++ ){
+			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i);
+
+			if(rowData01.prchsSlsSe == '1'){
+				//disabled 처리
+				grdPrdcrOgnCurntMng01.setCellDisabled(i, prchsTrstAmt, i, prchsTrstAmt, true);
+				grdPrdcrOgnCurntMng01.setCellDisabled(i, prchsEmspapAmt, i, prchsEmspapAmt, true);
+				grdPrdcrOgnCurntMng01.setCellDisabled(i, etcAmt, i, etcAmt, true);
+				//배경 속성 추가
+				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, prchsTrstAmt, i, prchsTrstAmt, 'lightgray');
+				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, prchsEmspapAmt, i, prchsEmspapAmt, 'lightgray');
+				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, etcAmt, i, etcAmt, 'lightgray');
+				//해당 타입 위치 저장
+			}
+			if(rowData01.prchsSlsSe == '2'){
+				grdPrdcrOgnCurntMng01.setCellDisabled(i, totTrmtPrfmncVlm, i, totTrmtPrfmncAmt, true);
+				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, totTrmtPrfmncVlm, i, totTrmtPrfmncAmt, 'lightgray');
+			}
+			grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, prchsTotVlm, i, prchsTotAmt, 'lightgray');
+		}
+
+		let totTrmtPrfmncVlm = grdPrdcrOgnCurntMng02.getColRef("totTrmtPrfmncVlm");//총취급물량
+		let totTrmtPrfmncAmt = grdPrdcrOgnCurntMng02.getColRef("totTrmtPrfmncAmt");//총취급실적
+		let ddcExprtVlm = grdPrdcrOgnCurntMng02.getColRef("ddcExprtVlm");//자체수출 물량
+		let ddcMlsrAmt = grdPrdcrOgnCurntMng02.getColRef("ddcMlsrAmt");//학교급식 금액
+		let totSpmtPrfmncAmt = grdPrdcrOgnCurntMng02.getColRef("totSpmtPrfmncAmt");//총 취급실적
+		let slsCprtnTrstAmt = grdPrdcrOgnCurntMng02.getColRef("slsCprtnTrstAmt");//
+		let slsCprtnSortEmspapAmt = grdPrdcrOgnCurntMng02.getColRef("slsCprtnSortEmspapAmt");//
+		let slsCprtnSortTrstAmt = grdPrdcrOgnCurntMng02.getColRef("slsCprtnSortTrstAmt");//
+		let ddcTotVlm = grdPrdcrOgnCurntMng02.getColRef("ddcTotVlm");//
+		let ddcTotAmt = grdPrdcrOgnCurntMng02.getColRef("ddcTotAmt");//
+		let ajmtAmt = grdPrdcrOgnCurntMng02.getColRef("ajmtAmt");//
+		let smplInptVlm = grdPrdcrOgnCurntMng02.getColRef("smplInptVlm");//
+		let spmtRtAmt = grdPrdcrOgnCurntMng02.getColRef("spmtRtAmt");//
+		let slsCprtnTotVlm = grdPrdcrOgnCurntMng02.getColRef("slsCprtnTotVlm");//
+
+
+		let gridData02 = grdPrdcrOgnCurntMng02.getGridDataAll();
+		for(var i=4; i <= gridData02.length+3; i++ ){
+			let rowData02 = grdPrdcrOgnCurntMng02.getRowData(i);
+
+			if(rowData02.prchsSlsSe == '2'){
+				grdPrdcrOgnCurntMng02.setCellDisabled(i, totTrmtPrfmncVlm, i, totTrmtPrfmncAmt, true);
+				grdPrdcrOgnCurntMng02.setCellDisabled(i, totSpmtPrfmncAmt, i, totSpmtPrfmncAmt, true);
+				grdPrdcrOgnCurntMng02.setCellDisabled(i, slsCprtnTrstAmt, i, slsCprtnTrstAmt, true);
+				grdPrdcrOgnCurntMng02.setCellDisabled(i, slsCprtnSortEmspapAmt, i, slsCprtnSortEmspapAmt, true);
+				grdPrdcrOgnCurntMng02.setCellDisabled(i, slsCprtnSortTrstAmt, i, slsCprtnSortTrstAmt, true);
+				grdPrdcrOgnCurntMng02.setCellDisabled(i, slsCprtnSortTrstAmt, i, slsCprtnSortTrstAmt, true);
+
+				grdPrdcrOgnCurntMng02.setCellStyle('background-color', i, totTrmtPrfmncVlm, i, totTrmtPrfmncAmt, 'lightgray');
+				grdPrdcrOgnCurntMng02.setCellStyle('background-color', i, totSpmtPrfmncAmt, i, totSpmtPrfmncAmt, 'lightgray');
+				grdPrdcrOgnCurntMng02.setCellStyle('background-color', i, slsCprtnTrstAmt, i, slsCprtnTrstAmt, 'lightgray');
+				grdPrdcrOgnCurntMng02.setCellStyle('background-color', i, slsCprtnSortEmspapAmt, i, slsCprtnSortEmspapAmt, 'lightgray');
+				grdPrdcrOgnCurntMng02.setCellStyle('background-color', i, slsCprtnSortTrstAmt, i, slsCprtnSortTrstAmt, 'lightgray');
+				grdPrdcrOgnCurntMng02.setCellStyle('background-color', i, slsCprtnTotVlm, i, spmtRtAmt, 'lightgray');
+			}else{
+				grdPrdcrOgnCurntMng02.setCellDisabled(i, ddcExprtVlm, i, ajmtAmt, true);
+				grdPrdcrOgnCurntMng02.setCellDisabled(i, smplInptVlm, i, spmtRtAmt, true);
+				grdPrdcrOgnCurntMng02.setCellStyle('background-color', i, ddcExprtVlm, i, ajmtAmt, 'lightgray');
+				grdPrdcrOgnCurntMng02.setCellStyle('background-color', i, ddcExprtVlm, i, ddcMlsrAmt, 'lightgray');
+				grdPrdcrOgnCurntMng02.setCellStyle('background-color', i, smplInptVlm, i, spmtRtAmt, 'lightgray');
+			}
+			grdPrdcrOgnCurntMng02.setCellStyle('background-color', i, ddcTotVlm, i, ddcTotAmt, 'lightgray');
+			grdPrdcrOgnCurntMng02.setCellStyle('background-color', i, ajmtAmt, i, ajmtAmt, 'lightgray');
+		}
 	}
 
     function fn_GridPop(gubun, grid, nRow, nCol) {

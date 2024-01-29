@@ -66,4 +66,6 @@ public interface PrdcrOgnCurntMngService {
 	//생산자조직 적합여부 체크
 	public TbEvFrmhsApoVO selectTbEvFrmhsApoStbltYn(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception;
 
+	public List<TbEvFrmhsApoVO> selectTbEvFrmhsApoStbltYnList(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception;
+
 }

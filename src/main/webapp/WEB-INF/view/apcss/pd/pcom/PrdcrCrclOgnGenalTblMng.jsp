@@ -158,7 +158,7 @@
 									uitype="text"
 									id="srch-input-brno"
 									name="srch-input-brno"
-									class="form-control input-sm"
+									class="form-control input-sm srch-keyup-area"
 									mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
 									autocomplete="off"
 								></sbux-input>
@@ -171,7 +171,7 @@
 									uitype="text"
 									id="srch-input-corpNm"
 									name="srch-input-corpNm"
-									class="form-control input-sm"
+									class="form-control input-sm srch-keyup-area"
 									autocomplete="off"
 								></sbux-input>
 							</td>
@@ -195,7 +195,7 @@
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdPrdcrOgnCurntMng" style="height:350px; width: 100%;"></div>
+					<div id="sb-area-grdPrdcrOgnCurntMng" style="height:200px; width: 100%;"></div>
 				</div>
 				<!--[pp] 검색결과 -->
 
@@ -270,7 +270,7 @@
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:300px; width: 100%;"></div>
+					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:350px; width: 100%;"></div>
 				</div>
 
 			</div>
@@ -279,10 +279,20 @@
 </body>
 <script type="text/javascript">
 	window.addEventListener('DOMContentLoaded', function(e) {
-
-
 		fn_init();
 
+		const elements = document.querySelectorAll(".srch-keyup-area");
+
+		for (let i = 0; i < elements.length; i++) {
+		  	const el = elements.item(i);
+		  	el.addEventListener("keyup", (event) => {
+		  		if (event.keyCode === 13 && !event.altKey && !event.ctrlKey && !event.shiftKey) {
+		  			fn_search();
+		  		}
+		  		//key	Enter
+		  		//keyCode
+		  	});
+		}
 	});
 
 	/* 초기화면 로딩 기능*/
@@ -405,18 +415,22 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.fixedrowheight=45;
+	    SBGridProperties.rowheight = 57;
 	    //SBGridProperties.whitespacemerge = true;//빈칸 자동병합
 	    //SBGridProperties.mergecellsverticalalign = 'bottom';
 	    SBGridProperties.columns = [
 		    	{caption: ["구분"], 	ref: 'sttgUpbrItemNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
 				{caption: ["품목"], 	ref: 'itemNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
 				{caption: ["부류"], 	ref: 'ctgryNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
-				{caption: ["통합조직\n총취급액(A)"], 		ref: 'totTrmtPrfmnc',   	type:'output',  width:'100px',    style:'text-align:center;'},
-				{caption: ["생산자조직\n전속출하액(B)"], 	ref: 'totSpmtPrfmnc',   	type:'output',  width:'100px',    style:'text-align:center;'},
-				{caption: ["전속취급률(B/A)"], 			ref: 'totTrmtRt',   		type:'output',  width:'100px',    style:'text-align:center;'},
+				{caption: ["통합조직\n총취급액(A)"], 		ref: 'slsCnsgnSlsAmtTot',   	type:'output',  width:'100px',    style:'text-align:center;'
+					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				{caption: ["생산자조직\n전속출하액(B)"], 	ref: 'slsCnsgnSlsAmt',   	type:'output',  width:'100px',    style:'text-align:center;'
+					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				{caption: ["전속취급률(B/A)"], 			ref: 'slsCnsgnSlsAmtRt',   		type:'output',  width:'100px',    style:'text-align:center;'
+					,format: {type: 'string', rule: '@" %"'}},
 				{caption: ["적합여부"], 	ref: 'stbltYn',   		type:'output',  width:'100px',    style:'text-align:center;'},
-				{caption: ["탈락사유"], 	ref: 'stbltYnNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
-
+				{caption: ["탈락사유"], 		ref: 'stbltYnNm',   	type:'textarea',  width:'150px',    style:'padding-left:10px'
+					,typeinfo : {textareanewline : true},disabled:true },
 				{caption: ["상세내역"], 	ref: 'apoCd',   		hidden : true},
 		        {caption: ["상세내역"], 	ref: 'apoSe',   		hidden : true},
 		        {caption: ["상세내역"], 	ref: 'brno',   			hidden : true},
@@ -622,9 +636,12 @@
 						,ctgryCd: item.ctgryCd
 						,ctgryNm: item.ctgryNm
 
-						,totTrmtPrfmnc: item.totTrmtPrfmnc
-						,totSpmtPrfmnc: item.totSpmtPrfmnc
-						,totTrmtRt: item.totTrmtRt
+						,slsCnsgnSlsAmt: item.slsCnsgnSlsAmt
+						,slsCnsgnSlsAmtTot: item.slsCnsgnSlsAmtTot
+						,slsCnsgnSlsAmtRt: item.slsCnsgnSlsAmtRt
+
+						,stbltYn: item.stbltYn
+   						,stbltYnNm: fn_calStbltYn(item)
 				}
 				jsonPrdcrOgnCurntMng01.push(PrdcrOgnCurntMngVO);
 				if (index === 0) {
@@ -632,13 +649,154 @@
 				}
 			});
         	grdPrdcrOgnCurntMng01.rebuild();
-        	fn_gridCustom();
+        	//fn_gridCustom();
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
     		}
     		console.error("failed", e.message);
         }
+	}
+
+	//탈락적합 사유
+	function fn_calStbltYn(item) {
+		let stbltYnNmMng = [];
+
+		//예외 품목인 경우
+		if(item.chkItemA == 'Y'){
+			item.ctgryCd = '2'
+		}
+		//예외 품목인 경우
+		if(item.chkItemB == 'Y'){
+			item.ctgryCd = '3'
+		}
+
+		if(item.aprv == '1' && item.sttgUpbrItemSe == '1'){
+			if(item.ctgryCd = '1'){
+				if(item.chkAmtTotAA != 'Y'){
+					stbltYnNmMng.push('총취급액 요건 미달');
+				}
+				if(item.chkAA == 'A'){
+					if(item.chkRtAA != 'Y'){
+						stbltYnNmMng.push('전속취급률 요건 미달');
+					}
+				}else if(item.chkAA == 'B'){
+					if(item.chkRtAB != 'Y'){
+						stbltYnNmMng.push('전속취급률 요건 미달');
+					}
+				}else if(item.chkAA == 'C'){
+					if(item.chkRtAC != 'Y'){
+						stbltYnNmMng.push('전속취급률 요건 미달');
+					}
+				}
+			}else if(item.ctgryCd = '2'){
+				if(item.chkAmtTotAB != 'Y'){
+					stbltYnNmMng.push('총취급액 요건 미달');
+				}
+				if(item.chkAB == 'A'){
+					if(item.chkRtAA != 'Y'){
+						stbltYnNmMng.push('전속취급률 요건 미달');
+					}
+				}else if(item.chkAB == 'B'){
+					if(item.chkRtAB != 'Y'){
+						stbltYnNmMng.push('전속취급률 요건 미달');
+					}
+				}else if(item.chkAB == 'C'){
+					if(item.chkRtAC != 'Y'){
+						stbltYnNmMng.push('전속취급률 요건 미달');
+					}
+				}
+			}else if(item.ctgryCd = '3'){
+				if(item.chkAmtTotAC != 'Y'){
+					stbltYnNmMng.push('총취급액 요건 미달');
+				}
+				if(item.chkAC == 'A'){
+					if(item.chkRtAA != 'Y'){
+						stbltYnNmMng.push('전속취급률 요건 미달');
+					}
+				}else if(item.chkAC == 'B'){
+					if(item.chkRtAB != 'Y'){
+						stbltYnNmMng.push('전속취급률 요건 미달');
+					}
+				}else if(item.chkAC == 'C'){
+					if(item.chkRtAC != 'Y'){
+						stbltYnNmMng.push('전속취급률 요건 미달');
+					}
+				}
+			}
+		}else if(item.aprv == '1' && item.sttgUpbrItemSe == '2'){
+			if(item.ctgryCd = '1'){
+				if(item.chkAmtTotBA != 'Y'){
+					stbltYnNmMng.push('총취급액 요건 미달');
+				}
+				if(item.chkBA == 'A'){
+					if(item.chkRtBA != 'Y'){
+						stbltYnNmMng.push('전속취급률 요건 미달');
+					}
+				}else if(item.chkBA == 'B'){
+					if(item.chkRtBB != 'Y'){
+						stbltYnNmMng.push('전속취급률 요건 미달');
+					}
+				}else if(item.chkBA == 'C'){
+					if(item.chkRtBC != 'Y'){
+						stbltYnNmMng.push('전속취급률 요건 미달');
+					}
+				}
+			}else if(item.ctgryCd = '2'){
+				if(item.chkAmtTotBB != 'Y'){
+					stbltYnNmMng.push('총취급액 요건 미달');
+				}
+				if(item.chkBB == 'A'){
+					if(item.chkRtBA != 'Y'){
+						stbltYnNmMng.push('전속취급률 요건 미달');
+					}
+				}else if(item.chkBB == 'B'){
+					if(item.chkRtBB != 'Y'){
+						stbltYnNmMng.push('전속취급률 요건 미달');
+					}
+				}else if(item.chkBB == 'C'){
+					if(item.chkRtBC != 'Y'){
+						stbltYnNmMng.push('전속취급률 요건 미달');
+					}
+				}
+			}else if(item.ctgryCd = '3'){
+				if(item.chkAmtTotAC != 'Y'){
+					stbltYnNmMng.push('총취급액 요건 미달');
+				}
+				if(item.chkBC == 'A'){
+					if(item.chkRtBA != 'Y'){
+						stbltYnNmMng.push('전속취급률 요건 미달');
+					}
+				}else if(item.chkBC == 'B'){
+					if(item.chkRtBB != 'Y'){
+						stbltYnNmMng.push('전속취급률 요건 미달');
+					}
+				}else if(item.chkBC == 'C'){
+					if(item.chkRtBC != 'Y'){
+						stbltYnNmMng.push('전속취급률 요건 미달');
+					}
+				}
+			}
+		}else if(item.aprv == '2'){
+			if(item.ctgryCd = '1'){
+				if(item.chkAmtTotCA != 'Y'){
+					stbltYnNmMng.push('총취급액 요건 미달');
+				}
+			}else if(item.ctgryCd = '2'){
+				if(item.chkAmtTotCB != 'Y'){
+					stbltYnNmMng.push('총취급액 요건 미달');
+				}
+			}else if(item.ctgryCd = '3'){
+				if(item.chkAmtTotCC != 'Y'){
+					stbltYnNmMng.push('총취급액 요건 미달');
+				}
+			}
+			if(item.chkRtC != 'Y'){
+				stbltYnNmMng.push('전속취급률 요건 미달');
+			}
+		}
+		//console.log(stbltYnNmMng.join("\n"));
+		return stbltYnNmMng.join("\n");
 	}
 
 </script>

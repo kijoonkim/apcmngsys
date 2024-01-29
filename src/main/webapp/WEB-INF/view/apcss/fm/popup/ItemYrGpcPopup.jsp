@@ -65,6 +65,9 @@
 	var grdItemPop01 = null;
 	var jsonItemPop01 = [];
 	var brno;
+
+	var jsonPopComCtgryCd = [];
+	var jsonPopComSttgUpbrItemSe = [];
 	/**
 	 * @description 권한 사용자 선택 팝업
 	 */
@@ -86,8 +89,8 @@
 			SBUxMethod.hide('btnSaveItem');
 			SBUxMethod.attr('btnSearchItem', 'disabled', false);
 
-			gfn_setComCdSBSelect('grdItemPop01', 	jsonComCtgryCd, 	'CTGRY_CD'); //분류코드
-			gfn_setComCdSBSelect('grdItemPop01', 	jsonComSttgUpbrItemSe, 	'STTG_UPBR_ITEM_SE'); //품목구분
+			gfn_setComCdSBSelect('grdItemPop01', 	jsonPopComCtgryCd, 			'CTGRY_CD'); //분류코드
+			gfn_setComCdSBSelect('grdItemPop01', 	jsonPopComSttgUpbrItemSe, 	'STTG_UPBR_ITEM_SE'); //품목구분
 
 			if (!gfn_isEmpty(_callbackFnc) && typeof _callbackFnc === 'function') {
 				this.callbackFnc = _callbackFnc;
@@ -126,9 +129,9 @@
 		        {caption: ['품목명'], 		ref: 'itemNm', width: '80px', type: 'input', style: 'text-align:center'},
 		        {caption: ['해당품목 선택조직'], ref: 'corpNm', width: '200px', type: 'input', style: 'text-align:center'},
 		    	{caption: ["품목분류"], 		ref: 'ctgryCd',   	type:'combo',  width:'120px',    style:'text-align:center',
-		    		typeinfo : {ref:'jsonComCtgryCd', label:'label', value:'value', displayui : false}},
+		    		typeinfo : {ref:'jsonPopComCtgryCd', label:'label', value:'value', displayui : false}},
 		    	{caption: ["전문/육성 구분"], 	ref: 'sttgUpbrItemSe',   type:'combo',  width:'120px',    style:'text-align:center',
-		    		typeinfo : {ref:'jsonComSttgUpbrItemSe', label:'label', value:'value', displayui : false}},
+		    		typeinfo : {ref:'jsonPopComSttgUpbrItemSe', label:'label', value:'value', displayui : false}},
 		        {caption: ['사업자번호'], 		ref: 'brno', hidden : true},
 		    ];
 
