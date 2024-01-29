@@ -837,6 +837,8 @@
 
 	function fn_calStbltYn(item) {
 		let stbltYnNmMng = [];
+		//aprv 1 승인 2 육성
+		//trmtType 1 공동출하수탁  2 공동선별수탁  3 공동선별매취
 		if(item.aprv == '1'){
 			if(!(item.cnt >= 5)){
 				stbltYnNmMng.push('조직원수 요건 미달');
