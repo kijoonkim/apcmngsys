@@ -153,7 +153,7 @@
 									uitype="text"
 									id="srch-input-brno"
 									name="srch-input-brno"
-									class="form-control input-sm"
+									class="form-control input-sm srch-keyup-area"
 									mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
 									autocomplete="off"
 								></sbux-input>
@@ -166,7 +166,7 @@
 									uitype="text"
 									id="srch-input-corpNm"
 									name="srch-input-corpNm"
-									class="form-control input-sm"
+									class="form-control input-sm srch-keyup-area"
 									autocomplete="off"
 								></sbux-input>
 							</td>
