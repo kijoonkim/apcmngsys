@@ -781,6 +781,7 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.fixedrowheight=35;
 	    SBGridProperties.columns = [
+	    	/*
 	    	{caption: ["처리","처리"], 		ref: 'delYn',   		type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng03\", " + nRow + ", " + nCol + ")'>추가</button>";
@@ -788,6 +789,7 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng03\", " + nRow + ")'>삭제</button>";
 	        	}
 	        }},
+	        */
 	        {caption: ["품목","품목"], 	ref: 'sttgUpbrItemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 	    	//{caption: ["품목분류","품목분류"], 	ref: 'ctgryNm',   	type:'combo',  width:'80px',    style:'text-align:center'},
 	    	{caption: ["품목","품목"], 	ref: 'ctgryCd',   	type:'combo',  width:'80px',    style:'text-align:center'
@@ -834,7 +836,8 @@
 	    ];
 
 	    grdPrdcrOgnCurntMng03 = _SBGrid.create(SBGridProperties);
-	    grdPrdcrOgnCurntMng03.bind('click','gridClick03');
+	    //줄 추가 삭제 와 품목 변경은 2.매출현황으로 할수 있게 변경
+	    //grdPrdcrOgnCurntMng03.bind('click','gridClick03');
 	    grdPrdcrOgnCurntMng03.bind('afteredit','fn_AfterEdit03');
 	}
 
@@ -1559,7 +1562,7 @@
         	//비어 있는 마지막 줄 추가용도?
         	grdPrdcrOgnCurntMng01.addRow();
         	grdPrdcrOgnCurntMng02.addRow();
-        	grdPrdcrOgnCurntMng03.addRow();
+        	//grdPrdcrOgnCurntMng03.addRow();
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
