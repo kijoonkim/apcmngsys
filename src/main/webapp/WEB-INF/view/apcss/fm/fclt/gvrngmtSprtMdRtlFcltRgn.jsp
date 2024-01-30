@@ -41,7 +41,7 @@
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
-							<span style="font-size:15px; color:black;">4.2. 산지우통시설 시설·장비</span>
+							<span style="font-size:15px; color:black;">4.2. 산지유통시설 시설·장비</span>
 							<br/>
 							<span style="font-size:12px">물류·상품화 시설</span>
 							<br/>
@@ -150,9 +150,9 @@
 					</ul>
 				</div>
 				<div id="sb-area-grdGvrngmtSprtPrprtnClngFclt" style="height:337px;"></div>
-				<span style="font-size:11px;">*예냉시설:  수확 후 또는 운송 이전에 농산물의 품온을 짧은 시간 내에 적정온도로 냉각하는 시설</span>
+				<span style="font-size:11px;">*예냉시설 : 수확 후 또는 운송 이전에 농산물의 품온을 짧은 시간 내에 적정온도로 냉각하는 시설</span>
 
-				<div style="height: 507px;"></div>
+				<div style="height: 507px;"></div> 
 
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">

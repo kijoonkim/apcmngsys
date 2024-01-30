@@ -40,7 +40,7 @@
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
-							<span style="font-size:15px; color:black;">2.2. 산지우통시설 시설·장비</span>
+							<span style="font-size:15px; color:black;">2.2. 산지유통시설 시설·장비</span>
 							<br/>
 							<span style="font-size:12px">물류·상품화 시설</span>
 							<br/>
