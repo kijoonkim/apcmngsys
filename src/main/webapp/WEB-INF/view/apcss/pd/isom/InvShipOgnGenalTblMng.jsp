@@ -388,7 +388,7 @@
 	function fn_excelDwnld() {
 		grdPrdcrOgnCurntMng.exportLocalExcel("출자출하조직관리(조직 리스트)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
-	
+
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid = async function() {
 
@@ -449,7 +449,7 @@
 		grdPrdcrOgnCurntMng01.exportLocalExcel("출자출하조직관리(매입.매출)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
 
-	
+
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid01 = async function() {
 
@@ -731,24 +731,24 @@
 		if(item.aprv == '1'){
 			if(item.sttgUpbrItemSe == '1'){
 				if(item.chkAA != 'Y'){
-					stbltYnNmMng.push('조직원수 요건 미달');
+					stbltYnNmMng.push('통합조직 판매위임 금액 미달');
 				}
 				if(item.chkAB != 'Y'){
-					stbltYnNmMng.push('출하대금지급액 요건 미달');
+					stbltYnNmMng.push('생산자조직 출하금액 중 통합조직 출하비율 미달');
 				}
 				if(item.chkAC != 'Y'){
-					stbltYnNmMng.push('출하비율 요건 미달');
+					stbltYnNmMng.push('총취급액 중 통합조직 출하비율 미달');
 				}
 			}
 		}else if(item.aprv == '2'){
 			if(item.chkBA != 'Y'){
-				stbltYnNmMng.push('조직원수 요건 미달');
+				stbltYnNmMng.push('통합조직 판매위임 금액 미달');
 			}
 			if(item.chkBB != 'Y'){
-				stbltYnNmMng.push('출하대금지급액 요건 미달');
+				stbltYnNmMng.push('생산자조직 출하금액 중 통합조직 출하비율 미달');
 			}
 			if(item.chkBC != 'Y'){
-				stbltYnNmMng.push('출하비율 요건 미달');
+				stbltYnNmMng.push('총취급액 중 통합조직 출하비율 미달');
 			}
 		}
 		//console.log(stbltYnNmMng.join("\n"));
