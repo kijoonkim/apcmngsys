@@ -237,9 +237,8 @@
 									readonly
 								></sbux-input>
 							</td>
-							<!--
 							<td class="td_input"  style="border-left: hidden;">
-							 -->
+
 							<th scope="row" class="th_bg th_border_right">사업자번호</th>
 							<td colspan="2" class="td_input">
 								<sbux-input
@@ -252,9 +251,8 @@
 									readonly
 								></sbux-input>
 							</td>
-							<!--
 							<td class="td_input"  style="border-left: hidden;">
-							 -->
+
 							</td>
 							<th scope="row" class="th_bg th_border_right">법인등록번호</th>
 							<td colspan="2" class="td_input">
@@ -268,9 +266,8 @@
 									readonly
 								></sbux-input>
 							</td>
-							<!--
 							<td class="td_input"  style="border-left: hidden;">
-							 -->
+							<!--
 							<th scope="row" class="th_bg th_border_right">통합조직 선택</th>
 							<td colspan="2" class="td_input">
 								<sbux-select
@@ -283,6 +280,7 @@
 									onchange="fn_changeSelUoBrno"
 								></sbux-select>
 							</td>
+							 -->
 						</tr>
 					</tbody>
 				</table>
@@ -446,8 +444,8 @@
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdComSgg, 		'CMPTN_INST_SIGUN'),//시군
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdComCorpSeCd, 	'CORP_SE_CD'),//법인구분
 
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonGrdCtgryCd_1, 	'CTGRY_CD'), //분류코드
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng02', 	jsonGrdCtgryCd_2, 	'CTGRY_CD'), //분류코드
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonGrdCtgryCd_1, 	'CTGRY_CD_1'), //분류코드
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng02', 	jsonGrdCtgryCd_2, 	'CTGRY_CD_1'), //분류코드
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonGrdSttgUpbrItemSe_1, 	'STTG_UPBR_ITEM_SE_1'), //취급코드
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng02', 	jsonGrdSttgUpbrItemSe_2, 	'STTG_UPBR_ITEM_SE_1'), //취급코드
 		]);
@@ -557,7 +555,8 @@
 	    	//{caption: ["품목분류","품목분류"], 	ref: 'ctgryNm',   	type:'combo',  width:'80px',    style:'text-align:center'},
 	    	{caption: ["품목분류","품목분류"], 	ref: 'ctgryCd',   	type:'combo',  width:'80px',    style:'text-align:center'
 	    		,typeinfo : {ref:'jsonGrdCtgryCd_1', label:'label', value:'value', displayui : true}},
-
+	    	{caption: ["통합조직","통합조직명"], 		ref: 'corpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
+	    	{caption: ["통합조직","사업자번호"], 		ref: 'uoBrno',   	type:'output',  width:'80px',    style:'text-align:center'},
 	        {caption: ["공선수탁·공동수탁","물량(톤)"], ref: 'prchsTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 	        {caption: ["공선수탁·공동수탁","금액(천원)"], ref: 'prchsTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
@@ -583,7 +582,7 @@
 	    	//{caption: ["상세내역"], 	ref: 'ctgryCd',		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'apoSe',		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'brno',		hidden : true},
-	        {caption: ["상세내역"], 	ref: 'uoBrno',		hidden : true},
+	        //{caption: ["상세내역"], 	ref: 'uoBrno',		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'crno',		hidden : true}
 	    ];
 
@@ -665,7 +664,8 @@
 	    	//{caption: ["품목분류","품목분류","품목분류"], 	ref: 'ctgryNm',   	type:'combo',  width:'80px',    style:'text-align:center'},
 	    	{caption: ["품목분류","품목분류","품목분류","품목분류"], 	ref: 'ctgryCd',   	type:'combo',  width:'80px',    style:'text-align:center'
 				,typeinfo : {ref:'jsonGrdCtgryCd_2', label:'label', value:'value', displayui : true}},
-
+			{caption: ["통합조직","통합조직","통합조직","통합조직명"], 		ref: 'corpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
+		    {caption: ["통합조직","통합조직","통합조직","사업자번호"], 		ref: 'uoBrno',   	type:'output',  width:'80px',    style:'text-align:center'},
 			{caption: ["출자출하조직 취급실적","총취급실적","총취급실적","물량(톤)"]
 				,ref: 'totTrmtPrfmncVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 				,calc : 'fn_totTrmtPrfmncVlm'
@@ -782,7 +782,7 @@
 	    	//{caption: ["상세내역"], 	ref: 'ctgryCd',		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'apoSe',		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'brno',		hidden : true},
-	        {caption: ["상세내역"], 	ref: 'uoBrno',		hidden : true},
+	        //{caption: ["상세내역"], 	ref: 'uoBrno',		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'crno',		hidden : true}
 	    ];
 
@@ -813,21 +813,29 @@
 	function fn_totTrmtPrfmncVlm(objGrid, nRow, nCol){
 		let rowData = objGrid.getRowData(Number(nRow));
 		let sumVal = 0;
-		sumVal = Number(rowData.ddcExprtVlm)
+		if(rowData.sttgUpbrItemSe == '1' || rowData.sttgUpbrItemSe == '2'){
+			sumVal = Number(rowData.ddcExprtVlm)
 				+ Number(rowData.ddcVlm)
 				+ Number(rowData.ddcArmyDlvgdsVlm)
 				+ Number(rowData.ddcMlsrVlm)
 				+ Number(rowData.ajmtVlm);
+		}else if (rowData.sttgUpbrItemSe == '3'){
+			sumVal = rowData.totTrmtPrfmncVlm;
+		}
 		return sumVal;
 	}
 	function fn_totTrmtPrfmncAmt(objGrid, nRow, nCol){
 		let rowData = objGrid.getRowData(Number(nRow));
 		let sumVal = 0;
-		sumVal = Number(rowData.ddcExprtAmt)
+		if(rowData.sttgUpbrItemSe == '1' || rowData.sttgUpbrItemSe == '2'){
+			sumVal = Number(rowData.ddcExprtAmt)
 				+ Number(rowData.ddcAmt)
 				+ Number(rowData.ddcArmyDlvgdsAmt)
 				+ Number(rowData.ddcMlsrAmt)
 				+ Number(rowData.ajmtAmt);
+		}else if (rowData.sttgUpbrItemSe == '3'){
+			sumVal = rowData.totTrmtPrfmncAmt;
+		}
 		return sumVal;
 	}
 
@@ -1031,7 +1039,8 @@
 				SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno))//법인등록번호
 				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))//사업자등록번호
 			});
-        	fn_searchUoList();
+        	//총매입매출은 전체 값이 다보여야 해서 통합조직을 고르지 않음
+        	//fn_searchUoList();
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -1053,7 +1062,7 @@
 		let brno = SBUxMethod.get('dtl-input-brno');
 
 		//그리드의 해드가 두줄이상인경우 for문 시작과 끝을 늘린만큼 늘려야함
-		for(var i=2; i<=gridData01.length + 1; i++ ){
+		for(var i=1+1; i<=gridData01.length + 1; i++ ){
 			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i);
 			let rowSts01 = grdPrdcrOgnCurntMng01.getRowStatus(i);
 			let delYn = rowData01.delYn;
@@ -1134,7 +1143,7 @@
 		let uoBrno = SBUxMethod.get('dtl-input-uoBrno');
 
 		//그리드의 해드가 두줄이상인경우 for문 시작과 끝을 늘린만큼 늘려야함
-		for(var i=3; i<=gridData02.length + 2; i++ ){
+		for(var i=1+3; i<=gridData02.length + 3; i++ ){
 			let rowData02 = grdPrdcrOgnCurntMng02.getRowData(i);
 			let rowSts02 = grdPrdcrOgnCurntMng02.getRowStatus(i);
 
@@ -1278,7 +1287,8 @@
 		SBUxMethod.set('dtl-input-crno',gfn_nvl(rowData.crno))//법인등록번호
 		SBUxMethod.set('dtl-input-brno',gfn_nvl(rowData.brno))//사업자등록번호
 
-		fn_searchUoList();
+		//총매입매출은 전체 값이 다보여야 해서 통합조직을 고르지 않음
+		//fn_searchUoList();
     }
 	//매입 매출 그리드 초기화
 	async function fn_clearForm() {
@@ -1299,27 +1309,26 @@
 
 	//통합조직 매입 매출 리스트 조회
 	async function fn_dtlGridSearch() {
-
+		//조회 대상 유무 확인
 		let apoCd = SBUxMethod.get('dtl-input-apoCd');
 		if(gfn_isEmpty(apoCd)){return;}
-		let apoSe = SBUxMethod.get('dtl-input-apoSe');
-		let itemCd = SBUxMethod.get('dtl-input-itemCd');
-		let ctgryCd = SBUxMethod.get('dtl-input-ctgryCd');
-		let uoBrno = SBUxMethod.get('dtl-input-uoBrno');
+		//let apoSe = SBUxMethod.get('dtl-input-apoSe');
+		//let itemCd = SBUxMethod.get('dtl-input-itemCd');
+		//let ctgryCd = SBUxMethod.get('dtl-input-ctgryCd');
+		//총매입매출은 통합조직을 고르지 않고 전체 데이터를 보여줌
+		//let uoBrno = SBUxMethod.get('dtl-input-uoBrno');
 		let brno = SBUxMethod.get('dtl-input-brno');
-
-		if(gfn_isEmpty(uoBrno)){
-			alert("통합조직을 선택해 주세요");
-			return;
+		let yr = SBUxMethod.get('dtl-input-yr');
+		if(gfn_isEmpty(yr)){
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
 		}
 
 		let postJsonPromise01 = gfn_postJSON("/pd/isom/selectInvShipOgnPurSalMngList.do", {
-			apoCd : apoCd
-    		,apoSe : apoSe
-    		,itemCd : itemCd
-    		,ctgryCd : ctgryCd
-    		,uoBrno : uoBrno
-    		,brno : brno
+			brno : brno
+    		//,uoBrno : uoBrno
+    		,yr : yr
 		});
         let data = await postJsonPromise01;
         try{
@@ -1335,6 +1344,8 @@
     						,crno: 	item.crno
     						,delYn: item.delYn
     						,yr: item.yr
+    						,uoBrno: item.uoBrno
+    						,corpNm: item.corpNm
 
     						,sttgUpbrItemSe: item.sttgUpbrItemSe
     						,sttgUpbrItemNm: item.sttgUpbrItemNm
@@ -1364,6 +1375,8 @@
     						,crno: 	item.crno
     						,delYn: item.delYn
     						,yr: item.yr
+    						,uoBrno: item.uoBrno
+    						,corpNm: item.corpNm
 
     						,sttgUpbrItemSe: item.sttgUpbrItemSe
     						,sttgUpbrItemNm: item.sttgUpbrItemNm
@@ -1449,7 +1462,7 @@
 		for(var i=2; i <= gridData01.length+1; i++ ){
 			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i);
 
-			if(rowData01.prchsSlsSe == '1'){
+			if(rowData01.sttgUpbrItemSe == '1' || rowData01.sttgUpbrItemSe == '2'){
 				//disabled 처리
 				grdPrdcrOgnCurntMng01.setCellDisabled(i, prchsTrstAmt, i, prchsTrstAmt, true);
 				grdPrdcrOgnCurntMng01.setCellDisabled(i, prchsEmspapAmt, i, prchsEmspapAmt, true);
@@ -1459,10 +1472,6 @@
 				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, prchsEmspapAmt, i, prchsEmspapAmt, 'lightgray');
 				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, etcAmt, i, etcAmt, 'lightgray');
 				//해당 타입 위치 저장
-			}
-			if(rowData01.prchsSlsSe == '2'){
-				grdPrdcrOgnCurntMng01.setCellDisabled(i, totTrmtPrfmncVlm, i, totTrmtPrfmncAmt, true);
-				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, totTrmtPrfmncVlm, i, totTrmtPrfmncAmt, 'lightgray');
 			}
 			grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, prchsTotVlm, i, prchsTotAmt, 'lightgray');
 		}
@@ -1487,7 +1496,7 @@
 		for(var i=4; i <= gridData02.length+3; i++ ){
 			let rowData02 = grdPrdcrOgnCurntMng02.getRowData(i);
 
-			if(rowData02.prchsSlsSe == '2'){
+			if(rowData02.sttgUpbrItemSe == '1' || rowData02.sttgUpbrItemSe == '2'){
 				grdPrdcrOgnCurntMng02.setCellDisabled(i, totTrmtPrfmncVlm, i, totTrmtPrfmncAmt, true);
 				grdPrdcrOgnCurntMng02.setCellDisabled(i, totSpmtPrfmncAmt, i, totSpmtPrfmncAmt, true);
 				grdPrdcrOgnCurntMng02.setCellDisabled(i, slsCprtnTrstAmt, i, slsCprtnTrstAmt, true);
@@ -1575,9 +1584,9 @@
 			let selRef = grdPrdcrOgnCurntMng01.getRefOfCol(selGridCol01);
 
 			let gridData = grdPrdcrOgnCurntMng01.getGridDataAll();
-			for(var i=1; i<=gridData.length; i++ ){
+			for(var i=1+1; i<=gridData.length+1; i++ ){
 				let uoData = grdPrdcrOgnCurntMng01.getRowData(i);
-				if ($.trim(rowData.itemCd) == $.trim(uoData.itemCd) && $.trim(rowData.ctgryCd) == $.trim(uoData.ctgryCd)){
+				if ($.trim(rowData.itemCd) == $.trim(uoData.itemCd)){
 					gfn_comAlert("E0000", "동일한 품목이 있습니다.");
 					return false;
 				}
@@ -1657,9 +1666,9 @@
 			//let colRefIdx3 = grdPrdcrOgnCurntMng02.getColRef("itemCd");//품목코드 인덱스
 			//let colRefIdx4 = grdPrdcrOgnCurntMng02.getColRef("itemNm");//품목명 인덱스
 			let gridData = grdPrdcrOgnCurntMng02.getGridDataAll();
-			for(var i=1; i<=gridData.length; i++ ){
+			for(var i=1+3; i<=gridData.length+3; i++ ){
 				let uoData = grdPrdcrOgnCurntMng02.getRowData(i);
-				if ($.trim(rowData.itemCd) == $.trim(uoData.itemCd) && $.trim(rowData.ctgryCd) == $.trim(uoData.ctgryCd)){
+				if ($.trim(rowData.itemCd) == $.trim(uoData.itemCd)){
 					gfn_comAlert("E0000", "동일한 품목이 있습니다.");
 					return false;
 				}

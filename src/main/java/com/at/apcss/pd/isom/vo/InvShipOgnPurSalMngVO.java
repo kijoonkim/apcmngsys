@@ -13,6 +13,7 @@ public class InvShipOgnPurSalMngVO extends ComVO{
 	private String apoSe;
 	private String brno;
 	private String uoBrno;
+	private String corpNm;
 	private String ccCode;
 	private String crno;
 	private String ctgryCd;
