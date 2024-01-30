@@ -86,7 +86,6 @@ public class SortInvntrController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-
 	@PostMapping(value = "/am/invntr/selectSortInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectSortInvntrList(@RequestBody SortInvntrVO sortInvntrVO, HttpServletRequest request) throws Exception {
 
@@ -109,6 +108,28 @@ public class SortInvntrController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	@PostMapping(value = "/am/invntr/selectSortInvntrListForRslt.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectSortInvntrListForRslt(@RequestBody SortInvntrVO sortInvntrVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<SortInvntrVO> resultList =  new ArrayList<>();
+		try {
+			resultList = sortInvntrService.selectSortInvntrListForRslt(sortInvntrVO);
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
 	@PostMapping(value = "/am/invntr/selectDailySortInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectDailySortInvntrList(@RequestBody SortInvntrVO sortInvntrVO, HttpServletRequest request) throws Exception {
 

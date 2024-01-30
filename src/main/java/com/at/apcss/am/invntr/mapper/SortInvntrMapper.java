@@ -41,6 +41,14 @@ public interface SortInvntrMapper {
 	public List<SortInvntrVO> selectSortInvntrList(SortInvntrVO sortInvntrVO) throws Exception;
 
 	/**
+	 * 선별재고 포장실적등록대상 목록 조회
+	 * @param sortInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SortInvntrVO> selectSortInvntrListForRslt(SortInvntrVO sortInvntrVO) throws Exception;
+	
+	/**
 	 * 선별재고 목록 집계조회
 	 * @param sortInvntrVO
 	 * @return
@@ -138,6 +146,14 @@ public interface SortInvntrMapper {
 	 * @throws Exception
 	 */
 	public int updateInvntrPckgPrfmnc(SortInvntrVO sortInvntrVO) throws Exception;
+
+	/**
+	 * 선별재고 포장투입완료
+	 * @param sortInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateInvntrPckgInptRslt(SortInvntrVO sortInvntrVO) throws Exception;
 
 	/**
 	 * 선별재고 등급 등록

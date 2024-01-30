@@ -56,6 +56,14 @@ public interface PckgInptMapper {
 	public int updatePckgInpt(PckgInptVO pckgInptVO) throws Exception;
 
 	/**
+	 * 포장투입실적 완료
+	 * @param pckgInptVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updatePckgInptRslt(PckgInptVO pckgInptVO) throws Exception;
+	
+	/**
 	 * 포장투입실적 삭제
 	 * @param pckgInptVO
 	 * @return

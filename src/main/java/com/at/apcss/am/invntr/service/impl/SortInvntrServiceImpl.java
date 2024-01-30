@@ -87,6 +87,15 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 
 
 	@Override
+	public List<SortInvntrVO> selectSortInvntrListForRslt(SortInvntrVO sortInvntrVO) throws Exception {
+		
+		List<SortInvntrVO> resultList = sortInvntrMapper.selectSortInvntrListForRslt(sortInvntrVO);
+
+		return resultList;
+	}
+	
+	
+	@Override
 	public List<SortInvntrVO> selectSortInvntrListForPckg(SortInvntrVO sortInvntrVO) throws Exception {
 
 		List<SortInvntrVO> resultList = sortInvntrMapper.selectSortInvntrListForPckg(sortInvntrVO);
@@ -265,32 +274,61 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "선별재고");
 		}
 
-		if (sortInvntrVO.getPckgWght() > invntrInfo.getInvntrWght()) {
-			return ComUtil.getResultMap("W0008", "재고량||포장량");		// W0008	{0} 보다 {1}이/가 큽니다.
+		if (ComConstants.CON_YES.equals(sortInvntrVO.getSortInptPrgrsYn())) {
+			
+			if (sortInvntrVO.getPckgWght() > invntrInfo.getInptPrgrsWght()) {
+				return ComUtil.getResultMap("W0008", "투입진행량||포장량");		// W0008	{0} 보다 {1}이/가 큽니다.
+			}
+
+			// 투입진행량
+			sortInvntrVO.setInptPrgrsQntt(0);
+			sortInvntrVO.setInptPrgrsWght(0);
+
+			// 포장량
+			int pckgQntt = invntrInfo.getPckgQntt() + sortInvntrVO.getInptQntt();
+			double pckgWght = invntrInfo.getPckgWght() + sortInvntrVO.getInptWght();
+			sortInvntrVO.setPckgQntt(pckgQntt);
+			sortInvntrVO.setPckgWght(pckgWght);
+
+			// 선별 재고변경 이력 등록 (투입)
+			sortInvntrVO.setChgRsnCd(AmConstants.CON_INVNTR_CHG_RSN_CD_P1);
+			HashMap<String, Object> rtnObj = insertSortChgHstry(sortInvntrVO);
+			if (rtnObj != null) {
+				// error throw exception;
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+
+			sortInvntrMapper.updateInvntrPckgInptRslt(sortInvntrVO);
+
+		} else {
+			
+			if (sortInvntrVO.getPckgWght() > invntrInfo.getInvntrWght()) {
+				return ComUtil.getResultMap("W0008", "재고량||포장량");		// W0008	{0} 보다 {1}이/가 큽니다.
+			}
+
+			// 재고량
+			int invntrQntt = invntrInfo.getInvntrQntt() - sortInvntrVO.getInptQntt();
+			double invntrWght = invntrInfo.getInvntrWght() - sortInvntrVO.getInptWght();
+			sortInvntrVO.setInvntrQntt(invntrQntt);
+			sortInvntrVO.setInvntrWght(invntrWght);
+
+			// 포장량
+			int pckgQntt = invntrInfo.getPckgQntt() + sortInvntrVO.getInptQntt();
+			double pckgWght = invntrInfo.getPckgWght() + sortInvntrVO.getInptWght();
+			sortInvntrVO.setPckgQntt(pckgQntt);
+			sortInvntrVO.setPckgWght(pckgWght);
+
+			// 선별 재고변경 이력 등록 (투입)
+			sortInvntrVO.setChgRsnCd(AmConstants.CON_INVNTR_CHG_RSN_CD_P1);
+			HashMap<String, Object> rtnObj = insertSortChgHstry(sortInvntrVO);
+			if (rtnObj != null) {
+				// error throw exception;
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+
+			sortInvntrMapper.updateInvntrPckgPrfmnc(sortInvntrVO);
 		}
-
-		// 재고량
-		int invntrQntt = invntrInfo.getInvntrQntt() - sortInvntrVO.getInptQntt();
-		double invntrWght = invntrInfo.getInvntrWght() - sortInvntrVO.getInptWght();
-		sortInvntrVO.setInvntrQntt(invntrQntt);
-		sortInvntrVO.setInvntrWght(invntrWght);
-
-		// 포장량
-		int pckgQntt = invntrInfo.getPckgQntt() + sortInvntrVO.getInptQntt();
-		double pckgWght = invntrInfo.getPckgWght() + sortInvntrVO.getInptWght();
-		sortInvntrVO.setPckgQntt(pckgQntt);
-		sortInvntrVO.setPckgWght(pckgWght);
-
-		// 선별 재고변경 이력 등록 (투입)
-		sortInvntrVO.setChgRsnCd(AmConstants.CON_INVNTR_CHG_RSN_CD_P1);
-		HashMap<String, Object> rtnObj = insertSortChgHstry(sortInvntrVO);
-		if (rtnObj != null) {
-			// error throw exception;
-			throw new EgovBizException(getMessageForMap(rtnObj));
-		}
-
-		sortInvntrMapper.updateInvntrPckgPrfmnc(sortInvntrVO);
-
+		
 		return null;
 	}
 
@@ -571,5 +609,6 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 
 		return null;
 	}
+
 
 }

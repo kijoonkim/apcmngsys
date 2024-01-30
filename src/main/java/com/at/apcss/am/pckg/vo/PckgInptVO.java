@@ -43,7 +43,12 @@ public class PckgInptVO extends ComVO {
 	 * 투입순번
 	 */
 	private int inptSn;
-
+	
+	/**
+	 * 투입진행여부
+	 */
+	private String sortInptPrgrsYn;
+	
 	/**
 	 * 등급코드
 	 */
