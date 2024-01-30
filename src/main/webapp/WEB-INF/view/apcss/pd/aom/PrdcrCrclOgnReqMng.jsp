@@ -1703,7 +1703,7 @@
 			let delYn = rowData.delYn;
 
 			rowData.apoCd = apoCd;
-			rowData.apoSe = apoSe;
+			rowData.apoSe = apoSe;//품목을 등록한는 경우 통합조직만 있어 '1' 해도 무방
 			rowData.brno = brno;
 			rowData.crno = crno;
 			rowData.corpNm = corpNm;

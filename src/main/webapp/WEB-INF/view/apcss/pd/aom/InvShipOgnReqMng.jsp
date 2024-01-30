@@ -1674,7 +1674,7 @@
 		SBUxMethod.set("dtl-input-uoBrno", rowData.uoBrno);
 		await fn_searchUoList();
 		await SBUxMethod.set("dtl-input-selUoBrno", rowData.uoBrno);
-
+		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		if(rowData.corpDdlnSeCd == 'Y'){
 			$(".btn").hide();// 모든 버튼 숨기기
 			SBUxMethod.attr('dtl-input-selUoBrno','readonly',true);
@@ -1684,7 +1684,7 @@
 			SBUxMethod.attr('dtl-input-selUoBrno','readonly',false);
 			SBUxMethod.attr('dtl-input-isoFundAplyAmt','readonly',false);
 		}
-
+		</c:if>
     }
 
 	const fn_clearForm01 = function() {
