@@ -164,6 +164,11 @@ public class SortInvntrVO extends ComVO {
 	private double inptWght;
 
 	/**
+	 * 선별투입진행여부
+	 */
+	private String sortInptPrgrsYn;
+	
+	/**
 	 * 수량
 	 */
 	private int qntt;

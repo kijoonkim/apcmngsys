@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.at.apcss.am.pckg.mapper.PckgInptMapper;
 import com.at.apcss.am.pckg.service.PckgInptService;
 import com.at.apcss.am.pckg.vo.PckgInptVO;
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
@@ -76,7 +77,11 @@ public class PckgInptServiceImpl extends BaseServiceImpl implements PckgInptServ
 	public HashMap<String, Object> insertPckgInptList(List<PckgInptVO> pckgInptList) throws Exception {
 
 		for ( PckgInptVO pckgInptVO : pckgInptList ) {
-			insertPckgInpt(pckgInptVO);
+			if (ComConstants.CON_YES.equals(pckgInptVO.getSortInptPrgrsYn())) {
+				pckgInptMapper.updatePckgInptRslt(pckgInptVO);
+			} else {
+				insertPckgInpt(pckgInptVO);	
+			}
 		}
 
 		return null;

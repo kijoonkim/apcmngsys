@@ -228,6 +228,35 @@
 		]]>
 	</update>
 
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.pckg.mapper.PckgInptMapper.updatePckgInptRslt		-->
+	<!-- DESC : 포장투입실적 완료.		                                       				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updatePckgInptRslt" parameterType="com.at.apcss.am.pckg.vo.PckgInptVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.am.pckg.mapper.PckgInptMapper.updatePckgInptRslt */
+				TB_PCKG_INPT_PRFMNC
+			   SET
+			   	  SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+				, PCKGNO 	= #{pckgno}
+				, RMRK 		= #{rmrk}
+		]]>
+		<![CDATA[
+			 WHERE APC_CD = #{apcCd}
+			   AND SORTNO = #{sortno}
+			   AND SORT_SN = #{sortSn}
+			   AND PCKGNO IS NULL
+			   AND DEL_YN = 'N'
+		]]>
+	</update>
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.pckg.mapper.PckgInptMapper.deletePckgInpt			-->
 	<!-- DESC : 포장투입실적 삭제.		                                       				-->
