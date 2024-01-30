@@ -345,19 +345,19 @@
 		</div>
 	</section>
     <!-- 품목 팝업 -->
-	<div>
+    <div>
         <sbux-modal
-        	id="modal-yrGpcList"
-        	name="modal-yrGpcList"
+        	id="modal-gpcList"
+        	name="modal-gpcList"
         	uitype="middle"
         	header-title="품목 선택"
-        	body-html-id="body-modal-yrGpcList"
+        	body-html-id="body-modal-gpcList"
         	footer-is-close-button="false"
-        	style="width:500px"
+        	style="width:800px"
        	></sbux-modal>
     </div>
-    <div id="body-modal-yrGpcList">
-    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/ItemYrGpcPopup.jsp"></jsp:include>
+    <div id="body-modal-gpcList">
+    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/gpcSelectPopup.jsp"></jsp:include>
     </div>
 </body>
 <script type="text/javascript">
@@ -468,7 +468,7 @@
 	function fn_excelDwnld() {
 		grdPrdcrOgnCurntMng.exportLocalExcel("출자출하조직관리(조직 리스트)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
-	
+
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid = async function() {
 
@@ -527,7 +527,7 @@
 
 
 	function fn_excelDwnld01() {
-		grdPrdcrOgnCurntMng01.exportLocalExcel("출자출하조직관리(매입.매출)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+		grdPrdcrOgnCurntMng01.exportLocalExcel("출자출하조직관리(총 매입현황)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
 
 	/* Grid 화면 그리기 기능*/
@@ -545,7 +545,7 @@
 	    SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	    	{caption: ["처리","처리"], 		ref: 'delYn',   		type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+	    	{caption: ["처리","처리"], 		ref: 'delYn',   		type:'button', width:'40px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
@@ -625,6 +625,17 @@
 	var jsonPrdcrOgnCurntMng02 = []; // 그리드의 참조 데이터 주소 선언
 	var grdPrdcrOgnCurntMng02;
 
+	const objMenuList02 = {
+	        "excelDwnld": {
+	            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+	            "accesskey": "e",					//단축키
+	            "callback": fn_excelDwnld02,			//콜백함수명
+	        }
+	    };
+
+	function fn_excelDwnld02() {
+		grdPrdcrOgnCurntMng02.exportLocalExcel("출자출하조직관리(총 매출현황)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
 
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid02 = async function() {
@@ -635,18 +646,21 @@
 	    SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng02';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+	    SBGridProperties.contextmenulist = objMenuList02;	// 우클릭 메뉴 리스트
+	    SBGridProperties.frozencols=4;
 	    //SBGridProperties.extendlastcol = 'scroll';
 	    //SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	    	{caption: ["처리","처리","처리","처리"], 		ref: 'delYn',   type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+	    	{caption: ["처리","처리","처리","처리"], 		ref: 'delYn',   type:'button', width:'40px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ")'>삭제</button>";
 	        	}
 	        }},
-	        {caption: ["품목","품목","품목","품목"], 		ref: 'sttgUpbrItemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
+	        {caption: ["품목","품목","품목","품목"], 		ref: 'sttgUpbrItemNm',   	type:'output',  width:'55px',    style:'text-align:center'},
 	    	{caption: ["품목","품목","품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 	    	//{caption: ["품목분류","품목분류","품목분류"], 	ref: 'ctgryNm',   	type:'combo',  width:'80px',    style:'text-align:center'},
 	    	{caption: ["품목분류","품목분류","품목분류","품목분류"], 	ref: 'ctgryCd',   	type:'combo',  width:'80px',    style:'text-align:center'
@@ -699,7 +713,7 @@
 				,ref: 'ajmtVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","조정 취급실적","조정 취급실적","금액(A)"]//전문품목 매입매출 화면의 매출 총합
-				,ref: 'ajmtAmt',   	type:'output',  width:'100px',    style:'text-align:center'
+				,ref: 'ajmtAmt',   	type:'output',  width:'100px',    style:'text-align:center;border-right-color: black !important;' , fixedstyle:'border-right-color: black !important;'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
 
@@ -751,10 +765,10 @@
 				,calc: 'fn_slsCprtnTotAmt'
 			,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
-			{caption: ["출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)"]
-				,ref: 'spmtRtVlm',   	type:'output',  width:'90px',    style:'text-align:center'
-				,calc: 'fn_spmtRtVlm'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			//{caption: ["출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)"]
+				//,ref: 'spmtRtVlm',   	type:'output',  width:'90px',    style:'text-align:center'
+				//,calc: 'fn_spmtRtVlm'
+				//,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)"]
 				,ref: 'spmtRtAmt',   	type:'output',  width:'100px',    style:'text-align:center'
 				,calc: 'fn_spmtRtAmt'
@@ -1542,9 +1556,9 @@
         		//팝업창 오픈
         		//통합조직 팝업창 id : modal-gpcList
         		let brno = SBUxMethod.get('dtl-input-brno');
-        		popYrGpcSelect.init(brno , fn_setGridItem01);
+        		popGpcSelect.init(brno , fn_setGridItem01);
         		//popYrGpcSelect.init(fn_setGridItem01);
-        		SBUxMethod.openModal('modal-yrGpcList');
+        		SBUxMethod.openModal('modal-gpcList');
         	}
         }
     }
@@ -1626,9 +1640,9 @@
         		//팝업창 오픈
         		//통합조직 팝업창 id : modal-gpcList
         		let brno = SBUxMethod.get('dtl-input-brno');
-        		popYrGpcSelect.init(brno , fn_setGridItem02);
+        		popGpcSelect.init(brno , fn_setGridItem02);
         		//popYrGpcSelect.init(fn_setGridItem02);
-        		SBUxMethod.openModal('modal-yrGpcList');
+        		SBUxMethod.openModal('modal-gpcList');
         	}
         }
     }

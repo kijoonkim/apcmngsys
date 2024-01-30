@@ -520,7 +520,7 @@
 
 	var jsonPrdcrOgnCurntMng01 = []; // 그리드의 참조 데이터 주소 선언
 	var grdPrdcrOgnCurntMng01;
-	
+
 	const objMenuList01 = {
 	        "excelDwnld": {
 	            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
@@ -633,6 +633,18 @@
 	var jsonPrdcrOgnCurntMng02 = []; // 그리드의 참조 데이터 주소 선언
 	var grdPrdcrOgnCurntMng02;
 
+	const objMenuList02 = {
+	        "excelDwnld": {
+	            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+	            "accesskey": "e",					//단축키
+	            "callback": fn_excelDwnld02,			//콜백함수명
+	        }
+	    };
+
+
+	function fn_excelDwnld02() {
+		grdPrdcrOgnCurntMng01.exportLocalExcel("통합조직관리(매출현황)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
 
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid02 = async function() {
@@ -643,6 +655,8 @@
 	    SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng02';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+	    SBGridProperties.contextmenulist = objMenuList02;	// 우클릭 메뉴 리스트
 	    //SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 	    SBGridProperties.oneclickedit = true;
@@ -739,6 +753,18 @@
 	var jsonPrdcrOgnCurntMng03 = []; // 그리드의 참조 데이터 주소 선언
 	var grdPrdcrOgnCurntMng03;
 
+	const objMenuList03 = {
+	        "excelDwnld": {
+	            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+	            "accesskey": "e",					//단축키
+	            "callback": fn_excelDwnld03,			//콜백함수명
+	        }
+	    };
+
+
+	function fn_excelDwnld03() {
+		grdPrdcrOgnCurntMng03.exportLocalExcel("통합조직관리(총매입.매출)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid03 = async function() {
 
@@ -748,6 +774,8 @@
 	    SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng03';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+	    SBGridProperties.contextmenulist = objMenuList03;	// 우클릭 메뉴 리스트
 	    //SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 	    SBGridProperties.oneclickedit = true;
