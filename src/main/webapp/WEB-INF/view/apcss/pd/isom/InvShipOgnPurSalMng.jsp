@@ -1556,7 +1556,7 @@
         		//팝업창 오픈
         		//통합조직 팝업창 id : modal-gpcList
         		let brno = SBUxMethod.get('dtl-input-brno');
-        		popGpcSelect.init(brno , fn_setGridItem01);
+        		popGpcSelect.init(fn_setGridItem01);
         		//popYrGpcSelect.init(fn_setGridItem01);
         		SBUxMethod.openModal('modal-gpcList');
         	}
@@ -1573,11 +1573,6 @@
 			//selGridRow : 선택된 행 값		selGridCol : 선택된 열 값
 			//getColRef(ref) ref의 인덱스 값 가져오기
 			let selRef = grdPrdcrOgnCurntMng01.getRefOfCol(selGridCol01);
-
-			//let colRefIdx1 = grdPrdcrOgnCurntMng01.getColRef("ctgryCd");//분류코드 인덱스
-			//let colRefIdx2 = grdPrdcrOgnCurntMng01.getColRef("ctgryNm");//분류명 인덱스
-			//let colRefIdx3 = grdPrdcrOgnCurntMng01.getColRef("itemCd");//품목코드 인덱스
-			//let colRefIdx4 = grdPrdcrOgnCurntMng01.getColRef("itemNm");//품목명 인덱스
 
 			let gridData = grdPrdcrOgnCurntMng01.getGridDataAll();
 			for(var i=1; i<=gridData.length; i++ ){
@@ -1640,7 +1635,7 @@
         		//팝업창 오픈
         		//통합조직 팝업창 id : modal-gpcList
         		let brno = SBUxMethod.get('dtl-input-brno');
-        		popGpcSelect.init(brno , fn_setGridItem02);
+        		popGpcSelect.init(fn_setGridItem02);
         		//popYrGpcSelect.init(fn_setGridItem02);
         		SBUxMethod.openModal('modal-gpcList');
         	}
