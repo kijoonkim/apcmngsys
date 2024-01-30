@@ -345,19 +345,19 @@
 		</div>
 	</section>
     <!-- 품목 팝업 -->
-	<div>
+    <div>
         <sbux-modal
-        	id="modal-yrGpcList"
-        	name="modal-yrGpcList"
+        	id="modal-gpcList"
+        	name="modal-gpcList"
         	uitype="middle"
         	header-title="품목 선택"
-        	body-html-id="body-modal-yrGpcList"
+        	body-html-id="body-modal-gpcList"
         	footer-is-close-button="false"
-        	style="width:500px"
+        	style="width:800px"
        	></sbux-modal>
     </div>
-    <div id="body-modal-yrGpcList">
-    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/ItemYrGpcPopup.jsp"></jsp:include>
+    <div id="body-modal-gpcList">
+    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/gpcSelectPopup.jsp"></jsp:include>
     </div>
 </body>
 <script type="text/javascript">
@@ -468,7 +468,7 @@
 	function fn_excelDwnld() {
 		grdPrdcrOgnCurntMng.exportLocalExcel("출자출하조직관리(조직 리스트)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
-	
+
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid = async function() {
 
@@ -751,10 +751,10 @@
 				,calc: 'fn_slsCprtnTotAmt'
 			,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
-			{caption: ["출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)"]
-				,ref: 'spmtRtVlm',   	type:'output',  width:'90px',    style:'text-align:center'
-				,calc: 'fn_spmtRtVlm'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			//{caption: ["출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)"]
+				//,ref: 'spmtRtVlm',   	type:'output',  width:'90px',    style:'text-align:center'
+				//,calc: 'fn_spmtRtVlm'
+				//,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)"]
 				,ref: 'spmtRtAmt',   	type:'output',  width:'100px',    style:'text-align:center'
 				,calc: 'fn_spmtRtAmt'
@@ -1542,9 +1542,9 @@
         		//팝업창 오픈
         		//통합조직 팝업창 id : modal-gpcList
         		let brno = SBUxMethod.get('dtl-input-brno');
-        		popYrGpcSelect.init(brno , fn_setGridItem01);
+        		popGpcSelect.init(brno , fn_setGridItem01);
         		//popYrGpcSelect.init(fn_setGridItem01);
-        		SBUxMethod.openModal('modal-yrGpcList');
+        		SBUxMethod.openModal('modal-gpcList');
         	}
         }
     }
@@ -1626,9 +1626,9 @@
         		//팝업창 오픈
         		//통합조직 팝업창 id : modal-gpcList
         		let brno = SBUxMethod.get('dtl-input-brno');
-        		popYrGpcSelect.init(brno , fn_setGridItem02);
+        		popGpcSelect.init(brno , fn_setGridItem02);
         		//popYrGpcSelect.init(fn_setGridItem02);
-        		SBUxMethod.openModal('modal-yrGpcList');
+        		SBUxMethod.openModal('modal-gpcList');
         	}
         }
     }

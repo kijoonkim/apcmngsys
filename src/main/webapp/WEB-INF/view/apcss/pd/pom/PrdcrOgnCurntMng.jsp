@@ -603,7 +603,7 @@
 	var jsonPrdcrOgnCurntMng01 = []; // 그리드의 참조 데이터 주소 선언
 	var grdPrdcrOgnCurntMng01;
 
-	
+
 	const objMenuList01 = {
 	        "excelDwnld": {
 	            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
@@ -662,17 +662,21 @@
 			{caption: ["적합여부"], 		ref: 'stbltYn',   	type:'output',  width:'50px',    style:'text-align:center'},
 			{caption: ["조직원수"], 					ref: 'cnt',   	type:'output',  width:'70px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["생산량(결과)(톤)"], 	ref: 'prdctnVlmTot',   	type:'output',  width:'140px',    style:'text-align:center'
+			{caption: ["생산량\n(결과)(톤)[A]"], 	ref: 'prdctnVlmTot',   	type:'output',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["전속(약정)\n출하계약량(톤)"], 	ref: 'ecSpmtPlanVlmTot',   	type:'output',  width:'140px',    style:'text-align:center'
+			{caption: ["전속(약정)\n출하계약량(톤)[B]"], 	ref: 'ecSpmtPlanVlmTot',   	type:'output',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["전속(약정)\n출하량(결과)(톤)"], 	ref: 'ecSpmtVlmTot',   	type:'output',  width:'140px',    style:'text-align:center'
+			{caption: ["전속(약정)출하량\n(결과)(톤)[C]"], 	ref: 'ecSpmtVlmTot',   	type:'output',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출하대금\n지급액(천원)"], 		ref: 'spmtPrcTot',   	type:'output',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["출하비율(%)"], 					ref: 'ecSpmtRate',   	type:'output',  width:'85px',    style:'text-align:center'
-				,typeinfo : {mask : {alias: 'decimal', digits : 2, unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
+			//{caption: ["출하비율A(%)\n[C/A]"], 					ref: 'ecSpmtRate',   	type:'output',  width:'85px',    style:'text-align:center'
+				//,typeinfo : {mask : {alias: 'decimal', digits : 2, unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
 				//,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			{caption: ["출하비율A(%)\n[C/A]"] ,format: {type: 'string', rule: '@" %"'}
+				, ref: 'ecSpmtRateA',   	type:'output',  width:'100px',    style:'text-align:center;'},
+			{caption: ["출하비율B(%)\n[C/B]"] ,format: {type: 'string', rule: '@" %"'}
+				, ref: 'ecSpmtRateB',   	type:'output',  width:'100px',    style:'text-align:center;'},
 
 	        {caption: ["비고"], 			ref: 'rmrk',   		type:'input',  width:'220px',    style:'text-align:center'},
 	        {caption: ["상세내역"], 	ref: 'yr',   	hidden : true},
@@ -697,7 +701,7 @@
 	var jsonPrdcrOgnCurntMng02 = []; // 그리드의 참조 데이터 주소 선언
 	var grdPrdcrOgnCurntMng02;
 
-	
+
 	const objMenuList02 = {
 	        "excelDwnld": {
 	            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
@@ -1491,7 +1495,8 @@
 						,ecSpmtVlmTot: 		item.ecSpmtVlmTot
 						,ecSpmtPlanVlmTot: 	item.ecSpmtPlanVlmTot
 						,spmtPrcTot: 		item.spmtPrcTot
-						,ecSpmtRate: 		item.ecSpmtRate
+						,ecSpmtRateA: 		item.ecSpmtRateA
+						,ecSpmtRateB: 		item.ecSpmtRateB
 						,stbltYn: 			item.stbltYn//적합여부
 
 						,prdcrOgnzSn: 	item.prdcrOgnzSn
