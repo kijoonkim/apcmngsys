@@ -321,7 +321,7 @@
 			      , SUM(S3) AS S3
 			      , SUM(S4) AS S4
 			      , SUM(S5) AS S5
-			FROM  ( SELECT '1통합조직운영 APC'                   AS S0
+			FROM  ( SELECT '통합조직운영 APC'                   AS S0
 			              , CASE WHEN TYPE_CD = '1'   THEN 1 END AS S1
 			              , CASE WHEN TYPE_CD = '2'   THEN 1 END AS S2
 			              , CASE WHEN MB IS NOT NULL  THEN 1 END AS S3
@@ -338,7 +338,7 @@
 			        AND     OGNZ_TYPE_CD NOT IN ('5')
 			        AND     CTPV_CD IS NOT NULL
 			        UNION ALL
-			        SELECT '2개별조직운영 APC'                   AS S0
+			        SELECT '개별조직운영 APC'                   AS S0
 			              , CASE WHEN TYPE_CD = '1'   THEN 1 END AS S1
 			              , CASE WHEN TYPE_CD = '2'   THEN 1 END AS S2
 			              , CASE WHEN MB IS NOT NULL  THEN 1 END AS S3
@@ -377,7 +377,7 @@
 			      , ROUND(SUM(S2) / SUM(A2),0)  AS V4
 			      , ROUND(SUM(S3),0)            AS V5
 			      , ROUND(SUM(S3) / SUM(A3),0)  AS V6
-			FROM  ( SELECT '1통합조직운영 APC'                                                 AS S0
+			FROM  ( SELECT '통합조직운영 APC'                                                 AS S0
 			              , CASE WHEN A.MB IS NOT NULL  THEN
 			                     NVL(B.CSP_TOT_AREA,0) + NVL(B.STRG_PLC_PRC_PLC_AREA,0) + NVL(B.STRG_PLC_LWTP_STRG_AREA,0) + NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) +
 			                     NVL(B.STRG_PLC_CURN_AREA,0) + NVL(B.STRG_PLC_GNRL_STRG_AREA,0) + NVL(B.STRG_PLC_ETC_AREA,0) END AS S1
@@ -403,7 +403,7 @@
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
 			        AND     A.APC_CD = B.APC_CD
 			        UNION ALL
-			        SELECT '2개별조직운영 APC' AS S0
+			        SELECT '개별조직운영 APC' AS S0
 			              , CASE WHEN A.MB IS NOT NULL  THEN
 			                     NVL(B.CSP_TOT_AREA,0) + NVL(B.STRG_PLC_PRC_PLC_AREA,0) + NVL(B.STRG_PLC_LWTP_STRG_AREA,0) + NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) +
 			                     NVL(B.STRG_PLC_CURN_AREA,0) + NVL(B.STRG_PLC_GNRL_STRG_AREA,0) + NVL(B.STRG_PLC_ETC_AREA,0) END AS S1
@@ -451,7 +451,7 @@
 			      , ROUND(SUM(S2) / SUM(A2),0)  AS V4
 			      , ROUND(SUM(S3),0)            AS V5
 			      , ROUND(SUM(S3) / SUM(A3),0)  AS V6
-			FROM  ( SELECT '1통합조직운영 APC' AS S0
+			FROM  ( SELECT '통합조직운영 APC' AS S0
 			              , CASE WHEN A.MB IS NOT NULL THEN NVL(B.CSP_TOT_AREA,0) END AS S1
 			              , CASE WHEN A.MB IS NOT NULL THEN 1 END AS A1
 			              , CASE WHEN A.MB IS NULL     THEN NVL(B.CSP_TOT_AREA,0) END AS S2
@@ -472,7 +472,7 @@
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
 			        AND     A.APC_CD    =  B.APC_CD
 			        UNION ALL
-			        SELECT '2개별조직운영 APC' AS S0
+			        SELECT '개별조직운영 APC' AS S0
 			              , CASE WHEN A.MB IS NOT NULL THEN NVL(B.CSP_TOT_AREA,0) END AS S1
 			              , CASE WHEN A.MB IS NOT NULL THEN 1 END AS A1
 			              , CASE WHEN A.MB IS NULL     THEN NVL(B.CSP_TOT_AREA,0) END AS S2
@@ -513,7 +513,7 @@
 			      , SUM(S2)                     AS V2
 			      , ROUND(SUM(S3),0)            AS V3
 			      , ROUND(SUM(S3) / SUM(S2),0)  AS V4
-			FROM  ( SELECT '1통합조직운영 APC'                                                  AS S0
+			FROM  ( SELECT '통합조직운영 APC'                                                  AS S0
 			              , 1                                                                   AS S1
 			              , CASE WHEN NVL(B.STRG_PLC_LWTP_STRG_AREA,0) > 0 THEN 1 END           AS S2
 			              , CASE WHEN A.MB IS NULL THEN NVL(B.STRG_PLC_LWTP_STRG_AREA,0) END    AS S3
@@ -531,7 +531,7 @@
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
 			        AND     A.APC_CD    =  B.APC_CD
 			        UNION ALL
-			        SELECT '2개별조직운영 APC'                                          AS S0
+			        SELECT '개별조직운영 APC'                                          AS S0
 			              , 1                                                                   AS S1
 			              , CASE WHEN NVL(B.STRG_PLC_LWTP_STRG_AREA,0) > 0 THEN 1 END           AS S2
 			              , CASE WHEN A.MB IS NULL THEN NVL(B.STRG_PLC_LWTP_STRG_AREA,0) END    AS S3
@@ -568,7 +568,7 @@
 			      , SUM(S2)                     AS V2
 			      , ROUND(SUM(S3),0)            AS V3
 			      , ROUND(SUM(S3) / SUM(S2),0)  AS V4
-			FROM  ( SELECT '1통합조직운영 APC'                                              AS S0
+			FROM  ( SELECT '통합조직운영 APC'                                              AS S0
 			              , 1                                                               AS S1
 			              , CASE WHEN NVL(B.STRG_PLC_PRC_PLC_AREA,0) > 0 THEN 1 END         AS S2
 			              , CASE WHEN A.MB IS NULL THEN NVL(B.STRG_PLC_PRC_PLC_AREA,0) END  AS S3
@@ -586,7 +586,7 @@
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
 			        AND     A.APC_CD    =  B.APC_CD
 			        UNION ALL
-			        SELECT '2개별조직운영 APC'                                          AS S0
+			        SELECT '개별조직운영 APC'                                          AS S0
 			              , 1                                                               AS S1
 			              , CASE WHEN NVL(B.STRG_PLC_PRC_PLC_AREA,0) > 0 THEN 1 END         AS S2
 			              , CASE WHEN A.MB IS NULL THEN NVL(B.STRG_PLC_PRC_PLC_AREA,0) END  AS S3
@@ -624,7 +624,7 @@
 			      , SUM(S2)                     AS V2
 			      , ROUND(SUM(S3),0)            AS V3
 			      , ROUND(SUM(S3) / SUM(S2),0)  AS V4
-			FROM  ( SELECT '1통합조직운영 APC'                                                  AS S0
+			FROM  ( SELECT '통합조직운영 APC'                                                  AS S0
 			              , 1                                                                   AS S1
 			              , CASE WHEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) > 0 THEN 1 END         AS S2
 			              , CASE WHEN A.MB IS NULL THEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) END  AS S3
@@ -642,7 +642,7 @@
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
 			        AND     A.APC_CD =  B.APC_CD
 			        UNION ALL
-			        SELECT '2개별조직운영 APC'                                          AS S0
+			        SELECT '개별조직운영 APC'                                          AS S0
 			              , 1                                                                   AS S1
 			              , CASE WHEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) > 0 THEN 1 END         AS S2
 			              , CASE WHEN A.MB IS NULL THEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) END  AS S3
@@ -680,7 +680,7 @@
 			      , SUM(S3)                     AS V3
 			      , SUM(S4)                     AS V4
 			      , SUM(S5)                     AS V5
-			FROM  ( SELECT '1통합조직운영 APC'                                          AS S0
+			FROM  ( SELECT '통합조직운영 APC'                                          AS S0
 			              , 1                                                           AS S1
 			              , CASE WHEN B.SORT_MCHN_SPCFCT IS NOT NULL THEN 1 END         AS S2
 			              , CASE WHEN B.SORT_BRCK_MCHN   = 'Y'       THEN 1 END         AS S3
@@ -706,7 +706,7 @@
 			        AND     A.APC_CD =  B.APC_CD(+)
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
 			        UNION ALL
-			        SELECT '2개별조직운영 APC'                                          AS S0
+			        SELECT '개별조직운영 APC'                                          AS S0
 			              , 1                                                           AS S1
 			              , CASE WHEN B.SORT_MCHN_SPCFCT IS NOT NULL THEN 1 END         AS S2
 			              , CASE WHEN B.SORT_BRCK_MCHN   = 'Y'       THEN 1 END         AS S3
@@ -750,7 +750,7 @@
 			      , ROUND(SUM(S2)/1000000,0)                    AS V2
 			      , ROUND((SUM(S2)/SUM(S1))/1000000,0)          AS V3
 
-			FROM  ( SELECT '1통합조직운영 APC'                  AS S0
+			FROM  ( SELECT '통합조직운영 APC'                  AS S0
 			              , 1                                   AS S1
 			              , B.NE + B.LCLT_EXPND + B.SLF_BRDN    AS S2
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A
@@ -771,7 +771,7 @@
 			        AND     A.APC_CD =  B.APC_CD(+)
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
 			        UNION ALL
-			        SELECT '2개별조직운영 APC'                  AS S0
+			        SELECT '개별조직운영 APC'                  AS S0
 			              , 1                                   AS S1
 			              , B.NE + B.LCLT_EXPND + B.SLF_BRDN    AS S2
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A
@@ -812,7 +812,7 @@
 			      , ROUND(SUM(S3)/1000000,0)            AS V3
 			      , ROUND(SUM(S4)/1000000,0)            AS V4
 
-			FROM  ( SELECT '1통합조직운영 APC'                  AS S0
+			FROM  ( SELECT '통합조직운영 APC'                  AS S0
 			              , B.NE                                AS S1
 			              , B.LCLT_EXPND                        AS S2
 			              , B.SLF_BRDN                          AS S3
@@ -835,7 +835,7 @@
 			        AND     A.APC_CD =  B.APC_CD(+)
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
 			        UNION ALL
-			        SELECT '2개별조직운영 APC'                  AS S0
+			        SELECT '개별조직운영 APC'                  AS S0
 			              , B.NE                                AS S1
 			              , B.LCLT_EXPND                        AS S2
 			              , B.SLF_BRDN                          AS S3
@@ -880,7 +880,7 @@
 			      , ROUND(SUM(S4)/1000000,0)            AS V5
 			      , ROUND((SUM(S4)/SUM(S3))/1000000,0)  AS V6
 
-			FROM  ( SELECT '1통합조직운영 APC'                        AS S0
+			FROM  ( SELECT '통합조직운영 APC'                        AS S0
 			              , CASE WHEN A.TYPE_CD = '1' THEN 1 END      AS S1
 			              , CASE WHEN A.TYPE_CD = '1' THEN B.AMT END  AS S2
 			              , CASE WHEN A.TYPE_CD = '2' THEN 1 END      AS S3
@@ -901,7 +901,7 @@
 			        AND     A.APC_CD =  B.APC_CD(+)
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
 			        UNION ALL
-			        SELECT '2개별조직운영 APC'                  AS S0
+			        SELECT '개별조직운영 APC'                  AS S0
 			              , CASE WHEN A.TYPE_CD = '1' THEN 1 END      AS S1
 			              , CASE WHEN A.TYPE_CD = '1' THEN B.AMT END  AS S2
 			              , CASE WHEN A.TYPE_CD = '2' THEN 1 END      AS S3
@@ -944,7 +944,7 @@
 			      , ROUND(SUM(S4)/1000000,0)            AS V5
 			      , ROUND((SUM(S4)/SUM(S3))/1000000,0)  AS V6
 
-			FROM  ( SELECT '1통합조직운영 APC'                          AS S0
+			FROM  ( SELECT '통합조직운영 APC'                          AS S0
 			              , CASE WHEN A.MB IS NOT NULL THEN 1 END       AS S1
 			              , CASE WHEN A.MB IS NOT NULL THEN B.AMT END   AS S2
 			              , CASE WHEN A.MB IS NULL THEN 1 END           AS S3
@@ -965,7 +965,7 @@
 			        AND     A.APC_CD =  B.APC_CD(+)
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
 			        UNION ALL
-			        SELECT '2개별조직운영 APC'                  AS S0
+			        SELECT '개별조직운영 APC'                  AS S0
 			              , CASE WHEN A.MB IS NOT NULL THEN 1 END       AS S1
 			              , CASE WHEN A.MB IS NOT NULL THEN B.AMT END   AS S2
 			              , CASE WHEN A.MB IS NULL THEN 1 END           AS S3
@@ -1587,7 +1587,7 @@
 			      , SUM(S3) AS S3
 			      , SUM(S4) AS S4
 			      , SUM(S5) AS S5
-			FROM  ( SELECT '1통합조직운영 APC'                   AS S0
+			FROM  ( SELECT '통합조직운영 APC'                   AS S0
 			              , CASE WHEN TYPE_CD = '1'   THEN 1 END AS S1
 			              , CASE WHEN TYPE_CD = '2'   THEN 1 END AS S2
 			              , CASE WHEN MB IS NOT NULL  THEN 1 END AS S3
@@ -1605,7 +1605,7 @@
 			        AND     OGNZ_TYPE_CD NOT IN ('5')
 			        AND     CTPV_CD IS NOT NULL
 			        UNION ALL
-			        SELECT '2개별조직운영 APC'                   AS S0
+			        SELECT '개별조직운영 APC'                   AS S0
 			              , CASE WHEN TYPE_CD = '1'   THEN 1 END AS S1
 			              , CASE WHEN TYPE_CD = '2'   THEN 1 END AS S2
 			              , CASE WHEN MB IS NOT NULL  THEN 1 END AS S3
@@ -1644,7 +1644,7 @@
 			      , ROUND(SUM(S2) / SUM(A2),0)  AS V4
 			      , ROUND(SUM(S3),0)            AS V5
 			      , ROUND(SUM(S3) / SUM(A3),0)  AS V6
-			FROM  ( SELECT '1통합조직운영 APC'                                                 AS S0
+			FROM  ( SELECT '통합조직운영 APC'                                                 AS S0
 			              , CASE WHEN A.MB IS NOT NULL  THEN
 			                     NVL(B.CSP_TOT_AREA,0) + NVL(B.STRG_PLC_PRC_PLC_AREA,0) + NVL(B.STRG_PLC_LWTP_STRG_AREA,0) + NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) +
 			                     NVL(B.STRG_PLC_CURN_AREA,0) + NVL(B.STRG_PLC_GNRL_STRG_AREA,0) + NVL(B.STRG_PLC_ETC_AREA,0) END AS S1
@@ -1671,7 +1671,7 @@
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
 			        AND     A.APC_CD = B.APC_CD
 			        UNION ALL
-			        SELECT '2개별조직운영 APC' AS S0
+			        SELECT '개별조직운영 APC' AS S0
 			              , CASE WHEN A.MB IS NOT NULL  THEN
 			                     NVL(B.CSP_TOT_AREA,0) + NVL(B.STRG_PLC_PRC_PLC_AREA,0) + NVL(B.STRG_PLC_LWTP_STRG_AREA,0) + NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) +
 			                     NVL(B.STRG_PLC_CURN_AREA,0) + NVL(B.STRG_PLC_GNRL_STRG_AREA,0) + NVL(B.STRG_PLC_ETC_AREA,0) END AS S1
@@ -1719,7 +1719,7 @@
 			      , ROUND(SUM(S2) / SUM(A2),0)  AS V4
 			      , ROUND(SUM(S3),0)            AS V5
 			      , ROUND(SUM(S3) / SUM(A3),0)  AS V6
-			FROM  ( SELECT '1통합조직운영 APC' AS S0
+			FROM  ( SELECT '통합조직운영 APC' AS S0
 			              , CASE WHEN A.MB IS NOT NULL THEN NVL(B.CSP_TOT_AREA,0) END AS S1
 			              , CASE WHEN A.MB IS NOT NULL THEN 1 END AS A1
 			              , CASE WHEN A.MB IS NULL     THEN NVL(B.CSP_TOT_AREA,0) END AS S2
@@ -1741,7 +1741,7 @@
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
 			        AND     A.APC_CD =  B.APC_CD
 			        UNION ALL
-			        SELECT '2개별조직운영 APC' AS S0
+			        SELECT '개별조직운영 APC' AS S0
 			              , CASE WHEN A.MB IS NOT NULL THEN NVL(B.CSP_TOT_AREA,0) END AS S1
 			              , CASE WHEN A.MB IS NOT NULL THEN 1 END AS A1
 			              , CASE WHEN A.MB IS NULL     THEN NVL(B.CSP_TOT_AREA,0) END AS S2
@@ -1782,7 +1782,7 @@
 			      , SUM(S2)                     AS V2
 			      , ROUND(SUM(S3),0)            AS V3
 			      , ROUND(SUM(S3) / SUM(S2),0)  AS V4
-			FROM  ( SELECT '1통합조직운영 APC'                                                  AS S0
+			FROM  ( SELECT '통합조직운영 APC'                                                  AS S0
 			              , 1                                                                   AS S1
 			              , CASE WHEN NVL(B.STRG_PLC_LWTP_STRG_AREA,0) > 0 THEN 1 END           AS S2
 			              , CASE WHEN A.MB IS NULL THEN NVL(B.STRG_PLC_LWTP_STRG_AREA,0) END    AS S3
@@ -1800,7 +1800,7 @@
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
 			        AND     A.APC_CD    =  B.APC_CD
 			        UNION ALL
-			        SELECT '2개별조직운영 APC'                                          AS S0
+			        SELECT '개별조직운영 APC'                                          AS S0
 			              , 1                                                                   AS S1
 			              , CASE WHEN NVL(B.STRG_PLC_LWTP_STRG_AREA,0) > 0 THEN 1 END           AS S2
 			              , CASE WHEN A.MB IS NULL THEN NVL(B.STRG_PLC_LWTP_STRG_AREA,0) END    AS S3
@@ -1838,7 +1838,7 @@
 			      , SUM(S2)                     AS V2   -- 예냉시설 개소수
 			      , ROUND(SUM(S3),0)            AS V3   -- 예냉시설 면적
 			      , ROUND(SUM(S3) / SUM(S2),0)  AS V4   -- 예냉시설 평균면적
-			FROM  ( SELECT '1통합조직운영 APC'                                              AS S0
+			FROM  ( SELECT '통합조직운영 APC'                                              AS S0
 			              , 1                                                               AS S1
 			              , CASE WHEN NVL(B.STRG_PLC_PRC_PLC_AREA,0) > 0 THEN 1 END         AS S2
 			              , CASE WHEN A.MB IS NULL THEN NVL(B.STRG_PLC_PRC_PLC_AREA,0) END  AS S3
@@ -1857,7 +1857,7 @@
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
 			        AND     A.APC_CD =  B.APC_CD
 			        UNION ALL
-			        SELECT '2개별조직운영 APC'                                          AS S0
+			        SELECT '개별조직운영 APC'                                          AS S0
 			              , 1                                                               AS S1
 			              , CASE WHEN NVL(B.STRG_PLC_PRC_PLC_AREA,0) > 0 THEN 1 END         AS S2
 			              , CASE WHEN A.MB IS NULL THEN NVL(B.STRG_PLC_PRC_PLC_AREA,0) END  AS S3
@@ -1895,7 +1895,7 @@
 			      , SUM(S2)                     AS V2
 			      , ROUND(SUM(S3),0)            AS V3
 			      , ROUND(SUM(S3) / SUM(S2),0)  AS V4
-			FROM  ( SELECT '1통합조직운영 APC'                                                  AS S0
+			FROM  ( SELECT '통합조직운영 APC'                                                  AS S0
 			              , 1                                                                   AS S1
 			              , CASE WHEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) > 0 THEN 1 END         AS S2
 			              , CASE WHEN A.MB IS NULL THEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) END  AS S3
@@ -1914,7 +1914,7 @@
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
 			        AND     A.APC_CD =  B.APC_CD
 			        UNION ALL
-			        SELECT '2개별조직운영 APC'                                          AS S0
+			        SELECT '개별조직운영 APC'                                          AS S0
 			              , 1                                                                   AS S1
 			              , CASE WHEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) > 0 THEN 1 END         AS S2
 			              , CASE WHEN A.MB IS NULL THEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) END  AS S3
@@ -1953,7 +1953,7 @@
 			      , SUM(S3)                     AS V3
 			      , SUM(S4)                     AS V4
 			      , SUM(S5)                     AS V5
-			FROM  ( SELECT '1통합조직운영 APC'                                          AS S0
+			FROM  ( SELECT '통합조직운영 APC'                                          AS S0
 			              , 1                                                           AS S1
 			              , CASE WHEN B.SORT_MCHN_SPCFCT IS NOT NULL THEN 1 END         AS S2
 			              , CASE WHEN B.SORT_BRCK_MCHN IS NOT NULL THEN 1 END           AS S3
@@ -1980,7 +1980,7 @@
 			        AND     A.APC_CD =  B.APC_CD(+)
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
 			        UNION ALL
-			        SELECT '2개별조직운영 APC'                                          AS S0
+			        SELECT '개별조직운영 APC'                                          AS S0
 			              , 1                                                           AS S1
 			              , CASE WHEN B.SORT_MCHN_SPCFCT IS NOT NULL THEN 1 END         AS S2
 			              , CASE WHEN B.SORT_BRCK_MCHN IS NOT NULL THEN 1 END           AS S3
@@ -2025,7 +2025,7 @@
 			      , ROUND(SUM(S2)/1000000,0)                    AS V2
 			      , ROUND((SUM(S2)/SUM(S1))/1000000,0)          AS V3
 
-			FROM  ( SELECT '1통합조직운영 APC'                  AS S0
+			FROM  ( SELECT '통합조직운영 APC'                  AS S0
 			              , 1                                   AS S1
 			              , B.NE + B.LCLT_EXPND + B.SLF_BRDN    AS S2
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A
@@ -2047,7 +2047,7 @@
 			        AND     A.APC_CD =  B.APC_CD(+)
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
 			        UNION ALL
-			        SELECT '2개별조직운영 APC'                  AS S0
+			        SELECT '개별조직운영 APC'                  AS S0
 			              , 1                                   AS S1
 			              , B.NE + B.LCLT_EXPND + B.SLF_BRDN    AS S2
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A
@@ -2089,7 +2089,7 @@
 			      , ROUND(SUM(S3)/1000000,0)            AS V3
 			      , ROUND(SUM(S4)/1000000,0)            AS V4
 
-			FROM  ( SELECT '1통합조직운영 APC'                  AS S0
+			FROM  ( SELECT '통합조직운영 APC'                  AS S0
 			              , B.NE                                AS S1
 			              , B.LCLT_EXPND                        AS S2
 			              , B.SLF_BRDN                          AS S3
@@ -2113,7 +2113,7 @@
 			        AND     A.APC_CD =  B.APC_CD(+)
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
 			        UNION ALL
-			        SELECT '2개별조직운영 APC'                  AS S0
+			        SELECT '개별조직운영 APC'                  AS S0
 			              , B.NE                                AS S1
 			              , B.LCLT_EXPND                        AS S2
 			              , B.SLF_BRDN                          AS S3
@@ -2159,7 +2159,7 @@
 			      , ROUND(SUM(S4)/1000000,0)            AS V5
 			      , ROUND((SUM(S4)/SUM(S3))/1000000,0)  AS V6
 
-			FROM  ( SELECT '1통합조직운영 APC'                        AS S0
+			FROM  ( SELECT '통합조직운영 APC'                        AS S0
 			              , CASE WHEN A.TYPE_CD = '1' THEN 1 END      AS S1
 			              , CASE WHEN A.TYPE_CD = '1' THEN B.AMT END  AS S2
 			              , CASE WHEN A.TYPE_CD = '2' THEN 1 END      AS S3
@@ -2181,7 +2181,7 @@
 			        AND     A.APC_CD =  B.APC_CD(+)
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
 			        UNION ALL
-			        SELECT '2개별조직운영 APC'                  AS S0
+			        SELECT '개별조직운영 APC'                  AS S0
 			              , CASE WHEN A.TYPE_CD = '1' THEN 1 END      AS S1
 			              , CASE WHEN A.TYPE_CD = '1' THEN B.AMT END  AS S2
 			              , CASE WHEN A.TYPE_CD = '2' THEN 1 END      AS S3
@@ -2225,7 +2225,7 @@
 			      , ROUND(SUM(S4)/1000000,0)            AS V5
 			      , ROUND((SUM(S4)/SUM(S3))/1000000,0)  AS V6
 
-			FROM  ( SELECT '1통합조직운영 APC'                          AS S0
+			FROM  ( SELECT '통합조직운영 APC'                          AS S0
 			              , CASE WHEN A.MB IS NOT NULL THEN 1 END       AS S1
 			              , CASE WHEN A.MB IS NOT NULL THEN B.AMT END   AS S2
 			              , CASE WHEN A.MB IS NULL THEN 1 END           AS S3
@@ -2247,7 +2247,7 @@
 			        AND     A.APC_CD =  B.APC_CD(+)
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
 			        UNION ALL
-			        SELECT '2개별조직운영 APC'                  AS S0
+			        SELECT '개별조직운영 APC'                  AS S0
 			              , CASE WHEN A.MB IS NOT NULL THEN 1 END       AS S1
 			              , CASE WHEN A.MB IS NOT NULL THEN B.AMT END   AS S2
 			              , CASE WHEN A.MB IS NULL THEN 1 END           AS S3

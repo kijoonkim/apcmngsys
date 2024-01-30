@@ -34,7 +34,7 @@
 					</ul>
 				</div>
 				<div id="sb-area-grdMdRtlOgnz" style="height:258px;"></div>
-				<span style="font-size:11px;">*출자출하조직 또는 참영조직 중 전년도 선정에서 탈락한 조직 포함</span>
+				<span style="font-size:11px;">*출자출하조직 또는 참여조직 중 전년도 선정에서 탈락한 조직 포함</span>
 
 				<div style="height: 50px"></div>
 
