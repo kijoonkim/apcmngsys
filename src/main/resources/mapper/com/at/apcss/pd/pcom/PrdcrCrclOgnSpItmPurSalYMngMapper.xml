@@ -66,9 +66,11 @@ FROM
 	) ITEM ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-		WHERE BRNO = #{brno}
-		AND YR =#{yr}
-		AND TYPE_SE_NO = '1'
+		WHERE 1=1
+		  AND TYPE_SE_NO = '1'
+		  AND APO_SE = '1'
+		  AND BRNO = #{brno}
+		  AND YR =#{yr}
 	) TOT
 WHERE 1=1
   AND ISO.ISO_BRNO = TOT.ISO_BRNO(+)
@@ -108,9 +110,11 @@ FROM
 	) ITEM ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-		WHERE BRNO = #{brno}
-		AND YR =#{yr}
-		AND TYPE_SE_NO = '2'
+		WHERE 1=1
+		  AND TYPE_SE_NO = '2'
+		  AND APO_SE = '1'
+		  AND BRNO = #{brno}
+		  AND YR =#{yr}
 	) TOT
 WHERE 1=1
 	AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
@@ -150,9 +154,11 @@ FROM
 	) ITEM ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-		WHERE BRNO = #{brno}
-		AND YR =#{yr}
-		AND TYPE_SE_NO = '3'
+		WHERE 1=1
+		  AND TYPE_SE_NO = '3'
+		  AND APO_SE = '1'
+		  AND BRNO = #{brno}
+		  AND YR =#{yr}
 	) TOT
 WHERE 1=1
 	AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
@@ -192,9 +198,11 @@ FROM
 	) ITEM ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-		WHERE BRNO = #{brno}
-		AND YR =#{yr}
-		AND TYPE_SE_NO = '4'
+		WHERE 1=1
+		  AND TYPE_SE_NO = '4'
+		  AND APO_SE = '1'
+		  AND BRNO = #{brno}
+		  AND YR =#{yr}
 	) TOT
 WHERE 1=1
 	AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
@@ -247,9 +255,20 @@ FROM
 	) ITEM ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-		WHERE BRNO = #{brno}
-		AND YR =#{yr}
-		AND TYPE_SE_NO = '5'
+		WHERE 1=1
+		  AND BRNO = #{brno}
+		  AND YR =#{yr}
+
+		  AND TYPE_SE_NO = '5'
+		  AND APO_SE = '1'
+		  AND PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
+	  							FROM TB_EV_FRMHS_APO
+	  							WHERE 1=1
+	  							  AND STBLT_YN = 'Y'
+	  							  AND APO_SE = '1'
+								  AND BRNO = #{brno}
+								  AND YR = #{yr}
+								)
 	) TOT
 WHERE 1=1
  AND UOFA.BRNO = TOT.ISO_BRNO(+)
@@ -290,9 +309,11 @@ FROM
 	) ITEM ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-		WHERE BRNO = #{brno}
-		AND YR =#{yr}
-		AND TYPE_SE_NO = '6'
+		WHERE 1=1
+		  AND TYPE_SE_NO = '6'
+		  AND APO_SE = '1'
+		  AND BRNO = #{brno}
+		  AND YR =#{yr}
 	) TOT
 WHERE 1=1
 	AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
@@ -332,9 +353,11 @@ FROM
 	) ITEM ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-		WHERE BRNO = #{brno}
-		AND YR =#{yr}
-		AND TYPE_SE_NO = '7'
+		WHERE 1=1
+		  AND TYPE_SE_NO = '7'
+		  AND APO_SE = '1'
+		  AND BRNO = #{brno}
+		  AND YR =#{yr}
 	) TOT
 WHERE 1=1
 	AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
@@ -374,9 +397,11 @@ FROM
 	) ITEM ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-		WHERE BRNO = #{brno}
-		AND YR =#{yr}
-		AND TYPE_SE_NO = '8'
+		WHERE 1=1
+		  AND TYPE_SE_NO = '8'
+		  AND APO_SE = '1'
+		  AND BRNO = #{brno}
+		  AND YR =#{yr}
 	) TOT
 WHERE 1=1
 	AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
@@ -425,6 +450,16 @@ FROM
 			, SUM(SLS_CNSGN_PRCHS_AMT) AS SLS_CNSGN_PRCHS_AMT
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 		WHERE 1=1
+		  /*통합조직이 선택된 출자출하조직 값*/
+		  AND APO_SE = '2'
+		  AND PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
+		 						FROM TB_EV_FRMHS_APO
+		 						WHERE 1=1
+		 						  AND STBLT_YN = 'Y'
+		 						  AND APO_SE = '2'
+								  AND UO_BRNO = #{brno}
+								  AND YR = #{yr}
+								)
 
 		  AND UO_BRNO = #{brno}
 		  AND YR = #{yr}
@@ -443,9 +478,11 @@ FROM
 		) ITEM ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-		WHERE BRNO = #{brno}
-		  AND YR = #{yr}
+		WHERE 1=1
+		  AND APO_SE = '1'
 		  AND TYPE_SE_NO = '1'
+		  AND BRNO = #{brno}
+		  AND YR = #{yr}
 	) TOT
 WHERE 1=1
   AND ISO.ITEM_CD = TOT.ITEM_CD(+)
@@ -485,9 +522,11 @@ FROM
 	) ITEM ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-		WHERE BRNO = #{brno}
-		AND YR =#{yr}
-		AND TYPE_SE_NO = '2'
+		WHERE 1=1
+		  AND TYPE_SE_NO = '2'
+		  AND APO_SE = '1'
+		  AND BRNO = #{brno}
+		  AND YR =#{yr}
 	) TOT
 WHERE 1=1
 	AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
@@ -527,9 +566,11 @@ FROM
 	) ITEM ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-		WHERE BRNO = #{brno}
-		AND YR =#{yr}
-		AND TYPE_SE_NO = '3'
+		WHERE 1=1
+		  AND TYPE_SE_NO = '3'
+		  AND APO_SE = '1'
+		  AND BRNO = #{brno}
+		  AND YR =#{yr}
 	) TOT
 WHERE 1=1
 	AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
@@ -569,9 +610,11 @@ FROM
 	) ITEM ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-		WHERE BRNO = #{brno}
-		AND YR =#{yr}
-		AND TYPE_SE_NO = '4'
+		WHERE 1=1
+		  AND TYPE_SE_NO = '4'
+		  AND APO_SE = '1'
+		  AND BRNO = #{brno}
+		  AND YR =#{yr}
 	) TOT
 WHERE 1=1
 	AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
@@ -622,9 +665,20 @@ FROM
 	)  UOFA ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-		WHERE BRNO = #{brno}
-		AND YR =#{yr}
-		AND TYPE_SE_NO = '5'
+		WHERE 1=1
+		  AND BRNO = #{brno}
+		  AND YR =#{yr}
+
+		  AND TYPE_SE_NO = '5'
+		  AND APO_SE ='1'
+		  AND PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
+		 						FROM TB_EV_FRMHS_APO
+		 						WHERE 1=1
+		 						  AND STBLT_YN = 'Y'
+		 						  AND APO_SE = '1'
+								  AND BRNO = #{brno}
+								  AND YR = #{yr}
+								)
 	) TOT
 WHERE 1=1
  AND UOFA.BRNO = TOT.BRNO(+)
@@ -665,9 +719,11 @@ FROM
 	) ITEM ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-		WHERE BRNO = #{brno}
-		AND YR =#{yr}
-		AND TYPE_SE_NO = '6'
+		WHERE 1=1
+		  AND TYPE_SE_NO = '6'
+		  AND APO_SE = '1'
+		  AND BRNO = #{brno}
+		  AND YR =#{yr}
 	) TOT
 WHERE 1=1
 	AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
@@ -707,9 +763,11 @@ FROM
 	) ITEM ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-		WHERE BRNO = #{brno}
-		AND YR =#{yr}
-		AND TYPE_SE_NO = '7'
+		WHERE 1=1
+		  AND TYPE_SE_NO = '7'
+		  AND APO_SE = '1'
+		  AND BRNO = #{brno}
+		  AND YR =#{yr}
 	) TOT
 WHERE 1=1
 	AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
@@ -749,9 +807,11 @@ FROM
 	) ITEM ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-		WHERE BRNO = #{brno}
-		AND YR =#{yr}
-		AND TYPE_SE_NO = '8'
+		WHERE 1=1
+		  AND TYPE_SE_NO = '8'
+		  AND APO_SE = '1'
+		  AND BRNO = #{brno}
+		  AND YR =#{yr}
 	) TOT
 WHERE 1=1
 	AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
@@ -1105,7 +1165,22 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , SE_DTL_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 								WHERE 1=1
 								AND APO_SE = '1'
 								AND TYPE_SE_NO IN ('2','5')
-
+								AND (
+										(PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
+						  		  							FROM TB_EV_FRMHS_APO
+						  		  							WHERE 1=1
+						  		  							  AND STBLT_YN = 'Y'
+						  		  							  AND APO_SE = '1'
+															<if test='brno != null and brno != ""'>
+															  AND BRNO = #{brno}
+															</if>
+															<if test='yr != null and yr != ""'>
+															  AND YR = #{yr}
+															</if>
+						  									)
+						  				)OR
+						  				(PRDCR_OGNZ_SN = '0')
+									)
 								<if test='brno != null and brno != ""'>
 							  	  AND BRNO = #{brno}
 							  	</if>
@@ -1123,7 +1198,22 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , SE_DTL_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 								WHERE 1=1
 								AND APO_SE = '1'
 								AND TYPE_SE_NO IN ('2','3','5','7')
-
+								AND (
+										(PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
+						  		  							FROM TB_EV_FRMHS_APO
+						  		  							WHERE 1=1
+						  		  							  AND STBLT_YN = 'Y'
+						  		  							  AND APO_SE = '1'
+															<if test='brno != null and brno != ""'>
+															  AND BRNO = #{brno}
+															</if>
+															<if test='yr != null and yr != ""'>
+															  AND YR = #{yr}
+															</if>
+						  									)
+						  				)OR
+						  				(PRDCR_OGNZ_SN = '0')
+									)
 							  	<if test='brno != null and brno != ""'>
 							  	  AND BRNO = #{brno}
 							  	</if>

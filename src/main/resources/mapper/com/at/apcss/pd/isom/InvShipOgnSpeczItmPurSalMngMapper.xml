@@ -74,9 +74,21 @@ FROM
 	) ITEM ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-		WHERE BRNO = #{brno}
-		AND YR = #{yr}
-		AND TYPE_SE_NO = '5'
+		WHERE 1=1
+		  AND BRNO = #{brno}
+		  AND YR = #{yr}
+		  AND UO_BRNO = #{uoBrno}
+		  AND APO_SE = '2'
+		  AND TYPE_SE_NO = '5'
+		  AND PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
+			  		  							FROM TB_EV_FRMHS_APO
+			  		  							WHERE 1=1
+			  		  							  AND APO_SE= '2'
+			  		  							  AND STBLT_YN = 'Y'
+												  AND BRNO = #{brno}
+												  AND UO_BRNO = #{uoBrno}
+												  AND YR = #{yr}
+					  						)
 	) TOT
 WHERE 1=1
  AND UOFA.BRNO = TOT.BRNO(+)
@@ -119,9 +131,12 @@ FROM
 	) ITEM ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-		WHERE BRNO = #{brno}
-		AND YR = #{yr}
-		AND TYPE_SE_NO = '6'
+		WHERE 1=1
+		  AND BRNO = #{brno}
+		  AND YR = #{yr}
+		  AND UO_BRNO = #{uoBrno}
+		  AND APO_SE = '2'
+		  AND TYPE_SE_NO = '6'
 	) TOT
 WHERE 1=1
 	AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
@@ -162,9 +177,12 @@ FROM
 	) ITEM ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-		WHERE BRNO = #{brno}
-		AND YR = #{yr}
-		AND TYPE_SE_NO = '7'
+		WHERE 1=1
+		  AND BRNO = #{brno}
+		  AND YR = #{yr}
+		  AND UO_BRNO = #{uoBrno}
+		  AND APO_SE = '2'
+		  AND TYPE_SE_NO = '7'
 	) TOT
 WHERE 1=1
 	AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
@@ -205,9 +223,12 @@ FROM
 	) ITEM ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-		WHERE BRNO = #{brno}
-		AND YR = #{yr}
-		AND TYPE_SE_NO = '8'
+		WHERE 1=1
+		  AND BRNO = #{brno}
+		  AND YR = #{yr}
+		  AND UO_BRNO = #{uoBrno}
+		  AND APO_SE = '2'
+		  AND TYPE_SE_NO = '8'
 	) TOT
 WHERE 1=1
 	AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
@@ -273,10 +294,21 @@ FROM
 	)  UOFA ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-		WHERE BRNO = #{brno}
-		AND YR = #{yr}
-		AND TYPE_SE_NO = '5'
-		AND UO_BRNO = #{uoBrno}
+		WHERE 1=1
+		  AND BRNO = #{brno}
+		  AND YR = #{yr}
+		  AND UO_BRNO = #{uoBrno}
+		  AND TYPE_SE_NO = '5'
+		  AND APO_SE ='2'
+		  AND PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
+			  		  							FROM TB_EV_FRMHS_APO
+			  		  							WHERE 1=1
+			  		  							  AND APO_SE= '2'
+			  		  							  AND STBLT_YN = 'Y'
+												  AND BRNO = #{brno}
+												  AND UO_BRNO = #{uoBrno}
+												  AND YR = #{yr}
+					  						)
 	) TOT
 WHERE 1=1
  AND UOFA.BRNO = TOT.BRNO(+)
@@ -321,10 +353,12 @@ FROM
 	) ITEM ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-		WHERE BRNO = #{brno}
-		AND YR = #{yr}
-		AND TYPE_SE_NO = '6'
-		AND UO_BRNO = #{uoBrno}
+		WHERE 1=1
+		  AND BRNO = #{brno}
+		  AND UO_BRNO = #{uoBrno}
+		  AND YR = #{yr}
+		  AND APO_SE = '2'
+		  AND TYPE_SE_NO = '6'
 	) TOT
 WHERE 1=1
 	AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
@@ -367,10 +401,12 @@ FROM
 	) ITEM ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-		WHERE BRNO = #{brno}
-		AND YR = #{yr}
-		AND TYPE_SE_NO = '7'
-		AND UO_BRNO = #{uoBrno}
+		WHERE 1=1
+		  AND BRNO = #{brno}
+		  AND YR = #{yr}
+		  AND UO_BRNO = #{uoBrno}
+		  AND APO_SE = '2'
+		  AND TYPE_SE_NO = '7'
 	) TOT
 WHERE 1=1
 	AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
@@ -413,10 +449,12 @@ FROM
 	) ITEM ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-		WHERE BRNO = #{brno}
-		AND YR = #{yr}
-		AND TYPE_SE_NO = '8'
-		AND UO_BRNO = #{uoBrno}
+		WHERE 1=1
+		  AND BRNO = #{brno}
+		  AND YR = #{yr}
+		  AND UO_BRNO = #{uoBrno}
+		  AND APO_SE = '2'
+		  AND TYPE_SE_NO = '8'
 	) TOT
 WHERE 1=1
 	AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
@@ -655,7 +693,19 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 								WHERE 1=1
 								AND APO_SE = '2'
 								AND TYPE_SE_NO IN ('5')
-
+								AND PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
+					  		  							FROM TB_EV_FRMHS_APO
+					  		  							WHERE 1=1
+					  		  							<if test='brno != null and brno != ""'>
+														  AND BRNO = #{brno}
+														</if>
+														<if test='uoBrno != null and uoBrno != ""'>
+														  AND UO_BRNO = #{uoBrno}
+														</if>
+														<if test='yr != null and yr != ""'>
+														  AND YR = #{yr}
+														</if>
+					  								)
 								<if test='uoBrno != null and uoBrno != ""'>
 							  	  AND UO_BRNO = #{uoBrno}
 							  	</if>

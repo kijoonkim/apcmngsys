@@ -157,9 +157,20 @@
 									, SUM( NVL( UO_OTHER_SPMT_AMT , 0 ) ) AS UO_OTHER_SPMT_AMT
 								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 								WHERE 1=1
-								AND APO_SE = '2'
-								AND TYPE_SE_NO IN ('5')
-
+								  AND APO_SE = '2'
+								  AND TYPE_SE_NO IN ('5')
+								  AND PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
+					  													FROM TB_EV_FRMHS_APO
+					  													WHERE 1=1
+					  													  AND STBLT_YN = 'Y'
+					  													  AND APO_SE = '2'
+					  													<if test='brno != null and brno != ""'>
+																	  	  AND BRNO = #{brno}
+																	  	</if>
+																	  	<if test='yr != null and yr != ""'>
+																	  	  AND YR = #{yr}
+																	  	</if>
+					  									)
 								<if test='uoBrno != null and uoBrno != ""'>
 							  	  AND UO_BRNO = #{uoBrno}
 							  	</if>
@@ -179,9 +190,8 @@
 									, SUM( NVL( UO_OTHER_SPMT_AMT , 0 ) ) AS UO_OTHER_SPMT_AMT
 								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 								WHERE 1=1
-								AND APO_SE = '2'
-								AND TYPE_SE_NO IN ('7')
-
+								  AND APO_SE = '2'
+								  AND TYPE_SE_NO IN ('7')
 								<if test='uoBrno != null and uoBrno != ""'>
 							  	  AND UO_BRNO = #{uoBrno}
 							  	</if>
