@@ -126,6 +126,7 @@
 				, CM.APO_SE
 				, ITEM.BRNO
 				, ITEM.UO_BRNO
+				, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = ITEM.UO_BRNO) AS CORP_NM
 				, CM.CRNO
 
 				, '1' AS PRCHS_SLS_SE
@@ -189,7 +190,7 @@
 
 				, CM.RMRK
 
-				, NVL(CM.DEL_YN,'N') AS DEL_YN
+				, 'N' AS DEL_YN
 
 				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
 				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
@@ -201,27 +202,38 @@
 				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
 				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_ID_NM
 				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-			  FROM (SELECT *
-			  			FROM TB_EV_UO_ISO_ALL_PRCHS_SLS
-			  			WHERE APO_SE = '2'
-			  		) CM ,
+			  FROM
 			  	(SELECT
-			  			ITEM_CD
-			  			,TO_CHAR(BRNO) AS UO_BRNO
-			  			,#{brno} AS BRNO
-			  			,CTGRY_CD
-			  			,STTG_UPBR_ITEM_SE
-			  			,YR
-			  		FROM TB_EV_APO_YR_GPC_CD
-			  		WHERE 1=1
-					<if test='uoBrno != null and uoBrno != ""'>
-					  AND BRNO = #{uoBrno}
+						YR
+						,BRNO
+						,UO_BRNO
+						,ITEM_CD
+						/*중복아이템은 없는것으로 가정*/
+						,(SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = A.YR AND BRNO = A.UO_BRNO AND ITEM_CD = A.ITEM_CD ) AS CTGRY_CD
+						,(SELECT STTG_UPBR_ITEM_SE FROM TB_EV_APO_YR_GPC_CD WHERE YR = A.YR AND BRNO = A.UO_BRNO AND ITEM_CD = A.ITEM_CD ) AS STTG_UPBR_ITEM_SE
+					FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT A
+					WHERE 1=1
+					<if test='brno != null and brno != ""'>
+					  AND BRNO = #{brno}
 					</if>
 					<if test='yr != null and yr != ""'>
 					  AND YR = #{yr}
 					</if>
-			  	) ITEM ,
-			  	(SELECT BRNO , ITEM_CD , SUM( NVL( SLS_CNSGN_PRCHS_AMT , 0 ) ) AS PRCHS_TOT_AMT
+					GROUP BY YR , BRNO ,UO_BRNO,ITEM_CD
+				)ITEM ,
+			  	(SELECT *
+					FROM TB_EV_UO_ISO_ALL_PRCHS_SLS
+					WHERE 1=1
+					  AND APO_SE = '2'
+					  AND PRCHS_SLS_SE = '1'
+					<if test='brno != null and brno != ""'>
+					  AND BRNO = #{brno}
+					</if>
+					<if test='yr != null and yr != ""'>
+					  AND YR = #{yr}
+					</if>
+				) CM ,
+			  	(SELECT YR , BRNO , UO_BRNO , ITEM_CD , SUM( NVL( SLS_CNSGN_PRCHS_AMT , 0 ) ) AS PRCHS_TOT_AMT
 			  		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 			  		WHERE 1=1
 			  		  AND APO_SE = '2'
@@ -235,9 +247,6 @@
 			  		  							<if test='brno != null and brno != ""'>
 												  AND BRNO = #{brno}
 												</if>
-												<if test='uoBrno != null and uoBrno != ""'>
-												  AND UO_BRNO = #{uoBrno}
-												</if>
 												<if test='yr != null and yr != ""'>
 												  AND YR = #{yr}
 												</if>
@@ -245,16 +254,13 @@
 					<if test='brno != null and brno != ""'>
 					  AND BRNO = #{brno}
 					</if>
-					<if test='uoBrno != null and uoBrno != ""'>
-					  AND UO_BRNO = #{uoBrno}
-					</if>
 					<if test='yr != null and yr != ""'>
 					  AND YR = #{yr}
 					</if>
 
-					  GROUP BY  BRNO , ITEM_CD
+					  GROUP BY  YR , BRNO , UO_BRNO , ITEM_CD
 				) TOTA ,
-				(SELECT BRNO , ITEM_CD ,  SUM( NVL( SLS_CNSGN_PRCHS_AMT , 0 ) ) AS PRCHS_TOT_AMT
+				(SELECT YR , BRNO , UO_BRNO , ITEM_CD ,  SUM( NVL( SLS_CNSGN_PRCHS_AMT , 0 ) ) AS PRCHS_TOT_AMT
 			  		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 			  		WHERE 1=1
 			  		  AND APO_SE = '2'
@@ -268,9 +274,6 @@
 			  		  							<if test='brno != null and brno != ""'>
 												  AND BRNO = #{brno}
 												</if>
-												<if test='uoBrno != null and uoBrno != ""'>
-												  AND UO_BRNO = #{uoBrno}
-												</if>
 												<if test='yr != null and yr != ""'>
 												  AND YR = #{yr}
 												</if>
@@ -278,16 +281,13 @@
 					<if test='brno != null and brno != ""'>
 					  AND BRNO = #{brno}
 					</if>
-					<if test='uoBrno != null and uoBrno != ""'>
-					  AND UO_BRNO = #{uoBrno}
-					</if>
 					<if test='yr != null and yr != ""'>
 					  AND YR = #{yr}
 					</if>
 
-					  GROUP BY  BRNO , ITEM_CD
+					  GROUP BY  YR , BRNO , UO_BRNO , ITEM_CD
 				) TOTB ,
-				(SELECT BRNO , ITEM_CD , SUM( NVL( SLS_CNSGN_PRCHS_AMT , 0 ) ) AS PRCHS_TOT_AMT
+				(SELECT YR , BRNO , UO_BRNO , ITEM_CD , SUM( NVL( SLS_CNSGN_PRCHS_AMT , 0 ) ) AS PRCHS_TOT_AMT
 			  		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 			  		WHERE 1=1
 			  		  AND APO_SE = '2'
@@ -295,22 +295,25 @@
 					<if test='brno != null and brno != ""'>
 					  AND BRNO = #{brno}
 					</if>
-					<if test='uoBrno != null and uoBrno != ""'>
-					  AND UO_BRNO = #{uoBrno}
-					</if>
 					<if test='yr != null and yr != ""'>
 					  AND YR = #{yr}
 					</if>
 
-					  GROUP BY  BRNO , ITEM_CD
+					  GROUP BY  YR , BRNO , UO_BRNO , ITEM_CD
 				) TOTC
 			 WHERE 1=1
 			   AND ITEM.ITEM_CD = CM.ITEM_CD(+)
 			   AND ITEM.BRNO 	= CM.BRNO(+)
-			   AND ITEM.ITEM_CD = TOTA.ITEM_CD(+)
-			   AND ITEM.ITEM_CD = TOTB.ITEM_CD(+)
-			   AND ITEM.ITEM_CD = TOTC.ITEM_CD(+)
 			   AND ITEM.STTG_UPBR_ITEM_SE = CM.STTG_UPBR_ITEM_SE(+)
+
+			   AND ITEM.ITEM_CD = TOTA.ITEM_CD(+)
+			   AND ITEM.UO_BRNO = TOTA.UO_BRNO(+)
+
+			   AND ITEM.ITEM_CD = TOTB.ITEM_CD(+)
+			   AND ITEM.UO_BRNO = TOTB.UO_BRNO(+)
+
+			   AND ITEM.ITEM_CD = TOTC.ITEM_CD(+)
+			   AND ITEM.UO_BRNO = TOTC.UO_BRNO(+)
 
 			UNION ALL
 
@@ -326,6 +329,7 @@
 				, CM.APO_SE
 				, ITEM.BRNO
 				, ITEM.UO_BRNO
+				, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = ITEM.UO_BRNO) AS CORP_NM
 				, CM.CRNO
 
 				, '2' AS PRCHS_SLS_SE
@@ -389,7 +393,7 @@
 
 				, CM.RMRK
 
-				, NVL(CM.DEL_YN,'N') AS DEL_YN
+				, 'N' AS DEL_YN
 
 				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
 				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
@@ -401,26 +405,38 @@
 				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
 				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_ID_NM
 				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-			  FROM (SELECT *
-			  			FROM TB_EV_UO_ISO_ALL_PRCHS_SLS
-			  			WHERE APO_SE = '2'
-			  		) CM ,
-			  	(SELECT ITEM_CD
-			  			,TO_CHAR(BRNO) AS UO_BRNO
-			  			,#{brno} AS BRNO
-			  			,CTGRY_CD
-			  			,STTG_UPBR_ITEM_SE
-			  			,YR
-			  		FROM TB_EV_APO_YR_GPC_CD
-			  		WHERE 1=1
+			  FROM
+			  	(SELECT
+						YR
+						,BRNO
+						,UO_BRNO
+						,ITEM_CD
+						/*중복아이템은 없는것으로 가정*/
+						,(SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = A.YR AND BRNO = A.UO_BRNO AND ITEM_CD = A.ITEM_CD ) AS CTGRY_CD
+						,(SELECT STTG_UPBR_ITEM_SE FROM TB_EV_APO_YR_GPC_CD WHERE YR = A.YR AND BRNO = A.UO_BRNO AND ITEM_CD = A.ITEM_CD ) AS STTG_UPBR_ITEM_SE
+					FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT A
+					WHERE 1=1
 					<if test='brno != null and brno != ""'>
-					  AND BRNO = #{uoBrno}
+					  AND BRNO = #{brno}
 					</if>
 					<if test='yr != null and yr != ""'>
 					  AND YR = #{yr}
 					</if>
-			  	) ITEM ,
-			  	(SELECT BRNO , ITEM_CD , TRMT_TYPE , SUM( NVL( UO_SPMT_AMT , 0 ) ) AS UO_SPMT_AMT
+					GROUP BY YR , BRNO ,UO_BRNO , ITEM_CD
+				)ITEM ,
+			  	(SELECT *
+					FROM TB_EV_UO_ISO_ALL_PRCHS_SLS
+					WHERE 1=1
+					  AND APO_SE = '2'
+					  AND PRCHS_SLS_SE = '2'
+					<if test='brno != null and brno != ""'>
+					  AND BRNO = #{brno}
+					</if>
+					<if test='yr != null and yr != ""'>
+					  AND YR = #{yr}
+					</if>
+				) CM ,
+			  	(SELECT YR , BRNO , UO_BRNO , ITEM_CD , SUM( NVL( UO_SPMT_AMT , 0 ) ) AS UO_SPMT_AMT
 			  		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 			  		WHERE 1=1
 			  		  AND APO_SE = '2'
@@ -434,9 +450,6 @@
 			  		  							<if test='brno != null and brno != ""'>
 												  AND BRNO = #{brno}
 												</if>
-												<if test='uoBrno != null and uoBrno != ""'>
-												  AND UO_BRNO = #{uoBrno}
-												</if>
 												<if test='yr != null and yr != ""'>
 												  AND YR = #{yr}
 												</if>
@@ -444,16 +457,13 @@
 			  		  <if test='brno != null and brno != ""'>
 					  AND BRNO = #{brno}
 					  </if>
-					  <if test='uoBrno != null and uoBrno != ""'>
-					  AND UO_BRNO = #{uoBrno}
-					  </if>
 					  <if test='yr != null and yr != ""'>
 					  AND YR = #{yr}
 					  </if>
 
-					  GROUP BY  BRNO , ITEM_CD , TRMT_TYPE
+					  GROUP BY  YR , BRNO , UO_BRNO , ITEM_CD
 			  		) TOTA ,
-			  		(SELECT BRNO , ITEM_CD , TRMT_TYPE , SUM( NVL( UO_SPMT_AMT , 0 ) ) AS UO_SPMT_AMT
+			  		(SELECT YR , BRNO , UO_BRNO , ITEM_CD , SUM( NVL( UO_SPMT_AMT , 0 ) ) AS UO_SPMT_AMT
 			  		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 			  		WHERE 1=1
 			  		  AND APO_SE = '2'
@@ -467,9 +477,6 @@
 			  		  							<if test='brno != null and brno != ""'>
 												  AND BRNO = #{brno}
 												</if>
-												<if test='uoBrno != null and uoBrno != ""'>
-												  AND UO_BRNO = #{uoBrno}
-												</if>
 												<if test='yr != null and yr != ""'>
 												  AND YR = #{yr}
 												</if>
@@ -477,16 +484,13 @@
 			  		  <if test='brno != null and brno != ""'>
 					  AND BRNO = #{brno}
 					  </if>
-					  <if test='uoBrno != null and uoBrno != ""'>
-					  AND UO_BRNO = #{uoBrno}
-					  </if>
 					  <if test='yr != null and yr != ""'>
 					  AND YR = #{yr}
 					  </if>
 
-					  GROUP BY  BRNO , ITEM_CD ,TRMT_TYPE
+					  GROUP BY  YR , BRNO , UO_BRNO , ITEM_CD
 			  		) TOTB ,
-			  		(SELECT BRNO , ITEM_CD , TRMT_TYPE , SUM( NVL( UO_SPMT_AMT , 0 ) ) AS UO_SPMT_AMT
+			  		(SELECT YR , BRNO , UO_BRNO , ITEM_CD , SUM( NVL( UO_SPMT_AMT , 0 ) ) AS UO_SPMT_AMT
 			  		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 			  		WHERE 1=1
 			  		  AND APO_SE = '2'
@@ -500,9 +504,6 @@
 			  		  							<if test='brno != null and brno != ""'>
 												  AND BRNO = #{brno}
 												</if>
-												<if test='uoBrno != null and uoBrno != ""'>
-												  AND UO_BRNO = #{uoBrno}
-												</if>
 												<if test='yr != null and yr != ""'>
 												  AND YR = #{yr}
 												</if>
@@ -510,16 +511,13 @@
 			  		  <if test='brno != null and brno != ""'>
 					  AND BRNO = #{brno}
 					  </if>
-					  <if test='uoBrno != null and uoBrno != ""'>
-					  AND UO_BRNO = #{uoBrno}
-					  </if>
 					  <if test='yr != null and yr != ""'>
 					  AND YR = #{yr}
 					  </if>
 
-					  GROUP BY  BRNO , ITEM_CD , TRMT_TYPE
+					  GROUP BY  YR , BRNO , UO_BRNO , ITEM_CD
 			  		) TOTC ,
-			  		(SELECT BRNO , ITEM_CD , SUM( NVL( UO_SPMT_AMT , 0 ) + NVL( UO_OTHER_SPMT_AMT , 0 ) ) AS UO_SPMT_AMT
+			  		(SELECT YR , BRNO , UO_BRNO , ITEM_CD , SUM( NVL( UO_SPMT_AMT , 0 ) + NVL( UO_OTHER_SPMT_AMT , 0 ) ) AS UO_SPMT_AMT
 			  		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 			  		WHERE 1=1
 			  		  AND APO_SE = '2'
@@ -533,9 +531,6 @@
 			  		  							<if test='brno != null and brno != ""'>
 												  AND BRNO = #{brno}
 												</if>
-												<if test='uoBrno != null and uoBrno != ""'>
-												  AND UO_BRNO = #{uoBrno}
-												</if>
 												<if test='yr != null and yr != ""'>
 												  AND YR = #{yr}
 												</if>
@@ -548,23 +543,28 @@
 			  		  <if test='brno != null and brno != ""'>
 					  AND BRNO = #{brno}
 					  </if>
-					  <if test='uoBrno != null and uoBrno != ""'>
-					  AND UO_BRNO = #{uoBrno}
-					  </if>
 					  <if test='yr != null and yr != ""'>
 					  AND YR = #{yr}
 					  </if>
 
-					  GROUP BY  BRNO , ITEM_CD
+					  GROUP BY  YR , BRNO , UO_BRNO , ITEM_CD
 			  		) TOTD
 			 WHERE 1=1
 			   AND ITEM.ITEM_CD = CM.ITEM_CD(+)
 			   AND ITEM.BRNO = CM.BRNO(+)
-			   AND ITEM.ITEM_CD = TOTA.ITEM_CD(+)
-			   AND ITEM.ITEM_CD = TOTB.ITEM_CD(+)
-			   AND ITEM.ITEM_CD = TOTC.ITEM_CD(+)
-			   AND ITEM.ITEM_CD = TOTD.ITEM_CD(+)
 			   AND ITEM.STTG_UPBR_ITEM_SE = CM.STTG_UPBR_ITEM_SE(+)
+
+			   AND ITEM.ITEM_CD = TOTA.ITEM_CD(+)
+			   AND ITEM.UO_BRNO = TOTA.UO_BRNO(+)
+
+			   AND ITEM.ITEM_CD = TOTB.ITEM_CD(+)
+			   AND ITEM.UO_BRNO = TOTB.UO_BRNO(+)
+
+			   AND ITEM.ITEM_CD = TOTC.ITEM_CD(+)
+			   AND ITEM.UO_BRNO = TOTC.UO_BRNO(+)
+
+			   AND ITEM.ITEM_CD = TOTD.ITEM_CD(+)
+			   AND ITEM.UO_BRNO = TOTD.UO_BRNO(+)
 
 			UNION ALL
 
@@ -574,13 +574,14 @@
 				, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = CM.ITEM_CD) AS ITEM_NM
 				, CM.CTGRY_CD
 				, CM.STTG_UPBR_ITEM_SE
-				, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = CM.STTG_UPBR_ITEM_SE) AS STTG_UPBR_ITEM_NM
+				, '기타' AS STTG_UPBR_ITEM_NM
 
 
 				, CM.APO_CD
 				, CM.APO_SE
 				, CM.BRNO
 				, CM.UO_BRNO
+				, '' AS CORP_NM
 				, CM.CRNO
 
 				, CM.PRCHS_SLS_SE
@@ -666,20 +667,26 @@
 			  AND YR = #{yr}
 			</if>
 		)
-		ORDER BY STTG_UPBR_ITEM_SE , ITEM_CD DESC
+		ORDER BY STTG_UPBR_ITEM_SE , ITEM_CD , UO_BRNO DESC
     </select>
 
 	<!-- 매입 등록 -->
 	<insert id="insertInvShipOgnPurSalMng01" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO">
-    	<![CDATA[
     	MERGE INTO TB_EV_UO_ISO_ALL_PRCHS_SLS CLT  /* com.at.apcss.pd.isom.mapper.InvShipOgnPurSalMngMapper.insertInvShipOgnPurSalMng01 */
 		USING DUAL
 			ON (
-					CLT.BRNO   			= #{brno}
-				AND CLT.UO_BRNO	 		= #{uoBrno}
-				AND CLT.CTGRY_CD 		= #{ctgryCd}
-				AND CLT.ITEM_CD	 		= #{itemCd}
-				AND CLT.PRCHS_SLS_SE	= '1'
+					CLT.BRNO   				= #{brno}
+				<if test='uoBrno != null and uoBrno != ""'>
+				AND CLT.UO_BRNO	 			= #{uoBrno}
+				</if>
+				<if test='uoBrno == null or uoBrno == ""'>
+				AND CLT.UO_BRNO	 			IS NULL
+				</if>
+				AND CLT.CTGRY_CD 			= #{ctgryCd}
+				AND CLT.ITEM_CD	 			= #{itemCd}
+				AND CLT.STTG_UPBR_ITEM_SE	= #{sttgUpbrItemSe}
+				AND CLT.YR	 				= #{yr}
+				AND CLT.PRCHS_SLS_SE		= '1'
 				)
 		WHEN MATCHED THEN
 				 UPDATE
@@ -696,15 +703,20 @@
 		    	        , SYS_LAST_CHG_DT		= SYSDATE
 	    				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 	    				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
-		    	]]>
-		    	<![CDATA[
 
 					 WHERE 1=1
-					 	AND CLT.BRNO   			= #{brno}
-						AND CLT.UO_BRNO	 		= #{uoBrno}
-						AND CLT.CTGRY_CD 		= #{ctgryCd}
-						AND CLT.ITEM_CD	 		= #{itemCd}
-						AND CLT.PRCHS_SLS_SE	= '2'
+					 	AND CLT.BRNO   				= #{brno}
+						<if test='uoBrno != null and uoBrno != ""'>
+						AND CLT.UO_BRNO	 			= #{uoBrno}
+						</if>
+						<if test='uoBrno == null or uoBrno == ""'>
+						AND CLT.UO_BRNO	 			IS NULL
+						</if>
+						AND CLT.CTGRY_CD 			= #{ctgryCd}
+						AND CLT.ITEM_CD	 			= #{itemCd}
+						AND CLT.STTG_UPBR_ITEM_SE	= #{sttgUpbrItemSe}
+						AND CLT.YR	 				= #{yr}
+						AND CLT.PRCHS_SLS_SE		= '1'
 		WHEN NOT MATCHED THEN
 			 INSERT
 		    		(
@@ -739,22 +751,18 @@
 		   		VALUES
 		   			(
 		   			    #{apoCd}
-		   			  , (case when #{apoSe} is not null then #{apoSe}
-		   			  			ELSE (SELECT OGNZ_SE_CD FROM TB_APC_OGNZ_INFO WHERE OGNZ_CD = #{apoCd})
-		   			  			END)
+		   			  , #{apoSe}
 		   			  , #{brno}
 		   			  , #{uoBrno}
 		   			  , (case when #{crno} is not null then #{crno}
-		   			  			ELSE (SELECT CRNO FROM TB_EV_APO WHERE BRNO = #{brno})
+		   			  			ELSE NVL( (SELECT CRNO FROM TB_EV_APO WHERE BRNO = #{brno}) , 'NULL')
 		   			  			END)
 		   			  , TO_CHAR(SYSDATE,'YYYY')
 
-		   			  , (case when #{ctgryCd} is not null then #{ctgryCd}
-		   			  			ELSE (SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE ITEM_CD = #{itemCd} AND BRNO = #{uoBrno})
-		   			  			END)
+		   			  , #{ctgryCd}
 		   			  , #{itemCd}
 		   			  , #{sttgUpbrItemSe}
-		   			  , #{prchsSlsSe}
+		   			  , '1'
 
 		   			  , #{prchsTrstVlm}
 		   			  , #{prchsTrstAmt}
@@ -772,25 +780,30 @@
 		   			  , #{sysLastChgUserId}
 		   			  , #{sysLastChgPrgrmId}
 		   			)
-    	]]>
     </insert>
 
 	<!-- 매출 등록 -->
     <insert id="insertInvShipOgnPurSalMng02" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO">
-    	<![CDATA[
     	MERGE INTO TB_EV_UO_ISO_ALL_PRCHS_SLS CLT  /* com.at.apcss.pd.isom.mapper.InvShipOgnPurSalMngMapper.insertInvShipOgnPurSalMng02 */
 		USING DUAL
 			ON (
-					CLT.BRNO   			= #{brno}
-				AND CLT.UO_BRNO	 		= #{uoBrno}
-				AND CLT.CTGRY_CD 		= #{ctgryCd}
-				AND CLT.ITEM_CD	 		= #{itemCd}
-				AND CLT.PRCHS_SLS_SE	= '2'
+					CLT.BRNO   				= #{brno}
+				<if test='uoBrno != null and uoBrno != ""'>
+				AND CLT.UO_BRNO	 			= #{uoBrno}
+				</if>
+				<if test='uoBrno == null or uoBrno == ""'>
+				AND CLT.UO_BRNO	 			IS NULL
+				</if>
+				AND CLT.CTGRY_CD 			= #{ctgryCd}
+				AND CLT.ITEM_CD	 			= #{itemCd}
+				AND CLT.STTG_UPBR_ITEM_SE	= #{sttgUpbrItemSe}
+				AND CLT.YR	 				= #{yr}
+				AND CLT.PRCHS_SLS_SE		= '2'
 				)
 		WHEN MATCHED THEN
 				 UPDATE
 					   SET
-		    	        SLS_CPRTN_SORT_TRST_VLM		= #{slsCprtnSortTrstVlm}
+		    	        SLS_CPRTN_SORT_TRST_VLM			= #{slsCprtnSortTrstVlm}
 		    	        , SLS_CPRTN_SORT_TRST_AMT		= #{slsCprtnSortTrstAmt}
 		    	        , SLS_CPRTN_TRST_VLM			= #{slsCprtnTrstVlm}
 		    	        , SLS_CPRTN_TRST_AMT			= #{slsCprtnTrstAmt}
@@ -833,21 +846,27 @@
 		    	        , SYS_LAST_CHG_DT		= SYSDATE
 	    				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 	    				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
-		    	]]>
-		    	<![CDATA[
 
 					 WHERE 1=1
-					 AND CLT.APO_CD			= #{apoCd}
-					 AND CLT.APO_SE			= #{apoSe}
-					 AND CLT.CTGRY_CD		= #{ctgryCd}
-					 AND CLT.ITEM_CD		= #{itemCd}
-					 AND CLT.PRCHS_SLS_SE	= '2'
+					 AND CLT.BRNO   			= #{brno}
+					 <if test='uoBrno != null and uoBrno != ""'>
+					 AND CLT.UO_BRNO	 			= #{uoBrno}
+					 </if>
+					 <if test='uoBrno == null or uoBrno == ""'>
+					 AND CLT.UO_BRNO	 			IS NULL
+					 </if>
+					 AND CLT.CTGRY_CD			= #{ctgryCd}
+					 AND CLT.ITEM_CD			= #{itemCd}
+					 AND CLT.STTG_UPBR_ITEM_SE	= #{sttgUpbrItemSe}
+					 AND CLT.YR	 				= #{yr}
+					 AND CLT.PRCHS_SLS_SE		= '2'
 		WHEN NOT MATCHED THEN
 			 INSERT
 		    		(
 		    			APO_CD
 		    		  , APO_SE
 		    		  , BRNO
+		    		  , UO_BRNO
 		    		  , CRNO
 		    		  , YR
 
@@ -906,21 +925,18 @@
 		   		VALUES
 		   			(
 		   			    #{apoCd}
-		   			  , (case when #{apoSe} is not null then #{apoSe}
-		   			  			ELSE (SELECT OGNZ_SE_CD FROM TB_APC_OGNZ_INFO WHERE OGNZ_CD = #{apoCd})
-		   			  			END)
+		   			  , #{apoSe}
 		   			  , #{brno}
+		   			  , #{uoBrno}
 		   			  , (case when #{crno} is not null then #{crno}
-		   			  			ELSE (SELECT CRNO FROM TB_EV_APO WHERE BRNO = #{brno})
+		   			  			ELSE NVL( (SELECT CRNO FROM TB_EV_APO WHERE BRNO = #{brno}) , 'NULL')
 		   			  			END)
 		   			  , TO_CHAR(SYSDATE,'YYYY')
 
-		   			  , (case when #{ctgryCd} is not null then #{ctgryCd}
-		   			  			ELSE (SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE ITEM_CD = #{itemCd} AND BRNO = #{uoBrno})
-		   			  			END)
+		   			  , #{ctgryCd}
 		   			  , #{itemCd}
 		   			  , #{sttgUpbrItemSe}
-		   			  , #{prchsSlsSe}
+		   			  , '2'
 
 		   			  , #{slsCprtnSortTrstVlm}
 		    	      , #{slsCprtnSortTrstAmt}
@@ -969,7 +985,6 @@
 		   			  , #{sysLastChgUserId}
 		   			  , #{sysLastChgPrgrmId}
 		   			)
-    	]]>
     </insert>
 
     <insert id="insertInvShipOgnPurSalMng03" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO">
@@ -1044,6 +1059,7 @@
 		    			APO_CD
 		    		  , APO_SE
 		    		  , BRNO
+		    		  , UO_BRNO
 		    		  , CRNO
 		    		  , YR
 
@@ -1106,6 +1122,7 @@
 		   			  			ELSE (SELECT OGNZ_SE_CD FROM TB_APC_OGNZ_INFO WHERE OGNZ_CD = #{apoCd})
 		   			  			END)
 		   			  , #{brno}
+		   			  , #{uoBrno}
 		   			  , (case when #{crno} is not null then #{crno}
 		   			  			ELSE (SELECT CRNO FROM TB_EV_APO WHERE APO_CD = #{apoCd})
 		   			  			END)
