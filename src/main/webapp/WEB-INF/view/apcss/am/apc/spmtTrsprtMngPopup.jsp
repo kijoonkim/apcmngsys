@@ -97,10 +97,10 @@
 	        {caption: ["비고"], 			ref: 'rmrk',  		type:'input',  width:'320px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000}), typeinfo : {maxlength : 333}},
 	        {caption: ["APC코드"], 			ref: 'apcCd',  		hidden:true}
 	    ];
-	    window.grdSpmtTrsprtCo = _SBGrid.create(SBGridProperties);
-	    fn_callSelectSpmtTrsprtList();
+	    grdSpmtTrsprtCo = _SBGrid.create(SBGridProperties);
+	    fn_selectSpmtTrsprtList();
 	}
-	
+
 	/**
      * @description 메뉴트리그리드 컨텍스트메뉴 json
      * @type {object}
@@ -117,10 +117,7 @@
     	grdSpmtTrsprtCo.exportLocalExcel("운송회사 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
 
-	async function fn_selectSpmtTrsprtList(){
-		fn_callSelectSpmtTrsprtList();
-	}
-	async function fn_callSelectSpmtTrsprtList(){
+	const fn_selectSpmtTrsprtList = async function(){
 		spmtTrsprtMngGridData = [];
 		let apcCd = SBUxMethod.get("inp-apcCd");
     	let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtTrsprtList.do", {apcCd : apcCd});
@@ -155,7 +152,7 @@
         }
 	}
 
-	async function fn_insertSpmtTrsprtList(){
+	const fn_insertSpmtTrsprtList = async function(){
 		let spmtTrsprtCoAllData = grdSpmtTrsprtCo.getGridDataAll();
 		var spmtTrsprtCoList = [];
 
@@ -201,7 +198,7 @@
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
         		fn_selectSpmtTrsprtList();
         	} else {
-        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        		gfn_comAlert(data.resultCode, data.resultMessage);
         	}
         } catch(e) {
     		if (!(e instanceof Error)) {
@@ -211,13 +208,14 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 	}
-	async function fn_deleteSpmtTrsprtList(grdSpmtTrsprtCo){
-		let postJsonPromise1 = gfn_postJSON("/am/cmns/deleteSpmtTrsprtList.do", grdSpmtTrsprtCo);
-		let data = await postJsonPromise1;
+	const fn_deleteSpmtTrsprt = async function(spmtTrsprt, nRow){
+		let postJsonPromise = gfn_postJSON("/am/cmns/deleteSpmtTrsprt.do", spmtTrsprt);
+		let data = await postJsonPromise;
         try{
   			if (_.isEqual("S", data.resultStatus)) {
+  				grdSpmtTrsprtCo.deleteRow(nRow);
         	} else {
-        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        		gfn_comAlert(data.resultCode, data.resultMessage);
         	}
         }catch (e) {
     		if (!(e instanceof Error)) {
@@ -227,7 +225,7 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 	}
-	
+
 	const fnNewSpmtTrsprtMngTelno = function(strValue) {
 		if(!(gfn_isEmpty(strValue))){
 			let newCallNumber = strValue.split("");
@@ -245,7 +243,7 @@
 			return;
 		}
 	}
-	
+
 	const fnNewSpmtTrsprtMngFxno = function(strValue){
 		if(!(gfn_isEmpty(strValue))){
 			let newFxno = strValue.split("");

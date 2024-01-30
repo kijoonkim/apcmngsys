@@ -71,4 +71,13 @@ public class ComCdVO extends ComVO {
 	public void setComCdDtlList(List<ComCdVO> comCdDtlList) {
 		this.comCdDtlList = comCdDtlList == null ? null : comCdDtlList.stream().collect(Collectors.toList());
 	}
+
+	/**
+	 * 등록 수
+	 */
+	private int cnt;
+	/**
+	 * 삭제 불가능 사유
+	 */
+	private String delible;
 }

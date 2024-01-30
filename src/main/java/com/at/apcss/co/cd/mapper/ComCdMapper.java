@@ -108,8 +108,8 @@ public interface ComCdMapper {
 	 * @throws Exception
 	 */
 	public ComCdVO selectComCdDtl(ComCdVO comCdVO) throws Exception;
-	
-	
+
+
 	/**
 	 * 콤보박스 공통코드 리스트
 	 * @param comCdVO
@@ -141,4 +141,12 @@ public interface ComCdMapper {
 	 * @throws Exception
 	 */
 	public List<ComCdVO> selectFcltList(ComCdVO comCdVO) throws Exception;
+
+	/**
+	 * APC별 창고 & 설비 삭제 여부
+	 * @param ComCdVO
+	 * @return List<ComCdVO>
+	 * @throws Exception
+	 */
+	public List<ComCdVO> apcCdComCdDtlDelible(ComCdVO comCdVO) throws Exception;
 }

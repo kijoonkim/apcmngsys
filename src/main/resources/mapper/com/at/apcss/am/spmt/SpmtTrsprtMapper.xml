@@ -120,6 +120,42 @@
 		]]>
 	</delete>
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtTrsprtMapper.spmtTrsprtDelible		-->
+	<!-- DESC : 출하운송회사정보 삭제 가능 여부.	                                -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.01.25  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="spmtTrsprtDelible" parameterType="com.at.apcss.am.spmt.vo.SpmtTrsprtVO" resultType="com.at.apcss.am.spmt.vo.SpmtTrsprtVO">
+    	<![CDATA[
+	    	SELECT X.* /* com.at.apcss.am.spmt.mapper.SpmtTrsprtMapper.spmtTrsprtDelible */
+			  FROM (
+			           SELECT
+			                  '출하지시' AS DELIBLE
+			                 , (SELECT COUNT(*)
+			                      FROM TB_SPMT_CMND X
+			                     WHERE X.APC_CD 		= #{apcCd}
+			                       AND X.TRSPRT_CO_CD 	= #{trsprtCoCd}
+			                       AND X.DEL_YN = 'N'
+			                  )  AS CNT
+			             FROM DUAL
+			           UNION ALL
+			           SELECT
+			                  '출하실적' AS DELIBLE
+			                 , (SELECT COUNT(*)
+			                      FROM TB_SPMT_PRFMNC_COM X
+			                     WHERE X.APC_CD 		= #{apcCd}
+			                       AND X.TRSPRT_CO_CD 	= #{trsprtCoCd}
+			                       AND X.DEL_YN = 'N'
+			                  )  AS CNT
+			             FROM DUAL
+			         ) X
+			 WHERE CNT > 0
+		]]>
+    </select>
+
 </mapper>
 
 

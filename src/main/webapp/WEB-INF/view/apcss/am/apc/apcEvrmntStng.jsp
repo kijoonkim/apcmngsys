@@ -813,15 +813,23 @@
 		}
 	}
 
-	async function fn_deleteRsrc(comCdVO){
-		let postJsonPromise = gfn_postJSON("/co/cd/deleteComCdDtl.do", comCdVO);
+	async function fn_deleteRsrc(comCdVO, nRow){
+
+		console.log(comCdVO);
+
+		let postJsonPromise = gfn_postJSON("/co/cd/deleteApcComCdDtl.do", comCdVO);
         let data = await postJsonPromise;
 
         try{
         	if(_.isEqual("S", data.resultStatus)){
-        		gfn_comAlert("I0001");
+        		if(comCdVO.cdId == "WAREHOUSE_SE_CD"){
+	        		grdWarehouse.deleteRow(nRow);
+        		}
+        		if(comCdVO.cdId == "SORT_FCLT_CD" || comCdVO.cdId == "PCKG_FCLT_CD"){
+        			grdFclt.deleteRow(nRow);
+        		}
         	}else{
-        		gfn_comAlert("E0001");
+        		gfn_comAlert(data.resultCode, data.resultMessage);
         	}
         }catch (e) {
         	if (!(e instanceof Error)) {
@@ -1062,8 +1070,7 @@
             	if(grdFclt.getRowStatus(nRow) == 0 || grdFclt.getRowStatus(nRow) == 2){
             		if(gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
             			var comCdVO = grdFclt.getRowData(nRow);
-            			fn_deleteRsrc(comCdVO);
-            			grdFclt.deleteRow(nRow);
+            			fn_deleteRsrc(comCdVO, nRow);
             		}
             	}else{
             		grdFclt.deleteRow(nRow);
@@ -1072,8 +1079,7 @@
             	if(grdWarehouse.getRowStatus(nRow) == 0 || grdWarehouse.getRowStatus(nRow) == 2){
             		if(gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
             			var comCdVO = grdWarehouse.getRowData(nRow);
-            			fn_deleteRsrc(comCdVO);
-            			grdWarehouse.deleteRow(nRow);
+            			fn_deleteRsrc(comCdVO, nRow);
             		}
             	}else{
             		warehouseMngDatagrid.deleteRow(nRow);
@@ -1120,8 +1126,7 @@
             	if(grdSpmtTrsprtCo.getRowStatus(nRow) == 0 || grdSpmtTrsprtCo.getRowStatus(nRow) == 2){
             		if(gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
             			var spmtTrsprt = grdSpmtTrsprtCo.getRowData(nRow);
-            			fn_deleteSpmtTrsprtList(spmtTrsprt);
-            			grdSpmtTrsprtCo.deleteRow(nRow);
+            			fn_deleteSpmtTrsprt(spmtTrsprt, nRow);
             		}
             	}else{
             		grdSpmtTrsprtCo.deleteRow(nRow);
@@ -1130,8 +1135,7 @@
             	if(grdOprtr.getRowStatus(nRow) == 0 || grdOprtr.getRowStatus(nRow) == 2){
             		if(gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
             			var oprtrVO = grdOprtr.getRowData(nRow);
-            			fn_deleteOprtr(oprtrVO);
-            			grdOprtr.deleteRow(nRow);
+            			fn_deleteOprtr(oprtrVO, nRow);
             		}
             	}else{
             		grdOprtr.deleteRow(nRow);

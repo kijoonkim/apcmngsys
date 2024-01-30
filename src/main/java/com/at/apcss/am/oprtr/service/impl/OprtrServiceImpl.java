@@ -81,9 +81,39 @@ public class OprtrServiceImpl extends BaseServiceImpl implements OprtrService {
 
 	@Override
 	public HashMap<String, Object> deleteOprtr(OprtrVO oprtrVO) throws Exception {
-		if(0 == oprtrMapper.deleteOprtr(oprtrVO)) {
-			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다."))); // E0000	{0}
+
+		String errMsg = oprtrDelible(oprtrVO);
+
+		if(errMsg == null) {
+			if(0 == oprtrMapper.deleteOprtr(oprtrVO)) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다."))); // E0000	{0}
+			}
+		}else {
+			return ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, errMsg); // E0000	{0}
 		}
+
+		return null;
+	}
+
+	@Override
+	public String oprtrDelible(OprtrVO oprtrVO) throws Exception {
+
+		List<OprtrVO> resultList = oprtrMapper.oprtrDelible(oprtrVO);
+
+		if(resultList.size() > 0) {
+			String delible = "해당 작업자는 ";
+			for (int i = 0; i < resultList.size(); i++) {
+				if(i == 0) {
+					delible += resultList.get(i).getDelible();
+				}else {
+					delible += ", "+resultList.get(i).getDelible();
+				}
+			}
+			delible += "이/가 존재 합니다.";
+
+			return delible;
+		}
+
 		return null;
 	}
 }
