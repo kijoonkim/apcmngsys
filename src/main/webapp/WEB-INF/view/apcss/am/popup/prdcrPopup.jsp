@@ -210,6 +210,7 @@
 			    {caption: ['번호'], 			ref: 'prdcrIdentno', 	type: 'input', 	width: '50px', style: 'text-align:center', sortable: false},
 		        {caption: ['생산자명'], 		ref: 'prdcrNm', 		type: 'input', 	width: '65px', style: 'text-align:center', sortable: false,
 		        	validate : gfn_chkByte.bind({byteLimit: 100})},
+	        	{caption: ['생산자코드'], 			ref: 'prdcrCd', 	type: 'input', 	width: '70px', style: 'text-align:center', sortable: false},
 		        {caption: ['대표품목'], 		ref: 'rprsItemCd', 		type: 'combo', 	width: '70px', style: 'text-align:center', sortable: false,
 					typeinfo: {ref:'jsonApcItemPrdcrPop', 		label:'label', value:'value', itemcount: 10}},
 		        {caption: ['대표품종'], 		ref: 'rprsVrtyCd', 		type: 'combo', 	width: '70px', style: 'text-align:center', sortable: false,
@@ -232,7 +233,6 @@
 		        {caption: ['비고'], 			ref: 'rmrk', 			type: 'input', 	width: '100px', style: 'text-align:center', sortable: false,
 		        	validate : gfn_chkByte.bind({byteLimit: 1000})},
 		        {caption: ['APC코드'], ref: 'apcCd', hidden : true},
-		        {caption: ['생산자코드'], ref: 'prdcrCd', hidden : true},
 		        {caption: ['ROW STATUS'], ref: 'rowSts', hidden : true},
 		    ];
 		    grdPrdcrPop = _SBGrid.create(SBGridProperties);
