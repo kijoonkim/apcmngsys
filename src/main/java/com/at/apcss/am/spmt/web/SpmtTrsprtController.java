@@ -44,7 +44,6 @@ public class SpmtTrsprtController extends BaseController {
 	// APC 환경설정 - 출하운송회사정보 목록 조회
 	@PostMapping(value = "/am/spmt/selectSpmtTrsprtList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectSpmtTrsprtList(@RequestBody SpmtTrsprtVO spmtTrsprtVO, HttpServletRequest request) throws Exception {
-		logger.debug("selectSpmtTrsprtList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<SpmtTrsprtVO> resultList = new ArrayList<>();
@@ -68,7 +67,6 @@ public class SpmtTrsprtController extends BaseController {
 
 	@PostMapping(value = "/am/cmns/compareSpmtTrsprtList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> compareSpmtTrsprtList(@RequestBody Map<String, List<SpmtTrsprtVO>> spmtTrsprtVO, HttpServletRequest request) throws Exception {
-		logger.debug("compareSpmtTrsprtList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
@@ -117,14 +115,15 @@ public class SpmtTrsprtController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	@PostMapping(value = "/am/cmns/deleteSpmtTrsprtList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> deleteSpmtTrsprtList(@RequestBody SpmtTrsprtVO spmtTrsprtVO, HttpServletRequest request) throws Exception {
-		logger.debug("deleteSpmtTrsprtList 호출 <><><><> ");
+	@PostMapping(value = "/am/cmns/deleteSpmtTrsprt.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteSpmtTrsprt(@RequestBody SpmtTrsprtVO spmtTrsprtVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		int result = 0;
 		try {
-			result = spmtTrsprtService.deleteSpmtTrsprt(spmtTrsprtVO);
+			HashMap<String, Object> rtnObj = spmtTrsprtService.deleteSpmtTrsprt(spmtTrsprtVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
@@ -134,15 +133,12 @@ public class SpmtTrsprtController extends BaseController {
 			}
 		}
 
-		resultMap.put("result", result);
-
 		return getSuccessResponseEntity(resultMap);
 	}
 
 	// 출하실적 등록
 	@PostMapping(value = "/am/cmns/multiSpmtTrsprtList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> multiSpmtTrsprtList(@RequestBody List<SpmtTrsprtVO> spmtTrsprtList, HttpServletRequest request) throws Exception {
-		logger.debug("multiSpmtTrsprtList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<SpmtTrsprtVO> updateList = new ArrayList<SpmtTrsprtVO>();

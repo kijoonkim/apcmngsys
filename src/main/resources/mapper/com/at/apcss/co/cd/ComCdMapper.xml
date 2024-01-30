@@ -476,4 +476,196 @@
 		]]>
     </select>
 
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.warehouseSeCdDelible			-->
+	<!-- DESC : APC별 창고 & 설비 삭제 여부.                                        -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.01.25  	김호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="apcCdComCdDtlDelible" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultType="com.at.apcss.co.cd.vo.ComCdVO">
+    	<if test='cdId == "WAREHOUSE_SE_CD"'>
+	    	<![CDATA[
+				SELECT X.* /* com.at.apcss.co.cd.mapper.ComCdMapper.apcCdComCdDtlDelible */
+				  FROM (
+				         SELECT
+				                '입고실적' AS DELIBLE
+				               , (SELECT COUNT(*)
+				                    FROM TB_RAW_MTR_WRHS_PRFMNC X
+				                       , TB_RAW_MTR_INVNTR Y
+				                   WHERE X.APC_CD = Y.APC_CD
+				                     AND X.WRHSNO = Y.WRHSNO
+				                     AND X.APC_CD = #{apcCd}
+				                     AND Y.WAREHOUSE_SE_CD = #{cdVl}
+				                     AND X.DEL_YN = 'N'
+				                     AND Y.DEL_YN = 'N'
+				                  )  AS CNT
+				           FROM DUAL
+				         UNION ALL
+				         SELECT
+				                '원물재고' AS DELIBLE
+				               , (SELECT COUNT(*)
+				                    FROM TB_RAW_MTR_INVNTR X
+				                   WHERE X.APC_CD = #{apcCd}
+				                     AND X.WAREHOUSE_SE_CD = #{cdVl}
+				                     AND X.DEL_YN = 'N'
+				                  )  AS CNT
+				           FROM DUAL
+				         UNION ALL
+				         SELECT
+				                '선별지시' AS DELIBLE
+				               , (SELECT COUNT(*)
+				                    FROM TB_SORT_CMND X
+				                   WHERE X.APC_CD = #{apcCd}
+				                     AND X.WAREHOUSE_SE_CD = #{cdVl}
+				                     AND X.DEL_YN = 'N'
+				                  )  AS CNT
+				           FROM DUAL
+				         UNION ALL
+				         SELECT
+				                '선별실적' AS DELIBLE
+				              , (SELECT COUNT(*)
+				                   FROM TB_SORT_PRFMNC X
+				                      , TB_SORT_INVNTR Y
+				                  WHERE X.APC_CD = Y.APC_CD
+				                    AND X.SORTNO = Y.SORTNO
+				                    AND X.APC_CD = #{apcCd}
+				                    AND Y.WAREHOUSE_SE_CD = #{cdVl}
+				                    AND X.DEL_YN = 'N'
+				                    AND Y.DEL_YN = 'N'
+				                 )  AS CNT
+				           FROM DUAL
+				         UNION ALL
+				         SELECT
+				                '선별재고' AS DELIBLE
+				               , (SELECT COUNT(*)
+				                    FROM TB_SORT_INVNTR X
+				                   WHERE X.APC_CD = #{apcCd}
+				                     AND X.WAREHOUSE_SE_CD = #{cdVl}
+				                     AND X.DEL_YN = 'N'
+				                  )  AS CNT
+				           FROM DUAL
+				         UNION ALL
+				         SELECT
+				                 '포장지시' AS DELIBLE
+				                , (SELECT COUNT(*)
+				                     FROM TB_PCKG_CMND X
+				                    WHERE X.APC_CD = #{apcCd}
+				                      AND X.WAREHOUSE_SE_CD = #{cdVl}
+				                      AND X.DEL_YN = 'N'
+				                  )  AS CNT
+				           FROM DUAL
+				         UNION ALL
+				         SELECT
+			                   '포장실적' AS DELIBLE
+			                   , (SELECT COUNT(*)
+			                        FROM TB_PCKG_PRFMNC X
+			                           , TB_GDS_INVNTR Y
+			                       WHERE X.APC_CD = Y.APC_CD
+			                         AND X.PCKGNO = Y.PCKGNO
+			                         AND X.APC_CD = #{apcCd}
+			                         AND Y.WAREHOUSE_SE_CD = #{cdVl}
+			                         AND X.DEL_YN = 'N'
+			                         AND Y.DEL_YN = 'N'
+			                  )  AS CNT
+			               FROM DUAL
+				         UNION ALL
+				         SELECT
+				                '상품재고' AS DELIBLE
+				                , (SELECT COUNT(*)
+				                    FROM TB_GDS_INVNTR X
+				                   WHERE X.APC_CD = #{apcCd}
+				                     AND X.WAREHOUSE_SE_CD = #{cdVl}
+				                     AND X.DEL_YN = 'N'
+				                  )  AS CNT
+				           FROM DUAL
+				         ) X
+				 WHERE CNT > 0
+			]]>
+    	</if>
+    	<if test='cdId == "SORT_FCLT_CD"'>
+	    	<![CDATA[
+	    		SELECT X.* /* com.at.apcss.co.cd.mapper.ComCdMapper.apcCdComCdDtlDelible */
+				  FROM (
+				         SELECT
+				                '선별지시' AS DELIBLE
+				               , (SELECT COUNT(*)
+				                    FROM TB_SORT_CMND X
+				                   WHERE X.APC_CD = '8888'
+				                     AND X.FCLT_CD = '04'
+				                     AND X.DEL_YN = 'N'
+				                  )  AS CNT
+				           FROM DUAL
+				         UNION ALL
+				         SELECT
+				                '선별실적' AS DELIBLE
+				              , (SELECT COUNT(*)
+				                   FROM TB_SORT_PRFMNC X
+				                      , TB_SORT_INVNTR Y
+				                  WHERE X.APC_CD = Y.APC_CD
+				                    AND X.SORTNO = Y.SORTNO
+				                    AND X.APC_CD = '8888'
+				                    AND Y.FCLT_CD = '04'
+				                    AND X.DEL_YN = 'N'
+				                    AND Y.DEL_YN = 'N'
+				                 )  AS CNT
+				           FROM DUAL
+				         UNION ALL
+				         SELECT
+				                '선별재고' AS DELIBLE
+				               , (SELECT COUNT(*)
+				                    FROM TB_SORT_INVNTR X
+				                   WHERE X.APC_CD = '8888'
+				                     AND X.FCLT_CD = '04'
+				                     AND X.DEL_YN = 'N'
+				                  )  AS CNT
+				           FROM DUAL
+				         ) X
+				 WHERE CNT > 0
+			]]>
+    	</if>
+    	<if test='cdId == "PCKG_FCLT_CD"'>
+	    	<![CDATA[
+	    		SELECT X.* /* com.at.apcss.co.cd.mapper.ComCdMapper.apcCdComCdDtlDelible */
+				  FROM (
+				         SELECT
+				                '포장지시' AS DELIBLE
+				               , (SELECT COUNT(*)
+				                    FROM TB_PCKG_CMND X
+				                   WHERE X.APC_CD = #{apcCd}
+			                         AND X.FCLT_CD = #{cdVl}
+				                     AND X.DEL_YN = 'N'
+				                  )  AS CNT
+				           FROM DUAL
+				         UNION ALL
+				         SELECT
+			                   '포장실적' AS DELIBLE
+			                   , (SELECT COUNT(*)
+			                        FROM TB_PCKG_PRFMNC X
+			                           , TB_GDS_INVNTR Y
+			                       WHERE X.APC_CD = Y.APC_CD
+			                         AND X.PCKGNO = Y.PCKGNO
+			                         AND X.APC_CD = #{apcCd}
+			                         AND Y.FCLT_CD = #{cdVl}
+			                         AND X.DEL_YN = 'N'
+			                         AND Y.DEL_YN = 'N'
+			                  )  AS CNT
+			               FROM DUAL
+				         UNION ALL
+				         SELECT
+				                '상품재고' AS DELIBLE
+				               , (SELECT COUNT(*)
+				                    FROM TB_GDS_INVNTR X
+				                   WHERE X.APC_CD = #{apcCd}
+			                         AND X.FCLT_CD = #{cdVl}
+				                     AND X.DEL_YN = 'N'
+				                  )  AS CNT
+				           FROM DUAL
+				         ) X
+				 WHERE CNT > 0
+			]]>
+    	</if>
+    </select>
+
 </mapper>

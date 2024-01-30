@@ -59,4 +59,12 @@ public interface OprtrMapper {
 	 * @throws Exception
 	 */
 	public int deleteOprtr(OprtrVO oprtrVO) throws Exception;
+
+	/**
+	 * 작업생산자 삭제 가능 여부
+	 * @param OprtrVO
+	 * @return List<OprtrVO>
+	 * @throws Exception
+	 */
+	public List<OprtrVO> oprtrDelible(OprtrVO oprtrVO) throws Exception;
 }

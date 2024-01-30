@@ -60,4 +60,12 @@ public interface OprtrService {
 	 */
 	public HashMap<String, Object> deleteOprtr(OprtrVO oprtrVO) throws Exception;
 
+	/**
+	 * 작업생산자 삭제 가능 여부
+	 * @param OprtrVO
+	 * @return String
+	 * @throws Exception
+	 */
+	public String oprtrDelible(OprtrVO oprtrVO) throws Exception;
+
 }

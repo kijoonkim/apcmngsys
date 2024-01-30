@@ -199,17 +199,17 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdStdGrdDtl\", " + nRow + ")'>삭제</button>";
 	        	}
 		    }},
-	    	{caption: ["등급상세명"],     	ref: 'grdNm',  type:'input',  width:'180px',    style:'text-align:center',
+		    {caption: ["등급상세코드"], 	ref: 'grdCd',   type:'output',  width:'80px',    style:'text-align:center'},
+	    	{caption: ["등급상세명"],     	ref: 'grdNm',  type:'input',  width:'150px',    style:'text-align:center',
         			typeinfo : {maxlength : 30}},
-       		{caption: ["점수"],     ref: 'grdVl',  type:'input',  width:'80px',    style:'text-align:center',
+       		{caption: ["점수"],     ref: 'grdVl',  type:'input',  width:'60px',    style:'text-align:center',
 					typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-       		{caption: ["순서"],     ref: 'sn',  type:'input',  width:'80px',    style:'text-align:center',
+       		{caption: ["순서"],     ref: 'sn',  type:'input',  width:'70px',    style:'text-align:center',
 					typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 4}, format : {type:'number', rule:'#,###'}},
 	        {caption: ["APC코드"], 	ref: 'apcCd',   	type:'input',  hidden : true},
 	        {caption: ["품목코드"], 	ref: 'itemCd',   	type:'input',  hidden : true},
 	        {caption: ["등급구분코드"], ref: 'grdSeCd',   	type:'input',  hidden : true},
 	        {caption: ["등급코드"], 	ref: 'grdKnd',   	type:'input',  hidden : true},
-	        {caption: ["등급종류코드"], ref: 'grdCd',   	type:'input',  hidden : true}
 	    ];
 	    grdStdGrdDtl = _SBGrid.create(SBGridPropertiesStdGrdDtl);
 

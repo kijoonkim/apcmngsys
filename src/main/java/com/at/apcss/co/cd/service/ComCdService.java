@@ -1,5 +1,6 @@
 package com.at.apcss.co.cd.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.co.cd.vo.ComCdVO;
@@ -86,6 +87,14 @@ public interface ComCdService {
 	public int deleteComCdDtl(ComCdVO comCdVO) throws Exception;
 
 	/**
+	 * 공통코드 삭제
+	 * @param comCdVO
+	 * @return deleted count
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteApcComCdDtl(ComCdVO comCdVO) throws Exception;
+
+	/**
 	 * 콤보박스 공통코드 리스트
 	 * @param comCdVO
 	 * @return List<ComCdVO>
@@ -137,26 +146,34 @@ public interface ComCdService {
 	 * @return updated count
 	 */
 	public int multiSaveComCdList(List<ComCdVO> comCdList) throws Exception;
-	
+
 	/**
 	 * 공통코드 상세 멀티 저장
 	 * @param List<ComCdVO>
 	 * @return updated count
 	 */
 	public int multiSaveComCdDtlList(List<ComCdVO> comCdList) throws Exception;
-	
+
 	/**
 	 * 공통코드 & 공통코드 상세 멀티 저장
 	 * @param ComCdVO
 	 * @return updated count
 	 */
 	public int multiSaveComCdComCdDtlList(ComCdVO comCdVO) throws Exception;
-	
+
 	/**
 	 * 공통코드 & 공통코드 상세 멀티 삭제
 	 * @param ComCdVO
 	 * @return updated count
 	 */
 	public int deleteComCdComCdDtlList(ComCdVO comCdVO) throws Exception;
+
+	/**
+	 * APC별 창고 & 설비 삭제 여부
+	 * @param ComCdVO
+	 * @return String
+	 * @throws Exception
+	 */
+	public String apcCdComCdDtlDelible(ComCdVO comCdVO) throws Exception;
 
 }

@@ -63,4 +63,12 @@ public interface SpmtTrsprtMapper {
 	 */
 	public int deleteSpmtTrsprt(SpmtTrsprtVO spmtTrsprtVO)throws Exception;
 
+	/**
+	 * 출하운송회사정보 삭제 가능 여부
+	 * @param SpmtTrsprtVO
+	 * @return List<SpmtTrsprtVO>
+	 * @throws Exception
+	 */
+	public List<SpmtTrsprtVO> spmtTrsprtDelible(SpmtTrsprtVO spmtTrsprtVO)throws Exception;
+
 }

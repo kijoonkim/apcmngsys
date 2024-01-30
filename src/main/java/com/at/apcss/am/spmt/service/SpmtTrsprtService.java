@@ -60,15 +60,23 @@ public interface SpmtTrsprtService {
 	 * @return Integer
 	 * @throws Exception
 	 */
-	public int deleteSpmtTrsprt(SpmtTrsprtVO spmtTrsprtVO)throws Exception;
+	public HashMap<String, Object> deleteSpmtTrsprt(SpmtTrsprtVO spmtTrsprtVO)throws Exception;
 
 	/**
 	 * 출하운송회사정보 등록
-	 * 
+	 *
 	 * @param vhclList
 	 * @return
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> multiSpmtTrsprt(List<SpmtTrsprtVO> spmtTrsprtList) throws Exception;
+
+	/**
+	 * 출하운송회사정보 삭제 가능 여부
+	 * @param SpmtTrsprtVO
+	 * @return String
+	 * @throws Exception
+	 */
+	public String spmtTrsprtDelible(SpmtTrsprtVO spmtTrsprtVO)throws Exception;
 
 }

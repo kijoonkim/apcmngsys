@@ -57,7 +57,6 @@
     	</if>
     	<!-- End 페이징 -->
     </select>
-
     <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.oprtr.mapper.OprtrMapper.insertOprtr				-->
 	<!-- DESC : 작업생산자 등록.	                                       			-->
@@ -155,6 +154,43 @@
  		   AND BRDT 			= #{brdt}
 		]]>
 	</delete>
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.oprtr.mapper.OprtrMapper.oprtrDelible				-->
+	<!-- DESC : 작업생산자 삭제 가능 여부.	                                       	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.01.25  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="oprtrDelible" parameterType="com.at.apcss.am.oprtr.vo.OprtrVO" resultType="com.at.apcss.am.oprtr.vo.OprtrVO">
+    	<![CDATA[
+	    	SELECT X.* /* com.at.apcss.am.oprtr.mapper.OprtrMapper.oprtrDelible */
+			  FROM (
+			           SELECT
+			                  '선별작업실적' AS DELIBLE
+			                 , (SELECT COUNT(*)
+			                      FROM TB_OPRTR_SORT_PRFMNC X
+			                     WHERE X.APC_CD = #{apcCd}
+			                       AND X.BRDT   = #{brdt}
+			                       AND X.FLNM   = #{flnm}
+			                       AND X.DEL_YN = 'N'
+			                  )  AS CNT
+			             FROM DUAL
+			           UNION ALL
+			           SELECT
+			                  '포장작업실적' AS DELIBLE
+			                 , (SELECT COUNT(*)
+			                      FROM TB_OPRTR_PCKG_PRFMNC X
+			                     WHERE X.APC_CD = #{apcCd}
+			                       AND X.BRDT   = #{brdt}
+			                       AND X.FLNM   = #{flnm}
+			                       AND X.DEL_YN = 'N'
+			                  )  AS CNT
+			             FROM DUAL
+			         ) X
+			 WHERE CNT > 0
+		]]>
+    </select>
 
 </mapper>
 

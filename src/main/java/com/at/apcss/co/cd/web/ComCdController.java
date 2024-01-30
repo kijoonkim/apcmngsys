@@ -38,7 +38,7 @@ public class ComCdController extends BaseController {
 
 	@Resource(name ="comCdService")
 	private ComCdService comCdService;
-	
+
 	// 공통코드 상세 삭제
 	@PostMapping(value = "/co/cd/deleteComCdDtl.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteComCdDtl(@RequestBody ComCdVO comCdVO, HttpServletRequest request) throws Exception {
@@ -49,6 +49,11 @@ public class ComCdController extends BaseController {
 			result += comCdService.deleteComCdDtl(comCdVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
+		}finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
@@ -67,6 +72,11 @@ public class ComCdController extends BaseController {
 			result = comCdService.duplicateCheckCdId(comCdVO);
 		}catch(Exception e){
 			return getErrorResponseEntity(e);
+		}finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 		resultMap.put("result", result);
 		return getSuccessResponseEntity(resultMap);
@@ -82,6 +92,11 @@ public class ComCdController extends BaseController {
 			result = comCdService.duplicateCheckCdIdDtl(comCdVO);
 		}catch(Exception e){
 			return getErrorResponseEntity(e);
+		}finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 		resultMap.put("result", result);
 		return getSuccessResponseEntity(resultMap);
@@ -136,18 +151,18 @@ public class ComCdController extends BaseController {
 		resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	// 공통코드 & 공통코드 상세 등록
 	@PostMapping(value = "/co/cd/multiSaveComCdComCdDtlList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> multiSaveComCdComCdDtlList(@RequestBody ComCdVO saveList, HttpServletRequest request) throws Exception {
-	
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-	
+
 		List<ComCdVO> saveCdList = saveList.getComCdList();
 		List<ComCdVO> saveCdDtlList = saveList.getComCdDtlList();
 		ComCdVO saveComCdComCdDtlList = new ComCdVO();
 		int savedCnt = 0;
-		
+
 		try {
 			for (ComCdVO comCd : saveCdList) {
 				comCd.setSysFrstInptPrgrmId(getPrgrmId());
@@ -163,10 +178,15 @@ public class ComCdController extends BaseController {
 			}
 			saveComCdComCdDtlList.setComCdList(saveCdList);
 			saveComCdComCdDtlList.setComCdDtlList(saveCdDtlList);
-	
+
 			savedCnt = comCdService.multiSaveComCdComCdDtlList(saveComCdComCdDtlList);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
+		}finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 		resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
 		return getSuccessResponseEntity(resultMap);
@@ -175,17 +195,45 @@ public class ComCdController extends BaseController {
 	// 공통코드 & 공통코드 상세 삭제
 	@PostMapping(value = "/co/cd/deleteComCdComCdDtlList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteComCdComCdDtlList(@RequestBody ComCdVO deleteList, HttpServletRequest request) throws Exception {
-	
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		int deletedCnt = 0;
-		
+
 		try {
 			deletedCnt = comCdService.deleteComCdComCdDtlList(deleteList);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
+		}finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 창고 & 설비 삭제
+	@PostMapping(value = "/co/cd/deleteApcComCdDtl.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteApcComCdDtl(@RequestBody ComCdVO comCdVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		try {
+
+			HashMap<String, Object> rtnObj = comCdService.deleteApcComCdDtl(comCdVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
 		return getSuccessResponseEntity(resultMap);
 	}
 }
