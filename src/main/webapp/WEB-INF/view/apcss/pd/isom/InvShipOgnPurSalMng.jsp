@@ -545,7 +545,7 @@
 	    SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	    	{caption: ["처리","처리"], 		ref: 'delYn',   		type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+	    	{caption: ["처리","처리"], 		ref: 'delYn',   		type:'button', width:'40px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
@@ -648,18 +648,19 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 	    SBGridProperties.contextmenulist = objMenuList02;	// 우클릭 메뉴 리스트
+	    SBGridProperties.frozencols=4;
 	    //SBGridProperties.extendlastcol = 'scroll';
 	    //SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	    	{caption: ["처리","처리","처리","처리"], 		ref: 'delYn',   type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+	    	{caption: ["처리","처리","처리","처리"], 		ref: 'delYn',   type:'button', width:'40px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ")'>삭제</button>";
 	        	}
 	        }},
-	        {caption: ["품목","품목","품목","품목"], 		ref: 'sttgUpbrItemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
+	        {caption: ["품목","품목","품목","품목"], 		ref: 'sttgUpbrItemNm',   	type:'output',  width:'55px',    style:'text-align:center'},
 	    	{caption: ["품목","품목","품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 	    	//{caption: ["품목분류","품목분류","품목분류"], 	ref: 'ctgryNm',   	type:'combo',  width:'80px',    style:'text-align:center'},
 	    	{caption: ["품목분류","품목분류","품목분류","품목분류"], 	ref: 'ctgryCd',   	type:'combo',  width:'80px',    style:'text-align:center'
@@ -712,7 +713,7 @@
 				,ref: 'ajmtVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","조정 취급실적","조정 취급실적","금액(A)"]//전문품목 매입매출 화면의 매출 총합
-				,ref: 'ajmtAmt',   	type:'output',  width:'100px',    style:'text-align:center'
+				,ref: 'ajmtAmt',   	type:'output',  width:'100px',    style:'text-align:center;border-right-color: black !important;' , fixedstyle:'border-right-color: black !important;'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
 
