@@ -21,7 +21,6 @@
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectPrdcrCrclOgnMng" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO" resultType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO">
-    	<![CDATA[
 			SELECT /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.selectPrdcrCrclOgnMng */
 				CM.APO_CD
 				, CM.APO_NM
@@ -69,7 +68,14 @@
 				, CM.DLBRR_NOPE
 				, CM.ITEM_NH_BROF_YN
 				, CM.WRT_YN
-
+				<if test='yr != null and yr != ""'>
+				, (SELECT CORP_DDLN_SE_CD
+					FROM TB_EV_APLY_MNG
+					WHERE YR = #{yr}
+					AND BRNO = CM.BRNO
+					AND APO_SE = CM.APO_SE
+				) AS CORP_DDLN_SE_CD /*신청관리 법인체마감 사용자 수정불가 처리*/
+				</if>
 				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
 				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
 				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
@@ -83,7 +89,6 @@
 				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
 			  FROM TB_EV_APO CM
 			 WHERE 1=1
-    	]]>
 			   AND CM.BRNO = #{brno}
 		ORDER BY CM.APO_CD ASC
 

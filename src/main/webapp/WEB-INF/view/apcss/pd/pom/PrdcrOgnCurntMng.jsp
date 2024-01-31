@@ -804,8 +804,14 @@
 
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
-		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		let yr = SBUxMethod.get("srch-input-yr");//
+		if(gfn_isEmpty(yr)){
+			//추후 등록 년도 관련 수정 할시 변경
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
+		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
 		let ctpv = SBUxMethod.get("srch-input-ctpv");//
 
@@ -819,8 +825,10 @@
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
 		</c:if>
+		console.log(yr);
     	let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
     		brno : brno
+    		,yr : yr
     		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
     		,cmptnInst : cmptnInst
     		,ctpv : ctpv
@@ -829,7 +837,6 @@
     		,corpDtlSeCd : corpDtlSeCd
 
     		,corpNm : corpNm
-    		,yr : yr
     		</c:if>
     		<c:if test="${loginVO.userType eq '21'}">
 			,userType : '21'

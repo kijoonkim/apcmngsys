@@ -175,7 +175,20 @@
 				, CM.UO_BRNO
 				, CM.UO_NM
 				, CM.UNTY_YR
-				, CM.APRV
+				<if test='yr != null and yr != ""'>
+				, (CASE WHEN CM.APO_SE = '1'
+						THEN CM.APRV
+						WHEN CM.APO_SE = '2'
+						THEN (SELECT (SELECT APRV FROM TB_EV_APO WHERE BRNO = AM.UO_BRNO) AS APRV
+								FROM TB_EV_APLY_MNG AM
+								WHERE 1=1
+								  AND BRNO = CM.BRNO
+								  AND APO_SE = '2'
+								  AND YR = #{yr}
+							)
+					ELSE '' END
+				) AS APRV
+			  	</if>
 				, CM.STBLT_YN
 				, CM.MNGMST_YN
 
@@ -201,6 +214,11 @@
 							)
 				) AS ISO_FUND_APLY_AMT
 				, EAM.APLY_TRGT_SE
+				<!--
+				<if test='stbltYnNm == "Y"'>
+				, (SELECT )
+				</if>
+				 -->
 
 				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
 				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD

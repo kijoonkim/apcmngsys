@@ -67,6 +67,8 @@ public class PrdcrCrclOgnMngVO extends ComVO{
 	private String uoBrno;			//통합조직사업자번호
 	private String uoNm;			//통합조직명
 
+	private String yr;						//신청관리 등록년도 확인용
+	private String corpDdlnSeCd;			//신청관리 법인체마감 사용자 산지조직관리 수정 불가 처리용
 
 	private String sysFrstInptUserNm;		//시스템최초입력사용자이름
 	private String sysFrstInptDtYmd;		//시스템최초입력일시ymd
