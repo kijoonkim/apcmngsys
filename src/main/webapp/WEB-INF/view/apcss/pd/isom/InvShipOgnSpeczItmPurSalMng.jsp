@@ -441,8 +441,8 @@
 		    	,typeinfo : {ref:'jsonGrdSgg', label:'label', value:'value', displayui : false}},
 	        {caption: ["법인명"], 		ref: 'corpNm',  type:'output',  width:'250px',    style:'text-align:center'},
 	        {caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'250px',    style:'text-align:center'},
-	        //{caption: ["적합여부"], 		ref: 'stbltYnNm',   	type:'output',  width:'50px',    style:'text-align:center'},
-	        {caption: ["진행단계"], 		ref: 'aa',   	type:'output',  width:'153px',    style:'text-align:center'},
+	        {caption: ["적합품목"], 		ref: 'stbltYnNm',   	type:'output',  width:'200px',    style:'text-align:center'},
+	        //{caption: ["진행단계"], 		ref: 'aa',   	type:'output',  width:'153px',    style:'text-align:center'},
 	        {caption: ["비고"], 			ref: 'rmrk',   	type:'output',  width:'200px',    style:'text-align:center'},
 	        {caption: ["상세내역"], 	ref: 'crno',		hidden : true}
 	    ];
@@ -746,8 +746,14 @@
 
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
-		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		let yr = SBUxMethod.get("srch-input-yr");//
+		if(gfn_isEmpty(yr)){
+			//추후 등록 년도 관련 수정 할시 변경
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
+		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
 		let ctpv = SBUxMethod.get("srch-input-ctpv");//
 
@@ -765,6 +771,7 @@
     	let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
     		brno : brno
     		,apoSe : '2'
+    		,yr : yr
     		,stbltYnNm:'Y'
 
     		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
@@ -775,7 +782,7 @@
     		,corpDtlSeCd : corpDtlSeCd
 
     		,corpNm : corpNm
-    		,yr : yr
+
     		</c:if>
 
     		<c:if test="${loginVO.userType eq '21'}">
@@ -803,7 +810,7 @@
 						,crno: item.crno
 						,brno: item.brno
 						,yr: item.yr
-						,stbltYn: item.stbltYn
+						,stbltYnNm: item.stbltYnNm
 						,corpSeCd: item.corpSeCd
 				}
 				jsonPrdcrOgnCurntMng.push(PrdcrOgnCurntMngVO);
