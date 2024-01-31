@@ -1780,6 +1780,7 @@
 			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
+					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
