@@ -717,9 +717,11 @@
 
 			{caption: ["출자출하조직 취급실적","조정 취급실적","조정 취급실적","물량(톤)"]
 				,ref: 'ajmtVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+				, calc : 'fn_ajmtVlm'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","조정 취급실적","조정 취급실적","금액(A)"]//전문품목 매입매출 화면의 매출 총합
 				,ref: 'ajmtAmt',   	type:'output',  width:'100px',    style:'text-align:center;border-right-color: black !important;' , fixedstyle:'border-right-color: black !important;'
+				, calc : 'fn_ajmtAmt'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
 
@@ -804,7 +806,8 @@
 		  'slsSmplTrstVlm', 'slsSmplTrstAmt', 'slsSmplEmspapVlm', 'slsSmplEmspapAmt',
 		  'ddcExprtVlm', 'ddcExprtAmt', 'ddcVlm', 'ddcAmt', 'ddcArmyDlvgdsVlm', 'ddcArmyDlvgdsAmt',
 		  'ddcMlsrVlm', 'ddcMlsrAmt',
-		  'spmtPrfmncVlm', 'spmtPrfmncAmt', 'smplInptVlm', 'smplInptAmt'
+		  'spmtPrfmncVlm', 'spmtPrfmncAmt', 'smplInptVlm', 'smplInptAmt',
+		  'totSpmtPrfmncVlm', 'totSpmtPrfmncAmt', 'totTrmtPrfmncVlm', 'totTrmtPrfmncAmt'
 		];
 
 	//그리드 열 속성의 calc 은 그리드 생성시 작동함  refresh() 해서 데이터 변경시로 유사하게 가능
@@ -915,6 +918,31 @@
 		}
 		return sumVal;
 	}
+	//조정 취급실적
+	function fn_ajmtVlm(objGrid, nRow, nCol){
+		let rowData = objGrid.getRowData(Number(nRow));
+		let sumVal = 0;
+		if(rowData.sttgUpbrItemSe == '3'){
+			sumVal = rowData.totTrmtPrfmncVlm;
+		}else{
+			sumVal = rowData.ajmtVlm;
+		}
+		return sumVal;
+	}
+	//조정 취급실적
+	function fn_ajmtAmt(objGrid, nRow, nCol){
+		let rowData = objGrid.getRowData(Number(nRow));
+		let sumVal = 0;
+		//기타인 경우 총 취급실적 가져오기
+		if(rowData.sttgUpbrItemSe == '3'){
+			sumVal = rowData.totTrmtPrfmncAmt;
+		}else{
+			sumVal = rowData.ajmtAmt;
+		}
+		return sumVal;
+	}
+
+
 
 	/**
      * 목록 조회
