@@ -35,7 +35,7 @@
 				</div>
 				<div id="sb-area-grdOperOgnzTrmtPrfmnc" style="height:187px;"></div>
 				<span style="font-size:11px;">*조직화취급액 : 공동선별(수탁) 및 계약재배(매취) 금액</span>
-				
+
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
@@ -47,9 +47,9 @@
 					</ul>
 				</div>
 				<div id="sb-area-grdOperOgnzAvgTrmtPrfmnc" style="height:187px;"></div>
-				
+
 				<div style="height: 50px;"></div>
-				
+
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
@@ -62,7 +62,7 @@
 					</ul>
 				</div>
 				<div id="sb-area-grdMdOperOgnzTrmtPrfmnc" style="height:337px;"></div>
-				
+
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
@@ -75,7 +75,7 @@
 				</div>
 				<div id="sb-area-grdMdApcPrcsPrfmnc" style="height:337px;"></div>
 			</div>
-			
+
 			<div class="col-sm-6">
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
@@ -88,9 +88,9 @@
 					</ul>
 				</div>
 				<div id="sb-area-grdOperOgnzPrcsPrfmnc" style="height:187px;"></div>
-				
+
 				<div style="height: 317px;"></div>
-				
+
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
@@ -101,8 +101,8 @@
 						</li>
 					</ul>
 				</div>
-				<div id="sb-area-grdMdOperOgnzTrmtPrfmncAvg" style="height:337px;"></div>		
-				
+				<div id="sb-area-grdMdOperOgnzTrmtPrfmncAvg" style="height:337px;"></div>
+
 				<div class="ad_tbl_top" style="margin-bottom: 30px;">
 					<ul class="ad_tbl_count" style="width: 100%">
 						<li>
@@ -136,7 +136,7 @@ const fn_cellCreateMdRtlFcltOperPrfmncGrid = function() {
 	fn_createMdApcPrcsPrfmncGrid();
 	// 지역별 APC 처리실적(평균)
 	fn_createMdApcPrcsPrfmncAvgGrid();
-	
+
 	fn_cellMdRtlFcltOperPrfmncGrid();
 }
 
@@ -181,6 +181,7 @@ const fn_createOperOgnzTrmtPrfmncGrid = function() {
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
     SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
+    SBGridProperties.allowcopy = true;
     SBGridProperties.total = {
 			type: 'grand',
 			position: 'bottom',
@@ -220,6 +221,7 @@ const fn_createOperOgnzPrcsPrfmncGrid = function() {
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
     SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
+    SBGridProperties.allowcopy = true;
     SBGridProperties.total = {
 			type: 'grand',
 			position: 'bottom',
@@ -258,6 +260,7 @@ const fn_createOperOgnzAvgTrmtPrfmncGrid = function() {
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
     SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
+    SBGridProperties.allowcopy = true;
     SBGridProperties.total = {
 			type: 'grand',
 			position: 'bottom',
@@ -296,6 +299,7 @@ const fn_createMdOperOgnzTrmtPrfmncGrid = function() {
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
     SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
+    SBGridProperties.allowcopy = true;
     SBGridProperties.total = {
 			type: 'grand',
 			position: 'bottom',
@@ -338,6 +342,7 @@ const fn_createMdOperOgnzTrmtPrfmncAvgGrid = function() {
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
     SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
+    SBGridProperties.allowcopy = true;
     SBGridProperties.total = {
 			type: 'grand',
 			position: 'bottom',
@@ -380,6 +385,7 @@ const fn_createMdApcPrcsPrfmncGrid = function() {
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
     SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
+    SBGridProperties.allowcopy = true;
     SBGridProperties.total = {
 			type: 'grand',
 			position: 'bottom',
@@ -422,6 +428,7 @@ const fn_createMdApcPrcsPrfmncAvgGrid = function() {
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
     SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
+    SBGridProperties.allowcopy = true;
     SBGridProperties.total = {
 			type: 'grand',
 			position: 'bottom',
@@ -458,14 +465,14 @@ const fn_createMdApcPrcsPrfmncAvgGrid = function() {
 
 const fn_cellMdRtlFcltOperPrfmncGrid = async function() {
 	let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
-	
+
 	const postJsonPromise = gfn_postJSON("/fm/fclt/selectMdRtlFcltOperPrfmncGridList.do", {crtrYr : crtrYr});
-	
+
 	let data = await postJsonPromise;
 	try {
-		
+
 		mdRtlFcltOperPrfmncJsonLengthReset();
-		
+
 	  	data.resultOperOgnzTrmtPrfmnc.forEach((item, index) => {
 	  		const operOgnzTrmtPrfmnc = {
 	  				  v0 : item.v0,
@@ -544,9 +551,9 @@ const fn_cellMdRtlFcltOperPrfmncGrid = async function() {
 			}
 	  		jsonMdApcPrcsPrfmncAvg.push(mdApcPrcsPrfmncAvg);
 	  	});
-	  	
+
 	  	mdRtlFcltOperPrfmncRebuild();
-	  		
+
 	  }	catch (e) {
 	 		if (!(e instanceof Error)) {
 	 			e = new Error(e);
