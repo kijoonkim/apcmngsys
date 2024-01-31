@@ -383,7 +383,7 @@
 				, CM.SMPL_INPT_AMT
 
 				, CM.AJMT_VLM
-				, NVL(TOTD.UO_SPMT_AMT ,0) AS AJMT_AMT
+				, NVL(TOTD.UO_SPMT_AMT_TOT ,0) AS AJMT_AMT
 
 				/* 총 실적 */
 				, CM.TOT_TRMT_PRFMNC_VLM
@@ -517,7 +517,9 @@
 
 					  GROUP BY  YR , BRNO , UO_BRNO , ITEM_CD
 			  		) TOTC ,
-			  		(SELECT YR , BRNO , UO_BRNO , ITEM_CD , SUM( NVL( UO_SPMT_AMT , 0 ) + NVL( UO_OTHER_SPMT_AMT , 0 ) ) AS UO_SPMT_AMT
+			  		(SELECT YR , BRNO , UO_BRNO , ITEM_CD
+			  			, SUM( NVL( UO_SPMT_AMT , 0 ) ) AS UO_SPMT_AMT
+			  			, SUM( NVL( UO_SPMT_AMT , 0 ) + NVL( UO_OTHER_SPMT_AMT , 0 ) ) AS UO_SPMT_AMT_TOT
 			  		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 			  		WHERE 1=1
 			  		  AND APO_SE = '2'
@@ -1235,16 +1237,21 @@
 
 
 	<delete id="deleteInvShipOgnPurSalMng" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO">
-		<![CDATA[
 		DELETE FROM TB_EV_UO_ISO_ALL_PRCHS_SLS
 		 WHERE 1=1
-					 AND BRNO		= #{brno}
-					 AND UO_BRNO	= #{uoBrno}
-					 AND CTGRY_CD	= #{ctgryCd}
-					 AND ITEM_CD	= #{itemCd}
+					 AND BRNO				= #{brno}
+					 <if test='uoBrno != null and uoBrno != ""'>
+					 AND UO_BRNO	 		= #{uoBrno}
+					 </if>
+					 <if test='uoBrno == null or uoBrno == ""'>
+					 AND UO_BRNO IS NULL
+					 </if>
+					 AND CTGRY_CD			= #{ctgryCd}
+					 AND ITEM_CD			= #{itemCd}
 					 AND STTG_UPBR_ITEM_SE	= #{sttgUpbrItemSe}
-					 AND PRCHS_SLS_SE	= #{prchsSlsSe}
-		]]>
+					 AND PRCHS_SLS_SE		= #{prchsSlsSe}
+					 AND APO_SE 			= '2'
+					 AND YR	 				= #{yr}
 	</delete>
 
 </mapper>

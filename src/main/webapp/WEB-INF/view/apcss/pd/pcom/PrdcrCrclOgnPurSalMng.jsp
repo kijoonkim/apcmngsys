@@ -1348,10 +1348,12 @@
 	//품목 리스트 삭제
 	async function fn_deleteRsrc(vo){
 
+		/*
 		if(true){
 			alert("개발중");
 			return;
 		}
+		*/
 
 		let postJsonPromise = gfn_postJSON("/pd/pcom/deletePrdcrCrclOgnPurSalMng.do", vo);
         let data = await postJsonPromise;

@@ -70,6 +70,8 @@ public class PrdcrCrclOgnReqMngVO extends ComVO{
 	private String isoFundAplyAmt;
 	private String aplyTrgtSe;
 
+	private String stbltYnNm; //적합여부 표기
+
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;
 	private String sysFrstInptDtYmd;

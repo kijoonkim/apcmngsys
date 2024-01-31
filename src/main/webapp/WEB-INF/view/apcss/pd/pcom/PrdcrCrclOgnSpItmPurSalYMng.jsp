@@ -974,6 +974,8 @@
 				//disabled 처리
 				grdPrdcrOgnCurntMng01.setCellDisabled(i, slsCnsgnPrchsAmt, i, slsCnsgnPrchsAmt, true);
 				//grdPrdcrOgnCurntMng01.setCellDisabled(i, slsCnsgnPrchsAmt, i, slsCnsgnPrchsAmt, true);
+				// 배경 속성 추가
+				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, slsCnsgnPrchsAmt, i, slsCnsgnPrchsAmt, 'lightgray');
 			}
 			//통합조직에 속한 출자출하조직 생산자조직 외 소계
 			if(rowData01.typeSeNo == '4'){

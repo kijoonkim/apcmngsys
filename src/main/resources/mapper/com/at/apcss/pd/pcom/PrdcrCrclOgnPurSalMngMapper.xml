@@ -802,13 +802,15 @@
 
 
 	<delete id="deletePrdcrCrclOgnPurSalMng" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
-		<![CDATA[
 		DELETE FROM TB_EV_UO_ISO_ALL_PRCHS_SLS
 		 WHERE 1=1
-					 AND APO_CD		= #{apoCd}
-					 AND CTGRY_CD	= #{ctgryCd}
-					 AND ITEM_CD	= #{itemCd}
-		]]>
+					 AND BRNO				= #{brno}
+					 AND CTGRY_CD			= #{ctgryCd}
+					 AND ITEM_CD			= #{itemCd}
+					 AND STTG_UPBR_ITEM_SE	= #{sttgUpbrItemSe}
+					 AND PRCHS_SLS_SE		= #{prchsSlsSe}
+					 AND APO_SE 			= '1'
+					 AND YR	 				= #{yr}
 	</delete>
 
 </mapper>

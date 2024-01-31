@@ -547,8 +547,11 @@
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ")'>삭제</button>";
+			        if(objRowData.sttgUpbrItemCd == '3'){
+	        			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ")'>삭제</button>";
+			        }
 	        	}
+	        	return "";
 	        }},
 	        {caption: ["품목","품목"], 		ref: 'sttgUpbrItemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 	    	{caption: ["품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
@@ -653,11 +656,14 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	    	{caption: ["처리","처리","처리","처리"], 		ref: 'delYn',   type:'button', width:'40px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
-	        	if(strValue== null || strValue == ""){
+	    		if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ")'>삭제</button>";
+			        if(objRowData.sttgUpbrItemCd == '3'){
+			        	return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ")'>삭제</button>";
+			        }
 	        	}
+	    		return "";
 	        }},
 	        {caption: ["품목","품목","품목","품목"], 		ref: 'sttgUpbrItemNm',   	type:'output',  width:'55px',    style:'text-align:center'},
 	    	{caption: ["품목","품목","품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
@@ -738,22 +744,22 @@
 				,calc: 'fn_spmtPrfmncAmt'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
-			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공선수탁","물량(톤)"]
+			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공동선별수탁","물량(톤)"]
 				,ref: 'slsCprtnSortTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공선수탁","금액(천원)"]
+			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공동선별수탁","금액(천원)"]
 				,ref: 'slsCprtnSortTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공선매취","물량(톤)"]
+			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공동선별매취","물량(톤)"]
 				,ref: 'slsCprtnSortEmspapVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공선매취","금액(천원)"]
+			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공동선별매취","금액(천원)"]
 				,ref: 'slsCprtnSortEmspapAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공동수탁","물량(톤)"]
+			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공동출하수탁","물량(톤)"]
 				,ref: 'slsCprtnTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공동수탁","금액(천원)"]
+			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공동출하수탁","금액(천원)"]
 				,ref: 'slsCprtnTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","합계","물량(톤)"]
@@ -1197,6 +1203,7 @@
             	grdPrdcrOgnCurntMng01.setCellData(nRow, grdPrdcrOgnCurntMng01.getColRef("sttgUpbrItemNm"), "기타", true);
             	grdPrdcrOgnCurntMng01.setCellData(nRow, grdPrdcrOgnCurntMng01.getColRef("sttgUpbrItemSe"), "3", true);
             	grdPrdcrOgnCurntMng01.addRow(true);
+            	fn_gridCustom();
             }
 
             if (grid === "grdPrdcrOgnCurntMng02") {
@@ -1204,6 +1211,7 @@
             	grdPrdcrOgnCurntMng02.setCellData(nRow, grdPrdcrOgnCurntMng02.getColRef("sttgUpbrItemNm"), "기타", true);
             	grdPrdcrOgnCurntMng02.setCellData(nRow, grdPrdcrOgnCurntMng02.getColRef("sttgUpbrItemSe"), "3", true);
             	grdPrdcrOgnCurntMng02.addRow(true);
+            	fn_gridCustom();
             }
 
         }
@@ -1239,10 +1247,10 @@
         }
     }
 
-	//품목 리스트 삭제
+	//리스트 삭제
 	async function fn_deleteRsrc(vo){
 
-		if(true)return;
+		//if(true)return;
 		let postJsonPromise = gfn_postJSON("/pd/isom/deleteInvShipOgnPurSalMng.do", vo);
         let data = await postJsonPromise;
 

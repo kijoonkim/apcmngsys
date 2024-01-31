@@ -382,7 +382,7 @@
 
 	var jsonPrdcrOgnCurntMng = []; // 그리드의 참조 데이터 주소 선언
 	var grdPrdcrOgnCurntMng
-	
+
 	const objMenuList = {
 	        "excelDwnld": {
 	            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
@@ -426,7 +426,7 @@
 		    	,typeinfo : {ref:'jsonGrdSgg', label:'label', value:'value', displayui : false}},
 	        {caption: ["법인명"], 		ref: 'corpNm',  type:'output',  width:'250px',    style:'text-align:center'},
 	        {caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'250px',    style:'text-align:center'},
-	        {caption: ["적합여부"], 		ref: 'stbltYn',   	type:'output',  width:'50px',    style:'text-align:center'},
+	        //{caption: ["적합여부"], 		ref: 'stbltYnNm',   	type:'output',  width:'50px',    style:'text-align:center'},
 	        {caption: ["진행단계"], 		ref: 'aa',   	type:'output',  width:'153px',    style:'text-align:center'},
 	        {caption: ["비고"], 			ref: 'rmrk',   	type:'output',  width:'200px',    style:'text-align:center'},
 	        {caption: ["상세내역"], 	ref: 'crno',		hidden : true}
@@ -525,7 +525,7 @@
 	    grdPrdcrOgnCurntMng01.bind('afteredit','fn_AfterEdit01');
 	}
 	*/
-	
+
 	const objMenuList01 = {
 	        "excelDwnld": {
 	            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
@@ -538,7 +538,7 @@
 	function fn_excelDwnld01() {
 		grdPrdcrOgnCurntMng01.exportLocalExcel("출자출하조직관리(전문품목 매입.매출)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
-	
+
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid01 = async function() {
 
@@ -750,6 +750,7 @@
     	let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
     		brno : brno
     		,apoSe : '2'
+    		,stbltYnNm:'Y'
 
     		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
     		,cmptnInst : cmptnInst
