@@ -113,9 +113,10 @@
 		prvMenuId: "",
 		prvUserId: "",
 		prvUserNm: "",
+		prvUserType: "",
 		objGrid: null,
 		gridJson: [],
-		init: async function(_apcCd, _apcNm, _userId, _userNm, _menuId, _menuNm) {
+		init: async function(_apcCd, _apcNm, _userId, _userNm, _userType, _menuId, _menuNm) {
 
 			// set param
 			SBUxMethod.set("dmnd-inp-apcNm", _apcNm);
@@ -128,6 +129,7 @@
 			this.prvMenuId = _menuId;
 			this.prvUserId = _userId;
 			this.prvUserNm = _userNm;
+			this.prvUserType = _userType;
 
 			this.search();
 
@@ -187,6 +189,7 @@
 	        const postJsonPromise = gfn_postJSON("/co/dmnd/selectPrfrmImprvDmndList.do", {
 	        	apcCd				: apcCd,
 	        	menuId				: this.prvMenuId,
+	        	userId				: this.prvUserId,
 			});
 
 	        const data = await postJsonPromise;
