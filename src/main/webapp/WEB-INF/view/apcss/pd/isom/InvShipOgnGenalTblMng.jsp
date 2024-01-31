@@ -426,9 +426,8 @@
 		    	,typeinfo : {ref:'jsonGrdSgg', label:'label', value:'value', displayui : false}},
 	        {caption: ["법인명"], 		ref: 'corpNm',  type:'output',  width:'250px',    style:'text-align:center'},
 	        {caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'250px',    style:'text-align:center'},
-	        //{caption: ["적합여부"], 		ref: 'stbltYn',   	type:'output',  width:'50px',    style:'text-align:center'},
-	        //20240130 한개라도 적합한 경우 적합하게 표기, 적합품목 표기 추가 요청
-	        {caption: ["진행단계"], 		ref: 'aa',   	type:'output',  width:'153px',    style:'text-align:center'},
+	        {caption: ["적합품목"], 		ref: 'stbltYnNm',   	type:'output',  width:'200px',    style:'text-align:center'},
+	        //{caption: ["진행단계"], 		ref: 'aa',   	type:'output',  width:'153px',    style:'text-align:center'},
 	        {caption: ["비고"], 			ref: 'rmrk',   	type:'output',  width:'200px',    style:'text-align:center'}
 	    ];
 
@@ -538,8 +537,14 @@
 
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
-		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		let yr = SBUxMethod.get("srch-input-yr");//
+		if(gfn_isEmpty(yr)){
+			//추후 등록 년도 관련 수정 할시 변경
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
+		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
 		let ctpv = SBUxMethod.get("srch-input-ctpv");//
 
@@ -557,6 +562,8 @@
     	let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
     		brno : brno
     		,apoSe : '2'
+    		,yr : yr
+    		,stbltYnNm:'Y'
 
     		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
     		,cmptnInst : cmptnInst
@@ -566,7 +573,6 @@
     		,corpDtlSeCd : corpDtlSeCd
 
     		,corpNm : corpNm
-    		,yr : yr
     		</c:if>
 
     		<c:if test="${loginVO.userType eq '21'}">
@@ -595,7 +601,7 @@
 						,brno: item.brno
 						,yr: item.yr
 						,corpSeCd: item.corpSeCd
-						,stbltYn: item.stbltYn
+						,stbltYnNm: item.stbltYnNm
 				}
 				jsonPrdcrOgnCurntMng.push(PrdcrOgnCurntMngVO);
 				if (index === 0) {

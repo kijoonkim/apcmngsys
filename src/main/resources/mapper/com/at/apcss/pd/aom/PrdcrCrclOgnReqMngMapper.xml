@@ -190,6 +190,23 @@
 				) AS APRV
 			  	</if>
 				, CM.STBLT_YN
+				<if test='stbltYnNm == "Y"'>
+				,(SELECT LISTAGG(ITEM_NM, ' , ') WITHIN GROUP (ORDER BY ITEM_NM) AS STBLT_YN_NM
+					FROM (SELECT
+								(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = A.ITEM_CD) AS ITEM_NM
+							FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT A
+							WHERE 1=1
+							  AND STBLT_YN = 'Y'
+							  AND APO_SE = '2'
+							  AND TYPE_SE_NO = '8'
+							  <if test='brno != null and brno != ""'>
+							  AND UO_BRNO = #{brno}
+							  </if>
+							  AND YR = EAM.YR
+							  AND BRNO = CM.BRNO
+							)
+				) AS STBLT_YN_NM
+				</if>
 				, CM.MNGMST_YN
 
 				, EAM.YR
@@ -214,11 +231,6 @@
 							)
 				) AS ISO_FUND_APLY_AMT
 				, EAM.APLY_TRGT_SE
-				<!--
-				<if test='stbltYnNm == "Y"'>
-				, (SELECT )
-				</if>
-				 -->
 
 				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
 				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
