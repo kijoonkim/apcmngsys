@@ -627,8 +627,9 @@
 			      , ROUND(SUM(S3) / SUM(S2),0)  AS V4
 			FROM  ( SELECT '통합조직운영 APC'                                                  AS S0
 			              , 1                                                                   AS S1
-			              , CASE WHEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) > 0 THEN 1 END         AS S2
-			              , CASE WHEN A.MB IS NULL THEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) END  AS S3
+			              , CASE WHEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) > 0 THEN 1 ELSE 0 END  AS S2
+			              , CASE WHEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) > 0 THEN
+			                     NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) END                         AS S3
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_FCLT_STTS B
 			        WHERE   1=1
@@ -645,8 +646,9 @@
 			        UNION ALL
 			        SELECT '개별조직운영 APC'                                          AS S0
 			              , 1                                                                   AS S1
-			              , CASE WHEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) > 0 THEN 1 END         AS S2
-			              , CASE WHEN A.MB IS NULL THEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) END  AS S3
+			              , CASE WHEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) > 0 THEN 1 ELSE 0 END  AS S2
+			              , CASE WHEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) > 0 THEN
+			                     NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) END                         AS S3
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_FCLT_STTS B
 			        WHERE   1=1
@@ -1200,12 +1202,11 @@
 			      , NVL(ROUND(SUM(S1),0),0)         AS V1
 			      , NVL(ROUND(SUM(S2),0),0)         AS V2
 			      , NVL(ROUND(SUM(S3),0),0)         AS V3
-			      , NVL(ROUND(SUM(S3)/SUM(S2),0),0) AS V4
+			      , NVL(ROUND(SUM(S3)/NULLIF(SUM(S2),0),0),0) AS V4
 			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
 			              , 1                                                                   AS S1
 			              , CASE WHEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) > 0 THEN 1 ELSE 0 END  AS S2
-			              , CASE WHEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) > 0 THEN
-			                     NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) END                         AS S3
+			              , NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0)                          AS S3
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
 			                USRAM.TB_TE_APC_FCLT_STTS B
 			        WHERE   1=1
