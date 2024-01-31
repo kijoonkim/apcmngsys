@@ -209,6 +209,23 @@
 					  		) OR
 					  		(PRDCR_OGNZ_SN = '0')
 					  	)
+					  AND (
+					  		(ISO_BRNO IN (SELECT BRNO
+					  						FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+											WHERE 1=1
+											  AND APO_SE = '2'
+											  AND STBLT_YN = 'Y'
+											<if test='brno != null and brno != ""'>
+					  						  AND UO_BRNO = #{brno}
+					  						</if>
+					  						<if test='yr != null and yr != ""'>
+					  						  AND YR = #{yr}
+					  						</if>
+											GROUP BY BRNO
+											)
+					  		) OR
+					  		(ISO_BRNO = '0')
+					  		)
 			  		  <if test='brno != null and brno != ""'>
 					  AND BRNO = #{brno}
 					  </if>
