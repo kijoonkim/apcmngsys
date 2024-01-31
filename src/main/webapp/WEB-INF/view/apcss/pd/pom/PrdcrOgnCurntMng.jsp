@@ -222,7 +222,9 @@
 							<td colspan="2" class="td_input">
 								<sbux-input uitype="hidden" id="dtl-input-apoCd" name="dtl-input-apoCd"></sbux-input>
 								<sbux-input uitype="hidden" id="dtl-input-crno" name="dtl-input-crno"></sbux-input>
+								<!--
 								<sbux-input uitype="hidden" id="dtl-input-uoBrno" name="dtl-input-uoBrno"></sbux-input>
+								 -->
 								<sbux-input uitype="hidden" id="dtl-input-uoCd" name="dtl-input-uoCd"></sbux-input>
 								<sbux-input uitype="hidden" id="dtl-input-yr" name="dtl-input-yr"></sbux-input>
 								<sbux-select
@@ -275,6 +277,14 @@
 									class="form-control input-sm"
 									onchange="fn_changeSelUoBrno"
 								></sbux-select>
+								<sbux-input
+									uitype="text"
+									id="dtl-input-uoBrno"
+									name="dtl-input-uoBrno"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
 							</td>
 							<!--
 							<td class="td_input"  style="border-left: hidden;">
@@ -477,8 +487,13 @@
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
+		$("#dtl-input-uoBrno").hide();
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '21'}">
 		fn_fcltMngCreateGrid();
+		<c:if test="${loginVO.userType eq '21'}">
+		$("#dtl-input-uoBrno").show();
+		$("#dtl-input-selUoBrno").hide();
+		</c:if>
 	</c:if>
 		fn_fcltMngCreateGrid01();
 		fn_fcltMngCreateGrid02();
@@ -1313,6 +1328,7 @@
 		SBUxMethod.set('dtl-input-yr',gfn_nvl(rowData.yr))//사업자등록번호
 		//통합조직 일 때 통합조직 선택 콤보 초기화 및 비활성하
 		//console.log(rowData.apoSe);
+		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		SBUxMethod.set('dtl-input-selUoBrno' , null);
 		SBUxMethod.set('dtl-input-uoBrno' , null);
 		SBUxMethod.set('dtl-input-uoCd' , null);
@@ -1322,6 +1338,13 @@
 			SBUxMethod.attr('dtl-input-selUoBrno','readonly',false);
 			fn_searchUoList();
 		}
+		</c:if>
+		<c:if test="${loginVO.userType eq '21'}">
+		let brno = '${loginVO.brno}';
+		SBUxMethod.set('dtl-input-uoBrno' , brno);
+		SBUxMethod.attr('dtl-input-selUoBrno','readonly',true);
+		</c:if>
+
 
 		fn_clearForm();
     }
