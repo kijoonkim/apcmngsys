@@ -706,7 +706,7 @@
 			if(item.ctgryCd == '1'){
 				if(item.chkAmtTotAA != 'Y'){
 					console.log("item.chkAmtTotAA = "+item.chkAmtTotAA);
-					stbltYnNmMng.push('총취급액 요건 미달1');
+					stbltYnNmMng.push('총취급액 요건 미달');
 				}
 				if(item.chkAA == 'A'){
 					if(item.chkRtAA != 'Y'){
@@ -727,7 +727,7 @@
 			}else if(item.ctgryCd == '2'){
 				if(item.chkAmtTotAB != 'Y'){
 					console.log("item.chkAmtTotAB = "+item.chkAmtTotAB);
-					stbltYnNmMng.push('총취급액 요건 미달2');
+					stbltYnNmMng.push('총취급액 요건 미달');
 				}
 				if(item.chkAB == 'A'){
 					if(item.chkRtAA != 'Y'){
@@ -748,7 +748,7 @@
 			}else if(item.ctgryCd == '3'){
 				if(item.chkAmtTotAC != 'Y'){
 					console.log("item.chkAmtTotAC = "+item.chkAmtTotAC);
-					stbltYnNmMng.push('총취급액 요건 미달3');
+					stbltYnNmMng.push('총취급액 요건 미달');
 				}
 				if(item.chkAC == 'A'){
 					if(item.chkRtAA != 'Y'){
@@ -771,7 +771,7 @@
 			if(item.ctgryCd == '1'){
 				if(item.chkAmtTotBA != 'Y'){
 					console.log("item.chkAmtTotBA = "+item.chkAmtTotBA);
-					stbltYnNmMng.push('총취급액 요건 미달4');
+					stbltYnNmMng.push('총취급액 요건 미달');
 				}
 				if(item.chkBA == 'A'){
 					if(item.chkRtBA != 'Y'){
@@ -792,7 +792,7 @@
 			}else if(item.ctgryCd == '2'){
 				if(item.chkAmtTotBB != 'Y'){
 					console.log("item.chkAmtTotBB = "+item.chkAmtTotBB);
-					stbltYnNmMng.push('총취급액 요건 미달5');
+					stbltYnNmMng.push('총취급액 요건 미달');
 				}
 				if(item.chkBB == 'A'){
 					if(item.chkRtBA != 'Y'){
@@ -813,7 +813,7 @@
 			}else if(item.ctgryCd == '3'){
 				if(item.chkAmtTotAC != 'Y'){
 					console.log("item.chkAmtTotAC = "+item.chkAmtTotAC);
-					stbltYnNmMng.push('총취급액 요건 미달6');
+					stbltYnNmMng.push('총취급액 요건 미달');
 				}
 				if(item.chkBC == 'A'){
 					if(item.chkRtBA != 'Y'){
@@ -836,22 +836,22 @@
 			if(item.ctgryCd == '1'){
 				if(item.chkAmtTotCA != 'Y'){
 					console.log("item.chkAmtTotCA = "+item.chkAmtTotCA);
-					stbltYnNmMng.push('총취급액 요건 미달ㅁ');
+					stbltYnNmMng.push('약정취급액 요건 미달');
 				}
 			}else if(item.ctgryCd == '2'){
 				if(item.chkAmtTotCB != 'Y'){
 					console.log("item.chkAmtTotCB = "+item.chkAmtTotCB);
-					stbltYnNmMng.push('총취급액 요건 미달ㅠ');
+					stbltYnNmMng.push('약정취급액 요건 미달');
 				}
 			}else if(item.ctgryCd == '3'){
 				if(item.chkAmtTotCC != 'Y'){
 					console.log("item.chkAmtTotCC = "+item.chkAmtTotCC);
-					stbltYnNmMng.push('총취급액 요건 미달ㅊ');
+					stbltYnNmMng.push('약정취급액 요건 미달');
 				}
 			}
 			if(item.chkRtC != 'Y'){
 				console.log("item.chkRtC = "+item.chkRtC);
-				stbltYnNmMng.push('전속취급률 요건 미달');
+				stbltYnNmMng.push('약정취급률 요건 미달');
 			}
 		}
 		//console.log(stbltYnNmMng.join("\n"));
