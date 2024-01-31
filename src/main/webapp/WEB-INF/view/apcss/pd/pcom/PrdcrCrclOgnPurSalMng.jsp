@@ -797,10 +797,10 @@
 	    	{caption: ["품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 
 	    	{caption: ["합계","물량(톤)"], 		ref: 'slsTotVlm',   	type:'output',  width:'90px',    style:'text-align:center; background-color: #92b2c5'
-	    		, calc : 'fn_slsTotVlmSum'
+	    		//, calc : 'fn_slsTotVlmSum'
 	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 	        {caption: ["합계","금액(천원)"], 		ref: 'slsTotAmt',   	type:'output',  width:'100px',    style:'text-align:center; background-color: #92b2c5'
-	        	, calc : 'fn_slsTotAmtSum'
+	        	//, calc : 'fn_slsTotAmtSum'
 	        	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
 	    	{caption: ["공영\n도매시장","물량(톤)"], 		ref: 'pblcWhlslMrktVlm',   	type:'input',  width:'90px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
