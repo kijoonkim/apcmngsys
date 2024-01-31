@@ -314,6 +314,7 @@ const fn_createBzeatCntMdRtlOgnzTypeGrid = function() {
     SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.mergecells = 'bycolrec';
+    SBGridProperties.allowcopy = true;
     SBGridProperties.columns = [
     	{caption : ["산지유통조직유형"], ref: 'title', type: 'output',  width:'213px', style: 'text-align:center;'},
     	{caption : ["산지유통조직유형"], ref: 'subTitle', type: 'output',  width:'213px', style: 'text-align:center;'},
@@ -331,6 +332,7 @@ const fn_createBzeatCntOwnrAndOperGrid = function() {
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
     SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
+    SBGridProperties.allowcopy = true;
     SBGridProperties.total = {
 			type: 'grand',
 			position: 'bottom',
@@ -371,6 +373,7 @@ const fn_createFcltEqpmntAllBdarGrid = function() {
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
     SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
+    SBGridProperties.allowcopy = true;
     SBGridProperties.total = {
 			type: 'grand',
 			position: 'bottom',
@@ -414,6 +417,7 @@ const fn_createLgstcsGdsFcltBdarGrid = function() {
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
     SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
+    SBGridProperties.allowcopy = true;
     SBGridProperties.total = {
 			type: 'grand',
 			position: 'bottom',
@@ -457,6 +461,7 @@ const fn_createBzeatCntLwtpStrgGrid = function() {
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
     SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
+    SBGridProperties.allowcopy = true;
     SBGridProperties.total = {
 			type: 'grand',
 			position: 'bottom',
@@ -495,6 +500,7 @@ const fn_createBzeatCntPrprtnClngFcltGrid = function() {
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
     SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
+    SBGridProperties.allowcopy = true;
     SBGridProperties.total = {
 			type: 'grand',
 			position: 'bottom',
@@ -533,6 +539,7 @@ const fn_createBzeatCntStrgFcltGrid = function() {
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
     SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
+    SBGridProperties.allowcopy = true;
     SBGridProperties.total = {
 			type: 'grand',
 			position: 'bottom',
@@ -571,6 +578,7 @@ const fn_createBzeatCntFcltMsrmtEqpmntGrid = function() {
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
     SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
+    SBGridProperties.allowcopy = true;
     SBGridProperties.total = {
 			type: 'grand',
 			position: 'bottom',
@@ -611,6 +619,7 @@ const fn_createBzeatCntInvstAtmAllGrid = function() {
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
     SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
+    SBGridProperties.allowcopy = true;
     SBGridProperties.total = {
 			type: 'grand',
 			position: 'bottom',
@@ -648,6 +657,7 @@ const fn_createBzeatCntInvstAtmFundTypeGrid = function() {
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
     SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
+    SBGridProperties.allowcopy = true;
     SBGridProperties.total = {
 			type: 'grand',
 			position: 'bottom',
@@ -686,6 +696,7 @@ const fn_createBzeatCntInvstAtmOwnrGrid = function() {
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
     SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
+    SBGridProperties.allowcopy = true;
     SBGridProperties.total = {
 			type: 'grand',
 			position: 'bottom',

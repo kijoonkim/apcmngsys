@@ -35,7 +35,7 @@
 					</div>
 					<div id="sb-area-grdGvrngmtSprtOperOgnzTrmtPrfmnc" style="height:187px;"></div>
 					<span style="font-size:11px;">*조직화취급액 : 공동선별(수탁) 및 계약재배(매취) 금액</span>
-					
+
 					<div class="ad_tbl_top" style="margin-bottom: 30px;">
 						<ul class="ad_tbl_count" style="width: 100%">
 							<li>
@@ -47,9 +47,9 @@
 						</ul>
 					</div>
 					<div id="sb-area-grdMdRtlFcltPrcsPrfmncAvg" style="height:187px;"></div>
-					
+
 					<div style="height: 50px;"></div>
-					
+
 					<div class="ad_tbl_top" style="margin-bottom: 30px;">
 						<ul class="ad_tbl_count" style="width: 100%">
 							<li>
@@ -62,7 +62,7 @@
 						</ul>
 					</div>
 					<div id="sb-area-grdRgnOperOgnzTrmtPrfmnc" style="height:337px;"></div>
-					
+
 					<div class="ad_tbl_top" style="margin-bottom: 30px;">
 						<ul class="ad_tbl_count" style="width: 100%">
 							<li>
@@ -87,9 +87,9 @@
 						</ul>
 					</div>
 					<div id="sb-area-grdMdRtlFcltPrcsPrfmnc" style="height:187px;"></div>
-					
+
 					<div style="height: 317px;"></div>
-					
+
 					<div class="ad_tbl_top" style="margin-bottom: 30px;">
 						<ul class="ad_tbl_count" style="width: 100%">
 							<li>
@@ -101,7 +101,7 @@
 						</ul>
 					</div>
 					<div id="sb-area-grdRgnOperOgnzTrmtPrfmncAvg" style="height:337px;"></div>
-					
+
 					<div class="ad_tbl_top" style="margin-bottom: 30px;">
 						<ul class="ad_tbl_count" style="width: 100%">
 							<li>
@@ -113,7 +113,7 @@
 						</ul>
 					</div>
 					<div id="sb-area-grdRgnOperOgnzApcPrcsPrfmncAvg" style="height:337px;"></div>
-					
+
 				</div>
 			</div>
 		</div>
@@ -137,7 +137,7 @@ const fn_cellCreateGvrngmtSprtRgnOperPrfmncGrid = function() {
 	fn_createRgnOperOgnzApcPrcsPrfmncGrid();
 	// 지역별 APC 처리실적(평균)
 	fn_createRgnOperOgnzApcPrcsPrfmncAvgGrid();
-	
+
 	fn_cellGvrngmtSprtRgnOperPrfmncGrid();
 }
 
@@ -184,6 +184,7 @@ const fn_createGvrngmtSprtOperOgnzTrmtPrfmncGrid = function() {
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
     SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
+    SBGridProperties.allowcopy = true;
     SBGridProperties.total = {
 			type: 'grand',
 			position: 'bottom',
@@ -223,6 +224,7 @@ const fn_createMdRtlFcltPrcsPrfmncGrid = function() {
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
     SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
+    SBGridProperties.allowcopy = true;
     SBGridProperties.total = {
 			type: 'grand',
 			position: 'bottom',
@@ -261,6 +263,7 @@ const fn_createMdRtlFcltPrcsPrfmncAvgGrid = function() {
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
     SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
+    SBGridProperties.allowcopy = true;
     SBGridProperties.total = {
 			type: 'grand',
 			position: 'bottom',
@@ -299,6 +302,7 @@ const fn_createRgnOperOgnzTrmtPrfmncGrid = function() {
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
     SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
+    SBGridProperties.allowcopy = true;
     SBGridProperties.total = {
 			type: 'grand',
 			position: 'bottom',
@@ -341,6 +345,7 @@ const fn_createRgnOperOgnzTrmtPrfmncAvgGrid = function() {
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
     SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
+    SBGridProperties.allowcopy = true;
     SBGridProperties.total = {
 			type: 'grand',
 			position: 'bottom',
@@ -383,6 +388,7 @@ const fn_createRgnOperOgnzApcPrcsPrfmncGrid = function() {
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
     SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
+    SBGridProperties.allowcopy = true;
     SBGridProperties.total = {
 			type: 'grand',
 			position: 'bottom',
@@ -425,6 +431,7 @@ const fn_createRgnOperOgnzApcPrcsPrfmncAvgGrid = function() {
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
     SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
+    SBGridProperties.allowcopy = true;
     SBGridProperties.total = {
 			type: 'grand',
 			position: 'bottom',
@@ -461,14 +468,14 @@ const fn_createRgnOperOgnzApcPrcsPrfmncAvgGrid = function() {
 
 const fn_cellGvrngmtSprtRgnOperPrfmncGrid = async function() {
 	let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
-	
+
 	const postJsonPromise = gfn_postJSON("/fm/fclt/selectGvrngmtSprtRgnOperPrfmncGridList.do", {crtrYr : crtrYr});
-	
+
 	let data = await postJsonPromise;
 	try {
-		
+
 		gvrngmtSprtRgnOperPrfmncJsonLengthReset();
-		
+
 	  	data.resultGvrngmtSprtOperOgnzTrmtPrfmnc.forEach((item, index) => {
 	  		const gvrngmtSprtOperOgnzTrmtPrfmnc = {
 	  				  v0 : item.v0,
@@ -499,7 +506,7 @@ const fn_cellGvrngmtSprtRgnOperPrfmncGrid = async function() {
 			}
 	  		jsonMdRtlFcltPrcsPrfmncAvg.push(mdRtlFcltPrcsPrfmncAvg);
 	  	});
-	  	
+
 	  	data.resultRgnOperOgnzTrmtPrfmnc.forEach((item, index) => {
 	  		const rgnOperOgnzTrmtPrfmnc = {
 	  				  v0 : item.v0,
@@ -548,9 +555,9 @@ const fn_cellGvrngmtSprtRgnOperPrfmncGrid = async function() {
 			}
 	  		jsonRgnOperOgnzApcPrcsPrfmncAvg.push(rgnOperOgnzApcPrcsPrfmncAvg);
 	  	});
-	  	
+
 	  	gvrngmtSprtRgnOperPrfmncRebuild();
-	  		
+
 	  }	catch (e) {
 	 		if (!(e instanceof Error)) {
 	 			e = new Error(e);
