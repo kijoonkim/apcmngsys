@@ -378,7 +378,7 @@
 	function fn_excelDwnld() {
 		grdPrdcrOgnCurntMng.exportLocalExcel("통합조직관리(조직 리스트)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
-	
+
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid = async function() {
 
@@ -512,7 +512,7 @@
 	    grdPrdcrOgnCurntMng01.bind('afteredit','fn_AfterEdit01');
 	}
 	*/
-	
+
 	const objMenuList01 = {
 	        "excelDwnld": {
 	            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
@@ -525,7 +525,7 @@
 	function fn_excelDwnld01() {
 		grdPrdcrOgnCurntMng01.exportLocalExcel("통합조직관리(전문품목 매입.매출-출자출하조직보유)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
-	
+
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid01 = async function() {
 
@@ -972,6 +972,7 @@
 			//통합조직에 속한 출자출하조직 생산자조직 외
 			if(rowData01.typeSeNo == '3'){
 				//disabled 처리
+				grdPrdcrOgnCurntMng01.setCellDisabled(i, slsCnsgnPrchsAmt, i, slsCnsgnPrchsAmt, true);
 				//grdPrdcrOgnCurntMng01.setCellDisabled(i, slsCnsgnPrchsAmt, i, slsCnsgnPrchsAmt, true);
 			}
 			//통합조직에 속한 출자출하조직 생산자조직 외 소계
