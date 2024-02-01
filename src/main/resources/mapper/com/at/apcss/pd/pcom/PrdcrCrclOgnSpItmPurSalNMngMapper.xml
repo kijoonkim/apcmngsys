@@ -267,7 +267,7 @@ FROM
 		  AND FA.APO_SE = '1'
 		  AND FA.BRNO = #{brno}
 		  AND FA.YR =#{yr}
-		  --AND FA.STBLT_YN = 'Y'  --적합여부 추후 추가
+		  AND FA.STBLT_YN = 'Y'
 	)  UOFA ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
