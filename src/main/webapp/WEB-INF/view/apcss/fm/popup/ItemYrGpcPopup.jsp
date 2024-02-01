@@ -64,7 +64,9 @@
 
 	var grdItemPop01 = null;
 	var jsonItemPop01 = [];
-	var brno;
+	//팝업은 같은화면에서 작동하게 되므로 다른곳과 겹치지 않게 변수 사용할것
+	var popYrGpcBrno;
+	var popYrGpcYr;
 
 	var jsonPopComCtgryCd = [];
 	var jsonPopComSttgUpbrItemSe = [];
@@ -81,9 +83,10 @@
 		objGrid: null,
 		gridJson: [],
 		callbackFnc: function() {},
-		init: async function(_brno,_callbackFnc) {
+		init: async function(_brno,_yr,_callbackFnc) {
 			console.log("========init===========");
-			brno = _brno;
+			popYrGpcBrno = _brno;
+			popYrGpcYr = _yr;
 			SBUxMethod.hide('btnEditItem');
 			SBUxMethod.hide('btnCancelItem');
 			SBUxMethod.hide('btnSaveItem');
@@ -167,7 +170,8 @@
 	        const postJsonPromise = gfn_postJSON("/fm/popup/selectYrGpcListPopup.do", {
 
 	        	itemNm : itemNm, //검색 파라미터
-	        	brno : brno,
+	        	brno : popYrGpcBrno,
+	        	yr : popYrGpcYr,
 	        	// pagination
 		  		pagingYn : 'Y',
 				currentPageNo : pageNo,
