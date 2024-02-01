@@ -413,6 +413,7 @@
 	    SBGridProperties.contextmenulist = objMenuList;	// 우클릭 메뉴 리스트
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.rowheader="seq";
 	    SBGridProperties.paging = {
 				'type' : 'page',
 			  	'count' : 5,
