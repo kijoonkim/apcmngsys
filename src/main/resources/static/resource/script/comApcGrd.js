@@ -120,6 +120,8 @@ const gStdGrdObj = {
 		jgmtJsonId: "gjsonStdGrdObjJgmt",
 		jgmtExtJsonId: "gjsonExtGrdObjJgmt",
 		colPrfx: 'std__',
+		colPrfxQntt: 'qntt__',
+		colPrfxWght: 'wght__',
 		colExtPrfx: 'ext__',
 		param: {apcCd: null, grdSeCd: null, itemCd: null},
 		init: async function(_apcCd, _grdSeCd, _itemCd) {
@@ -218,7 +220,7 @@ const gStdGrdObj = {
 						
 					});
 				}
-				console.log(gjsonExtGrdObjKnd);
+				//console.log(gjsonExtGrdObjKnd);
 			}
 		},
 		getGrdJson: function(id) {

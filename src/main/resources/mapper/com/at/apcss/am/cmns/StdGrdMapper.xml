@@ -276,20 +276,23 @@
     <select id="selectStdGrdDtlList" parameterType="com.at.apcss.am.cmns.vo.StdGrdDtlVO" resultType="com.at.apcss.am.cmns.vo.StdGrdDtlVO">
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrdDtlList */
-			       SG.APC_CD            AS APC_CD
-			     , SG.ITEM_CD           AS ITEM_CD
-			     , SG.GRD_SE_CD         AS GRD_SE_CD
-			     , SG.GRD_KND           AS GRD_KND
-			     , SG.GRD_KND_NM		AS GRD_KND_NM
-			     , SG.STD_GRD_TYPE		AS STD_GRD_TYPE
-			     , (SELECT FN_GET_ITEM_NM(SG.ITEM_CD, SG.APC_CD) FROM DUAL) AS ITEM_NM
-			     , SGD.GRD_CD           AS GRD_CD
-			     , SGD.GRD_NM           AS GRD_NM
-			     , SGD.GRD_VL           AS GRD_VL
-			     , SGD.SN               AS SN
-			     , SGD.DEL_YN           AS DEL_YN
+				  SG.APC_CD         AS APC_CD
+			    , SG.ITEM_CD        AS ITEM_CD
+			    , SG.GRD_SE_CD      AS GRD_SE_CD
+			    , SG.GRD_KND        AS GRD_KND
+			    , SG.GRD_KND_NM		AS GRD_KND_NM
+			    , SG.STD_GRD_TYPE	AS STD_GRD_TYPE
+			    , (SELECT FN_GET_ITEM_NM(SG.ITEM_CD, SG.APC_CD) FROM DUAL) AS ITEM_NM
+			    , SGD.GRD_CD        AS GRD_CD
+			    , SGD.GRD_NM        AS GRD_NM
+			    , SGD.GRD_VL      	AS GRD_VL
+			    , SGD.AFTR_GRD_KND	AS AFTR_GRD_KND
+				, SGD.AFTR_GRD_CD	AS AFTR_GRD_CD
+				, SGD.LINK_GRD_CD	AS LINK_GRD_CD
+			    , SGD.SN            AS SN
+			    , SGD.DEL_YN        AS DEL_YN
 
-  			  FROM TB_APC_STD_GRD SG
+			  FROM TB_APC_STD_GRD SG
 
   			  JOIN TB_APC_STD_GRD_DTL SGD
   			    ON SGD.APC_CD = SG.APC_CD
@@ -343,6 +346,9 @@
 			     	, GRD_NM
 			     	, GRD_VL
 			     	, SN
+				  	, AFTR_GRD_KND
+				  	, AFTR_GRD_CD
+				  	, LINK_GRD_CD
 					, SYS_FRST_INPT_DT
 					, SYS_FRST_INPT_USER_ID
 					, SYS_FRST_INPT_PRGRM_ID
@@ -360,6 +366,9 @@
 			     	, #{grdNm}
 			     	, #{grdVl}
 			     	, #{sn}
+				    , #{aftrGrdKnd}
+				    , #{aftrGrdCd}
+				    , #{linkGrdCd}
 					, SYSDATE
 					, #{sysFrstInptUserId}
 					, #{sysFrstInptPrgrmId}
@@ -389,6 +398,9 @@
 	    		, GRD_NM					= #{grdNm}
 	    		, GRD_VL					= #{grdVl}
 	    		, SN						= #{sn}
+				, AFTR_GRD_KND				= #{aftrGrdKnd}
+				, AFTR_GRD_CD				= #{aftrGrdCd}
+				, LINK_GRD_CD				= #{linkGrdCd}
 			 WHERE APC_CD 		= #{apcCd}
 			   AND ITEM_CD 		= #{itemCd}
 			   AND GRD_SE_CD 	= #{grdSeCd}
