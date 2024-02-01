@@ -327,6 +327,9 @@
 	var jsonGrdComCtpv = [];//시도
 	var jsonGrdComSgg = [];//시군
 	var jsonGrdComCorpSeCd = [];//법인구분
+
+	var jsonComGrdAprv = [];//통합조직 구분
+	var jsonComGrdSttgUpbrItemSe = [];//품목구분
 	/**
 	 * combo 설정
 	 */
@@ -348,6 +351,9 @@
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdComCtpv, 	'CMPTN_INST_CTPV'), //시도
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdComSgg, 		'CMPTN_INST_SIGUN'),//시군
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdComCorpSeCd, 	'CORP_SE_CD'), //법인구분
+
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonComGrdAprv, 	'APRV_UPBR_SE_CD'), //신청구분
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonComGrdSttgUpbrItemSe, 	'STTG_UPBR_ITEM_SE'), //품목구분
 
 		]);
 		console.log("============fn_initSBSelect=====1=======");
@@ -450,8 +456,12 @@
 	    //SBGridProperties.mergecellsverticalalign = 'bottom';
 	    SBGridProperties.columns = [
 		    	{caption: ["구분"], 	ref: 'sttgUpbrItemNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
+		    	{caption: ["통합조직\n구분"], 	ref: 'aprv',   	type:'combo',  width:'100px',    style:'text-align:center;', disabled:true
+			    	,typeinfo : {ref:'jsonComGrdAprv', label:'label', value:'value', displayui : false}},
 				{caption: ["품목"], 	ref: 'itemNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
 				{caption: ["부류"], 	ref: 'ctgryNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
+				{caption: ["구분"], 		ref: 'sttgUpbrItemSe',   	type:'combo',  width:'100px',    style:'text-align:center;', disabled:true
+			    	,typeinfo : {ref:'jsonComGrdSttgUpbrItemSe', label:'label', value:'value', displayui : false}},
 				{caption: ["통합조직 총\n취급액(천원)(A)"], 		ref: 'slsCnsgnSlsAmtTot',   	type:'output',  width:'100px',    style:'text-align:center;'
 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 				{caption: ["생산자조직\n전속출하액(천원)(B)"], 	ref: 'slsCnsgnSlsAmt',   	type:'output',  width:'120px',    style:'text-align:center;'
@@ -666,6 +676,7 @@
 						,itemNm: item.itemNm
 						,ctgryCd: item.ctgryCd
 						,ctgryNm: item.ctgryNm
+						,aprv: item.aprv
 
 						,slsCnsgnSlsAmt: item.slsCnsgnSlsAmt
 						,slsCnsgnSlsAmtTot: item.slsCnsgnSlsAmtTot
