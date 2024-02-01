@@ -39,4 +39,18 @@ public class StdGrdDtlVO extends StdGrdVO {
 	 * */
 	private int sn;
 
+	/**
+	 * 이후등급종류
+	 */
+	private String aftrGrdKnd;
+	
+	/**
+	 * 이후등급코드
+	 */
+	private String aftrGrdCd;
+	
+	/**
+	 * 연계등급코드
+	 */
+	private String linkGrdCd;
 }
