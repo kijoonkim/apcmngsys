@@ -73,7 +73,11 @@ public class PrdcrCrclOgnReqMngVO extends ComVO{
 	private String isoFundAplyAmt;
 	private String aplyTrgtSe;
 
-	private String stbltYnNm; //적합여부 표기
+	private String stbltYnNm; //적합품목
+	private String stbltHldYn; //적합품목 보유 여부
+	private String stbltYnBrno;//통합조직 사용자로 적합품목 검색시 사용
+
+
 
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;

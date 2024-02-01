@@ -78,6 +78,7 @@
 									text-right-padding="25px"
 									true-value="Y"
 									false-value="N"
+									checked
 									></sbux-checkbox>
 							</td>
 							<td style="border-right: hidden;"></td>
@@ -189,6 +190,19 @@
 							<td colspan="2" class="td_input">
 						</tr>
 						<tr>
+							<th scope="row" class="th_bg">통합조직 사업자번호로 검색</th>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
+								<sbux-input
+									uitype="text"
+									id="srch-input-uoBrno"
+									name="srch-input-uoBrno"
+									class="form-control input-sm srch-keyup-area"
+									mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+							<td class="td_input"  style="border-right: hidden;"></td>
+
 							<th scope="row" class="th_bg">사업자번호</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input
@@ -200,10 +214,10 @@
 									autocomplete="off"
 								></sbux-input>
 							</td>
-							<td class="td_input"  style="border-right: hidden;"></td>
+							<td class="td_input"></td>
 
-							<th scope="row" class="th_bg">법인명</th>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
+							<th colspan="2" scope="row" class="th_bg">법인명</th>
+							<td colspan="2" class="td_input" style="border-right:hidden;" >
 								<sbux-input
 									uitype="text"
 									id="srch-input-corpNm"
@@ -212,15 +226,10 @@
 									autocomplete="off"
 								></sbux-input>
 							</td>
-							<td class="td_input"></td>
-							<!--
-							<th colspan="2" scope="row" class="th_bg"></th>
-							<td colspan="2" class="td_input" style="border-right:hidden;" >
-
-							</td>
 							<td colspan="2" class="td_input">
-							-->
+							<!--
 							<td colspan="6" class="td_input" style="border-right: hidden;border-bottom: hidden;">
+							-->
 						</tr>
 					</tbody>
 				</table>
@@ -409,7 +418,7 @@
 									id="dtl-input-trmtType"
 									name="dtl-input-trmtType"
 									uitype="single"
-									jsondata-ref="jsonComTrmtType"
+									jsondata-ref="jsonComDtlTrmtType"
 									unselected-text="선택"
 									class="form-control input-sm"
 									readonly
@@ -552,11 +561,19 @@
 	var jsonComUoCd = [];//통합조직코드
 	var jsonComAprv = [];//신청구분
 	var jsonComAplyTrgtSe = [];//신청대상구분
-	var jsonComTrmtType = [];//취급유형
-	var jsonComSttgUpbrItemSe = [];//품목구분 전문/육성
-	var jsonComCtgryCd = [];//분류코드
 	var jsonComAprv = [];//통합조직여부
 
+	var jsonComDtlTrmtType = [];//취급유형
+
+	var jsonComGrdSgg = [];//시군
+	var jsonComGrdCtpv = [];//시도
+	var jsonComGrdAprv = [];//신청구분
+	var jsonComGrdCorpSeCd = [];//법인구분
+
+
+	var jsonComGrdCtgryCd_1 = [];//분류코드
+	var jsonComGrdSttgUpbrItemSe_1 = [];//품목구분 전문/육성
+	var jsonComGrdTrmtType_1 = [];//취급유형
 	//통합조직,출하조직
 	var jsonComApoSe = [
 		{'text': '통합조직','label': '통합조직', 'value': '1'},
@@ -567,6 +584,12 @@
 		{'text': 'Y','label': 'Y', 'value': 'Y'},
 		{'text': 'N','label': 'N', 'value': 'N'}
 	];
+	//통합조직,출하조직
+	var jsonComGrdApoSe = [
+		{'text': '통합조직','label': '통합조직', 'value': '1'},
+		{'text': '출자출하조직','label': '출자출하조직', 'value': '2'}
+	];
+
 
 	/**
 	 * combo 설정
@@ -578,20 +601,30 @@
 			//검색조건
 			gfn_setComCdSBSelect('srch-input-cmptnInst', 	jsonComCmptnInst, 	'CMPTNC_INST'), //관할기관
 			gfn_setComCdSBSelect('srch-input-ctpv', 		jsonComCtpv, 		'CMPTN_INST_CTPV'), //시도
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonComSgg, 		'CMPTN_INST_SIGUN'),//시군
-			//gfn_setComCdSBSelect('srch-input-sgg', 		jsonComSgg, 		'CMPTN_INST_SIGUN'),//시군
 			gfn_setComCdSBSelect('srch-input-corpSeCd', 	jsonComCorpSeCd, 	'CORP_SE_CD'), //법인구분
 			gfn_setComCdSBSelect('srch-input-corpDtlSeCd', 	jsonComCorpDtlSeCd, 	'CORP_SHAP'), //법인형태
-			//gfn_setComCdSBSelect('srch-input-uoCd', 		jsonComUoCd, 		'UO_CD'), //통합조직코드
 			gfn_setComCdSBSelect('srch-input-aprv', 		jsonComAprv, 		'APRV_UPBR_SE_CD'), //신청구분
 			gfn_setComCdSBSelect('srch-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE'), //신청대상구분
-			gfn_setComCdSBSelect('dtl-input-trmtType', 		jsonComTrmtType, 	'TRMT_TYPE'), //신청대상구분
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonComSttgUpbrItemSe, 	'STTG_UPBR_ITEM_SE'), //품목구분
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonComCtgryCd, 	'CTGRY_CD'), //분류코드
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonComAprv, 		'APRV_UPBR_SE_CD'), //통합조직여부
+
+			gfn_setComCdSBSelect('dtl-input-trmtType', 		jsonComDtlTrmtType, 	'TRMT_TYPE'), //신청대상구분
+
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonComGrdSgg, 		'CMPTN_INST_SIGUN'),//시군
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonComGrdCtpv, 		'CMPTN_INST_CTPV'), //시도
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonComGrdAprv, 		'APRV_UPBR_SE_CD'), //통합조직여부
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonComGrdCorpSeCd, 	'CORP_SE_CD'), //법인구분
+
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonComGrdSttgUpbrItemSe_1, 	'STTG_UPBR_ITEM_SE'), //품목구분
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonComGrdCtgryCd_1, 	'CTGRY_CD'), //분류코드
+			gfn_setComCdSBSelect('dtl-input-trmtType', 		jsonComGrdTrmtType_1, 	'TRMT_TYPE'), //신청대상구분
 		]);
 	}
+	/*
 
+
+    jsonComGrdCorpSeCd
+
+
+    */
 
 	var jsonPrdcrOgnCurntMng = []; // 그리드의 참조 데이터 주소 선언
 	var grdPrdcrOgnCurntMng
@@ -630,22 +663,23 @@
 			  	'sorttype' : 'page',
 			  	'showgoalpageui' : true
 		    };
+
 	    SBGridProperties.columns = [
 	    	{caption: ["seq"], 			ref: 'apoCd',   	hidden : true},
 	    	{caption: ["등록년도"], 		ref: 'yr',   	type:'output',  width:'60px',    style:'text-align:center'},
 	    	{caption: ["조직구분"], 		ref: 'apoSe',   	type:'combo',  width:'90px',    style:'text-align:center', disabled:true
-	    		,typeinfo : {ref:'jsonComApoSe', label:'label', value:'value', displayui : false}},
+	    		,typeinfo : {ref:'jsonComGrdApoSe', label:'label', value:'value', displayui : false}},
 	    	{caption: ["통합조직여부"], 	ref: 'aprv',   type:'combo',  width:'80px',    style:'text-align:center', disabled:true
-		    	,typeinfo : {ref:'jsonComAprv', label:'label', value:'value', displayui : false}},
+		    	,typeinfo : {ref:'jsonComGrdAprv', label:'label', value:'value', displayui : false}},
 	        {caption: ["법인명"], 		ref: 'corpNm',  type:'output',  width:'250px',    style:'text-align:center'},
 	        {caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'90px',    style:'text-align:center'},
 	        {caption: ["생산자조직 보유"], 		ref: 'frmhsCnt',   	type:'output',  width:'100px',    style:'text-align:center'},
 	    	{caption: ["법인구분"], 		ref: 'corpSeCd',type:'combo',  width:'100px',    style:'text-align:center', disabled:true
-	    		,typeinfo : {ref:'jsonComCorpSeCd', label:'label', value:'value', displayui : false}},
+	    		,typeinfo : {ref:'jsonComGrdCorpSeCd', label:'label', value:'value', displayui : false}},
 	    	{caption: ["시도"], 			ref: 'ctpv',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
-	    		,typeinfo : {ref:'jsonComCtpv', label:'label', value:'value', displayui : false}},
+	    		,typeinfo : {ref:'jsonComGrdCtpv', label:'label', value:'value', displayui : false}},
 	        {caption: ["시군구"], 		ref: 'sgg',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
-		    	,typeinfo : {ref:'jsonComSgg', label:'label', value:'value', displayui : false}},
+		    	,typeinfo : {ref:'jsonComGrdSgg', label:'label', value:'value', displayui : false}},
 		    //{caption: ["시군구"], 		ref: 'sgg',  type:'output',  width:'160px',    style:'text-align:center'},
 	        //{caption: ["진행단계"], 		ref: 'aa',   	type:'output',  width:'153px',    style:'text-align:center'},
 	        {caption: ["비고"], 			ref: 'rmrk',   	type:'output',  width:'200px',    style:'text-align:center'}
@@ -713,11 +747,11 @@
 				return "";
 	        }},
 	        {caption: ["분류"], 			ref: 'ctgryCd',   	type:'combo',  width:'100px',    style:'text-align:center', disabled:true , oneclickedit:true
-	    		,typeinfo : {ref:'jsonComCtgryCd', label:'label', value:'value', displayui : false}},
+	    		,typeinfo : {ref:'jsonComGrdCtgryCd_1', label:'label', value:'value', displayui : false}},
 	        {caption: ["취급유형"], 		ref: 'trmtType',   	type:'combo',  width:'100px',    style:'text-align:center', disabled:false , oneclickedit:true
-				,typeinfo : {ref:'jsonComTrmtType', label:'label', value:'value', displayui : true}},
+				,typeinfo : {ref:'jsonComGrdTrmtType_1', label:'label', value:'value', displayui : true}},
 			{caption: ["전문/육성 구분"], 	ref: 'sttgUpbrItemSe',   type:'combo',  width:'100px',    style:'text-align:center', disabled:true , oneclickedit:true
-				,typeinfo : {ref:'jsonComSttgUpbrItemSe', label:'label', value:'value', displayui : false}},
+				,typeinfo : {ref:'jsonComGrdSttgUpbrItemSe_1', label:'label', value:'value', displayui : false}},
 
 			{caption: ["적합여부"], 		ref: 'stbltYn',   	type:'output',  width:'50px',    style:'text-align:center'},
 			{caption: ["조직원수"], 					ref: 'cnt',   	type:'output',  width:'70px',    style:'text-align:center'
@@ -879,6 +913,7 @@
 		let corpDtlSeCd = SBUxMethod.get("srch-input-corpDtlSeCd");//
 
 		let brno = SBUxMethod.get("srch-input-brno");//
+		let uoBrno = SBUxMethod.get("srch-input-uoBrno");//
 		let corpNm = SBUxMethod.get("srch-input-corpNm");//
 
 		let apoSe = SBUxMethod.get("srch-input-apoSe");//
@@ -907,6 +942,8 @@
     		brno : brno
     		,yr : yr
 
+    		,frmhsHld : 'Y'//생산자조직보유여부 조회 여부
+
     		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
     		,cmptnInst : cmptnInst
     		,ctpv : ctpv
@@ -917,9 +954,9 @@
 
 			,aprv : aprv
     		,apoSe : apoSe
-    		,frmhsHld : 'Y'//생산자조직보유여부 조회 여부
     		,frmhsHldYn : frmhsHldYn
     		,yrChk : yrChkVal
+    		,uoBrno : uoBrno
     		</c:if>
 
     		<c:if test="${loginVO.userType eq '21'}">

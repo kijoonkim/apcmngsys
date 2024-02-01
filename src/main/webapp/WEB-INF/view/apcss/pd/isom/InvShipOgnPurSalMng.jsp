@@ -70,6 +70,17 @@
 									uitype="normal"
                 					step-value="1"
                 				></sbux-spinner>
+                				<sbux-checkbox
+                					id="srch-input-yrChk"
+                					name="srch-input-yrChk"
+                					uitype="normal"
+									text="해당년도 신청사용자만 보기"
+									text-left-padding="5px"
+									text-right-padding="25px"
+									true-value="Y"
+									false-value="N"
+									checked
+									></sbux-checkbox>
 							</td>
 							<td style="border-right: hidden;"></td>
 							<th scope="row" class="th_bg" >관할기관</th>
@@ -154,11 +165,37 @@
 									jsondata-ref="jsonComAplyTrgtSe"
 									unselected-text="전체"
 									class="form-control input-sm"
-									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 							</td>
-							<td class="td_input"  style="border-right: hidden;">
+							<td class="td_input"  style="border-right: hidden;"></td>
+
+							<th scope="row" class="th_bg">적합품목 보유 여부</th>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
+								<sbux-select
+									id="srch-input-stbltHldYn"
+									name="srch-input-stbltHldYn"
+									uitype="single"
+									jsondata-ref="jsonComStbltHldYn"
+									unselected-text="전체"
+									class="form-control input-sm"
+								></sbux-select>
 							</td>
+							<td class="td_input"></td>
+
+							<th colspan="2" scope="row" class="th_bg">통합조직 사업자번호로 검색</th>
+							<td colspan="2" class="td_input" style="border-right:hidden;" >
+								<sbux-input
+									uitype="text"
+									id="srch-input-uoBrno"
+									name="srch-input-uoBrno"
+									class="form-control input-sm srch-keyup-area"
+									mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+							<td colspan="2" class="td_input">
+						</tr>
+						<tr>
 							<th scope="row" class="th_bg">사업자번호</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input
@@ -170,10 +207,10 @@
 									autocomplete="off"
 								></sbux-input>
 							</td>
-							<td class="td_input">
-							</td>
-							<th colspan="2" scope="row" class="th_bg">법인명</th>
-							<td colspan="2" class="td_input" style="border-right:hidden;" >
+							<td class="td_input"  style="border-right: hidden;"></td>
+
+							<th scope="row" class="th_bg">법인명</th>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
 									id="srch-input-corpNm"
@@ -182,10 +219,16 @@
 									autocomplete="off"
 								></sbux-input>
 							</td>
+							<td class="td_input"></td>
+							<!--
+							<th colspan="2" scope="row" class="th_bg"></th>
+							<td colspan="2" class="td_input" style="border-right:hidden;" >
+
+							</td>
 							<td colspan="2" class="td_input">
-
+							-->
+							<td colspan="6" class="td_input" style="border-right: hidden;border-bottom: hidden;">
 						</tr>
-
 					</tbody>
 				</table>
 			</c:if>
@@ -418,12 +461,20 @@
 	var jsonGrdComCtpv = [];//시도
 	var jsonGrdComSgg = [];//시군
 	var jsonGrdComCorpSeCd = [];//법인구분
+	var jsonGrdComAprv = [];//승인형 육성형 구분
+
 
 	var jsonCtgryCd = [];//분류코드
 	var jsonGrdCtgryCd_1 = [];//분류코드
 	var jsonGrdCtgryCd_2 = [];//분류코드
 	var jsonGrdSttgUpbrItemSe_1 = [];//취급코드
 	var jsonGrdSttgUpbrItemSe_2 = [];//취급코드
+
+	//적합품목 보유 여부
+	var jsonComStbltHldYn = [
+		{'text': 'Y','label': 'Y', 'value': 'Y'},
+		{'text': 'N','label': 'N', 'value': 'N'}
+	];
 
 	/**
 	 * combo 설정
@@ -443,10 +494,12 @@
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdComCtpv, 		'CMPTN_INST_CTPV'), //시도
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdComSgg, 		'CMPTN_INST_SIGUN'),//시군
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdComCorpSeCd, 	'CORP_SE_CD'),//법인구분
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdComAprv, 	'APRV_UPBR_SE_CD'), //신청구분
 
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonGrdCtgryCd_1, 	'CTGRY_CD_1'), //분류코드
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng02', 	jsonGrdCtgryCd_2, 	'CTGRY_CD_1'), //분류코드
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonGrdSttgUpbrItemSe_1, 	'STTG_UPBR_ITEM_SE_1'), //취급코드
+
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng02', 	jsonGrdCtgryCd_2, 	'CTGRY_CD_1'), //분류코드
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng02', 	jsonGrdSttgUpbrItemSe_2, 	'STTG_UPBR_ITEM_SE_1'), //취급코드
 		]);
 	}
@@ -491,14 +544,17 @@
 	    SBGridProperties.columns = [
 	    	{caption: ["seq"], 			ref: 'apoCd',   	hidden : true},
 	    	{caption: ["등록년도"], 		ref: 'yr',   	type:'output',  width:'100px',    style:'text-align:center'},
+	    	{caption: ["통합조직여부"], 	ref: 'aprv',   type:'combo',  width:'80px',    style:'text-align:center', disabled:true
+		    	,typeinfo : {ref:'jsonGrdComAprv', label:'label', value:'value', displayui : false}},
+	    	{caption: ["법인명"], 		ref: 'corpNm',  type:'output',  width:'250px',    style:'text-align:center'},
+	        {caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'250px',    style:'text-align:center'},
+	        {caption: ["적합품목"], 		ref: 'stbltYnNm',   	type:'output',  width:'200px',    style:'text-align:center'},
 	    	{caption: ["법인구분"], 		ref: 'corpSeCd',type:'combo',  width:'100px',    style:'text-align:center', disabled:true
 	    		,typeinfo : {ref:'jsonGrdComCorpSeCd', label:'label', value:'value', displayui : false}},
 	    	{caption: ["시도"], 			ref: 'ctpv',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
 	    		,typeinfo : {ref:'jsonGrdComCtpv', label:'label', value:'value', displayui : false}},
 	        {caption: ["시군구"], 		ref: 'sgg',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
 		    	,typeinfo : {ref:'jsonGrdComSgg', label:'label', value:'value', displayui : false}},
-	        {caption: ["법인명"], 		ref: 'corpNm',  type:'output',  width:'250px',    style:'text-align:center'},
-	        {caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'250px',    style:'text-align:center'},
 	        //{caption: ["적합여부"], 		ref: 'stbltYn',   	type:'output',  width:'50px',    style:'text-align:center'},
 	        //{caption: ["진행단계"], 		ref: 'aa',   	type:'output',  width:'153px',    style:'text-align:center'},
 	        {caption: ["비고"], 			ref: 'rmrk',   	type:'output',  width:'200px',    style:'text-align:center'},
@@ -967,8 +1023,14 @@
 
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
-		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		let yr = SBUxMethod.get("srch-input-yr");//
+		//년도 검색값이 없는 경우 최신년도
+		if(gfn_isEmpty(yr)){
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
+		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
 		let ctpv = SBUxMethod.get("srch-input-ctpv");//
 
@@ -976,7 +1038,22 @@
 		let corpDtlSeCd = SBUxMethod.get("srch-input-corpDtlSeCd");//
 
 		let brno = SBUxMethod.get("srch-input-brno");//
+		let uoBrno = SBUxMethod.get("srch-input-uoBrno");//
 		let corpNm = SBUxMethod.get("srch-input-corpNm");//
+
+		//let apoSe = SBUxMethod.get("srch-input-apoSe");//
+		let aprv = SBUxMethod.get("srch-input-aprv");//
+
+		//sbgrid 체크박스 값 사용
+		let yrChk = SBUxMethod.get("srch-input-yrChk");//
+		let keys = Object.getOwnPropertyNames(yrChk);
+		let yrChkVal = null;
+		for(let i=0; i<keys.length; i++){
+			if(yrChk[keys[i]]){
+				yrChkVal = yrChk[keys[i]];
+			}
+		}
+		let stbltHldYn = SBUxMethod.get("srch-input-stbltHldYn");//
 		</c:if>
 		<c:if test="${loginVO.userType eq '21'}">
 		let brno = '${loginVO.brno}';
@@ -986,6 +1063,8 @@
     	let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
     		brno : brno
     		,apoSe : '2'
+    		,yr : yr
+    		,stbltYnNm:'Y'
 
     		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
     		,cmptnInst : cmptnInst
@@ -995,11 +1074,17 @@
     		,corpDtlSeCd : corpDtlSeCd
 
     		,corpNm : corpNm
-    		,yr : yr
+
+    		,aprv : aprv
+    		//,apoSe : apoSe
+    		,uoBrno : uoBrno
+    		,yrChk : yrChkVal
+    		,stbltHldYn : stbltHldYn //적합품목 보유 여부
     		</c:if>
 
     		<c:if test="${loginVO.userType eq '21'}">
 			,userType : '21'
+			,stbltYnBrno : brno
     		</c:if>
 
 
@@ -1019,12 +1104,13 @@
 						apoCd: item.apoCd
 						,apoSe: item.apoSe
 						,ctpv: item.ctpv
+						,aprv: item.aprv
 						,sgg: item.sgg
 						,corpNm: item.corpNm
 						,crno: item.crno
 						,brno: item.brno
 						,yr: item.yr
-						,stbltYn: item.stbltYn
+						,stbltYnNm: item.stbltYnNm
 						,corpSeCd: item.corpSeCd
 				}
 				jsonPrdcrOgnCurntMng.push(PrdcrOgnCurntMngVO);

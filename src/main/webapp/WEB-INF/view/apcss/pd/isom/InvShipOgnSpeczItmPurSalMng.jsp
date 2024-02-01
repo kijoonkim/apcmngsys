@@ -66,6 +66,17 @@
 									uitype="normal"
                 					step-value="1"
                 				></sbux-spinner>
+                				<sbux-checkbox
+                					id="srch-input-yrChk"
+                					name="srch-input-yrChk"
+                					uitype="normal"
+									text="해당년도 신청사용자만 보기"
+									text-left-padding="5px"
+									text-right-padding="25px"
+									true-value="Y"
+									false-value="N"
+									checked
+									></sbux-checkbox>
 							</td>
 							<td style="border-right: hidden;"></td>
 							<th scope="row" class="th_bg" >관할기관</th>
@@ -150,11 +161,37 @@
 									jsondata-ref="jsonComAplyTrgtSe"
 									unselected-text="전체"
 									class="form-control input-sm"
-									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 							</td>
-							<td class="td_input"  style="border-right: hidden;">
+							<td class="td_input"  style="border-right: hidden;"></td>
+
+							<th scope="row" class="th_bg">적합품목 보유 여부</th>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
+								<sbux-select
+									id="srch-input-stbltHldYn"
+									name="srch-input-stbltHldYn"
+									uitype="single"
+									jsondata-ref="jsonComStbltHldYn"
+									unselected-text="전체"
+									class="form-control input-sm"
+								></sbux-select>
 							</td>
+							<td class="td_input"></td>
+
+							<th colspan="2" scope="row" class="th_bg">통합조직 사업자번호로 검색</th>
+							<td colspan="2" class="td_input" style="border-right:hidden;" >
+								<sbux-input
+									uitype="text"
+									id="srch-input-uoBrno"
+									name="srch-input-uoBrno"
+									class="form-control input-sm srch-keyup-area"
+									mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+							<td colspan="2" class="td_input">
+						</tr>
+						<tr>
 							<th scope="row" class="th_bg">사업자번호</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input
@@ -166,10 +203,10 @@
 									autocomplete="off"
 								></sbux-input>
 							</td>
-							<td class="td_input">
-							</td>
-							<th colspan="2" scope="row" class="th_bg">법인명</th>
-							<td colspan="2" class="td_input" style="border-right:hidden;" >
+							<td class="td_input"  style="border-right: hidden;"></td>
+
+							<th scope="row" class="th_bg">법인명</th>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
 									id="srch-input-corpNm"
@@ -178,10 +215,16 @@
 									autocomplete="off"
 								></sbux-input>
 							</td>
+							<td class="td_input"></td>
+							<!--
+							<th colspan="2" scope="row" class="th_bg"></th>
+							<td colspan="2" class="td_input" style="border-right:hidden;" >
+
+							</td>
 							<td colspan="2" class="td_input">
-
+							-->
+							<td colspan="6" class="td_input" style="border-right: hidden;border-bottom: hidden;">
 						</tr>
-
 					</tbody>
 				</table>
 			</c:if>
@@ -369,9 +412,17 @@
 	var jsonComAprv = [];//신청구분
 	var jsonComAplyTrgtSe = [];//신청대상구분
 
-	var jsonGrdCtpv = [];//시도
-	var jsonGrdSgg = [];//시군
-	var jsonGrdCorpSeCd = [];//법인구분
+	var jsonComGrdCtpv = [];//시도
+	var jsonComGrdSgg = [];//시군
+	var jsonComGrdCorpSeCd = [];//법인구분
+	var jsonComGrdAprv = [];//신청구분
+
+	//적합품목 보유 여부
+	var jsonComStbltHldYn = [
+		{'text': 'Y','label': 'Y', 'value': 'Y'},
+		{'text': 'N','label': 'N', 'value': 'N'}
+	];
+
 	/**
 	 * combo 설정
 	 */
@@ -387,9 +438,10 @@
 			gfn_setComCdSBSelect('srch-input-aprv', 		jsonComAprv, 	'APRV_UPBR_SE_CD'), //신청구분
 			gfn_setComCdSBSelect('srch-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE'), //신청대상구분
 
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdCtpv, 		'CMPTN_INST_CTPV'), //시도
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdSgg, 		'CMPTN_INST_SIGUN'),//시군
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdCorpSeCd, 	'CORP_SE_CD'),//법인구분
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonComGrdCtpv, 		'CMPTN_INST_CTPV'), //시도
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonComGrdSgg, 		'CMPTN_INST_SIGUN'),//시군
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonComGrdCorpSeCd, 	'CORP_SE_CD'),//법인구분
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonComGrdAprv, 	'APRV_UPBR_SE_CD'), //신청구분
 
 		]);
 	}
@@ -434,15 +486,17 @@
 	    SBGridProperties.columns = [
 	    	{caption: ["seq"], 			ref: 'apoCd',   	hidden : true},
 	    	{caption: ["등록년도"], 		ref: 'yr',   	type:'output',  width:'100px',    style:'text-align:center'},
-	    	{caption: ["법인구분"], 		ref: 'corpSeCd',type:'combo',  width:'100px',    style:'text-align:center', disabled:true
-	    		,typeinfo : {ref:'jsonGrdCorpSeCd', label:'label', value:'value', displayui : false}},
-	    	{caption: ["시도"], 			ref: 'ctpv',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
-	    		,typeinfo : {ref:'jsonGrdCtpv', label:'label', value:'value', displayui : false}},
-	        {caption: ["시군구"], 		ref: 'sgg',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
-		    	,typeinfo : {ref:'jsonGrdSgg', label:'label', value:'value', displayui : false}},
+	    	{caption: ["통합조직여부"], 	ref: 'aprv',   type:'combo',  width:'80px',    style:'text-align:center', disabled:true
+		    	,typeinfo : {ref:'jsonComGrdAprv', label:'label', value:'value', displayui : false}},
 	        {caption: ["법인명"], 		ref: 'corpNm',  type:'output',  width:'250px',    style:'text-align:center'},
 	        {caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'250px',    style:'text-align:center'},
 	        {caption: ["적합품목"], 		ref: 'stbltYnNm',   	type:'output',  width:'200px',    style:'text-align:center'},
+	    	{caption: ["법인구분"], 		ref: 'corpSeCd',type:'combo',  width:'100px',    style:'text-align:center', disabled:true
+	    		,typeinfo : {ref:'jsonComGrdCorpSeCd', label:'label', value:'value', displayui : false}},
+	    	{caption: ["시도"], 			ref: 'ctpv',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
+	    		,typeinfo : {ref:'jsonComGrdCtpv', label:'label', value:'value', displayui : false}},
+	        {caption: ["시군구"], 		ref: 'sgg',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
+		    	,typeinfo : {ref:'jsonComGrdSgg', label:'label', value:'value', displayui : false}},
 	        //{caption: ["진행단계"], 		ref: 'aa',   	type:'output',  width:'153px',    style:'text-align:center'},
 	        {caption: ["비고"], 			ref: 'rmrk',   	type:'output',  width:'200px',    style:'text-align:center'},
 	        {caption: ["상세내역"], 	ref: 'crno',		hidden : true}
@@ -765,12 +819,28 @@
 		let corpDtlSeCd = SBUxMethod.get("srch-input-corpDtlSeCd");//
 
 		let brno = SBUxMethod.get("srch-input-brno");//
+		let uoBrno = SBUxMethod.get("srch-input-uoBrno");//
 		let corpNm = SBUxMethod.get("srch-input-corpNm");//
+
+		let aprv = SBUxMethod.get("srch-input-aprv");//
+
+		//sbgrid 체크박스 값 사용
+		let yrChk = SBUxMethod.get("srch-input-yrChk");//
+		let keys = Object.getOwnPropertyNames(yrChk);
+		let yrChkVal = null;
+		for(let i=0; i<keys.length; i++){
+			if(yrChk[keys[i]]){
+				yrChkVal = yrChk[keys[i]];
+			}
+		}
+		let stbltHldYn = SBUxMethod.get("srch-input-stbltHldYn");//
 		</c:if>
 		<c:if test="${loginVO.userType eq '21'}">
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
 		</c:if>
+
+		console.log(yr);
 
     	let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
     		brno : brno
@@ -787,10 +857,15 @@
 
     		,corpNm : corpNm
 
+    		,aprv : aprv
+    		,uoBrno : uoBrno
+    		,yrChk : yrChkVal
+    		,stbltHldYn : stbltHldYn //적합품목 보유 여부
     		</c:if>
 
     		<c:if test="${loginVO.userType eq '21'}">
 			,userType : '21'
+			,stbltYnBrno : brno
     		</c:if>
 
     		//페이징
@@ -809,6 +884,7 @@
 						apoCd: item.apoCd
 						,apoSe: item.apoSe
 						,ctpv: item.ctpv
+						,aprv: item.aprv
 						,sgg: item.sgg
 						,corpNm: item.corpNm
 						,crno: item.crno
