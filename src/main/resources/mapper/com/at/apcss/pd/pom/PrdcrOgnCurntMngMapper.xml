@@ -773,8 +773,11 @@
 			,TOTAL.EC_SPMT_RATE_A
 			,TOTAL.EC_SPMT_RATE_B
 			,(CASE WHEN APRV = '1' THEN
-									(CASE WHEN TO_NUMBER(TOTAL.CNT) >= 5 AND TO_NUMBER(TOTAL.SPMT_PRC_TOT) >= 200000 AND TO_NUMBER(TOTAL.EC_SPMT_RATE_A) >= 80
-										THEN 'Y'
+									(CASE WHEN TOTAL.STTG_UPBR_ITEM_SE = '1' THEN
+																				(CASE WHEN TO_NUMBER(TOTAL.CNT) >= 5 AND TO_NUMBER(TOTAL.SPMT_PRC_TOT) >= 200000 AND TO_NUMBER(TOTAL.EC_SPMT_RATE_A) >= 80
+																					THEN 'Y'
+																					ELSE 'N' END)
+										WHEN TOTAL.STTG_UPBR_ITEM_SE = '2' THEN 'Y'
 										ELSE 'N' END)
 					WHEN APRV = '2' THEN
 									(CASE WHEN TRMT_TYPE = '1' THEN
@@ -878,8 +881,11 @@
 			,TOTAL.EC_SPMT_RATE_A
 			,TOTAL.EC_SPMT_RATE_B
 			,(CASE WHEN APRV = '1' THEN
-									(CASE WHEN TO_NUMBER(TOTAL.CNT) >= 5 AND TO_NUMBER(TOTAL.SPMT_PRC_TOT) >= 200000 AND TO_NUMBER(TOTAL.EC_SPMT_RATE_A) >= 80
-										THEN 'Y'
+									(CASE WHEN TOTAL.STTG_UPBR_ITEM_SE = '1' THEN
+																				(CASE WHEN TO_NUMBER(TOTAL.CNT) >= 5 AND TO_NUMBER(TOTAL.SPMT_PRC_TOT) >= 200000 AND TO_NUMBER(TOTAL.EC_SPMT_RATE_A) >= 80
+																					THEN 'Y'
+																					ELSE 'N' END)
+										WHEN TOTAL.STTG_UPBR_ITEM_SE = '2' THEN 'Y'
 										ELSE 'N' END)
 					WHEN APRV = '2' THEN
 									(CASE WHEN TRMT_TYPE = '1' THEN
@@ -894,7 +900,7 @@
 																	(CASE WHEN TO_NUMBER(TOTAL.SPMT_PRC_TOT) >= 50000
 																		THEN 'Y'
 																		ELSE 'N' END)
-															ELSE 'N' END)
+										ELSE 'N' END)
 				ELSE 'N'
 				END
 			) AS STBLT_YN
