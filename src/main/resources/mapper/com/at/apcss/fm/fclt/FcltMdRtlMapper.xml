@@ -3181,9 +3181,18 @@
 			      , ROUND(SUM(S5),0)     				AS V5
 			      , ROUND(SUM(S6),0)     				AS V6
 			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
-			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') THEN B.APC_APC_TRMT_AMT END                                   AS S1
-			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') THEN B.APC_APC_TRMT_AMT END                                       AS S2
-			              , B.APC_APC_TRMT_AMT                                                                                  AS S3
+			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') THEN (SELECT SUM(X.APC_TRMT_AMT)
+                              FROM TB_TE_APC_OPER_PRFMNC_DTL X
+                             WHERE 1=1
+                               AND X.APC_CD = A.APC_CD) END                              								        AS S1
+			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') THEN (SELECT SUM(X.APC_TRMT_AMT)
+                              FROM TB_TE_APC_OPER_PRFMNC_DTL X
+                             WHERE 1=1
+                               AND X.APC_CD = A.APC_CD) END								                                        AS S2
+			              , (SELECT SUM(X.APC_TRMT_AMT)
+                              FROM TB_TE_APC_OPER_PRFMNC_DTL X
+                             WHERE 1=1
+                               AND X.APC_CD = A.APC_CD)                                                                         AS S3
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') THEN B.APC_APC_OGNZ_CPRTN_SORT_TRST+B.APC_APC_CTRT_EMSPAP END AS S4
 			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') THEN B.APC_APC_OGNZ_CPRTN_SORT_TRST+B.APC_APC_CTRT_EMSPAP END     AS S5
 			              , B.APC_APC_OGNZ_CPRTN_SORT_TRST+B.APC_APC_CTRT_EMSPAP                                                AS S6
@@ -3191,14 +3200,14 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND NVL(A.DUP_YN, 'N') != 'Y'
+
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
-			        AND     A.CTPV_CD IS NOT NULL
+
 			        AND     A.APC_CD = B.APC_CD)
 			GROUP BY S0
 			ORDER BY S0
@@ -3222,9 +3231,18 @@
 			      , ROUND(SUM(S5)/SUM(A1),0)     AS V5
 			      , ROUND(SUM(S6)/SUM(A1),0)     AS V6
 			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
-			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') THEN B.APC_APC_TRMT_AMT END                                               AS S1
-			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') THEN B.APC_APC_TRMT_AMT END                                                   AS S2
-			              , B.APC_APC_TRMT_AMT                                                                                              AS S3
+			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') THEN (SELECT SUM(X.APC_TRMT_AMT)
+                              FROM TB_TE_APC_OPER_PRFMNC_DTL X
+                             WHERE 1=1
+                               AND X.APC_CD = A.APC_CD) END									                                                AS S1
+			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') THEN (SELECT SUM(X.APC_TRMT_AMT)
+                              FROM TB_TE_APC_OPER_PRFMNC_DTL X
+                             WHERE 1=1
+                               AND X.APC_CD = A.APC_CD) END								                                                    AS S2
+			              , (SELECT SUM(X.APC_TRMT_AMT)
+                              FROM TB_TE_APC_OPER_PRFMNC_DTL X
+                             WHERE 1=1
+                               AND X.APC_CD = A.APC_CD)                                                                                     AS S3
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') THEN B.APC_APC_OGNZ_CPRTN_SORT_TRST+B.APC_APC_CTRT_EMSPAP END             AS S4
 			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') THEN B.APC_APC_OGNZ_CPRTN_SORT_TRST+B.APC_APC_CTRT_EMSPAP END                 AS S5
 			              , B.APC_APC_OGNZ_CPRTN_SORT_TRST+B.APC_APC_CTRT_EMSPAP                                                            AS S6
@@ -3239,14 +3257,14 @@
 			                USRAM.TB_TE_APC_OPER_PRFMNC B
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
-			        AND NVL(A.DUP_YN, 'N') != 'Y'
+
 		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}
 				</if>
 		<![CDATA[
-			        AND     A.CTPV_CD IS NOT NULL
+
 			        AND     A.APC_CD = B.APC_CD)
 			GROUP BY S0
 			ORDER BY S0
