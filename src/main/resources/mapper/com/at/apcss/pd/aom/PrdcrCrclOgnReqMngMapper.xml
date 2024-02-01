@@ -414,6 +414,7 @@
 		    	        , PRUO_FUND_APLY_AMT		= #{pruoFundAplyAmt}
 		    	        , ISO_FUND_APLY_AMT			= #{isoFundAplyAmt}
 		    	        , APLY_TRGT_SE				= #{aplyTrgtSe}
+		    	        , APO_SE					= #{apoSe}
 		    	]]>
 		    	<![CDATA[
 

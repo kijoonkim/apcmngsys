@@ -229,6 +229,7 @@
 		    	        , APLY_TRGT_SE				= #{aplyTrgtSe}
 		    	        , UO_BRNO					= #{uoBrno}
 		    	        , UO_CD						= #{uoCd}
+		    	        , APO_SE					= #{apoSe}
 		    	]]>
 		    	        --, APLY_DAY	= SYSDATE
 		    	<![CDATA[
