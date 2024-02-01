@@ -553,7 +553,11 @@
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ")'>삭제</button>";
+			        if(objRowData.sttgUpbrItemSe == '3'){
+	        			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ")'>삭제</button>";
+			        }else{
+			        	return "";
+			        }
 	        	}
 	        }},
 	        {caption: ["품목","품목"], 	ref: 'sttgUpbrItemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
@@ -665,7 +669,11 @@
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ")'>삭제</button>";
+			        if(objRowData.sttgUpbrItemSe == '3'){
+	        			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ")'>삭제</button>";
+			        }else{
+			        	return "";
+			        }
 	        	}
 	        }},
 	        {caption: ["품목","품목"], 	ref: 'sttgUpbrItemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
@@ -786,7 +794,11 @@
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng03\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng03\", " + nRow + ")'>삭제</button>";
+			        if(objRowData.sttgUpbrItemSe == '3'){
+	        			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng03\", " + nRow + ")'>삭제</button>";
+			        }else{
+			        	return "";
+			        }
 	        	}
 	        }},
 	        */
@@ -803,26 +815,26 @@
 	        	//, calc : 'fn_slsTotAmtSum'
 	        	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
-	    	{caption: ["공영\n도매시장","물량(톤)"], 		ref: 'pblcWhlslMrktVlm',   	type:'input',  width:'90px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["공영\n도매시장","금액(천원)"], 		ref: 'pblcWhlslMrktAmt',   	type:'input',  width:'100px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["온라인\n도매시장","물량(톤)"], 		ref: 'onlnWhlslMrktVlm',   	type:'input',  width:'90px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["온라인\n도매시장","금액(천원)"], 		ref: 'onlnWhlslMrktAmt',   	type:'input',  width:'100px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["대형\n유통업체","물량(톤)"], 		ref: 'lgszRtlVlm',   	type:'input',  width:'90px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["대형\n유통업체","금액(천원)"], 		ref: 'lgszRtlAmt',   	type:'input',  width:'100px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["군납","물량(톤)"], 		ref: 'armyDlvgdsVlm',   	type:'input',  width:'90px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["군납","금액(천원)"], 		ref: 'armyDlvgdsAmt',   	type:'input',  width:'100px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["외식, 식자재\n및 단체급식","물량(톤)"], 		ref: 'eatoutMtrlMlsrVlm',   	type:'input',  width:'90px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["외식, 식자재\n및 단체급식","금액(천원)"], 		ref: 'eatoutMtrlMlsrAmt',   	type:'input',  width:'100px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["가공업체","물량(톤)"], 		ref: 'mnfcRtlVlm',   	type:'input',  width:'90px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["가공업체","금액(천원)"], 		ref: 'mnfcRtlAmt',   	type:'input',  width:'100px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["수출","물량(톤)"], 		ref: 'exprtVlm',   	type:'input',  width:'90px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["수출","금액(천원)"], 		ref: 'exprtAmt',   	type:'input',  width:'100px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["온라인 거래실적\n(e커머스, TV홈쇼핑 등 포함)","물량(톤)"], 		ref: 'onlnDlngPrfmncVlm',   	type:'input',  width:'90px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["온라인 거래실적\n(e커머스, TV홈쇼핑 등 포함)","금액(천원)"], 		ref: 'onlnDlngPrfmncAmt',   	type:'input',  width:'100px',    style:'text-align:center' ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	    	{caption: ["공영\n도매시장","물량(톤)"], 		ref: 'pblcWhlslMrktVlm',   	type:'input',  width:'90px',    style:'text-align:center' 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["공영\n도매시장","금액(천원)"], 		ref: 'pblcWhlslMrktAmt',   	type:'input',  width:'100px',    style:'text-align:center' 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["온라인\n도매시장","물량(톤)"], 		ref: 'onlnWhlslMrktVlm',   	type:'input',  width:'90px',    style:'text-align:center' 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["온라인\n도매시장","금액(천원)"], 		ref: 'onlnWhlslMrktAmt',   	type:'input',  width:'100px',    style:'text-align:center' 			,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["대형\n유통업체","물량(톤)"], 		ref: 'lgszRtlVlm',   	type:'input',  width:'90px',    style:'text-align:center' 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["대형\n유통업체","금액(천원)"], 		ref: 'lgszRtlAmt',   	type:'input',  width:'100px',    style:'text-align:center' 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["군납","물량(톤)"], 		ref: 'armyDlvgdsVlm',   	type:'input',  width:'90px',    style:'text-align:center' 						,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["군납","금액(천원)"], 		ref: 'armyDlvgdsAmt',   	type:'input',  width:'100px',    style:'text-align:center' 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["외식, 식자재\n및 단체급식","물량(톤)"], 		ref: 'eatoutMtrlMlsrVlm',   	type:'input',  width:'90px',    style:'text-align:center' 	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["외식, 식자재\n및 단체급식","금액(천원)"], 		ref: 'eatoutMtrlMlsrAmt',   	type:'input',  width:'100px',    style:'text-align:center' 	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["가공업체","물량(톤)"], 		ref: 'mnfcRtlVlm',   	type:'input',  width:'90px',    style:'text-align:center' 						,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["가공업체","금액(천원)"], 		ref: 'mnfcRtlAmt',   	type:'input',  width:'100px',    style:'text-align:center' 						,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["수출","물량(톤)"], 		ref: 'exprtVlm',   	type:'input',  width:'90px',    style:'text-align:center' 								,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["수출","금액(천원)"], 		ref: 'exprtAmt',   	type:'input',  width:'100px',    style:'text-align:center' 							,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["온라인 거래실적\n(e커머스, TV홈쇼핑 등 포함)","물량(톤)"], 		ref: 'onlnDlngPrfmncVlm',   	type:'input',  width:'90px',    style:'text-align:center' 		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["온라인 거래실적\n(e커머스, TV홈쇼핑 등 포함)","금액(천원)"], 		ref: 'onlnDlngPrfmncAmt',   	type:'input',  width:'100px',    style:'text-align:center' 	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 	        {caption: ["기타","물량(톤)"], 		ref: 'etcVlm',   	type:'input',  width:'90px',    style:'text-align:center' , calc : 'fn_etcVlm'
-	        	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 	        {caption: ["기타","금액(천원)"], 		ref: 'etcAmt',   	type:'input',  width:'100px',    style:'text-align:center', calc : 'fn_etcAmt'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 
 	        {caption: ["상세내역"], 	ref: 'prchsSlsSe',  hidden : true},
 	        {caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},

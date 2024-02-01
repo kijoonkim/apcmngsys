@@ -376,7 +376,7 @@
 	function fn_excelDwnld() {
 		grdPrdcrOgnCurntMng.exportLocalExcel("통합조직관리(조직 리스트)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
-	
+
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid = async function() {
 
@@ -529,9 +529,11 @@
 	            	ref : "prchsNm",   width : '150px',        style : 'text-align:center',     type : 'output', merge:false},
 
 	            {caption : ['판매위임(매입)금액(천원)','금액'], calc : 'fn_calcSlsCnsgnPrchsAmt',
-	            	ref : "slsCnsgnPrchsAmt",   width : '100px',        style : 'text-align:right',      type : 'input',   format : { type:'number' , rule:'#,###' }, merge:false},
+	            	ref : "slsCnsgnPrchsAmt",   width : '100px',        style : 'text-align:right',      type : 'input'
+	            	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : { type:'number' , rule:'#,###' }, merge:false},
 	            {caption : ['판매(매출)금액\n(천원)','판매(매출)금액<br>(천원)'], calc : 'fn_calcSlsCnsgnSlsAmt',
-	            	ref : "slsCnsgnSlsAmt",   width : '100px',        style : 'text-align:right',      type : 'input',   format : { type:'number' , rule:'#,###' }, merge:false},
+	            	ref : "slsCnsgnSlsAmt",   width : '100px',        style : 'text-align:right',      type : 'input'
+	            	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : { type:'number' , rule:'#,###' }, merge:false},
 	            {caption : ['비고','비고'],
 	            	ref : "rmrk",   width : '150px',        style : 'text-align:right',      type : 'input', merge:false},
 

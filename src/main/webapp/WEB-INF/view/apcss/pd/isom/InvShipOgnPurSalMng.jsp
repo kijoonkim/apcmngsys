@@ -480,6 +480,7 @@
 	    SBGridProperties.contextmenulist = objMenuList;	// 우클릭 메뉴 리스트
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.rowheader="seq";
 	    SBGridProperties.paging = {
 				'type' : 'page',
 			  	'count' : 5,
@@ -544,14 +545,15 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	    	{caption: ["처리","처리"], 		ref: 'delYn',   		type:'button', width:'40px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
-	        	if(strValue== null || strValue == ""){
+	    		if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
-			        if(objRowData.sttgUpbrItemCd == '3'){
+			        if(objRowData.sttgUpbrItemSe == '3'){
 	        			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ")'>삭제</button>";
+			        }else{
+			        	return "";
 			        }
 	        	}
-	        	return "";
 	        }},
 	        {caption: ["품목","품목"], 		ref: 'sttgUpbrItemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 	    	{caption: ["품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
@@ -560,22 +562,22 @@
 	    		,typeinfo : {ref:'jsonGrdCtgryCd_1', label:'label', value:'value', displayui : true}},
 	    	{caption: ["통합조직","통합조직명"], 		ref: 'corpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
 	    	{caption: ["통합조직","사업자번호"], 		ref: 'uoBrno',   	type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["공선수탁·공동수탁","물량(톤)"], ref: 'prchsTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["공선수탁·공동수탁","금액(천원)"], ref: 'prchsTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["공선매취","물량(톤)"], 	ref: 'prchsEmspapVlm',   type:'input',  width:'90px',    style:'text-align:center'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["공선매취","금액(천원)"], 	ref: 'prchsEmspapAmt',   type:'input',  width:'100px',    style:'text-align:center'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["공동선별수탁·공동출하수탁","물량(톤)"], ref: 'prchsTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["공동선별수탁·공동출하수탁","금액(천원)"], ref: 'prchsTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["공동선별매취","물량(톤)"], 	ref: 'prchsEmspapVlm',   type:'input',  width:'90px',    style:'text-align:center'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+	        {caption: ["공동선별매취","금액(천원)"], 	ref: 'prchsEmspapAmt',   type:'input',  width:'100px',    style:'text-align:center'
+	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 	    	{caption: ["기타","물량(톤)"], 		ref: 'etcVlm',   type:'input',  width:'90px',    style:'text-align:center'
-		    	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+		    	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 		    {caption: ["기타","금액(천원)"], 		ref: 'etcAmt',   type:'input',  width:'100px',    style:'text-align:center'
-		    	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+		    	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 	        {caption: ["합계","물량(톤)"], 		ref: 'prchsTotVlm',   		type:'output',  width:'90px',    style:'text-align:center', calc : 'fn_prchsVlmSum'
-		    	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+		    	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 	        {caption: ["합계","금액(천원)"], 		ref: 'prchsTotAmt',   		type:'output',  width:'100px',    style:'text-align:center', calc : 'fn_prchsAmtSum'
-		    	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+		    	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 
 	        {caption: ["상세내역"], 	ref: 'prchsSlsSe',  hidden : true},
 	        {caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
@@ -659,11 +661,12 @@
 	    		if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
-			        if(objRowData.sttgUpbrItemCd == '3'){
+			        if(objRowData.sttgUpbrItemSe == '3'){
 			        	return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ")'>삭제</button>";
+			        }else{
+			        	return "";
 			        }
 	        	}
-	    		return "";
 	        }},
 	        {caption: ["품목","품목","품목","품목"], 		ref: 'sttgUpbrItemNm',   	type:'output',  width:'55px',    style:'text-align:center'},
 	    	{caption: ["품목","품목","품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
@@ -675,103 +678,103 @@
 			{caption: ["출자출하조직 취급실적","총취급실적","총취급실적","물량(톤)"]
 				,ref: 'totTrmtPrfmncVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 				,calc : 'fn_totTrmtPrfmncVlm'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","총취급실적","총취급실적","금액(천원)"]
 				,ref: 'totTrmtPrfmncAmt',   	type:'input',  width:'100px',    style:'text-align:center'
 				,calc : 'fn_totTrmtPrfmncAmt'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","자체수출","물량(톤)"]
 				,ref: 'ddcExprtVlm',   	type:'input',  width:'90px',    style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","자체수출","금액(천원)"]
 				,ref: 'ddcExprtAmt',   	type:'input',  width:'100px',    style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","자체공판장","물량(톤)"]
 				,ref: 'ddcVlm',   	type:'input',  width:'90px',    style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","자체공판장","금액(천원)"]
 				,ref: 'ddcAmt',   	type:'input',  width:'100px',    style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","군납","물량(톤)"]
 				,ref: 'ddcArmyDlvgdsVlm',   	type:'input',  width:'90px',    style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","군납","금액(천원)"]
 				,ref: 'ddcArmyDlvgdsAmt',   	type:'input',  width:'100px',    style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","학교급식","물량(톤)"]
 				,ref: 'ddcMlsrVlm',   	type:'input',  width:'90px',    style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","학교급식","금액(천원)"]
 				,ref: 'ddcMlsrAmt',   	type:'input',  width:'100px',    style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","공제대상 소계","물량(톤)"]
 				,ref: 'ddcTotVlm',   	type:'output',  width:'90px',    style:'text-align:center'
 				, calc : 'fn_ddcTotVlm'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","공제대상 소계","금액(천원)"]
 				,ref: 'ddcTotAmt',   	type:'output',  width:'100px',    style:'text-align:center'
 				, calc : 'fn_ddcTotAmt'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 
 
 			{caption: ["출자출하조직 취급실적","조정 취급실적","조정 취급실적","물량(톤)"]
 				,ref: 'ajmtVlm',   	type:'input',  width:'90px',    style:'text-align:center'
 				, calc : 'fn_ajmtVlm'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","조정 취급실적","조정 취급실적","금액(A)"]//전문품목 매입매출 화면의 매출 총합
 				,ref: 'ajmtAmt',   	type:'output',  width:'100px',    style:'text-align:center;border-right-color: black !important;' , fixedstyle:'border-right-color: black !important;'
 				, calc : 'fn_ajmtAmt'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 
 
 			{caption: ["출자출하조직의 통합조직 출하실적","총 출하실적","총 출하실적","물량(톤)"]
 				,ref: 'totSpmtPrfmncVlm',   	type:'input',  width:'90px',    style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","총 출하실적","총 출하실적","금액(천원)"]//전문품목 매입매출 화면의 매입 총합
 				,ref: 'totSpmtPrfmncAmt',   	type:'input',  width:'100px',    style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","단순기표","단순기표","물량(톤)"]
 				,ref: 'smplInptVlm',   	type:'input',  width:'90px',    style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","단순기표","단순기표","금액(천원)"]
 				,ref: 'smplInptAmt',   	type:'input',  width:'100px',    style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","출하실적","출하실적","물량(톤)"]
 				,ref: 'spmtPrfmncVlm',   	type:'output',  width:'90px',    style:'text-align:center'
 				,calc: 'fn_spmtPrfmncVlm'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","출하실적","출하실적","금액(B)"]
 				,ref: 'spmtPrfmncAmt',   	type:'output',  width:'100px',    style:'text-align:center'
 				,calc: 'fn_spmtPrfmncAmt'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 
 			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공동선별수탁","물량(톤)"]
 				,ref: 'slsCprtnSortTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공동선별수탁","금액(천원)"]
 				,ref: 'slsCprtnSortTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공동선별매취","물량(톤)"]
 				,ref: 'slsCprtnSortEmspapVlm',   	type:'input',  width:'90px',    style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공동선별매취","금액(천원)"]
 				,ref: 'slsCprtnSortEmspapAmt',   	type:'input',  width:'100px',    style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공동출하수탁","물량(톤)"]
 				,ref: 'slsCprtnTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공동출하수탁","금액(천원)"]
 				,ref: 'slsCprtnTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","합계","물량(톤)"]
 				,ref: 'slsCprtnTotVlm',   	type:'output',  width:'90px',    style:'text-align:center'
 				,calc: 'fn_slsCprtnTotVlm'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","합계","금액(천원)"]
 				,ref: 'slsCprtnTotAmt',   	type:'output',  width:'100px',    style:'text-align:center'
 				,calc: 'fn_slsCprtnTotAmt'
-			,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 
 			//{caption: ["출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)"]
 				//,ref: 'spmtRtVlm',   	type:'output',  width:'90px',    style:'text-align:center'
