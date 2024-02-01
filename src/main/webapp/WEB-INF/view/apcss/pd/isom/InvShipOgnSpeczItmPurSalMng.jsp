@@ -584,11 +584,14 @@
 	            {caption : ['판매위임(매입)금액(천원)','매입처'],
 	            	ref : "prchsNm",   width : '150px',        style : 'text-align:center',     type : 'output', merge:false},
 	            {caption : ['판매위임(매입)금액(천원)','금액'],
-		            ref : "slsCnsgnPrchsAmt",   width : '100px',	style : 'text-align:right',	type : 'input',   format : { type:'number' , rule:'#,###' }, merge:false},
+		            ref : "slsCnsgnPrchsAmt",   width : '100px',	style : 'text-align:right',	type : 'input'
+		            ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }, merge:false},
 	            {caption : ['출하(매출)금액(천원)','통합조직에\n출하(판매)'],
-		            ref : "uoSpmtAmt",		width : '100px',	style : 'text-align:right',		type : 'input',   format : { type:'number' , rule:'#,###' }, merge:false},
+		            ref : "uoSpmtAmt",		width : '100px',	style : 'text-align:right',		type : 'input'
+		            ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }, merge:false},
 		        {caption : ['출하(매출)금액(천원)','통합조직 이외\n출하(판매)'],
-		            ref : "uoOtherSpmtAmt",	width : '100px',	style : 'text-align:right',		type : 'input',   format : { type:'number' , rule:'#,###' }, merge:false},
+		            ref : "uoOtherSpmtAmt",	width : '100px',	style : 'text-align:right',		type : 'input'
+		            ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }, merge:false},
 		        {caption : ['출하(매출)금액(천원)','합계'],
 		            ref : "SpmtAmtTot",   	width : '100px',	style : 'text-align:right; background-color: #92b2c5',	type : 'output', calc : 'fn_calcSum' ,  format : { type:'number' , rule:'#,###' }, merge:false},
 	            {caption : ['비고','비고'],
@@ -747,8 +750,8 @@
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
 		let yr = SBUxMethod.get("srch-input-yr");//
+		//년도 검색값이 없는 경우 최신년도
 		if(gfn_isEmpty(yr)){
-			//추후 등록 년도 관련 수정 할시 변경
 			let now = new Date();
 			let year = now.getFullYear();
 			yr = year;

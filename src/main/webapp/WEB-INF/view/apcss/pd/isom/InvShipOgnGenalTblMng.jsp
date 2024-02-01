@@ -538,8 +538,8 @@
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
 		let yr = SBUxMethod.get("srch-input-yr");//
+		//년도 검색값이 없는 경우 최신년도
 		if(gfn_isEmpty(yr)){
-			//추후 등록 년도 관련 수정 할시 변경
 			let now = new Date();
 			let year = now.getFullYear();
 			yr = year;

@@ -32,7 +32,7 @@
     	<!-- End 페이징 -->
 
 		<![CDATA[
-	    	SELECT /*  com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectCmnsItemList */
+	    	SELECT /*  com.at.apcss.fm.popup.mapper.ItemSelectPopupMapper.selectItemList */
 	    		   IC.ITEM_CD
 			     , IC.ITEM_NM
 			  FROM TB_ITEM_CRTR IC
@@ -66,7 +66,7 @@
     	<!-- End 페이징 -->
 
 		<![CDATA[
-	    	SELECT /*  com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectCmnsItemList */
+	    	SELECT /*  com.at.apcss.fm.popup.mapper.ItemSelectPopupMapper.selectYrGpcList */
 	    		   IC.ITEM_CD
 			     , IC.ITEM_NM
 			     , IC.BRNO
@@ -83,7 +83,7 @@
 			 OR IC.BRNO = #{brno}
 		</if>
 		<if test='yr != null and yr != ""'>
-			AND IC.YR = TO_CHAR(SYSDATE,'YYYY')
+			AND IC.YR = #{yr}
 		</if>
 		 ORDER BY IC.BRNO, IC.ITEM_NM ASC
 
