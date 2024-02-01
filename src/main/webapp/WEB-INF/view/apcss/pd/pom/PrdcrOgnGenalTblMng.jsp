@@ -79,6 +79,7 @@
 									text-right-padding="25px"
 									true-value="Y"
 									false-value="N"
+									checked
 									></sbux-checkbox>
 							</td>
 							<td style="border-right: hidden;"></td>
@@ -195,6 +196,19 @@
 							<td colspan="2" class="td_input">
 						</tr>
 						<tr>
+							<th scope="row" class="th_bg">통합조직 사업자번호로 검색</th>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
+								<sbux-input
+									uitype="text"
+									id="srch-input-uoBrno"
+									name="srch-input-uoBrno"
+									class="form-control input-sm srch-keyup-area"
+									mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+							<td class="td_input"  style="border-right: hidden;"></td>
+
 							<th scope="row" class="th_bg">사업자번호</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input
@@ -206,10 +220,10 @@
 									autocomplete="off"
 								></sbux-input>
 							</td>
-							<td class="td_input"  style="border-right: hidden;"></td>
+							<td class="td_input"></td>
 
-							<th scope="row" class="th_bg">법인명</th>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
+							<th colspan="2" scope="row" class="th_bg">법인명</th>
+							<td colspan="2" class="td_input" style="border-right:hidden;" >
 								<sbux-input
 									uitype="text"
 									id="srch-input-corpNm"
@@ -218,15 +232,10 @@
 									autocomplete="off"
 								></sbux-input>
 							</td>
-							<td class="td_input"></td>
-							<!--
-							<th colspan="2" scope="row" class="th_bg"></th>
-							<td colspan="2" class="td_input" style="border-right:hidden;" >
-
-							</td>
 							<td colspan="2" class="td_input">
-							-->
+							<!--
 							<td colspan="6" class="td_input" style="border-right: hidden;border-bottom: hidden;">
+							-->
 						</tr>
 					</tbody>
 				</table>
@@ -383,7 +392,7 @@
 		fn_fcltMngCreateGrid01();
 		//fn_fcltMngCreateGrid02();
 
-		fn_initSBSelect();
+		await fn_initSBSelect();
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '21'}">
 		await fn_search();
 	</c:if>
@@ -446,7 +455,7 @@
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdComAprv, 		'APRV_UPBR_SE_CD'), //승인형/육성형 구분
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdComCorpSeCd, 	'CORP_SE_CD'), //법인구분
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdComCtpv, 		'CMPTN_INST_CTPV'), //시도
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdComSgg, 		'CMPTN_INST_SIGUN'),//시군
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdComSgg, 			'CMPTN_INST_SIGUN'),//시군
 
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonGrdComSttgUpbrItemSe, 	'STTG_UPBR_ITEM_SE'), //품목구분
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonGrdComCtgryCd, 	'CTGRY_CD'), //분류코드
@@ -633,6 +642,7 @@
 		let corpDtlSeCd = SBUxMethod.get("srch-input-corpDtlSeCd");//
 
 		let brno = SBUxMethod.get("srch-input-brno");//
+		let uoBrno = SBUxMethod.get("srch-input-uoBrno");//
 		let corpNm = SBUxMethod.get("srch-input-corpNm");//
 
 		let apoSe = SBUxMethod.get("srch-input-apoSe");//
@@ -661,6 +671,8 @@
     		brno : brno
     		,yr : yr
 
+    		,frmhsHld : 'Y'//생산자조직보유여부 조회 여부
+
     		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
     		,cmptnInst : cmptnInst
     		,ctpv : ctpv
@@ -672,9 +684,9 @@
 
     		,aprv : aprv
     		,apoSe : apoSe
-    		,frmhsHld : 'Y'//생산자조직보유여부 조회 여부
     		,frmhsHldYn : frmhsHldYn
     		,yrChk : yrChkVal
+    		,uoBrno : uoBrno
     		</c:if>
 
     		<c:if test="${loginVO.userType eq '21'}">
@@ -955,14 +967,16 @@
 		//aprv 1 승인 2 육성
 		//trmtType 1 공동출하수탁  2 공동선별수탁  3 공동선별매취
 		if(item.aprv == '1'){
-			if(!(item.cnt >= 5)){
-				stbltYnNmMng.push('조직원수 요건 미달');
-			}
-			if(!(item.spmtPrcTot >= 200000)){
-				stbltYnNmMng.push('출하대금지급액 요건 미달');
-			}
-			if(!(item.ecSpmtRateA >= 80)){
-				stbltYnNmMng.push('출하비율 요건 미달');
+			if(item.sttgUpbrItemSe == '1'){
+				if(!(item.cnt >= 5)){
+					stbltYnNmMng.push('조직원수 요건 미달');
+				}
+				if(!(item.spmtPrcTot >= 200000)){
+					stbltYnNmMng.push('출하대금지급액 요건 미달');
+				}
+				if(!(item.ecSpmtRateA >= 80)){
+					stbltYnNmMng.push('출하비율 요건 미달');
+				}
 			}
 		}else if(item.aprv == '2'){
 			if(item.trmtType == '1'){
