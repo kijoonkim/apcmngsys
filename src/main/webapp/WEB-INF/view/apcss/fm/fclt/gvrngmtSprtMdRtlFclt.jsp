@@ -740,6 +740,7 @@ const fn_createBzeatCntInvstAtmOperPrsnGrid = function() {
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
     SBGridProperties.selectmode = 'free';
     SBGridProperties.extendlastcol = 'scroll';
+    SBGridProperties.allowcopy = true;
     SBGridProperties.total = {
 			type: 'grand',
 			position: 'bottom',
