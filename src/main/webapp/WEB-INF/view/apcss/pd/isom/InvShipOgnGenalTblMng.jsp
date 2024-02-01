@@ -356,6 +356,9 @@
 	var jsonGrdCtpv = [];//시도
 	var jsonGrdSgg = [];//시군
 	var jsonGrdCorpSeCd = [];//법인구분
+
+	var jsonComGrdAprv = [];//통합조직 구분
+	var jsonComGrdSttgUpbrItemSe = [];//품목구분
 	/**
 	 * combo 설정
 	 */
@@ -375,6 +378,8 @@
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdSgg, 		'CMPTN_INST_SIGUN'),//시군
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdCorpSeCd, 	'CORP_SE_CD'),//법인구분
 
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonComGrdAprv, 	'APRV_UPBR_SE_CD'), //신청구분
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonComGrdSttgUpbrItemSe, 	'STTG_UPBR_ITEM_SE'), //품목구분
 		]);
 	}
 
@@ -473,7 +478,11 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	    	{caption: ["출자출하조직명","출자출하조직명"], 					ref: 'corpNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
-			{caption: ["품목","품목"], 								ref: 'itemNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
+			{caption: ["통합조직\n구분","통합조직\n구분"], 	ref: 'aprv',   	type:'combo',  width:'55px',    style:'text-align:center;', disabled:true
+		    	,typeinfo : {ref:'jsonComGrdAprv', label:'label', value:'value', displayui : false}},
+			{caption: ["품목","품목명"], 								ref: 'itemNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
+			{caption: ["품목","구분"], 		ref: 'sttgUpbrItemSe',   	type:'combo',  width:'55px',    style:'text-align:center;', disabled:true
+		    	,typeinfo : {ref:'jsonComGrdSttgUpbrItemSe', label:'label', value:'value', displayui : false}},
 			{caption: ["통합조직 판매위임액","생산자조직\n출하(A)(천원)"], 	ref: 'uoSpmtAmt',   	type:'output',  width:'100px',    style:'text-align:center;'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["통합조직 판매위임액","생산자조직 외\n출하(B)(천원)"], 	ref: 'uoSpmtAmtOther',   	type:'output',  width:'100px',    style:'text-align:center;'
@@ -488,7 +497,7 @@
 				, ref: 'uoSpmtAmtRt',   	type:'output',  width:'100px',    style:'text-align:center;'},
 			{caption: ["출자출하조직의\n통합조직 판매위임비율","전체출하\n[(A+B)/E]"] ,format: {type: 'string', rule: '@" %"'}
 				, ref: 'uoSpmtAmtTotRt',   	type:'output',  width:'100px',    style:'text-align:center;'},
-			{caption: ["적합여부","적합여부"], 						ref: 'stbltYn',   	type:'output',  width:'100px',    style:'text-align:center;'},
+			{caption: ["적합여부","적합여부"], 						ref: 'stbltYn',   	type:'output',  width:'70px',    style:'text-align:center;'},
 			{caption: ["탈락사유","탈락사유"], 		ref: 'stbltYnNm',   	type:'textarea',  width:'150px',    style:'padding-left:10px'
 				,typeinfo : {textareanewline : true},disabled:true },
 			{caption: ["상세내역"], 	ref: 'apoCd',   		hidden : true},
@@ -498,9 +507,9 @@
 	        {caption: ["상세내역"], 	ref: 'yr',   			hidden : true},
 	        //{caption: ["상세내역"], 	ref: 'ctgryCd',   		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'itemCd',   		hidden : true},
-	        {caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
+	        //{caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
 	        {caption: ["상세내역"], 	ref: 'trmtType',   		hidden : true},
-	        {caption: ["상세내역"], 	ref: 'aprv',   			hidden : true},
+	       // {caption: ["상세내역"], 	ref: 'aprv',   			hidden : true},
 	    ];
 
 	    grdPrdcrOgnCurntMng01 = _SBGrid.create(SBGridProperties);
@@ -702,6 +711,8 @@
    						,corpNm: item.corpNm
    						,delYn: item.delYn
    						,yr: item.yr
+
+   						,aprv: item.aprv
 
    						,sttgUpbrItemSe: item.sttgUpbrItemSe
    						,sttgUpbrItemNm: item.sttgUpbrItemNm
