@@ -84,4 +84,16 @@ public class PrdcrCrclOgnUsrMngServiceImpl extends BaseServiceImpl implements Pr
 		return deleteCnt;
 	}
 
+	@Override
+	public int changeUserType(PrdcrCrclOgnUsrMngVO PrdcrCrclOgnUsrMngVO) throws Exception {
+
+		int updatedCnt = PrdcrCrclOgnUsrMngMapper.updateMemberUserType(PrdcrCrclOgnUsrMngVO);
+		if(updatedCnt > 0){
+			PrdcrCrclOgnUsrMngMapper.insertComAuthrtUser(PrdcrCrclOgnUsrMngVO);
+			PrdcrCrclOgnUsrMngMapper.updateTbEvApoUserType(PrdcrCrclOgnUsrMngVO);
+			PrdcrCrclOgnUsrMngMapper.updateTbApcOgnzInfoUserType(PrdcrCrclOgnUsrMngVO);
+		}
+		return updatedCnt;
+	}
+
 }

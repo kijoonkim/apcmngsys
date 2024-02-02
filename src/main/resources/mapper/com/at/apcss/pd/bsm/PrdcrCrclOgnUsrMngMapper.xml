@@ -238,14 +238,88 @@
 
 	<delete id="deleteUser" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnUsrMngVO">
 		<![CDATA[
-		DELETE FROM TB_COM_USER
+		DELETE FROM TB_COM_USER  /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnUsrMngMapper.deleteUser */
 		 WHERE USER_ID 	= #{userId}
 		]]>
 	</delete>
 	<delete id="deleteAuthUser" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnUsrMngVO">
 		<![CDATA[
-		DELETE FROM TB_COM_AUTH_USER
+		DELETE FROM TB_COM_AUTH_USER  /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnUsrMngMapper.deleteAuthUser */
 		 WHERE USER_ID 	= #{userId}
 		]]>
 	</delete>
+
+	<!-- 유저 메뉴권한 -->
+	<!-- 간혹 유저 권한이 없는 경우가 존재함 -->
+	<insert id="insertComAuthrtUser" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnUsrMngVO">
+    	MERGE INTO TB_COM_AUTH_USER CAU  /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnUsrMngMapper.insertComAuthrtUser */
+		USING DUAL
+			ON (
+				CAU.USER_ID  = #{userId}
+				)
+		WHEN MATCHED THEN
+				 UPDATE
+					   SET
+		    	          AUTHRT_ID					= #{authrtId}
+		    	        , SYS_LAST_CHG_DT			= SYSDATE
+		    	        , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+		    	        , SYS_LAST_CHG_PRGRM_ID		= #{sysLastChgPrgrmId}
+					 WHERE 1=1
+					   AND CAU.USER_ID	= #{userId}
+		WHEN NOT MATCHED THEN
+			 INSERT
+		    		(
+		    			AUTHRT_ID
+						, USER_ID
+	    		  		, SYS_FRST_INPT_DT
+	    		  		, SYS_FRST_INPT_USER_ID
+	    		  		, SYS_FRST_INPT_PRGRM_ID
+	    		  		, SYS_LAST_CHG_DT
+	    		  		, SYS_LAST_CHG_USER_ID
+	    		  		, SYS_LAST_CHG_PRGRM_ID
+		    		)
+		   		VALUES
+		   			(
+		   			    #{authrtId}
+						, #{userId}
+						, SYSDATE
+	   			  		, #{sysFrstInptUserId}
+	   			  		, #{sysFrstInptPrgrmId}
+	   			  		, SYSDATE
+	   			  		, #{sysLastChgUserId}
+	   			  		, #{sysLastChgPrgrmId}
+		   			)
+    </insert>
+    <!-- 유저 권한 수정 -->
+    <!-- 회원가입시 모두 insert 하기에 전부 업데이트 -->
+    <update id="updateMemberUserType" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnUsrMngVO">
+    	UPDATE TB_COM_USER /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnUsrMngMapper.updateMemberUserType */
+    	SET
+    		USER_TYPE = #{userType}
+			, SYS_LAST_CHG_DT		= SYSDATE
+	    	, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    	, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+    	WHERE 1=1
+    	  AND USER_ID = #{userId}
+    </update>
+    <update id="updateTbEvApoUserType" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnUsrMngVO">
+    	UPDATE TB_EV_APO  /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnUsrMngMapper.updateTbEvApoUserType */
+    	SET
+    		APO_SE = #{apoSe}
+			, SYS_LAST_CHG_DT		= SYSDATE
+	    	, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    	, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+    	WHERE 1=1
+    	  AND BRNO = #{brno}
+    </update>
+    <update id="updateTbApcOgnzInfoUserType" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnUsrMngVO">
+    	UPDATE TB_APC_OGNZ_INFO  /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnUsrMngMapper.updateTbApcOgnzInfoUserType */
+    	SET
+    		OGNZ_SE_CD = #{userType}
+			, SYS_LAST_CHG_DT		= SYSDATE
+	    	, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    	, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+    	WHERE 1=1
+    	  AND BRNO = #{brno}
+    </update>
 </mapper>

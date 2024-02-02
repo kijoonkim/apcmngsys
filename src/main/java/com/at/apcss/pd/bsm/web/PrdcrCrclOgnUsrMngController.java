@@ -182,4 +182,28 @@ public class PrdcrCrclOgnUsrMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	//사용자 권한 변경
+	//통합조직 , 출자출하조직 을 알지 못해 잘못 가입하는 경우 변경
+	@PostMapping(value = "/pd/bsm/changeUserType.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> changeUserType(@RequestBody PrdcrCrclOgnUsrMngVO PrdcrCrclOgnUsrMngVO, HttpServletRequest request) throws Exception {
+		logger.debug("/pd/bsm/changeUserType >>> 호출 >>> ");
+
+		PrdcrCrclOgnUsrMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+		PrdcrCrclOgnUsrMngVO.setSysFrstInptUserId(getUserId());
+		PrdcrCrclOgnUsrMngVO.setSysLastChgPrgrmId(getPrgrmId());
+		PrdcrCrclOgnUsrMngVO.setSysLastChgUserId(getUserId());
+		
+		int result = 0;
+
+		try {
+			result =+ PrdcrCrclOgnUsrMngService.changeUserType(PrdcrCrclOgnUsrMngVO);
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		resultMap.put("result", result);
+		return getSuccessResponseEntity(resultMap);
+	}
+
 }
