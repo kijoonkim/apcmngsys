@@ -40,4 +40,29 @@ public interface PrdcrCrclOgnUsrMngMapper {
 	public int deleteUser(PrdcrCrclOgnUsrMngVO PrdcrCrclOgnUsrMngVO) throws Exception;
 
 	public int deleteAuthUser(PrdcrCrclOgnUsrMngVO PrdcrCrclOgnUsrMngVO) throws Exception;
+
+	/**
+	 * 유저 메뉴 권한을 부여 한다
+	 * @param PrdcrCrclOgnUsrMngVO
+	 * @return
+	 */
+	public int insertComAuthrtUser(PrdcrCrclOgnUsrMngVO PrdcrCrclOgnUsrMngVO);
+	/**
+	 * 회원정보 유저타입 업데이트
+	 * @param PrdcrCrclOgnUsrMngVO
+	 * @return
+	 */
+	public int updateMemberUserType(PrdcrCrclOgnUsrMngVO PrdcrCrclOgnUsrMngVO);
+	/**
+	 * 산지유통정보 유저 타입 업데이트
+	 * @param PrdcrCrclOgnUsrMngVO
+	 * @return
+	 */
+	public int updateTbEvApoUserType(PrdcrCrclOgnUsrMngVO PrdcrCrclOgnUsrMngVO);
+	/**
+	 * APC조직 정보 유저 타입 업데이트
+	 * @param PrdcrCrclOgnUsrMngVO
+	 * @return
+	 */
+	public int updateTbApcOgnzInfoUserType(PrdcrCrclOgnUsrMngVO PrdcrCrclOgnUsrMngVO);
 }

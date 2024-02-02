@@ -42,4 +42,6 @@ public interface PrdcrCrclOgnUsrMngService {
 
 	public int deleteUser(PrdcrCrclOgnUsrMngVO PrdcrCrclOgnUsrMngVO) throws Exception;
 
+	public int changeUserType(PrdcrCrclOgnUsrMngVO PrdcrCrclOgnUsrMngVO) throws Exception;
+
 }

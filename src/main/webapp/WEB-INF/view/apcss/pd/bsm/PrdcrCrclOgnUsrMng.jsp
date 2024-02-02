@@ -426,6 +426,31 @@
 							</td>
 							<td style="border-right: hidden;"></td>
 						</tr>
+						<tr>
+							<td colspan="15" class="td_input">
+								<br>
+								<p style="color:red;">회원가입시 통합조직 or 출자출하조직으로 가입했을떄만 사용가능</p>
+								<br>
+								<sbux-button
+									id="dtl-btn-changeUserType21"
+									name="dtl-btn-changeUserType21"
+									uitype="normal"
+									onclick="fn_changeUserType(21)"
+									text="통합조직으로 권한 변경"
+									style="font-size: x-small;"
+									class="btn btn-xs btn-outline-dark"
+								></sbux-button>
+								<sbux-button
+									id="dtl-btn-changeUserType22"
+									name="dtl-btn-changeUserType22"
+									uitype="normal"
+									onclick="fn_changeUserType(22)"
+									text="출자출하조직으로 권한 변경"
+									style="font-size: x-small;"
+									class="btn btn-xs btn-outline-dark"
+								></sbux-button>
+							</td>
+						</tr>
 					</c:if>
 					</tbody>
 				</table>
@@ -947,6 +972,7 @@
 
 	async function fn_userChange(){
 		let userId = SBUxMethod.get("dtl-input-userId");
+		//아이디 필수
 		if(gfn_isEmpty(userId)) return;
 		let brno = SBUxMethod.get("dtl-input-brno");
 		let userType = SBUxMethod.get("dtl-input-userType");
@@ -975,6 +1001,54 @@
     		console.error("failed", e.message);
 		}
 
+	}
+	//통합조직 출자출하조직으로 권한 변경
+	async function fn_changeUserType(_userType){
+		//아이디 필수
+		let userId = SBUxMethod.get("dtl-input-userId");
+		if(gfn_isEmpty(userId)) return;
+
+		let brno = SBUxMethod.get("dtl-input-brno");
+		let userType = SBUxMethod.get("dtl-input-userType");
+
+		if ( !(userType == '21' || userType == '22') ) {
+			alert('통합조직 또는 출자출하조직 권한 인 경우만 가능합니다');
+			return false;
+		}
+
+		let authrtId;
+		let apoSe;
+
+		if(_userType == '21'){
+			userType = _userType;
+			authrtId = '0000_996';
+			apoSe = '1'
+		}else if (_userType == '22') {
+			userType = _userType;
+			authrtId = '0000_997';
+			apoSe = '2'
+		}else{
+			return false;
+		}
+
+		let postJsonPromise = gfn_postJSON("/pd/bsm/changeUserType.do", {
+			userId : userId
+			,brno : brno
+			,userType : userType
+			,authrtId : authrtId
+			,apoSe : apoSe
+		});
+        let data = await postJsonPromise;
+
+        try{
+        	console.log(data);
+        	fn_search();
+        }catch (e) {
+        	if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+		}
 	}
 
 </script>
