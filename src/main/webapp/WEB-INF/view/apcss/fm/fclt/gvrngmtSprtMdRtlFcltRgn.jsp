@@ -613,11 +613,11 @@ const fn_createMdInvstAtmOwnrGrid = function() {
     SBGridProperties.columns = [
     	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'105px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
     	{caption : ["소유자","개소 수"], ref: 'v1', type: 'output',  width:'115px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["소유자","투자금액"], ref: 'v1', type: 'output',  width:'115px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["소유자","평균투자액"], ref: 'v2', type: 'output',  width:'115px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["운영자","개소 수"], ref: 'v3', type: 'output',  width:'115px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["운영자","투자금액"], ref: 'v4', type: 'output',  width:'115px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["운영자","평균투자액"], ref: 'v5', type: 'output',  width:'230px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
+    	{caption : ["소유자","투자금액"], ref: 'v2', type: 'output',  width:'115px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["소유자","평균투자액"], ref: 'v3', type: 'output',  width:'115px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["운영자","개소 수"], ref: 'v4', type: 'output',  width:'115px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["운영자","투자금액"], ref: 'v5', type: 'output',  width:'115px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["운영자","평균투자액"], ref: 'v6', type: 'output',  width:'230px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdMdInvstAtmOwnr = _SBGrid.create(SBGridProperties);
 }
@@ -773,7 +773,8 @@ const fn_cellGvrngmtSprtMdRtlFcltRgnGrid = async function() {
 	  				  v2 : item.v2,
 	  				  v3 : item.v3,
 	  				  v4 : item.v4,
-	  				  v5 : item.v5
+	  				  v5 : item.v5,
+	  				  v6 : item.v6
 			}
 	  		jsonMdInvstAtmOwnr.push(mdInvstAtmOwnr);
 	  	});
