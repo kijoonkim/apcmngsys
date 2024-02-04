@@ -108,6 +108,13 @@ public class AmConstants {
     public final static String CON_CD_ID_SORT_GRD = "SORT_GRD";
     
     /**
+     * 입고등급
+     */
+    public final static String CON_CD_ID_WRHS_GRD = "WRHS_GRD";
+    
+    
+    
+    /**
      * 재고변경사유코드 : C1 재고보정
      */
     public final static String CON_INVNTR_CHG_RSN_CD_C1 = "C1";
