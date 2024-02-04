@@ -232,8 +232,14 @@
 	        {caption: ["사용자ID"],  	ref: 'userId',    	type:'output',		width:'200px', style:'text-align:left'},
 	        {caption: ["사용자명"],   	ref: 'userNm',      type:'output',  	width:'100px', style:'text-align:left'},
 	        {caption: ["APC명"],		ref: 'apcNm',   	type:'output',  	width:'250px', style:'text-align:left'},
-	        {caption: ["사용자유형"],	ref: 'userType',	type:'combo',  		width:'120px', style:'text-align:center',
-	        	typeinfo : {ref:'userType', label:'label', value:'value', displayui : true}
+	        {
+	        	caption: ["사용자유형"],	
+	        	ref: 'userType',	
+	        	type:'combo',  		
+	        	width:'120px', 
+	        	style:'text-align:center',
+	        	typeinfo : {ref:'userType', label:'label', value:'value', displayui : true},
+	        	userattr: {colNm: "userType"},
 	        },
 	        {caption: ["메일주소"],  	ref: 'eml',  		type:'output', 		width:'200px', style:'text-align:left'},
 	    	{caption: ["전화번호"],  	ref: 'mblTelno',   	type:'output',  	width:'150px', style:'text-align:center'},
@@ -245,7 +251,8 @@
 	        	type: 'checkbox',  
 	        	width:'100px', 
 	        	style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: ''}
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: ''},
+                userattr: {colNm: "yn"},
             },
             {
 	        	caption : ["이용신청서제출"], 
@@ -253,7 +260,8 @@
 	        	type: 'checkbox',  
 	        	width:'100px', 
 	        	style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: ''}
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: ''},
+                userattr: {colNm: "yn"},
             },
             {caption: [""],			ref: '_',  			type:'output', 		width:'1px'},
 	        {caption: ["사용자상태"],	ref: 'userStts',  	type:'output',  	hidden: true},
@@ -262,6 +270,7 @@
 		];
 	    grdUserAprv = _SBGrid.create(SBGridProperties);
 	    grdUserAprv.bind( "afterpagechanged" , "fn_pagingUserAprv" );
+	    grdUserAprv.bind('valuechanged', fn_grdUserAprvValueChanged);
 	}
 
     async function fn_search() {
@@ -369,8 +378,17 @@
 
 		const userAprvList = [];
 		const allUserData = grdUserAprv.getGridDataAll();
-		allUserData.forEach((item, index) => {
+		
+		for ( let i=0; i<allUserData.length; i++) {
+			
+			const item = allUserData[i];
+			
 			if (item.checkedYn === "Y") {
+				if (!_.isEqual(item.userStts, "00")){
+					gfn_comAlert("W0010", "승인", "사용자");		//	W0010  이미 {0}된 {1} 입니다.	
+					return;
+				}
+				
 				if (item.userType == "10"){
 					userAprvList.push({
 						  userStts : "01"
@@ -378,7 +396,7 @@
 	    				, userId: item.userId
 	    				, apcCd: item.apcCd
 	    			});
-				}else{
+				} else{
 					userAprvList.push({
 						  userStts : "01"
 						, userType : "10"
@@ -387,7 +405,7 @@
 					});
 				}
     		}
-		});
+		}
 
 		if (userAprvList.length == 0) {
 			gfn_comAlert("W0001", "승인대상");		//	W0001	{0}을/를 선택하세요.
@@ -420,17 +438,18 @@
 		const userAprvList = [];
 		const allUserData = grdUserAprv.getGridDataAll();
 
-		console.log('allUserData', allUserData);
 		allUserData.forEach((item, index) => {
-			if(item.userType == "10"){
-				userAprvList.push({
-					  userStts : "01"
-				  	, userType : "10"
-    				, userId   : item.userId
-    				, apcCd: item.apcCd
-    			});
-			}else if(item.userType == "11"){
-				console.log('userType11', item.userId);
+			if (_.isEqual(item.userStts, "00")) {
+				if (item.userType == "10"){
+					userAprvList.push({
+						  userStts : "01"
+					  	, userType : "10"
+	    				, userId   : item.userId
+	    				, apcCd: item.apcCd
+	    			});
+				} else if(item.userType == "11"){
+					console.log('userType11', item.userId);
+				}
 			}
 		});
 
@@ -475,6 +494,7 @@
     			});
 			}
 		});
+		
 		if (userTypeChgList.length == 0) {
 			gfn_comAlert("W0001", "저장대상");		//	W0001	{0}을/를 선택하세요.
 			return;
@@ -498,6 +518,30 @@
         }
 	}
 
+ 	/**
+     * @name fn_grdUserAprvValueChanged
+     * @description 그리드 변경 event 처리
+     * @function
+     */
+	const fn_grdUserAprvValueChanged = function() {
+		
+		let nRow = grdUserAprv.getRow();
+		let nCol = grdUserAprv.getCol();
+		const usrAttr = grdUserAprv.getColUserAttr(nCol);
+		const rowData = grdUserAprv.getRowData(nRow, false);	// deep copy
+		if (!gfn_isEmpty(usrAttr) && usrAttr.hasOwnProperty('colNm')) {
+			switch (usrAttr.colNm) {
+				case "userType":
+				case "yn":
+					rowData.checkedYn = "Y";
+					grdUserAprv.refresh({"focus":false});
+					break;
+			}
+		}
+		
+ 	}
+
+	
 	/**
 	 * @name fn_onChangeApc
 	 * @description APC 선택 변경 event
