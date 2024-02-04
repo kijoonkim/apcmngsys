@@ -342,6 +342,9 @@
     	<if test='userType != null and userType != ""'>
     	     , USER_TYPE    			= #{userType}
     	</if>
+    	<if test='authrtType != null and authrtType != ""'>
+    	     , AUTHRT_TYPE    			= #{authrtType}
+    	</if>
     	<![CDATA[
     	 WHERE MENU_ID 					= #{menuId}
     	 ]]>

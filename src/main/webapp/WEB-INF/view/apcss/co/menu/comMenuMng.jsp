@@ -551,7 +551,7 @@
     	let delYn 			= SBUxMethod.get('dtl-select-delYn');		// 사용유무
     	let prsnaInfoYn	 	= SBUxMethod.get("dtl-select-flfmtYn"); 	// 개인정보 사용유무
     	let authrtType	 	= SBUxMethod.get("dtl-select-authrtType"); 	// 권한유형
-
+    	
     	const postJsonPromise = gfn_postJSON("/co/menu/updateMenu.do", {
 	  		apcCd 		: apcCd,
 	  		menuId 		: menuId,
@@ -559,6 +559,7 @@
   		  	indctSeq 	: order,
   		  	menuType 	: menuType,
   		    userType 	: userType,
+  		  	authrtType	: authrtType,
   		  	order		: order,
   		  	pageUrl 	: pageUrl,
   		    authrtType  : authrtType,

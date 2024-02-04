@@ -26,7 +26,7 @@
 	    	SELECT /* com.at.apcss.am.cmns.mapper.PltBxMapper.selectPltBx */
 	    		  PB.APC_CD				AS APC_CD
 			    , PB.PLT_BX_SE_CD   	AS PLT_BX_SE_CD
-			    , (SELECT FN_GET_COM_CD_VL_NM('PLT_BX_SE_CD', PB.PLT_BX_SE_CD) FROM DUAL) AS PLT_BX_SE_CD
+			    , (SELECT FN_GET_COM_CD_VL_NM('PLT_BX_SE_CD', PB.PLT_BX_SE_CD) FROM DUAL) AS PLT_BX_SE_NM
 			    , PB.PLT_BX_CD          AS PLT_BX_CD
 			    , PB.PLT_BX_NM          AS PLT_BX_NM
 			    , PB.UNIT_WGHT          AS UNIT_WGHT
