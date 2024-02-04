@@ -61,6 +61,16 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 		return resultList;
 	}
 
+
+	@Override
+	public List<PrdcrVO> selectPrdcrCdList(PrdcrVO prdcrVO) throws Exception {
+		
+		List<PrdcrVO> resultList = prdcrMapper.selectPrdcrCdList(prdcrVO);
+
+		return resultList;
+	}
+
+	
 	@Override
 	public HashMap<String, Object> insertPrdcr(PrdcrVO prdcrVO) throws Exception {
 

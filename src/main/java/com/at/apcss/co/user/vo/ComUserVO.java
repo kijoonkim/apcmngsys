@@ -41,4 +41,6 @@ public class ComUserVO extends ComVO {
 	private String crno;
 	private String brdt;
 	private String mblTelno;
+	private String odSbmsnYn;
+	private String aplyDocSbmsnYn;
 }

@@ -19,9 +19,30 @@
 					</p>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearchItem" name="btnSearchItem" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchAll"></sbux-button>
-					<sbux-button id="btnSaveItem" name="btnSaveItem" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveApcVrtyList"></sbux-button>
-					<sbux-button id="btnEndItem" name="btnEndItem" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-item')"></sbux-button>
+					<sbux-button 
+						id="btnSearchItem" 
+						name="btnSearchItem" 
+						uitype="normal" 
+						text="조회" 
+						class="btn btn-sm btn-outline-danger" 
+						onclick="fn_searchAll"
+					></sbux-button>
+					<sbux-button 
+						id="btnSaveItem" 
+						name="btnSaveItem" 
+						uitype="normal" 
+						text="저장" 
+						class="btn btn-sm btn-outline-danger" 
+						onclick="fn_saveApcVrtyList"
+					></sbux-button>
+					<sbux-button 
+						id="btnEndItem" 
+						name="btnEndItem" 
+						uitype="normal" 
+						text="종료" 
+						class="btn btn-sm btn-outline-danger" 
+						onclick="gfn_closeModal('modal-item')"
+					></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -276,8 +297,17 @@
 	        {caption: ["코드"],     ref: 'vrtyCd',  type:'output',  width:'80px',    style:'text-align:center'},
 	        {caption: ["명칭"],     ref: 'vrtyNm',  type:'input',  	width:'140px',    style:'text-align:center',
 	        	typeinfo : {maxlength : 30}},
-	        {caption: ["입고단중 (Kg)"],     ref: 'unitWght',  type:'input',  width:'80px',  style: 'text-align:right;',
-    			typeinfo : {mask : {alias : 'numeric'}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+	        {
+	        	caption: ["입고단중 (Kg)"],     
+	        	ref: 'unitWght',  
+	        	type:'input',  
+	        	width:'80px',  
+	        	style: 'text-align:right;',
+    			typeinfo : {
+    				mask : {alias : 'numeric'}, 
+    				maxlength : 10}, 
+    				format : {type:'number', rule:'#,###.##'}
+    		},
 	        {caption: ["처리기준"],     ref: 'wghtRkngSeCd',  type:'combo',  width:'80px',    style:'text-align:center;',
 					typeinfo : {ref:'jsonVrtyWghtRkngSeCd', displayui : false,	itemcount: 10, label:'label', value:'value'}},
 			{caption: ["순번"],     ref: 'sn',  type:'input',  	width:'80px',    style:'text-align:center',
@@ -632,14 +662,14 @@
 
 		let gridData = grdApcVrty.getGridDataAll();
 		let saveList = [];
-		for(var i=1; i<=gridData.length; i++ ){
+		for ( var i=1; i<=gridData.length; i++ ){
 			let rowData = grdApcVrty.getRowData(i);
 			let rowSts = grdApcVrty.getRowStatus(i);
 			let delYn = rowData.delYn;
 			let unitWght = rowData.unitWght;
 			let wghtRkngSeCd = rowData.wghtRkngSeCd;
 			let vrtyNm = rowData.vrtyNm;
-			if(delYn == 'N'){
+			if (delYn == 'N'){
 				if (gfn_isEmpty(vrtyNm)) {
 		  			gfn_comAlert("W0002", "품종명");		//	W0002	{0}을/를 입력하세요.
 		            return;
@@ -655,18 +685,20 @@
 				}
 			}
 		}
-		if(saveList.length == 0){
+		
+		if (saveList.length == 0){
 			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
 			return;
 		}
-		if(gfn_comConfirm("Q0001", "저장")){
+		
+		if (gfn_comConfirm("Q0001", "저장")){
 
 			let postJsonPromise = gfn_postJSON("/am/cmns/multiApcVrtyList.do", saveList);
 	        let data = await postJsonPromise;
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
 	        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
-	        		fn_searchAll();
+	        		await fn_searchAll();
 	        		fn_searchVrtyAll();
 	        	} else {
 	        		gfn_comAlert(data.resultCode, data.resultMessage);

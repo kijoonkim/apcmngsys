@@ -55,7 +55,22 @@ public class WrhsVhclController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+	
+	@PostMapping(value = "/am/cmns/selectWrhsVhclCdList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectWrhsVhclCdList(@RequestBody WrhsVhclVO wrhsVhclVO, HttpServletRequest request) throws Exception {
 
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<WrhsVhclVO> resultList = new ArrayList<>();
+		try {
+			resultList = wrhsVhclService.selectWrhsVhclCdList(wrhsVhclVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 	@PostMapping(value = "/am/cmns/multiVhclList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> multiVhclList(@RequestBody List<WrhsVhclVO> vhclList, HttpServletRequest request) throws Exception {
 

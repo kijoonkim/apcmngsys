@@ -64,7 +64,7 @@ public class ComUserController extends BaseController {
 		List<ComUserVO> resultList = new ArrayList<>();
 
 		try {
-			comUserVO.setUserStts(ComConstants.CON_USER_STTS_STANDBY);
+			//comUserVO.setUserStts(ComConstants.CON_USER_STTS_STANDBY);
 			comUserVO.setUserType(ComConstants.CON_USER_TYPE_ADMIN);
 
 			resultList = comUserService.selectComUserApcList(comUserVO);

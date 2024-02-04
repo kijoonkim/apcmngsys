@@ -193,7 +193,7 @@ public class CmnsVrtyController extends BaseController {
 		try {
 			insertedCnt = cmnsVrtyService.insertApcVrty(cmnsVrtyVO);
 
-			if(insertedCnt != 0) {
+			if(insertedCnt != 1) {
 				resultMap.put(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다.");
 				return getErrorResponseEntity(resultMap);
 			}
@@ -231,7 +231,7 @@ public class CmnsVrtyController extends BaseController {
 		try {
 			updatedCnt = cmnsVrtyService.updateApcVrty(cmnsVrtyVO);
 
-			if(updatedCnt != 0) {
+			if(updatedCnt != 1) {
 				resultMap.put(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다.");
 				return  getErrorResponseEntity(resultMap);
 			}
@@ -291,6 +291,7 @@ public class CmnsVrtyController extends BaseController {
 				cmnsVrtyVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
 			HashMap<String, Object> rtnObj = cmnsVrtyService.multiSaveApcVrtyList(cmnsVrtyList);
+
             if(rtnObj != null) {
             	return getErrorResponseEntity(rtnObj);
             }

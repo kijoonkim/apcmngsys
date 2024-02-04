@@ -213,7 +213,7 @@
 			   AND AVC.DEL_YN = #{delYn}
 		</if>
 		<![CDATA[
-			ORDER BY AVC.SN
+			ORDER BY ITEM_CD, SN
 		]]>
 
     </select>
