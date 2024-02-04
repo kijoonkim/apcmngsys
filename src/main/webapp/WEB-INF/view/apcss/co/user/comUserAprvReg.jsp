@@ -113,8 +113,44 @@
 								<span style="font-size:12px">(조회건수 <span id="cnt-userAprv">0</span>건)</span>
 							</li>
 						</ul>
-						<div class="ad_tbl_toplist">
-							<sbux-button id="btnAllSave" name="btnAllSave" uitype="normal" text="일괄승인" class="btn btn-sm btn-outline-danger" onclick="fn_allUserAprv()" ></sbux-button>
+						<div class="ad_tbl_toplist_datepk">
+							<table class="table table-bordered tbl_fixed">
+					 			<caption>검색 조건 설정</caption>
+								<colgroup>
+									<col style="width: auto">
+									<col style="width: 110px">
+									<col style="width: 100px">
+									<col style="width: 80px">
+								</colgroup>
+								<tbody>
+									<tr>
+										<td style="border-left:hidden"></td>
+										<td class="td_input" style="border-right:hidden; border-left:hidden" >
+											<span>표시건수 :</span>
+										</td>
+										<td class="td_input" style="border-right:hidden; border-left:hidden" >
+											<sbux-select
+												id="srch-slt-pageSize"
+												name="srch-slt-pageSize"
+												uitype="single"
+												class="form-control input-sm"
+												jsondata-ref="jsonPageSize"
+												onchange="setPageSize"
+											></sbux-select>
+										</td>
+										<td class="td_input" style="border-right:hidden;">
+											<sbux-button
+												id="btnAllSave" 
+												name="btnAllSave" 
+												uitype="normal" 
+												text="일괄승인" 
+												class="btn btn-sm btn-outline-danger" 
+												onclick="fn_allUserAprv()" 
+											></sbux-button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					</div>
 					<div id="sb-area-grdUserAprv" style="height:576px;"></div>
@@ -124,6 +160,15 @@
 </body>
 
 <script type="text/javascript">
+
+	var jsonPageSize = [
+		{'text': '50건', 'value': '50'},
+		{'text': '100건', 'value': '100'},
+		{'text': '200건', 'value': '200'},
+		{'text': '500건', 'value': '500'},
+		{'text': '1000건', 'value': '1000'},
+	]
+
 	var userType=[
 		{'label': 'APC관리자', 'value': '10'},
 		{'label': 'APC사용자', 'value': '11'}
@@ -145,7 +190,8 @@
 		//await gfn_setComCdSBSelect('srch-slt-userStts', jsonComUserStts, 'USER_STTS');
 // 		await gfn_setComCdGridSelect('grdUserAprv', 	jsonUserType,    'USER_TYPE');	// 사용유무
 		SBUxMethod.set("srch-slt-userStts", "00");
-
+		SBUxMethod.set("srch-slt-pageSize", "50");
+		
 		fn_createGridUserAprv();
 
 		fn_search();
@@ -499,7 +545,11 @@
 			gfn_comAlert("W0001", "저장대상");		//	W0001	{0}을/를 선택하세요.
 			return;
 		}
-
+		
+    	if (!gfn_comConfirm("Q0001", "저장")) {
+    		return;
+    	}
+    	
 		const postJsonPromise = gfn_postJSON("/co/user/updateUserTypeList.do", userTypeChgList);
 		const data = await postJsonPromise;
 		try {
@@ -583,7 +633,14 @@
      		grdUserAprv.setColHidden(i, false);
      	}
    	}
-     
+ 	
+	const setPageSize = function(){
+		const size = parseInt(SBUxMethod.get("srch-slt-pageSize")) || 50;
+		grdUserAprv.setPageSize(size);
+		grdUserAprv.rebuild();
+		fn_search();
+	};
+ 	
 	
 </script>
 
