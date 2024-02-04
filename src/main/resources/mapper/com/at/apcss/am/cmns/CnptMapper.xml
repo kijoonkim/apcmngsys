@@ -52,6 +52,9 @@
 		<if test='cnptNm != null and cnptNm !=""'>
 		   AND CT.CNPT_NM LIKE '%' || #{cnptNm} || '%'
 		</if>
+    	<![CDATA[
+		 ORDER BY CNPT_NM
+		]]>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		  ) pt0

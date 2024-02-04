@@ -184,6 +184,8 @@
 				, CU.JBTTL_NM 				AS JBTTL_NM
 				, CU.TKCG_TASK_NM 			AS TKCG_TASK_NM
 				, CU.MBL_TELNO              AS MBL_TELNO
+				, CU.OD_SBMSN_YN			AS OD_SBMSN_YN
+				, CU.APLY_DOC_SBMSN_YN		AS APLY_DOC_SBMSN_YN
 				, CU.DEL_YN                 AS DEL_YN
 				, (SELECT FN_GET_COM_CD_VL_NM('REVERSE_YN',CU.DEL_YN) FROM DUAL) AS REVERSE_YN
 				, CU.SYS_FRST_INPT_DT       AS SYS_FRST_INPT_DT
@@ -224,12 +226,16 @@
 
     <update id="updateUserType" parameterType="com.at.apcss.co.user.vo.ComUserVO">
     	<![CDATA[
-    	UPDATE TB_COM_USER
-    	   SET USER_TYPE 				= #{userType}
-    	     , SYS_LAST_CHG_DT 			= SYSDATE
-    	     , SYS_LAST_CHG_USER_ID 	= #{sysLastChgUserId}
-    	     , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
-    	 WHERE USER_ID 					= #{userId}
+	    	UPDATE /* com.at.apcss.co.user.ComUserMapper.updateUserType */
+	    		TB_COM_USER
+	    	   SET
+	    	   	  USER_TYPE 				= #{userType}
+	    	   	, OD_SBMSN_YN 				= #{odSbmsnYn}
+	    	   	, APLY_DOC_SBMSN_YN			= #{aplyDocSbmsnYn}
+				, SYS_LAST_CHG_DT 			= SYSDATE
+	    	    , SYS_LAST_CHG_USER_ID 		= #{sysLastChgUserId}
+	    	    , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+	    	 WHERE USER_ID 					= #{userId}
     	]]>
     </update>
 

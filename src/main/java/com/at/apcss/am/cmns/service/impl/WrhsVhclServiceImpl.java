@@ -54,6 +54,14 @@ public class WrhsVhclServiceImpl extends BaseServiceImpl implements WrhsVhclServ
 	}
 
 	@Override
+	public List<WrhsVhclVO> selectWrhsVhclCdList(WrhsVhclVO wrhsVhclVO) throws Exception {
+
+		List<WrhsVhclVO> resultList = wrhsVhclMapper.selectWrhsVhclCdList(wrhsVhclVO);
+
+		return resultList;
+	}
+	
+	@Override
 	public int insertWrhsVhcl(WrhsVhclVO wrhsVhclVO) throws Exception {
 
 		int insertedCnt = wrhsVhclMapper.insertWrhsVhcl(wrhsVhclVO);
@@ -136,4 +144,5 @@ public class WrhsVhclServiceImpl extends BaseServiceImpl implements WrhsVhclServ
 
 		return null;
 	}
+
 }

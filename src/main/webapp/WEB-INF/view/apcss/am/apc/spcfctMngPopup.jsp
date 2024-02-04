@@ -170,8 +170,21 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdApcSpcfct\", " + nRow + ")'>삭제</button>";
 	        	}
 		    }},
-		    {caption: ["규격코드"],		ref: 'spcfctCd',   	type:'input',  width:'80px', 	style:'text-align:center'},
-	        {caption: ["규격명"],   	ref: 'spcfctNm',  	type:'input',  width:'310px',   style:'text-align:center', typeinfo : {maxlength : 30}},
+		    {
+		    	caption: ["규격코드"],		
+		    	ref: 'spcfctCd',   	
+		    	type:'output',  
+		    	width:'80px', 	
+		    	style:'text-align:center'
+		    },
+	        {
+		    	caption: ["규격명"],   	
+		    	ref: 'spcfctNm',  	
+		    	type:'input',  
+		    	width:'280px',   
+		    	style:'text-align:center', 
+		    	typeinfo : {maxlength : 30}
+		    },
 // 	        {caption: ["중량단위"], ref: 'unitCd',   	type:'combo',  width:'100px',    style:'text-align:center',
 // 				typeinfo : {ref:'jsonSpcfctUnitCd', 	itemcount: 3, label:'label', value:'value', displayui : false}},
 	        {
@@ -211,7 +224,7 @@
 	        	caption: ["사용유무"], 	
 	        	ref: 'delYn',  
 	        	type:'combo',  
-	        	width:'100px',    
+	        	width:'80px',    
 	        	style:'text-align:center',
 				typeinfo : {
 					ref:'jsonUseYn', 

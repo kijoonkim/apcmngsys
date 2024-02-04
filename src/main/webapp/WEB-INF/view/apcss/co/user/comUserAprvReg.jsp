@@ -72,8 +72,8 @@
 									uitype="single"
 									class="form-control input-sm"
 									jsondata-ref="jsonComUserStts"
-									unselected-text="선택"
-									readonly
+									unselected-text="전체"
+									onchange="fn_search"
 								></sbux-select>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;"></td>
@@ -129,7 +129,10 @@
 		{'label': 'APC사용자', 'value': '11'}
 	];
 // 	var jsonUserType = [];
-	var jsonComUserStts	= [];	// 사용자상태	USER_STTS	srch-slt-userStts
+	var jsonComUserStts	= [
+		{'text': '승인대기', 'value': '00'},
+		{'text': '승인완료', 'value': '01'},
+	];	// 사용자상태	USER_STTS	srch-slt-userStts
 
 	var grdUserAprv;
 	var jsonUserAprv = [];
@@ -139,7 +142,7 @@
 	 * @description form init
 	 */
 	const fn_init = async function() {
-		await gfn_setComCdSBSelect('srch-slt-userStts', jsonComUserStts, 'USER_STTS');
+		//await gfn_setComCdSBSelect('srch-slt-userStts', jsonComUserStts, 'USER_STTS');
 // 		await gfn_setComCdGridSelect('grdUserAprv', 	jsonUserType,    'USER_TYPE');	// 사용유무
 		SBUxMethod.set("srch-slt-userStts", "00");
 
@@ -152,6 +155,38 @@
 		fn_init();
 	});
 
+	/**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+    const objMenuList = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",					//단축키
+            "callback": fn_excelDwnld,			//콜백함수명
+        },
+        "personalSave" : {
+        	"name": "개인화 저장",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "s",					//단축키
+            "callback": fn_personalSave,		//콜백함수명
+        },
+        "personalLoad" : {
+        	"name": "개인화 호출",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "l",					//단축키
+            "callback": fn_personalLoad,		//콜백함수명
+        },
+        "colHidden" : {
+        	"name": "열 숨기기",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "h",					//단축키
+            "callback": fn_colHidden,			//콜백함수명
+        },
+        "colShow" : {
+        	"name": "열 보이기",				//컨텍스트메뉴에 표시될 이름
+            "accesskey": "w",					//단축키
+            "callback": fn_colShow,				//콜백함수명
+        }
+    };
+	
 	const fn_createGridUserAprv = function() {
 		var SBGridProperties = {};
 
@@ -163,30 +198,65 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.oneclickedit = true;
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList;	// 우클릭 메뉴 리스트
 	    SBGridProperties.paging = {
 			'type' : 'page',
 		  	'count' : 5,
-		  	'size' : 20,
+		  	'size' : 50,
 		  	'sorttype' : 'page',
 		  	'showgoalpageui' : true
 	    };
 	    SBGridProperties.explorerbar = 'sortmove';
 		SBGridProperties.columns = [
-        	{caption: ["체크박스"], 	ref: 'checkedYn', 	type: 'checkbox',	width:'40px',  style:'text-align: center',
-				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}
+        	{
+        		caption: ["체크박스"], 	
+        		ref: 'checkedYn', 	
+        		type: 'checkbox',	
+        		width:'40px',  
+        		style:'text-align: center',
+				typeinfo: {
+					ignoreupdate : true, 
+					fixedcellcheckbox : {usemode : true, rowindex : 0}, 
+					checkedvalue : 'Y', 
+					uncheckedvalue : 'N'
+				}
         	},
-	        {caption: ["상태"], 		ref: 'userSttsNm',	type:'output',  	width:'175px', style:'text-align:center'},
-	        {caption: ["사용자ID"],  	ref: 'userId',    	type:'output',		width:'175px', style:'text-align:center'},
-	        {caption: ["사용자명"],   	ref: 'userNm',      type:'output',  	width:'175px', style:'text-align:center'},
-	        {caption: ["APC명"],		ref: 'apcNm',   	type:'output',  	width:'175px', style:'text-align:center'},
-	        {caption: ["사용자유형"],	ref: 'userType',	type:'combo',  		width:'175px', style:'text-align:center',
+	        {
+        		caption: ["상태"], 		
+        		ref: 'userSttsNm',	
+        		type:'output',  	
+        		width:'80px', 
+        		style:'text-align:center'
+        	},
+	        {caption: ["사용자ID"],  	ref: 'userId',    	type:'output',		width:'200px', style:'text-align:left'},
+	        {caption: ["사용자명"],   	ref: 'userNm',      type:'output',  	width:'100px', style:'text-align:left'},
+	        {caption: ["APC명"],		ref: 'apcNm',   	type:'output',  	width:'250px', style:'text-align:left'},
+	        {caption: ["사용자유형"],	ref: 'userType',	type:'combo',  		width:'120px', style:'text-align:center',
 	        	typeinfo : {ref:'userType', label:'label', value:'value', displayui : true}
 	        },
-	        {caption: ["메일주소"],  	ref: 'eml',  		type:'output', 		width:'175px', style:'text-align:center'},
-	    	{caption: ["전화번호"],  	ref: 'mblTelno',   	type:'output',  	width:'175px', style:'text-align:center'},
-	        {caption: ["직책 명"],  	ref: 'jbttlNm',   	type:'output',  	width:'175px', style:'text-align:center'},
-	        {caption: ["담당업무"],  	ref: 'tkcgTaskNm',  type:'output',  	width:'175px', style:'text-align:center'},
-			{caption: ["사용자상태"],	ref: 'userStts',  	type:'output',  	hidden: true},
+	        {caption: ["메일주소"],  	ref: 'eml',  		type:'output', 		width:'200px', style:'text-align:left'},
+	    	{caption: ["전화번호"],  	ref: 'mblTelno',   	type:'output',  	width:'150px', style:'text-align:center'},
+	        {caption: ["직책 명"],  	ref: 'jbttlNm',   	type:'output',  	width:'100px', style:'text-align:center'},
+	        {caption: ["담당업무"],  	ref: 'tkcgTaskNm',  type:'output',  	width:'100px', style:'text-align:center'},
+	        {
+	        	caption : ["공문제출"], 
+	        	ref: 'odSbmsnYn', 
+	        	type: 'checkbox',  
+	        	width:'100px', 
+	        	style: 'text-align:center',
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: ''}
+            },
+            {
+	        	caption : ["이용신청서제출"], 
+	        	ref: 'aplyDocSbmsnYn', 
+	        	type: 'checkbox',  
+	        	width:'100px', 
+	        	style: 'text-align:center',
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: ''}
+            },
+            {caption: [""],			ref: '_',  			type:'output', 		width:'1px'},
+	        {caption: ["사용자상태"],	ref: 'userStts',  	type:'output',  	hidden: true},
 			{caption: ["사용자유형"],	ref: 'userType',  	type:'output',  	hidden: true},
 			{caption: ["apc코드"],	ref: 'apcCd',  		type:'output',  	hidden: true}
 		];
@@ -242,14 +312,16 @@
   	  						userNm: 	item.userNm,
   	  						apcNm: 		item.apcNm,
   	  						userStts: 	item.userStts,
-  	  						userSttsNm: item.userSttsNm,
+  	  						userSttsNm: item.userStts == "01" ? "승인완료" : item.userSttsNm,
   	  						userType: 	item.userType,
   	  						userTypeNm: item.userTypeNm,
   	  						eml: 		item.eml,
   	  						telno: 		item.telno,
   	  						jbttlNm: 	item.jbttlNm,
   	  						tkcgTaskNm: item.tkcgTaskNm,
-  	  						mblTelno:	item.mblTelno
+  	  						mblTelno:	item.mblTelno,
+  	  						odSbmsnYn:	item.odSbmsnYn,
+  	  						aplyDocSbmsnYn:	item.aplyDocSbmsnYn,
   	  				}
   	          		jsonUserAprv.push(userAprv);
 
@@ -396,8 +468,10 @@
 		allUserData.forEach((item, index) => {
 			if(item.checkedYn === "Y"){
 				userTypeChgList.push({
-				  	  userType : item.userType
-    				, userId   : item.userId
+				  	  userType 	: item.userType
+    				, userId   	: item.userId
+    				, odSbmsnYn	: item.odSbmsnYn
+    				, aplyDocSbmsnYn : item.aplyDocSbmsnYn
     			});
 			}
 		});
@@ -432,6 +506,41 @@
 		fn_init();
 	}
 
+	
+    // 엑셀 다운로드
+    function fn_excelDwnld() {
+    	grdUserAprv.exportLocalExcel(
+    			"APC관리자승인요청정보", 
+    			{
+    				bSaveLabelData: true, 
+    				bNullToBlank: true, 
+    				bSaveSubtotalValue: true, 
+    				bCaptionConvertBr: true, 
+    				arrSaveConvertText: true
+    			}
+    		);
+    }
+
+    // 개인화 저장
+    function fn_personalSave(){
+    	grdUserAprv.savePersonalInfo("apcCd");
+	}
+    // 개인화 호출
+    function fn_personalLoad(){
+    	grdUserAprv.loadPersonalInfo("apcCd");
+	}
+ 	// 열 숨기기
+    function fn_colHidden(){
+    	grdUserAprv.setColHidden(grdUserAprv.getCol(), true);
+    }
+ 	// 열 보이기
+	function fn_colShow(){
+     	for (let i = grdUserAprv.getFixedCols(); i < grdUserAprv.getCols()-1; i++) {
+     		grdUserAprv.setColHidden(i, false);
+     	}
+   	}
+     
+	
 </script>
 
 </html>

@@ -39,6 +39,28 @@ public class ComCdController extends BaseController {
 	@Resource(name ="comCdService")
 	private ComCdService comCdService;
 
+	@PostMapping(value = "/co/cd/selectComCdDtlList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectComCdDtlList(@RequestBody ComCdVO comCdVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<ComCdVO> resultList;
+
+		try {
+			resultList = comCdService.selectComCdDtlList(comCdVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}	
+	
 	// 공통코드 상세 삭제
 	@PostMapping(value = "/co/cd/deleteComCdDtl.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteComCdDtl(@RequestBody ComCdVO comCdVO, HttpServletRequest request) throws Exception {

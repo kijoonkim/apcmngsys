@@ -33,7 +33,7 @@ public class CmnsVrtyVO extends CmnsItemVO {
 	/**
 	 * 중량단위
 	 */
-	private int unitWght;
+	private double unitWght;
 	/**
 	 * 중량계산구분코드
 	 */

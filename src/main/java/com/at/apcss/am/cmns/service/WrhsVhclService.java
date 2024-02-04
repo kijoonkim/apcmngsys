@@ -36,7 +36,15 @@ public interface WrhsVhclService {
 	 * @throws Exception
 	 */
 	public List<WrhsVhclVO> selectWrhsVhclList(WrhsVhclVO wrhsVhclVO) throws Exception;
-
+	
+	/**
+	 * 입고차량정보 코드 목록 조회
+	 * @param wrhsVhclVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<WrhsVhclVO> selectWrhsVhclCdList(WrhsVhclVO wrhsVhclVO) throws Exception;
+	
 	/**
 	 * 입고차량정보 등록
 	 * @param wrhsVhclVO

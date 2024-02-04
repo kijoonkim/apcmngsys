@@ -40,6 +40,14 @@ public interface PrdcrMapper {
 	public List<PrdcrVO> selectPrdcrList(PrdcrVO prdcrVO) throws Exception;
 
 	/**
+	 * 생산자정보 코드 목록 조회
+	 * @param prdcrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PrdcrVO> selectPrdcrCdList(PrdcrVO prdcrVO) throws Exception;
+
+	/**
 	 * 아그리스 생산자 마스터 목록 조회
 	 * @param prdcrVO
 	 * @return

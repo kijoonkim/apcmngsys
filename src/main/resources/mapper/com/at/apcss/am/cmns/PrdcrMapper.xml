@@ -148,6 +148,104 @@
     </select>
 
 	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrMapper.selectPrdcrCdList			-->
+	<!-- DESC : 생산자 목록 코드 조회.		                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.25  	김 호        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectPrdcrCdList" parameterType="com.at.apcss.am.cmns.vo.PrdcrVO" resultType="com.at.apcss.am.cmns.vo.PrdcrVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.cmns.mapper.PrdcrMapper.selectPrdcrList */
+				   PR.APC_CD        	AS APC_CD
+			     , PR.PRDCR_CD      	AS PRDCR_CD
+			     , PR.PRDCR_NM      	AS PRDCR_NM
+			     , PR.PRDCR_FRST_NM 	AS PRDCR_FRST_NM
+			     , PR.RPRS_ITEM_CD  	AS RPRS_ITEM_CD
+			     , PR.RPRS_VRTY_CD  	AS RPRS_VRTY_CD
+			     , PR.GDS_SE_CD     	AS GDS_SE_CD
+			     , PR.WRHS_SE_CD    	AS WRHS_SE_CD
+			     , PR.TRSPRT_SE_CD  	AS TRSPRT_SE_CD
+			     , PR.CLCLN_CRTR_CD		AS CLCLN_CRTR_CD
+			     --, PR.VHCLNO        	AS VHCLNO
+			     --, PR.TELNO        		AS TELNO
+			     , PR.PRDCR_LINK_CD		AS PRDCR_LINK_CD
+			     , PR.PRDCR_IDENTNO		AS PRDCR_IDENTNO
+			     , PR.PLOR_CD			AS PLOR_CD
+			     , PR.RMRK          	AS RMRK
+			     , PR.FRMHS_NM      	AS FRMHS_NM
+			     --, PR.FRMHS_TELNO		AS FRMHS_TELNO
+			     --, PR.FRMHS_CTPV		AS FRMHS_CTPV
+			     --, PR.FRMHS_ADDR		AS FRMHS_ADDR
+			     , PR.DEL_YN        	AS DEL_YN
+			     , (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = PR.APC_CD) AS APC_NM
+			     , (SELECT FN_GET_ITEM_NM(PR.RPRS_ITEM_CD, PR.APC_CD) FROM DUAL) AS RPRS_ITEM_NM
+			     , (SELECT FN_GET_VRTY_NM(PR.RPRS_ITEM_CD, PR.RPRS_VRTY_CD, PR.APC_CD) FROM DUAL) AS RPRS_VRTY_NM
+			     , (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', PR.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
+			     , (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', PR.WRHS_SE_CD) FROM DUAL) AS WRHS_SE_NM
+			     , (SELECT FN_GET_COM_CD_VL_NM('TRSPRT_SE_CD', PR.TRSPRT_SE_CD) FROM DUAL) AS TRSPRT_SE_NM
+
+			  FROM TB_PRDCR_INFO PR
+			 WHERE PR.APC_CD = #{apcCd}
+			   AND PR.DEL_YN = 'N'
+		]]>
+		<if test=' prdcrCd != null and prdcrCd !=""'>
+			   AND PR.PRDCR_CD = #{prdcrCd}
+		</if>
+		<if test=' prdcrNm != null and prdcrNm !=""'>
+			   AND PR.PRDCR_NM LIKE '%' || #{prdcrNm} || '%'
+		</if>
+		<if test=' prdcrFrstNm != null and prdcrFrstNm !=""'>
+			   AND PR.PRDCR_FRST_NM LIKE '%' || #{prdcrFrstNm} || '%'
+		</if>
+		<if test=' rprsItemCd != null and rprsItemCd !=""'>
+			   AND PR.RPRS_ITEM_CD = #{rprsItemCd}
+		</if>
+		<if test=' rprsVrtyCd != null and rprsVrtyCd !=""'>
+			   AND PR.RPRS_VRTY_CD = #{rprsVrtyCd}
+		</if>
+		<if test=' gdsSeCd != null and gdsSeCd !=""'>
+			   AND PR.GDS_SE_CD = #{gdsSeCd}
+		</if>
+		<if test=' wrhsSeCd != null and wrhsSeCd !=""'>
+			   AND PR.WRHS_SE_CD = #{wrhsSeCd}
+		</if>
+		<if test=' trsprtSeCd != null and trsprtSeCd !=""'>
+			   AND PR.TRSPRT_SE_CD = #{trsprtSeCd}
+		</if>
+		<if test=' clclnCrtrCd != null and clclnCrtrCd !=""'>
+			   AND PR.CLCLN_CRTR_CD = #{clclnCrtrCd}
+		</if>
+		<if test=' vhclno != null and vhclno !=""'>
+			   AND PR.VHCLNO LIKE '%' || #{vhclno} || '%'
+		</if>
+		<if test=' telno != null and telno !=""'>
+			   AND PR.TELNO LIKE '%' || #{telno} || '%'
+		</if>
+
+    	<![CDATA[
+    		 ORDER BY PRDCR_NM, PRDCR_CD
+		]]>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+
+	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrMapper.selectAgrixPrdcrList		-->
 	<!-- DESC : 아그리스 생산자 마스터 목록 조회.	                                -->
 	<!-- ==========================================================================	-->

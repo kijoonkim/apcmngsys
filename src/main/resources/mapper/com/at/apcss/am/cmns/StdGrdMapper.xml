@@ -236,7 +236,7 @@
 	    	SELECT /* com.at.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrdDtl */
 			       SG.APC_CD			AS APC_CD
 			     , SG.ITEM_CD           AS ITEM_CD
-			     , (SELECT FN_GET_ITEM_NM(SG.ITEM_CD, SGD.APC_CD) FROM DUAL) AS ITEM_NM
+			     , (SELECT FN_GET_ITEM_NM(SG.ITEM_CD, SG.APC_CD) FROM DUAL) AS ITEM_NM
 			     , SG.GRD_SE_CD        	AS GRD_SE_CD
 			     , SG.GRD_KND           AS GRD_KND
 			     , SG.GRD_KND_NM		AS GRD_KND_NM
@@ -278,6 +278,7 @@
 	    	SELECT /* com.at.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrdDtlList */
 				  SG.APC_CD         AS APC_CD
 			    , SG.ITEM_CD        AS ITEM_CD
+			    , (SELECT FN_GET_ITEM_NM(SG.ITEM_CD, SG.APC_CD) FROM DUAL) AS ITEM_NM
 			    , SG.GRD_SE_CD      AS GRD_SE_CD
 			    , SG.GRD_KND        AS GRD_KND
 			    , SG.GRD_KND_NM		AS GRD_KND_NM
@@ -302,8 +303,10 @@
   			   AND SGD.DEL_YN = 'N'
 
 			 WHERE SG.APC_CD		= #{apcCd}
-			   AND SG.GRD_SE_CD 	= #{grdSeCd}
 		]]>
+		<if test='grdSeCd != null and grdSeCd != ""'>
+			   AND SG.GRD_SE_CD 	= #{grdSeCd}
+		</if>
 		<if test='itemCd != null and itemCd != ""'>
 			   AND SG.ITEM_CD = #{itemCd}
 		</if>
