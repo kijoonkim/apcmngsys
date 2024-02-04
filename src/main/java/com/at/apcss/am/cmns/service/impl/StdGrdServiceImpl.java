@@ -159,12 +159,14 @@ public class StdGrdServiceImpl extends BaseServiceImpl implements StdGrdService 
 		// 입고등급
 		comCdVO.setCdId(AmConstants.CON_CD_ID_STD_GRD);
 		List<ComCdVO> stdGrdList = comCdService.selectComCdDtlList(comCdVO);
+		
+		comCdVO.setCdId(AmConstants.CON_CD_ID_WRHS_GRD);
+		List<ComCdVO> wrhsGrdDtlList = comCdService.selectComCdDtlList(comCdVO);
 
 		sn = 0;
 		for ( ComCdVO stdGrd : stdGrdList ) {
 
 			sn++;
-
 			StdGrdVO wrhsGrdVO = new StdGrdVO();
 			BeanUtils.copyProperties(stdGrdVO, wrhsGrdVO);
 			wrhsGrdVO.setGrdKnd(stdGrd.getCdVl());
@@ -173,6 +175,17 @@ public class StdGrdServiceImpl extends BaseServiceImpl implements StdGrdService 
 			wrhsGrdVO.setSn(sn);
 
 			insertStdGrd(wrhsGrdVO);
+			int dtlSn = 0;
+			for ( ComCdVO wrhsGrdDtlInfo : wrhsGrdDtlList ) {
+				dtlSn++;
+				StdGrdDtlVO wrhsGrdDtlVO = new StdGrdDtlVO();
+				BeanUtils.copyProperties(wrhsGrdVO, wrhsGrdDtlVO);
+				
+				wrhsGrdDtlVO.setGrdCd(wrhsGrdDtlInfo.getCdVl());
+				wrhsGrdDtlVO.setGrdNm(wrhsGrdDtlInfo.getCdVlNm());
+				wrhsGrdDtlVO.setSn(dtlSn);
+				insertStdGrdDtl(wrhsGrdDtlVO);
+			}
 		}
 
 		return null;
