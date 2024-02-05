@@ -797,12 +797,12 @@
 	    SBGridProperties.columns = [
 	    	{caption: ["처리","처리","처리","처리"], 		ref: 'delYn',   type:'button', width:'40px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	    		if(strValue== null || strValue == ""){
-	    			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ", " + nCol + ")'>추가</button>";
+	    			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ", " + nCol + ")'>추가</button>";
 	    		}else if(strValue == "소계"){
 	    			return "소계";
 	    		}else{
 			        if(objRowData.sttgUpbrItemSe == '3'){
-	        			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ")'>삭제</button>";
+	        			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ")'>삭제</button>";
 			        }else{
 			        	return "";
 			        }
