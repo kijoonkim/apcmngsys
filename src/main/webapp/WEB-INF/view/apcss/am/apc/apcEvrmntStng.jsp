@@ -59,7 +59,7 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th class="ta_r th_bg" rowspan="4">APC정보</th>
+							<th class="ta_r th_bg" rowspan="5">APC정보</th>
 							<td scope="row" align="right">코드</td>
 							<td scope="row" style="border-right: hidden;">
 								<sbux-input id="inp-apcCd" name="inp-apcCd" uitype="text" class="form-control input-sm" readonly></sbux-input>
@@ -137,6 +137,14 @@
 							<td scope="row" align="right">예금주명</td>
 							<td scope="row">
 								<sbux-input id="inp-dpstrNm" name="inp-dpstrNm" uitype="text" class="form-control input-sm" maxlength="6"></sbux-input>
+							</td>
+						</tr>
+						<tr>
+							<td scope="row" align="right">출력명칭</td>
+							<td scope="row">
+								<sbux-input id="inp-otptApcNm" name="inp-otptApcNm" uitype="text" class="form-control input-sm" maxlength="33"></sbux-input>
+							</td>
+							<td scope="row" colspan="6">
 							</td>
 						</tr>
 						<tr>
@@ -707,6 +715,7 @@
         try{
   			if (_.isEqual("S", data.resultStatus)) {
   	        	SBUxMethod.set("inp-apcNm", resultVO.apcNm);
+  	        	SBUxMethod.set("inp-otptApcNm", resultVO.otptApcNm);
   	        	SBUxMethod.set("inp-telno", resultVO.telno);
   	        	SBUxMethod.set("inp-addr", resultVO.addr);
   	        	SBUxMethod.set("inp-fxno", resultVO.fxno);
@@ -1244,6 +1253,7 @@
 		}
 		let apcNm 					= fn_empty(SBUxMethod.get("inp-apcNm"));
   	  	let telno 					= fn_empty(SBUxMethod.get("inp-telno"));
+  	    let otptApcNm				= fn_empty(SBUxMethod.get("inp-otptApcNm"));
   	    let addr 					= fn_empty(SBUxMethod.get("inp-addr"));
   	  	let fxno 					= fn_empty(SBUxMethod.get("inp-fxno"));
   	  	let actno 					= fn_empty(SBUxMethod.get("inp-actno"));
@@ -1258,6 +1268,7 @@
     	let apcEvrmntStng = {
     		apcCd					: gv_selectedApcCd
     	  ,	apcNm 					: apcNm
+    	  , otptApcNm               : otptApcNm
     	  , telno 					: telno
     	  , addr 					: addr
     	  , fxno 					: fxno
