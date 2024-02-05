@@ -696,6 +696,8 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 								AND PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
 					  		  							FROM TB_EV_FRMHS_APO
 					  		  							WHERE 1=1
+					  		  							  AND STBLT_YN = 'Y'
+					  		  							  AND APO_SE = '2'
 					  		  							<if test='brno != null and brno != ""'>
 														  AND BRNO = #{brno}
 														</if>
