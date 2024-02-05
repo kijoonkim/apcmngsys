@@ -16,7 +16,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set><h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3>
-					<!-- 출자출하조직 관리 매입·매출 -->
+					<!-- 출자출하조직 관리 총 매입·매출 -->
 					<sbux-label id="lbl-wghno" name="lbl-wghno" uitype="normal" text="">
 					</sbux-label>
 				</div>
@@ -354,7 +354,7 @@
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:200px; width: 100%;"></div>
+					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:300px; width: 100%;"></div>
 				</div>
 				<br>
 				<!--[pp] 검색결과 상세보기-->
@@ -599,11 +599,14 @@
 	    //SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.frozenbottomrows=1;
 	    SBGridProperties.columns = [
 	    	{caption: ["처리","처리"], 		ref: 'delYn',   		type:'button', width:'40px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	    		if(strValue== null || strValue == ""){
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ", " + nCol + ")'>추가</button>";
-	        	}else{
+	    			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ", " + nCol + ")'>추가</button>";
+	    		}else if(strValue == "소계"){
+	    			return "소계";
+	    		}else{
 			        if(objRowData.sttgUpbrItemSe == '3'){
 	        			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ")'>삭제</button>";
 			        }else{
@@ -663,6 +666,7 @@
 		let prevRef = grdPrdcrOgnCurntMng01.getRefOfCol(prevCol);
 	    if(columnsToRefresh01.includes(prevRef)){
 	    	grdPrdcrOgnCurntMng01.refresh();
+	    	fn_grdTot01("refresh");
 	    }
 	}
 
@@ -680,6 +684,83 @@
 		let sumVal = 0;
 		sumVal = Number(rowData.prchsTrstAmt) + Number(rowData.prchsEmspapAmt) + Number(rowData.etcAmt);
 		return sumVal;
+	}
+	//소계 추가를 위해 조정
+	function fn_grdTot01(_gubun){
+		console.log("===========fn_grdTot01==============");
+		//그리드 추가 용 1줄 합계용 1줄
+		let objGrid = grdPrdcrOgnCurntMng01;
+		let grdJson = jsonPrdcrOgnCurntMng01;
+
+		//조회인 경우 2줄 추가
+		if(_gubun == "Search"){
+			objGrid.addRow();
+			objGrid.addRow();
+		}else if(_gubun == "ADD"){
+			objGrid.setCellData(grdJson.length, objGrid.getColRef("delYn"), "N", true);
+			objGrid.setCellData(grdJson.length, objGrid.getColRef("sttgUpbrItemNm"), "기타", true);
+			objGrid.setCellData(grdJson.length, objGrid.getColRef("sttgUpbrItemSe"), "3", true);
+			objGrid.addRow(true);
+		}
+
+		let grdLength = grdJson.length;
+
+		let prchsTrstVlmTot = 0;
+		let prchsTrstAmtTot = 0;
+		let prchsEmspapVlmTot = 0;
+		let prchsEmspapAmtTot = 0;
+		let etcVlmTot = 0;
+		let etcAmtTot = 0;
+		let prchsTotVlmTot = 0;
+		let prchsTotAmtTot = 0;
+
+		//해더 줄수만큼 추가 필요함
+		for (var i = 1+1; i <= grdLength - 1; i++) {
+			let rowData01 = objGrid.getRowData(i);
+			prchsTrstVlmTot 	+= Number(rowData01.prchsTrstVlm);
+			prchsTrstAmtTot 	+= Number(rowData01.prchsTrstAmt);
+			prchsEmspapVlmTot 	+= Number(rowData01.prchsEmspapVlm);
+			prchsEmspapAmtTot 	+= Number(rowData01.prchsEmspapAmt);
+			etcVlmTot 			+= Number(rowData01.etcVlm);
+			etcAmtTot 			+= Number(rowData01.etcAmt);
+			prchsTotVlmTot 		+= Number(rowData01.prchsTotVlm);
+			prchsTotAmtTot 		+= Number(rowData01.prchsTotAmt);
+		}
+
+
+    	let prchsTrstVlmCol = objGrid.getColRef("prchsTrstVlm");//
+		let prchsTrstAmtCol = objGrid.getColRef("prchsTrstAmt");//
+		let prchsEmspapVlmCol = objGrid.getColRef("prchsEmspapVlm");//
+		let prchsEmspapAmtCol = objGrid.getColRef("prchsEmspapAmt");//
+		let etcVlmCol = objGrid.getColRef("etcVlm");//
+		let etcAmtCol = objGrid.getColRef("etcAmt");//
+		let prchsTotVlmCol = objGrid.getColRef("prchsTotVlm");//
+		let prchsTotAmtCol = objGrid.getColRef("prchsTotAmt");//
+
+		//추가 줄
+		objGrid.setCellData(grdLength, objGrid.getColRef("delYn"), "", true);
+		objGrid.setCellData(grdLength,prchsTrstVlmCol,"");
+		objGrid.setCellData(grdLength,prchsTrstAmtCol,"");
+		objGrid.setCellData(grdLength,prchsEmspapVlmCol,"");
+		objGrid.setCellData(grdLength,prchsEmspapAmtCol,"");
+		objGrid.setCellData(grdLength,etcVlmCol,"");
+		objGrid.setCellData(grdLength,etcAmtCol,"");
+		objGrid.setCellData(grdLength,prchsTotVlmCol,"");
+		objGrid.setCellData(grdLength,prchsTotAmtCol,"");
+    	//소계 줄
+    	objGrid.setCellData(grdLength+1, objGrid.getColRef("delYn"), "소계", true);
+		objGrid.setCellData(grdLength+1,prchsTrstVlmCol,prchsTrstVlmTot);
+		objGrid.setCellData(grdLength+1,prchsTrstAmtCol,prchsTrstAmtTot);
+		objGrid.setCellData(grdLength+1,prchsEmspapVlmCol,prchsEmspapVlmTot);
+		objGrid.setCellData(grdLength+1,prchsEmspapAmtCol,prchsEmspapAmtTot);
+		objGrid.setCellData(grdLength+1,etcVlmCol,etcVlmTot);
+		objGrid.setCellData(grdLength+1,etcAmtCol,etcAmtTot);
+		objGrid.setCellData(grdLength+1,prchsTotVlmCol,prchsTotVlmTot);
+		objGrid.setCellData(grdLength+1,prchsTotAmtCol,prchsTotAmtTot);
+
+		objGrid.refresh();
+
+		fn_gridCustom();
 	}
 
 	var jsonPrdcrOgnCurntMng02 = []; // 그리드의 참조 데이터 주소 선언
@@ -709,16 +790,19 @@
 	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 	    SBGridProperties.contextmenulist = objMenuList02;	// 우클릭 메뉴 리스트
 	    SBGridProperties.frozencols=4;
+	    SBGridProperties.frozenbottomrows=1;
 	    //SBGridProperties.extendlastcol = 'scroll';
 	    //SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	    	{caption: ["처리","처리","처리","처리"], 		ref: 'delYn',   type:'button', width:'40px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	    		if(strValue== null || strValue == ""){
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ", " + nCol + ")'>추가</button>";
-	        	}else{
+	    			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ", " + nCol + ")'>추가</button>";
+	    		}else if(strValue == "소계"){
+	    			return "소계";
+	    		}else{
 			        if(objRowData.sttgUpbrItemSe == '3'){
-			        	return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ")'>삭제</button>";
+	        			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ")'>삭제</button>";
 			        }else{
 			        	return "";
 			        }
@@ -839,7 +923,8 @@
 			{caption: ["출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)"]
 				,ref: 'spmtRtAmt',   	type:'output',  width:'100px',    style:'text-align:center'
 				,calc: 'fn_spmtRtAmt'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				//,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}
+			},
 
 	        {caption: ["상세내역"], 	ref: 'prchsSlsSe',  hidden : true},
 	        {caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
@@ -875,10 +960,12 @@
 		let prevRef = grdPrdcrOgnCurntMng02.getRefOfCol(prevCol);
 	    if(columnsToRefresh02.includes(prevRef)){
 	    	grdPrdcrOgnCurntMng02.refresh();
+	    	fn_grdTot02("refresh");
 	    }
 	}
 
 	function fn_totTrmtPrfmncVlm(objGrid, nRow, nCol){
+		console.log("====fn_totTrmtPrfmncVlm===");
 		let rowData = objGrid.getRowData(Number(nRow));
 		let sumVal = 0;
 		if(rowData.sttgUpbrItemSe == '1' || rowData.sttgUpbrItemSe == '2'){
@@ -887,12 +974,13 @@
 				+ Number(rowData.ddcArmyDlvgdsVlm)
 				+ Number(rowData.ddcMlsrVlm)
 				+ Number(rowData.ajmtVlm);
-		}else if (rowData.sttgUpbrItemSe == '3'){
+		}else if (rowData.sttgUpbrItemSe == '3' || rowData.delYn == '소계'){
 			sumVal = rowData.totTrmtPrfmncVlm;
 		}
 		return sumVal;
 	}
 	function fn_totTrmtPrfmncAmt(objGrid, nRow, nCol){
+		console.log("====fn_totTrmtPrfmncAmt===");
 		let rowData = objGrid.getRowData(Number(nRow));
 		let sumVal = 0;
 		if(rowData.sttgUpbrItemSe == '1' || rowData.sttgUpbrItemSe == '2'){
@@ -901,7 +989,7 @@
 				+ Number(rowData.ddcArmyDlvgdsAmt)
 				+ Number(rowData.ddcMlsrAmt)
 				+ Number(rowData.ajmtAmt);
-		}else if (rowData.sttgUpbrItemSe == '3'){
+		}else if (rowData.sttgUpbrItemSe == '3' || rowData.delYn == '소계'){
 			sumVal = rowData.totTrmtPrfmncAmt;
 		}
 		return sumVal;
@@ -975,7 +1063,7 @@
 		if(rowData.ajmtAmt > 0 && rowData.spmtPrfmncAmt > 0){
 			sumVal = Number(rowData.spmtPrfmncAmt) / Number(rowData.ajmtAmt) * 100
 		}
-		return sumVal;
+		return sumVal.toFixed(2) + "%";
 	}
 	//조정 취급실적
 	function fn_ajmtVlm(objGrid, nRow, nCol){
@@ -1001,7 +1089,65 @@
 		return sumVal;
 	}
 
+	//소계 추가를 위해 조정
+	function fn_grdTot02(_gubun) {
+	    console.log("===========fn_grdTot02==============");
 
+	    let objGrid = grdPrdcrOgnCurntMng02;
+	    let grdJson = jsonPrdcrOgnCurntMng02;
+
+	    if (_gubun === "Search") {
+	    	//조회의 경우 2줄 추가
+			//그리드 추가 용 1줄 합계용 1줄
+	    	objGrid.addRow();
+	        objGrid.addRow();
+	    } else if (_gubun === "ADD") {
+	        //기타 입력줄 하나 추가
+	    	let lastRowIndex = grdJson.length + 2;
+	        let colRef = objGrid.getColRef;
+
+	        objGrid.setCellData(lastRowIndex, colRef("delYn"), "N", true);
+	        objGrid.setCellData(lastRowIndex, colRef("sttgUpbrItemNm"), "기타", true);
+	        objGrid.setCellData(lastRowIndex, colRef("sttgUpbrItemSe"), "3", true);
+	        objGrid.addRow(true);
+	    }
+
+	    let totalColumns = [
+	        "totTrmtPrfmncVlm", "totTrmtPrfmncAmt", "ddcExprtVlm", "ddcExprtAmt",
+	        "ddcVlm", "ddcAmt", "ddcArmyDlvgdsVlm", "ddcArmyDlvgdsAmt",
+	        "ddcMlsrVlm", "ddcMlsrAmt", "ddcTotVlm", "ddcTotAmt", "ajmtVlm",
+	        "ajmtAmt", "totSpmtPrfmncVlm", "totSpmtPrfmncAmt", "smplInptVlm",
+	        "smplInptAmt", "spmtPrfmncVlm", "spmtPrfmncAmt", "slsCprtnSortTrstVlm",
+	        "slsCprtnSortTrstAmt", "slsCprtnSortEmspapVlm", "slsCprtnSortEmspapAmt",
+	        "slsCprtnTrstVlm", "slsCprtnTrstAmt", "slsCprtnTotVlm", "slsCprtnTotAmt"
+	    ];
+
+	    let totals = totalColumns.reduce((acc, col) => {
+	    	acc[col + "Tot"] = 0;
+	        return acc;
+	    }, {});
+
+	  	//해더 줄수만큼 추가 필요함
+		for (let i = 1 + 3; i <= grdJson.length + 1; i++) {
+	        let rowData = objGrid.getRowData(i);
+	        totalColumns.forEach((col) => {
+	            totals[col + "Tot"] += Number(rowData[col]);
+	        });
+	    }
+
+	    for (let col of totalColumns) {
+	        let colRef = objGrid.getColRef(col);
+	      	//추가 줄
+	        objGrid.setCellData(grdJson.length + 2, colRef, "");
+	        //소계 줄
+	      	objGrid.setCellData(grdJson.length + 3, colRef, totals[col + "Tot"]);
+	    }
+
+	    objGrid.setCellData(grdJson.length + 3, objGrid.getColRef("delYn"), "소계", true);
+
+	    objGrid.refresh();
+	    fn_gridCustom();
+	}
 
 	/**
      * 목록 조회
@@ -1316,19 +1462,11 @@
 		console.log("==========fn_procRow=========");
         if (gubun === "ADD") {
             if (grid === "grdPrdcrOgnCurntMng01") {
-            	grdPrdcrOgnCurntMng01.setCellData(nRow, grdPrdcrOgnCurntMng01.getColRef("delYn"), "N", true);
-            	grdPrdcrOgnCurntMng01.setCellData(nRow, grdPrdcrOgnCurntMng01.getColRef("sttgUpbrItemNm"), "기타", true);
-            	grdPrdcrOgnCurntMng01.setCellData(nRow, grdPrdcrOgnCurntMng01.getColRef("sttgUpbrItemSe"), "3", true);
-            	grdPrdcrOgnCurntMng01.addRow(true);
-            	fn_gridCustom();
+            	fn_grdTot01("ADD");
             }
 
             if (grid === "grdPrdcrOgnCurntMng02") {
-            	grdPrdcrOgnCurntMng02.setCellData(nRow, grdPrdcrOgnCurntMng02.getColRef("delYn"), "N", true);
-            	grdPrdcrOgnCurntMng02.setCellData(nRow, grdPrdcrOgnCurntMng02.getColRef("sttgUpbrItemNm"), "기타", true);
-            	grdPrdcrOgnCurntMng02.setCellData(nRow, grdPrdcrOgnCurntMng02.getColRef("sttgUpbrItemSe"), "3", true);
-            	grdPrdcrOgnCurntMng02.addRow(true);
-            	fn_gridCustom();
+            	fn_grdTot02("ADD");
             }
 
         }
@@ -1340,11 +1478,11 @@
             			var rowVal = grdPrdcrOgnCurntMng01.getRowData(nRow);
             			fn_deleteRsrc(rowVal);
             			grdPrdcrOgnCurntMng01.deleteRow(nRow);
-            			//grdPrdcrOgnCurntMng02.deleteRow(nRow+1);
+            			fn_grdTot01("DEL");
             		}
             	}else{
             		grdPrdcrOgnCurntMng01.deleteRow(nRow);
-            		//grdPrdcrOgnCurntMng02.deleteRow(nRow+1);
+            		fn_grdTot01("DEL");
             	}
             }
             if (grid === "grdPrdcrOgnCurntMng02") {
@@ -1353,12 +1491,12 @@
             		if(confirm(delMsg)){
             			var rowVal = grdPrdcrOgnCurntMng02.getRowData(nRow);
             			fn_deleteRsrc(rowVal);
-            			//grdPrdcrOgnCurntMng01.deleteRow(nRow-1);
             			grdPrdcrOgnCurntMng02.deleteRow(nRow);
+            			fn_grdTot02("DEL");
             		}
             	}else{
-            		//grdPrdcrOgnCurntMng01.deleteRow(nRow-1);
             		grdPrdcrOgnCurntMng02.deleteRow(nRow);
+            		fn_grdTot02("DEL");
             	}
             }
         }
@@ -1562,11 +1700,8 @@
         	grdPrdcrOgnCurntMng01.rebuild();
         	grdPrdcrOgnCurntMng02.rebuild();
 
-        	//비어 있는 마지막 줄 추가용도?
-        	grdPrdcrOgnCurntMng01.addRow();
-        	grdPrdcrOgnCurntMng02.addRow();
-
-        	fn_gridCustom();
+        	fn_grdTot01("Search");
+        	fn_grdTot02("Search");
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -1577,16 +1712,18 @@
 	//그리드 커스텀 배경 및 disabled 처리
 	const fn_gridCustom = async function(){
 		console.log("=========fn_gridCustom================");
-
+		let delYn = grdPrdcrOgnCurntMng01.getColRef("delYn");//
+		let ctgryCd = grdPrdcrOgnCurntMng01.getColRef("ctgryCd");//
+		let prchsTrstVlm = grdPrdcrOgnCurntMng01.getColRef("prchsTrstVlm");//
 		let prchsTrstAmt = grdPrdcrOgnCurntMng01.getColRef("prchsTrstAmt");//
 		let prchsEmspapAmt = grdPrdcrOgnCurntMng01.getColRef("prchsEmspapAmt");//
 		let etcAmt = grdPrdcrOgnCurntMng01.getColRef("etcAmt");//
 		let prchsTotVlm = grdPrdcrOgnCurntMng01.getColRef("prchsTotVlm");//
 		let prchsTotAmt = grdPrdcrOgnCurntMng01.getColRef("prchsTotAmt");//
 		let gridData01 = grdPrdcrOgnCurntMng01.getGridDataAll();
+		console.log(gridData01.length);
 		for(var i=2; i <= gridData01.length+1; i++ ){
 			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i);
-
 			if(rowData01.sttgUpbrItemSe == '1' || rowData01.sttgUpbrItemSe == '2'){
 				//disabled 처리
 				grdPrdcrOgnCurntMng01.setCellDisabled(i, prchsTrstAmt, i, prchsTrstAmt, true);
@@ -1598,14 +1735,25 @@
 				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, etcAmt, i, etcAmt, 'lightgray');
 				//해당 타입 위치 저장
 			}
+			if (rowData01.sttgUpbrItemSe == '3') {
+				grdPrdcrOgnCurntMng01.setCellDisabled(i, prchsTrstVlm, i, etcAmt, false);
+				grdPrdcrOgnCurntMng01.setCellDisabled(i, ctgryCd, i, ctgryCd, false);
+				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, prchsTrstVlm, i, etcAmt, 'white');
+			}
+			if(rowData01.delYn != 'N'){
+				grdPrdcrOgnCurntMng01.setCellDisabled(i, delYn, i, etcAmt, true);
+				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, prchsTrstVlm, i, etcAmt, 'lightgray');
+			}
 			grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, prchsTotVlm, i, prchsTotAmt, 'lightgray');
 		}
 
 		let totTrmtPrfmncVlm = grdPrdcrOgnCurntMng02.getColRef("totTrmtPrfmncVlm");//총취급물량
 		let totTrmtPrfmncAmt = grdPrdcrOgnCurntMng02.getColRef("totTrmtPrfmncAmt");//총취급실적
+		let totSpmtPrfmncVlm = grdPrdcrOgnCurntMng02.getColRef("totSpmtPrfmncVlm");//총출하물량
+		let totSpmtPrfmncAmt = grdPrdcrOgnCurntMng02.getColRef("totSpmtPrfmncAmt");//총출하실적
+
 		let ddcExprtVlm = grdPrdcrOgnCurntMng02.getColRef("ddcExprtVlm");//자체수출 물량
 		let ddcMlsrAmt = grdPrdcrOgnCurntMng02.getColRef("ddcMlsrAmt");//학교급식 금액
-		let totSpmtPrfmncAmt = grdPrdcrOgnCurntMng02.getColRef("totSpmtPrfmncAmt");//총 취급실적
 		let slsCprtnTrstAmt = grdPrdcrOgnCurntMng02.getColRef("slsCprtnTrstAmt");//
 		let slsCprtnSortEmspapAmt = grdPrdcrOgnCurntMng02.getColRef("slsCprtnSortEmspapAmt");//
 		let slsCprtnSortTrstAmt = grdPrdcrOgnCurntMng02.getColRef("slsCprtnSortTrstAmt");//
@@ -1622,25 +1770,40 @@
 			let rowData02 = grdPrdcrOgnCurntMng02.getRowData(i);
 
 			if(rowData02.sttgUpbrItemSe == '1' || rowData02.sttgUpbrItemSe == '2'){
+				//비활성화
 				grdPrdcrOgnCurntMng02.setCellDisabled(i, totTrmtPrfmncVlm, i, totTrmtPrfmncAmt, true);
 				grdPrdcrOgnCurntMng02.setCellDisabled(i, totSpmtPrfmncAmt, i, totSpmtPrfmncAmt, true);
 				grdPrdcrOgnCurntMng02.setCellDisabled(i, slsCprtnTrstAmt, i, slsCprtnTrstAmt, true);
 				grdPrdcrOgnCurntMng02.setCellDisabled(i, slsCprtnSortEmspapAmt, i, slsCprtnSortEmspapAmt, true);
 				grdPrdcrOgnCurntMng02.setCellDisabled(i, slsCprtnSortTrstAmt, i, slsCprtnSortTrstAmt, true);
 				grdPrdcrOgnCurntMng02.setCellDisabled(i, slsCprtnSortTrstAmt, i, slsCprtnSortTrstAmt, true);
-
+				//배경색
 				grdPrdcrOgnCurntMng02.setCellStyle('background-color', i, totTrmtPrfmncVlm, i, totTrmtPrfmncAmt, 'lightgray');
 				grdPrdcrOgnCurntMng02.setCellStyle('background-color', i, totSpmtPrfmncAmt, i, totSpmtPrfmncAmt, 'lightgray');
 				grdPrdcrOgnCurntMng02.setCellStyle('background-color', i, slsCprtnTrstAmt, i, slsCprtnTrstAmt, 'lightgray');
 				grdPrdcrOgnCurntMng02.setCellStyle('background-color', i, slsCprtnSortEmspapAmt, i, slsCprtnSortEmspapAmt, 'lightgray');
 				grdPrdcrOgnCurntMng02.setCellStyle('background-color', i, slsCprtnSortTrstAmt, i, slsCprtnSortTrstAmt, 'lightgray');
 				grdPrdcrOgnCurntMng02.setCellStyle('background-color', i, slsCprtnTotVlm, i, spmtRtAmt, 'lightgray');
-			}else{
+			}else if(rowData02.sttgUpbrItemSe == '3'){
+				//기타
+				//비활성화
 				grdPrdcrOgnCurntMng02.setCellDisabled(i, ddcExprtVlm, i, ajmtAmt, true);
 				grdPrdcrOgnCurntMng02.setCellDisabled(i, smplInptVlm, i, spmtRtAmt, true);
+				//배경색
 				grdPrdcrOgnCurntMng02.setCellStyle('background-color', i, ddcExprtVlm, i, ajmtAmt, 'lightgray');
 				grdPrdcrOgnCurntMng02.setCellStyle('background-color', i, ddcExprtVlm, i, ddcMlsrAmt, 'lightgray');
 				grdPrdcrOgnCurntMng02.setCellStyle('background-color', i, smplInptVlm, i, spmtRtAmt, 'lightgray');
+				//소계였던 줄 떄문에 추가
+				grdPrdcrOgnCurntMng02.setCellDisabled(i, totTrmtPrfmncVlm, i, totTrmtPrfmncAmt, false);
+				grdPrdcrOgnCurntMng02.setCellDisabled(i, totSpmtPrfmncVlm, i, totSpmtPrfmncAmt, false);
+				grdPrdcrOgnCurntMng02.setCellStyle('background-color', i, totTrmtPrfmncVlm, i, totTrmtPrfmncAmt, 'white');
+				grdPrdcrOgnCurntMng02.setCellStyle('background-color', i, totSpmtPrfmncVlm, i, totSpmtPrfmncAmt, 'white');
+			}else{
+				//소계
+				//비활성화
+				grdPrdcrOgnCurntMng02.setCellDisabled(i, totTrmtPrfmncVlm, i, spmtRtAmt, true);
+				//배경색
+				grdPrdcrOgnCurntMng02.setCellStyle('background-color', i, totTrmtPrfmncVlm, i, spmtRtAmt, 'lightgray');
 			}
 			grdPrdcrOgnCurntMng02.setCellStyle('background-color', i, ddcTotVlm, i, ddcTotAmt, 'lightgray');
 			grdPrdcrOgnCurntMng02.setCellStyle('background-color', i, ajmtAmt, i, ajmtAmt, 'lightgray');
