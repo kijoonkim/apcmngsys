@@ -31,6 +31,7 @@ public class ApcEvrmntStngVO extends ComVO{
 	private String bzstat;
 	private String cls;
 	private String apcRprsvNm;
+	private String otptApcNm;
 
 	private String cdVls;
 

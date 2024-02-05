@@ -171,6 +171,7 @@
 				, INVNTR_MNG_YN
 				, SLS_MNG_YN
 				, RAW_MTR_IDENT_TAG_WGHT_YN
+				, OTPT_APC_NM
 	    		, SYS_FRST_INPT_DT
 	    		, SYS_FRST_INPT_USER_ID
 	    		, SYS_FRST_INPT_PRGRM_ID
@@ -308,6 +309,7 @@
 				, APC.INVNTR_MNG_YN				AS INVNTR_MNG_YN
 				, APC.SLS_MNG_YN 				AS SLS_MNG_YN
 				, APC.RAW_MTR_IDENT_TAG_WGHT_YN AS RAW_MTR_IDENT_TAG_WGHT_YN
+				, APC.OTPT_APC_NM 			    AS OTPT_APC_NM
 				, APC.DEL_YN					AS DEL_YN
 			  FROM TB_APC_EVRMNT_STNG APC
 			 WHERE APC.APC_CD = #{apcCd}
@@ -370,6 +372,7 @@
 				, INVNTR_MNG_YN				= #{invntrMngYn}
 				, SLS_MNG_YN 				= #{slsMngYn}
 				, RAW_MTR_IDENT_TAG_WGHT_YN = #{rawMtrIdentTagWghtYn}
+
 			 WHERE APC_CD = #{apcCd}
 		]]>
     </update>
@@ -402,6 +405,7 @@
 				, APC_RPRSV_NM				= #{apcRprsvNm}
 				, CLS						= #{cls}
 				, BZSTAT					= #{bzstat}
+				, OTPT_APC_NM				= #{otptApcNm}
 			 WHERE APC_CD = #{apcCd}
 		]]>
     </update>
