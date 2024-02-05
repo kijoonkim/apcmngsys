@@ -797,12 +797,12 @@
 	    SBGridProperties.columns = [
 	    	{caption: ["처리","처리","처리","처리"], 		ref: 'delYn',   type:'button', width:'40px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	    		if(strValue== null || strValue == ""){
-	    			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ", " + nCol + ")'>추가</button>";
+	    			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ", " + nCol + ")'>추가</button>";
 	    		}else if(strValue == "소계"){
 	    			return "소계";
 	    		}else{
 			        if(objRowData.sttgUpbrItemSe == '3'){
-	        			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ")'>삭제</button>";
+	        			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ")'>삭제</button>";
 			        }else{
 			        	return "";
 			        }
@@ -1104,11 +1104,10 @@
 	    } else if (_gubun === "ADD") {
 	        //기타 입력줄 하나 추가
 	    	let lastRowIndex = grdJson.length + 2;
-	        let colRef = objGrid.getColRef;
 
-	        objGrid.setCellData(lastRowIndex, colRef("delYn"), "N", true);
-	        objGrid.setCellData(lastRowIndex, colRef("sttgUpbrItemNm"), "기타", true);
-	        objGrid.setCellData(lastRowIndex, colRef("sttgUpbrItemSe"), "3", true);
+	        objGrid.setCellData(lastRowIndex, objGrid.getColRef("delYn"), "N", true);
+	        objGrid.setCellData(lastRowIndex, objGrid.getColRef("sttgUpbrItemNm"), "기타", true);
+	        objGrid.setCellData(lastRowIndex, objGrid.getColRef("sttgUpbrItemSe"), "3", true);
 	        objGrid.addRow(true);
 	    }
 
@@ -1143,6 +1142,7 @@
 	      	objGrid.setCellData(grdJson.length + 3, colRef, totals[col + "Tot"]);
 	    }
 
+	    objGrid.setCellData(grdJson.length + 2, objGrid.getColRef("delYn"), "", true);
 	    objGrid.setCellData(grdJson.length + 3, objGrid.getColRef("delYn"), "소계", true);
 
 	    objGrid.refresh();
