@@ -16,6 +16,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set><h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3>
+					<!-- 출자출하조직 총괄표 -->
 					<sbux-label id="lbl-wghno" name="lbl-wghno" uitype="normal" text="">
 					</sbux-label>
 				</div>
@@ -339,7 +340,7 @@
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:350px; width: 100%;"></div>
+					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:380px; width: 100%;"></div>
 				</div>
 			</div>
 		</div>
@@ -528,7 +529,7 @@
 	    SBGridProperties.contextmenulist = objMenuList01;	// 우클릭 메뉴 리스트
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.fixedrowheight=45;
-	    SBGridProperties.rowheight = 57;
+	    SBGridProperties.rowheight = 72;
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	    	{caption: ["출자출하조직명","출자출하조직명"], 					ref: 'corpNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
@@ -835,7 +836,7 @@
 					stbltYnNmMng.push('통합조직 판매위임 금액 미달');
 				}
 				if(item.chkAB != 'Y'){
-					stbltYnNmMng.push('생산자조직 출하금액 중 통합조직 출하비율 미달');
+					stbltYnNmMng.push('생산자조직 출하금액 중 통합조직 출하비율 미달\n(육성형-전문품목의 경우 약정출하물량은 전량 통합조직으로만 판매)');
 				}
 				if(item.chkAC != 'Y'){
 					stbltYnNmMng.push('총취급액 중 통합조직 출하비율 미달');
