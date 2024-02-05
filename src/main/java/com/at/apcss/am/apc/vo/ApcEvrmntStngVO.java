@@ -55,6 +55,7 @@ public class ApcEvrmntStngVO extends ComVO{
 	private String rawMtrWrhsMngYn;				// 원물입고관리유무			AM_001_002		AM_001_003
 	private String rawMtrWrhsMblUseYn;			// 원물입고테블릿사용유무	AM_001_008		AM_001_003
 	private String rawMtrIdentTagPblcnYn;		// 원물인식표발행유무
+	private String rawMtrIdentTagWghtYn;		// 원물인식표중량출력유무
 	private String pltBxMngYn;					// 팔레트박스정보관리유무	AM_001_004
 	private String rawMtrWrhsPlanMngYn;			// 원물입고계획관리유무		AM_001_005
 	private String gdsWrhsMngYn;				// 상품입고관리유무			AM_001_006

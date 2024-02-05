@@ -347,6 +347,7 @@
 							<td>
 								<p class="ad_input_row">
 									<sbux-checkbox id="chk-rawMtrIdentTagPblcnYn" name="chk-rawMtrIdentTagPblcnYn" uitype="normal" text="원물인식표 발행" true-value="Y" false-value="N" checked readonly></sbux-checkbox>
+									<sbux-checkbox id="chk-rawMtrIdentTagWghtYn" name="chk-rawMtrIdentTagWghtYn" uitype="normal" text="원물인식표 중량출력여부" true-value="Y" false-value="N"></sbux-checkbox>
 								</p>
 							</td>
 							<td>
@@ -724,6 +725,7 @@
   	        	SBUxMethod.set("chk-rawMtrWrhsMngYn", resultVO.rawMtrWrhsMngYn);
   	        	SBUxMethod.set("chk-rawMtrWrhsMblUseYn", resultVO.rawMtrWrhsMblUseYn);
   	        	SBUxMethod.set("chk-rawMtrIdentTagPblcnYn", resultVO.rawMtrIdentTagPblcnYn);
+  	        	SBUxMethod.set("chk-rawMtrIdentTagWghtYn", resultVO.rawMtrIdentTagWghtYn);
   	        	SBUxMethod.set("chk-pltBxMngYn", resultVO.pltBxMngYn);
   	        	SBUxMethod.set("chk-rawMtrWrhsPlanMngYn", resultVO.rawMtrWrhsPlanMngYn);
   	        	SBUxMethod.set("chk-gdsWrhsMngYn", resultVO.gdsWrhsMngYn);
@@ -1306,6 +1308,7 @@
 	  	  , rawMtrWrhsMngYn 		: SBUxMethod.get("chk-rawMtrWrhsMngYn")["chk-rawMtrWrhsMngYn"]
 	  	  , rawMtrWrhsMblUseYn 		: SBUxMethod.get("chk-rawMtrWrhsMblUseYn")["chk-rawMtrWrhsMblUseYn"]
 	  	  , rawMtrIdentTagPblcnYn 	: SBUxMethod.get("chk-rawMtrIdentTagPblcnYn")["chk-rawMtrIdentTagPblcnYn"]
+		  , rawMtrIdentTagWghtYn 	: SBUxMethod.get("chk-rawMtrIdentTagWghtYn")["chk-rawMtrIdentTagWghtYn"]
 	  	  , pltBxMngYn 				: SBUxMethod.get("chk-pltBxMngYn")["chk-pltBxMngYn"]
 	  	  , rawMtrWrhsPlanMngYn 	: SBUxMethod.get("chk-rawMtrWrhsPlanMngYn")["chk-rawMtrWrhsPlanMngYn"]
 	  	  , gdsWrhsMngYn 			: SBUxMethod.get("chk-gdsWrhsMngYn")["chk-gdsWrhsMngYn"]
