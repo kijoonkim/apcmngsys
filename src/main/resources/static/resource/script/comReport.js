@@ -76,11 +76,11 @@ const gfn_getReportKey = async function(fileName, param) {
 const gfn_pdfDwnlClipReport = async function(fileName, param, pdfName) {
 	const reportKey = await gfn_getReportKey(fileName, param);
 	const report = createOOFReport(
-				gv_reportUrl, 
-				reportKey, 
+				gv_reportUrl,
+				reportKey,
 				document.getElementById(gv_dvClipReportPrint)
 			);
-			
+
 	report.callSaveFileDownLoad(pdfName, 1, 1);
 }
 
@@ -92,8 +92,8 @@ const gfn_pdfDwnlClipReport = async function(fileName, param, pdfName) {
 const gfn_printClipReport = async function(fileName, param) {
 	const reportKey = await gfn_getReportKey(fileName, param);
 	const report = createOOFReport(
-				gv_reportUrl, 
-				reportKey, 
+				gv_reportUrl,
+				reportKey,
 				document.getElementById(gv_dvClipReportPrint)
 			);
 	report.printPDFDirect();
@@ -112,8 +112,27 @@ const gfn_drawClipReport = async function(divId, reportKey) {
 	//report.printPDFDirect()();
 	//printEXEDirect()
 	report.setViewType(1);
+	report.setIsPrintUse("html","pdf");
+	report.setStyle("close_button", "display:none;");
+	//report.setStrExePrintServerPath("http://133.186.212.16/ClipReport/Clip.jsp");
+	report.view();
+
+	//report.exePrint(false, "", "", 1, -1, 1, "");
+}
+
+/**
+ * @name gfn_drawClipReport
+ * @description 클립리포트 View
+ */
+const gfn_drawClipReportTest = async function(divId, reportKey) {
+	const report = createOOFReport(gv_reportUrl, reportKey, document.getElementById(divId));
+	console.log(gv_reportUrl);
+	report.setViewType(1);
+	report.setIsPrintUse("html","pdf","exe");
 	report.setStyle("close_button", "display:none;");
 	report.view();
+
+	//report.exePrint(false, "", "", 1, -1, 1, "");
 }
 
 /**
@@ -138,16 +157,16 @@ const gfn_popClipReport = async function(title, fileName, param) {
 		keys.forEach((key) => {
 			url += "&"+ key +"="+ param[key];
 		});
-		
+
 		url += "&userNm=" + gv_userNm;
 	}
-	
+
 	window.open(
 			encodeURI(url, "UTF-8"),
 			windowTargetName,
 			features
 		);
-	
+
 /*
 	window.open(
 		url,
@@ -155,7 +174,7 @@ const gfn_popClipReport = async function(title, fileName, param) {
 		'width=1200, height=800, toolbar=no directories=no, status=no'
 		);
 */
-		
+
 /*
 	const frm = document.createElement("form");
  	frm.setAttribute("charset", "UTF-8");
