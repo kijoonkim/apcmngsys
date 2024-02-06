@@ -114,7 +114,8 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 		apcEvrmntStngVO.setSpmtCmndMngYn(ComConstants.CON_YES);				// 출하지시유무
 		apcEvrmntStngVO.setSpmtMngYn(ComConstants.CON_YES);					// 출하관리유무
 		apcEvrmntStngVO.setSpmtDocPblcnYn(ComConstants.CON_YES);			// 송품장발행유무
-
+		apcEvrmntStngVO.setRawMtrIdentTagWghtYn(ComConstants.CON_YES);		// 원물인식표중량표시유무
+		apcEvrmntStngVO.setOtptApcNm(apcInfo.getApcNm());					// 출력명칭
 		apcEvrmntStngMapper.insertApcEvrmntStngInit(apcEvrmntStngVO);
 
 		// 120 APC 초기정보 등록

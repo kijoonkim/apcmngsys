@@ -233,6 +233,8 @@
 				, #{oprtrPckgPrfmncTrsmYn}
 				, #{invntrMngYn}
 				, #{slsMngYn}
+				, #{rawMtrIdentTagWghtYn}
+				, #{otptApcNm}
 	    		, SYSDATE
 	    		, #{sysFrstInptUserId}
 	    		, #{sysFrstInptPrgrmId}
