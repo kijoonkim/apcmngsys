@@ -356,6 +356,20 @@
 					</div>
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:350px; width: 100%;"></div>
+				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+					<div class="box-header" style="display:flex; justify-content: flex-start;" >
+						<div style="margin-left: auto;">
+							<sbux-button id="updateStbltYn1" name="updateStbltYn1" uitype="normal" text="적합여부 Y으로 변경" class="btn btn-sm btn-outline-danger" onclick="fn_updateStbltYn(1)"></sbux-button>
+							<sbux-button id="updateStbltYn2" name="updateStbltYn2" uitype="normal" text="적합여부 N으로 변경" class="btn btn-sm btn-outline-danger" onclick="fn_updateStbltYn(2)"></sbux-button>
+							<sbux-button id="updateStbltYn3" name="updateStbltYn3" uitype="normal" text="적합여부 빈칸으로 초기화" class="btn btn-sm btn-outline-danger" onclick="fn_updateStbltYn"></sbux-button>
+						</div>
+					</div>
+					<div style="display:flex; justify-content: flex-start;" >
+						<div style="margin-left: auto;">
+							<p>원래의 적합여부로 적용 하려면 생산자조직현황 에서 변경한 생산자조직의 농가리스트 저장</p>
+						</div>
+					</div>
+				</c:if>
 				</div>
 			</div>
 		</div>
@@ -586,7 +600,7 @@
 				, ref: 'ecSpmtRateA',   	type:'output',  width:'100px',    style:'text-align:center;'},
 			{caption: ["출하비율(%)\n(육성형)[C/B]"] ,format: {type: 'string', rule: '@" %"'}
 				, ref: 'ecSpmtRateB',   	type:'output',  width:'100px',    style:'text-align:center;'},
-			{caption: ["적합여부"], 		ref: 'stbltYn',   	type:'output',  width:'50px',    style:'text-align:center'},
+			{caption: ["적합여부"], 		ref: 'orgStbltYn',   	type:'output',  width:'50px',    style:'text-align:center'},
 			{caption: ["탈락사유"], 		ref: 'stbltYnNm',   	type:'textarea',  width:'150px',    style:'padding-left:10px'
 				,typeinfo : {textareanewline : true},disabled:true },
 	        //{caption: ["비고"], 			ref: 'rmrk',   		type:'input',  width:'220px',    style:'text-align:center'},
@@ -595,7 +609,7 @@
 	        {caption: ["상세내역"], 	ref: 'brno',			hidden : true},
 	    	{caption: ["상세내역"], 	ref: 'uoBrno',   		hidden : true},
 	    	{caption: ["상세내역"], 	ref: 'prdcrOgnzSn',		hidden : true},
-
+	    	{caption: ["상세내역"], 	ref: 'stbltYn',		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'aprv',   			hidden : true},
 	        {caption: ["상세내역"], 	ref: 'itemCd',   		hidden : true},
 	        {caption: ["상세내역"], 	ref: 'ctgryCd',   		hidden : true},
@@ -754,8 +768,13 @@
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
 
+		let now = new Date();
+		let year = now.getFullYear();
+		let yr = year;
+
     	let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
 			brno : brno
+			,yr : yr
 		});
 
         let data = await postJsonPromise ;
@@ -906,6 +925,11 @@
 		}
 
 		let yr = SBUxMethod.get('dtl-input-yr');
+		if(gfn_isEmpty(yr)){
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
 		console.log('yr = ' + yr +' brno = ' + brno + ' uoBrno = '+uoBrnoVal);
 
 		//if(gfn_isEmpty(yr)){return;}
@@ -943,11 +967,10 @@
 						,spmtPrcTot: item.spmtPrcTot//출하대금지급액
 						,prdctnVlmTot: 	item.prdctnVlmTot
 						,cnt: item.cnt//조직원수
-						,stbltYn: item.stbltYn//적합여부
+						,stbltYn: item.stbltYn//적합여부 기준 적용 결과
+						,orgStbltYn: item.orgStbltYn//적합여부 현재 적용 값
 						,stbltYnNm: fn_calStbltYn(item)
 				}
-				console.log(item.ecSpmtRate);
-				console.log(parseFloat(item.ecSpmtRate));
 				jsonPrdcrOgnCurntMng01.push(itemVO);
 			});
 
@@ -965,6 +988,14 @@
 
 	function fn_calStbltYn(item) {
 		let stbltYnNmMng = [];
+
+		//강제로 변경한 경우가 존재 함
+		if(!gfn_isEmpty(item.orgStbltYn)){
+			if (item.orgStbltYn == 'Y') {
+				return "";
+			}
+		}
+
 		//aprv 1 승인 2 육성
 		//trmtType 1 공동출하수탁  2 공동선별수탁  3 공동선별매취
 		if(item.aprv == '1'){
@@ -1007,6 +1038,73 @@
 		}
 		//console.log(stbltYnNmMng.join("\n"));
 		return stbltYnNmMng.join("\n");
+	}
+
+	//통합조직 출자출하조직으로 권한 변경
+	async function fn_updateStbltYn(_chk){
+		console.log("*************fn_updateStbltYn******************");
+		let nRow = grdPrdcrOgnCurntMng01.getRow();
+
+		if(nRow < 1){
+			return false;
+		}
+
+		//사업자번호
+		let brno = SBUxMethod.get("dtl-input-brno");
+		if(gfn_isEmpty(brno)) return;
+
+		let stbltYn = '';
+		if (_chk == '1') {
+			stbltYn = 'Y'
+		}else if (_chk == '2') {
+			stbltYn = 'N'
+		}
+
+		let apoSeVal = SBUxMethod.get('dtl-input-apoSe');
+		let uoBrnoVal = SBUxMethod.get('dtl-input-uoBrno');
+		if(apoSeVal == '2'){
+			if(gfn_isEmpty(uoBrnoVal)){
+				alert("통합조직을 선택해 주세요");
+				return;
+			}
+		}else if(apoSeVal == '1'){
+			uoBrnoVal = null;
+		}
+
+		let yr = SBUxMethod.get("dtl-input-yr");
+		console.log("yr = "+yr);
+		if (gfn_isEmpty(yr)) {
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
+
+		let rowData = grdPrdcrOgnCurntMng01.getRowData(nRow);
+
+		let prdcrOgnzSn = rowData.prdcrOgnzSn;
+
+		let postJsonPromise = gfn_postJSON("/pd/pom/updateStbltYn.do", {
+			brno : brno
+			,stbltYn : stbltYn
+			,uoBrno : uoBrnoVal
+			,yr : yr
+			,prdcrOgnzSn : prdcrOgnzSn
+		});
+        let data = await postJsonPromise;
+
+        try{
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");// I0001	처리 되었습니다.
+        		fn_dtlGridSearch01();
+        	}else{
+        		gfn_comAlert("E0001");//E0001 오류가 발생하였습니다.
+        	}
+        }catch (e) {
+        	if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+		}
 	}
 
 </script>
