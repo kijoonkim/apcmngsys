@@ -341,6 +341,20 @@
 					</div>
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:380px; width: 100%;"></div>
+				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+					<div class="box-header" style="display:flex; justify-content: flex-start;" >
+						<div style="margin-left: auto;">
+							<sbux-button id="updateStbltYn1" name="updateStbltYn1" uitype="normal" text="적합여부 Y으로 변경" class="btn btn-sm btn-outline-danger" onclick="fn_updateStbltYn(1)"></sbux-button>
+							<sbux-button id="updateStbltYn2" name="updateStbltYn2" uitype="normal" text="적합여부 N으로 변경" class="btn btn-sm btn-outline-danger" onclick="fn_updateStbltYn(2)"></sbux-button>
+							<sbux-button id="updateStbltYn3" name="updateStbltYn3" uitype="normal" text="적합여부 빈칸으로 초기화" class="btn btn-sm btn-outline-danger" onclick="fn_updateStbltYn"></sbux-button>
+						</div>
+					</div>
+					<div style="display:flex; justify-content: flex-start;" >
+						<div style="margin-left: auto;">
+							<p>원래의 적합여부로 적용 하려면 전문품목 매입매출에서 저장</p>
+						</div>
+					</div>
+				</c:if>
 				</div>
 			</div>
 		</div>
@@ -552,7 +566,7 @@
 				, ref: 'uoSpmtAmtRt',   	type:'output',  width:'100px',    style:'text-align:center;'},
 			{caption: ["출자출하조직의\n통합조직 판매위임비율","전체출하\n[(A+B)/E]"] ,format: {type: 'string', rule: '@" %"'}
 				, ref: 'uoSpmtAmtTotRt',   	type:'output',  width:'100px',    style:'text-align:center;'},
-			{caption: ["적합여부","적합여부"], 	ref: 'stbltYn',   	type:'output',  width:'70px',    style:'text-align:center;'},
+			{caption: ["적합여부","적합여부"], 	ref: 'orgStbltYn',   	type:'output',  width:'70px',    style:'text-align:center;'},
 			{caption: ["탈락사유","탈락사유"], 	ref: 'stbltYnNm',   	type:'textarea',  width:'150px',    style:'padding-left:10px'
 				,typeinfo : {textareanewline : true},disabled:true },
 			{caption: ["상세내역"], 	ref: 'apoCd',   		hidden : true},
@@ -564,6 +578,7 @@
 	        {caption: ["상세내역"], 	ref: 'itemCd',   		hidden : true},
 	        //{caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
 	        {caption: ["상세내역"], 	ref: 'trmtType',   		hidden : true},
+	        {caption: ["상세내역"], 	ref: 'stbltYn',   		hidden : true},
 	       // {caption: ["상세내역"], 	ref: 'aprv',   			hidden : true},
 	    ];
 
@@ -810,9 +825,11 @@
    						,uoSpmtAmtTotRt: 		item.uoSpmtAmtTotRt
    						,uoSpmtAmtTot: 			item.uoSpmtAmtTot
 
-   						,stbltYn: 			item.stbltYn
+   						,stbltYn: item.stbltYn//적합여부 기준 적용 결과
+						,orgStbltYn: item.orgStbltYn//적합여부 현재 적용 값
    						,stbltYnNm: fn_calStbltYn(item)
    				};
+
        			jsonPrdcrOgnCurntMng01.push(PrdcrOgnCurntMngVO01);
 			});
 
@@ -830,6 +847,14 @@
 	//탈락적합 사유
 	function fn_calStbltYn(item) {
 		let stbltYnNmMng = [];
+		console.log(item);
+		//강제로 변경한 경우가 존재 함
+		if(!gfn_isEmpty(item.orgStbltYn)){
+			if (item.orgStbltYn == 'Y') {
+				return "";
+			}
+		}
+
 		if(item.aprv == '1'){
 			if(item.sttgUpbrItemSe == '1'){
 				if(item.chkAA != 'Y'){
@@ -853,7 +878,6 @@
 				stbltYnNmMng.push('총취급액 중 통합조직 출하비율 미달');
 			}
 		}
-		//console.log(stbltYnNmMng.join("\n"));
 		return stbltYnNmMng.join("\n");
 	}
 
@@ -958,6 +982,70 @@
 		}else{
 			SBUxMethod.set('dtl-input-uoBrno',selCombo.value);
 			//SBUxMethod.set('dtl-input-uoCd',selCombo.uoApoCd);
+		}
+	}
+
+	//통합조직 출자출하조직으로 권한 변경
+	async function fn_updateStbltYn(_chk){
+		console.log("*************fn_updateStbltYn******************");
+		let nRow = grdPrdcrOgnCurntMng01.getRow();
+		if(nRow < 1){
+			return false;
+		}
+
+		//사업자번호
+		let brno = SBUxMethod.get("dtl-input-brno");
+		if(gfn_isEmpty(brno)) return;
+
+		let stbltYn = '';
+		if (_chk == '1') {
+			stbltYn = 'Y'
+		}else if (_chk == '2') {
+			stbltYn = 'N'
+		}
+
+		let apoSeVal = SBUxMethod.get('dtl-input-apoSe');
+		let uoBrnoVal = SBUxMethod.get('dtl-input-uoBrno');
+		if(apoSeVal == '2'){
+			if(gfn_isEmpty(uoBrnoVal)){
+				alert("통합조직을 선택해 주세요");
+				return;
+			}
+		}else if(apoSeVal == '1'){
+			uoBrnoVal = null;
+		}
+
+		let yr = SBUxMethod.get("dtl-input-yr");
+		if (gfn_isEmpty(yr)) {
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
+
+		let rowData = grdPrdcrOgnCurntMng01.getRowData(nRow);
+		let itemCd = rowData.itemCd;
+
+		let postJsonPromise = gfn_postJSON("/pd/isom/updateStbltYn.do", {
+			brno : brno
+			,stbltYn : stbltYn
+			,uoBrno : uoBrnoVal
+			,yr : yr
+			,itemCd : itemCd
+		});
+        let data = await postJsonPromise;
+
+        try{
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");// I0001	처리 되었습니다.
+        		fn_dtlGridSearch();
+        	}else{
+        		gfn_comAlert("E0001");//E0001 오류가 발생하였습니다.
+        	}
+        }catch (e) {
+        	if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
 		}
 	}
 

@@ -4,7 +4,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.pd.isom.mapper.InvShipOgnGenalTblMngMapper;
 import com.at.apcss.pd.isom.service.InvShipOgnGenalTblMngService;
@@ -52,6 +51,13 @@ public class InvShipOgnGenalTblMngServiceImpl extends BaseServiceImpl implements
 
 		List<InvShipOgnGenalTblMngVO> resultList = InvShipOgnGenalTblMngMapper.selectInvShipOgnGenalTblMngIsoList(InvShipOgnGenalTblMngVO);
 		return resultList;
+	}
+
+	@Override
+	public int updateStbltYn(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception {
+		int updatedCnt = InvShipOgnGenalTblMngMapper.updateStbltYn(InvShipOgnGenalTblMngVO);
+
+		return updatedCnt;
 	}
 
 }

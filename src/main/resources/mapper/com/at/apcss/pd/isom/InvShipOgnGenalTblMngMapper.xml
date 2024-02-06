@@ -76,7 +76,7 @@
 																			ELSE 'N' END)
 					ELSE 'N' END
 			) AS STBLT_YN
-
+			,TOTAL.ORG_STBLT_YN
 		FROM
 				(SELECT
 					TOT.ITEM_CD
@@ -106,6 +106,7 @@
 					,(CASE WHEN TOT.UO_SPMT_AMT >= 300000 THEN 'Y' ELSE 'N' END) AS CHK_B_A
 					,(CASE WHEN TOT.UO_SPMT_AMT_RT >= 100 THEN 'Y' ELSE 'N' END) AS CHK_B_B
 					,(CASE WHEN TOT.UO_SPMT_AMT_TOT_RT >=  20 THEN 'Y' ELSE 'N' END) AS CHK_B_C
+					,TOT.STBLT_YN AS ORG_STBLT_YN
 				FROM
 					(SELECT
 							ITEM.ITEM_CD
@@ -130,6 +131,16 @@
 
 							, ROUND(NVL( TOTA.UO_SPMT_AMT / NULLIF( TOTA.UO_SPMT_AMT + TOTA.UO_OTHER_SPMT_AMT , 0 ) , 0 ) * 100 , 2 ) AS UO_SPMT_AMT_RT
 							, ROUND(NVL( (TOTA.UO_SPMT_AMT + TOTB.UO_SPMT_AMT) / NULLIF( TOTA.UO_SPMT_AMT + TOTA.UO_OTHER_SPMT_AMT + TOTB.UO_SPMT_AMT + TOTB.UO_OTHER_SPMT_AMT, 0 ) , 0 ) * 100 , 2) AS UO_SPMT_AMT_TOT_RT
+							, (SELECT STBLT_YN
+								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+								WHERE 1=1
+								  AND APO_SE = '2'
+								  AND TYPE_SE_NO ='8'
+								  AND BRNO = ITEM.BRNO
+								  AND UO_BRNO = ITEM.UO_BRNO
+								  AND YR = ITEM.YR
+								  AND ITEM_CD = ITEM.ITEM_CD
+							) AS STBLT_YN
 						FROM
 							(SELECT
 									ITEM_CD
@@ -268,4 +279,20 @@
     	</if>
     </select>
 
+	<update id="updateStbltYn" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnGenalTblMngVO">
+	    	UPDATE /* com.at.apcss.pd.isom.mapper.InvShipOgnGenalTblMngMapper.updateStbltYn */
+	    		TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+			   SET
+			 	  STBLT_YN				= #{stbltYn}
+				, SYS_LAST_CHG_DT		= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+
+			 WHERE 1=1
+			   AND APO_SE 			= '2'
+			   AND YR				= #{yr}
+			   AND BRNO				= #{brno}
+			   AND UO_BRNO 			= #{uoBrno}
+			   AND ITEM_CD 			= #{itemCd}
+    </update>
 </mapper>

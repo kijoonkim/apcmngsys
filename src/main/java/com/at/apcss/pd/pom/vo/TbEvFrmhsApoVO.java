@@ -43,6 +43,7 @@ public class TbEvFrmhsApoVO extends ComVO{
 	private String prdctnVlmTot;//생산량(결과)
 	private String cnt;//조직원수
 	private String stbltYn;//적합여부
+	private String orgStbltYn;//적합여부
 
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;

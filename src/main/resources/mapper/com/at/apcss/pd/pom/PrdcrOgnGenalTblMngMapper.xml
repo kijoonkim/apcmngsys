@@ -21,7 +21,7 @@
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectPrdcrOgnGenalTblMng" parameterType="com.at.apcss.pd.pom.vo.PrdcrOgnGenalTblMngVO" resultType="com.at.apcss.pd.pom.vo.PrdcrOgnGenalTblMngVO">
-    	SELECT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectPrdcrCrclOgnReqMngList */
+    	SELECT /* com.at.apcss.pd.pom.mapper.PrdcrOgnGenalTblMngMapper.selectPrdcrOgnGenalTblMng */
 				  CM.APO_CD
 				, CM.APO_SE
 				, CM.WRT_YN
@@ -165,7 +165,7 @@
     		  FROM (
     	</if>
 
-			SELECT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectPrdcrCrclOgnReqMngList */
+			SELECT /* com.at.apcss.pd.pom.mapper.PrdcrOgnGenalTblMngMapper.selectPrdcrOgnGenalTblMngList */
 				  CM.APO_CD
 				, CM.APO_SE
 				, CM.WRT_YN
@@ -296,4 +296,21 @@
     	</if>
     </select>
 
+	<update id="updateStbltYn" parameterType="com.at.apcss.pd.pom.vo.PrdcrOgnGenalTblMngVO">
+	    	UPDATE /* com.at.apcss.pd.pom.mapper.PrdcrOgnGenalTblMngMapper.updateStbltYn */
+	    		TB_EV_FRMHS_APO
+			   SET
+			 	  STBLT_YN				= #{stbltYn}
+				, SYS_LAST_CHG_DT		= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+
+			 WHERE 1=1
+			   AND YR				= #{yr}
+			   AND BRNO				= #{brno}
+			 <if test='uoBrno != null and uoBrno != ""'>
+			   AND UO_BRNO 			= #{uoBrno}
+			 </if>
+			   AND PRDCR_OGNZ_SN 	= #{prdcrOgnzSn}
+    </update>
 </mapper>

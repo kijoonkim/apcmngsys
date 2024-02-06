@@ -749,7 +749,7 @@
 
     <!-- 적합여부 조회 -->
     <select id="selectTbEvFrmhsApoStbltYn" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO" resultType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
-    	SELECT
+    	SELECT	/* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectTbEvFrmhsApoStbltYn */
 			TOTAL.BRNO
 			,TOTAL.UO_BRNO
 			,TOTAL.PRDCR_OGNZ_SN
@@ -857,7 +857,7 @@
 
     <!-- 적합여부 조회 -->
     <select id="selectTbEvFrmhsApoStbltYnList" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO" resultType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
-    	SELECT
+    	SELECT	/* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectTbEvFrmhsApoStbltYnList */
 			TOTAL.BRNO
 			,TOTAL.UO_BRNO
 			,TOTAL.PRDCR_OGNZ_SN
@@ -904,6 +904,7 @@
 				ELSE 'N'
 				END
 			) AS STBLT_YN
+			,TOTAL.ORG_STBLT_YN
 		FROM (SELECT
 			TEFA.BRNO
 			,TEFA.UO_BRNO
@@ -914,6 +915,7 @@
 			,TEFA.ITEM_CD
 			,TEFA.CTGRY_CD
 			,TEFA.STTG_UPBR_ITEM_SE
+			,TEFA.STBLT_YN AS ORG_STBLT_YN
 			,NVL(TEFA.TRMT_TYPE,'0') AS TRMT_TYPE
 			,(SELECT APO_SE FROM TB_EV_APO WHERE BRNO = TEFA.BRNO) AS APO_SE_CHK
 			,(SELECT NVL(APRV,'0')
