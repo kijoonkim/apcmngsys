@@ -118,11 +118,11 @@ public class ComMenuController extends BaseController {
 		} catch( Exception e) {
 			getErrorResponseEntity(e);
 		}
-		if (title.equals("원물인식표")) {
-			return "apcss/am/popup/openClipReportPopupTest";
-		}else{
-			return "apcss/am/popup/openClipReportPopup";
-		}
+
+
+
+		return "apcss/am/popup/openClipReportPopup";
+
 
 
 	}
