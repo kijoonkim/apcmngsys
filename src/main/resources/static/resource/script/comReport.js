@@ -114,7 +114,7 @@ const gfn_drawClipReport = async function(divId, reportKey) {
 	report.setViewType(1);
 	report.setIsPrintUse("html","pdf");
 	report.setStyle("close_button", "display:none;");
-	//report.setStrExePrintServerPath("http://133.186.212.16/ClipReport/Clip.jsp");
+	report.setStrExePrintServerPath("http://133.186.212.16/ClipReport/Clip.jsp");
 	report.view();
 
 	//report.exePrint(false, "", "", 1, -1, 1, "");
@@ -130,6 +130,7 @@ const gfn_drawClipReportTest = async function(divId, reportKey) {
 	report.setViewType(1);
 	report.setIsPrintUse("html","pdf","exe");
 	report.setStyle("close_button", "display:none;");
+	report.setStrExePrintServerPath("http://133.186.212.16/ClipReport/Clip.jsp");
 	report.view();
 
 	//report.exePrint(false, "", "", 1, -1, 1, "");
