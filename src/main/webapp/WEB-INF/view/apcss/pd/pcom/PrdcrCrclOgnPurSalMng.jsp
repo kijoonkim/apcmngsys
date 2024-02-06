@@ -323,7 +323,7 @@
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:200px; width: 100%;"></div>
+					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:300px; width: 100%;"></div>
 				</div>
 				<br>
 				<!--[pp] 검색결과 상세보기-->
@@ -352,7 +352,7 @@
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdPrdcrOgnCurntMng02" style="height:200px; width: 100%;"></div>
+					<div id="sb-area-grdPrdcrOgnCurntMng02" style="height:300px; width: 100%;"></div>
 				</div>
 				<br>
 				<!--[pp] 출하처별 출하실적 명세-->
@@ -378,7 +378,7 @@
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdPrdcrOgnCurntMng03" style="height:200px; width: 100%;"></div>
+					<div id="sb-area-grdPrdcrOgnCurntMng03" style="height:300px; width: 100%;"></div>
 				</div>
 			</div>
 		</div>
@@ -596,10 +596,13 @@
 	    //SBGridProperties.extendlastcol = 'scroll';
 	    //SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.frozenbottomrows=1;
 	    SBGridProperties.columns = [
 	    	{caption: ["처리","처리"], 		ref: 'delYn',   		type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ", " + nCol + ")'>추가</button>";
+	        	}else if(strValue == "소계"){
+	    			return "소계";
 	        	}else{
 			        if(objRowData.sttgUpbrItemSe == '3'){
 	        			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ")'>삭제</button>";
@@ -654,6 +657,7 @@
 		let prevRef = grdPrdcrOgnCurntMng01.getRefOfCol(prevCol);
 	    if(columnsToRefresh01.includes(prevRef)){
 	    	grdPrdcrOgnCurntMng01.refresh();
+	    	fn_grdTot01("refresh");
 	    }
 	}
 
@@ -680,6 +684,66 @@
 			sumVal = rowData.prchsTotAmt;
 		}
 		return sumVal;
+	}
+
+	//소계 추가를 위해 조정
+	function fn_grdTot01(_gubun) {
+	    console.log("===========fn_grdTot01==============");
+
+	    let objGrid = grdPrdcrOgnCurntMng01;
+	    let grdJson = jsonPrdcrOgnCurntMng01;
+
+	    if (_gubun === "Search") {
+	    	//조회의 경우 2줄 추가
+			//그리드 추가 용 1줄 합계용 1줄
+	    	objGrid.addRow();
+	        objGrid.addRow();
+	    } else if (_gubun === "ADD") {
+	        //기타 입력줄 하나 추가
+	    	let lastRowIndex = grdJson.length;
+
+	        objGrid.setCellData(lastRowIndex, objGrid.getColRef("delYn"), "N", true);
+	        objGrid.setCellData(lastRowIndex, objGrid.getColRef("sttgUpbrItemNm"), "기타", true);
+	        objGrid.setCellData(lastRowIndex, objGrid.getColRef("sttgUpbrItemSe"), "3", true);
+	        objGrid.addRow(true);
+	    }
+
+	    let totalColumns = [
+	        "prchsTrstVlm", "prchsTrstAmt", "prchsEmspapVlm", "prchsEmspapAmt","prchsTotAmt"
+	    ];
+
+	    let totals = totalColumns.reduce((acc, col) => {
+	    	acc[col + "Tot"] = 0;
+	        return acc;
+	    }, {});
+
+	  	//해더 줄수만큼 추가 필요함
+		for (let i = 1 + 1; i <= grdJson.length - 1; i++) {
+	        let rowData = objGrid.getRowData(i);
+	        totalColumns.forEach((col) => {
+	            totals[col + "Tot"] += Number(rowData[col]);
+	        });
+	    }
+
+	    for (let col of totalColumns) {
+	        let colRef = objGrid.getColRef(col);
+	      	//추가 줄
+	        objGrid.setCellData(grdJson.length, colRef, "");
+	        //소계 줄
+	      	objGrid.setCellData(grdJson.length + 1, colRef, totals[col + "Tot"]);
+	    }
+
+	    objGrid.setCellData(grdJson.length, objGrid.getColRef("delYn"), "", true);
+	    objGrid.setCellData(grdJson.length + 1, objGrid.getColRef("delYn"), "소계", true);
+
+	    objGrid.refresh();
+	    //fn_gridCustom();
+	    //비활성화 추가
+        let ctgryCdCol = objGrid.getColRef("ctgryCd");//
+        let prchsTotAmtCol = objGrid.getColRef("prchsTotAmt");//
+        objGrid.setCellDisabled(grdJson.length - 1, ctgryCdCol, grdJson.length - 1, prchsTotAmtCol, false);
+        objGrid.setCellDisabled(grdJson.length, ctgryCdCol, grdJson.length, prchsTotAmtCol, true);
+        objGrid.setCellDisabled(grdJson.length + 1, ctgryCdCol, grdJson.length + 1, prchsTotAmtCol, true);
 	}
 
 	var jsonPrdcrOgnCurntMng02 = []; // 그리드의 참조 데이터 주소 선언
@@ -712,10 +776,13 @@
 	    //SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.frozenbottomrows=1;
 	    SBGridProperties.columns = [
 	    	{caption: ["처리","처리"], 		ref: 'delYn',   		type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ", " + nCol + ")'>추가</button>";
+	        	}else if(strValue == "소계"){
+	    			return "소계";
 	        	}else{
 			        if(objRowData.sttgUpbrItemSe == '3'){
 	        			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ")'>삭제</button>";
@@ -805,6 +872,69 @@
 		return sumVal;
 	}
 
+	//소계 추가를 위해 조정
+	function fn_grdTot02(_gubun) {
+	    console.log("===========fn_grdTot02==============");
+
+	    let objGrid = grdPrdcrOgnCurntMng02;
+	    let grdJson = jsonPrdcrOgnCurntMng02;
+
+	    if (_gubun === "Search") {
+	    	//조회의 경우 2줄 추가
+			//그리드 추가 용 1줄 합계용 1줄
+	    	objGrid.addRow();
+	        objGrid.addRow();
+	    } else if (_gubun === "ADD") {
+	        //기타 입력줄 하나 추가
+	    	let lastRowIndex = grdJson.length;
+
+	        objGrid.setCellData(lastRowIndex, objGrid.getColRef("delYn"), "N", true);
+	        objGrid.setCellData(lastRowIndex, objGrid.getColRef("sttgUpbrItemNm"), "기타", true);
+	        objGrid.setCellData(lastRowIndex, objGrid.getColRef("sttgUpbrItemSe"), "3", true);
+	        objGrid.addRow(true);
+	    }
+
+	    let totalColumns = [
+	    	"slsEmspapVlm", "slsEmspapAmt"
+	    	, "slsTrstVlm", "slsTrstAmt"
+	        , "ddcVlm", "ddcAmt"
+	        , "slsTotAmt"
+	    ];
+
+	    let totals = totalColumns.reduce((acc, col) => {
+	    	acc[col + "Tot"] = 0;
+	        return acc;
+	    }, {});
+
+	  	//해더 줄수만큼 추가 필요함
+		for (let i = 1 + 1; i <= grdJson.length - 1; i++) {
+	        let rowData = objGrid.getRowData(i);
+	        totalColumns.forEach((col) => {
+	            totals[col + "Tot"] += Number(rowData[col]);
+	        });
+	    }
+
+	    for (let col of totalColumns) {
+	        let colRef = objGrid.getColRef(col);
+	      	//추가 줄
+	        objGrid.setCellData(grdJson.length, colRef, "");
+	        //소계 줄
+	      	objGrid.setCellData(grdJson.length + 1, colRef, totals[col + "Tot"]);
+	    }
+
+	    objGrid.setCellData(grdJson.length, objGrid.getColRef("delYn"), "", true);
+	    objGrid.setCellData(grdJson.length + 1, objGrid.getColRef("delYn"), "소계", true);
+
+	    objGrid.refresh();
+	    //fn_gridCustom();
+	  	//비활성화 추가
+        let ctgryCdCol = objGrid.getColRef("ctgryCd");//
+        let ddcAmtCol = objGrid.getColRef("ddcAmt");//
+        objGrid.setCellDisabled(grdJson.length - 1, ctgryCdCol, grdJson.length - 1, ddcAmtCol, false);
+        objGrid.setCellDisabled(grdJson.length, ctgryCdCol, grdJson.length, ddcAmtCol, true);
+        objGrid.setCellDisabled(grdJson.length + 1, ctgryCdCol, grdJson.length + 1, ddcAmtCol, true);
+	}
+
 
 	var jsonPrdcrOgnCurntMng03 = []; // 그리드의 참조 데이터 주소 선언
 	var grdPrdcrOgnCurntMng03;
@@ -836,11 +966,14 @@
 	    SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.fixedrowheight=35;
+	    SBGridProperties.frozenbottomrows=1;
 	    SBGridProperties.columns = [
 	    	/*
 	    	{caption: ["처리","처리"], 		ref: 'delYn',   		type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng03\", " + nRow + ", " + nCol + ")'>추가</button>";
+	        	}else if(strValue == "소계"){
+	    			return "소계";
 	        	}else{
 			        if(objRowData.sttgUpbrItemSe == '3'){
 	        			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng03\", " + nRow + ")'>삭제</button>";
@@ -1010,6 +1143,81 @@
 		}
 		return rowData.etcAmt;
 	}
+
+	//소계 추가를 위해 조정
+	//03 그리드는 줄 추가 기능이 없음 소계만 있으면됨
+	function fn_grdTot03(_gubun) {
+	    console.log("===========fn_grdTot03==============");
+
+	    let objGrid = grdPrdcrOgnCurntMng03;
+	    let grdJson = jsonPrdcrOgnCurntMng03;
+
+	    if (_gubun === "Search") {
+	    	//조회의 경우 2줄 추가
+			//그리드 추가 용 1줄 합계용 1줄
+	    	objGrid.addRow();
+	        //objGrid.addRow();
+	    } else if (_gubun === "ADD") {
+	        //기타 입력줄 하나 추가
+	    	let lastRowIndex = grdJson.length;
+
+	        objGrid.setCellData(lastRowIndex, objGrid.getColRef("delYn"), "N", true);
+	        objGrid.setCellData(lastRowIndex, objGrid.getColRef("sttgUpbrItemNm"), "기타", true);
+	        objGrid.setCellData(lastRowIndex, objGrid.getColRef("sttgUpbrItemSe"), "3", true);
+	        objGrid.addRow(true);
+	    }
+
+	    let totalColumns = [
+	    	"pblcWhlslMrktVlm", "pblcWhlslMrktAmt"
+			, "onlnWhlslMrktVlm", "onlnWhlslMrktAmt"
+			, "lgszRtlVlm", "lgszRtlAmt"
+			, "armyDlvgdsVlm", "armyDlvgdsAmt"
+			, "eatoutMtrlMlsrVlm" , "eatoutMtrlMlsrAmt"
+			, "mnfcRtlVlm", "mnfcRtlAmt"
+			, "exprtVlm", "exprtAmt"
+			, "onlnDlngPrfmncVlm", "onlnDlngPrfmncAmt"
+			, "etcVlm", "etcAmt"
+			, "slsTotVlm", "slsTotAmt"
+	    ];
+
+	    let totals = totalColumns.reduce((acc, col) => {
+	    	acc[col + "Tot"] = 0;
+	        return acc;
+	    }, {});
+
+	  	//해더 줄수만큼 추가 필요함
+		for (let i = 1 + 1; i <= grdJson.length - 1; i++) {
+	        let rowData = objGrid.getRowData(i);
+	        totalColumns.forEach((col) => {
+	            totals[col + "Tot"] += Number(rowData[col]);
+	        });
+	    }
+
+	    for (let col of totalColumns) {
+	        let colRef = objGrid.getColRef(col);
+	      	//추가 줄
+	        //objGrid.setCellData(grdJson.length, colRef, "");
+	        //소계 줄
+	      	objGrid.setCellData(grdJson.length + 1, colRef, totals[col + "Tot"]);
+	    }
+
+	    //objGrid.setCellData(grdJson.length, objGrid.getColRef("delYn"), "", true);
+	    objGrid.setCellData(grdJson.length + 1, objGrid.getColRef("sttgUpbrItemNm"), "소계", true);
+
+	    objGrid.refresh();
+	    //fn_gridCustom();
+
+	  	//비활성화 추가
+	  	//03 그리드의 경우 추가 하는 경우가 없기 떄문에 소계만 비활성화
+        let ctgryCdCol = objGrid.getColRef("ctgryCd");//
+        let etcAmtCol = objGrid.getColRef("etcAmt");//
+
+        objGrid.setCellDisabled(grdJson.length + 1, ctgryCdCol, grdJson.length + 1, etcAmtCol, true);
+	}
+
+
+
+
 
 	/**
      * 목록 조회
@@ -1369,23 +1577,14 @@
     	console.log("==========fn_procRow=========");
         if (gubun === "ADD") {
             if (grid === "grdPrdcrOgnCurntMng01") {
-            	grdPrdcrOgnCurntMng01.setCellData(nRow, grdPrdcrOgnCurntMng01.getColRef("delYn"), "N", true);
-            	grdPrdcrOgnCurntMng01.setCellData(nRow, grdPrdcrOgnCurntMng01.getColRef("sttgUpbrItemNm"), "기타", true);
-            	grdPrdcrOgnCurntMng01.setCellData(nRow, grdPrdcrOgnCurntMng01.getColRef("sttgUpbrItemSe"), "3", true);
-            	grdPrdcrOgnCurntMng01.addRow(true);
+            	fn_grdTot01("ADD");
             }
 
             if (grid === "grdPrdcrOgnCurntMng02") {
-            	grdPrdcrOgnCurntMng02.setCellData(nRow, grdPrdcrOgnCurntMng02.getColRef("delYn"), "N", true);
-            	grdPrdcrOgnCurntMng02.setCellData(nRow, grdPrdcrOgnCurntMng02.getColRef("sttgUpbrItemNm"), "기타", true);
-            	grdPrdcrOgnCurntMng02.setCellData(nRow, grdPrdcrOgnCurntMng02.getColRef("sttgUpbrItemSe"), "3", true);
-            	grdPrdcrOgnCurntMng02.addRow(true);
+            	fn_grdTot02("ADD");
             }
             if (grid === "grdPrdcrOgnCurntMng03") {
-            	grdPrdcrOgnCurntMng03.setCellData(nRow, grdPrdcrOgnCurntMng03.getColRef("delYn"), "N", true);
-            	grdPrdcrOgnCurntMng03.setCellData(nRow, grdPrdcrOgnCurntMng03.getColRef("sttgUpbrItemNm"), "기타", true);
-            	grdPrdcrOgnCurntMng03.setCellData(nRow, grdPrdcrOgnCurntMng03.getColRef("sttgUpbrItemSe"), "3", true);
-            	grdPrdcrOgnCurntMng03.addRow(true);
+            	fn_grdTot03("ADD");
             }
 
         }
@@ -1397,9 +1596,11 @@
             			var rowVal = grdPrdcrOgnCurntMng01.getRowData(nRow);
             			fn_deleteRsrc(rowVal);
             			grdPrdcrOgnCurntMng01.deleteRow(nRow);
+            			fn_grdTot01("DEL");
             		}
             	}else{
             		grdPrdcrOgnCurntMng01.deleteRow(nRow);
+            		fn_grdTot01("DEL");
             	}
             }
             if (grid === "grdPrdcrOgnCurntMng02") {
@@ -1409,9 +1610,11 @@
             			var rowVal = grdPrdcrOgnCurntMng02.getRowData(nRow);
             			fn_deleteRsrc(rowVal);
             			grdPrdcrOgnCurntMng02.deleteRow(nRow);
+            			fn_grdTot02("DEL");
             		}
             	}else{
             		grdPrdcrOgnCurntMng02.deleteRow(nRow);
+            		fn_grdTot02("DEL");
             	}
             }
             if (grid === "grdPrdcrOgnCurntMng03") {
@@ -1421,9 +1624,11 @@
             			var rowVal = grdPrdcrOgnCurntMng03.getRowData(nRow);
             			fn_deleteRsrc(rowVal);
             			grdPrdcrOgnCurntMng03.deleteRow(nRow);
+            			fn_grdTot03("DEL");
             		}
             	}else{
             		grdPrdcrOgnCurntMng03.deleteRow(nRow);
+            		fn_grdTot03("DEL");
             	}
             }
         }
@@ -1645,10 +1850,9 @@
         	grdPrdcrOgnCurntMng02.rebuild();
         	grdPrdcrOgnCurntMng03.rebuild();
 
-        	//비어 있는 마지막 줄 추가용도?
-        	grdPrdcrOgnCurntMng01.addRow();
-        	grdPrdcrOgnCurntMng02.addRow();
-        	//grdPrdcrOgnCurntMng03.addRow();
+        	fn_grdTot01("Search");
+        	fn_grdTot02("Search");
+        	fn_grdTot03("Search");
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -1864,7 +2068,6 @@
 		 	}
 		}
 	}
-
 
 </script>
 </html>
