@@ -22,6 +22,7 @@
 	<title>title : 원물입고등록(태블릿)</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../frame/inc/clipreport.jsp" %>
 </head>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
@@ -32,6 +33,14 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 원물입고등록 태블릿 -->
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-button
+						id="btnCmndDocPckg"
+						name="btnCmndDocPckg"
+						uitype="normal"
+						class="btn btn-sm btn-primary"
+						onclick="fn_docRawMtrWrhs"
+						text="원물인식표"
+					></sbux-button>
 					<sbux-button
 						id="btnReset"
 						name="btnReset"
@@ -345,7 +354,7 @@
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
 										<sbux-select
-											unselected-text="선택"
+
 											uitype="single"
 											id="srch-slt-warehouseSeCd"
 											name="srch-slt-warehouseSeCd"
@@ -418,6 +427,8 @@
     <div id="body-modal-prdcr">
     	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
     </div>
+    <!-- clip report direct print area  -->
+	<div id="div-rpt-clipReportPrint" style="display:none;"></div>
 </body>
 <script type="text/javascript">
 
@@ -506,6 +517,33 @@
 		fn_init();
 		stdGrdSelect.init();
 	});
+
+	/**
+     * @name fn_docRawMtrWrhs
+     * @description 원물확인서 발행 버튼
+     */
+	const fn_docRawMtrWrhs = function() {
+
+		const rawMtrWrhsList = [];
+		const allData = grdRawMtrWrhs.getGridDataAll();
+		allData.forEach((item, index) => {
+			if (item.checkedYn === "Y") {
+
+
+					rawMtrWrhsList.push(
+						item.wrhsno
+					);
+				}
+
+		});
+		if (rawMtrWrhsList.length === 0) {
+			gfn_comAlert("W0005", "선택대상");		//	W0005	{0}이/가 없습니다.
+			return;
+		}
+		const wrhsno = rawMtrWrhsList.join("','");
+
+		gfn_popClipReport("원물인식표", "am/rawMtrIdntyDoc.crf", {apcCd: gv_selectedApcCd, wrhsno: wrhsno});
+	}
 
 	/**
 	 * @name fn_createGrid
@@ -1106,6 +1144,7 @@
 			// 생산자 clear
 			SBUxMethod.set("srch-inp-prdcrCd", "");
 			SBUxMethod.set("srch-inp-prdcrNm", "");
+			SBUxMethod.set("srch-inp-prdcrIdentno", "");
 			SBUxMethod.attr("srch-inp-prdcrNm", "style", "");	//skyblue
 
 			// 품목
