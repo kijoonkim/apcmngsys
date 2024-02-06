@@ -167,6 +167,12 @@
 			  			FROM TB_EV_UO_ISO_ALL_PRCHS_SLS
 			  			WHERE APO_SE = '1'
 			  			  AND PRCHS_SLS_SE = '1'
+			  			<if test='brno != null and brno != ""'>
+					  	  AND BRNO = #{brno}
+						</if>
+						<if test='yr != null and yr != ""'>
+						  AND YR = #{yr}
+						</if>
 			  		) CM ,
 			  	(SELECT *
 			  		FROM TB_EV_APO_YR_GPC_CD
@@ -318,6 +324,12 @@
 			  			FROM TB_EV_UO_ISO_ALL_PRCHS_SLS
 			  			WHERE APO_SE = '1'
 			  			  AND PRCHS_SLS_SE = '2'
+			  			<if test='brno != null and brno != ""'>
+						  AND BRNO = #{brno}
+						</if>
+						<if test='yr != null and yr != ""'>
+						  AND YR = #{yr}
+						</if>
 			  		) CM ,
 			  	(SELECT *
 			  		FROM TB_EV_APO_YR_GPC_CD

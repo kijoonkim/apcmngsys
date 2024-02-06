@@ -219,6 +219,20 @@
 					<if test='yr != null and yr != ""'>
 					  AND YR = #{yr}
 					</if>
+					  AND ITEM_CD IN (SELECT ITEM_CD
+					  					FROM TB_EV_APO_YR_GPC_CD
+					  					WHERE 1=1
+					  					<if test='yr != null and yr != ""'>
+					  					  AND YR = #{yr}
+										</if>
+					  					  AND BRNO IN  (SELECT UO_BRNO
+					  					  					FROM TB_EV_APO_UO_CD
+					  					  					WHERE 1=1
+					  					  					<if test='brno != null and brno != ""'>
+					  										  AND ISO_BRNO = #{brno}
+															</if>
+					  					  				)
+					  					)
 					GROUP BY YR , BRNO ,UO_BRNO,ITEM_CD
 				)ITEM ,
 			  	(SELECT *
@@ -307,12 +321,15 @@
 			   AND ITEM.STTG_UPBR_ITEM_SE = CM.STTG_UPBR_ITEM_SE(+)
 
 			   AND ITEM.ITEM_CD = TOTA.ITEM_CD(+)
+			   AND ITEM.BRNO 	= TOTA.BRNO(+)
 			   AND ITEM.UO_BRNO = TOTA.UO_BRNO(+)
 
 			   AND ITEM.ITEM_CD = TOTB.ITEM_CD(+)
+			   AND ITEM.BRNO 	= TOTB.BRNO(+)
 			   AND ITEM.UO_BRNO = TOTB.UO_BRNO(+)
 
 			   AND ITEM.ITEM_CD = TOTC.ITEM_CD(+)
+			   AND ITEM.BRNO 	= TOTC.BRNO(+)
 			   AND ITEM.UO_BRNO = TOTC.UO_BRNO(+)
 
 			UNION ALL
@@ -422,6 +439,20 @@
 					<if test='yr != null and yr != ""'>
 					  AND YR = #{yr}
 					</if>
+					  AND ITEM_CD IN (SELECT ITEM_CD
+					  					FROM TB_EV_APO_YR_GPC_CD
+					  					WHERE 1=1
+					  					<if test='yr != null and yr != ""'>
+					  					  AND YR = #{yr}
+										</if>
+					  					  AND BRNO IN  (SELECT UO_BRNO
+					  					  					FROM TB_EV_APO_UO_CD
+					  					  					WHERE 1=1
+					  					  					<if test='brno != null and brno != ""'>
+					  										  AND ISO_BRNO = #{brno}
+															</if>
+					  					  				)
+					  					)
 					GROUP BY YR , BRNO ,UO_BRNO , ITEM_CD
 				)ITEM ,
 			  	(SELECT *
