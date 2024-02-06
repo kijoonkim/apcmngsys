@@ -4,12 +4,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.fm.bbs.mapper.BbsMapper;
-import com.at.apcss.fm.bbs.service.BbsService;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.pd.pom.mapper.PrdcrOgnGenalTblMngMapper;
 import com.at.apcss.pd.pom.service.PrdcrOgnGenalTblMngService;
 import com.at.apcss.pd.pom.vo.PrdcrOgnGenalTblMngVO;
@@ -84,6 +80,14 @@ public class PrdcrOgnGenalTblMngServiceImpl extends BaseServiceImpl implements P
 	@Override
 	public int deletePrdcrOgnGenalTblMng(PrdcrOgnGenalTblMngVO PrdcrOgnGenalTblMngVO) throws Exception {
 		return PrdcrOgnGenalTblMngMapper.deletePrdcrOgnGenalTblMng(PrdcrOgnGenalTblMngVO);
+	}
+
+	@Override
+	public int updateStbltYn(PrdcrOgnGenalTblMngVO PrdcrOgnGenalTblMngVO) throws Exception {
+
+		int updatedCnt = PrdcrOgnGenalTblMngMapper.updateStbltYn(PrdcrOgnGenalTblMngVO);
+
+		return updatedCnt;
 	}
 
 }

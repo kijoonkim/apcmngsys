@@ -139,7 +139,7 @@
 									ELSE 'N' END)
 					ELSE 'N' END
 			) AS STBLT_YN
-
+			,TOTAL.ORG_STBLT_YN
 		FROM
 				(SELECT
 					TOT.ITEM_CD
@@ -231,7 +231,7 @@
 					,(CASE WHEN TOT.SLS_CNSGN_SLS_AMT_RT >= 25 THEN 'Y' ELSE 'N' END) AS CHK_RT_B_C
 
 					,(CASE WHEN TOT.SLS_CNSGN_SLS_AMT_RT >= 30 THEN 'Y' ELSE 'N' END) AS CHK_RT_C
-
+					,TOT.STBLT_YN AS ORG_STBLT_YN
 				FROM
 					(SELECT
 							ITEM.ITEM_CD
@@ -250,6 +250,15 @@
 							, TOTB.SLS_CNSGN_SLS_AMT 			AS SLS_CNSGN_SLS_AMT_TOT
 
 							, ROUND(NVL( TOTA.SLS_CNSGN_SLS_AMT  / NULLIF( TOTB.SLS_CNSGN_SLS_AMT  , 0 ) , 0 ) * 100 , 2 ) AS SLS_CNSGN_SLS_AMT_RT
+							, (SELECT STBLT_YN
+								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+								WHERE 1=1
+								  AND APO_SE = '1'
+								  AND TYPE_SE_NO ='8'
+								  AND BRNO = ITEM.BRNO
+								  AND YR = ITEM.YR
+								  AND ITEM_CD = ITEM.ITEM_CD
+							) AS STBLT_YN
 						FROM
 							(SELECT
 									ITEM_CD
@@ -369,4 +378,21 @@
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
     	</if>
     </select>
+
+    <update id="updateStbltYn" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
+	    	UPDATE /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.updateStbltYn */
+	    		TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+			   SET
+			 	  STBLT_YN				= #{stbltYn}
+				, SYS_LAST_CHG_DT		= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+
+			 WHERE 1=1
+			   AND APO_SE 			= '1'
+			   AND UO_BRNO 			IS NULL
+			   AND YR				= #{yr}
+			   AND BRNO				= #{brno}
+			   AND ITEM_CD 			= #{itemCd}
+    </update>
 </mapper>

@@ -35,4 +35,6 @@ public interface InvShipOgnGenalTblMngMapper {
 
 	public List<InvShipOgnGenalTblMngVO> selectInvShipOgnGenalTblMngIsoList(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO);
 
+	public int updateStbltYn(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO);
+
 }

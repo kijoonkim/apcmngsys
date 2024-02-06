@@ -45,6 +45,7 @@ public class InvShipOgnGenalTblMngVO extends ComVO{
 	private String chkBC;//육성형 기준3
 
 	private String stbltYn;
+	private String orgStbltYn;
 
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;

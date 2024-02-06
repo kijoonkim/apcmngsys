@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
+import com.at.apcss.pd.isom.vo.InvShipOgnGenalTblMngVO;
 import com.at.apcss.pd.pcom.service.PrdcrCrclOgnGenalTblMngService;
 import com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO;
 import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO;
@@ -63,4 +64,31 @@ public class PrdcrCrclOgnGenalTblMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	//적합여부 업데이트
+	//예외적인 상황에 관리자가 임의로 적합여부 변경
+	@PostMapping(value = "/pd/pcom/updateStbltYn.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateStbltYn(@RequestBody PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO, HttpServletRequest requset) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		// validation check
+
+		// audit 항목
+		PrdcrCrclOgnGenalTblMngVO.setSysFrstInptUserId(getUserId());
+		PrdcrCrclOgnGenalTblMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+		PrdcrCrclOgnGenalTblMngVO.setSysLastChgUserId(getUserId());
+		PrdcrCrclOgnGenalTblMngVO.setSysLastChgPrgrmId(getPrgrmId());
+
+		int insertedCnt = 0;
+
+		try {
+			insertedCnt = PrdcrCrclOgnGenalTblMngService.updateStbltYn(PrdcrCrclOgnGenalTblMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }
