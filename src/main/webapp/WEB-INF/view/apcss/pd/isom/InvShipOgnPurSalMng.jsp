@@ -1830,13 +1830,11 @@
         selGridRow01 = grdPrdcrOgnCurntMng01.getRow();
         selGridCol01 = grdPrdcrOgnCurntMng01.getCol();
 
-        let delYnCol = grdPrdcrOgnCurntMng01.getColRef('delYn');
-        let delYnValue = grdPrdcrOgnCurntMng01.getCellData(selGridRow01,delYnCol);
+        let sttgUpbrItemSeCol = grdPrdcrOgnCurntMng01.getColRef('sttgUpbrItemSe');
+        let sttgUpbrItemSeValue = grdPrdcrOgnCurntMng01.getCellData(selGridRow01,sttgUpbrItemSeCol);
 
-        //임력할 데이터 인지 확인
-        //추가 행의 경우 DEL_YN을 N 로 변경한 빈 행임
-        //fn_procRow 의 ADD 확인
-        if(delYnValue != 'N'){
+        //기타 인경우만 품목 선택가능
+        if(sttgUpbrItemSeValue != '3'){
         	return;
         }
 
@@ -1910,12 +1908,11 @@
         selGridCol02 = grdPrdcrOgnCurntMng02.getCol();
 
 
-        let delYnCol = grdPrdcrOgnCurntMng02.getColRef('delYn');
-        let delYnValue = grdPrdcrOgnCurntMng02.getCellData(selGridRow02,delYnCol);
-        //임력할 데이터 인지 확인
-        //추가 행의 경우 DEL_YN을 N 로 변경한 빈 행임
-        //fn_procRow 의 ADD 확인
-        if(delYnValue != 'N'){
+        let sttgUpbrItemSeCol = grdPrdcrOgnCurntMng02.getColRef('sttgUpbrItemSe');
+        let sttgUpbrItemSeValue = grdPrdcrOgnCurntMng02.getCellData(selGridRow02,sttgUpbrItemSeCol);
+
+        //기타 인경우만 품목 선택가능
+        if(sttgUpbrItemSeValue != '3'){
         	return;
         }
 
