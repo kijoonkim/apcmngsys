@@ -54,6 +54,12 @@ public class InvShipOgnReqMngVO extends ComVO{
 	private String sysFrstInptDtYmd;
 	private String sysLastChgDtYmd;
 
-
+	private String aprv;
+	private String addr;
+	private String uoBrnoCnt;
+	private String picFlnm;
+	private String picTelno;
+	private String picMoblno;
+	private String picEml;
 }
 

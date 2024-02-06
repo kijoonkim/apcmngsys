@@ -25,6 +25,7 @@
 					<!--
 					<sbux-button id="btn-srch-input-outordrInq" name="btn-srch-input-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
 					 -->
+					<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 					<!--
@@ -736,6 +737,7 @@
 					<br>
 					<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 				</div>
+				<div id="sb-area-hiddenGrd" style="height:400px; width: 100%; display: none;"></div>
 			</div>
 		</div>
 	</section>
@@ -1800,6 +1802,138 @@
 
         }
     }
+
+	/* 로우데이터 요청 */
+
+	var jsonHiddenGrd = []; // 그리드의 참조 데이터 주소 선언
+	var hiddenGrd;
+
+	/* Grid 화면 그리기 기능*/
+	const fn_hiddenGrd = async function() {
+
+		let SBGridProperties = {};
+	    SBGridProperties.parentid = 'sb-area-hiddenGrd';
+	    SBGridProperties.id = 'hiddenGrd';
+	    SBGridProperties.jsonref = 'jsonHiddenGrd';
+	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
+	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.rowheader="seq";
+	    SBGridProperties.columns = [
+	    	{caption: ["신청구분"], 				ref: 'aprv',   				type:'output',  width:'70px',    style:'text-align:center'},
+	    	{caption: ["통합조직사업자번호"], 			ref: 'uoBrno',   			type:'output',  width:'130px',    style:'text-align:center'},
+	    	{caption: ["통합조직명"], 				ref: 'uoCorpNm',   			type:'output',  width:'220px',    style:'text-align:center'},
+	    	{caption: ["주소"], 					ref: 'add',   				type:'output',  width:'330px',    style:'text-align:center'},
+	    	{caption: ["출자출하조직사업자번호"], 		ref: 'brno',   				type:'output',  width:'150px',    style:'text-align:center'},
+	    	{caption: ["출자출하조직명"], 			ref: 'corpNm',   			type:'output',  width:'90px',    style:'text-align:center'},
+	        {caption: ["복수출자출하 여부"], 			ref: 'uoBrnoCnt',   		type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["법인구분"], 				ref: 'corpSeCd',   			type:'output',  width:'70px',    style:'text-align:center'},
+	        {caption: ["법인형태"], 				ref: 'corpDtlSeCd',   		type:'output',  width:'70px',    style:'text-align:center'},
+	        {caption: ["설립연도"], 				ref: 'corpFndnDay',  		type:'output',  width:'130px',    style:'text-align:center'},
+	        {caption: ["출자자수"], 				ref: 'invstNope',   		type:'output',  width:'90px',    style:'text-align:center'},
+	        {caption: ["출자자 중 농업인수"], 			ref: 'invstExpndFrmerNope', type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["출자금"], 					ref: 'invstAmt',   			type:'output',  width:'90px',    style:'text-align:center'},
+	        {caption: ["농업인 출자금 지분"], 			ref: 'frmerInvstAmt',   	type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["생산자단체 출자금 지분"], 		ref: 'prdcrGrpInvstAmt',   	type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["지자체 출자금지분"], 			ref: 'locgovInvstAmt',   	type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["기타 출자금지분"], 			ref: 'etcAmt',   			type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["농업인출자지분율"], 			ref: 'frmerInvstAmtRt',   	type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["출자출하조직 2024년 자금신청액"],	ref: 'isoFundAplyAmt',   	type:'output',  width:'200px',    style:'text-align:center'},
+	        {caption: ["작성자 성명"], 				ref: 'picFlnm',   			type:'output',  width:'80px',    style:'text-align:center'},
+	        {caption: ["작성자 전화번호"], 			ref: 'picTelno',   			type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["작성자 휴대번호"], 			ref: 'picMoblno',   		type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["작성자 이메일주소"], 			ref: 'picEml',   			type:'output',  width:'210px',    style:'text-align:center'},
+	    ];
+
+	    hiddenGrd = _SBGrid.create(SBGridProperties);
+
+	}
+	const fn_hiddenGrdSelect = async function(){
+		await fn_hiddenGrd();
+		let yr = SBUxMethod.get("srch-input-yr");
+		if (gfn_isEmpty(yr)) {
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
+
+		let postJsonPromise = gfn_postJSON("/pd/aom/hiddenGrdIsoSelectList.do", {
+			yr : yr
+		});
+
+        let data = await postJsonPromise;
+        try{
+        	jsonHiddenGrd.length = 0;
+        	console.log("data==="+data);
+        	data.resultList.forEach((item, index) => {
+        		let hiddenGrdVO = {
+        				aprv:						item.aprv
+        				, uoBrno:					item.uoBrno
+        				, uoCorpNm:					item.uoCorpNm
+        				, add:						item.add
+        				, brno:						item.brno
+        				, corpNm:					item.corpNm
+        				, uoBrnoCnt:				item.uoBrnoCnt
+        				, corpSeCd:					item.corpSeCd
+        				, corpDtlSeCd:				item.corpDtlSeCd
+        				, corpFndnDay:				item.corpFndnDay
+        				, invstNope:				item.invstNope
+        				, invstExpndFrmerNope:		item.invstExpndFrmerNope
+        				, invstAmt:					item.invstAmt
+        				, frmerInvstAmt:			item.frmerInvstAmt
+        				, prdcrGrpInvstAmt:			item.prdcrGrpInvstAmt
+        				, locgovInvstAmt:			item.locgovInvstAmt
+        				, etcAmt:					item.etcAmt
+        				, frmerInvstAmtRt:			item.frmerInvstAmtRt
+        				, isoFundAplyAmt:			item.isoFundAplyAmt
+        				, picFlnm:					item.picFlnm
+        				, picTelno:					item.picTelno
+        				, picMoblno:				item.picMoblno
+        				, picEml:					item.picEml
+				}
+				jsonHiddenGrd.push(hiddenGrdVO);
+			});
+
+        	await hiddenGrd.rebuild();
+
+        	await fn_excelDown();
+
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
+    }
+	//로우 데이터 엑셀 다운로드
+	function fn_excelDown(){
+		const currentDate = new Date();
+
+		const year = currentDate.getFullYear();
+		const month = currentDate.getMonth() + 1; // 월은 0부터 시작하므로 1을 더합니다.
+		const day = currentDate.getDate();
+		console.log(year+month+day);
+		console.log(year+""+month+""+day);
+		let fileName = "출자출하조직 로우데이터";
+
+		/*
+		datagrid.exportData(param1, param2, param3, param4);
+		param1(필수)[string]: 다운 받을 파일 형식
+		param2(필수)[string]: 다운 받을 파일 제목
+		param3[boolean]: 다운 받을 그리드 데이터 기준 (default:'false')
+		→ true : csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 다운로드
+		→ false : csv/xls/xlsx 형식의 데이터 다운로드를 jsonref 기준으로 다운로드
+		param4[object]: 다운 받을 그리드 데이터 기준 (default:'false')
+		→ arrRemoveCols(선택): csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 할 때 다운로드에서 제외할 열
+		→ combolabel(선택) : csv/xls/xlsx combo/inputcombo 일 때 label 값으로 저장
+		→ true : label 값으로 저장
+		→ false : value 값으로 저장
+		→ sheetName(선택) : xls/xlsx 형식의 데이터 다운로드시 시트명을 설정
+		 */
+		console.log(hiddenGrd.exportData);
+		hiddenGrd.exportData("xlsx" , fileName , true , true);
+	}
 
 </script>
 </html>

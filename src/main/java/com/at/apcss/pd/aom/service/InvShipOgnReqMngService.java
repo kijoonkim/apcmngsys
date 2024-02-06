@@ -42,4 +42,6 @@ public interface InvShipOgnReqMngService {
 
 	public int deleteInvShipOgnReqMng(InvShipOgnReqMngVO InvShipOgnReqMngVO) throws Exception;
 
+	public List<InvShipOgnReqMngVO> hiddenGrdIsoSelectList(InvShipOgnReqMngVO InvShipOgnReqMngVO) throws Exception;
+
 }

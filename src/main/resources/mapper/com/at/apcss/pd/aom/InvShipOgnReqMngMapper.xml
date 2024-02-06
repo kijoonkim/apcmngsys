@@ -291,4 +291,41 @@
 		]]>
 	</delete>
 
+
+	<!-- 로우데이터 요청 -->
+	<select id="hiddenGrdIsoSelectList" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO" resultType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
+		SELECT	/* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.hiddenGrdIsoSelectList */
+			DECODE((SELECT APRV FROM TB_EV_APO WHERE BRNO = (SELECT UO_BRNO FROM TB_EV_APLY_MNG WHERE  YR = B.YR AND BRNO = A.BRNO)) ,'1','승인형','2', '육성형','육성형') AS APRV
+			,D.UO_BRNO
+			,D.UO_CORP_NM
+			,DECODE(A.ROAD_NM_DTL_ADDR , '' ,'[지번]'||A.LOTNO_ADDR  || ' ' || A.LOTNO_DTL_ADDR , '[도로명]'||A.ROAD_NM_ADDR || ' ' ||A.ROAD_NM_DTL_ADDR ) AS ADDR
+			,A.BRNO
+			,A.CORP_NM
+			,DECODE(  (SELECT COUNT(*) FROM  TB_EV_APO_UO_CD WHERE ISO_BRNO = A.BRNO)  , 1, 'N' , 'Y') AS UO_BRNO_CNT
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CORP_SE_CD' AND CD_VL = A.CORP_SE_CD) AS CORP_SE_CD
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CORP_SHAP' AND CD_VL = A.CORP_DTL_SE_CD) AS CORP_DTL_SE_CD
+			,A.CORP_FNDN_DAY
+			,NVL(A.INVST_NOPE,0) AS INVST_NOPE
+			,NVL(A.INVST_EXPND_FRMER_NOPE,0) AS INVST_EXPND_FRMER_NOPE
+			,NVL(A.INVST_AMT,0) AS INVST_AMT
+			,NVL(A.FRMER_INVST_AMT,0) AS FRMER_INVST_AMT
+			,NVL(A.PRDCR_GRP_INVST_AMT,0) AS PRDCR_GRP_INVST_AMT
+			,NVL(A.LOCGOV_INVST_AMT,0) AS LOCGOV_INVST_AMT
+			,NVL(A.ETC_INVST_AMT,0) AS ETC_INVST_AMT
+			,A.FRMER_INVST_AMT_RT
+			,NVL(B.ISO_FUND_APLY_AMT,0) AS ISO_FUND_APLY_AMT
+			,A.PIC_FLNM
+			,A.PIC_TELNO
+			,A.PIC_MOBLNO
+			,A.PIC_EML
+		FROM USRAM.TB_EV_APO A
+			,USRAM.TB_EV_APLY_MNG B
+			,USRAM.TB_EV_APO_UO_CD D
+		WHERE B.YR = #{yr}
+		  AND B.APO_CD = A.APO_CD
+		  AND B.APO_SE = '2'
+		  AND B.APO_CD = D.ISO_APO_CD
+		  AND D.UO_CORP_NM NOT IN ('테스트 통합조직 at17','at21(출자출하조직21)_테스트','at11(통합조직11)_테스트','at12(통합조직12)_테스트','at13(통합보직13)_테스트','at14(통합조직14)_테스트','at15(통합조직15)_테스트','at16(통합조직16)_테스트','at17(통합조직17)_테스트')
+		ORDER BY B.BRNO ,  D.UO_BRNO
+	</select>
 </mapper>
