@@ -33,6 +33,13 @@
 			     , SPU.DEL_YN               AS DEL_YN
 			     , SPU.GDS_GRD				AS GDS_GRD
 			     , SPU.BRND_NM				AS BRND_NM
+			     , (SELECT X.WGHT
+			     	  FROM TB_APC_SPCFCT_CRTR X
+			     	 WHERE X.APC_CD = SPU.APC_CD
+                       AND X.ITEM_CD = SPU.ITEM_CD
+                       AND X.SPCFCT_CD = SPU.SPCFCT_CD
+                       AND X.DEL_YN = 'N'
+					)	AS SPCFCT_WGHT
 			  FROM TB_SPMT_PCKG_UNIT SPU
 		     WHERE SPU.APC_CD = #{apcCd}
 		       AND SPU.SPMT_PCKG_UNIT_CD = #{spmtPckgUnitCd}

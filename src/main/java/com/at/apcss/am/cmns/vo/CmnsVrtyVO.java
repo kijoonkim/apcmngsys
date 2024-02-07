@@ -23,6 +23,10 @@ import lombok.Setter;
 public class CmnsVrtyVO extends CmnsItemVO {
 
 	/**
+	 * 품목품종코드
+	 */
+	private String itemVrtyCd;
+	/**
 	 * 품종코드
 	 */
 	private String vrtyCd;

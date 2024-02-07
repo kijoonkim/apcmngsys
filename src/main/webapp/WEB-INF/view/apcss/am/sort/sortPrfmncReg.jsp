@@ -102,6 +102,7 @@
 									name="srch-slt-vrtyCd"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									jsondata-ref="jsonApcVrty"
+									jsondata-value="itemVrtyCd"
 									onchange="fn_onChangeSrchVrtyCd(this)"
 								/>
 							</td>
@@ -950,7 +951,9 @@
     	let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");			// 생산자
   		let itemCd = SBUxMethod.get("srch-slt-itemCd");				// 품목
   		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");				// 품종
-
+  		if (!gfn_isEmpty(vrtyCd)) {
+  			vrtyCd = vrtyCd.substring(4);
+  		}
   		let inptYmd = SBUxMethod.get("dtl-dtp-inptYmd");
 
   		try {
@@ -1391,7 +1394,10 @@
 		const fcltCd = SBUxMethod.get("dtl-slt-fcltCd");
 		const itemCd = SBUxMethod.get("srch-slt-itemCd");
 		const vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
-
+  		if (!gfn_isEmpty(vrtyCd)) {
+  			vrtyCd = vrtyCd.substring(4);
+  		}
+  		
 		if (gfn_isEmpty(inptYmd)) {
 			gfn_comAlert("W0001", "선별일자");		//	//	W0002	{0}을/를 입력하세요.
 	        return;
@@ -1821,9 +1827,10 @@
 	 */
 	const fn_onChangeSrchVrtyCd = async function(obj) {
 		let vrtyCd = obj.value;
-		const vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd});
+		const vrtyInfo = _.find(jsonApcVrty, {itemVrtyCd: vrtyCd});
+		console.log(vrtyInfo);
 		const itemCd = vrtyInfo.mastervalue;
-
+		
 		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
 		if (itemCd != prvItemCd) {
 			SBUxMethod.set("srch-slt-itemCd", itemCd);

@@ -39,6 +39,29 @@ public class GdsInvntrController extends BaseController {
 	@Resource(name = "gdsInvntrService")
 	private GdsInvntrService gdsInvntrService;
 
+	
+	@PostMapping(value = "/am/invntr/selectSpmtGdsInvntr.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectSpmtGdsInvntr(@RequestBody GdsInvntrVO gdsInvntrVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		GdsInvntrVO result = new GdsInvntrVO();
+		try {
+			result = gdsInvntrService.selectSpmtGdsInvntr(gdsInvntrVO);
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_MAP, result);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
 	@PostMapping(value = "/am/invntr/selectGdsInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectGdsInvntrList(@RequestBody GdsInvntrVO gdsInvntrVO, HttpServletRequest request) throws Exception {
 

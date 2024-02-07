@@ -46,6 +46,10 @@ public class SortMngVO extends ComVO {
 	 */
 	private String needsInptRegYn;
 
+	/**
+	 * 가상재고 등록 필요 여부
+	 */
+	private String needsVrInvntrRegYn;
 
 	/**
 	 * 포장등록 여부

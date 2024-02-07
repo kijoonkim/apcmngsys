@@ -22,6 +22,10 @@ import lombok.Setter;
 @Setter
 public class StdGrdDtlVO extends StdGrdVO {
 
+	private String itemGrdCd;
+	
+	private String itemGrdNm;
+	
 	/*
 	 * 등급코드
 	 * */

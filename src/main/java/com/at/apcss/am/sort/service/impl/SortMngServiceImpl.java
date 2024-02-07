@@ -14,9 +14,12 @@ import org.springframework.util.StringUtils;
 import com.at.apcss.am.cmns.service.CmnsItemService;
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.cmns.service.CmnsValidationService;
+import com.at.apcss.am.cmns.service.CmnsVrtyService;
 import com.at.apcss.am.cmns.service.SpmtPckgUnitService;
 import com.at.apcss.am.cmns.vo.CmnsItemVO;
+import com.at.apcss.am.cmns.vo.CmnsVrtyVO;
 import com.at.apcss.am.cmns.vo.SpmtPckgUnitVO;
+import com.at.apcss.am.constants.AmConstants;
 import com.at.apcss.am.invntr.service.RawMtrInvntrService;
 import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
 import com.at.apcss.am.invntr.vo.SortInvntrVO;
@@ -30,6 +33,8 @@ import com.at.apcss.am.sort.service.SortPrfmncService;
 import com.at.apcss.am.sort.vo.SortInptPrfmncVO;
 import com.at.apcss.am.sort.vo.SortMngVO;
 import com.at.apcss.am.sort.vo.SortPrfmncVO;
+import com.at.apcss.am.wrhs.service.RawMtrWrhsService;
+import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
 import com.at.apcss.co.constants.ApcConstants;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
@@ -75,6 +80,9 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 	@Resource(name="cmnsItemService")
 	private CmnsItemService cmnsItemService;
 		
+	@Resource(name="cmnsVrtyService")
+	private CmnsVrtyService cmnsVrtyService;
+	
 	@Resource(name="spmtPckgUnitService")
 	private SpmtPckgUnitService spmtPckgUnitService;
 	
@@ -82,6 +90,8 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 	@Resource(name="cmnsValidationService")
 	private CmnsValidationService cmnsValidationService;
 
+	@Resource(name="rawMtrWrhsService")
+	private RawMtrWrhsService rawMtrWrhsService;
 
 	@Override
 	public HashMap<String, Object> insertSortCmnd(SortMngVO sortMngVO) throws Exception {
@@ -631,6 +641,9 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 		}
 		
 		for ( SortMngVO mngVO : sortMngList ) {
+			
+			// 가상재고 생성 허용
+			mngVO.setNeedsVrInvntrRegYn(ComConstants.CON_YES);
 			HashMap<String, Object> rtnObj = insertSortRslt(mngVO);
 			if (rtnObj != null) {
 				throw new EgovBizException(getMessageForMap(rtnObj));
@@ -657,6 +670,8 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 			sortno = cmnsTaskNoService.selectSortno(apcCd, sortMngVO.getSortYmd());
 		}
 
+		String needsVrInvntrRegYn = sortMngVO.getNeedsVrInvntrRegYn();		
+		
 		// 실적등록 대상재고 목록
 		List<RawMtrInvntrVO> invntrList = sortMngVO.getRawMtrInvntrList();
 		// 실적등록 대상정보 목록
@@ -753,6 +768,18 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 					if (cmnsItemVO == null || !StringUtils.hasText(cmnsItemVO.getItemCd())) {
 						return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "품목조회정보");
 					}
+					
+					CmnsVrtyVO vrtyParam = new CmnsVrtyVO();
+					vrtyParam.setApcCd(apcCd);
+					vrtyParam.setItemCd(itemCd);
+					vrtyParam.setVrtyCd(vrtyCd);
+					
+					CmnsVrtyVO cmnsVrtyVO = cmnsVrtyService.selectApcVrty(vrtyParam);
+					if (cmnsVrtyVO == null || !StringUtils.hasText(cmnsVrtyVO.getVrtyCd())) {
+						return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "품종조회정보");
+					}
+					
+					double unitWght = cmnsVrtyVO.getUnitWght();
 					
 					/*
 					double sortRdcdRt = cmnsItemVO.getSortRdcdRt();
@@ -883,7 +910,36 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 							List<RawMtrInvntrVO> invntrForSortList = rawMtrInvntrService.selectRawMtrInvntrListForSort(param);
 							
 							if (invntrForSortList == null || invntrForSortList.isEmpty()) {
-								return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "선별가능재고");
+								
+								if (ComConstants.CON_YES.equals(needsVrInvntrRegYn)) {
+									// 가상 원물재고 등록
+									RawMtrWrhsVO rawMtrWrhsVO = new RawMtrWrhsVO();
+									BeanUtils.copyProperties(sortMngVO, rawMtrWrhsVO);
+									rawMtrWrhsVO.setInvntrSttsCd("S1");
+									rawMtrWrhsVO.setWrhsYmd(inptYmd);
+									rawMtrWrhsVO.setApcCd(apcCd);
+									rawMtrWrhsVO.setItemCd(itemCd);
+									rawMtrWrhsVO.setVrtyCd(vrtyCd);
+									rawMtrWrhsVO.setPrdcrCd(prdcrCd);
+									rawMtrWrhsVO.setWarehouseSeCd(warehouseSeCdFrom);
+									rawMtrWrhsVO.setBxQntt(sortQntt);
+									//rawMtrWrhsVO.setWrhsWght(sortWght);
+									rawMtrWrhsVO.setWrhsWght(ComUtil.round(sortQntt * unitWght));
+									rawMtrWrhsVO.setGdsSeCd(AmConstants.CON_GDS_SE_CD_DEFAULT);
+									rawMtrWrhsVO.setWrhsSeCd(AmConstants.CON_WRHS_SE_CD_DEFAULT);
+									rawMtrWrhsVO.setTrsprtSeCd(AmConstants.CON_TRSPRT_SE_CD_DEFAULT);
+									
+									rtnObj = rawMtrWrhsService.insertRawMtrWrhs(rawMtrWrhsVO);
+									
+									if (rtnObj != null) {
+										throw new EgovBizException(getMessageForMap(rtnObj));
+									}
+									
+									invntrForSortList = rawMtrInvntrService.selectRawMtrInvntrListForSort(param);
+									
+								} else {
+									return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "선별가능재고");
+								}
 							}
 							
 							// 재고정보 조회
@@ -1072,6 +1128,39 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 							List<RawMtrInvntrVO> invntrForSortList = rawMtrInvntrService.selectRawMtrInvntrListForSort(param);
 							
 							if (invntrForSortList == null || invntrForSortList.isEmpty()) {
+								
+								if (ComConstants.CON_YES.equals(needsVrInvntrRegYn)) {
+									// 가상 원물재고 등록
+									RawMtrWrhsVO rawMtrWrhsVO = new RawMtrWrhsVO();
+									BeanUtils.copyProperties(sortMngVO, rawMtrWrhsVO);
+									rawMtrWrhsVO.setInvntrSttsCd("S1");
+									rawMtrWrhsVO.setWrhsYmd(inptYmd);
+									rawMtrWrhsVO.setApcCd(apcCd);
+									rawMtrWrhsVO.setItemCd(itemCd);
+									rawMtrWrhsVO.setVrtyCd(vrtyCd);
+									rawMtrWrhsVO.setPrdcrCd(prdcrCd);
+									rawMtrWrhsVO.setWarehouseSeCd(warehouseSeCdFrom);
+									rawMtrWrhsVO.setBxQntt(sortQntt);
+									rawMtrWrhsVO.setWrhsWght(sortWght);
+									
+									rawMtrWrhsVO.setGdsSeCd(AmConstants.CON_GDS_SE_CD_DEFAULT);
+									rawMtrWrhsVO.setWrhsSeCd(AmConstants.CON_WRHS_SE_CD_DEFAULT);
+									rawMtrWrhsVO.setTrsprtSeCd(AmConstants.CON_TRSPRT_SE_CD_DEFAULT);
+									
+									rtnObj = rawMtrWrhsService.insertRawMtrWrhs(rawMtrWrhsVO);
+									
+									if (rtnObj != null) {
+										throw new EgovBizException(getMessageForMap(rtnObj));
+									}
+									
+									invntrForSortList = rawMtrInvntrService.selectRawMtrInvntrListForSort(param);
+									
+								} else {
+									return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "선별가능재고");
+								}
+							}
+							
+							if (invntrForSortList == null || invntrForSortList.isEmpty()) {
 								return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "선별가능재고");
 							}
 							
@@ -1107,6 +1196,12 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 									sortQntt = 0;
 									sortWght = 0;
 								}
+								
+								sort.setWrhsno(orgnInv.getWrhsno());
+								sort.setRprsPrdcrCd(orgnInv.getPrdcrCd());
+								sort.setGdsSeCd(orgnInv.getGdsSeCd());
+								sort.setWrhsSeCd(orgnInv.getWrhsSeCd());
+								sort.setPrdctnYr(orgnInv.getPrdctnYr());
 								
 								RawMtrInvntrVO invntrVO = new RawMtrInvntrVO();
 								BeanUtils.copyProperties(sortMngVO, invntrVO);

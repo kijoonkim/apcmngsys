@@ -267,7 +267,7 @@ public class SortPrfmncVO extends ComVO {
 	 * 포장자동등록 유무
 	 */
 	private String autoPckgInptYn;
-
+	
 	/**
 	 * 상품코드
 	 */

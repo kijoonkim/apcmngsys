@@ -164,10 +164,6 @@ public class AmConstants {
      */
     public final static String CON_PRCS_TYPE_RAW_MTR_REPRCS = "RR";
     
-    /**
-     * 운송구분 : 3 기타
-     */
-    public final static String CON_TRSPRT_SE_CD_ETC = "3";
     
     /**
      * 표준등급유형 : RT 비율(%)
@@ -233,5 +229,36 @@ public class AmConstants {
      */
     public final static String CON_LGSZ_MRKT_CD_GSRETAIL = "41";
 
+    /**
+     * 상품구분코드 기본:
+     */
+    public final static String CON_GDS_SE_CD_DEFAULT = "1";
+    public final static String CON_GDS_SE_CD_NORMAL = "1";
+    public final static String CON_GDS_SE_CD_GAP = "2";
+    public final static String CON_GDS_SE_CD_PESTICIDE_FREE = "3";
+    public final static String CON_GDS_SE_CD_ORGANIC = "4";
+    public final static String CON_GDS_SE_CD_LOW_CARBON = "5";
+    
+    public final static String CON_WRHS_SE_CD_DEFAULT = "3";
+    public final static String CON_WRHS_SE_CD_PURCHASE = "1";
+    public final static String CON_WRHS_SE_CD_CONSIGNMENT = "2";
+    public final static String CON_WRHS_SE_CD_ENSURE_MINIMUM = "3";
+    public final static String CON_WRHS_SE_CD_GOODS = "4";
+
+    public final static String CON_TRSPRT_SE_CD_DEFAULT = "3";
+    public final static String CON_TRSPRT_SE_CD_SELF = "1";
+    public final static String CON_TRSPRT_SE_CD_SERVICE = "2";
+    public final static String CON_TRSPRT_SE_CD_ETC = "3";
+    
+    
+    public final static String CON_WRHS_SPMT_SE_CD_WRHS = "1";
+    public final static String CON_WRHS_SPMT_SE_CD_SPMT = "2";
+    
+    public final static String CON_WRHS_SPMT_TYPE_WRHS = "RT";
+    public final static String CON_WRHS_SPMT_TYPE_SPMT = "DT";
+    public final static String CON_WRHS_SPMT_TYPE_TRFT = "TF";
+    
+    
+    
     
 }

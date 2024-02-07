@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at.apcss.am.spmt.service.SpmtPrfmncService;
+import com.at.apcss.am.spmt.vo.SpmtPrfmncComVO;
 import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
@@ -61,42 +62,71 @@ public class SpmtPrfmncController extends BaseController {
 	}
 
 	// 출하실적 집계조회
-		@PostMapping(value = "/am/spmt/selectSpmtPrfmncTotalList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-		public ResponseEntity<HashMap<String, Object>> selectSpmtPrfmncTotalList(@RequestBody SpmtPrfmncVO SpmtPrfmncVO, HttpServletRequest request) throws Exception {
+	@PostMapping(value = "/am/spmt/selectSpmtPrfmncTotalList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectSpmtPrfmncTotalList(@RequestBody SpmtPrfmncVO SpmtPrfmncVO, HttpServletRequest request) throws Exception {
 
-			HashMap<String, Object> resultMap = new HashMap<String, Object>();
-			List<SpmtPrfmncVO> resultList = new ArrayList<>();
-			try {
-				resultList = spmtPrfmncService.selectSpmtPrfmncTotalList(SpmtPrfmncVO);
-			} catch (Exception e) {
-				logger.debug(ComConstants.ERROR_CODE, e.getMessage());
-				return getErrorResponseEntity(e);
-			} finally {
-				HashMap<String, Object> rtnObj = setMenuComLog(request);
-				if (rtnObj != null) {
-					return getErrorResponseEntity(rtnObj);
-				}
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<SpmtPrfmncVO> resultList = new ArrayList<>();
+		try {
+			resultList = spmtPrfmncService.selectSpmtPrfmncTotalList(SpmtPrfmncVO);
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
 			}
-			resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-			return getSuccessResponseEntity(resultMap);
 		}
-
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
 
 	// 출하실적 등록
+	@PostMapping(value = "/am/spmt/insertSpmtPrfmncByGrd.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertSpmtPrfmncByGrd(@RequestBody SpmtPrfmncComVO spmtPrfmncComVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			
+			spmtPrfmncComVO.setSysFrstInptUserId(getUserId());
+			spmtPrfmncComVO.setSysFrstInptPrgrmId(getPrgrmId());
+			spmtPrfmncComVO.setSysLastChgUserId(getUserId());
+			spmtPrfmncComVO.setSysLastChgPrgrmId(getPrgrmId());
+			
+			HashMap<String, Object> rtnObj = spmtPrfmncService.insertSpmtPrfmncByGrd(spmtPrfmncComVO);
+			if(rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	
+	// 출하실적 등록
 	@PostMapping(value = "/am/spmt/insertSpmtPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> insertSpmtPrfmncList(@RequestBody List<SpmtPrfmncVO> SpmtPrfmncList, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> insertSpmtPrfmncList(@RequestBody List<SpmtPrfmncVO> spmtPrfmncList, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
 
-			for (SpmtPrfmncVO spmtPrfmncVO : SpmtPrfmncList) {
+			for (SpmtPrfmncVO spmtPrfmncVO : spmtPrfmncList) {
 				spmtPrfmncVO.setSysFrstInptUserId(getUserId());
 				spmtPrfmncVO.setSysFrstInptPrgrmId(getPrgrmId());
 				spmtPrfmncVO.setSysLastChgUserId(getUserId());
 				spmtPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
 
-			HashMap<String, Object> rtnObj = spmtPrfmncService.insertSpmtPrfmncList(SpmtPrfmncList);
+			HashMap<String, Object> rtnObj = spmtPrfmncService.insertSpmtPrfmncList(spmtPrfmncList);
 			if(rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}
