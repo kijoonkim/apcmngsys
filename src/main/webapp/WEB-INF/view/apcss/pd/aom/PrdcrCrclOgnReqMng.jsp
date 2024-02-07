@@ -2501,6 +2501,7 @@
 		SBGridProperties.rowheader="seq";
 		SBGridProperties.columns = [
 			{caption: ["신청년도"],					ref: 'yr',					type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["법인체마감"], 				ref: 'corpDdlnSeCd',		type:'output',  width:'70px',	style:'text-align:center'},
 			{caption: ["사업자번호"],				ref: 'brno',				type:'output',  width:'150px',	style:'text-align:center'},
 			{caption: ["업체명"],					ref: 'corpNm',				type:'output',  width:'90px',	style:'text-align:center'},
 			{caption: ["품목분류"],					ref: 'ctgryNm',				type:'output',  width:'90px',	style:'text-align:center'},
@@ -2562,6 +2563,7 @@
 			data.resultList.forEach((item, index) => {
 				let hiddenGrdVO = {
 						yr					:item.yr
+						,corpDdlnSeCd		:item.corpDdlnSeCd
 						,brno				:item.brno
 						,corpNm				:item.corpNm
 						,ctgryNm			:item.ctgryNm
