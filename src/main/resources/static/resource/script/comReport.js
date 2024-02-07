@@ -116,7 +116,7 @@ const gfn_drawClipReport = async function(divId, reportKey) {
 	report.setStyle("close_button", "display:none;");
 	//report.setStrExePrintServerPath("http://133.186.212.16/ClipReport/Clip.jsp");
 	report.view();
-
+	//report.exeDirectPrint(false, "", "", 1, -1, 1, "");
 	//report.exePrint(false, "", "", 1, -1, 1, "");
 }
 

@@ -1041,10 +1041,12 @@
      */
 	const fn_setGrdRawMtrWrhs = async function() {
    		let wrhsYmd = SBUxMethod.get("srch-dtp-wrhsYmd");	// 입고일자
+   		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");	// 품종
 
 		const postJsonPromise = gfn_postJSON("/am/wrhs/selectRawMtrWrhsList.do", {
 			apcCd: gv_selectedApcCd,
-			wrhsYmd: wrhsYmd
+			wrhsYmd: wrhsYmd,
+			vrtyCd: vrtyCd
   		});
 
         const data = await postJsonPromise;
@@ -1153,7 +1155,7 @@
 			SBUxMethod.set("srch-slt-vrtyCd", "");
 		}
 
-		if (!SBUxMethod.get("srch-chk-fxngWghtAvg")["srch-chk-fxngWghtAvg"]) {
+		if (!SBUxMethod.get("srch-chk-fxngWghtAvg")["srch-chk-fxngWghtAvg"] && !SBUxMethod.get("srch-chk-fxngItem")["srch-chk-fxngItem"]) {
 	 		// 평균
 			SBUxMethod.set("srch-inp-wghtAvg", "");
 
