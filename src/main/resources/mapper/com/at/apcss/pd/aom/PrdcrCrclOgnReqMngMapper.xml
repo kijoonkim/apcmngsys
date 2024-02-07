@@ -617,6 +617,65 @@
 				AND YR		= #{yr}
     </update>
 
+	<!-- 로우데이터 요청 -->
+	<select id="hiddenGrdUoSelectList" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO" resultType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
+		SELECT
+			 B.YR
+			,A.BRNO
+			,A.CORP_NM
+			,C.CTGRY_NM
+			,DECODE(C.STTG_UPBR_ITEM_SE,1,'전문',2,'육성','') AS STTG_UPBR_ITEM_NM
+			,C.ITEM_NM
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CMPTN_INST_CTPV' AND CD_VL = A.CTPV) AS CTPV
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CMPTN_INST_SIGUN' AND CD_VL = A.SGG) AS SGG
+			,A.ZIP
+			,DECODE(A.ROAD_NM_DTL_ADDR , '' , '[지번]' || A.LOTNO_ADDR || ' ' || A.LOTNO_DTL_ADDR , '[도로명]' || A.ROAD_NM_ADDR || ' ' || A.ROAD_NM_DTL_ADDR ) AS ADDR
+			,A.ROAD_NM_ADDR || ' ' ||A.ROAD_NM_DTL_ADDR AS ADDRR
+			,DECODE(A.APRV ,'1','승인형','2', '육성형','') AS APRV
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CORP_SE_CD' AND CD_VL = A.CORP_SE_CD) AS CORP_SE_CD
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CORP_SHAP' AND CD_VL = A.CORP_DTL_SE_CD) AS CORP_DTL_SE_CD
+			,A.INVST_AMT
+			,A.FRMER_INVST_AMT
+			,A.PRDCR_GRP_INVST_AMT
+			,A.LOCGOV_INVST_AMT
+			,A.ETC_INVST_AMT
+			,A.FRMER_INVST_AMT_RT
+			,A.INVST_NOPE
+			,A.INVST_EXPND_FRMER_NOPE
+			,A.CORP_FNDN_DAY
+			,NVL(A.RGLLBR_NOPE,0) +NVL(A.DW_NOPE,0) +NVL(A.DLBRR_NOPE,0) AS NOPE_TOT
+			,NVL(A.RGLLBR_NOPE,0) AS RGLLBR_NOPE
+			,NVL(A.DW_NOPE,0) AS DW_NOPE
+			,NVL(A.DLBRR_NOPE,0) AS DLBRR_NOPE
+			,NVL(B.PRUO_FUND_APLY_AMT,0) AS PRUO_FUND_APLY_AMT
+			,NVL(B.ISO_FUND_APLY_AMT,0) AS ISO_FUND_APLY_AMT
+			,NVL(B.PRUO_FUND_APLY_AMT,0) + NVL(B.ISO_FUND_APLY_AMT,0) AS FUND_APLY_AMT_TOT
+			,A.PIC_FLNM
+			,A.PIC_TELNO
+			,A.PIC_MOBLNO
+			,A.PIC_EML
+		FROM  USRAM.TB_EV_APO A
+			, USRAM.TB_EV_APLY_MNG B
+			, USRAM.TB_EV_APO_YR_GPC_CD C
+		WHERE 1=1
+		  AND B.YR = '2024'
+		  AND A.APO_CD = B.APO_CD
+		  AND A.APO_SE  = B.APO_SE
+		  AND B.YR = C.YR
+		  AND B.APO_CD = C.APO_CD
+		  AND B.APO_SE = '1'
+		  AND A.CORP_NM NOT IN ('테스트 통합조직 at17'
+								,'at21(출자출하조직21)_테스트'
+								,'at11(통합조직11)_테스트'
+								,'at12(통합조직12)_테스트'
+								,'at13(통합보직13)_테스트'
+								,'at14(통합조직14)_테스트'
+								,'at15(통합조직15)_테스트'
+								,'at16(통합조직16)_테스트'
+								,'at17(통합조직17)_테스트'
+								)
+		ORDER BY A.CORP_NM
+	</select>
 </mapper>
 
 

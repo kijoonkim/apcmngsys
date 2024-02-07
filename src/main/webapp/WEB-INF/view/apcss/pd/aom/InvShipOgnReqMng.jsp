@@ -1910,12 +1910,12 @@
 	function fn_excelDown(){
 		const currentDate = new Date();
 
-		const year = currentDate.getFullYear();
-		const month = currentDate.getMonth() + 1; // 월은 0부터 시작하므로 1을 더합니다.
-		const day = currentDate.getDate();
-		console.log(year+month+day);
-		console.log(year+""+month+""+day);
-		let fileName = "출자출하조직 로우데이터";
+		const year = currentDate.getFullYear().toString().padStart(4, '0');
+		const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');// 월은 0부터 시작하므로 1을 더합니다.
+		const day = currentDate.getDate().toString().padStart(2, '0');
+		let formattedDate = year + month + day;
+
+		let fileName = formattedDate + "_출자출하조직_로우데이터";
 
 		/*
 		datagrid.exportData(param1, param2, param3, param4);

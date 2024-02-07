@@ -118,4 +118,11 @@ public class PrdcrCrclOgnReqMngServiceImpl extends BaseServiceImpl implements Pr
 	public int updateCorpDdlnSeCd(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception {
 		return PrdcrCrclOgnReqMngMapper.updateCorpDdlnSeCd(PrdcrCrclOgnReqMngVO);
 	}
+
+	@Override
+	public List<PrdcrCrclOgnReqMngVO> hiddenGrdUoSelectList(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception {
+
+		List<PrdcrCrclOgnReqMngVO> resultList = PrdcrCrclOgnReqMngMapper.hiddenGrdUoSelectList(PrdcrCrclOgnReqMngVO);
+		return resultList;
+	}
 }
