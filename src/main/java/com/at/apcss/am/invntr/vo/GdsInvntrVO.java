@@ -186,6 +186,16 @@ public class GdsInvntrVO extends ComVO {
 	private double invntrWght;
 
 	/**
+	 * 잔여수량
+	 */
+	private int rmnQntt;
+	/**
+	 * 잔여중량
+	 */
+	private double rmnWght;
+	
+	
+	/**
 	 * 지시수량
 	 */
 	private int cmndQntt;

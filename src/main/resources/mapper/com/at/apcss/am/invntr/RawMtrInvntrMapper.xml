@@ -1010,6 +1010,7 @@
 					, PRCS_NO
 					, PRCS_TYPE
 					, RMRK
+					, INVNTR_STTS_CD
 		    		, SYS_FRST_INPT_DT
 		    		, SYS_FRST_INPT_USER_ID
 		    		, SYS_FRST_INPT_PRGRM_ID
@@ -1042,6 +1043,7 @@
 					, #{prcsNo}
 					, #{prcsType}
 					, #{rmrk}
+					, #{invntrSttsCd}
 		    		, SYSDATE
 		    		, #{sysFrstInptUserId}
 		    		, #{sysFrstInptPrgrmId}

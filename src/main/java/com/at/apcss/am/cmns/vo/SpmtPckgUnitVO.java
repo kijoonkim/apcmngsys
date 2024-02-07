@@ -42,10 +42,15 @@ public class SpmtPckgUnitVO extends ComVO{
 	 * 품종코드
 	 */
 	private String vrtyCd;
+	
+	private String itemVrtyCd;
+	
 	/**
 	 * 규격코드
 	 */
 	private String spcfctCd;
+	
+	private String itemSpcfctCd;
 	/**
 	 * 품목명
 	 */

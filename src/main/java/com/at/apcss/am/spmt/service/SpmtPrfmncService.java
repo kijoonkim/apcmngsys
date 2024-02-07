@@ -3,6 +3,7 @@ package com.at.apcss.am.spmt.service;
 import java.util.HashMap;
 import java.util.List;
 
+import com.at.apcss.am.spmt.vo.SpmtPrfmncComVO;
 import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
 
 /**
@@ -93,6 +94,14 @@ public interface SpmtPrfmncService {
 	 */
 	public int deleteSpmtPrfmncDtl(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
 
+	/**
+	 * 출하실적 등록
+	 * @param SpmtPrfmncComVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertSpmtPrfmncByGrd(SpmtPrfmncComVO spmtPrfmncComVO) throws Exception;
+	
 	/**
 	 * 출하실적 등록
 	 * @param List<SpmtPrfmncVO>

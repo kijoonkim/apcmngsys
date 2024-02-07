@@ -331,6 +331,12 @@ public class RawMtrInvntrVO extends ComVO {
 	/*비고*/
 	private String rmrk;
 
+	
+	/**
+	 * 재고상태코드
+	 */
+	private String invntrSttsCd;
+	
 	/**
 	 * 표준등급
 	 */

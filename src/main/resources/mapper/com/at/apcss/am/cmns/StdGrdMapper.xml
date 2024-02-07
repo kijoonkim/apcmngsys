@@ -283,13 +283,13 @@
 			    , SG.GRD_KND        AS GRD_KND
 			    , SG.GRD_KND_NM		AS GRD_KND_NM
 			    , SG.STD_GRD_TYPE	AS STD_GRD_TYPE
-			    , (SELECT FN_GET_ITEM_NM(SG.ITEM_CD, SG.APC_CD) FROM DUAL) AS ITEM_NM
 			    , SGD.GRD_CD        AS GRD_CD
 			    , SGD.GRD_NM        AS GRD_NM
 			    , SGD.GRD_VL      	AS GRD_VL
 			    , SGD.AFTR_GRD_KND	AS AFTR_GRD_KND
 				, SGD.AFTR_GRD_CD	AS AFTR_GRD_CD
 				, SGD.LINK_GRD_CD	AS LINK_GRD_CD
+				, SG.ITEM_CD || SG.GRD_KND || SGD.GRD_CD	AS ITEM_GRD_CD
 			    , SGD.SN            AS SN
 			    , SGD.DEL_YN        AS DEL_YN
 

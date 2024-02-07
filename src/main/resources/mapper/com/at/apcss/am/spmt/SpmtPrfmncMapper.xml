@@ -635,6 +635,9 @@
 		<if test='vrtyCd != null and vrtyCd != ""'>
 		   	   AND PD.VRTY_CD = #{vrtyCd}
 		</if>
+		<if test='cnptCd != null and cnptCd != ""'>
+		   	   AND PC.CNPT_CD = #{cnptCd}
+		</if>
 		<![CDATA[
 		 		 GROUP BY PD.APC_CD, PD.SPMTNO, PC.SPMT_YMD , PD.ITEM_CD, PD.VRTY_CD, PD.SPCFCT_CD, PD.GDS_GRD, PD.SPMT_PCKG_UNIT_CD
 		 	) pt0
