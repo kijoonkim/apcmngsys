@@ -1495,15 +1495,15 @@
 
 		const postJsonPromise = gfn_postJSON("/pd/aom/insertInvShipOgnReqMng.do", {
 			apoCd: SBUxMethod.get('dtl-input-apoCd')//
-   	 		,apoSe: '2'// 해당화면 등록자는 전부 출자출하조직임
+			,apoSe: '2'// 해당화면 등록자는 전부 출자출하조직임
 			,brno: SBUxMethod.get('dtl-input-brno')//
 			,uoBrno: SBUxMethod.get('dtl-input-uoBrno')//
 			,uoCd: SBUxMethod.get('dtl-input-uoCd')//
 			,crno: SBUxMethod.get('dtl-input-crno')//
 			,corpNm: SBUxMethod.get('dtl-input-corpNm')//
 			,yr: SBUxMethod.get('dtl-input-yr')//
-   	 		,isoFundAplyAmt: SBUxMethod.get('dtl-input-isoFundAplyAmt')//
-  		});
+			,isoFundAplyAmt: SBUxMethod.get('dtl-input-isoFundAplyAmt')//
+		});
 
 		const data = await postJsonPromise;
 		console.log("update result", data);
@@ -1512,21 +1512,21 @@
 			if (_.isEqual("S", data.resultStatus)) {
 				alert("처리 되었습니다.");
 				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
-        		fn_search();
-        	</c:if>
-        	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
-        		//통합조직인 경우
-        		<c:if test="${loginVO.userType eq '21'}">
-        		//console.log('통합조직인');
-        		//fn_dtlSearch();
-        		fn_dtlSearch01();
-        		</c:if>
-        		//출하조직인 경우
-        		<c:if test="${loginVO.userType eq '22'}">
-        		//console.log('출하조직인');
-        		fn_dtlSearch02();
-        		</c:if>
-        	</c:if>
+				fn_search();
+			</c:if>
+			<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+				//통합조직인 경우
+				<c:if test="${loginVO.userType eq '21'}">
+				//console.log('통합조직인');
+				//fn_dtlSearch();
+				fn_dtlSearch01();
+				</c:if>
+				//출하조직인 경우
+				<c:if test="${loginVO.userType eq '22'}">
+				//console.log('출하조직인');
+				fn_dtlSearch02();
+				</c:if>
+			</c:if>
 			} else {
 				//alert(data.resultMessage);
 			}
@@ -1543,21 +1543,21 @@
 		console.log("******************fn_view**********************************");
 		fn_clearForm();
 
-	    //데이터가 존재하는 그리드 범위 확인
+		//데이터가 존재하는 그리드 범위 확인
 		var nCol = grdInvShipOgnReqMng.getCol();
-	    if (nCol < 1) {
-	        return;
-	    }
-	    var nRow = grdInvShipOgnReqMng.getRow();
+		if (nCol < 1) {
+			return;
+		}
+		var nRow = grdInvShipOgnReqMng.getRow();
 		if (nRow < 1) {
-	        return;
+			return;
 		}
 		if(nRow == null){
 			nRow = 1;
 		}
 
 		//해당 로우 데이터로 출자출하조직 리스트 조회
-        let rowData = grdInvShipOgnReqMng.getRowData(nRow);
+		let rowData = grdInvShipOgnReqMng.getRowData(nRow);
 		console.log(rowData);
 
 		//콤보박스로 선택할수 있게 변경 됨
@@ -1569,15 +1569,15 @@
 
 		let postJsonPromise = gfn_postJSON("/pd/aom/selectInvShipOgnReqMngList.do", {
 			uoBrno : uoBrno
-    		//,apoCd : apoCd
+			//,apoCd : apoCd
 
 		});
-        let data = await postJsonPromise;
-        try{
-        	jsonInvShipOgnReqMng01.length = 0;
-        	console.log("data==="+data);
-        	data.resultList.forEach((item, index) => {
-        		let InvShipOgnReqMngVO = {
+		let data = await postJsonPromise;
+		try{
+			jsonInvShipOgnReqMng01.length = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
+				let InvShipOgnReqMngVO = {
 						apoCd: item.apoCd
 						,uoBrno: item.uoBrno
 						,uoBrnoDel: item.uoBrnoDel
@@ -1616,24 +1616,24 @@
 				jsonInvShipOgnReqMng01.push(InvShipOgnReqMngVO);
 			});
 
-        	grdInvShipOgnReqMng01.rebuild();
-        }catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        }
-    }
+			grdInvShipOgnReqMng01.rebuild();
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
 
 	//출자출하조직 상세 조회
 	const fn_view01 = async function(){
 		console.log("******************fn_view**********************************");
 
-	    //데이터가 존재하는 그리드 범위 확인
+		//데이터가 존재하는 그리드 범위 확인
 		var nCol = grdInvShipOgnReqMng01.getCol();
-	    if (nCol < 1) {
-	        return;
-	    }
+		if (nCol < 1) {
+			return;
+		}
 	    var nRow = grdInvShipOgnReqMng01.getRow();
 		if (nRow < 1) {
 	        return;
@@ -1812,41 +1812,42 @@
 	const fn_hiddenGrd = async function() {
 
 		let SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-hiddenGrd';
-	    SBGridProperties.id = 'hiddenGrd';
-	    SBGridProperties.jsonref = 'jsonHiddenGrd';
-	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.oneclickedit = true;
-	    SBGridProperties.rowheader="seq";
-	    SBGridProperties.columns = [
-	    	{caption: ["신청구분"], 				ref: 'aprv',   				type:'output',  width:'70px',    style:'text-align:center'},
-	    	{caption: ["통합조직사업자번호"], 			ref: 'uoBrno',   			type:'output',  width:'130px',    style:'text-align:center'},
-	    	{caption: ["통합조직명"], 				ref: 'uoCorpNm',   			type:'output',  width:'220px',    style:'text-align:center'},
-	    	{caption: ["주소"], 					ref: 'addr',   				type:'output',  width:'330px',    style:'text-align:center'},
-	    	{caption: ["출자출하조직사업자번호"], 		ref: 'brno',   				type:'output',  width:'150px',    style:'text-align:center'},
-	    	{caption: ["출자출하조직명"], 			ref: 'corpNm',   			type:'output',  width:'90px',    style:'text-align:center'},
-	        {caption: ["복수출자출하 여부"], 			ref: 'uoBrnoCnt',   		type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["법인구분"], 				ref: 'corpSeCd',   			type:'output',  width:'70px',    style:'text-align:center'},
-	        {caption: ["법인형태"], 				ref: 'corpDtlSeCd',   		type:'output',  width:'70px',    style:'text-align:center'},
-	        {caption: ["설립연도"], 				ref: 'corpFndnDay',  		type:'output',  width:'130px',    style:'text-align:center'},
-	        {caption: ["출자자수"], 				ref: 'invstNope',   		type:'output',  width:'90px',    style:'text-align:center'},
-	        {caption: ["출자자 중 농업인수"], 			ref: 'invstExpndFrmerNope', type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["출자금"], 					ref: 'invstAmt',   			type:'output',  width:'90px',    style:'text-align:center'},
-	        {caption: ["농업인 출자금 지분"], 			ref: 'frmerInvstAmt',   	type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["생산자단체 출자금 지분"], 		ref: 'prdcrGrpInvstAmt',   	type:'output',  width:'140px',    style:'text-align:center'},
-	        {caption: ["지자체 출자금지분"], 			ref: 'locgovInvstAmt',   	type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["기타 출자금지분"], 			ref: 'etcInvstAmt',   		type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["농업인출자지분율"], 			ref: 'frmerInvstAmtRt',   	type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["출자출하조직 2024년 자금신청액"],	ref: 'isoFundAplyAmt',   	type:'output',  width:'200px',    style:'text-align:center'},
-	        {caption: ["작성자 성명"], 				ref: 'picFlnm',   			type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["작성자 전화번호"], 			ref: 'picTelno',   			type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["작성자 휴대번호"], 			ref: 'picMoblno',   		type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["작성자 이메일주소"], 			ref: 'picEml',   			type:'output',  width:'210px',    style:'text-align:center'},
-	    ];
+		SBGridProperties.parentid = 'sb-area-hiddenGrd';
+		SBGridProperties.id = 'hiddenGrd';
+		SBGridProperties.jsonref = 'jsonHiddenGrd';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.rowheader="seq";
+		SBGridProperties.columns = [
+			{caption: ["신청구분"],					ref: 'aprv',				type:'output',	width:'70px',    style:'text-align:center'},
+			{caption: ["법인체마감"],				ref: 'corpDdlnSeCd',		type:'output',	width:'70px',    style:'text-align:center'},
+			{caption: ["통합조직사업자번호"],			ref: 'uoBrno',				type:'output',  width:'130px',    style:'text-align:center'},
+			{caption: ["통합조직명"],				ref: 'uoCorpNm',			type:'output',  width:'220px',    style:'text-align:center'},
+			{caption: ["주소"],					ref: 'addr',				type:'output',  width:'330px',    style:'text-align:center'},
+			{caption: ["출자출하조직사업자번호"],		ref: 'brno',				type:'output',  width:'150px',    style:'text-align:center'},
+			{caption: ["출자출하조직명"],				ref: 'corpNm',				type:'output',  width:'90px',    style:'text-align:center'},
+			{caption: ["복수출자출하 여부"],			ref: 'uoBrnoCnt',			type:'output',  width:'120px',    style:'text-align:center'},
+			{caption: ["법인구분"],					ref: 'corpSeCd',			type:'output',  width:'70px',    style:'text-align:center'},
+			{caption: ["법인형태"],					ref: 'corpDtlSeCd',			type:'output',  width:'70px',    style:'text-align:center'},
+			{caption: ["설립연도"],					ref: 'corpFndnDay',			type:'output',  width:'130px',    style:'text-align:center'},
+			{caption: ["출자자수"],					ref: 'invstNope',			type:'output',  width:'90px',    style:'text-align:center'},
+			{caption: ["출자자 중 농업인수"],			ref: 'invstExpndFrmerNope', type:'output',  width:'120px',    style:'text-align:center'},
+			{caption: ["출자금"],					ref: 'invstAmt',			type:'output',  width:'90px',    style:'text-align:center'},
+			{caption: ["농업인 출자금 지분"],			ref: 'frmerInvstAmt',		type:'output',  width:'120px',    style:'text-align:center'},
+			{caption: ["생산자단체 출자금 지분"],		ref: 'prdcrGrpInvstAmt',	type:'output',  width:'140px',    style:'text-align:center'},
+			{caption: ["지자체 출자금지분"],			ref: 'locgovInvstAmt',		type:'output',  width:'120px',    style:'text-align:center'},
+			{caption: ["기타 출자금지분"],			ref: 'etcInvstAmt',			type:'output',  width:'120px',    style:'text-align:center'},
+			{caption: ["농업인출자지분율"],			ref: 'frmerInvstAmtRt',		type:'output',  width:'120px',    style:'text-align:center'},
+			{caption: ["출자출하조직 2024년 자금신청액"],	ref: 'isoFundAplyAmt',		type:'output',  width:'200px',    style:'text-align:center'},
+			{caption: ["작성자 성명"],				ref: 'picFlnm',				type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["작성자 전화번호"],			ref: 'picTelno',			type:'output',  width:'100px',    style:'text-align:center'},
+			{caption: ["작성자 휴대번호"],			ref: 'picMoblno',			type:'output',  width:'100px',    style:'text-align:center'},
+			{caption: ["작성자 이메일주소"],			ref: 'picEml',				type:'output',  width:'210px',    style:'text-align:center'},
+		];
 
-	    hiddenGrd = _SBGrid.create(SBGridProperties);
+		hiddenGrd = _SBGrid.create(SBGridProperties);
 
 	}
 	const fn_hiddenGrdSelect = async function(){
@@ -1862,50 +1863,52 @@
 			yr : yr
 		});
 
-        let data = await postJsonPromise;
-        try{
-        	jsonHiddenGrd.length = 0;
-        	console.log("data==="+data);
-        	data.resultList.forEach((item, index) => {
-        		let hiddenGrdVO = {
-        				aprv:						item.aprv
-        				, uoBrno:					item.uoBrno
-        				, uoCorpNm:					item.uoCorpNm
-        				, addr:						item.addr
-        				, brno:						item.brno
-        				, corpNm:					item.corpNm
-        				, uoBrnoCnt:				item.uoBrnoCnt
-        				, corpSeCd:					item.corpSeCd
-        				, corpDtlSeCd:				item.corpDtlSeCd
-        				, corpFndnDay:				item.corpFndnDay
-        				, invstNope:				item.invstNope
-        				, invstExpndFrmerNope:		item.invstExpndFrmerNope
-        				, invstAmt:					item.invstAmt
-        				, frmerInvstAmt:			item.frmerInvstAmt
-        				, prdcrGrpInvstAmt:			item.prdcrGrpInvstAmt
-        				, locgovInvstAmt:			item.locgovInvstAmt
-        				, etcInvstAmt:					item.etcInvstAmt
-        				, frmerInvstAmtRt:			item.frmerInvstAmtRt
-        				, isoFundAplyAmt:			item.isoFundAplyAmt
-        				, picFlnm:					item.picFlnm
-        				, picTelno:					item.picTelno
-        				, picMoblno:				item.picMoblno
-        				, picEml:					item.picEml
+		let data = await postJsonPromise;
+		try{
+			jsonHiddenGrd.length = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
+				let hiddenGrdVO = {
+						aprv:						item.aprv
+						, corpDdlnSeCd:				item.corpDdlnSeCd
+						, uoBrno:					item.uoBrno
+						, uoCorpNm:					item.uoCorpNm
+						, addr:						item.addr
+						, brno:						item.brno
+						, corpNm:					item.corpNm
+						, uoBrnoCnt:				item.uoBrnoCnt
+						, corpSeCd:					item.corpSeCd
+						, corpDtlSeCd:				item.corpDtlSeCd
+						, corpFndnDay:				item.corpFndnDay
+						, invstNope:				item.invstNope
+						, invstExpndFrmerNope:		item.invstExpndFrmerNope
+						, invstAmt:					item.invstAmt
+						, frmerInvstAmt:			item.frmerInvstAmt
+						, prdcrGrpInvstAmt:			item.prdcrGrpInvstAmt
+						, locgovInvstAmt:			item.locgovInvstAmt
+						, etcInvstAmt:					item.etcInvstAmt
+						, frmerInvstAmtRt:			item.frmerInvstAmtRt
+						, isoFundAplyAmt:			item.isoFundAplyAmt
+						, picFlnm:					item.picFlnm
+						, picTelno:					item.picTelno
+						, picMoblno:				item.picMoblno
+						, picEml:					item.picEml
+						, picEml:					item.picEml
 				}
 				jsonHiddenGrd.push(hiddenGrdVO);
 			});
 
-        	await hiddenGrd.rebuild();
+			await hiddenGrd.rebuild();
 
-        	await fn_excelDown();
+			await fn_excelDown();
 
-        }catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        }
-    }
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
 	//로우 데이터 엑셀 다운로드
 	function fn_excelDown(){
 		const currentDate = new Date();
