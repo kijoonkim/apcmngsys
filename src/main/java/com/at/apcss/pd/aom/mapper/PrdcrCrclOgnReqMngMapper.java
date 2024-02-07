@@ -50,4 +50,6 @@ public interface PrdcrCrclOgnReqMngMapper {
 
 	public int updateCorpDdlnSeCd(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO);
 
+	public List<PrdcrCrclOgnReqMngVO> hiddenGrdUoSelectList(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO);
+
 }

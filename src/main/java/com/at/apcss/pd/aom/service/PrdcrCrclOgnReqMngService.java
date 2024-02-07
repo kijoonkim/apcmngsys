@@ -50,4 +50,6 @@ public interface PrdcrCrclOgnReqMngService {
 
 	public int updateCorpDdlnSeCd(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception;
 
+	public List<PrdcrCrclOgnReqMngVO> hiddenGrdUoSelectList(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception;
+
 }

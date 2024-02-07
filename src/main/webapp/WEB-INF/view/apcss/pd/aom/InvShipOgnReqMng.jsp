@@ -1824,7 +1824,7 @@
 	    	{caption: ["신청구분"], 				ref: 'aprv',   				type:'output',  width:'70px',    style:'text-align:center'},
 	    	{caption: ["통합조직사업자번호"], 			ref: 'uoBrno',   			type:'output',  width:'130px',    style:'text-align:center'},
 	    	{caption: ["통합조직명"], 				ref: 'uoCorpNm',   			type:'output',  width:'220px',    style:'text-align:center'},
-	    	{caption: ["주소"], 					ref: 'add',   				type:'output',  width:'330px',    style:'text-align:center'},
+	    	{caption: ["주소"], 					ref: 'addr',   				type:'output',  width:'330px',    style:'text-align:center'},
 	    	{caption: ["출자출하조직사업자번호"], 		ref: 'brno',   				type:'output',  width:'150px',    style:'text-align:center'},
 	    	{caption: ["출자출하조직명"], 			ref: 'corpNm',   			type:'output',  width:'90px',    style:'text-align:center'},
 	        {caption: ["복수출자출하 여부"], 			ref: 'uoBrnoCnt',   		type:'output',  width:'120px',    style:'text-align:center'},
@@ -1837,7 +1837,7 @@
 	        {caption: ["농업인 출자금 지분"], 			ref: 'frmerInvstAmt',   	type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["생산자단체 출자금 지분"], 		ref: 'prdcrGrpInvstAmt',   	type:'output',  width:'140px',    style:'text-align:center'},
 	        {caption: ["지자체 출자금지분"], 			ref: 'locgovInvstAmt',   	type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["기타 출자금지분"], 			ref: 'etcAmt',   			type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["기타 출자금지분"], 			ref: 'etcInvstAmt',   		type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["농업인출자지분율"], 			ref: 'frmerInvstAmtRt',   	type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["출자출하조직 2024년 자금신청액"],	ref: 'isoFundAplyAmt',   	type:'output',  width:'200px',    style:'text-align:center'},
 	        {caption: ["작성자 성명"], 				ref: 'picFlnm',   			type:'output',  width:'80px',    style:'text-align:center'},
@@ -1871,7 +1871,7 @@
         				aprv:						item.aprv
         				, uoBrno:					item.uoBrno
         				, uoCorpNm:					item.uoCorpNm
-        				, add:						item.add
+        				, addr:						item.addr
         				, brno:						item.brno
         				, corpNm:					item.corpNm
         				, uoBrnoCnt:				item.uoBrnoCnt
@@ -1884,7 +1884,7 @@
         				, frmerInvstAmt:			item.frmerInvstAmt
         				, prdcrGrpInvstAmt:			item.prdcrGrpInvstAmt
         				, locgovInvstAmt:			item.locgovInvstAmt
-        				, etcAmt:					item.etcAmt
+        				, etcInvstAmt:					item.etcInvstAmt
         				, frmerInvstAmtRt:			item.frmerInvstAmtRt
         				, isoFundAplyAmt:			item.isoFundAplyAmt
         				, picFlnm:					item.picFlnm
@@ -1910,12 +1910,12 @@
 	function fn_excelDown(){
 		const currentDate = new Date();
 
-		const year = currentDate.getFullYear();
-		const month = currentDate.getMonth() + 1; // 월은 0부터 시작하므로 1을 더합니다.
-		const day = currentDate.getDate();
-		console.log(year+month+day);
-		console.log(year+""+month+""+day);
-		let fileName = "출자출하조직 로우데이터";
+		const year = currentDate.getFullYear().toString().padStart(4, '0');
+		const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');// 월은 0부터 시작하므로 1을 더합니다.
+		const day = currentDate.getDate().toString().padStart(2, '0');
+		let formattedDate = year + month + day;
+
+		let fileName = formattedDate + "_출자출하조직_로우데이터";
 
 		/*
 		datagrid.exportData(param1, param2, param3, param4);
