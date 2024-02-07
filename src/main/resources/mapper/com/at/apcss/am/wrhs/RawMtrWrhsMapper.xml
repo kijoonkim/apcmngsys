@@ -163,7 +163,7 @@
 		</if>
 
 		<![CDATA[
-		 	 ORDER BY APC_CD, WRHS_YMD, WRHSNO
+		 	 ORDER BY APC_CD, WRHS_YMD, WRHSNO desc
     		  ) pt0
 		]]>
 

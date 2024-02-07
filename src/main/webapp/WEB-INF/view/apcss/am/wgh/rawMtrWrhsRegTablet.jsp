@@ -33,6 +33,16 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 원물입고등록 태블릿 -->
 				</div>
 				<div style="margin-left: auto;">
+					<p class="ad_input_row">
+									<sbux-checkbox
+										uitype="normal"
+										id="srch-chk-autoPrint"
+										name="srch-chk-autoPrint"
+										uitype="normal"
+										class="form-control input-sm check"
+										text="원물인식표 자동출력"
+									/>
+								</p>
 					<sbux-button
 						id="btnCmndDocPckg"
 						name="btnCmndDocPckg"
@@ -87,6 +97,8 @@
 			<div class="box-body">
 				<!--[APC] START -->
 					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
+
+
 				<!--[APC] END -->
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_fixed">
@@ -144,7 +156,9 @@
 								></sbux-button>
 							</td>
 							<td colspan="3" style="border-left: hidden;">
+
 							</td>
+
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>품목/품종</th>
@@ -495,6 +509,7 @@
 		SBUxMethod.set("srch-chk-fxngItem", {"srch-chk-fxngItem": false});
 		SBUxMethod.set("srch-chk-fxngWghtAvg", {"srch-chk-fxngWghtAvg": false});
 		SBUxMethod.set("srch-chk-fxngBxKnd", {"srch-chk-fxngBxKnd": false});
+		SBUxMethod.set("srch-chk-autoPrint", {"srch-chk-autoPrint": false});
 		SBUxMethod.set("srch-chk-fxngWarehouseSeCd", {"srch-chk-fxngWarehouseSeCd": false});
 
 		fn_createGrid();
@@ -528,8 +543,6 @@
 		const allData = grdRawMtrWrhs.getGridDataAll();
 		allData.forEach((item, index) => {
 			if (item.checkedYn === "Y") {
-
-
 					rawMtrWrhsList.push(
 						item.wrhsno
 					);
@@ -620,9 +633,7 @@
 		allData.forEach((item, index) => {
 			if (item.checkedYn === "Y") {
 
-				if (!rawMtrWrhsList.some(function(wrhs) {
-					return wgh.wrhs === item.wrhsno;
-				})) {
+				 {
 					rawMtrWrhsList.push({
 						apcCd: item.apcCd,
 						wrhsno: item.wrhsno
@@ -784,6 +795,15 @@
     		console.error("failed", e.message);
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
+
+		if(SBUxMethod.get("srch-chk-autoPrint")["srch-chk-autoPrint"]){
+			fn_autoPrint(data.resultMap);
+
+		}
+	}
+
+	const fn_autoPrint = function(resultMap){
+		gfn_popClipReport("원물인식표", "am/rawMtrIdntyDoc.crf", {apcCd: gv_selectedApcCd, wrhsno: resultMap.wrhsno});
 	}
 
     /**

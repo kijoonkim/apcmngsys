@@ -64,7 +64,7 @@ public class RawMtrWrhsController extends BaseController {
 				return getErrorResponseEntity(rtnObj);
 			}
 		}
-
+		resultMap.put(ComConstants.PROP_RESULT_MAP, rawMtrWrhsVO);
 		return getSuccessResponseEntity(resultMap);
 	}
 
