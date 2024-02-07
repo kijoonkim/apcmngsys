@@ -63,7 +63,7 @@ public class PrdcrCrclOgnReqMngVO extends ComVO{
 	private String yr;
 	private String yrChk;
 	private String aplyDay;
-	private String corpDdlnSeCd;
+	private String corpDdlnSeCd;//법인체 마감
 	private String rawMtrEnsr;//값 확인용
 	private String rawMtrEnsrSigunCnt;
 	private String rawMtrEnsrCtpvCnt;
