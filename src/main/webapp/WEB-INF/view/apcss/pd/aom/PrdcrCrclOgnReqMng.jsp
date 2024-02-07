@@ -974,7 +974,7 @@
 					<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 				</div>
 			</div>
-			<div id="sb-area-hiddenGrd" style="height:400px; width: 100%; /* display: none; */"></div>
+			<div id="sb-area-hiddenGrd" style="height:400px; width: 100%; display: none;"></div>
 		</div>
 	</section>
 
