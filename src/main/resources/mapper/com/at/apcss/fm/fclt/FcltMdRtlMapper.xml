@@ -1029,6 +1029,17 @@
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL)
 			GROUP BY S0
+			ORDER BY (CASE
+								WHEN S0 = '경기도' THEN 1
+								WHEN S0 = '강원도' THEN 2
+								WHEN S0 = '충북도' THEN 3
+								WHEN S0 = '충남도' THEN 4
+								WHEN S0 = '전북도' THEN 5
+								WHEN S0 = '전남도' THEN 6
+								WHEN S0 = '경북도' THEN 7
+								WHEN S0 = '경남도' THEN 8
+								WHEN S0 = '제주도' THEN 9
+								 ELSE 10 END)
 		]]>
 	</select>
 
@@ -1067,7 +1078,18 @@
 				</if>
 		<![CDATA[
 			        AND     A.CTPV_CD IS NOT NULL)
-			GROUP BY S0;
+			GROUP BY S0
+			ORDER BY (CASE
+								WHEN S0 = '경기도' THEN 1
+								WHEN S0 = '강원도' THEN 2
+								WHEN S0 = '충북도' THEN 3
+								WHEN S0 = '충남도' THEN 4
+								WHEN S0 = '전북도' THEN 5
+								WHEN S0 = '전남도' THEN 6
+								WHEN S0 = '경북도' THEN 7
+								WHEN S0 = '경남도' THEN 8
+								WHEN S0 = '제주도' THEN 9
+								 ELSE 10 END);
 			]]>
     </select>
 
@@ -1113,6 +1135,17 @@
 			        AND     A.CTPV_CD   IS NOT NULL
 			        AND     A.APC_CD    =  B.APC_CD(+))
 			GROUP BY S0
+			ORDER BY (CASE
+								WHEN S0 = '경기도' THEN 1
+								WHEN S0 = '강원도' THEN 2
+								WHEN S0 = '충북도' THEN 3
+								WHEN S0 = '충남도' THEN 4
+								WHEN S0 = '전북도' THEN 5
+								WHEN S0 = '전남도' THEN 6
+								WHEN S0 = '경북도' THEN 7
+								WHEN S0 = '경남도' THEN 8
+								WHEN S0 = '제주도' THEN 9
+								 ELSE 10 END)
 			]]>
     </select>
 
@@ -1149,6 +1182,17 @@
 			        AND     A.CTPV_CD   IS NOT NULL
 			        AND     A.APC_CD    =  B.APC_CD(+))
 			GROUP BY S0
+			ORDER BY (CASE
+								WHEN S0 = '경기도' THEN 1
+								WHEN S0 = '강원도' THEN 2
+								WHEN S0 = '충북도' THEN 3
+								WHEN S0 = '충남도' THEN 4
+								WHEN S0 = '전북도' THEN 5
+								WHEN S0 = '전남도' THEN 6
+								WHEN S0 = '경북도' THEN 7
+								WHEN S0 = '경남도' THEN 8
+								WHEN S0 = '제주도' THEN 9
+								 ELSE 10 END)
 			]]>
     </select>
 
@@ -1185,6 +1229,17 @@
 			        AND     A.CTPV_CD   IS NOT NULL
 			        AND     A.APC_CD    =  B.APC_CD(+))
 			GROUP BY S0
+			ORDER BY (CASE
+								WHEN S0 = '경기도' THEN 1
+								WHEN S0 = '강원도' THEN 2
+								WHEN S0 = '충북도' THEN 3
+								WHEN S0 = '충남도' THEN 4
+								WHEN S0 = '전북도' THEN 5
+								WHEN S0 = '전남도' THEN 6
+								WHEN S0 = '경북도' THEN 7
+								WHEN S0 = '경남도' THEN 8
+								WHEN S0 = '제주도' THEN 9
+								 ELSE 10 END)
 			]]>
     </select>
 
@@ -1220,6 +1275,17 @@
 			        AND     A.CTPV_CD   IS NOT NULL
 			        AND     A.APC_CD    =  B.APC_CD(+))
 			GROUP BY S0
+			ORDER BY (CASE
+								WHEN S0 = '경기도' THEN 1
+								WHEN S0 = '강원도' THEN 2
+								WHEN S0 = '충북도' THEN 3
+								WHEN S0 = '충남도' THEN 4
+								WHEN S0 = '전북도' THEN 5
+								WHEN S0 = '전남도' THEN 6
+								WHEN S0 = '경북도' THEN 7
+								WHEN S0 = '경남도' THEN 8
+								WHEN S0 = '제주도' THEN 9
+								 ELSE 10 END)
 			]]>
     </select>
 
@@ -1263,6 +1329,17 @@
 			        AND     A.CTPV_CD   IS NOT NULL
 			        AND     A.APC_CD    =  B.APC_CD(+))
 			GROUP BY S0
+			ORDER BY (CASE
+								WHEN S0 = '경기도' THEN 1
+								WHEN S0 = '강원도' THEN 2
+								WHEN S0 = '충북도' THEN 3
+								WHEN S0 = '충남도' THEN 4
+								WHEN S0 = '전북도' THEN 5
+								WHEN S0 = '전남도' THEN 6
+								WHEN S0 = '경북도' THEN 7
+								WHEN S0 = '경남도' THEN 8
+								WHEN S0 = '제주도' THEN 9
+								 ELSE 10 END)
 			]]>
     </select>
 
@@ -1306,6 +1383,17 @@
 			        AND     A.CTPV_CD   IS NOT NULL
 			        AND     A.APC_CD    =  B.APC_CD(+))
 			GROUP BY S0
+			ORDER BY (CASE
+								WHEN S0 = '경기도' THEN 1
+								WHEN S0 = '강원도' THEN 2
+								WHEN S0 = '충북도' THEN 3
+								WHEN S0 = '충남도' THEN 4
+								WHEN S0 = '전북도' THEN 5
+								WHEN S0 = '전남도' THEN 6
+								WHEN S0 = '경북도' THEN 7
+								WHEN S0 = '경남도' THEN 8
+								WHEN S0 = '제주도' THEN 9
+								 ELSE 10 END)
 			]]>
     </select>
 
@@ -1351,7 +1439,17 @@
 			        AND     A.APC_CD    =  B.APC_CD(+)
 			      )
 			GROUP BY S0
-			ORDER BY S0
+			ORDER BY (CASE
+								WHEN S0 = '경기도' THEN 1
+								WHEN S0 = '강원도' THEN 2
+								WHEN S0 = '충북도' THEN 3
+								WHEN S0 = '충남도' THEN 4
+								WHEN S0 = '전북도' THEN 5
+								WHEN S0 = '전남도' THEN 6
+								WHEN S0 = '경북도' THEN 7
+								WHEN S0 = '경남도' THEN 8
+								WHEN S0 = '제주도' THEN 9
+								 ELSE 10 END)
 			]]>
     </select>
 
@@ -1397,6 +1495,17 @@
 			        AND     A.APC_CD    =  B.APC_CD(+)
 			      )
 			GROUP BY S0
+			ORDER BY (CASE
+								WHEN S0 = '경기도' THEN 1
+								WHEN S0 = '강원도' THEN 2
+								WHEN S0 = '충북도' THEN 3
+								WHEN S0 = '충남도' THEN 4
+								WHEN S0 = '전북도' THEN 5
+								WHEN S0 = '전남도' THEN 6
+								WHEN S0 = '경북도' THEN 7
+								WHEN S0 = '경남도' THEN 8
+								WHEN S0 = '제주도' THEN 9
+								 ELSE 10 END)
 			]]>
     </select>
 
@@ -2299,7 +2408,17 @@
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD IS NOT NULL)
 			GROUP BY S0
-			ORDER BY S0
+			ORDER BY (CASE
+								WHEN S0 = '경기도' THEN 1
+								WHEN S0 = '강원도' THEN 2
+								WHEN S0 = '충북도' THEN 3
+								WHEN S0 = '충남도' THEN 4
+								WHEN S0 = '전북도' THEN 5
+								WHEN S0 = '전남도' THEN 6
+								WHEN S0 = '경북도' THEN 7
+								WHEN S0 = '경남도' THEN 8
+								WHEN S0 = '제주도' THEN 9
+								 ELSE 10 END)
 			]]>
     </select>
 
@@ -2340,7 +2459,17 @@
 			        AND     A.GVRMNT_SPRT_YN = 'Y'
 			        AND     A.CTPV_CD IS NOT NULL)
 			GROUP BY S0
-			ORDER BY S0
+			ORDER BY (CASE
+								WHEN S0 = '경기도' THEN 1
+								WHEN S0 = '강원도' THEN 2
+								WHEN S0 = '충북도' THEN 3
+								WHEN S0 = '충남도' THEN 4
+								WHEN S0 = '전북도' THEN 5
+								WHEN S0 = '전남도' THEN 6
+								WHEN S0 = '경북도' THEN 7
+								WHEN S0 = '경남도' THEN 8
+								WHEN S0 = '제주도' THEN 9
+								 ELSE 10 END)
 			]]>
     </select>
 
@@ -2387,7 +2516,17 @@
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD =  B.APC_CD(+))
 			GROUP BY S0
-			ORDER BY S0
+			ORDER BY (CASE
+								WHEN S0 = '경기도' THEN 1
+								WHEN S0 = '강원도' THEN 2
+								WHEN S0 = '충북도' THEN 3
+								WHEN S0 = '충남도' THEN 4
+								WHEN S0 = '전북도' THEN 5
+								WHEN S0 = '전남도' THEN 6
+								WHEN S0 = '경북도' THEN 7
+								WHEN S0 = '경남도' THEN 8
+								WHEN S0 = '제주도' THEN 9
+								 ELSE 10 END)
 			]]>
     </select>
 
@@ -2425,7 +2564,17 @@
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD =  B.APC_CD(+))
 			GROUP BY S0
-			ORDER BY S0
+			ORDER BY (CASE
+								WHEN S0 = '경기도' THEN 1
+								WHEN S0 = '강원도' THEN 2
+								WHEN S0 = '충북도' THEN 3
+								WHEN S0 = '충남도' THEN 4
+								WHEN S0 = '전북도' THEN 5
+								WHEN S0 = '전남도' THEN 6
+								WHEN S0 = '경북도' THEN 7
+								WHEN S0 = '경남도' THEN 8
+								WHEN S0 = '제주도' THEN 9
+								 ELSE 10 END)
 			]]>
     </select>
 
@@ -2463,7 +2612,17 @@
 			        AND     A.CTPV_CD   IS NOT NULL
 			        AND     A.APC_CD    =  B.APC_CD(+))
 			GROUP BY S0
-			ORDER BY S0
+			ORDER BY (CASE
+								WHEN S0 = '경기도' THEN 1
+								WHEN S0 = '강원도' THEN 2
+								WHEN S0 = '충북도' THEN 3
+								WHEN S0 = '충남도' THEN 4
+								WHEN S0 = '전북도' THEN 5
+								WHEN S0 = '전남도' THEN 6
+								WHEN S0 = '경북도' THEN 7
+								WHEN S0 = '경남도' THEN 8
+								WHEN S0 = '제주도' THEN 9
+								 ELSE 10 END)
 			]]>
     </select>
 
@@ -2501,7 +2660,17 @@
 			        AND     A.CTPV_CD   IS NOT NULL
 			        AND     A.APC_CD    =  B.APC_CD(+))
 			GROUP BY S0
-			ORDER BY S0
+			ORDER BY (CASE
+								WHEN S0 = '경기도' THEN 1
+								WHEN S0 = '강원도' THEN 2
+								WHEN S0 = '충북도' THEN 3
+								WHEN S0 = '충남도' THEN 4
+								WHEN S0 = '전북도' THEN 5
+								WHEN S0 = '전남도' THEN 6
+								WHEN S0 = '경북도' THEN 7
+								WHEN S0 = '경남도' THEN 8
+								WHEN S0 = '제주도' THEN 9
+								 ELSE 10 END)
 			]]>
     </select>
 
@@ -2546,7 +2715,17 @@
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD = B.APC_CD(+))
 			GROUP BY S0
-			ORDER BY S0
+			ORDER BY (CASE
+								WHEN S0 = '경기도' THEN 1
+								WHEN S0 = '강원도' THEN 2
+								WHEN S0 = '충북도' THEN 3
+								WHEN S0 = '충남도' THEN 4
+								WHEN S0 = '전북도' THEN 5
+								WHEN S0 = '전남도' THEN 6
+								WHEN S0 = '경북도' THEN 7
+								WHEN S0 = '경남도' THEN 8
+								WHEN S0 = '제주도' THEN 9
+								 ELSE 10 END)
 			]]>
     </select>
 
@@ -2591,7 +2770,17 @@
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD =  B.APC_CD(+))
 			GROUP BY S0
-			ORDER BY S0
+			ORDER BY (CASE
+								WHEN S0 = '경기도' THEN 1
+								WHEN S0 = '강원도' THEN 2
+								WHEN S0 = '충북도' THEN 3
+								WHEN S0 = '충남도' THEN 4
+								WHEN S0 = '전북도' THEN 5
+								WHEN S0 = '전남도' THEN 6
+								WHEN S0 = '경북도' THEN 7
+								WHEN S0 = '경남도' THEN 8
+								WHEN S0 = '제주도' THEN 9
+								 ELSE 10 END)
 			]]>
     </select>
 
@@ -2638,7 +2827,17 @@
 			        AND     A.APC_CD =  B.APC_CD(+)
 			      )
 			GROUP BY S0
-			ORDER BY S0
+			ORDER BY (CASE
+								WHEN S0 = '경기도' THEN 1
+								WHEN S0 = '강원도' THEN 2
+								WHEN S0 = '충북도' THEN 3
+								WHEN S0 = '충남도' THEN 4
+								WHEN S0 = '전북도' THEN 5
+								WHEN S0 = '전남도' THEN 6
+								WHEN S0 = '경북도' THEN 7
+								WHEN S0 = '경남도' THEN 8
+								WHEN S0 = '제주도' THEN 9
+								 ELSE 10 END)
 			]]>
     </select>
 
@@ -2685,7 +2884,17 @@
 			        AND     A.APC_CD =  B.APC_CD(+)
 			      )
 			GROUP BY S0
-			ORDER BY S0
+			ORDER BY (CASE
+								WHEN S0 = '경기도' THEN 1
+								WHEN S0 = '강원도' THEN 2
+								WHEN S0 = '충북도' THEN 3
+								WHEN S0 = '충남도' THEN 4
+								WHEN S0 = '전북도' THEN 5
+								WHEN S0 = '전남도' THEN 6
+								WHEN S0 = '경북도' THEN 7
+								WHEN S0 = '경남도' THEN 8
+								WHEN S0 = '제주도' THEN 9
+								 ELSE 10 END)
 			]]>
     </select>
 
@@ -3587,7 +3796,7 @@
 			        AND     A.MB IS NULL
 			        AND     A.APC_CD = B.APC_CD )
 			GROUP BY S0
-			ORDER BY S0;
+			ORDER BY S0
 			]]>
     </select>
 
@@ -3630,7 +3839,17 @@
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD = B.APC_CD)
 			GROUP BY S0
-			ORDER BY S0
+			ORDER BY (CASE
+								WHEN S0 = '경기도' THEN 1
+								WHEN S0 = '강원도' THEN 2
+								WHEN S0 = '충북도' THEN 3
+								WHEN S0 = '충남도' THEN 4
+								WHEN S0 = '전북도' THEN 5
+								WHEN S0 = '전남도' THEN 6
+								WHEN S0 = '경북도' THEN 7
+								WHEN S0 = '경남도' THEN 8
+								WHEN S0 = '제주도' THEN 9
+								 ELSE 10 END)
 			]]>
     </select>
 
@@ -3679,7 +3898,17 @@
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD = B.APC_CD)
 			GROUP BY S0
-			ORDER BY S0
+			ORDER BY (CASE
+								WHEN S0 = '경기도' THEN 1
+								WHEN S0 = '강원도' THEN 2
+								WHEN S0 = '충북도' THEN 3
+								WHEN S0 = '충남도' THEN 4
+								WHEN S0 = '전북도' THEN 5
+								WHEN S0 = '전남도' THEN 6
+								WHEN S0 = '경북도' THEN 7
+								WHEN S0 = '경남도' THEN 8
+								WHEN S0 = '제주도' THEN 9
+								 ELSE 10 END)
 			]]>
     </select>
 
@@ -3722,7 +3951,17 @@
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD = B.APC_CD)
 			GROUP BY S0
-			ORDER BY S0
+			ORDER BY (CASE
+								WHEN S0 = '경기도' THEN 1
+								WHEN S0 = '강원도' THEN 2
+								WHEN S0 = '충북도' THEN 3
+								WHEN S0 = '충남도' THEN 4
+								WHEN S0 = '전북도' THEN 5
+								WHEN S0 = '전남도' THEN 6
+								WHEN S0 = '경북도' THEN 7
+								WHEN S0 = '경남도' THEN 8
+								WHEN S0 = '제주도' THEN 9
+								 ELSE 10 END)
 			]]>
     </select>
 
@@ -3772,7 +4011,17 @@
 			        AND     A.CTPV_CD IS NOT NULL
 			        AND     A.APC_CD = B.APC_CD)
 			GROUP BY S0
-			ORDER BY S0
+			ORDER BY (CASE
+								WHEN S0 = '경기도' THEN 1
+								WHEN S0 = '강원도' THEN 2
+								WHEN S0 = '충북도' THEN 3
+								WHEN S0 = '충남도' THEN 4
+								WHEN S0 = '전북도' THEN 5
+								WHEN S0 = '전남도' THEN 6
+								WHEN S0 = '경북도' THEN 7
+								WHEN S0 = '경남도' THEN 8
+								WHEN S0 = '제주도' THEN 9
+								 ELSE 10 END)
 			]]>
     </select>
 
