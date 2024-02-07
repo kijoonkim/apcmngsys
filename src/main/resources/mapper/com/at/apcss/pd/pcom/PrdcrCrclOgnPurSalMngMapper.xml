@@ -489,6 +489,7 @@
 		    			APO_CD
 		    		  , APO_SE
 		    		  , BRNO
+		    		  , UO_BRNO
 		    		  , CRNO
 		    		  , YR
 		    		  , STTG_UPBR_ITEM_SE
@@ -516,6 +517,7 @@
 		   			    #{apoCd}
 		   			  , #{apoSe}
 		   			  , #{brno}
+		   			  , '0'
 		   			  , NVL(#{crno},'NULL')
 		   			  , #{yr}
 		   			  , #{sttgUpbrItemSe}
@@ -586,6 +588,7 @@
 		    			APO_CD
 		    		  , APO_SE
 		    		  , BRNO
+		    		  , UO_BRNO
 		    		  , CRNO
 		    		  , YR
 
@@ -616,6 +619,7 @@
 		   			    #{apoCd}
 		   			  , #{apoSe}
 		   			  , #{brno}
+		   			  , '0'
 		   			  , NVL(#{crno},'NULL')
 		   			  , #{yr}
 
@@ -701,6 +705,7 @@
 		    			APO_CD
 		    		  , APO_SE
 		    		  , BRNO
+		    		  , UO_BRNO
 		    		  , CRNO
 		    		  , YR
 
@@ -742,6 +747,7 @@
 		   			    #{apoCd}
 		   			  , #{apoSe}
 		   			  , #{brno}
+		   			  , '0'
 		   			  , NVL(#{crno},'NULL')
 		   			  , #{yr}
 

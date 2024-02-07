@@ -786,7 +786,12 @@
 		   			    #{apoCd}
 		   			  , #{apoSe}
 		   			  , #{brno}
-		   			  , #{uoBrno}
+					  <if test='uoBrno != null and uoBrno != ""'>
+					  , #{uoBrno}
+					  </if>
+					  <if test='uoBrno == null or uoBrno == ""'>
+					  , '0'
+					  </if>
 		   			  , (case when #{crno} is not null then #{crno}
 		   			  			ELSE NVL( (SELECT CRNO FROM TB_EV_APO WHERE BRNO = #{brno}) , 'NULL')
 		   			  			END)
@@ -960,7 +965,12 @@
 		   			    #{apoCd}
 		   			  , #{apoSe}
 		   			  , #{brno}
-		   			  , #{uoBrno}
+		   			  <if test='uoBrno != null and uoBrno != ""'>
+					  , #{uoBrno}
+					  </if>
+					  <if test='uoBrno == null or uoBrno == ""'>
+					  , '0'
+					  </if>
 		   			  , (case when #{crno} is not null then #{crno}
 		   			  			ELSE NVL( (SELECT CRNO FROM TB_EV_APO WHERE BRNO = #{brno}) , 'NULL')
 		   			  			END)
@@ -1021,7 +1031,6 @@
     </insert>
 
     <insert id="insertInvShipOgnPurSalMng03" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO">
-    	<![CDATA[
     	MERGE INTO TB_EV_UO_ISO_ALL_PRCHS_SLS CLT  /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.insertInvShipOgnPurSalMng03 */
 		USING DUAL
 			ON (
@@ -1077,8 +1086,6 @@
 		    	        , SYS_LAST_CHG_DT		= SYSDATE
 	    				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 	    				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
-		    	]]>
-		    	<![CDATA[
 
 					 WHERE 1=1
 					 AND CLT.APO_CD			= #{apoCd}
@@ -1155,7 +1162,12 @@
 		   			  			ELSE (SELECT OGNZ_SE_CD FROM TB_APC_OGNZ_INFO WHERE OGNZ_CD = #{apoCd})
 		   			  			END)
 		   			  , #{brno}
-		   			  , #{uoBrno}
+		   			  <if test='uoBrno != null and uoBrno != ""'>
+					  , #{uoBrno}
+					  </if>
+					  <if test='uoBrno == null or uoBrno == ""'>
+					  , '0'
+					  </if>
 		   			  , (case when #{crno} is not null then #{crno}
 		   			  			ELSE (SELECT CRNO FROM TB_EV_APO WHERE APO_CD = #{apoCd})
 		   			  			END)
@@ -1215,7 +1227,6 @@
 		   			  , #{sysLastChgUserId}
 		   			  , #{sysLastChgPrgrmId}
 		   			)
-    	]]>
     </insert>
 
 	<update id="updateInvShipOgnPurSalMng" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO">

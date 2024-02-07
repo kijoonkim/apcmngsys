@@ -478,6 +478,7 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 		    		  , PRDCR_OGNZ_CD
 		    		  , CLTVTN_LAND_SN
 		    		  , TYPE_SE_NO
+		    		  , UO_BRNO
 
 		    		  , SLS_CNSGN_PRCHS_AMT
 		    		  , SLS_CNSGN_SLS_AMT
@@ -505,6 +506,7 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 		    		  , #{prdcrOgnzCd}
 		    		  , #{cltvtnLandSn}
 		    		  , #{typeSeNo}
+		    		  , '0'
 
 		   			  , #{slsCnsgnPrchsAmt}
 		   			  , #{slsCnsgnSlsAmt}
