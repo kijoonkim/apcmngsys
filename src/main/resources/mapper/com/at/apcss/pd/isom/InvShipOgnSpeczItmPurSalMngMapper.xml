@@ -763,4 +763,16 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 			   AND YR 		= #{yr}
 			   AND ITEM_CD 	= #{itemCd}
     </update>
+    <!-- 적합여부 초기화 -->
+	<update id="updateItemStbltYnInit" parameterType="com.at.apcss.pd.isom.vo.ItemStbltYnVO">
+	    	UPDATE /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.updateItemStbltYn */
+	    		TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+			   SET
+			 	  STBLT_YN	= ''
+			 WHERE 1=1
+			   AND APO_SE 	= '2'
+			   AND UO_BRNO 	= #{uoBrno}
+			   AND BRNO 	= #{brno}
+			   AND YR 		= #{yr}
+    </update>
 </mapper>
