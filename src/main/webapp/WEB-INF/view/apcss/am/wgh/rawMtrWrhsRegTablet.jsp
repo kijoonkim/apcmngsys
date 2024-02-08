@@ -246,19 +246,8 @@
 									onchange="fn_onChangeWghtAvg(this)"
 								/>
 							</td>
+
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<p class="ad_input_row">
-									<sbux-checkbox
-										uitype="normal"
-										id="srch-chk-fxngWghtAvg"
-										name="srch-chk-fxngWghtAvg"
-										uitype="normal"
-										class="form-control input-sm check"
-										text="고정"
-									/>
-								</p>
-							</td>
-							<td class="td_input" style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
 									id="srch-inp-wrhsWght"
@@ -272,6 +261,9 @@
 							</td>
 							<td style="border-right: hidden;">
 								<label class="bold">Kg</label>
+							</td>
+							<td class="td_input" style="border-right: hidden;">
+
 							</td>
 							<td>&nbsp;</td>
 						</tr>
@@ -507,7 +499,7 @@
 	const fn_init = async function() {
 
 		SBUxMethod.set("srch-chk-fxngItem", {"srch-chk-fxngItem": false});
-		SBUxMethod.set("srch-chk-fxngWghtAvg", {"srch-chk-fxngWghtAvg": false});
+		//SBUxMethod.set("srch-chk-fxngWghtAvg", {"srch-chk-fxngWghtAvg": false});
 		SBUxMethod.set("srch-chk-fxngBxKnd", {"srch-chk-fxngBxKnd": false});
 		SBUxMethod.set("srch-chk-autoPrint", {"srch-chk-autoPrint": false});
 		SBUxMethod.set("srch-chk-fxngWarehouseSeCd", {"srch-chk-fxngWarehouseSeCd": false});
@@ -1175,7 +1167,7 @@
 			SBUxMethod.set("srch-slt-vrtyCd", "");
 		}
 
-		if (!SBUxMethod.get("srch-chk-fxngWghtAvg")["srch-chk-fxngWghtAvg"] && !SBUxMethod.get("srch-chk-fxngItem")["srch-chk-fxngItem"]) {
+		if (!SBUxMethod.get("srch-chk-fxngItem")["srch-chk-fxngItem"]) {
 	 		// 평균
 			SBUxMethod.set("srch-inp-wghtAvg", "");
 
