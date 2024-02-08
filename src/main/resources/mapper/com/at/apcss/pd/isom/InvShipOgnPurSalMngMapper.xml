@@ -219,6 +219,7 @@
 					<if test='yr != null and yr != ""'>
 					  AND YR = #{yr}
 					</if>
+					  AND STBLT_YN = 'Y'
 					  AND ITEM_CD IN (SELECT ITEM_CD
 					  					FROM TB_EV_APO_YR_GPC_CD
 					  					WHERE 1=1
@@ -253,6 +254,7 @@
 			  		  AND APO_SE = '2'
 			  		  AND TRMT_TYPE IN ('1','2')
 			  		  AND TYPE_SE_NO = '5'
+			  		  AND STBLT_YN = 'Y'
 			  		  AND PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
 			  		  							FROM TB_EV_FRMHS_APO
 			  		  							WHERE 1=1
@@ -280,6 +282,7 @@
 			  		  AND APO_SE = '2'
 			  		  AND TRMT_TYPE = '3'
 			  		  AND TYPE_SE_NO = '5'
+			  		  AND STBLT_YN = 'Y'
 			  		  AND PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
 			  		  							FROM TB_EV_FRMHS_APO
 			  		  							WHERE 1=1
@@ -306,6 +309,7 @@
 			  		WHERE 1=1
 			  		  AND APO_SE = '2'
 			  		  AND TYPE_SE_NO = '7'
+			  		  AND STBLT_YN = 'Y'
 					<if test='brno != null and brno != ""'>
 					  AND BRNO = #{brno}
 					</if>
@@ -439,6 +443,7 @@
 					<if test='yr != null and yr != ""'>
 					  AND YR = #{yr}
 					</if>
+					  AND STBLT_YN = 'Y'
 					  AND ITEM_CD IN (SELECT ITEM_CD
 					  					FROM TB_EV_APO_YR_GPC_CD
 					  					WHERE 1=1
@@ -473,6 +478,7 @@
 			  		  AND APO_SE = '2'
 			  		  AND TRMT_TYPE = '1'
 			  		  AND TYPE_SE_NO = '5'
+			  		  AND STBLT_YN = 'Y'
 					  AND PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
 			  		  							FROM TB_EV_FRMHS_APO
 			  		  							WHERE 1=1
@@ -500,6 +506,7 @@
 			  		  AND APO_SE = '2'
 			  		  AND TRMT_TYPE = '2'
 			  		  AND TYPE_SE_NO = '5'
+			  		  AND STBLT_YN = 'Y'
 					  AND PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
 			  		  							FROM TB_EV_FRMHS_APO
 			  		  							WHERE 1=1
@@ -527,6 +534,7 @@
 			  		  AND APO_SE = '2'
 			  		  AND TRMT_TYPE = '3'
 			  		  AND TYPE_SE_NO = '5'
+			  		  AND STBLT_YN = 'Y'
 					  AND PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
 			  		  							FROM TB_EV_FRMHS_APO
 			  		  							WHERE 1=1
@@ -555,6 +563,7 @@
 			  		WHERE 1=1
 			  		  AND APO_SE = '2'
 			  		  AND TYPE_SE_NO IN ('1','3','5','7')
+			  		  AND STBLT_YN = 'Y'
 					  AND (
 					  		(PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
 			  		  							FROM TB_EV_FRMHS_APO
