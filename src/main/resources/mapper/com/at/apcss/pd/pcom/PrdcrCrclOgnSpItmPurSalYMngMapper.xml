@@ -1269,4 +1269,16 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , SE_DTL_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 			   AND ITEM_CD 	= #{itemCd}
     </update>
 
+    <!-- 적합여부 초기화 -->
+	<update id="updateItemUoStbltYnInit" parameterType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO">
+	    	UPDATE /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalNMngMapper.updateItemUoStbltYnInit */
+	    		TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+			   SET
+			 	  STBLT_YN	= ''
+			 WHERE 1=1
+			   AND APO_SE 	= '1'
+			   AND BRNO 	= #{brno}
+			   AND YR 		= #{yr}
+    </update>
+
 </mapper>

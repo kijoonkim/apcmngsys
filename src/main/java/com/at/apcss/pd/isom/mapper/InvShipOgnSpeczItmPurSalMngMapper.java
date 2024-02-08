@@ -40,4 +40,6 @@ public interface InvShipOgnSpeczItmPurSalMngMapper {
 
 	public int updateItemStbltYn(ItemStbltYnVO ItemStbltYnVo);
 
+	public void updateItemStbltYnInit(ItemStbltYnVO ItemStbltYnVo);
+
 }

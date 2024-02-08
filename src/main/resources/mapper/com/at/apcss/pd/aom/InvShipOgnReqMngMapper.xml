@@ -321,12 +321,15 @@
 			,B.CORP_DDLN_SE_CD
 		FROM USRAM.TB_EV_APO A
 			,USRAM.TB_EV_APLY_MNG B
-			,USRAM.TB_EV_APO_UO_CD D
+			,(SELECT * FROM USRAM.TB_EV_APO_UO_CD
+				WHERE 1=1
+				  AND ISO_BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at21','at22','at23','at24','at25','at26','at27','at61'))
+				  AND UO_BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
+			) D
 		WHERE B.YR = #{yr}
-		  AND B.APO_CD = A.APO_CD
+		  AND B.APO_CD = A.APO_CD(+)
 		  AND B.APO_SE = '2'
-		  AND B.APO_CD = D.ISO_APO_CD
-		  AND D.UO_CORP_NM NOT IN ('테스트 통합조직 at17','at21(출자출하조직21)_테스트','at11(통합조직11)_테스트','at12(통합조직12)_테스트','at13(통합보직13)_테스트','at14(통합조직14)_테스트','at15(통합조직15)_테스트','at16(통합조직16)_테스트','at17(통합조직17)_테스트')
+		  AND B.APO_CD = D.ISO_APO_CD(+)
 		ORDER BY B.BRNO ,  D.UO_BRNO
 	</select>
 </mapper>
