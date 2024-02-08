@@ -9,6 +9,7 @@
     <title>title : SBUx2.6</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../frame/inc/clipreport.jsp" %>
 </head>
 <body oncontextmenu="return false">
 	<section>
@@ -27,6 +28,7 @@
 				<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
 					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
 				</c:if>
+					
 				</div>
 			</div>
 			<div class="box-body">
@@ -242,6 +244,7 @@
 				<div class="box-header" style="display:flex; justify-content: flex-start;" >
 					<div style="margin-left: auto;">
 						<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
+						<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 					</div>
 				</div>
 			</c:if><!-- 관리자 권한인 경우 그리드 표기 -->
@@ -727,7 +730,28 @@
 		//jsonPrdcrOgnCurntMng02.length= 0;
 		//grdPrdcrOgnCurntMng02.rebuild();
 	}
-
+	
+	const fn_report = async function() {
+		let reqBrno = SBUxMethod.get("dtl-input-brno");//
+		let reqYr = SBUxMethod.get("dtl-input-yr");//
+		
+		if(!reqBrno){
+			
+			alert("법인체를 선택하세요");
+			return false;
+			
+		}
+		
+		let reqCorpNm = $('#dtl-input-corpNm').val();
+		let reqBuisNo = $('#dtl-input-brno').val();
+		let reqCorpNo = $('#dtl-input-crno').val();
+		
+		
+		debugger;
+		
+ 		gfn_popClipReport("생산자 조직관리 총괄표", "am/docAll1.crf", {brNo : reqBrno, yr : reqYr, corpnm : reqCorpNm, buisno : reqBuisNo, corpno : reqCorpNo});
+    }
+	
 	//판매위임[매입] 및 출하[매출] 실적 그리드 조회
 	const fn_dtlGridSearch = async function(){
 		let brno = SBUxMethod.get("dtl-input-brno");//
