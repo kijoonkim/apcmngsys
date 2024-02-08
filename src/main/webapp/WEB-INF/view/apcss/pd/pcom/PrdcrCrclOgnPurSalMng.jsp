@@ -1186,7 +1186,7 @@
 	    }, {});
 
 	  	//해더 줄수만큼 추가 필요함
-		for (let i = 1 + 1; i <= grdJson.length - 1; i++) {
+		for (let i = 1 + 1; i <= grdJson.length; i++) {
 	        let rowData = objGrid.getRowData(i);
 	        totalColumns.forEach((col) => {
 	            totals[col + "Tot"] += Number(rowData[col]);
