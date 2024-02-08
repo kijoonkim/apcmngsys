@@ -96,6 +96,8 @@ public class PrdcrCrclOgnSpItmPurSalYMngServiceImpl extends BaseServiceImpl impl
 			resultVoList = selectItemUoStbltYnList(ItemStbltYnVo);
 			//조회 결과가 있을 경우에만 업데이트
 			if(resultVoList != null) {
+				//적합여부 초기화
+				PrdcrCrclOgnSpItmPurSalYMngMapper.updateItemUoStbltYnInit(ItemStbltYnVo);
 				for (ItemUoStbltYnVO resultVo : resultVoList) {
 					stbltYnUpdateCnt += updateItemUoStbltYn(resultVo);
 				}

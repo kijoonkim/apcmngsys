@@ -39,4 +39,6 @@ public interface PrdcrCrclOgnSpItmPurSalNMngMapper {
 	public List<ItemUoStbltYnVO> selectItemUoStbltYnList(ItemUoStbltYnVO ItemUoStbltYnVo);
 
 	public int updateItemUoStbltYn(ItemUoStbltYnVO ItemUoStbltYnVo);
+
+	public void updateItemUoStbltYnInit(ItemUoStbltYnVO ItemUoStbltYnVo);
 }

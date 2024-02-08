@@ -98,8 +98,11 @@ public class InvShipOgnSpeczItmPurSalMngServiceImpl extends BaseServiceImpl impl
 			ItemStbltYnVo.setBrno(brnoVal);
 			ItemStbltYnVo.setUoBrno(uoBrnoVal);
 			resultVoList = selectItemStbltYnList(ItemStbltYnVo);
+
 			//조회 결과가 있을 경우에만 업데이트
 			if(resultVoList != null) {
+				//적합여부 초기화
+				InvShipOgnSpeczItmPurSalMngMapper.updateItemStbltYnInit(ItemStbltYnVo);
 				for (ItemStbltYnVO resultVo : resultVoList) {
 					stbltYnUpdateCnt += updateItemStbltYn(resultVo);
 				}
