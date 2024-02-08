@@ -295,7 +295,7 @@
 	<!-- 로우데이터 요청 -->
 	<select id="hiddenGrdIsoSelectList" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO" resultType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
 		SELECT	/* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.hiddenGrdIsoSelectList */
-			DECODE((SELECT APRV FROM TB_EV_APO WHERE BRNO = (SELECT UO_BRNO FROM TB_EV_APLY_MNG WHERE  YR = B.YR AND BRNO = A.BRNO)) ,'1','승인형','2', '육성형','육성형') AS APRV
+			DECODE((SELECT APRV FROM TB_EV_APO WHERE BRNO = (SELECT UO_BRNO FROM TB_EV_APLY_MNG WHERE  YR = B.YR AND BRNO = A.BRNO)) , '1' , '승인형' , '2' , '육성형' , '' ) AS APRV
 			,D.UO_BRNO
 			,D.UO_CORP_NM
 			,DECODE(A.ROAD_NM_DTL_ADDR , '' , '[지번]' || A.LOTNO_ADDR || ' ' || A.LOTNO_DTL_ADDR , '[도로명]'|| A.ROAD_NM_ADDR || ' ' || A.ROAD_NM_DTL_ADDR ) AS ADDR
