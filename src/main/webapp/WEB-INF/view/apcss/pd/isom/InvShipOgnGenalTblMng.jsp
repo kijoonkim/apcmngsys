@@ -9,6 +9,7 @@
     <title>title : SBUx2.6</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../frame/inc/clipreport.jsp" %>
 </head>
 <body oncontextmenu="return false">
 	<section>
@@ -29,6 +30,7 @@
 				</c:if>
 				<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00' && loginVO.userType ne '21'}">
 					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
+					
 					<!--
 					<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
 					 -->
@@ -255,6 +257,7 @@
 				<div class="box-header" style="display:flex; justify-content: flex-start;" >
 					<div style="margin-left: auto;">
 						<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
+						<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 						<!--
 						<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
 						 -->
@@ -764,7 +767,36 @@
     		console.error("failed", e.message);
         }
 	}
-
+	
+	
+	//총괄표 출력
+	const fn_report = async function() {
+		let reqBrno = SBUxMethod.get('dtl-input-brno');
+		let reqYr = SBUxMethod.get('dtl-input-yr');
+		let reqUoBrno = SBUxMethod.get('dtl-input-uoBrno');
+		
+		let reqCorpNmT = $('#dtl-input-corpNm').val();
+		let reqBrnoT = $('#dtl-input-brno').val();
+		let reqCrnoT = $('#dtl-input-crno').val();
+		let reqUoBrnoT = $('#dtl-input-selUoBrno option:checked').text();
+		
+		if(!reqBrno){
+					
+			alert("법인체를 선택하세요");
+			return false;
+				
+		}
+			
+		if(!reqUoBrno || reqUoBrno == "" || reqUoBrno == "null"){
+			
+			alert("통합조직을 선택하세요");
+			return false;
+		}
+		
+ 	 	gfn_popClipReport("출자출하 조직관리 총괄표", "am/docAll2.crf", {brNo : reqBrno, yr : reqYr, unbrno : reqUoBrno,
+																	corpnm : reqCorpNmT, buisno : reqBrnoT, corpno : reqCrnoT, allgroup : reqUoBrnoT});
+    }
+	
 	//총괄표 조회
 	async function fn_dtlGridSearch() {
 

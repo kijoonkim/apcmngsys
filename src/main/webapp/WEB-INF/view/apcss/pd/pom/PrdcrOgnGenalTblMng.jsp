@@ -8,6 +8,7 @@
     <title>title : SBUx2.6</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../frame/inc/clipreport.jsp" %>
 </head>
 <body oncontextmenu="return false">
 	<section>
@@ -263,6 +264,7 @@
 				<div class="box-header" style="display:flex; justify-content: flex-start;" >
 					<div style="margin-left: auto;">
 						<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch01"></sbux-button>
+						<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 					</div>
 				</div>
 			</c:if><!-- 관리자 권한인 경우 그리드 표기 -->
@@ -905,7 +907,30 @@
 		jsonPrdcrOgnCurntMng01.length= 0;
 		grdPrdcrOgnCurntMng01.rebuild();
 	}
-
+	
+	
+	//총괄표 출력
+	const fn_report = async function() {
+		
+	
+		let reqBrno = SBUxMethod.get('dtl-input-brno');
+		let reqYr = SBUxMethod.get('dtl-input-yr');
+		
+		let reqApcGu = $('#dtl-input-apoSe option:checked').text();
+		let reqCorpNm = $('#dtl-input-corpNm').val();
+		let reqBuisNo = $('#dtl-input-brno').val();
+		
+		if(!reqBrno){
+			
+			alert("법인체를 선택하세요");
+			return false;
+			
+		}
+		
+ 		gfn_popClipReport("생산자 조직관리 총괄표", "am/docAll1.crf", {brNo : reqBrno, yr : reqYr, apcgu : reqApcGu, corpnm : reqCorpNm, buisno : reqBuisNo}); 
+    }
+	
+	
 
 	//생산자조직 총괄표 조회
 	async function fn_dtlGridSearch01() {
