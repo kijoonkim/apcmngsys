@@ -1390,17 +1390,18 @@
 			let rowSts01 = grdPrdcrOgnCurntMng01.getRowStatus(i);
 			let delYn = rowData01.delYn;
 
-			let prchsTrstAmtVal = Number(rowData01.prchsTrstAmt);
-			let prchsEmspapAmtVal = Number(rowData01.prchsEmspapAmt);
-			let prchsTotAmtVal = Number(rowData01.prchsTotAmt);
-			let chkVal = prchsTrstAmtVal + prchsEmspapAmtVal == prchsTotAmtVal
-			if(!chkVal){
-				alert('수탁+매취 의 합계가 합계 금액과 같아야 합니다.');
-				grdPrdcrOgnCurntMng01.selectRow(i);
-				return false;
-			}
-
 			if(delYn == 'N'){
+
+				let prchsTrstAmtVal = Number(rowData01.prchsTrstAmt);
+				let prchsEmspapAmtVal = Number(rowData01.prchsEmspapAmt);
+				let prchsTotAmtVal = Number(rowData01.prchsTotAmt);
+				let chkVal = Number(prchsTrstAmtVal) + Number(prchsEmspapAmtVal) == Number(prchsTotAmtVal);
+
+				if(!chkVal){
+					alert('수탁+매취 의 합계가 합계 금액과 같아야 합니다.');
+					grdPrdcrOgnCurntMng01.selectRow(i);
+					return false;
+				}
 
 				rowData01.apoCd = apoCd;
 				rowData01.apoSe = apoSe;
@@ -1457,17 +1458,18 @@
 			let rowSts02 = grdPrdcrOgnCurntMng02.getRowStatus(i);
 			let delYn = rowData02.delYn;
 
-			let slsEmspapAmtVal = Number(rowData02.slsEmspapAmt);
-			let slsTrstAmtVal = Number(rowData02.slsTrstAmt);
-			let slsTotAmtVal = Number(rowData02.slsTotAmt);
-			let chkVal = slsEmspapAmtVal + slsTrstAmtVal == slsTotAmtVal
-			if(!chkVal){
-				alert('수탁+매취 의 합계가 합계 금액과 같아야 합니다.');
-				grdPrdcrOgnCurntMng02.selectRow(i);
-				return false;
-			}
-
 			if(delYn == 'N'){
+				let slsEmspapAmtVal = Number(rowData02.slsEmspapAmt);
+				let slsTrstAmtVal = Number(rowData02.slsTrstAmt);
+				let slsTotAmtVal = Number(rowData02.slsTotAmt);
+				let chkVal = Number(slsEmspapAmtVal) + Number(slsTrstAmtVal) == Number(slsTotAmtVal);
+
+				if(!chkVal){
+					alert('수탁+매취 의 합계가 합계 금액과 같아야 합니다.');
+					grdPrdcrOgnCurntMng02.selectRow(i);
+					return false;
+				}
+
 				rowData02.apoCd = apoCd;
 				rowData02.apoSe = apoSe;
 				rowData02.crno = crno;
@@ -1518,23 +1520,24 @@
 		let yr = SBUxMethod.get('dtl-input-yr');
 
 		//그리드의 해드가 두줄이상인경우 for문 시작과 끝을 늘린만큼 늘려야함
-		for(var i=2; i<=gridData03.length + 1; i++ ){
+		for(var i=2; i<=gridData03.length ; i++ ){
 			let rowData03 = grdPrdcrOgnCurntMng03.getRowData(i);
 			let rowSts03 = grdPrdcrOgnCurntMng03.getRowStatus(i);
 			let delYn = rowData03.delYn;
 
-			if(rowData03.etcVlm < 0){
-				alert('기타 물량의 값은 음수일수 없습니다');
-				grdPrdcrOgnCurntMng03.selectRow(i);
-				return false;
-			}
-			if(rowData03.etcAmt < 0){
-				alert('기타 금액의 값은 음수일수 없습니다');
-				grdPrdcrOgnCurntMng03.selectRow(i);
-				return false;
-			}
-
 			if(delYn == 'N'){
+
+				if(rowData03.etcVlm < 0){
+					alert('기타 물량의 값은 음수일수 없습니다');
+					grdPrdcrOgnCurntMng03.selectRow(i);
+					return false;
+				}
+				if(rowData03.etcAmt < 0){
+					alert('기타 금액의 값은 음수일수 없습니다');
+					grdPrdcrOgnCurntMng03.selectRow(i);
+					return false;
+				}
+
 				rowData03.apoCd = apoCd;
 				rowData03.apoSe = apoSe;
 				rowData03.crno = crno;
