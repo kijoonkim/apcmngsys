@@ -288,7 +288,22 @@
 								WHERE 1=1
 								AND APO_SE = '1'
 								AND TYPE_SE_NO IN ('2','6')
-
+								AND (
+										(PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
+						  		  							FROM TB_EV_FRMHS_APO
+						  		  							WHERE 1=1
+						  		  							  AND STBLT_YN = 'Y'
+						  		  							  AND APO_SE = '1'
+															<if test='brno != null and brno != ""'>
+															  AND BRNO = #{brno}
+															</if>
+															<if test='yr != null and yr != ""'>
+															  AND YR = #{yr}
+															</if>
+						  									)
+						  				)OR
+						  				(PRDCR_OGNZ_SN = '0')
+									)
 								<if test='brno != null and brno != ""'>
 							  	  AND BRNO = #{brno}
 							  	</if>
@@ -306,7 +321,22 @@
 								WHERE 1=1
 								AND APO_SE = '1'
 								AND TYPE_SE_NO IN ('2','3','6','7')
-
+								AND (
+										(PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
+						  		  							FROM TB_EV_FRMHS_APO
+						  		  							WHERE 1=1
+						  		  							  AND STBLT_YN = 'Y'
+						  		  							  AND APO_SE = '1'
+															<if test='brno != null and brno != ""'>
+															  AND BRNO = #{brno}
+															</if>
+															<if test='yr != null and yr != ""'>
+															  AND YR = #{yr}
+															</if>
+						  									)
+						  				)OR
+						  				(PRDCR_OGNZ_SN = '0')
+									)
 							  	<if test='brno != null and brno != ""'>
 							  	  AND BRNO = #{brno}
 							  	</if>
