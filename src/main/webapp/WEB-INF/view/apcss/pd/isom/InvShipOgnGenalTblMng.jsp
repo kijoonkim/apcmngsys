@@ -778,7 +778,7 @@
 			return false;
 		}
 		
- 	 	gfn_popClipReport("출자출하 조직관리 총괄표", "am/docAll2.crf", {brNo : reqBrno, yr : reqYr, unbrno : reqUoBrno,
+ 	 	gfn_popClipReport("출자출하 조직관리 총괄표", "pd/docAll2.crf", {brNo : reqBrno, yr : reqYr, unbrno : reqUoBrno,
 																	corpnm : reqCorpNmT, buisno : reqBrnoT, corpno : reqCrnoT, allgroup : reqUoBrnoT});
     }
 	
