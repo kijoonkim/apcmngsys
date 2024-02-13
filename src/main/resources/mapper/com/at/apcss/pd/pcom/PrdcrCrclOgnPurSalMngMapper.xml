@@ -189,7 +189,6 @@
 			  		WHERE 1=1
 			  		  AND APO_SE = '1'
 			  		  AND TYPE_SE_NO IN ('1','3','5','7')
-			  		  AND STBLT_YN = 'Y'
 					  AND (
 					  		(PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
 					  						FROM TB_EV_FRMHS_APO
@@ -347,7 +346,6 @@
 			  		WHERE 1=1
 			  		  AND APO_SE = '1'
 			  		  AND TYPE_SE_NO IN ('2','3','6','7')
-			  		  AND STBLT_YN = 'Y'
 			  		  <if test='brno != null and brno != ""'>
 					  AND BRNO = #{brno}
 					  </if>
