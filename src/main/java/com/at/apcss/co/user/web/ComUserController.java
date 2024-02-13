@@ -168,5 +168,31 @@ public class ComUserController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	@PostMapping(value = "/co/user/updateApcUserAprv.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateApcUserAprv(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			comUserVO.setSysFrstInptUserId(getUserId());
+			comUserVO.setSysFrstInptPrgrmId(getPrgrmId());
+			comUserVO.setSysLastChgUserId(getUserId());
+			comUserVO.setSysLastChgPrgrmId(getPrgrmId());
+			HashMap<String, Object> rtnObj = comUserService.updateApcUserAprv(comUserVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+			
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
 
 }

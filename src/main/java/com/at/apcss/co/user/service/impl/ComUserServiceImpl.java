@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import com.at.apcss.co.sys.service.LoginService;
 import com.at.apcss.co.sys.vo.LoginVO;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -15,6 +16,7 @@ import org.springframework.util.StringUtils;
 import com.at.apcss.am.apc.service.ApcEvrmntStngService;
 import com.at.apcss.am.apc.vo.ApcEvrmntStngVO;
 import com.at.apcss.co.authrt.service.ComAuthrtService;
+import com.at.apcss.co.authrt.vo.ComAuthrtUserVO;
 import com.at.apcss.co.authrt.vo.ComAuthrtVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
@@ -160,6 +162,55 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 	}
 
 	@Override
+	public HashMap<String, Object> updateApcUserAprv(ComUserVO comUserVO) throws Exception {
+		
+		if (ComConstants.CON_USER_STTS_VALID.equals(comUserVO.getUserStts())) {
+			return insertApcUserAprv(comUserVO);
+		} else {
+			return deleteApcUserAprv(comUserVO);
+		}
+	}
+	
+	
+	@Override
+	public HashMap<String, Object> insertApcUserAprv(ComUserVO comUserVO) throws Exception {
+		
+		ComAuthrtUserVO authrtUserVO = new ComAuthrtUserVO();
+		
+		BeanUtils.copyProperties(comUserVO, authrtUserVO);
+		
+		HashMap<String, Object> rtnObj = comAuthrtService.insertApcUserAuthrt(authrtUserVO);
+		if (rtnObj != null) {
+			// error throw exception;
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+		
+		comUserMapper.updateComUserAprv(comUserVO);
+		
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deleteApcUserAprv(ComUserVO comUserVO) throws Exception {
+		
+		ComAuthrtUserVO authrtUserVO = new ComAuthrtUserVO();
+		
+		BeanUtils.copyProperties(comUserVO, authrtUserVO);
+		
+		HashMap<String, Object> rtnObj = comAuthrtService.deleteApcUserAuthrt(authrtUserVO);
+		if (rtnObj != null) {
+			// error throw exception;
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+		
+		comUserMapper.updateComUserAprv(comUserVO);
+		
+		return null;
+	}
+
+	
+	
+	@Override
 	public HashMap<String, Object> insertUserAprvList(List<ComUserVO> comUserList) throws Exception {
 
 		HashMap<String, Object> rtnObj = new HashMap<>();
@@ -231,5 +282,8 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 		loginService.updateResetFailCount(loginVo);
 		return comUserMapper.updComUserPwd(comUserVO);
 	}
+
+
+
 
 }
