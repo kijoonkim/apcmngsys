@@ -156,7 +156,8 @@
 
 	const fn_updateComUserAprv = async function(nRow, usrtStts) {
     	let userId = grdUserAuth.getRowData(nRow).userId;
-    	let postJsonPromise = gfn_postJSON("/co/user/updateComUserAprv", {userId : userId, userStts : usrtStts});
+    	let apcCd = grdUserAuth.getRowData(nRow).apcCd;
+    	let postJsonPromise = gfn_postJSON("/co/user/updateApcUserAprv.do", {apcCd: apcCd, userId : userId, userStts : usrtStts});
     	let data = await postJsonPromise;
     	try{
     		if (_.isEqual("S", data.resultStatus)) {

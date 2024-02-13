@@ -143,6 +143,23 @@ public interface ComAuthrtService {
 	public int insertComAuthrtUser(ComAuthrtUserVO comAuthrtUserVO) throws Exception;
 
 	/**
+	 * 
+	 * @param comAuthrtUserVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertApcUserAuthrt(ComAuthrtUserVO comAuthrtUserVO) throws Exception;
+	
+	/**
+	 * 
+	 * @param comAuthrtUserVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteApcUserAuthrt(ComAuthrtUserVO comAuthrtUserVO) throws Exception;
+
+	
+	/**
 	 * 권한 사용자정보를 변경한다.
 	 * @param comAuthrtUserVO
 	 * @return

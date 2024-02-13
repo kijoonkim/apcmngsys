@@ -166,7 +166,14 @@ public interface ComAuthrtMapper {
 	 */
 	public ComAuthrtUserVO selectComAuthrtUser(ComAuthrtUserVO comAuthrtUserVO) throws Exception;
 
-
+	/**
+	 * 
+	 * @param comAuthrtUserVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ComAuthrtUserVO> selectApcAuthrtUserList(ComAuthrtUserVO comAuthrtUserVO) throws Exception;
+	
 	/**
 	 * 권한 사용자 목록 조회
 	 * @param comAuthUserVO
@@ -217,6 +224,17 @@ public interface ComAuthrtMapper {
 	 * @return
 	 */
 	public int deleteComAuthrtUser(ComAuthrtUserVO comAuthrtUserVO) throws Exception;
+
+	
+	/**
+	 * 
+	 * @param comAuthrtUserVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteApcUserAuthrt(ComAuthrtUserVO comAuthrtUserVO) throws Exception;
+	
+	
 	/**
 	 * 권한 내역 등록.
 	 * @param ComAuthrtUserVO

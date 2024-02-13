@@ -80,6 +80,33 @@ public interface ComUserService {
 	public int updateComUserAprv(ComUserVO comUserVO) throws Exception;
 
 	/**
+	 * 
+	 * @param comUserVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateApcUserAprv(ComUserVO comUserVO) throws Exception;
+	
+	
+	
+	/**
+	 * APC사용자 승인등록
+	 * @param comUserVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String,Object> insertApcUserAprv(ComUserVO comUserVO) throws Exception;
+	
+	/**
+	 * APC사용자 승인취소
+	 * @param comUserVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String,Object> deleteApcUserAprv(ComUserVO comUserVO) throws Exception;
+	
+	
+	/**
 	 * 사용자 목록 승인등록
 	 * @param comUserList
 	 * @return

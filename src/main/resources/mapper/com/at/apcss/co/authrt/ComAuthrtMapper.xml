@@ -490,6 +490,61 @@
 			   AND AU.USER_ID = #{userId}
     	]]>
     </select>
+    
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectApcAuthrtUserList	-->
+	<!-- DESC : APC 권한 사용자 조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.25  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectApcAuthrtUserList" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtUserVO" resultType="com.at.apcss.co.authrt.vo.ComAuthrtUserVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.authrt.ComAuthMapper.selectApcAuthrtUserList */
+				  CU.USER_NM            AS USER_NM
+			    , CU.USER_TYPE          AS USER_TYPE
+			    , CU.USER_STTS          AS USER_STTS
+			    , CU.EML                AS EML
+			    , CU.APC_CD             AS APC_CD
+			    , CU.OGDP_NM            AS OGDP_NM
+			    , CU.CHRGD_CERT_YN      AS CHRGD_CERT_YN
+			    , CU.CHRGD_CERT_TYPE    AS CHRGD_CERT_TYPE
+			    , CU.LCK_YN             AS LCK_YN
+			    , CU.LGN_FAIL_NMTM      AS LGN_FAIL_NMTM
+			    , CU.END_LGN_DT         AS END_LGN_DT
+			    , CU.END_LGN_IP         AS END_LGN_IP
+			    , CA.AUTHRT_ID          AS AUTHRT_ID
+			    , AU.USER_ID            AS USER_ID
+			    , CASE
+			 		WHEN AU.AUTHRT_ID IS NOT NULL THEN 1
+			 		WHEN CA.AUTHRT_ID IS NOT NULL THEN 2
+			 		ELSE 9
+				  END	AS AUTHRT_FG
+			  FROM TB_COM_USER CU
+			  
+			  LEFT JOIN TB_COM_AUTH CA
+			    ON CA.APC_CD = CU.APC_CD
+			   AND CA.AUTHRT_TYPE = 
+			   		CASE CU.USER_TYPE
+			   			WHEN '10' THEN '20'
+			   			WHEN '11' THEN '21'
+			   			ELSE NULL
+			   		END
+			   AND CA.DEL_YN = 'N'
+			   
+			  LEFT JOIN TB_COM_AUTH_USER AU
+			    ON AU.AUTHRT_ID = CA.AUTHRT_ID
+			   AND AU.USER_ID = CU.USER_ID
+			   AND AU.DEL_YN = 'N'
+
+			 WHERE CU.USER_ID = #{userId}
+			   AND CU.DEL_YN = 'N'
+			   
+			 ORDER BY AUTHRT_FG
+    	]]>
+    </select>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectComAuthrtUserList	-->
@@ -1138,6 +1193,23 @@
 			DELETE /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.deleteComAuthrtUser */
 	    		FROM TB_COM_AUTH_USER
 	    	 WHERE AUTHRT_ID = #{authrtId}
+	    	   AND USER_ID = #{userId}
+    	]]>
+    </delete>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.deleteApcUserAuthrt	-->
+	<!-- DESC : 권한 사용자 삭제.                                             			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.25  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <delete id="deleteApcUserAuthrt" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtUserVO">
+    	<![CDATA[
+			DELETE /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.deleteApcUserAuthrt */
+	    		FROM TB_COM_AUTH_USER
+	    	 WHERE SUBSTR(AUTHRT_ID, 1, 4) = #{apcCd}
 	    	   AND USER_ID = #{userId}
     	]]>
     </delete>

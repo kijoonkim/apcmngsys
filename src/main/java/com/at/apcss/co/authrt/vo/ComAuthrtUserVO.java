@@ -10,6 +10,8 @@ import lombok.Setter;
 public class ComAuthrtUserVO extends ComUserVO {
 	private String authrtId;
 	private String authrtNm;
+	private String authrtType;
 	private String flfmtTaskSeCd;
+	private int authrtFg;
 	private int sn;
 }

@@ -1465,4 +1465,50 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 
 		return null;
 	}
+
+	@Override
+	public HashMap<String, Object> insertApcUserAuthrt(ComAuthrtUserVO comAuthrtUserVO) throws Exception {
+		
+		if (!StringUtils.hasText(comAuthrtUserVO.getAuthrtId())) {
+			comAuthrtUserVO.setAuthrtType(ComConstants.CON_AUTHRT_TYPE_USER);
+			List<ComAuthrtUserVO> list = comAuthrtMapper.selectApcAuthrtUserList(comAuthrtUserVO);
+			
+			if (list == null || list.isEmpty()) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC사용자권한그룹");
+			}
+			
+			String authrtId = ComConstants.CON_BLANK;
+			String authrtUserId = ComConstants.CON_BLANK;
+			int authrtFg;
+			
+			for ( ComAuthrtUserVO authrt : list ) {
+				authrtFg = authrt.getAuthrtFg();
+				authrtUserId = authrt.getUserId();
+				authrtId = authrt.getAuthrtId();
+				if (authrtFg <= 2) {
+					break;
+				}
+			}
+			
+			if (!StringUtils.hasText(authrtId)) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC사용자권한그룹");
+			}
+			
+			if (!StringUtils.hasText(authrtUserId)) {
+				comAuthrtUserVO.setAuthrtId(authrtId);
+				comAuthrtMapper.insertComAuthrtUser(comAuthrtUserVO);
+			}
+			
+		}
+		
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deleteApcUserAuthrt(ComAuthrtUserVO comAuthrtUserVO) throws Exception {
+		
+		comAuthrtMapper.deleteApcUserAuthrt(comAuthrtUserVO);
+		
+		return null;
+	}
 }
