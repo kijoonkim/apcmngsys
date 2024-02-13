@@ -763,7 +763,7 @@
 		
 		debugger;
 		
- 		gfn_popClipReport("생산자 조직관리 총괄표", "am/docAll1.crf", {brNo : reqBrno, yr : reqYr, corpnm : reqCorpNm, buisno : reqBuisNo, corpno : reqCorpNo});
+ 		gfn_popClipReport("통합조직관리 총괄표", "pd/docAll3.crf", {brNo : reqBrno, yr : reqYr, corpnm : reqCorpNm, buisno : reqBuisNo, corpno : reqCorpNo});
     }
 	
 	//판매위임[매입] 및 출하[매출] 실적 그리드 조회
