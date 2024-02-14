@@ -9,70 +9,75 @@
 <head>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
-    <title>title : SBUx2.6</title>
 </head>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
 		<div class="box box-solid">
-			<div class="box-body">
-				<div class="box-header" style="display:flex; justify-content: flex-start; padding-left:5px;" >
-					<div>
-						<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-						<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 원물계량등록 -->
-	                    <sbux-label id="lbl-wghno" name="lbl-wghno" uitype="normal" text="">
-	                    </sbux-label>
-					</div>
-					<div style="margin-left: auto;">
-	                    <sbux-button
-							id="btnSearch"
-							name="btnSearch"
-							uitype="normal"
-							class="btn btn-sm btn-outline-danger"
-							onclick="fn_search"
-							text="조회"
-						></sbux-button>
-					</div>
+			<div class="box-header" style="display:flex; justify-content: flex-start;" >
+				<div>
+					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 원물계량등록 -->
+                    <sbux-label id="lbl-wghno" name="lbl-wghno" uitype="normal" text="">
+                    </sbux-label>
 				</div>
+				<div style="margin-left: auto;">
+					<sbux-button
+						id="btnExcel"
+						name="btnExcel"
+						uitype="normal"
+						class="btn btn-sm btn-outline-danger"
+						onclick="fn_dwnld"
+						text="EXCEL"
+					></sbux-button>
+                    <sbux-button
+						id="btnSearch"
+						name="btnSearch"
+						uitype="normal"
+						class="btn btn-sm btn-outline-danger"
+						onclick="fn_search"
+						text="조회"
+					></sbux-button>
+				</div>
+			</div>
 
-				<div class="box-body srch-keyup-area">
+			<div class="box-body srch-keyup-area">
 				<!--[APC] START -->
 					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
 				<!--[APC] END -->
-					<table class="table table-bordered tbl_fixed">
-						<caption>검색 조건 설정</caption>
-						<colgroup>
-							<col style="width: 7%">
-							<col style="width: 15%">
-							<col style="width: 7%">
-							<col style="width: 15%">
-							<col style="width: 22%">
-						</colgroup>
-						<tbody>
-							<tr>
-								<th scope="row" class="th_bg">APC코드</th>
-								<td class="td_input" style="border-right:hidden;">
-									<sbux-input
-										uitype="text"
-										id="dtl-inp-apcCd"
-										name="dtl-inp-apcCd"
-										class="form-control input-sm"
-										readonly
-									></sbux-input>
-								</td>
-								<th scope="row" class="th_bg">인증키</th>
-								<td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-input
-										uitype="text"
-										id="dtl-inp-certKey"
-										name="dtl-inp-certKey"
-										class="form-control input-sm"
-										readonly
-									></sbux-input>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+				<table class="table table-bordered tbl_fixed">
+					<caption>검색 조건 설정</caption>
+					<colgroup>
+						<col style="width: 7%">
+						<col style="width: 15%">
+						<col style="width: 7%">
+						<col style="width: 15%">
+						<col style="width: 22%">
+					</colgroup>
+					<tbody>
+						<tr>
+							<th scope="row" class="th_bg">APC코드</th>
+							<td class="td_input" style="border-right:hidden;">
+								<sbux-input
+									uitype="text"
+									id="dtl-inp-apcCd"
+									name="dtl-inp-apcCd"
+									class="form-control input-sm"
+									readonly
+								></sbux-input>
+							</td>
+							<th scope="row" class="th_bg">인증키</th>
+							<td colspan="2" class="td_input" style="border-right:hidden;">
+								<sbux-input
+									uitype="text"
+									id="dtl-inp-certKey"
+									name="dtl-inp-certKey"
+									class="form-control input-sm"
+									readonly
+								></sbux-input>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 
 				<div class="row">
 					<div class="col-sm-4">
@@ -92,7 +97,7 @@
 								</li>
 							</ul>
 						</div>
-						<div id="sb-area-grdWarehousSe" style="height:180px;"></div>
+						<div id="sb-area-grdWarehouse" style="height:180px;"></div>
 
 
 					</div>
@@ -434,7 +439,7 @@
 	
 	const fn_createWarehouseGrid = function() {
 	    var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdWarehousSe';
+	    SBGridProperties.parentid = 'sb-area-grdWarehouse';
 	    SBGridProperties.id = 'grdWarehouse';
 	    SBGridProperties.jsonref = 'jsonWarehouse';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
@@ -698,6 +703,189 @@
 			]);
 	}
 	
+	const fn_dwnld = async function(){
+		
+		const expObjList = [
+			{
+		        sbGrid: grdWrhsSe,
+		        parentid: "sb-area-grdWrhsSe",
+		        id: "grdWrhsSe",
+		        jsonref: "jsonWrhsSe",
+		        sheetName: "입고구분",
+		        title: "",
+		        unit: ""
+			},{
+		        sbGrid: grdGdsSe,
+		        parentid: "sb-area-grdGdsSe",
+		        id: "grdGdsSe",
+		        jsonref: "jsonGdsSe",
+		        sheetName: "상품구분",
+		        title: "",
+		        unit: ""
+			},{
+		        sbGrid: grdTrsprtSe,
+		        parentid: "sb-area-grdTrsprtSe",
+		        id: "grdTrsprtSe",
+		        jsonref: "jsonTrsprtSe",
+		        sheetName: "운송구분",
+		        title: "",
+		        unit: ""
+			},{
+		        sbGrid: grdWarehouse,
+		        parentid: "sb-area-grdWarehouse",
+		        id: "grdWarehouse",
+		        jsonref: "jsonWarehouse",
+		        sheetName: "창고구분",
+		        title: "",
+		        unit: ""
+			},{
+		        sbGrid: grdSortFclt,
+		        parentid: "sb-area-grdSortFclt",
+		        id: "grdSortFclt",
+		        jsonref: "jsonSortFclt",
+		        sheetName: "선별기",
+		        title: "",
+		        unit: ""
+			},{
+		        sbGrid: grdPckgFclt,
+		        parentid: "sb-area-grdPckgFclt",
+		        id: "grdPckgFclt",
+		        jsonref: "jsonPckgFclt",
+		        sheetName: "포장기",
+		        title: "",
+		        unit: ""
+			},{
+		        sbGrid: grdItem,
+		        parentid: "sb-area-grdItem",
+		        id: "grdItem",
+		        jsonref: "jsonItem",
+		        sheetName: "품목",
+		        title: "",
+		        unit: ""
+			},{
+		        sbGrid: grdVrty,
+		        parentid: "sb-area-grdVrty",
+		        id: "grdVrty",
+		        jsonref: "jsonVrty",
+		        sheetName: "품종",
+		        title: "",
+		        unit: ""
+			},{
+		        sbGrid: grdSpcfct,
+		        parentid: "sb-area-grdSpcfct",
+		        id: "grdSpcfct",
+		        jsonref: "jsonSpcfct",
+		        sheetName: "규격",
+		        title: "",
+		        unit: ""
+			},{
+		        sbGrid: grdGrd,
+		        parentid: "sb-area-grdGrd",
+		        id: "grdGrd",
+		        jsonref: "jsonGrd",
+		        sheetName: "등급",
+		        title: "",
+		        unit: ""
+			},{
+		        sbGrid: grdGds,
+		        parentid: "sb-area-grdGds",
+		        id: "grdGds",
+		        jsonref: "jsonGds",
+		        sheetName: "상품",
+		        title: "",
+		        unit: ""
+			},{
+		        sbGrid: grdPrdcr,
+		        parentid: "sb-area-grdPrdcr",
+		        id: "grdPrdcr",
+		        jsonref: "jsonPrdcr",
+		        sheetName: "생산자",
+		        title: "",
+		        unit: ""
+			},{
+		        sbGrid: grdPltBx,
+		        parentid: "sb-area-grdPltBx",
+		        id: "grdPltBx",
+		        jsonref: "jsonPltBx",
+		        sheetName: "팔레트&박스",
+		        title: "",
+		        unit: ""
+			},{
+		        sbGrid: grdVhclInfo,
+		        parentid: "sb-area-grdVhclInfo",
+		        id: "grdVhclInfo",
+		        jsonref: "jsonVhclInfo",
+		        sheetName: "차량정보",
+		        title: "",
+		        unit: ""
+			},{
+		        sbGrid: grdTrsprtCo,
+		        parentid: "sb-area-grdTrsprtCo",
+		        id: "grdTrsprtCo",
+		        jsonref: "jsonTrsprtCo",
+		        sheetName: "운송사",
+		        title: "",
+		        unit: ""
+			},{
+		        sbGrid: grdCnpt,
+		        parentid: "sb-area-grdCnpt",
+		        id: "grdCnpt",
+		        jsonref: "jsonCnpt",
+		        sheetName: "거래처",
+		        title: "",
+		        unit: ""
+			},
+		];
+		
+		let fileName = "APC기준정보_" + gv_selectedApcNm + "_" + gv_selectedApcCd + ".xlsx"
+	    fn_exportExcelMulti(fileName, expObjList); // gfn_exportExcelMulti함수에 파일 이름, 오브젝트 리스트를 보내주는 코드
+	    
+	}
+
+	const fn_exportExcelMulti = function(_fileName, _objList) {
+
+		// 엑셀 정보를 담는 변수
+		var objExcelInfo = {
+			strFileName : _fileName,
+			strAction : "/am/excel/saveMultiExcel",
+			bIsStyle: true,
+			bIsMerge: true,
+			bUseFormat: false,
+			bIncludeData: true,
+			bUseCompress: false
+		};
+
+		var dataList = [];
+		var sheetNameList = [];
+		var titleList = [];
+		var unitList = [];
+		var arrAdditionalData = [];
+
+		// 넘어온 오브젝트를 이용한 forEach문으로 타이틀리스트에 title을 넣고 unitList에 unit을 넣는 포이치문
+		_objList.forEach((item, index) => {
+			sheetNameList.push(item.sheetName);
+			titleList.push(item.title);
+			unitList.push(item.unit);
+
+			if (index > 0) {
+				var data = item.sbGrid.exportExcel(objExcelInfo, "return");
+				dataList.push(data);
+			}
+		});
+
+		arrAdditionalData.push(
+           {"name": "arrSheetData", "value": JSON.stringify(dataList)},
+           {"name": "arrSheetName", "value": JSON.stringify(sheetNameList)},
+           {"name": "arrTitle", "value": JSON.stringify(titleList)},
+           {"name": "arrUnit", "value": JSON.stringify(unitList)}
+		);
+
+		objExcelInfo.arrAdditionalData = arrAdditionalData;
+		_objList[0].sbGrid.exportExcel(objExcelInfo);
+	}
+	
+	
+	
 	// 입고구분
 	const fn_setGrdWrhsSe = async function() {
 		const param = {
@@ -862,7 +1050,7 @@
 	const fn_setGrdPckgFclt = async function() {
 		const param = {
 			apcCd: gv_selectedApcCd,
-			cdId: 'SORT_FCLT_CD',
+			cdId: 'PCKG_FCLT_CD',
 			delYn: 'N'
 		}
 		jsonPckgFclt.length = 0;

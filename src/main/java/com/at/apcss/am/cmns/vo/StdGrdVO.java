@@ -37,6 +37,7 @@ public class StdGrdVO extends ComVO {
 	 * 등급구분코드
 	 * */
 	private String grdSeCd;
+	private String grdSeNm;
 	/*
 	 * 등급종류
 	 * */
