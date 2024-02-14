@@ -71,7 +71,7 @@
 																			ELSE 'N' END)
 					WHEN TOTAL.APRV = '1' AND STTG_UPBR_ITEM_SE = '2' THEN 'Y'
 					WHEN  TOTAL.APRV = '2' THEN
-																(CASE WHEN  TOTAL.CHK_B_A = 'Y' AND TOTAL.CHK_B_B = 'Y' AND TOTAL.CHK_B_C = 'Y'
+																(CASE WHEN  TOTAL.CHK_B_A = 'Y' AND TOTAL.CHK_B_C = 'Y'
 																			THEN 'Y'
 																			ELSE 'N' END)
 					ELSE 'N' END
