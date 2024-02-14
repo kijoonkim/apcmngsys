@@ -319,7 +319,8 @@
 	        	}
 		    }},
 		    {caption: ['번호'], 			ref: 'prdcrIdentno', 	type: 'input', 	width: '50px', style: 'text-align:center', sortable: false},
-		    {caption: ['생산자코드'], 			ref: 'prdcrCd', 	type: 'input', 	width: '70px', style: 'text-align:center', sortable: false},
+		    //{caption: ['생산자코드'], 			ref: 'prdcrCd', 	type: 'input', 	width: '70px', style: 'text-align:center', sortable: false},
+		    {caption: ['생산자코드'], 			ref: 'prdcrCd', 	hidden:true},
 	        {caption: ['생산자명'], 		ref: 'prdcrNm', 		type: 'input', 	width: '150px', style: 'text-align:center', sortable: false,
 	        	validate : gfn_chkByte.bind({byteLimit: 100})},
 	        {caption: ['대표품목'], 		ref: 'rprsItemCd', 		type: 'combo', 	width: '90px', style: 'text-align:center', sortable: false,
