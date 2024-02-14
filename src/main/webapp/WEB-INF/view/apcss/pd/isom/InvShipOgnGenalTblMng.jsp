@@ -30,7 +30,7 @@
 				</c:if>
 				<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00' && loginVO.userType ne '21'}">
 					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
-					
+
 					<!--
 					<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
 					 -->
@@ -767,36 +767,36 @@
     		console.error("failed", e.message);
         }
 	}
-	
-	
+
+
 	//총괄표 출력
 	const fn_report = async function() {
 		let reqBrno = SBUxMethod.get('dtl-input-brno');
 		let reqYr = SBUxMethod.get('dtl-input-yr');
 		let reqUoBrno = SBUxMethod.get('dtl-input-uoBrno');
-		
+
 		let reqCorpNmT = $('#dtl-input-corpNm').val();
 		let reqBrnoT = $('#dtl-input-brno').val();
 		let reqCrnoT = $('#dtl-input-crno').val();
 		let reqUoBrnoT = $('#dtl-input-selUoBrno option:checked').text();
-		
+
 		if(!reqBrno){
-					
+
 			alert("법인체를 선택하세요");
 			return false;
-				
+
 		}
-			
+
 		if(!reqUoBrno || reqUoBrno == "" || reqUoBrno == "null"){
-			
+
 			alert("통합조직을 선택하세요");
 			return false;
 		}
-		
+
  	 	gfn_popClipReport("출자출하 조직관리 총괄표", "pd/docAll2.crf", {brNo : reqBrno, yr : reqYr, unbrno : reqUoBrno,
 																	corpnm : reqCorpNmT, buisno : reqBrnoT, corpno : reqCrnoT, allgroup : reqUoBrnoT});
     }
-	
+
 	//총괄표 조회
 	async function fn_dtlGridSearch() {
 
@@ -893,7 +893,7 @@
 					stbltYnNmMng.push('통합조직 판매위임 금액 미달');
 				}
 				if(item.chkAB != 'Y'){
-					stbltYnNmMng.push('생산자조직 출하금액 중 통합조직 출하비율 미달\n(육성형-전문품목의 경우 약정출하물량은 전량 통합조직으로만 판매)');
+					stbltYnNmMng.push('생산자조직 출하금액 중 통합조직 출하비율 미달');
 				}
 				if(item.chkAC != 'Y'){
 					stbltYnNmMng.push('총취급액 중 통합조직 출하비율 미달');
@@ -903,9 +903,11 @@
 			if(item.chkBA != 'Y'){
 				stbltYnNmMng.push('통합조직 판매위임 금액 미달');
 			}
+			/*
 			if(item.chkBB != 'Y'){
-				stbltYnNmMng.push('생산자조직 출하금액 중 통합조직 출하비율 미달');
+				stbltYnNmMng.push('생산자조직 출하금액 중 통합조직 출하비율 미달\n(육성형-전문품목의 경우 약정출하물량은 전량 통합조직으로만 판매)');
 			}
+			*/
 			if(item.chkBC != 'Y'){
 				stbltYnNmMng.push('총취급액 중 통합조직 출하비율 미달');
 			}
