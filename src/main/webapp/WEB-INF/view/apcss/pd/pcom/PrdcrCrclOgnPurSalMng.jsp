@@ -477,9 +477,9 @@
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonComGrdCorpSeCd, 	'CORP_SE_CD'), //법인구분
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonComGrdAprv, 	'APRV_UPBR_SE_CD'), //신청구분
 
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonGrdCtgryCd01, 	'CTGRY_CD'), //분류코드
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng02', 	jsonGrdCtgryCd02, 	'CTGRY_CD'), //분류코드
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng03', 	jsonGrdCtgryCd03, 	'CTGRY_CD'), //분류코드
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonGrdCtgryCd01, 	'CTGRY_CD_1'), //분류코드
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng02', 	jsonGrdCtgryCd02, 	'CTGRY_CD_1'), //분류코드
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng03', 	jsonGrdCtgryCd03, 	'CTGRY_CD_1'), //분류코드
 
 		]);
 		console.log("============fn_initSBSelect=====1=======");
