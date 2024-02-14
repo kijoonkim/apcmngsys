@@ -1308,7 +1308,7 @@
 	function fn_changeSelUoBrno(){
 		let selVal = SBUxMethod.get('dtl-input-selUoBrno');
 		let selCombo = _.find(comUoBrno, {value : selVal});
-		//console.log(selCombo);
+		console.log(selCombo);
 		if( typeof selCombo == "undefined" || selCombo == null || selCombo == "" ){
 			SBUxMethod.set('dtl-input-uoBrno' , null);
 			//SBUxMethod.set('dtl-input-uoCd' , null);
@@ -1316,6 +1316,8 @@
 			SBUxMethod.set('dtl-input-uoBrno',selCombo.value);
 			//SBUxMethod.set('dtl-input-uoCd',selCombo.uoApoCd);
 		}
+		jsonPrdcrOgnCurntMng01.length= 0;
+		grdPrdcrOgnCurntMng01.rebuild();
 	}
 
 
