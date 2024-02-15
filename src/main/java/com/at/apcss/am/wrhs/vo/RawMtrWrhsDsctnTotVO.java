@@ -31,6 +31,8 @@ public class RawMtrWrhsDsctnTotVO extends ComVO {
 	private String apcCd;
 	private String wrhsYmdFrom;
 	private String wrhsYmdTo;
+	private String itemCd;
+
 
 	private String prdcrNm;
 	private String R1;

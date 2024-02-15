@@ -243,6 +243,9 @@
 		<if test='apcCd != null and apcCd != ""'>
 			   AND A.APC_CD = #{apcCd}
 		</if>
+		<if test='itemCd != null and itemCd != ""'>
+			   AND B.ITEM_CD = #{itemCd}
+		</if>
 		<if test='wrhsYmdFrom != null and wrhsYmdFrom != ""'>
 			   AND A.WRHS_YMD <![CDATA[>=]]> #{wrhsYmdFrom}
 		</if>
