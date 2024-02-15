@@ -174,6 +174,90 @@
     	</if>
     	<!-- End 페이징 -->
     </select>
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.selectDsctnTotList  	-->
+	<!-- DESC : 입고내역집계 목록 조회.                                       				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.02.15  	박승진        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectDsctnTotList" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsDsctnTotVO" resultType="com.at.apcss.am.wrhs.vo.RawMtrWrhsDsctnTotVO">
+    	<![CDATA[
+    		SELECT  PRDCR_NM
+			      , SUM(R1)     AS R1
+			      , SUM(R2)     AS R2
+			      , SUM(R3)     AS R3
+			      , SUM(R4)     AS R4
+			      , SUM(R5)     AS R5
+			      , SUM(RT)     AS RT
+			      , SUM(Y1)     AS Y1
+			      , SUM(Y2)     AS Y2
+			      , SUM(Y3)     AS Y3
+			      , SUM(Y4)     AS Y4
+			      , SUM(Y5)     AS Y5
+			      , SUM(YT)     AS YT
+			      , SUM(O1)     AS O1
+			      , SUM(O2)     AS O2
+			      , SUM(O3)     AS O3
+			      , SUM(O4)     AS O4
+			      , SUM(O5)     AS O5
+			      , SUM(OT)     AS OT
+			      , SUM(TOT)    AS TOT
+			FROM   (SELECT  PRDCR_NM
+			              , CASE WHEN CLR = '1' AND RNK = 1 THEN BX_QNTT END    AS R1
+			              , CASE WHEN CLR = '1' AND RNK = 2 THEN BX_QNTT END    AS R2
+			              , CASE WHEN CLR = '1' AND RNK = 3 THEN BX_QNTT END    AS R3
+			              , CASE WHEN CLR = '1' AND RNK = 4 THEN BX_QNTT END    AS R4
+			              , CASE WHEN CLR = '1' AND RNK = 5 THEN BX_QNTT END    AS R5
+			              , CASE WHEN CLR = '1' THEN BX_QNTT             END    AS RT
+			              , CASE WHEN CLR = '2' AND RNK = 1 THEN BX_QNTT END    AS Y1
+			              , CASE WHEN CLR = '2' AND RNK = 2 THEN BX_QNTT END    AS Y2
+			              , CASE WHEN CLR = '2' AND RNK = 3 THEN BX_QNTT END    AS Y3
+			              , CASE WHEN CLR = '2' AND RNK = 4 THEN BX_QNTT END    AS Y4
+			              , CASE WHEN CLR = '2' AND RNK = 5 THEN BX_QNTT END    AS Y5
+			              , CASE WHEN CLR = '2' THEN BX_QNTT             END    AS YT
+			              , CASE WHEN CLR = '3' AND RNK = 1 THEN BX_QNTT END    AS O1
+			              , CASE WHEN CLR = '3' AND RNK = 2 THEN BX_QNTT END    AS O2
+			              , CASE WHEN CLR = '3' AND RNK = 3 THEN BX_QNTT END    AS O3
+			              , CASE WHEN CLR = '3' AND RNK = 4 THEN BX_QNTT END    AS O4
+			              , CASE WHEN CLR = '3' AND RNK = 5 THEN BX_QNTT END    AS O5
+			              , CASE WHEN CLR = '3' THEN BX_QNTT             END    AS OT
+			              , BX_QNTT                                             AS TOT
+
+			        FROM   (SELECT  B.ITEM_CD
+			                      , A.PRDCR_CD
+			                      , FN_GET_PRDCR_NM (A.PRDCR_CD, A.APC_CD) AS PRDCR_NM
+			                      , CASE WHEN B.VRTY_CD = '0300' THEN '1'
+			                             WHEN B.VRTY_CD = '0200' THEN '2'
+			                             WHEN B.VRTY_CD = '0400' THEN '3' END AS CLR
+			                      , RANK() OVER (PARTITION BY A.PRDCR_CD,B.VRTY_CD ORDER BY A.WRHSNO,B.VRTY_CD)  AS RNK
+			                      , A.BX_QNTT
+			                      , A.WRHS_WGHT
+			                FROM    USRAM.TB_RAW_MTR_WRHS_PRFMNC A
+			                      , USRAM.TB_RAW_MTR_INVNTR B
+			                WHERE   A.APC_CD = B.APC_CD
+			                AND     A.WRHSNO = B.WRHSNO
+		]]>
+
+		<if test='apcCd != null and apcCd != ""'>
+			   AND A.APC_CD = #{apcCd}
+		</if>
+		<if test='wrhsYmdFrom != null and wrhsYmdFrom != ""'>
+			   AND A.WRHS_YMD <![CDATA[>=]]> #{wrhsYmdFrom}
+		</if>
+		<if test='wrhsYmdTo != null and wrhsYmdTo != ""'>
+			   AND A.WRHS_YMD <![CDATA[<=]]> #{wrhsYmdTo}
+		</if>
+
+
+		<![CDATA[
+					)
+		 	 )GROUP BY PRDCR_NM
+		]]>
+
+
+    </select>
 
 
 	<!-- ==========================================================================	-->

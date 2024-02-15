@@ -3,6 +3,7 @@ package com.at.apcss.am.wrhs.service;
 import java.util.HashMap;
 import java.util.List;
 
+import com.at.apcss.am.wrhs.vo.RawMtrWrhsDsctnTotVO;
 import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
 
 /**
@@ -36,6 +37,14 @@ public interface RawMtrWrhsService {
 	 * @throws Exception
 	 */
 	public List<RawMtrWrhsVO> selectRawMtrWrhsList(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+
+	/**
+	 * 입고내역집계 목록 조회
+	 * @param rawMtrWrhsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<RawMtrWrhsDsctnTotVO> selectDsctnTotList(RawMtrWrhsDsctnTotVO rawMtrWrhsVO) throws Exception;
 
 	/**
 	 * 원물입고 등록
