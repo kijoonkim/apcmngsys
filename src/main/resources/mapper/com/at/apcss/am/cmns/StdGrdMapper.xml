@@ -321,7 +321,7 @@
 			   AND SGD.GRD_NM LIKE '%' || #{grdKndNm} || '%'
 		</if>
 		<if test='delYn != null and delYn != ""'>
-			   AND SGD.DEL_YN = #{delYn}
+			   AND SG.DEL_YN = #{delYn}
 		</if>
 		<![CDATA[
 			 ORDER BY ITEM_CD, GRD_SE_CD, GRD_KND, SN
