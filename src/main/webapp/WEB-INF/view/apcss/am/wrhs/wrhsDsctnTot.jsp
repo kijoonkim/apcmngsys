@@ -46,10 +46,10 @@
 						<col style="width: 5%">
 						<col style="width: 2%">
 
-						<col style="width: 7%">
+						<col style="width: 5%">
 						<col style="width: 4%">
-						<col style="width: 2%">
 						<col style="width: 3%">
+						<col style="width: 4%">
 						<col style="width: 3%">
 						<col style="width: 3%">
 
@@ -62,9 +62,12 @@
 					<tbody>
 						<tr>
 
-
-							<th scope="row" class="th_bg"><span class="data_required"></span>입고일자</th>
-							<td class="td_input"style="border-right: hidden;">
+							<th scope="row" class="th_bg">품목</th>
+							<td class="td_input">
+								<sbux-select uitype="single" id="srch-slt-itemCd" name="srch-slt-itemCd" class="form-control input-sm" jsondata-ref="jsonComItem" onchange="fn_selectItem" readonly></sbux-select>
+							</td>
+							<th colspan="2" scope="row" class="th_bg"><span class="data_required"></span>입고일자</th>
+							<td colspan="2" class="td_input"style="border-right: hidden;">
 
 								<sbux-datepicker
 									uitype="popup"
@@ -109,7 +112,7 @@
 
 <script type="text/javascript">
 
-
+	var jsonComItem				= [];	// 품목 		itemCd			검색
 
 	window.addEventListener('DOMContentLoaded', async function(e) {
 
@@ -123,7 +126,9 @@
 		SBUxMethod.set("srch-dtp-wrhsYmdFrom", gfn_dateToYmd(new Date()));
 		SBUxMethod.set("srch-dtp-wrhsYmdTo", gfn_dateToYmd(new Date()));
 		fn_createWrhsDsctnTot();
-
+		let rst = await Promise.all([
+			gfn_setApcItemSBSelect('srch-slt-itemCd', jsonComItem, gv_selectedApcCd),										// 품목
+		]);
 		fn_search();
 	}
 
@@ -172,31 +177,29 @@
 			}
 		};
 	    SBGridProperties.columns = [
-	    	{caption : ["구분","이름"], ref: 'prdcrNm', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["구분","구분"], ref: 'prdcrNm', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
 	    	{caption : ["빨강","1차"], ref: 'redV1', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
 	    	{caption : ["빨강","2차"], ref: 'redV2', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
 	    	{caption : ["빨강","3차"], ref: 'redV3', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
 	    	{caption : ["빨강","4차"], ref: 'redV4', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
 	    	{caption : ["빨강","5차"], ref: 'redV5', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-	    	{caption : ["빨강","소계"], ref: 'redSbTot', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+	    	{caption : ["빨강","소계"], ref: 'redSbTot', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;background-color:#ceebff;', format : {type:'number', rule:'#,###'}, fixedstyle : 'background-color:#ceebff;'},
 
 	    	{caption : ["노랑","1차"], ref: 'ylwV1', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}},
 	    	{caption : ["노랑","2차"], ref: 'ylwV2', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}},
 	    	{caption : ["노랑","3차"], ref: 'ylwV3', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}},
 	    	{caption : ["노랑","4차"], ref: 'ylwV4', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}},
 	    	{caption : ["노랑","5차"], ref: 'ylwV5', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}},
-	    	{caption : ["노랑","소계"], ref: 'ylwSbTot', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}},
+	    	{caption : ["노랑","소계"], ref: 'ylwSbTot', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;background-color:#ceebff', format : {type:'number', rule:'#,###'},fixedstyle : 'background-color:#ceebff;'},
 
 	    	{caption : ["주황","1차"], ref: 'orngV1', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}},
 	    	{caption : ["주황","2차"], ref: 'orngV2', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}},
 	    	{caption : ["주황","3차"], ref: 'orngV3', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}},
 	    	{caption : ["주황","4차"], ref: 'orngV4', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}},
 	    	{caption : ["주황","5차"], ref: 'orngV5', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}},
-	    	{caption : ["주황","소계"], ref: 'orngSbTot', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}},
+	    	{caption : ["주황","소계"], ref: 'orngSbTot', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;background-color:#ceebff ', format : {type:'number', rule:'#,###'},fixedstyle : 'background-color:#ceebff;'},
 
 	    	{caption : ["총합계","총합계"], ref: 'totSum', type: 'output',  width:'150px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-	    	{caption : ["입고증\n출력","입고증\n출력"], ref: 'wrhsDocOtpt', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px;'},
-	    	{caption : ["순번","순번"], ref: 'sn', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px;'},
 	    	{caption : ["비고","비고"], ref: 'rmrk', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px;'}
 
 	    ];
@@ -214,10 +217,12 @@
 	const fn_setWrhsDsctnTot = async function() {
 		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-wrhsYmdFrom");
 		let wrhsYmdTo = SBUxMethod.get("srch-dtp-wrhsYmdTo");
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		const param = {
-			apcCd: '0033',
+			apcCd: gv_selectedApcCd,
 			wrhsYmdFrom: wrhsYmdFrom,
-			wrhsYmdTo: wrhsYmdTo
+			wrhsYmdTo: wrhsYmdTo,
+			itemCd: itemCd
 		}
 		jsonWrhsDsctnTot.length = 0;
 		let totalRecordCount = 0;
