@@ -9,6 +9,7 @@
 <head>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../frame/inc/clipreport.jsp" %>
 </head>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
@@ -21,6 +22,14 @@
                     </sbux-label>
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-button
+						id="btnCmndDocDsctn"
+						name="btnCmndDocDsctn"
+						uitype="normal"
+						class="btn btn-sm btn-primary"
+						onclick="fn_docWrhsDsctnTot"
+						text="입고내역집계확인서"
+					></sbux-button>
                     <sbux-button
 						id="btnSearch"
 						name="btnSearch"
@@ -108,6 +117,8 @@
 			</div>
 
 	</section>
+	<!-- clip report direct print area  -->
+	<div id="div-rpt-clipReportPrint" style="display:none;"></div>
 </body>
 
 <script type="text/javascript">
@@ -161,7 +172,7 @@
 				position: 'bottom',
 				columns: {
 				standard: [0],
-				sum: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19],
+				sum: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 			},
 			grandtotalrow : {
 				titlecol: 0,
@@ -177,6 +188,8 @@
 			}
 		};
 	    SBGridProperties.columns = [
+
+	    	{caption : [],	ref : 'checkedYn',		width : '40px',	style : 'text-align:center',	type : 'radio', 			typeinfo : {checkedvalue : 'yes', uncheckedvalue : 'false'}},
 	    	{caption : ["구분","구분"], ref: 'prdcrNm', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
 	    	{caption : ["빨강","1차"], ref: 'redV1', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
 	    	{caption : ["빨강","2차"], ref: 'redV2', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
@@ -200,7 +213,9 @@
 	    	{caption : ["주황","소계"], ref: 'orngSbTot', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;background-color:#ceebff ', format : {type:'number', rule:'#,###'},fixedstyle : 'background-color:#ceebff;'},
 
 	    	{caption : ["총합계","총합계"], ref: 'totSum', type: 'output',  width:'150px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-	    	{caption : ["비고","비고"], ref: 'rmrk', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px;'}
+	    	{caption : ["비고","비고"], ref: 'rmrk', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px;'},
+	    	{caption: ["생산자코드"],	ref: 'prdcrCd',     		type:'output',  	hidden: true},
+	    	{caption: ["입고일자"],	ref: 'wrhsYmd',     		type:'output',  	hidden: true}
 
 	    ];
 	    grdWrhsDsctnTot = _SBGrid.create(SBGridProperties);
@@ -237,6 +252,8 @@
 	        data.resultList.forEach((item, index) => {
 	        	const WrhsDsctnTot = {
 	        			prdcrNm : item.prdcrNm
+	        	    ,   prdcrCd : item.prdcrCd
+	        	    ,   wrhsYmd : item.wrhsYmd
 	        		,	redV1 : item.r1
 	        		,	redV2 : item.r2
 	        		,	redV3 : item.r3
@@ -261,7 +278,7 @@
 	        });
 
 	        grdWrhsDsctnTot.refresh();
-	        grdWrhsDsctnTot.setCellStyles(0,1,0,6,'background:#FF0000');
+	        grdWrhsDsctnTot.setCellStyles(0,2,0,6,'background:#FF0000');
 			grdWrhsDsctnTot.setCellStyles(0,7,0,12,'background:#FFFC33');
 			grdWrhsDsctnTot.setCellStyles(0,13,0,18,'background:#FFB533');
 
@@ -307,6 +324,32 @@
      function fn_excelDwnld() {
     	 grdWrhsDsctnTot.exportLocalExcel("입고내역집계", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
      }
+
+     /**
+      * @name fn_docWrhsDsctnTot
+      * @description 입고집계내역 발행 버튼
+      */
+ 	const fn_docWrhsDsctnTot = function() {
+
+ 		const grdWrhsDsctnTotList = [];
+ 		const allData = grdWrhsDsctnTot.getGridDataAll();
+ 		allData.forEach((item, index) => {
+ 			if (item.checkedYn === "yes") {
+ 					grdWrhsDsctnTotList.push(
+ 						item.prdcrCd
+ 						, item.wrhsYmd
+ 					);
+ 				}
+
+ 		});
+ 		if (grdWrhsDsctnTotList.length === 0) {
+ 			gfn_comAlert("W0005", "선택대상");		//	W0005	{0}이/가 없습니다.
+ 			return;
+ 		}
+ 		const list = grdWrhsDsctnTotList.join("','");
+
+ 		gfn_popClipReport("파프리카입고내역집계", "am/popWrhsDsctnTot.crf", {apcCd: gv_selectedApcCd, prdcrCd : grdWrhsDsctnTotList[0] , wrhsYmd : grdWrhsDsctnTotList[1]});
+ 	}
 
 </script>
 </html>

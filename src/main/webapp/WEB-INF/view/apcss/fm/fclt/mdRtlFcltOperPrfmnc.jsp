@@ -434,7 +434,7 @@ const fn_createMdApcPrcsPrfmncAvgGrid = function() {
 			position: 'bottom',
 			columns: {
 			standard: [0],
-			sum: [1,2,3,4,5,6],
+			avg: [1,2,3,4,5,6],
 		},
 		grandtotalrow : {
 			titlecol: 0,
