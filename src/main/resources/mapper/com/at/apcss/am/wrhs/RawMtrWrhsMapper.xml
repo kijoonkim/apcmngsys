@@ -184,7 +184,9 @@
 	<!-- ==========================================================================	-->
     <select id="selectDsctnTotList" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsDsctnTotVO" resultType="com.at.apcss.am.wrhs.vo.RawMtrWrhsDsctnTotVO">
     	<![CDATA[
-    		SELECT  PRDCR_NM
+    		SELECT  WRHS_YMD
+    			  , PRDCR_NM
+    			  , PRDCR_CD
 			      , SUM(R1)     AS R1
 			      , SUM(R2)     AS R2
 			      , SUM(R3)     AS R3
@@ -204,7 +206,9 @@
 			      , SUM(O5)     AS O5
 			      , SUM(OT)     AS OT
 			      , SUM(TOT)    AS TOT
-			FROM   (SELECT  PRDCR_NM
+			FROM   (SELECT  WRHS_YMD
+						  , PRDCR_NM
+						  , PRDCR_CD
 			              , CASE WHEN CLR = '1' AND RNK = 1 THEN BX_QNTT END    AS R1
 			              , CASE WHEN CLR = '1' AND RNK = 2 THEN BX_QNTT END    AS R2
 			              , CASE WHEN CLR = '1' AND RNK = 3 THEN BX_QNTT END    AS R3
@@ -225,8 +229,8 @@
 			              , CASE WHEN CLR = '3' THEN BX_QNTT             END    AS OT
 			              , BX_QNTT                                             AS TOT
 
-			        FROM   (SELECT  B.ITEM_CD
-			                      , A.PRDCR_CD
+			        FROM   (SELECT  A.WRHS_YMD AS WRHS_YMD
+			        			  , B.ITEM_CD
 			                      , FN_GET_PRDCR_NM (A.PRDCR_CD, A.APC_CD) AS PRDCR_NM
 			                      , CASE WHEN B.VRTY_CD = '0300' THEN '1'
 			                             WHEN B.VRTY_CD = '0200' THEN '2'
@@ -234,6 +238,7 @@
 			                      , RANK() OVER (PARTITION BY A.PRDCR_CD,B.VRTY_CD ORDER BY A.WRHSNO,B.VRTY_CD)  AS RNK
 			                      , A.BX_QNTT
 			                      , A.WRHS_WGHT
+			                      , A.PRDCR_CD AS PRDCR_CD
 			                FROM    USRAM.TB_RAW_MTR_WRHS_PRFMNC A
 			                      , USRAM.TB_RAW_MTR_INVNTR B
 			                WHERE   A.APC_CD = B.APC_CD
@@ -256,7 +261,8 @@
 
 		<![CDATA[
 					)
-		 	 )GROUP BY PRDCR_NM
+		 	 )GROUP BY WRHS_YMD,PRDCR_CD,PRDCR_NM
+		 	  ORDER BY WRHS_YMD,PRDCR_CD,PRDCR_NM
 		]]>
 
 
