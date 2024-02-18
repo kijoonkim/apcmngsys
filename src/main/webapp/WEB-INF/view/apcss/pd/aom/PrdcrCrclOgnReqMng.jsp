@@ -9,6 +9,7 @@
 	<title>title : SBUx2.6</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../frame/inc/clipreport.jsp" %>
 </head>
 <body oncontextmenu="return false">
 	<section>
@@ -37,6 +38,7 @@
 					<sbux-button id="btnSaveFclt01" name="btnSaveFclt01" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 					<sbux-button id="btnCorpDdlnSeCd01" name="btnCorpDdlnSeCd01" uitype="normal" text="법인체마감" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCd(1)"></sbux-button>
 				</c:if>
+					<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -1207,7 +1209,41 @@
 		let currentPageNo = grdPrdcrCrclOgnReqMng.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
 		fn_setGrdFcltList(recordCountPerPage, currentPageNo);
 	}
+	
+	
+	const fn_report = async function() {
+		
+		let yr = SBUxMethod.get("srch-input-yr");//
+		console.log(yr);
+		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
+		let ctpv = SBUxMethod.get("srch-input-ctpv");//
 
+		let corpSeCd = SBUxMethod.get("srch-input-corpSeCd");//
+		let corpDtlSeCd = SBUxMethod.get("srch-input-corpDtlSeCd");//
+
+		let brno = SBUxMethod.get("srch-input-brno");//
+		let corpNm = SBUxMethod.get("srch-input-corpNm");//
+
+		let corpDdlnSeCd = SBUxMethod.get("srch-input-corpDdlnSeCd");//
+
+		let aprv = SBUxMethod.get("srch-input-aprv");//
+
+		//sbgrid 체크박스 값 사용
+		let yrChk = SBUxMethod.get("srch-input-yrChk");//
+		let keys = Object.getOwnPropertyNames(yrChk);
+		let yrChkVal = null;
+		for(let i=0; i<keys.length; i++){
+			if(yrChk[keys[i]]){
+				yrChkVal = yrChk[keys[i]];
+			}
+		}
+
+
+		gfn_popClipReport("출자출하 조직관리 총괄표", "pd/allGroupDoc1.crf", {yr : yr, cmptnInst : cmptnInst, ctpv : ctpv,
+											corpSeCd : corpSeCd, corpDtlSeCd : corpDtlSeCd, brno : brno, corpNm : corpNm
+											,corpDdlnSeCd : corpDdlnSeCd, aprv : aprv, yrChk : yrChk, yrChkVal : yrChkVal,apoSe : "1"});
+	}
+	
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
 

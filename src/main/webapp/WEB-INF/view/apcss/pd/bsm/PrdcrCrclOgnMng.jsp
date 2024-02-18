@@ -9,6 +9,7 @@
     <title>title : SBUx2.6</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../frame/inc/clipreport.jsp" %>
 </head>
 <body oncontextmenu="return false">
 	<section>
@@ -32,6 +33,7 @@
 						<sbux-button id="btnSearchFclt01" name="btnSearchFclt01" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlSearch"></sbux-button>
 						<sbux-button id="btnSaveFclt01" name="btnSaveFclt01" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 					</c:if>
+						<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -1257,7 +1259,21 @@ tps://sbgrid.co.kr/v2_5/document/guide
     	fn_setGrdFcltList(recordCountPerPage, currentPageNo);
     }
 
+	const fn_report = async function() {
+		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
+		let ctpv = SBUxMethod.get("srch-input-ctpv");//
+		let sgg = SBUxMethod.get("srch-input-sgg");//
+		let corpSeCd = SBUxMethod.get("srch-input-corpSeCd");//
+		let corpDtlSeCd = SBUxMethod.get("srch-input-corpDtlSeCd");//
+		let brno = SBUxMethod.get("srch-input-brno");//
+		let corpNm = SBUxMethod.get("srch-input-corpNm");//
+		let apoSe = SBUxMethod.get("srch-input-apoSe");//
 
+		
+
+		gfn_popClipReport("산지조직 관리", "pd/sanDoc1.crf", {cmptnInst : cmptnInst, ctpv : ctpv, sgg : sgg,
+											corpSeCd : corpSeCd, corpDtlSeCd : corpDtlSeCd, brno : brno, corpNm : corpNm, apoSe : apoSe});
+	}
 
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){

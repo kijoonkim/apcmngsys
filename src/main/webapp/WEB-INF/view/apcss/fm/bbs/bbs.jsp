@@ -24,6 +24,7 @@
 <head>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../frame/inc/clipreport.jsp" %>
 </head>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
@@ -42,7 +43,9 @@
 			              <sbux-button id="btn_save" name="btn_save" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_save"></sbux-button>
 			              <sbux-button id="btn_delete" name="btn_delete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="fn_delete"></sbux-button>
 						</c:if>
+						  
 			              <sbux-button id="btn_search" name="btn_search" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
+			              <sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 	               </div>
             </div>
         </div>
@@ -315,6 +318,18 @@
     	fn_setGrdBbsList(recordCountPerPage, currentPageNo);
     }
 
+    
+    
+    const fn_report = async function() {
+    	let bbsSeCd = SBUxMethod.get("srch-select-bbsSeCd");
+		//let bbsNo = SBUxMethod.get("srch-input-bbsNo");
+		let bbsTitle = SBUxMethod.get("srch-input-bbsTitle");
+
+
+    	gfn_popClipReport("공지사항리스트", "pd/bbsDoc.crf", {bbsSeCd : bbsSeCd , bbsTitle : bbsTitle});
+    }
+    
+    
     /**
      * @param {number} pageSize
      * @param {number} pageNo

@@ -34,6 +34,7 @@
 					<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="생산자조직 저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList01"></sbux-button>
 					 -->
 				</c:if>
+					<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
 				</div>
 
 			</div>
@@ -640,7 +641,57 @@
     	let currentPageNo = grdPrdcrOgnCurntMng.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
     	fn_setGrdFcltList(recordCountPerPage, currentPageNo);
     }
+	
+	const fn_report2 = async function() {
+		let yr = SBUxMethod.get("srch-input-yr");//
+		//년도 검색값이 없는 경우 최신년도
+		if(gfn_isEmpty(yr)){
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
+		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
+		let ctpv = SBUxMethod.get("srch-input-ctpv");//
 
+		let corpSeCd = SBUxMethod.get("srch-input-corpSeCd");//
+		let corpDtlSeCd = SBUxMethod.get("srch-input-corpDtlSeCd");//
+
+		let brno = SBUxMethod.get("srch-input-brno");//
+		let uoBrno = SBUxMethod.get("srch-input-uoBrno");//
+		let corpNm = SBUxMethod.get("srch-input-corpNm");//
+
+		let apoSe = SBUxMethod.get("srch-input-apoSe");//
+		let frmhsHldYn = SBUxMethod.get("srch-input-frmhsHldYn");//
+		let aprv = SBUxMethod.get("srch-input-aprv");//
+
+		//sbgrid 체크박스 값 사용
+		let yrChk = SBUxMethod.get("srch-input-yrChk");//
+		let keys = Object.getOwnPropertyNames(yrChk);
+		let yrChkVal = null;
+		for(let i=0; i<keys.length; i++){
+			if(yrChk[keys[i]]){
+				yrChkVal = yrChk[keys[i]];
+			}
+		}
+		</c:if>
+
+		<c:if test="${loginVO.userType eq '21'}">
+		let brno = '${loginVO.brno}';
+		if(gfn_isEmpty(brno)) return;
+		</c:if>
+		
+		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+ 	 	gfn_popClipReport("검색리스트", "pd/searchList1.crf", {brno: brno, yr: yr, frmhsHld : "Y"
+ 	 		, cmptnInst : cmptnInst ,ctpv : ctpv ,corpSeCd : corpSeCd ,corpDtlSeCd : corpDtlSeCd ,corpNm : corpNm
+ 	 		,aprv : aprv ,apoSe : apoSe ,frmhsHldYn : frmhsHldYn ,yrChk : yrChkVal ,uoBrno : uoBrno
+ 	 	});
+ 	 	</c:if>
+ 	 	<c:if test="${loginVO.userType eq '21'}">
+ 	 	gfn_popClipReport("검색리스트", "pd/searchList1.crf", {brno: brno, yr: yr, frmhsHld : "Y" ,userType : '21'});
+		</c:if>
+    }
+	
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
 		let yr = SBUxMethod.get("srch-input-yr");//
@@ -682,7 +733,6 @@
 		if(gfn_isEmpty(brno)) return;
 		</c:if>
 
-		console.log(yr);
 
     	let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
     		brno : brno

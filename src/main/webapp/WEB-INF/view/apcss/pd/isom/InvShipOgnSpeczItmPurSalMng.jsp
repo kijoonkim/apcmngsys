@@ -30,7 +30,7 @@
 					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
 					<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
 				</c:if>
-					<!-- <sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button> -->
+					<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -254,7 +254,7 @@
 					<div style="margin-left: auto;">
 						<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
 						<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
-						<!-- <sbux-button id="btnRepor1t" name="btnReport1" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick=""></sbux-button> -->
+						<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
 					</div>
 				</div>
 			</c:if><!-- 관리자 권한인 경우 그리드 표기 -->
@@ -806,7 +806,8 @@
     }
 	
 	
-	//전문품목 검색리스트 출력
+	
+	
 	const fn_report = async function() {
 		let yr = SBUxMethod.get("srch-input-yr");//
 		//년도 검색값이 없는 경우 최신년도
@@ -826,6 +827,8 @@
 		let uoBrno = SBUxMethod.get("srch-input-uoBrno");//
 		let corpNm = SBUxMethod.get("srch-input-corpNm");//
 
+		let apoSe = SBUxMethod.get("srch-input-apoSe");//
+		let frmhsHldYn = SBUxMethod.get("srch-input-frmhsHldYn");//
 		let aprv = SBUxMethod.get("srch-input-aprv");//
 
 		//sbgrid 체크박스 값 사용
@@ -837,25 +840,22 @@
 				yrChkVal = yrChk[keys[i]];
 			}
 		}
-		let stbltHldYn = SBUxMethod.get("srch-input-stbltHldYn");//
 		</c:if>
+
 		<c:if test="${loginVO.userType eq '21'}">
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
 		</c:if>
 		
-		
 		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
- 	 	gfn_popClipReport("전문품목 매입매출", "pd/sptDoc1.crf", {brNo : brno, apoSe : '2', yr : yr, stbltYnNm:'Y'
- 	 										,cmptnInst : cmptnInst ,ctpv : ctpv ,corpSeCd : corpSeCd  ,corpDtlSeCd : corpDtlSeCd ,corpNm : corpNm
- 	 										,aprv : aprv ,uoBrno : uoBrno ,yrChk : yrChkVal , stbltHldYn : stbltHldYn //적합품목 보유 여부									
+ 	 	gfn_popClipReport("검색리스트", "pd/sptDoc1.crf", {brno: brno, yr: yr, frmhsHld : "Y"
+ 	 		, cmptnInst : cmptnInst ,ctpv : ctpv ,corpSeCd : corpSeCd ,corpDtlSeCd : corpDtlSeCd ,corpNm : corpNm
+ 	 		,aprv : aprv ,apoSe : apoSe ,frmhsHldYn : frmhsHldYn ,yrChk : yrChkVal ,uoBrno : uoBrno
  	 	});
  	 	</c:if>
- 	 	
  	 	<c:if test="${loginVO.userType eq '21'}">
- 	 	gfn_popClipReport("전문품목 매입매출", "pd/sptDoc1.crf", {brNo : brno, apoSe : '2', yr : yr, stbltYnNm:'Y'
- 	 														,userType : '21',stbltYnBrno : brno});
- 	 	</c:if>
+ 	 	gfn_popClipReport("검색리스트", "pd/sptDoc1.crf", {brno: brno, yr: yr, frmhsHld : "Y" ,userType : '21'});
+		</c:if>
     }
 	
 	/* Grid Row 조회 기능*/
@@ -1059,7 +1059,27 @@
 		//jsonPrdcrOgnCurntMng02.length= 0;
 		//grdPrdcrOgnCurntMng02.rebuild();
 	}
-
+	
+	//총괄표 출력
+	const fn_report2 = async function() {
+		
+		let brno = SBUxMethod.get("dtl-input-brno");//
+		if(gfn_isEmpty(brno)) return;
+		let uoBrnoVal = SBUxMethod.get('dtl-input-uoBrno');
+		if(gfn_isEmpty(uoBrnoVal)){
+			alert("통합조직을 선택해 주세요");
+			return;
+		}
+		let yr = SBUxMethod.get("dtl-input-yr");//
+		
+		let reqCorpNmT = $('#dtl-input-corpNm').val();
+		let reqBrnoT = $('#dtl-input-brno').val();
+		let reqCrnoT = $('#dtl-input-crno').val();
+		let reqUoBrnoT = $('#dtl-input-selUoBrno option:checked').text();
+		 gfn_popClipReport("판매위임 매입 및 출하 매출 실적", "pd/sptDoc2.crf", {brno : brno, uoBrno : uoBrnoVal, yr : yr
+			 															,corpnm : reqCorpNmT, buisno : reqBrnoT, corpno : reqCrnoT, allgroupnm : reqUoBrnoT}); 
+	}
+	
 	//판매위임[매입] 및 출하[매출] 실적 그리드 조회
 	const fn_dtlGridSearch = async function(){
 

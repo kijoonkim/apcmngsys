@@ -9,6 +9,7 @@
     <title>title : SBUx2.6</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../frame/inc/clipreport.jsp" %>
 </head>
 <body oncontextmenu="return false">
 	<section>
@@ -23,6 +24,7 @@
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchFcltList"></sbux-button>
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
 					<sbux-button id="btnSaveFrm" name="btnSaveFrm" uitype="normal" text="연계 등록" class="btn btn-sm btn-outline-danger" onclick="fn_saveFrmerSn"></sbux-button>
+					<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -198,7 +200,15 @@
 
 	}
 
+	
+	const fn_report = async function() {
+		let ognzNm = SBUxMethod.get("srch-inp-ognzNm");//
+		let ognzSeNm = SBUxMethod.get("srch-inp-ognzSeNm");//
+		let typeNm = SBUxMethod.get("srch-inp-typeNm");//
 
+		gfn_popClipReport("통합조직 코드 관리", "pd/allCodeDoc.crf", {ognzNm : ognzNm, ognzSeNm : ognzSeNm, typeNm : typeNm});
+	}
+	
 
 	/* Grid Row 조회 기능*/
 	const fn_searchFcltList = async function(){

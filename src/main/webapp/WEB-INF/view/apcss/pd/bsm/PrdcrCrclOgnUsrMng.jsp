@@ -9,6 +9,7 @@
     <title>title : SBUx2.6</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../frame/inc/clipreport.jsp" %>
 </head>
 <body oncontextmenu="return false">
 	<section>
@@ -32,6 +33,7 @@
 					<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
 						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
 					</c:if>
+						<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -626,7 +628,23 @@
     	let currentPageNo = grdPrdcrCrclOgnUsrMng.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
     	fn_setGrdFcltList(recordCountPerPage, currentPageNo);
     }
+	
+	//출력
+	const fn_report = async function() {
+		let cmptncInst = SBUxMethod.get("srch-input-cmptncInst");//관할기관
+		let userStts = SBUxMethod.get("srch-input-userStts");//1차승인여부
+		let cmptncInstAprvSe = SBUxMethod.get("srch-input-cmptncInstAprvSe");//2차승인여부
+		let userType = SBUxMethod.get("srch-input-userType");//권한
+		let userId = SBUxMethod.get("srch-input-userId");//아이디
+		let userNm = SBUxMethod.get("srch-input-userNm");//이름
+		let brno = SBUxMethod.get("srch-input-brno");//사업자번호
+		let coNm = SBUxMethod.get("srch-input-coNm");//법인명
 
+
+		gfn_popClipReport("사용자 리스트", "pd/userListDoc.crf", {cmptncInst : cmptncInst, userStts : userStts, cmptncInstAprvSe : cmptncInstAprvSe,
+										userType : userType, userId : userId, userNm : userNm, brno : brno, coNm : coNm});
+	}
+	
 	/* Grid Row 조회 기능*/
 	//const fn_searchFcltList = async function(){
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
