@@ -29,6 +29,6 @@ public class ApcLinkVO  extends ComVO{
 	private String spmtReqDt;
 	private String spmtPrcsDt;
 	private String trsmMatSttsCd;
-
+	private String sttsIdntyDt;
 
 }

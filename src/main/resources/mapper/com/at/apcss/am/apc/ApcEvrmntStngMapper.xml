@@ -49,6 +49,27 @@
     </select>
 
     <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.updateApcLinkIdnty	-->
+	<!-- DESC : APC 연계 정보 수정 (확인)	                                             	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.02.19  	박 승 진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateApcLinkIdnty" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" >
+    	<![CDATA[
+		    UPDATE /* com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.updateApcLinkIdnty */
+				TB_APC_LINK SET
+	    		  SYS_LAST_CHG_DT 			= SYSDATE
+    	     	, SYS_LAST_CHG_USER_ID 		= #{sysLastChgUserId}
+    	     	, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+    	     	
+		    	, TRSM_MAT_STTS_CD	= #{trsmMatSttsCd}
+		    	, STTS_IDNTY_DT     = SYSDATE
+			 WHERE APC_CD = #{apcCd}
+		]]>
+    </update>
+    <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.updateApcWrhsLink		-->
 	<!-- DESC : APC 연계 정보 수정.	                                             		-->
 	<!-- ==========================================================================	-->
