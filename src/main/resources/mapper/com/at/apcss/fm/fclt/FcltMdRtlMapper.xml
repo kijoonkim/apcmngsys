@@ -3279,7 +3279,16 @@
                                            '특용작물류-기타',
                                            '표고버섯'
                                            )) END  AS S1
-			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') THEN B.RTL_OGNZ_TOT_TRMT_AMT END      AS S2
+			              ,CASE WHEN A.OGNZ_TYPE_CD IN ('5') THEN
+                              (SELECT  SUM(X.APC_OPER_AMT)
+                                FROM    USRAM.TB_TE_APC_OPER_PRFMNC_DTL X
+                                WHERE   X.APC_CD = A.APC_CD
+                                AND     X.ITEM_NM NOT IN ('맥류-기타','미곡류-기타','버섯-기타',
+                                                          '벼종자',
+                                                          '잡곡류-기타',
+                                                          '특용작물류-기타',
+                                                          '표고버섯'
+                                                         )) END  AS S2
 			              , B.RTL_OGNZ_TOT_TRMT_AMT                                                 AS S3
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') THEN B.RTL_OGNZ_OGNZ_SUM END      AS S4
 			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') THEN B.RTL_OGNZ_OGNZ_SUM END          AS S5

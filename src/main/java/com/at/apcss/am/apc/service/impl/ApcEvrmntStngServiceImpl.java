@@ -43,7 +43,7 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 	// 공통코드
 	@Resource(name = "comCdService")
 	private ComCdService comCdService;
-	
+
 	// 팔레트/박스
 	@Resource(name = "pltBxService")
 	private PltBxService pltBxService;
@@ -58,7 +58,7 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 
 		return apcEvrmntStngMapper.selectApcLink(apcLinkVO);
 	}
-	
+
 	@Override
 	public ApcEvrmntStngVO selectApcInfo(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception {
 		return apcEvrmntStngMapper.selectApcInfo(apcEvrmntStngVO);
@@ -220,18 +220,18 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 			lgzMrktVO.setLgszMrktCd(orgnCdDtl.getCdVl());
 			lgzMrktVO.setLgszMrktNm(orgnCdDtl.getCdVlNm());
 			lgzMrktVO.setOutordrInfoUrl(orgnCdDtl.getCdVlExpln());
-			
+
 			lgszMrktList.add(lgzMrktVO);
 		}
-		
+
 		if (!lgszMrktList.isEmpty()) {
 			rtnObj = cnptService.insertLgszMrktList(lgszMrktList);
 			if (rtnObj != null) {
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
 		}
-		
-		
+
+
 		// 131 팔레트/박스		테이블		TB_PLT_BX_INFO
 		/*
 		PltBxVO pltBxVO = new PltBxVO();
@@ -260,7 +260,7 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 				ComConstants.PROP_SYS_LAST_CHG_DT,
 				ComConstants.PROP_SYS_LAST_CHG_USER_ID,
 				ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
-		
+
 		rtnObj = comAuthrtService.insertApcNormalAuthrt(authStngVO);
 		if (rtnObj != null) {
 			logger.error(getMessageForMap(rtnObj));
@@ -664,6 +664,20 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("W0005", "APC설정정보")));	// W0005	{0}이/가 없습니다.
 		}
 
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> updateApcLink(ApcLinkVO apcLinkVO) throws Exception {
+		//ApcLinkVO checkLinkVO = apcEvrmntStngMapper.selectApcLink(apcLinkVO);
+		String check = apcLinkVO.getLinkKnd();
+		String time = apcLinkVO.getSysLastChgPrgrmId();
+		int result;
+		if(check.equals("W")) {
+			result = apcEvrmntStngMapper.updateApcWrhsLink(apcLinkVO);
+		}else if (check.equals("S")) {
+			result = apcEvrmntStngMapper.updateApcSortLink(apcLinkVO);
+		}
 		return null;
 	}
 

@@ -9,6 +9,8 @@ import lombok.Setter;
 @Setter
 public class ApcLinkVO  extends ComVO{
 
+	private String linkKnd;
+
 	private String apcCd;
 	private String apcKey;
 	private String wghReqYn;
@@ -27,5 +29,6 @@ public class ApcLinkVO  extends ComVO{
 	private String spmtReqDt;
 	private String spmtPrcsDt;
 	private String trsmMatSttsCd;
-	
+
+
 }
