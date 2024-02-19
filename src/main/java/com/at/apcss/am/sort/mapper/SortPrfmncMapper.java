@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
+import com.at.apcss.am.sort.vo.SortDsctnTotVO;
 import com.at.apcss.am.sort.vo.SortPrfmncVO;
 
 /**
@@ -38,6 +39,14 @@ public interface SortPrfmncMapper {
 	 * @throws Exception
 	 */
 	public List<SortPrfmncVO> selectSortPrfmncList(SortPrfmncVO sortPrfmncVO) throws Exception;
+
+	/**
+	 * 선별실적 목록 조회
+	 * @param sortPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SortDsctnTotVO> selectSortDsctnTot(SortDsctnTotVO sortDsctnTotVO) throws Exception;
 
 	/**
 	 * 선별실적 목록 조회 (취소대상)
