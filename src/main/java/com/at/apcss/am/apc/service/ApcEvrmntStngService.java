@@ -19,6 +19,14 @@ public interface ApcEvrmntStngService {
 	ApcLinkVO selectApcLink(ApcLinkVO apcLinkVO) throws Exception;
 
 	/**
+	 * APC 연계정보 확인
+	 * @param apcLinkVO
+	 * @return
+	 * @throws Exception
+	 */
+	HashMap<String, Object> updateApcLinkIdnty(ApcLinkVO apcLinkVO) throws Exception;
+	
+	/**
 	 * APC 연계정보 업데이트
 	 * @param apcLinkVO
 	 * @return

@@ -60,6 +60,13 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 	}
 
 	@Override
+	public HashMap<String, Object> updateApcLinkIdnty(ApcLinkVO apcLinkVO) throws Exception {
+		apcLinkVO.setTrsmMatSttsCd("S0");
+		apcEvrmntStngMapper.updateApcLinkIdnty(apcLinkVO);
+		return null;
+	}
+	
+	@Override
 	public ApcEvrmntStngVO selectApcInfo(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception {
 		return apcEvrmntStngMapper.selectApcInfo(apcEvrmntStngVO);
 	}
@@ -680,6 +687,8 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 		}
 		return null;
 	}
+
+
 
 
 }

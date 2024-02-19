@@ -32,6 +32,14 @@ public interface ApcEvrmntStngMapper {
 	public ApcLinkVO selectApcLink(ApcLinkVO apcLinkVO) throws Exception;
 
 	/**
+	 * APC 연계정보 확인
+	 * @param apcLinkVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateApcLinkIdnty(ApcLinkVO apcLinkVO) throws Exception;
+	
+	/**
 	 * APC 정보 조회
 	 * @param apcEvrmntStngVO
 	 * @return ApcEvrmntStngVO

@@ -67,6 +67,11 @@ public class ApcEvrmntStngApiController extends BaseController {
 			}
 			
 			resultVO.setApcKey(null);
+			apcLinkVO.setSysFrstInptUserId(ComConstants.DEFAULT_ERR_USER);
+			apcLinkVO.setSysFrstInptPrgrmId(ComConstants.DEFAULT_ERR_PRGRM);
+			apcLinkVO.setSysLastChgUserId(ComConstants.DEFAULT_ERR_USER);
+			apcLinkVO.setSysLastChgPrgrmId(ComConstants.DEFAULT_ERR_PRGRM);
+			apcEvrmntStngService.updateApcLinkIdnty(apcLinkVO);
 			
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
