@@ -220,8 +220,40 @@
 				</if>
 				, EAM.YR
 				, EAM.APLY_DAY
-				, EAM.CORP_DDLN_SE_CD
-				, EAM.PRFMNC_CORP_DDLN_YN
+				, DECODE(EAM.APO_SE
+						, '1' , EAM.CORP_DDLN_SE_CD
+						, '2' , DECODE(NVL((SELECT COUNT(CORP_DDLN_SE_CD)
+											FROM TB_EV_APLY_MNG
+											WHERE 1=1
+											  AND APO_SE = '1'
+											  AND YR = EAM.YR
+											  AND BRNO IN (SELECT UO_BRNO
+															FROM TB_EV_APO_UO_CD
+															WHERE ISO_BRNO = EAM.BRNO
+															)
+											),0)
+										, 0 , 'N'
+										, 'Y'
+										)
+						,''
+				) AS CORP_DDLN_SE_CD
+				, DECODE(EAM.APO_SE
+						, '1' , EAM.PRFMNC_CORP_DDLN_YN
+						, '2' , DECODE(NVL((SELECT COUNT(PRFMNC_CORP_DDLN_YN)
+											FROM TB_EV_APLY_MNG
+											WHERE 1=1
+											  AND APO_SE = '1'
+											  AND YR = EAM.YR
+											  AND BRNO IN (SELECT UO_BRNO
+															FROM TB_EV_APO_UO_CD
+															WHERE ISO_BRNO = EAM.BRNO
+															)
+											),0)
+										, 0 , 'N'
+										, 'Y'
+										)
+						,''
+				) AS PRFMNC_CORP_DDLN_YN
 				,(CASE WHEN TRIM(RAW_MTR_ENSR_SIGUN_CNT) IS NOT NULL THEN '1'
 						WHEN TRIM(RAW_MTR_ENSR_CTPV_CNT) IS NOT NULL THEN '2'
 						END

@@ -276,6 +276,7 @@
 								 -->
 								<sbux-input uitype="hidden" id="dtl-input-uoCd" name="dtl-input-uoCd"></sbux-input>
 								<sbux-input uitype="hidden" id="dtl-input-yr" name="dtl-input-yr"></sbux-input>
+								<sbux-input uitype="hidden" id="dtl-input-prfmncCorpDdlnYn" name="dtl-input-prfmncCorpDdlnYn"></sbux-input>
 								<sbux-select
 									id="dtl-input-apoSe"
 									name="dtl-input-apoSe"
@@ -1026,7 +1027,8 @@
         	let totalRecordCount = 0;
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
-				let PrdcrOgnCurntMngVO = {
+        		console.log(item.prfmncCorpDdlnYn);
+        		let PrdcrOgnCurntMngVO = {
 						apoCd: item.apoCd
 						,apoSe: item.apoSe
 						,ctpv: item.ctpv
@@ -1038,14 +1040,15 @@
 						,corpSeCd: item.corpSeCd
 						,yr: item.yr
 						,frmhsCnt : item.frmhsCnt
+						,prfmncCorpDdlnYn : item.prfmncCorpDdlnYn
 				}
 				jsonPrdcrOgnCurntMng.push(PrdcrOgnCurntMngVO);
 				if (index === 0) {
 					totalRecordCount = item.totalRecordCount;
 				}
-				
+
 			});
-        	
+
         	if (jsonPrdcrOgnCurntMng.length > 0) {
 
         		if(grdPrdcrOgnCurntMng.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
@@ -1093,6 +1096,8 @@
 				SBUxMethod.set('dtl-input-corpNm',gfn_nvl(item.corpNm))//법인명
 				SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno))//법인등록번호
 				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))//사업자등록번호
+				SBUxMethod.set('dtl-input-prfmncCorpDdlnYn',gfn_nvl(item.prfmncCorpDdlnYn))//실적 법인체 마감
+				console.log(item.prfmncCorpDdlnYn);
 			});
 			//생산자조직 리스트 조회
         	//fn_dtlGridSearch01();
@@ -1489,6 +1494,7 @@
 		SBUxMethod.set('dtl-input-crno',gfn_nvl(rowData.crno))//법인등록번호
 		SBUxMethod.set('dtl-input-brno',gfn_nvl(rowData.brno))//사업자등록번호
 		SBUxMethod.set('dtl-input-yr',gfn_nvl(rowData.yr))//사업자등록번호
+		SBUxMethod.set('dtl-input-prfmncCorpDdlnYn',gfn_nvl(rowData.prfmncCorpDdlnYn))//실적 법인체 마감
 		//통합조직 일 때 통합조직 선택 콤보 초기화 및 비활성하
 		//console.log(rowData.apoSe);
 		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
@@ -1657,17 +1663,17 @@
 		}else if(apoSeVal == '1'){
 			uoBrnoVal = null;
 		}
-		
+
 		let apcguVal = $('#dtl-input-apoSe option:checked').text();;
 		let corpNm = $('#dtl-input-corpNm').val();
 		let buisNo = $('#dtl-input-brno').val();
-		
+
  	 	 gfn_popClipReport("생산자조직 리스트", "pd/prdDoc2.crf", {brno: brno, yr: yr, apocd : apoSeVal ,uobrno : uoBrnoVal
- 	 	, apcgu : apcguVal, corpnm : corpNm, buisno: buisNo 
- 	 	}); 
+ 	 	, apcgu : apcguVal, corpnm : corpNm, buisno: buisNo
+ 	 	});
  	 	debugger;
     }
-	
+
 	//생산자조직 리스트 조회
 	async function fn_dtlGridSearch01() {
 		let apoSeVal = SBUxMethod.get('dtl-input-apoSe');
