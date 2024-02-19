@@ -229,7 +229,10 @@
 				</table>
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
-						<li><span>원물입고 내역</span></li>
+						<li>
+							<span>원물입고 내역</span>
+							<span style="font-size:12px">(조회건수 <span id="cnt-wrhs">0</span>건)</span>
+						</li>
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
@@ -647,6 +650,7 @@
 
  	        const data = await postJsonPromise;
 
+
  	    	if (!_.isEqual("S", data.resultStatus)) {
 	        	gfn_comAlert(data.resultCode, data.resultMessage);
 	        	return;
@@ -698,8 +702,10 @@
 
   				if (index === 0) {
   					totalRecordCount = item.totalRecordCount;
+  					document.querySelector('#cnt-wrhs').innerText = totalRecordCount;
   				}
   			});
+
 
           	if (jsonRawMtrWrhs.length > 0) {
           		if(grdRawMtrWrhs.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
