@@ -245,6 +245,7 @@
 			                AND     A.WRHSNO = B.WRHSNO
 			                AND 	A.DEL_YN = 'N'
 			                AND 	B.DEL_YN = 'N'
+			                AND     B.INVNTR_STTS_CD IS NULL
 		]]>
 
 		<if test='apcCd != null and apcCd != ""'>
