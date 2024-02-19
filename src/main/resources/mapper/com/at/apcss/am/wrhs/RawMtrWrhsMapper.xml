@@ -243,6 +243,8 @@
 			                      , USRAM.TB_RAW_MTR_INVNTR B
 			                WHERE   A.APC_CD = B.APC_CD
 			                AND     A.WRHSNO = B.WRHSNO
+			                AND 	A.DEL_YN = 'N'
+			                AND 	B.DEL_YN = 'N'
 		]]>
 
 		<if test='apcCd != null and apcCd != ""'>

@@ -28,7 +28,7 @@
 						uitype="normal"
 						class="btn btn-sm btn-primary"
 						onclick="fn_docWrhsDsctnTot"
-						text="입고내역집계확인서"
+						text="입고확인서"
 					></sbux-button>
                     <sbux-button
 						id="btnSearch"
@@ -171,25 +171,26 @@
 				type: 'grand',
 				position: 'bottom',
 				columns: {
-				standard: [0],
-				sum: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
-			},
+					standard: [2],
+					sum: [3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]
+				},
+
 			grandtotalrow : {
-				titlecol: 0,
+				titlecol: 2,
 				titlevalue: '합계',
 				style : 'background-color: #ceebff ; font-weight: bold; color: #0060b3;',
 				stylestartcol: 0
 			},
 			totalformat: {
 				1: '#,###',
-				2: '#,###',
+				// 2: '#,###',
 				3: '#,###',
 				4: '#,###',
 			}
 		};
 	    SBGridProperties.columns = [
-
 	    	{caption : [],	ref : 'checkedYn',		width : '40px',	style : 'text-align:center',	type : 'radio', 			typeinfo : {checkedvalue : 'yes', uncheckedvalue : 'false'}},
+	    	{caption : ["입고일자","입고일자"], ref: 'wrhsYmd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
 	    	{caption : ["구분","구분"], ref: 'prdcrNm', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
 	    	{caption : ["빨강","1차"], ref: 'redV1', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
 	    	{caption : ["빨강","2차"], ref: 'redV2', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
@@ -214,8 +215,8 @@
 
 	    	{caption : ["총합계","총합계"], ref: 'totSum', type: 'output',  width:'150px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
 	    	{caption : ["비고","비고"], ref: 'rmrk', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px;'},
-	    	{caption: ["생산자코드"],	ref: 'prdcrCd',     		type:'output',  	hidden: true},
-	    	{caption: ["입고일자"],	ref: 'wrhsYmd',     		type:'output',  	hidden: true}
+	    	{caption: ["생산자코드"],	ref: 'prdcrCd',     		type:'output',  	hidden: true}
+
 
 	    ];
 	    grdWrhsDsctnTot = _SBGrid.create(SBGridProperties);
@@ -278,9 +279,9 @@
 	        });
 
 	        grdWrhsDsctnTot.refresh();
-	        grdWrhsDsctnTot.setCellStyles(0,2,0,6,'background:#FF0000');
-			grdWrhsDsctnTot.setCellStyles(0,7,0,12,'background:#FFFC33');
-			grdWrhsDsctnTot.setCellStyles(0,13,0,18,'background:#FFB533');
+	        grdWrhsDsctnTot.setCellStyles(0,3,0,7,'background:#FF0000');
+			grdWrhsDsctnTot.setCellStyles(0,8,0,13,'background:#FFFC33');
+			grdWrhsDsctnTot.setCellStyles(0,14,0,19,'background:#FFB533');
 
 		} catch (e) {
 			if (!(e instanceof Error)) {
@@ -348,7 +349,7 @@
  		}
  		const list = grdWrhsDsctnTotList.join("','");
 
- 		gfn_popClipReport("파프리카입고내역집계", "am/popWrhsDsctnTot.crf", {apcCd: gv_selectedApcCd, prdcrCd : grdWrhsDsctnTotList[0] , wrhsYmd : grdWrhsDsctnTotList[1]});
+ 		gfn_popClipReport("입고확인서", "am/popWrhsDsctnTot.crf", {apcCd: gv_selectedApcCd, prdcrCd : grdWrhsDsctnTotList[0] , wrhsYmd : grdWrhsDsctnTotList[1]});
  	}
 
 </script>
