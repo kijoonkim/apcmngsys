@@ -14,6 +14,42 @@
 
 
 	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.selectApcLink		-->
+	<!-- DESC : APC 연계 정보 조회.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.07  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectApcLink" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" resultType="com.at.apcss.am.apc.vo.ApcLinkVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.selectApcLink */
+	    		  AL.APC_CD        		AS APC_CD
+				, AL.APC_KEY			AS APC_KEY
+				, AL.WGH_REQ_YN   		AS WGH_REQ_YN
+				, TO_CHAR(AL.WGH_REQ_DT, 'YYYYMMDDHH24MISS')	AS WGH_REQ_DT
+				, TO_CHAR(AL.WGH_PRCS_DT, 'YYYYMMDDHH24MISS')   AS WGH_PRCS_DT
+				, AL.WRHS_REQ_YN    AS WRHS_REQ_YN
+				, TO_CHAR(AL.WRHS_REQ_DT, 'YYYYMMDDHH24MISS')   AS WRHS_REQ_DT
+				, TO_CHAR(AL.WRHS_PRCS_DT, 'YYYYMMDDHH24MISS')  AS WRHS_PRCS_DT
+				, AL.SORT_REQ_YN    AS SORT_REQ_YN
+				, TO_CHAR(AL.SORT_REQ_DT, 'YYYYMMDDHH24MISS')   AS SORT_REQ_DT
+				, TO_CHAR(AL.SORT_PRCS_DT, 'YYYYMMDDHH24MISS')  AS SORT_PRCS_DT
+				, AL.PCKG_REQ_YN    AS PCKG_REQ_YN
+				, TO_CHAR(AL.PCKG_REQ_DT, 'YYYYMMDDHH24MISS')   AS PCKG_REQ_DT
+				, TO_CHAR(AL.PCKG_PRCS_DT, 'YYYYMMDDHH24MISS')  AS PCKG_PRCS_DT
+				, AL.SPMT_REQ_YN    AS SPMT_REQ_YN
+				, TO_CHAR(AL.SPMT_REQ_DT, 'YYYYMMDDHH24MISS')   AS SPMT_REQ_DT
+				, TO_CHAR(AL.SPMT_PRCS_DT, 'YYYYMMDDHH24MISS')  AS SPMT_PRCS_DT
+				, AL.TRSM_MAT_STTS_CD   AS TRSM_MAT_STTS_CD
+				, AL.DEL_YN     AS DEL_YN
+			  FROM TB_APC_LINK AL
+			 WHERE AL.APC_CD = #{apcCd}
+		]]>
+    </select>
+
+
+	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.selectApcInfo		-->
 	<!-- DESC : APC 정보 조회.	                                             		-->
 	<!-- ==========================================================================	-->

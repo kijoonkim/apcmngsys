@@ -4,11 +4,20 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.apc.vo.ApcEvrmntStngVO;
+import com.at.apcss.am.apc.vo.ApcLinkVO;
 import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.user.vo.ComUserVO;
 
 public interface ApcEvrmntStngService {
 
+	/**
+	 * APC 연계정보 조회
+	 * @param apcLinkVO
+	 * @return
+	 * @throws Exception
+	 */
+	ApcLinkVO selectApcLink(ApcLinkVO apcLinkVO) throws Exception;
+	
 	/**
 	 * APC환경설정 APC정보 조회
 	 * @param ApcEvrmntStngVO

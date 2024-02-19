@@ -275,7 +275,7 @@ public abstract class BaseController {
 		return new ResponseEntity<HashMap<String, Object>>(resultMap, HttpStatus.OK);
 	}
 
-	protected ResponseEntity<Map<String, Object>> getErrorResponseEntity(String errorCode, String errorMessage) {
+	protected ResponseEntity<HashMap<String, Object>> getErrorResponseEntity(String errorCode, String errorMessage) {
 
 		HashMap<String, Object> resultMap = new HashMap<>();
 
@@ -285,7 +285,7 @@ public abstract class BaseController {
 
 		insertSysErrorLog(ComUtil.nullToEmpty(errorCode) + ComConstants.CON_COMMA + ComUtil.nullToEmpty(errorMessage));
 		
-		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<HashMap<String, Object>>(resultMap, HttpStatus.BAD_REQUEST);
 	}
 	
 	protected ResponseEntity<HashMap<String, Object>> getErrorResponseEntity(EgovBizException e) {

@@ -15,6 +15,7 @@ import org.springframework.util.StringUtils;
 import com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper;
 import com.at.apcss.am.apc.service.ApcEvrmntStngService;
 import com.at.apcss.am.apc.vo.ApcEvrmntStngVO;
+import com.at.apcss.am.apc.vo.ApcLinkVO;
 import com.at.apcss.am.cmns.service.CnptService;
 import com.at.apcss.am.cmns.service.PltBxService;
 import com.at.apcss.am.cmns.vo.LgszMrktVO;
@@ -52,6 +53,12 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 	private CnptService cnptService;
 
 
+	@Override
+	public ApcLinkVO selectApcLink(ApcLinkVO apcLinkVO) throws Exception {
+
+		return apcEvrmntStngMapper.selectApcLink(apcLinkVO);
+	}
+	
 	@Override
 	public ApcEvrmntStngVO selectApcInfo(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception {
 		return apcEvrmntStngMapper.selectApcInfo(apcEvrmntStngVO);
@@ -659,5 +666,6 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 
 		return null;
 	}
+
 
 }
