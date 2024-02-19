@@ -221,6 +221,7 @@
 				, EAM.YR
 				, EAM.APLY_DAY
 				, EAM.CORP_DDLN_SE_CD
+				, EAM.PRFMNC_CORP_DDLN_YN
 				,(CASE WHEN TRIM(RAW_MTR_ENSR_SIGUN_CNT) IS NOT NULL THEN '1'
 						WHEN TRIM(RAW_MTR_ENSR_CTPV_CNT) IS NOT NULL THEN '2'
 						END
@@ -254,13 +255,27 @@
 			  		FROM TB_EV_APO
 			  		WHERE 1=1
 			  		<if test='brno != null and brno != ""'>
-			  		  AND BRNO = #{brno}
+			  		  <if test='userType != "21"'>
+			  		   AND BRNO = #{brno}
+			  		  </if>
 			  		  <if test='userType == "21"'>
-			  		   OR BRNO IN (SELECT ISO_BRNO FROM TB_EV_APO_UO_CD WHERE UO_BRNO = #{brno})
+			  		   AND (
+			  		   		BRNO  = #{brno}
+			  		   		OR
+			  		   		BRNO IN (SELECT ISO_BRNO FROM TB_EV_APO_UO_CD WHERE UO_BRNO = #{brno})
+			  		   		)
 			  		  </if>
 			  		</if>
 			  		<if test='uoBrno != null and uoBrno != ""'>
 			  		  AND BRNO in (SELECT ISO_BRNO FROM TB_EV_APO_UO_CD WHERE UO_BRNO = #{uoBrno})
+			  		</if>
+			  		<if test='uoBrnoUo != null and uoBrnoUo != ""'>
+			  		  /*통합조직으로 검색시 통합조직,출자출하조직 둘다 나오게*/
+			  		  AND (
+			  		  		BRNO = #{uoBrnoUo}
+			  		  		OR
+			  		  		BRNO in (SELECT ISO_BRNO FROM TB_EV_APO_UO_CD WHERE UO_BRNO = #{uoBrnoUo})
+			  		  		)
 			  		</if>
 			  		) CM
 			  		, (SELECT *
