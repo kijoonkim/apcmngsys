@@ -235,7 +235,7 @@
 			                      , CASE WHEN B.VRTY_CD = '0300' THEN '1'
 			                             WHEN B.VRTY_CD = '0200' THEN '2'
 			                             WHEN B.VRTY_CD = '0400' THEN '3' END AS CLR
-			                      , RANK() OVER (PARTITION BY A.PRDCR_CD,B.VRTY_CD ORDER BY A.WRHSNO,B.VRTY_CD)  AS RNK
+			                      , RANK() OVER (PARTITION BY A.PRDCR_CD,B.VRTY_CD,A.WRHS_YMD ORDER BY A.WRHSNO,B.VRTY_CD)  AS RNK
 			                      , A.BX_QNTT
 			                      , A.WRHS_WGHT
 			                      , A.PRDCR_CD AS PRDCR_CD
