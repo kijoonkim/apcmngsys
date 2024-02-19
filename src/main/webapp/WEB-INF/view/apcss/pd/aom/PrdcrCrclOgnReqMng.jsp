@@ -260,9 +260,15 @@
 								<span style="font-size:12px">추가를 눌러 생성 후 작성해주세요</span>
 							</li>
 							 -->
+							
+							 
 						</ul>
 				</div>
-
+				 <div class="box-header" style="display:flex; justify-content: flex-start;" >
+								 <div style="margin-left: auto;">
+										<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
+								</div>
+							</div>
 
 				<table class="table table-bordered tbl_fixed">
 					<caption>사용자관리 수정 화면</caption>
@@ -2114,7 +2120,37 @@
 		}
 		return strValue;
 	}
-
+	
+	//총괄표 출력
+	const fn_report2 = async function() {
+		
+		let apoCd = SBUxMethod.get('dtl-input-apoCd')//
+		let yr = SBUxMethod.get('dtl-input-yr')//
+		if(gfn_isEmpty(yr)){
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
+		// apoCd : apoCd
+		let apoSe = '1'
+		let brno = SBUxMethod.get('dtl-input-brno')//
+		let crno = SBUxMethod.get('dtl-input-crno')//
+		
+		let reqCorpNmT = $('#dtl-input-corpNm').val();
+		let reqBrnoT = $('#dtl-input-brno').val();
+		let reqCrnoT = $('#dtl-input-crno').val();
+		let reqUoBrnoT = $('#dtl-input-selUoBrno option:checked').text();
+		
+		if(gfn_isEmpty(brno)){
+			alert("출력할 통합조직을 선택해주세요");
+			return;
+		}
+		
+		 gfn_popClipReport("통합조직 등록 정보", "pd/insDoc.crf", {brno : brno, apoSe : '1',crno: crno, yr: yr}); 
+	}
+	
+	
+	
 	/* 품목리스트 조회 기능*/
 	const fn_selectGpcList = async function(){
 		console.log("===========fn_selectGpcList===========");

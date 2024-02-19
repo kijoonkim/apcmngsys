@@ -245,6 +245,7 @@
 					<div style="margin-left: auto;">
 						<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
 						<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
+						<sbux-button id="btnReport3" name="btnReport3" uitype="normal" class="btn btn-sm btn-primary" text="전속(약정)출하 현황출력" onclick="fn_report3"></sbux-button>
 					</div>
 				</div>
 			</c:if><!-- 관리자 권한인 경우 그리드 표기 -->
@@ -816,9 +817,28 @@
 		let reqCorpNo = $('#dtl-input-crno').val();
 		
 		
-		debugger;
 		
  		gfn_popClipReport("통합조직관리 총괄표", "pd/docAll3.crf", {brNo : reqBrno, yr : reqYr, corpnm : reqCorpNm, buisno : reqBuisNo, corpno : reqCorpNo});
+    }
+	
+	const fn_report3 = async function() {
+		let reqBrno = SBUxMethod.get("dtl-input-brno");//
+		let reqYr = SBUxMethod.get("dtl-input-yr");//
+		
+		if(!reqBrno){
+			
+			alert("통합조직을 선택하세요");
+			return false;
+			
+		}
+		
+		let reqCorpNm = $('#dtl-input-corpNm').val();
+		let reqBuisNo = $('#dtl-input-brno').val();
+		let reqCorpNo = $('#dtl-input-crno').val();
+		
+		
+		
+ 		gfn_popClipReport("전속(약정)출하 현황출력", "pd/docAll.crf", {brNo : reqBrno, yr : reqYr, corpnm : reqCorpNm, buisno : reqBuisNo, corpno : reqCorpNo});
     }
 	
 	//판매위임[매입] 및 출하[매출] 실적 그리드 조회
