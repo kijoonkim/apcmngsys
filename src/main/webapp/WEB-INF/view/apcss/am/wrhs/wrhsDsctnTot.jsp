@@ -111,7 +111,7 @@
 								</li>
 							</ul>
 						</div>
-						<div id="sb-area-wrhsDsctnTot" style="height:401px;"></div>
+						<div id="sb-area-wrhsDsctnTot" style="height:544px;"></div>
 
 				</div>
 			</div>
@@ -190,7 +190,7 @@
 		};
 	    SBGridProperties.columns = [
 	    	{caption : [],	ref : 'checkedYn',		width : '40px',	style : 'text-align:center',	type : 'radio', 			typeinfo : {checkedvalue : 'yes', uncheckedvalue : 'false'}},
-	    	{caption : ["입고일자","입고일자"], ref: 'wrhsYmd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["입고일자","입고일자"], ref: 'wrhsYmd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 	    	{caption : ["구분","구분"], ref: 'prdcrNm', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
 	    	{caption : ["빨강","1차"], ref: 'redV1', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
 	    	{caption : ["빨강","2차"], ref: 'redV2', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
