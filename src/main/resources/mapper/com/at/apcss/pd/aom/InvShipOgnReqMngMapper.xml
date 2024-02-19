@@ -330,9 +330,9 @@
 				  AND UO_BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
 			) D
 		WHERE B.YR = #{yr}
-		  AND B.APO_CD = A.APO_CD(+)
+		  AND B.BRNO = A.BRNO(+)
 		  AND B.APO_SE = '2'
-		  AND B.APO_CD = D.ISO_APO_CD(+)
+		  AND B.BRNO = D.ISO_BRNO(+)
 		ORDER BY B.BRNO ,  D.UO_BRNO
 	</select>
 </mapper>
