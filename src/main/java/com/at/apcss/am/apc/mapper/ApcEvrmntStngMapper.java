@@ -5,6 +5,7 @@ import java.util.List;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.at.apcss.am.apc.vo.ApcEvrmntStngVO;
+import com.at.apcss.am.apc.vo.ApcLinkVO;
 import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.user.vo.ComUserVO;
 /**
@@ -26,6 +27,9 @@ import com.at.apcss.co.user.vo.ComUserVO;
 @Mapper
 public interface ApcEvrmntStngMapper {
 
+	
+	public ApcLinkVO selectApcLink(ApcLinkVO apcLinkVO) throws Exception;
+	
 	/**
 	 * APC 정보 조회
 	 * @param apcEvrmntStngVO

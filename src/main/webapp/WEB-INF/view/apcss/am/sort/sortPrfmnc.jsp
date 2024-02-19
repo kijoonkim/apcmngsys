@@ -568,7 +568,10 @@
      * @param {number} pageNo
      */
 	const fn_setGrdSortPrfmnc = async function(pageSize, pageNo) {
-
+		
+    	lv_sortno = "";
+    	let lv_sortSn = -1;
+    	
 		let inptYmdFrom = SBUxMethod.get("srch-dtp-inptYmdFrom");
 		let inptYmdTo = SBUxMethod.get("srch-dtp-inptYmdTo");
     	let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");				// 생산자
