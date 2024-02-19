@@ -38,7 +38,7 @@ public class ApcEvrmntStngController extends BaseController{
 	// 공통코드
 	@Resource(name = "comCdService")
 	private ComCdService comCdSerivce;
-	
+
 	// APC 환경설정 - APC 정보 조회
 	@PostMapping(value = "/am/apc/selectApcEvrmntStng.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectApcEvrmntStng(@RequestBody ApcEvrmntStngVO apcEvrmntStngVO, HttpServletRequest request) throws Exception {
@@ -55,7 +55,7 @@ public class ApcEvrmntStngController extends BaseController{
 				return getErrorResponseEntity(rtnObj);
 			}
 		}
-		
+
 		resultMap.put("resultVO", resultVO);
 
 		return getSuccessResponseEntity(resultMap);
@@ -237,6 +237,28 @@ public class ApcEvrmntStngController extends BaseController{
 				return getErrorResponseEntity(rtnObj);
 			}
 		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// APC 환경설정 - 사용자 정보 등록
+	@PostMapping(value = "/am/apc/updateApcLink.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> updateApcLink(@RequestBody ApcLinkVO apcLinkVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+
+			apcEvrmntStngService.updateApcLink(apcLinkVO);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
 
 		return getSuccessResponseEntity(resultMap);
 	}

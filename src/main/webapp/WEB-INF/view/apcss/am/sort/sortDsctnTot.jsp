@@ -23,13 +23,14 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button
-						id="btnCmndDocDsctn"
-						name="btnCmndDocDsctn"
+						id="btnSortReq"
+						name="btnSortReq"
 						uitype="normal"
-						class="btn btn-sm btn-primary"
-						onclick="fn_docSortDsctnTot"
-						text="선별확인서"
+						class="btn btn-sm btn-outline-danger"
+						onclick="fn_sortReq"
+						text="선별요청"
 					></sbux-button>
+
                     <sbux-button
 						id="btnSearch"
 						name="btnSearch"
@@ -359,6 +360,32 @@
 
  		gfn_popClipReport("입고확인서", "am/popSortDsctnTot.crf", {apcCd: gv_selectedApcCd, prdcrCd : grdSortDsctnTotList[0] , inptYmd : grdSortDsctnTotList[1]});
  	}
+
+ 	const fn_sortReq = async function() {
+
+		const param = {
+			apcCd: gv_selectedApcCd,
+			linkKnd: 'S',
+			sortReqYn: 'Y'
+		}
+
+		try {
+			const postJsonPromise = gfn_postJSON(
+						"/am/apc/updateApcLink.do",
+						param,
+						null,
+						false
+					);
+	        const data = await postJsonPromise;
+
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+ 			//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
+	}
 
 </script>
 </html>

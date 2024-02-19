@@ -48,6 +48,45 @@
 		]]>
     </select>
 
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.updateApcWrhsLink		-->
+	<!-- DESC : APC 연계 정보 수정.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.02.19  	박 승 진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateApcWrhsLink" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" >
+    	<![CDATA[
+	    UPDATE /* com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.updateApcLink */
+	    	  TB_APC_LINK SET
+
+	    	 WRHS_REQ_YN 		= #{wrhsReqYn}
+	    	 , WRHS_REQ_DT      = SYSDATE
+
+			 WHERE APC_CD = #{apcCd}
+		]]>
+    </update>
+
+        <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.updateApcSortLink		-->
+	<!-- DESC : APC 연계 정보 수정.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.02.19  	박 승 진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateApcSortLink" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" >
+    	<![CDATA[
+	    UPDATE /* com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.updateApcLink */
+	    	  TB_APC_LINK SET
+	    	  SORT_REQ_YN 		= #{sortReqYn}
+			, SORT_REQ_DT      = SYSDATE
+			 WHERE APC_CD = #{apcCd}
+		]]>
+    </update>
+
+
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.selectApcInfo		-->

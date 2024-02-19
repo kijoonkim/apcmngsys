@@ -30,6 +30,14 @@
 						onclick="fn_docWrhsDsctnTot"
 						text="입고확인서"
 					></sbux-button>
+					<sbux-button
+						id="btnWrhsReq"
+						name="btnWrhsReq"
+						uitype="normal"
+						class="btn btn-sm btn-outline-danger"
+						onclick="fn_wrhsReq"
+						text="입고요청"
+					></sbux-button>
                     <sbux-button
 						id="btnSearch"
 						name="btnSearch"
@@ -297,7 +305,31 @@
 		fn_setWrhsDsctnTot();
 
 	}
+	const fn_wrhsReq = async function() {
 
+		const param = {
+			apcCd: gv_selectedApcCd,
+			linkKnd: 'W',
+			wrhsReqYn: 'Y'
+		}
+
+		try {
+			const postJsonPromise = gfn_postJSON(
+						"/am/apc/updateApcLink.do",
+						param,
+						null,
+						false
+					);
+	        const data = await postJsonPromise;
+
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+ 			//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
+	}
 	const fn_dtpChange = function(){
 		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-wrhsYmdFrom");
 		let wrhsYmdTo = SBUxMethod.get("srch-dtp-wrhsYmdTo");
