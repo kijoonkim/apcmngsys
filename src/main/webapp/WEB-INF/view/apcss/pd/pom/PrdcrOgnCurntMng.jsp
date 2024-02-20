@@ -1041,10 +1041,10 @@
 				<c:if test="${loginVO.userType eq '21'}">
 				//실적 법인체 마감 처리
 				if (item.prfmncCorpDdlnYn == 'Y') {
-					$('.btn').hide();
-					$('#btnSearchFclt').show();
-					$('#btnSearchFclt1').show();
-					$('#btnSearchFclt2').show();
+					//저장버튼, 엑셀업로드 버튼 숨김처리
+					$('#btnSaveFclt1').hide();
+					$('#btnSaveFclt2').hide();
+					$('#btnUpload').hide();
 				}
 				</c:if>
 
@@ -1117,13 +1117,14 @@
 				SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno))//법인등록번호
 				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))//사업자등록번호
 				SBUxMethod.set('dtl-input-prfmncCorpDdlnYn',gfn_nvl(item.prfmncCorpDdlnYn))//실적 법인체 마감
-				SBUxMethod.set('dtl-input-prfmncCorpDdlnYn',gfn_nvl('Y'))//실적 법인체 마감
+				//SBUxMethod.set('dtl-input-prfmncCorpDdlnYn',gfn_nvl('Y'))//실적 법인체 마감
+
 				console.log("prfmncCorpDdlnYn = " + item.prfmncCorpDdlnYn);
 				if (item.prfmncCorpDdlnYn == 'Y') {
-					$('.btn').hide();
-					$('#btnSearchFclt').show();
-					$('#btnSearchFclt1').show();
-					$('#btnSearchFclt2').show();
+					//저장버튼, 엑셀업로드 버튼 숨김처리
+					$('#btnSaveFclt1').hide();
+					$('#btnSaveFclt2').hide();
+					$('#btnUpload').hide();
 				}
 			});
 			//생산자조직 리스트 조회
