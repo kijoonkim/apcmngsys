@@ -641,7 +641,7 @@
     	let currentPageNo = grdPrdcrOgnCurntMng.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
     	fn_setGrdFcltList(recordCountPerPage, currentPageNo);
     }
-	
+
 	const fn_report2 = async function() {
 		let yr = SBUxMethod.get("srch-input-yr");//
 		//년도 검색값이 없는 경우 최신년도
@@ -680,7 +680,7 @@
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
 		</c:if>
-		
+
 		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
  	 	gfn_popClipReport("검색리스트", "pd/searchList1.crf", {brno: brno, yr: yr, frmhsHld : "Y"
  	 		, cmptnInst : cmptnInst ,ctpv : ctpv ,corpSeCd : corpSeCd ,corpDtlSeCd : corpDtlSeCd ,corpNm : corpNm
@@ -691,7 +691,7 @@
  	 	gfn_popClipReport("검색리스트", "pd/searchList1.crf", {brno: brno, yr: yr, frmhsHld : "Y" ,userType : '21'});
 		</c:if>
     }
-	
+
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
 		let yr = SBUxMethod.get("srch-input-yr");//
@@ -753,7 +753,7 @@
     		,apoSe : apoSe
     		,frmhsHldYn : frmhsHldYn
     		,yrChk : yrChkVal
-    		,uoBrno : uoBrno
+    		,uoBrnoUo : uoBrno
     		</c:if>
 
     		<c:if test="${loginVO.userType eq '21'}">
@@ -957,30 +957,30 @@
 		jsonPrdcrOgnCurntMng01.length= 0;
 		grdPrdcrOgnCurntMng01.rebuild();
 	}
-	
-	
+
+
 	//총괄표 출력
 	const fn_report = async function() {
-		
-	
+
+
 		let reqBrno = SBUxMethod.get('dtl-input-brno');
 		let reqYr = SBUxMethod.get('dtl-input-yr');
-		
+
 		let reqApcGu = $('#dtl-input-apoSe option:checked').text();
 		let reqCorpNm = $('#dtl-input-corpNm').val();
 		let reqBuisNo = $('#dtl-input-brno').val();
-		
+
 		if(!reqBrno){
-			
+
 			alert("법인체를 선택하세요");
 			return false;
-			
+
 		}
-		
- 		gfn_popClipReport("생산자 조직관리 총괄표", "pd/docAll1.crf", {brNo : reqBrno, yr : reqYr, apcgu : reqApcGu, corpnm : reqCorpNm, buisno : reqBuisNo}); 
+
+ 		gfn_popClipReport("생산자 조직관리 총괄표", "pd/docAll1.crf", {brNo : reqBrno, yr : reqYr, apcgu : reqApcGu, corpnm : reqCorpNm, buisno : reqBuisNo});
     }
-	
-	
+
+
 
 	//생산자조직 총괄표 조회
 	async function fn_dtlGridSearch01() {
