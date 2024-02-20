@@ -22,14 +22,7 @@
                     </sbux-label>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button
-						id="btnSortReq"
-						name="btnSortReq"
-						uitype="normal"
-						class="btn btn-sm btn-outline-danger"
-						onclick="fn_sortReq"
-						text="선별요청"
-					></sbux-button>
+
 
                     <sbux-button
 						id="btnSearch"
@@ -103,14 +96,22 @@
 					</tbody>
 				</table>
 
-				<div class="row">
+				<div class="ad_tbl_top2">
 
-						<div class="ad_tbl_top" style="margin-bottom: 10px;">
 							<ul class="ad_tbl_count" style="width: 100%">
 								<li>
 									<span style="font-size:12px">선별내역집계</span>
 								</li>
 							</ul>
+						<div class="ad_tbl_top" style="margin-bottom: 10px; text-align:right">
+							<sbux-button
+								id="btnSortReq"
+								name="btnSortReq"
+								uitype="normal"
+								class="btn btn-sm btn-outline-danger"
+								onclick="fn_sortReq"
+								text="정보재수신"
+							></sbux-button>
 						</div>
 						<div id="sb-area-sortDsctnTot" style="height:544px;"></div>
 
@@ -192,6 +193,7 @@
 	    SBGridProperties.columns = [
 	    	{caption : [],	ref : 'checkedYn',		width : '40px',	style : 'text-align:center',	type : 'radio', 			typeinfo : {checkedvalue : 'yes', uncheckedvalue : 'false'}},
 	    	{caption : ["선별일자","선별일자"], ref: 'inptYmd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
+	    	{caption: ["등급","등급"],    		ref: 'grd',     	type: 'output', width:'50px', 	style: 'text-align:center'},
 	    	{caption : ["구분","구분"], ref: 'prdcrNm', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
 	    	{caption : ["빨강","2XL"], ref: 'redV1', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
 	    	{caption : ["빨강","XL"], ref: 'redV2', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
@@ -256,7 +258,8 @@
 	        const data = await postJsonPromise;
 	        data.resultList.forEach((item, index) => {
 	        	const SortDsctnTot = {
-	        			prdcrNm : item.prdcrNm
+	        			grd     : item.grd
+	        		,	prdcrNm : item.prdcrNm
 	        	    ,   prdcrCd : item.prdcrCd
 	        	    ,   inptYmd : item.inptYmd
 	        	    ,   redV1 : item.red2Xl
@@ -288,9 +291,9 @@
 	        });
 
 	        grdSortDsctnTot.refresh();
-	        grdSortDsctnTot.setCellStyles(0,3,0,8,'background:#FF0000');
-			grdSortDsctnTot.setCellStyles(0,9,0,15,'background:#FFFC33');
-			grdSortDsctnTot.setCellStyles(0,16,0,21,'background:#FFB533');
+	        grdSortDsctnTot.setCellStyles(0,4,0,9,'background:#FF0000');
+			grdSortDsctnTot.setCellStyles(0,10,0,16,'background:#FFFC33');
+			grdSortDsctnTot.setCellStyles(0,17,0,22,'background:#FFB533');
 
 		} catch (e) {
 			if (!(e instanceof Error)) {
