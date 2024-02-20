@@ -603,7 +603,7 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 																(CASE WHEN  TOTAL.CHK_A_A = 'Y' AND TOTAL.CHK_A_B = 'Y' AND TOTAL.CHK_A_C = 'Y'
 																			THEN 'Y'
 																			ELSE 'N' END)
-					WHEN TOTAL.APRV = '1' AND STTG_UPBR_ITEM_SE = '2' THEN 'Y'
+					WHEN TOTAL.APRV = '1' AND STTG_UPBR_ITEM_SE = '2' AND UO_SPMT_AMT > 0 THEN 'Y'
 					WHEN  TOTAL.APRV = '2' THEN
 																(CASE WHEN  TOTAL.CHK_B_A = 'Y' AND TOTAL.CHK_B_C = 'Y'
 																			THEN 'Y'

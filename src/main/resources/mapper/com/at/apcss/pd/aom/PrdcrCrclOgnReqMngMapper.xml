@@ -651,7 +651,7 @@
 
 	<!-- 법인체마감 -->
 	<update id="updateCorpDdlnSeCd" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
-	    	UPDATE /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.updateBrno */
+	    	UPDATE /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.updateCorpDdlnSeCd */
 	    		TB_EV_APLY_MNG
 			   SET
 			 	  CORP_DDLN_SE_CD	= #{corpDdlnSeCd}

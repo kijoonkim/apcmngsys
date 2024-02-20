@@ -27,6 +27,7 @@
 				</c:if>
 				<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
 					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
+					<sbux-button id="btnPrfmncCorpDdlnYn01" name="btnPrfmncCorpDdlnYn01" uitype="normal" text="실적 법인체마감" class="btn btn-sm btn-outline-danger" onclick="fn_prfmncCorpDdlnYn(1)"></sbux-button>
 				</c:if>
 					<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
 				</div>
@@ -225,7 +226,17 @@
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
 				<!-- 조직 리스트 -->
-				<div class="ad_section_top">
+				<div style="display:flex; justify-content: flex-start; margin-top: 10px;" >
+					<div>
+					</div>
+					<div style="margin-left: auto;">
+						<sbux-button id="btnPrfmncCorpDdlnYnY" name="btnPrfmncCorpDdlnYnY" uitype="normal" text="법인체선택마감" class="btn btn-sm btn-outline-danger" onclick="fn_prfmncCorpDdlnYn(1)"></sbux-button>
+						<sbux-button id="btnPrfmncCorpDdlnYnN" name="btnPrfmncCorpDdlnYnN" uitype="normal" text="법인체선택마감해제" class="btn btn-sm btn-outline-danger" onclick="fn_prfmncCorpDdlnYn(2)"></sbux-button>
+						<sbux-button id="btnPrfmncCorpDdlnYnAllY" name="btnPrfmncCorpDdlnYnAllY" uitype="normal" text="법인체일괄마감" class="btn btn-sm btn-outline-danger" onclick="fn_prfmncCorpDdlnYnAll(1)"></sbux-button>
+						<sbux-button id="btnPrfmncCorpDdlnYnAllN" name="btnPrfmncCorpDdlnYnAllN" uitype="normal" text="법인체일괄마감해제" class="btn btn-sm btn-outline-danger" onclick="fn_prfmncCorpDdlnYnAll(2)"></sbux-button>
+					</div>
+				</div>
+				<div class="">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
@@ -463,6 +474,7 @@
 	    SBGridProperties.columns = [
 	    	{caption: ["seq"], 			ref: 'apoCd',   	hidden : true},
 	    	{caption: ["등록년도"], 		ref: 'yr',   	type:'output',  width:'100px',    style:'text-align:center'},
+	    	{caption: ["법인체마감"], 		ref: 'prfmncCorpDdlnYn',   	type:'output',  width:'100px',    style:'text-align:center'},
 	    	{caption: ["통합조직여부"], 	ref: 'aprv',   type:'combo',  width:'80px',    style:'text-align:center', disabled:true
 		    	,typeinfo : {ref:'jsonComGrdAprv', label:'label', value:'value', displayui : false}},
 	    	{caption: ["법인명"], 		ref: 'corpNm',  type:'output',  width:'250px',    style:'text-align:center'},
@@ -702,6 +714,7 @@
 						,yr: item.yr
 						,corpSeCd: item.corpSeCd
 						,stbltYnNm: item.stbltYnNm
+						,prfmncCorpDdlnYn: item.prfmncCorpDdlnYn
 				}
 				jsonPrdcrOgnCurntMng.push(PrdcrOgnCurntMngVO);
 				if (index === 0) {
@@ -770,6 +783,8 @@
 	const fn_view = async function(){
 		console.log("******************fn_view**********************************");
 
+		fn_clearForm();
+
 	    //데이터가 존재하는 그리드 범위 확인
 		var nCol = grdPrdcrOgnCurntMng.getCol();
 	    if (nCol < 1) {
@@ -791,14 +806,18 @@
 		SBUxMethod.set('dtl-input-crno',gfn_nvl(rowData.crno))//법인등록번호
 		SBUxMethod.set('dtl-input-brno',gfn_nvl(rowData.brno))//사업자등록번호
 		SBUxMethod.set('dtl-input-yr',gfn_nvl(rowData.yr))//등록년도
-		fn_clearForm();
-    }
+
+	}
 	//그리드 초기화
 	async function fn_clearForm() {
-		//jsonPrdcrOgnCurntMng01.length= 0;
-		//grdPrdcrOgnCurntMng01.rebuild();
-		//jsonPrdcrOgnCurntMng02.length= 0;
-		//grdPrdcrOgnCurntMng02.rebuild();
+		jsonPrdcrOgnCurntMng01.length= 0;
+		grdPrdcrOgnCurntMng01.rebuild();
+		SBUxMethod.set('dtl-input-apoCd',null)//통합조직 코드
+		SBUxMethod.set('dtl-input-apoSe',null)//통합조직 구분
+		SBUxMethod.set('dtl-input-corpNm',null)//법인명
+		SBUxMethod.set('dtl-input-crno',null)//법인등록번호
+		SBUxMethod.set('dtl-input-brno',null)//사업자등록번호
+		SBUxMethod.set('dtl-input-yr',null)//등록년도
 	}
 
 	const fn_report = async function() {
@@ -1099,20 +1118,112 @@
 			,yr : yr
 			,itemCd : itemCd
 		});
-        let data = await postJsonPromise;
+		let data = await postJsonPromise;
 
-        try{
-        	if (_.isEqual("S", data.resultStatus)) {
-        		gfn_comAlert("I0001");// I0001	처리 되었습니다.
-        		fn_dtlGridSearch();
-        	}else{
-        		gfn_comAlert("E0001");//E0001 오류가 발생하였습니다.
-        	}
-        }catch (e) {
-        	if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
+		try{
+			if (_.isEqual("S", data.resultStatus)) {
+				gfn_comAlert("I0001");// I0001	처리 되었습니다.
+				fn_dtlGridSearch();
+			}else{
+				gfn_comAlert("E0001");//E0001 오류가 발생하였습니다.
+			}
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+	//실적 법인체 선택마감
+	async function fn_prfmncCorpDdlnYn(yn){
+		console.log("fn_prfmncCorpDdlnYn");
+		let brno = SBUxMethod.get('dtl-input-brno');
+		//let apoSe = SBUxMethod.get('dtl-input-apoSe');
+
+		if(gfn_isEmpty(brno)) return;
+
+		let prfmncCorpDdlnYn = null;
+		if(yn == 1){
+			prfmncCorpDdlnYn = 'Y'
+		}else if(yn == 2){
+			prfmncCorpDdlnYn = 'N'
+		}
+
+		//현재년도
+		let now = new Date();
+		let year = now.getFullYear();
+
+		let postJsonPromise = gfn_postJSON("/pd/pcom/updatePrfmncCorpDdlnYn.do", {
+			brno : brno
+			,yr : year
+			,prfmncCorpDdlnYn : prfmncCorpDdlnYn
+			//,apoSe : apoSe
+		});
+		let data = await postJsonPromise;
+
+		try{
+			if(data.result > 0){
+				if(yn == 1){
+					alert("실적 법인체 마감 되었습니다.");
+				}else if(yn == 2){
+					alert("실적 법인체 마감 해제 되었습니다.");
+				}
+				fn_search();
+			}else{
+				if(yn == 1){
+					alert("실적 법인체 마감 도중 오류가 발생 되었습니다.");
+				}else if(yn == 2){
+					alert("실적 법인체 마감 해제 도중 오류가 발생 되었습니다.");
+				}
+			}
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+	//실적 법인체 일괄 마감
+	async function fn_prfmncCorpDdlnYnAll(yn){
+		console.log("fn_prfmncCorpDdlnYnAll");
+		let prfmncCorpDdlnYn = null;
+		if(yn == 1){
+			prfmncCorpDdlnYn = 'Y'
+		}else if(yn == 2){
+			prfmncCorpDdlnYn = 'N'
+		}
+
+		//현재년도
+		let now = new Date();
+		let year = now.getFullYear();
+
+		let postJsonPromise = gfn_postJSON("/pd/pcom/updatePrfmncCorpDdlnYn.do", {
+			yr : year
+			,prfmncCorpDdlnYn : prfmncCorpDdlnYn
+		});
+		let data = await postJsonPromise;
+
+		try{
+			if(data.result > 0){
+				if(yn == 1){
+					alert("실적 법인체 마감 되었습니다.");
+				}else if(yn == 2){
+					alert("실적 법인체 마감 해제 되었습니다.");
+				}
+				fn_search();
+			}else{
+				if(yn == 1){
+					alert("실적 법인체 마감 도중 오류가 발생 되었습니다.");
+				}else if(yn == 2){
+					alert("실적 법인체 마감 해제 도중 오류가 발생 되었습니다.");
+				}
+			}
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
 		}
 	}
 </script>

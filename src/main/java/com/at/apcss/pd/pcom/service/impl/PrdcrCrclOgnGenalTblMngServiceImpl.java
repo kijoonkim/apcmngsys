@@ -61,4 +61,11 @@ public class PrdcrCrclOgnGenalTblMngServiceImpl extends BaseServiceImpl implemen
 		return updatedCnt;
 	}
 
+	@Override
+	public int updatePrfmncCorpDdlnYn(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception {
+		int updatedCnt = PrdcrCrclOgnGenalTblMngMapper.updatePrfmncCorpDdlnYn(PrdcrCrclOgnGenalTblMngVO);
+
+		return updatedCnt;
+	}
+
 }

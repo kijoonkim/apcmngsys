@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
-import com.at.apcss.pd.isom.vo.InvShipOgnGenalTblMngVO;
 import com.at.apcss.pd.pcom.service.PrdcrCrclOgnGenalTblMngService;
 import com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO;
 import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO;
@@ -89,6 +88,23 @@ public class PrdcrCrclOgnGenalTblMngController extends BaseController{
 
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
 
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	//실적 법인체 마감 업데이트
+	@PostMapping(value = "/pd/pcom/updatePrfmncCorpDdlnYn.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updatePrfmncCorpDdlnYn(@RequestBody PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO, HttpServletRequest request) throws Exception {
+		logger.debug("/pd/aom/updatePrfmncCorpDdlnYn.do >>> 호출 >>> ");
+
+		int result = 0;
+		try {
+			result =+ PrdcrCrclOgnGenalTblMngService.updatePrfmncCorpDdlnYn(PrdcrCrclOgnGenalTblMngVO);
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		resultMap.put("result", result);
 		return getSuccessResponseEntity(resultMap);
 	}
 }
