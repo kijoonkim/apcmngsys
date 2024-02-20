@@ -259,6 +259,10 @@ public class AmConstants {
     public final static String CON_WRHS_SPMT_TYPE_TRFT = "TF";
     
     
-    
+    /* 전송기기상태코드 */
+    public final static String CON_TRSM_MAT_STTS_CD_STANDBY = "S0";
+    public final static String CON_TRSM_MAT_STTS_CD_PROCESS = "P0";
+    public final static String CON_TRSM_MAT_STTS_CD_NONE = "E0";
+    public final static String CON_TRSM_MAT_STTS_CD_DISCONNECT = "E1";
     
 }

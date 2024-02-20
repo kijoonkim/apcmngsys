@@ -7,15 +7,18 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at.apcss.am.apc.service.ApcEvrmntStngService;
 import com.at.apcss.am.apc.vo.ApcEvrmntStngVO;
 import com.at.apcss.am.apc.vo.ApcLinkVO;
+import com.at.apcss.am.constants.AmConstants;
 import com.at.apcss.co.cd.service.ComCdService;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
@@ -39,6 +42,41 @@ public class ApcEvrmntStngController extends BaseController{
 	@Resource(name = "comCdService")
 	private ComCdService comCdSerivce;
 
+	// APC 환경설정 - APC 정보 조회
+	@PostMapping(value = "/am/apc/selectApcLinkStts.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectApcLinkStts(@RequestBody ApcLinkVO apcLinkVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		ApcLinkVO resultVO = new ApcLinkVO();
+		try {
+			resultVO = apcEvrmntStngService.selectApcLink(apcLinkVO);
+			
+			if (resultVO != null) {
+				resultVO.setApcKey(null);
+			} else {
+				resultVO = new ApcLinkVO();
+				BeanUtils.copyProperties(apcLinkVO, resultVO);
+			}
+			
+			if (!StringUtils.hasText(resultVO.getTrsmMatSttsCd())) {
+				resultVO.setTrsmMatSttsCd(AmConstants.CON_TRSM_MAT_STTS_CD_NONE);
+			}
+			
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_MAP, resultVO);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	
 	// APC 환경설정 - APC 정보 조회
 	@PostMapping(value = "/am/apc/selectApcEvrmntStng.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectApcEvrmntStng(@RequestBody ApcEvrmntStngVO apcEvrmntStngVO, HttpServletRequest request) throws Exception {
