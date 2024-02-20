@@ -39,6 +39,8 @@ public class PrdcrCrclOgnGenalTblMngVO extends ComVO{
 	private String totSpmtPrfmnc;//생산자조직 전속출하액
 	private String totTrmtRt;//전속취급률
 
+	private String prfmncCorpDdlnYn;//실적 법인체 마감
+
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;
 	private String sysFrstInptDtYmd;

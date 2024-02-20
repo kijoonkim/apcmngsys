@@ -995,8 +995,8 @@
     }
 	//그리드 초기화
 	async function fn_clearForm() {
-		//jsonPrdcrOgnCurntMng01.length= 0;
-		//grdPrdcrOgnCurntMng01.rebuild();
+		jsonPrdcrOgnCurntMng01.length= 0;
+		grdPrdcrOgnCurntMng01.rebuild();
 		//jsonPrdcrOgnCurntMng02.length= 0;
 		//grdPrdcrOgnCurntMng02.rebuild();
 	}
