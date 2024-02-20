@@ -249,7 +249,7 @@
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdPrdcrOgnCurntMng" style="height:200px; width: 100%;"></div>
+					<div id="sb-area-grdPrdcrOgnCurntMng" style="height:350px; width: 100%;"></div>
 				</div>
 				<!--[pp] 검색결과 -->
 
@@ -617,8 +617,8 @@
     	let currentPageNo = grdPrdcrOgnCurntMng.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
     	fn_setGrdFcltList(recordCountPerPage, currentPageNo);
     }
-	
-	
+
+
 	/* 출력물 */
 	const fn_report2 = async function() {
 		let yr = SBUxMethod.get("srch-input-yr");//
@@ -658,7 +658,7 @@
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
 		</c:if>
-		
+
 		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
  	 	gfn_popClipReport("검색리스트", "pd/searchList2.crf", {brno: brno, yr: yr, frmhsHld : "Y"
  	 		, cmptnInst : cmptnInst ,ctpv : ctpv ,corpSeCd : corpSeCd ,corpDtlSeCd : corpDtlSeCd ,corpNm : corpNm
@@ -669,8 +669,8 @@
  	 	gfn_popClipReport("검색리스트", "pd/searchList2.crf", {brno: brno, yr: yr, frmhsHld : "Y" ,userType : '21'});
 		</c:if>
     }
-	
-	
+
+
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
 		let yr = SBUxMethod.get("srch-input-yr");//

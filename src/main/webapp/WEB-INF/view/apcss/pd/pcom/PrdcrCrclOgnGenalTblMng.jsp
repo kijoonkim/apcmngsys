@@ -235,7 +235,7 @@
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdPrdcrOgnCurntMng" style="height:200px; width: 100%;"></div>
+					<div id="sb-area-grdPrdcrOgnCurntMng" style="height:350px; width: 100%;"></div>
 				</div>
 				<!--[pp] 검색결과 -->
 
@@ -576,8 +576,8 @@
     	fn_setGrdFcltList(recordCountPerPage, currentPageNo);
     }
 
-	
-	
+
+
 	const fn_report2 = async function() {
 		let yr = SBUxMethod.get("srch-input-yr");//
 		//년도 검색값이 없는 경우 최신년도
@@ -616,7 +616,7 @@
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
 		</c:if>
-		
+
 		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
  	 	gfn_popClipReport("검색리스트", "pd/searchList3.crf", {brno: brno, yr: yr, frmhsHld : "Y"
  	 		, cmptnInst : cmptnInst ,ctpv : ctpv ,corpSeCd : corpSeCd ,corpDtlSeCd : corpDtlSeCd ,corpNm : corpNm
@@ -627,10 +627,10 @@
  	 	gfn_popClipReport("검색리스트", "pd/searchList3.crf", {brno: brno, yr: yr, frmhsHld : "Y" ,userType : '21'});
 		</c:if>
     }
-	
-	
-	
-	
+
+
+
+
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
 		let yr = SBUxMethod.get("srch-input-yr");//
@@ -800,47 +800,47 @@
 		//jsonPrdcrOgnCurntMng02.length= 0;
 		//grdPrdcrOgnCurntMng02.rebuild();
 	}
-	
+
 	const fn_report = async function() {
 		let reqBrno = SBUxMethod.get("dtl-input-brno");//
 		let reqYr = SBUxMethod.get("dtl-input-yr");//
-		
+
 		if(!reqBrno){
-			
+
 			alert("법인체를 선택하세요");
 			return false;
-			
+
 		}
-		
+
 		let reqCorpNm = $('#dtl-input-corpNm').val();
 		let reqBuisNo = $('#dtl-input-brno').val();
 		let reqCorpNo = $('#dtl-input-crno').val();
-		
-		
-		
+
+
+
  		gfn_popClipReport("통합조직관리 총괄표", "pd/docAll3.crf", {brNo : reqBrno, yr : reqYr, corpnm : reqCorpNm, buisno : reqBuisNo, corpno : reqCorpNo});
     }
-	
+
 	const fn_report3 = async function() {
 		let reqBrno = SBUxMethod.get("dtl-input-brno");//
 		let reqYr = SBUxMethod.get("dtl-input-yr");//
-		
+
 		if(!reqBrno){
-			
+
 			alert("통합조직을 선택하세요");
 			return false;
-			
+
 		}
-		
+
 		let reqCorpNm = $('#dtl-input-corpNm').val();
 		let reqBuisNo = $('#dtl-input-brno').val();
 		let reqCorpNo = $('#dtl-input-crno').val();
-		
-		
-		
+
+
+
  		gfn_popClipReport("전속(약정)출하 현황출력", "pd/docAll.crf", {brNo : reqBrno, yr : reqYr, corpnm : reqCorpNm, buisno : reqBuisNo, corpno : reqCorpNo});
     }
-	
+
 	//판매위임[매입] 및 출하[매출] 실적 그리드 조회
 	const fn_dtlGridSearch = async function(){
 		let brno = SBUxMethod.get("dtl-input-brno");//

@@ -796,18 +796,16 @@
     	let pageSize = grdPrdcrOgnCurntMng.getPageSize();
     	let pageNo = 1;
 
-    	fn_setGrdFcltList(pageSize, pageNo);
-    }
+		fn_setGrdFcltList(pageSize, pageNo);
+	}
 
 	const fn_pagingBbsList = async function() {
-    	let recordCountPerPage = grdPrdcrOgnCurntMng.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-    	let currentPageNo = grdPrdcrOgnCurntMng.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-    	fn_setGrdFcltList(recordCountPerPage, currentPageNo);
-    }
-	
-	
-	
-	
+		let recordCountPerPage = grdPrdcrOgnCurntMng.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+		let currentPageNo = grdPrdcrOgnCurntMng.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+		fn_setGrdFcltList(recordCountPerPage, currentPageNo);
+	}
+
+
 	const fn_report = async function() {
 		let yr = SBUxMethod.get("srch-input-yr");//
 		//년도 검색값이 없는 경우 최신년도
@@ -846,7 +844,7 @@
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
 		</c:if>
-		
+
 		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
  	 	gfn_popClipReport("검색리스트", "pd/sptDoc1.crf", {brno: brno, yr: yr, frmhsHld : "Y"
  	 		, cmptnInst : cmptnInst ,ctpv : ctpv ,corpSeCd : corpSeCd ,corpDtlSeCd : corpDtlSeCd ,corpNm : corpNm
@@ -857,7 +855,7 @@
  	 	gfn_popClipReport("검색리스트", "pd/sptDoc1.crf", {brno: brno, yr: yr, frmhsHld : "Y" ,userType : '21'});
 		</c:if>
     }
-	
+
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
 		let yr = SBUxMethod.get("srch-input-yr");//
@@ -898,44 +896,44 @@
 
 		console.log(yr);
 
-    	let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
-    		brno : brno
-    		,apoSe : '2'
-    		,yr : yr
-    		,stbltYnNm:'Y'
+		let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
+			brno : brno
+			,apoSe : '2'
+			,yr : yr
+			,stbltYnNm:'Y'
 
-    		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
-    		,cmptnInst : cmptnInst
-    		,ctpv : ctpv
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+			,cmptnInst : cmptnInst
+			,ctpv : ctpv
 
-    		,corpSeCd : corpSeCd
-    		,corpDtlSeCd : corpDtlSeCd
+			,corpSeCd : corpSeCd
+			,corpDtlSeCd : corpDtlSeCd
 
-    		,corpNm : corpNm
+			,corpNm : corpNm
 
-    		,aprv : aprv
-    		,uoBrno : uoBrno
-    		,yrChk : yrChkVal
-    		,stbltHldYn : stbltHldYn //적합품목 보유 여부
-    		</c:if>
+			,aprv : aprv
+			,uoBrno : uoBrno
+			,yrChk : yrChkVal
+			,stbltHldYn : stbltHldYn //적합품목 보유 여부
+			</c:if>
 
-    		<c:if test="${loginVO.userType eq '21'}">
+			<c:if test="${loginVO.userType eq '21'}">
 			,userType : '21'
 			,stbltYnBrno : brno
-    		</c:if>
+			</c:if>
 
-    		//페이징
-    		,pagingYn : 'Y'
-    		,currentPageNo : pageNo
-     		,recordCountPerPage : pageSize
+			//페이징
+			,pagingYn : 'Y'
+			,currentPageNo : pageNo
+			,recordCountPerPage : pageSize
 		});
 
-        let data = await postJsonPromise ;
-        try{
-        	jsonPrdcrOgnCurntMng.length = 0;
-        	let totalRecordCount = 0;
-        	console.log("data==="+data);
-        	data.resultList.forEach((item, index) => {
+		let data = await postJsonPromise ;
+		try{
+			jsonPrdcrOgnCurntMng.length = 0;
+			let totalRecordCount = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
 				let PrdcrOgnCurntMngVO = {
 						apoCd: item.apoCd
 						,apoSe: item.apoSe
@@ -948,6 +946,7 @@
 						,yr: item.yr
 						,stbltYnNm: item.stbltYnNm
 						,corpSeCd: item.corpSeCd
+						,prfmncCorpDdlnYn : item.prfmncCorpDdlnYn
 				}
 				jsonPrdcrOgnCurntMng.push(PrdcrOgnCurntMngVO);
 				if (index === 0) {
@@ -955,28 +954,28 @@
 				}
 			});
 
-        	if (jsonPrdcrOgnCurntMng.length > 0) {
+			if (jsonPrdcrOgnCurntMng.length > 0) {
 
-        		if(grdPrdcrOgnCurntMng.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-        			grdPrdcrOgnCurntMng.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-        			grdPrdcrOgnCurntMng.rebuild();
+				if(grdPrdcrOgnCurntMng.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+					grdPrdcrOgnCurntMng.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+					grdPrdcrOgnCurntMng.rebuild();
 				}else{
 					grdPrdcrOgnCurntMng.refresh()
 				}
-        	} else {
-        		grdPrdcrOgnCurntMng.setPageTotalCount(totalRecordCount);
-        		grdPrdcrOgnCurntMng.rebuild();
-        	}
-        	document.querySelector('#listCount').innerText = totalRecordCount;
+			} else {
+				grdPrdcrOgnCurntMng.setPageTotalCount(totalRecordCount);
+				grdPrdcrOgnCurntMng.rebuild();
+			}
+			document.querySelector('#listCount').innerText = totalRecordCount;
 
-        	//grdPrdcrOgnCurntMng.rebuild();
+			//grdPrdcrOgnCurntMng.rebuild();
 
-        }catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        }
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
 	}
 
 
@@ -986,14 +985,14 @@
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
 
-    	let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
-    		brno : brno
+		let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
+			brno : brno
 		});
 
-        let data = await postJsonPromise ;
-        try{
-        	console.log("data==="+data);
-        	data.resultList.forEach((item, index) => {
+		let data = await postJsonPromise ;
+		try{
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
 				SBUxMethod.set('dtl-input-apoCd',gfn_nvl(item.apoCd))//통합조직 코드
 				SBUxMethod.set('dtl-input-apoSe',gfn_nvl(item.apoSe))//통합조직 구분
 				SBUxMethod.set('dtl-input-corpNm',gfn_nvl(item.corpNm))//법인명
@@ -1001,13 +1000,13 @@
 				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))//사업자등록번호
 				SBUxMethod.set('dtl-input-yr',gfn_nvl(item.yr))//등록년도
 			});
-        	fn_searchUoList();
-        }catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        }
+			fn_searchUoList();
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
 	}
 
 
@@ -1015,14 +1014,14 @@
 	const fn_view = async function(){
 		console.log("******************fn_view**********************************");
 
-	    //데이터가 존재하는 그리드 범위 확인
+		//데이터가 존재하는 그리드 범위 확인
 		var nCol = grdPrdcrOgnCurntMng.getCol();
-	    if (nCol < 1) {
-	        return;
-	    }
-	    var nRow = grdPrdcrOgnCurntMng.getRow();
+		if (nCol < 1) {
+			return;
+		}
+		var nRow = grdPrdcrOgnCurntMng.getRow();
 		if (nRow < 1) {
-	        return;
+			return;
 		}
 		if(nRow == null){
 			nRow = 1;
@@ -1049,7 +1048,7 @@
 		SBUxMethod.set('dtl-input-uoBrno' , brno);
 		SBUxMethod.attr('dtl-input-selUoBrno','readonly',true);
 		</c:if>
-    }
+	}
 	//그리드 초기화
 	async function fn_clearForm() {
 		jsonPrdcrOgnCurntMng01.length= 0;
@@ -1059,10 +1058,10 @@
 		//jsonPrdcrOgnCurntMng02.length= 0;
 		//grdPrdcrOgnCurntMng02.rebuild();
 	}
-	
+
 	//총괄표 출력
 	const fn_report2 = async function() {
-		
+
 		let brno = SBUxMethod.get("dtl-input-brno");//
 		if(gfn_isEmpty(brno)) return;
 		let uoBrnoVal = SBUxMethod.get('dtl-input-uoBrno');
@@ -1071,15 +1070,15 @@
 			return;
 		}
 		let yr = SBUxMethod.get("dtl-input-yr");//
-		
+
 		let reqCorpNmT = $('#dtl-input-corpNm').val();
 		let reqBrnoT = $('#dtl-input-brno').val();
 		let reqCrnoT = $('#dtl-input-crno').val();
 		let reqUoBrnoT = $('#dtl-input-selUoBrno option:checked').text();
 		 gfn_popClipReport("판매위임 매입 및 출하 매출 실적", "pd/sptDoc2.crf", {brno : brno, uoBrno : uoBrnoVal, yr : yr
-			 															,corpnm : reqCorpNmT, buisno : reqBrnoT, corpno : reqCrnoT, allgroupnm : reqUoBrnoT}); 
+			 															,corpnm : reqCorpNmT, buisno : reqBrnoT, corpno : reqCrnoT, allgroupnm : reqUoBrnoT});
 	}
-	
+
 	//판매위임[매입] 및 출하[매출] 실적 그리드 조회
 	const fn_dtlGridSearch = async function(){
 
