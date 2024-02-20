@@ -31,4 +31,23 @@ public class ApcLinkVO  extends ComVO{
 	private String trsmMatSttsCd;
 	private String sttsIdntyDt;
 
+	private String wghSttsCd;
+	private String wrhsSttsCd;
+	private String sortSttsCd;
+	private String pckgSttsCd;
+	private String spmtSttsCd;
+	
+	private String trsmMatSttsNm;
+	private String wghSttsNm;
+	private String wrhsSttsNm;
+	private String sortSttsNm;
+	private String pckgSttsNm;
+	private String spmtSttsNm;
+	
+	private String wghDspDt;
+	private String wrhsDspDt;
+	private String sortDspDt;
+	private String pckgDspDt;
+	private String spmtDspDt;
+	
 }
