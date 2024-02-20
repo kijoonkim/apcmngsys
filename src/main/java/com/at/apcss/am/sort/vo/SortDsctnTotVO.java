@@ -35,6 +35,7 @@ public class SortDsctnTotVO extends ComVO {
 	private String prdcrCd;
 	private String inptYmd;
 
+	private String grd;
 	private String prdcrNm;
 	private String red2Xl;
 	private String redXl;

@@ -30,14 +30,7 @@
 						onclick="fn_docWrhsDsctnTot"
 						text="입고확인서"
 					></sbux-button>
-					<sbux-button
-						id="btnWrhsReq"
-						name="btnWrhsReq"
-						uitype="normal"
-						class="btn btn-sm btn-outline-danger"
-						onclick="fn_wrhsReq"
-						text="입고요청"
-					></sbux-button>
+
                     <sbux-button
 						id="btnSearch"
 						name="btnSearch"
@@ -110,15 +103,25 @@
 					</tbody>
 				</table>
 
-				<div class="row">
+				<div class="ad_tbl_top2">
 
-						<div class="ad_tbl_top" style="margin-bottom: 10px;">
+
 							<ul class="ad_tbl_count" style="width: 100%">
 								<li>
 									<span style="font-size:12px">입고내역집계</span>
 								</li>
 							</ul>
-						</div>
+
+						<div class="ad_tbl_top" style="margin-bottom: 10px; text-align:right">
+							<sbux-button
+							id="btnWrhsReq"
+							name="btnWrhsReq"
+							uitype="normal"
+							class="btn btn-sm btn-outline-danger"
+							onclick="fn_wrhsReq"
+							text="정보재수신"
+						    ></sbux-button>
+					    </div>
 						<div id="sb-area-wrhsDsctnTot" style="height:544px;"></div>
 
 				</div>
@@ -137,6 +140,13 @@
 
 		fn_init();
 
+
+	})
+	document.getElementById("sb-area-wrhsDsctnTot").addEventListener('keypress',(e)=>{
+		if(e.keyCode===13){
+			e.preventDefault();
+			document.querySelector('sb-area-wrhsDsctnTot').blur();
+		}
 	})
 
 	const fn_init = async function() {
