@@ -934,6 +934,12 @@
 			let totalRecordCount = 0;
 			console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
+				console.log("prfmncCorpDdlnYn = " + item.prfmncCorpDdlnYn);
+				<c:if test="${loginVO.userType eq '21'}">
+				if (item.prfmncCorpDdlnYn == 'Y') {
+					$('.btn').hide();
+				}
+				</c:if>
 				let PrdcrOgnCurntMngVO = {
 						apoCd: item.apoCd
 						,apoSe: item.apoSe
@@ -999,6 +1005,8 @@
 				SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno))//법인등록번호
 				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))//사업자등록번호
 				SBUxMethod.set('dtl-input-yr',gfn_nvl(item.yr))//등록년도
+				SBUxMethod.set('dtl-input-prfmncCorpDdlnYn',gfn_nvl(item.prfmncCorpDdlnYn))//실적 법인체 마감
+				console.log("prfmncCorpDdlnYn = " + item.prfmncCorpDdlnYn);
 			});
 			fn_searchUoList();
 		}catch (e) {
