@@ -1668,6 +1668,7 @@
 		let apoSeVal = SBUxMethod.get('dtl-input-apoSe');
 		let uoBrnoVal = SBUxMethod.get('dtl-input-uoBrno');
 		let brno = SBUxMethod.get('dtl-input-brno');
+		let yr = SBUxMethod.get('dtl-input-yr');
 
 		if(gfn_isEmpty(brno)){
 			alert("법인을 선택해주세요");
@@ -1687,10 +1688,12 @@
 		let corpNm = $('#dtl-input-corpNm').val();
 		let buisNo = $('#dtl-input-brno').val();
 
+		console.log(brno,yr);
+
 		gfn_popClipReport("생산자조직 리스트", "pd/prdDoc2.crf", {brno: brno, yr: yr, apocd : apoSeVal ,uobrno : uoBrnoVal
 		, apcgu : apcguVal, corpnm : corpNm, buisno: buisNo
 		});
-		debugger;
+		//debugger;
 	}
 
 	//생산자조직 리스트 조회
