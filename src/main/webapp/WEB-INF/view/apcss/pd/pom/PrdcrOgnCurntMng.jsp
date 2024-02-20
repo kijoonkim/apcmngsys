@@ -743,6 +743,11 @@
 	        //{caption: ["생산자조직 코드"], 	ref: 'prdcrOgnzCd',   	type:'output',  width:'150px',    style:'text-align:center'},
 	        {caption: ["품목"], 			ref: 'itemNm',   	type:'output',  width:'150px',    style:'text-align:center'},
 	        {caption: ["품목선택"], 			ref: 'sel',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+	        	//법인체 마감 추가
+	        	let prfmncCorpDdlnYn = SBUxMethod.get('dtl-input-prfmncCorpDdlnYn');
+	        	if (prfmncCorpDdlnYn == 'Y') {
+					return "";
+				}
 	        	if(objRowData.delYn == 'N'){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_openMaodalSelect(" + nRow + ")'>선택</button>";
 				}
@@ -828,7 +833,7 @@
 	    SBGridProperties.fixedrowheight=45;
 	    SBGridProperties.rowheader="seq";
 	    SBGridProperties.columns = [
-	        {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+	        {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	//법인체 마감 추가
 	        	let prfmncCorpDdlnYn = SBUxMethod.get('dtl-input-prfmncCorpDdlnYn');
 	        	if (prfmncCorpDdlnYn == 'Y') {
@@ -1117,7 +1122,6 @@
 				SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno))//법인등록번호
 				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))//사업자등록번호
 				SBUxMethod.set('dtl-input-prfmncCorpDdlnYn',gfn_nvl(item.prfmncCorpDdlnYn))//실적 법인체 마감
-				//SBUxMethod.set('dtl-input-prfmncCorpDdlnYn',gfn_nvl('Y'))//실적 법인체 마감
 
 				console.log("prfmncCorpDdlnYn = " + item.prfmncCorpDdlnYn);
 				if (item.prfmncCorpDdlnYn == 'Y') {

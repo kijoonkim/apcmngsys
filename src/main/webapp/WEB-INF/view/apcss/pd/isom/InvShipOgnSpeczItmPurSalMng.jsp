@@ -252,8 +252,8 @@
 
 				<div class="box-header" style="display:flex; justify-content: flex-start;" >
 					<div style="margin-left: auto;">
-						<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
-						<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
+						<sbux-button id="btnSearchFclt2" name="btnSearchFclt2" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
+						<sbux-button id="btnSaveFclt2" name="btnSaveFclt2" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
 						<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
 					</div>
 				</div>
@@ -936,8 +936,11 @@
 			data.resultList.forEach((item, index) => {
 				console.log("prfmncCorpDdlnYn = " + item.prfmncCorpDdlnYn);
 				<c:if test="${loginVO.userType eq '21'}">
+				//실적 법인체 마감 저장 버튼 제거
 				if (item.prfmncCorpDdlnYn == 'Y') {
-					$('.btn').hide();
+					//저장 버튼만 숨김처리
+					$('#btnSaveFclt').hide();
+					$('#btnSaveFclt2').hide();
 				}
 				</c:if>
 				let PrdcrOgnCurntMngVO = {
@@ -1005,8 +1008,12 @@
 				SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno))//법인등록번호
 				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))//사업자등록번호
 				SBUxMethod.set('dtl-input-yr',gfn_nvl(item.yr))//등록년도
-				SBUxMethod.set('dtl-input-prfmncCorpDdlnYn',gfn_nvl(item.prfmncCorpDdlnYn))//실적 법인체 마감
 				console.log("prfmncCorpDdlnYn = " + item.prfmncCorpDdlnYn);
+				//실적 법인체 마감 저장 버튼 제거
+				if (item.prfmncCorpDdlnYn == 'Y') {
+					//저장 버튼만 숨김처리
+					$('#btnSaveFclt1').hide();
+				}
 			});
 			fn_searchUoList();
 		}catch (e) {
@@ -1260,7 +1267,7 @@
 					if(gfn_isEmpty(rowData01.slsCnsgnPrchsAmt)){
 						alert('매출 값이 있을경우 매입 금액 입력이 필수 입니다.');
 						grdPrdcrOgnCurntMng01.selectRow(i);
-		 	            return;
+						return;
 					}
 				}
 			}
@@ -1282,7 +1289,7 @@
 					if(gfn_isEmpty(rowData01.slsCnsgnPrchsAmt)){
 						alert('매출 값이 있을경우 매입 금액 입력이 필수 입니다.');
 						grdPrdcrOgnCurntMng01.selectRow(i);
-		 	            return;
+						return;
 					}
 				}
 			}

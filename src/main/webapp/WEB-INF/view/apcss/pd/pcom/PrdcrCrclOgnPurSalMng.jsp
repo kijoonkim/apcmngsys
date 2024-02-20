@@ -259,6 +259,7 @@
 							<sbux-input uitype="hidden" id="dtl-input-apoCd" name="dtl-input-apoCd"></sbux-input>
 							<sbux-input uitype="hidden" id="dtl-input-apoSe" name="dtl-input-apoSe"></sbux-input>
 							<sbux-input uitype="hidden" id="dtl-input-yr" name="dtl-input-yr"></sbux-input>
+							<sbux-input uitype="hidden" id="dtl-input-prfmncCorpDdlnYn" name="dtl-input-prfmncCorpDdlnYn"></sbux-input>
 							<td colspan="2" class="td_input">
 								<sbux-input
 									uitype="text"
@@ -602,7 +603,12 @@
 	    SBGridProperties.frozenbottomrows=1;
 	    SBGridProperties.columns = [
 	    	{caption: ["처리","처리"], 		ref: 'delYn',   		type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
-	        	if(strValue== null || strValue == ""){
+	    		//법인체 마감 추가
+	        	let prfmncCorpDdlnYn = SBUxMethod.get('dtl-input-prfmncCorpDdlnYn');
+	        	if (prfmncCorpDdlnYn == 'Y') {
+					return "";
+				}
+	    		if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else if(strValue == "소계"){
 	    			return "소계";
@@ -782,7 +788,12 @@
 	    SBGridProperties.frozenbottomrows=1;
 	    SBGridProperties.columns = [
 	    	{caption: ["처리","처리"], 		ref: 'delYn',   		type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
-	        	if(strValue== null || strValue == ""){
+	    		//법인체 마감 추가
+	        	let prfmncCorpDdlnYn = SBUxMethod.get('dtl-input-prfmncCorpDdlnYn');
+	        	if (prfmncCorpDdlnYn == 'Y') {
+					return "";
+				}
+	    		if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else if(strValue == "소계"){
 	    			return "소계";
@@ -1240,7 +1251,7 @@
     	fn_setGrdFcltList(recordCountPerPage, currentPageNo);
     }
 
-	
+
 	/* 출력물 */
 	const fn_report = async function() {
 		let yr = SBUxMethod.get("srch-input-yr");//
@@ -1280,7 +1291,7 @@
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
 		</c:if>
-		
+
 		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
  	 	gfn_popClipReport("검색리스트", "pd/totalDoc3.crf", {brno: brno, yr: yr, frmhsHld : "Y"
  	 		, cmptnInst : cmptnInst ,ctpv : ctpv ,corpSeCd : corpSeCd ,corpDtlSeCd : corpDtlSeCd ,corpNm : corpNm
@@ -1291,8 +1302,8 @@
  	 	gfn_popClipReport("검색리스트", "pd/totalDoc3.crf", {brno: brno, yr: yr, frmhsHld : "Y" ,userType : '21'});
 		</c:if>
     }
-	
-	
+
+
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
 		let yr = SBUxMethod.get("srch-input-yr");//
@@ -1355,7 +1366,17 @@
         	let totalRecordCount = 0;
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
-				let PrdcrOgnCurntMngVO = {
+        		console.log("prfmncCorpDdlnYn = " + item.prfmncCorpDdlnYn);
+				<c:if test="${loginVO.userType eq '21'}">
+				//실적 법인체 마감 저장 버튼 제거
+				if (item.prfmncCorpDdlnYn == 'Y') {
+					//저장 버튼만 숨김처리
+					$('#btnSaveFclt2').hide();
+					$('#btnSaveFclt3').hide();
+				}
+				</c:if>
+
+        		let PrdcrOgnCurntMngVO = {
 						apoCd: item.apoCd
 						,apoSe: item.apoSe
 						,ctpv: item.ctpv
@@ -1367,6 +1388,7 @@
 						,yr: item.yr
 						,corpSeCd: item.corpSeCd
 						,stbltYnNm: item.stbltYnNm
+						,
 				}
 				console.log(item.corpSeCd);
 				jsonPrdcrOgnCurntMng.push(PrdcrOgnCurntMngVO);
@@ -1418,6 +1440,15 @@
 				SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno))//법인등록번호
 				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))//사업자등록번호
 				SBUxMethod.set('dtl-input-yr',gfn_nvl(item.yr))//등록년도
+				SBUxMethod.set('dtl-input-prfmncCorpDdlnYn',gfn_nvl(item.prfmncCorpDdlnYn))//실적 법인체 마감
+
+				console.log("prfmncCorpDdlnYn = " + item.prfmncCorpDdlnYn);
+				//실적 법인체 마감 저장 버튼 제거
+				if (item.prfmncCorpDdlnYn == 'Y') {
+					//저장 버튼만 숨김처리
+					$('#btnSaveFclt2').hide();
+					$('#btnSaveFclt3').hide();
+				}
 			});
         	fn_dtlGridSearch();
         }catch (e) {
@@ -1771,10 +1802,10 @@
 		SBUxMethod.set('dtl-input-yr',null)//등록년도
 	}
 
-	
+
 	//총괄표 출력
 	const fn_report2 = async function() {
-		
+
 		let apoCd = SBUxMethod.get('dtl-input-apoCd');
 		if(gfn_isEmpty(apoCd)){return;}
 		let brno = SBUxMethod.get('dtl-input-brno');
@@ -1784,9 +1815,9 @@
 		let reqCorpNmT = $('#dtl-input-corpNm').val();
 		let reqBrnoT = $('#dtl-input-brno').val();
 		let reqCrnoT = $('#dtl-input-crno').val();
-		 gfn_popClipReport("통합조직 총 매입 매출 현황", "pd/totalDoc4.crf", {brno : brno, yr : yr, corpnm:reqCorpNmT, buisno:reqBrnoT, corpnm: reqCorpNmT }); 
+		 gfn_popClipReport("통합조직 총 매입 매출 현황", "pd/totalDoc4.crf", {brno : brno, yr : yr, corpnm:reqCorpNmT, buisno:reqBrnoT, corpnm: reqCorpNmT });
 	}
-	
+
 	//통합조직 매입 매출 리스트 조회
 	async function fn_dtlGridSearch() {
 
@@ -1924,6 +1955,9 @@
         	grdPrdcrOgnCurntMng02.rebuild();
         	grdPrdcrOgnCurntMng03.rebuild();
 
+        	//그리드 커스텀 disabled 처리
+        	fn_gridCustom();
+
         	fn_grdTot01("Search");
         	fn_grdTot02("Search");
         	fn_grdTot03("Search");
@@ -1933,6 +1967,40 @@
     		}
     		console.error("failed", e.message);
         }
+	}
+
+	//그리드 커스텀 배경 및 disabled 처리
+	const fn_gridCustom = async function(){
+		console.log("=========fn_gridCustom================");
+		let gridData01 = grdPrdcrOgnCurntMng01.getGridDataAll();
+		let ctgryCd01 = grdPrdcrOgnCurntMng01.getColRef("ctgryCd");//비고
+
+		for(var i=2; i <= gridData01.length+1; i++ ){
+			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i);
+			if (rowData01.sttgUpbrItemSe != '3') {
+				grdPrdcrOgnCurntMng01.setCellDisabled(i, ctgryCd01, i, ctgryCd01, true);
+			}
+		}
+
+		let gridData02 = grdPrdcrOgnCurntMng02.getGridDataAll();
+		let ctgryCd02 = grdPrdcrOgnCurntMng02.getColRef("ctgryCd");//비고
+
+		for(var i=2; i <= gridData02.length+1; i++ ){
+			let rowData02 = grdPrdcrOgnCurntMng02.getRowData(i);
+			if (rowData02.sttgUpbrItemSe != '3') {
+				grdPrdcrOgnCurntMng02.setCellDisabled(i, ctgryCd02, i, ctgryCd02, true);
+			}
+		}
+
+		let gridData03 = grdPrdcrOgnCurntMng03.getGridDataAll();
+		let ctgryCd03 = grdPrdcrOgnCurntMng03.getColRef("ctgryCd");//비고
+
+		for(var i=2; i <= gridData03.length+1; i++ ){
+			let rowData03 = grdPrdcrOgnCurntMng03.getRowData(i);
+			if (rowData03.sttgUpbrItemSe != '3') {
+				grdPrdcrOgnCurntMng03.setCellDisabled(i, ctgryCd03, i, ctgryCd03, true);
+			}
+		}
 	}
 
 

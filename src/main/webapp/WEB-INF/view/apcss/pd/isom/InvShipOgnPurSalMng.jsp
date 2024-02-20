@@ -273,6 +273,7 @@
 							<sbux-input uitype="hidden" id="dtl-input-apoSe" name="dtl-input-apoSe"></sbux-input>
 							<sbux-input uitype="hidden" id="dtl-input-yr" name="dtl-input-yr"></sbux-input>
 							<sbux-input uitype="hidden" id="dtl-input-uoBrno" name="dtl-input-uoBrno"></sbux-input>
+							<sbux-input uitype="hidden" id="dtl-input-prfmncCorpDdlnYn" name="dtl-input-prfmncCorpDdlnYn"></sbux-input>
 							<td colspan="2" class="td_input">
 								<sbux-input
 									uitype="text"
@@ -605,6 +606,11 @@
 	    SBGridProperties.frozenbottomrows=1;
 	    SBGridProperties.columns = [
 	    	{caption: ["처리","처리"], 		ref: 'delYn',   		type:'button', width:'40px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+	    		//법인체 마감 추가
+	        	let prfmncCorpDdlnYn = SBUxMethod.get('dtl-input-prfmncCorpDdlnYn');
+	        	if (prfmncCorpDdlnYn == 'Y') {
+					return "";
+				}
 	    		if(strValue== null || strValue == ""){
 	    			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ", " + nCol + ")'>추가</button>";
 	    		}else if(strValue == "소계"){
@@ -799,6 +805,11 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	    	{caption: ["처리","처리","처리","처리"], 		ref: 'delYn',   type:'button', width:'40px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+	    		//법인체 마감 추가
+	        	let prfmncCorpDdlnYn = SBUxMethod.get('dtl-input-prfmncCorpDdlnYn');
+	        	if (prfmncCorpDdlnYn == 'Y') {
+					return "";
+				}
 	    		if(strValue== null || strValue == ""){
 	    			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng02\", " + nRow + ", " + nCol + ")'>추가</button>";
 	    		}else if(strValue == "소계"){
@@ -1170,7 +1181,7 @@
     	fn_setGrdFcltList(recordCountPerPage, currentPageNo);
     }
 
-	
+
 	/* 출력물 */
 	const fn_report = async function() {
 		let yr = SBUxMethod.get("srch-input-yr");//
@@ -1210,7 +1221,7 @@
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
 		</c:if>
-		
+
 		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
  	 	gfn_popClipReport("검색리스트", "pd/totalDoc1.crf", {brno: brno, yr: yr, frmhsHld : "Y"
  	 		, cmptnInst : cmptnInst ,ctpv : ctpv ,corpSeCd : corpSeCd ,corpDtlSeCd : corpDtlSeCd ,corpNm : corpNm
@@ -1221,10 +1232,10 @@
  	 	gfn_popClipReport("검색리스트", "pd/totalDoc1.crf", {brno: brno, yr: yr, frmhsHld : "Y" ,userType : '21'});
 		</c:if>
     }
-	
-	
-	
-	
+
+
+
+
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
 		let yr = SBUxMethod.get("srch-input-yr");//
@@ -1292,18 +1303,27 @@
     		</c:if>
 
 
-    		//페이징
-    		,pagingYn : 'Y'
-    		,currentPageNo : pageNo
-     		,recordCountPerPage : pageSize
+			//페이징
+			,pagingYn : 'Y'
+			,currentPageNo : pageNo
+			,recordCountPerPage : pageSize
 		});
 
-        let data = await postJsonPromise ;
-        try{
-        	jsonPrdcrOgnCurntMng.length = 0;
-        	let totalRecordCount = 0;
-        	console.log("data==="+data);
-        	data.resultList.forEach((item, index) => {
+		let data = await postJsonPromise ;
+		try{
+			jsonPrdcrOgnCurntMng.length = 0;
+			let totalRecordCount = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
+				console.log("prfmncCorpDdlnYn = " + item.prfmncCorpDdlnYn);
+				<c:if test="${loginVO.userType eq '21'}">
+				//실적 법인체 마감 저장 버튼 제거
+				if (item.prfmncCorpDdlnYn == 'Y') {
+					//저장 버튼만 숨김처리
+					$('#btnSaveFclt2').hide();
+					$('#btnSaveFclt3').hide();
+				}
+				</c:if>
 				let PrdcrOgnCurntMngVO = {
 						apoCd: item.apoCd
 						,apoSe: item.apoSe
@@ -1316,6 +1336,7 @@
 						,yr: item.yr
 						,stbltYnNm: item.stbltYnNm
 						,corpSeCd: item.corpSeCd
+						,prfmncCorpDdlnYn: item.prfmncCorpDdlnYn
 				}
 				jsonPrdcrOgnCurntMng.push(PrdcrOgnCurntMngVO);
 				if (index === 0) {
@@ -1365,6 +1386,15 @@
 				SBUxMethod.set('dtl-input-corpNm',gfn_nvl(item.corpNm))//법인명
 				SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno))//법인등록번호
 				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))//사업자등록번호
+				SBUxMethod.set('dtl-input-prfmncCorpDdlnYn',gfn_nvl(item.prfmncCorpDdlnYn))//실적 법인체 마감
+
+				console.log("prfmncCorpDdlnYn = " + item.prfmncCorpDdlnYn);
+				//실적 법인체 마감 저장 버튼 제거
+				if (item.prfmncCorpDdlnYn == 'Y') {
+					//저장 버튼만 숨김처리
+					$('#btnSaveFclt2').hide();
+					$('#btnSaveFclt3').hide();
+				}
 			});
         	//총매입매출은 전체 값이 다보여야 해서 통합조직을 고르지 않음
         	//fn_searchUoList();
@@ -1627,10 +1657,10 @@
 		grdPrdcrOgnCurntMng02.rebuild();
 	}
 
-	
+
 	//총괄표 출력
 	const fn_report2 = async function() {
-		
+
 		//조회 대상 유무 확인
 		let apoCd = SBUxMethod.get('dtl-input-apoCd');
 		if(gfn_isEmpty(apoCd)){return;}
@@ -1650,9 +1680,9 @@
 /* 		let reqCorpNmT = $('#dtl-input-corpNm').val();
 		let reqBrnoT = $('#dtl-input-brno').val();
 		let reqCrnoT = $('#dtl-input-crno').val(); */
-		 gfn_popClipReport("출자출하조직 총 매입 매출 현황", "pd/totalDoc2.crf", {brno : brno, yr : yr}); 
+		 gfn_popClipReport("출자출하조직 총 매입 매출 현황", "pd/totalDoc2.crf", {brno : brno, yr : yr});
 	}
-	
+
 	//통합조직 매입 매출 리스트 조회
 	async function fn_dtlGridSearch() {
 		//조회 대상 유무 확인
@@ -1796,7 +1826,7 @@
 	const fn_gridCustom = async function(){
 		console.log("=========fn_gridCustom================");
 		let delYn = grdPrdcrOgnCurntMng01.getColRef("delYn");//
-		let ctgryCd = grdPrdcrOgnCurntMng01.getColRef("ctgryCd");//
+		let ctgryCd01 = grdPrdcrOgnCurntMng01.getColRef("ctgryCd");//
 		let prchsTrstVlm = grdPrdcrOgnCurntMng01.getColRef("prchsTrstVlm");//
 		let prchsTrstAmt = grdPrdcrOgnCurntMng01.getColRef("prchsTrstAmt");//
 		let prchsEmspapAmt = grdPrdcrOgnCurntMng01.getColRef("prchsEmspapAmt");//
@@ -1812,6 +1842,7 @@
 				grdPrdcrOgnCurntMng01.setCellDisabled(i, prchsTrstAmt, i, prchsTrstAmt, true);
 				grdPrdcrOgnCurntMng01.setCellDisabled(i, prchsEmspapAmt, i, prchsEmspapAmt, true);
 				grdPrdcrOgnCurntMng01.setCellDisabled(i, etcAmt, i, etcAmt, true);
+				grdPrdcrOgnCurntMng01.setCellDisabled(i, ctgryCd01, i, ctgryCd01, true);
 				//배경 속성 추가
 				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, prchsTrstAmt, i, prchsTrstAmt, 'lightgray');
 				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, prchsEmspapAmt, i, prchsEmspapAmt, 'lightgray');
@@ -1820,7 +1851,7 @@
 			}
 			if (rowData01.sttgUpbrItemSe == '3') {
 				grdPrdcrOgnCurntMng01.setCellDisabled(i, prchsTrstVlm, i, etcAmt, false);
-				grdPrdcrOgnCurntMng01.setCellDisabled(i, ctgryCd, i, ctgryCd, false);
+				grdPrdcrOgnCurntMng01.setCellDisabled(i, ctgryCd01, i, ctgryCd01, false);
 				grdPrdcrOgnCurntMng01.setCellStyle('background-color', i, prchsTrstVlm, i, etcAmt, 'white');
 			}
 			if(rowData01.delYn != 'N'){
@@ -1846,6 +1877,7 @@
 		let smplInptVlm = grdPrdcrOgnCurntMng02.getColRef("smplInptVlm");//
 		let spmtRtAmt = grdPrdcrOgnCurntMng02.getColRef("spmtRtAmt");//
 		let slsCprtnTotVlm = grdPrdcrOgnCurntMng02.getColRef("slsCprtnTotVlm");//
+		let ctgryCd02 = grdPrdcrOgnCurntMng02.getColRef("ctgryCd");//
 
 
 		let gridData02 = grdPrdcrOgnCurntMng02.getGridDataAll();
@@ -1860,6 +1892,7 @@
 				grdPrdcrOgnCurntMng02.setCellDisabled(i, slsCprtnSortEmspapAmt, i, slsCprtnSortEmspapAmt, true);
 				grdPrdcrOgnCurntMng02.setCellDisabled(i, slsCprtnSortTrstAmt, i, slsCprtnSortTrstAmt, true);
 				grdPrdcrOgnCurntMng02.setCellDisabled(i, slsCprtnSortTrstAmt, i, slsCprtnSortTrstAmt, true);
+				grdPrdcrOgnCurntMng02.setCellDisabled(i, ctgryCd02, i, ctgryCd02, true);
 				//배경색
 				grdPrdcrOgnCurntMng02.setCellStyle('background-color', i, totTrmtPrfmncVlm, i, totTrmtPrfmncAmt, 'lightgray');
 				grdPrdcrOgnCurntMng02.setCellStyle('background-color', i, totSpmtPrfmncAmt, i, totSpmtPrfmncAmt, 'lightgray');

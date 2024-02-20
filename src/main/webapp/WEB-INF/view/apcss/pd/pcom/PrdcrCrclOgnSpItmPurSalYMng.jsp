@@ -774,7 +774,7 @@
     	fn_setGrdFcltList(recordCountPerPage, currentPageNo);
     }
 
-	
+
 	/* 출력물 */
 	const fn_report = async function() {
 		let yr = SBUxMethod.get("srch-input-yr");//
@@ -814,7 +814,7 @@
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
 		</c:if>
-		
+
 		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
  	 	gfn_popClipReport("검색리스트", "pd/sptDoc3.crf", {brno: brno, yr: yr, frmhsHld : "Y"
  	 		, cmptnInst : cmptnInst ,ctpv : ctpv ,corpSeCd : corpSeCd ,corpDtlSeCd : corpDtlSeCd ,corpNm : corpNm
@@ -825,8 +825,8 @@
  	 	gfn_popClipReport("검색리스트", "pd/sptDoc3.crf", {brno: brno, yr: yr, frmhsHld : "Y" ,userType : '21'});
 		</c:if>
     }
-	
-	
+
+
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
 		let yr = SBUxMethod.get("srch-input-yr");//
@@ -949,6 +949,12 @@
 				SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno))//법인등록번호
 				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))//사업자등록번호
 				SBUxMethod.set('dtl-input-yr',gfn_nvl(item.yr))//사업자등록번호
+
+				//실적 법인체 마감 저장 버튼 제거
+				if (item.prfmncCorpDdlnYn == 'Y') {
+					//저장 버튼만 숨김처리
+					$('#btnSaveFclt1').hide();
+				}
 			});
         	fn_dtlGridSearch();
         }catch (e) {

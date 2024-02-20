@@ -971,7 +971,7 @@
     	let currentPageNo = grdInvShipOgnReqMng.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
     	fn_setGrdFcltList(recordCountPerPage, currentPageNo);
     }
-	
+
 	const fn_report = async function() {
 		let yr = SBUxMethod.get("srch-input-yr");//
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
@@ -984,7 +984,7 @@
 		let corpNm = SBUxMethod.get("srch-input-corpNm");//
 
 		let aprv = SBUxMethod.get("srch-input-aprv");//
-		
+
 		//sbgrid 체크박스 값 사용
 		let yrChk = SBUxMethod.get("srch-input-yrChk");//
 		let keys = Object.getOwnPropertyNames(yrChk);
@@ -995,13 +995,13 @@
 			}
 		}
 
-		
+
 		gfn_popClipReport("출자출하조직 등록", "pd/allGroupDoc2.crf", {yr : yr, cmptnInst : cmptnInst, ctpv : ctpv,
 																	corpSeCd : corpSeCd, corpDtlSeCd : corpDtlSeCd, brno : brno, corpNm : corpNm
 																	,corpDdlnSeCd : corpDdlnSeCd, aprv : aprv, yrChk : yrChk, yrChkVal : yrChkVal,apoSe : "1"});
 	}
-	
-	
+
+
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
 
