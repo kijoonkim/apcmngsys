@@ -1287,12 +1287,12 @@
 						return false;
 					}
 				}
-
+				let subVrtyCd = vrtyCd.substring(4);
 				sortPrfmnc = {
 					inptYmd: inptYmd,
     				fcltCd: fcltCd,
     				itemCd: itemCd,
-    				vrtyCd: vrtyCd,
+    				vrtyCd: subVrtyCd,
     				spcfctCd: spcfctCd,
     				warehouseSeCd: warehouseSeCd,
     				grdCd: jgmtGrdCd,
