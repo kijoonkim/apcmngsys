@@ -365,18 +365,21 @@
 		<if test='stbltHldYn == "N"'>
 			AND STBLT_YN_NM IS NULL
 		</if>
+		<if test='prfmncCorpDdlnYn != null and prfmncCorpDdlnYn != ""'>
+			AND PRFMNC_CORP_DDLN_YN = #{prfmncCorpDdlnYn}
+		</if>
 
 		ORDER BY APO_SE ASC , CORP_NM ASC
 		<!-- 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		  ) pt0
+			  ) pt0
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
-    	</if>
-    </select>
+		</if>
+	</select>
 
 	<insert id="insertPrdcrCrclOgnReqMng" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
-    	<![CDATA[
+		<![CDATA[
 	    	INSERT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertPrdcrCrclOgnReqMng */
 	    	  INTO TB_EV_APO
 	    		(
