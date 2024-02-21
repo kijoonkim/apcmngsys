@@ -227,6 +227,7 @@
 											WHERE 1=1
 											  AND APO_SE = '1'
 											  AND YR = EAM.YR
+											  AND CORP_DDLN_SE_CD = 'Y'
 											  AND BRNO IN (SELECT UO_BRNO
 															FROM TB_EV_APO_UO_CD
 															WHERE ISO_BRNO = EAM.BRNO
@@ -244,6 +245,7 @@
 											WHERE 1=1
 											  AND APO_SE = '1'
 											  AND YR = EAM.YR
+											  AND PRFMNC_CORP_DDLN_YN = 'Y'
 											  AND BRNO IN (SELECT UO_BRNO
 															FROM TB_EV_APO_UO_CD
 															WHERE ISO_BRNO = EAM.BRNO
