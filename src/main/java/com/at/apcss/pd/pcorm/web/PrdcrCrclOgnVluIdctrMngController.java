@@ -14,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
@@ -27,94 +26,56 @@ public class PrdcrCrclOgnVluIdctrMngController extends BaseController{
 	@Resource(name= "prdcrCrclOgnVluIdctrMngService")
 	private PrdcrCrclOgnVluIdctrMngService prdcrCrclOgnVluIdctrMngService;
 
-//화면이동
+	//화면이동
 	@GetMapping(value = "/pd/pcorm/PrdcrCrclOgnVluIdctrMng.do")
 	public String PrdcrCrclOgnVluIdctrMng() {
 		return "apcss/pd/pcorm/PrdcrCrclOgnVluIdctrMng";
 	}
 
-// 조회
-		@PostMapping(value = "/pd/pcorm/selectPrdcrCrclOgnVluIdctrMngList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> selectPrdcrCrclOgnVluIdctrMngList(Model model, @RequestBody PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO, HttpServletRequest request) throws Exception{
-			HashMap<String,Object> resultMap = new HashMap<String,Object>();
-			List<PrdcrCrclOgnVluIdctrMngVO> resultList = new ArrayList<>();
-			try {
-				 resultList = prdcrCrclOgnVluIdctrMngService.selectPrdcrCrclOgnVluIdctrMngList(prdcrCrclOgnVluIdctrMngVO);
-			} catch (Exception e) {
-				logger.debug(e.getMessage());
-				return getErrorResponseEntity(e);
-			}
-			resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-			return getSuccessResponseEntity(resultMap);
+	//통합조직 등록결과 리스트 조회
+	@PostMapping(value = "/pd/pcorm/selectUoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectUoList(Model model, @RequestBody PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PrdcrCrclOgnVluIdctrMngVO> resultList = new ArrayList<>();
+		try {
+			 resultList = prdcrCrclOgnVluIdctrMngService.selectUoList(prdcrCrclOgnVluIdctrMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
 		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
 
-
-
-		//등록
-		@PostMapping(value = "/pd/pcorm/insertPrdcrCrclOgnVluIdctrMng.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> insertPrdcrCrclOgnVluIdctrMng(@RequestBody PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO, HttpServletRequest requset) throws Exception{
-			HashMap<String,Object> resultMap = new HashMap<String,Object>();
-
-			// validation check
-
-			// audit 항목
-			prdcrCrclOgnVluIdctrMngVO.setSysFrstInptUserId(getUserId());
-			prdcrCrclOgnVluIdctrMngVO.setSysFrstInptPrgrmId(getPrgrmId());
-			prdcrCrclOgnVluIdctrMngVO.setSysLastChgUserId(getUserId());
-			prdcrCrclOgnVluIdctrMngVO.setSysLastChgPrgrmId(getPrgrmId());
-
-			int insertedCnt = 0;
-
-			try {
-				insertedCnt = prdcrCrclOgnVluIdctrMngService.insertPrdcrCrclOgnVluIdctrMng(prdcrCrclOgnVluIdctrMngVO);
-			} catch (Exception e) {
-				logger.debug(e.getMessage());
-				return getErrorResponseEntity(e);
-			}
-
-			resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
-
-			return getSuccessResponseEntity(resultMap);
+	//출자출하조직 등록결과 리스트 조회
+	@PostMapping(value = "/pd/pcorm/selectIsoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectIsoList(Model model, @RequestBody PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PrdcrCrclOgnVluIdctrMngVO> resultList = new ArrayList<>();
+		try {
+			 resultList = prdcrCrclOgnVluIdctrMngService.selectIsoList(prdcrCrclOgnVluIdctrMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
 		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
 
-
-		@PostMapping(value = "/pd/pcorm/multiSavePrdcrCrclOgnVluIdctrMngList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> multiSavePrdcrCrclOgnVluIdctrMngList(@RequestBody List<PrdcrCrclOgnVluIdctrMngVO> prdcrCrclOgnVluIdctrMngVOList, HttpServletRequest request) throws Exception {
-
-			HashMap<String,Object> resultMap = new HashMap<String,Object>();
-
-			int savedCnt = 0;
-			try {
-				for (PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO : prdcrCrclOgnVluIdctrMngVOList) {
-					prdcrCrclOgnVluIdctrMngVO.setSysFrstInptPrgrmId(getPrgrmId());
-					prdcrCrclOgnVluIdctrMngVO.setSysFrstInptUserId(getUserId());
-					prdcrCrclOgnVluIdctrMngVO.setSysLastChgPrgrmId(getPrgrmId());
-					prdcrCrclOgnVluIdctrMngVO.setSysLastChgUserId(getUserId());
-				}
-
-				savedCnt = prdcrCrclOgnVluIdctrMngService.multiSavePrdcrCrclOgnVluIdctrMngList(prdcrCrclOgnVluIdctrMngVOList);
-			}catch (Exception e) {
-				return getErrorResponseEntity(e);
-			}
-
-			resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
-			return getSuccessResponseEntity(resultMap);
+	//생산자조직 등록결과 리스트 조회
+	@PostMapping(value = "/pd/pcorm/selectFrmhsList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectFrmhsList(Model model, @RequestBody PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PrdcrCrclOgnVluIdctrMngVO> resultList = new ArrayList<>();
+		try {
+			 resultList = prdcrCrclOgnVluIdctrMngService.selectFrmhsList(prdcrCrclOgnVluIdctrMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
 		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
 
-		@PostMapping(value = "/pd/pcorm/deletePrdcrCrclOgnVluIdctrMng.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> deletePrdcrCrclOgnVluIdctrMng(@RequestBody PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO, HttpServletRequest request) throws Exception {
-			logger.debug("/pd/pcorm/deletePrdcrCrclOgnVluIdctrMng >>> 호출 >>> ");
-
-			int result = 0;
-			try {
-				result += prdcrCrclOgnVluIdctrMngService.deletePrdcrCrclOgnVluIdctrMng(prdcrCrclOgnVluIdctrMngVO);
-			}catch (Exception e) {
-				return getErrorResponseEntity(e);
-			}
-
-			HashMap<String,Object> resultMap = new HashMap<String,Object>();
-			resultMap.put("result", result);
-			return getSuccessResponseEntity(resultMap);
-		}
 
 }

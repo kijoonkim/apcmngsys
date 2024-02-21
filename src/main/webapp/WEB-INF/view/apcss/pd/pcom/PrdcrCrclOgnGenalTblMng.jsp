@@ -517,7 +517,7 @@
 
 
 	function fn_excelDwnld01() {
-		grdPrdcrOgnCurntMng01.exportLocalExcel("통합조직관리(총괄표)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+		grdPrdcrOgnCurntMng01.exportLocalExcel("통합조직(총괄표)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
 
 	/* Grid 화면 그리기 기능*/
