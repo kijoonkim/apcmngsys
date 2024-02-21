@@ -232,6 +232,11 @@
 								 -->
 							</li>
 						</ul>
+						<div style="margin-left: auto;">
+							
+								<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
+						</div>
+						
 					</div>
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdInvShipOgnReqMng01" style="height:250px; width: 100%;"></div>
@@ -971,7 +976,28 @@
     	let currentPageNo = grdInvShipOgnReqMng.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
     	fn_setGrdFcltList(recordCountPerPage, currentPageNo);
     }
+	
+	
+	
+	const fn_report2 = async function() {
+		
+		var nRow = grdInvShipOgnReqMng.getRow();
+		if (nRow < 1) {
+			return;
+		}
+		if(nRow == null){
+			nRow = 1;
+		}
+		
+		let rowData = grdInvShipOgnReqMng.getRowData(nRow);
 
+		let uoBrno = rowData.brno;
+		
+		debugger;
+		gfn_popClipReport("출자출하조직 신청정보", "pd/insDoc2.crf", {uobrno : uoBrno});
+	}
+	
+	
 	const fn_report = async function() {
 		let yr = SBUxMethod.get("srch-input-yr");//
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
