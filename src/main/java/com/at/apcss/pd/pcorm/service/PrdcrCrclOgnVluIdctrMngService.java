@@ -1,10 +1,7 @@
 package com.at.apcss.pd.pcorm.service;
 
 import java.util.List;
-import java.util.Map;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO;
 
 
@@ -25,21 +22,27 @@ import com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO;
 public interface PrdcrCrclOgnVluIdctrMngService {
 
 	/**
-	 * 정보를 조회한다.
-	 * @param prdcrCrclOgnVluIdctrMngVO
-	 * @return
+	 * 통합조직 등록결과 리스트 조회
+	 * @param PrdcrCrclOgnVluIdctrMngVO
+	 * @return List<PrdcrCrclOgnVluIdctrMngVO>
 	 * @throws Exception
 	 */
-	public PrdcrCrclOgnVluIdctrMngVO selectPrdcrCrclOgnVluIdctrMng(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception;
+	public List<PrdcrCrclOgnVluIdctrMngVO> selectUoList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception;
 
-	public List<PrdcrCrclOgnVluIdctrMngVO> selectPrdcrCrclOgnVluIdctrMngList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception;
+	/**
+	 * 출자출하조직 등록결과 리스트 조회
+	 * @param PrdcrCrclOgnVluIdctrMngVO
+	 * @return List<PrdcrCrclOgnVluIdctrMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluIdctrMngVO> selectIsoList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception;
 
-	public int insertPrdcrCrclOgnVluIdctrMng(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception;
-
-	public int updatePrdcrCrclOgnVluIdctrMng(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception;
-
-	public int multiSavePrdcrCrclOgnVluIdctrMngList(List<PrdcrCrclOgnVluIdctrMngVO> prdcrCrclOgnVluIdctrMngVOList) throws Exception;
-
-	public int deletePrdcrCrclOgnVluIdctrMng(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception;
+	/**
+	 * 생산자조직 등록결과 리스트 조회
+	 * @param PrdcrCrclOgnVluIdctrMngVO
+	 * @return List<PrdcrCrclOgnVluIdctrMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluIdctrMngVO> selectFrmhsList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception;
 
 }

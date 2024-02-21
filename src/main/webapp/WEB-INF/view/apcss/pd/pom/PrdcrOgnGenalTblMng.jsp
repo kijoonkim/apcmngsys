@@ -559,7 +559,7 @@
 
 
 	function fn_excelDwnld01() {
-		grdPrdcrOgnCurntMng01.exportLocalExcel("생산자조직 관리(생산자 조직)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+		grdPrdcrOgnCurntMng01.exportLocalExcel("생산자조직 (총괄표)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
 
 	/* Grid 화면 그리기 기능*/

@@ -292,7 +292,7 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="font-size:14px">▶총괄표</span>
+								<span style="font-size:14px">▶통합조직</span>
 								<!--
 								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
 								 -->
@@ -301,6 +301,34 @@
 					</div>
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:350px; width: 100%;"></div>
+				</div>
+				<div class="ad_section_top">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">▶출자출하조직</span>
+								<!--
+								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+								 -->
+							</li>
+						</ul>
+					</div>
+					<!-- SBGrid를 호출합니다. -->
+					<div id="sb-area-grdPrdcrOgnCurntMng02" style="height:350px; width: 100%;"></div>
+				</div>
+				<div class="ad_section_top">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">▶생산자조직</span>
+								<!--
+								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+								 -->
+							</li>
+						</ul>
+					</div>
+					<!-- SBGrid를 호출합니다. -->
+					<div id="sb-area-grdPrdcrOgnCurntMng03" style="height:350px; width: 100%;"></div>
 				</div>
 			</div>
 		</div>
@@ -314,27 +342,29 @@
 		const elements = document.querySelectorAll(".srch-keyup-area");
 
 		for (let i = 0; i < elements.length; i++) {
-		  	const el = elements.item(i);
-		  	el.addEventListener("keyup", (event) => {
-		  		if (event.keyCode === 13 && !event.altKey && !event.ctrlKey && !event.shiftKey) {
-		  			fn_search();
-		  		}
-		  		//key	Enter
-		  		//keyCode
-		  	});
+			const el = elements.item(i);
+			el.addEventListener("keyup", (event) => {
+				if (event.keyCode === 13 && !event.altKey && !event.ctrlKey && !event.shiftKey) {
+					fn_search();
+				}
+				//key	Enter
+				//keyCode
+			});
 		}
 	})
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
 		var now = new Date();
-		var year = now.getFullYear();
+		var year = now.getFullYear();//현재년도
+
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		SBUxMethod.set("srch-input-yr",year);//
 		await fn_fcltMngCreateGrid();
 	</c:if>
 		await fn_fcltMngCreateGrid01();
-		//fn_fcltMngCreateGrid02();
+		await fn_fcltMngCreateGrid02();
+		await fn_fcltMngCreateGrid03();
 
 		await fn_initSBSelect();
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
@@ -342,7 +372,8 @@
 	</c:if>
 	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
 		SBUxMethod.set("dtl-input-yr",year);//
-		await fn_dtlSearch();
+		//관리자만 사용 예정
+		//await fn_dtlSearch();
 	</c:if>
 	}
 
@@ -362,6 +393,9 @@
 
 	var jsonComGrdAprv_1 = [];//통합조직 구분
 	var jsonComGrdSttgUpbrItemSe_1 = [];//품목구분
+
+	var jsonComGrdAprv_2 = [];//통합조직 구분
+	var jsonComGrdSttgUpbrItemSe_2 = [];//품목구분
 
 	//적합품목 보유 여부
 	var jsonComStbltHldYn = [
@@ -394,6 +428,9 @@
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonComGrdAprv_1, 	'APRV_UPBR_SE_CD'), //신청구분
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonComGrdSttgUpbrItemSe_1, 	'STTG_UPBR_ITEM_SE'), //품목구분
 
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng02', 	jsonComGrdAprv_2, 	'APRV_UPBR_SE_CD'), //신청구분
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng02', 	jsonComGrdSttgUpbrItemSe_2, 	'STTG_UPBR_ITEM_SE'), //품목구분
+
 		]);
 		console.log("============fn_initSBSelect=====1=======");
 	}
@@ -417,91 +454,91 @@
 	const fn_fcltMngCreateGrid = async function() {
 
 		let SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng';
-	    SBGridProperties.id = 'grdPrdcrOgnCurntMng';
-	    SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng';
-	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
-	    SBGridProperties.contextmenulist = objMenuList;	// 우클릭 메뉴 리스트
-	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.oneclickedit = true;
-	    SBGridProperties.paging = {
+		SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng';
+		SBGridProperties.id = 'grdPrdcrOgnCurntMng';
+		SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList;	// 우클릭 메뉴 리스트
+		SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.paging = {
 				'type' : 'page',
-			  	'count' : 5,
-			  	'size' : 20,
-			  	'sorttype' : 'page',
-			  	'showgoalpageui' : true
-		    };
-	    SBGridProperties.columns = [
-	    	{caption: ["seq"], 			ref: 'apoCd',   	hidden : true},
-	    	{caption: ["등록년도"], 		ref: 'yr',   	type:'output',  width:'100px',    style:'text-align:center'},
-	    	{caption: ["법인체마감"], 		ref: 'prfmncCorpDdlnYn',   	type:'output',  width:'100px',    style:'text-align:center'},
-	    	{caption: ["통합조직여부"], 	ref: 'aprv',   type:'combo',  width:'80px',    style:'text-align:center', disabled:true
-		    	,typeinfo : {ref:'jsonComGrdAprv', label:'label', value:'value', displayui : false}},
-	    	{caption: ["법인명"], 		ref: 'corpNm',  type:'output',  width:'250px',    style:'text-align:center'},
-	        {caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'250px',    style:'text-align:center'},
-	        {caption: ["적합품목"], 		ref: 'stbltYnNm',   	type:'output',  width:'200px',    style:'text-align:center'},
-	    	{caption: ["법인구분"], 		ref: 'corpSeCd',type:'combo',  width:'100px',    style:'text-align:center', disabled:true
-	    		,typeinfo : {ref:'jsonComGrdCorpSeCd', label:'label', value:'value', displayui : false}},
-	    	{caption: ["시도"], 			ref: 'ctpv',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
-	    		,typeinfo : {ref:'jsonComGrdCtpv', label:'label', value:'value', displayui : false}},
-	        {caption: ["시군구"], 		ref: 'sgg',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
-		    	,typeinfo : {ref:'jsonComGrdSgg', label:'label', value:'value', displayui : false}},
-	        //{caption: ["진행단계"], 		ref: 'aa',   	type:'output',  width:'153px',    style:'text-align:center'},
-	        {caption: ["비고"], 			ref: 'rmrk',   	type:'output',  width:'200px',    style:'text-align:center'}
-	    ];
+				'count' : 5,
+				'size' : 20,
+				'sorttype' : 'page',
+				'showgoalpageui' : true
+			};
+		SBGridProperties.columns = [
+			{caption: ["seq"], 			ref: 'apoCd',   	hidden : true},
+			{caption: ["등록년도"], 		ref: 'yr',   	type:'output',  width:'100px',    style:'text-align:center'},
+			{caption: ["법인체마감"], 		ref: 'prfmncCorpDdlnYn',   	type:'output',  width:'100px',    style:'text-align:center'},
+			{caption: ["통합조직여부"], 	ref: 'aprv',   type:'combo',  width:'80px',    style:'text-align:center', disabled:true
+				,typeinfo : {ref:'jsonComGrdAprv', label:'label', value:'value', displayui : false}},
+			{caption: ["법인명"], 		ref: 'corpNm',  type:'output',  width:'250px',    style:'text-align:center'},
+			{caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'250px',    style:'text-align:center'},
+			{caption: ["적합품목"], 		ref: 'stbltYnNm',   	type:'output',  width:'200px',    style:'text-align:center'},
+			{caption: ["법인구분"], 		ref: 'corpSeCd',type:'combo',  width:'100px',    style:'text-align:center', disabled:true
+				,typeinfo : {ref:'jsonComGrdCorpSeCd', label:'label', value:'value', displayui : false}},
+			{caption: ["시도"], 			ref: 'ctpv',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
+				,typeinfo : {ref:'jsonComGrdCtpv', label:'label', value:'value', displayui : false}},
+			{caption: ["시군구"], 		ref: 'sgg',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
+				,typeinfo : {ref:'jsonComGrdSgg', label:'label', value:'value', displayui : false}},
+		//{caption: ["진행단계"], 		ref: 'aa',   	type:'output',  width:'153px',    style:'text-align:center'},
+			{caption: ["비고"], 			ref: 'rmrk',   	type:'output',  width:'200px',    style:'text-align:center'}
+		];
 
-	    grdPrdcrOgnCurntMng = _SBGrid.create(SBGridProperties);
+		grdPrdcrOgnCurntMng = _SBGrid.create(SBGridProperties);
 
-	  	//클릭 이벤트 바인드
-	   	grdPrdcrOgnCurntMng.bind('click','fn_view');
-	   	grdPrdcrOgnCurntMng.bind('beforepagechanged', 'fn_pagingBbsList');
+		//클릭 이벤트 바인드
+		grdPrdcrOgnCurntMng.bind('click','fn_view');
+		grdPrdcrOgnCurntMng.bind('beforepagechanged', 'fn_pagingBbsList');
 
 	}
 	var jsonPrdcrOgnCurntMng01 = []; // 그리드의 참조 데이터 주소 선언
 	var grdPrdcrOgnCurntMng01;
 
 	const objMenuList01 = {
-	        "excelDwnld": {
-	            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
-	            "accesskey": "e",					//단축키
-	            "callback": fn_excelDwnld01,			//콜백함수명
-	        }
-	    };
+			"excelDwnld": {
+				"name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+				"accesskey": "e",					//단축키
+				"callback": fn_excelDwnld01,			//콜백함수명
+			}
+		};
 
 
 	function fn_excelDwnld01() {
-		grdPrdcrOgnCurntMng01.exportLocalExcel("통합조직관리(총괄표)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
-    }
+		grdPrdcrOgnCurntMng01.exportLocalExcel("통합조직(총괄표)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+	}
 
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid01 = async function() {
 
 		let SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng01';
-	    SBGridProperties.id = 'grdPrdcrOgnCurntMng01';
-	    SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng01';
-	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
-	    SBGridProperties.contextmenulist = objMenuList01;	// 우클릭 메뉴 리스트
-	    //SBGridProperties.mergecells = 'bycol';//동일한 열 병합처리
-	    SBGridProperties.datamergefalseskip = true;// merge false 된 열 병합 제외
-	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.oneclickedit = true;
-	    SBGridProperties.fixedrowheight=45;
-	    SBGridProperties.rowheight = 57;
-	    //SBGridProperties.whitespacemerge = true;//빈칸 자동병합
-	    //SBGridProperties.mergecellsverticalalign = 'bottom';
-	    SBGridProperties.columns = [
-		    	{caption: ["구분"], 	ref: 'sttgUpbrItemNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
-		    	{caption: ["통합조직\n구분"], 	ref: 'aprv',   	type:'combo',  width:'100px',    style:'text-align:center;', disabled:true
-			    	,typeinfo : {ref:'jsonComGrdAprv_1', label:'label', value:'value', displayui : false}},
+		SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng01';
+		SBGridProperties.id = 'grdPrdcrOgnCurntMng01';
+		SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng01';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList01;	// 우클릭 메뉴 리스트
+		//SBGridProperties.mergecells = 'bycol';//동일한 열 병합처리
+		SBGridProperties.datamergefalseskip = true;// merge false 된 열 병합 제외
+		SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.fixedrowheight=45;
+		SBGridProperties.rowheight = 57;
+		//SBGridProperties.whitespacemerge = true;//빈칸 자동병합
+		//SBGridProperties.mergecellsverticalalign = 'bottom';
+		SBGridProperties.columns = [
+				{caption: ["구분"], 	ref: 'sttgUpbrItemNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
+				{caption: ["통합조직\n구분"], 	ref: 'aprv',   	type:'combo',  width:'100px',    style:'text-align:center;', disabled:true
+					,typeinfo : {ref:'jsonComGrdAprv_1', label:'label', value:'value', displayui : false}},
 				{caption: ["품목"], 	ref: 'itemNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
 				{caption: ["부류"], 	ref: 'ctgryNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
 				{caption: ["구분"], 		ref: 'sttgUpbrItemSe',   	type:'combo',  width:'100px',    style:'text-align:center;', disabled:true
-			    	,typeinfo : {ref:'jsonComGrdSttgUpbrItemSe_1', label:'label', value:'value', displayui : false}},
+					,typeinfo : {ref:'jsonComGrdSttgUpbrItemSe_1', label:'label', value:'value', displayui : false}},
 				{caption: ["통합조직 총\n취급액(천원)(A)"], 		ref: 'slsCnsgnSlsAmtTot',   	type:'output',  width:'100px',    style:'text-align:center;'
 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 				{caption: ["생산자조직\n전속출하액(천원)(B)"], 	ref: 'slsCnsgnSlsAmt',   	type:'output',  width:'120px',    style:'text-align:center;'
@@ -512,42 +549,194 @@
 				{caption: ["탈락사유"], 		ref: 'stbltYnNm',   	type:'textarea',  width:'150px',    style:'padding-left:10px'
 					,typeinfo : {textareanewline : true},disabled:true },
 				{caption: ["상세내역"], 	ref: 'apoCd',   		hidden : true},
-		        {caption: ["상세내역"], 	ref: 'apoSe',   		hidden : true},
-		        {caption: ["상세내역"], 	ref: 'brno',   			hidden : true},
-		        {caption: ["상세내역"], 	ref: 'crno',   			hidden : true},
-		        {caption: ["상세내역"], 	ref: 'yr',   			hidden : true},
-		        {caption: ["상세내역"], 	ref: 'ctgryCd',   		hidden : true},
-		        {caption: ["상세내역"], 	ref: 'itemCd',   		hidden : true},
-		        {caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
-		        {caption: ["상세내역"], 	ref: 'trmtType',   		hidden : true},
-		        {caption: ["상세내역"], 	ref: 'aprv',   			hidden : true},
-		        {caption: ["상세내역"], 	ref: 'stbltYn',   			hidden : true},
-    		];
+				{caption: ["상세내역"], 	ref: 'apoSe',   		hidden : true},
+				{caption: ["상세내역"], 	ref: 'brno',   			hidden : true},
+				{caption: ["상세내역"], 	ref: 'crno',   			hidden : true},
+				{caption: ["상세내역"], 	ref: 'yr',   			hidden : true},
+				{caption: ["상세내역"], 	ref: 'ctgryCd',   		hidden : true},
+				{caption: ["상세내역"], 	ref: 'itemCd',   		hidden : true},
+				{caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
+				{caption: ["상세내역"], 	ref: 'trmtType',   		hidden : true},
+				{caption: ["상세내역"], 	ref: 'aprv',   			hidden : true},
+				{caption: ["상세내역"], 	ref: 'stbltYn',   			hidden : true},
+			];
 
 	    grdPrdcrOgnCurntMng01 = _SBGrid.create(SBGridProperties);
-	    //grdPrdcrOgnCurntMng01.bind('click','gridClick01');
-	    //grdPrdcrOgnCurntMng01.bind('afteredit','fn_AfterEdit01');
+	}
+
+	var jsonPrdcrOgnCurntMng02 = []; // 그리드의 참조 데이터 주소 선언
+	var grdPrdcrOgnCurntMng02
+
+	const objMenuList02 = {
+			"excelDwnld": {
+				"name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+				"accesskey": "e",					//단축키
+				"callback": fn_excelDwnld02,			//콜백함수명
+			}
+		};
+
+
+	function fn_excelDwnld02() {
+		grdPrdcrOgnCurntMng02.exportLocalExcel("출자출하조직 (총괄표)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+
+
+	/* Grid 화면 그리기 기능*/
+	const fn_fcltMngCreateGrid02 = async function() {
+
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng02';
+		SBGridProperties.id = 'grdPrdcrOgnCurntMng02';
+		SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng02';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList02;	// 우클릭 메뉴 리스트
+		SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.fixedrowheight=45;
+		SBGridProperties.rowheight = 72;
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.columns = [
+			{caption: ["출자출하조직명","출자출하조직명"], 					ref: 'corpNm',   	type:'output',  width:'160px',    style:'text-align:center;'},
+			{caption: ["통합조직\n구분","통합조직\n구분"], 	ref: 'aprv',   	type:'combo',  width:'55px',    style:'text-align:center;', disabled:true
+				,typeinfo : {ref:'jsonComGrdAprv_2', label:'label', value:'value', displayui : false}},
+			{caption: ["품목","품목명"], 								ref: 'itemNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
+			{caption: ["품목","구분"], 		ref: 'sttgUpbrItemSe',   	type:'combo',  width:'55px',    style:'text-align:center;', disabled:true
+				,typeinfo : {ref:'jsonComGrdSttgUpbrItemSe_2', label:'label', value:'value', displayui : false}},
+			{caption: ["통합조직 판매위임액","생산자조직\n출하(A)(천원)"], 	ref: 'uoSpmtAmt',   	type:'output',  width:'100px',    style:'text-align:center;'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			{caption: ["통합조직 판매위임액","생산자조직 외\n출하(B)(천원)"], 	ref: 'uoSpmtAmtOther',   	type:'output',  width:'100px',    style:'text-align:center;'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			{caption: ["자체판매액","생산자조직\n출하(C)(천원)"], 			ref: 'uoOtherSpmtAmt',   	type:'output',  width:'100px',    style:'text-align:center;'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			{caption: ["자체판매액","생산자조직 외\n출하(D)(천원)"], 		ref: 'uoOtherSpmtAmtOther',   	type:'output',  width:'100px',    style:'text-align:center;'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			{caption: ["출자출하조직\n총 판매액\n(E=A+B+C+D)\n(천원)","출자출하조직\n총 판매액\n(E=A+B+C+D)\n(천원)"],typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}
+				, ref: 'uoSpmtAmtTot',   	type:'output',  width:'100px',    style:'text-align:center;'},
+			{caption: ["출자출하조직의\n통합조직 판매위임비율","생산자조직출하\n[A/(A+C)]"] ,format: {type: 'string', rule: '@" %"'}
+				, ref: 'uoSpmtAmtRt',   	type:'output',  width:'100px',    style:'text-align:center;'},
+			{caption: ["출자출하조직의\n통합조직 판매위임비율","전체출하\n[(A+B)/E]"] ,format: {type: 'string', rule: '@" %"'}
+				, ref: 'uoSpmtAmtTotRt',   	type:'output',  width:'100px',    style:'text-align:center;'},
+			{caption: ["적합여부","적합여부"], 	ref: 'orgStbltYn',   	type:'output',  width:'70px',    style:'text-align:center;'},
+			{caption: ["탈락사유","탈락사유"], 	ref: 'stbltYnNm',   	type:'textarea',  width:'150px',    style:'padding-left:10px'
+				,typeinfo : {textareanewline : true},disabled:true },
+			{caption: ["상세내역"], 	ref: 'apoCd',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'apoSe',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'brno',   			hidden : true},
+			{caption: ["상세내역"], 	ref: 'crno',   			hidden : true},
+			{caption: ["상세내역"], 	ref: 'yr',   			hidden : true},
+			//{caption: ["상세내역"], 	ref: 'ctgryCd',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'itemCd',   		hidden : true},
+			//{caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
+			{caption: ["상세내역"], 	ref: 'trmtType',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'stbltYn',   		hidden : true},
+			// {caption: ["상세내역"], 	ref: 'aprv',   			hidden : true},
+		];
+
+		grdPrdcrOgnCurntMng02 = _SBGrid.create(SBGridProperties);
+	}
+
+	var jsonPrdcrOgnCurntMng03 = []; // 그리드의 참조 데이터 주소 선언
+	var grdPrdcrOgnCurntMng03;
+
+	const objMenuList03 = {
+			"excelDwnld": {
+				"name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+				"accesskey": "e",					//단축키
+				"callback": fn_excelDwnld03,			//콜백함수명
+			}
+		};
+
+
+	function fn_excelDwnld03() {
+		grdPrdcrOgnCurntMng03.exportLocalExcel("생산자조직 (총괄표)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+	}
+
+	/* Grid 화면 그리기 기능*/
+	//생산자조직 리스트
+	const fn_fcltMngCreateGrid03 = async function() {
+
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng03';
+		SBGridProperties.id = 'grdPrdcrOgnCurntMng03';
+		SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng03';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList03;	// 우클릭 메뉴 리스트
+		SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
+		SBGridProperties.oneclickedit = false;//입력 활성화 true 1번클릭 false 더블클릭
+		SBGridProperties.fixedrowheight=45;
+		SBGridProperties.rowheight = 57;
+		//SBGridProperties.rowheader="seq";
+		SBGridProperties.columns = [
+			{caption: ["구분"], 			ref: 'apoSeNm',   	type:'output',  width:'160px',    style:'text-align:center;'},
+			{caption: ["법인명"], 			ref: 'corpNm',   	type:'output',  width:'160px',    style:'text-align:center;'},
+			{caption: ["통합조직 법인명"], 	ref: 'uoCorpNm',   	type:'output',  width:'160px',    style:'text-align:center;'},
+			{caption: ["생산자조직 명"], 	ref: 'prdcrOgnzNm',   	type:'output',  width:'180px',    style:'text-align:center'},
+			{caption: ["품목"],			ref: 'itemNm',   	type:'output',  width:'150px',    style:'text-align:center'},
+			{caption: ["분류"],			ref: 'ctgryNm',   	type:'output',  width:'70px',    style:'text-align:center'},
+			{caption: ["취급유형"], 		ref: 'trmtTypeNm',   	type:'output',  width:'85px',    style:'text-align:center'},
+
+			{caption: ["조직원수"], 					ref: 'cnt',   	type:'output',  width:'60px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			{caption: ["생산량\n(결과)(톤)[A]"], 	ref: 'prdctnVlmTot',   	type:'output',  width:'100px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
+			{caption: ["전속(약정)\n출하계약량(톤)[B]"], 	ref: 'ecSpmtPlanVlmTot',   	type:'output',  width:'100px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
+			{caption: ["전속(약정)출하량\n(결과)(톤)[C]"], 	ref: 'ecSpmtVlmTot',   	type:'output',  width:'100px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
+			{caption: ["출하대금\n지급액(천원)"], 		ref: 'spmtPrcTot',   	type:'output',  width:'100px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			//{caption: ["출하비율(%)"], 					ref: 'ecSpmtRate',   	type:'output',  width:'70px',    style:'text-align:center'
+				//,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}},
+				// ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
+			{caption: ["출하비율(%)\n(승인형)[C/A]"] ,format: {type: 'string', rule: '@" %"'}
+				, ref: 'ecSpmtRateA',   	type:'output',  width:'100px',    style:'text-align:center;'},
+			{caption: ["출하비율(%)\n(육성형)[C/B]"] ,format: {type: 'string', rule: '@" %"'}
+				, ref: 'ecSpmtRateB',   	type:'output',  width:'100px',    style:'text-align:center;'},
+			{caption: ["적합여부"], 		ref: 'orgStbltYn',   	type:'output',  width:'50px',    style:'text-align:center'},
+			{caption: ["탈락사유"], 		ref: 'stbltYnNm',   	type:'textarea',  width:'150px',    style:'padding-left:10px'
+				,typeinfo : {textareanewline : true},disabled:true },
+			//{caption: ["비고"], 			ref: 'rmrk',   		type:'input',  width:'220px',    style:'text-align:center'},
+
+			{caption: ["상세내역"], 	ref: 'yr',   			hidden : true},
+			{caption: ["상세내역"], 	ref: 'brno',			hidden : true},
+			{caption: ["상세내역"], 	ref: 'uoBrno',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'prdcrOgnzSn',		hidden : true},
+			{caption: ["상세내역"], 	ref: 'stbltYn',		hidden : true},
+			{caption: ["상세내역"], 	ref: 'aprv',   			hidden : true},
+			{caption: ["상세내역"], 	ref: 'itemCd',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'ctgryCd',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'trmtType',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',	hidden : true},
+
+		];
+
+		grdPrdcrOgnCurntMng03 = _SBGrid.create(SBGridProperties);
+
 	}
 
 
 
 	/**
-     * 목록 조회
-     */
-    const fn_search = async function() {
+	 * 목록 조회
+	 */
+	const fn_search = async function() {
 
-    	// set pagination
-    	let pageSize = grdPrdcrOgnCurntMng.getPageSize();
-    	let pageNo = 1;
+		// set pagination
+		let pageSize = grdPrdcrOgnCurntMng.getPageSize();
+		let pageNo = 1;
 
-    	fn_setGrdFcltList(pageSize, pageNo);
-    }
+		fn_setGrdFcltList(pageSize, pageNo);
+	}
 
 	const fn_pagingBbsList = async function() {
-    	let recordCountPerPage = grdPrdcrOgnCurntMng.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-    	let currentPageNo = grdPrdcrOgnCurntMng.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-    	fn_setGrdFcltList(recordCountPerPage, currentPageNo);
-    }
+		let recordCountPerPage = grdPrdcrOgnCurntMng.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+		let currentPageNo = grdPrdcrOgnCurntMng.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+		fn_setGrdFcltList(recordCountPerPage, currentPageNo);
+	}
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
 		let yr = SBUxMethod.get("srch-input-yr");//
@@ -578,35 +767,35 @@
 		}
 		let stbltHldYn = SBUxMethod.get("srch-input-stbltHldYn");//
 
-    	let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
-    		cmptnInst : cmptnInst
-    		,ctpv : ctpv
+		let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
+			cmptnInst : cmptnInst
+			,ctpv : ctpv
 
-    		,corpSeCd : corpSeCd
-    		,corpDtlSeCd : corpDtlSeCd
+			,corpSeCd : corpSeCd
+			,corpDtlSeCd : corpDtlSeCd
 
-    		,brno : brno
-    		,corpNm : corpNm
-    		,yr : yr
+			,brno : brno
+			,corpNm : corpNm
+			,yr : yr
 
-    		,apoSe : '1'
+			,apoSe : '1'
 
-    		,stbltYnNm:'Y'
-    		,yrChk : yrChkVal
-        	,stbltHldYn : stbltHldYn //적합품목 보유 여부
+			,stbltYnNm:'Y'
+			,yrChk : yrChkVal
+			,stbltHldYn : stbltHldYn //적합품목 보유 여부
 
-    		//페이징
-    		,pagingYn : 'Y'
-    		,currentPageNo : pageNo
-     		,recordCountPerPage : pageSize
+			//페이징
+			,pagingYn : 'Y'
+			,currentPageNo : pageNo
+			,recordCountPerPage : pageSize
 		});
 
-        let data = await postJsonPromise ;
-        try{
-        	jsonPrdcrOgnCurntMng.length = 0;
-        	let totalRecordCount = 0;
-        	console.log("data==="+data);
-        	data.resultList.forEach((item, index) => {
+		let data = await postJsonPromise ;
+		try{
+			jsonPrdcrOgnCurntMng.length = 0;
+			let totalRecordCount = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
 				let PrdcrOgnCurntMngVO = {
 						apoCd: item.apoCd
 						,apoSe: item.apoSe
@@ -627,46 +816,47 @@
 				}
 			});
 
-        	if (jsonPrdcrOgnCurntMng.length > 0) {
+			if (jsonPrdcrOgnCurntMng.length > 0) {
 
-        		if(grdPrdcrOgnCurntMng.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-        			grdPrdcrOgnCurntMng.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-        			grdPrdcrOgnCurntMng.rebuild();
+				if(grdPrdcrOgnCurntMng.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+					grdPrdcrOgnCurntMng.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+					grdPrdcrOgnCurntMng.rebuild();
 				}else{
 					grdPrdcrOgnCurntMng.refresh()
 				}
-        	} else {
-        		grdPrdcrOgnCurntMng.setPageTotalCount(totalRecordCount);
-        		grdPrdcrOgnCurntMng.rebuild();
-        	}
-        	document.querySelector('#listCount').innerText = totalRecordCount;
+			} else {
+				grdPrdcrOgnCurntMng.setPageTotalCount(totalRecordCount);
+				grdPrdcrOgnCurntMng.rebuild();
+			}
+			document.querySelector('#listCount').innerText = totalRecordCount;
 
-        	//grdPrdcrOgnCurntMng.rebuild();
+			//grdPrdcrOgnCurntMng.rebuild();
 
-        }catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        }
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
 	}
 
 
 	//사용자 화면 조회
+	/*
 	const fn_dtlSearch = async function(){
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
 		let yr = SBUxMethod.get('dtl-input-yr');
 
-    	let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
-    		brno : brno
-    		,yr : yr
+		let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
+			brno : brno
+			,yr : yr
 		});
 
-        let data = await postJsonPromise ;
-        try{
-        	console.log("data==="+data);
-        	data.resultList.forEach((item, index) => {
+		let data = await postJsonPromise ;
+		try{
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
 				SBUxMethod.set('dtl-input-apoCd',gfn_nvl(item.apoCd))//통합조직 코드
 				SBUxMethod.set('dtl-input-apoSe',gfn_nvl(item.apoSe))//통합조직 구분
 				SBUxMethod.set('dtl-input-corpNm',gfn_nvl(item.corpNm))//법인명
@@ -674,14 +864,15 @@
 				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))//사업자등록번호
 				//SBUxMethod.set('dtl-input-yr',gfn_nvl(item.yr))//사업자등록번호
 			});
-        	fn_dtlGridSearch();
-        }catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        }
+			fn_dtlGridSearch();
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
 	}
+	*/
 
 
 	//통합조직 리스트 그리드 클릭시  이벤트
@@ -690,14 +881,14 @@
 
 		fn_clearForm();
 
-	    //데이터가 존재하는 그리드 범위 확인
+		//데이터가 존재하는 그리드 범위 확인
 		var nCol = grdPrdcrOgnCurntMng.getCol();
-	    if (nCol < 1) {
-	        return;
-	    }
-	    var nRow = grdPrdcrOgnCurntMng.getRow();
+		if (nCol < 1) {
+			return;
+		}
+		var nRow = grdPrdcrOgnCurntMng.getRow();
 		if (nRow < 1) {
-	        return;
+			return;
 		}
 		if(nRow == null){
 			nRow = 1;
@@ -717,6 +908,10 @@
 	async function fn_clearForm() {
 		jsonPrdcrOgnCurntMng01.length= 0;
 		grdPrdcrOgnCurntMng01.rebuild();
+		jsonPrdcrOgnCurntMng02.length= 0;
+		grdPrdcrOgnCurntMng02.rebuild();
+		jsonPrdcrOgnCurntMng03.length= 0;
+		grdPrdcrOgnCurntMng03.rebuild();
 		SBUxMethod.set('dtl-input-apoCd',null)//통합조직 코드
 		SBUxMethod.set('dtl-input-apoSe',null)//통합조직 구분
 		SBUxMethod.set('dtl-input-corpNm',null)//법인명
@@ -725,23 +920,35 @@
 		SBUxMethod.set('dtl-input-yr',null)//등록년도
 	}
 
-	//판매위임[매입] 및 출하[매출] 실적 그리드 조회
 	const fn_dtlGridSearch = async function(){
+		fn_dtlGridSearchUo();
+		fn_dtlGridSearchIso();
+		fn_dtlGridSearchFrmhs();
+	}
+
+	//판매위임[매입] 및 출하[매출] 실적 그리드 조회
+	const fn_dtlGridSearchUo = async function(){
 		let brno = SBUxMethod.get("dtl-input-brno");//
 		let yr = SBUxMethod.get("dtl-input-yr");//
 
-    	let postJsonPromise = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnGenalTblMngList.do", {
-    		brno : brno
-    		, yr : yr
-		});
-		
+		if(gfn_isEmpty(yr)){
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
 
-        let data = await postJsonPromise ;
-        try{
-        	jsonPrdcrOgnCurntMng01.length = 0;
-        	console.log("data==="+data);
-        	data.resultList.forEach((item, index) => {
-        		let PrdcrOgnCurntMngVO = {
+		let postJsonPromise = gfn_postJSON("/pd/pcorm/selectUoList.do", {
+			brno : brno
+			, yr : yr
+		});
+
+
+		let data = await postJsonPromise ;
+		try{
+			jsonPrdcrOgnCurntMng01.length = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
+				let PrdcrOgnCurntMngVO = {
 						sttgUpbrItemSe: item.sttgUpbrItemSe
 						,sttgUpbrItemNm: item.sttgUpbrItemNm
 						,itemCd: item.itemCd
@@ -756,29 +963,162 @@
 
 						,stbltYn: item.stbltYn//적합여부 기준 적용 결과
 						,orgStbltYn: item.orgStbltYn//적합여부 현재 적용 값
-   						,stbltYnNm: fn_calUoStbltYn(item)
+						,stbltYnNm: fn_calUoStbltYn(item)
 				}
 				jsonPrdcrOgnCurntMng01.push(PrdcrOgnCurntMngVO);
 				if (index === 0) {
 					totalRecordCount = item.totalRecordCount;
 				}
 			});
-        	
-        	
-        	
-        	grdPrdcrOgnCurntMng01.rebuild();
-        }catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        }
+
+
+
+			grdPrdcrOgnCurntMng01.rebuild();
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+	//출자출하조직 총괄표 조회
+	async function fn_dtlGridSearchIso() {
+
+		let brno = SBUxMethod.get("dtl-input-brno");//
+		let yr = SBUxMethod.get("dtl-input-yr");//
+
+		if(gfn_isEmpty(yr)){
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
+
+		let postJsonPromise02 = gfn_postJSON("/pd/pcorm/selectIsoList.do", {
+			brno : brno
+			, yr : yr
+		});
+		let data = await postJsonPromise02;
+		try{
+			jsonPrdcrOgnCurntMng02.length = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
+				let PrdcrOgnCurntMngVO02 = {
+						apoCd: 	item.apoCd
+						,apoSe: item.apoSe
+						,brno: 	item.brno
+						,crno: 	item.crno
+						,corpNm: item.corpNm
+						,delYn: item.delYn
+						,yr: item.yr
+
+						,aprv: item.aprv
+
+						,sttgUpbrItemSe: item.sttgUpbrItemSe
+						,sttgUpbrItemNm: item.sttgUpbrItemNm
+
+						,itemCd: 		item.itemCd
+						,itemNm: 		item.itemNm
+
+						,ctgryCd: 		item.ctgryCd
+						,ctgryNm: 		item.ctgryNm
+
+						,uoSpmtAmt: 			item.uoSpmtAmt
+						,uoSpmtAmtOther: 		item.uoSpmtAmtOther
+						,uoOtherSpmtAmt: 		item.uoOtherSpmtAmt
+						,uoOtherSpmtAmtOther: 	item.uoOtherSpmtAmtOther
+
+						,uoSpmtAmtRt: 			item.uoSpmtAmtRt
+						,uoSpmtAmtTotRt: 		item.uoSpmtAmtTotRt
+						,uoSpmtAmtTot: 			item.uoSpmtAmtTot
+
+						,stbltYn: item.stbltYn//적합여부 기준 적용 결과
+						,orgStbltYn: item.orgStbltYn//적합여부 현재 적용 값
+						,stbltYnNm: fn_calIsoStbltYn(item)
+				};
+
+				jsonPrdcrOgnCurntMng02.push(PrdcrOgnCurntMngVO02);
+			});
+
+			grdPrdcrOgnCurntMng02.rebuild();
+
+			let rowData = grdPrdcrOgnCurntMng02.getRowData(2);
+			console.log(rowData);
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+	//생산자조직 총괄표 조회
+	async function fn_dtlGridSearchFrmhs() {
+		let brno = SBUxMethod.get('dtl-input-brno');
+
+		let yr = SBUxMethod.get('dtl-input-yr');
+		if(gfn_isEmpty(yr)){
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
+
+		let postJsonPromise03 = gfn_postJSON("/pd/pcorm/selectFrmhsList.do", {
+			brno : brno
+			,yr : yr
+		});
+		let data = await postJsonPromise03;
+		try{
+			jsonPrdcrOgnCurntMng03.length = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
+				let itemVO = {
+						brno: 	item.brno
+						,uoBrno: item.uoBrno
+						,corpNm: item.corpNm
+						,uoCorpNm: item.uoCorpNm
+						,yr: item.yr
+						,aprv: item.aprv//승인형 육성형
+						//,aprvNm: item.aprvNm
+						,trmtType: item.trmtType
+						,trmtTypeNm: item.trmtTypeNm
+						,ctgryCd: item.ctgryCd
+						,ctgryNm: item.ctgryNm
+						,itemCd: item.itemCd
+						,itemNm: item.itemNm
+
+						,prdcrOgnzSn: item.prdcrOgnzSn
+						,prdcrOgnzNm: item.prdcrOgnzNm
+
+						,ecSpmtPlanVlmTot: item.ecSpmtPlanVlmTot//전속(약정)출하계획량
+						,ecSpmtVlmTot: item.ecSpmtVlmTot//전속(약정)출하량
+						,ecSpmtRateA: parseFloat(item.ecSpmtRateA)//출하비율A
+						,ecSpmtRateB: parseFloat(item.ecSpmtRateB)//출하비율B
+						,spmtPrcTot: item.spmtPrcTot//출하대금지급액
+						,prdctnVlmTot: 	item.prdctnVlmTot
+						,cnt: item.cnt//조직원수
+						,stbltYn: item.stbltYn//적합여부 기준 적용 결과
+						,orgStbltYn: item.orgStbltYn//적합여부 현재 적용 값
+						,stbltYnNm: fn_calFrmhsStbltYn(item)
+				}
+				jsonPrdcrOgnCurntMng03.push(itemVO);
+			});
+
+			grdPrdcrOgnCurntMng03.rebuild();
+
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
 	}
 
 	//통합조직 탈락적합 사유
 	function fn_calUoStbltYn(item) {
+		console.log("fn_calUoStbltYn");
 		let stbltYnNmMng = [];
-
+		console.log(item);
 		//강제로 변경한 경우가 존재 함
 		if(!gfn_isEmpty(item.orgStbltYn)){
 			if (item.orgStbltYn == 'Y') {
@@ -953,6 +1293,7 @@
 
 	//출자출하조직 탈락적합 사유
 	function fn_calIsoStbltYn(item) {
+		console.log("fn_calIsoStbltYn");
 		let stbltYnNmMng = [];
 		console.log(item);
 		//강제로 변경한 경우가 존재 함
@@ -991,8 +1332,9 @@
 	}
 
 	function fn_calFrmhsStbltYn(item) {
+		console.log("fn_calFrmhsStbltYn");
 		let stbltYnNmMng = [];
-
+		console.log(item);
 		//강제로 변경한 경우가 존재 함
 		if(!gfn_isEmpty(item.orgStbltYn)){
 			if (item.orgStbltYn == 'Y') {
@@ -1040,7 +1382,6 @@
 				}
 			}
 		}
-		//console.log(stbltYnNmMng.join("\n"));
 		return stbltYnNmMng.join("\n");
 	}
 </script>
