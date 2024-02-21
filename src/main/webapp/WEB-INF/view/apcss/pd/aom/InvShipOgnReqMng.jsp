@@ -29,6 +29,7 @@
 					<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+					<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 					<!--
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchFcltList"></sbux-button>
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
@@ -42,8 +43,9 @@
 					<sbux-button id="btnSearchFclt02" name="btnSearchFclt02" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlSearch02"></sbux-button>
 					</c:if>
 					<sbux-button id="btnSaveFclt01" name="btnSaveFclt01" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+					<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
 				</c:if>
-					<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
+					
 				</div>
 			</div>
 			<div class="box-body">
@@ -981,6 +983,7 @@
 	
 	const fn_report2 = async function() {
 		
+		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		var nRow = grdInvShipOgnReqMng.getRow();
 		if (nRow < 1) {
 			return;
@@ -992,8 +995,10 @@
 		let rowData = grdInvShipOgnReqMng.getRowData(nRow);
 
 		let uoBrno = rowData.brno;
-		
-		debugger;
+		</c:if>
+		<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+		let uoBrno = '${loginVO.brno}';
+		</c:if>
 		gfn_popClipReport("출자출하조직 신청정보", "pd/insDoc2.crf", {uobrno : uoBrno});
 	}
 	
