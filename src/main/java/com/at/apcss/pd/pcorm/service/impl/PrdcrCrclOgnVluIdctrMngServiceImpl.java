@@ -4,12 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
-import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.fm.bbs.mapper.BbsMapper;
-import com.at.apcss.fm.bbs.service.BbsService;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper;
 import com.at.apcss.pd.pcorm.service.PrdcrCrclOgnVluIdctrMngService;
 import com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO;
@@ -37,53 +32,21 @@ public class PrdcrCrclOgnVluIdctrMngServiceImpl extends BaseServiceImpl implemen
 	private PrdcrCrclOgnVluIdctrMngMapper prdcrCrclOgnVluIdctrMngMapper;
 
 	@Override
-	public PrdcrCrclOgnVluIdctrMngVO selectPrdcrCrclOgnVluIdctrMng(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception {
-
-		PrdcrCrclOgnVluIdctrMngVO resultVO = prdcrCrclOgnVluIdctrMngMapper.selectPrdcrCrclOgnVluIdctrMng(prdcrCrclOgnVluIdctrMngVO);
-
-		return resultVO;
-	}
-
-	@Override
-	public List<PrdcrCrclOgnVluIdctrMngVO> selectPrdcrCrclOgnVluIdctrMngList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception {
-
-		List<PrdcrCrclOgnVluIdctrMngVO> resultList = prdcrCrclOgnVluIdctrMngMapper.selectPrdcrCrclOgnVluIdctrMngList(prdcrCrclOgnVluIdctrMngVO);
+	public List<PrdcrCrclOgnVluIdctrMngVO> selectUoList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception {
+		List<PrdcrCrclOgnVluIdctrMngVO> resultList = prdcrCrclOgnVluIdctrMngMapper.selectUoList(prdcrCrclOgnVluIdctrMngVO);
 		return resultList;
 	}
 
 	@Override
-	public int insertPrdcrCrclOgnVluIdctrMng(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception {
-
-		int insertedCnt = prdcrCrclOgnVluIdctrMngMapper.insertPrdcrCrclOgnVluIdctrMng(prdcrCrclOgnVluIdctrMngVO);
-
-		return insertedCnt;
+	public List<PrdcrCrclOgnVluIdctrMngVO> selectIsoList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception {
+		List<PrdcrCrclOgnVluIdctrMngVO> resultList = prdcrCrclOgnVluIdctrMngMapper.selectIsoList(prdcrCrclOgnVluIdctrMngVO);
+		return resultList;
 	}
 
 	@Override
-	public int updatePrdcrCrclOgnVluIdctrMng(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception {
-
-		int updatedCnt = prdcrCrclOgnVluIdctrMngMapper.updatePrdcrCrclOgnVluIdctrMng(prdcrCrclOgnVluIdctrMngVO);
-
-		return updatedCnt;
-	}
-
-	@Override
-	public int multiSavePrdcrCrclOgnVluIdctrMngList(List<PrdcrCrclOgnVluIdctrMngVO> prdcrCrclOgnVluIdctrMngVOList) throws Exception {
-		int savedCnt = 0;
-		for (PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO : prdcrCrclOgnVluIdctrMngVOList) {
-			if(ComConstants.ROW_STS_INSERT.equals(prdcrCrclOgnVluIdctrMngVO.getRowSts())) {
-				savedCnt += insertPrdcrCrclOgnVluIdctrMng(prdcrCrclOgnVluIdctrMngVO);
-			}
-			if(ComConstants.ROW_STS_UPDATE.equals(prdcrCrclOgnVluIdctrMngVO.getRowSts())) {
-				savedCnt += updatePrdcrCrclOgnVluIdctrMng(prdcrCrclOgnVluIdctrMngVO);
-			}
-		}
-		return savedCnt;
-	}
-
-	@Override
-	public int deletePrdcrCrclOgnVluIdctrMng(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception {
-		return prdcrCrclOgnVluIdctrMngMapper.deletePrdcrCrclOgnVluIdctrMng(prdcrCrclOgnVluIdctrMngVO);
+	public List<PrdcrCrclOgnVluIdctrMngVO> selectFrmhsList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception {
+		List<PrdcrCrclOgnVluIdctrMngVO> resultList = prdcrCrclOgnVluIdctrMngMapper.selectFrmhsList(prdcrCrclOgnVluIdctrMngVO);
+		return resultList;
 	}
 
 }

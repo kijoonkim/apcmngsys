@@ -23,19 +23,28 @@ import com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO;
 @Mapper
 public interface PrdcrCrclOgnVluIdctrMngMapper {
 
+	/**
+	 * 통합조직 등록결과 리스트 조회
+	 * @param PrdcrCrclOgnVluIdctrMngVO
+	 * @return List<PrdcrCrclOgnVluIdctrMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluIdctrMngVO> selectUoList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO);
 
 	/**
-	 * 메시지정보를 조회한다.
-	 * @param bbsVO
-	 * @return
+	 * 출자출하조직 등록결과 리스트 조회
+	 * @param PrdcrCrclOgnVluIdctrMngVO
+	 * @return List<PrdcrCrclOgnVluIdctrMngVO>
+	 * @throws Exception
 	 */
-	public PrdcrCrclOgnVluIdctrMngVO selectPrdcrCrclOgnVluIdctrMng(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO);
+	public List<PrdcrCrclOgnVluIdctrMngVO> selectIsoList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO);
 
-	public List<PrdcrCrclOgnVluIdctrMngVO> selectPrdcrCrclOgnVluIdctrMngList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO);
+	/**
+	 * 생산자조직 등록결과 리스트 조회
+	 * @param PrdcrCrclOgnVluIdctrMngVO
+	 * @return List<PrdcrCrclOgnVluIdctrMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluIdctrMngVO> selectFrmhsList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO);
 
-	public int insertPrdcrCrclOgnVluIdctrMng(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO);
-
-	public int updatePrdcrCrclOgnVluIdctrMng(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO);
-
-	public int deletePrdcrCrclOgnVluIdctrMng(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception;
 }
