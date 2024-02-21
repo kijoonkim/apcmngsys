@@ -530,7 +530,7 @@
 
 
 	function fn_excelDwnld01() {
-		grdPrdcrOgnCurntMng01.exportLocalExcel("출자출하조직관리(매입.매출)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+		grdPrdcrOgnCurntMng01.exportLocalExcel("출자출하조직관리 총괄표", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
 
 
