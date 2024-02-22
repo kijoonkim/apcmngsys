@@ -568,10 +568,10 @@
      * @param {number} pageNo
      */
 	const fn_setGrdSortPrfmnc = async function(pageSize, pageNo) {
-		
+
     	lv_sortno = "";
     	let lv_sortSn = -1;
-    	
+
 		let inptYmdFrom = SBUxMethod.get("srch-dtp-inptYmdFrom");
 		let inptYmdTo = SBUxMethod.get("srch-dtp-inptYmdTo");
     	let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");				// 생산자
@@ -954,10 +954,12 @@
 	 * @description 선별확인서 발행
 	 */
 	const fn_docSort = function() {
+		const sortnoSnList = [];
 		const sortnoList = [];
 		const allData = grdSortPrfmnc.getGridDataAll();
 		allData.forEach((item) => {
 			if (item.checkedYn === "Y") {
+				sortnoSnList.push(item.sortno + item.sortSn);
 				sortnoList.push(item.sortno);
     		}
 		});
@@ -967,8 +969,9 @@
 			return;
  		}
 
+ 		const sortnoSn = sortnoSnList.join("','");
  		const sortno = sortnoList.join("','");
- 		gfn_popClipReport("선별확인서", "am/sortIdntyDoc.crf", {apcCd: gv_selectedApcCd, sortno: sortno});
+ 		gfn_popClipReport("선별확인서", "am/sortIdntyDoc.crf", {apcCd: gv_selectedApcCd, sortnoSn: sortnoSn, sortno: sortno});
  	}
 
 
