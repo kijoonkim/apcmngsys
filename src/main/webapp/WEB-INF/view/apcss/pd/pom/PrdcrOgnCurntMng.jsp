@@ -950,13 +950,29 @@
 		</c:if>
 
 		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
-		gfn_popClipReport("생산자조직 현황", "pd/prdDoc1.crf", {brno: brno, yr: yr, frmhsHld : "Y"
-			, cmptnInst : cmptnInst ,ctpv : ctpv ,corpSeCd : corpSeCd ,corpDtlSeCd : corpDtlSeCd ,corpNm : corpNm
-			,aprv : aprv ,apoSe : apoSe ,frmhsHldYn : frmhsHldYn ,yrChk : yrChkVal ,uoBrno : uoBrno
+		gfn_popClipReport("생산자조직 현황", "pd/prdDoc1.crf", {
+			brno: brno
+			, yr			: gfn_nvl(yr)
+			, frmhsHld 		: "Y"
+			, cmptnInst 	: gfn_nvl(cmptnInst)
+			, ctpv 			: gfn_nvl(ctpv)
+			, corpSeCd 		: gfn_nvl(corpSeCd)
+			, corpDtlSeCd 	: gfn_nvl(corpDtlSeCd)
+			, corpNm 		: gfn_nvl(corpNm)
+			, aprv 			: gfn_nvl(aprv)
+			, apoSe 		: gfn_nvl(apoSe)
+			, frmhsHldYn 	: gfn_nvl(frmhsHldYn)
+			, yrChk 		: gfn_nvl(yrChkVal)
+			, uoBrno 		: gfn_nvl(uoBrno)
 		});
 		</c:if>
 		<c:if test="${loginVO.userType eq '21'}">
-		gfn_popClipReport("생산자조직 현황", "pd/prdDoc1.crf", {brno: brno, yr: yr, frmhsHld : "Y" ,userType : '21'});
+		gfn_popClipReport("생산자조직 현황", "pd/prdDoc1.crf", {
+			brno		: gfn_nvl(brno)
+			, yr		: gfn_nvl(yr)
+			, frmhsHld 	: "Y"
+			, userType 	: "21"
+		});
 		</c:if>
 	}
 
@@ -1707,8 +1723,14 @@
 
 		console.log(brno,yr);
 
-		gfn_popClipReport("생산자조직 리스트", "pd/prdDoc2.crf", {brno: brno, yr: yr, apocd : apoSeVal ,uobrno : uoBrnoVal
-		, apcgu : apcguVal, corpnm : corpNm, buisno: buisNo
+		gfn_popClipReport("생산자조직 리스트", "pd/prdDoc2.crf", {
+			brno		: gfn_nvl(brno)
+			, yr		: gfn_nvl(yr)
+			, apocd 	: gfn_nvl(apoSeVal)
+			, uobrno 	: gfn_nvl(uoBrnoVal)
+			, apcgu 	: gfn_nvl(apcguVal)
+			, corpnm 	: gfn_nvl(corpNm)
+			, buisno	: gfn_nvl(buisNo)
 		});
 		//debugger;
 	}
@@ -1801,7 +1823,10 @@
 		let itemCd = SBUxMethod.get('dtl-input-itemCd');
 		let apoCd = SBUxMethod.get('dtl-input-apoCd');
 
-		gfn_popClipReport("농가리스트 현황", "pd/prdDoc3.crf", {apocd: apoCd, prdcrognzsn: prdcrOgnzSn});
+		gfn_popClipReport("농가리스트 현황", "pd/prdDoc3.crf", {
+			apocd			: gfn_nvl(apoCd)
+			, prdcrognzsn	: gfn_nvl(prdcrOgnzSn)
+		});
 	}
 
 	//농가리스트 리스트 조회
