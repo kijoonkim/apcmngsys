@@ -847,7 +847,7 @@
 
 
 
- 		gfn_popClipReport("통합조직관리 총괄표", "pd/docAll3.crf", {brNo : reqBrno, yr : reqYr, corpnm : reqCorpNm, buisno : reqBuisNo, corpno : reqCorpNo});
+ 		gfn_popClipReport("통합조직관리 총괄표", "pd/docAll3.crf", {brno : reqBrno, yr : reqYr, corpnm : reqCorpNm, buisno : reqBuisNo, corpno : reqCorpNo});
     }
 
 	const fn_report3 = async function() {
@@ -867,7 +867,7 @@
 
 
 
- 		gfn_popClipReport("전속(약정)출하 현황출력", "pd/docAll.crf", {brNo : reqBrno, yr : reqYr, corpnm : reqCorpNm, buisno : reqBuisNo, corpno : reqCorpNo});
+ 		gfn_popClipReport("전속(약정)출하 현황출력", "pd/docAll.crf", {brno : reqBrno, yr : reqYr, corpnm : reqCorpNm, buisno : reqBuisNo, corpno : reqCorpNo});
     }
 
 	//판매위임[매입] 및 출하[매출] 실적 그리드 조회

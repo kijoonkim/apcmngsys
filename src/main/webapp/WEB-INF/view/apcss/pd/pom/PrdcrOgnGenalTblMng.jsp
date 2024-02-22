@@ -978,7 +978,7 @@
 
 		}
 
- 		gfn_popClipReport("생산자 조직관리 총괄표", "pd/docAll1.crf", {brNo : reqBrno, yr : reqYr, apcgu : reqApcGu, corpnm : reqCorpNm, buisno : reqBuisNo});
+ 		gfn_popClipReport("생산자 조직관리 총괄표", "pd/docAll1.crf", {brno : reqBrno, yr : reqYr, apcgu : reqApcGu, corpnm : reqCorpNm, buisno : reqBuisNo});
     }
 
 
