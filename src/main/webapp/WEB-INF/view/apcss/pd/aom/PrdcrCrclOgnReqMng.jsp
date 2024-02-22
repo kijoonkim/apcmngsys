@@ -1519,7 +1519,13 @@
 			}
 			//마감 확인
 			if(corpDdlnSeCd == 'Y'){
-				$(".btn").hide();// 모든 버튼 숨기기
+				//$(".btn").hide();// 모든 버튼 숨기기
+				//저장버튼 숨김 처리
+				$("#btnSaveFclt01").hide();
+				$("#btnSaveFclt1").hide();
+				//법인체마감 버튼 숨김 처리
+				$("#btnCorpDdlnSeCd01").hide();
+
 				//작성란 비활성화
 				SBUxMethod.attr('rdo-aprv','readonly',true);
 				SBUxMethod.attr('dtl-input-rawMtrEnsr','readonly',true);
@@ -2056,6 +2062,7 @@
 						return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdGpcList\", " + nRow + ")'>삭제</button>";
 					}
 				}
+				return "";
 			}},
 			{caption: ["통합조직코드"], 	ref: 'apoCd',   	hidden : true},
 			{caption: ["통합조직코드"], 	ref: 'brno',   		hidden : true},

@@ -1232,7 +1232,11 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	        	}
 	        }},
 	        {caption: ["조직선택"], 			ref: 'sel',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
-				return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_openMaodalSelect(" + nRow + ")'>선택</button>";
+	        	let corpDdlnSeCd = SBUxMethod.get("dtl-input-corpDdlnSeCd");
+	        	if(corpDdlnSeCd == 'Y'){
+	        		return "";
+	        	}
+	        	return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_openMaodalSelect(" + nRow + ")'>선택</button>";
 	        }},
 	    	{caption: ["통합조직코드"], 		ref: 'uoApoCd',		hidden : true},
 	        {caption: ["통합조직명"], 			ref: 'uoCorpNm',	type:'output',  width:'400px',    style:'text-align:center'},
@@ -1444,7 +1448,6 @@ tps://sbgrid.co.kr/v2_5/document/guide
         try{
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
-        		console.log("item.apoSe==="+item.apoSe);
         		sgg = item.sgg;
         		corpDdlnSeCd = item.corpDdlnSeCd;
         		SBUxMethod.set('dtl-input-corpDdlnSeCd',gfn_nvl(item.corpDdlnSeCd))
@@ -1519,7 +1522,10 @@ tps://sbgrid.co.kr/v2_5/document/guide
     			return false;
     		}
     		if(corpDdlnSeCd == 'Y'){
-    			$(".btn").hide();// 모든 버튼 숨기기
+    			//$(".btn").hide();// 모든 버튼 숨기기
+    			//저장버튼만 숨김처리
+    			$("#btnSaveFclt01").hide();
+        		$("#btnSaveFclt1").hide();
     		}
 
         	fn_calInvstAmtTot();
@@ -2095,10 +2101,9 @@ tps://sbgrid.co.kr/v2_5/document/guide
 			});
         	grdUoList.rebuild();
 
-        	//비어 있는 마지막 줄 추가용도?
+        	//비어 있는 마지막 줄 추가용도
         	let corpDdlnSeCd = SBUxMethod.get("dtl-input-corpDdlnSeCd");
-        	if(corpDdlnSeCd == 'Y'){
-        	}else{
+        	if(corpDdlnSeCd != 'Y'){
         		grdUoList.addRow();
         	}
         }catch (e) {
