@@ -1023,6 +1023,8 @@
 
 		let aprv = SBUxMethod.get("srch-input-aprv");//
 
+		let corpDdlnSeCd = SBUxMethod.get("srch-input-corpDdlnSeCd");//
+
 		//sbgrid 체크박스 값 사용
 		let yrChk = SBUxMethod.get("srch-input-yrChk");//
 		let keys = Object.getOwnPropertyNames(yrChk);
