@@ -852,14 +852,11 @@
 		let reqUoBrnoT = $('#dtl-input-selUoBrno option:checked').text();
 
 		if(!reqBrno){
-
 			alert("법인체를 선택하세요");
 			return false;
-
 		}
 
 		if(!reqUoBrno || reqUoBrno == "" || reqUoBrno == "null"){
-
 			alert("통합조직을 선택하세요");
 			return false;
 		}
@@ -868,7 +865,7 @@
 			brno 		: gfn_nvl(reqBrno)
 			, yr 		: gfn_nvl(reqYr)
 			, unbrno 	: gfn_nvl(reqUoBrno)
-			,corpnm 	: gfn_nvl(reqCorpNmT)
+			, corpnm 	: gfn_nvl(reqCorpNmT)
 			, buisno 	: gfn_nvl(reqBrnoT)
 			, corpno 	: gfn_nvl(reqCrnoT)
 			, allgroup 	: gfn_nvl(reqUoBrnoT)

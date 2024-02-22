@@ -257,7 +257,7 @@
 				<div class="box-header" style="display:flex; justify-content: flex-start;" >
 					<div style="margin-left: auto;">
 						<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
-						<sbux-button id="btnReport5" name="btnReport5" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
+						<sbux-button id="btnReport5" name="btnReport5" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
 						<sbux-button id="btnReport6" name="btnReport6" uitype="normal" class="btn btn-sm btn-primary" text="전속(약정)출하 현황출력" onclick="fn_report3"></sbux-button>
 					</div>
 				</div>
