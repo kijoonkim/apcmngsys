@@ -1725,12 +1725,7 @@
 
 		gfn_popClipReport("생산자조직 리스트", "pd/prdDoc2.crf", {
 			brno		: gfn_nvl(brno)
-			, yr		: gfn_nvl(yr)
-			, apocd 	: gfn_nvl(apoSeVal)
 			, uobrno 	: gfn_nvl(uoBrnoVal)
-			, apcgu 	: gfn_nvl(apcguVal)
-			, corpnm 	: gfn_nvl(corpNm)
-			, buisno	: gfn_nvl(buisNo)
 		});
 		//debugger;
 	}
