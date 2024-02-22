@@ -24,13 +24,14 @@
 				<div style="margin-left: auto;">
 				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
+					<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 				</c:if>
 				<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
 					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
 					<sbux-button id="btnPrfmncCorpDdlnYn01" name="btnPrfmncCorpDdlnYn01" uitype="normal" text="실적 법인체마감" class="btn btn-sm btn-outline-danger" onclick="fn_prfmncCorpDdlnYn(1)"></sbux-button>
 					<sbux-button id="btnReport3" name="btnReport3" uitype="normal" class="btn btn-sm btn-primary" text="전속(약정)출하 현황출력" onclick="fn_report3"></sbux-button>
-				</c:if>
 					<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
+				</c:if>
 				</div>
 			</div>
 			<div class="box-body">
@@ -596,7 +597,7 @@
 
 
 
-	const fn_report2 = async function() {
+	const fn_report = async function() {
 		let yr = SBUxMethod.get("srch-input-yr");//
 		//년도 검색값이 없는 경우 최신년도
 		if(gfn_isEmpty(yr)){
@@ -829,7 +830,7 @@
 		SBUxMethod.set('dtl-input-yr',null)//등록년도
 	}
 
-	const fn_report = async function() {
+	const fn_report2 = async function() {
 		let reqBrno = SBUxMethod.get("dtl-input-brno");//
 		let reqYr = SBUxMethod.get("dtl-input-yr");//
 

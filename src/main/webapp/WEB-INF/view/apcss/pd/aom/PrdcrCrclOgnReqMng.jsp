@@ -33,12 +33,13 @@
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchFcltList"></sbux-button>
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
 					 -->
+					<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 				</c:if>
 				<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
 					<sbux-button id="btnSaveFclt01" name="btnSaveFclt01" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 					<sbux-button id="btnCorpDdlnSeCd01" name="btnCorpDdlnSeCd01" uitype="normal" text="법인체마감" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCd(1)"></sbux-button>
+					<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
 				</c:if>
-					<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -260,16 +261,10 @@
 								<span style="font-size:12px">추가를 눌러 생성 후 작성해주세요</span>
 							</li>
 							 -->
-							
-							 
+
+
 						</ul>
 				</div>
-				 <div class="box-header" style="display:flex; justify-content: flex-start;" >
-								 <div style="margin-left: auto;">
-										<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
-								</div>
-							</div>
-
 				<table class="table table-bordered tbl_fixed">
 					<caption>사용자관리 수정 화면</caption>
 					<colgroup>
@@ -1215,10 +1210,10 @@
 		let currentPageNo = grdPrdcrCrclOgnReqMng.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
 		fn_setGrdFcltList(recordCountPerPage, currentPageNo);
 	}
-	
-	
+
+
 	const fn_report = async function() {
-		
+
 		let yr = SBUxMethod.get("srch-input-yr");//
 		console.log(yr);
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
@@ -1249,7 +1244,7 @@
 											corpSeCd : corpSeCd, corpDtlSeCd : corpDtlSeCd, brno : brno, corpNm : corpNm
 											,corpDdlnSeCd : corpDdlnSeCd, aprv : aprv, yrChk : yrChk, yrChkVal : yrChkVal,apoSe : "1"});
 	}
-	
+
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
 
@@ -2120,10 +2115,10 @@
 		}
 		return strValue;
 	}
-	
+
 	//총괄표 출력
 	const fn_report2 = async function() {
-		
+
 		let apoCd = SBUxMethod.get('dtl-input-apoCd')//
 		let yr = SBUxMethod.get('dtl-input-yr')//
 		if(gfn_isEmpty(yr)){
@@ -2135,22 +2130,22 @@
 		let apoSe = '1'
 		let brno = SBUxMethod.get('dtl-input-brno')//
 		let crno = SBUxMethod.get('dtl-input-crno')//
-		
+
 		let reqCorpNmT = $('#dtl-input-corpNm').val();
 		let reqBrnoT = $('#dtl-input-brno').val();
 		let reqCrnoT = $('#dtl-input-crno').val();
 		let reqUoBrnoT = $('#dtl-input-selUoBrno option:checked').text();
-		
+
 		if(gfn_isEmpty(brno)){
 			alert("출력할 통합조직을 선택해주세요");
 			return;
 		}
-		
-		 gfn_popClipReport("통합조직 등록 정보", "pd/insDoc.crf", {brno : brno, apoSe : '1',crno: crno, yr: yr}); 
+
+		 gfn_popClipReport("통합조직 등록 정보", "pd/insDoc.crf", {brno : brno, apoSe : '1',crno: crno, yr: yr});
 	}
-	
-	
-	
+
+
+
 	/* 품목리스트 조회 기능*/
 	const fn_selectGpcList = async function(){
 		console.log("===========fn_selectGpcList===========");
