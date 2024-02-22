@@ -1224,15 +1224,31 @@
 		</c:if>
 
 		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
- 	 	gfn_popClipReport("검색리스트", "pd/totalDoc1.crf", {brno: brno, yr: yr, frmhsHld : "Y"
- 	 		, cmptnInst : cmptnInst ,ctpv : ctpv ,corpSeCd : corpSeCd ,corpDtlSeCd : corpDtlSeCd ,corpNm : corpNm
- 	 		,aprv : aprv ,apoSe : apoSe ,frmhsHldYn : frmhsHldYn ,yrChk : yrChkVal ,uoBrno : uoBrno
- 	 	});
- 	 	</c:if>
- 	 	<c:if test="${loginVO.userType eq '21'}">
- 	 	gfn_popClipReport("검색리스트", "pd/totalDoc1.crf", {brno: brno, yr: yr, frmhsHld : "Y" ,userType : '21'});
+		gfn_popClipReport("검색리스트", "pd/totalDoc1.crf", {
+			brno: brno
+			, yr			: gfn_nvl(yr)
+			, frmhsHld 		: "Y"
+			, cmptnInst 	: gfn_nvl(cmptnInst)
+			, ctpv 			: gfn_nvl(ctpv)
+			, corpSeCd 		: gfn_nvl(corpSeCd)
+			, corpDtlSeCd 	: gfn_nvl(corpDtlSeCd)
+			, corpNm 		: gfn_nvl(corpNm)
+			, aprv 			: gfn_nvl(aprv)
+			, apoSe 		: gfn_nvl(apoSe)
+			, frmhsHldYn 	: gfn_nvl(frmhsHldYn)
+			, yrChk 		: gfn_nvl(yrChkVal)
+			, uoBrno 		: gfn_nvl(uoBrno)
+		});
 		</c:if>
-    }
+		<c:if test="${loginVO.userType eq '21'}">
+		gfn_popClipReport("검색리스트", "pd/totalDoc1.crf", {
+			brno		: gfn_nvl(brno)
+			, yr		: gfn_nvl(yr)
+			, frmhsHld 	: "Y"
+			, userType 	: "21"
+		});
+		</c:if>
+	}
 
 
 
@@ -1678,10 +1694,16 @@
 			yr = year;
 		}
 
-/* 		let reqCorpNmT = $('#dtl-input-corpNm').val();
+		/*
+		let reqCorpNmT = $('#dtl-input-corpNm').val();
 		let reqBrnoT = $('#dtl-input-brno').val();
-		let reqCrnoT = $('#dtl-input-crno').val(); */
-		 gfn_popClipReport("출자출하조직 총 매입 매출 현황", "pd/totalDoc2.crf", {brno : brno, yr : yr});
+		let reqCrnoT = $('#dtl-input-crno').val();
+		*/
+
+		gfn_popClipReport("출자출하조직 총 매입 매출 현황", "pd/totalDoc2.crf", {
+			brno : gfn_nvl(brno)
+			, yr : gfn_nvl(yr)
+		});
 	}
 
 	//통합조직 매입 매출 리스트 조회

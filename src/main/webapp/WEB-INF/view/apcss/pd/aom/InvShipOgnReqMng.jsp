@@ -999,7 +999,9 @@
 		<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
 		let uoBrno = '${loginVO.brno}';
 		</c:if>
-		gfn_popClipReport("출자출하조직 신청정보", "pd/insDoc2.crf", {uobrno : uoBrno});
+		gfn_popClipReport("출자출하조직 신청정보", "pd/insDoc2.crf", {
+			uobrno : gfn_nvl(uoBrno)
+		});
 	}
 
 
@@ -1014,8 +1016,6 @@
 		let brno = SBUxMethod.get("srch-input-brno");//
 		let corpNm = SBUxMethod.get("srch-input-corpNm");//
 
-		let corpDdlnSeCd = SBUxMethod.get("srch-input-corpDdlnSeCd");//
-
 		let aprv = SBUxMethod.get("srch-input-aprv");//
 
 		//sbgrid 체크박스 값 사용
@@ -1029,9 +1029,20 @@
 		}
 
 
-		gfn_popClipReport("출자출하조직 등록", "pd/allGroupDoc2.crf", {yr : yr, cmptnInst : cmptnInst, ctpv : ctpv,
-																	corpSeCd : corpSeCd, corpDtlSeCd : corpDtlSeCd, brno : brno, corpNm : corpNm
-																	,corpDdlnSeCd : corpDdlnSeCd, aprv : aprv, yrChk : yrChk, yrChkVal : yrChkVal ,apoSe : "1"});
+		gfn_popClipReport("출자출하조직 등록", "pd/allGroupDoc2.crf", {
+			yr 				: gfn_nvl(yr)
+			, cmptnInst 	: gfn_nvl(cmptnInst)
+			, ctpv 			: gfn_nvl(ctpv)
+			, corpSeCd 		: gfn_nvl(corpSeCd)
+			, corpDtlSeCd 	: gfn_nvl(corpDtlSeCd)
+			, brno 			: gfn_nvl(brno)
+			, corpNm 		: gfn_nvl(corpNm)
+			, corpDdlnSeCd 	: gfn_nvl(corpDdlnSeCd)
+			, aprv 			: gfn_nvl(aprv)
+			, yrChk 		: gfn_nvl(yrChk)
+			, yrChkVal 		: gfn_nvl(yrChkVal)
+			, apoSe 		: "1"
+		});
 	}
 
 

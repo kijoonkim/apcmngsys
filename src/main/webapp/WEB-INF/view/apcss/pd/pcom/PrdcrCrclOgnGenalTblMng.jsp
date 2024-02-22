@@ -637,15 +637,31 @@
 		</c:if>
 
 		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
- 	 	gfn_popClipReport("검색리스트", "pd/searchList3.crf", {brno: brno, yr: yr, frmhsHld : "Y"
- 	 		, cmptnInst : cmptnInst ,ctpv : ctpv ,corpSeCd : corpSeCd ,corpDtlSeCd : corpDtlSeCd ,corpNm : corpNm
- 	 		,aprv : aprv ,apoSe : apoSe ,frmhsHldYn : frmhsHldYn ,yrChk : yrChkVal ,uoBrno : uoBrno
- 	 	});
- 	 	</c:if>
- 	 	<c:if test="${loginVO.userType eq '21'}">
- 	 	gfn_popClipReport("검색리스트", "pd/searchList3.crf", {brno: brno, yr: yr, frmhsHld : "Y" ,userType : '21'});
+		gfn_popClipReport("검색리스트", "pd/searchList3.crf", {
+			brno			: gfn_nvl(brno)
+			, yr			: gfn_nvl(yr)
+			, frmhsHld 		: "Y"
+			, cmptnInst 	: gfn_nvl(cmptnInst)
+			, ctpv 			: gfn_nvl(ctpv)
+			, corpSeCd 		: gfn_nvl(corpSeCd)
+			, corpDtlSeCd 	: gfn_nvl(corpDtlSeCd)
+			, corpNm 		: gfn_nvl(corpNm)
+			, aprv 			: gfn_nvl(aprv)
+			, apoSe 		: gfn_nvl(apoSe)
+			, frmhsHldYn 	: gfn_nvl(frmhsHldYn)
+			, yrChk 		: gfn_nvl(yrChkVal)
+			, uoBrno 		: gfn_nvl(uoBrno)
+		});
 		</c:if>
-    }
+		<c:if test="${loginVO.userType eq '21'}">
+		gfn_popClipReport("검색리스트", "pd/searchList3.crf", {
+			brno		: gfn_nvl(brno)
+			, yr		: gfn_nvl(yr)
+			, frmhsHld 	: "Y"
+			, userType 	: "21"
+		});
+		</c:if>
+	}
 
 
 
@@ -835,40 +851,44 @@
 		let reqYr = SBUxMethod.get("dtl-input-yr");//
 
 		if(!reqBrno){
-
 			alert("법인체를 선택하세요");
 			return false;
-
 		}
 
 		let reqCorpNm = $('#dtl-input-corpNm').val();
 		let reqBuisNo = $('#dtl-input-brno').val();
 		let reqCorpNo = $('#dtl-input-crno').val();
 
-
-
- 		gfn_popClipReport("통합조직관리 총괄표", "pd/docAll3.crf", {brno : reqBrno, yr : reqYr, corpnm : reqCorpNm, buisno : reqBuisNo, corpno : reqCorpNo});
-    }
+		gfn_popClipReport("통합조직관리 총괄표", "pd/docAll3.crf", {
+			brno 		: gfn_nvl(reqBrno)
+			, yr 		: gfn_nvl(reqYr)
+			, corpnm 	: gfn_nvl(reqCorpNm)
+			, buisno 	: gfn_nvl(reqBuisNo)
+			, corpno 	: gfn_nvl(reqCorpNo)
+		});
+	}
 
 	const fn_report3 = async function() {
 		let reqBrno = SBUxMethod.get("dtl-input-brno");//
 		let reqYr = SBUxMethod.get("dtl-input-yr");//
 
 		if(!reqBrno){
-
 			alert("통합조직을 선택하세요");
 			return false;
-
 		}
 
 		let reqCorpNm = $('#dtl-input-corpNm').val();
 		let reqBuisNo = $('#dtl-input-brno').val();
 		let reqCorpNo = $('#dtl-input-crno').val();
 
-
-
- 		gfn_popClipReport("전속(약정)출하 현황출력", "pd/docAll.crf", {brno : reqBrno, yr : reqYr, corpnm : reqCorpNm, buisno : reqBuisNo, corpno : reqCorpNo});
-    }
+		gfn_popClipReport("전속(약정)출하 현황출력", "pd/docAll.crf", {
+			brno 		: gfn_nvl(reqBrno)
+			, yr 		: gfn_nvl(reqYr)
+			, corpnm 	: gfn_nvl(reqCorpNm)
+			, buisno 	: gfn_nvl(reqBuisNo)
+			, corpno 	: gfn_nvl(reqCorpNo)
+		});
+	}
 
 	//판매위임[매입] 및 출하[매출] 실적 그리드 조회
 	const fn_dtlGridSearch = async function(){

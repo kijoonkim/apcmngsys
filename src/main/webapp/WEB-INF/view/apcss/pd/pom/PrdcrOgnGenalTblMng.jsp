@@ -972,14 +972,18 @@
 		let reqBuisNo = $('#dtl-input-brno').val();
 
 		if(!reqBrno){
-
 			alert("법인체를 선택하세요");
 			return false;
-
 		}
 
- 		gfn_popClipReport("생산자 조직관리 총괄표", "pd/docAll1.crf", {brno : reqBrno, yr : reqYr, apcgu : reqApcGu, corpnm : reqCorpNm, buisno : reqBuisNo});
-    }
+		gfn_popClipReport("생산자 조직관리 총괄표", "pd/docAll1.crf", {
+			brno 		: gfn_nvl(reqBrno)
+			, yr 		: gfn_nvl(reqYr)
+			, apcgu 	: gfn_nvl(reqApcGu)
+			, corpnm 	: gfn_nvl(reqCorpNm)
+			, buisno 	: gfn_nvl(reqBuisNo)
+		});
+	}
 
 
 

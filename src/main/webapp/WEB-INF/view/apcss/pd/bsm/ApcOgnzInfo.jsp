@@ -200,15 +200,19 @@
 
 	}
 
-	
+
 	const fn_report = async function() {
 		let ognzNm = SBUxMethod.get("srch-inp-ognzNm");//
 		let ognzSeNm = SBUxMethod.get("srch-inp-ognzSeNm");//
 		let typeNm = SBUxMethod.get("srch-inp-typeNm");//
 
-		gfn_popClipReport("통합조직 코드 관리", "pd/allCodeDoc.crf", {ognzNm : ognzNm, ognzSeNm : ognzSeNm, typeNm : typeNm});
+		gfn_popClipReport("통합조직 코드 관리", "pd/allCodeDoc.crf", {
+			ognzNm 		: gfn_nvl(ognzNm)
+			, ognzSeNm 	: gfn_nvl(ognzSeNm)
+			, typeNm 	: gfn_nvl(typeNm)
+		});
 	}
-	
+
 
 	/* Grid Row 조회 기능*/
 	const fn_searchFcltList = async function(){
