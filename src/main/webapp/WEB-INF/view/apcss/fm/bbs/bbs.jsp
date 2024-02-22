@@ -320,14 +320,17 @@
 
 
 
-    const fn_report = async function() {
-    	let bbsSeCd = SBUxMethod.get("srch-select-bbsSeCd");
+	const fn_report = async function() {
+		let bbsSeCd = SBUxMethod.get("srch-select-bbsSeCd");
 		//let bbsNo = SBUxMethod.get("srch-input-bbsNo");
 		let bbsTitle = SBUxMethod.get("srch-input-bbsTitle");
 
 
-    	gfn_popClipReport("공지사항리스트", "pd/bbsDoc.crf", {bbsSeCd : bbsSeCd , bbsTitle : bbsTitle});
-    }
+		gfn_popClipReport("공지사항리스트", "pd/bbsDoc.crf", {
+			bbsSeCd 	: gfn_nvl(bbsSeCd)
+			, bbsTitle 	: gfn_nvl(bbsTitle)
+		});
+	}
 
 
     /**

@@ -628,7 +628,7 @@
     	let currentPageNo = grdPrdcrCrclOgnUsrMng.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
     	fn_setGrdFcltList(recordCountPerPage, currentPageNo);
     }
-	
+
 	//출력
 	const fn_report = async function() {
 		let cmptncInst = SBUxMethod.get("srch-input-cmptncInst");//관할기관
@@ -640,11 +640,18 @@
 		let brno = SBUxMethod.get("srch-input-brno");//사업자번호
 		let coNm = SBUxMethod.get("srch-input-coNm");//법인명
 
-
-		gfn_popClipReport("사용자 리스트", "pd/userListDoc.crf", {cmptncInst : cmptncInst, userStts : userStts, cmptncInstAprvSe : cmptncInstAprvSe,
-										userType : userType, userId : userId, userNm : userNm, brno : brno, coNm : coNm});
+		gfn_popClipReport("사용자 리스트", "pd/userListDoc.crf", {
+			cmptncInst 			: gfn_nvl(cmptncInst)
+			, userStts 			: gfn_nvl(userStts)
+			, cmptncInstAprvSe 	: gfn_nvl(cmptncInstAprvSe)
+			, userType 			: gfn_nvl(userType)
+			, userId 			: gfn_nvl(userId)
+			, userNm 			: gfn_nvl(userNm)
+			, brno 				: gfn_nvl(brno)
+			, coNm 				: gfn_nvl(coNm)
+		});
 	}
-	
+
 	/* Grid Row 조회 기능*/
 	//const fn_searchFcltList = async function(){
 	const fn_setGrdFcltList = async function(pageSize, pageNo){

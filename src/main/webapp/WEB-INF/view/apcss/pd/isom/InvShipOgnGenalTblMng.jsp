@@ -661,15 +661,31 @@
 		</c:if>
 
 		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
- 	 	gfn_popClipReport("검색리스트", "pd/searchList2.crf", {brno: brno, yr: yr, frmhsHld : "Y"
- 	 		, cmptnInst : cmptnInst ,ctpv : ctpv ,corpSeCd : corpSeCd ,corpDtlSeCd : corpDtlSeCd ,corpNm : corpNm
- 	 		,aprv : aprv ,apoSe : apoSe ,frmhsHldYn : frmhsHldYn ,yrChk : yrChkVal ,uoBrno : uoBrno
- 	 	});
- 	 	</c:if>
- 	 	<c:if test="${loginVO.userType eq '21'}">
- 	 	gfn_popClipReport("검색리스트", "pd/searchList2.crf", {brno: brno, yr: yr, frmhsHld : "Y" ,userType : '21'});
+		gfn_popClipReport("검색리스트", "pd/searchList2.crf", {
+			brno			: gfn_nvl(brno)
+			, yr			: gfn_nvl(yr)
+			, frmhsHld 		: "Y"
+			, cmptnInst 	: gfn_nvl(cmptnInst)
+			,ctpv 			: gfn_nvl(ctpv)
+			,corpSeCd 		: gfn_nvl(corpSeCd)
+			,corpDtlSeCd 	: gfn_nvl(corpDtlSeCd)
+			,corpNm 		: gfn_nvl(corpNm)
+			,aprv 			: gfn_nvl(aprv)
+			,apoSe 			: gfn_nvl(apoSe)
+			,frmhsHldYn 	: gfn_nvl(frmhsHldYn)
+			,yrChk 			: gfn_nvl(yrChkVal)
+			,uoBrno 		: gfn_nvl(uoBrno)
+		});
 		</c:if>
-    }
+		<c:if test="${loginVO.userType eq '21'}">
+		gfn_popClipReport("검색리스트", "pd/searchList2.crf", {
+			brno		: gfn_nvl(brno)
+			, yr		: gfn_nvl(yr)
+			, frmhsHld 	: "Y"
+			, userType 	: "21"
+		});
+		</c:if>
+	}
 
 
 	/* Grid Row 조회 기능*/
@@ -848,8 +864,15 @@
 			return false;
 		}
 
-		gfn_popClipReport("출자출하 조직관리 총괄표", "pd/docAll2.crf", {brno : reqBrno, yr : reqYr, unbrno : reqUoBrno,
-																	corpnm : reqCorpNmT, buisno : reqBrnoT, corpno : reqCrnoT, allgroup : reqUoBrnoT});
+		gfn_popClipReport("출자출하 조직관리 총괄표", "pd/docAll2.crf", {
+			brno 		: gfn_nvl(reqBrno)
+			, yr 		: gfn_nvl(reqYr)
+			, unbrno 	: gfn_nvl(reqUoBrno)
+			,corpnm 	: gfn_nvl(reqCorpNmT)
+			, buisno 	: gfn_nvl(reqBrnoT)
+			, corpno 	: gfn_nvl(reqCrnoT)
+			, allgroup 	: gfn_nvl(reqUoBrnoT)
+		});
     }
 
 	//총괄표 조회

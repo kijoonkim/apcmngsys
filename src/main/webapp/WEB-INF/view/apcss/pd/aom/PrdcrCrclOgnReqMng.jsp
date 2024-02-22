@@ -1240,9 +1240,20 @@
 		}
 
 
-		gfn_popClipReport("출자출하 조직관리 총괄표", "pd/allGroupDoc1.crf", {yr : yr, cmptnInst : cmptnInst, ctpv : ctpv,
-											corpSeCd : corpSeCd, corpDtlSeCd : corpDtlSeCd, brno : brno, corpNm : corpNm
-											,corpDdlnSeCd : corpDdlnSeCd, aprv : aprv, yrChk : yrChk, yrChkVal : yrChkVal,apoSe : "1"});
+		gfn_popClipReport("출자출하 조직관리 총괄표", "pd/allGroupDoc1.crf", {
+			yr 				: gfn_nvl(yr)
+			, cmptnInst 	: gfn_nvl(cmptnInst)
+			, ctpv 			: gfn_nvl(ctpv)
+			, corpSeCd 		: gfn_nvl(corpSeCd)
+			, corpDtlSeCd 	: gfn_nvl(corpDtlSeCd)
+			, brno 			: gfn_nvl(brno)
+			, corpNm 		: gfn_nvl(corpNm)
+			,corpDdlnSeCd 	: gfn_nvl(corpDdlnSeCd)
+			, aprv 			: gfn_nvl(aprv)
+			, yrChk 		: gfn_nvl(yrChk)
+			, yrChkVal 		: gfn_nvl(yrChkVal)
+			,apoSe 			: "1"
+		});
 	}
 
 	/* Grid Row 조회 기능*/
@@ -2119,8 +2130,8 @@
 	//총괄표 출력
 	const fn_report2 = async function() {
 
-		let apoCd = SBUxMethod.get('dtl-input-apoCd')//
-		let yr = SBUxMethod.get('dtl-input-yr')//
+		let apoCd = SBUxMethod.get('dtl-input-apoCd');//
+		let yr = SBUxMethod.get('dtl-input-yr');//
 		if(gfn_isEmpty(yr)){
 			let now = new Date();
 			let year = now.getFullYear();
@@ -2128,8 +2139,8 @@
 		}
 		// apoCd : apoCd
 		let apoSe = '1'
-		let brno = SBUxMethod.get('dtl-input-brno')//
-		let crno = SBUxMethod.get('dtl-input-crno')//
+		let brno = SBUxMethod.get('dtl-input-brno');//
+		let crno = SBUxMethod.get('dtl-input-crno');//
 
 		let reqCorpNmT = $('#dtl-input-corpNm').val();
 		let reqBrnoT = $('#dtl-input-brno').val();
@@ -2141,7 +2152,12 @@
 			return;
 		}
 
-		 gfn_popClipReport("통합조직 등록 정보", "pd/insDoc.crf", {brno : brno, apoSe : '1',crno: crno, yr: yr});
+		 gfn_popClipReport("통합조직 등록 정보", "pd/insDoc.crf", {
+			brno 		: gfn_nvl(brno)
+			, apoSe 	: '1'
+			, crno		: gfn_nvl(crno)
+			, yr		: gfn_nvl(yr)
+		});
 	}
 
 

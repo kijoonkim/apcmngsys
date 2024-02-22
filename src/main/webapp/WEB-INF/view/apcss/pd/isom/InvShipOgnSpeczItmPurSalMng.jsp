@@ -847,15 +847,31 @@
 		</c:if>
 
 		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
- 	 	gfn_popClipReport("검색리스트", "pd/sptDoc1.crf", {brno: brno, yr: yr, frmhsHld : "Y"
- 	 		, cmptnInst : cmptnInst ,ctpv : ctpv ,corpSeCd : corpSeCd ,corpDtlSeCd : corpDtlSeCd ,corpNm : corpNm
- 	 		,aprv : aprv ,apoSe : apoSe ,frmhsHldYn : frmhsHldYn ,yrChk : yrChkVal ,uoBrno : uoBrno
- 	 	});
- 	 	</c:if>
- 	 	<c:if test="${loginVO.userType eq '21'}">
- 	 	gfn_popClipReport("검색리스트", "pd/sptDoc1.crf", {brno: brno, yr: yr, frmhsHld : "Y" ,userType : '21'});
+		gfn_popClipReport("검색리스트", "pd/sptDoc1.crf", {
+			brno			: gfn_nvl(brno)
+			, yr			: gfn_nvl(yr)
+			, frmhsHld 		: "Y"
+			, cmptnInst 	: gfn_nvl(cmptnInst)
+			, ctpv 			: gfn_nvl(ctpv)
+			, corpSeCd 		: gfn_nvl(corpSeCd)
+			, corpDtlSeCd 	: gfn_nvl(corpDtlSeCd)
+			, corpNm 		: gfn_nvl(corpNm)
+			, aprv 			: gfn_nvl(aprv)
+			, apoSe 		: gfn_nvl(apoSe)
+			, frmhsHldYn 	: gfn_nvl(frmhsHldYn)
+			, yrChk 		: gfn_nvl(yrChkVal)
+			, uoBrno 		: gfn_nvl(uoBrno)
+		});
 		</c:if>
-    }
+		<c:if test="${loginVO.userType eq '21'}">
+		gfn_popClipReport("검색리스트", "pd/sptDoc1.crf", {
+			brno		: gfn_nvl(brno)
+			, yr		: gfn_nvl(yr)
+			, frmhsHld 	: "Y"
+			,userType 	: "21"
+		});
+		</c:if>
+	}
 
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
@@ -1091,8 +1107,15 @@
 		let reqBrnoT = $('#dtl-input-brno').val();
 		let reqCrnoT = $('#dtl-input-crno').val();
 		let reqUoBrnoT = $('#dtl-input-selUoBrno option:checked').text();
-		 gfn_popClipReport("판매위임 매입 및 출하 매출 실적", "pd/sptDoc2.crf", {brno : brno, uoBrno : uoBrnoVal, yr : yr
-			 															,corpnm : reqCorpNmT, buisno : reqBrnoT, corpno : reqCrnoT, allgroupnm : reqUoBrnoT});
+		 gfn_popClipReport("판매위임 매입 및 출하 매출 실적", "pd/sptDoc2.crf", {
+			brno 			: gfn_nvl(brno)
+			, uoBrno 		: gfn_nvl(uoBrnoVal)
+			, yr 			: gfn_nvl(yr)
+			, corpnm 		: gfn_nvl(reqCorpNmT)
+			, buisno 		: gfn_nvl(reqBrnoT)
+			, corpno 		: gfn_nvl(reqCrnoT)
+			, allgroupnm 	: gfn_nvl(reqUoBrnoT)
+		});
 	}
 
 	//판매위임[매입] 및 출하[매출] 실적 그리드 조회

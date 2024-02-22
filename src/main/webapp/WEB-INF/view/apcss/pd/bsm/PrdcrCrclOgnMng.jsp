@@ -35,7 +35,7 @@
 						<sbux-button id="btnSaveFclt01" name="btnSaveFclt01" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 						<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
 					</c:if>
-						
+
 				</div>
 			</div>
 			<div class="box-body">
@@ -296,7 +296,7 @@
 
 					<div  class="ad_tbl_top">
 						<p style="font-size:14px; color: #3c6dbc; text-align: left">▶ 출자출하조직이 속한 통합조직 리스트</p>
-						
+
 				    </div>
 
 
@@ -304,8 +304,8 @@
 					<div id="sb-area-grdUoList" style="height:150px; width: 100%; overflow-x: hidden"></div>
 					<br>
 				</div>
-				
-						
+
+
 				<table class="table table-bordered tbl_fixed">
 					<caption>사용자관리 수정 화면</caption>
 					<colgroup>
@@ -917,7 +917,7 @@
 			</div>
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div style="margin-left: auto;">
-					<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+					<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">ddddd
 					<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
 					</c:if>
 					<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
@@ -1276,35 +1276,45 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		let corpNm = SBUxMethod.get("srch-input-corpNm");//
 		let apoSe = SBUxMethod.get("srch-input-apoSe");//
 
-		
 
-		gfn_popClipReport("산지조직 관리", "pd/sanDoc1.crf", {cmptnInst : cmptnInst, ctpv : ctpv, sgg : sgg,
-											corpSeCd : corpSeCd, corpDtlSeCd : corpDtlSeCd, brno : brno, corpNm : corpNm, apoSe : apoSe});
+
+		gfn_popClipReport("산지조직 관리", "pd/sanDoc1.crf", {
+			cmptnInst 		: gfn_nvl(cmptnInst)
+			, ctpv 			: gfn_nvl(ctpv)
+			, sgg 			: gfn_nvl(sgg)
+			,corpSeCd 		: gfn_nvl(corpSeCd)
+			, corpDtlSeCd 	: gfn_nvl(corpDtlSeCd)
+			, brno 			: gfn_nvl(brno)
+			, corpNm 		: gfn_nvl(corpNm)
+			, apoSe 		: gfn_nvl(apoSe)
+		});
 	}
-	
+
 	const fn_report2 = async function() {
-		
-		
+
+
 		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		var nRow = grdPrdcrCrclOgnMng.getRow();
 		if (nRow < 1) {
-	        return;
+			return;
 		}
 		if(nRow == null){
 			nRow = 1;
 		}
 
 		//서치폼에서 클릭시 디테일폼에 데이터출력
-        let rowData = grdPrdcrCrclOgnMng.getRowData(nRow);
+		let rowData = grdPrdcrCrclOgnMng.getRowData(nRow);
 
 		let brno = rowData.brno
 		</c:if>
 		<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
-		let brno = '${loginVO.brno}';	
+		let brno = '${loginVO.brno}';
 		</c:if>
-		debugger;		
+		//debugger;
 
-		gfn_popClipReport("산지조직 관리", "pd/sanDocAll.crf", {brno : brno});
+		gfn_popClipReport("산지조직 관리", "pd/sanDocAll.crf", {
+			brno : gfn_nvl(brno)
+		});
 	}
 
 	/* Grid Row 조회 기능*/
