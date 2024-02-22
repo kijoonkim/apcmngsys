@@ -45,7 +45,7 @@
 					<sbux-button id="btnSaveFclt01" name="btnSaveFclt01" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 					<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
 				</c:if>
-					
+
 				</div>
 			</div>
 			<div class="box-body">
@@ -235,10 +235,10 @@
 							</li>
 						</ul>
 						<div style="margin-left: auto;">
-							
+
 								<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
 						</div>
-						
+
 					</div>
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdInvShipOgnReqMng01" style="height:250px; width: 100%;"></div>
@@ -978,11 +978,11 @@
     	let currentPageNo = grdInvShipOgnReqMng.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
     	fn_setGrdFcltList(recordCountPerPage, currentPageNo);
     }
-	
-	
-	
+
+
+
 	const fn_report2 = async function() {
-		
+
 		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		var nRow = grdInvShipOgnReqMng.getRow();
 		if (nRow < 1) {
@@ -991,7 +991,7 @@
 		if(nRow == null){
 			nRow = 1;
 		}
-		
+
 		let rowData = grdInvShipOgnReqMng.getRowData(nRow);
 
 		let uoBrno = rowData.brno;
@@ -1001,8 +1001,8 @@
 		</c:if>
 		gfn_popClipReport("출자출하조직 신청정보", "pd/insDoc2.crf", {uobrno : uoBrno});
 	}
-	
-	
+
+
 	const fn_report = async function() {
 		let yr = SBUxMethod.get("srch-input-yr");//
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
@@ -1013,6 +1013,8 @@
 
 		let brno = SBUxMethod.get("srch-input-brno");//
 		let corpNm = SBUxMethod.get("srch-input-corpNm");//
+
+		let corpDdlnSeCd = SBUxMethod.get("srch-input-corpDdlnSeCd");//
 
 		let aprv = SBUxMethod.get("srch-input-aprv");//
 
@@ -1029,7 +1031,7 @@
 
 		gfn_popClipReport("출자출하조직 등록", "pd/allGroupDoc2.crf", {yr : yr, cmptnInst : cmptnInst, ctpv : ctpv,
 																	corpSeCd : corpSeCd, corpDtlSeCd : corpDtlSeCd, brno : brno, corpNm : corpNm
-																	,corpDdlnSeCd : corpDdlnSeCd, aprv : aprv, yrChk : yrChk, yrChkVal : yrChkVal,apoSe : "1"});
+																	,corpDdlnSeCd : corpDdlnSeCd, aprv : aprv, yrChk : yrChk, yrChkVal : yrChkVal ,apoSe : "1"});
 	}
 
 

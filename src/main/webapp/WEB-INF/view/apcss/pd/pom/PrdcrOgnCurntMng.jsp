@@ -27,12 +27,13 @@
 					<!--
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
 					 -->
+					<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 				</c:if>
 				<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00' && loginVO.userType ne '21'}">
 					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="생산자조직 조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch01"></sbux-button>
 					<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="생산자조직 저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList01"></sbux-button>
+					<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="생산자조직 출력" onclick="fn_report2"></sbux-button>
 				</c:if>
-					<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 				</div>
 
 			</div>
@@ -1687,7 +1688,7 @@
 		let yr = SBUxMethod.get('dtl-input-yr');
 
 		if(gfn_isEmpty(brno)){
-			alert("법인을 선택해주세요");
+			alert("조직을 선택해주세요");
 			return false;
 		}
 
@@ -1794,12 +1795,12 @@
 
 	/* 농가리스트 출력물 */
 	const fn_report3 = async function() {
-		let itemCd = SBUxMethod.get('dtl-input-itemCd');
-		if(gfn_isEmpty(itemCd)){return;}
+		let prdcrOgnzSn = SBUxMethod.get('dtl-input-prdcrOgnzSn');
+		if(gfn_isEmpty(prdcrOgnzSn)){return;}
 
+		let itemCd = SBUxMethod.get('dtl-input-itemCd');
 		let apoCd = SBUxMethod.get('dtl-input-apoCd');
 
-		let prdcrOgnzSn = SBUxMethod.get('dtl-input-prdcrOgnzSn');
 		gfn_popClipReport("농가리스트 현황", "pd/prdDoc3.crf", {apocd: apoCd, prdcrognzsn: prdcrOgnzSn});
 	}
 
