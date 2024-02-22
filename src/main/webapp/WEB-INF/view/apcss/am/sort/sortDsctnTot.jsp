@@ -178,7 +178,7 @@
 				},
 
 			grandtotalrow : {
-				titlecol: 2,
+				titlecol: 3,
 				titlevalue: '합계',
 				style : 'background-color: #ceebff ; font-weight: bold; color: #0060b3;',
 				stylestartcol: 0
@@ -186,7 +186,7 @@
 			totalformat: {
 				1: '#,###',
 				// 2: '#,###',
-				3: '#,###',
+				//3: '#,###',
 				4: '#,###',
 			}
 		};
