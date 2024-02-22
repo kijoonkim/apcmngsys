@@ -916,7 +916,12 @@
 	    SBGridProperties.columns = [
 	    	{caption: ["seq"], 			ref: 'apoCd',   	hidden : true},
 	    	{caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
-	    		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdInvShipOgnReqMng01\", " + nRow + ")'>삭제</button>";
+	    		let corpDdlnSeCd = SBUxMethod.get("dtl-input-corpDdlnSeCd");
+	    		console.log(corpDdlnSeCd);
+	        	if(corpDdlnSeCd != 'Y'){
+	    			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdInvShipOgnReqMng01\", " + nRow + ")'>삭제</button>";
+	        	}
+	        	return "";
 	        }},
 	    	{caption: ["업체명"], 			ref: 'corpNm',   	type:'output',  width:'220px',    style:'text-align:center'},
 	    	{caption: ["대표자명"], 			ref: 'rprsvFlnm',   	type:'output',  width:'80px',    style:'text-align:center'},
@@ -1170,6 +1175,7 @@
 				SBUxMethod.set('dtl-input-yr',gfn_nvl(item.yr))//사업자등록번호
 				wrtYn = item.wrtYn;
 				corpDdlnSeCd = item.corpDdlnSeCd;
+				SBUxMethod.set('dtl-input-corpDdlnSeCd',gfn_nvl(item.corpDdlnSeCd))//법인체마감 여부
 			});
 
 
@@ -1213,8 +1219,10 @@
         	}
         	//법인체마감 여부
         	if(corpDdlnSeCd == 'Y'){
-        		//alert("산지조직관리 작성이 필요합니다.");
-        		$(".btn").hide();// 모든 버튼 숨기기
+        		//$(".btn").hide();// 모든 버튼 숨기기
+        		//저장버튼만 숨김처리
+        		$("#btnSaveFclt01").hide();
+        		$("#btnSaveFclt1").hide();
         		SBUxMethod.attr('dtl-input-selUoBrno','readonly',true);
         		SBUxMethod.attr('dtl-input-isoFundAplyAmt','readonly',true);
 				return false;
@@ -1324,7 +1332,7 @@
 				SBUxMethod.set("dtl-input-brno", item.brno);
 				SBUxMethod.set("dtl-input-uoBrno", item.uoBrno);
 				SBUxMethod.set("dtl-input-corpNm", item.corpNm);
-				SBUxMethod.set("dtl-input-corpDdlnSeCd", item.corpDdlnSeCd);//법인체 마감
+				//SBUxMethod.set("dtl-input-corpDdlnSeCd", item.corpDdlnSeCd);//법인체 마감
 				SBUxMethod.set("dtl-input-corpSeCd", item.corpSeCd);
 				SBUxMethod.set("dtl-input-corpDtlSeCd", item.corpDtlSeCd);
 				SBUxMethod.set("dtl-input-corpFndnDay", item.corpFndnDay);
@@ -1349,62 +1357,67 @@
 			});
 
 
-    		let userType = '${loginVO.userType}';
-        	let apoSe = SBUxMethod.get('dtl-input-apoSe');
-        	//조직관계 데이터가 없어 조회를 못하는 경우면 apoSe 값이 없음
-        	if(!gfn_isEmpty(apoSe)){
-        		if(userType == '21'){
-        			userType = '1'
-        		}else if(userType == '22'){
-        			userType = '2'
-        		}
-        		//유저 권한과 데이터가 맞지 않는 경우 오류 처리
-        		if(userType != apoSe){
-        			alert("해당 계정의 권한과 기존데이터의 타입이 맞지 않습니다"+
-        					"\n관리자에게 문의 해주세요");
-        			$(".btn").hide();// 모든 버튼 숨기기
-        			$(".uoList").hide();
-        			SBUxMethod.clearAllData();//모든 데이터 클리어
-        			return false;
-        		}
-        	}else{
-        		$(".btn").hide();// 모든 버튼 숨기기
-    			$(".uoList").hide();
-    			SBUxMethod.clearAllData();//모든 데이터 클리어
-    			return false;
-        	}
-
-			//산지조직신청 확인
-    		if(wrtYn != 'Y'){
-        		alert("산지조직관리 작성이 필요합니다.");
+			let userType = '${loginVO.userType}';
+			let apoSe = SBUxMethod.get('dtl-input-apoSe');
+			//조직관계 데이터가 없어 조회를 못하는 경우면 apoSe 값이 없음
+			if(!gfn_isEmpty(apoSe)){
+				if(userType == '21'){
+					userType = '1'
+				}else if(userType == '22'){
+					userType = '2'
+				}
+				//유저 권한과 데이터가 맞지 않는 경우 오류 처리
+				if(userType != apoSe){
+					alert("해당 계정의 권한과 기존데이터의 타입이 맞지 않습니다"+
+							"\n관리자에게 문의 해주세요");
+					$(".btn").hide();// 모든 버튼 숨기기
+					$(".uoList").hide();
+					SBUxMethod.clearAllData();//모든 데이터 클리어
+					return false;
+				}
+			}else{
 				$(".btn").hide();// 모든 버튼 숨기기
 				$(".uoList").hide();
 				SBUxMethod.clearAllData();//모든 데이터 클리어
 				return false;
-        	}
+			}
 
-    		//출자출하조직 사용자 화면에서는 그리드 선택하는 과정이 없어 추가
+			//산지조직신청 확인
+			if(wrtYn != 'Y'){
+				alert("산지조직관리 작성이 필요합니다.");
+				$(".btn").hide();// 모든 버튼 숨기기
+				$(".uoList").hide();
+				SBUxMethod.clearAllData();//모든 데이터 클리어
+				return false;
+			}
+
+			//출자출하조직 사용자 화면에서는 그리드 선택하는 과정이 없어 추가
 			await fn_searchUoList();
 			let uoBrno = SBUxMethod.get("dtl-input-uoBrno");
 			await SBUxMethod.set("dtl-input-selUoBrno", uoBrno);
 
-    		//마감 확인
-        	if(corpDdlnSeCd == 'Y'){
-        		$(".btn").hide();// 모든 버튼 숨기기
-        		SBUxMethod.attr('dtl-input-selUoBrno','readonly',true);
-        		SBUxMethod.attr('dtl-input-isoFundAplyAmt','readonly',true);
-        	}else{
-        		$(".btn").show();// 모든 버튼 보이게
-        		SBUxMethod.attr('dtl-input-selUoBrno','readonly',false);
-        		SBUxMethod.attr('dtl-input-isoFundAplyAmt','readonly',false);
-        	}
+			//마감 확인
+			if(corpDdlnSeCd == 'Y'){
+				//$(".btn").hide();// 모든 버튼 숨기기
+				//저장버튼 숨김 처리
+				$("#btnSaveFclt01").hide();
+        		$("#btnSaveFclt1").hide();
+				SBUxMethod.attr('dtl-input-selUoBrno','readonly',true);
+				SBUxMethod.attr('dtl-input-isoFundAplyAmt','readonly',true);
+			}else{
+				//$(".btn").show();// 모든 버튼 보이게
+				$("#btnSaveFclt01").show();
+        		$("#btnSaveFclt1").show();
+				SBUxMethod.attr('dtl-input-selUoBrno','readonly',false);
+				SBUxMethod.attr('dtl-input-isoFundAplyAmt','readonly',false);
+			}
 
-        }catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        }
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
 	}
 
 	var comUoBrno = [];//통합조직 선택
@@ -1752,15 +1765,17 @@
 		await fn_searchUoList();
 		await SBUxMethod.set("dtl-input-selUoBrno", rowData.uoBrno);
 		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+		/*
 		if(rowData.corpDdlnSeCd == 'Y'){
-			$(".btn").hide();// 모든 버튼 숨기기
+			//$(".btn").hide();// 모든 버튼 숨기기
 			SBUxMethod.attr('dtl-input-selUoBrno','readonly',true);
 			SBUxMethod.attr('dtl-input-isoFundAplyAmt','readonly',true);
 		}else{
-			$(".btn").show();// 모든 버튼 숨기기
+			//$(".btn").show();// 모든 버튼 보이기
 			SBUxMethod.attr('dtl-input-selUoBrno','readonly',false);
 			SBUxMethod.attr('dtl-input-isoFundAplyAmt','readonly',false);
 		}
+		*/
 		</c:if>
     }
 
