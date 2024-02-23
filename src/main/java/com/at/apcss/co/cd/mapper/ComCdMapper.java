@@ -44,6 +44,13 @@ public interface ComCdMapper {
 	 * @return
 	 */
 	public List<ComCdVO> selectComCdDtlList(ComCdVO comCdVO) throws Exception;
+	
+	/**
+	 * 공통코드 리포트경로 목록 조회
+	 * @param comCdVO
+	 * @return
+	 */
+	public List<ComCdVO> selectApcRptList(ComCdVO comCdVO) throws Exception;
 
 	/**
 	 * 공통코드 등록

@@ -62,6 +62,29 @@ public class ComCdApiController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	
+	@PostMapping(value = "/co/cd/apcRptKnds", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectApcRptList(@RequestBody ComCdVO comCdVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<ComCdVO> resultList;
+
+		try {
+			resultList = comCdService.selectApcRptList(comCdVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
 	@PostMapping(value = "/co/cd/comBoCdDtls", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectComBoCdDtlList(@RequestBody ComCdVO comCdVO, HttpServletRequest request) throws Exception {
 
