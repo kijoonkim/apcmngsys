@@ -44,6 +44,14 @@ public class ComCdServiceImpl extends BaseServiceImpl implements ComCdService {
 	}
 
 	@Override
+	public List<ComCdVO> selectApcRptList(ComCdVO comCdVO) throws Exception {
+		List<ComCdVO> resultList = new ArrayList<>();
+		resultList = comCdMapper.selectApcRptList(comCdVO);
+		return resultList;
+	}
+	
+	
+	@Override
 	public int insertComCd(ComCdVO comCdVO) throws Exception {
 		return comCdMapper.insertComCd(comCdVO);
 	}
@@ -231,4 +239,6 @@ public class ComCdServiceImpl extends BaseServiceImpl implements ComCdService {
 
 		return null;
 	}
+
+
 }

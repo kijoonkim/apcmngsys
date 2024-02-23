@@ -40,6 +40,9 @@ const URL_TRSPRT_CST_INFO	= "/am/cmns/trsprtCsts";	//	운송지역
 const URL_SPMT_PCKG_UINT	= "/am/cmns/spmtPckgUnits";	//	출하포장단위
 const URL_APC_INFO			= "/am/apc/apcInfos";		//	APC리스트
 const URL_CRTR_YR			= "/am/fclt/crtrYr";		//  기준년도 가져오기
+const URL_APC_RPT_KNDS		= "/co/cd/apcRptKnds";		//  리포트경로
+
+
 /** END URL
  */
 
@@ -78,6 +81,11 @@ let gv_paging = {
 	  	'showgoalpageui' : true
     };
 
+const gv_apcRptApc = {
+		apcCd: "",
+		apcRptKnds: []
+	}
+
 
 /**
  * @description
@@ -98,6 +106,80 @@ const gfn_setSysPrgrmId = function(sysPrgrmId) {
     postHeaders.sysPrgrmId = sysPrgrmId
 }
 
+/**
+ * @name gfn_postFormData
+ * @description async post by Form Data
+ * @function
+ * @param {string} _url
+ * @param {formData} _formData
+ * @param {[string]} _sysPrgrmId
+ * @param {[boolean]} _hideProgress
+ * @returns {any}
+ */
+const gfn_postFormData = async function(_url, _formData, _sysPrgrmId, _hideProgress) {
+	
+	const showProgress = !_hideProgress;
+    const headers = {};
+
+    if (_sysPrgrmId) {
+        headers.sysPrgrmId = _sysPrgrmId;
+    }
+	
+	const option = {
+        method : 'POST',
+        headers: headers,
+        body: _formData
+    };
+	
+	try {
+
+		let startTime = new Date();
+		if (showProgress && typeof SBUxMethod === 'function') {
+			SBUxMethod.openProgress(gv_loadingOptions);
+		}
+
+        const response = await fetch(
+            _url, {
+                ...option
+            }
+        );
+
+		const result = await response.json();
+
+		if (showProgress && typeof SBUxMethod === 'function') {
+			const endTime = new Date();
+			if (endTime.getTime() > startTime + 500) {
+				SBUxMethod.closeProgress(gv_loadingOptions);
+			} else {
+				setTimeout(function() {
+			  		SBUxMethod.closeProgress(gv_loadingOptions);
+				}, 500);
+			}
+		}
+
+		if (!_.isEqual("S", result.resultStatus)
+			&& _.isEqual("E0010", result.resultCode)) {
+
+			if (typeof parent.lfn_redirect === 'function') {
+				parent.lfn_redirect("/main.do");
+			}
+		}
+
+		return result;
+
+	} catch (e) {
+		if (!(e instanceof Error)) {
+			e = new Error(e);
+		}
+
+		if (showProgress && typeof SBUxMethod === 'function') {
+			SBUxMethod.closeProgress(gv_loadingOptions);
+		}
+		console.error("failed", e);
+		console.error("failed", e.message);
+	}
+
+}
 
 /**
  * @name gfn_postJSON
@@ -172,6 +254,70 @@ async function gfn_postJSON(_url, _param, _sysPrgrmId, _hideProgress) {
 		console.error("failed", e);
 		console.error("failed", e.message);
 	}
+}
+
+
+
+/*
+원물인식표	rawMtrIdntyDoc		RT_DOC
+계량확인서	rawMtrWghDoc		WT_DOC
+선별지시서	sortCmndDoc		SO_DOC
+선별라벨	sortLabel		ST_LBL
+선별확인서	sortIdntyDoc		ST_DOC
+포장지시서	pckgCmndDoc		PO_DOC
+포장확인서	pckgIdntyDoc		PK_DOC
+상품라벨	gdsLabel		PK_LBL
+출하지시서	spmtCmndDoc		DO_DOC
+송품장	trsprtCmdtyDoc		DT_DOC
+거래명세서	dlngDoc		DL_DOC
+파프리카입고확인서	popWrhsDsctnTot		RT_TOT
+*/
+
+/**
+ * @name gfn_getComCdRptKnd
+ * @description 공통코드 리포트 정보
+ * @function
+ * @param {string} _cdId	- 공통코드
+ * @param {string} _apcCd	- APC코드
+ * @returns {any[]}
+ */
+const gfn_getComCdRptKnd = async function (_apcCd) {
+	const postJsonPromise = gfn_postJSON(URL_APC_RPT_KNDS, {apcCd: _apcCd, delYn : "N"}, null, true);
+	const data = await postJsonPromise;
+	return data.resultList;
+}
+
+/**
+ * @name gfn_getReportUrl
+ * @description 리포트 파일 경로 반환
+ * @param {string} _apcCd	apc코드
+ * @param {string} _rptKnd	리포트종류
+ * @function
+ * @returns
+ */
+const gfn_getReportUrl = async function(_apcCd, _rptKnd) {
+	
+	if (gfn_isEmpty(_apcCd)) {
+		return null;
+	}
+	
+	if (!_.isEqual(_apcCd, gv_apcRptApc.apcCd)) {
+		//gv_apcRptApc.apcRptKnds = gfn_getComCdRptKnd(_apcCd);
+		const postJsonPromise = gfn_postJSON(URL_APC_RPT_KNDS, {apcCd: _apcCd, delYn : "N"}, null, true);
+		const data = await postJsonPromise;
+		gv_apcRptApc.apcCd = _apcCd;
+		gv_apcRptApc.apcRptKnds = data.resultList;
+	}
+	
+	let url;
+	
+	gv_apcRptApc.apcRptKnds.forEach((el) => {
+		if (el.cdVl === _rptKnd) {
+			url = el.cdVlExpln;	
+		}
+	});
+	
+	return url;
 }
 
 /**

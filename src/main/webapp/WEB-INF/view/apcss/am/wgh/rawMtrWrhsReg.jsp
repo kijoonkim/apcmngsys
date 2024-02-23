@@ -1523,7 +1523,7 @@
      * @name fn_docRawMtrWrhs
      * @description 원물확인서 발행 버튼
      */
-	const fn_docRawMtrWrhs = function() {
+	const fn_docRawMtrWrhs = async function() {
 		let wrhsno = SBUxMethod.get("srch-inp-wrhsno");
 
 		if (gfn_isEmpty(wrhsno)) {
@@ -1531,8 +1531,11 @@
             return;
 		}
 
+		const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'RT_DOC');
+		console.log("rptUrl", rptUrl);
 		//gfn_printClipReport("am/rawMtrIdntyDoc.crf", {apcCd: gv_selectedApcCd, wrhsno: wrhsno});
-		gfn_popClipReport("원물인식표", "am/rawMtrIdntyDoc.crf", {apcCd: gv_selectedApcCd, wrhsno: wrhsno});
+		//gfn_popClipReport("원물인식표", "am/rawMtrIdntyDoc.crf", {apcCd: gv_selectedApcCd, wrhsno: wrhsno});
+		gfn_popClipReport("원물인식표", rptUrl, {apcCd: gv_selectedApcCd, wrhsno: wrhsno});
 	}
 
 
