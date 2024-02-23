@@ -149,6 +149,39 @@
     </select>
 
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.selectApcRptList				-->
+	<!-- DESC : 공통코드 리포트 목록 조회.                                          -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.05.17  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectApcRptList" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultType="com.at.apcss.co.cd.vo.ComCdVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.cd.mapper.ComCdMapper.selectComCdDtlList */
+				   CC.CD_ID         AS CD_ID
+			     , CD.CD_VL			AS CD_VL
+			     , MAX(CD.APC_CD) KEEP (DENSE_RANK LAST ORDER BY DECODE(CD.APC_CD, '0000', 1, 9))		AS APC_CD
+			     , MAX(CD.CD_VL_NM) KEEP (DENSE_RANK LAST ORDER BY DECODE(CD.APC_CD, '0000', 1, 9))		AS CD_VL_NM
+			     , MAX(CD.CD_VL_EXPLN) KEEP (DENSE_RANK LAST ORDER BY DECODE(CD.APC_CD, '0000', 1, 9))	AS CD_VL_EXPLN
+			     , MAX(CD.INDCT_SEQ) KEEP (DENSE_RANK LAST ORDER BY DECODE(CD.APC_CD, '0000', 1, 9))	AS INDCT_SEQ
+			  FROM
+			  	  TB_COM_CD CC
+			  	, TB_COM_CD_DTL CD
+			 WHERE CC.CD_ID = CD.CD_ID
+			   AND CC.CD_ID = 'APC_RPT_KND'
+			   AND CD.APC_CD IN ('0000', #{apcCd})
+			   AND CC.DEL_YN = 'N'
+			   AND CD.DEL_YN = 'N'
+			   AND CD.USE_YN = 'Y'
+			 GROUP BY CC.CD_ID, CD.CD_VL
+			 ORDER BY CD_ID, INDCT_SEQ
+    	]]>
+    </select>
+
+
+
     <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.selectComBoCdDtlList			-->
 	<!-- DESC : 콤보박스 공통코드 상세 목록 조회.                                   			-->
