@@ -169,6 +169,7 @@
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
+		SBGridProperties.clickeventarea = {fixed: false, empty: false};
 	    SBGridProperties.total = {
 				type: 'grand',
 				position: 'bottom',
@@ -192,45 +193,49 @@
 		};
 	    SBGridProperties.columns = [
 	    	{caption : [],	ref : 'checkedYn',		width : '40px',	style : 'text-align:center',	type : 'radio', 			typeinfo : {checkedvalue : 'yes', uncheckedvalue : 'false'}},
-	    	{caption : ["선별일자","선별일자"], ref: 'inptYmd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-	    	{caption: ["등급","등급"],    		ref: 'grd',     	type: 'output', width:'50px', 	style: 'text-align:center'},
-	    	{caption : ["구분","구분"], ref: 'prdcrNm', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
-	    	{caption : ["빨강","2XL"], ref: 'redV1', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-	    	{caption : ["빨강","XL"], ref: 'redV2', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-	    	{caption : ["빨강","L"], ref: 'redV3', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-	    	{caption : ["빨강","M"], ref: 'redV4', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-	    	{caption : ["빨강","S"], ref: 'redV5', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-	    	{caption : ["빨강","2S"], ref: 'redV6', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-	    	{caption : ["빨강","소계"], ref: 'redSbTot', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;background-color:#ceebff;', format : {type:'number', rule:'#,###'}, fixedstyle : 'background-color:#ceebff;'},
+	    	{caption : ["선별일자","선별일자"], ref: 'inptYmd', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled:true  },
+	    	{caption: ["등급","등급"],    		ref: 'grd',     	type: 'input', width:'50px', 	style: 'text-align:center', disabled:true},
+	    	{caption : ["구분","구분"], ref: 'prdcrNm', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;', disabled:true},
+	    	{caption : ["빨강","2XL"], ref: 'redV1', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}, disabled:true},
+	    	{caption : ["빨강","XL"], ref: 'redV2', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}, disabled:true},
+	    	{caption : ["빨강","L"], ref: 'redV3', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}, disabled:true},
+	    	{caption : ["빨강","M"], ref: 'redV4', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}, disabled:true},
+	    	{caption : ["빨강","S"], ref: 'redV5', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}, disabled:true},
+	    	{caption : ["빨강","2S"], ref: 'redV6', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}, disabled:true},
+	    	{caption : ["빨강","소계"], ref: 'redSbTot', type: 'input',  width:'100px', style: 'text-align:right; padding-right:5px;background-color:#ceebff;'
+	    							, format : {type:'number', rule:'#,###'}, fixedstyle : 'background-color:#ceebff;', disabled:true},
+	    	{caption : ["노랑","2XL"], ref: 'ylwV1', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}, disabled:true},
+	    	{caption : ["노랑","XL"], ref: 'ylwV2', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}, disabled:true},
+	    	{caption : ["노랑","L"], ref: 'ylwV3', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}, disabled:true},
+	    	{caption : ["노랑","M"], ref: 'ylwV4', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}, disabled:true},
+	    	{caption : ["노랑","S"], ref: 'ylwV5', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}, disabled:true},
+	    	{caption : ["노랑","2S"], ref: 'ylwV6', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}, disabled:true},
+	    	{caption : ["노랑","소계"], ref: 'ylwSbTot', type: 'input',  width:'100px', style: 'text-align:right; padding-right:5px;background-color:#ceebff'
+	    							, format : {type:'number', rule:'#,###'},fixedstyle : 'background-color:#ceebff;', disabled:true},
+	    	{caption : ["주황","2XL"], ref: 'orngV1', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}, disabled:true},
+	    	{caption : ["주황","XL"], ref: 'orngV2', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}, disabled:true},
+	    	{caption : ["주황","L"], ref: 'orngV3', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}, disabled:true},
+	    	{caption : ["주황","M"], ref: 'orngV4', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}, disabled:true},
+	    	{caption : ["주황","S"], ref: 'orngV5', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}, disabled:true},
+	    	{caption : ["주황","2S"], ref: 'orngV6', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}, disabled:true},
+	    	{caption : ["주황","소계"], ref: 'orngSbTot', type: 'input',  width:'100px', style: 'text-align:right; padding-right:5px;background-color:#ceebff '
+	    							, format : {type:'number', rule:'#,###'},fixedstyle : 'background-color:#ceebff;', disabled:true},
 
-	    	{caption : ["노랑","2XL"], ref: 'ylwV1', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}},
-	    	{caption : ["노랑","XL"], ref: 'ylwV2', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}},
-	    	{caption : ["노랑","L"], ref: 'ylwV3', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}},
-	    	{caption : ["노랑","M"], ref: 'ylwV4', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}},
-	    	{caption : ["노랑","S"], ref: 'ylwV5', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}},
-	    	{caption : ["노랑","2S"], ref: 'ylwV6', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}},
-	    	{caption : ["노랑","소계"], ref: 'ylwSbTot', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;background-color:#ceebff', format : {type:'number', rule:'#,###'},fixedstyle : 'background-color:#ceebff;'},
-
-	    	{caption : ["주황","2XL"], ref: 'orngV1', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}},
-	    	{caption : ["주황","XL"], ref: 'orngV2', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}},
-	    	{caption : ["주황","L"], ref: 'orngV3', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}},
-	    	{caption : ["주황","M"], ref: 'orngV4', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}},
-	    	{caption : ["주황","S"], ref: 'orngV5', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}},
-	    	{caption : ["주황","2S"], ref: 'orngV6', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}},
-	    	{caption : ["주황","소계"], ref: 'orngSbTot', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;background-color:#ceebff ', format : {type:'number', rule:'#,###'},fixedstyle : 'background-color:#ceebff;'},
-
-	    	{caption : ["총합계","총합계"], ref: 'totSum', type: 'output',  width:'150px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-	    	{caption : ["비고","비고"], ref: 'rmrk', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px;'},
-	    	{caption: ["생산자코드"],	ref: 'prdcrCd',     		type:'output',  	hidden: true}
+	    	{caption : ["총합계","총합계"], ref: 'totSum', type: 'input',  width:'150px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}, disabled:true},
+	    	{caption : ["비고","비고"], ref: 'rmrk', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px;', disabled:true},
+	    	{caption: ["생산자코드"],	ref: 'prdcrCd',     		type:'input',  	hidden: true}
 
 
 	    ];
 	    grdSortDsctnTot = _SBGrid.create(SBGridProperties);
+	    grdSortDsctnTot.bind('click', 'fnClick')
 
 
 	}
 
-
+	function fnClick(){
+		this.inputmode = 'none';
+	}
 
 
 
