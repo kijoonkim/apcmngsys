@@ -1694,15 +1694,17 @@
 			yr = year;
 		}
 
-		/*
+		
 		let reqCorpNmT = $('#dtl-input-corpNm').val();
 		let reqBrnoT = $('#dtl-input-brno').val();
 		let reqCrnoT = $('#dtl-input-crno').val();
-		*/
-
+		
 		gfn_popClipReport("출자출하조직 총 매입 매출 현황", "pd/totalDoc2.crf", {
 			brno : gfn_nvl(brno)
 			, yr : gfn_nvl(yr)
+			, reqCorpNm : gfn_nvl(reqCorpNmT)
+			, reqBrno : gfn_nvl(reqBrnoT)
+			, reqCrno : gfn_nvl(reqCrnoT)
 		});
 	}
 

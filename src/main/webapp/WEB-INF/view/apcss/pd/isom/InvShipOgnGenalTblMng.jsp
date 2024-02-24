@@ -860,11 +860,10 @@
 			alert("통합조직을 선택하세요");
 			return false;
 		}
-
 		gfn_popClipReport("출자출하 조직관리 총괄표", "pd/docAll2.crf", {
 			brno 		: gfn_nvl(reqBrno)
 			, yr 		: gfn_nvl(reqYr)
-			, unbrno 	: gfn_nvl(reqUoBrno)
+			, uobrno 	: gfn_nvl(reqUoBrno)
 			, corpnm 	: gfn_nvl(reqCorpNmT)
 			, buisno 	: gfn_nvl(reqBrnoT)
 			, corpno 	: gfn_nvl(reqCrnoT)
