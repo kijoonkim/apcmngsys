@@ -978,11 +978,27 @@
 
 	//총괄표 출력
 	const fn_report2 = async function() {
-
-
+		
+		let apoSeVal = SBUxMethod.get('dtl-input-apoSe');
 		let reqBrno = SBUxMethod.get('dtl-input-brno');
 		let reqYr = SBUxMethod.get('dtl-input-yr');
+		let uoBrnoVal = SBUxMethod.get('dtl-input-uoBrno');
+		if(apoSeVal == '2'){
+			if(gfn_isEmpty(uoBrnoVal)){
+				alert("통합조직을 선택해 주세요");
+				return;
+			}
+		}else if(apoSeVal == '1'){
+			uoBrnoVal = null;
+		}
 
+		
+		if(gfn_isEmpty(reqYr)){
+			let now = new Date();
+			let year = now.getFullYear();
+			reqYr = year;
+		}
+		
 		let reqApcGu = $('#dtl-input-apoSe option:checked').text();
 		let reqCorpNm = $('#dtl-input-corpNm').val();
 		let reqBuisNo = $('#dtl-input-brno').val();
@@ -998,6 +1014,7 @@
 			, apcgu 	: gfn_nvl(reqApcGu)
 			, corpnm 	: gfn_nvl(reqCorpNm)
 			, buisno 	: gfn_nvl(reqBuisNo)
+			, uobrno 	: gfn_nvl(uoBrnoVal)
 		});
 	}
 
