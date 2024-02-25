@@ -32,6 +32,7 @@
 				<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
 					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
 					<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
+					<sbux-button id="btnReport3" name="btnReport3" uitype="normal" class="btn btn-sm btn-primary" text="출력(출자출하조직 총 매입.매출 연계)" onclick="fn_report3"></sbux-button>
 				</c:if>
 				</div>
 			</div>
@@ -246,7 +247,7 @@
 					<div style="margin-left: auto;">
 						<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
 						<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
-						<sbux-button id="btnReport3" name="btnReport3" uitype="normal" class="btn btn-sm btn-primary" text="출력(출자출하조직 총 매입.매출 연계)" onclick="fn_report2"></sbux-button>
+						<sbux-button id="btnReport3" name="btnReport3" uitype="normal" class="btn btn-sm btn-primary" text="출력(출자출하조직 총 매입.매출 연계)" onclick="fn_report3"></sbux-button>
 						<!--
 						<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
 						 -->
@@ -1834,6 +1835,28 @@
 		let reqBrnoT = $('#dtl-input-brno').val();
 		let reqCrnoT = $('#dtl-input-crno').val();
 
+		gfn_popClipReport("통합조직 총 매입 매출 현황", "pd/totalDoc5.crf", {
+			brno 		: gfn_nvl(brno)
+			, yr 		: gfn_nvl(yr)
+			, corpnm	: gfn_nvl(reqCorpNmT)
+			, buisno	: gfn_nvl(reqBrnoT)
+			, corpnm	: gfn_nvl(reqCorpNmT)
+		});
+	}
+	
+	//총괄표 출력
+	const fn_report3 = async function() {
+
+		let apoCd = SBUxMethod.get('dtl-input-apoCd');
+		if(gfn_isEmpty(apoCd)){return;}
+		let brno = SBUxMethod.get('dtl-input-brno');
+		if(gfn_isEmpty(brno)){return;}
+		let yr = SBUxMethod.get('dtl-input-yr');
+
+		let reqCorpNmT = $('#dtl-input-corpNm').val();
+		let reqBrnoT = $('#dtl-input-brno').val();
+		let reqCrnoT = $('#dtl-input-crno').val();
+
 		gfn_popClipReport("통합조직 총 매입 매출 현황", "pd/totalDoc4.crf", {
 			brno 		: gfn_nvl(brno)
 			, yr 		: gfn_nvl(yr)
@@ -1842,7 +1865,7 @@
 			, corpnm	: gfn_nvl(reqCorpNmT)
 		});
 	}
-
+	
 	//통합조직 매입 매출 리스트 조회
 	async function fn_dtlGridSearch() {
 
