@@ -25,7 +25,7 @@
 				</div>
 			</div>
 			<div class="box-body">
-				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
@@ -358,7 +358,7 @@
 		var now = new Date();
 		var year = now.getFullYear();//현재년도
 
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 		SBUxMethod.set("srch-input-yr",year);//
 		await fn_fcltMngCreateGrid();
 	</c:if>
@@ -367,10 +367,10 @@
 		await fn_fcltMngCreateGrid03();
 
 		await fn_initSBSelect();
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 		await fn_search();
 	</c:if>
-	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+	<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
 		SBUxMethod.set("dtl-input-yr",year);//
 		//관리자만 사용 예정
 		//await fn_dtlSearch();
