@@ -39,4 +39,11 @@ public interface PrdcrCrclOgnGenalTblMngMapper {
 	public int updateStbltYn(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO);
 
 	public int updatePrfmncCorpDdlnYn(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO);
+	/**
+	 * 전문품목 매입매출을 작성한 통합조직 리스트 조회.
+	 * @param PrdcrCrclOgnGenalTblMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ItemUoStbltYnVO> selectUoStbltYnList(ItemUoStbltYnVO ItemUoStbltYnVo);
 }
