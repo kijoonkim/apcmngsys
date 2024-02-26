@@ -22,13 +22,17 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
-				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' ||  loginVO.userType eq '02'}">
 					<!--
 					<sbux-button id="btn-srch-input-outordrInq" name="btn-srch-input-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
 					 -->
 					<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
-					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+
+					<c:if test="${loginVO.userType ne '02'}">
+						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+					</c:if>
+
 					<!--
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchFcltList"></sbux-button>
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
@@ -37,7 +41,7 @@
 					<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="통합조직 등록정보 출력" onclick="fn_report2"></sbux-button>
 					<sbux-button id="btnReport3" name="btnReport3" uitype="normal" class="btn btn-sm btn-primary" text="하위출자출하조직 등록정보 출력" onclick="fn_report3"></sbux-button>
 				</c:if>
-				<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+				<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
 					<sbux-button id="btnSaveFclt01" name="btnSaveFclt01" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 					<sbux-button id="btnCorpDdlnSeCd01" name="btnCorpDdlnSeCd01" uitype="normal" text="법인체마감" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCd(1)"></sbux-button>
 					<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="통합조직 등록정보 출력" onclick="fn_report2"></sbux-button>
@@ -46,7 +50,7 @@
 				</div>
 			</div>
 			<div class="box-body">
-			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' ||  loginVO.userType eq '02'}">
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
@@ -227,10 +231,12 @@
 					<div>
 					</div>
 					<div style="margin-left: auto;">
-						<sbux-button id="btnCorpDdlnSeCdY" name="btnCorpDdlnSeCdY" uitype="normal" text="법인체선택마감" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCd(1)"></sbux-button>
-						<sbux-button id="btnCorpDdlnSeCdN" name="btnCorpDdlnSeCdN" uitype="normal" text="법인체선택마감해제" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCd(2)"></sbux-button>
-						<sbux-button id="btnCorpDdlnSeCdAllY" name="btnCorpDdlnSeCdAllY" uitype="normal" text="법인체일괄마감" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCdAll(1)"></sbux-button>
-						<sbux-button id="btnCorpDdlnSeCdAllN" name="btnCorpDdlnSeCdAllN" uitype="normal" text="법인체일괄마감해제" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCdAll(2)"></sbux-button>
+						<c:if test="${loginVO.userType ne '02'}">
+						<sbux-button id="btnCorpDdlnSeCdY" name="btnCorpDdlnSeCdY" uitype="normal" text="법인체 선택마감" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCd(1)"></sbux-button>
+						<sbux-button id="btnCorpDdlnSeCdN" name="btnCorpDdlnSeCdN" uitype="normal" text="법인체 선택마감해제" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCd(2)"></sbux-button>
+						<sbux-button id="btnCorpDdlnSeCdAllY" name="btnCorpDdlnSeCdAllY" uitype="normal" text="법인체 일괄마감" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCdAll(1)"></sbux-button>
+						<sbux-button id="btnCorpDdlnSeCdAllN" name="btnCorpDdlnSeCdAllN" uitype="normal" text="법인체 일괄마감해제" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCdAll(2)"></sbux-button>
+						</c:if>
 					</div>
 				</div>
 				<div style="">
@@ -977,7 +983,11 @@
 				<div>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+
+					<c:if test="${loginVO.userType ne '02'}">
+						<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+					</c:if>
+
 				</div>
 			</div>
 			<div id="sb-area-hiddenGrd" style="height:400px; width: 100%; display: none;"></div>
@@ -1091,13 +1101,13 @@
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
 
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' ||  loginVO.userType eq '02'}">
 		await fn_fcltMngCreateGrid();
 		await fn_gpcListGrid();
 		await fn_initSBSelect();
 		await fn_search();
 	</c:if>
-	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+	<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
 		var now = new Date();
 		var year = now.getFullYear();
 		SBUxMethod.set("dtl-input-yr",year);//
@@ -1698,7 +1708,7 @@
 		try {
 			if (_.isEqual("S", data.resultStatus)) {
 				alert("처리 되었습니다.");
-			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' ||  loginVO.userType eq '02'}">
 				fn_search();
 			</c:if>
 			} else {
@@ -1837,7 +1847,7 @@
 		try {
 			if (_.isEqual("S", data.resultStatus)) {
 				alert("처리 되었습니다.");
-			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' ||  loginVO.userType eq '02'}">
 				fn_search();
 			</c:if>
 			} else {
@@ -2057,6 +2067,7 @@
 		SBGridProperties.oneclickedit = true;//입력 활성화 true 1번클릭 false 더블클릭
 		SBGridProperties.columns = [
 			{caption: ["처리"], 				ref: 'delYn',   	type:'button', width:'60px',	style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+				<c:if test="${loginVO.userType ne '02'}">
 				let corpDdlnSeCd = SBUxMethod.get("dtl-input-corpDdlnSeCd");
 				if(corpDdlnSeCd != 'Y'){
 					if(strValue== null || strValue == ""){
@@ -2065,6 +2076,7 @@
 						return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdGpcList\", " + nRow + ")'>삭제</button>";
 					}
 				}
+				</c:if>
 				return "";
 			}},
 			{caption: ["통합조직코드"], 	ref: 'apoCd',   	hidden : true},
@@ -2169,7 +2181,7 @@
 			, yr		: gfn_nvl(yr)
 		});
 	}
-	
+
 	//총괄표 출력
 	const fn_report3 = async function() {
 
@@ -2202,7 +2214,7 @@
 			, yr		: gfn_nvl(yr)
 		});
 	}
-	
+
 
 
 	/* 품목리스트 조회 기능*/
@@ -2365,7 +2377,7 @@
 		try {
 			if (_.isEqual("S", data.resultStatus)) {
 				gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
-			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' ||  loginVO.userType eq '02'}">
 				fn_search();
 			</c:if>
 			} else {

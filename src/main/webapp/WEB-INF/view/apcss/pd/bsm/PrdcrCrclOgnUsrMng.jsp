@@ -21,23 +21,25 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
-					<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+					<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 						<!--
 						<sbux-button id="btnUpdatePwFclt" name="btnUpdatePwFclt" uitype="normal" text="비밀번호 초기화(통합조직/출자출하조직 전체)" class="btn btn-sm btn-outline-danger" onclick="fn_updatePwFmList"></sbux-button>
 						 -->
 						<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
-						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
+						<c:if test="${loginVO.userType eq '01'}">
+							<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
+						</c:if>
 						<sbux-button id="btnDeleteFclt" name="btnDeleteFclt" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
 						<sbux-button id="test" name="test" uitype="normal" text="사용자 변경" class="btn btn-sm btn-outline-danger" onclick="fn_userChange"></sbux-button>
 					</c:if>
-					<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+					<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
 						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
 					</c:if>
 						<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
-			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 				<!--[pp] 검색 -->
 				<sbux-input id="dtl-inp-aa" name="dtl-inp-aa" uitype="hidden"></sbux-input>
 				<sbux-input id="dtl-inp-prdcrCd" name="dtl-inp-prdcrCd" uitype="hidden"></sbux-input>
@@ -229,7 +231,7 @@
 								></sbux-input>
 							</td>
 							<td style="border-right: hidden;">
-							<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+							<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 								<sbux-button
 									id="dtl-btn-pwd"
 									name="dtl-btn-pwd"
@@ -242,7 +244,7 @@
 							</c:if>
 							</td>
 							<td style="border-right: hidden;"></td>
-						<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+						<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 							<th scope="row" class="th_bg" >이름</th>
 							<td colspan="3" class="td_input" style="border-right:hidden;">
 								<sbux-input
@@ -256,7 +258,7 @@
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;" ></td>
 						</c:if>
-						<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+						<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
 							<td colspan="6" class="td_input" style="border-right: hidden;" ></td>
 						</c:if>
 							<th scope="row" class="th_bg">관할기관</th>
@@ -319,7 +321,7 @@
 							<td colspan="2" class="td_input">
 							</td>
 						</tr>
-					<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+					<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 						<tr>
 							<th scope="row" class="th_bg">전화번호</th>
 							<td colspan="4" class="td_input" style="border-right: hidden;">
@@ -552,14 +554,14 @@
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
 		fn_fcltMngCreateGrid();
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 		await fn_initSBSelect();
 		await fn_search();
 		//SBUxMethod.attr("dtl-input-userType", "readonly", "false");//권한
 		//SBUxMethod.attr("dtl-input-coNm", "readonly", "false");//법인명
 		//SBUxMethod.attr("dtl-input-cmptncInst", "readonly", "false");//관할기관
 	</c:if>
-	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+	<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
 		await fn_initSBSelect();
 		await fn_dtlSearch();
 	</c:if>
@@ -820,10 +822,10 @@
 		try {
 			if (_.isEqual("S", data.resultStatus)) {
 				alert("처리 되었습니다.");
-			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 				fn_search();
 			</c:if>
-			<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+			<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
 				fn_dtlSearch();
 			</c:if>
 			} else {
