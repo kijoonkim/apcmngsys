@@ -715,7 +715,7 @@
 				AND CLT.UO_BRNO	 			= #{uoBrno}
 				</if>
 				<if test='uoBrno == null or uoBrno == ""'>
-				AND CLT.UO_BRNO	 			IS NULL
+				AND CLT.UO_BRNO	 			= '0'
 				</if>
 				AND CLT.CTGRY_CD 			= #{ctgryCd}
 				AND CLT.ITEM_CD	 			= #{itemCd}
@@ -745,7 +745,7 @@
 						AND CLT.UO_BRNO	 			= #{uoBrno}
 						</if>
 						<if test='uoBrno == null or uoBrno == ""'>
-						AND CLT.UO_BRNO	 			IS NULL
+						AND CLT.UO_BRNO	 			= '0'
 						</if>
 						AND CLT.CTGRY_CD 			= #{ctgryCd}
 						AND CLT.ITEM_CD	 			= #{itemCd}
@@ -832,7 +832,7 @@
 				AND CLT.UO_BRNO	 			= #{uoBrno}
 				</if>
 				<if test='uoBrno == null or uoBrno == ""'>
-				AND CLT.UO_BRNO	 			IS NULL
+				AND CLT.UO_BRNO	 			= '0'
 				</if>
 				AND CLT.CTGRY_CD 			= #{ctgryCd}
 				AND CLT.ITEM_CD	 			= #{itemCd}
@@ -890,10 +890,10 @@
 					 WHERE 1=1
 					 AND CLT.BRNO   			= #{brno}
 					 <if test='uoBrno != null and uoBrno != ""'>
-					 AND CLT.UO_BRNO	 			= #{uoBrno}
+					 AND CLT.UO_BRNO	 		= #{uoBrno}
 					 </if>
 					 <if test='uoBrno == null or uoBrno == ""'>
-					 AND CLT.UO_BRNO	 			IS NULL
+					 AND CLT.UO_BRNO	 		= '0'
 					 </if>
 					 AND CLT.CTGRY_CD			= #{ctgryCd}
 					 AND CLT.ITEM_CD			= #{itemCd}
@@ -1288,7 +1288,7 @@
 					 AND UO_BRNO	 		= #{uoBrno}
 					 </if>
 					 <if test='uoBrno == null or uoBrno == ""'>
-					 AND UO_BRNO IS NULL
+					 AND UO_BRNO 			= '0'
 					 </if>
 					 AND CTGRY_CD			= #{ctgryCd}
 					 AND ITEM_CD			= #{itemCd}

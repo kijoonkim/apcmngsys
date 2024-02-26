@@ -22,11 +22,11 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
-				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 				</c:if>
-				<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+				<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
 					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
 					<sbux-button id="btnPrfmncCorpDdlnYn01" name="btnPrfmncCorpDdlnYn01" uitype="normal" text="실적 법인체마감" class="btn btn-sm btn-outline-danger" onclick="fn_prfmncCorpDdlnYn(1)"></sbux-button>
 					<sbux-button id="btnReport3" name="btnReport3" uitype="normal" class="btn btn-sm btn-primary" text="전속(약정)출하 현황출력" onclick="fn_report3"></sbux-button>
@@ -35,7 +35,7 @@
 				</div>
 			</div>
 			<div class="box-body">
-			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
@@ -232,10 +232,10 @@
 					<div>
 					</div>
 					<div style="margin-left: auto;">
-						<sbux-button id="btnPrfmncCorpDdlnYnY" name="btnPrfmncCorpDdlnYnY" uitype="normal" text="법인체선택마감" class="btn btn-sm btn-outline-danger" onclick="fn_prfmncCorpDdlnYn(1)"></sbux-button>
-						<sbux-button id="btnPrfmncCorpDdlnYnN" name="btnPrfmncCorpDdlnYnN" uitype="normal" text="법인체선택마감해제" class="btn btn-sm btn-outline-danger" onclick="fn_prfmncCorpDdlnYn(2)"></sbux-button>
-						<sbux-button id="btnPrfmncCorpDdlnYnAllY" name="btnPrfmncCorpDdlnYnAllY" uitype="normal" text="법인체일괄마감" class="btn btn-sm btn-outline-danger" onclick="fn_prfmncCorpDdlnYnAll(1)"></sbux-button>
-						<sbux-button id="btnPrfmncCorpDdlnYnAllN" name="btnPrfmncCorpDdlnYnAllN" uitype="normal" text="법인체일괄마감해제" class="btn btn-sm btn-outline-danger" onclick="fn_prfmncCorpDdlnYnAll(2)"></sbux-button>
+						<sbux-button id="btnPrfmncCorpDdlnYnY" name="btnPrfmncCorpDdlnYnY" uitype="normal" text="실적 법인체 선택마감" class="btn btn-sm btn-outline-danger" onclick="fn_prfmncCorpDdlnYn(1)"></sbux-button>
+						<sbux-button id="btnPrfmncCorpDdlnYnN" name="btnPrfmncCorpDdlnYnN" uitype="normal" text="실적 법인체 선택마감해제" class="btn btn-sm btn-outline-danger" onclick="fn_prfmncCorpDdlnYn(2)"></sbux-button>
+						<sbux-button id="btnPrfmncCorpDdlnYnAllY" name="btnPrfmncCorpDdlnYnAllY" uitype="normal" text="실적 법인체 일괄마감" class="btn btn-sm btn-outline-danger" onclick="fn_prfmncCorpDdlnYnAll(1)"></sbux-button>
+						<sbux-button id="btnPrfmncCorpDdlnYnAllN" name="btnPrfmncCorpDdlnYnAllN" uitype="normal" text="실적 법인체 일괄마감해제" class="btn btn-sm btn-outline-danger" onclick="fn_prfmncCorpDdlnYnAll(2)"></sbux-button>
 					</div>
 				</div>
 				<div class="">
@@ -332,6 +332,7 @@
 							<sbux-button id="updateStbltYn1" name="updateStbltYn1" uitype="normal" text="적합여부 Y으로 변경" class="btn btn-sm btn-outline-danger" onclick="fn_updateStbltYn(1)"></sbux-button>
 							<sbux-button id="updateStbltYn2" name="updateStbltYn2" uitype="normal" text="적합여부 N으로 변경" class="btn btn-sm btn-outline-danger" onclick="fn_updateStbltYn(2)"></sbux-button>
 							<sbux-button id="updateStbltYn3" name="updateStbltYn3" uitype="normal" text="적합여부 빈칸으로 초기화" class="btn btn-sm btn-outline-danger" onclick="fn_updateStbltYn"></sbux-button>
+							<sbux-button id="updateStbltYn4" name="updateStbltYn4" uitype="normal" text="통합조직 적합여부 전체 갱신" class="btn btn-sm btn-outline-danger" onclick="fn_updateAllUoStbltYn"></sbux-button>
 						</div>
 					</div>
 					<div style="display:flex; justify-content: flex-start;" >
@@ -367,7 +368,7 @@
 	const fn_init = async function() {
 		var now = new Date();
 		var year = now.getFullYear();
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 		SBUxMethod.set("srch-input-yr",year);//
 		await fn_fcltMngCreateGrid();
 	</c:if>
@@ -375,10 +376,10 @@
 		//fn_fcltMngCreateGrid02();
 
 		await fn_initSBSelect();
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 		await fn_search();
 	</c:if>
-	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+	<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
 		SBUxMethod.set("dtl-input-yr",year);//
 		await fn_dtlSearch();
 	</c:if>
@@ -605,7 +606,7 @@
 			let year = now.getFullYear();
 			yr = year;
 		}
-		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
 		let ctpv = SBUxMethod.get("srch-input-ctpv");//
 
@@ -636,7 +637,7 @@
 		if(gfn_isEmpty(brno)) return;
 		</c:if>
 
-		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 		gfn_popClipReport("검색리스트", "pd/searchList3.crf", {
 			brno			: gfn_nvl(brno)
 			, yr			: gfn_nvl(yr)
@@ -1113,7 +1114,7 @@
 		return stbltYnNmMng.join("\n");
 	}
 
-	//통합조직 출자출하조직으로 권한 변경
+	//적합여부 변경
 	async function fn_updateStbltYn(_chk){
 		console.log("*************fn_updateStbltYn******************");
 		let nRow = grdPrdcrOgnCurntMng01.getRow();
@@ -1214,6 +1215,28 @@
 			console.error("failed", e.message);
 		}
 	}
+	//통합조직 적합여부 전체 갱신
+	async function fn_updateAllUoStbltYn(){
+		console.log("fn_updateAllUoStbltYn");
+		let postJsonPromise = gfn_postJSON("/pd/pcom/updateAllUoStbltYn.do", {
+		});
+		let data = await postJsonPromise;
+		try{
+			console.log(data.insertedCnt);
+			if(_.isEqual("S", data.resultStatus)){
+				alert("통합조직 적합여부 갱신 되었습니다.");
+				fn_search();
+			}else{
+				alert("통합조직 적합여부 갱신 도중 오류가 발생 되었습니다.");
+			}
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
 	//실적 법인체 일괄 마감
 	async function fn_prfmncCorpDdlnYnAll(yn){
 		console.log("fn_prfmncCorpDdlnYnAll");
@@ -1256,5 +1279,6 @@
 			console.error("failed", e.message);
 		}
 	}
+
 </script>
 </html>

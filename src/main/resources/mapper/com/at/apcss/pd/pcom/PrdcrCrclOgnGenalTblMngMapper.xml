@@ -420,7 +420,7 @@
 
 			 WHERE 1=1
 			   AND APO_SE 			= '1'
-			   AND UO_BRNO 			IS NULL
+			   AND UO_BRNO 			= '0'
 			   AND YR				= #{yr}
 			   AND BRNO				= #{brno}
 			   AND ITEM_CD 			= #{itemCd}
@@ -438,4 +438,18 @@
 				</if>
 				AND YR		= #{yr}
 	</update>
+
+	<select id="selectUoStbltYnList" parameterType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO" resultType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO">
+		SELECT
+			YR
+			,BRNO
+		FROM
+			TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+		WHERE 1=1
+		  AND APO_SE = '1'
+		  AND TYPE_SE_NO ='8'
+		  AND YR = TO_CHAR(SYSDATE, 'YYYY')
+		GROUP BY
+			YR, BRNO
+	</select>
 </mapper>

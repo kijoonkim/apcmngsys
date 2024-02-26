@@ -22,15 +22,19 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
-					<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+					<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' ||  loginVO.userType eq '02'}">
 						<!--
 						<sbux-button id="btn-srch-input-outordrInq" name="btn-srch-input-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
 						 -->
 						<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
-						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+
+						<c:if test="${loginVO.userType ne '02'}">
+							<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+						</c:if>
+
 						<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 					</c:if>
-					<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+					<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
 						<sbux-button id="btnSearchFclt01" name="btnSearchFclt01" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlSearch"></sbux-button>
 						<sbux-button id="btnSaveFclt01" name="btnSaveFclt01" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 						<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
@@ -39,7 +43,7 @@
 				</div>
 			</div>
 			<div class="box-body">
-			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' ||  loginVO.userType eq '02'}">
 				<!--[pp] 검색 -->
 				<sbux-input id="dtl-input-wghno" name="dtl-input-wghno" uitype="hidden"></sbux-input>
 				<sbux-input id="dtl-input-prdcrCd" name="dtl-input-prdcrCd" uitype="hidden"></sbux-input>
@@ -917,7 +921,7 @@
 			</div>
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div style="margin-left: auto;">
-					<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+					<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 					<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
 					</c:if>
 					<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
@@ -1009,15 +1013,15 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
 	//그리드 생성
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 		fn_fcltMngCreateGrid();
 		fn_uoListGrid();
 	</c:if>
 		await fn_initSBSelect();
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 		await fn_search();
 	</c:if>
-	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+	<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
 		//통합조직인 경우
 		<c:if test="${loginVO.userType eq '21'}">
 		$(".uoList").hide();
@@ -1081,7 +1085,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		// 검색 SB select
 		let rst = await Promise.all([
 			//검색조건
-			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 			gfn_setComCdSBSelect('srch-input-cmptnInst', 	jsonComCmptnInst, 	'CMPTNC_INST'), 	//관할기관
 			gfn_setComCdSBSelect('srch-input-ctpv', 		jsonComCtpv, 		'CMPTN_INST_CTPV'), 	//시도
 			gfn_setComCdSBSelect('srch-input-sgg', 			jsonComSgg, 		'CMPTN_INST_SIGUN'),	 //시군
@@ -1297,7 +1301,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	const fn_report2 = async function() {
 
 
-		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 		var nRow = grdPrdcrCrclOgnMng.getRow();
 		if (nRow < 1) {
 			return;
@@ -1311,7 +1315,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
 		let brno = rowData.brno
 		</c:if>
-		<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+		<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
 		let brno = '${loginVO.brno}';
 		</c:if>
 		//debugger;
@@ -1840,10 +1844,10 @@ tps://sbgrid.co.kr/v2_5/document/guide
 					fn_uoListMultiSave();
 				}else{
 					alert("처리 되었습니다.");
-				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 					fn_search();
 				</c:if>
-				<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+				<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
 					fn_dtlSearch();
 				</c:if>
 				}
@@ -1923,10 +1927,10 @@ tps://sbgrid.co.kr/v2_5/document/guide
 						fn_uoListMultiSave();
 					}else{
 						alert("처리 되었습니다.");
-					<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+					<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 						fn_search();
 					</c:if>
-					<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+					<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
 						fn_dtlSearch();
 					</c:if>
 					}
@@ -2426,10 +2430,10 @@ tps://sbgrid.co.kr/v2_5/document/guide
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
-        	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+        	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 				fn_search();
 			</c:if>
-			<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00'}">
+			<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
 				fn_dtlSearch();
 			</c:if>
         	} else {

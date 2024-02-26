@@ -21,14 +21,14 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
-				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '21'}">
+				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '21'}">
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<!--
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
 					 -->
 					<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 				</c:if>
-				<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00' && loginVO.userType ne '21'}">
+				<c:if test="${loginVO.userType eq '22'}">
 					<sbux-button id="btnSearchFclt2" name="btnSearchFclt2" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch01"></sbux-button>
 					<!--
 					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="생산자조직 조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch01"></sbux-button>
@@ -40,7 +40,7 @@
 
 			</div>
 			<div class="box-body">
-			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
@@ -245,7 +245,7 @@
 				</table>
 
 			</c:if>
-			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '21'}">
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '21'}">
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
 				<!-- 조직 리스트 -->
@@ -405,17 +405,17 @@
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
 
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '21'}">
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '21'}">
 		fn_fcltMngCreateGrid();
 	</c:if>
 		fn_fcltMngCreateGrid01();
 		//fn_fcltMngCreateGrid02();
 
 		await fn_initSBSelect();
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '21'}">
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '21'}">
 		await fn_search();
 	</c:if>
-	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00' && loginVO.userType ne '21'}">
+	<c:if test="${loginVO.userType eq '22'}">
 		await fn_dtlSearch();
 	</c:if>
 	}
@@ -651,7 +651,7 @@
 			let year = now.getFullYear();
 			yr = year;
 		}
-		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
 		let ctpv = SBUxMethod.get("srch-input-ctpv");//
 
@@ -682,7 +682,7 @@
 		if(gfn_isEmpty(brno)) return;
 		</c:if>
 
-		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
  	 	gfn_popClipReport("검색리스트", "pd/searchList1.crf", {
  	 		brno: brno
  	 		, yr			: gfn_nvl(yr)
@@ -719,7 +719,7 @@
 			yr = year;
 		}
 
-		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
 		let ctpv = SBUxMethod.get("srch-input-ctpv");//
 
@@ -757,7 +757,7 @@
 
     		,frmhsHld : 'Y'//생산자조직보유여부 조회 여부
 
-    		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+    		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
     		,cmptnInst : cmptnInst
     		,ctpv : ctpv
 
@@ -978,7 +978,7 @@
 
 	//총괄표 출력
 	const fn_report2 = async function() {
-		
+
 		let apoSeVal = SBUxMethod.get('dtl-input-apoSe');
 		let reqBrno = SBUxMethod.get('dtl-input-brno');
 		let reqYr = SBUxMethod.get('dtl-input-yr');
@@ -992,13 +992,13 @@
 			uoBrnoVal = null;
 		}
 
-		
+
 		if(gfn_isEmpty(reqYr)){
 			let now = new Date();
 			let year = now.getFullYear();
 			reqYr = year;
 		}
-		
+
 		let reqApcGu = $('#dtl-input-apoSe option:checked').text();
 		let reqCorpNm = $('#dtl-input-corpNm').val();
 		let reqBuisNo = $('#dtl-input-brno').val();

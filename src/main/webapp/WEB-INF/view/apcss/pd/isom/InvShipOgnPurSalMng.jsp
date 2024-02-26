@@ -22,14 +22,14 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
-				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '21'}">
+				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '21'}">
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<!--
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
 					 -->
 					<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 				</c:if>
-				<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00' && loginVO.userType ne '21'}">
+				<c:if test="${loginVO.userType eq '22'}">
 					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
 					<!--
 					<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
@@ -39,7 +39,7 @@
 				</div>
 			</div>
 			<div class="box-body">
-			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
@@ -235,7 +235,7 @@
 					</tbody>
 				</table>
 			</c:if>
-			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '21'}">
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '21'}">
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
 				<!-- 조직 리스트 -->
@@ -340,7 +340,11 @@
 				<div class="ad_section_top">
 					<div class="box-header" style="display:flex; justify-content: flex-start;" >
 						<div style="margin-left: auto;">
+
+							<c:if test="${loginVO.userType ne '02'}">
 							<sbux-button id="btnSaveFclt2" name="btnSaveFclt2" uitype="normal" text="매입저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave01"></sbux-button>
+							</c:if>
+
 						</div>
 					</div>
 					<div class="ad_tbl_top">
@@ -366,7 +370,11 @@
 				<div class="ad_section_top">
 					<div class="box-header" style="display:flex; justify-content: flex-start;" >
 						<div style="margin-left: auto;">
+
+							<c:if test="${loginVO.userType ne '02'}">
 							<sbux-button id="btnSaveFclt3" name="btnSaveFclt3" uitype="normal" text="매출저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave02"></sbux-button>
+							</c:if>
+
 						</div>
 					</div>
 					<div class="ad_tbl_top">
@@ -438,7 +446,7 @@
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '21'}">
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '21'}">
 		fn_fcltMngCreateGrid();
 	</c:if>
 		fn_fcltMngCreateGrid01();
@@ -446,10 +454,10 @@
 
 		await fn_initSBSelect();
 
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '21'}">
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '21'}">
 		await fn_search();
 	</c:if>
-	<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00' && loginVO.userType ne '21'}">
+	<c:if test="${loginVO.userType eq '22'}">
 		await fn_dtlSearch();
 	</c:if>
 	}
@@ -607,6 +615,7 @@
 	    SBGridProperties.frozenbottomrows=1;
 	    SBGridProperties.columns = [
 	    	{caption: ["처리","처리"], 		ref: 'delYn',   		type:'button', width:'40px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+	    		<c:if test="${loginVO.userType ne '02'}">
 	    		//법인체 마감 추가
 	        	let prfmncCorpDdlnYn = SBUxMethod.get('dtl-input-prfmncCorpDdlnYn');
 	        	if (prfmncCorpDdlnYn == 'Y') {
@@ -623,6 +632,13 @@
 			        	return "";
 			        }
 	        	}
+				</c:if>
+				<c:if test="${loginVO.userType eq '02'}">
+				if(strValue == "소계"){
+		    		return "소계";
+		    	}
+				</c:if>
+				return "";
 	        }},
 	        {caption: ["품목","품목"], 		ref: 'sttgUpbrItemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 	    	{caption: ["품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
@@ -806,6 +822,7 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	    	{caption: ["처리","처리","처리","처리"], 		ref: 'delYn',   type:'button', width:'40px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+	    		<c:if test="${loginVO.userType ne '02'}">
 	    		//법인체 마감 추가
 	        	let prfmncCorpDdlnYn = SBUxMethod.get('dtl-input-prfmncCorpDdlnYn');
 	        	if (prfmncCorpDdlnYn == 'Y') {
@@ -822,6 +839,13 @@
 			        	return "";
 			        }
 	        	}
+	    		</c:if>
+	    		<c:if test="${loginVO.userType eq '02'}">
+	    		if(strValue == "소계"){
+	    			return "소계";
+	    		}
+	    		return "";
+	    		</c:if>
 	        }},
 	        {caption: ["품목","품목","품목","품목"], 		ref: 'sttgUpbrItemNm',   	type:'output',  width:'55px',    style:'text-align:center'},
 	    	{caption: ["품목","품목","품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
@@ -1192,7 +1216,7 @@
 			let year = now.getFullYear();
 			yr = year;
 		}
-		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
 		let ctpv = SBUxMethod.get("srch-input-ctpv");//
 
@@ -1223,7 +1247,7 @@
 		if(gfn_isEmpty(brno)) return;
 		</c:if>
 
-		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 		gfn_popClipReport("검색리스트", "pd/totalDoc1.crf", {
 			brno: brno
 			, yr			: gfn_nvl(yr)
@@ -1262,7 +1286,7 @@
 			let year = now.getFullYear();
 			yr = year;
 		}
-		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
 		let ctpv = SBUxMethod.get("srch-input-ctpv");//
 
@@ -1298,7 +1322,7 @@
     		,yr : yr
     		,stbltYnNm:'Y'
 
-    		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+    		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
     		,cmptnInst : cmptnInst
     		,ctpv : ctpv
 
@@ -1694,11 +1718,11 @@
 			yr = year;
 		}
 
-		
+
 		let reqCorpNmT = $('#dtl-input-corpNm').val();
 		let reqBrnoT = $('#dtl-input-brno').val();
 		let reqCrnoT = $('#dtl-input-crno').val();
-		
+
 		gfn_popClipReport("출자출하조직 총 매입 매출 현황", "pd/totalDoc2.crf", {
 			brno : gfn_nvl(brno)
 			, yr : gfn_nvl(yr)
