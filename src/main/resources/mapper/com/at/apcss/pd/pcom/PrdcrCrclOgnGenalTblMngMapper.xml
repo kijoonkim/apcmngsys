@@ -420,7 +420,7 @@
 
 			 WHERE 1=1
 			   AND APO_SE 			= '1'
-			   AND UO_BRNO 			IS NULL
+			   AND UO_BRNO 			= '0'
 			   AND YR				= #{yr}
 			   AND BRNO				= #{brno}
 			   AND ITEM_CD 			= #{itemCd}
