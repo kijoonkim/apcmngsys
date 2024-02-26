@@ -76,6 +76,8 @@ public class LoginVO implements Serializable{
 	private String loginMessage;
 
 	private String frcdExpryYn;
+	
+	private String refreshToken;
 
 	public String getBrno() {
 		return brno;
@@ -394,6 +396,11 @@ public class LoginVO implements Serializable{
 	public void setFrcdExpryYn(String frcdExpryYn) {
 		this.frcdExpryYn = frcdExpryYn;
 	}
-
+	public String getRefreshToken() {
+		return refreshToken;
+	}
+	public void setRefreshToken(String refreshToken) {
+		this.refreshToken = refreshToken;
+	}
 
 }

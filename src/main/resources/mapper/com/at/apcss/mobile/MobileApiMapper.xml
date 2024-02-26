@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : MobileApiMapper.xml                                    				-->
+<!-- DESC : 모바일 입고 정보 mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.11.22  	joon        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.mobile.mapper.MobileApiMapper">
+	<insert id="addRefreshToken" parameterType="map">
+		<![CDATA[
+			INSERT INTO TB_REFRESHTOKEN
+			(USER_ID, TOKEN, EXPIRY_DATE, REG_DATE)
+			values (#{USER_ID}, #{TOKEN}, #{EXPIRY_DATE}, SYSDATE)
+		]]>
+	</insert>
+	
+	<delete id="delRefreshToken" parameterType="java.lang.String">
+		<![CDATA[
+		DELETE FROM TB_REFRESHTOKEN
+		WHERE USER_ID=#{USER_ID}
+		]]>
+	</delete>	
+	
+	<select id="findRefreshToken" parameterType="java.lang.String" resultType="map">
+		<![CDATA[
+			SELECT *
+			FROM TB_REFRESHTOKEN
+			WHERE USER_ID=#{USER_ID}
+		]]>
+	</select>
+	
+</mapper>

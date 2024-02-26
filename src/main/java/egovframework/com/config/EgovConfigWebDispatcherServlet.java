@@ -19,6 +19,7 @@ import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import egovframework.com.cmm.interceptor.AuthenticInterceptor;
 import egovframework.com.cmm.interceptor.CustomAuthenticInterceptor;
 import egovframework.com.cmm.interceptor.HttpInterceptor;
+import egovframework.com.cmm.interceptor.MobileAuthenticInterceptor;
 import egovframework.com.cmm.service.EgovProperties;
 
 /**
@@ -60,6 +61,12 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 	// -------------------------------------------------------------
 	// RequestMappingHandlerMapping 설정 - Interceptor 추가
 	// -------------------------------------------------------------
+	
+	@Bean
+	public MobileAuthenticInterceptor mobileAuthenticInterceptor() {
+	    return new MobileAuthenticInterceptor();
+	}
+	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		//registry.addInterceptor(new AuthenticInterceptor())
@@ -98,6 +105,12 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 				"/uat/uia/**",
 				"/saveExcel.do",
 				"/report/**");
+		registry.addInterceptor(mobileAuthenticInterceptor())
+			.addPathPatterns(
+				"/api/mobile/*.do")
+			.excludePathPatterns(
+				"/api/mobile/authenticate.do",
+				"/api/mobile/refreshToken.do");
 		registry.addInterceptor(new HttpInterceptor())
 			.addPathPatterns(
 					"/**");
