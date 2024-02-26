@@ -70,16 +70,11 @@ public class PrdcrCrclOgnGenalTblMngServiceImpl extends BaseServiceImpl implemen
 
 	@Override
 	public int updateAllUoStbltYn(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception {
-		System.out.println("======updateAllUoStbltYn============================================");
 		String userId = ItemUoStbltYnVo.getSysLastChgUserId();
 		String prgrmId = ItemUoStbltYnVo.getSysLastChgPrgrmId();
 		List<ItemUoStbltYnVO> uoList = PrdcrCrclOgnGenalTblMngMapper.selectUoStbltYnList(ItemUoStbltYnVo);
 		int updatedCnt = 0;
 		for (ItemUoStbltYnVO uoValue : uoList) {
-			System.out.println("======uoValue============================================");
-			System.out.println("getBrno" +uoValue.getBrno());
-			System.out.println("getYr" +uoValue.getYr());
-			System.out.println("======uoValue============================================");
 			List<ItemUoStbltYnVO> resultList = PrdcrCrclOgnGenalTblMngMapper.selectPrdcrCrclOgnGenalTblMngList(uoValue);
 			for (ItemUoStbltYnVO itemUoStbltYnValue : resultList) {
 				PrdcrCrclOgnGenalTblMngVO uoitemValue = new PrdcrCrclOgnGenalTblMngVO();
@@ -88,11 +83,7 @@ public class PrdcrCrclOgnGenalTblMngServiceImpl extends BaseServiceImpl implemen
 				uoitemValue.setItemCd(itemUoStbltYnValue.getItemCd());
 				uoitemValue.setBrno(itemUoStbltYnValue.getBrno());
 				uoitemValue.setYr(itemUoStbltYnValue.getYr());
-				System.out.println("=======uoitemValue===========================================");
-				System.out.println("getItemCd" +uoitemValue.getItemCd());
-				System.out.println("getBrno" +uoitemValue.getBrno());
-				System.out.println("getYr" +uoitemValue.getYr());
-				System.out.println("=======uoitemValue===========================================");
+				uoitemValue.setStbltYn(itemUoStbltYnValue.getStbltYn());
 				if(itemUoStbltYnValue.getItemCd() != null && !itemUoStbltYnValue.getItemCd().equals("")) {
 					updatedCnt += updateStbltYn(uoitemValue);
 				}

@@ -1217,14 +1217,13 @@
 	}
 	//통합조직 적합여부 전체 갱신
 	async function fn_updateAllUoStbltYn(){
-		alert("테스트중입니다.");
-		return false;
 		console.log("fn_updateAllUoStbltYn");
 		let postJsonPromise = gfn_postJSON("/pd/pcom/updateAllUoStbltYn.do", {
 		});
 		let data = await postJsonPromise;
 		try{
-			if(data.result > 0){
+			console.log(data.insertedCnt);
+			if(_.isEqual("S", data.resultStatus)){
 				alert("통합조직 적합여부 갱신 되었습니다.");
 				fn_search();
 			}else{
