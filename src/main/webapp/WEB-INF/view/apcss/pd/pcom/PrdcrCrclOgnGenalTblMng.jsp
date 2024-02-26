@@ -332,6 +332,7 @@
 							<sbux-button id="updateStbltYn1" name="updateStbltYn1" uitype="normal" text="적합여부 Y으로 변경" class="btn btn-sm btn-outline-danger" onclick="fn_updateStbltYn(1)"></sbux-button>
 							<sbux-button id="updateStbltYn2" name="updateStbltYn2" uitype="normal" text="적합여부 N으로 변경" class="btn btn-sm btn-outline-danger" onclick="fn_updateStbltYn(2)"></sbux-button>
 							<sbux-button id="updateStbltYn3" name="updateStbltYn3" uitype="normal" text="적합여부 빈칸으로 초기화" class="btn btn-sm btn-outline-danger" onclick="fn_updateStbltYn"></sbux-button>
+							<sbux-button id="updateStbltYn4" name="updateStbltYn4" uitype="normal" text="통합조직 적합여부 전체 갱신" class="btn btn-sm btn-outline-danger" onclick="fn_updateAllUoStbltYn"></sbux-button>
 						</div>
 					</div>
 					<div style="display:flex; justify-content: flex-start;" >
@@ -1214,6 +1215,29 @@
 			console.error("failed", e.message);
 		}
 	}
+	//통합조직 적합여부 전체 갱신
+	async function fn_updateAllUoStbltYn(){
+		alert("테스트중입니다.");
+		return false;
+		console.log("fn_updateAllUoStbltYn");
+		let postJsonPromise = gfn_postJSON("/pd/pcom/updateAllUoStbltYn.do", {
+		});
+		let data = await postJsonPromise;
+		try{
+			if(data.result > 0){
+				alert("통합조직 적합여부 갱신 되었습니다.");
+				fn_search();
+			}else{
+				alert("통합조직 적합여부 갱신 도중 오류가 발생 되었습니다.");
+			}
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
 	//실적 법인체 일괄 마감
 	async function fn_prfmncCorpDdlnYnAll(yn){
 		console.log("fn_prfmncCorpDdlnYnAll");
