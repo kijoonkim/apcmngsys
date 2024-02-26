@@ -1870,7 +1870,7 @@
 			, yr 		: gfn_nvl(yr)
 			, corpnm	: gfn_nvl(reqCorpNmT)
 			, buisno	: gfn_nvl(reqBrnoT)
-			, corpnm	: gfn_nvl(reqCorpNmT)
+			, corpno	: gfn_nvl(reqCrnoT)
 		});
 	}
 
