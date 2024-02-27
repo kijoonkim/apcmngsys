@@ -43,12 +43,14 @@
 				<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
 					<c:if test="${loginVO.userType eq '21'}">
 					<sbux-button id="btnSearchFclt01" name="btnSearchFclt01" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlSearch01"></sbux-button>
+					<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
 					</c:if>
 					<c:if test="${loginVO.userType eq '22'}">
-					<sbux-button id="btnSearchFclt02" name="btnSearchFclt02" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlSearch02"></sbux-button>
+							<sbux-button id="btnSearchFclt02" name="btnSearchFclt02" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlSearch02"></sbux-button>
+							<sbux-button id="btnReport3" name="btnReport3" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report3"></sbux-button>
 					</c:if>
 					<sbux-button id="btnSaveFclt01" name="btnSaveFclt01" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
-					<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
+					
 				</c:if>
 
 				</div>
@@ -993,7 +995,19 @@
     	fn_setGrdFcltList(recordCountPerPage, currentPageNo);
     }
 
+	const fn_report3 = async function() {
+		let brno = '${loginVO.brno}';
+		//현재년도
+		let now = new Date();
+		let year = now.getFullYear();
 
+		if(gfn_isEmpty(brno)) return;
+		
+		gfn_popClipReport("출자출하조직 신청정보", "pd/insDoc4.crf", {
+			brno : brno
+			,yr : year
+		});
+	}
 
 	const fn_report2 = async function() {
 
