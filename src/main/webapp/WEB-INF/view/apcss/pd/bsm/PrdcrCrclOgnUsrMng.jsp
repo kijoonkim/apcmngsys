@@ -26,10 +26,10 @@
 						<sbux-button id="btnUpdatePwFclt" name="btnUpdatePwFclt" uitype="normal" text="비밀번호 초기화(통합조직/출자출하조직 전체)" class="btn btn-sm btn-outline-danger" onclick="fn_updatePwFmList"></sbux-button>
 						 -->
 						<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
-						<c:if test="${loginVO.userType eq '01'}">
+						<c:if test="${loginVO.userType ne '02'}">
 							<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
+							<sbux-button id="btnDeleteFclt" name="btnDeleteFclt" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
 						</c:if>
-						<sbux-button id="btnDeleteFclt" name="btnDeleteFclt" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
 						<sbux-button id="test" name="test" uitype="normal" text="사용자 변경" class="btn btn-sm btn-outline-danger" onclick="fn_userChange"></sbux-button>
 					</c:if>
 					<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
@@ -231,7 +231,7 @@
 								></sbux-input>
 							</td>
 							<td style="border-right: hidden;">
-							<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
+							<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 								<sbux-button
 									id="dtl-btn-pwd"
 									name="dtl-btn-pwd"
@@ -430,6 +430,7 @@
 							</td>
 							<td style="border-right: hidden;"></td>
 						</tr>
+						<c:if test="${loginVO.userType ne '02'}">
 						<tr>
 							<td colspan="15" class="td_input">
 								<br>
@@ -455,6 +456,7 @@
 								></sbux-button>
 							</td>
 						</tr>
+						</c:if>
 					</c:if>
 					</tbody>
 				</table>
