@@ -1910,10 +1910,12 @@
 
 		let itemCd = SBUxMethod.get('dtl-input-itemCd');
 		let apoCd = SBUxMethod.get('dtl-input-apoCd');
+		let yr = SBUxMethod.get('dtl-input-yr');
 
 		gfn_popClipReport("농가리스트 현황", "pd/prdDoc3.crf", {
 			apocd			: gfn_nvl(apoCd)
 			, prdcrognzsn	: gfn_nvl(prdcrOgnzSn)
+			, yr			: gfn_nvl(yr)
 		});
 	}
 
