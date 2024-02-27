@@ -856,7 +856,9 @@
 	/* 출력물 */
 	const fn_report2 = async function() {
 		let brno = SBUxMethod.get("dtl-input-brno");//
+		let crno = SBUxMethod.get("dtl-input-crno");//
 		let yr = SBUxMethod.get("dtl-input-yr");//
+		let corpNm = SBUxMethod.get("dtl-input-corpNm");//
 
 		if(brno == null || brno == ""){
 			alert("법인을 선택해주세요");
@@ -866,6 +868,9 @@
 		gfn_popClipReport("판매위임[매입] 및 출하[매출] 실적", "pd/sptDoc4.crf", {
 			brno			: gfn_nvl(brno)
 			, yr			: gfn_nvl(yr)
+			, corpNo		: gfn_nvl(crno)
+			, corpNm		: gfn_nvl(corpNm)
+			, buisNo		: gfn_nvl(brno)
 		});
 	}
 
