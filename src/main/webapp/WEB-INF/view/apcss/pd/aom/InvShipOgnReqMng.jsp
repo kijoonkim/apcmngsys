@@ -1013,8 +1013,12 @@
 		<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
 		let uoBrno = '${loginVO.brno}';
 		</c:if>
+
+		let yr = SBUxMethod.get("dtl-input-yr");//
+
 		gfn_popClipReport("출자출하조직 신청정보", "pd/insDoc2.crf", {
-			uobrno : gfn_nvl(uoBrno)
+			uobrno	: gfn_nvl(uoBrno)
+			, yr	: gfn_nvl(yr)
 		});
 	}
 

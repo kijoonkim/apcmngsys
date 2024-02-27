@@ -36,32 +36,25 @@ public class PrdcrCrclOgnSpItmPurSalYMngServiceImpl extends BaseServiceImpl impl
 
 	@Override
 	public PrdcrCrclOgnSpItmPurSalYMngVO selectPrdcrCrclOgnSpItmPurSalYMng(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
-
 		PrdcrCrclOgnSpItmPurSalYMngVO resultVO = PrdcrCrclOgnSpItmPurSalYMngMapper.selectPrdcrCrclOgnSpItmPurSalYMng(PrdcrCrclOgnSpItmPurSalYMngVO);
-
 		return resultVO;
 	}
 
 	@Override
 	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectPrdcrCrclOgnSpItmPurSalYMngList(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
-
 		List<PrdcrCrclOgnSpItmPurSalYMngVO> resultList = PrdcrCrclOgnSpItmPurSalYMngMapper.selectPrdcrCrclOgnSpItmPurSalYMngList(PrdcrCrclOgnSpItmPurSalYMngVO);
 		return resultList;
 	}
 
 	@Override
 	public int insertPrdcrCrclOgnSpItmPurSalYMng(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
-
 		int insertedCnt = PrdcrCrclOgnSpItmPurSalYMngMapper.insertPrdcrCrclOgnSpItmPurSalYMng(PrdcrCrclOgnSpItmPurSalYMngVO);
-
 		return insertedCnt;
 	}
 
 	@Override
 	public int updatePrdcrCrclOgnSpItmPurSalYMng(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
-
 		int updatedCnt = 0;
-
 		return updatedCnt;
 	}
 	@Override
@@ -109,17 +102,20 @@ public class PrdcrCrclOgnSpItmPurSalYMngServiceImpl extends BaseServiceImpl impl
 	//품목별 적합여부 리스트
 	@Override
 	public List<ItemUoStbltYnVO> selectItemUoStbltYnList(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception {
-
 		List<ItemUoStbltYnVO> resultList = PrdcrCrclOgnSpItmPurSalYMngMapper.selectItemUoStbltYnList(ItemUoStbltYnVo);
 		return resultList;
 	}
 	//적합여부 업데이트
 	@Override
 	public int updateItemUoStbltYn(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception {
-
 		int insertedCnt = PrdcrCrclOgnSpItmPurSalYMngMapper.updateItemUoStbltYn(ItemUoStbltYnVo);
-
 		return insertedCnt;
+	}
+	//전문품목 매입매출 출자출하조직 보유 로우데이터
+	@Override
+	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectRawDataList(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
+		List<PrdcrCrclOgnSpItmPurSalYMngVO> resultList = PrdcrCrclOgnSpItmPurSalYMngMapper.selectRawDataList(PrdcrCrclOgnSpItmPurSalYMngVO);
+		return resultList;
 	}
 
 }

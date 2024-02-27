@@ -29,8 +29,8 @@
 						<c:if test="${loginVO.userType ne '02'}">
 							<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
 							<sbux-button id="btnDeleteFclt" name="btnDeleteFclt" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
+							<sbux-button id="test" name="test" uitype="normal" text="사용자 변경" class="btn btn-sm btn-outline-danger" onclick="fn_userChange"></sbux-button>
 						</c:if>
-						<sbux-button id="test" name="test" uitype="normal" text="사용자 변경" class="btn btn-sm btn-outline-danger" onclick="fn_userChange"></sbux-button>
 					</c:if>
 					<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
 						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
