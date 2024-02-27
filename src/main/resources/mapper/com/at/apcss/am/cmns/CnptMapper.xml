@@ -43,6 +43,7 @@
 		     , CT.EML             	AS EML
 		     , CT.CLS				AS CLS
 		     , CT.BZSTAT			AS BZSTAT
+		     , CT.WHLSL_MRKT_CORP_CD	AS WHLSL_MRKT_CORP_CD
 		     , CT.RMRK              AS RMRK
 		     , CT.DEL_YN            AS DEL_YN
 		  FROM TB_CNPT_INFO CT
@@ -86,6 +87,7 @@
     		  , EML
     		  , CLS
 		      , BZSTAT
+		      , WHLSL_MRKT_CORP_CD
     		  , RMRK
     		  , SYS_FRST_INPT_DT
     		  , SYS_FRST_INPT_USER_ID
@@ -106,6 +108,7 @@
     		  , #{eml}
     		  , #{cls}
 		      , #{bzstat}
+		      , #{whlslMrktCorpCd}
     		  , #{rmrk}
     		  , SYSDATE
     		  , #{sysFrstInptUserId}
@@ -140,6 +143,7 @@
     		 , RMRK						= #{rmrk}
     		 , CLS 						= #{cls}
 		     , BZSTAT					= #{bzstat}
+		     , WHLSL_MRKT_CORP_CD		= #{whlslMrktCorpCd}
 		 WHERE APC_CD 					= #{apcCd}
 		   AND CNPT_CD 					= #{cnptCd}
 		]]>
