@@ -56,6 +56,10 @@
 	width: 100%;
 }
 
+. chk-mbl input, label {
+	vertical-align: bottom;
+}
+
 .fs-30 {
 	font-size: 30px;
 }
@@ -71,22 +75,15 @@
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 원물입고등록 태블릿 -->
 				</div>
-				<div style="margin-left: auto;">
-					<p class="ad_input_row">
-						<sbux-checkbox
-							uitype="normal"
-							id="srch-chk-autoPrint"
-							name="srch-chk-autoPrint"
-							uitype="normal"
-							class="form-control input-sm check"
-							text="원물인식표 자동출력"
-						/>
-					</p>
+			</div>
+			<div class="box-header" style="display:flex; justify-content: flex-start;">
+				<div style="margin-right: auto;">
+
 					<sbux-button
 						id="btnCmndDocPckg"
 						name="btnCmndDocPckg"
 						uitype="normal"
-						class="btn btn-sm btn-primary"
+						class="btn btn-sm btn-primary btn-mbl"
 						onclick="fn_docRawMtrWrhs"
 						text="원물인식표"
 					></sbux-button>
@@ -94,7 +91,7 @@
 						id="btnReset"
 						name="btnReset"
 						uitype="normal"
-						class="btn btn-sm btn-outline-danger"
+						class="btn btn-sm btn-outline-danger btn-mbl"
 						onclick="fn_reset"
 						text="초기화"
 					></sbux-button>
@@ -102,7 +99,7 @@
 						id="btnSave"
 						name="btnSave"
 						uitype="normal"
-						class="btn btn-sm btn-outline-danger"
+						class="btn btn-sm btn-outline-danger btn-mbl"
 						onclick="fn_save"
 						text="저장"
 					></sbux-button>
@@ -111,17 +108,21 @@
 						name="btnClose"
 						uitype="normal"
 						text="종료"
-						class="btn btn-sm btn-outline-danger"
+						class="btn btn-sm btn-outline-danger btn-mbl"
 						onclick="fn_close"
 					></sbux-button>
+					<div style="float:right;margin-left:10px;">
+						<p class="ad_input_row chk-mbl" style="vertical-align:middle;">
+						    <input style="width:20px;height:20px;" type="checkbox" id="srch-chk-autoPrint" name="srch-chk-autoPrint" checked />
+						    <label for="srch-chk-autoPrint">자동출력</label>
+					    </p>
+					</div>
 				</div>
 			</div>
-
 			<div class="box-body">
 				<!--[APC] START -->
 				<!--[APC] END -->
 				<!--[pp] 검색 -->
-				
 				
 				<table class="table table-bordered tbl_fixed tbl_mbl">
 					<caption>검색 조건 설정</caption>
@@ -203,16 +204,16 @@
 								></sbux-select>
 							</td>
 							<td colspan="2"class="td_input" style="border-right: hidden;">
-								<p class="ad_input_row">
-									<sbux-checkbox
-										uitype="normal"
-										id="srch-chk-fxngItem"
-										name="srch-chk-fxngItem"
-										uitype="normal"
-										class="chk-mbl"
-										text="고정"
-									/>
-								</p>
+								<p class="ad_input_row chk-mbl" style="vertical-align:middle;">
+								    <input 
+								    	style="width:20px;height:20px;" 
+								    	type="checkbox" 
+								    	id="srch-chk-fxngItem" 
+								    	name="srch-chk-fxngItem" 
+								    	checked 
+								    />
+								    <label for="srch-chk-fxngItem">고정</label>
+							    </p>
 							</td>
 							<td colspan="2" style="border-left: hidden;">
 
@@ -373,16 +374,16 @@
 								/>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<p class="ad_input_row">
-									<sbux-checkbox
-										uitype="normal"
-										id="srch-chk-fxngWarehouseSeCd"
-										name="srch-chk-fxngWarehouseSeCd"
-										uitype="normal"
-										class="chk-mbl"
-										text="고정"
-									/>
-								</p>
+								<p class="ad_input_row chk-mbl" style="vertical-align:middle;">
+								    <input 
+								    	style="width:20px;height:20px;" 
+								    	type="checkbox" 
+								    	id="srch-chk-fxngWarehouseSeCd" 
+								    	name="srch-chk-fxngWarehouseSeCd" 
+								    	checked 
+								    />
+								    <label for="srch-chk-fxngWarehouseSeCd">고정</label>
+							    </p>
 							</td>
 							<td colspan="3">&nbsp;</td>
 						</tr>
@@ -400,18 +401,6 @@
 								/>
 							</td>
 							<td colspan="6" style="border-left: hidden;">&nbsp;</td>
-						</tr>
-						<tr>
-							<td colspan="9">
-								<sbux-button
-									id="btn-mbl-save"
-									name="btn-mbl-save"
-									uitype="normal"
-									class="btn btn-sm btn-outline-danger btn-mbl"
-									onclick="fn_save"
-									text="저장"
-								></sbux-button>
-							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -524,11 +513,11 @@
 	 */
 	const fn_init = async function() {
 
-		SBUxMethod.set("srch-chk-fxngItem", {"srch-chk-fxngItem": false});
+		//SBUxMethod.set("srch-chk-fxngItem", {"srch-chk-fxngItem": false});
 		//SBUxMethod.set("srch-chk-fxngWghtAvg", {"srch-chk-fxngWghtAvg": false});
 		//SBUxMethod.set("srch-chk-fxngBxKnd", {"srch-chk-fxngBxKnd": false});
-		SBUxMethod.set("srch-chk-autoPrint", {"srch-chk-autoPrint": false});
-		SBUxMethod.set("srch-chk-fxngWarehouseSeCd", {"srch-chk-fxngWarehouseSeCd": false});
+		//SBUxMethod.set("srch-chk-autoPrint", {"srch-chk-autoPrint": false});
+		//SBUxMethod.set("srch-chk-fxngWarehouseSeCd", {"srch-chk-fxngWarehouseSeCd": false});
 
 		//fn_createGrid();
 
@@ -547,6 +536,14 @@
 
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
+		document.querySelectorAll(".sbux-pik-icon-btn").forEach((el) => {
+    		el.style.width = "50px";
+    		el.style.height = "50px";
+    	});
+		document.querySelectorAll(".sbux-pik-icon").forEach((el) => {
+    		el.style.fontSize = "24px";
+    		//sbux-pik-icon
+    	});
 		fn_init();
 		//stdGrdSelect.init();
 	});
@@ -697,8 +694,7 @@
      * @description 저장 버튼
      */
     const fn_save = async function() {
-
-    	// 항목 set
+		
     	let wrhsYmd = SBUxMethod.get("srch-dtp-wrhsYmd");		// 입고일자
  		//let wrhsSeCd = SBUxMethod.get("srch-rdo-wrhsSeCd");		// 입고구분
  		//let gdsSeCd = SBUxMethod.get("srch-rdo-gdsSeCd");		// 상품구분
@@ -806,6 +802,12 @@
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
         		fn_clearForm();
         		//fn_search();
+
+        		//if(SBUxMethod.get("srch-chk-autoPrint")["srch-chk-autoPrint"]){
+        		if(document.querySelector('#srch-chk-autoPrint').checked){
+        			fn_autoPrint(data.resultMap);
+        		}
+        		
         	} else {
         		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
         	}
@@ -817,10 +819,6 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 
-		if(SBUxMethod.get("srch-chk-autoPrint")["srch-chk-autoPrint"]){
-			fn_autoPrint(data.resultMap);
-
-		}
 	}
 
 	const fn_autoPrint = function(resultMap){
@@ -1170,7 +1168,8 @@
      */
 	const fn_clearForm = function() {
 
-		if (!SBUxMethod.get("srch-chk-fxngItem")["srch-chk-fxngItem"]) {
+		//if (!SBUxMethod.get("srch-chk-fxngItem")["srch-chk-fxngItem"]) {
+		if (!document.querySelector('#srch-chk-fxngItem').checked) {
 
 			// 입고일자
 			SBUxMethod.set("srch-dtp-wrhsYmd", gfn_dateToYmd(new Date()));
@@ -1187,15 +1186,11 @@
 			SBUxMethod.set("srch-slt-itemCd", "");
 			// 품종
 			SBUxMethod.set("srch-slt-vrtyCd", "");
-		}
-
-		if (!SBUxMethod.get("srch-chk-fxngItem")["srch-chk-fxngItem"]) {
-	 		// 평균
 			SBUxMethod.set("srch-inp-wghtAvg", "");
-
 		}
 
-		if (!SBUxMethod.get("srch-chk-fxngWarehouseSeCd")["srch-chk-fxngWarehouseSeCd"]) {
+		//if (!SBUxMethod.get("srch-chk-fxngWarehouseSeCd")["srch-chk-fxngWarehouseSeCd"]) {
+		if (!document.querySelector('#srch-chk-fxngWarehouseSeCd').checked) {
 			// 창고
 	 		SBUxMethod.set("srch-slt-warehouseSeCd", "");
 		}

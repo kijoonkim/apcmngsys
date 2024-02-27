@@ -74,8 +74,11 @@
 	</section>
 </body>
 <script type="text/javascript">
+	
 	var grdCnpt;
 	var jsonCnpt = []; // 그리드의 참조 데이터 주소 선언
+	var jsonWhlsMrktCorp = [];
+	
     const fn_cnptMngCreateGrid = async function() {
     	SBUxMethod.set("cnpt-inp-apcNm", SBUxMethod.get("inp-apcNm"));
     	cnptMngGridData = [];
@@ -93,26 +96,74 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.scrollbubbling = false;
         SBGridProperties.columns = [
-            {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-            	if(strValue== null || strValue == ""){
-            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdCnpt\", " + nRow + ", " + nCol + ")'>추가</button>";
-            	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdCnpt\", " + nRow + ")'>삭제</button>";
-            	}
-		    }},
+            {
+            	caption: ["처리"], 		
+            	ref: 'delYn',   	
+            	type:'button', 
+            	width:'60px',    
+            	style:'text-align:center', 
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+            		if (strValue== null || strValue == ""){
+            			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdCnpt\", " + nRow + ", " + nCol + ")'>추가</button>";
+            		} else {
+			        	return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdCnpt\", " + nRow + ")'>삭제</button>";
+            		}
+		    	}
+            },
             {caption: ["코드"], 		ref: 'cnptCd',  	type:'output', width:'80px',     style:'text-align:center',  hidden : true},
             {caption: ["거래처명"], 	ref: 'cnptNm',  	type:'input',  width:'125px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100}), typeinfo : {maxlength : 33}},
-            {caption: ["유형"], 		ref: 'cnptType',   	type:'combo',  width:'125px',    style:'text-align:center',
-				typeinfo : {ref:'comboGridCnptTypeJsData', label:'label', value:'value', displayui : false, itemcount: 10}},
+            {
+            	caption: ["유형"], 		
+            	ref: 'cnptType',   	
+            	type:'combo',  
+            	width:'125px',    
+            	style:'text-align:center',
+				typeinfo : {
+					ref:'comboGridCnptTypeJsData', 
+					label:'label', 
+					value:'value', 
+					displayui : false, 
+					itemcount: 10
+				}
+            },
             {caption: ["사업자번호"], 	ref: 'brno',  		type:'input',  width:'135px',    style:'text-align:center', typeinfo : {mask : {alias : '#-', repeat: '*'}, maxlength : 20}, validate : gfn_chkByte.bind({byteLimit: 20})},
             {caption: ["담당자"], 		ref: 'picNm',  		type:'input',  width:'90px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {mask : {alias : 'k'}, maxlength : 20}},
             {caption: ["전화번호"], 	ref: 'telno',  		type:'input',  width:'120px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {maxlength : 11}, format : {type:'custom', callback : fn_newCnptMngTelno}},
             {caption: ["이메일"], 		ref: 'eml',  		type:'input',  width:'140px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 320}), typeinfo : {maxlength : 320}, format : {type:'custom', callback : fn_checkCnptMngEml}},
             {caption: ["업태"], 		ref: 'bzstat',  	type:'input',  width:'140px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 300}), typeinfo : {maxlength : 300}},
             {caption: ["종목"], 		ref: 'cls',  		type:'input',  width:'140px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 300}), typeinfo : {maxlength : 300}},
+            {
+            	caption: ["도매시장법인"], 		
+            	ref: 'whlslMrktCorpCd',   	
+            	type:'combo',  
+            	width:'150px',    
+            	style:'text-align:center',
+				typeinfo : {
+					ref:'jsonWhlsMrktCorp', 
+					label: 'cdVlNm',
+					value: 'cdVl', 
+					unselect: {label: '', value: ''},
+					displayui : false, 
+					itemcount: 10,
+					filtering: {
+	            		usemode: true, 
+	            		uppercol: 'cnptType', 
+	            		attrname: 'cdChrVl',
+	            		listall: false
+	            	}
+				},
+            },
             {caption: ["비고"], 		ref: 'rmrk',  		type:'input',  width:'120px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000}), typeinfo : {maxlength : 1000}},
             {caption: ["APC코드"], 		ref: 'apcCd',  		type:'output', hidden : true},
         ];
+        
+        jsonWhlsMrktCorp = await gfn_getComCdDtls('WHLSL_MRKT_CORP_CD');	// 창고 
+        /*
+        jsonWhlsMrktCorp.forEach((item) => {
+        	item.value = "10";
+        });
+         */
+        
         grdCnpt = _SBGrid.create(SBGridProperties);
         fn_selectCnptList();
     }
@@ -150,18 +201,19 @@
   			if (_.isEqual("S", data.resultStatus)) {
   	        	data.resultList.forEach((item, index) => {
   					let cnpt = {
-  						cnptCd 		: item.cnptCd
-  					  , cnptNm 		: item.cnptNm
-  					  , cnptType 	: item.cnptType
-  					  , brno 		: item.brno
-  					  , picNm 		: item.picNm
-  					  , telno 		: item.telno
-  					  , rmrk 		: item.rmrk
-  					  , delYn 		: item.delYn
-  					  , apcCd 		: item.apcCd
-  					  , eml 		: item.eml
-  					  , bzstat		: item.bzstat
-  					  , cls			: item.cls
+  						cnptCd: item.cnptCd,
+  					  	cnptNm: item.cnptNm,
+  					  	cnptType: item.cnptType,
+  					  	brno: item.brno,
+  					  	picNm: item.picNm,
+  					  	telno: item.telno,
+  					  	rmrk: item.rmrk,
+  					  	delYn: item.delYn,
+  					  	apcCd: item.apcCd,
+  					  	eml: item.eml,
+  					  	bzstat: item.bzstat,
+  					  	cls: item.cls,
+  					  	whlslMrktCorpCd: item.whlslMrktCorpCd,
   					}
   					jsonCnpt.push(cnpt);
   				});
@@ -203,6 +255,11 @@
 		  			gfn_comAlert("W0002", "유형");		//	W0002	{0}을/를 입력하세요.
 		            return;
 		  		}
+				
+				if (!_.isEqual(cnptType, "10")) {
+					rowData.whlslMrktCorpCd = "";
+				}
+				
 				if (rowSts === 3){
 					rowData.rowSts = "I";
 					saveCnptList.push(rowData);
