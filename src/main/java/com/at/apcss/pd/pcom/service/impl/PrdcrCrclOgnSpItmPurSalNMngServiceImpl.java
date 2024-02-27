@@ -36,32 +36,25 @@ public class PrdcrCrclOgnSpItmPurSalNMngServiceImpl extends BaseServiceImpl impl
 
 	@Override
 	public PrdcrCrclOgnSpItmPurSalNMngVO selectPrdcrCrclOgnSpItmPurSalNMng(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO) throws Exception {
-
 		PrdcrCrclOgnSpItmPurSalNMngVO resultVO = PrdcrCrclOgnSpItmPurSalNMngMapper.selectPrdcrCrclOgnSpItmPurSalNMng(PrdcrCrclOgnSpItmPurSalNMngVO);
-
 		return resultVO;
 	}
 
 	@Override
 	public List<PrdcrCrclOgnSpItmPurSalNMngVO> selectPrdcrCrclOgnSpItmPurSalNMngList(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO) throws Exception {
-
 		List<PrdcrCrclOgnSpItmPurSalNMngVO> resultList = PrdcrCrclOgnSpItmPurSalNMngMapper.selectPrdcrCrclOgnSpItmPurSalNMngList(PrdcrCrclOgnSpItmPurSalNMngVO);
 		return resultList;
 	}
 
 	@Override
 	public int insertPrdcrCrclOgnSpItmPurSalNMng(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO) throws Exception {
-
 		int insertedCnt = PrdcrCrclOgnSpItmPurSalNMngMapper.insertPrdcrCrclOgnSpItmPurSalNMng(PrdcrCrclOgnSpItmPurSalNMngVO);
-
 		return insertedCnt;
 	}
 
 	@Override
 	public int updatePrdcrCrclOgnSpItmPurSalNMng(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO) throws Exception {
-
 		int updatedCnt = 0;
-
 		return updatedCnt;
 	}
 
@@ -108,18 +101,21 @@ public class PrdcrCrclOgnSpItmPurSalNMngServiceImpl extends BaseServiceImpl impl
 	}
 
 	//품목별 적합여부 리스트
-		@Override
-		public List<ItemUoStbltYnVO> selectItemUoStbltYnList(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception {
+	@Override
+	public List<ItemUoStbltYnVO> selectItemUoStbltYnList(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception {
+		List<ItemUoStbltYnVO> resultList = PrdcrCrclOgnSpItmPurSalNMngMapper.selectItemUoStbltYnList(ItemUoStbltYnVo);
+		return resultList;
+	}
+	//적합여부 업데이트
+	@Override
+	public int updateItemUoStbltYn(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception {
+		int insertedCnt = PrdcrCrclOgnSpItmPurSalNMngMapper.updateItemUoStbltYn(ItemUoStbltYnVo);
+		return insertedCnt;
+	}
 
-			List<ItemUoStbltYnVO> resultList = PrdcrCrclOgnSpItmPurSalNMngMapper.selectItemUoStbltYnList(ItemUoStbltYnVo);
-			return resultList;
-		}
-		//적합여부 업데이트
-		@Override
-		public int updateItemUoStbltYn(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception {
-
-			int insertedCnt = PrdcrCrclOgnSpItmPurSalNMngMapper.updateItemUoStbltYn(ItemUoStbltYnVo);
-
-			return insertedCnt;
-		}
+	@Override
+	public List<PrdcrCrclOgnSpItmPurSalNMngVO> selectRawDataList(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO) throws Exception {
+		List<PrdcrCrclOgnSpItmPurSalNMngVO> resultList = PrdcrCrclOgnSpItmPurSalNMngMapper.selectRawDataList(PrdcrCrclOgnSpItmPurSalNMngVO);
+		return resultList;
+	}
 }

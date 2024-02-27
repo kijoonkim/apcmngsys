@@ -705,11 +705,11 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 								AND APO_SE = '2'
 								AND TYPE_SE_NO IN ('5')
 								AND PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
-					  		  							FROM TB_EV_FRMHS_APO
-					  		  							WHERE 1=1
-					  		  							  AND STBLT_YN = 'Y'
-					  		  							  AND APO_SE = '2'
-					  		  							<if test='brno != null and brno != ""'>
+														FROM TB_EV_FRMHS_APO
+														WHERE 1=1
+														  AND STBLT_YN = 'Y'
+														  AND APO_SE = '2'
+														<if test='brno != null and brno != ""'>
 														  AND BRNO = #{brno}
 														</if>
 														<if test='uoBrno != null and uoBrno != ""'>
@@ -718,16 +718,16 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 														<if test='yr != null and yr != ""'>
 														  AND YR = #{yr}
 														</if>
-					  								)
+													)
 								<if test='uoBrno != null and uoBrno != ""'>
-							  	  AND UO_BRNO = #{uoBrno}
-							  	</if>
-							  	<if test='brno != null and brno != ""'>
-							  	  AND BRNO = #{brno}
-							  	</if>
-							  	<if test='yr != null and yr != ""'>
-							  	  AND YR = #{yr}
-							  	</if>
+								  AND UO_BRNO = #{uoBrno}
+								</if>
+								<if test='brno != null and brno != ""'>
+								  AND BRNO = #{brno}
+								</if>
+								<if test='yr != null and yr != ""'>
+								  AND YR = #{yr}
+								</if>
 
 									GROUP BY  BRNO , ITEM_CD
 							) TOTA ,
@@ -742,14 +742,14 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 								AND TYPE_SE_NO IN ('7')
 
 								<if test='uoBrno != null and uoBrno != ""'>
-							  	  AND UO_BRNO = #{uoBrno}
-							  	</if>
-							  	<if test='brno != null and brno != ""'>
-							  	  AND BRNO = #{brno}
-							  	</if>
-							  	<if test='yr != null and yr != ""'>
-							  	  AND YR = #{yr}
-							  	</if>
+								  AND UO_BRNO = #{uoBrno}
+								</if>
+								<if test='brno != null and brno != ""'>
+								  AND BRNO = #{brno}
+								</if>
+								<if test='yr != null and yr != ""'>
+								  AND YR = #{yr}
+								</if>
 
 								GROUP BY  BRNO , ITEM_CD
 							) TOTB
@@ -758,32 +758,133 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 						AND ITEM.ITEM_CD = TOTB.ITEM_CD(+)
 				)TOT
 		)TOTAL
+	</select>
 
-    </select>
-
-    <!-- 적합여부 업데이트 -->
+	<!-- 적합여부 업데이트 -->
 	<update id="updateItemStbltYn" parameterType="com.at.apcss.pd.isom.vo.ItemStbltYnVO">
-	    	UPDATE /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.updateItemStbltYn */
-	    		TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-			   SET
-			 	  STBLT_YN	= #{stbltYn}
-			 WHERE 1=1
-			   AND APO_SE 	= '2'
-			   AND UO_BRNO 	= #{uoBrno}
-			   AND BRNO 	= #{brno}
-			   AND YR 		= #{yr}
-			   AND ITEM_CD 	= #{itemCd}
-    </update>
-    <!-- 적합여부 초기화 -->
+			UPDATE /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.updateItemStbltYn */
+				TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+			SET
+				STBLT_YN	= #{stbltYn}
+			WHERE 1=1
+			  AND APO_SE 	= '2'
+			  AND UO_BRNO 	= #{uoBrno}
+			  AND BRNO 		= #{brno}
+			  AND YR 		= #{yr}
+			  AND ITEM_CD 	= #{itemCd}
+	</update>
+	<!-- 적합여부 초기화 -->
 	<update id="updateItemStbltYnInit" parameterType="com.at.apcss.pd.isom.vo.ItemStbltYnVO">
-	    	UPDATE /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.updateItemStbltYnInit */
-	    		TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-			   SET
-			 	  STBLT_YN	= ''
-			 WHERE 1=1
-			   AND APO_SE 	= '2'
-			   AND UO_BRNO 	= #{uoBrno}
-			   AND BRNO 	= #{brno}
-			   AND YR 		= #{yr}
-    </update>
+			UPDATE /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.updateItemStbltYnInit */
+				TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+			SET
+				  STBLT_YN	= ''
+			WHERE 1=1
+			  AND APO_SE 	= '2'
+			  AND UO_BRNO 	= #{uoBrno}
+			  AND BRNO 		= #{brno}
+			  AND YR 		= #{yr}
+	</update>
+
+	<!-- 전문품목 매입매출 출자출하조직 로우데이터 -->
+	<select id="selectRawDataList" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
+		SELECT
+			YR
+			, BRNO
+			, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = A.BRNO) AS CORP_NM
+			, UO_BRNO
+			, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = A.UO_BRNO) AS UO_CORP_NM
+			, DECODE( (SELECT APRV
+						FROM TB_EV_APO
+						WHERE BRNO = (SELECT UO_BRNO
+										FROM TB_EV_APLY_MNG
+										WHERE  YR = A.YR
+										  AND BRNO = A.BRNO
+									)
+						)
+						, '1' , '승인형'
+						, '2' , '육성형'
+						, ''
+			) AS APRV
+			, TYPE_SE_NO
+			, DECODE(A.TYPE_SE_NO
+						, '5' , '생산자조직'
+						, '6' , '생산자조직 소계'
+						, '7' , '생산자조직 외'
+						, '8' , '합계'
+						, ''
+			) AS TYPE_SE_NO_NM
+			, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = A.ITEM_CD) AS ITEM_NM
+			, (SELECT CD_VL_NM
+				FROM TB_COM_CD_DTL
+				WHERE CD_ID = 'CTGRY_CD'
+				  AND CD_VL = (SELECT CTGRY_CD
+								FROM TB_EV_APO_YR_GPC_CD
+								WHERE BRNO = A.UO_BRNO
+									AND ITEM_CD = A.ITEM_CD
+									AND YR = A.YR
+								)
+			) AS CTGRY_NM
+			, (SELECT CD_VL_NM
+				FROM TB_COM_CD_DTL
+				WHERE CD_ID = 'STTG_UPBR_ITEM_SE'
+				  AND CD_VL = (SELECT STTG_UPBR_ITEM_SE
+								FROM TB_EV_APO_YR_GPC_CD
+								WHERE BRNO = A.UO_BRNO
+									AND ITEM_CD = A.ITEM_CD
+									AND YR = A.YR
+								)
+			) AS STTG_UPBR_ITEM_NM
+			, (SELECT CD_VL_NM
+				FROM TB_COM_CD_DTL
+				WHERE CD_ID = 'TRMT_TYPE'
+				  AND CD_VL = (SELECT TRMT_TYPE
+								FROM TB_EV_FRMHS_APO
+								WHERE PRDCR_OGNZ_SN = A.PRDCR_OGNZ_SN
+								  AND YR = A.YR
+								)) AS TRMT_TYPE_NM
+			, PRDCR_OGNZ_SN
+			, (SELECT PRDCR_OGNZ_NM FROM TB_EV_FRMHS_APO WHERE PRDCR_OGNZ_SN = A.PRDCR_OGNZ_SN) AS PRDCR_OGNZ_NM
+			, SLS_CNSGN_PRCHS_AMT
+			, UO_SPMT_AMT
+			, UO_OTHER_SPMT_AMT
+			, RMRK
+			, STBLT_YN
+		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT A
+		WHERE APO_SE = '2'
+			AND YR = #{yr}
+			AND BRNO NOT IN (SELECT BRNO
+								FROM TB_COM_USER
+								WHERE USER_ID IN ('at21','at22','at23','at24','at25','at26','at27','at61')
+							)
+			AND UO_BRNO NOT IN (SELECT BRNO
+									FROM TB_COM_USER
+									WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51')
+								)
+			AND ITEM_CD = DECODE(A.TYPE_SE_NO
+									,'5', (SELECT ITEM_CD
+											FROM TB_EV_FRMHS_APO
+											WHERE 1=1
+											  AND YR = A.YR
+											  AND STBLT_YN = 'Y'
+											  AND BRNO = A.BRNO
+											  AND PRDCR_OGNZ_SN = A.PRDCR_OGNZ_SN
+											  AND ITEM_CD = (SELECT ITEM_CD
+																FROM TB_EV_APO_YR_GPC_CD
+																WHERE 1=1
+																  AND YR= A.YR
+																  AND BRNO = A.UO_BRNO
+																  AND ITEM_CD = A.ITEM_CD
+															)
+											)
+									, (SELECT ITEM_CD
+										FROM TB_EV_APO_YR_GPC_CD
+										WHERE 1=1
+										  AND YR = A.YR
+										  AND BRNO = A.UO_BRNO
+										  AND ITEM_CD = A.ITEM_CD
+										)
+								)
+		ORDER BY A.BRNO ,A.UO_BRNO , A.ITEM_CD , A.TYPE_SE_NO
+	</select>
 </mapper>

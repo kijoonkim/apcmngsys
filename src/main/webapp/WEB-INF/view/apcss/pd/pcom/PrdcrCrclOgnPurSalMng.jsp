@@ -2370,7 +2370,7 @@
             yr = year;
         }
 
-        let postJsonPromise = gfn_postJSON("/pd/pcom/selectRawDataList.do", {
+        let postJsonPromise = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnPurSalMngRawDataList.do", {
             yr : yr
         });
 

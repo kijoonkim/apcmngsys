@@ -165,7 +165,7 @@ public class InvShipOgnPurSalMngController extends BaseController{
 	}
 
 	// 로우데이터 조회
-	@PostMapping(value = "/pd/isom/selectRawDataList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	@PostMapping(value = "/pd/isom/selectInvShipOgnPurSalMngRawDataList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectRawDataList(Model model, @RequestBody InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<InvShipOgnPurSalMngVO> resultList = new ArrayList<>();

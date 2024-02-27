@@ -125,5 +125,11 @@ public class InvShipOgnSpeczItmPurSalMngServiceImpl extends BaseServiceImpl impl
 
 		return insertedCnt;
 	}
+	//전문품목 매입매출 로우데이터
+	@Override
+	public List<InvShipOgnSpeczItmPurSalMngVO> selectRawDataList(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO) throws Exception {
+		List<InvShipOgnSpeczItmPurSalMngVO> resultList = InvShipOgnSpeczItmPurSalMngMapper.selectRawDataList(InvShipOgnSpeczItmPurSalMngVO);
+		return resultList;
+	}
 
 }

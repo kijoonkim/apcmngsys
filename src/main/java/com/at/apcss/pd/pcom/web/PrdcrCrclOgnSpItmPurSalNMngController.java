@@ -26,94 +26,107 @@ public class PrdcrCrclOgnSpItmPurSalNMngController extends BaseController{
 	@Resource(name= "PrdcrCrclOgnSpItmPurSalNMngService")
 	private PrdcrCrclOgnSpItmPurSalNMngService PrdcrCrclOgnSpItmPurSalNMngService;
 
-//화면이동
+	//화면이동
 	@RequestMapping(value = "/pd/pcom/PrdcrCrclOgnSpItmPurSalNMng.do")
 	public String PrdcrCrclOgnSpItmPurSalNMng() {
 		return "apcss/pd/pcom/PrdcrCrclOgnSpItmPurSalNMng";
 	}
 
-// 조회
-		@PostMapping(value = "/pd/pcom/selectPrdcrCrclOgnSpItmPurSalNMngList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> selectPrdcrCrclOgnSpItmPurSalNMngList(Model model, @RequestBody PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO, HttpServletRequest request) throws Exception{
-			HashMap<String,Object> resultMap = new HashMap<String,Object>();
-			List<PrdcrCrclOgnSpItmPurSalNMngVO> resultList = new ArrayList<>();
-			try {
-				 resultList = PrdcrCrclOgnSpItmPurSalNMngService.selectPrdcrCrclOgnSpItmPurSalNMngList(PrdcrCrclOgnSpItmPurSalNMngVO);
-			} catch (Exception e) {
-				logger.debug(e.getMessage());
-				return getErrorResponseEntity(e);
-			}
-			resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-			return getSuccessResponseEntity(resultMap);
+	// 조회
+	@PostMapping(value = "/pd/pcom/selectPrdcrCrclOgnSpItmPurSalNMngList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectPrdcrCrclOgnSpItmPurSalNMngList(Model model, @RequestBody PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PrdcrCrclOgnSpItmPurSalNMngVO> resultList = new ArrayList<>();
+		try {
+			 resultList = PrdcrCrclOgnSpItmPurSalNMngService.selectPrdcrCrclOgnSpItmPurSalNMngList(PrdcrCrclOgnSpItmPurSalNMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	//등록
+	@PostMapping(value = "/pd/pcom/insertPrdcrCrclOgnSpItmPurSalNMng.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertPrdcrCrclOgnSpItmPurSalNMng(@RequestBody PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO, HttpServletRequest requset) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		// validation check
+
+		// audit 항목
+		PrdcrCrclOgnSpItmPurSalNMngVO.setSysFrstInptUserId(getUserId());
+		PrdcrCrclOgnSpItmPurSalNMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+		PrdcrCrclOgnSpItmPurSalNMngVO.setSysLastChgUserId(getUserId());
+		PrdcrCrclOgnSpItmPurSalNMngVO.setSysLastChgPrgrmId(getPrgrmId());
+
+		int insertedCnt = 0;
+
+		try {
+			insertedCnt = PrdcrCrclOgnSpItmPurSalNMngService.insertPrdcrCrclOgnSpItmPurSalNMng(PrdcrCrclOgnSpItmPurSalNMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
 		}
 
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 
 
-		//등록
-		@PostMapping(value = "/pd/pcom/insertPrdcrCrclOgnSpItmPurSalNMng.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> insertPrdcrCrclOgnSpItmPurSalNMng(@RequestBody PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO, HttpServletRequest requset) throws Exception{
-			HashMap<String,Object> resultMap = new HashMap<String,Object>();
+	@PostMapping(value = "/pd/pcom/multiSavePrdcrCrclOgnSpItmPurSalNMngList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> multiSavePrdcrCrclOgnSpItmPurSalNMngList(@RequestBody List<PrdcrCrclOgnSpItmPurSalNMngVO> PrdcrCrclOgnSpItmPurSalNMngVOList, HttpServletRequest request) throws Exception {
 
-			// validation check
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
-			// audit 항목
-			PrdcrCrclOgnSpItmPurSalNMngVO.setSysFrstInptUserId(getUserId());
-			PrdcrCrclOgnSpItmPurSalNMngVO.setSysFrstInptPrgrmId(getPrgrmId());
-			PrdcrCrclOgnSpItmPurSalNMngVO.setSysLastChgUserId(getUserId());
-			PrdcrCrclOgnSpItmPurSalNMngVO.setSysLastChgPrgrmId(getPrgrmId());
-
-			int insertedCnt = 0;
-
-			try {
-				insertedCnt = PrdcrCrclOgnSpItmPurSalNMngService.insertPrdcrCrclOgnSpItmPurSalNMng(PrdcrCrclOgnSpItmPurSalNMngVO);
-			} catch (Exception e) {
-				logger.debug(e.getMessage());
-				return getErrorResponseEntity(e);
+		int savedCnt = 0;
+		try {
+			for (PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO : PrdcrCrclOgnSpItmPurSalNMngVOList) {
+				PrdcrCrclOgnSpItmPurSalNMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+				PrdcrCrclOgnSpItmPurSalNMngVO.setSysFrstInptUserId(getUserId());
+				PrdcrCrclOgnSpItmPurSalNMngVO.setSysLastChgPrgrmId(getPrgrmId());
+				PrdcrCrclOgnSpItmPurSalNMngVO.setSysLastChgUserId(getUserId());
 			}
 
-			resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
-
-			return getSuccessResponseEntity(resultMap);
+			savedCnt = PrdcrCrclOgnSpItmPurSalNMngService.multiSavePrdcrCrclOgnSpItmPurSalNMngList(PrdcrCrclOgnSpItmPurSalNMngVOList);
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
 		}
 
+		resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
+		return getSuccessResponseEntity(resultMap);
+	}
 
-		@PostMapping(value = "/pd/pcom/multiSavePrdcrCrclOgnSpItmPurSalNMngList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> multiSavePrdcrCrclOgnSpItmPurSalNMngList(@RequestBody List<PrdcrCrclOgnSpItmPurSalNMngVO> PrdcrCrclOgnSpItmPurSalNMngVOList, HttpServletRequest request) throws Exception {
+	@PostMapping(value = "/pd/pcom/deletePrdcrCrclOgnSpItmPurSalNMng.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deletePrdcrCrclOgnSpItmPurSalNMng(@RequestBody PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO, HttpServletRequest request) throws Exception {
+		logger.debug("/pd/pcom/deletePrdcrCrclOgnSpItmPurSalNMng >>> 호출 >>> ");
 
-			HashMap<String,Object> resultMap = new HashMap<String,Object>();
-
-			int savedCnt = 0;
-			try {
-				for (PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO : PrdcrCrclOgnSpItmPurSalNMngVOList) {
-					PrdcrCrclOgnSpItmPurSalNMngVO.setSysFrstInptPrgrmId(getPrgrmId());
-					PrdcrCrclOgnSpItmPurSalNMngVO.setSysFrstInptUserId(getUserId());
-					PrdcrCrclOgnSpItmPurSalNMngVO.setSysLastChgPrgrmId(getPrgrmId());
-					PrdcrCrclOgnSpItmPurSalNMngVO.setSysLastChgUserId(getUserId());
-				}
-
-				savedCnt = PrdcrCrclOgnSpItmPurSalNMngService.multiSavePrdcrCrclOgnSpItmPurSalNMngList(PrdcrCrclOgnSpItmPurSalNMngVOList);
-			}catch (Exception e) {
-				return getErrorResponseEntity(e);
-			}
-
-			resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
-			return getSuccessResponseEntity(resultMap);
+		int result = 0;
+		try {
+			result =+ PrdcrCrclOgnSpItmPurSalNMngService.deletePrdcrCrclOgnSpItmPurSalNMng(PrdcrCrclOgnSpItmPurSalNMngVO);
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
 		}
 
-		@PostMapping(value = "/pd/pcom/deletePrdcrCrclOgnSpItmPurSalNMng.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> deletePrdcrCrclOgnSpItmPurSalNMng(@RequestBody PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO, HttpServletRequest request) throws Exception {
-			logger.debug("/pd/pcom/deletePrdcrCrclOgnSpItmPurSalNMng >>> 호출 >>> ");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		resultMap.put("result", result);
+		return getSuccessResponseEntity(resultMap);
+	}
 
-			int result = 0;
-			try {
-				result =+ PrdcrCrclOgnSpItmPurSalNMngService.deletePrdcrCrclOgnSpItmPurSalNMng(PrdcrCrclOgnSpItmPurSalNMngVO);
-			}catch (Exception e) {
-				return getErrorResponseEntity(e);
-			}
-
-			HashMap<String,Object> resultMap = new HashMap<String,Object>();
-			resultMap.put("result", result);
-			return getSuccessResponseEntity(resultMap);
+	// 조회
+	@PostMapping(value = "/pd/pcom/selectPrdcrCrclOgnSpItmPurSalNMngRawDataList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectRawDataList(Model model, @RequestBody PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PrdcrCrclOgnSpItmPurSalNMngVO> resultList = new ArrayList<>();
+		try {
+			 resultList = PrdcrCrclOgnSpItmPurSalNMngService.selectRawDataList(PrdcrCrclOgnSpItmPurSalNMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
 		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
 
 }

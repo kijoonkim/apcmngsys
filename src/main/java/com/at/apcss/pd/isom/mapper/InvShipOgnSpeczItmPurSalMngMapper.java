@@ -42,4 +42,6 @@ public interface InvShipOgnSpeczItmPurSalMngMapper {
 
 	public void updateItemStbltYnInit(ItemStbltYnVO ItemStbltYnVo);
 
+	public List<InvShipOgnSpeczItmPurSalMngVO> selectRawDataList(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO);
+
 }
