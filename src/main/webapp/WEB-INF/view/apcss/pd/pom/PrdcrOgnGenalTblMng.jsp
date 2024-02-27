@@ -983,6 +983,16 @@
 		let reqBrno = SBUxMethod.get('dtl-input-brno');
 		let reqYr = SBUxMethod.get('dtl-input-yr');
 		let uoBrnoVal = SBUxMethod.get('dtl-input-uoBrno');
+		let uoCorpNm;
+		if (comUoBrno.length > 0) {
+			let selVal = SBUxMethod.get('dtl-input-selUoBrno');
+			let selCombo = _.find(comUoBrno, {value : selVal});
+			uoCorpNm =  selCombo.text;
+		}else{
+			uoCorpNm = uoBrnoVal;
+		}
+		console.log('uoCorpNm = '+uoCorpNm);
+
 		if(apoSeVal == '2'){
 			if(gfn_isEmpty(uoBrnoVal)){
 				alert("통합조직을 선택해 주세요");
@@ -991,7 +1001,6 @@
 		}else if(apoSeVal == '1'){
 			uoBrnoVal = null;
 		}
-
 
 		if(gfn_isEmpty(reqYr)){
 			let now = new Date();
@@ -1015,6 +1024,7 @@
 			, corpnm 	: gfn_nvl(reqCorpNm)
 			, buisno 	: gfn_nvl(reqBuisNo)
 			, uobrno 	: gfn_nvl(uoBrnoVal)
+			, uoNm		: gfn_nvl(uoCorpNm)
 		});
 	}
 
