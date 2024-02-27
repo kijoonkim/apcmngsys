@@ -38,7 +38,7 @@
 			</div>
 			<div style="margin-left: auto;">
 					<div class="sbt-search-button" style="text-align:right;">
-						<c:if test="${loginVO.userType ne '21' && loginVO.userType ne '22'}">
+						<c:if test="${loginVO.userType ne '21' && loginVO.userType ne '22' && loginVO.userType ne '02'}">
 			              <sbux-button id="btn_create" name="btn_create" uitype="normal" class="btn btn-sm btn-outline-danger" text="신규" onclick="fn_create"></sbux-button>
 			              <sbux-button id="btn_save" name="btn_save" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_save"></sbux-button>
 			              <sbux-button id="btn_delete" name="btn_delete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="fn_delete"></sbux-button>
