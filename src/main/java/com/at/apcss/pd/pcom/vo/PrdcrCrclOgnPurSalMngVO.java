@@ -11,7 +11,9 @@ public class PrdcrCrclOgnPurSalMngVO extends ComVO{
 	private String yr;
 	private String apoCd;
 	private String apoSe;
+	private String aprv;
 	private String brno;
+	private String corpNm;
 	private String ccCode;
 	private String crno;
 	private String ctgryCd;
@@ -22,6 +24,7 @@ public class PrdcrCrclOgnPurSalMngVO extends ComVO{
 	private String sttgUpbrItemNm;
 
 	private String prchsSlsSe;
+	private String prchsSlsSeNm;
 	//매입
 	private String prchsTrstVlm;
 	private String prchsTrstAmt;
