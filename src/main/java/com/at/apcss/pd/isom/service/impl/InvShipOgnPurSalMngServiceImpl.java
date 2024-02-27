@@ -4,7 +4,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.pd.isom.mapper.InvShipOgnPurSalMngMapper;
 import com.at.apcss.pd.isom.service.InvShipOgnPurSalMngService;
@@ -117,6 +116,13 @@ public class InvShipOgnPurSalMngServiceImpl extends BaseServiceImpl implements I
 	@Override
 	public int deleteInvShipOgnPurSalMng(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception {
 		return InvShipOgnPurSalMngMapper.deleteInvShipOgnPurSalMng(InvShipOgnPurSalMngVO);
+	}
+
+	@Override
+	public List<InvShipOgnPurSalMngVO> selectRawDataList(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception {
+
+		List<InvShipOgnPurSalMngVO> resultList = InvShipOgnPurSalMngMapper.selectRawDataList(InvShipOgnPurSalMngVO);
+		return resultList;
 	}
 
 }

@@ -837,7 +837,7 @@
 
 
 	<delete id="deletePrdcrCrclOgnPurSalMng" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
-		DELETE FROM TB_EV_UO_ISO_ALL_PRCHS_SLS
+		DELETE FROM TB_EV_UO_ISO_ALL_PRCHS_SLS /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.deletePrdcrCrclOgnPurSalMng */
 		 WHERE 1=1
 					 AND BRNO				= #{brno}
 					 AND CTGRY_CD			= #{ctgryCd}
@@ -848,4 +848,78 @@
 					 AND YR	 				= #{yr}
 	</delete>
 
+	<select id="selectRawDataList" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
+		SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectRawDataList */
+			YR
+			, BRNO
+			, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = A.BRNO) AS CORP_NM
+			, DECODE( (SELECT APRV
+						FROM TB_EV_APO
+						WHERE BRNO = A.BRNO
+						)
+						, '1' , '승인형'
+						, '2' , '육성형'
+						, ''
+			) AS APRV
+			, PRCHS_SLS_SE
+			, DECODE(A.PRCHS_SLS_SE,'1','매입',2,'매출','') AS PRCHS_SLS_SE_NM
+			, STTG_UPBR_ITEM_SE
+			, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE_1' AND CD_VL = A.STTG_UPBR_ITEM_SE) AS STTG_UPBR_ITEM_NM
+			, ITEM_CD
+			, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = A.ITEM_CD) AS ITEM_NM
+			, CTGRY_CD
+			, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD_1' AND CD_VL = A.CTGRY_CD) AS CTGRY_NM
+			/*매입*/
+			, PRCHS_TRST_VLM
+			, PRCHS_TRST_AMT
+			, PRCHS_EMSPAP_VLM
+			, PRCHS_EMSPAP_AMT
+			, NVL(PRCHS_TRST_VLM , 0) + NVL(PRCHS_EMSPAP_VLM , 0) AS PRCHS_VLM_TOT
+			, NVL(PRCHS_EMSPAP_AMT , 0) + NVL(PRCHS_EMSPAP_AMT , 0) AS PRCHS_AMT_TOT
+
+			/*매출*/
+			, SLS_EMSPAP_VLM
+			, SLS_EMSPAP_AMT
+			, SLS_TRST_VLM
+			, SLS_TRST_AMT
+
+			, NVL(SLS_EMSPAP_VLM , 0) + NVL(SLS_TRST_VLM , 0) AS SLS_TOT_VLM
+			, NVL(SLS_EMSPAP_AMT , 0) + NVL(SLS_TRST_AMT , 0) AS SLS_TOT_AMT
+
+			, DDC_VLM
+			, DDC_AMT
+
+			/*출하처별 출하실적 명세*/
+			, PBLC_WHLSL_MRKT_VLM
+			, PBLC_WHLSL_MRKT_AMT
+			, ONLN_WHLSL_MRKT_VLM
+			, ONLN_WHLSL_MRKT_AMT
+			, LGSZ_RTL_VLM
+			, LGSZ_RTL_AMT
+			, ARMY_DLVGDS_VLM
+			, ARMY_DLVGDS_AMT
+			, EATOUT_MTRL_MLSR_VLM
+			, EATOUT_MTRL_MLSR_AMT
+			, MNFC_RTL_VLM
+			, MNFC_RTL_AMT
+			, EXPRT_VLM
+			, EXPRT_AMT
+			, ONLN_DLNG_PRFMNC_VLM
+			, ONLN_DLNG_PRFMNC_AMT
+			, ETC_VLM
+			, ETC_AMT
+
+		FROM TB_EV_UO_ISO_ALL_PRCHS_SLS A
+		WHERE APO_SE ='1'
+			AND YR = '2024'
+			AND BRNO NOT IN (SELECT BRNO
+								FROM TB_COM_USER
+								WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51')
+							)
+			AND ITEM_CD = DECODE(A.STTG_UPBR_ITEM_SE
+									, '3' , A.ITEM_CD
+									, (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE BRNO = A.BRNO AND YR = A.YR AND ITEM_CD = A.ITEM_CD)
+								)
+		ORDER BY BRNO , PRCHS_SLS_SE , STTG_UPBR_ITEM_SE , ITEM_CD
+	</select>
 </mapper>
