@@ -23,6 +23,7 @@
 				</div>
 				<div style="margin-left: auto;">
 				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '21'}">
+					<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<!--
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
@@ -396,6 +397,7 @@
 					<div id="sb-area-grdPrdcrOgnCurntMng02" style="height:300px; width: 100%;"></div>
 				</div>
 			</div>
+			<div id="sb-area-hiddenGrd" style="height:400px; width: 100%; display: none;"></div>
 		</div>
 	</section>
     <!-- 품목 팝업 -->
@@ -2201,6 +2203,194 @@
 		}
 	}
 
+	/* 로우데이터 요청 */
+
+	var jsonHiddenGrd = []; // 그리드의 참조 데이터 주소 선언
+	var hiddenGrd;
+
+	/* Grid 화면 그리기 기능*/
+	const fn_hiddenGrd = async function() {
+
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-hiddenGrd';
+		SBGridProperties.id = 'hiddenGrd';
+		SBGridProperties.jsonref = 'jsonHiddenGrd';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.rowheader="seq";
+		SBGridProperties.columns = [
+			{caption: ["신청년도"],		ref: 'yr',                    type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["사업자번호"],		ref: 'brno',                  type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["법인명"],		ref: 'corpNm',                type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["통합조직 구분"],		ref: 'aprv',                  type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["매입/매출 구분"],		ref: 'prchsSlsSe',            type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["매입/매출 구분"],		ref: 'prchsSlsSeNm',          type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["전문/육선/기타 구분"],		ref: 'sttgUpbrItemSe',        type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["전문/육선/기타 구분"],		ref: 'sttgUpbrItemNm',        type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["품목코드"],		ref: 'itemCd',                type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["품목명"],		ref: 'itemNm',                type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["분류코드"],		ref: 'ctgryCd',               type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["분류명"],		ref: 'ctgryNm',               type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["통합조직사업자번호"],		ref: 'uoBrno',                type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["통합조직명"],		ref: 'uoCorpNm',              type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["매입 수탁 물량(톤)"],		ref: 'prchsTrstVlm',          type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["매입 수탁 금액(천원)"],		ref: 'prchsTrstAmt',          type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["매입 매취 물량(톤)"],		ref: 'prchsEmspapVlm',        type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["매입 매취 금액(천원)"],		ref: 'prchsEmspapAmt',        type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["매입 합계 물량(톤)"],		ref: 'prchsVlmTot',           type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["매입 합계 금액(천원)"],		ref: 'prchsAmtTot',           type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["기타 물량(톤)"],		ref: 'etcVlm',                type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["기타 금액(천원)"],		ref: 'etcAmt',                type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["매입 합계 물량(톤)"],		ref: 'totTrmtPrfmncVlm',      type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["매입 합계 금액(천원)"],		ref: 'totTrmtPrfmncAmt',      type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["총취급실적 물량(톤)"],		ref: 'totTrmtPrfmncVlm',      type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["총취급실적 금액(천원)"],		ref: 'totTrmtPrfmncAmt',      type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["자체수출 물량(톤)"],		ref: 'ddcExprtVlm',           type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["자체수출 금액(천원)"],		ref: 'ddcExprtAmt',           type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["자체공판장 물량(톤)"],		ref: 'ddcVlm',                type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["자체공판장 금액(천원)"],		ref: 'ddcAmt',                type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["군납 물량(톤)"],		ref: 'ddcArmyDlvgdsVlm',      type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["군납 금액(천원)"],		ref: 'ddcArmyDlvgdsAmt',      type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["학교급식 물량(톤)"],		ref: 'ddcMlsrVlm',            type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["학교급식 금액(천원)"],		ref: 'ddcMlsrAmt',            type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["공제대상 소계 물량(톤)"],		ref: 'ddcVlmTot',             type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["공제대상 소계 금액(천원)"],		ref: 'ddcAmtTot',             type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["조정 취급실적 물량(톤)"],		ref: 'ajmtVlm',               type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["조정 취급실적 금액(A)"],		ref: 'ajmtAmt',               type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["총 출하실적 물량(톤)"],		ref: 'totSpmtPrfmncVlm',      type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["총 출하실적 금액(천원)"],		ref: 'totSpmtPrfmncAmt',      type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["단순기표 물량(톤)"],		ref: 'smplInptVlm',           type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["단순기표 금액(천원)"],		ref: 'smplInptAmt',           type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["출하실적 물량(톤)"],		ref: 'spmtPrfmncVlm',         type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["출하실적 금액(B)"],		ref: 'spmtPrfmncAmt',         type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["공동선별수탁 물량(톤)"],		ref: 'slsCprtnSortTrstVlm',   type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["공동선별수탁 금액(천원)"],		ref: 'slsCprtnSortTrstAmt',   type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["공동선별매취 물량(톤)"],		ref: 'slsCprtnSortEmspapVlm', type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["공동선별매취 금액(천원)"],		ref: 'slsCprtnSortEmspapAmt', type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["공동출하수탁 물량(톤)"],		ref: 'slsCprtnTrstVlm',       type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["공동출하수탁 금액(천원)"],		ref: 'slsCprtnTrstAmt',       type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["합계 물량(톤)"],		ref: 'slsCprtnVlmTot',        type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["합계 금액(천원)"],		ref: 'slsCprtnAmtTot',        type:'output',  width:'70px',	style:'text-align:center'},
+		];
+
+		hiddenGrd = _SBGrid.create(SBGridProperties);
+
+	}
+	const fn_hiddenGrdSelect = async function(){
+		await fn_hiddenGrd();
+		let yr = SBUxMethod.get("srch-input-yr");
+		if (gfn_isEmpty(yr)) {
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
+
+		let postJsonPromise = gfn_postJSON("/pd/isom/selectRawDataList.do", {
+			yr : yr
+		});
+
+		let data = await postJsonPromise;
+		try{
+			jsonHiddenGrd.length = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
+				let hiddenGrdVO = {
+						yr						: item.yr
+						,brno					: item.brno
+						,corpNm					: item.corpNm
+						,aprv					: item.aprv
+						,prchsSlsSe				: item.prchsSlsSe
+						,prchsSlsSeNm			: item.prchsSlsSeNm
+						,sttgUpbrItemSe			: item.sttgUpbrItemSe
+						,sttgUpbrItemNm			: item.sttgUpbrItemNm
+						,itemCd					: item.itemCd
+						,itemNm					: item.itemNm
+						,ctgryCd				: item.ctgryCd
+						,ctgryNm				: item.ctgryNm
+						,uoBrno					: item.uoBrno
+						,uoCorpNm				: item.uoCorpNm
+						,prchsTrstVlm			: item.prchsTrstVlm
+						,prchsTrstAmt			: item.prchsTrstAmt
+						,prchsEmspapVlm			: item.prchsEmspapVlm
+						,prchsEmspapAmt			: item.prchsEmspapAmt
+						,prchsVlmTot			: item.prchsTotVlm
+						,prchsAmtTot			: item.prchsTotAmt
+						,etcVlm					: item.etcVlm
+						,etcAmt					: item.etcAmt
+
+						,slsCprtnSortTrstVlm	: item.slsCprtnSortTrstVlm
+						,slsCprtnSortTrstAmt	: item.slsCprtnSortTrstAmt
+						,slsCprtnTrstVlm		: item.slsCprtnTrstVlm
+						,slsCprtnTrstAmt		: item.slsCprtnTrstAmt
+						,slsCprtnSortEmspapVlm	: item.slsCprtnSortEmspapVlm
+						,slsCprtnSortEmspapAmt	: item.slsCprtnSortEmspapAmt
+						,slsCprtnVlmTot			: item.slsCprtnVlmTot
+						,slsCprtnAmtTot			: item.slsCprtnAmtTot
+						,ddcExprtVlm			: item.ddcExprtVlm
+						,ddcExprtAmt			: item.ddcExprtAmt
+						,ddcVlm					: item.ddcVlm
+						,ddcAmt					: item.ddcAmt
+						,ddcArmyDlvgdsVlm		: item.ddcArmyDlvgdsVlm
+						,ddcArmyDlvgdsAmt		: item.ddcArmyDlvgdsAmt
+						,ddcMlsrVlm				: item.ddcMlsrVlm
+						,ddcMlsrAmt				: item.ddcMlsrAmt
+						,ddcVlmTot				: item.ddcVlmTot
+						,ddcAmtTot				: item.ddcAmtTot
+						,spmtPrfmncVlm			: item.spmtPrfmncVlm
+						,spmtPrfmncAmt			: item.spmtPrfmncAmt
+						,smplInptVlm			: item.smplInptVlm
+						,smplInptAmt			: item.smplInptAmt
+						,ajmtVlm				: item.ajmtVlm
+						,ajmtAmt				: item.ajmtAmt
+						,totTrmtPrfmncVlm		: item.totTrmtPrfmncVlm
+						,totTrmtPrfmncAmt		: item.totTrmtPrfmncAmt
+						,totSpmtPrfmncVlm		: item.totSpmtPrfmncVlm
+						,totSpmtPrfmncAmt		: item.totSpmtPrfmncAmt
+				}
+				jsonHiddenGrd.push(hiddenGrdVO);
+			});
+
+			await hiddenGrd.rebuild();
+
+			await fn_excelDown();
+
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+	//로우 데이터 엑셀 다운로드
+	function fn_excelDown(){
+		const currentDate = new Date();
+
+		const year = currentDate.getFullYear().toString().padStart(4, '0');
+		const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');// 월은 0부터 시작하므로 1을 더합니다.
+		const day = currentDate.getDate().toString().padStart(2, '0');
+		let formattedDate = year + month + day;
+
+		let fileName = formattedDate + "_총매입매출_출자출하조직_로우데이터";
+
+		/*
+		datagrid.exportData(param1, param2, param3, param4);
+		param1(필수)[string]: 다운 받을 파일 형식
+		param2(필수)[string]: 다운 받을 파일 제목
+		param3[boolean]: 다운 받을 그리드 데이터 기준 (default:'false')
+		→ true : csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 다운로드
+		→ false : csv/xls/xlsx 형식의 데이터 다운로드를 jsonref 기준으로 다운로드
+		param4[object]: 다운 받을 그리드 데이터 기준 (default:'false')
+		→ arrRemoveCols(선택): csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 할 때 다운로드에서 제외할 열
+		→ combolabel(선택) : csv/xls/xlsx combo/inputcombo 일 때 label 값으로 저장
+		→ true : label 값으로 저장
+		→ false : value 값으로 저장
+		→ sheetName(선택) : xls/xlsx 형식의 데이터 다운로드시 시트명을 설정
+		 */
+		console.log(hiddenGrd.exportData);
+		hiddenGrd.exportData("xlsx" , fileName , true , true);
+	}
 </script>
 </html>
 

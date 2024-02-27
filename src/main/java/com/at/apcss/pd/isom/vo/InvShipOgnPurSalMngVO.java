@@ -11,10 +11,11 @@ public class InvShipOgnPurSalMngVO extends ComVO{
 	private String yr;
 	private String apoCd;
 	private String apoSe;
+	private String aprv;
 	private String brno;
 	private String uoBrno;
 	private String corpNm;
-	private String ccCode;
+	private String uoCorpNm;
 	private String crno;
 	private String ctgryCd;
 	private String itemCd;
@@ -25,6 +26,7 @@ public class InvShipOgnPurSalMngVO extends ComVO{
 	private String sttgUpbrItemNm;
 
 	private String prchsSlsSe;
+	private String prchsSlsSeNm;
 
 	/* 매입 */
 	private String prchsTrstVlm;
@@ -76,11 +78,17 @@ public class InvShipOgnPurSalMngVO extends ComVO{
 	private String ajmtVlm;
 	private String ajmtAmt;
 
+	private String ddcVlmTot;
+	private String ddcAmtTot;
+
 	/* 총 매입 매출*/
 	private String totTrmtPrfmncVlm;
 	private String totTrmtPrfmncAmt;
 	private String totSpmtPrfmncVlm;
 	private String totSpmtPrfmncAmt;
+
+	private String slsCprtnVlmTot;
+	private String slsCprtnAmtTot;
 
 	private String rmrk;
 
