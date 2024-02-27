@@ -911,7 +911,7 @@
 
 		FROM TB_EV_UO_ISO_ALL_PRCHS_SLS A
 		WHERE APO_SE ='1'
-			AND YR = '2024'
+			AND YR = #{yr}
 			AND BRNO NOT IN (SELECT BRNO
 								FROM TB_COM_USER
 								WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51')

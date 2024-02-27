@@ -1391,15 +1391,19 @@
 
 		FROM TB_EV_UO_ISO_ALL_PRCHS_SLS A
 		WHERE APO_SE ='2'
-			AND YR = '2024'
+			AND YR = #{yr}
 			AND BRNO NOT IN (SELECT BRNO
 								FROM TB_COM_USER
 								WHERE USER_ID IN ('at21','at22','at23','at24','at25','at26','at27','at61')
 							)
+			AND UO_BRNO NOT IN (SELECT BRNO
+								FROM TB_COM_USER
+								WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51')
+								)
 			AND ITEM_CD = DECODE(STTG_UPBR_ITEM_SE
-													, '3' , A.ITEM_CD
-													, (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE BRNO = A.UO_BRNO AND YR = A.YR AND ITEM_CD = A.ITEM_CD)
-													)
+									, '3' , A.ITEM_CD
+									, (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE BRNO = A.UO_BRNO AND YR = A.YR AND ITEM_CD = A.ITEM_CD)
+								)
 		ORDER BY BRNO , PRCHS_SLS_SE  , A.STTG_UPBR_ITEM_SE , UO_BRNO , ITEM_CD
 	</select>
 </mapper>
