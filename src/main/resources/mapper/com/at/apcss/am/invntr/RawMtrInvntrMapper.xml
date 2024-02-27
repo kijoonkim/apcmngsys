@@ -24,6 +24,20 @@
     <select id="selectRawMtrInvntr" parameterType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO" resultType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO">
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.selectRawMtrInvntr */
+    			  pt0.*
+    			, (SELECT FN_GET_APC_NM(pt0.APC_CD) FROM DUAL) AS APC_NM
+				, (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
+                , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
+                , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
+                , (SELECT FN_GET_GRD_NM_RAWMTR(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL) AS GRD_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) AS WRHS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('TRSPRT_SE_CD', pt0.TRSPRT_SE_CD) FROM DUAL) AS TRSPRT_SE_NM
+                , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
+                , (SELECT FN_GET_PLT_BX_NM('B', pt0.BX_KND, pt0.APC_CD) FROM DUAL) AS BX_KND_NM
+    			, (SELECT MAX(X.SORT_CMNDNO) FROM TB_SORT_CMND X WHERE X.APC_CD = pt0.APC_CD AND X.PLTNO = pt0.PLTNO AND X.SORT_CMND_YMD = #{inptYmd} AND X.DEL_YN = 'N') AS SORT_CMNDNO
+			  FROM (
+			SELECT
 				  RI.APC_CD				AS APC_CD
 				, RI.WRHSNO				AS WRHSNO
 				, RI.PLTNO				AS PLTNO
@@ -56,6 +70,7 @@
 				, (SELECT SUM(X.CMND_QNTT) FROM TB_SORT_CMND X WHERE X.APC_CD = RI.APC_CD AND X.PLTNO = RI.PLTNO AND X.DEL_YN = 'N') AS CMND_QNTT
 				, (SELECT SUM(X.CMND_WGHT) FROM TB_SORT_CMND X WHERE X.APC_CD = RI.APC_CD AND X.PLTNO = RI.PLTNO AND X.DEL_YN = 'N') AS CMND_WGHT
 				, RI.DEL_YN				AS DEL_YN
+
 			  FROM TB_RAW_MTR_INVNTR RI
 			 WHERE RI.APC_CD = #{apcCd}
 		]]>
@@ -63,8 +78,14 @@
 			   AND RI.WRHSNO = #{wrhsno}
 		</if>
 		<if test='pltno != null and pltno != ""'>
-			   AND RI.PLTNO = #{pltno}
+			   AND RI.PLTNO = UPPER(#{pltno})
 		</if>
+		<if test='delYn != null and delYn != ""'>
+			   AND RI.DEL_YN = #{delYn}
+		</if>
+    	<![CDATA[
+    		  ) pt0
+		]]>
     </select>
 
 	<!-- ==========================================================================	-->
