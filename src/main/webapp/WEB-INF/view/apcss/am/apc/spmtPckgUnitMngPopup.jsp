@@ -96,7 +96,7 @@
 		let rst = await Promise.all([
 			gfn_setApcItemSBSelect("spmtPckgUnit-slt-itemCd", 	jsonSPUItemCd, 		gv_apcCd), 	// APC 품목(검색)
 			gfn_setApcItemSBSelect("grdSpmtPckgUnit", 			jsonSPUGrdItemCd, 	gv_apcCd),	// APC 품목(저장)
-			gfn_setComCdSBSelect("grdSpmtPckgUnit", 			jsonSPUGdsGrd, 		"GDS_GRD"),	// 상품등급(출하)
+			//gfn_setComCdSBSelect("grdSpmtPckgUnit", 			jsonSPUGdsGrd, 		"GDS_GRD"),	// 상품등급(출하)
 		]);
 		jsonSpmtPckgUnit.length = 0;
 		grdSpmtPckgUnit.refresh({"combo":true});
@@ -108,6 +108,7 @@
 			gfn_setApcVrtySBSelect("grdSpmtPckgUnit", 			jsonSPUGrdVrtyCd, 	gv_apcCd, itemCd),	// APC 품종(저장)
 			gfn_setApcSpcfctsSBSelect("grdSpmtPckgUnit", 		jsonSPUGrdSpcfctCd, gv_apcCd, itemCd),	// APC 규격(저장)
 			fn_selectSpmtPckgUnit(),
+			gStdGrdObj.init(gv_apcCd, _GRD_SE_CD_SORT, itemCd)
 		])
 		grdSpmtPckgUnit.refresh({"combo":true});
 	}
@@ -156,8 +157,20 @@
 				typeinfo : {ref:'jsonSPUGrdVrtyCd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 	        {caption: ["규격"], 			ref: 'spcfctCd',   	type:'combo',  width:'80px',    style:'text-align:center',
 				typeinfo : {ref:'jsonSPUGrdSpcfctCd', 	displayui : false, 	itemcount: 10, label:'label', value:'value'}},
-// 	        {caption: ["등급"], 			ref: 'gdsGrd',   	type:'combo',  width:'80px',    style:'text-align:center',
-// 				typeinfo : {ref:'jsonSPUGdsGrd', 	displayui : false, 	itemcount: 10, label:'label', value:'value'}},
+ 	        {
+				caption: ["선별등급"], 			
+				ref: 'gdsGrd',   	
+				type:'combo',
+				width:'80px',    
+				style:'text-align:center',
+ 				typeinfo : {
+ 					ref:'gjsonStdGrdObj_1', 	
+ 					displayui : false, 	
+ 					itemcount: 10, 
+ 					label:'grdNm', 
+ 					value:'grdCd'
+ 				}
+			},
 	        {caption: ["상품 명"], 			ref: 'spmtPckgUnitNm',  type:'input',  width:'240px',    style:'text-align:center',
 				typeinfo : {maxlength : 30}},
 	        {caption: ["브랜드 명"], ref: 'brndNm',  	type:'input',  width:'140px',    style:'text-align:center', typeinfo : {maxlength : 33}},
@@ -180,7 +193,6 @@
 	    grdSpmtPckgUnit.bind('valuechanged', 'fn_grdValueChanged');
 	    await fn_initSBSelectSpmtPckgUnit();
 	}
-
 
 	const fn_grdValueChanged = function(){
 
@@ -256,7 +268,6 @@
    		return true;
 	}
 
-
 	const fn_selectSpmtPckgUnit = async function(){
 		let apcCd = gv_apcCd;
 		let itemCd = SBUxMethod.get("spmtPckgUnit-slt-itemCd");
@@ -316,6 +327,7 @@
 			let vrtyCd = rowData.vrtyCd;
 			let spcfctCd = rowData.spcfctCd;
 			let spmtPckgUnitNm = rowData.spmtPckgUnitNm;
+			let gdsGrd = rowData.gdsGrd;
 			let ntslUntprc = rowData.ntslUntprc;
 			let brndNm  = rowData.brndNm;
 			if(delYn == 'N'){

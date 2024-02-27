@@ -289,6 +289,7 @@
 									jsondata-ref="jsonApcSpcfct"
 									jsondata-text="spcfctNm"
 									jsondata-value="spcfctCd"
+									onchange="fn_onChangeSortQntt"
 								></sbux-select>
 							</td>
 							<td colspan="5"></td>
@@ -311,7 +312,7 @@
 					<tbody>
 						<tr>
 							<th scope="row" class="th_bg th-mbl">선별 수량/중량</th>
-							<td colspan="2" class="td_input" style="border-right:hidden;">
+							<td class="td_input" style="border-right:hidden;">
 								<sbux-input
 									id="dtl-inp-sortQntt"
 									name="dtl-inp-sortQntt"
@@ -337,17 +338,18 @@
 									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 								></sbux-input>
 							</td>
-							<td colspan="2" class="td_input" style="border-right:hidden;">
+							<td class="td_input" style="border-right:hidden;">
 								<label class="bold fs-30">Kg</label>
 							</td>
+							<th colspan="2" scope="row" class="th_bg th-mbl" style="text-align: center;">포장 상품명</th>
 							<td colspan="2"></td>
 						</tr>
 						<tr class="tr-grd1">
 							<th scope="row" class="th_bg th-mbl">
-								<span></span>등급 : 
+								<span></span>
 								<span class="spn-grd1"></span>
 							</th>
-							<td colspan="2" class="td_input" style="border-right:hidden;">
+							<td class="td_input" style="border-right:hidden;">
 								<sbux-input
 									id="dtl-inp-qntt1"
 									name="dtl-inp-qntt1"
@@ -372,18 +374,30 @@
 									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 								></sbux-input>
 							</td>
-							<td colspan="2" class="td_input" style="border-right:hidden;">
+							<td class="td_input" style="border-right:hidden;">
 								<label class="bold fs-30">Kg</label>
+							</td>
+							<td colspan="2" class="td_input" style="border-right:hidden;">
+								<sbux-select
+									id="dtl-slt-spmtPckgUnitCd1"
+									name="dtl-slt-spmtPckgUnitCd1"
+									uitype="single"
+									class="input-sm-ast inpt_data_reqed inpt-mbl"
+									jsondata-ref="jsonSpmtPckgUnit"
+									unselected-text="= 포장안함 ="
+									jsondata-text="spmtPckgUnitNm"
+									jsondata-value="spmtPckgUnitCd"
+								></sbux-select>
 							</td>
 							<td colspan="2"></td>
 						</tr>
 						
 						<tr class="tr-grd2">
 							<th scope="row" class="th_bg th-mbl">
-								<span></span>등급 : 
+								<span></span>
 								<span class="spn-grd2"></span>
 							</th>
-							<td colspan="2" class="td_input" style="border-right:hidden;">
+							<td class="td_input" style="border-right:hidden;">
 								<sbux-input
 									id="dtl-inp-qntt2"
 									name="dtl-inp-qntt2"
@@ -408,18 +422,30 @@
 									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 								></sbux-input>
 							</td>
-							<td colspan="2" class="td_input" style="border-right:hidden;">
+							<td class="td_input" style="border-right:hidden;">
 								<label class="bold fs-30">Kg</label>
+							</td>
+							<td colspan="2" class="td_input" style="border-right:hidden;">
+								<sbux-select
+									id="dtl-slt-spmtPckgUnitCd2"
+									name="dtl-slt-spmtPckgUnitCd2"
+									uitype="single"
+									class="input-sm-ast inpt_data_reqed inpt-mbl"
+									jsondata-ref="jsonSpmtPckgUnit"
+									unselected-text="= 포장안함 ="
+									jsondata-text="spmtPckgUnitNm"
+									jsondata-value="spmtPckgUnitCd"
+								></sbux-select>
 							</td>
 							<td colspan="2"></td>
 						</tr>
 						
 						<tr class="tr-grd3">
 							<th scope="row" class="th_bg th-mbl">
-								<span></span>등급 : 
+								<span></span>
 								<span class="spn-grd3"></span>
 							</th>
-							<td colspan="2" class="td_input" style="border-right:hidden;">
+							<td class="td_input" style="border-right:hidden;">
 								<sbux-input
 									id="dtl-inp-qntt3"
 									name="dtl-inp-qntt3"
@@ -444,18 +470,30 @@
 									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 								></sbux-input>
 							</td>
-							<td colspan="2" class="td_input" style="border-right:hidden;">
+							<td class="td_input" style="border-right:hidden;">
 								<label class="bold fs-30">Kg</label>
+							</td>
+							<td colspan="2" class="td_input" style="border-right:hidden;">
+								<sbux-select
+									id="dtl-slt-spmtPckgUnitCd3"
+									name="dtl-slt-spmtPckgUnitCd3"
+									uitype="single"
+									class="input-sm-ast inpt_data_reqed inpt-mbl"
+									jsondata-ref="jsonSpmtPckgUnit"
+									unselected-text="= 포장안함 ="
+									jsondata-text="spmtPckgUnitNm"
+									jsondata-value="spmtPckgUnitCd"
+								></sbux-select>
 							</td>
 							<td colspan="2"></td>
 						</tr>
 						
 						<tr class="tr-grd4">
 							<th scope="row" class="th_bg th-mbl">
-								<span></span>등급 : 
+								<span></span>
 								<span class="spn-grd4"></span>
 							</th>
-							<td colspan="2" class="td_input" style="border-right:hidden;">
+							<td class="td_input" style="border-right:hidden;">
 								<sbux-input
 									id="dtl-inp-qntt4"
 									name="dtl-inp-qntt4"
@@ -480,17 +518,29 @@
 									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 								></sbux-input>
 							</td>
-							<td colspan="2" class="td_input" style="border-right:hidden;">
+							<td class="td_input" style="border-right:hidden;">
 								<label class="bold fs-30">Kg</label>
+							</td>
+							<td colspan="2" class="td_input" style="border-right:hidden;">
+								<sbux-select
+									id="dtl-slt-spmtPckgUnitCd4"
+									name="dtl-slt-spmtPckgUnitCd4"
+									uitype="single"
+									class="input-sm-ast inpt_data_reqed inpt-mbl"
+									jsondata-ref="jsonSpmtPckgUnit"
+									unselected-text="= 포장안함 ="
+									jsondata-text="spmtPckgUnitNm"
+									jsondata-value="spmtPckgUnitCd"
+								></sbux-select>
 							</td>
 							<td colspan="2"></td>
 						</tr>
 						<tr class="tr-grd5">
 							<th scope="row" class="th_bg th-mbl">
-								<span></span>등급 : 
+								<span></span>
 								<span class="spn-grd5"></span>
 							</th>
-							<td colspan="2" class="td_input" style="border-right:hidden;">
+							<td class="td_input" style="border-right:hidden;">
 								<sbux-input
 									id="dtl-inp-qntt5"
 									name="dtl-inp-qntt5"
@@ -515,8 +565,20 @@
 									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 								></sbux-input>
 							</td>
-							<td colspan="2" class="td_input" style="border-right:hidden;">
+							<td class="td_input" style="border-right:hidden;">
 								<label class="bold fs-30">Kg</label>
+							</td>
+							<td colspan="2" class="td_input" style="border-right:hidden;">
+								<sbux-select
+									id="dtl-slt-spmtPckgUnitCd5"
+									name="dtl-slt-spmtPckgUnitCd5"
+									uitype="single"
+									class="input-sm-ast inpt_data_reqed inpt-mbl"
+									jsondata-ref="jsonSpmtPckgUnit"
+									unselected-text="= 포장안함 ="
+									jsondata-text="spmtPckgUnitNm"
+									jsondata-value="spmtPckgUnitCd"
+								></sbux-select>
 							</td>
 							<td colspan="2"></td>
 						</tr>
@@ -587,13 +649,18 @@
 	var jsonComWarehouse	= [];	// 창고			WAREHOUSE_SE_CD
 	var jsonSpmtPckgUnit	= [];	// 출하포장단위
 	// jsonSpmtPckgUnit = await gfn_getSpmtPckgUnits(gv_selectedApcCd, itemCd, vrtyCd);
-	
+	var jsonSpmtPckgUnit	= [];	// 출하포장단위
+
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
 		let result = await Promise.all([
 			gfn_setComCdSBSelect('dtl-slt-warehouseSeCd', jsonComWarehouse, 'WAREHOUSE_SE_CD', gv_selectedApcCd),			// 창고
 		 	gfn_setComCdSBSelect('dtl-slt-fcltCd', jsonComFclt, 'SORT_FCLT_CD', gv_selectedApcCd),		// 설비
 	 	]);
+		
+		if (jsonComWarehouse.length > 0) {
+			SBUxMethod.set('dtl-slt-warehouseSeCd', jsonComWarehouse[jsonComWarehouse.length - 1].value);
+		}
 	}
 
 	/**
@@ -644,6 +711,7 @@
     	//if (!SBUxMethod.get("dtl-chk-fxngFclt")["dtl-chk-fxngFclt"]) {
     	if (!document.querySelector('#dtl-chk-fxngFclt').checked) {
     		SBUxMethod.set("dtl-slt-fcltCd", null);
+    		SBUxMethod.refresh("dtl-slt-fcltCd");
     	}
 
 		SBUxMethod.set("dtl-inp-pltno", "");
@@ -672,7 +740,10 @@
 
 		SBUxMethod.set("dtl-lbl-invntr", "");
 		
+		fn_setGrd(null);
 		fn_getApcSpcfct(null);
+		fn_getSpmtPckgUnit(null);
+		
 		sortGrdObj.hide();
 		
 		for ( let i=0; i<5; i++ ) {
@@ -747,7 +818,7 @@
 			const qnttId = "dtl-inp-qntt" + grdId;
 			const wghtId = "dtl-inp-wght" + grdId;
 			const qntt = parseInt(SBUxMethod.get(qnttId)) || 0;
-			const wght = qntt * spcfctWght;
+			const wght = gfn_apcEstmtWght(qntt * spcfctWght, gv_selectedApcCd);
 			SBUxMethod.set(wghtId, wght);
 			
 			totalQntt += qntt;
@@ -775,6 +846,39 @@
 		SBUxMethod.refresh("dtl-slt-spcfctCd");
 	}
 
+	/**
+	 * @name fn_getSpmtPckgUnit
+     * @description APC출하포장단위 JSON 설정
+     * @function
+	 * @param {string} itemCd
+	 * @param {string} vrtyCd
+	 */
+	const fn_getSpmtPckgUnit = async function(_itemCd, _vrtyCd) {
+		
+		jsonSpmtPckgUnit.length = 0;
+		
+		if (!gfn_isEmpty(_itemCd) && !gfn_isEmpty(_vrtyCd)) {
+			jsonSpmtPckgUnit = await gfn_getSpmtPckgUnits(gv_selectedApcCd, _itemCd, _vrtyCd);
+		}
+		
+		for ( let i=0; i<5; i++ ) {
+			
+			const sltId = "dtl-slt-spmtPckgUnitCd" + grdList[i];
+			SBUxMethod.refresh(sltId);
+			
+			if (gjsonStdGrdObj_1.length > 0 && jsonSpmtPckgUnit.length > 0) {
+				const grdCd = gjsonStdGrdObj_1[i].grdCd;
+				let chkInfo = _.find(jsonSpmtPckgUnit, {gdsGrd: grdCd});
+				
+				if (gfn_isEmpty(chkInfo)) {
+					SBUxMethod.set(sltId, jsonSpmtPckgUnit[0].spmtPckgUnitCd);
+				} else {
+					SBUxMethod.set(sltId, chkInfo.spmtPckgUnitCd);
+				}
+			}
+		}
+		
+	}
 
 	/**
      * @name fn_save
@@ -849,23 +953,28 @@
 		let sortInptQntt = 0;
 		let sortInptWght = 0;
 
-		let errSpcfctCd = false;
-
 		for ( let i=0; i<gjsonStdGrdObj_1.length; i++ ) {
 			
 			const grdId = grdList[i];
 			const qnttId = "dtl-inp-qntt" + grdId;
 			const wghtId = "dtl-inp-wght" + grdId;
+			const pckgId = "dtl-slt-spmtPckgUnitCd" + grdId;
 			
 			const inptYmd= sortYmd;
 			const sortQntt = parseInt(SBUxMethod.get(qnttId)) || 0;
 			const sortWght = parseInt(SBUxMethod.get(wghtId)) || 0;
 
+			const spmtPckgUnitCd = SBUxMethod.get(pckgId);
+			const autoPckgInptYn = gfn_isEmpty(spmtPckgUnitCd) ? "N" : "Y";
+			
+			
 			if (sortQntt <= 0) {
 				continue;
 			} 
 			
 			const grdCd = gjsonStdGrdObj_1[i].grdCd;
+			const gdsGrdKnd = gjsonStdGrdObj_1[i].aftrGrdKnd;
+			const gdsGrd = gjsonStdGrdObj_1[i].aftrGrdCd;
 			
 			const stdGrdList = [];
 			stdGrdList.push({
@@ -879,9 +988,20 @@
 			gdsStdGrdList.push({
 				grdSeCd: _GRD_SE_CD_GDS,
 				itemCd: itemCd,
-				grdKnd: gjsonStdGrdObj_1[i].aftrGrdKnd,
-				grdCd: gjsonStdGrdObj_1[i].gdsJgmtGrdCd
+				grdKnd: gdsGrdKnd,
+				grdCd: gdsGrd
 			});
+			
+			if (_.isEqual("Y", autoPckgInptYn)) {
+				if (gfn_isEmpty(spmtPckgUnitCd)) {
+					gfn_comAlert("W0005", "상품명");		//	W0005	{0}이/가 없습니다.
+					return;
+				}
+				if (gfn_isEmpty(gdsGrd)) {
+					gfn_comAlert("W0005", "상품등급");		//	W0005	{0}이/가 없습니다.
+					return;
+				}
+			}
 			
 			const sortPrfmnc = {
 				inptYmd: inptYmd,
@@ -893,10 +1013,10 @@
 				grdCd: gjsonStdGrdObj_1[i].grdCd,
 				sortQntt: sortQntt,
 				sortWght: sortWght,
-				//autoPckgInptYn: autoPckgInptYn,
+				autoPckgInptYn: autoPckgInptYn,
 				stdGrdList: stdGrdList,
-				//spmtPckgUnitCd: spmtPckgUnitCd,
-				gdsGrd: gjsonStdGrdObj_1[i].gdsJgmtGrdCd,
+				spmtPckgUnitCd: spmtPckgUnitCd,
+				gdsGrd: gdsGrd,
 				gdsStdGrdList: gdsStdGrdList
 			}
 
@@ -996,8 +1116,11 @@
   						+ " 등급: " + _rawMtrInvntr.grdNm;
   				SBUxMethod.set("dtl-lbl-invntr", invntrInfo);
   				
-  				fn_getApcSpcfct(SBUxMethod.get("dtl-inp-itemCd"));
-  	        	fn_setGrd(SBUxMethod.get("dtl-inp-itemCd"));
+  	        	await fn_setGrd(_rawMtrInvntr.itemCd);
+  	        	
+  	        	fn_getApcSpcfct(_rawMtrInvntr.itemCd);
+  	        	fn_getSpmtPckgUnit(_rawMtrInvntr.itemCd, _rawMtrInvntr.vrtyCd);
+  	        	
   	        	
         	} else {
         		gfn_comAlert(data.resultCode, data.resultMessage);
