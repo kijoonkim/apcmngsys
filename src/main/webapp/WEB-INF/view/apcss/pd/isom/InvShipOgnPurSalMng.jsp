@@ -1358,7 +1358,7 @@
 			let totalRecordCount = 0;
 			console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
-				console.log("prfmncCorpDdlnYn = " + item.prfmncCorpDdlnYn);
+				//console.log("prfmncCorpDdlnYn = " + item.prfmncCorpDdlnYn);
 				<c:if test="${loginVO.userType eq '21'}">
 				//실적 법인체 마감 저장 버튼 제거
 				if (item.prfmncCorpDdlnYn == 'Y') {
@@ -2388,7 +2388,7 @@
 		→ false : value 값으로 저장
 		→ sheetName(선택) : xls/xlsx 형식의 데이터 다운로드시 시트명을 설정
 		 */
-		console.log(hiddenGrd.exportData);
+		//console.log(hiddenGrd.exportData);
 		hiddenGrd.exportData("xlsx" , fileName , true , true);
 	}
 </script>
