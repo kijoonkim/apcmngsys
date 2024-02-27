@@ -232,10 +232,12 @@
 					<div>
 					</div>
 					<div style="margin-left: auto;">
+						<c:if test="${loginVO.userType ne '02'}">
 						<sbux-button id="btnPrfmncCorpDdlnYnY" name="btnPrfmncCorpDdlnYnY" uitype="normal" text="실적 법인체 선택마감" class="btn btn-sm btn-outline-danger" onclick="fn_prfmncCorpDdlnYn(1)"></sbux-button>
 						<sbux-button id="btnPrfmncCorpDdlnYnN" name="btnPrfmncCorpDdlnYnN" uitype="normal" text="실적 법인체 선택마감해제" class="btn btn-sm btn-outline-danger" onclick="fn_prfmncCorpDdlnYn(2)"></sbux-button>
 						<sbux-button id="btnPrfmncCorpDdlnYnAllY" name="btnPrfmncCorpDdlnYnAllY" uitype="normal" text="실적 법인체 일괄마감" class="btn btn-sm btn-outline-danger" onclick="fn_prfmncCorpDdlnYnAll(1)"></sbux-button>
 						<sbux-button id="btnPrfmncCorpDdlnYnAllN" name="btnPrfmncCorpDdlnYnAllN" uitype="normal" text="실적 법인체 일괄마감해제" class="btn btn-sm btn-outline-danger" onclick="fn_prfmncCorpDdlnYnAll(2)"></sbux-button>
+						</c:if>
 					</div>
 				</div>
 				<div class="">
