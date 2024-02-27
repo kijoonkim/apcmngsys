@@ -107,7 +107,7 @@
 			   AND SG.DEL_YN = #{delYn}
 		</if>
 		<![CDATA[
-			 ORDER BY APC_CD, ITEM_CD, GRD_SE_CD, SN
+			 ORDER BY APC_CD, ITEM_CD, GRD_SE_CD, SN, GRD_KND
 		]]>
 
     </select>
@@ -324,7 +324,7 @@
 			   AND SG.DEL_YN = #{delYn}
 		</if>
 		<![CDATA[
-			 ORDER BY ITEM_CD, GRD_SE_CD, GRD_KND, SN
+			 ORDER BY ITEM_CD, GRD_SE_CD, GRD_KND, SN, GRD_CD
 		]]>
 
     </select>
