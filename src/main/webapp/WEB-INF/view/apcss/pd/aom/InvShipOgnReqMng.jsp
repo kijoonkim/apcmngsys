@@ -2020,7 +2020,7 @@
 		const day = currentDate.getDate().toString().padStart(2, '0');
 		let formattedDate = year + month + day;
 
-		let fileName = formattedDate + "_출자출하조직_로우데이터";
+		let fileName = formattedDate + "_신청관리_출자출하조직_로우데이터";
 
 		/*
 		datagrid.exportData(param1, param2, param3, param4);

@@ -42,4 +42,6 @@ public interface InvShipOgnPurSalMngMapper {
 	public int updateInvShipOgnPurSalMng(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO);
 
 	public int deleteInvShipOgnPurSalMng(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
+
+	public List<InvShipOgnPurSalMngVO> selectRawDataList(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO);
 }

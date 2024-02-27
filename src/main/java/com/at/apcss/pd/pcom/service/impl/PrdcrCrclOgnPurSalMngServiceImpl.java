@@ -118,4 +118,11 @@ public class PrdcrCrclOgnPurSalMngServiceImpl extends BaseServiceImpl implements
 		return PrdcrCrclOgnPurSalMngMapper.deletePrdcrCrclOgnPurSalMng(PrdcrCrclOgnPurSalMngVO);
 	}
 
+	@Override
+	public List<PrdcrCrclOgnPurSalMngVO> selectRawDataList(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO) throws Exception {
+
+		List<PrdcrCrclOgnPurSalMngVO> resultList = PrdcrCrclOgnPurSalMngMapper.selectRawDataList(PrdcrCrclOgnPurSalMngVO);
+		return resultList;
+	}
+
 }

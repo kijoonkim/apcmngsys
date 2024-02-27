@@ -440,7 +440,7 @@
 	</update>
 
 	<select id="selectUoStbltYnList" parameterType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO" resultType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO">
-		SELECT
+		SELECT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectUoStbltYnList */
 			YR
 			,BRNO
 		FROM
