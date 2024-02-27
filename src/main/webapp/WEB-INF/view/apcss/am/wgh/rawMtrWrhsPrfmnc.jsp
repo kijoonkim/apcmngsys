@@ -22,6 +22,7 @@
 	<title>title : 입고실적조회</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../frame/inc/clipreport.jsp" %>
 </head>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
@@ -32,6 +33,14 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 입고실적조회 -->
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-button
+						id="btnCmndDocPckg"
+						name="btnCmndDocPckg"
+						uitype="normal"
+						class="btn btn-sm btn-primary"
+						onclick="fn_docRawMtrWrhs"
+						text="원물인식표"
+					></sbux-button>
 					<sbux-button
 						id="btnReset"
 						name="btnReset"
@@ -589,7 +598,31 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
  	}
+	/**
+     * @name fn_docRawMtrWrhs
+     * @description 원물확인서 발행 버튼
+     */
+	const fn_docRawMtrWrhs = async function() {
 
+		const rawMtrWrhsList = [];
+		const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'RT_DOC');
+		const allData = grdRawMtrWrhs.getGridDataAll();
+		allData.forEach((item, index) => {
+			if (item.checkedYn === "Y") {
+					rawMtrWrhsList.push(
+						item.wrhsno
+					);
+				}
+
+		});
+		if (rawMtrWrhsList.length === 0) {
+			gfn_comAlert("W0005", "선택대상");		//	W0005	{0}이/가 없습니다.
+			return;
+		}
+		const wrhsno = rawMtrWrhsList.join("','");
+
+		gfn_popClipReport("원물인식표", rptUrl, {apcCd: gv_selectedApcCd, wrhsno: wrhsno});
+	}
 
 	/**
      * @name fn_search
