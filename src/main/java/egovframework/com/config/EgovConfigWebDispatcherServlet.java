@@ -95,7 +95,8 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 				"/saveExcel.do",
 				"/am/spmt/getSpmtDoc.do",
 				"/fm/popup/jusoPopup.do",
-				"/report/**"
+				"/report/**",
+				"/api/mobile/*.do"
 				);
 		registry.addInterceptor(new CustomAuthenticInterceptor())
 			.addPathPatterns(
@@ -104,7 +105,8 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 			.excludePathPatterns(
 				"/uat/uia/**",
 				"/saveExcel.do",
-				"/report/**");
+				"/report/**",
+				"/api/mobile/*.do");
 		registry.addInterceptor(mobileAuthenticInterceptor())
 			.addPathPatterns(
 				"/api/mobile/*.do")
