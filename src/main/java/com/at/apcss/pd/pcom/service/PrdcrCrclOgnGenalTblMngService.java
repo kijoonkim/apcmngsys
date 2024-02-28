@@ -39,4 +39,6 @@ public interface PrdcrCrclOgnGenalTblMngService {
 	public int updatePrfmncCorpDdlnYn(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception;
 
 	public int updateAllUoStbltYn(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception;
+
+	public List<ItemUoStbltYnVO> selectRawDataList(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception;
 }

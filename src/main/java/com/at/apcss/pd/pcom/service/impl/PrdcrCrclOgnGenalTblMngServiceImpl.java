@@ -92,4 +92,10 @@ public class PrdcrCrclOgnGenalTblMngServiceImpl extends BaseServiceImpl implemen
 		return updatedCnt;
 	}
 
+	@Override
+	public List<ItemUoStbltYnVO> selectRawDataList(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception {
+
+		List<ItemUoStbltYnVO> resultList = PrdcrCrclOgnGenalTblMngMapper.selectRawDataList(ItemUoStbltYnVo);
+		return resultList;
+	}
 }

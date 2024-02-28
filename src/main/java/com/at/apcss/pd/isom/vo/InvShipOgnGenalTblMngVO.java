@@ -16,6 +16,7 @@ public class InvShipOgnGenalTblMngVO extends ComVO{
 	private String uoBrno;
 	private String crno;
 	private String corpNm;
+	private String uoCorpNm;
 	private String ctpv;
 	private String sgg;
 	private String cmptnInst;
@@ -26,7 +27,12 @@ public class InvShipOgnGenalTblMngVO extends ComVO{
 	private String itemCd;
 
 	private String sttgUpbrItemSe;
+	private String sttgUpbrItemNm;
 	private String aprv;
+	private String aprvNm;
+
+	private String ctgryCd;
+	private String ctgryNm;
 
 	private String uoSpmtAmt;
 	private String uoSpmtAmtOther;
@@ -52,5 +58,7 @@ public class InvShipOgnGenalTblMngVO extends ComVO{
 	private String sysFrstInptDtYmd;
 	private String sysLastChgDtYmd;
 
+	
+	private String corpNm2             ;
 
 }
