@@ -46,4 +46,12 @@ public interface PrdcrCrclOgnGenalTblMngMapper {
 	 * @throws Exception
 	 */
 	public List<ItemUoStbltYnVO> selectUoStbltYnList(ItemUoStbltYnVO ItemUoStbltYnVo);
+
+	/**
+	 * 총괄표 로우데이터
+	 * @param ItemUoStbltYnVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ItemUoStbltYnVO> selectRawDataList(ItemUoStbltYnVO ItemUoStbltYnVo);
 }
