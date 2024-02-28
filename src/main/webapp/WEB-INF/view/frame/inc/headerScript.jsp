@@ -116,6 +116,7 @@
 		gv_selectedApcNm = gv_apcNm;
 		gv_selectedApcSeCd = gv_apcSeCd;
 		gv_selectedUserType = gv_userType;
+
 	</script>
 
 <sbux-progress name="main-loading" uitype="loading" openlayer-title="Loading..." show-openlayer="true" animation="true" animation-type="fadeOut" ></sbux-progress>

@@ -95,6 +95,7 @@ public class ApcEvrmntStngController extends BaseController{
 		}
 
 		resultMap.put("resultVO", resultVO);
+		resultMap.put(ComConstants.PROP_RESULT_MAP, resultVO);
 
 		return getSuccessResponseEntity(resultMap);
 	}

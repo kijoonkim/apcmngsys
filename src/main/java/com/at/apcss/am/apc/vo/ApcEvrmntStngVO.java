@@ -91,4 +91,9 @@ public class ApcEvrmntStngVO extends ComVO{
 	private String invntrMngYn;					// 재고관리유무
 	private String slsMngYn;					// 매출관리유무
 
+	/**
+	 * 원물 값 유형
+	 */
+	private String rawMtrVlType;
+	
 }
