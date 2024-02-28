@@ -198,6 +198,7 @@
 									name="srch-slt-vrtyCd"
 									uitype="single"
 									jsondata-ref="jsonApcVrty"
+									jsondata-value="itemVrtyCd"
 									unselected-text="선택"
 									class="input-sm-ast inpt_data_reqed inpt-mbl"
 									onchange="fn_onChangeSrchVrtyCd(this)"
@@ -252,7 +253,7 @@
 									uitype="text"
 									id="srch-inp-wghtAvg"
 									name="srch-inp-wghtAvg"
-									class="inpt-mbl"
+									class="inpt-mbl dsp-wght"
 									placeholder="평균"
 									maxlength="6"
 									autocomplete="off"
@@ -265,7 +266,7 @@
 									uitype="text"
 									id="srch-inp-wrhsWght"
 									name="srch-inp-wrhsWght"
-									class="input-sm-ast inpt_data_reqed inpt-mbl"
+									class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
 									maxlength="7"
 									autocomplete="off"
 									mask = "{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
@@ -273,7 +274,7 @@
 								/>
 							</td>
 							<td style="border-right: hidden;">
-								<label class="bold fs-30">Kg</label>
+								<label class="bold fs-30 dsp-wght">Kg</label>
 							</td>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 
@@ -513,6 +514,8 @@
 	 */
 	const fn_init = async function() {
 
+		fn_setApcForm();
+		
 		//SBUxMethod.set("srch-chk-fxngItem", {"srch-chk-fxngItem": false});
 		//SBUxMethod.set("srch-chk-fxngWghtAvg", {"srch-chk-fxngWghtAvg": false});
 		//SBUxMethod.set("srch-chk-fxngBxKnd", {"srch-chk-fxngBxKnd": false});
@@ -532,8 +535,30 @@
 
 		fn_clearForm();
 		//fn_search();
+		
 	}
 
+	const fn_setApcForm = async function() {
+		console.log("stng");
+		await gfn_getApcStng(gv_selectedApcCd);
+		console.log(gv_apcStng);
+		
+		const wghtEls = document.querySelectorAll(".dsp-wght");
+		
+		wghtEls.forEach((el) => {
+    		el.style.display = "";
+    	});
+		
+		if (!gfn_isEmpty(gv_apcStng)) {
+			if (_.isEqual(gv_apcStng.rawMtrVlType, "QNTT")) {
+				wghtEls.forEach((el) => {
+		    		el.style.display = "none";
+		    	});
+			}
+		}		
+	}
+	
+	
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
 		document.querySelectorAll(".sbux-pik-icon-btn").forEach((el) => {
@@ -701,6 +726,10 @@
  		//let trsprtSeCd = SBUxMethod.get("srch-rdo-trsprtSeCd");	// 운송구분
  		let itemCd = SBUxMethod.get("srch-slt-itemCd");			// 품목
  		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");			// 품종
+ 		if (!gfn_isEmpty(vrtyCd)) {
+  			vrtyCd = vrtyCd.substring(4);
+  		}
+ 		
 		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");		// 생산자
 		let bxQntt = SBUxMethod.get("srch-inp-bxQntt");			// 수량
  		let wrhsWght = SBUxMethod.get("srch-inp-wrhsWght");		// 중량
@@ -932,9 +961,10 @@
 	const fn_setPrdcrForm = async function(prdcr) {
 
 		if (!gfn_isEmpty(prdcr.rprsVrtyCd)) {	// 대표품종
+			const rprsVrtyCd = prdcr.rprsItemCd + prdcr.rprsVrtyCd;
 			await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd);
-			SBUxMethod.set("srch-slt-vrtyCd", prdcr.rprsVrtyCd);
-			fn_onChangeSrchVrtyCd({value:prdcr.rprsVrtyCd});
+			SBUxMethod.set("srch-slt-vrtyCd", rprsVrtyCd);
+			fn_onChangeSrchVrtyCd({value:rprsVrtyCd});
 		} else {
 			if (!gfn_isEmpty(prdcr.rprsItemCd)) {	// 대표품목
 				const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
@@ -1019,7 +1049,7 @@
 	 const fn_onChangeSrchVrtyCd = async function(obj) {
 		let vrtyCd = obj.value;
 		let itemCd = "";
-		const vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd});
+		const vrtyInfo = _.find(jsonApcVrty, {itemVrtyCd: vrtyCd});
 
 		if (!gfn_isEmpty(vrtyCd)) {
 			itemCd = vrtyInfo.mastervalue;
@@ -1187,12 +1217,17 @@
 			// 품종
 			SBUxMethod.set("srch-slt-vrtyCd", "");
 			SBUxMethod.set("srch-inp-wghtAvg", "");
+			
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd);	// 품종
 		}
 
 		//if (!SBUxMethod.get("srch-chk-fxngWarehouseSeCd")["srch-chk-fxngWarehouseSeCd"]) {
 		if (!document.querySelector('#srch-chk-fxngWarehouseSeCd').checked) {
 			// 창고
-	 		SBUxMethod.set("srch-slt-warehouseSeCd", "");
+			if (jsonComWarehouse.length > 0) {
+		 		SBUxMethod.set("srch-slt-warehouseSeCd", jsonComWarehouse[0].value);
+			}
+			
 		}
 
 		// 수량

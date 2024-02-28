@@ -119,16 +119,19 @@
 	var jsonStdGrd = [];
 	var jsonStdGrdDtl = [];
 	var jsonAftrGrd = [];
+	var jsonGrdMngType = [];
 
 	const fn_initSBSelectStdGrd = async function() {
 		let rst = await Promise.all([
 			gfn_getComCdDtls('STD_GRD_TYPE'),
+			gfn_getComCdDtls('GRD_MNG_TYPE'),
 			gfn_setApcItemSBSelect("grd-slt-itemCd", 	jsonGItemCd, gv_apcCd),			// APC 품목
 			gfn_setComCdSBSelect("grd-rdo-grdSeCd", 	jsonGGrdSeCd, "GRD_SE_CD"),		// 등급구분코드(출하)
 			gfn_setComCdSBSelect("grdStdGrdJgmt", 		jsonGJgmtType, "JGMT_TYPE")		// 등급구분코드(출하)
 		]);
 
 		jsonGStdGrdType = rst[0];
+		jsonGrdMngType = rst[1];
 		SBUxMethod.set("grd-rdo-grdSeCd", "01");
 
 		jsonStdGrd.length = 0;
@@ -192,7 +195,7 @@
 	    SBGridPropertiesStdGrdDtl.jsonref = 'jsonStdGrdDtl';
 	    SBGridPropertiesStdGrdDtl.emptyrecords = '데이터가 없습니다.';
 	    SBGridPropertiesStdGrdDtl.selectmode = 'byrow';
-	    SBGridPropertiesStdGrdDtl.extendlastcol = 'scroll';
+	    SBGridPropertiesStdGrdDtl.extendlastcol = 'none';
 	    SBGridPropertiesStdGrdDtl.oneclickedit = true;
 	    SBGridPropertiesStdGrdDtl.columns = [
 			{
@@ -276,6 +279,21 @@
 				format : {
 					type:'number', 
 					rule:'#,###'
+				}
+			},
+			{
+				caption: ["관리유형"],
+				ref: 'mngType',
+				type:'combo',
+				width:'80px',
+				style:'text-align:center;',
+				typeinfo : {
+					ref:'jsonGrdMngType',
+					displayui : false,
+					itemcount: 10,
+					label:'cdVlNm',
+					value:'cdVl',
+					unselect: {label : '', value: ''}
 				}
 			},
 	        {caption: ["APC코드"], 	ref: 'apcCd',   	type:'input',  hidden : true},
@@ -562,7 +580,8 @@
   					  	delYn		: item.delYn,
   					  	aftrGrdKnd	: item.aftrGrdKnd,
   					  	aftrGrdCd	: item.aftrGrdCd,
-  					  	linkGrdCd	: item.linkGrdCd
+  					  	linkGrdCd	: item.linkGrdCd,
+  					  	mngType		: item.mngType
   					}
   					jsonStdGrdDtl.push(stdGrdVO);
   				});
