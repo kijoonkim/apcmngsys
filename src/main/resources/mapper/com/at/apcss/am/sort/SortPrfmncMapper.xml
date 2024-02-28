@@ -211,6 +211,8 @@
 		        AND     A.SORTNO = B.SORTNO
 		        AND     A.SORT_SN = B.SORT_SN
 		        AND     A.GRD_CD IN ('01','02','03','04','05','06')
+     		    AND     A.DEL_YN = 'N'
+		        AND     B.DEL_YN = 'N'
 
 		        ]]>
 		        <if test='apcCd != null and apcCd != ""'>
@@ -292,6 +294,8 @@
 		        AND     A.SORTNO = B.SORTNO
 		        AND     A.SORT_SN = B.SORT_SN
 		        AND     A.GRD_CD IN ('07','08','09','10','11','12')
+		        AND     A.DEL_YN = 'N'
+		        AND     B.DEL_YN = 'N'
 		        ]]>
 		        <if test='apcCd != null and apcCd != ""'>
 			   	   AND A.APC_CD = #{apcCd}
@@ -373,7 +377,8 @@
 		        AND     A.SORTNO = B.SORTNO
 		        AND     A.SORT_SN = B.SORT_SN
 		        AND     A.GRD_CD IN ('13','14','15')
-
+		        AND     A.DEL_YN = 'N'
+		        AND     B.DEL_YN = 'N'
 
 
 
