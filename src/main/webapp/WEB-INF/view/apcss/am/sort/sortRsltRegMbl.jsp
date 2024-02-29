@@ -1182,6 +1182,18 @@
 		const invntrInptQntt = parseInt(SBUxMethod.get("dtl-inp-invntrQntt")) || 0;
 		const invntrInptWght = parseInt(SBUxMethod.get("dtl-inp-invntrWght")) || 0;
 		
+		if (_.isEqual(lv_rawMtrVlType, "QNTT")) {
+			if (invntrInptQntt <= 0) {
+				gfn_comAlert("W0005", "재고수량");		//	W0005	{0}이/가 없습니다.
+				return;
+			}
+		} else {
+			if (invntrInptWght <= 0) {
+				gfn_comAlert("W0005", "재고중량");		//	W0005	{0}이/가 없습니다.
+				return;
+			}
+		}
+		
 		rawMtrInvntrList.push({
 			wrhsno: wrhsno,
 			inptQntt: invntrInptQntt,
