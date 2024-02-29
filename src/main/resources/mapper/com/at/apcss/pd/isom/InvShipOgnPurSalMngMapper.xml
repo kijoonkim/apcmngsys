@@ -717,7 +717,6 @@
 				<if test='uoBrno == null or uoBrno == ""'>
 				AND CLT.UO_BRNO	 			= '0'
 				</if>
-				AND CLT.CTGRY_CD 			= #{ctgryCd}
 				AND CLT.ITEM_CD	 			= #{itemCd}
 				AND CLT.STTG_UPBR_ITEM_SE	= #{sttgUpbrItemSe}
 				AND CLT.YR	 				= #{yr}
@@ -733,6 +732,8 @@
 		    	        , ETC_VLM				= #{etcVlm}
 		    	        , ETC_AMT				= #{etcAmt}
 
+		    	        , CTGRY_CD				= #{ctgryCd}
+
 		    	        , RMRK					= #{rmrk}
 
 		    	        , SYS_LAST_CHG_DT		= SYSDATE
@@ -747,7 +748,6 @@
 						<if test='uoBrno == null or uoBrno == ""'>
 						AND CLT.UO_BRNO	 			= '0'
 						</if>
-						AND CLT.CTGRY_CD 			= #{ctgryCd}
 						AND CLT.ITEM_CD	 			= #{itemCd}
 						AND CLT.STTG_UPBR_ITEM_SE	= #{sttgUpbrItemSe}
 						AND CLT.YR	 				= #{yr}
@@ -834,7 +834,6 @@
 				<if test='uoBrno == null or uoBrno == ""'>
 				AND CLT.UO_BRNO	 			= '0'
 				</if>
-				AND CLT.CTGRY_CD 			= #{ctgryCd}
 				AND CLT.ITEM_CD	 			= #{itemCd}
 				AND CLT.STTG_UPBR_ITEM_SE	= #{sttgUpbrItemSe}
 				AND CLT.YR	 				= #{yr}
@@ -881,6 +880,8 @@
 		    	        , TOT_SPMT_PRFMNC_VLM	= #{totSpmtPrfmncVlm}
 		    	        , TOT_SPMT_PRFMNC_AMT	= #{totSpmtPrfmncAmt}
 
+		    	        , CTGRY_CD				= #{ctgryCd}
+
 		    	        , RMRK					= #{rmrk}
 
 		    	        , SYS_LAST_CHG_DT		= SYSDATE
@@ -895,7 +896,6 @@
 					 <if test='uoBrno == null or uoBrno == ""'>
 					 AND CLT.UO_BRNO	 		= '0'
 					 </if>
-					 AND CLT.CTGRY_CD			= #{ctgryCd}
 					 AND CLT.ITEM_CD			= #{itemCd}
 					 AND CLT.STTG_UPBR_ITEM_SE	= #{sttgUpbrItemSe}
 					 AND CLT.YR	 				= #{yr}
