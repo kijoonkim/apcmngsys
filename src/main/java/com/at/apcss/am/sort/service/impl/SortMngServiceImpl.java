@@ -312,6 +312,8 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 
 		String apcCd = sortMngVO.getApcCd();
 
+		String rawMtrVlType = sortMngVO.getRawMtrVlType();
+		
 		if (!StringUtils.hasText(apcCd)) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
 		}
@@ -395,41 +397,63 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 			int sortQntt = inv.getSortQntt();
 			double sortWght = inv.getSortWght();
 
-			for ( SortPrfmncVO sort : prfmncList ) {
-				if (StringUtils.hasText(sort.getWrhsno()) && sort.getRmnWght() <= 0) {
-					continue;
+			if (AmConstants.CON_INVNTR_VL_MNG_TYPE_QNTT.equals(rawMtrVlType)) {
+				
+				inptYmd = sortMngVO.getSortYmd();
+				
+				// 배분없음
+				for ( SortPrfmncVO sort : prfmncList ) {
+					sort.setWrhsno(wrhsno);
+					sort.setRprsPrdcrCd(prdcrCd);
+					sort.setGdsSeCd(gdsSeCd);
+					sort.setWrhsSeCd(wrhsSeCd);
+					sort.setRmnQntt(0);
+					sort.setRmnWght(0);
 				}
+				
+				inv.setInptYmd(inptYmd);
+				inv.setSortQntt(inptQntt);
+				inv.setSortWght(inptWght);
+				
+			} else {
+				for ( SortPrfmncVO sort : prfmncList ) {
 
-				int applQntt = 0;
-				double applWght = 0;
+					if (StringUtils.hasText(sort.getWrhsno()) && sort.getRmnWght() <= 0) {
+						continue;
+					}
 
-				if (inptWght - sortWght < sort.getRmnWght()) {
-					applQntt = inptQntt - sortQntt;
-					applWght = inptWght - sortWght;
-				} else {
-					applQntt = sort.getRmnQntt();
-					applWght = sort.getRmnWght();
+					int applQntt = 0;
+					double applWght = 0;
+
+					if (inptWght - sortWght < sort.getRmnWght()) {
+						applQntt = inptQntt - sortQntt;
+						applWght = inptWght - sortWght;
+					} else {
+						applQntt = sort.getRmnQntt();
+						applWght = sort.getRmnWght();
+					}
+
+					sort.setWrhsno(wrhsno);
+					sort.setRprsPrdcrCd(prdcrCd);
+					sort.setGdsSeCd(gdsSeCd);
+					sort.setWrhsSeCd(wrhsSeCd);
+
+					sortQntt += applQntt;
+					sortWght += applWght;
+
+					sort.setRmnQntt(sort.getRmnQntt() - applQntt);
+					sort.setRmnWght(sort.getRmnWght() - applWght);
+
+					if (!StringUtils.hasText(inptYmd)) {
+						inptYmd = sort.getInptYmd();
+					}
 				}
-
-				sort.setWrhsno(wrhsno);
-				sort.setRprsPrdcrCd(prdcrCd);
-				sort.setGdsSeCd(gdsSeCd);
-				sort.setWrhsSeCd(wrhsSeCd);
-
-				sortQntt += applQntt;
-				sortWght += applWght;
-
-				sort.setRmnQntt(sort.getRmnQntt() - applQntt);
-				sort.setRmnWght(sort.getRmnWght() - applWght);
-
-				if (!StringUtils.hasText(inptYmd)) {
-					inptYmd = sort.getInptYmd();
-				}
+				
+				inv.setInptYmd(inptYmd);
+				inv.setSortQntt(sortQntt);
+				inv.setSortWght(sortWght);
 			}
 
-			inv.setInptYmd(inptYmd);
-			inv.setSortQntt(sortQntt);
-			inv.setSortWght(sortWght);
 		}
 
 		for ( SortPrfmncVO sort : prfmncList ) {

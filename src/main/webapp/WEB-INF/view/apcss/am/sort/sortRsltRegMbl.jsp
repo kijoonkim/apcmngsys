@@ -328,7 +328,7 @@
 									id="dtl-inp-sortWght"
 									name="dtl-inp-sortWght"
 									uitype="text"
-									class="inpt_data_reqed inpt-mbl"
+									class="inpt_data_reqed inpt-mbl dsp-wght"
 									placeholder=""
 									title=""
 									autocomplete="off"
@@ -337,10 +337,11 @@
 								></sbux-input>
 							</td>
 							<td class="td_input" style="border-right:hidden;">
-								<label class="bold fs-30">Kg</label>
+								<label class="bold fs-30 dsp-wght">Kg</label>
 							</td>
-							<th colspan="2" scope="row" class="th_bg th-mbl" style="text-align: center;">포장 상품명</th>
-							<td colspan="2"></td>
+							<!--  <th colspan="2" scope="row" class="th_bg th-mbl" style="text-align: center;">포장 상품명</th>
+							-->
+							<td colspan="4"></td>
 						</tr>
 						
 						<!-- 옵션등급 -->
@@ -354,7 +355,7 @@
 									jsondata-ref="jsonOptnGrd"
 									jsondata-text="grdNm"
 									jsondata-value="grdCd"
-									onchange=""
+									onchange="fn_onChangeSltGrd(0)"
 								></sbux-select>
 							</th>
 							<td class="td_input" style="border-right:hidden;">
@@ -376,16 +377,13 @@
 									id="dtl-inp-wghtEx1"
 									name="dtl-inp-wghtEx1"
 									uitype="text"
-									class="input-sm-ast inpt-mbl"
+									class="input-sm-ast inpt-mbl dsp-wght"
 									placeholder=""
 									title=""
 									autocomplete="off"
 									permit-keycodes-set="num"
 									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 								></sbux-input>
-							</td>
-							<td class="td_input" style="border-right:hidden;">
-								<label class="bold fs-30">Kg</label>
 							</td>
 							<td colspan="2" class="td_input" style="border-right:hidden;">
 								<sbux-select
@@ -399,7 +397,7 @@
 									jsondata-value="spmtPckgUnitCd"
 								></sbux-select>
 							</td>
-							<td colspan="2">
+							<td colspan="3">
 								<sbux-button
 									id="dtl-btn-addGrd1"
 									name="dtl-btn-addGrd1"
@@ -421,7 +419,7 @@
 									jsondata-ref="jsonOptnGrd"
 									jsondata-text="grdNm"
 									jsondata-value="grdCd"
-									onchange=""
+									onchange="fn_onChangeSltGrd(1)"
 								></sbux-select>
 							</th>
 							<td class="td_input" style="border-right:hidden;">
@@ -443,16 +441,13 @@
 									id="dtl-inp-wghtEx2"
 									name="dtl-inp-wghtEx2"
 									uitype="text"
-									class="input-sm-ast inpt-mbl"
+									class="input-sm-ast inpt-mbl dsp-wght"
 									placeholder=""
 									title=""
 									autocomplete="off"
 									permit-keycodes-set="num"
 									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 								></sbux-input>
-							</td>
-							<td class="td_input" style="border-right:hidden;">
-								<label class="bold fs-30">Kg</label>
 							</td>
 							<td colspan="2" class="td_input" style="border-right:hidden;">
 								<sbux-select
@@ -466,7 +461,7 @@
 									jsondata-value="spmtPckgUnitCd"
 								></sbux-select>
 							</td>
-							<td colspan="2">
+							<td colspan="3">
 								<sbux-button
 									id="dtl-btn-addGrd2"
 									name="dtl-btn-addGrd2"
@@ -488,7 +483,7 @@
 									jsondata-ref="jsonOptnGrd"
 									jsondata-text="grdNm"
 									jsondata-value="grdCd"
-									onchange=""
+									onchange="fn_onChangeSltGrd(2)"
 								></sbux-select>
 							</th>
 							<td class="td_input" style="border-right:hidden;">
@@ -510,16 +505,13 @@
 									id="dtl-inp-wghtEx3"
 									name="dtl-inp-wghtEx3"
 									uitype="text"
-									class="input-sm-ast inpt-mbl"
+									class="input-sm-ast inpt-mbl dsp-wght"
 									placeholder=""
 									title=""
 									autocomplete="off"
 									permit-keycodes-set="num"
 									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 								></sbux-input>
-							</td>
-							<td class="td_input" style="border-right:hidden;">
-								<label class="bold fs-30">Kg</label>
 							</td>
 							<td colspan="2" class="td_input" style="border-right:hidden;">
 								<sbux-select
@@ -533,7 +525,7 @@
 									jsondata-value="spmtPckgUnitCd"
 								></sbux-select>
 							</td>
-							<td colspan="2">
+							<td colspan="3">
 							</td>
 						</tr>
 						
@@ -561,16 +553,13 @@
 									id="dtl-inp-wght1"
 									name="dtl-inp-wght1"
 									uitype="text"
-									class="input-sm-ast inpt_data_reqed inpt-mbl"
+									class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
 									placeholder=""
 									title=""
 									autocomplete="off"
 									permit-keycodes-set="num"
 									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 								></sbux-input>
-							</td>
-							<td class="td_input" style="border-right:hidden;">
-								<label class="bold fs-30">Kg</label>
 							</td>
 							<td colspan="2" class="td_input" style="border-right:hidden;">
 								<sbux-select
@@ -584,7 +573,7 @@
 									jsondata-value="spmtPckgUnitCd"
 								></sbux-select>
 							</td>
-							<td colspan="2"></td>
+							<td colspan="3"></td>
 						</tr>
 						
 						<tr class="tr-grd2">
@@ -611,16 +600,13 @@
 									id="dtl-inp-wght2"
 									name="dtl-inp-wght2"
 									uitype="text"
-									class="input-sm-ast inpt_data_reqed inpt-mbl"
+									class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
 									placeholder=""
 									title=""
 									autocomplete="off"
 									permit-keycodes-set="num"
 									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 								></sbux-input>
-							</td>
-							<td class="td_input" style="border-right:hidden;">
-								<label class="bold fs-30">Kg</label>
 							</td>
 							<td colspan="2" class="td_input" style="border-right:hidden;">
 								<sbux-select
@@ -634,7 +620,7 @@
 									jsondata-value="spmtPckgUnitCd"
 								></sbux-select>
 							</td>
-							<td colspan="2"></td>
+							<td colspan="3"></td>
 						</tr>
 						
 						<tr class="tr-grd3">
@@ -661,16 +647,13 @@
 									id="dtl-inp-wght3"
 									name="dtl-inp-wght3"
 									uitype="text"
-									class="input-sm-ast inpt_data_reqed inpt-mbl"
+									class="input-sm-ast inpt-mbl dsp-wght"
 									placeholder=""
 									title=""
 									autocomplete="off"
 									permit-keycodes-set="num"
 									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 								></sbux-input>
-							</td>
-							<td class="td_input" style="border-right:hidden;">
-								<label class="bold fs-30">Kg</label>
 							</td>
 							<td colspan="2" class="td_input" style="border-right:hidden;">
 								<sbux-select
@@ -684,7 +667,7 @@
 									jsondata-value="spmtPckgUnitCd"
 								></sbux-select>
 							</td>
-							<td colspan="2"></td>
+							<td colspan="3"></td>
 						</tr>
 						
 						<tr class="tr-grd4">
@@ -711,16 +694,13 @@
 									id="dtl-inp-wght4"
 									name="dtl-inp-wght4"
 									uitype="text"
-									class="input-sm-ast inpt_data_reqed inpt-mbl"
+									class="input-sm-ast inpt-mbl dsp-wght"
 									placeholder=""
 									title=""
 									autocomplete="off"
 									permit-keycodes-set="num"
 									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 								></sbux-input>
-							</td>
-							<td class="td_input" style="border-right:hidden;">
-								<label class="bold fs-30">Kg</label>
 							</td>
 							<td colspan="2" class="td_input" style="border-right:hidden;">
 								<sbux-select
@@ -734,7 +714,7 @@
 									jsondata-value="spmtPckgUnitCd"
 								></sbux-select>
 							</td>
-							<td colspan="2"></td>
+							<td colspan="3"></td>
 						</tr>
 						<tr class="tr-grd5">
 							<th scope="row" class="th_bg th-mbl">
@@ -760,16 +740,13 @@
 									id="dtl-inp-wght5"
 									name="dtl-inp-wght5"
 									uitype="text"
-									class="input-sm-ast inpt_data_reqed inpt-mbl"
+									class="input-sm-ast inpt-mbl dsp-wght"
 									placeholder=""
 									title=""
 									autocomplete="off"
 									permit-keycodes-set="num"
 									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 								></sbux-input>
-							</td>
-							<td class="td_input" style="border-right:hidden;">
-								<label class="bold fs-30">Kg</label>
 							</td>
 							<td colspan="2" class="td_input" style="border-right:hidden;">
 								<sbux-select
@@ -783,7 +760,7 @@
 									jsondata-value="spmtPckgUnitCd"
 								></sbux-select>
 							</td>
-							<td colspan="2"></td>
+							<td colspan="3"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -897,7 +874,6 @@
 			lv_rawMtrVlType = gv_apcStng.rawMtrVlType;
 		}
 		
-		/*
 		const wghtEls = document.querySelectorAll(".dsp-wght");
 		
 		wghtEls.forEach((el) => {
@@ -911,7 +887,6 @@
 		    	});
 			}
 		}
-		 */
 	}
 
     // only document
@@ -1064,7 +1039,16 @@
 		SBUxMethod.refresh("dtl-slt-grdEx" + grdId);
 		document.querySelector('.tr-grdEx' + grdId).style.display = "";
 	}
+
+	const fn_onChangeSltGrd = function(idx) {
+		const sltId = "dtl-slt-spmtPckgUnitCdEx" + grdList[idx];
+		const grdCd = SBUxMethod.get("dtl-slt-grdEx" + grdList[idx]);
 		
+		let chkInfo = _.find(jsonSpmtPckgUnit, {gdsGrd: grdCd});		
+		if (!gfn_isEmpty(chkInfo)) {
+			SBUxMethod.set(sltId, chkInfo.spmtPckgUnitCd);
+		}
+	}
 
 	/**
 	 * 
@@ -1164,9 +1148,17 @@
 		
 		for ( let i=0; i<3; i++ ) {
 			const sltId = "dtl-slt-spmtPckgUnitCdEx" + grdList[i];
-			console.log(sltId);
 			SBUxMethod.refresh(sltId);
-			console.log(jsonSpmtPckgUnit);
+			
+			if (jsonSpmtPckgUnit.length > 0) {
+				const grdCd = SBUxMethod.get("dtl-slt-grdEx" + grdList[i]);
+				let chkInfo = _.find(jsonSpmtPckgUnit, {gdsGrd: grdCd});
+				if (gfn_isEmpty(chkInfo)) {
+					SBUxMethod.set(sltId, jsonSpmtPckgUnit[0].spmtPckgUnitCd);
+				} else {
+					SBUxMethod.set(sltId, chkInfo.spmtPckgUnitCd);
+				}
+			}
 		}
 		
 	}
@@ -1403,8 +1395,10 @@
 		}
 
 		if (invntrInptWght < sortInptWght) {
-			gfn_comAlert("W0008", "재고량", "투입량");		// W0008	{0} 보다 {1}이/가 큽니다.
-			return;
+			if (!_.isEqual(lv_rawMtrVlType, "QNTT")) {
+				gfn_comAlert("W0008", "재고량", "투입량");		// W0008	{0} 보다 {1}이/가 큽니다.
+				return;
+			}
 		}
 
 		// comConfirm
@@ -1415,6 +1409,7 @@
 		const sortMng = {
     		apcCd: gv_selectedApcCd,
     		sortYmd: sortYmd,
+    		rawMtrVlType: lv_rawMtrVlType,
     		rawMtrInvntrList: rawMtrInvntrList,
     		sortPrfmncList: sortPrfmncList
     	}
@@ -1460,8 +1455,6 @@
             
   			if (_.isEqual("S", data.resultStatus)) {
   				
-  				console.log("resultMap", data.resultMap);
-  	        	
   				const _rawMtrInvntr = data.resultMap;
   				
   				if (gfn_isEmpty(_rawMtrInvntr)) {
@@ -1486,10 +1479,9 @@
   				invntrInfo += "수량: " + _rawMtrInvntr.invntrQntt;
   				
   				if (!_.isEqual(lv_rawMtrVlType, "QNTT")) {
-  					invntrInfo += " / 중량: " + _rawMtrInvntr.invntrWght + " Kg ";
+  					invntrInfo += "   중량: " + _rawMtrInvntr.invntrWght + " Kg ";
+  					invntrInfo += "   (등급: " + _rawMtrInvntr.grdNm + ")";
   				}
-  				
-  				invntrInfo += " / 등급: " + _rawMtrInvntr.grdNm;
   				
   				SBUxMethod.set("dtl-lbl-invntr", invntrInfo);
   				

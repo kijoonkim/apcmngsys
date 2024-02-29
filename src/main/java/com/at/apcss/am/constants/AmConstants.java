@@ -258,6 +258,8 @@ public class AmConstants {
     public final static String CON_WRHS_SPMT_TYPE_SPMT = "DT";
     public final static String CON_WRHS_SPMT_TYPE_TRFT = "TF";
     
+    public final static String CON_INVNTR_VL_MNG_TYPE_QNTT = "QNTT";
+    
     
     /* 전송기기상태코드 */
     public final static String CON_TRSM_MAT_STTS_CD_STANDBY = "S0";

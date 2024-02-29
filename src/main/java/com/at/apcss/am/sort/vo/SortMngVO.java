@@ -52,6 +52,11 @@ public class SortMngVO extends ComVO {
 	private String needsVrInvntrRegYn;
 
 	/**
+	 * 원물 값 유형
+	 */
+	private String rawMtrVlType;
+	
+	/**
 	 * 포장등록 여부
 	 */
 	private String needsPckgRegYn;
