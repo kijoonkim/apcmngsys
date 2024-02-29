@@ -62,11 +62,6 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 	// RequestMappingHandlerMapping 설정 - Interceptor 추가
 	// -------------------------------------------------------------
 	
-	@Bean
-	public MobileAuthenticInterceptor mobileAuthenticInterceptor() {
-	    return new MobileAuthenticInterceptor();
-	}
-	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		//registry.addInterceptor(new AuthenticInterceptor())
@@ -121,6 +116,11 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 	@Bean
 	public AuthenticInterceptor authenticInterceptor() {
 		return new AuthenticInterceptor();
+	}
+	
+	@Bean
+	public MobileAuthenticInterceptor mobileAuthenticInterceptor() {
+	    return new MobileAuthenticInterceptor();
 	}
 
 	// -------------------------------------------------------------
