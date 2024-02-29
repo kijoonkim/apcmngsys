@@ -391,11 +391,11 @@
 	var jsonComGrdCorpSeCd = [];//법인구분
 	var jsonComGrdAprv = [];//신청구분
 
-	var jsonComGrdAprv_1 = [];//통합조직 구분
-	var jsonComGrdSttgUpbrItemSe_1 = [];//품목구분
+	//var jsonComGrdAprv_1 = [];//통합조직 구분
+	//var jsonComGrdSttgUpbrItemSe_1 = [];//품목구분
 
-	var jsonComGrdAprv_2 = [];//통합조직 구분
-	var jsonComGrdSttgUpbrItemSe_2 = [];//품목구분
+	//var jsonComGrdAprv_2 = [];//통합조직 구분
+	//var jsonComGrdSttgUpbrItemSe_2 = [];//품목구분
 
 	//적합품목 보유 여부
 	var jsonComStbltHldYn = [
@@ -425,11 +425,11 @@
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonComGrdCorpSeCd, 	'CORP_SE_CD'), //법인구분
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonComGrdAprv, 	'APRV_UPBR_SE_CD'), //신청구분
 
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonComGrdAprv_1, 	'APRV_UPBR_SE_CD'), //신청구분
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonComGrdSttgUpbrItemSe_1, 	'STTG_UPBR_ITEM_SE'), //품목구분
+			//gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonComGrdAprv_1, 	'APRV_UPBR_SE_CD'), //신청구분
+			//gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonComGrdSttgUpbrItemSe_1, 	'STTG_UPBR_ITEM_SE'), //품목구분
 
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng02', 	jsonComGrdAprv_2, 	'APRV_UPBR_SE_CD'), //신청구분
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng02', 	jsonComGrdSttgUpbrItemSe_2, 	'STTG_UPBR_ITEM_SE'), //품목구분
+			//gfn_setComCdSBSelect('grdPrdcrOgnCurntMng02', 	jsonComGrdAprv_2, 	'APRV_UPBR_SE_CD'), //신청구분
+			//gfn_setComCdSBSelect('grdPrdcrOgnCurntMng02', 	jsonComGrdSttgUpbrItemSe_2, 	'STTG_UPBR_ITEM_SE'), //품목구분
 
 		]);
 		console.log("============fn_initSBSelect=====1=======");
@@ -532,21 +532,30 @@
 		//SBGridProperties.whitespacemerge = true;//빈칸 자동병합
 		//SBGridProperties.mergecellsverticalalign = 'bottom';
 		SBGridProperties.columns = [
-				{caption: ["구분"], 	ref: 'sttgUpbrItemNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
-				{caption: ["통합조직\n구분"], 	ref: 'aprv',   	type:'combo',  width:'100px',    style:'text-align:center;', disabled:true
-					,typeinfo : {ref:'jsonComGrdAprv_1', label:'label', value:'value', displayui : false}},
-				{caption: ["품목"], 	ref: 'itemNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
-				{caption: ["부류"], 	ref: 'ctgryNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
-				{caption: ["구분"], 		ref: 'sttgUpbrItemSe',   	type:'combo',  width:'100px',    style:'text-align:center;', disabled:true
-					,typeinfo : {ref:'jsonComGrdSttgUpbrItemSe_1', label:'label', value:'value', displayui : false}},
+				{caption: ["품목"], 			ref: 'itemNm',		type:'output',  width:'100px',    style:'text-align:center;'},
+				{caption: ["통합조직\n구분"], 	ref: 'aprvNm',		type:'output',  width:'55px',    style:'text-align:center;'},
+				{caption: ["구분"], 			ref: 'sttgUpbrItemNm',	type:'output',  width:'55px',    style:'text-align:center;'},
+				{caption: ["부류"], 			ref: 'ctgryNm',		type:'output',  width:'100px',    style:'text-align:center;'},
+				//{caption: ["통합조직\n구분"], 	ref: 'aprv',   	type:'combo',  width:'100px',    style:'text-align:center;', disabled:true
+					//,typeinfo : {ref:'jsonComGrdAprv_1', label:'label', value:'value', displayui : false}},
+				//{caption: ["구분"], 		ref: 'sttgUpbrItemSe',   	type:'combo',  width:'100px',    style:'text-align:center;', disabled:true
+					//,typeinfo : {ref:'jsonComGrdSttgUpbrItemSe_1', label:'label', value:'value', displayui : false}},
+
+				/*
 				{caption: ["통합조직 총\n취급액(천원)(A)"], 		ref: 'slsCnsgnSlsAmtTot',   	type:'output',  width:'100px',    style:'text-align:center;'
 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 				{caption: ["생산자조직\n전속출하액(천원)(B)"], 	ref: 'slsCnsgnSlsAmt',   	type:'output',  width:'120px',    style:'text-align:center;'
 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 				{caption: ["전속취급률(%)\n(B/A)"], 			ref: 'slsCnsgnSlsAmtRt',   		type:'output',  width:'100px',    style:'text-align:center;'
 					,format: {type: 'string', rule: '@" %"'}},
-				{caption: ["적합여부"], 	ref: 'orgStbltYn',   		type:'output',  width:'100px',    style:'text-align:center;'},
-				{caption: ["탈락사유"], 		ref: 'stbltYnNm',   	type:'textarea',  width:'150px',    style:'padding-left:10px'
+				*/
+
+				{caption: ["상세내역"], 	ref: 'slsCnsgnSlsAmtTot',	hidden : true},
+				{caption: ["상세내역"], 	ref: 'slsCnsgnSlsAmt',		hidden : true},
+				{caption: ["상세내역"], 	ref: 'slsCnsgnSlsAmtRt',	hidden : true},
+
+				{caption: ["적합여부"], 	ref: 'orgStbltYn',   		type:'output',  width:'60px',    style:'text-align:center;'},
+				{caption: ["부적합 사유"], 	ref: 'stbltYnNm',   		type:'textarea',  width:'150px',    style:'padding-left:10px'
 					,typeinfo : {textareanewline : true},disabled:true },
 				{caption: ["상세내역"], 	ref: 'apoCd',   		hidden : true},
 				{caption: ["상세내역"], 	ref: 'apoSe',   		hidden : true},
@@ -597,12 +606,18 @@
 		SBGridProperties.rowheight = 72;
 		SBGridProperties.oneclickedit = true;
 		SBGridProperties.columns = [
-			{caption: ["출자출하조직명","출자출하조직명"], 					ref: 'corpNm',   	type:'output',  width:'160px',    style:'text-align:center;'},
-			{caption: ["통합조직\n구분","통합조직\n구분"], 	ref: 'aprv',   	type:'combo',  width:'55px',    style:'text-align:center;', disabled:true
-				,typeinfo : {ref:'jsonComGrdAprv_2', label:'label', value:'value', displayui : false}},
-			{caption: ["품목","품목명"], 								ref: 'itemNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
-			{caption: ["품목","구분"], 		ref: 'sttgUpbrItemSe',   	type:'combo',  width:'55px',    style:'text-align:center;', disabled:true
-				,typeinfo : {ref:'jsonComGrdSttgUpbrItemSe_2', label:'label', value:'value', displayui : false}},
+			{caption: ["품목"],			ref: 'itemNm',   		type:'output',  width:'100px',    style:'text-align:center;'},
+			{caption: ["통합조직\n구분"],	ref: 'aprvNm',   		type:'output',  width:'55px',    style:'text-align:center;'},
+			{caption: ["구분"],			ref: 'sttgUpbrItemNm',	type:'output',  width:'55px',    style:'text-align:center;'},
+			{caption: ["부류"],			ref: 'ctgryCd',   		type:'output',  width:'100px',    style:'text-align:center;'},
+			{caption: ["출자출하조직명"],		ref: 'corpNm',   		type:'output',  width:'160px',    style:'text-align:center;'},
+			{caption: ["사업자번호"],		ref: 'brno',   			type:'output',  width:'80px',    style:'text-align:center;'},
+			//{caption: ["통합조직\n구분","통합조직\n구분"], 	ref: 'aprv',   	type:'combo',  width:'55px',    style:'text-align:center;', disabled:true
+				//,typeinfo : {ref:'jsonComGrdAprv_2', label:'label', value:'value', displayui : false}},
+			//{caption: ["품목","구분"], 		ref: 'sttgUpbrItemSe',		type:'combo',  width:'55px',    style:'text-align:center;', disabled:true
+				//,typeinfo : {ref:'jsonComGrdSttgUpbrItemSe_2', label:'label', value:'value', displayui : false}},
+
+			/*
 			{caption: ["통합조직 판매위임액","생산자조직\n출하(A)(천원)"], 	ref: 'uoSpmtAmt',   	type:'output',  width:'100px',    style:'text-align:center;'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["통합조직 판매위임액","생산자조직 외\n출하(B)(천원)"], 	ref: 'uoSpmtAmtOther',   	type:'output',  width:'100px',    style:'text-align:center;'
@@ -617,20 +632,30 @@
 				, ref: 'uoSpmtAmtRt',   	type:'output',  width:'100px',    style:'text-align:center;'},
 			{caption: ["출자출하조직의\n통합조직 판매위임비율","전체출하\n[(A+B)/E]"] ,format: {type: 'string', rule: '@" %"'}
 				, ref: 'uoSpmtAmtTotRt',   	type:'output',  width:'100px',    style:'text-align:center;'},
-			{caption: ["적합여부","적합여부"], 	ref: 'orgStbltYn',   	type:'output',  width:'70px',    style:'text-align:center;'},
-			{caption: ["탈락사유","탈락사유"], 	ref: 'stbltYnNm',   	type:'textarea',  width:'150px',    style:'padding-left:10px'
+			*/
+
+			{caption: ["상세내역"], 	ref: 'uoSpmtAmt',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'uoSpmtAmtOther',   	hidden : true},
+			{caption: ["상세내역"], 	ref: 'uoOtherSpmtAmt',   	hidden : true},
+			{caption: ["상세내역"], 	ref: 'uoOtherSpmtAmtOther',	hidden : true},
+			{caption: ["상세내역"], 	ref: 'uoSpmtAmtTot',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'uoSpmtAmtRt',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'uoSpmtAmtTotRt',   	hidden : true},
+
+			{caption: ["적합여부"], 	ref: 'orgStbltYn',   	type:'output',  width:'60px',    style:'text-align:center;'},
+			{caption: ["부적합 사유"], 	ref: 'stbltYnNm',   	type:'textarea',  width:'150px',    style:'padding-left:10px'
 				,typeinfo : {textareanewline : true},disabled:true },
 			{caption: ["상세내역"], 	ref: 'apoCd',   		hidden : true},
 			{caption: ["상세내역"], 	ref: 'apoSe',   		hidden : true},
-			{caption: ["상세내역"], 	ref: 'brno',   			hidden : true},
+			//{caption: ["상세내역"], 	ref: 'brno',   			hidden : true},
 			{caption: ["상세내역"], 	ref: 'crno',   			hidden : true},
 			{caption: ["상세내역"], 	ref: 'yr',   			hidden : true},
-			//{caption: ["상세내역"], 	ref: 'ctgryCd',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'ctgryCd',   		hidden : true},
 			{caption: ["상세내역"], 	ref: 'itemCd',   		hidden : true},
-			//{caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
+			{caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
 			{caption: ["상세내역"], 	ref: 'trmtType',   		hidden : true},
 			{caption: ["상세내역"], 	ref: 'stbltYn',   		hidden : true},
-			// {caption: ["상세내역"], 	ref: 'aprv',   			hidden : true},
+			{caption: ["상세내역"], 	ref: 'aprv',   			hidden : true},
 		];
 
 		grdPrdcrOgnCurntMng02 = _SBGrid.create(SBGridProperties);
@@ -671,14 +696,16 @@
 		SBGridProperties.rowheight = 57;
 		//SBGridProperties.rowheader="seq";
 		SBGridProperties.columns = [
-			{caption: ["구분"], 			ref: 'apoSeNm',   	type:'output',  width:'160px',    style:'text-align:center;'},
+			{caption: ["품목"],			ref: 'itemNm',   	type:'output',  width:'150px',    style:'text-align:center'},
+			{caption: ["통합조직\n구분"], 	ref: 'aprvNm',   	type:'output',  width:'55px',    style:'text-align:center;'},
+			{caption: ["전문/육성\n구분"], 	ref: 'sttgUpbrItemNm',type:'output',  width:'55px',    style:'text-align:center;'},
+			{caption: ["분류"],			ref: 'ctgryNm',   	type:'output',  width:'70px',    style:'text-align:center'},
 			{caption: ["법인명"], 			ref: 'corpNm',   	type:'output',  width:'160px',    style:'text-align:center;'},
 			{caption: ["통합조직 법인명"], 	ref: 'uoCorpNm',   	type:'output',  width:'160px',    style:'text-align:center;'},
 			{caption: ["생산자조직 명"], 	ref: 'prdcrOgnzNm',   	type:'output',  width:'180px',    style:'text-align:center'},
-			{caption: ["품목"],			ref: 'itemNm',   	type:'output',  width:'150px',    style:'text-align:center'},
-			{caption: ["분류"],			ref: 'ctgryNm',   	type:'output',  width:'70px',    style:'text-align:center'},
 			{caption: ["취급유형"], 		ref: 'trmtTypeNm',   	type:'output',  width:'85px',    style:'text-align:center'},
 
+			/*
 			{caption: ["조직원수"], 					ref: 'cnt',   	type:'output',  width:'60px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["생산량\n(결과)(톤)[A]"], 	ref: 'prdctnVlmTot',   	type:'output',  width:'100px',    style:'text-align:center'
@@ -696,8 +723,18 @@
 				, ref: 'ecSpmtRateA',   	type:'output',  width:'100px',    style:'text-align:center;'},
 			{caption: ["출하비율(%)\n(육성형)[C/B]"] ,format: {type: 'string', rule: '@" %"'}
 				, ref: 'ecSpmtRateB',   	type:'output',  width:'100px',    style:'text-align:center;'},
-			{caption: ["적합여부"], 		ref: 'orgStbltYn',   	type:'output',  width:'50px',    style:'text-align:center'},
-			{caption: ["탈락사유"], 		ref: 'stbltYnNm',   	type:'textarea',  width:'150px',    style:'padding-left:10px'
+			*/
+
+			{caption: ["상세내역"], 	ref: 'cnt',   			hidden : true},
+			{caption: ["상세내역"], 	ref: 'prdctnVlmTot',   			hidden : true},
+			{caption: ["상세내역"], 	ref: 'ecSpmtPlanVlmTot',   			hidden : true},
+			{caption: ["상세내역"], 	ref: 'ecSpmtVlmTot',   			hidden : true},
+			{caption: ["상세내역"], 	ref: 'spmtPrcTot',   			hidden : true},
+			{caption: ["상세내역"], 	ref: 'ecSpmtRateA',   			hidden : true},
+			{caption: ["상세내역"], 	ref: 'ecSpmtRateB',   			hidden : true},
+
+			{caption: ["적합여부"], 		ref: 'orgStbltYn',   	type:'output',  width:'60px',    style:'text-align:center'},
+			{caption: ["부적합 사유"], 		ref: 'stbltYnNm',   	type:'textarea',  width:'150px',    style:'padding-left:10px'
 				,typeinfo : {textareanewline : true},disabled:true },
 			//{caption: ["비고"], 			ref: 'rmrk',   		type:'input',  width:'220px',    style:'text-align:center'},
 
@@ -956,6 +993,7 @@
 						,ctgryCd: item.ctgryCd
 						,ctgryNm: item.ctgryNm
 						,aprv: item.aprv
+						,aprvNm: item.aprvNm
 
 						,slsCnsgnSlsAmt: item.slsCnsgnSlsAmt
 						,slsCnsgnSlsAmtTot: item.slsCnsgnSlsAmtTot
@@ -1012,7 +1050,8 @@
 						,delYn: item.delYn
 						,yr: item.yr
 
-						,aprv: item.aprv
+						,aprv	: item.aprv
+						,aprvNm	: item.aprvNm
 
 						,sttgUpbrItemSe: item.sttgUpbrItemSe
 						,sttgUpbrItemNm: item.sttgUpbrItemNm
@@ -1078,12 +1117,19 @@
 						,corpNm: item.corpNm
 						,uoCorpNm: item.uoCorpNm
 						,yr: item.yr
+
 						,aprv: item.aprv//승인형 육성형
-						//,aprvNm: item.aprvNm
+						,aprvNm: item.aprvNm
+
+						,sttgUpbrItemSe: item.sttgUpbrItemSe
+						,sttgUpbrItemNm: item.sttgUpbrItemNm
+
 						,trmtType: item.trmtType
 						,trmtTypeNm: item.trmtTypeNm
+
 						,ctgryCd: item.ctgryCd
 						,ctgryNm: item.ctgryNm
+
 						,itemCd: item.itemCd
 						,itemNm: item.itemNm
 

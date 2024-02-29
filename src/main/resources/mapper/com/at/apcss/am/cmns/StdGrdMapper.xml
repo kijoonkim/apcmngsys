@@ -107,7 +107,7 @@
 			   AND SG.DEL_YN = #{delYn}
 		</if>
 		<![CDATA[
-			 ORDER BY APC_CD, ITEM_CD, GRD_SE_CD, SN
+			 ORDER BY APC_CD, ITEM_CD, GRD_SE_CD, SN, GRD_KND
 		]]>
 
     </select>
@@ -290,6 +290,7 @@
 			    , SGD.AFTR_GRD_KND	AS AFTR_GRD_KND
 				, SGD.AFTR_GRD_CD	AS AFTR_GRD_CD
 				, SGD.LINK_GRD_CD	AS LINK_GRD_CD
+				, SGD.MNG_TYPE		AS MNG_TYPE
 				, SG.ITEM_CD || SG.GRD_KND || SGD.GRD_CD	AS ITEM_GRD_CD
 			    , SGD.SN            AS SN
 			    , SGD.DEL_YN        AS DEL_YN
@@ -324,7 +325,7 @@
 			   AND SG.DEL_YN = #{delYn}
 		</if>
 		<![CDATA[
-			 ORDER BY ITEM_CD, GRD_SE_CD, GRD_KND, SN
+			 ORDER BY ITEM_CD, GRD_SE_CD, GRD_KND, SN, GRD_CD
 		]]>
 
     </select>
@@ -353,6 +354,7 @@
 				  	, AFTR_GRD_KND
 				  	, AFTR_GRD_CD
 				  	, LINK_GRD_CD
+				  	, MNG_TYPE
 					, SYS_FRST_INPT_DT
 					, SYS_FRST_INPT_USER_ID
 					, SYS_FRST_INPT_PRGRM_ID
@@ -373,6 +375,7 @@
 				    , #{aftrGrdKnd}
 				    , #{aftrGrdCd}
 				    , #{linkGrdCd}
+				    , #{mngType}
 					, SYSDATE
 					, #{sysFrstInptUserId}
 					, #{sysFrstInptPrgrmId}
@@ -405,6 +408,7 @@
 				, AFTR_GRD_KND				= #{aftrGrdKnd}
 				, AFTR_GRD_CD				= #{aftrGrdCd}
 				, LINK_GRD_CD				= #{linkGrdCd}
+				, MNG_TYPE					= #{mngType}
 			 WHERE APC_CD 		= #{apcCd}
 			   AND ITEM_CD 		= #{itemCd}
 			   AND GRD_SE_CD 	= #{grdSeCd}

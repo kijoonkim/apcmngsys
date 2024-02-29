@@ -1720,8 +1720,22 @@
 	const fn_report2 = async function() {
 		let apoSeVal = SBUxMethod.get('dtl-input-apoSe');
 		let uoBrnoVal = SBUxMethod.get('dtl-input-uoBrno');
+		let uoCorpNm;
+		if (comUoBrno.length > 0) {
+			let selVal = SBUxMethod.get('dtl-input-selUoBrno');
+			let selCombo = _.find(comUoBrno, {value : selVal});
+			uoCorpNm =  selCombo.text;
+		}else{
+			uoCorpNm = uoBrnoVal;
+		}
+
 		let brno = SBUxMethod.get('dtl-input-brno');
 		let yr = SBUxMethod.get('dtl-input-yr');
+		if(gfn_isEmpty(yr)){
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
 
 		if(gfn_isEmpty(brno)){
 			alert("조직을 선택해주세요");
@@ -1743,14 +1757,12 @@
 		let corpNm = $('#dtl-input-corpNm').val();
 		let buisNo = $('#dtl-input-brno').val();
 
-
-
-		console.log(brno,yr);
-
 		gfn_popClipReport("생산자조직 리스트", "pd/prdDoc2.crf", {
 			brno		: gfn_nvl(brno)
 			, apcgu		: gfn_nvl(apcgu)
 			, uobrno 	: gfn_nvl(uoBrnoVal)
+			, uoNm		: gfn_nvl(uoCorpNm)
+			, yr 		: gfn_nvl(yr)
 			, corpNm	: gfn_nvl(corpNm)
 			, buisNo	: gfn_nvl(buisNo)
 		});
@@ -1761,33 +1773,51 @@
 	const fn_report4 = async function() {
 		let apoSeVal = SBUxMethod.get('dtl-input-apoSe');
 		let uoBrnoVal = SBUxMethod.get('dtl-input-uoBrno');
+		let uoCorpNm;
+		if (comUoBrno.length > 0) {
+			let selVal = SBUxMethod.get('dtl-input-selUoBrno');
+			let selCombo = _.find(comUoBrno, {value : selVal});
+			uoCorpNm =  selCombo.text;
+		}else{
+			uoCorpNm = uoBrnoVal;
+		}
+
 		let brno = SBUxMethod.get('dtl-input-brno');
 		let yr = SBUxMethod.get('dtl-input-yr');
+		if(gfn_isEmpty(yr)){
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
 
 		if(gfn_isEmpty(brno)){
 			alert("조직을 선택해주세요");
 			return false;
 		}
-
+		let apcgu;
 		if(apoSeVal == '2'){
 			if(gfn_isEmpty(uoBrnoVal)){
 				alert("통합조직을 선택해 주세요");
 				return;
 			}
+			apcgu = '출자출하조직'
 		}else if(apoSeVal == '1'){
 			uoBrnoVal = null;
+			apcgu = '통합조직'
 		}
 
 		let apcguVal = $('#dtl-input-apoSe option:checked').text();;
 		let corpNm = $('#dtl-input-corpNm').val();
 		let buisNo = $('#dtl-input-brno').val();
 
-
-
 		gfn_popClipReport("생산자조직 리스트", "pd/prdDocAll.crf", {
 			brno		: gfn_nvl(brno)
+			, apcgu		: gfn_nvl(apcgu)
 			, uobrno 	: gfn_nvl(uoBrnoVal)
-			, yr 	: gfn_nvl(yr)
+			, uoNm		: gfn_nvl(uoCorpNm)
+			, yr 		: gfn_nvl(yr)
+			, corpNm	: gfn_nvl(corpNm)
+			, buisNo	: gfn_nvl(buisNo)
 		});
 		//debugger;
 	}
@@ -1880,10 +1910,12 @@
 
 		let itemCd = SBUxMethod.get('dtl-input-itemCd');
 		let apoCd = SBUxMethod.get('dtl-input-apoCd');
+		let yr = SBUxMethod.get('dtl-input-yr');
 
 		gfn_popClipReport("농가리스트 현황", "pd/prdDoc3.crf", {
 			apocd			: gfn_nvl(apoCd)
 			, prdcrognzsn	: gfn_nvl(prdcrOgnzSn)
+			, yr			: gfn_nvl(yr)
 		});
 	}
 

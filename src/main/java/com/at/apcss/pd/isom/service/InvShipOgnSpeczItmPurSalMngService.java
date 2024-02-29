@@ -43,4 +43,6 @@ public interface InvShipOgnSpeczItmPurSalMngService {
 	public List<ItemStbltYnVO> selectItemStbltYnList(ItemStbltYnVO ItemStbltYnVo) throws Exception;
 
 	public int updateItemStbltYn(ItemStbltYnVO ItemStbltYnVo) throws Exception;
+
+	public List<InvShipOgnSpeczItmPurSalMngVO> selectRawDataList(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO) throws Exception;
 }

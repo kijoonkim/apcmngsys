@@ -37,4 +37,6 @@ public interface InvShipOgnGenalTblMngMapper {
 
 	public int updateStbltYn(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO);
 
+	public List<InvShipOgnGenalTblMngVO> selectRawDataList(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO);
+
 }

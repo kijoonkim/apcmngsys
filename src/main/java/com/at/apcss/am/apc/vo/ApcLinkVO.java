@@ -50,4 +50,11 @@ public class ApcLinkVO  extends ComVO{
 	private String pckgDspDt;
 	private String spmtDspDt;
 	
+	private String trsmMatSttsColor;
+	private String wghSttsColor;
+	private String wrhsSttsColor;
+	private String sortSttsColor;
+	private String pckgSttsColor;
+	private String spmtSttsColor;
+	
 }

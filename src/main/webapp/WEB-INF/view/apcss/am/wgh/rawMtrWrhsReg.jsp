@@ -1532,7 +1532,6 @@
 		}
 
 		const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'RT_DOC');
-		console.log("rptUrl", rptUrl);
 		//gfn_printClipReport("am/rawMtrIdntyDoc.crf", {apcCd: gv_selectedApcCd, wrhsno: wrhsno});
 		//gfn_popClipReport("원물인식표", "am/rawMtrIdntyDoc.crf", {apcCd: gv_selectedApcCd, wrhsno: wrhsno});
 		gfn_popClipReport("원물인식표", rptUrl, {apcCd: gv_selectedApcCd, wrhsno: wrhsno});

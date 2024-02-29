@@ -44,4 +44,6 @@ public interface PrdcrCrclOgnSpItmPurSalNMngService {
 
 	public int updateItemUoStbltYn(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception;
 
+	public List<PrdcrCrclOgnSpItmPurSalNMngVO> selectRawDataList(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalYMngVO) throws Exception;
+
 }

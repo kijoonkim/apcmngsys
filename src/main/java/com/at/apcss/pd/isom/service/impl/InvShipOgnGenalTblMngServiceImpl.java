@@ -60,4 +60,10 @@ public class InvShipOgnGenalTblMngServiceImpl extends BaseServiceImpl implements
 		return updatedCnt;
 	}
 
+	@Override
+	public List<InvShipOgnGenalTblMngVO> selectRawDataList(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception {
+
+		List<InvShipOgnGenalTblMngVO> resultList = InvShipOgnGenalTblMngMapper.selectRawDataList(InvShipOgnGenalTblMngVO);
+		return resultList;
+	}
 }

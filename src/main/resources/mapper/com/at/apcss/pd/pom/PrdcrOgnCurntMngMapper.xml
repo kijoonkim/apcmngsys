@@ -974,5 +974,5 @@
 		AND TEFA.YR = TEFPSS.YR
 		AND TEFA.BRNO = TEFPSS.BRNO)TOTAL
 		ORDER BY TOTAL.PRDCR_OGNZ_SN ASC
-    </select>
+	</select>
 </mapper>

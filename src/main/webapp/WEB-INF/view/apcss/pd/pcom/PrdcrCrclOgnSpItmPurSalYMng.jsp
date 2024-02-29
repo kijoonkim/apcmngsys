@@ -23,6 +23,7 @@
 				</div>
 				<div style="margin-left: auto;">
 				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
+					<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 
 					<c:if test="${loginVO.userType ne '02'}">
@@ -326,8 +327,8 @@
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:880px; width: 100%;"></div>
 				</div>
-
 			</div>
+			<div id="sb-area-hiddenGrd" style="height:400px; width: 100%; display: none;"></div>
 		</div>
 	</section>
 </body>
@@ -856,7 +857,9 @@
 	/* 출력물 */
 	const fn_report2 = async function() {
 		let brno = SBUxMethod.get("dtl-input-brno");//
+		let crno = SBUxMethod.get("dtl-input-crno");//
 		let yr = SBUxMethod.get("dtl-input-yr");//
+		let corpNm = SBUxMethod.get("dtl-input-corpNm");//
 
 		if(brno == null || brno == ""){
 			alert("법인을 선택해주세요");
@@ -866,6 +869,9 @@
 		gfn_popClipReport("판매위임[매입] 및 출하[매출] 실적", "pd/sptDoc4.crf", {
 			brno			: gfn_nvl(brno)
 			, yr			: gfn_nvl(yr)
+			, corpNo		: gfn_nvl(crno)
+			, corpNm		: gfn_nvl(corpNm)
+			, buisNo		: gfn_nvl(brno)
 		});
 	}
 
@@ -1299,23 +1305,145 @@
 		if(confirm(regMsg)){
 
 			let postJsonPromise = gfn_postJSON("/pd/pcom/multiSavePrdcrCrclOgnSpItmPurSalYMngList.do", saveList);
-	        let data = await postJsonPromise;
-	        try {
-	        	if (_.isEqual("S", data.resultStatus)) {
-	        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
-	        		fn_dtlGridSearch();
-	        		//fn_searchFcltList();
-	        	} else {
-	        		alert(data.resultMessage);
-	        	}
-	        } catch (e) {
-	    		if (!(e instanceof Error)) {
-	    			e = new Error(e);
-	    		}
-	    		console.error("failed", e.message);
-	        }
+			let data = await postJsonPromise;
+			try {
+				if (_.isEqual("S", data.resultStatus)) {
+					gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+					fn_dtlGridSearch();
+					//fn_searchFcltList();
+				} else {
+					alert(data.resultMessage);
+				}
+			} catch (e) {
+				if (!(e instanceof Error)) {
+					e = new Error(e);
+				}
+				console.error("failed", e.message);
+			}
 
 		}
+	}
+
+	/* 로우데이터 요청 */
+
+	var jsonHiddenGrd = []; // 그리드의 참조 데이터 주소 선언
+	var hiddenGrd;
+
+	/* Grid 화면 그리기 기능*/
+	const fn_hiddenGrd = async function() {
+
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-hiddenGrd';
+		SBGridProperties.id = 'hiddenGrd';
+		SBGridProperties.jsonref = 'jsonHiddenGrd';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.rowheader="seq";
+		SBGridProperties.columns = [
+			{caption: ["신청년도"],				ref:'yr', 				type:'output', width:'70px',	style:'text-align:center'},
+			{caption: ["사업자번호"],			ref:'brno', 			type:'output', width:'100px',	style:'text-align:center'},
+			{caption: ["법인명"],				ref:'corpNm', 			type:'output', width:'100px',	style:'text-align:center'},
+			{caption: ["통합조직 구분"],			ref:'aprv', 			type:'output', width:'70px',	style:'text-align:center'},
+			{caption: ["구분"],				ref:'typeSeNo', 		type:'output', width:'90px',	style:'text-align:center'},
+			{caption: ["구분명"],				ref:'typeSeNoNm', 		type:'output', width:'100px',	style:'text-align:center'},
+			{caption: ["품목명"],				ref:'itemNm', 			type:'output', width:'100px',	style:'text-align:center'},
+			{caption: ["분류명"],				ref:'ctgryNm', 			type:'output', width:'100px',	style:'text-align:center'},
+			{caption: ["전문/육성 구분"],		ref:'sttgUpbrItemNm', 	type:'output', width:'120px',	style:'text-align:center'},
+			{caption: ["취급유형"],				ref:'trmtTypeNm',		type:'output', width:'100px',	style:'text-align:center'},
+			{caption: ["출자출하조직 사업자번호"],	ref:'isoBrno', 			type:'output', width:'120px',	style:'text-align:center'},
+			{caption: ["출자출하조직 법인명	"],		ref:'isoCorpNm', 		type:'output', width:'120px',	style:'text-align:center'},
+			{caption: ["생산자조직 번호"],		ref:'prdcrOgnzSn', 		type:'output', width:'140px',	style:'text-align:center'},
+			{caption: ["생산자조직명"],			ref:'prdcrOgnzNm', 		type:'output', width:'120px',	style:'text-align:center'},
+			{caption: ["판매위임 매입 금액"],		ref:'slsCnsgnPrchsAmt', type:'output', width:'120px',	style:'text-align:center'},
+			{caption: ["판매 매출 금액"],		ref:'slsCnsgnSlsAmt', 	type:'output', width:'120px',	style:'text-align:center'},
+			{caption: ["비고"],				ref:'rmrk', 			type:'output', width:'70px',	style:'text-align:center'},
+			{caption: ["적합여부"],				ref:'stbltYn', 			type:'output', width:'90px',	style:'text-align:center'}
+		];
+
+		hiddenGrd = _SBGrid.create(SBGridProperties);
+
+	}
+	const fn_hiddenGrdSelect = async function(){
+		await fn_hiddenGrd();
+		let yr = SBUxMethod.get("srch-input-yr");
+		if (gfn_isEmpty(yr)) {
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
+
+		let postJsonPromise = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnSpItmPurSalYMngRawDataList.do", {
+		    yr : yr
+			});
+
+			let data = await postJsonPromise;
+			try{
+			jsonHiddenGrd.length = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
+				let hiddenGrdVO = {
+					yr					: item.yr
+					,brno				: item.brno
+					,corpNm				: item.corpNm
+					,aprv				: item.aprv
+					,typeSeNo			: item.typeSeNo
+					,typeSeNoNm			: item.typeSeNoNm
+					,itemNm				: item.itemNm
+					,ctgryNm			: item.ctgryNm
+					,sttgUpbrItemNm		: item.sttgUpbrItemNm
+					,trmtTypeNm			: item.trmtTypeNm
+					,isoBrno			: item.isoBrno
+					,isoCorpNm			: item.isoCorpNm
+					,prdcrOgnzSn		: item.prdcrOgnzSn
+					,prdcrOgnzNm		: item.prdcrOgnzNm
+					,slsCnsgnPrchsAmt	: item.slsCnsgnPrchsAmt
+					,slsCnsgnSlsAmt		: item.slsCnsgnSlsAmt
+					,rmrk				: item.rmrk
+					,stbltYn			: item.stbltYn
+				}
+				jsonHiddenGrd.push(hiddenGrdVO);
+			});
+
+			await hiddenGrd.rebuild();
+
+			await fn_excelDown();
+
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+	    }
+	}
+	//로우 데이터 엑셀 다운로드
+	function fn_excelDown(){
+		const currentDate = new Date();
+
+		const year = currentDate.getFullYear().toString().padStart(4, '0');
+		const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');// 월은 0부터 시작하므로 1을 더합니다.
+		const day = currentDate.getDate().toString().padStart(2, '0');
+		let formattedDate = year + month + day;
+
+		let fileName = formattedDate + "_전문품목매입매출_통합조직_로우데이터";
+
+		/*
+		datagrid.exportData(param1, param2, param3, param4);
+		param1(필수)[string]: 다운 받을 파일 형식
+		param2(필수)[string]: 다운 받을 파일 제목
+		param3[boolean]: 다운 받을 그리드 데이터 기준 (default:'false')
+		→ true : csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 다운로드
+		→ false : csv/xls/xlsx 형식의 데이터 다운로드를 jsonref 기준으로 다운로드
+		param4[object]: 다운 받을 그리드 데이터 기준 (default:'false')
+		→ arrRemoveCols(선택): csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 할 때 다운로드에서 제외할 열
+		→ combolabel(선택) : csv/xls/xlsx combo/inputcombo 일 때 label 값으로 저장
+		→ true : label 값으로 저장
+		→ false : value 값으로 저장
+		→ sheetName(선택) : xls/xlsx 형식의 데이터 다운로드시 시트명을 설정
+		 */
+		//console.log(hiddenGrd.exportData);
+		hiddenGrd.exportData("xlsx" , fileName , true , true);
 	}
 
 </script>

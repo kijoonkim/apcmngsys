@@ -717,7 +717,6 @@
 				<if test='uoBrno == null or uoBrno == ""'>
 				AND CLT.UO_BRNO	 			= '0'
 				</if>
-				AND CLT.CTGRY_CD 			= #{ctgryCd}
 				AND CLT.ITEM_CD	 			= #{itemCd}
 				AND CLT.STTG_UPBR_ITEM_SE	= #{sttgUpbrItemSe}
 				AND CLT.YR	 				= #{yr}
@@ -733,6 +732,8 @@
 		    	        , ETC_VLM				= #{etcVlm}
 		    	        , ETC_AMT				= #{etcAmt}
 
+		    	        , CTGRY_CD				= #{ctgryCd}
+
 		    	        , RMRK					= #{rmrk}
 
 		    	        , SYS_LAST_CHG_DT		= SYSDATE
@@ -747,7 +748,6 @@
 						<if test='uoBrno == null or uoBrno == ""'>
 						AND CLT.UO_BRNO	 			= '0'
 						</if>
-						AND CLT.CTGRY_CD 			= #{ctgryCd}
 						AND CLT.ITEM_CD	 			= #{itemCd}
 						AND CLT.STTG_UPBR_ITEM_SE	= #{sttgUpbrItemSe}
 						AND CLT.YR	 				= #{yr}
@@ -834,7 +834,6 @@
 				<if test='uoBrno == null or uoBrno == ""'>
 				AND CLT.UO_BRNO	 			= '0'
 				</if>
-				AND CLT.CTGRY_CD 			= #{ctgryCd}
 				AND CLT.ITEM_CD	 			= #{itemCd}
 				AND CLT.STTG_UPBR_ITEM_SE	= #{sttgUpbrItemSe}
 				AND CLT.YR	 				= #{yr}
@@ -881,6 +880,8 @@
 		    	        , TOT_SPMT_PRFMNC_VLM	= #{totSpmtPrfmncVlm}
 		    	        , TOT_SPMT_PRFMNC_AMT	= #{totSpmtPrfmncAmt}
 
+		    	        , CTGRY_CD				= #{ctgryCd}
+
 		    	        , RMRK					= #{rmrk}
 
 		    	        , SYS_LAST_CHG_DT		= SYSDATE
@@ -895,7 +896,6 @@
 					 <if test='uoBrno == null or uoBrno == ""'>
 					 AND CLT.UO_BRNO	 		= '0'
 					 </if>
-					 AND CLT.CTGRY_CD			= #{ctgryCd}
 					 AND CLT.ITEM_CD			= #{itemCd}
 					 AND CLT.STTG_UPBR_ITEM_SE	= #{sttgUpbrItemSe}
 					 AND CLT.YR	 				= #{yr}
@@ -1297,5 +1297,113 @@
 					 AND APO_SE 			= '2'
 					 AND YR	 				= #{yr}
 	</delete>
+	<!-- 총매입매출 출자출하조직 로우데이터 -->
+	<select id="selectRawDataList" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO">
+		SELECT /* com.at.apcss.pd.isom.mapper.InvShipOgnPurSalMngMapper.selectRawDataList */
+			YR
+			, BRNO
+			, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = A.BRNO) AS CORP_NM
+			, DECODE( (SELECT APRV
+						FROM TB_EV_APO
+						WHERE BRNO = (SELECT UO_BRNO
+										FROM TB_EV_APLY_MNG
+										WHERE  YR = A.YR
+										  AND BRNO = A.BRNO
+									)
+						)
+						, '1' , '승인형'
+						, '2' , '육성형'
+						, ''
+			) AS APRV
+			, PRCHS_SLS_SE
+			, DECODE(A.PRCHS_SLS_SE,'1','매입',2,'매출','') AS PRCHS_SLS_SE_NM
+			, STTG_UPBR_ITEM_SE
+			, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE_1' AND CD_VL = A.STTG_UPBR_ITEM_SE) AS STTG_UPBR_ITEM_NM
+			, ITEM_CD
+			, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = A.ITEM_CD) AS ITEM_NM
+			, CTGRY_CD
+			, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD_1' AND CD_VL = A.CTGRY_CD) AS CTGRY_NM
+			, UO_BRNO
+			, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = A.UO_BRNO) AS UO_CORP_NM
 
+			/*매입*/
+			, PRCHS_TRST_VLM
+			, PRCHS_TRST_AMT
+			, PRCHS_EMSPAP_VLM
+			, PRCHS_EMSPAP_AMT
+			, NVL(PRCHS_TRST_VLM , 0) + NVL(PRCHS_EMSPAP_VLM , 0) AS PRCHS_TOT_VLM
+			, NVL(PRCHS_EMSPAP_AMT , 0) + NVL(PRCHS_EMSPAP_AMT , 0) AS PRCHS_TOT_AMT
+
+			,ETC_VLM
+			,ETC_AMT
+
+			/*매출*/
+			, SLS_CPRTN_SORT_TRST_VLM
+			, SLS_CPRTN_SORT_TRST_AMT
+			, SLS_CPRTN_TRST_VLM
+			, SLS_CPRTN_TRST_AMT
+			, SLS_CPRTN_SORT_EMSPAP_VLM
+			, SLS_CPRTN_SORT_EMSPAP_AMT
+
+			, NVL(SLS_CPRTN_SORT_TRST_VLM , 0)
+				+ NVL(SLS_CPRTN_TRST_VLM , 0)
+				+ NVL(SLS_CPRTN_SORT_EMSPAP_VLM , 0)
+			AS SLS_CPRTN_VLM_TOT
+			, NVL(SLS_CPRTN_SORT_TRST_AMT , 0)
+				+ NVL(SLS_CPRTN_TRST_AMT , 0)
+				+ NVL(SLS_CPRTN_SORT_EMSPAP_AMT , 0)
+			AS SLS_CPRTN_AMT_TOT
+
+			/*공제*/
+			, DDC_EXPRT_VLM
+			, DDC_EXPRT_AMT
+			, DDC_VLM
+			, DDC_AMT
+			, DDC_ARMY_DLVGDS_VLM
+			, DDC_ARMY_DLVGDS_AMT
+			, DDC_MLSR_VLM
+			, DDC_MLSR_AMT
+
+			, NVL(DDC_EXPRT_VLM , 0)
+				+ NVL(DDC_VLM , 0)
+				+ NVL(DDC_ARMY_DLVGDS_VLM , 0)
+				+ NVL(DDC_MLSR_VLM , 0)
+			AS DDC_VLM_TOT
+			, NVL(DDC_EXPRT_AMT , 0)
+				+ NVL(DDC_AMT , 0)
+				+ NVL(DDC_ARMY_DLVGDS_AMT , 0)
+				+ NVL(DDC_MLSR_AMT , 0)
+			AS DDC_AMT_TOT
+
+			, SPMT_PRFMNC_VLM
+			, SPMT_PRFMNC_AMT
+			, SMPL_INPT_VLM
+			, SMPL_INPT_AMT
+
+			, AJMT_VLM
+			, AJMT_AMT
+
+			/* 총 실적 */
+			, TOT_TRMT_PRFMNC_VLM
+			, TOT_TRMT_PRFMNC_AMT
+			, TOT_SPMT_PRFMNC_VLM
+			, TOT_SPMT_PRFMNC_AMT
+
+		FROM TB_EV_UO_ISO_ALL_PRCHS_SLS A
+		WHERE APO_SE ='2'
+			AND YR = #{yr}
+			AND BRNO NOT IN (SELECT BRNO
+								FROM TB_COM_USER
+								WHERE USER_ID IN ('at21','at22','at23','at24','at25','at26','at27','at61')
+							)
+			AND UO_BRNO NOT IN (SELECT BRNO
+								FROM TB_COM_USER
+								WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51')
+								)
+			AND ITEM_CD = DECODE(STTG_UPBR_ITEM_SE
+									, '3' , A.ITEM_CD
+									, (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE BRNO = A.UO_BRNO AND YR = A.YR AND ITEM_CD = A.ITEM_CD)
+								)
+		ORDER BY BRNO , PRCHS_SLS_SE  , A.STTG_UPBR_ITEM_SE , UO_BRNO , ITEM_CD
+	</select>
 </mapper>

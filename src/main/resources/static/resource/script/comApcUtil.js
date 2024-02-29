@@ -5,6 +5,24 @@
  */
 
 
+let gv_apcStng;
+
+const gfn_getApcStng = async function(_apcCd) {
+	
+	try{
+		const postJsonPromise = gfn_postJSON("/am/apc/selectApcEvrmntStng.do", {apcCd : _apcCd});
+		let data = await postJsonPromise;
+		if (_.isEqual("S", data.resultStatus)) {
+			gv_apcStng = data.resultMap;
+		} else {
+			gv_apcStng = null;
+		}
+	} catch(e) {
+		gv_apcStng = null;
+	} finally {
+		return gv_apcStng;
+	}
+}
 
 /**
  * @name gfn_apcEstmtWght

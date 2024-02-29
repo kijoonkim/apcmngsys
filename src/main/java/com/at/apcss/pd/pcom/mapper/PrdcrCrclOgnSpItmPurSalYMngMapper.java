@@ -41,4 +41,6 @@ public interface PrdcrCrclOgnSpItmPurSalYMngMapper {
 	public int updateItemUoStbltYn(ItemUoStbltYnVO ItemUoStbltYnVo);
 
 	public void updateItemUoStbltYnInit(ItemUoStbltYnVO ItemUoStbltYnVo);
+
+	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectRawDataList(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO);
 }
