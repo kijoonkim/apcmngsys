@@ -24,7 +24,7 @@
 			,TOTAL.BRNO
 			,TOTAL.YR
 			,TOTAL.APRV
-			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'APRV_UPBR_SE_CD' AND CD_VL = TOTAL.APRV) AS APRV_NM
+			,TOTAL.APRV_NM
 			,TOTAL.CORP_NM
 			,TOTAL.SLS_CNSGN_SLS_AMT
 			,TOTAL.SLS_CNSGN_SLS_AMT_TOT
@@ -328,6 +328,7 @@
 						AND ITEM.ITEM_CD = TOTB.ITEM_CD(+)
 				)TOT
 		)TOTAL
+		ORDER BY ITEM_CD , UO_BRNO , BRNO
 	</select>
 
 	<!-- 출자출하조직 등록결과 리스트 -->
@@ -493,6 +494,7 @@
 						AND ITEM.BRNO = TOTB.BRNO(+)
 				)TOT
 		)TOTAL
+		ORDER BY ITEM_CD , BRNO
 	</select>
 	<!-- 생산자조직 등록결과 리스트 -->
 	<select id="selectFrmhsList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
