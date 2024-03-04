@@ -284,10 +284,134 @@
 							</td>
 							<td class="td_input"  style="border-left: hidden;">
 						</tr>
+						<!--
+						<tr>
+							<th scope="row" class="th_bg th_border_right">적합여부</th>
+							<td colspan="2" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-stbltYn"
+									name="dtl-input-stbltYn"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>
+							</td>
+							<td class="td_input"  style="border-left: hidden;">
+							<th scope="row" class="th_bg th_border_right">자금신청액</th>
+							<td colspan="2" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-fundAplyAmtTot"
+									name="dtl-input-fundAplyAmtTot"
+									class="form-control input-sm"
+									autocomplete="off"
+									readonly
+								></sbux-input>(출자출하조직 자금신청액 포함)
+							</td>
+							<td class="td_input"  style="border-left: hidden;">
+							</td>
+							<th scope="row" class="th_bg th_border_right">금리</th>
+							<td colspan="2" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-input-aa"
+									name="dtl-input-aa"
+									class="form-control input-sm"
+									mask = "{ 'alias': 'decimal' , 'digits': 2, 'radixPoint': '.', 'autoFillDigits': false }"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+							<td class="td_input"  style="border-left: hidden;">
+						</tr>
+						-->
 					</tbody>
 				</table>
 				<br>
 				<!--[pp] 검색결과 상세보기-->
+				<div class="ad_section_top">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">▶생산자조직 -적합조직</span>
+								<!--
+								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+								 -->
+							</li>
+						</ul>
+					</div>
+					<!-- SBGrid를 호출합니다. -->
+					<div id="sb-area-grdPrdcrOgnCurntMng03" style="height:200px; width: 100%;"></div>
+				</div>
+				<div class="ad_section_top">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">▶생산자조직 -부적합조직</span>
+								<!--
+								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+								 -->
+							</li>
+						</ul>
+					</div>
+					<!-- SBGrid를 호출합니다. -->
+					<div id="sb-area-grdPrdcrOgnCurntMng04" style="height:200px; width: 100%;"></div>
+				</div>
+
+				<div class="ad_section_top">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">▶출자출하조직 -적합조직</span>
+								<!--
+								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+								 -->
+							</li>
+						</ul>
+					</div>
+					<!-- SBGrid를 호출합니다. -->
+					<div id="sb-area-grdPrdcrOgnCurntMng02" style="height:200px; width: 100%;"></div>
+				</div>
+
+				<div class="ad_section_top">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">▶출자출하조직 -부적합조직</span>
+								<!--
+								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+								 -->
+							</li>
+						</ul>
+					</div>
+					<!-- SBGrid를 호출합니다. -->
+					<div id="sb-area-grdPrdcrOgnCurntMng05" style="height:200px; width: 100%;"></div>
+				</div>
+
+				<div class="ad_section_top">
+					<div class="box-header" style="display:flex; justify-content: flex-start;" >
+						<div style="margin-left: auto;">
+
+							<c:if test="${loginVO.userType ne '02'}">
+								<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="출자출하조직 총괄 저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave01"></sbux-button>
+							</c:if>
+
+						</div>
+					</div>
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">▶출자출하조직 -총괄</span>
+								<!--
+								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+								 -->
+							</li>
+						</ul>
+					</div>
+					<!-- SBGrid를 호출합니다. -->
+					<div id="sb-area-grdPrdcrOgnCurntMng06" style="height:200px; width: 100%;"></div>
+				</div>
+
 				<div class="ad_section_top">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
@@ -300,13 +424,23 @@
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:350px; width: 100%;"></div>
+					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:200px; width: 100%;"></div>
 				</div>
+
 				<div class="ad_section_top">
+					<div class="box-header" style="display:flex; justify-content: flex-start;" >
+						<div style="margin-left: auto;">
+
+							<c:if test="${loginVO.userType ne '02'}">
+								<sbux-button id="btnSaveFclt2" name="btnSaveFclt2 uitype="normal" text="통합조직 총괄 저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave02"></sbux-button>
+							</c:if>
+
+						</div>
+					</div>
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="font-size:14px">▶출자출하조직</span>
+								<span style="font-size:14px">▶통합조직 -총괄</span>
 								<!--
 								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
 								 -->
@@ -314,21 +448,7 @@
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdPrdcrOgnCurntMng02" style="height:350px; width: 100%;"></div>
-				</div>
-				<div class="ad_section_top">
-					<div class="ad_tbl_top">
-						<ul class="ad_tbl_count">
-							<li>
-								<span style="font-size:14px">▶생산자조직</span>
-								<!--
-								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
-								 -->
-							</li>
-						</ul>
-					</div>
-					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdPrdcrOgnCurntMng03" style="height:350px; width: 100%;"></div>
+					<div id="sb-area-grdPrdcrOgnCurntMng07" style="height:100px; width: 100%;"></div>
 				</div>
 			</div>
 		</div>
@@ -362,9 +482,13 @@
 		SBUxMethod.set("srch-input-yr",year);//
 		await fn_fcltMngCreateGrid();
 	</c:if>
-		await fn_fcltMngCreateGrid01();
-		await fn_fcltMngCreateGrid02();
-		await fn_fcltMngCreateGrid03();
+		await fn_fcltMngCreateGrid01();//통합조직
+		await fn_fcltMngCreateGrid02();//출자출하조직 적합리스트
+		await fn_fcltMngCreateGrid03();//생산자조직 적합리스트
+		await fn_fcltMngCreateGrid04();//생산자조직 부적합리스트
+		await fn_fcltMngCreateGrid05();//출자출하조직 부적합리스트
+		await fn_fcltMngCreateGrid06();//출자출하조직 총괄 리스트
+		await fn_fcltMngCreateGrid07();//통합조직 총괄
 
 		await fn_initSBSelect();
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
@@ -461,7 +585,7 @@
 		SBGridProperties.selectmode = 'byrow';
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList;	// 우클릭 메뉴 리스트
-		SBGridProperties.extendlastcol = 'scroll';
+		//SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.oneclickedit = true;
 		SBGridProperties.paging = {
 				'type' : 'page',
@@ -509,10 +633,11 @@
 
 
 	function fn_excelDwnld01() {
-		grdPrdcrOgnCurntMng01.exportLocalExcel("통합조직(총괄표)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+		grdPrdcrOgnCurntMng01.exportLocalExcel("통합조직 결과 리스트", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
 	}
 
 	/* Grid 화면 그리기 기능*/
+	//통합조직 리스트
 	const fn_fcltMngCreateGrid01 = async function() {
 
 		let SBGridProperties = {};
@@ -525,7 +650,7 @@
 		SBGridProperties.contextmenulist = objMenuList01;	// 우클릭 메뉴 리스트
 		//SBGridProperties.mergecells = 'bycol';//동일한 열 병합처리
 		SBGridProperties.datamergefalseskip = true;// merge false 된 열 병합 제외
-		SBGridProperties.extendlastcol = 'scroll';
+		//SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.oneclickedit = true;
 		SBGridProperties.fixedrowheight=45;
 		SBGridProperties.rowheight = 57;
@@ -555,7 +680,7 @@
 				{caption: ["상세내역"], 	ref: 'slsCnsgnSlsAmtRt',	hidden : true},
 
 				{caption: ["적합여부"], 	ref: 'orgStbltYn',   		type:'output',  width:'60px',    style:'text-align:center;'},
-				{caption: ["부적합 사유"], 	ref: 'stbltYnNm',   		type:'textarea',  width:'150px',    style:'padding-left:10px'
+				{caption: ["부적합 사유"], 	ref: 'stbltYnNm',   		type:'textarea',  width:'300px',    style:'padding-left:10px'
 					,typeinfo : {textareanewline : true},disabled:true },
 				{caption: ["상세내역"], 	ref: 'apoCd',   		hidden : true},
 				{caption: ["상세내역"], 	ref: 'apoSe',   		hidden : true},
@@ -573,6 +698,51 @@
 	    grdPrdcrOgnCurntMng01 = _SBGrid.create(SBGridProperties);
 	}
 
+	var jsonPrdcrOgnCurntMng07 = []; // 그리드의 참조 데이터 주소 선언
+	var grdPrdcrOgnCurntMng07;
+
+	const objMenuList07 = {
+			"excelDwnld": {
+				"name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+				"accesskey": "e",					//단축키
+				"callback": fn_excelDwnld07,			//콜백함수명
+			}
+		};
+
+
+	function fn_excelDwnld07() {
+		grdPrdcrOgnCurntMng07.exportLocalExcel("통합조직 총괄", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+	}
+
+	/* Grid 화면 그리기 기능*/
+	//통합조직 총괄
+	const fn_fcltMngCreateGrid07 = async function() {
+
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng07';
+		SBGridProperties.id = 'grdPrdcrOgnCurntMng07';
+		SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng07';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList01;	// 우클릭 메뉴 리스트
+		//SBGridProperties.mergecells = 'bycol';//동일한 열 병합처리
+		SBGridProperties.datamergefalseskip = true;// merge false 된 열 병합 제외
+		//SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.fixedrowheight=45;
+		//SBGridProperties.rowheight = 57;
+		SBGridProperties.columns = [
+				{caption: ["통합조직명"],	ref: 'corpNm',		type:'output',  width:'160px',    style:'text-align:center;'},
+				{caption: ["사업자번호"],	ref: 'brno',		type:'output',  width:'80px',    style:'text-align:center;'},
+				{caption: ["적합여부"], 	ref: 'stbltYn',		type:'output',  width:'60px',    style:'text-align:center;'},
+				{caption: ["자금신청액\n(출자출하조직 신청액 포함)"], 	ref: 'fundAplyAmtTot',	type:'output',  width:'160px',    style:'text-align:center;'},
+				{caption: ["금리"], 		ref: 'aa',			type:'input',  width:'80px',    style:'text-align:center;'},
+			];
+
+	    grdPrdcrOgnCurntMng07 = _SBGrid.create(SBGridProperties);
+	}
+
 	var jsonPrdcrOgnCurntMng02 = []; // 그리드의 참조 데이터 주소 선언
 	var grdPrdcrOgnCurntMng02
 
@@ -586,11 +756,12 @@
 
 
 	function fn_excelDwnld02() {
-		grdPrdcrOgnCurntMng02.exportLocalExcel("출자출하조직 (총괄표)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+		grdPrdcrOgnCurntMng02.exportLocalExcel("출자출하조직 적합 리스트", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
 
 
 	/* Grid 화면 그리기 기능*/
+	//출자출하조직 적합 리스트
 	const fn_fcltMngCreateGrid02 = async function() {
 
 		let SBGridProperties = {};
@@ -601,9 +772,97 @@
 		SBGridProperties.selectmode = 'byrow';
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList02;	// 우클릭 메뉴 리스트
-		SBGridProperties.extendlastcol = 'scroll';
+		//SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.fixedrowheight=45;
-		SBGridProperties.rowheight = 72;
+		SBGridProperties.rowheight = 57;
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.columns = [
+			{caption: ["품목"],			ref: 'itemNm',   		type:'output',  width:'100px',    style:'text-align:center;'},
+			{caption: ["통합조직\n구분"],	ref: 'aprvNm',   		type:'output',  width:'55px',    style:'text-align:center;'},
+			{caption: ["구분"],			ref: 'sttgUpbrItemNm',	type:'output',  width:'55px',    style:'text-align:center;'},
+			{caption: ["부류"],			ref: 'ctgryNm',   		type:'output',  width:'100px',    style:'text-align:center;'},
+			{caption: ["출자출하조직명"],		ref: 'corpNm',   		type:'output',  width:'160px',    style:'text-align:center;'},
+			{caption: ["사업자번호"],		ref: 'brno',   			type:'output',  width:'80px',    style:'text-align:center;'},
+			//{caption: ["통합조직\n구분","통합조직\n구분"], 	ref: 'aprv',   	type:'combo',  width:'55px',    style:'text-align:center;', disabled:true
+				//,typeinfo : {ref:'jsonComGrdAprv_2', label:'label', value:'value', displayui : false}},
+			//{caption: ["품목","구분"], 		ref: 'sttgUpbrItemSe',		type:'combo',  width:'55px',    style:'text-align:center;', disabled:true
+				//,typeinfo : {ref:'jsonComGrdSttgUpbrItemSe_2', label:'label', value:'value', displayui : false}},
+
+			/*
+			{caption: ["통합조직 판매위임액","생산자조직\n출하(A)(천원)"], 	ref: 'uoSpmtAmt',   	type:'output',  width:'100px',    style:'text-align:center;'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			{caption: ["통합조직 판매위임액","생산자조직 외\n출하(B)(천원)"], 	ref: 'uoSpmtAmtOther',   	type:'output',  width:'100px',    style:'text-align:center;'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			{caption: ["자체판매액","생산자조직\n출하(C)(천원)"], 			ref: 'uoOtherSpmtAmt',   	type:'output',  width:'100px',    style:'text-align:center;'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			{caption: ["자체판매액","생산자조직 외\n출하(D)(천원)"], 		ref: 'uoOtherSpmtAmtOther',   	type:'output',  width:'100px',    style:'text-align:center;'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			{caption: ["출자출하조직\n총 판매액\n(E=A+B+C+D)\n(천원)","출자출하조직\n총 판매액\n(E=A+B+C+D)\n(천원)"],typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}
+				, ref: 'uoSpmtAmtTot',   	type:'output',  width:'100px',    style:'text-align:center;'},
+			{caption: ["출자출하조직의\n통합조직 판매위임비율","생산자조직출하\n[A/(A+C)]"] ,format: {type: 'string', rule: '@" %"'}
+				, ref: 'uoSpmtAmtRt',   	type:'output',  width:'100px',    style:'text-align:center;'},
+			{caption: ["출자출하조직의\n통합조직 판매위임비율","전체출하\n[(A+B)/E]"] ,format: {type: 'string', rule: '@" %"'}
+				, ref: 'uoSpmtAmtTotRt',   	type:'output',  width:'100px',    style:'text-align:center;'},
+			*/
+
+			{caption: ["상세내역"], 	ref: 'uoSpmtAmt',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'uoSpmtAmtOther',   	hidden : true},
+			{caption: ["상세내역"], 	ref: 'uoOtherSpmtAmt',   	hidden : true},
+			{caption: ["상세내역"], 	ref: 'uoOtherSpmtAmtOther',	hidden : true},
+			{caption: ["상세내역"], 	ref: 'uoSpmtAmtTot',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'uoSpmtAmtRt',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'uoSpmtAmtTotRt',   	hidden : true},
+
+			{caption: ["적합여부"], 	ref: 'orgStbltYn',   	type:'output',  width:'60px',    style:'text-align:center;'},
+			{caption: ["부적합 사유"], 	ref: 'stbltYnNm',   	type:'textarea',  width:'300px',    style:'padding-left:10px'
+				,typeinfo : {textareanewline : true},disabled:true },
+			{caption: ["상세내역"], 	ref: 'apoCd',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'apoSe',   		hidden : true},
+			//{caption: ["상세내역"], 	ref: 'brno',   			hidden : true},
+			{caption: ["상세내역"], 	ref: 'crno',   			hidden : true},
+			{caption: ["상세내역"], 	ref: 'yr',   			hidden : true},
+			{caption: ["상세내역"], 	ref: 'ctgryCd',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'itemCd',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
+			{caption: ["상세내역"], 	ref: 'trmtType',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'stbltYn',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'aprv',   			hidden : true},
+		];
+
+		grdPrdcrOgnCurntMng02 = _SBGrid.create(SBGridProperties);
+	}
+
+	var jsonPrdcrOgnCurntMng05 = []; // 그리드의 참조 데이터 주소 선언
+	var grdPrdcrOgnCurntMng05
+
+	const objMenuList05 = {
+			"excelDwnld": {
+				"name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+				"accesskey": "e",					//단축키
+				"callback": fn_excelDwnld05,			//콜백함수명
+			}
+		};
+
+
+	function fn_excelDwnld05() {
+		grdPrdcrOgnCurntMng05.exportLocalExcel("출자출하조직 부적합 리스트", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+
+
+	/* Grid 화면 그리기 기능*/
+	//출자출하조직 부적합 리스트
+	const fn_fcltMngCreateGrid05 = async function() {
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng05';
+		SBGridProperties.id = 'grdPrdcrOgnCurntMng05';
+		SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng05';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList05;	// 우클릭 메뉴 리스트
+		//SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.fixedrowheight=45;
+		SBGridProperties.rowheight = 57;
 		SBGridProperties.oneclickedit = true;
 		SBGridProperties.columns = [
 			{caption: ["품목"],			ref: 'itemNm',   		type:'output',  width:'100px',    style:'text-align:center;'},
@@ -643,7 +902,7 @@
 			{caption: ["상세내역"], 	ref: 'uoSpmtAmtTotRt',   	hidden : true},
 
 			{caption: ["적합여부"], 	ref: 'orgStbltYn',   	type:'output',  width:'60px',    style:'text-align:center;'},
-			{caption: ["부적합 사유"], 	ref: 'stbltYnNm',   	type:'textarea',  width:'150px',    style:'padding-left:10px'
+			{caption: ["부적합 사유"], 	ref: 'stbltYnNm',   	type:'textarea',  width:'300px',    style:'padding-left:10px'
 				,typeinfo : {textareanewline : true},disabled:true },
 			{caption: ["상세내역"], 	ref: 'apoCd',   		hidden : true},
 			{caption: ["상세내역"], 	ref: 'apoSe',   		hidden : true},
@@ -658,7 +917,50 @@
 			{caption: ["상세내역"], 	ref: 'aprv',   			hidden : true},
 		];
 
-		grdPrdcrOgnCurntMng02 = _SBGrid.create(SBGridProperties);
+		grdPrdcrOgnCurntMng05 = _SBGrid.create(SBGridProperties);
+	}
+
+	var jsonPrdcrOgnCurntMng06 = []; // 그리드의 참조 데이터 주소 선언
+	var grdPrdcrOgnCurntMng06
+
+	const objMenuList06 = {
+			"excelDwnld": {
+				"name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+				"accesskey": "e",					//단축키
+				"callback": fn_excelDwnld05,			//콜백함수명
+			}
+		};
+
+
+	function fn_excelDwnld06() {
+		grdPrdcrOgnCurntMng06.exportLocalExcel("출자출하조직 총괄 리스트", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+
+
+	/* Grid 화면 그리기 기능*/
+	//출자출하조직 부적합 리스트
+	const fn_fcltMngCreateGrid06 = async function() {
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng06';
+		SBGridProperties.id = 'grdPrdcrOgnCurntMng06';
+		SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng06';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList05;	// 우클릭 메뉴 리스트
+		//SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.fixedrowheight=45;
+		//SBGridProperties.rowheight = 57;
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.columns = [
+			{caption: ["출자출하조직명"],	ref: 'corpNm',		type:'output',  width:'160px',    style:'text-align:center;'},
+			{caption: ["사업자번호"],	ref: 'brno',		type:'output',  width:'80px',    style:'text-align:center;'},
+			{caption: ["적합여부"], 	ref: 'stbltYn',		type:'output',  width:'60px',    style:'text-align:center;'},
+			{caption: ["적합품목"], 	ref: 'stbltYnNm',	type:'output',  width:'160px',    style:'text-align:center;'},
+			{caption: ["금리"], 		ref: 'aa',			type:'input',  width:'80px',    style:'text-align:center;'},
+		];
+
+		grdPrdcrOgnCurntMng06 = _SBGrid.create(SBGridProperties);
 	}
 
 	var jsonPrdcrOgnCurntMng03 = []; // 그리드의 참조 데이터 주소 선언
@@ -674,11 +976,11 @@
 
 
 	function fn_excelDwnld03() {
-		grdPrdcrOgnCurntMng03.exportLocalExcel("생산자조직 (총괄표)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+		grdPrdcrOgnCurntMng03.exportLocalExcel("생산자조직 적합 리스트", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
 	}
 
 	/* Grid 화면 그리기 기능*/
-	//생산자조직 리스트
+	//생산자조직 적합 리스트
 	const fn_fcltMngCreateGrid03 = async function() {
 
 		let SBGridProperties = {};
@@ -689,7 +991,7 @@
 		SBGridProperties.selectmode = 'byrow';
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList03;	// 우클릭 메뉴 리스트
-		SBGridProperties.extendlastcol = 'scroll';
+		//SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 		SBGridProperties.oneclickedit = false;//입력 활성화 true 1번클릭 false 더블클릭
 		SBGridProperties.fixedrowheight=45;
@@ -734,7 +1036,7 @@
 			{caption: ["상세내역"], 	ref: 'ecSpmtRateB',   			hidden : true},
 
 			{caption: ["적합여부"], 		ref: 'orgStbltYn',   	type:'output',  width:'60px',    style:'text-align:center'},
-			{caption: ["부적합 사유"], 		ref: 'stbltYnNm',   	type:'textarea',  width:'150px',    style:'padding-left:10px'
+			{caption: ["부적합 사유"], 		ref: 'stbltYnNm',   	type:'textarea',  width:'300px',    style:'padding-left:10px'
 				,typeinfo : {textareanewline : true},disabled:true },
 			//{caption: ["비고"], 			ref: 'rmrk',   		type:'input',  width:'220px',    style:'text-align:center'},
 
@@ -752,6 +1054,100 @@
 		];
 
 		grdPrdcrOgnCurntMng03 = _SBGrid.create(SBGridProperties);
+
+	}
+
+	var jsonPrdcrOgnCurntMng04 = []; // 그리드의 참조 데이터 주소 선언
+	var grdPrdcrOgnCurntMng04;
+
+	const objMenuList04 = {
+			"excelDwnld": {
+				"name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+				"accesskey": "e",					//단축키
+				"callback": fn_excelDwnld04,			//콜백함수명
+			}
+		};
+
+
+	function fn_excelDwnld04() {
+		grdPrdcrOgnCurntMng04.exportLocalExcel("생산자조직 부적합 리스트", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+	}
+
+	/* Grid 화면 그리기 기능*/
+	//생산자조직 부적합 리스트
+	const fn_fcltMngCreateGrid04 = async function() {
+
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng04';
+		SBGridProperties.id = 'grdPrdcrOgnCurntMng04';
+		SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng04';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList04;	// 우클릭 메뉴 리스트
+		//SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
+		SBGridProperties.oneclickedit = false;//입력 활성화 true 1번클릭 false 더블클릭
+		SBGridProperties.fixedrowheight=45;
+		SBGridProperties.rowheight = 57;
+		//SBGridProperties.rowheader="seq";
+		SBGridProperties.columns = [
+			{caption: ["품목"],			ref: 'itemNm',   	type:'output',  width:'150px',    style:'text-align:center'},
+			{caption: ["통합조직\n구분"], 	ref: 'aprvNm',   	type:'output',  width:'55px',    style:'text-align:center;'},
+			{caption: ["전문/육성\n구분"], 	ref: 'sttgUpbrItemNm',type:'output',  width:'55px',    style:'text-align:center;'},
+			{caption: ["분류"],			ref: 'ctgryNm',   	type:'output',  width:'70px',    style:'text-align:center'},
+			{caption: ["법인명"], 			ref: 'corpNm',   	type:'output',  width:'160px',    style:'text-align:center;'},
+			{caption: ["통합조직 법인명"], 	ref: 'uoCorpNm',   	type:'output',  width:'160px',    style:'text-align:center;'},
+			{caption: ["생산자조직 명"], 	ref: 'prdcrOgnzNm',   	type:'output',  width:'180px',    style:'text-align:center'},
+			{caption: ["취급유형"], 		ref: 'trmtTypeNm',   	type:'output',  width:'85px',    style:'text-align:center'},
+
+			/*
+			{caption: ["조직원수"], 					ref: 'cnt',   	type:'output',  width:'60px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			{caption: ["생산량\n(결과)(톤)[A]"], 	ref: 'prdctnVlmTot',   	type:'output',  width:'100px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
+			{caption: ["전속(약정)\n출하계약량(톤)[B]"], 	ref: 'ecSpmtPlanVlmTot',   	type:'output',  width:'100px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
+			{caption: ["전속(약정)출하량\n(결과)(톤)[C]"], 	ref: 'ecSpmtVlmTot',   	type:'output',  width:'100px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
+			{caption: ["출하대금\n지급액(천원)"], 		ref: 'spmtPrcTot',   	type:'output',  width:'100px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			//{caption: ["출하비율(%)"], 					ref: 'ecSpmtRate',   	type:'output',  width:'70px',    style:'text-align:center'
+				//,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}},
+				// ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
+			{caption: ["출하비율(%)\n(승인형)[C/A]"] ,format: {type: 'string', rule: '@" %"'}
+				, ref: 'ecSpmtRateA',   	type:'output',  width:'100px',    style:'text-align:center;'},
+			{caption: ["출하비율(%)\n(육성형)[C/B]"] ,format: {type: 'string', rule: '@" %"'}
+				, ref: 'ecSpmtRateB',   	type:'output',  width:'100px',    style:'text-align:center;'},
+			*/
+
+			{caption: ["상세내역"], 	ref: 'cnt',   			hidden : true},
+			{caption: ["상세내역"], 	ref: 'prdctnVlmTot',   			hidden : true},
+			{caption: ["상세내역"], 	ref: 'ecSpmtPlanVlmTot',   			hidden : true},
+			{caption: ["상세내역"], 	ref: 'ecSpmtVlmTot',   			hidden : true},
+			{caption: ["상세내역"], 	ref: 'spmtPrcTot',   			hidden : true},
+			{caption: ["상세내역"], 	ref: 'ecSpmtRateA',   			hidden : true},
+			{caption: ["상세내역"], 	ref: 'ecSpmtRateB',   			hidden : true},
+
+			{caption: ["적합여부"], 		ref: 'orgStbltYn',   	type:'output',  width:'60px',    style:'text-align:center'},
+			{caption: ["부적합 사유"], 		ref: 'stbltYnNm',   	type:'textarea',  width:'300px',    style:'padding-left:10px'
+				,typeinfo : {textareanewline : true},disabled:true },
+			//{caption: ["비고"], 			ref: 'rmrk',   		type:'input',  width:'220px',    style:'text-align:center'},
+
+			{caption: ["상세내역"], 	ref: 'yr',   			hidden : true},
+			{caption: ["상세내역"], 	ref: 'brno',			hidden : true},
+			{caption: ["상세내역"], 	ref: 'uoBrno',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'prdcrOgnzSn',		hidden : true},
+			{caption: ["상세내역"], 	ref: 'stbltYn',		hidden : true},
+			{caption: ["상세내역"], 	ref: 'aprv',   			hidden : true},
+			{caption: ["상세내역"], 	ref: 'itemCd',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'ctgryCd',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'trmtType',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',	hidden : true},
+
+		];
+
+		grdPrdcrOgnCurntMng04 = _SBGrid.create(SBGridProperties);
 
 	}
 
@@ -958,9 +1354,11 @@
 	}
 
 	const fn_dtlGridSearch = async function(){
-		fn_dtlGridSearchUo();
-		fn_dtlGridSearchIso();
-		fn_dtlGridSearchFrmhs();
+		fn_dtlGridSearchUo();//통합조직
+		fn_dtlGridSearchUoTot();//통합조직 총괄
+		fn_dtlGridSearchIso();//출자출하조직
+		fn_dtlGridSearchIsoTot();//출자출하조직 총괄
+		fn_dtlGridSearchFrmhs();//생산자조직
 	}
 
 	//판매위임[매입] 및 출하[매출] 실적 그리드 조회
@@ -1020,7 +1418,49 @@
 		}
 	}
 
-	//출자출하조직 총괄표 조회
+	//판매위임[매입] 및 출하[매출] 실적 그리드 조회
+	const fn_dtlGridSearchUoTot = async function(){
+		let brno = SBUxMethod.get("dtl-input-brno");//
+		let yr = SBUxMethod.get("dtl-input-yr");//
+
+		if(gfn_isEmpty(yr)){
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
+
+		let postJsonPromise = gfn_postJSON("/pd/pcorm/selectUoTotList.do", {
+			brno : brno
+			, yr : yr
+		});
+
+
+		let data = await postJsonPromise ;
+		try{
+			jsonPrdcrOgnCurntMng07.length = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
+				let PrdcrOgnCurntMngVO = {
+						brno: item.brno
+						,corpNm: item.corpNm
+						,fundAplyAmtTot: item.fundAplyAmtTot//자금신청액
+						,stbltYn: item.stbltYn//적합여부 기준 적용 결과
+				}
+				jsonPrdcrOgnCurntMng07.push(PrdcrOgnCurntMngVO);
+				if (index === 0) {
+					totalRecordCount = item.totalRecordCount;
+				}
+			});
+			grdPrdcrOgnCurntMng07.rebuild();
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+	//출자출하조직 리스트 조회
 	async function fn_dtlGridSearchIso() {
 
 		let brno = SBUxMethod.get("dtl-input-brno");//
@@ -1039,50 +1479,94 @@
 		let data = await postJsonPromise02;
 		try{
 			jsonPrdcrOgnCurntMng02.length = 0;
+			jsonPrdcrOgnCurntMng05.length = 0;
 			console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
-				let PrdcrOgnCurntMngVO02 = {
-						apoCd: 	item.apoCd
-						,apoSe: item.apoSe
-						,brno: 	item.brno
-						,crno: 	item.crno
-						,corpNm: item.corpNm
-						,delYn: item.delYn
-						,yr: item.yr
+				let itemVO = {
+					apoCd: 	item.apoCd
+					,apoSe: item.apoSe
+					,brno: 	item.brno
+					,crno: 	item.crno
+					,corpNm: item.corpNm
+					,delYn: item.delYn
+					,yr: item.yr
 
-						,aprv	: item.aprv
-						,aprvNm	: item.aprvNm
+					,aprv	: item.aprv
+					,aprvNm	: item.aprvNm
 
-						,sttgUpbrItemSe: item.sttgUpbrItemSe
-						,sttgUpbrItemNm: item.sttgUpbrItemNm
+					,sttgUpbrItemSe: item.sttgUpbrItemSe
+					,sttgUpbrItemNm: item.sttgUpbrItemNm
 
-						,itemCd: 		item.itemCd
-						,itemNm: 		item.itemNm
+					,itemCd: 		item.itemCd
+					,itemNm: 		item.itemNm
 
-						,ctgryCd: 		item.ctgryCd
-						,ctgryNm: 		item.ctgryNm
+					,ctgryCd: 		item.ctgryCd
+					,ctgryNm: 		item.ctgryNm
 
-						,uoSpmtAmt: 			item.uoSpmtAmt
-						,uoSpmtAmtOther: 		item.uoSpmtAmtOther
-						,uoOtherSpmtAmt: 		item.uoOtherSpmtAmt
-						,uoOtherSpmtAmtOther: 	item.uoOtherSpmtAmtOther
+					,uoSpmtAmt: 			item.uoSpmtAmt
+					,uoSpmtAmtOther: 		item.uoSpmtAmtOther
+					,uoOtherSpmtAmt: 		item.uoOtherSpmtAmt
+					,uoOtherSpmtAmtOther: 	item.uoOtherSpmtAmtOther
 
-						,uoSpmtAmtRt: 			item.uoSpmtAmtRt
-						,uoSpmtAmtTotRt: 		item.uoSpmtAmtTotRt
-						,uoSpmtAmtTot: 			item.uoSpmtAmtTot
+					,uoSpmtAmtRt: 			item.uoSpmtAmtRt
+					,uoSpmtAmtTotRt: 		item.uoSpmtAmtTotRt
+					,uoSpmtAmtTot: 			item.uoSpmtAmtTot
 
-						,stbltYn: item.stbltYn//적합여부 기준 적용 결과
-						,orgStbltYn: item.orgStbltYn//적합여부 현재 적용 값
-						,stbltYnNm: fn_calIsoStbltYn(item)
+					,stbltYn: item.stbltYn//적합여부 기준 적용 결과
+					,orgStbltYn: item.orgStbltYn//적합여부 현재 적용 값
+					,stbltYnNm: fn_calIsoStbltYn(item)
 				};
+				if(item.orgStbltYn == 'Y'){
+					jsonPrdcrOgnCurntMng02.push(itemVO);
+				}else{
+					jsonPrdcrOgnCurntMng05.push(itemVO);
+				}
 
-				jsonPrdcrOgnCurntMng02.push(PrdcrOgnCurntMngVO02);
 			});
 
 			grdPrdcrOgnCurntMng02.rebuild();
+			grdPrdcrOgnCurntMng05.rebuild();
 
-			let rowData = grdPrdcrOgnCurntMng02.getRowData(2);
-			console.log(rowData);
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+	//출자출하조직 총괄 조회
+	async function fn_dtlGridSearchIsoTot() {
+
+		let brno = SBUxMethod.get("dtl-input-brno");//
+		let yr = SBUxMethod.get("dtl-input-yr");//
+
+		if(gfn_isEmpty(yr)){
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
+
+		let postJsonPromise06 = gfn_postJSON("/pd/pcorm/selectIsoTotList.do", {
+			brno : brno
+			, yr : yr
+		});
+		let data = await postJsonPromise06;
+		try{
+			jsonPrdcrOgnCurntMng06.length = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
+				let itemVO = {
+					brno: 	item.brno
+					,corpNm: item.corpNm
+					,yr: item.yr
+					,stbltYn: item.stbltYn//적합여부 기준 적용 결과
+					,stbltYnNm: item.stbltYnNm//적합픔목 리스트
+					//,stbltYnNm: item.stbltYnNm //이자
+				};
+				jsonPrdcrOgnCurntMng06.push(itemVO);
+			});
+			grdPrdcrOgnCurntMng06.rebuild();
 		}catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -1109,48 +1593,54 @@
 		let data = await postJsonPromise03;
 		try{
 			jsonPrdcrOgnCurntMng03.length = 0;
+			jsonPrdcrOgnCurntMng04.length = 0;
 			console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let itemVO = {
-						brno: 	item.brno
-						,uoBrno: item.uoBrno
-						,corpNm: item.corpNm
-						,uoCorpNm: item.uoCorpNm
-						,yr: item.yr
+					brno: 	item.brno
+					,uoBrno: item.uoBrno
+					,corpNm: item.corpNm
+					,uoCorpNm: item.uoCorpNm
+					,yr: item.yr
 
-						,aprv: item.aprv//승인형 육성형
-						,aprvNm: item.aprvNm
+					,aprv: item.aprv//승인형 육성형
+					,aprvNm: item.aprvNm
 
-						,sttgUpbrItemSe: item.sttgUpbrItemSe
-						,sttgUpbrItemNm: item.sttgUpbrItemNm
+					,sttgUpbrItemSe: item.sttgUpbrItemSe
+					,sttgUpbrItemNm: item.sttgUpbrItemNm
 
-						,trmtType: item.trmtType
-						,trmtTypeNm: item.trmtTypeNm
+					,trmtType: item.trmtType
+					,trmtTypeNm: item.trmtTypeNm
 
-						,ctgryCd: item.ctgryCd
-						,ctgryNm: item.ctgryNm
+					,ctgryCd: item.ctgryCd
+					,ctgryNm: item.ctgryNm
 
-						,itemCd: item.itemCd
-						,itemNm: item.itemNm
+					,itemCd: item.itemCd
+					,itemNm: item.itemNm
 
-						,prdcrOgnzSn: item.prdcrOgnzSn
-						,prdcrOgnzNm: item.prdcrOgnzNm
+					,prdcrOgnzSn: item.prdcrOgnzSn
+					,prdcrOgnzNm: item.prdcrOgnzNm
 
-						,ecSpmtPlanVlmTot: item.ecSpmtPlanVlmTot//전속(약정)출하계획량
-						,ecSpmtVlmTot: item.ecSpmtVlmTot//전속(약정)출하량
-						,ecSpmtRateA: parseFloat(item.ecSpmtRateA)//출하비율A
-						,ecSpmtRateB: parseFloat(item.ecSpmtRateB)//출하비율B
-						,spmtPrcTot: item.spmtPrcTot//출하대금지급액
-						,prdctnVlmTot: 	item.prdctnVlmTot
-						,cnt: item.cnt//조직원수
-						,stbltYn: item.stbltYn//적합여부 기준 적용 결과
-						,orgStbltYn: item.orgStbltYn//적합여부 현재 적용 값
-						,stbltYnNm: fn_calFrmhsStbltYn(item)
+					,ecSpmtPlanVlmTot: item.ecSpmtPlanVlmTot//전속(약정)출하계획량
+					,ecSpmtVlmTot: item.ecSpmtVlmTot//전속(약정)출하량
+					,ecSpmtRateA: parseFloat(item.ecSpmtRateA)//출하비율A
+					,ecSpmtRateB: parseFloat(item.ecSpmtRateB)//출하비율B
+					,spmtPrcTot: item.spmtPrcTot//출하대금지급액
+					,prdctnVlmTot: 	item.prdctnVlmTot
+					,cnt: item.cnt//조직원수
+					,stbltYn: item.stbltYn//적합여부 기준 적용 결과
+					,orgStbltYn: item.orgStbltYn//적합여부 현재 적용 값
+					,stbltYnNm: fn_calFrmhsStbltYn(item)
 				}
-				jsonPrdcrOgnCurntMng03.push(itemVO);
+				if(item.orgStbltYn == 'Y'){
+					jsonPrdcrOgnCurntMng03.push(itemVO);
+				}else{
+					jsonPrdcrOgnCurntMng04.push(itemVO);
+				}
 			});
 
 			grdPrdcrOgnCurntMng03.rebuild();
+			grdPrdcrOgnCurntMng04.rebuild();
 
 		}catch (e) {
 			if (!(e instanceof Error)) {

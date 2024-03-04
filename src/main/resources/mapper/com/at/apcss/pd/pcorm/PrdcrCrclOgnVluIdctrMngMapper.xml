@@ -12,9 +12,9 @@
 
 <mapper namespace="com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper">
 
-	<!-- 생산자조직 등록결과 리스트 -->
+	<!-- 통합조직 등록결과 리스트 -->
 	<select id="selectUoList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
-		SELECT	/* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectItemStbltYn */
+		SELECT	/* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.selectItemStbltYn */
 			TOTAL.ITEM_CD
 			,TOTAL.ITEM_NM
 			,TOTAL.STTG_UPBR_ITEM_SE
@@ -328,7 +328,41 @@
 						AND ITEM.ITEM_CD = TOTB.ITEM_CD(+)
 				)TOT
 		)TOTAL
-		ORDER BY ITEM_CD , UO_BRNO , BRNO
+		ORDER BY ITEM_CD , BRNO
+	</select>
+
+	<!-- 출자출하조직 총괄 리스트 -->
+	<select id="selectUoTotList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
+		SELECT
+			BRNO
+			,YR
+			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = EAM.BRNO) AS CORP_NM
+			,(CASE WHEN EXISTS (SELECT COUNT(*)
+										FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
+										WHERE 1=1
+										  AND STBLT_YN = 'Y'
+										  AND YR = EAM.YR
+										  AND BRNO = EAM.BRNO
+										  AND ITEM_CD = (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PST.YR AND BRNO = PST.BRNO AND ITEM_CD = PST.ITEM_CD)
+								)
+						THEN 'Y'
+						ELSE 'N'
+						END
+			) AS STBLT_YN
+			,(NVL(EAM.PRUO_FUND_APLY_AMT,0)
+				+ NVL((SELECT SUM(ISO_FUND_APLY_AMT)
+						FROM TB_EV_APLY_MNG
+						WHERE 1=1
+						  AND YR = EAM.YR
+						  AND UO_BRNO = EAM.BRNO
+						  AND APO_SE = '2'
+						  AND BRNO IN (SELECT ISO_BRNO FROM TB_EV_APO_UO_CD WHERE UO_BRNO = EAM.BRNO) ),0)
+			) AS FUND_APLY_AMT_TOT
+		FROM TB_EV_APLY_MNG EAM
+		WHERE 1=1
+		  AND APO_SE = '1'
+		  AND YR = #{yr}
+		  AND BRNO = #{brno}
 	</select>
 
 	<!-- 출자출하조직 등록결과 리스트 -->
@@ -411,7 +445,7 @@
 							, ITEM.STTG_UPBR_ITEM_SE
 							,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = ITEM.STTG_UPBR_ITEM_SE) AS STTG_UPBR_ITEM_NM
 							, ITEM.CTGRY_CD
-							, ITEM.CTGRY_NM
+							,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = ITEM.CTGRY_CD) AS CTGRY_NM
 							, ITEM.BRNO
 							, ITEM.UO_BRNO
 							, ITEM.YR
@@ -436,16 +470,15 @@
 									,BRNO
 									,UO_BRNO
 									,ITEM_CD
-									,CTGRY_CD
+									,(SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE BRNO = PST.UO_BRNO AND YR = PST.YR AND ITEM_CD = PST.ITEM_CD) AS CTGRY_CD
 									,(SELECT STTG_UPBR_ITEM_SE FROM TB_EV_APO_YR_GPC_CD WHERE BRNO = PST.UO_BRNO AND YR = PST.YR AND ITEM_CD = PST.ITEM_CD) AS STTG_UPBR_ITEM_SE
 									,(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = PST.ITEM_CD) AS ITEM_NM
-									,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = PST.CTGRY_CD) AS CTGRY_NM
 									, STBLT_YN
 								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
 								WHERE 1=1
 									AND TYPE_SE_NO = '8'
 									AND APO_SE = '2'
-									AND ITEM_CD IN (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE BRNO = PST.UO_BRNO)
+									AND ITEM_CD = (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE BRNO = PST.UO_BRNO AND YR = PST.YR AND ITEM_CD = PST.ITEM_CD)
 									AND UO_BRNO =  #{brno}
 									AND YR = #{yr}
 							) ITEM ,
@@ -494,13 +527,54 @@
 						AND ITEM.BRNO = TOTB.BRNO(+)
 				)TOT
 		)TOTAL
+		WHERE 1=1
+		  AND  (NVL(TOTAL.UO_SPMT_AMT,0) != 0
+				OR NVL(TOTAL.UO_SPMT_AMT_OTHER,0) != 0
+				OR NVL(TOTAL.UO_OTHER_SPMT_AMT,0) != 0
+				OR NVL(TOTAL.UO_OTHER_SPMT_AMT_OTHER,0) != 0 )
 		ORDER BY ITEM_CD , BRNO
+	</select>
+	<!-- 출자출하조직 총괄 리스트 -->
+	<select id="selectIsoTotList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
+		SELECT
+			BRNO
+			,YR
+			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = EAM.BRNO) AS CORP_NM
+			,(CASE WHEN EXISTS (SELECT COUNT(*)
+										FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
+										WHERE 1=1
+										  AND STBLT_YN = 'Y'
+										  AND YR = EAM.YR
+										  AND BRNO = EAM.BRNO
+										  AND ITEM_CD = (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PST.YR AND BRNO = PST.UO_BRNO AND ITEM_CD = PST.ITEM_CD)
+										  AND UO_BRNO = #{brno} )
+						THEN 'Y'
+						ELSE 'N'
+						END
+			) AS STBLT_YN
+			,(SELECT LISTAGG(ITEM_NM, ' , ') WITHIN GROUP (ORDER BY ITEM_NM) AS STBLT_YN_NM
+							FROM (SELECT
+										(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = A.ITEM_CD) AS ITEM_NM
+									FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT A
+									WHERE 1=1
+									  AND STBLT_YN = 'Y'
+									  AND APO_SE = EAM.APO_SE
+									  AND TYPE_SE_NO = '8'
+									  AND YR = EAM.YR
+									  AND BRNO = EAM.BRNO
+									  AND UO_BRNO = #{brno}
+									)
+			) AS STBLT_YN_NM
+		FROM TB_EV_APLY_MNG EAM
+		WHERE 1=1
+			AND YR = #{yr}
+			AND BRNO IN (SELECT ISO_BRNO FROM TB_EV_APO_UO_CD  WHERE UO_BRNO = #{brno})
 	</select>
 	<!-- 생산자조직 등록결과 리스트 -->
 	<select id="selectFrmhsList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
 		SELECT	/* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectTbEvFrmhsApoStbltYnList */
 			TOTAL.BRNO
-			,TOTAL.UO_BRNO
+			,DECODE(TOTAL.APO_SE , '1' , TOTAL.BRNO , '2' , TOTAL.UO_BRNO , '')AS UO_BRNO
 			,TOTAL.APO_SE
 			,DECODE(TOTAL.APO_SE,'1','통합조직','2','출자출하조직','') AS APO_SE_NM
 			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = TOTAL.BRNO) AS CORP_NM
@@ -608,6 +682,6 @@
 		AND TEFA.YR = TEFPSS.YR(+)
 		AND TEFA.BRNO = TEFPSS.BRNO(+)
 		)TOTAL
-		ORDER BY UO_BRNO DESC , BRNO , PRDCR_OGNZ_SN
+		ORDER BY ITEM_CD , UO_BRNO DESC , BRNO , PRDCR_OGNZ_SN
 	</select>
 </mapper>
