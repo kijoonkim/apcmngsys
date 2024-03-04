@@ -3,6 +3,7 @@ package com.at.apcss.am.wrhs.service;
 import java.util.HashMap;
 import java.util.List;
 
+import com.at.apcss.am.wrhs.vo.ComRawMtrWrhsDsctnTotVO;
 import com.at.apcss.am.wrhs.vo.RawMtrWrhsDsctnTotVO;
 import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
 
@@ -39,12 +40,20 @@ public interface RawMtrWrhsService {
 	public List<RawMtrWrhsVO> selectRawMtrWrhsList(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
 
 	/**
-	 * 입고내역집계 목록 조회
+	 * 파프리카입고내역집계 목록 조회
 	 * @param rawMtrWrhsVO
 	 * @return
 	 * @throws Exception
 	 */
 	public List<RawMtrWrhsDsctnTotVO> selectDsctnTotList(RawMtrWrhsDsctnTotVO rawMtrWrhsVO) throws Exception;
+
+	/**
+	 * 입고내역집계(공통) 목록 조회
+	 * @param rawMtrWrhsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ComRawMtrWrhsDsctnTotVO> selectComDsctnTotList(ComRawMtrWrhsDsctnTotVO rawMtrWrhsVO) throws Exception;
 
 	/**
 	 * 원물입고 등록
@@ -112,7 +121,7 @@ public interface RawMtrWrhsService {
 	 */
 	public List<RawMtrWrhsVO> selectRawMtrWrhsPrfmncList(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
 
-	
+
 	/**
 	 * 원물 재처리 등록
 	 * @param rawMtrWrhsVO
@@ -136,7 +145,7 @@ public interface RawMtrWrhsService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertRawMtrPrcsInpt(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
-	
+
 	/**
 	 * 원물 재처리 투입 취소
 	 * @param rawMtrWrhsVO
@@ -145,7 +154,7 @@ public interface RawMtrWrhsService {
 	 */
 	public HashMap<String, Object> deleteRawMtrPrcsInpt(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
 
-	
+
 	/**
 	 * 원물입고 재처리 목록 조회
 	 * @param rawMtrWrhsVO
@@ -162,5 +171,5 @@ public interface RawMtrWrhsService {
 	 */
 	public List<RawMtrWrhsVO> selectRawMtrPrcsInptList(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
 
-	
+
 }

@@ -206,6 +206,8 @@
 			      , SUM(O5)     AS O5
 			      , SUM(OT)     AS OT
 			      , SUM(TOT)    AS TOT
+			      , MAX(ITEM_NM) AS ITEM_NM
+			      , MAX(VRTY_NM) AS VRTY_NM
 			FROM   (SELECT  WRHS_YMD
 						  , PRDCR_NM
 						  , PRDCR_CD
@@ -228,7 +230,8 @@
 			              , CASE WHEN CLR = '3' AND RNK = 5 THEN BX_QNTT END    AS O5
 			              , CASE WHEN CLR = '3' THEN BX_QNTT             END    AS OT
 			              , BX_QNTT                                             AS TOT
-
+						  , ITEM_NM
+			      		  , VRTY_NM
 			        FROM   (SELECT  A.WRHS_YMD AS WRHS_YMD
 			        			  , B.ITEM_CD
 			                      , FN_GET_PRDCR_NM (A.PRDCR_CD, A.APC_CD) AS PRDCR_NM
@@ -239,6 +242,8 @@
 			                      , A.BX_QNTT
 			                      , A.WRHS_WGHT
 			                      , A.PRDCR_CD AS PRDCR_CD
+                        		  , (SELECT FN_GET_ITEM_NM(B.ITEM_CD, B.APC_CD) FROM DUAL) AS ITEM_NM
+				                  , (SELECT FN_GET_VRTY_NM(B.ITEM_CD, B.VRTY_CD, B.APC_CD) FROM DUAL) AS VRTY_NM
 			                FROM    USRAM.TB_RAW_MTR_WRHS_PRFMNC A
 			                      , USRAM.TB_RAW_MTR_INVNTR B
 			                WHERE   A.APC_CD = B.APC_CD
@@ -271,6 +276,99 @@
 
     </select>
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.ComRawMtrWrhsDsctnTotVO-->
+	<!-- DESC : 입고내역집계 목록 조회(공통).                                 				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.03.04  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectComDsctnTotList" parameterType="com.at.apcss.am.wrhs.vo.ComRawMtrWrhsDsctnTotVO" resultType="com.at.apcss.am.wrhs.vo.ComRawMtrWrhsDsctnTotVO">
+    	<![CDATA[
+    		SELECT  WRHS_YMD
+    			  , PRDCR_NM
+    			  , PRDCR_CD
+			      , SUM(BX_QNTT1)     AS BX_QNTT1
+			      , SUM(BX_QNTT2)     AS BX_QNTT2
+			      , SUM(BX_QNTT3)     AS BX_QNTT3
+			      , SUM(BX_QNTT4)     AS BX_QNTT4
+			      , SUM(BX_QNTT5)     AS BX_QNTT5
+  			      , SUM(WRHS_WGHT1)     AS WRHS_WGHT1
+  			      , SUM(WRHS_WGHT2)     AS WRHS_WGHT2
+  			      , SUM(WRHS_WGHT3)     AS WRHS_WGHT3
+  			      , SUM(WRHS_WGHT4)     AS WRHS_WGHT4
+  			      , SUM(WRHS_WGHT5)     AS WRHS_WGHT5
+			      , SUM(QNTT_TOT)   AS QNTT_TOT
+  			      , SUM(WRHS_TOT)   AS WRHS_TOT
+			      , MAX(ITEM_NM) AS ITEM_NM
+			      , MAX(VRTY_NM) AS VRTY_NM
+			FROM   (SELECT  WRHS_YMD
+						  , PRDCR_NM
+						  , PRDCR_CD
+			              , CASE WHEN RNK = 1 THEN BX_QNTT END      AS BX_QNTT1
+			              , CASE WHEN RNK = 2 THEN BX_QNTT END      AS BX_QNTT2
+			              , CASE WHEN RNK = 3 THEN BX_QNTT END      AS BX_QNTT3
+			              , CASE WHEN RNK = 4 THEN BX_QNTT END      AS BX_QNTT4
+			              , CASE WHEN RNK = 5 THEN BX_QNTT END      AS BX_QNTT5
+			              , CASE WHEN RNK = 1 THEN WRHS_WGHT END    AS WRHS_WGHT1
+			              , CASE WHEN RNK = 2 THEN WRHS_WGHT END    AS WRHS_WGHT2
+			              , CASE WHEN RNK = 3 THEN WRHS_WGHT END    AS WRHS_WGHT3
+			              , CASE WHEN RNK = 4 THEN WRHS_WGHT END    AS WRHS_WGHT4
+			              , CASE WHEN RNK = 5 THEN WRHS_WGHT END    AS WRHS_WGHT5
+			              , BX_QNTT                                 AS QNTT_TOT
+  			              , WRHS_WGHT                               AS WRHS_TOT
+						  , ITEM_NM
+			      		  , VRTY_NM
+
+
+
+			        FROM   (SELECT  A.WRHS_YMD AS WRHS_YMD
+			        			  , B.ITEM_CD
+			                      , FN_GET_PRDCR_NM (A.PRDCR_CD, A.APC_CD) AS PRDCR_NM
+			                      , RANK() OVER (PARTITION BY A.PRDCR_CD,B.VRTY_CD,A.WRHS_YMD ORDER BY A.WRHSNO,B.VRTY_CD)  AS RNK
+			                      , A.BX_QNTT
+			                      , A.WRHS_WGHT
+			                      , A.PRDCR_CD AS PRDCR_CD
+
+			                      , B.VRTY_CD AS VRTY_CD
+          			              , (SELECT FN_GET_ITEM_NM(B.ITEM_CD, B.APC_CD) FROM DUAL) AS ITEM_NM
+				                  , (SELECT FN_GET_VRTY_NM(B.ITEM_CD, B.VRTY_CD, B.APC_CD) FROM DUAL) AS VRTY_NM
+			                FROM    USRAM.TB_RAW_MTR_WRHS_PRFMNC A
+			                      , USRAM.TB_RAW_MTR_INVNTR B
+			                WHERE   A.APC_CD = B.APC_CD
+			                AND     A.WRHSNO = B.WRHSNO
+			                AND 	A.DEL_YN = 'N'
+			                AND 	B.DEL_YN = 'N'
+			                AND     B.INVNTR_STTS_CD IS NULL
+		]]>
+
+		<if test='apcCd != null and apcCd != ""'>
+			   AND A.APC_CD = #{apcCd}
+		</if>
+		<if test='itemCd != null and itemCd != ""'>
+			   AND B.ITEM_CD = #{itemCd}
+		</if>
+		<if test='vrtyCd != null and vrtyCd != ""'>
+			   AND B.VRTY_CD = #{vrtyCd}
+		</if>
+
+		<if test='wrhsYmdFrom != null and wrhsYmdFrom != ""'>
+			   AND A.WRHS_YMD <![CDATA[>=]]> #{wrhsYmdFrom}
+		</if>
+		<if test='wrhsYmdTo != null and wrhsYmdTo != ""'>
+			   AND A.WRHS_YMD <![CDATA[<=]]> #{wrhsYmdTo}
+		</if>
+
+
+		<![CDATA[
+					)
+		 	 )GROUP BY WRHS_YMD,PRDCR_CD,PRDCR_NM
+		 	  ORDER BY WRHS_YMD,PRDCR_CD,PRDCR_NM,VRTY_NM
+		]]>
+
+
+    </select>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.insertRawMtrWrhs		-->

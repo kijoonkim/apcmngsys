@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at.apcss.am.wrhs.service.RawMtrWrhsService;
+import com.at.apcss.am.wrhs.vo.ComRawMtrWrhsDsctnTotVO;
 import com.at.apcss.am.wrhs.vo.RawMtrWrhsDsctnTotVO;
 import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
 import com.at.apcss.co.constants.ComConstants;
@@ -222,6 +223,28 @@ public class RawMtrWrhsController extends BaseController {
 		List<RawMtrWrhsDsctnTotVO> resultList;
 		try {
 			resultList = rawMtrWrhsService.selectDsctnTotList(rawMtrWrhsVO);
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/wrhs/selectComDsctnTotList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectComDsctnTotList(@RequestBody ComRawMtrWrhsDsctnTotVO rawMtrWrhsVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<ComRawMtrWrhsDsctnTotVO> resultList;
+		try {
+			resultList = rawMtrWrhsService.selectComDsctnTotList(rawMtrWrhsVO);
 		} catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
