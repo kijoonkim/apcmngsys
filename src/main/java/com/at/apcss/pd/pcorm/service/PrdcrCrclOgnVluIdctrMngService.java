@@ -30,12 +30,28 @@ public interface PrdcrCrclOgnVluIdctrMngService {
 	public List<PrdcrCrclOgnVluIdctrMngVO> selectUoList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception;
 
 	/**
+	 * 통합조직 총괄 조회
+	 * @param PrdcrCrclOgnVluIdctrMngVO
+	 * @return List<PrdcrCrclOgnVluIdctrMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluIdctrMngVO> selectUoTotList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception;
+
+	/**
 	 * 출자출하조직 등록결과 리스트 조회
 	 * @param PrdcrCrclOgnVluIdctrMngVO
 	 * @return List<PrdcrCrclOgnVluIdctrMngVO>
 	 * @throws Exception
 	 */
 	public List<PrdcrCrclOgnVluIdctrMngVO> selectIsoList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception;
+
+	/**
+	 * 출자출하조직 총괄 등록결과 리스트 조회
+	 * @param PrdcrCrclOgnVluIdctrMngVO
+	 * @return List<PrdcrCrclOgnVluIdctrMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluIdctrMngVO> selectIsoTotList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception;
 
 	/**
 	 * 생산자조직 등록결과 리스트 조회

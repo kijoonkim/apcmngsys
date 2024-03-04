@@ -1,10 +1,7 @@
 package com.at.apcss.pd.pcorm.service;
 
 import java.util.List;
-import java.util.Map;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO;
 
 
@@ -25,21 +22,11 @@ import com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO;
 public interface PrdcrCrclOgnVluFndsMngService {
 
 	/**
-	 * 정보를 조회한다.
+	 * 평가지표 리스트 조회한다.
 	 * @param prdcrCrclOgnVluFndsMngVO
 	 * @return
 	 * @throws Exception
 	 */
-	public PrdcrCrclOgnVluFndsMngVO selectPrdcrCrclOgnVluFndsMng(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO) throws Exception;
-
-	public List<PrdcrCrclOgnVluFndsMngVO> selectPrdcrCrclOgnVluFndsMngList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO) throws Exception;
-
-	public int insertPrdcrCrclOgnVluFndsMng(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO) throws Exception;
-
-	public int updatePrdcrCrclOgnVluFndsMng(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO) throws Exception;
-
-	public int multiSavePrdcrCrclOgnVluFndsMngList(List<PrdcrCrclOgnVluFndsMngVO> prdcrCrclOgnVluFndsMngVOList) throws Exception;
-
-	public int deletePrdcrCrclOgnVluFndsMng(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO) throws Exception;
+	public List<PrdcrCrclOgnVluFndsMngVO> selectScoreList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO) throws Exception;
 
 }

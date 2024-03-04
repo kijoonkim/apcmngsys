@@ -38,8 +38,20 @@ public class PrdcrCrclOgnVluIdctrMngServiceImpl extends BaseServiceImpl implemen
 	}
 
 	@Override
+	public List<PrdcrCrclOgnVluIdctrMngVO> selectUoTotList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception {
+		List<PrdcrCrclOgnVluIdctrMngVO> resultList = prdcrCrclOgnVluIdctrMngMapper.selectUoTotList(prdcrCrclOgnVluIdctrMngVO);
+		return resultList;
+	}
+
+	@Override
 	public List<PrdcrCrclOgnVluIdctrMngVO> selectIsoList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception {
 		List<PrdcrCrclOgnVluIdctrMngVO> resultList = prdcrCrclOgnVluIdctrMngMapper.selectIsoList(prdcrCrclOgnVluIdctrMngVO);
+		return resultList;
+	}
+
+	@Override
+	public List<PrdcrCrclOgnVluIdctrMngVO> selectIsoTotList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception {
+		List<PrdcrCrclOgnVluIdctrMngVO> resultList = prdcrCrclOgnVluIdctrMngMapper.selectIsoTotList(prdcrCrclOgnVluIdctrMngVO);
 		return resultList;
 	}
 
