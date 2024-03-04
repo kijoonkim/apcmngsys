@@ -121,9 +121,6 @@
             }
     	}
 
-
-
-
         /*
         fn_actionGoPage(
             url
@@ -653,13 +650,14 @@
                    wrap-style="width:100%"
                    storage-data="object"
                    onclick="fn_selectTopMenu('top_menu')">
-            <brand-item text="APC정보지원" image-src="/resource/images/header_logo.png">
+            <brand-item text="APC통합지원" image-src="/resource/images/header_logo.png">
             </brand-item>
         </sbux-menu>
         <div class="user-info-wrap">
             <c:if test="${loginVO != null && loginVO.id != null}">
             	<c:set scope="request" var="userName" value="${loginVO.name}"></c:set>
                 <span class="name-t"><c:out value='${userName}'></c:out></span>님 반갑습니다.
+				<span style="cursor: pointer;font-size:20px;margin-left:5px;" id="lbl-autoRefresh" onclick="fn_setAutoRefresh()">🔒</span>
                 <ul class="user-login-menu">
                     <li style="background-color:#149FFF;"><sbux-button id="btnPrfrmImprvDmnd" name="btnPrfrmImprvDmnd" uitype="normal" text="개선요청" style="width:64px; text-align:center; display:inline-block; font-size:12px;" onclick="fn_modalPopup"></sbux-button></li>
                     <li><a href="/actionLogout.do">로그아웃</a></li>
@@ -723,12 +721,94 @@
 </div>
 </body>
 <script type="text/javascript">
+
+	let lv_sessUpdtUseYn;
+	let lv_interval = 3 * 60 * 1000;
+	
+	let timerId;
+	
+	const fn_clearBatch = () => {
+		if (!gfn_isEmpty(timerId)) {
+			clearInterval(timerId);
+		}
+	}
+
+    /**
+     * @name fn_getSysInfo
+     * @description apc 확인
+     * @function
+     */
+	const fn_getSysInfo = async function() {
+
+		if (!lv_authRefresh) {
+			return;
+		}
+
+    	if (_.isEqual("N", lv_sessUpdtUseYn)) {
+    		fn_clearBatch();
+    		return;
+    	}
+		
+    	console.log("session refresh");
+    	console.log(timerId);
+    	fn_clearBatch();
+    	
+    	if (gfn_isEmpty(gv_selectedApcCd)) {
+    		return;
+    	}
+    	
+		try {
+			const postJsonPromise = gfn_postJSON(
+						"/am/apc/selectApcEvrmntStng.do",
+						{apcCd: gv_selectedApcCd}
+					);
+	        const data = await postJsonPromise;
+			
+	        if (_.isEqual("S", data.resultStatus)) {
+	        	
+	        	if (_.isEqual("Y", data.resultMap.sessUpdtUseYn)) {
+	        		lv_sessUpdtUseYn = "Y";	
+	        		document.querySelector("#lbl-autoRefresh").style.display = "";
+	        		
+	        		timerId = setInterval(() => {
+						fn_getSysInfo();
+					}, lv_interval);
+	        		
+	        	} else {
+					document.querySelector("#lbl-autoRefresh").style.display = "none";
+	        	}
+        	} else {
+        		lv_sessUpdtUseYn = "N";
+        	}
+	        
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		} finally {
+
+		}
+	}
+    
+	let lv_authRefresh = true;
+	const fn_setAutoRefresh = function() {
+		lv_authRefresh = !lv_authRefresh;
+		
+		const lblText = lv_authRefresh ? '🔒' : '🔓';
+		document.querySelector('#lbl-autoRefresh').innerText = lblText;
+		console.log(lv_authRefresh);
+	}
+    
     //only document
     window.addEventListener('DOMContentLoaded', function(e) {
+		
+    	document.querySelector("#lbl-autoRefresh").style.display = "none";
         initMain();
         var iframe = document.getElementById('idxfrmJson');
         iframe.scrolling = 'auto';
     });
+    
     const fn_modalPopup = async function() {
 
         var userId 		=  '${loginVO.id}';
@@ -848,10 +928,13 @@
         		text : "대시보드",
         		prslType: "M1"
         }
-       insertComLog(data);
+        
+       	insertComLog(data);
 
         await fn_afterAddTab(menuNo);
         fn_setLeftMenu(menuJson[0].id, menuJson[0].text);
+        
+        fn_getSysInfo();
     }
 
     function gfn_tabClose(_menuId) {
