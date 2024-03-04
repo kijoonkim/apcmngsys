@@ -953,7 +953,7 @@
 	 * @name fn_docSort
 	 * @description 선별확인서 발행
 	 */
-	const fn_docSort = function() {
+	const fn_docSort = async function() {
 		const sortnoSnList = [];
 		const sortnoList = [];
 		const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'ST_DOC');
