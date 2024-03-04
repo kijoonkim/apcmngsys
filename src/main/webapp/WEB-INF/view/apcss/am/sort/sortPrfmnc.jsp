@@ -956,6 +956,7 @@
 	const fn_docSort = function() {
 		const sortnoSnList = [];
 		const sortnoList = [];
+		const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'ST_DOC');
 		const allData = grdSortPrfmnc.getGridDataAll();
 		allData.forEach((item) => {
 			if (item.checkedYn === "Y") {
@@ -971,7 +972,8 @@
 
  		const sortnoSn = sortnoSnList.join("','");
  		const sortno = sortnoList.join("','");
- 		gfn_popClipReport("선별확인서", "am/sortIdntyDoc.crf", {apcCd: gv_selectedApcCd, sortnoSn: sortnoSn, sortno: sortno});
+ 		gfn_popClipReport("선별확인서", rptUrl, {apcCd: gv_selectedApcCd, sortnoSn: sortnoSn, sortno: sortno});
+ 		//gfn_popClipReport("선별확인서", "am/sortIdntyDoc.crf", {apcCd: gv_selectedApcCd, sortnoSn: sortnoSn, sortno: sortno});
  	}
 
 
