@@ -23,7 +23,7 @@
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
-	
+
 <style>
 
 .col-hd {
@@ -65,7 +65,7 @@
 }
 
 </style>
-	
+
 </head>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
@@ -123,7 +123,7 @@
 				<!--[APC] START -->
 				<!--[APC] END -->
 				<!--[pp] 검색 -->
-				
+
 				<table class="table table-bordered tbl_fixed tbl_mbl">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
@@ -206,12 +206,12 @@
 							</td>
 							<td colspan="2"class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row chk-mbl" style="vertical-align:middle;">
-								    <input 
-								    	style="width:20px;height:20px;" 
-								    	type="checkbox" 
-								    	id="srch-chk-fxngItem" 
-								    	name="srch-chk-fxngItem" 
-								    	checked 
+								    <input
+								    	style="width:20px;height:20px;"
+								    	type="checkbox"
+								    	id="srch-chk-fxngItem"
+								    	name="srch-chk-fxngItem"
+								    	checked
 								    />
 								    <label for="srch-chk-fxngItem">고정</label>
 							    </p>
@@ -280,7 +280,7 @@
 
 							</td>
 						</tr>
-						<!-- 
+						<!--
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>입고구분</th>
 							<td colspan="11" class="td_input">
@@ -376,12 +376,12 @@
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row chk-mbl" style="vertical-align:middle;">
-								    <input 
-								    	style="width:20px;height:20px;" 
-								    	type="checkbox" 
-								    	id="srch-chk-fxngWarehouseSeCd" 
-								    	name="srch-chk-fxngWarehouseSeCd" 
-								    	checked 
+								    <input
+								    	style="width:20px;height:20px;"
+								    	type="checkbox"
+								    	id="srch-chk-fxngWarehouseSeCd"
+								    	name="srch-chk-fxngWarehouseSeCd"
+								    	checked
 								    />
 								    <label for="srch-chk-fxngWarehouseSeCd">고정</label>
 							    </p>
@@ -405,7 +405,7 @@
 						</tr>
 					</tbody>
 				</table>
-				<!-- 
+				<!--
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
 						<li>
@@ -475,7 +475,7 @@
 		 	gfn_setApcItemSBSelect('srch-slt-itemCd', jsonApcItem, gv_selectedApcCd),	// 품목
 			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd),	// 품종
 		]);
-		
+
 		/*
 		if (jsonComWarehouse.length > 0) {
 			SBUxMethod.set("srch-slt-warehouseSeCd", jsonComWarehouse[0].cdVl);
@@ -490,7 +490,7 @@
      * @description SBRadio JSON 불러오기
      */
     const fn_initSBRadio = async function() {
-		
+
     	/*
     	let result = await Promise.all([
 	    		gfn_getComCdDtls('WRHS_SE_CD'),		// 입고구분
@@ -515,7 +515,7 @@
 	const fn_init = async function() {
 
 		fn_setApcForm();
-		
+
 		//SBUxMethod.set("srch-chk-fxngItem", {"srch-chk-fxngItem": false});
 		//SBUxMethod.set("srch-chk-fxngWghtAvg", {"srch-chk-fxngWghtAvg": false});
 		//SBUxMethod.set("srch-chk-fxngBxKnd", {"srch-chk-fxngBxKnd": false});
@@ -535,30 +535,30 @@
 
 		fn_clearForm();
 		//fn_search();
-		
+
 	}
 
 	const fn_setApcForm = async function() {
 		console.log("stng");
 		await gfn_getApcStng(gv_selectedApcCd);
 		console.log(gv_apcStng);
-		
+
 		const wghtEls = document.querySelectorAll(".dsp-wght");
-		
+
 		wghtEls.forEach((el) => {
     		el.style.display = "";
     	});
-		
+
 		if (!gfn_isEmpty(gv_apcStng)) {
 			if (_.isEqual(gv_apcStng.rawMtrVlType, "QNTT")) {
 				wghtEls.forEach((el) => {
 		    		el.style.display = "none";
 		    	});
 			}
-		}		
+		}
 	}
-	
-	
+
+
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
 		document.querySelectorAll(".sbux-pik-icon-btn").forEach((el) => {
@@ -719,7 +719,7 @@
      * @description 저장 버튼
      */
     const fn_save = async function() {
-		
+
     	let wrhsYmd = SBUxMethod.get("srch-dtp-wrhsYmd");		// 입고일자
  		//let wrhsSeCd = SBUxMethod.get("srch-rdo-wrhsSeCd");		// 입고구분
  		//let gdsSeCd = SBUxMethod.get("srch-rdo-gdsSeCd");		// 상품구분
@@ -729,7 +729,7 @@
  		if (!gfn_isEmpty(vrtyCd)) {
   			vrtyCd = vrtyCd.substring(4);
   		}
- 		
+
 		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");		// 생산자
 		let bxQntt = SBUxMethod.get("srch-inp-bxQntt");			// 수량
  		let wrhsWght = SBUxMethod.get("srch-inp-wrhsWght");		// 중량
@@ -739,14 +739,14 @@
 
  		let wrhsSeCd = "3";			// 입고구분
  		let gdsSeCd = "1";			// 상품구분
- 		let trsprtSeCd = "1";		// 운송구분 		
- 		
+ 		let trsprtSeCd = "1";		// 운송구분
+
     	// validation check
     	if (gfn_isEmpty(wrhsYmd)) {
     		gfn_comAlert("W0001", "입고일자");		//	W0002	{0}을/를 선택하세요.
             return;
     	}
-    	
+
     	if (gfn_isEmpty(itemCd)) {
     		gfn_comAlert("W0001", "품목");		//	W0002	{0}을/를 선택하세요.
             return;
@@ -764,9 +764,9 @@
     		gfn_comAlert("W0001", "중량");		//	//	W0002	{0}을/를 입력하세요.
             return;
     	}
-    	
+
 		console.log('warehouseSeCd', warehouseSeCd);
-		
+
      	if (gfn_isEmpty(warehouseSeCd)) {
      		gfn_comAlert("W0001", "창고");		//	W0002	{0}을/를 선택하세요.
 			return;
@@ -777,12 +777,12 @@
             return;
     	}
 
-    	// 등급 설정 
+    	// 등급 설정
     	const stdGrdList = [];
     	let grdCd;
-    	
+
     	await gStdGrdObj.init(gv_selectedApcCd, _GRD_SE_CD_WRHS, itemCd);
-    	
+
     	if (gjsonStdGrdObj_1.length > 0) {
     		stdGrdList.push({
     			grdSeCd: _GRD_SE_CD_WRHS,
@@ -790,7 +790,7 @@
     			grdKnd: gjsonStdGrdObj_1[0].grdKnd,
     			grdCd: gjsonStdGrdObj_1[0].grdCd,
     		});
-    		
+
     		grdCd = gjsonStdGrdObj_1[0].grdCd;
     	}
 
@@ -836,7 +836,7 @@
         		if(document.querySelector('#srch-chk-autoPrint').checked){
         			fn_autoPrint(data.resultMap);
         		}
-        		
+
         	} else {
         		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
         	}
@@ -850,9 +850,9 @@
 
 	}
 
-	const fn_autoPrint = function(resultMap){
+	const fn_autoPrint = async function(resultMap){
 		const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'RT_DOC');
-		gfn_popClipReport("원물인식표", rptUrl, {apcCd: gv_selectedApcCd, wrhsno: wrhsno});
+		gfn_popClipReport("원물인식표", rptUrl, {apcCd: gv_selectedApcCd, wrhsno: resultMap.wrhsno});
 		//gfn_popClipReport("원물인식표", "am/rawMtrIdntyDoc.crf", {apcCd: gv_selectedApcCd, wrhsno: resultMap.wrhsno});
 	}
 
@@ -1219,7 +1219,7 @@
 			// 품종
 			SBUxMethod.set("srch-slt-vrtyCd", "");
 			SBUxMethod.set("srch-inp-wghtAvg", "");
-			
+
 			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd);	// 품종
 		}
 
@@ -1229,7 +1229,7 @@
 			if (jsonComWarehouse.length > 0) {
 		 		SBUxMethod.set("srch-slt-warehouseSeCd", jsonComWarehouse[0].value);
 			}
-			
+
 		}
 
 		// 수량
@@ -1242,7 +1242,7 @@
 	const fn_close = function(){
 		parent.gfn_tabClose("TAB_AM_001_008");
 	}
-	
+
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

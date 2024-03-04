@@ -20,6 +20,7 @@ import com.at.apcss.am.invntr.service.RawMtrInvntrService;
 import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
 import com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper;
 import com.at.apcss.am.wrhs.service.RawMtrWrhsService;
+import com.at.apcss.am.wrhs.vo.ComRawMtrWrhsDsctnTotVO;
 import com.at.apcss.am.wrhs.vo.RawMtrWrhsDsctnTotVO;
 import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
 import com.at.apcss.co.constants.ComConstants;
@@ -78,6 +79,14 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 	public List<RawMtrWrhsDsctnTotVO> selectDsctnTotList(RawMtrWrhsDsctnTotVO rawMtrWrhsVO) throws Exception {
 
 		List<RawMtrWrhsDsctnTotVO> resultList = rawMtrWrhsMapper.selectDsctnTotList(rawMtrWrhsVO);
+
+		return resultList;
+	}
+
+	@Override
+	public List<ComRawMtrWrhsDsctnTotVO> selectComDsctnTotList(ComRawMtrWrhsDsctnTotVO rawMtrWrhsVO) throws Exception {
+
+		List<ComRawMtrWrhsDsctnTotVO> resultList = rawMtrWrhsMapper.selectComDsctnTotList(rawMtrWrhsVO);
 
 		return resultList;
 	}

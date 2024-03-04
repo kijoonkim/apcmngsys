@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
+import com.at.apcss.am.wrhs.vo.ComRawMtrWrhsDsctnTotVO;
 import com.at.apcss.am.wrhs.vo.RawMtrWrhsDsctnTotVO;
 import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
 
@@ -41,12 +42,20 @@ public interface RawMtrWrhsMapper {
 	public List<RawMtrWrhsVO> selectRawMtrWrhsList(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
 
 	/**
-	 * 입고내역집계 목록 조회
-	 * @param rawMtrWrhsVO
+	 * 파프리카입고내역집계 목록 조회
+	 * @param RawMtrWrhsDsctnTotVO
 	 * @return
 	 * @throws Exception
 	 */
 	public List<RawMtrWrhsDsctnTotVO> selectDsctnTotList(RawMtrWrhsDsctnTotVO rawMtrWrhsVO) throws Exception;
+
+	/**
+	 * 입고내역집계(공통) 목록 조회
+	 * @param RawMtrWrhsDsctnTotVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ComRawMtrWrhsDsctnTotVO> selectComDsctnTotList(ComRawMtrWrhsDsctnTotVO rawMtrWrhsVO) throws Exception;
 
 	/**
 	 * 원물입고 등록
@@ -87,7 +96,7 @@ public interface RawMtrWrhsMapper {
 	 * @throws Exception
 	 */
 	public int insertRawMtrPrcs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
-	
+
 	/**
 	 * 원물처리 등록
 	 * @param rawMtrWrhsVO
@@ -95,8 +104,8 @@ public interface RawMtrWrhsMapper {
 	 * @throws Exception
 	 */
 	public int updateRawMtrPrcsDelY(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
-	
-	
+
+
 	/**
 	 * 입고실적 목록 조회
 	 *
@@ -105,7 +114,7 @@ public interface RawMtrWrhsMapper {
 	 * @throws Exception
 	 */
 	public List<RawMtrWrhsVO> selectRawMtrWrhsPrfmncList(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
-	
+
 	/**
 	 * 원물입고 재처리 목록 조회
 	 *
@@ -114,7 +123,7 @@ public interface RawMtrWrhsMapper {
 	 * @throws Exception
 	 */
 	public List<RawMtrWrhsVO> selectRawMtrPrcsList(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
-	
+
 	/**
 	 * 원물입고 재처리 투입 목록 조회
 	 *
@@ -123,7 +132,7 @@ public interface RawMtrWrhsMapper {
 	 * @throws Exception
 	 */
 	public List<RawMtrWrhsVO> selectRawMtrPrcsInptList(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
-	
-	
-	
+
+
+
 }

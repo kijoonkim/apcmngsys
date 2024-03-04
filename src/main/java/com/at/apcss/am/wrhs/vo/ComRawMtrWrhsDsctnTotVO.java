@@ -26,7 +26,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class RawMtrWrhsDsctnTotVO extends ComVO {
+public class ComRawMtrWrhsDsctnTotVO extends ComVO {
 
 	private String apcCd;
 	private String wrhsYmdFrom;
@@ -34,29 +34,25 @@ public class RawMtrWrhsDsctnTotVO extends ComVO {
 	private String itemCd;
 	private String prdcrCd;
 	private String wrhsYmd;
+	private String vrtyCd;
 
 	private String itemNm;
 	private String vrtyNm;
 	private String prdcrNm;
-	private String R1;
-	private String R2;
-	private String R3;
-	private String R4;
-	private String R5;
-	private String RT;
-	private String Y1;
-	private String Y2;
-	private String Y3;
-	private String Y4;
-	private String Y5;
-	private String YT;
-	private String O1;
-	private String O2;
-	private String O3;
-	private String O4;
-	private String O5;
-	private String OT;
-	private String TOT;
+	private String bxQntt1;
+	private String bxQntt2;
+	private String bxQntt3;
+	private String bxQntt4;
+	private String bxQntt5;
+	private String wrhsWght1;
+	private String wrhsWght2;
+	private String wrhsWght3;
+	private String wrhsWght4;
+	private String wrhsWght5;
+	private String qnttTot;
+	private String wrhsTot;
+
+
 
 
 
