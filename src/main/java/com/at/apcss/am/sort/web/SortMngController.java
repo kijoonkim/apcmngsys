@@ -190,7 +190,7 @@ public class SortMngController extends BaseController {
 				return getErrorResponseEntity(rtnObj);
 			}
 		}
-
+		resultMap.put(ComConstants.PROP_RESULT_MAP, sortMngVO);
 		return getSuccessResponseEntity(resultMap);
 	}
 

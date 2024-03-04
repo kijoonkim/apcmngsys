@@ -28,6 +28,7 @@ import lombok.Setter;
 @Setter
 public class SortMngVO extends ComVO {
 
+
 	/**
 	 * APC코드
 	 */
@@ -35,12 +36,14 @@ public class SortMngVO extends ComVO {
 
 	private String sortno;
 
+	private int sortSn;
+
 	private String sortYmd;
 
 	private String sortKey;
-	
+
 	private String isImpYn;
-	
+
 	/**
 	 * 투입등록 필요 여부
 	 */
@@ -55,7 +58,7 @@ public class SortMngVO extends ComVO {
 	 * 원물 값 유형
 	 */
 	private String rawMtrVlType;
-	
+
 	/**
 	 * 포장등록 여부
 	 */
@@ -78,6 +81,15 @@ public class SortMngVO extends ComVO {
 	 * 선별실적 목록
 	 */
 	private List<SortPrfmncVO> sortPrfmncList;
+
+	private List<String> sortSnList;
+
+	public List<String> getSortSnList() {
+		return sortSnList == null ? null : sortSnList.stream().collect(Collectors.toList());
+	}
+	public void setSortSnList(List<String> sortSnList) {
+		this.sortSnList = sortSnList == null ? null : sortSnList.stream().collect(Collectors.toList());
+	}
 
 	/**
 	 * 선별지시 목록 get set
