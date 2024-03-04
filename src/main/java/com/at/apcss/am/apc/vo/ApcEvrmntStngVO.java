@@ -96,4 +96,9 @@ public class ApcEvrmntStngVO extends ComVO{
 	 */
 	private String rawMtrVlType;
 	
+	/**
+	 * 세션갱신사용여부
+	 */
+	private String sessUpdtUseYn;
+	
 }
