@@ -32,6 +32,7 @@ public class PrdcrCrclOgnVluIdctrMngVO extends ComVO{
 	private String aprv;
 
 	private String stbltYn;
+	private String stbltYnNm;
 
 	private String itemNm;
 	private String itemCd;
@@ -149,6 +150,8 @@ public class PrdcrCrclOgnVluIdctrMngVO extends ComVO{
 	private String spmtPrcTot;//출하대금지급액
 	private String prdctnVlmTot;//생산량(결과)
 	private String cnt;//조직원수
+
+	private String fundAplyAmtTot;//자금신청액
 
 	private String prfmncCorpDdlnYn;//실적 법인체 마감
 	private String sysFrstInptUserIdNm;

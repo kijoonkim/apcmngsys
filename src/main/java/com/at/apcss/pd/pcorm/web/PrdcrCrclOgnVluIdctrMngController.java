@@ -47,6 +47,21 @@ public class PrdcrCrclOgnVluIdctrMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	//통합조직 총괄 조회
+	@PostMapping(value = "/pd/pcorm/selectUoTotList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectUoTotList(Model model, @RequestBody PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PrdcrCrclOgnVluIdctrMngVO> resultList = new ArrayList<>();
+		try {
+			 resultList = prdcrCrclOgnVluIdctrMngService.selectUoTotList(prdcrCrclOgnVluIdctrMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
 	//출자출하조직 등록결과 리스트 조회
 	@PostMapping(value = "/pd/pcorm/selectIsoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectIsoList(Model model, @RequestBody PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO, HttpServletRequest request) throws Exception{
@@ -54,6 +69,21 @@ public class PrdcrCrclOgnVluIdctrMngController extends BaseController{
 		List<PrdcrCrclOgnVluIdctrMngVO> resultList = new ArrayList<>();
 		try {
 			 resultList = prdcrCrclOgnVluIdctrMngService.selectIsoList(prdcrCrclOgnVluIdctrMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	//출자출하조직 등록결과 리스트 조회
+	@PostMapping(value = "/pd/pcorm/selectIsoTotList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectIsoTotList(Model model, @RequestBody PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PrdcrCrclOgnVluIdctrMngVO> resultList = new ArrayList<>();
+		try {
+			 resultList = prdcrCrclOgnVluIdctrMngService.selectIsoTotList(prdcrCrclOgnVluIdctrMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);

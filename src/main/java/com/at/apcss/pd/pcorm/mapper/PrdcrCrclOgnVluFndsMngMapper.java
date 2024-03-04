@@ -23,19 +23,6 @@ import com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO;
 @Mapper
 public interface PrdcrCrclOgnVluFndsMngMapper {
 
+	public List<PrdcrCrclOgnVluFndsMngVO> selectScoreList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO);
 
-	/**
-	 * 메시지정보를 조회한다.
-	 * @param bbsVO
-	 * @return
-	 */
-	public PrdcrCrclOgnVluFndsMngVO selectPrdcrCrclOgnVluFndsMng(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO);
-
-	public List<PrdcrCrclOgnVluFndsMngVO> selectPrdcrCrclOgnVluFndsMngList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO);
-
-	public int insertPrdcrCrclOgnVluFndsMng(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO);
-
-	public int updatePrdcrCrclOgnVluFndsMng(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO);
-
-	public int deletePrdcrCrclOgnVluFndsMng(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO) throws Exception;
 }

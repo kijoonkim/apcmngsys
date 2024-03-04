@@ -299,13 +299,29 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="font-size:14px">▶</span>
+								<span style="font-size:14px">▶평가지표</span>
 								<!--
 								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
 								 -->
 							</li>
 						</ul>
 					</div>
+					<!-- SBGrid를 호출합니다. -->
+					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:100px; width: 100%;"></div>
+				</div>
+				<div class="ad_section_top">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">▶가감점</span>
+								<!--
+								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+								 -->
+							</li>
+						</ul>
+					</div>
+					<!-- SBGrid를 호출합니다. -->
+					<div id="sb-area-grdPrdcrOgnCurntMng02" style="height:300px; width: 100%;"></div>
 				</div>
 			</div>
 			<div id="sb-area-hiddenGrd" style="height:400px; width: 100%; display: none;"></div>
@@ -337,7 +353,15 @@
 		SBUxMethod.set("srch-input-yr",year);//
 		await fn_fcltMngCreateGrid();
 	</c:if>
+
+		await fn_fcltMngCreateGrid01();
+		await fn_fcltMngCreateGrid02();
+
 		await fn_initSBSelect();
+
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
+		await fn_search();
+	</c:if>
 	}
 
 	var jsonComCmptnInst = [];//관할기관
@@ -442,6 +466,108 @@
 		//클릭 이벤트 바인드
 		grdPrdcrOgnCurntMng.bind('click','fn_view');
 		grdPrdcrOgnCurntMng.bind('beforepagechanged', 'fn_pagingBbsList');
+	}
+
+
+	var jsonPrdcrOgnCurntMng01 = []; // 그리드의 참조 데이터 주소 선언
+	var grdPrdcrOgnCurntMng01
+
+	const objMenuList01 = {
+			"excelDwnld": {
+				"name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+				"accesskey": "e",					//단축키
+				"callback": fn_excelDwnld01,			//콜백함수명
+			}
+		};
+
+
+	function fn_excelDwnld01() {
+		grdPrdcrOgnCurntMng01.exportLocalExcel("활성화자금 평가지표", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+	}
+
+
+	/* Grid 화면 그리기 기능*/
+	//평가지표
+	const fn_fcltMngCreateGrid01 = async function() {
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng01';
+		SBGridProperties.id = 'grdPrdcrOgnCurntMng01';
+		SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng01';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList01;	// 우클릭 메뉴 리스트
+		//SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.fixedrowheight=45;
+		//SBGridProperties.rowheight = 57;
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.columns = [
+			{caption: ["처리"], 				ref: 'delYn',   	type:'button', width:'60px',	style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+				if(strValue== null || strValue == ""){
+					return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdUoList\", " + nRow + ", " + nCol + ")'>추가</button>";
+				}else{
+					return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdUoList\", " + nRow + ")'>삭제</button>";
+				}
+			}},
+			{caption: ["항목"],		ref: 'dd',		type:'output',  width:'160px',	style:'text-align:center;'},
+			{caption: ["산출식"],		ref: 'bb',		type:'output',  width:'400px',	style:'text-align:center;'},
+			{caption: ["배점"], 		ref: 'cc',		type:'output',  width:'60px',	style:'text-align:center;'},
+			{caption: ["산출결과"], 	ref: 'ee',		type:'output',  width:'400px',	style:'text-align:center;'},
+			{caption: ["점수"], 		ref: 'score',		type:'input',  width:'60px',	style:'text-align:center;'},
+
+			{caption: ["상세내역"], 	ref: 'yr',   			hidden : true},
+			{caption: ["상세내역"], 	ref: 'brno',   			hidden : true},
+			{caption: ["상세내역"], 	ref: 'aa',   			hidden : true},
+		];
+
+		grdPrdcrOgnCurntMng01 = _SBGrid.create(SBGridProperties);
+	}
+
+	var jsonPrdcrOgnCurntMng02 = []; // 그리드의 참조 데이터 주소 선언
+	var grdPrdcrOgnCurntMng02
+
+	const objMenuList02 = {
+			"excelDwnld": {
+				"name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+				"accesskey": "e",					//단축키
+				"callback": fn_excelDwnld02,			//콜백함수명
+			}
+		};
+
+
+	function fn_excelDwnld02() {
+		grdPrdcrOgnCurntMng02.exportLocalExcel("활성화자금 평가지표", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+	}
+
+
+	/* Grid 화면 그리기 기능*/
+	//가감점
+	const fn_fcltMngCreateGrid02 = async function() {
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng02';
+		SBGridProperties.id = 'grdPrdcrOgnCurntMng02';
+		SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng02';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList01;	// 우클릭 메뉴 리스트
+		//SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.fixedrowheight=45;
+		//SBGridProperties.rowheight = 57;
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.columns = [
+			{caption: ["항목"],		ref: 'dd',		type:'output',  width:'160px',	style:'text-align:center;'},
+			{caption: ["산출식"],		ref: 'bb',		type:'output',  width:'400px',	style:'text-align:center;'},
+			{caption: ["배점"], 		ref: 'cc',		type:'output',  width:'60px',	style:'text-align:center;'},
+			{caption: ["산출결과"], 	ref: 'ee',		type:'output',  width:'400px',	style:'text-align:center;'},
+			{caption: ["점수"], 		ref: 'score',		type:'input',  width:'60px',	style:'text-align:center;'},
+
+			{caption: ["상세내역"], 	ref: 'yr',   			hidden : true},
+			{caption: ["상세내역"], 	ref: 'brno',   			hidden : true},
+			{caption: ["상세내역"], 	ref: 'aa',   			hidden : true},
+		];
+
+		grdPrdcrOgnCurntMng02 = _SBGrid.create(SBGridProperties);
 	}
 
 	/**
@@ -626,7 +752,6 @@
 		SBUxMethod.set('dtl-input-crno',gfn_nvl(rowData.crno))//법인등록번호
 		SBUxMethod.set('dtl-input-brno',gfn_nvl(rowData.brno))//사업자등록번호
 		SBUxMethod.set('dtl-input-yr',gfn_nvl(rowData.yr))//등록년도
-
 	}
 	//그리드 초기화
 	async function fn_clearForm() {
@@ -640,6 +765,97 @@
 		SBUxMethod.set('dtl-input-yr',null)//등록년도
 	}
 
+
+	//평가지표,가감점 조회
+	const fn_dtlGridSearch = async function(){
+		let brno = SBUxMethod.get("dtl-input-brno");//
+		let yr = SBUxMethod.get("dtl-input-yr");//
+
+		if(gfn_isEmpty(yr)){
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
+
+		let postJsonPromise = gfn_postJSON("/pd/pcorm/selectScoreList.do", {
+			brno : brno
+			, yr : yr
+		});
+
+
+		let data = await postJsonPromise ;
+		try{
+			jsonPrdcrOgnCurntMng01.length = 0;
+			jsonPrdcrOgnCurntMng02.length = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
+				let PrdcrOgnCurntMngVO = {
+					yr: item.yr
+					,brno: item.brno
+					,aa: item.aa
+					,bb: item.bb
+					,cc: item.cc
+					,dd: item.dd
+					,score: item.score
+				}
+				if(item.aa == '1' || item.aa == '2'){
+					jsonPrdcrOgnCurntMng01.push(PrdcrOgnCurntMngVO);
+				}else if(item.aa == '3'){
+					jsonPrdcrOgnCurntMng02.push(PrdcrOgnCurntMngVO);
+				}
+			});
+			grdPrdcrOgnCurntMng01.rebuild();
+			grdPrdcrOgnCurntMng02.rebuild();
+			grdPrdcrOgnCurntMng02.addRow();
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+	/* Grid Row 추가 및 삭제 기능*/
+	function fn_procRow(gubun, grid, nRow, nCol) {
+		if (gubun === "ADD") {
+			if (grid === "grdPrdcrOgnCurntMng02") {
+				grdPrdcrOgnCurntMng02.setCellData(nRow, nCol, "N", true);
+				//grdPrdcrOgnCurntMng02.setCellData(nRow, 5, gv_apcCd, true);
+				grdPrdcrOgnCurntMng02.addRow(true);
+			}
+		}
+		else if (gubun === "DEL") {
+			if (grid === "grdPrdcrOgnCurntMng02") {
+				if(grdPrdcrOgnCurntMng02.getRowStatus(nRow) == 0 || grdPrdcrOgnCurntMng02.getRowStatus(nRow) == 2){
+					var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+					if(confirm(delMsg)){
+						var uoVO = grdPrdcrOgnCurntMng02.getRowData(nRow);
+						//fn_deleteRsrc(uoVO);
+						grdPrdcrOgnCurntMng02.deleteRow(nRow);
+					}
+				}else{
+					grdPrdcrOgnCurntMng02.deleteRow(nRow);
+				}
+			}
+		}
+	}
+	//가감점 삭제 버튼
+	async function fn_deleteRsrc(uoVO){
+		let postJsonPromise = gfn_postJSON("/pd/pcorm/deleteScore.do", uoVO);
+		let data = await postJsonPromise;
+		try{
+			if(data.result > 0){
+				alert("삭제 되었습니다.");
+			}else{
+				alert("삭제 도중 오류가 발생 되었습니다.");
+			}
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
 
 </script>
 </html>
