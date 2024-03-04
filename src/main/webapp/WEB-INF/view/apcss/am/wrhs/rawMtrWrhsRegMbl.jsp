@@ -851,7 +851,9 @@
 	}
 
 	const fn_autoPrint = function(resultMap){
-		gfn_popClipReport("원물인식표", "am/rawMtrIdntyDoc.crf", {apcCd: gv_selectedApcCd, wrhsno: resultMap.wrhsno});
+		const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'RT_DOC');
+		gfn_popClipReport("원물인식표", rptUrl, {apcCd: gv_selectedApcCd, wrhsno: wrhsno});
+		//gfn_popClipReport("원물인식표", "am/rawMtrIdntyDoc.crf", {apcCd: gv_selectedApcCd, wrhsno: resultMap.wrhsno});
 	}
 
     /**
