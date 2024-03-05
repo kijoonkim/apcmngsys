@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at.apcss.am.sort.service.SortPrfmncService;
+import com.at.apcss.am.sort.vo.ComSortDsctnTotVO;
 import com.at.apcss.am.sort.vo.SortDsctnTotVO;
 import com.at.apcss.am.sort.vo.SortPrfmncVO;
 import com.at.apcss.co.constants.ComConstants;
@@ -127,6 +128,28 @@ public class SortPrfmncController extends BaseController {
 
 		try {
 			resultList = sortPrfmncService.selectSortDsctnTot(sortDsctnTotVO);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/sort/selectComDsctnTotList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectComDsctnTotList(@RequestBody ComSortDsctnTotVO sortDsctnTotVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<ComSortDsctnTotVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = sortPrfmncService.selectComSortDsctnTot(sortDsctnTotVO);
 		} catch(Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {

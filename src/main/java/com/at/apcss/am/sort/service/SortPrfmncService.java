@@ -3,6 +3,7 @@ package com.at.apcss.am.sort.service;
 import java.util.HashMap;
 import java.util.List;
 
+import com.at.apcss.am.sort.vo.ComSortDsctnTotVO;
 import com.at.apcss.am.sort.vo.SortDsctnTotVO;
 import com.at.apcss.am.sort.vo.SortPrfmncVO;
 
@@ -40,12 +41,20 @@ public interface SortPrfmncService {
 
 
 	/**
-	 * 선별집계내역 목록 조회
+	 * 파프리카선별집계내역 목록 조회
 	 * @param SortDsctnTotVO
 	 * @return
 	 * @throws Exception
 	 */
 	public List<SortDsctnTotVO> selectSortDsctnTot(SortDsctnTotVO sortDsctnTotVO) throws Exception;
+
+	/**
+	 * 선별집계내역(공통) 목록 조회
+	 * @param SortDsctnTotVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ComSortDsctnTotVO> selectComSortDsctnTot(ComSortDsctnTotVO sortDsctnTotVO) throws Exception;
 
 	/**
 	 * 선별실적 취소대상 목록 조회
