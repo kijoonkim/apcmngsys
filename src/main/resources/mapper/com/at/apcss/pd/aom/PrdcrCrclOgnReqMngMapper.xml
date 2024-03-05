@@ -524,26 +524,25 @@
 					CLT.APO_CD  	= #{apoCd}
 				AND CLT.YR  		= #{yr}
 				AND CLT.ITEM_CD  	= #{itemCd}
-				AND CLT.STTG_UPBR_ITEM_SE  	= #{sttgUpbrItemSe}
 				)
 		WHEN MATCHED THEN
 				 UPDATE /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertGpc */
-					   SET
-		    	          RMRK	= #{rmrk}
-		    	]]>
+					SET
+						RMRK	= #{rmrk}
+						, CTGRY_CD 				= #{ctgryCd}
+						, STTG_UPBR_ITEM_SE 	= #{sttgUpbrItemSe}
+				]]>
 				<if test='delYn != null and delYn != ""'>
-						, DEL_YN 	= #{delYn}
-						, CTGRY_CD 	= #{ctgryCd}
+						, DEL_YN 				= #{delYn}
 				</if>
-		    	<![CDATA[
+				<![CDATA[
 						, SYS_LAST_CHG_DT		= SYSDATE
-			    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-			    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+						, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+						, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 					 WHERE 1=1
 					 AND CLT.APO_CD  	= #{apoCd}
 					 AND CLT.YR  		= #{yr}
 					 AND CLT.ITEM_CD  	= #{itemCd}
-					 AND CLT.STTG_UPBR_ITEM_SE  = #{sttgUpbrItemSe}
 		WHEN NOT MATCHED THEN
 			 INSERT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertGpc */
 		    		(
