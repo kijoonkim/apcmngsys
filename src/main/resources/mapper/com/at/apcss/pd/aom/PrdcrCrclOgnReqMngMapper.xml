@@ -523,7 +523,6 @@
 			ON (
 					CLT.APO_CD  	= #{apoCd}
 				AND CLT.YR  		= #{yr}
-				AND CLT.CTGRY_CD  	= #{ctgryCd}
 				AND CLT.ITEM_CD  	= #{itemCd}
 				AND CLT.STTG_UPBR_ITEM_SE  	= #{sttgUpbrItemSe}
 				)
@@ -534,6 +533,7 @@
 		    	]]>
 				<if test='delYn != null and delYn != ""'>
 						, DEL_YN 	= #{delYn}
+						, CTGRY_CD 	= #{ctgryCd}
 				</if>
 		    	<![CDATA[
 						, SYS_LAST_CHG_DT		= SYSDATE
@@ -542,7 +542,6 @@
 					 WHERE 1=1
 					 AND CLT.APO_CD  	= #{apoCd}
 					 AND CLT.YR  		= #{yr}
-					 AND CLT.CTGRY_CD  	= #{ctgryCd}
 					 AND CLT.ITEM_CD  	= #{itemCd}
 					 AND CLT.STTG_UPBR_ITEM_SE  = #{sttgUpbrItemSe}
 		WHEN NOT MATCHED THEN

@@ -2464,6 +2464,15 @@
 			let colRefIdx4 = grdGpcList.getColRef("itemNm");//품목명 인덱스
 			let colRefIdx5 = grdGpcList.getColRef("rmrk");//기타 인덱스
 
+			let gridData = grdGpcList.getGridDataAll();
+			for(var i=1; i<=gridData.length; i++ ){
+				let orgRowData = grdGpcList.getRowData(i);
+				if ($.trim(rowData.itemCd) === $.trim(orgRowData.itemCd)){
+					gfn_comAlert("E0000", "동일한 품목이 있습니다.");
+					return false;
+				}
+			}
+
 			//그리드 값 세팅
 			//grdGpcList.setCellData(selGridRow,colRefIdx1,rowData.ctgryCd,true);
 			//grdGpcList.setCellData(selGridRow,colRefIdx2,rowData.ctgryNm,true);
