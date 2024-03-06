@@ -238,6 +238,7 @@
 										)
 						,''
 				) AS CORP_DDLN_SE_CD
+				<if test='userType != "21"'>
 				, DECODE(EAM.APO_SE
 						, '1' , EAM.PRFMNC_CORP_DDLN_YN
 						, '2' , DECODE(NVL((SELECT COUNT(PRFMNC_CORP_DDLN_YN)
@@ -256,6 +257,16 @@
 										)
 						,''
 				) AS PRFMNC_CORP_DDLN_YN
+				</if>
+				<if test='userType == "21"'>
+				,(SELECT PRFMNC_CORP_DDLN_YN
+					FROM TB_EV_APLY_MNG
+					WHERE 1=1
+					  AND APO_SE = '1'
+					  AND YR = EAM.YR
+					  AND BRNO = #{brno}
+				) AS PRFMNC_CORP_DDLN_YN
+				</if>
 				,(CASE WHEN TRIM(RAW_MTR_ENSR_SIGUN_CNT) IS NOT NULL THEN '1'
 						WHEN TRIM(RAW_MTR_ENSR_CTPV_CNT) IS NOT NULL THEN '2'
 						END

@@ -145,7 +145,7 @@
 
     <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectSortDsctnTot  	-->
-	<!-- DESC : 선별내역집계 목록 조회.                                       				-->
+	<!-- DESC : 파프리카선별내역집계 목록 조회.                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -408,6 +408,122 @@
 
 
     </select>
+
+
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectSortDsctnTot  	-->
+	<!-- DESC : 선별내역집계(공통) 목록 조회.                                       		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.03.05  	박승진        		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+    <select id="selectComSortDsctnTot" parameterType="com.at.apcss.am.sort.vo.ComSortDsctnTotVO" resultType="com.at.apcss.am.sort.vo.ComSortDsctnTotVO">
+    <![CDATA[
+	    SELECT
+			MAX(ITEM_NM) AS ITEM_NM
+			, MAX(VRTY_NM) AS VRTY_NM
+			, INPT_YMD
+			, PRDCR_NM
+			, MAX(GRD_NM) AS GRD_NM
+			, SUM(SORT_QNTT1) AS SORT_QNTT1
+			, SUM(SORT_QNTT2) AS SORT_QNTT2
+			, SUM(SORT_QNTT3) AS SORT_QNTT3
+			, SUM(SORT_QNTT4) AS SORT_QNTT4
+			, SUM(SORT_QNTT5) AS SORT_QNTT5
+			, SUM(SORT_WGHT1) AS SORT_WGHT1
+			, SUM(SORT_WGHT2) AS SORT_WGHT2
+			, SUM(SORT_WGHT3) AS SORT_WGHT3
+			, SUM(SORT_WGHT4) AS SORT_WGHT4
+			, SUM(SORT_WGHT5) AS SORT_WGHT5
+			, SUM(SORT_QNTT) AS SORT_QNTT
+			, SUM(SORT_WGHT) AS SORT_QNTT
+
+		  FROM
+		(
+
+		  SELECT
+			  A.GRD_CD
+			  , (SELECT FN_GET_GRD_NM_SORT(A.APC_CD, B.ITEM_CD, A.GRD_CD) FROM DUAL) AS GRD_NM
+			  , B.ITEM_CD
+	          , A.INPT_YMD
+	          , CASE WHEN C.RNK = 1 THEN A.SORT_QNTT ELSE 0 END AS SORT_QNTT1
+	   		  , CASE WHEN C.RNK = 2 THEN A.SORT_QNTT ELSE 0 END AS SORT_QNTT2
+			  , CASE WHEN C.RNK = 3 THEN A.SORT_QNTT ELSE 0 END AS SORT_QNTT3
+			  , CASE WHEN C.RNK = 4 THEN A.SORT_QNTT ELSE 0 END AS SORT_QNTT4
+			  , CASE WHEN C.RNK = 5 THEN A.SORT_QNTT ELSE 0 END AS SORT_QNTT5
+			  , CASE WHEN RNK = 1 THEN A.SORT_WGHT ELSE 0 END AS SORT_WGHT1
+			  , CASE WHEN RNK = 2 THEN A.SORT_WGHT ELSE 0 END AS SORT_WGHT2
+			  , CASE WHEN RNK = 3 THEN A.SORT_WGHT ELSE 0 END AS SORT_WGHT3
+			  , CASE WHEN RNK = 4 THEN A.SORT_WGHT ELSE 0 END AS SORT_WGHT4
+			  , CASE WHEN RNK = 5 THEN A.SORT_WGHT ELSE 0 END AS SORT_WGHT5
+			  , A.SORT_QNTT
+	          , A.SORT_WGHT
+	          , B.RPRS_PRDCR_CD AS RPRS_PRDCR_CD
+	          , FN_GET_PRDCR_NM (B.RPRS_PRDCR_CD, A.APC_CD) AS PRDCR_NM
+	          , B.VRTY_CD AS VRTY_CD
+	          , (SELECT FN_GET_ITEM_NM(B.ITEM_CD, B.APC_CD) FROM DUAL) AS ITEM_NM
+	          , (SELECT FN_GET_VRTY_NM(B.ITEM_CD, B.VRTY_CD, B.APC_CD) FROM DUAL) AS VRTY_NM
+
+
+			FROM USRAM.TB_SORT_PRFMNC A
+				, USRAM.TB_SORT_INVNTR B
+				, (
+					SELECT ITEM_CD
+					    , VRTY_CD
+					 	, GRD_CD
+					    , RANK() OVER(PARTITION BY VRTY_CD ORDER BY GRD_CD) AS RNK
+					  FROM (SELECT ITEM_CD,VRTY_CD,GRD_CD FROM TB_SORT_INVNTR
+ 							WHERE 1=1
+				]]>
+				<if test='apcCd != null and apcCd != ""'>
+			   		AND APC_CD = #{apcCd}
+			  	</if>
+				<if test='itemCd != null and itemCd != ""'>
+				   AND ITEM_CD = #{itemCd}
+				</if>
+				<if test='vrtyCd != null and vrtyCd != ""'>
+				   AND VRTY_CD = #{vrtyCd}
+				</if>
+ 				<![CDATA[
+							GROUP BY ITEM_CD,VRTY_CD,GRD_CD)
+							) C
+
+			WHERE   A.APC_CD = B.APC_CD
+	    	  AND     A.SORTNO = B.SORTNO
+	    	  AND     A.SORT_SN = B.SORT_SN
+	    	  AND     A.GRD_CD = C.GRD_CD
+	    	  AND     A.DEL_YN = 'N'
+	    	  AND     B.DEL_YN = 'N'
+    	]]>
+   	    <if test='apcCd != null and apcCd != ""'>
+			   AND A.APC_CD = #{apcCd}
+		</if>
+		<if test='itemCd != null and itemCd != ""'>
+			   AND B.ITEM_CD = #{itemCd}
+	    </if>
+    	<if test='vrtyCd != null and vrtyCd != ""'>
+			   AND B.VRTY_CD = #{vrtyCd}
+		</if>
+		<if test='inptYmdFrom != null and inptYmdFrom != ""'>
+			   AND A.INPT_YMD <![CDATA[>=]]> #{inptYmdFrom}
+		</if>
+		<if test='inptYmdTo != null and inptYmdTo != ""'>
+			   AND A.INPT_YMD <![CDATA[<=]]> #{inptYmdTo}
+		</if>
+		<if test='rprsPrdcrCd != null and rprsPrdcrCd != ""'>
+			   AND B.RPRS_PRDCR_CD = #{rprsPrdcrCd}
+		</if>
+	<![CDATA[
+
+	    ) X
+	GROUP BY INPT_YMD, PRDCR_NM
+	]]>
+	 </select>
+
+
 
 
 	<!-- ==========================================================================	-->

@@ -18,6 +18,7 @@ import com.at.apcss.am.invntr.vo.SortInvntrVO;
 import com.at.apcss.am.sort.mapper.SortPrfmncMapper;
 import com.at.apcss.am.sort.service.SortInptPrfmncService;
 import com.at.apcss.am.sort.service.SortPrfmncService;
+import com.at.apcss.am.sort.vo.ComSortDsctnTotVO;
 import com.at.apcss.am.sort.vo.SortDsctnTotVO;
 import com.at.apcss.am.sort.vo.SortPrfmncVO;
 import com.at.apcss.co.constants.ComConstants;
@@ -66,6 +67,14 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 	public List<SortDsctnTotVO> selectSortDsctnTot(SortDsctnTotVO sortDsctnTotVO) throws Exception {
 
 		List<SortDsctnTotVO> resultVO = sortPrfmncMapper.selectSortDsctnTot(sortDsctnTotVO);
+
+		return resultVO;
+	}
+
+	@Override
+	public List<ComSortDsctnTotVO> selectComSortDsctnTot(ComSortDsctnTotVO sortDsctnTotVO) throws Exception {
+
+		List<ComSortDsctnTotVO> resultVO = sortPrfmncMapper.selectComSortDsctnTot(sortDsctnTotVO);
 
 		return resultVO;
 	}
