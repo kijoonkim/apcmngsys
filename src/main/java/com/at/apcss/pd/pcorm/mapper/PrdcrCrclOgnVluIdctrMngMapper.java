@@ -63,4 +63,20 @@ public interface PrdcrCrclOgnVluIdctrMngMapper {
 	 */
 	public List<PrdcrCrclOgnVluIdctrMngVO> selectFrmhsList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO);
 
+	/**
+	 * 출자출하조직 총괄 저장
+	 * @param PrdcrCrclOgnVluIdctrMngVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int insertIsoTotList (PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO);
+
+	/**
+	 * 통합조직 총괄 저장
+	 * @param PrdcrCrclOgnVluIdctrMngVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int insertUoTotList (PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO);
+
 }

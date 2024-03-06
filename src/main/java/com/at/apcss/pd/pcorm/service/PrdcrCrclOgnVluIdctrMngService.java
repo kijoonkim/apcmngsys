@@ -61,4 +61,33 @@ public interface PrdcrCrclOgnVluIdctrMngService {
 	 */
 	public List<PrdcrCrclOgnVluIdctrMngVO> selectFrmhsList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception;
 
+	/**
+	 * 출자출하조직 총괄 저장
+	 * @param PrdcrCrclOgnVluIdctrMngVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int insertIsoTotList (PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception;
+
+	/**
+	 * 통합조직 총괄 저장
+	 * @param PrdcrCrclOgnVluIdctrMngVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int insertUoTotList (PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception;
+	/**
+	 * 출자출하조직 총괄 다중 저장
+	 * @param List<PrdcrCrclOgnVluIdctrMngVO>
+	 * @return int
+	 * @throws Exception
+	 */
+	public int multiSaveIsoTotList(List<PrdcrCrclOgnVluIdctrMngVO> PrdcrCrclOgnVluIdctrMngVOList) throws Exception;
+	/**
+	 * 통합조직 총괄 다중 저장
+	 * @param List<PrdcrCrclOgnVluIdctrMngVO>
+	 * @return int
+	 * @throws Exception
+	 */
+	public int multiSaveUoTotList(List<PrdcrCrclOgnVluIdctrMngVO> PrdcrCrclOgnVluIdctrMngVOList) throws Exception;
 }

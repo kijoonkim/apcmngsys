@@ -152,6 +152,11 @@ public class PrdcrCrclOgnVluIdctrMngVO extends ComVO{
 	private String cnt;//조직원수
 
 	private String fundAplyAmtTot;//자금신청액
+	private String stbltItemList;//적합품목 리스트
+	private String itrRt;//금리
+
+	private String rmrk;//비고
+
 
 	private String prfmncCorpDdlnYn;//실적 법인체 마감
 	private String sysFrstInptUserIdNm;
