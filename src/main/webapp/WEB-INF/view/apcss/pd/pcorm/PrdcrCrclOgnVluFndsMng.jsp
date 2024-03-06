@@ -22,6 +22,7 @@
 				</div>
 				<div style="margin-left: auto;">
 				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
+					<sbux-button id="btnOpenPopup" name="btnOpenPopup" uitype="normal" text="산출식 관리 팝업" class="btn btn-sm btn-outline-danger" onclick="fn_openMaodalComputWay"></sbux-button>
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 				</c:if>
 				<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
@@ -327,11 +328,30 @@
 			<div id="sb-area-hiddenGrd" style="height:400px; width: 100%; display: none;"></div>
 		</div>
 	</section>
+
+	<!-- 산출식 관리 팝업 -->
+	<div>
+		<sbux-modal
+			id="modal-computWay"
+			name="modal-computWay"
+			uitype="middle"
+			header-title="산출식 관리"
+			body-html-id="body-modal-computWay"
+			footer-is-close-button="false"
+			style="width:1000px"
+	   	></sbux-modal>
+	</div>
+	<div id="body-modal-computWay">
+		<jsp:include page="/WEB-INF/view/apcss/pd/popup/computWayPopup.jsp"></jsp:include>
+	</div>
+
 </body>
 <script type="text/javascript">
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_init();
+
+		const elements = document.querySelectorAll(".srch-keyup-area");
 
 		for (let i = 0; i < elements.length; i++) {
 			const el = elements.item(i);
@@ -551,9 +571,9 @@
 		SBGridProperties.columns = [
 			{caption: ["처리"], 				ref: 'delYn',   	type:'button', width:'60px',	style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 				if(strValue== null || strValue == ""){
-					return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdUoList\", " + nRow + ", " + nCol + ")'>추가</button>";
+					return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdPrdcrOgnCurntMng02\", " + nRow + ", " + nCol + ")'>추가</button>";
 				}else{
-					return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdUoList\", " + nRow + ")'>삭제</button>";
+					return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdPrdcrOgnCurntMng02\", " + nRow + ")'>삭제</button>";
 				}
 			}},
 			{caption: ["항목"],		ref: 'dd',		type:'output',  width:'160px',	style:'text-align:center;'},
@@ -827,14 +847,14 @@
 		else if (gubun === "DEL") {
 			if (grid === "grdPrdcrOgnCurntMng02") {
 				if(grdPrdcrOgnCurntMng02.getRowStatus(nRow) == 0 || grdPrdcrOgnCurntMng02.getRowStatus(nRow) == 2){
-					var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+					let delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
 					if(confirm(delMsg)){
-						var uoVO = grdPrdcrOgnCurntMng02.getRowData(nRow);
-						//fn_deleteRsrc(uoVO);
-						grdPrdcrOgnCurntMng02.deleteRow(nRow);
+						let rowData = grdPrdcrOgnCurntMng02.getRowData(nRow);
+						//fn_deleteRsrc(rowData);
+						//grdPrdcrOgnCurntMng02.deleteRow(nRow);
 					}
 				}else{
-					grdPrdcrOgnCurntMng02.deleteRow(nRow);
+					//grdPrdcrOgnCurntMng02.deleteRow(nRow);
 				}
 			}
 		}
@@ -855,6 +875,13 @@
 			}
 			console.error("failed", e.message);
 		}
+	}
+
+	//산출식 관리 팝업 버튼
+	function fn_openMaodalComputWay(){
+		console.log('fn_openMaodalComputWay');
+		popComputWay.init();
+		SBUxMethod.openModal('modal-computWay');
 	}
 
 </script>
