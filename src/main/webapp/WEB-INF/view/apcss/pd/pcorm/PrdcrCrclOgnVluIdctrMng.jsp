@@ -692,10 +692,10 @@
 				{caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
 				{caption: ["상세내역"], 	ref: 'trmtType',   		hidden : true},
 				{caption: ["상세내역"], 	ref: 'aprv',   			hidden : true},
-				{caption: ["상세내역"], 	ref: 'stbltYn',   			hidden : true},
+				{caption: ["상세내역"], 	ref: 'stbltYn',   		hidden : true},
 			];
 
-	    grdPrdcrOgnCurntMng01 = _SBGrid.create(SBGridProperties);
+		grdPrdcrOgnCurntMng01 = _SBGrid.create(SBGridProperties);
 	}
 
 	var jsonPrdcrOgnCurntMng07 = []; // 그리드의 참조 데이터 주소 선언
@@ -736,11 +736,16 @@
 				{caption: ["통합조직명"],	ref: 'corpNm',		type:'output',  width:'160px',    style:'text-align:center;'},
 				{caption: ["사업자번호"],	ref: 'brno',		type:'output',  width:'80px',    style:'text-align:center;'},
 				{caption: ["적합여부"], 	ref: 'stbltYn',		type:'output',  width:'60px',    style:'text-align:center;'},
-				{caption: ["자금신청액\n(출자출하조직 신청액 포함)"], 	ref: 'fundAplyAmtTot',	type:'output',  width:'160px',    style:'text-align:center;'},
-				{caption: ["금리"], 		ref: 'aa',			type:'input',  width:'80px',    style:'text-align:center;'},
+				{caption: ["자금신청액(천원)\n(출자출하조직 신청액 포함)"], 	ref: 'fundAplyAmtTot',	type:'output',  width:'160px',    style:'text-align:center;'
+					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+				{caption: ["금리"], 		ref: 'itrRt',			type:'input',  width:'80px',    style:'text-align:center;'
+					,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}},
+
+				{caption: ["상세내역"], 	ref: 'yr',   			hidden : true},
+				{caption: ["상세내역"], 	ref: 'stbltItemList',   hidden : true},
 			];
 
-	    grdPrdcrOgnCurntMng07 = _SBGrid.create(SBGridProperties);
+		grdPrdcrOgnCurntMng07 = _SBGrid.create(SBGridProperties);
 	}
 
 	var jsonPrdcrOgnCurntMng02 = []; // 그리드의 참조 데이터 주소 선언
@@ -846,7 +851,7 @@
 
 	function fn_excelDwnld05() {
 		grdPrdcrOgnCurntMng05.exportLocalExcel("출자출하조직 부적합 리스트", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
-    }
+	}
 
 
 	/* Grid 화면 그리기 기능*/
@@ -934,7 +939,7 @@
 
 	function fn_excelDwnld06() {
 		grdPrdcrOgnCurntMng06.exportLocalExcel("출자출하조직 총괄 리스트", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
-    }
+	}
 
 
 	/* Grid 화면 그리기 기능*/
@@ -956,8 +961,13 @@
 			{caption: ["출자출하조직명"],	ref: 'corpNm',		type:'output',  width:'160px',    style:'text-align:center;'},
 			{caption: ["사업자번호"],	ref: 'brno',		type:'output',  width:'80px',    style:'text-align:center;'},
 			{caption: ["적합여부"], 	ref: 'stbltYn',		type:'output',  width:'60px',    style:'text-align:center;'},
-			{caption: ["적합품목"], 	ref: 'stbltYnNm',	type:'output',  width:'160px',    style:'text-align:center;'},
-			{caption: ["금리"], 		ref: 'aa',			type:'input',  width:'80px',    style:'text-align:center;'},
+			{caption: ["적합품목"], 	ref: 'stbltItemList',	type:'output',  width:'160px',    style:'text-align:center;'},
+			{caption: ["금리"], 		ref: 'itrRt',			type:'input',  width:'80px',    style:'text-align:center;'
+				,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}},
+
+			{caption: ["상세내역"], 	ref: 'yr',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'apoSe',   	hidden : true},
+			{caption: ["상세내역"], 	ref: 'uoBrno',   	hidden : true},
 		];
 
 		grdPrdcrOgnCurntMng06 = _SBGrid.create(SBGridProperties);
@@ -1339,12 +1349,35 @@
 	}
 	//그리드 초기화
 	async function fn_clearForm() {
-		jsonPrdcrOgnCurntMng01.length= 0;
-		grdPrdcrOgnCurntMng01.rebuild();
-		jsonPrdcrOgnCurntMng02.length= 0;
-		grdPrdcrOgnCurntMng02.rebuild();
-		jsonPrdcrOgnCurntMng03.length= 0;
-		grdPrdcrOgnCurntMng03.rebuild();
+		if(jsonPrdcrOgnCurntMng01.length > 0){
+			jsonPrdcrOgnCurntMng01.length= 0;
+			grdPrdcrOgnCurntMng01.rebuild();
+		}
+		if(jsonPrdcrOgnCurntMng02.length > 0){
+			jsonPrdcrOgnCurntMng02.length= 0;
+			grdPrdcrOgnCurntMng02.rebuild();
+		}
+		if(jsonPrdcrOgnCurntMng03.length > 0){
+			jsonPrdcrOgnCurntMng03.length= 0;
+			grdPrdcrOgnCurntMng03.rebuild();
+		}
+		if(jsonPrdcrOgnCurntMng04.length > 0){
+			jsonPrdcrOgnCurntMng04.length= 0;
+			grdPrdcrOgnCurntMng04.rebuild();
+		}
+		if(jsonPrdcrOgnCurntMng05.length > 0){
+			jsonPrdcrOgnCurntMng05.length= 0;
+			grdPrdcrOgnCurntMng05.rebuild();
+		}
+		if(jsonPrdcrOgnCurntMng06.length > 0){
+			jsonPrdcrOgnCurntMng06.length= 0;
+			grdPrdcrOgnCurntMng06.rebuild();
+		}
+		if(jsonPrdcrOgnCurntMng07.length > 0){
+			jsonPrdcrOgnCurntMng07.length= 0;
+			grdPrdcrOgnCurntMng07.rebuild();
+		}
+
 		SBUxMethod.set('dtl-input-apoCd',null)//통합조직 코드
 		SBUxMethod.set('dtl-input-apoSe',null)//통합조직 구분
 		SBUxMethod.set('dtl-input-corpNm',null)//법인명
@@ -1361,7 +1394,7 @@
 		fn_dtlGridSearchFrmhs();//생산자조직
 	}
 
-	//판매위임[매입] 및 출하[매출] 실적 그리드 조회
+	//통합조직 조회
 	const fn_dtlGridSearchUo = async function(){
 		let brno = SBUxMethod.get("dtl-input-brno");//
 		let yr = SBUxMethod.get("dtl-input-yr");//
@@ -1418,7 +1451,7 @@
 		}
 	}
 
-	//판매위임[매입] 및 출하[매출] 실적 그리드 조회
+	//통합조직 총괄
 	const fn_dtlGridSearchUoTot = async function(){
 		let brno = SBUxMethod.get("dtl-input-brno");//
 		let yr = SBUxMethod.get("dtl-input-yr");//
@@ -1441,10 +1474,13 @@
 			console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let PrdcrOgnCurntMngVO = {
-						brno: item.brno
-						,corpNm: item.corpNm
-						,fundAplyAmtTot: item.fundAplyAmtTot//자금신청액
-						,stbltYn: item.stbltYn//적합여부 기준 적용 결과
+						brno			: item.brno
+						,corpNm			: item.corpNm
+						,yr				: item.yr
+						,fundAplyAmtTot	: item.fundAplyAmtTot//자금신청액
+						,stbltYn		: item.stbltYn//적합여부 기준 적용 결과
+						,stbltItemList	: item.stbltItemList//적합픔목 리스트
+						,itrRt			: item.itrRt //금리
 				}
 				jsonPrdcrOgnCurntMng07.push(PrdcrOgnCurntMngVO);
 				if (index === 0) {
@@ -1558,15 +1594,19 @@
 			data.resultList.forEach((item, index) => {
 				let itemVO = {
 					brno: 	item.brno
+					,uoBrno: item.uoBrno
 					,corpNm: item.corpNm
 					,yr: item.yr
+					,apoSe: item.yr
 					,stbltYn: item.stbltYn//적합여부 기준 적용 결과
-					,stbltYnNm: item.stbltYnNm//적합픔목 리스트
-					//,stbltYnNm: item.stbltYnNm //이자
+					,stbltItemList: item.stbltItemList//적합픔목 리스트
+					,itrRt: item.itrRt //금리
 				};
 				jsonPrdcrOgnCurntMng06.push(itemVO);
 			});
 			grdPrdcrOgnCurntMng06.rebuild();
+			//적합한 경우 통합조직 금리와 동일하게 하고 수정불가 처리
+			fn_disable06();
 		}catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -1574,6 +1614,21 @@
 			console.error("failed", e.message);
 		}
 	}
+	//적합한 경우 통합조직 금리와 동일하게 하고 수정불가 처리
+	async function fn_disable06() {
+		let gridData = grdPrdcrOgnCurntMng06.getGridDataAll();
+		for(var i=1; i <= gridData.length; i++ ){
+			let rowData = grdPrdcrOgnCurntMng06.getRowData(i);
+			let itrRt = grdPrdcrOgnCurntMng06.getColRef("itrRt");//금리
+
+			if (rowData.stbltYn == 'Y') {
+				grdPrdcrOgnCurntMng06.setCellDisabled(i, itrRt, i, itrRt, true);
+			}else{
+				grdPrdcrOgnCurntMng06.setCellDisabled(i, itrRt, i, itrRt, false);
+			}
+		}
+	}
+
 
 	//생산자조직 총괄표 조회
 	async function fn_dtlGridSearchFrmhs() {
@@ -1652,9 +1707,9 @@
 
 	//통합조직 탈락적합 사유
 	function fn_calUoStbltYn(item) {
-		console.log("fn_calUoStbltYn");
+		//console.log("fn_calUoStbltYn");
 		let stbltYnNmMng = [];
-		console.log(item);
+		//console.log(item);
 		//강제로 변경한 경우가 존재 함
 		if(!gfn_isEmpty(item.orgStbltYn)){
 			if (item.orgStbltYn == 'Y') {
@@ -1829,9 +1884,9 @@
 
 	//출자출하조직 탈락적합 사유
 	function fn_calIsoStbltYn(item) {
-		console.log("fn_calIsoStbltYn");
+		//console.log("fn_calIsoStbltYn");
 		let stbltYnNmMng = [];
-		console.log(item);
+		//console.log(item);
 		//강제로 변경한 경우가 존재 함
 		if(!gfn_isEmpty(item.orgStbltYn)){
 			if (item.orgStbltYn == 'Y') {
@@ -1868,9 +1923,9 @@
 	}
 
 	function fn_calFrmhsStbltYn(item) {
-		console.log("fn_calFrmhsStbltYn");
+		//console.log("fn_calFrmhsStbltYn");
 		let stbltYnNmMng = [];
-		console.log(item);
+		//console.log(item);
 		//강제로 변경한 경우가 존재 함
 		if(!gfn_isEmpty(item.orgStbltYn)){
 			if (item.orgStbltYn == 'Y') {
@@ -1919,6 +1974,104 @@
 			}
 		}
 		return stbltYnNmMng.join("\n");
+	}
+
+	//통합조직 총괄 저장
+	const fn_listSave01 = async function(){
+
+		let gridData = grdPrdcrOgnCurntMng06.getGridDataAll();
+		let saveList = [];
+
+		//그리드의 해드가 두줄이상인경우 for문 시작과 끝을 늘린만큼 늘려야함
+		for(var i=1; i<=gridData.length; i++ ){
+			let rowData = grdPrdcrOgnCurntMng06.getRowData(i);
+			let rowSts = grdPrdcrOgnCurntMng06.getRowStatus(i);
+			let delYn = rowData.delYn;
+
+			if(gfn_isEmpty(rowData.itrRt)){
+				if(rowData.stbltYn == 'Y' ){
+					alert("통합조직 금리 작성이 필요 합니다");
+				}else{
+					gfn_comAlert("W0002", "금리");
+				}
+				grdPrdcrOgnCurntMng06.selectRow(i);
+				return false;
+			}
+
+			rowData.rowSts = "I";
+			saveList.push(rowData);
+		}
+		if(saveList.length == 0){
+			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
+			return;
+		}
+
+		let regMsg = "저장 하시겠습니까?";
+		if(confirm(regMsg)){
+
+			let postJsonPromise = gfn_postJSON("/pd/pcom/multiSaveIsoTotList.do", saveList);
+			let data = await postJsonPromise;
+			try {
+				if (_.isEqual("S", data.resultStatus)) {
+					gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+					fn_dtlGridSearch();
+				} else {
+					alert(data.resultMessage);
+				}
+			} catch (e) {
+				if (!(e instanceof Error)) {
+					e = new Error(e);
+				}
+				console.error("failed", e.message);
+			}
+		}
+	}
+
+	//통합조직 총괄 저장
+	const fn_listSave02 = async function(){
+
+		let gridData = grdPrdcrOgnCurntMng07.getGridDataAll();
+		let saveList = [];
+
+		//그리드의 해드가 두줄이상인경우 for문 시작과 끝을 늘린만큼 늘려야함
+		for(var i=1; i<=gridData.length; i++ ){
+			let rowData = grdPrdcrOgnCurntMng07.getRowData(i);
+			let rowSts = grdPrdcrOgnCurntMng07.getRowStatus(i);
+			let delYn = rowData.delYn;
+
+			if(gfn_isEmpty(rowData.itrRt)){
+				gfn_comAlert("W0002", "금리");
+				grdPrdcrOgnCurntMng07.selectRow(i);
+				return false;
+			}
+
+			rowData.rowSts = "I";
+			saveList.push(rowData);
+		}
+		if(saveList.length == 0){
+			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
+			return;
+		}
+
+		let regMsg = "저장 하시겠습니까?";
+		if(confirm(regMsg)){
+
+			let postJsonPromise = gfn_postJSON("/pd/pcom/multiSaveUoTotList.do", saveList);
+			let data = await postJsonPromise;
+			try {
+				if (_.isEqual("S", data.resultStatus)) {
+					gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+					fn_dtlGridSearch();
+				} else {
+					alert(data.resultMessage);
+				}
+			} catch (e) {
+				if (!(e instanceof Error)) {
+					e = new Error(e);
+				}
+				console.error("failed", e.message);
+			}
+		}
 	}
 </script>
 </html>

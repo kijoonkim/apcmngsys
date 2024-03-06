@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <!-- ==========================================================================	-->
-<!-- NAME : BbsMapper.xml                                    				-->
-<!-- DESC : 게시판 정보 mapper                                             			-->
+<!-- NAME : BbsMapper.xml													-->
+<!-- DESC : 게시판 정보 mapper											 			-->
 <!-- ==========================================================================	-->
-<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- DATE   		AUTHOR			DESCRIPTION					  			-->
 <!-- ===========  	============  	===========================================	-->
-<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
+<!-- 2023.06.29  	jcshin			Initial Creation							-->
 <!-- ==========================================================================	-->
 
 <mapper namespace="com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper">
@@ -331,11 +331,11 @@
 		ORDER BY ITEM_CD , BRNO
 	</select>
 
-	<!-- 출자출하조직 총괄 리스트 -->
+	<!-- 통합조직 총괄 리스트 -->
 	<select id="selectUoTotList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
 		SELECT
-			BRNO
-			,YR
+			EAM.YR
+			,EAM.BRNO
 			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = EAM.BRNO) AS CORP_NM
 			,(CASE WHEN EXISTS (SELECT COUNT(*)
 										FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
@@ -358,11 +358,36 @@
 						  AND APO_SE = '2'
 						  AND BRNO IN (SELECT ISO_BRNO FROM TB_EV_APO_UO_CD WHERE UO_BRNO = EAM.BRNO) ),0)
 			) AS FUND_APLY_AMT_TOT
-		FROM TB_EV_APLY_MNG EAM
+			,(SELECT LISTAGG(ITEM_NM, ' , ') WITHIN GROUP (ORDER BY ITEM_NM) AS STBLT_YN_NM
+								FROM (SELECT
+											(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = A.ITEM_CD) AS ITEM_NM
+										FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT A
+										WHERE 1=1
+										  AND STBLT_YN = 'Y'
+										  AND APO_SE = EAM.APO_SE
+										  AND TYPE_SE_NO = '8'
+										  AND YR = EAM.YR
+										  AND BRNO = EAM.BRNO
+										)
+				) AS STBLT_ITEM_LIST
+			,RR.ITR_RT
+		FROM
+			(SELECT *
+				FROM TB_EV_APLY_MNG
+				WHERE 1=1
+				  AND APO_SE = '1'
+				  AND BRNO = #{brno}
+				  AND YR = #{yr}
+			) EAM
+			, (SELECT *
+					FROM TB_EV_REG_RSLT
+					WHERE 1=1
+					  AND BRNO = #{brno}
+					  AND YR = #{yr}
+			) RR
 		WHERE 1=1
-		  AND APO_SE = '1'
-		  AND YR = #{yr}
-		  AND BRNO = #{brno}
+		  AND EAM.YR = RR.YR(+)
+		  AND EAM.BRNO = RR.BRNO(+)
 	</select>
 
 	<!-- 출자출하조직 등록결과 리스트 -->
@@ -537,38 +562,62 @@
 	<!-- 출자출하조직 총괄 리스트 -->
 	<select id="selectIsoTotList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
 		SELECT
-			BRNO
-			,YR
-			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = EAM.BRNO) AS CORP_NM
-			,(CASE WHEN EXISTS (SELECT COUNT(*)
-										FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
+			TOT.YR
+			,TOT.BRNO
+			,TOT.CORP_NM
+			,TOT.APO_SE
+			,TOT.UO_BRNO
+			,TOT.STBLT_YN
+			,TOT.STBLT_ITEM_LIST
+			,DECODE(TOT.STBLT_YN
+						,'Y',(SELECT ITR_RT FROM TB_EV_REG_RSLT WHERE APO_SE = '1' AND YR = TOT.YR AND BRNO = TOT.UO_BRNO)
+						,'N',TOT.ORG_ITR_RT
+						,''
+			) AS ITR_RT
+		FROM
+			(SELECT
+				EAM.YR
+				,EAM.BRNO
+				,EAM.APO_SE
+				,#{brno} AS UO_BRNO
+				,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = EAM.BRNO) AS CORP_NM
+				,(CASE WHEN EXISTS (SELECT COUNT(*)
+											FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
+											WHERE 1=1
+											  AND STBLT_YN = 'Y'
+											  AND YR = EAM.YR
+											  AND BRNO = EAM.BRNO
+											  AND ITEM_CD = (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PST.YR AND BRNO = PST.UO_BRNO AND ITEM_CD = PST.ITEM_CD)
+											  AND UO_BRNO = #{brno} )
+							THEN 'Y'
+							ELSE 'N'
+							END
+				) AS STBLT_YN
+				,(SELECT LISTAGG(ITEM_NM, ' , ') WITHIN GROUP (ORDER BY ITEM_NM) AS STBLT_YN_NM
+								FROM (SELECT
+											(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = A.ITEM_CD) AS ITEM_NM
+										FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT A
 										WHERE 1=1
 										  AND STBLT_YN = 'Y'
+										  AND APO_SE = EAM.APO_SE
+										  AND TYPE_SE_NO = '8'
 										  AND YR = EAM.YR
 										  AND BRNO = EAM.BRNO
-										  AND ITEM_CD = (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PST.YR AND BRNO = PST.UO_BRNO AND ITEM_CD = PST.ITEM_CD)
-										  AND UO_BRNO = #{brno} )
-						THEN 'Y'
-						ELSE 'N'
-						END
-			) AS STBLT_YN
-			,(SELECT LISTAGG(ITEM_NM, ' , ') WITHIN GROUP (ORDER BY ITEM_NM) AS STBLT_YN_NM
-							FROM (SELECT
-										(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = A.ITEM_CD) AS ITEM_NM
-									FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT A
-									WHERE 1=1
-									  AND STBLT_YN = 'Y'
-									  AND APO_SE = EAM.APO_SE
-									  AND TYPE_SE_NO = '8'
-									  AND YR = EAM.YR
-									  AND BRNO = EAM.BRNO
-									  AND UO_BRNO = #{brno}
-									)
-			) AS STBLT_YN_NM
-		FROM TB_EV_APLY_MNG EAM
-		WHERE 1=1
-			AND YR = #{yr}
-			AND BRNO IN (SELECT ISO_BRNO FROM TB_EV_APO_UO_CD  WHERE UO_BRNO = #{brno})
+										  AND UO_BRNO = #{brno}
+										)
+				) AS STBLT_ITEM_LIST
+				,RR.ITR_RT AS ORG_ITR_RT
+			FROM
+				(SELECT * FROM TB_EV_APLY_MNG
+					WHERE YR = #{yr} AND BRNO IN (SELECT ISO_BRNO FROM TB_EV_APO_UO_CD  WHERE UO_BRNO = #{brno})
+				) EAM
+				, (SELECT * FROM TB_EV_REG_RSLT
+					WHERE UO_BRNO = #{brno} AND YR = #{yr}
+				) RR
+			WHERE 1=1
+			  AND EAM.YR = RR.YR(+)
+			  AND EAM.BRNO = RR.BRNO(+)
+			) TOT
 	</select>
 	<!-- 생산자조직 등록결과 리스트 -->
 	<select id="selectFrmhsList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
@@ -684,4 +733,145 @@
 		)TOTAL
 		ORDER BY ITEM_CD , UO_BRNO DESC , BRNO , PRDCR_OGNZ_SN
 	</select>
+
+	<insert id="insertUoTotList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
+		<![CDATA[
+		MERGE INTO TB_EV_REG_RSLT CLT  /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.insertUoTotList */
+		USING DUAL
+			ON (
+					CLT.BRNO		= #{brno}
+				AND CLT.YR			= #{yr}
+				AND CLT.APO_SE		= '1'
+				)
+		WHEN MATCHED THEN
+				 UPDATE
+					   SET
+						  FUND_APLY_AMT_TOT		= #{fundAplyAmtTot}
+						, STBLT_ITEM_LIST		= #{stbltItemList}
+						, STBLT_YN				= #{stbltYn}
+						, ITR_RT				= #{itrRt}
+
+						, RMRK					= #{rmrk}
+
+						, SYS_LAST_CHG_DT		= SYSDATE
+						, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+						, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+				]]>
+				<![CDATA[
+
+					WHERE 1=1
+					  AND CLT.BRNO		= #{brno}
+					  AND CLT.YR		= #{yr}
+					  AND CLT.APO_SE	= '1'
+
+		WHEN NOT MATCHED THEN
+			 INSERT
+					(
+						YR
+					  , BRNO
+					  , APO_SE
+
+					  , STBLT_YN
+					  , FUND_APLY_AMT_TOT
+					  , STBLT_ITEM_LIST
+					  , ITR_RT
+
+					  , SYS_FRST_INPT_DT
+					  , SYS_FRST_INPT_USER_ID
+					  , SYS_FRST_INPT_PRGRM_ID
+					  , SYS_LAST_CHG_DT
+					  , SYS_LAST_CHG_USER_ID
+					  , SYS_LAST_CHG_PRGRM_ID
+					)
+				VALUES
+					(
+						#{yr}
+					  , #{brno}
+					  , '1'
+
+					  , #{stbltYn}
+					  , #{fundAplyAmtTot}
+					  , #{stbltItemList}
+					  , #{itrRt}
+
+					  , SYSDATE
+					  , #{sysFrstInptUserId}
+					  , #{sysFrstInptPrgrmId}
+					  , SYSDATE
+					  , #{sysLastChgUserId}
+					  , #{sysLastChgPrgrmId}
+					)
+		]]>
+	</insert>
+
+	<insert id="insertIsoTotList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
+		<![CDATA[
+		MERGE INTO TB_EV_REG_RSLT CLT  /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.insertUoTotList */
+		USING DUAL
+			ON (
+					CLT.BRNO		= #{brno}
+				AND CLT.UO_BRNO		= #{uoBrno}
+				AND CLT.YR			= #{yr}
+				AND CLT.APO_SE		= '2'
+				)
+		WHEN MATCHED THEN
+				 UPDATE
+					   SET
+						  STBLT_ITEM_LIST		= #{stbltItemList}
+						, STBLT_YN				= #{stbltYn}
+						, ITR_RT				= #{itrRt}
+
+						, RMRK					= #{rmrk}
+
+						, SYS_LAST_CHG_DT		= SYSDATE
+						, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+						, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+				]]>
+				<![CDATA[
+
+					WHERE 1=1
+					  AND CLT.BRNO		= #{brno}
+					  AND CLT.UO_BRNO	= #{uoBrno}
+					  AND CLT.YR		= #{yr}
+					  AND CLT.APO_SE	= '2'
+
+		WHEN NOT MATCHED THEN
+			 INSERT
+					(
+						YR
+					  , BRNO
+					  , UO_BRNO
+					  , APO_SE
+
+					  , STBLT_YN
+					  , STBLT_ITEM_LIST
+					  , ITR_RT
+
+					  , SYS_FRST_INPT_DT
+					  , SYS_FRST_INPT_USER_ID
+					  , SYS_FRST_INPT_PRGRM_ID
+					  , SYS_LAST_CHG_DT
+					  , SYS_LAST_CHG_USER_ID
+					  , SYS_LAST_CHG_PRGRM_ID
+					)
+				VALUES
+					(
+						#{yr}
+					  , #{brno}
+					  , #{uoBrno}
+					  , '2'
+
+					  , #{stbltYn}
+					  , #{stbltItemList}
+					  , #{itrRt}
+
+					  , SYSDATE
+					  , #{sysFrstInptUserId}
+					  , #{sysFrstInptPrgrmId}
+					  , SYSDATE
+					  , #{sysLastChgUserId}
+					  , #{sysLastChgPrgrmId}
+					)
+		]]>
+	</insert>
 </mapper>

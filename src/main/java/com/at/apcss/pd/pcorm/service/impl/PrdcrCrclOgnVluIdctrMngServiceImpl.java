@@ -61,4 +61,35 @@ public class PrdcrCrclOgnVluIdctrMngServiceImpl extends BaseServiceImpl implemen
 		return resultList;
 	}
 
+	@Override
+	public int insertIsoTotList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception {
+		int saveCnt = prdcrCrclOgnVluIdctrMngMapper.insertIsoTotList(prdcrCrclOgnVluIdctrMngVO);
+		return saveCnt;
+	}
+
+	@Override
+	public int insertUoTotList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception {
+		int saveCnt = prdcrCrclOgnVluIdctrMngMapper.insertUoTotList(prdcrCrclOgnVluIdctrMngVO);
+		return saveCnt;
+	}
+
+	@Override
+	public int multiSaveIsoTotList(List<PrdcrCrclOgnVluIdctrMngVO> PrdcrCrclOgnVluIdctrMngVOList) throws Exception {
+		int savedCnt = 0;
+		for (PrdcrCrclOgnVluIdctrMngVO PrdcrCrclOgnVluIdctrMngVO : PrdcrCrclOgnVluIdctrMngVOList) {
+			savedCnt += insertIsoTotList(PrdcrCrclOgnVluIdctrMngVO);
+
+		}
+		return savedCnt;
+	}
+
+	@Override
+	public int multiSaveUoTotList(List<PrdcrCrclOgnVluIdctrMngVO> PrdcrCrclOgnVluIdctrMngVOList) throws Exception {
+		int savedCnt = 0;
+		for (PrdcrCrclOgnVluIdctrMngVO PrdcrCrclOgnVluIdctrMngVO : PrdcrCrclOgnVluIdctrMngVOList) {
+			savedCnt += insertUoTotList(PrdcrCrclOgnVluIdctrMngVO);
+
+		}
+		return savedCnt;
+	}
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
+import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO;
 import com.at.apcss.pd.pcorm.service.PrdcrCrclOgnVluIdctrMngService;
 import com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO;
 
@@ -107,5 +108,51 @@ public class PrdcrCrclOgnVluIdctrMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	//출자출하조직 총괄 저장
+	@PostMapping(value = "/pd/pcom/multiSaveIsoTotList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> multiSaveIsoTotList(@RequestBody List<PrdcrCrclOgnVluIdctrMngVO> PrdcrCrclOgnVluIdctrMngVOList, HttpServletRequest request) throws Exception {
 
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		int savedCnt = 0;
+		try {
+			for (PrdcrCrclOgnVluIdctrMngVO PrdcrCrclOgnVluIdctrMngVO : PrdcrCrclOgnVluIdctrMngVOList) {
+				PrdcrCrclOgnVluIdctrMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+				PrdcrCrclOgnVluIdctrMngVO.setSysFrstInptUserId(getUserId());
+				PrdcrCrclOgnVluIdctrMngVO.setSysLastChgPrgrmId(getPrgrmId());
+				PrdcrCrclOgnVluIdctrMngVO.setSysLastChgUserId(getUserId());
+			}
+
+			savedCnt = prdcrCrclOgnVluIdctrMngService.multiSaveIsoTotList(PrdcrCrclOgnVluIdctrMngVOList);
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	//통합조직 총괄 저장
+	@PostMapping(value = "/pd/pcom/multiSaveUoTotList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> multiSaveUoTotList(@RequestBody List<PrdcrCrclOgnVluIdctrMngVO> PrdcrCrclOgnVluIdctrMngVOList, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		int savedCnt = 0;
+		try {
+			for (PrdcrCrclOgnVluIdctrMngVO PrdcrCrclOgnVluIdctrMngVO : PrdcrCrclOgnVluIdctrMngVOList) {
+				PrdcrCrclOgnVluIdctrMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+				PrdcrCrclOgnVluIdctrMngVO.setSysFrstInptUserId(getUserId());
+				PrdcrCrclOgnVluIdctrMngVO.setSysLastChgPrgrmId(getPrgrmId());
+				PrdcrCrclOgnVluIdctrMngVO.setSysLastChgUserId(getUserId());
+			}
+
+			savedCnt = prdcrCrclOgnVluIdctrMngService.multiSaveUoTotList(PrdcrCrclOgnVluIdctrMngVOList);
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
+		return getSuccessResponseEntity(resultMap);
+	}
 }
