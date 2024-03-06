@@ -253,6 +253,8 @@ public class MobileApiController extends BaseController{
 			// 로그인 인증세션
 			resultData.put("userId", resultVO.getId());
 			resultData.put("userName", resultVO.getName());
+			resultData.put("apcCd", resultVO.getApcCd());
+			resultData.put("apcNm", resultVO.getApcNm());
 
 			//로그인 이력
 			comLogVo.setUserType(userType);
