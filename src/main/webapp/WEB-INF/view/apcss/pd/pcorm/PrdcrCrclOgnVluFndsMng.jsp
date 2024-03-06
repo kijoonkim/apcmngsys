@@ -502,13 +502,6 @@
 		//SBGridProperties.rowheight = 57;
 		SBGridProperties.oneclickedit = true;
 		SBGridProperties.columns = [
-			{caption: ["처리"], 				ref: 'delYn',   	type:'button', width:'60px',	style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
-				if(strValue== null || strValue == ""){
-					return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdUoList\", " + nRow + ", " + nCol + ")'>추가</button>";
-				}else{
-					return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdUoList\", " + nRow + ")'>삭제</button>";
-				}
-			}},
 			{caption: ["항목"],		ref: 'dd',		type:'output',  width:'160px',	style:'text-align:center;'},
 			{caption: ["산출식"],		ref: 'bb',		type:'output',  width:'400px',	style:'text-align:center;'},
 			{caption: ["배점"], 		ref: 'cc',		type:'output',  width:'60px',	style:'text-align:center;'},
@@ -556,6 +549,13 @@
 		//SBGridProperties.rowheight = 57;
 		SBGridProperties.oneclickedit = true;
 		SBGridProperties.columns = [
+			{caption: ["처리"], 				ref: 'delYn',   	type:'button', width:'60px',	style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+				if(strValue== null || strValue == ""){
+					return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdUoList\", " + nRow + ", " + nCol + ")'>추가</button>";
+				}else{
+					return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdUoList\", " + nRow + ")'>삭제</button>";
+				}
+			}},
 			{caption: ["항목"],		ref: 'dd',		type:'output',  width:'160px',	style:'text-align:center;'},
 			{caption: ["산출식"],		ref: 'bb',		type:'output',  width:'400px',	style:'text-align:center;'},
 			{caption: ["배점"], 		ref: 'cc',		type:'output',  width:'60px',	style:'text-align:center;'},
