@@ -21,6 +21,7 @@
 String title = "";
 String fileName = "";
 String param = "";
+String exePrintYn = "";
 //String reportKey = request.getParameter("reportKey");
 request.setCharacterEncoding("UTF-8");
 
@@ -28,16 +29,19 @@ Enumeration params = request.getParameterNames();
 while ( params.hasMoreElements() ){
 	String paramName = (String) params.nextElement();
 	String paramValue = request.getParameter(paramName);
-	
+
 	if (paramValue == null) {
 		continue;
 	}
-	
+
 	if ("title".equals(paramName)) {
 		title = paramValue;
 	} else if ("fileName".equals(paramName)) {
 		fileName = paramValue;
-	} else {
+	} else if ("exePrintYn".equals(paramName)){
+		exePrintYn = paramValue;
+	}
+	  else {
 		paramValue = paramValue.replace("SELECT", "");
 		paramValue = paramValue.replace("UPDATE", "");
 		paramValue = paramValue.replace("INSERT", "");
@@ -71,11 +75,12 @@ while ( params.hasMoreElements() ){
 	<script type="text/javascript">
 		const fn_drawClipReport = async function() {
 			const fileName = "<%=fileName%>";
+			const exePrintYn = "<%=exePrintYn%>";
 			const param = {<%=param%>};
 			const reportKey = await gfn_getReportKey(fileName, param);
-			gfn_drawClipReport("div-rpt-clipReport", reportKey);
+			gfn_drawClipReport("div-rpt-clipReport", reportKey,exePrintYn);
 		}
-		fn_drawClipReport();		
+		fn_drawClipReport();
 	</script>
 </body>
 </html>

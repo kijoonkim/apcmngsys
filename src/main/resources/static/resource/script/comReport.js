@@ -105,20 +105,34 @@ const gfn_printClipReport = async function(fileName, param) {
  * @name gfn_drawClipReport
  * @description 클립리포트 View
  */
-const gfn_drawClipReport = async function(divId, reportKey) {
+const gfn_drawClipReport = async function(divId, reportKey,exePrintYn) {
 	const report = createOOFReport(gv_reportUrl, reportKey, document.getElementById(divId));
 
 	//printEXEDirect()
 	report.setViewType(1);
 	report.setIsPrintUse("html","pdf","exe");
 	report.setStyle("close_button", "display:none;");
-	report.setReportDirectPrintButton(true,1)
-	let x = gv_selectedApcCd;
-	if(x === '8888'){
-		report.exeDirectPrint(false, "", "", 1, -1, 1, "");
-	}else{
+	report.setReportDirectPrintButton(true,1);
+
+	if(navigator.maxTouchPoints || 'ontouchstart' in document.documentElement){
+		report.setEndReportEvent(function(){
+			report.printHTMLDirect();
+		});
+
+		report.setCustomButtonInfo("report_menu_direct_print",
+			function() {
+				report.printHTMLDirect();
+			}, false, "test");
 		report.view();
+	}else{
+		if(exePrintYn === 'Y'){
+			report.exeDirectPrint(false, "", "", 1, -1, 1, "");
+		}else{
+			report.view();
+		}
 	}
+
+
 
 
 	//
@@ -129,6 +143,9 @@ const gfn_drawClipReport = async function(divId, reportKey) {
 	//report.printPDFDirect()();
 	//report.exePrint(false, "", "", 1, -1, 1, "");
 }
+
+
+
 
 
 
@@ -197,6 +214,8 @@ const gfn_popClipReport = async function(title, fileName, param) {
 	frm.remove();
 */
 }
+
+
 
 
 

@@ -621,7 +621,13 @@
 		}
 		const wrhsno = rawMtrWrhsList.join("','");
 
-		gfn_popClipReport("원물인식표", rptUrl, {apcCd: gv_selectedApcCd, wrhsno: wrhsno});
+		//gfn_popClipReport("원물인식표", rptUrl, {apcCd: gv_selectedApcCd, wrhsno: wrhsno, exePrintYn:'Y'});
+		if(gv_selectedApcCd = '8888'){
+			gfn_popClipReport("원물인식표", rptUrl, {apcCd: gv_selectedApcCd, wrhsno: wrhsno, exePrintYn:'Y'});
+		}else{
+			gfn_popClipReport("원물인식표", rptUrl, {apcCd: gv_selectedApcCd, wrhsno: wrhsno);
+		}
+
 	}
 
 	/**
