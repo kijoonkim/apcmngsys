@@ -468,7 +468,7 @@
 	    SBGridProperties.columns = [
 	    	{caption : ["코드"], ref: 'cdVl', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px; '},
 	    	{caption : ["코드명"], ref: 'cdVlNm', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
-	    	{caption : ["연계코드"], ref: 'linkCd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["연계코드"], ref: 'extrnlLnkgCd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
 	    	{caption : ["비고"], ref: 'rmrk', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
 	    ];
 	    grdSortFclt = _SBGrid.create(SBGridProperties);
@@ -506,6 +506,7 @@
 	    SBGridProperties.columns = [
 	    	{caption : ["품목코드"], ref: 'itemCd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px; '},
 	    	{caption : ["품목명"], ref: 'itemNm', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px;'},
+			{caption : ["품목연계코드"], ref: 'extrnlLnkgCd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
 	
 	    ];
 	    grdItem = _SBGrid.create(SBGridProperties);
@@ -525,6 +526,7 @@
 	    	{caption : ["품목명"], ref: 'itemNm', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px;'},
 	    	{caption : ["품종코드"], ref: 'vrtyCd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
 	    	{caption : ["품종명"], ref: 'vrtyNm', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px;'},
+			{caption : ["품종연계코드"], ref: 'extrnlLnkgCd', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px;'},
 	
 	    ];
 	    grdVrty = _SBGrid.create(SBGridProperties);
@@ -544,6 +546,7 @@
 	    	{caption : ["품목명"], ref: 'itemNm', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px;'},
 	    	{caption : ["규격코드"], ref: 'spcfctCd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
 	    	{caption : ["규격명"], ref: 'spcfctNm', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px;'},
+			{caption : ["규격연계코드"], ref: 'extrnlLnkgCd', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px;'},
 	
 	    ];
 	    grdSpcfct = _SBGrid.create(SBGridProperties);
@@ -567,6 +570,7 @@
 	    	{caption : ["등급종류"], ref: 'grdKndNm', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
 	    	{caption : ["등급코드"], ref: 'grdCd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
 	    	{caption : ["등급명"], ref: 'grdNm', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
+			{caption : ["등급연계코드"], ref: 'extrnlLnkgCd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
 	    ];
 	    grdGrd = _SBGrid.create(SBGridProperties);
 	}
@@ -590,6 +594,7 @@
 	    	{caption : ["규격명"], ref: 'spcfctNm', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
 	    	{caption : ["상품코드"], ref: 'spmtPckgUnitCd', type: 'output',  width:'80px', style: 'text-align:center; padding-right:5px;'},
 	    	{caption : ["상품명"], ref: 'spmtPckgUnitNm', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
+			{caption : ["상품연계코드"], ref: 'extrnlLnkgCd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
 	    ];
 	    grdGds = _SBGrid.create(SBGridProperties);
 	}
@@ -626,6 +631,7 @@
 	    	{caption : ["구분"], ref: 'pltBxSeNm', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px; '},
 	    	{caption : ["코드"], ref: 'pltBxCd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
 	    	{caption : ["코드명"], ref: 'pltBxNm', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px;'}
+			{caption : ["연계코드"], ref: 'extrnlLnkgCd', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px;'}
 	    ];
 	    grdPltBx = _SBGrid.create(SBGridProperties);
 	}
@@ -661,6 +667,7 @@
 	    SBGridProperties.columns = [
 	    	{caption : ["코드"], ref: 'trsprtCoCd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px; '},
 	    	{caption : ["운송사명"], ref: 'trsprtCoNm', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px;'},
+			{caption : ["운송사연계코드"], ref: 'extrnlLnkgCd', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px;'},
 	    ];
 	    grdTrsprtCo = _SBGrid.create(SBGridProperties);
 	}
@@ -678,6 +685,7 @@
 	    SBGridProperties.columns = [
 	    	{caption : ["코드"], ref: 'cnptCd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px; '},
 	    	{caption : ["거래처명"], ref: 'cnptNm', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px;'},
+			{caption : ["거래처연계코드"], ref: 'extrnlLnkgCd', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px;'},
 	    ];
 	    grdCnpt = _SBGrid.create(SBGridProperties);
 	}

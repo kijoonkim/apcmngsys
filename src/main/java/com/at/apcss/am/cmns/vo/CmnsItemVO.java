@@ -83,4 +83,8 @@ public class CmnsItemVO extends ComVO {
 	 * 삭제 불가능 사유
 	 */
 	private String delible;
+	/**
+	 * 품목 연계코드
+	 */
+	private String extrnlLnkgCd;
 }
