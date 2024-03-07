@@ -68,8 +68,8 @@ public class LoginController extends BaseController {
 	@Autowired
 	ComLogService comLogService;
 
-	
-	
+
+
 	@GetMapping("/accessDenied")
 	public ResponseEntity<HashMap<String, Object>> accessDenied(
 			HttpServletRequest request,
@@ -78,34 +78,34 @@ public class LoginController extends BaseController {
 			ModelMap model) throws Exception {
 		return getErrorResponseEntity(
 					ComUtil.getResultMap(
-							ComConstants.RESULT_CODE_ACCESS_DENIED, 
+							ComConstants.RESULT_CODE_ACCESS_DENIED,
 							ComConstants.CON_BLANK
 				));
 	}
-	
-	
+
+
 	@PostMapping(value = "/co/sys/forceLogin")//, consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> forceLogin(@RequestBody LoginVO loginVO, HttpServletRequest request) throws Exception{
-		
+
 		loginVO.setFrcdExpryYn(ComConstants.CON_YES);
 		return loginCheck(loginVO, request);
 	}
-	
-	
-	
-	
+
+
+
+
 	@PostMapping(value = "/co/sys/loginCheck")//, consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> loginCheck(@RequestBody LoginVO loginVO, HttpServletRequest request) throws Exception{
-		
+
 		/*
 		logger.debug("loginVO {}", loginVO.toString());
 		logger.debug("getId() {}", loginVO.getId());
 		logger.debug("getPassword() {}", loginVO.getPassword());
 		*/
 		//logger.debug("map {}", map.toString());
-		
+
 		logger.debug("loginVO {}", loginVO.toString());
-		
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		//LoginVO loginVO = new LoginVO();
 		try {
@@ -113,39 +113,39 @@ public class LoginController extends BaseController {
 			String userId = loginVO.getId();
 			String prgrmId = "login";
 			String userIp = getUserIp(request);
-			
+
 			logger.debug("id : {}", userId);
 			if (userId == null) {
 				return null;
 			}
-			
+
 			ComLogVO comLogVo = new ComLogVO();
 			comLogVo.setSysFrstInptUserId(userId);
 			comLogVo.setSysFrstInptPrgrmId(prgrmId);
 			comLogVo.setSysLastChgUserId(userId);
 			comLogVo.setSysLastChgPrgrmId(prgrmId);
 			comLogVo.setUserIp(userIp);
-			
+
 			comLogVo.setPrslType(ComConstants.CON_PRSL_TYPE_LOGIN_FAIL);
 			comLogVo.setMenuId(prgrmId);
 			comLogVo.setUserId(userId);
-			
+
 			if (getUserId() != null) {
 				comLogVo.setLgnScsYn(ComConstants.CON_YES);
 			}
-			
+
 			LoginVO resultVO = loginService.actionLogin(loginVO);
 			if (resultVO != null && StringUtils.hasText(resultVO.getId())) {
-				
+
 				if (ComConstants.CON_YES.equals(resultVO.getLckYn())) {		// 잠금상태
 					resultMap.put(ComConstants.PROP_LOGIN_CODE, ComConstants.ERR_USER_LOCKED);
 					resultMap.put(ComConstants.PROP_LOGIN_MESSAGE, messageSource.getMessage("fail.common.login.lck", request.getLocale()));
 				} else {
-					
+
 					String userStts = resultVO.getUserStts();
-					
+
 					if (!ComConstants.CON_USER_STTS_VALID.equals(userStts)) {
-						
+
 						if (ComConstants.CON_USER_STTS_STANDBY.equals(userStts)) {	// 승인대기
 							resultMap.put(ComConstants.PROP_LOGIN_CODE, ComConstants.ERR_USER_UNRECEIVED);
 						} else if (ComConstants.CON_USER_STTS_DORMANCY.equals(userStts)) {	// 휴면
@@ -157,7 +157,7 @@ public class LoginController extends BaseController {
 						}
 						resultMap.put(ComConstants.PROP_LOGIN_MESSAGE, null);
 					} else {
-						
+
 						if (ComConstants.CON_YES.equals(loginVO.getFrcdExpryYn())) {
 							// 동일id의 세션을 만료처리한다
 							HashMap<String, Object> rtnObj = terminateSessionByUser(userId);
@@ -165,27 +165,32 @@ public class LoginController extends BaseController {
 								return getErrorResponseEntity(rtnObj);
 							}
 						}
-						
+
 						// login 세션 확인
 						boolean isDuplicateUser = checkDuplicatedUser(userId, userIp);
-						
+
+						boolean isIpLmtCheck = checkIpLmt(userId, userIp);
+
 						if (isDuplicateUser) {
 							resultMap.put(ComConstants.PROP_LOGIN_CODE, ComConstants.ERR_USER_DUPLICATE);
 							resultMap.put(ComConstants.PROP_LOGIN_MESSAGE, null);
+						} else if(isIpLmtCheck){
+							resultMap.put(ComConstants.PROP_LOGIN_CODE, ComConstants.ERR_USER_IPLMT);
+							resultMap.put(ComConstants.PROP_LOGIN_MESSAGE, null);
 						} else {
 							// 정상 로그인 진행
-							
+
 							resultMap.put(ComConstants.PROP_LOGIN_CODE, ComConstants.LOGIN_SUCCESS);
 							resultMap.put(ComConstants.PROP_LOGIN_MESSAGE, null);
-							
+
 							// 로그인 정보를 세션에 저장
 							request.getSession().setAttribute("loginVO", resultVO);
 							// 로그인 인증세션
 							request.getSession().setAttribute("accessUser", resultVO.getId());
-							
+
 							// 세션정보 db insert
 							setSessionInfo(request);
-							
+
 							ApcInfoVO apcInfoVO = new ApcInfoVO();
 							List<String> comApcList = new ArrayList<>();
 							ObjectMapper objMapper = new ObjectMapper();
@@ -198,7 +203,7 @@ public class LoginController extends BaseController {
 							} else {
 								apcInfoVO.setApcCd(resultVO.getApcCd());
 							}
-							
+
 							List<ApcInfoVO> apcInfoList = apcInfoService.selectApcMngList(apcInfoVO);
 							for ( ApcInfoVO apc : apcInfoList ) {
 
@@ -220,23 +225,23 @@ public class LoginController extends BaseController {
 							} else {
 								request.getSession().setAttribute("comApcList", null);
 							}
-							
+
 							comLogVo.setApcCd(resultVO.getApcCd());
 							comLogVo.setUserNm(resultVO.getName());
 							comLogVo.setUserType(userType);
 							comLogVo.setPrslType(ComConstants.CON_PRSL_TYPE_LOGIN);
-							
+
 							loginService.updateResetFailCount(resultVO);
 						}
 					}
 				}
-				
+
 			} else {
-				
+
 				if (resultVO != null) {
-					
+
 					String lgnRslt = resultVO.getLgnRslt();
-					
+
 					if (ComConstants.ERR_LOGIN_FAILED.equals(lgnRslt)) {
 						LoginVO loginVo = loginService.selectUser(loginVO.getId());
 						if (ComConstants.CON_NONE.equals(loginVo.getLckYn())) {
@@ -246,23 +251,23 @@ public class LoginController extends BaseController {
 							}
 						}
 					}
-					
+
 					resultMap.put(ComConstants.PROP_LOGIN_CODE, ComConstants.ERR_LOGIN_FAILED);
-					resultMap.put(ComConstants.PROP_LOGIN_MESSAGE, messageSource.getMessage("fail.common.login.notFound", request.getLocale()));					
+					resultMap.put(ComConstants.PROP_LOGIN_MESSAGE, messageSource.getMessage("fail.common.login.notFound", request.getLocale()));
 				}
 			}
-			
+
 			comLogService.insertMenuHstry(comLogVo);
-			
+
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
-		
-		
+
+
 		return getSuccessResponseEntity(resultMap);
 	}
-	
-	
+
+
 	@GetMapping("/login.do")
 	public String doLoginView(@ModelAttribute("loginVO") LoginVO loginVO,
 			HttpServletRequest request,
@@ -290,7 +295,7 @@ public class LoginController extends BaseController {
 		model.addAttribute("loginCode", null);
 		model.addAttribute("loginMessage", null);
 		model.addAttribute("loginUrl", getLoginUrl());
-		
+
 		return "main/login";
 	}
 
@@ -301,7 +306,7 @@ public class LoginController extends BaseController {
 			HttpServletResponse response,
 			HttpSession httpSession,
 			ModelMap model) throws Exception {
-		
+
 		LoginVO resultVO = loginService.actionLogin(loginVO);
 
 		//로그인 이력 저장
@@ -363,10 +368,10 @@ public class LoginController extends BaseController {
 			request.getSession().setAttribute("loginVO", resultVO);
 			// 로그인 인증세션
 			request.getSession().setAttribute("accessUser", resultVO.getId());
-			
+
 			// 세션정보 db insert
 			setSessionInfo(request);
-			
+
 			ApcInfoVO apcInfoVO = new ApcInfoVO();
 			List<String> comApcList = new ArrayList<>();
 			ObjectMapper objMapper = new ObjectMapper();
@@ -450,49 +455,49 @@ public class LoginController extends BaseController {
 		// String id = request.getParameter("id");
 		String id = ComConstants.CON_BLANK;
 		String pniToken = StrUtil.NVL(request.getParameter(ComConstants.SYS_SSO_TOKEN));
-		
+
 		if (ComConstants.CON_BLANK.equals(pniToken)) {
 			pniToken = StrUtil.NVL(request.getSession().getAttribute(ComConstants.SYS_SSO_TOKEN));
 		}
-		
-		if (StringUtils.hasText(pniToken)) {			
+
+		if (StringUtils.hasText(pniToken)) {
 			String localIp = AddressUtil.getClientIp(request);
 			ApiUserService apiUserService = new ApiUserService();
 			String errorCode = apiUserService.executeUserData(pniToken, localIp);
-			
+
 			if (StringUtils.hasText(errorCode)) {
 				logger.error("@@@@ SSO 에이전트 오류 : {}", errorCode);
 				return "redirect:/login.do";
 			} else {
 				String userData = apiUserService.getUserData();
-				
+
 				if (StringUtils.hasText(userData)) {
-					
+
 					logger.error("@@@@ SSO 사용자 정보 : {}", userData);
 					try {
 				        JSONParser jsonParser = new JSONParser();
 				        Object objUser = jsonParser.parse(userData);
 						JSONObject jsonObj = (JSONObject) objUser;
-						
+
 						id = (String)jsonObj.get("user_id");
 						request.getSession().setAttribute(ComConstants.SYS_SSO_TOKEN, pniToken);
-						
+
 					} catch (Exception e) {
 						insertSysErrorLog(String.format("sso error: %s / %s", userData, e.getMessage()));
 						return "redirect:/login.do";
 					}
 				}
-			}	
+			}
 		} else {
 			logger.error("@@@@ SSO 토큰정보 없음");
 			return "redirect:/login.do";
 		}
-		
+
 		if (!StringUtils.hasText(id)) {
 			logger.error("@@@@ SSO 토큰정보 없음");
 			return "redirect:/login.do";
 		}
-		
+
 		LoginVO loginVO = new LoginVO();
 		loginVO.setId(id);
 
@@ -505,9 +510,9 @@ public class LoginController extends BaseController {
 
 			// 로그인 인증세션
 			request.getSession().setAttribute("accessUser", resultVO.getId());
-			
+
 			setSessionInfo(request);
-			
+
 			ApcInfoVO apcInfoVO = new ApcInfoVO();
 
 			List<String> comApcList = new ArrayList<>();
@@ -531,7 +536,7 @@ public class LoginController extends BaseController {
 						&& resultVO.getApcCd().equals(apc.getApcCd())) {
 					request.getSession().setAttribute("apcVO", comApcJsonVO);
 				}
-				
+
 				comApcList.add(objMapper.writeValueAsString(comApcJsonVO));
 			}
 
@@ -615,7 +620,7 @@ public class LoginController extends BaseController {
 		comLogService.insertMenuHstry(comLogVo);
 
 		terminateSession(request);
-		
+
 		// 1. Security 연도
 		request.getSession().setAttribute("loginVO", null);
 		request.getSession().setAttribute("accessUser", null);

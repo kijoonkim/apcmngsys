@@ -2,10 +2,10 @@ package com.at.apcss.co.constants;
 
 public class ComConstants {
 
-	
+
 	public final static String DEFAULT_ERR_USER = "SYSTEM";
-	public final static String DEFAULT_ERR_PRGRM = "SYSTEM_APP";	
-	
+	public final static String DEFAULT_ERR_PRGRM = "SYSTEM_APP";
+
 	/**
 	 * 미등록
 	 */
@@ -31,17 +31,22 @@ public class ComConstants {
 	 * 중복로그인
 	 */
 	public final static String ERR_USER_DUPLICATE = "USER_DUPLICATE";
-	
+
+	/**
+	 * 허용되지 않은 IP 접속
+	 */
+	public final static String ERR_USER_IPLMT = "USER_IPLMT";
+
 	/**
 	 * 로그인 실패
 	 */
 	public final static String ERR_LOGIN_FAILED = "LOGIN_FAILED";
-	
+
 	/**
 	 * 로그인 성공
 	 */
 	public final static String LOGIN_SUCCESS = "LOGIN_SUCCESS";
-	
+
 
 	public final static String CON_SYS_ID_CO = "CO";
 	public final static String CON_SYS_ID_AM = "AM";
@@ -68,10 +73,10 @@ public class ComConstants {
 	public final static String PROP_UPDATED_CNT = "updatedCnt";
 	public final static String PROP_DELETED_CNT = "deletedCnt";
 	public final static String PROP_SAVED_CNT = "savedCnt";
-	
+
 	public final static String PROP_LOGIN_CODE = "loginCode";
 	public final static String PROP_LOGIN_MESSAGE = "loginMessage";
-	
+
 
 	/* audit column name */
 	public final static String PROP_SYS_FRST_INPT_DT = "sysFrstInptDt";
@@ -93,7 +98,7 @@ public class ComConstants {
 	public final static String RESULT_MESSAGE_DEFAULT = "처리 시 오류가 발생하였습니다.";
 
 	public final static String RESULT_CODE_ACCESS_DENIED = "E0010";	//	세션정보가 만료되었습니다.
-	
+
 	public final static String CON_BLANK = "";
 	public final static String CON_SPACE = " ";
 	public final static String CON_UNDERLINE = "_";
@@ -131,8 +136,8 @@ public class ComConstants {
 	 * W0006	{0}와/과 {1}이/가 서로 다릅니다.
 	 */
 	public final static String MSGCD_NOT_EQUAL = "W0006";
-	
-	
+
+
 	/**
 	 * W0008	{0} 보다 {1}이/가 큽니다.
 	 */
@@ -162,7 +167,7 @@ public class ComConstants {
 	 * W0015	{0}이/가 {1} 보다 작습니다.
 	 */
 	public final static String MSGCD_TGT_LESS_THAN = "W0015";
-	
+
 	/**
 	 * W0016	{0}이/가 {1} 이상 입니다.
 	 */
@@ -172,7 +177,7 @@ public class ComConstants {
 	 * W0017	{0}이/가 부족합니다.
 	 */
 	public final static String MSGCD_TGT_LACK = "W0017";
-	
+
 	/* CODE 정보 */
 
 	/* 권한유형 */
@@ -203,30 +208,30 @@ public class ComConstants {
 	 */
 	public final static String CON_PRSL_TYPE_LOGOUT = "L2";
 	/**
-	 * 열람유형: L3 로그인실패 
+	 * 열람유형: L3 로그인실패
 	 */
 	public final static String CON_PRSL_TYPE_LOGIN_FAIL = "L3";
 	/**
-	 * 열람유형: M1 메뉴열기 
+	 * 열람유형: M1 메뉴열기
 	 */
 	public final static String CON_PRSL_TYPE_MENU_OPEN = "M1";
 	/**
-	 * 열람유형: M2 메뉴닫기 
+	 * 열람유형: M2 메뉴닫기
 	 */
 	public final static String CON_PRSL_TYPE_MENU_CLOSE = "M2";
 	/**
-	 * 열람유형: R1 장표보기 
+	 * 열람유형: R1 장표보기
 	 */
 	public final static String CON_PRSL_TYPE_REPORT_VIEW = "R1";
 	/**
-	 * 열람유형: R2 장표출력 
+	 * 열람유형: R2 장표출력
 	 */
 	public final static String CON_PRSL_TYPE_REPORT_PRINT = "R2";
 	/**
 	 * 열람유형: U0 화면처리
 	 */
 	public final static String CON_PRSL_TYPE_UI_ACTION = "U0";
-	
+
 	/* 수행업무구분코드 */
 	/**
 	 * 수행업무구분코드: 01 조회
@@ -252,13 +257,13 @@ public class ComConstants {
 	 * 수행업무구분코드: 기본 ""
 	 */
 	public final static String CON_FLFMT_TASK_SE_CD_DEFAULT = "";
-	
+
 	/**
 	 * 중복허용 여부
 	 */
 	public final static String CON_DPCN_LGN = "DPCN_LGN";
 	public final static String CON_DPCN_LGN_PSBLTY = "PSBLTY";
-	
+
 	/* 재고구분 */
 	public final static String INVNTR_SE_CD_RAWMTR = "1";
 	public final static String INVNTR_SE_CD_SORT = "2";
@@ -269,7 +274,7 @@ public class ComConstants {
 	public final static String ROW_STS_DELETE = "D";
 
 	public final static String[] MENU_ID_AM_CMNS					= {"AM_001_010"};				// APC생산관리 공통사용메뉴
-	
+
 	public final static String[] MENU_ID_WGH 						= {"AM_001_001"};				// 계량정보관리
 	public final static String[] MENU_ID_WGH_MBL 					= {"AM_001_007"};				// 계량테블릿
 	public final static String[] MENU_ID_WGH_IDNTY_DOC_PBLCN 		= {};							// 계량확인서발행
