@@ -12,16 +12,15 @@
 
 <mapper namespace="com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper">
 
-	<!-- 통합조직 등록결과 리스트 -->
+	<!-- 활성화 자금 리스트 -->
 	<select id="selectScoreList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
 		SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectScoreList */
 			EAM.YR
 			,EAM.BRNO
-			,'전문품목  총취급액' AS DD
-			,'1' AS AA
-			,ETS.BB
-			,ETS.CC
-			,EAM.SCORE
+			,'1' AS FUND_ARTCL /*전문품목  총취급액*/
+			,ETS.COMPUT_WAY_CD
+			,(SELECT ALT FROM TB_EV_ACTVTN_FUND_COMPUT_WAY WHERE YR = EAM.YR AND FUND_ARTCL = '1') AS ALT
+			,EAM.SCR
 		FROM (SELECT
 					YR
 					,BRNO
@@ -34,7 +33,7 @@
 											)
 								,0),2)*50
 						, 50) ,0)
-					)AS SCORE
+					)AS SCR
 				FROM
 				(SELECT
 					ITEM.BRNO
@@ -140,9 +139,9 @@
 					WHERE 1=1
 					  AND BRNO = #{brno}
 					GROUP BY YR , BRNO
-					ORDER BY SCORE DESC
+					ORDER BY SCR DESC
 			) EAM
-			, (SELECT * FROM TB_EV_TEST_SCORE WHERE BRNO = #{brno} AND YR = #{yr} AND AA = '1') ETS
+			, (SELECT * FROM TB_EV_ACTVTN_FUND WHERE BRNO = #{brno} AND YR = #{yr} AND FUND_ARTCL = '1') ETS
 		WHERE 1=1
 			AND EAM.BRNO = ETS.BRNO(+)
 
@@ -151,11 +150,10 @@
 		SELECT
 			EAM.YR
 			,EAM.BRNO
-			,'전문품목  전속취급율' AS DD
-			,'2' AS AA
-			,ETS.BB
-			,ETS.CC
-			,EAM.SCORE
+			,'2' AS FUND_ARTCL /*전문품목  전속취급율*/
+			,ETS.COMPUT_WAY_CD
+			,ETS.ALT
+			,EAM.SCR
 		FROM (SELECT
 					YR
 					,BRNO
@@ -170,7 +168,7 @@
 												)
 									,0),2)
 						, 50) ,0)
-					)AS SCORE
+					)AS SCR
 				FROM
 				(SELECT
 					ITEM.BRNO
@@ -293,9 +291,9 @@
 					WHERE 1=1
 					  AND BRNO = #{brno}
 					GROUP BY YR , BRNO
-					ORDER BY SCORE DESC
+					ORDER BY SCR DESC
 			) EAM
-			, (SELECT * FROM TB_EV_TEST_SCORE WHERE BRNO = #{brno} AND YR = #{yr} AND AA = '2') ETS
+			, (SELECT * FROM TB_EV_ACTVTN_FUND WHERE BRNO = #{brno} AND YR = #{yr} AND FUND_ARTCL = '2') ETS
 		WHERE 1=1
 			AND EAM.BRNO = ETS.BRNO(+)
 
@@ -304,16 +302,102 @@
 		SELECT
 			ETS.YR
 			,ETS.BRNO
-			,'' AS DD
-			,ETS.AA
-			,ETS.BB
-			,ETS.CC
-			,ETS.SCORE
+			,ETS.FUND_ARTCL
+			,ETS.COMPUT_WAY_CD
+			,ETS.ALT
+			,ETS.SCR
 		FROM
-			TB_EV_TEST_SCORE ETS
+			TB_EV_ACTVTN_FUND ETS
 		WHERE 1=1
-			AND AA = '3'
+			AND FUND_ARTCL = '3'
 			AND BRNO = #{brno}
 			AND YR = #{yr}
 	</select>
+	<!-- 산출식 관리 리스트 -->
+	<select id="selectComputWayList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
+		SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectComputWayList */
+			YR
+			, SEQ
+			, COMPUT_WAY_CD
+			, COMPUT_WAY_DTL
+			, FUND_ARTCL
+			, ALT
+			, RMRK
+			, USE_YN
+			, DEL_YN
+		FROM TB_EV_ACTVTN_FUND_COMPUT_WAY
+		WHERE 1=1
+		  AND YR = #{yr}
+		<if test='fundArtcl != null and fundArtcl != ""'>
+		  AND FUND_ARTCL = #{fundArtcl}
+		</if>
+	</select>
+
+	<insert id="insertComputWayList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
+		<![CDATA[
+		MERGE INTO TB_EV_ACTVTN_FUND_COMPUT_WAY CLT  /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.insertComputWayList */
+		USING DUAL
+			ON (
+					CLT.YR		= #{yr}
+				AND CLT.SEQ		= #{seq}
+				)
+		WHEN MATCHED THEN
+				 UPDATE
+					   SET
+						  COMPUT_WAY_CD			= #{computWayCd}
+						, COMPUT_WAY_DTL		= #{computWayDtl}
+						, FUND_ARTCL			= #{fundArtcl}
+						, ALT					= #{alt}
+						, USE_YN				= #{useYn}
+
+						, RMRK					= #{rmrk}
+
+						, SYS_LAST_CHG_DT		= SYSDATE
+						, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+						, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+				]]>
+				<![CDATA[
+
+					WHERE 1=1
+					  AND CLT.YR		= #{yr}
+					  AND CLT.SEQ		= #{seq}
+
+		WHEN NOT MATCHED THEN
+			 INSERT
+					(
+						YR
+					  , COMPUT_WAY_CD
+					  , COMPUT_WAY_DTL
+					  , FUND_ARTCL
+					  , ALT
+					  , USE_YN
+					  , RMRK
+
+					  , SYS_FRST_INPT_DT
+					  , SYS_FRST_INPT_USER_ID
+					  , SYS_FRST_INPT_PRGRM_ID
+					  , SYS_LAST_CHG_DT
+					  , SYS_LAST_CHG_USER_ID
+					  , SYS_LAST_CHG_PRGRM_ID
+
+					)
+				VALUES
+					(
+						#{yr}
+					  , #{computWayCd}
+					  , #{computWayDtl}
+					  , #{fundArtcl}
+					  , #{alt}
+					  , #{useYn}
+					  , #{rmrk}
+
+					  , SYSDATE
+					  , #{sysFrstInptUserId}
+					  , #{sysFrstInptPrgrmId}
+					  , SYSDATE
+					  , #{sysLastChgUserId}
+					  , #{sysLastChgPrgrmId}
+					)
+		]]>
+	</insert>
 </mapper>

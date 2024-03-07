@@ -22,7 +22,10 @@ import com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO;
  */
 @Mapper
 public interface PrdcrCrclOgnVluFndsMngMapper {
-
+	//활성화 자금 리스트 조회
 	public List<PrdcrCrclOgnVluFndsMngVO> selectScoreList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO);
+	//산출식 관리 팝업 - 산출식 리스트 조회
+	public List<PrdcrCrclOgnVluFndsMngVO> selectComputWayList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO);
 
+	public int insertComputWayList(PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO);
 }
