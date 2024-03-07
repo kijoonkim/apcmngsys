@@ -171,65 +171,72 @@
 	        	}
 		    }},
 		    {
-		    	caption: ["규격코드"],		
-		    	ref: 'spcfctCd',   	
-		    	type:'output',  
-		    	width:'80px', 	
+		    	caption: ["규격코드"],
+		    	ref: 'spcfctCd',
+		    	type:'output',
+		    	width:'80px',
 		    	style:'text-align:center'
 		    },
 	        {
-		    	caption: ["규격명"],   	
-		    	ref: 'spcfctNm',  	
-		    	type:'input',  
-		    	width:'280px',   
-		    	style:'text-align:center', 
+		    	caption: ["규격명"],
+		    	ref: 'spcfctNm',
+		    	type:'input',
+		    	width:'280px',
+		    	style:'text-align:center',
 		    	typeinfo : {maxlength : 30}
 		    },
 // 	        {caption: ["중량단위"], ref: 'unitCd',   	type:'combo',  width:'100px',    style:'text-align:center',
 // 				typeinfo : {ref:'jsonSpcfctUnitCd', 	itemcount: 3, label:'label', value:'value', displayui : false}},
 	        {
-				caption: ["포장구분"], 
-				ref: 'pckgSttsCd',   	
-				type:'combo',  
-				width:'150px',    
+				caption: ["포장구분"],
+				ref: 'pckgSttsCd',
+				type:'combo',
+				width:'150px',
 				style:'text-align:center',
 				typeinfo : {
-					ref:'jsonSpcfctPckgSttsCd', 
-					itemcount: 10, 
-					label:'label', 
-					value:'value', 
+					ref:'jsonSpcfctPckgSttsCd',
+					itemcount: 10,
+					label:'label',
+					value:'value',
 					displayui : false
 				}
 			},
 	        {
-				caption: ["평균입수"],	
-				ref: 'bxGdsQntt',  	
-				type:'input',  
-				width:'150px',    
-				style:'text-align:center', 
+				caption: ["평균입수"],
+				ref: 'bxGdsQntt',
+				type:'input',
+				width:'80px',
+				style:'text-align:center',
 				typeinfo : {
 					mask : {alias : 'numeric'}
 				},
 			},
 	        {
-				caption: ["단중"],     
-				ref: 'wght',  		
-				type:'input',  
-				width:'150px',    
+				caption: ["단중"],
+				ref: 'wght',
+				type:'input',
+				width:'120px',
 				style:'text-align:center',
-	        	typeinfo : {mask : {alias : 'numeric'}}, 
+	        	typeinfo : {mask : {alias : 'numeric'}},
 				format : {type:'number', rule:'#,###.000'}
 	        },
 	        {
-	        	caption: ["사용유무"], 	
-	        	ref: 'delYn',  
-	        	type:'combo',  
-	        	width:'80px',    
+				caption: ["외부연결코드"],
+				ref: 'extrnlLnkgCd',
+				type:'input',
+				width:'100px',
+				style:'text-align:center',
+	        },
+	        {
+	        	caption: ["사용유무"],
+	        	ref: 'delYn',
+	        	type:'combo',
+	        	width:'80px',
 	        	style:'text-align:center',
 				typeinfo : {
-					ref:'jsonUseYn', 
-					label:'label', 
-					value:'value',  
+					ref:'jsonUseYn',
+					label:'label',
+					value:'value',
 					displayui : false
 				}
 	        },
@@ -305,7 +312,6 @@
 
 	const fn_searchSpcfctList = async function(){
 
-
 		let itemCd = SBUxMethod.get("spcfct-slt-itemCd");
 
 		let apcCd = SBUxMethod.get("inp-apcCd");
@@ -326,6 +332,7 @@
   					  , wght		: item.wght
   					  , useYn		: item.delYn
   					  , delYn		: item.delYn
+  					  , extrnlLnkgCd : item.extrnlLnkgCd
   					}
   					jsonApcSpcfct.push(spcfctVO);
   				});

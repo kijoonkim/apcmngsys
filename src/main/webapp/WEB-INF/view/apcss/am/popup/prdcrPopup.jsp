@@ -229,7 +229,7 @@
 					validate : gfn_chkByte.bind({byteLimit: 11}), typeinfo : {mask : {alias : '#-', repeat: '*'}}},
 		        {caption: ['생산자연계코드'], 	ref: 'prdcrLinkCd', 	type: 'input', 	width: '90px', style: 'text-align:center', sortable: false,
 					validate : gfn_chkByte.bind({byteLimit: 20})},
-// 		        {caption: ['참여조직'], 		ref: '', 				type: 'input', 	width: '150px', style: 'text-align:center', sortable: false},
+ 		        {caption: ['외부연결코드'], 	ref: 'extrnlLnkgCd', 	type: 'input', 	width: '100px', style: 'text-align:center', sortable: false},
 		        {caption: ['비고'], 			ref: 'rmrk', 			type: 'input', 	width: '100px', style: 'text-align:center', sortable: false,
 		        	validate : gfn_chkByte.bind({byteLimit: 1000})},
 		        {caption: ['APC코드'], ref: 'apcCd', hidden : true},
@@ -452,7 +452,8 @@
 					    prdcrIdentno	: item.prdcrIdentno,
 					    rmrk 			: item.rmrk,
 					    delYn 			: item.delYn,
-					    apcCd 			: item.apcCd
+					    apcCd 			: item.apcCd,
+					    extrnlLnkgCd	: item.extrnlLnkgCd
 					}
 					jsonPrdcrPop.push(prdcr);
 				});

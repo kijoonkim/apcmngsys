@@ -114,6 +114,9 @@
 		<if test=' rprsItemCd != null and rprsItemCd !=""'>
 			   AND PR.RPRS_ITEM_CD = #{rprsItemCd}
 		</if>
+		<if test=' extrnlLnkgCd != null and extrnlLnkgCd !=""'>
+			   AND PR.EXTRNL_LNKG_CD = #{extrnlLnkgCd}
+		</if>
 		<if test=' rprsVrtyCd != null and rprsVrtyCd !=""'>
 			   AND PR.RPRS_VRTY_CD = #{rprsVrtyCd}
 		</if>
@@ -212,6 +215,9 @@
 		</if>
 		<if test=' rprsItemCd != null and rprsItemCd !=""'>
 			   AND PR.RPRS_ITEM_CD = #{rprsItemCd}
+		</if>
+		<if test=' extrnlLnkgCd != null and extrnlLnkgCd !=""'>
+			   AND PR.EXTRNL_LNKG_CD = #{extrnlLnkgCd}
 		</if>
 		<if test=' rprsVrtyCd != null and rprsVrtyCd !=""'>
 			   AND PR.RPRS_VRTY_CD = #{rprsVrtyCd}
