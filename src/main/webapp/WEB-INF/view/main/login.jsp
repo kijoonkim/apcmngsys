@@ -18,10 +18,10 @@
 	if (!"IneedCustomLogin".equals(needsCustomLogin)) {
 		String protocol = request.isSecure() ? "https" : "http";
 		String loginUrl = (String)request.getAttribute("loginUrl");
-		
+
 		if (loginUrl != null && !"".equals(loginUrl)) {
 			response.sendRedirect(protocol + "://" + loginUrl);
-		}	
+		}
 	}
 %>
 
@@ -161,6 +161,9 @@
     		case "LOGIN_FAILED":	// 로그인실패
     			alert("로그인 정보가 올바르지 않습니다.");
     			break;
+    		case "USER_IPLMT":	// 허용되지 않는 아이피
+    			alert("해당 계정은 관리자 계정이므로 허용된 장소에서만 이용이 가능합니다.");
+    			break;
     		case "USER_DUPLICATE":	// 중복계정
 
    				let isConfirmed = confirm("동일ID의 기존 접속정보가 존재합니다. 접속종료 시키겠습니까?");
@@ -243,6 +246,9 @@
     		case "LOGIN_FAILED":	// 로그인실패
     			alert("로그인 정보가 올바르지 않습니다.");
     			break;
+    		case "USER_IPLMT":	// 허용되지 않는 아이피
+    			alert("해당 계정은 관리자 계정이므로 허용된 장소에서만 이용이 가능합니다.");
+    			break;
     		case "USER_DUPLICATE":	// 중복계정
     			alert("동일ID의 기존 접속정보가 존재합니다.");
     			break;
@@ -284,7 +290,7 @@
     }
 
 
-    
+
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
         // setting saved userId
