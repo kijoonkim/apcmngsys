@@ -223,6 +223,9 @@
 		<if test='itemCd != null and itemCd != ""'>
 			   AND AGC.ITEM_CD = #{itemCd}
 		</if>
+		<if test='extrnlLnkgCd != null and extrnlLnkgCd != ""'>
+			   AND AGC.EXTRNL_LNKG_CD = #{extrnlLnkgCd}
+		</if>
 		<if test='spcfctCd != null and spcfctCd != ""'>
 			   AND AGC.SPCFCT_CD LIKE #{spcfctCd} || '%'
 		</if>
@@ -258,6 +261,7 @@
 					, PCKG_STTS_CD
 					, BX_GDS_QNTT
 					, WGHT
+					, EXTRNL_LNKG_CD
 					, SYS_FRST_INPT_DT
 					, SYS_FRST_INPT_USER_ID
 					, SYS_FRST_INPT_PRGRM_ID
@@ -275,6 +279,7 @@
 					, #{pckgSttsCd}
 					, #{bxGdsQntt}
 					, #{wght}
+					, #{extrnlLnkgCd}
 					, SYSDATE
 					, #{sysFrstInptUserId}
 					, #{sysFrstInptPrgrmId}
@@ -307,6 +312,7 @@
 				, BX_GDS_QNTT				= #{bxGdsQntt}
 				, WGHT  					= #{wght}
 	    		, DEL_YN					= #{delYn}
+	    		, EXTRNL_LNKG_CD			= #{extrnlLnkgCd}
 			 WHERE ITEM_CD = #{itemCd}
 			   AND SPCFCT_CD = #{spcfctCd}
 			   AND APC_CD = #{apcCd}

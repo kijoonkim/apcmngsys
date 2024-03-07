@@ -343,6 +343,7 @@
 				validate : gfn_chkByte.bind({byteLimit: 20})},
 			{caption: ["산지코드"],    	ref: 'plorCd',        	type:'inputbutton',   width:'100px', style: 'text-align:center',
 				typeinfo : {callback: fn_grdComCd}},
+			{caption: ["외부연결코드"],    	ref: 'extrnlLnkgCd',     type:'input',   width:'100px', style: 'text-align:center'},
 	        {caption: ['비고'], 			ref: 'rmrk', 			type: 'input', 	width: '200px', style: 'text-align:center', sortable: false,
 	        	validate : gfn_chkByte.bind({byteLimit: 1000})},
 	        {caption: ['APC코드'], ref: 'apcCd', hidden : true},
@@ -473,6 +474,7 @@
 				  , frmhsTelno      : item.frmhsTelno
 				  , frmhsCtpv		: item.frmhsCtpv
 				  , frmhsAddr		: item.frmhsAddr
+				  , extrnlLnkgCd	: item.extrnlLnkgCd
 				}
 				jsonApcPrdcr.push(prdcrVO);
 			});
