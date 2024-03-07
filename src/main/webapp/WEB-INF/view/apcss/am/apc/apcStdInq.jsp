@@ -630,7 +630,7 @@
 	    SBGridProperties.columns = [
 	    	{caption : ["구분"], ref: 'pltBxSeNm', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px; '},
 	    	{caption : ["코드"], ref: 'pltBxCd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
-	    	{caption : ["코드명"], ref: 'pltBxNm', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px;'}
+	    	{caption : ["코드명"], ref: 'pltBxNm', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px;'},
 			{caption : ["연계코드"], ref: 'extrnlLnkgCd', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px;'}
 	    ];
 	    grdPltBx = _SBGrid.create(SBGridProperties);
