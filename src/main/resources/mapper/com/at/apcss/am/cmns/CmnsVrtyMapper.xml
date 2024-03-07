@@ -197,6 +197,7 @@
 				, AVC.NH_VRTY_NM			AS NH_VRTY_NM
 				, AVC.SN 					AS SN
 			    , AVC.DEL_YN				AS DEL_YN
+	    		, AVC.EXTRNL_LNKG_CD	 	AS EXTRNL_LNKG_CD
 			  FROM TB_APC_VRTY_CRTR AVC
 			 WHERE AVC.APC_CD = #{apcCd}
 		]]>
@@ -241,6 +242,7 @@
 					, SN
 					, NH_APC_CD
 					, NH_VRTY_NM
+					, EXTRNL_LNKG_CD
 					, SYS_FRST_INPT_DT
 					, SYS_FRST_INPT_USER_ID
 					, SYS_FRST_INPT_PRGRM_ID
@@ -268,6 +270,7 @@
     				, #{sn}
     				, #{nhApcCd}
 					, #{nhVrtyNm}
+					, #{extrnlLnkgCd}
 					, SYSDATE
 					, #{sysFrstInptUserId}
 					, #{sysFrstInptPrgrmId}
@@ -301,6 +304,7 @@
 				, NH_APC_CD 				= #{nhApcCd}
 				, NH_VRTY_NM 				= #{nhVrtyNm}
 	    		, DEL_YN					= #{delYn}
+			   	, EXTRNL_LNKG_CD			= #{extrnlLnkgCd}
 			 WHERE ITEM_CD = #{itemCd}
 			   AND VRTY_CD = #{vrtyCd}
 			   AND APC_CD = #{apcCd}
