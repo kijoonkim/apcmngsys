@@ -97,7 +97,7 @@ const gfn_printClipReport = async function(fileName, param) {
 				reportKey,
 				document.getElementById(gv_dvClipReportPrint)
 			);
-	report.printPDFDirect();
+
 	//report.printHTMLDirect();
 }
 
@@ -107,17 +107,26 @@ const gfn_printClipReport = async function(fileName, param) {
  */
 const gfn_drawClipReport = async function(divId, reportKey) {
 	const report = createOOFReport(gv_reportUrl, reportKey, document.getElementById(divId));
-	//report.callHTML5Print();
-	//report.exeDirectPrint(false, "", "", 1, -1, 1, "");
-	//report.printHTMLDirect();
-	//report.printPDFDirect()();
+
 	//printEXEDirect()
 	report.setViewType(1);
-	report.setIsPrintUse("html","pdf");
+	report.setIsPrintUse("html","pdf","exe");
 	report.setStyle("close_button", "display:none;");
-	//report.setStrExePrintServerPath("http://133.186.212.16/ClipReport/Clip.jsp");
-	report.view();
+	report.setReportDirectPrintButton(true,1)
+	let x = gv_selectedApcCd;
+	if(x === '8888'){
+		report.exeDirectPrint(false, "", "", 1, -1, 1, "");
+	}else{
+		report.view();
+	}
+
+
+	//
+
+
+
 	//report.exeDirectPrint(false, "", "", 1, -1, 1, "");
+	//report.printPDFDirect()();
 	//report.exePrint(false, "", "", 1, -1, 1, "");
 }
 
