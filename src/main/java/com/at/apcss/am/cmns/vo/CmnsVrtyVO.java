@@ -59,4 +59,8 @@ public class CmnsVrtyVO extends CmnsItemVO {
 	 * 농협APC명
 	 */
 	private String nhVrtyNm;
+	/**
+	 * 공통 연계코드
+	 */
+	private String extrnlLnkgCd;
 }

@@ -161,6 +161,7 @@
 				, RAW_MTR_RDCD_RT		= #{rawMtrRdcdRt}
 	    		, SORT_RDCD_RT			= #{sortRdcdRt}
 	    		, PCKG_RDCD_RT			= #{pckgRdcdRt}
+			    , EXTRNL_LNKG_CD		= #{extrnlLnkgCd}
 			 WHERE APC_CD 		= #{apcCd}
 			   AND ITEM_CD		= #{itemCd}
 		]]>

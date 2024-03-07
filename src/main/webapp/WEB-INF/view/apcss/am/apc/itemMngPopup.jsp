@@ -228,17 +228,19 @@
 	    SBGridPropertiesApcItem.extendlastcol = 'scroll';
 	    SBGridPropertiesApcItem.oneclickedit = true;
 	    SBGridPropertiesApcItem.scrollbubbling = false;
+		SBGridPropertiesApcItem.clickeventarea = {empty: false, fixed: true};
 	    SBGridPropertiesApcItem.columns = [
 	        {caption: ["삭제"], 	ref: 'empty',   type:'output',  width:'60px',    style:'text-align:center',
 	            renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	                return "<button type='button' class='btn btn-xs btn-outline-danger'  onClick='fn_deleteItem(" + nRow + ")'>삭제</button>";
 	        }},
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
-	        {caption: ["코드"],     	ref: 'itemCd',  	type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["명칭"],     	ref: 'itemNm',  	type:'output',  width:'130px',    style:'text-align:center'},
+	        {caption: ["코드"],     	ref: 'itemCd',  	type:'output',  width:'80px',    style:'text-align:center'},
+	        {caption: ["명칭"],     	ref: 'itemNm',  	type:'output',  width:'80px',    style:'text-align:center'},
 	        {caption: ["품종"],     ref: 'vrtrCnt',  	type:'output',  width:'80px',    style:'text-align:center'},
 	        {caption: ["규격"],     ref: 'spcfctCnt',  	type:'output',  width:'80px',    style:'text-align:center'},
 	        {caption: ["등급"],     ref: 'grdCnt',  	type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["품목연계코드"],     ref: 'extrnlLnkgCd',fixed:false,	type:'input',  width:'80px',    style:'text-align:center'},
 
 	    ];
 	    grdApcItem = _SBGrid.create(SBGridPropertiesApcItem);
@@ -295,7 +297,7 @@
 		        	}
 	        }},
 	        {caption: ["코드"],     ref: 'vrtyCd',  type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["명칭"],     ref: 'vrtyNm',  type:'input',  	width:'140px',    style:'text-align:center',
+	        {caption: ["명칭"],     ref: 'vrtyNm',  type:'input',  	width:'80px',    style:'text-align:center',
 	        	typeinfo : {maxlength : 30}},
 	        {
 	        	caption: ["입고단중 (Kg)"],     
@@ -312,6 +314,7 @@
 					typeinfo : {ref:'jsonVrtyWghtRkngSeCd', displayui : false,	itemcount: 10, label:'label', value:'value'}},
 			{caption: ["순번"],     ref: 'sn',  type:'input',  	width:'80px',    style:'text-align:center',
 						typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 4}},
+			{caption: ["품종연계코드"],     ref: 'extrnlLnkgCd',  type:'input',  width:'80px',    style:'text-align:center'},
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
 	        {caption: ["품목코드"], 	ref: 'itemCd',   	type:'input',  hidden : true}
 
@@ -433,6 +436,7 @@
   					  , vrtrCnt 	: item.vrtrCnt
   					  , spcfctCnt	: item.spcfctCnt
   					  , grdCnt		: item.grdCnt
+					  , extrnlLnkgCd: item.extrnlLnkgCd
   					}
   					jsonApcItem.push(itemVO);
   				});
@@ -458,7 +462,7 @@
 
 	const fn_searchVrtyAll = async function(){
 		let nCol = grdApcItem.getCol();
-		if(nCol != 5){
+		if(nCol != 7){
 			let rst = await Promise.all([
 				fn_searchVrtyList(),
 				fn_searchApcVrtyList()
@@ -547,6 +551,7 @@
   					  , unitWght		: item.unitWght
   					  , wghtRkngSeCd 	: item.wghtRkngSeCd
   					  , sn				: item.sn
+					  , extrnlLnkgCd	: item.extrnlLnkgCd
   					}
   					newJsonApcVrty.push(vrtyVO);
   				});
@@ -659,7 +664,44 @@
 	}
 
 	const fn_saveApcVrtyList = async function(){
+		let itemSaveFlag = false;
+		let itemSaveCount = 0;
 
+		const fn_saveApcItemList = async function(){
+			// apc품목
+			let gridData = grdApcItem.getGridDataAll();
+			let saveList = [];
+			for ( var i=1; i<=gridData.length; i++ ){
+				let rowData = grdApcItem.getRowData(i);
+				let rowSts = grdApcItem.getRowStatus(i);
+				if (rowSts === 3){
+					rowData.rowSts = "I";
+					saveList.push(rowData);
+				} else if (rowSts === 2){
+					rowData.rowSts = "U";
+					saveList.push(rowData);
+				} else {
+					continue;
+				}
+			}
+			if (saveList.length == 0){
+				itemSaveFlag = true;
+				return;
+			}
+			itemSaveCount = saveList.length;
+			for(let saveItemVo of saveList){
+				let postJsonPromise = gfn_postJSON("/am/cmns/updateApcCmnsItem.do", saveItemVo);
+				let data = await postJsonPromise;
+				try {
+					if (_.isEqual("S", data.resultStatus)) {}
+				} catch(e) {
+					console.error("failed", e.message);
+				}
+			}
+		}
+		await fn_saveApcItemList();
+
+		// apc품종
 		let gridData = grdApcVrty.getGridDataAll();
 		let saveList = [];
 		for ( var i=1; i<=gridData.length; i++ ){
@@ -686,12 +728,12 @@
 			}
 		}
 		
-		if (saveList.length == 0){
+		if (saveList.length == 0 && itemSaveFlag){
 			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
 			return;
 		}
 		
-		if (gfn_comConfirm("Q0001", "저장")){
+		if (gfn_comConfirm("Q0001", "품목"+itemSaveCount+"건 품종"+saveList.length+"건 저장")){
 
 			let postJsonPromise = gfn_postJSON("/am/cmns/multiApcVrtyList.do", saveList);
 	        let data = await postJsonPromise;
