@@ -266,17 +266,17 @@
 	}
 
 	window.addEventListener('DOMContentLoaded', async function(e) {
-		
+
 		fn_init();
-		
+
 	})
 
 	const fn_init = async function() {
-		
+
 		SBUxMethod.set("dtl-inp-apcCd", gv_selectedApcCd);
-		
+
 		fn_cellCreateApcCrtrInfoGrid();
-		
+
 		fn_search();
 	}
 
@@ -317,7 +317,7 @@
 	}
 
 	//그리드 id, 그리드 json
-	
+
 	//입고구분
 	var grdWrhsSe;
 	//상품구분
@@ -384,8 +384,8 @@
 	var jsonTrsprtCo = [];
 	//거래처
 	var jsonCnpt = [];
-	
-	
+
+
 	const fn_createWrhsSeGrid = function() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdWrhsSe';
@@ -397,8 +397,8 @@
 	    SBGridProperties.mergecells = 'none';
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.columns = [
-	    	{caption : ["코드"], ref: 'cdVl', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px; '},
-	    	{caption : ["코드명"], ref: 'cdVlNm', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["코드"], ref: 'cdVl', type: 'output',  width:'25%', style: 'text-align:center; padding-right:5px; '},
+	    	{caption : ["코드명"], ref: 'cdVlNm', type: 'output',  width:'75%', style: 'text-align:center; padding-right:5px;'},
 	    ];
 	    grdWrhsSe = _SBGrid.create(SBGridProperties);
 	}
@@ -414,12 +414,12 @@
 	    SBGridProperties.mergecells = 'none';
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.columns = [
-	    	{caption : ["코드"], ref: 'cdVl', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px; '},
-	    	{caption : ["코드명"], ref: 'cdVlNm', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["코드"], ref: 'cdVl', type: 'output',  width:'25%', style: 'text-align:center; padding-right:5px; '},
+	    	{caption : ["코드명"], ref: 'cdVlNm', type: 'output',  width:'75%', style: 'text-align:center; padding-right:5px;'},
 	    ];
 	    grdGdsSe = _SBGrid.create(SBGridProperties);
 	}
-	
+
 	const fn_createTrsprtSeGrid = function() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdTrsprtSe';
@@ -431,12 +431,12 @@
 	    SBGridProperties.mergecells = 'none';
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.columns = [
-	    	{caption : ["코드"], ref: 'cdVl', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px; '},
-	    	{caption : ["코드명"], ref: 'cdVlNm', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["코드"], ref: 'cdVl', type: 'output',  width:'25%', style: 'text-align:center; padding-right:5px; '},
+	    	{caption : ["코드명"], ref: 'cdVlNm', type: 'output',  width:'75%', style: 'text-align:center; padding-right:5px;'},
 	    ];
 	    grdTrsprtSe = _SBGrid.create(SBGridProperties);
 	}
-	
+
 	const fn_createWarehouseGrid = function() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdWarehouse';
@@ -448,10 +448,10 @@
 	    SBGridProperties.mergecells = 'none';
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.columns = [
-	    	{caption : ["코드"], ref: 'cdVl', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px; '},
-	    	{caption : ["코드명"], ref: 'cdVlNm', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
-	    	{caption : ["연계코드"], ref: 'linkCd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
-	    	{caption : ["비고"], ref: 'rmrk', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["코드"], ref: 'cdVl', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px; '},
+	    	{caption : ["코드명"], ref: 'cdVlNm', type: 'output',  width:'40%', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["외부연결코드"], ref: 'linkCd', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["비고"], ref: 'rmrk', type: 'output',  width:'30%', style: 'text-align:center; padding-right:5px;'},
 	    ];
 	    grdWarehouse = _SBGrid.create(SBGridProperties);
 	}
@@ -466,14 +466,14 @@
 	    SBGridProperties.mergecells = 'none';
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.columns = [
-	    	{caption : ["코드"], ref: 'cdVl', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px; '},
-	    	{caption : ["코드명"], ref: 'cdVlNm', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
-	    	{caption : ["연계코드"], ref: 'extrnlLnkgCd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
-	    	{caption : ["비고"], ref: 'rmrk', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["코드"], ref: 'cdVl', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px; '},
+	    	{caption : ["코드명"], ref: 'cdVlNm', type: 'output',  width:'40%', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["외부연결코드"], ref: 'extrnlLnkgCd', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["비고"], ref: 'rmrk', type: 'output',  width:'30%', style: 'text-align:center; padding-right:5px;'},
 	    ];
 	    grdSortFclt = _SBGrid.create(SBGridProperties);
 	}
-	
+
 	const fn_createPckgFcltGrid = function() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdPckgFclt';
@@ -485,14 +485,14 @@
 	    SBGridProperties.mergecells = 'none';
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.columns = [
-	    	{caption : ["코드"], ref: 'cdVl', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px; '},
-	    	{caption : ["코드명"], ref: 'cdVlNm', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
-	    	{caption : ["연계코드"], ref: 'linkCd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
-	    	{caption : ["비고"], ref: 'rmrk', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["코드"], ref: 'cdVl', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px; '},
+	    	{caption : ["코드명"], ref: 'cdVlNm', type: 'output',  width:'40%', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["외부연결코드"], ref: 'linkCd', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["비고"], ref: 'rmrk', type: 'output',  width:'30%', style: 'text-align:center; padding-right:5px;'},
 	    ];
 	    grdPckgFclt = _SBGrid.create(SBGridProperties);
 	}
-	
+
 	const fn_createItemGrid = function() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdItem';
@@ -504,10 +504,10 @@
 	    SBGridProperties.mergecells = 'none';
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.columns = [
-	    	{caption : ["품목코드"], ref: 'itemCd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px; '},
-	    	{caption : ["품목명"], ref: 'itemNm', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px;'},
-			{caption : ["품목연계코드"], ref: 'extrnlLnkgCd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
-	
+	    	{caption : ["품목코드"], ref: 'itemCd', type: 'output',  width:'20%', style: 'text-align:center; padding-right:5px; '},
+	    	{caption : ["품목명"], ref: 'itemNm', type: 'output',  width:'60%', style: 'text-align:center; padding-right:5px;'},
+			{caption : ["외부연결코드"], ref: 'extrnlLnkgCd', type: 'output',  width:'20%', style: 'text-align:center; padding-right:5px;'},
+
 	    ];
 	    grdItem = _SBGrid.create(SBGridProperties);
 	}
@@ -522,12 +522,12 @@
 	    SBGridProperties.mergecells = 'none';
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.columns = [
-	    	{caption : ["품목코드"], ref: 'itemCd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px; '},
-	    	{caption : ["품목명"], ref: 'itemNm', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px;'},
-	    	{caption : ["품종코드"], ref: 'vrtyCd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
-	    	{caption : ["품종명"], ref: 'vrtyNm', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px;'},
-			{caption : ["품종연계코드"], ref: 'extrnlLnkgCd', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px;'},
-	
+	    	{caption : ["품목코드"], ref: 'itemCd', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px; '},
+	    	{caption : ["품목명"], ref: 'itemNm', type: 'output',  width:'30%', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["품종코드"], ref: 'vrtyCd', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["품종명"], ref: 'vrtyNm', type: 'output',  width:'30%', style: 'text-align:center; padding-right:5px;'},
+			{caption : ["외부연결코드"], ref: 'extrnlLnkgCd', type: 'output',  width:'10%', style: 'text-align:center; padding-right:5px;'},
+
 	    ];
 	    grdVrty = _SBGrid.create(SBGridProperties);
 	}
@@ -542,16 +542,16 @@
 	    SBGridProperties.mergecells = 'none';
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.columns = [
-	    	{caption : ["품목코드"], ref: 'itemCd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px; '},
-	    	{caption : ["품목명"], ref: 'itemNm', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px;'},
-	    	{caption : ["규격코드"], ref: 'spcfctCd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
-	    	{caption : ["규격명"], ref: 'spcfctNm', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px;'},
-			{caption : ["규격연계코드"], ref: 'extrnlLnkgCd', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px;'},
-	
+	    	{caption : ["품목코드"], ref: 'itemCd', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px; '},
+	    	{caption : ["품목명"], ref: 'itemNm', type: 'output',  width:'25%', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["규격코드"], ref: 'spcfctCd', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["규격명"], ref: 'spcfctNm', type: 'output',  width:'30%', style: 'text-align:center; padding-right:5px;'},
+			{caption : ["외부연결코드"], ref: 'extrnlLnkgCd', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px;'},
+
 	    ];
 	    grdSpcfct = _SBGrid.create(SBGridProperties);
 	}
-	
+
 	const fn_createGrdGrid = function() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdGrd';
@@ -563,18 +563,18 @@
 	    SBGridProperties.mergecells = 'none';
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.columns = [
-	    	{caption : ["품목코드"], ref: 'itemCd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px; '},
-	    	{caption : ["품목명"], ref: 'itemNm', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
-	    	{caption : ["등급구분"], ref: 'grdSeNm', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px; '},
-	    	{caption : ["종류코드"], ref: 'grdKnd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
-	    	{caption : ["등급종류"], ref: 'grdKndNm', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
-	    	{caption : ["등급코드"], ref: 'grdCd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
-	    	{caption : ["등급명"], ref: 'grdNm', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
-			{caption : ["등급연계코드"], ref: 'extrnlLnkgCd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["품목코드"], ref: 'itemCd', type: 'output',  width:'10%', style: 'text-align:center; padding-right:5px; '},
+	    	{caption : ["품목명"], ref: 'itemNm', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["등급구분"], ref: 'grdSeNm', type: 'output',  width:'10%', style: 'text-align:center; padding-right:5px; '},
+	    	{caption : ["종류코드"], ref: 'grdKnd', type: 'output',  width:'10%', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["등급종류"], ref: 'grdKndNm', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["등급코드"], ref: 'grdCd', type: 'output',  width:'10%', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["등급명"], ref: 'grdNm', type: 'output',  width:'20%', style: 'text-align:center; padding-right:5px;'},
+			{caption : ["외부연결코드"], ref: 'extrnlLnkgCd', type: 'output',  width:'10%', style: 'text-align:center; padding-right:5px;'},
 	    ];
 	    grdGrd = _SBGrid.create(SBGridProperties);
 	}
-	
+
 	const fn_createGdsGrid = function() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdGds';
@@ -586,19 +586,19 @@
 	    SBGridProperties.mergecells = 'none';
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.columns = [
-	    	{caption : ["품목코드"], ref: 'itemCd', type: 'output',  width:'80px', style: 'text-align:center; padding-right:5px; '},
-	    	{caption : ["품목명"], ref: 'itemNm', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
-	    	{caption : ["품종코드"], ref: 'vrtyCd', type: 'output',  width:'80px', style: 'text-align:center; padding-right:5px;'},
-	    	{caption : ["품종명"], ref: 'vrtyNm', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
-	    	{caption : ["규격코드"], ref: 'spcfctCd', type: 'output',  width:'80px', style: 'text-align:center; padding-right:5px;'},
-	    	{caption : ["규격명"], ref: 'spcfctNm', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
-	    	{caption : ["상품코드"], ref: 'spmtPckgUnitCd', type: 'output',  width:'80px', style: 'text-align:center; padding-right:5px;'},
-	    	{caption : ["상품명"], ref: 'spmtPckgUnitNm', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
-			{caption : ["상품연계코드"], ref: 'extrnlLnkgCd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["품목코드"], ref: 'itemCd', type: 'output',  width:'10%', style: 'text-align:center; padding-right:5px; '},
+	    	{caption : ["품목명"], ref: 'itemNm', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["품종코드"], ref: 'vrtyCd', type: 'output',  width:'10%', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["품종명"], ref: 'vrtyNm', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["규격코드"], ref: 'spcfctCd', type: 'output',  width:'10%', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["규격명"], ref: 'spcfctNm', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["상품코드"], ref: 'spmtPckgUnitCd', type: 'output',  width:'10%', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["상품명"], ref: 'spmtPckgUnitNm', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px;'},
+			{caption : ["외부연결코드"], ref: 'extrnlLnkgCd', type: 'output',  width:'10%', style: 'text-align:center; padding-right:5px;'},
 	    ];
 	    grdGds = _SBGrid.create(SBGridProperties);
 	}
-	
+
 	const fn_createPrdcrGrid = function() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdPrdcr';
@@ -610,13 +610,14 @@
 	    SBGridProperties.mergecells = 'none';
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.columns = [
-	    	{caption : ["코드"], ref: 'prdcrCd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px; '},
-	    	{caption : ["생산자명"], ref: 'prdcrNm', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px;'},
-	    	{caption : ["비고"], ref: 'rmrk', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'}
+	    	{caption : ["코드"], ref: 'prdcrCd', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px; '},
+	    	{caption : ["생산자명"], ref: 'prdcrNm', type: 'output',  width:'30%', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["외부연결코드"], ref: 'extrnlLnkgCd', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["비고"], ref: 'rmrk', type: 'output',  width:'45%', style: 'text-align:center; padding-right:5px;'}
 	    ];
 	    grdPrdcr = _SBGrid.create(SBGridProperties);
 	}
-	
+
 	const fn_createPltBxGrid = function() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdPltBx';
@@ -628,14 +629,14 @@
 	    SBGridProperties.mergecells = 'none';
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.columns = [
-	    	{caption : ["구분"], ref: 'pltBxSeNm', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px; '},
-	    	{caption : ["코드"], ref: 'pltBxCd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
-	    	{caption : ["코드명"], ref: 'pltBxNm', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px;'},
-			{caption : ["연계코드"], ref: 'extrnlLnkgCd', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px;'}
+	    	{caption : ["구분"], ref: 'pltBxSeNm', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px; '},
+	    	{caption : ["코드"], ref: 'pltBxCd', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["코드명"], ref: 'pltBxNm', type: 'output',  width:'55%', style: 'text-align:center; padding-right:5px;'},
+			{caption : ["외부연결코드"], ref: 'extrnlLnkgCd', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px;'}
 	    ];
 	    grdPltBx = _SBGrid.create(SBGridProperties);
 	}
-	
+
 	const fn_createVhclInfoGrid = function() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdVhclInfo';
@@ -647,13 +648,13 @@
 	    SBGridProperties.mergecells = 'none';
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.columns = [
-	    	{caption : ["차량번호"], ref: 'vhclno', type: 'output',  width:'120px', style: 'text-align:center; padding-right:5px; '},
-	    	{caption : ["기사명"], ref: 'drvrNm', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
-	    	{caption : ["비고"], ref: 'rmrk', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'}
+	    	{caption : ["차량번호"], ref: 'vhclno', type: 'output',  width:'20%', style: 'text-align:center; padding-right:5px; '},
+	    	{caption : ["기사명"], ref: 'drvrNm', type: 'output',  width:'20%', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["비고"], ref: 'rmrk', type: 'output',  width:'60%', style: 'text-align:center; padding-right:5px;'}
 	    ];
 	    grdVhclInfo = _SBGrid.create(SBGridProperties);
 	}
-	
+
 	const fn_createTrsprtCoGrid = function() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdTrsprtCo';
@@ -665,13 +666,13 @@
 	    SBGridProperties.mergecells = 'bycolrec';
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.columns = [
-	    	{caption : ["코드"], ref: 'trsprtCoCd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px; '},
-	    	{caption : ["운송사명"], ref: 'trsprtCoNm', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px;'},
-			{caption : ["운송사연계코드"], ref: 'extrnlLnkgCd', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["코드"], ref: 'trsprtCoCd', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px; '},
+	    	{caption : ["운송사명"], ref: 'trsprtCoNm', type: 'output',  width:'70%', style: 'text-align:center; padding-right:5px;'},
+			{caption : ["외부연결코드"], ref: 'extrnlLnkgCd', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px;'},
 	    ];
 	    grdTrsprtCo = _SBGrid.create(SBGridProperties);
 	}
-	
+
 	const fn_createCnptGrid = function() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdCnpt';
@@ -683,9 +684,9 @@
 	    SBGridProperties.mergecells = 'none';
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.columns = [
-	    	{caption : ["코드"], ref: 'cnptCd', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px; '},
-	    	{caption : ["거래처명"], ref: 'cnptNm', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px;'},
-			{caption : ["거래처연계코드"], ref: 'extrnlLnkgCd', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["코드"], ref: 'cnptCd', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px; '},
+	    	{caption : ["거래처명"], ref: 'cnptNm', type: 'output',  width:'70%', style: 'text-align:center; padding-right:5px;'},
+			{caption : ["외부연결코드"], ref: 'extrnlLnkgCd', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px;'},
 	    ];
 	    grdCnpt = _SBGrid.create(SBGridProperties);
 	}
@@ -710,9 +711,9 @@
 				fn_setGrdCnpt(),
 			]);
 	}
-	
+
 	const fn_dwnld = async function(){
-		
+
 		const expObjList = [
 			{
 		        sbGrid: grdWrhsSe,
@@ -844,10 +845,10 @@
 		        unit: ""
 			},
 		];
-		
+
 		let fileName = "APC기준정보_" + gv_selectedApcNm + "_" + gv_selectedApcCd + ".xlsx"
 	    fn_exportExcelMulti(fileName, expObjList); // gfn_exportExcelMulti함수에 파일 이름, 오브젝트 리스트를 보내주는 코드
-	    
+
 	}
 
 	const fn_exportExcelMulti = function(_fileName, _objList) {
@@ -891,9 +892,9 @@
 		objExcelInfo.arrAdditionalData = arrAdditionalData;
 		_objList[0].sbGrid.exportExcel(objExcelInfo);
 	}
-	
-	
-	
+
+
+
 	// 입고구분
 	const fn_setGrdWrhsSe = async function() {
 		const param = {
@@ -905,7 +906,7 @@
 		let totalRecordCount = 0;
 		try {
 			const postJsonPromise = gfn_postJSON(
-						"/co/cd/selectComCdDtlList.do", 
+						"/co/cd/selectComCdDtlList.do",
 						param,
 						null,
 						false
@@ -914,9 +915,9 @@
 	        data.resultList.forEach((item, index) => {
 	        	jsonWrhsSe.push(item);
 	        });
-	        
+
 	        grdWrhsSe.rebuild();
-	        
+
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -925,7 +926,7 @@
  			//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 	}
-	
+
 	// 상품구분
 	const fn_setGrdGdsSe = async function() {
 		const param = {
@@ -937,7 +938,7 @@
 		let totalRecordCount = 0;
 		try {
 			const postJsonPromise = gfn_postJSON(
-						"/co/cd/selectComCdDtlList.do", 
+						"/co/cd/selectComCdDtlList.do",
 						param,
 						null,
 						true
@@ -946,9 +947,9 @@
 	        data.resultList.forEach((item, index) => {
 	        	jsonGdsSe.push(item);
 	        });
-	        
+
 	        grdGdsSe.rebuild();
-	        
+
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -957,7 +958,7 @@
  			//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 	}
-	
+
 	// 운송구분
 	const fn_setGrdTrsprtSe = async function() {
 		const param = {
@@ -969,7 +970,7 @@
 		let totalRecordCount = 0;
 		try {
 			const postJsonPromise = gfn_postJSON(
-						"/co/cd/selectComCdDtlList.do", 
+						"/co/cd/selectComCdDtlList.do",
 						param,
 						null,
 						true
@@ -978,9 +979,9 @@
 	        data.resultList.forEach((item, index) => {
 	        	jsonTrsprtSe.push(item);
 	        });
-	        
+
 	        grdTrsprtSe.rebuild();
-	        
+
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -1001,7 +1002,7 @@
 		let totalRecordCount = 0;
 		try {
 			const postJsonPromise = gfn_postJSON(
-						"/co/cd/selectComCdDtlList.do", 
+						"/co/cd/selectComCdDtlList.do",
 						param,
 						null,
 						true
@@ -1010,9 +1011,9 @@
 	        data.resultList.forEach((item, index) => {
 	        	jsonWarehouse.push(item);
 	        });
-	        
+
 	        grdWarehouse.rebuild();
-	        
+
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -1033,7 +1034,7 @@
 		let totalRecordCount = 0;
 		try {
 			const postJsonPromise = gfn_postJSON(
-						"/co/cd/selectComCdDtlList.do", 
+						"/co/cd/selectComCdDtlList.do",
 						param,
 						null,
 						true
@@ -1042,9 +1043,9 @@
 	        data.resultList.forEach((item, index) => {
 	        	jsonSortFclt.push(item);
 	        });
-	        
+
 	        grdSortFclt.rebuild();
-	        
+
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -1053,7 +1054,7 @@
  			//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 	}
-	
+
 	// 포장기
 	const fn_setGrdPckgFclt = async function() {
 		const param = {
@@ -1065,7 +1066,7 @@
 		let totalRecordCount = 0;
 		try {
 			const postJsonPromise = gfn_postJSON(
-						"/co/cd/selectComCdDtlList.do", 
+						"/co/cd/selectComCdDtlList.do",
 						param,
 						null,
 						true
@@ -1074,9 +1075,9 @@
 	        data.resultList.forEach((item, index) => {
 	        	jsonPckgFclt.push(item);
 	        });
-	        
+
 	        grdPckgFclt.rebuild();
-	        
+
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -1085,7 +1086,7 @@
  			//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 	}
-	
+
 	// 품목
 	const fn_setGrdItem = async function() {
 		const param = {
@@ -1096,7 +1097,7 @@
 		let totalRecordCount = 0;
 		try {
 			const postJsonPromise = gfn_postJSON(
-						"/am/cmns/selectApcCmnsItemList.do", 
+						"/am/cmns/selectApcCmnsItemList.do",
 						param,
 						null,
 						true
@@ -1105,9 +1106,9 @@
 	        data.resultList.forEach((item, index) => {
 	        	jsonItem.push(item);
 	        });
-	        
+
 	        grdItem.rebuild();
-	        
+
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -1116,7 +1117,7 @@
  			//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 	}
-	
+
 	// 품종
 	const fn_setGrdVrty = async function() {
 		const param = {
@@ -1127,7 +1128,7 @@
 		let totalRecordCount = 0;
 		try {
 			const postJsonPromise = gfn_postJSON(
-						"/am/cmns/selectApcVrtyList.do", 
+						"/am/cmns/selectApcVrtyList.do",
 						param,
 						null,
 						true
@@ -1136,9 +1137,9 @@
 	        data.resultList.forEach((item, index) => {
 	        	jsonVrty.push(item);
 	        });
-	        
+
 	        grdVrty.rebuild();
-	        
+
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -1158,7 +1159,7 @@
 		let totalRecordCount = 0;
 		try {
 			const postJsonPromise = gfn_postJSON(
-						"/am/cmns/selectApcSpcfctList.do", 
+						"/am/cmns/selectApcSpcfctList.do",
 						param,
 						null,
 						true
@@ -1167,9 +1168,9 @@
 	        data.resultList.forEach((item, index) => {
 	        	jsonSpcfct.push(item);
 	        });
-	        
+
 	        grdSpcfct.rebuild();
-	        
+
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -1189,7 +1190,7 @@
 		let totalRecordCount = 0;
 		try {
 			const postJsonPromise = gfn_postJSON(
-						"/am/cmns/selectStdGrdDtlList.do", 
+						"/am/cmns/selectStdGrdDtlList.do",
 						param,
 						null,
 						true
@@ -1198,9 +1199,9 @@
 	        data.resultList.forEach((item, index) => {
 	        	jsonGrd.push(item);
 	        });
-	        
+
 	        grdGrd.rebuild();
-	        
+
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -1209,7 +1210,7 @@
 				//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 	}
-	
+
 	// 상품
 	const fn_setGrdGds = async function() {
 		const param = {
@@ -1220,7 +1221,7 @@
 		let totalRecordCount = 0;
 		try {
 			const postJsonPromise = gfn_postJSON(
-						"/am/cmns/selectSpmtPckgUnitList.do", 
+						"/am/cmns/selectSpmtPckgUnitList.do",
 						param,
 						null,
 						true
@@ -1229,9 +1230,9 @@
 	        data.resultList.forEach((item, index) => {
 	        	jsonGds.push(item);
 	        });
-	        
+
 	        grdGds.rebuild();
-	        
+
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -1240,7 +1241,7 @@
 				//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 	}
-	
+
 	// 생산자
 	const fn_setGrdPrdcr = async function() {
 		const param = {
@@ -1251,7 +1252,7 @@
 		let totalRecordCount = 0;
 		try {
 			const postJsonPromise = gfn_postJSON(
-						"/am/cmns/selectPrdcrCdList.do", 
+						"/am/cmns/selectPrdcrCdList.do",
 						param,
 						null,
 						true
@@ -1260,9 +1261,9 @@
 	        data.resultList.forEach((item, index) => {
 	        	jsonPrdcr.push(item);
 	        });
-	        
+
 	        grdPrdcr.rebuild();
-	        
+
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -1271,7 +1272,7 @@
 				//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 	}
-	
+
 	// 팔레트/박스
 	const fn_setGrdPltBx = async function() {
 		const param = {
@@ -1282,7 +1283,7 @@
 		let totalRecordCount = 0;
 		try {
 			const postJsonPromise = gfn_postJSON(
-						"/am/cmns/selectPltBxList.do", 
+						"/am/cmns/selectPltBxList.do",
 						param,
 						null,
 						true
@@ -1291,9 +1292,9 @@
 	        data.resultList.forEach((item, index) => {
 	        	jsonPltBx.push(item);
 	        });
-	        
+
 	        grdPltBx.rebuild();
-	        
+
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -1302,7 +1303,7 @@
 				//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 	}
-	
+
 	// 차량정보
 	const fn_setGrdVhclInfo = async function() {
 		const param = {
@@ -1313,7 +1314,7 @@
 		let totalRecordCount = 0;
 		try {
 			const postJsonPromise = gfn_postJSON(
-						"/am/cmns/selectWrhsVhclCdList.do", 
+						"/am/cmns/selectWrhsVhclCdList.do",
 						param,
 						null,
 						true
@@ -1322,9 +1323,9 @@
 	        data.resultList.forEach((item, index) => {
 	        	jsonVhclInfo.push(item);
 	        });
-	        
+
 	        grdVhclInfo.rebuild();
-	        
+
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -1333,7 +1334,7 @@
 				//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 	}
-	
+
 	// 운송사
 	const fn_setGrdTrsprtCo = async function() {
 		const param = {
@@ -1353,9 +1354,9 @@
 	        data.resultList.forEach((item, index) => {
 	        	jsonTrsprtCo.push(item);
 	        });
-	        
+
 	        grdTrsprtCo.rebuild();
-	        
+
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -1375,7 +1376,7 @@
 		let totalRecordCount = 0;
 		try {
 			const postJsonPromise = gfn_postJSON(
-						"/am/cmns/selectCnptList.do", 
+						"/am/cmns/selectCnptList.do",
 						param,
 						null,
 						true
@@ -1384,9 +1385,9 @@
 	        data.resultList.forEach((item, index) => {
 	        	jsonCnpt.push(item);
 	        });
-	        
+
 	        grdCnpt.rebuild();
-	        
+
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
