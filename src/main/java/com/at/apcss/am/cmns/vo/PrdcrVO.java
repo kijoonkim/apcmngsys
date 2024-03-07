@@ -226,4 +226,8 @@ public class PrdcrVO extends ComVO {
 	 * 농가 주소
 	 */
 	private String frmhsAddr;
+	/**
+	 * 생산자연결번호
+	 */
+	private String extrnlLnkgCd;
 }

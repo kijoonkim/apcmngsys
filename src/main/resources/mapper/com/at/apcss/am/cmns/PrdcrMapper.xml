@@ -90,6 +90,7 @@
 			     , PR.FRMHS_CTPV		AS FRMHS_CTPV
 			     , PR.FRMHS_ADDR		AS FRMHS_ADDR
 			     , PR.DEL_YN        	AS DEL_YN
+			     , PR.EXTRNL_LNKG_CD	AS EXTRNL_LNKG_CD
 			     , (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = PR.APC_CD) AS APC_NM
 			     , (SELECT FN_GET_ITEM_NM(PR.RPRS_ITEM_CD, PR.APC_CD) FROM DUAL) AS RPRS_ITEM_NM
 			     , (SELECT FN_GET_VRTY_NM(PR.RPRS_ITEM_CD, PR.RPRS_VRTY_CD, PR.APC_CD) FROM DUAL) AS RPRS_VRTY_NM
@@ -188,6 +189,7 @@
 			     --, PR.FRMHS_CTPV		AS FRMHS_CTPV
 			     --, PR.FRMHS_ADDR		AS FRMHS_ADDR
 			     , PR.DEL_YN        	AS DEL_YN
+			     , PR.EXTRNL_LNKG_CD	AS EXTRNL_LNKG_CD
 			     , (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = PR.APC_CD) AS APC_NM
 			     , (SELECT FN_GET_ITEM_NM(PR.RPRS_ITEM_CD, PR.APC_CD) FROM DUAL) AS RPRS_ITEM_NM
 			     , (SELECT FN_GET_VRTY_NM(PR.RPRS_ITEM_CD, PR.RPRS_VRTY_CD, PR.APC_CD) FROM DUAL) AS RPRS_VRTY_NM
@@ -369,6 +371,7 @@
 			     	, PRDCR_IDENTNO
 			     	, PLOR_CD
 					, RMRK
+					, EXTRNL_LNKG_CD
 	    		  	, SYS_FRST_INPT_DT
 	    		  	, SYS_FRST_INPT_USER_ID
 	    		  	, SYS_FRST_INPT_PRGRM_ID
@@ -392,6 +395,7 @@
 					, #{prdcrIdentno}
 					, #{plorCd}
 					, #{rmrk}
+					, #{extrnlLnkgCd}
 					, SYSDATE
 	   			  	, #{sysFrstInptUserId}
 	   			  	, #{sysFrstInptPrgrmId}
@@ -430,6 +434,7 @@
 				, PRDCR_IDENTNO = #{prdcrIdentno}
 				, PLOR_CD = #{plorCd}
 				, RMRK = #{rmrk}
+				, EXTRNL_LNKG_CD = #{extrnlLnkgCd}
     	]]>
 		<if test='delYn != null and delYn !=""'>
 			   	, DEL_YN= #{delYn}
