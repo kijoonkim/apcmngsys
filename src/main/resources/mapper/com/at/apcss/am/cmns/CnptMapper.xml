@@ -46,6 +46,7 @@
 		     , CT.WHLSL_MRKT_CORP_CD	AS WHLSL_MRKT_CORP_CD
 		     , CT.RMRK              AS RMRK
 		     , CT.DEL_YN            AS DEL_YN
+    		 , CT.EXTRNL_LNKG_CD	AS EXTRNL_LNKG_CD
 		  FROM TB_CNPT_INFO CT
 		 WHERE CT.DEL_YN 	= 'N'
 		   AND CT.APC_CD 		= #{apcCd}

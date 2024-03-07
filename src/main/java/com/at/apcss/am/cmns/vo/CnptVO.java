@@ -87,4 +87,8 @@ public class CnptVO extends ComVO {
 	 * 삭제 불가능 사유
 	 */
 	private String delible;
+	/**
+	 * 거래처연계코드
+	 */
+	private String extrnlLnkgCd;
 }

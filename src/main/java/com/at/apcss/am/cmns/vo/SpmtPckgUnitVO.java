@@ -96,5 +96,9 @@ public class SpmtPckgUnitVO extends ComVO{
 	 * 삭제 불가능 사유
 	 */
 	private String delible;
+	/**
+	 * 상품 연계코드
+	 */
+	private String extrnlLnkgCd;
 
 }

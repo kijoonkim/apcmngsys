@@ -45,6 +45,7 @@ public class ComCdVO extends ComVO {
 	private String cdChrVl;
 	private String useYn;
 	private String rmrk;
+	private String extrnlLnkgCd;
 
 	/**
 	 * 공통코드 목록

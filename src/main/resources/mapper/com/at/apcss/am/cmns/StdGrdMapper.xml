@@ -294,6 +294,7 @@
 				, SG.ITEM_CD || SG.GRD_KND || SGD.GRD_CD	AS ITEM_GRD_CD
 			    , SGD.SN            AS SN
 			    , SGD.DEL_YN        AS DEL_YN
+	    		, SGD.EXTRNL_LNKG_CD AS EXTRNL_LNKG_CD
 
 			  FROM TB_APC_STD_GRD SG
 

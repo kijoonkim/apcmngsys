@@ -146,4 +146,8 @@ public class PltBxVO extends ComVO {
 	 * 수량
 	 * **/
 	private String qntt;
+	/**
+	 * 연계코드
+	 * **/
+	private String extrnlLnkgCd;
 }

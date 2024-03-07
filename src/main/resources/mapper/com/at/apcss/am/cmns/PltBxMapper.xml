@@ -31,6 +31,7 @@
 			    , PB.PLT_BX_NM          AS PLT_BX_NM
 			    , PB.UNIT_WGHT          AS UNIT_WGHT
 			    , PB.UNIT_CD			AS UNIT_CD
+	    	    , PB.EXTRNL_LNKG_CD		AS EXTRNL_LNKG_CD
 			    , CASE PB.UNIT_CD
 			    	WHEN '1' THEN	-- g
 			    		PB.UNIT_WGHT / 1000

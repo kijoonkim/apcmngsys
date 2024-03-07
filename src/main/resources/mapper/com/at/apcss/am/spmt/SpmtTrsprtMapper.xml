@@ -30,6 +30,7 @@
 		     , ST.FXNO              AS FXNO
 		     , ST.RMRK              AS RMRK
 		     , ST.DEL_YN            AS DEL_YN
+    		 , ST.EXTRNL_LNKG_CD	AS EXTRNL_LNKG_CD
 		  FROM TB_SPMT_TRSPRT_CO_INFO ST
 		 WHERE ST.APC_CD = #{apcCd}
 		]]>

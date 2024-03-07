@@ -58,4 +58,8 @@ public class CmnsSpcfctVO extends CmnsItemVO {
 	 * 품목규격코드
 	 */
 	private String itemSpcfctCd;
+	/**
+	 * 규격연계코드
+	 */
+	private String extrnlLnkgCd;
 }

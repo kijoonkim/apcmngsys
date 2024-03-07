@@ -59,4 +59,8 @@ public class StdGrdDtlVO extends StdGrdVO {
 	private String linkGrdCd;
 	
 	private String mngType;
+	/**
+	 * 등급연계코드
+	 */
+	private String extrnlLnkgCd;
 }

@@ -82,6 +82,7 @@
 					     , SPU.ITEM_CD				AS ITEM_CD
 					     , SPU.VRTY_CD              AS VRTY_CD
 					     , SPU.SPCFCT_CD            AS SPCFCT_CD
+			    	     , SPU.EXTRNL_LNKG_CD 		AS EXTRNL_LNKG_CD
 					     , (SELECT MAX(X.SPMT_SLS_UNTPRC) KEEP (DENSE_RANK LAST ORDER BY X.APLCN_CRTR_YMD)
 					          FROM TB_SPMT_SLS_UNTPRC_REG X
 					         WHERE X.APC_CD = SPU.APC_CD

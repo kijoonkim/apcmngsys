@@ -63,5 +63,9 @@ public class SpmtTrsprtVO extends ComVO {
 	 * 삭제 불가능 사유
 	 */
 	private String delible;
+	/**
+	 * 운송사 연계코드
+	 */
+	private String extrnlLnkgCd;
 
 }
