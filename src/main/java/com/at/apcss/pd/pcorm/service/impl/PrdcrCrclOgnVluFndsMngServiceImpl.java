@@ -4,7 +4,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper;
 import com.at.apcss.pd.pcorm.service.PrdcrCrclOgnVluFndsMngService;
@@ -39,6 +38,26 @@ public class PrdcrCrclOgnVluFndsMngServiceImpl extends BaseServiceImpl implement
 		return resultList;
 	}
 
+	@Override
+	public List<PrdcrCrclOgnVluFndsMngVO> selectComputWayList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO) throws Exception {
 
+		List<PrdcrCrclOgnVluFndsMngVO> resultList = prdcrCrclOgnVluFndsMngMapper.selectComputWayList(prdcrCrclOgnVluFndsMngVO);
+		return resultList;
+	}
+
+	@Override
+	public int insertComputWayList(PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO) throws Exception {
+		int saveCnt = prdcrCrclOgnVluFndsMngMapper.insertComputWayList(PrdcrCrclOgnVluFndsMngVO);
+		return saveCnt;
+	}
+
+	@Override
+	public int multiSaveComputWayList(List<PrdcrCrclOgnVluFndsMngVO> PrdcrCrclOgnVluFndsMngVOList) throws Exception {
+		int savedCnt = 0;
+		for (PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO : PrdcrCrclOgnVluFndsMngVOList) {
+			savedCnt += insertComputWayList(PrdcrCrclOgnVluFndsMngVO);
+		}
+		return savedCnt;
+	}
 
 }

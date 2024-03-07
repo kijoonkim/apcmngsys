@@ -29,4 +29,26 @@ public interface PrdcrCrclOgnVluFndsMngService {
 	 */
 	public List<PrdcrCrclOgnVluFndsMngVO> selectScoreList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO) throws Exception;
 
+	/**
+	 * 산출식 관리 팝업 - 산출식 리스트 조회
+	 * @param prdcrCrclOgnVluFndsMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluFndsMngVO> selectComputWayList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO) throws Exception;
+	/**
+	 * 산출식 관리 팝업 - 산출식 리스트 단건 저장
+	 * @param prdcrCrclOgnVluFndsMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertComputWayList(PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO) throws Exception;
+	/**
+	 * 산출식 관리 팝업 - 산출식 리스트 리스트 저장
+	 * @param prdcrCrclOgnVluFndsMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int multiSaveComputWayList(List<PrdcrCrclOgnVluFndsMngVO> PrdcrCrclOgnVluFndsMngVOList) throws Exception;
+
 }

@@ -19,6 +19,7 @@ import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.pd.pcorm.service.PrdcrCrclOgnVluFndsMngService;
 import com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO;
+import com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO;
 
 @Controller
 public class PrdcrCrclOgnVluFndsMngController extends BaseController{
@@ -32,7 +33,7 @@ public class PrdcrCrclOgnVluFndsMngController extends BaseController{
 		return "apcss/pd/pcorm/PrdcrCrclOgnVluFndsMng";
 	}
 
-	// 조회
+	// 평가지표 리스트 조회
 	@PostMapping(value = "/pd/pcorm/selectScoreList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectScoreList(Model model, @RequestBody PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
@@ -47,7 +48,43 @@ public class PrdcrCrclOgnVluFndsMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	// 산출식 관리 팝업 - 산출식 리스트 조회
+	@PostMapping(value = "/pd/pcorm/selectComputWayList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectComputWayList(Model model, @RequestBody PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PrdcrCrclOgnVluFndsMngVO> resultList = new ArrayList<>();
+		try {
+			 resultList = prdcrCrclOgnVluFndsMngService.selectComputWayList(prdcrCrclOgnVluFndsMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
 
+	// 산출식 관리 팝업 - 산출식 리스트 저장
+	@PostMapping(value = "/pd/pcom/multiSaveComputWayList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> multiSaveComputWayList(@RequestBody List<PrdcrCrclOgnVluFndsMngVO> PrdcrCrclOgnVluFndsMngVOList, HttpServletRequest request) throws Exception {
 
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		int savedCnt = 0;
+		try {
+			for (PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO : PrdcrCrclOgnVluFndsMngVOList) {
+				PrdcrCrclOgnVluFndsMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+				PrdcrCrclOgnVluFndsMngVO.setSysFrstInptUserId(getUserId());
+				PrdcrCrclOgnVluFndsMngVO.setSysLastChgPrgrmId(getPrgrmId());
+				PrdcrCrclOgnVluFndsMngVO.setSysLastChgUserId(getUserId());
+			}
+
+			savedCnt = prdcrCrclOgnVluFndsMngService.multiSaveComputWayList(PrdcrCrclOgnVluFndsMngVOList);
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
+		return getSuccessResponseEntity(resultMap);
+	}
 
 }

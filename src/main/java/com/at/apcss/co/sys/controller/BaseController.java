@@ -61,8 +61,8 @@ public abstract class BaseController {
 	private String filepathCo;
 	private String filepathFm;
 	private String filepathPd;
-	
-	
+
+
 	@PostConstruct
 	protected void init() {
 		reportDbName = env.getProperty("spring.report.dbName");
@@ -70,7 +70,7 @@ public abstract class BaseController {
 		reportType = env.getProperty("spring.report.type");
 		reportPath = env.getProperty("spring.report.path");
 		loginUrl = env.getProperty("apcss.login.url");
-		
+
 		filepathRoot = env.getProperty("apcss.filepath.root");
 		filepathAm = env.getProperty("apcss.filepath.am");
 		filepathCo = env.getProperty("apcss.filepath.co");
@@ -108,14 +108,14 @@ public abstract class BaseController {
 	protected String getFilepathPd() {
 		return filepathPd;
 	}
-	
+
 	/**
 	 * @return [로그인 url]
 	 */
 	protected String getLoginUrl() {
 		return loginUrl;
 	}
-	
+
 	/**
 	 * @return [Report DbName 설정]
 	 */
@@ -154,7 +154,7 @@ public abstract class BaseController {
 
 		return null;
 	}
-	
+
 	protected String getUserNm() {
 
 		LoginVO loginVO = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
@@ -165,7 +165,7 @@ public abstract class BaseController {
 
 		return null;
 	}
-	
+
 	protected String getUserType() {
 		LoginVO loginVO = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 
@@ -192,7 +192,7 @@ public abstract class BaseController {
 		return prgrmId;
 	}
 
-	
+
 	protected <T> boolean setPaginationInfo(ComPageVO comPageVO, T t) {
 
 		if (comPageVO == null || !ComConstants.CON_YES.equals(comPageVO.getPagingYn())) {
@@ -266,12 +266,12 @@ public abstract class BaseController {
 	protected ResponseEntity<HashMap<String, Object>> getErrorResponseEntity(HashMap<String, Object> resultMap) {
 
 		resultMap.put(ComConstants.PROP_RESULT_STATUS, ComConstants.RESULT_STATUS_ERROR);
-		
+
 		String errorCode = (String)resultMap.getOrDefault(ComConstants.PROP_RESULT_CODE, ComConstants.CON_BLANK);
 		String errorMessage = (String)resultMap.getOrDefault(ComConstants.PROP_RESULT_MESSAGE, ComConstants.CON_BLANK);
-		
+
 		insertSysErrorLog(errorCode + ComConstants.CON_COMMA + errorMessage);
-		
+
 		return new ResponseEntity<HashMap<String, Object>>(resultMap, HttpStatus.OK);
 	}
 
@@ -284,10 +284,10 @@ public abstract class BaseController {
 		resultMap.put(ComConstants.PROP_RESULT_MESSAGE, errorMessage);
 
 		insertSysErrorLog(ComUtil.nullToEmpty(errorCode) + ComConstants.CON_COMMA + ComUtil.nullToEmpty(errorMessage));
-		
+
 		return new ResponseEntity<HashMap<String, Object>>(resultMap, HttpStatus.BAD_REQUEST);
 	}
-	
+
 	protected ResponseEntity<HashMap<String, Object>> getErrorResponseEntity(EgovBizException e) {
 
 		HashMap<String, Object> resultMap = new HashMap<>();
@@ -297,10 +297,10 @@ public abstract class BaseController {
 		resultMap.put(ComConstants.PROP_RESULT_MESSAGE, e.getMessage());
 
 		insertSysErrorLog(e.getMessage());
-		
+
 		return new ResponseEntity<HashMap<String, Object>>(resultMap, HttpStatus.BAD_REQUEST);
 	}
-	
+
 	protected ResponseEntity<HashMap<String, Object>> getErrorResponseEntity(Exception e) {
 
 		HashMap<String, Object> resultMap = new HashMap<>();
@@ -308,15 +308,15 @@ public abstract class BaseController {
 		resultMap.put(ComConstants.PROP_RESULT_STATUS, ComConstants.RESULT_STATUS_ERROR);
 		resultMap.put(ComConstants.PROP_RESULT_CODE, ComConstants.RESULT_CODE_DEFAULT);
 		resultMap.put(ComConstants.PROP_RESULT_MESSAGE, e.getMessage());
-		
+
 		if (StringUtils.hasText(e.getMessage())) {
 			if (e.getMessage().contains("java.sql.SQLException")) {
 				resultMap.put(ComConstants.PROP_RESULT_MESSAGE, ComConstants.RESULT_MESSAGE_DEFAULT);
 			}
 		}
-		
+
 		insertSysErrorLog(e.getMessage());
-		
+
 		//resultMap.put(ComConstants.PROP_RESULT_MESSAGE, ComConstants.RESULT_MESSAGE_DEFAULT);
 
 		return new ResponseEntity<HashMap<String, Object>>(resultMap, HttpStatus.BAD_REQUEST);
@@ -337,7 +337,7 @@ public abstract class BaseController {
 	protected List<ComMsgVO> getMessageList() throws Exception {
 		return messageSource.getComMessageList();
 	}
-	
+
 	protected String getUserIp(HttpServletRequest request) throws Exception{
 		String clientIp = null;
 		boolean isIpInHeader = false;
@@ -370,55 +370,55 @@ public abstract class BaseController {
 		}
 		return clientIp;
 	}
-	
+
 	protected HashMap<String, Object> setSessionInfo(HttpServletRequest request) throws Exception {
-		
+
 		// user id 로 조회
 		String jsseionId = request.getSession().getId();
 		//System.out.println(String.format("jsseionId : %s", jsseionId));
-		
+
 		// 세션정보 db insert
 		ComSysVO comSysVO = new ComSysVO();
 		comSysVO.setSessId(jsseionId);
 		comSysVO.setUserId(getUserId());
-		
+
 		HashMap<String, Object> rtnObj = comSysService.insertComSession(comSysVO);
 		if (rtnObj != null) {
 			return rtnObj;
 		}
-		
+
 		// String sessionId = UUID.randomUUID().toString();
 		// System.out.println(String.format("sessionid : %s", sessionId));
 		// Cookie sessionCookie = new Cookie("sessionid", sessionId);
 		// response.addCookie(sessionCookie);
-		
+
 		// 세션id로 조회
-		
-		// 만료안된 세션정보가 있다면 만료 처리 
+
+		// 만료안된 세션정보가 있다면 만료 처리
 		// insert session 정보
 		return null;
 	}
-	
+
 	protected HashMap<String, Object> terminateSession(HttpServletRequest request) throws Exception {
-		
+
 		// user id 로 조회
 		String jsseionId = request.getSession().getId();
-		
+
 		// 세션정보 만료 update
 		ComSysVO comSysVO = new ComSysVO();
 		comSysVO.setSessId(jsseionId);
 		comSysVO.setUserId(getUserId());
-		
+
 		HashMap<String, Object> rtnObj = comSysService.updateComSessionExpiry(comSysVO);
 		if (rtnObj != null) {
 			return rtnObj;
 		}
-		
+
 		return null;
 	}
-	
+
 	protected HashMap<String, Object> terminateSessionByUser(String userId) throws Exception {
-		
+
 		// 세션정보 만료 update
 		ComSysVO comSysVO = new ComSysVO();
 		comSysVO.setUserId(userId);
@@ -427,19 +427,23 @@ public abstract class BaseController {
 		if (rtnObj != null) {
 			return rtnObj;
 		}
-		
+
 		return null;
 	}
-	
+
 	protected boolean checkDuplicatedUser(String userId, String userIp) throws Exception {
 		return comSysService.checkDuplicatedUser(userId, userIp);
 	}
-	
-	
+
+	protected boolean checkIpLmt(String userId, String userIp) throws Exception {
+		return comSysService.checkIpLmt(userId, userIp);
+	}
+
+
 	protected HashMap<String, Object> setMenuComLog(HttpServletRequest request) throws Exception {
-	
+
 		ComSysVO comSysVO = new ComSysVO();
-		
+
 		comSysVO.setUserId(getUserId());
 		comSysVO.setPrgrmId(getPrgrmId());
 		comSysVO.setUserNm(getUserNm());
@@ -447,14 +451,14 @@ public abstract class BaseController {
 		comSysVO.setLgnScsYn(StringUtils.hasText(getUserId()) ? ComConstants.CON_YES : ComConstants.CON_NONE);
 		comSysVO.setUserIp(getUserIp(request));
 		comSysVO.setApcCd(getApcCd());
-		
+
 		String uri = request.getRequestURI();
 		if (StringUtils.hasText(uri)) {
-			
+
 			comSysVO.setPrslType(ComConstants.CON_PRSL_TYPE_UI_ACTION);
-			
+
 			String flfmtTaskSeCd = ComConstants.CON_BLANK;
-			
+
 			if (uri.contains("insert")) {
 				flfmtTaskSeCd = ComConstants.CON_FLFMT_TASK_SE_CD_CREATE;
 			} else if (uri.contains("update")) {
@@ -470,18 +474,18 @@ public abstract class BaseController {
 			} else {
 				flfmtTaskSeCd = ComConstants.CON_FLFMT_TASK_SE_CD_DEFAULT;
 			}
-			
+
 			comSysVO.setFlfmtTaskSeCd(flfmtTaskSeCd);
-			
+
 			HashMap<String, Object> rtnObj = comSysService.insertComeMenuLogPrsnaInfo(comSysVO);
 			if (rtnObj != null) {
 				return rtnObj;
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	/**
 	 * 시스템 로그 등록
 	 * @param errCnts
@@ -492,10 +496,10 @@ public abstract class BaseController {
 		} catch (Exception e) {
 			logger.error("insert log error {}", e.getMessage());
 		} finally {
-			
-		}		
+
+		}
 	}
-	
+
 //	@Autowired
 //	protected MessageSource message;
 

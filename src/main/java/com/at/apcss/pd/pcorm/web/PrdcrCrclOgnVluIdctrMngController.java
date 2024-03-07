@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
-import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO;
 import com.at.apcss.pd.pcorm.service.PrdcrCrclOgnVluIdctrMngService;
 import com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO;
 
