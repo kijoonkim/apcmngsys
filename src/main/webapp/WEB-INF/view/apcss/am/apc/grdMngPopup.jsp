@@ -244,7 +244,7 @@
 			},
 			{
 				caption: ["연계코드"],
-				ref: 'linkGrdCd',  
+				ref: 'extrnlLnkgCd',
 				type:'input',  
 				width:'80px',
 				style:'text-align:center',
@@ -581,7 +581,8 @@
   					  	aftrGrdKnd	: item.aftrGrdKnd,
   					  	aftrGrdCd	: item.aftrGrdCd,
   					  	linkGrdCd	: item.linkGrdCd,
-  					  	mngType		: item.mngType
+  					  	mngType		: item.mngType,
+						extrnlLnkgCd: item.extrnlLnkgCd
   					}
   					jsonStdGrdDtl.push(stdGrdVO);
   				});
