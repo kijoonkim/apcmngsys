@@ -19,28 +19,28 @@
 					</p>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button 
-						id="btnSearchItem" 
-						name="btnSearchItem" 
-						uitype="normal" 
-						text="조회" 
-						class="btn btn-sm btn-outline-danger" 
+					<sbux-button
+						id="btnSearchItem"
+						name="btnSearchItem"
+						uitype="normal"
+						text="조회"
+						class="btn btn-sm btn-outline-danger"
 						onclick="fn_searchAll"
 					></sbux-button>
-					<sbux-button 
-						id="btnSaveItem" 
-						name="btnSaveItem" 
-						uitype="normal" 
-						text="저장" 
-						class="btn btn-sm btn-outline-danger" 
+					<sbux-button
+						id="btnSaveItem"
+						name="btnSaveItem"
+						uitype="normal"
+						text="저장"
+						class="btn btn-sm btn-outline-danger"
 						onclick="fn_saveApcVrtyList"
 					></sbux-button>
-					<sbux-button 
-						id="btnEndItem" 
-						name="btnEndItem" 
-						uitype="normal" 
-						text="종료" 
-						class="btn btn-sm btn-outline-danger" 
+					<sbux-button
+						id="btnEndItem"
+						name="btnEndItem"
+						uitype="normal"
+						text="종료"
+						class="btn btn-sm btn-outline-danger"
 						onclick="gfn_closeModal('modal-item')"
 					></sbux-button>
 				</div>
@@ -237,10 +237,10 @@
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
 	        {caption: ["코드"],     	ref: 'itemCd',  	type:'output',  width:'80px',    style:'text-align:center'},
 	        {caption: ["명칭"],     	ref: 'itemNm',  	type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["품종"],     ref: 'vrtrCnt',  	type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["규격"],     ref: 'spcfctCnt',  	type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["등급"],     ref: 'grdCnt',  	type:'output',  width:'80px',    style:'text-align:center'},
-			{caption: ["품목연계코드"],     ref: 'extrnlLnkgCd',fixed:false,	type:'input',  width:'80px',    style:'text-align:center'},
+	        {caption: ["품종"],     ref: 'vrtrCnt',  	type:'output',  width:'60px',    style:'text-align:center'},
+	        {caption: ["규격"],     ref: 'spcfctCnt',  	type:'output',  width:'60px',    style:'text-align:center'},
+	        {caption: ["등급"],     ref: 'grdCnt',  	type:'output',  width:'60px',    style:'text-align:center'},
+			{caption: ["외부연결코드"],     ref: 'extrnlLnkgCd',fixed:false,	type:'input',  width:'80px',    style:'text-align:center'},
 
 	    ];
 	    grdApcItem = _SBGrid.create(SBGridPropertiesApcItem);
@@ -300,21 +300,21 @@
 	        {caption: ["명칭"],     ref: 'vrtyNm',  type:'input',  	width:'80px',    style:'text-align:center',
 	        	typeinfo : {maxlength : 30}},
 	        {
-	        	caption: ["입고단중 (Kg)"],     
-	        	ref: 'unitWght',  
-	        	type:'input',  
-	        	width:'80px',  
+	        	caption: ["입고단중 (Kg)"],
+	        	ref: 'unitWght',
+	        	type:'input',
+	        	width:'80px',
 	        	style: 'text-align:right;',
     			typeinfo : {
-    				mask : {alias : 'numeric'}, 
-    				maxlength : 10}, 
+    				mask : {alias : 'numeric'},
+    				maxlength : 10},
     				format : {type:'number', rule:'#,###.##'}
     		},
 	        {caption: ["처리기준"],     ref: 'wghtRkngSeCd',  type:'combo',  width:'80px',    style:'text-align:center;',
 					typeinfo : {ref:'jsonVrtyWghtRkngSeCd', displayui : false,	itemcount: 10, label:'label', value:'value'}},
 			{caption: ["순번"],     ref: 'sn',  type:'input',  	width:'80px',    style:'text-align:center',
 						typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 4}},
-			{caption: ["품종연계코드"],     ref: 'extrnlLnkgCd',  type:'input',  width:'80px',    style:'text-align:center'},
+			{caption: ["외부연결코드"],     ref: 'extrnlLnkgCd',  type:'input',  width:'80px',    style:'text-align:center'},
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
 	        {caption: ["품목코드"], 	ref: 'itemCd',   	type:'input',  hidden : true}
 
@@ -727,12 +727,12 @@
 				}
 			}
 		}
-		
+
 		if (saveList.length == 0 && itemSaveFlag){
 			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
 			return;
 		}
-		
+
 		if (gfn_comConfirm("Q0001", "품목"+itemSaveCount+"건 품종"+saveList.length+"건 저장")){
 
 			let postJsonPromise = gfn_postJSON("/am/cmns/multiApcVrtyList.do", saveList);

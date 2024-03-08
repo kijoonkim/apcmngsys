@@ -100,7 +100,13 @@
 			  FROM TB_APC_ITEM_CRTR AIC
 			 WHERE AIC.DEL_YN = 'N'
 			   AND AIC.APC_CD = #{apcCd}
-			 ORDER BY AIC.ITEM_CD
+
+		]]>
+		<if test='extrnlLnkgCd != null and extrnlLnkgCd != ""'>
+		  	  AND AIC.EXTRNL_LNKG_CD = #{extrnlLnkgCd}
+		</if>
+		<![CDATA[
+			ORDER BY AIC.ITEM_CD
 		]]>
     </select>
 

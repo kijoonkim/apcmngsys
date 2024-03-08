@@ -34,6 +34,9 @@
 		  FROM TB_SPMT_TRSPRT_CO_INFO ST
 		 WHERE ST.APC_CD = #{apcCd}
 		]]>
+		<if test='extrnlLnkgCd != null and extrnlLnkgCd != ""'>
+		   AND ST.EXTRNL_LNKG_CD = #{extrnlLnkgCd}
+		</if>
     </select>
 
     <!-- ==========================================================================	-->
@@ -54,6 +57,7 @@
 		      , TELNO
 		      , FXNO
     		  , RMRK
+    		  , EXTRNL_LNKG_CD
     		  , DEL_YN
     		  , SYS_FRST_INPT_DT
     		  , SYS_FRST_INPT_USER_ID
@@ -70,6 +74,7 @@
     		  , #{telno}
     		  , #{fxno}
     		  , #{rmrk}
+    		  , #{extrnlLnkgCd}
     		  , #{delYn}
     		  , SYSDATE
     		  , #{sysFrstInptUserId}
@@ -99,6 +104,7 @@
     		 , TELNO					= #{telno}
     		 , FXNO						= #{fxno}
     		 , RMRK						= #{rmrk}
+    		 , EXTRNL_LNKG_CD			= #{extrnlLnkgCd}
     		 , DEL_YN					= #{delYn}
 		 WHERE APC_CD 					= #{apcCd}
 		   AND TRSPRT_CO_CD 			= #{trsprtCoCd}

@@ -54,6 +54,9 @@
 		<if test='cnptNm != null and cnptNm !=""'>
 		   AND CT.CNPT_NM LIKE '%' || #{cnptNm} || '%'
 		</if>
+		<if test='extrnlLnkgCd != null and extrnlLnkgCd != ""'>
+		   AND CT.EXTRNL_LNKG_CD = #{extrnlLnkgCd}
+		</if>
     	<![CDATA[
 		 ORDER BY CNPT_NM
 		]]>
@@ -90,6 +93,7 @@
 		      , BZSTAT
 		      , WHLSL_MRKT_CORP_CD
     		  , RMRK
+    		  , EXTRNL_LNKG_CD
     		  , SYS_FRST_INPT_DT
     		  , SYS_FRST_INPT_USER_ID
     		  , SYS_FRST_INPT_PRGRM_ID
@@ -111,6 +115,7 @@
 		      , #{bzstat}
 		      , #{whlslMrktCorpCd}
     		  , #{rmrk}
+    		  , #{extrnlLnkgCd}
     		  , SYSDATE
     		  , #{sysFrstInptUserId}
     		  , #{sysFrstInptPrgrmId}

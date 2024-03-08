@@ -325,6 +325,9 @@
 		<if test='delYn != null and delYn != ""'>
 			   AND SG.DEL_YN = #{delYn}
 		</if>
+		<if test='extrnlLnkgCd != null and extrnlLnkgCd != ""'>
+		  	   AND SGD.EXTRNL_LNKG_CD = #{extrnlLnkgCd}
+		</if>
 		<![CDATA[
 			 ORDER BY ITEM_CD, GRD_SE_CD, GRD_KND, SN, GRD_CD
 		]]>
@@ -356,6 +359,7 @@
 				  	, AFTR_GRD_CD
 				  	, LINK_GRD_CD
 				  	, MNG_TYPE
+				  	, EXTRNL_LNKG_CD
 					, SYS_FRST_INPT_DT
 					, SYS_FRST_INPT_USER_ID
 					, SYS_FRST_INPT_PRGRM_ID
@@ -377,6 +381,7 @@
 				    , #{aftrGrdCd}
 				    , #{linkGrdCd}
 				    , #{mngType}
+				    , #{extrnlLnkgCd}
 					, SYSDATE
 					, #{sysFrstInptUserId}
 					, #{sysFrstInptPrgrmId}
@@ -410,6 +415,7 @@
 				, AFTR_GRD_CD				= #{aftrGrdCd}
 				, LINK_GRD_CD				= #{linkGrdCd}
 				, MNG_TYPE					= #{mngType}
+				, EXTRNL_LNKG_CD			= #{extrnlLnkgCd}
 			 WHERE APC_CD 		= #{apcCd}
 			   AND ITEM_CD 		= #{itemCd}
 			   AND GRD_SE_CD 	= #{grdSeCd}

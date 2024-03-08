@@ -135,6 +135,9 @@
 			<if test='apcCd != null and apcCd != ""'>
 			   AND CD.APC_CD = #{apcCd}
 	    	</if>
+			<if test='extrnlLnkgCd != null and extrnlLnkgCd != ""'>
+			   AND CD.EXTRNL_LNKG_CD = #{extrnlLnkgCd}
+	    	</if>
 	    	<if test='cdVlNm != null and cdVlNm != ""'>
 			   AND CD.CD_VL_NM LIKE '%' || #{cdVlNm} ||'%'
 	    	</if>
@@ -330,6 +333,7 @@
 		      , UP_CD_VL
 		      , CD_NUM_VL
 		      , CD_CHR_VL
+		      , EXTRNL_LNKG_CD
 			  , SYS_FRST_INPT_DT
 			  , SYS_FRST_INPT_USER_ID
 			  , SYS_FRST_INPT_PRGRM_ID
@@ -357,6 +361,7 @@
 		      , #{upCdVl}
 		      , #{cdNumVl}
 		      , #{cdChrVl}
+		      , #{extrnlLnkgCd}
 			  , SYSDATE
 			  , #{sysFrstInptUserId}
 			  , #{sysFrstInptPrgrmId}
@@ -384,6 +389,7 @@
 		     , UP_CD_VL 				= #{upCdVl}
 		     , CD_NUM_VL 				= #{cdNumVl}
 		     , CD_CHR_VL 				= #{cdChrVl}
+		     , EXTRNL_LNKG_CD			= #{extrnlLnkgCd}
     	     , SYS_LAST_CHG_DT 			= SYSDATE
     	     , SYS_LAST_CHG_USER_ID 	= #{sysLastChgUserId}
     	     , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
@@ -433,6 +439,7 @@
 			     , CD.CD_NUM_VL		AS CD_NUM_VL
 			     , CD.CD_CHR_VL		AS CD_CHR_VL
 			     , CD.DEL_YN		AS DEL_YN
+			     , CD.EXTRNL_LNKG_CD	AS EXTRNL_LNKG_CD
 			  FROM
 			  	  TB_COM_CD CC
 			  	, TB_COM_CD_DTL CD

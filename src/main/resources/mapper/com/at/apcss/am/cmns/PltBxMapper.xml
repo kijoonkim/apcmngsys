@@ -66,6 +66,9 @@
 		<if test='delYn != null and delYn != ""'>
 			   AND PB.DEL_YN = #{delYn}
 		</if>
+		<if test='extrnlLnkgCd != null and extrnlLnkgCd != ""'>
+		  	   AND PB.EXTRNL_LNKG_CD = #{extrnlLnkgCd}
+		</if>
     	<![CDATA[
 			 ORDER BY PB.PLT_BX_SE_CD, PB.PLT_BX_CD
 		]]>
@@ -93,6 +96,7 @@
 	    		  , BSS_INVNTR_QNTT
 	    		  , RMRK
 	    		  , USE_YN
+	    		  , EXTRNL_LNKG_CD
 	    		  , DEL_YN
 	    		  , SYS_FRST_INPT_DT
 	    		  , SYS_FRST_INPT_USER_ID
@@ -112,6 +116,7 @@
 	    		  , #{bssInvntrQntt}
 	    		  , #{rmrk}
 	    		  , #{useYn}
+	    		  , #{extrnlLnkgCd}
 	    		  , #{delYn}
 	    		  , SYSDATE
 	    		  , #{sysFrstInptUserId}
@@ -144,6 +149,7 @@
 	    		 , UNIT_CD					= #{unitCd}
 	    		 , BSS_INVNTR_QNTT			= #{bssInvntrQntt}
 	    		 , USE_YN					= #{useYn}
+	    		 , EXTRNL_LNKG_CD			= #{extrnlLnkgCd}
 			 WHERE APC_CD 		= #{apcCd}
 			   AND PLT_BX_SE_CD = #{pltBxSeCd}
 			   AND PLT_BX_CD  	= #{pltBxCd}

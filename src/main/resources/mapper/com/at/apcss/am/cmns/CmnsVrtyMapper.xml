@@ -180,6 +180,9 @@
 			   AND AVC.VRTY_CD = #{vrtyCd}
 			   AND AVC.APC_CD = #{apcCd}
 		]]>
+		<if test='extrnlLnkgCd != null and extrnlLnkgCd != ""'>
+		  	  AND AVC.EXTRNL_LNKG_CD = #{extrnlLnkgCd}
+		</if>
     </select>
 
 	<select id="selectApcVrtyList" parameterType="com.at.apcss.am.cmns.vo.CmnsVrtyVO" resultType="com.at.apcss.am.cmns.vo.CmnsVrtyVO">
@@ -213,6 +216,9 @@
 		</if>
 		<if test='delYn != null and delYn != ""'>
 			   AND AVC.DEL_YN = #{delYn}
+		</if>
+		<if test='extrnlLnkgCd != null and extrnlLnkgCd != ""'>
+		  	  AND AVC.EXTRNL_LNKG_CD = #{extrnlLnkgCd}
 		</if>
 		<![CDATA[
 			ORDER BY ITEM_CD, SN
