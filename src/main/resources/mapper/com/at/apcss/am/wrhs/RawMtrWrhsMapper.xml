@@ -822,4 +822,463 @@
     	<!-- End 페이징 -->
     </select>
 
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.selectRawMtrWrhs		-->
+	<!-- DESC : 원물입고요약 단건 조회.                                     		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectRawMtrWrhsSmmry" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsSmmryVO" resultType="com.at.apcss.am.wrhs.vo.RawMtrWrhsSmmryVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.selectRawMtrWrhsSmmry */
+				  WS.APC_CD				AS APC_CD
+				, WS.WRHS_BGNG_YMD		AS WRHS_BGNG_YMD
+				, WS.WRHS_END_YMD		AS WRHS_END_YMD
+				, WS.PRDCR_CD			AS PRDCR_CD
+				, WS.ITEM_CD			AS ITEM_CD
+				, WS.VRTY_CD			AS VRTY_CD
+				, WS.GDS_SE_CD			AS GDS_SE_CD
+				, WS.WRHS_SE_CD			AS WRHS_SE_CD
+				, WS.TRSPRT_SE_CD		AS TRSPRT_SE_CD
+				, WS.WAREHOUSE_SE_CD	AS WAREHOUSE_SE_CD
+				, WS.GRD_CD				AS GRD_CD
+				, WS.PRDCTN_YR			AS PRDCTN_YR
+				, WS.INVNTR_STTS_CD		AS INVNTR_STTS_CD
+				, WS.WRHS_CMPTN_YN		AS WRHS_CMPTN_YN
+				, WS.QNTT_CYCL_1		AS QNTT_CYCL_1
+				, WS.QNTT_CYCL_2		AS QNTT_CYCL_2
+				, WS.QNTT_CYCL_3		AS QNTT_CYCL_3
+				, WS.QNTT_CYCL_4		AS QNTT_CYCL_4
+				, WS.QNTT_CYCL_5		AS QNTT_CYCL_5
+				, WS.WGHT_CYCL_1		AS WGHT_CYCL_1
+				, WS.WGHT_CYCL_2		AS WGHT_CYCL_2
+				, WS.WGHT_CYCL_3		AS WGHT_CYCL_3
+				, WS.WGHT_CYCL_4		AS WGHT_CYCL_4
+				, WS.WGHT_CYCL_5		AS WGHT_CYCL_5
+				, WS.RMRK				AS RMRK
+				, WS.DEL_YN				AS DEL_YN
+			  FROM TB_RAW_MTR_WRHS_SMMRY WS
+			 WHERE WS.APC_CD = #{apcCd}
+			   AND WS.WRHS_BGNG_YMD	= #{wrhsBgngYmd}
+			   AND WS.WRHS_END_YMD	= #{wrhsEndYmd}
+			   AND WS.PRDCR_CD = #{prdcrCd}
+			   AND WS.ITEM_CD = #{itemCd}
+			   AND WS.VRTY_CD = #{vrtyCd}			   
+		]]>
+    </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.selectRawMtrWrhsSmmryList	-->
+	<!-- DESC : 원물입고요약 목록 조회.	                                       		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectRawMtrWrhsSmmryList" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsSmmryVO" resultType="com.at.apcss.am.wrhs.vo.RawMtrWrhsSmmryVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.selectRawMtrWrhsSmmryList */
+				  WS.APC_CD				AS APC_CD
+				, WS.WRHS_BGNG_YMD		AS WRHS_BGNG_YMD
+				, WS.WRHS_END_YMD		AS WRHS_END_YMD
+				, WS.PRDCR_CD			AS PRDCR_CD
+				, WS.ITEM_CD			AS ITEM_CD
+				, WS.VRTY_CD			AS VRTY_CD
+				, WS.GDS_SE_CD			AS GDS_SE_CD
+				, WS.WRHS_SE_CD			AS WRHS_SE_CD
+				, WS.TRSPRT_SE_CD		AS TRSPRT_SE_CD
+				, WS.WAREHOUSE_SE_CD	AS WAREHOUSE_SE_CD
+				, WS.GRD_CD				AS GRD_CD
+				, WS.PRDCTN_YR			AS PRDCTN_YR
+				, WS.INVNTR_STTS_CD		AS INVNTR_STTS_CD
+				, WS.WRHS_CMPTN_YN		AS WRHS_CMPTN_YN
+				, WS.QNTT_CYCL_1		AS QNTT_CYCL_1
+				, WS.QNTT_CYCL_2		AS QNTT_CYCL_2
+				, WS.QNTT_CYCL_3		AS QNTT_CYCL_3
+				, WS.QNTT_CYCL_4		AS QNTT_CYCL_4
+				, WS.QNTT_CYCL_5		AS QNTT_CYCL_5
+				, WS.WGHT_CYCL_1		AS WGHT_CYCL_1
+				, WS.WGHT_CYCL_2		AS WGHT_CYCL_2
+				, WS.WGHT_CYCL_3		AS WGHT_CYCL_3
+				, WS.WGHT_CYCL_4		AS WGHT_CYCL_4
+				, WS.WGHT_CYCL_5		AS WGHT_CYCL_5
+				, WS.RMRK				AS RMRK
+				, WS.DEL_YN				AS DEL_YN
+			  FROM TB_RAW_MTR_WRHS_SMMRY WS
+			 WHERE WS.APC_CD = #{apcCd}
+			   AND WS.WRHS_BGNG_YMD	= #{wrhsBgngYmd}
+			   AND WS.WRHS_END_YMD	= #{wrhsEndYmd}
+			   AND WS.PRDCR_CD = #{prdcrCd}
+			   AND WS.ITEM_CD = #{itemCd}
+			   AND WS.VRTY_CD = #{vrtyCd}			   
+		]]>
+    </select>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.selectRawMtrWrhsSmmryTotalList	-->
+	<!-- DESC : 원물입고요약 집계 목록 조회.	                                 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectRawMtrWrhsSmmryTotalList" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsSmmryVO" resultType="com.at.apcss.am.wrhs.vo.RawMtrWrhsSmmryVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.selectRawMtrWrhsSmmryTotalList */
+				  pt0.*
+				, (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
+				, (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
+			  FROM (
+			SELECT
+				  A.APC_CD			AS APC_CD
+				, A.WRHS_BGNG_YMD	AS WRHS_BGNG_YMD
+				, A.WRHS_END_YMD	AS WRHS_END_YMD
+				, A.PRDCR_CD		AS PRDCR_CD
+				, A.ITEM_CD			AS ITEM_CD			
+				
+				, MAX(ITM.VRTY_CD_1)		AS VRTY_CD_1
+				, MAX(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_1 THEN A.WRHS_CMPTN_YN ELSE NULL END) AS V_1_WRHS_CMPTN_YN
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_1 THEN A.QNTT_CYCL_1 ELSE NULL END) AS V_1_QNTT_CYCL_1
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_1 THEN A.QNTT_CYCL_2 ELSE NULL END) AS V_1_QNTT_CYCL_2
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_1 THEN A.QNTT_CYCL_3 ELSE NULL END) AS V_1_QNTT_CYCL_3
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_1 THEN A.QNTT_CYCL_4 ELSE NULL END) AS V_1_QNTT_CYCL_4
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_1 THEN A.QNTT_CYCL_5 ELSE NULL END) AS V_1_QNTT_CYCL_5
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_1 THEN A.WGHT_CYCL_1 ELSE NULL END) AS V_1_WGHT_CYCL_1
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_1 THEN A.WGHT_CYCL_2 ELSE NULL END) AS V_1_WGHT_CYCL_2
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_1 THEN A.WGHT_CYCL_3 ELSE NULL END) AS V_1_WGHT_CYCL_3
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_1 THEN A.WGHT_CYCL_4 ELSE NULL END) AS V_1_WGHT_CYCL_4
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_1 THEN A.WGHT_CYCL_5 ELSE NULL END) AS V_1_WGHT_CYCL_5
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_1 THEN A.QNTT ELSE NULL END) AS V_1_QNTT
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_1 THEN A.WGHT ELSE NULL END) AS V_1_WGHT
+				
+				, MAX(ITM.VRTY_CD_2)		AS VRTY_CD_2
+				, MAX(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_2 THEN A.WRHS_CMPTN_YN ELSE NULL END) AS V_2_WRHS_CMPTN_YN
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_2 THEN A.QNTT_CYCL_1 ELSE NULL END) AS V_2_QNTT_CYCL_1
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_2 THEN A.QNTT_CYCL_2 ELSE NULL END) AS V_2_QNTT_CYCL_2
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_2 THEN A.QNTT_CYCL_3 ELSE NULL END) AS V_2_QNTT_CYCL_3
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_2 THEN A.QNTT_CYCL_4 ELSE NULL END) AS V_2_QNTT_CYCL_4
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_2 THEN A.QNTT_CYCL_5 ELSE NULL END) AS V_2_QNTT_CYCL_5
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_2 THEN A.WGHT_CYCL_1 ELSE NULL END) AS V_2_WGHT_CYCL_1
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_2 THEN A.WGHT_CYCL_2 ELSE NULL END) AS V_2_WGHT_CYCL_2
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_2 THEN A.WGHT_CYCL_3 ELSE NULL END) AS V_2_WGHT_CYCL_3
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_2 THEN A.WGHT_CYCL_4 ELSE NULL END) AS V_2_WGHT_CYCL_4
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_2 THEN A.WGHT_CYCL_5 ELSE NULL END) AS V_2_WGHT_CYCL_5
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_2 THEN A.QNTT ELSE NULL END) AS V_2_QNTT
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_2 THEN A.WGHT ELSE NULL END) AS V_2_WGHT
+				
+				, MAX(ITM.VRTY_CD_3)		AS VRTY_CD_3
+				, MAX(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_3 THEN A.WRHS_CMPTN_YN ELSE NULL END) AS V_3_WRHS_CMPTN_YN
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_3 THEN A.QNTT_CYCL_1 ELSE NULL END) AS V_3_QNTT_CYCL_1
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_3 THEN A.QNTT_CYCL_2 ELSE NULL END) AS V_3_QNTT_CYCL_2
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_3 THEN A.QNTT_CYCL_3 ELSE NULL END) AS V_3_QNTT_CYCL_3
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_3 THEN A.QNTT_CYCL_4 ELSE NULL END) AS V_3_QNTT_CYCL_4
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_3 THEN A.QNTT_CYCL_5 ELSE NULL END) AS V_3_QNTT_CYCL_5
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_3 THEN A.WGHT_CYCL_1 ELSE NULL END) AS V_3_WGHT_CYCL_1
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_3 THEN A.WGHT_CYCL_2 ELSE NULL END) AS V_3_WGHT_CYCL_2
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_3 THEN A.WGHT_CYCL_3 ELSE NULL END) AS V_3_WGHT_CYCL_3
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_3 THEN A.WGHT_CYCL_4 ELSE NULL END) AS V_3_WGHT_CYCL_4
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_3 THEN A.WGHT_CYCL_5 ELSE NULL END) AS V_3_WGHT_CYCL_5
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_3 THEN A.QNTT ELSE NULL END) AS V_3_QNTT
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_3 THEN A.WGHT ELSE NULL END) AS V_3_WGHT
+				
+				, MAX(ITM.VRTY_CD_4)		AS VRTY_CD_4
+				, MAX(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_4 THEN A.WRHS_CMPTN_YN ELSE NULL END) AS V_4_WRHS_CMPTN_YN
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_4 THEN A.QNTT_CYCL_1 ELSE NULL END) AS V_4_QNTT_CYCL_1
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_4 THEN A.QNTT_CYCL_2 ELSE NULL END) AS V_4_QNTT_CYCL_2
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_4 THEN A.QNTT_CYCL_3 ELSE NULL END) AS V_4_QNTT_CYCL_3
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_4 THEN A.QNTT_CYCL_4 ELSE NULL END) AS V_4_QNTT_CYCL_4
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_4 THEN A.QNTT_CYCL_5 ELSE NULL END) AS V_4_QNTT_CYCL_5
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_4 THEN A.WGHT_CYCL_1 ELSE NULL END) AS V_4_WGHT_CYCL_1
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_4 THEN A.WGHT_CYCL_2 ELSE NULL END) AS V_4_WGHT_CYCL_2
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_4 THEN A.WGHT_CYCL_3 ELSE NULL END) AS V_4_WGHT_CYCL_3
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_4 THEN A.WGHT_CYCL_4 ELSE NULL END) AS V_4_WGHT_CYCL_4
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_4 THEN A.WGHT_CYCL_5 ELSE NULL END) AS V_4_WGHT_CYCL_5
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_4 THEN A.QNTT ELSE NULL END) AS V_4_QNTT
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_4 THEN A.WGHT ELSE NULL END) AS V_4_WGHT
+				
+				, MAX(ITM.VRTY_CD_5)		AS VRTY_CD_5
+				, MAX(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_5 THEN A.WRHS_CMPTN_YN ELSE NULL END) AS V_5_WRHS_CMPTN_YN
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_5 THEN A.QNTT_CYCL_1 ELSE NULL END) AS V_5_QNTT_CYCL_1
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_5 THEN A.QNTT_CYCL_2 ELSE NULL END) AS V_5_QNTT_CYCL_2
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_5 THEN A.QNTT_CYCL_3 ELSE NULL END) AS V_5_QNTT_CYCL_3
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_5 THEN A.QNTT_CYCL_4 ELSE NULL END) AS V_5_QNTT_CYCL_4
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_5 THEN A.QNTT_CYCL_5 ELSE NULL END) AS V_5_QNTT_CYCL_5
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_5 THEN A.WGHT_CYCL_1 ELSE NULL END) AS V_5_WGHT_CYCL_1
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_5 THEN A.WGHT_CYCL_2 ELSE NULL END) AS V_5_WGHT_CYCL_2
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_5 THEN A.WGHT_CYCL_3 ELSE NULL END) AS V_5_WGHT_CYCL_3
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_5 THEN A.WGHT_CYCL_4 ELSE NULL END) AS V_5_WGHT_CYCL_4
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_5 THEN A.WGHT_CYCL_5 ELSE NULL END) AS V_5_WGHT_CYCL_5
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_5 THEN A.QNTT ELSE NULL END) AS V_5_QNTT
+				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_5 THEN A.WGHT ELSE NULL END) AS V_5_WGHT
+				
+			  FROM (
+					SELECT
+						  WS.APC_CD				AS APC_CD
+						, WS.WRHS_BGNG_YMD		AS WRHS_BGNG_YMD
+						, WS.WRHS_END_YMD		AS WRHS_END_YMD
+						, WS.PRDCR_CD			AS PRDCR_CD
+						, WS.ITEM_CD			AS ITEM_CD
+						, WS.VRTY_CD			AS VRTY_CD
+						, WS.GDS_SE_CD			AS GDS_SE_CD
+						, WS.WRHS_SE_CD			AS WRHS_SE_CD
+						, WS.TRSPRT_SE_CD		AS TRSPRT_SE_CD
+						, WS.WAREHOUSE_SE_CD	AS WAREHOUSE_SE_CD
+						, WS.GRD_CD				AS GRD_CD
+						, WS.PRDCTN_YR			AS PRDCTN_YR
+						, WS.INVNTR_STTS_CD		AS INVNTR_STTS_CD
+						, WS.WRHS_CMPTN_YN		AS WRHS_CMPTN_YN
+						, WS.QNTT_CYCL_1		AS QNTT_CYCL_1
+						, WS.QNTT_CYCL_2		AS QNTT_CYCL_2
+						, WS.QNTT_CYCL_3		AS QNTT_CYCL_3
+						, WS.QNTT_CYCL_4		AS QNTT_CYCL_4
+						, WS.QNTT_CYCL_5		AS QNTT_CYCL_5
+						, NVL(WS.QNTT_CYCL_1, 0)
+							+ NVL(WS.QNTT_CYCL_2, 0)
+							+ NVL(WS.QNTT_CYCL_3, 0)
+							+ NVL(WS.QNTT_CYCL_4, 0)
+							+ NVL(WS.QNTT_CYCL_5, 0)	AS QNTT
+						, WS.WGHT_CYCL_1		AS WGHT_CYCL_1
+						, WS.WGHT_CYCL_2		AS WGHT_CYCL_2
+						, WS.WGHT_CYCL_3		AS WGHT_CYCL_3
+						, WS.WGHT_CYCL_4		AS WGHT_CYCL_4
+						, WS.WGHT_CYCL_5		AS WGHT_CYCL_5
+						, NVL(WS.WGHT_CYCL_1, 0)
+							+ NVL(WS.WGHT_CYCL_2, 0)
+							+ NVL(WS.WGHT_CYCL_3, 0)
+							+ NVL(WS.WGHT_CYCL_4, 0)
+							+ NVL(WS.WGHT_CYCL_5, 0)	AS WGHT
+						, WS.RMRK				AS RMRK
+						, WS.DEL_YN				AS DEL_YN
+					  FROM TB_RAW_MTR_WRHS_SMMRY WS
+					 WHERE WS.APC_CD = #{apcCd}
+					   AND WS.ITEM_CD = #{itemCd}
+					   AND WS.WRHS_BGNG_YMD = #{wrhsBgngYmd}
+					   AND WS.WRHS_END_YMD = #{wrhsEndYmd}
+					   AND WS.DEL_YN = 'N'
+		]]>
+    	<![CDATA[
+					) A
+				LEFT JOIN (
+					SELECT
+						  X.ITEM_CD
+						, MAX(CASE WHEN X.SN = 1 THEN X.VRTY_CD ELSE NULL END)		AS VRTY_CD_1
+						, MAX(CASE WHEN X.SN = 2 THEN X.VRTY_CD ELSE NULL END)		AS VRTY_CD_2
+						, MAX(CASE WHEN X.SN = 3 THEN X.VRTY_CD ELSE NULL END)		AS VRTY_CD_3
+						, MAX(CASE WHEN X.SN = 4 THEN X.VRTY_CD ELSE NULL END)		AS VRTY_CD_4
+						, MAX(CASE WHEN X.SN = 5 THEN X.VRTY_CD ELSE NULL END)		AS VRTY_CD_5
+					  FROM (
+							SELECT
+								  VC.ITEM_CD
+								, VC.VRTY_CD
+								, ROW_NUMBER() OVER(ORDER BY VC.SN, VC.VRTY_CD)	 AS SN
+							  FROM TB_APC_VRTY_CRTR VC
+							 WHERE VC.APC_CD = #{apcCd}
+							   AND VC.ITEM_CD = #{itemCd}
+							   AND VC.DEL_YN = 'N'
+							) X
+					 GROUP BY X.ITEM_CD
+					) ITM
+				  ON ITM.ITEM_CD = A.ITEM_CD
+			 WHERE A.APC_CD IS NOT NULL
+			 GROUP BY 
+			 	  A.APC_CD
+				, A.WRHS_BGNG_YMD
+				, A.WRHS_END_YMD
+				, A.PRDCR_CD
+				, A.ITEM_CD
+			) pt0
+		 ORDER BY
+	 		  APC_CD
+			, WRHS_BGNG_YMD
+			, WRHS_END_YMD
+			, PRDCR_CD
+			, ITEM_CD
+		]]>
+    </select>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.insertRawMtrWrhsSmmry	-->
+	<!-- DESC : 원물입고요약 등록.	                                      			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertRawMtrWrhsSmmry" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsSmmryVO">
+    	<![CDATA[
+	    	INSERT /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.insertRawMtrWrhsSmmry */
+	    		INTO TB_RAW_MTR_WRHS_SMMRY (
+					  APC_CD
+					, WRHS_BGNG_YMD
+					, WRHS_END_YMD
+					, PRDCR_CD
+					, ITEM_CD
+					, VRTY_CD
+					, GDS_SE_CD
+					, WRHS_SE_CD
+					, TRSPRT_SE_CD
+					, WAREHOUSE_SE_CD
+					, GRD_CD
+					, PRDCTN_YR
+					, INVNTR_STTS_CD
+					, WRHS_CMPTN_YN
+					, QNTT_CYCL_1
+					, QNTT_CYCL_2
+					, QNTT_CYCL_3
+					, QNTT_CYCL_4
+					, QNTT_CYCL_5
+					, WGHT_CYCL_1
+					, WGHT_CYCL_2
+					, WGHT_CYCL_3
+					, WGHT_CYCL_4
+					, WGHT_CYCL_5
+					, RMRK
+		    		, SYS_FRST_INPT_DT
+		    		, SYS_FRST_INPT_USER_ID
+		    		, SYS_FRST_INPT_PRGRM_ID
+		    		, SYS_LAST_CHG_DT
+		    		, SYS_LAST_CHG_USER_ID
+		    		, SYS_LAST_CHG_PRGRM_ID
+	    		) VALUES (
+					  #{apcCd}
+					, #{wrhsBgngYmd}
+					, #{wrhsEndYmd}
+					, #{prdcrCd}
+					, #{itemCd}
+					, #{vrtyCd}
+					, #{gdsSeCd}
+					, #{wrhsSeCd}
+					, #{trsprtSeCd}
+					, #{warehouseSeCd}
+					, #{grdCd}
+					, #{prdctnYr}
+					, #{invntrSttsCd}
+					, #{wrhsCmptnYn}
+					, #{qnttCycl1}
+					, #{qnttCycl2}
+					, #{qnttCycl3}
+					, #{qnttCycl4}
+					, #{qnttCycl5}
+					, #{wghtCycl1}
+					, #{wghtCycl2}
+					, #{wghtCycl3}
+					, #{wghtCycl4}
+					, #{wghtCycl5}
+					, #{rmrk}
+		    		, SYSDATE
+		    		, #{sysFrstInptUserId}
+		    		, #{sysFrstInptPrgrmId}
+		    		, SYSDATE
+		    		, #{sysLastChgUserId}
+		    		, #{sysLastChgPrgrmId}
+	   			)
+    	]]>
+    </insert>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.updateRawMtrWrhsSmmry	-->
+	<!-- DESC : 원물입고요약 변경.		                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateRawMtrWrhsSmmry" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsSmmryVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.updateRawMtrWrhsSmmry */
+				TB_RAW_MTR_WRHS_SMMRY
+			   SET
+			   	  SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+				
+				, WRHS_CMPTN_YN = #{wrhsCmptnYn}
+				, QNTT_CYCL_1 = #{qnttCycl1}
+				, QNTT_CYCL_2 = #{qnttCycl2}
+				, QNTT_CYCL_3 = #{qnttCycl3}
+				, QNTT_CYCL_4 = #{qnttCycl4}
+				, QNTT_CYCL_5 = #{qnttCycl5}
+				, WGHT_CYCL_1 = #{wghtCycl1}
+				, WGHT_CYCL_2 = #{wghtCycl2}
+				, WGHT_CYCL_3 = #{wghtCycl3}
+				, WGHT_CYCL_4 = #{wghtCycl4}
+				, WGHT_CYCL_5 = #{wghtCycl5}
+				, RMRK = #{rmrk}
+
+			 WHERE APC_CD 	= #{apcCd}
+			   AND WRHS_BGNG_YMD	= #{wrhsBgngYmd}
+			   AND WRHS_END_YMD		= #{wrhsEndYmd}
+			   AND PRDCR_CD = #{prdcrCd}
+			   AND ITEM_CD 	= #{itemCd}
+			   AND VRTY_CD 	= #{vrtyCd}
+		]]>
+	</update>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.updateRawMtrWrhsSmmryQntt	-->
+	<!-- DESC : 원물입고요약 변경 (수량, 중량).		                            	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateRawMtrWrhsSmmryQntt" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsSmmryVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.updateRawMtrWrhsSmmryQntt */
+				TB_RAW_MTR_WRHS_SMMRY
+			   SET
+			   	  SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+
+				, WRHS_CMPTN_YN = #{wrhsCmptnYn}
+				, QNTT_CYCL_1 = #{qnttCycl1}
+				, QNTT_CYCL_2 = #{qnttCycl2}
+				, QNTT_CYCL_3 = #{qnttCycl3}
+				, QNTT_CYCL_4 = #{qnttCycl4}
+				, QNTT_CYCL_5 = #{qnttCycl5}
+				, WGHT_CYCL_1 = #{wghtCycl1}
+				, WGHT_CYCL_2 = #{wghtCycl2}
+				, WGHT_CYCL_3 = #{wghtCycl3}
+				, WGHT_CYCL_4 = #{wghtCycl4}
+				, WGHT_CYCL_5 = #{wghtCycl5}
+				, RMRK = #{rmrk}
+
+			 WHERE APC_CD 	= #{apcCd}
+			   AND WRHS_BGNG_YMD	= #{wrhsBgngYmd}
+			   AND WRHS_END_YMD		= #{wrhsEndYmd}
+			   AND PRDCR_CD = #{prdcrCd}
+			   AND ITEM_CD 	= #{itemCd}
+			   AND VRTY_CD 	= #{vrtyCd}
+		]]>
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.deleteRawMtrWrhsSmmry	-->
+	<!-- DESC : 원물입고요약 삭제.		                                       		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<delete id="deleteRawMtrWrhsSmmry" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsSmmryVO">
+		<![CDATA[
+			DELETE /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.deleteRawMtrWrhsSmmry */
+			  FROM TB_RAW_MTR_WRHS_SMMRY
+			 WHERE APC_CD 	= #{apcCd}
+			   AND WRHS_BGNG_YMD	= #{wrhsBgngYmd}
+			   AND WRHS_END_YMD	= #{wrhsEndYmd}
+			   AND PRDCR_CD 	= #{prdcrCd}
+			   AND ITEM_CD 	= #{itemCd}
+			   AND VRTY_CD 	= #{vrtyCd}
+		]]>
+	</delete>
+
+	
 </mapper>

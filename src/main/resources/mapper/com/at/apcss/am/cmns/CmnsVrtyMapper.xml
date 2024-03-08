@@ -221,7 +221,7 @@
 		  	  AND AVC.EXTRNL_LNKG_CD = #{extrnlLnkgCd}
 		</if>
 		<![CDATA[
-			ORDER BY ITEM_CD, SN
+			ORDER BY ITEM_CD, SN, VRTY_CD
 		]]>
 
     </select>

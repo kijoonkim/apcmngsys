@@ -22,6 +22,7 @@ import com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper;
 import com.at.apcss.am.wrhs.service.RawMtrWrhsService;
 import com.at.apcss.am.wrhs.vo.ComRawMtrWrhsDsctnTotVO;
 import com.at.apcss.am.wrhs.vo.RawMtrWrhsDsctnTotVO;
+import com.at.apcss.am.wrhs.vo.RawMtrWrhsSmmryVO;
 import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
@@ -402,6 +403,95 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 		List<RawMtrWrhsVO> resultList = rawMtrWrhsMapper.selectRawMtrPrcsInptList(rawMtrWrhsVO);
 
 		return resultList;
+	}
+
+	
+	
+	@Override
+	public RawMtrWrhsSmmryVO selectRawMtrWrhsSmmry(RawMtrWrhsSmmryVO rawMtrWrhsSmmryVO) throws Exception {
+		RawMtrWrhsSmmryVO resultVO = rawMtrWrhsMapper.selectRawMtrWrhsSmmry(rawMtrWrhsSmmryVO);
+		return resultVO;
+	}
+
+	@Override
+	public List<RawMtrWrhsSmmryVO> selectRawMtrWrhsSmmryList(RawMtrWrhsSmmryVO rawMtrWrhsSmmryVO) throws Exception {
+		List<RawMtrWrhsSmmryVO> resultList = rawMtrWrhsMapper.selectRawMtrWrhsSmmryList(rawMtrWrhsSmmryVO);
+		return resultList;
+	}
+
+	@Override
+	public List<RawMtrWrhsSmmryVO> selectRawMtrWrhsSmmryTotalList(RawMtrWrhsSmmryVO rawMtrWrhsSmmryVO) throws Exception {
+		List<RawMtrWrhsSmmryVO> resultList = rawMtrWrhsMapper.selectRawMtrWrhsSmmryTotalList(rawMtrWrhsSmmryVO);
+		return resultList;
+	}
+
+	@Override
+	public HashMap<String, Object> insertRawMtrWrhsSmmry(RawMtrWrhsSmmryVO rawMtrWrhsSmmryVO) throws Exception {
+		//HashMap<String, Object> rtnObj = new HashMap<>();
+		
+		rawMtrWrhsMapper.insertRawMtrWrhsSmmry(rawMtrWrhsSmmryVO);
+		
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> updateRawMtrWrhsSmmry(RawMtrWrhsSmmryVO rawMtrWrhsSmmryVO) throws Exception {
+		//HashMap<String, Object> rtnObj = new HashMap<>();
+		
+		rawMtrWrhsMapper.updateRawMtrWrhsSmmry(rawMtrWrhsSmmryVO);
+		
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deleteRawMtrWrhsSmmry(RawMtrWrhsSmmryVO rawMtrWrhsSmmryVO) throws Exception {
+		//HashMap<String, Object> rtnObj = new HashMap<>();
+		
+		rawMtrWrhsMapper.deleteRawMtrWrhsSmmry(rawMtrWrhsSmmryVO);
+		
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> insertRawMtrWrhsSmmryList(List<RawMtrWrhsSmmryVO> rawMtrWrhsSmmryList) throws Exception {
+		
+		if (rawMtrWrhsSmmryList == null || rawMtrWrhsSmmryList.isEmpty()) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "처리대상");
+		}
+		
+		for ( RawMtrWrhsSmmryVO wrhsVO : rawMtrWrhsSmmryList ) {
+			
+			RawMtrWrhsSmmryVO chkVO = selectRawMtrWrhsSmmry(wrhsVO);
+			
+			if (chkVO != null && StringUtils.hasText(chkVO.getApcCd())) {
+				updateRawMtrWrhsSmmry(wrhsVO);
+			} else {
+				insertRawMtrWrhsSmmry(wrhsVO);
+			}
+		}
+		
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deleteRawMtrWrhsSmmryList(List<RawMtrWrhsSmmryVO> rawMtrWrhsSmmryList) throws Exception {
+		
+		if (rawMtrWrhsSmmryList == null || rawMtrWrhsSmmryList.isEmpty()) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "삭제대상");
+		}
+		
+		for ( RawMtrWrhsSmmryVO wrhsVO : rawMtrWrhsSmmryList ) {
+			
+			RawMtrWrhsSmmryVO chkVO = selectRawMtrWrhsSmmry(wrhsVO);
+			
+			if (chkVO != null && StringUtils.hasText(chkVO.getApcCd())) {
+				deleteRawMtrWrhsSmmry(wrhsVO);
+			} else {
+				//
+			}
+		}
+		
+		return null;
 	}
 
 
