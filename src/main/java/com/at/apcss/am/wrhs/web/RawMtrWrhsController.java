@@ -12,9 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.at.apcss.am.cmns.service.CmnsVrtyService;
+import com.at.apcss.am.cmns.vo.CmnsVrtyVO;
+import com.at.apcss.am.constants.AmConstants;
 import com.at.apcss.am.wrhs.service.RawMtrWrhsService;
 import com.at.apcss.am.wrhs.vo.ComRawMtrWrhsDsctnTotVO;
 import com.at.apcss.am.wrhs.vo.RawMtrWrhsDsctnTotVO;
+import com.at.apcss.am.wrhs.vo.RawMtrWrhsSmmryVO;
 import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
@@ -40,6 +44,9 @@ public class RawMtrWrhsController extends BaseController {
 	@Resource(name = "rawMtrWrhsService")
 	private RawMtrWrhsService rawMtrWrhsService;
 
+	@Resource(name = "cmnsVrtyService")
+	private CmnsVrtyService cmnsVrtyService;
+	
 	@PostMapping(value = "/am/wrhs/insertRawMtrWrhs.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> insertRawMtrWrhs(@RequestBody RawMtrWrhsVO rawMtrWrhsVO, HttpServletRequest request) throws Exception {
 
@@ -281,5 +288,35 @@ public class RawMtrWrhsController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+	
+	@PostMapping(value = "/am/wrhs/selectRawMtrWrhsSmmryTotalList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectRawMtrWrhsSmmryTotalList(@RequestBody RawMtrWrhsSmmryVO rawMtrWrhsSmmryVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<RawMtrWrhsSmmryVO> resultList;
+		List<CmnsVrtyVO> vrtyList;
+		try {
+			resultList = rawMtrWrhsService.selectRawMtrWrhsSmmryTotalList(rawMtrWrhsSmmryVO);
+			
+			CmnsVrtyVO vrtyParamVO = new CmnsVrtyVO();
+			vrtyParamVO.setApcCd(rawMtrWrhsSmmryVO.getApcCd());
+			vrtyParamVO.setItemCd(rawMtrWrhsSmmryVO.getItemCd());
+			vrtyList = cmnsVrtyService.selectApcVrtyList(vrtyParamVO);
+			
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		resultMap.put(AmConstants.PROP_VRTY_LIST, vrtyList);
+		return getSuccessResponseEntity(resultMap);
+	}
+	
 
 }

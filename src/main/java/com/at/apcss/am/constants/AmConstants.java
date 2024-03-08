@@ -16,6 +16,8 @@ public class AmConstants {
 	public final static String TASK_ID_OUTORDR 		= "OD";
 
 
+	public final static String PROP_VRTY_LIST		= "vrtyList";
+	
     /**
      *  팔레트/박스 구분 - P:팔레트
      */

@@ -38,9 +38,22 @@ public class RawMtrWrhsMngVO extends ComVO {
 	private String wrhsno;
 
 	private String prcsNo;	// 처리번호
+	
+	
+	private String wrhsBgngYmd;
+	
+	private String wrhsEndYmd;
+	
+	private String itemCd;
+	
+	private String vrtyCd1;
+	private String vrtyCd2;
+	private String vrtyCd3;
+	private String vrtyCd4;
+	private String vrtyCd5;
 
 	private List<RawMtrInvntrVO> rawMtrInvntrList;
-
+	
 	public List<RawMtrInvntrVO> getRawMtrInvntrList() {
 		return rawMtrInvntrList == null ? null : rawMtrInvntrList.stream().collect(Collectors.toList());
 	}
@@ -57,6 +70,16 @@ public class RawMtrWrhsMngVO extends ComVO {
 
 	public void setRawMtrRePrcsList(List<RawMtrWrhsVO> rawMtrRePrcsList) {
 		this.rawMtrRePrcsList = rawMtrRePrcsList == null ? null : rawMtrRePrcsList.stream().collect(Collectors.toList());
+	}
+
+	private List<RawMtrWrhsSmmryVO> rawMtrWrhsSmmryList;
+	
+	public List<RawMtrWrhsSmmryVO> getRawMtrWrhsSmmryList() {
+		return rawMtrWrhsSmmryList == null ? null : rawMtrWrhsSmmryList.stream().collect(Collectors.toList());
+	}
+
+	public void setRawMtrWrhsSmmryList(List<RawMtrWrhsSmmryVO> rawMtrWrhsSmmryList) {
+		this.rawMtrWrhsSmmryList = rawMtrWrhsSmmryList == null ? null : rawMtrWrhsSmmryList.stream().collect(Collectors.toList());
 	}
 
 

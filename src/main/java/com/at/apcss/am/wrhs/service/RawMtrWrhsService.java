@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.at.apcss.am.wrhs.vo.ComRawMtrWrhsDsctnTotVO;
 import com.at.apcss.am.wrhs.vo.RawMtrWrhsDsctnTotVO;
+import com.at.apcss.am.wrhs.vo.RawMtrWrhsSmmryVO;
 import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
 
 /**
@@ -171,5 +172,70 @@ public interface RawMtrWrhsService {
 	 */
 	public List<RawMtrWrhsVO> selectRawMtrPrcsInptList(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
 
-
+	/**
+	 * 원물입고요약 단건 조회
+	 * @param rawMtrWrhsSmmryVO
+	 * @return
+	 * @throws Exception
+	 */
+	public RawMtrWrhsSmmryVO selectRawMtrWrhsSmmry(RawMtrWrhsSmmryVO rawMtrWrhsSmmryVO) throws Exception;
+	
+	/**
+	 * 원물입고요약 목록 조회
+	 * @param rawMtrWrhsSmmryVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<RawMtrWrhsSmmryVO> selectRawMtrWrhsSmmryList(RawMtrWrhsSmmryVO rawMtrWrhsSmmryVO) throws Exception;
+	
+	/**
+	 * 원물입고요약 집계 목록 조회
+	 * @param rawMtrWrhsSmmryVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<RawMtrWrhsSmmryVO> selectRawMtrWrhsSmmryTotalList(RawMtrWrhsSmmryVO rawMtrWrhsSmmryVO) throws Exception;
+	
+	/**
+	 * 원물입고요약 등록
+	 * @param rawMtrWrhsSmmryVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertRawMtrWrhsSmmry(RawMtrWrhsSmmryVO rawMtrWrhsSmmryVO) throws Exception;
+	
+	/**
+	 * 원물입고요약 등록
+	 * @param rawMtrWrhsSmmryVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertRawMtrWrhsSmmryList(List<RawMtrWrhsSmmryVO> rawMtrWrhsSmmryList) throws Exception;
+	
+	
+	/**
+	 * 원물입고요약 변경
+	 * @param rawMtrWrhsSmmryVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateRawMtrWrhsSmmry(RawMtrWrhsSmmryVO rawMtrWrhsSmmryVO) throws Exception;
+	
+	/**
+	 * 원물입고요약 삭제
+	 * @param rawMtrWrhsSmmryVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteRawMtrWrhsSmmry(RawMtrWrhsSmmryVO rawMtrWrhsSmmryVO) throws Exception;
+	
+	/**
+	 * 원물입고요약 목록 삭제
+	 * @param rawMtrWrhsSmmryVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteRawMtrWrhsSmmryList(List<RawMtrWrhsSmmryVO> rawMtrWrhsSmmryList) throws Exception;
+	
+	
 }
