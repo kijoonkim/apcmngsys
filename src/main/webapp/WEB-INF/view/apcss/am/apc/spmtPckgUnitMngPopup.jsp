@@ -171,8 +171,9 @@
  					value:'grdCd'
  				}
 			},
-	        {caption: ["상품 명"], 			ref: 'spmtPckgUnitNm',  type:'input',  width:'240px',    style:'text-align:center',
+	        {caption: ["상품 명"], 			ref: 'spmtPckgUnitNm',  type:'input',  width:'160px',    style:'text-align:center',
 				typeinfo : {maxlength : 30}},
+			{caption: ["외부연결코드"], ref: 'extrnlLnkgCd',  	type:'input',  width:'80px',    style:'text-align:center'},
 	        {caption: ["브랜드 명"], ref: 'brndNm',  	type:'input',  width:'140px',    style:'text-align:center', typeinfo : {maxlength : 33}},
 	        {caption: ["판매단가"],     	ref: 'ntslUntprc',  type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### 원'}},
 	        {caption: ["변경"], 		ref: 'delYn',  type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
@@ -296,6 +297,7 @@
   					  , spcfctNm		: item.spcfctNm
   					  , gdsGrd			: item.gdsGrd
   					  , gdsGrdNm		: item.gdsGrdNm
+					  , extrnlLnkgCd	: item.extrnlLnkgCd
   					}
   					jsonSpmtPckgUnit.push(spmtPckgUnitVO);
   				});

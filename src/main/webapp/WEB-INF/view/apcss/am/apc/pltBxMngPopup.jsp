@@ -90,9 +90,10 @@
 	        	}
 		    }},
 	        {caption: ["팔레트 정보","코드"], 			ref: 'pltBxCd',  		type:'output',  width:'100px',     style:'text-align:center', hidden : true},
-	        {caption: ["팔레트 정보","팔레트 명"], 		ref: 'pltBxNm',  		type:'input',  width:'230px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100}), typeinfo : {maxlength : 33}},
+	        {caption: ["팔레트 정보","팔레트 명"], 		ref: 'pltBxNm',  		type:'input',  width:'150px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100}), typeinfo : {maxlength : 33}},
 	        {caption: ["팔레트 정보","대여업체"], 		ref: 'rmrk',  type:'inputcombo',  width:'150px',    style:'text-align:center',
     			typeinfo : {ref:'comboGridPltCnptJsData', displayui : false,	itemcount: 10, label:'label', value:'value', maxlength : 33}},
+			{caption: ["팔레트 정보","외부연계코드"], 	ref: 'extrnlLnkgCd',  	type:'input',  width:'80px',    style:'text-align:center'},
 	        {caption: ["팔레트 정보","단중"], 			ref: 'unitWght',   		type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
 	        {caption: ["팔레트 정보","단위"], 			ref: 'unitCd',   		type:'combo',  width:'130px',    style:'text-align:center',
 				typeinfo : {ref:'comboUnitCdJsData', label:'label', value:'value', displayui : false, itemcount: 10}},
@@ -147,9 +148,10 @@
 	        	}
 		    }},
 	        {caption: ["박스 정보","코드"], 		ref: 'pltBxCd',  		type:'output',  width:'100px',     style:'text-align:center', hidden : true},
-	        {caption: ["박스 정보","박스 명"], 		ref: 'pltBxNm',  		type:'input',  width:'230px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100}),typeinfo : {maxlength : 33}},
+	        {caption: ["박스 정보","박스 명"], 		ref: 'pltBxNm',  		type:'input',  width:'150px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100}),typeinfo : {maxlength : 33}},
 	        {caption: ["박스 정보","대여업체"], 		ref: 'rmrk',  type:'inputcombo',  width:'150px',    style:'text-align:center',
     			typeinfo : {ref:'comboGridPltCnptJsData', displayui : false,	itemcount: 10, label:'label', value:'value', maxlength : 33}},
+			{caption: ["박스 정보","외부연계코드"], 	ref: 'extrnlLnkgCd',  	type:'input',  width:'80px',    style:'text-align:center'},
 	        {caption: ["박스 정보","단중"], 		ref: 'unitWght',   		type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
 	        {caption: ["박스 정보","단위"], 		ref: 'unitCd',   		type:'combo',  width:'130px',    style:'text-align:center',
 				typeinfo : {ref:'comboUnitCdJsData', label:'label', value:'value', displayui : false, itemcount: 10}},
@@ -200,6 +202,7 @@
   					  , pltBxSeCd 		: item.pltBxSeCd
   					  , apcCd 			: item.apcCd
   					  , rmrk			: item.rmrk
+					  , extrnlLnkgCd	: item.extrnlLnkgCd
   					}
   					jsonPlt.push(Object.assign({}, pltBxVO));
   				});
@@ -238,7 +241,8 @@
   					  , pltBxSeCd 		: item.pltBxSeCd
   					  , apcCd 			: item.apcCd
   					  , rmrk			: item.rmrk
-  					}
+					  , extrnlLnkgCd	: item.extrnlLnkgCd
+					}
   					jsonBx.push(Object.assign({}, pltBxVO));
   				});
   	        	grdBx.rebuild();

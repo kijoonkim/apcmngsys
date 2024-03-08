@@ -127,6 +127,7 @@
 				}
             },
             {caption: ["사업자번호"], 	ref: 'brno',  		type:'input',  width:'135px',    style:'text-align:center', typeinfo : {mask : {alias : '#-', repeat: '*'}, maxlength : 20}, validate : gfn_chkByte.bind({byteLimit: 20})},
+			{caption: ["외부연계코드"], 	ref: 'extrnlLnkgCd',  		type:'input',  width:'135px',    style:'text-align:center'},
             {caption: ["담당자"], 		ref: 'picNm',  		type:'input',  width:'90px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {mask : {alias : 'k'}, maxlength : 20}},
             {caption: ["전화번호"], 	ref: 'telno',  		type:'input',  width:'120px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {maxlength : 11}, format : {type:'custom', callback : fn_newCnptMngTelno}},
             {caption: ["이메일"], 		ref: 'eml',  		type:'input',  width:'140px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 320}), typeinfo : {maxlength : 320}, format : {type:'custom', callback : fn_checkCnptMngEml}},
