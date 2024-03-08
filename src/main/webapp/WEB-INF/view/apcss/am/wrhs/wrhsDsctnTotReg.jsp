@@ -40,6 +40,7 @@
 						name="btnCmndDocDsctn"
 						uitype="normal"
 						class="btn btn-sm btn-primary"
+						onclick="fn_docRawMtrWrhs"
 						text="입고확인서"
 					></sbux-button>
 					<sbux-button
@@ -1067,6 +1068,36 @@
 		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 
 		fn_setPrdcrForm(prdcrInfo);
+
+	}
+
+	/**
+     * @name fn_docRawMtrWrhs
+     * @description 입고확인서 발행 버튼
+     */
+	const fn_docRawMtrWrhs = async function() {
+
+		const rawSmmryList = [];
+		const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'RTR_DOC');
+		const allData = grdWrhsSmmry.getGridDataAll();
+		let wrhsBgngYmd = SBUxMethod.get("srch-dtp-wrhsYmdFrom");		// 입고시작일자
+   		let wrhsEndYmd = SBUxMethod.get("srch-dtp-wrhsYmdTo");		// 입고종료일자
+   		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		allData.forEach((item, index) => {
+			if (item.checkedYn === "Y") {
+					rawSmmryList.push(
+						item.prdcrCd
+					);
+				}
+
+		});
+		if (rawSmmryList.length === 0) {
+			gfn_comAlert("W0005", "선택대상");		//	W0005	{0}이/가 없습니다.
+			return;
+		}
+
+
+		gfn_popClipReport("입고확인서", rptUrl, {apcCd: gv_selectedApcCd, wrhsBgngYmd : wrhsBgngYmd,wrhsEndYmd : wrhsEndYmd   });
 
 	}
 
