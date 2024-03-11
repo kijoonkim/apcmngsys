@@ -118,6 +118,16 @@
 									onclick="fn_uld"
 									style="float: right;"
 								></sbux-button>
+						<sbux-button
+									id="btnDelPrdcrList"
+									name="btnDelPrdcrList"
+									uitype="normal"
+									text="삭제"
+									class="btn btn-sm btn-outline-danger"
+									onclick="fn_delPrdcrList"
+									style="float: right;"
+						>
+						</sbux-button>
 					</div>
 				</div>
 
@@ -302,6 +312,14 @@
 	    SBGridApcPrdcrProperties.allowcopy = true;
 	    SBGridApcPrdcrProperties.contextmenulist = objMenuList;	// 우클릭 메뉴 리스트
 	    SBGridApcPrdcrProperties.columns = [
+	    	{
+	    		caption : ["<input type='checkbox' onchange='fn_checkAll(grdApcPrdcr, this);'>"],
+	    		ref : 'checkedYn',
+	    		width : '40px',
+	    		style : 'text-align:center',
+	    		type : 'checkbox',
+	    		typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+	    	},
 	    	{caption: ["처리"], 			ref: 'delYn', 			type: 'button', width: '50px', 	style: 'text-align:center', sortable: false,
 	        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	            	if (gfn_isEmpty(strValue)){
@@ -344,7 +362,7 @@
 			{caption: ["산지코드"],    	ref: 'plorCd',        	type:'inputbutton',   width:'100px', style: 'text-align:center',
 				typeinfo : {callback: fn_grdComCd}},
 			{caption: ["외부연결코드"],    	ref: 'extrnlLnkgCd',     type:'input',   width:'100px', style: 'text-align:center'},
-	        {caption: ['비고'], 			ref: 'rmrk', 			type: 'input', 	width: '200px', style: 'text-align:center', sortable: false,
+	        {caption: ['비고'], 			ref: 'rmrk', 			type: 'input', 	width: '300px', style: 'text-align:center', sortable: false,
 	        	validate : gfn_chkByte.bind({byteLimit: 1000})},
 	        {caption: ['APC코드'], ref: 'apcCd', hidden : true},
 	        {caption: ['생산자코드'], ref: 'prdcrCd', hidden : true},
@@ -649,6 +667,43 @@
     		grdApcPrdcr.deleteRow(nRow);
     	}
 	}
+
+	const fn_delPrdcrList = async function(){
+
+		const prdcrList = [];
+		const allData = grdApcPrdcr.getGridDataAll();
+
+		allData.forEach((item, index) => {
+			let rowData = grdApcPrdcr.getRowData(index);
+			if (item.checkedYn === "Y" && item.prdcrCd.length >1) {
+				prdcrList.push(item);
+    		}
+		});
+
+		if (prdcrList.length > 0) {
+
+			try {
+				const postUrl = "/am/cmns/deletePrdcrList.do";
+	    		const postJsonPromise = gfn_postJSON(postUrl, prdcrList);
+				const data = await postJsonPromise;
+
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+	        		fn_search();
+	        	} else {
+	        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+	        	}
+
+	        } catch(e) {
+	    		if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	        }
+		}
+	}
+
 
 	// 생산자 상세 팝업 호출
 	const fn_modalPrdcrDtl = async function (nRow){
@@ -1200,6 +1255,21 @@
 		return _columns;
 	}
 	/* End */
+
+	/**
+	 * @name fn_checkAll
+	 * @description 그리드 체크박스 전체 선택
+	 */
+    const fn_checkAll = function (grid, obj) {
+
+        const checkedYn = obj.checked ? "Y" : "N";
+        //체크박스 열 index
+        const getColRef = grid.getColRef("checkedYn");
+        for (var i=0; i<grid.getGridDataAll().length; i++ ){
+        	grid.setCellData(i+1, getColRef, checkedYn, true, false);
+        }
+        grid.refresh();
+    }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
