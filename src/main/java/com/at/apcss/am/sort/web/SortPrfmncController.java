@@ -62,6 +62,27 @@ public class SortPrfmncController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+	@PostMapping(value = "/am/sort/selectSortPrfmncGrdList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectSortPrfmncGrdList(@RequestBody SortPrfmncVO sortPrfmncVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<SortPrfmncVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = sortPrfmncService.selectSortPrfmncGrdList(sortPrfmncVO);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 
 	/**
 	 * 선별투입실적 조회
