@@ -249,7 +249,10 @@
 				</div>
 			</div>
 		</div>
+		<!-- clip report direct print area  -->
+		<div id="div-rpt-clipReportPrint" style="display:none;"></div>
 	</section>
+
     <!-- 생산자 선택 Modal -->
     <div>
         <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
@@ -620,13 +623,14 @@
 			return;
 		}
 		const wrhsno = rawMtrWrhsList.join("','");
-
-		//gfn_popClipReport("원물인식표", rptUrl, {apcCd: gv_selectedApcCd, wrhsno: wrhsno, exePrintYn:'Y'});
-		if(gv_selectedApcCd === '8888'){
-			gfn_popClipReport("원물인식표", rptUrl, {apcCd: gv_selectedApcCd, wrhsno: wrhsno, exePrintYn:'Y'});
-		}else{
-			gfn_popClipReport("원물인식표", rptUrl, {apcCd: gv_selectedApcCd, wrhsno: wrhsno});
-		}
+		const regex = /Android|Mobile|iP(hone|od|ad)|BlackBerry|IEMobile|Kindle|NetFront|Silk-Accelerated|(hpw|web)OS|Fennec|Minimo|Opera M(obi|ini)|Blazer|Dolfin|Dolphin|Skyfire|Zune/;
+		const mobileYn = regex.test(navigator.userAgent);
+		gfn_popClipReport("원물인식표", rptUrl, {apcCd: gv_selectedApcCd, wrhsno: wrhsno, exePrintYn:'N',mobileYn:mobileYn });
+		//if(gv_selectedApcCd === '8888'){
+		//	gfn_popClipReport("원물인식표", rptUrl, {apcCd: gv_selectedApcCd, wrhsno: wrhsno, exePrintYn:'Y'});
+		//}else{
+		//	gfn_popClipReport("원물인식표", rptUrl, {apcCd: gv_selectedApcCd, wrhsno: wrhsno});
+		//}
 
 	}
 
