@@ -1274,17 +1274,17 @@ li:hover a { color: white; font-weight: bold }
 		SBUxMethod.set("dtl-lbl-warehouseSeNm", sort.warehouseSeCd);
 		let invntrInfo = " ";
 
-		invntrInfo += "투입: " + sort.inptQntt;
+		invntrInfo += "투입: " + sort.inptQntt.toLocaleString();
 
 		if (!_.isEqual(lv_rawMtrVlType, "QNTT")) {
-			invntrInfo += "    " + sort.inptWght + " Kg ";
+			invntrInfo += "    " + sort.inptWght.toLocaleString() + " Kg ";
 		}
-		invntrInfo += "   선별: " + sort.sortQntt;
+		invntrInfo += "   선별: " + sort.sortQntt.toLocaleString();
 		invntrInfo += " ( " + sort.grdQnttNm + " )";
 		
 		SBUxMethod.set("dtl-lbl-invntr", invntrInfo);
 
-      	await fn_setGrdUpdt(sort.itemCd);
+      	await fn_setGrdUpdt(sort.itemCd, sort.vrtyCd);
 
       	fn_getApcSpcfct(sort.itemCd);
       	fn_getSpmtPckgUnit(sort.itemCd, sort.vrtyCd);
@@ -1435,11 +1435,11 @@ li:hover a { color: white; font-weight: bold }
 	 * @name fn_getStdGrd
 	 * @description 표준등급 json set
 	 */
-    const fn_getStdGrd = async function(_itemCd) {
-		await gStdGrdObj.init(gv_selectedApcCd, _GRD_SE_CD_SORT, _itemCd);
+    const fn_getStdGrd = async function(_itemCd, _vrtyCd) {
+		await gStdGrdObj.init(gv_selectedApcCd, _GRD_SE_CD_SORT, _itemCd, _vrtyCd);
 	}
 
-	const fn_setGrd = async function(_itemCd) {
+	const fn_setGrd = async function(_itemCd, _vrtyCd) {
 
 		jsonOptnGrd.length = 0;
 		jsonFxngGrd.length = 0;
@@ -1451,7 +1451,7 @@ li:hover a { color: white; font-weight: bold }
 			return;
 		}
 
-		await fn_getStdGrd(_itemCd);
+		await fn_getStdGrd(_itemCd, _vrtyCd);
 
 		if (gjsonStdGrdObj_1 == 0) {
 			return;
@@ -1473,6 +1473,8 @@ li:hover a { color: white; font-weight: bold }
 				document.querySelector('.tr-grdEx' + grdId).style.display = "";
 				//document.querySelector('.spn-grd' + grdId).innerText = gjsonStdGrdObj_1[i].grdNm;
 			}
+			SBUxMethod.set("dtl-inp-qnttEx" + grdId, null);
+			SBUxMethod.set("dtl-inp-wghtEx" + grdId, null);
 		}
 
 		for ( let i=0; i<10; i++ ) {
@@ -1482,12 +1484,17 @@ li:hover a { color: white; font-weight: bold }
 				document.querySelector('.tr-grd' + grdId).style.display = "";
 				document.querySelector('.spn-grd' + grdId).innerText = jsonFxngGrd[i].grdNm;
 			}
+			SBUxMethod.set("dtl-inp-qntt" + grdId, null);
+			SBUxMethod.set("dtl-inp-wght" + grdId, null);
 		}
 
+		SBUxMethod.set("dtl-inp-sortQntt", null);
+		SBUxMethod.set("dtl-inp-sortWght", null);
+		
 		sortGrdObj.show();
 	}
 
-	const fn_setGrdUpdt = async function(_itemCd) {
+	const fn_setGrdUpdt = async function(_itemCd, _vrtyCd) {
 
 		jsonOptnGrd.length = 0;
 		jsonFxngGrd.length = 0;
@@ -1499,7 +1506,7 @@ li:hover a { color: white; font-weight: bold }
 			return;
 		}
 
-		await fn_getStdGrd(_itemCd);
+		await fn_getStdGrd(_itemCd, _vrtyCd);
 
 		if (gjsonStdGrdObj_1 == 0) {
 			return;
@@ -1529,6 +1536,9 @@ li:hover a { color: white; font-weight: bold }
 			}
 		}
 
+		SBUxMethod.set("dtl-inp-sortQntt", null);
+		SBUxMethod.set("dtl-inp-sortWght", null);
+		
 		sortGrdObj.show();
 	}
 	
@@ -2038,8 +2048,8 @@ li:hover a { color: white; font-weight: bold }
 						+	"    품목: " + rowData.itemNm
 						+	"    " + rowData.vrtyNm
 						+	"    규격: " + rowData.spcfctNm
-						+	"    투입: " + rowData.inptQntt
-						+	"\n선별: " + rowData.sortQntt
+						+	"    투입: " + rowData.inptQntt.toLocaleString()
+						+	"\n선별: " + rowData.sortQntt.toLocaleString()
 						+	" ( " + rowData.grdQnttNm + " )";
 					li.innerText = txt;
 					
@@ -2108,16 +2118,16 @@ li:hover a { color: white; font-weight: bold }
 
   				let invntrInfo = " ";
 
-  				invntrInfo += "수량: " + _rawMtrInvntr.invntrQntt;
+  				invntrInfo += "수량: " + _rawMtrInvntr.invntrQntt.toLocaleString();
 
   				if (!_.isEqual(lv_rawMtrVlType, "QNTT")) {
-  					invntrInfo += "   중량: " + _rawMtrInvntr.invntrWght + " Kg ";
+  					invntrInfo += "   중량: " + _rawMtrInvntr.invntrWght.toLocaleString() + " Kg ";
   					invntrInfo += "   (등급: " + _rawMtrInvntr.grdNm + ")";
   				}
 
   				SBUxMethod.set("dtl-lbl-invntr", invntrInfo);
 
-  	        	await fn_setGrd(_rawMtrInvntr.itemCd);
+  	        	await fn_setGrd(_rawMtrInvntr.itemCd, _rawMtrInvntr.vrtyCd);
 
   	        	fn_getApcSpcfct(_rawMtrInvntr.itemCd);
   	        	fn_getSpmtPckgUnit(_rawMtrInvntr.itemCd, _rawMtrInvntr.vrtyCd);

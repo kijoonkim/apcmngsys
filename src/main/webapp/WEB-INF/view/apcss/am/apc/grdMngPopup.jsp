@@ -115,7 +115,8 @@
 	var jsonGGrdSeCd 	= [];
 	var jsonGJgmtType 	= [];
 	var jsonGStdGrdType	= [];
-
+	var jsonGrdApcVrty  = []
+	
 	var jsonStdGrd = [];
 	var jsonStdGrdDtl = [];
 	var jsonAftrGrd = [];
@@ -296,6 +297,21 @@
 					unselect: {label : '', value: ''}
 				}
 			},
+			{
+				caption: ["품종"],
+				ref: 'vrtyCd',
+				type:'combo',
+				width:'80px',
+				style:'text-align:center;',
+				typeinfo : {
+					ref:'jsonGrdApcVrty',
+					displayui : false,
+					itemcount: 10,
+					label:'vrtyNm',
+					value:'vrtyCd',
+					unselect: {label : '', value: ''}
+				}
+			},
 	        {caption: ["APC코드"], 	ref: 'apcCd',   	type:'input',  hidden : true},
 	        {caption: ["품목코드"], 	ref: 'itemCd',   	type:'input',  hidden : true},
 	        {caption: ["등급구분코드"], 	ref: 'grdSeCd',   	type:'input',  hidden : true},
@@ -417,10 +433,11 @@
 
 		let rst = await Promise.all([
 			fn_selectStdGrd(),
-			fn_selectStdGrdJgmt()
+			fn_selectStdGrdJgmt(),
+			fn_selectGrdApcVrty()
 		]);
 	}
-
+	
 	const fn_selectStdGrd = async function(){
 
 		let itemCd = SBUxMethod.get("grd-slt-itemCd");
@@ -503,7 +520,13 @@
 			console.error("failed", e.message);
 	    }
 	}
-
+	
+	const fn_selectGrdApcVrty = async function() {
+		let itemCd = SBUxMethod.get("grd-slt-itemCd");
+		jsonGrdApcVrty = await gfn_getApcVrty(gv_apcCd, itemCd);
+		console.log(jsonGrdApcVrty);
+	}
+	
 	const fn_selectStdGrdJgmt = async function() {
 		let itemCd = SBUxMethod.get("grd-slt-itemCd");
 		let grdSeCd = SBUxMethod.get("grd-rdo-grdSeCd");
@@ -582,7 +605,8 @@
   					  	aftrGrdCd	: item.aftrGrdCd,
   					  	linkGrdCd	: item.linkGrdCd,
   					  	mngType		: item.mngType,
-						extrnlLnkgCd: item.extrnlLnkgCd
+						extrnlLnkgCd: item.extrnlLnkgCd,
+						vrtyCd		: item.vrtyCd
   					}
   					jsonStdGrdDtl.push(stdGrdVO);
   				});
