@@ -132,4 +132,14 @@ public interface SortPrfmncMapper {
 	 */
 	public int updateInptSortno(SortPrfmncVO sortPrfmncVO) throws Exception;
 
+	
+    /**
+     * 선별 목록 조회 (선별번호별)
+     * @param sortPrfmncVO
+     * @return
+     * @throws Exception
+     */
+    public List<SortPrfmncVO> selectSortListBySortno(SortPrfmncVO sortPrfmncVO) throws Exception;
+
+	
 }

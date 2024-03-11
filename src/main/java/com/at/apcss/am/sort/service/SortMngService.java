@@ -61,7 +61,7 @@ public interface SortMngService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertSortPrfmnc(SortMngVO sortMngVO) throws Exception;
-	
+
 	
 	/**
 	 * 선별실적 등록
@@ -126,4 +126,5 @@ public interface SortMngService {
 	 */
 	public HashMap<String, Object> deleteSortPrfmnc(SortMngVO sortMngVO) throws Exception;
 
+	
 }
