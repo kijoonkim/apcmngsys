@@ -88,6 +88,14 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 	}
 
 	@Override
+	public List<SortPrfmncVO> selectSortPrfmncGrdList(SortPrfmncVO sortPrfmncVO) throws Exception {
+
+		List<SortPrfmncVO> resultList = sortPrfmncMapper.selectSortPrfmncGrdList(sortPrfmncVO);
+
+		return resultList;
+	}
+
+	@Override
 	public List<SortPrfmncVO> selectSortCnclList(SortPrfmncVO sortPrfmncVO) throws Exception {
 
 		List<SortPrfmncVO> resultList = sortPrfmncMapper.selectSortCnclList(sortPrfmncVO);
@@ -208,6 +216,4 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 
 		return null;
 	}
-
-
 }
