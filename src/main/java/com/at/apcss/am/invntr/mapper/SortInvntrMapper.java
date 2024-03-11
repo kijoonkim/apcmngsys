@@ -138,6 +138,14 @@ public interface SortInvntrMapper {
 	 */
 	public int updateSortStdGrdForDelY(SortInvntrVO sortInvntrVO) throws Exception;
 
+	/**
+	 * 선별재고 등급 삭제
+	 * @param sortInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteSortStdGrd(SortInvntrVO sortInvntrVO) throws Exception;
+
 
 	/**
 	 * 선별재고 포장처리

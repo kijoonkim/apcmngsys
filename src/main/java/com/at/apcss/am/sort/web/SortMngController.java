@@ -193,6 +193,38 @@ public class SortMngController extends BaseController {
 		resultMap.put(ComConstants.PROP_RESULT_MAP, sortMngVO);
 		return getSuccessResponseEntity(resultMap);
 	}
+	
+	@PostMapping(value = "/am/sort/updateSortPrfmnc.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> updateSortPrfmnc(@RequestBody SortMngVO sortMngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			sortMngVO.setSysFrstInptUserId(getUserId());
+			sortMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+			sortMngVO.setSysLastChgUserId(getUserId());
+			sortMngVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			sortMngVO.setNeedsInptRegYn(ComConstants.CON_YES);	// 투입실적 자동등록
+
+			HashMap<String, Object> rtnObj = sortMngService.updateSortPrfmnc(sortMngVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		resultMap.put(ComConstants.PROP_RESULT_MAP, sortMngVO);
+		return getSuccessResponseEntity(resultMap);
+	}
+	
 
 	@PostMapping(value = "/am/sort/deleteSortPrfmnc.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> deleteSortPrfmnc(@RequestBody SortMngVO sortMngVO, HttpServletRequest request) throws Exception {

@@ -317,6 +317,15 @@ public class SortPrfmncVO extends ComVO {
 	 */
 	private String spmtPckgUnitCd;
 
+	private String pltno;
+    
+    private String nxtPckgno;
+    
+    private String grdQnttNm;
+    private String grdQnttWght;
+
+    private String sortRealDelY;
+	
 	/**
 	 * 표준등급
 	 */

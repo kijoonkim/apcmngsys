@@ -721,6 +721,7 @@
 				, SI.WAREHOUSE_SE_CD	AS WAREHOUSE_SE_CD
 				, SI.INVNTR_QNTT	AS INVNTR_QNTT
 				, SI.INVNTR_WGHT	AS INVNTR_WGHT
+				, (SELECT MAX(X.PCKGNO) FROM TB_PCKG_INPT_PRFMNC X WHERE X.APC_CD = SI.APC_CD AND X.SORTNO = SI.SORTNO AND X.DEL_YN = 'N') AS NXT_PCKGNO
 
 			  FROM
 				  TB_SORT_PRFMNC SP
@@ -1061,5 +1062,117 @@
 			   AND SORTNO IS NULL
 		]]>
 	</update>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectSortListBySortno	-->
+	<!-- DESC : 선별실적 목록 (선별번호별) 조회.	                           		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+    <select id="selectSortListBySortno" parameterType="com.at.apcss.am.sort.vo.SortPrfmncVO" resultType="com.at.apcss.am.sort.vo.SortPrfmncVO">
+    	<![CDATA[
+    		SELECT /* com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectSortListBySortno */
+    			pt0.*
+    		  FROM (
+				SELECT
+				  A.APC_CD					AS APC_CD
+				, A.SORTNO					AS SORTNO
+				, MAX(A.INPT_YMD)			AS INPT_YMD
+				, MAX(A.FCLT_CD)			AS FCLT_CD
+				
+				, LISTAGG(A.GRD_NM || ': ' || TO_CHAR(A.SORT_QNTT, 'FM999,999'), ', ') WITHIN GROUP(ORDER BY A.SORT_SN) AS GRD_QNTT_NM
+				, LISTAGG(A.GRD_CD || ':' || A.SORT_QNTT || ':' || A.SORT_WGHT, ',') WITHIN GROUP(ORDER BY A.SORT_SN) 	AS GRD_QNTT_WGHT
+				, SUM(A.SORT_QNTT)		AS SORT_QNTT
+				, SUM(A.SORT_WGHT)		AS SORT_WGHT
+				, SUM(A.INVNTR_QNTT)		AS INVNTR_QNTT
+				, SUM(A.INVNTR_WGHT)		AS INVNTR_WGHT
+				
+				, MAX(A.RPRS_PRDCR_CD)			AS RPRS_PRDCR_CD
+				, MAX(A.ITEM_CD)				AS ITEM_CD
+				, MAX(A.VRTY_CD)				AS VRTY_CD
+				
+				, MAX(A.RPRS_PRDCR_NM)			AS RPRS_PRDCR_NM
+				, MAX(A.ITEM_NM)				AS ITEM_NM
+				, MAX(A.VRTY_NM)				AS VRTY_NM
+				, MAX(A.SPCFCT_NM)				AS SPCFCT_NM
+				, MAX(A.WAREHOUSE_SE_CD)		AS WAREHOUSE_SE_CD
+				, (
+					SELECT MAX(X.WRHSNO)
+					  FROM TB_SORT_INPT_PRFMNC X
+					 WHERE X.APC_CD = A.APC_CD
+					   AND X.SORTNO = A.SORTNO
+					   AND X.DEL_YN = 'N'
+				)	AS WRHSNO
+				, (
+					SELECT MAX(RI.PLTNO)
+					  FROM TB_SORT_INPT_PRFMNC X
+					  JOIN TB_RAW_MTR_INVNTR RI
+					    ON RI.APC_CD = X.APC_CD
+					   AND RI.WRHSNO = X.WRHSNO
+					 WHERE X.APC_CD = A.APC_CD
+					   AND X.SORTNO = A.SORTNO
+					   AND X.DEL_YN = 'N'
+				)	AS PLTNO
+				, (
+					SELECT SUM(X.QNTT)
+					  FROM TB_SORT_INPT_PRFMNC X
+					 WHERE X.APC_CD = A.APC_CD
+					   AND X.SORTNO = A.SORTNO
+					   AND X.DEL_YN = 'N'
+				)	AS INPT_QNTT
+				, (
+					SELECT SUM(X.WGHT)
+					  FROM TB_SORT_INPT_PRFMNC X
+					 WHERE X.APC_CD = A.APC_CD
+					   AND X.SORTNO = A.SORTNO
+					   AND X.DEL_YN = 'N'
+				)	AS INPT_WGHT
+			  FROM (
+	    		SELECT
+					  SP.APC_CD					AS APC_CD
+					, SP.SORTNO					AS SORTNO
+					, SP.SORT_SN				AS SORT_SN
+					, SP.GRD_CD					AS GRD_CD
+					, SP.INPT_YMD				AS INPT_YMD
+					, SP.FCLT_CD				AS FCLT_CD
+					, (SELECT FN_GET_STD_GRD_SORT(SP.APC_CD, SP.SORTNO, SP.SORT_SN, 'S_NM') FROM DUAL) AS GRD_NM
+					, SP.SORT_QNTT				AS SORT_QNTT
+					, SP.SORT_WGHT				AS SORT_WGHT
+					, SI.RPRS_PRDCR_CD			AS RPRS_PRDCR_CD
+					, SI.ITEM_CD				AS ITEM_CD
+					, SI.VRTY_CD				AS VRTY_CD
+					, SI.SPCFCT_CD				AS SPCFCT_CD
+					, SI.WAREHOUSE_SE_CD		AS WAREHOUSE_SE_CD
+					, SI.INVNTR_QNTT			AS INVNTR_QNTT
+					, SI.INVNTR_WGHT			AS INVNTR_WGHT
+					
+	    			, (SELECT FN_GET_PRDCR_NM(SI.RPRS_PRDCR_CD, SI.APC_CD) FROM DUAL) AS RPRS_PRDCR_NM
+	                , (SELECT FN_GET_ITEM_NM(SI.ITEM_CD, SI.APC_CD) FROM DUAL) AS ITEM_NM
+	                , (SELECT FN_GET_VRTY_NM(SI.ITEM_CD, SI.VRTY_CD, SI.APC_CD) FROM DUAL) AS VRTY_NM
+					, (SELECT FN_GET_SPCFCT_NM(SI.ITEM_CD, SI.SPCFCT_CD, SI.APC_CD) FROM DUAL) AS SPCFCT_NM
+				  FROM
+				  		  TB_SORT_PRFMNC SP
+						, TB_SORT_INVNTR SI
+				   
+				 WHERE SP.APC_CD = SI.APC_CD
+				   AND SP.SORTNO = SI.SORTNO
+				   AND SP.SORT_SN = SI.SORT_SN
+				   AND SP.DEL_YN = 'N'
+				   AND SI.DEL_YN = 'N'
+				   AND SP.APC_CD = #{apcCd}
+				   AND SP.INPT_YMD = #{sortYmd}
+			  ) A
+	    		
+			 GROUP BY A.APC_CD, A.SORTNO
+				 
+			 ORDER BY INPT_YMD DESC, SORTNO DESC
+			) pt0
+			FETCH FIRST 5 ROWS ONLY
+		]]>
+    </select>
+
 
 </mapper>
