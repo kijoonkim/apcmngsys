@@ -756,9 +756,10 @@
             	typeinfo: {
             		ref:'jsonApcVrty',
             		label:'label',
-            		value:'value',
+            		value:'itemVrtyCd',
             		displayui : false
-            	}
+            	},
+            	
             },
             {
             	caption: ["규격"],
@@ -1394,10 +1395,12 @@
 		const fcltCd = SBUxMethod.get("dtl-slt-fcltCd");
 		const itemCd = SBUxMethod.get("srch-slt-itemCd");
 		const vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
+		/*
 		var subVrtyCd;
   		if (!gfn_isEmpty(vrtyCd)) {
   			subVrtyCd = vrtyCd.substring(4);
   		}
+  		*/
 
 		if (gfn_isEmpty(inptYmd)) {
 			gfn_comAlert("W0001", "선별일자");		//	//	W0002	{0}을/를 입력하세요.
