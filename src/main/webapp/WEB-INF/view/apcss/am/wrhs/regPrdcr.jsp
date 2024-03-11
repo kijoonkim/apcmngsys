@@ -344,7 +344,7 @@
 	        {caption: ['대표품목'], 		ref: 'rprsItemCd', 		type: 'combo', 	width: '90px', style: 'text-align:center', sortable: false,
 				typeinfo: {ref:'jsonApcItemCd', 	label:'label', value:'value', itemcount: 10}},
 	        {caption: ['대표품종'], 		ref: 'rprsVrtyCd', 		type: 'combo', 	width: '90px', style: 'text-align:center', sortable: false,
-				typeinfo: {ref:'jsonApcVrtyCd', 	label:'label', value:'value', itemcount: 10}},
+				typeinfo: {ref:'jsonApcVrtyCd', 	label:'label', value:'value', itemcount: 10, filtering: {usemode : true, uppercol : 'rprsItemCd', attrname : 'itemCd'}} },
 	        {caption: ['상품구분'], 		ref: 'gdsSeCd', 		type: 'combo', 	width: '80px', 	style: 'text-align:center', sortable: false,
 				typeinfo: {ref:'jsonComGdsSeCd', 	label:'label', value:'value', itemcount: 10}},
 	        {caption: ['입고구분'], 		ref: 'wrhsSeCd', 		type: 'combo', 	width: '80px', 	style: 'text-align:center', sortable: false,
