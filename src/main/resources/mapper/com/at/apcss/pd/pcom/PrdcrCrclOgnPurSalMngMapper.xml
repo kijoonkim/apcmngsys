@@ -875,7 +875,49 @@
 			, PRCHS_EMSPAP_VLM
 			, PRCHS_EMSPAP_AMT
 			, NVL(PRCHS_TRST_VLM , 0) + NVL(PRCHS_EMSPAP_VLM , 0) AS PRCHS_TOT_VLM
-			, NVL(PRCHS_EMSPAP_AMT , 0) + NVL(PRCHS_EMSPAP_AMT , 0) AS PRCHS_TOT_AMT
+			, NVL(PRCHS_EMSPAP_AMT , 0) + NVL(PRCHS_EMSPAP_AMT , 0) AS ORG_PRCHS_TOT_AMT
+			, DECODE( A.PRCHS_SLS_SE , '1' , (SELECT SUM( NVL( SLS_CNSGN_PRCHS_AMT , 0 ) ) AS PRCHS_TOT_AMT
+			  									FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
+												WHERE 1=1
+												  AND APO_SE = '1'
+												  AND TYPE_SE_NO IN ('1','3','5','7')
+												  AND (
+														(PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
+																			FROM TB_EV_FRMHS_APO EFA
+																			WHERE 1=1
+																			  AND STBLT_YN = 'Y'
+																			  AND APO_SE = '1'
+																			  AND BRNO = PST.BRNO
+																			  AND YR = PST.YR
+																			  AND ITEM_CD IN  (SELECT ITEM_CD
+																								FROM TB_EV_APO_YR_GPC_CD
+																								WHERE 1=1
+																								  AND BRNO = EFA.BRNO
+																								  AND YR = EFA.YR
+																								)
+																		)
+														) OR
+														(PRDCR_OGNZ_SN = '0')
+													)
+												  AND (
+														(ISO_BRNO IN (SELECT BRNO
+																		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+																		WHERE 1=1
+																		  AND APO_SE = '2'
+																		  AND STBLT_YN = 'Y'
+																		  AND UO_BRNO = A.BRNO
+																		  AND YR = A.YR
+																		GROUP BY BRNO
+																		)
+												  		) OR
+												  		(ISO_BRNO = '0')
+												  		)
+												  AND BRNO = A.BRNO
+												  AND YR = A.YR
+												  AND ITEM_CD = A.ITEM_CD
+										  		)
+							,NVL(PRCHS_EMSPAP_AMT , 0) + NVL(PRCHS_EMSPAP_AMT , 0)
+			) AS PRCHS_TOT_AMT
 
 			/*매출*/
 			, SLS_EMSPAP_VLM
@@ -884,7 +926,17 @@
 			, SLS_TRST_AMT
 
 			, NVL(SLS_EMSPAP_VLM , 0) + NVL(SLS_TRST_VLM , 0) AS SLS_TOT_VLM
-			, NVL(SLS_EMSPAP_AMT , 0) + NVL(SLS_TRST_AMT , 0) AS SLS_TOT_AMT
+			, NVL(SLS_EMSPAP_AMT , 0) + NVL(SLS_TRST_AMT , 0) AS ORG_SLS_TOT_AMT
+			, DECODE( A.PRCHS_SLS_SE , '2' , (SELECT SUM( NVL( SLS_CNSGN_SLS_AMT , 0 ) )
+											FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+											WHERE 1=1
+											  AND APO_SE = '1'
+											  AND TYPE_SE_NO IN ('2','3','6','7')
+											  AND BRNO = A.BRNO
+											  AND YR = A.YR
+											  AND ITEM_CD = A.ITEM_CD)
+									, NVL(SLS_EMSPAP_AMT , 0) + NVL(SLS_TRST_AMT , 0)
+			)AS SLS_TOT_AMT
 
 			, DDC_VLM
 			, DDC_AMT
