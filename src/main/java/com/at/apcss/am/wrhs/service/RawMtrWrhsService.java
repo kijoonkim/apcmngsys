@@ -236,6 +236,12 @@ public interface RawMtrWrhsService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> deleteRawMtrWrhsSmmryList(List<RawMtrWrhsSmmryVO> rawMtrWrhsSmmryList) throws Exception;
-	
-	
+
+	/**
+	 * 원물입고등록 모바일 등록 최근 3건 조회
+	 * @param rawMtrWrhsVO
+	 * @return
+	 * @throws Exception
+	 */
+    List<RawMtrWrhsVO> selectRawMtrWrhsLatestInfoList(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
 }

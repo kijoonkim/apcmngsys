@@ -494,5 +494,11 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 		return null;
 	}
 
+	@Override
+	public List<RawMtrWrhsVO> selectRawMtrWrhsLatestInfoList(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
+		List<RawMtrWrhsVO> resultList = rawMtrWrhsMapper.selectRawMtrWrhsLatestInfoList(rawMtrWrhsVO);
+		return resultList;
+	}
+
 
 }

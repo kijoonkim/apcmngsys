@@ -190,4 +190,6 @@ public interface RawMtrWrhsMapper {
 	 * @throws Exception
 	 */
 	public int deleteRawMtrWrhsSmmry(RawMtrWrhsSmmryVO rawMtrWrhsSmmryVO) throws Exception;
+
+	List<RawMtrWrhsVO> selectRawMtrWrhsLatestInfoList(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
 }
