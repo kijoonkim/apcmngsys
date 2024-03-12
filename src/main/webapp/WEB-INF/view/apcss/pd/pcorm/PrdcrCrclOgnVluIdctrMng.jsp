@@ -744,6 +744,8 @@
 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 				/**/{caption: ["자금신청액(천원)\n(탈락 출자출하조직 신청액은 제외)"], 	ref: 'dd',	type:'output',  width:'160px',    style:'text-align:center;'
 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+				{caption: ["관리자용적합여부"], 	ref: 'dd',	type:'output',  width:'160px',    style:'text-align:center;'},
+				{caption: ["관리자용부적합사유"], 	ref: 'ee',	type:'output',  width:'160px',    style:'text-align:center;'},
 				{caption: ["금리"], 		ref: 'itrRt',			type:'input',  width:'80px',    style:'text-align:center;'
 					,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}},
 
@@ -976,7 +978,8 @@
 			{caption: ["패널티"], 		ref: 'cc',	type:'output',  width:'160px',    style:'text-align:center;'},
 			{caption: ["자금신청액(천원)"], 	ref: 'isoFundAplyAmt',	type:'output',  width:'160px',    style:'text-align:center;'},
 			/**/
-
+			{caption: ["관리자용적합여부"], 	ref: 'dd',	type:'output',  width:'160px',    style:'text-align:center;'},
+			{caption: ["관리자용부적합사유"], 	ref: 'ee',	type:'output',  width:'160px',    style:'text-align:center;'},
 			{caption: ["금리"], 		ref: 'itrRt',			type:'input',  width:'80px',    style:'text-align:center;'
 				,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}},
 
@@ -1403,6 +1406,10 @@
 	}
 
 	const fn_dtlGridSearch = async function(){
+		let brno = SBUxMethod.get('dtl-input-brno');
+		if(gfn_isEmpty(brno)){
+			return false;
+		}
 		fn_dtlGridSearchUo();//통합조직
 		fn_dtlGridSearchUoTot();//통합조직 선정여부
 		fn_dtlGridSearchIso();//출자출하조직

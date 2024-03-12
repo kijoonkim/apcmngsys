@@ -1177,8 +1177,13 @@
 	function fn_procRow(gubun, grid, nRow, nCol) {
 		if (gubun === "ADD") {
 			if (grid === "grdPrdcrOgnCurntMng02") {
+				let yrColIdx = grdPrdcrOgnCurntMng02.getColRef("yr");//금리
+				let yrVal = SBUxMethod.get('dtl-input-yr');
+				let brnoColIdx = grdPrdcrOgnCurntMng02.getColRef("brno");//금리
+				let brnoVal = SBUxMethod.get('dtl-input-brno');
 				grdPrdcrOgnCurntMng02.setCellData(nRow, nCol, "N", true);
-				//grdPrdcrOgnCurntMng02.setCellData(nRow, 5, gv_apcCd, true);
+				grdPrdcrOgnCurntMng02.setCellData(nRow, yrColIdx, yrVal, true);
+				grdPrdcrOgnCurntMng02.setCellData(nRow, brnoColIdx, brnoVal, true);
 				grdPrdcrOgnCurntMng02.addRow(true);
 			}
 		}
@@ -1192,7 +1197,7 @@
 						//grdPrdcrOgnCurntMng02.deleteRow(nRow);
 					}
 				}else{
-					//grdPrdcrOgnCurntMng02.deleteRow(nRow);
+					grdPrdcrOgnCurntMng02.deleteRow(nRow);
 				}
 			}
 		}
