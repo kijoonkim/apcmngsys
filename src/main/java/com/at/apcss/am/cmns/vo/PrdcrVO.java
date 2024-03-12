@@ -1,5 +1,9 @@
 package com.at.apcss.am.cmns.vo;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
 import com.at.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
@@ -230,4 +234,14 @@ public class PrdcrVO extends ComVO {
 	 * 생산자연결번호
 	 */
 	private String extrnlLnkgCd;
+
+	private List<PrdcrVO> prdcrList;
+
+	public List<PrdcrVO> getPrdcrList() {
+		return prdcrList == null ? null : prdcrList.stream().collect(Collectors.toList());
+	}
+
+	public void setPrdcrList(List<PrdcrVO> prdcrVO) {
+		this.prdcrList = prdcrList == null ? null : prdcrList.stream().collect(Collectors.toList());
+	}
 }

@@ -88,7 +88,7 @@ public class PrdcrController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	// 생산자관리 - 아그리스 생산자 마스터 목록 조회
 	@PostMapping(value = "/am/cmns/selectAgrixPrdcrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectAgrixPrdcrList(@RequestBody PrdcrVO prdcrVO, HttpServletRequest request) throws Exception {
@@ -164,6 +164,31 @@ public class PrdcrController extends BaseController {
 			HashMap<String, Object> rtnObj = setMenuComLog(request);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/cmns/deletePrdcrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deletePrdcrList(@RequestBody List<PrdcrVO> prdcrList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		for(PrdcrVO prdcrVO : prdcrList ) {
+			try {
+				HashMap<String, Object> rtnObj = prdcrService.deletePrdcr(prdcrVO);
+				if (rtnObj != null) {
+					return getErrorResponseEntity(rtnObj);
+				}
+
+			} catch (Exception e) {
+				logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+				return getErrorResponseEntity(e);
+			} finally {
+				HashMap<String, Object> rtnObj = setMenuComLog(request);
+				if (rtnObj != null) {
+					return getErrorResponseEntity(rtnObj);
+				}
 			}
 		}
 

@@ -32,11 +32,36 @@ public class PrdcrCrclOgnVluFndsMngServiceImpl extends BaseServiceImpl implement
 	private PrdcrCrclOgnVluFndsMngMapper prdcrCrclOgnVluFndsMngMapper;
 
 	@Override
-	public List<PrdcrCrclOgnVluFndsMngVO> selectScoreList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO) throws Exception {
+	public List<PrdcrCrclOgnVluFndsMngVO> selectScoreList1(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO) throws Exception {
 
-		List<PrdcrCrclOgnVluFndsMngVO> resultList = prdcrCrclOgnVluFndsMngMapper.selectScoreList(prdcrCrclOgnVluFndsMngVO);
+		List<PrdcrCrclOgnVluFndsMngVO> resultList = prdcrCrclOgnVluFndsMngMapper.selectScoreList1(prdcrCrclOgnVluFndsMngVO);
 		return resultList;
 	}
+
+	@Override
+	public List<PrdcrCrclOgnVluFndsMngVO> selectScoreList2(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO) throws Exception {
+
+		List<PrdcrCrclOgnVluFndsMngVO> resultList = prdcrCrclOgnVluFndsMngMapper.selectScoreList2(prdcrCrclOgnVluFndsMngVO);
+		return resultList;
+	}
+
+	@Override
+	public int insertActvtnFund(PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO) throws Exception {
+		int saveCnt = prdcrCrclOgnVluFndsMngMapper.insertActvtnFund(PrdcrCrclOgnVluFndsMngVO);
+		return saveCnt;
+	}
+
+	@Override
+	public int multiSaveActvtnFundList(List<PrdcrCrclOgnVluFndsMngVO> PrdcrCrclOgnVluFndsMngVOList) throws Exception {
+		int savedCnt = 0;
+		for (PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO : PrdcrCrclOgnVluFndsMngVOList) {
+			savedCnt += insertActvtnFund(PrdcrCrclOgnVluFndsMngVO);
+		}
+		return savedCnt;
+	}
+
+
+
 
 	@Override
 	public List<PrdcrCrclOgnVluFndsMngVO> selectComputWayList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO) throws Exception {
@@ -46,8 +71,8 @@ public class PrdcrCrclOgnVluFndsMngServiceImpl extends BaseServiceImpl implement
 	}
 
 	@Override
-	public int insertComputWayList(PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO) throws Exception {
-		int saveCnt = prdcrCrclOgnVluFndsMngMapper.insertComputWayList(PrdcrCrclOgnVluFndsMngVO);
+	public int insertComputWay(PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO) throws Exception {
+		int saveCnt = prdcrCrclOgnVluFndsMngMapper.insertComputWay(PrdcrCrclOgnVluFndsMngVO);
 		return saveCnt;
 	}
 
@@ -55,7 +80,7 @@ public class PrdcrCrclOgnVluFndsMngServiceImpl extends BaseServiceImpl implement
 	public int multiSaveComputWayList(List<PrdcrCrclOgnVluFndsMngVO> PrdcrCrclOgnVluFndsMngVOList) throws Exception {
 		int savedCnt = 0;
 		for (PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO : PrdcrCrclOgnVluFndsMngVOList) {
-			savedCnt += insertComputWayList(PrdcrCrclOgnVluFndsMngVO);
+			savedCnt += insertComputWay(PrdcrCrclOgnVluFndsMngVO);
 		}
 		return savedCnt;
 	}

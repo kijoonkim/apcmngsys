@@ -196,22 +196,23 @@ public class ComSysServiceImpl extends BaseServiceImpl implements ComSysService 
 		lgnPlcyParam.setUserId(userId);
 
 		ComLgnPlcyVO comLgnPlcyVO = comSysMapper.selectComLgnPlcy(lgnPlcyParam);
+		if (comLgnPlcyVO != null && StringUtils.hasText(comLgnPlcyVO.getUserId())) {
+			if (ComConstants.CON_YES.equals(comLgnPlcyVO.getIpLmtYn())
+					&& StringUtils.hasText(comLgnPlcyVO.getIpInfo())) {
+				String[] allowedIps = comLgnPlcyVO.getIpInfo().split(",");
+				boolean isUserIpAllowed = false;
 
-		if (ComConstants.CON_YES.equals(comLgnPlcyVO.getIpLmtYn())
-				&& StringUtils.hasText(comLgnPlcyVO.getIpInfo())) {
-			String[] allowedIps = comLgnPlcyVO.getIpInfo().split(",");
-			boolean isUserIpAllowed = false;
-
-			for (String allowedIp : allowedIps) {
-				// 공백을 제거하고 비교
-				if (allowedIp.trim().equals(userIp.trim())) {
-					isUserIpAllowed = true;
-					break;
+				for (String allowedIp : allowedIps) {
+					// 공백을 제거하고 비교
+					if (allowedIp.trim().equals(userIp.trim())) {
+						isUserIpAllowed = true;
+						break;
+					}
 				}
-			}
-			// userIp가 허용되지 않은 IP 주소인 경우
-			if (!isUserIpAllowed) {
-				return true;
+				// userIp가 허용되지 않은 IP 주소인 경우
+				if (!isUserIpAllowed) {
+					return true;
+				}
 			}
 		}
 		return false;

@@ -258,9 +258,14 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 	@Override
 	public HashMap<String, Object> deleteSortInvntr(SortInvntrVO sortInvntrVO) throws Exception {
 
-		sortInvntrMapper.updateSortInvntrForDelY(sortInvntrVO);
+		if (ComConstants.CON_YES.equals(sortInvntrVO.getSortRealDelY())) {
+			sortInvntrMapper.deleteSortInvntr(sortInvntrVO);
+			sortInvntrMapper.deleteSortStdGrd(sortInvntrVO);
+		} else {
+			sortInvntrMapper.updateSortInvntrForDelY(sortInvntrVO);
+			sortInvntrMapper.updateSortStdGrdForDelY(sortInvntrVO);
+		}
 
-		sortInvntrMapper.updateSortStdGrdForDelY(sortInvntrVO);
 
 		return null;
 	}

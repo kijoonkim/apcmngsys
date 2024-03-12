@@ -300,6 +300,39 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
+								<span style="font-size:14px">▶통합조직 선정여부</span>
+								<!--
+								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+								 -->
+							</li>
+						</ul>
+					</div>
+					<!-- SBGrid를 호출합니다. -->
+					<div id="sb-area-grdPrdcrOgnCurntMng05" style="height:150px; width: 100%;"></div>
+				</div>
+				<div class="ad_section_top">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">▶출자출하조직 선정여부</span>
+								<!--
+								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+								 -->
+							</li>
+						</ul>
+					</div>
+					<!-- SBGrid를 호출합니다. -->
+					<div id="sb-area-grdPrdcrOgnCurntMng06" style="height:300px; width: 100%;"></div>
+				</div>
+				<div class="ad_section_top">
+					<div class="box-header" style="display:flex; justify-content: flex-start; width: 745px;" >
+						<div style="margin-left: auto;">
+							<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="평가지표 저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave01"></sbux-button>
+						</div>
+					</div>
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
 								<span style="font-size:14px">▶평가지표</span>
 								<!--
 								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
@@ -308,9 +341,14 @@
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:100px; width: 100%;"></div>
+					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:200px; width: 745px;"></div>
 				</div>
 				<div class="ad_section_top">
+					<div class="box-header" style="display:flex; justify-content: flex-start; width: 1185px;" >
+						<div style="margin-left: auto;">
+							<sbux-button id="btnSaveFclt2" name="btnSaveFclt2" uitype="normal" text="가감점 저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave02"></sbux-button>
+						</div>
+					</div>
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
@@ -322,7 +360,7 @@
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdPrdcrOgnCurntMng02" style="height:300px; width: 100%;"></div>
+					<div id="sb-area-grdPrdcrOgnCurntMng02" style="height:300px; width: 1185px;"></div>
 				</div>
 			</div>
 			<div id="sb-area-hiddenGrd" style="height:400px; width: 100%; display: none;"></div>
@@ -377,16 +415,19 @@
 		await fn_fcltMngCreateGrid01();
 		await fn_fcltMngCreateGrid02();
 
+		await fn_fcltMngCreateGrid05();
+		await fn_fcltMngCreateGrid06();
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
+		fn_search();
+	</c:if>
 		await fn_initSBSelect();
 
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
-		await fn_search();
-	</c:if>
+
 	}
 
 	var jsonComCmptnInst = [];//관할기관
 	var jsonComCtpv = [];//시도
-	var jsonComSgg = [];//시군
+	//var jsonComSgg = [];//시군
 	var jsonComCorpSeCd = [];//법인구분
 	var jsonComCorpDtlSeCd = [];//법인형태
 	var jsonComUoCd = [];//통합조직코드
@@ -394,9 +435,12 @@
 	var jsonComAplyTrgtSe = [];//신청대상구분
 
 	var jsonComGrdCtpv = [];//시도
-	var jsonComGrdSgg = [];//시군
+	//var jsonComGrdSgg = [];//시군
 	var jsonComGrdCorpSeCd = [];//법인구분
 	var jsonComGrdAprv = [];//신청구분
+
+	var jsonGrdFundArtcl01 = [];//산출식 항목
+	var jsonGrdFundArtcl02 = [];//산출식 항목
 
 	//적합품목 보유 여부
 	var jsonComStbltHldYn = [
@@ -419,9 +463,12 @@
 			gfn_setComCdSBSelect('srch-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE'), //신청대상구분
 
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonComGrdCtpv, 	'CMPTN_INST_CTPV'), //시도
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonComGrdSgg, 		'CMPTN_INST_SIGUN'),//시군
+			//gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonComGrdSgg, 		'CMPTN_INST_SIGUN'),//시군
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonComGrdCorpSeCd, 	'CORP_SE_CD'), //법인구분
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonComGrdAprv, 	'APRV_UPBR_SE_CD'), //신청구분
+
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01',	jsonGrdFundArtcl01	,'FUND_ARTCL'), //산출식 항목
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng02',	jsonGrdFundArtcl02	,'FUND_ARTCL_1'), //산출식 항목
 
 		]);
 	}
@@ -475,8 +522,8 @@
 				,typeinfo : {ref:'jsonComGrdCorpSeCd', label:'label', value:'value', displayui : false}},
 			{caption: ["시도"], 			ref: 'ctpv', 	type:'combo',  width:'160px',	style:'text-align:center', disabled:true
 				,typeinfo : {ref:'jsonComGrdCtpv', label:'label', value:'value', displayui : false}},
-			{caption: ["시군구"], 		ref: 'sgg', 	type:'combo',  width:'160px',	style:'text-align:center', disabled:true
-				,typeinfo : {ref:'jsonComGrdSgg', label:'label', value:'value', displayui : false}},
+			//{caption: ["시군구"], 		ref: 'sgg', 	type:'combo',  width:'160px',	style:'text-align:center', disabled:true
+				//,typeinfo : {ref:'jsonComGrdSgg', label:'label', value:'value', displayui : false}},
 			//{caption: ["진행단계"], 		ref: 'aa', 	type:'output',  width:'153px',	style:'text-align:center'},
 			{caption: ["비고"], 			ref: 'rmrk', 	type:'output',  width:'200px',	style:'text-align:center'}
 		];
@@ -519,21 +566,28 @@
 		SBGridProperties.contextmenulist = objMenuList01;	// 우클릭 메뉴 리스트
 		//SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.fixedrowheight=45;
-		//SBGridProperties.rowheight = 57;
+		SBGridProperties.rowheight = 57;
 		SBGridProperties.oneclickedit = true;
 		SBGridProperties.columns = [
-			{caption: ["항목"],		ref: 'dd',		type:'output',  width:'160px',	style:'text-align:center;'},
-			{caption: ["산출식"],		ref: 'bb',		type:'output',  width:'400px',	style:'text-align:center;'},
-			{caption: ["배점"], 		ref: 'cc',		type:'output',  width:'60px',	style:'text-align:center;'},
-			{caption: ["산출결과"], 	ref: 'ee',		type:'output',  width:'400px',	style:'text-align:center;'},
-			{caption: ["점수"], 		ref: 'score',		type:'input',  width:'60px',	style:'text-align:center;'},
+			{caption: ["항목"],		ref: 'fundArtcl',		type:'combo',  width:'160px',	style:'text-align:center;'
+				,typeinfo : {ref:'jsonGrdFundArtcl01', label:'label', value:'value', displayui : false}},
+			//{caption: ["산출식"],		ref: 'computWayCd',		type:'output',  width:'400px',	style:'text-align:center;'},
+			{caption: ["산출식"],		ref: 'computWayCd',		type:'combo',  width:'400px',	style:'text-align:center;'
+				,typeinfo : {ref:'comComputWay01', label:'label', value:'value', displayui : false
+								,filtering: { usemode: true, uppercol: 'fundArtcl', attrname: 'fundArtcl', listall: false}
+							}
+			},
+			{caption: ["배점"], 		ref: 'alt',		type:'output',  width:'60px',	style:'text-align:center;'},
+			{caption: ["산출결과"], 	ref: 'computWayRslt',		type:'output',  width:'60px',	style:'text-align:center;'},
+			{caption: ["점수"], 		ref: 'scr',		type:'input',  width:'60px',	style:'text-align:center;'},
 
 			{caption: ["상세내역"], 	ref: 'yr',   			hidden : true},
+			{caption: ["상세내역"], 	ref: 'seq',   			hidden : true},
 			{caption: ["상세내역"], 	ref: 'brno',   			hidden : true},
-			{caption: ["상세내역"], 	ref: 'aa',   			hidden : true},
 		];
 
 		grdPrdcrOgnCurntMng01 = _SBGrid.create(SBGridProperties);
+		grdPrdcrOgnCurntMng01.bind('valuechanged', fn_valueChanged01);
 	}
 
 	var jsonPrdcrOgnCurntMng02 = []; // 그리드의 참조 데이터 주소 선언
@@ -565,9 +619,10 @@
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList01;	// 우클릭 메뉴 리스트
 		//SBGridProperties.extendlastcol = 'scroll';
-		SBGridProperties.fixedrowheight=45;
+		//SBGridProperties.fixedrowheight=45;
 		//SBGridProperties.rowheight = 57;
 		SBGridProperties.oneclickedit = true;
+		SBGridProperties.rowheader = ['seq','update'];
 		SBGridProperties.columns = [
 			{caption: ["처리"], 				ref: 'delYn',   	type:'button', width:'60px',	style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 				if(strValue== null || strValue == ""){
@@ -576,19 +631,142 @@
 					return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdPrdcrOgnCurntMng02\", " + nRow + ")'>삭제</button>";
 				}
 			}},
-			{caption: ["항목"],		ref: 'dd',		type:'output',  width:'160px',	style:'text-align:center;'},
-			{caption: ["산출식"],		ref: 'bb',		type:'output',  width:'400px',	style:'text-align:center;'},
-			{caption: ["배점"], 		ref: 'cc',		type:'output',  width:'60px',	style:'text-align:center;'},
-			{caption: ["산출결과"], 	ref: 'ee',		type:'output',  width:'400px',	style:'text-align:center;'},
-			{caption: ["점수"], 		ref: 'score',		type:'input',  width:'60px',	style:'text-align:center;'},
+			{caption: ["항목"],		ref: 'fundArtcl',		type:'combo',  width:'160px',	style:'text-align:center;'
+				,typeinfo : {ref:'jsonGrdFundArtcl02', label:'label', value:'value', displayui : false}},
+			//{caption: ["산출식"],		ref: 'computWayCd',		type:'output',  width:'400px',	style:'text-align:center;'},
+			{caption: ["산출식"],		ref: 'computWayCd',		type:'combo',  width:'400px',	style:'text-align:center;'
+				,typeinfo : {ref:'comComputWay02', label:'label', value:'value', displayui : false
+								,filtering: { usemode: true, uppercol: 'fundArtcl', attrname: 'fundArtcl', listall: false}
+							}
+			},
+			{caption: ["배점"], 		ref: 'alt',		type:'output',  width:'60px',	style:'text-align:center;'},
+			{caption: ["산출결과"], 	ref: 'computWayRslt',		type:'input',  width:'400px',	style:'text-align:center;'},
+			{caption: ["점수"], 		ref: 'scr',		type:'input',  width:'60px',	style:'text-align:center;'},
 
 			{caption: ["상세내역"], 	ref: 'yr',   			hidden : true},
+			{caption: ["상세내역"], 	ref: 'seq',   			hidden : true},
 			{caption: ["상세내역"], 	ref: 'brno',   			hidden : true},
-			{caption: ["상세내역"], 	ref: 'aa',   			hidden : true},
 		];
 
 		grdPrdcrOgnCurntMng02 = _SBGrid.create(SBGridProperties);
+		grdPrdcrOgnCurntMng02.bind('valuechanged', fn_valueChanged02);
 	}
+
+	/*		선정여부		*/
+
+	var jsonPrdcrOgnCurntMng05 = []; // 그리드의 참조 데이터 주소 선언
+	var grdPrdcrOgnCurntMng05;
+
+	const objMenuList05 = {
+			"excelDwnld": {
+				"name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+				"accesskey": "e",					//단축키
+				"callback": fn_excelDwnld05,			//콜백함수명
+			}
+		};
+
+
+	function fn_excelDwnld05() {
+		grdPrdcrOgnCurntMng07.exportLocalExcel("통합조직 선정여부", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+	}
+
+	/* Grid 화면 그리기 기능*/
+	//통합조직 선정여부
+	const fn_fcltMngCreateGrid05 = async function() {
+
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng05';
+		SBGridProperties.id = 'grdPrdcrOgnCurntMng05';
+		SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng05';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList01;	// 우클릭 메뉴 리스트
+		//SBGridProperties.mergecells = 'bycol';//동일한 열 병합처리
+		SBGridProperties.datamergefalseskip = true;// merge false 된 열 병합 제외
+		//SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.fixedrowheight=45;
+		//SBGridProperties.rowheight = 57;
+		SBGridProperties.columns = [
+				{caption: ["통합조직명"],	ref: 'corpNm',		type:'output',  width:'160px',    style:'text-align:center;'},
+				{caption: ["사업자번호"],	ref: 'brno',		type:'output',  width:'80px',    style:'text-align:center;'},
+				{caption: ["통합조직 선정여부"], 	ref: 'stbltYn',		type:'output',  width:'60px',    style:'text-align:center;'},
+				{caption: ["적합품목"], 	ref: 'stbltItemList',	type:'output',  width:'160px',    style:'text-align:center;'},
+				/**/{caption: ["탈락사유구분"], 	ref: 'aa',	type:'output',  width:'160px',    style:'text-align:center;'},
+				/**/{caption: ["세부탈락사유"], 	ref: 'bb',	type:'output',  width:'160px',    style:'text-align:center;'},
+				/**/{caption: ["패널티"], 		ref: 'cc',	type:'output',  width:'160px',    style:'text-align:center;'},
+				{caption: ["자금신청액(천원)\n(출자출하조직 신청액 포함)"], 	ref: 'fundAplyAmtTot',	type:'output',  width:'160px',    style:'text-align:center;'
+					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+				/**/{caption: ["자금신청액(천원)\n(탈락 출자출하조직 신청액은 제외)"], 	ref: 'dd',	type:'output',  width:'160px',    style:'text-align:center;'
+					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+				{caption: ["금리"], 		ref: 'itrRt',			type:'output',  width:'80px',    style:'text-align:center;'
+					,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}},
+
+				{caption: ["상세내역"], 	ref: 'yr',   			hidden : true},
+				//{caption: ["상세내역"], 	ref: 'stbltItemList',   hidden : true},
+			];
+
+		grdPrdcrOgnCurntMng05 = _SBGrid.create(SBGridProperties);
+	}
+
+
+	var jsonPrdcrOgnCurntMng06 = []; // 그리드의 참조 데이터 주소 선언
+	var grdPrdcrOgnCurntMng06
+
+	const objMenuList06 = {
+			"excelDwnld": {
+				"name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+				"accesskey": "e",					//단축키
+				"callback": fn_excelDwnld05,			//콜백함수명
+			}
+		};
+
+
+	function fn_excelDwnld06() {
+		grdPrdcrOgnCurntMng06.exportLocalExcel("출자출하조직 선정여부 리스트", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+	}
+
+
+	/* Grid 화면 그리기 기능*/
+	//출자출하조직 선정여부 리스트
+	const fn_fcltMngCreateGrid06 = async function() {
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng06';
+		SBGridProperties.id = 'grdPrdcrOgnCurntMng06';
+		SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng06';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList05;	// 우클릭 메뉴 리스트
+		//SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.fixedrowheight=45;
+		//SBGridProperties.rowheight = 57;
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.columns = [
+			{caption: ["출자출하조직명"],	ref: 'corpNm',		type:'output',  width:'160px',    style:'text-align:center;'},
+			{caption: ["사업자번호"],	ref: 'brno',		type:'output',  width:'80px',    style:'text-align:center;'},
+			{caption: ["적합여부"], 	ref: 'stbltYn',		type:'output',  width:'60px',    style:'text-align:center;'},
+			{caption: ["적합품목"], 	ref: 'stbltItemList',	type:'output',  width:'160px',    style:'text-align:center;'},
+
+			/**/
+			{caption: ["탈락사유구분"], 	ref: 'aa',	type:'output',  width:'160px',    style:'text-align:center;'},
+			{caption: ["세부탈락사유"], 	ref: 'bb',	type:'output',  width:'160px',    style:'text-align:center;'},
+			{caption: ["패널티"], 		ref: 'cc',	type:'output',  width:'160px',    style:'text-align:center;'},
+			{caption: ["자금신청액(천원)"], 	ref: 'isoFundAplyAmt',	type:'output',  width:'160px',    style:'text-align:center;'},
+			/**/
+
+			{caption: ["금리"], 		ref: 'itrRt',			type:'output',  width:'80px',    style:'text-align:center;'
+				,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}},
+
+			{caption: ["상세내역"], 	ref: 'yr',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'apoSe',   	hidden : true},
+			{caption: ["상세내역"], 	ref: 'uoBrno',   	hidden : true},
+		];
+
+		grdPrdcrOgnCurntMng06 = _SBGrid.create(SBGridProperties);
+	}
+
 
 	/**
 	 * 목록 조회
@@ -784,10 +962,17 @@
 		SBUxMethod.set('dtl-input-brno',null)//사업자등록번호
 		SBUxMethod.set('dtl-input-yr',null)//등록년도
 	}
-
-
-	//평가지표,가감점 조회
 	const fn_dtlGridSearch = async function(){
+		fn_searchComputWayList();		//산출식 콤보 조회
+		await fn_dtlGridSearchActvtnFund1();	//평가지표
+		await fn_dtlGridSearchActvtnFund2();	//가감점
+		fn_dtlGridSearchUoTot();
+		fn_dtlGridSearchIsoTot();
+	}
+
+
+	//평가지표 조회
+	const fn_dtlGridSearchActvtnFund1 = async function(){
 		let brno = SBUxMethod.get("dtl-input-brno");//
 		let yr = SBUxMethod.get("dtl-input-yr");//
 
@@ -797,7 +982,7 @@
 			yr = year;
 		}
 
-		let postJsonPromise = gfn_postJSON("/pd/pcorm/selectScoreList.do", {
+		let postJsonPromise = gfn_postJSON("/pd/pcorm/selectScoreList1.do", {
 			brno : brno
 			, yr : yr
 		});
@@ -806,25 +991,74 @@
 		let data = await postJsonPromise ;
 		try{
 			jsonPrdcrOgnCurntMng01.length = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
+				console.log(item);
+				let scr = item.scr;
+				//점수값이 비었을 경우 기본 산출값으로
+				if (gfn_isEmpty(scr)) {
+					scr = item.computWayRslt;
+				}
+
+				let PrdcrOgnCurntMngVO = {
+						yr: item.yr
+						,seq: item.seq
+						,brno: item.brno
+						,fundArtcl: item.fundArtcl
+						,computWayCd: item.computWayCd
+						,computWayDtl: item.computWayDtl
+						,computWayRslt: item.computWayRslt
+						,alt: item.alt
+						,scr: scr
+					}
+				jsonPrdcrOgnCurntMng01.push(PrdcrOgnCurntMngVO);
+			});
+			grdPrdcrOgnCurntMng01.rebuild();
+
+
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+	//가감점 조회
+	const fn_dtlGridSearchActvtnFund2 = async function(){
+		let brno = SBUxMethod.get("dtl-input-brno");//
+		let yr = SBUxMethod.get("dtl-input-yr");//
+
+		if(gfn_isEmpty(yr)){
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
+
+		let postJsonPromise = gfn_postJSON("/pd/pcorm/selectScoreList2.do", {
+			brno : brno
+			, yr : yr
+		});
+
+
+		let data = await postJsonPromise ;
+		try{
 			jsonPrdcrOgnCurntMng02.length = 0;
 			console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let PrdcrOgnCurntMngVO = {
-					yr: item.yr
-					,brno: item.brno
-					,aa: item.aa
-					,bb: item.bb
-					,cc: item.cc
-					,dd: item.dd
-					,score: item.score
-				}
-				if(item.aa == '1' || item.aa == '2'){
-					jsonPrdcrOgnCurntMng01.push(PrdcrOgnCurntMngVO);
-				}else if(item.aa == '3'){
-					jsonPrdcrOgnCurntMng02.push(PrdcrOgnCurntMngVO);
-				}
+						yr: item.yr
+						,seq: item.seq
+						,brno: item.brno
+						,fundArtcl: item.fundArtcl
+						,computWayCd: item.computWayCd
+						,computWayDtl: item.computWayDtl
+						,computWayRslt: item.computWayRslt
+						,alt: item.alt
+						,scr: item.scr
+					}
+				jsonPrdcrOgnCurntMng02.push(PrdcrOgnCurntMngVO);
 			});
-			grdPrdcrOgnCurntMng01.rebuild();
 			grdPrdcrOgnCurntMng02.rebuild();
 			grdPrdcrOgnCurntMng02.addRow();
 		}catch (e) {
@@ -835,12 +1069,121 @@
 		}
 	}
 
+	//통합조직 선정여부
+	const fn_dtlGridSearchUoTot = async function(){
+		let brno = SBUxMethod.get("dtl-input-brno");//
+		let yr = SBUxMethod.get("dtl-input-yr");//
+
+		if(gfn_isEmpty(yr)){
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
+
+		let postJsonPromise = gfn_postJSON("/pd/pcorm/selectUoTotList.do", {
+			brno : brno
+			, yr : yr
+		});
+
+
+		let data = await postJsonPromise ;
+		try{
+			jsonPrdcrOgnCurntMng05.length = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
+				let PrdcrOgnCurntMngVO = {
+						brno			: item.brno
+						,corpNm			: item.corpNm
+						,yr				: item.yr
+						,fundAplyAmtTot	: item.fundAplyAmtTot//자금신청액
+						,stbltYn		: item.stbltYn//적합여부 기준 적용 결과
+						,stbltItemList	: item.stbltItemList//적합픔목 리스트
+						,itrRt			: item.itrRt //금리
+				}
+				jsonPrdcrOgnCurntMng05.push(PrdcrOgnCurntMngVO);
+				if (index === 0) {
+					totalRecordCount = item.totalRecordCount;
+				}
+			});
+			grdPrdcrOgnCurntMng05.rebuild();
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+	//출자출하조직 선정여부 조회
+	async function fn_dtlGridSearchIsoTot() {
+
+		let brno = SBUxMethod.get("dtl-input-brno");//
+		let yr = SBUxMethod.get("dtl-input-yr");//
+
+		if(gfn_isEmpty(yr)){
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
+
+		let postJsonPromise06 = gfn_postJSON("/pd/pcorm/selectIsoTotList.do", {
+			brno : brno
+			, yr : yr
+		});
+		let data = await postJsonPromise06;
+		try{
+			jsonPrdcrOgnCurntMng06.length = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
+				let itemVO = {
+					brno: 	item.brno
+					,uoBrno: item.uoBrno
+					,corpNm: item.corpNm
+					,yr: item.yr
+					,apoSe: item.yr
+					,stbltYn: item.stbltYn//적합여부 기준 적용 결과
+					,stbltItemList: item.stbltItemList//적합픔목 리스트
+					,itrRt: item.itrRt //금리
+				};
+				jsonPrdcrOgnCurntMng06.push(itemVO);
+			});
+			grdPrdcrOgnCurntMng06.rebuild();
+			//적합한 경우 통합조직 금리와 동일하게 하고 수정불가 처리
+			fn_disable06();
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+	//적합한 경우 통합조직 금리와 동일하게 하고 수정불가 처리
+	async function fn_disable06() {
+		let gridData = grdPrdcrOgnCurntMng06.getGridDataAll();
+		for(var i=1; i <= gridData.length; i++ ){
+			let rowData = grdPrdcrOgnCurntMng06.getRowData(i);
+			let itrRt = grdPrdcrOgnCurntMng06.getColRef("itrRt");//금리
+
+			if (rowData.stbltYn == 'Y') {
+				grdPrdcrOgnCurntMng06.setCellDisabled(i, itrRt, i, itrRt, true);
+			}else{
+				grdPrdcrOgnCurntMng06.setCellDisabled(i, itrRt, i, itrRt, false);
+			}
+		}
+	}
+
 	/* Grid Row 추가 및 삭제 기능*/
 	function fn_procRow(gubun, grid, nRow, nCol) {
 		if (gubun === "ADD") {
 			if (grid === "grdPrdcrOgnCurntMng02") {
+				let yrColIdx = grdPrdcrOgnCurntMng02.getColRef("yr");//금리
+				let yrVal = SBUxMethod.get('dtl-input-yr');
+				let brnoColIdx = grdPrdcrOgnCurntMng02.getColRef("brno");//금리
+				let brnoVal = SBUxMethod.get('dtl-input-brno');
 				grdPrdcrOgnCurntMng02.setCellData(nRow, nCol, "N", true);
-				//grdPrdcrOgnCurntMng02.setCellData(nRow, 5, gv_apcCd, true);
+				grdPrdcrOgnCurntMng02.setCellData(nRow, yrColIdx, yrVal, true);
+				grdPrdcrOgnCurntMng02.setCellData(nRow, brnoColIdx, brnoVal, true);
 				grdPrdcrOgnCurntMng02.addRow(true);
 			}
 		}
@@ -854,7 +1197,7 @@
 						//grdPrdcrOgnCurntMng02.deleteRow(nRow);
 					}
 				}else{
-					//grdPrdcrOgnCurntMng02.deleteRow(nRow);
+					grdPrdcrOgnCurntMng02.deleteRow(nRow);
 				}
 			}
 		}
@@ -884,5 +1227,193 @@
 		SBUxMethod.openModal('modal-computWay');
 	}
 
+
+	var comComputWay01 = [];//산출식 선택
+	var comComputWay02 = [];//산출식 선택
+
+	/* 산출식 리스트 조회 */
+	const fn_searchComputWayList = async function(){
+		let yr = SBUxMethod.get('dtl-input-yr');
+
+		let postJsonPromise = gfn_postJSON("/pd/pcorm/selectComputWayList.do", {
+			yr : yr
+			,useYn : 'Y'
+		});
+		let data = await postJsonPromise;
+		try{
+			comComputWay01 = [];
+			comComputWay02 = [];
+			data.resultList.forEach((item, index) => {
+				let itemVO = {
+						'text'			: item.computWayDtl
+						, 'label'		: item.computWayDtl
+						, 'value'		: item.computWayCd
+						, 'computWayCd'	: item.computWayCd
+						, 'computWayDtl': item.computWayDtl
+						, 'fundArtcl' 	: item.fundArtcl
+						, 'alt' 		: item.alt
+				}
+				comComputWay01.push(itemVO);
+				comComputWay02.push(itemVO);
+
+			});
+			//console.log(comComputWay);
+
+			let computWayCdColIdx01 = grdPrdcrOgnCurntMng01.getColRef("computWayCd");//
+			grdPrdcrOgnCurntMng01.setColumnComboData(computWayCdColIdx01, comComputWay01);//콤보 데이터 동적 변경
+
+			let computWayCdColIdx02 = grdPrdcrOgnCurntMng02.getColRef("computWayCd");//
+			grdPrdcrOgnCurntMng02.setColumnComboData(computWayCdColIdx02, comComputWay02);//콤보 데이터 동적 변경
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+	//항목 값 변경 이벤트
+	const fn_valueChanged01 = async function(){
+		let datagrid = grdPrdcrOgnCurntMng01;
+		let nRow = datagrid.getRow();
+		let nCol = datagrid.getCol();
+
+		let computWayCdIdx = datagrid.getColRef("computWayCd");
+		let altIdx = datagrid.getColRef("alt");
+
+		if (!gfn_isEmpty(nCol) && nCol == computWayCdIdx) {
+			let selValue = datagrid.getCellData(nRow, nCol);
+			let chkInfo = _.find(comComputWay01, {computWayCd: selValue});
+			let altVal = chkInfo.alt;
+			datagrid.setCellData(nRow, altIdx, altVal, true);
+		}
+	}
+	//항목 값 변경 이벤트
+	const fn_valueChanged02 = async function(){
+		let datagrid = grdPrdcrOgnCurntMng02;
+		let nRow = datagrid.getRow();
+		let nCol = datagrid.getCol();
+
+		let computWayCdIdx = datagrid.getColRef("computWayCd");
+		let altIdx = datagrid.getColRef("alt");
+
+		if (!gfn_isEmpty(nCol) && nCol == computWayCdIdx) {
+			let selValue = datagrid.getCellData(nRow, nCol);
+			let chkInfo = _.find(comComputWay02, {computWayCd: selValue});
+			let altVal = chkInfo.alt;
+			datagrid.setCellData(nRow, altIdx, altVal, true);
+		}
+	}
+
+	//평가지표 리스트 저장
+	const fn_listSave01 = async function(){
+
+		let gridData = grdPrdcrOgnCurntMng01.getGridDataAll();
+		let saveList = [];
+
+		//그리드의 해드가 두줄이상인경우 for문 시작과 끝을 늘린만큼 늘려야함
+		for(var i=1; i<=gridData.length; i++ ){
+			let rowData = grdPrdcrOgnCurntMng01.getRowData(i);
+			let rowSts = grdPrdcrOgnCurntMng01.getRowStatus(i);
+			let delYn = rowData.delYn;
+
+			if(gfn_isEmpty(rowData.computWayCd)){
+				gfn_comAlert("W0001", "산출식");		//	W0001	{0}을/를 선택하세요.
+				grdPrdcrOgnCurntMng01.selectRow(i);
+				return false;
+			}else{
+				//seq 가 있으면 computWayCd 저장을 했을 것
+				if(gfn_isEmpty(rowData.scr) && gfn_isEmpty(rowData.seq)){
+					gfn_comAlert("W0002", "점수");		//	W0002	{0}을/를 입력하세요.
+					grdPrdcrOgnCurntMng01.selectRow(i);
+					return false;
+				}
+			}
+
+			rowData.rowSts = "I";
+			saveList.push(rowData);
+		}
+		if(saveList.length == 0){
+			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
+			return;
+		}
+
+		let regMsg = "저장 하시겠습니까?";
+		if(confirm(regMsg)){
+
+			let postJsonPromise = gfn_postJSON("/pd/pcorm/multiSaveActvtnFundList.do", saveList);
+			let data = await postJsonPromise;
+			try {
+				if (_.isEqual("S", data.resultStatus)) {
+					gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+					fn_dtlGridSearch();
+				} else {
+					alert(data.resultMessage);
+				}
+			} catch (e) {
+				if (!(e instanceof Error)) {
+					e = new Error(e);
+				}
+				console.error("failed", e.message);
+			}
+		}
+	}
+
+	//가감점 리스트 저장
+	const fn_listSave02 = async function(){
+
+		let gridData = grdPrdcrOgnCurntMng02.getGridDataAll();
+		let saveList = [];
+
+		//그리드의 해드가 두줄이상인경우 for문 시작과 끝을 늘린만큼 늘려야함
+		for(var i=1; i<=gridData.length; i++ ){
+			let rowData = grdPrdcrOgnCurntMng02.getRowData(i);
+			let rowSts = grdPrdcrOgnCurntMng02.getRowStatus(i);
+			let delYn = rowData.delYn;
+			if (delYn == 'N') {
+				if(gfn_isEmpty(rowData.fundArtcl)){
+					gfn_comAlert("W0001", "항목");		//	W0001	{0}을/를 선택하세요.
+					grdPrdcrOgnCurntMng02.selectRow(i);
+					return false;
+				}
+				if(gfn_isEmpty(rowData.computWayCd)){
+					gfn_comAlert("W0001", "산출식");		//	W0001	{0}을/를 선택하세요.
+					grdPrdcrOgnCurntMng02.selectRow(i);
+					return false;
+				}
+				if(gfn_isEmpty(rowData.scr)){
+					gfn_comAlert("W0002", "점수");		//	W0002	{0}을/를 입력하세요.
+					grdPrdcrOgnCurntMng02.selectRow(i);
+					return false;
+				}
+
+				rowData.rowSts = "I";
+				saveList.push(rowData);
+			}
+		}
+		if(saveList.length == 0){
+			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
+			return;
+		}
+
+		let regMsg = "저장 하시겠습니까?";
+		if(confirm(regMsg)){
+
+			let postJsonPromise = gfn_postJSON("/pd/pcorm/multiSaveActvtnFundList.do", saveList);
+			let data = await postJsonPromise;
+			try {
+				if (_.isEqual("S", data.resultStatus)) {
+					gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+					fn_dtlGridSearch();
+				} else {
+					alert(data.resultMessage);
+				}
+			} catch (e) {
+				if (!(e instanceof Error)) {
+					e = new Error(e);
+				}
+				console.error("failed", e.message);
+			}
+		}
+	}
 </script>
 </html>

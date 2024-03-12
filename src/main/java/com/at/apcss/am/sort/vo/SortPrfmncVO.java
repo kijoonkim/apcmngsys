@@ -48,11 +48,33 @@ public class SortPrfmncVO extends ComVO {
 	 * 등급코드
 	 */
 	private String grdCd;
+	private String grdCd1;
+	private String grdCd2;
+	private String grdCd3;
+	private String grdCd4;
+	private String grdCd5;
+	private String grdCd6;
+	private String grdCd7;
+	private String grdCd8;
+	private String grdCd9;
+	private String grdCd10;
+	private String grdCd11;
 
 	/**
 	 * 등급명
 	 */
 	private String grdNm;
+	private String grdNm1;
+	private String grdNm2;
+	private String grdNm3;
+	private String grdNm4;
+	private String grdNm5;
+	private String grdNm6;
+	private String grdNm7;
+	private String grdNm8;
+	private String grdNm9;
+	private String grdNm10;
+	private String grdNm11;
 
 	/**
 	 * 투입일자
@@ -60,13 +82,13 @@ public class SortPrfmncVO extends ComVO {
 	private String inptYmd;
 	private String inptYmdFrom;
 	private String inptYmdTo;
-	
+
 	/**
 	 * 투입순번
 	 */
 	private int inptSn;
 
-	
+
 	/**
 	 * 설비코드
 	 */
@@ -203,7 +225,7 @@ public class SortPrfmncVO extends ComVO {
 	 * 생산연도
 	 */
 	private String prdctnYr;
-	
+
 
 	/**
 	 * 원물창고
@@ -229,12 +251,34 @@ public class SortPrfmncVO extends ComVO {
 	 * 선별수량
 	 */
 	private int sortQntt;
+	private int sortQntt1;
+	private int sortQntt2;
+	private int sortQntt3;
+	private int sortQntt4;
+	private int sortQntt5;
+	private int sortQntt6;
+	private int sortQntt7;
+	private int sortQntt8;
+	private int sortQntt9;
+	private int sortQntt10;
+	private int sortQntt11;
 
 	/**
 	 * 선별중량
 	 */
 	private double sortWght;
-	
+	private double sortWght1;
+	private double sortWght2;
+	private double sortWght3;
+	private double sortWght4;
+	private double sortWght5;
+	private double sortWght6;
+	private double sortWght7;
+	private double sortWght8;
+	private double sortWght9;
+	private double sortWght10;
+	private double sortWght11;
+
 	/**
 	 * 투입수량
 	 */
@@ -244,7 +288,7 @@ public class SortPrfmncVO extends ComVO {
 	 * 투입중량
 	 */
 	private double inptWght;
-	
+
 	/*입고구분*/
 	private String wrhsSe;
 
@@ -267,11 +311,20 @@ public class SortPrfmncVO extends ComVO {
 	 * 포장자동등록 유무
 	 */
 	private String autoPckgInptYn;
-	
+
 	/**
 	 * 상품코드
 	 */
 	private String spmtPckgUnitCd;
+
+	private String pltno;
+    
+    private String nxtPckgno;
+    
+    private String grdQnttNm;
+    private String grdQnttWght;
+
+    private String sortRealDelY;
 	
 	/**
 	 * 표준등급
@@ -297,7 +350,7 @@ public class SortPrfmncVO extends ComVO {
 	 * 상품 표준등급
 	 */
 	private String gdsGrd;
-	
+
 	private List<GdsStdGrdVO> gdsStdGrdList;
 
 	public List<GdsStdGrdVO> getGdsStdGrdList() {
@@ -307,6 +360,6 @@ public class SortPrfmncVO extends ComVO {
 	public void setGdsStdGrdList(List<GdsStdGrdVO> gdsStdGrdList) {
 		this.gdsStdGrdList = gdsStdGrdList == null ? null : gdsStdGrdList.stream().collect(Collectors.toList());
 	}
-	
-	
+
+
 }

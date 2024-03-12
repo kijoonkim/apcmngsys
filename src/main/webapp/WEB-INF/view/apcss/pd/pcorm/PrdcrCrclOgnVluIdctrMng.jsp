@@ -329,35 +329,30 @@
 				</table>
 				<br>
 				<!--[pp] 검색결과 상세보기-->
+				<!--
 				<div class="ad_section_top">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
 								<span style="font-size:14px">▶생산자조직 -적합조직</span>
-								<!--
-								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
-								 -->
 							</li>
 						</ul>
 					</div>
-					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrOgnCurntMng03" style="height:200px; width: 100%;"></div>
 				</div>
+				 -->
+				<!--
 				<div class="ad_section_top">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
 								<span style="font-size:14px">▶생산자조직 -부적합조직</span>
-								<!--
-								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
-								 -->
 							</li>
 						</ul>
 					</div>
-					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrOgnCurntMng04" style="height:200px; width: 100%;"></div>
 				</div>
-
+				 -->
 				<div class="ad_section_top">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
@@ -393,7 +388,7 @@
 						<div style="margin-left: auto;">
 
 							<c:if test="${loginVO.userType ne '02'}">
-								<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="출자출하조직 총괄 저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave01"></sbux-button>
+								<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="출자출하조직 선정여부 저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave01"></sbux-button>
 							</c:if>
 
 						</div>
@@ -401,7 +396,7 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="font-size:14px">▶출자출하조직 -총괄</span>
+								<span style="font-size:14px">▶출자출하조직 -선정여부</span>
 								<!--
 								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
 								 -->
@@ -432,7 +427,7 @@
 						<div style="margin-left: auto;">
 
 							<c:if test="${loginVO.userType ne '02'}">
-								<sbux-button id="btnSaveFclt2" name="btnSaveFclt2 uitype="normal" text="통합조직 총괄 저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave02"></sbux-button>
+								<sbux-button id="btnSaveFclt2" name="btnSaveFclt2 uitype="normal" text="통합조직 선정여부 저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave02"></sbux-button>
 							</c:if>
 
 						</div>
@@ -440,7 +435,7 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="font-size:14px">▶통합조직 -총괄</span>
+								<span style="font-size:14px">▶통합조직 -선정여부</span>
 								<!--
 								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
 								 -->
@@ -487,8 +482,8 @@
 		await fn_fcltMngCreateGrid03();//생산자조직 적합리스트
 		await fn_fcltMngCreateGrid04();//생산자조직 부적합리스트
 		await fn_fcltMngCreateGrid05();//출자출하조직 부적합리스트
-		await fn_fcltMngCreateGrid06();//출자출하조직 총괄 리스트
-		await fn_fcltMngCreateGrid07();//통합조직 총괄
+		await fn_fcltMngCreateGrid06();//출자출하조직 선정여부 리스트
+		await fn_fcltMngCreateGrid07();//통합조직 선정여부
 
 		await fn_initSBSelect();
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
@@ -679,8 +674,8 @@
 				{caption: ["상세내역"], 	ref: 'slsCnsgnSlsAmt',		hidden : true},
 				{caption: ["상세내역"], 	ref: 'slsCnsgnSlsAmtRt',	hidden : true},
 
-				{caption: ["적합여부"], 	ref: 'orgStbltYn',   		type:'output',  width:'60px',    style:'text-align:center;'},
-				{caption: ["부적합 사유"], 	ref: 'stbltYnNm',   		type:'textarea',  width:'300px',    style:'padding-left:10px'
+				{caption: ["품목 적합여부"], 	ref: 'orgStbltYn',   		type:'output',  width:'90px',    style:'text-align:center;'},
+				{caption: ["품목 부적합 사유"], 	ref: 'stbltYnNm',   		type:'textarea',  width:'300px',    style:'padding-left:10px'
 					,typeinfo : {textareanewline : true},disabled:true },
 				{caption: ["상세내역"], 	ref: 'apoCd',   		hidden : true},
 				{caption: ["상세내역"], 	ref: 'apoSe',   		hidden : true},
@@ -711,11 +706,11 @@
 
 
 	function fn_excelDwnld07() {
-		grdPrdcrOgnCurntMng07.exportLocalExcel("통합조직 총괄", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+		grdPrdcrOgnCurntMng07.exportLocalExcel("통합조직 선정여부", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
 	}
 
 	/* Grid 화면 그리기 기능*/
-	//통합조직 총괄
+	//통합조직 선정여부
 	const fn_fcltMngCreateGrid07 = async function() {
 
 		let SBGridProperties = {};
@@ -735,14 +730,22 @@
 		SBGridProperties.columns = [
 				{caption: ["통합조직명"],	ref: 'corpNm',		type:'output',  width:'160px',    style:'text-align:center;'},
 				{caption: ["사업자번호"],	ref: 'brno',		type:'output',  width:'80px',    style:'text-align:center;'},
-				{caption: ["적합여부"], 	ref: 'stbltYn',		type:'output',  width:'60px',    style:'text-align:center;'},
+				{caption: ["통합조직 선정여부"], 	ref: 'stbltYn',		type:'output',  width:'60px',    style:'text-align:center;'},
+				{caption: ["적합품목"], 	ref: 'stbltItemList',	type:'output',  width:'160px',    style:'text-align:center;'},
+				/**/{caption: ["탈락사유구분"], 	ref: 'aa',	type:'output',  width:'160px',    style:'text-align:center;'},
+				/**/{caption: ["세부탈락사유"], 	ref: 'bb',	type:'output',  width:'160px',    style:'text-align:center;'},
+				/**/{caption: ["패널티"], 		ref: 'cc',	type:'output',  width:'160px',    style:'text-align:center;'},
 				{caption: ["자금신청액(천원)\n(출자출하조직 신청액 포함)"], 	ref: 'fundAplyAmtTot',	type:'output',  width:'160px',    style:'text-align:center;'
 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+				/**/{caption: ["자금신청액(천원)\n(탈락 출자출하조직 신청액은 제외)"], 	ref: 'dd',	type:'output',  width:'160px',    style:'text-align:center;'
+					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+				{caption: ["관리자용적합여부"], 	ref: 'dd',	type:'output',  width:'160px',    style:'text-align:center;'},
+				{caption: ["관리자용부적합사유"], 	ref: 'ee',	type:'output',  width:'160px',    style:'text-align:center;'},
 				{caption: ["금리"], 		ref: 'itrRt',			type:'input',  width:'80px',    style:'text-align:center;'
 					,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}},
 
 				{caption: ["상세내역"], 	ref: 'yr',   			hidden : true},
-				{caption: ["상세내역"], 	ref: 'stbltItemList',   hidden : true},
+				//{caption: ["상세내역"], 	ref: 'stbltItemList',   hidden : true},
 			];
 
 		grdPrdcrOgnCurntMng07 = _SBGrid.create(SBGridProperties);
@@ -818,9 +821,10 @@
 			{caption: ["상세내역"], 	ref: 'uoSpmtAmtRt',   		hidden : true},
 			{caption: ["상세내역"], 	ref: 'uoSpmtAmtTotRt',   	hidden : true},
 
-			{caption: ["적합여부"], 	ref: 'orgStbltYn',   	type:'output',  width:'60px',    style:'text-align:center;'},
-			{caption: ["부적합 사유"], 	ref: 'stbltYnNm',   	type:'textarea',  width:'300px',    style:'padding-left:10px'
-				,typeinfo : {textareanewline : true},disabled:true },
+			{caption: ["품목 적합여부"], 	ref: 'orgStbltYn',   	type:'output',  width:'90px',    style:'text-align:center;'},
+			//{caption: ["품목 부적합 사유"], 	ref: 'stbltYnNm',   	type:'textarea',  width:'300px',    style:'padding-left:10px'
+				//,typeinfo : {textareanewline : true},disabled:true },
+			{caption: ["상세내역"], 	ref: 'stbltYnNm',   		hidden : true},
 			{caption: ["상세내역"], 	ref: 'apoCd',   		hidden : true},
 			{caption: ["상세내역"], 	ref: 'apoSe',   		hidden : true},
 			//{caption: ["상세내역"], 	ref: 'brno',   			hidden : true},
@@ -906,8 +910,8 @@
 			{caption: ["상세내역"], 	ref: 'uoSpmtAmtRt',   		hidden : true},
 			{caption: ["상세내역"], 	ref: 'uoSpmtAmtTotRt',   	hidden : true},
 
-			{caption: ["적합여부"], 	ref: 'orgStbltYn',   	type:'output',  width:'60px',    style:'text-align:center;'},
-			{caption: ["부적합 사유"], 	ref: 'stbltYnNm',   	type:'textarea',  width:'300px',    style:'padding-left:10px'
+			{caption: ["품목 적합여부"], 	ref: 'orgStbltYn',   	type:'output',  width:'90px',    style:'text-align:center;'},
+			{caption: ["품목 부적합 사유"], 	ref: 'stbltYnNm',   	type:'textarea',  width:'300px',    style:'padding-left:10px'
 				,typeinfo : {textareanewline : true},disabled:true },
 			{caption: ["상세내역"], 	ref: 'apoCd',   		hidden : true},
 			{caption: ["상세내역"], 	ref: 'apoSe',   		hidden : true},
@@ -938,12 +942,12 @@
 
 
 	function fn_excelDwnld06() {
-		grdPrdcrOgnCurntMng06.exportLocalExcel("출자출하조직 총괄 리스트", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+		grdPrdcrOgnCurntMng06.exportLocalExcel("출자출하조직 선정여부 리스트", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
 	}
 
 
 	/* Grid 화면 그리기 기능*/
-	//출자출하조직 부적합 리스트
+	//출자출하조직 선정여부 리스트
 	const fn_fcltMngCreateGrid06 = async function() {
 		let SBGridProperties = {};
 		SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng06';
@@ -962,6 +966,15 @@
 			{caption: ["사업자번호"],	ref: 'brno',		type:'output',  width:'80px',    style:'text-align:center;'},
 			{caption: ["적합여부"], 	ref: 'stbltYn',		type:'output',  width:'60px',    style:'text-align:center;'},
 			{caption: ["적합품목"], 	ref: 'stbltItemList',	type:'output',  width:'160px',    style:'text-align:center;'},
+
+			/**/
+			{caption: ["탈락사유구분"], 	ref: 'aa',	type:'output',  width:'160px',    style:'text-align:center;'},
+			{caption: ["세부탈락사유"], 	ref: 'bb',	type:'output',  width:'160px',    style:'text-align:center;'},
+			{caption: ["패널티"], 		ref: 'cc',	type:'output',  width:'160px',    style:'text-align:center;'},
+			{caption: ["자금신청액(천원)"], 	ref: 'isoFundAplyAmt',	type:'output',  width:'160px',    style:'text-align:center;'},
+			/**/
+			{caption: ["관리자용적합여부"], 	ref: 'dd',	type:'output',  width:'160px',    style:'text-align:center;'},
+			{caption: ["관리자용부적합사유"], 	ref: 'ee',	type:'output',  width:'160px',    style:'text-align:center;'},
 			{caption: ["금리"], 		ref: 'itrRt',			type:'input',  width:'80px',    style:'text-align:center;'
 				,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}},
 
@@ -1045,10 +1058,11 @@
 			{caption: ["상세내역"], 	ref: 'ecSpmtRateA',   			hidden : true},
 			{caption: ["상세내역"], 	ref: 'ecSpmtRateB',   			hidden : true},
 
-			{caption: ["적합여부"], 		ref: 'orgStbltYn',   	type:'output',  width:'60px',    style:'text-align:center'},
-			{caption: ["부적합 사유"], 		ref: 'stbltYnNm',   	type:'textarea',  width:'300px',    style:'padding-left:10px'
-				,typeinfo : {textareanewline : true},disabled:true },
-			//{caption: ["비고"], 			ref: 'rmrk',   		type:'input',  width:'220px',    style:'text-align:center'},
+			{caption: ["품목 적합여부"], 		ref: 'orgStbltYn',   	type:'output',  width:'90px',    style:'text-align:center'},
+			//{caption: ["품목 부적합 사유"], 		ref: 'stbltYnNm',   	type:'textarea',  width:'300px',    style:'padding-left:10px'
+				//,typeinfo : {textareanewline : true},disabled:true },
+			{caption: ["상세내역"], 	ref: 'stbltYnNm',   			hidden : true},
+				//{caption: ["비고"], 			ref: 'rmrk',   		type:'input',  width:'220px',    style:'text-align:center'},
 
 			{caption: ["상세내역"], 	ref: 'yr',   			hidden : true},
 			{caption: ["상세내역"], 	ref: 'brno',			hidden : true},
@@ -1139,8 +1153,8 @@
 			{caption: ["상세내역"], 	ref: 'ecSpmtRateA',   			hidden : true},
 			{caption: ["상세내역"], 	ref: 'ecSpmtRateB',   			hidden : true},
 
-			{caption: ["적합여부"], 		ref: 'orgStbltYn',   	type:'output',  width:'60px',    style:'text-align:center'},
-			{caption: ["부적합 사유"], 		ref: 'stbltYnNm',   	type:'textarea',  width:'300px',    style:'padding-left:10px'
+			{caption: ["품목 적합여부"], 		ref: 'orgStbltYn',   	type:'output',  width:'90px',    style:'text-align:center'},
+			{caption: ["품목 부적합 사유"], 		ref: 'stbltYnNm',   	type:'textarea',  width:'300px',    style:'padding-left:10px'
 				,typeinfo : {textareanewline : true},disabled:true },
 			//{caption: ["비고"], 			ref: 'rmrk',   		type:'input',  width:'220px',    style:'text-align:center'},
 
@@ -1387,11 +1401,15 @@
 	}
 
 	const fn_dtlGridSearch = async function(){
+		let brno = SBUxMethod.get('dtl-input-brno');
+		if(gfn_isEmpty(brno)){
+			return false;
+		}
 		fn_dtlGridSearchUo();//통합조직
-		fn_dtlGridSearchUoTot();//통합조직 총괄
+		fn_dtlGridSearchUoTot();//통합조직 선정여부
 		fn_dtlGridSearchIso();//출자출하조직
-		fn_dtlGridSearchIsoTot();//출자출하조직 총괄
-		fn_dtlGridSearchFrmhs();//생산자조직
+		fn_dtlGridSearchIsoTot();//출자출하조직 선정여부
+		//fn_dtlGridSearchFrmhs();//생산자조직
 	}
 
 	//통합조직 조회
@@ -1451,7 +1469,7 @@
 		}
 	}
 
-	//통합조직 총괄
+	//통합조직 선정여부
 	const fn_dtlGridSearchUoTot = async function(){
 		let brno = SBUxMethod.get("dtl-input-brno");//
 		let yr = SBUxMethod.get("dtl-input-yr");//
@@ -1571,7 +1589,7 @@
 		}
 	}
 
-	//출자출하조직 총괄 조회
+	//출자출하조직 선정여부 조회
 	async function fn_dtlGridSearchIsoTot() {
 
 		let brno = SBUxMethod.get("dtl-input-brno");//
@@ -1976,7 +1994,7 @@
 		return stbltYnNmMng.join("\n");
 	}
 
-	//통합조직 총괄 저장
+	//통합조직 선정여부 저장
 	const fn_listSave01 = async function(){
 
 		let gridData = grdPrdcrOgnCurntMng06.getGridDataAll();
@@ -1992,7 +2010,7 @@
 				if(rowData.stbltYn == 'Y' ){
 					alert("통합조직 금리 작성이 필요 합니다");
 				}else{
-					gfn_comAlert("W0002", "금리");
+					gfn_comAlert("W0002", "금리");		//	W0002	{0}을/를 입력하세요.
 				}
 				grdPrdcrOgnCurntMng06.selectRow(i);
 				return false;
@@ -2027,7 +2045,7 @@
 		}
 	}
 
-	//통합조직 총괄 저장
+	//통합조직 선정여부 저장
 	const fn_listSave02 = async function(){
 
 		let gridData = grdPrdcrOgnCurntMng07.getGridDataAll();
@@ -2040,7 +2058,7 @@
 			let delYn = rowData.delYn;
 
 			if(gfn_isEmpty(rowData.itrRt)){
-				gfn_comAlert("W0002", "금리");
+				gfn_comAlert("W0002", "금리");		//	W0002	{0}을/를 입력하세요.
 				grdPrdcrOgnCurntMng07.selectRow(i);
 				return false;
 			}

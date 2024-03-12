@@ -10,6 +10,16 @@
     <%@ include file="../frame/inc/headerMeta.jsp" %>
     <%@ include file="../frame/inc/headerScript.jsp" %>
 	<title>메인</title>
+	<!-- Google tag (gtag.js) GA4 36 APC 정보지원시스템 2024.2. UA connected -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LP5C9T3VYN"></script>
+
+    <script>
+       window.dataLayer = window.dataLayer || [];
+       function gtag(){dataLayer.push(arguments);}
+       gtag(`js`, new Date());
+       gtag(`config`, `G-LP5C9T3VYN`); {`content_group`: `APC 정보지원시스템`});
+       gtag(`config`, `G-1C6GSRP5Z8`, {`content_group`: `APC 정보지원시스템`});
+    </script>
     <style>
         /*해당 레이아웃 템플릿 페이지를 표현하기위한 임의의 스타일 CSS 입니다.
         실작업시, 해당 프로젝트의 CSS 네이밍에 맞추어 재작업이 필요합니다.*/
@@ -724,9 +734,9 @@
 
 	let lv_sessUpdtUseYn;
 	let lv_interval = 3 * 60 * 1000;
-	
+
 	let timerId;
-	
+
 	const fn_clearBatch = () => {
 		if (!gfn_isEmpty(timerId)) {
 			clearInterval(timerId);
@@ -748,39 +758,39 @@
     		fn_clearBatch();
     		return;
     	}
-		
+
     	console.log("session refresh");
     	console.log(timerId);
     	fn_clearBatch();
-    	
+
     	if (gfn_isEmpty(gv_selectedApcCd)) {
     		return;
     	}
-    	
+
 		try {
 			const postJsonPromise = gfn_postJSON(
 						"/am/apc/selectApcEvrmntStng.do",
 						{apcCd: gv_selectedApcCd}
 					);
 	        const data = await postJsonPromise;
-			
+
 	        if (_.isEqual("S", data.resultStatus)) {
-	        	
+
 	        	if (_.isEqual("Y", data.resultMap.sessUpdtUseYn)) {
-	        		lv_sessUpdtUseYn = "Y";	
+	        		lv_sessUpdtUseYn = "Y";
 	        		document.querySelector("#lbl-autoRefresh").style.display = "";
-	        		
+
 	        		timerId = setInterval(() => {
 						fn_getSysInfo();
 					}, lv_interval);
-	        		
+
 	        	} else {
 					document.querySelector("#lbl-autoRefresh").style.display = "none";
 	        	}
         	} else {
         		lv_sessUpdtUseYn = "N";
         	}
-	        
+
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -790,25 +800,25 @@
 
 		}
 	}
-    
+
 	let lv_authRefresh = true;
 	const fn_setAutoRefresh = function() {
 		lv_authRefresh = !lv_authRefresh;
-		
+
 		const lblText = lv_authRefresh ? '🔒' : '🔓';
 		document.querySelector('#lbl-autoRefresh').innerText = lblText;
 		console.log(lv_authRefresh);
 	}
-    
+
     //only document
     window.addEventListener('DOMContentLoaded', function(e) {
-		
+
     	document.querySelector("#lbl-autoRefresh").style.display = "none";
         initMain();
         var iframe = document.getElementById('idxfrmJson');
         iframe.scrolling = 'auto';
     });
-    
+
     const fn_modalPopup = async function() {
 
         var userId 		=  '${loginVO.id}';
@@ -928,12 +938,12 @@
         		text : "대시보드",
         		prslType: "M1"
         }
-        
+
        	insertComLog(data);
 
         await fn_afterAddTab(menuNo);
         fn_setLeftMenu(menuJson[0].id, menuJson[0].text);
-        
+
         fn_getSysInfo();
     }
 

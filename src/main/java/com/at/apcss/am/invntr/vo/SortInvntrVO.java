@@ -290,6 +290,8 @@ public class SortInvntrVO extends ComVO {
 	private String spmtPckgUnitCd;
 
 
+	private String sortRealDelY;
+	
 	private List<InvntrDtlVO> excldInvntrList;
 	public List<InvntrDtlVO> getExcldInvntrList() {
 		return excldInvntrList == null ? null : excldInvntrList.stream().collect(Collectors.toList());

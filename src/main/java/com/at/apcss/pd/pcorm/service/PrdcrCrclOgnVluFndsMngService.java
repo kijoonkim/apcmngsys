@@ -27,7 +27,32 @@ public interface PrdcrCrclOgnVluFndsMngService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<PrdcrCrclOgnVluFndsMngVO> selectScoreList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO) throws Exception;
+	public List<PrdcrCrclOgnVluFndsMngVO> selectScoreList1(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO) throws Exception;
+
+	/**
+	 * 가감점 리스트 조회한다.
+	 * @param prdcrCrclOgnVluFndsMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluFndsMngVO> selectScoreList2(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO) throws Exception;
+
+	/**
+	 * 평가지표,가감점 단건 저장
+	 * @param prdcrCrclOgnVluFndsMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertActvtnFund(PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO) throws Exception;
+	/**
+	 * 평가지표,가감점 리스트 저장
+	 * @param prdcrCrclOgnVluFndsMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int multiSaveActvtnFundList(List<PrdcrCrclOgnVluFndsMngVO> PrdcrCrclOgnVluFndsMngVOList) throws Exception;
+
+
 
 	/**
 	 * 산출식 관리 팝업 - 산출식 리스트 조회
@@ -37,12 +62,12 @@ public interface PrdcrCrclOgnVluFndsMngService {
 	 */
 	public List<PrdcrCrclOgnVluFndsMngVO> selectComputWayList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO) throws Exception;
 	/**
-	 * 산출식 관리 팝업 - 산출식 리스트 단건 저장
+	 * 산출식 관리 팝업 - 산출식 단건 저장
 	 * @param prdcrCrclOgnVluFndsMngVO
 	 * @return
 	 * @throws Exception
 	 */
-	public int insertComputWayList(PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO) throws Exception;
+	public int insertComputWay(PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO) throws Exception;
 	/**
 	 * 산출식 관리 팝업 - 산출식 리스트 리스트 저장
 	 * @param prdcrCrclOgnVluFndsMngVO

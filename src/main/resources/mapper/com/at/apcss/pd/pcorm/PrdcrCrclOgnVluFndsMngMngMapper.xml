@@ -13,14 +13,16 @@
 <mapper namespace="com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper">
 
 	<!-- 활성화 자금 리스트 -->
-	<select id="selectScoreList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
+	<select id="selectScoreList1" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
 		SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectScoreList */
 			EAM.YR
+			,ETS.SEQ
 			,EAM.BRNO
 			,'1' AS FUND_ARTCL /*전문품목  총취급액*/
 			,ETS.COMPUT_WAY_CD
-			,(SELECT ALT FROM TB_EV_ACTVTN_FUND_COMPUT_WAY WHERE YR = EAM.YR AND FUND_ARTCL = '1') AS ALT
-			,EAM.SCR
+			,(SELECT ALT FROM TB_EV_ACTVTN_FUND_COMPUT_WAY WHERE YR = EAM.YR AND FUND_ARTCL = '1' AND COMPUT_WAY_CD = ETS.COMPUT_WAY_CD) AS ALT
+			,EAM.COMPUT_WAY_RSLT
+			,ETS.COMPUT_WAY_CD
 		FROM (SELECT
 					YR
 					,BRNO
@@ -31,9 +33,9 @@
 												/ NULLIF(PERC_CONT,0)
 												/  NULLIF(SLS_TOT_AMT_TOT,0)
 											)
-								,0),2)*50
+								,0),2)* TO_NUMBER(NVL((SELECT ALT FROM TB_EV_ACTVTN_FUND WHERE YR = TOTAL.YR AND BRNO = TOTAL.BRNO AND FUND_ARTCL = '1'),0))
 						, 50) ,0)
-					)AS SCR
+					)AS COMPUT_WAY_RSLT
 				FROM
 				(SELECT
 					ITEM.BRNO
@@ -135,11 +137,10 @@
 						AND ITEM.CTGRY_CD = TOTC.CTGRY_CD(+)
 						AND SLS_TOT_AMT_TOT IS NOT NULL
 						AND SLS_TOT_AMT_TOT > 0
-					)
+					) TOTAL
 					WHERE 1=1
 					  AND BRNO = #{brno}
 					GROUP BY YR , BRNO
-					ORDER BY SCR DESC
 			) EAM
 			, (SELECT * FROM TB_EV_ACTVTN_FUND WHERE BRNO = #{brno} AND YR = #{yr} AND FUND_ARTCL = '1') ETS
 		WHERE 1=1
@@ -149,11 +150,13 @@
 
 		SELECT
 			EAM.YR
+			,ETS.SEQ
 			,EAM.BRNO
 			,'2' AS FUND_ARTCL /*전문품목  전속취급율*/
 			,ETS.COMPUT_WAY_CD
-			,ETS.ALT
-			,EAM.SCR
+			,(SELECT ALT FROM TB_EV_ACTVTN_FUND_COMPUT_WAY WHERE YR = EAM.YR AND FUND_ARTCL = '2' AND COMPUT_WAY_CD = ETS.COMPUT_WAY_CD) AS ALT
+			,EAM.COMPUT_WAY_RSLT
+			,ETS.SCR
 		FROM (SELECT
 					YR
 					,BRNO
@@ -164,11 +167,11 @@
 												*  ( NVL(SLS_TOT_AMT,0) + NVL(ONLN_WHLSL_MRKT_AMT,0) )
 												/ NULLIF(PERC_CONT,0)
 												/ NULLIF(SLS_TOT_AMT_TOT,0)
-												* 50
+												* TO_NUMBER(NVL((SELECT ALT FROM TB_EV_ACTVTN_FUND WHERE YR = TOTAL.YR AND BRNO = TOTAL.BRNO AND FUND_ARTCL = '1'),0))
 												)
 									,0),2)
 						, 50) ,0)
-					)AS SCR
+					)AS COMPUT_WAY_RSLT
 				FROM
 				(SELECT
 					ITEM.BRNO
@@ -287,32 +290,34 @@
 						AND ITEM.CTGRY_CD = TOTC.CTGRY_CD(+)
 						AND SLS_TOT_AMT_TOT IS NOT NULL
 						AND SLS_TOT_AMT_TOT > 0
-					)
+					) TOTAL
 					WHERE 1=1
 					  AND BRNO = #{brno}
 					GROUP BY YR , BRNO
-					ORDER BY SCR DESC
 			) EAM
 			, (SELECT * FROM TB_EV_ACTVTN_FUND WHERE BRNO = #{brno} AND YR = #{yr} AND FUND_ARTCL = '2') ETS
 		WHERE 1=1
 			AND EAM.BRNO = ETS.BRNO(+)
+	</select>
 
-		UNION ALL
-
-		SELECT
+	<select id="selectScoreList2" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
+		SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectScoreList */
 			ETS.YR
+			,ETS.SEQ
 			,ETS.BRNO
 			,ETS.FUND_ARTCL
 			,ETS.COMPUT_WAY_CD
-			,ETS.ALT
+			,ETS.COMPUT_WAY_RSLT
+			,(SELECT ALT FROM TB_EV_ACTVTN_FUND_COMPUT_WAY WHERE YR = ETS.YR AND FUND_ARTCL = ETS.FUND_ARTCL AND COMPUT_WAY_CD = ETS.COMPUT_WAY_CD) AS ALT
 			,ETS.SCR
-		FROM
-			TB_EV_ACTVTN_FUND ETS
+		FROM TB_EV_ACTVTN_FUND ETS
 		WHERE 1=1
-			AND FUND_ARTCL = '3'
-			AND BRNO = #{brno}
-			AND YR = #{yr}
+		  AND BRNO = #{brno}
+		  AND YR = #{yr}
+		  AND FUND_ARTCL in ('3','4')
+		ORDER BY FUND_ARTCL , COMPUT_WAY_CD
 	</select>
+
 	<!-- 산출식 관리 리스트 -->
 	<select id="selectComputWayList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
 		SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectComputWayList */
@@ -323,19 +328,24 @@
 			, FUND_ARTCL
 			, ALT
 			, RMRK
-			, USE_YN
+			, NVL(USE_YN,'N') AS USE_YN
 			, DEL_YN
 		FROM TB_EV_ACTVTN_FUND_COMPUT_WAY
 		WHERE 1=1
 		  AND YR = #{yr}
+
 		<if test='fundArtcl != null and fundArtcl != ""'>
 		  AND FUND_ARTCL = #{fundArtcl}
 		</if>
+		<if test='useYn != null and useYn != ""'>
+		  AND USE_YN = #{useYn}
+		</if>
+		ORDER BY FUND_ARTCL , COMPUT_WAY_CD
 	</select>
 
-	<insert id="insertComputWayList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
+	<insert id="insertComputWay" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
 		<![CDATA[
-		MERGE INTO TB_EV_ACTVTN_FUND_COMPUT_WAY CLT  /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.insertComputWayList */
+		MERGE INTO TB_EV_ACTVTN_FUND_COMPUT_WAY CLT  /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.insertComputWay */
 		USING DUAL
 			ON (
 					CLT.YR		= #{yr}
@@ -366,6 +376,7 @@
 			 INSERT
 					(
 						YR
+					  , BRNO
 					  , COMPUT_WAY_CD
 					  , COMPUT_WAY_DTL
 					  , FUND_ARTCL
@@ -384,11 +395,82 @@
 				VALUES
 					(
 						#{yr}
+					  , #{brno}
 					  , #{computWayCd}
 					  , #{computWayDtl}
 					  , #{fundArtcl}
 					  , #{alt}
 					  , #{useYn}
+					  , #{rmrk}
+
+					  , SYSDATE
+					  , #{sysFrstInptUserId}
+					  , #{sysFrstInptPrgrmId}
+					  , SYSDATE
+					  , #{sysLastChgUserId}
+					  , #{sysLastChgPrgrmId}
+					)
+		]]>
+	</insert>
+
+	<insert id="insertActvtnFund" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
+		<![CDATA[
+		MERGE INTO TB_EV_ACTVTN_FUND CLT  /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.insertActvtnFund */
+		USING DUAL
+			ON (
+					CLT.YR		= #{yr}
+				AND CLT.SEQ		= #{seq}
+				)
+		WHEN MATCHED THEN
+				 UPDATE
+					   SET
+						  COMPUT_WAY_CD			= #{computWayCd}
+						, COMPUT_WAY_RSLT		= #{computWayRslt}
+						, FUND_ARTCL			= #{fundArtcl}
+						, ALT					= #{alt}
+						, SCR					= #{scr}
+
+						, RMRK					= #{rmrk}
+
+						, SYS_LAST_CHG_DT		= SYSDATE
+						, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+						, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+				]]>
+				<![CDATA[
+
+					WHERE 1=1
+					  AND CLT.YR		= #{yr}
+					  AND CLT.SEQ		= #{seq}
+
+		WHEN NOT MATCHED THEN
+			 INSERT
+					(
+						YR
+					  , BRNO
+					  , COMPUT_WAY_CD
+					  , COMPUT_WAY_RSLT
+					  , FUND_ARTCL
+					  , ALT
+					  , SCR
+					  , RMRK
+
+					  , SYS_FRST_INPT_DT
+					  , SYS_FRST_INPT_USER_ID
+					  , SYS_FRST_INPT_PRGRM_ID
+					  , SYS_LAST_CHG_DT
+					  , SYS_LAST_CHG_USER_ID
+					  , SYS_LAST_CHG_PRGRM_ID
+
+					)
+				VALUES
+					(
+						#{yr}
+					  , #{brno}
+					  , #{computWayCd}
+					  , #{computWayRslt}
+					  , #{fundArtcl}
+					  , #{alt}
+					  , #{scr}
 					  , #{rmrk}
 
 					  , SYSDATE

@@ -72,8 +72,75 @@
 
 }
 
+.dtl-info {
+	font-size: 16px;
+}
+
+.spn-title {
+	font-size: 24px;
+}
+
+.accordion {
+  background-color: #eee;
+  color: #333;
+  cursor: pointer;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 24px;
+  transition: 0.4s;
+}
+
+.active, .accordion:hover {
+  background-color: #ccc; 
+}
+
+.panel {
+	padding: 10px 0px;
+	display: none;
+	background-color: white;
+	overflow: hidden;
+	font-size: 20px;
+}
+
+.panel ul {
+
+}
+
+.panel ul>li {
+	cursor: pointer;
+	font-size: 20px;
+	margin: 5px 0px;
+}
+
+.panel ul>li:hover {
+	font-weight: bold;
+	font-size: 24px;
+	background-color: #ddd;
+}
+.panel ul>li:hover a {
+
+}
+
+#ul-sortRslt {
+	padding: 5px 10px;
+}
+
+/*
+li:hover{background: black;}
+li:hover a { color: white; font-weight: bold }
 
 
+.panel ul>li:nth-child(odd){ 
+  background-color: #fff;
+}
+
+.panel ul>li:nth-child(even){
+  background-color: #eee;
+}
+*/
 </style>
 </head>
 <body oncontextmenu="return false">
@@ -104,6 +171,14 @@
 						onclick="fn_save"
 					></sbux-button>
 					<sbux-button
+						id="btn-search"
+						name="btn-search"
+						uitype="normal"
+						text="조회"
+						class="btn btn-sm btn-outline-danger btn-mbl"
+						onclick="fn_searchSort"
+					></sbux-button>
+					<sbux-button
 						id="btnClose"
 						name="btnClose"
 						uitype="normal"
@@ -117,6 +192,8 @@
 						    <label for="srch-chk-autoPrint">자동출력</label>
 					    </p>
 					</div>
+					
+					
 				</div>
 			</div>
 			<div class="box-body">
@@ -137,6 +214,22 @@
 						<col style="width: 10%">
 					</colgroup>
 					<tbody>
+						<tr class="tr-sortno" style="display:none;">
+							<th scope="row" class="th_bg th-mbl">
+								<span style="color:red">(실적변경)선별번호
+							</th>
+							<td colspan="4" class="td_input" style="border-right:hidden;">
+								<sbux-input
+									id="dtl-inp-sortno"
+									name="dtl-inp-sortno"
+									uitype="text"
+									class="inpt-mbl"
+									placeholder=""
+									readonly
+								></sbux-input>
+							</td>
+							<td colspan="6"></td>
+						</tr>
 						<tr>
 							<th scope="row" class="th_bg th-mbl">
 								<span class="data_required" ></span>선별기
@@ -769,12 +862,252 @@
 							</td>
 							<td colspan="3"></td>
 						</tr>
+						<tr class="tr-grd6">
+							<th scope="row" class="th_bg th-mbl">
+								<span></span>
+								<span class="spn-grd6"></span>
+							</th>
+							<td class="td_input" style="border-right:hidden;">
+								<sbux-input
+									id="dtl-inp-qntt6"
+									name="dtl-inp-qntt6"
+									uitype="text"
+									class="inpt_data_reqed inpt-mbl"
+									placeholder=""
+									title=""
+									autocomplete="off"
+									permit-keycodes-set="num"
+									onchange="fn_onChangeSortQntt"
+									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+								></sbux-input>
+							</td>
+							<td colspan="2" class="td_input" style="border-right:hidden;">
+								<sbux-input
+									id="dtl-inp-wght6"
+									name="dtl-inp-wght6"
+									uitype="text"
+									class="input-sm-ast inpt-mbl dsp-wght"
+									placeholder=""
+									title=""
+									autocomplete="off"
+									permit-keycodes-set="num"
+									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+								></sbux-input>
+							</td>
+							<td colspan="2" class="td_input" style="border-right:hidden;">
+								<sbux-select
+									id="dtl-slt-spmtPckgUnitCd6"
+									name="dtl-slt-spmtPckgUnitCd6"
+									uitype="single"
+									class="input-sm-ast inpt_data_reqed inpt-mbl"
+									jsondata-ref="jsonSpmtPckgUnit"
+									unselected-text="= 포장안함 ="
+									jsondata-text="spmtPckgUnitNm"
+									jsondata-value="spmtPckgUnitCd"
+								></sbux-select>
+							</td>
+							<td colspan="3"></td>
+						</tr>
+						<tr class="tr-grd7">
+							<th scope="row" class="th_bg th-mbl">
+								<span></span>
+								<span class="spn-grd7"></span>
+							</th>
+							<td class="td_input" style="border-right:hidden;">
+								<sbux-input
+									id="dtl-inp-qntt7"
+									name="dtl-inp-qntt7"
+									uitype="text"
+									class="inpt_data_reqed inpt-mbl"
+									placeholder=""
+									title=""
+									autocomplete="off"
+									permit-keycodes-set="num"
+									onchange="fn_onChangeSortQntt"
+									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+								></sbux-input>
+							</td>
+							<td colspan="2" class="td_input" style="border-right:hidden;">
+								<sbux-input
+									id="dtl-inp-wght7"
+									name="dtl-inp-wght7"
+									uitype="text"
+									class="input-sm-ast inpt-mbl dsp-wght"
+									placeholder=""
+									title=""
+									autocomplete="off"
+									permit-keycodes-set="num"
+									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+								></sbux-input>
+							</td>
+							<td colspan="2" class="td_input" style="border-right:hidden;">
+								<sbux-select
+									id="dtl-slt-spmtPckgUnitCd7"
+									name="dtl-slt-spmtPckgUnitCd7"
+									uitype="single"
+									class="input-sm-ast inpt_data_reqed inpt-mbl"
+									jsondata-ref="jsonSpmtPckgUnit"
+									unselected-text="= 포장안함 ="
+									jsondata-text="spmtPckgUnitNm"
+									jsondata-value="spmtPckgUnitCd"
+								></sbux-select>
+							</td>
+							<td colspan="3"></td>
+						</tr>
+						<tr class="tr-grd8">
+							<th scope="row" class="th_bg th-mbl">
+								<span></span>
+								<span class="spn-grd8"></span>
+							</th>
+							<td class="td_input" style="border-right:hidden;">
+								<sbux-input
+									id="dtl-inp-qntt8"
+									name="dtl-inp-qntt8"
+									uitype="text"
+									class="inpt_data_reqed inpt-mbl"
+									placeholder=""
+									title=""
+									autocomplete="off"
+									permit-keycodes-set="num"
+									onchange="fn_onChangeSortQntt"
+									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+								></sbux-input>
+							</td>
+							<td colspan="2" class="td_input" style="border-right:hidden;">
+								<sbux-input
+									id="dtl-inp-wght8"
+									name="dtl-inp-wght8"
+									uitype="text"
+									class="input-sm-ast inpt-mbl dsp-wght"
+									placeholder=""
+									title=""
+									autocomplete="off"
+									permit-keycodes-set="num"
+									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+								></sbux-input>
+							</td>
+							<td colspan="2" class="td_input" style="border-right:hidden;">
+								<sbux-select
+									id="dtl-slt-spmtPckgUnitCd8"
+									name="dtl-slt-spmtPckgUnitCd8"
+									uitype="single"
+									class="input-sm-ast inpt_data_reqed inpt-mbl"
+									jsondata-ref="jsonSpmtPckgUnit"
+									unselected-text="= 포장안함 ="
+									jsondata-text="spmtPckgUnitNm"
+									jsondata-value="spmtPckgUnitCd"
+								></sbux-select>
+							</td>
+							<td colspan="3"></td>
+						</tr>
+						<tr class="tr-grd9">
+							<th scope="row" class="th_bg th-mbl">
+								<span></span>
+								<span class="spn-grd9"></span>
+							</th>
+							<td class="td_input" style="border-right:hidden;">
+								<sbux-input
+									id="dtl-inp-qntt9"
+									name="dtl-inp-qntt9"
+									uitype="text"
+									class="inpt_data_reqed inpt-mbl"
+									placeholder=""
+									title=""
+									autocomplete="off"
+									permit-keycodes-set="num"
+									onchange="fn_onChangeSortQntt"
+									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+								></sbux-input>
+							</td>
+							<td colspan="2" class="td_input" style="border-right:hidden;">
+								<sbux-input
+									id="dtl-inp-wght9"
+									name="dtl-inp-wght9"
+									uitype="text"
+									class="input-sm-ast inpt-mbl dsp-wght"
+									placeholder=""
+									title=""
+									autocomplete="off"
+									permit-keycodes-set="num"
+									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+								></sbux-input>
+							</td>
+							<td colspan="2" class="td_input" style="border-right:hidden;">
+								<sbux-select
+									id="dtl-slt-spmtPckgUnitCd9"
+									name="dtl-slt-spmtPckgUnitCd9"
+									uitype="single"
+									class="input-sm-ast inpt_data_reqed inpt-mbl"
+									jsondata-ref="jsonSpmtPckgUnit"
+									unselected-text="= 포장안함 ="
+									jsondata-text="spmtPckgUnitNm"
+									jsondata-value="spmtPckgUnitCd"
+								></sbux-select>
+							</td>
+							<td colspan="3"></td>
+						</tr>
+						<tr class="tr-grd10">
+							<th scope="row" class="th_bg th-mbl">
+								<span></span>
+								<span class="spn-grd10"></span>
+							</th>
+							<td class="td_input" style="border-right:hidden;">
+								<sbux-input
+									id="dtl-inp-qntt10"
+									name="dtl-inp-qntt10"
+									uitype="text"
+									class="inpt_data_reqed inpt-mbl"
+									placeholder=""
+									title=""
+									autocomplete="off"
+									permit-keycodes-set="num"
+									onchange="fn_onChangeSortQntt"
+									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+								></sbux-input>
+							</td>
+							<td colspan="2" class="td_input" style="border-right:hidden;">
+								<sbux-input
+									id="dtl-inp-wght10"
+									name="dtl-inp-wght10"
+									uitype="text"
+									class="input-sm-ast inpt-mbl dsp-wght"
+									placeholder=""
+									title=""
+									autocomplete="off"
+									permit-keycodes-set="num"
+									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+								></sbux-input>
+							</td>
+							<td colspan="2" class="td_input" style="border-right:hidden;">
+								<sbux-select
+									id="dtl-slt-spmtPckgUnitCd10"
+									name="dtl-slt-spmtPckgUnitCd10"
+									uitype="single"
+									class="input-sm-ast inpt_data_reqed inpt-mbl"
+									jsondata-ref="jsonSpmtPckgUnit"
+									unselected-text="= 포장안함 ="
+									jsondata-text="spmtPckgUnitNm"
+									jsondata-value="spmtPckgUnitCd"
+								></sbux-select>
+							</td>
+							<td colspan="3"></td>
+						</tr>
 					</tbody>
 				</table>
+				<div class="dtl-info">
+					<button class="accordion">선별실적</button>
+					<div class="panel">
+						<ul id="ul-sortRslt">
+						</ul>
+					</div>
+				</div>
+				
+				<!-- 최근 실적 조회구간 -->
+				
 				<!--[pp] //검색 -->
 			</div>
 			<!--[pp] //검색결과 -->
-		</div>
+			
 		</div>
 	</section>
 
@@ -821,7 +1154,8 @@
 	let lv_cntOptnGrd = 0;
 
 	const grdList = [
-		'1', '2', '3', '4', '5'
+		'1', '2', '3', '4', '5', 
+		'6', '7', '8', '9', '10'
 	];
 
 	const sortGrdObj = {
@@ -896,7 +1230,103 @@
 			}
 		}
 	}
+	
+	
+	const fn_showSortno = function(sortno) {
+		document.querySelectorAll(".tr-sortno").forEach((el) => {
+			el.style.display = "";
+		});
+		SBUxMethod.set("dtl-inp-sortno", sortno);
+	}
+	
+	const fn_hideSortno = function() {
+		document.querySelectorAll(".tr-sortno").forEach((el) => {
+			el.style.display = "none";
+		});
+		SBUxMethod.set("dtl-inp-sortno", "");
+	}
+	
+	let sortList = [];
+	
+	
+	const fn_view = async function(idx) {
+		
+		
+		
+		if (idx >= sortList.length) {
+			return;
+		}
+		
+		const sort = sortList[idx];
+		
+		SBUxMethod.set("dtl-inp-pltno", sort.pltno);
 
+		SBUxMethod.set("dtl-inp-wrhsno", sort.wrhsno);
+		SBUxMethod.set("dtl-inp-invntrQntt", sort.inptQntt);
+		SBUxMethod.set("dtl-inp-invntrWght", sort.inptWght);
+
+		SBUxMethod.set("dtl-inp-itemCd", sort.itemCd);
+		SBUxMethod.set("dtl-inp-itemNm", sort.itemNm);
+		SBUxMethod.set("dtl-inp-vrtyCd", sort.vrtyCd);
+		SBUxMethod.set("dtl-inp-vrtyNm", sort.vrtyNm);
+		SBUxMethod.set("dtl-inp-prdcrCd", sort.rprsPrdcrCd);
+		SBUxMethod.set("dtl-inp-prdcrNm", sort.rprsPrdcrNm);
+		SBUxMethod.set("dtl-lbl-warehouseSeNm", sort.warehouseSeCd);
+		let invntrInfo = " ";
+
+		invntrInfo += "투입: " + sort.inptQntt.toLocaleString();
+
+		if (!_.isEqual(lv_rawMtrVlType, "QNTT")) {
+			invntrInfo += "    " + sort.inptWght.toLocaleString() + " Kg ";
+		}
+		invntrInfo += "   선별: " + sort.sortQntt.toLocaleString();
+		invntrInfo += " ( " + sort.grdQnttNm + " )";
+		
+		SBUxMethod.set("dtl-lbl-invntr", invntrInfo);
+
+      	await fn_setGrdUpdt(sort.itemCd, sort.vrtyCd);
+
+      	fn_getApcSpcfct(sort.itemCd);
+      	fn_getSpmtPckgUnit(sort.itemCd, sort.vrtyCd);
+
+      	SBUxMethod.set("dtl-slt-spcfctCd", sort.spcfctCd);
+      	
+      	
+      	if (!gfn_isEmpty(sort.grdQnttWght)) {
+      		
+      		sort.grdQnttWght.split(',').forEach((item) => {
+      			
+				const grd = item.split(':');
+				
+				const grdCd = grd[0];
+				const qntt = grd[1];
+				const wght = grd[2];
+				
+				for ( let i=0; i<jsonFxngGrd.length; i++ ) {
+					const stdGrd = jsonFxngGrd[i];
+					if (_.isEqual(grdCd, stdGrd.grdCd)) {
+						const grdId = grdList[i];
+						SBUxMethod.set("dtl-inp-qntt" + grdId, qntt);
+						SBUxMethod.set("dtl-inp-wght" + grdId, wght);
+						break;
+					}
+				}
+			});
+		}
+      	
+      	fn_showSortno(sort.sortno);
+      	
+      	fn_updateSortQntt();
+      	
+      	// focus  	        	
+		if (jsonOptnGrd.length > 0) {
+			SBUxMethod.focus('dtl-inp-qnttEx1');
+		} else {
+			SBUxMethod.focus('dtl-inp-qntt1');
+		}
+		
+	}
+	
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
 
@@ -906,7 +1336,7 @@
 	  			fn_searchInvntr();
 	  		}
   		});
-
+    	
 		document.querySelectorAll(".sbux-pik-icon-btn").forEach((el) => {
     		el.style.width = "50px";
     		el.style.height = "50px";
@@ -916,6 +1346,18 @@
     		//sbux-pik-icon
     	});
 
+		const accs = document.querySelectorAll(".accordion").forEach((el) => {
+			el.addEventListener("click", function() {
+				this.classList.toggle("active");
+			    let panel = this.nextElementSibling;
+			    if (panel.style.display === "block") {
+			      	panel.style.display = "none";
+			    } else {
+			      	panel.style.display = "block";
+			    }
+			  });
+		});
+		
     	fn_init();
     });
 
@@ -925,6 +1367,8 @@
 	 */
     const fn_reset = function() {
 
+    	fn_hideSortno();
+    	
     	//if (!SBUxMethod.get("dtl-chk-fxngFclt")["dtl-chk-fxngFclt"]) {
     	if (!document.querySelector('#dtl-chk-fxngFclt').checked) {
     		SBUxMethod.set("dtl-slt-fcltCd", null);
@@ -963,7 +1407,7 @@
 
 		sortGrdObj.hide();
 
-		for ( let i=0; i<5; i++ ) {
+		for ( let i=0; i<10; i++ ) {
 			const grdId = grdList[i];
 			const qnttId = "dtl-inp-qntt" + grdId;
 			const wghtId = "dtl-inp-wght" + grdId;
@@ -984,17 +1428,18 @@
 
 		SBUxMethod.focus("dtl-inp-pltno");
 
+		fn_searchSort();
     }
 
 	/**
 	 * @name fn_getStdGrd
 	 * @description 표준등급 json set
 	 */
-    const fn_getStdGrd = async function(_itemCd) {
-		await gStdGrdObj.init(gv_selectedApcCd, _GRD_SE_CD_SORT, _itemCd);
+    const fn_getStdGrd = async function(_itemCd, _vrtyCd) {
+		await gStdGrdObj.init(gv_selectedApcCd, _GRD_SE_CD_SORT, _itemCd, _vrtyCd);
 	}
 
-	const fn_setGrd = async function(_itemCd) {
+	const fn_setGrd = async function(_itemCd, _vrtyCd) {
 
 		jsonOptnGrd.length = 0;
 		jsonFxngGrd.length = 0;
@@ -1006,7 +1451,7 @@
 			return;
 		}
 
-		await fn_getStdGrd(_itemCd);
+		await fn_getStdGrd(_itemCd, _vrtyCd);
 
 		if (gjsonStdGrdObj_1 == 0) {
 			return;
@@ -1028,20 +1473,76 @@
 				document.querySelector('.tr-grdEx' + grdId).style.display = "";
 				//document.querySelector('.spn-grd' + grdId).innerText = gjsonStdGrdObj_1[i].grdNm;
 			}
+			SBUxMethod.set("dtl-inp-qnttEx" + grdId, null);
+			SBUxMethod.set("dtl-inp-wghtEx" + grdId, null);
 		}
 
-		for ( let i=0; i<5; i++ ) {
+		for ( let i=0; i<10; i++ ) {
 			const grdId = grdList[i];
 			document.querySelector('.tr-grd' + grdId).style.display = "none";
 			if (i < jsonFxngGrd.length) {
 				document.querySelector('.tr-grd' + grdId).style.display = "";
 				document.querySelector('.spn-grd' + grdId).innerText = jsonFxngGrd[i].grdNm;
 			}
+			SBUxMethod.set("dtl-inp-qntt" + grdId, null);
+			SBUxMethod.set("dtl-inp-wght" + grdId, null);
 		}
 
+		SBUxMethod.set("dtl-inp-sortQntt", null);
+		SBUxMethod.set("dtl-inp-sortWght", null);
+		
 		sortGrdObj.show();
 	}
 
+	const fn_setGrdUpdt = async function(_itemCd, _vrtyCd) {
+
+		jsonOptnGrd.length = 0;
+		jsonFxngGrd.length = 0;
+		lv_cntOptnGrd = 0;
+
+		sortGrdObj.hide();
+
+		if (gfn_isEmpty(_itemCd)) {
+			return;
+		}
+
+		await fn_getStdGrd(_itemCd, _vrtyCd);
+
+		if (gjsonStdGrdObj_1 == 0) {
+			return;
+		} else {
+			gjsonStdGrdObj_1.forEach((grd) => {
+				jsonFxngGrd.push(grd);
+			});
+		}
+
+		for ( let i=0; i<3; i++ ) {
+			const grdId = grdList[i];
+			SBUxMethod.refresh("dtl-slt-grdEx" + grdId);
+			document.querySelector('.tr-grdEx' + grdId).style.display = "none";
+
+			SBUxMethod.set("dtl-inp-qnttEx" + grdId, null);
+			SBUxMethod.set("dtl-inp-wghtEx" + grdId, null);
+		}
+
+		for ( let i=0; i<10; i++ ) {
+			const grdId = grdList[i];
+			document.querySelector('.tr-grd' + grdId).style.display = "none";
+			SBUxMethod.set("dtl-inp-qntt" + grdId, null);
+			SBUxMethod.set("dtl-inp-wght" + grdId, null);
+			if (i < jsonFxngGrd.length) {
+				document.querySelector('.tr-grd' + grdId).style.display = "";
+				document.querySelector('.spn-grd' + grdId).innerText = jsonFxngGrd[i].grdNm;
+			}
+		}
+
+		SBUxMethod.set("dtl-inp-sortQntt", null);
+		SBUxMethod.set("dtl-inp-sortWght", null);
+		
+		sortGrdObj.show();
+	}
+	
+	
 	const fn_addGrd = function(idx) {
 		const grdId = grdList[idx];
 		SBUxMethod.refresh("dtl-slt-grdEx" + grdId);
@@ -1076,7 +1577,7 @@
 		let totalQntt = 0;
 		let totalWght = 0;
 
-		for ( let i=0; i<5; i++ ) {
+		for ( let i=0; i<10; i++ ) {
 			const grdId = grdList[i];
 			const qnttId = "dtl-inp-qntt" + grdId;
 			const wghtId = "dtl-inp-wght" + grdId;
@@ -1095,6 +1596,37 @@
 			const qntt = parseInt(SBUxMethod.get(qnttId)) || 0;
 			const wght = gfn_apcEstmtWght(qntt * spcfctWght, gv_selectedApcCd);
 			SBUxMethod.set(wghtId, wght);
+
+			totalQntt += qntt;
+			totalWght += wght;
+		}
+
+		SBUxMethod.set("dtl-inp-sortQntt", totalQntt);
+		SBUxMethod.set("dtl-inp-sortWght", totalWght);
+	}
+	
+	const fn_updateSortQntt = function() {
+
+		let totalQntt = 0;
+		let totalWght = 0;
+
+		for ( let i=0; i<10; i++ ) {
+			const grdId = grdList[i];
+			const qnttId = "dtl-inp-qntt" + grdId;
+			const wghtId = "dtl-inp-wght" + grdId;
+			const qntt = parseInt(SBUxMethod.get(qnttId)) || 0;
+			const wght = parseFloat(SBUxMethod.get(wghtId)) || 0;
+
+			totalQntt += qntt;
+			totalWght += wght;
+		}
+
+		for ( let i=0; i<3; i++ ) {
+			const grdId = grdList[i];
+			const qnttId = "dtl-inp-qnttEx" + grdId;
+			const wghtId = "dtl-inp-wghtEx" + grdId;
+			const qntt = parseInt(SBUxMethod.get(qnttId)) || 0;
+			const wght = parseFloat(SBUxMethod.get(wghtId)) || 0;
 
 			totalQntt += qntt;
 			totalWght += wght;
@@ -1137,7 +1669,7 @@
 			jsonSpmtPckgUnit = await gfn_getSpmtPckgUnits(gv_selectedApcCd, _itemCd, _vrtyCd);
 		}
 
-		for ( let i=0; i<5; i++ ) {
+		for ( let i=0; i<10; i++ ) {
 
 			const sltId = "dtl-slt-spmtPckgUnitCd" + grdList[i];
 			SBUxMethod.refresh(sltId);
@@ -1426,16 +1958,23 @@
     		return;
     	}
 
+		const sortno = SBUxMethod.get("dtl-inp-sortno");
+		
 		const sortMng = {
     		apcCd: gv_selectedApcCd,
     		sortYmd: sortYmd,
+    		sortno: sortno,
     		rawMtrVlType: lv_rawMtrVlType,
     		rawMtrInvntrList: rawMtrInvntrList,
     		sortPrfmncList: sortPrfmncList
     	}
 
+				
+		const postUrl = gfn_isEmpty(sortno) ? 
+					"/am/sort/insertSortPrfmnc.do" : "/am/sort/updateSortPrfmnc.do";
+		
         try {
-    		const postJsonPromise = gfn_postJSON("/am/sort/insertSortPrfmnc.do", sortMng);
+    		const postJsonPromise = gfn_postJSON(postUrl, sortMng);
 			const data = await postJsonPromise;
 
         	if (_.isEqual("S", data.resultStatus)) {
@@ -1455,6 +1994,7 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 	}
+	
 	const fn_autoPrint =  async function(resultMap){
 		const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'ST_DOC');
 		let sortSnList = resultMap.sortSnList;
@@ -1470,6 +2010,71 @@
 		//gfn_popClipReport("원물인식표", "am/rawMtrIdntyDoc.crf", {apcCd: gv_selectedApcCd, wrhsno: resultMap.wrhsno});
 	}
 
+	const fn_searchSort = async function() {
+		
+		const sortYmd = SBUxMethod.get("dtl-dtp-inptYmd");
+
+		// search fn_searchSort
+
+		const ul = document.querySelector('#ul-sortRslt');
+
+		while (ul.hasChildNodes()){
+			ul.removeChild( ul.firstChild );       
+		}
+		
+        try {
+        	const postJsonPromise = gfn_postJSON("/am/sort/selectSortRsltList.do", {
+    			apcCd: gv_selectedApcCd,
+    			sortYmd: sortYmd,
+      		});
+
+            const data = await postJsonPromise;
+
+  			if (_.isEqual("S", data.resultStatus)) {
+
+  				sortList = data.resultList;
+
+  				console.log(sortList);
+  				
+  				for ( let i = 0; i < sortList.length; i++ ) {		// fn_view('ST202403100001')
+  					
+  					const rowData = sortList[i];
+  					
+					const li = document.createElement('li');
+					
+					const txt = "  " + (i + 1) + ". ----------------------------------------" 
+						+	"\n생산자: " + rowData.rprsPrdcrNm
+						+	"    팔레트: " + rowData.pltno
+						+	"    품목: " + rowData.itemNm
+						+	"    " + rowData.vrtyNm
+						+	"    규격: " + rowData.spcfctNm
+						+	"    투입: " + rowData.inptQntt.toLocaleString()
+						+	"\n선별: " + rowData.sortQntt.toLocaleString()
+						+	" ( " + rowData.grdQnttNm + " )";
+					li.innerText = txt;
+					
+					li.addEventListener("click", () => {
+						fn_view(i);
+					});
+					
+					ul.appendChild(li);
+  				}
+                
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);        		
+        	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+
+        }
+		
+	}
+	
 	const fn_searchInvntr = async function() {
 
 		const pltno = SBUxMethod.get("dtl-inp-pltno");
@@ -1513,21 +2118,28 @@
 
   				let invntrInfo = " ";
 
-  				invntrInfo += "수량: " + _rawMtrInvntr.invntrQntt;
+  				invntrInfo += "수량: " + _rawMtrInvntr.invntrQntt.toLocaleString();
 
   				if (!_.isEqual(lv_rawMtrVlType, "QNTT")) {
-  					invntrInfo += "   중량: " + _rawMtrInvntr.invntrWght + " Kg ";
+  					invntrInfo += "   중량: " + _rawMtrInvntr.invntrWght.toLocaleString() + " Kg ";
   					invntrInfo += "   (등급: " + _rawMtrInvntr.grdNm + ")";
   				}
 
   				SBUxMethod.set("dtl-lbl-invntr", invntrInfo);
 
-  	        	await fn_setGrd(_rawMtrInvntr.itemCd);
+  	        	await fn_setGrd(_rawMtrInvntr.itemCd, _rawMtrInvntr.vrtyCd);
 
   	        	fn_getApcSpcfct(_rawMtrInvntr.itemCd);
   	        	fn_getSpmtPckgUnit(_rawMtrInvntr.itemCd, _rawMtrInvntr.vrtyCd);
 
-
+				
+  	        	// focus  	        	
+				if (jsonOptnGrd.length > 0) {
+					SBUxMethod.focus('dtl-inp-qnttEx1');
+				} else {
+					SBUxMethod.focus('dtl-inp-qntt1');
+				}
+				
         	} else {
         		gfn_comAlert(data.resultCode, data.resultMessage);
 
@@ -1574,35 +2186,35 @@
   	      		jsonSortInpt.length = 0;
   	          	data.resultList.forEach((item, index) => {
   	          		const sortInpt = {
-  	          				apcCd: item.apcCd,
-  	          				wrhsno: item.wrhsno,
-  	          				inptSn: item.inptSn,
-  	          				inptYmd: item.inptYmd,
-  	          				fcltCd: item.fcltCd,
-  	          				qntt: item.qntt,
-  	          				wght: item.wght,
-  	          				sortno: item.sortno,
-  	          				sortCmndno: item.sortCmndno,
-  	          				rmrk: item.rmrk,
-  	          				pltno: item.pltno,
-  	          				wrhsYmd: item.wrhsYmd,
-  	          				prdcrCd: item.prdcrCd,
-  	          				itemCd: item.itemCd,
-  	          				vrtyCd: item.vrtyCd,
-  	          				gdsSeCd: item.gdsSeCd,
-  	          				wrhsSeCd: item.wrhsSeCd,
-  	          				warehouseSeCd: item.warehouseSeCd,
-  	          				bxKnd: item.bxKnd,
-  	          				grdCd: item.grdCd,
-  	          				prdcrNm: item.prdcrNm,
-  	          				itemNm: item.itemNm,
-  	          				vrtyNm: item.vrtyNm,
-  	          				grdNm: item.grdNm,
-  	          				fcltNm: item.fcltNm,
-  	          				warehouseSeNm: item.warehouseSeNm,
-  	          				gdsSeNm: item.gdsSeNm,
-  	          				wrhsSeNm: item.wrhsSeNm,
-  	          				vrtyNm: item.vrtyNm
+	          				apcCd: item.apcCd,
+	          				wrhsno: item.wrhsno,
+	          				inptSn: item.inptSn,
+	          				inptYmd: item.inptYmd,
+	          				fcltCd: item.fcltCd,
+	          				qntt: item.qntt,
+	          				wght: item.wght,
+	          				sortno: item.sortno,
+	          				sortCmndno: item.sortCmndno,
+	          				rmrk: item.rmrk,
+	          				pltno: item.pltno,
+	          				wrhsYmd: item.wrhsYmd,
+	          				prdcrCd: item.prdcrCd,
+	          				itemCd: item.itemCd,
+	          				vrtyCd: item.vrtyCd,
+	          				gdsSeCd: item.gdsSeCd,
+	          				wrhsSeCd: item.wrhsSeCd,
+	          				warehouseSeCd: item.warehouseSeCd,
+	          				bxKnd: item.bxKnd,
+	          				grdCd: item.grdCd,
+	          				prdcrNm: item.prdcrNm,
+	          				itemNm: item.itemNm,
+	          				vrtyNm: item.vrtyNm,
+	          				grdNm: item.grdNm,
+	          				fcltNm: item.fcltNm,
+	          				warehouseSeNm: item.warehouseSeNm,
+	          				gdsSeNm: item.gdsSeNm,
+	          				wrhsSeNm: item.wrhsSeNm,
+	          				vrtyNm: item.vrtyNm
   	  				}
 
   	          		jsonSortInpt.push(sortInpt);

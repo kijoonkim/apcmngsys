@@ -88,6 +88,14 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 	}
 
 	@Override
+	public List<SortPrfmncVO> selectSortPrfmncGrdList(SortPrfmncVO sortPrfmncVO) throws Exception {
+
+		List<SortPrfmncVO> resultList = sortPrfmncMapper.selectSortPrfmncGrdList(sortPrfmncVO);
+
+		return resultList;
+	}
+
+	@Override
 	public List<SortPrfmncVO> selectSortCnclList(SortPrfmncVO sortPrfmncVO) throws Exception {
 
 		List<SortPrfmncVO> resultList = sortPrfmncMapper.selectSortCnclList(sortPrfmncVO);
@@ -202,12 +210,23 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 
 			// 선별실적.delYn set 'Y'
 			//sortPrfmncMapper.deleteSortPrfmnc(sort);
-			sortPrfmncMapper.updateSortPrfmncForDelY(sort);
+			if (ComConstants.CON_YES.equals(sort.getSortRealDelY())) {
+                sortPrfmncMapper.deleteSortPrfmnc(sort);
+            } else {
+                sortPrfmncMapper.updateSortPrfmncForDelY(sort);
+            }
 
 		}
 
 		return null;
 	}
+	
+    @Override
+    public List<SortPrfmncVO> selectSortListBySortno(SortPrfmncVO sortPrfmncVO) throws Exception {
+        
+        List<SortPrfmncVO> resultList = sortPrfmncMapper.selectSortListBySortno(sortPrfmncVO);
 
-
+        return resultList;
+    }
+	
 }

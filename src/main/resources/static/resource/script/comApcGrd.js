@@ -123,12 +123,13 @@ const gStdGrdObj = {
 		colPrfxQntt: 'qntt__',
 		colPrfxWght: 'wght__',
 		colExtPrfx: 'ext__',
-		param: {apcCd: null, grdSeCd: null, itemCd: null},
-		init: async function(_apcCd, _grdSeCd, _itemCd) {
+		param: {apcCd: null, grdSeCd: null, itemCd: null, vrtyCd: null},
+		init: async function(_apcCd, _grdSeCd, _itemCd, _vrtyCd) {
 
 			this.param.apcCd = _apcCd;
 			this.param.grdSeCd = _grdSeCd;
 			this.param.itemCd = _itemCd;
+			this.param.vrtyCd = _vrtyCd;
 
 			gjsonStdGrdObjKnd.length = 0;
 
@@ -168,8 +169,14 @@ const gStdGrdObj = {
 					jsonObj.length = 0;
 					
 					const dtls = gfn_getJsonFilter(gjsonStdGrdObjDtl, "grdKnd", item.grdKnd);
-					dtls.forEach((item) => {
-                        jsonObj.push(item);
+					dtls.forEach((dtl) => {
+						if (_.isEqual("VR", item.stdGrdType) && !gfn_isEmpty(_vrtyCd)) {
+							if (gfn_isEmpty(dtl.vrtyCd) || _.isEqual(_vrtyCd, dtl.vrtyCd)) {
+								jsonObj.push(dtl);
+							}
+						} else {
+							jsonObj.push(dtl);	
+						}
 					});
 				});
 			}

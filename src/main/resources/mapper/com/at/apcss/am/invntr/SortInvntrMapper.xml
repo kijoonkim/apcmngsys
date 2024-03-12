@@ -1060,7 +1060,24 @@
 			   AND SORT_SN = #{sortSn}
 		]]>
 	</update>
-
+	
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.deleteSortStdGrd		-->
+	<!-- DESC : 선별재고 등급 삭제.		                           					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.10.18  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="deleteSortStdGrd" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+		<![CDATA[
+			DELETE /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.deleteSortStdGrd */
+				TB_SORT_STD_GRD
+			 WHERE APC_CD = #{apcCd}
+			   AND SORTNO = #{sortno}
+			   AND SORT_SN = #{sortSn}
+		]]>
+	</update>
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateInvntrPckgPrfmnc		-->
 	<!-- DESC : 변경재고 등록 - 포장처리                                    				-->

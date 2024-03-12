@@ -22,10 +22,15 @@ import com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO;
  */
 @Mapper
 public interface PrdcrCrclOgnVluFndsMngMapper {
-	//활성화 자금 리스트 조회
-	public List<PrdcrCrclOgnVluFndsMngVO> selectScoreList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO);
+	//평가지표 리스트 조회
+	public List<PrdcrCrclOgnVluFndsMngVO> selectScoreList1(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO);
+	//가감점 리스트 조회
+	public List<PrdcrCrclOgnVluFndsMngVO> selectScoreList2(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO);
+	//평가지표,가감점 리스트 저장
+	public int insertActvtnFund(PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO);
+
 	//산출식 관리 팝업 - 산출식 리스트 조회
 	public List<PrdcrCrclOgnVluFndsMngVO> selectComputWayList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO);
-
-	public int insertComputWayList(PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO);
+	//산출식 관리 팝업 - 산출식 리스트 저장
+	public int insertComputWay(PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO);
 }

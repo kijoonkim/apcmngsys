@@ -78,7 +78,10 @@ while ( params.hasMoreElements() ){
 			const exePrintYn = "<%=exePrintYn%>";
 			const param = {<%=param%>};
 			const reportKey = await gfn_getReportKey(fileName, param);
-			gfn_drawClipReport("div-rpt-clipReport", reportKey,exePrintYn);
+			const check = {
+					exePrintYn : exePrintYn
+			}
+			gfn_drawClipReport("div-rpt-clipReport", reportKey,check);
 		}
 		fn_drawClipReport();
 	</script>

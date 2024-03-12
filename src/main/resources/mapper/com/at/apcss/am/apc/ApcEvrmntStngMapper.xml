@@ -595,6 +595,9 @@
 				, CLS						= #{cls}
 				, BZSTAT					= #{bzstat}
 				, OTPT_APC_NM				= #{otptApcNm}
+				, RAW_MTR_VL_TYPE			= #{rawMtrVlType}
+				, SESS_UPDT_USE_YN			= #{sessUpdtUseYn}
+				
 			 WHERE APC_CD = #{apcCd}
 		]]>
     </update>

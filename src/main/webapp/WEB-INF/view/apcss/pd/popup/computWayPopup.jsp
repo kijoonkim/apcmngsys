@@ -49,7 +49,7 @@
 									id="pop-srch-input-fundArtcl"
 									name="pop-srch-input-fundArtcl"
 									uitype="single"
-									jsondata-ref="jsonFundArtcl"
+									jsondata-ref="jsonPopFundArtcl"
 									unselected-text="선택"
 									class="form-control input-sm"
 									readonly
@@ -88,8 +88,8 @@
 <script type="text/javascript">
 
 	/* grid 내 select json */
-	var jsonGrdFundArtcl= [];	// 자금항목 fundArtcl	Grid
-	var jsonFundArtcl= [];	// 자금항목 fundArtcl	srch
+	var jsonPopGrdFundArtcl= [];	// 자금항목 fundArtcl	Grid
+	//var jsonPopFundArtcl= [];	// 자금항목 fundArtcl	srch
 
 	var grdComputWayPop = null;
 	var jsonComputWayPop = [];
@@ -119,7 +119,7 @@
 
 			//콤보 데이터
 			let rst = await Promise.all([
-				gfn_setComCdSBSelect('grdComputWayPop',jsonGrdFundArtcl,'FUND_ARTCL'), //산출식 항목
+				gfn_setComCdSBSelect('grdComputWayPop',jsonPopGrdFundArtcl,'FUND_ARTCL'), //산출식 항목
 			]);
 
 			this.createGrid();
@@ -136,8 +136,8 @@
 			SBGridProperties.jsonref = this.jsonId;
 			SBGridProperties.emptyrecords = '데이터가 없습니다.';
 			SBGridProperties.selectmode = 'byrow';
-			SBGridProperties.explorerbar = 'sortmove';
-			SBGridProperties.extendlastcol = 'scroll';
+			//SBGridProperties.explorerbar = 'sortmove';
+			//SBGridProperties.extendlastcol = 'scroll';
 			SBGridProperties.oneclickedit = true;
 			SBGridProperties.allowcopy = true;
 			SBGridProperties.explorerbar = 'sortmove';
@@ -151,7 +151,7 @@
 				'showgoalpageui' : true
 			};
 			SBGridProperties.columns = [
-				{caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+				{caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'50px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 					if(strValue== null || strValue == ""){
 						return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='popComputWay.fn_procRow(\"ADD\", \"grdComputWayPop\", " + nRow + ", " + nCol + ")'>추가</button>";
 					}else{
@@ -159,15 +159,17 @@
 					}
 					return "";
 				}},
-				{caption: ["사용여부"],		ref: 'useYn',				width:'60px',	type:'checkbox',	style:'text-align:center'},
-				{caption: ["등록년도"],		ref: 'yr',				width:'80px',	type:'input',	style:'text-align:center'},
-				{caption: ["항목"],		ref: 'fundArtcl',  	type:'combo',  width:'120px',    style:'text-align:center'
-					,typeinfo : {ref:'jsonGrdFundArtcl', label:'label', value:'value', displayui : false}},
+				{caption: ["사용여부"],		ref: 'useYn',		width:'60px',	type:'checkbox',	style:'text-align:center'
+					,typeinfo: {ignoreupdate : false, fixedcellcheckbox : {usemode : false, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}
+				},
+				{caption: ["등록년도"],		ref: 'yr',			width:'80px',	type:'input',	style:'text-align:center'},
+				{caption: ["항목"],		ref: 'fundArtcl',  	type:'combo',  width:'140px',    style:'text-align:center'
+					,typeinfo : {ref:'jsonPopGrdFundArtcl', label:'label', value:'value', displayui : false}},
 				{caption: ["산출식 코드"],	ref: 'computWayCd',				width:'80px',	type:'input',	style:'text-align:center'
 					,columnhint : '<div style="width: auto;">중복불가 10자리 까지 가능합니다</div>'},
-				{caption: ['산출식'],		ref: 'computWayDtl',	width: '300px', type: 'textarea',	style: 'text-align:center'
+				{caption: ['배점'],		ref: 'alt', 			width: '50px', type: 'input',	style: 'text-align:center'},
+				{caption: ['산출식'],		ref: 'computWayDtl',	width: '400px', type: 'textarea',	style: 'text-align:center'
 					,typeinfo : {textareascroll : true},columnhint : '<div style="width: auto;">줄바꿈은 Shift + Enter</div>'},
-				{caption: ['배점'],		ref: 'alt', 			width: '80px', type: 'input',	style: 'text-align:center'},
 				{caption: ['비고'],		ref: 'rmrk', 			width: '300px', type: 'input',	style: 'text-align:center'},
 				{caption: ["상세내역"], 	ref: 'seq',			hidden : true},
 			];
@@ -250,15 +252,6 @@
 					grdComputWayPop.rebuild();
 				}
 
-				if (isEditable) {
-					grdComputWayPop.setCellDisabled(0, 0, grdComputWayPop.getRows() - 1, grdComputWayPop.getCols() - 1, false);
-					let nRow = grdComputWayPop.getRows();
-					grdComputWayPop.addRow(true);
-					grdComputWayPop.setCellDisabled(nRow, 0, nRow, grdComputWayPop.getCols() - 1, true);
-				} else {
-					grdComputWayPop.setCellDisabled(0, 0, grdComputWayPop.getRows() - 1, grdComputWayPop.getCols() - 1, true);
-				}
-
 				document.querySelector('#computWay-pop-cnt').innerText = totalRecordCount;
 
 			} catch (e) {
@@ -297,7 +290,8 @@
 				}
 				for ( let j=1; j<=allData.length; j++ ){
 					const rowData01 = grdComputWayPop.getRowData(j);
-					if(rowData.computWayCd == rowData01.computWayCd && rowData.fundArtcl == rowData01.fundArtcl){
+					if(i==j){continue;}
+					if(rowData.computWayCd == rowData01.computWayCd){
 						alert('중복된 코드값이 있습니다.');
 						grdComputWayPop.selectRow(i);
 						return;
@@ -306,7 +300,7 @@
 
 				if (rowSts === 3){
 					rowData.rowSts = "I";
-					prdcrDtlList.push(rowData);
+					saveList.push(rowData);
 				} else if (rowSts === 2){
 					rowData.rowSts = "U";
 					saveList.push(rowData);
@@ -330,6 +324,7 @@
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
 	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+	        		this.search();
 	        	} else {
 	        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        	}
