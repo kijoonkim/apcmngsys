@@ -315,82 +315,82 @@
 	    	// 빨강
 	    	{
 	    		caption : ["빨강","1차"], 
-	    		ref: 'v1WghtCycl1', 
+	    		ref: 'v1QnttCycl1', 
 	    		type: 'input',  
 	    		width:'50px', 
 	    		style: 'text-align:right; padding-right:5px;', 
 	    		format : {type:'number', rule:'#,###'},
-	    		userattr: {colNm: "v1Wght"},
+	    		userattr: {colNm: "v1Qntt"},
 				typeinfo: {
 	                mask : {alias : '#', repeat: '*', unmaskvalue : true},
-	                maxlength: 6,
+	                maxlength: 10,
 	                oneclickedit: true
                 },
                 format : {type:'number', rule:'#,###'}
 	    	},
 	    	{
 	    		caption : ["빨강","2차"], 
-	    		ref: 'v1WghtCycl2', 
+	    		ref: 'v1QnttCycl2', 
 	    		type: 'input',  
 	    		width:'50px', 
 	    		style: 'text-align:right; padding-right:5px;', 
 	    		format : {type:'number', rule:'#,###'},
-	    		userattr: {colNm: "v1Wght"},
+	    		userattr: {colNm: "v1Qntt"},
 				typeinfo: {
 	                mask : {alias : '#', repeat: '*', unmaskvalue : true},
-	                maxlength: 6,
+	                maxlength: 10,
 	                oneclickedit: true
                 },
                 format : {type:'number', rule:'#,###'}
 	    	},
 	    	{
 	    		caption : ["빨강","3차"], 
-	    		ref: 'v1WghtCycl3', 
+	    		ref: 'v1QnttCycl3', 
 	    		type: 'input',  
 	    		width:'50px', 
 	    		style: 'text-align:right; padding-right:5px;', 
 	    		format : {type:'number', rule:'#,###'},
-	    		userattr: {colNm: "v1Wght"},
+	    		userattr: {colNm: "v1Qntt"},
 				typeinfo: {
 	                mask : {alias : '#', repeat: '*', unmaskvalue : true},
-	                maxlength: 6,
+	                maxlength: 10,
 	                oneclickedit: true
                 },
                 format : {type:'number', rule:'#,###'}
 	    	},
 	    	{
 	    		caption : ["빨강","4차"], 
-	    		ref: 'v1WghtCycl4', 
+	    		ref: 'v1QnttCycl4', 
 	    		type: 'input',  
 	    		width:'50px', 
 	    		style: 'text-align:right; padding-right:5px;', 
 	    		format : {type:'number', rule:'#,###'},
-	    		userattr: {colNm: "v1Wght"},
+	    		userattr: {colNm: "v1Qntt"},
 				typeinfo: {
 	                mask : {alias : '#', repeat: '*', unmaskvalue : true},
-	                maxlength: 6,
+	                maxlength: 10,
 	                oneclickedit: true
                 },
                 format : {type:'number', rule:'#,###'}
 	    	},
 	    	{
 	    		caption : ["빨강","5차"], 
-	    		ref: 'v1WghtCycl5', 
+	    		ref: 'v1QnttCycl5', 
 	    		type: 'input',  
 	    		width:'50px', 
 	    		style: 'text-align:right; padding-right:5px;', 
 	    		format : {type:'number', rule:'#,###'},
-	    		userattr: {colNm: "v1Wght"},
+	    		userattr: {colNm: "v1Qntt"},
 				typeinfo: {
 	                mask : {alias : '#', repeat: '*', unmaskvalue : true},
-	                maxlength: 6,
+	                maxlength: 10,
 	                oneclickedit: true
                 },
                 format : {type:'number', rule:'#,###'}
 	    	},
 	    	{
 	    		caption : ["빨강","소계"], 
-	    		ref: 'v1Wght', 
+	    		ref: 'v1Qntt', 
 	    		type: 'output',  
 	    		width:'100px', 
 	    		style: 'text-align:right; padding-right:5px;background-color:#ceebff;', 
@@ -410,57 +410,57 @@
 			// 노랑
 			{
 	    		caption : ["노랑","1차"], 
-	    		ref: 'v2WghtCycl1', 
+	    		ref: 'v2QnttCycl1', 
 	    		type: 'input',  
 	    		width:'50px', 
 	    		style: 'text-align:right; padding-right:5px;', 
 	    		format : {type:'number', rule:'#,###'},
-	    		userattr: {colNm: "v2Wght"},
+	    		userattr: {colNm: "v2Qntt"},
 				typeinfo: {
 	                mask : {alias : '#', repeat: '*', unmaskvalue : true},
-	                maxlength: 6,
+	                maxlength: 10,
 	                oneclickedit: true
                 },
                 format : {type:'number', rule:'#,###'}
 	    	},
 	    	{
 	    		caption : ["노랑","2차"], 
-	    		ref: 'v2WghtCycl2', 
+	    		ref: 'v2QnttCycl2', 
 	    		type: 'input',  
 	    		width:'50px', 
 	    		style: 'text-align:right; padding-right:5px;', 
 	    		format : {type:'number', rule:'#,###'},
-	    		userattr: {colNm: "v2Wght"},
+	    		userattr: {colNm: "v2Qntt"},
 				typeinfo: {
 	                mask : {alias : '#', repeat: '*', unmaskvalue : true},
-	                maxlength: 6,
+	                maxlength: 10,
 	                oneclickedit: true
                 },
                 format : {type:'number', rule:'#,###'}
 	    	},
 	    	{
 	    		caption : ["노랑","3차"], 
-	    		ref: 'v2WghtCycl3', 
+	    		ref: 'v2QnttCycl3', 
 	    		type: 'input',  
 	    		width:'50px', 
 	    		style: 'text-align:right; padding-right:5px;', 
 	    		format : {type:'number', rule:'#,###'},
-	    		userattr: {colNm: "v2Wght"},
+	    		userattr: {colNm: "v2Qntt"},
 				typeinfo: {
 	                mask : {alias : '#', repeat: '*', unmaskvalue : true},
-	                maxlength: 6,
+	                maxlength: 10,
 	                oneclickedit: true
                 },
                 format : {type:'number', rule:'#,###'}
 	    	},
 	    	{
 	    		caption : ["노랑","4차"], 
-	    		ref: 'v2WghtCycl4', 
+	    		ref: 'v2QnttCycl4', 
 	    		type: 'input',  
 	    		width:'50px', 
 	    		style: 'text-align:right; padding-right:5px;', 
 	    		format : {type:'number', rule:'#,###'},
-	    		userattr: {colNm: "v2Wght"},
+	    		userattr: {colNm: "v2Qntt"},
 				typeinfo: {
 	                mask : {alias : '#', repeat: '*', unmaskvalue : true},
 	                maxlength: 6,
@@ -470,22 +470,22 @@
 	    	},
 	    	{
 	    		caption : ["노랑","5차"], 
-	    		ref: 'v2WghtCycl5', 
+	    		ref: 'v2QnttCycl5', 
 	    		type: 'input',  
 	    		width:'50px', 
 	    		style: 'text-align:right; padding-right:5px;', 
 	    		format : {type:'number', rule:'#,###'},
-	    		userattr: {colNm: "v2Wght"},
+	    		userattr: {colNm: "v2Qntt"},
 				typeinfo: {
 	                mask : {alias : '#', repeat: '*', unmaskvalue : true},
-	                maxlength: 6,
+	                maxlength: 10,
 	                oneclickedit: true
                 },
                 format : {type:'number', rule:'#,###'}
 	    	},
 	    	{
 	    		caption : ["노랑","소계"], 
-	    		ref: 'v2Wght', 
+	    		ref: 'v2Qntt', 
 	    		type: 'output',  
 	    		width:'100px', 
 	    		style: 'text-align:right; padding-right:5px;background-color:#ceebff;', 
@@ -505,42 +505,42 @@
 			// 주황
 			{
 	    		caption : ["주황","1차"], 
-	    		ref: 'v3WghtCycl1', 
+	    		ref: 'v3QnttCycl1', 
 	    		type: 'input',  
 	    		width:'50px', 
 	    		style: 'text-align:right; padding-right:5px;', 
 	    		format : {type:'number', rule:'#,###'},
-	    		userattr: {colNm: "v3Wght"},
+	    		userattr: {colNm: "v3Qntt"},
 				typeinfo: {
 	                mask : {alias : '#', repeat: '*', unmaskvalue : true},
-	                maxlength: 6,
+	                maxlength: 10,
 	                oneclickedit: true
                 },
                 format : {type:'number', rule:'#,###'}
 	    	},
 	    	{
 	    		caption : ["주황","2차"], 
-	    		ref: 'v3WghtCycl2', 
+	    		ref: 'v3QnttCycl2', 
 	    		type: 'input',  
 	    		width:'50px', 
 	    		style: 'text-align:right; padding-right:5px;', 
 	    		format : {type:'number', rule:'#,###'},
-	    		userattr: {colNm: "v3Wght"},
+	    		userattr: {colNm: "v3Qntt"},
 				typeinfo: {
 	                mask : {alias : '#', repeat: '*', unmaskvalue : true},
-	                maxlength: 6,
+	                maxlength: 10,
 	                oneclickedit: true
                 },
                 format : {type:'number', rule:'#,###'}
 	    	},
 	    	{
 	    		caption : ["주황","3차"], 
-	    		ref: 'v3WghtCycl3', 
+	    		ref: 'v3QnttCycl3', 
 	    		type: 'input',  
 	    		width:'50px', 
 	    		style: 'text-align:right; padding-right:5px;', 
 	    		format : {type:'number', rule:'#,###'},
-	    		userattr: {colNm: "v3Wght"},
+	    		userattr: {colNm: "v3Qntt"},
 				typeinfo: {
 	                mask : {alias : '#', repeat: '*', unmaskvalue : true},
 	                maxlength: 6,
@@ -550,37 +550,37 @@
 	    	},
 	    	{
 	    		caption : ["주황","4차"], 
-	    		ref: 'v3WghtCycl4', 
+	    		ref: 'v3QnttCycl4', 
 	    		type: 'input',  
 	    		width:'50px', 
 	    		style: 'text-align:right; padding-right:5px;', 
 	    		format : {type:'number', rule:'#,###'},
-	    		userattr: {colNm: "v3Wght"},
+	    		userattr: {colNm: "v3Qntt"},
 				typeinfo: {
 	                mask : {alias : '#', repeat: '*', unmaskvalue : true},
-	                maxlength: 6,
+	                maxlength: 10,
 	                oneclickedit: true
                 },
                 format : {type:'number', rule:'#,###'}
 	    	},
 	    	{
 	    		caption : ["주황","5차"], 
-	    		ref: 'v3WghtCycl5', 
+	    		ref: 'v3QnttCycl5', 
 	    		type: 'input',  
 	    		width:'50px', 
 	    		style: 'text-align:right; padding-right:5px;', 
 	    		format : {type:'number', rule:'#,###'},
-	    		userattr: {colNm: "v3Wght"},
+	    		userattr: {colNm: "v3Qntt"},
 				typeinfo: {
 	                mask : {alias : '#', repeat: '*', unmaskvalue : true},
-	                maxlength: 6,
+	                maxlength: 10,
 	                oneclickedit: true
                 },
                 format : {type:'number', rule:'#,###'}
 	    	},
 	    	{
 	    		caption : ["주황","소계"], 
-	    		ref: 'v3Wght', 
+	    		ref: 'v3Qntt', 
 	    		type: 'output',  
 	    		width:'100px', 
 	    		style: 'text-align:right; padding-right:5px;background-color:#ceebff;', 
@@ -599,7 +599,7 @@
 			
 	    	{
 				caption : ["합계","합계"], 
-				ref: 'wght', 
+				ref: 'qntt', 
 				type: 'output',  
 				width:'150px', 
 				style: 'text-align:right; padding-right:5px;',
@@ -612,9 +612,9 @@
 				width:'50px', 
 				style: 'text-align:right; padding-right:5px;'
 			},
-	    	{caption: ["입고시작일자"],	ref: 'wrhsBgngYmd',     		type:'input',  	hidden: true},
+	    	{caption: ["입고시작일자"],	ref: 'wrhsBgngYmd',     	type:'input',  	hidden: true},
 	    	{caption: ["입고종료일자"],	ref: 'wrhsEndYmd',     		type:'input',  	hidden: true},
-	    	{caption: ["생산자코드"],	ref: 'prdcrCd',     		type:'input',  	hidden: true}
+	    	{caption: ["생산자코드"],		ref: 'prdcrCd',     		type:'input',  	hidden: true}
 
 	    ];
 		
@@ -902,6 +902,101 @@
 			const rowData = grdWrhsSmmry.getRowData(nRow, false);	// deep copy
 			
 			switch (usrAttr.colNm) {
+				case "v1Qntt":
+					
+					let v1Qntt = 0;
+					for ( let i = 1; i <= 5; i++ ) {
+						const qntt = parseInt(rowData["v1QnttCycl" + i]) || 0;
+						v1Qntt += qntt;
+					}
+					
+					rowData.v1Qntt = v1Qntt;
+					
+					rowData.qntt = 
+						(parseInt(rowData.v1Qntt) || 0)
+						+ (parseInt(rowData.v2Qntt) || 0)
+						+ (parseInt(rowData.v3Qntt) || 0)
+						+ (parseInt(rowData.v4Qntt) || 0)
+						+ (parseInt(rowData.v5Qntt) || 0);
+					
+					break;
+					
+				case "v2Qntt":
+					
+					let v2Qntt = 0;
+					for ( let i = 1; i <= 5; i++ ) {
+						const qntt = parseInt(rowData["v2QnttCycl" + i]) || 0;
+						v2Qntt += qntt;
+					}
+					
+					rowData.v2Qntt = v2Qntt;
+					
+					rowData.qntt = 
+						(parseInt(rowData.v1Qntt) || 0)
+						+ (parseInt(rowData.v2Qntt) || 0)
+						+ (parseInt(rowData.v3Qntt) || 0)
+						+ (parseInt(rowData.v4Qntt) || 0)
+						+ (parseInt(rowData.v5Qntt) || 0);
+					
+					break;
+					
+				case "v3Qntt":
+					
+					let v3Qntt = 0;
+					for ( let i = 1; i <= 5; i++ ) {
+						const qntt = parseInt(rowData["v3QnttCycl" + i]) || 0;
+						v3Qntt += qntt;
+					}
+					
+					rowData.v3Qntt = v3Qntt;
+					
+					rowData.qntt = 
+						(parseInt(rowData.v1Qntt) || 0)
+						+ (parseInt(rowData.v2Qntt) || 0)
+						+ (parseInt(rowData.v3Qntt) || 0)
+						+ (parseInt(rowData.v4Qntt) || 0)
+						+ (parseInt(rowData.v5Qntt) || 0);
+					
+					break;
+					
+				case "v4Qntt":
+					
+					let v4Qntt = 0;
+					for ( let i = 1; i <= 5; i++ ) {
+						const qntt = parseInt(rowData["v4QnttCycl" + i]) || 0;
+						v4Qntt += qntt;
+					}
+					
+					rowData.v4Qntt = v4Qntt;
+					
+					rowData.qntt = 
+						(parseInt(rowData.v1Qntt) || 0)
+						+ (parseInt(rowData.v2Qntt) || 0)
+						+ (parseInt(rowData.v3Qntt) || 0)
+						+ (parseInt(rowData.v4Qntt) || 0)
+						+ (parseInt(rowData.v5Qntt) || 0);
+					
+					break;
+					
+				case "v5Qntt":
+					
+					let v5Qntt = 0;
+					for ( let i = 1; i <= 5; i++ ) {
+						const qntt = parseInt(rowData["v5QnttCycl" + i]) || 0;
+						v4Qntt += qntt;
+					}
+					
+					rowData.v5Qntt = v5Qntt;
+					
+					rowData.qntt = 
+						(parseInt(rowData.v1Qntt) || 0)
+						+ (parseInt(rowData.v2Qntt) || 0)
+						+ (parseInt(rowData.v3Qntt) || 0)
+						+ (parseInt(rowData.v4Qntt) || 0)
+						+ (parseInt(rowData.v5Qntt) || 0);
+					
+					break;
+			
 				case "v1Wght":
 					
 					let v1Wght = 0;
