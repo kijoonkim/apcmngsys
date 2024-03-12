@@ -2327,14 +2327,16 @@
 			{caption: ["매입 매취 물량(톤)"],    ref: 'prchsEmspapVlm',    type:'output',  width:'70px',    style:'text-align:center'},
 			{caption: ["매입 매취 금액(천원)"],    ref: 'prchsEmspapAmt',    type:'output',  width:'70px',    style:'text-align:center'},
 			{caption: ["매입 합계 물량(톤)"],    ref: 'prchsTotVlm',       type:'output',  width:'70px',    style:'text-align:center'},
-			{caption: ["매입 합계 금액(천원)"],    ref: 'prchsTotAmt',       type:'output',  width:'70px',    style:'text-align:center'},
+			{caption: ["(저장된)매입 합계 금액(천원)"],    ref: 'orgPrchsTotAmt',       type:'output',  width:'70px',    style:'text-align:center'},
+			{caption: ["(불러온)매입 합계 금액(천원)"],    ref: 'prchsTotAmt',       type:'output',  width:'70px',    style:'text-align:center'},
 
 			{caption: ["매출 수탁 물량(톤)"],    ref: 'slsEmspapVlm',      type:'output',  width:'70px',    style:'text-align:center'},
 			{caption: ["매출 수탁 금액(천원)"],    ref: 'slsEmspapAmt',      type:'output',  width:'70px',    style:'text-align:center'},
 			{caption: ["매출 매취 물량(톤)"],    ref: 'slsTrstVlm',        type:'output',  width:'70px',    style:'text-align:center'},
 			{caption: ["매출 매취 금액(천원)"],    ref: 'slsTrstAmt',        type:'output',  width:'70px',    style:'text-align:center'},
 			{caption: ["매출 합계 물량(톤)"],    ref: 'slsTotVlm',         type:'output',  width:'70px',    style:'text-align:center'},
-			{caption: ["매출 합계 금액(천원)"],    ref: 'slsTotAmt',         type:'output',  width:'70px',    style:'text-align:center'},
+			{caption: ["(저장된)매출 합계 금액(천원)"],    ref: 'orgSlsTotAmt',         type:'output',  width:'70px',    style:'text-align:center'},
+			{caption: ["(불러온)매출 합계 금액(천원)"],    ref: 'slsTotAmt',         type:'output',  width:'70px',    style:'text-align:center'},
 			{caption: ["매출 자체공판장 매출액 물량(톤)"],    ref: 'ddcVlm',            type:'output',  width:'70px',    style:'text-align:center'},
 			{caption: ["매출 자체공판장 매출액 금액(천원)"],    ref: 'ddcAmt',            type:'output',  width:'70px',    style:'text-align:center'},
 
@@ -2398,6 +2400,7 @@
 					, prchsEmspapAmt      : item.prchsEmspapAmt
 					, prchsTotVlm         : item.prchsTotVlm
 					, prchsTotAmt         : item.prchsTotAmt
+					, orgPrchsTotAmt         : item.orgPrchsTotAmt //기존값과 다른 경우를 위해 추가
 
 					, slsEmspapVlm        : item.slsEmspapVlm
 					, slsEmspapAmt        : item.slsEmspapAmt
@@ -2405,6 +2408,9 @@
 					, slsTrstAmt          : item.slsTrstAmt
 					, slsTotVlm           : item.slsTotVlm
 					, slsTotAmt           : item.slsTotAmt
+					, orgSlsTotAmt           : item.orgSlsTotAmt //기존값과 다른 경우를 위해 추가
+
+
 					, ddcVlm              : item.ddcVlm
 					, ddcAmt              : item.ddcAmt
 					, pblcWhlslMrktVlm    : item.pblcWhlslMrktVlm

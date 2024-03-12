@@ -14,6 +14,7 @@ public class PrdcrCrclOgnVluFndsMngVO extends ComVO{
 
 	private String computWayCd;//산출식 코드
 	private String computWayDtl;//산출식 상세
+	private String computWayRslt;//산출식 상세
 	private String fundArtcl;//항목
 	private String alt;//배점
 	private String scr;//점수

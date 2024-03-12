@@ -33,6 +33,7 @@ public class PrdcrCrclOgnPurSalMngVO extends ComVO{
 
 	private String prchsTotVlm;
 	private String prchsTotAmt;
+	private String orgPrchsTotAmt;
 
 	//매출
 	private String slsCprtnSortTrstVlm;
@@ -48,6 +49,7 @@ public class PrdcrCrclOgnPurSalMngVO extends ComVO{
 
 	private String slsTotVlm;
 	private String slsTotAmt;
+	private String orgSlsTotAmt;
 
 	private String slsTrstVlm;
 	private String slsTrstAmt;
