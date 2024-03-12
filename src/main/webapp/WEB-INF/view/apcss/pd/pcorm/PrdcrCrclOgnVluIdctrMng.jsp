@@ -329,35 +329,30 @@
 				</table>
 				<br>
 				<!--[pp] 검색결과 상세보기-->
+				<!--
 				<div class="ad_section_top">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
 								<span style="font-size:14px">▶생산자조직 -적합조직</span>
-								<!--
-								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
-								 -->
 							</li>
 						</ul>
 					</div>
-					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrOgnCurntMng03" style="height:200px; width: 100%;"></div>
 				</div>
+				 -->
+				<!--
 				<div class="ad_section_top">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
 								<span style="font-size:14px">▶생산자조직 -부적합조직</span>
-								<!--
-								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
-								 -->
 							</li>
 						</ul>
 					</div>
-					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrOgnCurntMng04" style="height:200px; width: 100%;"></div>
 				</div>
-
+				 -->
 				<div class="ad_section_top">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
@@ -1414,7 +1409,7 @@
 		fn_dtlGridSearchUoTot();//통합조직 선정여부
 		fn_dtlGridSearchIso();//출자출하조직
 		fn_dtlGridSearchIsoTot();//출자출하조직 선정여부
-		fn_dtlGridSearchFrmhs();//생산자조직
+		//fn_dtlGridSearchFrmhs();//생산자조직
 	}
 
 	//통합조직 조회
