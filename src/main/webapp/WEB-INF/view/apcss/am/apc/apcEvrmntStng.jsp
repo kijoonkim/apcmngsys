@@ -144,7 +144,29 @@
 							<td scope="row">
 								<sbux-input id="inp-otptApcNm" name="inp-otptApcNm" uitype="text" class="form-control input-sm" maxlength="33"></sbux-input>
 							</td>
-							<td scope="row" colspan="6">
+							<td scope="row"  align="right">원물값유형</td>
+							<td class="td_input" >
+								<sbux-select 
+									id="slt-rawMtrVlType" name="slt-rawMtrVlType"
+									uitype="single"
+									filtering="true"
+									jsondata-ref="jsonComboVlType"
+									unselected-text="선택" 
+									class=""
+								></sbux-select>
+							</td>
+							<td scope="row"  align="right">세션유지</td>
+							<td class="td_input" >
+								<sbux-select 
+									id="slt-sessUpdtUseYn" name="slt-sessUpdtUseYn"
+									uitype="single"
+									filtering="true"
+									jsondata-ref="jsonComboUseYn"
+									unselected-text="선택" 
+									class=""
+								></sbux-select>
+							</td>
+							<td scope="row" colspan="2">
 							</td>
 						</tr>
 						<tr>
@@ -662,6 +684,15 @@
 	var jsonComboBankNm = [];
 	var jsonComboGridBankNm = [];
 
+	var jsonComboVlType = [
+		{text: "중량", label: "중량", value: "WGHT"},
+		{text: "수량", label: "수량", value: "QNTT"},
+	];
+	var jsonComboUseYn = [
+		{text: "미사용", label: "미사용", value: "N"},
+		{text: "사용", label: "사용", value: "Y"},
+	];
+	
 	var comboUnitCdJsData = [];
 	var comboGridBankCdJsData = [];
 	var comboGridCnptTypeJsData = [];
@@ -768,6 +799,9 @@
   	        	SBUxMethod.set("chk-outordrPckgCmndLnkgYn", resultVO.outordrPckgCmndLnkgYn);		// 현재 없음
   	        	SBUxMethod.set("chk-oprtrSortPrfmncTrsmYn", resultVO.oprtrSortPrfmncTrsmYn);		// 현재 없음
   	        	SBUxMethod.set("chk-oprtrPckgPrfmncTrsmYn", resultVO.oprtrPckgPrfmncTrsmYn);		// 현재 없음
+  	        	
+  	        	SBUxMethod.set("slt-rawMtrVlType", resultVO.rawMtrVlType);
+  	        	SBUxMethod.set("slt-sessUpdtUseYn", resultVO.sessUpdtUseYn);
 
         	} else {
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
@@ -1265,6 +1299,9 @@
   	  	let bzstat					= fn_empty(SBUxMethod.get("inp-bzstat"));
   	  	let cls						= fn_empty(SBUxMethod.get("inp-cls"));
   	  	let apcRprsvNm				= fn_empty(SBUxMethod.get("inp-apcRprsvNm"));
+  	  	let rawMtrVlType			= fn_empty(SBUxMethod.get("slt-rawMtrVlType"));
+  	  	let sessUpdtUseYn			= fn_empty(SBUxMethod.get("slt-sessUpdtUseYn"));
+  	  	
     	let apcEvrmntStng = {
     		apcCd					: gv_selectedApcCd
     	  ,	apcNm 					: apcNm
@@ -1282,6 +1319,8 @@
     	  , cls						: cls
     	  , apcRprsvNm				: apcRprsvNm
     	  , cdVls					: cdVls
+    	  , rawMtrVlType			: rawMtrVlType
+    	  , sessUpdtUseYn			: sessUpdtUseYn
     	}
     	let postJsonPromise = gfn_postJSON("/am/apc/updateApcEvrmntStng.do", apcEvrmntStng);
         let data = await postJsonPromise;
