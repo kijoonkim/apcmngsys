@@ -81,9 +81,10 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdWarehouse\", " + nRow + ")'>삭제</button>";
 	        	}
 	        }},
-	        {caption: ["창고 명"], 		ref: 'cdVlNm',   		type:'input',  width:'250px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100}), typeinfo : {maxlength : 33}},
+	        {caption: ["창고 명"], 		ref: 'cdVlNm',   		type:'input',  width:'200px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100}), typeinfo : {maxlength : 33}},
+	        {caption: ["외부연계코드"], 	ref: 'extrnlLnkgCd',  		type:'input',  width:'80px',    style:'text-align:center'},
 	        {caption: ["비고"], 		ref: 'cdVlExpln',   	type:'input',  width:'300px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000}), typeinfo : {maxlength : 333}},
-	        {caption: ["표시순서"], 	ref: 'indctSeq',   		type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}, typeinfo : {maxlength : 10}},
+	        {caption: ["표시순서"], 	ref: 'indctSeq',   		type:'input',  width:'80px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}, typeinfo : {maxlength : 10}},
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
 	        {caption: ["공통ID"], 		ref: 'cdId',   		type:'input',  hidden : true},
 	        {caption: ["창고 코드"], 	ref: 'cdVlCd',   	type:'input',  hidden:true},
@@ -112,6 +113,7 @@
 				  , delYn 		: item.delYn
 				  , apcCd 		: item.apcCd
 				  , cdId 		: item.cdId
+				  , extrnlLnkgCd : item.extrnlLnkgCd
 				}
 				newJsonWarehouse.push(warehouseVO);
 			});
