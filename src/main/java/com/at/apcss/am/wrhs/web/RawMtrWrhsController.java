@@ -317,6 +317,27 @@ public class RawMtrWrhsController extends BaseController {
 		resultMap.put(AmConstants.PROP_VRTY_LIST, vrtyList);
 		return getSuccessResponseEntity(resultMap);
 	}
+	@PostMapping(value = "/am/wrhs/selectRawMtrWrhsLatestInfoList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectRawMtrWrhsLatestInfoList(@RequestBody RawMtrWrhsVO rawMtrWrhsVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<RawMtrWrhsVO> resultList;
+		try {
+			resultList = rawMtrWrhsService.selectRawMtrWrhsLatestInfoList(rawMtrWrhsVO);
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 	
 
 }

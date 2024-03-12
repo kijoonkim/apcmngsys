@@ -133,7 +133,7 @@
 			}
 		},
 		callbackFnc: function() {},
-		init: async function(_apcCd, _apcNm, _callbackFnc, _prdcrNm) {
+		init: async function(_apcCd, _apcNm, _callbackFnc, _prdcrNm, _latesFlag = false) {
 
 			excelYn = "N";
 
@@ -142,8 +142,12 @@
 			SBUxMethod.set("prdcr-inp-apcNm", _apcNm);
 			SBUxMethod.set("prdcr-inp-prdcrNm", _prdcrNm);
 
-			SBUxMethod.show('btnEditPrdcr');
-			SBUxMethod.hide('btnCancelPrdcr');
+			//최근조회 flag
+			if(!_latesFlag){
+				SBUxMethod.show('btnEditPrdcr');
+				SBUxMethod.hide('btnCancelPrdcr');
+			}
+
 			SBUxMethod.attr('btnSavePrdcr', 'disabled', true);
 			SBUxMethod.attr('btnSearchPrdcr', 'disabled', false);
 			SBUxMethod.attr('btnChoicePrdcr', 'disabled', false);
@@ -457,7 +461,7 @@
 					}
 					jsonPrdcrPop.push(prdcr);
 				});
-        		grdPrdcrPop.rebuild();
+				grdPrdcrPop.rebuild();
 
 	        	if (isEditable) {
 	        		grdPrdcrPop.setCellDisabled(0, 0, grdPrdcrPop.getRows() - 1, grdPrdcrPop.getCols() - 1, false);
@@ -575,12 +579,14 @@
 			popPrdcr.createExpGrid(expObjList);
 
 		    popPrdcr.exportExcelMulti("생산자등록(샘플).xlsx", expObjList);
-	    },uld : async function(){
+	    },
+		uld : async function(){
 
 	    	document.querySelector("#btnFileUploadPrdcr").value = "";
 			$("#btnFileUploadPrdcr").click();
 
-	    },getExpColumns : function (){
+	    },
+		getExpColumns : function (){
 	    	const _columns = []
 			_columns.push(
 					{caption: ["처리"], 			ref: 'delYn', 			type: 'input', 	width: '1px', 	style: 'text-align:center'},
@@ -610,7 +616,8 @@
 			)
 
 		    return _columns;
-	    }, setSltJson : async function (){
+	    },
+		setSltJson : async function (){
 	    	// 첫 시트에서 쓰일 json을 엑셀에서 쓰는 변수에 담는 함수
 			// set exp/imp combo json
 			jsonExpSltGdsSeCd 		= gfn_cloneJson(jsonComGdsSeCdPrdcrPop);		// 상품구분
@@ -619,7 +626,8 @@
 			jsonExpSltClclnCrtrCd 	= gfn_cloneJson(jsonComClclnCrtrCdPrdcrPop);	// 정산구분
 			jsonExpSltItem 			= gfn_cloneJson(jsonApcItemPrdcrPop);			// 품목
 			jsonExpSltVrty 			= gfn_cloneJson(jsonApcVrtyPrdcrPop);			// 품종
-	    }, setExpJson : async function () {
+	    },
+		setExpJson : async function () {
 	    	// 첫 시트가 아닌 다른 시트에서 쓰일 json을 엑셀에서 쓰는 변수에 담는 함수
 			// export grid data
 			jsonExpPrdcr.length = 0;
@@ -631,7 +639,8 @@
 			jsonExpItem 			= gfn_cloneJson(jsonApcItemPrdcrPop);			// 엑셀 품목Json
 			jsonExpVrty 			= gfn_cloneJson(jsonApcVrtyPrdcrPop);			// 엑셀 품종Json
 
-	    }, createExpGrid : async function(_expObjList) {
+	    },
+		createExpGrid : async function(_expObjList) {
 	    	_expObjList.forEach((exp, idx) => {
 				var SBGridProperties = {};
 				SBGridProperties.parentid = exp.parentid;
@@ -644,7 +653,8 @@
 				exp.sbGrid = _SBGrid.create(SBGridProperties);
 				exp.sbGrid.addRow(true);
 			});
-	    }, exportExcelMulti : async function(_fileName, _objList) {
+	    },
+		exportExcelMulti : async function(_fileName, _objList) {
 	    	// 엑셀 정보를 담는 변수
 			var objExcelInfo = {
 				strFileName : _fileName,
@@ -683,11 +693,13 @@
 
 			objExcelInfo.arrAdditionalData = arrAdditionalData;
 			_objList[0].sbGrid.exportExcel(objExcelInfo);
-	    }, importExcelDataPrdcr : async function (e) {
+	    },
+		importExcelDataPrdcr : async function (e) {
 			jsonPrdcrPop.legnth = 0;
 			grdPrdcrPop.rebuild();
 			grdPrdcrPop.importExcelData(e);
-	    }, setDataAfterImport : async function (){
+	    },
+		setDataAfterImport : async function (){
 
 	    	let allData = grdPrdcrPop.getGridDataAll();
 			for(var i=1; i<=allData.length; i++){
@@ -753,8 +765,6 @@
 
 			grdPrdcrPop.rebuild();
 	    }
-
-
 	}
 
 	// 엑셀다운로드
