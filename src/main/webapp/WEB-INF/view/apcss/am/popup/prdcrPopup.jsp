@@ -213,8 +213,25 @@
 	        	{caption: ['생산자코드'], 			ref: 'prdcrCd', 	type: 'input', 	width: '70px', style: 'text-align:center', sortable: false},
 		        {caption: ['대표품목'], 		ref: 'rprsItemCd', 		type: 'combo', 	width: '70px', style: 'text-align:center', sortable: false,
 					typeinfo: {ref:'jsonApcItemPrdcrPop', 		label:'label', value:'value', itemcount: 10}},
-		        {caption: ['대표품종'], 		ref: 'rprsVrtyCd', 		type: 'combo', 	width: '70px', style: 'text-align:center', sortable: false,
-					typeinfo: {ref:'jsonApcVrtyPrdcrPop', 		label:'label', value:'value', itemcount: 10, filtering: {usemode : true, uppercol : 'rprsItemCd', attrname : 'itemCd'}}},
+		        {
+					caption: ['대표품종'], 		
+					ref: 'itemVrtyCd', 		
+					type: 'combo', 	
+					width: '70px', 
+					style: 'text-align:center', 
+					sortable: false,
+					typeinfo: {
+						ref:'jsonApcVrtyPrdcrPop', 		
+						label:'label', 
+						value:'itemVrtyCd', 
+						itemcount: 10, 
+						filtering: {
+							usemode : true, 
+							uppercol : 'rprsItemCd', 
+							attrname : 'itemCd'
+						}
+					}
+				},
 		        {caption: ['상품구분'], 		ref: 'gdsSeCd', 		type: 'combo', 	width: '60px', 	style: 'text-align:center', sortable: false,
 					typeinfo: {ref:'jsonComGdsSeCdPrdcrPop', 	label:'label', value:'value', itemcount: 10}},
 		        {caption: ['입고구분'], 		ref: 'wrhsSeCd', 		type: 'combo', 	width: '65px', 	style: 'text-align:center', sortable: false,
@@ -360,6 +377,10 @@
 		    		}
 		    	}
 
+				if (!gfn_isEmpty(rowData.itemVrtyCd)) {
+					rowData.rprsVrtyCd = rowData.itemVrtyCd.substring(4);
+				}
+				
 				if(excelYn == "Y"){
 					if (rowSts === 0 || rowSts === 2){
 						rowData.apcCd = apcCd;
@@ -455,6 +476,11 @@
 					    apcCd 			: item.apcCd,
 					    extrnlLnkgCd	: item.extrnlLnkgCd
 					}
+					
+					if (!gfn_isEmpty(item.rprsItemCd) && !gfn_isEmpty(item.rprsVrtyCd)) {
+						prdcr.itemVrtyCd = item.rprsItemCd + item.rprsVrtyCd;
+					}
+					
 					jsonPrdcrPop.push(prdcr);
 				});
         		grdPrdcrPop.rebuild();

@@ -337,14 +337,31 @@
 	        	}
 		    }},
 		    {caption: ['번호'], 			ref: 'prdcrIdentno', 	type: 'input', 	width: '50px', style: 'text-align:center', sortable: false},
-		    //{caption: ['생산자코드'], 			ref: 'prdcrCd', 	type: 'input', 	width: '70px', style: 'text-align:center', sortable: false},
-		    {caption: ['생산자코드'], 			ref: 'prdcrCd', 	hidden:true},
+		    {caption: ['생산자코드'], 		ref: 'prdcrCd', 	type: 'output', 	width: '70px', style: 'text-align:center', sortable: false},
+		    //{caption: ['생산자코드'], 			ref: 'prdcrCd', 	hidden:true},
 	        {caption: ['생산자명'], 		ref: 'prdcrNm', 		type: 'input', 	width: '150px', style: 'text-align:center', sortable: false,
 	        	validate : gfn_chkByte.bind({byteLimit: 100})},
 	        {caption: ['대표품목'], 		ref: 'rprsItemCd', 		type: 'combo', 	width: '90px', style: 'text-align:center', sortable: false,
 				typeinfo: {ref:'jsonApcItemCd', 	label:'label', value:'value', itemcount: 10}},
-	        {caption: ['대표품종'], 		ref: 'rprsVrtyCd', 		type: 'combo', 	width: '90px', style: 'text-align:center', sortable: false,
-				typeinfo: {ref:'jsonApcVrtyCd', 	label:'label', value:'value', itemcount: 10, filtering: {usemode : true, uppercol : 'rprsItemCd', attrname : 'itemCd'}} },
+	        {
+				caption: ['대표품종'], 		
+				ref: 'itemVrtyCd', 		
+				type: 'combo', 	
+				width: '90px', 
+				style: 'text-align:center', 
+				sortable: false,
+				typeinfo: {
+					ref:'jsonApcVrtyCd', 	
+					label:'label', 
+					value:'itemVrtyCd', 
+					itemcount: 10, 
+					filtering: {
+						usemode : true, 
+						uppercol : 'rprsItemCd', 
+						attrname : 'itemCd'
+					}
+				}
+			},
 	        {caption: ['상품구분'], 		ref: 'gdsSeCd', 		type: 'combo', 	width: '80px', 	style: 'text-align:center', sortable: false,
 				typeinfo: {ref:'jsonComGdsSeCd', 	label:'label', value:'value', itemcount: 10}},
 	        {caption: ['입고구분'], 		ref: 'wrhsSeCd', 		type: 'combo', 	width: '80px', 	style: 'text-align:center', sortable: false,
@@ -385,8 +402,6 @@
             "callback": fn_excelDwnld,			//콜백함수명
         }
     };
-
-
 
 	const fn_reset = function(){
 
@@ -493,6 +508,7 @@
 				  , frmhsCtpv		: item.frmhsCtpv
 				  , frmhsAddr		: item.frmhsAddr
 				  , extrnlLnkgCd	: item.extrnlLnkgCd
+				  , itemVrtyCd		: gfn_isEmpty(item.rprsItemCd) ? item.rprsVrtyCd : item.rprsItemCd + item.rprsVrtyCd
 				}
 				jsonApcPrdcr.push(prdcrVO);
 			});
@@ -519,7 +535,7 @@
 		for ( let i=1; i<=allData.length; i++ ){
 			const rowData = grdApcPrdcr.getRowData(i);
 			const rowSts = grdApcPrdcr.getRowStatus(i);
-
+			
 			if (rowData.delYn !== "N") {
 				continue;
 			}
@@ -534,6 +550,11 @@
 	    			return;
 	    		}
 	    	}
+			
+			if (!gfn_isEmpty(rowData.rprsItemCd) && !gfn_isEmpty(rowData.rprsVrtyCd)) {
+				rowData.rprsVrtyCd = rowData.itemVrtyCd.substring(4);
+			}
+			
 			if(excelYn == "Y"){
 				if (rowSts === 0 || rowSts === 2){
 					rowData.apcCd = apcCd;
@@ -767,7 +788,13 @@
 	const fn_dwnld = async function(){
 		await fn_setSltJson();
 		await fn_setExpJson();
-
+		
+		/*
+		jsonExpPrdcr.length = 0;
+		jsonApcPrdcr.forEach((prdcr) => {
+			jsonExpPrdcr.push(prdcr);
+		});
+		*/
 		const expColumns = fn_getExpColumns();
 		const expObjList = [
 		{
@@ -857,10 +884,6 @@
 	        title: "",
 	        unit: ""
 		}];
-
-
-
-
 
 		await fn_createExpGrid(expObjList); // fn_createExpGrid함수에 expObjList를 담아서 보내주는 코드
 
@@ -1046,6 +1069,11 @@
 					break;
 				}
 			}
+			
+			if (!gfn_isEmpty(rowData.rprsItemCd) && !gfn_isEmpty(rowData.rprsVrtyCd)) {
+				rowData.itemVrtyCd = rowData.rprsItemCd + rowData.rprsVrtyCd;
+			}
+			
 			rowData.delYn = "N";
 			rowData.rowSts = "I";
 			excelYn = "Y";
@@ -1077,6 +1105,14 @@
 					label:'label',
 					value:'value'
 				}
+			},
+			{
+				caption: ['생산자코드'],
+				ref: 'prdcrCd',
+				type: 'input',
+				width: '60px',
+				style: 'text-align:center',
+				sortable: false
 			},
 			{
 				caption: ["생산자명"],
