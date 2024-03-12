@@ -1832,7 +1832,7 @@
 	const fn_onChangeSrchVrtyCd = async function(obj) {
 		let vrtyCd = obj.value;
 		const vrtyInfo = _.find(jsonApcVrty, {itemVrtyCd: vrtyCd});
-		console.log(vrtyInfo);
+
 		const itemCd = vrtyInfo.mastervalue;
 		
 		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");

@@ -102,6 +102,7 @@
 									name="srch-slt-vrtyCd"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									jsondata-ref="jsonApcVrty"
+									jsondata-value="itemVrtyCd"
 									onchange="fn_onChangeSrchVrtyCd(this)"
 								/>
 							</td>
@@ -468,12 +469,14 @@
 	 */
 	const fn_getSpmtPckgUnit = async function(itemCd, vrtyCd) {
 
-		 jsonSpmtPckgUnit.length = 0;
+		jsonSpmtPckgUnit.length = 0;
 
 		if (gfn_isEmpty(itemCd)) {
 			return;
 		}
-
+		if (!gfn_isEmpty(vrtyCd)) {
+			vrtyCd = vrtyCd.substring(4);
+		}
 		jsonSpmtPckgUnit = await gfn_getSpmtPckgUnits(gv_selectedApcCd, itemCd, vrtyCd);
 		grdSortPrfmnc.refresh({"combo":true, "focus":false});
 	}
@@ -541,8 +544,8 @@
 	 * @name fn_getStdGrd
 	 * @description 표준등급 json set
 	 */
-	const fn_getStdGrd = async function(_itemCd) {
-		await gStdGrdObj.init(gv_selectedApcCd, _GRD_SE_CD_SORT, _itemCd);
+	const fn_getStdGrd = async function(_itemCd, _vrtyCd) {
+		await gStdGrdObj.init(gv_selectedApcCd, _GRD_SE_CD_SORT, _itemCd, _vrtyCd);
 	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {
@@ -935,7 +938,7 @@
             	typeinfo: {
             		ref:'jsonApcVrty',
             		label:'label',
-            		value:'value',
+            		value:'itemVrtyCd',
             		displayui : false
             	}
             },
@@ -1131,7 +1134,9 @@
     	let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");			// 생산자
   		let itemCd = SBUxMethod.get("srch-slt-itemCd");				// 품목
   		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");				// 품종
-
+		if (!gfn_isEmpty(vrtyCd)) {
+			vrtyCd = vrtyCd.substring(4);
+		}
   		let inptYmd = SBUxMethod.get("dtl-dtp-inptYmd");
 
   		try {
@@ -1447,42 +1452,45 @@
 						const aftrGrdKnd = grdDtl.aftrGrdKnd;
 						const gdsJgmtGrdCd = grdDtl.aftrGrdCd;
 						
-						if (_.isEqual(autoPckgInptYn, "Y")) {
-							
-							if (gfn_isEmpty(gdsJgmtGrdCd)) {
+						if (qntt > 0) {
+							if (_.isEqual(autoPckgInptYn, "Y")) {
 								
-								const grdNm = grdDtl.grdNm;
-								gfn_comAlert("W0005", "선별등급 [" + grdNm + "]의 포장 상품등급");		//	W0005	{0}이/가 없습니다.
-								hasError = true;
-								return false;
+								if (gfn_isEmpty(gdsJgmtGrdCd)) {
+									
+									const grdNm = grdDtl.grdNm;
+									gfn_comAlert("W0005", "선별등급 [" + grdNm + "]의 포장 상품등급");		//	W0005	{0}이/가 없습니다.
+									hasError = true;
+									return false;
+								}
+								
+								gdsStdGrdList.push({
+									grdSeCd: _GRD_SE_CD_GDS,
+									itemCd: itemCd,
+									grdKnd: aftrGrdKnd,
+									grdCd: gdsJgmtGrdCd
+								});
 							}
 							
-							gdsStdGrdList.push({
-								grdSeCd: _GRD_SE_CD_GDS,
-								itemCd: itemCd,
-								grdKnd: aftrGrdKnd,
-								grdCd: gdsJgmtGrdCd
-							});
+							const sortPrfmnc = {
+								inptYmd: inptYmd,
+			    				fcltCd: fcltCd,
+			    				itemCd: itemCd,
+			    				vrtyCd: vrtyCd.substring(4),
+			    				spcfctCd: spcfctCd,
+			    				warehouseSeCd: warehouseSeCd,
+			    				grdCd: jgmtGrdCd,
+			    				sortQntt: qntt,
+			    				sortWght: wght,
+			    				autoPckgInptYn: autoPckgInptYn,
+			    				stdGrdList: stdGrdList,
+			    				spmtPckgUnitCd: spmtPckgUnitCd,
+			    				gdsGrd: gdsJgmtGrdCd,
+			    				gdsStdGrdList: gdsStdGrdList
+							}
+							
+							sortPrfmncList.push(sortPrfmnc);
 						}
 						
-						const sortPrfmnc = {
-							inptYmd: inptYmd,
-		    				fcltCd: fcltCd,
-		    				itemCd: itemCd,
-		    				vrtyCd: vrtyCd,
-		    				spcfctCd: spcfctCd,
-		    				warehouseSeCd: warehouseSeCd,
-		    				grdCd: jgmtGrdCd,
-		    				sortQntt: qntt,
-		    				sortWght: wght,
-		    				autoPckgInptYn: autoPckgInptYn,
-		    				stdGrdList: stdGrdList,
-		    				spmtPckgUnitCd: spmtPckgUnitCd,
-		    				gdsGrd: gdsJgmtGrdCd,
-		    				gdsStdGrdList: gdsStdGrdList
-						}
-
-						sortPrfmncList.push(sortPrfmnc);
 						
 						return true;
 					});
@@ -2036,7 +2044,7 @@
 	 */
 	const fn_onChangeSrchVrtyCd = async function(obj) {
 		let vrtyCd = obj.value;
-		const vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd});
+		const vrtyInfo = _.find(jsonApcVrty, {itemVrtyCd: vrtyCd});
 		const itemCd = vrtyInfo.mastervalue;
 
 		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
@@ -2045,10 +2053,13 @@
 			await fn_onChangeSrchItemCd({value: itemCd});
 			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
 		} else {
-			await fn_getSpmtPckgUnit(itemCd, vrtyCd);
-			jsonSortPrfmnc.length = 0;
-			fn_createGridSortPrfmncByGrd();
+			await fn_getSpmtPckgUnit(itemCd, vrtyCd.substring(4));
 		}
+		
+		await fn_getStdGrd(itemCd, vrtyCd.substring(4));
+		
+		jsonSortPrfmnc.length = 0;
+		fn_createGridSortPrfmncByGrd();
 	}
 
 	/**
