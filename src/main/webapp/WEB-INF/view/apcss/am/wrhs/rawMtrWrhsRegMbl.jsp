@@ -456,21 +456,23 @@
 			<div class="box-body" id="latestInfo">
 				<table class="table table-bordered tbl_fixed tbl_mbl">
 					<colgroup>
+						<col style="width: 20%">
+						<col style="width: 10%">
+						<col style="width: 10%">
 						<col style="width: 10%">
 						<col style="width: 20%">
-						<col style="width: 15%">
-						<col style="width: 25%">
 						<col style="width: 10%">
-						<col style="width: 20%">
+						<col style="width: 10%">
 					</colgroup>
 					<thead>
 						<tr>
 							<th>입고 일자</th>
-							<th>입고 번호</th>
-							<th>입고 수량/중량</th>
+							<th>생산자명</th>
+							<th>생산자 번호</th>
+							<th>입고 수량</th>
 							<th>팔레트 번호</th>
-							<th>차량 번호</th>
-							<th>비고</th>
+							<th>품목</th>
+							<th>품종</th>
 						</tr>
 					</thead>
 					<tbody id="latestInfoBody">
@@ -1041,6 +1043,7 @@
 		if (!gfn_isEmpty(prdcr)) {
 			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
 			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
+			SBUxMethod.set("srch-inp-bxQntt", "");
 			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 
 			fn_setPrdcrForm(prdcr);
@@ -1336,6 +1339,7 @@
 	 * @function
 	 */
 	const fn_setLatestInfo = async function(){
+		PrdcrLatestInfo.length = 0;
 		$("#latestInfoBody").empty();
 		let wrhsYmd = SBUxMethod.get("srch-dtp-wrhsYmd");	// 입고일자
 		const postJsonPromise = gfn_postJSON("/am/wrhs/selectRawMtrWrhsLatestInfoList.do", {
@@ -1386,16 +1390,21 @@
 					prcsType: item.prcsType,
 					prcsTypeNm: item.prcsTypeNm,
 					stdGrd: item.stdGrd,
-					stdGrdCd: item.stdGrdCd
+					stdGrdCd: item.stdGrdCd,
+					prdcrIdentno: item.prdcrIdentno
 				}
 				PrdcrLatestInfo.push(rawMtrWrhs);
+				let originalDate = item.wrhsYmd;
+				let formattedDate = originalDate.slice(0, 4) + "-" + originalDate.slice(4, 6) + "-" + originalDate.slice(6);
+
 				let element = '<tr onclick="selectLatestInfo(this)">' +
-									'<td>' + (item.wrhsYmd|| '') + '</td>' +
-									'<td>' + (item.wrhsno|| '') + '</td>' +
-									'<td>' + (item.bxQntt|| '0') +'/' + (item.wrhsWght|| '0')+ '</td>' +
+									'<td>' + (formattedDate|| '') + '</td>' +
+									'<td>' + (item.prdcrNm|| '') + '</td>' +
+									'<td>' + (item.prdcrIdentno|| '0')+'</td>' +
+									'<td>' + (item.bxQntt|| '') + '</td>' +
 									'<td>' + (item.pltno|| '') + '</td>' +
-									'<td>' + (item.vhclno|| '') + '</td>' +
-									'<td>' + (item.rmrk|| '') + '</td>' +
+									'<td>' + (item.itemNm|| '') + '</td>' +
+									'<td>' + (item.vrtyNm|| '') + '</td>' +
 									'</tr>';
 							$("#latestInfoBody").append(element);
 			});
@@ -1414,7 +1423,7 @@
 			var cells = element.querySelectorAll('td');
 			var rowData = Array.from(cells).map(cell => cell.innerText);
 
-			rawMtrWrhs = await PrdcrLatestInfo.filter(el => el.wrhsno == rowData[1]);
+			rawMtrWrhs = await PrdcrLatestInfo.filter(el => el.pltno == rowData[4]);
 			// 등록 상태 세팅
 			SBUxMethod.set("srch-inp-prdcrCd", rawMtrWrhs[0].prdcrCd);
 			SBUxMethod.set("srch-inp-prdcrNm", rawMtrWrhs[0].prdcrNm);

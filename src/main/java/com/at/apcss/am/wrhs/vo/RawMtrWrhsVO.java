@@ -267,6 +267,10 @@ public class RawMtrWrhsVO extends ComVO {
 	 * 재고상태코드
 	 */
 	private String invntrSttsCd;
+	/**
+	 * 생산자인식번호
+	 */
+	private int prdcrIdentno;
 	
 	
 	/**
