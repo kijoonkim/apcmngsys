@@ -85,4 +85,18 @@ public class PrdcrCrclOgnVluFndsMngServiceImpl extends BaseServiceImpl implement
 		return savedCnt;
 	}
 
+	@Override
+	public List<PrdcrCrclOgnVluFndsMngVO> selectScrDataList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO) throws Exception {
+
+		List<PrdcrCrclOgnVluFndsMngVO> resultList = prdcrCrclOgnVluFndsMngMapper.selectScrDataList(prdcrCrclOgnVluFndsMngVO);
+		return resultList;
+	}
+
+	@Override
+	public List<PrdcrCrclOgnVluFndsMngVO> selectRtDataList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO) throws Exception {
+
+		List<PrdcrCrclOgnVluFndsMngVO> resultList = prdcrCrclOgnVluFndsMngMapper.selectRtDataList(prdcrCrclOgnVluFndsMngVO);
+		return resultList;
+	}
+
 }

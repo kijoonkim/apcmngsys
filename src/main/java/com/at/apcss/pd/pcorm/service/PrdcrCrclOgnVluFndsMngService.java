@@ -76,4 +76,21 @@ public interface PrdcrCrclOgnVluFndsMngService {
 	 */
 	public int multiSaveComputWayList(List<PrdcrCrclOgnVluFndsMngVO> PrdcrCrclOgnVluFndsMngVOList) throws Exception;
 
+
+	/**
+	 * 활성화자금 로우데이터 조회
+	 * @param prdcrCrclOgnVluFndsMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluFndsMngVO> selectScrDataList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO) throws Exception;
+
+	/**
+	 * 활성화자금 기준 로우데이터 조회
+	 * @param prdcrCrclOgnVluFndsMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluFndsMngVO> selectRtDataList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO) throws Exception;
+
 }

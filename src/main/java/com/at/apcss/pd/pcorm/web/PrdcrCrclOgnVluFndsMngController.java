@@ -129,4 +129,35 @@ public class PrdcrCrclOgnVluFndsMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	//활성화자금 로우데이터 조회
+	@PostMapping(value = "/pd/pcorm/selectScrDataList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectScrDataList(Model model, @RequestBody PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PrdcrCrclOgnVluFndsMngVO> resultList = new ArrayList<>();
+		try {
+			 resultList = prdcrCrclOgnVluFndsMngService.selectScrDataList(prdcrCrclOgnVluFndsMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
+	//활성화자금 기준 로우데이터 조회
+	@PostMapping(value = "/pd/pcorm/selectRtDataList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectRtDataList(Model model, @RequestBody PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PrdcrCrclOgnVluFndsMngVO> resultList = new ArrayList<>();
+		try {
+			 resultList = prdcrCrclOgnVluFndsMngService.selectRtDataList(prdcrCrclOgnVluFndsMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
 }
