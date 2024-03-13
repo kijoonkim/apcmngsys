@@ -79,6 +79,9 @@
 					</div>
 
 					<div id="sb-area-grdComputWayPop" style="width:100%;height:300px;"></div>
+					<div>
+						<p>전문품목 총취급액, 전문품목 약정취급율 의 경우 설정한 배점이 계산식에 적용 됩니다</p>
+					</div>
 				</div>
 				<!--[pp] //검색결과 -->
 			</div>
@@ -123,7 +126,7 @@
 			]);
 
 			this.createGrid();
-			//this.search();
+			this.search();
 
 		},
 		close: function() {
