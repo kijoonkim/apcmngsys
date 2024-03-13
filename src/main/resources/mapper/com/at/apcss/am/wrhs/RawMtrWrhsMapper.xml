@@ -1335,15 +1335,20 @@
 				, INV.PRDCTN_YR		AS PRDCTN_YR
 				, WP.RMRK           AS RMRK
 				, INV.PRCS_TYPE		AS PRCS_TYPE
+	    		, PIF.PRDCR_IDENTNO AS PRDCR_IDENTNO
 
 			  FROM
 			  	  TB_RAW_MTR_WRHS_PRFMNC WP
 			  	, TB_RAW_MTR_INVNTR INV
+			  	, TB_PRDCR_INFO PIF
 
 			 WHERE WP.APC_CD = INV.APC_CD
 			   AND WP.WRHSNO = INV.WRHSNO
+			   AND WP.APC_CD = PIF.APC_CD
+			   AND WP.PRDCR_CD = PIF.PRDCR_CD
 			   AND WP.DEL_YN = 'N'
 			   AND INV.DEL_YN = 'N'
+			   AND PIF.DEL_YN = 'N'
 		]]>
 
 		<if test='apcCd != null and apcCd != ""'>
