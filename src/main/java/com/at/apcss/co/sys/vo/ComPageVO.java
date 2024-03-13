@@ -28,7 +28,7 @@ public class ComPageVO {
 	private int pageSize;				// 페이지 리스트 표시 페이지 건수
 	private int totalRecordCount;		// 전체 레코드 건수
 	private int totalPageCount;			// 전체 페이지 건수
-	private int firstPageNoOnPageList;	// 페이지 리스트 첫 페이지 번호
+	private int firstPageNoOnPageList;    // 페이지 리스트 첫 페이지 번호
 	private int lastPageNoOnPageList;	// 페이지 리스트 끝 페이지 번호
 	private int firstRecordIndex;		// 현재 페이지 첫 레코드 index
 	private int lastRecordIndex;		// 현재 페이지 끝 레코드 index
