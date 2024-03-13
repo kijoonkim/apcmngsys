@@ -376,7 +376,6 @@
 			 INSERT
 					(
 						YR
-					  , BRNO
 					  , COMPUT_WAY_CD
 					  , COMPUT_WAY_DTL
 					  , FUND_ARTCL
@@ -395,7 +394,6 @@
 				VALUES
 					(
 						#{yr}
-					  , #{brno}
 					  , #{computWayCd}
 					  , #{computWayDtl}
 					  , #{fundArtcl}
