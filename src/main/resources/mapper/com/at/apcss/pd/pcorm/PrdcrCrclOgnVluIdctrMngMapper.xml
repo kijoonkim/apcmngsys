@@ -689,6 +689,14 @@
 						,''
 			) AS ITR_RT
 			,TOT.RMRK
+			,NVL((SELECT ISO_FUND_APLY_AMT
+					FROM TB_EV_APLY_MNG
+					WHERE 1=1
+					  AND YR = TOT.YR
+					  AND BRNO = TOT.BRNO
+					  AND UO_BRNO = TOT.UO_BRNO
+					),0
+			) AS ISO_FUND_APLY_AMT
 		FROM
 			(SELECT
 				EAM.YR

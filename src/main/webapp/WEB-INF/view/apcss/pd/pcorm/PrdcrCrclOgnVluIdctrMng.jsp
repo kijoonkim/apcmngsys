@@ -522,7 +522,7 @@
 		{'text': 'N','label': 'N', 'value': 'N'}
 	];
 
-	//적합여부
+	//선정여부
 	var comStbltYn = [
 		{'text': 'Y','label': 'Y', 'value': 'Y'},
 		{'text': 'N','label': 'N', 'value': 'N'}
@@ -796,7 +796,7 @@
 				{caption: ["금리(%)"], 		ref: 'itrRt',			type:'output',  width:'80px',    style:'text-align:center;'
 					,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}
 				},
-				{caption: ["적합여부\n(관리자입력)"], 	ref: 'mngrBscStbltYn',	type:'output',  width:'160px',    style:'text-align:center;'
+				{caption: ["선정여부\n(관리자입력)"], 	ref: 'mngrBscStbltYn',	type:'combo',  width:'90px',    style:'text-align:center;'
 					,typeinfo : {ref:'comStbltYn', label:'label', value:'value', displayui : true}
 				},
 				{caption: ["탈락사유구분\n(관리자입력)"], 	ref: 'mngrIcptRsnCd',	type:'combo',  width:'160px',    style:'text-align:center;'
@@ -811,7 +811,7 @@
 				{caption: ["금리(%)\n(관리자입력)"], 		ref: 'mngrItrRt',			type:'input',  width:'120px',    style:'text-align:center;'
 					,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}
 				},
-				{caption: ["비고"], 		ref: 'rmrk', 	type:'output',  width:'200px',	style:'text-align:center'},
+				{caption: ["비고"], 		ref: 'rmrk', 	type:'input',  width:'200px',	style:'text-align:center'},
 				{caption: ["상세내역"], 	ref: 'yr',   			hidden : true},
 				//{caption: ["상세내역"], 	ref: 'stbltItemList',   hidden : true},
 			];
@@ -1049,7 +1049,7 @@
 			{caption: ["금리(%)"], 		ref: 'itrRt',			type:'output',  width:'80px',    style:'text-align:center;'
 				,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}
 			},
-			{caption: ["적합여부\n(관리자입력)"], 	ref: 'mngrBscStbltYn',	type:'output',  width:'160px',    style:'text-align:center;'
+			{caption: ["선정여부\n(관리자입력)"], 	ref: 'mngrBscStbltYn',	type:'combo',  width:'90px',    style:'text-align:center;'
 				,typeinfo : {ref:'comStbltYn', label:'label', value:'value', displayui : true}
 			},
 			{caption: ["탈락사유구분\n(관리자입력)"], 	ref: 'mngrIcptRsnCd',	type:'combo',  width:'160px',    style:'text-align:center;'
@@ -1064,7 +1064,7 @@
 			{caption: ["금리(%)\n(관리자입력)"], 		ref: 'mngrItrRt',			type:'input',  width:'110px',    style:'text-align:center;'
 				,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}
 			},
-			{caption: ["비고"], 		ref: 'rmrk', 	type:'output',  width:'200px',	style:'text-align:center'},
+			{caption: ["비고"], 		ref: 'rmrk', 	type:'input',  width:'200px',	style:'text-align:center'},
 			{caption: ["상세내역"], 	ref: 'yr',   		hidden : true},
 			{caption: ["상세내역"], 	ref: 'apoSe',   	hidden : true},
 			{caption: ["상세내역"], 	ref: 'uoBrno',   	hidden : true},
@@ -1757,6 +1757,7 @@
 					,mngrIcptRsnCd		: item.mngrIcptRsnCd//탈락사유구분
 					,mngrIcptRsnDtlCd	: item.mngrIcptRsnDtlCd //세부탈락사유
 
+					,isoFundAplyAmt		: item.isoFundAplyAmt//자금신청액
 					,pnlty				: pnltyVal//패널티
 					,itrRt				: itrRtVal//금리
 					,mngrPnlty			: mngrPnltyVal //패널티
