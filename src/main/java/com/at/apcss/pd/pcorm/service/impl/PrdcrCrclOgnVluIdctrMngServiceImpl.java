@@ -92,4 +92,10 @@ public class PrdcrCrclOgnVluIdctrMngServiceImpl extends BaseServiceImpl implemen
 		}
 		return savedCnt;
 	}
+
+	@Override
+	public List<PrdcrCrclOgnVluIdctrMngVO> selectRawDataList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception {
+		List<PrdcrCrclOgnVluIdctrMngVO> resultList = prdcrCrclOgnVluIdctrMngMapper.selectRawDataList(prdcrCrclOgnVluIdctrMngVO);
+		return resultList;
+	}
 }
