@@ -72,60 +72,53 @@
 
 }
 
-.dtl-info {
-	font-size: 16px;
-}
 
-.spn-title {
-	font-size: 24px;
-}
-
-.accordion {
-  background-color: #eee;
-  color: #333;
-  cursor: pointer;
-  padding: 10px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 24px;
-  transition: 0.4s;
-}
-
-.active, .accordion:hover {
-  background-color: #ccc;
-}
-
-.panel {
-	padding: 10px 0px;
-	display: none;
-	background-color: white;
-	overflow: hidden;
-	font-size: 20px;
-}
-
-.panel ul {
-
-}
-
-.panel ul>li {
-	cursor: pointer;
-	font-size: 20px;
-	margin: 5px 0px;
-}
-
-.panel ul>li:hover {
+#latestInfo > table > thead > tr >th{
+	-webkit-text-size-adjust: 100%;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	color: #333;
+	font-family: Notokr, Apple SD Gothic Neo, Arial, Tahoma, sans-serif;
+	border-spacing: 0;
+	border-collapse: collapse;
+	box-sizing: border-box;
+	margin: 0;
+	border-color: #e8f1f9 !important;
+	border-bottom: 1px solid #ffffff !important;
+	word-wrap: break-word;
+	background-color: #e8f1f9;
+	text-align: center;
 	font-weight: bold;
-	font-size: 24px;
-	background-color: #ddd;
+	font-size: 28px;
+	padding: 8px;
+	line-height: 1.42857143;
+	border: 1px solid #ddd;
+	border-top: 1px solid #f4f4f4;
+	vertical-align: middle;
 }
-.panel ul>li:hover a {
-
+#latestInfoBody > tr:hover{
+	background-color : #FFF8DC;
+	cursor: pointer;
 }
 
-#ul-sortRslt {
-	padding: 5px 10px;
+#latestInfoBody > tr > td {
+	-webkit-text-size-adjust: 100%;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	color: #333;
+	font-weight: 400;
+	font-family: Notokr, Apple SD Gothic Neo, Arial, Tahoma, sans-serif;
+	border-spacing: 0;
+	border-collapse: collapse;
+	box-sizing: border-box;
+	margin: 0;
+	font-size: 28px;
+	text-align: center;
+	word-wrap: break-word;
+	border-color: #e8f1f9 !important;
+	padding: 3px !important;
+	line-height: 1.42857143;
+	border: 1px solid #f4f4f4;
+	vertical-align: middle;
+	border-right: hidden;
 }
 
 /*
@@ -1094,17 +1087,35 @@ li:hover a { color: white; font-weight: bold }
 						</tr>
 					</tbody>
 				</table>
-				<div class="dtl-info">
-					<button class="accordion">선별실적</button>
-					<div class="panel">
-						<ul id="ul-sortRslt">
-						</ul>
-					</div>
-				</div>
 
 				<!-- 최근 실적 조회구간 -->
 
 				<!--[pp] //검색 -->
+			</div>
+			
+			<div class="box-body" id="latestInfo">
+				<table class="table table-bordered tbl_fixed tbl_mbl">
+					<colgroup>
+						<col style="width: 15%">
+						<col style="width: 10%">
+						<col style="width: 15%">
+						<col style="width: 15%">
+						<col style="width: 10%">
+						<col style="width: 35%">
+					</colgroup>
+					<thead>
+						<tr>
+							<th>선별일시</th>
+							<th>생산자명</th>
+							<th>팔레트번호</th>
+							<th>품목</th>
+							<th>투입수량</th>
+							<th>선별내역</th>
+						</tr>
+					</thead>
+					<tbody id="latestInfoBody">
+					</tbody>
+				</table>
 			</div>
 			<!--[pp] //검색결과 -->
 
@@ -1346,17 +1357,6 @@ li:hover a { color: white; font-weight: bold }
     		//sbux-pik-icon
     	});
 
-		const accs = document.querySelectorAll(".accordion").forEach((el) => {
-			el.addEventListener("click", function() {
-				this.classList.toggle("active");
-			    let panel = this.nextElementSibling;
-			    if (panel.style.display === "block") {
-			      	panel.style.display = "none";
-			    } else {
-			      	panel.style.display = "block";
-			    }
-			  });
-		});
 
     	fn_init();
     });
@@ -2018,10 +2018,10 @@ li:hover a { color: white; font-weight: bold }
 
 		// search fn_searchSort
 
-		const ul = document.querySelector('#ul-sortRslt');
-
-		while (ul.hasChildNodes()){
-			ul.removeChild( ul.firstChild );
+		
+		const tbd = document.querySelector('#latestInfoBody');
+		while (tbd.hasChildNodes()){
+			tbd.removeChild( tbd.firstChild );
 		}
 
         try {
@@ -2035,31 +2035,43 @@ li:hover a { color: white; font-weight: bold }
   			if (_.isEqual("S", data.resultStatus)) {
 
   				sortList = data.resultList;
-
-  				console.log(sortList);
-
+  				
   				for ( let i = 0; i < sortList.length; i++ ) {		// fn_view('ST202403100001')
 
   					const rowData = sortList[i];
 
-					const li = document.createElement('li');
-
-					const txt = "  " + (i + 1) + ". ----------------------------------------"
-						+	"\n생산자: " + rowData.rprsPrdcrNm
-						+	"    팔레트: " + rowData.pltno
-						+	"    품목: " + rowData.itemNm
-						+	"    " + rowData.vrtyNm
-						+	"    규격: " + rowData.spcfctNm
-						+	"    투입: " + rowData.inptQntt.toLocaleString()
-						+	"\n선별: " + rowData.sortQntt.toLocaleString()
-						+	" ( " + rowData.grdQnttNm + " )";
-					li.innerText = txt;
-
-					li.addEventListener("click", () => {
+  					const tr = document.createElement('tr');
+  					
+  					const tdRegDt = document.createElement('td');
+  					tdRegDt.innerText = rowData.sysLastChgDt;
+  					tr.appendChild(tdRegDt);
+  					
+  					const tdRprsPrdcrNm = document.createElement('td');
+  					tdRprsPrdcrNm.innerText = rowData.rprsPrdcrNm;
+  					tr.appendChild(tdRprsPrdcrNm);
+  					
+  					const tdPltno = document.createElement('td');
+  					tdPltno.innerText = rowData.pltno;
+  					tr.appendChild(tdPltno);
+  					
+  					const tdItemVrty = document.createElement('td');
+  					tdItemVrty.innerText = rowData.itemNm + " " + rowData.vrtyNm;
+  					tr.appendChild(tdItemVrty);
+  					
+  					const tdInpt = document.createElement('td');
+  					tdInpt.innerText = rowData.inptQntt.toLocaleString();
+  					tr.appendChild(tdInpt);
+  					
+  					const tdSort = document.createElement('td');
+  					tdSort.innerText = rowData.sortQntt.toLocaleString()
+  								+ " ( " + rowData.grdQnttNm + " )";
+  					tr.appendChild(tdSort);
+  					
+					tr.addEventListener("click", () => {
 						fn_view(i);
 					});
 
-					ul.appendChild(li);
+					tbd.appendChild(tr);
   				}
 
         	} else {
