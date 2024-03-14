@@ -79,4 +79,12 @@ public interface PrdcrCrclOgnVluIdctrMngMapper {
 	 */
 	public int insertUoTotList (PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO);
 
+	/**
+	 * 로우데이터 조회
+	 * @param PrdcrCrclOgnVluIdctrMngVO
+	 * @return List<PrdcrCrclOgnVluIdctrMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluIdctrMngVO> selectRawDataList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO);
+
 }

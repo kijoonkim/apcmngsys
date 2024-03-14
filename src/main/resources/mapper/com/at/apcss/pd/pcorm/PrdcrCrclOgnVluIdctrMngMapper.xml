@@ -333,7 +333,7 @@
 
 	<!-- 통합조직 총괄 리스트 -->
 	<select id="selectUoTotList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
-		SELECT
+		SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.selectUoTotList */
 			EAM.YR
 			,EAM.BRNO
 			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = EAM.BRNO) AS CORP_NM
@@ -496,7 +496,7 @@
 
 	<!-- 출자출하조직 등록결과 리스트 -->
 	<select id="selectIsoList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
-		SELECT	/* com.at.apcss.pd.pcorm.mapper.selectIsoList */
+		SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.selectIsoList */
 			TOTAL.ITEM_CD
 			,TOTAL.ITEM_NM
 			,TOTAL.STTG_UPBR_ITEM_SE
@@ -665,7 +665,7 @@
 	</select>
 	<!-- 출자출하조직 총괄 리스트 -->
 	<select id="selectIsoTotList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
-		SELECT
+		SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.selectIsoTotList */
 			TOT.YR
 			,TOT.BRNO
 			,TOT.CORP_NM
@@ -684,7 +684,17 @@
 			,TOT.STBLT_YN
 			,TOT.STBLT_ITEM_LIST
 			,DECODE(TOT.STBLT_YN
-						,'Y',(SELECT ITR_RT FROM TB_EV_REG_RSLT WHERE APO_SE = '1' AND YR = TOT.YR AND BRNO = TOT.UO_BRNO)
+						,'Y',(SELECT
+									(CASE WHEN NVL(ERR.MNGR_ITR_RT,'') IS NOT NULL
+												THEN ERR.MNGR_ITR_RT
+												ELSE ERR.ITR_RT
+												END)
+								FROM TB_EV_REG_RSLT ERR
+								WHERE 1=1
+								  AND APO_SE = '1'
+								  AND YR = TOT.YR
+								  AND BRNO = TOT.UO_BRNO
+								)
 						,'N',TOT.ORG_ITR_RT
 						,''
 			) AS ITR_RT
@@ -837,7 +847,7 @@
 	</select>
 	<!-- 생산자조직 등록결과 리스트 -->
 	<select id="selectFrmhsList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
-		SELECT	/* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectTbEvFrmhsApoStbltYnList */
+		SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.selectFrmhsList */
 			TOTAL.BRNO
 			,DECODE(TOTAL.APO_SE , '1' , TOTAL.BRNO , '2' , TOTAL.UO_BRNO , '')AS UO_BRNO
 			,TOTAL.APO_SE
@@ -952,7 +962,7 @@
 
 	<insert id="insertUoTotList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
 		<![CDATA[
-		MERGE INTO TB_EV_REG_RSLT CLT  /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.insertUoTotList */
+		MERGE INTO TB_EV_REG_RSLT CLT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.insertUoTotList */
 		USING DUAL
 			ON (
 					CLT.BRNO		= #{brno}
@@ -1053,7 +1063,7 @@
 
 	<insert id="insertIsoTotList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
 		<![CDATA[
-		MERGE INTO TB_EV_REG_RSLT CLT  /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.insertUoTotList */
+		MERGE INTO TB_EV_REG_RSLT CLT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.insertIsoTotList */
 		USING DUAL
 			ON (
 					CLT.BRNO		= #{brno}
@@ -1149,4 +1159,108 @@
 					)
 		]]>
 	</insert>
+	<select id="selectRawDataList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
+		SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.selectRawDataList */
+			ERR.YR
+			, ERR.BRNO
+			, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = ERR.BRNO) AS CORP_NM
+			, DECODE(ERR.APO_SE , '1' , '통합조직' , '2' , '출자출하조직') AS APO_SE
+			, DECODE(ERR.APO_SE , '1' , ERR.BRNO , '2' , ERR.UO_BRNO) AS UO_BRNO
+			, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = DECODE(ERR.APO_SE , '1' , ERR.BRNO , '2' , ERR.UO_BRNO)) AS UO_CORP_NM
+
+			, (SELECT CORP_SE_CD FROM TB_EV_APO WHERE BRNO = ERR.BRNO) AS CORP_SE_CD
+			, (SELECT CD_VL_NM
+				FROM TB_COM_CD_DTL
+				WHERE 1=1
+				  AND CD_ID = 'CORP_SE_CD'
+				  AND CD_VL = (SELECT CORP_SE_CD
+				  				FROM TB_EV_APO
+				  				WHERE 1=1
+				  				  AND BRNO = ERR.BRNO
+				  				)
+			) AS CORP_SE_NM
+
+			, (SELECT CORP_DTL_SE_CD FROM TB_EV_APO WHERE BRNO = ERR.BRNO) AS CORP_DTL_SE_CD
+			, (SELECT CD_VL_NM
+				FROM TB_COM_CD_DTL
+				WHERE 1=1
+				  AND CD_ID = 'CORP_SHAP'
+				  AND CD_VL = (SELECT CORP_DTL_SE_CD
+				  				FROM TB_EV_APO
+				  				WHERE 1=1
+				  				  AND BRNO = ERR.BRNO
+				  				)
+			) AS CORP_DTL_SE_NM
+
+			, STBLT_ITEM_LIST
+			, DECODE(ERR.APO_SE
+							, '2' , (SELECT ISO_FUND_APLY_AMT
+										FROM TB_EV_APLY_MNG
+										WHERE 1=1
+										  AND YR = ERR.YR
+										  AND BRNO = ERR.BRNO
+										  AND UO_BRNO = ERR.UO_BRNO
+										)
+							,NULL
+			) AS ISO_FUND_APLY_AMT
+			, FUND_APLY_AMT_TOT
+			, FUND_APLY_AMT_STBLT_TOT
+			, STBLT_YN
+			, ITR_RT
+			, ICPT_RSN_CD
+			, DECODE(ERR.ICPT_RSN_CD , 'A' , '기본요건 미충족'
+										,'B' ,'세부요건 미충족'
+										,'C' , '통합조직 탈락'
+										,''
+			)AS ICPT_RSN_NM
+			, ICPT_RSN_DTL_CD
+			, DECODE(ERR.ICPT_RSN_DTL_CD , 'A1' , '농업경영체 미등록'
+											,'A2' ,'출자자본금 1억원 미달'
+											,'A3' ,'설립 후 운영실적 1년 미만'
+											,'A4' ,'농업인 주주 5명 미만'
+											,'A5' ,'농업인 주주 지분 50% 미만'
+											,'A6' ,'원예농산물 취급액 50% 미만'
+											,'B1' ,'품목 부적합(농협조직)'
+											,'B2' ,'품목 부적합(농업법인, 협동조합)'
+											,'C1' , '통합조직 탈락(농협조직)'
+											,'C2' , '통합조직 탈락(농업법인, 협동조합)'
+											,''
+			)AS ICPT_RSN_DTL_NM
+			, DECODE(ERR.ICPT_RSN_CD , 'A' , '기존자금 회수'
+										,'B' ,'최고금리'
+										,'C' , '최고금리'
+										,''
+			)AS PNLTY
+			, MNGR_STBLT_YN
+			, MNGR_ITR_RT
+			, MNGR_ICPT_RSN_CD
+			, DECODE(ERR.MNGR_ICPT_RSN_CD , 'A' , '기본요건 미충족'
+											,'B' ,'세부요건 미충족'
+											,'C' , '통합조직 탈락'
+											,''
+			)AS MNGR_ICPT_RSN_NM
+			, MNGR_ICPT_RSN_DTL_CD
+			, DECODE(ERR.MNGR_ICPT_RSN_DTL_CD , 'A1' , '농업경영체 미등록'
+												,'A2' ,'출자자본금 1억원 미달'
+												,'A3' ,'설립 후 운영실적 1년 미만'
+												,'A4' ,'농업인 주주 5명 미만'
+												,'A5' ,'농업인 주주 지분 50% 미만'
+												,'A6' ,'원예농산물 취급액 50% 미만'
+												,'B1' ,'품목 부적합(농협조직)'
+												,'B2' ,'품목 부적합(농업법인, 협동조합)'
+												,'C1' , '통합조직 탈락(농협조직)'
+												,'C2' , '통합조직 탈락(농업법인, 협동조합)'
+												,''
+			)AS MNGR_ICPT_RSN_DTL_NM
+			, DECODE(ERR.MNGR_ICPT_RSN_CD , 'A' , '기존자금 회수'
+											,'B' ,'최고금리'
+											,'C' , '최고금리'
+											,''
+			)AS MNGR_PNLTY
+			, RMRK
+		FROM TB_EV_REG_RSLT ERR
+		WHERE 1=1
+			AND YR = #{yr}
+		ORDER BY UO_BRNO , APO_SE DESC
+	</select>
 </mapper>
