@@ -346,7 +346,7 @@
 					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:200px; width: 742px;"></div>
 				</div>
 				<div class="ad_section_top" style="width: 99%;">
-					<div class="box-header" style="display:flex; justify-content: flex-start; width: 1182px;" >
+					<div class="box-header" style="display:flex; justify-content: flex-start; width: 1142px;" >
 						<div style="margin-left: auto;">
 							<sbux-button id="btnSaveFclt2" name="btnSaveFclt2" uitype="normal" text="가감점 저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave02"></sbux-button>
 						</div>
@@ -362,7 +362,7 @@
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdPrdcrOgnCurntMng02" style="height:300px; width: 1182px;"></div>
+					<div id="sb-area-grdPrdcrOgnCurntMng02" style="height:300px; width: 1142px;"></div>
 				</div>
 			</div>
 			<div id="sb-area-hiddenGrd" style="height:400px; width: 100%; display: none;"></div>
@@ -674,7 +674,7 @@
 		//SBGridProperties.fixedrowheight=45;
 		//SBGridProperties.rowheight = 57;
 		SBGridProperties.oneclickedit = true;
-		SBGridProperties.rowheader = ['seq','update'];
+		//SBGridProperties.rowheader = ['seq','update'];
 		SBGridProperties.columns = [
 			{caption: ["처리"], 				ref: 'delYn',   	type:'button', width:'60px',	style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 				if(strValue== null || strValue == ""){
