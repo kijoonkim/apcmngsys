@@ -343,7 +343,7 @@
 			,CHK.CORP_DTL_SE_NM
 			,CHK.ICPT_RSN_CD
 			,CHK.ICPT_RSN_DTL_CD
-			,(CASE WHEN CHK.ICPT_RSN_CD != '' AND CHK.ICPT_RSN_CD IS NOT NULL THEN 'N'
+			,(CASE WHEN CHK.ICPT_RSN_CD IN ('A','B') THEN 'N'
 					ELSE 'Y'
 					END
 			) AS STBLT_YN
@@ -389,7 +389,7 @@
 						  				  AND UO_BRNO = EAM.BRNO
 						  				  AND STBLT_YN = 'Y')
 						  ),0)
-			) AS FUND_APLY_AMT_STBLT_ISO_TOT
+			) AS FUND_APLY_AMT_STBLT_TOT
 			,(SELECT LISTAGG(ITEM_NM, ' , ') WITHIN GROUP (ORDER BY ITEM_NM) AS STBLT_YN_NM
 								FROM (SELECT
 											(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = A.ITEM_CD) AS ITEM_NM
@@ -702,7 +702,7 @@
 				,CHK.CORP_DTL_SE_NM
 				,CHK.ICPT_RSN_CD
 				,CHK.ICPT_RSN_DTL_CD
-				,(CASE WHEN CHK.ICPT_RSN_CD != '' AND CHK.ICPT_RSN_CD IS NOT NULL THEN 'N'
+				,(CASE WHEN CHK.ICPT_RSN_CD IN ('A','B','C') THEN 'N'
 						ELSE 'Y'
 						END
 				) AS STBLT_YN
@@ -955,6 +955,7 @@
 				 UPDATE
 					   SET
 						  FUND_APLY_AMT_TOT		= #{fundAplyAmtTot}
+						, FUND_APLY_AMT_STBLT_TOT = #{fundAplyAmtStbltTot}
 						, STBLT_ITEM_LIST		= #{stbltItemList}
 
 						, STBLT_YN				= #{stbltYn}
@@ -988,6 +989,7 @@
 					  , APO_SE
 
 					  , FUND_APLY_AMT_TOT
+					  , FUND_APLY_AMT_STBLT_TOT
 					  , STBLT_ITEM_LIST
 
 					  , STBLT_YN
@@ -1016,6 +1018,7 @@
 					  , '1'
 
 					  , #{fundAplyAmtTot}
+					  , #{fundAplyAmtStbltTot}
 					  , #{stbltItemList}
 
 					  , #{stbltYn}
