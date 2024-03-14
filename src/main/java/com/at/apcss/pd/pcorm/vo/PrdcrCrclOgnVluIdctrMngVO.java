@@ -150,7 +150,7 @@ public class PrdcrCrclOgnVluIdctrMngVO extends ComVO{
 	private String cnt;//조직원수
 
 	private String fundAplyAmtTot;//자금신청액
-	private String fundAplyAmtStbltIsoTot;//자금신청액(탈락 출자출하조직 신청액은 제외)
+	private String fundAplyAmtStbltTot;//자금신청액(탈락 출자출하조직 신청액은 제외)
 	private String stbltItemList;//적합품목 리스트
 	private String itrRt;//금리
 

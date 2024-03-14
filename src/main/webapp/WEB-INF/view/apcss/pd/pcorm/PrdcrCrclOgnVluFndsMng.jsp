@@ -574,7 +574,9 @@
 		SBGridProperties.columns = [
 			{caption: ["항목"],		ref: 'fundArtcl',		type:'combo',  width:'160px',	style:'text-align:center;', disabled: true
 				,typeinfo : {ref:'jsonGrdFundArtcl01', label:'label', value:'value', displayui : false}},
-			{caption: ["산출식"],		ref: 'computWayDtl',		type:'textarea',  width:'400px',	style:'text-align:center;', disabled: true},
+			{caption: ["산출식"],		ref: 'computWayDtl',		type:'textarea',  width:'400px',	style:'text-align:center;', disabled: true
+				,typeinfo : {textareanewline : true}
+			},
 			/*
 			{caption: ["산출식"],		ref: 'computWayCd',		type:'combo',  width:'400px',	style:'text-align:center;', disabled: true
 				,typeinfo : {ref:'comComputWay01', label:'label', value:'value', displayui : false
