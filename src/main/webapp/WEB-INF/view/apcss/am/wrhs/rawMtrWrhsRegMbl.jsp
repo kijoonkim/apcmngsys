@@ -1398,6 +1398,7 @@
 				let formattedDate = originalDate.slice(0, 4) + "-" + originalDate.slice(4, 6) + "-" + originalDate.slice(6);
 
 				let element = '<tr onclick="selectLatestInfo(this)">' +
+									'<td style="display:none">' + (item.wrhsno|| '') + '</td>' +
 									'<td>' + (formattedDate|| '') + '</td>' +
 									'<td>' + (item.prdcrNm|| '') + '</td>' +
 									'<td>' + (item.prdcrIdentno|| '0')+'</td>' +
@@ -1422,8 +1423,7 @@
 		const selectLatestInfo = async function (element) {
 			var cells = element.querySelectorAll('td');
 			var rowData = Array.from(cells).map(cell => cell.innerText);
-
-			rawMtrWrhs = await PrdcrLatestInfo.filter(el => el.pltno == rowData[4]);
+			rawMtrWrhs = await PrdcrLatestInfo.filter(el => el.wrhsno == rowData[0]);
 			// 등록 상태 세팅
 			SBUxMethod.set("srch-inp-prdcrCd", rawMtrWrhs[0].prdcrCd);
 			SBUxMethod.set("srch-inp-prdcrNm", rawMtrWrhs[0].prdcrNm);
