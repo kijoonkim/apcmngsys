@@ -1600,6 +1600,7 @@
 			{caption: ["부류명"],			ref:'ctgryNm',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["전문품목 총취급액"],	ref:'slsTotAmt',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["총취급액"],			ref:'slsTotAmtTot',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["전속취급율"],		ref:'slsTotAmtRt',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["기준총취급액"],		ref:'totPercCont',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["기준전속취급율"],		ref:'rtPercCont',		type:'output',width:'70px',style:'text-align:center'},
 		];
