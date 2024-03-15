@@ -258,6 +258,7 @@
 			  		  							WHERE 1=1
 			  		  							  AND APO_SE = '2'
 			  		  							  AND STBLT_YN = 'Y'
+			  		  							  AND NVL(EXCL_YN,'N') != 'Y'
 			  		  							<if test='brno != null and brno != ""'>
 												  AND BRNO = #{brno}
 												</if>
@@ -285,6 +286,7 @@
 			  		  							WHERE 1=1
 			  		  							  AND APO_SE = '2'
 			  		  							  AND STBLT_YN = 'Y'
+			  		  							  AND NVL(EXCL_YN,'N') != 'Y'
 			  		  							<if test='brno != null and brno != ""'>
 												  AND BRNO = #{brno}
 												</if>
@@ -479,6 +481,7 @@
 			  		  							WHERE 1=1
 			  		  							  AND APO_SE = '2'
 			  		  							  AND STBLT_YN = 'Y'
+			  		  							  AND NVL(EXCL_YN,'N') != 'Y'
 			  		  							<if test='brno != null and brno != ""'>
 												  AND BRNO = #{brno}
 												</if>
@@ -506,6 +509,7 @@
 			  		  							WHERE 1=1
 			  		  							  AND APO_SE = '2'
 			  		  							  AND STBLT_YN = 'Y'
+			  		  							  AND NVL(EXCL_YN,'N') != 'Y'
 			  		  							<if test='brno != null and brno != ""'>
 												  AND BRNO = #{brno}
 												</if>
@@ -533,6 +537,7 @@
 			  		  							WHERE 1=1
 			  		  							  AND APO_SE = '2'
 			  		  							  AND STBLT_YN = 'Y'
+			  		  							  AND NVL(EXCL_YN,'N') != 'Y'
 			  		  							<if test='brno != null and brno != ""'>
 												  AND BRNO = #{brno}
 												</if>
@@ -562,6 +567,7 @@
 			  		  							WHERE 1=1
 			  		  							  AND APO_SE = '2'
 			  		  							  AND STBLT_YN = 'Y'
+			  		  							  AND NVL(EXCL_YN,'N') != 'Y'
 			  		  							<if test='brno != null and brno != ""'>
 												  AND BRNO = #{brno}
 												</if>

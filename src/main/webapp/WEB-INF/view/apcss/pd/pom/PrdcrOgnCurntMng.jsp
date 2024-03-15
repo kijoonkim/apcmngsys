@@ -610,7 +610,11 @@
 		{'text': '출자출하조직','label': '출자출하조직', 'value': '2'}
 	];
 
-
+	//생산자조직 제외 여부 (생산자조직인데 법인인 경우)
+	var jsonComGrdExclYn = [
+		{'text': 'Y','label': 'Y', 'value': 'Y'},
+		{'text': 'N','label': 'N', 'value': 'N'}
+	];
 	/**
 	 * combo 설정
 	 */
@@ -796,6 +800,12 @@
 				, ref: 'ecSpmtRateA',   	type:'output',  width:'100px',    style:'text-align:center;'},
 			{caption: ["출하비율(%)\n(육성형)[C/B]"] ,format: {type: 'string', rule: '@" %"'}
 				, ref: 'ecSpmtRateB',   	type:'output',  width:'100px',    style:'text-align:center;'},
+
+		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
+			//20240315 생산자조직중 법인인 경우 제외 처리를 위해 추가
+			{caption: ["제외여부"], 		ref: 'exclYn',   	type:'combo',  width:'60px',    style:'text-align:center', disabled:false , oneclickedit:true
+				,typeinfo : {ref:'jsonComGrdExclYn', label:'label', value:'value', displayui : true}},
+		</c:if>
 
 	        {caption: ["비고"], 			ref: 'rmrk',   		type:'input',  width:'220px',    style:'text-align:center'},
 	        {caption: ["상세내역"], 	ref: 'yr',   	hidden : true},
@@ -1876,7 +1886,9 @@
 						,ecSpmtRateA: 		item.ecSpmtRateA
 						,ecSpmtRateB: 		item.ecSpmtRateB
 						,stbltYn: 			item.stbltYn//적합여부
-
+					<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
+						,exclYn: 			item.exclYn//제외여부
+					</c:if>
 						,prdcrOgnzSn: 	item.prdcrOgnzSn
 						,prdcrOgnzCd: 	item.prdcrOgnzCd
 						,prdcrOgnzNm: 	item.prdcrOgnzNm

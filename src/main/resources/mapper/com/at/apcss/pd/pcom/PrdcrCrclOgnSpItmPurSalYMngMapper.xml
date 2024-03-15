@@ -41,7 +41,7 @@ SELECT
 	, ITEM.YR AS YR
 	,  (SELECT NVL( SUM( STT.SPMT_PRC ) , 0 )
 		FROM
-			(SELECT PRDCR_OGNZ_SN FROM TB_EV_FRMHS_APO WHERE BRNO = ISO.ISO_BRNO AND STBLT_YN = 'Y') SN
+			(SELECT PRDCR_OGNZ_SN FROM TB_EV_FRMHS_APO WHERE BRNO = ISO.ISO_BRNO AND STBLT_YN = 'Y' AND NVL(EXCL_YN,'N') != 'Y') SN
 			,(SELECT NVL(SPMT_PRC,0) AS SPMT_PRC , PRDCR_OGNZ_SN FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN WHERE ITEM_CD = ITEM.ITEM_CD) STT
 		WHERE SN.PRDCR_OGNZ_SN = STT.PRDCR_OGNZ_SN(+)
 	) AS SLS_CNSGN_PRCHS_AMT
@@ -243,6 +243,7 @@ FROM
 		FROM TB_EV_FRMHS_APO FA
 		WHERE FA.BRNO = #{brno}
 		  AND FA.STBLT_YN = 'Y'
+		  AND FA.EXCL_YN != 'Y'
 	)  UOFA ,
 	(SELECT
 			ITEM_CD
@@ -265,6 +266,7 @@ FROM
 	  							FROM TB_EV_FRMHS_APO
 	  							WHERE 1=1
 	  							  AND STBLT_YN = 'Y'
+	  							  AND NVL(EXCL_YN,'N') != 'Y'
 	  							  AND APO_SE = '1'
 								  AND BRNO = #{brno}
 								  AND YR = #{yr}
@@ -477,6 +479,7 @@ FROM
 		 						FROM TB_EV_FRMHS_APO
 		 						WHERE 1=1
 		 						  AND STBLT_YN = 'Y'
+		 						  AND NVL(EXCL_YN,'N') != 'Y'
 		 						  AND APO_SE = '2'
 								  AND YR= #{yr}
   								 AND UO_BRNO = #{brno}
@@ -685,7 +688,8 @@ FROM
 		  AND FA.APO_SE = '1'
 		  AND FA.BRNO = #{brno}
 		  AND FA.YR =#{yr}
-		  AND FA.STBLT_YN = 'Y'  --적합여부 추후 추가
+		  AND FA.STBLT_YN = 'Y'  /*적합여부 추후 추가*/
+		  AND FA.EXCL_YN != 'Y'
 	)  UOFA ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
@@ -1197,6 +1201,7 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , SE_DTL_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 						  		  							FROM TB_EV_FRMHS_APO
 						  		  							WHERE 1=1
 						  		  							  AND STBLT_YN = 'Y'
+						  		  							  AND NVL(EXCL_YN,'N') != 'Y'
 						  		  							  AND APO_SE = '1'
 															<if test='brno != null and brno != ""'>
 															  AND BRNO = #{brno}
@@ -1230,6 +1235,7 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , SE_DTL_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 						  		  							FROM TB_EV_FRMHS_APO
 						  		  							WHERE 1=1
 						  		  							  AND STBLT_YN = 'Y'
+						  		  							  AND NVL(EXCL_YN,'N') != 'Y'
 						  		  							  AND APO_SE = '1'
 															<if test='brno != null and brno != ""'>
 															  AND BRNO = #{brno}
@@ -1351,6 +1357,7 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , SE_DTL_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 											WHERE 1=1
 											  AND YR = A.YR
 											  AND STBLT_YN = 'Y'
+											  AND NVL(EXCL_YN,'N') != 'Y'
 											  AND BRNO = A.BRNO
 											  AND PRDCR_OGNZ_SN = A.PRDCR_OGNZ_SN
 											  AND ITEM_CD = (SELECT ITEM_CD
