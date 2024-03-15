@@ -2487,7 +2487,9 @@
 	//선정여부 일괄 저장
 	async function fn_allSave(){
 		console.log("fn_AllSave");
-
+		if (!gfn_comConfirm("Q0001", "선정여부 일괄 저장")) {	//	Q0001	{0} 하시겠습니까?
+    		return;
+    	}
 		let yr = SBUxMethod.get("srch-input-yr");//
 		//년도 검색값이 없는 경우 최신년도
 		if(gfn_isEmpty(yr)){
