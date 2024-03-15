@@ -28,6 +28,8 @@ public class PrdcrCrclOgnVluFndsMngVO extends ComVO{
 	private String slsTotAmt;//전문품목 총취급액
 	private String slsTotAmtTot;//총취급액
 	private String slsTotAmtRt;//전속취급율
+	private String onlnWhlslMrktAmt;//온라인도매시장 0.2
+
 	private String totPercCont;//기준총취급액
 	private String rtPercCont;//기준전속취급율
 
