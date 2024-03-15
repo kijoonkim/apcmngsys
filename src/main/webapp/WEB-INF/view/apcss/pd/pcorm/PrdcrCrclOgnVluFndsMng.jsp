@@ -1601,6 +1601,7 @@
 			{caption: ["전문품목 총취급액"],	ref:'slsTotAmt',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["총취급액"],			ref:'slsTotAmtTot',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["전속취급율"],		ref:'slsTotAmtRt',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["온라인도매시장(0.2)"],ref:'onlnWhlslMrktAmt',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["기준총취급액"],		ref:'totPercCont',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["기준전속취급율"],		ref:'rtPercCont',		type:'output',width:'70px',style:'text-align:center'},
 		];
@@ -1636,6 +1637,8 @@
 					,slsTotAmt				:item.slsTotAmt//전문품목 총취급액
 					,slsTotAmtTot			:item.slsTotAmtTot//총취급액
 					,slsTotAmtRt			:item.slsTotAmtRt//전속취급율
+					,onlnWhlslMrktAmt		:item.onlnWhlslMrktAmt//온라인도매시장(0.2)
+
 					,totPercCont			:item.totPercCont//기준총취급액
 					,rtPercCont				:item.rtPercCont//기준전속취급율
 
