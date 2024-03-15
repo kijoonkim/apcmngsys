@@ -169,4 +169,28 @@ public class PrdcrCrclOgnVluIdctrMngController extends BaseController{
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 		return getSuccessResponseEntity(resultMap);
 	}
+
+
+	//통합조직 선정여부 일괄 저장
+	@PostMapping(value = "/pd/pcom/multiSaveIcptRsnList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> multiSaveIcptRsnList(@RequestBody PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		int savedCnt = 0;
+		try {
+			prdcrCrclOgnVluIdctrMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+			prdcrCrclOgnVluIdctrMngVO.setSysFrstInptUserId(getUserId());
+			prdcrCrclOgnVluIdctrMngVO.setSysLastChgPrgrmId(getPrgrmId());
+			prdcrCrclOgnVluIdctrMngVO.setSysLastChgUserId(getUserId());
+
+			savedCnt += prdcrCrclOgnVluIdctrMngService.multiSaveUoIcptRsnList(prdcrCrclOgnVluIdctrMngVO);
+
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
+		return getSuccessResponseEntity(resultMap);
+	}
 }

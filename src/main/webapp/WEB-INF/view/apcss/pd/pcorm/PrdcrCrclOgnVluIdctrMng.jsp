@@ -21,6 +21,7 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-button id="btnAllSave" name="btnAllSave" uitype="normal" text="선정여부 일괄 저장" class="btn btn-sm btn-outline-danger" onclick="fn_allSave()"></sbux-button>
 					<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 				</div>
@@ -2481,6 +2482,39 @@
 		 */
 		//console.log(hiddenGrd.exportData);
 		hiddenGrd.exportData("xlsx" , fileName , true , true);
+	}
+
+	//선정여부 일괄 저장
+	async function fn_allSave(){
+		console.log("fn_AllSave");
+
+		let yr = SBUxMethod.get("srch-input-yr");//
+		//년도 검색값이 없는 경우 최신년도
+		if(gfn_isEmpty(yr)){
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
+
+		let postJsonPromise = gfn_postJSON("/pd/pcom/multiSaveIcptRsnList.do", {
+			yr : yr
+		});
+		let data = await postJsonPromise;
+		//console.log(data);
+		console.log(data.savedCnt);
+		try{
+			if(_.isEqual("S", data.resultStatus)){
+				alert("선정여부 일괄 저장 되었습니다.");
+				fn_dtlGridSearch();
+			}else{
+				alert("선정여부 일괄 저장 도중 오류가 발생 되었습니다.");
+			}
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
 	}
 </script>
 </html>

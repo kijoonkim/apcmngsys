@@ -98,4 +98,30 @@ public interface PrdcrCrclOgnVluIdctrMngService {
 	 * @throws Exception
 	 */
 	public List<PrdcrCrclOgnVluIdctrMngVO> selectRawDataList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception;
+
+
+	/**
+	 * 통합조직 선정여부 일괄 조회
+	 * @param PrdcrCrclOgnVluIdctrMngVO
+	 * @return List<PrdcrCrclOgnVluIdctrMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluIdctrMngVO> selectUoIcptRsnList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception;
+
+	/**
+	 * 출자출하조직 선정여부 일괄 조회
+	 * @param PrdcrCrclOgnVluIdctrMngVO
+	 * @return List<PrdcrCrclOgnVluIdctrMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluIdctrMngVO> selectIsoIcptRsnList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception;
+
+	/**
+	 * 선정여부 일괄 저장
+	 * @param List<PrdcrCrclOgnVluIdctrMngVO>
+	 * @return int
+	 * @throws Exception
+	 */
+	public int multiSaveUoIcptRsnList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception;
+
 }
