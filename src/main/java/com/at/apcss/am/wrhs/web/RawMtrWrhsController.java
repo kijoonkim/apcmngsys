@@ -46,7 +46,7 @@ public class RawMtrWrhsController extends BaseController {
 
 	@Resource(name = "cmnsVrtyService")
 	private CmnsVrtyService cmnsVrtyService;
-	
+
 	@PostMapping(value = "/am/wrhs/insertRawMtrWrhs.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> insertRawMtrWrhs(@RequestBody RawMtrWrhsVO rawMtrWrhsVO, HttpServletRequest request) throws Exception {
 
@@ -103,7 +103,7 @@ public class RawMtrWrhsController extends BaseController {
 				return getErrorResponseEntity(rtnObj);
 			}
 		}
-
+		resultMap.put(ComConstants.PROP_RESULT_MAP, rawMtrWrhsVO);
 		return getSuccessResponseEntity(resultMap);
 	}
 
@@ -288,7 +288,7 @@ public class RawMtrWrhsController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	@PostMapping(value = "/am/wrhs/selectRawMtrWrhsSmmryTotalList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectRawMtrWrhsSmmryTotalList(@RequestBody RawMtrWrhsSmmryVO rawMtrWrhsSmmryVO, HttpServletRequest request) throws Exception {
 
@@ -297,12 +297,12 @@ public class RawMtrWrhsController extends BaseController {
 		List<CmnsVrtyVO> vrtyList;
 		try {
 			resultList = rawMtrWrhsService.selectRawMtrWrhsSmmryTotalList(rawMtrWrhsSmmryVO);
-			
+
 			CmnsVrtyVO vrtyParamVO = new CmnsVrtyVO();
 			vrtyParamVO.setApcCd(rawMtrWrhsSmmryVO.getApcCd());
 			vrtyParamVO.setItemCd(rawMtrWrhsSmmryVO.getItemCd());
 			vrtyList = cmnsVrtyService.selectApcVrtyList(vrtyParamVO);
-			
+
 		} catch (Exception e) {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
@@ -338,6 +338,6 @@ public class RawMtrWrhsController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 
 }
