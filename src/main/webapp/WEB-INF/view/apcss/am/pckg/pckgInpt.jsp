@@ -351,7 +351,7 @@
     const fn_init = async function() {
 
     	let nowDate = new Date();
-		let firstYmd = gfn_dateFirstYmd(nowDate);
+		let firstYmd = gfn_dateToYmd(nowDate);
 		let toDayYmd = gfn_dateToYmd(new Date());
 
 		SBUxMethod.set("srch-dtp-pckgYmdFrom", firstYmd);
@@ -377,7 +377,7 @@
 		let pckgYmdTo = SBUxMethod.get("srch-dtp-pckgYmdTo");
 		if(gfn_diffDate(pckgYmdFrom, pckgYmdTo) < 0){
 			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");//W0001{0}
-			SBUxMethod.set("srch-dtp-pckgYmdFrom", gfn_dateFirstYmd(new Date()));
+			SBUxMethod.set("srch-dtp-pckgYmdFrom", gfn_dateToYmd(new Date()));
 			SBUxMethod.set("srch-dtp-pckgYmdTo", gfn_dateToYmd(new Date()));
 			return;
 		}

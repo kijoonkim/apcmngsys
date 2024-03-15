@@ -72,60 +72,53 @@
 
 }
 
-.dtl-info {
-	font-size: 16px;
-}
 
-.spn-title {
-	font-size: 24px;
-}
-
-.accordion {
-  background-color: #eee;
-  color: #333;
-  cursor: pointer;
-  padding: 10px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 24px;
-  transition: 0.4s;
-}
-
-.active, .accordion:hover {
-  background-color: #ccc; 
-}
-
-.panel {
-	padding: 10px 0px;
-	display: none;
-	background-color: white;
-	overflow: hidden;
-	font-size: 20px;
-}
-
-.panel ul {
-
-}
-
-.panel ul>li {
-	cursor: pointer;
-	font-size: 20px;
-	margin: 5px 0px;
-}
-
-.panel ul>li:hover {
+#latestInfo > table > thead > tr >th{
+	-webkit-text-size-adjust: 100%;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	color: #333;
+	font-family: Notokr, Apple SD Gothic Neo, Arial, Tahoma, sans-serif;
+	border-spacing: 0;
+	border-collapse: collapse;
+	box-sizing: border-box;
+	margin: 0;
+	border-color: #e8f1f9 !important;
+	border-bottom: 1px solid #ffffff !important;
+	word-wrap: break-word;
+	background-color: #e8f1f9;
+	text-align: center;
 	font-weight: bold;
-	font-size: 24px;
-	background-color: #ddd;
+	font-size: 28px;
+	padding: 8px;
+	line-height: 1.42857143;
+	border: 1px solid #ddd;
+	border-top: 1px solid #f4f4f4;
+	vertical-align: middle;
 }
-.panel ul>li:hover a {
-
+#latestInfoBody > tr:hover{
+	background-color : #FFF8DC;
+	cursor: pointer;
 }
 
-#ul-sortRslt {
-	padding: 5px 10px;
+#latestInfoBody > tr > td {
+	-webkit-text-size-adjust: 100%;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	color: #333;
+	font-weight: 400;
+	font-family: Notokr, Apple SD Gothic Neo, Arial, Tahoma, sans-serif;
+	border-spacing: 0;
+	border-collapse: collapse;
+	box-sizing: border-box;
+	margin: 0;
+	font-size: 28px;
+	text-align: center;
+	word-wrap: break-word;
+	border-color: #e8f1f9 !important;
+	padding: 3px !important;
+	line-height: 1.42857143;
+	border: 1px solid #f4f4f4;
+	vertical-align: middle;
+	border-right: hidden;
 }
 
 /*
@@ -133,7 +126,7 @@ li:hover{background: black;}
 li:hover a { color: white; font-weight: bold }
 
 
-.panel ul>li:nth-child(odd){ 
+.panel ul>li:nth-child(odd){
   background-color: #fff;
 }
 
@@ -192,8 +185,8 @@ li:hover a { color: white; font-weight: bold }
 						    <label for="srch-chk-autoPrint">자동출력</label>
 					    </p>
 					</div>
-					
-					
+
+
 				</div>
 			</div>
 			<div class="box-body">
@@ -1094,20 +1087,38 @@ li:hover a { color: white; font-weight: bold }
 						</tr>
 					</tbody>
 				</table>
-				<div class="dtl-info">
-					<button class="accordion">선별실적</button>
-					<div class="panel">
-						<ul id="ul-sortRslt">
-						</ul>
-					</div>
-				</div>
-				
+
 				<!-- 최근 실적 조회구간 -->
-				
+
 				<!--[pp] //검색 -->
 			</div>
-			<!--[pp] //검색결과 -->
 			
+			<div class="box-body" id="latestInfo">
+				<table class="table table-bordered tbl_fixed tbl_mbl">
+					<colgroup>
+						<col style="width: 15%">
+						<col style="width: 10%">
+						<col style="width: 15%">
+						<col style="width: 15%">
+						<col style="width: 10%">
+						<col style="width: 35%">
+					</colgroup>
+					<thead>
+						<tr>
+							<th>선별일시</th>
+							<th>생산자명</th>
+							<th>팔레트번호</th>
+							<th>품목</th>
+							<th>투입수량</th>
+							<th>선별내역</th>
+						</tr>
+					</thead>
+					<tbody id="latestInfoBody">
+					</tbody>
+				</table>
+			</div>
+			<!--[pp] //검색결과 -->
+
 		</div>
 	</section>
 
@@ -1154,7 +1165,7 @@ li:hover a { color: white; font-weight: bold }
 	let lv_cntOptnGrd = 0;
 
 	const grdList = [
-		'1', '2', '3', '4', '5', 
+		'1', '2', '3', '4', '5',
 		'6', '7', '8', '9', '10'
 	];
 
@@ -1230,35 +1241,35 @@ li:hover a { color: white; font-weight: bold }
 			}
 		}
 	}
-	
-	
+
+
 	const fn_showSortno = function(sortno) {
 		document.querySelectorAll(".tr-sortno").forEach((el) => {
 			el.style.display = "";
 		});
 		SBUxMethod.set("dtl-inp-sortno", sortno);
 	}
-	
+
 	const fn_hideSortno = function() {
 		document.querySelectorAll(".tr-sortno").forEach((el) => {
 			el.style.display = "none";
 		});
 		SBUxMethod.set("dtl-inp-sortno", "");
 	}
-	
+
 	let sortList = [];
-	
-	
+
+
 	const fn_view = async function(idx) {
-		
-		
-		
+
+
+
 		if (idx >= sortList.length) {
 			return;
 		}
-		
+
 		const sort = sortList[idx];
-		
+
 		SBUxMethod.set("dtl-inp-pltno", sort.pltno);
 
 		SBUxMethod.set("dtl-inp-wrhsno", sort.wrhsno);
@@ -1281,7 +1292,7 @@ li:hover a { color: white; font-weight: bold }
 		}
 		invntrInfo += "   선별: " + sort.sortQntt.toLocaleString();
 		invntrInfo += " ( " + sort.grdQnttNm + " )";
-		
+
 		SBUxMethod.set("dtl-lbl-invntr", invntrInfo);
 
       	await fn_setGrdUpdt(sort.itemCd, sort.vrtyCd);
@@ -1290,18 +1301,18 @@ li:hover a { color: white; font-weight: bold }
       	fn_getSpmtPckgUnit(sort.itemCd, sort.vrtyCd);
 
       	SBUxMethod.set("dtl-slt-spcfctCd", sort.spcfctCd);
-      	
-      	
+
+
       	if (!gfn_isEmpty(sort.grdQnttWght)) {
-      		
+
       		sort.grdQnttWght.split(',').forEach((item) => {
-      			
+
 				const grd = item.split(':');
-				
+
 				const grdCd = grd[0];
 				const qntt = grd[1];
 				const wght = grd[2];
-				
+
 				for ( let i=0; i<jsonFxngGrd.length; i++ ) {
 					const stdGrd = jsonFxngGrd[i];
 					if (_.isEqual(grdCd, stdGrd.grdCd)) {
@@ -1313,20 +1324,20 @@ li:hover a { color: white; font-weight: bold }
 				}
 			});
 		}
-      	
+
       	fn_showSortno(sort.sortno);
-      	
+
       	fn_updateSortQntt();
-      	
-      	// focus  	        	
+
+      	// focus
 		if (jsonOptnGrd.length > 0) {
 			SBUxMethod.focus('dtl-inp-qnttEx1');
 		} else {
 			SBUxMethod.focus('dtl-inp-qntt1');
 		}
-		
+
 	}
-	
+
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
 
@@ -1336,7 +1347,7 @@ li:hover a { color: white; font-weight: bold }
 	  			fn_searchInvntr();
 	  		}
   		});
-    	
+
 		document.querySelectorAll(".sbux-pik-icon-btn").forEach((el) => {
     		el.style.width = "50px";
     		el.style.height = "50px";
@@ -1346,18 +1357,7 @@ li:hover a { color: white; font-weight: bold }
     		//sbux-pik-icon
     	});
 
-		const accs = document.querySelectorAll(".accordion").forEach((el) => {
-			el.addEventListener("click", function() {
-				this.classList.toggle("active");
-			    let panel = this.nextElementSibling;
-			    if (panel.style.display === "block") {
-			      	panel.style.display = "none";
-			    } else {
-			      	panel.style.display = "block";
-			    }
-			  });
-		});
-		
+
     	fn_init();
     });
 
@@ -1368,7 +1368,7 @@ li:hover a { color: white; font-weight: bold }
     const fn_reset = function() {
 
     	fn_hideSortno();
-    	
+
     	//if (!SBUxMethod.get("dtl-chk-fxngFclt")["dtl-chk-fxngFclt"]) {
     	if (!document.querySelector('#dtl-chk-fxngFclt').checked) {
     		SBUxMethod.set("dtl-slt-fcltCd", null);
@@ -1490,7 +1490,7 @@ li:hover a { color: white; font-weight: bold }
 
 		SBUxMethod.set("dtl-inp-sortQntt", null);
 		SBUxMethod.set("dtl-inp-sortWght", null);
-		
+
 		sortGrdObj.show();
 	}
 
@@ -1538,11 +1538,11 @@ li:hover a { color: white; font-weight: bold }
 
 		SBUxMethod.set("dtl-inp-sortQntt", null);
 		SBUxMethod.set("dtl-inp-sortWght", null);
-		
+
 		sortGrdObj.show();
 	}
-	
-	
+
+
 	const fn_addGrd = function(idx) {
 		const grdId = grdList[idx];
 		SBUxMethod.refresh("dtl-slt-grdEx" + grdId);
@@ -1604,7 +1604,7 @@ li:hover a { color: white; font-weight: bold }
 		SBUxMethod.set("dtl-inp-sortQntt", totalQntt);
 		SBUxMethod.set("dtl-inp-sortWght", totalWght);
 	}
-	
+
 	const fn_updateSortQntt = function() {
 
 		let totalQntt = 0;
@@ -1959,7 +1959,7 @@ li:hover a { color: white; font-weight: bold }
     	}
 
 		const sortno = SBUxMethod.get("dtl-inp-sortno");
-		
+
 		const sortMng = {
     		apcCd: gv_selectedApcCd,
     		sortYmd: sortYmd,
@@ -1969,10 +1969,10 @@ li:hover a { color: white; font-weight: bold }
     		sortPrfmncList: sortPrfmncList
     	}
 
-				
-		const postUrl = gfn_isEmpty(sortno) ? 
+
+		const postUrl = gfn_isEmpty(sortno) ?
 					"/am/sort/insertSortPrfmnc.do" : "/am/sort/updateSortPrfmnc.do";
-		
+
         try {
     		const postJsonPromise = gfn_postJSON(postUrl, sortMng);
 			const data = await postJsonPromise;
@@ -1980,9 +1980,8 @@ li:hover a { color: white; font-weight: bold }
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
         		fn_reset();
-        		if(document.querySelector('#srch-chk-autoPrint').checked){
-        			fn_autoPrint(data.resultMap);
-        		}
+       			fn_autoPrint(data.resultMap);
+
         	} else {
         		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
         	}
@@ -1994,7 +1993,7 @@ li:hover a { color: white; font-weight: bold }
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 	}
-	
+
 	const fn_autoPrint =  async function(resultMap){
 		const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'ST_DOC');
 		let sortSnList = resultMap.sortSnList;
@@ -2006,22 +2005,25 @@ li:hover a { color: white; font-weight: bold }
 			sortNoSnList.push(sortno + item);
 		})
 		const sortnoSn = sortNoSnList.join("','");
-		gfn_popClipReport("선별확인서", rptUrl, {apcCd: gv_selectedApcCd, sortno: resultMap.sortno, sortnosn:sortnoSn});
-		//gfn_popClipReport("원물인식표", "am/rawMtrIdntyDoc.crf", {apcCd: gv_selectedApcCd, wrhsno: resultMap.wrhsno});
+		if(document.querySelector('#srch-chk-autoPrint').checked){
+			gfn_DirectPrintClipReport(rptUrl, {apcCd: gv_selectedApcCd, sortno: resultMap.sortno, sortnosn:sortnoSn, element : 'div-rpt-clipReportPrint'});
+		}else{
+			gfn_popClipReport("선별확인서",rptUrl, {apcCd: gv_selectedApcCd, sortno: resultMap.sortno, sortnosn:sortnoSn});
+		}
 	}
 
 	const fn_searchSort = async function() {
-		
+
 		const sortYmd = SBUxMethod.get("dtl-dtp-inptYmd");
 
 		// search fn_searchSort
 
-		const ul = document.querySelector('#ul-sortRslt');
-
-		while (ul.hasChildNodes()){
-			ul.removeChild( ul.firstChild );       
-		}
 		
+		const tbd = document.querySelector('#latestInfoBody');
+		while (tbd.hasChildNodes()){
+			tbd.removeChild( tbd.firstChild );
+		}
+
         try {
         	const postJsonPromise = gfn_postJSON("/am/sort/selectSortRsltList.do", {
     			apcCd: gv_selectedApcCd,
@@ -2033,35 +2035,47 @@ li:hover a { color: white; font-weight: bold }
   			if (_.isEqual("S", data.resultStatus)) {
 
   				sortList = data.resultList;
-
-  				console.log(sortList);
   				
   				for ( let i = 0; i < sortList.length; i++ ) {		// fn_view('ST202403100001')
-  					
+
   					const rowData = sortList[i];
+
+  					const tr = document.createElement('tr');
   					
-					const li = document.createElement('li');
-					
-					const txt = "  " + (i + 1) + ". ----------------------------------------" 
-						+	"\n생산자: " + rowData.rprsPrdcrNm
-						+	"    팔레트: " + rowData.pltno
-						+	"    품목: " + rowData.itemNm
-						+	"    " + rowData.vrtyNm
-						+	"    규격: " + rowData.spcfctNm
-						+	"    투입: " + rowData.inptQntt.toLocaleString()
-						+	"\n선별: " + rowData.sortQntt.toLocaleString()
-						+	" ( " + rowData.grdQnttNm + " )";
-					li.innerText = txt;
-					
-					li.addEventListener("click", () => {
+  					const tdRegDt = document.createElement('td');
+  					tdRegDt.innerText = rowData.sysLastChgDt;
+  					tr.appendChild(tdRegDt);
+  					
+  					const tdRprsPrdcrNm = document.createElement('td');
+  					tdRprsPrdcrNm.innerText = rowData.rprsPrdcrNm;
+  					tr.appendChild(tdRprsPrdcrNm);
+  					
+  					const tdPltno = document.createElement('td');
+  					tdPltno.innerText = rowData.pltno;
+  					tr.appendChild(tdPltno);
+  					
+  					const tdItemVrty = document.createElement('td');
+  					tdItemVrty.innerText = rowData.itemNm + " " + rowData.vrtyNm;
+  					tr.appendChild(tdItemVrty);
+  					
+  					const tdInpt = document.createElement('td');
+  					tdInpt.innerText = rowData.inptQntt.toLocaleString();
+  					tr.appendChild(tdInpt);
+  					
+  					const tdSort = document.createElement('td');
+  					tdSort.innerText = rowData.sortQntt.toLocaleString()
+  								+ " ( " + rowData.grdQnttNm + " )";
+  					tr.appendChild(tdSort);
+  					
+					tr.addEventListener("click", () => {
 						fn_view(i);
 					});
-					
-					ul.appendChild(li);
+
+					tbd.appendChild(tr);
   				}
-                
+
         	} else {
-        		gfn_comAlert(data.resultCode, data.resultMessage);        		
+        		gfn_comAlert(data.resultCode, data.resultMessage);
         	}
         } catch (e) {
     		if (!(e instanceof Error)) {
@@ -2072,9 +2086,9 @@ li:hover a { color: white; font-weight: bold }
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 
         }
-		
+
 	}
-	
+
 	const fn_searchInvntr = async function() {
 
 		const pltno = SBUxMethod.get("dtl-inp-pltno");
@@ -2132,14 +2146,14 @@ li:hover a { color: white; font-weight: bold }
   	        	fn_getApcSpcfct(_rawMtrInvntr.itemCd);
   	        	fn_getSpmtPckgUnit(_rawMtrInvntr.itemCd, _rawMtrInvntr.vrtyCd);
 
-				
-  	        	// focus  	        	
+
+  	        	// focus
 				if (jsonOptnGrd.length > 0) {
 					SBUxMethod.focus('dtl-inp-qnttEx1');
 				} else {
 					SBUxMethod.focus('dtl-inp-qntt1');
 				}
-				
+
         	} else {
         		gfn_comAlert(data.resultCode, data.resultMessage);
 

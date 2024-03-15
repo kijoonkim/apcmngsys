@@ -355,7 +355,7 @@
 
     	let nowDate = new Date();
 
-		let firstYmd = gfn_dateFirstYmd(nowDate);
+		let firstYmd = gfn_dateToYmd(nowDate);
 		let lastYmd = gfn_dateToYmd(nowDate);
 
 		SBUxMethod.set("srch-dtp-inptYmdFrom", firstYmd);
@@ -376,7 +376,7 @@
     	let inptYmdTo = SBUxMethod.get("srch-dtp-inptYmdTo");
     	if(gfn_diffDate(inptYmdFrom, inptYmdTo) < 0){
     		gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");//W0001{0}
-    		SBUxMethod.set("srch-dtp-inptYmdFrom", gfn_dateFirstYmd(new Date()));
+    		SBUxMethod.set("srch-dtp-inptYmdFrom", gfn_dateToYmd(new Date()));
     		SBUxMethod.set("srch-dtp-inptYmdTo", gfn_dateToYmd(new Date()));
     		return;
     	}

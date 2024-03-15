@@ -21,8 +21,6 @@ public class PrdcrCrclOgnVluIdctrMngVO extends ComVO{
 	private String ctpv;
 	private String sgg;
 	private String cmptnInst;
-	private String corpSeCd;
-	private String corpDtlSeCd;
 
 	private String trmtType;
 	private String trmtTypeNm;
@@ -152,11 +150,31 @@ public class PrdcrCrclOgnVluIdctrMngVO extends ComVO{
 	private String cnt;//조직원수
 
 	private String fundAplyAmtTot;//자금신청액
+	private String fundAplyAmtStbltTot;//자금신청액(탈락 출자출하조직 신청액은 제외)
 	private String stbltItemList;//적합품목 리스트
 	private String itrRt;//금리
 
 	private String rmrk;//비고
 
+	/*관리자 입력 추가*/
+	private String corpSeCd;
+	private String corpSeNm;
+	private String corpDtlSeCd;
+	private String corpDtlSeNm;
+
+	private String icptRsnCd;
+	private String icptRsnNm;
+	private String icptRsnDtlCd;
+	private String icptRsnDtlNm;
+	private String mngrStbltYn;
+	private String mngrIcptRsnCd;
+	private String mngrIcptRsnNm;
+	private String mngrIcptRsnDtlCd;
+	private String mngrIcptRsnDtlNm;
+	private String mngrItrRt;
+
+	private String pnlty;
+	private String mngrPnlty;
 
 	private String prfmncCorpDdlnYn;//실적 법인체 마감
 	private String sysFrstInptUserIdNm;

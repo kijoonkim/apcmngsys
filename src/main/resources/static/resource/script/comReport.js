@@ -102,6 +102,24 @@ const gfn_printClipReport = async function(fileName, param) {
 }
 
 /**
+ * @name gfn_DirectPrintClipReport
+ * @description 클립리포트 View
+ */
+const gfn_DirectPrintClipReport = async function(fileName, param) {
+	const reportKey = await gfn_getReportKey(fileName, param);
+	const report = createOOFReport(
+				gv_reportUrl,
+				reportKey,
+				document.getElementById(param.element)
+			);
+	report.setEndReportEvent(function(){
+			report.printHTMLDirect();
+		});
+	report.view();
+
+}
+
+/**
  * @name gfn_drawClipReport
  * @description 클립리포트 View
  */

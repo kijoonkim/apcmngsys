@@ -21,6 +21,7 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 				</div>
 			</div>
@@ -353,11 +354,11 @@
 					<div id="sb-area-grdPrdcrOgnCurntMng04" style="height:200px; width: 100%;"></div>
 				</div>
 				 -->
-				<div class="ad_section_top">
+				<div class="ad_section_top" style="width: 98%;">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="font-size:14px">▶출자출하조직 -적합조직</span>
+								<span style="font-size:14px">▶출자출하조직 -적합조직(품목별)</span>
 								<!--
 								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
 								 -->
@@ -368,11 +369,11 @@
 					<div id="sb-area-grdPrdcrOgnCurntMng02" style="height:200px; width: 100%;"></div>
 				</div>
 
-				<div class="ad_section_top">
+				<div class="ad_section_top" style="width: 98%;">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="font-size:14px">▶출자출하조직 -부적합조직</span>
+								<span style="font-size:14px">▶출자출하조직 -부적합조직(품목별)</span>
 								<!--
 								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
 								 -->
@@ -383,7 +384,7 @@
 					<div id="sb-area-grdPrdcrOgnCurntMng05" style="height:200px; width: 100%;"></div>
 				</div>
 
-				<div class="ad_section_top">
+				<div class="ad_section_top" style="width: 98%;">
 					<div class="box-header" style="display:flex; justify-content: flex-start;" >
 						<div style="margin-left: auto;">
 
@@ -407,11 +408,11 @@
 					<div id="sb-area-grdPrdcrOgnCurntMng06" style="height:200px; width: 100%;"></div>
 				</div>
 
-				<div class="ad_section_top">
+				<div class="ad_section_top" style="width: 98%;">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="font-size:14px">▶통합조직</span>
+								<span style="font-size:14px">▶통합조직(품목별)</span>
 								<!--
 								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
 								 -->
@@ -422,7 +423,7 @@
 					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:200px; width: 100%;"></div>
 				</div>
 
-				<div class="ad_section_top">
+				<div class="ad_section_top" style="width: 98%;">
 					<div class="box-header" style="display:flex; justify-content: flex-start;" >
 						<div style="margin-left: auto;">
 
@@ -443,9 +444,10 @@
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdPrdcrOgnCurntMng07" style="height:100px; width: 100%;"></div>
+					<div id="sb-area-grdPrdcrOgnCurntMng07" style="height:200px; width: 100%;"></div>
 				</div>
 			</div>
+			<div id="sb-area-hiddenGrd" style="height:400px; width: 100%; display: none;"></div>
 		</div>
 	</section>
 </body>
@@ -521,6 +523,51 @@
 		{'text': 'Y','label': 'Y', 'value': 'Y'},
 		{'text': 'N','label': 'N', 'value': 'N'}
 	];
+
+	//선정여부
+	var comStbltYn = [
+		{'text': 'Y','label': 'Y', 'value': 'Y'},
+		{'text': 'N','label': 'N', 'value': 'N'}
+	];
+
+	//탈락사유 구분
+	var comIcptRsnCdIso01 = [
+		{'text': '기본요건 미충족',	'label': '기본요건 미충족', 	'value': 'A'},
+		{'text': '세부요건 미충족',	'label': '세부요건 미충족', 	'value': 'B'},
+		{'text': '통합조직 탈락',	'label': '통합조직 탈락', 	'value': 'C'}
+	];
+
+	var comIcptRsnCdUo01 = [
+		{'text': '기본요건 미충족',	'label': '기본요건 미충족', 	'value': 'A'},
+		{'text': '세부요건 미충족',	'label': '세부요건 미충족', 	'value': 'B'}
+	];
+
+	//세부탈락사유 구분
+	var comIcptRsnDtlCdIso01 = [
+		{'text': '기본요건 미충족',	'label': '농업경영체 미등록', 				'value': 'A1', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
+		{'text': '기본요건 미충족',	'label': '출자자본금 1억원 미달', 			'value': 'A2', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
+		{'text': '기본요건 미충족',	'label': '설립 후 운영실적 1년 미만', 		'value': 'A3', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
+		{'text': '기본요건 미충족',	'label': '농업인 주주 5명 미만', 			'value': 'A4', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
+		{'text': '기본요건 미충족',	'label': '농업인 주주 지분 50% 미만', 		'value': 'A5', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
+		{'text': '기본요건 미충족',	'label': '원예농산물 취급액 50% 미만', 		'value': 'A6', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
+		{'text': '품목 부적합',		'label': '품목 부적합(농협조직)', 			'value': 'B1', 'icptRsnCd':'B', 'pnlty': '최고금리',		'itrRt': '3' },
+		{'text': '품목 부적합',		'label': '품목 부적합(농업법인, 협동조합)', 	'value': 'B2', 'icptRsnCd':'B', 'pnlty': '최고금리',		'itrRt': '2.5' },
+		{'text': '통합조직 탈락',	'label': '통합조직 탈락(농협조직)', 		'value': 'C1', 'icptRsnCd':'C', 'pnlty': '최고금리',		'itrRt': '3' },
+		{'text': '통합조직 탈락',	'label': '통합조직 탈락(농업법인, 협동조합)', 	'value': 'C2', 'icptRsnCd':'C', 'pnlty': '최고금리',		'itrRt': '2.5' }
+	];
+
+	//세부탈락사유 구분
+	var comIcptRsnDtlCdUo01 = [
+		{'text': '기본요건 미충족',	'label': '농업경영체 미등록', 				'value': 'A1', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
+		{'text': '기본요건 미충족',	'label': '출자자본금 1억원 미달', 			'value': 'A2', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
+		{'text': '기본요건 미충족',	'label': '설립 후 운영실적 1년 미만', 		'value': 'A3', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
+		{'text': '기본요건 미충족',	'label': '농업인 주주 5명 미만', 			'value': 'A4', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
+		{'text': '기본요건 미충족',	'label': '농업인 주주 지분 50% 미만', 		'value': 'A5', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
+		{'text': '기본요건 미충족',	'label': '원예농산물 취급액 50% 미만', 		'value': 'A6', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
+		{'text': '품목 부적합',		'label': '품목 부적합(농협조직)', 			'value': 'B1', 'icptRsnCd':'B', 'pnlty': '최고금리',		'itrRt': '3' },
+		{'text': '품목 부적합',		'label': '품목 부적합(농업법인, 협동조합)', 	'value': 'B2', 'icptRsnCd':'B', 'pnlty': '최고금리',		'itrRt': '2.5' }
+	];
+
 	/**
 	 * combo 설정
 	 */
@@ -730,25 +777,49 @@
 		SBGridProperties.columns = [
 				{caption: ["통합조직명"],	ref: 'corpNm',		type:'output',  width:'160px',    style:'text-align:center;'},
 				{caption: ["사업자번호"],	ref: 'brno',		type:'output',  width:'80px',    style:'text-align:center;'},
-				{caption: ["통합조직 선정여부"], 	ref: 'stbltYn',		type:'output',  width:'60px',    style:'text-align:center;'},
+				{caption: ["선정여부"], 	ref: 'stbltYn',		type:'output',  width:'60px',    style:'text-align:center;'},
 				{caption: ["적합품목"], 	ref: 'stbltItemList',	type:'output',  width:'160px',    style:'text-align:center;'},
-				/**/{caption: ["탈락사유구분"], 	ref: 'aa',	type:'output',  width:'160px',    style:'text-align:center;'},
-				/**/{caption: ["세부탈락사유"], 	ref: 'bb',	type:'output',  width:'160px',    style:'text-align:center;'},
-				/**/{caption: ["패널티"], 		ref: 'cc',	type:'output',  width:'160px',    style:'text-align:center;'},
+
+				{caption: ["탈락사유구분"], 	ref: 'icptRsnCd',	type:'combo',  width:'120px',    style:'text-align:center;', disabled : true
+					,typeinfo : {ref:'comIcptRsnCdUo01', label:'label', value:'value', displayui : true}
+				},
+				{caption: ["세부탈락사유"], 	ref: 'icptRsnDtlCd',	type:'combo',  width:'160px',    style:'text-align:center;', disabled : true
+					,typeinfo : {ref:'comIcptRsnDtlCdUo01', label:'label', value:'value', displayui : true
+						,filtering: { usemode: true, uppercol: 'icptRsnCd', attrname: 'icptRsnCd', listall: false}
+					}
+				},
+				{caption: ["패널티"], 		ref: 'pnlty',	type:'output',  width:'110px',    style:'text-align:center;'},
 				{caption: ["자금신청액(천원)\n(출자출하조직 신청액 포함)"], 	ref: 'fundAplyAmtTot',	type:'output',  width:'160px',    style:'text-align:center;'
 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-				/**/{caption: ["자금신청액(천원)\n(탈락 출자출하조직 신청액은 제외)"], 	ref: 'dd',	type:'output',  width:'160px',    style:'text-align:center;'
-					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-				{caption: ["관리자용적합여부"], 	ref: 'dd',	type:'output',  width:'160px',    style:'text-align:center;'},
-				{caption: ["관리자용부적합사유"], 	ref: 'ee',	type:'output',  width:'160px',    style:'text-align:center;'},
-				{caption: ["금리"], 		ref: 'itrRt',			type:'input',  width:'80px',    style:'text-align:center;'
-					,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}},
-
+				{caption: ["자금신청액(천원)\n(탈락 출자출하조직 신청액은 제외)"], 	ref: 'fundAplyAmtStbltTot',	type:'output',  width:'160px',    style:'text-align:center;'
+					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}
+					,columnhint : '<div style="width: auto;">출자출하조직 저장완료 후 정상적으로 보입니다</div>'
+				},
+				{caption: ["금리(%)"], 		ref: 'itrRt',			type:'output',  width:'80px',    style:'text-align:center;'
+					,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}
+				},
+				{caption: ["선정여부\n(관리자입력)"], 	ref: 'mngrBscStbltYn',	type:'combo',  width:'90px',    style:'text-align:center;'
+					,typeinfo : {ref:'comStbltYn', label:'label', value:'value', displayui : true}
+				},
+				{caption: ["탈락사유구분\n(관리자입력)"], 	ref: 'mngrIcptRsnCd',	type:'combo',  width:'160px',    style:'text-align:center;'
+					,typeinfo : {ref:'comIcptRsnCdUo01', label:'label', value:'value', displayui : true}
+				},
+				{caption: ["세부탈락사유\n(관리자입력)"], 	ref: 'mngrIcptRsnDtlCd',	type:'combo',  width:'160px',    style:'text-align:center;'
+					,typeinfo : {ref:'comIcptRsnDtlCdUo01', label:'label', value:'value', displayui : true
+						,filtering: { usemode: true, uppercol: 'mngrIcptRsnCd', attrname: 'icptRsnCd', listall: false}
+					}
+				},
+				{caption: ["패널티\n(관리자입력)"], 		ref: 'mngrPnlty',	type:'output',  width:'110px',    style:'text-align:center;'},
+				{caption: ["금리(%)\n(관리자입력)"], 		ref: 'mngrItrRt',			type:'input',  width:'120px',    style:'text-align:center;'
+					,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}
+				},
+				{caption: ["비고"], 		ref: 'rmrk', 	type:'input',  width:'200px',	style:'text-align:center'},
 				{caption: ["상세내역"], 	ref: 'yr',   			hidden : true},
 				//{caption: ["상세내역"], 	ref: 'stbltItemList',   hidden : true},
 			];
 
 		grdPrdcrOgnCurntMng07 = _SBGrid.create(SBGridProperties);
+		grdPrdcrOgnCurntMng07.bind('valuechanged', fn_valueChangedUo);
 	}
 
 	var jsonPrdcrOgnCurntMng02 = []; // 그리드의 참조 데이터 주소 선언
@@ -964,26 +1035,47 @@
 		SBGridProperties.columns = [
 			{caption: ["출자출하조직명"],	ref: 'corpNm',		type:'output',  width:'160px',    style:'text-align:center;'},
 			{caption: ["사업자번호"],	ref: 'brno',		type:'output',  width:'80px',    style:'text-align:center;'},
-			{caption: ["적합여부"], 	ref: 'stbltYn',		type:'output',  width:'60px',    style:'text-align:center;'},
+			{caption: ["출자출하조직\n선정여부"], 	ref: 'stbltYn',		type:'output',  width:'100px',    style:'text-align:center;'},
 			{caption: ["적합품목"], 	ref: 'stbltItemList',	type:'output',  width:'160px',    style:'text-align:center;'},
 
-			/**/
-			{caption: ["탈락사유구분"], 	ref: 'aa',	type:'output',  width:'160px',    style:'text-align:center;'},
-			{caption: ["세부탈락사유"], 	ref: 'bb',	type:'output',  width:'160px',    style:'text-align:center;'},
-			{caption: ["패널티"], 		ref: 'cc',	type:'output',  width:'160px',    style:'text-align:center;'},
-			{caption: ["자금신청액(천원)"], 	ref: 'isoFundAplyAmt',	type:'output',  width:'160px',    style:'text-align:center;'},
-			/**/
-			{caption: ["관리자용적합여부"], 	ref: 'dd',	type:'output',  width:'160px',    style:'text-align:center;'},
-			{caption: ["관리자용부적합사유"], 	ref: 'ee',	type:'output',  width:'160px',    style:'text-align:center;'},
-			{caption: ["금리"], 		ref: 'itrRt',			type:'input',  width:'80px',    style:'text-align:center;'
-				,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}},
-
+			{caption: ["탈락사유구분"], 	ref: 'icptRsnCd',	type:'combo',  width:'120px',    style:'text-align:center;', disabled : true
+				,typeinfo : {ref:'comIcptRsnCdIso01', label:'label', value:'value', displayui : true}
+			},
+			{caption: ["세부탈락사유"], 	ref: 'icptRsnDtlCd',	type:'combo',  width:'160px',    style:'text-align:center;', disabled : true
+				,typeinfo : {ref:'comIcptRsnDtlCdIso01', label:'label', value:'value', displayui : true
+					,filtering: { usemode: true, uppercol: 'icptRsnCd', attrname: 'icptRsnCd', listall: false}
+				}
+			},
+			{caption: ["패널티"], 		ref: 'pnlty',	type:'output',  width:'110px',    style:'text-align:center;'},
+			{caption: ["자금신청액(천원)"], 	ref: 'isoFundAplyAmt',	type:'output',  width:'160px',    style:'text-align:center;'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}
+			},
+			{caption: ["금리(%)"], 		ref: 'itrRt',			type:'output',  width:'80px',    style:'text-align:center;'
+				,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}
+			},
+			{caption: ["선정여부\n(관리자입력)"], 	ref: 'mngrBscStbltYn',	type:'combo',  width:'90px',    style:'text-align:center;'
+				,typeinfo : {ref:'comStbltYn', label:'label', value:'value', displayui : true}
+			},
+			{caption: ["탈락사유구분\n(관리자입력)"], 	ref: 'mngrIcptRsnCd',	type:'combo',  width:'160px',    style:'text-align:center;'
+				,typeinfo : {ref:'comIcptRsnCdIso01', label:'label', value:'value', displayui : true}
+			},
+			{caption: ["세부탈락사유\n(관리자입력)"], 	ref: 'mngrIcptRsnDtlCd',	type:'combo',  width:'160px',    style:'text-align:center;'
+				,typeinfo : {ref:'comIcptRsnDtlCdIso01', label:'label', value:'value', displayui : true
+					,filtering: { usemode: true, uppercol: 'mngrIcptRsnCd', attrname: 'icptRsnCd', listall: false}
+				}
+			},
+			{caption: ["패널티\n(관리자입력)"], 		ref: 'mngrPnlty',	type:'output',  width:'110px',    style:'text-align:center;'},
+			{caption: ["금리(%)\n(관리자입력)"], 		ref: 'mngrItrRt',			type:'input',  width:'110px',    style:'text-align:center;'
+				,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}
+			},
+			{caption: ["비고"], 		ref: 'rmrk', 	type:'input',  width:'200px',	style:'text-align:center'},
 			{caption: ["상세내역"], 	ref: 'yr',   		hidden : true},
 			{caption: ["상세내역"], 	ref: 'apoSe',   	hidden : true},
 			{caption: ["상세내역"], 	ref: 'uoBrno',   	hidden : true},
 		];
 
 		grdPrdcrOgnCurntMng06 = _SBGrid.create(SBGridProperties);
+		grdPrdcrOgnCurntMng06.bind('valuechanged', fn_valueChangedISo);
 	}
 
 	var jsonPrdcrOgnCurntMng03 = []; // 그리드의 참조 데이터 주소 선언
@@ -1491,14 +1583,42 @@
 			jsonPrdcrOgnCurntMng07.length = 0;
 			console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
+				let pnltyVal = '';
+				let itrRtVal = item.itrRt;
+				if(!gfn_isEmpty(item.icptRsnCd) && item.icptRsnCd != ''){
+					let chkInfo = _.find(comIcptRsnDtlCdUo01, {value: item.icptRsnDtlCd});
+					pnltyVal = chkInfo.pnlty;
+					itrRtVal = chkInfo.itrRt;
+				}
+				let mngrPnltyVal = '';
+				let mngrItrRtVal = item.mngrItrRt;
+				if(!gfn_isEmpty(item.mngrIcptRsnCd) && item.mngrIcptRsnCd != ''){
+					let chkInfo = _.find(comIcptRsnDtlCdUo01, {value: item.mngrIcptRsnDtlCd});
+					if(gfn_isEmpty(item.mngrItrRt)){
+						mngrPnltyVal = chkInfo.pnlty;
+					}
+					mngrItrRtVal = chkInfo.itrRt;
+				}
 				let PrdcrOgnCurntMngVO = {
-						brno			: item.brno
-						,corpNm			: item.corpNm
-						,yr				: item.yr
-						,fundAplyAmtTot	: item.fundAplyAmtTot//자금신청액
-						,stbltYn		: item.stbltYn//적합여부 기준 적용 결과
-						,stbltItemList	: item.stbltItemList//적합픔목 리스트
-						,itrRt			: item.itrRt //금리
+						brno				: item.brno
+						,corpNm				: item.corpNm
+						,yr					: item.yr
+						,fundAplyAmtTot		: item.fundAplyAmtTot//자금신청액
+						,fundAplyAmtStbltTot	: item.fundAplyAmtStbltTot//자금신청액
+						,stbltItemList		: item.stbltItemList//적합픔목 리스트
+
+						,stbltYn			: item.stbltYn//적합여부 기준 적용 결과
+						,icptRsnCd			: item.icptRsnCd//탈락사유구분
+						,icptRsnDtlCd		: item.icptRsnDtlCd //세부탈락사유
+						,mngrStbltYn		: item.mngrStbltYn//적합여부 기준 적용 결과
+						,mngrIcptRsnCd		: item.mngrIcptRsnCd//탈락사유구분
+						,mngrIcptRsnDtlCd	: item.mngrIcptRsnDtlCd //세부탈락사유
+						,pnlty				: pnltyVal//패널티
+						,itrRt				: itrRtVal//금리
+						,mngrPnlty			: mngrPnltyVal //패널티
+						,mngrItrRt			: mngrItrRtVal //금리
+
+						,rmrk				: item.rmrk//비고
 				}
 				jsonPrdcrOgnCurntMng07.push(PrdcrOgnCurntMngVO);
 				if (index === 0) {
@@ -1610,15 +1730,44 @@
 			jsonPrdcrOgnCurntMng06.length = 0;
 			console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
+				let pnltyVal = '';
+				let itrRtVal = item.itrRt;
+				if(!gfn_isEmpty(item.icptRsnCd) && item.icptRsnCd != ''){
+					let chkInfo = _.find(comIcptRsnDtlCdIso01, {value: item.icptRsnDtlCd});
+					pnltyVal = chkInfo.pnlty;
+					itrRtVal = chkInfo.itrRt;
+				}
+				let mngrPnltyVal = '';
+				let mngrItrRtVal = item.mngrItrRt;
+				if(!gfn_isEmpty(item.mngrIcptRsnCd) && item.mngrIcptRsnCd != ''){
+					let chkInfo = _.find(comIcptRsnDtlCdIso01, {value: item.mngrIcptRsnDtlCd});
+					if(gfn_isEmpty(item.mngrItrRt)){
+						mngrPnltyVal = chkInfo.pnlty;
+					}
+					mngrItrRtVal = chkInfo.itrRt;
+				}
 				let itemVO = {
 					brno: 	item.brno
 					,uoBrno: item.uoBrno
 					,corpNm: item.corpNm
 					,yr: item.yr
 					,apoSe: item.yr
-					,stbltYn: item.stbltYn//적합여부 기준 적용 결과
 					,stbltItemList: item.stbltItemList//적합픔목 리스트
-					,itrRt: item.itrRt //금리
+
+					,stbltYn			: item.stbltYn//적합여부 기준 적용 결과
+					,icptRsnCd			: item.icptRsnCd//탈락사유구분
+					,icptRsnDtlCd		: item.icptRsnDtlCd //세부탈락사유
+					,mngrStbltYn		: item.mngrStbltYn//적합여부 기준 적용 결과
+					,mngrIcptRsnCd		: item.mngrIcptRsnCd//탈락사유구분
+					,mngrIcptRsnDtlCd	: item.mngrIcptRsnDtlCd //세부탈락사유
+
+					,isoFundAplyAmt		: item.isoFundAplyAmt//자금신청액
+					,pnlty				: pnltyVal//패널티
+					,itrRt				: itrRtVal//금리
+					,mngrPnlty			: mngrPnltyVal //패널티
+					,mngrItrRt			: mngrItrRtVal //금리
+
+					,rmrk				: item.rmrk//비고
 				};
 				jsonPrdcrOgnCurntMng06.push(itemVO);
 			});
@@ -2057,7 +2206,7 @@
 			let rowSts = grdPrdcrOgnCurntMng07.getRowStatus(i);
 			let delYn = rowData.delYn;
 
-			if(gfn_isEmpty(rowData.itrRt)){
+			if(gfn_isEmpty(rowData.itrRt) && gfn_isEmpty(rowData.mngrItrRt)){
 				gfn_comAlert("W0002", "금리");		//	W0002	{0}을/를 입력하세요.
 				grdPrdcrOgnCurntMng07.selectRow(i);
 				return false;
@@ -2090,6 +2239,248 @@
 				console.error("failed", e.message);
 			}
 		}
+	}
+	var comIcptRsnDtlCdUo01 = [
+		{'text': '기본요건 미충족',	'label': '농업경영체 미등록', 				'value': 'A1', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
+		{'text': '기본요건 미충족',	'label': '출자자본금 1억원 미달', 			'value': 'A2', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
+		{'text': '기본요건 미충족',	'label': '설립 후 운영실적 1년 미만', 		'value': 'A3', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
+		{'text': '기본요건 미충족',	'label': '농업인 주주 5명 미만', 			'value': 'A4', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
+		{'text': '기본요건 미충족',	'label': '농업인 주주 지분 50% 미만', 		'value': 'A5', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
+		{'text': '기본요건 미충족',	'label': '원예농산물 취급액 50% 미만', 		'value': 'A6', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
+		{'text': '품목 부적합',		'label': '품목 부적합(농협조직)', 			'value': 'B1', 'icptRsnCd':'B', 'pnlty': '최고금리',		'itrRt': '3' },
+		{'text': '품목 부적합',		'label': '품목 부적합(농업법인, 협동조합)', 	'value': 'B2', 'icptRsnCd':'B', 'pnlty': '최고금리',		'itrRt': '2.5' }
+	];
+	//항목 값 변경 이벤트
+	const fn_valueChangedUo = async function(){
+		let datagrid = grdPrdcrOgnCurntMng07;
+		let nRow = datagrid.getRow();
+		let nCol = datagrid.getCol();
+
+		let icptRsnCdIdx = datagrid.getColRef("icptRsnCd");
+		let mngrIcptRsnCdIdx = datagrid.getColRef("mngrIcptRsnCd");
+		let icptRsnDtlCdIdx = datagrid.getColRef("icptRsnDtlCd");
+		let mngrIcptRsnDtlCdIdx = datagrid.getColRef("mngrIcptRsnDtlCd");
+		let pnltyIdx = datagrid.getColRef("pnlty");
+		let itrRtIdx = datagrid.getColRef("itrRt");
+		let mngrPnltyIdx = datagrid.getColRef("mngrPnlty");
+		let mngrItrRtIdx = datagrid.getColRef("mngrItrRt");
+
+		if (!gfn_isEmpty(nCol) && nCol == icptRsnDtlCdIdx) {
+
+			let selValue = datagrid.getCellData(nRow, nCol);
+			let chkInfo = _.find(comIcptRsnDtlCdUo01, {value: selValue});
+			console.log(chkInfo);
+			let pnltyVal = chkInfo.pnlty;
+			let itrRtVal = chkInfo.itrRt;
+			datagrid.setCellData(nRow, pnltyIdx, pnltyVal, true);
+			datagrid.setCellData(nRow, itrRtIdx, itrRtVal, true);
+
+		}else if(!gfn_isEmpty(nCol) && nCol == mngrIcptRsnDtlCdIdx){
+
+			let selValue = datagrid.getCellData(nRow, nCol);
+			let chkInfo = _.find(comIcptRsnDtlCdUo01, {value: selValue});
+			console.log(chkInfo);
+			let pnltyVal = chkInfo.pnlty;
+			let itrRtVal = chkInfo.itrRt;
+			datagrid.setCellData(nRow, mngrPnltyIdx, pnltyVal, true);
+			datagrid.setCellData(nRow, mngrItrRtIdx, itrRtVal, true);
+
+		}else if(!gfn_isEmpty(nCol) && nCol == mngrIcptRsnCdIdx){
+			datagrid.setCellData(nRow, mngrPnltyIdx, null, true);
+			datagrid.setCellData(nRow, mngrItrRtIdx, null, true);
+		}
+	}
+	//항목 값 변경 이벤트
+	const fn_valueChangedISo = async function(){
+		let datagrid = grdPrdcrOgnCurntMng06;
+		let nRow = datagrid.getRow();
+		let nCol = datagrid.getCol();
+
+		let icptRsnCdIdx = datagrid.getColRef("icptRsnCd");
+		let mngrIcptRsnCdIdx = datagrid.getColRef("mngrIcptRsnCd");
+		let icptRsnDtlCdIdx = datagrid.getColRef("icptRsnDtlCd");
+		let mngrIcptRsnDtlCdIdx = datagrid.getColRef("mngrIcptRsnDtlCd");
+		let pnltyIdx = datagrid.getColRef("pnlty");
+		let itrRtIdx = datagrid.getColRef("itrRt");
+		let mngrPnltyIdx = datagrid.getColRef("mngrPnlty");
+		let mngrItrRtIdx = datagrid.getColRef("mngrItrRt");
+
+		if (!gfn_isEmpty(nCol) && nCol == icptRsnDtlCdIdx) {
+
+			let selValue = datagrid.getCellData(nRow, nCol);
+			let chkInfo = _.find(comIcptRsnDtlCdIso01, {value: selValue});
+			console.log(chkInfo);
+			let pnltyVal = chkInfo.pnlty;
+			let itrRtVal = chkInfo.itrRt;
+			datagrid.setCellData(nRow, pnltyIdx, pnltyVal, true);
+			datagrid.setCellData(nRow, itrRtIdx, itrRtVal, true);
+
+		}else if(!gfn_isEmpty(nCol) && nCol == mngrIcptRsnDtlCdIdx){
+
+			let selValue = datagrid.getCellData(nRow, nCol);
+			let chkInfo = _.find(comIcptRsnDtlCdIso01, {value: selValue});
+			console.log(chkInfo);
+			let pnltyVal = chkInfo.pnlty;
+			let itrRtVal = chkInfo.itrRt;
+			datagrid.setCellData(nRow, mngrPnltyIdx, pnltyVal, true);
+			datagrid.setCellData(nRow, mngrItrRtIdx, itrRtVal, true);
+
+		}else if(!gfn_isEmpty(nCol) && nCol == mngrIcptRsnCdIdx){
+			datagrid.setCellData(nRow, mngrPnltyIdx, null, true);
+			datagrid.setCellData(nRow, mngrItrRtIdx, null, true);
+		}
+	}
+
+	/* 로우데이터 요청 */
+
+	var jsonHiddenGrd = []; // 그리드의 참조 데이터 주소 선언
+	var hiddenGrd;
+
+	/* Grid 화면 그리기 기능*/
+	const fn_hiddenGrd = async function() {
+
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-hiddenGrd';
+		SBGridProperties.id = 'hiddenGrd';
+		SBGridProperties.jsonref = 'jsonHiddenGrd';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.oneclickedit = true;
+		//SBGridProperties.rowheader="seq";
+		SBGridProperties.columns = [
+			{caption: ["신청년도"],			ref:'yr',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["사업자번호"],		ref:'brno',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["법인명"],			ref:'corpNm',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["조직구분"],			ref:'apoSe',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["통합조직 사업자번호"],		ref:'uoBrno',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["통합조직 법인명"],		ref:'uoCorpNm',	type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["법인구분"],			ref:'corpSeNm',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["법인형태"],			ref:'corpDtlSeNm',	type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["적합품목 리스트"],			ref:'stbltItemList',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["출자출하조직 자금신청액"],		ref:'isoFundAplyAmt',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["자금신청액 합계"],			ref:'fundAplyAmtTot',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["자금신청액 합계(탈락 출자출하조직 신청액은 제외)"],	ref:'fundAplyAmtStbltTot',		type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["선정여부"],			ref:'stbltYn',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["탈락사유구분"],		ref:'icptRsnNm',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["세부탈락사유"],		ref:'icptRsnDtlNm',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["패널티"],			ref:'pnlty',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["금리"],			ref:'itrRt',			type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["선정여부(관리자입력)"],			ref:'mngrStbltYn',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["탈락사유구분(관리자입력)"],		ref:'mngrIcptRsnNm',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["세부탈락사유(관리자입력)"],		ref:'mngrIcptRsnDtlNm',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["패널티(관리자입력)"],			ref:'mngrPnlty',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["금리(관리자입력)"],			ref:'mngrItrRt',			type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["비고"],		ref:'rmrk',		type:'output',width:'70px',style:'text-align:center'},
+		];
+		hiddenGrd = _SBGrid.create(SBGridProperties);
+
+	}
+	const fn_hiddenGrdSelect = async function(){
+		await fn_hiddenGrd();
+		let yr = SBUxMethod.get("srch-input-yr");
+		if (gfn_isEmpty(yr)) {
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
+
+		let postJsonPromise = gfn_postJSON("/pd/pcorm/selectRawDataList.do", {
+			yr : yr
+			});
+
+			let data = await postJsonPromise;
+			try{
+			jsonHiddenGrd.length = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
+				let hiddenGrdVO = {
+					yr						:item.yr
+					,brno					:item.brno
+					,apoSe					:item.apoSe
+					,corpNm					:item.corpNm
+					,uoBrno					:item.uoBrno
+					,uoCorpNm				:item.uoCorpNm
+
+					,corpSeCd				:item.corpSeCd//법인구분 코드
+					,corpSeNm				:item.corpSeNm//법인구분
+					,corpDtlSeCd			:item.corpDtlSeCd//법인형태 코드
+					,corpDtlSeNm			:item.corpDtlSeNm//법인형태
+
+					,stbltItemList			:item.stbltItemList//적합품목 리스트
+
+					,isoFundAplyAmt			:item.isoFundAplyAmt//부류명
+
+					,fundAplyAmtTot			:item.fundAplyAmtTot//자금신청액
+					,fundAplyAmtStbltTot	:item.fundAplyAmtStbltTot//자금신청액(탈락 출자출하조직 신청액은 제외)
+
+					,stbltYn				:item.stbltYn//선정여부
+					,itrRt					:item.itrRt//금리
+					,icptRsnCd				:item.icptRsnCd//탈락사유구분
+					,icptRsnNm				:item.icptRsnNm//탈락사유구분
+					,icptRsnDtlCd			:item.icptRsnDtlCd//세부탈락사유
+					,icptRsnDtlNm			:item.icptRsnDtlNm//세부탈락사유
+
+					,mngrStbltYn			:item.mngrStbltYn//선정여부(관리자입력)
+					,mngrIcptRsnCd			:item.mngrIcptRsnCd//탈락사유구분(관리자입력)
+					,mngrIcptRsnNm			:item.mngrIcptRsnNm//탈락사유구분(관리자입력)
+					,mngrIcptRsnDtlCd		:item.mngrIcptRsnDtlCd//세부탈락사유(관리자입력)
+					,mngrIcptRsnDtlNm		:item.mngrIcptRsnDtlNm//세부탈락사유(관리자입력)
+					,mngrItrRt				:item.mngrItrRt//금리(관리자입력)
+
+					,pnlty					:item.pnlty//패널티
+					,mngrPnlty				:item.mngrPnlty//패널티(관리자입력)
+
+					,rmrk					:item.rmrk//비고
+
+				}
+
+				jsonHiddenGrd.push(hiddenGrdVO);
+			});
+
+			await hiddenGrd.rebuild();
+
+			await fn_excelDown();
+
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+	//로우 데이터 엑셀 다운로드
+	function fn_excelDown(){
+		const currentDate = new Date();
+
+		const year = currentDate.getFullYear().toString().padStart(4, '0');
+		const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');// 월은 0부터 시작하므로 1을 더합니다.
+		const day = currentDate.getDate().toString().padStart(2, '0');
+		let formattedDate = year + month + day;
+
+		let fileName = formattedDate + "_등록결과_확인_로우데이터";
+
+		/*
+		datagrid.exportData(param1, param2, param3, param4);
+		param1(필수)[string]: 다운 받을 파일 형식
+		param2(필수)[string]: 다운 받을 파일 제목
+		param3[boolean]: 다운 받을 그리드 데이터 기준 (default:'false')
+		→ true : csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 다운로드
+		→ false : csv/xls/xlsx 형식의 데이터 다운로드를 jsonref 기준으로 다운로드
+		param4[object]: 다운 받을 그리드 데이터 기준 (default:'false')
+		→ arrRemoveCols(선택): csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 할 때 다운로드에서 제외할 열
+		→ combolabel(선택) : csv/xls/xlsx combo/inputcombo 일 때 label 값으로 저장
+		→ true : label 값으로 저장
+		→ false : value 값으로 저장
+		→ sheetName(선택) : xls/xlsx 형식의 데이터 다운로드시 시트명을 설정
+		 */
+		//console.log(hiddenGrd.exportData);
+		hiddenGrd.exportData("xlsx" , fileName , true , true);
 	}
 </script>
 </html>

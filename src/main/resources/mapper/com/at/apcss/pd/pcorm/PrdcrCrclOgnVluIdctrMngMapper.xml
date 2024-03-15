@@ -333,10 +333,24 @@
 
 	<!-- 통합조직 총괄 리스트 -->
 	<select id="selectUoTotList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
-		SELECT
+		SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.selectUoTotList */
 			EAM.YR
 			,EAM.BRNO
 			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = EAM.BRNO) AS CORP_NM
+			,CHK.CORP_SE_CD
+			,CHK.CORP_SE_NM
+			,CHK.CORP_DTL_SE_CD
+			,CHK.CORP_DTL_SE_NM
+			,CHK.ICPT_RSN_CD
+			,CHK.ICPT_RSN_DTL_CD
+			,(CASE WHEN CHK.ICPT_RSN_CD IN ('A','B') THEN 'N'
+					ELSE 'Y'
+					END
+			) AS STBLT_YN
+			,RR.MNGR_STBLT_YN
+			,RR.MNGR_ICPT_RSN_CD
+			,RR.MNGR_ICPT_RSN_DTL_CD
+			,RR.MNGR_ITR_RT
 			,(CASE WHEN EXISTS (SELECT COUNT(*)
 										FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
 										WHERE 1=1
@@ -358,6 +372,24 @@
 						  AND APO_SE = '2'
 						  AND BRNO IN (SELECT ISO_BRNO FROM TB_EV_APO_UO_CD WHERE UO_BRNO = EAM.BRNO) ),0)
 			) AS FUND_APLY_AMT_TOT
+			,(NVL(EAM.PRUO_FUND_APLY_AMT,0)
+				+ NVL((SELECT SUM(ISO_FUND_APLY_AMT)
+						FROM TB_EV_APLY_MNG TEAM
+						WHERE 1=1
+						  AND YR = EAM.YR
+						  AND UO_BRNO = EAM.BRNO
+						  AND APO_SE = '2'
+						  AND BRNO IN (SELECT ISO_BRNO FROM TB_EV_APO_UO_CD WHERE UO_BRNO = EAM.BRNO)
+						  AND BRNO = (SELECT BRNO
+						  				FROM TB_EV_REG_RSLT
+						  				WHERE 1=1
+						  				  AND APO_SE = '2'
+						  				  AND YR = TEAM.YR
+						  				  AND BRNO = TEAM.BRNO
+						  				  AND UO_BRNO = EAM.BRNO
+						  				  AND STBLT_YN = 'Y')
+						  ),0)
+			) AS FUND_APLY_AMT_STBLT_TOT
 			,(SELECT LISTAGG(ITEM_NM, ' , ') WITHIN GROUP (ORDER BY ITEM_NM) AS STBLT_YN_NM
 								FROM (SELECT
 											(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = A.ITEM_CD) AS ITEM_NM
@@ -371,6 +403,7 @@
 										)
 				) AS STBLT_ITEM_LIST
 			,RR.ITR_RT
+			,RR.RMRK
 		FROM
 			(SELECT *
 				FROM TB_EV_APLY_MNG
@@ -385,14 +418,85 @@
 					  AND BRNO = #{brno}
 					  AND YR = #{yr}
 			) RR
+			,(SELECT
+					BRNO
+					,CORP_SE_CD
+					,CORP_SE_NM
+					,CORP_DTL_SE_CD
+					,CORP_DTL_SE_NM
+					,(CASE
+							WHEN CORP_SE_CD = 'C34020' AND CORP_DTL_SE_CD in ('020001','020002') AND (CHK_A_A != 'Y' OR CHK_A_B != 'Y' OR CHK_A_C != 'Y' OR CHK_A_D != 'Y' OR CHK_A_E != 'Y' )  THEN  'A'
+							WHEN CORP_SE_CD = 'C34030' AND (CHK_A_A != 'Y' OR CHK_A_B != 'Y' OR CHK_A_C != 'Y' OR CHK_A_D != 'Y' OR CHK_A_E != 'Y' )  THEN  'A'
+
+							WHEN CORP_SE_CD IN ('C34010','C34020','C34030') AND CHK_B != 'Y'  THEN  'B'
+							ELSE ''
+							END
+					) AS ICPT_RSN_CD
+					,(CASE WHEN CORP_SE_CD = 'C34020' AND CORP_DTL_SE_CD in ('020001','020002') AND CHK_A_A = 'N'  THEN 'A1'
+							WHEN CORP_SE_CD = 'C34030' AND CHK_A_A = 'N'  THEN 'A1'
+
+							WHEN CORP_SE_CD = 'C34020' AND CORP_DTL_SE_CD in ('020001','020002') AND CHK_A_B = 'N'  THEN 'A2'
+							WHEN CORP_SE_CD = 'C34030' AND CHK_A_B = 'N'  THEN 'A2'
+
+							WHEN CORP_SE_CD = 'C34020' AND CORP_DTL_SE_CD in ('020001','020002') AND CHK_A_C = 'N'  THEN 'A3'
+							WHEN CORP_SE_CD = 'C34030' AND CHK_A_C = 'N'  THEN 'A3'
+
+							WHEN CORP_SE_CD = 'C34020' AND CORP_DTL_SE_CD in ('020001','020002') AND CHK_A_D = 'N'  THEN 'A4'
+							WHEN CORP_SE_CD = 'C34030' AND CHK_A_D = 'N'  THEN  'A4'
+
+							WHEN CORP_SE_CD = 'C34020' AND CORP_DTL_SE_CD in ('020001','020002') AND CHK_A_E = 'N'  THEN 'A5'
+							WHEN CORP_SE_CD = 'C34030' AND CHK_A_E = 'N'  THEN  'A5'
+
+							WHEN CORP_SE_CD = 'C34010' AND CHK_B = 'N'  THEN 'B1'
+							WHEN CORP_SE_CD IN ('C34020','C34030') AND CHK_B = 'N'  THEN 'B2'
+							ELSE ''
+							END
+					) AS ICPT_RSN_DTL_CD
+				FROM
+					(SELECT
+						BRNO
+						,CORP_SE_CD
+						,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CORP_SE_CD' AND CD_VL = EA.CORP_SE_CD) AS CORP_SE_NM
+						,CORP_DTL_SE_CD
+						,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CORP_SHAP' AND CD_VL = EA.CORP_DTL_SE_CD) AS CORP_DTL_SE_NM
+
+						,NVL(MNGMST_YN,'N') AS CHK_A_A
+						,(CASE WHEN TO_NUMBER(NVL(INVST_AMT,0)) >=  300000 THEN 'Y'
+									ELSE 'N' END
+						)  AS CHK_A_B
+						,(CASE WHEN TO_DATE('20240224' , 'YYYYMMDD') -  NVL(CORP_FNDN_DAY, SYSDATE) >= 365 * 3 THEN 'Y'
+									ELSE 'N' END
+						)  AS CHK_A_C
+						,(CASE WHEN INVST_EXPND_FRMER_NOPE >= 20 THEN 'Y'
+									ELSE 'N' END
+						)  AS CHK_A_D
+						,(CASE WHEN  NVL(FRMER_INVST_AMT / NULLIF(INVST_AMT,0) , 0) >= 50 THEN 'Y'
+									ELSE 'N' END
+						)  AS CHK_A_E
+						,(CASE WHEN EXISTS (SELECT COUNT(*)
+															FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
+															WHERE 1=1
+															  AND STBLT_YN = 'Y'
+															  AND TYPE_SE_NO = '8'
+															  AND YR = #{yr}
+															  AND BRNO = EA.BRNO
+															  AND ITEM_CD = (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PST.YR AND BRNO = PST.BRNO AND ITEM_CD = PST.ITEM_CD)
+													)
+											THEN 'Y'
+											ELSE 'N'
+											END
+						) AS CHK_B
+					FROM (SELECT * FROM TB_EV_APO WHERE APO_SE = '1' AND BRNO = #{brno}) EA )
+			) CHK
 		WHERE 1=1
 		  AND EAM.YR = RR.YR(+)
 		  AND EAM.BRNO = RR.BRNO(+)
+		  AND EAM.BRNO = CHK.BRNO(+)
 	</select>
 
 	<!-- 출자출하조직 등록결과 리스트 -->
 	<select id="selectIsoList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
-		SELECT	/* com.at.apcss.pd.pcorm.mapper.selectIsoList */
+		SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.selectIsoList */
 			TOTAL.ITEM_CD
 			,TOTAL.ITEM_NM
 			,TOTAL.STTG_UPBR_ITEM_SE
@@ -561,19 +665,48 @@
 	</select>
 	<!-- 출자출하조직 총괄 리스트 -->
 	<select id="selectIsoTotList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
-		SELECT
+		SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.selectIsoTotList */
 			TOT.YR
 			,TOT.BRNO
 			,TOT.CORP_NM
+			,TOT.CORP_SE_CD
+			,TOT.CORP_SE_NM
+			,TOT.CORP_DTL_SE_CD
+			,TOT.CORP_DTL_SE_NM
+			,TOT.ICPT_RSN_CD
+			,TOT.ICPT_RSN_DTL_CD
+			,TOT.MNGR_STBLT_YN
+			,TOT.MNGR_ICPT_RSN_CD
+			,TOT.MNGR_ICPT_RSN_DTL_CD
+			,TOT.MNGR_ITR_RT
 			,TOT.APO_SE
 			,TOT.UO_BRNO
 			,TOT.STBLT_YN
 			,TOT.STBLT_ITEM_LIST
 			,DECODE(TOT.STBLT_YN
-						,'Y',(SELECT ITR_RT FROM TB_EV_REG_RSLT WHERE APO_SE = '1' AND YR = TOT.YR AND BRNO = TOT.UO_BRNO)
+						,'Y',(SELECT
+									(CASE WHEN NVL(ERR.MNGR_ITR_RT,'') IS NOT NULL
+												THEN ERR.MNGR_ITR_RT
+												ELSE ERR.ITR_RT
+												END)
+								FROM TB_EV_REG_RSLT ERR
+								WHERE 1=1
+								  AND APO_SE = '1'
+								  AND YR = TOT.YR
+								  AND BRNO = TOT.UO_BRNO
+								)
 						,'N',TOT.ORG_ITR_RT
 						,''
 			) AS ITR_RT
+			,TOT.RMRK
+			,NVL((SELECT ISO_FUND_APLY_AMT
+					FROM TB_EV_APLY_MNG
+					WHERE 1=1
+					  AND YR = TOT.YR
+					  AND BRNO = TOT.BRNO
+					  AND UO_BRNO = TOT.UO_BRNO
+					),0
+			) AS ISO_FUND_APLY_AMT
 		FROM
 			(SELECT
 				EAM.YR
@@ -581,18 +714,20 @@
 				,EAM.APO_SE
 				,#{brno} AS UO_BRNO
 				,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = EAM.BRNO) AS CORP_NM
-				,(CASE WHEN EXISTS (SELECT COUNT(*)
-											FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
-											WHERE 1=1
-											  AND STBLT_YN = 'Y'
-											  AND YR = EAM.YR
-											  AND BRNO = EAM.BRNO
-											  AND ITEM_CD = (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PST.YR AND BRNO = PST.UO_BRNO AND ITEM_CD = PST.ITEM_CD)
-											  AND UO_BRNO = #{brno} )
-							THEN 'Y'
-							ELSE 'N'
-							END
+				,CHK.CORP_SE_CD
+				,CHK.CORP_SE_NM
+				,CHK.CORP_DTL_SE_CD
+				,CHK.CORP_DTL_SE_NM
+				,CHK.ICPT_RSN_CD
+				,CHK.ICPT_RSN_DTL_CD
+				,(CASE WHEN CHK.ICPT_RSN_CD IN ('A','B','C') THEN 'N'
+						ELSE 'Y'
+						END
 				) AS STBLT_YN
+				,RR.MNGR_STBLT_YN
+				,RR.MNGR_ICPT_RSN_CD
+				,RR.MNGR_ICPT_RSN_DTL_CD
+				,RR.MNGR_ITR_RT
 				,(SELECT LISTAGG(ITEM_NM, ' , ') WITHIN GROUP (ORDER BY ITEM_NM) AS STBLT_YN_NM
 								FROM (SELECT
 											(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = A.ITEM_CD) AS ITEM_NM
@@ -607,6 +742,7 @@
 										)
 				) AS STBLT_ITEM_LIST
 				,RR.ITR_RT AS ORG_ITR_RT
+				,RR.RMRK
 			FROM
 				(SELECT * FROM TB_EV_APLY_MNG
 					WHERE YR = #{yr} AND BRNO IN (SELECT ISO_BRNO FROM TB_EV_APO_UO_CD  WHERE UO_BRNO = #{brno})
@@ -614,14 +750,104 @@
 				, (SELECT * FROM TB_EV_REG_RSLT
 					WHERE UO_BRNO = #{brno} AND YR = #{yr}
 				) RR
+				,(SELECT
+						BRNO
+						,CORP_SE_CD
+						,CORP_SE_NM
+						,CORP_DTL_SE_CD
+						,CORP_DTL_SE_NM
+						,(CASE
+								WHEN CORP_SE_CD = 'C34020' AND CORP_DTL_SE_CD in ('020001','020002') AND (CHK_A_A != 'Y' OR CHK_A_B != 'Y' OR CHK_A_C != 'Y' OR CHK_A_D != 'Y' OR CHK_A_E != 'Y' )  THEN  'A'
+								WHEN CORP_SE_CD = 'C34030' AND (CHK_A_A != 'Y' OR CHK_A_B != 'Y' OR CHK_A_C != 'Y' OR CHK_A_D != 'Y' OR CHK_A_E != 'Y' )  THEN  'A'
+
+								WHEN CORP_SE_CD IN ('C34010','C34020','C34030') AND CHK_B != 'Y'  THEN  'B'
+								WHEN CORP_SE_CD IN ('C34010','C34020','C34030') AND CHK_C != 'Y'  THEN  'C'
+								ELSE ''
+								END
+						) AS ICPT_RSN_CD
+						,(CASE WHEN CORP_SE_CD = 'C34020' AND CORP_DTL_SE_CD in ('020001','020002') AND CHK_A_A = 'N'  THEN 'A1'
+								WHEN CORP_SE_CD = 'C34030' AND CHK_A_A = 'N'  THEN 'A1'
+
+								WHEN CORP_SE_CD = 'C34020' AND CORP_DTL_SE_CD in ('020001','020002') AND CHK_A_B = 'N'  THEN 'A2'
+								WHEN CORP_SE_CD = 'C34030' AND CHK_A_B = 'N'  THEN 'A2'
+
+								WHEN CORP_SE_CD = 'C34020' AND CORP_DTL_SE_CD in ('020001','020002') AND CHK_A_C = 'N'  THEN 'A3'
+								WHEN CORP_SE_CD = 'C34030' AND CHK_A_C = 'N'  THEN 'A3'
+
+								WHEN CORP_SE_CD = 'C34020' AND CORP_DTL_SE_CD in ('020001','020002') AND CHK_A_D = 'N'  THEN 'A4'
+								WHEN CORP_SE_CD = 'C34030' AND CHK_A_D = 'N'  THEN  'A4'
+
+								WHEN CORP_SE_CD = 'C34020' AND CORP_DTL_SE_CD in ('020001','020002') AND CHK_A_E = 'N'  THEN 'A5'
+								WHEN CORP_SE_CD = 'C34030' AND CHK_A_E = 'N'  THEN  'A5'
+
+								WHEN CORP_SE_CD = 'C34010' AND CHK_B = 'N'  THEN 'B1'
+								WHEN CORP_SE_CD IN ('C34020','C34030') AND CHK_B = 'N'  THEN 'B2'
+								WHEN CORP_SE_CD = 'C34010' AND CHK_C = 'N'  THEN 'C1'
+								WHEN CORP_SE_CD IN ('C34020','C34030') AND CHK_C = 'N'  THEN 'C2'
+								ELSE ''
+								END
+						) AS ICPT_RSN_DTL_CD
+					FROM
+						(SELECT
+							BRNO
+							,CORP_SE_CD
+							,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CORP_SE_CD' AND CD_VL = EA.CORP_SE_CD) AS CORP_SE_NM
+							,CORP_DTL_SE_CD
+							,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CORP_SHAP' AND CD_VL = EA.CORP_DTL_SE_CD) AS CORP_DTL_SE_NM
+
+							,NVL(MNGMST_YN,'N') AS CHK_A_A
+							,(CASE WHEN TO_NUMBER(NVL(INVST_AMT,0)) >=  300000 THEN 'Y'
+										ELSE 'N' END
+							)  AS CHK_A_B
+							,(CASE WHEN TO_DATE('20240224' , 'YYYYMMDD') -  NVL(CORP_FNDN_DAY, SYSDATE) >= 365 * 3 THEN 'Y'
+										ELSE 'N' END
+							)  AS CHK_A_C
+							,(CASE WHEN INVST_EXPND_FRMER_NOPE >= 20 THEN 'Y'
+										ELSE 'N' END
+							)  AS CHK_A_D
+							,(CASE WHEN  NVL(FRMER_INVST_AMT / NULLIF(INVST_AMT,0) , 0) >= 50 THEN 'Y'
+										ELSE 'N' END
+							)  AS CHK_A_E
+							,(CASE WHEN EXISTS (SELECT COUNT(*)
+																FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
+																WHERE 1=1
+																  AND STBLT_YN = 'Y'
+																  AND TYPE_SE_NO = '8'
+																  AND YR = #{yr}
+																  AND BRNO = EA.BRNO
+																  AND ITEM_CD = (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PST.YR AND BRNO = #{brno} AND ITEM_CD = PST.ITEM_CD)
+														)
+												THEN 'Y'
+												ELSE 'N'
+												END
+							) AS CHK_B
+							,(SELECT
+									(CASE WHEN MNGR_STBLT_YN IS NOT NULL AND MNGR_STBLT_YN != ''
+											THEN MNGR_STBLT_YN
+											ELSE STBLT_YN
+											END)
+								FROM TB_EV_REG_RSLT
+								WHERE 1=1
+								  AND YR = #{yr}
+								  AND BRNO = #{brno}
+							) AS CHK_C
+					FROM (SELECT *
+							FROM TB_EV_APO
+							WHERE 1=1
+							  AND APO_SE = '2'
+							  AND BRNO IN (SELECT ISO_BRNO FROM TB_EV_APO_UO_CD WHERE UO_BRNO = #{brno})
+							) EA
+					)
+				) CHK
 			WHERE 1=1
 			  AND EAM.YR = RR.YR(+)
 			  AND EAM.BRNO = RR.BRNO(+)
+			  AND EAM.BRNO = CHK.BRNO(+)
 			) TOT
 	</select>
 	<!-- 생산자조직 등록결과 리스트 -->
 	<select id="selectFrmhsList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
-		SELECT	/* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectTbEvFrmhsApoStbltYnList */
+		SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.selectFrmhsList */
 			TOTAL.BRNO
 			,DECODE(TOTAL.APO_SE , '1' , TOTAL.BRNO , '2' , TOTAL.UO_BRNO , '')AS UO_BRNO
 			,TOTAL.APO_SE
@@ -736,7 +962,7 @@
 
 	<insert id="insertUoTotList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
 		<![CDATA[
-		MERGE INTO TB_EV_REG_RSLT CLT  /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.insertUoTotList */
+		MERGE INTO TB_EV_REG_RSLT CLT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.insertUoTotList */
 		USING DUAL
 			ON (
 					CLT.BRNO		= #{brno}
@@ -747,9 +973,18 @@
 				 UPDATE
 					   SET
 						  FUND_APLY_AMT_TOT		= #{fundAplyAmtTot}
+						, FUND_APLY_AMT_STBLT_TOT = #{fundAplyAmtStbltTot}
 						, STBLT_ITEM_LIST		= #{stbltItemList}
+
 						, STBLT_YN				= #{stbltYn}
+						, ICPT_RSN_CD			= #{icptRsnCd}
+						, ICPT_RSN_DTL_CD		= #{icptRsnDtlCd}
 						, ITR_RT				= #{itrRt}
+
+						, MNGR_STBLT_YN			= #{mngrStbltYn}
+						, MNGR_ICPT_RSN_CD		= #{mngrIcptRsnCd}
+						, MNGR_ICPT_RSN_DTL_CD	= #{mngrIcptRsnDtlCd}
+						, MNGR_ITR_RT			= #{mngrItrRt}
 
 						, RMRK					= #{rmrk}
 
@@ -771,10 +1006,21 @@
 					  , BRNO
 					  , APO_SE
 
-					  , STBLT_YN
 					  , FUND_APLY_AMT_TOT
+					  , FUND_APLY_AMT_STBLT_TOT
 					  , STBLT_ITEM_LIST
+
+					  , STBLT_YN
+					  , ICPT_RSN_CD
+					  , ICPT_RSN_DTL_CD
 					  , ITR_RT
+
+					  , MNGR_STBLT_YN
+					  , MNGR_ICPT_RSN_CD
+					  , MNGR_ICPT_RSN_DTL_CD
+					  , MNGR_ITR_RT
+
+					  , RMRK
 
 					  , SYS_FRST_INPT_DT
 					  , SYS_FRST_INPT_USER_ID
@@ -789,10 +1035,21 @@
 					  , #{brno}
 					  , '1'
 
-					  , #{stbltYn}
 					  , #{fundAplyAmtTot}
+					  , #{fundAplyAmtStbltTot}
 					  , #{stbltItemList}
+
+					  , #{stbltYn}
+					  , #{icptRsnCd}
+					  , #{icptRsnDtlCd}
 					  , #{itrRt}
+
+					  , #{mngrStbltYn}
+					  , #{mngrIcptRsnCd}
+					  , #{mngrIcptRsnDtlCd}
+					  , #{mngrItrRt}
+
+					  , #{rmrk}
 
 					  , SYSDATE
 					  , #{sysFrstInptUserId}
@@ -806,7 +1063,7 @@
 
 	<insert id="insertIsoTotList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
 		<![CDATA[
-		MERGE INTO TB_EV_REG_RSLT CLT  /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.insertUoTotList */
+		MERGE INTO TB_EV_REG_RSLT CLT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.insertIsoTotList */
 		USING DUAL
 			ON (
 					CLT.BRNO		= #{brno}
@@ -818,8 +1075,16 @@
 				 UPDATE
 					   SET
 						  STBLT_ITEM_LIST		= #{stbltItemList}
+
 						, STBLT_YN				= #{stbltYn}
+						, ICPT_RSN_CD			= #{icptRsnCd}
+						, ICPT_RSN_DTL_CD		= #{icptRsnDtlCd}
 						, ITR_RT				= #{itrRt}
+
+						, MNGR_STBLT_YN			= #{mngrStbltYn}
+						, MNGR_ICPT_RSN_CD		= #{mngrIcptRsnCd}
+						, MNGR_ICPT_RSN_DTL_CD	= #{mngrIcptRsnDtlCd}
+						, MNGR_ITR_RT			= #{mngrItrRt}
 
 						, RMRK					= #{rmrk}
 
@@ -843,9 +1108,19 @@
 					  , UO_BRNO
 					  , APO_SE
 
-					  , STBLT_YN
 					  , STBLT_ITEM_LIST
+
+					  , STBLT_YN
+					  , ICPT_RSN_CD
+					  , ICPT_RSN_DTL_CD
 					  , ITR_RT
+
+					  , MNGR_STBLT_YN
+					  , MNGR_ICPT_RSN_CD
+					  , MNGR_ICPT_RSN_DTL_CD
+					  , MNGR_ITR_RT
+
+					  , RMRK
 
 					  , SYS_FRST_INPT_DT
 					  , SYS_FRST_INPT_USER_ID
@@ -861,9 +1136,19 @@
 					  , #{uoBrno}
 					  , '2'
 
-					  , #{stbltYn}
 					  , #{stbltItemList}
+
+					  , #{stbltYn}
+					  , #{icptRsnCd}
+					  , #{icptRsnDtlCd}
 					  , #{itrRt}
+
+					  , #{mngrStbltYn}
+					  , #{mngrIcptRsnCd}
+					  , #{mngrIcptRsnDtlCd}
+					  , #{mngrItrRt}
+
+					  , #{rmrk}
 
 					  , SYSDATE
 					  , #{sysFrstInptUserId}
@@ -874,4 +1159,108 @@
 					)
 		]]>
 	</insert>
+	<select id="selectRawDataList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
+		SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.selectRawDataList */
+			ERR.YR
+			, ERR.BRNO
+			, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = ERR.BRNO) AS CORP_NM
+			, DECODE(ERR.APO_SE , '1' , '통합조직' , '2' , '출자출하조직') AS APO_SE
+			, DECODE(ERR.APO_SE , '1' , ERR.BRNO , '2' , ERR.UO_BRNO) AS UO_BRNO
+			, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = DECODE(ERR.APO_SE , '1' , ERR.BRNO , '2' , ERR.UO_BRNO)) AS UO_CORP_NM
+
+			, (SELECT CORP_SE_CD FROM TB_EV_APO WHERE BRNO = ERR.BRNO) AS CORP_SE_CD
+			, (SELECT CD_VL_NM
+				FROM TB_COM_CD_DTL
+				WHERE 1=1
+				  AND CD_ID = 'CORP_SE_CD'
+				  AND CD_VL = (SELECT CORP_SE_CD
+				  				FROM TB_EV_APO
+				  				WHERE 1=1
+				  				  AND BRNO = ERR.BRNO
+				  				)
+			) AS CORP_SE_NM
+
+			, (SELECT CORP_DTL_SE_CD FROM TB_EV_APO WHERE BRNO = ERR.BRNO) AS CORP_DTL_SE_CD
+			, (SELECT CD_VL_NM
+				FROM TB_COM_CD_DTL
+				WHERE 1=1
+				  AND CD_ID = 'CORP_SHAP'
+				  AND CD_VL = (SELECT CORP_DTL_SE_CD
+				  				FROM TB_EV_APO
+				  				WHERE 1=1
+				  				  AND BRNO = ERR.BRNO
+				  				)
+			) AS CORP_DTL_SE_NM
+
+			, STBLT_ITEM_LIST
+			, DECODE(ERR.APO_SE
+							, '2' , (SELECT ISO_FUND_APLY_AMT
+										FROM TB_EV_APLY_MNG
+										WHERE 1=1
+										  AND YR = ERR.YR
+										  AND BRNO = ERR.BRNO
+										  AND UO_BRNO = ERR.UO_BRNO
+										)
+							,NULL
+			) AS ISO_FUND_APLY_AMT
+			, FUND_APLY_AMT_TOT
+			, FUND_APLY_AMT_STBLT_TOT
+			, STBLT_YN
+			, ITR_RT
+			, ICPT_RSN_CD
+			, DECODE(ERR.ICPT_RSN_CD , 'A' , '기본요건 미충족'
+										,'B' ,'세부요건 미충족'
+										,'C' , '통합조직 탈락'
+										,''
+			)AS ICPT_RSN_NM
+			, ICPT_RSN_DTL_CD
+			, DECODE(ERR.ICPT_RSN_DTL_CD , 'A1' , '농업경영체 미등록'
+											,'A2' ,'출자자본금 1억원 미달'
+											,'A3' ,'설립 후 운영실적 1년 미만'
+											,'A4' ,'농업인 주주 5명 미만'
+											,'A5' ,'농업인 주주 지분 50% 미만'
+											,'A6' ,'원예농산물 취급액 50% 미만'
+											,'B1' ,'품목 부적합(농협조직)'
+											,'B2' ,'품목 부적합(농업법인, 협동조합)'
+											,'C1' , '통합조직 탈락(농협조직)'
+											,'C2' , '통합조직 탈락(농업법인, 협동조합)'
+											,''
+			)AS ICPT_RSN_DTL_NM
+			, DECODE(ERR.ICPT_RSN_CD , 'A' , '기존자금 회수'
+										,'B' ,'최고금리'
+										,'C' , '최고금리'
+										,''
+			)AS PNLTY
+			, MNGR_STBLT_YN
+			, MNGR_ITR_RT
+			, MNGR_ICPT_RSN_CD
+			, DECODE(ERR.MNGR_ICPT_RSN_CD , 'A' , '기본요건 미충족'
+											,'B' ,'세부요건 미충족'
+											,'C' , '통합조직 탈락'
+											,''
+			)AS MNGR_ICPT_RSN_NM
+			, MNGR_ICPT_RSN_DTL_CD
+			, DECODE(ERR.MNGR_ICPT_RSN_DTL_CD , 'A1' , '농업경영체 미등록'
+												,'A2' ,'출자자본금 1억원 미달'
+												,'A3' ,'설립 후 운영실적 1년 미만'
+												,'A4' ,'농업인 주주 5명 미만'
+												,'A5' ,'농업인 주주 지분 50% 미만'
+												,'A6' ,'원예농산물 취급액 50% 미만'
+												,'B1' ,'품목 부적합(농협조직)'
+												,'B2' ,'품목 부적합(농업법인, 협동조합)'
+												,'C1' , '통합조직 탈락(농협조직)'
+												,'C2' , '통합조직 탈락(농업법인, 협동조합)'
+												,''
+			)AS MNGR_ICPT_RSN_DTL_NM
+			, DECODE(ERR.MNGR_ICPT_RSN_CD , 'A' , '기존자금 회수'
+											,'B' ,'최고금리'
+											,'C' , '최고금리'
+											,''
+			)AS MNGR_PNLTY
+			, RMRK
+		FROM TB_EV_REG_RSLT ERR
+		WHERE 1=1
+			AND YR = #{yr}
+		ORDER BY UO_BRNO , APO_SE DESC
+	</select>
 </mapper>

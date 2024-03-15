@@ -154,4 +154,19 @@ public class PrdcrCrclOgnVluIdctrMngController extends BaseController{
 		resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	//통합조직 등록결과 리스트 조회
+	@PostMapping(value = "/pd/pcorm/selectRawDataList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectRawDataList(Model model, @RequestBody PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PrdcrCrclOgnVluIdctrMngVO> resultList = new ArrayList<>();
+		try {
+			 resultList = prdcrCrclOgnVluIdctrMngService.selectRawDataList(prdcrCrclOgnVluIdctrMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
 }

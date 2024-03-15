@@ -918,9 +918,9 @@
         		//fn_search();
 
         		//if(SBUxMethod.get("srch-chk-autoPrint")["srch-chk-autoPrint"]){
-        		if(document.querySelector('#srch-chk-autoPrint').checked){
-        			fn_autoPrint(data.resultMap);
-        		}
+
+        		fn_autoPrint(data.resultMap);
+
 
         	} else {
         		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
@@ -938,7 +938,12 @@
 
 	const fn_autoPrint = async function(resultMap){
 		const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'RT_DOC');
-		gfn_popClipReport("원물인식표", rptUrl, {apcCd: gv_selectedApcCd, wrhsno: resultMap.wrhsno});
+		if(document.querySelector('#srch-chk-autoPrint').checked){
+ 			gfn_DirectPrintClipReport(rptUrl, {apcCd: gv_selectedApcCd, wrhsno: resultMap.wrhsno,element : 'div-rpt-clipReportPrint'});
+ 		}else{
+ 			gfn_popClipReport("원물인식표", rptUrl, {apcCd: gv_selectedApcCd, wrhsno: resultMap.wrhsno});
+ 		}
+
 		//gfn_popClipReport("원물인식표", "am/rawMtrIdntyDoc.crf", {apcCd: gv_selectedApcCd, wrhsno: resultMap.wrhsno});
 	}
 

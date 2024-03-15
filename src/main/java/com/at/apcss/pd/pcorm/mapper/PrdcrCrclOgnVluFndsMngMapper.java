@@ -33,4 +33,10 @@ public interface PrdcrCrclOgnVluFndsMngMapper {
 	public List<PrdcrCrclOgnVluFndsMngVO> selectComputWayList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO);
 	//산출식 관리 팝업 - 산출식 리스트 저장
 	public int insertComputWay(PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO);
+
+	//활성화자금 로우데이터 조회
+	public List<PrdcrCrclOgnVluFndsMngVO> selectScrDataList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO);
+
+	//활성화자금 기준 로우데이터 조회
+	public List<PrdcrCrclOgnVluFndsMngVO> selectRtDataList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO);
 }
