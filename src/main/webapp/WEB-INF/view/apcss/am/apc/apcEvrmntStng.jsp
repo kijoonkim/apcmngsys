@@ -145,7 +145,7 @@
 								<sbux-input id="inp-otptApcNm" name="inp-otptApcNm" uitype="text" class="form-control input-sm" maxlength="33"></sbux-input>
 							</td>
 							<td scope="row"  align="right">원물값유형</td>
-							<td class="td_input" >
+							<td>
 								<sbux-select 
 									id="slt-rawMtrVlType" name="slt-rawMtrVlType"
 									uitype="single"
@@ -155,8 +155,19 @@
 									class=""
 								></sbux-select>
 							</td>
+							<td scope="row"  align="right">생산자관리</td>
+							<td>
+								<sbux-select 
+									id="slt-prdcrMngType" name="slt-prdcrMngType"
+									uitype="single"
+									filtering="true"
+									jsondata-ref="jsonComboPrdcrMngType"
+									unselected-text="기본" 
+									class=""
+								></sbux-select>
+							</td>
 							<td scope="row"  align="right">세션유지</td>
-							<td class="td_input" >
+							<td>
 								<sbux-select 
 									id="slt-sessUpdtUseYn" name="slt-sessUpdtUseYn"
 									uitype="single"
@@ -165,8 +176,6 @@
 									unselected-text="선택" 
 									class=""
 								></sbux-select>
-							</td>
-							<td scope="row" colspan="2">
 							</td>
 						</tr>
 						<tr>
@@ -692,6 +701,8 @@
 		{text: "미사용", label: "미사용", value: "N"},
 		{text: "사용", label: "사용", value: "Y"},
 	];
+	var jsonComboPrdcrMngType = [];
+	
 	
 	var comboUnitCdJsData = [];
 	var comboGridBankCdJsData = [];
@@ -707,6 +718,8 @@
 			gfn_setComCdSBSelect('slt-bankCd', jsonComboBankNm ,	'BANK_CD', '0000'),
 			gfn_setComCdSBSelect('chk-gdsSeCd', jsonComGdsSeCd ,	'GDS_SE_CD', '0000'),
 			gfn_setComCdSBSelect('chk-gdsSeCd', jsonComApcGdsSeCd ,	'GDS_SE_CD', gv_apcCd),
+			gfn_setComCdSBSelect('slt-prdcrMngType', jsonComboPrdcrMngType, 'PRDCR_MNG_TYPE'),
+			
 			gfn_setComCdGridSelect('userAuthMngDatagrid', comboUesYnJsData, "USE_YN", "0000"),
 			gfn_setComCdGridSelect('grdPlt', comboUnitCdJsData, "UNIT_CD", "0000"),
 			gfn_setComCdGridSelect('pckgMngDatagrid', comboReverseYnJsData, "REVERSE_YN", "0000"),
@@ -801,6 +814,7 @@
   	        	SBUxMethod.set("chk-oprtrPckgPrfmncTrsmYn", resultVO.oprtrPckgPrfmncTrsmYn);		// 현재 없음
   	        	
   	        	SBUxMethod.set("slt-rawMtrVlType", resultVO.rawMtrVlType);
+  	        	SBUxMethod.set("slt-prdcrMngType", resultVO.prdcrMngType);
   	        	SBUxMethod.set("slt-sessUpdtUseYn", resultVO.sessUpdtUseYn);
 
         	} else {
@@ -1300,6 +1314,7 @@
   	  	let cls						= fn_empty(SBUxMethod.get("inp-cls"));
   	  	let apcRprsvNm				= fn_empty(SBUxMethod.get("inp-apcRprsvNm"));
   	  	let rawMtrVlType			= fn_empty(SBUxMethod.get("slt-rawMtrVlType"));
+  	  	let prdcrMngType			= fn_empty(SBUxMethod.get("slt-prdcrMngType"));
   	  	let sessUpdtUseYn			= fn_empty(SBUxMethod.get("slt-sessUpdtUseYn"));
   	  	
     	let apcEvrmntStng = {
@@ -1320,6 +1335,7 @@
     	  , apcRprsvNm				: apcRprsvNm
     	  , cdVls					: cdVls
     	  , rawMtrVlType			: rawMtrVlType
+    	  , prdcrMngType			: prdcrMngType
     	  , sessUpdtUseYn			: sessUpdtUseYn
     	}
     	let postJsonPromise = gfn_postJSON("/am/apc/updateApcEvrmntStng.do", apcEvrmntStng);
