@@ -456,23 +456,25 @@
 			<div class="box-body" id="latestInfo">
 				<table class="table table-bordered tbl_fixed tbl_mbl">
 					<colgroup>
-						<col style="width: 20%">
-						<col style="width: 10%">
-						<col style="width: 10%">
 						<col style="width: 10%">
 						<col style="width: 20%">
+						<col style="width: 10%">
+						<col style="width: 10%">
+						<col style="width: 10%">
+						<col style="width: 10%">
 						<col style="width: 10%">
 						<col style="width: 10%">
 					</colgroup>
 					<thead>
 						<tr>
 							<th>입고 일자</th>
-							<th>생산자명</th>
-							<th>생산자 번호</th>
-							<th>입고 수량</th>
 							<th>팔레트 번호</th>
+							<th>입고 수량</th>
+							<th>생산자명</th>
+							<th>번호</th>
 							<th>품목</th>
 							<th>품종</th>
+							<th>등록일시</th>
 						</tr>
 					</thead>
 					<tbody id="latestInfoBody">
@@ -1390,17 +1392,21 @@
 				}
 				PrdcrLatestInfo.push(rawMtrWrhs);
 				let originalDate = item.wrhsYmd;
-				let formattedDate = originalDate.slice(0, 4) + "-" + originalDate.slice(4, 6) + "-" + originalDate.slice(6);
+				let formattedDate = originalDate.slice(4, 6) + "-" + originalDate.slice(6);
+
+				let originalTime = item.sysLastChgDt;
+				let formattedTime = originalTime.substring(11, 16);
 
 				let element = '<tr onclick="selectLatestInfo(this)">' +
 									'<td style="display:none">' + (item.wrhsno|| '') + '</td>' +
 									'<td>' + (formattedDate|| '') + '</td>' +
+									'<td>' + (item.pltno|| '') + '</td>' +
+									'<td>' + (item.bxQntt|| '') + '</td>' +
 									'<td>' + (item.prdcrNm|| '') + '</td>' +
 									'<td>' + (item.prdcrIdentno|| '0')+'</td>' +
-									'<td>' + (item.bxQntt|| '') + '</td>' +
-									'<td>' + (item.pltno|| '') + '</td>' +
 									'<td>' + (item.itemNm|| '') + '</td>' +
 									'<td>' + (item.vrtyNm|| '') + '</td>' +
+									'<td>' + (formattedTime|| '') + '</td>' +
 									'</tr>';
 							$("#latestInfoBody").append(element);
 			});
