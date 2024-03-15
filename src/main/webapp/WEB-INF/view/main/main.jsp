@@ -17,7 +17,7 @@
        window.dataLayer = window.dataLayer || [];
        function gtag(){dataLayer.push(arguments);}
        gtag(`js`, new Date());
-       gtag(`config`, `G-LP5C9T3VYN`); {`content_group`: `APC 정보지원시스템`});
+       gtag(`config`, `G-LP5C9T3VYN`, {`content_group`: `APC 정보지원시스템`});
        gtag(`config`, `G-1C6GSRP5Z8`, {`content_group`: `APC 정보지원시스템`});
     </script>
     <style>
