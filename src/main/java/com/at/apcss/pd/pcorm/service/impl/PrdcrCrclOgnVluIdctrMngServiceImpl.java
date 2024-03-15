@@ -98,4 +98,57 @@ public class PrdcrCrclOgnVluIdctrMngServiceImpl extends BaseServiceImpl implemen
 		List<PrdcrCrclOgnVluIdctrMngVO> resultList = prdcrCrclOgnVluIdctrMngMapper.selectRawDataList(prdcrCrclOgnVluIdctrMngVO);
 		return resultList;
 	}
+
+	@Override
+	public List<PrdcrCrclOgnVluIdctrMngVO> selectUoIcptRsnList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception {
+		List<PrdcrCrclOgnVluIdctrMngVO> resultList = prdcrCrclOgnVluIdctrMngMapper.selectUoIcptRsnList(prdcrCrclOgnVluIdctrMngVO);
+		return resultList;
+	}
+	@Override
+	public List<PrdcrCrclOgnVluIdctrMngVO> selectIsoIcptRsnList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception {
+		List<PrdcrCrclOgnVluIdctrMngVO> resultList = prdcrCrclOgnVluIdctrMngMapper.selectIsoIcptRsnList(prdcrCrclOgnVluIdctrMngVO);
+		return resultList;
+	}
+
+
+	@Override
+	public int multiSaveUoIcptRsnList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception {
+		int savedCnt = 0;
+		String yrVal = prdcrCrclOgnVluIdctrMngVO.getYr();
+
+		String prgrmId = prdcrCrclOgnVluIdctrMngVO.getSysFrstInptPrgrmId();
+		String userId = prdcrCrclOgnVluIdctrMngVO.getSysFrstInptUserId();
+
+		if (yrVal != null && !yrVal.equals("")) {
+			//통합조직 일괄 조회 후 저장
+			List<PrdcrCrclOgnVluIdctrMngVO> resultUoList = selectUoIcptRsnList(prdcrCrclOgnVluIdctrMngVO);
+			for (PrdcrCrclOgnVluIdctrMngVO uoVO : resultUoList) {
+
+				uoVO.setSysFrstInptPrgrmId(prgrmId);
+				uoVO.setSysFrstInptUserId(userId);
+				uoVO.setSysLastChgPrgrmId(prgrmId);
+				uoVO.setSysLastChgUserId(userId);
+
+				int insertChk = insertUoTotList(uoVO);
+
+				if(insertChk == 1) {
+					savedCnt += 1;
+					//각 통합조직으로 출자출하조직 선정여부 조회 후 저장
+					List<PrdcrCrclOgnVluIdctrMngVO> resultIsoList = selectIsoIcptRsnList(uoVO);
+					for (PrdcrCrclOgnVluIdctrMngVO isoVO : resultIsoList) {
+
+						isoVO.setSysFrstInptPrgrmId(prgrmId);
+						isoVO.setSysFrstInptUserId(userId);
+						isoVO.setSysLastChgPrgrmId(prgrmId);
+						isoVO.setSysLastChgUserId(userId);
+
+						savedCnt += insertIsoTotList(isoVO);
+					}
+				}
+
+			}
+		}
+		return savedCnt;
+	}
+
 }
