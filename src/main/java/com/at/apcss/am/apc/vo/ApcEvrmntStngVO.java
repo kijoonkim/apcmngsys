@@ -97,6 +97,11 @@ public class ApcEvrmntStngVO extends ComVO{
 	private String rawMtrVlType;
 	
 	/**
+	 * 생산자관리유형
+	 */
+	private String prdcrMngType;
+	
+	/**
 	 * 세션갱신사용여부
 	 */
 	private String sessUpdtUseYn;

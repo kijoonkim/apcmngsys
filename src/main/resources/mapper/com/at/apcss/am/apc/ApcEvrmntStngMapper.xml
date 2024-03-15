@@ -498,6 +498,7 @@
 				, APC.RAW_MTR_IDENT_TAG_WGHT_YN AS RAW_MTR_IDENT_TAG_WGHT_YN
 				, APC.OTPT_APC_NM 			    AS OTPT_APC_NM
 				, APC.RAW_MTR_VL_TYPE			AS RAW_MTR_VL_TYPE
+				, APC.PRDCR_MNG_TYPE			AS PRDCR_MNG_TYPE
 				, APC.SESS_UPDT_USE_YN			AS SESS_UPDT_USE_YN
 				, APC.DEL_YN					AS DEL_YN
 			  FROM TB_APC_EVRMNT_STNG APC
@@ -596,6 +597,7 @@
 				, BZSTAT					= #{bzstat}
 				, OTPT_APC_NM				= #{otptApcNm}
 				, RAW_MTR_VL_TYPE			= #{rawMtrVlType}
+				, PRDCR_MNG_TYPE			= #{prdcrMngType}
 				, SESS_UPDT_USE_YN			= #{sessUpdtUseYn}
 				
 			 WHERE APC_CD = #{apcCd}
