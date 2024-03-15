@@ -66,8 +66,8 @@ public class PrdcrOgnCurntMngServiceImpl extends BaseServiceImpl implements Prdc
 	@Override
 	public int updatePrdcrOgnCurntMng(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO) throws Exception {
 
-		int updatedCnt = PrdcrOgnCurntMngMapper.updatePrdcrOgnCurntMng(PrdcrOgnCurntMngVO);
-
+		//int updatedCnt = PrdcrOgnCurntMngMapper.updatePrdcrOgnCurntMng(PrdcrOgnCurntMngVO);
+		int updatedCnt = 0;
 		return updatedCnt;
 	}
 
@@ -81,12 +81,7 @@ public class PrdcrOgnCurntMngServiceImpl extends BaseServiceImpl implements Prdc
 		for (PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO : PrdcrOgnCurntMngVOList) {
 			prdcrOgnzSnVal = PrdcrOgnCurntMngVO.getPrdcrOgnzSn();//생산자조직seq
 			yrVal = PrdcrOgnCurntMngVO.getYr();//등록년도
-			if(ComConstants.ROW_STS_INSERT.equals(PrdcrOgnCurntMngVO.getRowSts())) {
-				savedCnt += insertPrdcrOgnCurntMngDtl(PrdcrOgnCurntMngVO);
-			}
-			if(ComConstants.ROW_STS_UPDATE.equals(PrdcrOgnCurntMngVO.getRowSts())) {
-				savedCnt += updatePrdcrOgnCurntMng(PrdcrOgnCurntMngVO);
-			}
+			savedCnt += insertPrdcrOgnCurntMngDtl(PrdcrOgnCurntMngVO);
 		}
 		//생사자조직seq,등록년도가 비어 있지 않을떄
 		//생사자조직seq,등록년도 동시에 있을경우 PK 라서 1건만 조회 될것

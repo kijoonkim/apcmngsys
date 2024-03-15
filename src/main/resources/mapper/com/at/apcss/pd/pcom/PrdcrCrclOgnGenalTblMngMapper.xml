@@ -293,6 +293,7 @@
 															FROM TB_EV_FRMHS_APO
 															WHERE 1=1
 															  AND STBLT_YN = 'Y'
+															  AND NVL(EXCL_YN,'N') != 'Y'
 															  AND APO_SE = '1'
 															<if test='brno != null and brno != ""'>
 															  AND BRNO = #{brno}
@@ -326,6 +327,7 @@
 															FROM TB_EV_FRMHS_APO
 															WHERE 1=1
 															  AND STBLT_YN = 'Y'
+															  AND NVL(EXCL_YN,'N') != 'Y'
 															  AND APO_SE = '1'
 															<if test='brno != null and brno != ""'>
 															  AND BRNO = #{brno}
@@ -703,6 +705,7 @@
 																		FROM TB_EV_FRMHS_APO
 																		WHERE 1=1
 																		  AND STBLT_YN = 'Y'
+																		  AND NVL(EXCL_YN,'N') != 'Y'
 																		  AND APO_SE = '1'
 																	  	  AND BRNO = B.BRNO
 																	  	  AND YR = B.YR
@@ -727,6 +730,7 @@
 															FROM TB_EV_FRMHS_APO
 															WHERE 1=1
 															  AND STBLT_YN = 'Y'
+															  AND NVL(EXCL_YN,'N') != 'Y'
 															  AND APO_SE = '1'
 															  AND BRNO = C.BRNO
 															  AND YR = C.YR

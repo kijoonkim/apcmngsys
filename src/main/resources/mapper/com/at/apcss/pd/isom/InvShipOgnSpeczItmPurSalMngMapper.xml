@@ -61,6 +61,7 @@ FROM
 		  AND FA.UO_BRNO = #{uoBrno}
 		  AND YR = #{yr}
 		  AND FA.STBLT_YN = 'Y'
+		  AND FA.EXCL_YN != 'Y'
 	)  UOFA ,
 	(SELECT
 			ITEM_CD
@@ -85,6 +86,7 @@ FROM
 			  		  							WHERE 1=1
 			  		  							  AND APO_SE= '2'
 			  		  							  AND STBLT_YN = 'Y'
+			  		  							  AND NVL(EXCL_YN,'N') != 'Y'
 												  AND BRNO = #{brno}
 												  AND UO_BRNO = #{uoBrno}
 												  AND YR = #{yr}
@@ -291,6 +293,7 @@ FROM
 		  AND FA.UO_BRNO = #{uoBrno}
 		  AND YR = #{yr}
 		  AND FA.STBLT_YN = 'Y'
+		  AND FA.EXCL_YN != 'Y'
 	)  UOFA ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
@@ -708,6 +711,7 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 														FROM TB_EV_FRMHS_APO
 														WHERE 1=1
 														  AND STBLT_YN = 'Y'
+														  AND NVL(EXCL_YN,'N') != 'Y'
 														  AND APO_SE = '2'
 														<if test='brno != null and brno != ""'>
 														  AND BRNO = #{brno}
@@ -842,9 +846,10 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 								FROM TB_EV_FRMHS_APO
 								WHERE PRDCR_OGNZ_SN = A.PRDCR_OGNZ_SN
 								  AND YR = A.YR
+								  AND NVL(EXCL_YN,'N') != 'Y'
 								)) AS TRMT_TYPE_NM
 			, PRDCR_OGNZ_SN
-			, (SELECT PRDCR_OGNZ_NM FROM TB_EV_FRMHS_APO WHERE PRDCR_OGNZ_SN = A.PRDCR_OGNZ_SN) AS PRDCR_OGNZ_NM
+			, (SELECT PRDCR_OGNZ_NM FROM TB_EV_FRMHS_APO WHERE PRDCR_OGNZ_SN = A.PRDCR_OGNZ_SN AND NVL(EXCL_YN,'N') != 'Y') AS PRDCR_OGNZ_NM
 			, SLS_CNSGN_PRCHS_AMT
 			, UO_SPMT_AMT
 			, UO_OTHER_SPMT_AMT
@@ -867,6 +872,7 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 											WHERE 1=1
 											  AND YR = A.YR
 											  AND STBLT_YN = 'Y'
+											  AND NVL(EXCL_YN,'N') != 'Y'
 											  AND BRNO = A.BRNO
 											  AND PRDCR_OGNZ_SN = A.PRDCR_OGNZ_SN
 											  AND ITEM_CD = (SELECT ITEM_CD

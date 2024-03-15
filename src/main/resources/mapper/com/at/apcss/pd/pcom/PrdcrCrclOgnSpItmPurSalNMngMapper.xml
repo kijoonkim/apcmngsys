@@ -63,6 +63,7 @@ FROM
 		  AND FA.BRNO = #{brno}
 		  AND FA.YR =#{yr}
 		  AND FA.STBLT_YN = 'Y'
+		  AND FA.EXCL_YN != 'Y'
 	)  UOFA ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
@@ -76,6 +77,7 @@ FROM
 			  		  							WHERE 1=1
 			  		  							  AND APO_SE = '1'
 			  		  							  AND STBLT_YN = 'Y'
+			  		  							  AND NVL(EXCL_YN,'N') != 'Y'
 												  AND BRNO = #{brno}
 												  AND YR = #{yr}
 					  						)
@@ -268,6 +270,7 @@ FROM
 		  AND FA.BRNO = #{brno}
 		  AND FA.YR =#{yr}
 		  AND FA.STBLT_YN = 'Y'
+		  AND FA.EXCL_YN != 'Y'
 	)  UOFA ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
@@ -280,6 +283,7 @@ FROM
 			  		  							FROM TB_EV_FRMHS_APO
 			  		  							WHERE 1=1
 			  		  							  AND STBLT_YN = 'Y'
+			  		  							  AND NVL(EXCL_YN,'N') != 'Y'
 			  		  							  AND APO_SE ='1'
 												  AND BRNO = #{brno}
 												  AND YR = #{yr}
@@ -774,6 +778,7 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 						  		  							WHERE 1=1
 						  		  							  AND APO_SE = '1'
 						  		  							  AND STBLT_YN = 'Y'
+						  		  							  AND NVL(EXCL_YN,'N') != 'Y'
 															<if test='brno != null and brno != ""'>
 															  AND BRNO = #{brno}
 															</if>
@@ -807,6 +812,7 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 						  		  							WHERE 1=1
 						  		  							  AND APO_SE = '1'
 						  		  							  AND STBLT_YN = 'Y'
+						  		  							  AND NVL(EXCL_YN,'N') != 'Y'
 															<if test='brno != null and brno != ""'>
 															  AND BRNO = #{brno}
 															</if>

@@ -270,6 +270,7 @@
 															FROM TB_EV_FRMHS_APO
 															WHERE 1=1
 															  AND STBLT_YN = 'Y'
+															  AND NVL(EXCL_YN,'N') != 'Y'
 															  AND APO_SE = '1'
 															<if test='brno != null and brno != ""'>
 															  AND BRNO = #{brno}
@@ -303,6 +304,7 @@
 															FROM TB_EV_FRMHS_APO
 															WHERE 1=1
 															  AND STBLT_YN = 'Y'
+															  AND NVL(EXCL_YN,'N') != 'Y'
 															  AND APO_SE = '1'
 															<if test='brno != null and brno != ""'>
 															  AND BRNO = #{brno}
@@ -613,6 +615,7 @@
 															FROM TB_EV_FRMHS_APO
 															WHERE 1=1
 															AND STBLT_YN = 'Y'
+															AND NVL(EXCL_YN,'N') != 'Y'
 															AND APO_SE = '2'
 															AND UO_BRNO = #{brno}
 															AND YR = #{yr}
@@ -918,6 +921,7 @@
 					WHERE 1=1
 					  AND ITEM_CD IN (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = #{yr} AND BRNO = #{brno})
 					  AND (UO_BRNO = #{brno} OR BRNO = #{brno})
+					  AND NVL(EXCL_YN,'N') != 'Y'
 					  AND YR = #{yr}
 					) TEFA
 		LEFT JOIN (SELECT
@@ -935,6 +939,7 @@
 														FROM TB_EV_FRMHS_APO
 														WHERE 1=1
 														  AND YR = #{yr}
+														  AND NVL(EXCL_YN,'N') != 'Y'
 														  AND ITEM_CD IN (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = #{yr} AND BRNO = #{brno})
 														  AND (UO_BRNO = #{brno} OR BRNO = #{brno})
 													)

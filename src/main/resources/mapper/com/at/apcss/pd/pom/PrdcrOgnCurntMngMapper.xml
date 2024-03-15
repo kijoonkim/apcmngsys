@@ -338,57 +338,8 @@
 		   			  , #{sysLastChgUserId}
 		   			  , #{sysLastChgPrgrmId}
 		   			)
-    	]]>
-    </insert>
-
-	<update id="updatePrdcrOgnCurntMng" parameterType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO">
-    	<![CDATA[
-	    	UPDATE /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.upatePrdcrOgnCurntMng */
-	    		TB_PD_PrdcrCrclOgnVluIdctrMng
-			   SET
-			 	  AA	= #{aa}
-			 	, BB 	= #{bb}
-			 	, CC 	= #{cc}
-			 	, CC_CODE 	= #{ccCode}
-			 	, DD 	= #{dd}
-			 	, DD_CODE 	= #{ddCode}
-			 	, EE 	= #{ee}
-			 	, FF 	= #{ff}
-			 	, GG 	= #{gg}
-			 	, HH 	= #{hh}
-			 	, II 	= #{ii}
-			 	, II_CODE 	= #{iiCode}
-			 	, JJ 	= #{jj}
-			 	, KK 	= #{kk}
-			 	, LL 	= #{ll}
-			 	, MM 	= #{mm}
-			 	, NN 	= #{nn}
-			 	, OO 	= #{oo}
-			 	, PP 	= #{pp}
-			 	, QQ 	= #{qq}
-			 	, RR 	= #{rr}
-			 	, SS 	= #{ss}
-			 	, TT 	= #{tt}
-			 	, UU 	= #{uu}
-			 	, VV 	= #{vv}
-			 	, WW 	= #{ww}
-			 	, XX 	= #{xx}
-			 	, YY 	= #{yy}
-			 	, ZZ 	= #{zz}
-    	]]>
-		<if test='delYn != null and delYn != ""'>
-				, DEL_YN 	= #{delYn}
-		</if>
-    	<![CDATA[
-				, SYS_LAST_CHG_DT		= SYSDATE
-	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
-
-			 WHERE 1=1
-			   AND TEST_NO	= #{testNo}
-    	]]>
-    </update>
-
+		]]>
+	</insert>
 
 	<delete id="deletePrdcrOgnCurntMngDtl" parameterType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO">
 		<![CDATA[
@@ -400,8 +351,8 @@
 	</delete>
 
 	<!-- 농가 리스트 조회 -->
-    <select id="selectPrdcrOgnCurntMngDtlList" parameterType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO" resultType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO">
-    	<![CDATA[
+	<select id="selectPrdcrOgnCurntMngDtlList" parameterType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO" resultType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO">
+		<![CDATA[
 			SELECT /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectPrdcrOgnCurntMngDtlList */
 				  CM.APO_CD
 		    	, CM.APO_SE
@@ -566,6 +517,7 @@
 				, CM.RMRK
 				, CM.DEL_YN
 				, CM.STBLT_YN
+				, CM.EXCL_YN
 
 				, TOT.CNT
 				, TOT.PRDCTN_VLM_TOT
@@ -611,15 +563,14 @@
 
 		<!-- 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		  ) pt0
+			  ) pt0
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
-    	</if>
-    </select>
+		</if>
+	</select>
 
 	<insert id="insertTbEvFrmhsApo" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
-    	<![CDATA[
-    	MERGE INTO TB_EV_FRMHS_APO CLT  /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.insertTbEvFrmhsApo */
+		MERGE INTO TB_EV_FRMHS_APO CLT  /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.insertTbEvFrmhsApo */
 		USING DUAL
 			ON (
 					CLT.APO_CD  = #{apoCd}
@@ -628,96 +579,106 @@
 				)
 		WHEN MATCHED THEN
 				 UPDATE
-					   SET
-		    	        PRDCR_OGNZ_NM		= #{prdcrOgnzNm}
-		    	        , RMRK				= #{rmrk}
+						SET
+						PRDCR_OGNZ_NM		= #{prdcrOgnzNm}
+						, RMRK				= #{rmrk}
 
-		    	        , ITEM_CD				= #{itemCd}
-		    	        , UO_BRNO				= #{uoBrno}
-		    	        , UO_CD					= #{uoCd}
-		    	        , CTGRY_CD				= #{ctgryCd}
-		    	        , TRMT_TYPE				= #{trmtType}
-		    	        , STTG_UPBR_ITEM_SE		= #{sttgUpbrItemSe}
+						, ITEM_CD				= #{itemCd}
+						, UO_BRNO				= #{uoBrno}
+						, UO_CD					= #{uoCd}
+						, CTGRY_CD				= #{ctgryCd}
+						, TRMT_TYPE				= #{trmtType}
+						, STTG_UPBR_ITEM_SE		= #{sttgUpbrItemSe}
 
-		    	        , PRDCR_OGNZ_CD = FN_GET_PRDCR_OGNZ_CD (#{apoCd} , #{brno} , #{apoSe} , #{prdcrOgnzSn})
+						, PRDCR_OGNZ_CD 		= FN_GET_PRDCR_OGNZ_CD (#{apoCd} , #{brno} , #{apoSe} , #{prdcrOgnzSn})
 
-		    	        , SYS_LAST_CHG_DT		= SYSDATE
-	    				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-	    				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
-		    	]]>
-		    	<![CDATA[
+						<if test='exclYn != null and exclYn != ""'>
+						, EXCL_YN				= #{exclYn}
+						</if>
+
+						, SYS_LAST_CHG_DT		= SYSDATE
+						, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+						, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 
 					 WHERE 1=1
 					 AND CLT.APO_CD			= #{apoCd}
 					 AND CLT.PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
 		WHEN NOT MATCHED THEN
 			 INSERT
-		    		(
-		    			APO_CD
-		    		  , APO_SE
-		    		  , BRNO
-		    		  , CRNO
-		    		  , YR
-		    		  , STTG_UPBR_ITEM_SE
-		    		  , CTGRY_CD
-		    		  , ITEM_CD
-		    		  , UO_BRNO
-		    		  , UO_CD
-		    		  , TRMT_TYPE
+					(
+						APO_CD
+					  , APO_SE
+					  , BRNO
+					  , CRNO
+					  , YR
+					  , STTG_UPBR_ITEM_SE
+					  , CTGRY_CD
+					  , ITEM_CD
+					  , UO_BRNO
+					  , UO_CD
+					  , TRMT_TYPE
 
-		    		  , PRDCR_OGNZ_SN
-		    		  , PRDCR_OGNZ_CD
-		    		  , PRDCR_OGNZ_NM
-		    		  , RMRK
+					  , PRDCR_OGNZ_SN
+					  , PRDCR_OGNZ_CD
+					  , PRDCR_OGNZ_NM
+					<if test='exclYn != null and exclYn != ""'>
+					  , EXCL_YN
+					</if>
 
-		    		  , SYS_FRST_INPT_DT
-		    		  , SYS_FRST_INPT_USER_ID
-		    		  , SYS_FRST_INPT_PRGRM_ID
-		    		  , SYS_LAST_CHG_DT
-		    		  , SYS_LAST_CHG_USER_ID
-		    		  , SYS_LAST_CHG_PRGRM_ID
-		    		)
-		   		VALUES
-		   			(
-		   			    #{apoCd}
-		   			  , (case when #{apoSe} is not null then #{apoSe}
-		   			  			ELSE (SELECT OGNZ_SE_CD FROM TB_APC_OGNZ_INFO WHERE OGNZ_CD = #{apoCd})
-		   			  			END)
-		   			  , #{brno}
-		   			  , #{crno}
-		   			  , TO_CHAR(SYSDATE,'YYYY')
-		   			  , #{sttgUpbrItemSe}
-		   			  , #{ctgryCd}
-		   			  , #{itemCd}
-		   			  , #{uoBrno}
-		   			  , #{uoCd}
-		   			  , #{trmtType}
+					  , RMRK
 
-		   			  , SEQ_PRDCR_OGNZ_SN.NEXTVAL
-		   			  , FN_GET_PRDCR_OGNZ_CD (#{apoCd} , #{brno} , #{apoSe} , SEQ_PRDCR_OGNZ_SN.CURRVAL)
-		   			  , #{prdcrOgnzNm}
+					  , SYS_FRST_INPT_DT
+					  , SYS_FRST_INPT_USER_ID
+					  , SYS_FRST_INPT_PRGRM_ID
+					  , SYS_LAST_CHG_DT
+					  , SYS_LAST_CHG_USER_ID
+					  , SYS_LAST_CHG_PRGRM_ID
+					)
+				VALUES
+					(
+					    #{apoCd}
+					  , (case when #{apoSe} is not null then #{apoSe}
+					  			ELSE (SELECT OGNZ_SE_CD FROM TB_APC_OGNZ_INFO WHERE OGNZ_CD = #{apoCd})
+					  			END)
+					  , #{brno}
+					  , #{crno}
+					  , TO_CHAR(SYSDATE,'YYYY')
+					  , #{sttgUpbrItemSe}
+					  , #{ctgryCd}
+					  , #{itemCd}
+					  , #{uoBrno}
+					  , #{uoCd}
+					  , #{trmtType}
 
-		   			  , #{rmrk}
-		   			  , SYSDATE
-	   			  	  , #{sysFrstInptUserId}
-		   			  , #{sysFrstInptPrgrmId}
-		   			  , SYSDATE
-		   			  , #{sysLastChgUserId}
-		   			  , #{sysLastChgPrgrmId}
-		   			)
-    	]]>
-    </insert>
-    <update id="updateTbEvFrmhsPrdctnEcSpmtSttnApo" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
-	    	UPDATE /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.updateTbEvFrmhsPrdctnEcSpmtSttnApo */
-	    		TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN
+					  , SEQ_PRDCR_OGNZ_SN.NEXTVAL
+					  , FN_GET_PRDCR_OGNZ_CD (#{apoCd} , #{brno} , #{apoSe} , SEQ_PRDCR_OGNZ_SN.CURRVAL)
+					  , #{prdcrOgnzNm}
+
+					<if test='exclYn != null and exclYn != ""'>
+					  , #{exclYn}
+					</if>
+
+					  , #{rmrk}
+
+					  , SYSDATE
+					  , #{sysFrstInptUserId}
+					  , #{sysFrstInptPrgrmId}
+					  , SYSDATE
+					  , #{sysLastChgUserId}
+					  , #{sysLastChgPrgrmId}
+					)
+	</insert>
+	<update id="updateTbEvFrmhsPrdctnEcSpmtSttnApo" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
+			UPDATE /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.updateTbEvFrmhsPrdctnEcSpmtSttnApo */
+				TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN
 			   SET
 			 	  ITEM_CD				= #{itemCd}
 			 	, TRMT_TYPE				= #{trmtType}
 			 	, STTG_UPBR_ITEM_SE		= #{sttgUpbrItemSe}
 			 WHERE 1=1
 			   AND PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
-		   	   AND YR				= #{yr}
-    </update>
+			   AND YR				= #{yr}
+	</update>
 
 	<delete id="deleteTbEvFrmhsApo" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
 		<![CDATA[
@@ -738,7 +699,7 @@
 
 	<!-- 적합여부 업데이트 -->
 	<update id="updateTbEvFrmhsApoStbltYn" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
-	    	UPDATE /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.updateTbEvFrmhsApoStbltYn */
+			UPDATE /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.updateTbEvFrmhsApoStbltYn */
 	    		TB_EV_FRMHS_APO
 			   SET
 			 	  STBLT_YN	= #{stbltYn}
@@ -772,7 +733,8 @@
 			,TOTAL.EC_SPMT_PLAN_VLM_TOT
 			,TOTAL.EC_SPMT_RATE_A
 			,TOTAL.EC_SPMT_RATE_B
-			,(CASE WHEN APRV = '1' THEN
+			,(CASE WHEN TOTAL.EXCL_YN = 'Y' THEN 'N'
+					WHEN APRV = '1' THEN
 									(CASE WHEN TOTAL.STTG_UPBR_ITEM_SE = '1' THEN
 																				(CASE WHEN TO_NUMBER(TOTAL.CNT) >= 5 AND TO_NUMBER(TOTAL.SPMT_PRC_TOT) >= 200000 AND TO_NUMBER(TOTAL.EC_SPMT_RATE_A) >= 80
 																					THEN 'Y'
@@ -806,6 +768,7 @@
 			,TEFA.ITEM_CD
 			,TEFA.CTGRY_CD
 			,TEFA.STTG_UPBR_ITEM_SE
+			,TEFA.EXCL_YN
 			,NVL(TEFA.TRMT_TYPE,'0') AS TRMT_TYPE
 			,(SELECT APO_SE FROM TB_EV_APO WHERE BRNO = TEFA.BRNO) AS APO_SE_CHK
 			,(SELECT NVL(APRV,'0')
@@ -934,6 +897,7 @@
 		FROM (SELECT *
 					FROM TB_EV_FRMHS_APO
 					WHERE 1=1
+					  AND NVL(EXCL_YN,'N') != 'Y'
 					<if test='brno != null and brno != ""'>
 					  AND BRNO = #{brno}
 					</if>
@@ -962,6 +926,7 @@
 					 	 	  AND PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
 					 	 	  							FROM TB_EV_FRMHS_APO
 					 	 	  							WHERE 1=1
+					 	 	  							  AND NVL(EXCL_YN,'N') != 'Y'
 					 	 	  							  AND BRNO = #{brno}
 					 	 	  							  AND UO_BRNO = #{uoBrno})
 							</if>

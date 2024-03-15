@@ -44,6 +44,8 @@ public class TbEvFrmhsApoVO extends ComVO{
 	private String cnt;//조직원수
 	private String stbltYn;//적합여부
 	private String orgStbltYn;//적합여부
+	private String exclYn;//제외 여부
+
 
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;

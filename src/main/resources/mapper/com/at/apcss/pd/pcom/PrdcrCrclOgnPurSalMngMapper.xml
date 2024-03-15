@@ -194,6 +194,7 @@
 					  						FROM TB_EV_FRMHS_APO
 					  						WHERE 1=1
 					  						  AND STBLT_YN = 'Y'
+					  						  AND NVL(EXCL_YN,'N') != 'Y'
 					  						  AND APO_SE = '1'
 					  						<if test='brno != null and brno != ""'>
 					  						  AND BRNO = #{brno}
@@ -886,6 +887,7 @@
 																			FROM TB_EV_FRMHS_APO EFA
 																			WHERE 1=1
 																			  AND STBLT_YN = 'Y'
+																			  AND NVL(EXCL_YN,'N') != 'Y'
 																			  AND APO_SE = '1'
 																			  AND BRNO = PST.BRNO
 																			  AND YR = PST.YR

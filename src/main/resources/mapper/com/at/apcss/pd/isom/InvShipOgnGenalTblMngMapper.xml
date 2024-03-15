@@ -186,6 +186,7 @@
 					  													WHERE 1=1
 					  													  AND STBLT_YN = 'Y'
 					  													  AND APO_SE = '2'
+					  													  AND NVL(EXCL_YN,'N') != 'Y'
 					  													<if test='brno != null and brno != ""'>
 																	  	  AND BRNO = #{brno}
 																	  	</if>
@@ -460,6 +461,7 @@
 																		WHERE 1=1
 																		  AND STBLT_YN = 'Y'
 																		  AND APO_SE = '2'
+																		  AND NVL(EXCL_YN,'N') != 'Y'
 																	  	  AND BRNO = B.BRNO
 																	  	  AND UO_BRNO = B.UO_BRNO
 																	  	  AND YR = B.YR
