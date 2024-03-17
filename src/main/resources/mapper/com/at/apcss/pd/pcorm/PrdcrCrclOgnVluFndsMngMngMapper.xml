@@ -51,9 +51,9 @@
 								ELSE ''
 								END
 					)AS SLS_TOT_AMT
-					,(CASE WHEN ITEM.CTGRY_CD = '1' THEN TOTA.PERC_CONT
-								WHEN ITEM.CTGRY_CD = '2' THEN TOTB.PERC_CONT
-								WHEN ITEM.CTGRY_CD = '3' THEN TOTC.PERC_CONT
+					,(CASE WHEN ITEM.CTGRY_CD = '1' THEN TOTA.TOT_PERC_CONT
+								WHEN ITEM.CTGRY_CD = '2' THEN TOTB.TOT_PERC_CONT
+								WHEN ITEM.CTGRY_CD = '3' THEN TOTC.TOT_PERC_CONT
 								ELSE ''
 								END
 					)AS PERC_CONT
@@ -90,7 +90,7 @@
 								  AND YR = #{yr}
 								  GROUP BY  BRNO
 					) TOT
-					,(SELECT BRNO ,CTGRY_CD ,SLS_TOT_AMT ,PERCENTILE_CONT(0.9) WITHIN GROUP (ORDER BY SLS_TOT_AMT_TOT) OVER () AS PERC_CONT
+					,(SELECT BRNO ,CTGRY_CD ,SLS_TOT_AMT ,PERC.TOT_PERC_CONT
 						FROM
 							(SELECT BRNO , '1' AS CTGRY_CD
 									,SUM(CASE WHEN TYPE_SE_NO IN ('2','6') THEN NVL(PSTA.SLS_CNSGN_SLS_AMT,0) END) AS SLS_TOT_AMT
@@ -114,8 +114,42 @@
 															FROM TB_EV_REG_RSLT ERR WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO),'N')
 								  AND YR = #{yr}
 								  GROUP BY  BRNO)
+							,(SELECT
+									ROUND(AVG(NVL(SLS_TOT_AMT_TOT, 0)),2) AS TOT_PERC_CONT
+								FROM
+									(SELECT
+											CCC.*
+											,ROWNUM AS A
+											,COUNT(*) OVER () AS TOTAL_ROWS
+										FROM
+											(SELECT YR, BRNO , APRV , '1' AS CTGRY_CD
+													,SUM(CASE WHEN TYPE_SE_NO IN ('2','3','6','7') THEN NVL(PSTA.SLS_CNSGN_SLS_AMT,0) END) AS SLS_TOT_AMT_TOT
+												FROM (SELECT A.*, (SELECT APRV FROM TB_EV_APO WHERE BRNO = A.BRNO) AS APRV from TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT A) PSTA
+												WHERE 1=1
+												  AND APO_SE = '1'
+												  AND TYPE_SE_NO IN ('2','3','6','7')
+												  AND STBLT_YN = 'Y'
+												  AND APRV = '1'
+												  AND BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at21','at22','at23','at24','at25','at26','at27','at61'))
+												  AND BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
+												  AND UO_BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
+												  AND ITEM_CD = (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+												  AND '1' =  (SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+												  AND '1' =  (SELECT STTG_UPBR_ITEM_SE FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+												  /* MNGR_ICPT_RSN_CD = A 기본요건 미달*/
+												  AND 'A' != NVL((SELECT (CASE WHEN NVL(ERR.MNGR_ICPT_RSN_CD,'') IS NOT NULL
+																					THEN ERR.MNGR_ICPT_RSN_CD
+																					ELSE ERR.ICPT_RSN_CD
+																					END)
+																			FROM TB_EV_REG_RSLT ERR WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO),'N')
+												  AND YR = #{yr}
+												  GROUP BY  YR, BRNO,APRV
+												  ORDER BY SLS_TOT_AMT_TOT)CCC
+								ORDER BY SLS_TOT_AMT_TOT)
+								WHERE A > TOTAL_ROWS - (CASE WHEN TOTAL_ROWS* 0.1 > 1 THEN CEIL(TOTAL_ROWS * 0.1) WHEN 1 > TOTAL_ROWS* 0.9  THEN 1 ELSE 1 END)
+							) PERC
 					) TOTA
-					,(SELECT BRNO ,CTGRY_CD ,SLS_TOT_AMT ,PERCENTILE_CONT(0.9) WITHIN GROUP (ORDER BY SLS_TOT_AMT_TOT) OVER () AS PERC_CONT
+					,(SELECT BRNO ,CTGRY_CD ,SLS_TOT_AMT ,PERC.TOT_PERC_CONT
 						FROM
 							(SELECT BRNO , '2' AS CTGRY_CD
 									,SUM(CASE WHEN TYPE_SE_NO IN ('2','6') THEN NVL(PSTB.SLS_CNSGN_SLS_AMT,0) END) AS SLS_TOT_AMT
@@ -139,8 +173,42 @@
 															FROM TB_EV_REG_RSLT ERR WHERE YR = PSTB.YR AND BRNO = PSTB.BRNO),'N')
 								  AND YR = #{yr}
 								  GROUP BY  BRNO)
+							,(SELECT
+									ROUND(AVG(NVL(SLS_TOT_AMT_TOT, 0)),2) AS TOT_PERC_CONT
+								FROM
+									(SELECT
+											CCC.*
+											,ROWNUM AS A
+											,COUNT(*) OVER () AS TOTAL_ROWS
+										FROM
+											(SELECT YR, BRNO , APRV , '1' AS CTGRY_CD
+													,SUM(CASE WHEN TYPE_SE_NO IN ('2','3','6','7') THEN NVL(PSTA.SLS_CNSGN_SLS_AMT,0) END) AS SLS_TOT_AMT_TOT
+												FROM (SELECT A.*, (SELECT APRV FROM TB_EV_APO WHERE BRNO = A.BRNO) AS APRV from TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT A) PSTA
+												WHERE 1=1
+												  AND APO_SE = '1'
+												  AND TYPE_SE_NO IN ('2','3','6','7')
+												  AND STBLT_YN = 'Y'
+												  AND APRV = '1'
+												  AND BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at21','at22','at23','at24','at25','at26','at27','at61'))
+												  AND BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
+												  AND UO_BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
+												  AND ITEM_CD = (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+												  AND '2' =  (SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+												  AND '1' =  (SELECT STTG_UPBR_ITEM_SE FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+												  /* MNGR_ICPT_RSN_CD = A 기본요건 미달*/
+												  AND 'A' != NVL((SELECT (CASE WHEN NVL(ERR.MNGR_ICPT_RSN_CD,'') IS NOT NULL
+																					THEN ERR.MNGR_ICPT_RSN_CD
+																					ELSE ERR.ICPT_RSN_CD
+																					END)
+																			FROM TB_EV_REG_RSLT ERR WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO),'N')
+												  AND YR = #{yr}
+												  GROUP BY  YR, BRNO,APRV
+												  ORDER BY SLS_TOT_AMT_TOT)CCC
+								ORDER BY SLS_TOT_AMT_TOT)
+								WHERE A > TOTAL_ROWS - (CASE WHEN TOTAL_ROWS* 0.1 > 1 THEN CEIL(TOTAL_ROWS * 0.1) WHEN 1 > TOTAL_ROWS* 0.9  THEN 1 ELSE 1 END)
+							) PERC
 					)TOTB
-					,(SELECT BRNO ,CTGRY_CD ,SLS_TOT_AMT ,PERCENTILE_CONT(0.9) WITHIN GROUP (ORDER BY SLS_TOT_AMT_TOT) OVER () AS PERC_CONT
+					,(SELECT BRNO ,CTGRY_CD ,SLS_TOT_AMT ,PERC.TOT_PERC_CONT
 						FROM
 							(SELECT BRNO , '3' AS CTGRY_CD
 									,SUM(CASE WHEN TYPE_SE_NO IN ('2','6') THEN NVL(PSTC.SLS_CNSGN_SLS_AMT,0) END) AS SLS_TOT_AMT
@@ -164,6 +232,40 @@
 															FROM TB_EV_REG_RSLT ERR WHERE YR = PSTC.YR AND BRNO = PSTC.BRNO),'N')
 								  AND YR = #{yr}
 								  GROUP BY  BRNO)
+							,(SELECT
+									ROUND(AVG(NVL(SLS_TOT_AMT_TOT, 0)),2) AS TOT_PERC_CONT
+								FROM
+									(SELECT
+											CCC.*
+											,ROWNUM AS A
+											,COUNT(*) OVER () AS TOTAL_ROWS
+										FROM
+											(SELECT YR, BRNO , APRV , '1' AS CTGRY_CD
+													,SUM(CASE WHEN TYPE_SE_NO IN ('2','3','6','7') THEN NVL(PSTA.SLS_CNSGN_SLS_AMT,0) END) AS SLS_TOT_AMT_TOT
+												FROM (SELECT A.*, (SELECT APRV FROM TB_EV_APO WHERE BRNO = A.BRNO) AS APRV from TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT A) PSTA
+												WHERE 1=1
+												  AND APO_SE = '1'
+												  AND TYPE_SE_NO IN ('2','3','6','7')
+												  AND STBLT_YN = 'Y'
+												  AND APRV = '1'
+												  AND BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at21','at22','at23','at24','at25','at26','at27','at61'))
+												  AND BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
+												  AND UO_BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
+												  AND ITEM_CD = (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+												  AND '3' =  (SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+												  AND '1' =  (SELECT STTG_UPBR_ITEM_SE FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+												  /* MNGR_ICPT_RSN_CD = A 기본요건 미달*/
+												  AND 'A' != NVL((SELECT (CASE WHEN NVL(ERR.MNGR_ICPT_RSN_CD,'') IS NOT NULL
+																					THEN ERR.MNGR_ICPT_RSN_CD
+																					ELSE ERR.ICPT_RSN_CD
+																					END)
+																			FROM TB_EV_REG_RSLT ERR WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO),'N')
+												  AND YR = #{yr}
+												  GROUP BY  YR, BRNO,APRV
+												  ORDER BY SLS_TOT_AMT_TOT)CCC
+								ORDER BY SLS_TOT_AMT_TOT)
+								WHERE A > TOTAL_ROWS - (CASE WHEN TOTAL_ROWS* 0.1 > 1 THEN CEIL(TOTAL_ROWS * 0.1) WHEN 1 > TOTAL_ROWS* 0.9  THEN 1 ELSE 1 END)
+							) PERC
 					)TOTC
 					WHERE 1=1
 						AND ITEM.BRNO = TOT.BRNO(+)
@@ -231,9 +333,9 @@
 								ELSE ''
 								END
 					)AS SLS_TOT_AMT_RT
-					,(CASE WHEN ITEM.CTGRY_CD = '1' THEN TOTA.PERC_CONT
-								WHEN ITEM.CTGRY_CD = '2' THEN TOTB.PERC_CONT
-								WHEN ITEM.CTGRY_CD = '3' THEN TOTC.PERC_CONT
+					,(CASE WHEN ITEM.CTGRY_CD = '1' THEN TOTA.RT_PERC_CONT
+								WHEN ITEM.CTGRY_CD = '2' THEN TOTB.RT_PERC_CONT
+								WHEN ITEM.CTGRY_CD = '3' THEN TOTC.RT_PERC_CONT
 								ELSE ''
 								END
 					)AS PERC_CONT
@@ -270,7 +372,7 @@
 								  AND YR = #{yr}
 								  GROUP BY  BRNO
 					) TOT
-					,(SELECT BRNO ,CTGRY_CD , SLS_TOT_AMT ,SLS_TOT_AMT_RT ,PERCENTILE_CONT(0.9) WITHIN GROUP (ORDER BY SLS_TOT_AMT_RT) OVER () AS PERC_CONT
+					,(SELECT BRNO ,CTGRY_CD , SLS_TOT_AMT ,SLS_TOT_AMT_RT ,PERC.RT_PERC_CONT
 					FROM
 						(SELECT BRNO , '1' AS CTGRY_CD
 								,NVL( ROUND( NVL(SUM(CASE WHEN TYPE_SE_NO IN ('2','6') THEN NVL(PSTA.SLS_CNSGN_SLS_AMT,0) END) ,0)
@@ -297,8 +399,45 @@
 															FROM TB_EV_REG_RSLT ERR WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO),'N')
 								  AND YR = #{yr}
 								  GROUP BY  BRNO)
+							,(SELECT
+									ROUND(AVG(NVL(SLS_TOT_AMT_RT, 0)),2) AS RT_PERC_CONT
+								FROM
+									(SELECT
+											CCC.*
+											,ROWNUM AS A
+											,COUNT(*) OVER () AS TOTAL_ROWS
+										FROM
+											(SELECT YR, BRNO , APRV , '1' AS CTGRY_CD
+													,NVL( ROUND( NVL(SUM(CASE WHEN TYPE_SE_NO IN ('2','6') THEN NVL(PSTA.SLS_CNSGN_SLS_AMT,0) END) ,0)
+																/ NULLIF(SUM(CASE WHEN TYPE_SE_NO IN ('2','3','6','7') THEN NVL(PSTA.SLS_CNSGN_SLS_AMT,0) END), 0)
+															,2) ,0
+													) AS SLS_TOT_AMT_RT
+												FROM (SELECT A.*, (SELECT APRV FROM TB_EV_APO WHERE BRNO = A.BRNO) AS APRV from TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT A) PSTA
+												WHERE 1=1
+												  AND APO_SE = '1'
+												  AND TYPE_SE_NO IN ('2','3','6','7')
+												  AND STBLT_YN = 'Y'
+												  AND APRV = '1'
+												  AND BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at21','at22','at23','at24','at25','at26','at27','at61'))
+												  AND BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
+												  AND UO_BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
+												  AND ITEM_CD = (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+												  AND '1' =  (SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+												  AND '1' =  (SELECT STTG_UPBR_ITEM_SE FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+												  /* MNGR_ICPT_RSN_CD = A 기본요건 미달*/
+												  AND 'A' != NVL((SELECT (CASE WHEN NVL(ERR.MNGR_ICPT_RSN_CD,'') IS NOT NULL
+																					THEN ERR.MNGR_ICPT_RSN_CD
+																					ELSE ERR.ICPT_RSN_CD
+																					END)
+																			FROM TB_EV_REG_RSLT ERR WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO),'N')
+												  AND YR = #{yr}
+												  GROUP BY  YR, BRNO,APRV
+												  ORDER BY SLS_TOT_AMT_RT)CCC
+								ORDER BY SLS_TOT_AMT_RT)
+								WHERE A > TOTAL_ROWS - (CASE WHEN TOTAL_ROWS* 0.1 > 1 THEN CEIL(TOTAL_ROWS * 0.1) WHEN 1 > TOTAL_ROWS* 0.9  THEN 1 ELSE 1 END)
+							) PERC
 					) TOTA
-					,(SELECT BRNO ,CTGRY_CD , SLS_TOT_AMT ,SLS_TOT_AMT_RT ,PERCENTILE_CONT(0.9) WITHIN GROUP (ORDER BY SLS_TOT_AMT_RT) OVER () AS PERC_CONT
+					,(SELECT BRNO ,CTGRY_CD , SLS_TOT_AMT ,SLS_TOT_AMT_RT ,PERC.RT_PERC_CONT
 					FROM
 						(SELECT BRNO , '2' AS CTGRY_CD
 								,NVL( ROUND( NVL(SUM(CASE WHEN TYPE_SE_NO IN ('2','6') THEN NVL(PSTA.SLS_CNSGN_SLS_AMT,0) END) ,0)
@@ -326,8 +465,45 @@
 															FROM TB_EV_REG_RSLT ERR WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO),'N')
 								  AND YR = #{yr}
 								  GROUP BY  BRNO)
+							,(SELECT
+									ROUND(AVG(NVL(SLS_TOT_AMT_RT, 0)),2) AS RT_PERC_CONT
+								FROM
+									(SELECT
+											CCC.*
+											,ROWNUM AS A
+											,COUNT(*) OVER () AS TOTAL_ROWS
+										FROM
+											(SELECT YR, BRNO , APRV , '1' AS CTGRY_CD
+													,NVL( ROUND( NVL(SUM(CASE WHEN TYPE_SE_NO IN ('2','6') THEN NVL(PSTA.SLS_CNSGN_SLS_AMT,0) END) ,0)
+																/ NULLIF(SUM(CASE WHEN TYPE_SE_NO IN ('2','3','6','7') THEN NVL(PSTA.SLS_CNSGN_SLS_AMT,0) END), 0)
+															,2) ,0
+													) AS SLS_TOT_AMT_RT
+												FROM (SELECT A.*, (SELECT APRV FROM TB_EV_APO WHERE BRNO = A.BRNO) AS APRV from TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT A) PSTA
+												WHERE 1=1
+												  AND APO_SE = '1'
+												  AND TYPE_SE_NO IN ('2','3','6','7')
+												  AND STBLT_YN = 'Y'
+												  AND APRV = '1'
+												  AND BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at21','at22','at23','at24','at25','at26','at27','at61'))
+												  AND BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
+												  AND UO_BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
+												  AND ITEM_CD = (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+												  AND '2' =  (SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+												  AND '1' =  (SELECT STTG_UPBR_ITEM_SE FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+												  /* MNGR_ICPT_RSN_CD = A 기본요건 미달*/
+												  AND 'A' != NVL((SELECT (CASE WHEN NVL(ERR.MNGR_ICPT_RSN_CD,'') IS NOT NULL
+																					THEN ERR.MNGR_ICPT_RSN_CD
+																					ELSE ERR.ICPT_RSN_CD
+																					END)
+																			FROM TB_EV_REG_RSLT ERR WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO),'N')
+												  AND YR = #{yr}
+												  GROUP BY  YR, BRNO,APRV
+												  ORDER BY SLS_TOT_AMT_RT)CCC
+								ORDER BY SLS_TOT_AMT_RT)
+								WHERE A > TOTAL_ROWS - (CASE WHEN TOTAL_ROWS* 0.1 > 1 THEN CEIL(TOTAL_ROWS * 0.1) WHEN 1 > TOTAL_ROWS* 0.9  THEN 1 ELSE 1 END)
+							) PERC
 					)TOTB
-					,(SELECT BRNO ,CTGRY_CD , SLS_TOT_AMT ,SLS_TOT_AMT_RT ,PERCENTILE_CONT(0.9) WITHIN GROUP (ORDER BY SLS_TOT_AMT_RT) OVER () AS PERC_CONT
+					,(SELECT BRNO ,CTGRY_CD , SLS_TOT_AMT ,SLS_TOT_AMT_RT ,PERC.RT_PERC_CONT
 					FROM
 						(SELECT BRNO , '3' AS CTGRY_CD
 								,NVL( ROUND( NVL(SUM(CASE WHEN TYPE_SE_NO IN ('2','6') THEN NVL(PSTA.SLS_CNSGN_SLS_AMT,0) END) ,0)
@@ -355,6 +531,43 @@
 															FROM TB_EV_REG_RSLT ERR WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO),'N')
 								  AND YR = #{yr}
 								  GROUP BY  BRNO)
+							,(SELECT
+									ROUND(AVG(NVL(SLS_TOT_AMT_RT, 0)),2) AS RT_PERC_CONT
+								FROM
+									(SELECT
+											CCC.*
+											,ROWNUM AS A
+											,COUNT(*) OVER () AS TOTAL_ROWS
+										FROM
+											(SELECT YR, BRNO , APRV , '1' AS CTGRY_CD
+													,NVL( ROUND( NVL(SUM(CASE WHEN TYPE_SE_NO IN ('2','6') THEN NVL(PSTA.SLS_CNSGN_SLS_AMT,0) END) ,0)
+																/ NULLIF(SUM(CASE WHEN TYPE_SE_NO IN ('2','3','6','7') THEN NVL(PSTA.SLS_CNSGN_SLS_AMT,0) END), 0)
+															,2) ,0
+													) AS SLS_TOT_AMT_RT
+												FROM (SELECT A.*, (SELECT APRV FROM TB_EV_APO WHERE BRNO = A.BRNO) AS APRV from TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT A) PSTA
+												WHERE 1=1
+												  AND APO_SE = '1'
+												  AND TYPE_SE_NO IN ('2','3','6','7')
+												  AND STBLT_YN = 'Y'
+												  AND APRV = '1'
+												  AND BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at21','at22','at23','at24','at25','at26','at27','at61'))
+												  AND BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
+												  AND UO_BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
+												  AND ITEM_CD = (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+												  AND '3' =  (SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+												  AND '1' =  (SELECT STTG_UPBR_ITEM_SE FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+												  /* MNGR_ICPT_RSN_CD = A 기본요건 미달*/
+												  AND 'A' != NVL((SELECT (CASE WHEN NVL(ERR.MNGR_ICPT_RSN_CD,'') IS NOT NULL
+																					THEN ERR.MNGR_ICPT_RSN_CD
+																					ELSE ERR.ICPT_RSN_CD
+																					END)
+																			FROM TB_EV_REG_RSLT ERR WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO),'N')
+												  AND YR = #{yr}
+												  GROUP BY  YR, BRNO,APRV
+												  ORDER BY SLS_TOT_AMT_RT)CCC
+								ORDER BY SLS_TOT_AMT_RT)
+								WHERE A > TOTAL_ROWS - (CASE WHEN TOTAL_ROWS* 0.1 > 1 THEN CEIL(TOTAL_ROWS * 0.1) WHEN 1 > TOTAL_ROWS* 0.9  THEN 1 ELSE 1 END)
+							) PERC
 					)TOTC
 					WHERE 1=1
 						AND ITEM.BRNO = TOT.BRNO(+)
@@ -635,7 +848,7 @@
 								  AND YR = #{yr}
 								  GROUP BY  BRNO
 					) TOT
-					,(SELECT BRNO ,CTGRY_CD ,SLS_TOT_AMT ,PERCENTILE_CONT(0.9) WITHIN GROUP (ORDER BY SLS_TOT_AMT_TOT) OVER () AS PERC_CONT
+					,(SELECT BRNO ,CTGRY_CD ,SLS_TOT_AMT ,PERC.PERC_CONT
 						FROM
 							(SELECT BRNO , '1' AS CTGRY_CD
 									,SUM(CASE WHEN TYPE_SE_NO IN ('2','6') THEN NVL(PSTA.SLS_CNSGN_SLS_AMT,0) END) AS SLS_TOT_AMT
@@ -659,8 +872,42 @@
 															FROM TB_EV_REG_RSLT ERR WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO),'N')
 								  AND YR = #{yr}
 								  GROUP BY  BRNO)
+							,(SELECT
+									ROUND(AVG(NVL(SLS_TOT_AMT_TOT, 0)),2) AS PERC_CONT
+								FROM
+									(SELECT
+											CCC.*
+											,ROWNUM AS A
+											,COUNT(*) OVER () AS TOTAL_ROWS
+										FROM
+											(SELECT YR, BRNO , APRV , '1' AS CTGRY_CD
+													,SUM(CASE WHEN TYPE_SE_NO IN ('2','3','6','7') THEN NVL(PSTA.SLS_CNSGN_SLS_AMT,0) END) AS SLS_TOT_AMT_TOT
+												FROM (SELECT A.*, (SELECT APRV FROM TB_EV_APO WHERE BRNO = A.BRNO) AS APRV from TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT A) PSTA
+												WHERE 1=1
+												  AND APO_SE = '1'
+												  AND TYPE_SE_NO IN ('2','3','6','7')
+												  AND STBLT_YN = 'Y'
+												  AND APRV = '1'
+												  AND BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at21','at22','at23','at24','at25','at26','at27','at61'))
+												  AND BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
+												  AND UO_BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
+												  AND ITEM_CD = (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+												  AND '1' =  (SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+												  AND '1' =  (SELECT STTG_UPBR_ITEM_SE FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+												  /* MNGR_ICPT_RSN_CD = A 기본요건 미달*/
+												  AND 'A' != NVL((SELECT (CASE WHEN NVL(ERR.MNGR_ICPT_RSN_CD,'') IS NOT NULL
+																					THEN ERR.MNGR_ICPT_RSN_CD
+																					ELSE ERR.ICPT_RSN_CD
+																					END)
+																			FROM TB_EV_REG_RSLT ERR WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO),'N')
+												  AND YR = #{yr}
+												  GROUP BY  YR, BRNO,APRV
+												  ORDER BY SLS_TOT_AMT_TOT)CCC
+								ORDER BY SLS_TOT_AMT_TOT)
+								WHERE A > TOTAL_ROWS - (CASE WHEN TOTAL_ROWS* 0.1 > 1 THEN CEIL(TOTAL_ROWS * 0.1) WHEN 1 > TOTAL_ROWS* 0.9  THEN 1 ELSE 1 END)
+							) PERC
 					) TOTA
-					,(SELECT BRNO ,CTGRY_CD ,SLS_TOT_AMT ,PERCENTILE_CONT(0.9) WITHIN GROUP (ORDER BY SLS_TOT_AMT_TOT) OVER () AS PERC_CONT
+					,(SELECT BRNO ,CTGRY_CD ,SLS_TOT_AMT ,PERC.PERC_CONT
 						FROM
 							(SELECT BRNO , '2' AS CTGRY_CD
 									,SUM(CASE WHEN TYPE_SE_NO IN ('2','6') THEN NVL(PSTB.SLS_CNSGN_SLS_AMT,0) END) AS SLS_TOT_AMT
@@ -684,8 +931,42 @@
 															FROM TB_EV_REG_RSLT ERR WHERE YR = PSTB.YR AND BRNO = PSTB.BRNO),'N')
 								  AND YR = #{yr}
 								  GROUP BY  BRNO)
+							,(SELECT
+									ROUND(AVG(NVL(SLS_TOT_AMT_TOT, 0)),2) AS PERC_CONT
+								FROM
+									(SELECT
+											CCC.*
+											,ROWNUM AS A
+											,COUNT(*) OVER () AS TOTAL_ROWS
+										FROM
+											(SELECT YR, BRNO , APRV , '1' AS CTGRY_CD
+													,SUM(CASE WHEN TYPE_SE_NO IN ('2','3','6','7') THEN NVL(PSTA.SLS_CNSGN_SLS_AMT,0) END) AS SLS_TOT_AMT_TOT
+												FROM (SELECT A.*, (SELECT APRV FROM TB_EV_APO WHERE BRNO = A.BRNO) AS APRV from TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT A) PSTA
+												WHERE 1=1
+												  AND APO_SE = '1'
+												  AND TYPE_SE_NO IN ('2','3','6','7')
+												  AND STBLT_YN = 'Y'
+												  AND APRV = '1'
+												  AND BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at21','at22','at23','at24','at25','at26','at27','at61'))
+												  AND BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
+												  AND UO_BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
+												  AND ITEM_CD = (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+												  AND '2' =  (SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+												  AND '1' =  (SELECT STTG_UPBR_ITEM_SE FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+												  /* MNGR_ICPT_RSN_CD = A 기본요건 미달*/
+												  AND 'A' != NVL((SELECT (CASE WHEN NVL(ERR.MNGR_ICPT_RSN_CD,'') IS NOT NULL
+																					THEN ERR.MNGR_ICPT_RSN_CD
+																					ELSE ERR.ICPT_RSN_CD
+																					END)
+																			FROM TB_EV_REG_RSLT ERR WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO),'N')
+												  AND YR = #{yr}
+												  GROUP BY  YR, BRNO,APRV
+												  ORDER BY SLS_TOT_AMT_TOT)CCC
+								ORDER BY SLS_TOT_AMT_TOT)
+								WHERE A > TOTAL_ROWS - (CASE WHEN TOTAL_ROWS* 0.1 > 1 THEN CEIL(TOTAL_ROWS * 0.1) WHEN 1 > TOTAL_ROWS* 0.9  THEN 1 ELSE 1 END)
+							) PERC
 					)TOTB
-					,(SELECT BRNO ,CTGRY_CD ,SLS_TOT_AMT ,PERCENTILE_CONT(0.9) WITHIN GROUP (ORDER BY SLS_TOT_AMT_TOT) OVER () AS PERC_CONT
+					,(SELECT BRNO ,CTGRY_CD ,SLS_TOT_AMT ,PERC.PERC_CONT
 						FROM
 							(SELECT BRNO , '3' AS CTGRY_CD
 									,SUM(CASE WHEN TYPE_SE_NO IN ('2','6') THEN NVL(PSTC.SLS_CNSGN_SLS_AMT,0) END) AS SLS_TOT_AMT
@@ -709,6 +990,40 @@
 															FROM TB_EV_REG_RSLT ERR WHERE YR = PSTC.YR AND BRNO = PSTC.BRNO),'N')
 								  AND YR = #{yr}
 								  GROUP BY  BRNO)
+							,(SELECT
+									ROUND(AVG(NVL(SLS_TOT_AMT_TOT, 0)),2) AS PERC_CONT
+								FROM
+									(SELECT
+											CCC.*
+											,ROWNUM AS A
+											,COUNT(*) OVER () AS TOTAL_ROWS
+										FROM
+											(SELECT YR, BRNO , APRV , '1' AS CTGRY_CD
+													,SUM(CASE WHEN TYPE_SE_NO IN ('2','3','6','7') THEN NVL(PSTA.SLS_CNSGN_SLS_AMT,0) END) AS SLS_TOT_AMT_TOT
+												FROM (SELECT A.*, (SELECT APRV FROM TB_EV_APO WHERE BRNO = A.BRNO) AS APRV from TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT A) PSTA
+												WHERE 1=1
+												  AND APO_SE = '1'
+												  AND TYPE_SE_NO IN ('2','3','6','7')
+												  AND STBLT_YN = 'Y'
+												  AND APRV = '1'
+												  AND BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at21','at22','at23','at24','at25','at26','at27','at61'))
+												  AND BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
+												  AND UO_BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
+												  AND ITEM_CD = (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+												  AND '3' =  (SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+												  AND '1' =  (SELECT STTG_UPBR_ITEM_SE FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+												  /* MNGR_ICPT_RSN_CD = A 기본요건 미달*/
+												  AND 'A' != NVL((SELECT (CASE WHEN NVL(ERR.MNGR_ICPT_RSN_CD,'') IS NOT NULL
+																					THEN ERR.MNGR_ICPT_RSN_CD
+																					ELSE ERR.ICPT_RSN_CD
+																					END)
+																			FROM TB_EV_REG_RSLT ERR WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO),'N')
+												  AND YR = #{yr}
+												  GROUP BY  YR, BRNO,APRV
+												  ORDER BY SLS_TOT_AMT_TOT)CCC
+								ORDER BY SLS_TOT_AMT_TOT)
+								WHERE A > TOTAL_ROWS - (CASE WHEN TOTAL_ROWS* 0.1 > 1 THEN CEIL(TOTAL_ROWS * 0.1) WHEN 1 > TOTAL_ROWS* 0.9  THEN 1 ELSE 1 END)
+							) PERC
 					)TOTC
 					WHERE 1=1
 						AND ITEM.BRNO = TOT.BRNO(+)
@@ -934,8 +1249,8 @@
 									AND CTGRY_CD = CCA.CTGRY_CD
 									AND PRCHS_SLS_SE = '2') , 0
 					) AS ONLN_WHLSL_MRKT_AMT
-			,PERCENTILE_CONT(0.9) WITHIN GROUP (ORDER BY SLS_TOT_AMT_TOT) OVER () AS TOT_PERC_CONT
-			,PERCENTILE_CONT(0.9) WITHIN GROUP (ORDER BY SLS_TOT_AMT_RT) OVER () AS RT_PERC_CONT
+			,TOT.TOT_PERC_CONT
+			,RT.RT_PERC_CONT
 							FROM
 								(SELECT YR, BRNO , '1' AS CTGRY_CD
 										,NVL( ROUND( NVL(SUM(CASE WHEN TYPE_SE_NO IN ('2','6') THEN NVL(PSTA.SLS_CNSGN_SLS_AMT,0) END) ,0)
@@ -962,7 +1277,79 @@
 																			END)
 																	FROM TB_EV_REG_RSLT ERR WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO),'N')
 										  AND YR = #{yr}
-										  GROUP BY  YR, BRNO) CCA
+										  GROUP BY  YR, BRNO
+								) CCA
+								,(SELECT
+									ROUND(AVG(NVL(SLS_TOT_AMT_TOT, 0)),2) AS TOT_PERC_CONT
+									FROM
+										(SELECT
+												CCCC.*
+												,ROWNUM AS A
+												,COUNT(*) OVER () AS TOTAL_ROWS
+											FROM
+												(SELECT YR, BRNO , APRV , '1' AS CTGRY_CD
+														,SUM(CASE WHEN TYPE_SE_NO IN ('2','3','6','7') THEN NVL(PSTA.SLS_CNSGN_SLS_AMT,0) END) AS SLS_TOT_AMT_TOT
+													FROM (SELECT A.*, (SELECT APRV FROM TB_EV_APO WHERE BRNO = A.BRNO) AS APRV from TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT A) PSTA
+													WHERE 1=1
+													  AND APO_SE = '1'
+													  AND TYPE_SE_NO IN ('2','3','6','7')
+													  AND STBLT_YN = 'Y'
+													  AND APRV = '1'
+													  AND BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at21','at22','at23','at24','at25','at26','at27','at61'))
+													  AND BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
+													  AND UO_BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
+													  AND ITEM_CD = (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+													  AND '3' =  (SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+													  AND '1' =  (SELECT STTG_UPBR_ITEM_SE FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+													  /* MNGR_ICPT_RSN_CD = A 기본요건 미달*/
+													  AND 'A' != NVL((SELECT (CASE WHEN NVL(ERR.MNGR_ICPT_RSN_CD,'') IS NOT NULL
+																						THEN ERR.MNGR_ICPT_RSN_CD
+																						ELSE ERR.ICPT_RSN_CD
+																						END)
+																				FROM TB_EV_REG_RSLT ERR WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO),'N')
+													  AND YR = #{yr}
+													  GROUP BY  YR, BRNO,APRV
+													  ORDER BY SLS_TOT_AMT_TOT)CCCC
+									ORDER BY SLS_TOT_AMT_TOT)
+									WHERE A > TOTAL_ROWS - (CASE WHEN TOTAL_ROWS* 0.1 > 1 THEN CEIL(TOTAL_ROWS * 0.1) WHEN 1 > TOTAL_ROWS* 0.9  THEN 1 ELSE 1 END)
+								) TOT
+								,(SELECT
+									ROUND(AVG(NVL(SLS_TOT_AMT_RT, 0)),2) AS RT_PERC_CONT
+									FROM
+										(SELECT
+												CCCC.*
+												,ROWNUM AS A
+												,COUNT(*) OVER () AS TOTAL_ROWS
+											FROM
+												(SELECT YR, BRNO , APRV , '1' AS CTGRY_CD
+														,NVL( ROUND( NVL(SUM(CASE WHEN TYPE_SE_NO IN ('2','6') THEN NVL(PSTA.SLS_CNSGN_SLS_AMT,0) END) ,0)
+																	/ NULLIF(SUM(CASE WHEN TYPE_SE_NO IN ('2','3','6','7') THEN NVL(PSTA.SLS_CNSGN_SLS_AMT,0) END), 0)
+																,2) ,0
+														) AS SLS_TOT_AMT_RT
+													FROM (SELECT A.*, (SELECT APRV FROM TB_EV_APO WHERE BRNO = A.BRNO) AS APRV from TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT A) PSTA
+													WHERE 1=1
+													  AND APO_SE = '1'
+													  AND TYPE_SE_NO IN ('2','3','6','7')
+													  AND STBLT_YN = 'Y'
+													  AND APRV = '1'
+													  AND BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at21','at22','at23','at24','at25','at26','at27','at61'))
+													  AND BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
+													  AND UO_BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
+													  AND ITEM_CD = (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+													  AND '3' =  (SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+													  AND '1' =  (SELECT STTG_UPBR_ITEM_SE FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+													  /* MNGR_ICPT_RSN_CD = A 기본요건 미달*/
+													  AND 'A' != NVL((SELECT (CASE WHEN NVL(ERR.MNGR_ICPT_RSN_CD,'') IS NOT NULL
+																						THEN ERR.MNGR_ICPT_RSN_CD
+																						ELSE ERR.ICPT_RSN_CD
+																						END)
+																				FROM TB_EV_REG_RSLT ERR WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO),'N')
+													  AND YR = #{yr}
+													  GROUP BY  YR, BRNO,APRV
+													  ORDER BY SLS_TOT_AMT_RT)CCCC
+									ORDER BY SLS_TOT_AMT_RT)
+									WHERE A > TOTAL_ROWS - (CASE WHEN TOTAL_ROWS* 0.1 > 1 THEN CEIL(TOTAL_ROWS * 0.1) WHEN 1 > TOTAL_ROWS* 0.9  THEN 1 ELSE 1 END)
+								) RT
 		UNION ALL
 		SELECT YR, BRNO ,CTGRY_CD
 			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = CCB.BRNO) AS CORP_NM
@@ -977,8 +1364,8 @@
 									AND CTGRY_CD = CCB.CTGRY_CD
 									AND PRCHS_SLS_SE = '2') , 0
 					) AS ONLN_WHLSL_MRKT_AMT
-			,PERCENTILE_CONT(0.9) WITHIN GROUP (ORDER BY SLS_TOT_AMT_TOT) OVER () AS TOT_PERC_CONT
-			,PERCENTILE_CONT(0.9) WITHIN GROUP (ORDER BY SLS_TOT_AMT_RT) OVER () AS RT_PERC_CONT
+			,TOT.TOT_PERC_CONT
+			,RT.RT_PERC_CONT
 							FROM
 								(SELECT YR, BRNO , '2' AS CTGRY_CD
 										,NVL( ROUND( NVL(SUM(CASE WHEN TYPE_SE_NO IN ('2','6') THEN NVL(PSTB.SLS_CNSGN_SLS_AMT,0) END) ,0)
@@ -1005,7 +1392,79 @@
 																			END)
 																	FROM TB_EV_REG_RSLT ERR WHERE YR = PSTB.YR AND BRNO = PSTB.BRNO),'N')
 										  AND YR = #{yr}
-										  GROUP BY  YR, BRNO) CCB
+										  GROUP BY  YR, BRNO
+								) CCB
+								,(SELECT
+									ROUND(AVG(NVL(SLS_TOT_AMT_TOT, 0)),2) AS TOT_PERC_CONT
+									FROM
+										(SELECT
+												CCCC.*
+												,ROWNUM AS A
+												,COUNT(*) OVER () AS TOTAL_ROWS
+											FROM
+												(SELECT YR, BRNO , APRV , '1' AS CTGRY_CD
+														,SUM(CASE WHEN TYPE_SE_NO IN ('2','3','6','7') THEN NVL(PSTA.SLS_CNSGN_SLS_AMT,0) END) AS SLS_TOT_AMT_TOT
+													FROM (SELECT A.*, (SELECT APRV FROM TB_EV_APO WHERE BRNO = A.BRNO) AS APRV from TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT A) PSTA
+													WHERE 1=1
+													  AND APO_SE = '1'
+													  AND TYPE_SE_NO IN ('2','3','6','7')
+													  AND STBLT_YN = 'Y'
+													  AND APRV = '1'
+													  AND BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at21','at22','at23','at24','at25','at26','at27','at61'))
+													  AND BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
+													  AND UO_BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
+													  AND ITEM_CD = (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+													  AND '2' =  (SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+													  AND '1' =  (SELECT STTG_UPBR_ITEM_SE FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+													  /* MNGR_ICPT_RSN_CD = A 기본요건 미달*/
+													  AND 'A' != NVL((SELECT (CASE WHEN NVL(ERR.MNGR_ICPT_RSN_CD,'') IS NOT NULL
+																						THEN ERR.MNGR_ICPT_RSN_CD
+																						ELSE ERR.ICPT_RSN_CD
+																						END)
+																				FROM TB_EV_REG_RSLT ERR WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO),'N')
+													  AND YR = #{yr}
+													  GROUP BY  YR, BRNO,APRV
+													  ORDER BY SLS_TOT_AMT_TOT)CCCC
+									ORDER BY SLS_TOT_AMT_TOT)
+									WHERE A > TOTAL_ROWS - (CASE WHEN TOTAL_ROWS* 0.1 > 1 THEN CEIL(TOTAL_ROWS * 0.1) WHEN 1 > TOTAL_ROWS* 0.9  THEN 1 ELSE 1 END)
+								) TOT
+								,(SELECT
+									ROUND(AVG(NVL(SLS_TOT_AMT_RT, 0)),2) AS RT_PERC_CONT
+									FROM
+										(SELECT
+												CCCC.*
+												,ROWNUM AS A
+												,COUNT(*) OVER () AS TOTAL_ROWS
+											FROM
+												(SELECT YR, BRNO , APRV , '1' AS CTGRY_CD
+														,NVL( ROUND( NVL(SUM(CASE WHEN TYPE_SE_NO IN ('2','6') THEN NVL(PSTA.SLS_CNSGN_SLS_AMT,0) END) ,0)
+																	/ NULLIF(SUM(CASE WHEN TYPE_SE_NO IN ('2','3','6','7') THEN NVL(PSTA.SLS_CNSGN_SLS_AMT,0) END), 0)
+																,2) ,0
+														) AS SLS_TOT_AMT_RT
+													FROM (SELECT A.*, (SELECT APRV FROM TB_EV_APO WHERE BRNO = A.BRNO) AS APRV from TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT A) PSTA
+													WHERE 1=1
+													  AND APO_SE = '1'
+													  AND TYPE_SE_NO IN ('2','3','6','7')
+													  AND STBLT_YN = 'Y'
+													  AND APRV = '1'
+													  AND BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at21','at22','at23','at24','at25','at26','at27','at61'))
+													  AND BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
+													  AND UO_BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
+													  AND ITEM_CD = (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+													  AND '2' =  (SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+													  AND '1' =  (SELECT STTG_UPBR_ITEM_SE FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+													  /* MNGR_ICPT_RSN_CD = A 기본요건 미달*/
+													  AND 'A' != NVL((SELECT (CASE WHEN NVL(ERR.MNGR_ICPT_RSN_CD,'') IS NOT NULL
+																						THEN ERR.MNGR_ICPT_RSN_CD
+																						ELSE ERR.ICPT_RSN_CD
+																						END)
+																				FROM TB_EV_REG_RSLT ERR WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO),'N')
+													  AND YR = #{yr}
+													  GROUP BY  YR, BRNO,APRV
+													  ORDER BY SLS_TOT_AMT_RT)CCCC
+									ORDER BY SLS_TOT_AMT_RT)
+									WHERE A > TOTAL_ROWS - (CASE WHEN TOTAL_ROWS* 0.1 > 1 THEN CEIL(TOTAL_ROWS * 0.1) WHEN 1 > TOTAL_ROWS* 0.9  THEN 1 ELSE 1 END)
+								) RT
 		UNION ALL
 		SELECT YR, BRNO ,CTGRY_CD
 			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = CCC.BRNO) AS CORP_NM
@@ -1020,8 +1479,8 @@
 									AND CTGRY_CD = CCC.CTGRY_CD
 									AND PRCHS_SLS_SE = '2') , 0
 					) AS ONLN_WHLSL_MRKT_AMT
-			,PERCENTILE_CONT(0.9) WITHIN GROUP (ORDER BY SLS_TOT_AMT_TOT) OVER () AS TOT_PERC_CONT
-			,PERCENTILE_CONT(0.9) WITHIN GROUP (ORDER BY SLS_TOT_AMT_RT) OVER () AS RT_PERC_CONT
+			,TOT.TOT_PERC_CONT
+			,RT.RT_PERC_CONT
 							FROM
 								(SELECT YR, BRNO , '3' AS CTGRY_CD
 										,NVL( ROUND( NVL(SUM(CASE WHEN TYPE_SE_NO IN ('2','6') THEN NVL(PSTC.SLS_CNSGN_SLS_AMT,0) END) ,0)
@@ -1048,6 +1507,79 @@
 																			END)
 																	FROM TB_EV_REG_RSLT ERR WHERE YR = PSTC.YR AND BRNO = PSTC.BRNO),'N')
 										  AND YR = #{yr}
-										  GROUP BY  YR, BRNO) CCC
+										  GROUP BY  YR, BRNO
+								) CCC
+								,(SELECT
+									ROUND(AVG(NVL(SLS_TOT_AMT_TOT, 0)),2) AS TOT_PERC_CONT
+									FROM
+										(SELECT
+												CCCC.*
+												,ROWNUM AS A
+												,COUNT(*) OVER () AS TOTAL_ROWS
+											FROM
+												(SELECT YR, BRNO , APRV , '1' AS CTGRY_CD
+														,SUM(CASE WHEN TYPE_SE_NO IN ('2','3','6','7') THEN NVL(PSTA.SLS_CNSGN_SLS_AMT,0) END) AS SLS_TOT_AMT_TOT
+													FROM (SELECT A.*, (SELECT APRV FROM TB_EV_APO WHERE BRNO = A.BRNO) AS APRV from TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT A) PSTA
+													WHERE 1=1
+													  AND APO_SE = '1'
+													  AND TYPE_SE_NO IN ('2','3','6','7')
+													  AND STBLT_YN = 'Y'
+													  AND APRV = '1'
+													  AND BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at21','at22','at23','at24','at25','at26','at27','at61'))
+													  AND BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
+													  AND UO_BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
+													  AND ITEM_CD = (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+													  AND '3' =  (SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+													  AND '1' =  (SELECT STTG_UPBR_ITEM_SE FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+													  /* MNGR_ICPT_RSN_CD = A 기본요건 미달*/
+													  AND 'A' != NVL((SELECT (CASE WHEN NVL(ERR.MNGR_ICPT_RSN_CD,'') IS NOT NULL
+																						THEN ERR.MNGR_ICPT_RSN_CD
+																						ELSE ERR.ICPT_RSN_CD
+																						END)
+																				FROM TB_EV_REG_RSLT ERR WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO),'N')
+													  AND YR = #{yr}
+													  GROUP BY  YR, BRNO,APRV
+													  ORDER BY SLS_TOT_AMT_TOT)CCCC
+									ORDER BY SLS_TOT_AMT_TOT)
+									WHERE A > TOTAL_ROWS - (CASE WHEN TOTAL_ROWS* 0.1 > 1 THEN CEIL(TOTAL_ROWS * 0.1) WHEN 1 > TOTAL_ROWS* 0.9  THEN 1 ELSE 1 END)
+								) TOT
+								,(SELECT
+									ROUND(AVG(NVL(SLS_TOT_AMT_RT, 0)),2) AS RT_PERC_CONT
+									FROM
+										(SELECT
+												CCCC.*
+												,ROWNUM AS A
+												,COUNT(*) OVER () AS TOTAL_ROWS
+											FROM
+												(SELECT YR, BRNO , APRV , '1' AS CTGRY_CD
+														,NVL( ROUND( NVL(SUM(CASE WHEN TYPE_SE_NO IN ('2','6') THEN NVL(PSTA.SLS_CNSGN_SLS_AMT,0) END) ,0)
+																	/ NULLIF(SUM(CASE WHEN TYPE_SE_NO IN ('2','3','6','7') THEN NVL(PSTA.SLS_CNSGN_SLS_AMT,0) END), 0)
+																,2) ,0
+														) AS SLS_TOT_AMT_RT
+													FROM (SELECT A.*, (SELECT APRV FROM TB_EV_APO WHERE BRNO = A.BRNO) AS APRV from TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT A) PSTA
+													WHERE 1=1
+													  AND APO_SE = '1'
+													  AND TYPE_SE_NO IN ('2','3','6','7')
+													  AND STBLT_YN = 'Y'
+													  AND APRV = '1'
+													  AND BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at21','at22','at23','at24','at25','at26','at27','at61'))
+													  AND BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
+													  AND UO_BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))
+													  AND ITEM_CD = (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+													  AND '3' =  (SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+													  AND '1' =  (SELECT STTG_UPBR_ITEM_SE FROM TB_EV_APO_YR_GPC_CD WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO AND ITEM_CD = PSTA.ITEM_CD)
+													  /* MNGR_ICPT_RSN_CD = A 기본요건 미달*/
+													  AND 'A' != NVL((SELECT (CASE WHEN NVL(ERR.MNGR_ICPT_RSN_CD,'') IS NOT NULL
+																						THEN ERR.MNGR_ICPT_RSN_CD
+																						ELSE ERR.ICPT_RSN_CD
+																						END)
+																				FROM TB_EV_REG_RSLT ERR WHERE YR = PSTA.YR AND BRNO = PSTA.BRNO),'N')
+													  AND YR = #{yr}
+													  GROUP BY  YR, BRNO,APRV
+													  ORDER BY SLS_TOT_AMT_RT)CCCC
+									ORDER BY SLS_TOT_AMT_RT)
+									WHERE A > TOTAL_ROWS - (CASE WHEN TOTAL_ROWS* 0.1 > 1 THEN CEIL(TOTAL_ROWS * 0.1) WHEN 1 > TOTAL_ROWS* 0.9  THEN 1 ELSE 1 END)
+								) RT
+
 	</select>
 </mapper>
