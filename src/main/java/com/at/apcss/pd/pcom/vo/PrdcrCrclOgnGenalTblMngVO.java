@@ -41,6 +41,8 @@ public class PrdcrCrclOgnGenalTblMngVO extends ComVO{
 
 	private String prfmncCorpDdlnYn;//실적 법인체 마감
 
+	private String actnMttr;//조치사항
+
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;
 	private String sysFrstInptDtYmd;

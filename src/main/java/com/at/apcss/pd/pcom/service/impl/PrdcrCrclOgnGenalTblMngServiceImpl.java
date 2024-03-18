@@ -4,7 +4,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO;
 import com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper;
 import com.at.apcss.pd.pcom.service.PrdcrCrclOgnGenalTblMngService;
 import com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO;
@@ -97,5 +99,21 @@ public class PrdcrCrclOgnGenalTblMngServiceImpl extends BaseServiceImpl implemen
 
 		List<ItemUoStbltYnVO> resultList = PrdcrCrclOgnGenalTblMngMapper.selectRawDataList(ItemUoStbltYnVo);
 		return resultList;
+	}
+
+	@Override
+	public int updateItemUoActnMttr(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception {
+		int updatedCnt = PrdcrCrclOgnGenalTblMngMapper.updateItemUoActnMttr(PrdcrCrclOgnGenalTblMngVO);
+
+		return updatedCnt;
+	}
+
+	@Override
+	public int multiSaveItemUoActnMttr(List<PrdcrCrclOgnGenalTblMngVO> PrdcrCrclOgnGenalTblMngVOList) throws Exception {
+		int savedCnt = 0;
+		for (PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO : PrdcrCrclOgnGenalTblMngVOList) {
+			savedCnt += updateItemUoActnMttr(PrdcrCrclOgnGenalTblMngVO);
+		}
+		return savedCnt;
 	}
 }

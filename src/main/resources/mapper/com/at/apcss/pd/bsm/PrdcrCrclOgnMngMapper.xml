@@ -396,6 +396,8 @@
 	    		  , TOT						= #{tot}
 	    		  , FRMER_INVST_AMT_RT		= #{frmerInvstAmtRt}
 	    		  , WRT_YN					= 'Y'
+	    		  , SLCTN_YR				= #{slctnYr}
+
     	]]>
     	<![CDATA[
 				, SYS_LAST_CHG_DT		= SYSDATE

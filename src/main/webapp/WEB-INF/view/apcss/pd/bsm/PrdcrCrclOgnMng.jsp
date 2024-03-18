@@ -1028,10 +1028,6 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	const fn_init = async function() {
 	//그리드 생성
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
-		var now = new Date();
-		var year = now.getFullYear();
-		SBUxMethod.set("dtl-input-slctnYr",year);//
-
 		fn_fcltMngCreateGrid();
 		fn_uoListGrid();
 	</c:if>

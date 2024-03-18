@@ -54,4 +54,6 @@ public interface PrdcrCrclOgnGenalTblMngMapper {
 	 * @throws Exception
 	 */
 	public List<ItemUoStbltYnVO> selectRawDataList(ItemUoStbltYnVO ItemUoStbltYnVo);
+
+	public int updateItemUoActnMttr(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO);
 }
