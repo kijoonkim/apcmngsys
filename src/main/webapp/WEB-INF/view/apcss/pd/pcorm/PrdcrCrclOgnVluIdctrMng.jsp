@@ -2283,25 +2283,25 @@
 		let mngrItrRtIdx = datagrid.getColRef("mngrItrRt");
 
 		if (!gfn_isEmpty(nCol) && nCol == icptRsnDtlCdIdx) {
-
 			let selValue = datagrid.getCellData(nRow, nCol);
-			let chkInfo = _.find(comIcptRsnDtlCdUo01, {value: selValue});
-			console.log(chkInfo);
-			let pnltyVal = chkInfo.pnlty;
-			let itrRtVal = chkInfo.itrRt;
-			datagrid.setCellData(nRow, pnltyIdx, pnltyVal, true);
-			datagrid.setCellData(nRow, itrRtIdx, itrRtVal, true);
-
+			if (!gfn_isEmpty(selValue)) {
+				let chkInfo = _.find(comIcptRsnDtlCdUo01, {value: selValue});
+				console.log(chkInfo);
+				let pnltyVal = chkInfo.pnlty;
+				let itrRtVal = chkInfo.itrRt;
+				datagrid.setCellData(nRow, pnltyIdx, pnltyVal, true);
+				datagrid.setCellData(nRow, itrRtIdx, itrRtVal, true);
+			}
 		}else if(!gfn_isEmpty(nCol) && nCol == mngrIcptRsnDtlCdIdx){
-
 			let selValue = datagrid.getCellData(nRow, nCol);
-			let chkInfo = _.find(comIcptRsnDtlCdUo01, {value: selValue});
-			console.log(chkInfo);
-			let pnltyVal = chkInfo.pnlty;
-			let itrRtVal = chkInfo.itrRt;
-			datagrid.setCellData(nRow, mngrPnltyIdx, pnltyVal, true);
-			datagrid.setCellData(nRow, mngrItrRtIdx, itrRtVal, true);
-
+			if (!gfn_isEmpty(selValue)) {
+				let chkInfo = _.find(comIcptRsnDtlCdUo01, {value: selValue});
+				console.log(chkInfo);
+				let pnltyVal = chkInfo.pnlty;
+				let itrRtVal = chkInfo.itrRt;
+				datagrid.setCellData(nRow, mngrPnltyIdx, pnltyVal, true);
+				datagrid.setCellData(nRow, mngrItrRtIdx, itrRtVal, true);
+			}
 		}else if(!gfn_isEmpty(nCol) && nCol == mngrIcptRsnCdIdx){
 			datagrid.setCellData(nRow, mngrPnltyIdx, null, true);
 			datagrid.setCellData(nRow, mngrItrRtIdx, null, true);
