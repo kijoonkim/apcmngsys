@@ -123,27 +123,20 @@
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									unselected-text="전체"
 									jsondata-ref="jsonApcItem"
-									onchange="fn_selectItem"
+									onchange="fn_selectItem(this)"
 								></sbux-select>
 							</td>
-<!-- 							<td class="td_input" style="border-right: hidden;"> -->
-<!-- 								<sbux-select id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonVrty"></sbux-select> -->
-<!-- 							</td> -->
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input
-									uitype="text"
-									id="srch-inp-vrtyNm"
-									name="srch-inp-vrtyNm"
-									class="form-control input-sm"
-									maxlength="33"
-									show-clear-button="true"
-									readonly
-								></sbux-input>
-								<sbux-input
-									uitype="hidden"
-									id="srch-inp-vrtyCd"
-									name="srch-inp-vrtyCd"
-								></sbux-input>
+								<sbux-select
+									uitype="single"
+									id="srch-slt-vrtyCd"
+									name="srch-slt-vrtyCd"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									unselected-text="선택"
+									jsondata-ref="jsonApcVrty"
+									jsondata-value="itemVrtyCd"
+									onchange="fn_onChangeSrchVrtyCd(this)"
+								></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button
@@ -338,6 +331,7 @@
 	}
 
 	var jsonApcItem			= [];	// 품목 	itemCd			검색
+	var jsonApcVrty			= [];	// 품종 	vrtyCd			검색
 	var jsonApcSpcfct		= [];	// 규격 	spcfctCd		검색
 	var jsonApcGrdDtl		= [];	// 등급 	grdCd			그리드헤더
 	var jsonComWarehouse	= [];	// 창고 	warehouseSeCd	검색
@@ -354,9 +348,10 @@
 
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-			gfn_setComCdSBSelect('srch-slt-fcltCd', 		jsonComFcltCd, 	'SORT_FCLT_CD', gv_selectedApcCd),			// 선별기
-		 	gfn_setComCdSBSelect('srch-slt-warehouseSeCd',	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_selectedApcCd),	// 선별기
-		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonApcItem, gv_selectedApcCd)								// 품목
+			gfn_setComCdSBSelect('srch-slt-fcltCd', 		jsonComFcltCd, 		'SORT_FCLT_CD', 	gv_selectedApcCd),	// 선별기
+		 	gfn_setComCdSBSelect('srch-slt-warehouseSeCd',	jsonComWarehouse, 	'WAREHOUSE_SE_CD', 	gv_selectedApcCd),	// 선별기
+		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonApcItem, 		gv_selectedApcCd),						// 품목
+		 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonApcVrty, 		gv_selectedApcCd),						// 품종
 		]);
 	}
 
@@ -554,6 +549,11 @@
 			gfn_comAlert("W0001", "품목");			//	W0001	{0}을/를 선택하세요.
             return;
 		}
+		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
+		if (gfn_isEmpty(vrtyCd)){
+			gfn_comAlert("W0001", "품종");			//	W0001	{0}을/를 선택하세요.
+            return;
+		}
 
 		// set pagination
     	grdSortPrfmnc.rebuild();
@@ -597,10 +597,15 @@
 		let inptYmdTo = SBUxMethod.get("srch-dtp-inptYmdTo");
     	let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");				// 생산자
   		let itemCd = SBUxMethod.get("srch-slt-itemCd");					// 품목
-  		let vrtyCd = SBUxMethod.get("srch-inp-vrtyCd");					// 품종
+  		let itemVrtyCd = SBUxMethod.get("srch-slt-vrtyCd");					// 품종
+  		let vrtyCd = "";
+  		if(!gfn_isEmpty(itemVrtyCd)){
+  			vrtyCd = itemVrtyCd.substr(4,7);
+  		}
   		let fcltCd = SBUxMethod.get("srch-slt-fcltCd");					// 선별기
   		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");	// 창고
   		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");				// 규격
+
 		const postJsonPromise = gfn_postJSON("/am/sort/selectSortPrfmncGrdList.do", {
 			apcCd: gv_selectedApcCd,
 			inptYmdFrom: inptYmdFrom,
@@ -620,8 +625,6 @@
 
         const data = await postJsonPromise;
 
-        console.log("data",data)
-
   		try {
   			if (_.isEqual("S", data.resultStatus)) {
 
@@ -631,7 +634,6 @@
 	          			var grdNmVal = "grdNm" + i
 	          			grdNm.push(grdNmVal)
           		}
-
 
   	          	/** @type {number} **/
   	      		let totalRecordCount = 0;
@@ -1111,27 +1113,45 @@
 		}
 	}
 
-	const fn_selectItem = async function (){
+	const fn_selectItem = async function (obj){
 
 		jsonSortPrfmnc.length = 0;
 		grdSortPrfmnc.rebuild();
 
-		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-		SBUxMethod.set("srch-inp-vrtyNm", "");
-		SBUxMethod.set("srch-inp-vrtyCd", "");
+		let itemCd = obj.value;
 		if (gfn_isEmpty(itemCd)) {
 			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonApcSpcfct, 	"");
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonApcVrty, 	gv_selectedApcCd),			// 품종
 			jsonApcGrdDtl.length = 0;
 		} else {
-
 			let result = await Promise.all([
 				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonApcSpcfct, 	gv_selectedApcCd, itemCd),			// 규격
 				gfn_setApcGdsGrdSBSelect('srch-slt-grdDtl', 	jsonApcGrdDtl, 	gv_selectedApcCd, itemCd, "02"),	// 등급상세
+				gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonApcVrty, 	gv_selectedApcCd, itemCd),			// 품종
 			]);
 		}
 
-
 		fn_grdItemCdReCreate();
+	}
+
+	const fn_onChangeSrchVrtyCd = async function(obj){
+		let vrtyCd = obj.value;
+		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
+
+		if(!gfn_isEmpty(vrtyCd)){
+
+			const vrtyInfo = _.find(jsonApcVrty, {itemVrtyCd: vrtyCd});
+
+			const itemCd = vrtyInfo.mastervalue;
+
+			if (itemCd != prvItemCd) {
+				SBUxMethod.set("srch-slt-itemCd", itemCd);
+				await fn_selectItem({value: itemCd});
+				SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
+			}
+		}else{
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, gv_selectedApcCd, SBUxMethod.get("srch-slt-itemCd"));
+		}
 	}
 
 	/**
