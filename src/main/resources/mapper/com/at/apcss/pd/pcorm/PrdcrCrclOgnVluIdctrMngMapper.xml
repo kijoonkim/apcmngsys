@@ -725,6 +725,14 @@
 										FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT A
 										WHERE 1=1
 										  AND STBLT_YN = 'Y'
+										  AND 'Y' = (SELECT STBLT_YN
+										  				FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+										  				WHERE 1=1
+										  				  AND APO_SE = '1'
+										  				  AND TYPE_SE_NO = '8'
+										  				  AND YR = A.YR
+										  				  AND BRNO = A.UO_BRNO
+										  				  AND ITEM_CD = A.ITEM_CD)
 										  AND APO_SE = EAM.APO_SE
 										  AND TYPE_SE_NO = '8'
 										  AND YR = EAM.YR
@@ -803,6 +811,14 @@
 																FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
 																WHERE 1=1
 																  AND STBLT_YN = 'Y'
+																  AND 'Y' = (SELECT STBLT_YN
+																  				FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+																  				WHERE 1=1
+																  				  AND APO_SE = '1'
+																  				  AND TYPE_SE_NO = '8'
+																  				  AND YR = PST.YR
+																  				  AND BRNO = PST.UO_BRNO
+																  				  AND ITEM_CD = PST.ITEM_CD)
 																  AND TYPE_SE_NO = '8'
 																  AND YR = #{yr}
 																  AND BRNO = EA.BRNO
@@ -1477,6 +1493,14 @@
 										FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT A
 										WHERE 1=1
 										  AND STBLT_YN = 'Y'
+										  AND 'Y' = (SELECT STBLT_YN
+										  				FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+										  				WHERE 1=1
+										  				  AND APO_SE = '1'
+										  				  AND TYPE_SE_NO = '8'
+										  				  AND YR = A.YR
+										  				  AND BRNO = A.UO_BRNO
+										  				  AND ITEM_CD = A.ITEM_CD)
 										  AND APO_SE = EAM.APO_SE
 										  AND TYPE_SE_NO = '8'
 										  AND YR = EAM.YR
@@ -1561,6 +1585,14 @@
 																FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
 																WHERE 1=1
 																  AND STBLT_YN = 'Y'
+																  AND 'Y' = (SELECT STBLT_YN
+																  				FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+																  				WHERE 1=1
+																  				  AND APO_SE = '1'
+																  				  AND TYPE_SE_NO = '8'
+																  				  AND YR = PST.YR
+																  				  AND BRNO = PST.UO_BRNO
+																  				  AND ITEM_CD = PST.ITEM_CD)
 																  AND TYPE_SE_NO = '8'
 																  AND YR = #{yr}
 																  AND BRNO = EA.BRNO

@@ -2169,6 +2169,12 @@
 				grdPrdcrOgnCurntMng06.selectRow(i);
 				return false;
 			}
+			if(rowData.itrRt == '-'){
+				rowData.itrRt = null;
+			}
+			if(rowData.mngrItrRt == '-'){
+				rowData.mngrItrRt = null;
+			}
 
 			rowData.rowSts = "I";
 			saveList.push(rowData);
@@ -2215,6 +2221,12 @@
 				gfn_comAlert("W0002", "금리");		//	W0002	{0}을/를 입력하세요.
 				grdPrdcrOgnCurntMng07.selectRow(i);
 				return false;
+			}
+			if(rowData.itrRt == '-'){
+				rowData.itrRt = null;
+			}
+			if(rowData.mngrItrRt == '-'){
+				rowData.mngrItrRt = null;
 			}
 
 			rowData.rowSts = "I";
