@@ -69,6 +69,7 @@ public class PrdcrCrclOgnMngVO extends ComVO{
 
 	private String yr;						//신청관리 등록년도 확인용
 	private String corpDdlnSeCd;			//신청관리 법인체마감 사용자 산지조직관리 수정 불가 처리용
+	private String slctnYr;//선정년도
 
 	private String sysFrstInptUserNm;		//시스템최초입력사용자이름
 	private String sysFrstInptDtYmd;		//시스템최초입력일시ymd
