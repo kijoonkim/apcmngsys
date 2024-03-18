@@ -689,7 +689,7 @@ FROM
 		  AND FA.BRNO = #{brno}
 		  AND FA.YR =#{yr}
 		  AND FA.STBLT_YN = 'Y'  /*적합여부 추후 추가*/
-		  AND FA.EXCL_YN != 'Y'
+		  AND NVL(FA.EXCL_YN,'N') != 'Y'
 	)  UOFA ,
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
