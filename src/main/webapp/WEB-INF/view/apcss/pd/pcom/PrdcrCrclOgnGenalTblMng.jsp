@@ -560,8 +560,9 @@
 				{caption: ["전속취급률(%)\n(B/A)"], 			ref: 'slsCnsgnSlsAmtRt',   		type:'output',  width:'100px',	style:'text-align:center;'
 					,format: {type: 'string', rule: '@" %"'}},
 				{caption: ["적합여부"], 	ref: 'orgStbltYn',   		type:'output',  width:'100px',	style:'text-align:center;'},
-				{caption: ["탈락사유"], 		ref: 'stbltYnNm',   	type:'textarea',  width:'150px',	style:'padding-left:10px'
+				{caption: ["조취사유"], 		ref: 'stbltYnNm',   	type:'textarea',  width:'150px',	style:'padding-left:10px'
 					,typeinfo : {textareanewline : true},disabled:true },
+				{caption: ["비고"], 		ref: 'rmrk1',   	type:'output',  width:'200px',	style:'text-align:center'}
 				{caption: ["상세내역"], 	ref: 'apoCd',   		hidden : true},
 				{caption: ["상세내역"], 	ref: 'apoSe',   		hidden : true},
 				{caption: ["상세내역"], 	ref: 'brno',   			hidden : true},

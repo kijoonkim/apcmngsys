@@ -915,6 +915,20 @@
 								></sbux-select>
 								</td>
 						</tr>
+					<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' ||  loginVO.userType eq '02'}">
+						<tr>
+							<th colspan="7" scope="row" class="th_bg th_border_right">&nbsp;</th>
+							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>선정년도</th>
+							<td colspan="6">
+							<sbux-spinner
+									id="dtl-input-slctnYr"
+									name="dtl-input-slctnYr"
+									uitype="normal"
+                					step-value="1"
+                				></sbux-spinner>
+								</td>
+						</tr>
+					</c:if>
 					</tbody>
 				</table>
 
@@ -993,8 +1007,6 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_init();
 
-
-
 		/**
 		 * 엔터시 검색 이벤트
 		 */
@@ -1016,6 +1028,10 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	const fn_init = async function() {
 	//그리드 생성
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
+		var now = new Date();
+		var year = now.getFullYear();
+		SBUxMethod.set("dtl-input-slctnYr",year);//
+
 		fn_fcltMngCreateGrid();
 		fn_uoListGrid();
 	</c:if>
@@ -1200,7 +1216,8 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	        {caption: ["상세내역"], 	ref: 'picMoblno',   	hidden : true},
 	        {caption: ["상세내역"], 	ref: 'picEml',   	hidden : true},
 	        {caption: ["상세내역"], 	ref: 'fxno',   	hidden : true},
-	        {caption: ["상세내역"], 	ref: 'itemNhBrofYn',   	hidden : true}
+	        {caption: ["상세내역"], 	ref: 'itemNhBrofYn',   	hidden : true},
+	        {caption: ["상세내역"], 	ref: 'slctnYr',   	hidden : true}
 	    ];
 
 	    grdPrdcrCrclOgnMng = _SBGrid.create(SBGridProperties);
@@ -1404,6 +1421,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 						,fxno: item.fxno
 						,itemNhBrofYn: item.itemNhBrofYn
 						,evCertYn: item.evCertYn
+						,slctnYr: item.slctnYr
 				}
 				jsonPrdcrCrclOgnMng.push(PrdcrCrclOgnMngVO);
 				if (index === 0) {
@@ -1914,6 +1932,10 @@ tps://sbgrid.co.kr/v2_5/document/guide
 			,itemNhBrofYn: SBUxMethod.get('dtl-input-itemNhBrofYn')//
 			,tot: SBUxMethod.get('dtl-input-tot')//
 			,frmerInvstAmtRt: SBUxMethod.get('dtl-input-frmerInvstAmtRt')//
+		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' ||  loginVO.userType eq '02'}">
+			,slctnYr: SBUxMethod.get('dtl-input-slctnYr')//
+		</c:if>
+
    		});
 
 		const data = await postJsonPromise;
