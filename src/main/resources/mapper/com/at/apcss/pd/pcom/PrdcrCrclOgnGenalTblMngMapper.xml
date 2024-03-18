@@ -464,6 +464,7 @@
 			,TOTAL.ITEM_NM
 			,TOTAL.APRV
 			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'APRV_UPBR_SE_CD' AND CD_VL = TOTAL.APRV) AS APRV_NM
+			,(SELECT SLCTN_YR FROM TB_EV_APO WHERE BRNO = TOTAL.BRNO) AS SLCTN_YR
 			,TOTAL.STTG_UPBR_ITEM_SE
 			,TOTAL.STTG_UPBR_ITEM_NM
 			,TOTAL.CTGRY_CD
@@ -749,4 +750,18 @@
 		)TOTAL
 		ORDER BY BRNO , ITEM_CD , STBLT_YN
 	</select>
+
+	<!-- 조치사항 초기화 -->
+	<update id="updateItemUoActnMttr" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
+			UPDATE /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalNMngMapper.updateItemUoStbltYnInit */
+				TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+			SET
+				ACTN_MTTR	= #{actnMttr}
+			WHERE 1=1
+			  AND APO_SE	= '1'
+			  AND TYPE_SE_NO = '8'
+			  AND ITEM_CD	= #{itemCd}
+			  AND BRNO		= #{brno}
+			  AND YR		= #{yr}
+	</update>
 </mapper>

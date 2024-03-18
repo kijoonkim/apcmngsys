@@ -560,7 +560,7 @@
 				{caption: ["전속취급률(%)\n(B/A)"], 			ref: 'slsCnsgnSlsAmtRt',   		type:'output',  width:'100px',	style:'text-align:center;'
 					,format: {type: 'string', rule: '@" %"'}},
 				{caption: ["적합여부"], 	ref: 'orgStbltYn',   		type:'output',  width:'100px',	style:'text-align:center;'},
-				{caption: ["조치사항"], 		ref: 'stbltYnNm',   	type:'textarea',  width:'200px',	style:'padding-left:10px'
+				{caption: ["비고"], 		ref: 'stbltYnNm',   	type:'textarea',  width:'200px',	style:'padding-left:10px'
 					,typeinfo : {textareanewline : true},disabled:true },
 				{caption: ["조치사항"], 		ref: 'actnMttr',   	type:'output',  width:'200px',	style:'text-align:center'},
 				{caption: ["상세내역"], 	ref: 'apoCd',   		hidden : true},
@@ -1304,6 +1304,7 @@
 		SBGridProperties.rowheader="seq";
 		SBGridProperties.columns = [
 			{caption: ["신청년도"],			ref:'yr',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["선정년도"],			ref:'slctnYr',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["사업자번호"],		ref:'brno',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["법인명"],			ref:'corpNm',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["통합조직 구분"],		ref:'aprv',			type:'output',width:'70px',style:'text-align:center'},
@@ -1320,8 +1321,9 @@
 			{caption: ["(C)전속취급률(%)"],			ref:'slsCnsgnSlsAmtRt',		type:'output',width:'70px',style:'text-align:center'},
 
 			{caption: ["적합여부(기준적용)"],	ref:'stbltYn',		type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["적합여부(실제)"],	ref:'orgStbltYn',	type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["탈락사유"],			ref:'stbltYnNm',	type:'output',width:'70px',style:'text-align:center'}
+			{caption: ["적합여부(최종)"],	ref:'orgStbltYn',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["비고"],			ref:'stbltYnNm',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["조치사항"],			ref:'actnMttr',		type:'output',width:'70px',style:'text-align:center'}
 		];
 
 		hiddenGrd = _SBGrid.create(SBGridProperties);
@@ -1407,6 +1409,68 @@
 		 */
 		//console.log(hiddenGrd.exportData);
 		hiddenGrd.exportData("xlsx" , fileName , true , true);
+	}
+
+
+	//실적 저장
+	const fn_listSave = async function(){
+
+		let gridData01 = grdPrdcrOgnCurntMng01.getGridDataAll();
+		let saveList = [];
+
+		let brno = SBUxMethod.get('dtl-input-brno');
+		if(gfn_isEmpty(brno)){
+			return false;
+		}
+
+		//그리드의 해드가 두줄이상인경우 for문 시작과 끝을 늘린만큼 늘려야함
+		for(var i=1; i<=gridData01.length; i++ ){
+			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i);
+			let rowSts01 = grdPrdcrOgnCurntMng01.getRowStatus(i);
+			//let delYn = rowData01.delYn;
+
+			rowData01.rowSts = "I";
+			saveList.push(rowData01);
+			/*
+			if (rowSts01 === 3){
+				rowData01.rowSts = "I";
+				saveList.push(rowData01);
+			} else if (rowSts01 === 2){
+				rowData01.rowSts = "I";
+				saveList.push(rowData01);
+			} else if (rowSts01 === 1){
+				rowData01.rowSts = "I";
+				saveList.push(rowData01);
+			} else {
+				continue;
+			}
+			*/
+		}
+		if(saveList.length == 0){
+			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
+			return;
+		}
+
+		let regMsg = "저장 하시겠습니까?";
+		if(confirm(regMsg)){
+
+			let postJsonPromise = gfn_postJSON("/pd/pcom/multiSaveItemUoActnMttr.do", saveList);
+			let data = await postJsonPromise;
+			try {
+				if (_.isEqual("S", data.resultStatus)) {
+					gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+					fn_dtlGridSearch();
+					//fn_searchFcltList();
+				} else {
+					alert(data.resultMessage);
+				}
+			} catch (e) {
+				if (!(e instanceof Error)) {
+					e = new Error(e);
+				}
+				console.error("failed", e.message);
+			}
+		}
 	}
 
 </script>

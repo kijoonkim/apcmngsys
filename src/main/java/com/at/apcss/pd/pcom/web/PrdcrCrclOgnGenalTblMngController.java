@@ -20,6 +20,7 @@ import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.pd.pcom.service.PrdcrCrclOgnGenalTblMngService;
 import com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO;
 import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO;
+import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO;
 
 @Controller
 public class PrdcrCrclOgnGenalTblMngController extends BaseController{
@@ -152,6 +153,31 @@ public class PrdcrCrclOgnGenalTblMngController extends BaseController{
 			return getErrorResponseEntity(e);
 		}
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	//조치사항 업데이트
+		//예외적인 상황에 관리자가 임의로 조치사항 변경
+	@PostMapping(value = "/pd/pcom/multiSaveItemUoActnMttr.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> multiSaveItemUoActnMttr(@RequestBody List<PrdcrCrclOgnGenalTblMngVO> PrdcrCrclOgnGenalTblMngVOList, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		int savedCnt = 0;
+		try {
+			for (PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO : PrdcrCrclOgnGenalTblMngVOList) {
+				PrdcrCrclOgnGenalTblMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+				PrdcrCrclOgnGenalTblMngVO.setSysFrstInptUserId(getUserId());
+				PrdcrCrclOgnGenalTblMngVO.setSysLastChgPrgrmId(getPrgrmId());
+				PrdcrCrclOgnGenalTblMngVO.setSysLastChgUserId(getUserId());
+			}
+
+			savedCnt = PrdcrCrclOgnGenalTblMngService.multiSaveItemUoActnMttr(PrdcrCrclOgnGenalTblMngVOList);
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
 		return getSuccessResponseEntity(resultMap);
 	}
 }

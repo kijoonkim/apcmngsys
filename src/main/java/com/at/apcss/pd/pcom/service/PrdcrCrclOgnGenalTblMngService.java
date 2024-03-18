@@ -41,4 +41,8 @@ public interface PrdcrCrclOgnGenalTblMngService {
 	public int updateAllUoStbltYn(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception;
 
 	public List<ItemUoStbltYnVO> selectRawDataList(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception;
+
+	public int updateItemUoActnMttr(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception;
+
+	public int multiSaveItemUoActnMttr(List<PrdcrCrclOgnGenalTblMngVO> PrdcrCrclOgnGenalTblMngVOList) throws Exception;
 }

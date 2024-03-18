@@ -9,6 +9,8 @@ import lombok.Setter;
 @Setter
 public class ItemUoStbltYnVO extends ComVO{
 	private String yr;
+	private String slctnYr;
+
 	private String apoCd;
 	private String uoCd;
 	private String apoSe;
