@@ -454,6 +454,46 @@
     	]]>
     </update>
 
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrMapper.updatePrdcrNm				-->
+	<!-- DESC : 생산자 변경.                                            	 			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.25  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updatePrdcrNm" parameterType="com.at.apcss.am.cmns.vo.PrdcrVO">
+    	<![CDATA[
+			UPDATE /* com.at.apcss.am.cmns.mapper.PrdcrMapper.updatePrdcrNm */
+	    		TB_PRDCR_INFO
+			   SET
+				PRDCR_CD = #{prdcrCd}
+				, RPRS_ITEM_CD = #{rprsItemCd}
+				, RPRS_VRTY_CD = #{rprsVrtyCd}
+				, GDS_SE_CD = #{gdsSeCd}
+				, WRHS_SE_CD = #{wrhsSeCd}
+				, TRSPRT_SE_CD = #{trsprtSeCd}
+				, CLCLN_CRTR_CD = #{clclnCrtrCd}
+				, VHCLNO = #{vhclno}
+				, TELNO = #{telno}
+				, PRDCR_LINK_CD = #{prdcrLinkCd}
+				, PRDCR_IDENTNO = #{prdcrIdentno}
+				, PLOR_CD = #{plorCd}
+				, RMRK = #{rmrk}
+				, EXTRNL_LNKG_CD = #{extrnlLnkgCd}
+    	]]>
+		<if test='delYn != null and delYn !=""'>
+			   	, DEL_YN= #{delYn}
+		</if>
+    	<![CDATA[
+	    	    , SYS_LAST_CHG_DT		= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+	    	 WHERE APC_CD = #{apcCd}
+	    	   AND PRDCR_NM = #{prdcrNm}
+    	]]>
+    </update>
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrMapper.updatePrdcrRprs				-->
 	<!-- DESC : 생산자 변경.                                             			-->

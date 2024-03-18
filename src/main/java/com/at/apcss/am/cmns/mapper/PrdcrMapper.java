@@ -80,6 +80,14 @@ public interface PrdcrMapper {
 	public int updatePrdcr(PrdcrVO prdcrVO) throws Exception;
 
 	/**
+	 * 생산자정보 변경
+	 * @param prdcrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updatePrdcrNm(PrdcrVO prdcrVO) throws Exception;
+
+	/**
 	 * 생산자 대표정보 변경
 	 * @param prdcrVO
 	 * @return

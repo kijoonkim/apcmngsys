@@ -230,6 +230,12 @@ public class PrdcrVO extends ComVO {
 	 * 농가 주소
 	 */
 	private String frmhsAddr;
+
+	/**
+	 * 생산자관리유형
+	 */
+	private String prdcrMngType;
+
 	/**
 	 * 생산자연결번호
 	 */

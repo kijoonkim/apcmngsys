@@ -64,13 +64,13 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 
 	@Override
 	public List<PrdcrVO> selectPrdcrCdList(PrdcrVO prdcrVO) throws Exception {
-		
+
 		List<PrdcrVO> resultList = prdcrMapper.selectPrdcrCdList(prdcrVO);
 
 		return resultList;
 	}
 
-	
+
 	@Override
 	public HashMap<String, Object> insertPrdcr(PrdcrVO prdcrVO) throws Exception {
 
@@ -156,7 +156,13 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 		}
 
 		for ( PrdcrVO prdcrVO : updateList ) {
-			if(0 == prdcrMapper.updatePrdcr(prdcrVO)) {
+			int check;
+			if(prdcrVO.getPrdcrMngType().equals("U")) {
+				check = prdcrMapper.updatePrdcrNm(prdcrVO);
+			}else {
+				check = prdcrMapper.updatePrdcr(prdcrVO);
+			}
+			if(check == 0) {
 				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
 			}
 		}
