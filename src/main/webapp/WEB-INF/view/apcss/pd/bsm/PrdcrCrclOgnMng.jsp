@@ -2069,6 +2069,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		SBUxMethod.set('dtl-input-picEml',gfn_nvl(rowData.picEml))//
 		SBUxMethod.set('dtl-input-fxno',gfn_nvl(rowData.fxno))//
 		SBUxMethod.set('dtl-input-itemNhBrofYn',gfn_nvl(rowData.itemNhBrofYn))//
+		SBUxMethod.set('dtl-input-slctnYr',gfn_nvl(rowData.slctnYr))//
 
 		SBUxMethod.set('dtl-input-ctpv',gfn_nvl(rowData.ctpv));
 		await gfn_setComCdSBSelect('dtl-input-sgg', 			jsonComDtlSgg, 		'CMPTN_INST_SIGUN');
