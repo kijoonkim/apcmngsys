@@ -336,6 +336,7 @@
 							<sbux-button id="updateStbltYn2" name="updateStbltYn2" uitype="normal" text="적합여부 N으로 변경" class="btn btn-sm btn-outline-danger" onclick="fn_updateStbltYn(2)"></sbux-button>
 							<sbux-button id="updateStbltYn3" name="updateStbltYn3" uitype="normal" text="적합여부 빈칸으로 초기화" class="btn btn-sm btn-outline-danger" onclick="fn_updateStbltYn"></sbux-button>
 							<sbux-button id="updateStbltYn4" name="updateStbltYn4" uitype="normal" text="통합조직 적합여부 전체 갱신" class="btn btn-sm btn-outline-danger" onclick="fn_updateAllUoStbltYn"></sbux-button>
+							<sbux-button id="btnSave01" name="btnSave01" uitype="normal" text="조치사항 저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
 						</div>
 					</div>
 					<div style="display:flex; justify-content: flex-start;" >
@@ -924,9 +925,14 @@
 						,slsCnsgnSlsAmtTot: item.slsCnsgnSlsAmtTot
 						,slsCnsgnSlsAmtRt: item.slsCnsgnSlsAmtRt
 
-						,stbltYn: item.stbltYn//적합여부 기준 적용 결과
-						,orgStbltYn: item.orgStbltYn//적합여부 현재 적용 값
-   						,stbltYnNm: fn_calStbltYn(item)
+						,stbltYn: 		item.stbltYn//적합여부 기준 적용 결과
+						,orgStbltYn: 	item.orgStbltYn//적합여부 현재 적용 값
+   						,stbltYnNm: 	fn_calStbltYn(item)
+   						,brno: 			item.brno
+   						,yr: 			item.yr
+   					<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
+   						,actnMttr: 		item.actnMttr
+   					</c:if>
 				}
 				jsonPrdcrOgnCurntMng01.push(PrdcrOgnCurntMngVO);
 				if (index === 0) {
@@ -1371,7 +1377,6 @@
 					,orgStbltYn				:item.orgStbltYn
 					,stbltYnNm				:fn_calStbltYn(item)
 
-					,actn_mttr				:item.actn_mttr
 				}
 				jsonHiddenGrd.push(hiddenGrdVO);
 			});

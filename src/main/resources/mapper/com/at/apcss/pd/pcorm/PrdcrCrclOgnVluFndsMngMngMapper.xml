@@ -2904,6 +2904,8 @@
 			, DECODE(TOT.ICPT_RSN_CD , 'A' , '기본요건 미충족'
 										,'B' ,'세부요건 미충족'
 										,'C' , '통합조직 탈락'
+										,'EX1' , '-'
+										,'EX2' , '-'
 										,''
 			)AS ICPT_RSN_NM
 			, DECODE(TOT.ICPT_RSN_DTL_CD , 'A1' , '농업경영체 미등록'
@@ -2918,12 +2920,14 @@
 											,'B2' ,'품목 부적합(농업법인, 협동조합)'
 											,'C1' , '통합조직 탈락(농협조직)'
 											,'C2' , '통합조직 탈락(농업법인, 협동조합)'
+											,'-' , '-'
 											,''
 			)AS ICPT_RSN_DTL_NM
 			, DECODE(TOT.ICPT_RSN_CD , 'A' , '기존자금 회수'
 										,'B' ,'최고금리'
 										,'C' , '최고금리'
-										,''
+										,'EX1' , '최고금리'
+										,'EX2' , '기존자금 회수'
 			)AS PNLTY
 
 			,TOT.FUND_APLY_AMT_TOT
@@ -2948,12 +2952,16 @@
 				WHERE CD_ID = 'CORP_SHAP' AND CD_VL = (SELECT CORP_DTL_SE_CD FROM TB_EV_APO WHERE BRNO = ERR.BRNO)
 			) AS CORP_DTL_SE_NM
 
-			,(CASE WHEN ERR.MNGR_ICPT_RSN_CD IS NOT NULL THEN ERR.MNGR_ICPT_RSN_CD
+			,(CASE
+					WHEN ERR.MNGR_STBLT_YN = 'Y' THEN ERR.MNGR_ICPT_RSN_CD
+					WHEN ERR.MNGR_ICPT_RSN_CD IS NOT NULL THEN ERR.MNGR_ICPT_RSN_CD
 					ELSE ERR.ICPT_RSN_CD
 					END
 			) AS ICPT_RSN_CD
 
-			,(CASE WHEN ERR.MNGR_ICPT_RSN_DTL_CD IS NOT NULL THEN ERR.MNGR_ICPT_RSN_DTL_CD
+			,(CASE
+					WHEN ERR.MNGR_STBLT_YN = 'Y' THEN ERR.MNGR_ICPT_RSN_DTL_CD
+					WHEN ERR.MNGR_ICPT_RSN_DTL_CD IS NOT NULL THEN ERR.MNGR_ICPT_RSN_DTL_CD
 					ELSE ERR.ICPT_RSN_DTL_CD
 					END
 			) AS ICPT_RSN_DTL_CD
@@ -3008,6 +3016,8 @@
 			, DECODE(TOT.ICPT_RSN_CD , 'A' , '기본요건 미충족'
 										,'B' ,'세부요건 미충족'
 										,'C' , '통합조직 탈락'
+										,'EX1' , '-'
+										,'EX2' , '-'
 										,''
 			)AS ICPT_RSN_NM
 			, DECODE(TOT.ICPT_RSN_DTL_CD , 'A1' , '농업경영체 미등록'
@@ -3022,11 +3032,14 @@
 											,'B2' ,'품목 부적합(농업법인, 협동조합)'
 											,'C1' , '통합조직 탈락(농협조직)'
 											,'C2' , '통합조직 탈락(농업법인, 협동조합)'
+											,'-' , '-'
 											,''
 			)AS ICPT_RSN_DTL_NM
 			, DECODE(TOT.ICPT_RSN_CD , 'A' , '기존자금 회수'
 										,'B' ,'최고금리'
 										,'C' , '최고금리'
+										,'EX1' , '최고금리'
+										,'EX2' , '기존자금 회수'
 										,''
 			)AS PNLTY
 
@@ -3068,12 +3081,16 @@
 			) AS UO_CORP_DTL_SE_NM
 
 
-			,(CASE WHEN ERR.MNGR_ICPT_RSN_CD IS NOT NULL THEN ERR.MNGR_ICPT_RSN_CD
+			,(CASE
+					WHEN ERR.MNGR_STBLT_YN = 'Y' THEN ERR.MNGR_ICPT_RSN_CD
+					WHEN ERR.MNGR_ICPT_RSN_CD IS NOT NULL THEN ERR.MNGR_ICPT_RSN_CD
 					ELSE ERR.ICPT_RSN_CD
 					END
 			) AS ICPT_RSN_CD
 
-			,(CASE WHEN ERR.MNGR_ICPT_RSN_DTL_CD IS NOT NULL THEN ERR.MNGR_ICPT_RSN_DTL_CD
+			,(CASE
+					WHEN ERR.MNGR_STBLT_YN = 'Y' THEN ERR.MNGR_ICPT_RSN_DTL_CD
+					WHEN ERR.MNGR_ICPT_RSN_DTL_CD IS NOT NULL THEN ERR.MNGR_ICPT_RSN_DTL_CD
 					ELSE ERR.ICPT_RSN_DTL_CD
 					END
 			) AS ICPT_RSN_DTL_CD

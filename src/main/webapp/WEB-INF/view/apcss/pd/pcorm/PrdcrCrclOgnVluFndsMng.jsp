@@ -328,7 +328,7 @@
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrOgnCurntMng06" style="height:300px; width: 100%;"></div>
 				</div>
-				<div class="ad_section_top" style="width: 99%;">
+				<div class="ad_section_top" style="width: 99%; display: none;">
 					<div class="box-header" style="display:flex; justify-content: flex-start; width: 742px;" >
 						<div style="margin-left: auto;">
 							<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="평가지표 저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave01"></sbux-button>
@@ -347,7 +347,7 @@
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:200px; width: 742px;"></div>
 				</div>
-				<div class="ad_section_top" style="width: 99%;">
+				<div class="ad_section_top" style="width: 99%; display: none;">
 					<div class="box-header" style="display:flex; justify-content: flex-start; width: 1142px;" >
 						<div style="margin-left: auto;">
 							<sbux-button id="btnSaveFclt2" name="btnSaveFclt2" uitype="normal" text="가감점 저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave02"></sbux-button>
@@ -521,8 +521,8 @@
 		SBUxMethod.set("srch-input-yr",year);//
 		await fn_fcltMngCreateGrid();
 
-		await fn_fcltMngCreateGrid01();
-		await fn_fcltMngCreateGrid02();
+		//await fn_fcltMngCreateGrid01();
+		//await fn_fcltMngCreateGrid02();
 
 		await fn_fcltMngCreateGrid05();
 		await fn_fcltMngCreateGrid06();
@@ -581,12 +581,16 @@
 	var comIcptRsnCdIso01 = [
 		{'text': '기본요건 미충족',	'label': '기본요건 미충족', 	'value': 'A'},
 		{'text': '세부요건 미충족',	'label': '세부요건 미충족', 	'value': 'B'},
-		{'text': '통합조직 탈락',	'label': '통합조직 탈락', 	'value': 'C'}
+		{'text': '통합조직 탈락',	'label': '통합조직 탈락', 	'value': 'C'},
+		{'text': '-',			'label': '-', 			'value': 'EX1'},
+		{'text': '-',			'label': '-', 			'value': 'EX2'}
 	];
 
 	var comIcptRsnCdUo01 = [
 		{'text': '기본요건 미충족',	'label': '기본요건 미충족', 	'value': 'A'},
-		{'text': '세부요건 미충족',	'label': '세부요건 미충족', 	'value': 'B'}
+		{'text': '세부요건 미충족',	'label': '세부요건 미충족', 	'value': 'B'},
+		{'text': '-',			'label': '-', 			'value': 'EX1'},
+		{'text': '-',			'label': '-', 			'value': 'EX2'}
 	];
 
 	//세부탈락사유 구분
@@ -602,7 +606,9 @@
 		{'text': '품목 부적합',		'label': '품목 부적합(농협조직)', 			'value': 'B1', 'icptRsnCd':'B', 'pnlty': '최고금리',		'itrRt': '3' },
 		{'text': '품목 부적합',		'label': '품목 부적합(농업법인, 협동조합)', 	'value': 'B2', 'icptRsnCd':'B', 'pnlty': '최고금리',		'itrRt': '2.5' },
 		{'text': '통합조직 탈락',	'label': '통합조직 탈락(농협조직)', 		'value': 'C1', 'icptRsnCd':'C', 'pnlty': '최고금리',		'itrRt': '3' },
-		{'text': '통합조직 탈락',	'label': '통합조직 탈락(농업법인, 협동조합)', 	'value': 'C2', 'icptRsnCd':'C', 'pnlty': '최고금리',		'itrRt': '2.5' }
+		{'text': '통합조직 탈락',	'label': '통합조직 탈락(농업법인, 협동조합)', 	'value': 'C2', 'icptRsnCd':'C', 'pnlty': '최고금리',		'itrRt': '2.5' },
+		{'text': '-',			'label': '-', 						'value': '-', 'icptRsnCd':'EX1', 'pnlty': '최고금리',		'itrRt': '3' },
+		{'text': '-',			'label': '-', 						'value': '-', 'icptRsnCd':'EX2', 'pnlty': '기존자금 회수',		'itrRt': '-' }
 	];
 
 	//세부탈락사유 구분
@@ -616,7 +622,9 @@
 		{'text': '기본요건 미충족',	'label': '조공설립계획 미수립', 			'value': 'A7', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
 		{'text': '기본요건 미충족',	'label': '현장실사 미참여', 				'value': 'A8', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
 		{'text': '품목 부적합',		'label': '품목 부적합(농협조직)', 			'value': 'B1', 'icptRsnCd':'B', 'pnlty': '최고금리',		'itrRt': '3' },
-		{'text': '품목 부적합',		'label': '품목 부적합(농업법인, 협동조합)', 	'value': 'B2', 'icptRsnCd':'B', 'pnlty': '최고금리',		'itrRt': '2.5' }
+		{'text': '품목 부적합',		'label': '품목 부적합(농업법인, 협동조합)', 	'value': 'B2', 'icptRsnCd':'B', 'pnlty': '최고금리',		'itrRt': '2.5' },
+		{'text': '-',			'label': '-', 						'value': '-', 'icptRsnCd':'EX1', 'pnlty': '최고금리',		'itrRt': '3' },
+		{'text': '-',			'label': '-', 						'value': '-', 'icptRsnCd':'EX2', 'pnlty': '기존자금 회수',		'itrRt': '-' }
 	];
 
 	/**
@@ -1207,8 +1215,8 @@
 	}
 	const fn_dtlGridSearch = async function(){
 		fn_searchComputWayList();		//산출식 콤보 조회
-		await fn_dtlGridSearchActvtnFund1();	//평가지표
-		await fn_dtlGridSearchActvtnFund2();	//가감점
+		//await fn_dtlGridSearchActvtnFund1();	//평가지표
+		//await fn_dtlGridSearchActvtnFund2();	//가감점
 		fn_dtlGridSearchUoTot();
 		fn_dtlGridSearchIsoTot();
 		fn_dtlGridSearchScrRslt();
@@ -1341,14 +1349,14 @@
 				let pnltyVal = '';
 				let itrRtVal = item.itrRt;
 				if(!gfn_isEmpty(item.icptRsnCd) && item.icptRsnCd != ''){
-					let chkInfo = _.find(comIcptRsnDtlCdUo01, {value: item.icptRsnDtlCd});
+					let chkInfo = _.find(comIcptRsnDtlCdUo01, {value: item.icptRsnDtlCd, icptRsnCd:item.icptRsnCd});
 					pnltyVal = chkInfo.pnlty;
 					itrRtVal = chkInfo.itrRt;
 				}
 				let mngrPnltyVal = '';
 				let mngrItrRtVal = item.mngrItrRt;
 				if(!gfn_isEmpty(item.mngrIcptRsnCd) && item.mngrIcptRsnCd != ''){
-					let chkInfo = _.find(comIcptRsnDtlCdUo01, {value: item.mngrIcptRsnDtlCd});
+					let chkInfo = _.find(comIcptRsnDtlCdUo01, {value: item.mngrIcptRsnDtlCd, icptRsnCd:item.mngrIcptRsnCd});
 					mngrPnltyVal = chkInfo.pnlty;
 					mngrItrRtVal = chkInfo.itrRt;
 				}
@@ -1411,14 +1419,14 @@
 				let pnltyVal = '';
 				let itrRtVal = item.itrRt;
 				if(!gfn_isEmpty(item.icptRsnCd) && item.icptRsnCd != ''){
-					let chkInfo = _.find(comIcptRsnDtlCdIso01, {value: item.icptRsnDtlCd});
+					let chkInfo = _.find(comIcptRsnDtlCdIso01, {value: item.icptRsnDtlCd, icptRsnCd:item.icptRsnCd});
 					pnltyVal = chkInfo.pnlty;
 					itrRtVal = chkInfo.itrRt;
 				}
 				let mngrPnltyVal = '';
 				let mngrItrRtVal = item.mngrItrRt;
 				if(!gfn_isEmpty(item.mngrIcptRsnCd) && item.mngrIcptRsnCd != ''){
-					let chkInfo = _.find(comIcptRsnDtlCdIso01, {value: item.mngrIcptRsnDtlCd});
+					let chkInfo = _.find(comIcptRsnDtlCdIso01, {value: item.mngrIcptRsnDtlCd, icptRsnCd:item.mngrIcptRsnCd});
 
 					mngrPnltyVal = chkInfo.pnlty;
 					mngrItrRtVal = chkInfo.itrRt;
@@ -2177,16 +2185,16 @@
 				{caption: ["선정여부"], 	ref: 'stbltYn',		type:'output',  width:'60px',    style:'text-align:center;'},
 				{caption: ["적합품목"], 	ref: 'stbltItemList',	type:'output',  width:'160px',    style:'text-align:center;'},
 
-				{caption: ["탈락사유구분"], 	ref: 'icptRsnNm',	type:'combo',  width:'120px',    style:'text-align:center;', disabled : true},
-				{caption: ["세부탈락사유"], 	ref: 'icptRsnDtlNm',	type:'combo',  width:'160px',    style:'text-align:center;', disabled : true},
-				{caption: ["패널티"], 		ref: 'pnlty',	type:'output',  width:'110px',    style:'text-align:center;'},
+				{caption: ["탈락사유구분"], 	ref: 'icptRsnNm',		type:'output',  width:'120px',    style:'text-align:center;', disabled : true},
+				{caption: ["세부탈락사유"], 	ref: 'icptRsnDtlNm',	type:'output',  width:'160px',    style:'text-align:center;', disabled : true},
+				{caption: ["패널티"], 		ref: 'pnlty',			type:'output',  width:'110px',    style:'text-align:center;'},
 				{caption: ["자금신청액(천원)\n(출자출하조직 신청액 포함)"], 	ref: 'fundAplyAmtTot',	type:'output',  width:'160px',    style:'text-align:center;'
 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 				{caption: ["자금신청액(천원)\n(탈락 출자출하조직 신청액은 제외)"], 	ref: 'fundAplyAmtStbltTot',	type:'output',  width:'160px',    style:'text-align:center;'
 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}
 				},
-				{caption: ["금리(%)"], 		ref: 'itrRt',			type:'output',  width:'80px',    style:'text-align:center;'},
-				{caption: ["비고"], 		ref: 'rmrk', 	type:'output',  width:'200px',	style:'text-align:center'},
+				{caption: ["금리(%)"], 		ref: 'itrRt',		type:'output',  width:'80px',    style:'text-align:center;'},
+				{caption: ["비고"], 		ref: 'rmrk', 			type:'output',  width:'200px',	style:'text-align:center'},
 				{caption: ["상세내역"], 	ref: 'yr',   			hidden : true},
 			];
 
@@ -2228,16 +2236,16 @@
 			{caption: ["출자출하조직명"],	ref: 'corpNm',		type:'output',  width:'160px',    style:'text-align:center;'},
 			{caption: ["사업자번호"],	ref: 'brno',		type:'output',  width:'80px',    style:'text-align:center;'},
 			{caption: ["출자출하조직\n선정여부"], 	ref: 'stbltYn',		type:'output',  width:'100px',    style:'text-align:center;'},
-			{caption: ["적합품목"], 	ref: 'stbltItemList',	type:'output',  width:'160px',    style:'text-align:center;'},
+			{caption: ["적합품목"], 	ref: 'stbltItemList',		type:'output',  width:'160px',    style:'text-align:center;'},
 
-			{caption: ["탈락사유구분"], 	ref: 'icptRsnNm',	type:'combo',  width:'120px',    style:'text-align:center;', disabled : true},
-			{caption: ["세부탈락사유"], 	ref: 'icptRsnDtlNm',	type:'combo',  width:'160px',    style:'text-align:center;', disabled : true},
-			{caption: ["패널티"], 		ref: 'pnlty',	type:'output',  width:'110px',    style:'text-align:center;'},
+			{caption: ["탈락사유구분"], 	ref: 'icptRsnNm',		type:'output',  width:'120px',    style:'text-align:center;', disabled : true},
+			{caption: ["세부탈락사유"], 	ref: 'icptRsnDtlNm',	type:'output',  width:'160px',    style:'text-align:center;', disabled : true},
+			{caption: ["패널티"], 		ref: 'pnlty',			type:'output',  width:'110px',    style:'text-align:center;'},
 			{caption: ["자금신청액(천원)"], 	ref: 'isoFundAplyAmt',	type:'output',  width:'160px',    style:'text-align:center;'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}
 			},
-			{caption: ["금리(%)"], 		ref: 'itrRt',			type:'output',  width:'80px',    style:'text-align:center;'},
-			{caption: ["비고"], 		ref: 'rmrk', 	type:'output',  width:'200px',	style:'text-align:center'},
+			{caption: ["금리(%)"], 		ref: 'itrRt',	type:'output',  width:'80px',    style:'text-align:center;'},
+			{caption: ["비고"], 		ref: 'rmrk', 		type:'output',  width:'200px',	style:'text-align:center'},
 			{caption: ["상세내역"], 	ref: 'yr',   		hidden : true},
 			{caption: ["상세내역"], 	ref: 'apoSe',   	hidden : true},
 			{caption: ["상세내역"], 	ref: 'uoBrno',   	hidden : true},
