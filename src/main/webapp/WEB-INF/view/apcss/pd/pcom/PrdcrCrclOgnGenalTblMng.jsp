@@ -1360,6 +1360,9 @@
 					,sttgUpbrItemSe			:item.sttgUpbrItemSe
 					,sttgUpbrItemNm			:item.sttgUpbrItemNm
 
+					,slctnYr				:item.slctnYr
+					,actnMttr				:item.actnMttr
+
 					,slsCnsgnSlsAmt			:item.slsCnsgnSlsAmt
 					,slsCnsgnSlsAmtTot		:item.slsCnsgnSlsAmtTot
 					,slsCnsgnSlsAmtRt		:item.slsCnsgnSlsAmtRt
