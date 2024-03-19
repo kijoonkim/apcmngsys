@@ -2884,7 +2884,7 @@
 	<select id="selectScrUserGrid02" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
 	</select>
 	<select id="selectScrUserGrid03" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
-		SELECT
+		SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectScrUserGrid03 */
 			TOT.YR
 			,TOT.BRNO
 			,TOT.CORP_NM
@@ -2982,7 +2982,7 @@
 
 	</select>
 	<select id="selectScrUserGrid04" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
-		SELECT
+		SELECT   /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectScrUserGrid04 */
 			TOT.YR
 			,TOT.BRNO
 			,TOT.CORP_NM
@@ -3031,7 +3031,6 @@
 			)AS PNLTY
 
 			,TOT.FUND_APLY_AMT_TOT
-			,TOT.FUND_APLY_AMT_STBLT_TOT
 			,TOT.STBLT_ITEM_LIST
 			,TOT.RMRK
 		FROM
@@ -3089,8 +3088,13 @@
 					END
 			) AS ITR_RT
 
-			,ERR.FUND_APLY_AMT_TOT
-			,ERR.FUND_APLY_AMT_STBLT_TOT
+			,(SELECT ISO_FUND_APLY_AMT
+					FROM TB_EV_APLY_MNG
+					WHERE 1=1
+					  AND YR = ERR.YR
+					  AND BRNO = ERR.BRNO
+					 AND UO_BRNO = ERR.UO_BRNO
+			) AS FUND_APLY_AMT_TOT
 			,ERR.STBLT_ITEM_LIST
 			,ERR.RMRK
 		FROM TB_EV_REG_RSLT ERR
@@ -3100,7 +3104,7 @@
 		  AND UO_BRNO = #{brno})TOT
 	</select>
 	<select id="selectScrUserGrid05" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
-		SELECT
+		SELECT  /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectScrUserGrid05 */
 			ESR.YR
 			,ESR.BRNO
 			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = ESR.BRNO) AS CORP_NM
@@ -3120,4 +3124,104 @@
 		  AND BRNO = #{brno}
 		  AND YR = #{yr}
 	</select>
+
+	<!-- 최종점수 조회 -->
+	<select id="selectScrRsltList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
+		SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectScrRsltList */
+			ESR.YR
+			,ESR.BRNO
+			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = ESR.BRNO) AS CORP_NM
+			,ESR.APO_SE
+			,ESR.APRV
+			,DECODE(ESR.APRV , '1' , '승인형' , '2' , '육성형' , '' ) AS APRV_NM
+			,ESR.SLS_TOT_AMT_SCR
+			,ESR.SLS_TOT_RT_SCR
+			,ESR.TOT_SCR
+			,ESR.ONLN_WHLSL_MRKT_SCR
+			,ESR.RTL_EDNST_SCR
+			,ESR.DDC_SCR
+			,ESR.LAST_SCR
+		FROM TB_EV_SCR_RSLT ESR
+		WHERE 1=1
+		  AND APO_SE = '1'
+		  AND BRNO = #{brno}
+		  AND YR = #{yr}
+	</select>
+
+	<!-- 최종점수 저장 -->
+	<insert id="insertScrRslt" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
+		MERGE INTO TB_EV_SCR_RSLT CLT  /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.insertScrRslt */
+		USING DUAL
+			ON (
+					CLT.YR		= #{yr}
+				AND CLT.BRNO	= #{brno}
+				)
+		WHEN MATCHED THEN
+				 UPDATE
+					   SET
+						  SLS_TOT_AMT_SCR			= #{slsTotAmtScr}
+						, SLS_TOT_RT_SCR			= #{slsTotRtScr}
+						, TOT_SCR					= #{totScr}
+						, ONLN_WHLSL_MRKT_SCR		= #{onlnWhlslMrktScr}
+						, RTL_EDNST_SCR				= #{rtlEdnstScr}
+						, DDC_SCR					= #{ddcScr}
+						, LAST_SCR					= #{lastScr}
+
+						, SYS_LAST_CHG_DT			= SYSDATE
+						, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+						, SYS_LAST_CHG_PRGRM_ID		= #{sysLastChgPrgrmId}
+
+					WHERE 1=1
+					  AND CLT.YR		= #{yr}
+					  AND CLT.BRNO		= #{brno}
+
+		WHEN NOT MATCHED THEN
+			 INSERT
+					(
+						YR
+					  , BRNO
+					  , APO_SE
+					  , APRV
+
+					  , SLS_TOT_AMT_SCR
+					  , SLS_TOT_RT_SCR
+					  , TOT_SCR
+					  , ONLN_WHLSL_MRKT_SCR
+					  , RTL_EDNST_SCR
+					  , DDC_SCR
+					  , LAST_SCR
+
+					  , SYS_FRST_INPT_DT
+					  , SYS_FRST_INPT_USER_ID
+					  , SYS_FRST_INPT_PRGRM_ID
+					  , SYS_LAST_CHG_DT
+					  , SYS_LAST_CHG_USER_ID
+					  , SYS_LAST_CHG_PRGRM_ID
+
+					)
+				VALUES
+					(
+						#{yr}
+					  , #{brno}
+					  , '1'
+					  , (SELECT APRV FROM TB_EV_APO WHERE BRNO = #{brno})
+
+					  , #{slsTotAmtScr}
+					  , #{slsTotRtScr}
+					  , #{totScr}
+					  , #{onlnWhlslMrktScr}
+					  , #{rtlEdnstScr}
+					  , #{ddcScr}
+					  , #{lastScr}
+
+
+
+					  , SYSDATE
+					  , #{sysFrstInptUserId}
+					  , #{sysFrstInptPrgrmId}
+					  , SYSDATE
+					  , #{sysLastChgUserId}
+					  , #{sysLastChgPrgrmId}
+					)
+	</insert>
 </mapper>

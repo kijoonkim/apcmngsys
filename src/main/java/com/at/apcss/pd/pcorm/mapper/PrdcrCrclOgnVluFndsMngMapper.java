@@ -26,8 +26,12 @@ public interface PrdcrCrclOgnVluFndsMngMapper {
 	public List<PrdcrCrclOgnVluFndsMngVO> selectScoreList1(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO);
 	//가감점 리스트 조회
 	public List<PrdcrCrclOgnVluFndsMngVO> selectScoreList2(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO);
+	//최종점수 리스트 조회
+	public List<PrdcrCrclOgnVluFndsMngVO> selectScrRsltList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO);
 	//평가지표,가감점 리스트 저장
 	public int insertActvtnFund(PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO);
+	//최종점수 저장
+	public int insertScrRslt(PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO);
 
 	//산출식 관리 팝업 - 산출식 리스트 조회
 	public List<PrdcrCrclOgnVluFndsMngVO> selectComputWayList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO);

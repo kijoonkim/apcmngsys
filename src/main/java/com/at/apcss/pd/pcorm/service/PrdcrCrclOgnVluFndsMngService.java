@@ -38,6 +38,14 @@ public interface PrdcrCrclOgnVluFndsMngService {
 	public List<PrdcrCrclOgnVluFndsMngVO> selectScoreList2(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO) throws Exception;
 
 	/**
+	 * 최종점수 리스트 조회한다.
+	 * @param prdcrCrclOgnVluFndsMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluFndsMngVO> selectScrRsltList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO) throws Exception;
+
+	/**
 	 * 평가지표,가감점 단건 저장
 	 * @param prdcrCrclOgnVluFndsMngVO
 	 * @return
@@ -51,6 +59,23 @@ public interface PrdcrCrclOgnVluFndsMngService {
 	 * @throws Exception
 	 */
 	public int multiSaveActvtnFundList(List<PrdcrCrclOgnVluFndsMngVO> PrdcrCrclOgnVluFndsMngVOList) throws Exception;
+
+
+	/**
+	 * 최종점수 단건 저장
+	 * @param prdcrCrclOgnVluFndsMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertScrRslt(PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO) throws Exception;
+
+	/**
+	 * 최종점수 리스트 저장
+	 * @param prdcrCrclOgnVluFndsMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int multiSaveScrRsltList(List<PrdcrCrclOgnVluFndsMngVO> PrdcrCrclOgnVluFndsMngVOList) throws Exception;
 
 
 
