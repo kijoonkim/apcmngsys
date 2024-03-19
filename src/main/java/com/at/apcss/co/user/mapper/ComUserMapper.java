@@ -22,7 +22,7 @@ public interface ComUserMapper {
 	 * @return List<>
 	 */
 	public List<ComUserVO> selectComUserList(ComUserVO comUserVO);
-	
+
 	/**
 	 * APC관리자승인등록 목록 조회
 	 * @param comUserVO
@@ -36,7 +36,7 @@ public interface ComUserMapper {
 	 * @return List<>
 	 */
 	public int updateComUserAprv(ComUserVO comUserVO);
-	
+
 	/**
 	 * APC관리자승인등록-사용자유형 변경
 	 * @param comUserVO
@@ -50,7 +50,7 @@ public interface ComUserMapper {
 	 * @return List<>
 	 */
 	public int updateComUser(ComUserVO comUserVO) throws Exception;
-	
+
 	/**
 	 * 사용자 정보 변경
 	 * @param comUserVO
@@ -64,5 +64,26 @@ public interface ComUserMapper {
 	 * @return List<>
 	 */
 	public int updComUserPwd(ComUserVO comUserVO);
+	/**
+	 * 계정 추가
+	 * @param comUserVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int insertAccount(ComUserVO comUserVO);
+	/**
+	 * 계정 정책 추가
+	 * @param comUserVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int insertLgnPlcy(ComUserVO comUserVO);
+	/**
+	 * 계정 중복 체크
+	 * @param comUserVO
+	 * @return comUserVO
+	 * @throws Exception
+	 */
+	public ComUserVO selectAccountDupChk(ComUserVO comUserVO);
 
 }

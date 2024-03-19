@@ -17,6 +17,8 @@ import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.co.user.service.ComUserService;
 import com.at.apcss.co.user.vo.ComUserVO;
 
+import egovframework.let.utl.sim.service.EgovFileScrty;
+
 /**
  * 사용자 정보를 관리하는 컨트롤러 클래스
  * @author 신정철
@@ -172,7 +174,7 @@ public class ComUserController extends BaseController {
 	public ResponseEntity<HashMap<String, Object>> updateApcUserAprv(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		
+
 		try {
 			comUserVO.setSysFrstInptUserId(getUserId());
 			comUserVO.setSysFrstInptPrgrmId(getPrgrmId());
@@ -182,7 +184,7 @@ public class ComUserController extends BaseController {
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}
-			
+
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
@@ -192,6 +194,48 @@ public class ComUserController extends BaseController {
 			}
 		}
 
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/co/user/insertAccount.do")
+	public ResponseEntity<HashMap<String, Object>> insertAccount(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception{
+
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		String password = comUserVO.getPswd();
+		String userId = comUserVO.getUserId();
+		String prgrmId = "newAccount";
+		comUserVO.setPswd(EgovFileScrty.encryptPassword(password,userId));
+		comUserVO.setSysFrstInptUserId(getUserId());
+		comUserVO.setSysFrstInptPrgrmId(getPrgrmId());
+		comUserVO.setSysLastChgUserId(getUserId());
+		comUserVO.setSysLastChgPrgrmId(getPrgrmId());
+
+		try {
+			comUserService.insertAccount(comUserVO);
+			comUserService.insertLgnPlcy(comUserVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/co/user/selectAccountDupChk.do")
+	public ResponseEntity<HashMap<String, Object>> selectAccountDupChk(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception{
+
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		ComUserVO returnUserVO = new ComUserVO();
+
+		try {
+			returnUserVO = comUserService.selectAccountDupChk(comUserVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put("userId", returnUserVO.getUserId());
 		return getSuccessResponseEntity(resultMap);
 	}
 

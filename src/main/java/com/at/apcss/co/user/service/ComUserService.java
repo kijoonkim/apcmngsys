@@ -22,7 +22,7 @@ public interface ComUserService {
 	 * @return List<>
 	 */
 	public List<ComUserVO> selectComUserList(ComUserVO comUserVO) throws Exception;
-	
+
 	/**
 	 * apc관리자승인등록 목록 조회
 	 * @param comUserVO
@@ -36,35 +36,35 @@ public interface ComUserService {
 	 * @return
 	 */
 	public HashMap<String, Object> updateComUser(ComUserVO comUserList) throws Exception;
-	
+
 	/**
 	 * 사용자 상태를 승인한다.
 	 * @param comUserList
 	 * @return
 	 */
 	public HashMap<String, Object> updateUserSttsList(List<ComUserVO> comUserList) throws Exception;
-	
+
 //	/**
 //	 * APC관리자승인등록-사용자유형을 저장한다.
 //	 * @param comUserVO
 //	 * @return
 //	 */
 //	public HashMap<String, Object> updateUserTypeList(ComUserVO comUserVO) throws Exception;
-	
+
 	/**
 	 * APC관리자승인등록-사용자유형을 저장한다.
 	 * @param comUserList
 	 * @return
 	 */
 	public int updateUserType(ComUserVO comUserVO) throws Exception;
-	
+
 	/**
 	 * 사용자 상태를 승인한다.
 	 * @param comUserList
 	 * @return
 	 */
 	public HashMap<String, Object> updateComUserStts(ComUserVO comUserVO) throws Exception;
-	
+
 	/**
 	 * 사용자 정보를 변경한다.
 	 * @param comUserList
@@ -80,15 +80,15 @@ public interface ComUserService {
 	public int updateComUserAprv(ComUserVO comUserVO) throws Exception;
 
 	/**
-	 * 
+	 *
 	 * @param comUserVO
 	 * @return
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> updateApcUserAprv(ComUserVO comUserVO) throws Exception;
-	
-	
-	
+
+
+
 	/**
 	 * APC사용자 승인등록
 	 * @param comUserVO
@@ -96,7 +96,7 @@ public interface ComUserService {
 	 * @throws Exception
 	 */
 	public HashMap<String,Object> insertApcUserAprv(ComUserVO comUserVO) throws Exception;
-	
+
 	/**
 	 * APC사용자 승인취소
 	 * @param comUserVO
@@ -104,8 +104,8 @@ public interface ComUserService {
 	 * @throws Exception
 	 */
 	public HashMap<String,Object> deleteApcUserAprv(ComUserVO comUserVO) throws Exception;
-	
-	
+
+
 	/**
 	 * 사용자 목록 승인등록
 	 * @param comUserList
@@ -119,6 +119,30 @@ public interface ComUserService {
 	 * @return
 	 */
 	public int updComUserPwd(ComUserVO comUserVO) throws Exception;
+
+	/**
+	 * 계정 추가
+	 * @param comUserVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int insertAccount(ComUserVO comUserVO) throws Exception;
+
+	/**
+	 * 계정 정책 추가
+	 * @param comUserVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int insertLgnPlcy(ComUserVO comUserVO) throws Exception;
+
+	/**
+	 * 계정 중복 체크
+	 * @param comUserVO
+	 * @return comUserVO
+	 * @throws Exception
+	 */
+	public ComUserVO selectAccountDupChk(ComUserVO comUserVO) throws Exception;
 
 
 }
