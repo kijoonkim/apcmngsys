@@ -244,6 +244,7 @@
 				<div class="box-header" style="display:flex; justify-content: flex-start;" >
 					<div style="margin-left: auto;">
 						<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
+						<sbux-button id="btnSearchFclt2" name="btnSearchFclt2" uitype="normal" text="사용자조회" class="btn btn-sm btn-outline-danger" onclick="fn_userGridSearch"></sbux-button>
 					</div>
 				</div>
 			</c:if><!-- 관리자 권한인 경우 그리드 표기 -->
@@ -297,6 +298,8 @@
 					</tbody>
 				</table>
 				<br>
+			<!-- 관리자 화면 그리드 -->
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 				<!--[pp] 검색결과 상세보기-->
 				<div class="ad_section_top" style="width: 99%;">
 					<div class="ad_tbl_top">
@@ -364,6 +367,44 @@
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrOgnCurntMng02" style="height:300px; width: 1142px;"></div>
 				</div>
+		</c:if>
+		<!-- 사용자용 화면  -->
+		<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
+				<div class="ad_section_top" style="width: 99%;">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">▶통합조직 선정여부</span>
+							</li>
+						</ul>
+					</div>
+					<!-- SBGrid를 호출합니다. -->
+					<div id="sb-area-grdUserGrid03" style="height:300px; width: 1142px;"></div>
+				</div>
+				<div class="ad_section_top" style="width: 99%;">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">▶출자출하조직 선정여부</span>
+							</li>
+						</ul>
+					</div>
+					<!-- SBGrid를 호출합니다. -->
+					<div id="sb-area-grdUserGrid04" style="height:300px; width: 1142px;"></div>
+				</div>
+				<div class="ad_section_top" style="width: 99%;">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">▶최종점수</span>
+							</li>
+						</ul>
+					</div>
+					<!-- SBGrid를 호출합니다. -->
+					<div id="sb-area-grdUserGrid05" style="height:300px; width: 1142px;"></div>
+				</div>
+			</c:if>
+
 			</div>
 			<div id="sb-area-hiddenGrd" style="height:400px; width: 100%; display: none;"></div>
 			<div id="sb-area-hiddenGrd01" style="height:400px; width: 100%; display: none;"></div>
@@ -421,14 +462,15 @@
 		await fn_fcltMngCreateGrid06();
 	</c:if>
 	<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
-		await fn_userGrid01();
-		await fn_userGrid02();
+		//await fn_userGrid01();
+		//await fn_userGrid02();
 		await fn_userGrid03();
 		await fn_userGrid04();
+		await fn_userGrid05();
 	</c:if>
 		await fn_initSBSelect();
 
-	<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 		await fn_search();
 	</c:if>
 	<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
@@ -486,6 +528,8 @@
 		{'text': '기본요건 미충족',	'label': '농업인 주주 5명 미만', 			'value': 'A4', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
 		{'text': '기본요건 미충족',	'label': '농업인 주주 지분 50% 미만', 		'value': 'A5', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
 		{'text': '기본요건 미충족',	'label': '원예농산물 취급액 50% 미만', 		'value': 'A6', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
+		{'text': '기본요건 미충족',	'label': '조공설립계획 미수립', 			'value': 'A7', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
+		{'text': '기본요건 미충족',	'label': '현장실사 미참여', 				'value': 'A8', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
 		{'text': '품목 부적합',		'label': '품목 부적합(농협조직)', 			'value': 'B1', 'icptRsnCd':'B', 'pnlty': '최고금리',		'itrRt': '3' },
 		{'text': '품목 부적합',		'label': '품목 부적합(농업법인, 협동조합)', 	'value': 'B2', 'icptRsnCd':'B', 'pnlty': '최고금리',		'itrRt': '2.5' },
 		{'text': '통합조직 탈락',	'label': '통합조직 탈락(농협조직)', 		'value': 'C1', 'icptRsnCd':'C', 'pnlty': '최고금리',		'itrRt': '3' },
@@ -495,11 +539,13 @@
 	//세부탈락사유 구분
 	var comIcptRsnDtlCdUo01 = [
 		{'text': '기본요건 미충족',	'label': '농업경영체 미등록', 				'value': 'A1', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
-		{'text': '기본요건 미충족',	'label': '출자자본금 1억원 미달', 			'value': 'A2', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
-		{'text': '기본요건 미충족',	'label': '설립 후 운영실적 1년 미만', 		'value': 'A3', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
-		{'text': '기본요건 미충족',	'label': '농업인 주주 5명 미만', 			'value': 'A4', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
+		{'text': '기본요건 미충족',	'label': '출자자본금 3억원 미달', 			'value': 'A2', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
+		{'text': '기본요건 미충족',	'label': '설립 후 운영실적 3년 미만', 		'value': 'A3', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
+		{'text': '기본요건 미충족',	'label': '농업인 주주 20명 미만', 			'value': 'A4', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
 		{'text': '기본요건 미충족',	'label': '농업인 주주 지분 50% 미만', 		'value': 'A5', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
 		{'text': '기본요건 미충족',	'label': '원예농산물 취급액 50% 미만', 		'value': 'A6', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
+		{'text': '기본요건 미충족',	'label': '조공설립계획 미수립', 			'value': 'A7', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
+		{'text': '기본요건 미충족',	'label': '현장실사 미참여', 				'value': 'A8', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
 		{'text': '품목 부적합',		'label': '품목 부적합(농협조직)', 			'value': 'B1', 'icptRsnCd':'B', 'pnlty': '최고금리',		'itrRt': '3' },
 		{'text': '품목 부적합',		'label': '품목 부적합(농업법인, 협동조합)', 	'value': 'B2', 'icptRsnCd':'B', 'pnlty': '최고금리',		'itrRt': '2.5' }
 	];
@@ -773,7 +819,7 @@
 				{caption: ["금리(%)"], 		ref: 'itrRt',			type:'output',  width:'80px',    style:'text-align:center;'
 					,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}
 				},
-				{caption: ["선정여부\n(관리자입력)"], 	ref: 'mngrBscStbltYn',	type:'combo',  width:'90px',    style:'text-align:center;', disabled : true
+				{caption: ["선정여부\n(관리자입력)"], 	ref: 'mngrStbltYn',	type:'combo',  width:'90px',    style:'text-align:center;', disabled : true
 					,typeinfo : {ref:'comStbltYn', label:'label', value:'value', displayui : false}
 				},
 				{caption: ["탈락사유구분\n(관리자입력)"], 	ref: 'mngrIcptRsnCd',	type:'combo',  width:'160px',    style:'text-align:center;', disabled : true
@@ -850,7 +896,7 @@
 			{caption: ["금리(%)"], 		ref: 'itrRt',			type:'output',  width:'80px',    style:'text-align:center;'
 				,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}
 			},
-			{caption: ["선정여부\n(관리자입력)"], 	ref: 'mngrBscStbltYn',	type:'combo',  width:'90px',    style:'text-align:center;', disabled : true
+			{caption: ["선정여부\n(관리자입력)"], 	ref: 'mngrStbltYn',	type:'combo',  width:'90px',    style:'text-align:center;', disabled : true
 				,typeinfo : {ref:'comStbltYn', label:'label', value:'value', displayui : false}
 			},
 			{caption: ["탈락사유구분\n(관리자입력)"], 	ref: 'mngrIcptRsnCd',	type:'combo',  width:'160px',    style:'text-align:center;', disabled : true
@@ -1928,7 +1974,6 @@
 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 				{caption: ["자금신청액(천원)\n(탈락 출자출하조직 신청액은 제외)"], 	ref: 'fundAplyAmtStbltTot',	type:'output',  width:'160px',    style:'text-align:center;'
 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}
-					,columnhint : '<div style="width: auto;">출자출하조직 저장완료 후 정상적으로 보입니다</div>'
 				},
 				{caption: ["금리(%)"], 		ref: 'itrRt',			type:'output',  width:'80px',    style:'text-align:center;'
 					,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}
@@ -2001,6 +2046,55 @@
 		grdUserGrid04 = _SBGrid.create(SBGridProperties);
 	}
 
+	var jsonUserGrid05 = []; // 그리드의 참조 데이터 주소 선언
+	var grdUserGrid05;
+
+	const objMenuListUserGrid05 = {
+			"excelDwnld": {
+				"name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+				"accesskey": "e",					//단축키
+				"callback": fn_excelDwnldUserGrid05,			//콜백함수명
+			}
+		};
+
+
+	function fn_excelDwnldUserGrid05() {
+		grdUserGrid05.exportLocalExcel("출자출하조직 선정여부 리스트", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+	}
+
+
+	/* Grid 화면 그리기 기능*/
+	//최종점수 리스트
+	const fn_userGrid05 = async function() {
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-grdUserGrid05';
+		SBGridProperties.id = 'grdUserGrid05';
+		SBGridProperties.jsonref = 'jsonUserGrid05';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuListUserGrid05;	// 우클릭 메뉴 리스트
+		SBGridProperties.fixedrowheight=45;
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.columns = [
+			{caption: ["평가년도"],			ref: 'yr',		type:'output',  width:'60px',    style:'text-align:center;'},
+			{caption: ["사업자번호"],		ref: 'brno',		type:'output',  width:'80px',    style:'text-align:center;'},
+			{caption: ["조직구분"],			ref: 'aprvNm',		type:'output',  width:'60px',    style:'text-align:center;'},
+			{caption: ["법인명"],			ref: 'corpNm',		type:'output',  width:'160px',    style:'text-align:center;'},
+
+			{caption: ["전문품목 총취급액\n점수(A)(50)"], 		ref: 'slsTotAmtScr',	type:'output',  width:'110px',    style:'text-align:center;'},
+			{caption: ["전문품목 전속취급률\n점수(B)(50)"], 		ref: 'slsTotRtScr',	type:'output',  width:'130px',    style:'text-align:center;'},
+			{caption: ["총점(A+B)\n(100)"], 				ref: 'totScr',	type:'output',  width:'100px',    style:'text-align:center;'},
+			{caption: ["온라인도매시장\n가점(1~5)"], 			ref: 'onlnWhlslMrktScr',	type:'output',  width:'110px',    style:'text-align:center;'},
+			{caption: ["유통교육 가점\n(0~2)"], 				ref: 'rtlEdnstScr',	type:'output',  width:'110px',    style:'text-align:center;'},
+			{caption: ["감점(△10)"], 						ref: 'ddcScr',	type:'output',  width:'110px',    style:'text-align:center;'},
+			{caption: ["가감점 포함 \n최종 점수(100)"], 			ref: 'lastScr',	type:'output',  width:'110px',    style:'text-align:center;'},
+
+		];
+
+		grdUserGrid05 = _SBGrid.create(SBGridProperties);
+	}
+
 	//사용자 화면 조회
 	const fn_dtlSearch = async function(){
 		let brno = '${loginVO.brno}';
@@ -2034,10 +2128,11 @@
 
 	const fn_userGridSearch = async function(){
 		fn_searchComputWayList();		//산출식 콤보 조회
-		await fn_userGridSearch01();	//평가지표
-		await fn_userGridSearch02();	//가감점
+		//await fn_userGridSearch01();	//평가지표
+		//await fn_userGridSearch02();	//가감점
 		await fn_userGridSearch03();	//출자출하조직 선정여부
 		await fn_userGridSearch04();	//통합조직 선정여부
+		await fn_userGridSearch05();	//최종점수
 	}
 
 	//평가지표 조회
@@ -2262,5 +2357,58 @@
 			console.error("failed", e.message);
 		}
 	}
+
+	//출자출하조직 선정여부 조회
+	async function fn_userGridSearch05() {
+
+		let brno = SBUxMethod.get("dtl-input-brno");//
+		let yr = SBUxMethod.get("dtl-input-yr");//
+
+		if(gfn_isEmpty(yr)){
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
+
+		let postJsonPromise05 = gfn_postJSON("/pd/pcorm/selectScrUserGrid05.do", {
+			brno : brno
+			, yr : yr
+		});
+		let data = await postJsonPromise05;
+		try{
+			jsonUserGrid05.length = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
+
+				let itemVO = {
+						yr: 	item.yr
+						,brno: 	item.brno
+						,apoSe: item.apoSe
+						,aprv: item.aprv
+						,aprvNm: item.aprvNm
+						,corpNm: item.corpNm
+
+						,slsTotAmtScr			: item.slsTotAmtScr//전문품목 총취급액 점수(A)(50)
+						,slsTotRtScr			: item.slsTotRtScr//전문품목 전속취급률 점수(B)(50)
+						,totScr					: item.totScr //총점(A+B)(100)
+						,onlnWhlslMrktScr		: item.onlnWhlslMrktScr//온라인도매시장 가점(1~5)
+						,rtlEdnstScr			: item.rtlEdnstScr//유통교육 가점(0~2)
+						,ddcScr					: item.ddcScr//감점(△10)
+						,lastScr				: item.lastScr//가감점 포함 최종 점수(100)
+
+				};
+				jsonUserGrid05.push(itemVO);
+			});
+			grdUserGrid05.rebuild();
+
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+
 </script>
 </html>

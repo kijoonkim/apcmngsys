@@ -9,7 +9,6 @@ import com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper;
 import com.at.apcss.pd.pcorm.service.PrdcrCrclOgnVluFndsMngService;
 import com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO;
 
-
 /**
  * @Class Name : BbsServiceImpl.java
  * @Description : 게시판 서비스를 정의하기 위한 서비스 구현 클래스
@@ -99,4 +98,35 @@ public class PrdcrCrclOgnVluFndsMngServiceImpl extends BaseServiceImpl implement
 		return resultList;
 	}
 
+	/* 사용자용 화면 조회  */
+
+	@Override
+	public List<PrdcrCrclOgnVluFndsMngVO> selectScrUserGrid01(PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO) throws Exception {
+		List<PrdcrCrclOgnVluFndsMngVO> resultList = prdcrCrclOgnVluFndsMngMapper.selectScrUserGrid01(PrdcrCrclOgnVluFndsMngVO);
+		return resultList;
+	}
+
+	@Override
+	public List<PrdcrCrclOgnVluFndsMngVO> selectScrUserGrid02(PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO) throws Exception {
+		List<PrdcrCrclOgnVluFndsMngVO> resultList = prdcrCrclOgnVluFndsMngMapper.selectScrUserGrid02(PrdcrCrclOgnVluFndsMngVO);
+		return resultList;
+	}
+
+	@Override
+	public List<PrdcrCrclOgnVluFndsMngVO> selectScrUserGrid03(PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO) throws Exception {
+		List<PrdcrCrclOgnVluFndsMngVO> resultList = prdcrCrclOgnVluFndsMngMapper.selectScrUserGrid03(PrdcrCrclOgnVluFndsMngVO);
+		return resultList;
+	}
+
+	@Override
+	public List<PrdcrCrclOgnVluFndsMngVO> selectScrUserGrid04(PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO) throws Exception {
+		List<PrdcrCrclOgnVluFndsMngVO> resultList = prdcrCrclOgnVluFndsMngMapper.selectScrUserGrid04(PrdcrCrclOgnVluFndsMngVO);
+		return resultList;
+	}
+
+	@Override
+	public List<PrdcrCrclOgnVluFndsMngVO> selectScrUserGrid05(PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO) throws Exception {
+		List<PrdcrCrclOgnVluFndsMngVO> resultList = prdcrCrclOgnVluFndsMngMapper.selectScrUserGrid05(PrdcrCrclOgnVluFndsMngVO);
+		return resultList;
+	}
 }

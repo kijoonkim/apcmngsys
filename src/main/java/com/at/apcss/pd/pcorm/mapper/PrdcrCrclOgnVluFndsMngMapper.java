@@ -39,4 +39,46 @@ public interface PrdcrCrclOgnVluFndsMngMapper {
 
 	//활성화자금 기준 로우데이터 조회
 	public List<PrdcrCrclOgnVluFndsMngVO> selectRtDataList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO);
+
+	/* 사용자용 화면 조회  */
+
+	/**
+	 * 사용자용 화면 평가지표 조회
+	 * @param PrdcrCrclOgnVluFndsMngVO
+	 * @return List<PrdcrCrclOgnVluFndsMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluFndsMngVO> selectScrUserGrid01(PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO);
+
+	/**
+	 * 사용자용 화면 가감점 조회
+	 * @param PrdcrCrclOgnVluFndsMngVO
+	 * @return List<PrdcrCrclOgnVluFndsMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluFndsMngVO> selectScrUserGrid02(PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO);
+
+	/**
+	 * 사용자용 화면 통합조직 선정여부 조회
+	 * @param PrdcrCrclOgnVluFndsMngVO
+	 * @return List<PrdcrCrclOgnVluFndsMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluFndsMngVO> selectScrUserGrid03(PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO);
+
+	/**
+	 * 사용자용 화면 출자출하조직 선정여부 조회
+	 * @param PrdcrCrclOgnVluFndsMngVO
+	 * @return List<PrdcrCrclOgnVluFndsMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluFndsMngVO> selectScrUserGrid04(PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO);
+
+	/**
+	 * 사용자용 화면 최종점수 조회
+	 * @param PrdcrCrclOgnVluFndsMngVO
+	 * @return List<PrdcrCrclOgnVluFndsMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluFndsMngVO> selectScrUserGrid05(PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO);
 }

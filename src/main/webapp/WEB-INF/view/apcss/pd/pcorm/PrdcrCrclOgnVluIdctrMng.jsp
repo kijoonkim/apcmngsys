@@ -804,10 +804,8 @@
 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}
 					,columnhint : '<div style="width: auto;">출자출하조직 저장완료 후 정상적으로 보입니다</div>'
 				},
-				{caption: ["금리(%)"], 		ref: 'itrRt',			type:'output',  width:'80px',    style:'text-align:center;'
-					,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}
-				},
-				{caption: ["선정여부\n(관리자입력)"], 	ref: 'mngrBscStbltYn',	type:'combo',  width:'90px',    style:'text-align:center;'
+				{caption: ["금리(%)"], 		ref: 'itrRt',			type:'output',  width:'80px',    style:'text-align:center;'},
+				{caption: ["선정여부\n(관리자입력)"], 	ref: 'mngrStbltYn',	type:'combo',  width:'90px',    style:'text-align:center;'
 					,typeinfo : {ref:'comStbltYn', label:'label', value:'value', displayui : true}
 				},
 				{caption: ["탈락사유구분\n(관리자입력)"], 	ref: 'mngrIcptRsnCd',	type:'combo',  width:'160px',    style:'text-align:center;'
@@ -819,9 +817,7 @@
 					}
 				},
 				{caption: ["패널티\n(관리자입력)"], 		ref: 'mngrPnlty',	type:'output',  width:'110px',    style:'text-align:center;'},
-				{caption: ["금리(%)\n(관리자입력)"], 		ref: 'mngrItrRt',			type:'input',  width:'120px',    style:'text-align:center;'
-					,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}
-				},
+				{caption: ["금리(%)\n(관리자입력)"], 		ref: 'mngrItrRt',			type:'input',  width:'120px',    style:'text-align:center;'},
 				{caption: ["비고"], 		ref: 'rmrk', 	type:'input',  width:'200px',	style:'text-align:center'},
 				{caption: ["상세내역"], 	ref: 'yr',   			hidden : true},
 				//{caption: ["상세내역"], 	ref: 'stbltItemList',   hidden : true},
@@ -1059,10 +1055,8 @@
 			{caption: ["자금신청액(천원)"], 	ref: 'isoFundAplyAmt',	type:'output',  width:'160px',    style:'text-align:center;'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}
 			},
-			{caption: ["금리(%)"], 		ref: 'itrRt',			type:'output',  width:'80px',    style:'text-align:center;'
-				,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}
-			},
-			{caption: ["선정여부\n(관리자입력)"], 	ref: 'mngrBscStbltYn',	type:'combo',  width:'90px',    style:'text-align:center;'
+			{caption: ["금리(%)"], 		ref: 'itrRt',			type:'output',  width:'80px',    style:'text-align:center;'},
+			{caption: ["선정여부\n(관리자입력)"], 	ref: 'mngrStbltYn',	type:'combo',  width:'90px',    style:'text-align:center;'
 				,typeinfo : {ref:'comStbltYn', label:'label', value:'value', displayui : true}
 			},
 			{caption: ["탈락사유구분\n(관리자입력)"], 	ref: 'mngrIcptRsnCd',	type:'combo',  width:'160px',    style:'text-align:center;'
@@ -1074,9 +1068,7 @@
 				}
 			},
 			{caption: ["패널티\n(관리자입력)"], 		ref: 'mngrPnlty',	type:'output',  width:'110px',    style:'text-align:center;'},
-			{caption: ["금리(%)\n(관리자입력)"], 		ref: 'mngrItrRt',			type:'input',  width:'110px',    style:'text-align:center;'
-				,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}
-			},
+			{caption: ["금리(%)\n(관리자입력)"], 		ref: 'mngrItrRt',			type:'input',  width:'110px',    style:'text-align:center;'},
 			{caption: ["비고"], 		ref: 'rmrk', 	type:'input',  width:'200px',	style:'text-align:center'},
 			{caption: ["상세내역"], 	ref: 'yr',   		hidden : true},
 			{caption: ["상세내역"], 	ref: 'apoSe',   	hidden : true},
@@ -2153,7 +2145,7 @@
 	}
 
 	//통합조직 선정여부 저장
-	const fn_listSave01 = async function(){
+	async const fn_listSave01 = async function(){
 
 		let gridData = grdPrdcrOgnCurntMng06.getGridDataAll();
 		let saveList = [];
@@ -2173,12 +2165,6 @@
 				grdPrdcrOgnCurntMng06.selectRow(i);
 				return false;
 			}
-			if(rowData.itrRt == '-'){
-				rowData.itrRt = null;
-			}
-			if(rowData.mngrItrRt == '-'){
-				rowData.mngrItrRt = null;
-			}
 
 			rowData.rowSts = "I";
 			saveList.push(rowData);
@@ -2196,7 +2182,9 @@
 			try {
 				if (_.isEqual("S", data.resultStatus)) {
 					gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
-					fn_dtlGridSearch();
+
+					await fn_clearForm();
+					await fn_dtlGridSearch();
 				} else {
 					alert(data.resultMessage);
 				}
@@ -2210,7 +2198,7 @@
 	}
 
 	//통합조직 선정여부 저장
-	const fn_listSave02 = async function(){
+	async const fn_listSave02 = async function(){
 
 		let gridData = grdPrdcrOgnCurntMng07.getGridDataAll();
 		let saveList = [];
@@ -2225,12 +2213,6 @@
 				gfn_comAlert("W0002", "금리");		//	W0002	{0}을/를 입력하세요.
 				grdPrdcrOgnCurntMng07.selectRow(i);
 				return false;
-			}
-			if(rowData.itrRt == '-'){
-				rowData.itrRt = null;
-			}
-			if(rowData.mngrItrRt == '-'){
-				rowData.mngrItrRt = null;
 			}
 
 			rowData.rowSts = "I";
@@ -2249,7 +2231,8 @@
 			try {
 				if (_.isEqual("S", data.resultStatus)) {
 					gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
-					fn_dtlGridSearch();
+					await fn_clearForm();
+					await fn_dtlGridSearch();
 				} else {
 					alert(data.resultMessage);
 				}
