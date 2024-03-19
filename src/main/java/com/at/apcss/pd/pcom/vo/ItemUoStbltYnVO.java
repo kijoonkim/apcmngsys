@@ -22,7 +22,9 @@ public class ItemUoStbltYnVO extends ComVO{
 	private String sgg;
 	private String cmptnInst;
 	private String corpSeCd;
+	private String corpSeNm;
 	private String corpDtlSeCd;
+	private String corpDtlSeNm;
 
 	private String itemNm;
 	private String itemCd;

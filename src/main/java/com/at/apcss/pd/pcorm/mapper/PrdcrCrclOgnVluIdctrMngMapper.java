@@ -88,6 +88,16 @@ public interface PrdcrCrclOgnVluIdctrMngMapper {
 	public List<PrdcrCrclOgnVluIdctrMngVO> selectRawDataList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO);
 
 	/**
+	 * 출자출하조직 로우데이터 조회
+	 * @param PrdcrCrclOgnVluIdctrMngVO
+	 * @return List<PrdcrCrclOgnVluIdctrMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluIdctrMngVO> selectRawDataIsoList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO);
+
+
+
+	/**
 	 * 통합조직 선정여부 일괄 조회
 	 * @param PrdcrCrclOgnVluIdctrMngVO
 	 * @return List<PrdcrCrclOgnVluIdctrMngVO>

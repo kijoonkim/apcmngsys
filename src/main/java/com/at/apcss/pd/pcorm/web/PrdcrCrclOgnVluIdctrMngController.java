@@ -170,6 +170,21 @@ public class PrdcrCrclOgnVluIdctrMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	//출자출하조직 로우데이터
+	@PostMapping(value = "/pd/pcorm/selectRawDataIsoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectRawDataIsoList(Model model, @RequestBody PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PrdcrCrclOgnVluIdctrMngVO> resultList = new ArrayList<>();
+		try {
+			 resultList = prdcrCrclOgnVluIdctrMngService.selectRawDataIsoList(prdcrCrclOgnVluIdctrMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
 
 	//통합조직 선정여부 일괄 저장
 	@PostMapping(value = "/pd/pcom/multiSaveIcptRsnList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
