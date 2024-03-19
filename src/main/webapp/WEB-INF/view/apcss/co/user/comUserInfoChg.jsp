@@ -32,6 +32,7 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 사용자정보변경 -->
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-button id="btnNew" name="btnNew" uitype="modal" text="신규" target-id="modal-account" class="btn btn-sm btn-outline-danger" onclick="fn_new"></sbux-button>
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>
 					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
@@ -89,6 +90,13 @@
 				<div id="sb-area-grdUserInfoChg" style="height:579px;"></div>
 			</div>
 		</div>
+		<!-- 계정생성 Modal -->
+	    <div>
+	        <sbux-modal id="modal-account" name="modal-account" uitype="middle" header-title="계정생성" body-html-id="body-modal-account" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+	    </div>
+	    <div id="body-modal-account">
+	    	<jsp:include page="../../co/popup/comNewAccount.jsp"></jsp:include>
+	    </div>
 </section>
 </body>
 <script type="text/javascript">
@@ -96,12 +104,15 @@
 var jsonUseYn = [];
 var jsonLckYn = [];
 var jsonUserType=[];
+var jsonUserStts=[];
 
 const fn_initSBSelectSpcfct = async function() {
 	let rst = await Promise.all([
 		gfn_setComCdGridSelect('userInfoChgGridId', 		jsonUseYn, 				'REVERSE_YN', '0000'),	// 사용유무
 		gfn_setComCdSBSelect('userInfoChgGridId', 			jsonLckYn, 				'LCK_YN'),				// 잠김여부
-		gfn_setComCdSBSelect('srch-slt-userType', 			jsonUserType, 			'USER_TYPE','0000'),	// 사용자상태
+		gfn_setComCdSBSelect('srch-slt-userType', 			jsonUserType, 			'USER_TYPE','0000'),	// 사용자유형
+		gfn_setComCdSBSelect('srch-slt-comUserType', 			jsonUserType, 			'USER_TYPE','0000'),	// 사용자유형
+		gfn_setComCdSBSelect('srch-slt-comUserStts', 			jsonUserStts, 			'USER_STTS','0000'),	// 사용자상태
 	])
 }
 window.addEventListener('DOMContentLoaded', function(e) {
@@ -163,203 +174,203 @@ function fn_createUserInfoChgGrid() {
 	    userInfoChgGridId.bind( "afterpagechanged" , "fn_pagingUserList" );
 }
 
-async function fn_search() {
-	let recordCountPerPage = userInfoChgGridId.getPageSize();  		// 몇개의 데이터를 가져올지 설정
-	let currentPageNo = 1;
-	userInfoChgGridId.movePaging(currentPageNo);
-}
-
-//페이징
-async function fn_pagingUserList(){
-	let recordCountPerPage = userInfoChgGridId.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-	let currentPageNo = userInfoChgGridId.getSelectPageIndex();
-	var getColRef = userInfoChgGridId.getColRef("checkedYn");
-	userInfoChgGridId.setFixedcellcheckboxChecked(0, getColRef, false);
-	fn_callSelectUserList(recordCountPerPage, currentPageNo);
-}
-newUserInfoChgGridData = [];
-userInfoChgGridData = [];
-async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
-	let apcCd = SBUxMethod.get("gsb-slt-apcCd");
-	let userId = SBUxMethod.get("srch-inp-userId");
-	let userNm = SBUxMethod.get("srch-inp-userNm");
-	let userType = SBUxMethod.get("srch-slt-userType");
-
-	var comUserVO = {
-		  apcCd					: apcCd
-		, userId				: userId
-		, userNm				: userNm
-		, userType				: userType
-		, pagingYn 				: 'Y'
-		, currentPageNo 		: currentPageNo
-		, recordCountPerPage 	: recordCountPerPage}
-	let postJsonPromise = gfn_postJSON("/co/user/users", comUserVO);
-    let data = await postJsonPromise;
-
-    newUserInfoChgGridData = [];
-    userInfoChgGridData = [];
-
-    try{
-    	data.resultList.forEach((item, index) => {
-			let userAprvReg = {
-				userId		: item.userId
-			  , userNm		: item.userNm
-			  , pswd		: item.pswd
-			  , apcCd		: item.apcCd
-			  , apcNm		: item.apcNm
-			  , eml			: item.eml
-			  , userTypeNm	: item.userTypeNm
-			  , eml			: item.eml
-			  , telno		: item.telno
-			  , jbttlNm		: item.jbttlNm
-			  , tkcgTaskNm	: item.tkcgTaskNm
-			  , reverseYn	: item.reverseYn
-			  , lckYn		: item.lckYn
-			  , endLgnDt	: item.endLgnDt
-			  , delYn		: item.delYn
-			  , reverseLckYn: item.reverseLckYn
-			  , mblTelno	: item.mblTelno
-			}
-			userInfoChgGridData.push(Object.assign({}, userAprvReg));
-			newUserInfoChgGridData.push(Object.assign({}, userAprvReg));
-
-			if (index === 0) {
-					totalRecordCount = item.totalRecordCount;
-			}
-		});
-    	if (userInfoChgGridData.length > 0) {
-      		if(userInfoChgGridId.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-      			userInfoChgGridId.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-      			userInfoChgGridId.rebuild();
-				}else{
-					userInfoChgGridId.refresh();
-				}
-      	} else {
-      		userInfoChgGridId.setPageTotalCount(totalRecordCount);
-      		userInfoChgGridId.rebuild();
-      	}
-
-    } catch (e) {
-		if (!(e instanceof Error)) {
-			e = new Error(e);
-		}
-		console.error("failed", e.message);
-    	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-    }
-}
-
-
-
-//초기화 버튼
-async function fn_reset(){
-	SBUxMethod.clear("gsb-slt-apcCd");
-	SBUxMethod.clear("srch-inp-apcCd");
-	SBUxMethod.clear("srch-inp-userId");
-	SBUxMethod.clear("srch-inp-userNm");
-	SBUxMethod.clear("srch-slt-userType");
-
-	fn_search();
-}
-
-    /**
-     * @name fn_save
-     * @description 저장 버튼
-     */
-    const fn_save = async function() {
-
-		const allData = userInfoChgGridId.getGridDataAll();
-
-		const userAprvRegGridData = [];
-
-		allData.forEach((item, index) => {
-			if (item.checkedYn === "Y") {
-				userAprvRegGridData.push({
-					userId: item.userId,
-					eml: item.eml,
-					mblTelno: item.mblTelno,
-					jbttlNm: item.jbttlNm,
-					tkcgTaskNm: item.tkcgTaskNm,
-					delYn: item.delYn,
-					lckYn: item.lckYn
-    			});
-    		}
-		});
-
-		if (userAprvRegGridData.length == 0) {
-			gfn_comAlert("W0005", "변경대상");		//	W0005	{0}이/가 없습니다.
-			return;
-		}
-
-		// comConfirm
-		if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
-    		return;
-    	}
-
-    	const postJsonPromise = gfn_postJSON("/co/user/compareComUserAprv.do", userAprvRegGridData);
-		const data = await postJsonPromise;
-
-        try {
-        	if (_.isEqual("S", data.resultStatus)) {
-        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-        		fn_search();
-        	} else {
-        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
-        	}
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }
-
-    }
-
-/**
- * @name fn_onChangeApc
- * @description APC 선택 변경 event
- */
-const fn_onChangeApc = async function() {
-	fn_search();
-}
-/*
- * 비밀번호 초기화 호출
- * 2023-11-03
- * ysh
- */
- function fn_callUpdateUserPsd(gubun, grid, nRow, nCol) {
-     if (gubun === "UPD") {
-         if (grid === "userInfoChgGridId") {
-    		if(gfn_comConfirm("Q0001", "비밀번호 초기화")){
-     			var comUserVO = userInfoChgGridId.getRowData(nRow);
-     			fn_updatePwd(comUserVO);
-       		}
-         }
-     }
- }
-
- /*
-  * 비밀번호 초기화 업데이트
-  * 2023-11-03
-  * ysh
-  */
-async function fn_updatePwd(comUserVO){
-		let postJsonPromise = gfn_postJSON("/co/user/updComUserPwd.do", comUserVO);
-        let data = await postJsonPromise;
-        try{
-        	if(_.isEqual("S", data.resultStatus)){
-        		gfn_comAlert("I0001");
-        	}else{
-        		gfn_comAlert("E0001");
-        	}
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-		}
+	async function fn_search() {
+		let recordCountPerPage = userInfoChgGridId.getPageSize();  		// 몇개의 데이터를 가져올지 설정
+		let currentPageNo = 1;
+		userInfoChgGridId.movePaging(currentPageNo);
 	}
+
+	//페이징
+	async function fn_pagingUserList(){
+		let recordCountPerPage = userInfoChgGridId.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+		let currentPageNo = userInfoChgGridId.getSelectPageIndex();
+		var getColRef = userInfoChgGridId.getColRef("checkedYn");
+		userInfoChgGridId.setFixedcellcheckboxChecked(0, getColRef, false);
+		fn_callSelectUserList(recordCountPerPage, currentPageNo);
+	}
+	newUserInfoChgGridData = [];
+	userInfoChgGridData = [];
+	async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
+		let apcCd = SBUxMethod.get("gsb-slt-apcCd");
+		let userId = SBUxMethod.get("srch-inp-userId");
+		let userNm = SBUxMethod.get("srch-inp-userNm");
+		let userType = SBUxMethod.get("srch-slt-userType");
+
+		var comUserVO = {
+			  apcCd					: apcCd
+			, userId				: userId
+			, userNm				: userNm
+			, userType				: userType
+			, pagingYn 				: 'Y'
+			, currentPageNo 		: currentPageNo
+			, recordCountPerPage 	: recordCountPerPage}
+		let postJsonPromise = gfn_postJSON("/co/user/users", comUserVO);
+	    let data = await postJsonPromise;
+
+	    newUserInfoChgGridData = [];
+	    userInfoChgGridData = [];
+
+	    try{
+	    	data.resultList.forEach((item, index) => {
+				let userAprvReg = {
+					userId		: item.userId
+				  , userNm		: item.userNm
+				  , pswd		: item.pswd
+				  , apcCd		: item.apcCd
+				  , apcNm		: item.apcNm
+				  , eml			: item.eml
+				  , userTypeNm	: item.userTypeNm
+				  , eml			: item.eml
+				  , telno		: item.telno
+				  , jbttlNm		: item.jbttlNm
+				  , tkcgTaskNm	: item.tkcgTaskNm
+				  , reverseYn	: item.reverseYn
+				  , lckYn		: item.lckYn
+				  , endLgnDt	: item.endLgnDt
+				  , delYn		: item.delYn
+				  , reverseLckYn: item.reverseLckYn
+				  , mblTelno	: item.mblTelno
+				}
+				userInfoChgGridData.push(Object.assign({}, userAprvReg));
+				newUserInfoChgGridData.push(Object.assign({}, userAprvReg));
+
+				if (index === 0) {
+						totalRecordCount = item.totalRecordCount;
+				}
+			});
+	    	if (userInfoChgGridData.length > 0) {
+	      		if(userInfoChgGridId.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+	      			userInfoChgGridId.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+	      			userInfoChgGridId.rebuild();
+					}else{
+						userInfoChgGridId.refresh();
+					}
+	      	} else {
+	      		userInfoChgGridId.setPageTotalCount(totalRecordCount);
+	      		userInfoChgGridId.rebuild();
+	      	}
+
+	    } catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+	    	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	    }
+	}
+
+
+
+	//초기화 버튼
+	async function fn_reset(){
+		SBUxMethod.clear("gsb-slt-apcCd");
+		SBUxMethod.clear("srch-inp-apcCd");
+		SBUxMethod.clear("srch-inp-userId");
+		SBUxMethod.clear("srch-inp-userNm");
+		SBUxMethod.clear("srch-slt-userType");
+
+		fn_search();
+	}
+
+	    /**
+	     * @name fn_save
+	     * @description 저장 버튼
+	     */
+	    const fn_save = async function() {
+
+			const allData = userInfoChgGridId.getGridDataAll();
+
+			const userAprvRegGridData = [];
+
+			allData.forEach((item, index) => {
+				if (item.checkedYn === "Y") {
+					userAprvRegGridData.push({
+						userId: item.userId,
+						eml: item.eml,
+						mblTelno: item.mblTelno,
+						jbttlNm: item.jbttlNm,
+						tkcgTaskNm: item.tkcgTaskNm,
+						delYn: item.delYn,
+						lckYn: item.lckYn
+	    			});
+	    		}
+			});
+
+			if (userAprvRegGridData.length == 0) {
+				gfn_comAlert("W0005", "변경대상");		//	W0005	{0}이/가 없습니다.
+				return;
+			}
+
+			// comConfirm
+			if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
+	    		return;
+	    	}
+
+	    	const postJsonPromise = gfn_postJSON("/co/user/compareComUserAprv.do", userAprvRegGridData);
+			const data = await postJsonPromise;
+
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+	        		fn_search();
+	        	} else {
+	        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+	        	}
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	        }
+
+	    }
+
+	/**
+	 * @name fn_onChangeApc
+	 * @description APC 선택 변경 event
+	 */
+	const fn_onChangeApc = async function() {
+		fn_search();
+	}
+	/*
+	 * 비밀번호 초기화 호출
+	 * 2023-11-03
+	 * ysh
+	 */
+	 function fn_callUpdateUserPsd(gubun, grid, nRow, nCol) {
+	     if (gubun === "UPD") {
+	         if (grid === "userInfoChgGridId") {
+	    		if(gfn_comConfirm("Q0001", "비밀번호 초기화")){
+	     			var comUserVO = userInfoChgGridId.getRowData(nRow);
+	     			fn_updatePwd(comUserVO);
+	       		}
+	         }
+	     }
+	 }
+
+	 /*
+	  * 비밀번호 초기화 업데이트
+	  * 2023-11-03
+	  * ysh
+	  */
+	async function fn_updatePwd(comUserVO){
+			let postJsonPromise = gfn_postJSON("/co/user/updComUserPwd.do", comUserVO);
+	        let data = await postJsonPromise;
+	        try{
+	        	if(_.isEqual("S", data.resultStatus)){
+	        		gfn_comAlert("I0001");
+	        	}else{
+	        		gfn_comAlert("E0001");
+	        	}
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+			}
+		}
 
 </script>
 
