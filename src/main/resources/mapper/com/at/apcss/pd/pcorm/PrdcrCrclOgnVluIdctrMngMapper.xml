@@ -377,7 +377,11 @@
 						  				  AND YR = TEAM.YR
 						  				  AND BRNO = TEAM.BRNO
 						  				  AND UO_BRNO = EAM.BRNO
-						  				  AND STBLT_YN = 'Y')
+						  				  AND 'Y' = (CASE WHEN TERR.MNGR_STBLT_YN = 'Y' THEN 'Y'
+						  											WHEN  TERR.MNGR_STBLT_YN = 'N' THEN 'N'
+						  											ELSE TERR.STBLT_YN
+						  											END)
+						  				)
 						  ),0)
 			) AS FUND_APLY_AMT_STBLT_TOT
 			,(SELECT LISTAGG(ITEM_NM, ' , ') WITHIN GROUP (ORDER BY ITEM_NM) AS STBLT_YN_NM

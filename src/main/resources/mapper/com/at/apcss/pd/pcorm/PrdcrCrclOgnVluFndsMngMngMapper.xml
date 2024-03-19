@@ -2931,7 +2931,28 @@
 			)AS PNLTY
 
 			,TOT.FUND_APLY_AMT_TOT
-			,TOT.FUND_APLY_AMT_STBLT_TOT
+			,(NVL((SELECT PRUO_FUND_APLY_AMT FROM TB_EV_APLY_MNG WHERE BRNO = TOT.BRNO AND YR = TOT.YR AND APO_SE = '1'),0)
+				+ NVL((SELECT SUM(ISO_FUND_APLY_AMT)
+						FROM TB_EV_APLY_MNG TEAM
+						WHERE 1=1
+						  AND YR = TOT.YR
+						  AND UO_BRNO = TOT.BRNO
+						  AND APO_SE = '2'
+						  AND BRNO IN (SELECT ISO_BRNO FROM TB_EV_APO_UO_CD WHERE UO_BRNO = TOT.BRNO)
+						  AND BRNO = (SELECT BRNO
+						  				FROM TB_EV_REG_RSLT TERR
+						  				WHERE 1=1
+						  				  AND APO_SE = '2'
+						  				  AND YR = TEAM.YR
+						  				  AND BRNO = TEAM.BRNO
+						  				  AND UO_BRNO = TOT.BRNO
+						  				  AND 'Y' = (CASE WHEN TERR.MNGR_STBLT_YN = 'Y' THEN 'Y'
+						  									WHEN TERR.MNGR_STBLT_YN = 'N' THEN 'N'
+						  									ELSE TERR.STBLT_YN
+						  									END)
+						  				)
+						  ),0)
+			) AS FUND_APLY_AMT_STBLT_TOT
 			,TOT.STBLT_ITEM_LIST
 			,TOT.RMRK
 		FROM
@@ -3108,9 +3129,10 @@
 			,(SELECT ISO_FUND_APLY_AMT
 					FROM TB_EV_APLY_MNG
 					WHERE 1=1
+					  AND APO_SE = '2'
 					  AND YR = ERR.YR
 					  AND BRNO = ERR.BRNO
-					 AND UO_BRNO = ERR.UO_BRNO
+					  AND UO_BRNO = ERR.UO_BRNO
 			) AS FUND_APLY_AMT_TOT
 			,ERR.STBLT_ITEM_LIST
 			,ERR.RMRK
