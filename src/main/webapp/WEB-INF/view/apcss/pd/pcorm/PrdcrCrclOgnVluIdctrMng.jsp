@@ -2258,16 +2258,7 @@
 			}
 		}
 	}
-	var comIcptRsnDtlCdUo01 = [
-		{'text': '기본요건 미충족',	'label': '농업경영체 미등록', 				'value': 'A1', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
-		{'text': '기본요건 미충족',	'label': '출자자본금 1억원 미달', 			'value': 'A2', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
-		{'text': '기본요건 미충족',	'label': '설립 후 운영실적 1년 미만', 		'value': 'A3', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
-		{'text': '기본요건 미충족',	'label': '농업인 주주 5명 미만', 			'value': 'A4', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
-		{'text': '기본요건 미충족',	'label': '농업인 주주 지분 50% 미만', 		'value': 'A5', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
-		{'text': '기본요건 미충족',	'label': '원예농산물 취급액 50% 미만', 		'value': 'A6', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
-		{'text': '품목 부적합',		'label': '품목 부적합(농협조직)', 			'value': 'B1', 'icptRsnCd':'B', 'pnlty': '최고금리',		'itrRt': '3' },
-		{'text': '품목 부적합',		'label': '품목 부적합(농업법인, 협동조합)', 	'value': 'B2', 'icptRsnCd':'B', 'pnlty': '최고금리',		'itrRt': '2.5' }
-	];
+
 	//항목 값 변경 이벤트
 	const fn_valueChangedUo = async function(){
 		let datagrid = grdPrdcrOgnCurntMng07;
