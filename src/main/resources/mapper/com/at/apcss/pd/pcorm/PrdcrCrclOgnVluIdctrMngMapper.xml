@@ -1213,6 +1213,8 @@
 			, DECODE(ERR.ICPT_RSN_CD , 'A' , '기본요건 미충족'
 										,'B' ,'세부요건 미충족'
 										,'C' , '통합조직 탈락'
+										,'EX1' , '-'
+										,'EX2' , '-'
 										,''
 			)AS ICPT_RSN_NM
 			, ICPT_RSN_DTL_CD
@@ -1228,11 +1230,14 @@
 											,'B2' ,'품목 부적합(농업법인, 협동조합)'
 											,'C1' , '통합조직 탈락(농협조직)'
 											,'C2' , '통합조직 탈락(농업법인, 협동조합)'
+											,'-' , '-'
 											,''
 			)AS ICPT_RSN_DTL_NM
 			, DECODE(ERR.ICPT_RSN_CD , 'A' , '기존자금 회수'
 										,'B' ,'최고금리'
 										,'C' , '최고금리'
+										,'EX1' , '최고금리'
+										,'EX2' , '기존자금 회수'
 										,''
 			)AS PNLTY
 			, MNGR_STBLT_YN
@@ -1241,6 +1246,8 @@
 			, DECODE(ERR.MNGR_ICPT_RSN_CD , 'A' , '기본요건 미충족'
 											,'B' ,'세부요건 미충족'
 											,'C' , '통합조직 탈락'
+											,'EX1' , '-'
+											,'EX2' , '-'
 											,''
 			)AS MNGR_ICPT_RSN_NM
 			, MNGR_ICPT_RSN_DTL_CD
@@ -1256,11 +1263,14 @@
 												,'B2' ,'품목 부적합(농업법인, 협동조합)'
 												,'C1' , '통합조직 탈락(농협조직)'
 												,'C2' , '통합조직 탈락(농업법인, 협동조합)'
+												,'-' , '-'
 												,''
 			)AS MNGR_ICPT_RSN_DTL_NM
 			, DECODE(ERR.MNGR_ICPT_RSN_CD , 'A' , '기존자금 회수'
 											,'B' ,'최고금리'
 											,'C' , '최고금리'
+											,'EX1' , '최고금리'
+											,'EX2' , '기존자금 회수'
 											,''
 			)AS MNGR_PNLTY
 			, RMRK

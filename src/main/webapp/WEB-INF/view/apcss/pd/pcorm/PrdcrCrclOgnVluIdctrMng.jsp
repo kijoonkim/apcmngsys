@@ -540,12 +540,16 @@
 	var comIcptRsnCdIso01 = [
 		{'text': '기본요건 미충족',	'label': '기본요건 미충족', 	'value': 'A'},
 		{'text': '세부요건 미충족',	'label': '세부요건 미충족', 	'value': 'B'},
-		{'text': '통합조직 탈락',	'label': '통합조직 탈락', 	'value': 'C'}
+		{'text': '통합조직 탈락',	'label': '통합조직 탈락', 	'value': 'C'},
+		{'text': '-',			'label': '-', 			'value': 'EX1'},
+		{'text': '-',			'label': '-', 			'value': 'EX2'}
 	];
 
 	var comIcptRsnCdUo01 = [
 		{'text': '기본요건 미충족',	'label': '기본요건 미충족', 	'value': 'A'},
-		{'text': '세부요건 미충족',	'label': '세부요건 미충족', 	'value': 'B'}
+		{'text': '세부요건 미충족',	'label': '세부요건 미충족', 	'value': 'B'},
+		{'text': '-',			'label': '-', 			'value': 'EX1'},
+		{'text': '-',			'label': '-', 			'value': 'EX2'}
 	];
 
 	//세부탈락사유 구분
@@ -561,7 +565,9 @@
 		{'text': '품목 부적합',		'label': '품목 부적합(농협조직)', 			'value': 'B1', 'icptRsnCd':'B', 'pnlty': '최고금리',		'itrRt': '3' },
 		{'text': '품목 부적합',		'label': '품목 부적합(농업법인, 협동조합)', 	'value': 'B2', 'icptRsnCd':'B', 'pnlty': '최고금리',		'itrRt': '2.5' },
 		{'text': '통합조직 탈락',	'label': '통합조직 탈락(농협조직)', 		'value': 'C1', 'icptRsnCd':'C', 'pnlty': '최고금리',		'itrRt': '3' },
-		{'text': '통합조직 탈락',	'label': '통합조직 탈락(농업법인, 협동조합)', 	'value': 'C2', 'icptRsnCd':'C', 'pnlty': '최고금리',		'itrRt': '2.5' }
+		{'text': '통합조직 탈락',	'label': '통합조직 탈락(농업법인, 협동조합)', 	'value': 'C2', 'icptRsnCd':'C', 'pnlty': '최고금리',		'itrRt': '2.5' },
+		{'text': '-',			'label': '-', 						'value': '-', 'icptRsnCd':'EX1', 'pnlty': '최고금리',		'itrRt': '3' },
+		{'text': '-',			'label': '-', 						'value': '-', 'icptRsnCd':'EX2', 'pnlty': '기존자금 회수',	'itrRt': '-' }
 	];
 
 	//세부탈락사유 구분
@@ -575,7 +581,9 @@
 		{'text': '기본요건 미충족',	'label': '조공설립계획 미수립', 			'value': 'A7', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
 		{'text': '기본요건 미충족',	'label': '현장실사 미참여', 				'value': 'A8', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
 		{'text': '품목 부적합',		'label': '품목 부적합(농협조직)', 			'value': 'B1', 'icptRsnCd':'B', 'pnlty': '최고금리',		'itrRt': '3' },
-		{'text': '품목 부적합',		'label': '품목 부적합(농업법인, 협동조합)', 	'value': 'B2', 'icptRsnCd':'B', 'pnlty': '최고금리',		'itrRt': '2.5' }
+		{'text': '품목 부적합',		'label': '품목 부적합(농업법인, 협동조합)', 	'value': 'B2', 'icptRsnCd':'B', 'pnlty': '최고금리',		'itrRt': '2.5' },
+		{'text': '-',			'label': '-', 						'value': '-', 'icptRsnCd':'EX1', 'pnlty': '최고금리',		'itrRt': '3' },
+		{'text': '-',			'label': '-', 						'value': '-', 'icptRsnCd':'EX2', 'pnlty': '기존자금 회수',	'itrRt': '-' }
 	];
 
 	/**
@@ -1621,7 +1629,7 @@
 				let pnltyVal = '';
 				let itrRtVal = item.itrRt;
 				if(!gfn_isEmpty(item.icptRsnCd) && item.icptRsnCd != ''){
-					let chkInfo = _.find(comIcptRsnDtlCdUo01, {value: item.icptRsnDtlCd});
+					let chkInfo = _.find(comIcptRsnDtlCdUo01, {value: item.icptRsnDtlCd , icptRsnCd:item.icptRsnCd});
 
 					pnltyVal = chkInfo.pnlty;
 					itrRtVal = chkInfo.itrRt;
@@ -1629,7 +1637,7 @@
 				let mngrPnltyVal = '';
 				let mngrItrRtVal = item.mngrItrRt;
 				if(!gfn_isEmpty(item.mngrIcptRsnCd) && item.mngrIcptRsnCd != ''){
-					let chkInfo = _.find(comIcptRsnDtlCdUo01, {value: item.mngrIcptRsnDtlCd});
+					let chkInfo = _.find(comIcptRsnDtlCdUo01, {value: item.mngrIcptRsnDtlCd , icptRsnCd:item.mngrIcptRsnCd});
 
 					mngrPnltyVal = chkInfo.pnlty;
 					mngrItrRtVal = chkInfo.itrRt;
@@ -1768,14 +1776,14 @@
 				let pnltyVal = '';
 				let itrRtVal = item.itrRt;
 				if(!gfn_isEmpty(item.icptRsnCd) && item.icptRsnCd != ''){
-					let chkInfo = _.find(comIcptRsnDtlCdIso01, {value: item.icptRsnDtlCd});
+					let chkInfo = _.find(comIcptRsnDtlCdIso01, {value: item.icptRsnDtlCd, icptRsnCd:item.icptRsnCd});
 					pnltyVal = chkInfo.pnlty;
 					itrRtVal = chkInfo.itrRt;
 				}
 				let mngrPnltyVal = '';
 				let mngrItrRtVal = item.mngrItrRt;
 				if(!gfn_isEmpty(item.mngrIcptRsnCd) && item.mngrIcptRsnCd != ''){
-					let chkInfo = _.find(comIcptRsnDtlCdIso01, {value: item.mngrIcptRsnDtlCd});
+					let chkInfo = _.find(comIcptRsnDtlCdIso01, {value: item.mngrIcptRsnDtlCd, icptRsnCd:item.mngrIcptRsnCd});
 
 					mngrPnltyVal = chkInfo.pnlty;
 					mngrItrRtVal = chkInfo.itrRt;
@@ -2285,8 +2293,9 @@
 
 		if (!gfn_isEmpty(nCol) && nCol == icptRsnDtlCdIdx) {
 			let selValue = datagrid.getCellData(nRow, nCol);
+			let icptRsnCdVal = datagrid.getCellData(nRow, icptRsnCdIdx);
 			if (!gfn_isEmpty(selValue)) {
-				let chkInfo = _.find(comIcptRsnDtlCdUo01, {value: selValue});
+				let chkInfo = _.find(comIcptRsnDtlCdUo01, {value: selValue, icptRsnCd:icptRsnCdVal});
 				console.log(chkInfo);
 				let pnltyVal = chkInfo.pnlty;
 				let itrRtVal = chkInfo.itrRt;
@@ -2295,8 +2304,9 @@
 			}
 		}else if(!gfn_isEmpty(nCol) && nCol == mngrIcptRsnDtlCdIdx){
 			let selValue = datagrid.getCellData(nRow, nCol);
+			let icptRsnCdVal = datagrid.getCellData(nRow, mngrIcptRsnCdIdx);
 			if (!gfn_isEmpty(selValue)) {
-				let chkInfo = _.find(comIcptRsnDtlCdUo01, {value: selValue});
+				let chkInfo = _.find(comIcptRsnDtlCdUo01, {value: selValue, icptRsnCd:icptRsnCdVal});
 				console.log(chkInfo);
 				let pnltyVal = chkInfo.pnlty;
 				let itrRtVal = chkInfo.itrRt;
@@ -2326,7 +2336,8 @@
 		if (!gfn_isEmpty(nCol) && nCol == icptRsnDtlCdIdx) {
 
 			let selValue = datagrid.getCellData(nRow, nCol);
-			let chkInfo = _.find(comIcptRsnDtlCdIso01, {value: selValue});
+			let icptRsnCdVal = datagrid.getCellData(nRow, icptRsnCdIdx);
+			let chkInfo = _.find(comIcptRsnDtlCdIso01, {value: selValue, icptRsnCd:icptRsnCdVal});
 			console.log(chkInfo);
 			let pnltyVal = chkInfo.pnlty;
 			let itrRtVal = chkInfo.itrRt;
@@ -2336,7 +2347,8 @@
 		}else if(!gfn_isEmpty(nCol) && nCol == mngrIcptRsnDtlCdIdx){
 
 			let selValue = datagrid.getCellData(nRow, nCol);
-			let chkInfo = _.find(comIcptRsnDtlCdIso01, {value: selValue});
+			let icptRsnCdVal = datagrid.getCellData(nRow, mngrIcptRsnCdIdx);
+			let chkInfo = _.find(comIcptRsnDtlCdIso01, {value: selValue, icptRsnCd:icptRsnCdVal});
 			console.log(chkInfo);
 			let pnltyVal = chkInfo.pnlty;
 			let itrRtVal = chkInfo.itrRt;
