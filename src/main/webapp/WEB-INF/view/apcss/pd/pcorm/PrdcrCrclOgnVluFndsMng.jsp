@@ -28,7 +28,7 @@
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 				</c:if>
 				<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
-					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
+					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_userGridSearch"></sbux-button>
 				</c:if>
 				</div>
 			</div>
@@ -244,7 +244,6 @@
 				<div class="box-header" style="display:flex; justify-content: flex-start;" >
 					<div style="margin-left: auto;">
 						<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
-						<sbux-button id="btnSearchFclt2" name="btnSearchFclt2" uitype="normal" text="사용자조회" class="btn btn-sm btn-outline-danger" onclick="fn_userGridSearch"></sbux-button>
 					</div>
 				</div>
 			</c:if><!-- 관리자 권한인 경우 그리드 표기 -->
@@ -374,12 +373,23 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
+								<span style="font-size:14px">▶최종점수</span>
+							</li>
+						</ul>
+					</div>
+					<!-- SBGrid를 호출합니다. -->
+					<div id="sb-area-grdUserGrid05" style="height:100px; width: 1142px;"></div>
+				</div>
+				<div class="ad_section_top" style="width: 99%;">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
 								<span style="font-size:14px">▶통합조직 선정여부</span>
 							</li>
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdUserGrid03" style="height:300px; width: 1142px;"></div>
+					<div id="sb-area-grdUserGrid03" style="height:100px; width: 1142px;"></div>
 				</div>
 				<div class="ad_section_top" style="width: 99%;">
 					<div class="ad_tbl_top">
@@ -391,17 +401,6 @@
 					</div>
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdUserGrid04" style="height:300px; width: 1142px;"></div>
-				</div>
-				<div class="ad_section_top" style="width: 99%;">
-					<div class="ad_tbl_top">
-						<ul class="ad_tbl_count">
-							<li>
-								<span style="font-size:14px">▶최종점수</span>
-							</li>
-						</ul>
-					</div>
-					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdUserGrid05" style="height:300px; width: 1142px;"></div>
 				</div>
 			</c:if>
 
@@ -2117,7 +2116,7 @@
 				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))//사업자등록번호
 				//SBUxMethod.set('dtl-input-yr',gfn_nvl(item.yr))//사업자등록번호
 			});
-			fn_dtlGridSearch();
+			fn_userGridSearch();
 		}catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
