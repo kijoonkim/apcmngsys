@@ -795,13 +795,13 @@
 							,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CORP_SHAP' AND CD_VL = EA.CORP_DTL_SE_CD) AS CORP_DTL_SE_NM
 
 							,NVL(MNGMST_YN,'N') AS CHK_A_A
-							,(CASE WHEN TO_NUMBER(NVL(INVST_AMT,0)) >=  300000 THEN 'Y'
+							,(CASE WHEN TO_NUMBER(NVL(INVST_AMT,0)) >=  100000 THEN 'Y'
 										ELSE 'N' END
 							)  AS CHK_A_B
-							,(CASE WHEN TO_DATE('20240224' , 'YYYYMMDD') -  NVL(CORP_FNDN_DAY, SYSDATE) >= 365 * 3 THEN 'Y'
+							,(CASE WHEN TO_DATE('20240224' , 'YYYYMMDD') -  NVL(CORP_FNDN_DAY, SYSDATE) >= 365 THEN 'Y'
 										ELSE 'N' END
 							)  AS CHK_A_C
-							,(CASE WHEN INVST_EXPND_FRMER_NOPE >= 20 THEN 'Y'
+							,(CASE WHEN INVST_EXPND_FRMER_NOPE >= 5 THEN 'Y'
 										ELSE 'N' END
 							)  AS CHK_A_D
 							,(CASE WHEN  NVL(FRMER_INVST_AMT / NULLIF(INVST_AMT,0)*100 , 0) >= 50 THEN 'Y'
@@ -811,6 +811,7 @@
 																FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
 																WHERE 1=1
 																  AND STBLT_YN = 'Y'
+																  AND APO_SE = '2'
 																  AND 'Y' = (SELECT STBLT_YN
 																  				FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 																  				WHERE 1=1
@@ -1569,13 +1570,13 @@
 							,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CORP_SHAP' AND CD_VL = EA.CORP_DTL_SE_CD) AS CORP_DTL_SE_NM
 
 							,NVL(MNGMST_YN,'N') AS CHK_A_A
-							,(CASE WHEN TO_NUMBER(NVL(INVST_AMT,0)) >=  300000 THEN 'Y'
+							,(CASE WHEN TO_NUMBER(NVL(INVST_AMT,0)) >=  100000 THEN 'Y'
 										ELSE 'N' END
 							)  AS CHK_A_B
-							,(CASE WHEN TO_DATE('20240224' , 'YYYYMMDD') -  NVL(CORP_FNDN_DAY, SYSDATE) >= 365 * 3 THEN 'Y'
+							,(CASE WHEN TO_DATE('20240224' , 'YYYYMMDD') -  NVL(CORP_FNDN_DAY, SYSDATE) >= 365 THEN 'Y'
 										ELSE 'N' END
 							)  AS CHK_A_C
-							,(CASE WHEN INVST_EXPND_FRMER_NOPE >= 20 THEN 'Y'
+							,(CASE WHEN INVST_EXPND_FRMER_NOPE >= 5 THEN 'Y'
 										ELSE 'N' END
 							)  AS CHK_A_D
 							,(CASE WHEN  NVL(FRMER_INVST_AMT / NULLIF(INVST_AMT,0)*100 , 0) >= 50 THEN 'Y'
@@ -1585,6 +1586,7 @@
 																FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
 																WHERE 1=1
 																  AND STBLT_YN = 'Y'
+																  AND APO_SE = '2'
 																  AND 'Y' = (SELECT STBLT_YN
 																  				FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 																  				WHERE 1=1
@@ -1851,5 +1853,15 @@
 		  AND TOTAL.UO_BRNO = ALAMT.UO_BRNO(+)
 		  AND TOTAL.ITEM_CD = ALAMT.ITEM_CD(+)
 		ORDER BY UO_BRNO , BRNO , ITEM_CD , STBLT_YN
+	</select>
+	<select id="selectScrUserGrid01" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
+	</select>
+	<select id="selectScrUserGrid02" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
+	</select>
+	<select id="selectScrUserGrid03" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
+	</select>
+	<select id="selectScrUserGrid04" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
+	</select>
+	<select id="selectScrUserGrid05" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
 	</select>
 </mapper>

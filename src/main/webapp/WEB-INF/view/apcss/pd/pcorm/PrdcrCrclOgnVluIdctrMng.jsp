@@ -24,6 +24,7 @@
 					<sbux-button id="btnAllSave" name="btnAllSave" uitype="normal" text="선정여부 일괄 저장" class="btn btn-sm btn-outline-danger" onclick="fn_allSave()"></sbux-button>
 					<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 통합조직 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
 					<sbux-button id="btnRowData01" name="btnRowData01" uitype="normal" text="로우데이터 출자출하조직 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect01"></sbux-button>
+					<sbux-button id="btnRowData02" name="btnRowData02" uitype="normal" text="기존 로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect02"></sbux-button>
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 				</div>
 			</div>
@@ -450,6 +451,8 @@
 				</div>
 			</div>
 			<div id="sb-area-hiddenGrd" style="height:400px; width: 100%; display: none;"></div>
+			<div id="sb-area-hiddenGrd01" style="height:400px; width: 100%; display: none;"></div>
+			<div id="sb-area-hiddenGrd02" style="height:400px; width: 100%; display: none;"></div>
 		</div>
 	</section>
 </body>
@@ -563,9 +566,9 @@
 	//세부탈락사유 구분
 	var comIcptRsnDtlCdUo01 = [
 		{'text': '기본요건 미충족',	'label': '농업경영체 미등록', 				'value': 'A1', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
-		{'text': '기본요건 미충족',	'label': '출자자본금 1억원 미달', 			'value': 'A2', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
-		{'text': '기본요건 미충족',	'label': '설립 후 운영실적 1년 미만', 		'value': 'A3', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
-		{'text': '기본요건 미충족',	'label': '농업인 주주 5명 미만', 			'value': 'A4', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
+		{'text': '기본요건 미충족',	'label': '출자자본금 3억원 미달', 			'value': 'A2', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
+		{'text': '기본요건 미충족',	'label': '설립 후 운영실적 3년 미만', 		'value': 'A3', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
+		{'text': '기본요건 미충족',	'label': '농업인 주주 20명 미만', 			'value': 'A4', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
 		{'text': '기본요건 미충족',	'label': '농업인 주주 지분 50% 미만', 		'value': 'A5', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
 		{'text': '기본요건 미충족',	'label': '원예농산물 취급액 50% 미만', 		'value': 'A6', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
 		{'text': '기본요건 미충족',	'label': '조공설립계획 미수립', 			'value': 'A7', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
@@ -2258,16 +2261,7 @@
 			}
 		}
 	}
-	var comIcptRsnDtlCdUo01 = [
-		{'text': '기본요건 미충족',	'label': '농업경영체 미등록', 				'value': 'A1', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
-		{'text': '기본요건 미충족',	'label': '출자자본금 1억원 미달', 			'value': 'A2', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
-		{'text': '기본요건 미충족',	'label': '설립 후 운영실적 1년 미만', 		'value': 'A3', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
-		{'text': '기본요건 미충족',	'label': '농업인 주주 5명 미만', 			'value': 'A4', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
-		{'text': '기본요건 미충족',	'label': '농업인 주주 지분 50% 미만', 		'value': 'A5', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
-		{'text': '기본요건 미충족',	'label': '원예농산물 취급액 50% 미만', 		'value': 'A6', 'icptRsnCd':'A', 'pnlty': '기존자금 회수',	'itrRt': '-' },
-		{'text': '품목 부적합',		'label': '품목 부적합(농협조직)', 			'value': 'B1', 'icptRsnCd':'B', 'pnlty': '최고금리',		'itrRt': '3' },
-		{'text': '품목 부적합',		'label': '품목 부적합(농업법인, 협동조합)', 	'value': 'B2', 'icptRsnCd':'B', 'pnlty': '최고금리',		'itrRt': '2.5' }
-	];
+
 	//항목 값 변경 이벤트
 	const fn_valueChangedUo = async function(){
 		let datagrid = grdPrdcrOgnCurntMng07;
@@ -2766,6 +2760,162 @@
 			}
 			console.error("failed", e.message);
 		}
+	}
+
+
+	/* 로우데이터 요청 */
+
+	var jsonHiddenGrd02 = []; // 그리드의 참조 데이터 주소 선언
+	var hiddenGrd02;
+
+	/* Grid 화면 그리기 기능*/
+	const fn_hiddenGrd02 = async function() {
+
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-hiddenGrd02';
+		SBGridProperties.id = 'hiddenGrd02';
+		SBGridProperties.jsonref = 'jsonHiddenGrd02';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.oneclickedit = true;
+		//SBGridProperties.rowheader="seq";
+		SBGridProperties.columns = [
+			{caption: ["신청년도"],			ref:'yr',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["사업자번호"],		ref:'brno',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["법인명"],			ref:'corpNm',		type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["조직구분"],			ref:'apoSe',		type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["통합조직 사업자번호"],		ref:'uoBrno',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["통합조직 법인명"],		ref:'uoCorpNm',	type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["법인구분"],			ref:'corpSeNm',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["법인형태"],			ref:'corpDtlSeNm',	type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["적합품목 리스트"],			ref:'stbltItemList',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["출자출하조직 자금신청액"],		ref:'isoFundAplyAmt',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["자금신청액 합계"],			ref:'fundAplyAmtTot',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["자금신청액 합계(탈락 출자출하조직 신청액은 제외)"],	ref:'fundAplyAmtStbltTot',		type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["선정여부"],			ref:'stbltYn',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["탈락사유구분"],		ref:'icptRsnNm',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["세부탈락사유"],		ref:'icptRsnDtlNm',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["패널티"],			ref:'pnlty',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["금리"],			ref:'itrRt',			type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["선정여부(관리자입력)"],			ref:'mngrStbltYn',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["탈락사유구분(관리자입력)"],		ref:'mngrIcptRsnNm',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["세부탈락사유(관리자입력)"],		ref:'mngrIcptRsnDtlNm',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["패널티(관리자입력)"],			ref:'mngrPnlty',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["금리(관리자입력)"],			ref:'mngrItrRt',			type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["비고"],		ref:'rmrk',		type:'output',width:'70px',style:'text-align:center'},
+		];
+		hiddenGrd02 = _SBGrid.create(SBGridProperties);
+
+	}
+	const fn_hiddenGrdSelect02 = async function(){
+		await fn_hiddenGrd02();
+		let yr = SBUxMethod.get("srch-input-yr");
+		if (gfn_isEmpty(yr)) {
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
+
+		let postJsonPromise = gfn_postJSON("/pd/pcorm/selectRawDataList.do", {
+			yr : yr
+			});
+
+			let data = await postJsonPromise;
+			try{
+			jsonHiddenGrd02.length = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
+				let hiddenGrdVO = {
+					yr						:item.yr
+					,brno					:item.brno
+					,apoSe					:item.apoSe
+					,corpNm					:item.corpNm
+
+					,uoBrno					:item.uoBrno
+					,uoCorpNm				:item.uoCorpNm
+
+					,corpSeCd				:item.corpSeCd//법인구분 코드
+					,corpSeNm				:item.corpSeNm//법인구분
+					,corpDtlSeCd			:item.corpDtlSeCd//법인형태 코드
+					,corpDtlSeNm			:item.corpDtlSeNm//법인형태
+
+					,stbltItemList			:item.stbltItemList//적합품목 리스트
+
+					,isoFundAplyAmt			:item.isoFundAplyAmt//부류명
+
+					,fundAplyAmtTot			:item.fundAplyAmtTot//자금신청액
+					,fundAplyAmtStbltTot	:item.fundAplyAmtStbltTot//자금신청액(탈락 출자출하조직 신청액은 제외)
+
+					,stbltYn				:item.stbltYn//선정여부
+					,itrRt					:item.itrRt//금리
+					,icptRsnCd				:item.icptRsnCd//탈락사유구분
+					,icptRsnNm				:item.icptRsnNm//탈락사유구분
+					,icptRsnDtlCd			:item.icptRsnDtlCd//세부탈락사유
+					,icptRsnDtlNm			:item.icptRsnDtlNm//세부탈락사유
+
+					,mngrStbltYn			:item.mngrStbltYn//선정여부(관리자입력)
+					,mngrIcptRsnCd			:item.mngrIcptRsnCd//탈락사유구분(관리자입력)
+					,mngrIcptRsnNm			:item.mngrIcptRsnNm//탈락사유구분(관리자입력)
+					,mngrIcptRsnDtlCd		:item.mngrIcptRsnDtlCd//세부탈락사유(관리자입력)
+					,mngrIcptRsnDtlNm		:item.mngrIcptRsnDtlNm//세부탈락사유(관리자입력)
+					,mngrItrRt				:item.mngrItrRt//금리(관리자입력)
+
+					,pnlty					:item.pnlty//패널티
+					,mngrPnlty				:item.mngrPnlty//패널티(관리자입력)
+
+					,rmrk					:item.rmrk//비고
+
+				}
+
+				jsonHiddenGrd02.push(hiddenGrdVO);
+			});
+
+			await hiddenGrd02.rebuild();
+
+			await fn_excelDown02();
+
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+	//로우 데이터 엑셀 다운로드
+	function fn_excelDown02(){
+		const currentDate = new Date();
+
+		const year = currentDate.getFullYear().toString().padStart(4, '0');
+		const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');// 월은 0부터 시작하므로 1을 더합니다.
+		const day = currentDate.getDate().toString().padStart(2, '0');
+		let formattedDate = year + month + day;
+
+		let fileName = formattedDate + "_등록결과_확인_로우데이터";
+
+		/*
+		datagrid.exportData(param1, param2, param3, param4);
+		param1(필수)[string]: 다운 받을 파일 형식
+		param2(필수)[string]: 다운 받을 파일 제목
+		param3[boolean]: 다운 받을 그리드 데이터 기준 (default:'false')
+		→ true : csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 다운로드
+		→ false : csv/xls/xlsx 형식의 데이터 다운로드를 jsonref 기준으로 다운로드
+		param4[object]: 다운 받을 그리드 데이터 기준 (default:'false')
+		→ arrRemoveCols(선택): csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 할 때 다운로드에서 제외할 열
+		→ combolabel(선택) : csv/xls/xlsx combo/inputcombo 일 때 label 값으로 저장
+		→ true : label 값으로 저장
+		→ false : value 값으로 저장
+		→ sheetName(선택) : xls/xlsx 형식의 데이터 다운로드시 시트명을 설정
+		 */
+		//console.log(hiddenGrd.exportData);
+		hiddenGrd02.exportData("xlsx" , fileName , true , true);
 	}
 </script>
 </html>

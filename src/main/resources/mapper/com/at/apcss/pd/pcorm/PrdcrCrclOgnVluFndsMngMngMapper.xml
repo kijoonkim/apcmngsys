@@ -888,7 +888,7 @@
 												WHERE 1=1
 												  AND APO_SE = '1'
 												  AND TYPE_SE_NO IN ('2','3','6','7')
-												  AAND (STBLT_YN = 'Y' OR BRNO = '4128124086')/*부적합 품목 이지만 예외 처리*/
+												  AND (STBLT_YN = 'Y' OR BRNO = '4128124086')/*부적합 품목 이지만 예외 처리*/
 												  AND APRV = '1'
 												  AND BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at21','at22','at23','at24','at25','at26','at27','at61'))
 												  AND BRNO NOT IN (SELECT BRNO FROM TB_COM_USER WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'))

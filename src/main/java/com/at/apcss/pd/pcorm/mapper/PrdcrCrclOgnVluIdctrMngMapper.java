@@ -113,4 +113,46 @@ public interface PrdcrCrclOgnVluIdctrMngMapper {
 	 */
 	public List<PrdcrCrclOgnVluIdctrMngVO> selectIsoIcptRsnList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO);
 
+
+	/* 사용자용 화면 조회  */
+
+	/**
+	 * 사용자용 화면 평가지표 조회
+	 * @param PrdcrCrclOgnVluIdctrMngVO
+	 * @return List<PrdcrCrclOgnVluIdctrMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluIdctrMngVO> selectScrUserGrid01(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO);
+
+	/**
+	 * 사용자용 화면 가감점 조회
+	 * @param PrdcrCrclOgnVluIdctrMngVO
+	 * @return List<PrdcrCrclOgnVluIdctrMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluIdctrMngVO> selectScrUserGrid02(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO);
+
+	/**
+	 * 사용자용 화면 통합조직 선정여부 조회
+	 * @param PrdcrCrclOgnVluIdctrMngVO
+	 * @return List<PrdcrCrclOgnVluIdctrMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluIdctrMngVO> selectScrUserGrid03(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO);
+
+	/**
+	 * 사용자용 화면 출자출하조직 선정여부 조회
+	 * @param PrdcrCrclOgnVluIdctrMngVO
+	 * @return List<PrdcrCrclOgnVluIdctrMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluIdctrMngVO> selectScrUserGrid04(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO);
+
+	/**
+	 * 사용자용 화면 최종점수 조회
+	 * @param PrdcrCrclOgnVluIdctrMngVO
+	 * @return List<PrdcrCrclOgnVluIdctrMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluIdctrMngVO> selectScrUserGrid05(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO);
 }
