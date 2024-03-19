@@ -918,7 +918,7 @@
 					<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' ||  loginVO.userType eq '02'}">
 						<tr>
 							<th colspan="7" scope="row" class="th_bg th_border_right">&nbsp;</th>
-							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>선정년도</th>
+							<th colspan="2" scope="row" class="th_bg">선정년도</th>
 							<td colspan="6">
 							<sbux-spinner
 									id="dtl-input-slctnYr"

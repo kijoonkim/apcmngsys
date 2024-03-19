@@ -369,6 +369,54 @@
 		</c:if>
 		<!-- 사용자용 화면  -->
 		<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
+				<div>
+					<table class="table table-bordered tbl_fixed" style="width: 1142px;">
+						<caption>기준데이터</caption>
+						<colgroup>
+						</colgroup>
+						<tbody>
+							<tr>
+								<th colspan="3" scope="row" class="th_bg th_border_right" style="text-align:center;">생산유통 통합조직 승인형</th>
+								<th colspan="3" scope="row" class="th_bg" style="text-align:center;">생산유통 통합조직 육성형</th>
+							</tr>
+							<tr>
+								<th scope="row" class="th_bg th_border_right" style="text-align:center;">구분</th>
+								<th scope="row" class="th_bg th_border_right" style="text-align:center;">기준 총 취급액(천원)</th>
+								<th scope="row" class="th_bg th_border_right" style="text-align:center;">기준 전속취급률(%)</th>
+								<th scope="row" class="th_bg th_border_right" style="text-align:center;">구분</th>
+								<th scope="row" class="th_bg th_border_right" style="text-align:center;">기준 총 취급액(천원)</th>
+								<th scope="row" class="th_bg" style="text-align:center;">기준 전속취급률(%)</th>
+							</tr>
+							<tr style="border: 1px solid white;">
+								<td style="background-color: #fce4d6; border: 1px solid white;">과실류</td>
+								<td style="background-color: #fce4d6; border: 1px solid white;">268,744,219</td>
+								<td style="background-color: #fce4d6; border: 1px solid white;">100%</td>
+								<td style="background-color: #fce4d6; border: 1px solid white;">과실류</td>
+								<td style="background-color: #fce4d6; border: 1px solid white;">113,144,445</td>
+								<td style="background-color: #fce4d6; border: 1px solid white;">100%</td>
+							</tr>
+							<tr style="border: 1px solid white;">
+								<td style="background-color: #ddebf7; border: 1px solid white;">시설원예</td>
+								<td style="background-color: #ddebf7; border: 1px solid white;">84,957,765</td>
+								<td style="background-color: #ddebf7; border: 1px solid white;">100%</td>
+								<td style="background-color: #ddebf7; border: 1px solid white;">시설원예</td>
+								<td style="background-color: #ddebf7; border: 1px solid white;">81,146,666</td>
+								<td style="background-color: #ddebf7; border: 1px solid white;">100%</td>
+							</tr>
+							<tr style="border: 1px solid white;">
+								<td style="background-color: #e2efda; border: 1px solid white;">노지채소</td>
+								<td style="background-color: #e2efda; border: 1px solid white;">49,839,774</td>
+								<td style="background-color: #e2efda; border: 1px solid white;">100%</td>
+								<td style="background-color: #e2efda; border: 1px solid white;">노지채소</td>
+								<td style="background-color: #e2efda; border: 1px solid white;">72,683,773</td>
+								<td style="background-color: #e2efda; border: 1px solid white;">100%</td>
+							</tr>
+						</tbody>
+					</table>
+					<p>* 전문품목 총취급액 점수(A) = 조직별 부류별 총 취급액 / 기준 총 취급액 * 50</p>
+					<p>* 전문품목 전속취급률 점수(B) = 조직별 부류별 전속취급률 / 기준 전속취급률 * 50</p>
+					<p>* 전문품목 부류가 여러 개인 경우 부류별 총 취급액 및 전속 취급액 비중 계산하여 도출된 점수</p>
+				</div>
 				<div class="ad_section_top" style="width: 99%;">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
@@ -1226,9 +1274,7 @@
 				let mngrItrRtVal = item.mngrItrRt;
 				if(!gfn_isEmpty(item.mngrIcptRsnCd) && item.mngrIcptRsnCd != ''){
 					let chkInfo = _.find(comIcptRsnDtlCdUo01, {value: item.mngrIcptRsnDtlCd});
-					if(gfn_isEmpty(item.mngrItrRt)){
-						mngrPnltyVal = chkInfo.pnlty;
-					}
+					mngrPnltyVal = chkInfo.pnlty;
 					mngrItrRtVal = chkInfo.itrRt;
 				}
 				let PrdcrOgnCurntMngVO = {
@@ -1298,9 +1344,8 @@
 				let mngrItrRtVal = item.mngrItrRt;
 				if(!gfn_isEmpty(item.mngrIcptRsnCd) && item.mngrIcptRsnCd != ''){
 					let chkInfo = _.find(comIcptRsnDtlCdIso01, {value: item.mngrIcptRsnDtlCd});
-					if(gfn_isEmpty(item.mngrItrRt)){
-						mngrPnltyVal = chkInfo.pnlty;
-					}
+
+					mngrPnltyVal = chkInfo.pnlty;
 					mngrItrRtVal = chkInfo.itrRt;
 				}
 				let itemVO = {
@@ -1960,23 +2005,15 @@
 				{caption: ["선정여부"], 	ref: 'stbltYn',		type:'output',  width:'60px',    style:'text-align:center;'},
 				{caption: ["적합품목"], 	ref: 'stbltItemList',	type:'output',  width:'160px',    style:'text-align:center;'},
 
-				{caption: ["탈락사유구분"], 	ref: 'icptRsnCd',	type:'combo',  width:'120px',    style:'text-align:center;', disabled : true
-					,typeinfo : {ref:'comIcptRsnCdUo01', label:'label', value:'value', displayui : false}
-				},
-				{caption: ["세부탈락사유"], 	ref: 'icptRsnDtlCd',	type:'combo',  width:'160px',    style:'text-align:center;', disabled : true
-					,typeinfo : {ref:'comIcptRsnDtlCdUo01', label:'label', value:'value', displayui : false
-						,filtering: { usemode: true, uppercol: 'icptRsnCd', attrname: 'icptRsnCd', listall: false}
-					}
-				},
+				{caption: ["탈락사유구분"], 	ref: 'icptRsnNm',	type:'combo',  width:'120px',    style:'text-align:center;', disabled : true},
+				{caption: ["세부탈락사유"], 	ref: 'icptRsnDtlNm',	type:'combo',  width:'160px',    style:'text-align:center;', disabled : true},
 				{caption: ["패널티"], 		ref: 'pnlty',	type:'output',  width:'110px',    style:'text-align:center;'},
 				{caption: ["자금신청액(천원)\n(출자출하조직 신청액 포함)"], 	ref: 'fundAplyAmtTot',	type:'output',  width:'160px',    style:'text-align:center;'
 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 				{caption: ["자금신청액(천원)\n(탈락 출자출하조직 신청액은 제외)"], 	ref: 'fundAplyAmtStbltTot',	type:'output',  width:'160px',    style:'text-align:center;'
 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}
 				},
-				{caption: ["금리(%)"], 		ref: 'itrRt',			type:'output',  width:'80px',    style:'text-align:center;'
-					,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}
-				},
+				{caption: ["금리(%)"], 		ref: 'itrRt',			type:'output',  width:'80px',    style:'text-align:center;'},
 				{caption: ["비고"], 		ref: 'rmrk', 	type:'output',  width:'200px',	style:'text-align:center'},
 				{caption: ["상세내역"], 	ref: 'yr',   			hidden : true},
 			];
@@ -2021,21 +2058,13 @@
 			{caption: ["출자출하조직\n선정여부"], 	ref: 'stbltYn',		type:'output',  width:'100px',    style:'text-align:center;'},
 			{caption: ["적합품목"], 	ref: 'stbltItemList',	type:'output',  width:'160px',    style:'text-align:center;'},
 
-			{caption: ["탈락사유구분"], 	ref: 'icptRsnCd',	type:'combo',  width:'120px',    style:'text-align:center;', disabled : true
-				,typeinfo : {ref:'comIcptRsnCdIso01', label:'label', value:'value', displayui : false}
-			},
-			{caption: ["세부탈락사유"], 	ref: 'icptRsnDtlCd',	type:'combo',  width:'160px',    style:'text-align:center;', disabled : true
-				,typeinfo : {ref:'comIcptRsnDtlCdIso01', label:'label', value:'value', displayui : false
-					,filtering: { usemode: true, uppercol: 'icptRsnCd', attrname: 'icptRsnCd', listall: false}
-				}
-			},
+			{caption: ["탈락사유구분"], 	ref: 'icptRsnNm',	type:'combo',  width:'120px',    style:'text-align:center;', disabled : true},
+			{caption: ["세부탈락사유"], 	ref: 'icptRsnDtlNm',	type:'combo',  width:'160px',    style:'text-align:center;', disabled : true},
 			{caption: ["패널티"], 		ref: 'pnlty',	type:'output',  width:'110px',    style:'text-align:center;'},
 			{caption: ["자금신청액(천원)"], 	ref: 'isoFundAplyAmt',	type:'output',  width:'160px',    style:'text-align:center;'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}
 			},
-			{caption: ["금리(%)"], 		ref: 'itrRt',			type:'output',  width:'80px',    style:'text-align:center;'
-				,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}
-			},
+			{caption: ["금리(%)"], 		ref: 'itrRt',			type:'output',  width:'80px',    style:'text-align:center;'},
 			{caption: ["비고"], 		ref: 'rmrk', 	type:'output',  width:'200px',	style:'text-align:center'},
 			{caption: ["상세내역"], 	ref: 'yr',   		hidden : true},
 			{caption: ["상세내역"], 	ref: 'apoSe',   	hidden : true},
@@ -2254,22 +2283,7 @@
 			jsonUserGrid03.length = 0;
 			console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
-				let pnltyVal = '';
-				let itrRtVal = item.itrRt;
-				if(!gfn_isEmpty(item.icptRsnCd) && item.icptRsnCd != ''){
-					let chkInfo = _.find(comIcptRsnDtlCdUo01, {value: item.icptRsnDtlCd});
-					pnltyVal = chkInfo.pnlty;
-					itrRtVal = chkInfo.itrRt;
-				}
-				let mngrPnltyVal = '';
-				let mngrItrRtVal = item.mngrItrRt;
-				if(!gfn_isEmpty(item.mngrIcptRsnCd) && item.mngrIcptRsnCd != ''){
-					let chkInfo = _.find(comIcptRsnDtlCdUo01, {value: item.mngrIcptRsnDtlCd});
-					if(gfn_isEmpty(item.mngrItrRt)){
-						mngrPnltyVal = chkInfo.pnlty;
-					}
-					mngrItrRtVal = chkInfo.itrRt;
-				}
+
 				let itemVO = {
 						brno				: item.brno
 						,corpNm				: item.corpNm
@@ -2281,9 +2295,11 @@
 						,stbltYn			: item.stbltYn//적합여부 기준 적용 결과
 						,icptRsnCd			: item.icptRsnCd//탈락사유구분
 						,icptRsnDtlCd		: item.icptRsnDtlCd //세부탈락사유
+						,icptRsnNm			: item.icptRsnNm//탈락사유구분
+						,icptRsnDtlNm		: item.icptRsnDtlNm //세부탈락사유
 
-						,pnlty				: pnltyVal//패널티
-						,itrRt				: itrRtVal//금리
+						,pnlty				: item.pnlty//패널티
+						,itrRt				: item.itrRt//금리
 
 						,rmrk				: item.rmrk//비고
 				}
@@ -2319,14 +2335,6 @@
 			jsonUserGrid04.length = 0;
 			console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
-				let pnltyVal = '';
-				let itrRtVal = item.itrRt;
-				if(!gfn_isEmpty(item.icptRsnCd) && item.icptRsnCd != ''){
-					let chkInfo = _.find(comIcptRsnDtlCdIso01, {value: item.icptRsnDtlCd});
-					pnltyVal = chkInfo.pnlty;
-					itrRtVal = chkInfo.itrRt;
-				}
-
 				let itemVO = {
 					brno: 	item.brno
 					,uoBrno: item.uoBrno
@@ -2338,10 +2346,12 @@
 					,stbltYn			: item.stbltYn//적합여부 기준 적용 결과
 					,icptRsnCd			: item.icptRsnCd//탈락사유구분
 					,icptRsnDtlCd		: item.icptRsnDtlCd //세부탈락사유
+					,icptRsnNm			: item.icptRsnNm//탈락사유구분
+					,icptRsnDtlNm		: item.icptRsnDtlNm //세부탈락사유
 
 					,isoFundAplyAmt		: item.isoFundAplyAmt//자금신청액
-					,pnlty				: pnltyVal//패널티
-					,itrRt				: itrRtVal//금리
+					,pnlty				: item.pnlty//패널티
+					,itrRt				: item.itrRt//금리
 
 					,rmrk				: item.rmrk//비고
 				};
