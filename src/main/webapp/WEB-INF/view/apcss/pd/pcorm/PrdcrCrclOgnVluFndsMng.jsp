@@ -1960,7 +1960,7 @@
 
 	/* Grid 화면 그리기 기능*/
 	//출자출하조직 선정여부 리스트
-	const fn_fcltMngCreateGrid06 = async function() {
+	const fn_userGrid04 = async function() {
 		let SBGridProperties = {};
 		SBGridProperties.parentid = 'sb-area-grdUserGrid04';
 		SBGridProperties.id = 'grdUserGrid04';
