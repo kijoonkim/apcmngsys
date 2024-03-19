@@ -818,7 +818,7 @@
 		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");	// 창고
 		let prdctnYr = SBUxMethod.get("srch-dtp-prdctnYr");		// 생산연도
 
-		let wrhsSeCd = "3";			// 입고구분
+		let wrhsSeCd = "2";			// 입고구분 : 수탁
 		let gdsSeCd = "1";			// 상품구분
 		let trsprtSeCd = "1";		// 운송구분
 
