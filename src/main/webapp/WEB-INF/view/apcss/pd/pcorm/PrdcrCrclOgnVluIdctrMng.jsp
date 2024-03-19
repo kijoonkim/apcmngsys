@@ -531,6 +531,7 @@
 
 	//선정여부
 	var comStbltYn = [
+		{'text': '',	'label': '', 	'value': ''},
 		{'text': 'Y','label': 'Y', 'value': 'Y'},
 		{'text': 'N','label': 'N', 'value': 'N'}
 	];
@@ -790,10 +791,10 @@
 				{caption: ["적합품목"], 	ref: 'stbltItemList',	type:'output',  width:'160px',    style:'text-align:center;'},
 
 				{caption: ["탈락사유구분"], 	ref: 'icptRsnCd',	type:'combo',  width:'120px',    style:'text-align:center;', disabled : true
-					,typeinfo : {ref:'comIcptRsnCdUo01', label:'label', value:'value', displayui : true}
+					,typeinfo : {ref:'comIcptRsnCdUo01', label:'label', value:'value', displayui : true, unselect : {label : '', value : ''}}
 				},
 				{caption: ["세부탈락사유"], 	ref: 'icptRsnDtlCd',	type:'combo',  width:'160px',    style:'text-align:center;', disabled : true
-					,typeinfo : {ref:'comIcptRsnDtlCdUo01', label:'label', value:'value', displayui : true
+					,typeinfo : {ref:'comIcptRsnDtlCdUo01', label:'label', value:'value', displayui : true, unselect : {label : '', value : ''}
 						,filtering: { usemode: true, uppercol: 'icptRsnCd', attrname: 'icptRsnCd', listall: false}
 					}
 				},
@@ -806,13 +807,13 @@
 				},
 				{caption: ["금리(%)"], 		ref: 'itrRt',			type:'output',  width:'80px',    style:'text-align:center;'},
 				{caption: ["선정여부\n(관리자입력)"], 	ref: 'mngrStbltYn',	type:'combo',  width:'90px',    style:'text-align:center;'
-					,typeinfo : {ref:'comStbltYn', label:'label', value:'value', displayui : true}
+					,typeinfo : {ref:'comStbltYn', label:'label', value:'value', displayui : true, unselect : {label : '', value : ''}}
 				},
 				{caption: ["탈락사유구분\n(관리자입력)"], 	ref: 'mngrIcptRsnCd',	type:'combo',  width:'160px',    style:'text-align:center;'
-					,typeinfo : {ref:'comIcptRsnCdUo01', label:'label', value:'value', displayui : true}
+					,typeinfo : {ref:'comIcptRsnCdUo01', label:'label', value:'value', displayui : true, unselect : {label : '', value : ''}}
 				},
 				{caption: ["세부탈락사유\n(관리자입력)"], 	ref: 'mngrIcptRsnDtlCd',	type:'combo',  width:'160px',    style:'text-align:center;'
-					,typeinfo : {ref:'comIcptRsnDtlCdUo01', label:'label', value:'value', displayui : true
+					,typeinfo : {ref:'comIcptRsnDtlCdUo01', label:'label', value:'value', displayui : true, unselect : {label : '', value : ''}
 						,filtering: { usemode: true, uppercol: 'mngrIcptRsnCd', attrname: 'icptRsnCd', listall: false}
 					}
 				},
@@ -1057,13 +1058,13 @@
 			},
 			{caption: ["금리(%)"], 		ref: 'itrRt',			type:'output',  width:'80px',    style:'text-align:center;'},
 			{caption: ["선정여부\n(관리자입력)"], 	ref: 'mngrStbltYn',	type:'combo',  width:'90px',    style:'text-align:center;'
-				,typeinfo : {ref:'comStbltYn', label:'label', value:'value', displayui : true}
+				,typeinfo : {ref:'comStbltYn', label:'label', value:'value', displayui : true, unselect : {label : '', value : ''}}
 			},
 			{caption: ["탈락사유구분\n(관리자입력)"], 	ref: 'mngrIcptRsnCd',	type:'combo',  width:'160px',    style:'text-align:center;'
-				,typeinfo : {ref:'comIcptRsnCdIso01', label:'label', value:'value', displayui : true}
+				,typeinfo : {ref:'comIcptRsnCdIso01', label:'label', value:'value', displayui : true ,unselect : {label : '', value : ''}}
 			},
 			{caption: ["세부탈락사유\n(관리자입력)"], 	ref: 'mngrIcptRsnDtlCd',	type:'combo',  width:'160px',    style:'text-align:center;'
-				,typeinfo : {ref:'comIcptRsnDtlCdIso01', label:'label', value:'value', displayui : true
+				,typeinfo : {ref:'comIcptRsnDtlCdIso01', label:'label', value:'value', displayui : true, unselect : {label : '', value : ''}
 					,filtering: { usemode: true, uppercol: 'mngrIcptRsnCd', attrname: 'icptRsnCd', listall: false}
 				}
 			},
@@ -1621,6 +1622,7 @@
 				let itrRtVal = item.itrRt;
 				if(!gfn_isEmpty(item.icptRsnCd) && item.icptRsnCd != ''){
 					let chkInfo = _.find(comIcptRsnDtlCdUo01, {value: item.icptRsnDtlCd});
+
 					pnltyVal = chkInfo.pnlty;
 					itrRtVal = chkInfo.itrRt;
 				}
@@ -1628,9 +1630,8 @@
 				let mngrItrRtVal = item.mngrItrRt;
 				if(!gfn_isEmpty(item.mngrIcptRsnCd) && item.mngrIcptRsnCd != ''){
 					let chkInfo = _.find(comIcptRsnDtlCdUo01, {value: item.mngrIcptRsnDtlCd});
-					if(gfn_isEmpty(item.mngrItrRt)){
-						mngrPnltyVal = chkInfo.pnlty;
-					}
+
+					mngrPnltyVal = chkInfo.pnlty;
 					mngrItrRtVal = chkInfo.itrRt;
 				}
 				let PrdcrOgnCurntMngVO = {
@@ -1775,9 +1776,8 @@
 				let mngrItrRtVal = item.mngrItrRt;
 				if(!gfn_isEmpty(item.mngrIcptRsnCd) && item.mngrIcptRsnCd != ''){
 					let chkInfo = _.find(comIcptRsnDtlCdIso01, {value: item.mngrIcptRsnDtlCd});
-					if(gfn_isEmpty(item.mngrItrRt)){
-						mngrPnltyVal = chkInfo.pnlty;
-					}
+
+					mngrPnltyVal = chkInfo.pnlty;
 					mngrItrRtVal = chkInfo.itrRt;
 				}
 				let itemVO = {
@@ -2188,16 +2188,6 @@
 			let rowData = grdPrdcrOgnCurntMng06.getRowData(i);
 			let rowSts = grdPrdcrOgnCurntMng06.getRowStatus(i);
 			let delYn = rowData.delYn;
-
-			if(gfn_isEmpty(rowData.itrRt)){
-				if(rowData.stbltYn == 'Y' ){
-					alert("통합조직 금리 작성이 필요 합니다");
-				}else{
-					gfn_comAlert("W0002", "금리");		//	W0002	{0}을/를 입력하세요.
-				}
-				grdPrdcrOgnCurntMng06.selectRow(i);
-				return false;
-			}
 
 			rowData.rowSts = "I";
 			saveList.push(rowData);

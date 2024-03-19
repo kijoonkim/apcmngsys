@@ -830,7 +830,7 @@
 												END
 							) AS CHK_B
 							,(SELECT
-									(CASE WHEN MNGR_STBLT_YN IS NOT NULL AND MNGR_STBLT_YN != ''
+									(CASE WHEN MNGR_STBLT_YN IS NOT NULL
 											THEN MNGR_STBLT_YN
 											ELSE STBLT_YN
 											END)
@@ -1605,7 +1605,7 @@
 												END
 							) AS CHK_B
 							,(SELECT
-									(CASE WHEN MNGR_STBLT_YN IS NOT NULL AND MNGR_STBLT_YN != ''
+									(CASE WHEN MNGR_STBLT_YN IS NOT NULL
 											THEN MNGR_STBLT_YN
 											ELSE STBLT_YN
 											END)
