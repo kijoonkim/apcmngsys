@@ -158,38 +158,4 @@ public class PrdcrCrclOgnVluIdctrMngServiceImpl extends BaseServiceImpl implemen
 		return savedCnt;
 	}
 
-
-
-	/* 사용자용 화면 조회  */
-
-	@Override
-	public List<PrdcrCrclOgnVluIdctrMngVO> selectScrUserGrid01(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception {
-		List<PrdcrCrclOgnVluIdctrMngVO> resultList = prdcrCrclOgnVluIdctrMngMapper.selectScrUserGrid01(prdcrCrclOgnVluIdctrMngVO);
-		return resultList;
-	}
-
-	@Override
-	public List<PrdcrCrclOgnVluIdctrMngVO> selectScrUserGrid02(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception {
-		List<PrdcrCrclOgnVluIdctrMngVO> resultList = prdcrCrclOgnVluIdctrMngMapper.selectScrUserGrid02(prdcrCrclOgnVluIdctrMngVO);
-		return resultList;
-	}
-
-	@Override
-	public List<PrdcrCrclOgnVluIdctrMngVO> selectScrUserGrid03(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception {
-		List<PrdcrCrclOgnVluIdctrMngVO> resultList = prdcrCrclOgnVluIdctrMngMapper.selectScrUserGrid03(prdcrCrclOgnVluIdctrMngVO);
-		return resultList;
-	}
-
-	@Override
-	public List<PrdcrCrclOgnVluIdctrMngVO> selectScrUserGrid04(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception {
-		List<PrdcrCrclOgnVluIdctrMngVO> resultList = prdcrCrclOgnVluIdctrMngMapper.selectScrUserGrid04(prdcrCrclOgnVluIdctrMngVO);
-		return resultList;
-	}
-
-	@Override
-	public List<PrdcrCrclOgnVluIdctrMngVO> selectScrUserGrid05(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception {
-		List<PrdcrCrclOgnVluIdctrMngVO> resultList = prdcrCrclOgnVluIdctrMngMapper.selectScrUserGrid05(prdcrCrclOgnVluIdctrMngVO);
-		return resultList;
-	}
-
 }

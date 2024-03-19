@@ -160,4 +160,80 @@ public class PrdcrCrclOgnVluFndsMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	/* 사용자용 화면 조회 */
+
+	//사용자용 화면 평가지표 리스트 조회
+	@PostMapping(value = "/pd/pcorm/selectScrUserGrid01.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectScrUserGrid01(Model model, @RequestBody PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PrdcrCrclOgnVluFndsMngVO> resultList = new ArrayList<>();
+		try {
+			 resultList = prdcrCrclOgnVluFndsMngService.selectScrUserGrid01(PrdcrCrclOgnVluFndsMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	//사용자용 화면 가감점 리스트 조회
+	@PostMapping(value = "/pd/pcorm/selectScrUserGrid02.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectScrUserGrid02(Model model, @RequestBody PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PrdcrCrclOgnVluFndsMngVO> resultList = new ArrayList<>();
+		try {
+			 resultList = prdcrCrclOgnVluFndsMngService.selectScrUserGrid02(PrdcrCrclOgnVluFndsMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	//사용자용 화면 통합조직 선정여부 리스트 조회
+	@PostMapping(value = "/pd/pcorm/selectScrUserGrid03.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectScrUserGrid03(Model model, @RequestBody PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PrdcrCrclOgnVluFndsMngVO> resultList = new ArrayList<>();
+		try {
+			 resultList = prdcrCrclOgnVluFndsMngService.selectScrUserGrid03(PrdcrCrclOgnVluFndsMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	//사용자용 화면 출자출하조직 선정여부 리스트 조회
+	@PostMapping(value = "/pd/pcorm/selectScrUserGrid04.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectScrUserGrid04(Model model, @RequestBody PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PrdcrCrclOgnVluFndsMngVO> resultList = new ArrayList<>();
+		try {
+			 resultList = prdcrCrclOgnVluFndsMngService.selectScrUserGrid04(PrdcrCrclOgnVluFndsMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	//사용자용 화면 출자출하조직 선정여부 리스트 조회
+	@PostMapping(value = "/pd/pcorm/selectScrUserGrid05.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectScrUserGrid05(Model model, @RequestBody PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PrdcrCrclOgnVluFndsMngVO> resultList = new ArrayList<>();
+		try {
+			 resultList = prdcrCrclOgnVluFndsMngService.selectScrUserGrid05(PrdcrCrclOgnVluFndsMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
 }

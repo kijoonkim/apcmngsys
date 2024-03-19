@@ -1854,14 +1854,4 @@
 		  AND TOTAL.ITEM_CD = ALAMT.ITEM_CD(+)
 		ORDER BY UO_BRNO , BRNO , ITEM_CD , STBLT_YN
 	</select>
-	<select id="selectScrUserGrid01" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
-	</select>
-	<select id="selectScrUserGrid02" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
-	</select>
-	<select id="selectScrUserGrid03" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
-	</select>
-	<select id="selectScrUserGrid04" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
-	</select>
-	<select id="selectScrUserGrid05" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
-	</select>
 </mapper>

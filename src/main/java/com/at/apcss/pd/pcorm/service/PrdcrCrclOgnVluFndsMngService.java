@@ -93,4 +93,45 @@ public interface PrdcrCrclOgnVluFndsMngService {
 	 */
 	public List<PrdcrCrclOgnVluFndsMngVO> selectRtDataList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO) throws Exception;
 
+
+
+	/**
+	 * 사용자용 평가지표 조회
+	 * @param PrdcrCrclOgnVluFndsMngVO
+	 * @return List<PrdcrCrclOgnVluFndsMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluFndsMngVO> selectScrUserGrid01(PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO) throws Exception;
+
+	/**
+	 * 사용자용 가감점 조회
+	 * @param PrdcrCrclOgnVluFndsMngVO
+	 * @return List<PrdcrCrclOgnVluFndsMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluFndsMngVO> selectScrUserGrid02(PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO) throws Exception;
+
+	/**
+	 * 사용자용 통합조직 선정여부 조회
+	 * @param PrdcrCrclOgnVluFndsMngVO
+	 * @return List<PrdcrCrclOgnVluFndsMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluFndsMngVO> selectScrUserGrid03(PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO) throws Exception;
+
+	/**
+	 * 사용자용 출자출하조직 선정여부 조회
+	 * @param PrdcrCrclOgnVluFndsMngVO
+	 * @return List<PrdcrCrclOgnVluFndsMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluFndsMngVO> selectScrUserGrid04(PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO) throws Exception;
+
+	/**
+	 * 사용자용 최종 점수 조회
+	 * @param PrdcrCrclOgnVluFndsMngVO
+	 * @return List<PrdcrCrclOgnVluFndsMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluFndsMngVO> selectScrUserGrid05(PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO) throws Exception;
 }
