@@ -562,7 +562,7 @@
 				{caption: ["적합여부"], 	ref: 'orgStbltYn',   		type:'output',  width:'100px',	style:'text-align:center;'},
 				{caption: ["비고"], 		ref: 'stbltYnNm',   	type:'textarea',  width:'200px',	style:'padding-left:10px'
 					,typeinfo : {textareanewline : true},disabled:true },
-				{caption: ["조치사항"], 		ref: 'actnMttr',   	type:'output',  width:'200px',	style:'text-align:center'},
+				{caption: ["조치사항"], 		ref: 'actnMttr',   	type:'input',  width:'200px',	style:'text-align:center'},
 				{caption: ["상세내역"], 	ref: 'apoCd',   		hidden : true},
 				{caption: ["상세내역"], 	ref: 'apoSe',   		hidden : true},
 				{caption: ["상세내역"], 	ref: 'brno',   			hidden : true},

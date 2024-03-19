@@ -162,6 +162,11 @@ public class PrdcrCrclOgnVluIdctrMngVO extends ComVO{
 	private String corpDtlSeCd;
 	private String corpDtlSeNm;
 
+	private String uoCorpSeCd;
+	private String uoCorpSeNm;
+	private String uoCorpDtlSeCd;
+	private String uoCorpDtlSeNm;
+
 	private String icptRsnCd;
 	private String icptRsnNm;
 	private String icptRsnDtlCd;
@@ -175,6 +180,13 @@ public class PrdcrCrclOgnVluIdctrMngVO extends ComVO{
 
 	private String pnlty;
 	private String mngrPnlty;
+
+	private String totTrmtPrfmncAmt;
+	private String ddcTot;
+	private String ajmtAmt;
+	private String spmtPrfmncAmt;
+	private String slsCprtnTot;
+	private String spmtRt;
 
 	private String prfmncCorpDdlnYn;//실적 법인체 마감
 	private String sysFrstInptUserIdNm;

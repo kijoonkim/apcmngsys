@@ -22,7 +22,8 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnAllSave" name="btnAllSave" uitype="normal" text="선정여부 일괄 저장" class="btn btn-sm btn-outline-danger" onclick="fn_allSave()"></sbux-button>
-					<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
+					<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 통합조직 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
+					<sbux-button id="btnRowData01" name="btnRowData01" uitype="normal" text="로우데이터 출자출하조직 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect01"></sbux-button>
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 				</div>
 			</div>
@@ -2366,34 +2367,41 @@
 		SBGridProperties.oneclickedit = true;
 		//SBGridProperties.rowheader="seq";
 		SBGridProperties.columns = [
-			{caption: ["신청년도"],			ref:'yr',			type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["사업자번호"],		ref:'brno',			type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["법인명"],			ref:'corpNm',		type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["조직구분"],			ref:'apoSe',		type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["통합조직 사업자번호"],		ref:'uoBrno',	type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["통합조직 법인명"],		ref:'uoCorpNm',	type:'output',width:'70px',style:'text-align:center'},
-
+			{caption: ["평가년도"],			ref:'yr',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["법인구분"],			ref:'corpSeNm',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["법인형태"],			ref:'corpDtlSeNm',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["법인명"],			ref:'corpNm',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["사업자번호"],		ref:'brno',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["통합조직 구분"],		ref:'apoSe',		type:'output',width:'70px',style:'text-align:center'},
 
-			{caption: ["적합품목 리스트"],			ref:'stbltItemList',		type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["출자출하조직 자금신청액"],		ref:'isoFundAplyAmt',		type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["자금신청액 합계"],			ref:'fundAplyAmtTot',		type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["자금신청액 합계(탈락 출자출하조직 신청액은 제외)"],	ref:'fundAplyAmtStbltTot',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["품목명"],			ref:'itemNm',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["전문/육성품목 구분"],	ref:'sttgUpbrItemNm',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["부류"],			ref:'ctgryNm',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["품목 적합여부"],		ref:'orgStbltYn',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["품목 부적합사유"],	ref:'stbltYnNm',		type:'output',width:'70px',style:'text-align:center'},
 
-			{caption: ["선정여부"],			ref:'stbltYn',			type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["탈락사유구분"],		ref:'icptRsnNm',		type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["세부탈락사유"],		ref:'icptRsnDtlNm',		type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["패널티"],			ref:'pnlty',			type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["금리"],			ref:'itrRt',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["통합조직 총취급액"],	ref:'slsCnsgnSlsAmtTot',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["생산자조직 전속출하액"],	ref:'slsCnsgnSlsAmt',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["전속취급률"],		ref:'slsCnsgnSlsAmtRt',		type:'output',width:'70px',style:'text-align:center'},
 
-			{caption: ["선정여부(관리자입력)"],			ref:'mngrStbltYn',			type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["탈락사유구분(관리자입력)"],		ref:'mngrIcptRsnNm',		type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["세부탈락사유(관리자입력)"],		ref:'mngrIcptRsnDtlNm',		type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["패널티(관리자입력)"],			ref:'mngrPnlty',			type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["금리(관리자입력)"],			ref:'mngrItrRt',			type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["적합품목 리스트"],			ref:'stbltItemList',		type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["출자출하조직 자금신청액"],		ref:'isoFundAplyAmt',		type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["자금신청액 합계"],			ref:'fundAplyAmtTot',		type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["자금신청액 합계(탈락 출자출하조직 신청액은 제외)"],	ref:'fundAplyAmtStbltTot',		type:'output',width:'70px',style:'text-align:center'},
 
-			{caption: ["비고"],		ref:'rmrk',		type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["선정여부"],			ref:'stbltYn',			type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["탈락사유구분"],		ref:'icptRsnNm',		type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["세부탈락사유"],		ref:'icptRsnDtlNm',		type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["패널티"],			ref:'pnlty',			type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["금리"],			ref:'itrRt',			type:'output',width:'70px',style:'text-align:center'},
+
+			//{caption: ["선정여부(관리자입력)"],			ref:'mngrStbltYn',			type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["탈락사유구분(관리자입력)"],		ref:'mngrIcptRsnNm',		type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["세부탈락사유(관리자입력)"],		ref:'mngrIcptRsnDtlNm',		type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["패널티(관리자입력)"],			ref:'mngrPnlty',			type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["금리(관리자입력)"],			ref:'mngrItrRt',			type:'output',width:'70px',style:'text-align:center'},
+
+			//{caption: ["비고"],		ref:'rmrk',		type:'output',width:'70px',style:'text-align:center'},
 		];
 		hiddenGrd = _SBGrid.create(SBGridProperties);
 
@@ -2407,7 +2415,7 @@
 			yr = year;
 		}
 
-		let postJsonPromise = gfn_postJSON("/pd/pcorm/selectRawDataList.do", {
+		let postJsonPromise = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnGenalTblMngSelectRawDataList.do", {
 			yr : yr
 			});
 
@@ -2417,6 +2425,30 @@
 			console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let hiddenGrdVO = {
+					yr						:item.yr
+					,brno					:item.brno
+					,corpNm					:item.corpNm
+					,aprv					:item.aprv
+					,aprvNm					:item.aprvNm
+					,itemCd					:item.itemCd
+					,itemNm					:item.itemNm
+					,ctgryCd				:item.ctgryCd
+					,ctgryNm				:item.ctgryNm
+					,sttgUpbrItemSe			:item.sttgUpbrItemSe
+					,sttgUpbrItemNm			:item.sttgUpbrItemNm
+
+					,corpSeNm				:item.corpSeNm
+					,corpDtlSeNm			:item.corpDtlSeNm
+
+					,slsCnsgnSlsAmt			:item.slsCnsgnSlsAmt
+					,slsCnsgnSlsAmtTot		:item.slsCnsgnSlsAmtTot
+					,slsCnsgnSlsAmtRt		:item.slsCnsgnSlsAmtRt
+
+					,stbltYn				:item.stbltYn
+					,orgStbltYn				:item.orgStbltYn
+					,stbltYnNm				:fn_calUoStbltYn(item)
+
+					/*
 					yr						:item.yr
 					,brno					:item.brno
 					,apoSe					:item.apoSe
@@ -2454,6 +2486,7 @@
 					,mngrPnlty				:item.mngrPnlty//패널티(관리자입력)
 
 					,rmrk					:item.rmrk//비고
+					*/
 
 				}
 
@@ -2480,7 +2513,7 @@
 		const day = currentDate.getDate().toString().padStart(2, '0');
 		let formattedDate = year + month + day;
 
-		let fileName = formattedDate + "_등록결과_확인_출자출하조직_로우데이터";
+		let fileName = formattedDate + "_등록결과_확인_통합조직_로우데이터";
 
 		/*
 		datagrid.exportData(param1, param2, param3, param4);
@@ -2518,16 +2551,34 @@
 		SBGridProperties.oneclickedit = true;
 		//SBGridProperties.rowheader="seq";
 		SBGridProperties.columns = [
-			{caption: ["신청년도"],			ref:'yr',			type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["사업자번호"],		ref:'brno',			type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["법인명"],			ref:'corpNm',		type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["조직구분"],			ref:'apoSe',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["평가년도"],			ref:'yr',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["통합조직 법인구분"],		ref:'uoCorpSeNm',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["통합조직 법인형태"],		ref:'uoCorpDtlSeNm',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["통합조직 사업자번호"],		ref:'uoBrno',	type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["통합조직 법인명"],		ref:'uoCorpNm',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["통합조직 조직명"],		ref:'uoCorpNm',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["통합조직 구분"],			ref:'apoSe',		type:'output',width:'70px',style:'text-align:center'},
 
-			{caption: ["법인구분"],			ref:'corpSeNm',		type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["법인형태"],			ref:'corpDtlSeNm',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["출자출하조직 법인구분"],	ref:'corpSeNm',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["출자출하조직 조직명"],		ref:'corpNm',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["출자출하조직 사업자번호"],	ref:'brno',			type:'output',width:'70px',style:'text-align:center'},
 
+			{caption: ["복수출자출하조직 여부"],			ref:'aa',		type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["품목명"],			ref:'itemNm',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["전문/육성품목 구분"],	ref:'sttgUpbrItemNm',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["부류"],			ref:'ctgryNm',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["품목 적합여부"],		ref:'orgStbltYn',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["품목 부적합사유"],	ref:'stbltYnNm',		type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["품목별 총취급액"],	ref:'totTrmtPrfmncAmt',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["품목별 취급액 공제액"],	ref:'ddcTot',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["품목별 취급액 조정취급액"],	ref:'ajmtAmt',		type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["품목별 출하액"],		ref:'spmtPrfmncAmt',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["품목별 출하액 중 생산자조직 약정출하액"],	ref:'slsCprtnTot',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["품목별 출하율"],		ref:'spmtRt',		type:'output',width:'70px',style:'text-align:center'},
+
+			/*
 			{caption: ["적합품목 리스트"],			ref:'stbltItemList',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["출자출하조직 자금신청액"],		ref:'isoFundAplyAmt',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["자금신청액 합계"],			ref:'fundAplyAmtTot',		type:'output',width:'70px',style:'text-align:center'},
@@ -2546,6 +2597,7 @@
 			{caption: ["금리(관리자입력)"],			ref:'mngrItrRt',			type:'output',width:'70px',style:'text-align:center'},
 
 			{caption: ["비고"],		ref:'rmrk',		type:'output',width:'70px',style:'text-align:center'},
+			*/
 		];
 		hiddenGrd01 = _SBGrid.create(SBGridProperties);
 
@@ -2569,6 +2621,35 @@
 			console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let hiddenGrdVO = {
+						yr						:item.yr
+						,uoBrno					:item.uoBrno
+						,uoCorpNm				:item.uoCorpNm
+						,brno					:item.brno
+						,corpNm					:item.corpNm
+						,aprv					:item.aprv
+						,aprvNm					:item.aprvNm
+						,itemCd					:item.itemCd
+						,itemNm					:item.itemNm
+						,ctgryCd				:item.ctgryCd
+						,ctgryNm				:item.ctgryNm
+						,sttgUpbrItemSe			:item.sttgUpbrItemSe
+						,sttgUpbrItemNm			:item.sttgUpbrItemNm
+						,stbltYn				:item.stbltYn
+						,orgStbltYn				:item.orgStbltYn
+						,stbltYnNm				:fn_calIsoStbltYn(item)
+
+						,corpSeNm				:item.corpSeNm
+						,uoCorpSeNm				:item.uoCorpSeNm
+						,uoCorpDtlSeNm			:item.uoCorpDtlSeNm
+
+						,totTrmtPrfmncAmt		:item.totTrmtPrfmncAmt
+						,ddcTot					:item.ddcTot
+						,ajmtAmt				:item.ajmtAmt
+						,spmtPrfmncAmt			:item.spmtPrfmncAmt
+						,slsCprtnTot			:item.slsCprtnTot
+						,spmtRt					:item.spmtRt
+
+					/*
 					yr						:item.yr
 					,brno					:item.brno
 					,apoSe					:item.apoSe
@@ -2606,7 +2687,7 @@
 					,mngrPnlty				:item.mngrPnlty//패널티(관리자입력)
 
 					,rmrk					:item.rmrk//비고
-
+					*/
 				}
 
 				jsonHiddenGrd01.push(hiddenGrdVO);
