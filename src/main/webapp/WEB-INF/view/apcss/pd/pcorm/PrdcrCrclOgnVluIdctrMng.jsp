@@ -1493,6 +1493,39 @@
 		SBUxMethod.set('dtl-input-yr',null)//등록년도
 	}
 
+	//그리드 초기화
+	async function fn_clearForm01() {
+		if(jsonPrdcrOgnCurntMng01.length > 0){
+			jsonPrdcrOgnCurntMng01.length= 0;
+			grdPrdcrOgnCurntMng01.rebuild();
+		}
+		if(jsonPrdcrOgnCurntMng02.length > 0){
+			jsonPrdcrOgnCurntMng02.length= 0;
+			grdPrdcrOgnCurntMng02.rebuild();
+		}
+		if(jsonPrdcrOgnCurntMng03.length > 0){
+			jsonPrdcrOgnCurntMng03.length= 0;
+			grdPrdcrOgnCurntMng03.rebuild();
+		}
+		if(jsonPrdcrOgnCurntMng04.length > 0){
+			jsonPrdcrOgnCurntMng04.length= 0;
+			grdPrdcrOgnCurntMng04.rebuild();
+		}
+		if(jsonPrdcrOgnCurntMng05.length > 0){
+			jsonPrdcrOgnCurntMng05.length= 0;
+			grdPrdcrOgnCurntMng05.rebuild();
+		}
+		if(jsonPrdcrOgnCurntMng06.length > 0){
+			jsonPrdcrOgnCurntMng06.length= 0;
+			grdPrdcrOgnCurntMng06.rebuild();
+		}
+		if(jsonPrdcrOgnCurntMng07.length > 0){
+			jsonPrdcrOgnCurntMng07.length= 0;
+			grdPrdcrOgnCurntMng07.rebuild();
+		}
+
+	}
+
 	const fn_dtlGridSearch = async function(){
 		let brno = SBUxMethod.get('dtl-input-brno');
 		if(gfn_isEmpty(brno)){
@@ -2145,7 +2178,7 @@
 	}
 
 	//통합조직 선정여부 저장
-	async const fn_listSave01 = async function(){
+	const fn_listSave01 = async function(){
 
 		let gridData = grdPrdcrOgnCurntMng06.getGridDataAll();
 		let saveList = [];
@@ -2183,7 +2216,7 @@
 				if (_.isEqual("S", data.resultStatus)) {
 					gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
 
-					await fn_clearForm();
+					await fn_clearForm01();
 					await fn_dtlGridSearch();
 				} else {
 					alert(data.resultMessage);
@@ -2198,7 +2231,7 @@
 	}
 
 	//통합조직 선정여부 저장
-	async const fn_listSave02 = async function(){
+	const fn_listSave02 = async function(){
 
 		let gridData = grdPrdcrOgnCurntMng07.getGridDataAll();
 		let saveList = [];
@@ -2231,7 +2264,7 @@
 			try {
 				if (_.isEqual("S", data.resultStatus)) {
 					gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
-					await fn_clearForm();
+					await fn_clearForm01();
 					await fn_dtlGridSearch();
 				} else {
 					alert(data.resultMessage);
