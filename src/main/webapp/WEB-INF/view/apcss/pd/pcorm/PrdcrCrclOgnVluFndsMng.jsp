@@ -2241,7 +2241,7 @@
 			{caption: ["탈락사유구분"], 	ref: 'icptRsnNm',		type:'output',  width:'120px',    style:'text-align:center;', disabled : true},
 			{caption: ["세부탈락사유"], 	ref: 'icptRsnDtlNm',	type:'output',  width:'160px',    style:'text-align:center;', disabled : true},
 			{caption: ["패널티"], 		ref: 'pnlty',			type:'output',  width:'110px',    style:'text-align:center;'},
-			{caption: ["자금신청액(천원)"], 	ref: 'isoFundAplyAmt',	type:'output',  width:'160px',    style:'text-align:center;'
+			{caption: ["자금신청액(천원)"], 	ref: 'fundAplyAmtTot',	type:'output',  width:'160px',    style:'text-align:center;'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}
 			},
 			{caption: ["금리(%)"], 		ref: 'itrRt',	type:'output',  width:'80px',    style:'text-align:center;'},
@@ -2529,7 +2529,7 @@
 					,icptRsnNm			: item.icptRsnNm//탈락사유구분
 					,icptRsnDtlNm		: item.icptRsnDtlNm //세부탈락사유
 
-					,isoFundAplyAmt		: item.isoFundAplyAmt//자금신청액
+					,fundAplyAmtTot		: item.fundAplyAmtTot//자금신청액
 					,pnlty				: item.pnlty//패널티
 					,itrRt				: item.itrRt//금리
 
