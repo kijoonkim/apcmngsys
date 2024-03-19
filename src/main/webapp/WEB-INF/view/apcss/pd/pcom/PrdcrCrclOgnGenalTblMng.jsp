@@ -1370,6 +1370,8 @@
 					,stbltYn				:item.stbltYn
 					,orgStbltYn				:item.orgStbltYn
 					,stbltYnNm				:fn_calStbltYn(item)
+
+					,actn_mttr				:item.actn_mttr
 				}
 				jsonHiddenGrd.push(hiddenGrdVO);
 			});
