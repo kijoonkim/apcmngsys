@@ -366,6 +366,25 @@
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrOgnCurntMng02" style="height:300px; width: 1142px;"></div>
 				</div>
+				<div class="ad_section_top" style="width: 99%;">
+					<div class="box-header" style="display:flex; justify-content: flex-start; width: 1142px;" >
+						<div style="margin-left: auto;">
+							<sbux-button id="btnSaveFclt3" name="btnSaveFclt3" uitype="normal" text="최종점수 저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveScrRslt"></sbux-button>
+						</div>
+					</div>
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">▶최종점수</span>
+								<!--
+								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+								 -->
+							</li>
+						</ul>
+					</div>
+					<!-- SBGrid를 호출합니다. -->
+					<div id="sb-area-grdScrRslt" style="height:300px; width: 1142px;"></div>
+				</div>
 		</c:if>
 		<!-- 사용자용 화면  -->
 		<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
@@ -507,6 +526,9 @@
 
 		await fn_fcltMngCreateGrid05();
 		await fn_fcltMngCreateGrid06();
+
+		await fn_createGridScrRslt();
+
 	</c:if>
 	<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
 		//await fn_userGrid01();
@@ -967,6 +989,58 @@
 		grdPrdcrOgnCurntMng06 = _SBGrid.create(SBGridProperties);
 	}
 
+	var jsonScrRslt = []; // 그리드의 참조 데이터 주소 선언
+	var grdScrRslt;
+
+	const objMenuListScrRslt = {
+			"excelDwnld": {
+				"name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+				"accesskey": "e",					//단축키
+				"callback": fn_excelDwnldScrRslt,			//콜백함수명
+			}
+		};
+
+
+	function fn_excelDwnldScrRslt() {
+		grdScrRslt.exportLocalExcel("출자출하조직 선정여부 리스트", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+	}
+
+
+	/* Grid 화면 그리기 기능*/
+	//최종점수 리스트
+	const fn_createGridScrRslt = async function() {
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-grdScrRslt';
+		SBGridProperties.id = 'grdScrRslt';
+		SBGridProperties.jsonref = 'jsonScrRslt';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuListScrRslt;	// 우클릭 메뉴 리스트
+		SBGridProperties.fixedrowheight=45;
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.rowheader = ['seq','update'];
+		SBGridProperties.columns = [
+			{caption: ["평가년도"],			ref: 'yr',		type:'output',  width:'60px',    style:'text-align:center;'},
+			{caption: ["사업자번호"],		ref: 'brno',		type:'output',  width:'80px',    style:'text-align:center;'},
+			{caption: ["조직구분"],			ref: 'aprvNm',		type:'output',  width:'60px',    style:'text-align:center;'},
+			{caption: ["법인명"],			ref: 'corpNm',		type:'output',  width:'160px',    style:'text-align:center;'},
+
+			{caption: ["전문품목 총취급액\n점수(A)(50)"], 		ref: 'slsTotAmtScr',	type:'input',  width:'110px',    style:'text-align:center;'},
+			{caption: ["전문품목 전속취급률\n점수(B)(50)"], 		ref: 'slsTotRtScr',		type:'input',  width:'130px',    style:'text-align:center;'},
+			{caption: ["총점(A+B)\n(100)"], 				ref: 'totScr',			type:'input',  width:'100px',    style:'text-align:center;'},
+			{caption: ["온라인도매시장\n가점(1~5)"], 			ref: 'onlnWhlslMrktScr',	type:'input',  width:'110px',    style:'text-align:center;'},
+			{caption: ["유통교육 가점\n(0~2)"], 				ref: 'rtlEdnstScr',		type:'input',  width:'110px',    style:'text-align:center;'},
+			{caption: ["감점(△10)"], 						ref: 'ddcScr',			type:'input',  width:'110px',    style:'text-align:center;'},
+			{caption: ["가감점 포함 \n최종 점수(100)"], 			ref: 'lastScr',		type:'input',  width:'110px',    style:'text-align:center;'},
+
+			{caption: ["상세내역"], 	ref: 'apoSe',		hidden : true},
+			{caption: ["상세내역"], 	ref: 'aprv',		hidden : true},
+		];
+
+		grdScrRslt = _SBGrid.create(SBGridProperties);
+	}
+
 
 	/**
 	 * 목록 조회
@@ -1137,6 +1211,7 @@
 		await fn_dtlGridSearchActvtnFund2();	//가감점
 		fn_dtlGridSearchUoTot();
 		fn_dtlGridSearchIsoTot();
+		fn_dtlGridSearchScrRslt();
 	}
 
 
@@ -1376,6 +1451,63 @@
 			grdPrdcrOgnCurntMng06.rebuild();
 			//적합한 경우 통합조직 금리와 동일하게 하고 수정불가 처리
 			fn_disable06();
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+
+	//최종 점수 조회
+	async function fn_dtlGridSearchScrRslt() {
+
+		let brno = SBUxMethod.get("dtl-input-brno");//
+		let yr = SBUxMethod.get("dtl-input-yr");//
+
+		if(gfn_isEmpty(yr)){
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
+
+		let postJsonPromise = gfn_postJSON("/pd/pcorm/selectScrRsltList.do", {
+			brno : brno
+			, yr : yr
+		});
+		let data = await postJsonPromise;
+		try{
+			jsonScrRslt.length = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
+
+				let itemVO = {
+						yr: 	item.yr
+						,brno: 	item.brno
+						,apoSe: item.apoSe
+						,aprv: item.aprv
+						,aprvNm: item.aprvNm
+						,corpNm: item.corpNm
+
+						,slsTotAmtScr			: item.slsTotAmtScr//전문품목 총취급액 점수(A)(50)
+						,slsTotRtScr			: item.slsTotRtScr//전문품목 전속취급률 점수(B)(50)
+						,totScr					: item.totScr //총점(A+B)(100)
+						,onlnWhlslMrktScr		: item.onlnWhlslMrktScr//온라인도매시장 가점(1~5)
+						,rtlEdnstScr			: item.rtlEdnstScr//유통교육 가점(0~2)
+						,ddcScr					: item.ddcScr//감점(△10)
+						,lastScr				: item.lastScr//가감점 포함 최종 점수(100)
+
+				};
+				jsonScrRslt.push(itemVO);
+			});
+			grdScrRslt.rebuild();
+
+			if(jsonScrRslt.length == 0){
+				let corpNm = SBUxMethod.get("dtl-input-corpNm");//
+				grdScrRslt.addRow(true, {brno:brno, yr:yr, apoSe:'1', corpNm:corpNm});
+			}
+
 		}catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -1632,6 +1764,46 @@
 				if (_.isEqual("S", data.resultStatus)) {
 					gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
 					fn_dtlGridSearch();
+				} else {
+					alert(data.resultMessage);
+				}
+			} catch (e) {
+				if (!(e instanceof Error)) {
+					e = new Error(e);
+				}
+				console.error("failed", e.message);
+			}
+		}
+	}
+
+	//최종점수 리스트 저장
+	const fn_saveScrRslt = async function(){
+
+		let gridData = grdScrRslt.getGridDataAll();
+		let saveList = [];
+
+		//그리드의 해드가 두줄이상인경우 for문 시작과 끝을 늘린만큼 늘려야함
+		for(var i=1; i<=gridData.length; i++ ){
+			let rowData = grdScrRslt.getRowData(i);
+			let rowSts = grdScrRslt.getRowStatus(i);
+
+			rowData.rowSts = "I";
+			saveList.push(rowData);
+		}
+		if(saveList.length == 0){
+			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
+			return;
+		}
+
+		let regMsg = "저장 하시겠습니까?";
+		if(confirm(regMsg)){
+
+			let postJsonPromise = gfn_postJSON("/pd/pcorm/multiSaveScrRsltList.do", saveList);
+			let data = await postJsonPromise;
+			try {
+				if (_.isEqual("S", data.resultStatus)) {
+					gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+					fn_dtlGridSearchScrRslt();
 				} else {
 					alert(data.resultMessage);
 				}
@@ -2367,7 +2539,7 @@
 		}
 	}
 
-	//출자출하조직 선정여부 조회
+	//최종 점수 조회
 	async function fn_userGridSearch05() {
 
 		let brno = SBUxMethod.get("dtl-input-brno");//

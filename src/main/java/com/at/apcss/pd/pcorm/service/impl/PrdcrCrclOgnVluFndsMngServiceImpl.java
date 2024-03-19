@@ -45,6 +45,13 @@ public class PrdcrCrclOgnVluFndsMngServiceImpl extends BaseServiceImpl implement
 	}
 
 	@Override
+	public List<PrdcrCrclOgnVluFndsMngVO> selectScrRsltList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO) throws Exception {
+
+		List<PrdcrCrclOgnVluFndsMngVO> resultList = prdcrCrclOgnVluFndsMngMapper.selectScrRsltList(prdcrCrclOgnVluFndsMngVO);
+		return resultList;
+	}
+
+	@Override
 	public int insertActvtnFund(PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO) throws Exception {
 		int saveCnt = prdcrCrclOgnVluFndsMngMapper.insertActvtnFund(PrdcrCrclOgnVluFndsMngVO);
 		return saveCnt;
@@ -55,6 +62,21 @@ public class PrdcrCrclOgnVluFndsMngServiceImpl extends BaseServiceImpl implement
 		int savedCnt = 0;
 		for (PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO : PrdcrCrclOgnVluFndsMngVOList) {
 			savedCnt += insertActvtnFund(PrdcrCrclOgnVluFndsMngVO);
+		}
+		return savedCnt;
+	}
+
+	@Override
+	public int insertScrRslt(PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO) throws Exception {
+		int saveCnt = prdcrCrclOgnVluFndsMngMapper.insertScrRslt(PrdcrCrclOgnVluFndsMngVO);
+		return saveCnt;
+	}
+
+	@Override
+	public int multiSaveScrRsltList(List<PrdcrCrclOgnVluFndsMngVO> PrdcrCrclOgnVluFndsMngVOList) throws Exception {
+		int savedCnt = 0;
+		for (PrdcrCrclOgnVluFndsMngVO PrdcrCrclOgnVluFndsMngVO : PrdcrCrclOgnVluFndsMngVOList) {
+			savedCnt += insertScrRslt(PrdcrCrclOgnVluFndsMngVO);
 		}
 		return savedCnt;
 	}
