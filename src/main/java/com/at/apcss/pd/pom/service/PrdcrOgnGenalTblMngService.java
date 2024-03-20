@@ -41,4 +41,6 @@ public interface PrdcrOgnGenalTblMngService {
 
 	public int updateStbltYn(PrdcrOgnGenalTblMngVO PrdcrOgnGenalTblMngVO) throws Exception;
 
+	public List<PrdcrOgnGenalTblMngVO> selectRawDataPrdcrOgnzList(PrdcrOgnGenalTblMngVO PrdcrOgnGenalTblMngVO) throws Exception;
+
 }

@@ -2384,7 +2384,7 @@
 			{caption: ["법인형태"],			ref:'corpDtlSeNm',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["법인명"],			ref:'corpNm',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["사업자번호"],		ref:'brno',			type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["통합조직 구분"],		ref:'apoSe',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["통합조직 구분"],		ref:'aprvNm',		type:'output',width:'70px',style:'text-align:center'},
 
 			{caption: ["품목명"],			ref:'itemNm',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["전문/육성품목 구분"],	ref:'sttgUpbrItemNm',	type:'output',width:'70px',style:'text-align:center'},
@@ -2568,13 +2568,13 @@
 			{caption: ["통합조직 법인형태"],		ref:'uoCorpDtlSeNm',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["통합조직 사업자번호"],		ref:'uoBrno',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["통합조직 조직명"],		ref:'uoCorpNm',	type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["통합조직 구분"],			ref:'apoSe',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["통합조직 구분"],			ref:'aprvNm',		type:'output',width:'70px',style:'text-align:center'},
 
 			{caption: ["출자출하조직 법인구분"],	ref:'corpSeNm',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["출자출하조직 조직명"],		ref:'corpNm',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["출자출하조직 사업자번호"],	ref:'brno',			type:'output',width:'70px',style:'text-align:center'},
 
-			{caption: ["복수출자출하조직 여부"],			ref:'aa',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["복수출자출하조직 여부"],	ref:'uoBrnoCnt',		type:'output',width:'70px',style:'text-align:center'},
 
 			{caption: ["품목명"],			ref:'itemNm',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["전문/육성품목 구분"],	ref:'sttgUpbrItemNm',	type:'output',width:'70px',style:'text-align:center'},
@@ -2653,6 +2653,9 @@
 						,corpSeNm				:item.corpSeNm
 						,uoCorpSeNm				:item.uoCorpSeNm
 						,uoCorpDtlSeNm			:item.uoCorpDtlSeNm
+
+						,uoBrnoCnt				:item.uoBrnoCnt
+
 
 						,totTrmtPrfmncAmt		:item.totTrmtPrfmncAmt
 						,ddcTot					:item.ddcTot

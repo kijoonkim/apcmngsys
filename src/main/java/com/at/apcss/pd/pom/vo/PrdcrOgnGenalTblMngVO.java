@@ -1,3 +1,4 @@
+
 package com.at.apcss.pd.pom.vo;
 
 import com.at.apcss.co.sys.vo.ComVO;
@@ -24,6 +25,7 @@ public class PrdcrOgnGenalTblMngVO extends ComVO{
 	private String brno;
 	private String crno;
 	private String corpNm;
+	private String uoCorpNm;
 	private String picFlnm;
 	private String mngmstYn;
 
@@ -68,6 +70,31 @@ public class PrdcrOgnGenalTblMngVO extends ComVO{
 	private String pruoFundAplyAmt;
 	private String isoFundAplyAmt;
 	private String aplyTrgtSe;
+
+	//생산자조직 TB_EV_FRMHS_APO
+	private String ctgryCd;
+	private String ctgryNm;
+	private String itemNm;
+	private String sttgUpbrItemSe;
+	private String sttgUpbrItemNm;
+	private String trmtType;
+	private String trmtTypeNm;
+	private String aprvNm;
+
+	private String prdcrOgnzCd;
+	private String prdcrOgnzNm;
+	private String rmrk;
+
+	private String ecSpmtPlanVlmTot;//전속(약정)출하계획량
+	private String ecSpmtVlmTot;//전속(약정)출하량
+	private String ecSpmtRate;//출하비율
+	private String ecSpmtRateA;//출하비율A
+	private String ecSpmtRateB;//출하비율B
+	private String spmtPrcTot;//출하대금지급액
+	private String prdctnVlmTot;//생산량(결과)
+	private String cnt;//조직원수
+	private String orgStbltYn;//적합여부
+	private String exclYn;//제외 여부
 
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;

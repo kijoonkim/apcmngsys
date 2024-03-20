@@ -460,6 +460,7 @@
 		SELECT	/* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectRawDataList */
 			TOTAL.YR
 			,TOTAL.BRNO
+			,'통합조직' AS APO_SE
 			,(SELECT SLCTN_YR FROM TB_EV_APO WHERE BRNO = TOTAL.BRNO)AS SLCTN_YR
 			,TOTAL.CORP_NM
 			,TOTAL.CORP_SE_CD

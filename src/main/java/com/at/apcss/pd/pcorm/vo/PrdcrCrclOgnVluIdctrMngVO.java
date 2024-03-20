@@ -161,6 +161,8 @@ public class PrdcrCrclOgnVluIdctrMngVO extends ComVO{
 	private String corpSeNm;
 	private String corpDtlSeCd;
 	private String corpDtlSeNm;
+	private String uoBrnoCnt;
+
 
 	private String uoCorpSeCd;
 	private String uoCorpSeNm;

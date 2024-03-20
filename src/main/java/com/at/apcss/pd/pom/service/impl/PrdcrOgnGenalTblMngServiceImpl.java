@@ -90,4 +90,11 @@ public class PrdcrOgnGenalTblMngServiceImpl extends BaseServiceImpl implements P
 		return updatedCnt;
 	}
 
+	@Override
+	public List<PrdcrOgnGenalTblMngVO> selectRawDataPrdcrOgnzList(PrdcrOgnGenalTblMngVO PrdcrOgnGenalTblMngVO) throws Exception {
+
+		List<PrdcrOgnGenalTblMngVO> resultList = PrdcrOgnGenalTblMngMapper.selectRawDataPrdcrOgnzList(PrdcrOgnGenalTblMngVO);
+		return resultList;
+	}
+
 }
