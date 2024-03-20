@@ -371,7 +371,7 @@
 						  AND APO_SE = '2'
 						  AND BRNO IN (SELECT ISO_BRNO FROM TB_EV_APO_UO_CD WHERE UO_BRNO = EAM.BRNO)
 						  AND BRNO = (SELECT BRNO
-						  				FROM TB_EV_REG_RSLT
+						  				FROM TB_EV_REG_RSLT TERR
 						  				WHERE 1=1
 						  				  AND APO_SE = '2'
 						  				  AND YR = TEAM.YR
