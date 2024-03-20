@@ -1210,7 +1210,37 @@
 							,NULL
 			) AS ISO_FUND_APLY_AMT
 			, FUND_APLY_AMT_TOT
-			, FUND_APLY_AMT_STBLT_TOT
+			, DECODE(ERR.APO_SE
+						, '1' , (NVL((SELECT PRUO_FUND_APLY_AMT
+										FROM TB_EV_APLY_MNG
+										WHERE 1=1
+										  AND BRNO = ERR.BRNO
+										  AND YR = ERR.YR
+										  AND APO_SE = '1'
+									),0)
+								+ NVL((SELECT SUM(ISO_FUND_APLY_AMT)
+										FROM TB_EV_APLY_MNG TEAM
+										WHERE 1=1
+										  AND YR = ERR.YR
+										  AND UO_BRNO = ERR.BRNO
+										  AND APO_SE = '2'
+										  AND BRNO IN (SELECT ISO_BRNO FROM TB_EV_APO_UO_CD WHERE UO_BRNO = ERR.BRNO)
+										  AND BRNO = (SELECT BRNO
+										  				FROM TB_EV_REG_RSLT TERR
+										  				WHERE 1=1
+										  				  AND APO_SE = '2'
+										  				  AND YR = TEAM.YR
+										  				  AND BRNO = TEAM.BRNO
+										  				  AND UO_BRNO = ERR.BRNO
+										  				  AND 'Y' = (CASE WHEN TERR.MNGR_STBLT_YN = 'Y' THEN 'Y'
+										  									WHEN TERR.MNGR_STBLT_YN = 'N' THEN 'N'
+										  									ELSE TERR.STBLT_YN
+										  									END)
+										  				)
+										  ),0)
+								)
+						,NULL
+			)AS FUND_APLY_AMT_STBLT_TOT
 			, STBLT_YN
 			, ITR_RT
 			, ICPT_RSN_CD
@@ -1327,13 +1357,17 @@
 						  AND APO_SE = '2'
 						  AND BRNO IN (SELECT ISO_BRNO FROM TB_EV_APO_UO_CD WHERE UO_BRNO = EAM.BRNO)
 						  AND BRNO = (SELECT BRNO
-						  				FROM TB_EV_REG_RSLT
+						  				FROM TB_EV_REG_RSLT TERR
 						  				WHERE 1=1
 						  				  AND APO_SE = '2'
 						  				  AND YR = TEAM.YR
 						  				  AND BRNO = TEAM.BRNO
 						  				  AND UO_BRNO = EAM.BRNO
-						  				  AND STBLT_YN = 'Y')
+						  				  AND 'Y' = (CASE WHEN TERR.MNGR_STBLT_YN = 'Y' THEN 'Y'
+						  									WHEN TERR.MNGR_STBLT_YN = 'N' THEN 'N'
+						  									ELSE TERR.STBLT_YN
+						  									END)
+						  				)
 						  ),0)
 			) AS FUND_APLY_AMT_STBLT_TOT
 			,(SELECT LISTAGG(ITEM_NM, ' , ') WITHIN GROUP (ORDER BY ITEM_NM) AS STBLT_YN_NM
@@ -1536,6 +1570,11 @@
 										)
 				) AS STBLT_ITEM_LIST
 				,DECODE( CHK.ICPT_RSN_DTL_CD
+							, 'A1' ,  '-'
+							, 'A2' ,  '-'
+							, 'A3' ,  '-'
+							, 'A4' ,  '-'
+							, 'A5' ,  '-'
 							, 'B1' ,  3
 							, 'B2' ,  2.5
 							, 'C1' ,  3
@@ -1708,11 +1747,12 @@
 			,ALAMT.CORP_SE_CD
 			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CORP_SE_CD' AND CD_VL = ALAMT.CORP_SE_CD) AS CORP_SE_NM
 			,ALAMT.CORP_DTL_SE_CD
-			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CORP_SHAP' AND CD_VL = ALAMT.CORP_DTL_SE_CD) AS CORP_SE_NM
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CORP_SHAP' AND CD_VL = ALAMT.CORP_DTL_SE_CD) AS CORP_DTL_SE_NM
 			,ALAMT.UO_CORP_SE_CD
-			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CORP_SE_CD' AND CD_VL = ALAMT.UO_CORP_SE_CD) AS CORP_SE_NM
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CORP_SE_CD' AND CD_VL = ALAMT.UO_CORP_SE_CD) AS UO_CORP_SE_NM
 			,ALAMT.UO_CORP_DTL_SE_CD
-			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CORP_SHAP' AND CD_VL = ALAMT.UO_CORP_DTL_SE_CD) AS CORP_SE_NM
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CORP_SHAP' AND CD_VL = ALAMT.UO_CORP_DTL_SE_CD) AS UO_CORP_DTL_SE_NM
+			,DECODE(  (SELECT COUNT(*) FROM TB_EV_APO_UO_CD WHERE ISO_BRNO = ALAMT.BRNO) , 1, 'N' , 'Y') AS UO_BRNO_CNT
 		FROM
 				(SELECT
 					TOT.ITEM_CD
