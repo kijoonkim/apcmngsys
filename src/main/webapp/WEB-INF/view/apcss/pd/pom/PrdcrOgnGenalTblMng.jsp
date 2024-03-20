@@ -22,11 +22,12 @@
 				</div>
 				<div style="margin-left: auto;">
 				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '21'}">
+					<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
+					<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<!--
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
 					 -->
-					<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 				</c:if>
 				<c:if test="${loginVO.userType eq '22'}">
 					<sbux-button id="btnSearchFclt2" name="btnSearchFclt2" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch01"></sbux-button>
@@ -376,6 +377,7 @@
 				</c:if>
 				</div>
 			</div>
+			<div id="sb-area-hiddenGrd" style="height:400px; width: 100%; display: none;"></div>
 		</div>
 	</section>
 </body>
@@ -991,7 +993,7 @@
 		}else{
 			uoCorpNm = uoBrnoVal;
 		}
-		console.log('uoCorpNm = '+uoCorpNm);
+		//console.log('uoCorpNm = '+uoCorpNm);
 
 		if(apoSeVal == '2'){
 			if(gfn_isEmpty(uoBrnoVal)){
@@ -1053,7 +1055,7 @@
 			let year = now.getFullYear();
 			yr = year;
 		}
-		console.log('yr = ' + yr +' brno = ' + brno + ' uoBrno = '+uoBrnoVal);
+		//console.log('yr = ' + yr +' brno = ' + brno + ' uoBrno = '+uoBrnoVal);
 
 		//if(gfn_isEmpty(yr)){return;}
 
@@ -1230,5 +1232,149 @@
 		}
 	}
 
+
+	/* 로우데이터 요청 */
+
+	var jsonHiddenGrd = []; // 그리드의 참조 데이터 주소 선언
+	var hiddenGrd;
+
+	/* Grid 화면 그리기 기능*/
+	const fn_hiddenGrd = async function() {
+
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-hiddenGrd';
+		SBGridProperties.id = 'hiddenGrd';
+		SBGridProperties.jsonref = 'jsonHiddenGrd';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.rowheader="seq";
+		SBGridProperties.columns = [
+			{caption: ["신청년도"],			ref:'yr',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["조직구분"],			ref:'apoSe',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["사업자번호"],		ref:'brno',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["법인명"],			ref:'corpNm',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["통합조직 사업자번호"],	ref:'uoBrno',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["통합조직 법인명"],	ref:'uoCorpNm',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["통합조직 구분명"],	ref:'aprvNm',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["전문/육성 구분"],	ref:'sttgUpbrItemNm',	type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["생산자조직 명"], 	ref: 'prdcrOgnzNm',   	type:'output',  width:'180px',    style:'text-align:center'},
+			{caption: ["품목"], 			ref: 'itemNm',   		type:'output',  width:'150px',    style:'text-align:center'},
+			{caption: ["분류"], 			ref: 'ctgryNm',   		type:'output',  width:'70px',    style:'text-align:center'},
+			{caption: ["취급유형"], 		ref: 'trmtTypeNm',   	type:'output',  width:'85px',    style:'text-align:center'},
+
+			{caption: ["조직원수"], 					ref: 'cnt',   			type:'output',  width:'60px',    style:'text-align:center'},
+			{caption: ["생산량(결과)(톤)[A]"], 			ref: 'prdctnVlmTot',   	type:'output',  width:'100px',    style:'text-align:center'},
+			{caption: ["전속(약정)출하계약량(톤)[B]"], 		ref: 'ecSpmtPlanVlmTot',   	type:'output',  width:'100px',    style:'text-align:center'},
+			{caption: ["전속(약정)출하량(결과)(톤)[C]"], 	ref: 'ecSpmtVlmTot',   	type:'output',  width:'100px',    style:'text-align:center'},
+			{caption: ["출하대금 지급액(천원)"], 			ref: 'spmtPrcTot',   	type:'output',  width:'100px',    style:'text-align:center'},
+
+			{caption: ["출하비율(%)(승인형)[C/A]"],		ref: 'ecSpmtRateA',   	type:'output',  width:'100px',    style:'text-align:center;'},
+			{caption: ["출하비율(%)(육성형)[C/B]"],		ref: 'ecSpmtRateB',   	type:'output',  width:'100px',    style:'text-align:center;'},
+			{caption: ["적합여부(기준적용)"], 		ref: 'stbltYn',   		type:'output',  width:'50px',    style:'text-align:center'},
+			{caption: ["적합여부"], 			ref: 'orgStbltYn',   	type:'output',  width:'50px',    style:'text-align:center'},
+			{caption: ["탈락사유"], 			ref: 'stbltYnNm',   	type:'textarea',  width:'150px',    style:'padding-left:10px'},
+			{caption: ["제외여부[ex)생산자조직이 법인인경우]"], 			ref: 'exclYn',   		type:'textarea',  width:'150px',    style:'padding-left:10px'},
+
+		];
+
+		hiddenGrd = _SBGrid.create(SBGridProperties);
+
+	}
+	const fn_hiddenGrdSelect = async function(){
+		await fn_hiddenGrd();
+		let yr = SBUxMethod.get("srch-input-yr");
+		if (gfn_isEmpty(yr)) {
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
+
+		let postJsonPromise = gfn_postJSON("/pd/pom/selectRawDataPrdcrOgnzList.do", {
+			yr : yr
+			});
+
+			let data = await postJsonPromise;
+			try{
+			jsonHiddenGrd.length = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
+				let hiddenGrdVO = {
+						brno: 		item.brno
+						,apoSe: 	item.apoSe
+						,uoBrno: 	item.uoBrno
+						,corpNm: 	item.corpNm
+						,uoCorpNm: 	item.uoCorpNm
+						,yr: 		item.yr
+						,aprv: 		item.aprv//승인형 육성형
+						,aprvNm: 	item.aprvNm
+						,trmtType: 	item.trmtType
+						,trmtTypeNm: item.trmtTypeNm
+						,ctgryCd: 	item.ctgryCd
+						,ctgryNm: 	item.ctgryNm
+						,itemCd: 	item.itemCd
+						,itemNm: 	item.itemNm
+						,sttgUpbrItemNm: item.sttgUpbrItemNm
+
+
+						,prdcrOgnzSn: item.prdcrOgnzSn
+						,prdcrOgnzNm: item.prdcrOgnzNm
+
+						,ecSpmtPlanVlmTot: item.ecSpmtPlanVlmTot//전속(약정)출하계획량
+						,ecSpmtVlmTot: item.ecSpmtVlmTot//전속(약정)출하량
+						,ecSpmtRateA: parseFloat(item.ecSpmtRateA)//출하비율A
+						,ecSpmtRateB: parseFloat(item.ecSpmtRateB)//출하비율B
+						,spmtPrcTot: item.spmtPrcTot//출하대금지급액
+						,prdctnVlmTot: 	item.prdctnVlmTot
+						,cnt: item.cnt//조직원수
+						,stbltYn: item.stbltYn//적합여부 기준 적용 결과
+						,orgStbltYn: item.orgStbltYn//적합여부 현재 적용 값
+						,stbltYnNm: fn_calStbltYn(item)
+						,exclYn: item.exclYn
+				}
+				jsonHiddenGrd.push(hiddenGrdVO);
+			});
+
+			await hiddenGrd.rebuild();
+
+			await fn_excelDown();
+
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+	//로우 데이터 엑셀 다운로드
+	function fn_excelDown(){
+		const currentDate = new Date();
+
+		const year = currentDate.getFullYear().toString().padStart(4, '0');
+		const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');// 월은 0부터 시작하므로 1을 더합니다.
+		const day = currentDate.getDate().toString().padStart(2, '0');
+		let formattedDate = year + month + day;
+
+		let fileName = formattedDate + "_총괄표_생산자조직_로우데이터";
+
+		/*
+		datagrid.exportData(param1, param2, param3, param4);
+		param1(필수)[string]: 다운 받을 파일 형식
+		param2(필수)[string]: 다운 받을 파일 제목
+		param3[boolean]: 다운 받을 그리드 데이터 기준 (default:'false')
+		→ true : csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 다운로드
+		→ false : csv/xls/xlsx 형식의 데이터 다운로드를 jsonref 기준으로 다운로드
+		param4[object]: 다운 받을 그리드 데이터 기준 (default:'false')
+		→ arrRemoveCols(선택): csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 할 때 다운로드에서 제외할 열
+		→ combolabel(선택) : csv/xls/xlsx combo/inputcombo 일 때 label 값으로 저장
+		→ true : label 값으로 저장
+		→ false : value 값으로 저장
+		→ sheetName(선택) : xls/xlsx 형식의 데이터 다운로드시 시트명을 설정
+		 */
+		//console.log(hiddenGrd.exportData);
+		hiddenGrd.exportData("xlsx" , fileName , true , true);
+	}
 </script>
 </html>
