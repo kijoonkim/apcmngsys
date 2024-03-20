@@ -845,8 +845,7 @@
     <insert id="insertSortInvntr" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.insertSortInvntr */
-	    		INTO TB_SORT_INVNTR
-				(
+	    		INTO TB_SORT_INVNTR (
 					  APC_CD
 					, SORTNO
 					, SORT_SN
@@ -870,6 +869,8 @@
 					, PRCS_SN
 					, PRCS_NO
 					, PRCS_TYPE
+					, PCKG_YN
+					, SPMT_PCKG_UNIT_CD
 					, RMRK
 		    		, SYS_FRST_INPT_DT
 		    		, SYS_FRST_INPT_USER_ID
@@ -903,6 +904,8 @@
 					, #{prcsSn}
 					, #{prcsNo}
 					, #{prcsType}
+					, #{pckgYn}
+					, #{spmtPckgUnitCd}
 					, #{rmrk}
 		    		, SYSDATE
 		    		, #{sysFrstInptUserId}
@@ -938,6 +941,8 @@
 				, ITEM_CD		= #{itemCd}
 				, VRTY_CD		= #{vrtyCd}
 				, SPCFCT_CD		= #{spcfctCd}
+				, PCKG_YN		= #{pckgYn}
+				, SPMT_PCKG_UNIT_CD	= #{spmtPckgUnitCd}
 				, GDS_SE_CD		= #{gdsSeCd}
 				, WRHS_SE_CD	= #{wrhsSeCd}
 				, WAREHOUSE_SE_CD	= #{warehouseSeCd}
@@ -1145,8 +1150,7 @@
     <insert id="insertSortStdGrd" parameterType="com.at.apcss.am.invntr.vo.SortStdGrdVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.insertSortStdGrd */
-	    		INTO TB_SORT_STD_GRD
-				(
+	    		INTO TB_SORT_STD_GRD (
 					  APC_CD
 					, SORTNO
 					, SORT_SN
@@ -1326,8 +1330,7 @@
     <insert id="insertSortChgHstry" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.insertSortChgHstry */
-	    		INTO TB_SORT_INVNTR_CHG_HSTRY
-				(
+	    		INTO TB_SORT_INVNTR_CHG_HSTRY (
 					  APC_CD
 					, SORTNO
 					, SORT_SN
