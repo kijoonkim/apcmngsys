@@ -222,9 +222,8 @@
 									onclick="fn_choicePrdcr"
 								></sbux-button>
 							</td>
-							<td colspan="3" style="border-left: hidden;">
-								<sbux-input uitype="hidden" id="srch-inp-wrhsno" name="srch-inp-wrhsno"></sbux-input>
-							</td>
+
+
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg th-mbl"><span class="data_required"></span>품목/품종</th>
@@ -450,6 +449,12 @@
 							</td>
 							<td colspan="6" style="border-left: hidden;">&nbsp;</td>
 						</tr>
+						<tr>
+							<th scope="row" class="th_bg th-mbl">팔레트번호</th>
+							<td colspan="3" style="border-right: hidden;">
+								<sbux-input uitype="text" id="srch-inp-wrhsno" name="srch-inp-wrhsno" class="inpt-mbl dsp-wght" style="border-right: hidden;" readonly></sbux-input>
+							</td>
+						</tr>
 					</tbody>
 				</table>
 			</div>
@@ -659,24 +664,14 @@
      * @description 원물확인서 발행 버튼
      */
 	const fn_docRawMtrWrhs = function() {
-
-		const rawMtrWrhsList = [];
-		const allData = grdRawMtrWrhs.getGridDataAll();
-		allData.forEach((item, index) => {
-			if (item.checkedYn === "Y") {
-					rawMtrWrhsList.push(
-						item.wrhsno
-					);
-				}
-
-		});
-		if (rawMtrWrhsList.length === 0) {
-			gfn_comAlert("W0005", "선택대상");		//	W0005	{0}이/가 없습니다.
+		const wrhsno = SBUxMethod.get("srch-inp-wrhsno");
+		if(wrhsno === ""){
+			alert("팔레트번호를 선택해주세요");
 			return;
 		}
-		const wrhsno = rawMtrWrhsList.join("','");
-
-		gfn_popClipReport("원물인식표", "am/rawMtrIdntyDoc.crf", {apcCd: gv_selectedApcCd, wrhsno: wrhsno});
+		let printData = {wrhsno : wrhsno};
+		fn_autoPrint(printData);
+		//gfn_popClipReport("원물인식표", "am/rawMtrIdntyDoc.crf", {apcCd: gv_selectedApcCd, wrhsno: wrhsno});
 	}
 
 	/**
@@ -1328,6 +1323,8 @@
  		SBUxMethod.set("srch-inp-bxQntt", "");
  		// 중량
  		SBUxMethod.set("srch-inp-wrhsWght", "");
+ 		// 입고번호
+		SBUxMethod.set("srch-inp-wrhsno", "");
 
 	}
 
@@ -1435,7 +1432,7 @@
 			SBUxMethod.set("srch-inp-prdcrNm", rawMtrWrhs[0].prdcrNm);
 			SBUxMethod.set("srch-slt-warehouseSeCd", rawMtrWrhs[0].wrhsSeCd);
 			SBUxMethod.set("srch-inp-bxQntt", rawMtrWrhs[0].bxQntt);
-			await SBUxMethod.set("srch-inp-wrhsno", rawMtrWrhs[0].wrhsno);
+			SBUxMethod.set("srch-inp-wrhsno", rawMtrWrhs[0].wrhsno);
 			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");
 			//품목 품종 세팅 필요값 설정
 			rawMtrWrhs[0].rprsVrtyCd =rawMtrWrhs[0].vrtyCd;
