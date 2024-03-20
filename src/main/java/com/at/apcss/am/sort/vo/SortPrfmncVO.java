@@ -316,7 +316,8 @@ public class SortPrfmncVO extends ComVO {
 	 * 상품코드
 	 */
 	private String spmtPckgUnitCd;
-
+	private String spmtPckgUnitNm;
+	
 	private String pltno;
     
     private String nxtPckgno;
@@ -324,6 +325,8 @@ public class SortPrfmncVO extends ComVO {
     private String grdQnttNm;
     private String grdQnttWght;
 
+    private String pckgYn;
+    
     private String sortRealDelY;
 	
 	/**

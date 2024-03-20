@@ -558,7 +558,10 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 			prfmncVO.setStdGrdList(prfmncInfo.getStdGrdList());
 			sortPrfmncVOList.add(prfmncVO);
 
+			prfmncVO.setPckgYn(prfmncVO.getAutoPckgInptYn());
+			
 			if (ComConstants.CON_YES.equals(prfmncVO.getAutoPckgInptYn())) {
+				
 				SortPrfmncVO pckgVO = new SortPrfmncVO();
 				BeanUtils.copyProperties(prfmncVO, pckgVO);
 				pckgList.add(pckgVO);
@@ -1469,6 +1472,8 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 			prfmncVO.setStdGrdList(prfmncInfo.getStdGrdList());
 			sortPrfmncVOList.add(prfmncVO);
 
+			prfmncVO.setPckgYn(prfmncVO.getAutoPckgInptYn());
+			
 			if (ComConstants.CON_YES.equals(prfmncVO.getAutoPckgInptYn())) {
 				SortPrfmncVO pckgVO = new SortPrfmncVO();
 				BeanUtils.copyProperties(prfmncVO, pckgVO);
