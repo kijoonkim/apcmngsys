@@ -216,6 +216,9 @@
 	                    , sideJsonData[idx].pid
 	                );
             }
+            if(gv_userType === "00" || gv_userType ==="01"){
+            	document.querySelector("#idxSide_menu > div.sbux-sidemeu-title-wrap > div").innerHTML += '<div>관리자 시스템<div>';
+            }
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
