@@ -216,6 +216,48 @@ public class PrdcrCrclOgnVluFndsMngVO extends ComVO{
 	private String ddcScr;//감점(△10)
 	private String lastScr;//가감점 포함 최종 점수(100)
 
+	/* 출자출하조직 로우데이터 추가 */
+
+	private String uoStbltYn;
+	private String uoMngrStbltYn;
+	private String uoIcptRsnCd;
+	private String uoIcptRsnNm;
+	private String uoMngrIcptRsnCd;
+	private String uoMngrIcptRsnNm;
+	private String uoItrRt;
+	private String uoMngrItrRt;
+
+	private String uoBrnoCnt;
+	private String totDdcAmt;
+	private String totAjmtAmt;
+	private String etcTotSpmtPrfmncAmt;
+	private String spmtAmtRt;
+
+	/* 통합조직 로우데이터 추가 */
+
+	private String addr;
+
+	private String rprsvFlnm;
+	private String rprsvTelno;
+	private String rprsvMoblno;
+
+	private String picPosition;
+	private String picTelno;
+	private String picMoblno;
+	private String picEml;
+
+	private String isoFundAplyAmtStbltTot;
+
+	private String prchsTrstAmtTot;
+	private String prchsEmspapAmtTot;
+	private String prchsAmtTot;
+
+	private String slsTrstAmtTot;
+	private String slsEmspapAmtTot;
+	private String slsAmtTot;
+
+	private String addScr;
+
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;
 	private String sysFrstInptDtYmd;

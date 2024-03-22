@@ -118,6 +118,22 @@ public interface PrdcrCrclOgnVluFndsMngService {
 	 */
 	public List<PrdcrCrclOgnVluFndsMngVO> selectRtDataList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO) throws Exception;
 
+	/**
+	 * 활성화자금 통합조직 로우데이터 조회
+	 * @param prdcrCrclOgnVluFndsMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluFndsMngVO> selectFndsRawDataUoList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO) throws Exception;
+
+	/**
+	 * 활성화자금 출자출하조직 로우데이터 조회
+	 * @param prdcrCrclOgnVluFndsMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluFndsMngVO> selectFndsRawDataIsoList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO) throws Exception;
+
 
 
 	/**

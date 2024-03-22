@@ -120,6 +120,21 @@ public class PrdcrCrclOgnVluFndsMngServiceImpl extends BaseServiceImpl implement
 		return resultList;
 	}
 
+	@Override
+	public List<PrdcrCrclOgnVluFndsMngVO> selectFndsRawDataUoList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO) throws Exception {
+
+		List<PrdcrCrclOgnVluFndsMngVO> resultList = prdcrCrclOgnVluFndsMngMapper.selectFndsRawDataUoList(prdcrCrclOgnVluFndsMngVO);
+		return resultList;
+	}
+
+	@Override
+	public List<PrdcrCrclOgnVluFndsMngVO> selectFndsRawDataIsoList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO) throws Exception {
+
+		List<PrdcrCrclOgnVluFndsMngVO> resultList = prdcrCrclOgnVluFndsMngMapper.selectFndsRawDataIsoList(prdcrCrclOgnVluFndsMngVO);
+		return resultList;
+	}
+
+
 	/* 사용자용 화면 조회  */
 
 	@Override

@@ -44,6 +44,12 @@ public interface PrdcrCrclOgnVluFndsMngMapper {
 	//활성화자금 기준 로우데이터 조회
 	public List<PrdcrCrclOgnVluFndsMngVO> selectRtDataList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO);
 
+	//활성화자금 통합조직 로우데이터 조회
+	public List<PrdcrCrclOgnVluFndsMngVO> selectFndsRawDataUoList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO);
+
+	//활성화자금 출자출하조직 로우데이터 조회
+	public List<PrdcrCrclOgnVluFndsMngVO> selectFndsRawDataIsoList(PrdcrCrclOgnVluFndsMngVO prdcrCrclOgnVluFndsMngVO);
+
 	/* 사용자용 화면 조회  */
 
 	/**
