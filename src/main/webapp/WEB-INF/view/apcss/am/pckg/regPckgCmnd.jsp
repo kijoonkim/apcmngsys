@@ -158,20 +158,7 @@
 							<td class="td_input" style="border-right:hidden ;">
 								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-fclt" name="srch-slt-fclt" class="form-control input-sm input-sm-ast inpt_data_reqed" jsondata-ref="jsonComFclt"></sbux-select>
 							</td>
-							<td colspan="2">&nbsp;</td>
-							<th scope="row" class="th_bg"><span class="data_required"></span>거래처</th>
-						    <td colspan="3" class="td_input" style="border-right:hidden ;">
-						    	<sbux-input uitype="hidden" id="srch-inp-cnptCd" name="srch-inp-cnptCd"></sbux-input>
-						    	<sbux-input uitype="text" id="srch-inp-cnptNm" name="srch-inp-cnptNm" class="form-control input-sm input-sm-ast inpt_data_reqed" onchange="fn_onChangeCnpt(srch-inp-cnptCd)"></sbux-input>
-							<td class="td_input">
-								<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt"/>
-						    </td>
-						</tr>
-						<tr>
-							<th scope="row" class="th_bg">납기일자</th>
-							<td class="td_input" style="border-right:hidden ;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-dudtYmd" name="srch-dtp-dudtYmd" class="form-control pull-right input-sm" onchange="fn_dtpChange(srch-dtp-dudtYmd)"/>
-							</td>
+							<td colspan="7">&nbsp;</td>
 						</tr>
 					</tbody>
 				</table>
@@ -222,10 +209,11 @@
 <script type="text/javascript">
 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
 
-	var jsonComItem				= [];	// 품목 		itemCd		검색
-	var jsonComVrty				= [];	// 품종 		vrtyCd		검색
-	var jsonComSpcfct			= [];	// 규격 		spcfcCd		검색
-	var jsonComFclt				= [];	// 설비 		fcltCd		검색
+	var jsonComItem				= [];	// 품목 		 itemCd			검색
+	var jsonComVrty				= [];	// 품종 		 vrtyCd			검색
+	var jsonComSpcfct			= [];	// 규격 		 spcfcCd		검색
+	var jsonComFclt				= [];	// 설비 		 fcltCd			검색
+	var jsonSpmtPckgUnitCd		= [];	// 출하포장단위코드 spmtPckgUnitCd 검색
 
 	var jsonPrdcr				= [];	//생산자 목록
     var jsonPrdcrAutocomplete 	= [];	//생산자 자동완성
@@ -246,10 +234,13 @@
 			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd, itemCd)						// 품종
 		]);
 		if (gfn_isEmpty(itemCd)) {
+			gfn_setSpmtPckgUnitSBSelect('grdSortInvntr',	jsonSpmtPckgUnitCd, 	gv_selectedApcCd, ""),		// 포장구분
 			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, "");
 		} else {
+			gfn_setSpmtPckgUnitSBSelect('grdSortInvntr',	jsonSpmtPckgUnitCd, 	gv_selectedApcCd, itemCd),		// 포장구분
 			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, gv_selectedApcCd, itemCd);				// 규격
 		}
+		console.log(jsonSpmtPckgUnitCd);
 	}
 
 	const fn_onChangeSrchVrtyCd = async function(obj) {
@@ -321,8 +312,10 @@
 	        {caption: ["선별","중량 (Kg)"],  	ref: 'invntrWght',    	type:'output',  width:'100px',    style:'text-align:right',
 	        	format : {type:'number', rule:'#,###'}},
 	        {caption: ["재고규격","재고규격"],  	ref: 'spcfctNm',    	type:'output',  width:'100px',    style:'text-align:right; background:#FFF8DC;'},
-            {caption: ["포장지시", "지시규격"], 	ref: 'spcfct',   		type:'combo',  	width:'100px',    style:'text-align:center; background:#FFF8DC;',
-				typeinfo : {ref:'jsonComSpcfct', 	displayui : false,	itemcount: 10, label:'label', value:'value', unselect: {label : '선택', value: ''}}},
+            {caption: ["포장지시", "상품명"], 	ref: 'spmtPckgUnitCd',   		type:'combo',  	width:'100px',    style:'text-align:center; background:#FFF8DC;',
+				typeinfo : {ref:'jsonSpmtPckgUnitCd', 	displayui : false,	itemcount: 10, label:'label', value:'value', unselect: {label : '선택', value: ''}}},
+//             {caption: ["포장지시", "지시규격"], 	ref: 'spcfct',   		type:'combo',  	width:'100px',    style:'text-align:center; background:#FFF8DC;',
+// 				typeinfo : {ref:'jsonComSpcfct', 	displayui : false,	itemcount: 10, label:'label', value:'value', unselect: {label : '선택', value: ''}}},
 	        {caption: ["포장지시","수량"],  	ref: 'pckgQntt',    	type:'input',  	width:'100px',    style:'text-align:right; background:#FFF8DC;',
 	        	format : {type:'number', rule:'#,###'}, typeinfo : {mask : {alias : '#', repeat: '*'}}},
 	        {caption: ["포장지시","중량 (Kg)"],	ref: 'pckgWght',    	type:'input',  width:'100px',    style:'text-align:right; background:#FFF8DC;',
@@ -626,7 +619,8 @@
   	  						rmrk 			: item.rmrk,
   	  						inptYmd 		: item.inptYmd,
   	  						sortno 			: item.sortno,
-  	  						sortSn 			: item.sortSn
+  	  						sortSn 			: item.sortSn,
+  	  						spmtPckgUnitCd  : item.spmtPckgUnitCd
   	  				}
 					if((sortInvntr.invntrWght - sortInvntr.cmndWght) > 0){
   	          			jsonSortInvntr.push(sortInvntr);
@@ -725,9 +719,7 @@
 	const fn_save = async function(){
 		let pckgCmndYmd 	= SBUxMethod.get("srch-dtp-cmndYmd"); //포장지시일자
 		let fcltCd  		= SBUxMethod.get("srch-slt-fclt"); //설비코드
-		let cnptCd  		= SBUxMethod.get("srch-inp-cnptCd"); //거래처코드
 		let cnptNm  		= SBUxMethod.get("srch-inp-cnptNm"); //거래처명
-
 		let dudtYmd  		= SBUxMethod.get("srch-dtp-dudtYmd"); //납기일자
 		let gdsNm  			= SBUxMethod.get("srch-inp-gdsNm"); //상품명
 		let outordrQntt  	= SBUxMethod.get("srch-inp-outordrQntt"); //발주수량
@@ -742,18 +734,14 @@
 		  	gfn_comAlert("W0001", "생산설비");			//	W0001	{0}을/를 선택하세요.
 		return;
 	   }
-	   if (gfn_isEmpty(cnptCd)){
-		  	gfn_comAlert("W0001", "거래처");			//	W0001	{0}을/를 선택하세요.
-		return;
-	   }
-
+	   
 		var grdRows = grdSortInvntr.getCheckedRows(0);
 		var insertList = [];
     	for(var i=0; i< grdRows.length; i++){
     		let nRow = grdRows[i];
     		const rowData = grdSortInvntr.getRowData(nRow);
- 		   if (gfn_isEmpty(rowData.spcfct)){
- 			 	gfn_comAlert("W0001", "규격");			//	W0001	{0}을/를 선택하세요.
+ 		   if (gfn_isEmpty(rowData.spmtPckgUnitCd)){
+ 				gfn_comAlert("W0001", "상품명");			//	W0002	{0}을/를 입력하세요.
 				return;
  		   }
  		   if (gfn_isEmpty(rowData.pckgQntt)){
@@ -764,7 +752,6 @@
 			rowData.pckgCmndYmd = pckgCmndYmd;
 	 		rowData.spcfctCd = rowData.spcfct;
 	 		rowData.fcltCd = fcltCd;
-	 		rowData.cnptCd = cnptCd;
 	 		rowData.cnptNm = cnptNm;
 	 		rowData.dudtYmd = dudtYmd;
 	 		rowData.gdsNm = gdsNm;
@@ -773,6 +760,7 @@
 			rowData.cmndQntt = rowData.pckgQntt;
 			rowData.cmndWght = rowData.pckgWght;
 			rowData.outordrno = outordrno;
+			rowData.spmtPckgUnitCd = rowData.spmtPckgUnitCd;
 
 			insertList.push(rowData);
     	}
