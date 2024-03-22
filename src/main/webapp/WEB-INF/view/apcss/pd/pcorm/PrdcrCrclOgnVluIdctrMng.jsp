@@ -2452,9 +2452,9 @@
 					,corpSeNm				:item.corpSeNm
 					,corpDtlSeNm			:item.corpDtlSeNm
 
-					,slsCnsgnSlsAmt			:item.slsCnsgnSlsAmt
-					,slsCnsgnSlsAmtTot		:item.slsCnsgnSlsAmtTot
-					,slsCnsgnSlsAmtRt		:item.slsCnsgnSlsAmtRt
+					,slsCnsgnSlsAmt			:Number(item.slsCnsgnSlsAmt)
+					,slsCnsgnSlsAmtTot		:Number(item.slsCnsgnSlsAmtTot)
+					,slsCnsgnSlsAmtRt		:Number(item.slsCnsgnSlsAmtRt)
 
 					,stbltYn				:item.stbltYn
 					,orgStbltYn				:item.orgStbltYn
@@ -2657,12 +2657,12 @@
 						,uoBrnoCnt				:item.uoBrnoCnt
 
 
-						,totTrmtPrfmncAmt		:item.totTrmtPrfmncAmt
-						,ddcTot					:item.ddcTot
-						,ajmtAmt				:item.ajmtAmt
-						,spmtPrfmncAmt			:item.spmtPrfmncAmt
-						,slsCprtnTot			:item.slsCprtnTot
-						,spmtRt					:item.spmtRt
+						,totTrmtPrfmncAmt		:Number(item.totTrmtPrfmncAmt)
+						,ddcTot					:Number(item.ddcTot)
+						,ajmtAmt				:Number(item.ajmtAmt)
+						,spmtPrfmncAmt			:Number(item.spmtPrfmncAmt)
+						,slsCprtnTot			:Number(item.slsCprtnTot)
+						,spmtRt					:Number(item.spmtRt)
 
 					/*
 					yr						:item.yr
@@ -2872,8 +2872,8 @@
 
 					,isoFundAplyAmt			:item.isoFundAplyAmt//부류명
 
-					,fundAplyAmtTot			:item.fundAplyAmtTot//자금신청액
-					,fundAplyAmtStbltTot	:item.fundAplyAmtStbltTot//자금신청액(탈락 출자출하조직 신청액은 제외)
+					,fundAplyAmtTot			:Number(item.fundAplyAmtTot)//자금신청액
+					,fundAplyAmtStbltTot	:Number(item.fundAplyAmtStbltTot)//자금신청액(탈락 출자출하조직 신청액은 제외)
 
 					,stbltYn				:item.stbltYn//선정여부
 					,itrRt					:item.itrRt//금리

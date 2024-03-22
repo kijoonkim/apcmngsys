@@ -1519,9 +1519,9 @@
 					,trmtTypeNm			: item.trmtTypeNm
 					,prdcrOgnzSn		: item.prdcrOgnzSn
 					,prdcrOgnzNm		: item.prdcrOgnzNm
-					,slsCnsgnPrchsAmt	: item.slsCnsgnPrchsAmt
-					,uoSpmtAmt			: item.uoSpmtAmt
-					,uoOtherSpmtAmt		: item.uoOtherSpmtAmt
+					,slsCnsgnPrchsAmt	: Number(item.slsCnsgnPrchsAmt)
+					,uoSpmtAmt			: Number(item.uoSpmtAmt)
+					,uoOtherSpmtAmt		: Number(item.uoOtherSpmtAmt)
 					,rmrk				: item.rmrk
 					,stbltYn			: item.stbltYn
 				}

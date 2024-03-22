@@ -2245,8 +2245,8 @@
 			{caption: ["기타 금액(천원)"],		ref: 'etcAmt',                type:'output',  width:'70px',	style:'text-align:center'},
 			{caption: ["매입 합계 물량(톤)"],		ref: 'totTrmtPrfmncVlm',      type:'output',  width:'70px',	style:'text-align:center'},
 			{caption: ["매입 합계 금액(천원)"],		ref: 'totTrmtPrfmncAmt',      type:'output',  width:'70px',	style:'text-align:center'},
-			{caption: ["총취급실적 물량(톤)"],		ref: 'totTrmtPrfmncVlm',      type:'output',  width:'70px',	style:'text-align:center'},
-			{caption: ["총취급실적 금액(천원)"],		ref: 'totTrmtPrfmncAmt',      type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["총취급실적 물량(톤)"],		ref: 'totTrmtPrfmncVlm1',      type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["총취급실적 금액(천원)"],		ref: 'totTrmtPrfmncAmt1',      type:'output',  width:'70px',	style:'text-align:center'},
 			{caption: ["자체수출 물량(톤)"],		ref: 'ddcExprtVlm',           type:'output',  width:'70px',	style:'text-align:center'},
 			{caption: ["자체수출 금액(천원)"],		ref: 'ddcExprtAmt',           type:'output',  width:'70px',	style:'text-align:center'},
 			{caption: ["자체공판장 물량(톤)"],		ref: 'ddcVlm',                type:'output',  width:'70px',	style:'text-align:center'},
@@ -2311,43 +2311,46 @@
 						,ctgryNm				: item.ctgryNm
 						,uoBrno					: item.uoBrno
 						,uoCorpNm				: item.uoCorpNm
-						,prchsTrstVlm			: item.prchsTrstVlm
-						,prchsTrstAmt			: item.prchsTrstAmt
-						,prchsEmspapVlm			: item.prchsEmspapVlm
-						,prchsEmspapAmt			: item.prchsEmspapAmt
-						,prchsVlmTot			: item.prchsTotVlm
-						,prchsAmtTot			: item.prchsTotAmt
-						,etcVlm					: item.etcVlm
-						,etcAmt					: item.etcAmt
 
-						,slsCprtnSortTrstVlm	: item.slsCprtnSortTrstVlm
-						,slsCprtnSortTrstAmt	: item.slsCprtnSortTrstAmt
-						,slsCprtnTrstVlm		: item.slsCprtnTrstVlm
-						,slsCprtnTrstAmt		: item.slsCprtnTrstAmt
-						,slsCprtnSortEmspapVlm	: item.slsCprtnSortEmspapVlm
-						,slsCprtnSortEmspapAmt	: item.slsCprtnSortEmspapAmt
-						,slsCprtnVlmTot			: item.slsCprtnVlmTot
-						,slsCprtnAmtTot			: item.slsCprtnAmtTot
-						,ddcExprtVlm			: item.ddcExprtVlm
-						,ddcExprtAmt			: item.ddcExprtAmt
-						,ddcVlm					: item.ddcVlm
-						,ddcAmt					: item.ddcAmt
-						,ddcArmyDlvgdsVlm		: item.ddcArmyDlvgdsVlm
-						,ddcArmyDlvgdsAmt		: item.ddcArmyDlvgdsAmt
-						,ddcMlsrVlm				: item.ddcMlsrVlm
-						,ddcMlsrAmt				: item.ddcMlsrAmt
-						,ddcVlmTot				: item.ddcVlmTot
-						,ddcAmtTot				: item.ddcAmtTot
-						,spmtPrfmncVlm			: item.spmtPrfmncVlm
-						,spmtPrfmncAmt			: item.spmtPrfmncAmt
-						,smplInptVlm			: item.smplInptVlm
-						,smplInptAmt			: item.smplInptAmt
-						,ajmtVlm				: item.ajmtVlm
-						,ajmtAmt				: item.ajmtAmt
-						,totTrmtPrfmncVlm		: item.totTrmtPrfmncVlm
-						,totTrmtPrfmncAmt		: item.totTrmtPrfmncAmt
-						,totSpmtPrfmncVlm		: item.totSpmtPrfmncVlm
-						,totSpmtPrfmncAmt		: item.totSpmtPrfmncAmt
+						,prchsTrstVlm			: Number(item.prchsTrstVlm)
+						,prchsTrstAmt			: Number(item.prchsTrstAmt)
+						,prchsEmspapVlm			: Number(item.prchsEmspapVlm)
+						,prchsEmspapAmt			: Number(item.prchsEmspapAmt)
+						,prchsVlmTot			: Number(item.prchsTotVlm)
+						,prchsAmtTot			: Number(item.prchsTotAmt)
+						,etcVlm					: Number(item.etcVlm)
+						,etcAmt					: Number(item.etcAmt)
+
+						,slsCprtnSortTrstVlm	: Number(item.slsCprtnSortTrstVlm)
+						,slsCprtnSortTrstAmt	: Number(item.slsCprtnSortTrstAmt)
+						,slsCprtnTrstVlm		: Number(item.slsCprtnTrstVlm)
+						,slsCprtnTrstAmt		: Number(item.slsCprtnTrstAmt)
+						,slsCprtnSortEmspapVlm	: Number(item.slsCprtnSortEmspapVlm)
+						,slsCprtnSortEmspapAmt	: Number(item.slsCprtnSortEmspapAmt)
+						,slsCprtnVlmTot			: Number(item.slsCprtnVlmTot)
+						,slsCprtnAmtTot			: Number(item.slsCprtnAmtTot)
+						,ddcExprtVlm			: Number(item.ddcExprtVlm)
+						,ddcExprtAmt			: Number(item.ddcExprtAmt)
+						,ddcVlm					: Number(item.ddcVlm)
+						,ddcAmt					: Number(item.ddcAmt)
+						,ddcArmyDlvgdsVlm		: Number(item.ddcArmyDlvgdsVlm)
+						,ddcArmyDlvgdsAmt		: Number(item.ddcArmyDlvgdsAmt)
+						,ddcMlsrVlm				: Number(item.ddcMlsrVlm)
+						,ddcMlsrAmt				: Number(item.ddcMlsrAmt)
+						,ddcVlmTot				: Number(item.ddcVlmTot)
+						,ddcAmtTot				: Number(item.ddcAmtTot)
+						,spmtPrfmncVlm			: Number(item.spmtPrfmncVlm)
+						,spmtPrfmncAmt			: Number(item.spmtPrfmncAmt)
+						,smplInptVlm			: Number(item.smplInptVlm)
+						,smplInptAmt			: Number(item.smplInptAmt)
+						,ajmtVlm				: Number(item.ajmtVlm)
+						,ajmtAmt				: Number(item.ajmtAmt)
+						,totTrmtPrfmncVlm		: Number(item.totTrmtPrfmncVlm)
+						,totTrmtPrfmncAmt		: Number(item.totTrmtPrfmncAmt)
+						,totTrmtPrfmncVlm1		: Number(item.totTrmtPrfmncVlm)
+						,totTrmtPrfmncAmt1		: Number(item.totTrmtPrfmncAmt)
+						,totSpmtPrfmncVlm		: Number(item.totSpmtPrfmncVlm)
+						,totSpmtPrfmncAmt		: Number(item.totSpmtPrfmncAmt)
 				}
 				jsonHiddenGrd.push(hiddenGrdVO);
 			});

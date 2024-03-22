@@ -1322,15 +1322,9 @@
 			{caption: ["전문/육성 구분코드"],	ref:'sttgUpbrItemSe',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["전문/육성 구분"],	ref:'sttgUpbrItemNm',	type:'output',width:'70px',style:'text-align:center'},
 
-			{caption: ["(A)통합조직 총 취급액(천원)"],	ref:'slsCnsgnSlsAmtTot',			type:'output',width:'70px',style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}
-			},
-			{caption: ["(B)생산자조직 전속출하액(천원)"],	ref:'slsCnsgnSlsAmt',		type:'output',width:'70px',style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}
-			},
-			{caption: ["(C)전속취급률(%)"],			ref:'slsCnsgnSlsAmtRt',		type:'output',width:'70px',style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}
-			},
+			{caption: ["(A)통합조직 총 취급액(천원)"],	ref:'slsCnsgnSlsAmtTot',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["(B)생산자조직 전속출하액(천원)"],	ref:'slsCnsgnSlsAmt',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["(C)전속취급률(%)"],			ref:'slsCnsgnSlsAmtRt',		type:'output',width:'70px',style:'text-align:center'},
 
 			{caption: ["적합여부(기준적용)"],	ref:'stbltYn',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["적합여부(최종)"],	ref:'orgStbltYn',	type:'output',width:'70px',style:'text-align:center'},
@@ -1375,9 +1369,9 @@
 					,slctnYr				:item.slctnYr
 					,actnMttr				:item.actnMttr
 
-					,slsCnsgnSlsAmt			:item.slsCnsgnSlsAmt
-					,slsCnsgnSlsAmtTot		:item.slsCnsgnSlsAmtTot
-					,slsCnsgnSlsAmtRt		:item.slsCnsgnSlsAmtRt
+					,slsCnsgnSlsAmt			:Number(item.slsCnsgnSlsAmt)
+					,slsCnsgnSlsAmtTot		:Number(item.slsCnsgnSlsAmtTot)
+					,slsCnsgnSlsAmtRt		:Number(item.slsCnsgnSlsAmtRt)
 
 					,stbltYn				:item.stbltYn
 					,orgStbltYn				:item.orgStbltYn

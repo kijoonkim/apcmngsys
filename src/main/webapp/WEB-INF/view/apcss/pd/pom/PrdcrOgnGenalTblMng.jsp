@@ -1322,13 +1322,13 @@
 						,prdcrOgnzSn: item.prdcrOgnzSn
 						,prdcrOgnzNm: item.prdcrOgnzNm
 
-						,ecSpmtPlanVlmTot: item.ecSpmtPlanVlmTot//전속(약정)출하계획량
-						,ecSpmtVlmTot: item.ecSpmtVlmTot//전속(약정)출하량
-						,ecSpmtRateA: parseFloat(item.ecSpmtRateA)//출하비율A
-						,ecSpmtRateB: parseFloat(item.ecSpmtRateB)//출하비율B
-						,spmtPrcTot: item.spmtPrcTot//출하대금지급액
-						,prdctnVlmTot: 	item.prdctnVlmTot
-						,cnt: item.cnt//조직원수
+						,ecSpmtPlanVlmTot: Number(item.ecSpmtPlanVlmTot)//전속(약정)출하계획량
+						,ecSpmtVlmTot: Number(item.ecSpmtVlmTot)//전속(약정)출하량
+						,ecSpmtRateA: Number(item.ecSpmtRateA)//출하비율A
+						,ecSpmtRateB: Number(item.ecSpmtRateB)//출하비율B
+						,spmtPrcTot: Number(item.spmtPrcTot)//출하대금지급액
+						,prdctnVlmTot: 	Number(item.prdctnVlmTot)
+						,cnt: Number(item.cnt)//조직원수
 						,stbltYn: item.stbltYn//적합여부 기준 적용 결과
 						,orgStbltYn: item.orgStbltYn//적합여부 현재 적용 값
 						,stbltYnNm: fn_calStbltYn(item)

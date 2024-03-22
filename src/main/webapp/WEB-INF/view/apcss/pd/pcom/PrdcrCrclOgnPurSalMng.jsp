@@ -2394,43 +2394,43 @@
 					, itemNm              : item.itemNm
 					, ctgryCd             : item.ctgryCd
 					, ctgryNm             : item.ctgryNm
-					, prchsTrstVlm        : item.prchsTrstVlm
-					, prchsTrstAmt        : item.prchsTrstAmt
-					, prchsEmspapVlm      : item.prchsEmspapVlm
-					, prchsEmspapAmt      : item.prchsEmspapAmt
-					, prchsTotVlm         : item.prchsTotVlm
-					, prchsTotAmt         : item.prchsTotAmt
-					, orgPrchsTotAmt         : item.orgPrchsTotAmt //기존값과 다른 경우를 위해 추가
+					, prchsTrstVlm        : Number(item.prchsTrstVlm)
+					, prchsTrstAmt        : Number(item.prchsTrstAmt)
+					, prchsEmspapVlm      : Number(item.prchsEmspapVlm)
+					, prchsEmspapAmt      : Number(item.prchsEmspapAmt)
+					, prchsTotVlm         : Number(item.prchsTotVlm)
+					, prchsTotAmt         : Number(item.prchsTotAmt)
+					, orgPrchsTotAmt         : Number(item.orgPrchsTotAmt) //기존값과 다른 경우를 위해 추가
 
-					, slsEmspapVlm        : item.slsEmspapVlm
-					, slsEmspapAmt        : item.slsEmspapAmt
-					, slsTrstVlm          : item.slsTrstVlm
-					, slsTrstAmt          : item.slsTrstAmt
-					, slsTotVlm           : item.slsTotVlm
-					, slsTotAmt           : item.slsTotAmt
-					, orgSlsTotAmt           : item.orgSlsTotAmt //기존값과 다른 경우를 위해 추가
+					, slsEmspapVlm        : Number(item.slsEmspapVlm)
+					, slsEmspapAmt        : Number(item.slsEmspapAmt)
+					, slsTrstVlm          : Number(item.slsTrstVlm)
+					, slsTrstAmt          : Number(item.slsTrstAmt)
+					, slsTotVlm           : Number(item.slsTotVlm)
+					, slsTotAmt           : Number(item.slsTotAmt)
+					, orgSlsTotAmt           : Number(item.orgSlsTotAmt) //기존값과 다른 경우를 위해 추가
 
 
-					, ddcVlm              : item.ddcVlm
-					, ddcAmt              : item.ddcAmt
-					, pblcWhlslMrktVlm    : item.pblcWhlslMrktVlm
-					, pblcWhlslMrktAmt    : item.pblcWhlslMrktAmt
-					, onlnWhlslMrktVlm    : item.onlnWhlslMrktVlm
-					, onlnWhlslMrktAmt    : item.onlnWhlslMrktAmt
-					, lgszRtlVlm          : item.lgszRtlVlm
-					, lgszRtlAmt          : item.lgszRtlAmt
-					, armyDlvgdsVlm       : item.armyDlvgdsVlm
-					, armyDlvgdsAmt       : item.armyDlvgdsAmt
-					, eatoutMtrlMlsrVlm   : item.eatoutMtrlMlsrVlm
-					, eatoutMtrlMlsrAmt   : item.eatoutMtrlMlsrAmt
-					, mnfcRtlVlm          : item.mnfcRtlVlm
-					, mnfcRtlAmt          : item.mnfcRtlAmt
-					, exprtVlm            : item.exprtVlm
-					, exprtAmt            : item.exprtAmt
-					, onlnDlngPrfmncVlm   : item.onlnDlngPrfmncVlm
-					, onlnDlngPrfmncAmt   : item.onlnDlngPrfmncAmt
-					, etcVlm              : item.etcVlm
-					, etcAmt              : item.etcAmt
+					, ddcVlm              : Number(item.ddcVlm)
+					, ddcAmt              : Number(item.ddcAmt)
+					, pblcWhlslMrktVlm    : Number(item.pblcWhlslMrktVlm)
+					, pblcWhlslMrktAmt    : Number(item.pblcWhlslMrktAmt)
+					, onlnWhlslMrktVlm    : Number(item.onlnWhlslMrktVlm)
+					, onlnWhlslMrktAmt    : Number(item.onlnWhlslMrktAmt)
+					, lgszRtlVlm          : Number(item.lgszRtlVlm)
+					, lgszRtlAmt          : Number(item.lgszRtlAmt)
+					, armyDlvgdsVlm       : Number(item.armyDlvgdsVlm)
+					, armyDlvgdsAmt       : Number(item.armyDlvgdsAmt)
+					, eatoutMtrlMlsrVlm   : Number(item.eatoutMtrlMlsrVlm)
+					, eatoutMtrlMlsrAmt   : Number(item.eatoutMtrlMlsrAmt)
+					, mnfcRtlVlm          : Number(item.mnfcRtlVlm)
+					, mnfcRtlAmt          : Number(item.mnfcRtlAmt)
+					, exprtVlm            : Number(item.exprtVlm)
+					, exprtAmt            : Number(item.exprtAmt)
+					, onlnDlngPrfmncVlm   : Number(item.onlnDlngPrfmncVlm)
+					, onlnDlngPrfmncAmt   : Number(item.onlnDlngPrfmncAmt)
+					, etcVlm              : Number(item.etcVlm)
+					, etcAmt              : Number(item.etcAmt)
 				}
 				jsonHiddenGrd.push(hiddenGrdVO);
 			});

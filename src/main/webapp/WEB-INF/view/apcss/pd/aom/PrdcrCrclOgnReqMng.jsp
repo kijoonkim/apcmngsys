@@ -2723,22 +2723,22 @@
 						,aprv				:item.aprv
 						,corpSeCd			:item.corpSeCd
 						,corpDtlSeCd		:item.corpDtlSeCd
-						,invstAmt			:item.invstAmt
-						,frmerInvstAmt		:item.frmerInvstAmt
-						,prdcrGrpInvstAmt	:item.prdcrGrpInvstAmt
-						,locgovInvstAmt		:item.locgovInvstAmt
-						,etcInvstAmt		:item.etcInvstAmt
-						,frmerInvstAmtRt	:item.frmerInvstAmtRt
-						,invstNope			:item.invstNope
-						,invstExpndFrmerNope:item.invstExpndFrmerNope
+						,invstAmt			:Number(item.invstAmt)
+						,frmerInvstAmt		:Number(item.frmerInvstAmt)
+						,prdcrGrpInvstAmt	:Number(item.prdcrGrpInvstAmt)
+						,locgovInvstAmt		:Number(item.locgovInvstAmt)
+						,etcInvstAmt		:Number(item.etcInvstAmt)
+						,frmerInvstAmtRt	:Number(item.frmerInvstAmtRt)
+						,invstNope			:Number(item.invstNope)
+						,invstExpndFrmerNope:Number(item.invstExpndFrmerNope)
 						,corpFndnDay		:item.corpFndnDay
 						,nopeTot			:item.nopeTot
-						,rgllbrNope			:item.rgllbrNope
-						,dwNope				:item.dwNope
-						,dlbrrNope			:item.dlbrrNope
-						,pruoFundAplyAmt	:item.pruoFundAplyAmt
-						,isoFundAplyAmt		:item.isoFundAplyAmt
-						,fundAplyAmtTot		:item.fundAplyAmtTot
+						,rgllbrNope			:Number(item.rgllbrNope)
+						,dwNope				:Number(item.dwNope)
+						,dlbrrNope			:Number(item.dlbrrNope)
+						,pruoFundAplyAmt	:Number(item.pruoFundAplyAmt)
+						,isoFundAplyAmt		:Number(item.isoFundAplyAmt)
+						,fundAplyAmtTot		:Number(item.fundAplyAmtTot)
 						,picFlnm			:item.picFlnm
 						,picTelno			:item.picTelno
 						,picMoblno			:item.picMoblno
