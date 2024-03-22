@@ -1889,13 +1889,13 @@
 					,ctgryCd				:item.ctgryCd//부류
 					,ctgryNm				:item.ctgryNm//부류명
 
-					,slsTotAmt				:item.slsTotAmt//전문품목 총취급액
-					,slsTotAmtTot			:item.slsTotAmtTot//총취급액
-					,slsTotAmtRt			:item.slsTotAmtRt//전속취급율
-					,onlnWhlslMrktAmt		:item.onlnWhlslMrktAmt//온라인도매시장(0.2)
+					,slsTotAmt				:Number(item.slsTotAmt)//전문품목 총취급액
+					,slsTotAmtTot			:Number(item.slsTotAmtTot)//총취급액
+					,slsTotAmtRt			:Number(item.slsTotAmtRt)//전속취급율
+					,onlnWhlslMrktAmt		:Number(item.onlnWhlslMrktAmt)//온라인도매시장(0.2)
 
-					,totPercCont			:item.totPercCont//기준총취급액
-					,rtPercCont				:item.rtPercCont//기준전속취급율
+					,totPercCont			:Number(item.totPercCont)//기준총취급액
+					,rtPercCont				:Number(item.rtPercCont)//기준전속취급율
 
 				}
 				jsonHiddenGrd.push(hiddenGrdVO);

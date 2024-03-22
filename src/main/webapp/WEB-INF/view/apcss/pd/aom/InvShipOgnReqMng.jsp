@@ -50,7 +50,7 @@
 							<sbux-button id="btnReport3" name="btnReport3" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report3"></sbux-button>
 					</c:if>
 					<sbux-button id="btnSaveFclt01" name="btnSaveFclt01" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
-					
+
 				</c:if>
 
 				</div>
@@ -1002,7 +1002,7 @@
 		let year = now.getFullYear();
 
 		if(gfn_isEmpty(brno)) return;
-		
+
 		gfn_popClipReport("출자출하조직 신청정보", "pd/insDoc4.crf", {
 			brno : brno
 			,yr : year
@@ -2000,15 +2000,15 @@
 						, corpSeCd:					item.corpSeCd
 						, corpDtlSeCd:				item.corpDtlSeCd
 						, corpFndnDay:				item.corpFndnDay
-						, invstNope:				item.invstNope
-						, invstExpndFrmerNope:		item.invstExpndFrmerNope
-						, invstAmt:					item.invstAmt
-						, frmerInvstAmt:			item.frmerInvstAmt
-						, prdcrGrpInvstAmt:			item.prdcrGrpInvstAmt
-						, locgovInvstAmt:			item.locgovInvstAmt
-						, etcInvstAmt:					item.etcInvstAmt
-						, frmerInvstAmtRt:			item.frmerInvstAmtRt
-						, isoFundAplyAmt:			item.isoFundAplyAmt
+						, invstNope:				Number(item.invstNope)
+						, invstExpndFrmerNope:		Number(item.invstExpndFrmerNope)
+						, invstAmt:					Number(item.invstAmt)
+						, frmerInvstAmt:			Number(item.frmerInvstAmt)
+						, prdcrGrpInvstAmt:			Number(item.prdcrGrpInvstAmt)
+						, locgovInvstAmt:			Number(item.locgovInvstAmt)
+						, etcInvstAmt:					Number(item.etcInvstAmt)
+						, frmerInvstAmtRt:			Number(item.frmerInvstAmtRt)
+						, isoFundAplyAmt:			Number(item.isoFundAplyAmt)
 						, picFlnm:					item.picFlnm
 						, picTelno:					item.picTelno
 						, picMoblno:				item.picMoblno

@@ -1239,13 +1239,16 @@
 					,ctgryNm				:item.ctgryNm
 					,sttgUpbrItemSe			:item.sttgUpbrItemSe
 					,sttgUpbrItemNm			:item.sttgUpbrItemNm
-					,uoSpmtAmt				:item.uoSpmtAmt
-					,uoSpmtAmtOther			:item.uoSpmtAmtOther
-					,uoOtherSpmtAmt			:item.uoOtherSpmtAmt
-					,uoOtherSpmtAmtOther	:item.uoOtherSpmtAmtOther
-					,uoSpmtAmtTot			:item.uoSpmtAmtTot
-					,uoSpmtAmtRt			:item.uoSpmtAmtRt
-					,uoSpmtAmtTotRt			:item.uoSpmtAmtTotRt
+
+					,uoSpmtAmt				:Number(item.uoSpmtAmt)
+					,uoSpmtAmtOther			:Number(item.uoSpmtAmtOther)
+					,uoOtherSpmtAmt			:Number(item.uoOtherSpmtAmt)
+					,uoOtherSpmtAmtOther	:Number(item.uoOtherSpmtAmtOther)
+
+					,uoSpmtAmtTot			:Number(item.uoSpmtAmtTot)
+					,uoSpmtAmtRt			:Number(item.uoSpmtAmtRt)
+					,uoSpmtAmtTotRt			:Number(item.uoSpmtAmtTotRt)
+
 					,stbltYn				:item.stbltYn
 					,orgStbltYn				:item.orgStbltYn
 					,stbltYnNm				:fn_calStbltYn(item)

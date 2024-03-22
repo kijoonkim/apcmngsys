@@ -3402,7 +3402,17 @@
 				, 2
 			) AS SPMT_AMT_RT
 		FROM
-			(SELECT * FROM USRAM.TB_EV_REG_RSLT WHERE APO_SE = '2' AND YR = #{yr}) ERR
+			(SELECT *
+				FROM USRAM.TB_EV_REG_RSLT
+				WHERE 1=1
+				  AND APO_SE = '2'
+				  AND YR = #{yr}
+				  AND BRNO NOT IN (SELECT BRNO
+				  					FROM TB_COM_USER
+				  					WHERE 1=1
+				  					  AND USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'
+				  					  					, 'at21','at22','at23','at24','at25','at26','at27','at61'))
+			) ERR
 			,(SELECT * FROM USRAM.TB_EV_APLY_MNG WHERE APO_SE = '2' AND YR = #{yr}) EAM
 			,(SELECT * FROM USRAM.TB_EV_APO WHERE APO_SE = '2' ) ISOEA
 			,(SELECT * FROM USRAM.TB_EV_APO WHERE APO_SE = '1' ) UOEA
@@ -3650,7 +3660,17 @@
 			,SR.DDC_SCR
 			,SR.LAST_SCR
 		FROM
-			(SELECT * FROM USRAM.TB_EV_REG_RSLT WHERE APO_SE = '1' AND YR = #{yr}) ERR
+			(SELECT *
+				FROM USRAM.TB_EV_REG_RSLT
+				WHERE 1=1
+				  AND APO_SE = '1'
+				  AND YR = #{yr}
+				  AND BRNO NOT IN (SELECT BRNO
+				  					FROM TB_COM_USER
+				  					WHERE 1=1
+				  					  AND USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'
+				  					  					, 'at21','at22','at23','at24','at25','at26','at27','at61'))
+			) ERR
 			,(SELECT * FROM USRAM.TB_EV_APLY_MNG WHERE APO_SE = '1' AND YR = #{yr}) EAM
 			,(SELECT * FROM USRAM.TB_EV_APO WHERE APO_SE = '1' ) EA
 			,(SELECT * FROM USRAM.TB_EV_SCR_RSLT WHERE APO_SE = '1' AND YR = #{yr}) SR

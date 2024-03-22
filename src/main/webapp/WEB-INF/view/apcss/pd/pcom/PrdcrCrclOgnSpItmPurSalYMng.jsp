@@ -1398,8 +1398,8 @@
 					,isoCorpNm			: item.isoCorpNm
 					,prdcrOgnzSn		: item.prdcrOgnzSn
 					,prdcrOgnzNm		: item.prdcrOgnzNm
-					,slsCnsgnPrchsAmt	: item.slsCnsgnPrchsAmt
-					,slsCnsgnSlsAmt		: item.slsCnsgnSlsAmt
+					,slsCnsgnPrchsAmt	: Number(item.slsCnsgnPrchsAmt)
+					,slsCnsgnSlsAmt		: Number(item.slsCnsgnSlsAmt)
 					,rmrk				: item.rmrk
 					,stbltYn			: item.stbltYn
 				}
