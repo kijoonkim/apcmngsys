@@ -400,7 +400,7 @@
   	  						rmrk : item.rmrk
   	  				}
   	          		jsonSortCmnd.push(sortCmnd);
-  	          		console.log('jsonSortCmnd', jsonSortCmnd);
+
   	  				if (index === 0) {
   	  					totalRecordCount = item.totalRecordCount;
   	  				}

@@ -1225,7 +1225,6 @@
 					    , SI.PRDCTN_YR          AS PRDCTN_YR
 					    , SI.SORT_SN            AS SORT_SN
 					    , SI.RMRK               AS RMRK
-					    , SI.SPMT_PCKG_UNIT_CD AS SPMT_PCKG_UNIT_CD
 						, (SELECT SUM(CMND_QNTT)
 			                 FROM TB_PCKG_CMND X
 			                WHERE X.APC_CD = SI.APC_CD
