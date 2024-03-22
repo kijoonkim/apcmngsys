@@ -3263,4 +3263,499 @@
 					  , #{sysLastChgPrgrmId}
 					)
 	</insert>
+	<!-- 활성화자금 출자출하조직 로우데이터 -->
+	<select id="selectFndsRawDataIsoList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
+		SELECT
+			ERR.YR
+			,UOEA.CORP_SE_CD AS UO_CORP_SE_CD
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CORP_SE_CD' AND CD_VL = UOEA.CORP_SE_CD) AS UO_CORP_SE_NM
+			,UOEA.CORP_NM AS UO_CORP_NM
+			,ERR.UO_BRNO
+			,UOEA.APRV
+			,DECODE(UOEA.APRV , '1' , '승인형' , '2' , '육성형' , '' ) AS APRV_NM
+
+			,URR.STBLT_YN AS UO_STBLT_YN
+			,URR.MNGR_STBLT_YN AS UO_MNGR_STBLT_YN
+
+			,URR.ICPT_RSN_CD AS UO_ICPT_RSN_CD
+			, DECODE(URR.ICPT_RSN_CD , 'A' , '기본요건 미충족'
+															,'B' ,'세부요건 미충족'
+															,'C' , '통합조직 탈락'
+															,'EX1' , '-'
+															,'EX2' , '-'
+															,''
+			)AS UO_ICPT_RSN_NM
+			,URR.MNGR_ICPT_RSN_CD AS UO_MNGR_ICPT_RSN_CD
+			, DECODE(URR.MNGR_ICPT_RSN_CD , 'A' , '기본요건 미충족'
+																	,'B' ,'세부요건 미충족'
+																	,'C' , '통합조직 탈락'
+																	,'EX1' , '-'
+																	,'EX2' , '-'
+																	,''
+			)AS UO_MNGR_ICPT_RSN_NM
+
+			,URR.ITR_RT AS UO_ITR_RT
+			,URR.MNGR_ITR_RT AS UO_MNGR_ITR_RT
+
+			,ISOEA.CORP_SE_CD
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CORP_SE_CD' AND CD_VL = ISOEA.CORP_SE_CD) AS CORP_SE_NM
+			,ISOEA.CORP_NM
+			,ISOEA.BRNO
+			,DECODE(ERR.APO_SE , '2' , DECODE(  (SELECT COUNT(*) FROM TB_EV_APO_UO_CD WHERE ISO_BRNO = ERR.BRNO) , 1, 'N' , 'Y')
+										,'-'
+			)AS UO_BRNO_CNT
+
+			,ERR.STBLT_ITEM_LIST
+			,ERR.STBLT_YN
+			,ERR.MNGR_STBLT_YN
+
+			,ERR.ICPT_RSN_CD
+			,DECODE(ERR.ICPT_RSN_CD , 'A' , '기본요건 미충족'
+														,'B' ,'세부요건 미충족'
+														,'C' , '통합조직 탈락'
+														,'EX1' , '-'
+														,'EX2' , '-'
+														,''
+			)AS ICPT_RSN_NM
+			,ERR.MNGR_ICPT_RSN_CD
+			,DECODE(ERR.MNGR_ICPT_RSN_CD , 'A' , '기본요건 미충족'
+																	,'B' ,'세부요건 미충족'
+																	,'C' , '통합조직 탈락'
+																	,'EX1' , '-'
+																	,'EX2' , '-'
+																	,''
+			)AS MNGR_ICPT_RSN_NM
+
+			,ERR.ICPT_RSN_DTL_CD
+			,DECODE(ERR.ICPT_RSN_DTL_CD , 'A1' , '농업경영체 미등록'
+																,'A2' ,'출자자본금 1억원 미달'
+																,'A3' ,'설립 후 운영실적 1년 미만'
+																,'A4' ,'농업인 주주 5명 미만'
+																,'A5' ,'농업인 주주 지분 50% 미만'
+																,'A6' ,'원예농산물 취급액 50% 미만'
+																,'A7' ,'조공설립계획 미수립'
+																,'A8' ,'현장실사 미참여'
+																,'B1' ,'품목 부적합(농협조직)'
+																,'B2' ,'품목 부적합(농업법인, 협동조합)'
+																,'C1' , '통합조직 탈락(농협조직)'
+																,'C2' , '통합조직 탈락(농업법인, 협동조합)'
+																,'-' , '-'
+																,''
+			)AS ICPT_RSN_DTL_NM
+			,ERR.MNGR_ICPT_RSN_DTL_CD
+			,DECODE(ERR.MNGR_ICPT_RSN_DTL_CD , 'A1' , '농업경영체 미등록'
+																			,'A2' ,'출자자본금 1억원 미달'
+																			,'A3' ,'설립 후 운영실적 1년 미만'
+																			,'A4' ,'농업인 주주 5명 미만'
+																			,'A5' ,'농업인 주주 지분 50% 미만'
+																			,'A6' ,'원예농산물 취급액 50% 미만'
+																			,'A7' ,'조공설립계획 미수립'
+																			,'A8' ,'현장실사 미참여'
+																			,'B1' ,'품목 부적합(농협조직)'
+																			,'B2' ,'품목 부적합(농업법인, 협동조합)'
+																			,'C1' , '통합조직 탈락(농협조직)'
+																			,'C2' , '통합조직 탈락(농업법인, 협동조합)'
+																			,'-' , '-'
+																			,''
+			)AS MNGR_ICPT_RSN_DTL_NM
+
+			,DECODE(ERR.ICPT_RSN_CD , 'A' , '기존자금 회수'
+														,'B' ,'최고금리'
+														,'C' , '최고금리'
+														,'EX1' , '최고금리'
+														,'EX2' , '기존자금 회수'
+														,''
+			)AS PNLTY
+			,DECODE(ERR.MNGR_ICPT_RSN_CD , 'A' , '기존자금 회수'
+																	,'B' ,'최고금리'
+																	,'C' , '최고금리'
+																	,'EX1' , '최고금리'
+																	,'EX2' , '기존자금 회수'
+																	,''
+			)AS MNGR_PNLTY
+
+			,ERR.ITR_RT
+			,ERR.MNGR_ITR_RT
+
+			,NVL((SELECT ISO_FUND_APLY_AMT
+							FROM TB_EV_APLY_MNG
+							WHERE 1=1
+							  AND YR = ERR.YR
+							  AND BRNO = ERR.BRNO
+							  AND UO_BRNO = ERR.UO_BRNO
+							),0
+			) AS ISO_FUND_APLY_AMT
+
+			,( NVL(ISOPST.SPMT_AMT_TOT,0) + NVL(ISOAPS.ETC_TOT_TRMT_PRFMNC_AMT,0) + NVL(ISOAPS.TOT_DDC_AMT , 0)
+			) AS TOT_TRMT_PRFMNC_AMT
+			,NVL(ISOAPS.TOT_DDC_AMT , 0) AS TOT_DDC_AMT
+			,( NVL(ISOPST.SPMT_AMT_TOT,0) + NVL(ISOAPS.ETC_TOT_TRMT_PRFMNC_AMT,0)
+			) AS TOT_AJMT_AMT
+			,( NVL(ISOPST.UO_SPMT_AMT_TOT,0) + NVL(ISOAPS.ETC_TOT_SPMT_PRFMNC_AMT,0)
+			) AS ETC_TOT_SPMT_PRFMNC_AMT
+			,( NVL(ISOPST.UO_SPMT_AMT_TOT,0)
+			) AS UO_SPMT_AMT_TOT
+			,ROUND(
+				(NVL(ISOPST.UO_SPMT_AMT_TOT,0) + NVL(ISOAPS.ETC_TOT_SPMT_PRFMNC_AMT,0))
+				/ NULLIF(  NVL(ISOPST.SPMT_AMT_TOT,0) + NVL(ISOAPS.ETC_TOT_TRMT_PRFMNC_AMT,0) ,0)
+				* 100
+				, 2
+			) AS SPMT_AMT_RT
+		FROM
+			(SELECT * FROM USRAM.TB_EV_REG_RSLT WHERE APO_SE = '2' AND YR = #{yr}) ERR
+			,(SELECT * FROM USRAM.TB_EV_APLY_MNG WHERE APO_SE = '2' AND YR = #{yr}) EAM
+			,(SELECT * FROM USRAM.TB_EV_APO WHERE APO_SE = '2' ) ISOEA
+			,(SELECT * FROM USRAM.TB_EV_APO WHERE APO_SE = '1' ) UOEA
+			,(SELECT * FROM USRAM.TB_EV_REG_RSLT WHERE APO_SE = '1' AND YR = #{yr}) URR
+			,(SELECT
+					YR
+					,BRNO
+					,SUM(NVL(UO_SPMT_AMT,0)) AS UO_SPMT_AMT_TOT
+					,SUM( NVL(UO_SPMT_AMT,0) + NVL(UO_OTHER_SPMT_AMT,0) ) AS SPMT_AMT_TOT
+				FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
+				WHERE APO_SE = '2'
+				  AND TYPE_SE_NO IN ('5','7')
+				  AND YR = #{yr}
+				GROUP BY YR, BRNO
+			) ISOPST
+			,(SELECT
+					YR
+					,BRNO
+					,SUM(DECODE(STTG_UPBR_ITEM_SE, '3' , NVL(TOT_SPMT_PRFMNC_AMT , 0) , 0)) AS ETC_TOT_SPMT_PRFMNC_AMT
+					,SUM(DECODE(STTG_UPBR_ITEM_SE, '3' , NVL(TOT_TRMT_PRFMNC_AMT , 0) , 0)) AS ETC_TOT_TRMT_PRFMNC_AMT
+					,SUM(DECODE(APS.PRCHS_SLS_SE
+											, '2' , NVL(DECODE(APS.STTG_UPBR_ITEM_SE
+																			, '1' , NVL(APS.DDC_EXPRT_AMT,0)
+																					 + NVL(APS.DDC_AMT,0)
+																					 + NVL(APS.DDC_ARMY_DLVGDS_AMT,0)
+																					 + NVL(APS.DDC_MLSR_AMT,0)
+																			, '2' , NVL(APS.DDC_EXPRT_AMT,0)
+																					 + NVL(APS.DDC_AMT,0)
+																					 + NVL(APS.DDC_ARMY_DLVGDS_AMT,0)
+																					 + NVL(APS.DDC_MLSR_AMT,0)
+																			, 0)
+															,0)
+											, 0)
+					) AS TOT_DDC_AMT
+				FROM TB_EV_UO_ISO_ALL_PRCHS_SLS APS
+				WHERE 1=1
+				  AND APO_SE = '2'
+				  AND YR = #{yr}
+				GROUP BY YR, BRNO
+				) ISOAPS
+		WHERE 1=1
+		  AND ERR.BRNO = EAM.BRNO(+)
+		  AND ERR.BRNO = ISOEA.BRNO(+)
+		  AND ERR.UO_BRNO = URR.BRNO(+)
+		  AND ERR.UO_BRNO = UOEA.BRNO(+)
+		  AND ERR.BRNO = ISOPST.BRNO(+)
+		  AND ERR.BRNO = ISOAPS.BRNO(+)
+	</select>
+	<!-- 활성화자금 통합조직 로우데이터 -->
+	<select id="selectFndsRawDataUoList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
+		SELECT
+			EAM.YR
+			,EA.CORP_SE_CD
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CORP_SE_CD' AND CD_VL = EA.CORP_SE_CD) AS CORP_SE_NM
+			,EA.CORP_DTL_SE_CD
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CORP_SHAP' AND CD_VL = EA.CORP_DTL_SE_CD) AS CORP_DTL_SE_NM
+			,EA.CORP_NM
+			,EA.BRNO
+			,EA.APRV
+			,DECODE(EA.APRV , '1' , '승인형' , '2' , '육성형' , '' ) AS APRV_NM
+
+			,ERR.STBLT_ITEM_LIST
+			,ERR.STBLT_YN
+			,ERR.MNGR_STBLT_YN
+
+			,ERR.ICPT_RSN_CD
+			,DECODE(ERR.ICPT_RSN_CD , 'A' , '기본요건 미충족'
+														,'B' ,'세부요건 미충족'
+														,'C' , '통합조직 탈락'
+														,'EX1' , '-'
+														,'EX2' , '-'
+														,''
+			)AS ICPT_RSN_NM
+			,ERR.MNGR_ICPT_RSN_CD
+			,DECODE(ERR.MNGR_ICPT_RSN_CD , 'A' , '기본요건 미충족'
+																	,'B' ,'세부요건 미충족'
+																	,'C' , '통합조직 탈락'
+																	,'EX1' , '-'
+																	,'EX2' , '-'
+																	,''
+			)AS MNGR_ICPT_RSN_NM
+
+			,ERR.ICPT_RSN_DTL_CD
+			,DECODE(ERR.ICPT_RSN_DTL_CD , 'A1' , '농업경영체 미등록'
+																,'A2' ,'출자자본금 1억원 미달'
+																,'A3' ,'설립 후 운영실적 1년 미만'
+																,'A4' ,'농업인 주주 5명 미만'
+																,'A5' ,'농업인 주주 지분 50% 미만'
+																,'A6' ,'원예농산물 취급액 50% 미만'
+																,'A7' ,'조공설립계획 미수립'
+																,'A8' ,'현장실사 미참여'
+																,'B1' ,'품목 부적합(농협조직)'
+																,'B2' ,'품목 부적합(농업법인, 협동조합)'
+																,'C1' , '통합조직 탈락(농협조직)'
+																,'C2' , '통합조직 탈락(농업법인, 협동조합)'
+																,'-' , '-'
+																,''
+			)AS ICPT_RSN_DTL_NM
+			,ERR.MNGR_ICPT_RSN_DTL_CD
+			,DECODE(ERR.MNGR_ICPT_RSN_DTL_CD , 'A1' , '농업경영체 미등록'
+																			,'A2' ,'출자자본금 1억원 미달'
+																			,'A3' ,'설립 후 운영실적 1년 미만'
+																			,'A4' ,'농업인 주주 5명 미만'
+																			,'A5' ,'농업인 주주 지분 50% 미만'
+																			,'A6' ,'원예농산물 취급액 50% 미만'
+																			,'A7' ,'조공설립계획 미수립'
+																			,'A8' ,'현장실사 미참여'
+																			,'B1' ,'품목 부적합(농협조직)'
+																			,'B2' ,'품목 부적합(농업법인, 협동조합)'
+																			,'C1' , '통합조직 탈락(농협조직)'
+																			,'C2' , '통합조직 탈락(농업법인, 협동조합)'
+																			,'-' , '-'
+																			,''
+			)AS MNGR_ICPT_RSN_DTL_NM
+
+			,DECODE(ERR.ICPT_RSN_CD , 'A' , '기존자금 회수'
+														,'B' ,'최고금리'
+														,'C' , '최고금리'
+														,'EX1' , '최고금리'
+														,'EX2' , '기존자금 회수'
+														,''
+			)AS PNLTY
+			,DECODE(ERR.MNGR_ICPT_RSN_CD , 'A' , '기존자금 회수'
+																	,'B' ,'최고금리'
+																	,'C' , '최고금리'
+																	,'EX1' , '최고금리'
+																	,'EX2' , '기존자금 회수'
+																	,''
+			)AS MNGR_PNLTY
+
+			,ERR.ITR_RT
+			,ERR.MNGR_ITR_RT
+
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CMPTNC_INST' AND CD_VL = EA.CMPTN_INST) AS CMPTN_INST
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CMPTN_INST_CTPV' AND CD_VL = EA.CTPV) AS CTPV
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CMPTN_INST_SIGUN' AND CD_VL = EA.SGG) AS SGG
+			,EA.ZIP
+			,DECODE(EA.ROAD_NM_DTL_ADDR , '' , '[지번]' || EA.LOTNO_ADDR || ' ' || EA.LOTNO_DTL_ADDR , '[도로명]'|| EA.ROAD_NM_ADDR || ' ' || EA.ROAD_NM_DTL_ADDR ) AS ADDR
+			,EA.INVST_NOPE
+			,EA.INVST_EXPND_FRMER_NOPE
+			,EA.INVST_AMT
+			,EA.FRMER_INVST_AMT
+			,EA.CORP_FNDN_DAY
+
+			,EA.RPRSV_FLNM
+			,EA.RPRSV_TELNO
+			,EA.RPRSV_MOBLNO
+			,EA.ROAD_NM_DTL_ADDR
+
+			,EA.PIC_POSITION
+			,EA.PIC_FLNM
+			,EA.PIC_TELNO
+			,EA.PIC_MOBLNO
+			,EA.PIC_EML
+
+			,EAM.PRUO_FUND_APLY_AMT
+			,(SELECT SUM(NVL(ISO_FUND_APLY_AMT,0))
+				FROM TB_EV_APLY_MNG
+				WHERE 1=1
+				  AND APO_SE = '2'
+				  AND YR = EAM.YR
+				  AND UO_BRNO = EAM.BRNO
+			) AS ISO_FUND_APLY_AMT
+			,(NVL(EAM.PRUO_FUND_APLY_AMT , 0 )
+			+ NVL((SELECT SUM(NVL(ISO_FUND_APLY_AMT,0))
+				FROM TB_EV_APLY_MNG
+				WHERE 1=1
+				  AND APO_SE = '2'
+				  AND YR = EAM.YR
+				  AND UO_BRNO = EAM.BRNO ) ,0)
+			) AS FUND_APLY_AMT_TOT
+			,NVL((SELECT SUM(ISO_FUND_APLY_AMT)
+								FROM TB_EV_APLY_MNG TEAM
+								WHERE 1=1
+								  AND YR = EAM.YR
+								  AND UO_BRNO = EAM.BRNO
+								  AND APO_SE = '2'
+								  AND BRNO IN (SELECT ISO_BRNO FROM TB_EV_APO_UO_CD WHERE UO_BRNO = EAM.BRNO)
+								  AND BRNO = (SELECT BRNO
+												FROM TB_EV_REG_RSLT TERR
+												WHERE 1=1
+												  AND APO_SE = '2'
+												  AND YR = TEAM.YR
+												  AND BRNO = TEAM.BRNO
+												  AND UO_BRNO = EAM.BRNO
+												  AND 'Y' = (CASE WHEN TERR.MNGR_STBLT_YN = 'Y' THEN 'Y'
+																	WHEN TERR.MNGR_STBLT_YN = 'N' THEN 'N'
+																	ELSE TERR.STBLT_YN
+																	END)
+												)
+								),0
+			) AS ISO_FUND_APLY_AMT_STBLT_TOT
+			,(NVL(EAM.PRUO_FUND_APLY_AMT,0)
+						+ NVL((SELECT SUM(ISO_FUND_APLY_AMT)
+								FROM TB_EV_APLY_MNG TEAM
+								WHERE 1=1
+								  AND YR = EAM.YR
+								  AND UO_BRNO = EAM.BRNO
+								  AND APO_SE = '2'
+								  AND BRNO IN (SELECT ISO_BRNO FROM TB_EV_APO_UO_CD WHERE UO_BRNO = EAM.BRNO)
+								  AND BRNO = (SELECT BRNO
+												FROM TB_EV_REG_RSLT TERR
+												WHERE 1=1
+												  AND APO_SE = '2'
+												  AND YR = TEAM.YR
+												  AND BRNO = TEAM.BRNO
+												  AND UO_BRNO = EAM.BRNO
+												  AND 'Y' = (CASE WHEN TERR.MNGR_STBLT_YN = 'Y' THEN 'Y'
+																	WHEN TERR.MNGR_STBLT_YN = 'N' THEN 'N'
+																	ELSE TERR.STBLT_YN
+																	END)
+												)
+								),0)
+			) AS FUND_APLY_AMT_STBLT_TOT
+
+			,(NVL(UOAPS.PRCHS_TRST_AMT_TOT, 0) + NVL(UOAPS.ETC_PRCHS_TRST_AMT_TOT, 0)
+			) AS PRCHS_TRST_AMT_TOT
+			,(NVL(UOAPS.PRCHS_EMSPAP_AMT_TOT, 0) + NVL(UOAPS.ETC_PRCHS_EMSPAP_AMT_TOT, 0)
+			) AS PRCHS_EMSPAP_AMT_TOT
+
+			,(NVL(UOAPS.ETC_PRCHS_TRST_AMT_TOT, 0) + NVL(UOAPS.ETC_PRCHS_EMSPAP_AMT_TOT, 0)
+				+ NVL(UOPST.SLS_CNSGN_SLS_AMT,0)
+			) AS PRCHS_AMT_TOT
+
+			,(NVL(UOAPS.SLS_TRST_AMT_TOT, 0) + NVL(UOAPS.ETC_SLS_TRST_AMT_TOT, 0)
+			) AS SLS_TRST_AMT_TOT
+			,(NVL(UOAPS.SLS_EMSPAP_AMT_TOT, 0) + NVL(UOAPS.ETC_SLS_EMSPAP_AMT_TOT, 0)
+			) AS SLS_EMSPAP_AMT_TOT
+
+			,(NVL(UOAPS.ETC_SLS_TRST_AMT_TOT, 0) + NVL(UOAPS.ETC_SLS_EMSPAP_AMT_TOT, 0)
+				+ NVL(UOPST.SLS_CNSGN_SLS_AMT,0)
+			) AS SLS_AMT_TOT
+
+			,NVL(UOPST.SLS_CNSGN_SLS_AMT, 0
+			) AS SLS_CNSGN_SLS_AMT
+			,SR.SLS_TOT_AMT_SCR
+
+			,ROUND( NVL(UOPST.SLS_CNSGN_SLS_AMT, 0) / NULLIF( NVL(UOPST.SLS_CNSGN_SLS_AMT_TOT,0) ,0) * 100 , 2
+			) AS SLS_CNSGN_SLS_AMT_RT
+			,SR.SLS_TOT_RT_SCR
+
+			,SR.TOT_SCR
+			,(NVL(SR.ONLN_WHLSL_MRKT_SCR,0) + NVL(SR.RTL_EDNST_SCR,0)
+			) AS ADD_SCR
+			,SR.DDC_SCR
+			,SR.LAST_SCR
+		FROM
+			(SELECT * FROM USRAM.TB_EV_REG_RSLT WHERE APO_SE = '1' AND YR = #{yr}) ERR
+			,(SELECT * FROM USRAM.TB_EV_APLY_MNG WHERE APO_SE = '1' AND YR = #{yr}) EAM
+			,(SELECT * FROM USRAM.TB_EV_APO WHERE APO_SE = '1' ) EA
+			,(SELECT * FROM USRAM.TB_EV_SCR_RSLT WHERE APO_SE = '1' AND YR = #{yr}) SR
+			,(SELECT
+					BRNO
+
+					,NVL(SUM(
+						DECODE(STTG_UPBR_ITEM_SE
+							,'1' , DECODE(APS.PRCHS_SLS_SE
+										,'1', NVL(APS.PRCHS_TRST_AMT,0)
+										,0)
+							,'2' , DECODE(APS.PRCHS_SLS_SE
+										,'1', NVL(APS.PRCHS_TRST_AMT,0)
+										,0)
+							,0)
+					),0) AS PRCHS_TRST_AMT_TOT
+					,NVL(SUM(
+						DECODE(STTG_UPBR_ITEM_SE
+							,'1' , DECODE(APS.PRCHS_SLS_SE
+										,'1', NVL(APS.PRCHS_EMSPAP_AMT,0)
+										,0)
+							,'2' , DECODE(APS.PRCHS_SLS_SE
+										,'1', NVL(APS.PRCHS_EMSPAP_AMT,0)
+										,0)
+							,0)
+					),0) AS PRCHS_EMSPAP_AMT_TOT
+
+					,NVL(SUM(
+						DECODE(STTG_UPBR_ITEM_SE
+							,'1' , DECODE(APS.PRCHS_SLS_SE
+										,'2', NVL(APS.SLS_TRST_AMT,0)
+										,0)
+							,'2' , DECODE(APS.PRCHS_SLS_SE
+										,'2', NVL(APS.SLS_TRST_AMT,0)
+										,0)
+							,0)
+					),0) AS SLS_TRST_AMT_TOT
+					,NVL(SUM(
+						DECODE(STTG_UPBR_ITEM_SE
+							,'1' , DECODE(APS.PRCHS_SLS_SE
+										,'2', NVL(APS.SLS_EMSPAP_AMT,0)
+										,0)
+							,'2' , DECODE(APS.PRCHS_SLS_SE
+										,'2', NVL(APS.SLS_EMSPAP_AMT,0)
+										,0)
+							,0)
+					),0) AS SLS_EMSPAP_AMT_TOT
+
+					,NVL(SUM(
+						DECODE(STTG_UPBR_ITEM_SE
+							,'3' , DECODE(APS.PRCHS_SLS_SE
+										,'1', NVL(APS.PRCHS_TRST_AMT,0)
+										,0)
+							,0)
+					),0) AS ETC_PRCHS_TRST_AMT_TOT
+					,NVL(SUM(
+						DECODE(STTG_UPBR_ITEM_SE
+							,'3' , DECODE(APS.PRCHS_SLS_SE
+										,'1', NVL(APS.PRCHS_EMSPAP_AMT,0)
+										,0)
+							,0)
+					),0) AS ETC_PRCHS_EMSPAP_AMT_TOT
+
+					,NVL(SUM(
+						DECODE(STTG_UPBR_ITEM_SE
+							,'3' , DECODE(APS.PRCHS_SLS_SE
+										,'2', NVL(APS.SLS_TRST_AMT,0)
+										,0)
+							,0)
+					),0) AS ETC_SLS_TRST_AMT_TOT
+					,NVL(SUM(
+						DECODE(STTG_UPBR_ITEM_SE
+							,'3' , DECODE(APS.PRCHS_SLS_SE
+										,'2', NVL(APS.SLS_EMSPAP_AMT,0)
+										,0)
+							,0)
+					),0) AS ETC_SLS_EMSPAP_AMT_TOT
+				FROM TB_EV_UO_ISO_ALL_PRCHS_SLS APS
+				WHERE 1=1
+				  AND APO_SE = '1'
+				  AND YR = #{yr}
+				GROUP BY BRNO
+			) UOAPS
+			,(SELECT
+					BRNO
+					,NVL(SUM(
+								DECODE(PST.TYPE_SE_NO
+								, '2' , NVL(PST.SLS_CNSGN_SLS_AMT , 0)
+								, '6' , NVL(PST.SLS_CNSGN_SLS_AMT , 0)
+								,0)
+					),0) AS SLS_CNSGN_SLS_AMT
+					,NVL(SUM(
+						NVL(PST.SLS_CNSGN_SLS_AMT , 0)
+					),0) AS SLS_CNSGN_SLS_AMT_TOT
+				FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
+				WHERE 1=1
+				  AND APO_SE = '1'
+				  AND TYPE_SE_NO IN ('2','3','6','7')
+				GROUP BY BRNO
+			) UOPST
+		WHERE 1=1
+		  AND ERR.BRNO = EAM.BRNO(+)
+		  AND ERR.BRNO = EA.BRNO(+)
+		  AND ERR.BRNO = SR.BRNO(+)
+		  AND ERR.BRNO = UOAPS.BRNO(+)
+		  AND ERR.BRNO = UOPST.BRNO(+)
+	</select>
 </mapper>
