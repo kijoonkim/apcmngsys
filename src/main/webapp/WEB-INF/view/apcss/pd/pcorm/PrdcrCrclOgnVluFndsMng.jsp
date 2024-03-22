@@ -416,7 +416,7 @@
 								<td style="background-color: #fce4d6; border: 1px solid white;">268,744,219</td>
 								<td style="background-color: #fce4d6; border: 1px solid white;">100%</td>
 								<td style="background-color: #fce4d6; border: 1px solid white;">과실류</td>
-								<td style="background-color: #fce4d6; border: 1px solid white;">113,144,445</td>
+								<td style="background-color: #fce4d6; border: 1px solid white;">120,369,665</td><!-- 113,144,445 -->
 								<td style="background-color: #fce4d6; border: 1px solid white;">100%</td>
 							</tr>
 							<tr style="border: 1px solid white;">
@@ -424,7 +424,7 @@
 								<td style="background-color: #ddebf7; border: 1px solid white;">84,957,765</td>
 								<td style="background-color: #ddebf7; border: 1px solid white;">100%</td>
 								<td style="background-color: #ddebf7; border: 1px solid white;">시설원예</td>
-								<td style="background-color: #ddebf7; border: 1px solid white;">81,146,666</td>
+								<td style="background-color: #ddebf7; border: 1px solid white;">90,929,658</td><!-- 81,146,666 -->
 								<td style="background-color: #ddebf7; border: 1px solid white;">100%</td>
 							</tr>
 							<tr style="border: 1px solid white;">
@@ -432,7 +432,7 @@
 								<td style="background-color: #e2efda; border: 1px solid white;">49,839,774</td>
 								<td style="background-color: #e2efda; border: 1px solid white;">100%</td>
 								<td style="background-color: #e2efda; border: 1px solid white;">노지채소</td>
-								<td style="background-color: #e2efda; border: 1px solid white;">72,683,773</td>
+								<td style="background-color: #e2efda; border: 1px solid white;">67,255,135</td><!-- 72,683,773 -->
 								<td style="background-color: #e2efda; border: 1px solid white;">100%</td>
 							</tr>
 						</tbody>
