@@ -105,11 +105,11 @@
 				<br>
 
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdDvlpPrgrs" style="width:100%;height:450px;"></div>
+					<div id="sb-area-grdDvlpPrgrs" style="width:100%;height:443px;"></div>
 				</div>
 				<br>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdDfct" style="width:100%;height:125px;"></div>
+					<div id="sb-area-grdDfct" style="width:100%;height:132px;"></div>
 				</div>
 			</div>
 				<!--[pp] //검색결과 -->
@@ -387,9 +387,11 @@
 		setGridDfct: async function() {
 
 	    	let dvlpPlanYmd = SBUxMethod.get("srch-dtp-dvlpPlanYmd");
+	    	let pjtCd 		= SBUxMethod.get("srch-slt-project");
 
 	        const postJsonPromise = gfn_postJSON("/co/pms/selectDfct.do", {
-	        	dvlpPlanYmd	: dvlpPlanYmd
+	        	dvlpPlanYmd	: dvlpPlanYmd,
+	        	pjtCd		: pjtCd
 			});
 
 	        const data = await postJsonPromise;
@@ -443,6 +445,7 @@
 			SBUxMethod.openModal('modal-dfctMng');
 			SBUxMethod.set("dtl-inp-prgrmNm", rowData.prgrmNm);
 			SBUxMethod.set("dtl-inp-prgrmId", rowData.prgrmId);
+			SBUxMethod.set("dtl-inp-pjtCd", rowData.pjtCd);
 			SBUxMethod.set("dtl-inp-pic", rowData.pic);
 			dfctPopup.init(rowData);
 		}
