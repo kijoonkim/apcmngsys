@@ -38,6 +38,7 @@
 							<th colspan="2" class="td_input" style="border-right:hidden;">
 								<sbux-input id="dtl-inp-prgrmNm" name="dtl-inp-prgrmNm" uitype="text" disabled></sbux-input>
 								<sbux-input id="dtl-inp-prgrmId" name="dtl-inp-prgrmId" uitype="hidden"></sbux-input>
+								<sbux-input id="dtl-inp-pjtCd" name="dtl-inp-pjtCd" uitype="hidden"></sbux-input>
 							</th>
 							<th scope="row" class="th_bg">담당자</th>
 							<th  class="td_input" style="border-right:hidden;">
@@ -66,7 +67,7 @@
 		jsonId: 'jsonDfctPopup',
 		areaId: "sb-area-grdDfctMng",
 		prvPrgrmId : "",
-		pjtCd : "",
+		prvPjtCd : "",
 		init: async function(rowData) {
 
 			if (grdDtctPopup === null || this.prvPrgrmId != rowData.prgrmId) {
@@ -77,7 +78,7 @@
 			}
 
 			this.prvPrgrmId = rowData.prgrmId;
-			this.pjtCd = rowData.pjtCd;
+			this.prvPjtCd = rowData.pjtCd;
 		},
 		createGrid: function(/** {boolean} */ isEditable) {
 			var SBGridProperties = {};
@@ -151,12 +152,10 @@
 				const rowData = grdDtctPopup.getRowData(nRow);
 				const dfctVO = {
 					prgrmId: rowData.prgrmId,
-					dfctSn: rowData.dfctSn
+					dfctSn: rowData.dfctSn,
+					pjtCd : rowData.pjtCd
 				}
-				const postJsonPromise = gfn_postJSON("/co/pms/deleteDfct.do", {
-					prgrmId: rowData.prgrmId,
-					dfctSn: rowData.dfctSn
-				}, this.prgrmId);	// 프로그램id 추가
+				const postJsonPromise = gfn_postJSON("/co/pms/deleteDfct.do", dfctVO, this.prgrmId);	// 프로그램id 추가
 
 				const data = await postJsonPromise;
 		        try {
@@ -198,7 +197,7 @@
 
 					if (rowSts === 3){
 						rowData.rowSts = "I";
-						rowData.pjtCd = this.pjtCd;
+						rowData.pjtCd = this.prvPjtCd;
 						dfctList.push(rowData);
 					} else if (rowSts === 2){
 						rowData.rowSts = "U";
@@ -245,9 +244,11 @@
 		setGrid: async function() {
 
 	    	let prgrmId = SBUxMethod.get("dtl-inp-prgrmId");
+	    	let pjtCd = SBUxMethod.get("dtl-inp-pjtCd");
 
 	        const postJsonPromise = gfn_postJSON("/co/pms/selectDfctMngList.do", {
-	        	prgrmId		: prgrmId
+	        	prgrmId		: prgrmId,
+	        	pjtCd		: pjtCd
 			});
 	        const data = await postJsonPromise;
 			try {
