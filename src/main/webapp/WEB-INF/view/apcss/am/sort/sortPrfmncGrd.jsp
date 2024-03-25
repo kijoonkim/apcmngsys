@@ -138,17 +138,7 @@
 									onchange="fn_onChangeSrchVrtyCd(this)"
 								></sbux-select>
 							</td>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-button
-									id="btnSrchVrty"
-									name="btnSrchVrty"
-									class="btn btn-xs btn-outline-dark"
-									text="찾기"
-									uitype="modal"
-									target-id="modal-vrty"
-									onclick="fn_modalVrty"
-								/>
-							</td>
+							<td class="td_input" style="border-right: hidden;"></td>
 <!-- 							<td class="td_input" style="border-right: hidden;"></td> -->
 							<th scope="row" class="th_bg">선별기</th>
 							<td class="td_input" style="border-right: hidden;">
@@ -269,20 +259,6 @@
     <div id="body-modal-prdcr">
     	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
     </div>
-    <!--  품목 선택 Modal -->
-   	<div>
-        <sbux-modal id="modal-itemCrtr" name="modal-itemCrtr" uitype="middle" header-title="품목 선택" body-html-id="body-modal-itemCrtr" header-is-close-button="false" footer-is-close-button="false" style="width:600px"></sbux-modal>
-    </div>
-    <div id="body-modal-itemCrtr">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/itemCrtrPopup.jsp"></jsp:include>
-    </div>
-    <!-- 품종 선택 Modal -->
-    <div>
-        <sbux-modal id="modal-vrty" name="modal-vrty" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" header-is-close-button="false" footer-is-close-button="false" style="width:800px"></sbux-modal>
-    </div>
-    <div id="body-modal-vrtyCrtr">
-    	<jsp:include page="../../am/popup/vrtyCrtrPopup.jsp"></jsp:include>
-    </div>
 </body>
 <script type="text/javascript">
 
@@ -292,42 +268,6 @@
 
 	function fn_closeModal(modalId){
 		SBUxMethod.closeModal(modalId);
-	}
-
-    const fn_modalVrty = function() {
-    	popVrty.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-slt-itemCd"), fn_setVrty, fn_setVrtys);
-	}
-
-	const fn_setVrty = function(vrty) {
-		if (!gfn_isEmpty(vrty)) {
-			SBUxMethod.setValue('srch-slt-itemCd', vrty.itemCd);
-			SBUxMethod.set('srch-inp-vrtyCd', vrty.vrtyCd);
-			SBUxMethod.set('srch-inp-vrtyNm', vrty.vrtyNm);
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, gv_selectedApcCd, vrty.itemCd);
-		}
-	}
-	const fn_setVrtys = function(vrtys) {
-		if (!gfn_isEmpty(vrtys)) {
-			var _vrtyNms = [];
-			var _vrtyCds = [];
-			var diff = false;
-			for(var i=0;i<vrtys.length;i++){
-				if (vrtys[0].itemCd != vrtys[i].itemCd) {
-					diff = true;
-				}
-				_vrtyNms.push(vrtys[i].vrtyNm);
-				_vrtyCds.push(vrtys[i].vrtyCd);
-			}
-			if (diff) {
-				SBUxMethod.set('srch-slt-itemCd', "");
-				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, '');
-			} else {
-				SBUxMethod.set('srch-slt-itemCd', vrtys[0].itemCd);
-				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, gv_selectedApcCd, vrtys[0].itemCd);
-			}
-			SBUxMethod.set('srch-inp-vrtyNm', _vrtyNms.join(','));
-			SBUxMethod.set('srch-inp-vrtyCd', _vrtyCds.join(','));
-		}
 	}
 
 	var jsonApcItem			= [];	// 품목 	itemCd			검색
@@ -1107,6 +1047,8 @@
 
 	const fn_setPrdcr = function(prdcr) {
 		if (!gfn_isEmpty(prdcr)) {
+			SBUxMethod.set("srch-slt-itemCd", prdcr.rprsItemCd);
+			SBUxMethod.set("srch-slt-vrtyCd", prdcr.itemVrtyCd);
 			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
 			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
 			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
