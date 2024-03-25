@@ -15,7 +15,7 @@ import lombok.Setter;
  *
  * <pre>
  * << 개정이력(Modification Information) >>
- * 수정일        수정자        수정내용
+ * 수정일        수정자        수정내용 
  * ----------  ----------  ---------------------------
  * 2023.06.21  신정철        최초 생성
  * </pre>
@@ -177,5 +177,14 @@ public class PckgCmndVO extends ComVO {
 	 * 창고
 	 */
 	private String warehouseSeCd;
-
+	
+	/**
+	 * 출하포장단위
+	 */
+	private String spmtPckgUnitCd;
+	
+	/**
+	 * 출하포장단위명
+	 */
+	private String spmtPckgUnitNm;
 }

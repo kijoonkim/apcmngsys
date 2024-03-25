@@ -163,6 +163,7 @@
 					, SORTNO
 					, SORT_SN
 					, WAREHOUSE_SE_CD
+					, SPMT_PCKG_UNIT_CD
 					, SYS_FRST_INPT_DT
 					, SYS_FRST_INPT_USER_ID
 					, SYS_FRST_INPT_PRGRM_ID
@@ -193,6 +194,7 @@
 					, #{sortno}
 					, #{sortSn}
 					, #{warehouseSeCd}
+					, #{spmtPckgUnitCd}
 					, SYSDATE
 					, #{sysFrstInptUserId}
 					, #{sysFrstInptPrgrmId}
@@ -242,6 +244,7 @@
 				, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)    	AS SPCFCT_NM
 				, (SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)	AS GDS_NM
 				, (SELECT FN_GET_CNPT_NM(pt0.CNPT_CD, pt0.APC_CD) FROM DUAL) AS CNPT_NM
+				, (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL) AS SPMT_PCKG_UNIT_NM
 	   		 FROM (
 	    		SELECT /* com.at.apcss.am.pckg.mapper.PckgCmndMapper.selectRegPckgCmndList */
 				        PC.APC_CD    		        AS APC_CD
@@ -263,6 +266,7 @@
 				      , MAX(PC.RMRK)    			AS RMRK
 				      , MAX(PC.DEL_YN)    		    AS DEL_YN
 				      , MAX(PC.WAREHOUSE_SE_CD)		AS WAREHOUSE_SE_CD
+				      , MAX(SPMT_PCKG_UNIT_CD)		AS SPMT_PCKG_UNIT_CD
 				      , (SELECT
 				                PCKG_QNTT
 				           FROM TB_PCKG_PRFMNC X

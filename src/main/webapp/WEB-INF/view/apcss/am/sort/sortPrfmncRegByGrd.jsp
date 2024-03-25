@@ -1048,52 +1048,10 @@
 		columns2.forEach((item, index) => {
 			SBGridProperties.columns.push(item);
 		});
-
-		/*
-		// 상품등급
-		const columnsGdsGrd = [];
-		gjsonExtGrdObjKnd.forEach((item, index) => {
-			const _jsonId = gStdGrdObj.jsonExtPrefix + gStdGrdObj.idList[index];
-			const grd = {
-				caption: [item.grdKndNm],
-				ref: gStdGrdObj.colExtPrfx + item.grdKnd,
-				type:'combo',
-				width:'100px',
-				style: 'text-align:center;',
-				userattr: {colNm: "gdsStdGrd"},
-				typeinfo: {
-					ref: _jsonId,
-					label:'grdNm',
-					value:'grdCd',
-					displayui : false,
-					oneclickedit: true
-				}
-			}
-			columnsGdsGrd.push(grd);
-		});
-
-		if (gjsonExtGrdObjKnd.length > 1 && gjsonExtGrdObjJgmt.length > 0) {
-			const jgmtGrd = {
-					caption: ["상품판정"],
-					ref: "gdsJgmtGrdCd",
-					type:'combo',
-					width:'80px',
-					style: 'text-align:center;',
-					userattr: {colNm: "gdsJgmtGrd"},
-					typeinfo: {ref: gStdGrdObj.jgmtExtJsonId, label:'grdNm', value:'grdCd', displayui : false}
-			}
-			SBGridProperties.columns.push(jgmtGrd);
-		}
-
-		columnsGdsGrd.forEach((item, index) => {
-			SBGridProperties.columns.push(item);
-		});
-		 */
 		SBGridProperties.columns.push(
             {caption: ["비고"], 		ref: 'rmrk',  		type:'input',  width:'200px'},
 	        {caption: ["품목코드"],		ref: 'itemCd',   	type:'output',  hidden: true},
 	        {caption: ["규격중량"],		ref: 'spcfctWght',  type:'output',  hidden: true},
-		        //{caption: [" "],		ref: '_',			type:'output',  width:'1px'},
 		);
 
 		grdSortPrfmnc = _SBGrid.create(SBGridProperties);
@@ -3312,8 +3270,6 @@
 				let colNm = gStdGrdObj.colExtPrfx + item.grdKnd;
 				const id = gStdGrdObj.idList[index];
 				let jsonObj = gStdGrdObj.getExtJson(id);
-				console.log("colNm", colNm);
-				console.log("rowData[colNm]", rowData[colNm]);
 				if (typeof rowData[colNm] === "string") {
 					rowData[colNm] = rowData[colNm].trim();
 				} else if (typeof rowData[colNm] === "number") {
@@ -3322,13 +3278,11 @@
 				} else {
 
 				}
-				console.log("rowData[colNm]", rowData[colNm]);
 
 				if (!gfn_isEmpty(rowData[colNm])) {
 					let grdInfo = _.find(jsonObj, {grdCd: rowData[colNm]});
 					if (gfn_isEmpty(grdInfo)) {
 						grdInfo = _.find(jsonObj, {grdNm: rowData[colNm]});
-						console.log("grdInfo", grdInfo);
 						if (!gfn_isEmpty(grdInfo)) {
 							rowData[colNm] = grdInfo.grdCd;
 						} else {
