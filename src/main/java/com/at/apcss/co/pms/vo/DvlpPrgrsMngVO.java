@@ -61,5 +61,13 @@ public class DvlpPrgrsMngVO extends ComVO{
     * 지연여부
     */
    private String dvlpStts;
+   /*
+    * 프로젝트명
+   	*/
+   private String project;
+   /*
+	* 프로젝트코드
+	*/
+   private String pjtCd;
 
 }

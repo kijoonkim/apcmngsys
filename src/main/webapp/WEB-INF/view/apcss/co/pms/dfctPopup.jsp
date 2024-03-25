@@ -66,6 +66,7 @@
 		jsonId: 'jsonDfctPopup',
 		areaId: "sb-area-grdDfctMng",
 		prvPrgrmId : "",
+		pjtCd : "",
 		init: async function(rowData) {
 
 			if (grdDtctPopup === null || this.prvPrgrmId != rowData.prgrmId) {
@@ -74,7 +75,9 @@
 			} else {
 				this.search();
 			}
+
 			this.prvPrgrmId = rowData.prgrmId;
+			this.pjtCd = rowData.pjtCd;
 		},
 		createGrid: function(/** {boolean} */ isEditable) {
 			var SBGridProperties = {};
@@ -105,7 +108,9 @@
 		            	}
 			    }},
 		        {caption: ['프로그램ID'], 	ref: 'prgrmId', 	hidden : true},
-		        {caption: ['결함순번'], 	ref: 'dfctSn', 		hidden : true}
+		        {caption: ['결함순번'], 	ref: 'dfctSn', 		hidden : true},
+				{caption: ['프로젝트'], 	ref: 'project', 		hidden : true},
+				{caption: ['프로젝트코드'], 	ref: 'pjtCd', 		hidden : true},
 		    ];
 		    grdDtctPopup = _SBGrid.create(SBGridProperties);
 		},
@@ -193,6 +198,7 @@
 
 					if (rowSts === 3){
 						rowData.rowSts = "I";
+						rowData.pjtCd = this.pjtCd;
 						dfctList.push(rowData);
 					} else if (rowSts === 2){
 						rowData.rowSts = "U";
@@ -256,7 +262,8 @@
 							actnRslt	: item.actnRslt,
 							ocrnYmd		: item.ocrnYmd,
 							actnYmd		: item.actnYmd,
-							delYn		: item.delYn
+							delYn		: item.delYn,
+							pjtCd		: item.pjtCd,
 						}
 						jsonDfctPopup.push(dfctVO);
 
