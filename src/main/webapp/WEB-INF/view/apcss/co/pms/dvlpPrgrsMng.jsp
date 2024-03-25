@@ -63,6 +63,12 @@
 					</colgroup>
 					<tbody>
 						<tr>
+							<th scope="row" class="th_bg" >프로젝트</th>
+							<td class="td_input" style="border-right:hidden;">
+								<sbux-select id="srch-slt-project" name="srch-slt-project" uitype="single" jsondata-ref="jsonProject" unselected-text="전체" class="form-control input-sm"></sbux-select>
+							</td>
+							<td style="border-right: hidden;">&nbsp;</td>
+							<td style="border-right: hidden;">&nbsp;</td>
 							<th scope="row" class="th_bg" >기준일자</th>
 							<td class="td_input" style="border-right:hidden;" >
 								<sbux-datepicker id="srch-dtp-dvlpPlanYmd" name="srch-dtp-dvlpPlanYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
@@ -75,13 +81,13 @@
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td style="border-right: hidden;">&nbsp;</td>
+						</tr>
+						<tr>
 							<th scope="row" class="th_bg">분류</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-clsf" name="srch-slt-clsf" uitype="single" jsondata-ref="jsonComClsf" unselected-text="전체" class="form-control input-sm"></sbux-select>
 							</td>
 							<td colspan="2"></td>
-						</tr>
-						<tr>
 							<th scope="row" class="th_bg">프로그램명</th>
 							<td colspan="2" class="td_input" style="border-right:hidden;">
 								<sbux-input id="srch-inp-prgrmNm" name="srch-inp-prgrmNm" uitype="text" class="form-control input-sm"></sbux-input>
@@ -125,6 +131,7 @@
 	var jsonGrdStts			= [];	// 상태 		stts	그리드
 	var jsonGrdClsf			= [];	// 분류 		clsf	그리드
 	var jsonGrdPic			= [];	// 담당자 		pic		그리드
+	var jsonProject			= [];   // 프로젝트 차수
 	var grdDvlpPrgs = null;
 	var grdDfct = null;
 
@@ -156,7 +163,8 @@
 					gfn_setComCdSBSelect('srch-slt-pic', 	jsonComPic, 'PIC'),			// 담당자(검색)
 					gfn_setComCdGridSelect('grdDvlpPrgs', 	jsonGrdStts, "DFCT_STTS", "0000"),	// 상태(그리드)
 					gfn_setComCdGridSelect('grdDvlpPrgs', 	jsonGrdClsf, "DFCT_CLSF", "0000"),	// 분류(그리드)
-					gfn_setComCdGridSelect('grdDvlpPrgs', 	jsonGrdPic, "PIC", "0000")			// 담당자(그리드)
+					gfn_setComCdGridSelect('grdDvlpPrgs', 	jsonGrdPic, "PIC", "0000"),			// 담당자(그리드)
+					gfn_setComCdSBSelect('srch-slt-project', jsonProject, 'PJT_CD'), 	// 프로젝트(검색)
 				]);
 				this.createGrid();
 				this.createGridDfct();
@@ -179,6 +187,7 @@
 		    SBGridProperties.oneclickedit = true;
 		    SBGridProperties.clickeventarea = {fixed: true, empty: false};
 		    SBGridProperties.columns = [
+				{caption: ['프로젝트'], 	ref: 'project', 		width: '110px', type: 'output', style:'text-align:center'},
 		    	{caption: ["상태"], 		ref: 'stts',   			type:'combo',  width:'100px',    style:'text-align:center',
 					typeinfo : {ref:'jsonGrdStts', label:'label', value:'value', displayui : false}},
 		    	{caption: ["분류"], 		ref: 'clsf',   			type:'combo',  width:'100px',    style:'text-align:center',
@@ -282,6 +291,7 @@
 	    	let clsf = SBUxMethod.get("srch-slt-clsf");
 	    	let prgrmNm = SBUxMethod.get("srch-inp-prgrmNm");
 	    	let pic = SBUxMethod.get("srch-slt-pic");
+			let pjtCd = SBUxMethod.get("srch-slt-project");
 
 	        const postJsonPromise = gfn_postJSON("/co/pms/selectDvlpPrgrsMngList.do", {
 	        	dvlpPlanYmd	: dvlpPlanYmd,
@@ -289,6 +299,7 @@
 	        	clsf		: clsf,
 	        	prgrmNm		: prgrmNm,
 	        	pic			: pic,
+				pjtCd		: pjtCd,
 			});
 
 	        const data = await postJsonPromise;
@@ -312,7 +323,9 @@
 							actnCnt			: item.actnCnt,
 							sysLastChgDt	: item.sysLastChgDt,
 						    rmrk 			: item.rmrk,
-						    dvlpStts 		: item.dvlpStts
+						    dvlpStts 		: item.dvlpStts,
+							project			: item.project,
+							pjtCd			: item.pjtCd,
 						}
 						jsonDvlpPrgs.push(dvlpPrgs);
 
@@ -426,7 +439,7 @@
 		var nCol = grdDvlpPrgs.getCol();
 		var rowData = grdDvlpPrgs.getRowData(nRow);
 
-		if(nCol == 9 && nRow != 0){
+		if(nCol == 10 && nRow != 0){
 			SBUxMethod.openModal('modal-dfctMng');
 			SBUxMethod.set("dtl-inp-prgrmNm", rowData.prgrmNm);
 			SBUxMethod.set("dtl-inp-prgrmId", rowData.prgrmId);

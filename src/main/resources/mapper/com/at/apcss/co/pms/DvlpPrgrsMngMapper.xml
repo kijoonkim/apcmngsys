@@ -35,9 +35,11 @@
 			    , DPM.RMRK              AS RMRK
 			    , (SELECT FN_GET_COM_CD_VL_NM('PIC',DPM.PIC) FROM DUAL)                AS PIC
 			    , DPM.DEL_YN            AS DEL_YN
-			    , NULLIF((SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID), 0) AS DFCT_CNT
-                , NULLIF((SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID AND X.ACTN_YMD IS NOT NULL), 0) AS ACTN_CNT
+			    , NULLIF((SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID AND X.PJT_CD = DPM.PJT_CD), 0) AS DFCT_CNT
+                , NULLIF((SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID AND X.ACTN_YMD IS NOT NULL AND X.PJT_CD = DPM.PJT_CD), 0) AS ACTN_CNT
 			    , TO_CHAR(DPM.SYS_LAST_CHG_DT, 'YYYY-MM-DD HH24:MI') AS SYS_LAST_CHG_DT
+			    , (SELECT FN_GET_COM_CD_VL_NM('PJT_CD',DPM.PJT_CD) FROM DUAL)		AS PROJECT
+			    , DPM.PJT_CD			AS PJT_CD
     	]]>
     	<if test='dvlpPlanYmd != null and dvlpPlanYmd != ""'>
     	<![CDATA[
@@ -68,6 +70,9 @@
 			<if test='prgrmNm != null and prgrmNm != ""'>
 				AND DPM.PRGRM_NM LIKE '%' || #{prgrmNm} || '%'
 			</if>
+			 <if test='pjtCd != null and pjtCd != ""'>
+				 AND DPM.PJT_CD = #{pjtCd}
+			 </if>
 		</where>
 		<![CDATA[
 			 ORDER BY DPM.DVLP_PLAN_YMD
@@ -155,6 +160,7 @@
 			     , DM.OCRN_YMD	 	AS OCRN_YMD
 			     , DM.ACTN_YMD      AS ACTN_YMD
 			     , DM.DEL_YN		AS DEL_YN
+				 , DM.PJT_CD		AS PJT_CD
 			  FROM TB_DFCT_MNG DM
 			 WHERE DM.PRGRM_ID = #{prgrmId}
     	]]>
@@ -179,6 +185,7 @@
 				  , ACTN_RSLT
 				  , OCRN_YMD
 				  , ACTN_YMD
+				  , PJT_CD
 				  , SYS_FRST_INPT_DT
 				  , SYS_FRST_INPT_USER_ID
 				  , SYS_FRST_INPT_PRGRM_ID
@@ -189,12 +196,13 @@
 			VALUES
 				(
 				    #{prgrmId}
-				  , (SELECT FN_GET_ID_DFCT_SN(#{prgrmId}) FROM DUAL)
+				  , (SELECT FN_GET_ID_DFCT_SN(#{pjtCd},#{prgrmId}) FROM DUAL)
 				  , #{dfctCn}
 				  , #{regPrsnNm}
 				  , #{actnRslt}
 				  , TO_CHAR(SYSDATE, 'YYYYMMDD')
 				  , #{actnYmd}
+				  , #{pjtCd}
 				  , SYSDATE
 				  , #{sysFrstInptUserId}
 				  , #{sysFrstInptPrgrmId}
@@ -222,6 +230,7 @@
 			    , REG_PRSN_NM     		= #{regPrsnNm}
 			    , ACTN_RSLT    			= #{actnRslt}
 			    , ACTN_YMD   			= #{actnYmd}
+			    , PJT_CD				= #{pjtCd}
 				, SYS_LAST_CHG_DT		= SYSDATE
 	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}

@@ -31,5 +31,13 @@ public class DfctMngVO extends DvlpPrgrsMngVO{
 	 * 조치일자
 	 */
 	private String actnYmd;
+	/*
+	 * 프로젝트명
+	 */
+	private String project;
+	/*
+	 * 프로젝트코드
+	 */
+	private String pjtCd;
 
 }
