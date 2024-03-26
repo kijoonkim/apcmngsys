@@ -3476,8 +3476,9 @@
 
 			,ERR.STBLT_ITEM_LIST
 			,ERR.STBLT_YN
+		/*
 			,ERR.MNGR_STBLT_YN
-
+		*/
 			,ERR.ICPT_RSN_CD
 			,DECODE(ERR.ICPT_RSN_CD , 'A' , '기본요건 미충족'
 														,'B' ,'세부요건 미충족'
@@ -3486,6 +3487,7 @@
 														,'EX2' , '-'
 														,''
 			)AS ICPT_RSN_NM
+		/*
 			,ERR.MNGR_ICPT_RSN_CD
 			,DECODE(ERR.MNGR_ICPT_RSN_CD , 'A' , '기본요건 미충족'
 																	,'B' ,'세부요건 미충족'
@@ -3494,7 +3496,7 @@
 																	,'EX2' , '-'
 																	,''
 			)AS MNGR_ICPT_RSN_NM
-
+		*/
 			,ERR.ICPT_RSN_DTL_CD
 			,DECODE(ERR.ICPT_RSN_DTL_CD , 'A1' , '농업경영체 미등록'
 																,'A2' ,'출자자본금 1억원 미달'
@@ -3511,6 +3513,7 @@
 																,'-' , '-'
 																,''
 			)AS ICPT_RSN_DTL_NM
+		/*
 			,ERR.MNGR_ICPT_RSN_DTL_CD
 			,DECODE(ERR.MNGR_ICPT_RSN_DTL_CD , 'A1' , '농업경영체 미등록'
 																			,'A2' ,'출자자본금 1억원 미달'
@@ -3527,7 +3530,7 @@
 																			,'-' , '-'
 																			,''
 			)AS MNGR_ICPT_RSN_DTL_NM
-
+		*/
 			,DECODE(ERR.ICPT_RSN_CD , 'A' , '기존자금 회수'
 														,'B' ,'최고금리'
 														,'C' , '최고금리'
@@ -3535,6 +3538,7 @@
 														,'EX2' , '기존자금 회수'
 														,''
 			)AS PNLTY
+		/*
 			,DECODE(ERR.MNGR_ICPT_RSN_CD , 'A' , '기존자금 회수'
 																	,'B' ,'최고금리'
 																	,'C' , '최고금리'
@@ -3542,9 +3546,9 @@
 																	,'EX2' , '기존자금 회수'
 																	,''
 			)AS MNGR_PNLTY
-
-			,ERR.ITR_RT
 			,ERR.MNGR_ITR_RT
+		*/
+			,ERR.ITR_RT
 
 			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CMPTNC_INST' AND CD_VL = EA.CMPTN_INST) AS CMPTN_INST
 			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CMPTN_INST_CTPV' AND CD_VL = EA.CTPV) AS CTPV
@@ -3575,6 +3579,7 @@
 				  AND APO_SE = '2'
 				  AND YR = EAM.YR
 				  AND UO_BRNO = EAM.BRNO
+				  AND BRNO IN (SELECT ISO_BRNO FROM TB_EV_APO_UO_CD WHERE UO_BRNO = EAM.BRNO)
 			) AS ISO_FUND_APLY_AMT
 			,(NVL(EAM.PRUO_FUND_APLY_AMT , 0 )
 			+ NVL((SELECT SUM(NVL(ISO_FUND_APLY_AMT,0))
@@ -3582,6 +3587,7 @@
 				WHERE 1=1
 				  AND APO_SE = '2'
 				  AND YR = EAM.YR
+				  AND BRNO IN (SELECT ISO_BRNO FROM TB_EV_APO_UO_CD WHERE UO_BRNO = EAM.BRNO)
 				  AND UO_BRNO = EAM.BRNO ) ,0)
 			) AS FUND_APLY_AMT_TOT
 			,NVL((SELECT SUM(ISO_FUND_APLY_AMT)
@@ -3643,14 +3649,17 @@
 			) AS SLS_EMSPAP_AMT_TOT
 
 			,(NVL(UOAPS.ETC_SLS_TRST_AMT_TOT, 0) + NVL(UOAPS.ETC_SLS_EMSPAP_AMT_TOT, 0)
-				+ NVL(UOPST.SLS_CNSGN_SLS_AMT,0)
+				+ NVL(UOPST.SLS_CNSGN_SLS_AMT_TOT,0)
 			) AS SLS_AMT_TOT
 
-			,NVL(UOPST.SLS_CNSGN_SLS_AMT, 0
+			,NVL(UOYPST.SLS_CNSGN_SLS_AMT, 0
 			) AS SLS_CNSGN_SLS_AMT
+
+			,NVL(UOYPST.SLS_CNSGN_SLS_AMT_TOT, 0
+			) AS SLS_CNSGN_SLS_AMT_TOT
 			,SR.SLS_TOT_AMT_SCR
 
-			,ROUND( NVL(UOPST.SLS_CNSGN_SLS_AMT, 0) / NULLIF( NVL(UOPST.SLS_CNSGN_SLS_AMT_TOT,0) ,0) * 100 , 2
+			,ROUND( NVL(UOYPST.SLS_CNSGN_SLS_AMT, 0) / NULLIF( NVL(UOYPST.SLS_CNSGN_SLS_AMT_TOT,0) ,0) * 100 , 2
 			) AS SLS_CNSGN_SLS_AMT_RT
 			,SR.SLS_TOT_RT_SCR
 
@@ -3660,7 +3669,33 @@
 			,SR.DDC_SCR
 			,SR.LAST_SCR
 		FROM
-			(SELECT *
+			(SELECT
+					YR
+					,BRNO
+					,STBLT_ITEM_LIST
+					,(CASE
+							WHEN MNGR_STBLT_YN = 'Y' THEN MNGR_ICPT_RSN_CD
+							WHEN MNGR_ICPT_RSN_CD IS NOT NULL THEN MNGR_ICPT_RSN_CD
+							ELSE ICPT_RSN_CD
+							END
+					) AS ICPT_RSN_CD
+
+					,(CASE
+							WHEN MNGR_STBLT_YN = 'Y' THEN MNGR_ICPT_RSN_DTL_CD
+							WHEN MNGR_ICPT_RSN_DTL_CD IS NOT NULL THEN MNGR_ICPT_RSN_DTL_CD
+							ELSE ICPT_RSN_DTL_CD
+							END
+					) AS ICPT_RSN_DTL_CD
+
+					,(CASE WHEN MNGR_STBLT_YN IS NOT NULL THEN MNGR_STBLT_YN
+							ELSE STBLT_YN
+							END
+					) AS STBLT_YN
+
+					,(CASE WHEN MNGR_ITR_RT IS NOT NULL THEN MNGR_ITR_RT
+							ELSE ITR_RT
+							END
+					) AS ITR_RT
 				FROM USRAM.TB_EV_REG_RSLT
 				WHERE 1=1
 				  AND APO_SE = '1'
@@ -3767,15 +3802,36 @@
 					),0) AS SLS_CNSGN_SLS_AMT_TOT
 				FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
 				WHERE 1=1
+				  AND YR = #{yr}
 				  AND APO_SE = '1'
 				  AND TYPE_SE_NO IN ('2','3','6','7')
 				GROUP BY BRNO
 			) UOPST
+			,(SELECT
+					BRNO
+					,NVL(SUM(
+								DECODE(PST.TYPE_SE_NO
+								, '2' , NVL(PST.SLS_CNSGN_SLS_AMT , 0)
+								, '6' , NVL(PST.SLS_CNSGN_SLS_AMT , 0)
+								,0)
+					),0) AS SLS_CNSGN_SLS_AMT
+					,NVL(SUM(
+						NVL(PST.SLS_CNSGN_SLS_AMT , 0)
+					),0) AS SLS_CNSGN_SLS_AMT_TOT
+				FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
+				WHERE 1=1
+				  AND YR = #{yr}
+				  AND APO_SE = '1'
+				  AND STBLT_YN = 'Y'
+				  AND TYPE_SE_NO IN ('2','3','6','7')
+				GROUP BY BRNO
+			) UOYPST
 		WHERE 1=1
 		  AND ERR.BRNO = EAM.BRNO(+)
 		  AND ERR.BRNO = EA.BRNO(+)
 		  AND ERR.BRNO = SR.BRNO(+)
 		  AND ERR.BRNO = UOAPS.BRNO(+)
 		  AND ERR.BRNO = UOPST.BRNO(+)
+		  AND ERR.BRNO = UOYPST.BRNO(+)
 	</select>
 </mapper>
