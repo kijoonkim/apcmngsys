@@ -2631,14 +2631,19 @@
 			{caption: ["통합조직구분"],			ref:'aprvNm',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["적합품목"],				ref:'stbltItemList',	type:'output',width:'70px',style:'text-align:center'},
 
-			{caption: ["선정여부"],				ref:'stbltYn',	type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["선정여부(관리자)"],				ref:'mngrStbltYn',	type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["탈락사유구분"],			ref:'icptRsnNm',	type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["탈락사유구분(관리자)"],			ref:'mngrIcptRsnNm',	type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["세부탈락사유"],			ref:'icptRsnDtlNm',	type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["세부탈락사유(관리자)"],			ref:'mngrIcptRsnDtlNm',	type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["패널티"],				ref:'pnlty',	type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["패널티(관리자)"],				ref:'mngrPnlty',	type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["선정여부"],				ref:'stbltYn',	type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["선정여부(관리자)"],				ref:'mngrStbltYn',	type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["탈락사유구분"],			ref:'icptRsnNm',	type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["탈락사유구분(관리자)"],			ref:'mngrIcptRsnNm',	type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["세부탈락사유"],			ref:'icptRsnDtlNm',	type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["세부탈락사유(관리자)"],			ref:'mngrIcptRsnDtlNm',	type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["패널티"],				ref:'pnlty',	type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["패널티(관리자)"],				ref:'mngrPnlty',	type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["선정여부(관리자 수정반영)"],				ref:'stbltYn',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["탈락사유구분(관리자 수정반영)"],			ref:'icptRsnNm',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["세부탈락사유(관리자 수정반영)"],			ref:'icptRsnDtlNm',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["패널티(관리자 수정반영)"],				ref:'pnlty',	type:'output',width:'70px',style:'text-align:center'},
 
 			{caption: ["관할기관"],				ref:'cmptnInst',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["시도명"],				ref:'ctpv',	type:'output',width:'70px',style:'text-align:center'},
@@ -2679,7 +2684,9 @@
 			{caption: ["총취급액 매취"],	ref:'slsEmspapAmtTot',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["총취급액 합계"],	ref:'slsAmtTot',	type:'output',width:'70px',style:'text-align:center'},
 
-			{caption: ["전문품목 총취급액 결과"],	ref:'slsCnsgnSlsAmt',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["전문품목 전속취급액 합계"],	ref:'slsCnsgnSlsAmt',	type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["전문품목 총취급액 결과"],	ref:'slsCnsgnSlsAmtTot',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["전문품목 총취급액 점수"],	ref:'slsTotAmtScr',	type:'output',width:'70px',style:'text-align:center'},
 
 			{caption: ["전문품목 전속취급율 결과"],	ref:'slsCnsgnSlsAmtRt',	type:'output',width:'70px',style:'text-align:center'},
@@ -2725,19 +2732,19 @@
 						,aprvNm:			item.aprvNm
 						,stbltItemList:		item.stbltItemList
 						,stbltYn:			item.stbltYn
-						,mngrStbltYn:		item.mngrStbltYn
+						//,mngrStbltYn:		item.mngrStbltYn
 						,icptRsnCd:			item.icptRsnCd
 						,icptRsnNm:			item.icptRsnNm
-						,mngrIcptRsnCd:		item.mngrIcptRsnCd
-						,mngrIcptRsnNm:		item.mngrIcptRsnNm
+						//,mngrIcptRsnCd:		item.mngrIcptRsnCd
+						//,mngrIcptRsnNm:		item.mngrIcptRsnNm
 						,icptRsnDtlCd:		item.icptRsnDtlCd
 						,icptRsnDtlNm:		item.icptRsnDtlNm
-						,mngrIcptRsnDtlCd:	item.mngrIcptRsnDtlCd
-						,mngrIcptRsnDtlNm:	item.mngrIcptRsnDtlNm
+						//,mngrIcptRsnDtlCd:	item.mngrIcptRsnDtlCd
+						//,mngrIcptRsnDtlNm:	item.mngrIcptRsnDtlNm
 						,pnlty:				item.pnlty
-						,mngrPnlty:			item.mngrPnlty
+						//,mngrPnlty:			item.mngrPnlty
 						,itrRt:				item.itrRt
-						,mngrItrRt:			item.mngrItrRt
+						//,mngrItrRt:			item.mngrItrRt
 						,cmptnInst:			item.cmptnInst
 						,ctpv:				item.ctpv
 						,sgg:				item.sgg
@@ -2770,6 +2777,7 @@
 						,slsEmspapAmtTot:	Number(item.slsEmspapAmtTot)
 						,slsAmtTot:			Number(item.slsAmtTot)
 						,slsCnsgnSlsAmt:	Number(item.slsCnsgnSlsAmt)
+						,slsCnsgnSlsAmtTot:	Number(item.slsCnsgnSlsAmtTot)
 						,slsTotAmtScr:		Number(item.slsTotAmtScr)
 						,slsCnsgnSlsAmtRt:	Number(item.slsCnsgnSlsAmtRt)
 						,slsTotRtScr:		Number(item.slsTotRtScr)
