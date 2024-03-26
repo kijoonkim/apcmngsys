@@ -190,6 +190,7 @@
 									name="srch-slt-vrtyCd"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									jsondata-ref="jsonApcVrty"
+									jsondata-value="itemVrtyCd"
 									onchange="fn_onChangeSrchVrtyCd(this)"
 								/>
 							</td>
@@ -1235,22 +1236,22 @@
 	const fn_setStdGdsSelect = async function(_itemCd, _stdGrdObj, _isWght) {
 		await stdGrdSelect.setStdGrd(gv_selectedApcCd, _GRD_SE_CD_WRHS, _itemCd, _stdGrdObj, _isWght);
 	}
-
+	
 	/**
 	 * @name fn_onChangeSrchItemCd
 	 * @description 품목 선택 변경 event
 	 */
 	const fn_onChangeSrchItemCd = async function(obj) {
+
 		let itemCd = obj.value;
-
-		let result = await Promise.all([
-			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd),			// 품종
-			fn_setStdGdsSelect(itemCd)
-		]);
-
-		if (gfn_isEmpty(itemCd)) {
+		const itemInfo = _.find(jsonApcItem, {value: itemCd});
+		if(gfn_isEmpty(itemCd)) {
 			SBUxMethod.set("srch-inp-wghtAvg", "");
 		}
+		let result = await Promise.all([
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd),
+			fn_setStdGdsSelect(itemCd)
+		]);
 	}
 
 	/**
@@ -1259,26 +1260,25 @@
 	 */
 	const fn_onChangeSrchVrtyCd = async function(obj) {
 		let vrtyCd = obj.value;
-		let itemCd = "";
-
-		const vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd});
-
-		if (!gfn_isEmpty(vrtyInfo)) {
-			itemCd = vrtyInfo.mastervalue;
-		} else {
-			itemCd = SBUxMethod.get("srch-slt-itemCd");
-			SBUxMethod.set("srch-inp-wghtAvg", "");
-			fn_onChangeWghtAvg();
-			return;
-		}
+		const itemCd = vrtyCd.substring(0,4);
 
 		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
-		if (itemCd != prvItemCd) {
-			SBUxMethod.set("srch-slt-itemCd", itemCd);
-			await fn_onChangeSrchItemCd({value: itemCd});
-			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
+		if(!gfn_isEmpty(vrtyCd)){
+			
+			SBUxMethod.set("srch-inp-wghtAvg", "");
+			fn_onChangeWghtAvg();
+			
+			if (itemCd != prvItemCd) {
+				SBUxMethod.set("srch-slt-itemCd", itemCd);
+				await fn_onChangeSrchItemCd({value: itemCd});
+				SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
+			} else{
+				SBUxMethod.set("srch-slt-itemCd", itemCd);
+				await fn_onChangeSrchItemCd({value: itemCd});
+				SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
+			}
 		}
-
+		let vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd.substring(4,8)})
 		const wghtRkngSeCd = vrtyInfo.wghtRkngSeCd;
 		const unitWght = parseInt(vrtyInfo.unitWght) || 0;
 		SBUxMethod.set("srch-inp-wghtAvg", unitWght);
@@ -1356,11 +1356,13 @@
 	}
 
 	const fn_setPrdcrForm = async function(prdcr) {
+		
+		console.log('prdcr', prdcr);
 
-		if (!gfn_isEmpty(prdcr.rprsVrtyCd)) {	// 대표품종
+		if (!gfn_isEmpty(prdcr.itemVrtyCd)) {	// 대표품종
 			await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd);
-			SBUxMethod.set("srch-slt-vrtyCd", prdcr.rprsVrtyCd);
-			fn_onChangeSrchVrtyCd({value:prdcr.rprsVrtyCd});
+			SBUxMethod.set("srch-slt-vrtyCd", prdcr.itemVrtyCd);
+			fn_onChangeSrchVrtyCd({value:prdcr.itemVrtyCd});
 		} else {
 			if (!gfn_isEmpty(prdcr.rprsItemCd)) {	// 대표품목
 				const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
