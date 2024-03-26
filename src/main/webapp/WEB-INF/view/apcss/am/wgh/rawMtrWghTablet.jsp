@@ -168,6 +168,7 @@
 											name="dtl-slt-vrtyCd"
 											uitype="single"
 											jsondata-ref="jsonApcVrty"
+											jsondata-value="itemVrtyCd"
 											unselected-text="선택"
 											class="form-control input-sm input-sm-ast inpt_data_reqed"
 											onchange="fn_onChangeSrchVrtyCd(this)"
@@ -952,6 +953,10 @@
 	   		prdctnYr: prdctnYr,				// 생산연도
 	   		wghPrfmncDtlList: wghPrfmncDtlList
 	   	}
+	   	
+	   	if(!gfn_isEmpty(rawMtrWgh.vrtyCd)){
+	   		rawMtrWgh.vrtyCd = rawMtrWgh.vrtyCd.substring(4,8);
+	   	}
 
    		let postUrl = "/am/wgh/insertWghPrfmnc.do";
 
@@ -1098,53 +1103,43 @@
 		fn_init();
 	}
 
-
 	/**
 	 * @name fn_onChangeSrchItemCd
 	 * @description 품목 선택 변경 event
 	 */
 	const fn_onChangeSrchItemCd = async function(obj) {
+
 		let itemCd = obj.value;
-		// 품종은 필터처리
+		const itemInfo = _.find(jsonApcItem, {value: itemCd});
+		
 		let result = await Promise.all([
-			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd)	// 품종
+			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd)			// 품종
 		]);
-
-		if (!gfn_isEmpty(itemCd)) {
-			const itemInfo = _.find(jsonApcItem, {value: itemCd});
-			const rawMtrRdcdRt = parseFloat(itemInfo.rawMtrRdcdRt) || 0;
-			SBUxMethod.set("dtl-inp-rdcdRt", rawMtrRdcdRt);
-		} else {
-			SBUxMethod.set("dtl-inp-rdcdRt", "");
-		}
-
-		fn_clearPltBx();	// 팔레트 박스 초기화
 	}
 
 	/**
 	 * @name fn_onChangeSrchVrtyCd
 	 * @description 품종 선택 변경 event
 	 */
-	 const fn_onChangeSrchVrtyCd = async function(obj) {
-			let vrtyCd = obj.value;
-			let itemCd = "";
-			const vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd});
+	const fn_onChangeSrchVrtyCd = async function(obj) {
+		let vrtyCd = obj.value;
+		const itemCd = vrtyCd.substring(0,4);
 
-			if (!gfn_isEmpty(vrtyCd)) {
-				itemCd = vrtyInfo.mastervalue;
-			} else {
-				itemCd = SBUxMethod.get("dtl-slt-itemCd");
-			}
-
-			const prvItemCd = SBUxMethod.get("dtl-slt-itemCd");
+		const prvItemCd = SBUxMethod.get("dtl-slt-itemCd");
+		if(!gfn_isEmpty(vrtyCd)){
 			if (itemCd != prvItemCd) {
 				SBUxMethod.set("dtl-slt-itemCd", itemCd);
 				await fn_onChangeSrchItemCd({value: itemCd});
 				SBUxMethod.set("dtl-slt-vrtyCd", vrtyCd);
+			} else{
+				SBUxMethod.set("dtl-slt-itemCd", itemCd);
+				await fn_onChangeSrchItemCd({value: itemCd});
+				SBUxMethod.set("dtl-slt-vrtyCd", vrtyCd);
+	 			SBUxMethod.set("dtl-inp-rdcdRt", "");
 			}
+			fn_clearPltBx();
 		}
-
-
+	}
 
 	function fn_onChangeRdctRt(id){
 		var RdctRt = SBUxMethod.get("dtl-inp-rdctRt").replace(regex, "");
@@ -1243,11 +1238,6 @@
 		return sourceJson;
 	}
 
-
-
-
-
-
  	function fn_setClclnWght() {
  		let actlWght = gfn_isEmpty(SBUxMethod.get("dtl-inp-actlWght")) ? 0 : SBUxMethod.get("dtl-inp-actlWght");
  		let pltWght = gfn_isEmpty(SBUxMethod.get("inp-pltWght")) ? 0 : SBUxMethod.get("inp-pltWght");
@@ -1256,8 +1246,6 @@
 		//입고중량 Kg set
 		SBUxMethod.set("dtl-inp-wrhsWght", actlWght - pltWght - bxWght);
 	}
-
-
 
 	/**
 	* @name fn_onInputPrdcrNm
@@ -1312,6 +1300,8 @@
 	 * @description 생산자 모달 선택 콜백 callback
 	 */
 	const fn_setPrdcr = async function(prdcr) {
+		
+		console.log('test', prdcr);
 
 		if (!gfn_isEmpty(prdcr)) {
 			SBUxMethod.set("dtl-inp-prdcrCd", prdcr.prdcrCd);
@@ -1325,10 +1315,10 @@
 
 	const fn_setPrdcrForm = async function(prdcr) {
 
-		if (!gfn_isEmpty(prdcr.rprsVrtyCd)) {	// 대표품종
+		if (!gfn_isEmpty(prdcr.itemVrtyCd)) {	// 대표품종
 			await gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd);
-			SBUxMethod.set("dtl-slt-vrtyCd", prdcr.rprsVrtyCd);
-			fn_onChangeSrchVrtyCd({value:prdcr.rprsVrtyCd});
+			SBUxMethod.set("dtl-slt-vrtyCd", prdcr.itemVrtyCd);
+			fn_onChangeSrchVrtyCd({value:prdcr.itemVrtyCd});
 		} else {
 			if (!gfn_isEmpty(prdcr.rprsItemCd)) {	// 대표품목
 				const prvItemCd = SBUxMethod.get("dtl-slt-itemCd");
@@ -1365,10 +1355,6 @@
 		  for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
 		  return b;
 	}
-
-
-
-
 
 	/**
 	 * @name fn_choiceVhcl
@@ -1413,14 +1399,14 @@
 
 		SBUxMethod.openModal('modal-wrhsPltBx');
 		popWrhsPltBx.init(
-				{
-					apcCd: gv_selectedApcCd,
-					apcNm: gv_selectedApcNm,
-					itemCd: itemCd,
-					wghno: wghno
-				}
-				, fn_setWrhsPltBx
-				, jsonWrhsPltBx);
+			{
+				apcCd: gv_selectedApcCd,
+				apcNm: gv_selectedApcNm,
+				itemCd: itemCd,
+				wghno: wghno
+			}
+			, fn_setWrhsPltBx
+			, jsonWrhsPltBx);
 	}
 
 	/**
@@ -1469,7 +1455,6 @@
 		}
 		fn_setWght();
 	}
-
 
 	/**
 	 * @name fn_setWght
