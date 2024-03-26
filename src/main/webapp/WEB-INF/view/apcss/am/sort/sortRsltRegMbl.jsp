@@ -647,7 +647,7 @@ li:hover a { color: white; font-weight: bold }
 								></sbux-button>
 							</td>
 						</tr>
-						
+
 						<tr class="tr-grdEx4">
 							<th scope="row" class="th-mbl">
 								<sbux-select
@@ -719,7 +719,7 @@ li:hover a { color: white; font-weight: bold }
 								></sbux-button>
 							</td>
 						</tr>
-						
+
 						<!-- ex5 -->
 						<tr class="tr-grdEx5">
 							<th scope="row" class="th-mbl">
@@ -784,7 +784,7 @@ li:hover a { color: white; font-weight: bold }
 								></sbux-button>
 							</td>
 						</tr>
-						
+
 						<!-- grd 1 -->
 						<tr class="tr-grd1">
 							<th scope="row" class="th_bg th-mbl">
@@ -906,7 +906,7 @@ li:hover a { color: white; font-weight: bold }
 								></sbux-button>
 							</td>
 						</tr>
-						
+
 						<tr class="tr-grd12">
 							<th scope="row" class="th_bg th-mbl">
 								<span></span>
@@ -971,7 +971,7 @@ li:hover a { color: white; font-weight: bold }
 								></sbux-button>
 							</td>
 						</tr>
-						
+
 						<tr class="tr-grd13">
 							<th scope="row" class="th_bg th-mbl">
 								<span></span>
@@ -1092,7 +1092,7 @@ li:hover a { color: white; font-weight: bold }
 								></sbux-button>
 							</td>
 						</tr>
-						
+
 						<!-- grd 2 -->
 						<tr class="tr-grd2">
 							<th scope="row" class="th_bg th-mbl">
@@ -1214,7 +1214,7 @@ li:hover a { color: white; font-weight: bold }
 								></sbux-button>
 							</td>
 						</tr>
-						
+
 						<tr class="tr-grd22">
 							<th scope="row" class="th_bg th-mbl">
 								<span></span>
@@ -1279,7 +1279,7 @@ li:hover a { color: white; font-weight: bold }
 								></sbux-button>
 							</td>
 						</tr>
-						
+
 						<tr class="tr-grd23">
 							<th scope="row" class="th_bg th-mbl">
 								<span></span>
@@ -1520,7 +1520,7 @@ li:hover a { color: white; font-weight: bold }
 								></sbux-button>
 							</td>
 						</tr>
-						
+
 						<tr class="tr-grd32">
 							<th scope="row" class="th_bg th-mbl">
 								<span></span>
@@ -1584,7 +1584,7 @@ li:hover a { color: white; font-weight: bold }
 								></sbux-button>
 							</td>
 						</tr>
-						
+
 						<tr class="tr-grd33">
 							<th scope="row" class="th_bg th-mbl">
 								<span></span>
@@ -1822,7 +1822,7 @@ li:hover a { color: white; font-weight: bold }
 								></sbux-button>
 							</td>
 						</tr>
-						
+
 						<tr class="tr-grd42">
 							<th scope="row" class="th_bg th-mbl">
 								<span></span>
@@ -1886,7 +1886,7 @@ li:hover a { color: white; font-weight: bold }
 								></sbux-button>
 							</td>
 						</tr>
-						
+
 						<tr class="tr-grd43">
 							<th scope="row" class="th_bg th-mbl">
 								<span></span>
@@ -2124,7 +2124,7 @@ li:hover a { color: white; font-weight: bold }
 								></sbux-button>
 							</td>
 						</tr>
-						
+
 						<tr class="tr-grd52">
 							<th scope="row" class="th_bg th-mbl">
 								<span></span>
@@ -2188,7 +2188,7 @@ li:hover a { color: white; font-weight: bold }
 								></sbux-button>
 							</td>
 						</tr>
-						
+
 						<tr class="tr-grd53">
 							<th scope="row" class="th_bg th-mbl">
 								<span></span>
@@ -2306,7 +2306,7 @@ li:hover a { color: white; font-weight: bold }
 									onclick="fn_delGrd(5,4)"
 								></sbux-button>
 							</td>
-						</tr>						
+						</tr>
 						<!-- grd 6 -->
 						<tr class="tr-grd6">
 							<th scope="row" class="th_bg th-mbl">
@@ -2426,7 +2426,7 @@ li:hover a { color: white; font-weight: bold }
 								></sbux-button>
 							</td>
 						</tr>
-						
+
 						<tr class="tr-grd62">
 							<th scope="row" class="th_bg th-mbl">
 								<span></span>
@@ -2490,7 +2490,7 @@ li:hover a { color: white; font-weight: bold }
 								></sbux-button>
 							</td>
 						</tr>
-						
+
 						<tr class="tr-grd63">
 							<th scope="row" class="th_bg th-mbl">
 								<span></span>
@@ -2728,7 +2728,7 @@ li:hover a { color: white; font-weight: bold }
 								></sbux-button>
 							</td>
 						</tr>
-						
+
 						<tr class="tr-grd72">
 							<th scope="row" class="th_bg th-mbl">
 								<span></span>
@@ -2792,7 +2792,7 @@ li:hover a { color: white; font-weight: bold }
 								></sbux-button>
 							</td>
 						</tr>
-						
+
 						<tr class="tr-grd73">
 							<th scope="row" class="th_bg th-mbl">
 								<span></span>
@@ -3030,7 +3030,7 @@ li:hover a { color: white; font-weight: bold }
 								></sbux-button>
 							</td>
 						</tr>
-						
+
 						<tr class="tr-grd82">
 							<th scope="row" class="th_bg th-mbl">
 								<span></span>
@@ -3094,7 +3094,7 @@ li:hover a { color: white; font-weight: bold }
 								></sbux-button>
 							</td>
 						</tr>
-						
+
 						<tr class="tr-grd83">
 							<th scope="row" class="th_bg th-mbl">
 								<span></span>
@@ -3332,7 +3332,7 @@ li:hover a { color: white; font-weight: bold }
 								></sbux-button>
 							</td>
 						</tr>
-						
+
 						<tr class="tr-grd92">
 							<th scope="row" class="th_bg th-mbl">
 								<span></span>
@@ -3396,7 +3396,7 @@ li:hover a { color: white; font-weight: bold }
 								></sbux-button>
 							</td>
 						</tr>
-						
+
 						<tr class="tr-grd93">
 							<th scope="row" class="th_bg th-mbl">
 								<span></span>
@@ -3634,7 +3634,7 @@ li:hover a { color: white; font-weight: bold }
 								></sbux-button>
 							</td>
 						</tr>
-						
+
 						<tr class="tr-grd102">
 							<th scope="row" class="th_bg th-mbl">
 								<span></span>
@@ -3698,7 +3698,7 @@ li:hover a { color: white; font-weight: bold }
 								></sbux-button>
 							</td>
 						</tr>
-						
+
 						<tr class="tr-grd103">
 							<th scope="row" class="th_bg th-mbl">
 								<span></span>
@@ -3824,25 +3824,25 @@ li:hover a { color: white; font-weight: bold }
 
 				<!--[pp] //검색 -->
 			</div>
-			
+
 			<div class="box-body" id="latestInfo">
 				<table class="table table-bordered tbl_fixed tbl_mbl">
 					<colgroup>
-						<col style="width: 15%">
 						<col style="width: 10%">
 						<col style="width: 15%">
 						<col style="width: 15%">
-						<col style="width: 10%">
+						<col style="width: 15%">
 						<col style="width: 35%">
+						<col style="width: 10%">
 					</colgroup>
 					<thead>
 						<tr>
-							<th>선별일시</th>
 							<th>생산자명</th>
 							<th>팔레트번호</th>
 							<th>품목</th>
 							<th>투입수량</th>
 							<th>선별내역</th>
+							<th>선별일시</th>
 						</tr>
 					</thead>
 					<tbody id="latestInfoBody">
@@ -3900,7 +3900,7 @@ li:hover a { color: white; font-weight: bold }
 		'1', '2', '3', '4', '5',
 		'6', '7', '8', '9', '10'
 	];
-	
+
 	const dtlList = [
 		'', '1', '2', '3', '4'
 	];
@@ -4035,53 +4035,53 @@ li:hover a { color: white; font-weight: bold }
       	await fn_getSpmtPckgUnit(sort.itemCd, sort.vrtyCd);
 
       	if (!gfn_isEmpty(sort.grdQnttWght)) {
-			
+
       		let prvGrdCd = "";
       		let dtlIdx = 0;
-      		
+
       		sort.grdQnttWght.split(',').forEach((item) => {
 
 				const grd = item.split(':');
-				
+
 				const grdCd = grd[0];
 				const qntt = grd[1];
 				const wght = grd[2];
 				const spmtPckgUnitCd = grd[3];
-				
+
 				if (_.isEqual(grdCd, prvGrdCd)) {
 					dtlIdx++;
 				} else {
 					dtlIdx = 0;
 				}
-				
+
 				console.log('spmtPckgUnitCd', spmtPckgUnitCd);
 				console.log('grdCd', grdCd);
 				console.log('prvGrdCd', prvGrdCd);
 				console.log('dtlIdx', dtlIdx)
-				
+
 				for ( let i=0; i<jsonFxngGrd.length; i++ ) {
 					const stdGrd = jsonFxngGrd[i];
 					if (_.isEqual(grdCd, stdGrd.grdCd)) {
-						
+
 						const dtl = dtlList[dtlIdx];
 						console.log('dtl', dtl);
 						if (!gfn_isEmpty(dtl)) {
 							fn_addGrd(i+1, dtlIdx);
 						}
-						
+
 						const grdId = grdList[i];
 						SBUxMethod.set("dtl-inp-qntt" + grdId + dtl, qntt);
 						SBUxMethod.set("dtl-inp-wght" + grdId + dtl, wght);
 						SBUxMethod.set("dtl-slt-spmtPckgUnitCd" + grdId + dtl, spmtPckgUnitCd);
 						console.log('spmtPckgUnitCd', spmtPckgUnitCd);
 						console.log('id', "dtl-slt-spmtPckgUnitCd" + grdId + dtl);
-						
+
 						break;
 					}
 				}
-				
+
 				prvGrdCd = grdCd;
-				
+
 			});
 		}
 
@@ -4173,15 +4173,15 @@ li:hover a { color: white; font-weight: bold }
 			const wghtId = "dtl-inp-wght" + grdId;
 			SBUxMethod.set(qnttId, null);
 			SBUxMethod.set(wghtId, null);
-			
+
 			if (i==0) {
 				for ( let j=0; j<5; j++ ) {
 					const dtlId = grdList[j];
-					
+
 				}
 			}
-			
-			
+
+
 		}
 
 		for ( let i=0; i<5; i++ ) {
@@ -4249,7 +4249,7 @@ li:hover a { color: white; font-weight: bold }
 		for ( let i=0; i<10; i++ ) {
 			const grdId = grdList[i];
 			dtlList.forEach((dtl, idx) => {
-				
+
 				document.querySelector('.tr-grd' + grdId + dtl).style.display = "none";
 				if (i < jsonFxngGrd.length) {
 					if (idx == 0) {
@@ -4262,7 +4262,7 @@ li:hover a { color: white; font-weight: bold }
 					document.querySelector('.spn-grd' + grdId + dtl).innerText = "";
 					SBUxMethod.set("dtl-inp-grdCd" + grdId + dtl, "");
 				}
-				
+
 				SBUxMethod.set("dtl-inp-qntt" + grdId + dtl, null);
 				SBUxMethod.set("dtl-inp-wght" + grdId + dtl, null);
 			});
@@ -4304,7 +4304,7 @@ li:hover a { color: white; font-weight: bold }
 			SBUxMethod.set("dtl-inp-qnttEx" + grdId, null);
 			SBUxMethod.set("dtl-inp-wghtEx" + grdId, null);
 		}
-		
+
 		/**
 		for ( let i=0; i<10; i++ ) {
 			const grdId = grdList[i];
@@ -4317,7 +4317,7 @@ li:hover a { color: white; font-weight: bold }
 			}
 		}
 		 */
-		
+
 		for ( let i=0; i<10; i++ ) {
 			const grdId = grdList[i];
 			dtlList.forEach((dtl, idx) => {
@@ -4341,33 +4341,33 @@ li:hover a { color: white; font-weight: bold }
 		sortGrdObj.show();
 	}
 
-	
+
 	const fn_addGrdEx = function(idx) {
-		
+
 		const grdId = grdList[idx];
 		SBUxMethod.refresh("dtl-slt-grdEx" + grdId);
 		document.querySelector('.tr-grdEx' + grdId).style.display = "";
-		
+
 		const btnId = grdList[idx-1];
 		document.querySelector('#dtl-btn-addGrdEx' + btnId).style.display = "none";
 	}
 
 	const fn_delGrdEx = function(idx) {
-		
+
 		const grdId = grdList[idx];
-		
+
 		document.querySelector('.tr-grdEx' + grdId).style.display = "none";
-		
+
 		SBUxMethod.set("dtl-inp-qnttEx" + grdId, null);
 		SBUxMethod.set("dtl-inp-wghtEx" + grdId, null);
-		
+
 		const prvBtnId = grdList[idx-1];
 		document.querySelector('#dtl-btn-addGrdEx' + prvBtnId).style.display = "";
-		
+
 		fn_onChangeSortQntt();
 	}
 
-	
+
 
     /**
      * @name fn_addGrd
@@ -4375,7 +4375,7 @@ li:hover a { color: white; font-weight: bold }
      * @function
      */
 	const fn_addGrd = function(idx, dtl) {
-		
+
     	console.log("fn_addGrd");
     	console.log("idx", idx);
     	console.log("dtl", dtl);
@@ -4387,7 +4387,7 @@ li:hover a { color: white; font-weight: bold }
 		document.querySelector('#dtl-btn-addGrd' + btnId + prvDtlId).style.display = "none";
 		//SBUxMethod.refresh("dtl-inp-grd" + grdId);
 	}
-	
+
     /**
      * @name fn_delGrd
      * @description 고정등급 삭제
@@ -4399,17 +4399,17 @@ li:hover a { color: white; font-weight: bold }
 		const dtlId = dtlList[dtl];
 		//SBUxMethod.refresh("dtl-slt-grd" + grdId);
 		document.querySelector('.tr-grd' + grdId + dtlId).style.display = "none";
-		
+
 		SBUxMethod.set("dtl-inp-qntt" + grdId + dtlId, null);
 		SBUxMethod.set("dtl-inp-wght" + grdId + dtlId, null);
-		
+
 		const prvBtnId = grdList[idx-1];
 		const prvDtlId = dtlList[dtl-1];
 		document.querySelector('#dtl-btn-addGrd' + prvBtnId + prvDtlId).style.display = "";
-		
+
 		fn_onChangeSortQntt();
 	}
-	
+
 	const fn_onChangeSltGrd = function(idx) {
 		const pckgId = "dtl-slt-spmtPckgUnitCdEx" + grdList[idx];
 		const grdCd = SBUxMethod.get("dtl-slt-grdEx" + grdList[idx]);
@@ -4417,7 +4417,7 @@ li:hover a { color: white; font-weight: bold }
 		let chkInfo = _.find(jsonSpmtPckgUnit, {gdsGrd: grdCd});
 		if (!gfn_isEmpty(chkInfo)) {
 			SBUxMethod.set(pckgId, chkInfo.spmtPckgUnitCd);
-			
+
 			fn_onChangeSltPckgEx(idx)
 		}
 	}
@@ -4425,11 +4425,11 @@ li:hover a { color: white; font-weight: bold }
 	const fn_onChangeSltPckgEx = function(idx) {
 		fn_onChangeSortQntt();
 	}
-	
+
 	const fn_onChangeSltPckg = function(idx, dtl) {
 		fn_onChangeSortQntt();
 	}
-	
+
 	/**
 	 *
 	 */
@@ -4442,14 +4442,14 @@ li:hover a { color: white; font-weight: bold }
 		try {
 			const spcfctInfo = _.find(jsonApcSpcfct, {spcfctCd: spcfctCd});
 			spcfctWght = parseFloat(spcfctInfo.wght) || 0;
-			
+
 			let chkInfo = _.find(jsonSpmtPckgUnit, {gdsGrd: grdCd});
-			
+
 		} catch(e) {
 		}
 		 */
-		
-		
+
+
 		let totalQntt = 0;
 		let totalWght = 0;
 
@@ -4459,9 +4459,9 @@ li:hover a { color: white; font-weight: bold }
 				const qnttId = "dtl-inp-qntt" + grdId + dtl;
 				const wghtId = "dtl-inp-wght" + grdId + dtl;
 				const pckgId = "dtl-slt-spmtPckgUnitCd" + grdId + dtl;
-				
+
 				const qntt = parseInt(SBUxMethod.get(qnttId)) || 0;
-				
+
 				let spcfctWght = 0;
 				if (qntt > 0) {
 					const spmtPckgUnitCd = SBUxMethod.get(pckgId);
@@ -4485,9 +4485,9 @@ li:hover a { color: white; font-weight: bold }
 			const qnttId = "dtl-inp-qnttEx" + grdId;
 			const wghtId = "dtl-inp-wghtEx" + grdId;
 			const pckgId = "dtl-slt-spmtPckgUnitCdEx" + grdId;
-			
+
 			const qntt = parseInt(SBUxMethod.get(qnttId)) || 0;
-			
+
 			let spcfctWght = 0;
 			if (qntt > 0) {
 				const spmtPckgUnitCd = SBUxMethod.get(pckgId);
@@ -4498,7 +4498,7 @@ li:hover a { color: white; font-weight: bold }
 					}
 				}
 			}
-			
+
 			const wght = gfn_apcEstmtWght(qntt * spcfctWght, gv_selectedApcCd);
 			SBUxMethod.set(wghtId, wght);
 
@@ -4517,7 +4517,7 @@ li:hover a { color: white; font-weight: bold }
 
 		for ( let i=0; i<10; i++ ) {
 			const grdId = grdList[i];
-			
+
 			dtlList.forEach((dtl) => {
 				const qnttId = "dtl-inp-qntt" + grdId + dtl;
 				const wghtId = "dtl-inp-wght" + grdId + dtl;
@@ -4702,7 +4702,7 @@ li:hover a { color: white; font-weight: bold }
 		let sortInptWght = 0;
 
 		const inptYmd = sortYmd;
-		
+
 		if (jsonOptnGrd.length > 0) {
 
 			for ( let i=0; i<5; i++ ) {
@@ -4717,25 +4717,25 @@ li:hover a { color: white; font-weight: bold }
 				const sortWght = parseInt(SBUxMethod.get(wghtId)) || 0;
 
 				const spmtPckgUnitCd = SBUxMethod.get(pckgId);
-				
+
 				if (gfn_isEmpty(spmtPckgUnitCd)) {
 					gfn_comAlert("W0005", "상품명");		//	W0005	{0}이/가 없습니다.
 					return;
 				}
-				
-				let spcfctCd = "";				
+
+				let spcfctCd = "";
 				if (!gfn_isEmpty(spmtPckgUnitCd)) {
 					const pckgInfo = _.find(jsonSpmtPckgUnit, {spmtPckgUnitCd: spmtPckgUnitCd});
 					if (!gfn_isEmpty(pckgInfo)) {
 						spcfctCd = pckgInfo.spcfctCd;
 					}
 				}
-				
+
 				if (gfn_isEmpty(spcfctCd)) {
 					gfn_comAlert("W0005", "규격");		//	W0005	{0}이/가 없습니다.
 					return;
 				}
-				
+
 				const autoPckgInptYn = gfn_isEmpty(spmtPckgUnitCd) ? "N" : "Y";
 
 				if (sortQntt <= 0) {
@@ -4801,15 +4801,15 @@ li:hover a { color: white; font-weight: bold }
 		}
 
 		console.log('fn_save', 2);
-		
+
 		for ( let i=0; i<jsonFxngGrd.length; i++ ) {
 			console.log('fn_save', 21);
 			const grdId = grdList[i];
-			
+
 			for ( let iDtl=0; iDtl<dtlList.length; iDtl++ ) {
 				console.log('fn_save', 22);
 				const dtl = dtlList[iDtl];
-				
+
 				const qnttId = "dtl-inp-qntt" + grdId + dtl;
 				const wghtId = "dtl-inp-wght" + grdId + dtl;
 				const pckgId = "dtl-slt-spmtPckgUnitCd" + grdId + dtl;
@@ -4820,7 +4820,7 @@ li:hover a { color: white; font-weight: bold }
 				if (sortQntt <= 0) {
 					break;
 				}
-				
+
 				const spmtPckgUnitCd = SBUxMethod.get(pckgId);
 				const autoPckgInptYn = gfn_isEmpty(spmtPckgUnitCd) ? "N" : "Y";
 				console.log('spmtPckgUnitCd', spmtPckgUnitCd);
@@ -4828,12 +4828,12 @@ li:hover a { color: white; font-weight: bold }
 					gfn_comAlert("W0005", "상품명");		//	W0005	{0}이/가 없습니다.
 					return;
 				}
-				let spcfctCd = "";				
+				let spcfctCd = "";
 				const pckgInfo = _.find(jsonSpmtPckgUnit, {spmtPckgUnitCd: spmtPckgUnitCd});
 				if (!gfn_isEmpty(pckgInfo)) {
 					spcfctCd = pckgInfo.spcfctCd;
 				}
-				
+
 				if (gfn_isEmpty(spcfctCd)) {
 					gfn_comAlert("W0005", "규격");		//	W0005	{0}이/가 없습니다.
 					return;
@@ -4860,7 +4860,7 @@ li:hover a { color: white; font-weight: bold }
 				});
 
 				if (_.isEqual("Y", autoPckgInptYn)) {
-					
+
 					if (gfn_isEmpty(gdsGrd)) {
 						gfn_comAlert("W0005", "상품등급");		//	W0005	{0}이/가 없습니다.
 						return;
@@ -4890,7 +4890,7 @@ li:hover a { color: white; font-weight: bold }
 				sortInptWght += sortWght;
 			}
 		}
-		
+
 		console.log('fn_save', 3);
 		if (sortPrfmncList.length == 0) {
 			gfn_comAlert("W0005", "등록대상");		//	W0005	{0}이/가 없습니다.
@@ -4969,7 +4969,7 @@ li:hover a { color: white; font-weight: bold }
 
 		// search fn_searchSort
 
-		
+
 		const tbd = document.querySelector('#latestInfoBody');
 		while (tbd.hasChildNodes()){
 			tbd.removeChild( tbd.firstChild );
@@ -4986,38 +4986,40 @@ li:hover a { color: white; font-weight: bold }
   			if (_.isEqual("S", data.resultStatus)) {
 
   				sortList = data.resultList;
-  				
+
   				for ( let i = 0; i < sortList.length; i++ ) {		// fn_view('ST202403100001')
 
   					const rowData = sortList[i];
 
   					const tr = document.createElement('tr');
-  					
-  					const tdRegDt = document.createElement('td');
-  					tdRegDt.innerText = rowData.sysLastChgDt;
-  					tr.appendChild(tdRegDt);
-  					
+
+
+
   					const tdRprsPrdcrNm = document.createElement('td');
   					tdRprsPrdcrNm.innerText = rowData.rprsPrdcrNm;
   					tr.appendChild(tdRprsPrdcrNm);
-  					
+
   					const tdPltno = document.createElement('td');
   					tdPltno.innerText = rowData.pltno;
   					tr.appendChild(tdPltno);
-  					
+
   					const tdItemVrty = document.createElement('td');
   					tdItemVrty.innerText = rowData.itemNm + " " + rowData.vrtyNm;
   					tr.appendChild(tdItemVrty);
-  					
+
   					const tdInpt = document.createElement('td');
   					tdInpt.innerText = rowData.inptQntt.toLocaleString();
   					tr.appendChild(tdInpt);
-  					
+
   					const tdSort = document.createElement('td');
   					tdSort.innerText = rowData.sortQntt.toLocaleString()
   								+ " (" + rowData.grdQnttNm + ")";
   					tr.appendChild(tdSort);
-  					
+
+  					const tdRegDt = document.createElement('td');
+  					tdRegDt.innerText = rowData.sysLastChgDt;
+  					tr.appendChild(tdRegDt);
+
 					tr.addEventListener("click", () => {
 						fn_view(i);
 					});

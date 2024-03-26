@@ -35,5 +35,6 @@ public class DfctVO {
 	private String cnt8;
 	private String per1;
 	private String per2;
+	private String pjtCd;
 
 }

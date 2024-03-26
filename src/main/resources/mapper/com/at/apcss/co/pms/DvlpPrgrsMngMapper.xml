@@ -100,7 +100,8 @@
 	    		, TEST_PLAN_YMD     	= #{testPlanYmd}
 	    		, TEST_CMPTN_YMD    	= #{testCmptnYmd}
 	    		, RMRK					= #{rmrk}
-			 WHERE PRGRM_ID	= #{prgrmId}
+			 WHERE PJT_CD   = #{pjtCd}
+			   AND PRGRM_ID	= #{prgrmId}
     	]]>
     </update>
 
@@ -123,21 +124,28 @@
 	    		, STTS					= (
 		    								CASE
 										        WHEN
-									                DPM.DVLP_CMPTN_YMD IS NOT NULL AND DPM.TEST_CMPTN_YMD IS NULL AND (SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID) = (SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID AND X.ACTN_YMD IS NOT NULL)
+									                DPM.DVLP_CMPTN_YMD IS NOT NULL AND DPM.TEST_CMPTN_YMD IS NULL AND
+									                (SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID AND X.PJT_CD = DPM.PJT_CD) =
+									                (SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID AND X.PJT_CD = DPM.PJT_CD AND X.ACTN_YMD IS NOT NULL)
 									            THEN '02'
 									            WHEN
-									                DPM.TEST_CMPTN_YMD IS NOT NULL AND (SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID) = (SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID AND X.ACTN_YMD IS NOT NULL)
+									                DPM.TEST_CMPTN_YMD IS NOT NULL
+									                AND (SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID AND X.PJT_CD = DPM.PJT_CD) =
+									                (SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID AND X.PJT_CD = DPM.PJT_CD AND X.ACTN_YMD IS NOT NULL)
 									            THEN '04'
 									            WHEN
-									                DPM.DVLP_CMPTN_YMD IS NOT NULL AND (SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID) = 0
+									                DPM.DVLP_CMPTN_YMD IS NOT NULL
+									                AND (SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID AND X.PJT_CD = DPM.PJT_CD) = 0
 									            THEN '02'
 									            WHEN
-									                DPM.DVLP_CMPTN_YMD IS NULL AND DPM.TEST_CMPTN_YMD IS NULL AND (SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID) = 0
+									                DPM.DVLP_CMPTN_YMD IS NULL AND DPM.TEST_CMPTN_YMD IS NULL
+									                AND (SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID AND X.PJT_CD = DPM.PJT_CD) = 0
 									            THEN '01'
 									            ELSE '03'
 										    END
 										   )
 			 WHERE PRGRM_ID	= #{prgrmId}
+			   AND PJT_CD = #{pjtCd}
     	]]>
     </update>
 
@@ -163,6 +171,7 @@
 				 , DM.PJT_CD		AS PJT_CD
 			  FROM TB_DFCT_MNG DM
 			 WHERE DM.PRGRM_ID = #{prgrmId}
+			   AND DM.PJT_CD = #{pjtCd}
     	]]>
     </select>
 
@@ -234,7 +243,8 @@
 				, SYS_LAST_CHG_DT		= SYSDATE
 	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
-			 WHERE PRGRM_ID	= #{prgrmId}
+			 WHERE PJT_CD	= #{pjtCd}
+			   AND PRGRM_ID	= #{prgrmId}
 			   AND DFCT_SN	= #{dfctSn}
     	]]>
     </update>
@@ -251,7 +261,8 @@
     	<![CDATA[
 	    	DELETE /* com.at.apcss.co.pms.mapper.DvlpPrgrsMngMapper.deleteDfctMng */
 	    	   FROM TB_DFCT_MNG
-			  WHERE PRGRM_ID	= #{prgrmId}
+			  WHERE PJT_CD		= #{pjtCd}
+			    AND PRGRM_ID	= #{prgrmId}
 			    AND DFCT_SN		= #{dfctSn}
     	]]>
     </delete>
@@ -281,7 +292,9 @@
 			      , SUM(ERRCNT2) AS CNT8
 			FROM   (SELECT  CASE WHEN A.CLSF <= '07' THEN '업무지원'
 			                     WHEN A.CLSF  = '11' THEN '생산농가'
-			                     WHEN A.CLSF  = '12' THEN '포탈' END AS GB
+			                     WHEN A.CLSF  = '12' THEN '포탈'
+			                     WHEN A.CLSF  = '13' THEN  '평가'
+                                 END AS GB
 			              , 1    AS TOT
 			              , CASE WHEN A.DVLP_PLAN_YMD  <= #{dvlpPlanYmd} THEN 1 ELSE 0 END AS CNT1
 			              , CASE WHEN A.DVLP_CMPTN_YMD <= #{dvlpPlanYmd} THEN 1 ELSE 0 END AS CNT2
@@ -290,10 +303,17 @@
 			              , NVL(B.ERRCNT,0) AS ERRCNT1
 			              , NVL(C.ERRCNT,0) AS ERRCNT2
 			         FROM   USRAM.TB_DVLP_PRGRS_MNG A
-			              , (SELECT PRGRM_ID, COUNT(1) AS ERRCNT FROM USRAM.TB_DFCT_MNG GROUP BY PRGRM_ID) B
-			              , (SELECT PRGRM_ID, COUNT(1) AS ERRCNT FROM USRAM.TB_DFCT_MNG WHERE ACTN_YMD IS NOT NULL GROUP BY PRGRM_ID) C
+			              , (SELECT PJT_CD, PRGRM_ID, COUNT(1) AS ERRCNT FROM USRAM.TB_DFCT_MNG GROUP BY PJT_CD, PRGRM_ID) B
+			              , (SELECT PJT_CD, PRGRM_ID, COUNT(1) AS ERRCNT FROM USRAM.TB_DFCT_MNG WHERE ACTN_YMD IS NOT NULL GROUP BY PJT_CD, PRGRM_ID) C
 			        WHERE   A.PRGRM_ID = B.PRGRM_ID(+)
 			          AND   A.PRGRM_ID = C.PRGRM_ID(+)
+                      AND   A.PJT_CD = B.PJT_CD(+)
+                      AND   A.PJT_CD = C.PJT_CD(+)
+    	]]>
+    	<if test='pjtCd != null and pjtCd !=""'>
+                      AND   A.PJT_CD = #{pjtCd}
+    	</if>
+    	<![CDATA[
 			       )
 			GROUP BY GB
     	]]>
