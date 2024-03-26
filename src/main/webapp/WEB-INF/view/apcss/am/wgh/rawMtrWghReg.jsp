@@ -1317,51 +1317,6 @@
 		}
 	}
 
-// 	/**
-// 	 * @name fn_onChangeSrchItemCd
-// 	 * @description 품목 선택 변경 event
-// 	 */
-// 	const fn_onChangeSrchItemCd = async function(obj) {
-// 		let itemCd = obj.value;
-// 		// 품종은 필터처리
-// 		let result = await Promise.all([
-// 			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd)	// 품종
-// 		]);
-
-// 		if (!gfn_isEmpty(itemCd)) {
-// 			const itemInfo = _.find(jsonApcItem, {value: itemCd});
-// 			const rawMtrRdcdRt = parseFloat(itemInfo.rawMtrRdcdRt) || 0;
-// 			SBUxMethod.set("dtl-inp-rdcdRt", rawMtrRdcdRt);
-// 		} else {
-// 			SBUxMethod.set("dtl-inp-rdcdRt", "");
-// 		}
-
-// 		fn_clearPltBx();	// 팔레트 박스 초기화
-// 	}
-
-// 	/**
-// 	 * @name fn_onChangeSrchVrtyCd
-// 	 * @description 품종 선택 변경 event
-// 	 */
-// 	const fn_onChangeSrchVrtyCd = async function(obj) {
-// 		let vrtyCd = obj.value;
-// 		let itemCd = "";
-// 		const vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd});
-
-// 		if (!gfn_isEmpty(vrtyCd)) {
-// 			itemCd = vrtyInfo.mastervalue;
-// 		} else {
-// 			itemCd = SBUxMethod.get("dtl-slt-itemCd");
-// 		}
-
-// 		const prvItemCd = SBUxMethod.get("dtl-slt-itemCd");
-// 		if (itemCd != prvItemCd) {
-// 			SBUxMethod.set("dtl-slt-itemCd", itemCd);
-// 			await fn_onChangeSrchItemCd({value: itemCd});
-// 			SBUxMethod.set("dtl-slt-vrtyCd", vrtyCd);
-// 		}
-// 	}
-
 	/**
 	 * @name getByteLengthOfString
 	 * @description 글자 byte 크기 계산
