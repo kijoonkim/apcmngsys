@@ -899,6 +899,10 @@
    			prcsType: gfn_isEmpty(prcsType) ? '' : prcsType,
    			stdGrdList: stdGrd.stdGrdList
     	}
+    	
+    	if(!gfn_isEmpty(rawMtrWrhs.vrtyCd)){
+    		rawMtrWrhs.vrtyCd = rawMtrWrhs.vrtyCd.substring(4,8);
+    	}
 
     	let postUrl = gfn_isEmpty(wrhsno) ? "/am/wrhs/insertRawMtrWrhs.do" : "/am/wrhs/updateRawMtrWrhs.do";
 
