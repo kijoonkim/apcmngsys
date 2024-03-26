@@ -135,6 +135,7 @@
 											name="srch-slt-vrtyCd"
 											class="form-control input-sm input-sm-ast inpt_data_reqed"
 											jsondata-ref="jsonApcVrty"
+											jsondata-value="itemVrtyCd"
 											onchange="fn_onChangeSrchVrtyCd(this)"
 										/>
 									</div>
@@ -529,9 +530,7 @@
             return;
 		}
 
-    	if (!gfn_comConfirm("Q0001", "저장")) {
-    		return;
-    	}
+    	
 
     	const gdsWrhs = {
     		apcCd			: gv_selectedApcCd
@@ -548,7 +547,13 @@
 		  , rmrk			: rmrk
 		  , gdsGrd			: gdsGrd
     	}
-
+    	
+    	if(!gfn_isEmpty(gdsWrhs.vrtyCd)){
+    		gdsWrhs.vrtyCd = gdsWrhs.vrtyCd.substring(4,8);
+    	}
+    	if (!gfn_comConfirm("Q0001", "저장")) {
+    		return;
+    	}
     	const postJsonPromise = gfn_postJSON("/am/wrhs/insertGdsInvntr.do", gdsWrhs);
 		const data = await postJsonPromise;
 
@@ -672,17 +677,20 @@
 			SBUxMethod.set("srch-inp-wghtAvg", 0);
 		}
 	}
-
+	
 	/**
 	 * @name fn_onChangeSrchItemCd
 	 * @description 품목 선택 변경 event
 	 */
 	const fn_onChangeSrchItemCd = async function(obj) {
-		let itemCd = obj.value;
 
+		let itemCd = obj.value;
+		const itemInfo = _.find(jsonApcItem, {value: itemCd});
+		
 		let result = await Promise.all([
-			await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd)							// 품종
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd)			// 품종
 		]);
+		
 		if (gfn_isEmpty(itemCd)) {
 			await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, "");
 			await gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', jsonSpmtPckgUnitCd, "");							// 포장구분
@@ -691,6 +699,28 @@
 			await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, gv_selectedApcCd, itemCd);					// 규격
 			await gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', jsonSpmtPckgUnitCd, gv_selectedApcCd, itemCd);		// 포장구분
 			await stdGrdSelect.setStdGrd(gv_selectedApcCd, _GRD_SE_CD_GDS, itemCd);
+		}
+	}
+
+	/**
+	 * @name fn_onChangeSrchVrtyCd
+	 * @description 품종 선택 변경 event
+	 */
+	const fn_onChangeSrchVrtyCd = async function(obj) {
+		let vrtyCd = obj.value;
+		const itemCd = vrtyCd.substring(0,4);
+
+		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
+		if(!gfn_isEmpty(vrtyCd)){
+			if (itemCd != prvItemCd) {
+				SBUxMethod.set("srch-slt-itemCd", itemCd);
+				await fn_onChangeSrchItemCd({value: itemCd});
+				SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
+			} else{
+				SBUxMethod.set("srch-slt-itemCd", itemCd);
+				await fn_onChangeSrchItemCd({value: itemCd});
+				SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
+			}
 		}
 	}
 
@@ -703,6 +733,7 @@
         }
 
         let rowData = grdGdsWrhs.getRowData(nRow);
+        let itemVrtyCd = rowData.itemCd + rowData.vrtyCd;
 
 		SBUxMethod.set("srch-inp-pckgno", rowData.pckgno);					// 입고번호
 		SBUxMethod.set("srch-inp-pckgSn", rowData.pckgSn);					// 순번
@@ -713,7 +744,7 @@
  		}else{
  			SBUxMethod.set("srch-inp-prchsptNm", "");						// 매입처
  		}
- 		await fn_onChangeSrchVrtyCd({value : rowData.vrtyCd});				// 품목&품종
+ 		await fn_onChangeSrchVrtyCd({value : itemVrtyCd});				// 품목&품종
 
  		SBUxMethod.set("srch-inp-pckgQntt", rowData.pckgQntt);				// 수량
  		SBUxMethod.set("srch-inp-pckgWght", rowData.pckgWght);				// 중량
@@ -734,28 +765,7 @@
  			SBUxMethod.set("stdGrdSlt-slt-knd-1", rowData.gdsGrd);			// 등급
  		}
     }
-
-	/**
-	 * @name fn_onChangeSrchVrtyCd
-	 * @description 품종 선택 변경 event
-	 */
-	const fn_onChangeSrchVrtyCd = async function(obj) {
-		let vrtyCd = obj.value;
-		let itemCd = "";
-		if (!gfn_isEmpty(vrtyCd)) {
-			itemCd = _.find(jsonApcVrty, {value: vrtyCd}).mastervalue;
-		} else {
-			itemCd = SBUxMethod.get("srch-slt-itemCd");
-		}
-
-		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
-		if (itemCd != prvItemCd) {
-			SBUxMethod.set("srch-slt-itemCd", itemCd);
-			await fn_onChangeSrchItemCd({value: itemCd});
-			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
-		}
-	}
-
+	
 	// 거래처 선택 팝업 호출
 	const fn_modalCnpt = function() {
     	popCnpt.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-prchsptNm"), fn_setCnpt);
