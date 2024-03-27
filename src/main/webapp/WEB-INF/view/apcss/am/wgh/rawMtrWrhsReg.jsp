@@ -1001,7 +1001,6 @@
 				grdJgmt: {grdCd: rowData.grdCd}
 			}
 
-		console.log(rowData.prcsType);
 		fn_setStdGdsSelect(rowData.itemCd, stdGrdObj, _.isEqual(rowData.prcsType, "RR"));
 		//stdGrdSelect.setStdGrd(rowData.apcCd, _GRD_SE_CD_WRHS, rowData.itemCd, stdGrdObj);
     }
@@ -1361,7 +1360,6 @@
 
 	const fn_setPrdcrForm = async function(prdcr) {
 		
-		console.log('prdcr', prdcr);
 
 		if (!gfn_isEmpty(prdcr.itemVrtyCd)) {	// 대표품종
 			await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd);
@@ -1814,7 +1812,7 @@
 				style:'text-align:left'
 			}
 	    );
-
+		
 	    return _columns;
 	}
 
@@ -2095,17 +2093,6 @@
 		objExcelInfo.arrAdditionalData = arrAdditionalData;
 		_objList[0].sbGrid.exportExcel(objExcelInfo);
 	}
-
-/*
-	const importExcelData = function (e){
-    	 SBUxMethod.openModal('modal-excel');
-    	 //fn_createGridPopup();
-    	 //jsonExcelRawMtrWrhsPopup = 0;
-    	 //grdExcelRawMtrWrhsPopup.rebuild();
-    	 grdExcelRawMtrWrhsPopup.importExcelData(e);
-     }
-*/
-
 	/**
 	 * @name fn_uld
 	 * @description 업로드 버튼 클릭
@@ -2150,7 +2137,7 @@
 		const rawMtrWrhsList = [];
 
 		let impData = _grdImp.getGridDataAll();
-
+		
 		if (impData.length == 0) {
 			gfn_comAlert("W0005", "등록대상");		//	W0005	{0}이/가 없습니다.
 		}
@@ -2345,7 +2332,6 @@
 	 * @description
 	 */
      const fn_setDataAfterImport = function(_grdImp) {
-
  		let impData = _grdImp.getGridDataAll();
  		const today = gfn_dateToYmd(new Date());
 
@@ -2621,7 +2607,6 @@
 
 		_grdImp.refresh();
      }
-
 
   	/**
       * @name fn_grdImpValueChanged
