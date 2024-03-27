@@ -3787,6 +3787,15 @@
 				WHERE 1=1
 				  AND APO_SE = '1'
 				  AND YR = #{yr}
+				  AND APS.ITEM_CD = DECODE(STTG_UPBR_ITEM_SE, '3' , APS.ITEM_CD
+				  										,(SELECT ITEM_CD
+				  											FROM TB_EV_APO_YR_GPC_CD
+				  											WHERE 1=1
+				  											  AND BRNO = APS.BRNO
+				  											  AND YR = APS.YR AND
+				  											  ITEM_CD = APS.ITEM_CD
+				  											)
+				  							)
 				GROUP BY BRNO
 			) UOAPS
 			,(SELECT
