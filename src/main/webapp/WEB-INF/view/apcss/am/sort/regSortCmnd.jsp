@@ -73,7 +73,7 @@
 								<sbux-select uitype="single" id="srch-slt-itemCd" name="srch-slt-itemCd" class="form-control input-sm" unselected-text="전체" jsondata-ref="jsonComItem" onchange="fn_onChangeSrchItemCd(this)"></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" class="form-control input-sm input-sm-ast inpt_data_reqed" unselected-text="선택" jsondata-ref="jsonComVrty" onchange="fn_onChangeSrchVrtyCd(this)"></sbux-select>
+								<sbux-select uitype="single" id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" class="form-control input-sm input-sm-ast inpt_data_reqed" unselected-text="선택" jsondata-ref="jsonComVrty" jsondata-value="itemVrtyCd" onchange="fn_onChangeSrchVrtyCd(this)"></sbux-select>
 							</td>
 							<td>&nbsp;</td>
 						    <th scope="row" class="th_bg">생산자</th>
@@ -217,32 +217,37 @@
 			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, gv_selectedApcCd)								// 품종
 		]);
 	}
-
+	/**
+	 * @name fn_onChangeSrchItemCd
+	 * @description 품목 선택 변경 event
+	 */
 	const fn_onChangeSrchItemCd = async function(obj) {
-		let itemCd = obj.value;
 
+		let itemCd = obj.value;
+		const itemInfo = _.find(jsonComItem, {value: itemCd});
+		
 		let result = await Promise.all([
-			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd, itemCd)						// 품종
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd, itemCd)			// 품종
 		]);
 	}
 
+	/**
+	 * @name fn_onChangeSrchVrtyCd
+	 * @description 품종 선택 변경 event
+	 */
 	const fn_onChangeSrchVrtyCd = async function(obj) {
 		let vrtyCd = obj.value;
-		let itemCd = "";
-		if (!gfn_isEmpty(vrtyCd)) {
-			itemCd = _.find(jsonComVrty, {value: vrtyCd}).mastervalue;
-		} else {
-			itemCd = SBUxMethod.get("srch-slt-itemCd");
-		}
+		const itemCd = vrtyCd.substring(0,4);
 
 		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
-		if (itemCd != prvItemCd) {
-			SBUxMethod.set("srch-slt-itemCd", itemCd);
-			await fn_onChangeSrchItemCd({value: itemCd});
-			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
+		if(!gfn_isEmpty(vrtyCd)){
+			if (itemCd != prvItemCd) {
+				SBUxMethod.set("srch-slt-itemCd", itemCd);
+				await fn_onChangeSrchItemCd({value: itemCd});
+				SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
+			}
 		}
 	}
-
 
 	var jsonRawMtrInvntr = []; // 그리드의 참조 데이터 주소 선언
 
@@ -442,8 +447,9 @@
   		if (gfn_isEmpty(vrtyCd)) {
   			await gfn_comAlert("W0001", "품종");		//	W0002	{0}을/를 선택하세요.
             return false;
+  		}else{
+  			vrtyCd = vrtyCd.substring(4,8);
   		}
-
 
 		const postJsonPromise = gfn_postJSON("/am/invntr/selectRawMtrInvntrList.do", {
 			apcCd: gv_selectedApcCd,
@@ -664,7 +670,7 @@
     		grdRawMtrInvntr.setCellData(nRow, 28, gv_selectedApcCd);
     		insertList.push(grdRawMtrInvntr.getRowData(nRow));
     	}
-
+    	
     	if (gfn_comConfirm("Q0001", "저장")) {		//	Q0001	{0} 하시겠습니까?
 			const postJsonPromise = gfn_postJSON("/am/sort/insertSortCmndList.do", insertList);
 	    	const data = await postJsonPromise;
@@ -816,17 +822,16 @@
 
 	const fn_setPrdcrForm = async function(prdcr) {
 
-		if (!gfn_isEmpty(prdcr.rprsVrtyCd)) {	// 대표품종
-			await gfn_setApcVrtySBSelect('srch-inp-vrtyCd', jsonComVrty, gv_selectedApcCd);
-			SBUxMethod.set("srch-inp-vrtyCd", prdcr.rprsVrtyNm);
-		} else {
-			if (!gfn_isEmpty(prdcr.rprsItemCd)) {	// 대표품목
-				const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
-				if (prvItemCd != prdcr.rprsItemCd) {
-					SBUxMethod.set("srch-slt-itemCd", prdcr.rprsItemCd);
-					fn_onChangeSrchItemCd({value:prdcr.rprsItemCd});
-				}
+		if (!gfn_isEmpty(prdcr.rprsItemCd)) {	// 대표품목
+			const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
+			if (prvItemCd != prdcr.rprsItemCd) {
+				SBUxMethod.set("srch-slt-itemCd", prdcr.rprsItemCd);
+				fn_onChangeSrchItemCd({value:prdcr.rprsItemCd});
 			}
+		}
+		if (!gfn_isEmpty(prdcr.itemVrtyCd)) {	// 대표품종
+			await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd);
+			SBUxMethod.set("srch-slt-vrtyCd", prdcr.itemVrtyCd);
 		}
 		if (!gfn_isEmpty(prdcr.vhclno)) {	// 차량번호
 			SBUxMethod.set("srch-inp-vhclno", prdcr.vhclno);
