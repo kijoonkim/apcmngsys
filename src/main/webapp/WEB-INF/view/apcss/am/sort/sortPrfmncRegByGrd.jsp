@@ -1951,7 +1951,30 @@
 			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
 			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
 			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+			
+			fn_setPrdcrForm(prdcr);
 		}
+	}
+	
+	const fn_setPrdcrForm = async function(prdcr) {
+
+		if (!gfn_isEmpty(prdcr.rprsItemCd)) {	// 대표품목
+			const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
+			if (prvItemCd != prdcr.rprsItemCd) {
+				SBUxMethod.set("srch-slt-itemCd", prdcr.rprsItemCd);
+				fn_onChangeSrchItemCd({value:prdcr.rprsItemCd});
+			}
+		}
+		if (!gfn_isEmpty(prdcr.itemVrtyCd)) {	// 대표품종
+			await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd);
+			SBUxMethod.set("srch-slt-vrtyCd", prdcr.itemVrtyCd);
+		}
+		if (!gfn_isEmpty(prdcr.prdcrIdentno)) {
+			SBUxMethod.set("srch-inp-prdcrIdentno", prdcr.prdcrIdentno);
+		} else {
+			SBUxMethod.set("srch-inp-prdcrIdentno", "");
+		}
+
 	}
 
 	/** ui event */
