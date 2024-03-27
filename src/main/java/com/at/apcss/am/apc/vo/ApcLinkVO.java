@@ -9,8 +9,9 @@ import lombok.Setter;
 @Setter
 public class ApcLinkVO  extends ComVO{
 
-	private String linkKnd;
-
+	private String linkKnd;		// W: 계량, R:입고, S:선별, P:포장, D:출하
+	private String linkStts;	//  
+	
 	private String apcCd;
 	private String apcKey;
 	private String wghReqYn;
