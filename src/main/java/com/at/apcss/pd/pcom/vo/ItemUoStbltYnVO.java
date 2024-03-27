@@ -81,6 +81,8 @@ public class ItemUoStbltYnVO extends ComVO{
 	private String stbltYn;
 	private String orgStbltYn;
 
+	private String actnMttr;
+
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;
 	private String sysFrstInptDtYmd;
