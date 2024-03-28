@@ -764,6 +764,8 @@
 					, PRCS_SN
 					, PRCS_NO
 					, PRCS_TYPE
+					, PCKG_SORTNO
+					, PCKG_SORT_SN
 					, RMRK
 		    		, SYS_FRST_INPT_DT
 		    		, SYS_FRST_INPT_USER_ID
@@ -800,6 +802,8 @@
 					, #{prcsSn}
 					, #{prcsNo}
 					, #{prcsType}
+					, #{pckgSortno}
+					, NULLIF(#{pckgSortSn}, 0)
 					, #{rmrk}
 		    		, SYSDATE
 		    		, #{sysFrstInptUserId}

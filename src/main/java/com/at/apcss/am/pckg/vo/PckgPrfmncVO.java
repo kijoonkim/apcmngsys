@@ -145,6 +145,12 @@ public class PckgPrfmncVO extends ComVO {
 	 */
 	private int sortSn;
 
+	
+	private String pckgSortno;
+	
+	private int pckgSortSn;
+	
+	
 	/**
 	 * 비고
 	 */
