@@ -786,7 +786,7 @@
  		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");			// 품종
 		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");		// 생산자
  		let bxQntt = SBUxMethod.get("srch-inp-bxQntt");			// 수량
- 		let wrhsWght = SBUxMethod.get("srch-inp-wrhsWght");		// 중량
+ 		let wrhsWght = SBUxMethod.get("srch-inp-wrhsQntt");		// 중량
  		let pltno = SBUxMethod.get("srch-inp-pltno");			// 팔레트번호
  		let bxKnd = SBUxMethod.get("srch-slt-bxKnd");			// 박스종류
  		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");	// 창고
@@ -826,12 +826,14 @@
     		gfn_comAlert("W0001", "생산자");		//	//	W0002	{0}을/를 입력하세요.
             return;
     	}
-
-    	if (gfn_isEmpty(wrhsWght)) {
+    	if (bxQntt <= 0) {
+    		gfn_comAlert("W0001", "수량");		//	//	W0002	{0}을/를 입력하세요.
+            return;
+    	}
+    	if (wrhsWght <= 0) {
     		gfn_comAlert("W0001", "중량");		//	//	W0002	{0}을/를 입력하세요.
             return;
     	}
-
     	if (gfn_isEmpty(warehouseSeCd)) {
     		gfn_comAlert("W0001", "창고");		//	W0002	{0}을/를 선택하세요.
             return;
