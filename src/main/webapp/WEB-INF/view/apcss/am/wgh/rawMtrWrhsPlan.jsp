@@ -151,7 +151,7 @@
 									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
     								oninput="fn_onInputPrdcrNmDtl(event)"
-    								autocomplete-select-callback="fn_onSelectPrdcrNm"
+    								autocomplete-select-callback="fn_onSelectPrdcrNmDtl"
    								></sbux-input>
    								<sbux-input id="dtl-inp-prdcrCd" name="dtl-inp-prdcrCd" uitype="hidden"></sbux-input>
 							</td>
@@ -891,6 +891,8 @@
 			SBUxMethod.set("dtl-rdo-gdsSeCd", jsonPrdcrDtl.gdsSeCd);
 			SBUxMethod.set("dtl-rdo-wrhsSeCd", jsonPrdcrDtl.wrhsSeCd);
 			SBUxMethod.set("dtl-rdo-trsprtSeCd", jsonPrdcrDtl.trsprtSeCd);
+			SBUxMethod.set("srch-inp-prdcrNm", "");
+			fn_clearPrdcr();
 		}
 	}
 
@@ -948,7 +950,7 @@
 			return;
 		}
 
-		const prdcrInfo = _.find(jsonPrdcr, {prdcrIdentno: prdcrIdentno});
+		const prdcrInfo = _.find(jsonPrdcrDtl, {prdcrIdentno: prdcrIdentno});
 		if (gfn_isEmpty(prdcrInfo)) {
 			return;
 		}
