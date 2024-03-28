@@ -660,6 +660,9 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 
 				pckgVO.setSpcfctCd(spmtPckgUnitVO.getSpcfctCd());
 
+				pckgVO.setPckgSortno(sortVO.getSortno());
+				pckgVO.setPckgSortSn(sortVO.getSortSn());
+				
 				pckgPrfmncList.add(pckgVO);
 			}
 
@@ -1567,7 +1570,9 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 				}
 
 				pckgVO.setSpcfctCd(spmtPckgUnitVO.getSpcfctCd());
-
+				pckgVO.setPckgSortno(sortVO.getSortno());
+				pckgVO.setPckgSortSn(sortVO.getSortSn());
+				
 				pckgPrfmncList.add(pckgVO);
 			}
 

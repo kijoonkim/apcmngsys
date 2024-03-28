@@ -301,4 +301,33 @@ public class ApcEvrmntStngController extends BaseController{
 
 		return getSuccessResponseEntity(resultMap);
 	}
+	
+	
+	
+	// APC 연계 상태 update
+	@PostMapping(value = "/am/apc/updateApcLinkStts.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> updateApcLinkStts(@RequestBody ApcLinkVO apcLinkVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		try {
+			
+			apcLinkVO.setSysFrstInptUserId(getUserId());
+			apcLinkVO.setSysFrstInptPrgrmId(getPrgrmId());
+			apcLinkVO.setSysLastChgUserId(getUserId());
+			apcLinkVO.setSysLastChgPrgrmId(getPrgrmId());
+			
+			HashMap<String, Object> rtnObj = apcEvrmntStngService.updateLinkStts(apcLinkVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+			
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	
 }

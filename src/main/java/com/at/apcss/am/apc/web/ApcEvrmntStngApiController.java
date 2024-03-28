@@ -89,15 +89,11 @@ public class ApcEvrmntStngApiController extends BaseController {
 			return getErrorResponseEntity("E01", "APC코드 누락");
 		}
 		
-		logger.debug("apcCd: {}", apcLinkVO.getApcCd());
-		logger.debug("linkStts: {}", apcLinkVO.getLinkStts());
-		logger.debug("linkKnd: {}", apcLinkVO.getLinkKnd());
-		
 		apcLinkVO.setApcKey(apcKey);
 		ApcLinkVO resultVO = new ApcLinkVO();
 		
 		try {
-			
+
 			resultVO = apcEvrmntStngService.selectApcLink(apcLinkVO);
 			
 			if (resultVO == null 
@@ -110,19 +106,19 @@ public class ApcEvrmntStngApiController extends BaseController {
 				return getErrorResponseEntity("E30", "인증 오류");
 			}
 			
-			/*
-			resultVO.setApcKey(null);
 			apcLinkVO.setSysFrstInptUserId(ComConstants.DEFAULT_ERR_USER);
 			apcLinkVO.setSysFrstInptPrgrmId(ComConstants.DEFAULT_ERR_PRGRM);
 			apcLinkVO.setSysLastChgUserId(ComConstants.DEFAULT_ERR_USER);
 			apcLinkVO.setSysLastChgPrgrmId(ComConstants.DEFAULT_ERR_PRGRM);
-			apcEvrmntStngService.updateApcLinkIdnty(apcLinkVO);
-			*/
+			
+			HashMap<String, Object> rtnObj = apcEvrmntStngService.updateLinkStts(apcLinkVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+			
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
-
-		resultMap.put(ComConstants.PROP_RESULT_MAP, resultVO);
 
 		return getSuccessResponseEntity(resultMap);
 	}

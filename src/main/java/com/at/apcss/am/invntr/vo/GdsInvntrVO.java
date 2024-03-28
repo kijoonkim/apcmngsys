@@ -40,6 +40,10 @@ public class GdsInvntrVO extends ComVO {
 	 */
 	private int pckgSn;
 
+	private String pckgSortno;
+	
+	private int pckgSortSn;
+	
 	/**
 	 * 포장번호 표시
 	 */
