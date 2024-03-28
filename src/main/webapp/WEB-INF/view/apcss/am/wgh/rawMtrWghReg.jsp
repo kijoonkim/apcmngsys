@@ -1158,7 +1158,7 @@
 			SBUxMethod.set("dtl-inp-prdcrNm", rowData.prdcrNm);
 			SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 			SBUxMethod.set("dtl-inp-prdcrIdentno", rowData.prdcrIdentno);
-
+			
 			// 입고구분
 			SBUxMethod.set("dtl-rdo-wrhsSeCd", rowData.wrhsSeCd);
 			// 상품구분
@@ -1183,10 +1183,9 @@
 				SBUxMethod.set("dtl-inp-rmrk", "");
 			}
 			// 비고
-
-			await gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd);
-			SBUxMethod.set("dtl-slt-vrtyCd", rowData.vrtyCd);
-			await fn_onChangeSrchVrtyCd({value: rowData.vrtyCd});
+			
+			// 품목/품종
+			await fn_onChangeSrchVrtyCd({value: rowData.itemCd + rowData.vrtyCd});
 
 			// 감량 (%)
 			SBUxMethod.set("dtl-inp-rdcdRt", rowData.rdcdRt);
@@ -1374,7 +1373,6 @@
 	 * @description 생산자 선택 popup callback
 	 */
 	const fn_setPrdcr = function(prdcr) {
-		console.log('prdcr', prdcr);
 		if (!gfn_isEmpty(prdcr)) {
 			SBUxMethod.set("dtl-slt-itemCd", prdcr.rprsItemCd);
 			SBUxMethod.set("dtl-slt-vrtyCd", prdcr.itemVrtyCd);
