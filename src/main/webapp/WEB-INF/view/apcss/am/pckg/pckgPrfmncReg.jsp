@@ -116,6 +116,7 @@
 									name="srch-slt-vrtyCd"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									jsondata-ref="jsonApcVrty"
+									jsondata-value="itemVrtyCd"
 									onchange="fn_onChangeSrchVrtyCd(this)"
 								/>
 							</td>
@@ -669,6 +670,10 @@
   		let itemCd = SBUxMethod.get("srch-slt-itemCd");				// 품목
   		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");				// 품종
   		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");			// 규격
+  		
+  		if(!gfn_isEmpty(vrtyCd)){
+  			vrtyCd = vrtyCd.substring(4,8);
+  		}
 
 		const postJsonPromise = gfn_postJSON("/am/invntr/selectSortInvntrListForRslt.do", {
 			apcCd: gv_selectedApcCd,
@@ -1018,11 +1023,10 @@
 			const pckgYmd = allPckgData[i].pckgYmd;
 			const fcltCd = allPckgData[i].fcltCd;
 			const itemCd = allPckgData[i].itemCd;
-			const vrtyCd = allPckgData[i].vrtyCd;
+			let vrtyCd = allPckgData[i].vrtyCd;
 			const spcfctCd = allPckgData[i].spcfctCd;
 			const spmtPckgUnitCd = allPckgData[i].spmtPckgUnitCd;
 			const warehouseSeCd = allPckgData[i].warehouseSeCd;
-			//const pckgCmndno = allPckgData[i].pckgCmndno;
 			const rmrk = allPckgData[i].rmrk;
 
 			const pckgQntt = parseInt(allPckgData[i].pckgQntt) || 0;
@@ -1043,6 +1047,8 @@
 			if (gfn_isEmpty(vrtyCd)) {
 				gfn_comAlert("W0005", "품종");		//	W0005	{0}이/가 없습니다.
 				return;
+			}else{
+				vrtyCd = vrtyCd.substring(4,8);
 			}
 			if (gfn_isEmpty(spcfctCd) || spcfctCd === "notSelect") {
 				gfn_comAlert("W0005", "규격");		//	W0005	{0}이/가 없습니다.
@@ -1195,7 +1201,7 @@
 			fn_getStdGrd()
 		]);
 	}
-
+	
 	/**
 	 * @name fn_onChangeSrchItemCd
 	 * @description 품목 선택 변경 event
@@ -1203,9 +1209,10 @@
 	const fn_onChangeSrchItemCd = async function(obj) {
 
 		let itemCd = obj.value;
+		const itemInfo = _.find(jsonApcItem, {value: itemCd});
+		
 		let result = await Promise.all([
 			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd),				// 품종
-			//fn_getApcGrd(itemCd),
 			fn_getSpmtPckgUnit(itemCd),
 			fn_getStdGrd(itemCd)
 		]);
@@ -1225,21 +1232,15 @@
 	 */
 	const fn_onChangeSrchVrtyCd = async function(obj) {
 		let vrtyCd = obj.value;
-		let itemCd = "";
-		if (!gfn_isEmpty(vrtyCd)) {
-			itemCd = _.find(jsonApcVrty, {value: vrtyCd}).mastervalue;
-		} else {
-			itemCd = SBUxMethod.get("srch-slt-itemCd");
-		}
+		const itemCd = vrtyCd.substring(0,4);
 
-		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
-		if (itemCd != prvItemCd) {
+		if(!gfn_isEmpty(vrtyCd)){
 			SBUxMethod.set("srch-slt-itemCd", itemCd);
 			await fn_onChangeSrchItemCd({value: itemCd});
 			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
 		}
 
-		fn_getSpmtPckgUnit(itemCd, vrtyCd);
+		fn_getSpmtPckgUnit(itemCd, vrtyCd.substring(4,8));
 	}
 
 	/**
