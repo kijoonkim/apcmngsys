@@ -580,8 +580,8 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 
 		}else {
 			logger.error("Error on ApcEvrmntStngService#insertApcSimpleAuthrt");
-			logger.error(getMessageForMap(ComUtil.getResultMap("W0005", "CASE ID")));
-			return ComUtil.getResultMap("W0005", "CASE ID");
+			logger.error(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "CASE ID")));
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "CASE ID");
 		}
 
 		ComAuthrtVO authrtVO = new ComAuthrtVO();
@@ -597,8 +597,8 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 		int updatedCnt = apcEvrmntStngMapper.updateApcEvrmntStngAuthrt(apcEvrmntStngVO);
 		if (updatedCnt != 1) {
 			logger.error("Error on ApcEvrmntStngService#insertApcSimpleAuthrt call updateApcEvrmntStngAuthrt");
-			logger.error(getMessageForMap(ComUtil.getResultMap("W0005", "APC설정정보")));
-			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("W0005", "APC설정정보")));	// W0005	{0}이/가 없습니다.
+			logger.error(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC설정정보")));
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC설정정보")));	// W0005	{0}이/가 없습니다.
 		}
 
 		return null;
@@ -667,8 +667,8 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 		int updatedCnt = apcEvrmntStngMapper.updateApcEvrmntStngAuthrt(apcEvrmntStngVO);
 		if (updatedCnt != 1) {
 			logger.error("Error on ApcEvrmntStngService#insertApcSimpleAuthrt call updateApcEvrmntStngAuthrt");
-			logger.error(getMessageForMap(ComUtil.getResultMap("W0005", "APC설정정보")));
-			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("W0005", "APC설정정보")));	// W0005	{0}이/가 없습니다.
+			logger.error(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC설정정보")));
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC설정정보")));	// W0005	{0}이/가 없습니다.
 		}
 
 		return null;
@@ -677,15 +677,91 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 	@Override
 	public HashMap<String, Object> updateApcLink(ApcLinkVO apcLinkVO) throws Exception {
 		//ApcLinkVO checkLinkVO = apcEvrmntStngMapper.selectApcLink(apcLinkVO);
-		String check = apcLinkVO.getLinkKnd();
-		String time = apcLinkVO.getSysLastChgPrgrmId();
+		String linkKnd = apcLinkVO.getLinkKnd();
+		//String time = apcLinkVO.getSysLastChgPrgrmId();
+		
 		int result;
-		if(check.equals("W")) {
+		
+		if ("W".equals(linkKnd)) {
 			result = apcEvrmntStngMapper.updateApcWrhsLink(apcLinkVO);
-		}else if (check.equals("S")) {
+		} else if ("S".equals(linkKnd)) {
 			result = apcEvrmntStngMapper.updateApcSortLink(apcLinkVO);
 		}
 		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> updateLinkStts(ApcLinkVO apcLinkVO) throws Exception {
+		
+		String linkKnd = apcLinkVO.getLinkKnd();
+		String linkStts = apcLinkVO.getLinkStts();
+		
+		if (!StringUtils.hasText(linkKnd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "연계서비스종류");
+		}
+		
+		if (!StringUtils.hasText(linkStts)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "연계상태");
+		}
+		
+		List<String> linkKndList = new ArrayList<>(); 
+		linkKndList.add(AmConstants.CON_LINK_KND_WGH);
+		linkKndList.add(AmConstants.CON_LINK_KND_RCPT);
+		linkKndList.add(AmConstants.CON_LINK_KND_SORT);
+		linkKndList.add(AmConstants.CON_LINK_KND_PCKG);
+		linkKndList.add(AmConstants.CON_LINK_KND_SPMT);
+		
+		List<String> linkSttsList = new ArrayList<>();
+		linkSttsList.add(AmConstants.CON_LINK_STTS_REQ_DONE);
+		linkSttsList.add(AmConstants.CON_LINK_STTS_REQ_CNCL);
+		linkSttsList.add(AmConstants.CON_LINK_STTS_SND_DONE);
+		linkSttsList.add(AmConstants.CON_LINK_STTS_PRCS_DONE);
+		
+		if (!linkKndList.contains(linkKnd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_TARGET, "연계서비스");
+		}
+		
+		if (!linkSttsList.contains(linkStts)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_TARGET, "연계상태");
+		}
+		
+		apcEvrmntStngMapper.updateSpApcLinkSttsUpdt(apcLinkVO);
+		
+		if (StringUtils.hasText(apcLinkVO.getRtnCd())) {
+			return ComUtil.getResultMap(apcLinkVO.getRtnCd(), apcLinkVO.getRtnMsg());
+		}
+		
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> updateWghLinkStts(ApcLinkVO apcLinkVO) throws Exception {
+		apcLinkVO.setLinkKnd(AmConstants.CON_LINK_KND_WGH);
+		return updateLinkStts(apcLinkVO);
+	}
+
+	@Override
+	public HashMap<String, Object> updateWrhsLinkStts(ApcLinkVO apcLinkVO) throws Exception {
+		apcLinkVO.setLinkKnd(AmConstants.CON_LINK_KND_RCPT);
+		return updateLinkStts(apcLinkVO);
+	}
+
+	@Override
+	public HashMap<String, Object> updateSortLinkStts(ApcLinkVO apcLinkVO) throws Exception {
+		apcLinkVO.setLinkKnd(AmConstants.CON_LINK_KND_SORT);
+		return updateLinkStts(apcLinkVO);
+	}
+
+	@Override
+	public HashMap<String, Object> updatePckgLinkStts(ApcLinkVO apcLinkVO) throws Exception {
+		apcLinkVO.setLinkKnd(AmConstants.CON_LINK_KND_PCKG);
+		return updateLinkStts(apcLinkVO);
+	}
+
+	@Override
+	public HashMap<String, Object> updateSpmtLinkStts(ApcLinkVO apcLinkVO) throws Exception {
+		apcLinkVO.setLinkKnd(AmConstants.CON_LINK_KND_SPMT);
+		return updateLinkStts(apcLinkVO);
 	}
 
 

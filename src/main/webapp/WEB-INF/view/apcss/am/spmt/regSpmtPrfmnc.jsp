@@ -95,6 +95,7 @@
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									unselected-text="선택"
 									jsondata-ref="jsonComVrty"
+									jsondata-value="itemVrtyCd"
 									onchange="fn_onChangeSrchVrtyCd(this)"
 								></sbux-select>
 							</td>
@@ -463,11 +464,17 @@
 
 	}
 
-	const fn_onChangeSrchItemCd = async function(obj){
-		let itemCd = obj.value;
+	/**
+	 * @name fn_onChangeSrchItemCd
+	 * @description 품목 선택 변경 event
+	 */
+	const fn_onChangeSrchItemCd = async function(obj) {
 
+		let itemCd = obj.value;
+		const itemInfo = _.find(jsonApcItem, {value: itemCd});
+		
 		let result = await Promise.all([
-			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 				jsonComVrty, 		gv_selectedApcCd, itemCd),			// 품종
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd)
 		]);
 		if (gfn_isEmpty(itemCd)) {
 			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, "");
@@ -478,27 +485,29 @@
 		let rst = await Promise.all([
 			gfn_setSpmtPckgUnitSBSelect('excel-slt-spmtPckgUnit', 	jsonExeclComSpmtPckgUnit, 	gv_selectedApcCd, itemCd),			// 포장구분
 			gfn_setApcGdsGrdSBSelect('grdGdsInvntr', 				jsonGrdGdsGrd, 				gv_selectedApcCd, itemCd, '03'),	// 상품등급(재고그리드)
-			gfn_setApcGdsGrdSBSelect('dtl-slt-gdsGrd', 				jsonDtlGdsGrd, 				gv_selectedApcCd, itemCd, '03'),	// 상품등급(상세)
+			gfn_setApcGdsGrdSBSelect('dtl-slt-gdsGrd', 				jsonDtlGdsGrd, 				gv_selectedApcCd, itemCd, '03')		// 상품등급(상세)
 		])
 
 		SBUxMethod.refresh("excel-slt-spmtPckgUnit");
 	}
 
-	const fn_onChangeSrchVrtyCd = async function(obj){
-		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
+	/**
+	 * @name fn_onChangeSrchVrtyCd
+	 * @description 품종 선택 변경 event
+	 */
+	const fn_onChangeSrchVrtyCd = async function(obj) {
+		let vrtyCd = obj.value;
 
-		if (gfn_isEmpty(vrtyCd)) {
+		if(gfn_isEmpty(vrtyCd)){
 			return;
 		}
-
-		itemCd = _.find(jsonComVrty, {value: vrtyCd}).mastervalue;
-
+		const itemCd = vrtyCd.substring(0,4);
 		SBUxMethod.set("srch-slt-itemCd", itemCd);
 		await fn_onChangeSrchItemCd({value: itemCd});
 		SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
 
 		let rst = await Promise.all([
-			gfn_setSpmtPckgUnitSBSelect('grdGdsInvntr', 			jsonGrdSpmtPckgUnit, 		gv_selectedApcCd, itemCd, vrtyCd),	// 포장구분
+			gfn_setSpmtPckgUnitSBSelect('grdGdsInvntr', 			jsonGrdSpmtPckgUnit, 		gv_selectedApcCd, itemCd, vrtyCd.substring(4,8)),	// 포장구분
 			gfn_setApcGdsGrdSBSelect('grdGdsInvntr', 				jsonGrdGdsGrd, 				gv_selectedApcCd, itemCd, '03'),	// 상품등급(재고그리드)
 			gfn_setApcGdsGrdSBSelect('dtl-slt-gdsGrd', 				jsonDtlGdsGrd, 				gv_selectedApcCd, itemCd, '03')		// 상품등급(상세)
 		]);
@@ -507,7 +516,6 @@
 		SBUxMethod.refresh("dtl-slt-gdsGrd");
 		SBUxMethod.refresh("excel-slt-spmtPckgUnit");
 	}
-
 	window.addEventListener('DOMContentLoaded', async function(e) {
 		await fn_initSBSelect();
 		fn_createSmptPrfmncGrid();
@@ -759,6 +767,8 @@
   		if (gfn_isEmpty(vrtyCd)) {
   			gfn_comAlert("W0001", "품종");				//	W0002	{0}을/를 선택하세요.
             return false;
+  		}else{
+  			vrtyCd = vrtyCd.substring(4,8);
   		}
   		if (gfn_isEmpty(gdsSeCd)) {
   			gfn_comAlert("W0001", "상품");				//	W0002	{0}을/를 선택하세요.

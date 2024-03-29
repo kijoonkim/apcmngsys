@@ -10,6 +10,14 @@
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
+	
+<style type="text/css">
+.ad_tbl_toplist>span {
+	font-weight: bold;
+	margin-right: 10px;
+}
+</style>
+
 </head>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
@@ -17,13 +25,9 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3>
-                    <sbux-label id="lbl-wghno" name="lbl-wghno" uitype="normal" text="">
-                    </sbux-label>
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 파프리카선별집계표 -->
 				</div>
 				<div style="margin-left: auto;">
-
-
                     <sbux-button
 						id="btnSearch"
 						name="btnSearch"
@@ -64,7 +68,6 @@
 					</colgroup>
 					<tbody>
 						<tr>
-
 							<th scope="row" class="th_bg">품목</th>
 							<td class="td_input">
 								<sbux-select uitype="single" id="srch-slt-itemCd" name="srch-slt-itemCd" class="form-control input-sm" jsondata-ref="jsonComItem" onchange="fn_selectItem" readonly></sbux-select>
@@ -95,29 +98,48 @@
 						</tr>
 					</tbody>
 				</table>
-
+				
 				<div class="ad_tbl_top2">
-
-							<ul class="ad_tbl_count" style="width: 100%">
-								<li>
-									<span style="font-size:12px">선별내역집계</span>
-								</li>
-							</ul>
-						<div class="ad_tbl_top" style="margin-bottom: 10px; text-align:right">
-							<sbux-button
-								id="btnSortReq"
-								name="btnSortReq"
-								uitype="normal"
-								class="btn btn-sm btn-outline-danger"
-								onclick="fn_sortReq"
-								text="정보재수신"
-							></sbux-button>
-						</div>
-						<div id="sb-area-sortDsctnTot" style="height:544px;"></div>
-
+					<ul class="ad_tbl_count">
+						<li style="padding-right: 5px;">
+							<span>선별내역집계</span>
+						</li>
+					</ul>
+					
+					<div class="ad_tbl_toplist">
+						
+						<span id="dtl-spn-sttsFigure" style="margin-left: 10px;font-size: 28px;">●</span>
+						<span id="dtl-spn-trsmMatSttsNm" style="margin-right: 20px;">기기상태</span>
+						<span>요청 :</span>
+						<span id="dtl-spn-reqDt"></span>
+						<span>완료 :</span>
+						<span id="dtl-spn-cmptnDt"></span>
+						<span id="dtl-spn-sttsNm" style="margin-right: 20px;">진행상태</span>
+						
+						<sbux-button
+							id="btn-sortReq"
+							name="btn-sortReq"
+							uitype="normal"
+							class="btn btn-sm btn-outline-danger"
+							onclick="fn_sortReq"
+							text="정보재수신"
+					    ></sbux-button>
+					    <sbux-button
+							id="btn-sortReqCncl"
+							name="btn-sortReqCncl"
+							uitype="normal"
+							class="btn btn-sm btn-outline-danger"
+							onclick="fn_sortReqCncl"
+							text="취소"
+					    ></sbux-button>
+					</div>
+								    
+				</div>
+				<div class="table-responsive tbl_scroll_sm">
+					<div id="sb-area-sortDsctnTot" style="height:544px;"></div>
 				</div>
 			</div>
-
+		</div>
 	</section>
 	<!-- clip report direct print area  -->
 	<div id="div-rpt-clipReportPrint" style="display:none;"></div>
@@ -125,6 +147,189 @@
 
 <script type="text/javascript">
 
+	let lv_interval = 3 * 60 * 1000;
+	
+	let timerId;
+	
+	const fn_clearBatch = () => {
+		if (!gfn_isEmpty(timerId)) {
+			clearInterval(timerId);
+		}
+	}
+
+	let currApcLink;
+	
+    /**
+     * @name fn_getApcLink
+     * @description apc 연계상태 확인
+     * @function
+     */
+	const fn_getApcLink = async function() {
+    	
+		fn_clearBatch();
+		
+		try {
+			const postJsonPromise = gfn_postJSON(
+						"/am/apc/selectApcLinkStts.do",
+						{apcCd: gv_selectedApcCd}
+					);
+	        const data = await postJsonPromise;
+
+	        if (_.isEqual("S", data.resultStatus)) {
+	        	
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		
+		        	const apcLink = data.resultMap;
+					fn_setApcLink(apcLink);
+		        	
+	        	} else {
+	        		fn_setApcLink(false);
+	        	}
+	        	
+        	} else {
+        		fn_setApcLink(false);
+        	}
+
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		} finally {
+			timerId = setInterval(() => {
+				fn_getApcLink();
+			}, lv_interval);
+		}
+    }
+    
+    /**
+     * @name fn_setApcLink
+     * @description apc 연계상태 정보 표시
+     * @function
+     */
+	const fn_setApcLink = function(apcLink) {
+    	
+		const sttsFigure = document.querySelector('#dtl-spn-sttsFigure');
+		const trsmMatSttsNm = document.querySelector('#dtl-spn-trsmMatSttsNm');
+		const reqDt = document.querySelector('#dtl-spn-reqDt');
+		const cmptnDt = document.querySelector('#dtl-spn-cmptnDt');
+		const sttsNm = document.querySelector('#dtl-spn-sttsNm');
+		const emptyDt = "____-__-__ __:__:__";
+		
+    	if (gfn_isEmpty(apcLink)) {    		
+    		sttsFigure.style.color = "#000000";
+    		trsmMatSttsNm.innerText = "...";
+    		trsmMatSttsNm.style.color = "#808080";
+    		
+    		reqDt.innerText = emptyDt;
+    		cmptnDt.innerText = emptyDt;
+    		sttsNm.innerText = "확인중";
+    		sttsNm.style.color = "#808080";
+    		
+    		currApcLink = null;
+    	} else {    		
+    		sttsFigure.style.color = apcLink.trsmMatSttsColor;
+    		trsmMatSttsNm.innerText = apcLink.trsmMatSttsNm;
+    		trsmMatSttsNm.style.color = apcLink.trsmMatSttsColor;
+
+    		reqDt.innerText = _.isEqual(apcLink.sortLinkStts, "P0") ? emptyDt : gfn_nvl(apcLink.sortReqDt, emptyDt);
+    		cmptnDt.innerText = _.isEqual(apcLink.sortLinkStts, "P0") ? gfn_nvl(apcLink.sortPrcsCmptnDt, emptyDt) : emptyDt;
+    		sttsNm.innerText = apcLink.sortSttsNm;
+    		sttsNm.style.color = apcLink.sortSttsColor;
+    		
+    		currApcLink = apcLink;
+    	}
+    }
+	
+    /**
+     * @name fn_sortReq
+     * @description 선별정보 연계요청
+     * @function
+     */
+ 	const fn_sortReq = async function() {
+
+ 		if (!gfn_comConfirm("Q0001", "정보재수신 요청")) {	//	Q0001	{0} 하시겠습니까?
+    		return;
+    	}
+ 		// validation check
+ 		
+		const param = {
+			apcCd: gv_selectedApcCd,
+			linkKnd: 'S',	// 선별
+			linkStts: 'R0'	// 요청
+		}
+
+		try {
+			const postJsonPromise = gfn_postJSON(
+						"/am/apc/updateApcLinkStts.do",
+						param,
+						null,
+						false
+					);
+	        const data = await postJsonPromise;
+	        
+	        if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+        	}
+	        
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+ 			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		} finally {
+			await fn_getApcLink();
+		}
+	}
+ 	
+    /**
+     * @name fn_sortReqCncl
+     * @description 선별정보 연계요청 취소
+     * @function
+     */
+ 	const fn_sortReqCncl = async function() {
+
+ 		// validation check
+ 		if (!gfn_comConfirm("Q0001", "정보재수신 요청취소")) {	//	Q0001	{0} 하시겠습니까?
+    		return;
+    	}
+ 		
+		const param = {
+			apcCd: gv_selectedApcCd,
+			linkKnd: 'S',	// 선별
+			linkStts: 'R9'	// 요청
+		}
+
+		try {
+			const postJsonPromise = gfn_postJSON(
+						"/am/apc/updateApcLinkStts.do",
+						param,
+						null,
+						false
+					);
+	        const data = await postJsonPromise;
+	        
+	        if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+        	}
+	        
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+ 			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		} finally {
+			await fn_getApcLink();
+		}
+	}
+ 	
+	
 	var jsonComItem				= [];	// 품목 		itemCd			검색
 
 	window.addEventListener('DOMContentLoaded', async function(e) {
@@ -140,12 +345,12 @@
 		SBUxMethod.set("srch-dtp-inptYmdTo", gfn_dateToYmd(new Date()));
 		fn_createSortDsctnTot();
 		let rst = await Promise.all([
-			gfn_setApcItemSBSelect('srch-slt-itemCd', jsonComItem, gv_selectedApcCd),										// 품목
+			gfn_setApcItemSBSelect('srch-slt-itemCd', jsonComItem, gv_selectedApcCd),
+			fn_getApcLink()
 		]);
+		
 		fn_search();
 	}
-
-
 
 
 	//그리드 id, 그리드 json
@@ -233,10 +438,9 @@
 	    	{caption : ["비고","비고"], ref: 'rmrk', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px;', disabled:true, hidden:true},
 	    	{caption: ["생산자코드"],	ref: 'prdcrCd',     		type:'input',  	hidden: true}
 
-
 	    ];
 	    grdSortDsctnTot = _SBGrid.create(SBGridProperties);
-	    grdSortDsctnTot.bind('click', 'fnClick')
+	    grdSortDsctnTot.bind('click', fnClick)
 
 
 	}
@@ -244,8 +448,6 @@
 	function fnClick(){
 		this.inputmode = 'none';
 	}
-
-
 
 
 	// 선별구분
@@ -381,31 +583,6 @@
  		gfn_popClipReport("입고확인서", "am/popSortDsctnTot.crf", {apcCd: gv_selectedApcCd, prdcrCd : grdSortDsctnTotList[0] , inptYmd : grdSortDsctnTotList[1]});
  	}
 
- 	const fn_sortReq = async function() {
-
-		const param = {
-			apcCd: gv_selectedApcCd,
-			linkKnd: 'S',
-			sortReqYn: 'Y'
-		}
-
-		try {
-			const postJsonPromise = gfn_postJSON(
-						"/am/apc/updateApcLink.do",
-						param,
-						null,
-						false
-					);
-	        const data = await postJsonPromise;
-
-		} catch (e) {
-			if (!(e instanceof Error)) {
-				e = new Error(e);
-			}
-			console.error("failed", e.message);
- 			//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-		}
-	}
 
 </script>
 </html>

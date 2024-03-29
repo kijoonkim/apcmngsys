@@ -2853,30 +2853,41 @@
 			{caption: ["통합조직 법인명"],			ref:'uoCorpNm',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["통합조직 사업자번호"],			ref:'uoBrno',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["통합조직 구분"],				ref:'aprvNm',			type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["통합조직 선정여부"],			ref:'uoStbltYn',			type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["통합조직 선정여부(관리자)"],		ref:'uoMngrStbltYn',			type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["통합조직 탈락사유구분"],		ref:'uoIcptRsnNm',			type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["통합조직 탈락사유구분(관리자)"],	ref:'uoMngrIcptRsnNm',			type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["통합조직금리"],				ref:'uoItrRt',			type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["통합조직금리(관리자)"],			ref:'uoMngrItrRt',			type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["통합조직 선정여부"],			ref:'uoStbltYn',			type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["통합조직 선정여부(관리자)"],		ref:'uoMngrStbltYn',			type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["통합조직 탈락사유구분"],		ref:'uoIcptRsnNm',			type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["통합조직 탈락사유구분(관리자)"],	ref:'uoMngrIcptRsnNm',			type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["통합조직금리"],				ref:'uoItrRt',			type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["통합조직금리(관리자)"],			ref:'uoMngrItrRt',			type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["선정여부(관리자 수정반영)"],		ref:'stbltYn',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["탈락사유구분(관리자 수정반영)"],	ref:'icptRsnNm',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["통합조직금리(관리자 수정반영)"],	ref:'uoItrRt',			type:'output',width:'70px',style:'text-align:center'},
 
 			{caption: ["출자출하조직 법인구분"],		ref:'corpSeNm',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["출자출하조직명"],				ref:'corpNm',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["출자출하조직 사업자번호"],		ref:'brno',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["복수출자출하조직 여부"],		ref:'uoBrnoCnt',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["출자출하조직 적합품목"],		ref:'stbltItemList',			type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["출자출하조직 선정여부"],		ref:'stbltYn',			type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["출자출하조직 선정여부(관리자)"],	ref:'mngrStbltYn',			type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["출자출하조직 탈락사유구분"],		ref:'icptRsnNm',			type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["출자출하조직 탈락사유구분(관리자)"],ref:'mngrIcptRsnNm',			type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["출자출하조직 세부탈락사유"],		ref:'icptRsnDtlNm',			type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["출자출하조직 세부탈락사유(관리자)"],ref:'mngrIcptRsnDtlNm',			type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["출자출하조직 패널티"],			ref:'pnlty',			type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["출자출하조직 패널티(관리자)"],	ref:'mngrPnlty',			type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["출자출하조직금리"],			ref:'itrRt',			type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["출자출하조직 선정여부"],		ref:'stbltYn',			type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["출자출하조직 선정여부(관리자)"],	ref:'mngrStbltYn',			type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["출자출하조직 탈락사유구분"],		ref:'icptRsnNm',			type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["출자출하조직 탈락사유구분(관리자)"],ref:'mngrIcptRsnNm',			type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["출자출하조직 세부탈락사유"],		ref:'icptRsnDtlNm',			type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["출자출하조직 세부탈락사유(관리자)"],ref:'mngrIcptRsnDtlNm',			type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["출자출하조직 패널티"],			ref:'pnlty',			type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["출자출하조직 패널티(관리자)"],	ref:'mngrPnlty',			type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["출자출하조직금리"],			ref:'itrRt',			type:'output',width:'70px',style:'text-align:center'},
+			//{caption: ["출자출하조직금리(관리자)"],		ref:'mngrItrRt',			type:'output',width:'70px',style:'text-align:center'},
 
-			{caption: ["출자출하조직금리(관리자)"],		ref:'mngrItrRt',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["출자출하조직 선정여부(관리자 수정반영)"],		ref:'stbltYn',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["출자출하조직 탈락사유구분(관리자 수정반영)"],	ref:'icptRsnNm',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["출자출하조직 세부탈락사유(관리자 수정반영)"],	ref:'icptRsnDtlNm',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["출자출하조직 패널티(관리자 수정반영)"],		ref:'pnlty',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["출자출하조직 금리(관리자 수정반영)"],		ref:'itrRt',		type:'output',width:'70px',style:'text-align:center'},
+
 			{caption: ["출자출하조직 자금신청액"],		ref:'isoFundAplyAmt',			type:'output',width:'70px',style:'text-align:center'},
+
 			{caption: ["총취급액 합계"],				ref:'totTrmtPrfmncAmt',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["취급액 공제액 합계"],			ref:'totDdcAmt',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["조정취급액 합계"],			ref:'totAjmtAmt',			type:'output',width:'70px',style:'text-align:center'},
@@ -2929,19 +2940,19 @@
 						,uoBrnoCnt:			item.uoBrnoCnt
 						,stbltItemList:		item.stbltItemList
 						,stbltYn:			item.stbltYn
-						,mngrStbltYn:		item.mngrStbltYn
+						//,mngrStbltYn:		item.mngrStbltYn
 						,icptRsnCd:			item.icptRsnCd
 						,icptRsnNm:			item.icptRsnNm
-						,mngrIcptRsnCd:		item.mngrIcptRsnCd
-						,mngrIcptRsnNm:		item.mngrIcptRsnNm
+						//,mngrIcptRsnCd:		item.mngrIcptRsnCd
+						//,mngrIcptRsnNm:		item.mngrIcptRsnNm
 						,icptRsnDtlCd:		item.icptRsnDtlCd
 						,icptRsnDtlNm:		item.icptRsnDtlNm
-						,mngrIcptRsnDtlCd:	item.mngrIcptRsnDtlCd
-						,mngrIcptRsnDtlNm:	item.mngrIcptRsnDtlNm
+						//,mngrIcptRsnDtlCd:	item.mngrIcptRsnDtlCd
+						//,mngrIcptRsnDtlNm:	item.mngrIcptRsnDtlNm
 						,pnlty:				item.pnlty
-						,mngrPnlty:			item.mngrPnlty
+						//,mngrPnlty:			item.mngrPnlty
 						,itrRt:				item.itrRt
-						,mngrItrRt:			item.mngrItrRt
+						//,mngrItrRt:			item.mngrItrRt
 						,isoFundAplyAmt:	Number(item.isoFundAplyAmt)
 						,totTrmtPrfmncAmt:	Number(item.totTrmtPrfmncAmt)
 						,totDdcAmt:			Number(item.totDdcAmt)

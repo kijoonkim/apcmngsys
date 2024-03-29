@@ -3275,8 +3275,6 @@
 			,DECODE(UOEA.APRV , '1' , '승인형' , '2' , '육성형' , '' ) AS APRV_NM
 
 			,URR.STBLT_YN AS UO_STBLT_YN
-			,URR.MNGR_STBLT_YN AS UO_MNGR_STBLT_YN
-
 			,URR.ICPT_RSN_CD AS UO_ICPT_RSN_CD
 			, DECODE(URR.ICPT_RSN_CD , 'A' , '기본요건 미충족'
 															,'B' ,'세부요건 미충족'
@@ -3285,6 +3283,9 @@
 															,'EX2' , '-'
 															,''
 			)AS UO_ICPT_RSN_NM
+			,URR.ITR_RT AS UO_ITR_RT
+		/*
+			,URR.MNGR_STBLT_YN AS UO_MNGR_STBLT_YN
 			,URR.MNGR_ICPT_RSN_CD AS UO_MNGR_ICPT_RSN_CD
 			, DECODE(URR.MNGR_ICPT_RSN_CD , 'A' , '기본요건 미충족'
 																	,'B' ,'세부요건 미충족'
@@ -3293,9 +3294,8 @@
 																	,'EX2' , '-'
 																	,''
 			)AS UO_MNGR_ICPT_RSN_NM
-
-			,URR.ITR_RT AS UO_ITR_RT
 			,URR.MNGR_ITR_RT AS UO_MNGR_ITR_RT
+		*/
 
 			,ISOEA.CORP_SE_CD
 			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CORP_SE_CD' AND CD_VL = ISOEA.CORP_SE_CD) AS CORP_SE_NM
@@ -3307,7 +3307,6 @@
 
 			,ERR.STBLT_ITEM_LIST
 			,ERR.STBLT_YN
-			,ERR.MNGR_STBLT_YN
 
 			,ERR.ICPT_RSN_CD
 			,DECODE(ERR.ICPT_RSN_CD , 'A' , '기본요건 미충족'
@@ -3317,15 +3316,6 @@
 														,'EX2' , '-'
 														,''
 			)AS ICPT_RSN_NM
-			,ERR.MNGR_ICPT_RSN_CD
-			,DECODE(ERR.MNGR_ICPT_RSN_CD , 'A' , '기본요건 미충족'
-																	,'B' ,'세부요건 미충족'
-																	,'C' , '통합조직 탈락'
-																	,'EX1' , '-'
-																	,'EX2' , '-'
-																	,''
-			)AS MNGR_ICPT_RSN_NM
-
 			,ERR.ICPT_RSN_DTL_CD
 			,DECODE(ERR.ICPT_RSN_DTL_CD , 'A1' , '농업경영체 미등록'
 																,'A2' ,'출자자본금 1억원 미달'
@@ -3342,6 +3332,17 @@
 																,'-' , '-'
 																,''
 			)AS ICPT_RSN_DTL_NM
+
+		/*
+			,ERR.MNGR_STBLT_YN
+			,ERR.MNGR_ICPT_RSN_CD
+			,DECODE(ERR.MNGR_ICPT_RSN_CD , 'A' , '기본요건 미충족'
+																	,'B' ,'세부요건 미충족'
+																	,'C' , '통합조직 탈락'
+																	,'EX1' , '-'
+																	,'EX2' , '-'
+																	,''
+			)AS MNGR_ICPT_RSN_NM
 			,ERR.MNGR_ICPT_RSN_DTL_CD
 			,DECODE(ERR.MNGR_ICPT_RSN_DTL_CD , 'A1' , '농업경영체 미등록'
 																			,'A2' ,'출자자본금 1억원 미달'
@@ -3358,6 +3359,16 @@
 																			,'-' , '-'
 																			,''
 			)AS MNGR_ICPT_RSN_DTL_NM
+			,DECODE(ERR.MNGR_ICPT_RSN_CD , 'A' , '기존자금 회수'
+																	,'B' ,'최고금리'
+																	,'C' , '최고금리'
+																	,'EX1' , '최고금리'
+																	,'EX2' , '기존자금 회수'
+																	,''
+			)AS MNGR_PNLTY
+			,ERR.MNGR_ITR_RT
+			,ERR.ITR_RT
+		*/
 
 			,DECODE(ERR.ICPT_RSN_CD , 'A' , '기존자금 회수'
 														,'B' ,'최고금리'
@@ -3366,16 +3377,8 @@
 														,'EX2' , '기존자금 회수'
 														,''
 			)AS PNLTY
-			,DECODE(ERR.MNGR_ICPT_RSN_CD , 'A' , '기존자금 회수'
-																	,'B' ,'최고금리'
-																	,'C' , '최고금리'
-																	,'EX1' , '최고금리'
-																	,'EX2' , '기존자금 회수'
-																	,''
-			)AS MNGR_PNLTY
-
-			,ERR.ITR_RT
-			,ERR.MNGR_ITR_RT
+			,DECODE(ERR.STBLT_YN , 'Y' , URR.ITR_RT , ERR.ITR_RT
+			)AS ITR_RT
 
 			,NVL((SELECT ISO_FUND_APLY_AMT
 							FROM TB_EV_APLY_MNG
@@ -3402,7 +3405,35 @@
 				, 2
 			) AS SPMT_AMT_RT
 		FROM
-			(SELECT *
+			(SELECT
+					YR
+					,BRNO
+					,UO_BRNO
+					,APO_SE
+					,STBLT_ITEM_LIST
+					,(CASE
+							WHEN MNGR_STBLT_YN = 'Y' THEN MNGR_ICPT_RSN_CD
+							WHEN MNGR_ICPT_RSN_CD IS NOT NULL THEN MNGR_ICPT_RSN_CD
+							ELSE ICPT_RSN_CD
+							END
+					) AS ICPT_RSN_CD
+
+					,(CASE
+							WHEN MNGR_STBLT_YN = 'Y' THEN MNGR_ICPT_RSN_DTL_CD
+							WHEN MNGR_ICPT_RSN_DTL_CD IS NOT NULL THEN MNGR_ICPT_RSN_DTL_CD
+							ELSE ICPT_RSN_DTL_CD
+							END
+					) AS ICPT_RSN_DTL_CD
+
+					,(CASE WHEN MNGR_STBLT_YN IS NOT NULL THEN MNGR_STBLT_YN
+							ELSE STBLT_YN
+							END
+					) AS STBLT_YN
+
+					,(CASE WHEN MNGR_ITR_RT IS NOT NULL THEN MNGR_ITR_RT
+							ELSE ITR_RT
+							END
+					) AS ITR_RT
 				FROM USRAM.TB_EV_REG_RSLT
 				WHERE 1=1
 				  AND APO_SE = '2'
@@ -3416,7 +3447,38 @@
 			,(SELECT * FROM USRAM.TB_EV_APLY_MNG WHERE APO_SE = '2' AND YR = #{yr}) EAM
 			,(SELECT * FROM USRAM.TB_EV_APO WHERE APO_SE = '2' ) ISOEA
 			,(SELECT * FROM USRAM.TB_EV_APO WHERE APO_SE = '1' ) UOEA
-			,(SELECT * FROM USRAM.TB_EV_REG_RSLT WHERE APO_SE = '1' AND YR = #{yr}) URR
+			,(SELECT
+					YR
+					,BRNO
+					,STBLT_ITEM_LIST
+					,(CASE
+							WHEN MNGR_STBLT_YN = 'Y' THEN MNGR_ICPT_RSN_CD
+							WHEN MNGR_ICPT_RSN_CD IS NOT NULL THEN MNGR_ICPT_RSN_CD
+							ELSE ICPT_RSN_CD
+							END
+					) AS ICPT_RSN_CD
+
+					,(CASE
+							WHEN MNGR_STBLT_YN = 'Y' THEN MNGR_ICPT_RSN_DTL_CD
+							WHEN MNGR_ICPT_RSN_DTL_CD IS NOT NULL THEN MNGR_ICPT_RSN_DTL_CD
+							ELSE ICPT_RSN_DTL_CD
+							END
+					) AS ICPT_RSN_DTL_CD
+
+					,(CASE WHEN MNGR_STBLT_YN IS NOT NULL THEN MNGR_STBLT_YN
+							ELSE STBLT_YN
+							END
+					) AS STBLT_YN
+
+					,(CASE WHEN MNGR_ITR_RT IS NOT NULL THEN MNGR_ITR_RT
+							ELSE ITR_RT
+							END
+					) AS ITR_RT
+				FROM USRAM.TB_EV_REG_RSLT
+				WHERE 1=1
+				  AND APO_SE = '1'
+				  AND YR = #{yr}
+			) URR
 			,(SELECT
 					YR
 					,BRNO

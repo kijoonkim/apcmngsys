@@ -786,7 +786,7 @@
  		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");			// 품종
 		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");		// 생산자
  		let bxQntt = SBUxMethod.get("srch-inp-bxQntt");			// 수량
- 		let wrhsWght = SBUxMethod.get("srch-inp-wrhsWght");		// 중량
+ 		let wrhsWght = SBUxMethod.get("srch-inp-wrhsQntt");		// 중량
  		let pltno = SBUxMethod.get("srch-inp-pltno");			// 팔레트번호
  		let bxKnd = SBUxMethod.get("srch-slt-bxKnd");			// 박스종류
  		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");	// 창고
@@ -826,12 +826,14 @@
     		gfn_comAlert("W0001", "생산자");		//	//	W0002	{0}을/를 입력하세요.
             return;
     	}
-
-    	if (gfn_isEmpty(wrhsWght)) {
+    	if (bxQntt <= 0) {
+    		gfn_comAlert("W0001", "수량");		//	//	W0002	{0}을/를 입력하세요.
+            return;
+    	}
+    	if (wrhsWght <= 0) {
     		gfn_comAlert("W0001", "중량");		//	//	W0002	{0}을/를 입력하세요.
             return;
     	}
-
     	if (gfn_isEmpty(warehouseSeCd)) {
     		gfn_comAlert("W0001", "창고");		//	W0002	{0}을/를 선택하세요.
             return;
@@ -970,9 +972,8 @@
 
  		SBUxMethod.set("srch-inp-wghno", rowData.wghno);			// 계량번호
 
- 		await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd);
-		SBUxMethod.set("srch-slt-vrtyCd", rowData.vrtyCd);
-		await fn_onChangeSrchVrtyCd({value: rowData.vrtyCd});
+ 		// 품목/품종
+		await fn_onChangeSrchVrtyCd({value: rowData.itemCd + rowData.vrtyCd});
 
  		if (!gfn_isEmpty(rowData.prdctnYr)) {
  			SBUxMethod.set("srch-inp-prdctnYr", rowData.prdctnYr);	// 생산연도
@@ -1127,6 +1128,7 @@
 
   		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
   		if (!gfn_isEmpty(vrtyCd)) {
+  			vrtyCd = vrtyCd.substring(4,8);
   			const vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd});
   			if (!gfn_isEmpty(vrtyInfo)) {
   				const wghtRkngSeCd = vrtyInfo.wghtRkngSeCd;
@@ -1281,10 +1283,12 @@
 				SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
 			}
 		}
-		let vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd.substring(4,8)})
-		const wghtRkngSeCd = vrtyInfo.wghtRkngSeCd;
-		const unitWght = parseInt(vrtyInfo.unitWght) || 0;
-		SBUxMethod.set("srch-inp-wghtAvg", unitWght);
+		let vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd.substring(4,8)});
+		if(!gfn_isEmpty(vrtyInfo)){
+			const wghtRkngSeCd = vrtyInfo.wghtRkngSeCd;
+			const unitWght = parseInt(vrtyInfo.unitWght) || 0;
+			SBUxMethod.set("srch-inp-wghtAvg", unitWght);			
+		}
 		fn_onChangeWghtAvg();
 	}
 
@@ -2145,6 +2149,8 @@
  		for ( let iRow = 1; iRow <= impData.length; iRow++ ) {
 
  			const rowData = _grdImp.getRowData(iRow);
+ 			
+ 			console.log('rowData', rowData);
 
  			// validation check
  	    	if (gfn_isEmpty(rowData.wrhsYmd)) {
@@ -2181,19 +2187,28 @@
  	    		gfn_comAlert("W0001", "생산자");		//	//	W0002	{0}을/를 입력하세요.
  	            return;
  	    	}
-
- 	    	if (gfn_isEmpty(rowData.wrhsWght)) {
- 	    		gfn_comAlert("W0001", "중량");		//	//	W0002	{0}을/를 입력하세요.
+ 	    	if (gfn_isEmpty(rowData.wrhsSeCd)) {
+ 	    		gfn_comAlert("W0001", "입고구분");		//	//	W0002	{0}을/를 입력하세요.
  	            return;
  	    	}
-
+ 	    	if (gfn_isEmpty(rowData.gdsSeCd)) {
+ 	    		gfn_comAlert("W0001", "상품구분");		//	//	W0002	{0}을/를 입력하세요.
+ 	            return;
+ 	    	}
+ 	    	if (gfn_isEmpty(rowData.trsprtSeCd)) {
+ 	    		gfn_comAlert("W0001", "운송구분");		//	//	W0002	{0}을/를 입력하세요.
+ 	            return;
+ 	    	}
  	    	if (gfn_isEmpty(rowData.warehouseSeCd)) {
  	    		gfn_comAlert("W0001", "보관창고");		//	W0002	{0}을/를 선택하세요.
  	            return;
  	    	}
-
  	    	if (gfn_isEmpty(rowData.prdctnYr)) {
  	    		gfn_comAlert("W0001", "생산연도");		//	W0002	{0}을/를 선택하세요.
+ 	            return;
+ 	    	}
+ 	    	if (rowData.wrhsWght < 1) {
+ 	    		gfn_comAlert("W0001", "중량");		//	//	W0002	{0}을/를 입력하세요.
  	            return;
  	    	}
 
@@ -2334,6 +2349,8 @@
      const fn_setDataAfterImport = function(_grdImp) {
  		let impData = _grdImp.getGridDataAll();
  		const today = gfn_dateToYmd(new Date());
+ 		
+ 		console.log('impData',impData);
 
 		for ( let iRow = 1; iRow <= impData.length; iRow++ ) {
 			const rowData = _grdImp.getRowData(iRow, false);	// deep copy

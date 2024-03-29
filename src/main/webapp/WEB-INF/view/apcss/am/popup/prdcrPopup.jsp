@@ -218,20 +218,20 @@
 		        {caption: ['대표품목'], 		ref: 'rprsItemCd', 		type: 'combo', 	width: '70px', style: 'text-align:center', sortable: false,
 					typeinfo: {ref:'jsonApcItemPrdcrPop', 		label:'label', value:'value', itemcount: 10}},
 		        {
-					caption: ['대표품종'], 		
-					ref: 'itemVrtyCd', 		
-					type: 'combo', 	
-					width: '70px', 
-					style: 'text-align:center', 
+					caption: ['대표품종'],
+					ref: 'itemVrtyCd',
+					type: 'combo',
+					width: '70px',
+					style: 'text-align:center',
 					sortable: false,
 					typeinfo: {
-						ref:'jsonApcVrtyPrdcrPop', 		
-						label:'label', 
-						value:'itemVrtyCd', 
-						itemcount: 10, 
+						ref:'jsonApcVrtyPrdcrPop',
+						label:'label',
+						value:'itemVrtyCd',
+						itemcount: 10,
 						filtering: {
-							usemode : true, 
-							uppercol : 'rprsItemCd', 
+							usemode : true,
+							uppercol : 'rprsItemCd',
 							attrname : 'itemCd'
 						}
 					}
@@ -361,6 +361,9 @@
 			let allData = grdPrdcrPop.getGridDataAll();
 
 			const prdcrList = [];
+			const apcEvrmntStng = gfn_postJSON("/am/apc/selectApcEvrmntStng.do",{apcCd: gv_selectedApcCd});
+			const apcEvrmntStngData = await apcEvrmntStng;
+			const prdcrMngType = apcEvrmntStngData.resultMap.prdcrMngType;
 
 			for ( let i=1; i<=allData.length; i++ ){
 				const rowData = grdPrdcrPop.getRowData(i);
@@ -384,7 +387,7 @@
 				if (!gfn_isEmpty(rowData.itemVrtyCd)) {
 					rowData.rprsVrtyCd = rowData.itemVrtyCd.substring(4);
 				}
-				
+
 				if(excelYn == "Y"){
 					if (rowSts === 0 || rowSts === 2){
 						rowData.apcCd = apcCd;
@@ -404,6 +407,9 @@
 					} else {
 						continue;
 					}
+				}
+				if(prdcrMngType === "NAME" && rowData.rowSts === "U"){
+					rowData.prdcrMngType = "U";
 				}
 			}
 
@@ -480,11 +486,11 @@
 					    apcCd 			: item.apcCd,
 					    extrnlLnkgCd	: item.extrnlLnkgCd
 					}
-					
+
 					if (!gfn_isEmpty(item.rprsItemCd) && !gfn_isEmpty(item.rprsVrtyCd)) {
 						prdcr.itemVrtyCd = item.rprsItemCd + item.rprsVrtyCd;
 					}
-					
+
 					jsonPrdcrPop.push(prdcr);
 				});
 				grdPrdcrPop.rebuild();

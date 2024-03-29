@@ -593,13 +593,17 @@
 		const apcEvrmntStng = gfn_postJSON("/am/apc/selectApcEvrmntStng.do",{apcCd: gv_selectedApcCd});
 		const apcEvrmntStngData = await apcEvrmntStng;
 		const prdcrMngType = apcEvrmntStngData.resultMap.prdcrMngType;
-
+		if(jsonApcPrdcrBackUp.length == 0){
+			jsonApcPrdcrBackUp = jsonApcPrdcr;
+		}
 		if(prdcrMngType === "NAME"){
 			prdcrList.forEach((item,index)=>{
 				var updateNm = item.prdcrNm;
 				var findNm = jsonApcPrdcrBackUp.find(function(data){return data.prdcrNm === updateNm});
-				item.rprsVrtyCd = item.itemVrtyCd.slice(4,8);
-				if(typeof findNm == "undefined"){
+				if(item.itemVrtyCd != null){
+					item.rprsVrtyCd = item.itemVrtyCd.slice(4,8);
+				}
+				if(typeof findNm == "undefined" || item.rowSts == "I"){
 					return;
 				}
 				if(findNm.prdcrNm === updateNm){
@@ -610,7 +614,9 @@
 			})
 		}else{
 			prdcrList.forEach((item,index)=>{
-			item.rprsVrtyCd = item.itemVrtyCd.slice(4,8);
+				if(item.itemVrtyCd != null){
+					item.rprsVrtyCd = item.itemVrtyCd.slice(4,8);
+				}
 			})
 		}
     	const postJsonPromise = gfn_postJSON("/am/cmns/multiPrdcrList.do", prdcrList);

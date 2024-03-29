@@ -999,27 +999,28 @@
 	 */
 	const fn_onChangeSrchVrtyCd = async function(obj) {
 		let vrtyCd = obj.value;
-		const itemCd = vrtyCd.substring(0,4);
-
-		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
+		
 		if(!gfn_isEmpty(vrtyCd)){
-			if (itemCd != prvItemCd) {
-				SBUxMethod.set("srch-slt-itemCd", itemCd);
-				await fn_onChangeSrchItemCd({value: itemCd});
-				SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
-			} else{
-				SBUxMethod.set("srch-slt-itemCd", itemCd);
-				await fn_onChangeSrchItemCd({value: itemCd});
-				SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
+			const itemCd = vrtyCd.substring(0,4);
+	
+			const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
+			if(!gfn_isEmpty(vrtyCd)){
+				if (itemCd != prvItemCd) {
+					SBUxMethod.set("srch-slt-itemCd", itemCd);
+					await fn_onChangeSrchItemCd({value: itemCd});
+					SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
+				}
+			}else{
+	            SBUxMethod.set("srch-inp-wghtAvg", "");
+	            fn_onChangeWghtAvg();
 			}
-		}else{
-            SBUxMethod.set("srch-inp-wghtAvg", "");
-            fn_onChangeWghtAvg();
+	        let vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd.substring(4,8)});
+	        if(!gfn_isEmpty(vrtyInfo)){
+		        const wghtRkngSeCd = vrtyInfo.wghtRkngSeCd;
+		        const unitWght = parseInt(vrtyInfo.unitWght) || 0;
+		        SBUxMethod.set("srch-inp-wghtAvg", unitWght);
+	        }
 		}
-        let vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd.substring(4,8)})
-        const wghtRkngSeCd = vrtyInfo.wghtRkngSeCd;
-        const unitWght = parseInt(vrtyInfo.unitWght) || 0;
-        SBUxMethod.set("srch-inp-wghtAvg", unitWght);
 	}
 
 	const fn_onChangeBxQntt = function(obj) {
@@ -1166,10 +1167,10 @@
 			SBUxMethod.set("srch-inp-prdcrIdentno", "");
 			SBUxMethod.attr("srch-inp-prdcrNm", "style", "");	//skyblue
 
-			// 품목
+			// 품목/품종
 			SBUxMethod.set("srch-slt-itemCd", "");
-			// 품종
-			SBUxMethod.set("srch-slt-vrtyCd", "");
+			fn_onChangeSrchVrtyCd({value: null});
+			fn_onChangeSrchItemCd({value:null});
 		}
 
 		if (!SBUxMethod.get("srch-chk-fxngItem")["srch-chk-fxngItem"]) {

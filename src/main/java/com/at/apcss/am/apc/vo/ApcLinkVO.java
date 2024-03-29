@@ -12,23 +12,12 @@ public class ApcLinkVO  extends ComVO{
 	private String linkKnd;		// W: 계량, R:입고, S:선별, P:포장, D:출하
 	private String linkStts;	//  
 	
+	private String rtnCd;
+	private String rtnMsg;
+	
 	private String apcCd;
 	private String apcKey;
-	private String wghReqYn;
-	private String wghReqDt;
-	private String wghPrcsDt;
-	private String wrhsReqYn;
-	private String wrhsReqDt;
-	private String wrhsPrcsDt;
-	private String sortReqYn;
-	private String sortReqDt;
-	private String sortPrcsDt;
-	private String pckgReqYn;
-	private String pckgReqDt;
-	private String pckgPrcsDt;
-	private String spmtReqYn;
-	private String spmtReqDt;
-	private String spmtPrcsDt;
+	
 	private String trsmMatSttsCd;
 	private String sttsIdntyDt;
 
@@ -57,5 +46,46 @@ public class ApcLinkVO  extends ComVO{
 	private String sortSttsColor;
 	private String pckgSttsColor;
 	private String spmtSttsColor;
+	
+	private String wghReqYn;
+	private String wghReqDt;
+	private String wghReqCncltnDt;
+	private String wghSndDt;
+	private String wghSndCmptnDt;
+	private String wghPrcsDt;
+	private String wghPrcsCmptnDt;
+	private String wghLinkStts;
+	private String wrhsReqYn;
+	private String wrhsReqDt;
+	private String wrhsReqCncltnDt;
+	private String wrhsSndDt;
+	private String wrhsSndCmptnDt;
+	private String wrhsPrcsDt;
+	private String wrhsPrcsCmptnDt;
+	private String wrhsLinkStts;
+	private String sortReqYn;
+	private String sortReqDt;
+	private String sortReqCncltnDt;
+	private String sortSndDt;
+	private String sortSndCmptnDt;
+	private String sortPrcsDt;
+	private String sortPrcsCmptnDt;
+	private String sortLinkStts;
+	private String pckgReqYn;
+	private String pckgReqDt;
+	private String pckgReqCncltnDt;
+	private String pckgSndDt;
+	private String pckgSndCmptnDt;
+	private String pckgPrcsDt;
+	private String pckgPrcsCmptnDt;
+	private String pckgLinkStts;
+	private String spmtReqYn;
+	private String spmtReqDt;
+	private String spmtReqCncltnDt;
+	private String spmtSndDt;
+	private String spmtSndCmptnDt;
+	private String spmtPrcsDt;
+	private String spmtPrcsCmptnDt;
+	private String spmtLinkStts;
 	
 }

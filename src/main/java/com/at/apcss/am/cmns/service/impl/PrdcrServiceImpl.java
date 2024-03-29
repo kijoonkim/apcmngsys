@@ -157,7 +157,8 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 
 		for ( PrdcrVO prdcrVO : updateList ) {
 			int check;
-			if(prdcrVO.getPrdcrMngType().equals("U")) {
+			String prdcrMngTypeChk = prdcrVO.getPrdcrMngType();
+			if(prdcrMngTypeChk != null && prdcrMngTypeChk.equals("U")) {
 				check = prdcrMapper.updatePrdcrNm(prdcrVO);
 			}else {
 				check = prdcrMapper.updatePrdcr(prdcrVO);

@@ -35,6 +35,21 @@ public interface ApcEvrmntStngService {
 	HashMap<String, Object> updateApcLink(ApcLinkVO apcLinkVO) throws Exception;
 
 	/**
+	 * APC 연계정보 상태 변경
+	 * @param apcLinkVO
+	 * @return
+	 * @throws Exception
+	 */
+	HashMap<String, Object> updateLinkStts(ApcLinkVO apcLinkVO) throws Exception;
+	
+	HashMap<String, Object> updateWghLinkStts(ApcLinkVO apcLinkVO) throws Exception;
+	HashMap<String, Object> updateWrhsLinkStts(ApcLinkVO apcLinkVO) throws Exception;
+	HashMap<String, Object> updateSortLinkStts(ApcLinkVO apcLinkVO) throws Exception;
+	HashMap<String, Object> updatePckgLinkStts(ApcLinkVO apcLinkVO) throws Exception;
+	HashMap<String, Object> updateSpmtLinkStts(ApcLinkVO apcLinkVO) throws Exception;
+	
+	
+	/**
 	 * APC환경설정 APC정보 조회
 	 * @param ApcEvrmntStngVO
 	 * @return ApcEvrmntStngVO
