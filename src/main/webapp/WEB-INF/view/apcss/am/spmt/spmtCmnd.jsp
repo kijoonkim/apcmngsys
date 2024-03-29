@@ -448,6 +448,7 @@
 		SBUxMethod.set("srch-slt-trsprtCoCd", "");
 		SBUxMethod.set("srch-slt-itemCd", "");
 		SBUxMethod.set("srch-inp-vrtyCd", "");
+		SBUxMethod.set("srch-inp-vrtyNm", "");
 		SBUxMethod.set("srch-slt-spcfctCd", "");
 		SBUxMethod.set("srch-slt-spmtPckgUnitCd", "");
 
@@ -476,16 +477,22 @@
  		gfn_popClipReport("출하지시서", "am/spmtCmndDoc.crf", {apcCd: gv_selectedApcCd, spmtCmndno: spmtCmndno});
     }
 
-    function fn_selectItem(){
+    const fn_selectItem = async function(){
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		console.log('itemCd', itemCd);
+		console.log('jsonSpmtPckgUnitCd', jsonSpmtPckgUnitCd);
 		SBUxMethod.set("srch-inp-vrtyNm", "");
 		SBUxMethod.set("srch-inp-vrtyCd", "");
 		if (gfn_isEmpty(itemCd)) {
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonApcSpcfct, "");
-			gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', jsonSpmtPckgUnitCd, "");
+			jsonApcSpcfct.length=0;
+			jsonSpmtPckgUnitCd.length=0;
+			
+			SBUxMethod.refresh("srch-slt-spcfctCd");
+			SBUxMethod.refresh("srch-slt-spmtPckgUnitCd");
+			
 		} else {
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonApcSpcfct, 	gv_selectedApcCd, itemCd);				// 규격
-			gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', jsonSpmtPckgUnitCd, gv_selectedApcCd, itemCd);	// 포장단위
+			await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonApcSpcfct, 	gv_selectedApcCd, itemCd);				// 규격
+			await gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', jsonSpmtPckgUnitCd, gv_selectedApcCd, itemCd);	// 포장단위
 		}
 	}
 
