@@ -79,7 +79,7 @@
 							<sbux-select id="srch-slt-itemCd" name="srch-slt-itemCd" uitype="single" class="form-control input-sm" unselected-text="전체" jsondata-ref="jsonComItem" onchange="fn_onChangeSrchItemCd(this)"></sbux-select>
 						</td>
 						<td class="td_input" style="border-right: hidden;">
-							<sbux-select id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" class="form-control input-sm" unselected-text="전체" jsondata-ref="jsonComVrty" onchange="fn_onChangeSrchVrtyCd(this)"></sbux-select>
+							<sbux-select id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" class="form-control input-sm" unselected-text="전체" jsondata-ref="jsonComVrty" jsondata-value="itemVrtyCd" onchange="fn_onChangeSrchVrtyCd(this)"></sbux-select>
 						</td>
 						<td class="td_input">
 						</td>
@@ -308,6 +308,9 @@
 		if (gfn_isEmpty(slsYmdFrom) || gfn_isEmpty(slsYmdTo)){
 			gfn_comAlert("W0002", "매출일자");		//	W0002	{0}을/를 입력하세요.
             return;
+		}
+		if(!gfn_isEmpty(vrtyCd)){
+			vrtyCd = vrtyCd.substring(4,8);
 		}
 		let slsPrfmncVO = {
 				   apcCd 		: gv_selectedApcCd
@@ -542,38 +545,36 @@
 	 * 거래처 팝업 필수 함수
 	 * 종료
 	 */
+	 
+		/**
+		 * @name fn_onChangeSrchItemCd
+		 * @description 품목 선택 변경 event
+		 */
+		const fn_onChangeSrchItemCd = async function(obj) {
 
-	/**
-	 * @name fn_onChangeSrchItemCd
-	 * @description 품목 선택 변경 event
-	 */
-	const fn_onChangeSrchItemCd = async function(obj) {
-		let itemCd = obj.value;
-		let result = await Promise.all([
-			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd, itemCd)				// 품종
-		]);
-	}
-
-	/**
-	 * @name fn_onChangeSrchVrtyCd
-	 * @description 품종 선택 변경 event
-	 */
-	const fn_onChangeSrchVrtyCd = async function(obj) {
-		let vrtyCd = obj.value;
-		let itemCd = "";
-		if (!gfn_isEmpty(vrtyCd)) {
-			itemCd = _.find(jsonComVrty, {value: vrtyCd}).mastervalue;
-		} else {
-			itemCd = SBUxMethod.get("srch-slt-itemCd");
+			let itemCd = obj.value;
+			const itemInfo = _.find(jsonComItem, {value: itemCd});
+			
+			let result = await Promise.all([
+				gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd, itemCd)
+			]);
 		}
 
-		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
-		if (itemCd != prvItemCd) {
+		/**
+		 * @name fn_onChangeSrchVrtyCd
+		 * @description 품종 선택 변경 event
+		 */
+		const fn_onChangeSrchVrtyCd = async function(obj) {
+			let vrtyCd = obj.value;
+
+			if(gfn_isEmpty(vrtyCd)){
+				return;
+			}
+			const itemCd = vrtyCd.substring(0,4);
 			SBUxMethod.set("srch-slt-itemCd", itemCd);
 			await fn_onChangeSrchItemCd({value: itemCd});
 			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
 		}
-	}
 
 	 const fn_dtpChange = function(){
  		let slsYmdFrom = SBUxMethod.get("srch-dtp-slsYmdFrom");
