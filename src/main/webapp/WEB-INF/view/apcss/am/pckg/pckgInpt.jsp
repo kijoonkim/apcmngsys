@@ -634,6 +634,7 @@
   	          			invntrWght: item.invntrWght,
   	          			plorCd: item.plorCd,
   	          			prdctnYr: item.prdctnYr,
+  	          			rmrk: item.rmrk
   	  				}
   	          		jsonPckgPrfmnc.push(pckgPrfmnc);
 
