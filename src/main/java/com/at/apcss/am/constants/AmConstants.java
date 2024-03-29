@@ -268,5 +268,45 @@ public class AmConstants {
     public final static String CON_TRSM_MAT_STTS_CD_PROCESS = "P0";
     public final static String CON_TRSM_MAT_STTS_CD_NONE = "E0";
     public final static String CON_TRSM_MAT_STTS_CD_DISCONNECT = "E1";
+
+
+    /* 연계 종류 (LINK_KND) */
+    /**
+     * 연계 종류: W:계량
+     */
+    public final static String CON_LINK_KND_WGH = "W";
+    /**
+     * 연계 종류: R:입고
+     */
+    public final static String CON_LINK_KND_RCPT = "R";
+    /**
+     * 연계 종류: S:선별
+     */
+    public final static String CON_LINK_KND_SORT = "S";
+    /**
+     * 연계 종류: P:포장
+     */
+    public final static String CON_LINK_KND_PCKG = "P";
+    /**
+     * 연계 종류: D:출하
+     */
+    public final static String CON_LINK_KND_SPMT = "D";
     
+    
+    /* 연계 상태 (LINK_STTS) 
+     * R0:요청완료, R9:요청취소
+     * S0:송신완료, S1:송신진행, S9:송신취소
+     * P0:처리완료, P1:처리진행, P9:처리취소
+     * */
+    public final static String CON_LINK_STTS_REQ_DONE = "R0";
+    public final static String CON_LINK_STTS_REQ_CNCL = "R9";
+    
+    public final static String CON_LINK_STTS_SND_DONE = "S0";
+    public final static String CON_LINK_STTS_SND_ONGOING = "S1";
+    public final static String CON_LINK_STTS_SND_CNCL = "S9";
+    
+    public final static String CON_LINK_STTS_PRCS_DONE = "P0";
+    public final static String CON_LINK_STTS_PRCS_ONGOING = "P1";
+    public final static String CON_LINK_STTS_PRCS_CNCL = "P9";
+
 }

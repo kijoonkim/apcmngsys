@@ -1,4 +1,19 @@
-
+<%
+ /**
+  * @Class Name : wrhsDsctnTot.jsp
+  * @Description : 입고집계표 화면
+  * @author SI개발부
+  * @since 2024.02.20
+  * @version 1.0
+  * @Modification Information
+  * @
+  * @ 수정일       	수정자      	수정내용
+  * @ ----------	----------	---------------------------
+  * @ 2024.02.20   	박승진			최초 생성
+  * @see
+  *
+  */
+%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -10,6 +25,13 @@
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
+
+<style type="text/css">
+.ad_tbl_toplist>span {
+	font-weight: bold;
+	margin-right: 10px;
+}
+</style>
 </head>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
@@ -17,9 +39,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3>
-                    <sbux-label id="lbl-wghno" name="lbl-wghno" uitype="normal" text="">
-                    </sbux-label>
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 입고집계표 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button
@@ -30,7 +50,6 @@
 						onclick="fn_docWrhsDsctnTot"
 						text="입고확인서"
 					></sbux-button>
-
                     <sbux-button
 						id="btnSearch"
 						name="btnSearch"
@@ -71,14 +90,12 @@
 					</colgroup>
 					<tbody>
 						<tr>
-
 							<th scope="row" class="th_bg">품목</th>
 							<td class="td_input">
 								<sbux-select uitype="single" id="srch-slt-itemCd" name="srch-slt-itemCd" class="form-control input-sm" jsondata-ref="jsonComItem" onchange="fn_selectItem" readonly></sbux-select>
 							</td>
 							<th colspan="2" scope="row" class="th_bg"><span class="data_required"></span>입고일자</th>
 							<td colspan="2" class="td_input"style="border-right: hidden;">
-
 								<sbux-datepicker
 									uitype="popup"
 									id="srch-dtp-wrhsYmdFrom"
@@ -102,31 +119,47 @@
 						</tr>
 					</tbody>
 				</table>
-
+				
 				<div class="ad_tbl_top2">
-
-
-							<ul class="ad_tbl_count" style="width: 100%">
-								<li>
-									<span style="font-size:12px">입고내역집계</span>
-								</li>
-							</ul>
-
-						<div class="ad_tbl_top" style="margin-bottom: 10px; text-align:right">
-							<sbux-button
-							id="btnWrhsReq"
-							name="btnWrhsReq"
+					<ul class="ad_tbl_count">
+						<li>
+							<span>입고내역집계</span>
+						</li>
+					</ul>
+					<div class="ad_tbl_toplist">
+						
+						<span id="dtl-spn-sttsFigure" style="margin-left: 10px;font-size: 28px;">●</span>
+						<span id="dtl-spn-trsmMatSttsNm" style="margin-right: 20px;">기기상태</span>
+						<span>요청 :</span>
+						<span id="dtl-spn-reqDt"></span>
+						<span>완료 :</span>
+						<span id="dtl-spn-cmptnDt"></span>
+						<span id="dtl-spn-sttsNm" style="margin-right: 20px;">진행상태</span>
+						
+						<sbux-button
+							id="btn-wrhsReq"
+							name="btn-wrhsReq"
 							uitype="normal"
 							class="btn btn-sm btn-outline-danger"
 							onclick="fn_wrhsReq"
 							text="정보재수신"
-						    ></sbux-button>
-					    </div>
-						<div id="sb-area-wrhsDsctnTot" style="height:544px;"></div>
-
+					    ></sbux-button>
+					    <sbux-button
+							id="btn-wrhsReqCncl"
+							name="btn-wrhsReqCncl"
+							uitype="normal"
+							class="btn btn-sm btn-outline-danger"
+							onclick="fn_wrhsReqCncl"
+							text="취소"
+					    ></sbux-button>
+					</div>
+				    
+				</div>
+				<div class="table-responsive tbl_scroll_sm">
+					<div id="sb-area-wrhsDsctnTot" style="height:544px;"></div>
 				</div>
 			</div>
-
+		</div>
 	</section>
 	<!-- clip report direct print area  -->
 	<div id="div-rpt-clipReportPrint" style="display:none;"></div>
@@ -134,14 +167,196 @@
 
 <script type="text/javascript">
 
+	let lv_interval = 3 * 60 * 1000;
+	
+	let timerId;
+	
+	const fn_clearBatch = () => {
+		if (!gfn_isEmpty(timerId)) {
+			clearInterval(timerId);
+		}
+	}
+	
+	let currApcLink;
+
+    /**
+     * @name fn_getApcLink
+     * @description apc 연계상태 확인
+     * @function
+     */
+	const fn_getApcLink = async function() {
+    	
+		fn_clearBatch();
+		
+		try {
+			const postJsonPromise = gfn_postJSON(
+						"/am/apc/selectApcLinkStts.do",
+						{apcCd: gv_selectedApcCd}
+					);
+	        const data = await postJsonPromise;
+
+	        if (_.isEqual("S", data.resultStatus)) {
+	        	
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		
+		        	const apcLink = data.resultMap;
+					fn_setApcLink(apcLink);
+		        	
+	        	} else {
+	        		fn_setApcLink(false);
+	        	}
+	        	
+        	} else {
+        		fn_setApcLink(false);
+        	}
+
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		} finally {
+			timerId = setInterval(() => {
+				fn_getApcLink();
+			}, lv_interval);
+		}
+    }
+	
+    /**
+     * @name fn_setApcLink
+     * @description apc 연계상태 정보 표시
+     * @function
+     */
+	const fn_setApcLink = function(apcLink) {
+    	
+		const sttsFigure = document.querySelector('#dtl-spn-sttsFigure');
+		const trsmMatSttsNm = document.querySelector('#dtl-spn-trsmMatSttsNm');
+		const reqDt = document.querySelector('#dtl-spn-reqDt');
+		const cmptnDt = document.querySelector('#dtl-spn-cmptnDt');
+		const sttsNm = document.querySelector('#dtl-spn-sttsNm');
+		const emptyDt = "____-__-__ __:__:__";
+		
+    	if (gfn_isEmpty(apcLink)) {    		
+    		sttsFigure.style.color = "#000000";
+    		trsmMatSttsNm.innerText = "...";
+    		trsmMatSttsNm.style.color = "#808080";
+    		
+    		reqDt.innerText = emptyDt;
+    		cmptnDt.innerText = emptyDt;
+    		sttsNm.innerText = "확인중";
+    		sttsNm.style.color = "#808080";
+    		
+    		currApcLink = null;
+    	} else {    		
+    		sttsFigure.style.color = apcLink.trsmMatSttsColor;
+    		trsmMatSttsNm.innerText = apcLink.trsmMatSttsNm;
+    		trsmMatSttsNm.style.color = apcLink.trsmMatSttsColor;
+
+    		reqDt.innerText = _.isEqual(apcLink.wrhsLinkStts, "P0") ? emptyDt : gfn_nvl(apcLink.wrhsReqDt, emptyDt);
+    		cmptnDt.innerText = _.isEqual(apcLink.wrhsLinkStts, "P0") ? gfn_nvl(apcLink.wrhsPrcsCmptnDt, emptyDt) : emptyDt;
+    		sttsNm.innerText = apcLink.wrhsSttsNm;
+    		sttsNm.style.color = apcLink.wrhsSttsColor;
+    		
+    		currApcLink = apcLink;
+    	}
+    }
+	
+
+    /**
+     * @name fn_wrhsReq
+     * @description 입고정보 연계요청
+     * @function
+     */
+ 	const fn_wrhsReq = async function() {
+
+ 		if (!gfn_comConfirm("Q0001", "정보재수신 요청")) {	//	Q0001	{0} 하시겠습니까?
+    		return;
+    	}
+ 		// validation check
+ 		
+		const param = {
+			apcCd: gv_selectedApcCd,
+			linkKnd: 'R',	// 입고
+			linkStts: 'R0'	// 요청
+		}
+
+		try {
+			const postJsonPromise = gfn_postJSON(
+						"/am/apc/updateApcLinkStts.do",
+						param,
+						null,
+						false
+					);
+	        const data = await postJsonPromise;
+	        
+	        if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+        	}
+	        
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+ 			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		} finally {
+			await fn_getApcLink();
+		}
+	}
+ 	
+    /**
+     * @name fn_wrhsReqCncl
+     * @description 입고정보 연계요청 취소
+     * @function
+     */
+ 	const fn_wrhsReqCncl = async function() {
+
+ 		// validation check
+ 		if (!gfn_comConfirm("Q0001", "정보재수신 요청취소")) {	//	Q0001	{0} 하시겠습니까?
+    		return;
+    	}
+ 		
+		const param = {
+			apcCd: gv_selectedApcCd,
+			linkKnd: 'R',	// 입고
+			linkStts: 'R9'	// 요청
+		}
+
+		try {
+			const postJsonPromise = gfn_postJSON(
+						"/am/apc/updateApcLinkStts.do",
+						param,
+						null,
+						false
+					);
+	        const data = await postJsonPromise;
+	        
+	        if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+        	}
+	        
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+ 			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		} finally {
+			await fn_getApcLink();
+		}
+	}
+    
+	
 	var jsonComItem				= [];	// 품목 		itemCd			검색
 
 	window.addEventListener('DOMContentLoaded', async function(e) {
-
 		fn_init();
-
-
-	})
+	});
+	
 	document.getElementById("sb-area-wrhsDsctnTot").addEventListener('keypress',(e)=>{
 		if(e.keyCode===13){
 			e.preventDefault();
@@ -156,13 +371,11 @@
 		SBUxMethod.set("srch-dtp-wrhsYmdTo", gfn_dateToYmd(new Date()));
 		fn_createWrhsDsctnTot();
 		let rst = await Promise.all([
-			gfn_setApcItemSBSelect('srch-slt-itemCd', jsonComItem, gv_selectedApcCd),										// 품목
+			gfn_setApcItemSBSelect('srch-slt-itemCd', jsonComItem, gv_selectedApcCd),	// 품목
+			fn_getApcLink()
 		]);
 		fn_search();
 	}
-
-
-
 
 	//그리드 id, 그리드 json
 	//입고내역집계
@@ -238,14 +451,7 @@
 
 	    ];
 	    grdWrhsDsctnTot = _SBGrid.create(SBGridProperties);
-
-
 	}
-
-
-
-
-
 
 	// 입고구분
 	const fn_setWrhsDsctnTot = async function() {
@@ -315,31 +521,7 @@
 		fn_setWrhsDsctnTot();
 
 	}
-	const fn_wrhsReq = async function() {
-
-		const param = {
-			apcCd: gv_selectedApcCd,
-			linkKnd: 'W',
-			wrhsReqYn: 'Y'
-		}
-
-		try {
-			const postJsonPromise = gfn_postJSON(
-						"/am/apc/updateApcLink.do",
-						param,
-						null,
-						false
-					);
-	        const data = await postJsonPromise;
-
-		} catch (e) {
-			if (!(e instanceof Error)) {
-				e = new Error(e);
-			}
-			console.error("failed", e.message);
- 			//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-		}
-	}
+	
 	const fn_dtpChange = function(){
 		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-wrhsYmdFrom");
 		let wrhsYmdTo = SBUxMethod.get("srch-dtp-wrhsYmdTo");
@@ -363,15 +545,15 @@
         }
     };
 
-     // 엑셀 다운로드
-     function fn_excelDwnld() {
-    	 grdWrhsDsctnTot.exportLocalExcel("입고내역집계", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
-     }
+    // 엑셀 다운로드
+    function fn_excelDwnld() {
+		grdWrhsDsctnTot.exportLocalExcel("입고내역집계", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
 
-     /**
-      * @name fn_docWrhsDsctnTot
-      * @description 입고집계내역 발행 버튼
-      */
+    /**
+     * @name fn_docWrhsDsctnTot
+     * @description 입고집계내역 발행 버튼
+     */
  	const fn_docWrhsDsctnTot = function() {
 
  		const grdWrhsDsctnTotList = [];
@@ -393,6 +575,6 @@
 
  		gfn_popClipReport("입고확인서", "am/popWrhsDsctnTot.crf", {apcCd: gv_selectedApcCd, prdcrCd : grdWrhsDsctnTotList[0] , wrhsYmd : grdWrhsDsctnTotList[1]});
  	}
-
+    
 </script>
 </html>

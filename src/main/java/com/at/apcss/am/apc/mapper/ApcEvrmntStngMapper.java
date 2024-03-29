@@ -1,6 +1,5 @@
 package com.at.apcss.am.apc.mapper;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
@@ -108,4 +107,12 @@ public interface ApcEvrmntStngMapper {
 	 */
 	public int updateApcSortLink(ApcLinkVO apcLinkVO) throws Exception;
 
+	
+	/**
+	 * APC 연계 상태 변경
+	 * @param apcLinkVO
+	 * @throws Exception
+	 */
+	public void updateSpApcLinkSttsUpdt(ApcLinkVO apcLinkVO) throws Exception;
+	
 }
