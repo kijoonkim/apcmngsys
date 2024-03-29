@@ -194,7 +194,7 @@
 											uitype="single"
 											class="form-control input-sm"
 											unselected-text="전체"
-											jsondata-ref="jsonApcSpcfct"
+											jsondata-ref="jsonComSpcfct"
 										></sbux-select>
 									</div>
 								</div>
@@ -634,6 +634,7 @@
   	          			invntrWght: item.invntrWght,
   	          			plorCd: item.plorCd,
   	          			prdctnYr: item.prdctnYr,
+  	          			rmrk: item.rmrk
   	  				}
   	          		jsonPckgPrfmnc.push(pckgPrfmnc);
 
