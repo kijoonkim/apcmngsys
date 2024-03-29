@@ -2038,7 +2038,7 @@
 			    	{caption: ["포장코드"],   ref: 'spmtPckgUnitCd',  type:'output',  width:'100px',    style:'text-align:center'},
 			    	{caption: ["포장단위명"],	ref: 'spmtPckgUnitNm',  type:'output',  width:'160px',    style:'text-align:center'}
 				],
-		        sheetName: "포장구분",
+		        sheetName: "상품명",
 		        title: "",
 		        unit: ""
 		    },{
