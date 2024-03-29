@@ -452,6 +452,7 @@
 		SBUxMethod.set("srch-slt-spcfctCd", "");
 		SBUxMethod.set("srch-slt-spmtPckgUnitCd", "");
 
+		fn_selectItem();
     }
 
 	/**
