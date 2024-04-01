@@ -653,6 +653,8 @@
     	// grid clear
     	jsonRawMtrWrhs.length = 0;
     	grdRawMtrWrhs.clearStatus();
+    	var getColRef = grdRawMtrWrhs.getColRef("checkedYn");
+    	grdRawMtrWrhs.setFixedcellcheckboxChecked(0, getColRef, false);
     	await fn_setGrdRawMtrWrhsPrfmnc(pageSize, pageNo);
 	}
 
@@ -749,6 +751,7 @@
   				}
   			});
 
+          	grdRawMtrWrhs.rebuild();
 
           	if (jsonRawMtrWrhs.length > 0) {
           		if(grdRawMtrWrhs.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
