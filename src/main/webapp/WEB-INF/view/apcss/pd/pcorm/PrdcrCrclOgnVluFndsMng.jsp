@@ -2860,8 +2860,8 @@
 			//{caption: ["통합조직금리"],				ref:'uoItrRt',			type:'output',width:'70px',style:'text-align:center'},
 			//{caption: ["통합조직금리(관리자)"],			ref:'uoMngrItrRt',			type:'output',width:'70px',style:'text-align:center'},
 
-			{caption: ["선정여부(관리자 수정반영)"],		ref:'stbltYn',	type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["탈락사유구분(관리자 수정반영)"],	ref:'icptRsnNm',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["선정여부(관리자 수정반영)"],		ref:'uoStbltYn',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["탈락사유구분(관리자 수정반영)"],	ref:'uoIcptRsnNm',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["통합조직금리(관리자 수정반영)"],	ref:'uoItrRt',			type:'output',width:'70px',style:'text-align:center'},
 
 			{caption: ["출자출하조직 법인구분"],		ref:'corpSeNm',			type:'output',width:'70px',style:'text-align:center'},
