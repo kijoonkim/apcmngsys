@@ -260,9 +260,8 @@
     	    };
         SBGridProperties.columns = [
         	{
-        		caption: ["전체","<input type='checkbox' id='allCheckBox' onchange='fn_checkAll(grdSpmtPrfmnc, this);'>"],
-        		ref: 'checkedYn', type: 'checkbox',  width:'50px',
-        		style: 'text-align:center',
+        		caption: ["전체","<input type='checkbox' id='allSpmtPrfmncCheckBox' onchange='fn_checkAll(grdSpmtPrfmnc, this);'>"],
+        		ref: 'checkedYn', type: 'checkbox',  width:'50px', style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
             {caption: ['반품<br>여부','반품<br>여부'], 		ref: 'rtnGdsNm',	width: '50px',	type: 'output',	style:'text-align: center'},
@@ -324,21 +323,24 @@
     	var getRow = grid.getRow();
     	var getCol = grid.getCol();
         for (var i=0; i<gridList.length; i++) {
-        	grid.setCol(getColRef);
         	grid.clickCell(i+2, getColRef);
             grid.setCellData(i+2, getColRef, checkedYn, true, false);
         }
     	grid.clickCell(getRow, getCol);
+    	grid.setRow(getRow);
+    	grid.setCol(getCol);
     }
 
 	const fn_setValue = function(){
 		let checkedYnCol = grdSpmtPrfmnc.getColRef("checkedYn");
 		let nCol = grdSpmtPrfmnc.getCol();
 		let nRow = grdSpmtPrfmnc.getRow();
-
+		
+    	// 체크박스가 모두 활성화 되었을 경우 상단에 체크박스 체크
+		const allCheckBox = document.querySelector('#allSpmtPrfmncCheckBox');
 		let checkboxChecked = grdSpmtPrfmnc.getCheckedRows(0, true);
-    	const allCheckbox = grdSpmtPrfmnc.getGridDataAll();
-    	if(checkboxChecked.length == allCheckbox.length){
+    	const gridData = grdSpmtPrfmnc.getGridDataAll();
+    	if(checkboxChecked.length == gridData.length){
     		allCheckBox.checked = true;
     	}
 
@@ -367,7 +369,7 @@
 		let checkedYnCol = grdSpmtPrfmnc.getColRef("checkedYn");
 		let nCol = grdSpmtPrfmnc.getCol();
 		let nRow = grdSpmtPrfmnc.getRow();
-		const allCheckBox = document.querySelector('#allCheckBox');
+		const allCheckBox = document.querySelector('#allSpmtPrfmncCheckBox');
 
 		if(nCol == checkedYnCol){
 
@@ -412,8 +414,7 @@
 
 		if(rtnGdsYn == "Y"){
 			gfn_comAlert("W0010", "반품등록", "실적") // W0010 이미 {0}된 {1} 입니다.
-			grdSpmtPrfmnc.setCellData(nRow, rtnGdsQnttCol, 0);
-			grdSpmtPrfmnc.setCellData(nRow, rtnGdsWghtCol, 0);
+			grdSpmtPrfmnc.undo();
 			grdSpmtPrfmnc.setCellData(nRow, checkedYnCol, "N");
 			return;
 		}
@@ -757,7 +758,7 @@
     const fn_pagingSmptPrfmnc = async function (){
     	let recordCountPerPage = grdSpmtPrfmnc.getPageSize();   		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = grdSpmtPrfmnc.getSelectPageIndex();
-    	let ref = "<input type='checkbox' onchange='fn_checkAll(grdSpmtPrfmnc, this);'>";
+    	let ref = "<input type='checkbox' id='allSpmtPrfmncCheckBox' onchange='fn_checkAll(grdSpmtPrfmnc, this);'>";
     	grdSpmtPrfmnc.setCellData(1, grdSpmtPrfmnc.getColRef("checkedYn"), ref, true, false);
 
 		if(checkDetail == 1){

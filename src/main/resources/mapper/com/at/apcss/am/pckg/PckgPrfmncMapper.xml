@@ -95,6 +95,7 @@
 			    , GI.INVNTR_QNTT	AS INVNTR_QNTT
 			    , GI.INVNTR_WGHT	AS INVNTR_WGHT
 			    , GI.PLOR_CD 		AS PLOR_CD
+			    , GI.RMRK 			AS RMRK
 			    , GI.DEL_YN			AS DEL_YN
 
 			  FROM

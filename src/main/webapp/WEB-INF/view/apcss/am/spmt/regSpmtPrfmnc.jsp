@@ -564,8 +564,7 @@
         SBGridPropertiesGdsInvntr.columns = [
         	{
         		caption : ["<input type='checkbox' id='allGdsInvntrCheckBox' onchange='fn_checkAll(grdGdsInvntr, this);'>"],
-        		ref: 'checkedYn', type: 'checkbox',  width:'40px',
-        		style: 'text-align:center',
+        		ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
             {caption: ['품목'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
@@ -623,31 +622,27 @@
 	    SBGridPropertiesSpmtPrfmnc.contextmenulist = objMenuListPrfmnc;		// 우클릭 메뉴 리스트
 	    SBGridPropertiesSpmtPrfmnc.frozencols = 1;
 	    SBGridPropertiesSpmtPrfmnc.columns = [
-        	{
-        		caption : ["<input type='checkbox' onchange='fn_checkAll(grdSpmtPrfmnc, this);'>"],
-        		ref: 'checkedYn', type: 'checkbox',  width:'40px',
-        		style: 'text-align:center',
-        		typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}
-        	},
-            {caption: ['출하일자'], 		ref: 'spmtYmd', 		width: '100px', type: 'output', style: 'text-align:center',
+        	{caption : ["체크박스"],		ref: 'checkedYn',  		width:'40px', 	type: 'checkbox',	style: 'text-align:center',
+        		typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}},
+            {caption: ['출하일자'], 		ref: 'spmtYmd', 		width: '100px', type: 'output', 	style: 'text-align:center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ['거래처'],			ref: 'cnptNm', 			width: '120px', type: 'output', style: 'text-align:center'},
-            {caption: ['품목'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
-            {caption: ['품종'], 			ref: 'vrtyNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
-            {caption: ['규격'], 			ref: 'spcfctNm', 		width: '80px', 	type: 'output', style: 'text-align:center'},
-            {caption: ['상품'], 			ref: 'gdsCd', 			width: '100px', type: 'output', style: 'text-align:center', hidden:true},
-            {caption: ['등급'], 			ref: 'gdsGrdNm', 		width: '60px', 	type: 'output', style: 'text-align:center'},
-            {caption: ['상품명'], 			ref: 'spmtPckgUnitNm', 	width: '150px', type: 'output', style: 'text-align:center'},
-            {caption: ['수량'], 			ref: 'spmtQntt', 		width: '60px', 	type: 'output', style: 'text-align:right'},
-            {caption: ['중량 (Kg)'], 		ref: 'spmtWght',		width: '80px', 	type: 'output', style: 'text-align:right',
+            {caption: ['거래처'],			ref: 'cnptNm', 			width: '120px', type: 'output', 	style: 'text-align:center'},
+            {caption: ['품목'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', 	style: 'text-align:center'},
+            {caption: ['품종'], 			ref: 'vrtyNm', 			width: '80px', 	type: 'output', 	style: 'text-align:center'},
+            {caption: ['규격'], 			ref: 'spcfctNm', 		width: '80px', 	type: 'output', 	style: 'text-align:center'},
+            {caption: ['상품'], 			ref: 'gdsCd', 			width: '100px', type: 'output', 	style: 'text-align:center', hidden:true},
+            {caption: ['등급'], 			ref: 'gdsGrdNm', 		width: '60px', 	type: 'output', 	style: 'text-align:center'},
+            {caption: ['상품명'], 		ref: 'spmtPckgUnitNm', 	width: '150px', type: 'output', 	style: 'text-align:center'},
+            {caption: ['수량'], 			ref: 'spmtQntt', 		width: '60px', 	type: 'output', 	style: 'text-align:right'},
+            {caption: ['중량 (Kg)'], 		ref: 'spmtWght',		width: '80px', 	type: 'output', 	style: 'text-align:right',
     			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-            {caption: ['운송회사'], 		ref: 'trsprtCoNm', 		width: '180px', type: 'output', style: 'text-align:center'},
-            {caption: ['차량번호'], 		ref: 'vhclno', 			width: '100px', type: 'output', style: 'text-align:center'},
-            {caption: ['배송처'], 		ref: 'dldtn', 			width: '150px', type: 'output', style: 'text-align:center'},
-            {caption: ['운임비용 (원)'], 	ref: 'trsprtCst', 		width: '80px', 	type: 'output', style: 'text-align:center',
+            {caption: ['운송회사'], 		ref: 'trsprtCoNm', 		width: '180px', type: 'output', 	style: 'text-align:center'},
+            {caption: ['차량번호'], 		ref: 'vhclno', 			width: '100px', type: 'output', 	style: 'text-align:center'},
+            {caption: ['배송처'], 		ref: 'dldtn', 			width: '150px', type: 'output', 	style: 'text-align:center'},
+            {caption: ['운임비용 (원)'], 	ref: 'trsprtCst', 		width: '80px', 	type: 'output', 	style: 'text-align:center',
     			typeinfo : {mask : {alias : 'numeric'}, maxlength: 10}, format : {type:'number', rule:'#,###'}},
-            {caption: ['지시번호'], 		ref: 'spmtCmndno', 		width: '120px', type: 'output', style: 'text-align:center'},
-            {caption: ['비고'], 			ref: 'rmrk', 			width: '150px', type: 'output', style: 'text-align:center'}
+            {caption: ['지시번호'], 		ref: 'spmtCmndno', 		width: '120px', type: 'output', 	style: 'text-align:center'},
+            {caption: ['비고'], 			ref: 'rmrk', 			width: '150px', type: 'output', 	style: 'text-align:center'}
         ];
 
         grdSpmtPrfmnc = _SBGrid.create(SBGridPropertiesSpmtPrfmnc);
@@ -726,6 +721,8 @@
 		let flag = true;
 		flag = await fn_setGrdGdsInvntr();
 		if(flag){
+			var getColRef = grdSpmtPrfmnc.getColRef("checkedYn");
+			grdSpmtPrfmnc.setFixedcellcheckboxChecked(0, getColRef, false);
 			await fn_setGrdSmptPrfmnc();
 		}
 	}
@@ -838,13 +835,12 @@
         	} else {
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
-		}catch (e) {
-
+		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
 			}
-
 			console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 		return true;
 	}
@@ -1460,12 +1456,12 @@
         	} else {
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
-		}catch (e) {
-
+		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
 			}
 			console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 	}
 
