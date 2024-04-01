@@ -239,13 +239,10 @@
 		let vrtyCd = obj.value;
 		const itemCd = vrtyCd.substring(0,4);
 
-		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
 		if(!gfn_isEmpty(vrtyCd)){
-			if (itemCd != prvItemCd) {
-				SBUxMethod.set("srch-slt-itemCd", itemCd);
-				await fn_onChangeSrchItemCd({value: itemCd});
-				SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
-			}
+			SBUxMethod.set("srch-slt-itemCd", itemCd);
+			await fn_onChangeSrchItemCd({value: itemCd});
+			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
 		}
 	}
 
@@ -822,16 +819,13 @@
 
 	const fn_setPrdcrForm = async function(prdcr) {
 
-		if (!gfn_isEmpty(prdcr.rprsItemCd)) {	// 대표품목
-			const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
-			if (prvItemCd != prdcr.rprsItemCd) {
-				SBUxMethod.set("srch-slt-itemCd", prdcr.rprsItemCd);
-				fn_onChangeSrchItemCd({value:prdcr.rprsItemCd});
-			}
+		if (!gfn_isEmpty(prdcr.rprsItemCd)) {
+			SBUxMethod.set("srch-slt-itemCd", prdcr.rprsItemCd);
+			fn_onChangeSrchItemCd({value:prdcr.rprsItemCd});
+			
 		}
-		if (!gfn_isEmpty(prdcr.itemVrtyCd)) {	// 대표품종
-			await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd);
-			SBUxMethod.set("srch-slt-vrtyCd", prdcr.itemVrtyCd);
+		if(!gfn_isEmpty(prdcr.itemVrtyCd)){
+			await fn_onChangeSrchVrtyCd({value:prdcr.itemVrtyCd});
 		}
 		if (!gfn_isEmpty(prdcr.vhclno)) {	// 차량번호
 			SBUxMethod.set("srch-inp-vhclno", prdcr.vhclno);
@@ -926,6 +920,7 @@
 		SBUxMethod.set('srch-inp-prdcrIdentno', "");
 		SBUxMethod.set('srch-dtp-cmndYmd', gfn_dateToYmd(new Date()));
 		SBUxMethod.set('srch-slt-inptFclt', "");
+		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:initial");
 
 		fn_initSBSelect()
 	}

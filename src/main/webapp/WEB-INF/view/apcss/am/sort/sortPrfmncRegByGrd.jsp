@@ -1098,6 +1098,9 @@
   		let inptYmd = SBUxMethod.get("dtl-dtp-inptYmd");
 
   		try {
+  			
+//   			await fn_getStdGrd(itemCd, vrtyCd);
+//          	await fn_getSpmtPckgUnit(itemCd, vrtyCd);
 
   			const postJsonPromise = gfn_postJSON("/am/invntr/selectRawMtrInvntrListForRslt.do", {
   				apcCd: gv_selectedApcCd,
@@ -1185,6 +1188,8 @@
 
           	totalRecordCount = jsonRawMtrInvntr.length;
           	document.querySelector('#cnt-rawMtrInvtr').innerText = totalRecordCount;
+         	jsonSortPrfmnc.length = 0;
+         	fn_createGridSortPrfmncByGrd();
 
   		} catch (e) {
 			if (!(e instanceof Error)) {
@@ -1569,6 +1574,9 @@
 			gfn_comAlert("W0001", "품종");		//	W0002	{0}을/를 선택하세요.
 	        return;
 		}
+		
+		await fn_getStdGrd(itemCd, vrtyCd);
+ 		await fn_getSpmtPckgUnit(itemCd, vrtyCd);
 
 		const editableRow = grdSortPrfmnc.getRowData(nRow, false);	// call by reference(deep copy)
 
@@ -2018,30 +2026,50 @@
 		jsonSortPrfmnc.length = 0;
 		fn_createGridSortPrfmncByGrd();
 	}
-
+	
 	/**
 	 * @name fn_onChangeSrchVrtyCd
 	 * @description 품종 선택 변경 event
 	 */
 	const fn_onChangeSrchVrtyCd = async function(obj) {
 		let vrtyCd = obj.value;
-		const vrtyInfo = _.find(jsonApcVrty, {itemVrtyCd: vrtyCd});
-		const itemCd = vrtyInfo.mastervalue;
-
-		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
-		if (itemCd != prvItemCd) {
-			SBUxMethod.set("srch-slt-itemCd", itemCd);
-			await fn_onChangeSrchItemCd({value: itemCd});
-			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
-		} else {
-			await fn_getSpmtPckgUnit(itemCd, vrtyCd.substring(4));
+		
+		if(!gfn_isEmpty(vrtyCd)){
+			const itemCd = vrtyCd.substring(0,4);
+	
+			if(!gfn_isEmpty(vrtyCd)){
+				SBUxMethod.set("srch-slt-itemCd", itemCd);
+				await fn_onChangeSrchItemCd({value: itemCd});
+				SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
+			}			
+		}else{
+			await fn_onChangeSrchItemCd({value:null});
 		}
-		
-		await fn_getStdGrd(itemCd, vrtyCd.substring(4));
-		
-		jsonSortPrfmnc.length = 0;
-		fn_createGridSortPrfmncByGrd();
 	}
+
+// 	/**
+// 	 * @name fn_onChangeSrchVrtyCd
+// 	 * @description 품종 선택 변경 event
+// 	 */
+// 	const fn_onChangeSrchVrtyCd = async function(obj) {
+// 		let vrtyCd = obj.value;
+// 		const vrtyInfo = _.find(jsonApcVrty, {itemVrtyCd: vrtyCd});
+// 		const itemCd = vrtyInfo.mastervalue;
+
+// 		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
+// 		if (itemCd != prvItemCd) {
+// 			SBUxMethod.set("srch-slt-itemCd", itemCd);
+// 			await fn_onChangeSrchItemCd({value: itemCd});
+// 			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
+// 		} else {
+// 			await fn_getSpmtPckgUnit(itemCd, vrtyCd.substring(4));
+// 		}
+		
+// 		await fn_getStdGrd(itemCd, vrtyCd.substring(4));
+		
+// 		jsonSortPrfmnc.length = 0;
+// 		fn_createGridSortPrfmncByGrd();
+// 	}
 
 	/**
 	 * @name fn_onKeyUpPrdcrNm
@@ -3360,7 +3388,7 @@
  		}
  	}
 
-	const fn_reset = function(){
+	const fn_reset = async function(){
  		// 검색조건 초기화
 		SBUxMethod.set("srch-dtp-wrhsYmdFrom",gfn_dateFirstYmd(new Date()));
 		SBUxMethod.set("srch-dtp-wrhsYmdTo",gfn_dateToYmd(new Date()));
@@ -3376,6 +3404,8 @@
 		SBUxMethod.set("dtl-inp-actlWght",0);
 		SBUxMethod.set("dtl-inp-sortWght",0);
 		SBUxMethod.set("dtl-inp-lossWght",0);
+		
+		await fn_onChangeSrchVrtyCd({value:null});
 	}
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>

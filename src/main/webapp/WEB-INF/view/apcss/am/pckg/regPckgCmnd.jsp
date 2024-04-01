@@ -259,37 +259,22 @@
 		let vrtyCd = obj.value;
 		const itemCd = vrtyCd.substring(0,4);
 
-		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
 		if(!gfn_isEmpty(vrtyCd)){
-			if (itemCd != prvItemCd) {
-				SBUxMethod.set("srch-slt-itemCd", itemCd);
-				await fn_onChangeSrchItemCd({value: itemCd});
-				SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
-
-				if (gfn_isEmpty(itemCd)){
-		            gfn_setSpmtPckgUnitSBSelect('grdSortInvntr',    jsonSpmtPckgUnitCd,     gv_selectedApcCd, "")        // 포장구분
-				}else{
-					gfn_setSpmtPckgUnitSBSelect('grdSortInvntr',    jsonSpmtPckgUnitCd,     gv_selectedApcCd, itemCd, vrtyCd.substring(4,8))        // 포장구분
-				}
-			} else{
-				SBUxMethod.set("srch-slt-itemCd", itemCd);
-				await fn_onChangeSrchItemCd({value: itemCd});
-				SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
-
-				if (gfn_isEmpty(itemCd)){
-		            gfn_setSpmtPckgUnitSBSelect('grdSortInvntr',    jsonSpmtPckgUnitCd,     gv_selectedApcCd, "")        // 포장구분
-				}else{
-					gfn_setSpmtPckgUnitSBSelect('grdSortInvntr',    jsonSpmtPckgUnitCd,     gv_selectedApcCd, itemCd, vrtyCd.substring(4,8))        // 포장구분
-				}
-			}
-		}else{
-			if (gfn_isEmpty(itemCd)){
-	            gfn_setSpmtPckgUnitSBSelect('grdSortInvntr',    jsonSpmtPckgUnitCd,     gv_selectedApcCd, "")        // 포장구분
-			}else{
-				gfn_setSpmtPckgUnitSBSelect('grdSortInvntr',    jsonSpmtPckgUnitCd,     gv_selectedApcCd, itemCd, vrtyCd.substring(4,8))        // 포장구분
-			}
+			SBUxMethod.set("srch-slt-itemCd", itemCd);
+			await fn_onChangeSrchItemCd({value: itemCd});
+			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
 		}
 		jsonSortInvntr.length = 0;
+	}
+	
+	const fn_setSpmtPckgUnit = async function(itemCd, vrtyCd){
+		if(gfn_isEmpty(itemCd)){
+			return;
+		}
+		if(gfn_isEmpty(vrtyCd)){
+			return;
+		}
+		await gfn_setSpmtPckgUnitSBSelect('grdSortInvntr', jsonSpmtPckgUnitCd, gv_selectedApcCd, itemCd, vrtyCd);
 	}
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
@@ -615,6 +600,8 @@
         const data = await postJsonPromise;
   		try {
   			if (_.isEqual("S", data.resultStatus)) {
+  				
+  	          	await fn_setSpmtPckgUnit(itemCd, vrtyCd);
 
   	  			jsonSortInvntr.length = 0;
   	          	data.resultList.forEach((item, index) => {
