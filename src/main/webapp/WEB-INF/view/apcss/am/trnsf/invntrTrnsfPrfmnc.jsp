@@ -843,6 +843,9 @@
     			gfn_comAlert("W0006", "이송품목", "선택품목");	//	W0006	{0}와/과 {1}이/가 서로 다릅니다.
     			return;
     		}
+    		if(!gfn_isEmpty(vrtyCd)){
+    			vrtyCd = vrtyCd.substring(4,8);
+    		}
 
     		rowData.vrtyCd 			= vrtyCd;
     		rowData.prdcrCd 		= prdcrCd;
@@ -936,6 +939,10 @@
 		let gdsSeCd			= SBUxMethod.get("srch-slt-gdsSe");
 		let wrhsSeCd		= SBUxMethod.get("srch-slt-wrhsSeCd");
 		let invntrSeCd		= SBUxMethod.get("srch-slt-invntrSeCd");
+
+		if(!gfn_isEmpty(vrtyCd)){
+			vrtyCd = vrtyCd.substring(4,8);
+		}
 
 		let trnsfVO = {
 			  trnsfApcCd	: gv_selectedApcCd

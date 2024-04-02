@@ -124,6 +124,7 @@
 											unselected-text="전체"
 											class="form-control input-sm"
 											jsondata-ref="jsonApcVrty"
+											jsondata-value="itemVrtyCd"
 											onchange="fn_onChangeSrchVrtyCd(this)"
 										></sbux-select>
 									</div>
@@ -470,18 +471,15 @@
 		let vrtyCd = obj.value;
 
 		if (gfn_isEmpty(vrtyCd)) {
+			await fn_onChangeSrchItemCd({value: null});
 			return;
 		}
 
-		const vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd});
-		const itemCd = vrtyInfo.mastervalue;
+		const itemCd = vrtyCd.substring(0,4);
 
-		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
-		if (itemCd != prvItemCd) {
-			SBUxMethod.set("srch-slt-itemCd", itemCd);
-			await fn_onChangeSrchItemCd({value: itemCd});
-			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
-		}
+		SBUxMethod.set("srch-slt-itemCd", itemCd);
+		await fn_onChangeSrchItemCd({value: itemCd});
+		SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
 	}
 	
 	const fn_reset = function(){
@@ -489,6 +487,8 @@
 		SBUxMethod.set("srch-slt-clclnCrtrCd","");
 		SBUxMethod.set("srch-slt-itemCd","");
 		SBUxMethod.set("srch-slt-vrtyCd","");
+		
+		fn_onChangeSrchVrtyCd({value:null});
 	}
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
