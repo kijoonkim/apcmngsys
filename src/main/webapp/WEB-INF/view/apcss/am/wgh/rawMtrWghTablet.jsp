@@ -1301,8 +1301,6 @@
 	 */
 	const fn_setPrdcr = async function(prdcr) {
 		
-		console.log('test', prdcr);
-
 		if (!gfn_isEmpty(prdcr)) {
 			SBUxMethod.set("dtl-inp-prdcrCd", prdcr.prdcrCd);
 			SBUxMethod.set("dtl-inp-prdcrNm", prdcr.prdcrNm);
