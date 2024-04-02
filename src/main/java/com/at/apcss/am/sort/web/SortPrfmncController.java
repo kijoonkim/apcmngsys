@@ -162,6 +162,27 @@ public class SortPrfmncController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+	@PostMapping(value = "/am/sort/selectSortDsctn.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectSortDsctn(@RequestBody SortDsctnTotVO sortDsctnTotVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<SortDsctnTotVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = sortPrfmncService.selectSortDsctn(sortDsctnTotVO);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 
 	@PostMapping(value = "/am/sort/selectComDsctnTotList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectComDsctnTotList(@RequestBody ComSortDsctnTotVO sortDsctnTotVO, HttpServletRequest request) throws Exception {
@@ -184,7 +205,7 @@ public class SortPrfmncController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	/**
      * 선별등록 조회
      * @param sortPrfmncVO
@@ -213,5 +234,5 @@ public class SortPrfmncController extends BaseController {
 
         return getSuccessResponseEntity(resultMap);
     }
-	
+
 }
