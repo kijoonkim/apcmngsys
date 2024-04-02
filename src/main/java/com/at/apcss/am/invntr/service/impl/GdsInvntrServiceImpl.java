@@ -21,6 +21,7 @@ import com.at.apcss.am.invntr.service.GdsInvntrService;
 import com.at.apcss.am.invntr.vo.GdsInvntrVO;
 import com.at.apcss.am.invntr.vo.GdsStdGrdVO;
 import com.at.apcss.am.invntr.vo.InvntrVO;
+import com.at.apcss.am.spmt.vo.SpmtDsctnTotVO;
 import com.at.apcss.am.trnsf.mapper.InvntrTrnsfMapper;
 import com.at.apcss.am.trnsf.vo.InvntrTrnsfVO;
 import com.at.apcss.co.constants.ApcConstants;
@@ -69,7 +70,7 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 
 	@Override
 	public GdsInvntrVO selectSpmtGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception {
-		
+
 		GdsInvntrVO resultVO = gdsInvntrMapper.selectSpmtGdsInvntr(gdsInvntrVO);
 
 		return resultVO;
@@ -85,7 +86,7 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 
 	}
 
-	
+
 	@Override
 	public List<GdsInvntrVO> selectGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception {
 
@@ -598,6 +599,12 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 		gdsInvntrMapper.updateGdsInvntrSpmtPrfmncRtn(gdsInvntrVO);
 
 		return null;
+	}
+
+	@Override
+	public List<SpmtDsctnTotVO> selectGdsDsctn(SpmtDsctnTotVO spmtDsctnTotVO) throws Exception {
+		List<SpmtDsctnTotVO> resultList = gdsInvntrMapper.selectGdsDsctn(spmtDsctnTotVO);
+		return resultList;
 	}
 
 

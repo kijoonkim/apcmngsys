@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at.apcss.am.spmt.service.SpmtPrfmncService;
+import com.at.apcss.am.spmt.vo.SpmtDsctnTotVO;
 import com.at.apcss.am.spmt.vo.SpmtPrfmncComVO;
 import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
 import com.at.apcss.co.constants.ComConstants;
@@ -88,12 +89,12 @@ public class SpmtPrfmncController extends BaseController {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
-			
+
 			spmtPrfmncComVO.setSysFrstInptUserId(getUserId());
 			spmtPrfmncComVO.setSysFrstInptPrgrmId(getPrgrmId());
 			spmtPrfmncComVO.setSysLastChgUserId(getUserId());
 			spmtPrfmncComVO.setSysLastChgPrgrmId(getPrgrmId());
-			
+
 			HashMap<String, Object> rtnObj = spmtPrfmncService.insertSpmtPrfmncByGrd(spmtPrfmncComVO);
 			if(rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
@@ -110,8 +111,8 @@ public class SpmtPrfmncController extends BaseController {
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
-	
-	
+
+
 	// 출하실적 등록
 	@PostMapping(value = "/am/spmt/insertSpmtPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> insertSpmtPrfmncList(@RequestBody List<SpmtPrfmncVO> spmtPrfmncList, HttpServletRequest request) throws Exception {
