@@ -3626,7 +3626,7 @@
 			,EA.RPRSV_FLNM
 			,EA.RPRSV_TELNO
 			,EA.RPRSV_MOBLNO
-			,EA.ROAD_NM_DTL_ADDR
+			,EA.RPRSV_EML
 
 			,EA.PIC_POSITION
 			,EA.PIC_FLNM
@@ -3762,6 +3762,7 @@
 				WHERE 1=1
 				  AND APO_SE = '1'
 				  AND YR = #{yr}
+				  AND BRNO != '4168220755'/*구례농협 통합조직이였다가 출자출하조직으로 변경되 일시적 예외처리*/
 				  AND BRNO NOT IN (SELECT BRNO
 				  					FROM TB_COM_USER
 				  					WHERE 1=1
