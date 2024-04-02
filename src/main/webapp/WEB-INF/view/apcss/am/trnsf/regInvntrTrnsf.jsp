@@ -90,6 +90,7 @@
 									class="form-control input-sm"
 									unselected-text="선택"
 									jsondata-ref="jsonComVrty"
+									jsondata-value="itemVrtyCd"
 									onchange="fn_onChangeSrchVrtyCd(this)"
 								></sbux-select>
 							</td>
@@ -294,7 +295,7 @@
 		let itemCd = obj.value;
 		let result = await Promise.all([
 			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd, itemCd),				// 품종
-			fn_getComSpcfct(itemCd),
+			fn_getComSpcfct(itemCd)
 		]);
 		
 		switch (checkSection) {
@@ -319,20 +320,16 @@
 	const fn_onChangeSrchVrtyCd = async function(obj) {
 		let vrtyCd = obj.value;
 
-		const vrtyInfo = _.find(jsonComVrty, {value: vrtyCd});
-
-		if (gfn_isEmpty(vrtyInfo)) {
+		if (gfn_isEmpty(vrtyCd)) {
 			return;
 		}
 
-		const itemCd = vrtyInfo.mastervalue;
+		const itemCd = vrtyCd.substring(0,4);
 
-		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
-		if (itemCd != prvItemCd) {
+		if (!gfn_isEmpty(itemCd)) {
 			SBUxMethod.set("srch-slt-itemCd", itemCd);
 			await fn_onChangeSrchItemCd({value: itemCd});
 			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
-			SBUxMethod.set("srch-slt-spcfctCd", "");
 		}
 	}
 	
@@ -347,14 +344,16 @@
 		jsonComSpcfct.length = 0;
 
 		if (gfn_isEmpty(itemCd)) {
+			SBUxMethod.refresh('srch-slt-spcfctCd');
 			return;
+		}else{
+			if(checkSection != 1){
+				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',jsonComSpcfct, gv_selectedApcCd, itemCd);	// 규격
+			}else{
+				return;
+			}
 		}
 
-		if(checkSection != 1){
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',jsonComSpcfct, gv_selectedApcCd, itemCd);	// 규격
-		}else{
-			return;
-		}
 	}
 
 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
@@ -712,6 +711,10 @@
 		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSe");
 
 	    jsoninptCmndDsctnList = []; //원물 재고 첫번째 그리드 data
+	    
+	    if(!gfn_isEmpty(vrtyCd)){
+	    	vrtyCd = vrtyCd.substring(4,8);		// 품종 코드 4자리 자르기
+	    }
 
 		const postJsonPromise1 = gfn_postJSON("/am/trnsf/selectTrnsfRawMtrInvntrList.do", {
 			apcCd		:  gv_selectedApcCd,
@@ -792,6 +795,10 @@
 		let gdsSeCd = SBUxMethod.get("srch-slt-gdsSe");
 		let wrhsSeCd = SBUxMethod.get("srch-slt-wrhsSeCd");
 		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSe");
+		
+		if(!gfn_isEmpty(vrtyCd)){
+			vrtyCd = vrtyCd.substring(4,8);
+		}
 
 		const postJsonPromise2 = gfn_postJSON("/am/trnsf/selectTrnsfSortInvntrDsctnList.do", {
 			apcCd		:  gv_selectedApcCd,
@@ -867,6 +874,11 @@
 		let gdsSeCd = SBUxMethod.get("srch-slt-gdsSe");
 		let wrhsSeCd = SBUxMethod.get("srch-slt-wrhsSeCd");
 		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSe");
+		
+		if(!gfn_isEmpty(vrtyCd)){
+			vrtyCd = vrtyCd.substring(4,8);
+		}
+		
 		const postJsonPromise3 = gfn_postJSON("/am/trnsf/selectUpdateTrnsfGdsInvntrList.do", {
 			apcCd		:  gv_selectedApcCd,
 			itemCd		:itemCd,
@@ -1088,7 +1100,7 @@
  		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
  	}
  	
-	const fn_reset = function(){
+	const fn_reset = async function(){
  		// 검색조건 초기화
 		SBUxMethod.set("srch-slt-itemCd","");
 		SBUxMethod.set("srch-slt-vrtyCd","");
@@ -1100,6 +1112,9 @@
 		SBUxMethod.set("srch-slt-gdsSe","");
 		SBUxMethod.set("srch-slt-warehouseSe","");
 		SBUxMethod.set("dtl-slt-trnsfApcCd","");
+		
+		await fn_getComSpcfct();
+		await fn_onChangeSrchItemCd({value: null});
 	}
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
