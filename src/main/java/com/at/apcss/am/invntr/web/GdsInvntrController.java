@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at.apcss.am.invntr.service.GdsInvntrService;
 import com.at.apcss.am.invntr.vo.GdsInvntrVO;
+import com.at.apcss.am.spmt.vo.SpmtDsctnTotVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 
@@ -39,7 +40,7 @@ public class GdsInvntrController extends BaseController {
 	@Resource(name = "gdsInvntrService")
 	private GdsInvntrService gdsInvntrService;
 
-	
+
 	@PostMapping(value = "/am/invntr/selectSpmtGdsInvntr.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectSpmtGdsInvntr(@RequestBody GdsInvntrVO gdsInvntrVO, HttpServletRequest request) throws Exception {
 
@@ -61,7 +62,7 @@ public class GdsInvntrController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	@PostMapping(value = "/am/invntr/selectGdsInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectGdsInvntrList(@RequestBody GdsInvntrVO gdsInvntrVO, HttpServletRequest request) throws Exception {
 
@@ -232,6 +233,26 @@ public class GdsInvntrController extends BaseController {
 			}
 		}
 
+		return getSuccessResponseEntity(resultMap);
+	}
+	// 출하실적 조회
+	@PostMapping(value = "/am/invntr/selectGdsDsctn.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectGdsDsctn(@RequestBody SpmtDsctnTotVO spmtDsctnTotVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<SpmtDsctnTotVO> resultList = new ArrayList<>();
+		try {
+			resultList = gdsInvntrService.selectGdsDsctn(spmtDsctnTotVO);
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 		return getSuccessResponseEntity(resultMap);
 	}
 }

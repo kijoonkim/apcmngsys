@@ -1,4 +1,4 @@
-package com.at.apcss.am.sort.vo;
+package com.at.apcss.am.spmt.vo;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,10 +10,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * @Class Name : RawMtrWrhsVO.java
- * @Description : 원물입고에 대한 VO 클래스
- * @author 신정철
- * @since 2023.06.21
+ * @Class Name : SpmtDsctnTotVO.java
+ * @Description : 출하실적에 대한 VO 클래스
+ * @author 김호
+ * @since 2024.04.01
  * @version 1.0
  * @see
  *
@@ -21,12 +21,12 @@ import lombok.Setter;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.06.21  신정철        최초 생성
+ * 2024.04.01  김  호        최초 생성
  * </pre>
  */
 @Getter
 @Setter
-public class SortDsctnTotVO extends ComVO {
+public class SpmtDsctnTotVO extends ComVO{
 
 	private String apcCd;
 	private String inptYmdFrom;
@@ -60,25 +60,4 @@ public class SortDsctnTotVO extends ComVO {
 	private String orgTot;
 	private String tot;
 	private String grdGubun;
-
-
-
-
-
-
-
-
-	/**
-	 * 표준등급 목록
-	 */
-	private List<RawMtrStdGrdVO> stdGrdList;
-
-	public List<RawMtrStdGrdVO> getStdGrdList() {
-		return stdGrdList == null ? null : stdGrdList.stream().collect(Collectors.toList());
-	}
-
-	public void setStdGrdList(List<RawMtrStdGrdVO> stdGrdList) {
-		this.stdGrdList = stdGrdList == null ? null : stdGrdList.stream().collect(Collectors.toList());
-	}
-
 }

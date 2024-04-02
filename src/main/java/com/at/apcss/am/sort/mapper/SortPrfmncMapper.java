@@ -56,6 +56,13 @@ public interface SortPrfmncMapper {
 	 * @throws Exception
 	 */
 	public List<SortDsctnTotVO> selectSortDsctnTot(SortDsctnTotVO sortDsctnTotVO) throws Exception;
+	/**
+	 * 파프리카선별집계 조회
+	 * @param sortDsctnTotVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SortDsctnTotVO> selectSortDsctn(SortDsctnTotVO sortDsctnTotVO) throws Exception;
 
 	/**
 	 * 선별실적 목록 조회
@@ -132,7 +139,7 @@ public interface SortPrfmncMapper {
 	 */
 	public int updateInptSortno(SortPrfmncVO sortPrfmncVO) throws Exception;
 
-	
+
     /**
      * 선별 목록 조회 (선별번호별)
      * @param sortPrfmncVO
@@ -141,5 +148,5 @@ public interface SortPrfmncMapper {
      */
     public List<SortPrfmncVO> selectSortListBySortno(SortPrfmncVO sortPrfmncVO) throws Exception;
 
-	
+
 }

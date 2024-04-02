@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.invntr.vo.GdsInvntrVO;
+import com.at.apcss.am.spmt.vo.SpmtDsctnTotVO;
 
 /**
  * 상품재고 Service 인터페이스
@@ -28,7 +29,7 @@ public interface GdsInvntrService {
 	 * @throws Exception
 	 */
 	public GdsInvntrVO selectGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception;
-	
+
 	/**
 	 * 출하상품재고 조회
 	 * @param gdsInvntrVO
@@ -45,7 +46,7 @@ public interface GdsInvntrService {
 	 */
 	public List<GdsInvntrVO> selectSpmtGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception;
 
-	
+
 	/**
 	 * 상품재고 목록 조회
 	 * @param gdsInvntrVO
@@ -180,5 +181,13 @@ public interface GdsInvntrService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertGdsInvntrChgHstry(GdsInvntrVO gdsInvntrVO) throws Exception;
+
+	/**
+	 * 파프리카 재고 조회(출하실적)
+	 * @param SpmtDsctnTotVO
+	 * @return List<SpmtDsctnTotVO>
+	 * @throws Exception
+	 */
+	public List<SpmtDsctnTotVO> selectGdsDsctn(SpmtDsctnTotVO spmtDsctnTotVO) throws Exception;
 
 }
