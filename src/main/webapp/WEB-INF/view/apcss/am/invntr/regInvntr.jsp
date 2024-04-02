@@ -3541,7 +3541,7 @@
  		}
     }
 
-	const fn_reset = function(){
+	const fn_reset = async function(){
  		// 검색조건 초기화
 		SBUxMethod.set("srch-slt-itemCd","");
 		SBUxMethod.set("srch-slt-vrtyCd","");
@@ -3551,6 +3551,10 @@
 		SBUxMethod.set("srch-slt-wrhsSeCd","");
 		SBUxMethod.set("srch-inp-prdcrCd","");
 		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:none");
+		
+		await fn_selectItem({value: null});
+		jsonComSpcfct.length=0;
+		SBUxMethod.refresh('srch-slt-spcfctCd');
 	}
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>

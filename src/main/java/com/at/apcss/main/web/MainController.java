@@ -54,7 +54,7 @@ public class MainController extends BaseController {
 
 			ComMenuVO pageVO = new ComMenuVO();
 			pageVO.setMenuId(menuId);
-			pageVO.setMenuNm("메인페이지");
+			pageVO.setMenuNm("APC정보지원시스템");
 			model.addAttribute("comMenuVO", pageVO);
 
 			request.getSession().setAttribute(ComConstants.PROP_SYS_PRGRM_ID, menuId);

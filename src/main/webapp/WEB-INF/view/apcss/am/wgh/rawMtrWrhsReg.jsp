@@ -2150,8 +2150,6 @@
 
  			const rowData = _grdImp.getRowData(iRow);
  			
- 			console.log('rowData', rowData);
-
  			// validation check
  	    	if (gfn_isEmpty(rowData.wrhsYmd)) {
  	    		gfn_comAlert("W0001", "입고일자");		//	W0002	{0}을/를 선택하세요.
@@ -2350,8 +2348,6 @@
  		let impData = _grdImp.getGridDataAll();
  		const today = gfn_dateToYmd(new Date());
  		
- 		console.log('impData',impData);
-
 		for ( let iRow = 1; iRow <= impData.length; iRow++ ) {
 			const rowData = _grdImp.getRowData(iRow, false);	// deep copy
 

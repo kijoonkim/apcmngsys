@@ -766,9 +766,6 @@
 			insertList.push(jsonSpmtCmndTrg[nRow-1]);
     	}
 
-    	console.log('jsonSpmtCmndTrg',jsonSpmtCmndTrg);
-    	console.log('insertList',insertList);
-
     	if (gfn_comConfirm("Q0001", "저장")) {		//	Q0001	{0} 하시겠습니까?
 			const postJsonPromise = gfn_postJSON("/am/spmt/insertSpmtCmnd.do", insertList);
 	    	const data = await postJsonPromise;
