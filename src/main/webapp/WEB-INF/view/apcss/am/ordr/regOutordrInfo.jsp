@@ -145,6 +145,7 @@
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									unselected-text="선택"
 									jsondata-ref="jsonComVrty"
+									jsondata-value="itemVrtyCd"
 									onchange="fn_onChangeSrchVrtyCd(this)"
 								></sbux-select>
 							</td>
@@ -313,7 +314,9 @@
 			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd, itemCd)				// 품종
 		]);
 		if (gfn_isEmpty(itemCd)) {
-			await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, "");
+			jsonComSpcfct.length=0;
+			SBUxMethod.refresh('srch-slt-spcfctCd');
+// 			await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, "");
 		} else {
 			await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, gv_selectedApcCd, itemCd);	// 규격
 		}
@@ -330,7 +333,7 @@
 			return;
 		}
 		
-		itemCd = _.find(jsonComVrty, {value: vrtyCd}).mastervalue;
+		itemCd = vrtyCd.substring(0,4);
 		
 		SBUxMethod.set("srch-slt-itemCd", itemCd);
 		await fn_onChangeSrchItemCd({value: itemCd});
@@ -615,6 +618,9 @@
 				unitWght		: unitWght,
 				outordrWght		: outordrWght
 		}
+		if(!gfn_isEmpty(ordr.vrtyCd)){
+			ordr.vrtyCd = ordr.vrtyCd.substring(4,8);
+		}
 
 		if (gfn_comConfirm("Q0001", "저장")) {			//	Q0001	{0} 하시겠습니까?
 			const postJsonPromise = gfn_postJSON("/am/ordr/insertOrdr.do", ordr);
@@ -664,7 +670,6 @@
 	        		fn_search();
 	        	} else {
 	        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
-	        		//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        	}
 	        } catch(e) {
 	    		if (!(e instanceof Error)) {
@@ -692,14 +697,14 @@
 	 * @description 상풍 선택 callback
 	 */
 	const fn_setGdsNm = async function(gds) {
+
 		if (!gfn_isEmpty(gds)) {
 			SBUxMethod.set('srch-inp-gdsNm', gds.spmtPckgUnitNm);
 			SBUxMethod.set('srch-inp-gdsCd', gds.gdsCd);
 			SBUxMethod.set('srch-inp-spmtPckgUnitCd', gds.spmtPckgUnitCd);
-			await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd)		// 품종
 			SBUxMethod.set("srch-slt-itemCd", gds.itemCd);
-			SBUxMethod.set("srch-slt-vrtyCd", gds.vrtyCd);
-			await fn_onChangeSrchVrtyCd({value: gds.vrtyCd});
+			SBUxMethod.set("srch-slt-vrtyCd", gds.itemCd+gds.vrtyCd);
+			await fn_onChangeSrchVrtyCd({value: gds.itemCd+gds.vrtyCd});
 			SBUxMethod.set("srch-slt-spcfctCd", gds.spcfctCd);
 		}
 	}
