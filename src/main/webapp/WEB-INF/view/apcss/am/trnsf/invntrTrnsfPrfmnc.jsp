@@ -137,15 +137,12 @@
 								></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select
-									uitype="single"
-									id="srch-slt-vrtyCd"
+								<sbux-select uitype="single" id="srch-slt-vrtyCd"
 									name="srch-slt-vrtyCd"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
-									unselected-text="선택"
-									jsondata-ref="jsonComVrty"
-									onchange="fn_onChangeSrchVrtyCd(this)"
-								></sbux-select>
+									unselected-text="선택" jsondata-ref="jsonComVrty"
+									jsondata-value="itemVrtyCd"
+									onchange="fn_onChangeSrchVrtyCd(this)"></sbux-select>
 							</td>
 						</tr>
 					</tbody>
@@ -266,6 +263,7 @@
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									unselected-text="선택"
 									jsondata-ref="jsonDtlVrty"
+									jsondata-value="itemVrtyCd"
 									onchange="fn_onChangeSrchVrtyCdDtl(this)"
 								></sbux-select>
 							</td>
@@ -433,9 +431,17 @@
 	 * @name fn_onChangeSrchItemCd
 	 * @description 품목 선택 변경 event
 	 */
-	const fn_onChangeSrchItemCd = async function(obj, checkObj) {
+	const fn_onChangeSrchItemCd = async function(obj) {
 
 		let itemCd = obj.value;
+		
+		if(gfn_isEmpty(itemCd)){
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd)
+			jsonComVrty.length=0;
+			SBUxMethod.refresh('srch-slt-spcfctCd');
+			return;
+		}
+		
 		let result = await Promise.all([
 			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd, itemCd),				// 품종
 		]);
@@ -448,21 +454,16 @@
 	const fn_onChangeSrchVrtyCd = async function(obj) {
 		let vrtyCd = obj.value;
 
-		const vrtyInfo = _.find(jsonComVrty, {value: vrtyCd});
-
-		if (gfn_isEmpty(vrtyInfo)) {
+		if (gfn_isEmpty(vrtyCd)) {
 			return;
 		}
+		
+		let itemCd = vrtyCd.substring(0,4);
 
-		const itemCd = vrtyInfo.mastervalue;
-
-		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
-		if (itemCd != prvItemCd) {
-			SBUxMethod.set("srch-slt-itemCd", itemCd);
-			await fn_onChangeSrchItemCd({value: itemCd});
-			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
-			SBUxMethod.set("srch-slt-spcfctCd", "");
-		}
+		SBUxMethod.set("srch-slt-itemCd", itemCd);
+		await fn_onChangeSrchItemCd({value: itemCd});
+		SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
+		SBUxMethod.set("srch-slt-spcfctCd", "");
 	}
 	
 	/**
@@ -472,13 +473,12 @@
 	const fn_onChangeSrchItemCdDtl = async function(obj) {
 
 		let itemCd = obj.value;
+		
 		let result = await Promise.all([
 			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonDtlVrty, gv_selectedApcCd, itemCd),				// 품종
 			fn_getComSpcfctDtl(itemCd),
+			fn_selectDtlItem()
 		]);
-		
-// 		fn_createInvntrTrnsfGrid();
-// 		fn_createInvntrTrnsCfmtnfGrid();
 	}
 	
 	/**
@@ -488,22 +488,15 @@
 	const fn_onChangeSrchVrtyCdDtl = async function(obj) {
 		let vrtyCd = obj.value;
 
-		const vrtyInfo = _.find(jsonDtlVrty, {value: vrtyCd});
-
-		if (gfn_isEmpty(vrtyInfo)) {
+		if (gfn_isEmpty(vrtyCd)) {
 			return;
 		}
 
-		const itemCd = vrtyInfo.mastervalue;
+		const itemCd = vrtyCd.substring(0,4);
 
-		const prvItemCd = SBUxMethod.get("dtl-slt-itemCd");
-		if (itemCd != prvItemCd) {
-			SBUxMethod.set("dtl-slt-itemCd", itemCd);
-			await fn_onChangeSrchItemCdDtl({value: itemCd});
-			SBUxMethod.set("dtl-slt-vrtyCd", vrtyCd);
-			SBUxMethod.attr('dtl-slt-spcfctCd', 'disabled', 'false');
-			SBUxMethod.set("dtl-slt-spcfctCd", "");
-		}
+		SBUxMethod.set("dtl-slt-itemCd", itemCd);
+		await fn_onChangeSrchItemCdDtl({value: itemCd});
+		SBUxMethod.set("dtl-slt-vrtyCd", vrtyCd);
 	}
 	
 	/**
@@ -517,6 +510,7 @@
 		jsonDtlSpcfct.length = 0;
 
 		if (gfn_isEmpty(itemCd)) {
+			SBUxMethod.set('dtl-slt-spcfctCd',  "");
 			SBUxMethod.attr('dtl-slt-spcfctCd', 'disabled', 'true');
 			return;
 		}
@@ -539,26 +533,30 @@
 		}
 
 		let itemCd = SBUxMethod.get("dtl-slt-itemCd");
-		let rst = await Promise.all([
-			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', 				jsonDtlVrty, 			gv_selectedApcCd, itemCd),	// 품종
-			gfn_setApcSpcfctsSBSelect('dtl-slt-spcfctCd',			jsonDtlSpcfct, 			gv_selectedApcCd, itemCd), 	// 규격
-			gfn_setSpmtPckgUnitSBSelect('dtl-slt-spmtPckgUnit', 	jsonDtlSpmtPckgUnit, 	gv_selectedApcCd, itemCd),	// 포장구분
-			stdGrdSelect.setStdGrd(gv_selectedApcCd, grdSeCd, itemCd),
-		])
+		
+		
 
 		if(gfn_isEmpty(itemCd)){
 			jsonDtlSpcfct.length = 0;
 			jsonDtlSpmtPckgUnit.length = 0;
 			SBUxMethod.refresh("dtl-slt-spmtPckgUnit");
 			SBUxMethod.refresh("dtl-slt-vrtyCd");
+			SBUxMethod.refresh("dtl-slt-spcfctCd");
 			SBUxMethod.set("srch-inp-wghtAvg", "");
-		}
-		if(!gfn_isEmpty(itemCd) && !gfn_isEmpty(vrtyCd)){
-			SBUxMethod.set("dtl-slt-vrtyCd", vrtyCd);
-		}
+		}else{
+			let rst = await Promise.all([
+				gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', 				jsonDtlVrty, 			gv_selectedApcCd, itemCd),	// 품종
+				gfn_setApcSpcfctsSBSelect('dtl-slt-spcfctCd',			jsonDtlSpcfct, 			gv_selectedApcCd, itemCd), 	// 규격
+				gfn_setSpmtPckgUnitSBSelect('dtl-slt-spmtPckgUnit', 	jsonDtlSpmtPckgUnit, 	gv_selectedApcCd, itemCd),	// 포장구분
+				stdGrdSelect.setStdGrd(gv_selectedApcCd, grdSeCd, itemCd),
+			])
+			
+			if(!gfn_isEmpty(itemCd) && !gfn_isEmpty(vrtyCd)){
+				SBUxMethod.set("dtl-slt-vrtyCd", vrtyCd);
+			}
 
-		fn_invntrSeCdDisabled();
-
+			fn_invntrSeCdDisabled();
+		}
 	}
 	const fn_selectDtlVrty = async function(){
 
@@ -1277,7 +1275,7 @@
 			SBUxMethod.set("dtl-inp-prdcrNm", jsonPrdcrDtl.prdcrNm);
 			SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 			SBUxMethod.set("dtl-slt-itemCd", jsonPrdcrDtl.rprsItemCd);
-			SBUxMethod.set("dtl-slt-vrtyCd", jsonPrdcrDtl.rprsVrtyCd);
+			SBUxMethod.set("dtl-slt-vrtyCd", jsonPrdcrDtl.itemVrtyCd);
 			SBUxMethod.set("dtl-rdo-gdsSeCd", jsonPrdcrDtl.gdsSeCd);
 			SBUxMethod.set("dtl-rdo-wrhsSeCd", jsonPrdcrDtl.wrhsSeCd);
 			SBUxMethod.set("dtl-rdo-trsprtSeCd", jsonPrdcrDtl.trsprtSeCd);
@@ -1327,7 +1325,7 @@
 	* 상세 정보 생산자 팝업 관련 function
 	* End
 	*/
-	const fn_reset = function(){
+	const fn_reset = async function(){
  		// 검색조건 초기화
  		SBUxMethod.set("srch-dtp-trnsfYmdFrom", gfn_dateFirstYmd(new Date()));
 		SBUxMethod.set("srch-dtp-trnsfYmdTo", gfn_dateToYmd(new Date()));
@@ -1352,7 +1350,10 @@
 		SBUxMethod.set("stdGrdSlt-inp-knd-2","");
 		SBUxMethod.set("dtl-slt-warehouseSeCd","");
 		SBUxMethod.set("dtl-inp-rmrk","");
-
+		
+		await fn_onChangeSrchItemCd({value: null});
+		await fn_onChangeSrchItemCdDtl({value: null});
+		await fn_invntrSeCdDisabled();
 	}
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
