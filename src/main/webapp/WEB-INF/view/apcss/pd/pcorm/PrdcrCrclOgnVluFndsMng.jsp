@@ -2660,7 +2660,7 @@
 			{caption: ["대표자 성명"],			ref:'rprsvFlnm',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["대표자 전화번호"],		ref:'rprsvTelno',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["대표자 핸드폰번호"],		ref:'rprsvMoblno',	type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["대표자 이메일주소"],		ref:'roadNmDtlAddr',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["대표자 이메일주소"],		ref:'rprsvEml',	type:'output',width:'70px',style:'text-align:center'},
 
 			{caption: ["작성자 직위"],			ref:'picPosition',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["작성자 성명"],			ref:'picFlnm',	type:'output',width:'70px',style:'text-align:center'},
@@ -2758,7 +2758,8 @@
 						,rprsvFlnm:			item.rprsvFlnm
 						,rprsvTelno:		item.rprsvTelno
 						,rprsvMoblno:		item.rprsvMoblno
-						,roadNmDtlAddr:		item.roadNmDtlAddr
+						,rprsvEml:			item.rprsvEml
+
 						,picPosition:		item.picPosition
 						,picFlnm:			item.picFlnm
 						,picTelno:			item.picTelno
