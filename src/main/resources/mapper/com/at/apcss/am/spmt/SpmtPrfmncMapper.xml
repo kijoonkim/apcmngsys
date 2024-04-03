@@ -410,6 +410,297 @@
 		]]>
 	</select>
 
+    <!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtPrfmncDsctnList	-->
+	<!-- DESC : 파프리카출하실적 조회	                                       					-->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2024.04.01  	김호      		Initial Creation                            	-->
+	<!-- ==============================================================================	-->
+    <select id="selectSpmtPrfmncDsctnList" parameterType="com.at.apcss.am.spmt.vo.SpmtDsctnTotVO" resultType="com.at.apcss.am.spmt.vo.SpmtDsctnTotVO">
+    	<choose>
+    		<when test='grdGubun != null and grdGubun !=""'>
+    			<if test='grdGubun == "A"'>
+    				<![CDATA[
+    					SELECT  MAX(APC_CD)			AS APC_CD
+    						  , SPMTNO     			AS SPMTNO
+						      , MAX(SPMT_YMD)  		AS SPMT_YMD
+						      , CNPT_CD  			AS CNPT_CD
+						      , CNPT_NM  			AS CNPT_NM
+						      , MAX(ITEM_CD)  		AS ITEM_CD
+						      , SUM(R_2XL)  		AS red2Xl
+						      , SUM(R_XL)   		AS redXl
+						      , SUM(R_L)    		AS redL
+						      , SUM(R_M)    		AS redM
+						      , SUM(R_S)    		AS redS
+						      , SUM(R_SS)   		AS redSs
+						      , SUM(Y_2XL)  		AS ylw2Xl
+						      , SUM(Y_XL)   		AS ylwXl
+						      , SUM(Y_L)    		AS ylwL
+						      , SUM(Y_M)    		AS ylwM
+						      , SUM(Y_S)    		AS ylwS
+						      , SUM(Y_SS)   		AS ylwSs
+						      , SUM(O_2XL)  		AS org2Xl
+						      , SUM(O_XL)   		AS orgXl
+						      , SUM(O_L)    		AS orgL
+						      , SUM(O_M)    		AS orgM
+						      , SUM(O_S)    		AS orgS
+						      , SUM(O_SS)   		AS orgSs
+						      , SUM(SPMT_QNTT)		AS tot
+						      , SUM(R_TOT)  		AS redTot
+						      , SUM(Y_TOT)  		AS ylwTot
+						      , SUM(O_TOT)  		AS orgTot
+						   FROM (SELECT PC.APC_CD
+						   			  , PC.SPMTNO
+						   			  , PC.SPMT_YMD AS SPMT_YMD
+						   			  , PC.CNPT_CD AS CNPT_CD
+						   			  , (SELECT FN_GET_CNPT_NM(PC.CNPT_CD, PC.APC_CD) FROM DUAL) AS CNPT_NM
+						   			  , PD.ITEM_CD AS ITEM_CD
+						              , CASE WHEN PD.VRTY_CD = '0300' AND PD.GDS_GRD IN ('01') THEN PD.SPMT_QNTT END AS R_2XL
+						              , CASE WHEN PD.VRTY_CD = '0300' AND PD.GDS_GRD IN ('02') THEN PD.SPMT_QNTT END AS R_XL
+						              , CASE WHEN PD.VRTY_CD = '0300' AND PD.GDS_GRD IN ('03') THEN PD.SPMT_QNTT END AS R_L
+						              , CASE WHEN PD.VRTY_CD = '0300' AND PD.GDS_GRD IN ('04') THEN PD.SPMT_QNTT END AS R_M
+						              , CASE WHEN PD.VRTY_CD = '0300' AND PD.GDS_GRD IN ('05') THEN PD.SPMT_QNTT END AS R_S
+						              , CASE WHEN PD.VRTY_CD = '0300' AND PD.GDS_GRD IN ('06') THEN PD.SPMT_QNTT END AS R_SS
+						              , CASE WHEN PD.VRTY_CD = '0200' AND PD.GDS_GRD IN ('01') THEN PD.SPMT_QNTT END AS Y_2XL
+						              , CASE WHEN PD.VRTY_CD = '0200' AND PD.GDS_GRD IN ('02') THEN PD.SPMT_QNTT END AS Y_XL
+						              , CASE WHEN PD.VRTY_CD = '0200' AND PD.GDS_GRD IN ('03') THEN PD.SPMT_QNTT END AS Y_L
+						              , CASE WHEN PD.VRTY_CD = '0200' AND PD.GDS_GRD IN ('04') THEN PD.SPMT_QNTT END AS Y_M
+						              , CASE WHEN PD.VRTY_CD = '0200' AND PD.GDS_GRD IN ('05') THEN PD.SPMT_QNTT END AS Y_S
+						              , CASE WHEN PD.VRTY_CD = '0200' AND PD.GDS_GRD IN ('06') THEN PD.SPMT_QNTT END AS Y_SS
+						              , CASE WHEN PD.VRTY_CD = '0400' AND PD.GDS_GRD IN ('01') THEN PD.SPMT_QNTT END AS O_2XL
+						              , CASE WHEN PD.VRTY_CD = '0400' AND PD.GDS_GRD IN ('02') THEN PD.SPMT_QNTT END AS O_XL
+						              , CASE WHEN PD.VRTY_CD = '0400' AND PD.GDS_GRD IN ('03') THEN PD.SPMT_QNTT END AS O_L
+						              , CASE WHEN PD.VRTY_CD = '0400' AND PD.GDS_GRD IN ('04') THEN PD.SPMT_QNTT END AS O_M
+						              , CASE WHEN PD.VRTY_CD = '0400' AND PD.GDS_GRD IN ('05') THEN PD.SPMT_QNTT END AS O_S
+						              , CASE WHEN PD.VRTY_CD = '0400' AND PD.GDS_GRD IN ('06') THEN PD.SPMT_QNTT END AS O_SS
+						              , CASE WHEN PD.VRTY_CD = '0300' AND PD.GDS_GRD IN ('01','02','03','04','05','06') THEN PD.SPMT_QNTT END AS R_TOT
+						              , CASE WHEN PD.VRTY_CD = '0200' AND PD.GDS_GRD IN ('01','02','03','04','05','06') THEN PD.SPMT_QNTT END AS Y_TOT
+						              , CASE WHEN PD.VRTY_CD = '0400' AND PD.GDS_GRD IN ('01','02','03','04','05','06') THEN PD.SPMT_QNTT END AS O_TOT
+						              , PD.SPMT_QNTT AS SPMT_QNTT
+						           FROM USRAM.TB_SPMT_PRFMNC_COM PC
+						              , USRAM.TB_SPMT_PRFMNC_DTL PD
+						          WHERE PD.GDS_GRD IN ('01','02','03','04','05','06')
+						            AND PC.APC_CD = PD.APC_CD
+						            AND PC.SPMTNO = PD.SPMTNO
+						            AND PC.DEL_YN = 'N'
+						            AND PD.DEL_YN = 'N'
+    				]]>
+   					<if test='apcCd != null and apcCd !=""'>
+					            	AND PC.APC_CD = #{apcCd}
+   					</if>
+					<if test='spmtYmdFrom != null and spmtYmdFrom != ""'>
+					   	   			AND PC.SPMT_YMD <![CDATA[>=]]> #{spmtYmdFrom}
+					</if>
+					<if test='spmtYmdTo != null and spmtYmdTo != ""'>
+					   	   			AND PC.SPMT_YMD <![CDATA[<=]]> #{spmtYmdTo}
+					</if>
+					<if test='itemCd != null and itemCd != ""'>
+									AND PD.ITEM_CD = #{itemCd}
+					</if>
+					<if test='cnptNm != null and cnptNm != ""'>
+									AND (SELECT FN_GET_CNPT_NM(PC.CNPT_CD, PC.APC_CD) FROM DUAL) LIKE '%' ||  #{cnptNm} || '%'
+					</if>
+					<if test='cnptCd != null and cnptCd != ""'>
+									AND PC.CNPT_CD = #{cnptCd}
+					</if>
+    				<![CDATA[
+						       ORDER BY SPMTNO DESC
+								)
+					   GROUP BY SPMTNO
+						      , CNPT_CD
+						      , CNPT_NM
+    				]]>
+    			</if>
+    			<if test='grdGubun == "B"'>
+    				<![CDATA[
+    					SELECT  MAX(APC_CD)			AS APC_CD
+    						  , SPMTNO     			AS SPMTNO
+						      , MAX(SPMT_YMD)  		AS SPMT_YMD
+						      , CNPT_CD  			AS CNPT_CD
+						      , CNPT_NM  			AS CNPT_NM
+						      , MAX(ITEM_CD)  		AS ITEM_CD
+						      , SUM(R_2XL)  		AS red2Xl
+						      , SUM(R_XL)   		AS redXl
+						      , SUM(R_L)    		AS redL
+						      , SUM(R_M)    		AS redM
+						      , SUM(R_S)    		AS redS
+						      , SUM(R_SS)   		AS redSs
+						      , SUM(Y_2XL)  		AS ylw2Xl
+						      , SUM(Y_XL)   		AS ylwXl
+						      , SUM(Y_L)    		AS ylwL
+						      , SUM(Y_M)    		AS ylwM
+						      , SUM(Y_S)    		AS ylwS
+						      , SUM(Y_SS)   		AS ylwSs
+						      , SUM(O_2XL)  		AS org2Xl
+						      , SUM(O_XL)   		AS orgXl
+						      , SUM(O_L)    		AS orgL
+						      , SUM(O_M)    		AS orgM
+						      , SUM(O_S)    		AS orgS
+						      , SUM(O_SS)   		AS orgSs
+						      , SUM(SPMT_QNTT)		AS tot
+						      , SUM(R_TOT)  		AS redTot
+						      , SUM(Y_TOT)  		AS ylwTot
+						      , SUM(O_TOT)  		AS orgTot
+						   FROM (SELECT PC.APC_CD
+						   			  , PC.SPMTNO
+						   			  , PC.SPMT_YMD AS SPMT_YMD
+						   			  , PC.CNPT_CD AS CNPT_CD
+						   			  , (SELECT FN_GET_CNPT_NM(PC.CNPT_CD, PC.APC_CD) FROM DUAL) AS CNPT_NM
+						   			  , PD.ITEM_CD AS ITEM_CD
+						              , CASE WHEN PD.VRTY_CD = '0300' AND PD.GDS_GRD IN ('07') THEN PD.SPMT_QNTT END AS R_2XL
+						              , CASE WHEN PD.VRTY_CD = '0300' AND PD.GDS_GRD IN ('08') THEN PD.SPMT_QNTT END AS R_XL
+						              , CASE WHEN PD.VRTY_CD = '0300' AND PD.GDS_GRD IN ('09') THEN PD.SPMT_QNTT END AS R_L
+						              , CASE WHEN PD.VRTY_CD = '0300' AND PD.GDS_GRD IN ('10') THEN PD.SPMT_QNTT END AS R_M
+						              , CASE WHEN PD.VRTY_CD = '0300' AND PD.GDS_GRD IN ('11') THEN PD.SPMT_QNTT END AS R_S
+						              , CASE WHEN PD.VRTY_CD = '0300' AND PD.GDS_GRD IN ('12') THEN PD.SPMT_QNTT END AS R_SS
+						              , CASE WHEN PD.VRTY_CD = '0200' AND PD.GDS_GRD IN ('07') THEN PD.SPMT_QNTT END AS Y_2XL
+						              , CASE WHEN PD.VRTY_CD = '0200' AND PD.GDS_GRD IN ('08') THEN PD.SPMT_QNTT END AS Y_XL
+						              , CASE WHEN PD.VRTY_CD = '0200' AND PD.GDS_GRD IN ('09') THEN PD.SPMT_QNTT END AS Y_L
+						              , CASE WHEN PD.VRTY_CD = '0200' AND PD.GDS_GRD IN ('10') THEN PD.SPMT_QNTT END AS Y_M
+						              , CASE WHEN PD.VRTY_CD = '0200' AND PD.GDS_GRD IN ('11') THEN PD.SPMT_QNTT END AS Y_S
+						              , CASE WHEN PD.VRTY_CD = '0200' AND PD.GDS_GRD IN ('12') THEN PD.SPMT_QNTT END AS Y_SS
+						              , CASE WHEN PD.VRTY_CD = '0400' AND PD.GDS_GRD IN ('07') THEN PD.SPMT_QNTT END AS O_2XL
+						              , CASE WHEN PD.VRTY_CD = '0400' AND PD.GDS_GRD IN ('08') THEN PD.SPMT_QNTT END AS O_XL
+						              , CASE WHEN PD.VRTY_CD = '0400' AND PD.GDS_GRD IN ('09') THEN PD.SPMT_QNTT END AS O_L
+						              , CASE WHEN PD.VRTY_CD = '0400' AND PD.GDS_GRD IN ('10') THEN PD.SPMT_QNTT END AS O_M
+						              , CASE WHEN PD.VRTY_CD = '0400' AND PD.GDS_GRD IN ('11') THEN PD.SPMT_QNTT END AS O_S
+						              , CASE WHEN PD.VRTY_CD = '0400' AND PD.GDS_GRD IN ('12') THEN PD.SPMT_QNTT END AS O_SS
+						              , CASE WHEN PD.VRTY_CD = '0300' AND PD.GDS_GRD IN ('07','08','09','10','11','12') THEN PD.SPMT_QNTT END AS R_TOT
+						              , CASE WHEN PD.VRTY_CD = '0200' AND PD.GDS_GRD IN ('07','08','09','10','11','12') THEN PD.SPMT_QNTT END AS Y_TOT
+						              , CASE WHEN PD.VRTY_CD = '0400' AND PD.GDS_GRD IN ('07','08','09','10','11','12') THEN PD.SPMT_QNTT END AS O_TOT
+						              , PD.SPMT_QNTT AS SPMT_QNTT
+						           FROM USRAM.TB_SPMT_PRFMNC_COM PC
+						              , USRAM.TB_SPMT_PRFMNC_DTL PD
+						          WHERE PD.GDS_GRD IN ('01','02','03','04','05','06')
+						            AND PC.APC_CD = PD.APC_CD
+						            AND PC.SPMTNO = PD.SPMTNO
+						            AND PC.DEL_YN = 'N'
+						            AND PD.DEL_YN = 'N'
+    				]]>
+   					<if test='apcCd != null and apcCd !=""'>
+					            	AND PC.APC_CD = #{apcCd}
+   					</if>
+					<if test='spmtYmdFrom != null and spmtYmdFrom != ""'>
+					   	   			AND PC.SPMT_YMD <![CDATA[>=]]> #{spmtYmdFrom}
+					</if>
+					<if test='spmtYmdTo != null and spmtYmdTo != ""'>
+					   	   			AND PC.SPMT_YMD <![CDATA[<=]]> #{spmtYmdTo}
+					</if>
+					<if test='itemCd != null and itemCd != ""'>
+									AND PD.ITEM_CD = #{itemCd}
+					</if>
+					<if test='cnptNm != null and cnptNm != ""'>
+									AND (SELECT FN_GET_CNPT_NM(PC.CNPT_CD, PC.APC_CD) FROM DUAL) LIKE '%' ||  #{cnptNm} || '%'
+					</if>
+					<if test='cnptCd != null and cnptCd != ""'>
+									AND PC.CNPT_CD = #{cnptCd}
+					</if>
+    				<![CDATA[
+						       ORDER BY SPMTNO DESC
+								)
+					   GROUP BY SPMTNO
+						      , CNPT_CD
+						      , CNPT_NM
+    				]]>
+    			</if>
+    			<if test='grdGubun == "C"'>
+    				<![CDATA[
+    					SELECT  MAX(APC_CD)			AS APC_CD
+    						  , SPMTNO     			AS SPMTNO
+						      , MAX(SPMT_YMD)  		AS SPMT_YMD
+						      , CNPT_CD  			AS CNPT_CD
+						      , CNPT_NM  			AS CNPT_NM
+						      , MAX(ITEM_CD)  		AS ITEM_CD
+						      , SUM(R_2XL)  		AS red2Xl
+						      , SUM(R_XL)   		AS redXl
+						      , SUM(R_L)    		AS redL
+						      , SUM(R_M)    		AS redM
+						      , SUM(R_S)    		AS redS
+						      , SUM(R_SS)   		AS redSs
+						      , SUM(Y_2XL)  		AS ylw2Xl
+						      , SUM(Y_XL)   		AS ylwXl
+						      , SUM(Y_L)    		AS ylwL
+						      , SUM(Y_M)    		AS ylwM
+						      , SUM(Y_S)    		AS ylwS
+						      , SUM(Y_SS)   		AS ylwSs
+						      , SUM(O_2XL)  		AS org2Xl
+						      , SUM(O_XL)   		AS orgXl
+						      , SUM(O_L)    		AS orgL
+						      , SUM(O_M)    		AS orgM
+						      , SUM(O_S)    		AS orgS
+						      , SUM(O_SS)   		AS orgSs
+						      , SUM(SPMT_QNTT)		AS tot
+						      , SUM(R_TOT)  		AS redTot
+						      , SUM(Y_TOT)  		AS ylwTot
+						      , SUM(O_TOT)  		AS orgTot
+						   FROM (SELECT PC.APC_CD
+						   			  , PC.SPMTNO
+						   			  , PC.SPMT_YMD AS SPMT_YMD
+						   			  , PC.CNPT_CD AS CNPT_CD
+						   			  , (SELECT FN_GET_CNPT_NM(PC.CNPT_CD, PC.APC_CD) FROM DUAL) AS CNPT_NM
+						   			  , PD.ITEM_CD AS ITEM_CD
+						              , CASE WHEN PD.VRTY_CD = '0300' AND PD.GDS_GRD IN ('13') THEN PD.SPMT_QNTT END AS R_2XL
+						              , CASE WHEN PD.VRTY_CD = '0300' AND PD.GDS_GRD IN ('14') THEN PD.SPMT_QNTT END AS R_XL
+						              , CASE WHEN PD.VRTY_CD = '0300' AND PD.GDS_GRD IN ('15') THEN PD.SPMT_QNTT END AS R_L
+						              , 0 AS R_M
+						              , 0 AS R_S
+						              , 0 AS R_SS
+						              , CASE WHEN PD.VRTY_CD = '0200' AND PD.GDS_GRD IN ('13') THEN PD.SPMT_QNTT END AS Y_2XL
+						              , CASE WHEN PD.VRTY_CD = '0200' AND PD.GDS_GRD IN ('14') THEN PD.SPMT_QNTT END AS Y_XL
+						              , CASE WHEN PD.VRTY_CD = '0200' AND PD.GDS_GRD IN ('15') THEN PD.SPMT_QNTT END AS Y_L
+						              , 0 AS Y_M
+						              , 0 AS Y_S
+						              , 0 AS Y_SS
+						              , CASE WHEN PD.VRTY_CD = '0400' AND PD.GDS_GRD IN ('13') THEN PD.SPMT_QNTT END AS O_2XL
+						              , CASE WHEN PD.VRTY_CD = '0400' AND PD.GDS_GRD IN ('14') THEN PD.SPMT_QNTT END AS O_XL
+						              , CASE WHEN PD.VRTY_CD = '0400' AND PD.GDS_GRD IN ('15') THEN PD.SPMT_QNTT END AS O_L
+						              , 0 AS O_M
+						              , 0 AS O_S
+						              , 0 AS O_SS
+						              , CASE WHEN PD.VRTY_CD = '0300' AND PD.GDS_GRD IN ('13','14','15') THEN PD.SPMT_QNTT END AS R_TOT
+						              , CASE WHEN PD.VRTY_CD = '0200' AND PD.GDS_GRD IN ('13','14','15') THEN PD.SPMT_QNTT END AS Y_TOT
+						              , CASE WHEN PD.VRTY_CD = '0400' AND PD.GDS_GRD IN ('13','14','15') THEN PD.SPMT_QNTT END AS O_TOT
+						              , PD.SPMT_QNTT AS SPMT_QNTT
+						           FROM USRAM.TB_SPMT_PRFMNC_COM PC
+						              , USRAM.TB_SPMT_PRFMNC_DTL PD
+						          WHERE PD.GDS_GRD IN ('01','02','03','04','05','06')
+						            AND PC.APC_CD = PD.APC_CD
+						            AND PC.SPMTNO = PD.SPMTNO
+						            AND PC.DEL_YN = 'N'
+						            AND PD.DEL_YN = 'N'
+    				]]>
+   					<if test='apcCd != null and apcCd !=""'>
+					            	AND PC.APC_CD = #{apcCd}
+   					</if>
+					<if test='spmtYmdFrom != null and spmtYmdFrom != ""'>
+					   	   			AND PC.SPMT_YMD <![CDATA[>=]]> #{spmtYmdFrom}
+					</if>
+					<if test='spmtYmdTo != null and spmtYmdTo != ""'>
+					   	   			AND PC.SPMT_YMD <![CDATA[<=]]> #{spmtYmdTo}
+					</if>
+					<if test='itemCd != null and itemCd != ""'>
+									AND PD.ITEM_CD = #{itemCd}
+					</if>
+					<if test='cnptNm != null and cnptNm != ""'>
+									AND (SELECT FN_GET_CNPT_NM(PC.CNPT_CD, PC.APC_CD) FROM DUAL) LIKE '%' ||  #{cnptNm} || '%'
+					</if>
+					<if test='cnptCd != null and cnptCd != ""'>
+									AND PC.CNPT_CD = #{cnptCd}
+					</if>
+    				<![CDATA[
+						       ORDER BY SPMTNO DESC
+								)
+					   GROUP BY SPMTNO
+						      , CNPT_CD
+						      , CNPT_NM
+    				]]>
+    			</if>
+    		</when>
+    	</choose>
+    </select>
+
     <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.insertSpmtPrfmncCom	-->
 	<!-- DESC : 출하실적 공통 등록.	                         	             	 	-->
