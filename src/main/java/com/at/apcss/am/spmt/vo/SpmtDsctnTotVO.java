@@ -29,11 +29,16 @@ import lombok.Setter;
 public class SpmtDsctnTotVO extends ComVO{
 
 	private String apcCd;
-	private String inptYmdFrom;
-	private String inptYmdTo;
 	private String itemCd;
 	private String prdcrCd;
 	private String inptYmd;
+	private String inptYmdFrom;
+	private String inptYmdTo;
+	private String spmtYmd;
+	private String spmtYmdFrom;
+	private String spmtYmdTo;
+	private String cnptCd;
+	private String cnptNm;
 
 	private String grd;
 	private String prdcrNm;

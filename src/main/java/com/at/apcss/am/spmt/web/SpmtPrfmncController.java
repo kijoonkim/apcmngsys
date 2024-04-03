@@ -83,6 +83,27 @@ public class SpmtPrfmncController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	// 파프리카출하실적 조회
+	@PostMapping(value = "/am/spmt/selectSpmtPrfmncDsctnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectSpmtPrfmncDsctnList(@RequestBody SpmtDsctnTotVO SpmtDsctnTotVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<SpmtDsctnTotVO> resultList = new ArrayList<>();
+		try {
+			resultList = spmtPrfmncService.selectSpmtPrfmncDsctnList(SpmtDsctnTotVO);
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
 	// 출하실적 등록
 	@PostMapping(value = "/am/spmt/insertSpmtPrfmncByGrd.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> insertSpmtPrfmncByGrd(@RequestBody SpmtPrfmncComVO spmtPrfmncComVO, HttpServletRequest request) throws Exception {
