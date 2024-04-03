@@ -14,12 +14,14 @@ public class InvShipOgnReqMngVO extends ComVO{
 	private String corpNm;
 	private String rprsvFlnm;
 	private String brno;
+	private String crno;
 	private String rprsvTelno;
 	private String corpDtlSeCd;
 	private String invstNope;
 	private String invstExpndFrmerNope;
 
 	private String uoBrno;
+	private String uoCrno;
 	private String uoBrnoDel;//조직관계 데이터 삭제를 위한 추가
 	private String uoCd;
 	private String isoBrno;
@@ -27,7 +29,6 @@ public class InvShipOgnReqMngVO extends ComVO{
 	private String uoApoSe;
 	private String uoCorpNm;
 
-	private String crno;
 	private String corpSeCd;
 	private String corpFndnDay;
 	private String invstAmt;

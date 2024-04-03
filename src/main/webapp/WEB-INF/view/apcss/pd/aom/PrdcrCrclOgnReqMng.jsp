@@ -1144,7 +1144,7 @@
 			//{caption: ["seq"], 			ref: 'apoCd',   	hidden : true},
 			{caption: ["APO_CD"], 		ref: 'apoCd',   	type:'output',  width:'80px',	style:'text-align:center'},
 			{caption: ["통합조직구분"], 	ref: 'apoSe',   	hidden : true},
-			{caption: ["법인등록번호"], 	ref: 'crno',   		hidden : true},
+
 			{caption: ["신청년도"], 		ref: 'yr',   	type:'output',  width:'80px',	style:'text-align:center'},
 			{caption: ["통합조직여부"], 	ref: 'aprv',   type:'combo',  width:'80px',	style:'text-align:center', disabled:true
 				,typeinfo : {ref:'jsonComAprv', label:'label', value:'value', displayui : false}},
@@ -1154,6 +1154,8 @@
 						,typeinfo : {ref:'jsonComSgg', label:'label', value:'value', displayui : false}},
 			{caption: ["법인명"], 		ref: 'corpNm',  type:'output',  width:'150px',	style:'text-align:center'},
 			{caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'150px',	style:'text-align:center'},
+			{caption: ["법인번호"], 		ref: 'crno',   	type:'output',  width:'150px',	style:'text-align:center'},
+			//{caption: ["법인등록번호"], 	ref: 'crno',   		hidden : true},
 			{caption: ["법인체마감여부"], 		ref: 'corpDdlnSeCd',   	type:'output',  width:'90px',	style:'text-align:center'},
 			{caption: ["비고"], 			ref: 'rmrk',   	type:'output',  width:'220px',	style:'text-align:center'},
 
@@ -2650,6 +2652,7 @@
 			{caption: ["신청년도"],					ref: 'yr',					type:'output',  width:'70px',	style:'text-align:center'},
 			{caption: ["법인체마감"], 				ref: 'corpDdlnSeCd',		type:'output',  width:'70px',	style:'text-align:center'},
 			{caption: ["사업자번호"],				ref: 'brno',				type:'output',  width:'150px',	style:'text-align:center'},
+			{caption: ["법인번호"],					ref: 'crno',				type:'output',  width:'150px',	style:'text-align:center'},
 			{caption: ["업체명"],					ref: 'corpNm',				type:'output',  width:'90px',	style:'text-align:center'},
 			{caption: ["품목분류"],					ref: 'ctgryNm',				type:'output',  width:'90px',	style:'text-align:center'},
 			{caption: ["전문/육성 구분"],			ref: 'sttgUpbrItemNm',		type:'output',  width:'90px',	style:'text-align:center'},
@@ -2712,6 +2715,7 @@
 						yr					:item.yr
 						,corpDdlnSeCd		:item.corpDdlnSeCd
 						,brno				:item.brno
+						,crno				:item.crno
 						,corpNm				:item.corpNm
 						,ctgryNm			:item.ctgryNm
 						,sttgUpbrItemNm		:item.sttgUpbrItemNm
