@@ -855,10 +855,6 @@
 		let wrhsWght = parseInt(SBUxMethod.get("dtl-inp-wrhsWght")) || 0;			// 입고중량
 
 	   	// validation check
-	   	if (gfn_isEmpty(wghYmd)) {
-	   		gfn_comAlert("W0001", "입고일자");		//	W0001	{0}을/를 선택하세요.
-	           return;
-	   	}
 	   	if (gfn_isEmpty(prdcrCd)) {
 	   		gfn_comAlert("W0002", "생산자");		//	W0002	{0}을/를 입력하세요.
 	           return;
@@ -871,21 +867,11 @@
 	   		gfn_comAlert("W0001", "품종");		//	W0001	{0}을/를 선택하세요.
 	           return;
 	   	}
-	   	if (gfn_isEmpty(wrhsSeCd)) {
-	   		gfn_comAlert("W0001", "입고구분");		//	W0001	{0}을/를 선택하세요.
+	   	if (gfn_isEmpty(wghYmd)) {
+	   		gfn_comAlert("W0001", "계량일자");		//	W0001	{0}을/를 선택하세요.
 	           return;
 	   	}
-	   	if (gfn_isEmpty(gdsSeCd)) {
-	   		gfn_comAlert("W0001", "상품구분");		//	W0001	{0}을/를 선택하세요.
-	           return;
-	   	}
-
-	   	trsprtSeCd
-	   	if (gfn_isEmpty(warehouseSeCd)) {
-	   		gfn_comAlert("W0001", "창고");		//	W0001	{0}을/를 선택하세요.
-	           return;
-	   	}
-	   	if (gfn_isEmpty(vhclno)) {
+		if (gfn_isEmpty(vhclno)) {
 	   		gfn_comAlert("W0002", "차량번호");		//	W0002	{0}을/를 입력하세요.
 	           return;
 	   	} else {
@@ -894,22 +880,26 @@
     			return;
     		}
     	}
-
-	   	if (wholWght <= 0) {
+		if (wholWght <= 0) {
 	   		gfn_comAlert("W0002", "전체중량");		//	W0002	{0}을/를 입력하세요.
+	           return;
+	   	}
+		if (emptVhclWght <= 0) {
+	   		gfn_comAlert("W0005", "공차중량");		//	W0005	{0}이/가 없습니다.
 	           return;
 	   	}
 	   	if (wrhsWght <= 0) {
 	   		gfn_comAlert("W0005", "입고중량");		//	W0005	{0}이/가 없습니다.
 	           return;
 	   	}
-
+	   	if (gfn_isEmpty(warehouseSeCd)) {
+	   		gfn_comAlert("W0001", "창고");		//	W0001	{0}을/를 선택하세요.
+	           return;
+	   	}
     	if (jsonWrhsPltBx.wrhsPltBxData.length == 0) {
     		gfn_comAlert("W0005", "팔레트/박스 정보");		//	W0005	{0}이/가 없습니다.
             return;
     	}
-
-
 		if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
 	   		return;
 	   	}
@@ -1283,7 +1273,10 @@
 			SBUxMethod.set("dtl-inp-prdcrCd", value);
 			SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 			let prdcr = _.find(jsonPrdcr, {prdcrCd: value});
+			prdcr.itemVrtyCd = prdcr.rprsItemCd + prdcr.rprsVrtyCd;
+
 			fn_setPrdcrForm(prdcr);
+			
 		}
 	}
 
@@ -1312,7 +1305,6 @@
 	}
 
 	const fn_setPrdcrForm = async function(prdcr) {
-
 		if (!gfn_isEmpty(prdcr.itemVrtyCd)) {	// 대표품종
 			await gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd);
 			SBUxMethod.set("dtl-slt-vrtyCd", prdcr.itemVrtyCd);
