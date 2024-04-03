@@ -896,6 +896,7 @@
 			    		,typeinfo : {ref:'jsonComSgg', label:'label', value:'value', displayui : false}},
 	        {caption: ["법인명"], 		ref: 'corpNm',  type:'output',  width:'150px',    style:'text-align:center'},
 	        {caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["법인번호"], 		ref: 'crno',   	type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["법인체마감"], 		ref: 'corpDdlnSeCd',   	type:'output',  width:'90px',    style:'text-align:center'},
 	        {caption: ["비고"], 			ref: 'rmrk',   	type:'output',  width:'220px',    style:'text-align:center'}
 	    ];
@@ -940,6 +941,7 @@
 	    	{caption: ["계정권한"], 			ref: 'userType',   	type:'output',  width:'130px',    style:'text-align:center'},
 	    	{caption: ["신청일"], 				ref: 'aplyDay',   	type:'output',  width:'85px',    style:'text-align:center'},
 	        {caption: ["사업자번호"], 			ref: 'brno',   	type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["법인번호"], 			ref: 'crno',   	type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["법인체마감여부"], 		ref: 'corpDdlnSeCd',   	type:'output',  width:'90px',    style:'text-align:center'},
 	        {caption: ["전화번호"], 			ref: 'rprsvTelno',   	type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["법인형태"], 			ref: 'corpDtlSeCd',  	type:'combo',  width:'120px',    style:'text-align:center', disabled:true
@@ -1139,6 +1141,7 @@
 						,sgg: item.sgg
 						,corpNm: item.corpNm
 						,brno: item.brno
+						,crno: item.crno
 						,aprv: item.aprv
 						,yr: item.yr
 						,corpDdlnSeCd: item.corpDdlnSeCd
@@ -1290,6 +1293,7 @@
 						,corpDdlnSeCd: item.corpDdlnSeCd
 						,rprsvFlnm: item.rprsvFlnm
 						,brno: item.brno
+						,crno: item.crno
 						,uoBrno: item.uoBrno
 						,uoBrnoDel: item.uoBrnoDel
 						,uoCd: item.uoCd
@@ -1944,9 +1948,11 @@
 			{caption: ["신청구분"],					ref: 'aprv',				type:'output',	width:'70px',    style:'text-align:center'},
 			{caption: ["법인체마감"],				ref: 'corpDdlnSeCd',		type:'output',	width:'70px',    style:'text-align:center'},
 			{caption: ["통합조직사업자번호"],			ref: 'uoBrno',				type:'output',  width:'130px',    style:'text-align:center'},
+			{caption: ["통합조직법인번호"],			ref: 'uoCrno',				type:'output',  width:'130px',    style:'text-align:center'},
 			{caption: ["통합조직명"],				ref: 'uoCorpNm',			type:'output',  width:'220px',    style:'text-align:center'},
 			{caption: ["주소"],					ref: 'addr',				type:'output',  width:'330px',    style:'text-align:center'},
 			{caption: ["출자출하조직사업자번호"],		ref: 'brno',				type:'output',  width:'150px',    style:'text-align:center'},
+			{caption: ["출자출하조직법인번호"],		ref: 'crno',				type:'output',  width:'150px',    style:'text-align:center'},
 			{caption: ["출자출하조직명"],				ref: 'corpNm',				type:'output',  width:'90px',    style:'text-align:center'},
 			{caption: ["복수출자출하 여부"],			ref: 'uoBrnoCnt',			type:'output',  width:'120px',    style:'text-align:center'},
 			{caption: ["법인구분"],					ref: 'corpSeCd',			type:'output',  width:'70px',    style:'text-align:center'},
@@ -1992,9 +1998,11 @@
 						aprv:						item.aprv
 						, corpDdlnSeCd:				item.corpDdlnSeCd
 						, uoBrno:					item.uoBrno
+						, uoCrno:					item.uoCrno
 						, uoCorpNm:					item.uoCorpNm
 						, addr:						item.addr
 						, brno:						item.brno
+						, crno:						item.crno
 						, corpNm:					item.corpNm
 						, uoBrnoCnt:				item.uoBrnoCnt
 						, corpSeCd:					item.corpSeCd
