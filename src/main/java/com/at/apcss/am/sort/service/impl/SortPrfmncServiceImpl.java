@@ -70,6 +70,13 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 
 		return resultVO;
 	}
+	@Override
+	public List<SortDsctnTotVO> selectSortDsctn(SortDsctnTotVO sortDsctnTotVO) throws Exception {
+
+		List<SortDsctnTotVO> resultVO = sortPrfmncMapper.selectSortDsctn(sortDsctnTotVO);
+
+		return resultVO;
+	}
 
 	@Override
 	public List<ComSortDsctnTotVO> selectComSortDsctnTot(ComSortDsctnTotVO sortDsctnTotVO) throws Exception {
@@ -220,13 +227,13 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 
 		return null;
 	}
-	
+
     @Override
     public List<SortPrfmncVO> selectSortListBySortno(SortPrfmncVO sortPrfmncVO) throws Exception {
-        
+
         List<SortPrfmncVO> resultList = sortPrfmncMapper.selectSortListBySortno(sortPrfmncVO);
 
         return resultList;
     }
-	
+
 }

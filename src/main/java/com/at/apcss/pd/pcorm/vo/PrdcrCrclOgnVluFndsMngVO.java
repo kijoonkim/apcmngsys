@@ -240,6 +240,7 @@ public class PrdcrCrclOgnVluFndsMngVO extends ComVO{
 	private String rprsvFlnm;
 	private String rprsvTelno;
 	private String rprsvMoblno;
+	private String rprsvEml;
 
 	private String picPosition;
 	private String picTelno;

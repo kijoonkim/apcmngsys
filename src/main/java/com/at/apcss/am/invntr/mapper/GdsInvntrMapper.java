@@ -6,6 +6,7 @@ import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.at.apcss.am.invntr.vo.GdsInvntrVO;
 import com.at.apcss.am.invntr.vo.GdsStdGrdVO;
+import com.at.apcss.am.spmt.vo.SpmtDsctnTotVO;
 
 /**
  * 상품재고관리 Mapper 인터페이스
@@ -39,7 +40,7 @@ public interface GdsInvntrMapper {
 	 * @throws Exception
 	 */
 	public GdsInvntrVO selectSpmtGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception;
-	
+
 	/**
 	 * 출하상품재고 목록 조회
 	 * @param gdsInvntrVO
@@ -47,7 +48,7 @@ public interface GdsInvntrMapper {
 	 * @throws Exception
 	 */
 	public List<GdsInvntrVO> selectSpmtGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception;
-	
+
 	/**
 	 * 상품재고 목록 조회
 	 * @param gdsInvntrVO
@@ -87,6 +88,14 @@ public interface GdsInvntrMapper {
 	 * @throws Exception
 	 */
 	public List<GdsInvntrVO> selectDailyGdsInvntrTotalList(GdsInvntrVO gdsInvntrVO) throws Exception;
+
+	/**
+	 * 파프리카 재고 조회(출하실적)
+	 * @param SpmtDsctnTotVO
+	 * @return List<SpmtDsctnTotVO>
+	 * @throws Exception
+	 */
+	public List<SpmtDsctnTotVO> selectGdsDsctn(SpmtDsctnTotVO spmtDsctnTotVO) throws Exception;
 
 	/**
 	 * 상품재고 등록
