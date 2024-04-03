@@ -687,6 +687,7 @@
 		SELECT
 			 B.YR
 			,A.BRNO
+			,A.CRNO
 			,A.CORP_NM
 			,C.CTGRY_NM
 			,DECODE(C.STTG_UPBR_ITEM_SE,1,'전문',2,'육성','') AS STTG_UPBR_ITEM_NM
