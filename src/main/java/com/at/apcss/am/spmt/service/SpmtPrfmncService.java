@@ -3,6 +3,7 @@ package com.at.apcss.am.spmt.service;
 import java.util.HashMap;
 import java.util.List;
 
+import com.at.apcss.am.spmt.vo.SpmtDsctnTotVO;
 import com.at.apcss.am.spmt.vo.SpmtPrfmncComVO;
 import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
 
@@ -156,4 +157,12 @@ public interface SpmtPrfmncService {
 	 * @throws Exception
 	 */
 	public List<SpmtPrfmncVO> selectSpmtPrfmncDtl(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+
+	/**
+	 * 파프리카출하실적 조회
+	 * @param spmtDsctnTotVO
+	 * @return List<SpmtDsctnTotVO>
+	 * @throws Exception
+	 */
+	public List<SpmtDsctnTotVO> selectSpmtPrfmncDsctnList(SpmtDsctnTotVO spmtDsctnTotVO) throws Exception;
 }

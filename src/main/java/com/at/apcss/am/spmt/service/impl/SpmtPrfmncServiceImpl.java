@@ -29,6 +29,7 @@ import com.at.apcss.am.sls.service.SlsPrfmncService;
 import com.at.apcss.am.sls.vo.SlsPrfmncVO;
 import com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper;
 import com.at.apcss.am.spmt.service.SpmtPrfmncService;
+import com.at.apcss.am.spmt.vo.SpmtDsctnTotVO;
 import com.at.apcss.am.spmt.vo.SpmtPrfmncComVO;
 import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
 import com.at.apcss.co.constants.ComConstants;
@@ -104,6 +105,14 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 	public List<SpmtPrfmncVO> selectSpmtPrfmncTotalList(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
 
 		List<SpmtPrfmncVO> resultList = spmtPrfmncMapper.selectSpmtPrfmncTotalList(spmtPrfmncVO);
+
+		return resultList;
+	}
+
+	@Override
+	public List<SpmtDsctnTotVO> selectSpmtPrfmncDsctnList(SpmtDsctnTotVO spmtDsctnTotVO) throws Exception {
+
+		List<SpmtDsctnTotVO> resultList = spmtPrfmncMapper.selectSpmtPrfmncDsctnList(spmtDsctnTotVO);
 
 		return resultList;
 	}
@@ -499,7 +508,7 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 
 								resultMap = gdsInvntrService.updateGdsInvntrSpmtPrfmnc(updateGdsInvntrVO);
 
-								if(resultMap != null) {
+								if (resultMap != null) {
 									throw new EgovBizException(getMessageForMap(resultMap));
 								}
 								remainderSpmtQntt = remainderSpmtQntt - spmtPrfmncVO.getSpmtQntt();
@@ -559,7 +568,7 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("W0005", "상품재고")));
 					}
 
-				}else {
+				} else {
 					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("W0005", "상품재고")));
 				}
 			}
@@ -774,11 +783,10 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 
 			resultMap = gdsInvntrService.updateGdsInvntrSpmtPrfmncRtn(gdsInvntrVO);
 
-			if(resultMap != null) {
+			if (resultMap != null) {
 				return resultMap;
 			}
 		}
-
 		return null;
 	}
 
@@ -828,7 +836,6 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 
 		}
 		return null;
-
 	}
 
 
