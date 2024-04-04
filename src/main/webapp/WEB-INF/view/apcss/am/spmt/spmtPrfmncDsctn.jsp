@@ -117,7 +117,7 @@
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
 					<div id="sb-area-spmtPrfmncDsctn" style="height:559px;"></div>
-				</div>>
+				</div>
 				<!--[pp] //검색결과 -->
 				
 			</div>
@@ -162,7 +162,7 @@
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'free';
 	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.mergecells = 'none';
+	    SBGridProperties.mergecells = 'byrestriccol';
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
@@ -172,22 +172,24 @@
 			position: 'bottom',
 			columns: {
 				standard: [2],
-				sum: [3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]
+				sum: [5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26]
 			},
 			grandtotalrow : {
-				titlecol: 2,
+				titlecol: 3,
 				titlevalue: '합계',
 				style : 'background-color: #ceebff ; font-weight: bold; color: #0060b3;',
 				stylestartcol: 0
 			},
 		};
 	    SBGridProperties.columns = [
+	    	{caption: ["","출하번호"],   	ref: 'spmtno',     	hidden: true},
         	{caption: ["","<input type='checkbox' id='allSpmtPrfmncDsctnCheckBox' onchange='fn_checkAll(grdSpmtPrfmncDsctn, this);'>"],
         		ref: 'checkedYn', type: 'checkbox',	width: '40px', style: 'text-align: center',
 				typeinfo : {ignoreupdate : true, checkedvalue : 'Y', uncheckedvalue : 'N'}
         	},
-	    	{caption: ["","출하일자"],		ref: 'spmtYmd', 	type: 'output',  	width:'100px', 	style: 'text-align:center; padding-right:5px;', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-	    	{caption: ["","출하처"],   	ref: 'cnptNm',     	type: 'output', 	width:'100px', 	style: 'text-align:center'},
+	    	{caption: ["","출하일자"],		ref: 'spmtYmd', 	type: 'output',  	width:'100px', 	style: 'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
+	    	{caption: ["","출하번호"],   	ref: 'spmtno',     	type: 'output', 	width:'120px', 	style: 'text-align:center'},
+	    	{caption: ["","출하처"],   	ref: 'cnptNm',     	type: 'output', 	width:'120px', 	style: 'text-align:center'},
 	    	
 	    	{caption: ["빨강","2XL"], 	ref: 'redV1', 		type: 'output',  	width:'50px', 	style: 'text-align:right; padding-right:5px;', 	format : {type:'number', rule:'#,###', emptyvalue:'0'}},
 	    	{caption: ["빨강","XL"], 		ref: 'redV2', 		type: 'output',  	width:'50px', 	style: 'text-align:right; padding-right:5px;', 	format : {type:'number', rule:'#,###', emptyvalue:'0'}},
@@ -195,7 +197,7 @@
 	    	{caption: ["빨강","M"], 		ref: 'redV4', 		type: 'output',  	width:'50px', 	style: 'text-align:right; padding-right:5px;', 	format : {type:'number', rule:'#,###', emptyvalue:'0'}},
 	    	{caption: ["빨강","S"], 		ref: 'redV5', 		type: 'output',  	width:'50px', 	style: 'text-align:right; padding-right:5px;', 	format : {type:'number', rule:'#,###', emptyvalue:'0'}},
 	    	{caption: ["빨강","2S"], 		ref: 'redV6', 		type: 'output',  	width:'50px', 	style: 'text-align:right; padding-right:5px;', 	format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-	    	{caption: ["빨강","소계"],		ref: 'redSbTot', 	type: 'output',  	width:'100px',	style: 'text-align:right; padding-right:5px;background-color:#ceebff;',
+	    	{caption: ["빨강","소계"],		ref: 'redSbTot', 	type: 'output',  	width:'85px',	style: 'text-align:right; padding-right:5px;background-color:#ceebff;',
 	    		format : {type:'number', rule:'#,###', emptyvalue:'0'}},
 	    							
 	    	{caption: ["노랑","2XL"], 	ref: 'ylwV1', 		type: 'output',  	width:'50px', 	style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
@@ -204,7 +206,7 @@
 	    	{caption: ["노랑","M"], 		ref: 'ylwV4', 		type: 'output',  	width:'50px', 	style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
 	    	{caption: ["노랑","S"], 		ref: 'ylwV5', 		type: 'output',  	width:'50px', 	style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
 	    	{caption: ["노랑","2S"], 		ref: 'ylwV6', 		type: 'output',  	width:'50px', 	style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-	    	{caption: ["노랑","소계"],		ref: 'ylwSbTot', 	type: 'output',  	width:'100px', 	style: 'text-align:right; padding-right:5px;background-color:#ceebff;',
+	    	{caption: ["노랑","소계"],		ref: 'ylwSbTot', 	type: 'output',  	width:'85px', 	style: 'text-align:right; padding-right:5px;background-color:#ceebff;',
 	    		format : {type:'number', rule:'#,###', emptyvalue:'0'}},
 	    							
 	    	{caption: ["주황","2XL"], 	ref: 'orngV1', 		type: 'output',  	width:'50px', 	style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
@@ -213,7 +215,7 @@
 	    	{caption: ["주황","M"], 		ref: 'orngV4', 		type: 'output',  	width:'50px', 	style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
 	    	{caption: ["주황","S"], 		ref: 'orngV5', 		type: 'output',  	width:'50px', 	style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
 	    	{caption: ["주황","2S"], 		ref: 'orngV6', 		type: 'output',  	width:'50px', 	style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-	    	{caption: ["주황","소계"],		ref: 'orngSbTot', 	type: 'output',  	width:'100px', 	style: 'text-align:right; padding-right:5px;background-color:#ceebff;',
+	    	{caption: ["주황","소계"],		ref: 'orngSbTot', 	type: 'output',  	width:'85px', 	style: 'text-align:right; padding-right:5px;background-color:#ceebff;',
 	    		format : {type:'number', rule:'#,###', emptyvalue:'0'}},
 
 	    	{caption: ["총합계","총합계"], ref: 'totSum', 		type: 'output',  	width:'150px', 	style: 'text-align:right; padding-right:5px;background-color:#ceebff;',
@@ -223,9 +225,9 @@
 	    grdSpmtPrfmncDsctn.bind('select' , fn_setValue);
 	    grdSpmtPrfmncDsctn.bind('deselect', fn_delValue);
 	    
-        grdSpmtPrfmncDsctn.setCellStyles(0,3,1,9,'background:#FF0000');
-		grdSpmtPrfmncDsctn.setCellStyles(0,10,1,16,'background:#FFFC33');
-		grdSpmtPrfmncDsctn.setCellStyles(0,17,1,23,'background:#FFB533');
+        grdSpmtPrfmncDsctn.setCellStyles(0,5,1,11,'background:#FF0000');
+		grdSpmtPrfmncDsctn.setCellStyles(0,12,1,18,'background:#FFFC33');
+		grdSpmtPrfmncDsctn.setCellStyles(0,19,1,25,'background:#FFB533');
 	}
 
 	/**
@@ -265,148 +267,222 @@
 		
 		grdGubunNm = SBUxMethod.getText('srch-slt-grdGubun');
 		
-		const param = {
+		const SpmtDsctnTotVO = {
 			apcCd		: gv_selectedApcCd,
 			spmtYmd		: spmtYmd,
+			itemCd		: '1326',
 			cnptCd		: cnptCd,
 			grdGubun	: grdGubun
 		};
-//     	let postJsonPromise = gfn_postJSON("/am/sort/selectDsctnTotList.do", param, null, false);
-//         let data = await postJsonPromise;
-// 		try {
-//         	if (!_.isEqual("S", data.resultStatus)) {
-//             	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-// 	        	return;
-// 	        }
+    	let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncDsctnList.do", SpmtDsctnTotVO, null, false);
+        let data = await postJsonPromise;
+		try {
+        	if (!_.isEqual("S", data.resultStatus)) {
+            	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	        	return;
+	        }
         	
-// 	        data.resultList.forEach((item, index) => {
-// 	        	const spmtPrfmncDsctn = {
-// 	        		  spmtYmd	: item.spmtYmd
-// 	        		, cnptNm	: item.cnptNm
+	        data.resultList.forEach((item, index) => {
+	        	const spmtPrfmncDsctn = {
+	        		  apcCd		: item.apcCd
+	        		, spmtYmd	: item.spmtYmd
+		        	, spmtno	: item.spmtno
+	        		, cnptCd	: item.cnptCd
+	        		, cnptNm	: item.cnptNm
+	        		, itemCd	: item.itemCd
 	        		
-// 	        	    , redV1 	: item.red2Xl
-// 	        	    , redV2 	: item.redXl
-// 	        	    , redV3 	: item.redL
-// 	        	    , redV4 	: item.redM
-// 	        	    , redV5 	: item.redS
-// 	        	    , redV6 	: item.redSs
-// 	        	    , redSbTot 	: item.redTot
+	        	    , redV1 	: item.red2Xl
+	        	    , redV2 	: item.redXl
+	        	    , redV3 	: item.redL
+	        	    , redV4 	: item.redM
+	        	    , redV5 	: item.redS
+	        	    , redV6 	: item.redSs
+	        	    , redSbTot 	: item.redTot
 	        	    
-// 	        	    , ylwV1 	: item.ylw2Xl
-// 	        	    , ylwV2 	: item.ylwXl
-// 	        	    , ylwV3 	: item.ylwL
-// 	        	    , ylwV4 	: item.ylwM
-// 	        	    , ylwV5 	: item.ylwS
-// 	        	    , ylwV6 	: item.ylwSs
-// 	        	    , ylwSbTot 	: item.ylwTot
+	        	    , ylwV1 	: item.ylw2Xl
+	        	    , ylwV2 	: item.ylwXl
+	        	    , ylwV3 	: item.ylwL
+	        	    , ylwV4 	: item.ylwM
+	        	    , ylwV5 	: item.ylwS
+	        	    , ylwV6 	: item.ylwSs
+	        	    , ylwSbTot 	: item.ylwTot
 	        	    
-// 	        	    , orngV1 	: item.org2Xl
-// 	        	    , orngV2 	: item.orgXl
-// 	        	    , orngV3 	: item.orgL
-// 	        	    , orngV4 	: item.orgM
-// 	        	    , orngV5 	: item.orgS
-// 	        	    , orngV6 	: item.orgSs
-// 	        	    , orngSbTot : item.orgTot
+	        	    , orngV1 	: item.org2Xl
+	        	    , orngV2 	: item.orgXl
+	        	    , orngV3 	: item.orgL
+	        	    , orngV4 	: item.orgM
+	        	    , orngV5 	: item.orgS
+	        	    , orngV6 	: item.orgSs
+	        	    , orngSbTot : item.orgTot
 	        	    
-// 	        	    , totSum   	: item.tot
-// 	        	}
-// 	        	jsonSpmtPrfmncDsctn.push(spmtPrfmncDsctn);
-// 	        });
-
+	        	    , totSum   	: item.tot
+	        	}
+	        	jsonSpmtPrfmncDsctn.push(spmtPrfmncDsctn);
+	        });
 			
 			/* ------------ 하드코딩 ------------ */
-			jsonSpmtPrfmncDsctn = [
-				{
-			  		  spmtYmd	: '20240401'
-			  		, cnptNm	: 'test'
+// 			jsonSpmtPrfmncDsctn = [
+// 				{
+// 			  		  spmtYmd	: '20240401'
+// 					, spmtno	: 'DT202309010001'
+// 			  		, cnptNm	: '지마켓'
+// 				  	, cnptCd	: '0001'
 			  		
-			  	    , redV1 	: 10
-			  	    , redV2 	: 20
-			  	    , redV3 	: 30
-			  	    , redV4 	: 10
-			  	    , redV5 	: 10
-			  	    , redV6 	: 10
-			  	    , redSbTot 	: 90
+// 			  	    , redV1 	: 10
+// 			  	    , redV2 	: 20
+// 			  	    , redV3 	: 30
+// 			  	    , redV4 	: 10
+// 			  	    , redV5 	: 10
+// 			  	    , redV6 	: 10
+// 			  	    , redSbTot 	: 90
 			  	    
-			  	    , ylwV1 	: 10
-			  	    , ylwV2 	: 40
-			  	    , ylwV3 	: 30
-			  	    , ylwV4 	: 20
-			  	    , ylwV5 	: 0
-			  	    , ylwV6 	: 0
-			  	    , ylwSbTot 	: 100
+// 			  	    , ylwV1 	: 10
+// 			  	    , ylwV2 	: 40
+// 			  	    , ylwV3 	: 30
+// 			  	    , ylwV4 	: 20
+// 			  	    , ylwV5 	: 0
+// 			  	    , ylwV6 	: 0
+// 			  	    , ylwSbTot 	: 100
 			  	    
-			  	    , orngV1 	: 0
-			  	    , orngV2 	: 0
-			  	    , orngV3 	: 0
-			  	    , orngV4 	: 20
-			  	    , orngV5 	: 30
-			  	    , orngV6 	: 5
-			  	    , orngSbTot : 55
+// 			  	    , orngV1 	: 0
+// 			  	    , orngV2 	: 0
+// 			  	    , orngV3 	: 0
+// 			  	    , orngV4 	: 20
+// 			  	    , orngV5 	: 30
+// 			  	    , orngV6 	: 5
+// 			  	    , orngSbTot : 55
 				  	    
-					, totSum 	: 245
-				},
-				{
-			  		  spmtYmd	: '20240401'
-			  		, cnptNm	: 'test'
+// 					, totSum 	: 245
+// 				},
+// 				{
+// 			  		  spmtYmd	: '20240401'
+// 					, spmtno	: 'DT202309010002'
+// 			  		, cnptNm	: '쿠팡'
+// 					, cnptCd	: '0002'
 			  		
-			  	    , redV1 	: 0
-			  	    , redV2 	: 0
-			  	    , redV3 	: 0
-			  	    , redV4 	: 10
-			  	    , redV5 	: 10
-			  	    , redV6 	: 10
-			  	    , redSbTot 	: 30
+// 			  	    , redV1 	: 0
+// 			  	    , redV2 	: 0
+// 			  	    , redV3 	: 0
+// 			  	    , redV4 	: 10
+// 			  	    , redV5 	: 10
+// 			  	    , redV6 	: 10
+// 			  	    , redSbTot 	: 30
 			  	    
-			  	    , ylwV1 	: 10
-			  	    , ylwV2 	: 10
-			  	    , ylwV3 	: 0
-			  	    , ylwV4 	: 20
-			  	    , ylwV5 	: 0
-			  	    , ylwV6 	: 0
-			  	    , ylwSbTot 	: 40
+// 			  	    , ylwV1 	: 10
+// 			  	    , ylwV2 	: 10
+// 			  	    , ylwV3 	: 0
+// 			  	    , ylwV4 	: 20
+// 			  	    , ylwV5 	: 0
+// 			  	    , ylwV6 	: 0
+// 			  	    , ylwSbTot 	: 40
 			  	    
-			  	    , orngV1 	: 0
-			  	    , orngV2 	: 15
-			  	    , orngV3 	: 0
-			  	    , orngV4 	: 0
-			  	    , orngV5 	: 10
-			  	    , orngV6 	: 0
-			  	    , orngSbTot : 25
+// 			  	    , orngV1 	: 0
+// 			  	    , orngV2 	: 15
+// 			  	    , orngV3 	: 0
+// 			  	    , orngV4 	: 0
+// 			  	    , orngV5 	: 10
+// 			  	    , orngV6 	: 0
+// 			  	    , orngSbTot : 25
 				  	    
-					, totSum 	: 95
-				},
-				{
-			  		  spmtYmd	: '20240401'
-			  		, cnptNm	: 'test'
+// 					, totSum 	: 95
+// 				},
+// 				{
+// 			  		  spmtYmd	: '20240401'
+// 					, spmtno	: 'DT202309010002'
+// 			  		, cnptNm	: '이마트'
+// 					, cnptCd	: '0003'
 			  		
-			  	    , redV1 	: 10
-			  	    , redV2 	: 20
-			  	    , redV3 	: 0
-			  	    , redV4 	: 0
-			  	    , redV5 	: 0
-			  	    , redV6 	: 5
-			  	    , redSbTot 	: 35
+// 			  	    , redV1 	: 0
+// 			  	    , redV2 	: 0
+// 			  	    , redV3 	: 0
+// 			  	    , redV4 	: 0
+// 			  	    , redV5 	: 0
+// 			  	    , redV6 	: 0
+// 			  	    , redSbTot 	: 0
 			  	    
-			  	    , ylwV1 	: 0
-			  	    , ylwV2 	: 0
-			  	    , ylwV3 	: 0
-			  	    , ylwV4 	: 10
-			  	    , ylwV5 	: 10
-			  	    , ylwV6 	: 0
-			  	    , ylwSbTot 	: 20
+// 			  	    , ylwV1 	: 0
+// 			  	    , ylwV2 	: 0
+// 			  	    , ylwV3 	: 0
+// 			  	    , ylwV4 	: 0
+// 			  	    , ylwV5 	: 0
+// 			  	    , ylwV6 	: 0
+// 			  	    , ylwSbTot 	: 0
 			  	    
-			  	    , orngV1 	: 0
-			  	    , orngV2 	: 20
-			  	    , orngV3 	: 0
-			  	    , orngV4 	: 10
-			  	    , orngV5 	: 30
-			  	    , orngV6 	: 0
-			  	    , orngSbTot : 60
+// 			  	    , orngV1 	: 0
+// 			  	    , orngV2 	: 35
+// 			  	    , orngV3 	: 25
+// 			  	    , orngV4 	: 0
+// 			  	    , orngV5 	: 0
+// 			  	    , orngV6 	: 0
+// 			  	    , orngSbTot : 60
+				  	    
+// 					, totSum 	: 60
+// 				},
+// 				{
+// 			  		  spmtYmd	: '20240401'
+// 					, spmtno	: 'DT202309010003'
+// 			  		, cnptNm	: '이마트'
+// 					, cnptCd	: '0003'
+			  		
+// 			  	    , redV1 	: 10
+// 			  	    , redV2 	: 20
+// 			  	    , redV3 	: 0
+// 			  	    , redV4 	: 0
+// 			  	    , redV5 	: 0
+// 			  	    , redV6 	: 5
+// 			  	    , redSbTot 	: 35
 			  	    
-				  	, totSum 	: 115
-				}
-			];
+// 			  	    , ylwV1 	: 0
+// 			  	    , ylwV2 	: 0
+// 			  	    , ylwV3 	: 0
+// 			  	    , ylwV4 	: 10
+// 			  	    , ylwV5 	: 10
+// 			  	    , ylwV6 	: 0
+// 			  	    , ylwSbTot 	: 20
+			  	    
+// 			  	    , orngV1 	: 0
+// 			  	    , orngV2 	: 20
+// 			  	    , orngV3 	: 0
+// 			  	    , orngV4 	: 10
+// 			  	    , orngV5 	: 30
+// 			  	    , orngV6 	: 0
+// 			  	    , orngSbTot : 60
+			  	    
+// 				  	, totSum 	: 115
+// 				},
+// 				{
+// 			  		  spmtYmd	: '20240401'
+// 					, spmtno	: 'DT202309010003'
+// 			  		, cnptNm	: '다이소'
+// 					, cnptCd	: '0004'
+			  		
+// 			  	    , redV1 	: 5
+// 			  	    , redV2 	: 5
+// 			  	    , redV3 	: 5
+// 			  	    , redV4 	: 5
+// 			  	    , redV5 	: 0
+// 			  	    , redV6 	: 5
+// 			  	    , redSbTot 	: 25
+			  	    
+// 			  	    , ylwV1 	: 0
+// 			  	    , ylwV2 	: 40
+// 			  	    , ylwV3 	: 0
+// 			  	    , ylwV4 	: 25
+// 			  	    , ylwV5 	: 0
+// 			  	    , ylwV6 	: 0
+// 			  	    , ylwSbTot 	: 65
+			  	    
+// 			  	    , orngV1 	: 0
+// 			  	    , orngV2 	: 20
+// 			  	    , orngV3 	: 0
+// 			  	    , orngV4 	: 10
+// 			  	    , orngV5 	: 0
+// 			  	    , orngV6 	: 0
+// 			  	    , orngSbTot : 30
+			  	    
+// 				  	, totSum 	: 120
+// 				}
+// 			];
 			/* ------------ 하드코딩 ------------ */
 
 	        grdSpmtPrfmncDsctn.rebuild();
@@ -416,18 +492,18 @@
 
 	    	let caption = "<input type='checkbox' id='allSpmtPrfmncDsctnCheckBox' onchange='fn_checkAll(grdSpmtPrfmncDsctn, this);'>";
 	    	grdSpmtPrfmncDsctn.setCellData(1, grdSpmtPrfmncDsctn.getColRef("checkedYn"), caption);
-	        
-	        grdSpmtPrfmncDsctn.setCellStyles(0,3,1,9,'background:#FF0000');
-			grdSpmtPrfmncDsctn.setCellStyles(0,10,1,16,'background:#FFFC33');
-			grdSpmtPrfmncDsctn.setCellStyles(0,17,1,23,'background:#FFB533');
+
+	        grdSpmtPrfmncDsctn.setCellStyles(0,5,1,11,'background:#FF0000');
+			grdSpmtPrfmncDsctn.setCellStyles(0,12,1,18,'background:#FFFC33');
+			grdSpmtPrfmncDsctn.setCellStyles(0,19,1,25,'background:#FFB533');
 			
-// 		} catch (e) {
-// 			if (!(e instanceof Error)) {
-// 				e = new Error(e);
-// 			}
-// 			console.error("failed", e.message);
-//  			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-// 		}
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+ 			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
 	}
  	
     // 그리드 체크박스 전체 선택
@@ -441,11 +517,22 @@
     	var getCol = grid.getCol();
         for (var i=0; i<gridList.length-1; i++) {
         	grid.clickCell(i+2, getColRef);
-            grid.setCellData(i+2, getColRef, checkedYn, true, false);
+            grid.setCellData(i+2, getColRef, checkedYn);
         }
     	grid.clickCell(getRow, getCol);
     	grid.setRow(getRow);
     	grid.setCol(getCol);
+    }
+    
+    // 그리드 merged Row 체크값 변경
+    function fn_checkMergedCell(grid, jsonData, nRow) {
+		let rowData = grid.getRowData(nRow);
+		
+		for (var i=nRow-1; i<jsonData.length-1; i++) {
+			if (rowData.spmtno == jsonData[i].spmtno) {
+				jsonData[i].checkedYn = rowData.checkedYn;
+			} else break;
+		}
     }
 
     /**
@@ -454,9 +541,10 @@
 	 */
     const fn_setValue = function() {
     	let nRow = grdSpmtPrfmncDsctn.getRow();
-    	let nCol = grdSpmtPrfmncDsctn.getCol();
     	let checkedCol = grdSpmtPrfmncDsctn.getColRef("checkedYn");
-		
+    	
+    	fn_checkMergedCell(grdSpmtPrfmncDsctn, jsonSpmtPrfmncDsctn, nRow);
+    	
     	// 체크박스가 모두 활성화 되었을 경우 상단에 체크박스 체크
 		const allCheckBox = document.querySelector('#allSpmtPrfmncDsctnCheckBox');
 		let checkboxChecked = grdSpmtPrfmncDsctn.getCheckedRows(checkedCol);
@@ -472,6 +560,8 @@
 	 */
     const fn_delValue = async function(){
     	let nRow = grdSpmtPrfmncDsctn.getRow();
+    	
+    	fn_checkMergedCell(grdSpmtPrfmncDsctn, jsonSpmtPrfmncDsctn, nRow);
 
 		// 상단 체크박스 비활성화
 		const allCheckBox = document.querySelector('#allSpmtPrfmncDsctnCheckBox');
@@ -483,23 +573,13 @@
     	let checkedCol = grdSpmtPrfmncDsctn.getColRef("checkedYn");
 		let grdRows = grdSpmtPrfmncDsctn.getCheckedRows(checkedCol);
     	let deleteList = [];
-		let alertList = [];
 
     	for(var i=0; i< grdRows.length; i++){
     		let nRow = grdRows[i];
     		let rowData = grdSpmtPrfmncDsctn.getRowData(nRow);
-
-//     		if (spmtQntt > 0) {
-// 				alertList.push(rowSeq + "번");
-//     		} else {
-//     			deleteList.push(rowData);
-//     		}
+    		deleteList.push(rowData);
     	}
 
-// 		if (alertList.length > 0) {
-// 			gfn_comAlert("W0009", alertList.join(", ") + " 출하지시는 출하실적");		// W0009	{0}이/가 있습니다.
-//     		return;
-// 		}
     	if(deleteList.length == 0){
     		gfn_comAlert("W0003", "삭제");			// W0003	{0}할 대상이 없습니다.
     		return;
