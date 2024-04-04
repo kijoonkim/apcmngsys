@@ -57,7 +57,8 @@
 					<colgroup>
 						<col style="width: 7%">
 						<col style="width: 6%">
-						<col style="width: 9%">
+						<col style="width: 6%">
+						<col style="width: 3%">
 
 						<col style="width: 7%">
 						<col style="width: 6%">
@@ -72,11 +73,22 @@
 							<th scope="row" class="th_bg"><span class="data_required"></span>출하일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker
-									id="srch-dtp-spmtYmd"
-									name="srch-dtp-spmtYmd"
+									id="srch-dtp-spmtYmdFrom"
+									name="srch-dtp-spmtYmdFrom"
 									uitype="popup"
 									date-format="yyyy-mm-dd"
 									class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"
+									onchange="fn_dtpChange(srch-dtp-spmtYmdFrom)"
+								></sbux-datepicker>
+							</td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-datepicker
+									id="srch-dtp-spmtYmdTo"
+									name="srch-dtp-spmtYmdTo"
+									uitype="popup"
+									date-format="yyyy-mm-dd"
+									class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"
+									onchange="fn_dtpChange(srch-dtp-spmtYmdTo)"
 								></sbux-datepicker>
 							</td>
 							<td></td>
@@ -142,13 +154,25 @@
 	});
 
 	const fn_init = async function() {
-		SBUxMethod.set("srch-dtp-spmtYmd", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-dtp-spmtYmdFrom", gfn_dateFirstYmd(new Date()));
+		SBUxMethod.set("srch-dtp-spmtYmdTo", gfn_dateToYmd(new Date()));
 		
 		fn_createSpmtPrfmncDsctnGrid();
 		let rst = await Promise.all([
 			gfn_setCpntSBSelect('srch-slt-cnptCd', jsonCnptCd, gv_selectedApcCd)		// 출하처
 		]);
 	}
+
+    const fn_dtpChange = function(){
+ 		let spmtYmdFrom = SBUxMethod.get("srch-dtp-spmtYmdFrom");
+ 		let spmtYmdTo = SBUxMethod.get("srch-dtp-spmtYmdTo");
+ 		if(gfn_diffDate(spmtYmdFrom, spmtYmdTo) < 0){
+ 			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");		//	W0001	{0}
+ 			SBUxMethod.set("srch-dtp-spmtYmdFrom", gfn_dateFirstYmd(new Date()));
+ 			SBUxMethod.set("srch-dtp-spmtYmdTo", gfn_dateToYmd(new Date()));
+ 			return;
+ 		}
+ 	}
 
 	// 그리드 id, 그리드 json
 	var grdSpmtPrfmncDsctn;
@@ -249,7 +273,7 @@
 	
 	// 조회
 	const fn_search = async function () {
-		if (gfn_isEmpty(SBUxMethod.get("srch-dtp-spmtYmd"))) {
+		if (gfn_isEmpty(SBUxMethod.get("srch-dtp-spmtYmdFrom")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-spmtYmdTo"))) {
 			gfn_comAlert("W0002", "출하일자");		//	W0002	{0}을/를 입력하세요.
             return;
 		}
@@ -261,7 +285,8 @@
 	}
 	
 	const fn_callSelectSpmtPrfmncDsctnList = async function() {
-		let spmtYmd = SBUxMethod.get("srch-dtp-spmtYmd");
+		let spmtYmdFrom = SBUxMethod.get("srch-dtp-spmtYmdFrom");
+		let spmtYmdTo = SBUxMethod.get("srch-dtp-spmtYmdTo");
 		let cnptCd = SBUxMethod.get("srch-slt-cnptCd");
 		let grdGubun = SBUxMethod.get("srch-slt-grdGubun");
 		
@@ -269,7 +294,8 @@
 		
 		const SpmtDsctnTotVO = {
 			apcCd		: gv_selectedApcCd,
-			spmtYmd		: spmtYmd,
+			spmtYmdFrom	: spmtYmdFrom,
+			spmtYmdTo	: spmtYmdTo,
 			itemCd		: '1326',
 			cnptCd		: cnptCd,
 			grdGubun	: grdGubun
