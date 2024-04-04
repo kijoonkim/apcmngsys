@@ -574,7 +574,7 @@
 						              , PD.SPMT_QNTT AS SPMT_QNTT
 						           FROM USRAM.TB_SPMT_PRFMNC_COM PC
 						              , USRAM.TB_SPMT_PRFMNC_DTL PD
-						          WHERE PD.GDS_GRD IN ('01','02','03','04','05','06')
+						          WHERE PD.GDS_GRD IN ('07','08','09','10','11','12')
 						            AND PC.APC_CD = PD.APC_CD
 						            AND PC.SPMTNO = PD.SPMTNO
 						            AND PC.DEL_YN = 'N'
@@ -667,7 +667,7 @@
 						              , PD.SPMT_QNTT AS SPMT_QNTT
 						           FROM USRAM.TB_SPMT_PRFMNC_COM PC
 						              , USRAM.TB_SPMT_PRFMNC_DTL PD
-						          WHERE PD.GDS_GRD IN ('01','02','03','04','05','06')
+						          WHERE PD.GDS_GRD IN ('13','14','15')
 						            AND PC.APC_CD = PD.APC_CD
 						            AND PC.SPMTNO = PD.SPMTNO
 						            AND PC.DEL_YN = 'N'
