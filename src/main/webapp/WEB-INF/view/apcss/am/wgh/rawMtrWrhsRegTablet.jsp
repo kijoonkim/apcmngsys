@@ -870,6 +870,7 @@
 		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 
 		let prdcr = _.find(jsonPrdcr, {prdcrCd: value});
+        prdcr.itemVrtyCd = prdcr.rprsItemCd + prdcr.rprsVrtyCd;
 		fn_setPrdcrForm(prdcr);
 	}
 

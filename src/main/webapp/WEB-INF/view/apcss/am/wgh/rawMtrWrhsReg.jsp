@@ -1324,6 +1324,7 @@
 		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 
 		let prdcr = _.find(jsonPrdcr, {prdcrCd: value});
+		prdcr.itemVrtyCd = prdcr.rprsItemCd + prdcr.rprsVrtyCd;
 		fn_setPrdcrForm(prdcr);
 	}
 
@@ -1363,7 +1364,6 @@
 	}
 
 	const fn_setPrdcrForm = async function(prdcr) {
-		
 
 		if (!gfn_isEmpty(prdcr.itemVrtyCd)) {	// 대표품종
 			await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd);
@@ -1681,8 +1681,8 @@
 					ref:'jsonExpSltTrsprtSeCd',
 					displayui : false,
 					itemcount: 10,
-					label:'cdVlNm',
-					value:'cdVl'
+					label:'label',
+					value:'value'
 				}
 			},
 	        {
