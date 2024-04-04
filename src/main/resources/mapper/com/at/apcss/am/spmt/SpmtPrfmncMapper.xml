@@ -425,7 +425,7 @@
     				<![CDATA[
     					SELECT  MAX(APC_CD)			AS APC_CD
     						  , SPMTNO     			AS SPMTNO
-						      , MAX(SPMT_YMD)  		AS SPMT_YMD
+						      , SPMT_YMD  			AS SPMT_YMD
 						      , CNPT_CD  			AS CNPT_CD
 						      , CNPT_NM  			AS CNPT_NM
 						      , MAX(ITEM_CD)  		AS ITEM_CD
@@ -509,6 +509,7 @@
 						       ORDER BY SPMTNO DESC
 								)
 					   GROUP BY SPMTNO
+						      , SPMT_YMD
 						      , CNPT_CD
 						      , CNPT_NM
     				]]>
@@ -517,7 +518,7 @@
     				<![CDATA[
     					SELECT  MAX(APC_CD)			AS APC_CD
     						  , SPMTNO     			AS SPMTNO
-						      , MAX(SPMT_YMD)  		AS SPMT_YMD
+						      , SPMT_YMD  			AS SPMT_YMD
 						      , CNPT_CD  			AS CNPT_CD
 						      , CNPT_NM  			AS CNPT_NM
 						      , MAX(ITEM_CD)  		AS ITEM_CD
@@ -601,6 +602,7 @@
 						       ORDER BY SPMTNO DESC
 								)
 					   GROUP BY SPMTNO
+						      , SPMT_YMD
 						      , CNPT_CD
 						      , CNPT_NM
     				]]>
@@ -609,7 +611,7 @@
     				<![CDATA[
     					SELECT  MAX(APC_CD)			AS APC_CD
     						  , SPMTNO     			AS SPMTNO
-						      , MAX(SPMT_YMD)  		AS SPMT_YMD
+						      , SPMT_YMD  			AS SPMT_YMD
 						      , CNPT_CD  			AS CNPT_CD
 						      , CNPT_NM  			AS CNPT_NM
 						      , MAX(ITEM_CD)  		AS ITEM_CD
@@ -693,6 +695,7 @@
 						       ORDER BY SPMTNO DESC
 								)
 					   GROUP BY SPMTNO
+						      , SPMT_YMD
 						      , CNPT_CD
 						      , CNPT_NM
     				]]>
