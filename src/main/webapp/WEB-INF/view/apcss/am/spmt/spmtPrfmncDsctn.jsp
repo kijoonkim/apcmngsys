@@ -190,20 +190,6 @@
 	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
 		SBGridProperties.clickeventarea = {fixed: false, empty: false};
-	    SBGridProperties.total = {
-			type: 'grand',
-			position: 'bottom',
-			columns: {
-				standard: [2],
-				sum: [5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26]
-			},
-			grandtotalrow : {
-				titlecol: 3,
-				titlevalue: '합계',
-				style : 'background-color: #ceebff ; font-weight: bold; color: #0060b3;',
-				stylestartcol: 0
-			},
-		};
 	    SBGridProperties.columns = [
 	    	{caption: ["","출하번호"],   	ref: 'spmtno',     	hidden: true},
         	{caption: ["","<input type='checkbox' id='allSpmtPrfmncDsctnCheckBox' onchange='fn_checkAll(grdSpmtPrfmncDsctn, this);'>"],
