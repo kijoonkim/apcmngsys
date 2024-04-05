@@ -186,7 +186,6 @@
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'free';
 	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.mergecells = 'byrestriccol';
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
@@ -242,7 +241,7 @@
 	    	{caption: ["주황","소계"],		ref: 'orngSbTot', 	type: 'output',  	width:'85px', 	style: 'text-align:right; padding-right:5px;background-color:#ceebff;',
 	    		format : {type:'number', rule:'#,###'}},
 
-	    	{caption: ["총합계","총합계"], ref: 'totSum', 		type: 'output',  	width:'150px', 	style: 'text-align:right; padding-right:5px;background-color:#ceebff;',
+	    	{caption: ["총합계","총합계"], ref: 'totSum', 		type: 'output',  	width:'100px', 	style: 'text-align:right; padding-right:5px;background-color:#ceebff;',
 		    	format : {type:'number', rule:'#,###'}}
 	    ];
 	    grdSpmtPrfmncDsctn = _SBGrid.create(SBGridProperties);

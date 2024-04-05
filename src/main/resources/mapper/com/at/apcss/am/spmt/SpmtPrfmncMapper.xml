@@ -506,12 +506,12 @@
 									AND PC.CNPT_CD = #{cnptCd}
 					</if>
     				<![CDATA[
-						       ORDER BY SPMTNO DESC
 								)
 					   GROUP BY SPMTNO
 						      , SPMT_YMD
 						      , CNPT_CD
 						      , CNPT_NM
+					   ORDER BY SPMTNO DESC
     				]]>
     			</if>
     			<if test='grdGubun == "B"'>
@@ -599,12 +599,12 @@
 									AND PC.CNPT_CD = #{cnptCd}
 					</if>
     				<![CDATA[
-						       ORDER BY SPMTNO DESC
 								)
 					   GROUP BY SPMTNO
 						      , SPMT_YMD
 						      , CNPT_CD
 						      , CNPT_NM
+					   ORDER BY SPMTNO DESC
     				]]>
     			</if>
     			<if test='grdGubun == "C"'>
@@ -692,12 +692,12 @@
 									AND PC.CNPT_CD = #{cnptCd}
 					</if>
     				<![CDATA[
-						       ORDER BY SPMTNO DESC
 								)
 					   GROUP BY SPMTNO
 						      , SPMT_YMD
 						      , CNPT_CD
 						      , CNPT_NM
+					   ORDER BY SPMTNO DESC
     				]]>
     			</if>
     		</when>
