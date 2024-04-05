@@ -74,7 +74,7 @@
 					                uitype="single"
 					                id="srch-slt-grd"
 					                name="srch-slt-grd"
-					                class="form-control input-sm input-sm-ast"
+					                class="form-control input-sm input-sm-ast inpt_data_reqed"
 					                unselected-text="선택"
 					                jsondata-ref="jsonGrd"
 					                onchange="fn_onChangeSrchGrd(this)"
@@ -151,7 +151,7 @@
         SBGridPropertiesSortInvntr.mergecells = 'bycol';
         var comlumns = [];
         comlumns.push(
-            {caption : ["구분", "구분"], ref: 'gubun', type: 'input',  width:'240px', style: 'text-align:center;', merge: true},
+            {caption : ["구분", "구분"], ref: 'gubun', type: 'input',  width:'280px', style: 'text-align:center;', merge: true},
         )
         comlumns.push(
             {caption : ["빨강","2XL"], 	ref: 'redV1', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}, disabled:true},
@@ -575,10 +575,12 @@
 	    	if (!gfn_isEmpty(rowData.tot)){
 		        totQntt += parseInt(rowData.tot);
 		        grdGdsInvntr.setCellData(i, checkCol, 'Y');
-		    } else {
-		    	grdGdsInvntr.setCellData(i, checkCol, 'N');
+		        if (rowData.tot == 0) {
+			    	grdGdsInvntr.setCellData(i, checkCol, 'N');
+		     	}
 		    }
-	    }
+		}
+		grdGdsInvntr.setCellData(3, totCol, totQntt);
 	}
 
 	// 행 추가
