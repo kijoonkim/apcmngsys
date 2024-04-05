@@ -436,35 +436,35 @@
 		let grdRows = grdSpmtPrfmncDsctn.getCheckedRows(checkedCol);
     	let deleteList = [];
 
-    	for(var i=0; i< grdRows.length; i++){
+    	for (var i=0; i< grdRows.length; i++) {
     		let nRow = grdRows[i];
     		let rowData = grdSpmtPrfmncDsctn.getRowData(nRow);
     		deleteList.push(rowData);
     	}
 
-    	if(deleteList.length == 0){
+    	if (deleteList.length == 0) {
     		gfn_comAlert("W0003", "삭제");			// W0003	{0}할 대상이 없습니다.
     		return;
     	}
 
     	if (gfn_comConfirm("Q0001", "삭제")) {		//	Q0001	{0} 하시겠습니까?
-// 			const postJsonPromise = gfn_postJSON("/am/spmt/deleteSpmtCmndList.do", deleteList);
-// 	    	const data = await postJsonPromise;
+			const postJsonPromise = gfn_postJSON("/am/spmt/deleteSpmtPrfmncList.do", deleteList);
+	    	const data = await postJsonPromise;
 
-// 	    	try {
-// 	        	if (_.isEqual("S", data.resultStatus)) {
-// 	       			fn_search();
-// 	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
-// 	       		}  else{
-// 	       			gfn_comAlert(data.resultCode, data.resultMessage);
-// 	       		}
-// 	        } catch (e) {
-// 	        	if (!(e instanceof Error)) {
-// 	    			e = new Error(e);
-// 	    		}
-// 	    		console.error("failed", e.message);
-// 	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-// 			}
+	    	try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	       			fn_search();
+	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
+	       		} else {
+	       			gfn_comAlert(data.resultCode, data.resultMessage);
+	       		}
+	        } catch (e) {
+	        	if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+			}
 		}
 	}
 </script>
