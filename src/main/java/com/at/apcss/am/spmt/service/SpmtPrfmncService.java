@@ -102,7 +102,7 @@ public interface SpmtPrfmncService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertSpmtPrfmncByGrd(SpmtPrfmncComVO spmtPrfmncComVO) throws Exception;
-	
+
 	/**
 	 * 출하실적 등록
 	 * @param List<SpmtPrfmncVO>
@@ -165,4 +165,12 @@ public interface SpmtPrfmncService {
 	 * @throws Exception
 	 */
 	public List<SpmtDsctnTotVO> selectSpmtPrfmncDsctnList(SpmtDsctnTotVO spmtDsctnTotVO) throws Exception;
+
+	/**
+	 * 파프리카출하실등록
+	 * @param List<SpmtPrfmncVO>
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertSpmtPrfmncDsctn(List<SpmtPrfmncComVO> spmtPrfmncComList) throws Exception;
 }
