@@ -10,16 +10,18 @@
     <%@ include file="../frame/inc/headerMeta.jsp" %>
     <%@ include file="../frame/inc/headerScript.jsp" %>
 	<title>메인</title>
-	<!-- Google tag (gtag.js) GA4 36 APC 정보지원시스템 2024.2. UA connected -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LP5C9T3VYN"></script>
+	<!-- Google tag (gtag.js) 36 APC정보지원시스템 2024.4. UA connected--> 
 
-    <script>
-       window.dataLayer = window.dataLayer || [];
-       function gtag(){dataLayer.push(arguments);}
-       gtag(`js`, new Date());
-       gtag(`config`, `G-LP5C9T3VYN`);
-       gtag(`config`, `G-1C6GSRP5Z8`);
-    </script>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-L64PQ48CK5"></script> 
+	
+	<script> 
+	  window.dataLayer = window.dataLayer || []; 
+	  function gtag(){dataLayer.push(arguments);} 
+	  gtag('js', new Date()); 
+	  gtag('config', 'G-L64PQ48CK5'); 
+	  gtag('config', 'G-1C6GSRP5Z8', {'content_group': 'APC정보지원시스템'}); 
+	</script>
+ 
     <style>
         /*해당 레이아웃 템플릿 페이지를 표현하기위한 임의의 스타일 CSS 입니다.
         실작업시, 해당 프로젝트의 CSS 네이밍에 맞추어 재작업이 필요합니다.*/
