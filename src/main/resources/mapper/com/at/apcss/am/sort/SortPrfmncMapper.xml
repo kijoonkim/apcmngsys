@@ -1251,6 +1251,12 @@
 						<if test='itemCd != null and itemCd !=""'>
 						            AND SI.ITEM_CD = #{itemCd}
 						</if>
+						<if test='inptYmdFrom != null and inptYmdFrom != ""'>
+							   	    AND SI.INPT_YMD <![CDATA[>=]]> #{inptYmdFrom}
+						</if>
+						<if test='inptYmdTo != null and inptYmdTo != ""'>
+						   	   		AND SI.INPT_YMD <![CDATA[<=]]> #{inptYmdTo}
+						</if>
 					<![CDATA[
 							)
 					]]>
@@ -1317,6 +1323,12 @@
 						<if test='itemCd != null and itemCd !=""'>
 						            AND SI.ITEM_CD = #{itemCd}
 						</if>
+						<if test='inptYmdFrom != null and inptYmdFrom != ""'>
+							   	    AND SI.INPT_YMD <![CDATA[>=]]> #{inptYmdFrom}
+						</if>
+						<if test='inptYmdTo != null and inptYmdTo != ""'>
+						   	   		AND SI.INPT_YMD <![CDATA[<=]]> #{inptYmdTo}
+						</if>
 					<![CDATA[
 							)
 					]]>
@@ -1381,6 +1393,12 @@
 						</if>
 						<if test='itemCd != null and itemCd !=""'>
 						            AND SI.ITEM_CD = #{itemCd}
+						</if>
+						<if test='inptYmdFrom != null and inptYmdFrom != ""'>
+							   	    AND SI.INPT_YMD <![CDATA[>=]]> #{inptYmdFrom}
+						</if>
+						<if test='inptYmdTo != null and inptYmdTo != ""'>
+						   	   		AND SI.INPT_YMD <![CDATA[<=]]> #{inptYmdTo}
 						</if>
 					<![CDATA[
 							)

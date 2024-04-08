@@ -33,8 +33,30 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 파프리카출하실적등록 -->
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
-					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="재고조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
+					<sbux-button
+						id="btnDelete"
+						name="btnDelete"
+						uitype="normal"
+						class="btn btn-sm btn-outline-danger"
+						onclick="fn_delete"
+						text="삭제"
+					></sbux-button>
+					<sbux-button
+						id="btnSave"
+						name="btnSave"
+						uitype="normal"
+						text="저장"
+						class="btn btn-sm btn-outline-danger"
+						onclick="fn_save"
+					></sbux-button>
+					<sbux-button
+						id="btnSearch"
+						name="btnSearch"
+						uitype="normal"
+						text="재고조회"
+						class="btn btn-sm btn-outline-danger"
+						onclick="fn_search"
+					></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -51,8 +73,8 @@
 						<col style="width: 3%">
 						<col style="width: 7%">
 						<col style="width: 6%">
-						<col style="width: 3%">
 						<col style="width: 6%">
+						<col style="width: 3%">
 						<col style="width: 7%">
 						<col style="width: 6%">
 						<col style="width: 6%">
@@ -60,14 +82,50 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg"><span class="data_required"></span>출하일자</th>
+							<th scope="row" class="th_bg"><span class="data_required"></span>선별일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-spmtYmd" name="srch-dtp-spmtYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-pckgYmdFrom)"></sbux-datepicker>
+								<sbux-datepicker
+									id="srch-dtp-inptYmdFrom"
+									name="srch-dtp-inptYmdFrom"
+									uitype="popup"
+									date-format="yyyy-mm-dd"
+									class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"
+									onchange="fn_dtpChange(srch-dtp-inptYmdFrom)"
+								></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
+								<sbux-datepicker
+									id="srch-dtp-inptYmdTo"
+									name="srch-dtp-inptYmdTo"
+									uitype="popup"
+									date-format="yyyy-mm-dd"
+									class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"
+									onchange="fn_dtpChange(srch-dtp-inptYmdTo)"
+								></sbux-datepicker>
 							</td>
 							<td class="td_input"></td>
-
+							<th scope="row" class="th_bg"><span class="data_required"></span>출하일자</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-datepicker
+									id="srch-dtp-spmtYmdFrom"
+									name="srch-dtp-spmtYmdFrom"
+									uitype="popup"
+									date-format="yyyy-mm-dd"
+									class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"
+									onchange="fn_dtpChange(srch-dtp-spmtYmdFrom)"
+								></sbux-datepicker>
+							</td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-datepicker
+									id="srch-dtp-spmtYmdTo"
+									name="srch-dtp-spmtYmdTo"
+									uitype="popup"
+									date-format="yyyy-mm-dd"
+									class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"
+									onchange="fn_dtpChange(srch-dtp-spmtYmdTo)"
+								></sbux-datepicker>
+							</td>
+							<td class="td_input"></td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>구분</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select
@@ -88,6 +146,15 @@
 		        <!--[pp] 검색결과 -->
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
+						<li><span>선별재고 내역</span></li>
+					</ul>
+				</div>
+				<div>
+					<div id="sb-area-sortInvntr" style="height:112px; width:100%;"></div>
+				</div>
+
+				<div class="ad_tbl_top">
+					<ul class="ad_tbl_count">
 						<li><span>상품재고 내역</span></li>
 					</ul>
 					<div class="ad_tbl_toplist">
@@ -95,12 +162,6 @@
 						<sbux-button id="btnDel" name="btnDel" uitype="normal" text="행삭제" class="btn btn-xs btn-outline-danger" onclick="fn_delRow" disabled></sbux-button>
 					</div>
 				</div>
-				<div>
-					<div id="sb-area-sortInvntr" style="height:112px; width:100%;"></div>
-				</div>
-
-				<br>
-
 				<div class="table-responsive tbl_scroll_sm">
 					<div id="sb-area-gdsInvntr" style="height:400px;"></div>
 				</div>
@@ -122,7 +183,10 @@
 
 	window.addEventListener('DOMContentLoaded', async function(e) {
 
-	    SBUxMethod.set('srch-dtp-spmtYmd', gfn_dateToYmd(new Date()));
+	    SBUxMethod.set('srch-dtp-inptYmdFrom', gfn_dateToYmd(new Date()));
+	    SBUxMethod.set('srch-dtp-inptYmdTo', gfn_dateToYmd(new Date()));
+	    SBUxMethod.set('srch-dtp-spmtYmdFrom', gfn_dateToYmd(new Date()));
+	    SBUxMethod.set('srch-dtp-spmtYmdTo', gfn_dateToYmd(new Date()));
 	    fn_initSBSelect();
 
 	})
@@ -198,7 +262,7 @@
         SBGridPropertiesGdsInvntr.columns = [
 			{caption : ["재고내역", "재고내역", "재고내역",""], 		ref: 'checkBox', 	type: 'checkbox',  	width:'40px', 	style: 'text-align:center;',
 				typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
-			{caption : ["재고내역", "재고내역", "재고내역","일자"], 	ref: 'spmtYmd', 	width: '120px', type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'},
+			{caption : ["재고내역", "재고내역", "재고내역","출하일자"], 	ref: 'spmtYmd', 	width: '120px', type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'},
 				typeinfo : {gotoCurrentClick: true, clearbutton: true},  style:'text-align:center'},
 			{caption : ["재고내역", "재고내역", "재고내역","출하처"], 	ref: 'cnptCd', 		type: 'combo',  	width:'120px', 	style: 'text-align:center;',
 				typeinfo : {ref:'jsonGrdCnptCd', 	displayui : false,	itemcount: 10, label:'label', value:'value', unselect: {label : '선택', value: ''}}},
@@ -236,9 +300,17 @@
 
 	const fn_search = async function(){
 	    let flag = true;
+	    let grdFlag = true;
+	    let sumFlag = true;
 	    flag = await fn_setGrdSrtInvntr();
-	    if(flag){
-	      await fn_setGrdGdsInvntr();
+	    if (flag){
+	    	grdFlag = await fn_setGrdGdsInvntrList();
+	    }
+	    if (grdFlag) {
+	    	await fn_setGrdGdsInvntr();
+	    }
+	    if (sumFlag) {
+	    	await fn_reSum();
 	    }
 
 	    SBUxMethod.attr('btnAdd', 'disabled', 'false');
@@ -261,16 +333,21 @@
 	const fn_setGrdSrtInvntr = async function(){
 	    let grdGubun 		= SBUxMethod.get("srch-slt-grd");
 	    let grdGubunText 	= SBUxMethod.getText("srch-slt-grd");
+	    let inptYmdFrom 	= SBUxMethod.get("srch-dtp-inptYmdFrom");
+	    let inptYmdTo 		= SBUxMethod.get("srch-dtp-inptYmdTo");
+	    let itemCd 			= '1326';
+	    let apcCd			= gv_selectedApcCd;
 
 		if (gfn_isEmpty(grdGubun)) {
 	        gfn_comAlert("W0001", "구분");				//	W0002	{0}을/를 선택하세요.
             return false;
       	}
     	const postJsonPromise = gfn_postJSON("/am/sort/selectSortDsctn.do", {
-
-			apcCd			: gv_selectedApcCd,
-			itemCd			: '1326',
-			grdGubun		: grdGubun,
+				apcCd			: apcCd
+			,	itemCd			: itemCd
+			,	grdGubun		: grdGubun
+			, 	inptYmdFrom		: inptYmdFrom
+			, 	inptYmdTo		: inptYmdTo
 		});
 
         const data = await postJsonPromise;
@@ -362,12 +439,87 @@
 			return value;
 		}
 	}
+
+	const fn_setGrdGdsInvntrList = async function () {
+		let grdGubun 		= SBUxMethod.get("srch-slt-grd");
+	    let itemCd 			= "1326";
+	    let apcCd			= gv_selectedApcCd;
+	    let spmtYmdFrom 	= SBUxMethod.get("srch-dtp-spmtYmdFrom");
+	    let spmtYmdTo 		= SBUxMethod.get("srch-dtp-spmtYmdTo");
+
+	    const postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncDsctnList.do", {
+	      	grdGubun 		: grdGubun
+	      , itemCd 			: itemCd
+	      , apcCd			: apcCd
+	      , spmtYmdFrom		: spmtYmdFrom
+	      , spmtYmdTo		: spmtYmdTo
+		});
+
+	    const data = await postJsonPromise;
+        try {
+	        if (_.isEqual("S", data.resultStatus)) {
+
+	        	jsonGdsInvntr.length = 0;
+	        	grdGdsInvntr.rebuild();
+                data.resultList.forEach((item, index) => {
+                	const gdsInvntr = {
+                			  apcCd		: item.apcCd
+        	        		, spmtYmd	: item.spmtYmd
+        		        	, spmtno	: item.spmtno
+        	        		, cnptCd	: item.cnptCd
+        	        		, cnptNm	: item.cnptNm
+        	        		, itemCd	: item.itemCd
+
+        	        	    , red2Xl 	: item.red2Xl
+        	        	    , redXl 	: item.redXl
+        	        	    , redL 		: item.redL
+        	        	    , redM 		: item.redM
+        	        	    , redS 		: item.redS
+        	        	    , redSs 	: item.redSs
+        	        	    , redTot 	: item.redTot
+
+        	        	    , ylw2Xl 	: item.ylw2Xl
+        	        	    , ylwXl 	: item.ylwXl
+        	        	    , ylwL 		: item.ylwL
+        	        	    , ylwM 		: item.ylwM
+        	        	    , ylwS 		: item.ylwS
+        	        	    , ylwSs 	: item.ylwSs
+        	        	    , ylwTot 	: item.ylwTot
+
+        	        	    , org2Xl 	: item.org2Xl
+        	        	    , orgXl 	: item.orgXl
+        	        	    , orgL 		: item.orgL
+        	        	    , orgM 		: item.orgM
+        	        	    , orgS 		: item.orgS
+        	        	    , orgSs 	: item.orgSs
+        	        	    , orgTot  	: item.orgTot
+
+        	        	    , tot   	: item.tot
+                	}
+                	jsonGdsInvntr.push(gdsInvntr);
+	            });
+				grdGdsInvntr.rebuild();
+
+				grdGdsInvntr.setCellDisabled(0, 1, grdGdsInvntr.getRows() - 1, grdGdsInvntr.getCols() - 1, true);
+			} else {
+	            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	        }
+	    }catch (e) {
+
+			if (!(e instanceof Error)) {
+			  e = new Error(e);
+			}
+	      	console.error("failed", e.message);
+	    }
+	    return true;
+	}
+
+
 	const fn_setGrdGdsInvntr = async function(){
 
 	    let grdGubun 		= SBUxMethod.get("srch-slt-grd");
 	    let itemCd 			= "1326";
 	    let apcCd			= gv_selectedApcCd;
-
 
 	    let red2XlCol = grdGdsInvntr.getColRef("red2Xl");
 	    let redXlCol = grdGdsInvntr.getColRef("redXl");
@@ -394,17 +546,14 @@
 
 
 		const postJsonPromise = gfn_postJSON("/am/invntr/selectGdsDsctn.do", {
-	      	grdGubun 		: SBUxMethod.get("srch-slt-grd"),
-	      	itemCd 			: "1326",
-	      	apcCd			: gv_selectedApcCd,
-
+		      	grdGubun 		: grdGubun
+		      , itemCd 			: itemCd
+		      , apcCd			: apcCd
 		});
 
         const data = await postJsonPromise;
         try {
 	        if (_.isEqual("S", data.resultStatus)) {
-				jsonGdsInvntr.length = 0;
-				grdGdsInvntr.rebuild();
                 data.resultList.forEach((item, index) => {
 
 					grdGdsInvntr.setCellData(2, red2XlCol, item.red2Xl);
@@ -435,13 +584,14 @@
 			} else {
 	            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        }
-	    }catch (e) {
+	    } catch (e) {
 
 			if (!(e instanceof Error)) {
 			  e = new Error(e);
 			}
 	      	console.error("failed", e.message);
 	    }
+	    return true;
 	}
 
   	const fn_grdValueChanged = function () {
@@ -449,7 +599,7 @@
 		var nRow = grdGdsInvntr.getRow();
 		var nCol = grdGdsInvntr.getCol();
 
-		if(nCol > 2) {
+		if (nCol > 2) {
 			var ref = grdGdsInvntr.getRefOfCol(nCol);
 			var gTotQntt = grdGdsInvntr.getCellData(2, nCol);
 			var cTotQntt = grdGdsInvntr.getCellData(3, nCol);
@@ -457,25 +607,33 @@
 			let rowData = grdGdsInvntr.getRowData(nRow);
 			let qntt = rowData[ref];
 			let totQntt = 0;
+			let spmtTotQntt = 0;
 			let gridData = grdGdsInvntr.getGridDataAll();
 
-			if(!gfn_isEmpty(gTotQntt)){
+			if (!gfn_isEmpty(gTotQntt)){
 
-			    for(var i=4; i<gridData.length+4; i++ ){
+			    for (var i=4; i<gridData.length+4; i++ ){
 			    	let rowData = grdGdsInvntr.getRowData(i);
-			    	if(!(rowData[ref] == "" || rowData[ref] == null || rowData[ref] == undefined || rowData[ref] == NaN)){
-				        totQntt += parseInt(rowData[ref]);
-				    }
+
+			    	if (gfn_isEmpty(rowData.spmtno)) {
+			    		if (!(rowData[ref] == "" || rowData[ref] == null || rowData[ref] == undefined || rowData[ref] == NaN)){
+					        totQntt += parseInt(rowData[ref]);
+					    }
+			    	} else {
+
+			    		if (!(rowData[ref] == "" || rowData[ref] == null || rowData[ref] == undefined || rowData[ref] == NaN)){
+			    			spmtTotQntt += parseInt(rowData[ref]);
+					    }
+			    	}
 			    }
 
 			    let color = ref.substring(0,3);
 
-			    if(gTotQntt >= totQntt) {
+			    if (gTotQntt >= totQntt) {
+			      	grdGdsInvntr.setCellData(3, nCol, totQntt + spmtTotQntt);
 
-			      	grdGdsInvntr.setCellData(3, nCol, totQntt);
-
-			    }else{
-					grdGdsInvntr.setCellData(3, nCol, (totQntt-qntt));
+			    } else{
+					grdGdsInvntr.setCellData(3, nCol, (totQntt - qntt + spmtTotQntt));
 					grdGdsInvntr.setCellData(nRow, nCol, 0);
 			    }
 
@@ -490,7 +648,7 @@
 
 			    // 총 합산
 			    fn_sum();
-			}else {
+			} else {
 				grdGdsInvntr.setCellData(nRow, nCol, 0);
 			}
 		}
@@ -542,9 +700,9 @@
 		let totQntt = 0;
 		let gridData = grdGdsInvntr.getGridDataAll();
 
-		for(var i=4; i<gridData.length+4; i++ ){
+		for (var i=4; i<gridData.length+4; i++ ){
 	    	let rowData = grdGdsInvntr.getRowData(i);
-		    if(!(gfn_isEmpty(rowData[ref]))){
+		    if (!(gfn_isEmpty(rowData[ref]))){
 		        totQntt += parseInt(rowData[ref]);
 		    }
 	    }
@@ -568,13 +726,16 @@
 		let totCol = grdGdsInvntr.getColRef("tot");
 		let checkCol = grdGdsInvntr.getColRef("checkBox");
 		let gridData = grdGdsInvntr.getGridDataAll();
-		let checkBox = [];
 		let totQntt = 0;
-		for(var i=4; i<gridData.length+4; i++ ){
+		for (var i=4; i<gridData.length+4; i++ ){
 	    	let rowData = grdGdsInvntr.getRowData(i);
+	    	let spmtno	= rowData.spmtno;
+
 	    	if (!gfn_isEmpty(rowData.tot)){
 		        totQntt += parseInt(rowData.tot);
-		        grdGdsInvntr.setCellData(i, checkCol, 'Y');
+		        if (gfn_isEmpty(spmtno)) {
+		        	grdGdsInvntr.setCellData(i, checkCol, 'Y');
+		        }
 		        if (rowData.tot == 0) {
 			    	grdGdsInvntr.setCellData(i, checkCol, 'N');
 		     	}
@@ -585,8 +746,7 @@
 
 	// 행 추가
 	const fn_addRow = function() {
-
-		grdGdsInvntr.addRow();
+		grdGdsInvntr.addRows([{'spmtYmd' : gfn_dateToYmd(new Date())}]);
 	}
 
 	// 행삭제
@@ -601,8 +761,13 @@
     		return;
 		}
 
-		for(var i=0; i<checkeds.length; i++){
-			grdGdsInvntr.deleteRow(reverseCheckeds[i]);
+		for (var i=0; i<checkeds.length; i++){
+
+			let rowData = grdGdsInvntr.getRowData(reverseCheckeds[i]);
+
+			if (gfn_isEmpty(rowData.spmtno)) {
+				grdGdsInvntr.deleteRow(reverseCheckeds[i]);
+			}
 		}
 
 		await fn_reSum();
@@ -630,10 +795,7 @@
 			    	let rowData = grdGdsInvntr.getRowData(k);
 			        totQntt += parseInt(gfn_nvl(rowData[ref], 0));
 			    }
-
-				if (!gfn_isEmpty(grdGdsInvntr.getCellData(3, refCol))) {
-					grdGdsInvntr.setCellData(3, refCol, totQntt);
-				}
+				grdGdsInvntr.setCellData(3, refCol, totQntt);
 			}
 		}
 
@@ -756,7 +918,52 @@
 	    		console.error("failed", e.message);
 			}
 		}
+	}
 
+	const fn_delete = async function () {
+
+		let checkCol = grdGdsInvntr.getColRef("checkBox");
+		let checkeds = grdGdsInvntr.getCheckedRows(checkCol, true);
+		let reverseCheckeds = checkeds.reverse();
+		let deleteList = [];
+
+		for (var i=0; i<checkeds.length; i++){
+
+			let rowData = grdGdsInvntr.getRowData(reverseCheckeds[i]);
+
+			if (!gfn_isEmpty(rowData.spmtno)) {
+				deleteList.push(rowData)
+			}
+		}
+
+		if (deleteList.length == 0) {
+
+			gfn_comAlert("W0003", "삭제");			// W0003	{0}할 대상이 없습니다.
+    		return;
+		}
+
+		if (gfn_comConfirm("Q0001", "삭제")) {		//	Q0001	{0} 하시겠습니까?
+			const postJsonPromise = gfn_postJSON("/am/spmt/deleteSpmtPrfmncList.do", deleteList);
+	    	const data = await postJsonPromise;
+
+	    	try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	       			fn_search();
+	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
+
+	       		} else {
+	       			gfn_comAlert(data.resultCode, data.resultMessage);
+	       		}
+	        } catch (e) {
+	        	if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+			}
+		}
+
+		await fn_reSum();
 	}
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
