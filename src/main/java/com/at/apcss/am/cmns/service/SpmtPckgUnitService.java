@@ -83,5 +83,19 @@ public interface SpmtPckgUnitService {
 	 * @throws Exception
 	 */
 	public String spmtPckgUnitDelible(SpmtPckgUnitVO SpmtPckgUnitVO) throws Exception;
+	/**
+	 * APC 상품 업데이트
+	 * @param SpmtPckgUnitVO
+	 * @return integer
+	 * @throws Exception
+	 */
+	public int updateSpmtPckgUnits(SpmtPckgUnitVO SpmtPckgUnitVO) throws Exception;
+	/**
+	 * APC 상품 업데이트 목록
+	 * @param List<SpmtPckgUnitVO>
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateSpmtPckgUnitsList(List<SpmtPckgUnitVO> SpmtPckgUnitList) throws Exception;
 
 }

@@ -460,6 +460,23 @@ public class StdGrdServiceImpl extends BaseServiceImpl implements StdGrdService 
 		return null;
 	}
 
+	@Override
+	public int updateGrd(StdGrdDtlVO stdGrdDtl) throws Exception {
+		int updatedCnt = 0;
+		
+		updatedCnt += stdGrdMapper.updateGrd(stdGrdDtl);
+		
+		return updatedCnt;
+	}
+	
+	@Override
+	public HashMap<String, Object> updateGrdList(List<StdGrdDtlVO> stdGrdDtlList) throws Exception {
+		for (StdGrdDtlVO stdGrdDtlVO : stdGrdDtlList) {
+			updateGrd(stdGrdDtlVO);
+		}
+		return null;
+	}
 
+	
 
 }

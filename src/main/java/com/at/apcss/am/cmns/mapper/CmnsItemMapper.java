@@ -94,5 +94,12 @@ public interface CmnsItemMapper {
 	 * @throws Exception
 	 */
 	public List<CmnsItemVO> itemDelible(CmnsItemVO cmnsItemVO) throws Exception;
+	/**
+	 * APC 품목 정보 업데이트
+	 * @param cmnsItemVO
+	 * @return integer
+	 * @throws Exception
+	 */
+	public int updateComItem(CmnsItemVO cmnsItemVO) throws Exception;
 
 }

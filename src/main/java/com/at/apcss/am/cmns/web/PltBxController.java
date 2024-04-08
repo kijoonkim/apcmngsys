@@ -118,4 +118,30 @@ public class PltBxController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	@PostMapping(value = "/am/cmns/updatePltBxList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> updatePltBxList(@RequestBody List<PltBxVO> pltBxList, HttpServletRequest request) throws Exception {
+		logger.debug("updatePltBxList 호출 <><><><> ");
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			for (PltBxVO pltBxVO : pltBxList) {
+				pltBxVO.setSysLastChgPrgrmId(getPrgrmId());
+				pltBxVO.setSysLastChgUserId(getUserId());
+			}
+
+			HashMap<String, Object> rtnObj = pltBxService.updatePltBxList(pltBxList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
 }

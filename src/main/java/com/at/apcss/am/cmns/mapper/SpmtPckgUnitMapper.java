@@ -76,4 +76,11 @@ public interface SpmtPckgUnitMapper {
 	 * @throws Exception
 	 */
 	public List<SpmtPckgUnitVO> spmtPckgUnitDelible(SpmtPckgUnitVO SpmtPckgUnitVO) throws Exception;
+	/**
+	 * APC 출하포장단위 정보 업데이트
+	 * @param SpmtPckgUnitVO
+	 * @return integer
+	 * @throws Exception
+	 */
+	public int updateSpmtPckgUnits(SpmtPckgUnitVO SpmtPckgUnitVO) throws Exception;
 }

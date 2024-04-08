@@ -177,4 +177,17 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 		return resultList;
 	}
 
+	@Override
+	public int updateApcPrdcr(PrdcrVO prdcrVO) throws Exception {
+		int updatedCnt = prdcrMapper.updateApcPrdcr(prdcrVO);
+		return updatedCnt;
+	}
+	@Override
+	public HashMap<String, Object> updatePrdcrList(List<PrdcrVO> prdcrList) throws Exception {
+		for (PrdcrVO prdcrVO : prdcrList) {
+			updateApcPrdcr(prdcrVO);
+		}
+		return null;
+	}
+
 }

@@ -46,4 +46,31 @@ public class CmnsItemApiController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+	
+	// APC기준정보 품목 업데이트
+	@PostMapping(value = "/am/cmns/updateItemList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateItemList(@RequestBody List<CmnsItemVO> cmnsItemList, HttpServletRequest request) throws Exception {
+		
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			for (CmnsItemVO cmnsItemVO : cmnsItemList) {
+				cmnsItemVO.setSysLastChgPrgrmId(getPrgrmId());
+				cmnsItemVO.setSysLastChgUserId(getUserId());
+			}
+			
+			HashMap<String, Object> rtnObj = cmnsItemService.updateItemList(cmnsItemList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
 }

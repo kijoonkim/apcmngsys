@@ -62,4 +62,12 @@ public interface PltBxMapper {
 	 * @throws Exception
 	 */
 	public int deletePltBx(PltBxVO pltBxVO) throws Exception;
+	/**
+	 * APC 팔레트/박스 정보 업데이트
+	 * @param pltBxVO
+	 * @return integer
+	 * @throws Exception
+	 */
+	public int updateApcPltBx(PltBxVO pltBxVO) throws Exception;
+
 }

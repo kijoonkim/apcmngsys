@@ -221,4 +221,32 @@ public class StdGrdController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+	
+	// APC 등급 판정 삭제
+	@PostMapping(value = "/am/cmns/updateGrdList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> updateGrdList(@RequestBody List<StdGrdDtlVO> stdGrdDtlList, HttpServletRequest request) throws Exception {
+		
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		try {
+			for (StdGrdDtlVO stdGrdDtlVO : stdGrdDtlList) {
+				stdGrdDtlVO.setSysLastChgPrgrmId(getPrgrmId());
+				stdGrdDtlVO.setSysLastChgUserId(getUserId());
+			}
+			HashMap<String, Object> rtnObj =  stdGrdService.updateGrdList(stdGrdDtlList);
+			if(rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+			
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		
+		return getSuccessResponseEntity(resultMap);
+	}
 }

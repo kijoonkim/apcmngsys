@@ -48,4 +48,30 @@ public class WrhsVhclApiController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+	
+	@PostMapping(value = "/am/cmns/updateVhclInfoList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> updateVhclInfoList(@RequestBody List<WrhsVhclVO> wrhsVhclList, HttpServletRequest request) throws Exception {
+		logger.debug("updatePltBxList 호출 <><><><> ");
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			for (WrhsVhclVO wrhsVhclVO : wrhsVhclList) {
+				wrhsVhclVO.setSysLastChgPrgrmId(getPrgrmId());
+				wrhsVhclVO.setSysLastChgUserId(getUserId());
+			}
+
+			HashMap<String, Object> rtnObj = wrhsVhclService.updateVhclInfoList(wrhsVhclList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
 }

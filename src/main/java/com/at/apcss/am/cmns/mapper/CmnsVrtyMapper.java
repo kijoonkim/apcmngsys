@@ -121,4 +121,11 @@ public interface CmnsVrtyMapper {
 	 * @throws Exception
 	 */
 	public List<CmnsVrtyVO> vrtyDelible(CmnsVrtyVO cmnsVrtyVO) throws Exception;
+	/**
+	 * APC 품종 정보 업데이트
+	 * @param cmnsVrtyVO
+	 * @return integer
+	 * @throws Exception
+	 */
+	public int updateVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception;
 }

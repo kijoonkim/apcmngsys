@@ -185,5 +185,36 @@ public interface ComCdService {
 	 * @throws Exception
 	 */
 	public String apcCdComCdDtlDelible(ComCdVO comCdVO) throws Exception;
+	
+	/**
+	 * APC기준정보 창고, 선별기, 포장기 업데이트
+	 * @param ComCdVO
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public int updateComApcStdInq(ComCdVO comCdVO) throws Exception;
+
+	/**
+	 * APC기준정보 창고 업데이트 리스트
+	 * @param ComCdVO
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateComWarehouseList(List<ComCdVO> comCdList) throws Exception;
+	/**
+	 * APC기준정보 선별기 업데이트 리스트
+	 * @param ComCdVO
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateComSortFcltList(List<ComCdVO> comCdList) throws Exception;
+	/**
+	 * APC기준정보 포장기 업데이트 리스트
+	 * @param ComCdVO
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateComPckgFcltList(List<ComCdVO> comCdList) throws Exception;
+
 
 }

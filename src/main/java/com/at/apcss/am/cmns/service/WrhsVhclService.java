@@ -84,4 +84,19 @@ public interface WrhsVhclService {
 	 * @throws Exception
 	 */
 	public String vhclDelible(WrhsVhclVO wrhsVhclVO) throws Exception;
+	
+	/**
+	 * APC기준 차량정보 업데이트
+	 * @param wrhsVhclVO
+	 * @return integer
+	 * @throws Exception
+	 */
+	public int updateVhclInfo(WrhsVhclVO wrhsVhclVO) throws Exception;
+	/**
+	 * APC기준 차량정보 업데이트 목록
+	 * @param List<WrhsVhclVO>
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateVhclInfoList(List<WrhsVhclVO> WrhsVhclList) throws Exception;
 }

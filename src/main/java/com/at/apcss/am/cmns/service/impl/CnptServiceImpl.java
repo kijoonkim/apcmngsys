@@ -220,4 +220,18 @@ public class CnptServiceImpl extends BaseServiceImpl implements CnptService {
 		return null;
 	}
 
+	@Override
+	public HashMap<String, Object> updateCnptList(List<CnptVO> cnptList) throws Exception {
+		for (CnptVO cnptVO : cnptList) {
+			updateApcCnpt(cnptVO);
+		}
+		return null;
+	}
+
+	@Override
+	public int updateApcCnpt(CnptVO cnptVO) throws Exception {
+		cnptMapper.updateApcCnpt(cnptVO);
+		return 0;
+	}
+
 }

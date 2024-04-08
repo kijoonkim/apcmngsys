@@ -179,5 +179,17 @@ public class CmnsVrtyServiceImpl extends BaseServiceImpl implements CmnsVrtyServ
 
 		return null;
 	}
+	@Override
+	public int updateVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception {
+		int updatedCnt = cmnsVrtyMapper.updateVrty(cmnsVrtyVO);
+		return updatedCnt;
+	}
+	@Override
+	public HashMap<String, Object> updateVrtyList(List<CmnsVrtyVO> cmnsVrtyList) throws Exception {
+		for (CmnsVrtyVO cmnsVrtyVO : cmnsVrtyList) {
+			updateVrty(cmnsVrtyVO);
+		}
+		return null;
+	}
 
 }

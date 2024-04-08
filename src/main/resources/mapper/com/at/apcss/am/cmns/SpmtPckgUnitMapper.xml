@@ -310,5 +310,26 @@
 			 WHERE CNT > 0
 		]]>
     </select>
+    
+    <!-- =========================================================================  -->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.updateSpmtPckgUnits	-->
+	<!-- DESC : APC기준 상품 정보 업데이트  		                            				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.05  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateSpmtPckgUnits" parameterType="com.at.apcss.am.cmns.vo.SpmtPckgUnitVO">
+    	<![CDATA[
+    		UPDATE TB_SPMT_PCKG_UNIT
+			   SET SYS_LAST_CHG_DT 			= SYSDATE
+	    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+	    		 , SPMT_PCKG_UNIT_NM		= #{spmtPckgUnitNm}
+	    		 , EXTRNL_LNKG_CD			= #{extrnlLnkgCd}
+	    	 WHERE APC_CD					= #{apcCd}
+	    	   AND SPMT_PCKG_UNIT_CD		= #{spmtPckgUnitCd}
+    	]]>
+    </update>
 
 </mapper>

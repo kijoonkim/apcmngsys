@@ -709,5 +709,30 @@
 			]]>
     	</if>
     </select>
+    
+   	<!-- =========================================================================  -->
+	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.updateComApcStdInq			-->
+	<!-- DESC : APC기준 정보 업데이트  		                            				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.04  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateComApcStdInq" parameterType="com.at.apcss.co.cd.vo.ComCdVO">
+    	<![CDATA[
+			UPDATE TB_COM_CD_DTL
+			   SET SYS_LAST_CHG_DT			= SYSDATE
+				 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+				 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+				 , CD_VL_NM					= #{cdVlNm}
+				 , EXTRNL_LNKG_CD			= #{extrnlLnkgCd}
+				 , RMRK						= #{rmrk}
+			WHERE CD_ID						= #{cdId}
+			  AND APC_CD					= #{apcCd}
+			  AND CD_VL						= #{cdVl}
+    	]]>
+    </update>
+
+
 
 </mapper>

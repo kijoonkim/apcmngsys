@@ -107,4 +107,18 @@ public class SpmtTrsprtServiceImpl extends BaseServiceImpl implements SpmtTrsprt
 
 		return null;
 	}
+
+	@Override
+	public int updateTrsprtCo(SpmtTrsprtVO spmtTrsprtVO) throws Exception {
+		spmtTrsprtMapper.updateTrsprtCo(spmtTrsprtVO);
+		return 0;
+	}
+
+	@Override
+	public HashMap<String, Object> updateTrsprtCoList(List<SpmtTrsprtVO> spmtTrsprtList) throws Exception {
+		for (SpmtTrsprtVO spmtTrsprtVO : spmtTrsprtList) {
+			updateTrsprtCo(spmtTrsprtVO);
+		}
+		return null;
+	}
 }

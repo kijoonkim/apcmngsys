@@ -73,4 +73,31 @@ public class CmnsSpcfctApiController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+	
+	// APC 규격 정보 업데이트
+	@PostMapping(value = "/am/cmns/updateSpcfctList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> updateSpcfctList(@RequestBody List<CmnsSpcfctVO> cmnsSpcfctList, HttpServletRequest request) throws Exception {
+		
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			for (CmnsSpcfctVO cmnsSpcfctVO : cmnsSpcfctList) {
+				cmnsSpcfctVO.setSysLastChgPrgrmId(getPrgrmId());
+				cmnsSpcfctVO.setSysLastChgUserId(getUserId());
+			}
+
+			HashMap<String, Object> rtnObj = cmnsSpcfctService.updateSpcfctList(cmnsSpcfctList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
 }

@@ -125,4 +125,18 @@ public interface CmnsVrtyService {
 	 * @throws Exception
 	 */
 	public String vrtyDelible(CmnsVrtyVO cmnsVrtyVO) throws Exception;
+	/**
+	 * APC 품종 업데이트 목록
+	 * @param CmnsVrtyVO
+	 * @return integer
+	 * @throws Exception
+	 */
+	public int updateVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception;
+	/**
+	 * APC 품종 업데이트 목록
+	 * @param List<CmnsVrtyVO>
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateVrtyList(List<CmnsVrtyVO> cmnsVrtyList) throws Exception;
 }

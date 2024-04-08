@@ -240,5 +240,40 @@ public class ComCdServiceImpl extends BaseServiceImpl implements ComCdService {
 		return null;
 	}
 
+	@Override
+	public int updateComApcStdInq(ComCdVO comCdVO) throws Exception {
+		int update_count = 0;
+
+		update_count += comCdMapper.updateComApcStdInq(comCdVO);			
+		return update_count;
+	}
+
+	@Override
+	public HashMap<String, Object> updateComWarehouseList(List<ComCdVO> comCdList) throws Exception {
+
+		for (ComCdVO comCd : comCdList) {
+			updateComApcStdInq(comCd);
+		}
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> updateComSortFcltList(List<ComCdVO> comCdList) throws Exception {
+		
+		for (ComCdVO comCd : comCdList) {
+			updateComApcStdInq(comCd);
+		}
+		return null;
+	}
+	@Override
+	public HashMap<String, Object> updateComPckgFcltList(List<ComCdVO> comCdList) throws Exception {
+		
+		for (ComCdVO comCd : comCdList) {
+			updateComApcStdInq(comCd);
+		}
+		return null;
+	}
+
+
 
 }

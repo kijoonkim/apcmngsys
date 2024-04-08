@@ -82,7 +82,7 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="ad_tbl_top" style="margin-bottom: 10px;">
-							<ul class="ad_tbl_count" style="width: 100%">
+							<ul class="ad_tbl_count">
 								<li>
 									<span style="font-size:12px">입고구분</span>
 								</li>
@@ -91,11 +91,22 @@
 						<div id="sb-area-grdWrhsSe" style="height:180px;"></div>
 
 						<div class="ad_tbl_top" style="margin-bottom: 10px;">
-							<ul class="ad_tbl_count" style="width: 100%">
+							<ul class="ad_tbl_count">
 								<li>
 									<span style="font-size:12px">창고</span>
 								</li>
 							</ul>
+							<div class="ad_tbl_toplist">
+								<sbux-button
+									id="btnSaveWarehouse"
+									name="btnSaveWarehouse"
+									uitype="normal"
+									class="btn btn-sm btn-outline-danger"
+									text="저장"
+									value="Warehouse"
+									onclick="fn_saveWarehouseData();"
+								></sbux-button>
+							</div>
 						</div>
 						<div id="sb-area-grdWarehouse" style="height:180px;"></div>
 
@@ -104,7 +115,7 @@
 					<div class="col-sm-4">
 
 							<div class="ad_tbl_top" style="margin-bottom: 10px;">
-								<ul class="ad_tbl_count" style="width: 100%">
+								<ul class="ad_tbl_count">
 									<li>
 										<span style="font-size:12px">상품구분</span>
 									</li>
@@ -114,11 +125,22 @@
 
 
 						<div class="ad_tbl_top" style="margin-bottom: 10px;">
-							<ul class="ad_tbl_count" style="width: 100%">
+							<ul class="ad_tbl_count">
 								<li>
 									<span style="font-size:12px">선별기</span>
 								</li>
 							</ul>
+							<div class="ad_tbl_toplist">
+								<sbux-button
+									id="btnSaveSortFclt"
+									name="btnSaveSortFclt"
+									uitype="normal"
+									class="btn btn-sm btn-outline-danger"
+									text="저장"
+									value="SortFclt"
+									onclick="fn_saveSortFcltData();"
+								></sbux-button>
+							</div>
 						</div>
 						<div id="sb-area-grdSortFclt" style="height:180px;"></div>
 					</div>
@@ -126,7 +148,7 @@
 					<div class="col-sm-4">
 
 						<div class="ad_tbl_top" style="margin-bottom: 10px;">
-							<ul class="ad_tbl_count" style="width: 100%">
+							<ul class="ad_tbl_count">
 								<li>
 									<span style="font-size:12px">운송구분</span>
 								</li>
@@ -135,11 +157,22 @@
 						<div id="sb-area-grdTrsprtSe" style="height:180px;"></div>
 
 						<div class="ad_tbl_top" style="margin-bottom: 10px;">
-							<ul class="ad_tbl_count" style="width: 100%">
+							<ul class="ad_tbl_count">
 								<li>
 									<span style="font-size:12px">포장기</span>
 								</li>
 							</ul>
+							<div class="ad_tbl_toplist">
+								<sbux-button
+									id="btnSavePckgFclt"
+									name="btnSavePckgFclt"
+									uitype="normal"
+									class="btn btn-sm btn-outline-danger"
+									text="저장"
+									value="PckgFclt"
+									onclick="fn_savePckgFcltData();"
+								></sbux-button>
+							</div>
 						</div>
 						<div id="sb-area-grdPckgFclt" style="height:180px;"></div>
 					</div>
@@ -147,39 +180,83 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="ad_tbl_top" style="margin-bottom: 10px;">
-							<ul class="ad_tbl_count" style="width: 100%">
+							<ul class="ad_tbl_count">
 								<li>
 									<span style="font-size:12px">품목</span>
 								</li>
 							</ul>
+							<div class="ad_tbl_toplist">
+								<sbux-button
+									id="btnSaveItem"
+									name="btnSaveItem"
+									uitype="normal"
+									class="btn btn-sm btn-outline-danger"
+									text="저장"
+									value="Item"
+									onclick="fn_saveItemData();"
+								></sbux-button>
+							</div>
 						</div>
 						<div id="sb-area-grdItem" style="height:258px;"></div>
 						<div class="ad_tbl_top" style="margin-bottom: 10px;">
-							<ul class="ad_tbl_count" style="width: 100%">
+							<ul class="ad_tbl_count">
 								<li>
 									<span style="font-size:12px">규격</span>
 								</li>
 							</ul>
+							<div class="ad_tbl_toplist">
+								<sbux-button
+									id="btnSaveSpcfct"
+									name="btnSaveSpcfct"
+									uitype="normal"
+									class="btn btn-sm btn-outline-danger"
+									text="저장"
+									value="Spcfct"
+									onclick="fn_saveSpcfctData();"
+								></sbux-button>
+							</div>
 						</div>
 						<div id="sb-area-grdSpcfct" style="height:258px;"></div>
 
 					</div>
 					<div class="col-sm-8">
 						<div class="ad_tbl_top" style="margin-bottom: 10px;">
-							<ul class="ad_tbl_count" style="width: 100%">
+							<ul class="ad_tbl_count">
 								<li>
 									<span style="font-size:12px">품종</span>
 								</li>
 							</ul>
+							<div class="ad_tbl_toplist">
+								<sbux-button
+									id="btnSaveVrty"
+									name="btnSaveVrty"
+									uitype="normal"
+									class="btn btn-sm btn-outline-danger"
+									text="저장"
+									value="Vrty"
+									onclick="fn_saveVrtyData();"
+								></sbux-button>
+							</div>
 						</div>
 						<div id="sb-area-grdVrty" style="height:258px;"></div>
 
 						<div class="ad_tbl_top" style="margin-bottom: 10px;">
-							<ul class="ad_tbl_count" style="width: 100%">
+							<ul class="ad_tbl_count">
 								<li>
 									<span style="font-size:12px">등급</span>
 								</li>
 							</ul>
+							<div class="ad_tbl_toplist">
+								<sbux-button
+									id="btnSaveGrd"
+									name="btnSaveGrd"
+									uitype="normal"
+									class="btn btn-sm btn-outline-danger"
+									text="저장"
+									value="Grd"
+									onclick="fn_saveGrdGrdData();"
+								></sbux-button>
+							</div>
 						</div>
 						<div id="sb-area-grdGrd" style="height:258px;"></div>
 					</div>
@@ -187,11 +264,22 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="ad_tbl_top" style="margin-bottom: 10px;">
-							<ul class="ad_tbl_count" style="width: 100%">
+							<ul class="ad_tbl_count">
 								<li>
 									<span style="font-size:12px">상품</span>
 								</li>
 							</ul>
+							<div class="ad_tbl_toplist">
+								<sbux-button
+									id="btnSaveGds"
+									name="btnSaveGds"
+									uitype="normal"
+									class="btn btn-sm btn-outline-danger"
+									text="저장"
+									value="Gds"
+									onclick="fn_saveGrdGdsData();"
+								></sbux-button>
+							</div>
 						</div>
 						<div id="sb-area-grdGds" style="height:258px;"></div>
 					</div>
@@ -199,22 +287,44 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="ad_tbl_top" style="margin-bottom: 10px;">
-							<ul class="ad_tbl_count" style="width: 100%">
+							<ul class="ad_tbl_count">
 								<li>
 									<span style="font-size:12px">생산자</span>
 								</li>
 							</ul>
+							<div class="ad_tbl_toplist">
+								<sbux-button
+									id="btnSavePrdcr"
+									name="btnSavePrdcr"
+									uitype="normal"
+									class="btn btn-sm btn-outline-danger"
+									text="저장"
+									value="Prdcr"
+									onclick="fn_saveGrdPrdcrData();"
+								></sbux-button>
+							</div>
 						</div>
 						<div id="sb-area-grdPrdcr" style="height:200px;"></div>
 					</div>
 
 					<div class="col-sm-8">
 						<div class="ad_tbl_top" style="margin-bottom: 10px;">
-							<ul class="ad_tbl_count" style="width: 100%">
+							<ul class="ad_tbl_count">
 								<li>
 									<span style="font-size:12px">팔레트/박스</span>
 								</li>
 							</ul>
+							<div class="ad_tbl_toplist">
+								<sbux-button
+									id="btnSavePltBx"
+									name="btnSavePltBx"
+									uitype="normal"
+									class="btn btn-sm btn-outline-danger"
+									text="저장"
+									value="PltBx"
+									onclick="fn_saveGrdPltBxData();"
+								></sbux-button>
+							</div>
 						</div>
 						<div id="sb-area-grdPltBx" style="height:200px;"></div>
 					</div>
@@ -223,32 +333,65 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="ad_tbl_top" style="margin-bottom: 10px;">
-							<ul class="ad_tbl_count" style="width: 100%">
+							<ul class="ad_tbl_count">
 								<li>
 									<span style="font-size:12px">차량정보</span>
 								</li>
 							</ul>
+							<div class="ad_tbl_toplist">
+								<sbux-button
+									id="btnSaveVhclInfo"
+									name="btnSaveVhclInfo"
+									uitype="normal"
+									class="btn btn-sm btn-outline-danger"
+									text="저장"
+									value="VhclInfo"
+									onclick="fn_saveVhclInfoData();"
+								></sbux-button>
+							</div>
 						</div>
 						<div id="sb-area-grdVhclInfo" style="height:120px;"></div>
 					</div>
 
 					<div class="col-sm-4">
 						<div class="ad_tbl_top" style="margin-bottom: 10px;">
-							<ul class="ad_tbl_count" style="width: 100%">
+							<ul class="ad_tbl_count">
 								<li>
 									<span style="font-size:12px">운송사</span>
 								</li>
 							</ul>
+							<div class="ad_tbl_toplist">
+								<sbux-button
+									id="btnSaveTrsprtCo"
+									name="btnSaveTrsprtCo"
+									uitype="normal"
+									class="btn btn-sm btn-outline-danger"
+									text="저장"
+									value="TrsprtCo"
+									onclick="fn_saveTrsprtCoData();"
+								></sbux-button>
+							</div>
 						</div>
 						<div id="sb-area-grdTrsprtCo" style="height:120px;"></div>
 					</div>
 					<div class="col-sm-4">
 						<div class="ad_tbl_top" style="margin-bottom: 10px;">
-							<ul class="ad_tbl_count" style="width: 100%">
+							<ul class="ad_tbl_count">
 								<li>
 									<span style="font-size:12px">거래처</span>
 								</li>
 							</ul>
+							<div class="ad_tbl_toplist">
+								<sbux-button
+									id="btnSaveCnpt"
+									name="btnSaveCnpt"
+									uitype="normal"
+									class="btn btn-sm btn-outline-danger"
+									text="저장"
+									value="Cnpt"
+									onclick="fn_saveCnptData();"
+								></sbux-button>
+							</div>
 						</div>
 						<div id="sb-area-grdCnpt" style="height:120px;"></div>
 					</div>
@@ -451,7 +594,7 @@
 	    SBGridProperties.columns = [
 	    	{caption : ["코드"], ref: 'cdVl', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px; '},
 	    	{caption : ["창고명"], ref: 'cdVlNm', type: 'input',  width:'40%', style: 'text-align:center; padding-right:5px;'},
-	    	{caption : ["외부연결코드"], ref: 'linkCd', type: 'input',  width:'15%', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["외부연결코드"], ref: 'extrnlLnkgCd', type: 'input',  width:'15%', style: 'text-align:center; padding-right:5px;'},
 	    	{caption : ["비고"], ref: 'rmrk', type: 'input',  width:'30%', style: 'text-align:center; padding-right:5px;'},
 	    ];
 	    grdWarehouse = _SBGrid.create(SBGridProperties);
@@ -490,7 +633,7 @@
 	    SBGridProperties.columns = [
 	    	{caption : ["코드"], ref: 'cdVl', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px; '},
 	    	{caption : ["포장기명"], ref: 'cdVlNm', type: 'input',  width:'40%', style: 'text-align:center; padding-right:5px;'},
-	    	{caption : ["외부연결코드"], ref: 'linkCd', type: 'input',  width:'15%', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["외부연결코드"], ref: 'extrnlLnkgCd', type: 'input',  width:'15%', style: 'text-align:center; padding-right:5px;'},
 	    	{caption : ["비고"], ref: 'rmrk', type: 'input',  width:'30%', style: 'text-align:center; padding-right:5px;'},
 	    ];
 	    grdPckgFclt = _SBGrid.create(SBGridProperties);
@@ -1408,52 +1551,515 @@
 				//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 	}
-
-/**
- *
- const fn_cellGrid = async function() {
-	let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
-
-	const postJsonPromise = gfn_postJSON("/fm/fclt/selectMdRtlOgnzNowGridList.do", {crtrYr : crtrYr});
-
-	let data = await postJsonPromise;
-	try {
-
-		mdRtlOgnzNowJsonLengthReset();
-
-	  	data.resultMdRtlOgnz.forEach((item, index) => {
-	  		const mdRtlOgnz = {
-	  				  title : item.title,
-	  				  subTitle : item.subTitle,
-	  				  s0 : item.s0,
-	  				  s1 : item.s1
+	
+	/**
+	 *
+	 const fn_cellGrid = async function() {
+		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
+	
+		const postJsonPromise = gfn_postJSON("/fm/fclt/selectMdRtlOgnzNowGridList.do", {crtrYr : crtrYr});
+	
+		let data = await postJsonPromise;
+		try {
+	
+			mdRtlOgnzNowJsonLengthReset();
+	
+		  	data.resultMdRtlOgnz.forEach((item, index) => {
+		  		const mdRtlOgnz = {
+		  				  title : item.title,
+		  				  subTitle : item.subTitle,
+		  				  s0 : item.s0,
+		  				  s1 : item.s1
+				}
+		  		jsonMdRtlOgnz.push(mdRtlOgnz);
+		  	});
+	
+	
+		  }	catch (e) {
+		 		if (!(e instanceof Error)) {
+		 			e = new Error(e);
+		 		}
+		 		console.error("failed", e.message);
 			}
-	  		jsonMdRtlOgnz.push(mdRtlOgnz);
-	  	});
+	
+		  return true;
+	}
+	*/
+	
+	const apcStdInqJsonLengthReset = function() {
+		jsonWrhsSe.length = 0;
+		jsonGdsSe.length = 0;
+		jsonTrsprtSe.length = 0;
+	}
+	
+	const apcStdInqGridRebuild = function() {
+		grdWrhsSe.rebuild();
+		grdGdsSe.rebuild();
+		grdTrsprtSe.rebuild();
+	}
 
+	
+	let insertList = [];
+	
+	// 그리드 데이터 저장 버튼
+	const fn_saveWarehouseData = async function(){
+		insertList.length=0;
+		let gridAllData = grdWarehouse.getGridDataAll();
+		
+		for(var i=1; i<=gridAllData.length; i++){
+			let rowData = grdWarehouse.getRowData(i);
+			let rowSts = grdWarehouse.getRowStatus(i);
+			let cdVlNm = rowData.cdVlNm;
 
-	  }	catch (e) {
-	 		if (!(e instanceof Error)) {
-	 			e = new Error(e);
-	 		}
-	 		console.error("failed", e.message);
+			if(gfn_isEmpty(cdVlNm)){
+				gfn_comAlert("W0002", "창고명");
+				return;
+			}
+			if(rowSts == 2){
+				insertList.push(rowData);
+			}
 		}
+		
+		if(gfn_isEmpty(insertList)){
+			gfn_comAlert("W0003", "저장");
+			return;
+		}
+		if(gfn_comConfirm("Q0001", "저장")){
+			let postJsonPromise = gfn_postJSON("/co/cd/updateComWarehouseList.do", insertList);
+	        let data = await postJsonPromise;
+	        
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001");
+	        		fn_setGrdWarehouse();
+	        	} else {
+	        		gfn_comAlert(data.resultCode, data.resultMessage);
+	        	}
+	        } catch(e) {
+	        	console.error("failed", e.message);
+	        }
+		}
+	}
 
-	  return true;
-}
-*/
+	const fn_saveSortFcltData = async function(){
+		insertList.length=0;
+		let gridAllData = grdSortFclt.getGridDataAll();
+		
+		for(var i=1; i<=gridAllData.length; i++){
+			let rowData = grdSortFclt.getRowData(i);
+			let rowSts = grdSortFclt.getRowStatus(i);
+			let cdVlNm = rowData.cdVlNm;
 
-const apcStdInqJsonLengthReset = function() {
-	jsonWrhsSe.length = 0;
-	jsonGdsSe.length = 0;
-	jsonTrsprtSe.length = 0;
-}
+			if(gfn_isEmpty(cdVlNm)){
+				gfn_comAlert("W0002", "선별기명");
+				return;
+			}
+			
+			if(rowSts == 2){
+				insertList.push(rowData);
+			}
+		}
+		if(gfn_isEmpty(insertList)){
+			gfn_comAlert("W0003", "저장");
+			return;
+		}
+		
+		if(gfn_comConfirm("Q0001", "저장")){
+			let postJsonPromise = gfn_postJSON("/co/cd/updateComSortFcltList.do", insertList);
+	        let data = await postJsonPromise;
+	        
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001");
+	        		fn_setGrdSortFclt();
+	        	} else {
+	        		gfn_comAlert(data.resultCode, data.resultMessage);
+	        	}
+	        } catch(e) {
+	        	console.error("failed", e.message);
+	        }
+		}
+	}
+	
+	const fn_savePckgFcltData = async function(){
+		insertList.length=0;
+		let gridAllData = grdPckgFclt.getGridDataAll();
+		
+		for(var i=1; i<=gridAllData.length; i++){
+			let rowData = grdPckgFclt.getRowData(i);
+			let rowSts = grdPckgFclt.getRowStatus(i);
+			let cdVlNm = rowData.cdVlNm;
 
-const apcStdInqGridRebuild = function() {
-	grdWrhsSe.rebuild();
-	grdGdsSe.rebuild();
-	grdTrsprtSe.rebuild();
-}
+			if(gfn_isEmpty(cdVlNm)){
+				gfn_comAlert("W0002", "선별기명");
+				return;
+			}
+			
+			if(rowSts == 2){
+				insertList.push(rowData);
+			}
+		}
+		if(gfn_isEmpty(insertList)){
+			gfn_comAlert("W0003", "저장");
+			return;
+		}
+		
+		if(gfn_comConfirm("Q0001", "저장")){
+			let postJsonPromise = gfn_postJSON("/co/cd/updateComPckgFcltList.do", insertList);
+	        let data = await postJsonPromise;
+	        
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001");
+	        		fn_setGrdPckgFclt();
+	        	} else {
+	        		gfn_comAlert(data.resultCode, data.resultMessage);
+	        	}
+	        } catch(e) {
+	        	console.error("failed", e.message);
+	        }
+		}
+	}
+	
+	const fn_saveItemData = async function(){
+		insertList.length=0;
+		let gridAllData = grdItem.getGridDataAll();
+		
+		for(var i=1; i<=gridAllData.length; i++){
+			let rowData = grdItem.getRowData(i);
+			let rowSts = grdItem.getRowStatus(i);
+			
+			if(rowSts == 2){
+				insertList.push(rowData);
+			}
+		}
+		if(gfn_isEmpty(insertList)){
+			gfn_comAlert("W0003", "저장");
+			return;
+		}
+		
+		if(gfn_comConfirm("Q0001", "저장")){
+			let postJsonPromise = gfn_postJSON("/am/cmns/updateItemList.do", insertList);
+	        let data = await postJsonPromise;
+	        
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001");
+	        		fn_setGrdItem();
+	        	} else {
+	        		gfn_comAlert(data.resultCode, data.resultMessage);
+	        	}
+	        } catch(e) {
+	        	console.error("failed", e.message);
+	        }
+		}
+	}
+
+	const fn_saveVrtyData = async function(){
+		insertList.length=0;
+		let gridAllData = grdVrty.getGridDataAll();
+		
+		for(var i=1; i<=gridAllData.length; i++){
+			let rowData = grdVrty.getRowData(i);
+			let rowSts = grdVrty.getRowStatus(i);
+			
+			if(rowSts == 2){
+				insertList.push(rowData);
+			}
+		}
+		if(gfn_isEmpty(insertList)){
+			gfn_comAlert("W0003", "저장");
+			return;
+		}
+		
+		if(gfn_comConfirm("Q0001", "저장")){
+			let postJsonPromise = gfn_postJSON("/am/cmns/updateVrtyList.do", insertList);
+	        let data = await postJsonPromise;
+	        
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001");
+	        		fn_setGrdVrty();
+	        	} else {
+	        		gfn_comAlert(data.resultCode, data.resultMessage);
+	        	}
+	        } catch(e) {
+	        	console.error("failed", e.message);
+	        }
+		}
+	}
+	
+	const fn_saveSpcfctData = async function(){
+		insertList.length=0;
+		let gridAllData = grdSpcfct.getGridDataAll();
+		
+		for(var i=1; i<=gridAllData.length; i++){
+			let rowData = grdSpcfct.getRowData(i);
+			let rowSts = grdSpcfct.getRowStatus(i);
+			
+			if(rowSts == 2){
+				insertList.push(rowData);
+			}
+		}
+		if(gfn_isEmpty(insertList)){
+			gfn_comAlert("W0003", "저장");
+			return;
+		}
+		
+		if(gfn_comConfirm("Q0001", "저장")){
+			let postJsonPromise = gfn_postJSON("/am/cmns/updateSpcfctList.do", insertList);
+	        let data = await postJsonPromise;
+	        
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001");
+	        		fn_setGrdSpcfct();
+	        	} else {
+	        		gfn_comAlert(data.resultCode, data.resultMessage);
+	        	}
+	        } catch(e) {
+	        	console.error("failed", e.message);
+	        }
+		}
+	}
+	
+	const fn_saveGrdGrdData = async function(){
+		insertList.length=0;
+		let gridAllData = grdGrd.getGridDataAll();
+		
+		for(var i=1; i<=gridAllData.length; i++){
+			let rowData = grdGrd.getRowData(i);
+			let rowSts = grdGrd.getRowStatus(i);
+			
+			if(rowSts == 2){
+				insertList.push(rowData);
+			}
+		}
+		if(gfn_isEmpty(insertList)){
+			gfn_comAlert("W0003", "저장");
+			return;
+		}
+		
+		if(gfn_comConfirm("Q0001", "저장")){
+			let postJsonPromise = gfn_postJSON("/am/cmns/updateGrdList.do", insertList);
+	        let data = await postJsonPromise;
+	        
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001");
+	        		fn_setGrdGrd();
+	        	} else {
+	        		gfn_comAlert(data.resultCode, data.resultMessage);
+	        	}
+	        } catch(e) {
+	        	console.error("failed", e.message);
+	        }
+		}
+	}
+	
+	const fn_saveGrdGdsData = async function(){
+		insertList.length=0;
+		let gridAllData = grdGds.getGridDataAll();
+		
+		for(var i=1; i<=gridAllData.length; i++){
+			let rowData = grdGds.getRowData(i);
+			let rowSts = grdGds.getRowStatus(i);
+			
+			if(rowSts == 2){
+				insertList.push(rowData);
+			}
+		}
+		if(gfn_isEmpty(insertList)){
+			gfn_comAlert("W0003", "저장");
+			return;
+		}
+		
+		if(gfn_comConfirm("Q0001", "저장")){
+			let postJsonPromise = gfn_postJSON("/am/cmns/updateSpmtPckgUnitsList.do", insertList);
+	        let data = await postJsonPromise;
+	        
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001");
+	        		fn_setGrdGds();
+	        	} else {
+	        		gfn_comAlert(data.resultCode, data.resultMessage);
+	        	}
+	        } catch(e) {
+	        	console.error("failed", e.message);
+	        }
+		}
+	}
+	
+	const fn_saveGrdPrdcrData = async function(){
+		insertList.length=0;
+		let gridAllData = grdPrdcr.getGridDataAll();
+		
+		for(var i=1; i<=gridAllData.length; i++){
+			let rowData = grdPrdcr.getRowData(i);
+			let rowSts = grdPrdcr.getRowStatus(i);
+			
+			if(rowSts == 2){
+				insertList.push(rowData);
+			}
+		}
+		if(gfn_isEmpty(insertList)){
+			gfn_comAlert("W0003", "저장");
+			return;
+		}
+		
+		if(gfn_comConfirm("Q0001", "저장")){
+			let postJsonPromise = gfn_postJSON("/am/cmns/updatePrdcrList.do", insertList);
+	        let data = await postJsonPromise;
+	        
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001");
+	        		fn_setGrdGds();
+	        	} else {
+	        		gfn_comAlert(data.resultCode, data.resultMessage);
+	        	}
+	        } catch(e) {
+	        	console.error("failed", e.message);
+	        }
+		}
+	}
+	
+	const fn_saveGrdPltBxData = async function(){
+		insertList.length=0;
+		let gridAllData = grdPltBx.getGridDataAll();
+		
+		for(var i=1; i<=gridAllData.length; i++){
+			let rowData = grdPltBx.getRowData(i);
+			let rowSts = grdPltBx.getRowStatus(i);
+			
+			if(rowSts == 2){
+				insertList.push(rowData);
+			}
+		}
+		if(gfn_isEmpty(insertList)){
+			gfn_comAlert("W0003", "저장");
+			return;
+		}
+		
+		if(gfn_comConfirm("Q0001", "저장")){
+			let postJsonPromise = gfn_postJSON("/am/cmns/updatePltBxList.do", insertList);
+	        let data = await postJsonPromise;
+	        
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001");
+	        		fn_setGrdPltBx();
+	        	} else {
+	        		gfn_comAlert(data.resultCode, data.resultMessage);
+	        	}
+	        } catch(e) {
+	        	console.error("failed", e.message);
+	        }
+		}
+	}
+	
+	const fn_saveVhclInfoData = async function(){
+		insertList.length=0;
+		let gridAllData = grdVhclInfo.getGridDataAll();
+		
+		for(var i=1; i<=gridAllData.length; i++){
+			let rowData = grdVhclInfo.getRowData(i);
+			let rowSts = grdVhclInfo.getRowStatus(i);
+			
+			if(rowSts == 2){
+				insertList.push(rowData);
+			}
+		}
+		if(gfn_isEmpty(insertList)){
+			gfn_comAlert("W0003", "저장");
+			return;
+		}
+		
+		if(gfn_comConfirm("Q0001", "저장")){
+			let postJsonPromise = gfn_postJSON("/am/cmns/updateVhclInfoList.do", insertList);
+	        let data = await postJsonPromise;
+	        
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001");
+	        		fn_setVhclInfo();
+	        	} else {
+	        		gfn_comAlert(data.resultCode, data.resultMessage);
+	        	}
+	        } catch(e) {
+	        	console.error("failed", e.message);
+	        }
+		}
+	}
+	
+	const fn_saveTrsprtCoData = async function(){
+		insertList.length=0;
+		let gridAllData = grdTrsprtCo.getGridDataAll();
+		
+		for(var i=1; i<=gridAllData.length; i++){
+			let rowData = grdTrsprtCo.getRowData(i);
+			let rowSts = grdTrsprtCo.getRowStatus(i);
+			
+			if(rowSts == 2){
+				insertList.push(rowData);
+			}
+		}
+		if(gfn_isEmpty(insertList)){
+			gfn_comAlert("W0003", "저장");
+			return;
+		}
+		
+		if(gfn_comConfirm("Q0001", "저장")){
+			let postJsonPromise = gfn_postJSON("/am/cmns/updateTrsprtCoList.do", insertList);
+	        let data = await postJsonPromise;
+	        
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001");
+	        		fn_setGrdTrsprtCo();
+	        	} else {
+	        		gfn_comAlert(data.resultCode, data.resultMessage);
+	        	}
+	        } catch(e) {
+	        	console.error("failed", e.message);
+	        }
+		}
+	}
+
+	const fn_saveCnptData = async function(){
+		insertList.length=0;
+		let gridAllData = grdCnpt.getGridDataAll();
+		
+		for(var i=1; i<=gridAllData.length; i++){
+			let rowData = grdCnpt.getRowData(i);
+			let rowSts = grdCnpt.getRowStatus(i);
+			
+			if(rowSts == 2){
+				insertList.push(rowData);
+			}
+		}
+		if(gfn_isEmpty(insertList)){
+			gfn_comAlert("W0003", "저장");
+			return;
+		}
+		
+		if(gfn_comConfirm("Q0001", "저장")){
+			let postJsonPromise = gfn_postJSON("/am/cmns/updateApcCnptList.do", insertList);
+	        let data = await postJsonPromise;
+	        
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001");
+	        		fn_setGrdCnpt();
+	        	} else {
+	        		gfn_comAlert(data.resultCode, data.resultMessage);
+	        	}
+	        } catch(e) {
+	        	console.error("failed", e.message);
+	        }
+		}
+	}
 
 </script>
 </html>

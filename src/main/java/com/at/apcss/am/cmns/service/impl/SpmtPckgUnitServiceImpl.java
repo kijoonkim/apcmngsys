@@ -186,4 +186,18 @@ public class SpmtPckgUnitServiceImpl extends BaseServiceImpl implements SpmtPckg
 		return null;
 	}
 
+	@Override
+	public int updateSpmtPckgUnits(SpmtPckgUnitVO SpmtPckgUnitVO) throws Exception {
+		int updatedCnt = spmtPckgUnitMapper.updateSpmtPckgUnits(SpmtPckgUnitVO);
+		return updatedCnt;
+	}
+
+	@Override
+	public HashMap<String, Object> updateSpmtPckgUnitsList(List<SpmtPckgUnitVO> SpmtPckgUnitList) throws Exception {
+		for (SpmtPckgUnitVO spmtPckgUnitVO : SpmtPckgUnitList) {
+			updateSpmtPckgUnits(spmtPckgUnitVO);
+		}
+		return null;
+	}
+
 }

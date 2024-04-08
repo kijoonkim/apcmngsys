@@ -64,5 +64,30 @@ public class CnptApiController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	// APC 운송사
+	@PostMapping(value = "/am/cmns/updateApcCnptList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> updateCnptList(@RequestBody List<CnptVO> cnptList, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			for (CnptVO cnptVO : cnptList) {
+				cnptVO.setSysLastChgPrgrmId(getPrgrmId());
+				cnptVO.setSysLastChgUserId(getUserId());
+			}
+			
+			HashMap<String, Object> rtnObj = cnptService.updateCnptList(cnptList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+			
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
 
 }
