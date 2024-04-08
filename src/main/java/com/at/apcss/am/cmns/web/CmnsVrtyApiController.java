@@ -73,4 +73,30 @@ public class CmnsVrtyApiController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	// APC 품종 목록 조회
+	@PostMapping(value = "/am/cmns/updateVrtyList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> updateVrtyList(@RequestBody List<CmnsVrtyVO> cmnsVrtyList, HttpServletRequest request) throws Exception {
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			for (CmnsVrtyVO cmnsVrtyVO : cmnsVrtyList) {
+				cmnsVrtyVO.setSysLastChgPrgrmId(getPrgrmId());
+				cmnsVrtyVO.setSysLastChgUserId(getUserId());
+			}
+			
+			HashMap<String, Object> rtnObj = cmnsVrtyService.updateVrtyList(cmnsVrtyList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
 }

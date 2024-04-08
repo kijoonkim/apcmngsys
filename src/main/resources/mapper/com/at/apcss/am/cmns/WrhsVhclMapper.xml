@@ -279,6 +279,28 @@
 		]]>
 
     </select>
+    
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.WrhsVhclMapper.updateVhclInfo			-->
+	<!-- DESC : APC 기준정보 업데이트	                                       				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.08  	김 호        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updateVhclInfo" parameterType="com.at.apcss.am.cmns.vo.WrhsVhclVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.cmns.mapper.WrhsVhclMapper.updateWrhsVhcl */
+				TB_WRHS_VHCL_INFO
+			   SET SYS_LAST_CHG_DT 			= SYSDATE
+	    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+	    		 , DRVR_NM					= #{drvrNm}
+	    		 , RMRK						= #{rmrk}
+			 WHERE APC_CD 					= #{apcCd}
+			   AND VHCLNO 					= #{vhclno}
+		]]>
+	</update>
 
 </mapper>
 

@@ -166,6 +166,31 @@ public class SpmtTrsprtController extends BaseController {
 			}
 		}
 		return getSuccessResponseEntity(resultMap);
-
+	}
+	
+	// APC 운송사
+	@PostMapping(value = "/am/cmns/updateTrsprtCoList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> updateTrsprtCoList(@RequestBody List<SpmtTrsprtVO> spmtTrsprtList, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			for (SpmtTrsprtVO spmtTrsprtVO : spmtTrsprtList) {
+				spmtTrsprtVO.setSysLastChgPrgrmId(getPrgrmId());
+				spmtTrsprtVO.setSysLastChgUserId(getUserId());
+			}
+			
+			HashMap<String, Object> rtnObj = spmtTrsprtService.updateTrsprtCoList(spmtTrsprtList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+			
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		return getSuccessResponseEntity(resultMap);
 	}
 }

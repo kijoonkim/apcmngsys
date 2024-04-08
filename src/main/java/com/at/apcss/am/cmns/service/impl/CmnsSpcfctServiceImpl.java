@@ -175,4 +175,18 @@ public class CmnsSpcfctServiceImpl extends BaseServiceImpl implements CmnsSpcfct
 		return null;
 	}
 
+	@Override
+	public int updateSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception {
+		int updateCnt = cmnsSpcfctMapper.updateSpcfct(cmnsSpcfctVO);
+		return updateCnt;
+	}
+
+	@Override
+	public HashMap<String, Object> updateSpcfctList(List<CmnsSpcfctVO> cmnsSpcfctList) throws Exception {
+		for (CmnsSpcfctVO cmnsSpcfctVO : cmnsSpcfctList) {
+			updateSpcfct(cmnsSpcfctVO);
+		}
+		return null;
+	}
+
 }

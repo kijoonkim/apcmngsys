@@ -71,4 +71,11 @@ public interface SpmtTrsprtMapper {
 	 */
 	public List<SpmtTrsprtVO> spmtTrsprtDelible(SpmtTrsprtVO spmtTrsprtVO)throws Exception;
 
+	/**
+	 * APC기준정보 운송사 정보 업데이트
+	 * @param SpmtTrsprtVO
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public int updateTrsprtCo(SpmtTrsprtVO spmtTrsprtVO) throws Exception;
 }

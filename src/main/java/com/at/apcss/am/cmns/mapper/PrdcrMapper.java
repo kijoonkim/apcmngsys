@@ -103,4 +103,11 @@ public interface PrdcrMapper {
 	 * @throws Exception
 	 */
 	public int deletePrdcr(PrdcrVO prdcrVO) throws Exception;
+	/**
+	 * APC 생산자 정보 업데이트
+	 * @param prdcrVO
+	 * @return integer
+	 * @throws Exception
+	 */
+	public int updateApcPrdcr(PrdcrVO prdcrVO) throws Exception;
 }

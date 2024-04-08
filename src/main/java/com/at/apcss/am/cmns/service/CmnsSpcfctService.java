@@ -126,4 +126,18 @@ public interface CmnsSpcfctService {
 	 * @throws Exception
 	 */
 	public String spcfctDelible(CmnsSpcfctVO cmnsSpcfctVO) throws Exception;
+	/**
+	 * APC 규격 정보 업데이트
+	 * @param cmnsSpcfctVO
+	 * @return integer
+	 * @throws Exception
+	 */
+	public int updateSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception;
+	/**
+	 * APC 규격 목록 정보 업데이트 
+	 * @param List<CmnsSpcfctVO>
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateSpcfctList(List<CmnsSpcfctVO> cmnsSpcfctList) throws Exception;
 }

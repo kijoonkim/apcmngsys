@@ -78,4 +78,11 @@ public interface WrhsVhclMapper {
 	 * @throws Exception
 	 */
 	public List<WrhsVhclVO> vhclDelible(WrhsVhclVO wrhsVhclVO) throws Exception;
+	/**
+	 * APC 기준정보 차량정보 업데이트
+	 * @param wrhsVhclVO
+	 * @return integer
+	 * @throws Exception
+	 */
+	public int updateVhclInfo(WrhsVhclVO wrhsVhclVO) throws Exception;
 }

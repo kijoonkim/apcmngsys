@@ -92,6 +92,21 @@ public interface CmnsItemService {
 	 * @throws Exception
 	 */
 	public String itemDelible(CmnsItemVO cmnsItemVO) throws Exception;
+	
+	/**
+	 * APC기준정보 품목 업데이트 리스트
+	 * @param CmnsItemVO
+	 * @return integer
+	 * @throws Exception
+	 */
+	public int updateItem(CmnsItemVO cmnsItemVO) throws Exception;
+	/**
+	 * APC기준정보 품목 업데이트 리스트
+	 * @param List<CmnsItemVO>
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateItemList(List<CmnsItemVO> cmnsItemList) throws Exception;
 
 
 }

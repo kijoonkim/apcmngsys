@@ -106,4 +106,11 @@ public interface CnptMapper {
 	 * @throws Exception
 	 */
 	public List<CnptVO> cnptDelible(CnptVO cnptVO) throws Exception;
+	/**
+	 * APC 기준정보 거래처 정보 업데이트
+	 * @param CnptVO
+	 * @return integer
+	 * @throws Exception
+	 */	
+	public int updateApcCnpt(CnptVO cnptVO) throws Exception;
 }

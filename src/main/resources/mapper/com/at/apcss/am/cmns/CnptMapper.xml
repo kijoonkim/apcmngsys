@@ -340,6 +340,27 @@
  			WHERE CNT > 0
 		]]>
     </select>
+    
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CnptMapper.updateCnpt					-->
+	<!-- DESC : APC기준정보 거래처 정보 업데이트                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.08  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updateApcCnpt" parameterType="com.at.apcss.am.cmns.vo.CnptVO">
+		<![CDATA[
+		UPDATE TB_CNPT_INFO
+		   SET SYS_LAST_CHG_DT 			= SYSDATE
+    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+			 , CNPT_NM					= #{cnptNm}
+			 , EXTRNL_LNKG_CD			= #{extrnlLnkgCd}
+		 WHERE APC_CD 					= #{apcCd}
+		   AND CNPT_CD 					= #{cnptCd}
+		]]>
+	</update>
 </mapper>
 
 

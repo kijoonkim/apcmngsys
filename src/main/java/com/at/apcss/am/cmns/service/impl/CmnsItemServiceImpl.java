@@ -228,5 +228,20 @@ public class CmnsItemServiceImpl extends BaseServiceImpl implements CmnsItemServ
 
 		return null;
 	}
+	
+	@Override
+	public int updateItem(CmnsItemVO cmnsItemVO) throws Exception {
+		int updateCnt = 0;
+		updateCnt = cmnsItemMapper.updateComItem(cmnsItemVO);
+		return updateCnt;
+	}
+	@Override
+	public HashMap<String, Object> updateItemList(List<CmnsItemVO> cmnsItemList) throws Exception {
+		
+		for (CmnsItemVO cmnsItemVO : cmnsItemList) {
+			updateItem(cmnsItemVO);
+		}
+		return null;
+	}
 
 }

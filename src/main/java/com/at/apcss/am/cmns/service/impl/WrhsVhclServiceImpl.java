@@ -145,4 +145,18 @@ public class WrhsVhclServiceImpl extends BaseServiceImpl implements WrhsVhclServ
 		return null;
 	}
 
+	@Override
+	public int updateVhclInfo(WrhsVhclVO wrhsVhclVO) throws Exception {
+		wrhsVhclMapper.updateVhclInfo(wrhsVhclVO);
+		return 0;
+	}
+
+	@Override
+	public HashMap<String, Object> updateVhclInfoList(List<WrhsVhclVO> WrhsVhclList) throws Exception {
+		for (WrhsVhclVO wrhsVhclVO : WrhsVhclList) {
+			updateVhclInfo(wrhsVhclVO);
+		}
+		return null;
+	}
+
 }

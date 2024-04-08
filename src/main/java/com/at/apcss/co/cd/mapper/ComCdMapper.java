@@ -156,4 +156,19 @@ public interface ComCdMapper {
 	 * @throws Exception
 	 */
 	public List<ComCdVO> apcCdComCdDtlDelible(ComCdVO comCdVO) throws Exception;
+
+	/**
+	 * APC기준정보 창고, 선별기, 포장기 업데이트
+	 * @param ComCdVO
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public int updateComApcStdInq(ComCdVO comCdVO) throws Exception;
+	/**
+	 * APC기준정보 품목 업데이트
+	 * @param ComCdVO
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public int updateComItem(ComCdVO comCdVO) throws Exception;
 }

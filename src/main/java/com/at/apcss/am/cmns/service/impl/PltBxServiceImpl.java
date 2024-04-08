@@ -134,4 +134,18 @@ public class PltBxServiceImpl extends BaseServiceImpl implements PltBxService {
 		}
 		return null;
 	}
+
+	@Override
+	public int updateApcPltBx(PltBxVO pltBxVO) throws Exception {
+		int updatedCnt = pltBxMapper.updateApcPltBx(pltBxVO);
+		return updatedCnt;
+	}
+
+	@Override
+	public HashMap<String, Object> updatePltBxList(List<PltBxVO> pltBxList) throws Exception {
+		for (PltBxVO pltBxVO : pltBxList) {
+			updateApcPltBx(pltBxVO);
+		}
+		return null;
+	}
 }

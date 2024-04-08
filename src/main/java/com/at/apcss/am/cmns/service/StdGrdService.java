@@ -198,4 +198,18 @@ public interface StdGrdService {
 	 * @throws Exception
 	 */
 	public String grdJgmtInvntrDelible(StdGrdJgmtVO stdGrdJgmtVO) throws Exception;
+	/**
+	 * APC 등급 업데이트
+	 * @param StdGrdDtlVO
+	 * @return integer
+	 * @throws Exception
+	 */
+	public int updateGrd(StdGrdDtlVO stdGrdDtlVO) throws Exception;
+	/**
+	 * APC 등급 업데이트 목록
+	 * @param List<StdGrdDtlVO>
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateGrdList(List<StdGrdDtlVO> stdGrdDtlList) throws Exception;
 }

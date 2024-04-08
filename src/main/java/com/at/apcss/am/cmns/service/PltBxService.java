@@ -70,4 +70,19 @@ public interface PltBxService {
 	public HashMap<String, Object> insertPltBxSample(PltBxVO pltBxVO) throws Exception;
 
 	public HashMap<String, Object> multiPltBxList(List<PltBxVO> pltBxList) throws Exception;
+	/**
+	 * APC 팔레트/박스 정보 업데이트
+	 * @param PltBxVO
+	 * @return integer
+	 * @throws Exception
+	 */
+	public int updateApcPltBx(PltBxVO pltBxVO) throws Exception;
+	/**
+	 * APC 팔레트/박스 정보 업데이트
+	 * @param List<PltBxVO>
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updatePltBxList(List<PltBxVO> pltBxList) throws Exception;
+
 }

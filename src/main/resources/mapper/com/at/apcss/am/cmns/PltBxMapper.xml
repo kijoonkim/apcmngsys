@@ -173,6 +173,29 @@
 			   AND PLT_BX_CD	= #{pltBxCd}
 		]]>
 	</delete>
+	
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.PltBxMapper.updatePltBx					-->
+	<!-- DESC : APC기준정보 팔레트/박스 변경.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.08  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updateApcPltBx" parameterType="com.at.apcss.am.cmns.vo.PltBxVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.cmns.mapper.PltBxMapper.updatePltBx */
+				TB_PLT_BX_INFO
+			   SET SYS_LAST_CHG_DT 			= SYSDATE
+	    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+	    		 , PLT_BX_NM				= #{pltBxNm}
+	    		 , EXTRNL_LNKG_CD			= #{extrnlLnkgCd}
+			 WHERE APC_CD 		= #{apcCd}
+			   AND PLT_BX_SE_CD = #{pltBxSeCd}
+			   AND PLT_BX_CD  	= #{pltBxCd}
+		]]>
+	</update>
 
 </mapper>
 

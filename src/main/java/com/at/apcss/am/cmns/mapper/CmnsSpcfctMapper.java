@@ -120,4 +120,11 @@ public interface CmnsSpcfctMapper {
 	 * @throws Exception
 	 */
 	public List<CmnsSpcfctVO> spcfctDelible(CmnsSpcfctVO cmnsSpcfctVO) throws Exception;
+	/**
+	 * APC 규격 정보 업데이트
+	 * @param cmnsSpcfctVO
+	 * @return integer
+	 * @throws Exception
+	 */
+	public int updateSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception;
 }

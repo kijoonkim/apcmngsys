@@ -62,5 +62,30 @@ public class PrdcrApiController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-
+	
+	// APC 생산자 정보 업데이트
+	@PostMapping(value = "/am/cmns/updatePrdcrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> updatePrdcrList(@RequestBody List<PrdcrVO> prdcrList, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			for (PrdcrVO prdcrVO : prdcrList) {
+				prdcrVO.setSysLastChgPrgrmId(getPrgrmId());
+				prdcrVO.setSysLastChgUserId(getUserId());
+			}
+			
+			HashMap<String, Object> rtnObj = prdcrService.updatePrdcrList(prdcrList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+			
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
 }

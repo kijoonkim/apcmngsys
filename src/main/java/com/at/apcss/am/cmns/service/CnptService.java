@@ -128,5 +128,20 @@ public interface CnptService {
 	 * @throws Exception
 	 */
 	public String cnptDelible(CnptVO cnptVO) throws Exception;
+	
+	/**
+	 * APC기준정보 거래처 정보 업데이트
+	 * @param CnptVO
+	 * @return integer
+	 * @throws Exception
+	 */
+	public int updateApcCnpt(CnptVO cnptVO) throws Exception;
+	/**
+	 * APC기준정보 거래처 정보 업데이트 목록
+	 * @param List<CnptVO>
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateCnptList(List<CnptVO> cnptList) throws Exception;
 
 }

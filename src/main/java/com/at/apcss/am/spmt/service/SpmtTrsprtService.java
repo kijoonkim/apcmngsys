@@ -78,5 +78,19 @@ public interface SpmtTrsprtService {
 	 * @throws Exception
 	 */
 	public String spmtTrsprtDelible(SpmtTrsprtVO spmtTrsprtVO)throws Exception;
+	/**
+	 * APC 기준정보 업데이트 모곩
+	 * @param SpmtTrsprtVO
+	 * @return integer
+	 * @throws Exception
+	 */
+	public int updateTrsprtCo(SpmtTrsprtVO spmtTrsprtVO) throws Exception;
+	/**
+	 * APC 기준정보 업데이트 모곩
+	 * @param List<SpmtTrsprtVO>
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateTrsprtCoList(List<SpmtTrsprtVO> spmtTrsprtList) throws Exception;
 
 }

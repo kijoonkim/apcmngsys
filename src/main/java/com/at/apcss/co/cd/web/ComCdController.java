@@ -258,4 +258,86 @@ public class ComCdController extends BaseController {
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
+	
+	
+	
+	// APC기준정보 창고 업데이트
+	@PostMapping(value = "/co/cd/updateComWarehouseList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateComWarehouseList(@RequestBody List<ComCdVO> comCdList, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		try {
+			for (ComCdVO comCdVO : comCdList) {
+				comCdVO.setSysLastChgPrgrmId(getPrgrmId());
+				comCdVO.setSysLastChgUserId(getUserId());
+			}
+
+			HashMap<String, Object> rtnObj = comCdService.updateComWarehouseList(comCdList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
+	// APC기준정보 선별기 업데이트
+	@PostMapping(value = "/co/cd/updateComSortFcltList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateComSortFcltList(@RequestBody List<ComCdVO> comCdList, HttpServletRequest request) throws Exception {
+		
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			for (ComCdVO comCdVO : comCdList) {
+				comCdVO.setSysLastChgPrgrmId(getPrgrmId());
+				comCdVO.setSysLastChgUserId(getUserId());
+			}
+			
+			HashMap<String, Object> rtnObj = comCdService.updateComSortFcltList(comCdList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
+	// APC기준정보 포장기 업데이트
+	@PostMapping(value = "/co/cd/updateComPckgFcltList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateComPckgFcltList(@RequestBody List<ComCdVO> comCdList, HttpServletRequest request) throws Exception {
+		
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			for (ComCdVO comCdVO : comCdList) {
+				comCdVO.setSysLastChgPrgrmId(getPrgrmId());
+				comCdVO.setSysLastChgUserId(getUserId());
+			}
+			
+			HashMap<String, Object> rtnObj = comCdService.updateComPckgFcltList(comCdList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
+
 }

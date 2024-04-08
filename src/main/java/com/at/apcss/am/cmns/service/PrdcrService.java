@@ -92,5 +92,19 @@ public interface PrdcrService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> multiPrdcrList(List<PrdcrVO> prdcrList) throws Exception;
+	/**
+	 * APC 생산자 정보 업데이트
+	 * @param PrdcrVO
+	 * @return integer
+	 * @throws Exception
+	 */
+	public int updateApcPrdcr(PrdcrVO prdcrVO) throws Exception;
+	/**
+	 * APC 생산자 정보 업데이트 목록
+	 * @param List<PrdcrVO>
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updatePrdcrList(List<PrdcrVO> prdcrVO) throws Exception;
 
 }

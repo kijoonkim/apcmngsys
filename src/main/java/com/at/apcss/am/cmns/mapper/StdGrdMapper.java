@@ -208,4 +208,11 @@ public interface StdGrdMapper {
 	 * @throws Exception
 	 */
 	public int grdJgmtCheck(StdGrdDtlVO stdGrdDtlVO) throws Exception;
+	/**
+	 * APC 등급 정보 업데이트
+	 * @param StdGrdVO
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public int updateGrd(StdGrdDtlVO stdGrdDtlVO) throws Exception;
 }

@@ -347,6 +347,26 @@
 			 WHERE CNT > 0
 		]]>
     </select>
+    
+    <!-- =========================================================================  -->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.updateComItem			-->
+	<!-- DESC : APC기준 품목 정보 업데이트  		                            				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.05  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateComItem" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO">
+    	<![CDATA[
+    	   UPDATE TB_APC_ITEM_CRTR
+		      SET SYS_LAST_CHG_DT = SYSDATE
+		   		, SYS_LAST_CHG_USER_ID=#{sysLastChgUserId}
+		   		, SYS_LAST_CHG_PRGRM_ID=#{sysLastChgPrgrmId}
+		   		, EXTRNL_LNKG_CD=#{extrnlLnkgCd}
+		   WHERE APC_CD=#{apcCd}
+		     AND ITEM_CD=#{itemCd}
+    	]]>
+    </update>
 </mapper>
 
 
