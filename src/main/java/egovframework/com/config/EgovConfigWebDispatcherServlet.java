@@ -10,10 +10,7 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerExceptionResolver;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
 import egovframework.com.cmm.interceptor.AuthenticInterceptor;
@@ -188,4 +185,12 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
                 .maxAge(3600);
     }
     */
+
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//		WebMvcConfigurer.super.addResourceHandlers(registry);
+		registry.addResourceHandler("/static/**")
+				.addResourceLocations("classpath:/static/")
+				.setCachePeriod(20);
+	}
 }
