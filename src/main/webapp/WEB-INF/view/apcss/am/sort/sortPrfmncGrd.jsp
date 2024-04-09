@@ -378,10 +378,10 @@
             {caption: ["선별일자","선별일자"],		ref: 'inptYmd',     		type:'output',  	width:'90px',	style:'text-align:center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}
             },
-            {caption: ["선별번호","선별번호"], 		ref: 'sortno',     			type:'output',  	width:'120px',  style:'text-align:center'},
+            {caption: ["팔레트번호","팔레트번호"], 		ref: 'wrhsno',     			type:'output',  	width:'120px',  style:'text-align:center'},
+            
+            {caption: ["대표생산자","대표생산자"], 	ref: 'rprsPrdcrNm',  		type:'output',  	width:'80px',   style:'text-align:center'},
             {caption: ["설비명","설비명"], 			ref: 'fcltNm',     			type:'output',  	width:'120px',  style:'text-align:center'},
-            {caption: ["입고구분","입고구분"], 		ref: 'wrhsSeNm',    		type:'output',  	width:'60px',   style:'text-align:center'},
-            {caption: ["상품구분","상품구분"],  		ref: 'gdsSeNm',       		type:'output',  	width:'60px',   style:'text-align:center'},
             {caption: ["품목","품목"],	    		ref: 'itemNm', 				type:'output',  	width:'80px',   style:'text-align:center'},
             {caption: ["품종","품종"],	    		ref: 'vrtyNm', 				type:'output',  	width:'80px',   style:'text-align:center'},
             {caption: ["규격","규격"],  			ref: 'spcfctNm',   			type:'output',  	width:'80px',   style:'text-align:center'},
@@ -401,8 +401,10 @@
             {caption: ["총 선별","중량 (Kg)"],  		ref: 'sortWght', 			type:'output',  	width:'80px',   style:'text-align:right',
             	format : {type:'number', rule:'#,###'}
             },
-            {caption: ["대표생산자","대표생산자"], 	ref: 'rprsPrdcrNm',  		type:'output',  	width:'80px',   style:'text-align:center'},
+            {caption: ["입고구분","입고구분"], 		ref: 'wrhsSeNm',    		type:'output',  	width:'60px',   style:'text-align:center'},
+            {caption: ["상품구분","상품구분"],  		ref: 'gdsSeNm',       		type:'output',  	width:'60px',   style:'text-align:center'},
             {caption: ["저장창고","저장창고"], 		ref: 'warehouseSeNm', 		type:'output',  	width:'80px',	style:'text-align:center'},
+            {caption: ["선별번호","선별번호"], 		ref: 'sortno',     			type:'output',  	width:'120px',  style:'text-align:center'},
             {caption: ["비고","비고"], 			ref: 'rmrk',  				type:'output',  	width:'200px',  style:'text-align:center'},
             {caption: ["선별번호"],				ref: 'sortno', 				type:'output',  	hidden: true},
             {caption: ["선별순번"],				ref: 'sortSn', 				type:'output',  	hidden: true},
@@ -651,6 +653,7 @@
   	 					  , inptWarehouseSeNm: item.inptWarehouseSeNm
   	 					  , sortno			: item.sortno
   	 					  , sortSn			: item.sortSn
+  	      				  , wrhsno 		: item.wrhsno
   	 					  , rmrk			: item.rmrk
   	  				}
   	          		jsonSortPrfmnc.push(sortPrfmnc);
@@ -729,7 +732,8 @@
             {caption: ["선별일자","선별일자"],		ref: 'inptYmd',     		type:'output',  	width:'90px',	style:'text-align:center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}
             },
-            {caption: ["선별번호","선별번호"], 		ref: 'sortno',     			type:'output',  	width:'120px',  style:'text-align:center'},
+            {caption: ["팔레트번호","팔레트번호"], 		ref: 'wrhsno',     			type:'output',  	width:'120px',  style:'text-align:center'},
+            
             {caption: ["설비명","설비명"], 			ref: 'fcltNm',     			type:'output',  	width:'120px',  style:'text-align:center'},
             {caption: ["입고구분","입고구분"], 		ref: 'wrhsSeNm',    		type:'output',  	width:'60px',   style:'text-align:center'},
             {caption: ["상품구분","상품구분"],  		ref: 'gdsSeNm',       		type:'output',  	width:'60px',   style:'text-align:center'},
@@ -772,6 +776,7 @@
 	            },
 	            {caption: ["대표생산자","대표생산자"], 	ref: 'rprsPrdcrNm',  		type:'output',  	width:'80px',   style:'text-align:center'},
 	            {caption: ["저장창고","저장창고"], 		ref: 'warehouseSeNm', 		type:'output',  	width:'80px',	style:'text-align:center'},
+	            {caption: ["선별번호","선별번호"], 		ref: 'sortno',     			type:'output',  	width:'120px',  style:'text-align:center'},
 	            {caption: ["비고","비고"], 			ref: 'rmrk',  				type:'output',  	width:'200px',  style:'text-align:center'},
 	            {caption: ["선별번호"],				ref: 'sortno', 				type:'output',  	hidden: true},
 	            {caption: ["선별순번"],				ref: 'sortSn', 				type:'output',  	hidden: true},
