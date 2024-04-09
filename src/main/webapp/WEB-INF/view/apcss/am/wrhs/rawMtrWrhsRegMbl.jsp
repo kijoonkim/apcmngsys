@@ -222,8 +222,9 @@
 									onclick="fn_choicePrdcr"
 								></sbux-button>
 							</td>
-
-
+							<td colspan="3" style="border-left: hidden;">
+								<sbux-input uitype="hidden" id="srch-inp-wrhsno" name="srch-inp-wrhsno"></sbux-input>
+							</td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg th-mbl"><span class="data_required"></span>품목/품종</th>
@@ -1426,7 +1427,7 @@
 		const selectLatestInfo = async function (element) {
 			var cells = element.querySelectorAll('td');
 			var rowData = Array.from(cells).map(cell => cell.innerText);
-			rawMtrWrhs = await PrdcrLatestInfo.filter(el => el.wrhsno == rowData[0]);
+			rawMtrWrhs = await PrdcrLatestInfo.filter(el => el.wrhsno == rowData[1]);
 			// 등록 상태 세팅
 			SBUxMethod.set("srch-inp-prdcrCd", rawMtrWrhs[0].prdcrCd);
 			SBUxMethod.set("srch-inp-prdcrNm", rawMtrWrhs[0].prdcrNm);
