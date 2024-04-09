@@ -111,6 +111,11 @@ public class SortPrfmncVO extends ComVO {
 	private String vrtyCd;
 
 	/**
+	 * 선별입력값유형
+	 */
+	private String sortInptVlType;
+	
+	/**
 	 * 규격코드
 	 */
 	private String spcfctCd;
