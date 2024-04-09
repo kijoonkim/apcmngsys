@@ -63,4 +63,9 @@ public class CmnsVrtyVO extends CmnsItemVO {
 	 * 공통 연계코드
 	 */
 	private String extrnlLnkgCd;
+	
+	/**
+	 * 선별입력값유형
+	 */
+	private String sortInptVlType;
 }

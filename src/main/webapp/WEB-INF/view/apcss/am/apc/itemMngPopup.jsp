@@ -165,12 +165,14 @@
 <script type="text/javascript">
 	var jsonVrtyWghtRkngSeCd	= [];
 	var jsonApcVrtyWghtRkngSeCd	= [];
+	var jsonSortInptVlType = [];
 
 	const fn_initSBSelectItemVrty = async function() {
 
 		let rst = await Promise.all([
 			gfn_setComCdSBSelect("grdVrty", 		jsonVrtyWghtRkngSeCd, "WGHT_RKNG_SE_CD"),		// 상품등급(출하)
-			gfn_setComCdSBSelect("grdApcVrty", 		jsonApcVrtyWghtRkngSeCd, "WGHT_RKNG_SE_CD")		// 상품등급(출하)
+			gfn_setComCdSBSelect("grdApcVrty", 		jsonApcVrtyWghtRkngSeCd, "WGHT_RKNG_SE_CD"), 	// 상품등급(출하)
+			gfn_setComCdSBSelect("grdApcVrty", 		jsonSortInptVlType, "VL_TYPE")		// 선별입력유형
 		]);
 
 		jsonApcVrty.length = 0;
@@ -315,6 +317,9 @@
 			{caption: ["순번"],     ref: 'sn',  type:'input',  	width:'80px',    style:'text-align:center',
 						typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 4}},
 			{caption: ["외부연결코드"],     ref: 'extrnlLnkgCd',  type:'input',  width:'80px',    style:'text-align:center'},
+			
+			{caption: ["선별입력유형"],     ref: 'sortInptVlType',  type:'combo',  width:'80px',    style:'text-align:center;',
+				typeinfo : {ref:'jsonSortInptVlType', displayui : false,	itemcount: 10, label:'label', value:'value', unselect:{label:'',value:''}}},
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
 	        {caption: ["품목코드"], 	ref: 'itemCd',   	type:'input',  hidden : true}
 
@@ -552,6 +557,7 @@
   					  , wghtRkngSeCd 	: item.wghtRkngSeCd
   					  , sn				: item.sn
 					  , extrnlLnkgCd	: item.extrnlLnkgCd
+					  , sortInptVlType : item.sortInptVlType
   					}
   					newJsonApcVrty.push(vrtyVO);
   				});
