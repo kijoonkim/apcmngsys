@@ -3954,6 +3954,7 @@ li:hover a { color: white; font-weight: bold }
 		fn_reset();
 
 		fn_setApcForm();
+		fn_setSortInptForm();
 	}
 
 	const fn_setApcForm = async function() {
@@ -3963,6 +3964,7 @@ li:hover a { color: white; font-weight: bold }
 			lv_rawMtrVlType = gv_apcStng.rawMtrVlType;
 		}
 
+		/*
 		const wghtEls = document.querySelectorAll(".dsp-wght");
 
 		wghtEls.forEach((el) => {
@@ -3976,6 +3978,25 @@ li:hover a { color: white; font-weight: bold }
 		    	});
 			}
 		}
+		*/
+	}
+	
+	const fn_setSortInptForm = async function(_sortInptVlType) {
+		
+		const wghtEls = document.querySelectorAll(".dsp-wght");
+
+		wghtEls.forEach((el) => {
+    		el.style.display = "";
+    	});
+
+		if (!gfn_isEmpty(_sortInptVlType)) {
+			if (_.isEqual(_sortInptVlType, "QNTT")) {
+				wghtEls.forEach((el) => {
+		    		el.style.display = "none";
+		    	});
+			}
+		}
+		
 	}
 
 
@@ -4021,14 +4042,22 @@ li:hover a { color: white; font-weight: bold }
 
 		invntrInfo += "투입: " + sort.inptQntt.toLocaleString();
 
+		/*
 		if (!_.isEqual(lv_rawMtrVlType, "QNTT")) {
 			invntrInfo += "    " + sort.inptWght.toLocaleString() + " Kg ";
 		}
+		*/
+		if (!_.isEqual(sort.sortInptVlType, "QNTT")) {
+			invntrInfo += "    " + sort.inptWght.toLocaleString() + " Kg ";
+		}
+		
 		invntrInfo += "   선별: " + sort.sortQntt.toLocaleString();
 		invntrInfo += " (" + sort.grdQnttNm + ")";
 
 		SBUxMethod.set("dtl-lbl-invntr", invntrInfo);
 
+		await fn_setSortInptForm(sort.sortInptVlType);
+		
       	await fn_setGrdUpdt(sort.itemCd, sort.vrtyCd);
 
       	await fn_getApcSpcfct(sort.itemCd);
@@ -4054,17 +4083,13 @@ li:hover a { color: white; font-weight: bold }
 					dtlIdx = 0;
 				}
 
-				console.log('spmtPckgUnitCd', spmtPckgUnitCd);
-				console.log('grdCd', grdCd);
-				console.log('prvGrdCd', prvGrdCd);
-				console.log('dtlIdx', dtlIdx)
-
+				
 				for ( let i=0; i<jsonFxngGrd.length; i++ ) {
 					const stdGrd = jsonFxngGrd[i];
 					if (_.isEqual(grdCd, stdGrd.grdCd)) {
 
 						const dtl = dtlList[dtlIdx];
-						console.log('dtl', dtl);
+						
 						if (!gfn_isEmpty(dtl)) {
 							fn_addGrd(i+1, dtlIdx);
 						}
@@ -4073,9 +4098,7 @@ li:hover a { color: white; font-weight: bold }
 						SBUxMethod.set("dtl-inp-qntt" + grdId + dtl, qntt);
 						SBUxMethod.set("dtl-inp-wght" + grdId + dtl, wght);
 						SBUxMethod.set("dtl-slt-spmtPckgUnitCd" + grdId + dtl, spmtPckgUnitCd);
-						console.log('spmtPckgUnitCd', spmtPckgUnitCd);
-						console.log('id', "dtl-slt-spmtPckgUnitCd" + grdId + dtl);
-
+						
 						break;
 					}
 				}
@@ -4376,9 +4399,6 @@ li:hover a { color: white; font-weight: bold }
      */
 	const fn_addGrd = function(idx, dtl) {
 
-    	console.log("fn_addGrd");
-    	console.log("idx", idx);
-    	console.log("dtl", dtl);
 		const grdId = grdList[idx-1];
 		const dtlId = dtlList[dtl];
 		document.querySelector('.tr-grd' + grdId + dtlId).style.display = "";
@@ -4618,7 +4638,7 @@ li:hover a { color: white; font-weight: bold }
      * @description 저장 버튼
      */
 	const fn_save = async function() {
-		console.log('fn_save');
+
 		if (gjsonStdGrdObj_1.length == 0) {
   			gfn_comAlert("W0005", "품목별 등급정보");		//	W0005	{0}이/가 없습니다.
             return;
@@ -4694,7 +4714,7 @@ li:hover a { color: white; font-weight: bold }
 			gfn_comAlert("W0005", "창고");		//	W0005	{0}이/가 없습니다.
 			return;
 		}
-		console.log('fn_save', 1);
+
 		// 실적내역
 		const sortPrfmncList = [];
 
@@ -4800,30 +4820,30 @@ li:hover a { color: white; font-weight: bold }
 			}
 		}
 
-		console.log('fn_save', 2);
+
 
 		for ( let i=0; i<jsonFxngGrd.length; i++ ) {
-			console.log('fn_save', 21);
+
 			const grdId = grdList[i];
 
 			for ( let iDtl=0; iDtl<dtlList.length; iDtl++ ) {
-				console.log('fn_save', 22);
+
 				const dtl = dtlList[iDtl];
 
 				const qnttId = "dtl-inp-qntt" + grdId + dtl;
 				const wghtId = "dtl-inp-wght" + grdId + dtl;
 				const pckgId = "dtl-slt-spmtPckgUnitCd" + grdId + dtl;
-				console.log('qnttId', qnttId);
+
 				const sortQntt = parseInt(SBUxMethod.get(qnttId)) || 0;
 				const sortWght = parseFloat(SBUxMethod.get(wghtId)) || 0;
-				console.log('sortQntt', sortQntt);
+
 				if (sortQntt <= 0) {
 					break;
 				}
 
 				const spmtPckgUnitCd = SBUxMethod.get(pckgId);
 				const autoPckgInptYn = gfn_isEmpty(spmtPckgUnitCd) ? "N" : "Y";
-				console.log('spmtPckgUnitCd', spmtPckgUnitCd);
+
 				if (gfn_isEmpty(spmtPckgUnitCd)) {
 					gfn_comAlert("W0005", "상품명");		//	W0005	{0}이/가 없습니다.
 					return;
@@ -4838,7 +4858,7 @@ li:hover a { color: white; font-weight: bold }
 					gfn_comAlert("W0005", "규격");		//	W0005	{0}이/가 없습니다.
 					return;
 				}
-				console.log('spcfctCd', spcfctCd);
+
 				const grdCd = jsonFxngGrd[i].grdCd;
 				const gdsGrdKnd = jsonFxngGrd[i].aftrGrdKnd;
 				const gdsGrd = jsonFxngGrd[i].aftrGrdCd;
@@ -4891,7 +4911,7 @@ li:hover a { color: white; font-weight: bold }
 			}
 		}
 
-		console.log('fn_save', 3);
+
 		if (sortPrfmncList.length == 0) {
 			gfn_comAlert("W0005", "등록대상");		//	W0005	{0}이/가 없습니다.
 			return;
@@ -5086,20 +5106,24 @@ li:hover a { color: white; font-weight: bold }
   				let invntrInfo = " ";
 
   				invntrInfo += "수량: " + _rawMtrInvntr.invntrQntt.toLocaleString();
-
+				
+  				/*
   				if (!_.isEqual(lv_rawMtrVlType, "QNTT")) {
   					invntrInfo += "   중량: " + _rawMtrInvntr.invntrWght.toLocaleString() + " Kg ";
   					invntrInfo += "   (등급: " + _rawMtrInvntr.grdNm + ")";
   				}
-
+  				*/
+  				if (!_.isEqual(_rawMtrInvntr.sortInptVlType, "QNTT")) {
+  					invntrInfo += "   중량: " + _rawMtrInvntr.invntrWght.toLocaleString() + " Kg ";
+  					invntrInfo += "   (등급: " + _rawMtrInvntr.grdNm + ")";
+  				}
+  				
+  				await fn_setSortInptForm(_rawMtrInvntr.sortInptVlType);
+  				
   				SBUxMethod.set("dtl-lbl-invntr", invntrInfo);
-  				console.log(100);
   	        	await fn_setGrd(_rawMtrInvntr.itemCd, _rawMtrInvntr.vrtyCd);
-				console.log(111);
   	        	fn_getApcSpcfct(_rawMtrInvntr.itemCd);
-  	        	console.log(222);
   	        	fn_getSpmtPckgUnit(_rawMtrInvntr.itemCd, _rawMtrInvntr.vrtyCd);
-  	        	console.log(333);
 
   	        	// focus
 				if (jsonOptnGrd.length > 0) {

@@ -202,6 +202,13 @@ public class RawMtrInvntrVO extends ComVO {
 	 * 품종명
 	 */
 	private String vrtyNm;
+	
+	
+	/**
+	 * 선별입력값유형
+	 */
+	private String sortInptVlType;
+	
 
 	/**
 	 * 상품구분명
