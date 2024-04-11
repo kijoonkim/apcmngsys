@@ -299,9 +299,16 @@
     }
 
 	const fn_search = async function(){
-	    let flag = true;
-	    let grdFlag = true;
-	    let sumFlag = true;
+	    let flag 		= true;
+	    let grdFlag 	= true;
+	    let sumFlag 	= true;
+	    let grdGubun 	= SBUxMethod.get("srch-slt-grd");
+
+	    if (gfn_isEmpty(grdGubun)) {
+	        gfn_comAlert("W0001", "구분");				//	W0002	{0}을/를 선택하세요.
+            return false;
+      	}
+
 	    flag = await fn_setGrdSrtInvntr();
 	    if (flag){
 	    	grdFlag = await fn_setGrdGdsInvntrList();
