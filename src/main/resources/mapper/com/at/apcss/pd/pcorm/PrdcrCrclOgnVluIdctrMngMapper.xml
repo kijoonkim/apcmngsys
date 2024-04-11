@@ -1736,6 +1736,14 @@
 					ELSE 'N' END
 			) AS STBLT_YN
 			,TOTAL.ORG_STBLT_YN
+			,(SELECT NVL(ERR.MNGR_STBLT_YN , ERR.STBLT_YN)
+				FROM TB_EV_REG_RSLT ERR
+				WHERE 1=1
+				  AND BRNO = TOTAL.BRNO
+				  AND UO_BRNO = TOTAL.UO_BRNO
+				  AND YR = TOTAL.YR
+				  AND APO_SE = '1'
+			) AS LAST_STBLT_YN
 
 			,ALAMT.TOT_TRMT_PRFMNC_AMT
 			,ALAMT.DDC_TOT
@@ -1836,6 +1844,7 @@
 									  AND APO_SE = '2'
 									  AND TYPE_SE_NO = '8'
 									  AND YR = #{yr}
+									  AND STBLT_YN = 'Y'
 									  AND BRNO NOT IN (SELECT BRNO
 														FROM TB_COM_USER
 														WHERE USER_ID IN ('at21','at22','at23','at24','at25','at26','at27','at61')
@@ -1859,6 +1868,7 @@
 								  AND TYPE_SE_NO IN ('5')
 								  AND ITEM_CD = (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE BRNO = B.UO_BRNO AND YR = B.YR AND ITEM_CD = B.ITEM_CD)
 								  AND YR = #{yr}
+								  AND STBLT_YN = 'Y'
 								  AND PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
 																		FROM TB_EV_FRMHS_APO
 																		WHERE 1=1
@@ -1881,6 +1891,7 @@
 								WHERE 1=1
 								  AND APO_SE = '2'
 								  AND TYPE_SE_NO IN ('7')
+								  AND STBLT_YN = 'Y'
 								  AND ITEM_CD = (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE BRNO = C.UO_BRNO AND YR = C.YR AND ITEM_CD = C.ITEM_CD)
 								  AND YR = #{yr}
 								GROUP BY  BRNO , UO_BRNO , ITEM_CD

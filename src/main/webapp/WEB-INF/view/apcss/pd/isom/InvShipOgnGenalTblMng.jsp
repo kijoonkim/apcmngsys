@@ -1199,6 +1199,7 @@
 			{caption: ["[(A+B)/E]출자출하조직의 통합조직 판매위임비율 전체출하 "],		ref:'uoSpmtAmtTotRt',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["적합여부(기준적용)"],	ref:'stbltYn',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["적합여부(실제)"],	ref:'orgStbltYn',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["선정여부"],			ref:'lastStbltYn',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["탈락사유"],			ref:'stbltYnNm',	type:'output',width:'70px',style:'text-align:center'}
 
 		];
@@ -1251,6 +1252,7 @@
 
 					,stbltYn				:item.stbltYn
 					,orgStbltYn				:item.orgStbltYn
+					,lastStbltYn			:item.lastStbltYn
 					,stbltYnNm				:fn_calStbltYn(item)
 				}
 				jsonHiddenGrd.push(hiddenGrdVO);

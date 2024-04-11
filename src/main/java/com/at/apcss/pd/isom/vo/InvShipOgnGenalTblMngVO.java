@@ -52,13 +52,14 @@ public class InvShipOgnGenalTblMngVO extends ComVO{
 
 	private String stbltYn;
 	private String orgStbltYn;
+	private String lastStbltYn;//최종 선정여부
 
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;
 	private String sysFrstInptDtYmd;
 	private String sysLastChgDtYmd;
 
-	
-	private String corpNm2             ;
+
+	private String corpNm2;
 
 }
