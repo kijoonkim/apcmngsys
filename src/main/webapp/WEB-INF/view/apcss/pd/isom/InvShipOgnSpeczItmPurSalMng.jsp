@@ -1479,7 +1479,8 @@
 			{caption: ["출하 매출 금액 통합조직에 출하"],	ref:'uoSpmtAmt',		type:'output',width:'70px',	style:'text-align:center'},
 			{caption: ["출하 매출 금액 통합조직 외 출하"],	ref:'uoOtherSpmtAmt',	type:'output',width:'70px',	style:'text-align:center'},
 			{caption: ["비고"],					ref:'rmrk',				type:'output',width:'70px',	style:'text-align:center'},
-			{caption: ["적합여부"],					ref:'stbltYn',			type:'output',width:'70px',	style:'text-align:center'}
+			{caption: ["적합여부"],					ref:'stbltYn',			type:'output',width:'70px',	style:'text-align:center'},
+			{caption: ["선정여부"],					ref:'lastStbltYn',		type:'output',width:'70px',	style:'text-align:center'}
 		];
 
 
@@ -1524,6 +1525,7 @@
 					,uoOtherSpmtAmt		: Number(item.uoOtherSpmtAmt)
 					,rmrk				: item.rmrk
 					,stbltYn			: item.stbltYn
+					,lastStbltYn		: item.lastStbltYn
 				}
 				jsonHiddenGrd.push(hiddenGrdVO);
 			});
