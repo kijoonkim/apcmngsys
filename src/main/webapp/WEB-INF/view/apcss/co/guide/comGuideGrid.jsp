@@ -112,6 +112,8 @@
 	    		  'showgoalpageui' : true
    		};
         SBGridProperties.columns = [
+			{caption: ["체크박스"], 	ref: 'checkedYn', 		type: 'checkbox', 	width: '50px',	  style:'text-align: center',
+    				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}},
             {caption: ["순번"], 		ref: 'no',  		type:'output',  width:'50px',     style:'text-align:center'},
             {caption: ["사용자 코드"], 	ref: 'userCd',  	type:'output',  width:'100px',    style:'text-align:center'},
             {caption: ["사용자 명"], 	ref: 'userNm',   	type:'output',  width:'100px',    style:'text-align:center'},
@@ -151,7 +153,6 @@
     }
 
     function fn_Paging(){
-
 		var nLimitCount = datagrid.getPageSize(); // 몇개의 데이터를 가져올지 설정
 		var nIndexStart = (datagrid.getSelectPageIndex() - 1) * nLimitCount; // 몇번째 인덱스 부터 데이터를 가져올지 설정
 		var objData = {
