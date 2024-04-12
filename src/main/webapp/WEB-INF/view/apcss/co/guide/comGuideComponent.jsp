@@ -472,6 +472,7 @@
 	var jsonGdsSeCd = [];
 	var jsonTrsprtSeCd = [];
 	
+	// 기본 체크박스 데이터
 	jsonExCheckBox = [
 		{text:'선택1', label:'선택1', value:'1', checked:'checked'},
 		{text:'선택2', label:'선택2', value:'2', checked:'checked'},
@@ -479,6 +480,7 @@
 		{text:'선택4', label:'선택4', value:'4', checked:'checked'}
 	];
 	
+	// 기본 라디오 버튼 데이터
 	jsonComExRadio = [
 		{cdVlNm:'선택1', cdVl:'0000'},
 		{cdVlNm:'선택2', cdVl:'0001'},
@@ -486,6 +488,7 @@
 		{cdVlNm:'선택4', cdVl:'0003'}
 	];
 
+	// 기본 콤보박스 데이터
 	jsonComboExSlt = [
 		{text:'선택1', value:'0000'},
 		{text:'선택2', value:'0000'},
@@ -501,6 +504,7 @@
 		fn_initSBSelect();
 	});
 	
+	// 라디오 값 세팅
 	const fn_setRadioData = async function(){
 		SBUxMethod.set("srch-rdo-exRadio", "0000");
 		SBUxMethod.set("srch-rdo-wrhsSeCd", "3"); // 입고구분 라디오 값 세팅
@@ -515,18 +519,18 @@
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
 		let result = await Promise.all([
-			 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, gv_selectedApcCd),		// 품목
-			 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, gv_selectedApcCd),		// 품종
-			 	gfn_setComCdSBSelect('srch-slt-warehouseSeCd',	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_selectedApcCd),	// 창고
-			 	gfn_setPltBxSBSelect('srch-slt-bxKnd', 			jsonComBx, gv_selectedApcCd, 'B'),	// 박스
-			 	gfn_setComCdSBSelect('srch-slt-wrhsSpmtSe', 	jsonWrhsSpmtSe, 'WRHS_SPMT_SE_CD'),	// 입출고구분
-			 	gfn_setComCdSBSelect('srch-slt-pltBxSe', 		jsonPltBxSe, 'PLT_BX_SE_CD'),			// 창고
-			 	gfn_setComCdSBSelect('srch-slt-inptFclt', 		jsonComFclt, 		'SORT_FCLT_CD', gv_selectedApcCd),		// 설비
-			 	gfn_setComCdSBSelect('srch-slt-pckg', 			jsonComPckg, 	'PCKG_FCLT_CD', gv_selectedApcCd),	 	// 포장기
+			 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, 		gv_selectedApcCd),						// 품목
+			 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, 		gv_selectedApcCd),						// 품종
+			 	gfn_setComCdSBSelect('srch-slt-warehouseSeCd',	jsonComWarehouse, 	'WAREHOUSE_SE_CD',	gv_selectedApcCd),	// 창고
+			 	gfn_setPltBxSBSelect('srch-slt-bxKnd', 			jsonComBx, 			gv_selectedApcCd, 	'B'),				// 박스
+			 	gfn_setComCdSBSelect('srch-slt-wrhsSpmtSe', 	jsonWrhsSpmtSe, 	'WRHS_SPMT_SE_CD'),						// 입출고구분
+			 	gfn_setComCdSBSelect('srch-slt-pltBxSe', 		jsonPltBxSe, 		'PLT_BX_SE_CD'),						// 창고
+			 	gfn_setComCdSBSelect('srch-slt-inptFclt', 		jsonComFclt, 		'SORT_FCLT_CD', 	gv_selectedApcCd),	// 설비
+			 	gfn_setComCdSBSelect('srch-slt-pckg', 			jsonComPckg, 		'PCKG_FCLT_CD', 	gv_selectedApcCd),	// 포장기
 			 	gfn_setTrsprtsSBSelect('srch-slt-trsprtCo', 	jsonTrsprtCo, 		gv_selectedApcCd),						// 운송회사
-			 	gfn_setComCdSBSelect('srch-chk-wrhsSeCd', jsonWrhsSeCd, 'WRHS_SE_CD'), // 운송구분
-			 	gfn_setComCdSBSelect('srch-chk-gdsSeCd', jsonGdsSeCd, 'GDS_SE_CD', gv_selectedApcCd), // 상품구분
-			 	gfn_setComCdSBSelect('srch-chk-trsprtSeCd', jsonTrsprtSeCd, 'TRSPRT_SE_CD'), // 운송구분
+			 	gfn_setComCdSBSelect('srch-chk-wrhsSeCd', 		jsonWrhsSeCd, 		'WRHS_SE_CD'), 							// 운송구분
+			 	gfn_setComCdSBSelect('srch-chk-gdsSeCd', 		jsonGdsSeCd, 		'GDS_SE_CD', 		gv_selectedApcCd), 	// 상품구분
+			 	gfn_setComCdSBSelect('srch-chk-trsprtSeCd', 	jsonTrsprtSeCd, 	'TRSPRT_SE_CD'), 						// 운송구분
 			]);
 		
 		let resultRadio = await Promise.all([

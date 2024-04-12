@@ -24,9 +24,28 @@
 	                    <div class="sbt-con-wrap">
 	                        <div class="sbt-grid-wrap">
 	                            <div class="sbt-wrap-body">
+		                            <sbux-button
+										id="btnCheckValue"
+										name="btnCheckValue"
+										uitype="normal"
+										text="선택된 데이터"
+										class="btn btn-sm btn-outline-danger"
+										onclick="fn_checkValuePrint"
+										style="float: right; margin: 0 15px 3px 0;"
+									></sbux-button>
 	                                <div class="sbt-grid">
 	                                    <!-- SBGrid를 호출합니다. -->
 	                                    <div id="gridArea" style="height:400px; width: 99%;"></div>
+	                                </div>
+	                                <ul class="ad_tbl_count">
+										<li>
+											<span style="margin-left: 30px;">실제 사용 예제 그리드</span>
+										</li>
+									</ul>
+	                                <div class="sbt-grid">
+	                                    <!-- SBGrid를 호출합니다. -->
+<!-- 	                                <div id="gridArea" style="height:400px; width: 99%;"></div> -->
+										<div id="exParentId" style="height:400px; width: 99%; margin-top:30px;"></div>
 	                                </div>
 	                            </div>
 	                        </div>
@@ -42,7 +61,11 @@
 	//only document
 	window.addEventListener('DOMContentLoaded', function(e) {
 	    fn_createGrid();
+	    fn_createExGrid();
 	});
+	// 예제 그리드 json 데이터
+	var jsonExGridData = [];
+	
 	var jsonComboType1 = [
 				{'text': '정보지원시스템', 'value': 'AM'},
 				{'text': '생산관리', 'value': 'FM'},
@@ -99,6 +122,7 @@
 	    SBGridProperties.extendlastcol = 'scroll';				// Grid 남는 넓이 우측 확장 기능
 	    SBGridProperties.allowcopy = true;						// Grid 복사 기능
 	    SBGridProperties.explorerbar = 'sortmove';				// sort기능 여부
+	    SBGridProperties.oneclickedit = true;					// Grid 원클릭 수정 defult: false
 	    // * 필수 * type = page : DB페이징 의 경우 , all : front페이징의 경우(데미터 전체 호출 후 페이징처리 - 데이터가 많을 경우 비추천) 기본 -> page
 	    // * 필수 * count = 페이징 영역내 버튼 갯수
 	    // * 필수 * size = Grid 화면 내 표시할 행의 갯수
@@ -112,11 +136,13 @@
 	    		  'showgoalpageui' : true
    		};
         SBGridProperties.columns = [
-            {caption: ["순번"], 		ref: 'no',  		type:'output',  width:'50px',     style:'text-align:center'},
-            {caption: ["사용자 코드"], 	ref: 'userCd',  	type:'output',  width:'100px',    style:'text-align:center'},
-            {caption: ["사용자 명"], 	ref: 'userNm',   	type:'output',  width:'100px',    style:'text-align:center'},
-            {caption: ["직책"], 		ref: 'jbttlNm',   	type:'output',  width:'100px',    style:'text-align:center'},
-            {caption: ["담당업무"], 	ref: 'tkcgTaskNm',  type:'output',  width:'100px',    style:'text-align:center'},
+			{caption: ["체크박스"], 	ref: 'checkedYn', 		type: 'checkbox', 	width: '50px',	  style:'text-align: center',
+    				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}},
+            {caption: ["순번"], 		ref: 'no',  		type:'input',  width:'50px',     style:'text-align:center'},
+            {caption: ["사용자 코드"], 	ref: 'userCd',  	type:'input',  width:'100px',    style:'text-align:center'},
+            {caption: ["사용자 명"], 	ref: 'userNm',   	type:'input',  width:'100px',    style:'text-align:center'},
+            {caption: ["직책"], 		ref: 'jbttlNm',   	type:'input',  width:'100px',    style:'text-align:center'},
+            {caption: ["담당업무"], 	ref: 'tkcgTaskNm',  type:'input',  width:'100px',    style:'text-align:center'},
             {caption: ["inputButton"], 	ref: 'test',  type:'inputbutton',  width:'100px',    style:'text-align:center'},
             {caption: ["권한"], 		ref: 'chrgdCertYn', type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
             	if(strValue === "N"){
@@ -135,6 +161,7 @@
         ];
         window.datagrid = _SBGrid.create(SBGridProperties);
         datagrid.bind( "beforepagechanged" , "fn_Paging" );
+        datagrid.bind('valuechanged', fn_grdCheckValueChanged);
     }
 
     function fn_chrgdCert(gubun, nRow, nCol){
@@ -151,7 +178,6 @@
     }
 
     function fn_Paging(){
-
 		var nLimitCount = datagrid.getPageSize(); // 몇개의 데이터를 가져올지 설정
 		var nIndexStart = (datagrid.getSelectPageIndex() - 1) * nLimitCount; // 몇번째 인덱스 부터 데이터를 가져올지 설정
 		var objData = {
@@ -177,6 +203,172 @@
 				console.log(error);
 			}
 		});
+	}
+    
+    // 데이터 변경시 자동 체크
+	const fn_grdCheckValueChanged = function(){
+
+		let nRow = datagrid.getRow();
+		let nCol = datagrid.getCol();
+		let no = datagrid.getColRef("no");
+		let userCd = datagrid.getColRef("userCd");
+		let userNm = datagrid.getColRef("userNm");
+		let jbttlNm = datagrid.getColRef("jbttlNm");
+		let tkcgTaskNm = datagrid.getColRef("tkcgTaskNm");
+		let test = datagrid.getColRef("test");
+		let checkedYnCol = datagrid.getColRef("checkedYn");
+		
+		datagrid.setCellData(nRow, checkedYnCol, "Y");
+	}
+    
+    
+    function fn_createExGrid() {
+	    var SBGridProperties = {};
+	    SBGridProperties.parentid = 'exParentId';
+	    SBGridProperties.id = 'exGridId';
+	    SBGridProperties.jsonref = 'jsonExGridData';
+	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
+	    SBGridProperties.selectmode = 'free';
+	    SBGridProperties.allowcopy = true;
+		SBGridProperties.explorerbar = 'sortmove';			// 개인화 컬럼 이동 가능
+	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.scrollbubbling = false;
+	    SBGridProperties.filtering = true;
+	    SBGridProperties.paging = {
+			'type' : 'page',
+		  	'count' : 5,
+		  	'size' : 100,
+		  	'sorttype' : 'page',
+		  	'showgoalpageui' : true
+	    };
+	    SBGridProperties.columns = [
+	        {caption: ["입고번호","입고번호"],		ref: 'wrhsno',      type:'output', hidden: true},
+            {caption: ["팔레트번호","팔레트번호"],    ref: 'pltno',      type:'output',  width:'105px',    style:'text-align:center',  filtering : {usemode : false}},
+            {caption: ["입고일자","입고일자"],        ref: 'wrhsYmd',      type:'output',  width:'90px',    style:'text-align:center',
+	        	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'},  filtering : {usemode : false}},
+	        {caption: ["생산자","생산자"],			ref: 'prdcrNm',      type:'output',  width:'110px',    style:'text-align:center'},
+	        {caption: ["품목","품목"],				ref: 'itemNm',      type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["품종","품종"],				ref: 'vrtyNm',      type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["상품","상품"],				ref: 'gdsSeNm',      type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["입고","입고"],				ref: 'wrhsSeNm',      type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["운송","운송"],				ref: 'trsprtSeNm',      type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["창고","창고"],				ref: 'warehouseSeNm',   type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["입고","수량"],				ref: 'wrhsQntt',      	type:'output',  width:'85px',    style:'text-align:right',
+	        	format : {type:'number', rule:'#,###'},  filtering : {usemode : false}
+	        },
+	        {caption: ["입고","중량 (Kg)"],		ref: 'wrhsWght',      	type:'output',  width:'85px',    style:'text-align:right',
+	        	format : {type:'number', rule:'#,###'},  filtering : {usemode : false}
+	        },
+	        {caption: ["투입","수량"],				ref: 'inptQntt',      	type:'output',  width:'85px',    style:'text-align:right',
+	        	format : {type:'number', rule:'#,###'},  filtering : {usemode : false}
+	        },
+	        {caption: ["투입","중량 (Kg)"],		ref: 'inptWght',      	type:'output',  width:'85px',    style:'text-align:right',
+	        	format : {type:'number', rule:'#,###'},  filtering : {usemode : false}
+	        },
+	        {caption: ["현 재고","수량"],			ref: 'invntrQntt',      type:'output',  width:'85px',    style:'text-align:right',
+	        	format : {type:'number', rule:'#,###'},  filtering : {usemode : false}
+        	},
+	        {caption: ["현 재고","중량 (Kg)"],		ref: 'invntrWght',      type:'output',  width:'85px',    style:'text-align:right',
+	        	format : {type:'number', rule:'#,###'},  filtering : {usemode : false}
+	        },
+	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'200px', style:'text-align:center',  filtering : {usemode : false}},
+	    ];
+
+	    exGridId = _SBGrid.create(SBGridProperties);
+	    exGridId.bind( "beforepagechanged" , "fn_pagingGrd" );
+
+	    fn_pagingGrd();
+	}
+	
+	 // 공통코드 페이징
+    const fn_pagingGrd = async function(){
+    	let pageSize = exGridId.getPageSize();   			// 몇개의 데이터를 가져올지 설정
+    	let pageNo = exGridId.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+
+    	fn_callSelectGrid1List(pageSize, pageNo);
+    }
+	 
+	const fn_callSelectGrid1List = async function(pageSize, pageNo) {
+
+		const postJsonPromise = gfn_postJSON("/am/invntr/selectRawMtrInvntrList.do", {
+			  apcCd					: gv_selectedApcCd
+          	// pagination
+  	  		, pagingYn 				: 'Y'
+  	  		, currentPageNo 		: pageNo
+  	  		, recordCountPerPage 	: pageSize
+
+  		});
+
+        let data = await postJsonPromise;
+
+  		try {
+  			if (_.isEqual("S", data.resultStatus)) {
+  	          	/** @type {number} **/
+  	      		let totalRecordCount = 0;
+
+  	      		jsonExGridData.length = 0;
+  	          	data.resultList.forEach((item, index) => {
+  	          		const exSearchData = {
+  	       				wrhsno			: item.wrhsno
+  	       			  , pltno			: item.pltno
+  	       			  , wrhsYmd			: item.wrhsYmd
+  	       			  , prdcrNm			: item.prdcrNm
+  	       			  , itemNm			: item.itemNm
+  	       			  , vrtyNm			: item.vrtyNm
+  	       			  , gdsSeNm			: item.gdsSeNm
+  	       			  , wrhsSeNm		: item.wrhsSeNm
+  	       			  , trsprtSeNm		: item.trsprtSeNm
+  	       			  , warehouseSeNm	: item.warehouseSeNm
+  	       			  , bxknd			: item.bxknd
+  	       			  , grdNm			: item.grdNm
+  	       			  , wrhsQntt		: item.wrhsQntt
+  	       			  , wrhsWght		: item.wrhsWght
+  	       			  , inptQntt		: item.inptQntt
+  	       			  , inptWght		: item.inptWght
+  	       			  , invntrQntt		: item.invntrQntt
+  	       			  , invntrWght		: item.invntrWght
+  	       			  , rmrk			: item.rmrk
+  	  				}
+  	          		jsonExGridData.push(exSearchData);
+
+  	  				if (index === 0) {
+  	  					totalRecordCount = item.totalRecordCount;
+  	  				}
+  	  			});
+  	          	
+  	          	if (jsonExGridData.length > 0) {
+  	          		if(exGridId.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+  	          			exGridId.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+  	          			exGridId.rebuild();
+  	  				}else{
+  	  					exGridId.refresh();
+  	  				}
+
+  	          	} else {
+  	          		exGridId.setPageTotalCount(totalRecordCount);
+  	          		exGridId.rebuild();
+  	          	}
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+
+          } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+          }
+
+    }
+	
+	// 선택된 데이터 버튼 클릭시 선택한 행 출력 함수
+	function fn_checkValuePrint(){
+		let grdRows = datagrid.getCheckedRows(0);
+		
+		alert('선택된 행은 ' + grdRows + '행 입니다.');
+		
 	}
 </script>
 </body>
