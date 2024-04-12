@@ -1275,6 +1275,7 @@
 			{caption: ["출하비율(%)(육성형)[C/B]"],		ref: 'ecSpmtRateB',   	type:'output',  width:'100px',    style:'text-align:center;'},
 			{caption: ["적합여부(기준적용)"], 		ref: 'stbltYn',   		type:'output',  width:'50px',    style:'text-align:center'},
 			{caption: ["적합여부"], 			ref: 'orgStbltYn',   	type:'output',  width:'50px',    style:'text-align:center'},
+			{caption: ["선정여부"], 			ref: 'lastStbltYn',   	type:'output',  width:'50px',    style:'text-align:center'},
 			{caption: ["탈락사유"], 			ref: 'stbltYnNm',   	type:'textarea',  width:'150px',    style:'padding-left:10px'},
 			{caption: ["제외여부[ex)생산자조직이 법인인경우]"], 			ref: 'exclYn',   		type:'textarea',  width:'150px',    style:'padding-left:10px'},
 
@@ -1331,6 +1332,7 @@
 						,cnt: Number(item.cnt)//조직원수
 						,stbltYn: item.stbltYn//적합여부 기준 적용 결과
 						,orgStbltYn: item.orgStbltYn//적합여부 현재 적용 값
+						,lastStbltYn: item.lastStbltYn//최종 선정여부
 						,stbltYnNm: fn_calStbltYn(item)
 						,exclYn: item.exclYn
 				}

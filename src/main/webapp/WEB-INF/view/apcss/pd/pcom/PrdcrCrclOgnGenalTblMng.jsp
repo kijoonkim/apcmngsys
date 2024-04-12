@@ -1328,6 +1328,7 @@
 
 			{caption: ["적합여부(기준적용)"],	ref:'stbltYn',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["적합여부(최종)"],	ref:'orgStbltYn',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["선정여부"],			ref:'lastStbltYn',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["비고"],			ref:'stbltYnNm',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["조치사항"],			ref:'actnMttr',		type:'output',width:'70px',style:'text-align:center'}
 		];
@@ -1375,6 +1376,7 @@
 
 					,stbltYn				:item.stbltYn
 					,orgStbltYn				:item.orgStbltYn
+					,lastStbltYn			:item.lastStbltYn
 					,stbltYnNm				:fn_calStbltYn(item)
 
 				}

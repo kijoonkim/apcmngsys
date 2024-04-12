@@ -1,5 +1,6 @@
-package com.at.apcss.am.wrhs.web;
+package com.at.apcss.am.pckg.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,15 +13,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.at.apcss.am.cmns.service.CmnsVrtyService;
-import com.at.apcss.am.wrhs.service.RawMtrWrhsService;
-import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
+import com.at.apcss.am.pckg.service.PckgPrfmncService;
+import com.at.apcss.am.pckg.vo.PckgPrfmncVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 
 /**
- * @Class Name : RawMtrWrhsApiController.java
- * @Description : 원물입고에 대한 ApiController 클래스
+ * @Class Name : PckgPrfmncApiController.java
+ * @Description : 포장실적에 대한 ApiController 클래스
  * @author 김  호
  * @since 2024.04.11
  * @version 1.0
@@ -34,24 +34,21 @@ import com.at.apcss.co.sys.controller.BaseController;
  * </pre>
  */
 @RestController
-public class RawMtrWrhsApiController extends BaseController {
+public class PckgPrfmncApiController extends BaseController {
 
-	@Resource(name = "rawMtrWrhsService")
-	private RawMtrWrhsService rawMtrWrhsService;
+	@Resource(name = "pckgPrfmncService")
+	private PckgPrfmncService pckgPrfmncService;
 
-	@Resource(name = "cmnsVrtyService")
-	private CmnsVrtyService cmnsVrtyService;
+	// 포장실적조회
+	@PostMapping(value = "/am/pckg/selectPckgPrfmncLists", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectPckgPrfmncList(@RequestBody PckgPrfmncVO pckgPrfmncVO, HttpServletRequest request) throws Exception {
 
-	// 입고실적조회
-	@PostMapping(value = "/am/wrhs/selectRawMtrWrhsPrfmncLists", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> selectRawMtrWrhsPrfmncList(@RequestBody RawMtrWrhsVO rawMtrWrhsVO, HttpServletRequest request) throws Exception {
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PckgPrfmncVO> resultList = new ArrayList<>();
 
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		List<RawMtrWrhsVO> resultList;
 		try {
-			resultList = rawMtrWrhsService.selectRawMtrWrhsPrfmncList(rawMtrWrhsVO);
-		} catch (Exception e) {
-			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			resultList = pckgPrfmncService.selectPckgPrfmncList(pckgPrfmncVO);
+		} catch(Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
 			HashMap<String, Object> rtnObj = setMenuComLog(request);
@@ -64,5 +61,4 @@ public class RawMtrWrhsApiController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-
 }

@@ -94,6 +94,7 @@ public class PrdcrOgnGenalTblMngVO extends ComVO{
 	private String prdctnVlmTot;//생산량(결과)
 	private String cnt;//조직원수
 	private String orgStbltYn;//적합여부
+	private String lastStbltYn;//최종 선정여부
 	private String exclYn;//제외 여부
 
 	private String sysFrstInptUserIdNm;

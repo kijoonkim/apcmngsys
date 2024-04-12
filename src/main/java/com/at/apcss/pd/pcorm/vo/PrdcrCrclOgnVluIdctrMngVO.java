@@ -106,6 +106,7 @@ public class PrdcrCrclOgnVluIdctrMngVO extends ComVO{
 	private String chkBC;//육성형 기준3
 
 	private String orgStbltYn;
+	private String lastStbltYn;//최종 선정여부
 
 	private String aprvNm;
 
