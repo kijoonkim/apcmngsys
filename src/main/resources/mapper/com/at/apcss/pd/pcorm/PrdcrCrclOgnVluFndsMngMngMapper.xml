@@ -3490,7 +3490,29 @@
 				  AND TYPE_SE_NO IN ('5','7')
 				  AND YR = #{yr}
 				  AND STBLT_YN = 'Y'
-				  AND 'Y' = (SELECT NVL(ERR.MNGR_STBLT_YN , ERR.STBLT_YN) FROM TB_EV_REG_RSLT ERR WHERE YR = PST.YR AND BRNO = PST.BRNO AND UO_BRNO = PST.UO_BRNO)
+				  AND ITEM_CD = (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE BRNO = PST.UO_BRNO AND YR = PST.YR AND ITEM_CD = PST.ITEM_CD)
+				  AND 'Y' = (SELECT NVL(ERR.MNGR_STBLT_YN , ERR.STBLT_YN) FROM TB_EV_REG_RSLT ERR WHERE YR = PST.YR AND BRNO = PST.BRNO AND UO_BRNO = PST.UO_BRNO AND APO_SE = '2')
+				  AND (
+				  			(PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
+												FROM TB_EV_FRMHS_APO
+												WHERE 1=1
+												  AND STBLT_YN = 'Y'
+												  AND APO_SE = '2'
+												  AND NVL(EXCL_YN,'N') != 'Y'
+												  AND BRNO = PST.BRNO
+												  AND UO_BRNO = PST.UO_BRNO
+												  AND YR = PST.YR
+												)
+							)OR (PRDCR_OGNZ_SN = '0')
+						)
+				  AND 'Y' = (SELECT STBLT_YN
+								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+								WHERE 1=1
+								  AND APO_SE = '1'
+								  AND TYPE_SE_NO = '8'
+								  AND YR = PST.YR
+								  AND BRNO = PST.UO_BRNO
+								  AND ITEM_CD = PST.ITEM_CD)
 				GROUP BY YR, BRNO
 			) ISOPST
 			,(SELECT
