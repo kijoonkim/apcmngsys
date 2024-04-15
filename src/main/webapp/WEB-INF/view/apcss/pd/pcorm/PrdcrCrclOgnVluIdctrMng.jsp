@@ -2390,7 +2390,7 @@
 			{caption: ["전문/육성품목 구분"],	ref:'sttgUpbrItemNm',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["부류"],			ref:'ctgryNm',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["품목 적합여부"],		ref:'orgStbltYn',		type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["품목 적합여부"],		ref:'lastStbltYn',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["선정여부"],		ref:'lastStbltYn',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["품목 부적합사유"],	ref:'stbltYnNm',		type:'output',width:'70px',style:'text-align:center'},
 
 			{caption: ["통합조직 총취급액"],	ref:'slsCnsgnSlsAmtTot',		type:'output',width:'70px',style:'text-align:center'},
