@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : TestMapper.xml                                   				-->
+<!-- DESC : Test mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2024.04.15  	jcshin        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcma.co.test.mapper.TestMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcma.co.test.mapper.TestMapper.selectTest					-->
+	<!-- DESC : 	                                             					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.15  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectTest" parameterType="com.at.apcma.co.test.vo.TestVO" resultType="com.at.apcma.co.test.vo.TestVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcma.co.test.mapper.TestMapper.selectTest */
+	    		  TEST_ID	AS TEST_ID
+	    		, TEST_VL	AS TEST_VL
+			  FROM TB_TEST
+  			 WHERE TEST_ID = #{testId}
+		]]>
+    </select>
+
+</mapper>
+
+

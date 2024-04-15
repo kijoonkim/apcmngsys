@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 import org.springframework.core.env.Environment;
@@ -22,10 +21,10 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.support.lob.DefaultLobHandler;
 
 /**
- * @ClassName : EgovConfigAppMapper.java
+ * @ClassName : EgovConfigAppMapper2.java
  * @Description : Mapper 설정
  *
- * @author : 윤주호
+ * @author : 신정철
  * @since  : 2021. 7. 20
  * @version : 1.0
  *
@@ -42,11 +41,13 @@ import org.springframework.jdbc.support.lob.DefaultLobHandler;
 @PropertySources({
 	@PropertySource("classpath:/application.properties")
 })
-@MapperScan(basePackages = {"com.at.apcss"},
+@MapperScan(basePackages = {"com.at.apcma"},
+	sqlSessionFactoryRef="sqlSession2",
 	annotationClass = org.egovframe.rte.psl.dataaccess.mapper.Mapper.class)
-public class EgovConfigAppMapper {
+public class EgovConfigAppMapper2 {
+	
 	@Autowired
-	DataSource dataSource;
+	DataSource dataSource2;
 
 	@Autowired
 	Environment env;
@@ -58,17 +59,10 @@ public class EgovConfigAppMapper {
 		//dbType = env.getProperty("Globals.DbType");
 	}
 
-	@Bean
-	@Lazy
-	public DefaultLobHandler lobHandler() {
-		return new DefaultLobHandler();
-	}
-
-	@Primary
-	@Bean(name = {"sqlSession", "egov.sqlSession"})
-	public SqlSessionFactoryBean sqlSession() {
+	@Bean(name = {"sqlSession2"})
+	public SqlSessionFactoryBean sqlSession2() {
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
-		sqlSessionFactoryBean.setDataSource(dataSource);
+		sqlSessionFactoryBean.setDataSource(dataSource2);
 
 		PathMatchingResourcePatternResolver pathMatchingResourcePatternResolver = new PathMatchingResourcePatternResolver();
 
@@ -81,7 +75,7 @@ public class EgovConfigAppMapper {
 				//pathMatchingResourcePatternResolver
 				//	.getResources("classpath:/egovframework/mapper/let/**/*_" + dbType + ".xml"));
 				pathMatchingResourcePatternResolver
-					.getResources("classpath:/mapper/com/at/apcss/**/**/*.xml"));
+					.getResources("classpath:/mapper/com/at/apcma/**/**/*.xml"));
 		} catch (IOException e) {
 			// TODO Exception 처리 필요
 		}
@@ -89,10 +83,4 @@ public class EgovConfigAppMapper {
 		return sqlSessionFactoryBean;
 	}
 
-	@Primary
-	@Bean
-	public SqlSessionTemplate egovSqlSessionTemplate(@Qualifier("sqlSession") SqlSessionFactory sqlSession) {
-		SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSession);
-		return sqlSessionTemplate;
-	}
 }
