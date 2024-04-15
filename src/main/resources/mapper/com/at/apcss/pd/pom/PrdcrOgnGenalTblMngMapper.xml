@@ -412,6 +412,7 @@
 				FROM TB_EV_REG_RSLT ERR
 				WHERE 1=1
 				  AND BRNO = TEFA.BRNO
+				  AND APO_SE = TEFA.APO_SE
 				  AND YR = TEFA.YR
 				  AND 'Y' = DECODE(APO_SE ,'1' , 'Y' , '2' ,DECODE(ERR.UO_BRNO , TEFA.UO_BRNO , 'Y' , 'N')
 				)
