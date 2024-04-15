@@ -1291,19 +1291,19 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , SE_DTL_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 	<!-- 전문품목 매입매출 통합조직 로우데이터 -->
 	<select id="selectRawDataList" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalYMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalYMngVO">
 		SELECT
-			YR
-			, BRNO
-			, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = A.BRNO) AS CORP_NM
+			UO_PST.YR
+			, UO_PST.BRNO
+			, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = UO_PST.BRNO) AS CORP_NM
 			, DECODE( (SELECT APRV
 						FROM TB_EV_APO
-						WHERE BRNO = A.BRNO
+						WHERE BRNO = UO_PST.BRNO
 						)
 						, '1' , '승인형'
 						, '2' , '육성형'
 						, ''
 			) AS APRV
-			, TYPE_SE_NO
-			, DECODE(A.TYPE_SE_NO
+			, UO_PST.TYPE_SE_NO
+			, DECODE(UO_PST.TYPE_SE_NO
 						, '1' , '출자출하조직 전속출하'
 						, '2' , '출자출하조직 전속출하 소계'
 						, '3' , '출자출하조직 생산자조직 외'
@@ -1314,69 +1314,115 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , SE_DTL_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 						, '8' , '합계'
 						, ''
 				) AS TYPE_SE_NO_NM
-			, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = A.ITEM_CD) AS ITEM_NM
-			, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = (SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE ITEM_CD = A.ITEM_CD AND YR = A.YR AND BRNO = A.BRNO)) AS CTGRY_NM
-			, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = (SELECT STTG_UPBR_ITEM_SE  FROM TB_EV_APO_YR_GPC_CD WHERE ITEM_CD = A.ITEM_CD AND YR = A.YR AND BRNO = A.BRNO)) AS STTG_UPBR_ITEM_NM
-			, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'TRMT_TYPE' AND CD_VL = (SELECT TRMT_TYPE FROM TB_EV_FRMHS_APO WHERE PRDCR_OGNZ_SN = A.PRDCR_OGNZ_SN AND YR = A.YR)) AS TRMT_TYPE_NM
-			, ISO_BRNO
-			, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = A.ISO_BRNO) AS ISO_CORP_NM
-			, PRDCR_OGNZ_SN
-			, (SELECT PRDCR_OGNZ_NM FROM TB_EV_FRMHS_APO WHERE PRDCR_OGNZ_SN = A.PRDCR_OGNZ_SN) AS PRDCR_OGNZ_NM
-			, SLS_CNSGN_PRCHS_AMT
-			, SLS_CNSGN_SLS_AMT
-			, RMRK
-			, STBLT_YN
+			, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = UO_PST.ITEM_CD) AS ITEM_NM
+			, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = (SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE ITEM_CD = UO_PST.ITEM_CD AND YR = UO_PST.YR AND BRNO = UO_PST.BRNO)) AS CTGRY_NM
+			, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = (SELECT STTG_UPBR_ITEM_SE  FROM TB_EV_APO_YR_GPC_CD WHERE ITEM_CD = UO_PST.ITEM_CD AND YR = UO_PST.YR AND BRNO = UO_PST.BRNO)) AS STTG_UPBR_ITEM_NM
+			, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'TRMT_TYPE' AND CD_VL = (SELECT TRMT_TYPE FROM TB_EV_FRMHS_APO WHERE PRDCR_OGNZ_SN = UO_PST.PRDCR_OGNZ_SN AND YR = UO_PST.YR)) AS TRMT_TYPE_NM
+			, UO_PST.ISO_BRNO
+			, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = UO_PST.ISO_BRNO) AS ISO_CORP_NM
+			, UO_PST.PRDCR_OGNZ_SN
+			, (SELECT PRDCR_OGNZ_NM FROM TB_EV_FRMHS_APO WHERE PRDCR_OGNZ_SN = UO_PST.PRDCR_OGNZ_SN) AS PRDCR_OGNZ_NM
+			, UO_PST.SLS_CNSGN_PRCHS_AMT
+			, UO_PST.SLS_CNSGN_SLS_AMT
+			, UO_PST.RMRK
+			, UO_PST.STBLT_YN
 			,(SELECT NVL(ERR.MNGR_STBLT_YN , ERR.STBLT_YN)
 				FROM TB_EV_REG_RSLT ERR
 				WHERE 1=1
-				  AND BRNO = A.BRNO
-				  AND YR = A.YR
+				  AND BRNO = UO_PST.BRNO
+				  AND YR = UO_PST.YR
 				  AND APO_SE = '1'
 			) AS LAST_STBLT_YN
-		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT A
-		WHERE 1=1
-			AND APO_SE = '1'
-			AND YR = #{yr}
-			AND BRNO NOT IN (SELECT BRNO
-								FROM TB_COM_USER
-								WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51')
-							)
+			,DECODE(UO_PST.TYPE_SE_NO , '1' , TRMT_TYPE1) AS TRMT_TYPE1
+			,DECODE(UO_PST.TYPE_SE_NO , '1' , TRMT_TYPE2) AS TRMT_TYPE2
+			,DECODE(UO_PST.TYPE_SE_NO , '1' , TRMT_TYPE3) AS TRMT_TYPE3
+			,DECODE(UO_PST.TYPE_SE_NO , '1' , TRMT_TYPE_RT1) AS TRMT_TYPE_RT1
+			,DECODE(UO_PST.TYPE_SE_NO , '1' , TRMT_TYPE_RT2) AS TRMT_TYPE_RT2
+			,DECODE(UO_PST.TYPE_SE_NO , '1' , TRMT_TYPE_RT3) AS TRMT_TYPE_RT3
+		FROM (SELECT *
+				FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
+				WHERE 1=1
+				  AND APO_SE = '1'
+				  AND YR = #{yr}
+				  AND BRNO NOT IN (SELECT BRNO
+										FROM TB_COM_USER
+										WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51')
+									)
 
-			AND ITEM_CD = DECODE(A.TYPE_SE_NO
-									,'1', (SELECT ITEM_CD
-											FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-											WHERE 1=1
-											  AND YR = A.YR
-											  AND STBLT_YN = 'Y'
-											  AND UO_BRNO = A.BRNO
-											  AND BRNO = A.ISO_BRNO
-											  AND TYPE_SE_NO = '8'
-											  AND ITEM_CD = (SELECT ITEM_CD
-																FROM TB_EV_APO_YR_GPC_CD
-																WHERE 1=1
-																  AND YR= A.YR
-																  AND BRNO = A.BRNO
-																  AND ITEM_CD = A.ITEM_CD
-																)
-											)
-									,'5', (SELECT ITEM_CD
-											FROM TB_EV_FRMHS_APO
-											WHERE 1=1
-											  AND YR = A.YR
-											  AND STBLT_YN = 'Y'
-											  AND NVL(EXCL_YN,'N') != 'Y'
-											  AND BRNO = A.BRNO
-											  AND PRDCR_OGNZ_SN = A.PRDCR_OGNZ_SN
-											  AND ITEM_CD = (SELECT ITEM_CD
-																FROM TB_EV_APO_YR_GPC_CD
-																WHERE 1=1
-																  AND YR= A.YR
-																  AND BRNO = A.BRNO
-																  AND ITEM_CD = A.ITEM_CD
-																)
-											)
-									, (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR= A.YR AND BRNO = A.BRNO AND ITEM_CD = A.ITEM_CD)
-								)
-		ORDER BY A.BRNO , A.ITEM_CD , A.TYPE_SE_NO , A. ISO_BRNO , A.PRDCR_OGNZ_SN
+				  AND ITEM_CD = DECODE(PST.TYPE_SE_NO
+											,'1', (SELECT ITEM_CD
+													FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+													WHERE 1=1
+													  AND YR = PST.YR
+													  AND STBLT_YN = 'Y'
+													  AND UO_BRNO = PST.BRNO
+													  AND BRNO = PST.ISO_BRNO
+													  AND TYPE_SE_NO = '8'
+													  AND ITEM_CD = (SELECT ITEM_CD
+																		FROM TB_EV_APO_YR_GPC_CD
+																		WHERE 1=1
+																		  AND YR= PST.YR
+																		  AND BRNO = PST.BRNO
+																		  AND ITEM_CD = PST.ITEM_CD
+																		)
+													)
+											,'5', (SELECT ITEM_CD
+													FROM TB_EV_FRMHS_APO
+													WHERE 1=1
+													  AND YR = PST.YR
+													  AND STBLT_YN = 'Y'
+													  AND NVL(EXCL_YN,'N') != 'Y'
+													  AND BRNO = PST.BRNO
+													  AND PRDCR_OGNZ_SN = PST.PRDCR_OGNZ_SN
+													  AND ITEM_CD = (SELECT ITEM_CD
+																		FROM TB_EV_APO_YR_GPC_CD
+																		WHERE 1=1
+																		  AND YR= PST.YR
+																		  AND BRNO = PST.BRNO
+																		  AND ITEM_CD = PST.ITEM_CD
+																		)
+													)
+											, (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR= PST.YR AND BRNO = PST.BRNO AND ITEM_CD = PST.ITEM_CD)
+										)
+			) UO_PST ,
+			(SELECT
+					TOTAL.*
+					, ROUND(TRMT_TYPE1 * 100 / NULLIF(TRMT_TYPE1 + TRMT_TYPE2 + TRMT_TYPE3 , 0) ,2) AS TRMT_TYPE_RT1
+					, ROUND(TRMT_TYPE2 * 100 / NULLIF(TRMT_TYPE1 + TRMT_TYPE2 + TRMT_TYPE3 , 0) ,2) AS TRMT_TYPE_RT2
+					, ROUND(TRMT_TYPE3 * 100 / NULLIF(TRMT_TYPE1 + TRMT_TYPE2 + TRMT_TYPE3 , 0) ,2) AS TRMT_TYPE_RT3
+				FROM
+				(SELECT PST.YR
+						, PST.BRNO AS ISO_BRNO
+						, PST.UO_BRNO AS BRNO
+						, PST.ITEM_CD
+						, SUM( NVL( DECODE( EFA.TRMT_TYPE , '1' , PST.SLS_CNSGN_PRCHS_AMT , 0 ) , 0 ) ) AS TRMT_TYPE1
+						, SUM( NVL( DECODE( EFA.TRMT_TYPE , '2' , PST.SLS_CNSGN_PRCHS_AMT , 0 ) , 0 ) ) AS TRMT_TYPE2
+						, SUM( NVL( DECODE( EFA.TRMT_TYPE , '3' , PST.SLS_CNSGN_PRCHS_AMT , 0 ) , 0 ) ) AS TRMT_TYPE3
+					FROM (SELECT *
+								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+								WHERE 1=1
+								  AND APO_SE = '2'
+								  AND STBLT_YN= 'Y'
+								  AND TYPE_SE_NO ='5'
+								  AND YR= #{yr}
+						) PST
+						,(SELECT
+								*
+							FROM TB_EV_FRMHS_APO
+							WHERE 1=1
+							  AND YR = #{yr}
+							  AND APO_SE = '2'
+						) EFA
+					WHERE 1=1
+					  AND PST.BRNO = EFA.BRNO(+)
+					  AND PST.UO_BRNO = EFA.UO_BRNO(+)
+					  AND PST.PRDCR_OGNZ_SN = EFA.PRDCR_OGNZ_SN(+)
+					GROUP BY PST.YR , PST.BRNO , PST.UO_BRNO , PST.ITEM_CD
+				) TOTAL
+			)  ISO_PST
+		WHERE 1=1
+		  AND UO_PST.BRNO = ISO_PST.BRNO(+)
+		  AND UO_PST.ISO_BRNO = ISO_PST.ISO_BRNO(+)
+		ORDER BY UO_PST.BRNO , UO_PST.ITEM_CD , UO_PST.TYPE_SE_NO , UO_PST. ISO_BRNO , UO_PST.PRDCR_OGNZ_SN
 	</select>
 </mapper>
