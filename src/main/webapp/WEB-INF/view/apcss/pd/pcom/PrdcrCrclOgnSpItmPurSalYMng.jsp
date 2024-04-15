@@ -1360,7 +1360,15 @@
 			{caption: ["판매 매출 금액"],		ref:'slsCnsgnSlsAmt', 	type:'output', width:'120px',	style:'text-align:center'},
 			{caption: ["비고"],				ref:'rmrk', 			type:'output', width:'70px',	style:'text-align:center'},
 			{caption: ["적합여부"],				ref:'stbltYn', 			type:'output', width:'90px',	style:'text-align:center'},
-			{caption: ["선정여부"],				ref:'lastStbltYn', 		type:'output', width:'90px',	style:'text-align:center'}
+			{caption: ["선정여부"],				ref:'lastStbltYn', 		type:'output', width:'90px',	style:'text-align:center'},
+
+			{caption: ["공동출하수탁 금액"],			ref:'trmtType1', 		type:'output', width:'90px',	style:'text-align:center'},
+			{caption: ["공동선별수탁 금액"],			ref:'trmtType2', 		type:'output', width:'90px',	style:'text-align:center'},
+			{caption: ["공동선별매취 금액"],			ref:'trmtType3', 		type:'output', width:'90px',	style:'text-align:center'},
+
+			{caption: ["공동출하수탁 비율(%)"],		ref:'trmtTypeRt1', 		type:'output', width:'90px',	style:'text-align:center'},
+			{caption: ["공동선별수탁 비율(%)"],		ref:'trmtTypeRt2', 		type:'output', width:'90px',	style:'text-align:center'},
+			{caption: ["공동선별매취 비율(%)"],		ref:'trmtTypeRt3', 		type:'output', width:'90px',	style:'text-align:center'},
 		];
 
 		hiddenGrd = _SBGrid.create(SBGridProperties);
@@ -1404,6 +1412,14 @@
 					,rmrk				: item.rmrk
 					,stbltYn			: item.stbltYn
 					,lastStbltYn		: item.lastStbltYn
+
+					,trmtType1			: item.trmtType1
+					,trmtType2			: item.trmtType2
+					,trmtType3			: item.trmtType3
+					,trmtTypeRt1		: item.trmtTypeRt1
+					,trmtTypeRt2		: item.trmtTypeRt2
+					,trmtTypeRt3		: item.trmtTypeRt3
+
 				}
 				jsonHiddenGrd.push(hiddenGrdVO);
 			});
