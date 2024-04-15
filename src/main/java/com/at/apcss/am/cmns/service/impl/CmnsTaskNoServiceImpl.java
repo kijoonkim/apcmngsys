@@ -1,5 +1,6 @@
 package com.at.apcss.am.cmns.service.impl;
 
+import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -216,6 +217,11 @@ public class CmnsTaskNoServiceImpl extends BaseServiceImpl implements CmnsTaskNo
 		}
 
 		return null;
+	}
+
+	@Override
+	public String selectFnGetPltNo(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
+		return cmnsTaskNoMapper.selectFnGetPltNo(rawMtrWrhsVO);
 	}
 
 

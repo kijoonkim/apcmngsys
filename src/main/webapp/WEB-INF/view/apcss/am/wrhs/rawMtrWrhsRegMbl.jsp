@@ -452,8 +452,8 @@
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg th-mbl">팔레트번호</th>
-							<td colspan="3" style="border-right: hidden;">
-								<sbux-input uitype="text" id="srch-inp-wrhsno" name="srch-inp-wrhsno" class="inpt-mbl dsp-wght" style="border-right: hidden;" readonly></sbux-input>
+							<td colspan="3" class= "td_input" style="border-right: hidden;">
+								<sbux-input uitype="text" id="srch-inp-pltno" name="srch-inp-pltno" class="inpt-mbl dsp-wght" style="border-right: hidden;" readonly></sbux-input>
 							</td>
 						</tr>
 					</tbody>
@@ -1326,6 +1326,8 @@
  		SBUxMethod.set("srch-inp-wrhsWght", "");
  		// 입고번호
 		SBUxMethod.set("srch-inp-wrhsno", "");
+		// 팔레트번호
+		SBUxMethod.set("srch-inp-pltno", "");
 
 	}
 
@@ -1434,7 +1436,9 @@
 			SBUxMethod.set("srch-slt-warehouseSeCd", rawMtrWrhs[0].wrhsSeCd);
 			SBUxMethod.set("srch-inp-bxQntt", rawMtrWrhs[0].bxQntt);
 			SBUxMethod.set("srch-inp-wrhsno", rawMtrWrhs[0].wrhsno);
+			SBUxMethod.set("srch-inp-pltno",rawMtrWrhs[0].pltno);
 			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");
+
 			//품목 품종 세팅 필요값 설정
 			rawMtrWrhs[0].rprsVrtyCd =rawMtrWrhs[0].vrtyCd;
 			rawMtrWrhs[0].rprsItemCd =rawMtrWrhs[0].itemCd;

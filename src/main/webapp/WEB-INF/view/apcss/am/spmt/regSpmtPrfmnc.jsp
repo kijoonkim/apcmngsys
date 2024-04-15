@@ -461,11 +461,13 @@
 		SBUxMethod.refresh("excel-slt-cnpt");
 
 		SBUxMethod.set('srch-rdo-gdsSeCd', '1');
+		console.log(jsonComVrty,'jsonComVrty');
+		console.log(jsonComItem,'jsonComItem');
 
 	}
 
 	/**
-	 * @name fn_onChangeSrchItemCd
+	 * @name fn_onChangeSrchItemCd++
 	 * @description 품목 선택 변경 event
 	 */
 	const fn_onChangeSrchItemCd = async function(obj) {
@@ -474,7 +476,7 @@
 		const itemInfo = _.find(jsonApcItem, {value: itemCd});
 		
 		let result = await Promise.all([
-			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd)
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd, itemCd)
 		]);
 		if (gfn_isEmpty(itemCd)) {
 			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, "");

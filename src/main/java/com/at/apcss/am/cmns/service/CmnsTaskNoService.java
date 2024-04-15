@@ -1,5 +1,7 @@
 package com.at.apcss.am.cmns.service;
 
+import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
+
 /**
  * 업무 번호 Service 인터페이스
  * @author 신정철
@@ -115,4 +117,12 @@ public interface CmnsTaskNoService {
 	 */
 	public String selectOutordrno(String apcCd, String ymd) throws Exception;
 
+	/**
+	 * 파레트번호 발번
+	 * @param apcCd
+	 * @param wrhsno
+	 * @return
+	 * @throws Exception
+	 */
+    public String selectFnGetPltNo(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
 }

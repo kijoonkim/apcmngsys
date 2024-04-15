@@ -113,7 +113,8 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 		}
 
 		if (!StringUtils.hasText(rawMtrWrhsVO.getPltno())) {
-			rawMtrWrhsVO.setPltno(wrhsno);
+			String pltno = cmnsTaskNoService.selectFnGetPltNo(rawMtrWrhsVO);
+			rawMtrWrhsVO.setPltno(pltno);
 		}
 
 		if (needsWrhsInsert) {
@@ -161,7 +162,8 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 			rawMtrWrhsVO.setWrhsno(wrhsno);
 
 			if (!StringUtils.hasText(rawMtrWrhsVO.getPltno())) {
-				rawMtrWrhsVO.setPltno(wrhsno);
+				String pltno = cmnsTaskNoService.selectFnGetPltNo(rawMtrWrhsVO);
+				rawMtrWrhsVO.setPltno(pltno);
 			}
 
 			rawMtrWrhsMapper.insertRawMtrWrhs(rawMtrWrhsVO);
@@ -318,7 +320,8 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 		rawMtrWrhsVO.setWrhsno(wrhsno);
 
 		if (!StringUtils.hasText(rawMtrWrhsVO.getPltno())) {
-			rawMtrWrhsVO.setPltno(wrhsno);
+			String pltno = cmnsTaskNoService.selectFnGetPltNo(rawMtrWrhsVO);
+			rawMtrWrhsVO.setPltno(pltno);
 		}
 
 		rawMtrWrhsMapper.insertRawMtrWrhs(rawMtrWrhsVO);
