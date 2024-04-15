@@ -30,6 +30,11 @@
 	text-align: center;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
 .col-hd {
 	background-color: #e8f1f9;
 }
@@ -261,6 +266,8 @@ li:hover a { color: white; font-weight: bold }
 									uitype="text"
 									class="input-sm-ast inpt_data_reqed inpt-mbl srch-pltno"
 									autocomplete="off"
+									onblur="fn_ipt_pltno"
+									onclick="fn_ipt_init"
 								></sbux-input>
 							</td>
 							<td colspan="2" class="td_input" style="border-right:hidden;">
@@ -4131,6 +4138,8 @@ li:hover a { color: white; font-weight: bold }
 	  		}
   		});
 
+		SBUxMethod.attr("dtl-inp-pltno","type","number");
+
 		document.querySelectorAll(".sbux-pik-icon-btn").forEach((el) => {
     		el.style.width = "50px";
     		el.style.height = "50px";
@@ -5152,6 +5161,37 @@ li:hover a { color: white; font-weight: bold }
 
 	const fn_close = function(){
 		parent.gfn_tabClose("TAB_AM_003_003");
+	}
+
+	/** 모바일 WEB 환경에서 숫자패드 노출 처리**/
+	const fn_ipt_pltno = function(){
+		value = SBUxMethod.get("dtl-inp-pltno");
+		if (gfn_isEmpty(value)) return;
+
+		if(value.length <= 3){
+			pltno = gfn_dateToYmd(new Date()).substr(2);
+
+			if(value < 10){
+				pltno =  pltno + "00" + value;
+			}else if(value < 100){
+				pltno = pltno + "0" + value;
+			}else{
+				pltno = pltno + value;
+			}
+			SBUxMethod.set('dtl-inp-pltno',pltno);
+			SBUxMethod.attr('dtl-inp-pltno','type','number');
+		}
+	}
+
+	/**  팔레트번호 입력 간소화 처리 **/
+	const fn_ipt_init = function(){
+		value = SBUxMethod.get("dtl-inp-pltno");
+		if(!gfn_isEmpty(value)){
+			let _date = gfn_dateToYmd(new Date()).substr(2);
+			if(_date == value.substr(0,6)){
+				SBUxMethod.set('dtl-inp-pltno',"")
+			}
+		}
 	}
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
