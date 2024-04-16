@@ -68,4 +68,9 @@ public class CmnsVrtyVO extends CmnsItemVO {
 	 * 선별입력값유형
 	 */
 	private String sortInptVlType;
+	
+	/**
+	 * 표시항목유형
+	 */
+	private String indctArtclType;
 }
