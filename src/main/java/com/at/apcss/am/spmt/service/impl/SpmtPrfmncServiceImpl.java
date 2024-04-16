@@ -891,6 +891,8 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 								spmtPrfmncVO.setPckgno(gdsInvntr.getPckgno());
 								spmtPrfmncVO.setPckgSn(gdsInvntr.getPckgSn());
 								spmtPrfmncVO.setBrndNm(gdsInvntr.getBrndNm());
+								spmtPrfmncVO.setSpcfctCd(gdsInvntr.getSpcfctCd());
+								spmtPrfmncVO.setSpmtPckgUnitCd(gdsInvntr.getSpmtPckgUnitCd());
 
 								spmtPrfmncVO.setSpmtQntt(remainderSpmtQntt);
 
@@ -934,6 +936,8 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 								spmtPrfmncVO.setPckgno(gdsInvntr.getPckgno());
 								spmtPrfmncVO.setPckgSn(gdsInvntr.getPckgSn());
 								spmtPrfmncVO.setBrndNm(gdsInvntr.getBrndNm());
+								spmtPrfmncVO.setSpcfctCd(gdsInvntr.getSpcfctCd());
+								spmtPrfmncVO.setSpmtPckgUnitCd(gdsInvntr.getSpmtPckgUnitCd());
 
 								spmtPrfmncVO.setSpmtQntt(gdsInvntr.getInvntrQntt());
 
