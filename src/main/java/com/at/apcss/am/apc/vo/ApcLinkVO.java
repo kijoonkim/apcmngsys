@@ -12,6 +12,8 @@ public class ApcLinkVO  extends ComVO{
 	private String linkKnd;		// W: 계량, R:입고, S:선별, P:포장, D:출하
 	private String linkStts;	//  
 	
+	private String groupId;		// 연계그룹id
+	
 	private String rtnCd;
 	private String rtnMsg;
 	

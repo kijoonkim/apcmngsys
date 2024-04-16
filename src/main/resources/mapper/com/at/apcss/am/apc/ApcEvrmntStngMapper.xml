@@ -92,6 +92,7 @@
 					
 					, AL.TRSM_MAT_STTS_CD   	AS TRSM_MAT_STTS_CD
 					, AL.STTS_IDNTY_DT			AS STTS_IDNTY_DT
+					, AL.GROUP_ID				AS GROUP_ID
 					
 					, AL.DEL_YN     AS DEL_YN
 					
