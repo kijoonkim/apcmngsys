@@ -3992,7 +3992,6 @@ li:hover a { color: white; font-weight: bold }
 
         const wghtEls = document.querySelectorAll(".dsp-wght");
 
-		console.log(wghtEls,'wghtEls');
         wghtEls.forEach((el) => {
             el.style.display = "";
 			el.setAttribute("type","number");
@@ -4048,9 +4047,12 @@ li:hover a { color: white; font-weight: bold }
         SBUxMethod.set("dtl-inp-prdcrCd", sort.rprsPrdcrCd);
         SBUxMethod.set("dtl-inp-prdcrNm", sort.rprsPrdcrNm);
         SBUxMethod.set("dtl-lbl-warehouseSeNm", sort.warehouseSeCd);
-        console.log(sort,'sort정보좀');
-        let comCddtl = await gfn_getComCdDtls('INDCT_ARTCL_TYPE');
-        console.log(comCddtl,'함보자');
+
+        let indctArtclType = await gfn_getComCdDtls('INDCT_ARTCL_TYPE');
+		let _indctArtclType = indctArtclType.filter(
+				function(item){
+					return item.cdVl == sort.indctArtclType;
+				});
 
         /**재고정보 입력 **/
         let invntrInfo = " ";
@@ -4076,7 +4078,7 @@ li:hover a { color: white; font-weight: bold }
         await fn_getApcSpcfct(sort.itemCd);
 
         /**APC출하포장단위 JSON 설정**/
-        await fn_getSpmtPckgUnit(sort.itemCd, sort.vrtyCd);
+        await fn_getSpmtPckgUnit(sort.itemCd, sort.vrtyCd, _indctArtclType);
 
         if (!gfn_isEmpty(sort.grdQnttWght)) {
 
@@ -4086,9 +4088,6 @@ li:hover a { color: white; font-weight: bold }
             sort.grdQnttWght.split(',').forEach((item) => {
 
                 const grd = item.split(':');
-                console.log(grd,'grd index 3 이 실질적으로 select됨.')
-                console.log(jsonSpmtPckgUnit,'jsonSpmtPckgUnit일단 여기 다박히고');
-
 
                 const grdCd = grd[0];
                 const qntt = grd[1];
@@ -4148,15 +4147,17 @@ li:hover a { color: white; font-weight: bold }
                 fn_searchInvntr();
             }
         });
-		/**수량 중량 입력폼 type number**/
-		const inputs = document.querySelectorAll('.dsp-wght');
 
-		inputs.forEach(input => {
-			input.addEventListener('blur', (event) => {
-				input.setAttribute('type','number');
-			});
-		});
+		// /**수량 중량 입력폼 type number**/
+		// const inputs = document.querySelectorAll('.dsp-wght');
+		//
+		// inputs.forEach(input => {
+		// 	input.addEventListener('blur', (event) => {
+		// 		input.setAttribute('type','number');
+		// 	});
+		// });
 
+		/**최초진입시 팔레트번호 조회 input_number 처리**/
         SBUxMethod.attr("dtl-inp-pltno", "type", "number");
 
         document.querySelectorAll(".sbux-pik-icon-btn").forEach((el) => {
@@ -4616,10 +4617,11 @@ li:hover a { color: white; font-weight: bold }
      * @function
      * @param {string} itemCd
      * @param {string} vrtyCd
+	 * @param {string} indctArtclType
      */
 
         //TODO: select combo 가져올때 값 수정사항 필요.
-    const fn_getSpmtPckgUnit = async function (_itemCd, _vrtyCd) {
+    const fn_getSpmtPckgUnit = async function (_itemCd, _vrtyCd, _indctArtclType) {
 
             jsonSpmtPckgUnit.length = 0;
 
@@ -4630,11 +4632,29 @@ li:hover a { color: white; font-weight: bold }
             for (let i = 0; i < 10; i++) {
                 dtlList.forEach((dtl) => {
                     const sltId = "dtl-slt-spmtPckgUnitCd" + grdList[i] + dtl;
-                    SBUxMethod.refresh(sltId);
+
+					/**SBUx refresh 해당 컴포넌트 속성지정 동적 변경 가능
+					 * --첫째로 제공하는 set속성으로 시도후 안될시 refresh에서 추가파라미터로 수정가능
+					 * --추가 인자 전달시 객체형태 case: camel로 전달.**/
 
                     if (i < jsonFxngGrd.length && jsonSpmtPckgUnit.length > 0) {
                         const grdCd = jsonFxngGrd[i].grdCd;
                         let chkInfo = _.find(jsonSpmtPckgUnit, {gdsGrd: grdCd});
+
+						switch(_indctArtclType[0].cdVl){
+							case "GDS":
+								SBUxMethod.refresh(sltId,{jsondataText:'spmtPckgUnitNm'});
+								break;
+							case "SPCFCT":
+								SBUxMethod.refresh(sltId,{jsondataText:'spcfctNm'});
+								break;
+							case "VRTY":
+								SBUxMethod.refresh(sltId,{jsondataText:'vrtyNm'});
+								break;
+							case "ITEM":
+								SBUxMethod.refresh(sltId,{jsondataText:'itemNm'});
+								break;
+						}
 
                         if (gfn_isEmpty(chkInfo)) {
                             SBUxMethod.set(sltId, jsonSpmtPckgUnit[0].spmtPckgUnitCd);
