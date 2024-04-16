@@ -1,5 +1,6 @@
 package com.at.apcss.am.cmns.mapper;
 
+import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.at.apcss.am.cmns.vo.CmnsTaskNoVO;
@@ -28,4 +29,12 @@ public interface CmnsTaskNoMapper {
 	 * @throws Exception
 	 */
 	public CmnsTaskNoVO selectFnGetIdTaskNo(CmnsTaskNoVO cmnsTaskNoVO) throws Exception;
+
+	/**
+	 * APC 업무별 파레트 번호 발번
+	 * @param rawMtrWrhsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public String selectFnGetPltNo(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
 }

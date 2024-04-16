@@ -27,5 +27,20 @@
 			  FROM DUAL
 		]]>
     </select>
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsTaskNoMapper.selectFnGetPltNo	    -->
+	<!-- DESC : PltNo 발번	                                                    	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.11  	손 민 성        		                                        -->
+	<!-- ==========================================================================	-->
+	<select id="selectFnGetPltNo" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsVO" resultType="String">
+    	<![CDATA[
+		SELECT /* com.at.apcss.am.cmns.mapper.CmnsTaskNoMapper.selectFnGetPltNo */
+			FN_GET_ID_PLTNO(#{apcCd}, #{wrhsno}) AS PLTNO
+		FROM DUAL
+		]]>
+    </select>
 
 </mapper>
