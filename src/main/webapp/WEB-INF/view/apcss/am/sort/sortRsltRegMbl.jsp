@@ -3992,8 +3992,10 @@ li:hover a { color: white; font-weight: bold }
 
         const wghtEls = document.querySelectorAll(".dsp-wght");
 
+		console.log(wghtEls,'wghtEls');
         wghtEls.forEach((el) => {
             el.style.display = "";
+			el.setAttribute("type","number");
         });
 
         if (!gfn_isEmpty(_sortInptVlType)) {
@@ -4063,7 +4065,7 @@ li:hover a { color: white; font-weight: bold }
 
         SBUxMethod.set("dtl-lbl-invntr", invntrInfo);
 
-        /**현재 작업에서 수량/중량 판단후 EL display 노출**/
+        /**하단 내역 변경시 수량/중량 판단후 EL display 노출**/
         await fn_setSortInptForm(sort.sortInptVlType);
 
         /**현재 작업에서 실적변경이 이루어지는 입력폼 세팅 및 노출
@@ -4146,6 +4148,14 @@ li:hover a { color: white; font-weight: bold }
                 fn_searchInvntr();
             }
         });
+		/**수량 중량 입력폼 type number**/
+		const inputs = document.querySelectorAll('.dsp-wght');
+
+		inputs.forEach(input => {
+			input.addEventListener('blur', (event) => {
+				input.setAttribute('type','number');
+			});
+		});
 
         SBUxMethod.attr("dtl-inp-pltno", "type", "number");
 
@@ -4235,7 +4245,7 @@ li:hover a { color: white; font-weight: bold }
 
         SBUxMethod.set("dtl-inp-sortQntt", null);
         SBUxMethod.set("dtl-inp-sortWght", null);
-
+		SBUxMethod.attr("dtl-inp-pltno","type","number");
         SBUxMethod.focus("dtl-inp-pltno");
 
         fn_searchSort();
@@ -5087,7 +5097,6 @@ li:hover a { color: white; font-weight: bold }
     const fn_searchInvntr = async function () {
 
         const pltno = SBUxMethod.get("dtl-inp-pltno");
-        SBUxMethod.attr('dtl-inp-pltno', 'readonly', true);
 
         if (gfn_isEmpty(pltno)) {
             gfn_comAlert("W0005", "팔레트번호");		//	W0005	{0}이/가 없습니다.
@@ -5106,12 +5115,12 @@ li:hover a { color: white; font-weight: bold }
             const data = await postJsonPromise;
 
             if (_.isEqual("S", data.resultStatus)) {
-
                 const _rawMtrInvntr = data.resultMap;
 
                 if (gfn_isEmpty(_rawMtrInvntr)) {
                     return;
                 }
+				SBUxMethod.attr('dtl-inp-pltno', 'readonly', true);
 
                 SBUxMethod.set("dtl-inp-pltno", _rawMtrInvntr.pltno);
 
@@ -5140,7 +5149,7 @@ li:hover a { color: white; font-weight: bold }
                     invntrInfo += "   중량: " + _rawMtrInvntr.invntrWght.toLocaleString() + " Kg ";
                     invntrInfo += "   (등급: " + _rawMtrInvntr.grdNm + ")";
                 }
-
+				/**팔레트번호 조회 시 수량/중량 판단후 EL display 노출**/
                 await fn_setSortInptForm(_rawMtrInvntr.sortInptVlType);
 
                 SBUxMethod.set("dtl-lbl-invntr", invntrInfo);
