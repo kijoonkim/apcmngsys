@@ -202,6 +202,7 @@
 			    , AVC.DEL_YN				AS DEL_YN
 	    		, AVC.EXTRNL_LNKG_CD	 	AS EXTRNL_LNKG_CD
 	    		, AVC.SORT_INPT_VL_TYPE	 	AS SORT_INPT_VL_TYPE
+	    		, AVC.INDCT_ARTCL_TYPE	 	AS INDCT_ARTCL_TYPE
 			  FROM TB_APC_VRTY_CRTR AVC
 			 WHERE AVC.APC_CD = #{apcCd}
 		]]>
@@ -251,6 +252,7 @@
 					, NH_VRTY_NM
 					, EXTRNL_LNKG_CD
 					, SORT_INPT_VL_TYPE
+					, INDCT_ARTCL_TYPE
 					, SYS_FRST_INPT_DT
 					, SYS_FRST_INPT_USER_ID
 					, SYS_FRST_INPT_PRGRM_ID
@@ -280,6 +282,7 @@
 					, #{nhVrtyNm}
 					, #{extrnlLnkgCd}
 					, #{sortInptVlType}
+					, #{indctArtclType}
 					, SYSDATE
 					, #{sysFrstInptUserId}
 					, #{sysFrstInptPrgrmId}
@@ -314,7 +317,8 @@
 				, NH_VRTY_NM 				= #{nhVrtyNm}
 	    		, DEL_YN					= #{delYn}
 			   	, EXTRNL_LNKG_CD			= #{extrnlLnkgCd}
-			   	, SORT_INPT_VL_TYPE      =#{sortInptVlType}
+			   	, SORT_INPT_VL_TYPE      	= #{sortInptVlType}
+			   	, INDCT_ARTCL_TYPE      	= #{indctArtclType}
 			 WHERE ITEM_CD = #{itemCd}
 			   AND VRTY_CD = #{vrtyCd}
 			   AND APC_CD = #{apcCd}

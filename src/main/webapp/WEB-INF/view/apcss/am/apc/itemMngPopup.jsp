@@ -166,13 +166,15 @@
 	var jsonVrtyWghtRkngSeCd	= [];
 	var jsonApcVrtyWghtRkngSeCd	= [];
 	var jsonSortInptVlType = [];
+	var jsonIndctArtclType = [];
 
 	const fn_initSBSelectItemVrty = async function() {
 
 		let rst = await Promise.all([
 			gfn_setComCdSBSelect("grdVrty", 		jsonVrtyWghtRkngSeCd, "WGHT_RKNG_SE_CD"),		// 상품등급(출하)
 			gfn_setComCdSBSelect("grdApcVrty", 		jsonApcVrtyWghtRkngSeCd, "WGHT_RKNG_SE_CD"), 	// 상품등급(출하)
-			gfn_setComCdSBSelect("grdApcVrty", 		jsonSortInptVlType, "VL_TYPE")		// 선별입력유형
+			gfn_setComCdSBSelect("grdApcVrty", 		jsonSortInptVlType, "VL_TYPE"),					// 선별입력유형
+			gfn_setComCdSBSelect("grdApcVrty", 		jsonIndctArtclType, "INDCT_ARTCL_TYPE")			// 상품표시유형
 		]);
 
 		jsonApcVrty.length = 0;
@@ -318,8 +320,36 @@
 						typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 4}},
 			{caption: ["외부연결코드"],     ref: 'extrnlLnkgCd',  type:'input',  width:'80px',    style:'text-align:center'},
 			
-			{caption: ["선별입력유형"],     ref: 'sortInptVlType',  type:'combo',  width:'80px',    style:'text-align:center;',
-				typeinfo : {ref:'jsonSortInptVlType', displayui : false,	itemcount: 10, label:'label', value:'value', unselect:{label:'',value:''}}},
+			{
+				caption: ["선별입력유형"],     
+				ref: 'sortInptVlType',  
+				type:'combo',  
+				width:'80px',    
+				style:'text-align:center;',
+				typeinfo : {
+					ref:'jsonSortInptVlType', 
+					displayui : false,	
+					itemcount: 10, 
+					label:'label', 
+					value:'value', 
+					unselect:{label:'',value:''}
+				}
+			},
+			{
+				caption: ["상품표시유형"],     
+				ref: 'indctArtclType',  
+				type:'combo',  
+				width:'80px',    
+				style:'text-align:center;',
+				typeinfo : {
+					ref:'jsonIndctArtclType', 
+					displayui : false,	
+					itemcount: 10, 
+					label:'label', 
+					value:'value', 
+					unselect:{label:'',value:''}
+				}
+			},
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
 	        {caption: ["품목코드"], 	ref: 'itemCd',   	type:'input',  hidden : true}
 
@@ -557,7 +587,8 @@
   					  , wghtRkngSeCd 	: item.wghtRkngSeCd
   					  , sn				: item.sn
 					  , extrnlLnkgCd	: item.extrnlLnkgCd
-					  , sortInptVlType : item.sortInptVlType
+					  , sortInptVlType  : item.sortInptVlType
+					  , indctArtclType  : item.indctArtclType
   					}
   					newJsonApcVrty.push(vrtyVO);
   				});
