@@ -36,6 +36,12 @@
 	font-size: 28px;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
 .inpt-mbl {
     //padding: 8px;
 	height: 50px;
@@ -452,7 +458,7 @@
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg th-mbl">팔레트번호</th>
-							<td colspan="3" class= "td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-pltno" name="srch-inp-pltno" class="inpt-mbl dsp-wght" style="border-right: hidden;" readonly></sbux-input>
 							</td>
 						</tr>
@@ -616,6 +622,9 @@
 
 		SBUxMethod.set("srch-dtp-wrhsYmd", gfn_dateToYmd(new Date()));
 		SBUxMethod.set("srch-dtp-prdctnYr", gfn_dateToYear(new Date()));
+
+		/**수량 입력 숫자패드처리**/
+		// SBUxMethod.attr("srch-inp-bxQntt", 'type','number');
 
 		let result = await Promise.all([
 				fn_initSBSelect(),
@@ -1438,7 +1447,6 @@
 			SBUxMethod.set("srch-inp-wrhsno", rawMtrWrhs[0].wrhsno);
 			SBUxMethod.set("srch-inp-pltno",rawMtrWrhs[0].pltno);
 			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");
-
 			//품목 품종 세팅 필요값 설정
 			rawMtrWrhs[0].rprsVrtyCd =rawMtrWrhs[0].vrtyCd;
 			rawMtrWrhs[0].rprsItemCd =rawMtrWrhs[0].itemCd;

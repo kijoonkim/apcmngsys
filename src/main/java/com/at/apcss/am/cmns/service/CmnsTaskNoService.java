@@ -124,5 +124,5 @@ public interface CmnsTaskNoService {
 	 * @return
 	 * @throws Exception
 	 */
-    public String selectFnGetPltNo(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+	public String selectFnGetPltNo(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
 }

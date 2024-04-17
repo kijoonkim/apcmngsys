@@ -26,7 +26,6 @@
 				FN_GET_ID_TASK_NO(#{taskId}, #{apcCd}, #{ymd}) AS TASK_NO 
 			  FROM DUAL
 		]]>
-
     </select>
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsTaskNoMapper.selectFnGetPltNo	    -->

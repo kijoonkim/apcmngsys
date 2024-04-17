@@ -333,6 +333,10 @@ public class SortPrfmncVO extends ComVO {
     private String pckgYn;
     
     private String sortRealDelY;
+	/**
+	 * 표시항목유형
+	 */
+	private String indctArtclType;
 	
 	/**
 	 * 표준등급
