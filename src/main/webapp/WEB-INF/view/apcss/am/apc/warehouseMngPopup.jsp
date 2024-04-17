@@ -82,7 +82,7 @@
 	        	}
 	        }},
 	        {caption: ["창고 명"], 		ref: 'cdVlNm',   		type:'input',  width:'200px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100}), typeinfo : {maxlength : 33}},
-	        {caption: ["외부연계코드"], 	ref: 'extrnlLnkgCd',  		type:'input',  width:'80px',    style:'text-align:center'},
+	        {caption: ["설비연계"], 	ref: 'extrnlLnkgCd',  		type:'input',  width:'80px',    style:'text-align:center'},
 	        {caption: ["비고"], 		ref: 'cdVlExpln',   	type:'input',  width:'300px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000}), typeinfo : {maxlength : 333}},
 	        {caption: ["표시순서"], 	ref: 'indctSeq',   		type:'input',  width:'80px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}, typeinfo : {maxlength : 10}},
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},

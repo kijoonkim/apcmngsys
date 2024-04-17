@@ -80,7 +80,7 @@
 				<!--[pp] 검색결과 -->
 				<div class="row">
 
-					<div class="col-sm-5">
+					<div class="col-sm-4">
 						<div class="ad_tbl_top"  style="width: 98%;">
 							<ul class="ad_tbl_count">
 								<li><span>농수축산물표준 품목</span></li>
@@ -92,7 +92,7 @@
 					</div>
 
 
-					<div class="col-sm-7">
+					<div class="col-sm-8">
 						<div class="ad_tbl_top"  style="width: 98%;">
 							<ul class="ad_tbl_count">
 								<li><span>APC관리 품목</span></li>
@@ -135,7 +135,7 @@
 				</div>
 
 				<div class="row">
-					<div class="col-sm-5">
+					<div class="col-sm-4">
 						<div class="ad_tbl_top"  style="width: 98%;">
 							<ul class="ad_tbl_count">
 								<li><span>농수축산물표준 품종</span></li>
@@ -145,7 +145,7 @@
 							<div id="sb-area-grdVrty" style="height:157px; width: 100%;"></div>
 						</div>
 					</div>
-					<div class="col-sm-7">
+					<div class="col-sm-8">
 						<div class="ad_tbl_top"  style="width: 98%;">
 							<ul class="ad_tbl_count">
 								<li><span>APC관리 품종</span></li>
@@ -166,13 +166,15 @@
 	var jsonVrtyWghtRkngSeCd	= [];
 	var jsonApcVrtyWghtRkngSeCd	= [];
 	var jsonSortInptVlType = [];
+	var jsonIndctArtclType = [];
 
 	const fn_initSBSelectItemVrty = async function() {
 
 		let rst = await Promise.all([
 			gfn_setComCdSBSelect("grdVrty", 		jsonVrtyWghtRkngSeCd, "WGHT_RKNG_SE_CD"),		// 상품등급(출하)
 			gfn_setComCdSBSelect("grdApcVrty", 		jsonApcVrtyWghtRkngSeCd, "WGHT_RKNG_SE_CD"), 	// 상품등급(출하)
-			gfn_setComCdSBSelect("grdApcVrty", 		jsonSortInptVlType, "VL_TYPE")		// 선별입력유형
+			gfn_setComCdSBSelect("grdApcVrty", 		jsonSortInptVlType, "VL_TYPE"),					// 선별입력유형
+			gfn_setComCdSBSelect("grdApcVrty", 		jsonIndctArtclType, "INDCT_ARTCL_TYPE")			// 상품표시유형
 		]);
 
 		jsonApcVrty.length = 0;
@@ -208,8 +210,8 @@
 	            renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	                return "<button type='button' class='btn btn-xs btn-outline-danger'  onClick='fn_addItem(" + nRow + ")'>선택</button>";
 	        }},
-	        {caption: ["부류"],     	ref: 'clsNm',  	type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["코드"],     ref: 'itemCd',  type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["부류"],     	ref: 'clsNm',  	type:'output',  width:'80px',    style:'text-align:center'},
+	        {caption: ["코드"],     ref: 'itemCd',  type:'output',  width:'70px',    style:'text-align:center'},
 	        {caption: ["명칭"],     ref: 'itemNm',  type:'output',  width:'200px',    style:'text-align:center'},
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true}
 
@@ -237,12 +239,16 @@
 	                return "<button type='button' class='btn btn-xs btn-outline-danger'  onClick='fn_deleteItem(" + nRow + ")'>삭제</button>";
 	        }},
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
-	        {caption: ["코드"],     	ref: 'itemCd',  	type:'output',  width:'80px',    style:'text-align:center'},
+	        {caption: ["코드"],     	ref: 'itemCd',  	type:'output',  width:'70px',    style:'text-align:center'},
 	        {caption: ["명칭"],     	ref: 'itemNm',  	type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["품종"],     ref: 'vrtrCnt',  	type:'output',  width:'60px',    style:'text-align:center'},
-	        {caption: ["규격"],     ref: 'spcfctCnt',  	type:'output',  width:'60px',    style:'text-align:center'},
-	        {caption: ["등급"],     ref: 'grdCnt',  	type:'output',  width:'60px',    style:'text-align:center'},
-			{caption: ["외부연결코드"],     ref: 'extrnlLnkgCd',fixed:false,	type:'input',  width:'80px',    style:'text-align:center'},
+	        {caption: ["품종"],     	ref: 'vrtrCnt',  	type:'output',  width:'50px',    style:'text-align:center'},
+	        {caption: ["규격"],     	ref: 'spcfctCnt',  	type:'output',  width:'50px',    style:'text-align:center'},
+	        {caption: ["등급"],     	ref: 'grdCnt',  	type:'output',  width:'50px',    style:'text-align:center'},
+			{caption: ["설비연계"], 	ref: 'extrnlLnkgCd',fixed:false,	type:'input',  width:'60px',    style:'text-align:center'},
+			{caption: ["GAP인증"],    	ref: 'gapCertNo',  	type:'input',  	width:'70px',    style:'text-align:center',
+				typeinfo :{mask : {alias : 'numeric'}}, maxlength: 7},
+			{caption: ["이력추적번호"], ref: 'hstryTrcMngNo',  	type:'input',  width:'100px',    style:'text-align:center',
+					typeinfo :{mask : {alias : 'numeric'}}, maxlength: 5},
 
 	    ];
 	    grdApcItem = _SBGrid.create(SBGridPropertiesApcItem);
@@ -267,7 +273,7 @@
 	            renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	                return "<button type='button' class='btn btn-xs btn-outline-danger'  onClick='fn_addVrty(" + nRow + ")'>선택</button>";
 	        }},
-	        {caption: ["코드"],     ref: 'vrtyCd',  type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["코드"],     ref: 'vrtyCd',  type:'output',  width:'70px',    style:'text-align:center'},
 	        {caption: ["명칭"],     ref: 'vrtyNm',  type:'output',  width:'200px',    style:'text-align:center'},
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
 	        {caption: ["품목코드"], 	ref: 'itemCd',   	type:'input',  hidden : true}
@@ -314,12 +320,40 @@
     		},
 	        {caption: ["처리기준"],     ref: 'wghtRkngSeCd',  type:'combo',  width:'80px',    style:'text-align:center;',
 					typeinfo : {ref:'jsonVrtyWghtRkngSeCd', displayui : false,	itemcount: 10, label:'label', value:'value'}},
-			{caption: ["순번"],     ref: 'sn',  type:'input',  	width:'80px',    style:'text-align:center',
+			{caption: ["순번"],     ref: 'sn',  type:'input',  	width:'60px',    style:'text-align:center',
 						typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 4}},
-			{caption: ["외부연결코드"],     ref: 'extrnlLnkgCd',  type:'input',  width:'80px',    style:'text-align:center'},
-			
-			{caption: ["선별입력유형"],     ref: 'sortInptVlType',  type:'combo',  width:'80px',    style:'text-align:center;',
-				typeinfo : {ref:'jsonSortInptVlType', displayui : false,	itemcount: 10, label:'label', value:'value', unselect:{label:'',value:''}}},
+			{caption: ["설비연계"],     ref: 'extrnlLnkgCd',  type:'input',  width:'80px',    style:'text-align:center'},
+
+			{
+				caption: ["선별입력유형"],
+				ref: 'sortInptVlType',
+				type:'combo',
+				width:'80px',
+				style:'text-align:center;',
+				typeinfo : {
+					ref:'jsonSortInptVlType',
+					displayui : false,
+					itemcount: 10,
+					label:'label',
+					value:'value',
+					unselect:{label:'',value:''}
+				}
+			},
+			{
+				caption: ["상품표시유형"],
+				ref: 'indctArtclType',
+				type:'combo',
+				width:'80px',
+				style:'text-align:center;',
+				typeinfo : {
+					ref:'jsonIndctArtclType',
+					displayui : false,
+					itemcount: 10,
+					label:'label',
+					value:'value',
+					unselect:{label:'',value:''}
+				}
+			},
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
 	        {caption: ["품목코드"], 	ref: 'itemCd',   	type:'input',  hidden : true}
 
@@ -435,13 +469,15 @@
   	        	jsonApcItem.length = 0;
   	        	data.resultList.forEach((item, index) => {
   					let itemVO = {
-  						itemCd 		: item.itemCd
-  					  , itemNm 		: item.itemNm
-  					  , apcCd		: apcCd
-  					  , vrtrCnt 	: item.vrtrCnt
-  					  , spcfctCnt	: item.spcfctCnt
-  					  , grdCnt		: item.grdCnt
-					  , extrnlLnkgCd: item.extrnlLnkgCd
+  						itemCd 			: item.itemCd
+  					  , itemNm 			: item.itemNm
+  					  , apcCd			: apcCd
+  					  , vrtrCnt 		: item.vrtrCnt
+  					  , spcfctCnt		: item.spcfctCnt
+  					  , grdCnt			: item.grdCnt
+					  , extrnlLnkgCd	: item.extrnlLnkgCd
+					  , gapCertNo		: item.gapCertNo
+					  , hstryTrcMngNo 	: item.hstryTrcMngNo
   					}
   					jsonApcItem.push(itemVO);
   				});
@@ -467,7 +503,7 @@
 
 	const fn_searchVrtyAll = async function(){
 		let nCol = grdApcItem.getCol();
-		if(nCol != 7){
+		if(!(nCol == 7 || nCol == 8 || nCol == 9)){
 			let rst = await Promise.all([
 				fn_searchVrtyList(),
 				fn_searchApcVrtyList()
@@ -557,7 +593,8 @@
   					  , wghtRkngSeCd 	: item.wghtRkngSeCd
   					  , sn				: item.sn
 					  , extrnlLnkgCd	: item.extrnlLnkgCd
-					  , sortInptVlType : item.sortInptVlType
+					  , sortInptVlType  : item.sortInptVlType
+					  , indctArtclType  : item.indctArtclType
   					}
   					newJsonApcVrty.push(vrtyVO);
   				});
