@@ -3991,10 +3991,8 @@ li:hover a { color: white; font-weight: bold }
     const fn_setSortInptForm = async function (_sortInptVlType) {
 
         const wghtEls = document.querySelectorAll(".dsp-wght");
-
         wghtEls.forEach((el) => {
             el.style.display = "";
-			el.setAttribute("type","number");
         });
 
         if (!gfn_isEmpty(_sortInptVlType)) {
