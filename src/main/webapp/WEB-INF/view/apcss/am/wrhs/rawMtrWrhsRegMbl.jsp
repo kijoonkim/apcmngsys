@@ -617,6 +617,9 @@
 		SBUxMethod.set("srch-dtp-wrhsYmd", gfn_dateToYmd(new Date()));
 		SBUxMethod.set("srch-dtp-prdctnYr", gfn_dateToYear(new Date()));
 
+		/**수량 입력 숫자패드처리**/
+		SBUxMethod.attr("srch-inp-wrhsWght", 'type','number');
+
 		let result = await Promise.all([
 				fn_initSBSelect(),
 				fn_initSBRadio(),
