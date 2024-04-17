@@ -594,7 +594,7 @@
 	    SBGridProperties.columns = [
 	    	{caption : ["코드"], ref: 'cdVl', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px; '},
 	    	{caption : ["창고명"], ref: 'cdVlNm', type: 'input',  width:'40%', style: 'text-align:center; padding-right:5px;'},
-	    	{caption : ["외부연결코드"], ref: 'extrnlLnkgCd', type: 'input',  width:'15%', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["설비연계"], ref: 'extrnlLnkgCd', type: 'input',  width:'15%', style: 'text-align:center; padding-right:5px;'},
 	    	{caption : ["비고"], ref: 'rmrk', type: 'input',  width:'30%', style: 'text-align:center; padding-right:5px;'},
 	    ];
 	    grdWarehouse = _SBGrid.create(SBGridProperties);
@@ -613,7 +613,7 @@
 	    SBGridProperties.columns = [
 	    	{caption : ["코드"], ref: 'cdVl', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px; '},
 	    	{caption : ["선별기명"], ref: 'cdVlNm', type: 'input',  width:'40%', style: 'text-align:center; padding-right:5px;'},
-	    	{caption : ["외부연결코드"], ref: 'extrnlLnkgCd', type: 'input',  width:'15%', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["설비연계"], ref: 'extrnlLnkgCd', type: 'input',  width:'15%', style: 'text-align:center; padding-right:5px;'},
 	    	{caption : ["비고"], ref: 'rmrk', type: 'input',  width:'30%', style: 'text-align:center; padding-right:5px;'},
 	    ];
 	    grdSortFclt = _SBGrid.create(SBGridProperties);
@@ -633,7 +633,7 @@
 	    SBGridProperties.columns = [
 	    	{caption : ["코드"], ref: 'cdVl', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px; '},
 	    	{caption : ["포장기명"], ref: 'cdVlNm', type: 'input',  width:'40%', style: 'text-align:center; padding-right:5px;'},
-	    	{caption : ["외부연결코드"], ref: 'extrnlLnkgCd', type: 'input',  width:'15%', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["설비연계"], ref: 'extrnlLnkgCd', type: 'input',  width:'15%', style: 'text-align:center; padding-right:5px;'},
 	    	{caption : ["비고"], ref: 'rmrk', type: 'input',  width:'30%', style: 'text-align:center; padding-right:5px;'},
 	    ];
 	    grdPckgFclt = _SBGrid.create(SBGridProperties);
@@ -653,7 +653,7 @@
 	    SBGridProperties.columns = [
 	    	{caption : ["품목코드"], ref: 'itemCd', type: 'output',  width:'20%', style: 'text-align:center; padding-right:5px; '},
 	    	{caption : ["품목명"], ref: 'itemNm', type: 'output',  width:'60%', style: 'text-align:center; padding-right:5px;'},
-			{caption : ["외부연결코드"], ref: 'extrnlLnkgCd', type: 'input',  width:'20%', style: 'text-align:center; padding-right:5px;'},
+			{caption : ["설비연계"], ref: 'extrnlLnkgCd', type: 'input',  width:'20%', style: 'text-align:center; padding-right:5px;'},
 
 	    ];
 	    grdItem = _SBGrid.create(SBGridProperties);
@@ -674,7 +674,7 @@
 	    	{caption : ["품목명"], ref: 'itemNm', type: 'output',  width:'30%', style: 'text-align:center; padding-right:5px;'},
 	    	{caption : ["품종코드"], ref: 'vrtyCd', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px;'},
 	    	{caption : ["품종명"], ref: 'vrtyNm', type: 'output',  width:'30%', style: 'text-align:center; padding-right:5px;'},
-			{caption : ["외부연결코드"], ref: 'extrnlLnkgCd', type: 'input',  width:'10%', style: 'text-align:center; padding-right:5px;'},
+			{caption : ["설비연계"], ref: 'extrnlLnkgCd', type: 'input',  width:'10%', style: 'text-align:center; padding-right:5px;'},
 
 	    ];
 	    grdVrty = _SBGrid.create(SBGridProperties);
@@ -695,7 +695,7 @@
 	    	{caption : ["품목명"], ref: 'itemNm', type: 'output',  width:'25%', style: 'text-align:center; padding-right:5px;'},
 	    	{caption : ["규격코드"], ref: 'spcfctCd', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px;'},
 	    	{caption : ["규격명"], ref: 'spcfctNm', type: 'input',  width:'30%', style: 'text-align:center; padding-right:5px;'},
-			{caption : ["외부연결코드"], ref: 'extrnlLnkgCd', type: 'input',  width:'15%', style: 'text-align:center; padding-right:5px;'},
+			{caption : ["설비연계"], ref: 'extrnlLnkgCd', type: 'input',  width:'15%', style: 'text-align:center; padding-right:5px;'},
 
 	    ];
 	    grdSpcfct = _SBGrid.create(SBGridProperties);
@@ -720,7 +720,7 @@
 	    	{caption : ["등급종류"], ref: 'grdKndNm', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px;'},
 	    	{caption : ["등급코드"], ref: 'grdCd', type: 'output',  width:'10%', style: 'text-align:center; padding-right:5px;'},
 	    	{caption : ["등급명"], ref: 'grdNm', type: 'input',  width:'20%', style: 'text-align:center; padding-right:5px;'},
-			{caption : ["외부연결코드"], ref: 'extrnlLnkgCd', type: 'input',  width:'10%', style: 'text-align:center; padding-right:5px;'},
+			{caption : ["설비연계"], ref: 'extrnlLnkgCd', type: 'input',  width:'10%', style: 'text-align:center; padding-right:5px;'},
 	    ];
 	    grdGrd = _SBGrid.create(SBGridProperties);
 	}
@@ -745,7 +745,7 @@
 	    	{caption : ["규격명"], ref: 'spcfctNm', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px;'},
 	    	{caption : ["상품코드"], ref: 'spmtPckgUnitCd', type: 'output',  width:'10%', style: 'text-align:center; padding-right:5px;'},
 	    	{caption : ["상품명"], ref: 'spmtPckgUnitNm', type: 'input',  width:'15%', style: 'text-align:center; padding-right:5px;'},
-			{caption : ["외부연결코드"], ref: 'extrnlLnkgCd', type: 'input',  width:'10%', style: 'text-align:center; padding-right:5px;'},
+			{caption : ["설비연계"], ref: 'extrnlLnkgCd', type: 'input',  width:'10%', style: 'text-align:center; padding-right:5px;'},
 	    ];
 	    grdGds = _SBGrid.create(SBGridProperties);
 	}
@@ -764,7 +764,7 @@
 	    SBGridProperties.columns = [
 	    	{caption : ["코드"], ref: 'prdcrCd', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px; '},
 	    	{caption : ["생산자명"], ref: 'prdcrNm', type: 'input',  width:'30%', style: 'text-align:center; padding-right:5px;'},
-	    	{caption : ["외부연결코드"], ref: 'extrnlLnkgCd', type: 'input',  width:'15%', style: 'text-align:center; padding-right:5px;'},
+	    	{caption : ["설비연계"], ref: 'extrnlLnkgCd', type: 'input',  width:'15%', style: 'text-align:center; padding-right:5px;'},
 	    	{caption : ["비고"], ref: 'rmrk', type: 'input',  width:'40%', style: 'text-align:center; padding-right:5px;'}
 	    ];
 	    grdPrdcr = _SBGrid.create(SBGridProperties);
@@ -785,7 +785,7 @@
 	    	{caption : ["구분"], ref: 'pltBxSeNm', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px; '},
 	    	{caption : ["코드"], ref: 'pltBxCd', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px;'},
 	    	{caption : ["팔레트/박스명"], ref: 'pltBxNm', type: 'input',  width:'55%', style: 'text-align:center; padding-right:5px;'},
-			{caption : ["외부연결코드"], ref: 'extrnlLnkgCd', type: 'input',  width:'15%', style: 'text-align:center; padding-right:5px;'}
+			{caption : ["설비연계"], ref: 'extrnlLnkgCd', type: 'input',  width:'15%', style: 'text-align:center; padding-right:5px;'}
 	    ];
 	    grdPltBx = _SBGrid.create(SBGridProperties);
 	}
@@ -822,7 +822,7 @@
 	    SBGridProperties.columns = [
 	    	{caption : ["코드"], ref: 'trsprtCoCd', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px; '},
 	    	{caption : ["운송사명"], ref: 'trsprtCoNm', type: 'input',  width:'70%', style: 'text-align:center; padding-right:5px;'},
-			{caption : ["외부연결코드"], ref: 'extrnlLnkgCd', type: 'input',  width:'15%', style: 'text-align:center; padding-right:5px;'},
+			{caption : ["설비연계"], ref: 'extrnlLnkgCd', type: 'input',  width:'15%', style: 'text-align:center; padding-right:5px;'},
 	    ];
 	    grdTrsprtCo = _SBGrid.create(SBGridProperties);
 	}
@@ -841,7 +841,7 @@
 	    SBGridProperties.columns = [
 	    	{caption : ["코드"], ref: 'cnptCd', type: 'output',  width:'15%', style: 'text-align:center; padding-right:5px; '},
 	    	{caption : ["거래처명"], ref: 'cnptNm', type: 'input',  width:'70%', style: 'text-align:center; padding-right:5px;'},
-			{caption : ["외부연결코드"], ref: 'extrnlLnkgCd', type: 'input',  width:'15%', style: 'text-align:center; padding-right:5px;'},
+			{caption : ["설비연계"], ref: 'extrnlLnkgCd', type: 'input',  width:'15%', style: 'text-align:center; padding-right:5px;'},
 	    ];
 	    grdCnpt = _SBGrid.create(SBGridProperties);
 	}
@@ -1551,19 +1551,19 @@
 				//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 	}
-	
+
 	/**
 	 *
 	 const fn_cellGrid = async function() {
 		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
-	
+
 		const postJsonPromise = gfn_postJSON("/fm/fclt/selectMdRtlOgnzNowGridList.do", {crtrYr : crtrYr});
-	
+
 		let data = await postJsonPromise;
 		try {
-	
+
 			mdRtlOgnzNowJsonLengthReset();
-	
+
 		  	data.resultMdRtlOgnz.forEach((item, index) => {
 		  		const mdRtlOgnz = {
 		  				  title : item.title,
@@ -1573,39 +1573,39 @@
 				}
 		  		jsonMdRtlOgnz.push(mdRtlOgnz);
 		  	});
-	
-	
+
+
 		  }	catch (e) {
 		 		if (!(e instanceof Error)) {
 		 			e = new Error(e);
 		 		}
 		 		console.error("failed", e.message);
 			}
-	
+
 		  return true;
 	}
 	*/
-	
+
 	const apcStdInqJsonLengthReset = function() {
 		jsonWrhsSe.length = 0;
 		jsonGdsSe.length = 0;
 		jsonTrsprtSe.length = 0;
 	}
-	
+
 	const apcStdInqGridRebuild = function() {
 		grdWrhsSe.rebuild();
 		grdGdsSe.rebuild();
 		grdTrsprtSe.rebuild();
 	}
 
-	
+
 	let insertList = [];
-	
+
 	// 그리드 데이터 저장 버튼
 	const fn_saveWarehouseData = async function(){
 		insertList.length=0;
 		let gridAllData = grdWarehouse.getGridDataAll();
-		
+
 		for(var i=1; i<=gridAllData.length; i++){
 			let rowData = grdWarehouse.getRowData(i);
 			let rowSts = grdWarehouse.getRowStatus(i);
@@ -1619,7 +1619,7 @@
 				insertList.push(rowData);
 			}
 		}
-		
+
 		if(gfn_isEmpty(insertList)){
 			gfn_comAlert("W0003", "저장");
 			return;
@@ -1627,7 +1627,7 @@
 		if(gfn_comConfirm("Q0001", "저장")){
 			let postJsonPromise = gfn_postJSON("/co/cd/updateComWarehouseList.do", insertList);
 	        let data = await postJsonPromise;
-	        
+
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
 	        		gfn_comAlert("I0001");
@@ -1644,7 +1644,7 @@
 	const fn_saveSortFcltData = async function(){
 		insertList.length=0;
 		let gridAllData = grdSortFclt.getGridDataAll();
-		
+
 		for(var i=1; i<=gridAllData.length; i++){
 			let rowData = grdSortFclt.getRowData(i);
 			let rowSts = grdSortFclt.getRowStatus(i);
@@ -1654,7 +1654,7 @@
 				gfn_comAlert("W0002", "선별기명");
 				return;
 			}
-			
+
 			if(rowSts == 2){
 				insertList.push(rowData);
 			}
@@ -1663,11 +1663,11 @@
 			gfn_comAlert("W0003", "저장");
 			return;
 		}
-		
+
 		if(gfn_comConfirm("Q0001", "저장")){
 			let postJsonPromise = gfn_postJSON("/co/cd/updateComSortFcltList.do", insertList);
 	        let data = await postJsonPromise;
-	        
+
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
 	        		gfn_comAlert("I0001");
@@ -1680,11 +1680,11 @@
 	        }
 		}
 	}
-	
+
 	const fn_savePckgFcltData = async function(){
 		insertList.length=0;
 		let gridAllData = grdPckgFclt.getGridDataAll();
-		
+
 		for(var i=1; i<=gridAllData.length; i++){
 			let rowData = grdPckgFclt.getRowData(i);
 			let rowSts = grdPckgFclt.getRowStatus(i);
@@ -1694,7 +1694,7 @@
 				gfn_comAlert("W0002", "선별기명");
 				return;
 			}
-			
+
 			if(rowSts == 2){
 				insertList.push(rowData);
 			}
@@ -1703,11 +1703,11 @@
 			gfn_comAlert("W0003", "저장");
 			return;
 		}
-		
+
 		if(gfn_comConfirm("Q0001", "저장")){
 			let postJsonPromise = gfn_postJSON("/co/cd/updateComPckgFcltList.do", insertList);
 	        let data = await postJsonPromise;
-	        
+
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
 	        		gfn_comAlert("I0001");
@@ -1720,15 +1720,15 @@
 	        }
 		}
 	}
-	
+
 	const fn_saveItemData = async function(){
 		insertList.length=0;
 		let gridAllData = grdItem.getGridDataAll();
-		
+
 		for(var i=1; i<=gridAllData.length; i++){
 			let rowData = grdItem.getRowData(i);
 			let rowSts = grdItem.getRowStatus(i);
-			
+
 			if(rowSts == 2){
 				insertList.push(rowData);
 			}
@@ -1737,11 +1737,11 @@
 			gfn_comAlert("W0003", "저장");
 			return;
 		}
-		
+
 		if(gfn_comConfirm("Q0001", "저장")){
 			let postJsonPromise = gfn_postJSON("/am/cmns/updateItemList.do", insertList);
 	        let data = await postJsonPromise;
-	        
+
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
 	        		gfn_comAlert("I0001");
@@ -1758,11 +1758,11 @@
 	const fn_saveVrtyData = async function(){
 		insertList.length=0;
 		let gridAllData = grdVrty.getGridDataAll();
-		
+
 		for(var i=1; i<=gridAllData.length; i++){
 			let rowData = grdVrty.getRowData(i);
 			let rowSts = grdVrty.getRowStatus(i);
-			
+
 			if(rowSts == 2){
 				insertList.push(rowData);
 			}
@@ -1771,11 +1771,11 @@
 			gfn_comAlert("W0003", "저장");
 			return;
 		}
-		
+
 		if(gfn_comConfirm("Q0001", "저장")){
 			let postJsonPromise = gfn_postJSON("/am/cmns/updateVrtyList.do", insertList);
 	        let data = await postJsonPromise;
-	        
+
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
 	        		gfn_comAlert("I0001");
@@ -1788,15 +1788,15 @@
 	        }
 		}
 	}
-	
+
 	const fn_saveSpcfctData = async function(){
 		insertList.length=0;
 		let gridAllData = grdSpcfct.getGridDataAll();
-		
+
 		for(var i=1; i<=gridAllData.length; i++){
 			let rowData = grdSpcfct.getRowData(i);
 			let rowSts = grdSpcfct.getRowStatus(i);
-			
+
 			if(rowSts == 2){
 				insertList.push(rowData);
 			}
@@ -1805,11 +1805,11 @@
 			gfn_comAlert("W0003", "저장");
 			return;
 		}
-		
+
 		if(gfn_comConfirm("Q0001", "저장")){
 			let postJsonPromise = gfn_postJSON("/am/cmns/updateSpcfctList.do", insertList);
 	        let data = await postJsonPromise;
-	        
+
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
 	        		gfn_comAlert("I0001");
@@ -1822,15 +1822,15 @@
 	        }
 		}
 	}
-	
+
 	const fn_saveGrdGrdData = async function(){
 		insertList.length=0;
 		let gridAllData = grdGrd.getGridDataAll();
-		
+
 		for(var i=1; i<=gridAllData.length; i++){
 			let rowData = grdGrd.getRowData(i);
 			let rowSts = grdGrd.getRowStatus(i);
-			
+
 			if(rowSts == 2){
 				insertList.push(rowData);
 			}
@@ -1839,11 +1839,11 @@
 			gfn_comAlert("W0003", "저장");
 			return;
 		}
-		
+
 		if(gfn_comConfirm("Q0001", "저장")){
 			let postJsonPromise = gfn_postJSON("/am/cmns/updateGrdList.do", insertList);
 	        let data = await postJsonPromise;
-	        
+
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
 	        		gfn_comAlert("I0001");
@@ -1856,15 +1856,15 @@
 	        }
 		}
 	}
-	
+
 	const fn_saveGrdGdsData = async function(){
 		insertList.length=0;
 		let gridAllData = grdGds.getGridDataAll();
-		
+
 		for(var i=1; i<=gridAllData.length; i++){
 			let rowData = grdGds.getRowData(i);
 			let rowSts = grdGds.getRowStatus(i);
-			
+
 			if(rowSts == 2){
 				insertList.push(rowData);
 			}
@@ -1873,11 +1873,11 @@
 			gfn_comAlert("W0003", "저장");
 			return;
 		}
-		
+
 		if(gfn_comConfirm("Q0001", "저장")){
 			let postJsonPromise = gfn_postJSON("/am/cmns/updateSpmtPckgUnitsList.do", insertList);
 	        let data = await postJsonPromise;
-	        
+
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
 	        		gfn_comAlert("I0001");
@@ -1890,15 +1890,15 @@
 	        }
 		}
 	}
-	
+
 	const fn_saveGrdPrdcrData = async function(){
 		insertList.length=0;
 		let gridAllData = grdPrdcr.getGridDataAll();
-		
+
 		for(var i=1; i<=gridAllData.length; i++){
 			let rowData = grdPrdcr.getRowData(i);
 			let rowSts = grdPrdcr.getRowStatus(i);
-			
+
 			if(rowSts == 2){
 				insertList.push(rowData);
 			}
@@ -1907,11 +1907,11 @@
 			gfn_comAlert("W0003", "저장");
 			return;
 		}
-		
+
 		if(gfn_comConfirm("Q0001", "저장")){
 			let postJsonPromise = gfn_postJSON("/am/cmns/updatePrdcrList.do", insertList);
 	        let data = await postJsonPromise;
-	        
+
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
 	        		gfn_comAlert("I0001");
@@ -1924,15 +1924,15 @@
 	        }
 		}
 	}
-	
+
 	const fn_saveGrdPltBxData = async function(){
 		insertList.length=0;
 		let gridAllData = grdPltBx.getGridDataAll();
-		
+
 		for(var i=1; i<=gridAllData.length; i++){
 			let rowData = grdPltBx.getRowData(i);
 			let rowSts = grdPltBx.getRowStatus(i);
-			
+
 			if(rowSts == 2){
 				insertList.push(rowData);
 			}
@@ -1941,11 +1941,11 @@
 			gfn_comAlert("W0003", "저장");
 			return;
 		}
-		
+
 		if(gfn_comConfirm("Q0001", "저장")){
 			let postJsonPromise = gfn_postJSON("/am/cmns/updatePltBxList.do", insertList);
 	        let data = await postJsonPromise;
-	        
+
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
 	        		gfn_comAlert("I0001");
@@ -1958,15 +1958,15 @@
 	        }
 		}
 	}
-	
+
 	const fn_saveVhclInfoData = async function(){
 		insertList.length=0;
 		let gridAllData = grdVhclInfo.getGridDataAll();
-		
+
 		for(var i=1; i<=gridAllData.length; i++){
 			let rowData = grdVhclInfo.getRowData(i);
 			let rowSts = grdVhclInfo.getRowStatus(i);
-			
+
 			if(rowSts == 2){
 				insertList.push(rowData);
 			}
@@ -1975,11 +1975,11 @@
 			gfn_comAlert("W0003", "저장");
 			return;
 		}
-		
+
 		if(gfn_comConfirm("Q0001", "저장")){
 			let postJsonPromise = gfn_postJSON("/am/cmns/updateVhclInfoList.do", insertList);
 	        let data = await postJsonPromise;
-	        
+
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
 	        		gfn_comAlert("I0001");
@@ -1992,15 +1992,15 @@
 	        }
 		}
 	}
-	
+
 	const fn_saveTrsprtCoData = async function(){
 		insertList.length=0;
 		let gridAllData = grdTrsprtCo.getGridDataAll();
-		
+
 		for(var i=1; i<=gridAllData.length; i++){
 			let rowData = grdTrsprtCo.getRowData(i);
 			let rowSts = grdTrsprtCo.getRowStatus(i);
-			
+
 			if(rowSts == 2){
 				insertList.push(rowData);
 			}
@@ -2009,11 +2009,11 @@
 			gfn_comAlert("W0003", "저장");
 			return;
 		}
-		
+
 		if(gfn_comConfirm("Q0001", "저장")){
 			let postJsonPromise = gfn_postJSON("/am/cmns/updateTrsprtCoList.do", insertList);
 	        let data = await postJsonPromise;
-	        
+
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
 	        		gfn_comAlert("I0001");
@@ -2030,11 +2030,11 @@
 	const fn_saveCnptData = async function(){
 		insertList.length=0;
 		let gridAllData = grdCnpt.getGridDataAll();
-		
+
 		for(var i=1; i<=gridAllData.length; i++){
 			let rowData = grdCnpt.getRowData(i);
 			let rowSts = grdCnpt.getRowStatus(i);
-			
+
 			if(rowSts == 2){
 				insertList.push(rowData);
 			}
@@ -2043,11 +2043,11 @@
 			gfn_comAlert("W0003", "저장");
 			return;
 		}
-		
+
 		if(gfn_comConfirm("Q0001", "저장")){
 			let postJsonPromise = gfn_postJSON("/am/cmns/updateApcCnptList.do", insertList);
 	        let data = await postJsonPromise;
-	        
+
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
 	        		gfn_comAlert("I0001");

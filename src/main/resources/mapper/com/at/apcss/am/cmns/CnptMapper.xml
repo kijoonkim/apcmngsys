@@ -47,6 +47,11 @@
 		     , CT.RMRK              AS RMRK
 		     , CT.DEL_YN            AS DEL_YN
     		 , CT.EXTRNL_LNKG_CD	AS EXTRNL_LNKG_CD
+    		 , CT.DLNG_SHAP_CD 		AS DLNG_SHAP_CD
+    		 , CT.DLNG_MTHD_CD		AS DLNG_MTHD_CD
+    		 , CT.FXNO				AS FXNO
+    		 , CT.ADDR				AS ADDR
+    		 , CT.PIC_TELNO  		AS PIC_TELNO
 		  FROM TB_CNPT_INFO CT
 		 WHERE CT.DEL_YN 	= 'N'
 		   AND CT.APC_CD 		= #{apcCd}
@@ -94,6 +99,11 @@
 		      , WHLSL_MRKT_CORP_CD
     		  , RMRK
     		  , EXTRNL_LNKG_CD
+    		  , DLNG_SHAP_CD
+    		  , DLNG_MTHD_CD
+    		  , FXNO
+    		  , ADDR
+    		  , PIC_TELNO
     		  , SYS_FRST_INPT_DT
     		  , SYS_FRST_INPT_USER_ID
     		  , SYS_FRST_INPT_PRGRM_ID
@@ -116,6 +126,11 @@
 		      , #{whlslMrktCorpCd}
     		  , #{rmrk}
     		  , #{extrnlLnkgCd}
+    		  , #{dlngShapCd}
+    		  , #{dlngMthdCd}
+    		  , #{fxno}
+    		  , #{addr}
+    		  , #{picTelno}
     		  , SYSDATE
     		  , #{sysFrstInptUserId}
     		  , #{sysFrstInptPrgrmId}
@@ -150,6 +165,12 @@
     		 , CLS 						= #{cls}
 		     , BZSTAT					= #{bzstat}
 		     , WHLSL_MRKT_CORP_CD		= #{whlslMrktCorpCd}
+    		 , EXTRNL_LNKG_CD			= #{extrnlLnkgCd}
+		     , DLNG_SHAP_CD				= #{dlngShapCd}
+    		 , DLNG_MTHD_CD				= #{dlngMthdCd}
+    		 , FXNO						= #{fxno}
+    		 , ADDR						= #{addr}
+    		 , PIC_TELNO				= #{picTelno}
 		 WHERE APC_CD 					= #{apcCd}
 		   AND CNPT_CD 					= #{cnptCd}
 		]]>
@@ -340,7 +361,7 @@
  			WHERE CNT > 0
 		]]>
     </select>
-    
+
     <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CnptMapper.updateCnpt					-->
 	<!-- DESC : APC기준정보 거래처 정보 업데이트                                       			-->

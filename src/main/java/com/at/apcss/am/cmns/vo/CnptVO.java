@@ -68,12 +68,12 @@ public class CnptVO extends ComVO {
 	 * 업태
 	 */
 	private String bzstat;
-	
+
 	/**
-	 * 도매시장법인코드 
+	 * 도매시장법인코드
 	 */
 	private String whlslMrktCorpCd;
-	
+
 	/**
 	 * 비고
 	 */
@@ -91,4 +91,24 @@ public class CnptVO extends ComVO {
 	 * 거래처연계코드
 	 */
 	private String extrnlLnkgCd;
+	/**
+	 * 거래형태
+	 */
+	private String dlngShapCd;
+	/*
+	 * 매매방법
+	 * */
+	private String dlngMthdCd;
+	/*
+	 * 팩스번호
+	 * */
+	private String fxno;
+	/*
+	 * 주소
+	 * */
+	private String addr;
+	/*
+	 * 담당자전화번호
+	 * */
+	private String picTelno;
 }

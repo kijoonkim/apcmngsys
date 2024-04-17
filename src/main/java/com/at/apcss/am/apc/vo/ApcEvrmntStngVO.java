@@ -30,6 +30,7 @@ public class ApcEvrmntStngVO extends ComVO{
 	private String fxno;
 	private String bzstat;
 	private String cls;
+	private String spmtPrsnDclrNo;
 	private String apcRprsvNm;
 	private String otptApcNm;
 
@@ -95,15 +96,15 @@ public class ApcEvrmntStngVO extends ComVO{
 	 * 원물 값 유형
 	 */
 	private String rawMtrVlType;
-	
+
 	/**
 	 * 생산자관리유형
 	 */
 	private String prdcrMngType;
-	
+
 	/**
 	 * 세션갱신사용여부
 	 */
 	private String sessUpdtUseYn;
-	
+
 }
