@@ -36,6 +36,12 @@
 	font-size: 28px;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
 .inpt-mbl {
     //padding: 8px;
 	height: 50px;
@@ -618,7 +624,7 @@
 		SBUxMethod.set("srch-dtp-prdctnYr", gfn_dateToYear(new Date()));
 
 		/**수량 입력 숫자패드처리**/
-		SBUxMethod.attr("srch-inp-wrhsWght", 'type','number');
+		SBUxMethod.attr("srch-inp-bxQntt", 'type','number');
 
 		let result = await Promise.all([
 				fn_initSBSelect(),
@@ -1173,7 +1179,6 @@
 			let wrhsWght = Math.round(bxQntt * wghtAvg);
 			SBUxMethod.set("srch-inp-wrhsWght", wrhsWght);
 		}
-		SBUxMethod.attr("srch-inp-wrhsWght", 'type','number');
 	}
 
 	const fn_onChangeWghtAvg = function(obj) {
