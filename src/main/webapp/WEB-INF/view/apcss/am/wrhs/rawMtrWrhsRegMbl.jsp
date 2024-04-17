@@ -95,6 +95,9 @@ input::-webkit-inner-spin-button {
 	background-color : #FFF8DC;
 	cursor: pointer;
 }
+input:focus{
+	border:1px solid red;
+}
 
 #latestInfoBody > tr > td {
 	-webkit-text-size-adjust: 100%;
@@ -290,16 +293,8 @@ input::-webkit-inner-spin-button {
 						<tr>
 							<th scope="row" class="th_bg th-mbl"><span class="data_required"></span>입고수량/중량</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input
-									uitype="text"
-									id="srch-inp-bxQntt"
-									name="srch-inp-bxQntt"
-									class="input-sm-ast inpt_data_reqed inpt-mbl"
-									maxlength="6"
-									autocomplete="off"
-									mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
-									onchange="fn_onChangeBxQntt(this)"
-								/>
+								<input type="number" id="srch-inp-bxQntt" style="text-align: right;border-radius:5px;" class="input-sm-ast inpt_data_reqed inpt-mbl sbux-inp-input" onchange="fn_onChangeBxQntt(this)" >
+								<input type="text" id="_srch-inp-bxQntt" style="display: none;text-align: right;border-radius:5px;" class="input-sm-ast inpt_data_reqed inpt-mbl sbux-inp-input" onclick="fn_numberFmt(this)" >
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input
@@ -315,16 +310,19 @@ input::-webkit-inner-spin-button {
 								/>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input
-									uitype="text"
-									id="srch-inp-wrhsWght"
-									name="srch-inp-wrhsWght"
-									class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"
-									maxlength="7"
-									autocomplete="off"
-									mask = "{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
-									onchange="fn_onChangeWrhsWght(this)"
-								/>
+<%--								<sbux-input--%>
+<%--									uitype="text"--%>
+<%--									id="srch-inp-wrhsWght"--%>
+<%--									name="srch-inp-wrhsWght"--%>
+<%--									class="input-sm-ast inpt_data_reqed inpt-mbl dsp-wght"--%>
+<%--									maxlength="7"--%>
+<%--									autocomplete="off"--%>
+<%--									mask = "{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"--%>
+<%--									onchange="fn_onChangeWrhsWght(this)"--%>
+<%--								/>--%>
+<%--								<input id="srch-inp-wrhsWght" class="">--%>
+								<input type="number" id="srch-inp-wrhsWght" style="text-align: right;border-radius:5px;" class="input-sm-ast inpt_data_reqed inpt-mbl sbux-inp-input" onchange="fn_onChangeWrhsWght(this)" >
+								<input type="text" id="_srch-inp-wrhsWght" style="display: none;text-align: right;border-radius:5px;" class="input-sm-ast inpt_data_reqed inpt-mbl sbux-inp-input" onclick="fn_numberFmt(this)" >
 							</td>
 							<td style="border-right: hidden;">
 								<label class="bold fs-30 dsp-wght">Kg</label>
@@ -624,7 +622,7 @@ input::-webkit-inner-spin-button {
 		SBUxMethod.set("srch-dtp-prdctnYr", gfn_dateToYear(new Date()));
 
 		/**수량 입력 숫자패드처리**/
-		SBUxMethod.attr("srch-inp-bxQntt", 'type','number');
+		//SBUxMethod.attr("srch-inp-bxQntt", 'type','number');
 
 		let result = await Promise.all([
 				fn_initSBSelect(),
@@ -817,8 +815,12 @@ input::-webkit-inner-spin-button {
 			vrtyCd = vrtyCd.substring(4);
 		}
 		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");		// 생산자
-		let bxQntt = SBUxMethod.get("srch-inp-bxQntt");			// 수량
-		let wrhsWght = SBUxMethod.get("srch-inp-wrhsWght");		// 중량
+		// let bxQntt = SBUxMethod.get("srch-inp-bxQntt");			// 수량
+		// let wrhsWght = SBUxMethod.get("srch-inp-wrhsWght");		// 중량
+
+		let bxQntt = $("#srch-inp-bxQntt").val();
+		let wrhsWght = $("#srch-inp-wrhsWght").val();
+
 		//let bxKnd = SBUxMethod.get("srch-slt-bxKnd");			// 박스종류
 		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");	// 창고
 		let prdctnYr = SBUxMethod.get("srch-dtp-prdctnYr");		// 생산연도
@@ -1050,7 +1052,8 @@ input::-webkit-inner-spin-button {
 		if (!gfn_isEmpty(prdcr)) {
 			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
 			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
-			SBUxMethod.set("srch-inp-bxQntt", "");
+			// SBUxMethod.set("srch-inp-bxQntt", "");
+			$("#srch-inp-bxQntt").val("");
 			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 
 			fn_setPrdcrForm(prdcr);
@@ -1169,38 +1172,48 @@ input::-webkit-inner-spin-button {
 		SBUxMethod.set("srch-inp-wghtAvg", unitWght);
 		fn_onChangeWghtAvg();
 	}
+	const fn_numberFmt = function(obj){
+		 let $obj = "#" + obj.id;
+		 let $origin = "#" + obj.id.substr(1);
 
+		 $($obj).hide();
+		 $($origin).show();
+		 $($origin).focus();
+	}
 
 	const fn_onChangeBxQntt = function(obj) {
-		let bxQntt = parseInt(SBUxMethod.get("srch-inp-bxQntt")) || 0;
+		// let bxQntt = parseInt(SBUxMethod.get("srch-inp-bxQntt")) || 0;
+		let bxQntt = parseInt($("#srch-inp-bxQntt").val()) || 0;
 		let wghtAvg = parseInt(SBUxMethod.get("srch-inp-wghtAvg")) || 0;
 
 		if (wghtAvg > 0) {
 			let wrhsWght = Math.round(bxQntt * wghtAvg);
-			SBUxMethod.set("srch-inp-wrhsWght", wrhsWght);
+			// SBUxMethod.set("srch-inp-wrhsWght", wrhsWght);
+			$("#srch-inp-wrhsWght").val(wrhsWght);
+			$("#_srch-inp-wrhsWght").val(wrhsWght.toLocaleString('ko-KR'));
+			$("#srch-inp-bxQntt").hide();
+			$("#_srch-inp-bxQntt").val(parseInt($("#srch-inp-bxQntt").val()).toLocaleString('ko-KR'));
+			$("#_srch-inp-bxQntt").show();
 		}
 	}
 
 	const fn_onChangeWghtAvg = function(obj) {
 
-		let bxQntt = parseInt(SBUxMethod.get("srch-inp-bxQntt")) || 0;
+		// let bxQntt = parseInt(SBUxMethod.get("srch-inp-bxQntt")) || 0;
+		let bxQntt = parseInt($("#srch-inp-bxQntt").val()) || 0;
 		let wghtAvg = parseInt(SBUxMethod.get("srch-inp-wghtAvg")) || 0;
 
 		if (wghtAvg > 0) {
 			let wrhsWght = Math.round(bxQntt * wghtAvg);
-			SBUxMethod.set("srch-inp-wrhsWght", wrhsWght);
+			// SBUxMethod.set("srch-inp-wrhsWght", wrhsWght);
+			$("#srch-inp-wrhsWght").val(wrhsWght);
 		}
 	}
 
 	const fn_onChangeWrhsWght = function(obj) {
-		let bxQntt = parseInt(SBUxMethod.get("srch-inp-bxQntt")) || 0;
-		let wrhsWght = parseInt(SBUxMethod.get("srch-inp-wrhsWght")) || 0;
-		/*
-		if (bxQntt > 0 && wrhsWght > 0) {
-			let wghtAvg = Math.round(wrhsWght / bxQntt);
-			SBUxMethod.set("srch-inp-wghtAvg", wghtAvg);
-		}
-		*/
+		$("#srch-inp-wrhsWght").hide();
+		$("#_srch-inp-wrhsWght").val(parseInt($("#srch-inp-wrhsWght").val()).toLocaleString('ko-KR'));
+		$("#_srch-inp-wrhsWght").show();
 	}
 
     /**
@@ -1283,9 +1296,11 @@ input::-webkit-inner-spin-button {
 
     const fn_inputClear = function() {
   		// 수량
-  		SBUxMethod.set("srch-inp-wrhsQntt", "");
-  		// 중량
-  		SBUxMethod.set("srch-inp-wrhsWght", "");
+  		// SBUxMethod.set("srch-inp-wrhsQntt", "");
+  		// // 중량
+  		// SBUxMethod.set("srch-inp-wrhsWght", "");
+		$("#srch-inp-wrhsQntt").val("")
+		$("#srch-inp-wrhsWght").val("")
   		// 평균
   		SBUxMethod.set("srch-inp-wghtAvg", "");
     }
@@ -1330,9 +1345,11 @@ input::-webkit-inner-spin-button {
 		}
 
 		// 수량
- 		SBUxMethod.set("srch-inp-bxQntt", "");
+ 		// SBUxMethod.set("srch-inp-bxQntt", "");
+		$("#srch-inp-bxQntt").val("");
  		// 중량
- 		SBUxMethod.set("srch-inp-wrhsWght", "");
+ 		// SBUxMethod.set("srch-inp-wrhsWght", "");
+		 $("#srch-inp-wrhsWght").val("");
  		// 입고번호
 		SBUxMethod.set("srch-inp-wrhsno", "");
 		// 팔레트번호
@@ -1443,7 +1460,8 @@ input::-webkit-inner-spin-button {
 			SBUxMethod.set("srch-inp-prdcrCd", rawMtrWrhs[0].prdcrCd);
 			SBUxMethod.set("srch-inp-prdcrNm", rawMtrWrhs[0].prdcrNm);
 			SBUxMethod.set("srch-slt-warehouseSeCd", rawMtrWrhs[0].wrhsSeCd);
-			SBUxMethod.set("srch-inp-bxQntt", rawMtrWrhs[0].bxQntt);
+			// SBUxMethod.set("srch-inp-bxQntt", rawMtrWrhs[0].bxQntt);
+			$("#srch-inp-bxQntt").val(rawMtrWrhs[0].bxQntt);
 			SBUxMethod.set("srch-inp-wrhsno", rawMtrWrhs[0].wrhsno);
 			SBUxMethod.set("srch-inp-pltno",rawMtrWrhs[0].pltno);
 			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");
