@@ -86,14 +86,16 @@
     <select id="selectApcCmnsItemList" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO" resultType="com.at.apcss.am.cmns.vo.CmnsItemVO">
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectApcCmnsItemList */
-	    		  AIC.APC_CD
-			    , AIC.ITEM_CD
-			    , AIC.ITEM_NM
-			    , AIC.DEL_YN
-			    , AIC.RAW_MTR_RDCD_RT
-			    , AIC.SORT_RDCD_RT
-			    , AIC.PCKG_RDCD_RT
-	    	    , AIC.EXTRNL_LNKG_CD
+	    		  AIC.APC_CD						AS APC_CD
+			    , AIC.ITEM_CD						AS ITEM_CD
+			    , AIC.ITEM_NM						AS ITEM_NM
+			    , AIC.DEL_YN						AS DEL_YN
+			    , AIC.RAW_MTR_RDCD_RT				AS RAW_MTR_RDCD_RT
+			    , AIC.SORT_RDCD_RT					AS SORT_RDCD_RT
+			    , AIC.PCKG_RDCD_RT					AS PCKG_RDCD_RT
+	    	    , AIC.EXTRNL_LNKG_CD				AS EXTRNL_LNKG_CD
+	    	    , AIC.HSTRY_TRC_MNG_NO				AS HSTRY_TRC_MNG_NO
+			    , AIC.GAP_CERT_NO					AS GAP_CERT_NO
 			    , (SELECT COUNT(*) FROM TB_APC_VRTY_CRTR X WHERE X.APC_CD = AIC.APC_CD AND X.ITEM_CD = AIC.ITEM_CD AND X.DEL_YN = 'N') AS VRTR_CNT
 			    , (SELECT COUNT(*) FROM TB_APC_SPCFCT_CRTR X WHERE X.APC_CD = AIC.APC_CD AND X.ITEM_CD = AIC.ITEM_CD AND X.DEL_YN = 'N') AS SPCFCT_CNT
 			    , (SELECT COUNT(*) FROM TB_APC_STD_GRD X WHERE APC_CD = AIC.APC_CD AND X.ITEM_CD = AIC.ITEM_CD AND X.DEL_YN = 'N') AS GRD_CNT
@@ -168,6 +170,8 @@
 	    		, SORT_RDCD_RT			= #{sortRdcdRt}
 	    		, PCKG_RDCD_RT			= #{pckgRdcdRt}
 			    , EXTRNL_LNKG_CD		= #{extrnlLnkgCd}
+			    , HSTRY_TRC_MNG_NO		= #{hstryTrcMngNo}
+			    , GAP_CERT_NO			= #{gapCertNo}
 			 WHERE APC_CD 		= #{apcCd}
 			   AND ITEM_CD		= #{itemCd}
 		]]>
@@ -347,7 +351,7 @@
 			 WHERE CNT > 0
 		]]>
     </select>
-    
+
     <!-- =========================================================================  -->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.updateComItem			-->
 	<!-- DESC : APC기준 품목 정보 업데이트  		                            				-->

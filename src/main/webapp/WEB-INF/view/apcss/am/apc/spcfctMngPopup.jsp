@@ -221,10 +221,10 @@
 				format : {type:'number', rule:'#,###.000'}
 	        },
 	        {
-				caption: ["외부연결코드"],
+				caption: ["설비연계"],
 				ref: 'extrnlLnkgCd',
 				type:'input',
-				width:'100px',
+				width:'80px',
 				style:'text-align:center',
 	        },
 	        {

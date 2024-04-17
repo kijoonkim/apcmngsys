@@ -158,22 +158,22 @@
 	        {caption: ["규격"], 			ref: 'spcfctCd',   	type:'combo',  width:'80px',    style:'text-align:center',
 				typeinfo : {ref:'jsonSPUGrdSpcfctCd', 	displayui : false, 	itemcount: 10, label:'label', value:'value'}},
  	        {
-				caption: ["선별등급"], 			
-				ref: 'gdsGrd',   	
+				caption: ["선별등급"],
+				ref: 'gdsGrd',
 				type:'combo',
-				width:'80px',    
+				width:'80px',
 				style:'text-align:center',
  				typeinfo : {
- 					ref:'gjsonStdGrdObj_1', 	
- 					displayui : false, 	
- 					itemcount: 10, 
- 					label:'grdNm', 
+ 					ref:'gjsonStdGrdObj_1',
+ 					displayui : false,
+ 					itemcount: 10,
+ 					label:'grdNm',
  					value:'grdCd'
  				}
 			},
 	        {caption: ["상품 명"], 			ref: 'spmtPckgUnitNm',  type:'input',  width:'160px',    style:'text-align:center',
 				typeinfo : {maxlength : 30}},
-			{caption: ["외부연결코드"], ref: 'extrnlLnkgCd',  	type:'input',  width:'80px',    style:'text-align:center'},
+			{caption: ["설비연계"], ref: 'extrnlLnkgCd',  	type:'input',  width:'80px',    style:'text-align:center'},
 	        {caption: ["브랜드 명"], ref: 'brndNm',  	type:'input',  width:'140px',    style:'text-align:center', typeinfo : {maxlength : 33}},
 	        {caption: ["판매단가"],     	ref: 'ntslUntprc',  type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### 원'}},
 	        {caption: ["변경"], 		ref: 'delYn',  type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {

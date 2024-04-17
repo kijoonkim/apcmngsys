@@ -87,4 +87,12 @@ public class CmnsItemVO extends ComVO {
 	 * 품목 연계코드
 	 */
 	private String extrnlLnkgCd;
+	/**
+	 * GAP 인증번호
+	 */
+	private String hstryTrcMngNo;
+	/**
+	 * 이력추적관리번호
+	 */
+	private String gapCertNo;
 }
