@@ -290,7 +290,14 @@
 			{caption : ["주황","2S",""," "], 	ref: 'ornSs', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
 			{caption : ["주황","소계"," ",""], ref: 'ornTot', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;background-color:#ceebff '
 			            , format : {type:'number', rule:'#,###',emptyvalue:'0'},fixedstyle : 'background-color:#ceebff;', disabled:true},
-			{caption : ["총합계","총합계", ""," "], ref: 'tot', type: 'output',  width:'150px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}, disabled:true},
+			{caption : ["총합계","총합계", ""," "], ref: 'tot', type: 'output',  width:'130px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}, disabled:true},
+			{caption : ["송품장<br>발행", "송품장<br>발행", "송품장<br>발행", "송품장<br>발행"], 			ref: 'spmtno',   	type:'button', width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+	        	if(strValue== null || strValue == ""){
+	        		return "";
+	        	}else{
+			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_docSpmt(" + nRow + ")'>발행</button>";
+	        	}
+	        }},
         ];
 
         grdGdsInvntr = _SBGrid.create(SBGridPropertiesGdsInvntr);
@@ -854,54 +861,59 @@
 	    	let rowData = grdGdsInvntr.getRowData(i);
 	    	let spmtYmd = rowData.spmtYmd;
 	    	let cnptCd	= rowData.cnptCd;
+	    	let spmtno	= rowData.spmtno;
 
-	    	if(gfn_isEmpty(spmtYmd)){
-	    		gfn_comAlert("W0001", "출하일자");			//	W0001	{0}을/를 선택하세요.
-	            return;
-	    	}
-	    	if(gfn_isEmpty(cnptCd)){
-	    		gfn_comAlert("W0001", "거래처");			//	W0001	{0}을/를 선택하세요.
-	            return;
-	    	}
+	    	if(gfn_isEmpty(spmtno)){
 
-	    	let spmtPrfmncList = [];
+		    	if(gfn_isEmpty(spmtYmd)){
+		    		gfn_comAlert("W0001", "출하일자");			//	W0001	{0}을/를 선택하세요.
+		            return;
+		    	}
+		    	if(gfn_isEmpty(cnptCd)){
+		    		gfn_comAlert("W0001", "거래처");			//	W0001	{0}을/를 선택하세요.
+		            return;
+		    	}
 
-	    	for (var j=0; j<colors.length; j++) {
+		    	let spmtPrfmncList = [];
 
-	    		let color = colors[j];
-	    		let vrtyCd = "";
-	    		if (color == 'red') {
-    				vrtyCd = '0300';
-    			} else if (color == 'ylw') {
-    				vrtyCd = '0200';
-    			} else if (color == 'orn') {
-    				vrtyCd = '0400';
-    			}
+		    	for (var j=0; j<colors.length; j++) {
 
-	    		for (var k=0; k<columns.length; k++) {
-
-	    			let ref = color + columns[k];
-	    			let spmtQntt = rowData[ref];
-
-	    			if (!gfn_isEmpty(spmtQntt) && spmtQntt > 0 ) {
-
-		    			let spmtVO = {
-		    				apcCd		: gv_selectedApcCd
-		    			  ,	spmtYmd 	: rowData.spmtYmd
-		    			  , itemCd 		: '1326'
-		    			  , vrtyCd		: vrtyCd
-		    			  , cnptCd		: rowData.cnptCd
-		    			  , gdsGrd		: grds[k]
-		    			  , spmtQntt	: spmtQntt
-	    				}
-		    			spmtPrfmncList.push(spmtVO);
+		    		let color = colors[j];
+		    		let vrtyCd = "";
+		    		if (color == 'red') {
+	    				vrtyCd = '0300';
+	    			} else if (color == 'ylw') {
+	    				vrtyCd = '0200';
+	    			} else if (color == 'orn') {
+	    				vrtyCd = '0400';
 	    			}
-	    		}
+
+		    		for (var k=0; k<columns.length; k++) {
+
+		    			let ref = color + columns[k];
+		    			let spmtQntt = rowData[ref];
+
+		    			if (!gfn_isEmpty(spmtQntt) && spmtQntt > 0 ) {
+
+			    			let spmtVO = {
+			    				apcCd		: gv_selectedApcCd
+			    			  ,	spmtYmd 	: rowData.spmtYmd
+			    			  , itemCd 		: '1326'
+			    			  , vrtyCd		: vrtyCd
+			    			  , cnptCd		: rowData.cnptCd
+			    			  , gdsGrd		: grds[k]
+			    			  , spmtQntt	: spmtQntt
+		    				}
+			    			spmtPrfmncList.push(spmtVO);
+		    			}
+		    		}
+		    	}
+
+		    	if (spmtPrfmncList.length > 0) {
+		    		insertList.push({"spmtPrfmncList" : spmtPrfmncList});
+		    	}
 	    	}
 
-	    	if (spmtPrfmncList.length > 0) {
-	    		insertList.push({"spmtPrfmncList" : spmtPrfmncList});
-	    	}
 	    }
 
 		if (insertList.length == 0) {
@@ -972,6 +984,19 @@
 
 		await fn_reSum();
 	}
+
+	/**
+     * @name fn_docSpmt
+     * @description 송품장 발행 버튼
+     */
+ 	const fn_docSpmt = function(nRow) {
+
+		const rowData = grdGdsInvntr.getRowData(nRow);
+		const spmtno = rowData.spmtno;
+
+ 		gfn_popClipReport("송품장", "am/trsprtCmdtyDoc_0033.crf", {apcCd: gv_selectedApcCd, spmtno: spmtno});
+ 	}
+
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
