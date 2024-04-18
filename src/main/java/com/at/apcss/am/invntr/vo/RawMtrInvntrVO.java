@@ -392,7 +392,10 @@ public class RawMtrInvntrVO extends ComVO {
 	 * 이송APC코드
 	 * */
 	private String trnsfApcCd;
-
+	/*
+	 * 포장단위명 표시항목
+	 * */
+	private String indctArtclType;
 
 
 	/**

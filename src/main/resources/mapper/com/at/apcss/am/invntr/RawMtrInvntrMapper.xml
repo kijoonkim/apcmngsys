@@ -25,6 +25,7 @@
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.selectRawMtrInvntr */
     			  pt0.*
+	    	    , (SELECT X.INDCT_ARTCL_TYPE FROM TB_APC_VRTY_CRTR X WHERE X.APC_CD = pt0.APC_CD AND X.ITEM_CD = pt0.ITEM_CD AND X.VRTY_CD = pt0.VRTY_CD) AS INDCT_ARTCL_TYPE
     			, (SELECT FN_GET_APC_NM(pt0.APC_CD) FROM DUAL) AS APC_NM
 				, (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
                 , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM

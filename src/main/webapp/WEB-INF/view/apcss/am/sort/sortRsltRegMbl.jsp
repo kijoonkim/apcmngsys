@@ -3932,6 +3932,8 @@ li:hover a { color: white; font-weight: bold }
 
     var jsonOptnGrd = [];			//	옵션등급
     var jsonFxngGrd = [];			//	고정등급
+	var indctArtclType = [];		//  표시목록 타입
+
 
     const fn_initSBSelect = async function () {
         // 검색 SB select
@@ -3957,6 +3959,8 @@ li:hover a { color: white; font-weight: bold }
         let result = await Promise.all([
             fn_initSBSelect()
         ]);
+		/**표시항목 타입 get**/
+		indctArtclType = await gfn_getComCdDtls('INDCT_ARTCL_TYPE');
 
         fn_reset();
 
@@ -4046,12 +4050,10 @@ li:hover a { color: white; font-weight: bold }
         SBUxMethod.set("dtl-inp-prdcrNm", sort.rprsPrdcrNm);
         SBUxMethod.set("dtl-lbl-warehouseSeNm", sort.warehouseSeCd);
 
-        let indctArtclType = await gfn_getComCdDtls('INDCT_ARTCL_TYPE');
 		let _indctArtclType = indctArtclType.filter(
 				function(item){
 					return item.cdVl == sort.indctArtclType;
 				});
-
         /**재고정보 입력 **/
         let invntrInfo = " ";
         invntrInfo += "투입: " + sort.inptQntt.toLocaleString();
@@ -4145,15 +4147,6 @@ li:hover a { color: white; font-weight: bold }
                 fn_searchInvntr();
             }
         });
-
-		// /**수량 중량 입력폼 type number**/
-		// const inputs = document.querySelectorAll('.dsp-wght');
-		//
-		// inputs.forEach(input => {
-		// 	input.addEventListener('blur', (event) => {
-		// 		input.setAttribute('type','number');
-		// 	});
-		// });
 
 		/**최초진입시 팔레트번호 조회 input_number 처리**/
         SBUxMethod.attr("dtl-inp-pltno", "type", "number");
@@ -4639,6 +4632,7 @@ li:hover a { color: white; font-weight: bold }
                         const grdCd = jsonFxngGrd[i].grdCd;
                         let chkInfo = _.find(jsonSpmtPckgUnit, {gdsGrd: grdCd});
 
+						if(!gfn_isEmpty(_indctArtclType)){
 						switch(_indctArtclType[0].cdVl){
 							case "GDS":
 								SBUxMethod.refresh(sltId,{jsondataText:'spmtPckgUnitNm'});
@@ -4652,6 +4646,9 @@ li:hover a { color: white; font-weight: bold }
 							case "ITEM":
 								SBUxMethod.refresh(sltId,{jsondataText:'itemNm'});
 								break;
+							}
+						}else{
+							SBUxMethod.refresh(sltId,{jsondataText:'spmtPckgUnitNm'});
 						}
 
                         if (gfn_isEmpty(chkInfo)) {
@@ -5170,10 +5167,16 @@ li:hover a { color: white; font-weight: bold }
 				/**팔레트번호 조회 시 수량/중량 판단후 EL display 노출**/
                 await fn_setSortInptForm(_rawMtrInvntr.sortInptVlType);
 
+
                 SBUxMethod.set("dtl-lbl-invntr", invntrInfo);
                 await fn_setGrd(_rawMtrInvntr.itemCd, _rawMtrInvntr.vrtyCd);
                 fn_getApcSpcfct(_rawMtrInvntr.itemCd);
-                fn_getSpmtPckgUnit(_rawMtrInvntr.itemCd, _rawMtrInvntr.vrtyCd);
+
+				let _indctArtclType = indctArtclType.filter(
+						function(item){
+							return item.cdVl == _rawMtrInvntr.indctArtclType;
+						});
+                fn_getSpmtPckgUnit(_rawMtrInvntr.itemCd, _rawMtrInvntr.vrtyCd, _indctArtclType);
 
                 // focus
                 if (jsonOptnGrd.length > 0) {
