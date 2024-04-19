@@ -1,10 +1,7 @@
 package com.at.apcss.fm.farm.service;
 
 import java.util.List;
-import java.util.Map;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.fm.farm.vo.FarmLandInfoRegVO;
 
 
@@ -35,10 +32,6 @@ public interface FarmLandInfoRegService {
 	public List<FarmLandInfoRegVO> selectFarmLandInfoRegList(FarmLandInfoRegVO farmLandInfoRegVO) throws Exception;
 
 	public int insertFarmLandInfoReg(FarmLandInfoRegVO farmLandInfoRegVO) throws Exception;
-
-	public int updateFarmLandInfoReg(FarmLandInfoRegVO farmLandInfoRegVO) throws Exception;
-
-	public int multiSaveFarmLandInfoRegList(List<FarmLandInfoRegVO> farmLandInfoRegVOList) throws Exception;
 
 	public int deleteFarmLandInfoReg(FarmLandInfoRegVO farmLandInfoRegVO) throws Exception;
 

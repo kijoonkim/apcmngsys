@@ -5,7 +5,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,19 +27,7 @@ import org.w3c.dom.NodeList;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.fm.farm.service.FarmLandInfoService;
-import com.at.apcss.fm.farm.service.RestFulService;
 import com.at.apcss.fm.farm.vo.FarmLandInfoVO;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-
-
-//import  org.w3c.dom.Document;
-//import org.w3c.dom.Element;
-//import org.w3c.dom.Node;
-//import org.w3c.dom.NodeList;
-//import org.xml.sax.SAXException;
-
-//import org.w3c.dom.Document;
 
 
 @Controller
@@ -48,343 +36,259 @@ public class FarmLandInfoController extends BaseController{
 	@Resource(name= "farmLandInfoService")
 	private FarmLandInfoService farmLandInfoService;
 
-//화면이동
+	//화면이동
 	@RequestMapping(value = "/fm/farm/farmLandInfo.do")
 	public String farmLandInfo() {
 		return "apcss/fm/farm/farmLandInfo";
 	}
 
-// 조회
-		@PostMapping(value = "/fm/farm/selectFarmLandInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> selectfarmLandInfoList(Model model, @RequestBody FarmLandInfoVO farmLandInfoVO, HttpServletRequest request) throws Exception{
-			HashMap<String,Object> resultMap = new HashMap<String,Object>();
-			List<FarmLandInfoVO> resultList = new ArrayList<>();
-			try {
-				 resultList = farmLandInfoService.selectFarmLandInfoList(farmLandInfoVO);
-			} catch (Exception e) {
-				logger.debug(e.getMessage());
-				return getErrorResponseEntity(e);
-			}
-			resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-			return getSuccessResponseEntity(resultMap);
+	// 조회
+	@PostMapping(value = "/fm/farm/selectFarmLandInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectfarmLandInfoList(Model model, @RequestBody FarmLandInfoVO farmLandInfoVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<FarmLandInfoVO> resultList = new ArrayList<>();
+		try {
+			 resultList = farmLandInfoService.selectFarmLandInfoList(farmLandInfoVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
+
+	//전제 농업인 번호로 농지 정보 연계 등록
+	@PostMapping(value = "/fm/farm/insertFarmLandInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertFarmLandInfo(@RequestBody FarmLandInfoVO farmLandInfoVO, HttpServletRequest requset) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		int savedCnt = 0;
+		int result = 0;
+
+		List<FarmLandInfoVO> resultList = new ArrayList<>();
+
+		try {
+			//전체 농업인 번호 조회
+			resultList = farmLandInfoService.selectFrmerSnList(farmLandInfoVO);
+
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
 		}
 
-
-
-		//등록
-		@PostMapping(value = "/fm/farm/insertFarmLandInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> insertFarmLandInfo(@RequestBody FarmLandInfoVO farmLandInfoVO, HttpServletRequest requset) throws Exception{
-			HashMap<String,Object> resultMap = new HashMap<String,Object>();
-
-			// validation check
-
-			// audit 항목
-			farmLandInfoVO.setSysFrstInptUserId(getUserId());
-			farmLandInfoVO.setSysFrstInptPrgrmId(getPrgrmId());
-			farmLandInfoVO.setSysLastChgUserId(getUserId());
-			farmLandInfoVO.setSysLastChgPrgrmId(getPrgrmId());
-
-			int insertedCnt = 0;
-
-			try {
-				insertedCnt = farmLandInfoService.insertFarmLandInfo(farmLandInfoVO);
-
-				String pFrmerSn = "AYTD23";
-				String urlstr = "https://uni.agrix.go.kr/api/srvc/farmLandInfo?accessToken=eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDcyOTI3NzMsImFwaU5tIjoiZmFybWVySW5mbyIsImlzcyI6IlNZU1RFTSJ9.f9oToC5zUynRzK5zCgu-zgvZNJ0bN-MSzA_FQxtaEPY&version=1.0&responseType=xml";
-				String pParam = urlstr+"&frmerSn="+pFrmerSn;
-
-				URL url = new URL(pParam);
-				HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
-
-
-				// xml 파싱 빌드업
-				DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder builder = factory.newDocumentBuilder();
-
-				// xml 파일을 document로 파싱하기
-				//Document document = builder.parse("xml/sample.xml");
-
-
-
-
-			} catch (Exception e) {
-				logger.debug(e.getMessage());
-				return getErrorResponseEntity(e);
-			}
-
-			resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
-
-			return getSuccessResponseEntity(resultMap);
-		}
-
-
-		@PostMapping(value = "/fm/farm/multiSaveFarmLandInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> multiSaveFarmLandInfoList(@RequestBody List<FarmLandInfoVO> farmLandInfoVOList, HttpServletRequest request) throws Exception {
-
-			HashMap<String,Object> resultMap = new HashMap<String,Object>();
-
-			int savedCnt = 0;
-			try {
-				for (FarmLandInfoVO farmLandInfoVO : farmLandInfoVOList) {
-					farmLandInfoVO.setSysFrstInptPrgrmId(getPrgrmId());
-					farmLandInfoVO.setSysFrstInptUserId(getUserId());
-					farmLandInfoVO.setSysLastChgPrgrmId(getPrgrmId());
-					farmLandInfoVO.setSysLastChgUserId(getUserId());
-				}
-
-				savedCnt = farmLandInfoService.multiSaveFarmLandInfoList(farmLandInfoVOList);
-			}catch (Exception e) {
-				return getErrorResponseEntity(e);
-			}
-
-			resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
-			return getSuccessResponseEntity(resultMap);
-		}
-
-		//업데이트
-		@PostMapping(value = "/fm/farm/updateFarmLandInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> updateFarmLandInfo(@RequestBody FarmLandInfoVO farmLandInfoVO, HttpServletRequest requset) throws Exception{
-			HashMap<String,Object> resultMap = new HashMap<String,Object>();
-			logger.info("=============updateFarmLandInfo=========start====");
-			// validation check
-
-			// audit 항목
-			farmLandInfoVO.setSysLastChgUserId(getUserId());
-			farmLandInfoVO.setSysLastChgPrgrmId(getPrgrmId());
-			logger.info("");
-			logger.info(farmLandInfoVO.toString());
-
-			int updatedCnt = 0;
-
-			try {
-				updatedCnt = farmLandInfoService.updateFarmLandInfo(farmLandInfoVO);
-			} catch (Exception e) {
-				logger.debug(e.getMessage());
-				return getErrorResponseEntity(e);
-			}
-
-			resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
-			logger.info("=============updateFarmLandInfo======end=======");
-			return getSuccessResponseEntity(resultMap);
-		}
-
-		@PostMapping(value = "/fm/farm/deleteFarmLandInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> deleteFarmLandInfo(@RequestBody FarmLandInfoVO farmLandInfoVO, HttpServletRequest request) throws Exception {
-			logger.debug("/fm/farm/deleteFarmLandInfo >>> 호출 >>> ");
-
-			int result = 0;
-			try {
-				result =+ farmLandInfoService.deleteFarmLandInfo(farmLandInfoVO);
-			}catch (Exception e) {
-				return getErrorResponseEntity(e);
-			}
-
-			HashMap<String,Object> resultMap = new HashMap<String,Object>();
-			resultMap.put("result", result);
-			return getSuccessResponseEntity(resultMap);
-		}
-
-		@PostMapping(value = "/fm/farm/multiSaveReleyFarmLandInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> SaveFarmerSnList(@RequestBody FarmLandInfoVO farmLandInfoVO, HttpServletRequest request) throws Exception {
-			logger.debug("/fm/farm/SavefarmerSnList >>> 농업인 번호 연계호출 >>> ");
-
-			int savedCnt = 0;
-			int result = 0;
-			try {
-				//result =+ farmLandInfoService.deletefarmLandInfo(farmLandInfoVO);
-
-                String accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDcyOTI3NzMsImFwaU5tIjoiZmFybWVySW5mbyIsImlzcyI6IlNZU1RFTSJ9.f9oToC5zUynRzK5zCgu-zgvZNJ0bN-MSzA_FQxtaEPY";
-                String version = "1.0";
-                String responseType = "xml";
-                String pFrmerSn =  farmLandInfoVO.getFrmerSn(); //AGUN47
-
-				String urlstr = "https://uni.agrix.go.kr/api/srvc/farmLandInfo?accessToken="+accessToken+"&version="+version+"&responseType="+responseType+"&frmerSn="+pFrmerSn;
-                System.out.println("urlstr============"+urlstr);
-				URL url = new URL(urlstr);
-
-				HttpURLConnection urlconnection  = (HttpURLConnection)url.openConnection();
-
-				// xml 파싱 빌드업
-				DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder builder = factory.newDocumentBuilder();
-
-
-				// xml 파일을 document로 파싱하기
-				//Document document = builder.parse("xml/sample.xml");
-				//Document document = builder.parse(urlconnection.getInputStream());
-				Document doc = builder.parse(urlconnection.getInputStream());
-
-
-
-				NodeList nList = doc.getElementsByTagName("item");
-
-				for (int k = 0; k < nList.getLength(); k++) {
-	                Node node = nList.item(k);
-
-	                if (node.getNodeType() == Node.ELEMENT_NODE) {
-	                    Element element = (Element) node;
-	                    String frmerSn = getValue("frmerSn", element);
-	                    String bzobRgno = getValue("bzobRgno", element);
-	                    String mngerRelate = getValue("mngerRelate", element);
-	                    String bzmCorpNm = getValue("bzmCorpNm", element);
-	                    String addr = getValue("addr", element);
-	                    String rrsdAddr = getValue("rrsdAddr", element);
-	                    String rdnmAddr = getValue("rdnmAddr", element);
-	                    String perCorpDvcdNm = getValue("perCorpDvcdNm", element);
-	                    String nafoDvcdNm = getValue("nafoDvcdNm", element);
-	                    String telno = getValue("telno", element);
-	                    String mblTelno = getValue("mblTelno", element);
-	                    String famgStrYmd = getValue("famgStrYmd", element);
-	                    String farmngBeginStleCdNm = getValue("farmngBeginStleCdNm", element);
-	                    String reprAddr = getValue("reprAddr", element);
-	                    String brthdy = getValue("brthdy", element);
-	                    String sexdstn = getValue("sexdstn", element);
-	                    String rgsde = getValue("rgsde", element);
-	                    String updde = getValue("updde", element);
-	                    farmLandInfoVO.setFrmerSn(frmerSn);
-	                    farmLandInfoVO.setBzobRgno(bzobRgno);
-	                    farmLandInfoVO.setMngerRelate(mngerRelate);
-	                    farmLandInfoVO.setBzmCorpNm(bzmCorpNm);
-	                    farmLandInfoVO.setAddr(addr);
-	                    farmLandInfoVO.setRrsdAddr(rrsdAddr);
-	                    farmLandInfoVO.setRdnmAddr(rdnmAddr);
-	                    farmLandInfoVO.setPerCorpDvcdNm(perCorpDvcdNm);
-	                    farmLandInfoVO.setNafoDvcdNm(nafoDvcdNm);
-	                    farmLandInfoVO.setTelno(telno);
-	                    farmLandInfoVO.setMblTelno(mblTelno);
-	                    farmLandInfoVO.setFamgStrYmd(famgStrYmd);
-	                    farmLandInfoVO.setFarmngBeginStleCdNm(farmngBeginStleCdNm);
-	                    farmLandInfoVO.setReprAddr(reprAddr);
-	                    farmLandInfoVO.setBrthdy(brthdy);
-	                    farmLandInfoVO.setSexdstn(sexdstn);
-	                    farmLandInfoVO.setRgsde(rgsde);
-	                    farmLandInfoVO.setUpdde(updde);
-	                    farmLandInfoVO.setSysFrstInptPrgrmId(getPrgrmId());
-						farmLandInfoVO.setSysFrstInptUserId(getUserId());
-						farmLandInfoVO.setSysLastChgPrgrmId(getPrgrmId());
-						farmLandInfoVO.setSysLastChgUserId(getUserId());
-						farmLandInfoVO.setSaveCd("AGRIX");
-	                    savedCnt = farmLandInfoService.insertMegerFarmLandInfo(farmLandInfoVO);
-	                    result = farmLandInfoService.insertMegerLogFarmLandInfo(farmLandInfoVO);
-	                }
-	            }
-	        } catch (Exception ex) {
-	            ex.printStackTrace();
-	        }
-
-
-			HashMap<String,Object> resultMap = new HashMap<String,Object>();
-			resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
-			resultMap.put("result", result);
-			return getSuccessResponseEntity(resultMap);
-
-}
-
-
-		public  String getValue(String tag, Element element) {
-
-			Node nValue=null;
-
-	        NodeList x= element.getElementsByTagName(tag);
-	        Node test=x.item(0);
-	        NodeList t=null;
-	        if(test!=null) {
-	        	t= test.getChildNodes();
-	        	if((Node)t.item(0)!=null) {nValue=(Node)t.item(0);}
-	        }
-	        if(nValue==null) return null;
-	        return nValue.getNodeValue();
-
-			/*
-			 * NodeList nodes = element.getElementsByTagName(tag).item(0).getChildNodes();
-			 * Node node = (Node) nodes.item(0); return node.getNodeValue();
-			 */
-		}
-
-
-
-
-
-		@PostMapping(value = "/fm/farm/multiSaveReleyFarmLandInfoJsoneList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> multiSaveReleyfarmLandInfoJsoneList(@RequestBody FarmLandInfoVO farmLandInfoVO, HttpServletRequest request) throws Exception {
-
-			logger.debug("/fm/farm/SaveFarmerSnList >>> 농업인 번호 연계호출 jsone >>> ");
-
-			int savedCnt = 0;
-			int result = 0;
-
-			String url = "https://uni.agrix.go.kr/api/srvc/farmLandInfo?accessToken=eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDcyOTI3NzMsImFwaU5tIjoiZmFybWVySW5mbyIsImlzcyI6IlNZU1RFTSJ9.f9oToC5zUynRzK5zCgu-zgvZNJ0bN-MSzA_FQxtaEPY&version=1.0&responseType=json&frmerSn=AGUN47";
-
-			System.out.println("==========================11");
-
-			System.out.println("==========================1");
-
-			try {
-				//result =+ farmLandInfoService.deletefarmLandInfo(farmLandInfoVO);
-
-                String accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDcyOTI3NzMsImFwaU5tIjoiZmFybWVySW5mbyIsImlzcyI6IlNZU1RFTSJ9.f9oToC5zUynRzK5zCgu-zgvZNJ0bN-MSzA_FQxtaEPY";
-                String version = "1.0";
-                //String responseType = "xml";
-                String responseType = "json";
-                String pFrmerSn =  farmLandInfoVO.getFrmerSn(); //AGUN47
-
-				String urlstr = "https://uni.agrix.go.kr/api/srvc/farmLandInfo?accessToken="+accessToken+"&version="+version+"&responseType="+responseType+"&frmerSn="+pFrmerSn;
-                System.out.println("urlstr============"+urlstr);
-
-			//HashMap<String, Object> hMap = new HashMap<>();
-		//	hMap.put("frmerSn", "AGUN47");
-
-			ObjectMapper objectMapper = new ObjectMapper();
-			String jsonStr = "";
-			//	jsonStr = objectMapper.writeValueAsString(hMap);
-			RestFulService restFulService = new RestFulService();
-				System.out.println("=====================");
-				//Map rtnData = (Map) restFulService.clear().get().contentType(new MediaType(MediaType.APPLICATION_JSON)).baseUrl(url).body(jsonStr).execute().bodyToData(Map.class);
-
-				Map rtnData = (Map) restFulService.clear().get().contentType(new MediaType(MediaType.APPLICATION_JSON)).baseUrl(urlstr).body(jsonStr).execute().bodyToData(Map.class);
-
-				System.out.println(rtnData);
-				Map<String, Object> mapItems = (Map<String, Object>) rtnData.get("items");
-
-				for (String key : mapItems.keySet()) {
-					System.out.println("key = " + key);
-					System.out.println(mapItems.get(key));
-
-					if ("item".equals(key)) {
-						List<Map> list = (List<Map>) mapItems.get(key);
-
-						for (Map<String, String> mapItem : list) {
-
-							for (String key2 : mapItem.keySet()) {
-								System.out.println("item key2 = " + key2);
-								System.out.println(mapItem.get(key2));
-//								  savedCnt = farmLandInfoService.insertMegerfarmLandInfoMap(mapItem);
-//				                  result = farmLandInfoService.insertMegerLogfarmLandInfoMap(mapItem);
-								//server.aaa(m)
-								//mapper.insert
-							//intser into aaa(a, b,c) values(#{brthdy}, #{brthdy2}, #{brthdy})
-							}
-
-							savedCnt = farmLandInfoService.insertMegerFarmLandInfoMap(mapItem);
-			                 result = farmLandInfoService.insertMegerLogFarmLandInfoMap(mapItem);
-
+		try {
+			if (resultList.size() > 0) {
+				for (FarmLandInfoVO farmLandInfoVoResult : resultList) {
+
+					String pFrmerSn = farmLandInfoVoResult.getFrmerno();
+
+					logger.debug("@@@@@@@@@@@@@@@@@@@@@pFrmerSn@@@@@@@@@@@@@@@@@@@@@@@");
+					logger.debug(pFrmerSn);
+
+					if(!StringUtils.hasText(pFrmerSn)) {
+						continue;
+					}
+
+					//String urlstr = "https://uni.agrix.go.kr/api/srvc/farmLandInfo?accessToken=eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDkzNzc1NDEsImFwaU5tIjoiZmFybUxhbmRJbmZvIiwiaXNzIjoiU1lTVEVNIn0.lt3lg3NfKgyj1prBbi5fTRhIfHvHXeV5FBLbAFCmqK8&version=1.0&responseType=xml";
+					//String pParam = urlstr+"&frmerSn="+pFrmerSn;
+					String urlstr = "https://uni.agrix.go.kr/api/srvc/farmLandInfo";
+					String accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDkzNzc1NDEsImFwaU5tIjoiZmFybUxhbmRJbmZvIiwiaXNzIjoiU1lTVEVNIn0.lt3lg3NfKgyj1prBbi5fTRhIfHvHXeV5FBLbAFCmqK8";
+					String version = "1.0";
+					String responseType = "xml";
+
+					String pParam = urlstr
+									+"?accessToken=" + accessToken
+									+"&version=" + version
+									+"&responseType=" + responseType
+									+"&frmerSn=" + pFrmerSn;
+
+					URL url = new URL(pParam);
+					HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
+
+					// xml 파싱 빌드업
+					DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+					DocumentBuilder builder = factory.newDocumentBuilder();
+
+					// xml 파일을 document로 파싱하기
+					//Document document = builder.parse("xml/sample.xml");
+					Document document = builder.parse(urlconnection.getInputStream());
+
+					NodeList nList = document.getElementsByTagName("item");
+
+					for (int k = 0; k < nList.getLength(); k++) {
+
+						Node node = nList.item(k);
+
+						FarmLandInfoVO nodeVo = new FarmLandInfoVO();
+
+						if(node.getNodeType() == Node.ELEMENT_NODE) { // 노드의 타입이 Element일 경우(공백이 아닌 경우)
+							Element element = (Element) node;
+							String frmerno = getValue("frmerSn", element);
+							String mngmstRegNo = getValue("bzobRgno", element);
+							String frlnSn = getValue("frlndSn", element);
+							String stdgcd = getValue("legaldongCode", element);
+							String frlnAddr = getValue("frlndAdres", element);
+							String frlnMno = getValue("frlndMnnm", element);
+
+							String frlnSno = getValue("frlndSlno", element);
+							String frlnType = getValue("clvtStle", element);
+							String cprtnFrlnyn = getValue("copertnClvtAt", element);
+							String frlnOwnrNm = getValue("frlndOwnerNm", element);
+							String actlLdcg = getValue("ofactLndcgr", element);
+							String poeLdcg = getValue("realLndcgr", element);
+
+							String actlFrlnarea = getValue("ofactFrlndAr", element);//공부농지면적
+							String poeFrlnarea = getValue("realFrlndAr", element);//실제농지면적
+							String flwArea = getValue("nuseClmgAr", element);//휴경면적
+							String ablFrlnarea = getValue("nuseQtmgAr", element);//폐경면적
+							String itemCd = getValue("prdlstCode", element);
+							String itemNm = getValue("predlstNm", element);
+
+							String brgrndFcltSeCd = getValue("eqptFcltyse", element);
+							String frlnarea = getValue("ctvtAr", element);
+							String ldgrSeCd = getValue("ldgrDvcd", element);
+
+							nodeVo.setMngmstRegNo(mngmstRegNo);
+							nodeVo.setFrlnType(frlnType);
+							nodeVo.setCprtnFrlnyn(cprtnFrlnyn);
+							nodeVo.setFrlnarea(frlnarea);
+							nodeVo.setBrgrndFcltSeCd(brgrndFcltSeCd);
+							//nodeVo.setFcltKnd(fcltKnd);
+							//nodeVo.setFcltSn(fcltSn);
+							//nodeVo.setFcltShap(fcltShap);
+							//nodeVo.setFcltArea(fcltArea);
+							nodeVo.setFrlnAddr(frlnAddr);
+							nodeVo.setFrlnMno(frlnMno);
+							nodeVo.setFrlnOwnrNm(frlnOwnrNm);
+							nodeVo.setFrlnSno(frlnSno);
+							nodeVo.setFrlnSn(frlnSn);
+							nodeVo.setFrmerno(frmerno);
+							//nodeVo.setFcltInstallYr(fcltInstallYr);
+							nodeVo.setLdgrSeCd(ldgrSeCd);
+							nodeVo.setStdgcd(stdgcd);
+							nodeVo.setFlwArea(flwArea);
+							nodeVo.setAblFrlnarea(ablFrlnarea);
+							nodeVo.setPoeFrlnarea(poeFrlnarea);
+							nodeVo.setPoeLdcg(poeLdcg);
+							nodeVo.setItemCd(itemCd);
+							nodeVo.setItemNm(itemNm);
+							nodeVo.setActlFrlnarea(actlFrlnarea);
+							nodeVo.setActlLdcg(actlLdcg);
+
+							// audit 항목
+							nodeVo.setSysFrstInptUserId(getUserId());
+							nodeVo.setSysFrstInptPrgrmId(getPrgrmId());
+							nodeVo.setSysLastChgUserId(getUserId());
+							nodeVo.setSysLastChgPrgrmId(getPrgrmId());
+							logger.debug("@@@@@@@@@@@@@@@@@@@@@nodeVo.toString()@@@@@@@@@@@@@@@@@@@@@@@");
+							logger.debug(nodeVo.toString());
+
+							savedCnt = farmLandInfoService.insertMegerFarmLandInfo(nodeVo);
+							result = farmLandInfoService.insertLogFarmLandInfo(nodeVo);
+						} else {
+							logger.debug("공백 입니다.@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 						}
 					}
 				}
+			}
 
-			 } catch (Exception ex) {
-		            ex.printStackTrace();
-		        }
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
 
-				HashMap<String,Object> resultMap = new HashMap<String,Object>();
-				resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
-				resultMap.put("result", result);
-				return getSuccessResponseEntity(resultMap);
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, savedCnt);
 
-
-         }
-
+		return getSuccessResponseEntity(resultMap);
+	}
 
 
+
+	@PostMapping(value = "/fm/farm/multiSaveFarmLandInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> multiSaveFarmLandInfoList(@RequestBody List<FarmLandInfoVO> farmLandInfoVOList, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		int savedCnt = 0;
+		try {
+			for (FarmLandInfoVO farmLandInfoVO : farmLandInfoVOList) {
+				farmLandInfoVO.setSysFrstInptPrgrmId(getPrgrmId());
+				farmLandInfoVO.setSysFrstInptUserId(getUserId());
+				farmLandInfoVO.setSysLastChgPrgrmId(getPrgrmId());
+				farmLandInfoVO.setSysLastChgUserId(getUserId());
+			}
+
+			savedCnt = farmLandInfoService.multiSaveFarmLandInfoList(farmLandInfoVOList);
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	//업데이트
+	@PostMapping(value = "/fm/farm/updateFarmLandInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateFarmLandInfo(@RequestBody FarmLandInfoVO farmLandInfoVO, HttpServletRequest requset) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		logger.info("=============updateFarmLandInfo=========start====");
+		// validation check
+
+		// audit 항목
+		farmLandInfoVO.setSysLastChgUserId(getUserId());
+		farmLandInfoVO.setSysLastChgPrgrmId(getPrgrmId());
+		logger.info("");
+		logger.info(farmLandInfoVO.toString());
+
+		int updatedCnt = 0;
+
+		try {
+			updatedCnt = farmLandInfoService.updateFarmLandInfo(farmLandInfoVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
+		logger.info("=============updateFarmLandInfo======end=======");
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/fm/farm/deleteFarmLandInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteFarmLandInfo(@RequestBody FarmLandInfoVO farmLandInfoVO, HttpServletRequest request) throws Exception {
+		logger.debug("/fm/farm/deleteFarmLandInfo >>> 호출 >>> ");
+
+		int result = 0;
+		try {
+			result =+ farmLandInfoService.deleteFarmLandInfo(farmLandInfoVO);
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		resultMap.put("result", result);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	public  String getValue(String tag, Element element) {
+
+		Node nValue=null;
+
+		NodeList x= element.getElementsByTagName(tag);
+		Node test=x.item(0);
+		NodeList t=null;
+		if(test!=null) {
+			t= test.getChildNodes();
+			if((Node)t.item(0)!=null) {nValue=(Node)t.item(0);}
+		}
+		if(nValue==null) return null;
+		return nValue.getNodeValue();
+
+		/*
+		 * NodeList nodes = element.getElementsByTagName(tag).item(0).getChildNodes();
+		 * Node node = (Node) nodes.item(0); return node.getNodeValue();
+		 */
+	}
 
 }
