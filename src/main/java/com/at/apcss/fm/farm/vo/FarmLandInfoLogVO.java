@@ -8,30 +8,36 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FarmLandInfoLogVO extends ComVO{
-	private String seq;
-	private String frmerSn;
-	private String bzobRgno;
-	private String mngerRelate;
-	private String bzmCorpNm;
-	private String addr;
-	private String rrsdAddr;
-	private String rdnmAddr;
-	private String twNm;
-	private String perCorpDvcdNm;
-	private String nafoDvcdNm;
-	private String telno;
-	private String mblTelno;
-	private String faxTelno;
-	private String emailAddr;
-	private String famgStrYmd;
-	private String farmngBeginStleCdNm;
-	private String farmngEngageStleCdNm;
-	private String fndtYr;
-	private String bzmRgno;
-	private String reprNm;
-	private String reprAddr;
-	private String brthdy;
-	private String sexdstn;
+
+	/* TB_AX_FARM_LAND_INFO */
+	private String sn;
+	private String mngmstRegNo;
+	private String frlnType;
+	private String cprtnFrlnyn;
+	private String frlnarea;
+	private String brgrndFcltSeCd;
+	private String fcltKnd;
+	private String fcltSn;
+	private String fcltShap;
+	private String fcltArea;
+	private String frlnAddr;
+	private String frlnMno;
+	private String frlnOwnrNm;
+	private String frlnSno;
+	private String frlnSn;
+	private String frmerno;
+	private String fcltInstallYr;
+	private String ldgrSeCd;
+	private String stdgcd;
+	private String flwArea;
+	private String ablFrlnarea;
+	private String poeFrlnarea;
+	private String poeLdcg;
+	private String itemCd;
+	private String itemNm;
+	private String actlFrlnarea;
+	private String actlLdcg;
+
 	private String sysFrstInptDt;
 	private String sysFrstInptUserId;
 	private String sysFrstInptPrgrmId;

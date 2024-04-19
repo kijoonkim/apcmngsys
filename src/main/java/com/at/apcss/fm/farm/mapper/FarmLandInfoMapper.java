@@ -1,7 +1,6 @@
 package com.at.apcss.fm.farm.mapper;
 
 import java.util.List;
-import java.util.Map;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
@@ -39,12 +38,16 @@ public interface FarmLandInfoMapper {
 	public int updateFarmLandInfo(FarmLandInfoVO farmLandInfoVO);
 
 	public int insertMegerFarmLandInfo(FarmLandInfoVO farmLandInfoVO) throws Exception;
-	public int insertMegerLogFarmLandInfo(FarmLandInfoVO farmLandInfoVO) throws Exception;
 
-	public int insertMegerFarmLandInfoMap(Map<String, String> MapList) throws Exception;
-	public int insertMegerLogFarmLandInfoMap(Map<String, String> MapList) throws Exception;
-
-	public int updateMegerFarmLandInfo(FarmLandInfoVO farmLandInfoVO) throws Exception;
+	public int insertLogFarmLandInfo(FarmLandInfoVO farmLandInfoVO) throws Exception;
 
 	public int deleteFarmLandInfo(FarmLandInfoVO farmLandInfoVO) throws Exception;
+
+	/**
+	 * 전체 농업인 번호 리스트 조회
+	 * @param
+	 * @return List<FarmerInfoVO>
+	 * @throws Exception
+	 */
+	public List<FarmLandInfoVO> selectFrmerSnList(FarmLandInfoVO farmLandInfoVO) throws Exception;
 }

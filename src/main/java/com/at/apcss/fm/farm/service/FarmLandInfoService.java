@@ -1,10 +1,7 @@
 package com.at.apcss.fm.farm.service;
 
 import java.util.List;
-import java.util.Map;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.fm.farm.vo.FarmLandInfoVO;
 
 
@@ -41,13 +38,18 @@ public interface FarmLandInfoService {
 	public int multiSaveFarmLandInfoList(List<FarmLandInfoVO> farmLandInfoVOList) throws Exception;
 
 	public int insertMegerFarmLandInfo(FarmLandInfoVO farmLandInfoVOList) throws Exception;
-	public int insertMegerLogFarmLandInfo(FarmLandInfoVO farmLandInfoVOList) throws Exception;
 
-	public int insertMegerFarmLandInfoMap(Map<String, String> MapList) throws Exception;
-	public int insertMegerLogFarmLandInfoMap(Map<String, String> MapList) throws Exception;
-
-	public int updateMegerFarmLandInfo(FarmLandInfoVO farmLandInfoVOList) throws Exception;
+	public int insertLogFarmLandInfo(FarmLandInfoVO farmLandInfoVOList) throws Exception;
 
 	public int deleteFarmLandInfo(FarmLandInfoVO farmLandInfoVO) throws Exception;
+
+	/**
+	 * 전체 농업인 번호 리스트 조회
+	 * @param
+	 * @return List<FarmerInfoVO>
+	 * @throws Exception
+	 */
+	public List<FarmLandInfoVO> selectFrmerSnList(FarmLandInfoVO farmLandInfoVO) throws Exception;
+
 
 }

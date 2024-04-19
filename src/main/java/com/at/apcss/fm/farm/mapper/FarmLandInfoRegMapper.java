@@ -35,7 +35,5 @@ public interface FarmLandInfoRegMapper {
 
 	public int insertFarmLandInfoReg(FarmLandInfoRegVO farmLandInfoRegVO);
 
-	public int updateFarmLandInfoReg(FarmLandInfoRegVO farmLandInfoRegVO);
-
 	public int deleteFarmLandInfoReg(FarmLandInfoRegVO farmLandInfoRegVO) throws Exception;
 }
