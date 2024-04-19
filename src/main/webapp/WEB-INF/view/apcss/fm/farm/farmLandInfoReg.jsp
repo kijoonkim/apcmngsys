@@ -603,7 +603,7 @@
 		SBUxMethod.set("dtl-input-fcltSn", rowData.fcltSn);
 		SBUxMethod.set("dtl-input-fcltShap", rowData.fcltShap);
 		SBUxMethod.set("dtl-input-fcltArea", rowData.fcltArea);
-		SBUxMethod.set("dtl-input-frlnaddr", rowData.frlnaddr);
+		SBUxMethod.set("dtl-input-frlnAddr", rowData.frlnAddr);
 		SBUxMethod.set("dtl-input-frlnMno", rowData.frlnMno);
 		SBUxMethod.set("dtl-input-frlnOwnrNm", rowData.frlnOwnrNm);
 		SBUxMethod.set("dtl-input-frlnSno", rowData.frlnSno);
