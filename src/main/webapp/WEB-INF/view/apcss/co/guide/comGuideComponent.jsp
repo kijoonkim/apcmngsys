@@ -595,11 +595,6 @@
 			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
 		}
 	}
-
-	const fn_test = function() {
-		console.log("test");
-	}
-
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
