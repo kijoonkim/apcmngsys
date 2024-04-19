@@ -430,7 +430,7 @@
 	const fn_saveFrmerno = async function(){
 		let frmerno = SBUxMethod.get("srch-inp-frmerno");
 
-		let regMsg = "test1";
+		let regMsg = "농지 정보를 연계 저장하시겠습니까?";
 		if(confirm(regMsg)){
 
 			let postJsonPromise = gfn_postJSON("/fm/farm/insertFarmLandInfo.do", {
