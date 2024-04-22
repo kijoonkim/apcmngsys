@@ -45,12 +45,18 @@ public class ComMenuController extends BaseController {
 
 		String pageUrl = ComConstants.CON_BLANK;
 
+		String prefix = "apcss/";
+		
 		try {
 
 			ComMenuVO pageVO = comMenuService.selectComMenu(menuId);
 
 			if (pageVO != null) {
 				pageUrl = pageVO.getPageUrl();
+			}
+			
+			if (ComConstants.CON_SYS_ID_MA.equals(pageVO.getSysId())) {
+				prefix = "apcma/";
 			}
 
 			ComUiJsonVO comUiJsonVO = new ComUiJsonVO();
@@ -85,7 +91,7 @@ public class ComMenuController extends BaseController {
 			getErrorResponseEntity(e);
 		}
 
-		return "apcss/" + pageUrl;
+		return prefix + pageUrl;
 	}
 
 	@RequestMapping(value="/report/openClipReport.do", method = RequestMethod.GET)

@@ -50,6 +50,7 @@ public class ComConstants {
 
 	public final static String CON_SYS_ID_CO = "CO";
 	public final static String CON_SYS_ID_AM = "AM";
+	public final static String CON_SYS_ID_MA = "MA";
 
 	public final static String PROP_SYS_PRGRM_ID = "sysPrgrmId";
 

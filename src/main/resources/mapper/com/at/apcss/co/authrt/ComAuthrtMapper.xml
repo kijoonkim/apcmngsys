@@ -783,7 +783,7 @@
 					 GROUP BY AM.MENU_ID
 				) AUTH
 			  ON AUTH.MENU_ID = MN.MENU_ID
-		 	 WHERE MN.LVL <= 2
+		 	 WHERE MN.LVL <= 5
 
 		 	 UNION ALL
 				 SELECT
@@ -877,7 +877,7 @@
 					 GROUP BY AM.MENU_ID
 				) AUTH
 			  ON AUTH.MENU_ID = MN.MENU_ID
-		 	 WHERE MN.LVL <= 2
+		 	 WHERE MN.LVL <= 5
     	]]>
     </select>
 

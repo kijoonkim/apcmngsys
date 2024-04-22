@@ -99,6 +99,24 @@ public class CmnsTaskNoServiceImpl extends BaseServiceImpl implements CmnsTaskNo
 
 		return null;
 	}
+	
+	@Override
+	public String selectBffaWrhsno(String apcCd, String ymd) throws Exception {
+		CmnsTaskNoVO paramVO = new CmnsTaskNoVO();
+		paramVO.setApcCd(apcCd);
+		paramVO.setYmd(ymd);
+		paramVO.setTaskId(AmConstants.TASK_ID_BFFA_WRHS);
+
+		CmnsTaskNoVO resultVO = cmnsTaskNoMapper.selectFnGetIdTaskNo(paramVO);
+
+		if (resultVO != null && StringUtils.hasText(resultVO.getTaskNo())) {
+			return resultVO.getTaskNo();
+		}
+
+		return null;
+	}
+
+	
 
 	@Override
 	public String selectSortno(String apcCd, String ymd) throws Exception {
@@ -223,6 +241,7 @@ public class CmnsTaskNoServiceImpl extends BaseServiceImpl implements CmnsTaskNo
 	public String selectFnGetPltNo(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
 		return cmnsTaskNoMapper.selectFnGetPltNo(rawMtrWrhsVO);
 	}
+
 
 
 }
