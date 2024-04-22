@@ -33,13 +33,4 @@ public interface FarmLandInfoLogMapper {
 
 	public List<FarmLandInfoLogVO> selectFarmLandInfoLogList(FarmLandInfoLogVO farmLandInfoLogVO);
 
-	public int insertFarmLandInfoLog(FarmLandInfoLogVO farmLandInfoLogVO);
-
-	public int updateFarmLandInfoLog(FarmLandInfoLogVO farmLandInfoLogVO);
-
-	public int insertMegerFarmLandInfoLog(FarmLandInfoLogVO farmLandInfoLogVO) throws Exception;
-	public int insertMegerLogFarmLandInfoLog(FarmLandInfoLogVO farmLandInfoLogVO) throws Exception;
-	public int updateMegerFarmLandInfoLog(FarmLandInfoLogVO farmLandInfoLogVO) throws Exception;
-
-	public int deleteFarmLandInfoLog(FarmLandInfoLogVO farmLandInfoLogVO) throws Exception;
 }

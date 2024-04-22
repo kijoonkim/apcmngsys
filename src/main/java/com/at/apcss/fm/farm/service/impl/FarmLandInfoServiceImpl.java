@@ -1,17 +1,12 @@
 package com.at.apcss.fm.farm.service.impl;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.fm.bbs.mapper.BbsMapper;
-import com.at.apcss.fm.bbs.service.BbsService;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.fm.farm.mapper.FarmLandInfoMapper;
 import com.at.apcss.fm.farm.service.FarmLandInfoService;
 import com.at.apcss.fm.farm.vo.FarmLandInfoVO;
@@ -88,28 +83,18 @@ public class FarmLandInfoServiceImpl extends BaseServiceImpl implements FarmLand
 		return farmLandInfoMapper.insertMegerFarmLandInfo(farmLandInfoVO);
 	}
 	@Override
-	public int insertMegerLogFarmLandInfo(FarmLandInfoVO farmLandInfoVO) throws Exception {
-		return farmLandInfoMapper.insertMegerLogFarmLandInfo(farmLandInfoVO);
-	}
-
-
-	@Override
-	public int insertMegerFarmLandInfoMap(Map<String, String> MapList) throws Exception {
-		return farmLandInfoMapper.insertMegerFarmLandInfoMap(MapList);
-	}
-	@Override
-	public int insertMegerLogFarmLandInfoMap(Map<String, String> MapList) throws Exception {
-		return farmLandInfoMapper.insertMegerLogFarmLandInfoMap(MapList);
-	}
-
-	@Override
-	public int updateMegerFarmLandInfo(FarmLandInfoVO farmLandInfoVO) throws Exception {
-		return farmLandInfoMapper.updateMegerFarmLandInfo(farmLandInfoVO);
+	public int insertLogFarmLandInfo(FarmLandInfoVO farmLandInfoVO) throws Exception {
+		return farmLandInfoMapper.insertLogFarmLandInfo(farmLandInfoVO);
 	}
 
 	@Override
 	public int deleteFarmLandInfo(FarmLandInfoVO farmLandInfoVO) throws Exception {
 		return farmLandInfoMapper.deleteFarmLandInfo(farmLandInfoVO);
+	}
+
+	@Override
+	public List<FarmLandInfoVO> selectFrmerSnList(FarmLandInfoVO farmLandInfoVO) throws Exception {
+		return farmLandInfoMapper.selectFrmerSnList(farmLandInfoVO);
 	}
 
 }

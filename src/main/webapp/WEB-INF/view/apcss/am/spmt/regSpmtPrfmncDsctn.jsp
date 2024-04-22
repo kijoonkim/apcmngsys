@@ -992,9 +992,18 @@
  	const fn_docSpmt = function(nRow) {
 
 		const rowData = grdGdsInvntr.getRowData(nRow);
+		const gubun = SBUxMethod.get('srch-slt-grd');
 		const spmtno = rowData.spmtno;
-
- 		gfn_popClipReport("송품장", "am/trsprtCmdtyDoc_0033.crf", {apcCd: gv_selectedApcCd, spmtno: spmtno});
+		var spmtArr = {};
+		if(gubun === "A"){
+			spmtArr = {apcCd: gv_selectedApcCd, spmtno: spmtno, gdsgrd1:"01", gdsgrd2:"02", gdsgrd3:"03", gdsgrd4:"04", gdsgrd5:"05", gdsgrd6:"06"};
+		}else if (gubun ==="B"){
+			spmtArr = {apcCd: gv_selectedApcCd, spmtno: spmtno, gdsgrd1:"07", gdsgrd2:"08", gdsgrd3:"09", gdsgrd4:"10", gdsgrd5:"11", gdsgrd6:"12"};
+		}else if (gubun ==="C"){
+			spmtArr = {apcCd: gv_selectedApcCd, spmtno: spmtno, gdsgrd1:"13", gdsgrd2:"14", gdsgrd3:"15", gdsgrd4:"16", gdsgrd5:"17", gdsgrd6:"18"};
+		}
+		
+ 		gfn_popClipReport("송품장", "am/trsprtCmdtyDoc_0033.crf",spmtArr );
  	}
 
 </script>
