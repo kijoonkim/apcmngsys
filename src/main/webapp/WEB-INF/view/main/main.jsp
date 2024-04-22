@@ -297,18 +297,18 @@
     //Left Menu Click
     function fn_selectMenu(_target, _id) {
 
-
-        var data = SBUxMethod.get(_id);
+    	var data = SBUxMethod.get(_id);
 
         if (_target === "TOP" && gfn_isEmpty(data.pid)) {
             return;
         }
+        
         var url = data.customData == undefined ? "" : data.customData.url;
         if (url == undefined) {
             return;
         }
 
-        fn_actionGoPage(
+		fn_actionGoPage(
             url
             , _target
             , data.id
@@ -362,14 +362,17 @@
     //화면 이동
     const maxTebMenuCnt = 11;//메뉴탭 최대 허용 개수(10)
     const fn_actionGoPage = function (_url, _menuGubun, _menuNo, _menuNm, _topMenuNo) {
+    	
         if (_menuGubun === "TOP") {
             fn_setLeftMenu(_menuNo);
         } else if (_menuGubun === "LEFT") {
+        	
             //Set 브레드크럼 내비게이션
             fn_setBreadcrumbs(_menuNo, _menuNm);
 
             //메뉴탭 생성 및 화면 요청
             var tabName = "TAB_" + _menuNo;
+            
             if ( $('#' + tabName).length == 0 ) {
                 if (SBUxMethod.getTabsCount('tab_menu') == maxTebMenuCnt+1) {
                     alert("메뉴탭 최대 허용 개수(" + maxTebMenuCnt.toString() + "개)를 초과하였습니다.");
@@ -385,6 +388,7 @@
                     , 'link': '/co/menu/openPage.do/' + _menuNo	// _url
                     , 'closeicon': true
                 };
+                
                 SBUxMethod.addTab('tab_menu', jsonTabSelect);
 
                 fn_afterAddTab(_menuNo)
@@ -445,30 +449,10 @@
 
     //Set breadcrumbs
     function fn_setBreadcrumbs(menuNo, menuNm) {
-
-        /*
-        var upMenuNo;
-        if (menuNo.indexOf("mng") > -1) {
-            upMenuNo = "mng";
-            topMenuNo = "2";
-        }
-        else if (menuNo.indexOf("hist") > -1) {
-            upMenuNo = "hist";
-            topMenuNo = "2";
-        }
-
-        var upMenuInfo = _.find(menuJson, {id: upMenuNo});
-        var topMenuInfo = _.find(menuJson, {id: topMenuNo});
-        menuJsonB = [
-            {"order": "1", "id": "id_1", "pid": "0", "text": "홈"},
-            {"order": "2", "id": "id_2", "pid": "0", "text": topMenuInfo.text},
-            {"order": "3", "id": "id_3", "pid": "0", "text": upMenuInfo.text},
-            {"order": "9", "id": "id_9", "pid": "0", "text": menuNm}
-        ];
-        */
+    	
         menuJsonB.length = 0;
         menuJsonB.push(
-            {"order": "10", "id": "id_1", "pid": "", "text": "홈"}
+            {"order": 10, "id": "id_1", "pid": "", "text": "홈"}
         );
 
         //부모메뉴정보
@@ -477,39 +461,27 @@
         var upMenuInfo = _.find(menuJson, {id: upMenuNo});
         if (!gfn_isEmpty(upMenuInfo.pid)) {
             var topMenuInfo = _.find(menuJson, {id: upMenuInfo.pid});
+
             menuJsonB.push(
-                {"order": "20", "id": topMenuInfo.id, "pid": "", "text": topMenuInfo.text, "url": topMenuInfo.url}
+                {"order": 20, "id": topMenuInfo.id, "pid": "", "text": topMenuInfo.text, "url": topMenuInfo.url}
             );
+            
         }
         menuJsonB.push(
-            {"order": "30", "id": upMenuInfo.id, "pid": upMenuInfo.pid, "text": upMenuInfo.text, "url": upMenuInfo.url}
+            {"order": 30, "id": upMenuInfo.id, "pid": upMenuInfo.pid, "text": upMenuInfo.text, "url": upMenuInfo.url}
         );
-
         menuJsonB.push(
-            {"order": "40", "id": menuNo, "pid": upMenuNo, "text": menuNm, "url": menuInfo.url}
+            {"order": 40, "id": menuNo, "pid": upMenuNo, "text": menuNm, "url": menuInfo.url}
         );
-
         if (menuInfo.bmkYn == "Y"){
         	menuJsonB.push(
-                    {"order": "50", "id": menuNo, "pid": upMenuNo, "text": '⭐', "value" : "Y"}
+                    {"order": 50, "id": menuNo, "pid": upMenuNo, "text": '⭐', "value" : "Y"}
                 );
         }else if(menuInfo.bmkYn == "N"){
         	menuJsonB.push(
-                    {"order": "50", "id": menuNo, "pid": upMenuNo, "text": '☆', "value" : "N"}
+                    {"order": 50, "id": menuNo, "pid": upMenuNo, "text": '☆', "value" : "N"}
                 );
         }
-
-        /*
-        if (menuInfo != undefined) {
-            var pMenuNo = menuInfo.pid;
-            var pMenuInfo = _.find(sideJsonData, {id: pMenuNo});
-            if (pMenuInfo != undefined) {
-                menuJsonB.splice(menuJsonB.length-1, 0,
-                    {"order": "4", "id": "id_4", "pid": "0", "text": pMenuInfo.text}
-                );
-            }
-        }
-        */
         SBUxMethod.refresh('breadcrumb');
     }
 
@@ -563,59 +535,6 @@
         document.querySelector('.sbux-sidemeu-title-wrap>div>span').innerHTML = data.text;
         */
     }
-
-    /**
-     * Set LEFT MENU
-     * menuNo 값으로 (비동기식으로)서버로 부터 데이터를 요청
-     */
-    /*
-    function fn_setLeftMenu(menuNo, menuId) {
-        if (menuNo === "AM_001") {
-            sideJsonData = [
-                {"id": "mng_1", "pid":"0", "order":"1", "text":"메뉴관리", "url":"/co/menu/menuMng.do", "topMenuNm": "aa"},
-                {"id": "mng_2", "pid":"0", "order":"2", "text":"화면관리", "url":"./mng/pageMng.html"},
-                {"id": "mng_3", "pid":"0", "order":"3", "text":"권한관리"},
-                {"id": "mng_3_1", "pid":"mng_3", "order":"1", "text":"권한그룹관리", "url":"./mng/authMng.html"},
-                {"id": "mng_3_2", "pid":"mng_3", "order":"2", "text":"권한사용자관리", "url":"./mng/authUserMng.html"},
-                {"id": "mng_4", "pid":"0", "order":"4", "text":"메시지관리", "url":"./mng/messageMng.html"},
-                {"id": "mng_5", "pid":"0", "order":"5", "text":"공통코드관리", "url":"./mng/codeMng.html"}
-            ];
-        }
-        else if (menuNo === "hist") {
-            sideJsonData = [
-                {"id": "hist_1", "pid":"0", "order":"11", "text":"접속이력관리", "url":"./hist/connectHistoryList.html"},
-                {"id": "hist_2", "pid":"0", "order":"12", "text":"화면열람이력관리", "url":"./hist/readingHistoryList.html"},
-                {"id": "hist_3", "pid":"0", "order":"13", "text":"송수신이력관리", "url":"./hist/reqResHistoryList.html"},
-                {"id": "hist_4", "pid":"0", "order":"14", "text":"배치실행이력관리", "url":"./hist/batchHistoryList.html"}
-            ];
-        }
-        else if (menuNo === "modal") {
-            SBUxMethod.openModal("jsModal");
-            //Set Grid
-            fn_createGrid();
-            fn_createGrid2();
-            fn_createGrid_1();
-            fn_createGrid_2();
-            fn_createGrid_3();
-            return;
-        }
-        var menuInfo = _.find(sideJsonData, {id: menuId});
-        var pMenuId;
-        if (menuId != undefined) {
-            pMenuId = menuInfo.pid;
-            if (pMenuId !== "0") {
-                var pIdx = _.findLastIndex(sideJsonData, {id: menuInfo.pid});
-                sideJsonData[pIdx].class = "active";
-            }
-            var idx = _.findLastIndex(sideJsonData, {id: menuId});
-            sideJsonData[idx].class = "active";
-        }
-        SBUxMethod.refresh("side_menu");
-        if (pMenuId != undefined && pMenuId !== "0") {
-            SBUxMethod.expandSideMenu("side_menu", pMenuId, 1, true);
-        }
-    }
-    */
 
     //ifrmae 높이 자동 설정
     function fn_resizeFrame(that){
@@ -765,8 +684,6 @@
     		return;
     	}
 
-    	console.log("session refresh");
-    	console.log(timerId);
     	fn_clearBatch();
 
     	if (gfn_isEmpty(gv_selectedApcCd)) {
@@ -780,9 +697,9 @@
 					);
 	        const data = await postJsonPromise;
 
-	        if (_.isEqual("S", data.resultStatus)) {
-
-	        	if (_.isEqual("Y", data.resultMap.sessUpdtUseYn)) {
+	        if (_.isEqual("S", data.resultStatus) && data.hasOwnProperty('resultMap')) {
+	        	if (	data.resultMap.hasOwnProperty('sessUpdtUseYn')
+	        			&& _.isEqual("Y", data.resultMap.sessUpdtUseYn)) {
 	        		lv_sessUpdtUseYn = "Y";
 	        		document.querySelector("#lbl-autoRefresh").style.display = "";
 
@@ -791,6 +708,7 @@
 					}, lv_interval);
 
 	        	} else {
+	        		lv_sessUpdtUseYn = "N";
 					document.querySelector("#lbl-autoRefresh").style.display = "none";
 	        	}
         	} else {

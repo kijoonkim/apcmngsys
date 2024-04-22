@@ -7,6 +7,8 @@ public class AmConstants {
 	public final static String TASK_ID_WRHS 		= "RT";
 	public final static String TASK_ID_WRHS_PRCS	= "RR";		// 원물재처리
 	public final static String TASK_ID_WRHS_PLAN	= "RP";
+	public final static String TASK_ID_BFFA_WRHS 	= "BR";		// 사전입고
+	
 	public final static String TASK_ID_SORT 		= "ST";
 	public final static String TASK_ID_SORT_CMND 	= "SO";
 	public final static String TASK_ID_PCKG 		= "PK";
