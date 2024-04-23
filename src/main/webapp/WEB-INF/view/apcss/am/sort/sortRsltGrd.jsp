@@ -565,7 +565,7 @@
 	        data.resultList.forEach((item, index) => {
 	        	const exhstDsctnQnttTot = {
 	        			grd     : item.GRD
-	        			,sortFclt : item.FCLT_CD
+	        			,sortFclt : item.FCLT_NM
 	        			,sortInfo : item.PRDCR_NM
 	        			,grd      : "수량"
 	        				,exhst1 : item.QNTT_1
@@ -595,7 +595,7 @@
 
 	        	};
 				const exhstDsctnWghtTot = 		{
-        			sortFclt : item.FCLT_CD
+        			sortFclt : item.FCLT_NM
         			,sortInfo : item.INPT_YMD
         			,grd      : "중량"
         				,exhst1 : item.WGHT_1
@@ -691,7 +691,7 @@
 	        const data = await postJsonPromise;	        	        
 	 	        data.resultList.forEach((item, index) => {
 	 	        	const grdDsctnQnttTot = {
-	 	        			sortFclt : item.FCLT_CD
+	 	        			sortFclt : item.FCLT_NM
 	 	        			,sortInfo : item.INPT_YMD
 	 	        			,grd      : "수량"
 	         				,grd1 : item.QNTT_1
@@ -710,7 +710,7 @@
 	         			sortFclt : item.FCLT_CD
 	         			,sortInfo : item.PRDCR_NM
 	         			,grd      : "중량"
-	 	        			,sortFclt : item.FCLT_CD
+	 	        			,sortFclt : item.FCLT_NM
 	         				,grd1 : item.WGHT_1
 	         				,grd2 : item.WGHT_2
 	         				,grd3 : item.WGHT_3
