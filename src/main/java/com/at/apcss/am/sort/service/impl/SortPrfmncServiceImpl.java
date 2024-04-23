@@ -3,6 +3,8 @@ package com.at.apcss.am.sort.service.impl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
@@ -235,5 +237,21 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 
         return resultList;
     }
+    
+    @Override
+    public List<HashMap<String, Object>> selectExhstDsctn(HashMap<String, Object> exhstDsctn) throws Exception {
+
+    	List<HashMap<String, Object>> resultVO = sortPrfmncMapper.selectExhstDsctn(exhstDsctn);
+    	
+		return resultVO;
+	}
+    
+    @Override
+    public List<HashMap<String, Object>> selectGrdDsctn(HashMap<String, Object> exhstDsctn) throws Exception {
+
+    	List<HashMap<String, Object>> resultVO = sortPrfmncMapper.selectGrdDsctn(exhstDsctn);
+    	
+		return resultVO;
+	}
 
 }
