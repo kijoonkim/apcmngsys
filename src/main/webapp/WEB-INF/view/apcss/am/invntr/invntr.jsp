@@ -288,13 +288,27 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.filtering = true;
-	    SBGridProperties.paging = {
-			'type' : 'page',
-		  	'count' : 5,
-		  	'size' : 100,
-		  	'sorttype' : 'page',
-		  	'showgoalpageui' : true
-	    };
+	    //SBGridProperties.paging = {'type' : 'page', 'count' : 5, 'size' : 100, 'sorttype' : 'page', 'showgoalpageui' : true };
+   	    SBGridProperties.total = {
+				type: 'grand',
+				position: 'bottom',
+				columns: {
+					standard: [9],
+					sum: [10,11,12,13,14,15]
+				},
+			grandtotalrow: {
+				titlecol: 9,
+				titlevalue: '합계',
+				style : 'background-color: #ceebff ; font-weight: bold; color: #0060b3;',
+				stylestartcol: 0
+			},
+			totalformat: {
+				1: '#,###',
+				// 2: '#,###',
+				//3: '#,###',
+				4: '#,###',
+			}
+		};
 	    SBGridProperties.columns = [
 	        {caption: ["입고번호","입고번호"],		ref: 'wrhsno',      type:'output', hidden: true},
             {caption: ["팔레트번호","팔레트번호"],    ref: 'pltno',      type:'output',  width:'105px',    style:'text-align:center',  filtering : {usemode : false}},
@@ -330,7 +344,7 @@
 	    ];
 
 	    rawMtrInvntrGrid = _SBGrid.create(SBGridProperties);
-	    rawMtrInvntrGrid.bind( "beforepagechanged" , "fn_pagingGrd" );
+	    //rawMtrInvntrGrid.bind( "beforepagechanged" , "fn_pagingGrd" );
 
 	    if(checkDetail == 1){
 	    	fn_selectGridList();
@@ -503,10 +517,10 @@
 			, gdsSeCd				: gdsSeCd
 			, wrhsSeCd				: wrhsSeCd
 			, warehouseSeCd			: warehouseSeCd
-          	// pagination
-  	  		, pagingYn 				: 'Y'
-  	  		, currentPageNo 		: pageNo
-  	  		, recordCountPerPage 	: pageSize
+			// pagination
+  	  		//, pagingYn 				: 'Y'
+  	  		//, currentPageNo 		: pageNo
+  	  		//, recordCountPerPage 	: pageSize
 
   		});
 
@@ -605,9 +619,9 @@
 			, wrhsSeCd				: wrhsSeCd
 			, warehouseSeCd			: warehouseSeCd
           	// pagination
-  	  		, pagingYn 				: 'Y'
-  	  		, currentPageNo 		: pageNo
-  	  		, recordCountPerPage 	: pageSize
+  	  		//, pagingYn 				: 'Y'
+  	  		//, currentPageNo 		: pageNo
+  	  		//, recordCountPerPage 	: pageSize
 
   		});
 
@@ -697,13 +711,27 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.filtering = true;
-	    SBGridProperties.paging = {
-			'type' : 'page',
-		  	'count' : 5,
-		  	'size' : 100,
-		  	'sorttype' : 'page',
-		  	'showgoalpageui' : true
-	    };
+	  //SBGridProperties.paging = {'type' : 'page', 'count' : 5, 'size' : 100, 'sorttype' : 'page', 'showgoalpageui' : true };
+   	    SBGridProperties.total = {
+				type: 'grand',
+				position: 'bottom',
+				columns: {
+					standard: [8],
+					sum: [9,10,11,12,13,14]
+				},
+			grandtotalrow: {
+				titlecol: 8,
+				titlevalue: '합계',
+				style : 'background-color: #ceebff ; font-weight: bold; color: #0060b3;',
+				stylestartcol: 0
+			},
+			totalformat: {
+				1: '#,###',
+				// 2: '#,###',
+				//3: '#,###',
+				4: '#,###',
+			}
+		};
 	    SBGridProperties.columns = [
             {caption: ["선별번호","선별번호"],        ref: 'sortno',          type:'output',  width:'105px',    style:'text-align:center',  filtering : {usemode : false}},
             {caption: ["투입일자","투입일자"],        ref: 'inptYmd',          type:'output',  width:'105px',    style:'text-align:center',
@@ -738,7 +766,7 @@
 	    ];
 
 	    sortInvntrGrid = _SBGrid.create(SBGridProperties);
-	    sortInvntrGrid.bind( "beforepagechanged" , "fn_pagingGrd" );
+	    //sortInvntrGrid.bind( "beforepagechanged" , "fn_pagingGrd" );
 	    if(checkDetail == 1){
 	    	fn_selectGridList();
 	    }else if(checkDetail == 2){
@@ -831,10 +859,10 @@
 		  ,	gdsSeCd				: gdsSeCd
 		  ,	wrhsSeCd			: wrhsSeCd
 		  ,	warehouseSeCd		: warehouseSeCd
-          	// pagination
-  	  	  ,	pagingYn 			: 'Y'
-  	      ,	currentPageNo 		: pageNo
-  	      , recordCountPerPage 	: pageSize
+			// pagination
+	  		//, pagingYn 				: 'Y'
+	  		//, currentPageNo 		: pageNo
+	  		//, recordCountPerPage 	: pageSize
   		});
 
         let data2 = await postJsonPromise2;
@@ -926,10 +954,10 @@
 		  ,	gdsSeCd				: gdsSeCd
 		  ,	wrhsSeCd			: wrhsSeCd
 		  ,	warehouseSeCd		: warehouseSeCd
-          	// pagination
-  	  	  ,	pagingYn 			: 'Y'
-  	      ,	currentPageNo 		: pageNo
-  	      , recordCountPerPage 	: pageSize
+			// pagination
+	  		//, pagingYn 				: 'Y'
+	  		//, currentPageNo 		: pageNo
+	  		//, recordCountPerPage 	: pageSize
   		});
 
         let data2 = await postJsonPromise2;
@@ -1018,13 +1046,26 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.filtering = true;
 	    SBGridProperties.scrollbubbling = false;
-
-	    SBGridProperties.paging = {
-				'type' : 'page',
-			  	'count' : 5,
-			  	'size' : 100,
-			  	'sorttype' : 'page',
-			  	'showgoalpageui' : true
+	  //SBGridProperties.paging = {'type' : 'page', 'count' : 5, 'size' : 100, 'sorttype' : 'page', 'showgoalpageui' : true };
+         SBGridProperties.total = {
+				type: 'grand',
+				position: 'bottom',
+				columns: {
+					standard: [10],
+					sum: [11,12,13,14,15,16]
+				},
+			grandtotalrow: {
+				titlecol: 10,
+				titlevalue: '합계',
+				style : 'background-color: #ceebff ; font-weight: bold; color: #0060b3;',
+				stylestartcol: 0
+			},
+			totalformat: {
+				1: '#,###',
+				// 2: '#,###',
+				//3: '#,###',
+				4: '#,###',
+			}
 		};
 	    SBGridProperties.columns = [
             {caption: ["포장번호","포장번호"],        ref: 'pckgno',          type:'output',  width:'105px',    style:'text-align:center',  filtering : {usemode : false}},
@@ -1065,7 +1106,7 @@
 
 
 
-	    gdsInvntrGrid.bind( "beforepagechanged" , "fn_pagingGrd" );
+	    //gdsInvntrGrid.bind( "beforepagechanged" , "fn_pagingGrd" );
 	    if(checkDetail == 1){
 	    	fn_selectGridList();
 	    }else if(checkDetail == 2){
@@ -1160,10 +1201,10 @@
 		   , wrhsSeCd			: wrhsSeCd
 		   , warehouseSeCd		: warehouseSeCd
 		   , crtrYmd			: crtrYmd
-          	// pagination
-  	  	   , pagingYn 			: 'Y'
-  	  	   , currentPageNo 		: pageNo
-  	  	   , recordCountPerPage : pageSize
+			// pagination
+ 	  		//, pagingYn 				: 'Y'
+ 	  		//, currentPageNo 		: pageNo
+ 	  		//, recordCountPerPage 	: pageSize
   		});
 
         let data = await postJsonPromise;
@@ -1259,10 +1300,10 @@
 		   , wrhsSeCd			: wrhsSeCd
 		   , warehouseSeCd		: warehouseSeCd
 		   , crtrYmd			: crtrYmd
-          	// pagination
-  	  	   , pagingYn 			: 'Y'
-  	  	   , currentPageNo 		: pageNo
-  	  	   , recordCountPerPage : pageSize
+			// pagination
+ 	  		//, pagingYn 				: 'Y'
+ 	  		//, currentPageNo 		: pageNo
+ 	  		//, recordCountPerPage 	: pageSize
   		});
 
         let data = await postJsonPromise;
