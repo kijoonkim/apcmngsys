@@ -1118,7 +1118,7 @@
 	const fn_setGrdTrsprtSe = async function() {
 		const param = {
 			apcCd: '0000',
-			cdId: 'GDS_SE_CD',
+			cdId: 'TRSPRT_SE_CD',
 			delYn: 'N'
 		}
 		jsonTrsprtSe.length = 0;
