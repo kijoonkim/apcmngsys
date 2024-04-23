@@ -186,7 +186,7 @@ public class ComConstants {
 	public final static String CON_AUTHRT_TYPE_AT = "10";
 	public final static String CON_AUTHRT_TYPE_ADMIN = "20";
 	public final static String CON_AUTHRT_TYPE_USER = "21";
-
+	
 	/* 사용자 유형 */
 	public final static String CON_USER_TYPE_SYS = "00";
 	public final static String CON_USER_TYPE_AT = "01";
@@ -198,6 +198,12 @@ public class ComConstants {
 	public final static String CON_USER_STTS_VALID = "01";
 	public final static String CON_USER_STTS_DORMANCY = "02";
 	public final static String CON_USER_STTS_UNUSED = "03";
+	
+	/* 토큰 관련 */
+	public final static String CON_TOKEN_ACCESSTOKEN_EXPIRED = "30";
+	public final static String CON_TOKEN_REFESHTOKEN_EXPIRED = "31";
+	public final static String CON_TOKEN_UNAUTHORIAZED = "32";
+	public final static String CON_TOKEN_NEEDLOGIN = "33";
 
 	/* 열람유형 */
 	/**

@@ -1,47 +1,32 @@
 package com.at.apcss.mobile.api;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Random;
-import java.util.Set;
 import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.egovframe.rte.fdl.property.EgovPropertyService;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper;
-import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
 import com.at.apcss.am.spmt.service.SpmtCmndService;
-import com.at.apcss.am.spmt.vo.SpmtCmndVO;
 import com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper;
 import com.at.apcss.co.apc.service.ApcInfoService;
 import com.at.apcss.co.apc.vo.ApcInfoVO;
@@ -55,9 +40,6 @@ import com.at.apcss.co.sys.vo.LoginVO;
 import com.at.apcss.co.user.service.ComUserService;
 import com.at.apcss.co.user.vo.ComUserVO;
 import com.at.apcss.mobile.service.MobileApiService;
-import com.at.apcss.mobile.vo.ElementFile;
-import com.at.apcss.mobile.vo.FacilityMngVO;
-import com.at.apcss.mobile.vo.WarehouseInfoVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import egovframework.com.jwt.config.EgovJwtTokenUtil;
@@ -156,7 +138,7 @@ public class MobileApiController extends BaseController{
 				JSONObject resultJson = new JSONObject();
 				resultJson.put("success", false);
 				resultJson.put("code", ComConstants.ERR_USER_LOCKED);
-				resultJson.put("message", messageSource.getMessage("fail.common.login", request.getLocale()));
+				resultJson.put("message", messageSource.getMessage("messages.jwt.login", request.getLocale()));
 				return resultJson;
 			}
 
@@ -350,6 +332,89 @@ public class MobileApiController extends BaseController{
 			
 			return resultJson;
 		}
+	}
+	
+	@PostMapping(value = "/isTokenExpired.do")
+	@ResponseBody
+	public JSONObject isTokenExpired(LoginVO loginVO,
+			Locale locale,
+			HttpServletRequest request,
+			Model model) throws Exception {
+		
+		String jwtToken = jwtTokenUtil.getTokenFromRequest(request);
+		
+		if (jwtToken != null) {
+			try {
+				String memberId = jwtTokenUtil.getUsernameFromToken(jwtToken);
+			} catch (IllegalArgumentException e) {
+				System.out.println("Unable to get JWT Token");
+				//throw new RestException("FAIL", "9999", "messages.jwt.nopermission", null, HttpStatus.UNAUTHORIZED);
+				JSONObject resultJson = new JSONObject();
+				resultJson.put("success", false);
+				resultJson.put("code", ComConstants.CON_TOKEN_UNAUTHORIAZED);
+				resultJson.put("message", messageSource.getMessage("messages.jwt.login", request.getLocale()));
+				
+				return resultJson;
+			} catch (ExpiredJwtException e) {
+				System.out.println("JWT Token has expired");
+				//throw new RestException("errors.token.expired", null, HttpStatus.UNAUTHORIZED);
+				
+				Map<String, Object> parameterMap = new HashMap<String, Object>(request.getParameterMap());
+				
+				//클라이언트에서 전달한 Refresh Token 값을 구한다.
+				String refreshToken = loginVO.getRefreshToken();
+				Map<String, Object> storedRefreshToken =  mobileApiService.findRefreshToken(loginVO.getUserId());
+				if(storedRefreshToken != null) {
+					if(refreshToken != null && !refreshToken.equals(storedRefreshToken.get("TOKEN").toString())) {
+						JSONObject resultJson = new JSONObject();
+						resultJson.put("success", false);
+						resultJson.put("code", ComConstants.CON_TOKEN_UNAUTHORIAZED);
+						resultJson.put("message", messageSource.getMessage("messages.jwt.login", request.getLocale()));
+						
+						return resultJson;
+					} else if(isRefreshTokenExpired(storedRefreshToken)) {
+						mobileApiService.delRefreshToken(loginVO.getUserId());
+						
+						JSONObject resultJson = new JSONObject();
+						resultJson.put("success", false);
+						resultJson.put("code", ComConstants.CON_TOKEN_UNAUTHORIAZED);
+						resultJson.put("message", messageSource.getMessage("messages.jwt.needlogin", request.getLocale()));
+						
+						return resultJson;
+					} else {
+						LoginVO resultVO = loginService.actionLogin(loginVO);
+						
+						JSONObject resultData = new JSONObject();
+						//토큰을 생성한다.
+						egovframework.com.cmm.LoginVO cmmLoginVO = new egovframework.com.cmm.LoginVO();
+						cmmLoginVO.setId(resultVO.getUserId());
+						final String accessToken = jwtTokenUtil.generateToken(cmmLoginVO);
+						resultData.put("accessToken", accessToken);
+						
+						JSONObject resultJson = new JSONObject();
+						resultJson.put("success", true);
+						resultJson.put("message", "성공");
+						resultJson.put("data", resultData);
+						
+						return resultJson;
+					}
+				} else {
+					JSONObject resultJson = new JSONObject();
+					resultJson.put("success", false);
+					resultJson.put("code", ComConstants.CON_TOKEN_UNAUTHORIAZED);
+					resultJson.put("message", messageSource.getMessage("messages.jwt.needlogin", request.getLocale()));
+					
+					return resultJson;
+				}
+			}
+		}
+		
+		JSONObject resultJson = new JSONObject();
+		resultJson.put("success", false);
+		resultJson.put("code", ComConstants.CON_TOKEN_UNAUTHORIAZED);
+		resultJson.put("message", messageSource.getMessage("messages.jwt.needlogin", request.getLocale()));
+		
+		return resultJson;
 	}
 	
 	private boolean isRefreshTokenExpired(Map<String, Object> token) {

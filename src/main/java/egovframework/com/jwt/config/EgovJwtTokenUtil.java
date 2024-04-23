@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -81,4 +83,12 @@ public class EgovJwtTokenUtil implements Serializable{
         return (username.equals(loginVO.getUserSe()+loginVO.getId()) && !isTokenExpired(token));
     }
 
+    public String getTokenFromRequest(HttpServletRequest request) {
+		final String requestTokenHeader = request.getHeader("Authorization");
+		//siteID 값을 구한다.
+		if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
+			return requestTokenHeader.substring(7);
+		}else
+			return null;
+	}
 }
