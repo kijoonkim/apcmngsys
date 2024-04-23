@@ -17,6 +17,13 @@ public interface ComDpcnLgnMapper {
 	 */
 	public List<ComDpcnLgnVO> selectComDpcnLgnList(ComDpcnLgnVO comDpcnLgnVO) throws Exception;	
 	/**
+	 * 로그인중복관리 목록 조회
+	 * @param ComDpcnLgnVO
+	 * @return List<ComDpcnLgnVO>
+	 * @throws Exception
+	 */
+	public String selectUserIdComDpcnLgn(ComDpcnLgnVO comDpcnLgnVO) throws Exception;	
+	/**
 	 * 로그인중복관리 정보 업데이트
 	 * @param ComDpcnLgnVO
 	 * @return List<ComDpcnLgnVO>

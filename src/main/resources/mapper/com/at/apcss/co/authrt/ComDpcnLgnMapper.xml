@@ -12,6 +12,10 @@
 
 <mapper namespace="com.at.apcss.co.authrt.mapper.ComDpcnLgnMapper">
 
+	<select id="selectUserIdComDpcnLgn" parameterType="com.at.apcss.co.authrt.vo.ComDpcnLgnVO" resultType="String">
+	        SELECT USER_ID FROM TB_COM_LGN_PLCY WHERE USER_ID = #{userId}
+	</select>
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.authrt.mapper.ComDpcnLgnMapper.selectComDpcnLgnList	-->
 	<!-- DESC : 로그인중복.                                             				-->

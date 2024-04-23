@@ -63,7 +63,7 @@
 						<tr>
 							<th scope="row">사용자ID</th>
 							<td td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-userId" name="srch-inp-userId" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
+								<sbux-input id="srch-inp-userId" name="srch-inp-userId" uitype="text" class="form-control input-sm"  onkeyenter="fn_search"></sbux-input>
 							</td>
 							<td colspan="2" style="border-right: hidden;"></td>
 							<th scope="row">중복로그인가능여부</th>
@@ -98,6 +98,7 @@
 	var jsonDpcnLgnPsbltyYn = [];
 	var jsonUseYn 			= [];
 	var jsonIpLmtYn 		= [];
+	var jsonUserIdData		= [];
 	
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_initSelect();
@@ -141,21 +142,22 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(" + nRow + ");'>삭제</button>";
 	        	}
 		    }},
-	         {caption: ["사용자ID"], 			ref: 'userId',     		type:'input',   width:'180px', 	style:'text-align:center'},
+	         {caption: ["사용자ID"], 			ref: 'userId',     		type:'input',   width:'230px', 	style:'text-align:center'},
 	         {caption: ["중복로그인가능여부"], 		ref: 'dpcnLgnPsbltyYn', type:'combo',  	width:'120px', 	style:'text-align:center',
-	        	 typeinfo : {ref:'jsonDpcnLgnPsbltyYn', label:'label', value:'value', displayui : true}
+	        	 typeinfo : {ref:'jsonDpcnLgnPsbltyYn', label:'label', value:'value'}
         	 },
-	         {caption: ["IP정보"],	    	ref: 'ipInfo',   		type:'input',  	width:'260px', 	style:'text-align:center'},
+	         {caption: ["IP정보"],	    	ref: 'ipInfo',   		type:'input',  	width:'520px', 	style:'text-align:center'},
 	         {caption: ["IP제한여부"],   		ref: 'ipLmtYn',  		type:'combo',  	width:'105px', 	style:'text-align:center',
-	        	 typeinfo : {ref:'jsonIpLmtYn', label:'label', value:'value', displayui : true}
+	        	 typeinfo : {ref:'jsonIpLmtYn', label:'label', value:'value'}
 	       	 },
-	         {caption: ["사용여부"],	    	ref: 'useYn', 			type:'combo',  	width:'200px', 	style:'text-align:center',
-	        	 typeinfo : {ref:'jsonUseYn', label:'label', value:'value', displayui : true}
+	         {caption: ["사용여부"],	    	ref: 'useYn', 			type:'combo',  	width:'105px', 	style:'text-align:center',
+	        	 typeinfo : {ref:'jsonUseYn', label:'label', value:'value'}
 	         },
 	         {caption: ["최종변결일시"],			ref: 'sysLastChgDt',  	type:'output',  	width:'105px', 	style:'text-align:center'}
     	];
 	    grdUserLgnDpcn = _SBGrid.create(SBGridLgnDpcnProperties);
 	    grdUserLgnDpcn.bind('beforepagechanged', fn_pagingGrdDpcnLgn);
+	    grdUserLgnDpcn.bind('valuechanged', gridValueChanged);
 	}
 	
     /**
@@ -316,12 +318,45 @@
 	
 	function fn_delRow(nRow){
 		if(grdUserLgnDpcn.getRowStatus(nRow) == 0 || grdUserLgnDpcn.getRowStatus(nRow) == 2){
-			gfn_comAlert("E0000", "등록된 행은 삭제할 수 없습니다.");
+			gfn_comAlert("E0000", "등록된 행은 삭제할 수 없습니다. \n 사용여부를 변경하여주세요");
     	}else{
     		grdUserLgnDpcn.deleteRow(nRow);
     	}
 	}
 
+	const gridValueChanged = async function(){
+		
+		var nRow = grdUserLgnDpcn.getRow();
+		var nCol = grdUserLgnDpcn.getCol();
+		
+		if(nCol != 1){
+			return;
+		}
+		
+		var rowData = grdUserLgnDpcn.getRowData(nRow);
+		let userId = rowData.userId;
+		
+		const postJsonPromise 	= gfn_postJSON("/co/authrt/selectUserIdComDpcnLgn.do", {userId : userId});
+		const data = await postJsonPromise;
+		try {
+  			if (_.isEqual("S", data.resultStatus)) {
+  	          	/** @type {number} **/
+  	      		let totalRecordCount = 0;
+  	      		jsonUserIdData.length = 0;
+          		const userIdData = {
+          			userId : data.resultList
+  				}
+          		jsonUserIdData.push(userIdData);
+  			}
+  	  		if(!gfn_isEmpty(jsonUserIdData[0].userId)){
+  	  			gfn_comAlert("E0000", "등록된 사용자ID 입니다.");
+  	  			grdUserLgnDpcn.setCellData(nRow, nCol, "", true);
+  	  			return false;
+  	  		}
+  		} catch (e) {
+  			console.error("failed", e.message);
+		}
+	}
 
 </script>
 

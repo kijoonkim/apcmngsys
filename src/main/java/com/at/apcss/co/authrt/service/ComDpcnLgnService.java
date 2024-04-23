@@ -1,5 +1,6 @@
 package com.at.apcss.co.authrt.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.co.authrt.vo.ComDpcnLgnVO;
@@ -14,12 +15,19 @@ public interface ComDpcnLgnService {
 	 */
 	public List<ComDpcnLgnVO> selectComDpcnLgnList(ComDpcnLgnVO comDpcnLgnVO) throws Exception;
 	/**
+	 * 로그인중복관리 사용자 ID 중복체크
+	 * @param ComDpcnLgnVO
+	 * @return ComDpcnLgnVO
+	 * @throws Exception
+	 */
+	public String selectUserIdComDpcnLgn(ComDpcnLgnVO comDpcnLgnVO) throws Exception;
+	/**
 	 * 로그인중복관리 업데이트 목록
 	 * @param List<ComDpcnLgnVO>
 	 * @return integer
 	 * @throws Exception
 	 */
-	public int saveDpcnLgnList(List<ComDpcnLgnVO> comDpcnLgnList) throws Exception;
+	public HashMap<String, Object> saveDpcnLgnList(List<ComDpcnLgnVO> comDpcnLgnList) throws Exception;
 	/**
 	 * 로그인중복관리 업데이트
 	 * @param List<ComDpcnLgnVO>

@@ -30,6 +30,35 @@ public class ComDpcnLgnController extends BaseController{
 	 * @return HashMap<String, Object>
 	 * @throws Exception
 	 */
+	@PostMapping(value = "/co/authrt/selectUserIdComDpcnLgn.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectUserIdComDpcnLgn(@RequestBody ComDpcnLgnVO comDpcnLgnVO, HttpServletRequest request) throws Exception {
+		
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		String resultStr = "";
+		
+		try {
+			resultStr = comDpcnLgnService.selectUserIdComDpcnLgn(comDpcnLgnVO);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultStr);
+		
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	/**
+	 * 로그인중복관리 목록 조회
+	 * @param ComDpcnLgnVO
+	 * @param request
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
 	@PostMapping(value = "/co/authrt/selectComDpcnLgnList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectComDpcnLgnList(@RequestBody ComDpcnLgnVO comDpcnLgnVO, HttpServletRequest request) throws Exception {
 
@@ -62,7 +91,6 @@ public class ComDpcnLgnController extends BaseController{
 	public ResponseEntity<HashMap<String, Object>> saveDpcnLgnList(@RequestBody List<ComDpcnLgnVO> comDpcnLgnList, HttpServletRequest request) throws Exception {
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		int saveCnt = 0;
 		
 		for (ComDpcnLgnVO comDpcnLgnVO : comDpcnLgnList) {
 			comDpcnLgnVO.setSysFrstInptPrgrmId(getPrgrmId());
@@ -72,7 +100,10 @@ public class ComDpcnLgnController extends BaseController{
 		}
 
 		try {
-			saveCnt = comDpcnLgnService.saveDpcnLgnList(comDpcnLgnList);
+			resultMap = comDpcnLgnService.saveDpcnLgnList(comDpcnLgnList);
+			if(resultMap != null) {
+				return getErrorResponseEntity(resultMap);
+			}
 		} catch(Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
@@ -81,8 +112,6 @@ public class ComDpcnLgnController extends BaseController{
 				return getErrorResponseEntity(rtnObj);
 			}
 		}
-
-		resultMap.put(ComConstants.PROP_SAVED_CNT, saveCnt);
 
 		return getSuccessResponseEntity(resultMap);
 	}
