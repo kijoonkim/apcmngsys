@@ -34,12 +34,12 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button
-						id="btnDocSort"
-						name="btnDocSort"
+						id="btnDocSortByWrhs"
+						name="btnDocSortByWrhs"
 						uitype="normal"
-						text="선별확인서"
+						text="선별확인서(입고별)"
 						class="btn btn-sm btn-success"
-						onclick="fn_docSort"
+						onclick="fn_docSortByWrhs"
 					></sbux-button>
 					<sbux-button
 						id="btnSearch"
@@ -115,7 +115,7 @@
 									uitype="single"
 									id="srch-slt-vrtyCd"
 									name="srch-slt-vrtyCd"
-									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									class="form-control input-sm input-sm-ast"
 									unselected-text="전체"
 									jsondata-ref="jsonApcVrty"
 									jsondata-value="itemVrtyCd"
@@ -905,29 +905,44 @@
 	}
 
 	/**
-	 * @name fn_docSort
-	 * @description 선별확인서 발행
+	 * @name fn_docSortByWrhs
+	 * @description 선별확인서(입고별) 발행
 	 */
-	const fn_docSort = async function() {
-		const sortnoSnList = [];
+	const fn_docSortByWrhs = async function() {
 		const sortnoList = [];
-		const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'ST_DOC');
+		const wrhsnoList = [];
+		const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'ST_DOC1');
 		const allData = grdSortPrfmnc.getGridDataAll();
+		
 		allData.forEach((item) => {
 			if (item.checkedYn === "Y") {
-				sortnoSnList.push(item.sortno + item.sortSn);
 				sortnoList.push(item.sortno);
+				wrhsnoList.push(item.wrhsno);
     		}
 		});
+		
 
  		if (sortnoList.length === 0) {
  			gfn_comAlert("W0001", "발행대상");		//	W0001	{0}을/를 선택하세요.
 			return;
  		}
-
- 		const sortnoSn = sortnoSnList.join("','");
+ 		
+ 		const wrhsno = wrhsnoList.join("','");
  		const sortno = sortnoList.join("','");
- 		gfn_popClipReport("선별확인서", rptUrl, {apcCd: gv_selectedApcCd, sortnoSn: sortnoSn, sortno: sortno});
+ 		const itemCd = SBUxMethod.get("srch-slt-itemCd");
+ 		const grdSeCd = SBUxMethod.get("srch-slt-grdSeCd");				// 등급구분
+ 		
+ 		gfn_popClipReport(
+ 				"선별확인서(입고별)", 
+ 				rptUrl, 
+ 				{
+ 					apcCd: gv_selectedApcCd, 
+ 					wrhsno: wrhsno, 
+ 					sortno: sortno,
+ 					itemCd: itemCd,
+ 					grdSeCd: grdSeCd
+ 				}
+ 			);
  		//gfn_popClipReport("선별확인서", "am/sortIdntyDoc.crf", {apcCd: gv_selectedApcCd, sortnoSn: sortnoSn, sortno: sortno});
  	}
 
