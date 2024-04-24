@@ -159,5 +159,11 @@ public interface SortPrfmncService {
 	 * @throws Exception
 	 */
 	public List<HashMap<String, Object>> selectGrdDsctn(HashMap<String, Object> exhstDsctn) throws Exception;
-
+	/**
+	 * 사전선별 등록
+	 * @param sortBffaVO
+	 * @return
+	 * @throws Exception
+	 */
+	HashMap<String, Object> insertSortBffa(SortBffaVO sortBffaVO) throws Exception;
 }

@@ -1793,5 +1793,123 @@
 		ORDER BY BFFA_WRHSNO
 	</select>
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectSortDsctnList  	-->
+	<!-- DESC : 육안선별 등록                                                         -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.24  	손민성        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<insert id="insertSortBffa" parameterType="com.at.apcss.am.sort.vo.SortBffaVO">
+		<![CDATA[
+		INSERT
+			INTO TB_BFFA_WRHS_PRFMNC
+				(
+				 APC_CD
+				,BFFA_WRHSNO
+				,PLTNO
+				,WRHS_YMD
+				,PRDCR_CD
+				,ITEM_CD
+				,VRTY_CD
+				,GDS_SE_CD
+				,WRHS_SE_CD
+				,TRSPRT_SE_CD
+				,WAREHOUSE_SE_CD
+				,FCLT_CD
+				,PRDCTN_YR
+				,IDNTY_PRSN
+				,BX_KND
+				,WRHS_QNTT
+				,WRHS_WGHT
+				,INVNTR_QNTT
+				,INVNTR_WGHT
+				,RMRK
+				,GRD_TYPE_1
+				,GRD_TYPE_1_QNTT
+				,GRD_TYPE_1_WGHT
+				,GRD_TYPE_1_RMRK
+				,GRD_TYPE_2
+				,GRD_TYPE_2_QNTT
+				,GRD_TYPE_2_WGHT
+				,GRD_TYPE_2_RMRK
+				,GRD_TYPE_3
+				,GRD_TYPE_3_QNTT
+				,GRD_TYPE_3_WGHT
+				,GRD_TYPE_3_RMRK
+				,GRD_TYPE_4
+				,GRD_TYPE_4_QNTT
+				,GRD_TYPE_4_WGHT
+				,GRD_TYPE_4_RMRK
+				,GRD_TYPE_5
+				,GRD_TYPE_5_QNTT
+				,GRD_TYPE_5_WGHT
+				,GRD_TYPE_5_RMRK
+				,DEL_YN
+				,SYS_FRST_INPT_DT
+				,SYS_FRST_INPT_USER_ID
+				,SYS_FRST_INPT_PRGRM_ID
+				,SYS_LAST_CHG_DT
+				,SYS_LAST_CHG_USER_ID
+				,SYS_LAST_CHG_PRGRM_ID
+				)
+			VALUES
+			    (
+				 #{apcCd}
+				,#{bffaWrhsno}
+				,#{pltno}
+				,#{wrhsYmd}
+				,#{prdcrCd}
+				,#{itemCd}
+				,#{vrtyCd}
+				,#{gdsSeCd}
+				,#{wrhsSeCd}
+				,#{trsprtSeCd}
+				,#{warehouseSeCd}
+				,#{fcltCd}
+				,#{prdctnYr}
+				,#{idntyPrsn}
+				,#{bxKnd}
+				,#{wrhsQntt}
+				,#{wrhsWght}
+				,#{invntrQntt}
+				,#{invntrWght}
+				,#{rmrk}
+				,#{grdType1}
+				,#{grdType1Qntt}
+				,#{grdType1Wght}
+				,#{grdType1Rmrk}
+				,#{grdType2}
+				,#{grdType2Qntt}
+				,#{grdType2Wght}
+				,#{grdType2Rmrk}
+				,#{grdType3}
+				,#{grdType3Qntt}
+				,#{grdType3Wght}
+				,#{grdType3Rmrk}
+				,#{grdType4}
+				,#{grdType4Qntt}
+				,#{grdType4Wght}
+				,#{grdType4Rmrk}
+				,#{grdType5}
+				,#{grdType5Qntt}
+				,#{grdType5Wght}
+				,#{grdType5Rmrk}
+				,#{delYn}
+				,#{sysFrstInptDt}
+				,#{sysFrstInptUserId}
+				,#{sysFrstInptPrgrmId}
+				,#{sysLastChgDt}
+				,#{sysLastChgUserId}
+				,#{sysLastChgPrgrmId}
+				)
+
+		]]>
+
+
+
+	</insert>
+
 
 </mapper>

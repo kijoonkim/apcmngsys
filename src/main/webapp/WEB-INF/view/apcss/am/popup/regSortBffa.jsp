@@ -55,7 +55,7 @@
                 </p>
             </div>
             <div style="margin-left: auto;">
-                <sbux-button id="btnResetBffa" name="btnResetBffa" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="popBffa.save"></sbux-button>
+                <sbux-button id="btnResetBffa" name="btnResetBffa" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="popBffa.reset"></sbux-button>
                 <sbux-button id="btnSaveBffa" name="btnSaveBffa" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="popBffa.save"></sbux-button>
                 <sbux-button id="btnCloseBffa" name="btnCloseBffa" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="popBffa.close"></sbux-button>
             </div>
@@ -76,7 +76,17 @@
                     <td class="td_input" style="border-right: hidden;border-top: hidden">
                         <sbux-input id="prdcr-inp-apcNm" name="prdcr-inp-apcNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
                     </td>
-                    <td style="border: hidden"></td><td style="border: hidden"></td>
+                    <th scope="row" class="th_bg"><span class="data_required" ></span>선별일자</th>
+                    <td class="td_input" style="border-right: hidden;border-top: hidden">
+                        <sbux-datepicker
+                                id="srch-dtp-inptYmd"
+                                name="srch-dtp-inptYmd"
+                                uitype="popup"
+                                date-format="yyyy-mm-dd"
+                                class="form-control input-sm sbux-pik-group-ap input-sm-ast inpt_data_reqed"
+                                onchange="fn_dtpChange(srch-dtp-inptYmdFrom)"
+                        ></sbux-datepicker>
+                    </td>
                 </tr>
                 <tr>
                     <th scope="row" class="th_bg"><span class="data_required"></span>선별기</th>
@@ -90,16 +100,29 @@
                                 jsondata-ref="jsonComFcltCd"
                         ></sbux-select>
                     </td>
-                    <th scope="row" class="th_bg"><span class="data_required" ></span>선별일자</th>
-                    <td class="td_input" style="border-right: hidden;border-top: hidden">
-                        <sbux-datepicker
-                                id="srch-dtp-inptYmd"
-                                name="srch-dtp-inptYmd"
-                                uitype="popup"
-                                date-format="yyyy-mm-dd"
-                                class="form-control input-sm sbux-pik-group-ap input-sm-ast inpt_data_reqed"
-                                onchange="fn_dtpChange(srch-dtp-inptYmdFrom)"
-                        ></sbux-datepicker>
+                    <th scope="row" class="th_bg">품목</th>
+                    <td class="td_input" style="border-right: hidden;">
+                        <div style="display: flex;">
+                            <sbux-select
+                                    id="srch-reg-itemCd"
+                                    name="srch-reg-itemCd"
+                                    uitype="single"
+                                    class="form-control input-sm"
+                                    wrap-style="flex:1;margin-right:5px"
+                                    unselected-text="전체"
+                                    jsondata-ref="jsonRegApcItem"
+                            ></sbux-select>
+                            <sbux-select
+                                    id="srch-reg-vrtyCd"
+                                    name="srch-reg-vrtyCd"
+                                    uitype="single"
+                                    class="form-control input-sm"
+                                    wrap-style="flex:1"
+                                    unselected-text="전체"
+                                    jsondata-ref="jsonRegApcVrty"
+                                    onchange="fn_selectBffaType(this)"
+                            ></sbux-select>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -129,28 +152,17 @@
                         ></sbux-button>
                         </div>
                     </td>
-                    <th scope="row" class="th_bg">품목</th>
+                    <th scope="row" class="th_bg">박스 수량</th>
                     <td class="td_input" style="border-right: hidden;">
-                        <div style="display: flex;">
-                        <sbux-select
-                                id="srch-reg-itemCd"
-                                name="srch-reg-itemCd"
-                                uitype="single"
-                                class="form-control input-sm"
-                                wrap-style="flex:1;margin-right:5px"
-                                unselected-text="전체"
-                                jsondata-ref="jsonRegApcItem"
-                        ></sbux-select>
-                        <sbux-select
-                                id="srch-reg-vrtyCd"
-                                name="srch-reg-vrtyCd"
-                                uitype="single"
-                                class="form-control input-sm"
-                                wrap-style="flex:1"
-                                unselected-text="전체"
-                                jsondata-ref="jsonRegApcVrty"
-                                onchange="fn_selectBffaType(this)"
-                        ></sbux-select>
+                        <div style="display: flex">
+                            <sbux-input
+                                    uitype="text"
+                                    id="srch-reg-wrhsQntt"
+                                    name="srch-reg-wrhsQntt"
+                                    class="form-control input-sm"
+                                    wrap-style="flex:1"
+                            ></sbux-input>
+                            <span style="flex: 1;font-weight: bold;padding: 5px;text-align: left">EA</span>
                         </div>
                     </td>
                 </tr>
@@ -369,12 +381,20 @@
             let fcltCd = SBUxMethod.get('srch-slt-fcltCd'); //선별기코드
             let fcltNm = SBUxMethod.getText('srch-slt-fcltCd'); //선별기코드
             let itemCd = SBUxMethod.get('srch-reg-itemCd'); //품목코드
+            let wrhsQntt = SBUxMethod.get('srch-reg-wrhsQntt'); //박스수량
             let wholWght = SBUxMethod.get('srch-inp-wholWght'); //총중량
             let grdType1Wght = SBUxMethod.get('grdType1Wght'); //1번 type 중량
             let grdType2Wght = SBUxMethod.get('grdType2Wght'); //2번 type 중량
             let grdType3Wght = SBUxMethod.get('grdType3Wght'); //3번 type 중량
             let grdType4Wght = SBUxMethod.get('grdType4Wght'); //4번 type 중량
             let grdType5Wght = SBUxMethod.get('grdType5Wght'); //5번 type 중량
+            /**  실 입고 중량 연산 **/
+            let total = (grdType1Wght !== undefined && grdType1Wght !== null ? parseInt(grdType1Wght) : 0)
+                +(grdType2Wght !== undefined && grdType2Wght !== null ? parseInt(grdType2Wght) : 0)
+                +(grdType3Wght !== undefined && grdType3Wght !== null ? parseInt(grdType3Wght) : 0)
+                +(grdType4Wght !== undefined && grdType4Wght !== null ? parseInt(grdType4Wght) : 0)
+                +(grdType5Wght !== undefined && grdType5Wght !== null ? parseInt(grdType5Wght) : 0)
+            let wrhsWght = wholWght - total;
 
             if(gfn_isEmpty(prdcrCd) || gfn_isEmpty(prdcrNm)){
                 gfn_comAlert("W0005", "생산자");
@@ -387,38 +407,62 @@
                 gfn_comAlert("W0005", "선별기");
             }
 
+            //TODO : TB_BFFA_WRHS_STD_GRD INSERT 필요하고 VO에 CHECK된 value 어떻게 넘길것인가에대하여..
+
             globalVal.forEach(function(id){
-                console.log(id);
-                console.log(SBUxMethod.getCheckbox(id, {trueValueOnly:true, ignoreDisabledValue:false}));
+
             });
             try{
                 let postJsonPromise = gfn_postJSON('/am/sort/insertSortBffa.do',{
-                    // apcCd:gv_apcCd,
-                    apcCd:'0446',
+                    apcCd:gv_apcCd,
                     prdcrCd : prdcrCd,
                     prdcrNm : prdcrNm,
                     wrhsYmd : wrhsYmd,
                     fcltCd : fcltCd,
                     fcltNm : fcltNm,
                     itemCd : itemCd,
+                    wrhsQntt : wrhsQntt,
                     wholWght : wholWght,
+                    wrhsWght : wrhsWght,
                     grdType1Wght : grdType1Wght,
                     grdType2Wght : grdType2Wght,
                     grdType3Wght : grdType3Wght,
                     grdType4Wght : grdType4Wght,
                     grdType5Wght : grdType5Wght,
+                    sysFrstInptDt : gfn_dateToYmd(new Date()),
+                    sysLastChgDt : gfn_dateToYmd(new Date())
                 });
                 let data = await postJsonPromise;
+                console.log(data);
                 if (_.isEqual("S", data.resultStatus)) {
-                    BffaGrdType = data.resultList;
+
                 }
                 await fn_createGrid();
             }catch (e){
                 console.log(e);
             }
+        },
+        reset : function(){
+            SBUxMethod.set('srch-reg-prdcrCd',""); //생산자코드
+            SBUxMethod.set('srch-reg-prdcrNm',""); //생산자명
+            SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:initial"); //생산자명 색상
+            SBUxMethod.set('srch-reg-prdcrCd',""); //생산자코드
+            SBUxMethod.set('srch-inp-icptWght',""); //부적합 총량
+            SBUxMethod.set('srch-slt-fcltCd',""); //선별기코드
+            SBUxMethod.set('srch-reg-itemCd',""); //품목코드
+            SBUxMethod.set('srch-reg-wrhsQntt',""); //박스수량
+            SBUxMethod.set('srch-inp-wholWght',""); //총중량
+            SBUxMethod.set('srch-reg-vrtyCd',""); //총중량
+            SBUxMethod.set('grdType1Wght',""); //1번 type 중량
+            SBUxMethod.set('grdType2Wght',""); //2번 type 중량
+            SBUxMethod.set('grdType3Wght',""); //3번 type 중량
+            SBUxMethod.set('grdType4Wght',""); //4번 type 중량
+            SBUxMethod.set('grdType5Wght',""); //5번 type 중량
 
-
-
+            globalVal.forEach(function(item){
+            SBUxMethod.refresh(item);
+            });
+           
         }
     }
     /**
@@ -450,8 +494,7 @@
         if(!gfn_isEmpty(_itemCd)){
             try{
                 let postJsonPromise = gfn_postJSON('/am/cmns/apcBffaTypeList',{
-                    // apcCd:gv_apcCd,
-                    apcCd:'0446',
+                    apcCd:gv_apcCd,
                     itemCd:_itemCd
                 });
                 let data = await postJsonPromise;

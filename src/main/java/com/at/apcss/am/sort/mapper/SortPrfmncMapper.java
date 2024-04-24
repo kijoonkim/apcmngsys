@@ -173,4 +173,11 @@ public interface SortPrfmncMapper {
 	 * @throws Exception
 	 */
 	public List<SortBffaVO> selectSortBffaListBySortno(SortBffaVO sortPrfmncVO) throws Exception;
+	/**
+	 * 육안선별 등록
+	 * @param sortPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	int insertSortBffa(SortBffaVO sortBffaVO) throws Exception;
 }

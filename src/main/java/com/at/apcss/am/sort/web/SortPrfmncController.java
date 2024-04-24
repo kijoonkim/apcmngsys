@@ -11,6 +11,7 @@ import com.at.apcss.am.sort.vo.SortBffaVO;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -264,7 +265,7 @@ public class SortPrfmncController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 	/**
-	 * 육안 선별 조회
+	 * 육안 선별 등록
 	 * @param sortBffaVO
 	 * @param request
 	 * @return
@@ -274,11 +275,17 @@ public class SortPrfmncController extends BaseController {
 	public ResponseEntity<HashMap<String, Object>> insertSortBffa(@RequestBody SortBffaVO sortBffaVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		List<SortBffaVO> resultList = new ArrayList<>();
-		sortBffaVO.getBffaWrhsno();
+		HashMap<String,Object> resultList = new HashMap<String,Object>();
+
 
 		try {
-			resultList = sortPrfmncService.selectSortBffaListBySortno(sortBffaVO);
+			sortBffaVO.setSysFrstInptUserId(getUserId());
+			sortBffaVO.setSysFrstInptPrgrmId(getPrgrmId());
+			sortBffaVO.setSysLastChgUserId(getUserId());
+			sortBffaVO.setSysLastChgPrgrmId(getPrgrmId());
+			sortBffaVO.setDelYn("N");
+			sortBffaVO.setDelYn("N");
+			resultList = sortPrfmncService.insertSortBffa(sortBffaVO);
 		} catch(Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {

@@ -41,7 +41,7 @@
                         uitype="normal"
                         text="초기화"
                         class="btn btn-sm btn-outline-dark"
-                        onclick="fn_docSort"
+                        onclick="fn_reset"
                 ></sbux-button>
                 <sbux-button
                         id="btnLblSort"
@@ -220,8 +220,8 @@
         SBUxMethod.set("srch-dtp-inptYmdTo", lastYmd);
 
         let result = await Promise.all([
-            gfn_setComCdSBSelect('srch-slt-fcltCd', jsonComFcltCd,'SORT_FCLT_CD', gv_selectedApcCd),			// 선별기
-            gfn_setApcItemSBSelect('srch-slt-itemCd', jsonApcItem, gv_selectedApcCd)								// 품목
+            gfn_setComCdSBSelect('srch-slt-fcltCd', jsonComFcltCd,'SORT_FCLT_CD', gv_selectedApcCd),// 선별기
+            gfn_setApcItemSBSelect('srch-slt-itemCd', jsonApcItem, gv_selectedApcCd)// 품목
         ]);
         SBUxMethod.set('srch-slt-itemCd',jsonApcItem[0].cmnsCd);
         if(jsonApcItem.length == 1){
@@ -264,12 +264,9 @@
             {caption: ["선별기","선별기"],ref: 'fcltNm',type:'output', width:'65px',  style:'text-align:center'},
             {caption: ["박스수량","박스수량"],ref: 'wrhsQntt',type:'output', width:'90px',  style:'text-align:center'},
             {caption: ["총 입고중량","총 입고중량"],ref: 'wholWght',type:'output', width:'120px',  style:'text-align:center'},
-            // {caption: ["육안선별 중량","열과,혼합중량"],ref: 'grdType1Wght',type:'output', width:'120px',  style:'text-align:center'},
-            // {caption: ["육안선별 중량","폐기중량"],ref: 'grdType2Wght',type:'output', width:'120px',  style:'text-align:center'},
-            // {caption: ["육안선별 중량","기타중량"],ref: 'grdType3Wght',type:'output', width:'120px',  style:'text-align:center'},
             {caption: ["육안선별 중량","합계"],ref: 'icptWght',type:'output', width:'120px',  style:'text-align:center'},
             {caption: ["실 입고중량","실 입고중량"],ref: 'wrhsWght',type:'output', width:'120px',  style:'text-align:center'},
-            {caption: ["비고","비고"],ref: 'rmrk',type:'output', width:'120px',  style:'text-align:center'},
+            {caption: ["비고","비고"],ref: 'rmrk',type:'output', width:'100%',  style:'text-align:center'},
         ]
         if(!gfn_isEmpty(BffaGrdType)){
             let addBffaGrdType = [];
@@ -292,8 +289,7 @@
         if(!gfn_isEmpty(itemCd)){
             try{
                let postJsonPromise = gfn_postJSON('/am/cmns/apcBffaType',{
-                    // apcCd:gv_apcCd,
-                    apcCd:'0446',
+                    apcCd:gv_apcCd,
                     itemCd:itemCd
                 });
                 let data = await postJsonPromise;
@@ -311,6 +307,8 @@
     }
     /** 육안선별 목록 조회 **/
     const fn_search = async function(){
+        jsonSortBffa.length = 0;
+
         let inptYmdFrom = SBUxMethod.get("srch-dtp-inptYmdFrom");
         let inptYmdTo = SBUxMethod.get("srch-dtp-inptYmdTo");
         let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
@@ -319,11 +317,11 @@
 
         let postJsonPromise = gfn_postJSON("/am/sort/selectSortBffa.do",
             {
-                apcCd : '0446',
+                apcCd : gv_apcCd,
                 inptYmdFrom : inptYmdFrom,
                 inptYmdTo : inptYmdTo,
-                prdcrCd : '0015',
-                fcltCd : '02',
+                prdcrCd : prdcrCd,
+                fcltCd : fcltCd,
                 itemCd : itemCd
             });
             const data  = await postJsonPromise;
@@ -353,6 +351,14 @@
             }catch (e){
 
             }
+    }
+    /** 초기화 버튼 **/
+    const fn_reset = function(){
+        SBUxMethod.set('srch-inp-prdcrNm',"");//생산자명
+        SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:initial");//생산자명배경
+        SBUxMethod.set('srch-reg-prdcrCd',""); //생산자코드
+        SBUxMethod.set('srch-slt-fcltCd',"");//선별기코드
+        SBUxMethod.set('srch-slt-itemCd',"");//품목코드
     }
 
 

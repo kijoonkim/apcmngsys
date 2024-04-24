@@ -260,4 +260,21 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 		return resultVO;
 	}
 
+	@Override
+	public HashMap<String, Object> insertSortBffa(SortBffaVO sortBffaVO) throws Exception {
+		String wrhsno = sortBffaVO.getBffaWrhsno();
+		String apcCd = sortBffaVO.getApcCd();
+		String wrhsYmd	= sortBffaVO.getWrhsYmd();
+		if(StringUtils.isEmpty(wrhsno)) {
+			String wrhsNo = cmnsTaskNoService.selectBffaWrhsno(apcCd,wrhsYmd);
+			sortBffaVO.setBffaWrhsno(wrhsNo);
+			sortBffaVO.setPltno(wrhsNo);
+		}
+		int result = 0;
+		result = sortPrfmncMapper.insertSortBffa(sortBffaVO);
+
+
+		return null;
+	}
+
 }
