@@ -416,7 +416,7 @@
             //TODO : TB_BFFA_WRHS_STD_GRD INSERT 필요하고 VO에 CHECK된 value 어떻게 넘길것인가에대하여..
 
             globalVal.forEach(function(id){
-                console.log(SBUxMethod.getCheckbox(id, {trueValueOnly:true, ignoreDisabledValue:false}));
+
             });
 
             try{
