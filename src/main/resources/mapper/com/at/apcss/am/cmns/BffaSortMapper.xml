@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : BffaSortMapper.xml                                   				-->
+<!-- DESC : 육안선별등록 mapper                                          			   		-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2024.04.23  박승진        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.cmns.mapper.BffaSortMapper">
+
+<!-- ==========================================================================	-->
+<!-- NAME : selectBffaSortTypeList                                   				-->
+<!-- DESC : 육안선별유형 조회			   		-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2024.04.23  박승진        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+	<select id="selectBffaSortTypeList" parameterType="com.at.apcss.am.cmns.vo.BffaSortVO" resultType="com.at.apcss.am.cmns.vo.BffaSortVO">
+    	<![CDATA[
+		   	SELECT
+		   		CD_ID
+		   		,CD_VL 
+				,CD_VL_NM
+				,ROWNUM AS SN
+				,DEL_YN
+			FROM TB_COM_CD_DTL CD
+			WHERE 1=1
+				AND CD.DEL_YN = 'N'
+				AND CD.CD_ID = 'BFFA_GRD_TYPE'
+			
+		]]>
+		<if test='apcCd != null and apcCd !=""'>
+		   	   AND CD.APC_CD = #{apcCd}
+		</if>
+    </select>
+    <!-- ==========================================================================	-->
+<!-- NAME : selectBffaSortKndList                                   				-->
+<!-- DESC : 육안선별종류 조회			   		-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2024.04.23  박승진        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+    
+    <select id="selectBffaSortKndList" parameterType="com.at.apcss.am.cmns.vo.BffaSortVO" resultType="com.at.apcss.am.cmns.vo.BffaSortVO">
+    	<![CDATA[
+		   	SELECT 
+				BGK.APC_CD 
+				, BGK.ITEM_CD
+				, BGK.BFFA_GRD_TYPE
+				, BGK.GRD_KND
+				, BGK.GRD_KND_NM
+				, BGK.SN
+				, BGK.RMRK
+				, BGK.DEL_YN
+			FROM TB_APC_BFFA_GRD_KND BGK
+			WHERE 1=1
+				AND BGK.DEL_YN = 'N'
+			
+		]]>
+		<if test='apcCd != null and apcCd !=""'>
+		   	   AND BGK.APC_CD = #{apcCd}
+		</if>
+		<if test='itemCd != null and itemCd !=""'>
+		   	   AND BGK.ITEM_CD = #{itemCd}
+		</if>
+		<if test='bffaGrdType != null and bffaGrdType !=""'>
+		   	   AND BGK.BFFA_GRD_TYPE = #{bffaGrdType}
+		</if>
+		
+		   	   
+		
+    </select>
+	<!-- ==========================================================================	-->
+	<!-- NAME : selectBffaSortDtlList			-->
+	<!-- DESC : 육안등급상세 조회.	                                       					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.24  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectBffaSortDtlList" parameterType="com.at.apcss.am.cmns.vo.BffaSortVO" resultType="com.at.apcss.am.cmns.vo.BffaSortVO">
+    	<![CDATA[
+		   	SELECT 
+				BGD.APC_CD
+				, BGD.ITEM_CD
+				, BGD.BFFA_GRD_TYPE
+				, BGD.GRD_KND
+				, BGD.GRD_CD
+				, BGD.GRD_NM
+				, BGD.GRD_VL
+				, BGD.SN
+				, BGD.DEL_YN
+			FROM TB_APC_BFFA_GRD_DTL BGD
+			WHERE 1=1
+				AND BGD.DEL_YN = 'N'
+			
+		]]>
+		<if test='apcCd != null and apcCd !=""'>
+		   	   AND BGD.APC_CD = #{apcCd}
+		</if>
+		<if test='bffaGrdType != null and bffaGrdType !=""'>
+		   	   AND BGD.BFFA_GRD_TYPE = #{bffaGrdType}
+		</if>
+		<if test='grdKnd != null and grdKnd !=""'>
+		   	   AND BGD.GRD_KND = #{grdKnd}
+		</if>
+		<if test='itemCd != null and itemCd !=""'>
+		   	   AND BGD.ITEM_CD = #{itemCd}
+		</if>
+		
+		   	   
+		
+    </select>
+    
+    
+
+
+    
+
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : selectBffaSortDtlList			-->
+	<!-- DESC : 육안등급종류 등록.	                                       					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.24  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertBffaSortKnd" parameterType="com.at.apcss.am.cmns.vo.BffaSortVO">
+    	<![CDATA[
+    	INSERT INTO TB_APC_BFFA_GRD_KND
+    		(
+    			APC_CD
+    		  , ITEM_CD
+    		  , BFFA_GRD_TYPE
+    		  , GRD_KND
+    		  , GRD_KND_NM
+    		  , SN
+    		  , RMRK
+    		  , DEL_YN
+    		  , SYS_FRST_INPT_DT
+    		  , SYS_FRST_INPT_USER_ID
+    		  , SYS_FRST_INPT_PRGRM_ID
+    		  , SYS_LAST_CHG_DT
+    		  , SYS_LAST_CHG_USER_ID
+    		  , SYS_LAST_CHG_PRGRM_ID
+    		)
+    	SELECT 
+    			#{apcCd}
+    			, #{itemCd}
+    			,#{bffaGrdType}
+    			, (SELECT FN_GET_ID_APC_BFFA_GRD_KND( #{apcCd} , #{itemCd}) FROM DUAL)
+    			,#{grdKndNm}
+    			,#{sn}
+    			,#{rmrk}
+    			,'N'
+    			, SYSDATE
+				, #{sysFrstInptUserId}
+				, #{sysFrstInptPrgrmId}
+				, SYSDATE
+				, #{sysLastChgUserId}
+				, #{sysLastChgPrgrmId}
+ 			FROM DUAL	
+   		
+    	]]>
+    </insert>
+
+   <!-- ==========================================================================	-->
+	<!-- NAME : updateBffaSortKnd			-->
+	<!-- DESC : 육안등급종류 수정.	                                       					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.24  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updateBffaSortKnd" parameterType="com.at.apcss.am.cmns.vo.BffaSortVO">
+		<![CDATA[
+		UPDATE TB_APC_BFFA_GRD_KND SET
+    		  APC_CD = #{apcCd}
+		      , ITEM_CD 					= #{itemCd}
+    		  , BFFA_GRD_TYPE = #{bffaGrdType}
+    		  , GRD_KND = #{grdKnd}
+    		  , GRD_KND_NM = #{grdKndNm}
+    		  , SN = #{sn}
+    		  , RMRK = #{rmrk}
+    		  , DEL_YN 					= 'N'
+    		  , SYS_LAST_CHG_DT 			= SYSDATE
+    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+    		     		 
+		 WHERE APC_CD 					= #{apcCd}
+		   AND ITEM_CD 					= #{itemCd}
+		   AND BFFA_GRD_TYPE		= #{bffaGrdType}
+		   AND GRD_KND 				= #{grdKnd}
+		]]>
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : deleteBffaSortKnd			-->
+	<!-- DESC : 육안등급종류 삭제.	                                       					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.24  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="deleteBffaSortKnd" parameterType="com.at.apcss.am.cmns.vo.BffaSortVO">
+		<![CDATA[
+		UPDATE  TB_APC_BFFA_GRD_KND
+		    SET DEL_YN = 'Y'
+		    , SYS_LAST_CHG_DT 			= SYSDATE
+    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+		  WHERE APC_CD 					= #{apcCd}
+		   AND ITEM_CD 					= #{itemCd}
+		   AND BFFA_GRD_TYPE		= #{bffaGrdType}
+		   AND GRD_KND 				= #{grdKnd}
+		]]>
+	</update>
+	
+	    <!-- ==========================================================================	-->
+	<!-- NAME : insertBffaSortDtl			-->
+	<!-- DESC : 육안등급상세 등록.	                                       					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.24  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertBffaSortDtl" parameterType="com.at.apcss.am.cmns.vo.BffaSortVO">
+    	<![CDATA[
+    	INSERT INTO TB_APC_BFFA_GRD_DTL
+    		(
+    			APC_CD
+    			, ITEM_CD
+    			, BFFA_GRD_TYPE
+    			, GRD_KND
+    			, GRD_CD
+    			, GRD_NM
+    			, GRD_VL
+    			, SN
+    			, DEL_YN
+    			, SYS_FRST_INPT_DT
+    			, SYS_FRST_INPT_USER_ID
+    			, SYS_FRST_INPT_PRGRM_ID
+    			, SYS_LAST_CHG_DT
+    			, SYS_LAST_CHG_USER_ID
+    			, SYS_LAST_CHG_PRGRM_ID
+    		)
+    	SELECT 
+    			#{apcCd}
+     			, #{itemCd}
+    			,#{bffaGrdType}
+    			, #{grdKnd}
+    			, (SELECT FN_GET_ID_APC_BFFA_GRD_CD( #{apcCd}, #{itemCd}, #{grdKnd}) FROM DUAL)
+    			,#{grdNm}
+    			,#{grdVl}
+    			,#{sn}
+    			,'N'
+    			, SYSDATE
+				, #{sysFrstInptUserId}
+				, #{sysFrstInptPrgrmId}
+				, SYSDATE
+				, #{sysLastChgUserId}
+				, #{sysLastChgPrgrmId}
+ 			FROM DUAL
+    	]]>
+    </insert>
+
+   <!-- ==========================================================================	-->
+	<!-- NAME : updateBffaSortDtl			-->
+	<!-- DESC : 육안등급상세 수정.	                                       					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.24  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updateBffaSortDtl" parameterType="com.at.apcss.am.cmns.vo.BffaSortVO">
+		<![CDATA[
+		UPDATE TB_APC_BFFA_GRD_DTL SET
+    		  APC_CD = #{apcCd}
+		      , ITEM_CD 					= #{itemCd}
+    		  , BFFA_GRD_TYPE = #{bffaGrdType}
+    		  , GRD_KND = #{grdKnd}
+    		  , GRD_CD = #{grdCd}
+    		  , GRD_NM = #{grdNm}
+    		  , SN = #{sn}
+    		  , DEL_YN 					= 'N'
+    		  , SYS_LAST_CHG_DT 			= SYSDATE
+    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+    		     		 
+		 WHERE APC_CD 					= #{apcCd}
+		   AND ITEM_CD 					= #{itemCd}
+		   AND BFFA_GRD_TYPE		= #{bffaGrdType}
+		   AND GRD_KND 				= #{grdKnd}		   
+    	   AND GRD_VL 					= #{grdVl}
+		]]>
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : deleteBffaSortDtl			-->
+	<!-- DESC : 육안등급상세 삭제.	                                       					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.24  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="deleteBffaSortDtl" parameterType="com.at.apcss.am.cmns.vo.BffaSortVO">
+		<![CDATA[
+		UPDATE TB_APC_BFFA_GRD_DTL 
+			SET DEL_YN = 'Y'
+			, SYS_LAST_CHG_DT 			= SYSDATE
+    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+		  WHERE APC_CD 					= #{apcCd}
+		   AND ITEM_CD 					= #{itemCd}
+		   AND BFFA_GRD_TYPE		= #{bffaGrdType}
+		   AND GRD_KND 				= #{grdKnd}		   
+    	   AND GRD_CD 					= #{grdCd}
+		]]>
+	</update>
+	
+	<!-- ==========================================================================	-->
+	<!-- NAME : deleteBffaSortDtl			-->
+	<!-- DESC : 육안등급상세 전체 삭제.	                                       					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.24  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="deleteBffaSortDtlAll" parameterType="com.at.apcss.am.cmns.vo.BffaSortVO">
+		<![CDATA[
+		UPDATE TB_APC_BFFA_GRD_DTL 
+			SET  DEL_YN = 'Y'
+			, SYS_LAST_CHG_DT 			= SYSDATE
+    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+		  WHERE APC_CD 					= #{apcCd}
+		   AND ITEM_CD 					= #{itemCd}
+		   AND BFFA_GRD_TYPE		= #{bffaGrdType}
+		   AND GRD_KND 				= #{grdKnd}		   
+    	   
+		]]>
+	</update>
+	
+	
+	
+	
+</mapper>
+
+

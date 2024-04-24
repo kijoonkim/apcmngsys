@@ -694,17 +694,17 @@
 	 	        data.resultList.forEach((item, index) => {
 	 	        	const grdDsctnQnttTot = {
 	 	        			sortFclt : item.FCLT_NM
-	 	        			,sortInfo : item.INPT_YMD
+	 	        			,sortInfo : item.FCLT_NM
 	 	        			,grd      : "수량"
 	         				,grd1 : item.QNTT_1
 	         				,grd2 : item.QNTT_2
-	         				,grd3 : item.QNTT_3
-	         				,grd4 : item.QNTT_4
-	         				,grd5 : item.QNTT_5
+	         				,grd3 : item.QNTT_9
+	         				,grd4 : item.QNTT_8
+	         				,grd5 : item.QNTT_7
 	         				,grd6 : item.QNTT_6
-	         				,grd7 : item.QNTT_7
-	         				,grd8 : item.QNTT_8
-	         				,grd9 : item.QNTT_9	         				
+	         				,grd7 : item.QNTT_5
+	         				,grd8 : item.QNTT_4
+	         				,grd9 : item.QNTT_3	         				
 	         				,sbTot        : item.SORT_QNTT
 
 	 	        	};
@@ -712,7 +712,7 @@
 	         			sortFclt : item.FCLT_CD
 	         			,sortInfo : item.PRDCR_NM
 	         			,grd      : "중량"
-	 	        			,sortFclt : item.FCLT_NM
+	 	        			,sortFclt : item.INPT_YMD
 	         				,grd1 : item.WGHT_1
 	         				,grd2 : item.WGHT_2
 	         				,grd3 : item.WGHT_3
