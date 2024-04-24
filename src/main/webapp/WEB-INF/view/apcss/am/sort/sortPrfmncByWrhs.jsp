@@ -110,7 +110,7 @@
 									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 							</td>
-							<td class="td_input" style="border-right: hidden;">
+							<td class="td_input" style="border-right: hidden;"> 
 								<sbux-select
 									uitype="single"
 									id="srch-slt-vrtyCd"
