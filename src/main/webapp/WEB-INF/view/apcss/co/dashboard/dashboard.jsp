@@ -197,7 +197,7 @@
 					return '<div style="color: white; border: 3px solid black;">'
 							+ chartDataWrhs[data[0].x].month
 							+ '<br>'
-							+ '입고 : ' + data[0].value
+							+ '입고 : ' + addCommasToNumber(data[0].value)
 							+ '</div>';
 				}
 			},
@@ -259,9 +259,9 @@
 					return '<div style="color: white; border: 3px solid black;">'
 							+ chartDataSort[data[0].x].month
 							+ '<br>'
-							+ '선별 : ' + data[0].value
+							+ '선별 : ' + addCommasToNumber(data[0].value)
 							+ '<br>'
-							+ "포장 : " + data[2].value
+							+ "포장 : " + addCommasToNumber(data[2].value)
 							+	'</div>';
 				}
 			},
@@ -322,7 +322,7 @@
 					return '<div style="color: white; border: 3px solid black;">'
 							+ chartDataSpmt[data[0].x].month
 							+ '<br>'
-							+ '출고 : ' + data[0].value
+							+ '출고 : ' + addCommasToNumber(data[0].value)
 							+ '</div>';
 				}
 			},
@@ -381,6 +381,16 @@
     	jsonDashboard.length = 0;
 		grdDashboard.refresh();
 		postJsonDashboard();
+	}
+	
+	function addCommasToNumber(number) {
+	    // 숫자를 문자열로 변환
+	    let strNumber = number.toString();
+	    
+	    // 정규식을 사용하여 숫자 포맷 변경
+	    strNumber = strNumber.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	    
+	    return strNumber;
 	}
 </script>
 </body>

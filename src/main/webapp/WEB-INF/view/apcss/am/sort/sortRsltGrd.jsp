@@ -184,10 +184,10 @@
 
 				<div class="tab-content">
 					<div id="exhstDsctn" >
-						<div id="sb-area-exhstDsctn" style="height:544px;"></div>
+						<div id="sb-area-exhstDsctn" style="height:470px;"></div>
 				</div>
 				<div id="grdDsctn" >
-						<div id="sb-area-grdDsctn" style="height:544px;"></div>
+						<div id="sb-area-grdDsctn" style="height:470px;"></div>
 				</div>
 </div>
 					
@@ -443,7 +443,8 @@
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
-		SBGridProperties.clickeventarea = {fixed: false, empty: false};	   
+		SBGridProperties.clickeventarea = {fixed: false, empty: false};
+		SBGridProperties.backcoloralternate = '#e0ffff';
 	    SBGridProperties.columns = [
 	    	{caption : ["선별기"], ref: 'sortFclt', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
 	    	{caption : ["선별정보"], ref: 'sortInfo', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
@@ -472,8 +473,8 @@
 	    	{caption : ["22"], ref: 'exhst22', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false ,disabled:true},
 	    	{caption : ["이상"], ref: 'exhstElse', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false ,disabled:true},
 	    	
-	    	{caption : ["소계"], ref: 'sbTot', type: 'input',  width:'100px', style: 'text-align:right; padding-right:5px;background-color:#ceebff '
-	    							, format : {type:'number', rule:'#,##0',emptyvalue:'0'},fixedstyle : 'background-color:#ceebff;', disabled:true},
+	    	{caption : ["소계"], ref: 'sbTot', type: 'input',  width:'100px', style: 'text-align:right; padding-right:5px;background-color:#e0ffff '
+	    							, format : {type:'number', rule:'#,##0',emptyvalue:'0'}, disabled:true},
 
 	    	{caption : ["비고"], ref: 'rmrk', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px;', disabled:true},
 	    	{caption: ["생산자코드"],	ref: 'prdcrCd',     		type:'input',  	hidden: true},
@@ -499,6 +500,7 @@
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
+		SBGridProperties.backcoloralternate = '#e0ffff';
 		SBGridProperties.clickeventarea = {fixed: false, empty: false};	   
 	    SBGridProperties.columns = [
 	    	{caption : ["선별기"], ref: 'sortFclt', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
@@ -514,10 +516,10 @@
 	    	{caption : ["특30내"], ref: 'grd8', type: 'input',  width:'100px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false , disabled:true},
 	    	{caption : ["특20내"], ref: 'grd9', type: 'input',  width:'100px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false , disabled:true},
 	    	
-	    	{caption : ["소계"], ref: 'sbTot', type: 'input',  width:'100px', style: 'text-align:right; padding-right:5px;background-color:#ceebff '
-	    							, format : {type:'number', rule:'#,###',emptyvalue:'0'},fixedstyle : 'background-color:#ceebff;', merge: false , disabled:true},
+	    	{caption : ["소계"], ref: 'sbTot', type: 'input',  width:'100px', style: 'text-align:right; padding-right:5px;background-color:#e0ffff '
+	    							, format : {type:'number', rule:'#,###',emptyvalue:'0'},fixedstyle : 'background-color:#e0ffff;', merge: false , disabled:true},
 
-	    	{caption : ["비고"], ref: 'rmrk', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px;', merge: false , disabled:true},
+	    	{caption : ["비고"], ref: 'rmrk', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px;', disabled:true},
 	    	{caption: ["생산자코드"],	ref: 'prdcrCd',     		type:'input',  	hidden: true},
 	    	{caption: ["선별번호"],	ref: 'sortNo',     		type:'input',  	hidden: true}
 
