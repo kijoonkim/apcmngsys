@@ -100,5 +100,9 @@ public class SpmtPckgUnitVO extends ComVO{
 	 * 상품 연계코드
 	 */
 	private String extrnlLnkgCd;
+	/**
+	 * 원산지 코드
+	 */
+	private String plorCd;
 
 }

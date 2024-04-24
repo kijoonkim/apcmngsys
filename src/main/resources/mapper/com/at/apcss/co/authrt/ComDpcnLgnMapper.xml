@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : ComDpcnLgnMapper.xml                                    			-->
+<!-- DESC : 로그인중복관리                                             				-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2024.04.18  	김현호        		Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.co.authrt.mapper.ComDpcnLgnMapper">
+
+	<select id="selectUserIdComDpcnLgn" parameterType="com.at.apcss.co.authrt.vo.ComDpcnLgnVO" resultType="String">
+	        SELECT USER_ID FROM TB_COM_LGN_PLCY WHERE USER_ID = #{userId}
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComDpcnLgnMapper.selectComDpcnLgnList	-->
+	<!-- DESC : 로그인중복.                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.18  	김현호        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectComDpcnLgnList" parameterType="com.at.apcss.co.authrt.vo.ComDpcnLgnVO" resultType="com.at.apcss.co.authrt.vo.ComDpcnLgnVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.authrt.mapper.ComDpcnLgnMapper.selectComDpcnLgnList */
+				  CLP.USER_ID 				AS USER_ID
+				, CLP.DPCN_LGN_PSBLTY_YN 	AS DPCN_LGN_PSBLTY_YN
+				, CLP.IP_INFO 				AS IP_INFO
+				, CLP.IP_LMT_YN 			AS IP_LMT_YN
+				, CLP.USE_YN 				AS USE_YN
+				, CLP.SYS_LAST_CHG_DT 		AS SYS_LAST_CHG_DT
+			  FROM
+				  TB_COM_LGN_PLCY CLP
+			WHERE 1=1
+    	]]>
+    	<if test='userId != null and userId != ""'>
+    	 	 AND CLP.USER_ID LIKE '%' || #{userId} || '%'
+    	</if>
+    	<if test='dpcnLgnPsbltyYn != null and dpcnLgnPsbltyYn != ""'>
+    	 	 AND CLP.DPCN_LGN_PSBLTY_YN = #{dpcnLgnPsbltyYn}
+    	</if>
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+    
+   	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComDpcnLgnMapper.updateDpcnLgn		-->
+	<!-- DESC : 로그인중복관리 정보 업데이트                                  					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.18  	김현호	        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateDpcnLgn" parameterType="com.at.apcss.co.authrt.vo.ComDpcnLgnVO">
+    	<![CDATA[
+    	
+			UPDATE 
+					TB_COM_LGN_PLCY
+			   SET
+			  		DPCN_LGN_PSBLTY_YN = #{dpcnLgnPsbltyYn}
+				  , IP_INFO = #{ipInfo}
+				  , IP_LMT_YN = #{ipLmtYn}
+				  , USE_YN = #{useYn}
+				  , SYS_LAST_CHG_DT = SYSDATE
+				  , SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+				  , SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+			WHERE   USER_ID = #{userId}
+    	
+    	]]>
+    </update>
+    
+   	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComDpcnLgnMapper.insertDpcnLgn		-->
+	<!-- DESC : 로그인중복관리 정보 입력                                  					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.18  	김현호	        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertDpcnLgn" parameterType="com.at.apcss.co.authrt.vo.ComDpcnLgnVO">
+    	<![CDATA[
+    	
+			INSERT INTO TB_COM_LGN_PLCY (
+			    USER_ID,
+			    DPCN_LGN_PSBLTY_YN,
+			    IP_INFO,
+			    IP_LMT_YN,
+			    USE_YN,
+			    SYS_FRST_INPT_DT,
+			    SYS_FRST_INPT_USER_ID,
+			    SYS_FRST_INPT_PRGRM_ID,
+			    SYS_LAST_CHG_DT,
+			    SYS_LAST_CHG_USER_ID,
+			    SYS_LAST_CHG_PRGRM_ID
+			) VALUES (
+			    #{userId},
+			    #{dpcnLgnPsbltyYn},
+			    #{ipInfo},
+			    #{ipLmtYn},
+			    #{useYn},
+			    SYSDATE,
+			    #{sysFrstInptUserId},
+			    #{sysFrstInptPrgrmId},
+			    SYSDATE,
+			    #{sysLastChgUserId},
+			    #{sysLastChgPrgrmId}
+			);
+    	
+    	]]>
+    </insert>
+</mapper>

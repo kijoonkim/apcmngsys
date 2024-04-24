@@ -8,38 +8,41 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FarmLandInfoRegVO extends ComVO{
-	private String frmerSn;
-	private String bzobRgno;
-	private String frlndSn;
-	private String legaldongCode;
-	private String frlndMnnm;
-	private String copertnClvtAt;
-	private String frlndSlno;
-	private String frlndAdres;
-	private String clvtStle;
-	private String frlndOwnerNm;
-	private String ofactLndcgr;
-	private String realLndcgr;
-	private String ofactFrlndAr;
-	private String realFrlndAr;
-	private String nuseClmgAr;
-	private String nuseQtmgAr;
-	private String prdlstCode;
-	private String predlstNm;
-	private String eqptFcltyse;
-	private String ctvtAr;
-	private String ldgrDvcd;
-	private String eqptSeq;
-	private String eqptStle;
-	private String eqptKnd;
-	private String fcltyAra;
-	private String instlYear;
+
+	/* TB_AX_FARM_LAND_INFO */
+	private String mngmstRegNo;
+	private String frlnType;
+	private String cprtnFrlnyn;
+	private String frlnarea;
+	private String delYn;
+	private String brgrndFcltSeCd;
+	private String fcltKnd;
+	private String fcltSn;
+	private String fcltShap;
+	private String fcltArea;
+	private String frlnAddr;
+	private String frlnMno;
+	private String frlnOwnrNm;
+	private String frlnSno;
+	private String frlnSn;
+	private String frmerno;
+	private String fcltInstallYr;
+	private String ldgrSeCd;
+	private String stdgcd;
+	private String flwArea;
+	private String ablFrlnarea;
+	private String poeFrlnarea;
+	private String poeLdcg;
+	private String itemCd;
+	private String itemNm;
+	private String actlFrlnarea;
+	private String actlLdcg;
+
 	private String sysFrstInptDt;
 	private String sysFrstInptUserId;
 	private String sysFrstInptPrgrmId;
 	private String sysLastChgDt;
 	private String sysLastChgUserId;
 	private String sysLastChgPrgrmId;
-	private String delYn;
 
 }

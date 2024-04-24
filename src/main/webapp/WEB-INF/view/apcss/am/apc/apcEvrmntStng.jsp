@@ -336,6 +336,15 @@
 								선별작업 또는 포장작업 시 작업하는 작업자 정보를 등록하세요. (차후 작업자별 작업시간을 관리하기 위한 정보입니다)
 							</td>
 						</tr>
+<!-- 						<tr> -->
+<!-- 							<th class="ta_r th_bg" scope="row">원산지 관리</th> -->
+<!-- 							<td class="td_input" colspan="2"> -->
+<!-- 								<sbux-button id="btnPlor" name="btnPlor" uitype="modal" text="원산지 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-plor" onclick="fn_modal('btnPlor')"></sbux-button> -->
+<!-- 							</td> -->
+<!-- 							<td colspan="6" style="color:#999"> -->
+<!-- 								APC에서 운영하고 있는 원산지를 등록하세요. -->
+<!-- 							</td> -->
+<!-- 						</tr> -->
 					</tbody>
 				</table>
 			</div>
@@ -696,6 +705,13 @@
     <div id="body-modal-spmtSlsUntprcReg">
     	<jsp:include page="../apc/spmtSlsUntprcRegMngPopup.jsp"></jsp:include>
     </div>
+    <!-- 원산지 등록 Modal -->
+    <div>
+        <sbux-modal id="modal-plor" name="modal-plor" uitype="middle" header-title="원산지 등록" body-html-id="body-modal-plor" footer-is-close-button="false" header-is-close-button="false" style="width:800px"></sbux-modal>
+    </div>
+    <div id="body-modal-plor">
+    	<jsp:include page="../apc/plorMngPopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">
 
@@ -880,14 +896,14 @@
 			fn_lgszMrktMngCreateGrid();
 		}if(targetName == 'btnOprtr'){
 			fn_oprtrMngCreateGrid();
+		}if(targetName == 'btnPlor'){
+			fn_plorStdMngCreateGrid();
 		}if(targetName == 'btnSpmtPckgUnit'){
 			fn_createSpmtPckgUnitGrid();
 		}
 	}
 
 	async function fn_deleteRsrc(comCdVO, nRow){
-
-		console.log(comCdVO);
 
 		let postJsonPromise = gfn_postJSON("/co/cd/deleteApcComCdDtl.do", comCdVO);
         let data = await postJsonPromise;
@@ -1111,6 +1127,7 @@
             	let itemCdCol = grdSpmtPckgUnit.getColRef("itemCd");
 
            		grdSpmtPckgUnit.setCellData(nRow, nCol, "N", true);
+           		grdSpmtPckgUnit.setCellData(nRow, 18, "Y", true);
            		grdSpmtPckgUnit.setCellData(nRow, apcCdCol, gv_apcCd, true);
            		grdSpmtPckgUnit.setCellData(nRow, itemCdCol, SBUxMethod.get("spmtPckgUnit-slt-itemCd"), true);
            		grdSpmtPckgUnit.addRow(true);

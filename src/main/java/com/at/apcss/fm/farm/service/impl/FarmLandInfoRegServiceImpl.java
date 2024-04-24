@@ -4,12 +4,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.fm.bbs.mapper.BbsMapper;
-import com.at.apcss.fm.bbs.service.BbsService;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.fm.farm.mapper.FarmLandInfoRegMapper;
 import com.at.apcss.fm.farm.service.FarmLandInfoRegService;
 import com.at.apcss.fm.farm.vo.FarmLandInfoRegVO;
@@ -57,28 +53,6 @@ public class FarmLandInfoRegServiceImpl extends BaseServiceImpl implements FarmL
 		int insertedCnt = farmLandInfoRegMapper.insertFarmLandInfoReg(farmLandInfoRegVO);
 
 		return insertedCnt;
-	}
-
-	@Override
-	public int updateFarmLandInfoReg(FarmLandInfoRegVO farmLandInfoRegVO) throws Exception {
-
-		int updatedCnt = farmLandInfoRegMapper.updateFarmLandInfoReg(farmLandInfoRegVO);
-
-		return updatedCnt;
-	}
-
-	@Override
-	public int multiSaveFarmLandInfoRegList(List<FarmLandInfoRegVO> farmLandInfoRegVOList) throws Exception {
-		int savedCnt = 0;
-		for (FarmLandInfoRegVO farmLandInfoRegVO : farmLandInfoRegVOList) {
-			if(ComConstants.ROW_STS_INSERT.equals(farmLandInfoRegVO.getRowSts())) {
-				savedCnt += insertFarmLandInfoReg(farmLandInfoRegVO);
-			}
-			if(ComConstants.ROW_STS_UPDATE.equals(farmLandInfoRegVO.getRowSts())) {
-				savedCnt += updateFarmLandInfoReg(farmLandInfoRegVO);
-			}
-		}
-		return savedCnt;
 	}
 
 	@Override

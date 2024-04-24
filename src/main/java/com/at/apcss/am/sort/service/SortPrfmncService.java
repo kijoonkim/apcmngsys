@@ -144,4 +144,20 @@ public interface SortPrfmncService {
 	 * @throws Exception
 	 */
 	List<SortBffaVO> selectSortBffaListBySortno(SortBffaVO sortBffaVO) throws Exception;
+	/**
+	 * 배출구별 집계
+	 * @param HashMap
+	 * @return
+	 * @throws Exception
+	 */
+	public List<HashMap<String, Object>> selectExhstDsctn(HashMap<String, Object> exhstDsctn) throws Exception;
+	
+	/**
+	 * 등급별 집계
+	 * @param HashMap
+	 * @return
+	 * @throws Exception
+	 */
+	public List<HashMap<String, Object>> selectGrdDsctn(HashMap<String, Object> exhstDsctn) throws Exception;
+
 }

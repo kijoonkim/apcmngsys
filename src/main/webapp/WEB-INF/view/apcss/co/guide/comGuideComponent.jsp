@@ -247,7 +247,7 @@
 									name="srch-slt-trsprtCo"
 									uitype="single"
 									jsondata-ref="jsonTrsprtCo"
-									class="form-control input-sm" 
+									class="form-control input-sm"
 									unselected-text="전체"
 								/>
 							</td>
@@ -471,7 +471,7 @@
 	var jsonWrhsSeCd = [];
 	var jsonGdsSeCd = [];
 	var jsonTrsprtSeCd = [];
-	
+
 	// 기본 체크박스 데이터
 	jsonExCheckBox = [
 		{text:'선택1', label:'선택1', value:'1', checked:'checked'},
@@ -479,7 +479,7 @@
 		{text:'선택3', label:'선택3', value:'3', checked:'checked'},
 		{text:'선택4', label:'선택4', value:'4', checked:'checked'}
 	];
-	
+
 	// 기본 라디오 버튼 데이터
 	jsonComExRadio = [
 		{cdVlNm:'선택1', cdVl:'0000'},
@@ -500,10 +500,10 @@
 		SBUxMethod.set("srch-dtp-sortYmdFrom", gfn_dateFirstYmd(new Date()));
 		SBUxMethod.set("srch-dtp-exYmdFrom", gfn_dateFirstYmd(new Date()));
 		SBUxMethod.set("srch-dtp-exYmdTo", gfn_dateToYmd(new Date()));
-		
+
 		fn_initSBSelect();
 	});
-	
+
 	// 라디오 값 세팅
 	const fn_setRadioData = async function(){
 		SBUxMethod.set("srch-rdo-exRadio", "0000");
@@ -532,13 +532,13 @@
 			 	gfn_setComCdSBSelect('srch-chk-gdsSeCd', 		jsonGdsSeCd, 		'GDS_SE_CD', 		gv_selectedApcCd), 	// 상품구분
 			 	gfn_setComCdSBSelect('srch-chk-trsprtSeCd', 	jsonTrsprtSeCd, 	'TRSPRT_SE_CD'), 						// 운송구분
 			]);
-		
+
 		let resultRadio = await Promise.all([
 		 	gfn_getComCdDtls('WRHS_SE_CD'),
 		 	gfn_getComCdDtls('GDS_SE_CD', gv_selectedApcCd),
     		gfn_getComCdDtls('TRSPRT_SE_CD')
 		]);
-		
+
 		jsonWrhsSeCd.forEach(e => e.checked = "checked");
 		SBUxMethod.refresh('srch-chk-exCheckBox');
 		jsonWrhsSeCd = gfn_getJsonFilter(jsonWrhsSeCd, 'value', ["1", "2", "3"]);
@@ -552,14 +552,14 @@
 		jsonComWrhsSeCd = gfn_getJsonFilter(resultRadio[0], 'cdVl', ["1", "2", "3"]);
 		jsonComGdsSeCd = resultRadio[1];
 		jsonComTrsprtSeCd = resultRadio[2];
-		
+
 		SBUxMethod.refresh('srch-rdo-wrhsSeCd');
 		SBUxMethod.refresh('srch-rdo-gdsSeCd');
 		SBUxMethod.refresh('srch-rdo-trsprtSeCd');
-		
+
 		await fn_setRadioData();
 	}
-	
+
 	/**
 	 * @name fn_onChangeSrchItemCd
 	 * @description 품목 선택 변경 event
@@ -595,7 +595,6 @@
 			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
 		}
 	}
-	
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

@@ -144,7 +144,7 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	        {caption: ["처리"], 		ref: 'delYn',  type:'button',  width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        {caption: ["처리"], 		ref: 'delYn',  type:'button',  width:'40px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdSmptPckgUnit\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
@@ -161,7 +161,7 @@
 				caption: ["선별등급"],
 				ref: 'gdsGrd',
 				type:'combo',
-				width:'80px',
+				width:'60px',
 				style:'text-align:center',
  				typeinfo : {
  					ref:'gjsonStdGrdObj_1',
@@ -171,12 +171,15 @@
  					value:'grdCd'
  				}
 			},
-	        {caption: ["상품 명"], 			ref: 'spmtPckgUnitNm',  type:'input',  width:'160px',    style:'text-align:center',
+	        {caption: ["상품명"], 			ref: 'spmtPckgUnitNm',  type:'input',  width:'160px',    style:'text-align:center',
 				typeinfo : {maxlength : 30}},
-			{caption: ["설비연계"], ref: 'extrnlLnkgCd',  	type:'input',  width:'80px',    style:'text-align:center'},
-	        {caption: ["브랜드 명"], ref: 'brndNm',  	type:'input',  width:'140px',    style:'text-align:center', typeinfo : {maxlength : 33}},
+	        {caption: ["브랜드명"], ref: 'brndNm',  	type:'input',  width:'140px',    style:'text-align:center', typeinfo : {maxlength : 33}},
+	        {caption: ["원산지코드"], ref: 'plorCd',  	type:'outputbutton',  width:'70px',    style:'text-align:center',
+	        	typeinfo : {callback: fn_grdChoicePlor}
+	        },
+	        {caption: ["설비연계"], ref: 'extrnlLnkgCd',  	type:'input',  width:'60px',    style:'text-align:center'},
 	        {caption: ["판매단가"],     	ref: 'ntslUntprc',  type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### 원'}},
-	        {caption: ["변경"], 		ref: 'delYn',  type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        {caption: ["변경"], 		ref: 'delYn',  type:'button',  width:'40px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if((grdSpmtPckgUnit.getRowStatus(nRow) == 0 || grdSpmtPckgUnit.getRowStatus(nRow) == 2) && !(strValue== null || strValue == "")){
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_modalClick(" + nRow + ")'>단가</button>";
 	        	}else{
@@ -189,6 +192,7 @@
 	        {caption: ["품종명"], 			ref: 'vrtyNm',   		type:'input',  hidden : true},
 	        {caption: ["규격명"], 			ref: 'spcfctNm',   		type:'input',  hidden : true},
 	        {caption: ["등급명"], 			ref: 'gdsGrdNm',   		type:'input',  hidden : true},
+	        {caption: ["추가여부"], 		ref: 'addRow',   		type:'input',  hidden : true},
 	    ];
 	    grdSpmtPckgUnit = _SBGrid.create(SBGridProperties);
 	    grdSpmtPckgUnit.bind('valuechanged', 'fn_grdValueChanged');
@@ -298,6 +302,8 @@
   					  , gdsGrd			: item.gdsGrd
   					  , gdsGrdNm		: item.gdsGrdNm
 					  , extrnlLnkgCd	: item.extrnlLnkgCd
+					  , plorCd			: item.plorCd
+					  , addRow			: "N"
   					}
   					jsonSpmtPckgUnit.push(spmtPckgUnitVO);
   				});
@@ -402,6 +408,25 @@
         } catch(e) {
         	console.error("failed", e.message);
         }
+	}
+	
+	const fn_grdChoicePlor = async function(){
+		SBUxMethod.openModal('modal-plor');
+
+		await fn_plorStdMngCreateGrid();
+		await fn_selectAllPlor();
+	}
+	
+	const fn_callbackFncPlor = async function(rowData){
+		let nRow = grdSpmtPckgUnit.getRow();
+		let nRowData = grdSpmtPckgUnit.getRowData(nRow);
+		let plorCd = rowData.cdVl;
+		grdSpmtPckgUnit.setCellData(nRow, 8, plorCd);
+		if(nRowData.addRow=="Y"){
+			grdSpmtPckgUnit.setRowStatus(nRow, 1);
+		}else{
+			grdSpmtPckgUnit.setRowStatus(nRow, 2);
+		}
 	}
 
 

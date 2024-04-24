@@ -1,5 +1,6 @@
 package com.at.apcss.am.sort.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.sort.vo.SortBffaVO;
@@ -148,6 +149,22 @@ public interface SortPrfmncMapper {
      * @throws Exception
      */
     public List<SortPrfmncVO> selectSortListBySortno(SortPrfmncVO sortPrfmncVO) throws Exception;
+    
+    /**
+     * 배출구별집계조회
+     * @param sortPrfmncVO
+     * @return
+     * @throws Exception
+     */
+    public List<HashMap<String, Object>> selectExhstDsctn(HashMap<String, Object> exhstDsctn) throws Exception;
+    
+    /**
+     * 등급별집계조회
+     * @param sortPrfmncVO
+     * @return
+     * @throws Exception
+     */
+    public List<HashMap<String, Object>> selectGrdDsctn(HashMap<String, Object> exhstDsctn) throws Exception;
 
 	/**
 	 * 육안선별 목록 조회
