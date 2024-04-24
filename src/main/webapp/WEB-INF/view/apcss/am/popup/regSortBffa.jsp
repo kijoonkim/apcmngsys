@@ -406,6 +406,9 @@
             if(gfn_isEmpty(fcltCd)){
                 gfn_comAlert("W0005", "선별기");
             }
+            if(!gfn_comConfirm('Q0001',"저장")){
+                return;
+            };
 
             //TODO : TB_BFFA_WRHS_STD_GRD INSERT 필요하고 VO에 CHECK된 value 어떻게 넘길것인가에대하여..
 
@@ -433,9 +436,9 @@
                     sysLastChgDt : gfn_dateToYmd(new Date())
                 });
                 let data = await postJsonPromise;
-                console.log(data);
                 if (_.isEqual("S", data.resultStatus)) {
-
+                    gfn_comAlert("I0001");
+                    popBffa.reset();
                 }
                 await fn_createGrid();
             }catch (e){
