@@ -353,13 +353,15 @@
 		SBGridProperties.contextmenulist = objMenuList1;	// 우클릭 메뉴 리스트
 	    SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.frozencols = 2;
+		/*
 	    SBGridProperties.paging = {
 			'type' : 'page',
 		  	'count' : 5,
-		  	'size' : 100,
+		  	'size' : 1000,
 		  	'sorttype' : 'page',
 		  	'showgoalpageui' : true
 	    };
+		*/
 
         SBGridProperties.columns = [
         	{
@@ -416,7 +418,7 @@
 
         grdSortPrfmnc = _SBGrid.create(SBGridProperties);
         grdSortPrfmnc.bind('click', fn_viewSortInpt);
-        grdSortPrfmnc.bind('beforepagechanged', fn_pagingSortPrfmnc);
+        //grdSortPrfmnc.bind('beforepagechanged', fn_pagingSortPrfmnc);
     }
 
 	/**
@@ -499,7 +501,8 @@
 
 		// set pagination
     	grdSortPrfmnc.rebuild();
-    	let pageSize = grdSortPrfmnc.getPageSize();
+    	//let pageSize = grdSortPrfmnc.getPageSize();
+    	let pageSize = 1;
     	let pageNo = 1;
 
     	// grid clear
@@ -509,7 +512,8 @@
     	jsonSortInptPrfmnc.length = 0;
     	grdSortInptPrfmnc.refresh();
 
-    	grdSortPrfmnc.movePaging(pageNo);
+    	//grdSortPrfmnc.movePaging(pageNo);
+    	fn_setGrdSortPrfmnc(pageSize, pageNo);
 	}
 
     /**
@@ -560,7 +564,7 @@
 			warehouseSeCd: warehouseSeCd,
 
           	// pagination
-  	  		pagingYn : 'Y',
+  	  		pagingYn : 'N',
   			currentPageNo : pageNo,
    		  	recordCountPerPage : pageSize
   		});

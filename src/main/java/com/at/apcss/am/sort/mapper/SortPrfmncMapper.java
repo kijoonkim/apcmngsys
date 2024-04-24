@@ -180,4 +180,22 @@ public interface SortPrfmncMapper {
 	 * @throws Exception
 	 */
 	int insertSortBffa(SortBffaVO sortBffaVO) throws Exception;
+	
+	
+	/**
+	 * 선별실적(입고별) 목록 조회
+	 * @param sortPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SortPrfmncVO> selectSortPrfmncListByWrhs(SortPrfmncVO sortPrfmncVO) throws Exception;
+
+	/**
+	 * 선별실적(입고별 상품등급) 목록 조회
+	 * @param sortPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SortPrfmncVO> selectSortPrfmncListByWrhsForGdsGrd(SortPrfmncVO sortPrfmncVO) throws Exception;
+	
 }

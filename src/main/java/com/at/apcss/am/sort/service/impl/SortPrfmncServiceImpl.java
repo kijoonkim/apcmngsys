@@ -277,4 +277,18 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 		return null;
 	}
 
+	@Override
+	public List<SortPrfmncVO> selectSortPrfmncListByWrhs(SortPrfmncVO sortPrfmncVO) throws Exception {
+		
+		List<SortPrfmncVO> resultList = sortPrfmncMapper.selectSortPrfmncListByWrhs(sortPrfmncVO);
+
+		return resultList;
+	}
+
+	@Override
+	public List<SortPrfmncVO> selectSortPrfmncListByWrhsForGdsGrd(SortPrfmncVO sortPrfmncVO) throws Exception {
+		List<SortPrfmncVO> resultList = sortPrfmncMapper.selectSortPrfmncListByWrhsForGdsGrd(sortPrfmncVO);
+
+		return resultList;
+	}
 }

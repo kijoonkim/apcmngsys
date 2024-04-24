@@ -344,4 +344,63 @@ public class SortPrfmncController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
     }
 
+    
+	/**
+	 * 선별실적(입고별) 목록 조회
+	 * @param sortPrfmncVO
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/am/sort/selectSortPrfmncListByWrhs.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectSortPrfmncListByWrhs(@RequestBody SortPrfmncVO sortPrfmncVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<SortPrfmncVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = sortPrfmncService.selectSortPrfmncListByWrhs(sortPrfmncVO);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	/**
+	 * 선별실적(입고별 상품등급) 목록 조회
+	 * @param sortPrfmncVO
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/am/sort/selectSortPrfmncListByWrhsForGdsGrd.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectSortPrfmncListByWrhsForGdsGrd(@RequestBody SortPrfmncVO sortPrfmncVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<SortPrfmncVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = sortPrfmncService.selectSortPrfmncListByWrhsForGdsGrd(sortPrfmncVO);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+    
 }

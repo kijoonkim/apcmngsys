@@ -38,7 +38,7 @@
 						name="btnDocSort"
 						uitype="normal"
 						text="선별확인서"
-						class="btn btn-sm btn-outline-dark"
+						class="btn btn-sm btn-success"
 						onclick="fn_docSort"
 					></sbux-button>
 					<sbux-button
@@ -46,7 +46,7 @@
 						name="btnLblSort"
 						uitype="normal"
 						text="선별라벨"
-						class="btn btn-sm btn-outline-dark"
+						class="btn btn-sm btn-success"
 						onclick="fn_lblSort"
 					></sbux-button>
 					<sbux-button
@@ -406,13 +406,33 @@
 		SBGridProperties.contextmenulist = objMenuList1;	// 우클릭 메뉴 리스트
 	    SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.frozencols = 2;
+		/*
 	    SBGridProperties.paging = {
 			'type' : 'page',
 		  	'count' : 5,
-		  	'size' : 100,
+		  	'size' : 1000,
 		  	'sorttype' : 'page',
 		  	'showgoalpageui' : true
 	    };
+		 */
+   	    SBGridProperties.total = {
+				type: 'grand',
+				position: 'bottom',
+				columns: {
+					standard: [8],
+					sum: [11,12]
+				},
+			grandtotalrow: {
+				titlecol: 8,
+				titlevalue: '합계',
+				style : 'background-color: #ceebff ; font-weight: bold; color: #0060b3;',
+				stylestartcol: 0
+			},
+			totalformat: {
+				1: '#,###',
+				2: '#,###',
+			}
+		};
         SBGridProperties.columns = [
         	{
         		caption: ["전체",""], 			ref: 'checkedYn', 			type:'checkbox', 	width:'50px',	style:'text-align:center',
@@ -465,7 +485,7 @@
 
         grdSortPrfmnc = _SBGrid.create(SBGridProperties);
         grdSortPrfmnc.bind('click', fn_viewSortInpt);
-        grdSortPrfmnc.bind('beforepagechanged', fn_pagingSortPrfmnc);
+        //grdSortPrfmnc.bind('beforepagechanged', fn_pagingSortPrfmnc);
     }
 
 	/**
@@ -537,7 +557,8 @@
 
 		// set pagination
     	grdSortPrfmnc.rebuild();
-    	let pageSize = grdSortPrfmnc.getPageSize();
+    	//let pageSize = grdSortPrfmnc.getPageSize();
+    	let pageSize = 1;
     	let pageNo = 1;
 
     	// grid clear
@@ -547,7 +568,9 @@
     	jsonSortInptPrfmnc.length = 0;
     	grdSortInptPrfmnc.refresh();
 
-    	grdSortPrfmnc.movePaging(pageNo);
+    	//grdSortPrfmnc.movePaging(pageNo);
+    	
+    	fn_setGrdSortPrfmnc(pageSize, pageNo);
 	}
 
     /**
@@ -555,8 +578,12 @@
      * @description 선별실적 페이징
 	 */
 	const fn_pagingSortPrfmnc = async function() {
-		let pageSize = grdSortPrfmnc.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+		/*
+    	let pageSize = grdSortPrfmnc.getPageSize();   		// 몇개의 데이터를 가져올지 설정
 		let pageNo = grdSortPrfmnc.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+		*/
+		let pageSize = 1;
+		let pageNo = 1;
 		var getColRef = grdSortPrfmnc.getColRef("checkedYn");
 		grdSortPrfmnc.setFixedcellcheckboxChecked(1, getColRef, false);
 		fn_setGrdSortPrfmnc(pageSize, pageNo);
@@ -593,7 +620,7 @@
 			warehouseSeCd: warehouseSeCd,
 
           	// pagination
-  	  		pagingYn : 'Y',
+  	  		pagingYn : 'N',
   			currentPageNo : pageNo,
    		  	recordCountPerPage : pageSize
   		});
@@ -823,7 +850,12 @@
 	const fn_setGrdSortInptPrfmnc = async function(sortno, sortSn) {
 
 		jsonSortInptPrfmnc.length = 0;
-
+		if (gfn_isEmpty(sortno)) {
+	          grdSortInptPrfmnc.refresh();
+  	          document.querySelector('#cnt-inpt').innerText = 0;
+  	          return;
+		}
+		
 		const postJsonPromise = gfn_postJSON("/am/sort/selectSortInptPrfmncList.do", {
 			apcCd: gv_selectedApcCd,
 			sortno: sortno,

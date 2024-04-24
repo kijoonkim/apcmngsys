@@ -205,6 +205,8 @@ public class SortPrfmncVO extends ComVO {
 	 * 입고일자
 	 */
 	private String wrhsYmd;
+	private String wrhsYmdFrom;
+	private String wrhsYmdTo;
 	/**
 	 * 투입중량
 	 */
@@ -267,6 +269,25 @@ public class SortPrfmncVO extends ComVO {
 	private int sortQntt9;
 	private int sortQntt10;
 	private int sortQntt11;
+	private int sortQntt12;
+	private int sortQntt13;
+	private int sortQntt14;
+	private int sortQntt15;
+	private int sortQntt16;
+	private int sortQntt17;
+	private int sortQntt18;
+	private int sortQntt19;
+	private int sortQntt20;
+	private int sortQntt21;
+	private int sortQntt22;
+	private int sortQntt23;
+	private int sortQntt24;
+	private int sortQntt25;
+	private int sortQntt26;
+	private int sortQntt27;
+	private int sortQntt28;
+	private int sortQntt29;
+	private int sortQntt30;
 
 	/**
 	 * 선별중량
@@ -283,7 +304,29 @@ public class SortPrfmncVO extends ComVO {
 	private double sortWght9;
 	private double sortWght10;
 	private double sortWght11;
+	private double sortWght12;
+	private double sortWght13;
+	private double sortWght14;
+	private double sortWght15;
+	private double sortWght16;
+	private double sortWght17;
+	private double sortWght18;
+	private double sortWght19;
+	private double sortWght20;
+	private double sortWght21;
+	private double sortWght22;
+	private double sortWght23;
+	private double sortWght24;
+	private double sortWght25;
+	private double sortWght26;
+	private double sortWght27;
+	private double sortWght28;
+	private double sortWght29;
+    private double sortWght30;
 
+    private int wrhsQntt;
+    private double wrhsWght;
+    
 	/**
 	 * 투입수량
 	 */
