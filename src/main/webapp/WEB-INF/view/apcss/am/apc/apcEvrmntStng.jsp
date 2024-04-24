@@ -706,12 +706,12 @@
     	<jsp:include page="../apc/spmtSlsUntprcRegMngPopup.jsp"></jsp:include>
     </div>
     <!-- 원산지 등록 Modal -->
-<!--     <div> -->
-<!--         <sbux-modal id="modal-plor" name="modal-plor" uitype="middle" header-title="원산지 등록" body-html-id="body-modal-plor" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal> -->
-<!--     </div> -->
-<!--     <div id="body-modal-plor"> -->
-<%--     	<jsp:include page="../apc/plorMngPopup.jsp"></jsp:include> --%>
-<!--     </div> -->
+    <div>
+        <sbux-modal id="modal-plor" name="modal-plor" uitype="middle" header-title="원산지 등록" body-html-id="body-modal-plor" footer-is-close-button="false" header-is-close-button="false" style="width:800px"></sbux-modal>
+    </div>
+    <div id="body-modal-plor">
+    	<jsp:include page="../apc/plorMngPopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">
 
@@ -897,15 +897,13 @@
 		}if(targetName == 'btnOprtr'){
 			fn_oprtrMngCreateGrid();
 		}if(targetName == 'btnPlor'){
-// 			fn_plorStdMngCreateGrid();
+			fn_plorStdMngCreateGrid();
 		}if(targetName == 'btnSpmtPckgUnit'){
 			fn_createSpmtPckgUnitGrid();
 		}
 	}
 
 	async function fn_deleteRsrc(comCdVO, nRow){
-
-		console.log(comCdVO);
 
 		let postJsonPromise = gfn_postJSON("/co/cd/deleteApcComCdDtl.do", comCdVO);
         let data = await postJsonPromise;
@@ -1129,6 +1127,7 @@
             	let itemCdCol = grdSpmtPckgUnit.getColRef("itemCd");
 
            		grdSpmtPckgUnit.setCellData(nRow, nCol, "N", true);
+           		grdSpmtPckgUnit.setCellData(nRow, 18, "Y", true);
            		grdSpmtPckgUnit.setCellData(nRow, apcCdCol, gv_apcCd, true);
            		grdSpmtPckgUnit.setCellData(nRow, itemCdCol, SBUxMethod.get("spmtPckgUnit-slt-itemCd"), true);
            		grdSpmtPckgUnit.addRow(true);
