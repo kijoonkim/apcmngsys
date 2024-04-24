@@ -2,6 +2,7 @@ package com.at.apcss.am.sort.mapper;
 
 import java.util.List;
 
+import com.at.apcss.am.sort.vo.SortBffaVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.at.apcss.am.sort.vo.ComSortDsctnTotVO;
@@ -148,5 +149,11 @@ public interface SortPrfmncMapper {
      */
     public List<SortPrfmncVO> selectSortListBySortno(SortPrfmncVO sortPrfmncVO) throws Exception;
 
-
+	/**
+	 * 육안선별 목록 조회
+	 * @param sortPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SortBffaVO> selectSortBffaListBySortno(SortBffaVO sortPrfmncVO) throws Exception;
 }

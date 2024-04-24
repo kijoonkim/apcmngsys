@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.at.apcss.am.sort.vo.SortBffaVO;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -228,7 +229,12 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 		return null;
 	}
 
-    @Override
+	@Override
+	public List<SortBffaVO> selectSortBffaListBySortno(SortBffaVO sortBffaVO) throws Exception {
+		return sortPrfmncMapper.selectSortBffaListBySortno(sortBffaVO);
+	}
+
+	@Override
     public List<SortPrfmncVO> selectSortListBySortno(SortPrfmncVO sortPrfmncVO) throws Exception {
 
         List<SortPrfmncVO> resultList = sortPrfmncMapper.selectSortListBySortno(sortPrfmncVO);

@@ -1416,5 +1416,70 @@
 
     </select>
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectSortDsctnList  	-->
+	<!-- DESC : 육안선별 목록 조회                   .                                 -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.22  	손민성        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectSortBffaListBySortno" parameterType="com.at.apcss.am.sort.vo.SortBffaVO" resultType="com.at.apcss.am.sort.vo.SortBffaVO">
+		<![CDATA[
+		SELECT
+			   BP.APC_CD AS APC_CD
+			 , BP.WRHS_YMD AS WRHS_YMD
+			 , BP.BFFA_WRHSNO AS BFFA_WRHSNO
+			 , BP.PLTNO AS PLTNO
+			 , BP.PRDCR_CD AS PRDCR_CD
+			 , (SELECT FN_GET_PRDCR_NM(BP.PRDCR_CD, BP.APC_CD) FROM DUAL)AS PRDCR_NM
+			 , BP.ITEM_CD AS ITEM_CD
+			 , BP.VRTY_CD AS VRTY_CD
+			 , BP.FCLT_CD AS FCLT_CD
+			 , (SELECT FN_GET_COM_CD_VL_NM('SORT_FCLT_CD', BP.FCLT_CD, BP.APC_CD) FROM DUAL) AS FCLT_NM
+			 , BP.WRHS_QNTT AS WRHS_QNTT
+			 , BP.WRHS_WGHT AS WRHS_WGHT
+			 , NVL(BP.WRHS_WGHT, 0)
+				+ NVL(BP.GRD_TYPE_1_WGHT, 0)
+				+ NVL(BP.GRD_TYPE_2_WGHT, 0)
+				+ NVL(BP.GRD_TYPE_3_WGHT, 0)
+				+ NVL(BP.GRD_TYPE_4_WGHT, 0)
+				+ NVL(BP.GRD_TYPE_5_WGHT, 0)AS WHOL_WGHT
+			 , NVL(BP.GRD_TYPE_1_WGHT, 0)
+				+ NVL(BP.GRD_TYPE_2_WGHT, 0)
+				+ NVL(BP.GRD_TYPE_3_WGHT, 0)
+				+ NVL(BP.GRD_TYPE_4_WGHT, 0)
+				+ NVL(BP.GRD_TYPE_5_WGHT, 0)AS ICPT_WGHT
+			 , BP.RMRK AS RMRK
+			 , NVL(BP.GRD_TYPE_1_WGHT, 0) AS GRD_TYPE_1_WGHT
+			 , NVL(BP.GRD_TYPE_2_WGHT, 0) AS GRD_TYPE_2_WGHT
+			 , NVL(BP.GRD_TYPE_3_WGHT, 0) AS GRD_TYPE_3_WGHT
+			 , NVL(BP.GRD_TYPE_4_WGHT, 0) AS GRD_TYPE_4_WGHT
+			 , NVL(BP.GRD_TYPE_5_WGHT, 0) AS GRD_TYPE_5_WGHT
+		FROM
+			TB_BFFA_WRHS_PRFMNC BP
+		WHERE 1=1
+		  ]]>
+		<if test='apcCd != null and apcCd !=""'>
+			AND BP.APC_CD = ${apcCd}
+		</if>
+		<if test='inptYmdFrom != null and inptYmdFrom !=""'>
+			AND BP.WRHS_YMD <![CDATA[>=]]> ${inptYmdFrom}
+		</if>
+		<if test='inptYmdTo != null and inptYmdTo !=""'>
+			AND BP.WRHS_YMD <![CDATA[<=]]> ${inptYmdTo}
+		</if>
+		<if test="fcltCd != null and fcltCd != ''">
+			AND BP.FCLT_CD = #{fcltCd}
+		</if>
+		<if test="prdcrCd != null and prdcrCd != ''">
+			AND BP.PRDCR_CD = #{prdcrCd}
+		</if>
+		<if test="itemCd != null and itemCd != ''">
+			AND BP.ITEM_CD = #{itemCd}
+		</if>
+		ORDER BY BFFA_WRHSNO
+	</select>
+
 
 </mapper>

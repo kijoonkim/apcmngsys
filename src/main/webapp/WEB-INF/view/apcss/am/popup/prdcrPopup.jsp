@@ -94,7 +94,7 @@
 		</div>
 	</section>
 </body>
-<script type="text/javascript">
+<script >
 
 	/* grid 내 select json */
 	var jsonApcItemPrdcrPop			= [];	// 대표품목 rprsItemCd	Grid

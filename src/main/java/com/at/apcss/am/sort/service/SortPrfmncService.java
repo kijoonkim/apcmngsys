@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.sort.vo.ComSortDsctnTotVO;
+import com.at.apcss.am.sort.vo.SortBffaVO;
 import com.at.apcss.am.sort.vo.SortDsctnTotVO;
 import com.at.apcss.am.sort.vo.SortPrfmncVO;
 
@@ -79,8 +80,7 @@ public interface SortPrfmncService {
 	 */
 	public List<SortPrfmncVO> selectSortCnclList(SortPrfmncVO sortPrfmncVO) throws Exception;
 
-
-    /**
+	/**
 	 * 선별실적 목록 조회 (선별번호 그룹)
 	 * @param sortPrfmncVO
 	 * @return
@@ -136,4 +136,12 @@ public interface SortPrfmncService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> deleteSortPrfmncList(List<SortPrfmncVO> sortPrfmncList) throws Exception;
+
+	/**
+	 * 육안선별 실적 조회
+	 * @param sortBffaVO
+	 * @return
+	 * @throws Exception
+	 */
+	List<SortBffaVO> selectSortBffaListBySortno(SortBffaVO sortBffaVO) throws Exception;
 }
