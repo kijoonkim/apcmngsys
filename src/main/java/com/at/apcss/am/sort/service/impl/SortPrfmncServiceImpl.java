@@ -3,8 +3,6 @@ package com.at.apcss.am.sort.service.impl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
@@ -261,7 +259,7 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 	}
 
 	@Override
-	public HashMap<String, Object> insertSortBffa(SortBffaVO sortBffaVO) throws Exception {
+	public int insertSortBffa(SortBffaVO sortBffaVO) throws Exception {
 		String wrhsno = sortBffaVO.getBffaWrhsno();
 		String apcCd = sortBffaVO.getApcCd();
 		String wrhsYmd	= sortBffaVO.getWrhsYmd();
@@ -270,11 +268,7 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 			sortBffaVO.setBffaWrhsno(wrhsNo);
 			sortBffaVO.setPltno(wrhsNo);
 		}
-		int result = 0;
-		result = sortPrfmncMapper.insertSortBffa(sortBffaVO);
-
-
-		return null;
+		return sortPrfmncMapper.insertSortBffa(sortBffaVO);
 	}
 
 	@Override
@@ -290,5 +284,19 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 		List<SortPrfmncVO> resultList = sortPrfmncMapper.selectSortPrfmncListByWrhsForGdsGrd(sortPrfmncVO);
 
 		return resultList;
+	}
+
+	@Override
+	public int deleteSortBffa(List<SortBffaVO> sortBffaVoList) throws Exception {
+		int count = 0;
+		try {
+			for(SortBffaVO vo : sortBffaVoList ){
+				count += sortPrfmncMapper.deleteSortBffa(vo);
+			}
+
+		}catch (Exception e){
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
+		return count;
 	}
 }

@@ -172,7 +172,7 @@
             <sbux-button
                     id="btn-reg-bffa"
                     name="btn-reg-bffa"
-                    class="btn btn-lg btn-success"
+                    class="btn btn-sm btn-success"
                     text="신규등록" uitype="modal"
                     onclick="fn_reg_bffa"
             ></sbux-button>
@@ -235,6 +235,11 @@
     const fn_choicePrdcr = function() {
         popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr, SBUxMethod.get("srch-inp-prdcrNm"));
     }
+
+    const fn_setResearch = function(){
+        fn_search();
+    }
+
     /** 육안선별 등록 팝업함수 **/
     const fn_reg_bffa = function(){
         let itemCd = SBUxMethod.get('srch-slt-itemCd');
@@ -243,7 +248,7 @@
             gfn_comAlert("W0005", "품목");
             return
         }
-        popBffa.init(gv_apcCd,gv_selectedApcNm,itemCd,BffaGrdType);
+        popBffa.init(gv_apcCd,gv_selectedApcNm,itemCd,BffaGrdType,fn_search);
         SBUxMethod.openModal('modal-regSort');
     }
 
@@ -254,6 +259,7 @@
             SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
         }
     }
+
     const fn_createGrid = function(){
         let SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-grdSortBffa';
@@ -261,15 +267,18 @@
         SBGridProperties.jsonref = 'jsonSortBffa';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns = [
-            {caption: ["선택","선택"],ref: 'wrhsno',type:'output', width:'50px',  style:'text-align:center'},
+            {caption: ["선택","선택"],ref : 'wrhsno',	width : '50px',	style : 'text-align:center',	type : 'checkbox', typeinfo : {checkedvalue : 'T', uncheckedvalue : 'F'}},
             {caption: ["선별일자","선별일자"],ref: 'wrhsYmd',type:'output', width:'90px',  style:'text-align:center'},
             {caption: ["생산자","생산자"],ref: 'prdcrNm',type:'output', width:'90px',  style:'text-align:center'},
             {caption: ["선별기","선별기"],ref: 'fcltNm',type:'output', width:'65px',  style:'text-align:center'},
             {caption: ["박스수량","박스수량"],ref: 'wrhsQntt',type:'output', width:'90px',  style:'text-align:center'},
             {caption: ["총 입고중량","총 입고중량"],ref: 'wholWght',type:'output', width:'120px',  style:'text-align:center'},
             {caption: ["육안선별 중량","합계"],ref: 'icptWght',type:'output', width:'120px',  style:'text-align:center'},
-            {caption: ["실 입고중량","실 입고중량"],ref: 'wrhsWght',type:'output', width:'120px',  style:'text-align:center'},
-            {caption: ["비고","비고"],ref: 'rmrk',type:'output', width:'100%',  style:'text-align:center'},
+            {caption: ["실 입고중량","실 입고중량"],ref: 'wrhsWght',type:'input', width:'120px',  style:'text-align:center'},
+            {caption: ["비고","비고"],ref: 'rmrk',type:'input', width:'100%',  style:'text-align:center'},
+
+            {hidden : true, ref: 'apcCd'},
+            {hidden : true, ref: 'bffaWrhsno'},
         ]
         if(!gfn_isEmpty(BffaGrdType)){
             let addBffaGrdType = [];
@@ -334,6 +343,8 @@
                     data.resultList.forEach(function(item){
                         let bffaObj =
                             {
+                                apcCd     : item.apcCd,
+                                bffaWrhsno: item.bffaWrhsno,
                                 wrhsYmd   : item.wrhsYmd,
                                 prdcrNm   : item.prdcrNm,
                                 fcltNm    : item.fcltNm,
@@ -361,6 +372,28 @@
         SBUxMethod.set('srch-reg-prdcrCd',""); //생산자코드
         SBUxMethod.set('srch-slt-fcltCd',"");//선별기코드
         SBUxMethod.set('srch-slt-itemCd',"");//품목코드
+    }
+    /** 삭제 버튼 **/
+    const fn_delete = async function(){
+        let arr = grdSortBffa.getCheckedRowData(0);
+        let delList = arr.map(item => item.data);
+
+        if(!gfn_comConfirm('Q0001',"삭제")){
+            return;
+        };
+
+        if(!gfn_isEmpty(delList)){
+            try{
+                let postJsonPromise = gfn_postJSON('/am/sort/deleteSortBffa.do',delList);
+                let data = await postJsonPromise;
+                if (_.isEqual("S", data.resultStatus)) {
+                    gfn_comAlert("I0002",data.deletedCnt +"건","삭제");
+                    fn_search();
+                }
+            }catch (e){
+                console.log(e);
+            }
+        }
     }
 
 

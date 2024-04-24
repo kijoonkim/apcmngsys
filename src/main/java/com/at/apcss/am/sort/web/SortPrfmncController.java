@@ -275,8 +275,7 @@ public class SortPrfmncController extends BaseController {
 	public ResponseEntity<HashMap<String, Object>> insertSortBffa(@RequestBody SortBffaVO sortBffaVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		HashMap<String,Object> resultList = new HashMap<String,Object>();
-
+		int result = 0;
 
 		try {
 			sortBffaVO.setSysFrstInptUserId(getUserId());
@@ -284,8 +283,7 @@ public class SortPrfmncController extends BaseController {
 			sortBffaVO.setSysLastChgUserId(getUserId());
 			sortBffaVO.setSysLastChgPrgrmId(getPrgrmId());
 			sortBffaVO.setDelYn("N");
-			sortBffaVO.setDelYn("N");
-			resultList = sortPrfmncService.insertSortBffa(sortBffaVO);
+			result = sortPrfmncService.insertSortBffa(sortBffaVO);
 		} catch(Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
@@ -295,7 +293,7 @@ public class SortPrfmncController extends BaseController {
 			}
 		}
 
-		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, result);
 
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -399,6 +397,33 @@ public class SortPrfmncController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	/**
+	 * 육안선별 목록 삭제
+	 * @param sortBffaVoList
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/am/sort/deleteSortBffa.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteSortBffa(@RequestBody List<SortBffaVO> sortBffaVoList, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		int result = 0;
+		try {
+			result =  sortPrfmncService.deleteSortBffa(sortBffaVoList);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_DELETED_CNT, result);
 
 		return getSuccessResponseEntity(resultMap);
 	}

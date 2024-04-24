@@ -282,7 +282,7 @@
                                         name="`+ _id + `"
                                         class="form-control input-sm"
                                         wrap-style="flex:1"
-                                        onchange="fn_changeWght(event)"
+                                        onchange="fn_changeWght()"
                                 ></sbux-input>
                                 <span style="flex: 1;font-weight: bold;padding: 5px">KG</span>
                             </div>
@@ -298,7 +298,7 @@
                                         name="`+ _id + `"
                                         class="form-control input-sm"
                                         wrap-style="flex:1"
-                                        onchange="fn_changeWght(event)"
+                                        onchange="fn_changeWght()"
                                 ></sbux-input>
                                 <span style="flex: 1;font-weight: bold;padding: 5px">KG</span>
                             </div>
@@ -307,8 +307,6 @@
 
     };
 
-
-
     const popBffa = {
         prgrmId : 'regSortBffa',
         modalId : 'modal-regSort',
@@ -316,6 +314,12 @@
         init: async function(_apcCd, _apcNm, _itemCd, _jsonChkGrdType, _callbackFnc){
             /** 전체 초기화 **/
             await popBffa.reset();
+            jsonChkGrdTypeList.length = 0;
+
+            /** modal close claaBack 세팅 **/
+            if (!gfn_isEmpty(_callbackFnc) && typeof _callbackFnc === 'function') {
+                this.callbackFnc = _callbackFnc;
+            };
 
             let result = await Promise.all([
                 gfn_setApcItemSBSelect('srch-reg-itemCd',jsonRegApcItem,_apcCd),// 품목
@@ -325,10 +329,8 @@
             SBUxMethod.set("prdcr-inp-apcNm",_apcNm);
             SBUxMethod.set("srch-reg-itemCd",_itemCd);
             SBUxMethod.attr("srch-reg-itemCd",'readonly',true);
+            SBUxMethod.set('srch-reg-vrtyCd',jsonRegApcVrty[0].vrtyCd);
             SBUxMethod.set('srch-dtp-inptYmd',gfn_dateToYmd(new Date()));
-            jsonChkGrdTypeList.length = 0;
-            /** 품목에대한 품종 셋팅 **/
-            fn_onChangeSrchItemCd(_itemCd);
 
             /** 품목에대한 육안선별 타입 셋팅 **/
             await fn_selectBffaType(_itemCd);
@@ -369,13 +371,13 @@
             fn_setBffaTable();
 
         },
-        close: function(){
-            if(editMode){
+        close: async function () {
+            if (editMode) {
                 //TODO: 컨펌
             }
-            SBUxMethod.closeModal(this.modalId);
 
-            gfn_closeModal(this.modalId, this.callbackFnc, _prdcr); //모달 닫을때 콜백에 인자전하는거 3번쨰인자
+            await gfn_closeModal(popBffa.modalId, popBffa.callbackFnc, null); //모달 닫을때 콜백에 인자전하는거 3번쨰인자
+            await fn_search();
         },
         save : async function(){
             let prdcrCd = SBUxMethod.get('srch-reg-prdcrCd'); //생산자코드
@@ -405,9 +407,15 @@
             }
             if(gfn_isEmpty(wrhsYmd)){
                 gfn_comAlert("W0005", "선별일자");
+                return;
             }
             if(gfn_isEmpty(fcltCd)){
                 gfn_comAlert("W0005", "선별기");
+                return;
+            }
+            if(gfn_isEmpty(wholWght)){
+                gfn_comAlert("W0005", "입고중량");
+                return;
             }
             if(!gfn_comConfirm('Q0001',"저장")){
                 return;
@@ -442,9 +450,8 @@
                 let data = await postJsonPromise;
                 if (_.isEqual("S", data.resultStatus)) {
                     gfn_comAlert("I0001");
-                    popBffa.reset();
+                    popBffa.close();
                 }
-                await fn_createGrid();
             }catch (e){
                 console.log(e);
             }
@@ -456,7 +463,6 @@
             SBUxMethod.set('srch-reg-prdcrCd',""); //생산자코드
             SBUxMethod.set('srch-reg-icptWght',""); //부적합 총량
             SBUxMethod.set('srch-slt-fcltCd',""); //선별기코드
-            SBUxMethod.set('srch-reg-itemCd',""); //품목코드
             SBUxMethod.set('srch-reg-wrhsQntt',""); //박스수량
             SBUxMethod.set('srch-reg-wholWght',""); //총중량
             SBUxMethod.set('srch-reg-vrtyCd',""); //총중량
@@ -473,7 +479,7 @@
         }
     }
     /**
-     * @name fn_onChangeSrchItemCd
+     * @name fn_setRegPrdcr
      * @description 생산자 선택시 callBack
      */
     const fn_setRegPrdcr = function(prdcr) {
@@ -486,15 +492,16 @@
             SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:none");
         }
     }
+    /** 품목 변경 팝업에서 안함.**/
+    // /**
+    //  * @name fn_onChangeSrchItemCd
+    //  * @description 품목 선택 변경 event
+    //  */
+    // const fn_onChangeSrchItemCd = async function(_itemCd) {
+    //     gfn_setApcVrtySBSelect('srch-reg-vrtyCd', jsonRegApcVrty, gv_selectedApcCd, _itemCd);
+    // }
     /**
-     * @name fn_onChangeSrchItemCd
-     * @description 품목 선택 변경 event
-     */
-    const fn_onChangeSrchItemCd = async function(_itemCd) {
-        gfn_setApcVrtySBSelect('srch-reg-vrtyCd', jsonRegApcVrty, gv_selectedApcCd, _itemCd);
-    }
-    /**
-     * @name fn_onChangeSrchItemCd
+     * @name fn_selectBffaType
      * @description 육안선별등록 선별구분 get 함수
      */
     const fn_selectBffaType = async function(_itemCd){
@@ -558,7 +565,6 @@
                         }
                     });
                 }
-                await fn_createGrid();
             }catch (e){
                 console.log(e);
             }
@@ -566,14 +572,14 @@
     }
 
     /**
-     * @name fn_onChangeSrchItemCd
+     * @name fn_choiceRegPrdcr
      * @description 모달 관련 함수 event
      */
     const fn_choiceRegPrdcr = function() {
         popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm,null, SBUxMethod.get("srch-reg-prdcrNm"));
     }
     /**
-     * @name fn_onChangeSrchItemCd
+     * @name fn_setBffaTable
      * @description 선별내역별 TABLE 셋팅
      */
     const fn_setBffaTable = function() {
@@ -618,6 +624,8 @@
                                     id="checkBox_`+item.indctSeq.key+item.indctSeq.value.grdKnd[i].value+`"
                                     name="checkBox_`+item.indctSeq.key+item.indctSeq.value.grdKnd[i].value+`"
                                     jsondata-ref="checkBox_`+item.indctSeq.key+item.indctSeq.value.grdKnd[i].value+`.0"
+                                    text-right-padding="15px"
+                                    item-bottom-padding="10px"
                                     uitype="normal">
                                 </sbux-checkbox>
                             </div>
@@ -631,6 +639,8 @@
                                     id="checkBox_`+item.indctSeq.key+item.indctSeq.value.grdKnd[i].value+`"
                                     name="checkBox_`+item.indctSeq.key+item.indctSeq.value.grdKnd[i].value+`"
                                     jsondata-ref="checkBox_`+item.indctSeq.key+item.indctSeq.value.grdKnd[i].value+`.0"
+                                    text-right-padding="15px"
+                                    item-bottom-padding="10px"
                                     uitype="normal">
                                 </sbux-checkbox>
                             </div>
@@ -649,6 +659,8 @@
                                 id="checkBox_`+item.indctSeq.key+item.indctSeq.value.grdKnd[0].value+`"
                                 name="checkBox_`+item.indctSeq.key+item.indctSeq.value.grdKnd[0].value+`"
                                 jsondata-ref="checkBox_`+item.indctSeq.key+item.indctSeq.value.grdKnd[0].value+`.0"
+                                text-right-padding="15px"
+                                item-bottom-padding="10px"
                                 uitype="normal">
                             </sbux-checkbox>
                         </div>
@@ -671,12 +683,12 @@
         let grdType3Wght = SBUxMethod.get('grdType3Wght'); //3번 type 중량
         let grdType4Wght = SBUxMethod.get('grdType4Wght'); //4번 type 중량
         let grdType5Wght = SBUxMethod.get('grdType5Wght'); //5번 type 중량
-        let total = (grdType1Wght !== undefined && grdType1Wght !== null ? parseInt(grdType1Wght) : parseInt(0))
-                   +(grdType2Wght !== undefined && grdType2Wght !== null ? parseInt(grdType2Wght) : parseInt(0))
-                   +(grdType3Wght !== undefined && grdType3Wght !== null ? parseInt(grdType3Wght) : parseInt(0))
-                   +(grdType4Wght !== undefined && grdType4Wght !== null ? parseInt(grdType4Wght) : parseInt(0))
-                   +(grdType5Wght !== undefined && grdType5Wght !== null ? parseInt(grdType5Wght) : parseInt(0))
-            SBUxMethod.set('srch-inp-icptWght',total);
+        let total = (gfn_isEmpty(grdType1Wght)? parseInt(0) : parseInt(grdType1Wght))+
+                    (gfn_isEmpty(grdType2Wght)? parseInt(0) : parseInt(grdType2Wght))+
+                    (gfn_isEmpty(grdType3Wght)? parseInt(0) : parseInt(grdType3Wght))+
+                    (gfn_isEmpty(grdType4Wght)? parseInt(0) : parseInt(grdType4Wght))+
+                    (gfn_isEmpty(grdType5Wght)? parseInt(0) : parseInt(grdType5Wght))
+        SBUxMethod.set('srch-reg-icptWght',total);
     }
 
 </script>

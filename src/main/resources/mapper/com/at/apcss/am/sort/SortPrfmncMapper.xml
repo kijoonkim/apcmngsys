@@ -2352,4 +2352,21 @@
     	
     </select>
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectSortDsctnList  	-->
+	<!-- DESC : 육안선별 삭제                                                         -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.24  	손민성        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<delete id="deleteSortBffa"  parameterType="com.at.apcss.am.sort.vo.SortBffaVO">
+		<![CDATA[
+		DELETE
+		FROM TB_BFFA_WRHS_PRFMNC
+		WHERE APC_CD = #{apcCd}
+		AND BFFA_WRHSNO = #{bffaWrhsno}
+		]]>
+	</delete>
+
 </mapper>
