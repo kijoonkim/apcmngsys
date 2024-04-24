@@ -197,5 +197,12 @@ public interface SortPrfmncMapper {
 	 * @throws Exception
 	 */
 	public List<SortPrfmncVO> selectSortPrfmncListByWrhsForGdsGrd(SortPrfmncVO sortPrfmncVO) throws Exception;
-	
+
+	/**
+	 * 육안선별 삭제
+	 * @param vo
+	 * @return
+	 * @throws Exception
+	 */
+	int deleteSortBffa(SortBffaVO vo) throws Exception;
 }

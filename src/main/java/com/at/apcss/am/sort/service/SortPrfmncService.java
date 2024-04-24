@@ -161,11 +161,12 @@ public interface SortPrfmncService {
 	public List<HashMap<String, Object>> selectGrdDsctn(HashMap<String, Object> exhstDsctn) throws Exception;
 	/**
 	 * 사전선별 등록
+	 *
 	 * @param sortBffaVO
 	 * @return
 	 * @throws Exception
 	 */
-	HashMap<String, Object> insertSortBffa(SortBffaVO sortBffaVO) throws Exception;
+	int insertSortBffa(SortBffaVO sortBffaVO) throws Exception;
 	
 	/**
 	 * 선별실적(입고별) 목록 조회
@@ -182,4 +183,11 @@ public interface SortPrfmncService {
 	 * @throws Exception
 	 */
 	public List<SortPrfmncVO> selectSortPrfmncListByWrhsForGdsGrd(SortPrfmncVO sortPrfmncVO) throws Exception;
+	/**
+	 * 선별실적(입고별 상품등급)  목록 조회
+	 * @param sortBffaVoList
+	 * @return
+	 * @throws Exception
+	 */
+	int deleteSortBffa(List<SortBffaVO> sortBffaVoList) throws Exception;
 }
