@@ -174,7 +174,6 @@
                     name="btn-reg-bffa"
                     class="btn btn-lg btn-success"
                     text="신규등록" uitype="modal"
-                    target-id="modal-regSort"
                     onclick="fn_reg_bffa"
             ></sbux-button>
         </div>
@@ -223,12 +222,13 @@
             gfn_setComCdSBSelect('srch-slt-fcltCd', jsonComFcltCd,'SORT_FCLT_CD', gv_selectedApcCd),// 선별기
             gfn_setApcItemSBSelect('srch-slt-itemCd', jsonApcItem, gv_selectedApcCd)// 품목
         ]);
-        SBUxMethod.set('srch-slt-itemCd',jsonApcItem[0].cmnsCd);
+        await fn_createGrid();
+        await fn_setGrid();
         if(jsonApcItem.length == 1){
             SBUxMethod.set('srch-slt-itemCd',jsonApcItem[0].cmnsCd);
+            await fn_selectBffaGrdType();
         }
-        fn_createGrid();
-        fn_setGrid();
+
     }
     /** 모달관련 함수 **/
     /** 생산자 선택 팝업함수 **/
@@ -238,10 +238,13 @@
     /** 육안선별 등록 팝업함수 **/
     const fn_reg_bffa = function(){
         let itemCd = SBUxMethod.get('srch-slt-itemCd');
+
         if(gfn_isEmpty(itemCd)){
+            gfn_comAlert("W0005", "품목");
             return
         }
         popBffa.init(gv_apcCd,gv_selectedApcNm,itemCd,BffaGrdType);
+        SBUxMethod.openModal('modal-regSort');
     }
 
     const fn_setPrdcr = function(prdcr) {

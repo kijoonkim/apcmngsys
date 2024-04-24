@@ -172,8 +172,8 @@
                         <div style="display: flex">
                         <sbux-input
                                 uitype="text"
-                                id="srch-inp-wholWght"
-                                name="srch-inp-wholWght"
+                                id="srch-reg-wholWght"
+                                name="srch-reg-wholWght"
                                 class="form-control input-sm"
                                 wrap-style="flex:1"
                                 oninput="fn_onInputWholWght(event)"
@@ -186,8 +186,8 @@
                         <div style="display: flex">
                             <sbux-input
                                     uitype="text"
-                                    id="srch-inp-icptWght"
-                                    name="srch-inp-icptWght"
+                                    id="srch-reg-icptWght"
+                                    name="srch-reg-icptWght"
                                     class="form-control input-sm"
                                     wrap-style="flex:1"
                                     readonly
@@ -314,6 +314,9 @@
         modalId : 'modal-regSort',
         callbackFnc : function(){},
         init: async function(_apcCd, _apcNm, _itemCd, _jsonChkGrdType, _callbackFnc){
+            /** 전체 초기화 **/
+            await popBffa.reset();
+
             let result = await Promise.all([
                 gfn_setApcItemSBSelect('srch-reg-itemCd',jsonRegApcItem,_apcCd),// 품목
                 gfn_setApcVrtySBSelect('srch-reg-vrtyCd',jsonRegApcVrty,_apcCd),// 품종
@@ -382,7 +385,7 @@
             let fcltNm = SBUxMethod.getText('srch-slt-fcltCd'); //선별기코드
             let itemCd = SBUxMethod.get('srch-reg-itemCd'); //품목코드
             let wrhsQntt = SBUxMethod.get('srch-reg-wrhsQntt'); //박스수량
-            let wholWght = SBUxMethod.get('srch-inp-wholWght'); //총중량
+            let wholWght = SBUxMethod.get('srch-reg-wholWght'); //총중량
             let grdType1Wght = SBUxMethod.get('grdType1Wght'); //1번 type 중량
             let grdType2Wght = SBUxMethod.get('grdType2Wght'); //2번 type 중량
             let grdType3Wght = SBUxMethod.get('grdType3Wght'); //3번 type 중량
@@ -413,8 +416,9 @@
             //TODO : TB_BFFA_WRHS_STD_GRD INSERT 필요하고 VO에 CHECK된 value 어떻게 넘길것인가에대하여..
 
             globalVal.forEach(function(id){
-
+                console.log(SBUxMethod.getCheckbox(id, {trueValueOnly:true, ignoreDisabledValue:false}));
             });
+
             try{
                 let postJsonPromise = gfn_postJSON('/am/sort/insertSortBffa.do',{
                     apcCd:gv_apcCd,
@@ -448,13 +452,13 @@
         reset : function(){
             SBUxMethod.set('srch-reg-prdcrCd',""); //생산자코드
             SBUxMethod.set('srch-reg-prdcrNm',""); //생산자명
-            SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:initial"); //생산자명 색상
+            SBUxMethod.attr("srch-reg-prdcrNm", "style", "background-color:initial"); //생산자명 색상
             SBUxMethod.set('srch-reg-prdcrCd',""); //생산자코드
-            SBUxMethod.set('srch-inp-icptWght',""); //부적합 총량
+            SBUxMethod.set('srch-reg-icptWght',""); //부적합 총량
             SBUxMethod.set('srch-slt-fcltCd',""); //선별기코드
             SBUxMethod.set('srch-reg-itemCd',""); //품목코드
             SBUxMethod.set('srch-reg-wrhsQntt',""); //박스수량
-            SBUxMethod.set('srch-inp-wholWght',""); //총중량
+            SBUxMethod.set('srch-reg-wholWght',""); //총중량
             SBUxMethod.set('srch-reg-vrtyCd',""); //총중량
             SBUxMethod.set('grdType1Wght',""); //1번 type 중량
             SBUxMethod.set('grdType2Wght',""); //2번 type 중량
@@ -667,11 +671,11 @@
         let grdType3Wght = SBUxMethod.get('grdType3Wght'); //3번 type 중량
         let grdType4Wght = SBUxMethod.get('grdType4Wght'); //4번 type 중량
         let grdType5Wght = SBUxMethod.get('grdType5Wght'); //5번 type 중량
-        let total = (grdType1Wght !== undefined && grdType1Wght !== null ? parseInt(grdType1Wght) : 0)
-                   +(grdType2Wght !== undefined && grdType2Wght !== null ? parseInt(grdType2Wght) : 0)
-                   +(grdType3Wght !== undefined && grdType3Wght !== null ? parseInt(grdType3Wght) : 0)
-                   +(grdType4Wght !== undefined && grdType4Wght !== null ? parseInt(grdType4Wght) : 0)
-                   +(grdType5Wght !== undefined && grdType5Wght !== null ? parseInt(grdType5Wght) : 0)
+        let total = (grdType1Wght !== undefined && grdType1Wght !== null ? parseInt(grdType1Wght) : parseInt(0))
+                   +(grdType2Wght !== undefined && grdType2Wght !== null ? parseInt(grdType2Wght) : parseInt(0))
+                   +(grdType3Wght !== undefined && grdType3Wght !== null ? parseInt(grdType3Wght) : parseInt(0))
+                   +(grdType4Wght !== undefined && grdType4Wght !== null ? parseInt(grdType4Wght) : parseInt(0))
+                   +(grdType5Wght !== undefined && grdType5Wght !== null ? parseInt(grdType5Wght) : parseInt(0))
             SBUxMethod.set('srch-inp-icptWght',total);
     }
 
