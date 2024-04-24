@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
+import com.at.apcss.am.sort.vo.SortBffaVO;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -230,7 +231,12 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 		return null;
 	}
 
-    @Override
+	@Override
+	public List<SortBffaVO> selectSortBffaListBySortno(SortBffaVO sortBffaVO) throws Exception {
+		return sortPrfmncMapper.selectSortBffaListBySortno(sortBffaVO);
+	}
+
+	@Override
     public List<SortPrfmncVO> selectSortListBySortno(SortPrfmncVO sortPrfmncVO) throws Exception {
 
         List<SortPrfmncVO> resultList = sortPrfmncMapper.selectSortListBySortno(sortPrfmncVO);
@@ -252,6 +258,23 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
     	List<HashMap<String, Object>> resultVO = sortPrfmncMapper.selectGrdDsctn(exhstDsctn);
     	
 		return resultVO;
+	}
+
+	@Override
+	public HashMap<String, Object> insertSortBffa(SortBffaVO sortBffaVO) throws Exception {
+		String wrhsno = sortBffaVO.getBffaWrhsno();
+		String apcCd = sortBffaVO.getApcCd();
+		String wrhsYmd	= sortBffaVO.getWrhsYmd();
+		if(StringUtils.isEmpty(wrhsno)) {
+			String wrhsNo = cmnsTaskNoService.selectBffaWrhsno(apcCd,wrhsYmd);
+			sortBffaVO.setBffaWrhsno(wrhsNo);
+			sortBffaVO.setPltno(wrhsNo);
+		}
+		int result = 0;
+		result = sortPrfmncMapper.insertSortBffa(sortBffaVO);
+
+
+		return null;
 	}
 
 }

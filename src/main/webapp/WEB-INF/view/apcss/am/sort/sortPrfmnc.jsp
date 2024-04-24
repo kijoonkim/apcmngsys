@@ -38,7 +38,7 @@
 						name="btnDocSort"
 						uitype="normal"
 						text="선별확인서"
-						class="btn btn-sm btn-success"
+						class="btn btn-sm btn-outline-dark"
 						onclick="fn_docSort"
 					></sbux-button>
 					<sbux-button
@@ -46,7 +46,7 @@
 						name="btnLblSort"
 						uitype="normal"
 						text="선별라벨"
-						class="btn btn-sm btn-success"
+						class="btn btn-sm btn-outline-dark"
 						onclick="fn_lblSort"
 					></sbux-button>
 					<sbux-button

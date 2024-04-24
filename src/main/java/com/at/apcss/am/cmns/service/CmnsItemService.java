@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.cmns.vo.CmnsItemVO;
+import com.at.apcss.am.sort.vo.SortBffaGrdVO;
+import com.at.apcss.co.cd.vo.ComCdVO;
 
 /**
  * 품목정보 Service 인터페이스
@@ -108,5 +110,18 @@ public interface CmnsItemService {
 	 */
 	public HashMap<String, Object> updateItemList(List<CmnsItemVO> cmnsItemList) throws Exception;
 
-
+	/**
+	 * APC기준 육안선별 타입
+	 * @param cmnsItemVO
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	List<ComCdVO> selectApcBffaTypeList(CmnsItemVO cmnsItemVO) throws Exception;
+	/**
+	 * APC기준 육안선별 타입목록 조회
+	 * @param sortBffaGrdVO
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	List<SortBffaGrdVO> selectApcBffaGrdDtlList(SortBffaGrdVO sortBffaGrdVO) throws Exception;
 }

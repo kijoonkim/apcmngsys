@@ -371,6 +371,79 @@
 		     AND ITEM_CD=#{itemCd}
     	]]>
     </update>
+	<!-- =========================================================================  -->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectApcBffaTypeList	-->
+	<!-- DESC : APC기준 육안선별 타입 조회  		                            		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.22  	손민성        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectApcBffaTypeList" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO" resultType="com.at.apcss.co.cd.vo.ComCdVO">
+		<![CDATA[
+		SELECT
+			GT.CD_VL AS CD_VL
+		  , GT.CD_VL_NM AS CD_VL_NM
+		  , ROW_NUMBER() OVER (ORDER BY GT.INDCT_SEQ)AS SN
+		FROM TB_COM_CD_DTL GT
+		WHERE GT.CD_ID = 'BFFA_GRD_TYPE'
+		  AND GT.DEL_YN = 'N'
+		  AND GT.APC_CD = #{apcCd}
+		  AND EXISTS (
+		      SELECT 1
+		      FROM TB_APC_BFFA_GRD_KND GK
+		      WHERE GK.APC_CD = GT.APC_CD
+		      AND GK.BFFA_GRD_TYPE = GT.CD_VL
+			  AND GK.DEL_YN = 'N'
+			  AND GK.ITEM_CD = #{itemCd}
+		      )
+		ORDER BY SN
+		]]>
+
+	</select>
+	<!-- =========================================================================  -->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectApcBffaTypeList	-->
+	<!-- DESC : APC기준 육안선별 타입 조회  		                            		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.22  	손민성        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectApcBffaGrdDtlList" parameterType="com.at.apcss.am.sort.vo.SortBffaGrdVO" resultType="com.at.apcss.am.sort.vo.SortBffaGrdVO">
+		<![CDATA[
+		SELECT
+			   GT.CD_VL AS CD_VL
+			 , GT.CD_VL_NM AS CD_VL_NM
+			 , GT.INDCT_SEQ AS INDCT_SEQ
+			 , GK.ITEM_CD AS ITEM_CD
+			 , GK.BFFA_GRD_TYPE AS BFFA_GRD_TYPE
+			 , COUNT(GK.GRD_KND) OVER (PARTITION BY GT.CD_VL) AS GRD_KND_CNT
+			 , GK.GRD_KND AS GRD_KND
+			 , GK.GRD_KND_NM AS GRD_KND_NM
+			 , GK.SN AS GRD_KND_SN
+			 , COUNT(GD.GRD_CD) OVER (PARTITION BY GK.GRD_KND) AS GRD_CD_CNT
+			 , GD.GRD_CD AS GRD_CD
+			 , GD.GRD_NM AS GRD_NM
+			 , GD.SN AS GRD_CD_SN
+		FROM TB_COM_CD_DTL GT
+		JOIN TB_APC_BFFA_GRD_KND GK
+			ON GK.APC_CD = GT.APC_CD
+			AND GK.BFFA_GRD_TYPE = GT.CD_VL
+			AND GK.DEL_YN = 'N'
+		LEFT JOIN TB_APC_BFFA_GRD_DTL GD
+		    ON GD.APC_CD = GK.APC_CD
+			AND GD.BFFA_GRD_TYPE = GK.BFFA_GRD_TYPE
+			AND GD.ITEM_CD = GK.ITEM_CD
+			AND GD.GRD_KND = GK.GRD_KND
+			AND GD.DEL_YN = 'N'
+		WHERE GT.CD_ID = 'BFFA_GRD_TYPE'
+		  	AND GT.DEL_YN = 'N'
+		  	AND GT.APC_CD = #{apcCd}
+		  	AND GK.ITEM_CD = #{itemCd}
+		ORDER BY ITEM_CD, INDCT_SEQ, GRD_KND_SN, GRD_CD_SN;
+		]]>
+
+	</select>
 </mapper>
 
 

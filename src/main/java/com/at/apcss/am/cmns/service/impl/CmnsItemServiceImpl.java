@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.at.apcss.am.sort.vo.SortBffaGrdVO;
+import com.at.apcss.co.cd.vo.ComCdVO;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -243,5 +245,16 @@ public class CmnsItemServiceImpl extends BaseServiceImpl implements CmnsItemServ
 		}
 		return null;
 	}
+
+	@Override
+	public List<ComCdVO> selectApcBffaTypeList(CmnsItemVO cmnsItemVO) throws Exception {
+		return cmnsItemMapper.selectApcBffaTypeList(cmnsItemVO);
+	}
+
+	@Override
+	public List<SortBffaGrdVO> selectApcBffaGrdDtlList(SortBffaGrdVO sortBffaGrdVO) throws Exception {
+		return cmnsItemMapper.selectApcBffaGrdDtlList(sortBffaGrdVO);
+	}
+
 
 }

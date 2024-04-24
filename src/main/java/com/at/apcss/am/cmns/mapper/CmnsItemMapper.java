@@ -2,6 +2,8 @@ package com.at.apcss.am.cmns.mapper;
 
 import java.util.List;
 
+import com.at.apcss.am.sort.vo.SortBffaGrdVO;
+import com.at.apcss.co.cd.vo.ComCdVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.at.apcss.am.cmns.vo.CmnsItemVO;
@@ -101,5 +103,18 @@ public interface CmnsItemMapper {
 	 * @throws Exception
 	 */
 	public int updateComItem(CmnsItemVO cmnsItemVO) throws Exception;
-
+	/**
+	 * APC 육안선별 타입정보 조회
+	 * @param cmnsItemVO
+	 * @return List<ComCdVO>
+	 * @throws Exception
+	 */
+    List<ComCdVO> selectApcBffaTypeList(CmnsItemVO cmnsItemVO) throws Exception;
+	/**
+	 * APC 육안선별 타입정보목록 조회
+	 * @param sortBffaGrdVO
+	 * @return List<ComCdVO>
+	 * @throws Exception
+	 */
+	List<SortBffaGrdVO> selectApcBffaGrdDtlList(SortBffaGrdVO sortBffaGrdVO) throws Exception;
 }
