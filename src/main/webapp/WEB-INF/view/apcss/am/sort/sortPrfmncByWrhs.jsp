@@ -271,7 +271,7 @@
 		let firstYmd = gfn_dateFirstYmd(nowDate);
 		let lastYmd = gfn_dateToYmd(nowDate);
 
-		SBUxMethod.set("srch-dtp-wrhsYmdFrom", firstYmd);
+		SBUxMethod.set("srch-dtp-wrhsYmdFrom", lastYmd);
 		SBUxMethod.set("srch-dtp-wrhsYmdTo", lastYmd);
 
 		let result = await Promise.all([
