@@ -267,6 +267,8 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 			String wrhsNo = cmnsTaskNoService.selectBffaWrhsno(apcCd,wrhsYmd);
 			sortBffaVO.setBffaWrhsno(wrhsNo);
 			sortBffaVO.setPltno(wrhsNo);
+		}else{
+			return sortPrfmncMapper.updateSortBffa(sortBffaVO);
 		}
 		return sortPrfmncMapper.insertSortBffa(sortBffaVO);
 	}

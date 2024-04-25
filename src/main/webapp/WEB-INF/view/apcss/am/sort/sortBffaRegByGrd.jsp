@@ -279,6 +279,8 @@
 
             {hidden : true, ref: 'apcCd'},
             {hidden : true, ref: 'bffaWrhsno'},
+            {hidden : true, ref: 'itemCd'},
+            {hidden : true, ref: 'prdcrCd'},
         ]
         if(!gfn_isEmpty(BffaGrdType)){
             let addBffaGrdType = [];
@@ -292,6 +294,7 @@
             SBGridProperties.columns = originColumns;
         }
         grdSortBffa = _SBGrid.create(SBGridProperties);
+        grdSortBffa.bind('dblclick', popBffa.choice);
         grdSortBffa.rebuild();
     }
     /** 품목 선택시 육안선별 종류 SELECT **/
@@ -337,7 +340,6 @@
                 itemCd : itemCd
             });
             const data  = await postJsonPromise;
-
             try{
                 if(_.isEqual("S",data.resultStatus)){
                     data.resultList.forEach(function(item){
@@ -347,7 +349,9 @@
                                 bffaWrhsno: item.bffaWrhsno,
                                 wrhsYmd   : item.wrhsYmd,
                                 prdcrNm   : item.prdcrNm,
+                                prdcrCd   : item.prdcrCd,
                                 fcltNm    : item.fcltNm,
+                                fcltCd    : item.fcltCd,
                                 wrhsQntt  : item.wrhsQntt,
                                 wholWght  : item.wholWght,
                                 icptWght  : item.icptWght,
@@ -355,7 +359,9 @@
                                 grdType2Wght : item.grdType2Wght,
                                 grdType3Wght : item.grdType3Wght,
                                 wrhsWght  : item.wrhsWght,
-                                rmrk      : item.rmrk
+                                rmrk      : item.rmrk,
+                                itemCd    : item.itemCd,
+
                             }
                         jsonSortBffa.push(bffaObj);
                     });

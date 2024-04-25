@@ -62,6 +62,7 @@
         </div>
         <div class="box-body">
             <sbux-input id="srch-reg-prdcrCd" name="srch-reg-prdcrCd" uitype="hidden"></sbux-input>
+            <sbux-input id="srch-reg-bffaWrhsno" name="srch-reg-bffaWrhsno" uitype="hidden"></sbux-input>
             <table id="search_table" class="table table-bordered tbl_row tbl_fixed">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
@@ -326,11 +327,11 @@
                 gfn_setApcVrtySBSelect('srch-reg-vrtyCd',jsonRegApcVrty,_apcCd),// 품종
                 popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm,fn_setRegPrdcr, SBUxMethod.get("srch-reg-inp-prdcrNm")),
             ]);
-            SBUxMethod.set("prdcr-inp-apcNm",_apcNm);
-            SBUxMethod.set("srch-reg-itemCd",_itemCd);
-            SBUxMethod.attr("srch-reg-itemCd",'readonly',true);
-            SBUxMethod.set('srch-reg-vrtyCd',jsonRegApcVrty[0].vrtyCd);
-            SBUxMethod.set('srch-dtp-inptYmd',gfn_dateToYmd(new Date()));
+            await SBUxMethod.set("prdcr-inp-apcNm",_apcNm);
+            await SBUxMethod.set("srch-reg-itemCd",_itemCd);
+            await SBUxMethod.attr("srch-reg-itemCd",'readonly',true);
+            await SBUxMethod.set('srch-reg-vrtyCd',jsonRegApcVrty[0].vrtyCd);
+            await SBUxMethod.set('srch-dtp-inptYmd',gfn_dateToYmd(new Date()));
 
             /** 품목에대한 육안선별 타입 셋팅 **/
             await fn_selectBffaType(_itemCd);
@@ -393,6 +394,8 @@
             let grdType3Wght = SBUxMethod.get('grdType3Wght'); //3번 type 중량
             let grdType4Wght = SBUxMethod.get('grdType4Wght'); //4번 type 중량
             let grdType5Wght = SBUxMethod.get('grdType5Wght'); //5번 type 중량
+            /** 수정옵션 **/
+            let bffaWrhsno = SBUxMethod.get('srch-reg-bffaWrhsno'); //5번 type 중량
             /**  실 입고 중량 연산 **/
             let total = (grdType1Wght !== undefined && grdType1Wght !== null ? parseInt(grdType1Wght) : 0)
                 +(grdType2Wght !== undefined && grdType2Wght !== null ? parseInt(grdType2Wght) : 0)
@@ -430,6 +433,7 @@
             try{
                 let postJsonPromise = gfn_postJSON('/am/sort/insertSortBffa.do',{
                     apcCd:gv_apcCd,
+                    bffaWrhsno:bffaWrhsno,
                     prdcrCd : prdcrCd,
                     prdcrNm : prdcrNm,
                     wrhsYmd : wrhsYmd,
@@ -475,7 +479,48 @@
             globalVal.forEach(function(item){
             SBUxMethod.refresh(item);
             });
-           
+        },
+        choice : async function () {
+            var nRow = grdSortBffa.getRow();
+            var rowData = grdSortBffa.getRowData(nRow);
+            await popBffa.init(gv_apcCd, gv_apcNm, rowData.itemCd, BffaGrdType, null);
+            SBUxMethod.openModal('modal-regSort');
+            
+            /**
+             * srch-slt-fcltCd 선별기 코드
+             * srch-reg-wrhsQntt 박스 수량
+             * srch-reg-wholWght 입고 총중량
+             * grdType1Wght grdType2Wght grdType3Wght 타입별 중량
+             * **/
+            let bffaWrhsno = rowData.bffaWrhsno;
+            let fcltCd = rowData.fcltCd;
+            let prdcrCd = rowData.prdcrCd;
+            let prdcrNm = rowData.prdcrNm;
+            let wrhsQntt = rowData.wrhsQntt;
+            let wholWght = rowData.wholWght;
+            let grdType1Wght = rowData.grdType1Wght;
+            let grdType2Wght = rowData.grdType2Wght;
+            let grdType3Wght = rowData.grdType3Wght;
+            let grdType4Wght = rowData.grdType4Wght;
+            let grdType5Wght = rowData.grdType5Wght;
+
+
+
+            let result = await Promise.all([
+               SBUxMethod.set('prdcr-inp-apcNm',gv_selectedApcNm),
+               SBUxMethod.set('srch-slt-fcltCd',fcltCd),
+               SBUxMethod.set('srch-reg-prdcrNm',prdcrNm),
+               SBUxMethod.set('srch-reg-prdcrCd',prdcrCd),
+               SBUxMethod.attr("srch-reg-prdcrNm", "style", "background-color:aquamarine"),
+               SBUxMethod.set('srch-reg-wrhsQntt',wrhsQntt),
+               SBUxMethod.set('srch-reg-wholWght',wholWght),
+               SBUxMethod.set('grdType1Wght',grdType1Wght),
+               SBUxMethod.set('grdType2Wght',grdType2Wght),
+               SBUxMethod.set('grdType3Wght',grdType3Wght),
+               SBUxMethod.set('grdType4Wght',grdType4Wght),
+               SBUxMethod.set('grdType5Wght',grdType5Wght),
+               SBUxMethod.set('srch-reg-bffaWrhsno',bffaWrhsno)
+            ]);
         }
     }
     /**
@@ -618,14 +663,15 @@
                     if(i == 0){
                         tableEl.children().eq(i).append(
                             `<td style="text-align: center" rowspan="`+count+`">`+item.cdVlNm+`</td>`
-                           +`<td><div style="margin-bottom: 10px">`+ item.indctSeq.value.grdKnd[i].grdKndNm +`</div>`
+                           +`<td>`
                            +`<div id="checkBox_`+item.indctSeq.key+item.indctSeq.value.grdKnd[i].value+`" style="display:flex">
                                 <sbux-checkbox
                                     id="checkBox_`+item.indctSeq.key+item.indctSeq.value.grdKnd[i].value+`"
                                     name="checkBox_`+item.indctSeq.key+item.indctSeq.value.grdKnd[i].value+`"
                                     jsondata-ref="checkBox_`+item.indctSeq.key+item.indctSeq.value.grdKnd[i].value+`.0"
                                     text-right-padding="15px"
-                                    item-bottom-padding="10px"
+                                    item-bottom-padding="3px"
+                                    item-top-padding="3px"
                                     uitype="normal">
                                 </sbux-checkbox>
                             </div>
@@ -633,14 +679,15 @@
                         )
                     }else{
                         tableEl.children().eq(i).append(
-                             `<td><div style="margin-bottom: 10px">`+ item.indctSeq.value.grdKnd[i].grdKndNm +`</div>`
+                             `<td>`
                             +`<div>
                                 <sbux-checkbox
                                     id="checkBox_`+item.indctSeq.key+item.indctSeq.value.grdKnd[i].value+`"
                                     name="checkBox_`+item.indctSeq.key+item.indctSeq.value.grdKnd[i].value+`"
                                     jsondata-ref="checkBox_`+item.indctSeq.key+item.indctSeq.value.grdKnd[i].value+`.0"
                                     text-right-padding="15px"
-                                    item-bottom-padding="10px"
+                                    item-bottom-padding="3px"
+                                    item-top-padding="3px"
                                     uitype="normal">
                                 </sbux-checkbox>
                             </div>
@@ -653,14 +700,15 @@
                 tableEl.append(
                     `<tr>`
                       +`<td>`+item.cdVlNm+`</td>`
-                      +`<td><div style="margin-bottom: 10px">`+ item.indctSeq.value.grdKnd[0].grdKndNm +`</div>`
+                      +`<td>`
                       +`<div>
                             <sbux-checkbox
                                 id="checkBox_`+item.indctSeq.key+item.indctSeq.value.grdKnd[0].value+`"
                                 name="checkBox_`+item.indctSeq.key+item.indctSeq.value.grdKnd[0].value+`"
                                 jsondata-ref="checkBox_`+item.indctSeq.key+item.indctSeq.value.grdKnd[0].value+`.0"
                                 text-right-padding="15px"
-                                item-bottom-padding="10px"
+                                item-bottom-padding="3px"
+                                item-top-padding="3px"
                                 uitype="normal">
                             </sbux-checkbox>
                         </div>
