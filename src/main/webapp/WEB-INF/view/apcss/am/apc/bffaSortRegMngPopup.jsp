@@ -15,7 +15,7 @@
 						<span style="font-weight:bold;">선택한 품목별로 APC에서 관리하는 육안선별등급을 등록하세요.</span>
 					</p>
 					<p>
-						<span style="color:black; font-weight:bold;">품목별 육안선별실적을 관리할 수 있습니다.</span>
+						<span style="color:black; font-weight:bold;">품목별 육안선별등급을 관리할 수 있습니다.</span>
 					</p>
 				</div>
 				<div style="margin-left: auto;">
@@ -44,7 +44,7 @@
 								</th>
 								<th scope="row"><span class="data_required"></span>품목명</th>
 								<th style="border-right-style: hidden;">
-									<sbux-select id="grd-slt-itemCd" name="grd-slt-itemCd" style="background-color:#ffffff;"  uitype="single"
+									<sbux-select id="grd-slt-BitemCd" name="grd-slt-BitemCd" style="background-color:#ffffff;"  uitype="single"
 									jsondata-ref="jsonGItemCd"
 									onchange="fn_searchBffaGrd"
 									unselected-text="선택" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-select>
@@ -124,7 +124,7 @@
 		grdBffaGrdKnd.rebuild();
 		grdBffaGrdDtl.rebuild();
 		let rst = await Promise.all([
-			gfn_setApcItemSBSelect("grd-slt-itemCd", 	jsonGItemCd, gv_apcCd),			// APC 품목
+			gfn_setApcItemSBSelect("grd-slt-BitemCd", 	jsonGItemCd, gv_apcCd),			// APC 품목
 			gfn_setComCdSBSelect("grdBffaGrd", 		jsonBffaGrdType, gv_selectedApcCd)		// 등급유형			
 		]);
 		SBUxMethod.set("grd-inp-apcNm", gv_apcNm);
@@ -248,7 +248,7 @@
 	
 	const fn_selectBffaGrdType = async function(){
 		let apcCd = gv_apcCd;
-		let itemCd = SBUxMethod.get('grd-slt-itemCd');
+		let itemCd = SBUxMethod.get('grd-slt-BitemCd');
 		let lastRowIndex = 0;
 		let nRow = grdBffaGrdType.getRow();
 		let rowData = grdBffaGrdType.getRowData(nRow);
@@ -287,7 +287,7 @@
 	
 	const fn_selectBffaGrdKnd = async function(){
 		let apcCd = gv_apcCd;
-		let itemCd = SBUxMethod.get('grd-slt-itemCd');
+		let itemCd = SBUxMethod.get('grd-slt-BitemCd');
 		let nRow = grdBffaGrdType.getRow();
 		let rowData = grdBffaGrdType.getRowData(nRow);
 		let cdVl = grdBffaGrdType.getRowData(grdBffaGrdType.getRow()).cdVl;
@@ -334,7 +334,7 @@
 	
 	const fn_selectBffaGrdDtl = async function(){
 		let apcCd = gv_apcCd;
-		let itemCd = SBUxMethod.get('grd-slt-itemCd');
+		let itemCd = SBUxMethod.get('grd-slt-BitemCd');
 		let lastRowIndex = 0;
 		let nRow = grdBffaGrdKnd.getRow();
 		let rowData = grdBffaGrdKnd.getRowData(nRow);
@@ -376,7 +376,7 @@
 	
 	const fn_saveBffaGrd = async function(){
 		let apcCd = gv_apcCd;
-		let itemCd = SBUxMethod.get('grd-slt-itemCd');
+		let itemCd = SBUxMethod.get('grd-slt-BitemCd');
 		let bffaGrdType = grdBffaGrdType.getRowData(grdBffaGrdType.getRow()).cdVl;
 		let lastRowIndex = 0;
 		
@@ -484,7 +484,7 @@
 	
 	const fn_deleteBffaGrdKnd = async function(data, nRow){
 		let apcCd = gv_apcCd;
-		let itemCd = SBUxMethod.get('grd-slt-itemCd');
+		let itemCd = SBUxMethod.get('grd-slt-BitemCd');
 		
 		let kndParam = {apcCd:apcCd, itemCd : itemCd, bffaGrdType : data.bffaGrdType, grdKnd : data.grdKnd};
 	    try{
@@ -506,7 +506,7 @@
 	
 	const fn_deleteBffaGrdDtl = async function(data, nRow){
 		let apcCd = gv_apcCd;
-		let itemCd = SBUxMethod.get('grd-slt-itemCd');
+		let itemCd = SBUxMethod.get('grd-slt-BitemCd');
 		let grdKnd = grdBffaGrdKnd.getRowData(grdBffaGrdKnd.getRow()).grdKnd;
 		let kndParam = {apcCd:apcCd, itemCd : itemCd, bffaGrdType : data.bffaGrdType, grdKnd : grdKnd, grdCd : data.grdCd};
 	    try{
