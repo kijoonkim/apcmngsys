@@ -2368,5 +2368,64 @@
 		AND BFFA_WRHSNO = #{bffaWrhsno}
 		]]>
 	</delete>
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.updateSortBffa  	-->
+	<!-- DESC : 육안선별 삭제                                                         -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.25  	손민성        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updateSortBffa"  parameterType="com.at.apcss.am.sort.vo.SortBffaVO">
+		<![CDATA[
+		UPDATE
+		 	TB_BFFA_WRHS_PRFMNC
+			SET
+				 PLTNO = #{pltno}
+				,WRHS_YMD = #{wrhsYmd}
+				,PRDCR_CD = #{prdcrCd}
+				,ITEM_CD = #{itemCd}
+				,VRTY_CD = #{vrtyCd}
+				,GDS_SE_CD = #{gdsSeCd}
+				,WRHS_SE_CD = #{wrhsSeCd}
+				,TRSPRT_SE_CD = #{trsprtSeCd}
+				,WAREHOUSE_SE_CD = #{warehouseSeCd}
+				,FCLT_CD = #{fcltCd}
+				,PRDCTN_YR = #{prdctnYr}
+				,IDNTY_PRSN = #{idntyPrsn}
+				,BX_KND = #{bxKnd}
+				,WRHS_QNTT = #{wrhsQntt}
+				,WRHS_WGHT = #{wrhsWght}
+				,INVNTR_QNTT = #{invntrQntt}
+				,INVNTR_WGHT = #{invntrWght}
+				,RMRK = #{rmrk}
+				,GRD_TYPE_1 = #{grdType1}
+				,GRD_TYPE_1_QNTT = #{grdType1Qntt}
+				,GRD_TYPE_1_WGHT = #{grdType1Wght}
+				,GRD_TYPE_1_RMRK = #{grdType1Rmrk}
+			    ,GRD_TYPE_2 = #{grdType2}
+			    ,GRD_TYPE_2_QNTT = #{grdType2Qntt}
+			    ,GRD_TYPE_2_WGHT = #{grdType2Wght}
+			    ,GRD_TYPE_2_RMRK = #{grdType2Rmrk}
+			    ,GRD_TYPE_3 = #{grdType3}
+			    ,GRD_TYPE_3_QNTT = #{grdType3Qntt}
+			    ,GRD_TYPE_3_WGHT = #{grdType3Wght}
+			    ,GRD_TYPE_3_RMRK = #{grdType3Rmrk}
+			    ,GRD_TYPE_4 = #{grdType4}
+			    ,GRD_TYPE_4_QNTT = #{grdType4Qntt}
+			    ,GRD_TYPE_4_WGHT = #{grdType4Wght}
+			    ,GRD_TYPE_4_RMRK = #{grdType4Rmrk}
+			    ,GRD_TYPE_5 = #{grdType5}
+			    ,GRD_TYPE_5_QNTT = #{grdType5Qntt}
+			    ,GRD_TYPE_5_WGHT = #{grdType5Wght}
+			    ,GRD_TYPE_5_RMRK = #{grdType5Rmrk}
+				,SYS_LAST_CHG_DT = #{sysLastChgDt}
+				,SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+				,SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+			WHERE  APC_CD =  #{apcCd}
+			   AND BFFA_WRHSNO = #{bffaWrhsno}
+			   AND DEL_YN = 'N'
+		]]>
+	</update>
 
 </mapper>

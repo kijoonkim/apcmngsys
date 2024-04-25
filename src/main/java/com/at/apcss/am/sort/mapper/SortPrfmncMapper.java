@@ -205,4 +205,11 @@ public interface SortPrfmncMapper {
 	 * @throws Exception
 	 */
 	int deleteSortBffa(SortBffaVO vo) throws Exception;
+	/**
+	 * 육안선별 수정
+	 * @param sortBffaVO
+	 * @return
+	 * @throws Exception
+	 */
+	int updateSortBffa(SortBffaVO sortBffaVO) throws Exception;
 }
