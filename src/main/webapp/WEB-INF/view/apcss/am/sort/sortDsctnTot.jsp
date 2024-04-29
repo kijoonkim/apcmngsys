@@ -510,9 +510,9 @@
 
 
 	        grdSortDsctnTot.refresh();
-	        grdSortDsctnTot.setCellStyles(0,4,0,9,'background:#FF0000');
-			grdSortDsctnTot.setCellStyles(0,10,0,16,'background:#FFFC33');
-			grdSortDsctnTot.setCellStyles(0,17,0,22,'background:#FFB533');
+	        grdSortDsctnTot.setCellStyles(0,4,0,9,'background:#FF000030');
+			grdSortDsctnTot.setCellStyles(0,10,0,16,'background:#FFFC3330');
+			grdSortDsctnTot.setCellStyles(0,17,0,22,'background:#FFB53330');
 
 		} catch (e) {
 			if (!(e instanceof Error)) {

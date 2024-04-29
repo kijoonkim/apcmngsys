@@ -234,9 +234,9 @@
 	    grdSpmtPrfmncDsctn.bind('select' , fn_setValue);
 	    grdSpmtPrfmncDsctn.bind('deselect', fn_delValue);
 	    
-        grdSpmtPrfmncDsctn.setCellStyles(0,5,1,11,'background:#FF0000');
-		grdSpmtPrfmncDsctn.setCellStyles(0,12,1,18,'background:#FFFC33');
-		grdSpmtPrfmncDsctn.setCellStyles(0,19,1,25,'background:#FFB533');
+        grdSpmtPrfmncDsctn.setCellStyles(0,5,1,11,'background:#FF000030');
+		grdSpmtPrfmncDsctn.setCellStyles(0,12,1,18,'background:#FFFC3330');
+		grdSpmtPrfmncDsctn.setCellStyles(0,19,1,25,'background:#FFB53330');
 	}
 
 	/**
