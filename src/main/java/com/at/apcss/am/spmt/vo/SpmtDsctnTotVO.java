@@ -1,9 +1,5 @@
 package com.at.apcss.am.spmt.vo;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import com.at.apcss.am.invntr.vo.RawMtrStdGrdVO;
 import com.at.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
@@ -43,7 +39,8 @@ public class SpmtDsctnTotVO extends ComVO{
 	private String grd;
 	private String prdcrNm;
 	private String grdGubun;
-	
+	private String rmrk;
+
 	private int red2Xl;
 	private int redXl;
 	private int redL;
