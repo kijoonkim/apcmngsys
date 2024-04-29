@@ -336,5 +336,12 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 	public int deleteSortBffaAll(SortBffaVO sortBffaVO) throws Exception {
 		return sortPrfmncMapper.deleteSortBffaAll(sortBffaVO);
 	}
+    
+    @Override
+    public List<HashMap<String, Object>> selectExhstDsctnCol(HashMap<String, Object> exhstDsctn) throws Exception {
 
+        List<HashMap<String, Object>> resultVO = sortPrfmncMapper.selectExhstDsctnCol(exhstDsctn);
+        
+        return resultVO;
+    }
 }
