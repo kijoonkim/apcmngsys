@@ -47,5 +47,10 @@ public class SortBffaGrdVO extends ComCdVO {
      * 비고
      */
     private String rmrk;
+    /**
+     * checkbox index
+     */
+    private String checkIndex;
+
 
 }

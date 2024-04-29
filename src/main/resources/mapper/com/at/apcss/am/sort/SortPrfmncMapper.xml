@@ -2384,6 +2384,38 @@
 		]]>
 	</delete>
 	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectSortDsctnList  	-->
+	<!-- DESC : 육안선별 선택목록 삭제                                                 -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.24  	손민성        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<delete id="deleteSortBffaStdGrd"  parameterType="com.at.apcss.am.sort.vo.SortBffaVO">
+		<![CDATA[
+		DELETE
+		FROM TB_BFFA_WRHS_STD_GRD
+		WHERE APC_CD = #{apcCd}
+		  AND BFFA_WRHSNO = #{bffaWrhsno}
+		]]>
+	</delete>
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectSortDsctnList  	-->
+	<!-- DESC : 육안선별 선택목록 삭제                                                 -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.24  	손민성        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<delete id="deleteSortBffaAll"  parameterType="com.at.apcss.am.sort.vo.SortBffaVO">
+		<![CDATA[
+		DELETE
+		FROM TB_BFFA_WRHS_STD_GRD
+		WHERE APC_CD = #{apcCd}
+		  AND BFFA_WRHSNO = #{bffaWrhsno}
+		]]>
+	</delete>
+	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.updateSortBffa  	-->
 	<!-- DESC : 육안선별 삭제                                                         -->
 	<!-- ==========================================================================	-->
@@ -2442,5 +2474,56 @@
 			   AND DEL_YN = 'N'
 		]]>
 	</update>
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.insertSortBffaStdGrd  	-->
+	<!-- DESC : 육안선별 선별내역 INSERT                                               -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.25  	손민성        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<insert id="insertSortBffaStdGrd" parameterType="com.at.apcss.am.sort.vo.SortBffaWrhsStdGrdVO">
+		<![CDATA[
+		INSERT
+			INTO TB_BFFA_WRHS_STD_GRD
+			(
+				 APC_CD
+				,BFFA_WRHSNO
+				,ITEM_CD
+				,GRD_KND
+				,GRD_CD
+				,GRD_NV
+				,GRD_QNTT
+				,GRD_WGHT
+				,BFFA_GRD_TYPE
+				,DEL_YN
+				,SYS_FRST_INPT_DT
+				,SYS_FRST_INPT_USER_ID
+				,SYS_FRST_INPT_PRGRM_ID
+				,SYS_LAST_CHG_DT
+				,SYS_LAST_CHG_USER_ID
+				,SYS_LAST_CHG_PRGRM_ID
+			)
+			VALUES
+			(
+			     #{apcCd}
+				,#{bffaWrhsno}
+				,#{itemCd}
+				,#{grdKnd}
+				,#{grdCd}
+				,#{grdNv}
+				,#{grdQntt}
+				,#{grdWght}
+				,#{bffaGrdType}
+				,'N'
+				,#{sysFrstInptDt}
+				,#{sysFrstInptUserId}
+				,#{sysFrstInptPrgrmId}
+				,#{sysLastChgDt}
+				,#{sysLastChgUserId}
+				,#{sysLastChgPrgrmId}
+			)
+		]]>
+	</insert>
 
 </mapper>

@@ -17,9 +17,7 @@
             border-top: 1px solid #ddd;
         }
         #bfaa_reg_table > thead > tr >td,
-        #bfaa_reg_table > tbody > tr:nth-child(1) > td:nth-child(1),
-        #bfaa_reg_table > tbody > tr:nth-child(4) > td:nth-child(1),
-        #bfaa_reg_table > tbody > tr:nth-child(5) > td:nth-child(1){
+        #bfaa_reg_table > tbody > tr > td[rowspan]{
             -webkit-text-size-adjust: 100%;
             -webkit-tap-highlight-color: rgba(0,0,0,0);
             color: #333;
@@ -267,8 +265,8 @@
                 }
         };
     /** CHK JSON **/
-    var jsonCheckBox = [];
     var globalVal = [];
+    var sortBffaWrhsStdGrdVO = [];
 
     /** 동적 SB 요소 템플릿 **/
     var sbTemplate = function(_id,_text,_flag){
@@ -381,6 +379,8 @@
             await fn_search();
         },
         save : async function(){
+            sortBffaWrhsStdGrdVO.length = 0;
+
             let prdcrCd = SBUxMethod.get('srch-reg-prdcrCd'); //생산자코드
             let prdcrNm = SBUxMethod.get('srch-reg-prdcrNm'); //생산자명
             let wrhsYmd = SBUxMethod.get('srch-dtp-inptYmd'); //날짜
@@ -425,9 +425,23 @@
             };
 
             //TODO : TB_BFFA_WRHS_STD_GRD INSERT 필요하고 VO에 CHECK된 value 어떻게 넘길것인가에대하여..
-
             globalVal.forEach(function(id){
-
+                let obj = SBUxMethod.getCheckbox(id, {trueValueOnly:true, ignoreDisabledValue:false});
+                if(!gfn_isEmpty(obj)){
+                    for(var key in obj){
+                        if(obj.hasOwnProperty(key)){
+                            let vo = {
+                                apcCd : gv_apcCd,
+                                bffaWrhsno : bffaWrhsno,
+                                itemCd : itemCd,
+                                grdKnd : key.substring(key.indexOf("_") + 5,key.lastIndexOf("_")),
+                                grdCd  : obj[key],
+                                bffaGrdType : key.substring(key.indexOf("_")+1,key.indexOf("_")+5)
+                            }
+                            sortBffaWrhsStdGrdVO.push(vo);
+                        }
+                    }
+                }
             });
 
             try{
@@ -449,7 +463,8 @@
                     grdType4Wght : grdType4Wght,
                     grdType5Wght : grdType5Wght,
                     sysFrstInptDt : gfn_dateToYmd(new Date()),
-                    sysLastChgDt : gfn_dateToYmd(new Date())
+                    sysLastChgDt : gfn_dateToYmd(new Date()),
+                    sortBffaWrhsStdGrdVO: sortBffaWrhsStdGrdVO,
                 });
                 let data = await postJsonPromise;
                 if (_.isEqual("S", data.resultStatus)) {
@@ -475,17 +490,19 @@
             SBUxMethod.set('grdType3Wght',""); //3번 type 중량
             SBUxMethod.set('grdType4Wght',""); //4번 type 중량
             SBUxMethod.set('grdType5Wght',""); //5번 type 중량
+            SBUxMethod.set('srch-reg-bffaWrhsno',"")//선별번호
 
             globalVal.forEach(function(item){
             SBUxMethod.refresh(item);
             });
         },
         choice : async function () {
+
             var nRow = grdSortBffa.getRow();
             var rowData = grdSortBffa.getRowData(nRow);
             await popBffa.init(gv_apcCd, gv_apcNm, rowData.itemCd, BffaGrdType, null);
             SBUxMethod.openModal('modal-regSort');
-            
+
             /**
              * srch-slt-fcltCd 선별기 코드
              * srch-reg-wrhsQntt 박스 수량
@@ -503,8 +520,7 @@
             let grdType3Wght = rowData.grdType3Wght;
             let grdType4Wght = rowData.grdType4Wght;
             let grdType5Wght = rowData.grdType5Wght;
-
-
+            let itemCd = rowData.itemCd;
 
             let result = await Promise.all([
                SBUxMethod.set('prdcr-inp-apcNm',gv_selectedApcNm),
@@ -521,6 +537,55 @@
                SBUxMethod.set('grdType5Wght',grdType5Wght),
                SBUxMethod.set('srch-reg-bffaWrhsno',bffaWrhsno)
             ]);
+
+            //TODO : 여기서 select 해와서 체크박스 SET 규격 맞춰서 포맷하고 SET까지 해야함.
+            /** ex) SBUxMethod.set('checkBox_000101',{'checkBox_000101_0':'0001'}) **/
+            /** ex) SBUxMethod.set('checkBox_000101',{'globalVal의id_인덱스':'grdCd'}) **/
+            /** 근데 id 자체가 checkBox_ + BFFA_GRD_TYPE + GRD_KND 요소 인덱스는 grd_cd 마지막자리로 가능한지 test필요함**/
+            let realChkId = [];
+            globalVal.forEach(function(item){
+                let obj = SBUxMethod.getCheckbox(item);
+                if(!gfn_isEmpty(obj)){
+                    for(var key in obj){
+                        realChkId.push(key);
+                    }
+                }
+            });
+            /** checkbox globalVal가 순서대로 온다고 보장받을수있음
+             *  >> CmnsItemMapper.xml[selectApcBffaGrdDtlList] oderby
+             *  고로 선택된 데이터 가져온 후 파싱후 앞두글자가 마지막 두글자와 같은 glovalVal이 있는지 판단
+             *  있다면 해당 ID값으로 가져온 데이터 _부터 뒤 글자를 붙혀서 true로 **/
+            let chkVal = [];
+            if(!gfn_isEmpty(bffaWrhsno)){
+                try{
+                    let postJsonPromise = gfn_postJSON('/am/sort/selectBffaGrdKnd',{
+                        apcCd:gv_apcCd,
+                        bffaWrhsno:bffaWrhsno,
+                        itemCd : itemCd,
+                    });
+                    let data = await postJsonPromise;
+                    if(_.isEqual("S",data.resultStatus)){
+                        data.resultList.forEach(function(item){
+                            let id = '';
+                                globalVal.forEach(function(val){
+                                    if(val.substring(val.length-2,val.length) == item.grdKnd){
+                                        id = val;
+                                    }
+                                });
+                                /** index로 realChkId 에서 찾기 **/
+                                let chkID = realChkId[item.checkIndex-1];
+                                let value = parseInt(item.grdCd);
+                            // let idx = parseInt(item.grdCd)-1;
+                            // let chkID = realChkId[idx];
+                            // let value = idx+1
+                            //
+                            SBUxMethod.set(id,{[chkID]:value});
+                        });
+                    }
+                }catch (e){
+                    console.log(e);
+                }
+            }
         }
     }
     /**
@@ -560,7 +625,7 @@
                 if (_.isEqual("S", data.resultStatus)) {
 
                     let obj = gfn_cloneJson(jsonChkGrdType);
-                    let map = new Map();
+                    let map = [];
                     data.resultList.forEach((item,idx) => {
                         if(gfn_isEmpty(obj.cdVlNm)){ /** 최초진입 **/
                             obj.cdVlNm = item.cdVlNm;
@@ -571,16 +636,16 @@
                                     grdKndNm : item.grdKndNm,
                                 }
                             );
-                            map.set(item.grdCd,item.grdNm);
+                            map.push([item.grdCd,item.grdNm,item.checkIndex]);
                         }else if(obj.cdVlNm == item.cdVlNm){ /** 1분류 일치 **/
                             let flag = obj.indctSeq.value.grdKnd.some(obj => obj.value == item.grdKnd);
                             if(flag){
-                                map.set(item.grdCd,item.grdNm);
+                                map.push([item.grdCd,item.grdNm,item.checkIndex]);
                             }else{
                                 let index = obj.indctSeq.value.grdKnd.length-1;
                                 if(!(index < 0)) {
                                     obj.indctSeq.value.grdKnd[index].grdNm = [...map];
-                                    map.clear();
+                                    map.length = 0;
                                 }
                                 obj.indctSeq.value.grdKnd.push(
                                     {
@@ -588,7 +653,7 @@
                                         grdKndNm : item.grdKndNm,
                                     }
                                 );
-                                map.set(item.grdCd,item.grdNm);
+                                map.push([item.grdCd,item.grdNm,item.checkIndex]);
                             }
                         }else{ /** 1분류 불일치 **/
                             let index = obj.indctSeq.value.grdKnd.length-1;
@@ -605,8 +670,8 @@
                                     grdKndNm : item.grdKndNm,
                                 }
                             );
-                            map.clear();
-                            map.set(item.grdCd,item.grdNm);
+                            map.length = 0;
+                            map.push([item.grdCd,item.grdNm,item.checkIndex]);
                         }
                     });
                 }
@@ -632,20 +697,24 @@
         globalVal.length = 0;
         $("#bfaa_reg_table > tbody").empty();
 
-
         let tableEl = $("#bfaa_reg_table > tbody");
+
+        /** append 위치 == index **/
+        let apdIdx = 0;
         jsonChkGrdTypeList.forEach(function(item,idx) {
             /** checkBox Json **/
             let checkObj = [];
             const chkId = "checkBox_" + item.indctSeq.key;
+
             item.indctSeq.value.grdKnd.forEach(function (item) {
                 let elId = chkId + item.value;
                 checkObj.push(
                     item.grdNm.map(function (innerArray) {
                         return {
                             text: innerArray[1],
-                            truevalue: innerArray[0],
-                            style : "flex:1"
+                            truevalue: parseInt(innerArray[0]),
+                            style : "flex:1",
+                            index : innerArray[2]
                         };
                     })
                 );
@@ -653,15 +722,16 @@
                 window[elId] = [...checkObj];
                 checkObj.length = 0;
             });
-            jsonCheckBox.push(checkObj);
 
             let count = item.indctSeq.value.grdKnd.length;
+
             /** 2뎁스 종류가 여러개 **/
+            //TODO: select 해올때 여기서 참조
             if(count > 1){
                 for(let i = 0 ; i < count; i++){
                     tableEl.append(`<tr></tr>`);
                     if(i == 0){
-                        tableEl.children().eq(i).append(
+                        tableEl.children().eq(apdIdx).append(
                             `<td style="text-align: center" rowspan="`+count+`">`+item.cdVlNm+`</td>`
                            +`<td>`
                            +`<div id="checkBox_`+item.indctSeq.key+item.indctSeq.value.grdKnd[i].value+`" style="display:flex">
@@ -677,8 +747,9 @@
                             </div>
                             </td>`
                         )
+                        apdIdx++;
                     }else{
-                        tableEl.children().eq(i).append(
+                        tableEl.children().eq(apdIdx).append(
                              `<td>`
                             +`<div>
                                 <sbux-checkbox
@@ -693,6 +764,7 @@
                             </div>
                             </td>`
                         )
+                        apdIdx++;
                     }
                 }
             /** 단일일때 1-2 **/
@@ -715,15 +787,16 @@
                         </td>`+
                     `</tr>`
                 )
+                apdIdx++;
             }
         });
         tableEl.append(
-            `<tr><td>기타</td><td><sbux-input id="checkBox_000305" name="checkBox_000305" uitype="text"></sbux-input></td></tr>`
+            `<tr><td rowspan>기타</td><td><sbux-input id="bffaRmrk" name="bffaRmrk" uitype="text"></sbux-input></td></tr>`
         );
 
         SBUxMethod.render();
         /** 추후에 저장할때 동적으로 생성된 CheckBox ID 수집 @globalVal **/
-        globalVal.push('checkBox_000305');
+        // globalVal.push('checkBox_000305');
     }
     const fn_changeWght = function(){
         let grdType1Wght = SBUxMethod.get('grdType1Wght'); //1번 type 중량

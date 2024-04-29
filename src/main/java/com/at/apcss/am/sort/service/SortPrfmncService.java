@@ -184,10 +184,17 @@ public interface SortPrfmncService {
 	 */
 	public List<SortPrfmncVO> selectSortPrfmncListByWrhsForGdsGrd(SortPrfmncVO sortPrfmncVO) throws Exception;
 	/**
-	 * 선별실적(입고별 상품등급)  목록 조회
+	 * 선별실적(입고별 상품등급)  목록삭제
 	 * @param sortBffaVoList
 	 * @return
 	 * @throws Exception
 	 */
 	int deleteSortBffa(List<SortBffaVO> sortBffaVoList) throws Exception;
+	/**
+	 * 육안선별 checkbox apcCd,bffaGrdType로 전체 삭제
+	 * @param sortBffaVO
+	 * @return
+	 * @throws Exception
+	 */
+	int deleteSortBffaAll(SortBffaVO sortBffaVO) throws Exception;
 }

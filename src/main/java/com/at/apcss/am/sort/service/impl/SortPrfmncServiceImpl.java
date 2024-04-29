@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import com.at.apcss.am.sort.vo.SortBffaVO;
+import com.at.apcss.am.sort.vo.*;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +19,6 @@ import com.at.apcss.am.invntr.vo.SortInvntrVO;
 import com.at.apcss.am.sort.mapper.SortPrfmncMapper;
 import com.at.apcss.am.sort.service.SortInptPrfmncService;
 import com.at.apcss.am.sort.service.SortPrfmncService;
-import com.at.apcss.am.sort.vo.ComSortDsctnTotVO;
-import com.at.apcss.am.sort.vo.SortDsctnTotVO;
-import com.at.apcss.am.sort.vo.SortPrfmncVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.co.sys.util.ComUtil;
@@ -263,14 +260,46 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 		String wrhsno = sortBffaVO.getBffaWrhsno();
 		String apcCd = sortBffaVO.getApcCd();
 		String wrhsYmd	= sortBffaVO.getWrhsYmd();
+
+		String sysFrstInptUserId =  sortBffaVO.getSysFrstInptUserId();
+		String sysFrstInptPrgrmId =  sortBffaVO.getSysFrstInptPrgrmId();
+		String sysFrstInptDt =  sortBffaVO.getSysFrstInptDt();
+		String sysLastChgUserId =  sortBffaVO.getSysLastChgUserId();
+		String sysLastChgPrgrmId =  sortBffaVO.getSysLastChgPrgrmId();
+		String sysLastChgDt =  sortBffaVO.getSysLastChgDt();
+
 		if(StringUtils.isEmpty(wrhsno)) {
 			String wrhsNo = cmnsTaskNoService.selectBffaWrhsno(apcCd,wrhsYmd);
 			sortBffaVO.setBffaWrhsno(wrhsNo);
 			sortBffaVO.setPltno(wrhsNo);
+			/** 없을때 **/
+			if(!sortBffaVO.getSortBffaWrhsStdGrdVO().isEmpty()){
+				for(SortBffaWrhsStdGrdVO vo : sortBffaVO.getSortBffaWrhsStdGrdVO()){
+					vo.setSysFrstInptDt(sysFrstInptDt);
+					vo.setSysFrstInptUserId(sysFrstInptUserId);
+					vo.setSysFrstInptPrgrmId(sysFrstInptPrgrmId);
+					vo.setSysLastChgDt(sysLastChgDt);
+					vo.setSysLastChgPrgrmId(sysLastChgPrgrmId);
+					vo.setSysLastChgUserId(sysLastChgUserId);
+					vo.setBffaWrhsno(wrhsNo);
+					sortPrfmncMapper.insertSortBffaStdGrd(vo);
+				}
+			}
+			return sortPrfmncMapper.insertSortBffa(sortBffaVO);
 		}else{
+			deleteSortBffaAll(sortBffaVO);
+			for(SortBffaWrhsStdGrdVO vo : sortBffaVO.getSortBffaWrhsStdGrdVO()) {
+				vo.setSysFrstInptDt(sysFrstInptDt);
+				vo.setSysFrstInptUserId(sysFrstInptUserId);
+				vo.setSysFrstInptPrgrmId(sysFrstInptPrgrmId);
+				vo.setSysLastChgDt(sysLastChgDt);
+				vo.setSysLastChgPrgrmId(sysLastChgPrgrmId);
+				vo.setSysLastChgUserId(sysLastChgUserId);
+				vo.setBffaWrhsno(sortBffaVO.getBffaWrhsno());
+				sortPrfmncMapper.insertSortBffaStdGrd(vo);
+			}
 			return sortPrfmncMapper.updateSortBffa(sortBffaVO);
 		}
-		return sortPrfmncMapper.insertSortBffa(sortBffaVO);
 	}
 
 	@Override
@@ -294,6 +323,7 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 		try {
 			for(SortBffaVO vo : sortBffaVoList ){
 				count += sortPrfmncMapper.deleteSortBffa(vo);
+				sortPrfmncMapper.deleteSortBffaStdGrd(vo);
 			}
 
 		}catch (Exception e){
@@ -301,4 +331,10 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 		}
 		return count;
 	}
+
+	@Override
+	public int deleteSortBffaAll(SortBffaVO sortBffaVO) throws Exception {
+		return sortPrfmncMapper.deleteSortBffaAll(sortBffaVO);
+	}
+
 }

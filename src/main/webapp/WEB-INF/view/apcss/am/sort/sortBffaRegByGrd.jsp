@@ -223,7 +223,7 @@
             gfn_setApcItemSBSelect('srch-slt-itemCd', jsonApcItem, gv_selectedApcCd)// 품목
         ]);
         await fn_createGrid();
-        await fn_setGrid();
+
         if(jsonApcItem.length == 1){
             SBUxMethod.set('srch-slt-itemCd',jsonApcItem[0].cmnsCd);
             await fn_selectBffaGrdType();
@@ -316,9 +316,6 @@
                 console.log(e);
             }
         }
-    }
-    const fn_setGrid = async function() {
-
     }
     /** 육안선별 목록 조회 **/
     const fn_search = async function(){
