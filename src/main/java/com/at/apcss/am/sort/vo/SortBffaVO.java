@@ -4,6 +4,8 @@ import com.at.apcss.co.sys.vo.ComVO;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 /**
  * @Class Name : SortPrfmncVO.java
  * @Description : 육안선별에 대한 VO 클래스
@@ -149,4 +151,9 @@ public class SortBffaVO extends ComVO {
     private String grdType5Qntt;
     private String grdType5Wght;
     private String grdType5Rmrk;
+
+    /**
+     * 선별내역 사전입고표준등급
+     */
+    List<SortBffaWrhsStdGrdVO> sortBffaWrhsStdGrdVO;
 }

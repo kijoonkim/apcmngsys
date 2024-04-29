@@ -425,6 +425,7 @@
 			 , GD.GRD_CD AS GRD_CD
 			 , GD.GRD_NM AS GRD_NM
 			 , GD.SN AS GRD_CD_SN
+			 , ROW_NUMBER() OVER (ORDER BY GT.INDCT_SEQ, GT.CD_VL, GK.SN, GK.GRD_KND, GD.SN, GD.GRD_CD) AS CHECK_INDEX
 		FROM TB_COM_CD_DTL GT
 		JOIN TB_APC_BFFA_GRD_KND GK
 			ON GK.APC_CD = GT.APC_CD
@@ -442,7 +443,71 @@
 		  	AND GK.ITEM_CD = #{itemCd}
 		ORDER BY ITEM_CD, INDCT_SEQ, GRD_KND_SN, GRD_CD_SN;
 		]]>
-
+	</select>
+	<!-- =========================================================================  -->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectBffaGrdKndList	    -->
+	<!-- DESC : APC기준 육안선별 타입선택 checkbox 조회                           		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.26  	손민성        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectBffaGrdKndList" parameterType="com.at.apcss.am.sort.vo.SortBffaWrhsStdGrdVO" resultType="com.at.apcss.am.sort.vo.SortBffaWrhsStdGrdVO">
+		<![CDATA[
+		SELECT
+			GRD.APC_CD
+			 ,GRD.BFFA_WRHSNO
+			 ,GRD.BFFA_GRD_TYPE
+			 ,GRD.ITEM_CD
+			 ,GRD.GRD_KND
+			 ,GRD.GRD_CD
+			 ,GRD.GRD_NV
+			 ,GRD.GRD_QNTT
+			 ,GRD.GRD_WGHT
+			 ,GKD.CHECK_INDEX
+		FROM
+			TB_BFFA_WRHS_STD_GRD AS GRD
+				LEFT JOIN(
+				SELECT
+					GT.APC_CD  AS APC_CD
+					 , GT.CD_VL AS CD_VL
+					 , GT.CD_VL_NM AS CD_VL_NM
+					 , GT.INDCT_SEQ AS INDCT_SEQ
+					 , GK.ITEM_CD AS ITEM_CD
+					 , GK.BFFA_GRD_TYPE AS BFFA_GRD_TYPE
+					 , COUNT(GK.GRD_KND) OVER (PARTITION BY GT.CD_VL) AS GRD_KND_CNT
+					, GK.GRD_KND AS GRD_KND
+					 , GK.GRD_KND_NM AS GRD_KND_NM
+					 , GK.SN AS GRD_KND_SN
+					 , COUNT(GD.GRD_CD) OVER (PARTITION BY GK.GRD_KND) AS GRD_CD_CNT
+					, TO_NUMBER(GD.GRD_CD) AS GRD_CD
+					 , GD.GRD_NM AS GRD_NM
+					 , GD.SN AS GRD_CD_SN
+					 , ROW_NUMBER() OVER (ORDER BY GT.INDCT_SEQ, GT.CD_VL, GK.SN, GK.GRD_KND, GD.SN, GD.GRD_CD) AS CHECK_INDEX
+				FROM TB_COM_CD_DTL GT
+				JOIN TB_APC_BFFA_GRD_KND GK
+						  ON GK.APC_CD = GT.APC_CD
+						  AND GK.BFFA_GRD_TYPE = GT.CD_VL
+						  AND GK.DEL_YN = 'N'
+				LEFT JOIN TB_APC_BFFA_GRD_DTL GD
+						 ON GD.APC_CD = GK.APC_CD
+						 AND GD.BFFA_GRD_TYPE = GK.BFFA_GRD_TYPE
+						 AND GD.ITEM_CD = GK.ITEM_CD
+						 AND GD.GRD_KND = GK.GRD_KND
+						 AND GD.DEL_YN = 'N'
+				WHERE GT.CD_ID = 'BFFA_GRD_TYPE'
+				AND GT.DEL_YN = 'N'
+				AND GT.APC_CD =#{apcCd}
+				AND GK.ITEM_CD = #{itemCd}
+				ORDER BY ITEM_CD, INDCT_SEQ, GRD_KND_SN, GRD_CD_SN
+				) AS GKD
+				 ON GRD.BFFA_GRD_TYPE = GKD.BFFA_GRD_TYPE
+				 AND GRD.ITEM_CD = GKD.ITEM_CD
+				 AND GRD.GRD_KND = GKD.GRD_KND
+				 AND GRD.GRD_CD = GKD.GRD_CD
+				 AND GRD.APC_CD = #{apcCd}
+				 AND BFFA_WRHSNO = #{bffaWrhsno}
+	]]>
 	</select>
 </mapper>
 

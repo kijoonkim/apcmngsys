@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import com.at.apcss.am.sort.vo.SortBffaGrdVO;
+import com.at.apcss.am.sort.vo.SortBffaWrhsStdGrdVO;
 import com.at.apcss.co.cd.vo.ComCdVO;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -103,6 +104,27 @@ public class CmnsItemApiController extends BaseController {
 
 		try {
 			resultList = cmnsItemService.selectApcBffaGrdDtlList(sortBffaGrdVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	@PostMapping(value = "/am/sort/selectBffaGrdKnd", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectBffaGrdKndList(@RequestBody SortBffaWrhsStdGrdVO sortBffaWrhsStdGrdVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<SortBffaWrhsStdGrdVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = cmnsItemService.selectBffaGrdKndList(sortBffaWrhsStdGrdVO);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {

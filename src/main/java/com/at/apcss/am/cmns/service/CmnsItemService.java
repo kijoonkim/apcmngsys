@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.at.apcss.am.cmns.vo.CmnsItemVO;
 import com.at.apcss.am.sort.vo.SortBffaGrdVO;
+import com.at.apcss.am.sort.vo.SortBffaWrhsStdGrdVO;
 import com.at.apcss.co.cd.vo.ComCdVO;
 
 /**
@@ -124,4 +125,11 @@ public interface CmnsItemService {
 	 * @throws Exception
 	 */
 	List<SortBffaGrdVO> selectApcBffaGrdDtlList(SortBffaGrdVO sortBffaGrdVO) throws Exception;
+	/**
+	 * APC기준 육안선별 타입목록 선택 checkbox 조회
+	 * @param sortBffaWrhsStdGrdVO
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+    List<SortBffaWrhsStdGrdVO> selectBffaGrdKndList(SortBffaWrhsStdGrdVO sortBffaWrhsStdGrdVO) throws Exception;
 }

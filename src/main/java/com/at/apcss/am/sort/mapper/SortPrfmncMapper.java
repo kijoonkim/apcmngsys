@@ -3,12 +3,8 @@ package com.at.apcss.am.sort.mapper;
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.sort.vo.SortBffaVO;
+import com.at.apcss.am.sort.vo.*;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
-
-import com.at.apcss.am.sort.vo.ComSortDsctnTotVO;
-import com.at.apcss.am.sort.vo.SortDsctnTotVO;
-import com.at.apcss.am.sort.vo.SortPrfmncVO;
 
 /**
  * 선별실적 Mapper 인터페이스
@@ -212,4 +208,27 @@ public interface SortPrfmncMapper {
 	 * @throws Exception
 	 */
 	int updateSortBffa(SortBffaVO sortBffaVO) throws Exception;
+	/**
+	 * 육안선별 내역선택 목록등록
+	 * @param vo
+	 * @return
+	 * @throws Exception
+	 */
+	void insertSortBffaStdGrd(SortBffaWrhsStdGrdVO vo) throws Exception;
+	/**
+	 * 육안선별 내역선택 목록삭제
+	 * @param vo
+	 * @return
+	 * @throws Exception
+	 */
+	void deleteSortBffaStdGrd(SortBffaVO vo) throws Exception;
+	/**
+	 * 육안선별 내역선택 목록 apcCd,bffaGrdType으로 전체 삭제
+	 * 선별실적 삭제랑은 다름 선별실적 다중 선택후 삭제 > 현재 이 기능은
+	 * 선별실적 수정사항에서 checkbox부분 삭제 후 insert를 위함.
+	 * @param sortBffaVO
+	 * @return
+	 * @throws Exception
+	 */
+	int deleteSortBffaAll(SortBffaVO sortBffaVO);
 }
