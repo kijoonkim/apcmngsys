@@ -314,16 +314,16 @@
     }
 
 	const fn_gridColor = async function() {
-		grdSortInvntr.setCellStyles(0,1,0,7,'background:#FF0000');
-    	grdSortInvntr.setCellStyles(0,8,0,15,'background:#FFFC33');
-    	grdSortInvntr.setCellStyles(0,15,0,21,'background:#FFB533');
-    	grdGdsInvntr.setCellStyles(0,1,0,7,'background:#FF0000');
-    	grdGdsInvntr.setCellStyles(0,8,0,15,'background:#FFFC33');
-    	grdGdsInvntr.setCellStyles(0,15,0,21,'background:#FFB533');
+		grdSortInvntr.setCellStyles(0,1,0,7,'background:#FF000030');
+    	grdSortInvntr.setCellStyles(0,8,0,15,'background:#FFFC3330');
+    	grdSortInvntr.setCellStyles(0,15,0,21,'background:#FFB53330');
+    	grdGdsInvntr.setCellStyles(0,1,0,7,'background:#FF000030');
+    	grdGdsInvntr.setCellStyles(0,8,0,15,'background:#FFFC3330');
+    	grdGdsInvntr.setCellStyles(0,15,0,21,'background:#FFB53330');
     	grdGdsInvntr.setCellStyles(2,1,2,25,'text-align:right; padding-right:5px; font-weight:1200;');
-    	grdGdsInvntr.setCellStyles(2,1,2,8,'background:#FFF8DC;');
-    	grdGdsInvntr.setCellStyles(2,10,2,15,'background:#FFF8DC;');
-    	grdGdsInvntr.setCellStyles(2,17,2,22,'background:#FFF8DC;');
+    	grdGdsInvntr.setCellStyles(2,1,2,8,'background:#FFF8DC30;');
+    	grdGdsInvntr.setCellStyles(2,10,2,15,'background:#FFF8DC30;');
+    	grdGdsInvntr.setCellStyles(2,17,2,22,'background:#FFF8DC30;');
 
 	}
 
