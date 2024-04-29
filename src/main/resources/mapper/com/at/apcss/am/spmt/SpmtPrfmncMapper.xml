@@ -496,6 +496,9 @@
 					<if test='spmtYmdTo != null and spmtYmdTo != ""'>
 					   	   			AND PC.SPMT_YMD <![CDATA[<=]]> #{spmtYmdTo}
 					</if>
+					<if test='spmtYmd != null and spmtYmd != ""'>
+					   	   			AND PC.SPMT_YMD <![CDATA[=]]> #{spmtYmd}
+					</if>
 					<if test='itemCd != null and itemCd != ""'>
 									AND PD.ITEM_CD = #{itemCd}
 					</if>
@@ -589,6 +592,9 @@
 					<if test='spmtYmdTo != null and spmtYmdTo != ""'>
 					   	   			AND PC.SPMT_YMD <![CDATA[<=]]> #{spmtYmdTo}
 					</if>
+					<if test='spmtYmd != null and spmtYmd != ""'>
+					   	   			AND PC.SPMT_YMD <![CDATA[=]]> #{spmtYmd}
+					</if>
 					<if test='itemCd != null and itemCd != ""'>
 									AND PD.ITEM_CD = #{itemCd}
 					</if>
@@ -681,6 +687,9 @@
 					</if>
 					<if test='spmtYmdTo != null and spmtYmdTo != ""'>
 					   	   			AND PC.SPMT_YMD <![CDATA[<=]]> #{spmtYmdTo}
+					</if>
+					<if test='spmtYmd != null and spmtYmd != ""'>
+					   	   			AND PC.SPMT_YMD <![CDATA[=]]> #{spmtYmd}
 					</if>
 					<if test='itemCd != null and itemCd != ""'>
 									AND PD.ITEM_CD = #{itemCd}
