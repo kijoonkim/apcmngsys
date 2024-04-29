@@ -630,9 +630,9 @@
 
 	    grdWrhsSmmry = _SBGrid.create(SBGridProperties);
 	    grdWrhsSmmry.bind('valuechanged', fn_grdWrhsSmmryValueChanged);
-        grdWrhsSmmry.setCellStyles(0,3,0,7,'background:#FF0000;color:white;font-size:24px;');
-        grdWrhsSmmry.setCellStyles(0,8,0,13,'background:#FFFC33;font-size:24px;');
-        grdWrhsSmmry.setCellStyles(0,14,0,19,'background:#FFB533;font-size:24px;');
+        grdWrhsSmmry.setCellStyles(0,3,0,7,'background:#FF000030;color:white;font-size:12px;');
+        grdWrhsSmmry.setCellStyles(0,8,0,13,'background:#FFFC3330;font-size:12px;');
+        grdWrhsSmmry.setCellStyles(0,14,0,19,'background:#FFB53330;font-size:12px;');
 	}
 
 
