@@ -77,7 +77,10 @@
 					<div class="col-sm-4">
 						<div class="ad_tbl_top"  style="width: 98%;">
 							<ul class="ad_tbl_count">
-								<li><span>등급종류</span></li>
+								<li>
+									<span>등급종류</span>
+									<sbux-label id="idxLabel_grdType" name="idxLabel_grdType" uitype="normal" style="color:black"></sbux-label>
+								</li>
 							</ul>
 						</div>
 						<div>
@@ -87,7 +90,10 @@
 					<div class="col-sm-4">
 						<div class="ad_tbl_top"  style="width: 98%;">
 							<ul class="ad_tbl_count">
-								<li><span>등급</span></li>
+								<li>
+									<span>등급</span>
+									<sbux-label id="idxLabel_grdDtl" name="idxLabel_grdDtl" uitype="normal"  style="color:black"></sbux-label>
+								</li>
 							</ul>
 						</div>
 						<div>
@@ -247,12 +253,15 @@
 	
 	
 	const fn_selectBffaGrdType = async function(){
+		jsonBffaGrdType.length = 0;
+		let lastRowIndex = 0;
+		
 		let apcCd = gv_apcCd;
 		let itemCd = SBUxMethod.get('grd-slt-BitemCd');
-		let lastRowIndex = 0;
+		
 		let nRow = grdBffaGrdType.getRow();
 		let rowData = grdBffaGrdType.getRowData(nRow);
-		jsonBffaGrdType.length = 0;
+		SBUxMethod.set("idxLabel_grdType","");
 		SBUxMethod.set("inpt-bbfa-grd-type",nRow.cdVl);
 		
 		let postJsonPromise = gfn_postJSON("/am/cmns/selectBffaSortTypeList.do", {apcCd : apcCd, itemCd : itemCd});
@@ -286,11 +295,17 @@
 	}
 	
 	const fn_selectBffaGrdKnd = async function(){
+		jsonBffaGrdDtl.length = 0;
+		grdBffaGrdDtl.rebuild();		
+		
 		let apcCd = gv_apcCd;
-		let itemCd = SBUxMethod.get('grd-slt-BitemCd');
+		
 		let nRow = grdBffaGrdType.getRow();
 		let rowData = grdBffaGrdType.getRowData(nRow);
 		let cdVl = grdBffaGrdType.getRowData(grdBffaGrdType.getRow()).cdVl;
+		let itemCd = SBUxMethod.get('grd-slt-BitemCd');
+		SBUxMethod.set("idxLabel_grdDtl","");
+		SBUxMethod.set("idxLabel_grdType",rowData.grdType);
 		
 		
 		
@@ -338,6 +353,8 @@
 		let lastRowIndex = 0;
 		let nRow = grdBffaGrdKnd.getRow();
 		let rowData = grdBffaGrdKnd.getRowData(nRow);
+		
+		SBUxMethod.set("idxLabel_grdDtl",rowData.grdKndNm);
 		if(rowData.sn === "" || rowData.sn === undefined){
 			return
 		}
