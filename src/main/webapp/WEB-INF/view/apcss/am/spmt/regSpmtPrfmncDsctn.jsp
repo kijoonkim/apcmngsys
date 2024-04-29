@@ -82,28 +82,6 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg"><span class="data_required"></span>선별일자</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker
-									id="srch-dtp-inptYmdFrom"
-									name="srch-dtp-inptYmdFrom"
-									uitype="popup"
-									date-format="yyyy-mm-dd"
-									class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"
-									onchange="fn_dtpChange(srch-dtp-inptYmdFrom)"
-								></sbux-datepicker>
-							</td>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker
-									id="srch-dtp-inptYmdTo"
-									name="srch-dtp-inptYmdTo"
-									uitype="popup"
-									date-format="yyyy-mm-dd"
-									class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"
-									onchange="fn_dtpChange(srch-dtp-inptYmdTo)"
-								></sbux-datepicker>
-							</td>
-							<td class="td_input"></td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>출하일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker
@@ -130,21 +108,10 @@
 					                onchange="fn_onChangeSrchGrd(this)"
 				                ></sbux-select>
 							</td>
-							<td colspan="2" class="td_input"></td>
+							<td colspan="6" class="td_input"></td>
             			</tr>
 					</tbody>
 				</table>
-		        <!--[pp] //검색 -->
-		        <!--[pp] 검색결과 -->
-				<div class="ad_tbl_top">
-					<ul class="ad_tbl_count">
-						<li><span>선별재고 내역</span></li>
-					</ul>
-				</div>
-				<div>
-					<div id="sb-area-sortInvntr" style="height:137px; width:100%;"></div>
-				</div>
-
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
 						<li><span>상품재고 내역</span></li>
@@ -155,7 +122,7 @@
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-gdsInvntr" style="height:400px;"></div>
+					<div id="sb-area-gdsInvntr" style="height:578px;"></div>
 				</div>
 			</div>
 		</div>
@@ -175,8 +142,6 @@
 
 	window.addEventListener('DOMContentLoaded', async function(e) {
 
-	    SBUxMethod.set('srch-dtp-inptYmdFrom', gfn_dateToYmd(new Date()));
-	    SBUxMethod.set('srch-dtp-inptYmdTo', gfn_dateToYmd(new Date()));
 	    SBUxMethod.set('srch-dtp-spmtYmd', gfn_dateToYmd(new Date()));
 	    fn_initSBSelect();
 
@@ -190,63 +155,15 @@
 	    fn_createSmptPrfmncGrid();
   	}
 
-	var jsonSortInvntr = []; 	// 선별재고내역 Json
 	var jsonGdsInvntr = []; 	// 재고내역 Json
 	const fn_createSmptPrfmncGrid = async function() {
-        var SBGridPropertiesSortInvntr = {};
-        SBGridPropertiesSortInvntr.parentid = 'sb-area-sortInvntr';
-        SBGridPropertiesSortInvntr.id = 'grdSortInvntr';
-        SBGridPropertiesSortInvntr.jsonref = 'jsonSortInvntr';
-        SBGridPropertiesSortInvntr.emptyrecords = '데이터가 없습니다.';
-        SBGridPropertiesSortInvntr.selectmode = 'free';
-        //SBGridPropertiesSortInvntr.extendlastcol = 'scroll';
-        SBGridPropertiesSortInvntr.scrollbubbling = false;
-        SBGridPropertiesSortInvntr.oneclickedit = true;
-        SBGridPropertiesSortInvntr.allowcopy = true;
-        var comlumns = [];
-        comlumns.push(
-            {caption : ["구분", "구분"], ref: 'gubun', type: 'output',  width:'210px', style: 'text-align:center;'},
-        )
-        comlumns.push(
-            {caption : ["빨강","2XL"], 	ref: 'redV1', type: 'output',  width:'45px', style: 'text-align:right; padding-right:5px;', disabled:true},
-            {caption : ["빨강","XL"], 	ref: 'redV2', type: 'output',  width:'45px', style: 'text-align:right; padding-right:5px;',   disabled:true},
-            {caption : ["빨강","L"], 	ref: 'redV3', type: 'output',  width:'45px', style: 'text-align:right; padding-right:5px;',   disabled:true},
-            {caption : ["빨강","M"], 	ref: 'redV4', type: 'output',  width:'45px', style: 'text-align:right; padding-right:5px;',   disabled:true},
-            {caption : ["빨강","S"], 	ref: 'redV5', type: 'output',  width:'45px', style: 'text-align:right; padding-right:5px;',   disabled:true},
-            {caption : ["빨강","2S"], 	ref: 'redV6', type: 'output',  width:'45px', style: 'text-align:right; padding-right:5px;',   disabled:true},
-            {caption : ["빨강","소계"], ref: 'redSbTot', type: 'output',  width:'45px', style: 'text-align:right; padding-right:5px;background-color:#ceebff;'
-                        ,fixedstyle : 'background-color:#ceebff;', disabled:true},
-            {caption : ["노랑","2XL"], 	ref: 'ylwV1', type: 'output',  width:'45px', style: 'text-align:right; padding-right:5px; ', disabled:true},
-            {caption : ["노랑","XL"], 	ref: 'ylwV2', type: 'output',  width:'45px', style: 'text-align:right; padding-right:5px; ', disabled:true},
-            {caption : ["노랑","L"], 	ref: 'ylwV3', type: 'output',  width:'45px', style: 'text-align:right; padding-right:5px; ', disabled:true},
-            {caption : ["노랑","M"], 	ref: 'ylwV4', type: 'output',  width:'45px', style: 'text-align:right; padding-right:5px; ', disabled:true},
-            {caption : ["노랑","S"], 	ref: 'ylwV5', type: 'output',  width:'45px', style: 'text-align:right; padding-right:5px; ', disabled:true},
-            {caption : ["노랑","2S"], 	ref: 'ylwV6', type: 'output',  width:'45px', style: 'text-align:right; padding-right:5px; ', disabled:true},
-            {caption : ["노랑","소계"], ref: 'ylwSbTot', type: 'output',  width:'45px', style: 'text-align:right; padding-right:5px;background-color:#ceebff'
-                        ,fixedstyle : 'background-color:#ceebff;', disabled:true},
-            {caption : ["주황","2XL"], 	ref: 'ornV1', type: 'output',  width:'45px', style: 'text-align:right; padding-right:5px; ', disabled:true},
-            {caption : ["주황","XL"], 	ref: 'ornV2', type: 'output',  width:'45px', style: 'text-align:right; padding-right:5px; ', disabled:true},
-            {caption : ["주황","L"], 	ref: 'ornV3', type: 'output',  width:'45px', style: 'text-align:right; padding-right:5px; ', disabled:true},
-            {caption : ["주황","M"], 	ref: 'ornV4', type: 'output',  width:'45px', style: 'text-align:right; padding-right:5px; ', disabled:true},
-            {caption : ["주황","S"], 	ref: 'ornV5', type: 'output',  width:'45px', style: 'text-align:right; padding-right:5px; ', disabled:true},
-            {caption : ["주황","2S"], 	ref: 'ornV6', type: 'output',  width:'45px', style: 'text-align:right; padding-right:5px; ', disabled:true},
-            {caption : ["주황","소계"], ref: 'ornSbTot', type: 'output',  width:'45px', style: 'text-align:right; padding-right:5px;background-color:#ceebff '
-                        ,fixedstyle : 'background-color:#ceebff;', disabled:true},
-            {caption : ["총합계","총합계"], ref: 'totSum', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px;', disabled:true},
-            {caption : ["비고","비고"], ref: 'rmrk', type: 'output',  width:'50px', style: 'text-align:left;'},
-        )
-
-        SBGridPropertiesSortInvntr.columns = comlumns;
-
-        grdSortInvntr = _SBGrid.create(SBGridPropertiesSortInvntr);
-
         var SBGridPropertiesGdsInvntr = {};
         SBGridPropertiesGdsInvntr.parentid = 'sb-area-gdsInvntr';
         SBGridPropertiesGdsInvntr.id = 'grdGdsInvntr';
         SBGridPropertiesGdsInvntr.jsonref = 'jsonGdsInvntr';
         SBGridPropertiesGdsInvntr.emptyrecords = '데이터가 없습니다.';
         SBGridPropertiesGdsInvntr.selectmode = 'free';
-        //SBGridPropertiesGdsInvntr.extendlastcol = 'scroll';
+        SBGridPropertiesGdsInvntr.extendlastcol = 'scroll';
         SBGridPropertiesGdsInvntr.scrollbubbling = false;
         SBGridPropertiesGdsInvntr.oneclickedit = true;
         SBGridPropertiesGdsInvntr.allowcopy = true;
@@ -305,7 +222,7 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_docSpmt(" + nRow + ")'>발행</button>";
 	        	}
 	        }},
-	        {caption : ["비고","비고", "비고"], ref: 'rmrk', type: 'output',  width:'50px', style: 'text-align:left;'},
+	        {caption : ["비고","비고", "비고"], ref: 'rmrk', type: 'input',  width:'50px', style: 'text-align:left;'},
         ];
 
         grdGdsInvntr = _SBGrid.create(SBGridPropertiesGdsInvntr);
@@ -314,9 +231,6 @@
     }
 
 	const fn_gridColor = async function() {
-		grdSortInvntr.setCellStyles(0,1,0,7,'background:#FF000030');
-    	grdSortInvntr.setCellStyles(0,8,0,15,'background:#FFFC3330');
-    	grdSortInvntr.setCellStyles(0,15,0,21,'background:#FFB53330');
     	grdGdsInvntr.setCellStyles(0,1,0,7,'background:#FF000030');
     	grdGdsInvntr.setCellStyles(0,8,0,15,'background:#FFFC3330');
     	grdGdsInvntr.setCellStyles(0,15,0,21,'background:#FFB53330');
@@ -328,7 +242,6 @@
 	}
 
 	const fn_search = async function(){
-	    let flag 		= true;
 	    let grdFlag 	= true;
 	    let sumFlag 	= true;
 	    let grdGubun 	= SBUxMethod.get("srch-slt-grd");
@@ -338,10 +251,7 @@
             return false;
       	}
 
-	    flag = await fn_setGrdSrtInvntr();
-	    if (flag){
-	    	grdFlag = await fn_setGrdGdsInvntrList();
-	    }
+	    grdFlag = await fn_setGrdGdsInvntrList();
 	    if (grdFlag) {
 	    	await fn_setGrdGdsInvntr();
 	    }
@@ -357,9 +267,7 @@
 	const fn_onChangeSrchGrd = async function (gubun) {
 
 		jsonGdsInvntr.length = 0;
-		jsonSortInvntr.length = 0;
 		grdGdsInvntr.rebuild();
-		grdSortInvntr.rebuild();
 
 		SBUxMethod.attr('btnAdd', 'disabled', 'true');
 		SBUxMethod.attr('btnDel', 'disabled', 'true');
@@ -451,8 +359,6 @@
 					}
 					jsonSortInvntr.push(percentage);
 
-	                console.log("item.ylw2Xl",item.ylw2Xl)
-	                console.log("fn_percentage(item.ylw2Xl, item.ylwTot)",fn_percentage(item.ylw2Xl, item.ylwTot))
             	});
             	grdSortInvntr.rebuild();
 
@@ -550,6 +456,7 @@
         	        	    , orgTot  	: item.orgTot
 
         	        	    , tot   	: item.tot
+        	        	    , rmrk		: item.rmrk
                 	}
                 	jsonGdsInvntr.push(gdsInvntr);
 	            });
@@ -653,8 +560,9 @@
 
 		let nRow = grdGdsInvntr.getRow();
 		let nCol = grdGdsInvntr.getCol();
+		let rmrkCol = grdGdsInvntr.getColRef("rmrk");
 
-		if (nCol > 2) {
+		if (nCol > 2 && nCol != rmrkCol) {
 			let ref = grdGdsInvntr.getRefOfCol(nCol);
 			let gTotQntt = grdGdsInvntr.getCellData(2, nCol);
 
@@ -964,6 +872,7 @@
 			    			  , cnptCd		: rowData.cnptCd
 			    			  , gdsGrd		: grds[k]
 			    			  , spmtQntt	: spmtQntt
+			    			  , rmrk		: rowData.rmrk
 		    				}
 			    			spmtPrfmncList.push(spmtVO);
 		    			}
