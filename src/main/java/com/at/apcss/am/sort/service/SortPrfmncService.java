@@ -197,4 +197,13 @@ public interface SortPrfmncService {
 	 * @throws Exception
 	 */
 	int deleteSortBffaAll(SortBffaVO sortBffaVO) throws Exception;
+	
+    
+    /**
+     * 배출구별 집계
+     * @param HashMap
+     * @return
+     * @throws Exception
+     */
+    public List<HashMap<String, Object>> selectExhstDsctnCol(HashMap<String, Object> exhstDsctn) throws Exception;
 }

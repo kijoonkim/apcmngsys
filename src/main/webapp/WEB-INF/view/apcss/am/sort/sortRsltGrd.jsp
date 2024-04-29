@@ -429,6 +429,12 @@
 	//등급별 집계 내역
 	var jsonGrdDsctn= [];
 
+	var jsonExhstColumnData = [];
+	var jsonGrdColumnData = [];
+	
+    var exhstDsctnColumns = [];
+    var addSortRsltExhstCol = [];
+
 
 	const fn_createExhstDsctn= function() {
 	    var SBGridProperties = {};
@@ -449,30 +455,6 @@
 	    	{caption : ["선별기"], ref: 'sortFclt', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
 	    	{caption : ["선별정보"], ref: 'sortInfo', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
 	    	{caption: ["등급"],    		ref: 'grd',     	type: 'input', width:'50px', 	style: 'text-align:center', disabled:true},
-	    	{caption : ["1"], ref: 'exhst1', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false ,disabled:true},
-	    	{caption : ["2"], ref: 'exhst2', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false ,disabled:true},
-	    	{caption : ["3"], ref: 'exhst3', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false ,disabled:true},
-	    	{caption : ["4"], ref: 'exhst4', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false ,disabled:true},
-	    	{caption : ["5"], ref: 'exhst5', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false ,disabled:true},
-	    	{caption : ["6"], ref: 'exhst6', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false ,disabled:true},
-	    	{caption : ["7"], ref: 'exhst7', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false ,disabled:true},
-	    	{caption : ["8"], ref: 'exhst8', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false ,disabled:true},
-	    	{caption : ["9"], ref: 'exhst9', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false ,disabled:true},
-	    	{caption : ["10"], ref: 'exhst10', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false ,disabled:true},
-	    	{caption : ["11"], ref: 'exhst11', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false ,disabled:true},
-	    	{caption : ["12"], ref: 'exhst12', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false ,disabled:true},
-	    	{caption : ["13"], ref: 'exhst13', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false ,disabled:true},
-	    	{caption : ["14"], ref: 'exhst14', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false ,disabled:true},
-	    	{caption : ["15"], ref: 'exhst15', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false ,disabled:true},
-	    	{caption : ["16"], ref: 'exhst16', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false ,disabled:true},
-	    	{caption : ["17"], ref: 'exhst17', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false ,disabled:true},
-	    	{caption : ["18"], ref: 'exhst18', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false ,disabled:true},
-	    	{caption : ["19"], ref: 'exhst19', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false ,disabled:true},
-	    	{caption : ["20"], ref: 'exhst20', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false ,disabled:true},
-	    	{caption : ["21"], ref: 'exhst21', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false ,disabled:true},
-	    	{caption : ["22"], ref: 'exhst22', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false ,disabled:true},
-	    	{caption : ["이상"], ref: 'exhstElse', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false ,disabled:true},
-	    	
 	    	{caption : ["소계"], ref: 'sbTot', type: 'input',  width:'100px', style: 'text-align:right; padding-right:5px;background-color:#e0ffff '
 	    							, format : {type:'number', rule:'#,##0',emptyvalue:'0'}, disabled:true},
 
@@ -481,10 +463,22 @@
 	    	{caption: ["선별번호"],	ref: 'sortNo',     		type:'input',  	hidden: true}
 
 	    ];
-	    grdExhstDsctn = _SBGrid.create(SBGridProperties);
-	    grdExhstDsctn.bind('click', fnClick)
-
-
+        addSortRsltExhstCol = [];
+        
+        jsonExhstColumnData.forEach(function(item){
+            
+            addSortRsltExhstCol.push(
+                    {caption : [item.GRD_SN.toString()], ref: 'exhst' + item.GRD_SN, type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; '
+                    , format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false ,disabled:true}
+               );
+        })
+        let originColumns = SBGridProperties.columns;
+        originColumns.splice(3,0,...addSortRsltExhstCol);
+        SBGridProperties.columns = originColumns;
+        
+        grdExhstDsctn = _SBGrid.create(SBGridProperties);
+        grdExhstDsctn.bind('click', fnClick)
+        grdExhstDsctn.rebuild();
 	}
 	
 	const fn_createGrdDsctn= function() {
@@ -506,16 +500,6 @@
 	    	{caption : ["선별기"], ref: 'sortFclt', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
 	    	{caption : ["선별정보"], ref: 'sortInfo', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
 	    	{caption: ["등급"],    		ref: 'grd',     	type: 'input', width:'100px', 	style: 'text-align:center', disabled:true},
-	    	{caption : ["보통"], ref: 'grd1', type: 'input',  width:'100px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false ,disabled:true},
-	    	{caption : ["상"], ref: 'grd2', type: 'input',  width:'100px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false , disabled:true},
-	    	{caption : ["특80내"], ref: 'grd3', type: 'input',  width:'100px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false , disabled:true},
-	    	{caption : ["특70내"], ref: 'grd4', type: 'input',  width:'100px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false , disabled:true},
-	    	{caption : ["특60내"], ref: 'grd5', type: 'input',  width:'100px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false , disabled:true},
-	    	{caption : ["특50내"], ref: 'grd6', type: 'input',  width:'100px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false , disabled:true},
-	    	{caption : ["특40내"], ref: 'grd7', type: 'input',  width:'100px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false , disabled:true},
-	    	{caption : ["특30내"], ref: 'grd8', type: 'input',  width:'100px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false , disabled:true},
-	    	{caption : ["특20내"], ref: 'grd9', type: 'input',  width:'100px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false , disabled:true},
-	    	
 	    	{caption : ["소계"], ref: 'sbTot', type: 'input',  width:'100px', style: 'text-align:right; padding-right:5px;background-color:#e0ffff '
 	    							, format : {type:'number', rule:'#,###',emptyvalue:'0'},fixedstyle : 'background-color:#e0ffff;', merge: false , disabled:true},
 
@@ -524,6 +508,17 @@
 	    	{caption: ["선별번호"],	ref: 'sortNo',     		type:'input',  	hidden: true}
 
 	    ];
+        let addSortRsltGrdCol = []
+        
+        jsonGrdColumnData.forEach(function(item){
+            addSortRsltGrdCol.push(
+                    {caption : [item.GRD_NM], ref: 'grd' + item.GRD_SN, type: 'input',  width:'100px', style: 'text-align:right; padding-right:5px; '
+                    , format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false ,disabled:true}
+               );
+        })
+        let originColumns = SBGridProperties.columns;
+        originColumns.splice(3,0,...addSortRsltGrdCol);
+        SBGridProperties.columns = originColumns;
 	    grdGrdDsctn = _SBGrid.create(SBGridProperties);
 	    grdGrdDsctn.bind('click', fnClick)
 
@@ -592,7 +587,14 @@
 	        				,exhst20 : item.QNTT_20
 	        				,exhst21 : item.QNTT_21
 	        				,exhst22 : item.QNTT_22
-	        				,exhst23 : item.QNTT_23 + item.QNTT_24 + item.QNTT_25 + item.QNTT_26 + item.QNTT_27 + item.QNTT_28 + item.QNTT_29 + item.QNTT_30
+                            ,exhst23 : item.QNTT_23
+                            ,exhst24 : item.QNTT_24
+                            ,exhst25 : item.QNTT_25
+                            ,exhst26 : item.QNTT_26
+                            ,exhst27 : item.QNTT_27
+                            ,exhst28 : item.QNTT_28
+                            ,exhst29 : item.QNTT_29
+                            ,exhst30 : item.QNTT_30
     						,sbTot        : item.SORT_QNTT
 
 	        	};
@@ -622,7 +624,14 @@
         				,exhst20 : item.WGHT_20
         				,exhst21 : item.WGHT_21
         				,exhst22 : item.WGHT_22
-        				,exhst23 : item.WGHT_23 + item.WGHT_24 + item.WGHT_25 + item.WGHT_26 + item.WGHT_27 + item.WGHT_28 + item.WGHT_29 + item.WGHT_30
+                        ,exhst23 : item.WGHT_23
+                        ,exhst24 : item.WGHT_24
+                        ,exhst25 : item.WGHT_25
+                        ,exhst26 : item.WGHT_26
+                        ,exhst27 : item.WGHT_27
+                        ,exhst28 : item.WGHT_28
+                        ,exhst29 : item.WGHT_29
+                        ,exhst30 : item.WGHT_30
 					,sbTot        : item.SORT_WGHT
         		}
 	        	jsonExhstDsctn.push(exhstDsctnQnttTot);
@@ -634,8 +643,8 @@
 	         
 	        sumTot1["sortFclt"] = "합계"; sumTot1["grd"] = "수량"; sumTot1["sortInfo"] = "합계";
 	        sumTot2["sortFclt"] = "합계"; sumTot2["grd"] = "중량"; sumTot2["sortInfo"] = "합계";
-	        sumTot1["sbTot"] = sumTot1.exhst1+	sumTot1.exhst2+	sumTot1.exhst3+	sumTot1.exhst4+	sumTot1.exhst5+	sumTot1.exhst6+	sumTot1.exhst7+	sumTot1.exhst8+	sumTot1.exhst9+	sumTot1.exhst10+	sumTot1.exhst11+	sumTot1.exhst12+	sumTot1.exhst13+	sumTot1.exhst14+	sumTot1.exhst15+	sumTot1.exhst16+	sumTot1.exhst17+	sumTot1.exhst18+	sumTot1.exhst19+	sumTot1.exhst20+	sumTot1.exhst21+	sumTot1.exhst22+	sumTot1.exhst23; 
-        	sumTot2["sbTot"] = sumTot2.exhst1+	sumTot2.exhst2+	sumTot2.exhst3+	sumTot2.exhst4+	sumTot2.exhst5+	sumTot2.exhst6+	sumTot2.exhst7+	sumTot2.exhst8+	sumTot2.exhst9+	sumTot2.exhst10+	sumTot2.exhst11+	sumTot2.exhst12+	sumTot2.exhst13+	sumTot2.exhst14+	sumTot2.exhst15+	sumTot2.exhst16+	sumTot2.exhst17+	sumTot2.exhst18+	sumTot2.exhst19+	sumTot2.exhst20+	sumTot2.exhst21+	sumTot2.exhst22+	sumTot2.exhst23;
+            sumTot1["sbTot"] = sumTot1.exhst1+    sumTot1.exhst2+    sumTot1.exhst3+    sumTot1.exhst4+    sumTot1.exhst5+    sumTot1.exhst6+    sumTot1.exhst7+    sumTot1.exhst8+    sumTot1.exhst9+    sumTot1.exhst10+    sumTot1.exhst11+    sumTot1.exhst12+    sumTot1.exhst13+    sumTot1.exhst14+    sumTot1.exhst15+    sumTot1.exhst16+    sumTot1.exhst17+    sumTot1.exhst18+    sumTot1.exhst19+    sumTot1.exhst20+    sumTot1.exhst21+    sumTot1.exhst22+    sumTot1.exhst23 + sumTot1.exhst24 + sumTot1.exhst25 + sumTot1.exhst26 + sumTot1.exhst27 + sumTot1.exhst28 + sumTot1.exhst29 + sumTot1.exhst30; 
+            sumTot2["sbTot"] = sumTot2.exhst1+    sumTot2.exhst2+    sumTot2.exhst3+    sumTot2.exhst4+    sumTot2.exhst5+    sumTot2.exhst6+    sumTot2.exhst7+    sumTot2.exhst8+    sumTot2.exhst9+    sumTot2.exhst10+    sumTot2.exhst11+    sumTot2.exhst12+    sumTot2.exhst13+    sumTot2.exhst14+    sumTot2.exhst15+    sumTot2.exhst16+    sumTot2.exhst17+    sumTot2.exhst18+    sumTot2.exhst19+    sumTot2.exhst20+    sumTot2.exhst21+    sumTot2.exhst22+    sumTot2.exhst23 + sumTot2.exhst24 + sumTot2.exhst25 + sumTot2.exhst26 + sumTot2.exhst27 + sumTot2.exhst28 + sumTot2.exhst29 + sumTot2.exhst30;
 
 	        jsonExhstDsctn.push(sumTot1);
 	        jsonExhstDsctn.push(sumTot2);
@@ -694,7 +703,7 @@
 	 	        data.resultList.forEach((item, index) => {
 	 	        	const grdDsctnQnttTot = {
 	 	        			sortFclt : item.FCLT_NM
-	 	        			,sortInfo : item.FCLT_NM
+                            ,sortInfo : item.PRDCR_NM
 	 	        			,grd      : "수량"
 	         				,grd1 : item.QNTT_1
 	         				,grd2 : item.QNTT_2
@@ -709,10 +718,9 @@
 
 	 	        	};
 	 				const grdDsctnWghtTot = 		{
-	         			sortFclt : item.FCLT_CD
-	         			,sortInfo : item.PRDCR_NM
+                         sortFclt : item.FCLT_NM
+                        ,sortInfo : item.INPT_YMD
 	         			,grd      : "중량"
-	 	        			,sortFclt : item.INPT_YMD
 	         				,grd1 : item.WGHT_1
 	         				,grd2 : item.WGHT_2
 	         				,grd3 : item.WGHT_3
@@ -757,10 +765,10 @@
 
 
 	const fn_search = async function () {
-
-		fn_setExhstDsctnTot();
-		fn_setGrdDsctnTot();
-
+        fn_setExhstDsctnCol();
+        fn_setGrdDsctnCol();
+        fn_setExhstDsctnTot();
+        fn_setGrdDsctnTot();
 	}
 
 	const fn_dtpChange = function(){
@@ -840,6 +848,69 @@
  			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
  		}
  	}
+ 	
+    const fn_setExhstDsctnCol = async function() {
+        let itemCd = SBUxMethod.get('srch-slt-itemCd');
+        const param = {
+            apcCd: gv_selectedApcCd 
+            , grdSeCd : '02'
+            , itemCd : itemCd
+        }
+        jsonExhstColumnData.length = 0;
+        try {
+            const postJsonPromise = gfn_postJSON(
+                        "/am/sort/selectExhstDsctnCol.do",
+                        param,
+                        null,
+                        false
+                    );
+            
+            
+            const data = await postJsonPromise;
+            jsonExhstColumnData = data.resultList;
+            await fn_createExhstDsctn();
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+             //gfn_comAlert("E0001");    //    E0001    오류가 발생하였습니다.
+        }
+        
+    }
+    
+    const fn_setGrdDsctnCol = async function() {
+        let itemCd = SBUxMethod.get('srch-slt-itemCd');
+        const param = {
+            apcCd: gv_selectedApcCd 
+            , grdSeCd : '03'
+            , itemCd : itemCd
+        }
+        jsonGrdColumnData.length = 0;
+        try {
+            const postJsonPromise = gfn_postJSON(
+                        "/am/sort/selectExhstDsctnCol.do",
+                        param,
+                        null,
+                        false
+                    );
+            
+            
+            const data = await postJsonPromise;
+            jsonGrdColumnData = data.resultList;
+            await fn_createGrdDsctn();
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+             //gfn_comAlert("E0001");    //    E0001    오류가 발생하였습니다.
+        }
+        
+    }
+     
  	
  	/**
 	 * @name fn_docSort

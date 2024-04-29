@@ -231,4 +231,13 @@ public interface SortPrfmncMapper {
 	 * @throws Exception
 	 */
 	int deleteSortBffaAll(SortBffaVO sortBffaVO);
+	
+    
+    /**
+     * 배출구별집계조회
+     * @param sortPrfmncVO
+     * @return
+     * @throws Exception
+     */
+    public List<HashMap<String, Object>> selectExhstDsctnCol(HashMap<String, Object> exhstDsctn) throws Exception;
 }

@@ -2525,5 +2525,51 @@
 			)
 		]]>
 	</insert>
+	
+	    
+        <!-- ==========================================================================    -->
+    <!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectExhstDsctn    -->
+    <!-- DESC : 배출구 선별등급 컬럼 조회.                                       -->
+    <!-- ==========================================================================    -->
+    <!-- DATE           AUTHOR            DESCRIPTION                                  -->
+    <!-- ===========      ============      ===========================================    -->
+    <!-- 2024.04.18  박승진                Initial Creation                        -->
+    <!-- ==========================================================================    -->
+    <select id="selectExhstDsctnCol" parameterType="hashmap" resultType="hashmap">
+    <![CDATA[
+                   SELECT
+                      X.GRD_CD
+                    , X.GRD_NM
+                    , X.AFTR_GRD_KND
+                    , X.AFTR_GRD_CD
+                    , X.SN
+                    , ROW_NUMBER() OVER (ORDER BY X.SN) AS GRD_SN
+                  FROM TB_APC_STD_GRD_DTL X
+                 WHERE 1=1
+
+                ]]> 
+                   <if test='apcCd != null and apcCd !=""'>
+                          AND X.APC_CD = #{apcCd}
+                </if>
+                <if test='itemCd != null and itemCd !=""'>
+                     AND X.ITEM_CD = #{itemCd}
+                </if>                 
+                <if test='grdSeCd != null and grdSeCd !=""'>
+                     AND X.GRD_SE_CD = #{grdSeCd}    
+                </if>                  
+
+
+                   
+                   AND X.GRD_KND = (
+                           SELECT MAX(KND.GRD_KND) KEEP (DENSE_RANK FIRST ORDER BY KND.SN) AS GRD_KND
+                             FROM TB_APC_STD_GRD KND
+                            WHERE KND.APC_CD = X.APC_CD
+                              AND KND.GRD_SE_CD = X.GRD_SE_CD
+                              AND KND.ITEM_CD = X.ITEM_CD
+                              AND KND.DEL_YN = 'N'
+                       )
+                   AND X.DEL_YN = 'N'
+             
+    </select>
 
 </mapper>
