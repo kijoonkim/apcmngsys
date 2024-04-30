@@ -717,13 +717,13 @@
 	 	        			,grd      : "수량"
 	         				,grd1 : item.QNTT_1
 	         				,grd2 : item.QNTT_2
-	         				,grd3 : item.QNTT_9
-	         				,grd4 : item.QNTT_8
-	         				,grd5 : item.QNTT_7
+	         				,grd3 : item.QNTT_3
+	         				,grd4 : item.QNTT_4
+	         				,grd5 : item.QNTT_5
 	         				,grd6 : item.QNTT_6
-	         				,grd7 : item.QNTT_5
-	         				,grd8 : item.QNTT_4
-	         				,grd9 : item.QNTT_3	         				
+	         				,grd7 : item.QNTT_7
+	         				,grd8 : item.QNTT_8
+	         				,grd9 : item.QNTT_9	         				
 	         				,sbTot        : item.SORT_QNTT
 
 	 	        	};
