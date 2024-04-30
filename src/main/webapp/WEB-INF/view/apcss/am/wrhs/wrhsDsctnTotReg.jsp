@@ -68,15 +68,7 @@
 						class="btn btn-sm btn-outline-danger"
 						onclick="fn_save"
 						text="저장"
-					></sbux-button>
-                    <sbux-button
-						id="btnReg"
-						name="btnReg"
-						uitype="normal"
-						class="btn btn-sm btn-outline-danger"
-						onclick="fn_reg"
-						text="등록"
-					></sbux-button>
+					></sbux-button>                    
 					<sbux-button
 						id="btnSearch"
 						name="btnSearch"
@@ -196,14 +188,7 @@
 						</li>
 					</ul>
 					<div class="ad_tbl_toplist">
-						<sbux-button
-							id="btnAddRow"
-							name="btnAddRow"
-							uitype="normal"
-							class="btn btn-sm btn-outline-danger"
-							onclick="fn_addRow"
-							text="행추가"
-						></sbux-button>
+						
 				    </div>
 				</div>
 				<div id="sb-area-grdWrhsSmmry" style="height:544px;">
@@ -248,7 +233,6 @@
 
 		fn_getApcVrty();
 		fn_createWrhsDsctnTot();
-
 		fn_search();
 	}
 
@@ -285,20 +269,14 @@
 	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
 	    SBGridProperties.columns = [
-	    	{
-				caption: [" ", " "],
-				ref: 'itemCd',
-				type:'button',
-				width:'25px',
-				style:'text-align:center',
-				renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-		        	if (gfn_isEmpty(strValue)) {
-		        		return "<span style='cursor:pointer;' onclick='fn_delRow(" + nRow + ")'>❌</span>";
-		        	} else {
-		        		return "<span>🟢</span>";
-		        	}
-		    	}
-			},
+            {
+                caption: [" ", " "],
+                ref: 'itemCd',
+                type:'button',
+                width:'25px',
+                style:'text-align:center',
+                hidden: true
+            },
 	    	{
 	    		caption : ["",""],
 	    		ref : 'checkedYn',
@@ -309,17 +287,10 @@
 	    	},
 	    	{
 	    		caption : ["구분","이름"],
-	    		ref: 'prdcrCd',
-	    		type: 'combo',
+	    		ref: 'prdcrNm',
+	    		type: 'output',
 	    		width:'100px',
-	    		style: 'text-align:center; padding-right:5px;',
-	    		typeinfo: {
-	    			ref:'jsonPrdcr',
-	    			label:'prdcrNm',
-	    			value:'prdcrCd',
-	    			oneclickedit: true,
-	    			displayui : true
-	    		}
+	    		style: 'text-align:center; padding-right:5px;'	    		
 	    	},
 
 	    	// 빨강
@@ -609,7 +580,7 @@
 
 	    	{
 				caption : ["합계","합계"],
-				ref: 'qntt',
+				ref: 'qnttCyclSum',
 				type: 'output',
 				width:'150px',
 				style: 'text-align:right; padding-right:5px;',
@@ -638,11 +609,11 @@
 
 	// 입고구분
 	const fn_setGrdWrhsSmmry = async function() {
-
+		
 		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-wrhsYmdFrom");
 		let wrhsYmdTo = SBUxMethod.get("srch-dtp-wrhsYmdTo");
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-
+		
 		const param = {
 			apcCd: gv_selectedApcCd,
 			wrhsBgngYmd: wrhsYmdFrom,
@@ -660,14 +631,28 @@
         		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
         		return;
         	}
-
-	        data.resultList.forEach((item, index) => {
-	        	jsonWrhsSmmry.push(item);
-	        });
-
+	        
+	        jsonWrhsSmmry.length = 0;
+	        let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
+	        if(prdcrCd ===undefined || prdcrCd === "" ){
+	        	jsonWrhsSmmry = jsonPrdcr;
+	        }else{
+	        	var arr = jsonPrdcr.find(item=> item.prdcrCd === prdcrCd );
+	        	jsonWrhsSmmry.push(arr);
+	        }
+	        
+	        var newJsonWrhsSmmry = [];
+	        jsonWrhsSmmry.forEach((item,index)=> {
+	        	var findArr = data.resultList.find(resultItem => resultItem["prdcrCd"] === item.prdcrCd) || null; 
+	        	if(findArr !== null){
+	        		newJsonWrhsSmmry.push({...item,...findArr});
+	        	}else{
+	        		newJsonWrhsSmmry.push(item);
+	        	}
+	        })
+	        
+	        jsonWrhsSmmry = newJsonWrhsSmmry; 
 	        grdWrhsSmmry.refresh();
-
-
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -689,8 +674,15 @@
 			if (gfn_isEmpty(rowData.prdcrCd)) {
 				continue;
 			}
-
-			rawMtrWrhsSmmryList.push(rowData);
+			if(rowData.prdcrNm === "박승진"){
+				console.log(rowData);
+				console.log(i);
+			}
+			var rowStatus = grdWrhsSmmry.getRowStatus(i+2); 
+			if(rowStatus == 3 || rowStatus == 2){
+				rawMtrWrhsSmmryList.push(rowData);	
+			}
+			
 		}
 
 		if (rawMtrWrhsSmmryList.length == 0) {
@@ -896,9 +888,11 @@
  		let prdcrNm = SBUxMethod.get("srch-inp-prdcrNm");
  		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
  		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-wrhsYmdTo");
-
+		//jsonPrdcr.forEach(function(item,index){
+			//grdWrhsSmmry.addRow(true,{'wrhsYmd':wrhsYmdFrom,'prdcrNm':item.prdcrNm,'prdcrCd':item.prdcrCd});			
+		//});
  		//grdWrhsSmmry.addRow(true,{'wrhsYmd':wrhsYmdFrom,'prdcrNm':prdcrNm,'prdcrCd':prdcrCd});
- 		grdWrhsSmmry.addRow(true);
+ 		
  	}
 
  	const fn_delRow = function(nRow) {
