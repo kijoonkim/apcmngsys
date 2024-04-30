@@ -49,6 +49,10 @@ public abstract class BaseController {
 
 	@Autowired
 	Environment env;
+	
+	private String serverId;
+	private String serverType;
+	
 	private String reportDbName;
 	private String reportUrl;
 	private String reportType;
@@ -65,6 +69,10 @@ public abstract class BaseController {
 
 	@PostConstruct
 	protected void init() {
+		
+		serverId = env.getProperty("spring.server.id"); 
+		serverType = env.getProperty("spring.server.type");
+		
 		reportDbName = env.getProperty("spring.report.dbName");
 		reportUrl = env.getProperty("spring.report.url");
 		reportType = env.getProperty("spring.report.type");
@@ -78,6 +86,20 @@ public abstract class BaseController {
 		filepathPd = env.getProperty("apcss.filepath.pd");
 	}
 
+	/**
+	 * @return [서버 id]
+	 */
+	protected String getServerId() {
+		return serverId;
+	}
+	/**
+	 * @return [서버 구분]
+	 */
+	protected String getServerType() {
+		return serverType;
+	}
+	
+	
 	/**
 	 * @return [저장파일 경로 : Root]
 	 */
@@ -109,6 +131,8 @@ public abstract class BaseController {
 		return filepathPd;
 	}
 
+	
+	
 	/**
 	 * @return [로그인 url]
 	 */
