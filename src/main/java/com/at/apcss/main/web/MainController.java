@@ -88,6 +88,11 @@ public class MainController extends BaseController {
 			logger.error(e.getLocalizedMessage());
 		}
 
+		logger.debug("serverId: {}", getServerId());
+		logger.debug("serverType: {}", getServerType());
+		
+		model.addAttribute("serverType", getServerType());
+		
 		model.addAttribute("topMenuList", menuList);
 		model.addAttribute("reportDbName", getReportDbName());
 		model.addAttribute("reportUrl", getReportUrl());

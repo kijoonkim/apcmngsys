@@ -95,4 +95,17 @@ public class CmnsItemVO extends ComVO {
 	 * 이력추적관리번호
 	 */
 	private String gapCertNo;
+	
+	/**
+	 * 재고조회합산코드
+	 */
+	private String invntrInqAuCd;
+	/**
+	 * 합산-생산자-여부
+	 */
+	private String auPrdcrYn;
+	/**
+	 * 합산-품종-여부
+	 */
+	private String auVrtyYn;
 }
