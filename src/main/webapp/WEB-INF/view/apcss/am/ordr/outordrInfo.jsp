@@ -31,7 +31,22 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 발주정보조회 -->
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-dark" text="조회" onclick="fn_search"></sbux-button>
+					<sbux-button
+						id="btnDelete" 
+						name="btnDelete" 
+						uitype="normal" 
+						class="btn btn-sm btn-outline-dark" 
+						text="삭제" 
+						onclick="fn_delete"
+					></sbux-button>
+					<sbux-button
+						id="btnSearch" 
+						name="btnSearch" 
+						uitype="normal" 
+						class="btn btn-sm btn-outline-dark" 
+						text="조회" 
+						onclick="fn_search"
+					></sbux-button>
 				</div>
 			</div>
 
@@ -480,7 +495,7 @@
     	SBGridProperties.paging = {
     			'type' : 'page',
     		  	'count' : 5,
-    		  	'size' : 50,
+    		  	'size' : 100,
     		  	'sorttype' : 'page',
     		  	'showgoalpageui' : true
     	    };
@@ -855,10 +870,65 @@
      * @name fn_excelDwnld
      * @description 엑셀 다운로드
      */
-     function fn_excelDwnld() {
+    function fn_excelDwnld() {
     	grdOutordr.exportLocalExcel("발주정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
 
+	/**
+	 * @name fn_delete
+	 * @description 발주정보 삭제
+	 */
+    const fn_delete = async function() {
+		
+		const outordrList = [];
+	
+    	const allData = grdOutordr.getGridDataAll();
+		
+    	for ( let i=0; i<allData.length; i++) {
+    		
+    		const rowData = allData[i];
+    		
+    		if (rowData.checked == "true") {
+    			if (_.isEqual(rowData.rcptYn, "Y")) {
+    				// 접수상태
+    				gfn_comAlert("W0010", "접수", "주문");		//	W0010	이미 {0}된 {1} 입니다.
+    				return;
+    			}
+    			outordrList.push(rowData);
+    		}
+    	}
+    	
+    	if (outordrList.length == 0) {
+    		gfn_comAlert("W0005", "삭제대상");		//	W0005	{0}이/가 없습니다.
+    		return;
+    	}
+    	
+		// comConfirm
+		if (!gfn_comConfirm("Q0001", "발주정보삭제")) {	//	Q0001	{0} 하시겠습니까?
+	    	return;
+	    }
+
+    	const postJsonPromise = gfn_postJSON("/am/ordr/deleteOutordrList.do", outordrList);
+		const data = await postJsonPromise;
+
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_search();
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+        		//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch(e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
+    }
+    
 	/**
      * @name fn_search
      * @description 조회버튼
@@ -1262,8 +1332,10 @@
 					grdOutordr.setCellData(nRow, inptCmndWghtCol, psbltyCmndQntt*wght);
 				}
 			} else if (invntrQntt <= 0) {
-				grdOutordr.setCellData(nRow, checkedCol, "false");
-				gfn_comAlert("W0005", "상품재고");		//	W0005	{0}이/가 없습니다.
+				grdOutordr.setCellData(nRow, inptCmndQnttCol, "");
+				grdOutordr.setCellData(nRow, inptCmndWghtCol, "");
+				//grdOutordr.setCellData(nRow, checkedCol, "false");
+				//gfn_comAlert("W0005", "상품재고");		//	W0005	{0}이/가 없습니다.
 			}
     	}
     }
