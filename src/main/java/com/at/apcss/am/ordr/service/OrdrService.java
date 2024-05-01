@@ -86,6 +86,14 @@ public interface OrdrService {
 	public int deleteOrdrList(List<OrdrVO> ordrList) throws Exception;
 
 	/**
+	 * 발주정보 목록 삭제
+	 * @param ordrList
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteOutordrList(List<OrdrVO> ordrList) throws Exception;
+	
+	/**
 	 * 발주정보 출하지시번호 확인
 	 * @param ordrVO
 	 * @return
