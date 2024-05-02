@@ -21,6 +21,7 @@
     <script src="/resource/script/comAuthrt.js"></script>
     <script src="/resource/script/comApcUtil.js"></script>
     <script src="/resource/script/comApcGrd.js"></script>
+    <script src="/resource/script/comMa.js"></script>
 
     <script src="/resource/script/hangul.min.js"></script>
     <!------------------ 컴포넌트 테마 CSS ------------------>

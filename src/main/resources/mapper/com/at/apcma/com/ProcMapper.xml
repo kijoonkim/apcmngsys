@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : ProcMapper.xml                                   				-->
+<!-- DESC : Proc mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2024.04.29  	장성주        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcma.com.mapper.ProcMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcma.com.mapper.ProcMapper.callProcTibero						-->
+	<!-- DESC : 	                                             					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.29  	장성주        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	
+	<resultMap id="cmap1" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap2" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap3" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap4" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap5" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap6" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap7" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap8" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap9" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap10" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap11" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap12" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap13" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap14" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap15" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap16" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap17" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap18" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap19" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap20" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap21" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap22" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap23" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap24" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap25" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap26" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap27" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap28" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap29" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap30" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap31" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap32" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap33" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap34" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap35" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap36" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap37" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap38" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap39" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap40" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap41" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap42" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap43" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap44" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap45" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap46" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap47" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap48" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap49" type="hashmap" autoMapping="true" />
+	<resultMap id="cmap50" type="hashmap" autoMapping="true" />
+	
+	<select id="callProcTibero" parameterType="hashMap" statementType="CALLABLE" >
+		/** com.itl.ess.mapper.ProcMapper : callProcTibero **/
+		{
+			call ${procedure} (
+				'LIST',
+				'N',
+				'KOR',
+				'1000',
+				'',
+				'',
+				'',
+				'',
+				'',
+				'',
+				'',
+				'',
+				V_P_ERROR_CODE 	=> #{v_errorCode,	javaType=java.lang.String,		jdbcType=VARCHAR,	mode=OUT}, 
+				V_P_ROW_COUNT 	=> #{v_rowCount,	javaType=java.lang.Integer,		jdbcType=INTEGER,	mode=OUT},
+				V_P_ERROR_NOTE 	=> #{v_errorNote,	javaType=java.lang.String,		jdbcType=VARCHAR,	mode=OUT}, 
+				V_P_RETURN_STR 	=> #{v_returnStr,	javaType=java.lang.String,		jdbcType=VARCHAR,	mode=OUT}, 
+				V_P_ERROR_STR 	=> #{v_errorStr,	javaType=java.lang.String,		jdbcType=VARCHAR,	mode=OUT}, 
+				V_ERRORSTATE 	=> #{v_errorState,	javaType=java.lang.String,		jdbcType=VARCHAR,	mode=OUT}, 
+				V_ERRORPROCEDURE => #{v_errorProcedure,javaType=java.lang.String,	jdbcType=VARCHAR,	mode=OUT}
+				<if test="cv_1 != null">, CV_1 => #{cv_1, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap1, mode=OUT}</if>
+				<if test="cv_2 != null">, CV_2 => #{cv_2, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap2, mode=OUT}</if>
+				<if test="cv_3 != null">, CV_3 => #{cv_3, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap3, mode=OUT}</if>
+				<if test="cv_4 != null">, CV_4 => #{cv_4, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap4, mode=OUT}</if>
+				<if test="cv_5 != null">, CV_5 => #{cv_5, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap5, mode=OUT}</if>
+				<if test="cv_6 != null">, CV_6 => #{cv_6, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap6, mode=OUT}</if>
+				<if test="cv_7 != null">, CV_7 => #{cv_7, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap7, mode=OUT}</if>
+				<if test="cv_8 != null">, CV_8 => #{cv_8, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap8, mode=OUT}</if>
+				<if test="cv_9 != null">, CV_9 => #{cv_9, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap9, mode=OUT}</if>
+				<if test="cv_10 != null">, CV_10 => #{cv_10, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap10, mode=OUT}</if>
+				<if test="cv_11 != null">, CV_11 => #{cv_11, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap11, mode=OUT}</if>
+				<if test="cv_12 != null">, CV_12 => #{cv_12, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap12, mode=OUT}</if>
+				<if test="cv_13 != null">, CV_13 => #{cv_13, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap13, mode=OUT}</if>
+				<if test="cv_14 != null">, CV_14 => #{cv_14, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap14, mode=OUT}</if>
+				<if test="cv_15 != null">, CV_15 => #{cv_15, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap15, mode=OUT}</if>
+				<if test="cv_16 != null">, CV_16 => #{cv_16, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap16, mode=OUT}</if>
+				<if test="cv_17 != null">, CV_17 => #{cv_17, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap17, mode=OUT}</if>
+				<if test="cv_18 != null">, CV_18 => #{cv_18, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap18, mode=OUT}</if>
+				<if test="cv_19 != null">, CV_19 => #{cv_19, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap19, mode=OUT}</if>
+				<if test="cv_20 != null">, CV_20 => #{cv_20, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap20, mode=OUT}</if>
+				<if test="cv_21 != null">, CV_21 => #{cv_21, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap21, mode=OUT}</if>
+				<if test="cv_22 != null">, CV_22 => #{cv_22, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap22, mode=OUT}</if>
+				<if test="cv_23 != null">, CV_23 => #{cv_23, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap23, mode=OUT}</if>
+				<if test="cv_24 != null">, CV_24 => #{cv_24, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap24, mode=OUT}</if>
+				<if test="cv_25 != null">, CV_25 => #{cv_25, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap25, mode=OUT}</if>
+				<if test="cv_26 != null">, CV_26 => #{cv_26, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap26, mode=OUT}</if>
+				<if test="cv_27 != null">, CV_27 => #{cv_27, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap27, mode=OUT}</if>
+				<if test="cv_28 != null">, CV_28 => #{cv_28, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap28, mode=OUT}</if>
+				<if test="cv_29 != null">, CV_29 => #{cv_29, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap29, mode=OUT}</if>
+				<if test="cv_30 != null">, CV_30 => #{cv_30, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap30, mode=OUT}</if>
+				<if test="cv_31 != null">, CV_31 => #{cv_31, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap31, mode=OUT}</if>
+				<if test="cv_32 != null">, CV_32 => #{cv_32, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap32, mode=OUT}</if>
+				<if test="cv_33 != null">, CV_33 => #{cv_33, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap33, mode=OUT}</if>
+				<if test="cv_34 != null">, CV_34 => #{cv_34, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap34, mode=OUT}</if>
+				<if test="cv_35 != null">, CV_35 => #{cv_35, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap35, mode=OUT}</if>
+				<if test="cv_36 != null">, CV_36 => #{cv_36, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap36, mode=OUT}</if>
+				<if test="cv_37 != null">, CV_37 => #{cv_37, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap37, mode=OUT}</if>
+				<if test="cv_38 != null">, CV_38 => #{cv_38, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap38, mode=OUT}</if>
+				<if test="cv_39 != null">, CV_39 => #{cv_39, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap39, mode=OUT}</if>
+				<if test="cv_40 != null">, CV_40 => #{cv_40, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap40, mode=OUT}</if>
+				<if test="cv_41 != null">, CV_41 => #{cv_41, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap41, mode=OUT}</if>
+				<if test="cv_42 != null">, CV_42 => #{cv_42, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap42, mode=OUT}</if>
+				<if test="cv_43 != null">, CV_43 => #{cv_43, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap43, mode=OUT}</if>
+				<if test="cv_44 != null">, CV_44 => #{cv_44, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap44, mode=OUT}</if>
+				<if test="cv_45 != null">, CV_45 => #{cv_45, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap45, mode=OUT}</if>
+				<if test="cv_46 != null">, CV_46 => #{cv_46, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap46, mode=OUT}</if>
+				<if test="cv_47 != null">, CV_47 => #{cv_47, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap47, mode=OUT}</if>
+				<if test="cv_48 != null">, CV_48 => #{cv_48, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap48, mode=OUT}</if>
+				<if test="cv_49 != null">, CV_49 => #{cv_49, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap49, mode=OUT}</if>
+				<if test="cv_50 != null">, CV_50 => #{cv_50, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=cmap50, mode=OUT}</if>
+				)
+		}
+	</select>
+
+</mapper>
+
+
