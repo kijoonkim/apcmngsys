@@ -607,5 +607,10 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 		return resultList;
 	}
 
+	@Override
+	public List<GdsInvntrVO> selectSortGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception {
+		return gdsInvntrMapper.selectSortGdsInvntrList(gdsInvntrVO);
+	}
+
 
 }

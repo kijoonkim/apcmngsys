@@ -255,4 +255,23 @@ public class GdsInvntrController extends BaseController {
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 		return getSuccessResponseEntity(resultMap);
 	}
+	//출하실적등록 모바일 재고조회
+	@PostMapping(value="/am/invntr/selectSortGdsInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectSortGdsInvntrList(@RequestBody GdsInvntrVO gdsInvntrVO, HttpServletRequest request ) throws Exception{
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<GdsInvntrVO> resultList = new ArrayList<>();
+		try{
+			resultList = gdsInvntrService.selectSortGdsInvntrList(gdsInvntrVO);
+		} catch (Exception e){
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
 }

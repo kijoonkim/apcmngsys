@@ -1376,4 +1376,117 @@
 
 		]]>
     </select>
+
+
+	<!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.GdsInvntrMapper.selectSortGdsInvntrList	-->
+	<!-- DESC : 출하실적등록모바일 재고조회	                                       			-->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2024.04.30  	손민성      		Initial Creation                            	-->
+	<!-- ==============================================================================	-->
+	<select id="selectSortGdsInvntrList"  parameterType="com.at.apcss.am.invntr.vo.GdsInvntrVO" resultType="com.at.apcss.am.invntr.vo.GdsInvntrVO">
+		<![CDATA[
+		SELECT
+			pt0.*
+			 , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
+			 , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
+			 , (SELECT FN_GET_GRD_NM_GDS(pt0.APC_CD, pt0.ITEM_CD, pt0.GDS_GRD) FROM DUAL) AS GDS_GRD_NM
+			 , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) AS SPCFCT_NM
+			 , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
+			 , (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL) AS SPMT_PCKG_UNIT_NM
+			 , (SELECT FN_GET_GRD_NM_SORT(pt0.APC_CD, pt0.ITEM_CD, pt0.SORT_GRD_CD) FROM DUAL) AS SORT_GRD_NM
+		FROM (
+				 SELECT
+					    INV.APC_CD
+					  , INV.PRDCR_CD AS RPRS_PRDCR_CD
+					  , INV.ITEM_CD
+					  , INV.VRTY_CD
+					  , INV.SPCFCT_CD
+					  , INV.GDS_GRD
+					  , INV.WAREHOUSE_SE_CD
+					  , INV.SPMT_PCKG_UNIT_CD
+					  , INV.GDS_CD
+					  , INV.PLOR_CD
+					  , INV.SORT_GRD_CD
+					  , MAX(PI.PRDCR_NM)AS PRDCR_NM
+					  , MAX(PI.PRDCR_IDENTNO)AS PRDCR
+					  , SUM(INV.INVNTR_QNTT)AS INVNTR_QNTT
+					  , SUM(INV.INVNTR_WGHT)AS INVNTR_WGHT
+				 FROM (
+						  SELECT
+							     GI.APC_CD AS APC_CD
+							   , GI.PCKGNO AS PCKGNO
+							   , GI.PCKG_YMD AS PCKG_YMD
+							   , GI.RPRS_PRDCR_CD AS PRDCR_CD
+							   , GI.ITEM_CD AS ITEM_CD
+							   , GI.VRTY_CD AS VRTY_CD
+							   , GI.SPCFCT_CD AS SPCFCT_CD
+							   , GI.GDS_GRD AS GDS_GRD
+							   , GI.WAREHOUSE_SE_CD AS WAREHOUSE_SE_CD
+							   , GI.SPMT_PCKG_UNIT_CD AS SPMT_PCKG_UNIT_CD
+							   , GI.GDS_CD AS GDS_CD
+							   , GI.PLOR_CD AS PLOR_CD
+							   , GI.INVNTR_QNTT AS INVNTR_QNTT
+							   , GI.INVNTR_WGHT AS INVNTR_WGHT
+							   , SI.GRD_CD AS SORT_GRD_CD
+						  FROM TB_GDS_INVNTR GI
+								   JOIN TB_SORT_INVNTR SI
+								   ON SI.APC_CD = GI.APC_CD
+									AND SI.SORTNO = GI.PCKG_SORTNO
+									AND SI.SORT_SN = GI.PCKG_SORT_SN
+									AND SI.DEL_YN = 'N'
+						  WHERE GI.APC_CD = #{apcCd}
+							AND (GI.INVNTR_QNTT > 0 OR GI.INVNTR_WGHT > 0)
+							AND GI.ITEM_CD = #{itemCd}
+						  ]]>
+						<if test='itemCd != null and itemCd !=""'>
+							AND GI.ITEM_CD = #{itemCd}
+						</if>
+						<if test='rprsPrdcrCd != null and rprsPrdcrCd !=""'>
+							AND GI.RPRS_PRDCR_CD = #{prdcr}
+						</if>
+						<if test='vrtyCd != null and vrtyCd !=""'>
+							AND GI.VRTY_CD = #{vrtyCd}
+						</if>
+						<if test='spcfctCd != null and spcfctCd !=""'>
+							AND GI.SPCFCT_CD = #{spcfctCd}
+						</if>
+						<if test='gdsGrd != null and gdsGrd !=""'>
+							AND GI.GDS_GRD = #{gdsGrd}
+						</if>
+						<if test='gdsSeCd != null and gdsSeCd !=""'>
+							AND SI.GRD_CD = #{gdsSeCd}
+						</if>
+						<if test='pckgYmdFrom != null and pckgYmdFrom !=""'>
+							AND SI.INPT_YMD <![CDATA[>=]]> #{pckgYmdFrom}
+						</if>
+						<if test='pckgYmdTo != null and pckgYmdTo !=""'>
+							AND SI.INPT_YMD <![CDATA[<=]]> #{pckgYmdFrom}
+						</if>
+				<![CDATA[
+					  ) INV
+						  LEFT JOIN TB_PRDCR_INFO PI
+							ON PI.APC_CD = INV.APC_CD
+							AND PI.PRDCR_CD = INV.PRDCR_CD
+							AND PI.DEL_YN = 'N'
+						  WHERE 1=1
+						  GROUP BY
+							 INV.APC_CD
+								, INV.PRDCR_CD
+								, INV.ITEM_CD
+								, INV.VRTY_CD
+								, INV.SPCFCT_CD
+								, INV.GDS_GRD
+								, INV.WAREHOUSE_SE_CD
+								, INV.SPMT_PCKG_UNIT_CD
+								, INV.GDS_CD
+								, INV.PLOR_CD
+								, INV.SORT_GRD_CD
+			 ) pt0
+		WHERE 1=1
+		          ]]>
+	</select>
+
 </mapper>
