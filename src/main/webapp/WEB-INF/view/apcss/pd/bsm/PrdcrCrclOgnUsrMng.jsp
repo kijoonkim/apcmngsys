@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>title : SBUx2.6</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
@@ -462,35 +462,54 @@
 				</table>
 			</div>
 		</div>
+		<div>
+			<!--
+
+			<div>
+				<sbux-input
+					uitype="text"
+					id="dtl-input-mblTelno"
+					name="dtl-input-mblTelno"
+					class="form-control input-sm"
+					autocomplete="off"
+					readonly
+				></sbux-input>
+			</div>
+
+			<div id = "filesArea">
+				<sbux-fileupload id="atest" name="atest" uitype="multiple">
+				</sbux-fileupload>
+			</div>
+			-->
+		</div>
+
+		<div>
+			<sbux-button id="srch-btn-pdfViewer" name="srch-btn-pdfViewer" uitype="modal" target-id="modal-pdfViewer" onclick="fn_choicePdfViewer" text="pdf샘플" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+			<!--
+			<sbux-button id="test2" name="test2" uitype="normal" text="test" onclick="fn_test" class="btn btn-xs btn-outline-dark"></sbux-button>
+			 -->
+		</div>
+		<br>
+		<br>
+		<br>
+		<br>
 	</section>
 
-    <!-- 통합조직,출자출하조직 선택 Modal -->
-    <!-- 2023 09 22 ljw 통합조직 출자출하조직 리스트 팝업 생성 -->
-    <div>
-        <sbux-modal
-        	id="modal-invstmntSpmt"
-        	name="modal-invstmntSpmt"
-        	uitype="middle"
-        	header-title="통합조직,출자출하조직 선택"
-        	body-html-id="body-modal-invstmntSpmt"
-        	footer-is-close-button="false"
-        	style="width:1000px"
-       	></sbux-modal>
-    </div>
-    <div id="body-modal-invstmntSpmt">
-<%--     	<jsp:include page="../popup/InvstmntSpmtPopup.jsp"></jsp:include> --%>
-    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/InvstmntSpmtPopup.jsp"></jsp:include>
-    </div>
-
-
-    <!-- 품목 선택 Modal -->
-    <div>
-        <sbux-modal id="modal-itemSelect" name="modal-itemSelect" uitype="middle" header-title="품목 선택" body-html-id="body-modal-itemSelect" footer-is-close-button="false" style="width:600px"></sbux-modal>
-    </div>
-    <div id="body-modal-itemSelect">
-    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/ItemSelectPopup.jsp"></jsp:include>
-    </div>
-
+	<!-- pdf샘플 팝업 -->
+	<div>
+		<sbux-modal
+			id="modal-pdfViewer"
+			name="modal-pdfViewer"
+			uitype="middle"
+			header-title="사업자번호 선택"
+			body-html-id="body-modal-pdfViewer"
+			footer-is-close-button="false"
+			style="width:1000px"
+		></sbux-modal>
+	</div>
+	<div id="body-modal-pdfViewer">
+		<jsp:include page="/WEB-INF/view/apcss/pd/popup/pdfviewerPopup.jsp"></jsp:include>
+	</div>
 </body>
 <script type="text/javascript">
 
@@ -506,16 +525,23 @@
 		const elements = document.querySelectorAll(".srch-keyup-area");
 
 		for (let i = 0; i < elements.length; i++) {
-		  	const el = elements.item(i);
-		  	el.addEventListener("keyup", (event) => {
-		  		if (event.keyCode === 13 && !event.altKey && !event.ctrlKey && !event.shiftKey) {
-		  			fn_search();
-		  		}
-		  		//key	Enter
-		  		//keyCode
-		  	});
+			const el = elements.item(i);
+			el.addEventListener("keyup", (event) => {
+				if (event.keyCode === 13 && !event.altKey && !event.ctrlKey && !event.shiftKey) {
+					fn_search();
+				}
+				//key	Enter
+				//keyCode
+			});
 		}
 	})
+
+	function fn_test() {
+		//var pdfVal = SBUxMethod.get("files");
+		//console.log(pdfVal);
+		//console.log(SBUxMethod.getFileCheckedInList('atest'));
+		//console.log(SBUxMethod.getFileUpdateData('atest'));
+	}
 
 
 	//승인여부
@@ -542,8 +568,8 @@
 
 			gfn_setComCdSBSelect('srch-input-userStts', 	jsonComUserStts, 	'USER_STTS'),	// 1차승인
 			gfn_setComCdSBSelect('dtl-input-userStts', 		jsonComUserStts, 	'USER_STTS'),	// 1차승인
-		 	gfn_setComCdSBSelect('srch-input-cmptncInst', 	jsonComcmptncInst, 	'CMPTNC_INST'), //관할기관
-		 	gfn_setComCdSBSelect('dtl-input-cmptncInst', 	jsonComcmptncInst, 	'CMPTNC_INST'), //관할기관
+			gfn_setComCdSBSelect('srch-input-cmptncInst', 	jsonComcmptncInst, 	'CMPTNC_INST'), //관할기관
+			gfn_setComCdSBSelect('dtl-input-cmptncInst', 	jsonComcmptncInst, 	'CMPTNC_INST'), //관할기관
 		]);
 	}
 
@@ -573,65 +599,65 @@
 	const fn_fcltMngCreateGrid = async function() {
 
 		let SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdPrdcrCrclOgnUsrMng';
-	    SBGridProperties.id = 'grdPrdcrCrclOgnUsrMng';
-	    SBGridProperties.jsonref = 'jsonPrdcrCrclOgnUsrMng';
-	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-	    //SBGridProperties.allowcopy = true;
-	    SBGridProperties.oneclickedit = true;
-	    SBGridProperties.paging = {
+		SBGridProperties.parentid = 'sb-area-grdPrdcrCrclOgnUsrMng';
+		SBGridProperties.id = 'grdPrdcrCrclOgnUsrMng';
+		SBGridProperties.jsonref = 'jsonPrdcrCrclOgnUsrMng';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.extendlastcol = 'scroll';
+		//SBGridProperties.allowcopy = true;
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.paging = {
 				'type' : 'page',
 			  	'count' : 5,
 			  	'size' : 20,
 			  	'sorttype' : 'page',
 			  	'showgoalpageui' : true
-		    };
-	    SBGridProperties.columns = [
-	    	{caption: ["아이디"], 	ref: 'userId',   	type:'output',  width:'200px',    style:'text-align:center'},
-	    	//{caption: ["이름"], 		ref: 'userNm',   	type:'output',  width:'200px',    style:'text-align:center'},
-	    	{caption: ["법인명"], 	ref: 'coNm',   	type:'output',  width:'200px',    style:'text-align:center'},
-	    	{caption: ["관할기관"], 	ref: 'cmptncInst',   	type:'combo',  width:'200px',    style:'text-align:center', disabled:true
-	    		,typeinfo : {ref:'jsonComcmptncInst', label:'label', value:'value', displayui : false}},
-	    	{caption: ["1차승인"], 	ref: 'userStts',   	type:'combo',  width:'200px',    style:'text-align:center', disabled:true
-		    	,typeinfo : {ref:'jsonComUserStts', label:'label', value:'value', displayui : false}},
-	    	{caption: ["2차승인"], 	ref: 'cmptncInstAprvSe',   	type:'combo',  width:'200px',    style:'text-align:center', disabled:true
-			    ,typeinfo : {ref:'jsoncmptncInstAprvSe', label:'label', value:'value', displayui : false}},
-	    	{caption: ["권한"], 		ref: 'userType',   	type:'combo',  width:'200px',    style:'text-align:center', disabled:true
+			};
+		SBGridProperties.columns = [
+			{caption: ["아이디"], 	ref: 'userId',   	type:'output',  width:'200px',	style:'text-align:center'},
+			//{caption: ["이름"], 		ref: 'userNm',   	type:'output',  width:'200px',	style:'text-align:center'},
+			{caption: ["법인명"], 	ref: 'coNm',   	type:'output',  width:'200px',	style:'text-align:center'},
+			{caption: ["관할기관"], 	ref: 'cmptncInst',   	type:'combo',  width:'200px',	style:'text-align:center', disabled:true
+				,typeinfo : {ref:'jsonComcmptncInst', label:'label', value:'value', displayui : false}},
+			{caption: ["1차승인"], 	ref: 'userStts',   	type:'combo',  width:'200px',	style:'text-align:center', disabled:true
+				,typeinfo : {ref:'jsonComUserStts', label:'label', value:'value', displayui : false}},
+			{caption: ["2차승인"], 	ref: 'cmptncInstAprvSe',   	type:'combo',  width:'200px',	style:'text-align:center', disabled:true
+				,typeinfo : {ref:'jsoncmptncInstAprvSe', label:'label', value:'value', displayui : false}},
+			{caption: ["권한"], 		ref: 'userType',   	type:'combo',  width:'200px',	style:'text-align:center', disabled:true
 				,typeinfo : {ref:'jsonComUserGrdType', label:'label', value:'value', displayui : false}},
-	    	{caption: ["사업자번호"], 	ref: 'brno',   	type:'output',  width:'200px',    style:'text-align:center'},
-	    	{caption: ["비고"], 		ref: 'rmrk',   	type:'output',  width:'200px',    style:'text-align:center'},
+			{caption: ["사업자번호"], 	ref: 'brno',   	type:'output',  width:'200px',	style:'text-align:center'},
+			{caption: ["비고"], 		ref: 'rmrk',   	type:'output',  width:'200px',	style:'text-align:center'},
 
-	    	{caption: ["전화번호"], 	ref: 'telno',   			hidden : true},
-	    	{caption: ["이름"], 		ref: 'userNm',   			hidden : true},
-	    	{caption: ["핸드폰번호"], 	ref: 'mblTelno',   			hidden : true},
-	    	{caption: ["2차승인일"], 	ref: 'cmptncInstAprvYmd',   hidden : false},
-	    	{caption: ["1차승인일"], 	ref: 'userAprvYmd',   		hidden : false}
-	    ];
+			{caption: ["전화번호"], 	ref: 'telno',   			hidden : true},
+			{caption: ["이름"], 		ref: 'userNm',   			hidden : true},
+			{caption: ["핸드폰번호"], 	ref: 'mblTelno',   			hidden : true},
+			{caption: ["2차승인일"], 	ref: 'cmptncInstAprvYmd',   hidden : false},
+			{caption: ["1차승인일"], 	ref: 'userAprvYmd',   		hidden : false}
+		];
 
-	    grdPrdcrCrclOgnUsrMng = _SBGrid.create(SBGridProperties);
+		grdPrdcrCrclOgnUsrMng = _SBGrid.create(SBGridProperties);
 
-	    grdPrdcrCrclOgnUsrMng.bind('click','fn_view');
-	    grdPrdcrCrclOgnUsrMng.bind('beforepagechanged', 'fn_pagingBbsList');
+		grdPrdcrCrclOgnUsrMng.bind('click','fn_view');
+		grdPrdcrCrclOgnUsrMng.bind('beforepagechanged', 'fn_pagingBbsList');
 	}
 
 	/**
-     * 목록 조회
-     */
-    const fn_search = async function() {
-    	// set pagination
-    	let pageSize = grdPrdcrCrclOgnUsrMng.getPageSize();
-    	let pageNo = 1;
-    	fn_clearForm();
-    	fn_setGrdFcltList(pageSize, pageNo);
-    }
+	 * 목록 조회
+	 */
+	const fn_search = async function() {
+		// set pagination
+		let pageSize = grdPrdcrCrclOgnUsrMng.getPageSize();
+		let pageNo = 1;
+		fn_clearForm();
+		fn_setGrdFcltList(pageSize, pageNo);
+	}
 
 	const fn_pagingBbsList = async function() {
-    	let recordCountPerPage = grdPrdcrCrclOgnUsrMng.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-    	let currentPageNo = grdPrdcrCrclOgnUsrMng.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-    	fn_setGrdFcltList(recordCountPerPage, currentPageNo);
-    }
+		let recordCountPerPage = grdPrdcrCrclOgnUsrMng.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+		let currentPageNo = grdPrdcrCrclOgnUsrMng.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+		fn_setGrdFcltList(recordCountPerPage, currentPageNo);
+	}
 
 	//출력
 	const fn_report = async function() {
@@ -669,28 +695,28 @@
 		let brno = SBUxMethod.get("srch-input-brno");//사업자번호
 		let coNm = SBUxMethod.get("srch-input-coNm");//법인명
 
-    	let postJsonPromise = gfn_postJSON("/pd/bsm/selectPrdcrCrclOgnUsrMngList.do", {
-    		cmptncInst : cmptncInst
-    		,userStts : userStts
-    		,cmptncInstAprvSe : cmptncInstAprvSe
-    		,userType : userType
-    		,userId : userId
-    		,userNm : userNm
-    		,brno : brno
-    		,coNm : coNm
+		let postJsonPromise = gfn_postJSON("/pd/bsm/selectPrdcrCrclOgnUsrMngList.do", {
+			cmptncInst : cmptncInst
+			,userStts : userStts
+			,cmptncInstAprvSe : cmptncInstAprvSe
+			,userType : userType
+			,userId : userId
+			,userNm : userNm
+			,brno : brno
+			,coNm : coNm
 
-    		//페이징
-    		,pagingYn : 'Y'
-    		,currentPageNo : pageNo
-     		,recordCountPerPage : pageSize
+			//페이징
+			,pagingYn : 'Y'
+			,currentPageNo : pageNo
+	 		,recordCountPerPage : pageSize
 		});
-        let data = await postJsonPromise;
-        try{
-        	jsonPrdcrCrclOgnUsrMng.length = 0;
-        	let totalRecordCount = 0;
-        	console.log("data==="+data);
-        	data.resultList.forEach((item, index) => {
-        		//console.log(item.cmptncInst);
+		let data = await postJsonPromise;
+		try{
+			jsonPrdcrCrclOgnUsrMng.length = 0;
+			let totalRecordCount = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
+				//console.log(item.cmptncInst);
 				let PrdcrCrclOgnUsrMngVO = {
 					userId 		: item.userId
 				  , userNm 		: item.userNm
@@ -712,26 +738,26 @@
 				}
 			});
 
-        	if (jsonPrdcrCrclOgnUsrMng.length > 0) {
+			if (jsonPrdcrCrclOgnUsrMng.length > 0) {
 
-        		if(grdPrdcrCrclOgnUsrMng.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-        			grdPrdcrCrclOgnUsrMng.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-        			grdPrdcrCrclOgnUsrMng.rebuild();
+				if(grdPrdcrCrclOgnUsrMng.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+					grdPrdcrCrclOgnUsrMng.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+					grdPrdcrCrclOgnUsrMng.rebuild();
 				}else{
 					grdPrdcrCrclOgnUsrMng.refresh()
 				}
-        	} else {
-        		grdPrdcrCrclOgnUsrMng.setPageTotalCount(totalRecordCount);
-        		grdPrdcrCrclOgnUsrMng.rebuild();
-        	}
-        	document.querySelector('#listCount').innerText = totalRecordCount;
+			} else {
+				grdPrdcrCrclOgnUsrMng.setPageTotalCount(totalRecordCount);
+				grdPrdcrCrclOgnUsrMng.rebuild();
+			}
+			document.querySelector('#listCount').innerText = totalRecordCount;
 
-        }catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        }
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
 	}
 	//관리자가 아닌 경우 조회
 	const fn_dtlSearch = async function(){
@@ -739,13 +765,13 @@
 
 		if(gfn_isEmpty(userId)) return;
 
-    	let postJsonPromise = gfn_postJSON("/pd/bsm/selectPrdcrCrclOgnUsrMngList.do", {
+		let postJsonPromise = gfn_postJSON("/pd/bsm/selectPrdcrCrclOgnUsrMngList.do", {
 			userId : userId
 		});
-        let data = await postJsonPromise;
-        try{
-        	console.log("data==="+data);
-        	data.resultList.forEach((item, index) => {
+		let data = await postJsonPromise;
+		try{
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
 				SBUxMethod.set("dtl-input-userId", item.userId);  //  아이디
 				SBUxMethod.set("dtl-input-userNm", item.userNm);  //  이름
 				SBUxMethod.set("dtl-input-userType", item.userType);  //  권한
@@ -765,12 +791,12 @@
 				}
 			});
 
-        }catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        }
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
 	}
 
 	const fn_clearForm = function() {
@@ -836,7 +862,7 @@
 		} catch(e) {
 
 		}
-  	}
+	}
 
 	//레드닷 처리한 필수값들 확인
 	function fn_checkRequiredInput(){
@@ -850,7 +876,7 @@
 			return false;
 		}
 		*/
-    	let userType = SBUxMethod.get("dtl-input-userType");
+		let userType = SBUxMethod.get("dtl-input-userType");
 		if(gfn_isEmpty(userType)){
 			gfn_comAlert("W0002", "권한");
 			return false;
@@ -865,8 +891,8 @@
 			gfn_comAlert("W0002", "법인명");
 			return false;
 		}
-    	return true;
-    }
+		return true;
+	}
 
 
 
@@ -906,6 +932,31 @@
 			SBUxMethod.attr("dtl-input-cmptncInstAprvSe", "readonly", "true");
 		}
 		SBUxMethod.set("dtl-input-cmptncInst", gfn_nvl(rowData.cmptncInst));  //  관할기관
+
+		/*
+		let fileupUrl = '/pd/bsm/fileUpload/'+gfn_nvl(rowData.brno)+'.do';
+		SBUxMethod.attr('files', 'upload-url', fileupUrl);
+		console.log('fileupUrl = '+fileupUrl);
+
+		$('#filesArea').sbFileupload({
+			id : "files",
+			name : 'files',
+			uitype : "multiple",
+			uploadUrl : fileupUrl,
+			initUrl:"/upload/pdf/test.pdf",
+			headerTitle : "첨부파일목록",
+			acceptFileTypes : "txt|zip|jar|docx?|xls?x|pdf|gif|jpe?g|png|pptx?",
+			maxFileSize : "5000000",
+			verticalScrollHeight : "200px",
+			acceptFileTypesMessage : "금지된 파일",
+			maxFileSizeMessage : "용량초과",
+			uploadFailMessage : "업로드 실패",
+			buttonAddTitle : "Add",
+			buttonCancelTitle : "Cancel",
+			buttonUploadTitle : "Upload",
+			buttonDeleteTitle : "Delete"
+		});
+		*/
 	}
 
 	 /*
@@ -923,19 +974,19 @@
 		let postJsonPromise = gfn_postJSON("/co/user/updComUserPwd.do", {
 			userId : userId
 		});
-        let data = await postJsonPromise;
-        try{
-        	if(data.updatedCnt > 0){
-        		alert("비밀번호가 초기화 되었습니다.");
-        	}else{
-        		alert("비밀번호 초기화 오류가 발생 되었습니다.");
-        	}
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		let data = await postJsonPromise;
+		try{
+			if(data.updatedCnt > 0){
+				alert("비밀번호가 초기화 되었습니다.");
+			}else{
+				alert("비밀번호 초기화 오류가 발생 되었습니다.");
+			}
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 	}
 
@@ -956,19 +1007,19 @@
 		let postJsonPromise = gfn_postJSON("/pd/user/updAllComUserPwd.do", {
 			userIdTest : userIdTest
 		});
-       let data = await postJsonPromise;
-       try{
-       	if(data.updatedCnt > 0){
-       		alert("전체 사용자("+data.updatedCnt+"건)의 비밀번호가 초기화 되었습니다.");
-       	}else{
-       		alert("비밀번호 초기화 오류가 발생 되었습니다.");
-       	}
-       } catch (e) {
-   		if (!(e instanceof Error)) {
-   			e = new Error(e);
-   		}
-   		console.error("failed", e.message);
-       	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		let data = await postJsonPromise;
+		try{
+			if(data.updatedCnt > 0){
+				alert("전체 사용자("+data.updatedCnt+"건)의 비밀번호가 초기화 되었습니다.");
+			}else{
+				alert("비밀번호 초기화 오류가 발생 되었습니다.");
+			}
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 	}
 
@@ -981,20 +1032,20 @@
 		let postJsonPromise = gfn_postJSON("/pd/bsm/deleteUser.do", {
 			userId : userId
 		});
-        let data = await postJsonPromise;
+		let data = await postJsonPromise;
 
-        try{
-        	if(data.result > 0){
-        		alert("삭제 되었습니다.");
-        		fn_search();
-        	}else{
-        		alert("삭제 도중 오류가 발생 되었습니다.");
-        	}
-        }catch (e) {
-        	if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
+		try{
+			if(data.result > 0){
+				alert("삭제 되었습니다.");
+				fn_search();
+			}else{
+				alert("삭제 도중 오류가 발생 되었습니다.");
+			}
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
 		}
 
 	}
@@ -1017,17 +1068,17 @@
 			,brno : brno
 			,userType : userType
 		});
-        let data = await postJsonPromise;
+		let data = await postJsonPromise;
 
-        try{
-        	console.log(data);
-        	//iframe 부모요소에 접근해야 전체 새로고침 가능
-        	window.parent.document.location.reload();
-        }catch (e) {
-        	if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
+		try{
+			console.log(data);
+			//iframe 부모요소에 접근해야 전체 새로고침 가능
+			window.parent.document.location.reload();
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
 		}
 
 	}
@@ -1067,18 +1118,33 @@
 			,authrtId : authrtId
 			,apoSe : apoSe
 		});
-        let data = await postJsonPromise;
+		let data = await postJsonPromise;
 
-        try{
-        	console.log(data);
-        	fn_search();
-        }catch (e) {
-        	if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
+		try{
+			console.log(data);
+			fn_search();
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+
+	//pdf 팝업
+	const fn_choicePdfViewer = function() {
+		//사업자번호
+		let brno = SBUxMethod.get('dtl-input-brno');
+		poppdfViewer.init(brno , fn_setPdfViewer);
+	}
+	//pdf 팝업 콜백함수
+	const fn_setPdfViewer = function(rowData) {
+		if (!gfn_isEmpty(rowData)) {
+			//SBUxMethod.set("dtl-input-brno", rowData.brno);				//사업자등록번호
 		}
 	}
 
 </script>
+
 </html>
