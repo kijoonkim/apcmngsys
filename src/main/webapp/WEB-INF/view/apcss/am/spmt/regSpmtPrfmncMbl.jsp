@@ -286,11 +286,11 @@
                             style="position: relative">
                     </sbux-select>
                     <div class="sp-style" style="display: flex;flex-direction: row">
-                        <button class="btn-style ma-rt"><div class="btn-text">위탁</div> </button>
-                        <button class="btn-style"><div class="btn-text">경매</div></button>
+                        <button class="btn-style ma-rt"><div id="dlngShapCd" class="btn-text">위탁</div> </button>
+                        <button class="btn-style"><div id="dlngMthdCd" class="btn-text">경매</div></button>
                     </div>
                 </div>
-                <div class="ma-bt row-style" style="position: relative">
+                <div class="ma-bt row-style"  style="position: relative"> <%--//--%>
                     <button class="ma-rt btn-style" style="height: auto">
                         <div class="btn-text">품목/품종</div>
                     </button>
@@ -299,21 +299,20 @@
                                 id="srch-slt-itemCd"
                                 name="srch-slt-itemCd"
                                 uitype="single"
-                                wrap-style="height: 100%;flex: 1;font-size: 2vw;vertical-align: middle;margin-right:10px"
+                                wrap-style="height: 100%;flex: 1;font-size: 3vh;vertical-align: middle;margin-right:10px;font-weight:500"
                                 jsondata-ref="jsonApcItem"
                                 unselected-text="전체"
-                                class="input-sm-ast inpt-mbl"
+<%--                                class="input-sm-ast inpt-mbl"--%>
                                 onchange="fn_onChangeSrchItemCd(this)"
                         ></sbux-select>
                         <sbux-select
                                 id="srch-slt-vrtyCd"
                                 name="srch-slt-vrtyCd"
                                 uitype="single"
-                                wrap-style="height: 100%;flex: 1;font-size: 2vw;vertical-align: middle;"
+                                wrap-style="height: 100%;flex: 1;font-size: 3vh;vertical-align: middle;font-weight:500"
                                 jsondata-ref="jsonApcVrty"
-                                jsondata-value="itemVrtyCd"
                                 unselected-text="선택"
-                                class="input-sm-ast inpt-mbl"
+<%--                                class="input-sm-ast inpt-mbl"--%>
                                 onchange="fn_onChangeSrchVrtyCd(this)"
                         ></sbux-select>
                     </div>
@@ -334,6 +333,7 @@
                                 class="inp-select-style"
                                 style="position: relative;font-weight: initial"
                                 wrap-style="flex:1;margin-right:10px"
+                                readonly
                         >
                         </sbux-input>
                         <sbux-input
@@ -343,6 +343,7 @@
                                 class="inp-select-nf-style"
                                 style="position: relative;font-weight: initial"
                                 wrap-style="flex:1;"
+                                readonly
                         >
                         </sbux-input>
                     </div>
@@ -364,8 +365,14 @@
                                 class="inp-select-style"
                                 style="position: relative;font-weight: initial"
                                 wrap-style="flex:1;margin-right:10px"
+                                readonly
                         >
                         </sbux-input>
+                        <sbux-input
+                            uitype="hidden"
+                            id="srch-slt-gdsGrd"
+                            name="srch-slt-gdsGrd"
+                        ></sbux-input>
                         <span style="flex:1">
                             <input id="srch-slt-invntrQntt" class="inp-select-nf-style"
                                    style="font-weight: initial;width: 100%" type="number"
@@ -386,10 +393,10 @@
                         >
                         </sbux-button>
                         <div>
-                            <span style="font-size: 2vw;margin-top: 10px">
+                            <span style="font-size: 3vh;margin-top: 10px;font-width: bold;">
                                 재고 :
                             </span>
-                            <span id="invntrQntt" style="font-size: 2vw;margin-top: 10px">
+                            <span id="invntrQntt" style="font-size: 3vh;margin-top: 10px;font-width: bold">
                             </span>
                         </div>
                     </div>
@@ -427,71 +434,6 @@
 
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>
-                            <div style="display: flex">
-                                <div style="flex: 2; border: 1px solid #bbc4d1;font-family: 'Font Awesome 5 Free';margin-right: 10px">412</div>
-                                <div style="flex: 1; border: 1px solid #bbc4d1;font-family: 'Font Awesome 5 Free';">29</div>
-                            </div>
-                        </td>
-                        <td>
-                            <div style="border: 1px solid #bbc4d1;font-family: 'Font Awesome 5 Free';">꽈리</div>
-                        </td>
-                        <td>
-                            <div style="border: 1px solid #bbc4d1;font-family: 'Font Awesome 5 Free';">5kg</div>
-                        </td>
-                        <td>
-                            <input/>
-                        </td>
-                        <td>
-                            <input/>
-                        </td>
-                        <td>
-                            <input/>
-                        </td>
-                        <td>
-                            <input/>
-                        </td>
-                        <td>
-                            <input/>
-                        </td>
-                        <td>
-                            <input/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div style="display: flex">
-                                <div style="flex: 2; border: 1px solid #bbc4d1;font-family: 'Font Awesome 5 Free';margin-right: 10px">472</div>
-                                <div style="flex: 1; border: 1px solid #bbc4d1;font-family: 'Font Awesome 5 Free';"></div>
-                            </div>
-                        </td>
-                        <td>
-                            <div style="border: 1px solid #bbc4d1;font-family: 'Font Awesome 5 Free';">애호박</div>
-                        </td>
-                        <td>
-                            <div style="border: 1px solid #bbc4d1;font-family: 'Font Awesome 5 Free';">20입</div>
-                        </td>
-                        <td>
-                            <input/>
-                        </td>
-                        <td>
-                            <input/>
-                        </td>
-                        <td>
-                            <input/>
-                        </td>
-                        <td>
-                            <input/>
-                        </td>
-                        <td>
-                            <input/>
-                        </td>
-                        <td>
-                            <input/>
-                        </td>
-                    </tr>
-
                     </tbody>
                 </table>
             </div>
@@ -765,7 +707,6 @@
         let spcfct = SBUxMethod.get("srch-mod-spcfct");
         let gdsSeCd = SBUxMethod.get("srch-mod-gdsSeCd");
         let gdsGrd = SBUxMethod.get("srch-mod-gdsGrd");
-        console.log(pckgYmdFrom,"pckgYmdFrom",pckgYmdTo,"pckgYmdTo",itemCd,"itemCd",vrtyCd,"vrtyCd",gdsSeCd,"gdsSeCd",prdcrCd,"prdcrCd",spcfct,"spcfct",gdsGrd,"gdsGrd");
 
 
         if (gfn_isEmpty(itemCd)) {
@@ -786,7 +727,6 @@
             gdsGrd          : gdsGrd
         });
         const data = await postJsonPromise;
-        console.log(data);
 
         $("#invnt_table tbody").empty();
         data.resultList.forEach(function(item){
@@ -834,14 +774,30 @@
         });
         fn_popup();
 
-        console.log(rowObj);
         SBUxMethod.set("srch-slt-sortGrdCd",rowObj.sortGrdNm);
         SBUxMethod.attr("srch-slt-sortGrdCd",'readonly','true');
         SBUxMethod.set("srch-slt-prdcrNm",rowObj.prdcr);
         SBUxMethod.attr("srch-slt-prdcrNm",'readonly','true');
         SBUxMethod.set("srch-slt-gdsGrdNm",rowObj.gdsGrdNm);
         SBUxMethod.attr("srch-slt-gdsGrdNm",'readonly','true');
-        $("#invntrQntt").text(rowObj.invntrQntt);
+        SBUxMethod.set("srch-slt-vrtyCd",rowObj.vrtyCd);
+        SBUxMethod.set("srch-slt-gdsGrd",rowObj.gdsGrd);
+
+        let invntrQntt = parseInt(rowObj.invntrQntt);
+
+        let jsonKey = rowObj.itemCd + rowObj.vrtyCd + rowObj.sortGrdCd;
+        if(jsonRegTableData.hasOwnProperty(jsonKey)){
+            let el = jsonRegTableData[jsonKey];
+            el.forEach(function(item){
+               if(item.gdsGrd ==rowObj.gdsGrd){
+                   let gdsKey = 'gdsGrd'+ item.gdsGrd;
+                   invntrQntt = parseInt(item.invntrQntt)-parseInt(item[gdsKey]);
+               }
+            });
+        }
+
+        $("#invntrQntt").text(invntrQntt);
+
         jsonTepObj = rowObj;
 
     }
@@ -903,60 +859,107 @@
      * @description 품목 변경시 품종 set
      */
     const fn_onChangeSrchItemCd = async function(obj) {
-        console.log(jsonApcItem);
         let elId = obj.id.substring(0,9);
         let itemCd = obj.value;
         await gfn_setApcVrtySBSelect(elId + 'vrtyCd', jsonApcVrty, gv_selectedApcCd,itemCd);	// 품종
 
+        SBUxMethod.set("srch-slt-sortGrdCd","");
+        SBUxMethod.set("srch-slt-prdcrNm","");
+        SBUxMethod.set("srch-slt-gdsGrdNm","");
+        SBUxMethod.set("srch-slt-gdsGrdCd","");
+        $("#srch-slt-invntrQntt").val('');
+        $("#invntrQntt").text("");
     }
-    jsonRegTableData = [];
+    let jsonRegTableData = [];
     /**
      * @name fn_refreshReg
      * @description 실제 저장되는 데이터 JSON
      */
-    const fn_refreshReg = async function(){
+    const fn_refreshReg = async function(_arr){
         $("#reg_table tbody").empty();
-        console.log("타긴타냐?");
-        if(gfn_isEmpty(jsonRegTableData)){
-            const mergedObj = jsonRegTableData.reduce((acc,aurr) => {
-                const foundIndex = acc.findIndex(item =>
-                item.itemCd === curr.itemCd && item.vrtyCd === curr.vrtyCd &&
-                item.sortGrdCd === curr.sortGrdCd);
+        if(!gfn_isEmpty(_arr)){
+             jsonRegTableData = _arr.reduce((acc,curr) => {
+                 let flag = false;
+                 let curKey = 'gdsGrd' + curr.gdsGrd;
+                 let spmtQntt = parseInt(curr.spmtQntt);
+                 let itemVrtyKey = curr.itemCd + curr.vrtyCd+curr.sortGrdCd;
 
-                if(foundIndex !== -1){
-                    acc[foundIndex].spmtQntt += curr.spmtQntt;
-                }else{
-                    acc.push(curr);
+                 /** 1depth true **/
+                for(let key in acc){
+                    if(key == itemVrtyKey){
+                        acc[itemVrtyKey].forEach(function(item){
+                           if(item.gdsGrd == curr.gdsGrd && item.sortGrdCd == curr.sortGrdCd) flag = true;
+                        });
+                    }
                 }
 
+                if(flag){
+                    acc[itemVrtyKey].forEach(function(item){
+                        if(item.hasOwnProperty(curKey)){
+                            item[curKey] += spmtQntt;
+                        }
+                    });
+                }else{
+                    const newObj = {
+                        [curKey] : spmtQntt,
+                        ...curr,
+                    };
+                    if(!acc.hasOwnProperty(itemVrtyKey)){
+                        acc[itemVrtyKey] = [];
+                    }
+                    acc[itemVrtyKey].push(newObj);
+
+                }
                 return acc;
 
-            },[]);
+            },jsonRegTableData);
+            for(let key in jsonRegTableData){
+                let item = jsonRegTableData[key];
+                    let gdsGrd01 = "";
+                    let gdsGrd02 = "";
+                    let gdsGrd03 = "";
+                    let sum = 0;
+                    item.forEach(function(el){
+                        let key = 'gdsGrd' + el.gdsGrd;
+                        sum += el[key];
+                        key =='gdsGrd01' ? gdsGrd01 = el[key] : key =='gdsGrd02' ? gdsGrd02 = el[key] : gdsGrd03 = el[key]
+                    });
 
-            console.log(mergedObj,"병합시킨 최종 객체");
-
-
-
-            // jsonRegTableData.forEach(function(item){
-                // $("#reg_table tbody").append(
-                //     `<tr>
-                //     <td>
-                //         <div style="display: flex">
-                //             <div style="flex: 2; border: 1px solid #bbc4d1;font-family: 'Font Awesome 5 Free';margin-right: 10px">'+item.sortGrdNm+'</div>
-                //             <div style="flex: 1; border: 1px solid #bbc4d1;font-family: 'Font Awesome 5 Free';">'+item.prdcr+'</div>
-                //         </div>
-                //     </td>
-                //     <td>
-                //         <div style="border: 1px solid #bbc4d1;font-family: 'Font Awesome 5 Free';">'+item.itemNm+'</div>
-                //     </td>
-                //     <td>
-                //         <div style="border: 1px solid #bbc4d1;font-family: 'Font Awesome 5 Free';">'+item.spcfctNm+'</div>
-                //     </td>
-                // </tr>`
-                // )
-            // });
-
-
+                    $("#reg_table tbody").append(
+                `<tr>
+                    <td>
+                        <div style="display: flex">
+                            <div style="flex: 2; border: 1px solid #bbc4d1;font-family: 'Font Awesome 5 Free';margin-right: 10px">`+item[0].sortGrdNm+`</div>
+                            <div style="flex: 1; border: 1px solid #bbc4d1;font-family: 'Font Awesome 5 Free';">`+item[0].prdcr+`</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="border: 1px solid #bbc4d1;font-family: 'Font Awesome 5 Free';">`+item[0].itemNm+`</div>
+                    </td>
+                    <td>
+                        <div style="border: 1px solid #bbc4d1;font-family: 'Font Awesome 5 Free';">`+item[0].spcfctNm+`</div>
+                    </td>
+                    <td>
+                        <input type="number" jsonRef="`+key+`" gdsGrd="01" value="`+(gdsGrd01 != "" ? parseInt(gdsGrd01):"")+`" onchange="fn_updateQntt(this,this.value)"`+(gdsGrd01 != "" ? "":"readonly")+`/>
+                    </td>
+                    <td>
+                        <input type="number" jsonRef="`+key+`" gdsGrd="02" value="`+(gdsGrd02 != "" ? parseInt(gdsGrd02):"")+`" onchange="fn_updateQntt(this,this.value)" `+(gdsGrd02 != "" ? "":"readonly")+`/>
+                    </td>
+                    <td>
+                        <input type="number" jsonRef="`+key+`" gdsGrd="03" value="`+(gdsGrd03 != "" ? parseInt(gdsGrd03):"")+`" onchange="fn_updateQntt(this,this.value)" `+(gdsGrd03 != "" ? "":"readonly")+`/>
+                    </td>
+                    <td>
+                        <input readonly />
+                    </td>
+                    <td>
+                        <input value="`+sum+`" readonly/>
+                    </td>
+                    <td>
+                        <input/>
+                    </td>
+                </tr>`
+                    )
+            }
         }
 
 
@@ -966,9 +969,7 @@
      * @description 수량입력시 재고 허용가능여부
      */
     const fn_valiQntt = function(qntt){
-        console.log(qntt,"수량입력값");
         let maxQntt = parseInt($("#invntrQntt").text());
-        console.log(maxQntt);
         if(qntt > maxQntt){
 
         }
@@ -977,22 +978,127 @@
      * @name fn_regSpmtSave
      * @description 수량입력후 출하등록
      */
+    //TODO: 여기서 뭔가 포맷팅을 다해야하는데 특상보통의 합계와 현재 등록하는 상품이 존재하는지에대하여..
+    /** 포맷은 jsonRegTableData에 다 밀어넣고 테이블이 실질적으로 렌더링될때는 저 객체배열만을 참조하게
+     * result >> 다 떄려박고 테이블 렌더링할때 정의 하는걸로**/
     const fn_regSpmtSave =function(){
-        console.log(jsonTepObj);
         let spmtQntt = $("#srch-slt-invntrQntt").val();
+        if(gfn_isEmpty(spmtQntt)){
+            gfn_comAlert("W0002", "수량");
+            return;
+        }
+        let qnt = parseInt($("#invntrQntt").text());
+        if(qnt - spmtQntt < 0){
+            gfn_comAlert("W0017", "수량");
+            return;
+        }
+        let grdCd = SBUxMethod.get('srch-slt-sortGrdCd');
+        if(gfn_isEmpty(grdCd)){
+            gfn_comAlert("W0002", "출하번호");
+            return;
+        }
+        $("#invntrQntt").text(qnt-spmtQntt);
+
         jsonTepObj.spmtQntt = spmtQntt;
-        //TODO: 여기서 뭔가 포맷팅을 다해야하는데 특상보통의 합계와 현재 등록하는 상품이 존재하는지에대하여..
-        /** 포맷은 jsonRegTableData에 다 밀어넣고 테이블이 실질적으로 렌더링될때는 저 객체배열만을 참조하게
-         * result >> 다 떄려박고 테이블 렌더링할때 정의 하는걸로**/
-        // let filed = 'gdsGrd' + jonTepObj.gdsGrd;
-        // jsonTepObj[filed] = spmtQntt;
-        jsonRegTableData.push(jsonTepObj);
-        console.log(jsonRegTableData);
 
+        let key = 'gdsGrd' + jsonTepObj.gdsGrd;
+        jsonTepObj[key] = parseInt(spmtQntt);
+        let arr = [];
+        arr.push(jsonTepObj);
 
-        fn_refreshReg();
-
+        fn_refreshReg(arr);
+        $("#srch-slt-invntrQntt").val('');
     };
+
+    /**
+     * @name fn_updateQntt
+     * @description 수량입력후 수정
+     */
+    const fn_updateQntt = function(_el,_val){
+        let jsonRef = _el.getAttribute("jsonRef");
+        let gdsGrd = _el.getAttribute("gdsGrd");
+
+        let itemCd = SBUxMethod.get("srch-slt-itemCd");
+        let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
+        let grdCd = SBUxMethod.get("srch-slt-sortGrdCd");
+
+        if(jsonRegTableData.hasOwnProperty(jsonRef)){
+            let jsonEl = jsonRegTableData[jsonRef];
+            jsonEl.forEach(function(item){
+                if(item.gdsGrd == gdsGrd){
+                    let key = "gdsGrd" + gdsGrd;
+                    if(parseInt(item.invntrQntt) < parseInt(_val)){
+                        gfn_comAlert("W0017", "수량");
+                        let originQntt = item[key];
+                        _el.value = originQntt;
+                        return;
+                    }
+                    item[key] = parseInt(_val);
+                    if(item.itemCd == itemCd && item.vrtyCd == vrtyCd && item.sortGrdNm == grdCd){
+                        let invntrQntt = parseInt(item.invntrQntt) - parseInt(item[key]);
+                        $("#invntrQntt").text(invntrQntt);
+                    }
+                }
+            });
+        }
+    }
+    /**
+     * @name fn_updateInvtr
+     * @description 수량입력후 수정
+     */
+    const fn_updateInvtr = function(obj = null){
+
+        /** obj == 직접 수정한 rowData **/
+
+        if(!gfn_isEmpty(obj)){
+            jsonRegTableData.forEach(function(item){
+               if(item.itemCd == obj.itemCd && item.vrtyCd == obj.vrtyCd){
+                   for(let key in obj){
+                    if(key.startsWith("gdsGrd")){
+                     item[key] = parseInt(obj[key]);
+
+                    /** 현재 선택된 재고가 직접 수정한 재고와 같은 상품일경우 재고 변경처리. **/
+
+                    if(obj.itemCd == itemCd && obj.vrtyCd == vrtyCd){
+                        let invtrQntt = parseInt($("#invntrQntt").text())-parseInt(obj[key]);
+                        $("#invntrQntt").text(invtrQntt);
+                        }
+                     }
+                   }
+               }
+            });
+
+        }else{
+            /** 등록 버튼으로 인한 재고 반영 **/
+        }
+
+        let itemCd = SBUxMethod.get("srch-slt-itemCd");
+        let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
+    }
+    /**
+     * @name fn_sumQntt
+     * @description row 수량 등록시 합계 연산
+     */
+    const fn_sumQntt = function(_tr){
+    }
+    /**
+     * @name fn_reset
+     * @description 초기화 버튼
+     */
+    const fn_reset = function(){
+        SBUxMethod.set("dtl-dtp-cnpt","");
+        SBUxMethod.set("srch-slt-itemCd","");
+        SBUxMethod.set("srch-slt-vrtyCd","");
+        SBUxMethod.set("srch-slt-sortGrdCd","");
+        SBUxMethod.set("srch-slt-prdcrNm","");
+        SBUxMethod.set("srch-slt-gdsGrdNm","");
+        SBUxMethod.set("srch-slt-gdsGrdCd","");
+        $("#srch-slt-invntrQntt").val('');
+        $("#invntrQntt").text("");
+
+        $("#reg_table tbody").empty();
+        jsonRegTableData = [];
+    }
 
 
 </script>
