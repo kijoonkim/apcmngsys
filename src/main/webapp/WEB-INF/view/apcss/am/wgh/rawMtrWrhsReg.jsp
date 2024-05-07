@@ -786,7 +786,7 @@
  		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");			// 품종
 		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");		// 생산자
  		let bxQntt = SBUxMethod.get("srch-inp-bxQntt");			// 수량
- 		let wrhsWght = SBUxMethod.get("srch-inp-wrhsQntt");		// 중량
+ 		let wrhsWght = SBUxMethod.get("srch-inp-wrhsWght");		// 중량
  		let pltno = SBUxMethod.get("srch-inp-pltno");			// 팔레트번호
  		let bxKnd = SBUxMethod.get("srch-slt-bxKnd");			// 박스종류
  		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");	// 창고

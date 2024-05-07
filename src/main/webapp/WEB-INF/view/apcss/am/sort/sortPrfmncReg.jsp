@@ -1343,6 +1343,7 @@
     		rawMtrInvntrList: rawMtrInvntrList,
     		sortPrfmncList: sortPrfmncList
     	}
+		console.log(sortMng,"뭐가저장되는건데 ㅋㅋ");
 
         try {
     		const postJsonPromise = gfn_postJSON("/am/sort/insertSortPrfmnc.do", sortMng);

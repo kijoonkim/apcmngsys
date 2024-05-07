@@ -189,5 +189,11 @@ public interface GdsInvntrService {
 	 * @throws Exception
 	 */
 	public List<SpmtDsctnTotVO> selectGdsDsctn(SpmtDsctnTotVO spmtDsctnTotVO) throws Exception;
-
+	/**
+	 * 출하실적조회 모바일 재고조회
+	 * @param gdsInvntrVO
+	 * @return List<SpmtDsctnTotVO>
+	 * @throws Exception
+	 */
+    List<GdsInvntrVO> selectSortGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception;
 }
