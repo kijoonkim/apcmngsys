@@ -140,6 +140,18 @@ public class OrdrServiceImpl extends BaseServiceImpl implements OrdrService {
 	}
 
 	@Override
+	public HashMap<String, Object> deleteOutordrList(List<OrdrVO> ordrList) throws Exception {
+		
+		// FIXME validation check 추가할 것
+		for (OrdrVO ordrVO : ordrList) {
+			ordrMapper.deleteOrdr(ordrVO);
+		}
+		
+		return null;
+	}
+
+	
+	@Override
 	public int selectOrdrCheck(OrdrVO ordrVO) throws Exception {
 		return ordrMapper.selectOrdrCheck(ordrVO);
 	}
@@ -148,5 +160,6 @@ public class OrdrServiceImpl extends BaseServiceImpl implements OrdrService {
 	public void updateCmndno(OrdrVO ordrVO) throws Exception {
 		ordrMapper.updateCmndno(ordrVO);
 	}
+
 
 }

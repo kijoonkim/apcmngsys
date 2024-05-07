@@ -177,19 +177,19 @@
 								    
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-				<sbux-tabs id="idxTab_norm" name="tab_norm" uitype="webacc" is-scrollable="false"
-					title-target-id-array="exhstDsctn^grdDsctn"
-					title-text-array="배출구별 집계^등급별 집계">
+				<sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="webacc" is-scrollable="false" jsondata-ref="tabJsonData">
 				</sbux-tabs>
+				
+				
 
 				<div class="tab-content">
-					<div id="exhstDsctn" >
+					<div id="exhstDsctnTab" >
 						<div id="sb-area-exhstDsctn" style="height:470px;"></div>
-				</div>
-				<div id="grdDsctn" >
+					</div>
+					<div id="grdDsctnTab" >
 						<div id="sb-area-grdDsctn" style="height:470px;"></div>
+					</div>
 				</div>
-</div>
 					
 				</div>
 			</div>
@@ -414,6 +414,12 @@
 			fn_getApcLink()
 		]);
 		
+		
+		
+		if(gv_apcCd === "0203"){
+				SBUxMethod.hideTab('idxTab_norm','grdDsctnTab');
+		}
+		
 		fn_search();
 	}
 
@@ -434,6 +440,10 @@
 	
     var exhstDsctnColumns = [];
     var addSortRsltExhstCol = [];
+    var tabJsonData = [
+		{ "id" : "0", "pid" : "-1", "order" : "1", "text" : "배출구별 집계", "targetid" : "exhstDsctnTab", "targetvalue" : "배출구별 집계" },
+		{ "id" : "1", "pid" : "-1", "order" : "2", "text" : "등급별 집계", "targetid" : "grdDsctnTab", "targetvalue" : "등급별 집계" }
+	];
 
 
 	const fn_createExhstDsctn= function() {
@@ -707,13 +717,13 @@
 	 	        			,grd      : "수량"
 	         				,grd1 : item.QNTT_1
 	         				,grd2 : item.QNTT_2
-	         				,grd3 : item.QNTT_9
-	         				,grd4 : item.QNTT_8
-	         				,grd5 : item.QNTT_7
+	         				,grd3 : item.QNTT_3
+	         				,grd4 : item.QNTT_4
+	         				,grd5 : item.QNTT_5
 	         				,grd6 : item.QNTT_6
-	         				,grd7 : item.QNTT_5
-	         				,grd8 : item.QNTT_4
-	         				,grd9 : item.QNTT_3	         				
+	         				,grd7 : item.QNTT_7
+	         				,grd8 : item.QNTT_8
+	         				,grd9 : item.QNTT_9	         				
 	         				,sbTot        : item.SORT_QNTT
 
 	 	        	};

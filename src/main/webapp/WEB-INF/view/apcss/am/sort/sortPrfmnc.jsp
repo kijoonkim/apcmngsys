@@ -458,10 +458,10 @@
             {caption: ["규격","규격"],  			ref: 'spcfctNm',   			type:'output',  	width:'80px',   style:'text-align:center'},
             {caption: ["등급","등급"],  			ref: 'grdNm', 				type:'output',  	width:'80px',   style:'text-align:center'},
             {caption: ["투입","수량"],  			ref: 'inptQntt',   			type:'output',  	width:'60px',   style:'text-align:right',
-            	format : {type:'number', rule:'#,###'}
+            	format : {type:'number', rule:'#,###'}, hidden: true
             },
             {caption: ["투입","중량 (Kg)"],  		ref: 'inptWght',   			type:'output',  	width:'80px',   style:'text-align:right',
-            	format : {type:'number', rule:'#,###'}
+            	format : {type:'number', rule:'#,###'}, hidden: true
             },
             {caption: ["선별","수량"],  			ref: 'sortQntt', 			type:'output',  	width:'60px',   style:'text-align:right',
             	format : {type:'number', rule:'#,###'}
