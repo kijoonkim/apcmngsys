@@ -57,16 +57,57 @@ public class SortDsctnTotVO extends ComVO {
 	private String orgM;
 	private String orgS;
 	private String orgSs;
+	private String red2XlP;
+	private String redXlP;
+	private String redLP;
+	private String redMP;
+	private String redSP;
+	private String redSsP;
+	private String redTotP;
+	private String ylw2XlP;
+	private String ylwXlP;
+	private String ylwLP;
+	private String ylwMP;
+	private String ylwSP;
+	private String ylwSsP;
+	private String ylwTotP;
+	private String org2XlP;
+	private String orgXlP;
+	private String orgLP;
+	private String orgMP;
+	private String orgSP;
+	private String orgSsP;
 	private String orgTot;
+	private String orgTotP;
 	private String tot;
 	private String grdGubun;
-
-
-
-
-
-
-
+	private String rk;
+	private String grdRedSum;
+	private String grdYlwSum;
+	private String grdOrgSum;
+	private String red2XlTot;
+	private String redXlTot;
+	private String redLTot;
+	private String redMTot;
+	private String redSTot;
+	private String redSsTot;
+	private String ylw2XlTot;
+	private String ylwXlTot;
+	private String ylwLTot;
+	private String ylwMTot;
+	private String ylwSTot;
+	private String ylwSsTot;
+	private String org2XlTot;
+	private String orgXlTot;
+	private String orgLTot;
+	private String orgMTot;
+	private String orgSTot;
+	private String orgSsTot;
+	private String dsctnYn;
+	private String totOver;
+	private String redTotOver;
+	private String ylwTotOver;
+	private String orgTotOver;
 
 	/**
 	 * 표준등급 목록
