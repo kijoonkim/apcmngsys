@@ -1,9 +1,7 @@
 package com.at.apcma.com.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -117,7 +115,9 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			for (int i = 0; i < cv_count; i++) {
 				rmap.put("cv_" + (i + 1), new ArrayList<Map<String, Object>>());	
 			}
-			this.callProcTibero(rmap);    		
+			this.callProcTibero(rmap);
+
+			if(!param.containsKey("convertLowerCase") || !param.get("convertLowerCase").equals("N")) convertLowerCase(rmap);
     		
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
@@ -218,6 +218,31 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
                 .replaceAll("&apos;", "'").replaceAll("&#39;", "'")
                 .replaceAll("&quot;", "\"")
                 .replaceAll("&amp;", "&");
-	}    
-	
+	}
+
+	private Map<String, Object> convertLowerCase(Map<String, Object> originData) {
+		try {
+			for(String key : originData.keySet()) {
+				if (key.matches("cv\\_\\d")) {
+					if(Objects.nonNull(originData.get(key))) {
+						List<Map<String, Object>> cv = (List<Map<String, Object>>) originData.get(key);
+						List<Map<String, Object>> data = cv.stream()
+								.map(map -> map.entrySet().stream()
+										.collect(Collectors.toMap(
+												entry -> entry.getKey().toLowerCase(),
+												Map.Entry::getValue,
+												(oldValue, newValue) -> oldValue))
+								)
+								.collect(Collectors.toList());
+						originData.put(key, data);
+					}
+				}
+			}
+			return originData;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return originData;
+		}
+	}
+
 }
