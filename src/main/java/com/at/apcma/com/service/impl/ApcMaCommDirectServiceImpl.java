@@ -117,9 +117,12 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			}
 			this.callProcTibero(rmap);
 
-			if(!param.containsKey("convertCamelCase") || param.get("convertCamelCase").equals("Y"))
+			if(param.containsKey("convertLowerCase") && param.get("convertLowerCase").equals("Y")) {
+				convertLowerCase(rmap);
+			} else {
 				convertCamelCase(rmap);
-    		
+			}
+
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 		}
@@ -276,7 +279,7 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			return s;
 		}
 
-		String[] parts = s.split("[ _-]");  // Splitting by space, underscore, or dash
+		String[] parts = s.split("[ _-]");
 		StringBuilder camelCaseString = new StringBuilder(parts[0].toLowerCase());
 
 		for (int i = 1; i < parts.length; i++) {
