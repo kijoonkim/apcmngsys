@@ -76,18 +76,10 @@
 		/** com.itl.ess.mapper.ProcMapper : callProcTibero **/
 		{
 			call ${procedure} (
-				'LIST',
-				'N',
-				'KOR',
-				'1000',
-				'',
-				'',
-				'',
-				'',
-				'',
-				'',
-				'',
-				'',
+				<if test="workType != null">#{workType},</if>
+				<foreach  collection="params" item="item" open="" close="" separator="">
+				#{item},
+				</foreach>
 				V_P_ERROR_CODE 	=> #{v_errorCode,	javaType=java.lang.String,		jdbcType=VARCHAR,	mode=OUT}, 
 				V_P_ROW_COUNT 	=> #{v_rowCount,	javaType=java.lang.Integer,		jdbcType=INTEGER,	mode=OUT},
 				V_P_ERROR_NOTE 	=> #{v_errorNote,	javaType=java.lang.String,		jdbcType=VARCHAR,	mode=OUT}, 
