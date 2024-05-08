@@ -47,18 +47,20 @@ public class ApcMaCom3100Controller extends BaseController {
 			//,@RequestBody ComMsgVO comMsgVO
 			,HttpServletRequest request) throws Exception{
 
+		logger.info("=============com3100SelectList=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		try {
 			
-			 //resultList = comMsgService.selectComMsgList(comMsgVO);
-			resultMap = apcMaCommDirectService.callProc(param, request.getMethod());
+			param.put("procedure", 		"SP_MA_COM3100_Q");
+			resultMap = apcMaCommDirectService.callProc(param, request.getMethod(), "");
 
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
+		logger.info("=============com3100SelectList=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}	
 }

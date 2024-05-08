@@ -65,21 +65,20 @@
                     </colgroup>
                     <tbody>
                         <tr>
-                            <th scope="row" class="th_bg">메시지종류</th>
+                            <th scope="row" class="th_bg">국가코드</th>
                             <td colspan="" class="td_input" style="border-right:hidden;">
-                                <sbux-select id="srch-select-msgKnd" name="srch-select-msgKnd" uitype="single" jsondata-ref="jsonComMsgKnd" unselected-text="선택" style="width:120px;" class="form-control input-sm"></sbux-select>
+                                <sbux-input id="srch-nation-code" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
                             </td>
                             <td style="border-right: hidden;">&nbsp;</td>
                             <td style="border-right: hidden;">&nbsp;</td>
-                            <th scope="row" class="th_bg">메시지Key</th>
+                            <th scope="row" class="th_bg">국가명</th>
                             <td class="td_input" style="border-right:hidden;">
-                                <sbux-input id="srch-input-msgKey" name="srch-input-msgKey" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="srch-nation-name" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
                             </td>
                             <td style="border-right: hidden;">&nbsp;</td>
                             <td style="border-right: hidden;">&nbsp;</td>
-                            <th scope="row" class="th_bg">메시지내용</th>
+                            <th scope="row" class="th_bg"></th>
                             <td class="td_input" style="border-right: hidden;">
-                                <sbux-input id="srch-input-msgCn" name="srch-input-msgCn" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
                             </td>
                         </tr>
                     </tbody>
@@ -199,13 +198,13 @@
 
     //grid 초기화
     var grdComMsgList; // 그리드를 담기위한 객체 선언
-    var jsonComMsgList = []; // 그리드의 참조 데이터 주소 선언
+    var jsonNationList = []; // 그리드의 참조 데이터 주소 선언
 
     function fn_createGrid() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb-area-grdComMsg';
 	    SBGridProperties.id 				= 'grdComMsgList';
-	    SBGridProperties.jsonref 			= 'jsonComMsgList';
+	    SBGridProperties.jsonref 			= 'jsonNationList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
@@ -221,10 +220,8 @@
 		  	'showgoalpageui': true
 	    };
         SBGridProperties.columns = [
-        	{caption: ["체크박스"], 		ref: 'checked', 	type:'checkbox',	width:'40px',	style:'text-align: center',
-				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}},
-            {caption: ["메시지Key"],		ref: 'msgKey',      type:'output',  	width:'100px',  style:'text-align:center'},
-            {caption: ["메시지내용"], 		ref: 'msgCn',     	type:'output',  	width:'520px',  style:'text-align:left'},
+            {caption: ["국가코드"],			ref: 'nation_code', 		type:'output',  	width:'100px',  style:'text-align:left'},
+            {caption: ["국가약어"], 		ref: 'nation_code_abbr',    type:'output',  	width:'520px',  style:'text-align:left'},
             {caption: ["메시지종류"],  		ref: 'msgKndNm',    type:'output',  	width:'50px',   style:'text-align:center'},
             {caption: ["비고"],      		ref: 'rmrk',        type:'output',  	hidden: true},
             {caption: ["최초등록자ID"],		ref: 'creUserId',   type:'output',  	hidden: true},
@@ -232,7 +229,9 @@
             {caption: ["최종변경자ID"],		ref: 'updUserId',   type:'output',  	hidden: true},
             {caption: ["최종변경일시"], 	ref: 'updDateTime', type:'output',  	hidden: true},
             {caption: ["등록프로그램"], 	ref: 'creProgram',  type:'output',  	hidden: true},
-            {caption: ["변경프로그램"], 	ref: 'updProgram',  type:'output',  	hidden: true}
+            {caption: ["변경프로그램"], 	ref: 'updProgram',  type:'output',  	hidden: true},
+        	{caption: ["체크박스"], 		ref: 'checked', 	type:'checkbox',	width:'40px',	style:'text-align: center',
+				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}}
         ];
 
         grdComMsgList = _SBGrid.create(SBGridProperties);
@@ -274,17 +273,16 @@
 
 		grdComMsgList.clearStatus();
 
-		let msgKnd 	= SBUxMethod.get("srch-select-msgKnd");
-		let msgKey 	= SBUxMethod.get("srch-input-msgKey");
-		let msgCn 	= SBUxMethod.get("srch-input-msgCn");
+		let nationCode 	= SBUxMethod.get("srch-nation-code");
+		let nationName	= SBUxMethod.get("srch-nation-name");
 		
 	    var paramObj = { 
 			v_p_debug_mode_yn	: 'N'
 			,v_p_lang_id		: 'KOR'
 			,v_p_comp_code		: '1000'
 			,v_p_client_code	: ''
-			,v_p_nation_code	: ''
-			,v_p_nation_name	: ''
+			,v_p_nation_code	: '' //nationCode
+			,v_p_nation_name	: '' //nationName
 			,v_p_form_id		: ''
 			,v_p_menu_id		: ''
 			,v_p_proc_id		: ''
@@ -294,7 +292,6 @@
 
         const postJsonPromise = gfn_postJSON("/co/sys/org/com3100SelectList.do", {
         	getType				: 'json',
-        	procedure			: 'SP_MA_COM3100_Q',
         	workType			: 'LIST',
         	cv_count			: '1',
         	params				: gfnma_objectToString(paramObj)
@@ -308,11 +305,11 @@ console.log('data:', data);
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
 
-  	        	jsonComMsgList.length = 0;
-  	        	data.resultList.forEach((item, index) => {
+  	        	jsonNationList.length = 0;
+  	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-  						msgKey				: item.msgKey,
-  						msgCn				: item.msgCn,
+  						nation_code			: item.nation_code,
+  						nation_code_abbr	: item.nation_code_abbr,
   						msgKnd				: item.msgKnd,
   						msgKndNm			: item.msgKndNm,
   						rmrk				: item.rmrk,
@@ -324,18 +321,15 @@ console.log('data:', data);
   						sysLastChgPrgrmId	: item.sysLastChgPrgrmId,
   						delYn 				: item.delYn
   					}
-  					jsonComMsgList.push(msg);
-
-  					if (index === 0) {
-  						totalRecordCount = item.totalRecordCount;
-  					}
+  					jsonNationList.push(msg);
+  					totalRecordCount ++;
   				});
 
         		grdComMsgList.rebuild();
   	        	document.querySelector('#listCount').innerText = totalRecordCount;
 
         	} else {
-        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        		alert(data.resultMessage);
         	}
 
         } catch (e) {
@@ -359,6 +353,7 @@ console.log('data:', data);
         SBUxMethod.set("dtl-input-sysFrstInptUserId", "");
         SBUxMethod.set("dtl-input-sysLastChgUserId", "");
         SBUxMethod.set("dtl-input-sysFrstInptDt", "");
+        
         SBUxMethod.set("dtl-input-sysLastChgDt", "");
         SBUxMethod.set("dtl-input-sysFrstInptPrgrmId", "");
         SBUxMethod.set("dtl-input-sysLastChgPrgrmId", "");

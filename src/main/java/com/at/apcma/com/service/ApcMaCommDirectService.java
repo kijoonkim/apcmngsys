@@ -35,6 +35,6 @@ public interface ApcMaCommDirectService {
 	 * @return
 	 * @throws Exception
 	 */
-	public HashMap<String, Object> callProc(Map<String, Object> param, String rtype) throws Exception;
+	public HashMap<String, Object> callProc(Map<String, Object> param, String rtype, String ptype) throws Exception;
 
 }
