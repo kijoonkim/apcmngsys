@@ -117,8 +117,8 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			}
 			this.callProcTibero(rmap);
 
-			if(!param.containsKey("convertLowerCase") || param.get("convertLowerCase").equals("Y"))
-				convertLowerCase(rmap);
+			if(!param.containsKey("convertCamelCase") || param.get("convertCamelCase").equals("Y"))
+				convertCamelCase(rmap);
     		
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
@@ -246,4 +246,44 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 		}
 	}
 
+	private Map<String, Object> convertCamelCase(Map<String, Object> originData) {
+		try {
+			for(String key : originData.keySet()) {
+				if (key.matches("cv\\_\\d")) {
+					if(Objects.nonNull(originData.get(key)) && originData.get(key) instanceof List) {
+						List<Map<String, Object>> cv = (List<Map<String, Object>>) originData.get(key);
+						List<Map<String, Object>> data = cv.stream()
+								.map(map -> map.entrySet().stream()
+										.collect(Collectors.toMap(
+												entry -> toCamelCase(entry.getKey()),
+												Map.Entry::getValue,
+												(oldValue, newValue) -> oldValue))
+								)
+								.collect(Collectors.toList());
+						originData.put(key, data);
+					}
+				}
+			}
+			return originData;
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return originData;
+		}
+	}
+
+	public static String toCamelCase(String s) {
+		if (s == null || s.isEmpty()) {
+			return s;
+		}
+
+		String[] parts = s.split("[ _-]");  // Splitting by space, underscore, or dash
+		StringBuilder camelCaseString = new StringBuilder(parts[0].toLowerCase());
+
+		for (int i = 1; i < parts.length; i++) {
+			String part = parts[i];
+			camelCaseString.append(part.substring(0, 1).toUpperCase()).append(part.substring(1).toLowerCase());
+		}
+
+		return camelCaseString.toString();
+	}
 }
