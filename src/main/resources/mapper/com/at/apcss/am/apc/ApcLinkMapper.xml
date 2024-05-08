@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : ApcLinkMapper.xml                                   			-->
+<!-- DESC : APC 연계 mapper                                             	-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.07.07  	jcshin        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.apc.mapper.ApcLinkMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.selectApcLink				-->
+	<!-- DESC : APC 연계 정보 조회.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.07  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectApcLink" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" resultType="com.at.apcss.am.apc.vo.ApcLinkVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.am.apc.mapper.ApcLinkMapper.selectApcLink */
+    			  pt0.*
+    			, (SELECT FN_GET_COM_CD_VL_NM('LINK_STTS', pt0.WGH_LINK_STTS) FROM DUAL) AS WGH_STTS_NM
+    			, (SELECT FN_GET_COM_CD_VL_NM('LINK_STTS', pt0.WRHS_LINK_STTS) FROM DUAL) AS WRHS_STTS_NM
+    			, (SELECT FN_GET_COM_CD_VL_NM('LINK_STTS', pt0.SORT_LINK_STTS) FROM DUAL) AS SORT_STTS_NM
+    			, (SELECT FN_GET_COM_CD_VL_NM('LINK_STTS', pt0.PCKG_LINK_STTS) FROM DUAL) AS PCKG_STTS_NM
+    			, (SELECT FN_GET_COM_CD_VL_NM('LINK_STTS', pt0.SPMT_LINK_STTS) FROM DUAL) AS SPMT_STTS_NM
+
+    			, (SELECT FN_GET_COM_CD_CHR_VL('LINK_STTS', pt0.WGH_LINK_STTS) FROM DUAL) AS WGH_STTS_COLOR
+    			, (SELECT FN_GET_COM_CD_CHR_VL('LINK_STTS', pt0.WRHS_LINK_STTS) FROM DUAL) AS WRHS_STTS_COLOR
+    			, (SELECT FN_GET_COM_CD_CHR_VL('LINK_STTS', pt0.SORT_LINK_STTS) FROM DUAL) AS SORT_STTS_COLOR
+    			, (SELECT FN_GET_COM_CD_CHR_VL('LINK_STTS', pt0.PCKG_LINK_STTS) FROM DUAL) AS PCKG_STTS_COLOR
+    			, (SELECT FN_GET_COM_CD_CHR_VL('LINK_STTS', pt0.SPMT_LINK_STTS) FROM DUAL) AS SPMT_STTS_COLOR
+
+    			, (SELECT FN_GET_COM_CD_VL_NM('TRSM_MAT_STTS_CD', pt0.TRSM_MAT_STTS_CD) FROM DUAL) AS TRSM_MAT_STTS_NM
+    			, (SELECT FN_GET_COM_CD_CHR_VL('TRSM_MAT_STTS_CD', pt0.TRSM_MAT_STTS_CD) FROM DUAL) AS TRSM_MAT_STTS_COLOR
+
+    		  FROM (
+		    	SELECT
+		    		  AL.APC_CD        		AS APC_CD
+					, AL.APC_KEY			AS APC_KEY
+
+					, AL.WGH_REQ_YN   											AS WGH_REQ_YN
+					, TO_CHAR(AL.WGH_REQ_DT, 'YYYY-MM-DD HH24:MI:SS')			AS WGH_REQ_DT
+					, TO_CHAR(AL.WGH_REQ_CNCLTN_DT, 'YYYY-MM-DD HH24:MI:SS')	AS WGH_REQ_CNCLTN_DT
+					, TO_CHAR(AL.WGH_SND_DT, 'YYYY-MM-DD HH24:MI:SS')			AS WGH_SND_DT
+					, TO_CHAR(AL.WGH_SND_CMPTN_DT, 'YYYY-MM-DD HH24:MI:SS')		AS WGH_SND_CMPTN_DT
+					, TO_CHAR(AL.WGH_PRCS_DT, 'YYYY-MM-DD HH24:MI:SS')   		AS WGH_PRCS_DT
+					, TO_CHAR(AL.WGH_PRCS_CMPTN_DT, 'YYYY-MM-DD HH24:MI:SS')	AS WGH_PRCS_CMPTN_DT
+					, NVL(AL.WGH_LINK_STTS, 'P0')								AS WGH_LINK_STTS
+
+					, AL.WRHS_REQ_YN   											AS WRHS_REQ_YN
+					, TO_CHAR(AL.WRHS_REQ_DT, 'YYYY-MM-DD HH24:MI:SS')				AS WRHS_REQ_DT
+					, TO_CHAR(AL.WRHS_REQ_CNCLTN_DT, 'YYYY-MM-DD HH24:MI:SS')		AS WRHS_REQ_CNCLTN_DT
+					, TO_CHAR(AL.WRHS_SND_DT, 'YYYY-MM-DD HH24:MI:SS')				AS WRHS_SND_DT
+					, TO_CHAR(AL.WRHS_SND_CMPTN_DT, 'YYYY-MM-DD HH24:MI:SS')			AS WRHS_SND_CMPTN_DT
+					, TO_CHAR(AL.WRHS_PRCS_DT, 'YYYY-MM-DD HH24:MI:SS')   			AS WRHS_PRCS_DT
+					, TO_CHAR(AL.WRHS_PRCS_CMPTN_DT, 'YYYY-MM-DD HH24:MI:SS')		AS WRHS_PRCS_CMPTN_DT
+					, NVL(AL.WRHS_LINK_STTS, 'P0')								AS WRHS_LINK_STTS
+
+					, AL.SORT_REQ_YN   											AS SORT_REQ_YN
+					, TO_CHAR(AL.SORT_REQ_DT, 'YYYY-MM-DD HH24:MI:SS')				AS SORT_REQ_DT
+					, TO_CHAR(AL.SORT_REQ_CNCLTN_DT, 'YYYY-MM-DD HH24:MI:SS')		AS SORT_REQ_CNCLTN_DT
+					, TO_CHAR(AL.SORT_SND_DT, 'YYYY-MM-DD HH24:MI:SS')				AS SORT_SND_DT
+					, TO_CHAR(AL.SORT_SND_CMPTN_DT, 'YYYY-MM-DD HH24:MI:SS')			AS SORT_SND_CMPTN_DT
+					, TO_CHAR(AL.SORT_PRCS_DT, 'YYYY-MM-DD HH24:MI:SS')   			AS SORT_PRCS_DT
+					, TO_CHAR(AL.SORT_PRCS_CMPTN_DT, 'YYYY-MM-DD HH24:MI:SS')		AS SORT_PRCS_CMPTN_DT
+					, NVL(AL.SORT_LINK_STTS, 'P0')								AS SORT_LINK_STTS
+
+					, AL.PCKG_REQ_YN   											AS PCKG_REQ_YN
+					, TO_CHAR(AL.PCKG_REQ_DT, 'YYYY-MM-DD HH24:MI:SS')			AS PCKG_REQ_DT
+					, TO_CHAR(AL.PCKG_REQ_CNCLTN_DT, 'YYYY-MM-DD HH24:MI:SS')	AS PCKG_REQ_CNCLTN_DT
+					, TO_CHAR(AL.PCKG_SND_DT, 'YYYY-MM-DD HH24:MI:SS')			AS PCKG_SND_DT
+					, TO_CHAR(AL.PCKG_SND_CMPTN_DT, 'YYYY-MM-DD HH24:MI:SS')	AS PCKG_SND_CMPTN_DT
+					, TO_CHAR(AL.PCKG_PRCS_DT, 'YYYY-MM-DD HH24:MI:SS')   		AS PCKG_PRCS_DT
+					, TO_CHAR(AL.PCKG_PRCS_CMPTN_DT, 'YYYY-MM-DD HH24:MI:SS')	AS PCKG_PRCS_CMPTN_DT
+					, NVL(AL.PCKG_LINK_STTS, 'P0')								AS PCKG_LINK_STTS
+
+					, AL.SPMT_REQ_YN   											AS SPMT_REQ_YN
+					, TO_CHAR(AL.SPMT_REQ_DT, 'YYYY-MM-DD HH24:MI:SS')			AS SPMT_REQ_DT
+					, TO_CHAR(AL.SPMT_REQ_CNCLTN_DT, 'YYYY-MM-DD HH24:MI:SS')	AS SPMT_REQ_CNCLTN_DT
+					, TO_CHAR(AL.SPMT_SND_DT, 'YYYY-MM-DD HH24:MI:SS')			AS SPMT_SND_DT
+					, TO_CHAR(AL.SPMT_SND_CMPTN_DT, 'YYYY-MM-DD HH24:MI:SS')	AS SPMT_SND_CMPTN_DT
+					, TO_CHAR(AL.SPMT_PRCS_DT, 'YYYY-MM-DD HH24:MI:SS')   		AS SPMT_PRCS_DT
+					, TO_CHAR(AL.SPMT_PRCS_CMPTN_DT, 'YYYY-MM-DD HH24:MI:SS')	AS SPMT_PRCS_CMPTN_DT
+					, NVL(AL.SPMT_LINK_STTS, 'P0')								AS SPMT_LINK_STTS
+
+					, AL.TRSM_MAT_STTS_CD   	AS TRSM_MAT_STTS_CD
+					, AL.STTS_IDNTY_DT			AS STTS_IDNTY_DT
+					, AL.GROUP_ID				AS GROUP_ID
+
+					, AL.DEL_YN     AS DEL_YN
+
+				  FROM TB_APC_LINK AL
+				 WHERE AL.APC_CD = #{apcCd}
+    		  ) pt0
+		]]>
+    </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmMat		-->
+	<!-- DESC : APC 연계 기기 정보 조회.	                                             	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.29  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectApcLinkTrsmMat" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" resultType="com.at.apcss.am.apc.vo.ApcLinkVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmMat */
+    			  pt0.*
+    			, (SELECT FN_GET_COM_CD_VL_NM('LINK_STTS', pt0.WGH_LINK_STTS) FROM DUAL) AS WGH_STTS_NM
+    			, (SELECT FN_GET_COM_CD_VL_NM('LINK_STTS', pt0.WRHS_LINK_STTS) FROM DUAL) AS WRHS_STTS_NM
+    			, (SELECT FN_GET_COM_CD_VL_NM('LINK_STTS', pt0.SORT_LINK_STTS) FROM DUAL) AS SORT_STTS_NM
+    			, (SELECT FN_GET_COM_CD_VL_NM('LINK_STTS', pt0.PCKG_LINK_STTS) FROM DUAL) AS PCKG_STTS_NM
+    			, (SELECT FN_GET_COM_CD_VL_NM('LINK_STTS', pt0.SPMT_LINK_STTS) FROM DUAL) AS SPMT_STTS_NM
+
+    			, (SELECT FN_GET_COM_CD_CHR_VL('LINK_STTS', pt0.WGH_LINK_STTS) FROM DUAL) AS WGH_STTS_COLOR
+    			, (SELECT FN_GET_COM_CD_CHR_VL('LINK_STTS', pt0.WRHS_LINK_STTS) FROM DUAL) AS WRHS_STTS_COLOR
+    			, (SELECT FN_GET_COM_CD_CHR_VL('LINK_STTS', pt0.SORT_LINK_STTS) FROM DUAL) AS SORT_STTS_COLOR
+    			, (SELECT FN_GET_COM_CD_CHR_VL('LINK_STTS', pt0.PCKG_LINK_STTS) FROM DUAL) AS PCKG_STTS_COLOR
+    			, (SELECT FN_GET_COM_CD_CHR_VL('LINK_STTS', pt0.SPMT_LINK_STTS) FROM DUAL) AS SPMT_STTS_COLOR
+
+    			, (SELECT FN_GET_COM_CD_VL_NM('TRSM_MAT_STTS_CD', pt0.TRSM_MAT_STTS_CD) FROM DUAL) AS TRSM_MAT_STTS_NM
+    			, (SELECT FN_GET_COM_CD_CHR_VL('TRSM_MAT_STTS_CD', pt0.TRSM_MAT_STTS_CD) FROM DUAL) AS TRSM_MAT_STTS_COLOR
+
+    		  FROM (
+		    	SELECT
+		    		  AL.APC_CD        		AS APC_CD
+					, AL.APC_KEY			AS APC_KEY
+					, AL.GROUP_ID			AS GROUP_ID
+					, TM.TRSM_MAT_ID		AS TRSM_MAT_ID
+					, TM.TRSM_MAT_NM		AS TRSM_MAT_NM
+					, TM.TRSM_MAT_STTS_CD   AS TRSM_MAT_STTS_CD
+					, TM.STTS_IDNTY_DT		AS STTS_IDNTY_DT
+					
+					, WGH.LINK_USE_YN										AS WGH_LINK_USE_YN
+					, WGH.REQ_YN											AS WGH_REQ_YN
+					, TO_CHAR(WGH.REQ_DT, 'YYYY-MM-DD HH24:MI:SS')			AS WGH_REQ_DT
+					, TO_CHAR(WGH.REQ_CNCLTN_DT, 'YYYY-MM-DD HH24:MI:SS')	AS WGH_REQ_CNCLTN_DT
+					, TO_CHAR(WGH.SND_DT, 'YYYY-MM-DD HH24:MI:SS')			AS WGH_SND_DT
+					, TO_CHAR(WGH.SND_CMPTN_DT, 'YYYY-MM-DD HH24:MI:SS')	AS WGH_SND_CMPTN_DT
+					, TO_CHAR(WGH.PRCS_DT, 'YYYY-MM-DD HH24:MI:SS')   		AS WGH_PRCS_DT
+					, TO_CHAR(WGH.PRCS_CMPTN_DT, 'YYYY-MM-DD HH24:MI:SS')	AS WGH_PRCS_CMPTN_DT
+					, NVL(TM.WGH_LINK_STTS, 'P0')							AS WGH_LINK_STTS
+
+					, WRHS.LINK_USE_YN										AS WRHS_LINK_USE_YN
+					, WRHS.REQ_YN   										AS WRHS_REQ_YN
+					, TO_CHAR(WRHS.REQ_DT, 'YYYY-MM-DD HH24:MI:SS')			AS WRHS_REQ_DT
+					, TO_CHAR(WRHS.REQ_CNCLTN_DT, 'YYYY-MM-DD HH24:MI:SS')	AS WRHS_REQ_CNCLTN_DT
+					, TO_CHAR(WRHS.SND_DT, 'YYYY-MM-DD HH24:MI:SS')			AS WRHS_SND_DT
+					, TO_CHAR(WRHS.SND_CMPTN_DT, 'YYYY-MM-DD HH24:MI:SS')	AS WRHS_SND_CMPTN_DT
+					, TO_CHAR(WRHS.PRCS_DT, 'YYYY-MM-DD HH24:MI:SS')   		AS WRHS_PRCS_DT
+					, TO_CHAR(WRHS.PRCS_CMPTN_DT, 'YYYY-MM-DD HH24:MI:SS')	AS WRHS_PRCS_CMPTN_DT
+					, NVL(WRHS.LINK_STTS, 'P0')								AS WRHS_LINK_STTS
+
+					, SORT.LINK_USE_YN										AS SORT_LINK_USE_YN
+					, SORT.REQ_YN   										AS SORT_REQ_YN
+					, TO_CHAR(SORT.REQ_DT, 'YYYY-MM-DD HH24:MI:SS')			AS SORT_REQ_DT
+					, TO_CHAR(SORT.REQ_CNCLTN_DT, 'YYYY-MM-DD HH24:MI:SS')	AS SORT_REQ_CNCLTN_DT
+					, TO_CHAR(SORT.SND_DT, 'YYYY-MM-DD HH24:MI:SS')			AS SORT_SND_DT
+					, TO_CHAR(SORT.SND_CMPTN_DT, 'YYYY-MM-DD HH24:MI:SS')	AS SORT_SND_CMPTN_DT
+					, TO_CHAR(SORT.PRCS_DT, 'YYYY-MM-DD HH24:MI:SS')   		AS SORT_PRCS_DT
+					, TO_CHAR(SORT.PRCS_CMPTN_DT, 'YYYY-MM-DD HH24:MI:SS')	AS SORT_PRCS_CMPTN_DT
+					, NVL(SORT.LINK_STTS, 'P0')								AS SORT_LINK_STTS
+
+					, PCKG.LINK_USE_YN										AS PCKG_LINK_USE_YN
+					, PCKG.REQ_YN   										AS PCKG_REQ_YN
+					, TO_CHAR(PCKG.REQ_DT, 'YYYY-MM-DD HH24:MI:SS')			AS PCKG_REQ_DT
+					, TO_CHAR(PCKG.REQ_CNCLTN_DT, 'YYYY-MM-DD HH24:MI:SS')	AS PCKG_REQ_CNCLTN_DT
+					, TO_CHAR(PCKG.SND_DT, 'YYYY-MM-DD HH24:MI:SS')			AS PCKG_SND_DT
+					, TO_CHAR(PCKG.SND_CMPTN_DT, 'YYYY-MM-DD HH24:MI:SS')	AS PCKG_SND_CMPTN_DT
+					, TO_CHAR(PCKG.PRCS_DT, 'YYYY-MM-DD HH24:MI:SS')   		AS PCKG_PRCS_DT
+					, TO_CHAR(PCKG.PRCS_CMPTN_DT, 'YYYY-MM-DD HH24:MI:SS')	AS PCKG_PRCS_CMPTN_DT
+					, NVL(PCKG.LINK_STTS, 'P0')								AS PCKG_LINK_STTS
+
+					, SPMT.LINK_USE_YN										AS SPMT_LINK_USE_YN
+					, SPMT.REQ_YN   										AS SPMT_REQ_YN
+					, TO_CHAR(SPMT.REQ_DT, 'YYYY-MM-DD HH24:MI:SS')			AS SPMT_REQ_DT
+					, TO_CHAR(SPMT.REQ_CNCLTN_DT, 'YYYY-MM-DD HH24:MI:SS')	AS SPMT_REQ_CNCLTN_DT
+					, TO_CHAR(SPMT.SND_DT, 'YYYY-MM-DD HH24:MI:SS')			AS SPMT_SND_DT
+					, TO_CHAR(SPMT.SND_CMPTN_DT, 'YYYY-MM-DD HH24:MI:SS')	AS SPMT_SND_CMPTN_DT
+					, TO_CHAR(SPMT.PRCS_DT, 'YYYY-MM-DD HH24:MI:SS')   		AS SPMT_PRCS_DT
+					, TO_CHAR(SPMT.PRCS_CMPTN_DT, 'YYYY-MM-DD HH24:MI:SS')	AS SPMT_PRCS_CMPTN_DT
+					, NVL(SPMT.LINK_STTS, 'P0')								AS SPMT_LINK_STTS
+
+				  FROM TB_APC_LINK AL
+				  
+				  LEFT JOIN TB_APC_LINK_TRSM_MAT TM
+				    ON TM.APC_CD = AL.APC_CD
+				  AND TM.TRSM_MAT_ID = #{trsmMatId}			  
+				  AND TM.DEL_YN = 'N'
+				  
+				 LEFT JOIN TB_APC_LINK_TRSM_MAT_STTS WGH
+				   ON WGH.APC_CD = TM.APC_CD
+				  AND WGH.TRSM_MAT_ID = TM.TRSM_MAT_ID
+				  AND WGH.LINK_KND = 'W'
+				  AND WGH.DEL_YN = 'N'
+
+				 LEFT JOIN TB_APC_LINK_TRSM_MAT_STTS WRHS
+				   ON WRHS.APC_CD = TM.APC_CD
+				  AND WRHS.TRSM_MAT_ID = TM.TRSM_MAT_ID
+				  AND WRHS.LINK_KND = 'R'
+				  AND WRHS.DEL_YN = 'N'
+
+				 LEFT JOIN TB_APC_LINK_TRSM_MAT_STTS SORT
+				   ON SORT.APC_CD = TM.APC_CD
+				  AND SORT.TRSM_MAT_ID = TM.TRSM_MAT_ID
+				  AND SORT.LINK_KND = 'S'
+				  AND SORT.DEL_YN = 'N'
+
+				 LEFT JOIN TB_APC_LINK_TRSM_MAT_STTS PCKG
+				   ON PCKG.APC_CD = TM.APC_CD
+				  AND PCKG.TRSM_MAT_ID = TM.TRSM_MAT_ID
+				  AND PCKG.LINK_KND = 'P'
+				  AND PCKG.DEL_YN = 'N'
+
+				 LEFT JOIN TB_APC_LINK_TRSM_MAT_STTS SPMT
+				   ON SPMT.APC_CD = TM.APC_CD
+				  AND SPMT.TRSM_MAT_ID = TM.TRSM_MAT_ID
+				  AND SPMT.LINK_KND = 'D'
+				  AND SPMT.DEL_YN = 'N'
+
+				 WHERE AL.APC_CD = #{apcCd}
+				   AND AL.DEL_YN = 'N'
+    		  ) pt0
+		]]>
+    </select>
+    
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmMatSttsList	-->
+	<!-- DESC : APC 연계 기기 상태 목록 조회.	                                            -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.29  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectApcLinkTrsmMatSttsList" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" resultType="com.at.apcss.am.apc.vo.ApcLinkVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmMatSttsList */
+    			  pt0.*
+    			, (SELECT FN_GET_COM_CD_VL_NM('LINK_KND', pt0.LINK_KND) FROM DUAL) AS LINK_KND_NM
+    			, (SELECT FN_GET_COM_CD_VL_NM('LINK_STTS', pt0.LINK_STTS) FROM DUAL) AS LINK_STTS_NM
+    			, (SELECT FN_GET_COM_CD_CHR_VL('LINK_STTS', pt0.LINK_STTS) FROM DUAL) AS LINK_STTS_COLOR
+    			
+    			, (SELECT FN_GET_COM_CD_VL_NM('TRSM_MAT_STTS_CD', pt0.TRSM_MAT_STTS_CD) FROM DUAL) AS TRSM_MAT_STTS_NM
+    			, (SELECT FN_GET_COM_CD_CHR_VL('TRSM_MAT_STTS_CD', pt0.TRSM_MAT_STTS_CD) FROM DUAL) AS TRSM_MAT_STTS_COLOR
+
+    		  FROM (
+		    	SELECT
+		    		  AL.APC_CD        		AS APC_CD
+					, AL.GROUP_ID			AS GROUP_ID
+					, TM.TRSM_MAT_ID		AS TRSM_MAT_ID
+					, TM.TRSM_MAT_NM		AS TRSM_MAT_NM
+					, TM.TRSM_MAT_STTS_CD   AS TRSM_MAT_STTS_CD
+					, TM.STTS_IDNTY_DT		AS STTS_IDNTY_DT
+					, TS.LINK_KND			AS LINK_KND
+					, TS.LINK_USE_YN		AS LINK_USE_YN
+					, TS.REQ_YN   			AS REQ_YN
+					, TO_CHAR(TS.REQ_DT, 'YYYY-MM-DD HH24:MI:SS')			AS REQ_DT
+					, TO_CHAR(TS.REQ_CNCLTN_DT, 'YYYY-MM-DD HH24:MI:SS')	AS REQ_CNCLTN_DT
+					, TO_CHAR(TS.SND_DT, 'YYYY-MM-DD HH24:MI:SS')			AS SND_DT
+					, TO_CHAR(TS.SND_CMPTN_DT, 'YYYY-MM-DD HH24:MI:SS')		AS SND_CMPTN_DT
+					, TO_CHAR(TS.PRCS_DT, 'YYYY-MM-DD HH24:MI:SS')   		AS PRCS_DT
+					, TO_CHAR(TS.PRCS_CMPTN_DT, 'YYYY-MM-DD HH24:MI:SS')	AS PRCS_CMPTN_DT
+					, NVL(TS.LINK_STTS, 'P0')								AS LINK_STTS
+
+				  FROM TB_APC_LINK AL
+				  
+				  JOIN TB_APC_LINK_TRSM_MAT TM
+				    ON TM.APC_CD = AL.APC_CD		  
+				  AND TM.DEL_YN = 'N'
+				  
+				 JOIN TB_APC_LINK_TRSM_MAT_STTS TS
+				   ON TS.APC_CD = TM.APC_CD
+				  AND TS.TRSM_MAT_ID = TM.TRSM_MAT_ID
+				  AND TS.DEL_YN = 'N'
+
+				 WHERE AL.APC_CD = #{apcCd}
+				   AND AL.DEL_YN = 'N'
+		]]>
+				<if test='trsmMatId != null and trsmMatId != ""'>
+				   AND TM.TRSM_MAT_ID = #{trsmMatId}
+				</if>
+				<if test='linkKnd != null and linkKnd != ""'>
+				   AND TS.LINK_KND = #{linkKnd}
+				</if>
+    	<![CDATA[
+    		  ) pt0
+			 ORDER BY TRSM_MAT_ID, LINK_KND
+		]]>
+    </select>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.updateApcLinkIdnty			-->
+	<!-- DESC : APC 연계 정보 수정 (확인)	                                             	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.02.19  	박 승 진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateApcLinkIdnty" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" >
+    	<![CDATA[
+		    UPDATE /* com.at.apcss.am.apc.mapper.ApcLinkMapper.updateApcLinkIdnty */
+				TB_APC_LINK SET
+	    		  SYS_LAST_CHG_DT 			= SYSDATE
+    	     	, SYS_LAST_CHG_USER_ID 		= #{sysLastChgUserId}
+    	     	, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+
+		    	, TRSM_MAT_STTS_CD	= #{trsmMatSttsCd}
+		    	, STTS_IDNTY_DT     = SYSDATE
+			 WHERE APC_CD = #{apcCd}
+		]]>
+    </update>
+    
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.updateApcLinkTrsmMatIdnty	-->
+	<!-- DESC : APC 연계 기기 정보 수정 (확인)	                                            -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.29  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateApcLinkTrsmMatIdnty" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" >
+    	<![CDATA[
+		    UPDATE /* com.at.apcss.am.apc.mapper.ApcLinkMapper.updateApcLinkTrsmMatIdnty */
+				TB_APC_LINK_TRSM_MAT SET
+	    		  SYS_LAST_CHG_DT 			= SYSDATE
+    	     	, SYS_LAST_CHG_USER_ID 		= #{sysLastChgUserId}
+    	     	, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+
+		    	, TRSM_MAT_STTS_CD	= #{trsmMatSttsCd}
+		    	, STTS_IDNTY_DT     = SYSDATE
+			 WHERE APC_CD = #{apcCd}
+		]]>
+    </update>
+    
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.updateSpApcLinkSttsUpdt	-->
+	<!-- DESC : APC 연계 상태 변경.	                                            		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.02.19  	신정철        	Initial Creation                        	-->
+	<!-- ==========================================================================	-->
+    <update id="updateSpApcLinkSttsUpdt" statementType="CALLABLE" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" >
+    	<![CDATA[
+    		{call /* com.at.apcss.am.apc.mapper.ApcLinkMapper.updateApcLink */
+				SP_APC_LINK_STTS_UPDT (
+					  #{sysLastChgUserId}
+	   		  		, #{sysLastChgPrgrmId}
+					, #{apcCd}
+					, #{linkKnd}
+					, #{linkStts}
+					, #{rtnCd, jdbcType=VARCHAR, mode=OUT}
+					, #{rtnMsg, jdbcType=VARCHAR, mode=OUT}
+				)
+			}
+		]]>
+    </update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.updateSpApcLinkTrsmMatSttsUpdt	-->
+	<!-- DESC : APC 연계기기 상태 변경.                                            		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.29  	신정철        	Initial Creation                        	-->
+	<!-- ==========================================================================	-->
+    <update id="updateSpApcLinkTrsmMatSttsUpdt" statementType="CALLABLE" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" >
+    	<![CDATA[
+    		{call /* com.at.apcss.am.apc.mapper.ApcLinkMapper.updateSpApcLinkTrsmMatSttsUpdt */
+				SP_APC_LINK_TRSM_MAT_STTS_UPDT (
+					  #{sysLastChgUserId}
+	   		  		, #{sysLastChgPrgrmId}
+					, #{apcCd}
+					, #{trsmMatId}
+					, #{linkKnd}
+					, #{linkStts}
+					, #{rtnCd, jdbcType=VARCHAR, mode=OUT}
+					, #{rtnMsg, jdbcType=VARCHAR, mode=OUT}
+				)
+			}
+		]]>
+    </update>
+
+</mapper>
