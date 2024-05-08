@@ -117,7 +117,8 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			}
 			this.callProcTibero(rmap);
 
-			if(!param.containsKey("convertLowerCase") || !param.get("convertLowerCase").equals("N")) convertLowerCase(rmap);
+			if(!param.containsKey("convertLowerCase") || param.get("convertLowerCase").equals("Y"))
+				convertLowerCase(rmap);
     		
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
@@ -224,7 +225,7 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 		try {
 			for(String key : originData.keySet()) {
 				if (key.matches("cv\\_\\d")) {
-					if(Objects.nonNull(originData.get(key))) {
+					if(Objects.nonNull(originData.get(key)) && originData.get(key) instanceof List) {
 						List<Map<String, Object>> cv = (List<Map<String, Object>>) originData.get(key);
 						List<Map<String, Object>> data = cv.stream()
 								.map(map -> map.entrySet().stream()
@@ -240,7 +241,7 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			}
 			return originData;
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.debug(e.getMessage());
 			return originData;
 		}
 	}
