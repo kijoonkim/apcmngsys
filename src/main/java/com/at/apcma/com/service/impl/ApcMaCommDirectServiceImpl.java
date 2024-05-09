@@ -161,7 +161,7 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 					"KOR", "", "", ""
 			};
 			HashMap<String, Object> temp2 = new HashMap<String, Object>();
-			temp2.put("procedure", 	"USRMAT.P_SERVICEMESSAGE");
+			temp2.put("procedure", 	"USRMAT.SP_SERVICEMESSAGE");
 			temp2.put("workType", 	"QESS");
 			temp2.put("getType", 	"json");
 			temp2.put("cv_count", 	"1");
