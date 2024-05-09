@@ -284,7 +284,7 @@
 
 				  FROM TB_APC_LINK AL
 				  
-				  LEFT JOIN TB_APC_LINK_TRSM_MAT TM
+				  JOIN TB_APC_LINK_TRSM_MAT TM
 				    ON TM.APC_CD = AL.APC_CD		  
 				  AND TM.DEL_YN = 'N'
 
