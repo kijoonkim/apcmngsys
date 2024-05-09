@@ -27,6 +27,14 @@
 						class="btn btn-sm btn-outline-danger" 
 						onclick="popApcLink.search"
 					></sbux-button>
+					<sbux-button 
+						id="wrhsPlt-btn-close" 
+						name="wrhsPlt-btn-close" 
+						uitype="normal" 
+						text="종료" 
+						class="btn btn-sm btn-outline-danger" 
+						onclick="popApcLink.close"
+					></sbux-button>
 				</div>
 			</div>
 
@@ -52,7 +60,7 @@
 								></sbux-input>
 								<sbux-input 
 									id="apcLinkPop-inp-apcNm" 
-									name="item-inp-apcNm" 
+									name="apcLinkPop-inp-apcNm" 
 									uitype="text" 
 									class="form-control input-sm"
 									readonly
@@ -139,7 +147,7 @@ const popApcLink = {
 	init: async function(_param, _callbackFnc) {
 		SBUxMethod.openModal(this.modalId);
 		this.param = gfn_cloneJson(_param);
-		
+		console.log("param", this.param);
 		// set param
 		SBUxMethod.set("apcLinkPop-inp-apcCd", this.param.apcCd);
 		SBUxMethod.set("apcLinkPop-inp-apcNm", this.param.apcNm);
