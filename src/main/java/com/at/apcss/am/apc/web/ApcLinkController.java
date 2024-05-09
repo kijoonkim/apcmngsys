@@ -131,6 +131,97 @@ public class ApcLinkController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 	
+	
+	// APC 연계기기 목록 조회
+	@PostMapping(value = "/am/apc/selectApcLinkTrsmMatList.do")
+	public ResponseEntity<HashMap<String, Object>> selectApcLinkTrsmMatList(@RequestBody ApcLinkVO apcLinkVO, HttpServletRequest request) throws Exception {
+		
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		List<ApcLinkVO> resultList = new ArrayList<>();
+		
+		try {
+
+			resultList = apcLinkService.selectApcLinkTrsmMatList(apcLinkVO);
+			
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+		
+	// APC 연계기기 등록
+	@PostMapping(value = "/am/apc/insertApcLinkTrsmMatList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertApcLinkTrsmMatList(@RequestBody List<ApcLinkVO> trsmMatList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		try {
+			
+			for ( ApcLinkVO trsmMat : trsmMatList ) {
+				trsmMat.setSysFrstInptUserId(getUserId());
+				trsmMat.setSysFrstInptPrgrmId(getPrgrmId());
+				trsmMat.setSysLastChgUserId(getUserId());
+				trsmMat.setSysLastChgPrgrmId(getPrgrmId());
+			}
+			
+			HashMap<String, Object> rtnObj = apcLinkService.insertApcLinkTrsmMatList(trsmMatList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+			
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	
+	// APC 연계기기 삭제
+	@PostMapping(value = "/am/apc/deleteApcLinkTrsmMat.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteApcLinkTrsmMat(@RequestBody ApcLinkVO apcLinkVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		try {
+			
+			apcLinkVO.setSysFrstInptUserId(getUserId());
+			apcLinkVO.setSysFrstInptPrgrmId(getPrgrmId());
+			apcLinkVO.setSysLastChgUserId(getUserId());
+			apcLinkVO.setSysLastChgPrgrmId(getPrgrmId());
+			
+			HashMap<String, Object> rtnObj = apcLinkService.deleteApcLinkTrsmMat(apcLinkVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+			
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	
 	// APC 연계기기 조회
 	@PostMapping(value = "/am/apc/selectApcLinkTrsmMatSttsList.do")
 	public ResponseEntity<HashMap<String, Object>> selectApcLinkTrsmMatSttsList(@RequestBody ApcLinkVO apcLinkVO, HttpServletRequest request) throws Exception {

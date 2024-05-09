@@ -307,7 +307,7 @@
 						<div id="sb-area-grdPrdcr" style="height:200px;"></div>
 					</div>
 
-					<div class="col-sm-8">
+					<div class="col-sm-4">
 						<div class="ad_tbl_top" style="margin-bottom: 10px;">
 							<ul class="ad_tbl_count">
 								<li>
@@ -327,6 +327,27 @@
 							</div>
 						</div>
 						<div id="sb-area-grdPltBx" style="height:200px;"></div>
+					</div>
+					<div class="col-sm-4">
+						<div class="ad_tbl_top" style="margin-bottom: 10px;">
+							<ul class="ad_tbl_count">
+								<li>
+									<span style="font-size:12px">거래처</span>
+								</li>
+							</ul>
+							<div class="ad_tbl_toplist">
+								<sbux-button
+									id="btnSaveCnpt"
+									name="btnSaveCnpt"
+									uitype="normal"
+									class="btn btn-sm btn-outline-danger"
+									text="저장"
+									value="Cnpt"
+									onclick="fn_saveCnptData();"
+								></sbux-button>
+							</div>
+						</div>
+						<div id="sb-area-grdCnpt" style="height:200px;"></div>
 					</div>
 				</div>
 
@@ -378,22 +399,22 @@
 						<div class="ad_tbl_top" style="margin-bottom: 10px;">
 							<ul class="ad_tbl_count">
 								<li>
-									<span style="font-size:12px">거래처</span>
+									<span style="font-size:12px">연계Agent</span>
 								</li>
 							</ul>
 							<div class="ad_tbl_toplist">
 								<sbux-button
-									id="btnSaveCnpt"
-									name="btnSaveCnpt"
+									id="btnSaveApcLinkTrsmMat"
+									name="btnSaveApcLinkTrsmMat"
 									uitype="normal"
 									class="btn btn-sm btn-outline-danger"
 									text="저장"
 									value="Cnpt"
-									onclick="fn_saveCnptData();"
+									onclick="fn_saveApcLinkTrsmMatData()"
 								></sbux-button>
 							</div>
 						</div>
-						<div id="sb-area-grdCnpt" style="height:120px;"></div>
+						<div id="sb-area-grdApcLinkTrsmMat" style="height:120px;"></div>
 					</div>
 				</div>
 			</div>
@@ -457,6 +478,8 @@
 		fn_createTrsprtCoGrid();
 		// 거래처
 		fn_createCnptGrid();
+		// 연계Agent
+		fn_createApcLinkTrsmMat();
 	}
 
 	//그리드 id, 그리드 json
@@ -528,6 +551,9 @@
 	//거래처
 	var jsonCnpt = [];
 
+	// 연계Agent
+	var grdApcLinkTrsmMat;
+	var jsonApcLinkTrsmMat = [];
 
 	const fn_createWrhsSeGrid = function() {
 	    var SBGridProperties = {};
@@ -846,6 +872,38 @@
 	    grdCnpt = _SBGrid.create(SBGridProperties);
 	}
 
+	const fn_createApcLinkTrsmMat = function() {
+	    var SBGridProperties = {};
+	    SBGridProperties.parentid = 'sb-area-grdApcLinkTrsmMat';
+	    SBGridProperties.id = 'grdApcLinkTrsmMat';
+	    SBGridProperties.jsonref = 'jsonApcLinkTrsmMat';
+	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
+	    SBGridProperties.selectmode = 'free';
+	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.allowcopy = true;
+	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.columns = [
+	    	{
+            	caption: ["처리"],
+            	ref: 'delYn',
+            	type:'button',
+            	width:'10%',
+            	style:'text-align:center',
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+            		if (strValue== null || strValue == ""){
+            			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_addRowTrsmMat(" + nRow + ")'>추가</button>";
+            		} else {
+			        	return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRowTrsmMat(" + nRow + ")'>삭제</button>";
+            		}
+		    	}
+            },
+	    	{caption : ["Agent ID"], ref: 'trsmMatId', type: 'input',  width:'30%', style: 'text-align:center; padding-right:5px; '},
+	    	{caption : ["Agent 명"], ref: 'trsmMatNm', type: 'input',  width:'60%', style: 'text-align:center; padding-right:5px;'},
+			{caption : ["APC코드"],  ref: 'apcCd',  	type:'output', hidden : true},
+	    ];
+	    grdApcLinkTrsmMat = _SBGrid.create(SBGridProperties);
+	}
+	
 	const fn_search = async function () {
 		let result = await Promise.all([
 				fn_setGrdWrhsSe(),
@@ -864,6 +922,7 @@
 				fn_setGrdVhclInfo(),
 				fn_setGrdTrsprtCo(),
 				fn_setGrdCnpt(),
+				fn_setGrdApcLinkTrsmMat()
 			]);
 	}
 
@@ -1552,6 +1611,169 @@
 		}
 	}
 
+	
+	// 연계기기
+	const fn_setGrdApcLinkTrsmMat = async function() {
+		
+		const param = {
+			apcCd: gv_selectedApcCd,
+			delYn: 'N'
+		}
+		
+		jsonApcLinkTrsmMat.length = 0;
+		
+		try {
+			const postJsonPromise = gfn_postJSON(
+						"/am/apc/selectApcLinkTrsmMatList.do",
+						param,
+						null,
+						true
+					);
+	        const data = await postJsonPromise;
+	        data.resultList.forEach((item, index) => {
+	        	item.delYn = "N";
+	        	jsonApcLinkTrsmMat.push(item);
+	        });
+
+	        grdApcLinkTrsmMat.rebuild();
+	        grdApcLinkTrsmMat.setCellDisabled(
+	        		0, 
+	        		0, 
+	        		grdApcLinkTrsmMat.getRows() -1, 
+	        		1, 
+	        		true
+        		);
+	        
+	        grdApcLinkTrsmMat.addRow();
+	        grdApcLinkTrsmMat.setCellDisabled(
+		        		grdApcLinkTrsmMat.getRows() -1, 
+		        		0, 
+		        		grdApcLinkTrsmMat.getRows() -1, 
+		        		grdApcLinkTrsmMat.getCols() -1, 
+		        		true
+	        		);
+
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+ 			//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
+	}
+	
+	const fn_saveApcLinkTrsmMatData = async function() {
+		
+		const allData = grdApcLinkTrsmMat.getGridDataAll();
+		const trsmMatList = [];
+		
+		for (let i=0; i<allData.length; i++) {
+			
+			const rowData = allData[i];
+			
+			if (!_.isEqual('N', rowData.delYn)) {
+				continue;	
+			}
+				
+			if (gfn_isEmpty(rowData.trsmMatId)) {
+				gfn_comAlert("W0002", "Agent ID");		//	W0002	{0}을/를 입력하세요.
+	            return;
+			}
+			
+			if (gfn_isEmpty(rowData.trsmMatNm)) {
+				gfn_comAlert("W0002", "Agent 명");		//	W0002	{0}을/를 입력하세요.
+	            return;
+			}
+			
+			trsmMatList.push(rowData);
+		}
+		
+		if (trsmMatList.length == 0) {
+			gfn_comAlert("W0005", "저장할 정보");		//	W0005	{0}이/가 없습니다.
+			return;
+		}
+		
+		try {
+    		const postJsonPromise = gfn_postJSON("/am/apc/insertApcLinkTrsmMatList.do", trsmMatList);
+			const data = await postJsonPromise;
+
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_setGrdApcLinkTrsmMat();
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch(e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+	}
+	
+	const fn_deleteApcLinkTrsmMat = async function(_trsmMat) {
+		
+		try {
+    		const postJsonPromise = gfn_postJSON("/am/apc/deleteApcLinkTrsmMat.do", _trsmMat);
+			const data = await postJsonPromise;
+
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_setGrdApcLinkTrsmMat();
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch(e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+	}
+	
+	const fn_addRowTrsmMat = function(nRow) {
+		
+		const row = grdApcLinkTrsmMat.getRowData(nRow, false);
+		row.delYn = "N";
+		row.apcCd = gv_selectedApcCd;
+		grdApcLinkTrsmMat.addRow(true);
+
+    	grdApcLinkTrsmMat.setCellDisabled(
+	    			0, 
+	    			0, 
+	    			grdApcLinkTrsmMat.getRows() -1, 
+	    			grdApcLinkTrsmMat.getCols() -1, 
+	    			false
+    			);
+    	grdApcLinkTrsmMat.setCellDisabled(
+    				grdApcLinkTrsmMat.getRows() -1, 
+	    			0, 
+	    			grdApcLinkTrsmMat.getRows() -1, 
+	    			grdApcLinkTrsmMat.getCols() -1, 
+    			true
+    			);
+	}
+	
+	const fn_delRowTrsmMat = async function(nRow) {
+		
+		const rowStatus = grdApcLinkTrsmMat.getRowStatus(nRow);
+		
+		if (rowStatus == 0 || rowStatus == 2) {
+			if (!gfn_comConfirm("Q0002", "등록된 정보", "삭제")) {	// Q0002	{0}이/가 있습니다. {1} 하시겠습니까?
+				return;
+			}
+
+			const trsmMat = grdApcLinkTrsmMat.getRowData(nRow);
+			await fn_deleteApcLinkTrsmMat(trsmMat);
+
+    	} else {
+    		grdApcLinkTrsmMat.deleteRow(nRow);
+    	}
+	}
+	
+	
 	/**
 	 *
 	 const fn_cellGrid = async function() {

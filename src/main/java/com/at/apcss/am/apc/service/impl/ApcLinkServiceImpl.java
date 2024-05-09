@@ -32,6 +32,11 @@ public class ApcLinkServiceImpl extends BaseServiceImpl implements ApcLinkServic
 		return apcLinkMapper.selectApcLinkTrsmMat(apcLinkVO);
 	}
 
+	@Override
+	public List<ApcLinkVO> selectApcLinkTrsmMatList(ApcLinkVO apcLinkVO) throws Exception {
+		return apcLinkMapper.selectApcLinkTrsmMatList(apcLinkVO);
+	}
+	
 
 	@Override
 	public HashMap<String, Object> updateApcLinkIdnty(ApcLinkVO apcLinkVO) throws Exception {
@@ -168,6 +173,32 @@ public class ApcLinkServiceImpl extends BaseServiceImpl implements ApcLinkServic
 	@Override
 	public List<ApcLinkVO> selectApcLinkTrsmMatSttsList(ApcLinkVO apcLinkVO) throws Exception {
 		return apcLinkMapper.selectApcLinkTrsmMatSttsList(apcLinkVO);
+	}
+
+	@Override
+	public HashMap<String, Object> insertApcLinkTrsmMatList(List<ApcLinkVO> trsmMatList) throws Exception {
+		
+		for (ApcLinkVO apcLinkTrsmMatVO : trsmMatList) {
+			
+			ApcLinkVO chkVO = apcLinkMapper.selectApcLinkTrsmMatById(apcLinkTrsmMatVO);
+			
+			if (chkVO != null && StringUtils.hasText(chkVO.getTrsmMatId())) {
+				// update
+				apcLinkMapper.updateApcLinkTrsmMat(apcLinkTrsmMatVO);
+			} else {
+				// insert
+				apcLinkMapper.insertApcLinkTrsmMat(apcLinkTrsmMatVO);
+			}
+			
+		}
+		
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deleteApcLinkTrsmMat(ApcLinkVO trsmMatVO) throws Exception {
+		apcLinkMapper.deleteApcLinkTrsmMat(trsmMatVO);
+		return null;
 	}
 
 

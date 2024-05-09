@@ -23,8 +23,17 @@ public interface ApcLinkService {
 	 */
 	ApcLinkVO selectApcLinkTrsmMat(ApcLinkVO apcLinkVO) throws Exception;
 
+	
 	/**
-	 * APC 연계기기 목록 조회
+	 * APC 연계기기 목록조회
+	 * @param apcLinkVO
+	 * @return
+	 * @throws Exception
+	 */
+	List<ApcLinkVO> selectApcLinkTrsmMatList(ApcLinkVO apcLinkVO) throws Exception;
+	
+	/**
+	 * APC 연계기기 상태 목록 조회
 	 * @param apcLinkVO
 	 * @return
 	 * @throws Exception
@@ -69,5 +78,21 @@ public interface ApcLinkService {
 	 * @throws Exception
 	 */
 	HashMap<String, Object> updateLinkTrsmMatStts(ApcLinkVO apcLinkVO) throws Exception;
+	
+	/**
+	 * APC 연계기기 등록
+	 * @param trsmMatList
+	 * @return
+	 * @throws Exception
+	 */
+	HashMap<String, Object> insertApcLinkTrsmMatList(List<ApcLinkVO> trsmMatList) throws Exception;
+	
+	/**
+	 * APC 연계기기 삭제
+	 * @param trsmMatList
+	 * @return
+	 * @throws Exception
+	 */
+	HashMap<String, Object> deleteApcLinkTrsmMat(ApcLinkVO trsmMatVO) throws Exception;
 	
 }

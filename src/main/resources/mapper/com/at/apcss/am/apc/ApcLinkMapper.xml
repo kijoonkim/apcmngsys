@@ -102,6 +102,31 @@
     </select>
 
 	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmMatById	-->
+	<!-- DESC : APC 연계 기기 정보 조회.	                                        -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.29  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectApcLinkTrsmMatById" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" resultType="com.at.apcss.am.apc.vo.ApcLinkVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmMatById */
+	    		  TM.APC_CD        		AS APC_CD
+				, TM.TRSM_MAT_ID		AS TRSM_MAT_ID
+				, TM.TRSM_MAT_NM		AS TRSM_MAT_NM
+				, TM.TRSM_MAT_STTS_CD   AS TRSM_MAT_STTS_CD
+				, TM.STTS_IDNTY_DT		AS STTS_IDNTY_DT
+				, TM.DEL_YN				AS DEL_YN
+	
+			  FROM TB_APC_LINK_TRSM_MAT TM
+
+			 WHERE TM.APC_CD = #{apcCd}
+			   AND TM.TRSM_MAT_ID = #{trsmMatId}
+		]]>
+    </select>
+    
+	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmMat		-->
 	<!-- DESC : APC 연계 기기 정보 조회.	                                             	-->
 	<!-- ==========================================================================	-->
@@ -146,7 +171,7 @@
 					, TO_CHAR(WGH.SND_CMPTN_DT, 'YYYY-MM-DD HH24:MI:SS')	AS WGH_SND_CMPTN_DT
 					, TO_CHAR(WGH.PRCS_DT, 'YYYY-MM-DD HH24:MI:SS')   		AS WGH_PRCS_DT
 					, TO_CHAR(WGH.PRCS_CMPTN_DT, 'YYYY-MM-DD HH24:MI:SS')	AS WGH_PRCS_CMPTN_DT
-					, NVL(TM.WGH_LINK_STTS, 'P0')							AS WGH_LINK_STTS
+					, NVL(WGH.LINK_STTS, 'P0')								AS WGH_LINK_STTS
 
 					, WRHS.LINK_USE_YN										AS WRHS_LINK_USE_YN
 					, WRHS.REQ_YN   										AS WRHS_REQ_YN
@@ -195,35 +220,35 @@
 				  AND TM.TRSM_MAT_ID = #{trsmMatId}			  
 				  AND TM.DEL_YN = 'N'
 				  
-				 LEFT JOIN TB_APC_LINK_TRSM_MAT_STTS WGH
-				   ON WGH.APC_CD = TM.APC_CD
-				  AND WGH.TRSM_MAT_ID = TM.TRSM_MAT_ID
-				  AND WGH.LINK_KND = 'W'
-				  AND WGH.DEL_YN = 'N'
+				  LEFT JOIN TB_APC_LINK_TRSM_MAT_STTS WGH
+				    ON WGH.APC_CD = TM.APC_CD
+				   AND WGH.TRSM_MAT_ID = TM.TRSM_MAT_ID
+				   AND WGH.LINK_KND = 'W'
+				   AND WGH.DEL_YN = 'N'
 
-				 LEFT JOIN TB_APC_LINK_TRSM_MAT_STTS WRHS
-				   ON WRHS.APC_CD = TM.APC_CD
-				  AND WRHS.TRSM_MAT_ID = TM.TRSM_MAT_ID
-				  AND WRHS.LINK_KND = 'R'
-				  AND WRHS.DEL_YN = 'N'
+				  LEFT JOIN TB_APC_LINK_TRSM_MAT_STTS WRHS
+				    ON WRHS.APC_CD = TM.APC_CD
+				   AND WRHS.TRSM_MAT_ID = TM.TRSM_MAT_ID
+				   AND WRHS.LINK_KND = 'R'
+				   AND WRHS.DEL_YN = 'N'
 
-				 LEFT JOIN TB_APC_LINK_TRSM_MAT_STTS SORT
-				   ON SORT.APC_CD = TM.APC_CD
-				  AND SORT.TRSM_MAT_ID = TM.TRSM_MAT_ID
-				  AND SORT.LINK_KND = 'S'
-				  AND SORT.DEL_YN = 'N'
+				  LEFT JOIN TB_APC_LINK_TRSM_MAT_STTS SORT
+				    ON SORT.APC_CD = TM.APC_CD
+				   AND SORT.TRSM_MAT_ID = TM.TRSM_MAT_ID
+				   AND SORT.LINK_KND = 'S'
+				   AND SORT.DEL_YN = 'N'
 
-				 LEFT JOIN TB_APC_LINK_TRSM_MAT_STTS PCKG
-				   ON PCKG.APC_CD = TM.APC_CD
-				  AND PCKG.TRSM_MAT_ID = TM.TRSM_MAT_ID
-				  AND PCKG.LINK_KND = 'P'
-				  AND PCKG.DEL_YN = 'N'
+				  LEFT JOIN TB_APC_LINK_TRSM_MAT_STTS PCKG
+				    ON PCKG.APC_CD = TM.APC_CD
+				   AND PCKG.TRSM_MAT_ID = TM.TRSM_MAT_ID
+				   AND PCKG.LINK_KND = 'P'
+				   AND PCKG.DEL_YN = 'N'
 
-				 LEFT JOIN TB_APC_LINK_TRSM_MAT_STTS SPMT
-				   ON SPMT.APC_CD = TM.APC_CD
-				  AND SPMT.TRSM_MAT_ID = TM.TRSM_MAT_ID
-				  AND SPMT.LINK_KND = 'D'
-				  AND SPMT.DEL_YN = 'N'
+				  LEFT JOIN TB_APC_LINK_TRSM_MAT_STTS SPMT
+				    ON SPMT.APC_CD = TM.APC_CD
+			 	   AND SPMT.TRSM_MAT_ID = TM.TRSM_MAT_ID
+				   AND SPMT.LINK_KND = 'D'
+				   AND SPMT.DEL_YN = 'N'
 
 				 WHERE AL.APC_CD = #{apcCd}
 				   AND AL.DEL_YN = 'N'
@@ -232,6 +257,43 @@
     </select>
     
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmMatList	-->
+	<!-- DESC : APC 연계 기기 목록 조회.	                                        -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.29  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectApcLinkTrsmMatList" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" resultType="com.at.apcss.am.apc.vo.ApcLinkVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmMatList */
+    			  pt0.*
+    			, (SELECT FN_GET_COM_CD_VL_NM('TRSM_MAT_STTS_CD', pt0.TRSM_MAT_STTS_CD) FROM DUAL) AS TRSM_MAT_STTS_NM
+    			, (SELECT FN_GET_COM_CD_CHR_VL('TRSM_MAT_STTS_CD', pt0.TRSM_MAT_STTS_CD) FROM DUAL) AS TRSM_MAT_STTS_COLOR
+
+    		  FROM (
+		    	SELECT
+		    		  AL.APC_CD        		AS APC_CD
+					, AL.APC_KEY			AS APC_KEY
+					, AL.GROUP_ID			AS GROUP_ID
+					, TM.TRSM_MAT_ID		AS TRSM_MAT_ID
+					, TM.TRSM_MAT_NM		AS TRSM_MAT_NM
+					, TM.TRSM_MAT_STTS_CD   AS TRSM_MAT_STTS_CD
+					, TM.STTS_IDNTY_DT		AS STTS_IDNTY_DT
+
+				  FROM TB_APC_LINK AL
+				  
+				  LEFT JOIN TB_APC_LINK_TRSM_MAT TM
+				    ON TM.APC_CD = AL.APC_CD		  
+				  AND TM.DEL_YN = 'N'
+
+				 WHERE AL.APC_CD = #{apcCd}
+				   AND AL.DEL_YN = 'N'
+    		  ) pt0
+		]]>
+    </select>
+    
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmMatSttsList	-->
 	<!-- DESC : APC 연계 기기 상태 목록 조회.	                                            -->
@@ -389,5 +451,79 @@
 			}
 		]]>
     </update>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.insertApcLinkTrsmMat		-->
+	<!-- DESC : APC 연계 기기 정보 등록	                                            -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.29  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="insertApcLinkTrsmMat" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" >
+    	<![CDATA[
+		    INSERT /* com.at.apcss.am.apc.mapper.ApcLinkMapper.insertApcLinkTrsmMat */
+				INTO TB_APC_LINK_TRSM_MAT (
+					  APC_CD
+					, TRSM_MAT_ID
+					, TRSM_MAT_NM
+		    		, SYS_FRST_INPT_DT
+		    		, SYS_FRST_INPT_USER_ID
+		    		, SYS_FRST_INPT_PRGRM_ID
+		    		, SYS_LAST_CHG_DT
+		    		, SYS_LAST_CHG_USER_ID
+		    		, SYS_LAST_CHG_PRGRM_ID
+				) VALUES (
+					  #{apcCd}
+					, #{trsmMatId}
+					, #{trsmMatNm}
+		    		, SYSDATE
+		    		, #{sysFrstInptUserId}
+		    		, #{sysFrstInptPrgrmId}
+		    		, SYSDATE
+		    		, #{sysLastChgUserId}
+		    		, #{sysLastChgPrgrmId}
+				)
+		]]>
+    </update>
+    
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.updateApcLinkTrsmMat		-->
+	<!-- DESC : APC 연계 기기 정보 변경	                                     		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.29  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateApcLinkTrsmMat" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" >
+    	<![CDATA[
+		    UPDATE /* com.at.apcss.am.apc.mapper.ApcLinkMapper.updateApcLinkTrsmMat */
+				TB_APC_LINK_TRSM_MAT SET
+	    		  SYS_LAST_CHG_DT 			= SYSDATE
+    	     	, SYS_LAST_CHG_USER_ID 		= #{sysLastChgUserId}
+    	     	, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+
+		    	, TRSM_MAT_NM	= #{trsmMatNm}
+			 WHERE APC_CD = #{apcCd}
+			   AND TRSM_MAT_ID = #{trsmMatId}
+		]]>
+    </update>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.deleteApcLinkTrsmMat		-->
+	<!-- DESC : APC 연계 기기 정보 삭제	                                     		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.29  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <delete id="deleteApcLinkTrsmMat" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" >
+    	<![CDATA[
+		    DELETE /* com.at.apcss.am.apc.mapper.ApcLinkMapper.deleteApcLinkTrsmMat */
+				TB_APC_LINK_TRSM_MAT
+			 WHERE APC_CD = #{apcCd}
+			   AND TRSM_MAT_ID = #{trsmMatId}
+		]]>
+    </delete>
 
 </mapper>
