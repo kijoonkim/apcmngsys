@@ -369,8 +369,14 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 			// error throw exception;
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
+		// 출하 강제 재고 생성 데이터 인 경우 삭제 처리
+		if ("D1".equals(invntrInfo.getInvntrSttsCd())) {
+			deleteGdsInvntr(gdsInvntrVO);
+		} else {
+			gdsInvntrMapper.updateGdsInvntrSpmtPrfmnc(gdsInvntrVO);
+		}
 
-		gdsInvntrMapper.updateGdsInvntrSpmtPrfmnc(gdsInvntrVO);
+
 
 		return null;
 	}

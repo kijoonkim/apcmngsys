@@ -282,5 +282,9 @@ public class SpmtPrfmncVO extends ComVO {
 	 * 팔레트입출고순번
 	 * */
 	private int sn;
+	/*
+	 * 팔레트불출여부
+	 * */
+	private String blwInvntrAprv;
 
 }

@@ -41,9 +41,9 @@ public class GdsInvntrVO extends ComVO {
 	private int pckgSn;
 
 	private String pckgSortno;
-	
+
 	private int pckgSortSn;
-	
+
 	/**
 	 * 포장번호 표시
 	 */
@@ -197,8 +197,8 @@ public class GdsInvntrVO extends ComVO {
 	 * 잔여중량
 	 */
 	private double rmnWght;
-	
-	
+
+
 	/**
 	 * 지시수량
 	 */
@@ -318,6 +318,10 @@ public class GdsInvntrVO extends ComVO {
 	 * 처리유형
 	 */
 	private String prcsType;
+	/**
+	 * 재고상태코드
+	 */
+	private String invntrSttsCd;
 
 	/*
 	 * 반품수량
