@@ -95,4 +95,22 @@ public interface ApcLinkService {
 	 */
 	HashMap<String, Object> deleteApcLinkTrsmMat(ApcLinkVO trsmMatVO) throws Exception;
 	
+	
+	/**
+	 * APC 연계기기 종류 등록
+	 * @param trsmMatList
+	 * @return
+	 * @throws Exception
+	 */
+	HashMap<String, Object> insertApcLinkTrsmKndList(List<ApcLinkVO> trsmKndList) throws Exception;
+	
+	/**
+	 * APC 연계기기 종류 삭제
+	 * @param trsmMatList
+	 * @return
+	 * @throws Exception
+	 */
+	HashMap<String, Object> deleteApcLinkTrsmKnd(ApcLinkVO trsmKndVO) throws Exception;
+	
+	
 }
