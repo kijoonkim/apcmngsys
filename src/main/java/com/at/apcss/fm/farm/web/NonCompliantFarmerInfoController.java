@@ -134,15 +134,15 @@ public class NonCompliantFarmerInfoController extends BaseController{
 						if(node.getNodeType() == Node.ELEMENT_NODE) { // 노드의 타입이 Element일 경우(공백이 아닌 경우)
 							Element element = (Element) node;
 
-							String frmerno = getValue("FRMER_SN", element);
-							String bizYr = getValue("BSNS_YEAR", element);
-							String bizNm = getValue("BSNS_NM", element);
-							String vltnCn = getValue("VIOLT_CN", element);
-							String sncnsBgngYr = getValue("PUNSH_BEGIN_DT", element);
-							String sncnsEndYr = getValue("PUNSH_END_DT", element);
-							String rdmPrgrsCd = getValue("REDEMP_PROGRS_DTLS", element);
-							String rdmTrgtPrncpl = getValue("REDEMP_TRGET_PRNCPAL", element);
-							String rdmTrgtAmt = getValue("REDEMP_TRGET_AMOUNT", element);
+							String frmerno = getValue("frmerSn", element);
+							String bizYr = getValue("bsnsYear", element);
+							String bizNm = getValue("bsnsNm", element);
+							String vltnCn = getValue("violtCn", element);
+							String sncnsBgngYr = getValue("punshBeginDt", element);
+							String sncnsEndYr = getValue("punshEndDt", element);
+							String rdmPrgrsCd = getValue("redempProgrsDtls", element);
+							String rdmTrgtPrncpl = getValue("redempTrgetPrncpal", element);
+							String rdmTrgtAmt = getValue("redempTrgetAmount", element);
 
 							nodeVo.setFrmerno(frmerno);
 							nodeVo.setBizYr(bizYr);

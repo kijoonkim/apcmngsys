@@ -133,20 +133,19 @@ public class FarmerGrantsInfoController extends BaseController{
 						if(node.getNodeType() == Node.ELEMENT_NODE) { // 노드의 타입이 Element일 경우(공백이 아닌 경우)
 							Element element = (Element) node;
 
-							String frmerno = getValue("FRMER_SN", element);
-							String bizBgngYmd = getValue("BSNS_BGNDE", element);
-							String bizEndYmd = getValue("BSNS_ENDDE", element);
-							String cmptncInst = getValue("CMPTINST", element);
-							String bizCd = getValue("BSNS_CODE", element);
-							String bizNm = getValue("BSNS_NM", element);
-							String rcfvrsNm = getValue("RCVFVEN_NM", element);
-							String govFnncng = getValue("NTNRS_FINANC", element);
-							String lcLtExpndFnncng = getValue("LLX_FINANC", element);
-							String govSbsds = getValue("GOVSUBY", element);
-							String lcltExpndSbsds = getValue("LLXSBSIDY", element);
-							String prcsSys = getValue("PROCESS_SYS", element);
+							String bizBgngYmd = getValue("bsnsBgnde", element);
+							String bizEndYmd = getValue("bsnsEndde", element);
+							String cmptncInst = getValue("cmptinst", element);
+							String bizCd = getValue("bsnsCode", element);
+							String bizNm = getValue("bsnsNm", element);
+							String rcfvrsNm = getValue("rcvfverNm", element);
+							String govFnncng = getValue("ntnrsFinanc", element);
+							String lcLtExpndFnncng = getValue("llxFinanc", element);
+							String govSbsds = getValue("govsuby", element);
+							String lcltExpndSbsds = getValue("llxSbsidy", element);
+							String prcsSys = getValue("processSys", element);
 
-							nodeVo.setFrmerno(frmerno);
+							nodeVo.setFrmerno(pFrmerSn);
 							nodeVo.setBizBgngYmd(bizBgngYmd);
 							nodeVo.setBizEndYmd(bizEndYmd);
 							nodeVo.setCmptncInst(cmptncInst);

@@ -132,20 +132,20 @@ public class FarmLandGrantsInfoController extends BaseController{
 						if(node.getNodeType() == Node.ELEMENT_NODE) { // 노드의 타입이 Element일 경우(공백이 아닌 경우)
 							Element element = (Element) node;
 
-							String frmerno = getValue("FRMER_SN", element);
-							String pnuCd = getValue("PNU_CODE", element);
-							String bizBgngYmd = getValue("BSNS_BGNDE", element);
-							String bizEndYmd = getValue("BSNS_ENDDE", element);
-							String bizCd = getValue("BSNS_CODE", element);
-							String bizNm = getValue("BSNS_NM", element);
-							String stts = getValue("STTUS", element);
-							String aplcntNm = getValue("APPLCNT_NM", element);
-							String ldgrSe = getValue("LDGRFL", element);
-							String frlnAddr = getValue("FRLND_ADRES", element);
-							String stdgCd = getValue("LEGALDONG_CODE", element);
-							String mno = getValue("MNNM", element);
-							String sno = getValue("SLNO", element);
-							String aplySfc = getValue("REQST_AR", element);
+							String frmerno = getValue("frmerSn", element);
+							String pnuCd = getValue("pnuCode", element);
+							String bizBgngYmd = getValue("bsnsBgnde", element);
+							String bizEndYmd = getValue("bsnsEndde", element);
+							String bizCd = getValue("bsnsCode", element);
+							String bizNm = getValue("bsnsNm", element);
+							String stts = getValue("sttus", element);
+							String aplcntNm = getValue("applcntNm", element);
+							String ldgrSe = getValue("ldgrfl", element);
+							String frlnAddr = getValue("frlndAdres", element);
+							String stdgCd = getValue("legaldongCode", element);
+							String mno = getValue("mnnm", element);
+							String sno = getValue("slno", element);
+							String aplySfc = getValue("reqstAr", element);
 
 							nodeVo.setFrmerno(frmerno);
 							nodeVo.setPnuCd(pnuCd);
