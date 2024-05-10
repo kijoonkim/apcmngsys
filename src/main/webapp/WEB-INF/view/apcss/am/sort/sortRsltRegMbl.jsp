@@ -4048,6 +4048,8 @@ input::-webkit-inner-spin-button {
 
     const fn_view = async function (idx,_prevList = null) {
 
+		await fn_reset();
+
 		SBUxMethod.attr('dtl-btn-itemCdChg',"disabled","true");
 		SBUxMethod.attr('dtl-btn-rawMtrInvntr',"disabled","true");
 
@@ -5314,6 +5316,8 @@ input::-webkit-inner-spin-button {
 			SBUxMethod.set("dtl-btn-itemCdChg","저장");
 			SBUxMethod.attr("dtl-inp-itemNm","readonly","false");
 			SBUxMethod.attr("dtl-inp-vrtyNm","readonly","false");
+			SBUxMethod.attr("dtl-btn-rawMtrInvntr","disabled","true");
+
 			let grdNm = pltnoInfo.grdNm;
 			let apdEl = `<div id="itemVrtyInp"style="border:none"><span>수량 : </span><input id="updateQntt" type="number" value="`+invntrQntt+`" onchange="onchangQntt(this.value)"></input>`;
 			if(pltnoInfo.sortInptVlType != "QNTT"){
@@ -5402,6 +5406,7 @@ input::-webkit-inner-spin-button {
 			SBUxMethod.set("dtl-btn-itemCdChg","수정");
 			SBUxMethod.attr("dtl-inp-itemNm","readonly","true");
 			SBUxMethod.attr("dtl-inp-vrtyNm","readonly","true");
+			SBUxMethod.attr("dtl-btn-rawMtrInvntr","disabled","false");
 		}
 
 	}
