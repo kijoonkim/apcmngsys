@@ -63,8 +63,8 @@
 			<if test='frmerno != null and frmerno != ""'>
 				AND FRMERNO = #{frmerno}
 			</if>
-			<if test='mngmstRegNo != null and mngmstRegNo != ""'>
-				AND MNGMST_REGNO = #{mngmstRegNo}
+			<if test='mngmstRegno != null and mngmstRegno != ""'>
+				AND MNGMST_REGNO = #{mngmstRegno}
 			</if>
 		ORDER BY SYS_LAST_CHG_DT DESC
 	</select>
@@ -128,8 +128,8 @@
 			<if test='frmerno != null and frmerno != ""'>
 				AND FRMERNO = #{frmerno}
 			</if>
-			<if test='mngmstRegNo != null and mngmstRegNo != ""'>
-				AND MNGMST_REGNO = #{mngmstRegNo}
+			<if test='mngmstRegno != null and mngmstRegno != ""'>
+				AND MNGMST_REGNO = #{mngmstRegno}
 			</if>
 			ORDER BY SYS_LAST_CHG_DT DESC
 
@@ -182,7 +182,7 @@
 				)
 			VALUES
 				(
-					#{mngmstRegNo}
+					#{mngmstRegno}
 					, #{frlnType}
 					, #{cprtnFrlnyn}
 					, #{frlnarea}
@@ -218,7 +218,7 @@
 		]]>
 	</insert>
 
-	<insert id="insertMegerFarmLandInfo" parameterType="com.at.apcss.fm.farm.vo.FarmLandInfoVO">
+	<insert id="insertMergeFarmLandInfo" parameterType="com.at.apcss.fm.farm.vo.FarmLandInfoVO">
 		<![CDATA[
 			MERGE INTO USRAM.TB_AX_FARM_LAND_INFO AS tgt	/* com.at.apcss.fm.farm.mapper.FarmLandInfoMapper.insertMegerFarmLandInfo */
 			USING DUAL
@@ -231,7 +231,7 @@
 			WHEN MATCHED THEN
 				UPDATE	/* com.at.apcss.fm.farm.mapper.FarmLandInfoMapper.insertMegerFarmLandInfo */
 				   SET
-					  tgt.MNGMST_REGNO				=#{mngmstRegNo}
+					  tgt.MNGMST_REGNO				=#{mngmstRegno}
 					, tgt.FRLN_TYPE					=#{frlnType}
 					, tgt.CPRTN_FRLN_YN				=#{cprtnFrlnyn}
 					, tgt.FRLN_AREA					=#{frlnarea}
@@ -293,7 +293,7 @@
 					, SYS_LAST_CHG_PRGRM_ID
 					, SYS_LAST_CHG_USER_ID
 			)VALUES (
-					#{mngmstRegNo}
+					#{mngmstRegno}
 					, #{frlnType}
 					, #{cprtnFrlnyn}
 					, #{frlnarea}
@@ -369,7 +369,7 @@
 				)
 			VALUES
 				(
-					#{mngmstRegNo}
+					#{mngmstRegno}
 					, #{frlnType}
 					, #{cprtnFrlnyn}
 					, #{frlnarea}
@@ -411,7 +411,7 @@
 			UPDATE /* com.at.apcss.fm.farm.mapper.FarmLandInfoMapper.upatefarmLandInfo */
 				TB_AX_FARM_LAND_INFO
 			   SET
-				  MNGMST_REGNO				= #{mngmstRegNo}
+				  MNGMST_REGNO				= #{mngmstRegno}
 				, FRLN_TYPE					= #{frlnType}
 				, CPRTN_FRLN_YN				= #{cprtnFrlnyn}
 				, FRLN_AREA					= #{frlnarea}
@@ -465,7 +465,7 @@
 	</delete>
 
 	<select id="selectFrmerSnList" parameterType="com.at.apcss.fm.farm.vo.FarmLandInfoVO" resultType="com.at.apcss.fm.farm.vo.FarmLandInfoVO">
-		SELECT
+		SELECT /* com.at.apcss.fm.farm.mapper.FarmLandInfoMapper.selectFrmerSnList */
 			FRMERNO
 		FROM TB_AX_FRMER_INFO
 		<if test='frmerno != null and frmerno != ""'>

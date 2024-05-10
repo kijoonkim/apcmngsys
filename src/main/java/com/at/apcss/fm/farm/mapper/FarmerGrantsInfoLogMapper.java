@@ -33,13 +33,4 @@ public interface FarmerGrantsInfoLogMapper {
 
 	public List<FarmerGrantsInfoLogVO> selectFarmerGrantsInfoLogList(FarmerGrantsInfoLogVO farmerGrantsInfoLogVO);
 
-	public int insertFarmerGrantsInfoLog(FarmerGrantsInfoLogVO farmerGrantsInfoLogVO);
-
-	public int updateFarmerGrantsInfoLog(FarmerGrantsInfoLogVO farmerGrantsInfoLogVO);
-
-	public int insertMegerFarmerGrantsInfoLog(FarmerGrantsInfoLogVO farmerGrantsInfoLogVO) throws Exception;
-	public int insertMegerLogFarmerGrantsInfoLog(FarmerGrantsInfoLogVO farmerGrantsInfoLogVO) throws Exception;
-	public int updateMegerFarmerGrantsInfoLog(FarmerGrantsInfoLogVO farmerGrantsInfoLogVO) throws Exception;
-
-	public int deleteFarmerGrantsInfoLog(FarmerGrantsInfoLogVO farmerGrantsInfoLogVO) throws Exception;
 }

@@ -8,39 +8,18 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FarmerSnCertificationInfoLogVO extends ComVO{
-	private String seq;
-	private String frmerSn;
-	private String bzobRgno;
-	private String mngerRelate;
-	private String bzmCorpNm;
-	private String addr;
-	private String rrsdAddr;
-	private String rdnmAddr;
-	private String twNm;
-	private String perCorpDvcdNm;
-	private String nafoDvcdNm;
-	private String telno;
-	private String mblTelno;
-	private String faxTelno;
-	private String emailAddr;
-	private String famgStrYmd;
-	private String farmngBeginStleCdNm;
-	private String farmngEngageStleCdNm;
-	private String fndtYr;
-	private String bzmRgno;
-	private String reprNm;
-	private String reprAddr;
-	private String brthdy;
-	private String sexdstn;
-	private String sysFrstInptDt;
-	private String sysFrstInptUserId;
-	private String sysFrstInptPrgrmId;
-	private String sysLastChgDt;
-	private String sysLastChgUserId;
-	private String sysLastChgPrgrmId;
-	private String delYn;
-	private String rgsde;
-	private String updde;
-	private String saveCd;
+
+	private String sn;
+	private String frmerno;				//농업인 번호 FRMER_SN
+	private String certNo;				//인증번호 CON_NUM
+	private String certBgngYmd;			//인증시작일 EFFECTIVE_STRAT_DT
+	private String certEndYmd;			//인증종료일 EFFECTIVE_END_DT
+	private String certStts;			//인증정보 상태 STATE_NM
+	private String ecfrdCertSeNm;		//친환경인증구분명 CONGB_NM
+	private String ecfrdCertGroupSeNm;	//친환경인증그룹구분명 FARMERGB_NM
+	private String grpNm;				//단체명 GROUPREQEN_NM
+	private String ownrNm;				//농가주명 OWNER_NM
+	private String certAddr;			//인증필지 CERT_ADDR
+	private String sfc;					//면적 LAND_QTY
 
 }

@@ -23,19 +23,16 @@ import com.at.apcss.fm.farm.vo.FarmLandGrantsInfoRegVO;
 @Mapper
 public interface FarmLandGrantsInfoRegMapper {
 
-
 	/**
 	 * 메시지정보를 조회한다.
 	 * @param bbsVO
 	 * @return
 	 */
-	public FarmLandGrantsInfoRegVO selectFarmLandGrantsInfoReg(FarmLandGrantsInfoRegVO farmLandGrantsInfoRegVO);
+	public FarmLandGrantsInfoRegVO selectFarmLandGrantsInfoReg(FarmLandGrantsInfoRegVO FarmLandGrantsInfoRegVO);
 
-	public List<FarmLandGrantsInfoRegVO> selectFarmLandGrantsInfoRegList(FarmLandGrantsInfoRegVO farmLandGrantsInfoRegVO);
+	public List<FarmLandGrantsInfoRegVO> selectFarmLandGrantsInfoRegList(FarmLandGrantsInfoRegVO FarmLandGrantsInfoRegVO);
 
-	public int insertFarmLandGrantsInfoReg(FarmLandGrantsInfoRegVO farmLandGrantsInfoRegVO);
+	public int insertFarmLandGrantsInfoReg(FarmLandGrantsInfoRegVO FarmLandGrantsInfoRegVO);
 
-	public int updateFarmLandGrantsInfoReg(FarmLandGrantsInfoRegVO farmLandGrantsInfoRegVO);
-
-	public int deleteFarmLandGrantsInfoReg(FarmLandGrantsInfoRegVO farmLandGrantsInfoRegVO) throws Exception;
+	public int deleteFarmLandGrantsInfoReg(FarmLandGrantsInfoRegVO FarmLandGrantsInfoRegVO) throws Exception;
 }

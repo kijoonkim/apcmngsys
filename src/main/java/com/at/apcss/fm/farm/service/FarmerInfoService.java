@@ -3,8 +3,6 @@ package com.at.apcss.fm.farm.service;
 import java.util.List;
 import java.util.Map;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.fm.farm.vo.FarmerInfoVO;
 
 
@@ -41,13 +39,13 @@ public interface FarmerInfoService {
 
 	public int multiSaveFarmerInfoList(List<FarmerInfoVO> farmerInfoVOList) throws Exception;
 
-	public int insertMegerFarmerInfo(FarmerInfoVO farmerInfoVOList) throws Exception;
-	public int insertMegerLogFarmerInfo(FarmerInfoVO farmerInfoVOList) throws Exception;
+	public int insertMergeFarmerInfo(FarmerInfoVO farmerInfoVOList) throws Exception;
+	public int insertMergeLogFarmerInfo(FarmerInfoVO farmerInfoVOList) throws Exception;
 
-	public int insertMegerFarmerInfoMap(Map<String, String> MapList) throws Exception;
-	public int insertMegerLogFarmerInfoMap(Map<String, String> MapList) throws Exception;
+	public int insertMergeFarmerInfoMap(Map<String, String> MapList) throws Exception;
+	public int insertMergeLogFarmerInfoMap(Map<String, String> MapList) throws Exception;
 
-	public int updateMegerFarmerInfo(FarmerInfoVO farmerInfoVOList) throws Exception;
+	public int updateMergeFarmerInfo(FarmerInfoVO farmerInfoVOList) throws Exception;
 
 	public int deleteFarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
 

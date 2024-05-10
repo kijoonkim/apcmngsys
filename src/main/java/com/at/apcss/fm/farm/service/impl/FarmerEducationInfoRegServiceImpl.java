@@ -4,12 +4,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.fm.bbs.mapper.BbsMapper;
-import com.at.apcss.fm.bbs.service.BbsService;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.fm.farm.mapper.FarmerEducationInfoRegMapper;
 import com.at.apcss.fm.farm.service.FarmerEducationInfoRegService;
 import com.at.apcss.fm.farm.vo.FarmerEducationInfoRegVO;
@@ -59,6 +55,7 @@ public class FarmerEducationInfoRegServiceImpl extends BaseServiceImpl implement
 		return insertedCnt;
 	}
 
+	/*
 	@Override
 	public int updateFarmerEducationInfoReg(FarmerEducationInfoRegVO farmerEducationInfoRegVO) throws Exception {
 
@@ -80,6 +77,7 @@ public class FarmerEducationInfoRegServiceImpl extends BaseServiceImpl implement
 		}
 		return savedCnt;
 	}
+	*/
 
 	@Override
 	public int deleteFarmerEducationInfoReg(FarmerEducationInfoRegVO farmerEducationInfoRegVO) throws Exception {

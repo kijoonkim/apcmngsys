@@ -1,7 +1,6 @@
 package com.at.apcss.fm.farm.mapper;
 
 import java.util.List;
-import java.util.Map;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
@@ -24,27 +23,28 @@ import com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO;
 @Mapper
 public interface FarmerGrantsInfoMapper {
 
-
 	/**
 	 * 메시지정보를 조회한다.
 	 * @param bbsVO
 	 * @return
 	 */
-	public FarmerGrantsInfoVO selectFarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO);
+	public FarmerGrantsInfoVO selectFarmerGrantsInfo(FarmerGrantsInfoVO FarmerGrantsInfoVO);
 
-	public List<FarmerGrantsInfoVO> selectFarmerGrantsInfoList(FarmerGrantsInfoVO farmerGrantsInfoVO);
+	public List<FarmerGrantsInfoVO> selectFarmerGrantsInfoList(FarmerGrantsInfoVO FarmerGrantsInfoVO);
 
-	public int insertFarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO);
+	public int insertFarmerGrantsInfo(FarmerGrantsInfoVO FarmerGrantsInfoVO);
 
-	public int updateFarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO);
+	public int updateFarmerGrantsInfo(FarmerGrantsInfoVO FarmerGrantsInfoVO);
 
-	public int insertMegerFarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO) throws Exception;
-	public int insertMegerLogFarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO) throws Exception;
+	public int insertLogFarmerGrantsInfo(FarmerGrantsInfoVO FarmerGrantsInfoVO) throws Exception;
 
-	public int insertMegerFarmerGrantsInfoMap(Map<String, String> MapList) throws Exception;
-	public int insertMegerLogFarmerGrantsInfoMap(Map<String, String> MapList) throws Exception;
+	public int deleteFarmerGrantsInfo(FarmerGrantsInfoVO FarmerGrantsInfoVO) throws Exception;
 
-	public int updateMegerFarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO) throws Exception;
-
-	public int deleteFarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO) throws Exception;
+	/**
+	 * 전체 농업인 번호 리스트 조회
+	 * @param
+	 * @return List<FarmerInfoVO>
+	 * @throws Exception
+	 */
+	public List<FarmerGrantsInfoVO> selectFrmerSnList(FarmerGrantsInfoVO FarmerGrantsInfoVO) throws Exception;
 }

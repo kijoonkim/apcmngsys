@@ -37,9 +37,9 @@ public interface FarmerInfoLogMapper {
 
 	public int updateFarmerInfoLog(FarmerInfoLogVO farmerInfoLogVO);
 
-	public int insertMegerFarmerInfoLog(FarmerInfoLogVO farmerInfoLogVO) throws Exception;
-	public int insertMegerLogFarmerInfoLog(FarmerInfoLogVO farmerInfoLogVO) throws Exception;
-	public int updateMegerFarmerInfoLog(FarmerInfoLogVO farmerInfoLogVO) throws Exception;
+	public int insertMergeFarmerInfoLog(FarmerInfoLogVO farmerInfoLogVO) throws Exception;
+	public int insertMergeLogFarmerInfoLog(FarmerInfoLogVO farmerInfoLogVO) throws Exception;
+	public int updateMergeFarmerInfoLog(FarmerInfoLogVO farmerInfoLogVO) throws Exception;
 
 	public int deleteFarmerInfoLog(FarmerInfoLogVO farmerInfoLogVO) throws Exception;
 }

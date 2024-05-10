@@ -1,7 +1,6 @@
 package com.at.apcss.fm.farm.mapper;
 
 import java.util.List;
-import java.util.Map;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
@@ -25,26 +24,31 @@ import com.at.apcss.fm.farm.vo.FarmerEducationInfoVO;
 public interface FarmerEducationInfoMapper {
 
 
+
 	/**
 	 * 메시지정보를 조회한다.
 	 * @param bbsVO
 	 * @return
 	 */
-	public FarmerEducationInfoVO selectFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO);
+	public FarmerEducationInfoVO selectFarmerEducationInfo(FarmerEducationInfoVO FarmerEducationInfoVO);
 
-	public List<FarmerEducationInfoVO> selectFarmerEducationInfoList(FarmerEducationInfoVO farmerEducationInfoVO);
+	public List<FarmerEducationInfoVO> selectFarmerEducationInfoList(FarmerEducationInfoVO FarmerEducationInfoVO);
 
-	public int insertFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO);
+	public int insertFarmerEducationInfo(FarmerEducationInfoVO FarmerEducationInfoVO);
 
-	public int updateFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO);
+	public int updateFarmerEducationInfo(FarmerEducationInfoVO FarmerEducationInfoVO);
 
-	public int insertMegerFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception;
-	public int insertMegerLogFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception;
+	public int insertMergeFarmerEducationInfo(FarmerEducationInfoVO FarmerEducationInfoVO) throws Exception;
 
-	public int insertMegerFarmerEducationInfoMap(Map<String, String> MapList) throws Exception;
-	public int insertMegerLogFarmerEducationInfoMap(Map<String, String> MapList) throws Exception;
+	public int insertLogFarmerEducationInfo(FarmerEducationInfoVO FarmerEducationInfoVO) throws Exception;
 
-	public int updateMegerFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception;
+	public int deleteFarmerEducationInfo(FarmerEducationInfoVO FarmerEducationInfoVO) throws Exception;
 
-	public int deleteFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception;
+	/**
+	 * 전체 농업인 번호 리스트 조회
+	 * @param
+	 * @return List<FarmerInfoVO>
+	 * @throws Exception
+	 */
+	public List<FarmerEducationInfoVO> selectFrmerSnList(FarmerEducationInfoVO FarmerEducationInfoVO) throws Exception;
 }

@@ -35,7 +35,5 @@ public interface FarmerSnCertificationInfoRegMapper {
 
 	public int insertFarmerSnCertificationInfoReg(FarmerSnCertificationInfoRegVO farmerSnCertificationInfoRegVO);
 
-	public int updateFarmerSnCertificationInfoReg(FarmerSnCertificationInfoRegVO farmerSnCertificationInfoRegVO);
-
 	public int deleteFarmerSnCertificationInfoReg(FarmerSnCertificationInfoRegVO farmerSnCertificationInfoRegVO) throws Exception;
 }

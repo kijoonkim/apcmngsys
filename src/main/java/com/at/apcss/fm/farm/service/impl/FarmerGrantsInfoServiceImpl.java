@@ -1,17 +1,12 @@
 package com.at.apcss.fm.farm.service.impl;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.fm.bbs.mapper.BbsMapper;
-import com.at.apcss.fm.bbs.service.BbsService;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.fm.farm.mapper.FarmerGrantsInfoMapper;
 import com.at.apcss.fm.farm.service.FarmerGrantsInfoService;
 import com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO;
@@ -84,32 +79,18 @@ public class FarmerGrantsInfoServiceImpl extends BaseServiceImpl implements Farm
 	}
 
 	@Override
-	public int insertMegerFarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO) throws Exception {
-		return farmerGrantsInfoMapper.insertMegerFarmerGrantsInfo(farmerGrantsInfoVO);
-	}
-	@Override
-	public int insertMegerLogFarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO) throws Exception {
-		return farmerGrantsInfoMapper.insertMegerLogFarmerGrantsInfo(farmerGrantsInfoVO);
-	}
-
-
-	@Override
-	public int insertMegerFarmerGrantsInfoMap(Map<String, String> MapList) throws Exception {
-		return farmerGrantsInfoMapper.insertMegerFarmerGrantsInfoMap(MapList);
-	}
-	@Override
-	public int insertMegerLogFarmerGrantsInfoMap(Map<String, String> MapList) throws Exception {
-		return farmerGrantsInfoMapper.insertMegerLogFarmerGrantsInfoMap(MapList);
-	}
-
-	@Override
-	public int updateMegerFarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO) throws Exception {
-		return farmerGrantsInfoMapper.updateMegerFarmerGrantsInfo(farmerGrantsInfoVO);
-	}
-
-	@Override
 	public int deleteFarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO) throws Exception {
 		return farmerGrantsInfoMapper.deleteFarmerGrantsInfo(farmerGrantsInfoVO);
+	}
+
+	@Override
+	public int insertLogFarmerGrantsInfo(FarmerGrantsInfoVO FarmerGrantsInfoVO) throws Exception {
+		return farmerGrantsInfoMapper.insertLogFarmerGrantsInfo(FarmerGrantsInfoVO);
+	}
+
+	@Override
+	public List<FarmerGrantsInfoVO> selectFrmerSnList(FarmerGrantsInfoVO FarmerGrantsInfoVO) throws Exception {
+		return farmerGrantsInfoMapper.selectFrmerSnList(FarmerGrantsInfoVO);
 	}
 
 }

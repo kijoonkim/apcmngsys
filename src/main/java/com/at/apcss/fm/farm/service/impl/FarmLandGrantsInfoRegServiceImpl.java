@@ -4,12 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
-import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.fm.bbs.mapper.BbsMapper;
-import com.at.apcss.fm.bbs.service.BbsService;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.fm.farm.mapper.FarmLandGrantsInfoRegMapper;
 import com.at.apcss.fm.farm.service.FarmLandGrantsInfoRegService;
 import com.at.apcss.fm.farm.vo.FarmLandGrantsInfoRegVO;
@@ -34,56 +29,34 @@ import com.at.apcss.fm.farm.vo.FarmLandGrantsInfoRegVO;
 public class FarmLandGrantsInfoRegServiceImpl extends BaseServiceImpl implements FarmLandGrantsInfoRegService{
 
 	@Autowired
-	private FarmLandGrantsInfoRegMapper farmLandGrantsInfoRegMapper;
+	private FarmLandGrantsInfoRegMapper FarmLandGrantsInfoRegMapper;
 
 	@Override
-	public FarmLandGrantsInfoRegVO selectFarmLandGrantsInfoReg(FarmLandGrantsInfoRegVO farmLandGrantsInfoRegVO) throws Exception {
+	public FarmLandGrantsInfoRegVO selectFarmLandGrantsInfoReg(FarmLandGrantsInfoRegVO FarmLandGrantsInfoRegVO) throws Exception {
 
-		FarmLandGrantsInfoRegVO resultVO = farmLandGrantsInfoRegMapper.selectFarmLandGrantsInfoReg(farmLandGrantsInfoRegVO);
+		FarmLandGrantsInfoRegVO resultVO = FarmLandGrantsInfoRegMapper.selectFarmLandGrantsInfoReg(FarmLandGrantsInfoRegVO);
 
 		return resultVO;
 	}
 
 	@Override
-	public List<FarmLandGrantsInfoRegVO> selectFarmLandGrantsInfoRegList(FarmLandGrantsInfoRegVO farmLandGrantsInfoRegVO) throws Exception {
+	public List<FarmLandGrantsInfoRegVO> selectFarmLandGrantsInfoRegList(FarmLandGrantsInfoRegVO FarmLandGrantsInfoRegVO) throws Exception {
 
-		List<FarmLandGrantsInfoRegVO> resultList = farmLandGrantsInfoRegMapper.selectFarmLandGrantsInfoRegList(farmLandGrantsInfoRegVO);
+		List<FarmLandGrantsInfoRegVO> resultList = FarmLandGrantsInfoRegMapper.selectFarmLandGrantsInfoRegList(FarmLandGrantsInfoRegVO);
 		return resultList;
 	}
 
 	@Override
-	public int insertFarmLandGrantsInfoReg(FarmLandGrantsInfoRegVO farmLandGrantsInfoRegVO) throws Exception {
+	public int insertFarmLandGrantsInfoReg(FarmLandGrantsInfoRegVO FarmLandGrantsInfoRegVO) throws Exception {
 
-		int insertedCnt = farmLandGrantsInfoRegMapper.insertFarmLandGrantsInfoReg(farmLandGrantsInfoRegVO);
+		int insertedCnt = FarmLandGrantsInfoRegMapper.insertFarmLandGrantsInfoReg(FarmLandGrantsInfoRegVO);
 
 		return insertedCnt;
 	}
 
 	@Override
-	public int updateFarmLandGrantsInfoReg(FarmLandGrantsInfoRegVO farmLandGrantsInfoRegVO) throws Exception {
-
-		int updatedCnt = farmLandGrantsInfoRegMapper.updateFarmLandGrantsInfoReg(farmLandGrantsInfoRegVO);
-
-		return updatedCnt;
-	}
-
-	@Override
-	public int multiSaveFarmLandGrantsInfoRegList(List<FarmLandGrantsInfoRegVO> farmLandGrantsInfoRegVOList) throws Exception {
-		int savedCnt = 0;
-		for (FarmLandGrantsInfoRegVO farmLandGrantsInfoRegVO : farmLandGrantsInfoRegVOList) {
-			if(ComConstants.ROW_STS_INSERT.equals(farmLandGrantsInfoRegVO.getRowSts())) {
-				savedCnt += insertFarmLandGrantsInfoReg(farmLandGrantsInfoRegVO);
-			}
-			if(ComConstants.ROW_STS_UPDATE.equals(farmLandGrantsInfoRegVO.getRowSts())) {
-				savedCnt += updateFarmLandGrantsInfoReg(farmLandGrantsInfoRegVO);
-			}
-		}
-		return savedCnt;
-	}
-
-	@Override
-	public int deleteFarmLandGrantsInfoReg(FarmLandGrantsInfoRegVO farmLandGrantsInfoRegVO) throws Exception {
-		return farmLandGrantsInfoRegMapper.deleteFarmLandGrantsInfoReg(farmLandGrantsInfoRegVO);
+	public int deleteFarmLandGrantsInfoReg(FarmLandGrantsInfoRegVO FarmLandGrantsInfoRegVO) throws Exception {
+		return FarmLandGrantsInfoRegMapper.deleteFarmLandGrantsInfoReg(FarmLandGrantsInfoRegVO);
 	}
 
 }

@@ -1,10 +1,7 @@
 package com.at.apcss.fm.farm.service;
 
 import java.util.List;
-import java.util.Map;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.fm.farm.vo.FarmLandGrantsInfoLogVO;
 
 
@@ -26,23 +23,12 @@ public interface FarmLandGrantsInfoLogService {
 
 	/**
 	 * 정보를 조회한다.
-	 * @param farmLandGrantsInfoLogVO
+	 * @param FarmLandGrantsInfoLogVO
 	 * @return
 	 * @throws Exception
 	 */
-	public FarmLandGrantsInfoLogVO selectFarmLandGrantsInfoLog(FarmLandGrantsInfoLogVO farmLandGrantsInfoLogVO) throws Exception;
+	public FarmLandGrantsInfoLogVO selectFarmLandGrantsInfoLog(FarmLandGrantsInfoLogVO FarmLandGrantsInfoLogVO) throws Exception;
 
-	public List<FarmLandGrantsInfoLogVO> selectFarmLandGrantsInfoLogList(FarmLandGrantsInfoLogVO farmLandGrantsInfoLogVO) throws Exception;
-
-	public int insertFarmLandGrantsInfoLog(FarmLandGrantsInfoLogVO farmLandGrantsInfoLogVO) throws Exception;
-
-	public int updateFarmLandGrantsInfoLog(FarmLandGrantsInfoLogVO farmLandGrantsInfoLogVO) throws Exception;
-
-	public int multiSaveFarmLandGrantsInfoLogList(List<FarmLandGrantsInfoLogVO> farmLandGrantsInfoLogVOList) throws Exception;
-	public int insertMegerFarmLandGrantsInfoLog(FarmLandGrantsInfoLogVO farmLandGrantsInfoLogVOList) throws Exception;
-	public int insertMegerLogFarmLandGrantsInfoLog(FarmLandGrantsInfoLogVO farmLandGrantsInfoLogVOList) throws Exception;
-	public int updateMegerFarmLandGrantsInfoLog(FarmLandGrantsInfoLogVO farmLandGrantsInfoLogVOList) throws Exception;
-
-	public int deleteFarmLandGrantsInfoLog(FarmLandGrantsInfoLogVO farmLandGrantsInfoLogVO) throws Exception;
+	public List<FarmLandGrantsInfoLogVO> selectFarmLandGrantsInfoLogList(FarmLandGrantsInfoLogVO FarmLandGrantsInfoLogVO) throws Exception;
 
 }

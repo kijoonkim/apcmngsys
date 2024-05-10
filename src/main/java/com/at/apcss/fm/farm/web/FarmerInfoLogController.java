@@ -234,8 +234,8 @@ public class FarmerInfoLogController extends BaseController{
 						farmerInfoLogVO.setSysLastChgPrgrmId(getPrgrmId());
 						farmerInfoLogVO.setSysLastChgUserId(getUserId());
 						farmerInfoLogVO.setSaveCd("AGRIX");
-	                    savedCnt = farmerInfoLogService.insertMegerFarmerInfoLog(farmerInfoLogVO);
-	                    result = farmerInfoLogService.insertMegerLogFarmerInfoLog(farmerInfoLogVO);
+	                    savedCnt = farmerInfoLogService.insertMergeFarmerInfoLog(farmerInfoLogVO);
+	                    result = farmerInfoLogService.insertMergeLogFarmerInfoLog(farmerInfoLogVO);
 	                }
 	            }
 	        } catch (Exception ex) {

@@ -1,10 +1,7 @@
 package com.at.apcss.fm.farm.service;
 
 import java.util.List;
-import java.util.Map;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.fm.farm.vo.FarmerInfoRegVO;
 
 

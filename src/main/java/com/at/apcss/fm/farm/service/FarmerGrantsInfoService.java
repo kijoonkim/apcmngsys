@@ -1,10 +1,7 @@
 package com.at.apcss.fm.farm.service;
 
 import java.util.List;
-import java.util.Map;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO;
 
 
@@ -26,28 +23,30 @@ public interface FarmerGrantsInfoService {
 
 	/**
 	 * 정보를 조회한다.
-	 * @param farmerGrantsInfoVO
+	 * @param FarmerGrantsInfoVO
 	 * @return
 	 * @throws Exception
 	 */
-	public FarmerGrantsInfoVO selectFarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO) throws Exception;
+	public FarmerGrantsInfoVO selectFarmerGrantsInfo(FarmerGrantsInfoVO FarmerGrantsInfoVO) throws Exception;
 
-	public List<FarmerGrantsInfoVO> selectFarmerGrantsInfoList(FarmerGrantsInfoVO farmerGrantsInfoVO) throws Exception;
+	public List<FarmerGrantsInfoVO> selectFarmerGrantsInfoList(FarmerGrantsInfoVO FarmerGrantsInfoVO) throws Exception;
 
-	public int insertFarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO) throws Exception;
+	public int updateFarmerGrantsInfo(FarmerGrantsInfoVO FarmerGrantsInfoVO) throws Exception;
 
-	public int updateFarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO) throws Exception;
+	public int multiSaveFarmerGrantsInfoList(List<FarmerGrantsInfoVO> FarmerGrantsInfoVOList) throws Exception;
 
-	public int multiSaveFarmerGrantsInfoList(List<FarmerGrantsInfoVO> farmerGrantsInfoVOList) throws Exception;
+	public int insertFarmerGrantsInfo(FarmerGrantsInfoVO FarmerGrantsInfoVOList) throws Exception;
 
-	public int insertMegerFarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVOList) throws Exception;
-	public int insertMegerLogFarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVOList) throws Exception;
+	public int insertLogFarmerGrantsInfo(FarmerGrantsInfoVO FarmerGrantsInfoVOList) throws Exception;
 
-	public int insertMegerFarmerGrantsInfoMap(Map<String, String> MapList) throws Exception;
-	public int insertMegerLogFarmerGrantsInfoMap(Map<String, String> MapList) throws Exception;
+	public int deleteFarmerGrantsInfo(FarmerGrantsInfoVO FarmerGrantsInfoVO) throws Exception;
 
-	public int updateMegerFarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVOList) throws Exception;
-
-	public int deleteFarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO) throws Exception;
+	/**
+	 * 전체 농업인 번호 리스트 조회
+	 * @param
+	 * @return List<FarmerInfoVO>
+	 * @throws Exception
+	 */
+	public List<FarmerGrantsInfoVO> selectFrmerSnList(FarmerGrantsInfoVO FarmerGrantsInfoVO) throws Exception;
 
 }

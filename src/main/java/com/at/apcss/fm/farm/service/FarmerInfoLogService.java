@@ -1,10 +1,7 @@
 package com.at.apcss.fm.farm.service;
 
 import java.util.List;
-import java.util.Map;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.fm.farm.vo.FarmerInfoLogVO;
 
 
@@ -39,9 +36,9 @@ public interface FarmerInfoLogService {
 	public int updateFarmerInfoLog(FarmerInfoLogVO farmerInfoLogVO) throws Exception;
 
 	public int multiSaveFarmerInfoLogList(List<FarmerInfoLogVO> farmerInfoLogVOList) throws Exception;
-	public int insertMegerFarmerInfoLog(FarmerInfoLogVO farmerInfoLogVOList) throws Exception;
-	public int insertMegerLogFarmerInfoLog(FarmerInfoLogVO farmerInfoLogVOList) throws Exception;
-	public int updateMegerFarmerInfoLog(FarmerInfoLogVO farmerInfoLogVOList) throws Exception;
+	public int insertMergeFarmerInfoLog(FarmerInfoLogVO farmerInfoLogVOList) throws Exception;
+	public int insertMergeLogFarmerInfoLog(FarmerInfoLogVO farmerInfoLogVOList) throws Exception;
+	public int updateMergeFarmerInfoLog(FarmerInfoLogVO farmerInfoLogVOList) throws Exception;
 
 	public int deleteFarmerInfoLog(FarmerInfoLogVO farmerInfoLogVO) throws Exception;
 

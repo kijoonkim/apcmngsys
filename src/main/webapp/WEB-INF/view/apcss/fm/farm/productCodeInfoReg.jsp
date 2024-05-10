@@ -544,7 +544,7 @@
     	 console.log("******************fn_subUpdate**********************************");
 		if (!isConfirmed) return;
 
-    	const postJsonPromise2 = gfn_postJSON("/fm/farm/updateProductCodeInfoReg.do", {
+    	const postJsonPromise = gfn_postJSON("/fm/farm/updateProductCodeInfoReg.do", {
     		frmerSn: SBUxMethod.get('dtl-input-frmerSn')                           //  농업인 번호
         ,	bzobRgno: SBUxMethod.get('dtl-input-bzobRgno')                             //  경영체 등록번호
         ,	mngerRelate: SBUxMethod.get('dtl-input-mngerRelate')             //  경영주 및 경영주와 의 관계

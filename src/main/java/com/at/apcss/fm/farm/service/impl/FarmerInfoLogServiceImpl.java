@@ -4,12 +4,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.fm.bbs.mapper.BbsMapper;
-import com.at.apcss.fm.bbs.service.BbsService;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.fm.farm.mapper.FarmerInfoLogMapper;
 import com.at.apcss.fm.farm.service.FarmerInfoLogService;
 import com.at.apcss.fm.farm.vo.FarmerInfoLogVO;
@@ -82,16 +78,16 @@ public class FarmerInfoLogServiceImpl extends BaseServiceImpl implements FarmerI
 	}
 
 	@Override
-	public int insertMegerFarmerInfoLog(FarmerInfoLogVO farmerInfoLogVO) throws Exception {
-		return farmerInfoLogMapper.insertMegerFarmerInfoLog(farmerInfoLogVO);
+	public int insertMergeFarmerInfoLog(FarmerInfoLogVO farmerInfoLogVO) throws Exception {
+		return farmerInfoLogMapper.insertMergeFarmerInfoLog(farmerInfoLogVO);
 	}
 	@Override
-	public int insertMegerLogFarmerInfoLog(FarmerInfoLogVO farmerInfoLogVO) throws Exception {
-		return farmerInfoLogMapper.insertMegerLogFarmerInfoLog(farmerInfoLogVO);
+	public int insertMergeLogFarmerInfoLog(FarmerInfoLogVO farmerInfoLogVO) throws Exception {
+		return farmerInfoLogMapper.insertMergeLogFarmerInfoLog(farmerInfoLogVO);
 	}
 	@Override
-	public int updateMegerFarmerInfoLog(FarmerInfoLogVO farmerInfoLogVO) throws Exception {
-		return farmerInfoLogMapper.updateMegerFarmerInfoLog(farmerInfoLogVO);
+	public int updateMergeFarmerInfoLog(FarmerInfoLogVO farmerInfoLogVO) throws Exception {
+		return farmerInfoLogMapper.updateMergeFarmerInfoLog(farmerInfoLogVO);
 	}
 
 	@Override
