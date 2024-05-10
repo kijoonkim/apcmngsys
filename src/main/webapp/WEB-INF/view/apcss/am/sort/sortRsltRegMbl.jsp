@@ -4072,7 +4072,8 @@ input::-webkit-inner-spin-button {
 				SBUxMethod.set("dtl-inp-vrtyNm", vrtyCd),
 				SBUxMethod.set("dtl-inp-prdcrCd", sort.rprsPrdcr),
 				SBUxMethod.set("dtl-inp-prdcrNm", sort.rprsPrdcrNm),
-				SBUxMethod.set("dtl-lbl-warehouseSeNm", sort.warehouseSeCd)
+				SBUxMethod.set("dtl-lbl-warehouseSeNm", sort.warehouseSeCd),
+		        SBUxMethod.set("dtl-dtp-inptYmd", sort.inptYmd)
 		]);
 
 
