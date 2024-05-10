@@ -254,6 +254,9 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
     	
 		return resultVO;
 	}
+    
+    
+    
 
 	@Override
 	public int insertSortBffa(SortBffaVO sortBffaVO) throws Exception {
@@ -344,4 +347,11 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
         
         return resultVO;
     }
+
+	@Override
+	public List<HashMap<String, Object>> selectBffaGrdTot(HashMap<String, Object> exhstDsctn) throws Exception {
+		List<HashMap<String, Object>> resultVO = sortPrfmncMapper.selectBffaGrdTot(exhstDsctn);
+		
+		return resultVO;
+	}
 }

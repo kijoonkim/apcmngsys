@@ -160,6 +160,13 @@ public interface SortPrfmncService {
 	 */
 	public List<HashMap<String, Object>> selectGrdDsctn(HashMap<String, Object> exhstDsctn) throws Exception;
 	/**
+	 * 육안판정등급 집계
+	 * @param HashMap
+	 * @return
+	 * @throws Exception
+	 */
+	public List<HashMap<String, Object>> selectBffaGrdTot(HashMap<String, Object> exhstDsctn) throws Exception;
+	/**
 	 * 사전선별 등록
 	 *
 	 * @param sortBffaVO

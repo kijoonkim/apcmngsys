@@ -161,6 +161,14 @@ public interface SortPrfmncMapper {
      * @throws Exception
      */
     public List<HashMap<String, Object>> selectGrdDsctn(HashMap<String, Object> exhstDsctn) throws Exception;
+    
+    /**
+     * 육안판정등급조회
+     * @param sortPrfmncVO
+     * @return
+     * @throws Exception
+     */
+    public List<HashMap<String, Object>> selectBffaGrdTot(HashMap<String, Object> exhstDsctn) throws Exception;
 
 	/**
 	 * 육안선별 목록 조회
