@@ -84,7 +84,7 @@ async function gfnma_setComSelect(_targetIds, _jsondataRef, _bizcompid, _wherecl
 			}
 			_jsondataRef.push(cdVl);
 	});
-	console.log('_jsondataRef:', _jsondataRef);
+	//console.log('_jsondataRef:', _jsondataRef);
 
 	if (Array.isArray(_targetIds)) {
 

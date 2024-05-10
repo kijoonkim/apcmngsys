@@ -125,7 +125,7 @@ public class FarmLandInfoController extends BaseController{
 						if(node.getNodeType() == Node.ELEMENT_NODE) { // 노드의 타입이 Element일 경우(공백이 아닌 경우)
 							Element element = (Element) node;
 							String frmerno = getValue("frmerSn", element);
-							String mngmstRegNo = getValue("bzobRgno", element);
+							String mngmstRegno = getValue("bzobRgno", element);
 							String frlnSn = getValue("frlndSn", element);
 							String stdgcd = getValue("legaldongCode", element);
 							String frlnAddr = getValue("frlndAdres", element);
@@ -149,7 +149,7 @@ public class FarmLandInfoController extends BaseController{
 							String frlnarea = getValue("ctvtAr", element);
 							String ldgrSeCd = getValue("ldgrDvcd", element);
 
-							nodeVo.setMngmstRegNo(mngmstRegNo);
+							nodeVo.setMngmstRegno(mngmstRegno);
 							nodeVo.setFrlnType(frlnType);
 							nodeVo.setCprtnFrlnyn(cprtnFrlnyn);
 							nodeVo.setFrlnarea(frlnarea);
@@ -184,7 +184,7 @@ public class FarmLandInfoController extends BaseController{
 							logger.debug("@@@@@@@@@@@@@@@@@@@@@nodeVo.toString()@@@@@@@@@@@@@@@@@@@@@@@");
 							logger.debug(nodeVo.toString());
 
-							savedCnt = farmLandInfoService.insertMegerFarmLandInfo(nodeVo);
+							savedCnt = farmLandInfoService.insertMergeFarmLandInfo(nodeVo);
 							result = farmLandInfoService.insertLogFarmLandInfo(nodeVo);
 						} else {
 							logger.debug("공백 입니다.@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");

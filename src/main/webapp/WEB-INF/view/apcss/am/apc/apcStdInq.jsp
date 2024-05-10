@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -307,7 +306,7 @@
 						<div id="sb-area-grdPrdcr" style="height:200px;"></div>
 					</div>
 
-					<div class="col-sm-4">
+					<div class="col-sm-8">
 						<div class="ad_tbl_top" style="margin-bottom: 10px;">
 							<ul class="ad_tbl_count">
 								<li>
@@ -327,27 +326,6 @@
 							</div>
 						</div>
 						<div id="sb-area-grdPltBx" style="height:200px;"></div>
-					</div>
-					<div class="col-sm-4">
-						<div class="ad_tbl_top" style="margin-bottom: 10px;">
-							<ul class="ad_tbl_count">
-								<li>
-									<span style="font-size:12px">거래처</span>
-								</li>
-							</ul>
-							<div class="ad_tbl_toplist">
-								<sbux-button
-									id="btnSaveCnpt"
-									name="btnSaveCnpt"
-									uitype="normal"
-									class="btn btn-sm btn-outline-danger"
-									text="저장"
-									value="Cnpt"
-									onclick="fn_saveCnptData();"
-								></sbux-button>
-							</div>
-						</div>
-						<div id="sb-area-grdCnpt" style="height:200px;"></div>
 					</div>
 				</div>
 
@@ -394,8 +372,31 @@
 							</div>
 						</div>
 						<div id="sb-area-grdTrsprtCo" style="height:120px;"></div>
-					</div>
+					</div>					
 					<div class="col-sm-4">
+						<div class="ad_tbl_top" style="margin-bottom: 10px;">
+							<ul class="ad_tbl_count">
+								<li>
+									<span style="font-size:12px">거래처</span>
+								</li>
+							</ul>
+							<div class="ad_tbl_toplist">
+								<sbux-button
+									id="btnSaveCnpt"
+									name="btnSaveCnpt"
+									uitype="normal"
+									class="btn btn-sm btn-outline-danger"
+									text="저장"
+									value="Cnpt"
+									onclick="fn_saveCnptData();"
+								></sbux-button>
+							</div>
+						</div>
+						<div id="sb-area-grdCnpt" style="height:120px;"></div>
+					</div>					
+				</div>
+				<div class="row">
+					<div class="col-sm-6">
 						<div class="ad_tbl_top" style="margin-bottom: 10px;">
 							<ul class="ad_tbl_count">
 								<li>
@@ -414,9 +415,31 @@
 								></sbux-button>
 							</div>
 						</div>
-						<div id="sb-area-grdApcLinkTrsmMat" style="height:120px;"></div>
+						<div id="sb-area-grdApcLinkTrsmMat" style="height:200px;"></div>
+					</div>
+					<div class="col-sm-6">
+						<div class="ad_tbl_top" style="margin-bottom: 10px;">
+							<ul class="ad_tbl_count">
+								<li>
+									<span style="font-size:12px">연계Agent 기능</span>
+								</li>
+							</ul>
+							<div class="ad_tbl_toplist">
+								<sbux-button
+									id="btnSaveApcLinkTrsmKnd"
+									name="btnSaveApcLinkTrsmKnd"
+									uitype="normal"
+									class="btn btn-sm btn-outline-danger"
+									text="저장"
+									value="TrsmKnd"
+									onclick="fn_saveApcLinkTrsmKndData()"
+								></sbux-button>
+							</div>
+						</div>
+						<div id="sb-area-grdApcLinkTrsmKnd" style="height:200px;"></div>
 					</div>
 				</div>
+				
 			</div>
 		</div>
 	</section>
@@ -429,6 +452,9 @@
 		//grdMdRtlOgnz.setRowStyles(9, 'background-color: #CEEBFF; font-weight: bold; color: #0060b3', 'all', true);
 	}
 
+	var jsonComUseYn = [{cdVl: 'Y', cdVlNm:'사용'}, {cdVl: 'N', cdVlNm:' '}];
+	var jsonLinkKnd = [];
+	
 	window.addEventListener('DOMContentLoaded', async function(e) {
 
 		fn_init();
@@ -438,10 +464,16 @@
 	const fn_init = async function() {
 
 		SBUxMethod.set("dtl-inp-apcCd", gv_selectedApcCd);
-
+		
+		await fn_setComCd();
+		
 		fn_cellCreateApcCrtrInfoGrid();
 
 		fn_search();
+	}
+	
+	const fn_setComCd = async function() {
+		jsonLinkKnd = await gfn_getComCdDtls("LINK_KND");
 	}
 
 
@@ -480,6 +512,8 @@
 		fn_createCnptGrid();
 		// 연계Agent
 		fn_createApcLinkTrsmMat();
+		// 연계Agent 기능
+		fn_createApcLinkTrsmKnd();
 	}
 
 	//그리드 id, 그리드 json
@@ -554,6 +588,9 @@
 	// 연계Agent
 	var grdApcLinkTrsmMat;
 	var jsonApcLinkTrsmMat = [];
+	// 연계Agent 기능
+	var grdApcLinkTrsmKnd;
+	var jsonApcLinkTrsmKnd = [];
 
 	const fn_createWrhsSeGrid = function() {
 	    var SBGridProperties = {};
@@ -904,6 +941,79 @@
 	    grdApcLinkTrsmMat = _SBGrid.create(SBGridProperties);
 	}
 	
+	const fn_createApcLinkTrsmKnd = function() {
+	    var SBGridProperties = {};
+	    SBGridProperties.parentid = 'sb-area-grdApcLinkTrsmKnd';
+	    SBGridProperties.id = 'grdApcLinkTrsmKnd';
+	    SBGridProperties.jsonref = 'jsonApcLinkTrsmKnd';
+	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
+	    SBGridProperties.selectmode = 'free';
+	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.allowcopy = true;
+	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.columns = [
+	    	{
+            	caption: ["처리"],
+            	ref: 'delYn',
+            	type:'button',
+            	width:'10%',
+            	style:'text-align:center',
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+            		if (strValue== null || strValue == ""){
+            			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_addRowTrsmKnd(" + nRow + ")'>추가</button>";
+            		} else {
+			        	return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRowTrsmKnd(" + nRow + ")'>삭제</button>";
+            		}
+		    	}
+            },
+	    	{
+	    		caption: ["Agent"],	
+	    		ref: 'trsmMatId',		
+	    		type:'combo',  
+	    		width:'30%',   
+	    		style:'text-align:center;',
+	    		typeinfo : {
+	    			ref:'jsonApcLinkTrsmMat', 
+	    			label:'trsmMatNm', 
+	    			value:'trsmMatId', 
+	    			displayui : false, 
+	    			oneclickedit: true
+	    		},
+    		},
+    		{
+	    		caption: ["실적구분"],	
+	    		ref: 'linkKnd',		
+	    		type:'combo',  
+	    		width:'40%',   
+	    		style:'text-align:center;',
+	    		typeinfo : {
+	    			ref:'jsonLinkKnd', 
+	    			label:'cdVlNm', 
+	    			value:'cdVl', 
+	    			displayui : false, 
+	    			oneclickedit: true
+	    		},
+    		},
+    		{
+	    		caption: ["사용여부"],	
+	    		ref: 'linkUseYn',		
+	    		type:'combo',  
+	    		width:'20%',   
+	    		style:'text-align:center;',
+	    		typeinfo : {
+	    			ref:'jsonComUseYn', 
+	    			label:'cdVlNm', 
+	    			value:'cdVl', 
+	    			displayui : false, 
+	    			oneclickedit: true
+	    		},
+    		},    		
+	    	{caption : ["APC코드"],  ref: 'apcCd',  	type:'output', hidden : true},
+	    ];
+	    grdApcLinkTrsmKnd = _SBGrid.create(SBGridProperties);
+	}
+	
+	
 	const fn_search = async function () {
 		let result = await Promise.all([
 				fn_setGrdWrhsSe(),
@@ -922,8 +1032,9 @@
 				fn_setGrdVhclInfo(),
 				fn_setGrdTrsprtCo(),
 				fn_setGrdCnpt(),
-				fn_setGrdApcLinkTrsmMat()
+				fn_setGrdApcLinkTrsmMat(),
 			]);
+		await fn_setGrdApcLinkTrsmKnd();
 	}
 
 	const fn_dwnld = async function(){
@@ -1662,6 +1773,56 @@
 		}
 	}
 	
+	// 연계기기 종류
+	const fn_setGrdApcLinkTrsmKnd = async function() {
+		
+		const param = {
+			apcCd: gv_selectedApcCd,
+			delYn: 'N'
+		}
+		
+		jsonApcLinkTrsmKnd.length = 0;
+		
+		try {
+			const postJsonPromise = gfn_postJSON(
+						"/am/apc/selectApcLinkTrsmMatSttsList.do",
+						param,
+						null,
+						true
+					);
+	        const data = await postJsonPromise;
+	        data.resultList.forEach((item, index) => {
+	        	item.delYn = "N";
+	        	jsonApcLinkTrsmKnd.push(item);
+	        });
+
+	        grdApcLinkTrsmKnd.rebuild();
+	        grdApcLinkTrsmKnd.setCellDisabled(
+	        		0, 
+	        		0, 
+	        		grdApcLinkTrsmKnd.getRows() -1, 
+	        		2, 
+	        		true
+        		);
+	        
+	        grdApcLinkTrsmKnd.addRow();
+	        grdApcLinkTrsmKnd.setCellDisabled(
+	        			grdApcLinkTrsmKnd.getRows() -1, 
+		        		0, 
+		        		grdApcLinkTrsmKnd.getRows() -1, 
+		        		grdApcLinkTrsmKnd.getCols() -1, 
+		        		true
+	        		);
+
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+ 			//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
+	}
+	
 	const fn_saveApcLinkTrsmMatData = async function() {
 		
 		const allData = grdApcLinkTrsmMat.getGridDataAll();
@@ -1720,7 +1881,79 @@
 
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-        		fn_setGrdApcLinkTrsmMat();
+        		await fn_setGrdApcLinkTrsmMat();
+        		fn_setGrdApcLinkTrsmKnd();
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch(e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+	}
+	
+	const fn_saveApcLinkTrsmKndData = async function() {
+		
+		const allData = grdApcLinkTrsmKnd.getGridDataAll();
+		const trsmKndList = [];
+		
+		for (let i=0; i<allData.length; i++) {
+			
+			const rowData = allData[i];
+			
+			if (!_.isEqual('N', rowData.delYn)) {
+				continue;	
+			}
+				
+			if (gfn_isEmpty(rowData.trsmMatId)) {
+				gfn_comAlert("W0002", "Agent");		//	W0002	{0}을/를 입력하세요.
+	            return;
+			}
+			
+			if (gfn_isEmpty(rowData.linkKnd)) {
+				gfn_comAlert("W0002", "실적구분");		//	W0002	{0}을/를 입력하세요.
+	            return;
+			}
+			
+			trsmKndList.push(rowData);
+		}
+		
+		if (trsmKndList.length == 0) {
+			gfn_comAlert("W0005", "저장할 정보");		//	W0005	{0}이/가 없습니다.
+			return;
+		}
+		
+		try {
+    		const postJsonPromise = gfn_postJSON("/am/apc/insertApcLinkTrsmKndList.do", trsmKndList);
+			const data = await postJsonPromise;
+
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_setGrdApcLinkTrsmKnd();
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch(e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+	}
+	
+	const fn_deleteApcLinkTrsmKnd = async function(_trsmKnd) {
+		
+		try {
+    		const postJsonPromise = gfn_postJSON("/am/apc/deleteApcLinkTrsmKnd.do", _trsmKnd);
+			const data = await postJsonPromise;
+
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_setGrdApcLinkTrsmKnd();
         	} else {
         		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
         	}
@@ -1773,6 +2006,46 @@
     	}
 	}
 	
+	const fn_addRowTrsmKnd = function(nRow) {
+		
+		const row = grdApcLinkTrsmKnd.getRowData(nRow, false);
+		row.delYn = "N";
+		row.linkUseYn = "Y";
+		row.apcCd = gv_selectedApcCd;
+		grdApcLinkTrsmKnd.addRow(true);
+
+		grdApcLinkTrsmKnd.setCellDisabled(
+	    			0, 
+	    			0, 
+	    			grdApcLinkTrsmKnd.getRows() -1, 
+	    			grdApcLinkTrsmKnd.getCols() -1, 
+	    			false
+    			);
+		grdApcLinkTrsmKnd.setCellDisabled(
+					grdApcLinkTrsmKnd.getRows() -1, 
+	    			0, 
+	    			grdApcLinkTrsmKnd.getRows() -1, 
+	    			grdApcLinkTrsmKnd.getCols() -1, 
+    				true
+    			);
+	}
+	
+	const fn_delRowTrsmKnd = async function(nRow) {
+		
+		const rowStatus = grdApcLinkTrsmKnd.getRowStatus(nRow);
+		
+		if (rowStatus == 0 || rowStatus == 2) {
+			if (!gfn_comConfirm("Q0002", "등록된 정보", "삭제")) {	// Q0002	{0}이/가 있습니다. {1} 하시겠습니까?
+				return;
+			}
+
+			const trsmKnd = grdApcLinkTrsmKnd.getRowData(nRow);
+			await fn_deleteApcLinkTrsmKnd(trsmKnd);
+
+    	} else {
+    		grdApcLinkTrsmKnd.deleteRow(nRow);
+    	}
+	}
 	
 	/**
 	 *

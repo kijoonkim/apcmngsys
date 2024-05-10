@@ -6,7 +6,7 @@ import com.at.apcss.fm.farm.vo.FarmLandInfoVO;
 
 
 /**
- * 평가등록결과 Service 인터페이스
+ * 농지 정보 연계 Service 인터페이스
  * @author 김동제
  * @since 2023.10.01
  * @version 1.0
@@ -37,7 +37,7 @@ public interface FarmLandInfoService {
 
 	public int multiSaveFarmLandInfoList(List<FarmLandInfoVO> farmLandInfoVOList) throws Exception;
 
-	public int insertMegerFarmLandInfo(FarmLandInfoVO farmLandInfoVOList) throws Exception;
+	public int insertMergeFarmLandInfo(FarmLandInfoVO farmLandInfoVOList) throws Exception;
 
 	public int insertLogFarmLandInfo(FarmLandInfoVO farmLandInfoVOList) throws Exception;
 

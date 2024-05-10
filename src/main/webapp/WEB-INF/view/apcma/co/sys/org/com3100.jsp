@@ -69,13 +69,13 @@
                         <tr>
                             <th scope="row" class="th_bg">국가코드</th>
                             <td colspan="" class="td_input" style="border-right:hidden;">
-                                <sbux-input id="srch-nation-code" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="SRCH_NATION_CODE" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
                             </td>
                             <td style="border-right: hidden;">&nbsp;</td>
                             <td style="border-right: hidden;">&nbsp;</td>
                             <th scope="row" class="th_bg">국가명</th>
                             <td class="td_input" style="border-right:hidden;">
-                                <sbux-input id="srch-nation-name" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="SRCH_NATION_NAME" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
                             </td>
                             <td style="border-right: hidden;">&nbsp;</td>
                             <td style="border-right: hidden;">&nbsp;</td>
@@ -117,57 +117,57 @@
                                 <tr>
                                     <th scope="row" class="th_bg">국가코드</th>
                                     <td colspan="3" class="td_input">
-                                        <sbux-input id="dtl-input-nationCode" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="NATION_CODE" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg">국가약어</th>
                                     <td colspan="3" class="td_input">
-                                        <sbux-input id="dtl-input-nationCodeAbbr" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="NATION_CODE_ABBR" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg">국가약식명</th>
                                     <td colspan="3" class="td_input">
-                                        <sbux-input id="dtl-input-nationName" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="NATION_NAME" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg">국가정식명</th>
                                     <td colspan="3" class="td_input">
-                                        <sbux-input id="dtl-input-nationFullName" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="NATION_FULL_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg">국가정식명(한글)</th>
                                     <td colspan="3" class="td_input">
-                                        <sbux-input id="dtl-input-nationFullNameChn" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="NATION_FULL_NAME_CHN" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg">지역</th>
                                     <td scope="row" class="th_bg">
-                                        <sbux-select id="dtl-select-regionCode" uitype="single" jsondata-ref="jsonRegionCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                        <sbux-select id="REGION_CODE" uitype="single" jsondata-ref="jsonRegionCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
                                     </td>
                                     <th scope="row" class="th_bg">통화</th>
                                     <td scope="row" class="th_bg">
-                                        <sbux-select id="dtl-select-currencyCode" uitype="single" jsondata-ref="jsonCurrenvyCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                        <sbux-select id="CURRENCY_CODE" uitype="single" jsondata-ref="jsonCurrenvyCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg">비고</th>
                                     <td scope="row" class="th_bg">
-                                        <sbux-input id="dtl-input-memo" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="MEMO" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">정렬순서</th>
                                     <td scope="row" class="th_bg">
-                                        <sbux-input id="dtl-input-sortSeq" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="SORT_SEQ" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg">사용여부</th>
                                     <td scope="row" class="th_bg">
-                                        <sbux-select id="dtl-input-useYn" uitype="single" jsondata-ref="jsonUseYn" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                        <sbux-select id="USE_YN" uitype="single" jsondata-ref="jsonUserYnCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
                                     </td>
                                     <th scope="row" class="th_bg"></th>
                                     <td scope="row" class="th_bg">
@@ -192,7 +192,7 @@
 	
 	var jsonRegionCode		= [];	// 지역
 	var jsonCurrenvyCode	= [];	// 통화
-	var jsonUseYn			= [
+	var jsonUserYnCode		= [
 		{value: 'Y', label: '사용', text: '사용'},
 		{value: 'N', label: '불가',	text: '불가'}
 	];	// 지역
@@ -200,9 +200,9 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//지역
-			gfnma_setComSelect(['NationInGrid','dtl-select-regionCode'], jsonRegionCode, 'L_COM002', '', '', 'subCode', 'codeName', 'Y', ''),
+			gfnma_setComSelect(['NationInGrid','REGION_CODE'], jsonRegionCode, 'L_COM002', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//통화
-			gfnma_setComSelect(['NationInGrid','dtl-select-currencyCode'], jsonCurrenvyCode, 'L_COM001', '', '', 'currencyCode', 'currencyName', 'Y', ''),
+			gfnma_setComSelect(['NationInGrid','CURRENCY_CODE'], jsonCurrenvyCode, 'L_COM001', '', '', 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
 		]);
 	}	
 
@@ -238,12 +238,12 @@
 		  	'showgoalpageui': true
 	    };
         SBGridProperties.columns = [
-            {caption: ["국가코드"],			ref: 'nationCode', 			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["국가약어"], 		ref: 'nationCodeAbbr',    	type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["국가약식명"],  		ref: 'nationName',    		type:'output',  	width:'200px',  	style:'text-align:left'},
-            {caption: ["국가정식명"],      	ref: 'nationFullName', 		type:'output',  	width:'200px',  	style:'text-align:left'},
-            {caption: ["국가정식명(한글)"],	ref: 'nationFullNameChn',   type:'output',  	width:'200px',  	style:'text-align:left'},
-            {caption: ["지역"],				ref: 'regionCode', 			type:'combo',  		width:'100px',  	style:'text-align:left', disabled: true,
+            {caption: ["국가코드"],			ref: 'NATION_CODE', 			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["국가약어"], 		ref: 'NATION_CODE_ABBR',    	type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["국가약식명"],  		ref: 'NATION_NAME',    			type:'output',  	width:'200px',  	style:'text-align:left'},
+            {caption: ["국가정식명"],      	ref: 'NATION_FULL_NAME', 		type:'output',  	width:'200px',  	style:'text-align:left'},
+            {caption: ["국가정식명(한글)"],	ref: 'NATION_FULL_NAME_CHN',	type:'output',  	width:'200px',  	style:'text-align:left'},
+            {caption: ["지역"],				ref: 'REGION_CODE', 			type:'combo',  		width:'100px',  	style:'text-align:left', disabled: true,
             	typeinfo: {
 					ref			: 'jsonRegionCode',
 					label		: 'label',
@@ -251,7 +251,7 @@
 					itemcount	: 10
             	}
             },
-            {caption: ["통화"],				ref: 'currencyCode',   		type:'output',  	width:'100px',  	style:'text-align:left', disabled: true,
+            {caption: ["통화"],				ref: 'CURRENCY_CODE',   		type:'combo',  		width:'100px',  	style:'text-align:left', disabled: true,
             	typeinfo: {
 					ref			: 'jsonCurrenvyCode',
 					label		: 'label',
@@ -259,9 +259,9 @@
 					itemcount	: 10
             	}
             },
-            {caption: ["비고"], 			ref: 'memo', 				type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["정렬순서"], 		ref: 'sortSeq',  			type:'output',  	width:'100px',  	style:'text-align:left'},
-        	{caption: ["사용여부"], 		ref: 'useYn', 				type:'output',		width:'80px',		style:'text-align:center'}
+            {caption: ["비고"], 			ref: 'MEMO', 				type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["정렬순서"], 		ref: 'SORT_SEQ',  			type:'output',  	width:'100px',  	style:'text-align:left'},
+        	{caption: ["사용여부"], 		ref: 'USE_YN', 				type:'output',		width:'80px',		style:'text-align:center'}
         ];
 
         NationInGrid = _SBGrid.create(SBGridProperties);
@@ -303,21 +303,21 @@
 
 		NationInGrid.clearStatus();
 
-		let nationCode 	= gfnma_nvl(SBUxMethod.get("srch-nation-code"));
-		let nationName	= gfnma_nvl(SBUxMethod.get("srch-nation-name"));
+		let NATION_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_NATION_CODE"));
+		let NATION_NAME	= gfnma_nvl(SBUxMethod.get("SRCH_NATION_NAME"));
 		
 	    var paramObj = { 
-			v_p_debug_mode_yn	: 'N'
-			,v_p_lang_id		: 'KOR'
-			,v_p_comp_code		: '1000'
-			,v_p_client_code	: ''
-			,v_p_nation_code	: nationCode
-			,v_p_nation_name	: nationName
-			,v_p_form_id		: ''
-			,v_p_menu_id		: ''
-			,v_p_proc_id		: ''
-			,v_p_userid			: ''
-			,v_p_pc				: '' 
+			V_P_DEBUG_MODE_YN	: 'N'
+			,V_P_LANG_ID		: 'KOR'
+			,V_P_COMP_CODE		: '1000'
+			,V_P_CLIENT_CODE	: ''
+			,V_P_NATION_CODE	: NATION_CODE
+			,V_P_NATION_NAME	: NATION_NAME
+			,V_P_FORM_ID		: ''
+			,V_P_MENU_ID		: ''
+			,V_P_PROC_ID		: ''
+			,V_P_USERID			: ''
+			,V_P_PC				: '' 
 	    };		
 
         const postJsonPromise = gfn_postJSON("/co/sys/org/selectCom3100List.do", {
@@ -338,16 +338,16 @@
   	        	jsonNationList.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-  						nationCode				: item.nationCode,
-  						nationCodeAbbr			: item.nationCodeAbbr,
-  						nationName				: item.nationName,
-  						nationFullName			: item.nationFullName,
-  						nationFullNameChn		: item.nationFullNameChn,
-  						regionCode				: item.regionCode,
-  						currencyCode			: item.currencyCode,
-  						memo					: item.memo,
-  						sortSeq					: item.sortSeq,
-  						useYn 					: item.useYn
+  						NATION_CODE				: item.NATION_CODE,
+  						NATION_CODE_ABBR		: item.NATION_CODE_ABBR,
+  						NATION_NAME				: item.NATION_NAME,
+  						NATION_FULL_NAME		: item.NATION_FULL_NAME,
+  						NATION_FULL_NAME_CHN	: item.NATION_FULL_NAME_CHN,
+  						REGION_CODE				: item.REGION_CODE,
+  						CURRENCY_CODE			: item.CURRENCY_CODE,
+  						MEMO					: item.MEMO,
+  						SORT_SEQ				: item.SORT_SEQ,
+  						USE_YN 					: item.USE_YN
   					}
   					jsonNationList.push(msg);
   					totalRecordCount ++;
@@ -375,78 +375,78 @@
     	
     	editType = "N";    	
     	
-    	SBUxMethod.set("dtl-input-nationCode", 			"");
-    	SBUxMethod.set("dtl-input-nationCodeAbbr", 		"");
-        SBUxMethod.set("dtl-input-nationName", 			"");
-        SBUxMethod.set("dtl-input-nationFullName", 		"");
-        SBUxMethod.set("dtl-input-nationFullNameChn", 	"");
+    	SBUxMethod.set("NATION_CODE", 			"");
+    	SBUxMethod.set("NATION_CODE_ABBR", 		"");
+        SBUxMethod.set("NATION_NAME", 			"");
+        SBUxMethod.set("NATION_FULL_NAME", 		"");
+        SBUxMethod.set("NATION_FULL_NAME_CHN", 	"");
         
-        SBUxMethod.set("dtl-select-regionCode", 		"");
-        SBUxMethod.set("dtl-select-currencyCode", 		"");
+        SBUxMethod.set("REGION_CODE", 			"");
+        SBUxMethod.set("CURRENCY_CODE", 		"");
         
-        SBUxMethod.set("dtl-input-memo", 				"");
-        SBUxMethod.set("dtl-input-sortSeq", 			"");
-        SBUxMethod.set("dtl-input-useYn", 				"");
+        SBUxMethod.set("MEMO", 					"");
+        SBUxMethod.set("SORT_SEQ", 				"");
+        SBUxMethod.set("USE_YN", 				"");
     }
 
     const fn_clearForm = function() {
-    	SBUxMethod.set("dtl-input-nationCode", 			"");
-    	SBUxMethod.set("dtl-input-nationCodeAbbr", 		"");
-        SBUxMethod.set("dtl-input-nationName", 			"");
-        SBUxMethod.set("dtl-input-nationFullName", 		"");
-        SBUxMethod.set("dtl-input-nationFullNameChn", 	"");
+    	SBUxMethod.set("NATION_CODE", 			"");
+    	SBUxMethod.set("NATION_CODE_ABBR", 		"");
+        SBUxMethod.set("NATION_NAME", 			"");
+        SBUxMethod.set("NATION_FULL_NAME", 		"");
+        SBUxMethod.set("NATION_FULL_NAME_CHN", 	"");
         
-        SBUxMethod.set("dtl-select-regionCode", 		"");
-        SBUxMethod.set("dtl-select-currencyCode", 		"");
+        SBUxMethod.set("REGION_CODE", 			"");
+        SBUxMethod.set("CURRENCY_CODE", 		"");
         
-        SBUxMethod.set("dtl-input-memo", 				"");
-        SBUxMethod.set("dtl-input-sortSeq", 			"");
-        SBUxMethod.set("dtl-input-useYn", 				"");
+        SBUxMethod.set("MEMO", 					"");
+        SBUxMethod.set("SORT_SEQ", 				"");
+        SBUxMethod.set("USE_YN", 				"");
     }
 
     //저장
     const fn_save = async function() {
 
-    	let nationCode 			= gfnma_nvl(SBUxMethod.get("dtl-input-nationCode"));
-    	let nationCodeAbbr 		= gfnma_nvl(SBUxMethod.get("dtl-input-nationCodeAbbr"));
-    	let nationName 			= gfnma_nvl(SBUxMethod.get("dtl-input-nationName"));
-    	let nationFullName		= gfnma_nvl(SBUxMethod.get("dtl-input-nationFullName"));
-    	let nationFullNameChn	= gfnma_nvl(SBUxMethod.get("dtl-input-nationFullNameChn"));
-    	let regionCode 			= gfnma_nvl(SBUxMethod.get("dtl-select-regionCode"));
-    	let currencyCode		= gfnma_nvl(SBUxMethod.get("dtl-select-currencyCode"));
-    	let memo 				= gfnma_nvl(SBUxMethod.get("dtl-input-memo"));
-    	let sortSeq 			= gfnma_nvl(SBUxMethod.get("dtl-input-sortSeq"));
-    	let useYn 				= gfnma_nvl(SBUxMethod.get("dtl-input-useYn"));
+    	let NATION_CODE 			= gfnma_nvl(SBUxMethod.get("NATION_CODE"));
+    	let NATION_CODE_ABBR		= gfnma_nvl(SBUxMethod.get("NATION_CODE_ABBR"));
+    	let NATION_NAME 			= gfnma_nvl(SBUxMethod.get("NATION_NAME"));
+    	let NATION_FULL_NAME		= gfnma_nvl(SBUxMethod.get("NATION_FULL_NAME"));
+    	let NATION_FULL_NAME_CHN	= gfnma_nvl(SBUxMethod.get("NATION_FULL_NAME_CHN"));
+    	let REGION_CODE 			= gfnma_nvl(SBUxMethod.get("REGION_CODE"));
+    	let CURRENCY_CODE			= gfnma_nvl(SBUxMethod.get("CURRENCY_CODE"));
+    	let MEMO 					= gfnma_nvl(SBUxMethod.get("MEMO"));
+    	let SORT_SEQ 				= gfnma_nvl(SBUxMethod.get("SORT_SEQ"));
+    	let USE_YN 					= gfnma_nvl(SBUxMethod.get("USE_YN"));
 
-    	if (!nationCode) {
+    	if (!NATION_CODE) {
             gfn_comAlert("W0002", "국가코드");
             return;
         }
-    	if (!nationName) {
+    	if (!NATION_NAME) {
             gfn_comAlert("W0002", "국가약식명");
             return;
         }
-    	if (!nationFullName) {
+    	if (!NATION_FULL_NAME) {
             gfn_comAlert("W0002", "국가정식명");
             return;
         }
-    	if (!nationFullNameChn) {
+    	if (!NATION_FULL_NAME_CHN) {
             gfn_comAlert("W0002", "국가정식명(한글)");
             return;
         }
-    	if (!regionCode) {
+    	if (!REGION_CODE) {
             gfn_comAlert("W0002", "지역");
             return;
         }
-    	if (!currencyCode) {
+    	if (!CURRENCY_CODE) {
             gfn_comAlert("W0002", "통화");
             return;
         }
-    	if (!sortSeq) {
+    	if (!SORT_SEQ) {
             gfn_comAlert("W0002", "정렬순서");
             return;
         }
-    	if (!useYn) {
+    	if (!USE_YN) {
             gfn_comAlert("W0002", "사용여부");
             return;
         }
@@ -455,16 +455,16 @@
     		// 신규 등록
     		if(gfn_comConfirm("Q0001", "신규 등록")){
     			var obj = {
-   			    	nationCode			: nationCode
-   			    	,nationName			: nationName
-   			    	,nationFullName		: nationFullName
-   			    	,nationFullNameChn	: nationFullNameChn
-   			    	,nationCodeAbbr 	: nationCodeAbbr
-   			    	,regionCode 		: regionCode
-   			    	,currencyCode		: currencyCode
-   			    	,memo 				: memo
-   			    	,sortSeq 			: sortSeq
-   			    	,useYn 				: useYn
+   			    	NATION_CODE				: NATION_CODE
+   			    	,NATION_NAME			: NATION_NAME
+   			    	,NATION_FULL_NAME		: NATION_FULL_NAME
+   			    	,NATION_FULL_NAME_CHN	: NATION_FULL_NAME_CHN
+   			    	,NATION_CODE_ABBR 		: NATION_CODE_ABBR
+   			    	,REGION_CODE 			: REGION_CODE
+   			    	,CURRENCY_CODE			: CURRENCY_CODE
+   			    	,MEMO 					: MEMO
+   			    	,SORT_SEQ 				: SORT_SEQ
+   			    	,USE_YN 				: USE_YN
     			}
 				fn_subInsert(obj);
     		} 
@@ -472,16 +472,16 @@
     		// 수정 저장
     		if(gfn_comConfirm("Q0001", "수정 저장")){
     			var obj = {
-   			    	nationCode			: nationCode
-   			    	,nationName			: nationName
-   			    	,nationFullName		: nationFullName
-   			    	,nationFullNameChn	: nationFullNameChn
-   			    	,nationCodeAbbr 	: nationCodeAbbr
-   			    	,regionCode 		: regionCode
-   			    	,currencyCode		: currencyCode
-   			    	,memo 				: memo
-   			    	,sortSeq 			: sortSeq
-   			    	,useYn 				: useYn
+   			    	NATION_CODE				: NATION_CODE
+   			    	,NATION_NAME			: NATION_NAME
+   			    	,NATION_FULL_NAME		: NATION_FULL_NAME
+   			    	,NATION_FULL_NAME_CHN	: NATION_FULL_NAME_CHN
+   			    	,NATION_CODE_ABBR 		: NATION_CODE_ABBR
+   			    	,REGION_CODE 			: REGION_CODE
+   			    	,CURRENCY_CODE			: CURRENCY_CODE
+   			    	,MEMO 					: MEMO
+   			    	,SORT_SEQ 				: SORT_SEQ
+   			    	,USE_YN 				: USE_YN
     			}
     			fn_subUpdate(obj);
     		} 
@@ -495,25 +495,25 @@
     const fn_subInsert = async function (obj){
 
  	    var paramObj = { 
-			v_p_debug_mode_yn			: ''
-			,v_p_lang_id				: 'KOR'
-			,v_p_comp_code				: ''
-			,v_p_client_code			: ''
-			,v_p_nation_code			: obj.nationCode
-			,v_p_nation_name			: obj.nationName
-			,v_p_nation_full_name     	: obj.nationFullName
-			,v_p_nation_full_name_chn	: obj.nationFullNameChn
-			,v_p_nation_code_abbr		: obj.nationCodeAbbr
-			,v_p_region_code			: obj.regionCode
-			,v_p_currency_code			: obj.currencyCode
-			,v_p_memo					: obj.memo
-			,v_p_sort_seq				: obj.sortSeq
-			,v_p_use_yn					: obj.useYn
-			,v_p_form_id				: ''
-			,v_p_menu_id				: ''
-			,v_p_proc_id				: ''
-			,v_p_userid					: ''
-			,v_p_pc						: '' 
+			V_P_DEBUG_MODE_YN			: ''
+			,V_P_LANG_ID				: 'KOR'
+			,V_P_COMP_CODE				: ''
+			,V_P_CLIENT_CODE			: ''
+			,V_P_NATION_CODE			: obj.NATION_CODE
+			,V_P_NATION_NAME			: obj.NATION_NAME
+			,V_P_NATION_FULL_NAME     	: obj.NATION_FULL_NAME
+			,V_P_NATION_FULL_NAME_CHN	: obj.NATION_FULL_NAME_CHN
+			,V_P_NATION_CODE_ABBR		: obj.NATION_CODE_ABBR
+			,V_P_REGION_CODE			: obj.REGION_CODE
+			,V_P_CURRENCY_CODE			: obj.CURRENCY_CODE
+			,V_P_MEMO					: obj.MEMO
+			,V_P_SORT_SEQ				: obj.SORT_SEQ
+			,V_P_USE_YN					: obj.USE_YN
+			,V_P_FORM_ID				: ''
+			,V_P_MENU_ID				: ''
+			,V_P_PROC_ID				: ''
+			,V_P_USERID					: ''
+			,V_P_PC						: '' 
 	    };		
 
         const postJsonPromise = gfn_postJSON("/co/sys/org/insertCom3100.do", {
@@ -548,25 +548,25 @@
 	const fn_subUpdate = async function (obj){
 
   	    var paramObj = { 
-  				v_p_debug_mode_yn			: ''
-  				,v_p_lang_id				: 'KOR'
-  				,v_p_comp_code				: ''
-  				,v_p_client_code			: ''
-  				,v_p_nation_code			: obj.nationCode
-  				,v_p_nation_name			: obj.nationName
-  				,v_p_nation_full_name     	: obj.nationFullName
-  				,v_p_nation_full_name_chn	: obj.nationFullNameChn
-  				,v_p_nation_code_abbr		: obj.nationCodeAbbr
-  				,v_p_region_code			: obj.regionCode
-  				,v_p_currency_code			: obj.currencyCode
-  				,v_p_memo					: obj.memo
-  				,v_p_sort_seq				: obj.sortSeq
-  				,v_p_use_yn					: obj.useYn
-  				,v_p_form_id				: ''
-  				,v_p_menu_id				: ''
-  				,v_p_proc_id				: ''
-  				,v_p_userid					: ''
-  				,v_p_pc						: '' 
+  				V_P_DEBUG_MODE_YN			: ''
+  				,V_P_LANG_ID				: 'KOR'
+  				,V_P_COMP_CODE				: ''
+  				,V_P_CLIENT_CODE			: ''
+  				,V_P_NATION_CODE			: obj.NATION_CODE
+  				,V_P_NATION_NAME			: obj.NATION_NAME
+  				,V_P_NATION_FULL_NAME     	: obj.NATION_FULL_NAME
+  				,V_P_NATION_FULL_NAME_CHN	: obj.NATION_FULL_NAME_CHN
+  				,V_P_NATION_CODE_ABBR		: obj.NATION_CODE_ABBR
+  				,V_P_REGION_CODE			: obj.REGION_CODE
+  				,V_P_CURRENCY_CODE			: obj.CURRENCY_CODE
+  				,V_P_MEMO					: obj.MEMO
+  				,V_P_SORT_SEQ				: obj.SORT_SEQ
+  				,V_P_USE_YN					: obj.USE_YN
+  				,V_P_FORM_ID				: ''
+  				,V_P_MENU_ID				: ''
+  				,V_P_PROC_ID				: ''
+  				,V_P_USERID					: ''
+  				,V_P_PC						: '' 
 	    };		
 
         const postJsonPromise = gfn_postJSON("/co/sys/org/updateCom3100.do", {
@@ -594,7 +594,6 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
-
 
     //선택 삭제
     function fn_delete() {
@@ -627,18 +626,18 @@
 
         let rowData = NationInGrid.getRowData(nRow);
 
-        SBUxMethod.set("dtl-input-nationCode", 			rowData.nationCode);
-        SBUxMethod.set("dtl-input-nationCodeAbbr", 		rowData.nationCodeAbbr);
-        SBUxMethod.set("dtl-input-nationName", 			rowData.nationName);
-        SBUxMethod.set("dtl-input-nationFullName", 		rowData.nationFullName);
-        SBUxMethod.set("dtl-input-nationFullNameChn", 	rowData.nationFullNameChn);
+        SBUxMethod.set("NATION_CODE", 			rowData.NATION_CODE);
+        SBUxMethod.set("NATION_CODE_ABBR", 		rowData.NATION_CODE_ABBR);
+        SBUxMethod.set("NATION_NAME", 			rowData.NATION_NAME);
+        SBUxMethod.set("NATION_FULL_NAME", 		rowData.NATION_FULL_NAME);
+        SBUxMethod.set("NATION_FULL_NAME_CHN", 	rowData.NATION_FULL_NAME_CHN);
         
-        SBUxMethod.set("dtl-select-regionCode", 		rowData.regionCode);
-        SBUxMethod.set("dtl-select-currencyCode", 		rowData.currencyCode);
+        SBUxMethod.set("REGION_CODE", 			rowData.REGION_CODE);
+        SBUxMethod.set("CURRENCY_CODE", 		rowData.CURRENCY_CODE);
         
-        SBUxMethod.set("dtl-input-memo", 				rowData.memo);
-        SBUxMethod.set("dtl-input-sortSeq", 			rowData.sortSeq);
-        SBUxMethod.set("dtl-input-useYn", 				rowData.useYn);
+        SBUxMethod.set("MEMO", 					rowData.MEMO);
+        SBUxMethod.set("SORT_SEQ", 				rowData.SORT_SEQ);
+        SBUxMethod.set("USE_YN", 				rowData.USE_YN);
     }
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

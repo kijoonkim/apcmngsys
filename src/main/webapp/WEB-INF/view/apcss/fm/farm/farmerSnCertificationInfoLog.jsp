@@ -20,9 +20,7 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchFcltList"></sbux-button>
-<!-- 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button> -->
-<!-- 					<sbux-button id="btnSaveFrm" name="btnSaveFrm" uitype="normal" text="연계 등록" class="btn btn-sm btn-outline-danger" onclick="fn_saveFrmerSn"></sbux-button> -->
+					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -34,11 +32,11 @@
 						<tr>
 							<th scope="row">농업인 번호</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-frmerSn" name="srch-inp-frmerSn" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+								<sbux-input id="srch-inp-frmerno" name="srch-inp-frmerno" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 							</td>
 							<th class="th_bg">경영체 등록번호</th>
 							<td class="td_input" style="border-right:hidden;">
-									<sbux-input id="srch-inp-bzobRgno" name="srch-inp-bzobRgno" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+									<sbux-input id="srch-inp-mngmstRegno" name="srch-inp-mngmstRegno" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 							</td>
 							<td colspan="2" style="border-left: hidden;"></td>
 						</tr>
@@ -49,39 +47,25 @@
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
 				<div class="ad_section_top">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">▶사용자 리스트</span>
+								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+							</li>
+						</ul>
+					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdfarmerSnCertificationInfoLog" style="height:600px; width: 100%;"></div>
+					<div id="sb-area-grdFarmerEducationInfoLog" style="height:600px; width: 100%;"></div>
 				</div>
 			</div>
 		</div>
 	</section>
-
-
 </body>
 <script type="text/javascript">
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_init();
-		/*
-		gfn_setComCdSBSelect(
-				'dtl-slt-frstApprv',
-				jsonDSFA,
-			'IOPD_COFM_CD');
-
-		gfn_setComCdSBSelect(
-				'dtl-slt-scndApprv',
-				jsonDSSA,
-			'IOPD_SED_COFM_CD');
-
-		gfn_setComCdSBSelect(
-				'dtl-slt-orgNm',
-				jsonDSON,
-			'IOPD_CMPTNT_ORG');
-
-		gfn_setComCdSBSelect(
-				'dtl-slt-athrt',
-				jsonDSA,
-			'IOPD_ATHRT'); */
 
 		const elements = document.querySelectorAll(".srch-keyup-area");
 
@@ -104,474 +88,154 @@
 		// 검색 SB select
 		let rst = await Promise.all([
 
-			gfn_setComCdSBSelect('dtl-slt-warehouseSeCd', 	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_selectedApcCd),			// 창고
-		 	gfn_setApcItemSBSelect('dtl-slt-itemCd', 		jsonApcItem, gv_selectedApcCd),	// 품목
-			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', 		jsonApcVrty, gv_selectedApcCd),	// 품종
-			gfn_setComCdSBSelect('dtl-rdo-gdsSeCd', 		jsonComGdsSeCd,  	'GDS_SE_CD', gv_selectedApcCd), 		// 상품구분 등록
+			//gfn_setComCdSBSelect('dtl-slt-warehouseSeCd', 	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_selectedApcCd),			// 창고
+			//gfn_setApcItemSBSelect('dtl-slt-itemCd', 		jsonApcItem, gv_selectedApcCd),	// 품목
+			//gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', 		jsonApcVrty, gv_selectedApcCd),	// 품종
+			//gfn_setComCdSBSelect('dtl-rdo-gdsSeCd', 		jsonComGdsSeCd,  	'GDS_SE_CD', gv_selectedApcCd), 		// 상품구분 등록
 		]);
 
-		SBUxMethod.set("dtl-rdo-gdsSeCd", '1');
+		//SBUxMethod.set("dtl-rdo-gdsSeCd", '1');
 	}
 
-
-	//설비 등록
-	var jsonfarmerSnCertificationInfoLog = []; // 그리드의 참조 데이터 주소 선언
-	var jsonComFcltGubun = [];
-
-	const fn_initSBSelectFclt = async function() {
-
-		let rst = await Promise.all([
-			gfn_setComCdSBSelect('grdfarmerSnCertificationInfoLog', 		jsonComFcltGubun, 	'FCLT_GUBUN') 		// 설비구분
-		])
-
-	}
-
+	var grdFarmerEducationInfoLog; // 그리드를 담기위한 객체 선언
+	var jsonFarmerEduationInfoLog = []; // 그리드의 참조 데이터 주소 선언
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
 		fn_fcltMngCreateGrid();
+		fn_search();
 	}
 
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid = async function() {
-
-
-
-		SBUxMethod.set("fclt-inp-apcNm", SBUxMethod.get("inp-apcNm"));
-
 		let SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdfarmerSnCertificationInfoLog';
-	    SBGridProperties.id = 'grdfarmerSnCertificationInfoLog';
-	    SBGridProperties.jsonref = 'jsonfarmerSnCertificationInfoLog';
-	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.oneclickedit = true;
-	    SBGridProperties.columns = [
-	    	{caption: ["순번"], 		ref: 'seq',   	type:'output',  hidden : false },
-	    	{caption: ["농업인 번호"], 		ref: 'frmerSn',   	type:'output',  hidden : false},
-	        {caption: ["경영체 등록번호"], 	ref: 'bzobRgno',   	type:'output',     style:'text-align:center'},
-	        {caption: ["경영주 및 경영주와 의 관계"], 	ref: 'mngerRelate',   	type:'output',     style:'text-align:center'},
-	        {caption: ["경영주 법인 명"], 	ref: 'bzmCorpNm',   	type:'output',     style:'text-align:center'},
-	        {caption: ["경영주 주민등록 주소"], 	ref: 'addr',   	type:'output',     style:'text-align:center'},
-	        {caption: ["경영주 실거주 주소"], 	ref: 'rrsdAddr',   	type:'output',     style:'text-align:center'},
-	        {caption: ["경영주 실거주 도로명 주소"], 	ref: 'rdnmAddr',   	type:'output',     style:'text-align:center'},
-	        {caption: ["마을명"], 	ref: 'twNm',   	type:'output',     style:'text-align:center'},
-	        {caption: ["개인 법인 구분코드명"], 	ref: 'perCorpDvcdNm',   	type:'output',     style:'text-align:center'},
-	        {caption: ["내외국인 구분코드명"], 	ref: 'nafoDvcdNm',   	type:'output',     style:'text-align:center'},
-	        {caption: ["전화번호"], 	ref: 'telno',   	type:'output',     style:'text-align:center'},
-	        {caption: ["휴대 전화번호"], 	ref: 'mblTelno',   	type:'output',     style:'text-align:center'},
-	        {caption: ["팩스 전화번호"], 	ref: 'faxTelno',   	type:'output',     style:'text-align:center'},
-	        {caption: ["이메일 주소"], 	ref: 'emailAddr',   	type:'output',     style:'text-align:center'},
-	        {caption: ["영농 시작 일자"], 	ref: 'famgStrYmd',   	type:'output',     style:'text-align:center'},
-	        {caption: ["농업시작형태"], 	ref: 'farmngBeginStleCdNm',   	type:'output',     style:'text-align:center'},
-	        {caption: ["농업종사형태"], 	ref: 'farmngEngageStleCdNm',   	type:'output',     style:'text-align:center'},
-	        {caption: ["설립 년도"], 	ref: 'fndtYr',   	type:'output',     style:'text-align:center'},
-	        {caption: ["사업자 등록 번호"], 	ref: 'bzmRgno',   	type:'output',     style:'text-align:center'},
-	        {caption: ["대표자 명"], 	ref: 'reprNm',   	type:'output',     style:'text-align:center'},
-	        {caption: ["대표자 주소"], 	ref: 'reprAddr',   	type:'output',     style:'text-align:center'},
-	        {caption: ["생년월일"], 	ref: 'brthdy',   	type:'output',     style:'text-align:center'},
-	        {caption: ["성별"], 	ref: 'sexdstn',   	type:'output',     style:'text-align:center'},
-	        {caption: ["시스템최초입력일시"], 	ref: 'sysFrstInptDt',   	type:'output',     style:'text-align:center'},
-	        {caption: ["시스템최초입력사용자ID"], 	ref: 'sysFrstInptUserId',   	type:'output',     style:'text-align:center'},
-	        {caption: ["시스템최초입력프로그램ID"], 	ref: 'sysFrstInptPrgrmId',   	type:'output',     style:'text-align:center'},
-	        {caption: ["시스템최종변경일시"], 	ref: 'sysLastChgDt',   	type:'output',     style:'text-align:center'},
-	        {caption: ["시스템최종변경사용자ID"], 	ref: 'sysLastChgUserId',   	type:'output',     style:'text-align:center'},
-	        {caption: ["시스템최종변경프로그램ID"], 	ref: 'sysLastChgPrgrmId',   	type:'output',     style:'text-align:center'}
-	       /*  {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
-	        	if(strValue== null || strValue == ""){
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdfarmerSnCertificationInfoLog\", " + nRow + ", " + nCol + ")'>추가</button>";
-	        	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdfarmerSnCertificationInfoLog\", " + nRow + ")'>삭제</button>";
-	        	}
-	        }} */
+		SBGridProperties.parentid = 'sb-area-grdFarmerEducationInfoLog';
+		SBGridProperties.id = 'grdFarmerEducationInfoLog';
+		SBGridProperties.jsonref = 'jsonFarmerEduationInfoLog';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.paging = {
+				'type' : 'page',
+			  	'count' : 5,
+			  	'size' : 20,
+			  	'sorttype' : 'page',
+			  	'showgoalpageui' : true
+		    };
+		SBGridProperties.columns = [
+			{caption: ["순번"], 			ref: 'sn',   	type:'output',  hidden : false },
+			{caption: ["농업인 번호"], 		ref: 'frmerno',		type:'input',  hidden : false},
+			{caption: ["경영체 등록번호"], 	ref: 'mngmstRegno',	type:'input',	 style:'text-align:center'},
+			{caption: ["교육과정코드"], 	ref: 'crclmCd',		type:'input',	 style:'text-align:center'},
+			{caption: ["성명"], 		ref: 'flNm',		type:'input',	 style:'text-align:center'},
+			{caption: ["교육기관명"], 		ref: 'ednstNm',		type:'input',	 style:'text-align:center'},
+			{caption: ["교육과정명"], 	ref: 'crclmNm',	type:'input',	 style:'text-align:center'},
+			{caption: ["교육시작일자"], 		ref: 'eduBgngYmd',		type:'input',	 style:'text-align:center'},
+			{caption: ["교육종료일자"], 		ref: 'eduEndYmd',	type:'input',	 style:'text-align:center'},
+			{caption: ["확인여부"], 		ref: 'idntyYn',	type:'input',	 style:'text-align:center'},
 
-// 	        {caption: ["통합조직"], 	ref: 'ii',   	type:'output',  width:'80px',    style:'text-align:center'},
-// 	        {caption: ["통합조직 코드"], 	ref: 'iiCode',   	type:'input', hidden:true},
-	        /*
-	        {caption: ["통합조직"], 		ref: 'ii',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
-	        	console.log(strValue);
-	        	if(strValue== null || strValue == ""){
-	        		console.log("통합조직 값없음");
-	        		return "<sbux-button type='button' uitype='modal' target-id='modal-itemSelect' class='btn btn-xs btn-outline-danger' text='찾기'  onClick='fn_GridPop(\"pop\", \"grdfarmerSnCertificationInfoLog\", " + nRow + ", " + nCol + ")'></sbux-button>"
-	        		//return " <button type='button' class='btn btn-xs btn-outline-danger'   onClick='fn_GridPop(\"pop\", \"grdfarmerSnCertificationInfoLog\", " + nRow + ", " + nCol + ")'>찾기</button>";
-	        		//return " <sbux-button type='button' uitype='modal' target-id='modal-itemSelect'  text='찾기'  onClick='fn_GridPop(\"pop\", \"grdfarmerSnCertificationInfoLog\", " + nRow + ", " + nCol + ")'></sbux-button>";
-	        	}else{
-	        		console.log("통합조직 값있음");
-	        		//return " <button type='button' class='btn btn-xs btn-outline-danger'   onClick='fn_GridPop(\"pop\", \"grdfarmerSnCertificationInfoLog\", " + nRow + ", " + nCol + ")'>찾기</button>";
-	        		return "<sbux-button type='button' uitype='modal' target-id='modal-itemSelect' class='btn btn-xs btn-outline-danger' text='찾기'  onClick='fn_GridPop(\"pop\", \"grdfarmerSnCertificationInfoLog\", " + nRow + ", " + nCol + ")'></sbux-button>";
-	        	}
-	        }},
-	        */
-	    ];
+			{caption: ["시스템최초입력일시"], 		ref: 'sysFrstInptDt',		type:'input',	 style:'text-align:center'},
+			{caption: ["시스템최초입력사용자ID"], 	ref: 'sysFrstInptUserId',	type:'input',	 style:'text-align:center'},
+			{caption: ["시스템최초입력프로그램ID"], 	ref: 'sysFrstInptPrgrmId',	type:'input',	 style:'text-align:center'},
+			{caption: ["시스템최종변경일시"], 		ref: 'sysLastChgDt',		type:'input',	 style:'text-align:center'},
+			{caption: ["시스템최종변경사용자ID"], 	ref: 'sysLastChgUserId',	type:'input',	 style:'text-align:center'},
+			{caption: ["시스템최종변경프로그램ID"], 	ref: 'sysLastChgPrgrmId',	type:'input',	 style:'text-align:center'},
 
-	    grdfarmerSnCertificationInfoLog = _SBGrid.create(SBGridProperties);
-	    let rst = await Promise.all([
-	    	fn_initSBSelectFclt(),
-		    fn_searchFcltList()
-		])
-		grdfarmerSnCertificationInfoLog.refresh({"combo":true});
-	  	//클릭 이벤트 바인드
-	    grdfarmerSnCertificationInfoLog.bind('click','gridClick');
+		];
+
+		grdFarmerEducationInfoLog = _SBGrid.create(SBGridProperties);
+		grdFarmerEducationInfoLog.bind('beforepagechanged', 'fn_pagingBbsList');
 
 	}
 
+	/**
+	 * 목록 조회
+	 */
+	const fn_search = async function() {
+		// set pagination
+		let pageSize = grdFarmerEducationInfoLog.getPageSize();
+		let pageNo = 1;
+		//fn_clearForm();
+		fn_searchFcltList(pageSize, pageNo);
+	}
 
+	const fn_pagingBbsList = async function() {
+		let recordCountPerPage = grdFarmerEducationInfoLog.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+		let currentPageNo = grdFarmerEducationInfoLog.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+		fn_searchFcltList(recordCountPerPage, currentPageNo);
+	}
 
 	/* Grid Row 조회 기능*/
-	const fn_searchFcltList = async function(){
-		let frmerSn = SBUxMethod.get("srch-inp-frmerSn");//
-		let bzobRgno = SBUxMethod.get("srch-inp-bzobRgno");//
-		//let apcCd = SBUxMethod.get("inp-apcCd");
-    	//let postJsonPromise = gfn_postJSON("/fm/farm/selectfarmerSnCertificationInfoLog.do", {apcCd : apcCd});
-    	let postJsonPromise = gfn_postJSON("/fm/farm/selectFarmerSnCertificationInfoLogList.do", {
-    		 frmerSn : frmerSn
-    		,bzobRgno : bzobRgno
+	const fn_searchFcltList = async function(pageSize, pageNo){
+		let frmerno = SBUxMethod.get("srch-inp-frmerno");//
+		let mngmstRegno = SBUxMethod.get("srch-inp-mngmstRegno");//
+
+		let postJsonPromise = gfn_postJSON("/fm/farm/selectFarmerEducationInfoLogList.do", {
+			frmerno : frmerno
+			,mngmstRegno : mngmstRegno
+
+			//페이징
+			,pagingYn : 'Y'
+			,currentPageNo : pageNo
+			,recordCountPerPage : pageSize
 		});
-        let data = await postJsonPromise;
-        try{
-        	jsonfarmerSnCertificationInfoLog.length = 0;
-        	console.log("data==="+data);
-        	data.resultList.forEach((item, index) => {
-				let farmerSnCertificationInfoLogVO = {
-					seq : item.seq
-				  ,	frmerSn : item.frmerSn
-				  , bzobRgno 		: item.bzobRgno
-				  , mngerRelate 	: item.mngerRelate
-				  , bzmCorpNm 	: item.bzmCorpNm
-				  , addr 		: item.addr
-				  , rrsdAddr 		: item.rrsdAddr
-				  , rdnmAddr 		: item.rdnmAddr
-				  , twNm 		: item.twNm
-				  , perCorpDvcdNm 		: item.perCorpDvcdNm
-				  , nafoDvcdNm 		: item.nafoDvcdNm
-				  , telno 		: item.telno
-				  , mblTelno 		: item.mblTelno
-				  , faxTelno 		: item.faxTelno
-				  , emailAddr 		: item.emailAddr
-				  , famgStrYmd 		: item.famgStrYmd
-				  , farmngEngageStleCdNm 		: item.farmngEngageStleCdNm
-				  , fndtYr 		: item.fndtYr
-				  , bzmRgno 		: item.bzmRgno
-				  , reprNm 		: item.reprNm
-				  , reprAddr 		: item.reprAddr
-				  , brthdy 		: item.brthdy
-				  , sexdstn 		: item.sexdstn
-				  , sysFrstInptDt 		: item.sysFrstInptDt
-				  , sysFrstInptUserId 		: item.sysFrstInptUserId
-				  , sysFrstInptPrgrmId 		: item.sysFrstInptPrgrmId
-				  , sysLastChgDt 		: item.sysLastChgDt
-				  , sysLastChgUserId 		: item.sysLastChgUserId
-				  , sysLastChgPrgrmId 		: item.sysLastChgPrgrmId
-				  , delYn 		: item.delYn
+		let data = await postJsonPromise;
+		try{
+			jsonFarmerEduationInfoLog.length = 0;
+			let totalRecordCount = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
+				let farmLandInfoLogVO = {
+					sn 					: item.sn
+					,frmerno 			: item.frmerno
+					,mngmstRegno 		: item.mngmstRegno
+					,crclmCd 			: item.crclmCd
+					,flNm 				: item.flNm
+					,ednstNm 			: item.ednstNm
+					,crclmNm 			: item.crclmNm
+					,eduBgngYmd 		: item.eduBgngYmd
+					,eduEndYmd 			: item.eduEndYmd
+					,idntyYn 			: item.idntyYn
+
+					,sysFrstInptDt 			: item.sysFrstInptDt
+					,sysFrstInptUserId 		: item.sysFrstInptUserId
+					,sysFrstInptPrgrmId 	: item.sysFrstInptPrgrmId
+					,sysLastChgDt 			: item.sysLastChgDt
+					,sysLastChgUserId 		: item.sysLastChgUserId
+					,sysLastChgPrgrmId 		: item.sysLastChgPrgrmId
+
+					,delYn 				: item.delYn
 				}
-				jsonfarmerSnCertificationInfoLog.push(farmerSnCertificationInfoLogVO);
+				jsonFarmerEduationInfoLog.push(farmLandInfoLogVO);
+				if (index === 0) {
+					totalRecordCount = item.totalRecordCount;
+				}
 			});
 
+			if (jsonFarmerEduationInfoLog.length > 0) {
 
-
-        	grdfarmerSnCertificationInfoLog.rebuild();
-
-        	//비어 있는 마지막 줄 추가용도?
-        	grdfarmerSnCertificationInfoLog.addRow();
-        }catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        }
-	}
-
-
-
-	/* Grid Row 저장 기능*/
-	const fn_saveFmList = async function(){
-		let gridData = grdfarmerSnCertificationInfoLog.getGridDataAll();
-		let saveList = [];
-
-		for(var i=1; i<=gridData.length; i++ ){
-
-			let rowData = grdfarmerSnCertificationInfoLog.getRowData(i);
-			let rowSts = grdfarmerSnCertificationInfoLog.getRowStatus(i);
-			let frmerSn = rowData.frmerSn;
-			let bzobRgno = rowData.bzobRgno;
-			let delYn = rowData.delYn;
-
-			if(delYn == 'N'){
-
-				if (gfn_isEmpty(frmerSn)) {
-		  			gfn_comAlert("W0002", "농업인 번호");		//	W0002	{0}을/를 입력하세요.
-		            return;
-		  		}
-
-				 if (gfn_isEmpty(bzobRgno)) {
-		  			gfn_comAlert("W0001", "경영체 등록번호");		//	W0001	{0}을/를 선택하세요.
-		            return;
-		  		}
-
-				if (rowSts === 3){
-					rowData.rowSts = "I";
-					saveList.push(rowData);
-				} else if (rowSts === 2){
-					rowData.rowSts = "U";
-					saveList.push(rowData);
-				} else {
-					continue;
+				if(grdFarmerEducationInfoLog.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+					grdFarmerEducationInfoLog.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+					grdFarmerEducationInfoLog.rebuild();
+				}else{
+					grdFarmerEducationInfoLog.refresh()
 				}
+			} else {
+				grdFarmerEducationInfoLog.setPageTotalCount(totalRecordCount);
+				grdFarmerEducationInfoLog.rebuild();
 			}
-		}
-		if(saveList.length == 0){
-			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
-			return;
-		}
+			document.querySelector('#listCount').innerText = totalRecordCount;
 
-		let regMsg = "저장 하시겠습니까?";
-		if(confirm(regMsg)){
+			//grdFarmerEducationInfoLog.rebuild();
 
-			//let postJsonPromise = gfn_postJSON("/co/cd/multiSaveComCdDtlList.do", saveList);
-			let postJsonPromise = gfn_postJSON("/fm/farm/multiSaveFarmerSnCertificationInfoLogList.do", saveList);
-	        let data = await postJsonPromise;
-	        try {
-	        	if (_.isEqual("S", data.resultStatus)) {
-	        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
-	        		fn_searchFcltList();
-	        	} else {
-	        		alert(data.resultMessage);
-	        	}
-	        } catch (e) {
-	    		if (!(e instanceof Error)) {
-	    			e = new Error(e);
-	    		}
-	    		console.error("failed", e.message);
-	        }
-
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
 		}
 	}
-
-
-	/* Grid Row 추가 및 삭제 기능*/
-    function fn_procRow(gubun, grid, nRow, nCol) {
-        if (gubun === "ADD") {
-            if (grid === "grdfarmerSnCertificationInfoLog") {
-            	grdfarmerSnCertificationInfoLog.setCellData(nRow, nCol, "N", true);
-            	//grdfarmerSnCertificationInfoLog.setCellData(nRow, 5, gv_apcCd, true);
-            	grdfarmerSnCertificationInfoLog.addRow(true);
-            }
-        }
-        else if (gubun === "DEL") {
-            if (grid === "grdfarmerSnCertificationInfoLog") {
-            	if(grdfarmerSnCertificationInfoLog.getRowStatus(nRow) == 0 || grdfarmerSnCertificationInfoLog.getRowStatus(nRow) == 2){
-            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-            		if(confirm(delMsg)){
-            			var farmerSnCertificationInfoLogVO = grdfarmerSnCertificationInfoLog.getRowData(nRow);
-            			fn_deleteRsrc(farmerSnCertificationInfoLogVO);
-            			grdfarmerSnCertificationInfoLog.deleteRow(nRow);
-            		}
-            	}else{
-            		grdfarmerSnCertificationInfoLog.deleteRow(nRow);
-            	}
-            }
-        }
-    }
-
-	async function fn_deleteRsrc(farmerSnCertificationInfoLogVO){
-		let postJsonPromise = gfn_postJSON("/fm/farm/deleteFarmerSnCertificationInfoLog.do", farmerSnCertificationInfoLogVO);
-        let data = await postJsonPromise;
-
-        try{
-        	if(data.result > 0){
-        		alert("삭제 되었습니다.");
-        	}else{
-        		alert("삭제 도중 오류가 발생 되었습니다.");
-        	}
-        }catch (e) {
-        	if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-		}
-
-	}
-
-
-	//통합조직,출자출하조직 팝업
-	const fn_choiceInvstmntSpmt = function() {
-		popInvstmntSpmt.init(gv_selectedApcCd, gv_selectedApcNm, fn_setInvstmntSpmt);
-	}
-	//통합조직 출자출하조직 팝업 콜백함수
-	const fn_setInvstmntSpmt = function(rowData) {
-		if (!gfn_isEmpty(rowData)) {
-			SBUxMethod.set("srch-inp-apcCd1", rowData.subCode);
-			SBUxMethod.set("srch-inp-apcNm1", rowData.subCodeNm);
-			SBUxMethod.set("srch-inp-apcCd2", rowData.mainCode);
-			SBUxMethod.set("srch-inp-apcNm2", rowData.mainCodeNm);
-		}
-	}
-
-
-	// 품목 선택 팝업 호출
-	const fn_modalItemSelect = function(sn) {
-		console.log("================fn_modalItemSelect================");
-		console.log(sn);
-		popItemSelect.init(sn,fn_setItem);
-	}
-	// 품목 선택 팝업 콜백 함수
-	const fn_setItem = function(itemVal) {
-		console.log("================fn_setItem================");
-		console.log(itemVal);
-		if (!gfn_isEmpty(itemVal)) {
-			SBUxMethod.set('srch-inp-itemCd' + itemVal.sn , itemVal.itemCd);
-			SBUxMethod.set('srch-inp-itemNm' + itemVal.sn , itemVal.itemNm);
-		}
-	}
-
-
-
-    function fn_GridPop(gubun, grid, nRow, nCol) {
-    	console.log("================fn_GridPop================");
-        if (gubun === "pop") {
-            if (grid === "grdfarmerSnCertificationInfoLog") {
-            	//부른 선택된 그리드 셀의 값을 N 으로 변경
-            	grdfarmerSnCertificationInfoLog.setCellData(nRow, nCol, "N", true);
-            }
-        }
-    }
-
-
-	let selGridRow;//선택한 행
-	let selGridCol;//선택한 열
-
-    //그리드 클릭이벤트
-    function gridClick(){
-		console.log("================gridClick================");
-		//grdfarmerSnCertificationInfoLog 그리드 객체
-        selGridRow = grdfarmerSnCertificationInfoLog.getRow();
-        selGridCol = grdfarmerSnCertificationInfoLog.getCol();
-
-
-        let delYnCol = grdfarmerSnCertificationInfoLog.getColRef('delYn');
-        let delYnValue = grdfarmerSnCertificationInfoLog.getCellData(selGridRow,delYnCol);
-
-        //임력할 데이터 인지 확인
-        //추가 행의 경우 DEL_YN을 N 로 변경한 빈 행임
-        //fn_procRow 의 ADD 확인
-        if(delYnValue != 'N'){
-        	return;
-        }
-
-        //cc 전문 품목 dd 육성 품목
-        let ccCol = grdfarmerSnCertificationInfoLog.getColRef('cc');
-        let ddCol = grdfarmerSnCertificationInfoLog.getColRef('dd');
-        let iiCol = grdfarmerSnCertificationInfoLog.getColRef('ii');
-
-        if(selGridRow == '-1'){
-			return;
-        } else {
-        	//선택한 데이터가 통합조직 일떄
-        	if (selGridCol == iiCol){
-        		//통합조직 선택 세팅
-        		//통합조직 팝업 객체 popInvstmntSpmt
-        		popInvstmntSpmt.init(gv_selectedApcCd, gv_selectedApcNm, fn_setGridInvstmntSpmt);
-        		//팝업창 오픈
-        		//통합조직 팝업창 id : modal-invstmntSpmt
-        		SBUxMethod.openModal('modal-invstmntSpmt');
-        	} else if (selGridCol == ccCol || selGridCol == ddCol){
-        		//품목 선택 세팅
-        		//품목 선택 팝업 객체 popItemSelect
-        		popItemSelect.init(selGridRow, fn_setGridItem);
-        		//팝업창 오픈
-        		//품목 팝업창 id : modal-itemSelect
-        		SBUxMethod.openModal('modal-itemSelect');
-        	}
-        }
-    }
-
- 	// 그리드의 통합조직 선택 팝업 콜백 함수
-	const fn_setGridInvstmntSpmt = function(rowData) {
-		console.log("================fn_setGridInvstmntSpmt================");
-		console.log(rowData);
-		if (!gfn_isEmpty(rowData)) {
-			//setCellData (행,열,입력 데이터,[refresh여부],[행 상태 정보 update로 변경])
-			//selGridRow 선택된 행 값
-			//getColRef(ref) ref의 인덱스 값 가져오기
-			let colRefIdx1 = grdfarmerSnCertificationInfoLog.getColRef('ii');//ii 통합조직 인덱스
-			let colRefIdx2 = grdfarmerSnCertificationInfoLog.getColRef('iiCode');//ii 통합조직 코드 인덱스
-
-			//그리드 값 세팅
-			grdfarmerSnCertificationInfoLog.setCellData(selGridRow,colRefIdx1,rowData.mainCodeNm,true);
-			grdfarmerSnCertificationInfoLog.setCellData(selGridRow,colRefIdx2,rowData.mainCode,true);
-		}
-	}
-
-	// 그리드의 품목 선택 팝업 콜백 함수
-	const fn_setGridItem = function(rowData) {
-		console.log("================fn_setGridItem================");
-		console.log(rowData);
-		if (!gfn_isEmpty(rowData)) {
-			//setCellData (행,열,입력 데이터,[refresh여부],[행 상태 정보 update로 변경])
-			//selGridRow : 선택된 행 값		selGridCol : 선택된 열 값
-			//getColRef(ref) ref의 인덱스 값 가져오기
-			let selRef = grdfarmerSnCertificationInfoLog.getRefOfCol(selGridCol);
-
-			//구분하기 편하기 위해 ref 값이 cc라면 코드값은 ccCode 로 설정
-			let colRefIdx1 = grdfarmerSnCertificationInfoLog.getColRef(selRef);//품목명 인덱스
-			let colRefIdx2 = grdfarmerSnCertificationInfoLog.getColRef(selRef+"Code");//품목코드 인덱스
-
-			//그리드 값 세팅
-			grdfarmerSnCertificationInfoLog.setCellData(selGridRow,colRefIdx1,rowData.itemNm,true);
-			grdfarmerSnCertificationInfoLog.setCellData(selGridRow,colRefIdx2,rowData.itemCd,true);
-		}
-	}
-
-
-
-
-
-
-
-
-
-
-
-	/* 농업인 일련번호 연계 저장*/
-	const fn_saveFrmerSn= async function(){
-		let frmerSn = SBUxMethod.get("srch-inp-frmerSn");
-
-		if (gfn_isEmpty(frmerSn)) {
-  			gfn_comAlert("W0002", "농업인 번호");		//	W0002	{0}을/를 입력하세요.
-            return;
-  		}
-
-		let regMsg = "저장 하시겠습니까?";
-		if(confirm(regMsg)){
-
-			//let postJsonPromise = gfn_postJSON("/co/cd/multiSaveComCdDtlList.do", saveList);
-			let postJsonPromise = gfn_postJSON("/fm/farm/multiSaveReleyFarmerSnCertificationInfoLogList.do", {
-	    		 frmerSn : frmerSn
-	 		});
-	        let data = await postJsonPromise;
-	        try {
-	        	if (_.isEqual("S", data.resultStatus)) {
-	        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
-	        		fn_searchFcltList();
-	        	} else {
-	        		alert(data.resultMessage);
-	        	}
-	        } catch (e) {
-	    		if (!(e instanceof Error)) {
-	    			e = new Error(e);
-	    		}
-	    		console.error("failed", e.message);
-	        }
-
-		}
-	}
-
-
-
-
-
-
 
 </script>
 </html>

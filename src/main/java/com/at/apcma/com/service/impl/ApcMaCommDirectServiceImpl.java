@@ -117,11 +117,11 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			}
 			this.callProcTibero(rmap);
 
-			if(param.containsKey("convertLowerCase") && param.get("convertLowerCase").equals("Y")) {
-				convertLowerCase(rmap);
-			} else {
-				convertCamelCase(rmap);
-			}
+//			if(param.containsKey("convertLowerCase") && param.get("convertLowerCase").equals("Y")) {
+//				convertLowerCase(rmap);
+//			} else {
+//				convertCamelCase(rmap);
+//			}
 
 		} catch (Exception e) {
 			logger.debug(e.getMessage());

@@ -37,7 +37,7 @@ public interface FarmLandInfoMapper {
 
 	public int updateFarmLandInfo(FarmLandInfoVO farmLandInfoVO);
 
-	public int insertMegerFarmLandInfo(FarmLandInfoVO farmLandInfoVO) throws Exception;
+	public int insertMergeFarmLandInfo(FarmLandInfoVO farmLandInfoVO) throws Exception;
 
 	public int insertLogFarmLandInfo(FarmLandInfoVO farmLandInfoVO) throws Exception;
 

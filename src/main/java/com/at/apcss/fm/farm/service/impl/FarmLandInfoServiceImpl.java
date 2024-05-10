@@ -79,8 +79,8 @@ public class FarmLandInfoServiceImpl extends BaseServiceImpl implements FarmLand
 	}
 
 	@Override
-	public int insertMegerFarmLandInfo(FarmLandInfoVO farmLandInfoVO) throws Exception {
-		return farmLandInfoMapper.insertMegerFarmLandInfo(farmLandInfoVO);
+	public int insertMergeFarmLandInfo(FarmLandInfoVO farmLandInfoVO) throws Exception {
+		return farmLandInfoMapper.insertMergeFarmLandInfo(farmLandInfoVO);
 	}
 	@Override
 	public int insertLogFarmLandInfo(FarmLandInfoVO farmLandInfoVO) throws Exception {

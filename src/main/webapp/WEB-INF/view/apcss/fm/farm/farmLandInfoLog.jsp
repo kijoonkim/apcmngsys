@@ -36,7 +36,7 @@
 							</td>
 							<th class="th_bg">경영체 등록번호</th>
 							<td class="td_input" style="border-right:hidden;">
-									<sbux-input id="srch-inp-mngmstRegNo" name="srch-inp-mngmstRegNo" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+									<sbux-input id="srch-inp-mngmstRegno" name="srch-inp-mngmstRegno" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 							</td>
 							<td colspan="2" style="border-left: hidden;"></td>
 						</tr>
@@ -56,13 +56,11 @@
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdfarmLandInfoLog" style="height:600px; width: 100%;"></div>
+					<div id="sb-area-grdFarmLandInfoLog" style="height:600px; width: 100%;"></div>
 				</div>
 			</div>
 		</div>
 	</section>
-
-
 </body>
 <script type="text/javascript">
 
@@ -99,8 +97,8 @@
 		//SBUxMethod.set("dtl-rdo-gdsSeCd", '1');
 	}
 
-	var grdfarmLandInfoLog; // 그리드를 담기위한 객체 선언
-	var jsonfarmLandInfoLog = []; // 그리드의 참조 데이터 주소 선언
+	var grdFarmLandInfoLog; // 그리드를 담기위한 객체 선언
+	var jsonFarmLandInfoLog = []; // 그리드의 참조 데이터 주소 선언
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
@@ -110,9 +108,9 @@
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid = async function() {
 		let SBGridProperties = {};
-		SBGridProperties.parentid = 'sb-area-grdfarmLandInfoLog';
-		SBGridProperties.id = 'grdfarmLandInfoLog';
-		SBGridProperties.jsonref = 'jsonfarmLandInfoLog';
+		SBGridProperties.parentid = 'sb-area-grdFarmLandInfoLog';
+		SBGridProperties.id = 'grdFarmLandInfoLog';
+		SBGridProperties.jsonref = 'jsonFarmLandInfoLog';
 		SBGridProperties.emptyrecords = '데이터가 없습니다.';
 		SBGridProperties.selectmode = 'byrow';
 		SBGridProperties.extendlastcol = 'scroll';
@@ -127,7 +125,7 @@
 		SBGridProperties.columns = [
 			{caption: ["순번"], 			ref: 'sn',   	type:'output',  hidden : false },
 			{caption: ["농업인 번호"], 		ref: 'frmerno',	type:'input',  hidden : false},
-			{caption: ["경영체 등록번호"], 	ref: 'mngmstRegNo',	type:'input',	 style:'text-align:center'},
+			{caption: ["경영체 등록번호"], 	ref: 'mngmstRegno',	type:'input',	 style:'text-align:center'},
 			{caption: ["농지 일련번호"], 	ref: 'frlnSn',	type:'input',	 style:'text-align:center'},
 			{caption: ["법정동코드"], 		ref: 'stdgcd',	type:'input',	 style:'text-align:center'},
 			{caption: ["농지 본번"], 		ref: 'frlnMno',	type:'input',	 style:'text-align:center'},
@@ -161,8 +159,8 @@
 
 		];
 
-		grdfarmLandInfoLog = _SBGrid.create(SBGridProperties);
-		grdfarmLandInfoLog.bind('beforepagechanged', 'fn_pagingBbsList');
+		grdFarmLandInfoLog = _SBGrid.create(SBGridProperties);
+		grdFarmLandInfoLog.bind('beforepagechanged', 'fn_pagingBbsList');
 
 	}
 
@@ -171,26 +169,26 @@
 	 */
 	const fn_search = async function() {
 		// set pagination
-		let pageSize = grdfarmLandInfoLog.getPageSize();
+		let pageSize = grdFarmLandInfoLog.getPageSize();
 		let pageNo = 1;
 		//fn_clearForm();
 		fn_searchFcltList(pageSize, pageNo);
 	}
 
 	const fn_pagingBbsList = async function() {
-		let recordCountPerPage = grdfarmLandInfoLog.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-		let currentPageNo = grdfarmLandInfoLog.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+		let recordCountPerPage = grdFarmLandInfoLog.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+		let currentPageNo = grdFarmLandInfoLog.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
 		fn_searchFcltList(recordCountPerPage, currentPageNo);
 	}
 
 	/* Grid Row 조회 기능*/
 	const fn_searchFcltList = async function(pageSize, pageNo){
 		let frmerno = SBUxMethod.get("srch-inp-frmerno");//
-		let mngmstRegNo = SBUxMethod.get("srch-inp-mngmstRegNo");//
+		let mngmstRegno = SBUxMethod.get("srch-inp-mngmstRegno");//
 
 		let postJsonPromise = gfn_postJSON("/fm/farm/selectFarmLandInfoLogList.do", {
 			frmerno : frmerno
-			,mngmstRegNo : mngmstRegNo
+			,mngmstRegno : mngmstRegno
 
 			//페이징
 			,pagingYn : 'Y'
@@ -199,13 +197,13 @@
 		});
 		let data = await postJsonPromise;
 		try{
-			jsonfarmLandInfoLog.length = 0;
+			jsonFarmLandInfoLog.length = 0;
 			let totalRecordCount = 0;
 			console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let farmLandInfoLogVO = {
 					sn 					: item.sn
-					,mngmstRegNo 		: item.mngmstRegNo
+					,mngmstRegno 		: item.mngmstRegno
 					,frlnType 			: item.frlnType
 					,cprtnFrlnyn 		: item.cprtnFrlnyn
 					,frlnarea 			: item.frlnarea
@@ -241,27 +239,27 @@
 
 					,delYn 				: item.delYn
 				}
-				jsonfarmLandInfoLog.push(farmLandInfoLogVO);
+				jsonFarmLandInfoLog.push(farmLandInfoLogVO);
 				if (index === 0) {
 					totalRecordCount = item.totalRecordCount;
 				}
 			});
 
-			if (jsonfarmLandInfoLog.length > 0) {
+			if (jsonFarmLandInfoLog.length > 0) {
 
-				if(grdfarmLandInfoLog.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-					grdfarmLandInfoLog.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-					grdfarmLandInfoLog.rebuild();
+				if(grdFarmLandInfoLog.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+					grdFarmLandInfoLog.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+					grdFarmLandInfoLog.rebuild();
 				}else{
-					grdfarmLandInfoLog.refresh()
+					grdFarmLandInfoLog.refresh()
 				}
 			} else {
-				grdfarmLandInfoLog.setPageTotalCount(totalRecordCount);
-				grdfarmLandInfoLog.rebuild();
+				grdFarmLandInfoLog.setPageTotalCount(totalRecordCount);
+				grdFarmLandInfoLog.rebuild();
 			}
 			document.querySelector('#listCount').innerText = totalRecordCount;
 
-			//grdfarmLandInfoLog.rebuild();
+			//grdFarmLandInfoLog.rebuild();
 
 		}catch (e) {
 			if (!(e instanceof Error)) {

@@ -4,12 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
-import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.fm.bbs.mapper.BbsMapper;
-import com.at.apcss.fm.bbs.service.BbsService;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.fm.farm.mapper.FarmerGrantsInfoRegMapper;
 import com.at.apcss.fm.farm.service.FarmerGrantsInfoRegService;
 import com.at.apcss.fm.farm.vo.FarmerGrantsInfoRegVO;
@@ -57,28 +52,6 @@ public class FarmerGrantsInfoRegServiceImpl extends BaseServiceImpl implements F
 		int insertedCnt = farmerGrantsInfoRegMapper.insertFarmerGrantsInfoReg(farmerGrantsInfoRegVO);
 
 		return insertedCnt;
-	}
-
-	@Override
-	public int updateFarmerGrantsInfoReg(FarmerGrantsInfoRegVO farmerGrantsInfoRegVO) throws Exception {
-
-		int updatedCnt = farmerGrantsInfoRegMapper.updateFarmerGrantsInfoReg(farmerGrantsInfoRegVO);
-
-		return updatedCnt;
-	}
-
-	@Override
-	public int multiSaveFarmerGrantsInfoRegList(List<FarmerGrantsInfoRegVO> farmerGrantsInfoRegVOList) throws Exception {
-		int savedCnt = 0;
-		for (FarmerGrantsInfoRegVO farmerGrantsInfoRegVO : farmerGrantsInfoRegVOList) {
-			if(ComConstants.ROW_STS_INSERT.equals(farmerGrantsInfoRegVO.getRowSts())) {
-				savedCnt += insertFarmerGrantsInfoReg(farmerGrantsInfoRegVO);
-			}
-			if(ComConstants.ROW_STS_UPDATE.equals(farmerGrantsInfoRegVO.getRowSts())) {
-				savedCnt += updateFarmerGrantsInfoReg(farmerGrantsInfoRegVO);
-			}
-		}
-		return savedCnt;
 	}
 
 	@Override

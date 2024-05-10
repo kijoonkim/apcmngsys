@@ -1,10 +1,7 @@
 package com.at.apcss.fm.farm.service;
 
 import java.util.List;
-import java.util.Map;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.fm.farm.vo.FarmerSnCertificationInfoVO;
 
 
@@ -26,28 +23,30 @@ public interface FarmerSnCertificationInfoService {
 
 	/**
 	 * 정보를 조회한다.
-	 * @param farmerSnCertificationInfoVO
+	 * @param FarmerSnCertificationInfoVO
 	 * @return
 	 * @throws Exception
 	 */
-	public FarmerSnCertificationInfoVO selectFarmerSnCertificationInfo(FarmerSnCertificationInfoVO farmerSnCertificationInfoVO) throws Exception;
+	public FarmerSnCertificationInfoVO selectFarmerSnCertificationInfo(FarmerSnCertificationInfoVO FarmerSnCertificationInfoVO) throws Exception;
 
-	public List<FarmerSnCertificationInfoVO> selectFarmerSnCertificationInfoList(FarmerSnCertificationInfoVO farmerSnCertificationInfoVO) throws Exception;
+	public List<FarmerSnCertificationInfoVO> selectFarmerSnCertificationInfoList(FarmerSnCertificationInfoVO FarmerSnCertificationInfoVO) throws Exception;
 
-	public int insertFarmerSnCertificationInfo(FarmerSnCertificationInfoVO farmerSnCertificationInfoVO) throws Exception;
+	public int updateFarmerSnCertificationInfo(FarmerSnCertificationInfoVO FarmerSnCertificationInfoVO) throws Exception;
 
-	public int updateFarmerSnCertificationInfo(FarmerSnCertificationInfoVO farmerSnCertificationInfoVO) throws Exception;
+	public int multiSaveFarmerSnCertificationInfoList(List<FarmerSnCertificationInfoVO> FarmerSnCertificationInfoVOList) throws Exception;
 
-	public int multiSaveFarmerSnCertificationInfoList(List<FarmerSnCertificationInfoVO> farmerSnCertificationInfoVOList) throws Exception;
+	public int insertFarmerSnCertificationInfo(FarmerSnCertificationInfoVO FarmerSnCertificationInfoVOList) throws Exception;
 
-	public int insertMegerFarmerSnCertificationInfo(FarmerSnCertificationInfoVO farmerSnCertificationInfoVOList) throws Exception;
-	public int insertMegerLogFarmerSnCertificationInfo(FarmerSnCertificationInfoVO farmerSnCertificationInfoVOList) throws Exception;
+	public int insertLogFarmerSnCertificationInfo(FarmerSnCertificationInfoVO FarmerSnCertificationInfoVOList) throws Exception;
 
-	public int insertMegerFarmerSnCertificationInfoMap(Map<String, String> MapList) throws Exception;
-	public int insertMegerLogFarmerSnCertificationInfoMap(Map<String, String> MapList) throws Exception;
+	public int deleteFarmerSnCertificationInfo(FarmerSnCertificationInfoVO FarmerSnCertificationInfoVO) throws Exception;
 
-	public int updateMegerFarmerSnCertificationInfo(FarmerSnCertificationInfoVO farmerSnCertificationInfoVOList) throws Exception;
-
-	public int deleteFarmerSnCertificationInfo(FarmerSnCertificationInfoVO farmerSnCertificationInfoVO) throws Exception;
+	/**
+	 * 전체 농업인 번호 리스트 조회
+	 * @param
+	 * @return List<FarmerInfoVO>
+	 * @throws Exception
+	 */
+	public List<FarmerSnCertificationInfoVO> selectFrmerSnList(FarmerSnCertificationInfoVO FarmerSnCertificationInfoVO) throws Exception;
 
 }

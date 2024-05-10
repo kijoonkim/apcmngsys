@@ -674,10 +674,7 @@
 			if (gfn_isEmpty(rowData.prdcrCd)) {
 				continue;
 			}
-			if(rowData.prdcrNm === "박승진"){
-				console.log(rowData);
-				console.log(i);
-			}
+
 			var rowStatus = grdWrhsSmmry.getRowStatus(i+2); 
 			if(rowStatus == 3 || rowStatus == 2){
 				rawMtrWrhsSmmryList.push(rowData);	

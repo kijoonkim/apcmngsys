@@ -1,17 +1,12 @@
 package com.at.apcss.fm.farm.service.impl;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.fm.bbs.mapper.BbsMapper;
-import com.at.apcss.fm.bbs.service.BbsService;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.fm.farm.mapper.FarmerEducationInfoMapper;
 import com.at.apcss.fm.farm.service.FarmerEducationInfoService;
 import com.at.apcss.fm.farm.vo.FarmerEducationInfoVO;
@@ -36,80 +31,71 @@ import com.at.apcss.fm.farm.vo.FarmerEducationInfoVO;
 public class FarmerEducationInfoServiceImpl extends BaseServiceImpl implements FarmerEducationInfoService{
 
 	@Autowired
-	private FarmerEducationInfoMapper farmerEducationInfoMapper;
+	private FarmerEducationInfoMapper FarmerEducationInfoMapper;
 
 	@Override
-	public FarmerEducationInfoVO selectFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception {
+	public FarmerEducationInfoVO selectFarmerEducationInfo(FarmerEducationInfoVO FarmerEducationInfoVO) throws Exception {
 
-		FarmerEducationInfoVO resultVO = farmerEducationInfoMapper.selectFarmerEducationInfo(farmerEducationInfoVO);
+		FarmerEducationInfoVO resultVO = FarmerEducationInfoMapper.selectFarmerEducationInfo(FarmerEducationInfoVO);
 
 		return resultVO;
 	}
 
 	@Override
-	public List<FarmerEducationInfoVO> selectFarmerEducationInfoList(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception {
+	public List<FarmerEducationInfoVO> selectFarmerEducationInfoList(FarmerEducationInfoVO FarmerEducationInfoVO) throws Exception {
 
-		List<FarmerEducationInfoVO> resultList = farmerEducationInfoMapper.selectFarmerEducationInfoList(farmerEducationInfoVO);
+		List<FarmerEducationInfoVO> resultList = FarmerEducationInfoMapper.selectFarmerEducationInfoList(FarmerEducationInfoVO);
 		return resultList;
 	}
 
 	@Override
-	public int insertFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception {
+	public int insertFarmerEducationInfo(FarmerEducationInfoVO FarmerEducationInfoVO) throws Exception {
 
-		int insertedCnt = farmerEducationInfoMapper.insertFarmerEducationInfo(farmerEducationInfoVO);
+		int insertedCnt = FarmerEducationInfoMapper.insertFarmerEducationInfo(FarmerEducationInfoVO);
 
 		return insertedCnt;
 	}
 
 	@Override
-	public int updateFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception {
+	public int updateFarmerEducationInfo(FarmerEducationInfoVO FarmerEducationInfoVO) throws Exception {
 
-		int updatedCnt = farmerEducationInfoMapper.updateFarmerEducationInfo(farmerEducationInfoVO);
+		int updatedCnt = FarmerEducationInfoMapper.updateFarmerEducationInfo(FarmerEducationInfoVO);
 
 		return updatedCnt;
 	}
 
 	@Override
-	public int multiSaveFarmerEducationInfoList(List<FarmerEducationInfoVO> farmerEducationInfoVOList) throws Exception {
+	public int multiSaveFarmerEducationInfoList(List<FarmerEducationInfoVO> FarmerEducationInfoVOList) throws Exception {
 		int savedCnt = 0;
-		for (FarmerEducationInfoVO farmerEducationInfoVO : farmerEducationInfoVOList) {
-			if(ComConstants.ROW_STS_INSERT.equals(farmerEducationInfoVO.getRowSts())) {
-				savedCnt += insertFarmerEducationInfo(farmerEducationInfoVO);
+		for (FarmerEducationInfoVO FarmerEducationInfoVO : FarmerEducationInfoVOList) {
+			if(ComConstants.ROW_STS_INSERT.equals(FarmerEducationInfoVO.getRowSts())) {
+				savedCnt += insertFarmerEducationInfo(FarmerEducationInfoVO);
 			}
-			if(ComConstants.ROW_STS_UPDATE.equals(farmerEducationInfoVO.getRowSts())) {
-				savedCnt += updateFarmerEducationInfo(farmerEducationInfoVO);
+			if(ComConstants.ROW_STS_UPDATE.equals(FarmerEducationInfoVO.getRowSts())) {
+				savedCnt += updateFarmerEducationInfo(FarmerEducationInfoVO);
 			}
 		}
 		return savedCnt;
 	}
 
 	@Override
-	public int insertMegerFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception {
-		return farmerEducationInfoMapper.insertMegerFarmerEducationInfo(farmerEducationInfoVO);
+	public int insertMergeFarmerEducationInfo(FarmerEducationInfoVO FarmerEducationInfoVO) throws Exception {
+		return FarmerEducationInfoMapper.insertMergeFarmerEducationInfo(FarmerEducationInfoVO);
 	}
 	@Override
-	public int insertMegerLogFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception {
-		return farmerEducationInfoMapper.insertMegerLogFarmerEducationInfo(farmerEducationInfoVO);
-	}
-
-
-	@Override
-	public int insertMegerFarmerEducationInfoMap(Map<String, String> MapList) throws Exception {
-		return farmerEducationInfoMapper.insertMegerFarmerEducationInfoMap(MapList);
-	}
-	@Override
-	public int insertMegerLogFarmerEducationInfoMap(Map<String, String> MapList) throws Exception {
-		return farmerEducationInfoMapper.insertMegerLogFarmerEducationInfoMap(MapList);
+	public int insertLogFarmerEducationInfo(FarmerEducationInfoVO FarmerEducationInfoVO) throws Exception {
+		return FarmerEducationInfoMapper.insertLogFarmerEducationInfo(FarmerEducationInfoVO);
 	}
 
 	@Override
-	public int updateMegerFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception {
-		return farmerEducationInfoMapper.updateMegerFarmerEducationInfo(farmerEducationInfoVO);
+	public int deleteFarmerEducationInfo(FarmerEducationInfoVO FarmerEducationInfoVO) throws Exception {
+		return FarmerEducationInfoMapper.deleteFarmerEducationInfo(FarmerEducationInfoVO);
 	}
 
 	@Override
-	public int deleteFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception {
-		return farmerEducationInfoMapper.deleteFarmerEducationInfo(farmerEducationInfoVO);
+	public List<FarmerEducationInfoVO> selectFrmerSnList(FarmerEducationInfoVO FarmerEducationInfoVO) throws Exception {
+		return FarmerEducationInfoMapper.selectFrmerSnList(FarmerEducationInfoVO);
 	}
+
 
 }

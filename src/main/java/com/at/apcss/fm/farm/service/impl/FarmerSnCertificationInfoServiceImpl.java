@@ -1,17 +1,12 @@
 package com.at.apcss.fm.farm.service.impl;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.fm.bbs.mapper.BbsMapper;
-import com.at.apcss.fm.bbs.service.BbsService;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.fm.farm.mapper.FarmerSnCertificationInfoMapper;
 import com.at.apcss.fm.farm.service.FarmerSnCertificationInfoService;
 import com.at.apcss.fm.farm.vo.FarmerSnCertificationInfoVO;
@@ -84,32 +79,19 @@ public class FarmerSnCertificationInfoServiceImpl extends BaseServiceImpl implem
 	}
 
 	@Override
-	public int insertMegerFarmerSnCertificationInfo(FarmerSnCertificationInfoVO farmerSnCertificationInfoVO) throws Exception {
-		return farmerSnCertificationInfoMapper.insertMegerFarmerSnCertificationInfo(farmerSnCertificationInfoVO);
-	}
-	@Override
-	public int insertMegerLogFarmerSnCertificationInfo(FarmerSnCertificationInfoVO farmerSnCertificationInfoVO) throws Exception {
-		return farmerSnCertificationInfoMapper.insertMegerLogFarmerSnCertificationInfo(farmerSnCertificationInfoVO);
-	}
-
-
-	@Override
-	public int insertMegerFarmerSnCertificationInfoMap(Map<String, String> MapList) throws Exception {
-		return farmerSnCertificationInfoMapper.insertMegerFarmerSnCertificationInfoMap(MapList);
-	}
-	@Override
-	public int insertMegerLogFarmerSnCertificationInfoMap(Map<String, String> MapList) throws Exception {
-		return farmerSnCertificationInfoMapper.insertMegerLogFarmerSnCertificationInfoMap(MapList);
-	}
-
-	@Override
-	public int updateMegerFarmerSnCertificationInfo(FarmerSnCertificationInfoVO farmerSnCertificationInfoVO) throws Exception {
-		return farmerSnCertificationInfoMapper.updateMegerFarmerSnCertificationInfo(farmerSnCertificationInfoVO);
+	public int insertLogFarmerSnCertificationInfo(FarmerSnCertificationInfoVO farmerSnCertificationInfoVO) throws Exception {
+		return farmerSnCertificationInfoMapper.insertLogFarmerSnCertificationInfo(farmerSnCertificationInfoVO);
 	}
 
 	@Override
 	public int deleteFarmerSnCertificationInfo(FarmerSnCertificationInfoVO farmerSnCertificationInfoVO) throws Exception {
 		return farmerSnCertificationInfoMapper.deleteFarmerSnCertificationInfo(farmerSnCertificationInfoVO);
 	}
+
+	@Override
+	public List<FarmerSnCertificationInfoVO> selectFrmerSnList(FarmerSnCertificationInfoVO FarmerSnCertificationInfoVO) throws Exception {
+		return farmerSnCertificationInfoMapper.selectFrmerSnList(FarmerSnCertificationInfoVO);
+	}
+
 
 }

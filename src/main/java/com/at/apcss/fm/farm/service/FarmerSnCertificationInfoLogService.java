@@ -1,10 +1,7 @@
 package com.at.apcss.fm.farm.service;
 
 import java.util.List;
-import java.util.Map;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.fm.farm.vo.FarmerSnCertificationInfoLogVO;
 
 
@@ -33,16 +30,5 @@ public interface FarmerSnCertificationInfoLogService {
 	public FarmerSnCertificationInfoLogVO selectFarmerSnCertificationInfoLog(FarmerSnCertificationInfoLogVO farmerSnCertificationInfoLogVO) throws Exception;
 
 	public List<FarmerSnCertificationInfoLogVO> selectFarmerSnCertificationInfoLogList(FarmerSnCertificationInfoLogVO farmerSnCertificationInfoLogVO) throws Exception;
-
-	public int insertFarmerSnCertificationInfoLog(FarmerSnCertificationInfoLogVO farmerSnCertificationInfoLogVO) throws Exception;
-
-	public int updateFarmerSnCertificationInfoLog(FarmerSnCertificationInfoLogVO farmerSnCertificationInfoLogVO) throws Exception;
-
-	public int multiSaveFarmerSnCertificationInfoLogList(List<FarmerSnCertificationInfoLogVO> farmerSnCertificationInfoLogVOList) throws Exception;
-	public int insertMegerFarmerSnCertificationInfoLog(FarmerSnCertificationInfoLogVO farmerSnCertificationInfoLogVOList) throws Exception;
-	public int insertMegerLogFarmerSnCertificationInfoLog(FarmerSnCertificationInfoLogVO farmerSnCertificationInfoLogVOList) throws Exception;
-	public int updateMegerFarmerSnCertificationInfoLog(FarmerSnCertificationInfoLogVO farmerSnCertificationInfoLogVOList) throws Exception;
-
-	public int deleteFarmerSnCertificationInfoLog(FarmerSnCertificationInfoLogVO farmerSnCertificationInfoLogVO) throws Exception;
 
 }

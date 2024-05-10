@@ -1,7 +1,6 @@
 package com.at.apcss.fm.farm.mapper;
 
 import java.util.List;
-import java.util.Map;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
@@ -24,27 +23,28 @@ import com.at.apcss.fm.farm.vo.FarmerSnCertificationInfoVO;
 @Mapper
 public interface FarmerSnCertificationInfoMapper {
 
-
 	/**
 	 * 메시지정보를 조회한다.
 	 * @param bbsVO
 	 * @return
 	 */
-	public FarmerSnCertificationInfoVO selectFarmerSnCertificationInfo(FarmerSnCertificationInfoVO farmerSnCertificationInfoVO);
+	public FarmerSnCertificationInfoVO selectFarmerSnCertificationInfo(FarmerSnCertificationInfoVO FarmerSnCertificationInfoVO);
 
-	public List<FarmerSnCertificationInfoVO> selectFarmerSnCertificationInfoList(FarmerSnCertificationInfoVO farmerSnCertificationInfoVO);
+	public List<FarmerSnCertificationInfoVO> selectFarmerSnCertificationInfoList(FarmerSnCertificationInfoVO FarmerSnCertificationInfoVO);
 
-	public int insertFarmerSnCertificationInfo(FarmerSnCertificationInfoVO farmerSnCertificationInfoVO);
+	public int insertFarmerSnCertificationInfo(FarmerSnCertificationInfoVO FarmerSnCertificationInfoVO);
 
-	public int updateFarmerSnCertificationInfo(FarmerSnCertificationInfoVO farmerSnCertificationInfoVO);
+	public int updateFarmerSnCertificationInfo(FarmerSnCertificationInfoVO FarmerSnCertificationInfoVO);
 
-	public int insertMegerFarmerSnCertificationInfo(FarmerSnCertificationInfoVO farmerSnCertificationInfoVO) throws Exception;
-	public int insertMegerLogFarmerSnCertificationInfo(FarmerSnCertificationInfoVO farmerSnCertificationInfoVO) throws Exception;
+	public int insertLogFarmerSnCertificationInfo(FarmerSnCertificationInfoVO FarmerSnCertificationInfoVO) throws Exception;
 
-	public int insertMegerFarmerSnCertificationInfoMap(Map<String, String> MapList) throws Exception;
-	public int insertMegerLogFarmerSnCertificationInfoMap(Map<String, String> MapList) throws Exception;
+	public int deleteFarmerSnCertificationInfo(FarmerSnCertificationInfoVO FarmerSnCertificationInfoVO) throws Exception;
 
-	public int updateMegerFarmerSnCertificationInfo(FarmerSnCertificationInfoVO farmerSnCertificationInfoVO) throws Exception;
-
-	public int deleteFarmerSnCertificationInfo(FarmerSnCertificationInfoVO farmerSnCertificationInfoVO) throws Exception;
+	/**
+	 * 전체 농업인 번호 리스트 조회
+	 * @param
+	 * @return List<FarmerInfoVO>
+	 * @throws Exception
+	 */
+	public List<FarmerSnCertificationInfoVO> selectFrmerSnList(FarmerSnCertificationInfoVO FarmerSnCertificationInfoVO) throws Exception;
 }

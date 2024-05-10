@@ -15,15 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.at.apcss.am.apc.service.ApcEvrmntStngService;
-import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
-import com.at.apcss.fm.dashboard.service.DashboardService;
-import com.at.apcss.fm.dashboard.vo.DashboardVO;
 import com.at.apcss.fm.farm.vo.FarmerSnCertificationInfoRegVO;
 import com.at.apcss.fm.farm.service.FarmerSnCertificationInfoRegService;
-import com.at.apcss.fm.farm.vo.FarmerSnCertificationInfoRegVO;
 
 @Controller
 public class FarmerSnCertificationInfoRegController extends BaseController{
@@ -31,119 +26,71 @@ public class FarmerSnCertificationInfoRegController extends BaseController{
 	@Resource(name= "farmerSnCertificationInfoRegService")
 	private FarmerSnCertificationInfoRegService farmerSnCertificationInfoRegService;
 
-//화면이동
+	//화면이동
 	@RequestMapping(value = "/fm/farm/farmerSnCertificationInfoReg.do")
 	public String farmerSnCertificationInfoReg() {
 		return "apcss/fm/farm/farmerSnCertificationInfoReg";
 	}
 
-// 조회
-		@PostMapping(value = "/fm/farm/selectFarmerSnCertificationInfoRegList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> selectFarmerSnCertificationInfoRegList(Model model, @RequestBody FarmerSnCertificationInfoRegVO farmerSnCertificationInfoRegVO, HttpServletRequest request) throws Exception{
-			HashMap<String,Object> resultMap = new HashMap<String,Object>();
-			List<FarmerSnCertificationInfoRegVO> resultList = new ArrayList<>();
-			try {
-				 resultList = farmerSnCertificationInfoRegService.selectFarmerSnCertificationInfoRegList(farmerSnCertificationInfoRegVO);
-			} catch (Exception e) {
-				logger.debug(e.getMessage());
-				return getErrorResponseEntity(e);
-			}
-			resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-			return getSuccessResponseEntity(resultMap);
+	// 조회
+	@PostMapping(value = "/fm/farm/selectFarmerSnCertificationInfoRegList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectFarmerSnCertificationInfoRegList(Model model, @RequestBody FarmerSnCertificationInfoRegVO farmerSnCertificationInfoRegVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<FarmerSnCertificationInfoRegVO> resultList = new ArrayList<>();
+		try {
+			 resultList = farmerSnCertificationInfoRegService.selectFarmerSnCertificationInfoRegList(farmerSnCertificationInfoRegVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
+
+	//등록
+	@PostMapping(value = "/fm/farm/insertFarmerSnCertificationInfoReg.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertFarmerSnCertificationInfoReg(@RequestBody FarmerSnCertificationInfoRegVO farmerSnCertificationInfoRegVO, HttpServletRequest requset) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		// validation check
+
+		// audit 항목
+		farmerSnCertificationInfoRegVO.setSysFrstInptUserId(getUserId());
+		farmerSnCertificationInfoRegVO.setSysFrstInptPrgrmId(getPrgrmId());
+		farmerSnCertificationInfoRegVO.setSysLastChgUserId(getUserId());
+		farmerSnCertificationInfoRegVO.setSysLastChgPrgrmId(getPrgrmId());
+
+		int insertedCnt = 0;
+
+		try {
+			insertedCnt = farmerSnCertificationInfoRegService.insertFarmerSnCertificationInfoReg(farmerSnCertificationInfoRegVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
 		}
 
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 
 
-		//등록
-		@PostMapping(value = "/fm/farm/insertFarmerSnCertificationInfoReg.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> insertFarmerSnCertificationInfoReg(@RequestBody FarmerSnCertificationInfoRegVO farmerSnCertificationInfoRegVO, HttpServletRequest requset) throws Exception{
-			HashMap<String,Object> resultMap = new HashMap<String,Object>();
+	@PostMapping(value = "/fm/farm/deleteFarmerSnCertificationInfoReg.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteFarmerSnCertificationInfoReg(@RequestBody FarmerSnCertificationInfoRegVO farmerSnCertificationInfoRegVO, HttpServletRequest request) throws Exception {
+		logger.debug("/fm/farm/deletefarmerSnCertificationInfoReg >>> 호출 >>> ");
 
-			// validation check
-
-			// audit 항목
-			farmerSnCertificationInfoRegVO.setSysFrstInptUserId(getUserId());
-			farmerSnCertificationInfoRegVO.setSysFrstInptPrgrmId(getPrgrmId());
-			farmerSnCertificationInfoRegVO.setSysLastChgUserId(getUserId());
-			farmerSnCertificationInfoRegVO.setSysLastChgPrgrmId(getPrgrmId());
-
-			int insertedCnt = 0;
-
-			try {
-				insertedCnt = farmerSnCertificationInfoRegService.insertFarmerSnCertificationInfoReg(farmerSnCertificationInfoRegVO);
-			} catch (Exception e) {
-				logger.debug(e.getMessage());
-				return getErrorResponseEntity(e);
-			}
-
-			resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
-
-			return getSuccessResponseEntity(resultMap);
+		int result = 0;
+		try {
+			result =+ farmerSnCertificationInfoRegService.deleteFarmerSnCertificationInfoReg(farmerSnCertificationInfoRegVO);
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
 		}
 
-
-		@PostMapping(value = "/fm/farm/multiSaveFarmerSnCertificationInfoRegList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> multiSaveFarmerSnCertificationInfoRegList(@RequestBody List<FarmerSnCertificationInfoRegVO> farmerSnCertificationInfoRegVOList, HttpServletRequest request) throws Exception {
-
-			HashMap<String,Object> resultMap = new HashMap<String,Object>();
-
-			int savedCnt = 0;
-			try {
-				for (FarmerSnCertificationInfoRegVO farmerSnCertificationInfoRegVO : farmerSnCertificationInfoRegVOList) {
-					farmerSnCertificationInfoRegVO.setSysFrstInptPrgrmId(getPrgrmId());
-					farmerSnCertificationInfoRegVO.setSysFrstInptUserId(getUserId());
-					farmerSnCertificationInfoRegVO.setSysLastChgPrgrmId(getPrgrmId());
-					farmerSnCertificationInfoRegVO.setSysLastChgUserId(getUserId());
-				}
-
-				savedCnt = farmerSnCertificationInfoRegService.multiSaveFarmerSnCertificationInfoRegList(farmerSnCertificationInfoRegVOList);
-			}catch (Exception e) {
-				return getErrorResponseEntity(e);
-			}
-
-			resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
-			return getSuccessResponseEntity(resultMap);
-		}
-
-		@PostMapping(value = "/fm/farm/deleteFarmerSnCertificationInfoReg.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> deleteFarmerSnCertificationInfoReg(@RequestBody FarmerSnCertificationInfoRegVO farmerSnCertificationInfoRegVO, HttpServletRequest request) throws Exception {
-			logger.debug("/fm/farm/deletefarmerSnCertificationInfoReg >>> 호출 >>> ");
-
-			int result = 0;
-			try {
-				result =+ farmerSnCertificationInfoRegService.deleteFarmerSnCertificationInfoReg(farmerSnCertificationInfoRegVO);
-			}catch (Exception e) {
-				return getErrorResponseEntity(e);
-			}
-
-			HashMap<String,Object> resultMap = new HashMap<String,Object>();
-			resultMap.put("result", result);
-			return getSuccessResponseEntity(resultMap);
-		}
-
-		// 생산농가 상세내역 변경
-		@PostMapping(value = "/fm/Farm/updateFarmerSnCertificationInfoReg.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> updateFarmerSnCertificationInfoReg(@RequestBody FarmerSnCertificationInfoRegVO farmerSnCertificationInfoRegVO, HttpServletRequest requset) throws Exception{
-
-			HashMap<String,Object> resultMap = new HashMap<String,Object>();
-
-			// validation check
-
-			// audit 항목
-			farmerSnCertificationInfoRegVO.setSysLastChgUserId(getUserId());
-			farmerSnCertificationInfoRegVO.setSysLastChgPrgrmId(getPrgrmId());
-
-			int updatedCnt = 0;
-
-			try {
-				updatedCnt = farmerSnCertificationInfoRegService.updateFarmerSnCertificationInfoReg(farmerSnCertificationInfoRegVO);
-			} catch (Exception e) {
-				logger.debug(e.getMessage());
-				return getErrorResponseEntity(e);
-			}
-
-			resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
-			return getSuccessResponseEntity(resultMap);
-		}
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		resultMap.put("result", result);
+		return getSuccessResponseEntity(resultMap);
+	}
 
 }

@@ -6,12 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.fm.bbs.mapper.BbsMapper;
-import com.at.apcss.fm.bbs.service.BbsService;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.fm.farm.mapper.FarmerInfoMapper;
 import com.at.apcss.fm.farm.service.FarmerInfoService;
 import com.at.apcss.fm.farm.vo.FarmerInfoVO;
@@ -90,27 +86,27 @@ public class FarmerInfoServiceImpl extends BaseServiceImpl implements FarmerInfo
 	}
 
 	@Override
-	public int insertMegerFarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception {
-		return farmerInfoMapper.insertMegerFarmerInfo(farmerInfoVO);
+	public int insertMergeFarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception {
+		return farmerInfoMapper.insertMergeFarmerInfo(farmerInfoVO);
 	}
 	@Override
-	public int insertMegerLogFarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception {
-		return farmerInfoMapper.insertMegerLogFarmerInfo(farmerInfoVO);
-	}
-
-
-	@Override
-	public int insertMegerFarmerInfoMap(Map<String, String> MapList) throws Exception {
-		return farmerInfoMapper.insertMegerFarmerInfoMap(MapList);
-	}
-	@Override
-	public int insertMegerLogFarmerInfoMap(Map<String, String> MapList) throws Exception {
-		return farmerInfoMapper.insertMegerLogFarmerInfoMap(MapList);
+	public int insertMergeLogFarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception {
+		return farmerInfoMapper.insertMergeLogFarmerInfo(farmerInfoVO);
 	}
 
+
 	@Override
-	public int updateMegerFarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception {
-		return farmerInfoMapper.updateMegerFarmerInfo(farmerInfoVO);
+	public int insertMergeFarmerInfoMap(Map<String, String> MapList) throws Exception {
+		return farmerInfoMapper.insertMergeFarmerInfoMap(MapList);
+	}
+	@Override
+	public int insertMergeLogFarmerInfoMap(Map<String, String> MapList) throws Exception {
+		return farmerInfoMapper.insertMergeLogFarmerInfoMap(MapList);
+	}
+
+	@Override
+	public int updateMergeFarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception {
+		return farmerInfoMapper.updateMergeFarmerInfo(farmerInfoVO);
 	}
 
 	@Override

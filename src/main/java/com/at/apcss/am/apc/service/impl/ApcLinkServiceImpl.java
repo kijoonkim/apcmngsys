@@ -201,5 +201,30 @@ public class ApcLinkServiceImpl extends BaseServiceImpl implements ApcLinkServic
 		return null;
 	}
 
+	@Override
+	public HashMap<String, Object> insertApcLinkTrsmKndList(List<ApcLinkVO> trsmKndList) throws Exception {
+		
+		for (ApcLinkVO trsmKndVO : trsmKndList) {
+			
+			ApcLinkVO chkVO = apcLinkMapper.selectApcLinkTrsmKnd(trsmKndVO);
+			
+			if (chkVO != null && StringUtils.hasText(chkVO.getTrsmMatId())) {
+				// update
+				apcLinkMapper.updateApcLinkTrsmKnd(trsmKndVO);
+			} else {
+				// insert
+				apcLinkMapper.insertApcLinkTrsmKnd(trsmKndVO);
+			}
+		}
+		
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deleteApcLinkTrsmKnd(ApcLinkVO trsmKndVO) throws Exception {
+		apcLinkMapper.deleteApcLinkTrsmMat(trsmKndVO);
+		return null;
+	}
+
 
 }

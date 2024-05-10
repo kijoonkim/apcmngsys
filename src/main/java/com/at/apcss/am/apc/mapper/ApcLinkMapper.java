@@ -44,6 +44,14 @@ public interface ApcLinkMapper {
 	
 	public ApcLinkVO selectApcLinkTrsmMatById(ApcLinkVO apcLinkVO) throws Exception;
 	
+	/**
+	 * APC 연계기기 종류 조회
+	 * @param apcLinkVO
+	 * @return
+	 * @throws Exception
+	 */
+	public ApcLinkVO selectApcLinkTrsmKnd(ApcLinkVO apcLinkVO) throws Exception;
+	
 	
 	public List<ApcLinkVO> selectApcLinkTrsmMatList(ApcLinkVO apcLinkVO) throws Exception;
 	
@@ -90,5 +98,9 @@ public interface ApcLinkMapper {
 	public int insertApcLinkTrsmMat(ApcLinkVO apcLinkVO) throws Exception;
 	public int updateApcLinkTrsmMat(ApcLinkVO apcLinkVO) throws Exception;
 	public int deleteApcLinkTrsmMat(ApcLinkVO apcLinkVO) throws Exception;
+	
+	public int insertApcLinkTrsmKnd(ApcLinkVO apcLinkVO) throws Exception;
+	public int updateApcLinkTrsmKnd(ApcLinkVO apcLinkVO) throws Exception;
+	public int deleteApcLinkTrsmKnd(ApcLinkVO apcLinkVO) throws Exception;
 	
 }

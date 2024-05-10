@@ -8,35 +8,20 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FarmLandGrantsInfoRegVO extends ComVO{
-	private String frmerSn;
-	private String bzobRgno;
-	private String mngerRelate;
-	private String bzmCorpNm;
-	private String addr;
-	private String rrsdAddr;
-	private String rdnmAddr;
-	private String twNm;
-	private String perCorpDvcdNm;
-	private String nafoDvcdNm;
-	private String telno;
-	private String mblTelno;
-	private String faxTelno;
-	private String emailAddr;
-	private String famgStrYmd;
-	private String farmngBeginStleCdNm;
-	private String farmngEngageStleCdNm;
-	private String fndtYr;
-	private String bzmRgno;
-	private String reprNm;
-	private String reprAddr;
-	private String brthdy;
-	private String sexdstn;
-	private String sysFrstInptDt;
-	private String sysFrstInptUserId;
-	private String sysFrstInptPrgrmId;
-	private String sysLastChgDt;
-	private String sysLastChgUserId;
-	private String sysLastChgPrgrmId;
-	private String delYn;
+	private String sn;
 
+	private String frmerno;		//농업인 번호 FRMER_SN
+	private String pnuCd;		//PNU 코드 PNU_CODE
+	private String bizBgngYmd;	//사업 시작일 BSNS_BGNDE
+	private String bizEndYmd;	//사업 종료일 BSNS_ENDDE
+	private String bizCd;		//사업 코드 BSNS_CODE
+	private String bizNm;		//사업 명 BSNS_NM
+	private String stts;		//상태 STTUS
+	private String aplcntNm;	//신청인 명 APPLCNT_NM
+	private String ldgrSe;		//대장구분 LDGRFL
+	private String frlnAddr;	//농지주소 FRLND_ADRES
+	private String stdgCd;		//법정동 코드 LEGALDONG_CODE
+	private String mno;			//본번 MNNM
+	private String sno;			//부번 SLNO
+	private String aplySfc;		//신청면적 REQST_AR
 }

@@ -13,828 +13,273 @@
 <mapper namespace="com.at.apcss.fm.farm.mapper.FarmLandGrantsInfoMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BfarmngMapper.selectBbs				-->
+	<!-- NAME : com.at.apcss.fm.farm.mapper.FarmLandGrantsInfoMapper.selectFarmLandGrantsInfo	-->
 	<!-- DESC : 게시판 테이블 단건조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
- <!--
-    <select id="selectfarmLandGrantsInfo" parameterType="com.at.apcss.fm.farm.vo.FarmLandGrantsInfoVO" resultType="com.at.apcss.fm.farm.vo.FarmLandGrantsInfoVO">
-    	<![CDATA[
-			SELECT /* com.at.apcss.fm.farm.mapper.FarmLandGrantsInfoMapper.selectfarmLandGrantsInfo */
-				  CM.TEST_NO
-				, CM.AA
-				, CM.BB
-				, CM.CC
-				, CM.DD
-				, CM.EE
-				, CM.FF
-				, CM.GG
-				, CM.HH
-				, CM.II
-				, CM.II_CODE
-				, CM.JJ
-				, CM.KK
-				, CM.LL
-				, CM.MM
-				, CM.NN
-				, CM.OO
-				, CM.PP
-				, CM.QQ
-				, CM.RR
-				, CM.SS
-				, CM.TT
-				, CM.UU
-				, CM.VV
-				, CM.WW
-				, CM.XX
-				, CM.YY
-				, CM.ZZ
-				, CM.DEL_YN		AS DEL_YN
-				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
-				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
-				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
-				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_FRST_INPT_USER_ID) AS SYS_FRST_INPT_USER_ID_NM
-				, CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
-				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
-				, TO_CHAR(CM.SYS_LAST_CHG_DT,'YYYY-MM-DD')		AS SYS_LAST_CHG_DT_YMD
-				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
-				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_ID_NM
-				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_PD_PrdcrCrclOgnVluIdctrMng CM
-			 WHERE 1=1
 
-    	]]>
-    		<if test='ccCode != null and ccCode != ""'>
-				AND CM.CC_CODE LIKE #{ccCode} || '%'
-			</if>
-			<if test='iiCode != null and iiCode != ""'>
-				AND CM.II_CODE LIKE '%' || #{iiCode} || '%'
-			</if>
-			<if test='testNo != null and testNo != ""'>
-				AND CM.TEST_NO LIKE '%' || #{testNo} || '%'
-			</if>
-		ORDER BY CM.SYS_LAST_CHG_DT DESC
-    </select>
-	  -->
+	<select id="selectFarmLandGrantsInfo" parameterType="com.at.apcss.fm.farm.vo.FarmLandGrantsInfoVO" resultType="com.at.apcss.fm.farm.vo.FarmLandGrantsInfoVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.fm.farm.mapper.FarmLandGrantsInfoMapper.selectFarmLandGrantsInfo */
 
-	   <select id="selectFarmLandGrantsInfo" parameterType="com.at.apcss.fm.farm.vo.FarmLandGrantsInfoVO" resultType="com.at.apcss.fm.farm.vo.FarmLandGrantsInfoVO">
-    	<![CDATA[
-			SELECT /* com.at.apcss.fm.farm.mapper.FarmLandGrantsInfoMapper.selectfarmLandGrantsInfo */
-				  CM.FRMER_SN
-				, CM.PNU_CODE
-				, CM.BSNS_BGNDE
-				, CM.BSNS_ENDDE
-				, CM.BSNS_CODE
-				, CM.BSNS_NM
-			    , CM.STTUS
-				, CM.APPLCNT_NM
-				, CM.LDGRFL
-				, CM.FRLND_ADRES
-				, CM.LEGALDONG_CODE
-				, CM.MNNM
-				, CM.SLNO
-				, CM.REQST_AR
-				, CM.DEL_YN
-				, CM.SYS_FRST_INPT_DT
-				, CM.SYS_FRST_INPT_USER_ID
-				, CM.SYS_FRST_INPT_PRGRM_ID
-				, CM.SYS_LAST_CHG_DT
-				, CM.SYS_LAST_CHG_USER_ID
-				, CM.SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_FRLN_RCFV_HSTRY CM
-			 WHERE 1=1
+				FRMERNO
+				, PNU_CD
+				, BIZ_BGNG_YMD
+				, BIZ_END_YMD
+				, BIZ_CD
+				, BIZ_NM
+				, STTS
+				, APLCNT_NM
+				, LDGR_SE
+				, FRLN_ADDR
+				, STDG_CD
+				, MNO
+				, SNO
+				, APLY_SFC
 
-    	]]>
-     		<if test='frmerSn != null and frmerSn != ""'>
-				AND CM.FRMER_SN LIKE #{frmerSn} || '%'
+				, SN
+
+				, DEL_YN
+				, SYS_FRST_INPT_DT
+				, SYS_FRST_INPT_PRGRM_ID
+				, SYS_FRST_INPT_USER_ID
+				, SYS_LAST_CHG_DT
+				, SYS_LAST_CHG_PRGRM_ID
+				, SYS_LAST_CHG_USER_ID
+			FROM USRAM.TB_AX_FARM_LAND_GRANTS_INFO
+			WHERE 1=1
+		]]>
+			<if test='frmerno != null and frmerno != ""'>
+				AND FRMERNO = #{frmerno}
 			</if>
-			<if test='bzobRgno != null and bzobRgno != ""'>
-				AND CM.BZOB_RGNO LIKE '%' || #{bzobRgno} || '%'
-			</if>
-		ORDER BY CM.SYS_LAST_CHG_DT DESC
-    </select>
+		ORDER BY SYS_LAST_CHG_DT DESC
+	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BfarmngMapper.selectBbsList			-->
+	<!-- NAME : com.at.apcss.fm.farm.mapper.FarmLandGrantsInfoMapper.selectFarmLandGrantsInfoList	-->
 	<!-- DESC : 게시판 테이블 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectFarmLandGrantsInfoList" parameterType="com.at.apcss.fm.farm.vo.FarmLandGrantsInfoVO" resultType="com.at.apcss.fm.farm.vo.FarmLandGrantsInfoVO">
-    	<![CDATA[
-			SELECT /* com.at.apcss.fm.farm.mapper.FarmLandGrantsInfoMapper.selectfarmLandGrantsInfoList */
-				   CM.FRMER_SN
-				, CM.PNU_CODE
-				, CM.BSNS_BGNDE
-				, CM.BSNS_ENDDE
-				, CM.BSNS_CODE
-				, CM.BSNS_NM
-			    , CM.STTUS
-				, CM.APPLCNT_NM
-				, CM.LDGRFL
-				, CM.FRLND_ADRES
-				, CM.LEGALDONG_CODE
-				, CM.MNNM
-				, CM.SLNO
-				, CM.REQST_AR
-				, CM.DEL_YN
-				, CM.SYS_FRST_INPT_DT
-				, CM.SYS_FRST_INPT_USER_ID
-				, CM.SYS_FRST_INPT_PRGRM_ID
-				, CM.SYS_LAST_CHG_DT
-				, CM.SYS_LAST_CHG_USER_ID
-				, CM.SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_FRLN_RCFV_HSTRY CM
-			 WHERE 1=1
-    	]]>
-     		<if test='frmerSn != null and frmerSn != ""'>
-				AND CM.FRMER_SN LIKE #{frmerSn} || '%'
+	<select id="selectFarmLandGrantsInfoList" parameterType="com.at.apcss.fm.farm.vo.FarmLandGrantsInfoVO" resultType="com.at.apcss.fm.farm.vo.FarmLandGrantsInfoVO">
+		<!-- Start 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			SELECT
+				  ROWNUM AS ROW_SEQ
+				, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+				, pt0.*
+			  FROM (
+		</if>
+
+		<![CDATA[
+			SELECT /* com.at.apcss.fm.farm.mapper.FarmLandGrantsInfoMapper.selectFarmLandGrantsInfoList */
+				FRMERNO
+				, PNU_CD
+				, BIZ_BGNG_YMD
+				, BIZ_END_YMD
+				, BIZ_CD
+				, BIZ_NM
+				, STTS
+				, APLCNT_NM
+				, LDGR_SE
+				, FRLN_ADDR
+				, STDG_CD
+				, MNO
+				, SNO
+				, APLY_SFC
+
+				, SN
+
+				, DEL_YN
+				, SYS_FRST_INPT_DT
+				, SYS_FRST_INPT_PRGRM_ID
+				, SYS_FRST_INPT_USER_ID
+				, SYS_LAST_CHG_DT
+				, SYS_LAST_CHG_PRGRM_ID
+				, SYS_LAST_CHG_USER_ID
+			FROM USRAM.TB_AX_FARM_LAND_GRANTS_INFO
+			WHERE 1=1
+		]]>
+			<if test='frmerno != null and frmerno != ""'>
+				AND FRMERNO = #{frmerno}
 			</if>
-			<if test='bzobRgno != null and bzobRgno != ""'>
-				AND CM.BZOB_RGNO LIKE '%' || #{bzobRgno} || '%'
-			</if>
-		ORDER BY CM.SYS_LAST_CHG_DT DESC
-    </select>
+			ORDER BY SYS_LAST_CHG_DT DESC
+
+		<!-- 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+		</if>
+	</select>
 
 
 	<insert id="insertFarmLandGrantsInfo" parameterType="com.at.apcss.fm.farm.vo.FarmLandGrantsInfoVO">
-    	<![CDATA[
-	    	INSERT /* com.at.apcss.fm.farm.mapper.FarmLandGrantsInfoMapper.insertfarmLandGrantsInfo */
-	    	  INTO TB_FRLN_RCFV_HSTRY
-	    		(
-	    		  FRMER_SN
-				, PNU_CODE
-				, BSNS_BGNDE
-				, BSNS_ENDDE
-				, BSNS_CODE
-				, BSNS_NM
-			    , STTUS
-				, APPLCNT_NM
-				, LDGRFL
-				, FRLND_ADRES
-				, LEGALDONG_CODE
-				, MNNM
-				, SLNO
-				, REQST_AR
-				, DEL_YN
-				, SYS_FRST_INPT_DT
-				, SYS_FRST_INPT_USER_ID
-				, SYS_FRST_INPT_PRGRM_ID
-				, SYS_LAST_CHG_DT
-				, SYS_LAST_CHG_USER_ID
-				, SYS_LAST_CHG_PRGRM_ID
-	    		)
-	   		VALUES
-	   			(
-	   			    #{frmerSn}
-					,#{pnuCode}
-					,#{bsnsBgnde}
-					,#{bsnsEndde}
-					,#{bsnsCode}
-					,#{bsnsNm}
-					,#{sttus}
-					,#{applcntNm}
-					,#{ldgrfl}
-					,#{frlndAdres}
-					,#{legaldongCode}
-					,#{mnnm}
-					,#{slno}
-					,#{reqstAr}
-					,#{delYn}
-					,SYSDATE
-					,#{sysFrstInptUserId}
-					,#{sysFrstInptPrgrmId}
-					,SYSDATE
-					,#{sysLastChgUserId}
-					,#{sysLastChgPrgrmId}
-	   			)
-    	]]>
-    </insert>
+		<![CDATA[
+		INSERT /* com.at.apcss.fm.farm.mapper.FarmLandGrantsInfoMapper.insertFarmLandGrantsInfo */
+			  INTO TB_AX_FARM_LAND_GRANTS_INFO
+				(
+					  FRMERNO
+					, PNU_CD
+					, BIZ_BGNG_YMD
+					, BIZ_END_YMD
+					, BIZ_CD
+					, BIZ_NM
+					, STTS
+					, APLCNT_NM
+					, LDGR_SE
+					, FRLN_ADDR
+					, STDG_CD
+					, MNO
+					, SNO
+					, APLY_SFC
 
+					, SYS_FRST_INPT_DT
+					, SYS_FRST_INPT_PRGRM_ID
+					, SYS_FRST_INPT_USER_ID
+					, SYS_LAST_CHG_DT
+					, SYS_LAST_CHG_PRGRM_ID
+					, SYS_LAST_CHG_USER_ID
+				)
+			VALUES
+				(
+					  #{frmerno}
+					, #{pnuCd}
+					, #{bizBgngYmd}
+					, #{bizEndYmd}
+					, #{bizCd}
+					, #{bizNm}
+					, #{stts}
+					, #{aplcntNm}
+					, #{ldgrSe}
+					, #{frlnAddr}
+					, #{stdgCd}
+					, #{mno}
+					, #{sno}
+					, #{aplySfc}
 
-
-
-    <insert id="insertMegerFarmLandGrantsInfo" parameterType="com.at.apcss.fm.farm.vo.FarmLandGrantsInfoVO">
-	<![CDATA[
-    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmLandGrantsInfoMapper.insertMegerfarmLandGrantsInfo */
-		USING DUAL
-			ON (	         CLT.FRMER_SN      = #{frmerSn}
-				      AND CLT.BZOB_RGNO  =  #{bzobRgno}
-				   )
-		WHEN MATCHED THEN
-			UPDATE /* com.at.apcss.fm.farm.mapper.FarmLandGrantsInfoMapper.insertMegerfarmLandGrantsInfo */
-			   SET
-			 	  MNGER_RELATE 	= #{mngerRelate}
-				, BZM_CORP_NM 	= #{bzmCorpNm}
-				, ADDR 	= #{addr}
-				, RRSD_ADDR 	= #{rrsdAddr}
-			    , RDNM_ADDR 	= #{rdnmAddr}
-				, TW_NM 	= #{twNm}
-				, PER_CORP_DVCD_NM 	= #{perCorpDvcdNm}
-				, NAFO_DVCD_NM 	= #{nafoDvcdNm}
-				, TELNO 	= #{telno}
-				, MBL_TELNO 	= #{mblTelno}
-				, FAX_TELNO 	= #{faxTelno}
-				, EMAIL_ADDR 	= #{emailAddr}
-				, FAMG_STR_YMD 	= #{famgStrYmd}
-				, FARMNG_BEGIN_STLE_CD_NM 	= #{farmngBeginStleCdNm}
-				, FARMNG_ENGAGE_STLE_CD_NM 	= #{farmngEngageStleCdNm}
-				, FNDT_YR 	= #{fndtYr}
-				, BZM_RGNO 	= #{bzmRgno}
-				, REPR_NM 	= #{reprNm}
-				, REPR_ADDR 	= #{reprAddr}
-				, BRTHDY 	= #{brthdy}
-				, SEXDSTN 	= #{sexdstn}
-				, SAVE_CD 	= #{saveCd}
-		WHEN NOT MATCHED THEN
-			 INSERT /* com.at.apcss.fm.farm.mapper.FarmLandGrantsInfoMapper.insertMegerfarmLandGrantsInfo */
-	    		(
-	    		  FRMER_SN
-				, BZOB_RGNO
-				, MNGER_RELATE
-				, BZM_CORP_NM
-				, ADDR
-				, RRSD_ADDR
-			    , RDNM_ADDR
-				, TW_NM
-				, PER_CORP_DVCD_NM
-				, NAFO_DVCD_NM
-				, TELNO
-				, MBL_TELNO
-				, FAX_TELNO
-				, EMAIL_ADDR
-				, FAMG_STR_YMD
-				, FARMNG_BEGIN_STLE_CD_NM
-				, FARMNG_ENGAGE_STLE_CD_NM
-				, FNDT_YR
-				, BZM_RGNO
-				, REPR_NM
-				, REPR_ADDR
-				, BRTHDY
-				, SEXDSTN
-				, SYS_FRST_INPT_DT
-				, SYS_FRST_INPT_USER_ID
-				, SYS_FRST_INPT_PRGRM_ID
-				, SYS_LAST_CHG_DT
-				, SYS_LAST_CHG_USER_ID
-				, SYS_LAST_CHG_PRGRM_ID
-				, DEL_YN
-				, SAVE_CD
-	    		)
-	   		VALUES
-	   			(
-	   			    #{frmerSn}
-					,#{bzobRgno}
-					,#{mngerRelate}
-					,#{bzmCorpNm}
-					,#{addr}
-					,#{rrsdAddr}
-					,#{rdnmAddr}
-					,#{twNm}
-					,#{perCorpDvcdNm}
-					,#{nafoDvcdNm}
-					,#{telno}
-					,#{mblTelno}
-					,#{faxTelno}
-					,#{emailAddr}
-					,#{famgStrYmd}
-					,#{farmngBeginStleCdNm}
-					,#{farmngEngageStleCdNm}
-					,#{fndtYr}
-					,#{bzmRgno}
-					,#{reprNm}
-					,#{reprAddr}
-					,#{brthdy}
-					,#{sexdstn}
-					,SYSDATE
-					,#{sysFrstInptUserId}
-					,#{sysFrstInptPrgrmId}
-					,SYSDATE
-					,#{sysLastChgUserId}
-					,#{sysLastChgPrgrmId}
-					,#{delYn}
-					,#{saveCd}
-	   			)
-    	]]>
+					, SYSDATE
+					, #{sysFrstInptUserId}
+					, #{sysFrstInptPrgrmId}
+					, SYSDATE
+					, #{sysLastChgUserId}
+					, #{sysLastChgPrgrmId}
+				)
+		]]>
 	</insert>
 
-
-
-    <insert id="insertMegerFarmLandGrantsInfoMap" parameterType="hashmap">
+	<insert id="insertLogFarmLandGrantsInfo" parameterType="com.at.apcss.fm.farm.vo.FarmLandGrantsInfoVO">
 	<![CDATA[
-    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmLandGrantsInfoMapper.insertMegerfarmLandGrantsInfoMap */
-		USING DUAL
-			ON (	         CLT.FRMER_SN      = #{frmerSn}
-				      AND CLT.BZOB_RGNO  =  #{bzobRgno}
-				   )
-		WHEN MATCHED THEN
-			UPDATE /* com.at.apcss.fm.farm.mapper.FarmLandGrantsInfoMapper.insertMegerfarmLandGrantsInfoMap */
-			   SET
-			 	  MNGER_RELATE 	= #{mngerRelate}
-				, BZM_CORP_NM 	= #{bzmCorpNm}
-				, ADDR 	= #{addr}
-				, RRSD_ADDR 	= #{rrsdAddr}
-			    , RDNM_ADDR 	= #{rdnmAddr}
-				, TW_NM 	= #{twNm}
-				, PER_CORP_DVCD_NM 	= #{perCorpDvcdNm}
-				, NAFO_DVCD_NM 	= #{nafoDvcdNm}
-				, TELNO 	= #{telno}
-				, MBL_TELNO 	= #{mblTelno}
-				, FAX_TELNO 	= #{faxTelno}
-				, EMAIL_ADDR 	= #{emailAddr}
-				, FAMG_STR_YMD 	= #{famgStrYmd}
-				, FARMNG_BEGIN_STLE_CD_NM 	= #{farmngBeginStleCdNm}
-				, FARMNG_ENGAGE_STLE_CD_NM 	= #{farmngEngageStleCdNm}
-				, FNDT_YR 	= #{fndtYr}
-				, BZM_RGNO 	= #{bzmRgno}
-				, REPR_NM 	= #{reprNm}
-				, REPR_ADDR 	= #{reprAddr}
-				, BRTHDY 	= #{brthdy}
-				, SEXDSTN 	= #{sexdstn}
-				, SAVE_CD 	= #{saveCd}
-		WHEN NOT MATCHED THEN
-			 INSERT /* com.at.apcss.fm.farm.mapper.FarmLandGrantsInfoMapper.insertMegerfarmLandGrantsInfo */
-	    		(
-	    		  FRMER_SN
-				, BZOB_RGNO
-				, MNGER_RELATE
-				, BZM_CORP_NM
-				, ADDR
-				, RRSD_ADDR
-			    , RDNM_ADDR
-				, TW_NM
-				, PER_CORP_DVCD_NM
-				, NAFO_DVCD_NM
-				, TELNO
-				, MBL_TELNO
-				, FAX_TELNO
-				, EMAIL_ADDR
-				, FAMG_STR_YMD
-				, FARMNG_BEGIN_STLE_CD_NM
-				, FARMNG_ENGAGE_STLE_CD_NM
-				, FNDT_YR
-				, BZM_RGNO
-				, REPR_NM
-				, REPR_ADDR
-				, BRTHDY
-				, SEXDSTN
-				, SYS_FRST_INPT_DT
-				, SYS_FRST_INPT_USER_ID
-				, SYS_FRST_INPT_PRGRM_ID
-				, SYS_LAST_CHG_DT
-				, SYS_LAST_CHG_USER_ID
-				, SYS_LAST_CHG_PRGRM_ID
-				, DEL_YN
-				, SAVE_CD
-	    		)
-	   		VALUES
-	   			(
-	   			    #{frmerSn}
-					,#{bzobRgno}
-					,#{mngerRelate}
-					,#{bzmCorpNm}
-					,#{addr}
-					,#{rrsdAddr}
-					,#{rdnmAddr}
-					,#{twNm}
-					,#{perCorpDvcdNm}
-					,#{nafoDvcdNm}
-					,#{telno}
-					,#{mblTelno}
-					,#{faxTelno}
-					,#{emailAddr}
-					,#{famgStrYmd}
-					,#{farmngBeginStleCdNm}
-					,#{farmngEngageStleCdNm}
-					,#{fndtYr}
-					,#{bzmRgno}
-					,#{reprNm}
-					,#{reprAddr}
-					,#{brthdy}
-					,#{sexdstn}
-					,SYSDATE
-					,#{sysFrstInptUserId}
-					,#{sysFrstInptPrgrmId}
-					,SYSDATE
-					,#{sysLastChgUserId}
-					,#{sysLastChgPrgrmId}
-					,#{delYn}
-					,#{saveCd}
-	   			)
-    	]]>
+		INSERT /* com.at.apcss.fm.farm.mapper.FarmLandGrantsInfoMapper.insertLogFarmLandGrantsInfo */
+			  INTO TB_AX_FARM_LAND_GRANTS_INFO_LOG
+				(
+					  FRMERNO
+					, PNU_CD
+					, BIZ_BGNG_YMD
+					, BIZ_END_YMD
+					, BIZ_CD
+					, BIZ_NM
+					, STTS
+					, APLCNT_NM
+					, LDGR_SE
+					, FRLN_ADDR
+					, STDG_CD
+					, MNO
+					, SNO
+					, APLY_SFC
+
+					, SYS_FRST_INPT_DT
+					, SYS_FRST_INPT_PRGRM_ID
+					, SYS_FRST_INPT_USER_ID
+					, SYS_LAST_CHG_DT
+					, SYS_LAST_CHG_PRGRM_ID
+					, SYS_LAST_CHG_USER_ID
+				)
+			VALUES
+				(
+					  #{frmerno}
+					, #{pnuCd}
+					, #{bizBgngYmd}
+					, #{bizEndYmd}
+					, #{bizCd}
+					, #{bizNm}
+					, #{stts}
+					, #{aplcntNm}
+					, #{ldgrSe}
+					, #{frlnAddr}
+					, #{stdgCd}
+					, #{mno}
+					, #{sno}
+					, #{aplySfc}
+
+					, SYSDATE
+					, #{sysFrstInptUserId}
+					, #{sysFrstInptPrgrmId}
+					, SYSDATE
+					, #{sysLastChgUserId}
+					, #{sysLastChgPrgrmId}
+				)
+		]]>
 	</insert>
 
-
-    <insert id="insertMegerLogFarmLandGrantsInfo" parameterType="com.at.apcss.fm.farm.vo.FarmLandGrantsInfoVO">
-	<![CDATA[
-    	INSERT /* com.at.apcss.fm.farm.mapper.FarmLandGrantsInfoMapper.insertMegerLogfarmLandGrantsInfo */
-	    	  INTO TB_FARMER_INFO_LOG
-	    		(
-	    		  SEQ
-	    		 ,FRMER_SN
-				, BZOB_RGNO
-				, MNGER_RELATE
-				, BZM_CORP_NM
-				, ADDR
-				, RRSD_ADDR
-			    , RDNM_ADDR
-				, TW_NM
-				, PER_CORP_DVCD_NM
-				, NAFO_DVCD_NM
-				, TELNO
-				, MBL_TELNO
-				, FAX_TELNO
-				, EMAIL_ADDR
-				, FAMG_STR_YMD
-				, FARMNG_BEGIN_STLE_CD_NM
-				, FARMNG_ENGAGE_STLE_CD_NM
-				, FNDT_YR
-				, BZM_RGNO
-				, REPR_NM
-				, REPR_ADDR
-				, BRTHDY
-				, SEXDSTN
-				, SYS_FRST_INPT_DT
-				, SYS_FRST_INPT_USER_ID
-				, SYS_FRST_INPT_PRGRM_ID
-				, SYS_LAST_CHG_DT
-				, SYS_LAST_CHG_USER_ID
-				, SYS_LAST_CHG_PRGRM_ID
-				, DEL_YN
-				, SAVE_CD
-	    		)
-	   		VALUES
-	   			(
-	   			      (SELECT NVL(MAX(SEQ),0)+1 FROM TB_FARMER_INFO_LOG)
-	   			    ,#{frmerSn}
-					,#{bzobRgno}
-					,#{mngerRelate}
-					,#{bzmCorpNm}
-					,#{addr}
-					,#{rrsdAddr}
-					,#{rdnmAddr}
-					,#{twNm}
-					,#{perCorpDvcdNm}
-					,#{nafoDvcdNm}
-					,#{telno}
-					,#{mblTelno}
-					,#{faxTelno}
-					,#{emailAddr}
-					,#{famgStrYmd}
-					,#{farmngBeginStleCdNm}
-					,#{farmngEngageStleCdNm}
-					,#{fndtYr}
-					,#{bzmRgno}
-					,#{reprNm}
-					,#{reprAddr}
-					,#{brthdy}
-					,#{sexdstn}
-					,SYSDATE
-					,#{sysFrstInptUserId}
-					,#{sysFrstInptPrgrmId}
-					,SYSDATE
-					,#{sysLastChgUserId}
-					,#{sysLastChgPrgrmId}
-					,#{delYn}
-					,#{saveCd}
-	   			)
-    	]]>
-	</insert>
-
-
-    <insert id="insertMegerLogFarmLandGrantsInfoMap" parameterType="hashmap">
-	<![CDATA[
-    	INSERT /* com.at.apcss.fm.farm.mapper.FarmLandGrantsInfoMapper.insertMegerLogfarmLandGrantsInfoMap */
-	    	  INTO TB_FARMER_INFO_LOG
-	    		(
-	    		  SEQ
-	    		 ,FRMER_SN
-				, BZOB_RGNO
-				, MNGER_RELATE
-				, BZM_CORP_NM
-				, ADDR
-				, RRSD_ADDR
-			    , RDNM_ADDR
-				, TW_NM
-				, PER_CORP_DVCD_NM
-				, NAFO_DVCD_NM
-				, TELNO
-				, MBL_TELNO
-				, FAX_TELNO
-				, EMAIL_ADDR
-				, FAMG_STR_YMD
-				, FARMNG_BEGIN_STLE_CD_NM
-				, FARMNG_ENGAGE_STLE_CD_NM
-				, FNDT_YR
-				, BZM_RGNO
-				, REPR_NM
-				, REPR_ADDR
-				, BRTHDY
-				, SEXDSTN
-				, SYS_FRST_INPT_DT
-				, SYS_FRST_INPT_USER_ID
-				, SYS_FRST_INPT_PRGRM_ID
-				, SYS_LAST_CHG_DT
-				, SYS_LAST_CHG_USER_ID
-				, SYS_LAST_CHG_PRGRM_ID
-				, DEL_YN
-				, SAVE_CD
-	    		)
-	   		VALUES
-	   			(
-	   			      (SELECT NVL(MAX(SEQ),0)+1 FROM TB_FARMER_INFO_LOG)
-	   			    ,#{frmerSn}
-					,#{bzobRgno}
-					,#{mngerRelate}
-					,#{bzmCorpNm}
-					,#{addr}
-					,#{rrsdAddr}
-					,#{rdnmAddr}
-					,#{twNm}
-					,#{perCorpDvcdNm}
-					,#{nafoDvcdNm}
-					,#{telno}
-					,#{mblTelno}
-					,#{faxTelno}
-					,#{emailAddr}
-					,#{famgStrYmd}
-					,#{farmngBeginStleCdNm}
-					,#{farmngEngageStleCdNm}
-					,#{fndtYr}
-					,#{bzmRgno}
-					,#{reprNm}
-					,#{reprAddr}
-					,#{brthdy}
-					,#{sexdstn}
-					,SYSDATE
-					,#{sysFrstInptUserId}
-					,#{sysFrstInptPrgrmId}
-					,SYSDATE
-					,#{sysLastChgUserId}
-					,#{sysLastChgPrgrmId}
-					,#{delYn}
-					,#{saveCd}
-	   			)
-    	]]>
-	</insert>
 
 	<update id="updateFarmLandGrantsInfo" parameterType="com.at.apcss.fm.farm.vo.FarmLandGrantsInfoVO">
-    	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.farm.mapper.FarmLandGrantsInfoMapper.upatefarmLandGrantsInfo */
-	    		TB_FRLN_RCFV_HSTRY
+		<![CDATA[
+			UPDATE /* com.at.apcss.fm.farm.mapper.FarmLandGrantsInfoMapper.upateFarmLandGrantsInfo */
+				TB_AX_FARM_LAND_GRANTS_INFO
 			   SET
-			 	  MNGER_RELATE 	= #{mngerRelate}
-				, PNU_CODE 	= #{pnuCode}
-				, BSNS_BGNDE 	= #{bsnsBgnde}
-				, BSNS_ENDDE 	= #{bsnsEndde}
-			    , BSNS_CODE 	= #{bsnsCode}
-				, BSNS_NM 	= #{bsnsNm}
-				, STTUS 	= #{sttus}
-				, APPLCNT_NM 	= #{applcntNm}
-				, LDGRFL 	= #{ldgrfl}
-				, FRLND_ADRES 	= #{frlndAdres}
-				, LEGALDONG_CODE 	= #{legaldongCode}
-				, MNNM 	= #{mnnm}
-				, SLNO 	= #{slno}
-				, REQST_AR 	= #{reqstAr}
-				, DEL_YN 	= #{delYn}
-    	]]>
+				  tgt.PNU_CD			=#{pnuCd}
+				, tgt.BIZ_BGNG_YMD		=#{bizBgngYmd}
+				, tgt.BIZ_END_YMD		=#{bizEndYmd}
+				, tgt.BIZ_CD			=#{bizCd}
+				, tgt.BIZ_NM			=#{bizNm}
+				, tgt.STTS				=#{stts}
+				, tgt.APLCNT_NM			=#{aplcntNm}
+				, tgt.LDGR_SE			=#{ldgrSe}
+				, tgt.FRLN_ADDR			=#{frlnAddr}
+				, tgt.STDG_CD			=#{stdgCd}
+				, tgt.MNO				=#{mno}
+				, tgt.SNO				=#{sno}
+				, tgt.APLY_SFC			=#{aplySfc}
+
+		]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}
 		</if>
-    	<![CDATA[
+		<![CDATA[
 				, SYS_LAST_CHG_DT		= SYSDATE
-	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 
-			 WHERE 1=1
-			    AND FRMER_SN 	    = #{frmerSn}
-		        AND BZOB_RGNO 	= #{bzobRgno}
-    	]]>
-    </update>
-
-    <update id="updateMegerFarmLandGrantsInfo" parameterType="com.at.apcss.fm.farm.vo.FarmLandGrantsInfoVO">
-    	<![CDATA[
-	    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmLandGrantsInfoMapper.insertMegerfarmLandGrantsInfo */
-		USING DUAL
-			ON (	         CLT.FRMER_SN      = #{frmerSn}
-				      AND CLT.BZOB_RGNO  =  #{bzobRgno}
-				   )
-		WHEN MATCHED THEN
-			UPDATE /* com.at.apcss.fm.farm.mapper.FarmLandGrantsInfoMapper.insertMegerfarmLandGrantsInfo */
-			   SET
-			 	  MNGER_RELATE 	= #{mngerRelate}
-				, BZM_CORP_NM 	= #{bzmCorpNm}
-				, ADDR 	= #{addr}
-				, RRSD_ADDR 	= #{rrsdAddr}
-			    , RDNM_ADDR 	= #{rdnmAddr}
-				, TW_NM 	= #{twNm}
-				, PER_CORP_DVCD_NM 	= #{perCorpDvcdNm}
-				, NAFO_DVCD_NM 	= #{nafoDvcdNm}
-				, TELNO 	= #{telno}
-				, MBL_TELNO 	= #{mblTelno}
-				, FAX_TELNO 	= #{faxTelno}
-				, EMAIL_ADDR 	= #{emailAddr}
-				, FAMG_STR_YMD 	= #{famgStrYmd}
-				, FARMNG_BEGIN_STLE_CD_NM 	= #{farmngBeginStleCdNm}
-				, FARMNG_ENGAGE_STLE_CD_NM 	= #{farmngEngageStleCdNm}
-				, FNDT_YR 	= #{fndtYr}
-				, BZM_RGNO 	= #{bzmRgno}
-				, REPR_NM 	= #{reprNm}
-				, REPR_ADDR 	= #{reprAddr}
-				, BRTHDY 	= #{brthdy}
-				, SEXDSTN 	= #{sexdstn}
-				, SAVE_CD 	= #{saveCd}
-		WHEN NOT MATCHED THEN
-			 INSERT /* com.at.apcss.fm.farm.mapper.FarmLandGrantsInfoMapper.insertMegerfarmLandGrantsInfo */
-	    		(
-	    		  FRMER_SN
-				, BZOB_RGNO
-				, MNGER_RELATE
-				, BZM_CORP_NM
-				, ADDR
-				, RRSD_ADDR
-			    , RDNM_ADDR
-				, TW_NM
-				, PER_CORP_DVCD_NM
-				, NAFO_DVCD_NM
-				, TELNO
-				, MBL_TELNO
-				, FAX_TELNO
-				, EMAIL_ADDR
-				, FAMG_STR_YMD
-				, FARMNG_BEGIN_STLE_CD_NM
-				, FARMNG_ENGAGE_STLE_CD_NM
-				, FNDT_YR
-				, BZM_RGNO
-				, REPR_NM
-				, REPR_ADDR
-				, BRTHDY
-				, SEXDSTN
-				, SYS_FRST_INPT_DT
-				, SYS_FRST_INPT_USER_ID
-				, SYS_FRST_INPT_PRGRM_ID
-				, SYS_LAST_CHG_DT
-				, SYS_LAST_CHG_USER_ID
-				, SYS_LAST_CHG_PRGRM_ID
-				, DEL_YN
-				, SAVE_CD
-	    		)
-	   		VALUES
-	   			(
-	   			    #{frmerSn}
-					,#{bzobRgno}
-					,#{mngerRelate}
-					,#{bzmCorpNm}
-					,#{addr}
-					,#{rrsdAddr}
-					,#{rdnmAddr}
-					,#{twNm}
-					,#{perCorpDvcdNm}
-					,#{nafoDvcdNm}
-					,#{telno}
-					,#{mblTelno}
-					,#{faxTelno}
-					,#{emailAddr}
-					,#{famgStrYmd}
-					,#{farmngBeginStleCdNm}
-					,#{farmngEngageStleCdNm}
-					,#{fndtYr}
-					,#{bzmRgno}
-					,#{reprNm}
-					,#{reprAddr}
-					,#{brthdy}
-					,#{sexdstn}
-					,SYSDATE
-					,#{sysFrstInptUserId}
-					,#{sysFrstInptPrgrmId}
-					,SYSDATE
-					,#{sysLastChgUserId}
-					,#{sysLastChgPrgrmId}
-					,#{delYn}
-					,#{saveCd}
-	   			)
-    	]]>
-    </update>
-
-
-
-    <update id="updateMegerFarmLandGrantsInfoMap" parameterType="com.at.apcss.fm.farm.vo.FarmLandGrantsInfoVO">
-    	<![CDATA[
-	    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmLandGrantsInfoMapper.updateMegerfarmLandGrantsInfoMap */
-		USING DUAL
-			ON (	         CLT.FRMER_SN      = #{frmerSn}
-				      AND CLT.BZOB_RGNO  =  #{bzobRgno}
-				   )
-		WHEN MATCHED THEN
-			UPDATE /* com.at.apcss.fm.farm.mapper.FarmLandGrantsInfoMapper.insertMegerfarmLandGrantsInfo */
-			   SET
-			 	  MNGER_RELATE 	= #{mngerRelate}
-				, BZM_CORP_NM 	= #{bzmCorpNm}
-				, ADDR 	= #{addr}
-				, RRSD_ADDR 	= #{rrsdAddr}
-			    , RDNM_ADDR 	= #{rdnmAddr}
-				, TW_NM 	= #{twNm}
-				, PER_CORP_DVCD_NM 	= #{perCorpDvcdNm}
-				, NAFO_DVCD_NM 	= #{nafoDvcdNm}
-				, TELNO 	= #{telno}
-				, MBL_TELNO 	= #{mblTelno}
-				, FAX_TELNO 	= #{faxTelno}
-				, EMAIL_ADDR 	= #{emailAddr}
-				, FAMG_STR_YMD 	= #{famgStrYmd}
-				, FARMNG_BEGIN_STLE_CD_NM 	= #{farmngBeginStleCdNm}
-				, FARMNG_ENGAGE_STLE_CD_NM 	= #{farmngEngageStleCdNm}
-				, FNDT_YR 	= #{fndtYr}
-				, BZM_RGNO 	= #{bzmRgno}
-				, REPR_NM 	= #{reprNm}
-				, REPR_ADDR 	= #{reprAddr}
-				, BRTHDY 	= #{brthdy}
-				, SEXDSTN 	= #{sexdstn}
-				, SAVE_CD 	= #{saveCd}
-		WHEN NOT MATCHED THEN
-			 INSERT /* com.at.apcss.fm.farm.mapper.FarmLandGrantsInfoMapper.insertMegerfarmLandGrantsInfo */
-	    		(
-	    		  FRMER_SN
-				, BZOB_RGNO
-				, MNGER_RELATE
-				, BZM_CORP_NM
-				, ADDR
-				, RRSD_ADDR
-			    , RDNM_ADDR
-				, TW_NM
-				, PER_CORP_DVCD_NM
-				, NAFO_DVCD_NM
-				, TELNO
-				, MBL_TELNO
-				, FAX_TELNO
-				, EMAIL_ADDR
-				, FAMG_STR_YMD
-				, FARMNG_BEGIN_STLE_CD_NM
-				, FARMNG_ENGAGE_STLE_CD_NM
-				, FNDT_YR
-				, BZM_RGNO
-				, REPR_NM
-				, REPR_ADDR
-				, BRTHDY
-				, SEXDSTN
-				, SYS_FRST_INPT_DT
-				, SYS_FRST_INPT_USER_ID
-				, SYS_FRST_INPT_PRGRM_ID
-				, SYS_LAST_CHG_DT
-				, SYS_LAST_CHG_USER_ID
-				, SYS_LAST_CHG_PRGRM_ID
-				, DEL_YN
-				, SAVE_CD
-	    		)
-	   		VALUES
-	   			(
-	   			    #{frmerSn}
-					,#{bzobRgno}
-					,#{mngerRelate}
-					,#{bzmCorpNm}
-					,#{addr}
-					,#{rrsdAddr}
-					,#{rdnmAddr}
-					,#{twNm}
-					,#{perCorpDvcdNm}
-					,#{nafoDvcdNm}
-					,#{telno}
-					,#{mblTelno}
-					,#{faxTelno}
-					,#{emailAddr}
-					,#{famgStrYmd}
-					,#{farmngBeginStleCdNm}
-					,#{farmngEngageStleCdNm}
-					,#{fndtYr}
-					,#{bzmRgno}
-					,#{reprNm}
-					,#{reprAddr}
-					,#{brthdy}
-					,#{sexdstn}
-					,SYSDATE
-					,#{sysFrstInptUserId}
-					,#{sysFrstInptPrgrmId}
-					,SYSDATE
-					,#{sysLastChgUserId}
-					,#{sysLastChgPrgrmId}
-					,#{delYn}
-					,#{saveCd}
-	   			)
-    	]]>
-    </update>
+			WHERE 1=1
+				AND FRMERNO			= #{frmerno}
+				AND SN				= #{sn}
+		]]>
+	</update>
 
 	<delete id="deleteFarmLandGrantsInfo" parameterType="com.at.apcss.fm.farm.vo.FarmLandGrantsInfoVO">
 		<![CDATA[
-		DELETE FROM TB_FRLN_RCFV_HSTRY
-		 WHERE 1=1
-		      AND FRMER_SN 	    = #{frmerSn}
-		      AND PNU_CODE 	= #{pnuCode}
+		DELETE FROM TB_AX_FARM_LAND_GRANTS_INFO /* com.at.apcss.fm.farm.mapper.FarmLandGrantsInfoMapper.deleteFarmLandGrantsInfo */
+		WHERE 1=1
+		  AND FRMERNO		= #{frmerno}
 		]]>
+		<if test='sn != null and sn != ""'>
+		  AND SN			= #{sn}
+		</if>
 	</delete>
+
+	<select id="selectFrmerSnList" parameterType="com.at.apcss.fm.farm.vo.FarmLandGrantsInfoVO" resultType="com.at.apcss.fm.farm.vo.FarmLandGrantsInfoVO">
+		SELECT /* com.at.apcss.fm.farm.mapper.FarmLandGrantsInfoMapper.selectFrmerSnList */
+			FRMERNO
+		FROM TB_AX_FRMER_INFO
+		<if test='frmerno != null and frmerno != ""'>
+			AND FRMERNO = #{frmerno}
+		</if>
+	</select>
 
 </mapper>
