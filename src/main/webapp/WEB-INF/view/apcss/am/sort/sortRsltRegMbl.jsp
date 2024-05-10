@@ -4046,7 +4046,9 @@ input::-webkit-inner-spin-button {
     let sortList = [];
 
 
-    const fn_view = async function (idx) {
+    const fn_view = async function (idx,_prevList = null) {
+
+		await fn_reset();
 
 		SBUxMethod.attr('dtl-btn-itemCdChg',"disabled","true");
 		SBUxMethod.attr('dtl-btn-rawMtrInvntr',"disabled","true");
@@ -4055,19 +4057,24 @@ input::-webkit-inner-spin-button {
         if (idx >= sortList.length) {
             return;
         }
+		let sort = sortList[idx];
+		if(!gfn_isEmpty(_prevList)){
+			sort = _prevList[0];
+		}
 
-        const sort = sortList[idx];
 		let vrtyCd = sort.itemCd + sort.vrtyCd;
+		let promise = await Promise.all([
+				SBUxMethod.set("dtl-inp-pltno", sort.pltno),
+				SBUxMethod.set("dtl-inp-wrhsno", sort.wrhsno),
+				SBUxMethod.set("dtl-inp-invntrQntt", sort.inptQntt),
+				SBUxMethod.set("dtl-inp-invntrWght", sort.inptWght),
+				SBUxMethod.set("dtl-inp-itemNm", sort.itemCd),
+				SBUxMethod.set("dtl-inp-vrtyNm", vrtyCd),
+				SBUxMethod.set("dtl-inp-prdcrCd", sort.rprsPrdcr),
+				SBUxMethod.set("dtl-inp-prdcrNm", sort.rprsPrdcrNm),
+				SBUxMethod.set("dtl-lbl-warehouseSeNm", sort.warehouseSeCd)
+		]);
 
-        SBUxMethod.set("dtl-inp-pltno", sort.pltno);
-        SBUxMethod.set("dtl-inp-wrhsno", sort.wrhsno);
-        SBUxMethod.set("dtl-inp-invntrQntt", sort.inptQntt);
-        SBUxMethod.set("dtl-inp-invntrWght", sort.inptWght);
-        SBUxMethod.set("dtl-inp-itemNm", sort.itemCd);
-        SBUxMethod.set("dtl-inp-vrtyNm", vrtyCd);
-        SBUxMethod.set("dtl-inp-prdcrCd", sort.rprsPrdcr);
-        SBUxMethod.set("dtl-inp-prdcrNm", sort.rprsPrdcrNm);
-        SBUxMethod.set("dtl-lbl-warehouseSeNm", sort.warehouseSeCd);
 
 		let _indctArtclType = indctArtclType.filter(
 				function(item){
@@ -5164,6 +5171,30 @@ input::-webkit-inner-spin-button {
                 if (gfn_isEmpty(_rawMtrInvntr)) {
                     return;
                 }
+				if(_rawMtrInvntr.invntrQntt == 0) {
+					let sortYmd = _rawMtrInvntr.wrhsYmd;
+					try {
+						const postJsonPromise = gfn_postJSON("/am/sort/selectSortRsltList.do", {
+							apcCd: gv_selectedApcCd,
+							sortYmd: sortYmd,
+						});
+
+						const data = await postJsonPromise;
+						if (_.isEqual("S", data.resultStatus)) {
+							let prevList = data.resultList;
+							//pltno
+							prevList = prevList.filter(function(item){
+								return item.pltno == pltno;
+							});
+							await fn_view(-1,prevList);
+						}
+					} catch (e) {
+						if (!(e instanceof Error)) {
+							e = new Error(e);
+						}
+					}
+					return;
+				}
 				SBUxMethod.attr('dtl-inp-pltno', 'readonly', true);
 
                 SBUxMethod.set("dtl-inp-pltno", _rawMtrInvntr.pltno);
@@ -5184,12 +5215,6 @@ input::-webkit-inner-spin-button {
 
                 invntrInfo += "수량: " + _rawMtrInvntr.invntrQntt.toLocaleString();
 
-                /*
-  				if (!_.isEqual(lv_rawMtrVlType, "QNTT")) {
-  					invntrInfo += "   중량: " + _rawMtrInvntr.invntrWght.toLocaleString() + " Kg ";
-  					invntrInfo += "   (등급: " + _rawMtrInvntr.grdNm + ")";
-  				}
-  				*/
                 if (!_.isEqual(_rawMtrInvntr.sortInptVlType, "QNTT")) {
                     invntrInfo += "   중량: " + _rawMtrInvntr.invntrWght.toLocaleString() + " Kg ";
                     invntrInfo += "   (등급: " + _rawMtrInvntr.grdNm + ")";
@@ -5291,8 +5316,9 @@ input::-webkit-inner-spin-button {
 			SBUxMethod.set("dtl-btn-itemCdChg","저장");
 			SBUxMethod.attr("dtl-inp-itemNm","readonly","false");
 			SBUxMethod.attr("dtl-inp-vrtyNm","readonly","false");
-			let grdNm = pltnoInfo.grdNm;
+			SBUxMethod.attr("dtl-btn-rawMtrInvntr","disabled","true");
 
+			let grdNm = pltnoInfo.grdNm;
 			let apdEl = `<div id="itemVrtyInp"style="border:none"><span>수량 : </span><input id="updateQntt" type="number" value="`+invntrQntt+`" onchange="onchangQntt(this.value)"></input>`;
 			if(pltnoInfo.sortInptVlType != "QNTT"){
 				apdEl += `<span>중량 : </span><input id="updateWght" type="number" value="`+invntrWght+`"></input><span>KG</span>
@@ -5380,6 +5406,7 @@ input::-webkit-inner-spin-button {
 			SBUxMethod.set("dtl-btn-itemCdChg","수정");
 			SBUxMethod.attr("dtl-inp-itemNm","readonly","true");
 			SBUxMethod.attr("dtl-inp-vrtyNm","readonly","true");
+			SBUxMethod.attr("dtl-btn-rawMtrInvntr","disabled","false");
 		}
 
 	}
@@ -5407,8 +5434,8 @@ input::-webkit-inner-spin-button {
 	const fn_onchangeVrtyCd = async function(){
 		$("#itemVrtyInp").remove();
 
-		let invntrQntt = pltnoInfo.wrhsQntt;
-		let invntrWght = pltnoInfo.wrhsWght;
+		let invntrQntt = pltnoInfo.invntrQntt;
+		let invntrWght = pltnoInfo.invntrWght;
 		let grdNm = pltnoInfo.grdNm;
 		let vrtyCd = SBUxMethod.get("dtl-inp-vrtyNm");
 		let itemCd = SBUxMethod.get("dtl-inp-itemNm");
@@ -5428,20 +5455,19 @@ input::-webkit-inner-spin-button {
 				return item.itemVrtyCd == vrtyCd;
 			});
 		}
-
-
-		let apdEl = `<div id="itemVrtyInp"style="border:none"><span>수량 : </span><input id="updateQntt" type="number" value="`+invntrQntt+`" onchange="onchangQntt(this.value)"></input>`;
-		if(jsonVrty[0].sortInptVlType != "QNTT"){
-			invntrWght = invntrWght == 0 ? jsonVrty[0].unitWght * invntrQntt : 0;
-			apdEl += `<span>중량 : </span><input id="updateWght" type="number" value="`+invntrWght+`"></input><span>KG</span>
-						  <span>(등급:`+grdNm+`)</span>`
+		let apdEl = `<div id="itemVrtyInp"style="border:none"><span>수량 : </span><input id="updateQntt" type="number" value="` + invntrQntt + `" onchange="onchangQntt(this.value)"></input>`;
+		if (jsonVrty[0].sortInptVlType != "QNTT") {
+			invntrWght = invntrWght == 0 ? jsonVrty[0].unitWght * invntrQntt : invntrWght;
+			apdEl += `<span>중량 : </span><input id="updateWght" type="number" value="` + invntrWght + `"></input><span>KG</span>
+					  <span>(등급:` + grdNm + `)</span>`
 			invntrInfo += "   중량: " + invntrWght.toLocaleString() + " Kg ";
 			invntrInfo += "   (등급: " + grdNm + ")";
 		}
 		apdEl += `</div>`
 		SBUxMethod.set("dtl-lbl-invntr", invntrInfo);
 		$("table:nth-child(1) > tbody > tr:nth-child(5) > td.td_input").append(apdEl);
-	}
+		}
+
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
