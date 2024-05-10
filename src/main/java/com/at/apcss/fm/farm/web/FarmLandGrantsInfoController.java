@@ -91,8 +91,9 @@ public class FarmLandGrantsInfoController extends BaseController{
 
 					//String urlstr = "https://uni.agrix.go.kr/api/srvc/FarmLandGrantsInfo?accessToken=eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDkzODg5MDgsImFwaU5tIjoiZmFybWVyU25DZXJ0aWZpY2F0aW9uSW5mbyIsImlzcyI6IlNZU1RFTSJ9.joIi1I6ViS3h4taFqPAp4psGkNHET2T0c6SfkNZI4nE&version=1.0&responseType=xml&frmerSn=AJ1B89";
 					//String pParam = urlstr+"&frmerSn="+pFrmerSn;
-					String urlstr = "https://uni.agrix.go.kr/api/srvc/FarmLandGrantsInfo";
-					String accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDkzODg5MDgsImFwaU5tIjoiZmFybWVyU25DZXJ0aWZpY2F0aW9uSW5mbyIsImlzcyI6IlNZU1RFTSJ9.joIi1I6ViS3h4taFqPAp4psGkNHET2T0c6SfkNZI4nE";
+					String urlstr = "https://uni.agrix.go.kr/api/srvc/farmLandGrantsInfo";
+					//현재 농지 수혜 토큰 값을 모르는 상태
+					String accessToken = "";
 					String version = "1.0";
 					String responseType = "xml";
 

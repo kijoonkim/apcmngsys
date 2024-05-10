@@ -27,7 +27,7 @@ import com.at.apcss.fm.farm.vo.FarmLandGrantsInfoVO;
  * 2023.06.21  정연두        최초 생성
  * </pre>
  */
-@Service("farmLandGrantsInfoService")
+@Service("FarmLandGrantsInfoService")
 public class FarmLandGrantsInfoServiceImpl extends BaseServiceImpl implements FarmLandGrantsInfoService{
 
 	@Autowired
