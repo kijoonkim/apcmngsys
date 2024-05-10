@@ -167,7 +167,7 @@
                                 <tr>
                                     <th scope="row" class="th_bg">사용여부</th>
                                     <td scope="row" class="th_bg">
-                                        <sbux-select id="USE_YN" uitype="single" jsondata-ref="jsonUSE_YN" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                        <sbux-select id="USE_YN" uitype="single" jsondata-ref="jsonUserYnCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
                                     </td>
                                     <th scope="row" class="th_bg"></th>
                                     <td scope="row" class="th_bg">
@@ -192,7 +192,7 @@
 	
 	var jsonRegionCode		= [];	// 지역
 	var jsonCurrenvyCode	= [];	// 통화
-	var jsonUSE_YN			= [
+	var jsonUserYnCode		= [
 		{value: 'Y', label: '사용', text: '사용'},
 		{value: 'N', label: '불가',	text: '불가'}
 	];	// 지역
