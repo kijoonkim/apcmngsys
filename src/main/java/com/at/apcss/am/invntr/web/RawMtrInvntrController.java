@@ -38,7 +38,7 @@ public class RawMtrInvntrController extends BaseController {
 	@Resource(name = "rawMtrInvntrService")
 	private RawMtrInvntrService rawMtrInvntrService;
 
-	@PostMapping(value = "/am/invntr/selectRawMtrInvntr.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	@PostMapping(value = "/am/invntr/selectRawMtrInvntr.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectRawMtrInvntr(@RequestBody RawMtrInvntrVO rawMtrInvntrVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -57,7 +57,7 @@ public class RawMtrInvntrController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	@PostMapping(value = "/am/invntr/selectRawMtrInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	@PostMapping(value = "/am/invntr/selectRawMtrInvntrList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectRawMtrInvntrList(@RequestBody RawMtrInvntrVO rawMtrInvntrVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -80,8 +80,8 @@ public class RawMtrInvntrController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
-	@PostMapping(value = "/am/invntr/selectRawMtrInvntrListForRslt.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+
+	@PostMapping(value = "/am/invntr/selectRawMtrInvntrListForRslt.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectRawMtrInvntrListForRslt(@RequestBody RawMtrInvntrVO rawMtrInvntrVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -105,7 +105,7 @@ public class RawMtrInvntrController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	@PostMapping(value = "/am/invntr/selectRawMtrInvntrTotalList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	@PostMapping(value = "/am/invntr/selectRawMtrInvntrTotalList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectRawMtrInvntrTotalList(@RequestBody RawMtrInvntrVO rawMtrInvntrVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -129,7 +129,7 @@ public class RawMtrInvntrController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	@PostMapping(value = "/am/invntr/selectRawMtrInvntrListForPrcs.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	@PostMapping(value = "/am/invntr/selectRawMtrInvntrListForPrcs.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectRawMtrInvntrListForPrcs(@RequestBody RawMtrInvntrVO rawMtrInvntrVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -153,7 +153,7 @@ public class RawMtrInvntrController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	@PostMapping(value = "/am/invntr/selectDailyRawMtrInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	@PostMapping(value = "/am/invntr/selectDailyRawMtrInvntrList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectDailyRawMtrInvntrList(@RequestBody RawMtrInvntrVO rawMtrInvntrVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -176,7 +176,8 @@ public class RawMtrInvntrController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	@PostMapping(value = "/am/invntr/selectDailyRawMtrInvntrTotalList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+
+	@PostMapping(value = "/am/invntr/selectDailyRawMtrInvntrTotalList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectDailyRawMtrInvntrTotalList(@RequestBody RawMtrInvntrVO rawMtrInvntrVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -200,13 +201,13 @@ public class RawMtrInvntrController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	@PostMapping(value = "/am/invntr/mulitSaveRawMtrInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	@PostMapping(value = "/am/invntr/mulitSaveRawMtrInvntrList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> mulitSaveRawMtrInvntrList(@RequestBody List<RawMtrInvntrVO> rawMtrInvntrList, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		try {
-			for ( RawMtrInvntrVO rawMtrInvntrVO : rawMtrInvntrList ) {
+			for (RawMtrInvntrVO rawMtrInvntrVO : rawMtrInvntrList) {
 				rawMtrInvntrVO.setSysFrstInptPrgrmId(getPrgrmId());
 				rawMtrInvntrVO.setSysFrstInptUserId(getUserId());
 				rawMtrInvntrVO.setSysLastChgUserId(getUserId());
@@ -232,13 +233,13 @@ public class RawMtrInvntrController extends BaseController {
 	}
 
 
-	@PostMapping(value = "/am/invntr/insertRawMtrInvntrListForImport.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	@PostMapping(value = "/am/invntr/insertRawMtrInvntrListForImport.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> insertRawMtrInvntrList(@RequestBody List<RawMtrInvntrVO> rawMtrInvntrList, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		try {
-			for ( RawMtrInvntrVO rawMtrInvntrVO : rawMtrInvntrList ) {
+			for (RawMtrInvntrVO rawMtrInvntrVO : rawMtrInvntrList) {
 				rawMtrInvntrVO.setSysFrstInptPrgrmId(getPrgrmId());
 				rawMtrInvntrVO.setSysFrstInptUserId(getUserId());
 				rawMtrInvntrVO.setSysLastChgUserId(getUserId());
@@ -263,6 +264,27 @@ public class RawMtrInvntrController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	@PostMapping(value = "/am/invntr/rawMtrInvntrItemCdUpdate.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> rawMtrInvntrItemCdUpdate(@RequestBody RawMtrInvntrVO rawMtrInvntrVO, HttpServletRequest request) throws Exception {
+		int result = 0;
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
+		try {
+			rawMtrInvntrVO.setSysLastChgUserId(getUserId());
+			rawMtrInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
+			result = rawMtrInvntrService.rawMtrInvntrItemCdUpdate(rawMtrInvntrVO);
+			resultMap.put(ComConstants.PROP_UPDATED_CNT, result);
 
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
 }

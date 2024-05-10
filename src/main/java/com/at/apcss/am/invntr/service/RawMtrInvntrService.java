@@ -208,4 +208,11 @@ public interface RawMtrInvntrService {
 	 */
 	public HashMap<String, Object> insertRawMtrChgHstry(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 
+	/**
+	 * 선별실적등록(모바일) 원물재고에 대한 품목 변경
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+    public int rawMtrInvntrItemCdUpdate(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 }

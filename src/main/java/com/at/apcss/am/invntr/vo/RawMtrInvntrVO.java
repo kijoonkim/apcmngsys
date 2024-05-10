@@ -360,6 +360,10 @@ public class RawMtrInvntrVO extends ComVO {
 	 * 투입진행여부
 	 */
 	private String inptPrgrsYn;
+	/**
+	 * 생산자번호
+	 */
+	private String prdcrIdentno;
 
 	/**
 	 * 변경이력
