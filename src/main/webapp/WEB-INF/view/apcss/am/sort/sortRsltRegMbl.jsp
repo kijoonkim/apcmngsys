@@ -4193,6 +4193,12 @@ input::-webkit-inner-spin-button {
 		SBUxMethod.attr('dtl-btn-itemCdChg',"disabled","false");
 		SBUxMethod.attr('dtl-btn-rawMtrInvntr',"disabled","false");
 
+		$("#itemVrtyInp").remove();
+		SBUxMethod.set("dtl-btn-itemCdChg","수정");
+		SBUxMethod.attr("dtl-inp-itemNm","readonly","true");
+		SBUxMethod.attr("dtl-inp-vrtyNm","readonly","true");
+
+
         //if (!SBUxMethod.get("dtl-chk-fxngFclt")["dtl-chk-fxngFclt"]) {
         if (!document.querySelector('#dtl-chk-fxngFclt').checked) {
             SBUxMethod.set("dtl-slt-fcltCd", null);
@@ -5321,6 +5327,30 @@ input::-webkit-inner-spin-button {
 				gfn_comAlert("W0005", "중량");
 				return;
 			}
+			let saveFlag = true;
+			let saveMng = "";
+			let saveItemVrty = pltnoInfo.itemCd + pltnoInfo.vrtyCd;
+			if(saveItemVrty == vrtyCd && pltnoInfo.invntrQntt == qntt && (pltnoInfo.invntrWght == wght || gfn_isEmpty(wght))){
+				saveFlag = false;
+			}else{
+				if(pltnoInfo.itemCd != itemCd){
+					saveMng += "품목 ";
+				}
+				if(saveItemVrty != vrtyCd){
+					saveMng += "품종 ";
+				}
+				if(pltnoInfo.invntrQntt != qntt){
+					saveMng += "수량 ";
+				}
+				if(pltnoInfo.invntrWght != wght && (!gfn_isEmpty(wght))){
+					saveMng += "중량 ";
+				}
+			}
+			if(saveFlag){
+			if(!gfn_comConfirm("Q0001",saveMng + "수정")){
+				return;
+			}
+
 			vrtyCd = vrtyCd.substring(4,vrtyCd.length);
 			let wrhsNo = SBUxMethod.get("dtl-inp-wrhsno");
 
@@ -5344,14 +5374,12 @@ input::-webkit-inner-spin-button {
 			}catch(e){
 				console.log(e);
 			}
-
-
+				fn_searchInvntr();
+			}
 			$("#itemVrtyInp").remove();
 			SBUxMethod.set("dtl-btn-itemCdChg","수정");
 			SBUxMethod.attr("dtl-inp-itemNm","readonly","true");
 			SBUxMethod.attr("dtl-inp-vrtyNm","readonly","true");
-			fn_searchInvntr();
-
 		}
 
 	}
@@ -5393,7 +5421,7 @@ input::-webkit-inner-spin-button {
 
 
 		let jsonVrty =[];
-		let invntrInfo = "수량: " + invntrQntt.toLocaleString();
+		let invntrInfo = " 수량: " + invntrQntt.toLocaleString();
 
 		if(!gfn_isEmpty(jsonApcVrty)){
 			jsonVrty = jsonApcVrty.filter(function(item){
