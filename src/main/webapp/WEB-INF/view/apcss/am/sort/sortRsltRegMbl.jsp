@@ -5315,7 +5315,6 @@ input::-webkit-inner-spin-button {
 			SBUxMethod.attr("dtl-inp-itemNm","readonly","false");
 			SBUxMethod.attr("dtl-inp-vrtyNm","readonly","false");
 			let grdNm = pltnoInfo.grdNm;
-
 			let apdEl = `<div id="itemVrtyInp"style="border:none"><span>수량 : </span><input id="updateQntt" type="number" value="`+invntrQntt+`" onchange="onchangQntt(this.value)"></input>`;
 			if(pltnoInfo.sortInptVlType != "QNTT"){
 				apdEl += `<span>중량 : </span><input id="updateWght" type="number" value="`+invntrWght+`"></input><span>KG</span>
@@ -5430,8 +5429,8 @@ input::-webkit-inner-spin-button {
 	const fn_onchangeVrtyCd = async function(){
 		$("#itemVrtyInp").remove();
 
-		let invntrQntt = pltnoInfo.wrhsQntt;
-		let invntrWght = pltnoInfo.wrhsWght;
+		let invntrQntt = pltnoInfo.invntrQntt;
+		let invntrWght = pltnoInfo.invntrWght;
 		let grdNm = pltnoInfo.grdNm;
 		let vrtyCd = SBUxMethod.get("dtl-inp-vrtyNm");
 		let itemCd = SBUxMethod.get("dtl-inp-itemNm");
@@ -5453,7 +5452,7 @@ input::-webkit-inner-spin-button {
 		}
 		let apdEl = `<div id="itemVrtyInp"style="border:none"><span>수량 : </span><input id="updateQntt" type="number" value="` + invntrQntt + `" onchange="onchangQntt(this.value)"></input>`;
 		if (jsonVrty[0].sortInptVlType != "QNTT") {
-			invntrWght = invntrWght == 0 ? jsonVrty[0].unitWght * invntrQntt : 0;
+			invntrWght = invntrWght == 0 ? jsonVrty[0].unitWght * invntrQntt : invntrWght;
 			apdEl += `<span>중량 : </span><input id="updateWght" type="number" value="` + invntrWght + `"></input><span>KG</span>
 					  <span>(등급:` + grdNm + `)</span>`
 			invntrInfo += "   중량: " + invntrWght.toLocaleString() + " Kg ";
