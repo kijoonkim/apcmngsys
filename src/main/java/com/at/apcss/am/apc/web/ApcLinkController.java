@@ -221,6 +221,68 @@ public class ApcLinkController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 	
+	// APC 연계기기 종류 등록
+	@PostMapping(value = "/am/apc/insertApcLinkTrsmKndList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertApcLinkTrsmKndList(@RequestBody List<ApcLinkVO> trsmKndList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		try {
+			
+			for ( ApcLinkVO trsmKnd : trsmKndList ) {
+				trsmKnd.setSysFrstInptUserId(getUserId());
+				trsmKnd.setSysFrstInptPrgrmId(getPrgrmId());
+				trsmKnd.setSysLastChgUserId(getUserId());
+				trsmKnd.setSysLastChgPrgrmId(getPrgrmId());
+			}
+			
+			HashMap<String, Object> rtnObj = apcLinkService.insertApcLinkTrsmKndList(trsmKndList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+			
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	// APC 연계기기 삭제
+	@PostMapping(value = "/am/apc/deleteApcLinkTrsmKnd.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteApcLinkTrsmKnd(@RequestBody ApcLinkVO apcLinkVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		try {
+			
+			apcLinkVO.setSysFrstInptUserId(getUserId());
+			apcLinkVO.setSysFrstInptPrgrmId(getPrgrmId());
+			apcLinkVO.setSysLastChgUserId(getUserId());
+			apcLinkVO.setSysLastChgPrgrmId(getPrgrmId());
+			
+			HashMap<String, Object> rtnObj = apcLinkService.deleteApcLinkTrsmKnd(apcLinkVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+			
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
 	
 	// APC 연계기기 조회
 	@PostMapping(value = "/am/apc/selectApcLinkTrsmMatSttsList.do")

@@ -127,6 +127,32 @@
     </select>
     
 	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmKnd		-->
+	<!-- DESC : APC 연계 기기 종류 조회.	                                        -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.29  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectApcLinkTrsmKnd" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" resultType="com.at.apcss.am.apc.vo.ApcLinkVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmKnd */
+	    		  TK.APC_CD        		AS APC_CD
+				, TK.TRSM_MAT_ID		AS TRSM_MAT_ID
+				, TK.LINK_KND			AS LINK_KND
+				, TK.LINK_STTS   		AS LINK_STTS
+				, TK.LINK_USE_YN		AS LINK_USE_YN
+				, TK.DEL_YN				AS DEL_YN
+	
+			  FROM TB_APC_LINK_TRSM_MAT_STTS TK
+
+			 WHERE TK.APC_CD = #{apcCd}
+			   AND TK.TRSM_MAT_ID = #{trsmMatId}
+			   AND TK.LINK_KND = #{linkKnd}
+		]]>
+    </select>
+    
+	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmMat		-->
 	<!-- DESC : APC 연계 기기 정보 조회.	                                             	-->
 	<!-- ==========================================================================	-->
@@ -460,7 +486,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.29  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="insertApcLinkTrsmMat" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" >
+    <insert id="insertApcLinkTrsmMat" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" >
     	<![CDATA[
 		    INSERT /* com.at.apcss.am.apc.mapper.ApcLinkMapper.insertApcLinkTrsmMat */
 				INTO TB_APC_LINK_TRSM_MAT (
@@ -485,7 +511,7 @@
 		    		, #{sysLastChgPrgrmId}
 				)
 		]]>
-    </update>
+    </insert>
     
     <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.updateApcLinkTrsmMat		-->
@@ -526,4 +552,82 @@
 		]]>
     </delete>
 
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.insertApcLinkTrsmKnd		-->
+	<!-- DESC : APC 연계 기기 종류 등록	                                            -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.29  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertApcLinkTrsmKnd" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" >
+    	<![CDATA[
+		    INSERT /* com.at.apcss.am.apc.mapper.ApcLinkMapper.insertApcLinkTrsmKnd */
+				INTO TB_APC_LINK_TRSM_MAT_STTS (
+					  APC_CD
+					, TRSM_MAT_ID
+					, LINK_KND
+					, LINK_USE_YN
+		    		, SYS_FRST_INPT_DT
+		    		, SYS_FRST_INPT_USER_ID
+		    		, SYS_FRST_INPT_PRGRM_ID
+		    		, SYS_LAST_CHG_DT
+		    		, SYS_LAST_CHG_USER_ID
+		    		, SYS_LAST_CHG_PRGRM_ID
+				) VALUES (
+					  #{apcCd}
+					, #{trsmMatId}
+					, #{linkKnd}
+					, #{linkUseYn}
+		    		, SYSDATE
+		    		, #{sysFrstInptUserId}
+		    		, #{sysFrstInptPrgrmId}
+		    		, SYSDATE
+		    		, #{sysLastChgUserId}
+		    		, #{sysLastChgPrgrmId}
+				)
+		]]>
+    </insert>
+    
+    
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.updateApcLinkTrsmKnd		-->
+	<!-- DESC : APC 연계 기기 종류 변경	                                     		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.29  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateApcLinkTrsmKnd" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" >
+    	<![CDATA[
+		    UPDATE /* com.at.apcss.am.apc.mapper.ApcLinkMapper.updateApcLinkTrsmKnd */
+				TB_APC_LINK_TRSM_MAT_STTS SET
+	    		  SYS_LAST_CHG_DT 			= SYSDATE
+    	     	, SYS_LAST_CHG_USER_ID 		= #{sysLastChgUserId}
+    	     	, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+				, LINK_USE_YN = #{linkUseYn}
+			 WHERE APC_CD = #{apcCd}
+			   AND TRSM_MAT_ID = #{trsmMatId}
+			   AND LINK_KND = #{linkKnd}
+		]]>
+    </update>    
+    
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.deleteApcLinkTrsmKnd		-->
+	<!-- DESC : APC 연계 기기 종류 삭제	                                     		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.04.29  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <delete id="deleteApcLinkTrsmKnd" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" >
+    	<![CDATA[
+		    DELETE /* com.at.apcss.am.apc.mapper.ApcLinkMapper.deleteApcLinkTrsmKnd */
+				TB_APC_LINK_TRSM_MAT_STTS
+			 WHERE APC_CD = #{apcCd}
+			   AND TRSM_MAT_ID = #{trsmMatId}
+			   AND LINK_KND = #{linkKnd}
+		]]>
+    </delete>
+    
 </mapper>
