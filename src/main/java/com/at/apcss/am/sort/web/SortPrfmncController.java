@@ -341,6 +341,28 @@ public class SortPrfmncController extends BaseController {
     	
 		return getSuccessResponseEntity(resultMap);
     }
+    
+    @PostMapping(value = "/am/sort/selectBffaGrdTot.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectBffaGrdTot(@RequestBody HashMap<String, Object> paramMap, HttpServletRequest request) throws Exception {
+    	HashMap<String,Object> resultMap = new HashMap<String,Object>();
+    	List<HashMap<String,Object>> resultList;
+
+        try {
+            resultList = sortPrfmncService.selectBffaGrdTot(paramMap);
+        } catch(Exception e) {
+            return getErrorResponseEntity(e);
+        } finally {
+            HashMap<String, Object> rtnObj = setMenuComLog(request);
+            if (rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }
+
+        resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+    	
+    	
+		return getSuccessResponseEntity(resultMap);
+    }
 
     
 	/**
