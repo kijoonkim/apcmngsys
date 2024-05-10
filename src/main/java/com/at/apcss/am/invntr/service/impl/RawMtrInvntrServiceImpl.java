@@ -795,4 +795,16 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		return null;
 	}
 
+	@Override
+	public int rawMtrInvntrItemCdUpdate(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
+		int result = 0;
+		try{
+			result += rawMtrInvntrMapper.rawMtrInvntrItemCdUpdate(rawMtrInvntrVO);
+			result += rawMtrInvntrMapper.rawMtrItemCdUpdate(rawMtrInvntrVO);
+		}catch (Exception e){
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+		}
+		return result;
+	}
+
 }

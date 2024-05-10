@@ -72,8 +72,12 @@
 				, (SELECT SUM(X.CMND_QNTT) FROM TB_SORT_CMND X WHERE X.APC_CD = RI.APC_CD AND X.PLTNO = RI.PLTNO AND X.DEL_YN = 'N') AS CMND_QNTT
 				, (SELECT SUM(X.CMND_WGHT) FROM TB_SORT_CMND X WHERE X.APC_CD = RI.APC_CD AND X.PLTNO = RI.PLTNO AND X.DEL_YN = 'N') AS CMND_WGHT
 				, RI.DEL_YN				AS DEL_YN
+				, PI.PRDCR_IDENTNO 		AS PRDCR_IDENTNO
 
 			  FROM TB_RAW_MTR_INVNTR RI
+			  LEFT JOIN TB_PRDCR_INFO PI
+			  ON RI.APC_CD = PI.APC_CD
+			  AND RI.PRDCR_CD = PI.PRDCR_CD
 			 WHERE RI.APC_CD = #{apcCd}
 		]]>
 		<if test='wrhsno != null and wrhsno != ""'>
@@ -1471,5 +1475,45 @@
 	   			)
     	]]>
     </insert>
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.insertRawMtrChgHstry-->
+	<!-- DESC : 선별실적등록 모바일 화면에서 (품종품목)/(수량중량) 변경 반영    				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.05.09  	손민성        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="rawMtrInvntrItemCdUpdate" parameterType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.rawMtrInvntrItemCdUpdate */
+				TB_RAW_MTR_INVNTR
+			SET
+			    ITEM_CD					= #{itemCd}
+			  , VRTY_CD					= #{vrtyCd}
+			  , WRHS_QNTT				= #{qntt}
+			  , INVNTR_QNTT				= #{qntt}
+			  , WRHS_WGHT				= #{wght}
+			  , INVNTR_WGHT				= #{wght}
+			  , SYS_LAST_CHG_DT 		= SYSDATE
+			  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+			  , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+			WHERE APC_CD = #{apcCd}
+			  AND WRHSNO = #{wrhsno}
+		]]>
+	</update>
+	<update id="rawMtrItemCdUpdate" parameterType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO">
+		<![CDATA[
+		UPDATE /* com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.rawMtrItemCdUpdate */
+			TB_RAW_MTR_WRHS_PRFMNC
+		SET
+		    BX_QNTT				= #{qntt}
+		  , WRHS_WGHT			= #{wght}
+		  , SYS_LAST_CHG_DT 		= SYSDATE
+		  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+		  , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+		WHERE APC_CD = #{apcCd}
+		  AND WRHSNO = #{wrhsno}
+		]]>
+	</update>
 
 </mapper>

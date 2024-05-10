@@ -210,4 +210,19 @@ public interface RawMtrInvntrMapper {
 	 * @throws Exception
 	 */
 	public int insertRawMtrChgHstry(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+
+	/**
+	 * 선별실적등록(모바일) 원물재고에 대한 품목 변경
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+    int rawMtrInvntrItemCdUpdate(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+	/**
+	 * 선별실적등록(모바일) 원물입고실적 대한 수량,중량 변경
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	int rawMtrItemCdUpdate(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 }
