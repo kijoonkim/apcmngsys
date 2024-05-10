@@ -1,10 +1,7 @@
 package com.at.apcss.fm.farm.service;
 
 import java.util.List;
-import java.util.Map;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.fm.farm.vo.FarmerGrantsInfoRegVO;
 
 
@@ -26,20 +23,16 @@ public interface FarmerGrantsInfoRegService {
 
 	/**
 	 * 정보를 조회한다.
-	 * @param farmerGrantsInfoRegVO
+	 * @param FarmerGrantsInfoRegVO
 	 * @return
 	 * @throws Exception
 	 */
-	public FarmerGrantsInfoRegVO selectFarmerGrantsInfoReg(FarmerGrantsInfoRegVO farmerGrantsInfoRegVO) throws Exception;
+	public FarmerGrantsInfoRegVO selectFarmerGrantsInfoReg(FarmerGrantsInfoRegVO FarmerGrantsInfoRegVO) throws Exception;
 
-	public List<FarmerGrantsInfoRegVO> selectFarmerGrantsInfoRegList(FarmerGrantsInfoRegVO farmerGrantsInfoRegVO) throws Exception;
+	public List<FarmerGrantsInfoRegVO> selectFarmerGrantsInfoRegList(FarmerGrantsInfoRegVO FarmerGrantsInfoRegVO) throws Exception;
 
-	public int insertFarmerGrantsInfoReg(FarmerGrantsInfoRegVO farmerGrantsInfoRegVO) throws Exception;
+	public int insertFarmerGrantsInfoReg(FarmerGrantsInfoRegVO FarmerGrantsInfoRegVO) throws Exception;
 
-	public int updateFarmerGrantsInfoReg(FarmerGrantsInfoRegVO farmerGrantsInfoRegVO) throws Exception;
-
-	public int multiSaveFarmerGrantsInfoRegList(List<FarmerGrantsInfoRegVO> farmerGrantsInfoRegVOList) throws Exception;
-
-	public int deleteFarmerGrantsInfoReg(FarmerGrantsInfoRegVO farmerGrantsInfoRegVO) throws Exception;
+	public int deleteFarmerGrantsInfoReg(FarmerGrantsInfoRegVO FarmerGrantsInfoRegVO) throws Exception;
 
 }

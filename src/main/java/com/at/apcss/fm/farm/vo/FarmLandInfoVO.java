@@ -58,7 +58,7 @@ public class FarmLandInfoVO extends ComVO{
 	private String saveCd;
 
 	/* TB_AX_FARM_LAND_INFO */
-	private String mngmstRegNo;
+	private String mngmstRegno;
 	private String frlnType;
 	private String cprtnFrlnyn;
 	private String frlnarea;

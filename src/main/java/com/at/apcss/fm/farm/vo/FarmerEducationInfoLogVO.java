@@ -8,39 +8,17 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FarmerEducationInfoLogVO extends ComVO{
-	private String seq;
-	private String frmerSn;
-	private String bzobRgno;
-	private String mngerRelate;
-	private String bzmCorpNm;
-	private String addr;
-	private String rrsdAddr;
-	private String rdnmAddr;
-	private String twNm;
-	private String perCorpDvcdNm;
-	private String nafoDvcdNm;
-	private String telno;
-	private String mblTelno;
-	private String faxTelno;
-	private String emailAddr;
-	private String famgStrYmd;
-	private String farmngBeginStleCdNm;
-	private String farmngEngageStleCdNm;
-	private String fndtYr;
-	private String bzmRgno;
-	private String reprNm;
-	private String reprAddr;
-	private String brthdy;
-	private String sexdstn;
-	private String sysFrstInptDt;
-	private String sysFrstInptUserId;
-	private String sysFrstInptPrgrmId;
-	private String sysLastChgDt;
-	private String sysLastChgUserId;
-	private String sysLastChgPrgrmId;
-	private String delYn;
-	private String rgsde;
-	private String updde;
-	private String saveCd;
+
+	private String frmerno;			//농업인 번호 FRMER_SN
+	private String mngmstRegno;		//경영체등록번호 BZOB_RGNO
+	private String crclmCd;			//교육과정코드 EDU_COS_CD
+	private String flNm;			//성명 NAME
+	private String ednstNm;			//교육기관명 EDU_ORG_NM
+	private String crclmNm;			//교육과정명 EDU_COS_NM
+	private String eduBgngYmd;		//교육시작일자 EDU_STR_DT
+	private String eduEndYmd;		//교육종료일자 EDU_END_DT
+	private String idntyYn;			//확인여부 CNFM_YN
+
+	private String sn;
 
 }

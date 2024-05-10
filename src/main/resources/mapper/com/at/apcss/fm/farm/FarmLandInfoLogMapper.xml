@@ -65,8 +65,8 @@
 			<if test='frmerno != null and frmerno != ""'>
 				AND FRMERNO = #{frmerno}
 			</if>
-			<if test='mngmstRegNo != null and mngmstRegNo != ""'>
-				AND MNGMST_REGNO = #{mngmstRegNo}
+			<if test='mngmstRegno != null and mngmstRegno != ""'>
+				AND MNGMST_REGNO = #{mngmstRegno}
 			</if>
 		ORDER BY SYS_LAST_CHG_DT DESC
 	</select>
@@ -132,8 +132,8 @@
 			<if test='frmerno != null and frmerno != ""'>
 				AND FRMERNO = #{frmerno}
 			</if>
-			<if test='mngmstRegNo != null and mngmstRegNo != ""'>
-				AND MNGMST_REGNO = #{mngmstRegNo}
+			<if test='mngmstRegno != null and mngmstRegno != ""'>
+				AND MNGMST_REGNO = #{mngmstRegno}
 			</if>
 			ORDER BY SYS_LAST_CHG_DT DESC
 

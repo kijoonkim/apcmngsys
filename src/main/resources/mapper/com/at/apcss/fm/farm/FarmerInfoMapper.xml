@@ -208,7 +208,7 @@
 
 
 
-    <insert id="insertMegerFarmerInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoVO">
+    <insert id="insertMergeFarmerInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoVO">
 	<![CDATA[
     	MERGE INTO TB_AX_FRMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmerInfoMapper.insertMegerfarmerInfo */
 		USING DUAL
@@ -347,10 +347,13 @@
 				, SYS_LAST_CHG_DT = SYSDATE
 				, SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
 				, SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+			WHERE 1=1
+			  AND FRMERNO		= #{frmerSn}
+			  AND MNGMST_REGNO	= #{bzobRgno}
 		WHEN NOT MATCHED THEN
 			 INSERT /* com.at.apcss.fm.farm.mapper.FarmerInfoMapper.insertMegerfarmerInfo */
-	    		(
-	    		      FRMERNO
+				(
+					  FRMERNO
 					, MNGMST_REGNO
 					, ADMST_OWNR_REL
 					, ADMST_OWNR_CORP_NM
@@ -380,10 +383,10 @@
 					, SYS_LAST_CHG_DT
 					, SYS_LAST_CHG_PRGRM_ID
 					, SYS_LAST_CHG_USER_ID
-	    		)
-	   		VALUES
-	   			(
-	   			    #{frmerSn}
+				)
+			VALUES
+				(
+					#{frmerSn}
 					,#{bzobRgno}
 					,#{mngerRelate}
 					,#{bzmCorpNm}
@@ -413,18 +416,18 @@
 					,SYSDATE
 					,#{sysLastChgUserId}
 					,#{sysLastChgPrgrmId}
-	   			)
-    	]]>
+				)
+		]]>
 	</insert>
 
 
-    <insert id="insertMegerLogFarmerInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoVO">
+	<insert id="insertMegerLogFarmerInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoVO">
 	<![CDATA[
-    	INSERT /* com.at.apcss.fm.farm.mapper.FarmerInfoMapper.insertMegerLogfarmerInfo */
-	    	  INTO TB_AX_FRMER_INFO_LOG
-	    		(
-	    		      SN
-	    		    , FRMERNO
+		INSERT /* com.at.apcss.fm.farm.mapper.FarmerInfoMapper.insertMegerLogfarmerInfo */
+			  INTO TB_AX_FRMER_INFO_LOG
+				(
+					SN
+					, FRMERNO
 					, MNGMST_REGNO
 					, ADMST_OWNR_REL
 					, ADMST_OWNR_CORP_NM
@@ -454,11 +457,11 @@
 					, SYS_LAST_CHG_DT
 					, SYS_LAST_CHG_PRGRM_ID
 					, SYS_LAST_CHG_USER_ID
-	    		)
-	   		VALUES
-	   			(
-	   			      (SELECT NVL(MAX(SN),0)+1 FROM TB_AX_FRMER_INFO_LOG)
-	   			    ,#{frmerSn}
+				)
+			VALUES
+				(
+					(SELECT NVL(MAX(SN),0)+1 FROM TB_AX_FRMER_INFO_LOG)
+					,#{frmerSn}
 					,#{bzobRgno}
 					,#{mngerRelate}
 					,#{bzmCorpNm}
@@ -488,18 +491,18 @@
 					,SYSDATE
 					,#{sysLastChgUserId}
 					,#{sysLastChgPrgrmId}
-	   			)
-    	]]>
+				)
+		]]>
 	</insert>
 
 
-    <insert id="insertMegerLogFarmerInfoMap" parameterType="hashmap">
+	<insert id="insertMegerLogFarmerInfoMap" parameterType="hashmap">
 	<![CDATA[
-    	INSERT /* com.at.apcss.fm.farm.mapper.FarmerInfoMapper.insertMegerLogfarmerInfoMap */
-	    	  INTO TB_AX_FRMER_INFO_LOG
-	    		(
-	    		      SN
-	    		    , FRMERNO
+		INSERT /* com.at.apcss.fm.farm.mapper.FarmerInfoMapper.insertMegerLogfarmerInfoMap */
+			  INTO TB_AX_FRMER_INFO_LOG
+				(
+					SN
+					, FRMERNO
 					, MNGMST_REGNO
 					, ADMST_OWNR_REL
 					, ADMST_OWNR_CORP_NM
@@ -529,11 +532,11 @@
 					, SYS_LAST_CHG_DT
 					, SYS_LAST_CHG_PRGRM_ID
 					, SYS_LAST_CHG_USER_ID
-	    		)
-	   		VALUES
-	   			(
-	   			      (SELECT NVL(MAX(SN),0)+1 FROM TB_AX_FRMER_INFO_LOG)
-	   			    ,#{frmerSn}
+				)
+			VALUES
+				(
+					(SELECT NVL(MAX(SN),0)+1 FROM TB_AX_FRMER_INFO_LOG)
+					,#{frmerSn}
 					,#{bzobRgno}
 					,#{mngerRelate}
 					,#{bzmCorpNm}
@@ -563,20 +566,20 @@
 					,SYSDATE
 					,#{sysLastChgUserId}
 					,#{sysLastChgPrgrmId}
-	   			)
-    	]]>
+				)
+		]]>
 	</insert>
 
 	<update id="updateFarmerInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoVO">
-    	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.farm.mapper.FarmerInfoMapper.upatefarmerInfo */
-	    		TB_AX_FRMER_INFO
-			   SET
-			 	   ADMST_OWNR_REL	= #{mngerRelate}
+		<![CDATA[
+			UPDATE /* com.at.apcss.fm.farm.mapper.FarmerInfoMapper.upatefarmerInfo */
+				TB_AX_FRMER_INFO
+			  SET
+				  ADMST_OWNR_REL	= #{mngerRelate}
 				, ADMST_OWNR_CORP_NM	= #{bzmCorpNm}
 				, ADMST_OWNR_RGDT_ADDR	= #{addr}
 				, ADMST_OWNR_ACTL_HBTN_ADDR	= #{rrsdAddr}
-			    , ADMST_OWNR_DADDR	= #{rdnmAddr}
+				, ADMST_OWNR_DADDR	= #{rdnmAddr}
 				, VLG_NM	= #{twNm}
 				, PRSNA_CORP_SE_CD	= #{perCorpDvcdNm}
 				, CTZN_FNGNR_SE_CD	= #{nafoDvcdNm}
@@ -594,28 +597,29 @@
 				, BRDT	= #{brthdy}
 				, SXDC	= #{sexdstn}
 				, REG_SE_CD	= #{saveCd}
-    	]]>
+		]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}
 		</if>
-    	<![CDATA[
+		<![CDATA[
 				, SYS_LAST_CHG_DT		= SYSDATE
-	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 
-			 WHERE 1=1
-			    AND FRMERNO 	    = #{frmerSn}
-		        AND MNGMST_REGNO 	= #{bzobRgno}
-    	]]>
-    </update>
+			WHERE 1=1
+			  AND FRMERNO		= #{frmerSn}
+			  AND MNGMST_REGNO	= #{bzobRgno}
+		]]>
+	</update>
 
-    <update id="updateMegerFarmerInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoVO">
-    	<![CDATA[
-	    	MERGE INTO TB_AX_FRMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmerInfoMapper.insertMegerfarmerInfo */
+	<update id="updateMegerFarmerInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoVO">
+		<![CDATA[
+			MERGE INTO TB_AX_FRMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmerInfoMapper.insertMegerfarmerInfo */
 		USING DUAL
-			ON (	         CLT.FRMERNO      = #{frmerSn}
-				      AND CLT.MNGMST_REGNO  =  #{bzobRgno}
-				   )
+			ON (
+					CLT.FRMERNO				= #{frmerSn}
+					AND CLT.MNGMST_REGNO	= #{bzobRgno}
+				)
 		WHEN MATCHED THEN
 			UPDATE /* com.at.apcss.fm.farm.mapper.FarmerInfoMapper.insertMegerfarmerInfo */
 			   SET

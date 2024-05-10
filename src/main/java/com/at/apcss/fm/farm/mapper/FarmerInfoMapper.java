@@ -39,13 +39,13 @@ public interface FarmerInfoMapper {
 
 	public int updateFarmerInfo(FarmerInfoVO farmerInfoVO);
 
-	public int insertMegerFarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
-	public int insertMegerLogFarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
+	public int insertMergeFarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
+	public int insertMergeLogFarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
 
-	public int insertMegerFarmerInfoMap(Map<String, String> MapList) throws Exception;
-	public int insertMegerLogFarmerInfoMap(Map<String, String> MapList) throws Exception;
+	public int insertMergeFarmerInfoMap(Map<String, String> MapList) throws Exception;
+	public int insertMergeLogFarmerInfoMap(Map<String, String> MapList) throws Exception;
 
-	public int updateMegerFarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
+	public int updateMergeFarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
 
 	public int deleteFarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
 }

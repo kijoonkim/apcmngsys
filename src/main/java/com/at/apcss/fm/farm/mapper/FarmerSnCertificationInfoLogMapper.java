@@ -33,13 +33,4 @@ public interface FarmerSnCertificationInfoLogMapper {
 
 	public List<FarmerSnCertificationInfoLogVO> selectFarmerSnCertificationInfoLogList(FarmerSnCertificationInfoLogVO farmerSnCertificationInfoLogVO);
 
-	public int insertFarmerSnCertificationInfoLog(FarmerSnCertificationInfoLogVO farmerSnCertificationInfoLogVO);
-
-	public int updateFarmerSnCertificationInfoLog(FarmerSnCertificationInfoLogVO farmerSnCertificationInfoLogVO);
-
-	public int insertMegerFarmerSnCertificationInfoLog(FarmerSnCertificationInfoLogVO farmerSnCertificationInfoLogVO) throws Exception;
-	public int insertMegerLogFarmerSnCertificationInfoLog(FarmerSnCertificationInfoLogVO farmerSnCertificationInfoLogVO) throws Exception;
-	public int updateMegerFarmerSnCertificationInfoLog(FarmerSnCertificationInfoLogVO farmerSnCertificationInfoLogVO) throws Exception;
-
-	public int deleteFarmerSnCertificationInfoLog(FarmerSnCertificationInfoLogVO farmerSnCertificationInfoLogVO) throws Exception;
 }

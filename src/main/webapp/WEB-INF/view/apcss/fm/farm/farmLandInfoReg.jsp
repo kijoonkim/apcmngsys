@@ -37,7 +37,7 @@
 							</td>
 							<th class="th_bg">경영체 등록번호</th>
 							<td class="td_input" style="border-right:hidden;">
-									<sbux-input id="srch-inp-mngmstRegNo" name="srch-inp-mngmstRegNo" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+									<sbux-input id="srch-inp-mngmstRegno" name="srch-inp-mngmstRegno" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 							</td>
 							<td colspan="2" style="border-left: hidden;"></td>
 						</tr>
@@ -82,7 +82,7 @@
 						<tr>
 							<th>경영체 등록번호</th>
 							<td>
-								<sbux-input id="dtl-input-mngmstRegNo" name="dtl-input-mngmstRegNo" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+								<sbux-input id="dtl-input-mngmstRegno" name="dtl-input-mngmstRegno" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 							</td>
 						</tr>
 						<tr>
@@ -303,7 +303,7 @@
 		    };
 		SBGridProperties.columns = [
 			{caption: ["농업인 번호"], 		ref: 'frmerno',	type:'input',  hidden : false},
-			{caption: ["경영체 등록번호"], 	ref: 'mngmstRegNo',	type:'input',	 style:'text-align:center'},
+			{caption: ["경영체 등록번호"], 	ref: 'mngmstRegno',	type:'input',	 style:'text-align:center'},
 			{caption: ["농지 일련번호"], 	ref: 'frlnSn',	type:'input',	 style:'text-align:center'},
 			{caption: ["법정동코드"], 		ref: 'stdgcd',	type:'input',	 style:'text-align:center'},
 			{caption: ["농지 본번"], 		ref: 'frlnMno',	type:'input',	 style:'text-align:center'},
@@ -370,11 +370,11 @@
 	/* Grid Row 조회 기능*/
 	const fn_searchfarmList = async function(pageSize, pageNo){
 		let frmerno = SBUxMethod.get("srch-inp-frmerno");//
-		let mngmstRegNo = SBUxMethod.get("srch-inp-mngmstRegNo");//
+		let mngmstRegno = SBUxMethod.get("srch-inp-mngmstRegno");//
 
 		let postJsonPromise = gfn_postJSON("/fm/farm/selectFarmLandInfoRegList.do", {
 			frmerno : frmerno
-			,mngmstRegNo : mngmstRegNo
+			,mngmstRegno : mngmstRegno
 
 			//페이징
 			,pagingYn : 'Y'
@@ -388,7 +388,7 @@
 			console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let farmLandInfoRegVO = {
-						mngmstRegNo 		: item.mngmstRegNo
+						mngmstRegno 		: item.mngmstRegno
 						,frlnType 			: item.frlnType
 						,cprtnFrlnyn 		: item.cprtnFrlnyn
 						,frlnarea 			: item.frlnarea
@@ -461,14 +461,14 @@
 		console.log("******************fn_save**********************************");
 
 		let frmerno = SBUxMethod.get("srch-inp-frmerno");//
-		let mngmstRegNo = SBUxMethod.get("srch-inp-mngmstRegNo");//
+		let mngmstRegno = SBUxMethod.get("srch-inp-mngmstRegno");//
 
 		if (!gfn_isEmpty(frmerno)) {
 			alert("농업인 번호를 입력하세요.");
 			return;
 		}
 
-		if (!gfn_isEmpty(mngmstRegNo)) {
+		if (!gfn_isEmpty(mngmstRegno)) {
 			alert("경영체 등록번호를 입력하세요.");
 			return;
 		}
@@ -482,8 +482,8 @@
 		console.log("******************fn_subUpdate**********************************");
 		if (!isConfirmed) return;
 
-		const postJsonPromise2 = gfn_postJSON("/fm/farm/updateFarmLandInfoReg.do", {
-					mngmstRegNo: SBUxMethod.get('dtl-input-mngmstRegNo')
+		const postJsonPromise = gfn_postJSON("/fm/farm/insertFarmLandInfoReg.do", {
+					mngmstRegno: SBUxMethod.get('dtl-input-mngmstRegno')
 					, frlnType: SBUxMethod.get('dtl-input-frlnType')
 					, cprtnFrlnyn: SBUxMethod.get('dtl-input-cprtnFrlnyn')
 					, frlnarea: SBUxMethod.get('dtl-input-frlnarea')
@@ -594,7 +594,7 @@
 		let rowData = grdFarmLandInfoReg.getRowData(nRow);
 		console.log(rowData);
 
-		SBUxMethod.set("dtl-input-mngmstRegNo", rowData.mngmstRegNo);
+		SBUxMethod.set("dtl-input-mngmstRegno", rowData.mngmstRegno);
 		SBUxMethod.set("dtl-input-frlnType", rowData.frlnType);
 		SBUxMethod.set("dtl-input-cprtnFrlnyn", rowData.cprtnFrlnyn);
 		SBUxMethod.set("dtl-input-frlnarea", rowData.frlnarea);

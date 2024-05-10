@@ -4,12 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
-import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.fm.bbs.mapper.BbsMapper;
-import com.at.apcss.fm.bbs.service.BbsService;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.fm.farm.mapper.FarmerSnCertificationInfoRegMapper;
 import com.at.apcss.fm.farm.service.FarmerSnCertificationInfoRegService;
 import com.at.apcss.fm.farm.vo.FarmerSnCertificationInfoRegVO;
@@ -57,28 +52,6 @@ public class FarmerSnCertificationInfoRegServiceImpl extends BaseServiceImpl imp
 		int insertedCnt = farmerSnCertificationInfoRegMapper.insertFarmerSnCertificationInfoReg(farmerSnCertificationInfoRegVO);
 
 		return insertedCnt;
-	}
-
-	@Override
-	public int updateFarmerSnCertificationInfoReg(FarmerSnCertificationInfoRegVO farmerSnCertificationInfoRegVO) throws Exception {
-
-		int updatedCnt = farmerSnCertificationInfoRegMapper.updateFarmerSnCertificationInfoReg(farmerSnCertificationInfoRegVO);
-
-		return updatedCnt;
-	}
-
-	@Override
-	public int multiSaveFarmerSnCertificationInfoRegList(List<FarmerSnCertificationInfoRegVO> farmerSnCertificationInfoRegVOList) throws Exception {
-		int savedCnt = 0;
-		for (FarmerSnCertificationInfoRegVO farmerSnCertificationInfoRegVO : farmerSnCertificationInfoRegVOList) {
-			if(ComConstants.ROW_STS_INSERT.equals(farmerSnCertificationInfoRegVO.getRowSts())) {
-				savedCnt += insertFarmerSnCertificationInfoReg(farmerSnCertificationInfoRegVO);
-			}
-			if(ComConstants.ROW_STS_UPDATE.equals(farmerSnCertificationInfoRegVO.getRowSts())) {
-				savedCnt += updateFarmerSnCertificationInfoReg(farmerSnCertificationInfoRegVO);
-			}
-		}
-		return savedCnt;
 	}
 
 	@Override

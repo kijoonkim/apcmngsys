@@ -4,12 +4,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.fm.bbs.mapper.BbsMapper;
-import com.at.apcss.fm.bbs.service.BbsService;
-import com.at.apcss.fm.bbs.vo.BbsVO;
 import com.at.apcss.fm.farm.mapper.FarmerSnCertificationInfoLogMapper;
 import com.at.apcss.fm.farm.service.FarmerSnCertificationInfoLogService;
 import com.at.apcss.fm.farm.vo.FarmerSnCertificationInfoLogVO;
@@ -49,54 +45,6 @@ public class FarmerSnCertificationInfoLogServiceImpl extends BaseServiceImpl imp
 
 		List<FarmerSnCertificationInfoLogVO> resultList = farmerSnCertificationInfoLogMapper.selectFarmerSnCertificationInfoLogList(farmerSnCertificationInfoLogVO);
 		return resultList;
-	}
-
-	@Override
-	public int insertFarmerSnCertificationInfoLog(FarmerSnCertificationInfoLogVO farmerSnCertificationInfoLogVO) throws Exception {
-
-		int insertedCnt = farmerSnCertificationInfoLogMapper.insertFarmerSnCertificationInfoLog(farmerSnCertificationInfoLogVO);
-
-		return insertedCnt;
-	}
-
-	@Override
-	public int updateFarmerSnCertificationInfoLog(FarmerSnCertificationInfoLogVO farmerSnCertificationInfoLogVO) throws Exception {
-
-		int updatedCnt = farmerSnCertificationInfoLogMapper.updateFarmerSnCertificationInfoLog(farmerSnCertificationInfoLogVO);
-
-		return updatedCnt;
-	}
-
-	@Override
-	public int multiSaveFarmerSnCertificationInfoLogList(List<FarmerSnCertificationInfoLogVO> farmerSnCertificationInfoLogVOList) throws Exception {
-		int savedCnt = 0;
-		for (FarmerSnCertificationInfoLogVO farmerSnCertificationInfoLogVO : farmerSnCertificationInfoLogVOList) {
-			if(ComConstants.ROW_STS_INSERT.equals(farmerSnCertificationInfoLogVO.getRowSts())) {
-				savedCnt += insertFarmerSnCertificationInfoLog(farmerSnCertificationInfoLogVO);
-			}
-			if(ComConstants.ROW_STS_UPDATE.equals(farmerSnCertificationInfoLogVO.getRowSts())) {
-				savedCnt += updateFarmerSnCertificationInfoLog(farmerSnCertificationInfoLogVO);
-			}
-		}
-		return savedCnt;
-	}
-
-	@Override
-	public int insertMegerFarmerSnCertificationInfoLog(FarmerSnCertificationInfoLogVO farmerSnCertificationInfoLogVO) throws Exception {
-		return farmerSnCertificationInfoLogMapper.insertMegerFarmerSnCertificationInfoLog(farmerSnCertificationInfoLogVO);
-	}
-	@Override
-	public int insertMegerLogFarmerSnCertificationInfoLog(FarmerSnCertificationInfoLogVO farmerSnCertificationInfoLogVO) throws Exception {
-		return farmerSnCertificationInfoLogMapper.insertMegerLogFarmerSnCertificationInfoLog(farmerSnCertificationInfoLogVO);
-	}
-	@Override
-	public int updateMegerFarmerSnCertificationInfoLog(FarmerSnCertificationInfoLogVO farmerSnCertificationInfoLogVO) throws Exception {
-		return farmerSnCertificationInfoLogMapper.updateMegerFarmerSnCertificationInfoLog(farmerSnCertificationInfoLogVO);
-	}
-
-	@Override
-	public int deleteFarmerSnCertificationInfoLog(FarmerSnCertificationInfoLogVO farmerSnCertificationInfoLogVO) throws Exception {
-		return farmerSnCertificationInfoLogMapper.deleteFarmerSnCertificationInfoLog(farmerSnCertificationInfoLogVO);
 	}
 
 }

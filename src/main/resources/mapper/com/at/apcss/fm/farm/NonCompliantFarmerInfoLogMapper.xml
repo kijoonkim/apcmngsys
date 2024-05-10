@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : Bfarmapper.xml                                    				-->
+<!-- DESC : 게시판 정보 mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.fm.farm.mapper.NonCompliantFarmerInfoLogMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.bbs.mapper.BfarmngMapper.selectBbs				-->
+	<!-- DESC : 게시판 테이블 단건조회.											 		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR			DESCRIPTION					  			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.29  	jcshin			Initial Creation							-->
+	<!-- ==========================================================================	-->
+	<select id="selectNonCompliantFarmerInfoLog" parameterType="com.at.apcss.fm.farm.vo.NonCompliantFarmerInfoLogVO" resultType="com.at.apcss.fm.farm.vo.NonCompliantFarmerInfoLogVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.fm.farm.mapper.NonCompliantFarmerInfoLogMapper.selectNonCompliantFarmerInfoLog */
+				FRMERNO
+				, BIZ_YR
+				, BIZ_NM
+				, VLTN_CN
+				, SNCNS_BGNG_YR
+				, SNCNS_END_YR
+				, RDM_PRGRS_CD
+				, RDM_TRGT_PRNCPL
+				, RDM_TRGT_AMT
+
+				, SN
+
+				, DEL_YN
+				, SYS_FRST_INPT_DT
+				, SYS_FRST_INPT_PRGRM_ID
+				, SYS_FRST_INPT_USER_ID
+				, SYS_LAST_CHG_DT
+				, SYS_LAST_CHG_PRGRM_ID
+				, SYS_LAST_CHG_USER_ID
+			FROM USRAM.TB_AX_NCMPLNT_FRMER_INFO_LOG
+			WHERE 1=1
+		]]>
+			<if test='frmerno != null and frmerno != ""'>
+				AND FRMERNO = #{frmerno}
+			</if>
+		ORDER BY SYS_LAST_CHG_DT DESC
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.bbs.mapper.BfarmngMapper.selectBbsList			-->
+	<!-- DESC : 게시판 테이블 목록 조회.											 		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR			DESCRIPTION					  			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.29  	jcshin			Initial Creation							-->
+	<!-- ==========================================================================	-->
+	<select id="selectNonCompliantFarmerInfoLogList" parameterType="com.at.apcss.fm.farm.vo.NonCompliantFarmerInfoLogVO" resultType="com.at.apcss.fm.farm.vo.NonCompliantFarmerInfoLogVO">
+				<!-- Start 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			SELECT
+				  ROWNUM AS ROW_SEQ
+				, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+				, pt0.*
+			  FROM (
+		</if>
+
+		<![CDATA[
+			SELECT  /* com.at.apcss.fm.farm.mapper.NonCompliantFarmerInfoLogMapper.selectNonCompliantFarmerInfoLogList */
+				FRMERNO
+				, BIZ_YR
+				, BIZ_NM
+				, VLTN_CN
+				, SNCNS_BGNG_YR
+				, SNCNS_END_YR
+				, RDM_PRGRS_CD
+				, RDM_TRGT_PRNCPL
+				, RDM_TRGT_AMT
+
+				, SN
+
+				, DEL_YN
+				, SYS_FRST_INPT_DT
+				, SYS_FRST_INPT_PRGRM_ID
+				, SYS_FRST_INPT_USER_ID
+				, SYS_LAST_CHG_DT
+				, SYS_LAST_CHG_PRGRM_ID
+				, SYS_LAST_CHG_USER_ID
+			FROM USRAM.TB_AX_NCMPLNT_FRMER_INFO_LOG
+			WHERE 1=1
+		]]>
+			<if test='frmerno != null and frmerno != ""'>
+				AND FRMERNO = #{frmerno}
+			</if>
+			ORDER BY SYS_LAST_CHG_DT DESC
+
+		<!-- 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+		</if>
+	</select>
+
+</mapper>

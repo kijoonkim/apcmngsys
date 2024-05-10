@@ -38,7 +38,7 @@
 							</td>
 							<th class="th_bg">경영체 등록번호</th>
 							<td class="td_input" style="border-right:hidden;">
-									<sbux-input id="srch-inp-mngmstRegNo" name="srch-inp-mngmstRegNo" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+									<sbux-input id="srch-inp-mngmstRegno" name="srch-inp-mngmstRegno" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 							</td>
 							<td colspan="2" style="border-left: hidden;"></td>
 						</tr>
@@ -129,7 +129,7 @@
 			};
 		SBGridProperties.columns = [
 			{caption: ["농업인 번호"], 		ref: 'frmerno',		type:'input',  hidden : false},
-			{caption: ["경영체 등록번호"], 	ref: 'mngmstRegNo',	type:'input',	 style:'text-align:center'},
+			{caption: ["경영체 등록번호"], 	ref: 'mngmstRegno',	type:'input',	 style:'text-align:center'},
 			{caption: ["농지 일련번호"], 	ref: 'frlnSn',		type:'input',	 style:'text-align:center'},
 			{caption: ["법정동코드"], 		ref: 'stdgcd',		type:'input',	 style:'text-align:center'},
 			{caption: ["농지 본번"], 		ref: 'frlnMno',		type:'input',	 style:'text-align:center'},
@@ -154,6 +154,7 @@
 			{caption: ["시설종류"], 		ref: 'fcltKnd',		type:'input',	 style:'text-align:center'},
 			{caption: ["시설면적"], 		ref: 'fcltArea',	type:'input',	 style:'text-align:center'},
 			{caption: ["시설설치년도"], 		ref: 'fcltInstallYr',			type:'input',	 style:'text-align:center'},
+
 			{caption: ["시스템최초입력일시"], 		ref: 'sysFrstInptDt',		type:'input',	 style:'text-align:center'},
 			{caption: ["시스템최초입력사용자ID"], 	ref: 'sysFrstInptUserId',	type:'input',	 style:'text-align:center'},
 			{caption: ["시스템최초입력프로그램ID"], 	ref: 'sysFrstInptPrgrmId',	type:'input',	 style:'text-align:center'},
@@ -205,11 +206,11 @@
 	/* Grid Row 조회 기능*/
 	const fn_searchFcltList = async function(pageSize, pageNo){
 		let frmerno = SBUxMethod.get("srch-inp-frmerno");//
-		let mngmstRegNo = SBUxMethod.get("srch-inp-mngmstRegNo");//
+		let mngmstRegno = SBUxMethod.get("srch-inp-mngmstRegno");//
 
 		let postJsonPromise = gfn_postJSON("/fm/farm/selectFarmLandInfoList.do", {
 			frmerno : frmerno
-			,mngmstRegNo : mngmstRegNo
+			,mngmstRegno : mngmstRegno
 
 			//페이징
 			,pagingYn : 'Y'
@@ -223,7 +224,7 @@
 			console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let farmLandInfoVO = {
-						mngmstRegNo 		: item.mngmstRegNo
+						mngmstRegno 		: item.mngmstRegno
 						,frlnType 			: item.frlnType
 						,cprtnFrlnyn 		: item.cprtnFrlnyn
 						,frlnarea 			: item.frlnarea
@@ -303,7 +304,7 @@
 			let rowSts = grdfarmLandInfo.getRowStatus(i);
 
 			let frmerno = rowData.frmerno;
-			let mngmstRegNo = rowData.mngmstRegNo;
+			let mngmstRegno = rowData.mngmstRegno;
 			let delYn = rowData.delYn;
 			console.log("================delYn================"+delYn);
 			if(delYn == 'N'){
@@ -313,7 +314,7 @@
 					return;
 				}
 
-				 if (gfn_isEmpty(mngmstRegNo)) {
+				 if (gfn_isEmpty(mngmstRegno)) {
 					gfn_comAlert("W0001", "경영체 등록번호");		//	W0001	{0}을/를 선택하세요.
 					return;
 				}
@@ -449,7 +450,6 @@
 				}
 				console.error("failed", e.message);
 			}
-
 		}
 	}
 
