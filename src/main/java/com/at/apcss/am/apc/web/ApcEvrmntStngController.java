@@ -43,7 +43,7 @@ public class ApcEvrmntStngController extends BaseController{
 	private ComCdService comCdSerivce;
 
 	// APC 환경설정 - APC 정보 조회
-	@PostMapping(value = "/am/apc/selectApcLinkStts.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	//@PostMapping(value = "/am/apc/selectApcLinkStts.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectApcLinkStts(@RequestBody ApcLinkVO apcLinkVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -281,7 +281,7 @@ public class ApcEvrmntStngController extends BaseController{
 	}
 
 	// APC 환경설정 - 사용자 정보 등록
-	@PostMapping(value = "/am/apc/updateApcLink.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	//@PostMapping(value = "/am/apc/updateApcLink.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> updateApcLink(@RequestBody ApcLinkVO apcLinkVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -305,7 +305,7 @@ public class ApcEvrmntStngController extends BaseController{
 	
 	
 	// APC 연계 상태 update
-	@PostMapping(value = "/am/apc/updateApcLinkStts.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	//@PostMapping(value = "/am/apc/updateApcLinkStts.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> updateApcLinkStts(@RequestBody ApcLinkVO apcLinkVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();

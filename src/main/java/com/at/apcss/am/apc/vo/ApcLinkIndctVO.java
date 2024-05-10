@@ -1,44 +1,26 @@
 package com.at.apcss.am.apc.vo;
 
-import com.at.apcss.co.sys.vo.ComVO;
-
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ApcLinkVO  extends ComVO{
+public class ApcLinkIndctVO {
 
+	private String linkKnd;		// W: 계량, R:입고, S:선별, P:포장, D:출하
+	private String linkStts;	//  
+	
 	private String groupId;		// 연계그룹id
 	
 	private String rtnCd;
 	private String rtnMsg;
 	
 	private String apcCd;
-	private String apcKey;
-	
 	private String trsmMatId;
 	private String trsmMatNm;
 	private String trsmMatSttsCd;
 	private String sttsIdntyDt;
-	
-	private String sttsColor;
-	
-	private String linkKnd;		// W: 계량, R:입고, S:선별, P:포장, D:출하
-	private String linkKndNm;
-	private String linkStts;	//  
-	private String linkSttsNm;	//
-	private String linkSttsColor;
-	
-	private String linkUseYn;
-	private String reqYn;
-	private String reqDt;
-	private String reqCncltnDt;
-	private String sndDt;
-	private String sndCmptnDt;
-	private String prcsDt;
-	private String prcsCmptnDt;
-	
+
 	private String wghSttsCd;
 	private String wrhsSttsCd;
 	private String sortSttsCd;
@@ -57,13 +39,6 @@ public class ApcLinkVO  extends ComVO{
 	private String sortDspDt;
 	private String pckgDspDt;
 	private String spmtDspDt;
-	
-	private String trsmMatSttsColor;
-	private String wghSttsColor;
-	private String wrhsSttsColor;
-	private String sortSttsColor;
-	private String pckgSttsColor;
-	private String spmtSttsColor;
 	
 	private String wghReqYn;
 	private String wghReqDt;
@@ -106,12 +81,9 @@ public class ApcLinkVO  extends ComVO{
 	private String spmtPrcsCmptnDt;
 	private String spmtLinkStts;
 	
-	
 	private String wghLinkUseYn;
 	private String wrhsLinkUseYn;
 	private String sortLinkUseYn;
 	private String pckgLinkUseYn;
 	private String spmtLinkUseYn;
-
-	
 }

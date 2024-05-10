@@ -1,8 +1,7 @@
 package com.at.apcma.com.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -49,7 +48,19 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
     	return procMapper.callProcTibero(param);
     }    
     
-	public HashMap<String, Object> callProc(Map<String, Object> param, String rtype) throws Exception{
+	public HashMap<String, Object> callProc(Map<String, Object> param, String rtype, String ptype) throws Exception{
+		
+		HashMap<String, Object> rmap = new HashMap<String, Object>();
+		try {
+			HashMap<String, Object> map1 = this.InnerCallProc(param, rtype, ptype);
+			rmap = this.checkError(map1);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+		}
+		return rmap;
+	}
+	
+	private HashMap<String, Object> InnerCallProc(Map<String, Object> param, String rtype, String ptype) throws Exception{
 		
 		HashMap<String, Object> rmap = new HashMap<String, Object>();
 		
@@ -60,7 +71,11 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			
 			if(rtype.equals("POST")) {
 				//post type
-				params = param.get("params").toString().split("\\,", -1);
+				if(ptype.equals("")) {
+					params = param.get("params").toString().split(",", -1);
+				} else {
+					params = (String[])param.get("params");
+				}
 				
 			} else {
 				//get type
@@ -100,14 +115,105 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			for (int i = 0; i < cv_count; i++) {
 				rmap.put("cv_" + (i + 1), new ArrayList<Map<String, Object>>());	
 			}
-			this.callProcTibero(rmap);    		
-    		
+			this.callProcTibero(rmap);
+
+			if(param.containsKey("convertLowerCase") && param.get("convertLowerCase").equals("Y")) {
+				convertLowerCase(rmap);
+			} else {
+				convertCamelCase(rmap);
+			}
+
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 		}
 		return rmap;
 	}    
     
+	private HashMap<String, Object> checkError(Map<String, Object> param) throws Exception{
+		
+		HashMap<String, Object> rmap = new HashMap<String, Object>();
+		rmap.putAll(param);
+		
+		try {
+			
+			//정상
+			HashMap<String, Object> emap1 = new HashMap<String, Object>();
+			emap1.put("MSG0000", 	"정상적으로 처리 되었습니다.");
+			emap1.put("MSG0001", 	"정상적으로 조회가 되었습니다.");
+			emap1.put("MSG0002", 	"정상적으로 등록되었습니다.");
+			emap1.put("MSG0003", 	"정상적으로 삭제되었습니다.");
+			emap1.put("MSG0004", 	"정상적으로 수정되었습니다.");
+			
+			//에러
+			HashMap<String, Object> emap2 = new HashMap<String, Object>();
+			emap2.put("MSG0029", 	"등록된 레코드가 없습니다.(Error : MSG0029)");
+			emap2.put("MSG0030", 	"수정된 레코드가 없습니다.(Error : MSG0030)");
+			emap2.put("MSG0031", 	"삭제된 레코드가 없습니다.(Error : MSG0031)");
+			emap2.put("ERR0000", 	"에러가 발생하였습니다.(Error : ERR0000)");
+			emap2.put("ERR0006", 	"조회시 에러가 발생하였습니다.(Error : ERR0006)");
+			emap2.put("ERR0008", 	"등록시 에러가 발생하였습니다.(Error : ERR0008)");
+			emap2.put("ERR0009", 	"수정시 에러가 발생하였습니다.(Error : ERR0009)");
+			emap2.put("ERR0010", 	"삭제시 에러가 발생하였습니다.(Error : ERR0010)");
+			emap2.put("ERR0001", 	"차대가 맞지 않습니다.(Error : ERR0001)");
+			emap2.put("ERR0011", 	"거래처의 계정과목이 누락되었습니다.(Error : ERR0011)");
+			
+			String[] temp1 = new String[]{
+					"KOR", "", "", ""
+			};
+			HashMap<String, Object> temp2 = new HashMap<String, Object>();
+			temp2.put("procedure", 	"USRMAT.SP_SERVICEMESSAGE");
+			temp2.put("workType", 	"QESS");
+			temp2.put("getType", 	"json");
+			temp2.put("cv_count", 	"1");
+			temp2.put("params", 	temp1);
+			HashMap<String, Object> temp3 = this.InnerCallProc(temp2, "POST", "A");
+			List<Map<String, Object>> cv_1 = (ArrayList<Map<String, Object>>)temp3.get("cv_1");
+			
+			//check
+			String p_errorCode 	= param.get("v_errorCode").toString();
+			String p_errorStr 	= param.get("v_errorStr").toString();
+			
+			//1 - 정상
+			for (String key : emap1.keySet()) {
+			    String value = emap1.get(key).toString();
+			    if(p_errorCode.equals(key)) {
+			    	rmap.put("resultStatus", 	"S");
+			    	rmap.put("resultMessage", 	value);
+			    	if(!p_errorCode.equals("MSG0001")) {
+			    		rmap.put("resultMessage", 	"");
+			    	}
+			    	return rmap;
+			    }
+			}			
+			
+			//2 - error
+			for (String key : emap2.keySet()) {
+			    String value = emap2.get(key).toString();
+			    if(p_errorCode.equals(key)) {
+			    	rmap.put("resultStatus", 	"E");
+			    	rmap.put("resultMessage", 	value);
+			    	if(!p_errorCode.equals("MSG0001")) {
+			    		rmap.put("resultMessage", 	"");
+			    	}
+			    	return rmap;
+			    }
+			}			
+			
+			//3 - other error message
+			for (int i = 0; i < cv_1.size() ; i++) {
+		        if (p_errorCode.equals(cv_1.get(i).get("error_code").toString())){
+			    	rmap.put("resultStatus", 	"E");
+		    		rmap.put("resultMessage", 	cv_1.get(i).get("error_str").toString() + "\n" + p_errorStr);
+			    	return rmap;
+		        }
+			}
+			
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+		}
+		return rmap;
+	}	
+	
 	private String decodeString(String strData) {
         if (strData == null) {
             return "";
@@ -116,6 +222,71 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
                 .replaceAll("&apos;", "'").replaceAll("&#39;", "'")
                 .replaceAll("&quot;", "\"")
                 .replaceAll("&amp;", "&");
-	}    
-	
+	}
+
+	private Map<String, Object> convertLowerCase(Map<String, Object> originData) {
+		try {
+			for(String key : originData.keySet()) {
+				if (key.matches("cv\\_\\d")) {
+					if(Objects.nonNull(originData.get(key)) && originData.get(key) instanceof List) {
+						List<Map<String, Object>> cv = (List<Map<String, Object>>) originData.get(key);
+						List<Map<String, Object>> data = cv.stream()
+								.map(map -> map.entrySet().stream()
+										.collect(Collectors.toMap(
+												entry -> entry.getKey().toLowerCase(),
+												Map.Entry::getValue,
+												(oldValue, newValue) -> oldValue))
+								)
+								.collect(Collectors.toList());
+						originData.put(key, data);
+					}
+				}
+			}
+			return originData;
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return originData;
+		}
+	}
+
+	private Map<String, Object> convertCamelCase(Map<String, Object> originData) {
+		try {
+			for(String key : originData.keySet()) {
+				if (key.matches("cv\\_\\d")) {
+					if(Objects.nonNull(originData.get(key)) && originData.get(key) instanceof List) {
+						List<Map<String, Object>> cv = (List<Map<String, Object>>) originData.get(key);
+						List<Map<String, Object>> data = cv.stream()
+								.map(map -> map.entrySet().stream()
+										.collect(Collectors.toMap(
+												entry -> toCamelCase(entry.getKey()),
+												Map.Entry::getValue,
+												(oldValue, newValue) -> oldValue))
+								)
+								.collect(Collectors.toList());
+						originData.put(key, data);
+					}
+				}
+			}
+			return originData;
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return originData;
+		}
+	}
+
+	public static String toCamelCase(String s) {
+		if (s == null || s.isEmpty()) {
+			return s;
+		}
+
+		String[] parts = s.split("[ _-]");
+		StringBuilder camelCaseString = new StringBuilder(parts[0].toLowerCase());
+
+		for (int i = 1; i < parts.length; i++) {
+			String part = parts[i];
+			camelCaseString.append(part.substring(0, 1).toUpperCase()).append(part.substring(1).toLowerCase());
+		}
+
+		return camelCaseString.toString();
+	}
 }

@@ -1029,10 +1029,13 @@
      * @name fn_docSpmt
      * @description 송품장 발행 버튼
      */
- 	const fn_docSpmt = function() {
+ 	const fn_docSpmt = async function() {
 
  		const spmtnoList = [];
 		const allData = grdSpmtPrfmnc.getGridDataAll();
+		
+		const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'DT_DOC');
+		
 		allData.forEach((item, index) => {
 			if (item.checkedYn === "Y") {
 				spmtnoList.push(item.spmtno);
@@ -1045,8 +1048,7 @@
  		}
 
  		const spmtno = spmtnoList.join("','");
- 		console.log(spmtno);
- 		gfn_popClipReport("송품장", "am/trsprtCmdtyDoc.crf", {apcCd: gv_selectedApcCd, spmtno: spmtno});
+ 		gfn_popClipReport("송품장", rptUrl, {apcCd: gv_selectedApcCd, spmtno: spmtno});
  	}
 
 

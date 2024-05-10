@@ -173,6 +173,15 @@
 							onclick="fn_sortReqCncl"
 							text="취소"
 					    ></sbux-button>
+					    <sbux-button
+							id="btn-srch-apcLinkPop"
+							name="btn-srch-apcLinkPop"
+							class="btn btn-xs btn-outline-dark"
+							text="연계요청" 
+							uitype="modal"
+							target-id="modal-apcLinkPop"
+							onclick="fn_popApcLink"
+						></sbux-button>
 					</div>
 								    
 				</div>
@@ -201,6 +210,21 @@
     </div>
     <div id="body-modal-prdcr">
     	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
+    </div>
+    <div>
+        <sbux-modal
+        	id="modal-apcLinkPop" 
+        	name="modal-apcLinkPop" 
+        	uitype="middle" 
+        	header-title="선별연계수신" 
+        	body-html-id="body-modal-apcLinkPop" 
+        	header-is-close-button="false" 
+        	footer-is-close-button="false" 
+        	style="width:800px"
+        ></sbux-modal>
+    </div>
+    <div id="body-modal-apcLinkPop">
+    	<jsp:include page="../../am/popup/apcLinkPopup.jsp"></jsp:include>
     </div>
 	<!-- clip report direct print area  -->
 	<div id="div-rpt-clipReportPrint" style="display:none;"></div>
@@ -847,7 +871,7 @@
  		}
  	}
 
-     const fn_choicePrdcr = function() {
+    const fn_choicePrdcr = function() {
  		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr, SBUxMethod.get("srch-inp-prdcrNm"));
  	}
 
@@ -858,7 +882,23 @@
  			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
  		}
  	}
+
  	
+	const fn_popApcLinkCallBack = function() {
+		
+	}
+	
+ 	const fn_popApcLink = function() {
+ 		popApcLink.init(
+ 					{
+	 					apcCd: gv_selectedApcCd,
+	 					apcNm: gv_selectedApcNm,
+	 					linkKnd: "S",
+ 					},
+ 					fn_popApcLinkCallBack
+ 				);
+ 	}
+
     const fn_setExhstDsctnCol = async function() {
         let itemCd = SBUxMethod.get('srch-slt-itemCd');
         const param = {

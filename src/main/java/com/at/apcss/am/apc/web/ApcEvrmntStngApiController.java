@@ -26,7 +26,7 @@ public class ApcEvrmntStngApiController extends BaseController {
 
 	
 	// APC 환경설정 - APC 정보 조회
-	@GetMapping(value = "/am/apc/apcLink/{apcCd}")
+	//@GetMapping(value = "/am/apc/apcLink/{apcCd}")
 	public ResponseEntity<HashMap<String, Object>> selectApcLinkById(@PathVariable String apcCd, HttpServletRequest request) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		
@@ -76,7 +76,7 @@ public class ApcEvrmntStngApiController extends BaseController {
 	}
 	
 	// APC 환경설정 - APC 정보 조회
-	@PostMapping(value = "/am/apc/linkStts")
+	//@PostMapping(value = "/am/apc/linkStts")
 	public ResponseEntity<HashMap<String, Object>> updateLinkStts(@RequestBody ApcLinkVO apcLinkVO, HttpServletRequest request) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
