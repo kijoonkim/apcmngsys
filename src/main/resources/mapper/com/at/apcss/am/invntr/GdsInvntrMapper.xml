@@ -1442,7 +1442,6 @@
 									AND SI.DEL_YN = 'N'
 						  WHERE GI.APC_CD = #{apcCd}
 							AND (GI.INVNTR_QNTT > 0 OR GI.INVNTR_WGHT > 0)
-							AND GI.ITEM_CD = #{itemCd}
 						  ]]>
 						<if test='itemCd != null and itemCd !=""'>
 							AND GI.ITEM_CD = #{itemCd}

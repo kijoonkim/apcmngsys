@@ -225,6 +225,29 @@
             font-family: 'Font Awesome 5 Free';
             text-align: center;
         }
+        .tooltip{
+            border: 1px solid #ccc;
+            padding: 5px;
+        }
+        .tooltip::after{
+            content: attr(title);
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #fff;
+            color: #333;
+            border: 1px solid #ccc;
+            padding: 5px 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            opcity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .tooltip:hover::after{
+            opacity: 1;
+        }
+
 
 
 
@@ -283,6 +306,7 @@
                             class="input-sm-ast inpt-mbl inp-style"
                             jsondata-ref="jsonApcCnpt"
                             unselected-text="선택"
+                            onchange="fn_onchangeCnpt()"
                             style="position: relative">
                     </sbux-select>
                     <div class="sp-style" style="display: flex;flex-direction: row">
@@ -290,124 +314,125 @@
                         <button class="btn-style"><div id="dlngMthdCd" class="btn-text">경매</div></button>
                     </div>
                 </div>
-                <div class="ma-bt row-style"  style="position: relative"> <%--//--%>
-                    <button class="ma-rt btn-style" style="height: auto">
-                        <div class="btn-text">품목/품종</div>
-                    </button>
-                    <div style="flex: 0 0 40%; display: flex">
-                        <sbux-select
-                                id="srch-slt-itemCd"
-                                name="srch-slt-itemCd"
-                                uitype="single"
-                                wrap-style="height: 100%;flex: 1;font-size: 3vh;vertical-align: middle;margin-right:10px;font-weight:500"
-                                jsondata-ref="jsonApcItem"
-                                unselected-text="전체"
-<%--                                class="input-sm-ast inpt-mbl"--%>
-                                onchange="fn_onChangeSrchItemCd(this)"
-                        ></sbux-select>
-                        <sbux-select
-                                id="srch-slt-vrtyCd"
-                                name="srch-slt-vrtyCd"
-                                uitype="single"
-                                wrap-style="height: 100%;flex: 1;font-size: 3vh;vertical-align: middle;font-weight:500"
-                                jsondata-ref="jsonApcVrty"
-                                unselected-text="선택"
-<%--                                class="input-sm-ast inpt-mbl"--%>
-                                onchange="fn_onChangeSrchVrtyCd(this)"
-                        ></sbux-select>
-                    </div>
-                    <div class="sp-style"></div>
-                </div>
-                <div class="ma-bt row-style" style="position: relative">
-                    <button id="dtl-dtp-spmtNo" class="ma-rt btn-style" style="height: auto; position: relative;cursor: pointer" onclick="fn_popup()">
-                        <div class="btn-text">출하번호</div>
-                        <svg xmlns="http://www.w3.org/2000/svg" height="20" width="15" viewBox="0 0 448 512">
-                            <path fill="#6495ed" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/>
-                        </svg>
-                    </button>
-                    <div style="flex: 0 0 40%; display: flex; flex-direction: row">
-                        <sbux-input
-                                uitype="text"
-                                id="srch-slt-sortGrdCd"
-                                name="srch-slt-sortGrdCd"
-                                class="inp-select-style"
-                                style="position: relative;font-weight: initial"
-                                wrap-style="flex:1;margin-right:10px"
-                                readonly
-                        >
-                        </sbux-input>
-                        <sbux-input
-                                uitype="text"
-                                id="srch-slt-prdcrNm"
-                                name="srch-slt-prdcrNm"
-                                class="inp-select-nf-style"
-                                style="position: relative;font-weight: initial"
-                                wrap-style="flex:1;"
-                                readonly
-                        >
-                        </sbux-input>
-                    </div>
-                    <div class="sp-style" style="display: flex;">
-                        <button class="btn-style ma-rt"><div class="btn-text">5Kg</div> </button>
-                        <button style="cursor:initial;flex: 3 0 30%; border: none; background: none"></button>
-                    </div>
-                    <div class="sp-style" ></div>
-                </div>
-                <div class="ma-bt row-style" style="position: relative">
-                    <button id="dtl-dtp-grdQntt" class="ma-rt btn-style" style="flex:0 0 30%;height: auto; position: relative">
-                        <div class="btn-text">등급/수량</div>
-                    </button>
-                    <div style="flex: 0 0 40%; display: flex; flex-direction: row">
-                        <sbux-input
-                                uitype="text"
-                                id="srch-slt-gdsGrdNm"
-                                name="srch-slt-gdsGrdNm"
-                                class="inp-select-style"
-                                style="position: relative;font-weight: initial"
-                                wrap-style="flex:1;margin-right:10px"
-                                readonly
-                        >
-                        </sbux-input>
-                        <sbux-input
-                            uitype="hidden"
-                            id="srch-slt-gdsGrd"
-                            name="srch-slt-gdsGrd"
-                        ></sbux-input>
-                        <span style="flex:1">
-                            <input id="srch-slt-invntrQntt" class="inp-select-nf-style"
-                                   style="font-weight: initial;width: 100%" type="number"
-                            onchange="fn_valiQntt(this.value)">
-                            </input>
-                        </span>
-                    </div>
-                    <div class="sp-style" style="display: flex;">
-                        <sbux-button
-                        id="srch-slt-regBtn"
-                        name="srch-slt-regBtn"
-                        uitype="normal"
-                        class="btn-style"
-                        style="flex: 0 0 49%;margin-right: 10px"
-                        wrap-style="font-size:2vw;font-weight:500;padding-top:5px;flex: 0 0 49%;margin-right: 10px;"
-                        text="등록" uitype="normal"
-                        onclick="fn_regSpmtSave"
-                        >
-                        </sbux-button>
-                        <div>
-                            <span style="font-size: 3vh;margin-top: 10px;font-width: bold;">
-                                재고 :
-                            </span>
-                            <span id="invntrQntt" style="font-size: 3vh;margin-top: 10px;font-width: bold">
-                            </span>
-                        </div>
-                    </div>
-                </div>
+<%--                <div class="ma-bt row-style"  style="position: relative"> &lt;%&ndash;//&ndash;%&gt;--%>
+<%--                    <button class="ma-rt btn-style" style="height: auto">--%>
+<%--                        <div class="btn-text">품목/품종</div>--%>
+<%--                    </button>--%>
+<%--                    <div style="flex: 0 0 40%; display: flex">--%>
+<%--                        <sbux-select--%>
+<%--                                id="srch-slt-itemCd"--%>
+<%--                                name="srch-slt-itemCd"--%>
+<%--                                uitype="single"--%>
+<%--                                wrap-style="height: 100%;flex: 1;font-size: 3vh;vertical-align: middle;margin-right:10px;font-weight:500"--%>
+<%--                                jsondata-ref="jsonApcItem"--%>
+<%--                                unselected-text="전체"--%>
+<%--&lt;%&ndash;                                class="input-sm-ast inpt-mbl"&ndash;%&gt;--%>
+<%--                                onchange="fn_onChangeSrchItemCd(this)"--%>
+<%--                        ></sbux-select>--%>
+<%--                        <sbux-select--%>
+<%--                                id="srch-slt-vrtyCd"--%>
+<%--                                name="srch-slt-vrtyCd"--%>
+<%--                                uitype="single"--%>
+<%--                                wrap-style="height: 100%;flex: 1;font-size: 3vh;vertical-align: middle;font-weight:500"--%>
+<%--                                jsondata-ref="jsonApcVrty"--%>
+<%--                                unselected-text="선택"--%>
+<%--&lt;%&ndash;                                class="input-sm-ast inpt-mbl"&ndash;%&gt;--%>
+<%--                                onchange="fn_onChangeSrchVrtyCd(this)"--%>
+<%--                        ></sbux-select>--%>
+<%--                    </div>--%>
+<%--                    <div class="sp-style"></div>--%>
+<%--                </div>--%>
+<%--                <div class="ma-bt row-style" style="position: relative">--%>
+<%--                    <button id="dtl-dtp-spmtNo" class="ma-rt btn-style" style="height: auto; position: relative;cursor: pointer" onclick="fn_popup()">--%>
+<%--                        <div class="btn-text">출하번호</div>--%>
+<%--                        <svg xmlns="http://www.w3.org/2000/svg" height="20" width="15" viewBox="0 0 448 512">--%>
+<%--                            <path fill="#6495ed" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/>--%>
+<%--                        </svg>--%>
+<%--                    </button>--%>
+<%--                    <div style="flex: 0 0 40%; display: flex; flex-direction: row">--%>
+<%--                        <sbux-input--%>
+<%--                                uitype="text"--%>
+<%--                                id="srch-slt-sortGrdCd"--%>
+<%--                                name="srch-slt-sortGrdCd"--%>
+<%--                                class="inp-select-style"--%>
+<%--                                style="position: relative;font-weight: initial"--%>
+<%--                                wrap-style="flex:1;margin-right:10px"--%>
+<%--                                readonly--%>
+<%--                        >--%>
+<%--                        </sbux-input>--%>
+<%--                        <sbux-input--%>
+<%--                                uitype="text"--%>
+<%--                                id="srch-slt-prdcrNm"--%>
+<%--                                name="srch-slt-prdcrNm"--%>
+<%--                                class="inp-select-nf-style"--%>
+<%--                                style="position: relative;font-weight: initial"--%>
+<%--                                wrap-style="flex:1;"--%>
+<%--                                readonly--%>
+<%--                        >--%>
+<%--                        </sbux-input>--%>
+<%--                    </div>--%>
+<%--                    <div class="sp-style" style="display: flex;">--%>
+<%--                        <button class="btn-style ma-rt"><div class="btn-text">5Kg</div> </button>--%>
+<%--                        <button style="cursor:initial;flex: 3 0 30%; border: none; background: none"></button>--%>
+<%--                    </div>--%>
+<%--                    <div class="sp-style" ></div>--%>
+<%--                </div>--%>
+<%--                <div class="ma-bt row-style" style="position: relative">--%>
+<%--                    <button id="dtl-dtp-grdQntt" class="ma-rt btn-style" style="flex:0 0 30%;height: auto; position: relative">--%>
+<%--                        <div class="btn-text">등급/수량</div>--%>
+<%--                    </button>--%>
+<%--                    <div style="flex: 0 0 40%; display: flex; flex-direction: row">--%>
+<%--                        <sbux-input--%>
+<%--                                uitype="text"--%>
+<%--                                id="srch-slt-gdsGrdNm"--%>
+<%--                                name="srch-slt-gdsGrdNm"--%>
+<%--                                class="inp-select-style"--%>
+<%--                                style="position: relative;font-weight: initial"--%>
+<%--                                wrap-style="flex:1;margin-right:10px"--%>
+<%--                                readonly--%>
+<%--                        >--%>
+<%--                        </sbux-input>--%>
+<%--                        <sbux-input--%>
+<%--                            uitype="hidden"--%>
+<%--                            id="srch-slt-gdsGrd"--%>
+<%--                            name="srch-slt-gdsGrd"--%>
+<%--                        ></sbux-input>--%>
+<%--                        <span style="flex:1">--%>
+<%--                            <input id="srch-slt-invntrQntt" class="inp-select-nf-style"--%>
+<%--                                   style="font-weight: initial;width: 100%" type="number"--%>
+<%--                            onchange="fn_valiQntt(this.value)">--%>
+<%--                            </input>--%>
+<%--                        </span>--%>
+<%--                    </div>--%>
+<%--                    <div class="sp-style" style="display: flex;">--%>
+<%--                        <sbux-button--%>
+<%--                        id="srch-slt-regBtn"--%>
+<%--                        name="srch-slt-regBtn"--%>
+<%--                        uitype="normal"--%>
+<%--                        class="btn-style"--%>
+<%--                        style="flex: 0 0 49%;margin-right: 10px"--%>
+<%--                        wrap-style="font-size:2vw;font-weight:500;padding-top:5px;flex: 0 0 49%;margin-right: 10px;"--%>
+<%--                        text="등록" uitype="normal"--%>
+<%--                        onclick="fn_regSpmtSave"--%>
+<%--                        >--%>
+<%--                        </sbux-button>--%>
+<%--                        <div>--%>
+<%--                            <span style="font-size: 3vh;margin-top: 10px;font-width: bold;">--%>
+<%--                                재고 :--%>
+<%--                            </span>--%>
+<%--                            <span id="invntrQntt" style="font-size: 3vh;margin-top: 10px;font-width: bold">--%>
+<%--                            </span>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
             </div>
             <hr>
             <div>
                 <table id="reg_table">
                     <colgroup>
                         <col style="width: 20%">
-                        <col style="width: 20%">
+                        <col style="width: 10%">
+                        <col style="width: 10%">
                         <col style="width: 10%">
                         <col style="width: 7%">
                         <col style="width: 7%">
@@ -420,6 +445,7 @@
                     <tr>
                         <th rowspan="2" style="font-size: 2vw;">출하번호</th>
                         <th rowspan="2" style="font-size: 2vw;">품목</th>
+                        <th rowspan="2" style="font-size: 2vw;">품종</th>
                         <th rowspan="2" style="font-size: 2vw;">단량</th>
                         <th colspan="5">등급 및 수량</th>
                         <th rowspan="2" style="font-size: 2vw;">비고</th>
@@ -434,6 +460,51 @@
 
                     </thead>
                     <tbody>
+                    <tr>
+                        <td>
+                            <div style="display: flex">
+                                <div style="flex: 2; font-family: 'Font Awesome 5 Free';margin-right: 10px">
+                                    <input type="text" onchange="fn_onChangesortGds(this)" />
+                                </div>
+                                <div style="flex: 1; font-family: 'Font Awesome 5 Free';">
+                                    <input type="text" onchange="fn_onChangePrdcr(this)" />
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="font-family: 'Font Awesome 5 Free';">
+                                <input type="text" />
+                            </div>
+                        </td>
+                        <td>
+                            <div style="font-family: 'Font Awesome 5 Free';">
+                                <input type="text" />
+                            </div>
+                        </td>
+                        <td>
+                            <div style="font-family: 'Font Awesome 5 Free';">
+                                <input type="text" />
+                            </div>
+                        </td>
+                        <td>
+                            <input type="number" class="qnttInp"/>
+                        </td>
+                        <td>
+                            <input type="number" class="qnttInp"/>
+                        </td>
+                        <td>
+                            <input type="number" class="qnttInp"/>
+                        </td>
+                        <td>
+                            <input readonly />
+                        </td>
+                        <td>
+                            <input readonly/>
+                        </td>
+                        <td>
+                            <input/>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -616,15 +687,25 @@
     jsonSpcfct = []
     /** 현재 선택 상품 정보 **/
     jsonTepObj = {};
+    /** 추가 선별번호만 입력 **/
+    jsonNewGdsGrd = [];
+    /** 재고 임시 json **/
+    let tempJson = [];
+
 
     window.document.addEventListener("DOMContentLoaded",function(){
         $("#dtl-inp-spmtYmd").val(gfn_dateToYmd(new Date(),'-'));
-        gfn_setCpntRgnSBSelect('dtl-dtp-cnpt',jsonApcCnpt, gv_selectedApcCd);       // 거래처
-        gfn_setApcItemSBSelect('srch-slt-itemCd', jsonApcItem, gv_selectedApcCd);	// 품목
-        gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd);	// 품종
-        gfn_setApcItemSBSelect('srch-mod-itemCd', jsonApcItem, gv_selectedApcCd);	// 품목
-        gfn_setApcVrtySBSelect('srch-mod-vrtyCd', jsonApcVrty, gv_selectedApcCd);	// 품종
-        gfn_setComCdSBSelect("srch-mod-gdsSeCd",jsonGdsSeCd,'SORT_GRD', gv_selectedApcCd);
+        let promise = Promise.all([
+            gfn_setCpntRgnSBSelect('dtl-dtp-cnpt',jsonApcCnpt, gv_selectedApcCd),       // 거래처
+            gfn_setApcItemSBSelect('srch-slt-itemCd', jsonApcItem, gv_selectedApcCd),	// 품목
+            gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd),	// 품종
+            gfn_setApcItemSBSelect('srch-mod-itemCd', jsonApcItem, gv_selectedApcCd),	// 품목
+            gfn_setApcVrtySBSelect('srch-mod-vrtyCd', jsonApcVrty, gv_selectedApcCd),	// 품종
+            gfn_setComCdSBSelect("srch-mod-gdsSeCd",jsonGdsSeCd,'SORT_GRD', gv_selectedApcCd),
+            fn_search()
+        ]);
+        $(".qnttInp").on('focus',fn_showInvntQntt.bind(this));
+
     });
     /** 거래처 json 조회 **/
         const fn_set_cnpt = async function(){
@@ -709,10 +790,10 @@
         let gdsGrd = SBUxMethod.get("srch-mod-gdsGrd");
 
 
-        if (gfn_isEmpty(itemCd)) {
-            gfn_comAlert("W0001", "품목");				//	W0002	{0}을/를 선택하세요.
-            return false;
-        }
+        // if (gfn_isEmpty(itemCd)) {
+        //     gfn_comAlert("W0001", "품목");				//	W0002	{0}을/를 선택하세요.
+        //     return false;
+        // }
 
         try{
         const postJsonPromise = gfn_postJSON("/am/invntr/selectSortGdsInvntrList.do", {
@@ -727,7 +808,8 @@
             gdsGrd          : gdsGrd
         });
         const data = await postJsonPromise;
-
+        console.log(data);
+        jsonNewGdsGrd = data.resultList;
         $("#invnt_table tbody").empty();
         data.resultList.forEach(function(item){
            let el = `<tr onclick="fn_select(this)" style="cursor:pointer">
@@ -1098,6 +1180,104 @@
 
         $("#reg_table tbody").empty();
         jsonRegTableData = [];
+    }
+    /**
+     * @name fn_onchangeCnpt
+     * @description 거래처 변경
+     */
+    const fn_onchangeCnpt = async function(){
+        let val = SBUxMethod.get("dtl-dtp-cnpt");
+        let jsonSelectCnpt = jsonApcCnpt.filter(function(item){
+            return item.cmnsCd == val;
+        });
+        let dlngShapCd = await gfn_getComCdDtls("DLNG_SHAP_CD");
+        let dlngMthdCd = await gfn_getComCdDtls("DLNG_MTHD_CD");
+
+        if(jsonSelectCnpt.length != 0){
+        dlngShapCd = dlngShapCd.filter(function(item){
+           return item.cdVl ==  jsonSelectCnpt[0].dlngShapCd;
+        });
+        dlngMthdCd = dlngMthdCd.filter(function(item){
+            return item.cdVl ==  jsonSelectCnpt[0].dlngMthdCd;
+        });
+        $("#dlngShapCd").text(dlngShapCd[0].cdVlNm);
+        $("#dlngMthdCd").text(dlngMthdCd[0].cdVlNm);
+        }
+    }
+    const fn_onChangesortGds = function(_el){
+        let _val = _el.value;
+        let parentTr = $(_el).closest('tr');
+
+        console.log(parentTr);
+        jsonNewGdsGrd.forEach(function(item){
+            for(let key in item){
+                if(item[key] === null){
+                    delete item[key];
+                }
+            }
+        });
+
+        console.log(jsonNewGdsGrd,"깔끔");
+
+        tempJson = jsonNewGdsGrd.filter(function(item,idx){
+            try{
+                if(item.hasOwnProperty("sortGrdNm")){
+                    return item.sortGrdNm.includes(_val);
+                }else{
+                    return;
+                }
+
+            }catch (e){
+                console.log(e,idx);
+            }
+
+        });
+
+        /** 품목 단량 세팅 0번 인덱스로 없으면 어쩌지? **/
+        parentTr.children().eq(1).find('input').val(tempJson[0].itemNm);
+        parentTr.children().eq(2).find('input').val(tempJson[0].vrtyNm);
+        parentTr.children().eq(3).find('input').val(tempJson[0].spcfctNm);
+        // console.log(parentTr.children(3));
+        // console.log(parentTr.children(3).find("input"));
+    }
+
+    const fn_onChangePrdcr = function(_el){
+        console.log(_el);
+        let _val = $(_el).val();
+        let parentTr = $(_el).closest('tr');
+        console.log(tempJson,"생산자가 받앗노");
+        /** 현재 출하번호에 맞는 상품리스트중에 생산자번호까지 일치하는 재고만 추림 2차 필터링 **/
+        tempJson = tempJson.filter(function(item){
+           return item.prdcr == _val;
+        });
+        /** 재고 tooltip 추가 및 input max 한정 **/
+        tempJson.forEach(function(item){
+            let idx = parseInt(item.gdsGrd) + 3;
+            let el = parentTr.children().eq(idx).find('input');
+            el.attr('max',item.invntrQntt);
+            el.attr('title',"재고수량 : "+item.invntrQntt);
+        });
+    }
+    const fn_showInvntQntt = function(_el){ //top: 99.4062px; left: 233.5px;
+
+        if(!gfn_isEmpty(_el)) {
+            let _el = document.activeElement;
+            let rect = _el.getBoundingClientRect();
+            let parentTd = $(_el).closest('td');
+
+            console.log(rect, "너의 모든걸 알고싶군");
+            /** 재고 툴팁 element **/
+            let invntQnttEl = `<div class="sbux-pop sbux-fade sbux-pop-bottom sbux-in" role="tooltip"
+                    style="display: block; top:`+ (rect.top + 31) +`px; left:`+rect.left+`px">
+                        <div class="sbux-pop-arrow" style="left: 50%;"></div>
+                        <h3 class="sbux-pop-title" style="display: none;"></h3>
+                        <div class="sbux-pop-content">
+                            재고 현황 : `+10+`
+                        </div>
+                    </div>`;
+
+            $(parentTd).append(invntQnttEl);
+        }
     }
 
 
