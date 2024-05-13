@@ -133,27 +133,30 @@
 	    <script src="https://agis.epis.or.kr/ASD/pub2/js/jquery-3.4.1.js"></script>
 		<script src="https://agis.epis.or.kr/ASD/js/lib/openlayers/OpenLayers.js"></script>
 		<script src="https://agis.epis.or.kr/ASD/js/lib/proj4js/proj4.js"></script>
-		<script src="https://agis.epis.or.kr/ASD/farmmapApi/farmapApi.do?apiKey=8AuulPFHOftqyHEmTdQK&domain=http://localhost:8085/"></script>
+		<script src="https://agis.epis.or.kr/ASD/farmmapApi/farmapApi.do?apiKey=M4Z0Y2P5BcNV52OxjHYl&domain=http://localhost:8080/"></script>
 
 	    <script>
-	        var map1;
+			var map1;
 	        var mapBounds = new OpenLayers.Bounds(-20037508.34, -20037508.34, 20037508.34, 20037508.34);
 	        var mapMinZoom = 7;
 	        var mapMaxZoom = 20;
 	        var xyString;
 			var reqUrl;
+			var domain = "http://localhost:8080/";
+			var apiKey = "M4Z0Y2P5BcNV52OxjHYl";
 
 	        function init() {
 	            map1 = farmmapObj.init("mapDiv1");
-	            reqUrl = farmmapObj.rootUri;
+				console.log('farmmapObj', farmmapObj);
+	            reqUrl = farmmapObj.rootUri; //  "https://agis.epis.or.kr/ASD/"
 
 	            addSearchFarmmapDataEvent();
-
 	            addMoveendEvent();
-
+				// addFarmmapLayer();
 	            getButton('menuMapMgr,btnMapMgr');
+				// addVectorLayer();
 
-	            var emapApiKey = '04trYP9_xwLAfALjwZ-B8g';
+	            var emapApiKey = 'M4Z0Y2P5BcNV52OxjHYl';
 	            var korean_map_tile = 'https://map.ngii.go.kr/openapi/Gettile.do?';
 	            var emapLayer = new OpenLayers.Layer.XYZ("2D", "", {
 	                url: korean_map_tile,
@@ -275,8 +278,8 @@
 					var layerObj = {
 										layers: "lt_p_utiscctv",
 										styles: "lt_p_utiscctv",
-										apikey: "[vworld apikey]",
-										domain: "[vworld domain]"
+										apikey: "M4Z0Y2P5BcNV52OxjHYl",
+										domain: "http://localhost:8080/"
 					}
 					farmmapObj.addWMSLayer(layerName, url, layerObj, map1);
 				}
@@ -293,7 +296,9 @@
 	        }
 
 	        function addVectorLayer() {
+				console.log('addVectorLayer in');
 	            var layer = farmmapObj.getObject("layer", "vectorLayer", map1);
+
 	            if (layer != null) {
 	                farmmapObj.removeLayer("vectorLayer", map1);
 	            } else {
@@ -403,17 +408,29 @@
 	                farmmapObj.addBasicInfomapLayer("국토정보기본도", map1);
 	            }
 	        }
+			function searchCallback(data) {
+				console.log('searchCallback(data) is data = ', data);
+				$('#vectorClickDiv').hide();
+				returnjson = data;
+				$("#info").val(JSON.stringify(data, null, 4));
 
-	        function searchCallback(data) {
-	            var keys = Object.keys(data);
-	            var text = "";
-	            for (var i = 0; i < keys.length; i++) {
-	                var searchData = data[keys[i]];
-	                text += keys[i] + " : " + JSON.stringify(searchData) + "\r\n\r\n";
-	            }
-
-	            $("#info").val(text);
-	        }
+				if (layer != null) {
+					farmmapObj.removeLayer("vectorLayer", map1);
+				}
+				var layer = farmmapObj.getObject("layer", "vectorLayer", map1);
+			}
+	        // function searchCallback(data) {
+			// 	console.log('searchCallback on ', data);
+	        //     var keys = Object.keys(data);
+	        //     var text = "";
+	        //     for (var i = 0; i < keys.length; i++) {
+	        //         var searchData = data[keys[i]];
+	        //         text += keys[i] + " : " + JSON.stringify(searchData) + "\r\n\r\n";
+	        //     }
+			//
+			// 	console.log('text',text);
+	        //     $("#info").val(text);
+	        // }
 
 	        function addSearchFarmmapDataEvent() {
 	            farmmapObj.addSearchFarmmapDataEvent(map1, "searchCallback");
@@ -535,7 +552,7 @@
 	                var text = "";
 	                for (var i = 0; i < keys.length; i++) {
 	                    var searchData = data[keys[i]];
-	                    text += keys[i] + " : " + data[keys[i]] + "\r\n";;
+	                    text = '"' + keys[i] + '": "' + data[keys[i]] + '"';
 	                }
 	                $("#markerClickInfo").val(text);
 	                $("#markerClickDiv").show();
@@ -628,437 +645,159 @@
 	            }
 	        }
 
-	        function addVector(type) {
-	            var layer = farmmapObj.getObject("layer", "vectorLayer", map1);
-	            var vectorOptions = {};
-	            if (layer != null) {
-	                if (type == "point") {
-	                    vectorOptions = {
-	                        id: 'point1',
-	                        type: type,
-	                        x: 982709.00765681,
-	                        y: 1832877.1211186,
-	                        attributes: {
-	                            id: 'point1'
-	                        }
-	                    }
-	                    farmmapObj.addVector("vectorLayer", vectorOptions, map1);
+			function addVector() {
+				var data = returnjson;
+				if (returnjson == null) return;
 
-	                    vectorOptions = {
-	                        id: "point2",
-	                        type: type,
-	                        x: 982600.46915681,
-	                        y: 1832833.4243186,
-	                        attributes: {
-	                            id: "point2"
-	                        }
-	                    }
-	                    farmmapObj.addVector("vectorLayer", vectorOptions, map1);
+				var layerName = "vectorLayer";
+				var layerOption = {
+					hover: false,
+					multiple: false,
+					toggle: true,
+					onSelect: vectorSelect2,
+					onUnselect: vectorUnselect2
+				}
+				farmmapObj.addVectorLayer(layerName, layerOption, map1);
 
-	                    vectorOptions = {
-	                        id: "point3",
-	                        type: type,
-	                        x: 982742.24915681,
-	                        y: 1832820.4193186,
-	                        style: {
-	                            fillColor: "#ff99ee",
-	                            pointRadius: 20,
-	                            strokeWidth: 4,
-	                            strokeColor: "#e62222",
-	                            fontColor: "#ffffff",
-	                            fontSize: "12px",
-	                            fontWeight: "bold",
-	                            label: "point3",
-	                            labelYOffset: -30,
-	                            labelOutlineColor: "black",
-	                            labelOutlineWidth: 10,
-	                            labelOutlineOpacity: 0.7
-	                        },
-	                        data: {
-	                            id: "point3",
-	                            fillColor: "#ff99ee",
-	                            pointRadius: 20,
-	                            strokeWidth: 4,
-	                            strokeColor: "#e62222"
-	                        },
-	                        attributes: {
-	                            id: "point3"
-	                        }
-	                    }
-	                    farmmapObj.addVector("vectorLayer", vectorOptions, map1);
 
-	                    vectorOptions = {
-	                        id: "point4",
-	                        type: type,
-	                        x: 982500.76415681,
-	                        y: 1832837.7593186,
-	                        style: {
-	                            fillColor: "#ff99ee",
-	                            pointRadius: 20,
-	                            graphicName: "cross",
-	                            strokeWidth: 4,
-	                            strokeColor: "#e62222",
-	                            fontColor: "#ffffff",
-	                            fontSize: "12px",
-	                            fontWeight: "bold",
-	                            label: "point4",
-	                            labelYOffset: -30,
-	                            labelOutlineColor: "black",
-	                            labelOutlineWidth: 10,
-	                            labelOutlineOpacity: 0.7
-	                        },
-	                        data: {
-	                            id: "point4",
-	                            fillColor: "#ff99ee",
-	                            pointRadius: 20,
-	                            graphicName: "cross",
-	                            strokeWidth: 4,
-	                            strokeColor: "#e62222",
-	                            fontColor: "#ffffff",
-	                            fontSize: "12px",
-	                            fontWeight: "bold",
-	                            label: "point4",
-	                            labelYOffset: -30,
-	                            labelOutlineColor: "black",
-	                            labelOutlineWidth: 10,
-	                            labelOutlineOpacity: 0.7
-	                        },
-	                        attributes: {
-	                            id: "point4"
-	                        }
-	                    }
-	                    farmmapObj.addVector("vectorLayer", vectorOptions, map1);
+				var farmmapData;
+				if (data.output.farmmapData != null) {
+					farmmapData = data.output.farmmapData;
+					for (var k = 0; k < farmmapData.data.length; k++) {
 
-	                    vectorOptions = {
-	                        id: "point5",
-	                        type: type,
-	                        x: 982558.13915681,
-	                        y: 1832900.7443186,
-	                        attributes: {
-	                            id: "point5"
-	                        }
-	                    }
-	                    farmmapObj.addVector("vectorLayer", vectorOptions, map1);
+						if (k > 300) break;
 
-	                    vectorOptions = {
-	                        id: "point6",
-	                        type: type,
-	                        x: 982674.92915681,
-	                        y: 1832838.0143186,
-	                        style: {
-	                            pointRadius: 20,
-	                            graphicWidth: 70,
-	                            graphicHeight: 70,
-	                            graphicXOffset: -70 / 2,
-	                            graphicYOffset: -60,
-	                            externalGraphic: reqUrl + "images/marker/marker3.png",
-	                            fontColor: "blue",
-	                            fontSize: "20px",
-	                            fontStyle: "italic",
-	                            label: "point6",
-	                            labelYOffset: -10,
-	                            labelOutlineColor: "red",
-	                            labelOutlineWidth: 10,
-	                            labelOutlineOpacity: 0.7
-	                        },
-	                        data: {
-	                            pointRadius: 20,
-	                            graphicWidth: 70,
-	                            graphicHeight: 70,
-	                            graphicXOffset: -70 / 2,
-	                            graphicYOffset: -60,
-	                            externalGraphic: reqUrl + "images/marker/marker3.png",
-	                            fontColor: "blue",
-	                            fontSize: "20px",
-	                            fontStyle: "italic",
-	                            label: "point6",
-	                            labelYOffset: -10,
-	                            labelOutlineColor: "red",
-	                            labelOutlineWidth: 10,
-	                            labelOutlineOpacity: 0.7
-	                        },
-	                        attributes: {
-	                            id: "point6"
-	                        }
-	                    }
-	                    farmmapObj.addVector("vectorLayer", vectorOptions, map1);
+						var feature = farmmapData.data[k];
+						var xy = feature.geometry[0].xy;
 
-	                    vectorOptions = {
-	                        id: "point7",
-	                        type: type,
-	                        x: 982656.31415681,
-	                        y: 1832779.9436101,
-	                        style: {
-	                            pointRadius: 20,
-	                            graphicName: "star",
-	                            fontColor: "blue",
-	                            fontSize: "20px",
-	                            fontStyle: "italic",
-	                            label: "point7",
-	                            labelYOffset: -20,
-	                            labelOutlineColor: "red",
-	                            labelOutlineWidth: 10,
-	                            labelOutlineOpacity: 0.7
-	                        },
-	                        attributes: {
-	                            id: "point7"
-	                        }
-	                    }
-	                    farmmapObj.addVector("vectorLayer", vectorOptions, map1);
+						var id = "";
+						var label = "";
 
-	                    vectorOptions = {
-	                        id: 'point8',
-	                        type: type,
-	                        x: 14171781.26262,
-	                        y: 4368702.6029289,
-	                        epsg: "EPSG:3857",
-	                        attributes: {
-	                            id: 'point8'
-	                        },
-	                        data: {
-	                            id: 'point8',
-	                            x: 14171781.26262,
-	                            y: 4368702.6029289,
-	                            epsg: "EPSG:3857"
-	                        }
-	                    }
-	                    farmmapObj.addVector("vectorLayer", vectorOptions, map1);
+						if (data.input.mapType == "base") {
+							if (data.input.columnType.toUpperCase() == "KOR") {
+								id = feature.필지고유번호;
+								label = feature.필지고유번호;
+							} else {
+								id = feature.pnu;
+								label = feature.pnu;
+							}
+						} else {
+							if (data.input.columnType.toUpperCase() == "KOR") {
+								id = feature.팜맵ID;
+								label = feature.팜맵ID;
+							} else {
+								id = feature.id;
+								label = feature.id;
+							}
+						}
 
-	                    vectorOptions = {
-	                        id: 'point9',
-	                        type: type,
-	                        x: 127.30509917810372,
-	                        y: 36.492736592906944,
-	                        epsg: "EPSG:4326",
-	                        attributes: {
-	                            id: 'point9'
-	                        },
-	                        data: {
-	                            id: 'point9',
-	                            x: 127.30509917810372,
-	                            y: 36.492736592906944,
-	                            epsg: "EPSG:4326"
-	                        }
-	                    }
-	                    farmmapObj.addVector("vectorLayer", vectorOptions, map1);
+						vectorOptions = {
+							id: id.toString()
+							, type: "polygon"
+							, xy: xy
+							, data: feature
+							, style: {
+								fillColor: "black",
+								fillOpacity: 0.5,
+								strokeWidth: 2,
+								strokeColor: "#ff0000",
+							// 	strokeLinecap: "round",
+							// 	fontSize: "12px",
+							// 	fontColor: "black",
+							// 	fontWeight: "bold",
+							// 	label: label.toString(),
+							// 	labelOutlineColor: "#ffffff",
+							// 	labelOutlineWidth: 3
+							}
+						}
+						farmmapObj.addVector("vectorLayer", vectorOptions, map1);
+					}
+				}
 
-	                } else if (type == "lineString") {
-	                    vectorOptions = {
-	                        id: "lineString1",
-	                        type: type,
-	                        xy: [{
-	                            x: 982500.76415681,
-	                            y: 1832837.7593186
-	                        }, {
-	                            x: 982558.13915681,
-	                            y: 1832900.7443186
-	                        }, {
-	                            x: 982600.46915681,
-	                            y: 1832833.4243186
-	                        }],
-	                        attributes: {
-	                            id: "lineString1"
-	                        }
-	                    }
-	                    farmmapObj.addVector("vectorLayer", vectorOptions, map1);
+				var sourceData;
+				if (data.output.source != null) {
+					sourceData = data.output.source;
+					for (var k = 0; k < sourceData.data.length; k++) {
 
-	                    vectorOptions = {
-	                        id: "lineString2",
-	                        type: type,
-	                        xy: [{
-	                            x: 982656.31415681,
-	                            y: 1832779.9436101
-	                        }, {
-	                            x: 982742.24915681,
-	                            y: 1832820.4193186
-	                        }, {
-	                            x: 982709.00765681,
-	                            y: 1832877.1211186
-	                        }, {
-	                            x: 982674.92915681,
-	                            y: 1832838.0143186
-	                        }],
-	                        style: {
-	                            strokeWidth: 10,
-	                            strokeColor: "#ff0000",
-	                            strokeDashstyle: "dashdot",
-	                            strokeLinecap: "round",
-	                            fontColor: "#ffffff",
-	                            fontSize: "12px",
-	                            fontWeight: "bold",
-	                            label: "lineString2",
-	                            labelYOffset: -30,
-	                            labelOutlineColor: "black",
-	                            labelOutlineWidth: 10,
-	                            labelOutlineOpacity: 0.7
-	                        },
-	                        data: {
-	                            id: "lineString2",
-	                            strokeWidth: 10,
-	                            strokeColor: "#ff0000",
-	                            strokeDashstyle: "dashdot",
-	                            strokeLinecap: "round"
-	                        },
-	                        attributes: {
-	                            id: "lineString2"
-	                        }
-	                    }
-	                    vectorOptions.data.xy = JSON.stringify(vectorOptions.xy);
-	                    farmmapObj.addVector("vectorLayer", vectorOptions, map1);
+						var feature = sourceData.data[k];
+						var xy = feature.geometry[0].xy;
 
-	                    vectorOptions = {
-	                        id: "lineString3",
-	                        type: type,
-	                        xy: [{
-	                            x: 14171538.813920587,
-	                            y: 4368634.708014407
-	                        }, {
-	                            x: 14171781.26262,
-	                            y: 4368702.6029289
-	                        }],
-	                        epsg: "EPSG:900913",
-	                        data: {
-	                            epsg: "EPSG:900913"
-	                        },
-	                        attributes: {
-	                            id: "lineString3"
-	                        }
-	                    }
-	                    vectorOptions.data.xy = JSON.stringify(vectorOptions.xy);
-	                    farmmapObj.addVector("vectorLayer", vectorOptions, map1);
-	                } else if (type == "polygon") {
-	                    vectorOptions = {
-	                        id: "polygon1",
-	                        type: type,
-	                        xy: [{
-	                            x: 982500.76415681,
-	                            y: 1832837.7593186
-	                        }, {
-	                            x: 982558.13915681,
-	                            y: 1832900.7443186
-	                        }, {
-	                            x: 982600.46915681,
-	                            y: 1832833.4243186
-	                        }, {
-	                            x: 982500.76415681,
-	                            y: 1832837.7593186
-	                        }],
-	                        attributes: {
-	                            id: "polygon1"
-	                        }
-	                    }
-	                    farmmapObj.addVector("vectorLayer", vectorOptions, map1);
+						var label = "";
 
-	                    vectorOptions = {
-	                        id: "polygon2",
-	                        type: type,
-	                        xy: [{
-	                            x: 982656.31415681,
-	                            y: 1832779.9436101
-	                        }, {
-	                            x: 982742.24915681,
-	                            y: 1832820.4193186
-	                        }, {
-	                            x: 982709.00765681,
-	                            y: 1832877.1211186
-	                        }, {
-	                            x: 982674.92915681,
-	                            y: 1832838.0143186
-	                        }],
-	                        attributes: {
-	                            id: "polygon2"
-	                        },
-	                        style: {
-	                            fillColor: "black",
-	                            strokeWidth: 10,
-	                            strokeColor: "#ff0000",
-	                            strokeDashstyle: "dashdot",
-	                            strokeLinecap: "round",
-	                            fontSize: "20px",
-	                            fontColor: "black",
-	                            fontWeight: "bold",
-	                            label: "polygon2",
-	                            labelOutlineColor: "#ffffff",
-	                            labelOutlineWidth: 10
-	                        }
-	                    }
-	                    farmmapObj.addVector("vectorLayer", vectorOptions, map1);
-	                } else if (type == "circle") {
-	                    vectorOptions = {
-	                        id: "circle1",
-	                        type: type,
-	                        radius: 50,
-	                        x: 982572.67415681,
-	                        y: 1832838.5243186,
-	                        attributes: {
-	                            id: "circle1"
-	                        },
-	                        style: {
-	                            fillColor: "white",
-	                            strokeWidth: 5,
-	                            fontColor: "blue",
-	                            fontSize: "15px",
-	                            label: "circle1",
-	                            labelOutlineColor: "yellow",
-	                            labelOutlineWidth: 5,
-	                            labelYOffset: -150
-	                        },
-	                        data: {
-	                            x: 982572.67415681,
-	                            y: 1832838.5243186
-	                        }
-	                    }
-	                    farmmapObj.addVector("vectorLayer", vectorOptions, map1);
+						if (data.input.mapType == "base") {
+							if (data.input.columnType.toUpperCase() == "KOR") {
+								label = feature.필지고유번호;
+							} else {
+								label = feature.pnu;
+							}
+						} else {
+							if (data.input.columnType.toUpperCase() == "KOR") {
+								label = feature.대표PNU;
+							} else {
+								label = feature.pnu;
+							}
+						}
 
-	                    vectorOptions = {
-	                        id: "circle2",
-	                        type: type,
-	                        radius: 50,
-	                        x: 982758.05915681,
-	                        y: 1832803.0793186,
-	                        attributes: {
-	                            id: "circle2"
-	                        },
-	                        style: {
-	                            fillColor: "#bf87fa",
-	                            strokeWidth: 5,
-	                            strokeDashstyle: "dash",
-	                            fontColor: "blue",
-	                            fontSize: "20px",
-	                            fontStyle: "italic",
-	                            label: "circle2",
-	                            labelOutlineColor: "red",
-	                            labelOutlineWidth: 10
-	                        },
-	                        data: {
-	                            x: 982758.05915681,
-	                            y: 1832803.0793186
-	                        }
-	                    }
-	                    farmmapObj.addVector("vectorLayer", vectorOptions, map1);
+						vectorOptions = {
+							id: ("source_" + k).toString()
+							, type: "polygon"
+							, xy: xy
+							, data: feature
+							, style: {
+								fillColor: "#FFFFFF",
+								fillOpacity: 0.5,
+								strokeWidth: 5,
+								strokeColor: "#FFFFFF"
+								, fontSize: "12px",
+								fontColor: "black",
+								fontWeight: "bold",
+								label: label.toString(),
+								labelOutlineColor: "#ffffff",
+								labelOutlineWidth: 3
+							}
+						}
+						farmmapObj.addVector("vectorLayer", vectorOptions, map1);
+					}
+					sourceData = null;
+				}
 
-	                    vectorOptions = {
-	                        id: "circle3",
-	                        type: type,
-	                        radius: 30,
-	                        x: 127.30541896131453,
-	                        y: 36.493039029262434,
-	                        epsg: "EPSG:4326",
-	                        attributes: {
-	                            id: "circle3"
-	                        },
-	                        data: {
-	                            epsg: "EPSG:4326",
-	                            x: 127.30541896131453,
-	                            y: 36.493039029262434
-	                        }
-	                    }
-	                    farmmapObj.addVector("vectorLayer", vectorOptions, map1);
-	                }
-	            } else {
-	                alert("vectorLayer 이름의 레이어가 없습니다.");
-	            }
-	        }
+				var targetData;
+				if (data.output.target != null) {
+					targetData = data.output.target;
+					for (var k = 0; k < targetData.data.length; k++) {
+
+						var feature = targetData.data[k];
+						var xy = feature.geometry[0].xy;
+
+						vectorOptions = {
+							id: "target_" + feature.rank_label.toString()
+							, type: "polygon"
+							, xy: xy
+							, data: feature
+							, style: {
+								fillColor: "black",
+								fillOpacity: 0.001,
+								strokeWidth: 2,
+								strokeColor: "#ff0000",
+								strokeLinecap: "round",
+								fontSize: "12px",
+								fontColor: "yellow",
+								fontWeight: "bold",
+								label: feature.rank_label.toString(),
+								labelOutlineColor: "blue",
+								labelOutlineWidth: 3
+							}
+						}
+						farmmapObj.addVector("vectorLayer", vectorOptions, map1);
+					}
+					targetData = null;
+				}
+
+				if (farmmapObj.getObject("layer", "vectorLayer", map1).features.length > 0) {
+					map1.zoomToExtent(farmmapObj.getObject("layer", "vectorLayer", map1).features[0].geometry.getBounds());
+					map1.zoomTo(11);
+				}
+			}
 
 	        function vectorSelect(feature) {
 	            if (feature.id == "point6") {
@@ -1381,22 +1120,67 @@
 	            }
 	        }
 
-	        function vectorSelect2(feature) {
-	            feature.style.fillColor = "#0505f5";
-	            feature.style.strokeColor = "yellow";
-	            feature.layer.redraw();
-	        }
+			function vectorSelect2(feature, flag) {
+				console.log(' vectorSelect2 test');
+				console.log(' vectorSelect2 feature', feature);
+				console.log(' vectorSelect2 flag', flag);
+				if (!flag) {
+					console.log('!flag');
+					vectorUnselect2(farmmapObj.getObject("layer", "vectorLayer", map1).features[0]);
+					console.log('vectorUnselect2 갔다옴 !');
+				}
 
-	        function vectorUnselect2(feature) {
-	            if (feature.id.indexOf("source_") != -1) {
-	                feature.style.fillColor = "#FFFFFF";
-	                feature.style.strokeColor = "#FFFFFF";
-	            } else {
-	                feature.style.fillColor = "black";
-	                feature.style.strokeColor = "#ff0000";
-	            }
-	            feature.layer.redraw();
-	        }
+				console.log('첫번째 if 끝');
+
+				if (feature.id != farmmapObj.getObject("layer", "vectorLayer", map1).features[0].id) {
+					console.log('2번째 if 시작');
+					console.log('farmmapObj.getObject("layer", "vectorLayer", map1).features[0].id', farmmapObj.getObject("layer", "vectorLayer", map1).features[0].id);
+					console.log('feature.id', feature.id);
+					feature.style.display = 'none';
+					feature.layer.redraw();
+				}
+
+				console.log('if 모두 끝 ');
+
+				feature.style.fillColor = "#0505f5";
+				feature.style.strokeColor = "yellow";
+				feature.style.strokeWidth = 5;
+				feature.style.display = '';
+				feature.layer.redraw();
+
+				if (Object.keys(feature.data).length > 0) {
+					var data = feature.data;
+					var keys = Object.keys(data);
+					var text = {};
+					var jsonFrmaldData = [];
+					console.log('vectorSelect2 keys', keys);
+					for (var i = 0; i < keys.length; i++) {
+						var searchData = data[keys[i]];
+						text[keys[i]] = data[keys[i]]
+						jsonFrmaldData.push(text);
+					}
+					// console.log('vectorSelect2 text', text);
+					console.log('vectorSelect2 text', jsonFrmaldData);
+					frmidMapPopup(jsonFrmaldData);
+					$("#vectorClickInfo").val(jsonFrmaldData);
+					$("#vectorClickDiv").show();
+				}
+			}
+
+			function vectorUnselect2(feature) {
+				console.log('vectorUnselect2 feature', feature);
+				if (feature.id.indexOf("source_") != -1) {
+					feature.style.fillColor = "#FFFFFF";
+					feature.style.strokeColor = "#FFFFFF";
+				} else {
+					feature.style.fillColor = "black";
+					feature.style.strokeColor = "#ff0000";
+					feature.style.strokeWidth = 2;
+				}
+				feature.layer.redraw();
+
+				$("#vectorClickDiv").hide();
+			}
 
 	        function getButton(ids) {
 	        	var menuId = ids.split(",")[0];
@@ -1422,6 +1206,39 @@
 	                }
 	            }
 	        }
+
+			function getFarmmapDataSeachBjdAndLandCode() {
+				var params = {};
+				console.log('test');
+				// params.bjdCd = $("#bjdCd4").val();
+				params.bjdCd = '5013031023';
+				params.landCd = '02'; // 01:논 02:밭 03:과수 04:시설 05:비경지
+				params.mapType = 'farmmap';
+				params.columnType = 'ENG';
+				params.apiKey = apiKey;
+				params.domain = domain;
+
+				console.log('params', params);
+				console.log('reqUrl', reqUrl);
+
+				$.ajax({
+					url: reqUrl + "farmmapApi/getFarmmapDataSeachBjdAndLandCode.do",
+					dataType: "jsonp",
+					jsonpCallback: "searchCallback",
+					async: false,
+					type: "GET",
+					cache: false,
+					data: params,
+					error: function (XMLHttpRequest, textStatus, errorThrown) {
+						console.log('==============error================');
+						console.log('XMLHttpRequest', XMLHttpRequest);
+						console.log('textStatus', textStatus);
+						console.log('errorThrown', errorThrown);
+						console.log('==============error================');
+					}
+				});
+				console.log('getFarmmapDataSeachBjdAndLandCode params',params);
+			}
 	    </script>
 </head>
 <body oncontextmenu="return false" onload="init()">
@@ -1433,7 +1250,7 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 생산자관리 -->
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회"class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회"class="btn btn-sm btn-outline-danger" onclick="getFarmmapDataSeachBjdAndLandCode();"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -1459,6 +1276,24 @@
 					</colgroup>
 					<tbody>
 						<tr>
+							<td>
+<%--								<sbux-input--%>
+<%--									uitype="text"--%>
+<%--									id="info"--%>
+<%--									name="info"--%>
+<%--									class="form-control input-sm"--%>
+<%--									maxlength="33"--%>
+<%--									show-clear-button="true"></sbux-input>--%>
+							</td>
+							<td colspan="3">
+								<textarea id="info" name="info" style="width:100%"></textarea>
+							</td>
+							<td>
+								<button type="button" class="button" onclick="javascript:getFarmmapDataSeachBjdAndLandCode();">조회</button>
+							</td>
+							<td>
+								<button type="button" class="button" onclick="addVector()">벡터그리기</button>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -1569,12 +1404,38 @@
 	    </div>
 				</div>
 			</div>
+
+		<div id="vectorClickDiv"
+			 style="width:400px; position: absolute; left: 300px; top: 200px; z-index: 1006; display: none;">
+			<button type="button" class="button" onclick="javascript:$('#vectorClickDiv').hide();"
+					style="position: absolute; left: 330px; top: 10px; z-index: 1006;">닫기
+			</button>
+			<textarea id="vectorClickInfo" name="vectorClickInfo" rows="20" style="width:100%" class="pop">
+			</textarea>
+		</div>
 		</div>
 	</section>
 
 
 </body>
+<div>
+	<sbux-modal id="modal-framldMap" name="modal-framldMap" uitype="middle" header-title="팜맵 데이터" body-html-id="body-modal-framldMap" footer-is-close-button="false" header-is-close-button="false" style="width:1100px" ></sbux-modal>
+</div>
+<div id="body-modal-framldMap">
+	<jsp:include page="../popup/framldMapPopup.jsp"/>
+</div>
 <script type="text/javascript">
+
+	const frmidMapPopup = async function(data){
+		console.log('팝업 실행');
+		console.log('popup data', data);
+		SBUxMethod.openModal('modal-framldMap');
+		popFramldMap.init(gv_selectedApcCd, data);
+	}
+
+	function test(){
+		console.log('testtestsetset');
+	}
 
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>

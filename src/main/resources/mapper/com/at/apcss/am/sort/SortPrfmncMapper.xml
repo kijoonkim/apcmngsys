@@ -1293,7 +1293,15 @@
 				   AND SP.DEL_YN = 'N'
 				   AND SI.DEL_YN = 'N'
 				   AND SP.APC_CD = #{apcCd}
+		]]>
+				<if test='sortno != null and sortno !=""'>
+				   AND SP.SORTNO = #{sortno}
+				</if>
+				<if test='sortYmd != null and sortYmd !=""'>
 				   AND SP.INPT_YMD = #{sortYmd}
+				</if>
+    	<![CDATA[
+				   
 			  ) A
 
 			 GROUP BY A.APC_CD, A.SORTNO

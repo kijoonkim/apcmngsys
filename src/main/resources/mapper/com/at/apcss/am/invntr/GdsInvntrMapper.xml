@@ -48,6 +48,7 @@
 				, GI.RTN_GDS_QNTT	AS RTN_GDS_QNTT
 				, GI.RTN_GDS_WGHT	AS RTN_GDS_WGHT
 				, GI.DEL_YN			AS DEL_YN
+				, GI.INVNTR_STTS_CD 	AS INVNTR_STTS_CD
 			  FROM TB_GDS_INVNTR GI
 			 WHERE GI.APC_CD = #{apcCd}
 			   AND GI.PCKGNO = #{pckgno}
@@ -767,6 +768,7 @@
 					, PCKG_SORTNO
 					, PCKG_SORT_SN
 					, RMRK
+					, INVNTR_STTS_CD
 		    		, SYS_FRST_INPT_DT
 		    		, SYS_FRST_INPT_USER_ID
 		    		, SYS_FRST_INPT_PRGRM_ID
@@ -805,6 +807,7 @@
 					, #{pckgSortno}
 					, NULLIF(#{pckgSortSn}, 0)
 					, #{rmrk}
+					, #{invntrSttsCd}
 		    		, SYSDATE
 		    		, #{sysFrstInptUserId}
 		    		, #{sysFrstInptPrgrmId}

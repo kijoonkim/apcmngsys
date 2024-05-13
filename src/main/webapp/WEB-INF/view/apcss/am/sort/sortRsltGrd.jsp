@@ -31,7 +31,15 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 선별결과표 -->
 				</div>
 				<div style="margin-left: auto;">
-				
+					<sbux-button
+                            id="btn-srch-apcLinkPop"
+                            name="btn-srch-apcLinkPop"
+                            class="btn btn-sm btn-outline-danger"
+                            text="연계요청" 
+                            uitype="modal"
+                            target-id="modal-apcLinkPop"
+                            onclick="fn_popApcLink"
+                       ></sbux-button>
                     <sbux-button
 						id="btnSearch"
 						name="btnSearch"
@@ -173,23 +181,6 @@
 							onclick="fn_sortReqCncl"
 							text="취소"
 					    ></sbux-button>
-                         <sbux-button
-                            id="btn-srch-apcLinkPop"
-                            name="btn-srch-apcLinkPop"
-                            class="btn btn-sm btn-outline-danger"
-                            text="연계요청" 
-                            uitype="modal"
-                            target-id="modal-apcLinkPop"
-                            onclick="fn_popApcLink"
-                        ></sbux-button>
-                        <sbux-button
-			                    id="btn-reg-bffa"
-			                    name="btn-reg-bffa"
-			                    class="btn btn-sm btn-success"
-			                    
-			                    text="신규등록" uitype="modal"
-			                    onclick="fn_reg_bffa"
-			            ></sbux-button>
 					</div>
 								    
 				</div>
@@ -962,8 +953,11 @@
         fn_createGrdDsctn();
         fn_createExhstDsctn();
         fn_setExhstDsctnTot(); // 배출구 집계
+        fnCloseProgress();
         fn_setGrdDsctnTot(); // 등급 집계
+        fnCloseProgress();
         fn_setBffaGrdTot(); // 육안등급판정 집계
+        fnCloseProgress();
 	}
 
 	const fn_dtpChange = function(){
@@ -1144,6 +1138,7 @@
             return
         }
         popBffa.init(gv_apcCd,gv_selectedApcNm,itemCd,BffaGrdType,fn_bffaSearch);
+        //popBffa.choice();
         SBUxMethod.openModal('modal-regSort');
     }
  	
@@ -1220,7 +1215,12 @@
             }
     }
 	
-
+    function fnCloseProgress() {
+		var options = {
+			modelNm : 'main-loading'
+		};
+		SBUxMethod.closeProgress(options);
+	};
      
      
 

@@ -117,20 +117,20 @@ const gfn_setSysPrgrmId = function(sysPrgrmId) {
  * @returns {any}
  */
 const gfn_postFormData = async function(_url, _formData, _sysPrgrmId, _hideProgress) {
-	
+
 	const showProgress = !_hideProgress;
     const headers = {};
 
     if (_sysPrgrmId) {
         headers.sysPrgrmId = _sysPrgrmId;
     }
-	
+
 	const option = {
         method : 'POST',
         headers: headers,
         body: _formData
     };
-	
+
 	try {
 
 		let startTime = new Date();
@@ -296,11 +296,11 @@ const gfn_getComCdRptKnd = async function (_apcCd) {
  * @returns
  */
 const gfn_getReportUrl = async function(_apcCd, _rptKnd) {
-	
+
 	if (gfn_isEmpty(_apcCd)) {
 		return null;
 	}
-	
+
 	if (!_.isEqual(_apcCd, gv_apcRptApc.apcCd)) {
 		//gv_apcRptApc.apcRptKnds = gfn_getComCdRptKnd(_apcCd);
 		const postJsonPromise = gfn_postJSON(URL_APC_RPT_KNDS, {apcCd: _apcCd, delYn : "N"}, null, true);
@@ -308,15 +308,15 @@ const gfn_getReportUrl = async function(_apcCd, _rptKnd) {
 		gv_apcRptApc.apcCd = _apcCd;
 		gv_apcRptApc.apcRptKnds = data.resultList;
 	}
-	
+
 	let url;
-	
+
 	gv_apcRptApc.apcRptKnds.forEach((el) => {
 		if (el.cdVl === _rptKnd) {
-			url = el.cdVlExpln;	
+			url = el.cdVlExpln;
 		}
 	});
-	
+
 	return url;
 }
 
@@ -360,7 +360,8 @@ async function gfn_setComCdSBSelect(_targetIds, _jsondataRef, _cdId, _apcCd) {
 				text: item.cdVlNm,
 				label: item.cdVlNm,
 				value: item.cdVl,
-				mastervalue : item.cdNumVl
+				mastervalue : item.cdNumVl,
+				useYn : item.useYn
 			}
 			_jsondataRef.push(cdVl);
 		});
