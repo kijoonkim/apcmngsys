@@ -173,6 +173,7 @@
                 , (SELECT FN_GET_GRD_NM_SORT(pt0.APC_CD, pt0.ITEM_CD, pt0.SORT_GRD_CD) FROM DUAL) 	AS SORT_GRD_NM
                 , (SELECT FN_GET_GDS_NM(pt0.GDS_CD,pt0.APC_CD) FROM DUAL)							AS GDS_NM
                 , pt0.PCKGNO || '-' || pt0.PCKG_SN AS PCKGNO_INDCT
+                , (SELECT FN_GET_GRD_NM_SORT(pt0.APC_CD, pt0.ITEM_CD, pt0.SORT_GRD_CD) FROM DUAL )   AS SORT_GRD_NM
     		  FROM (
 	    	SELECT /* com.at.apcss.am.invntr.mapper.GdsInvntrMapper.selectGdsInvntrList */
 			      GI.APC_CD					AS APC_CD
@@ -217,6 +218,22 @@
                       AND SI.SORT_SN = IP.SORT_SN
                       AND IP.PCKGNO = GI.PCKGNO
                   ) AS SORT_GRD_CD
+                  
+                , (SELECT MAX(WP.WRHS_YMD) AS WRHS_YMD
+                  FROM TB_SORT_INVNTR SI
+                  	 , TB_SORT_INPT_PRFMNC SIP
+                     , TB_PCKG_INPT_PRFMNC IP
+                     , TB_RAW_MTR_INVNTR WP                     
+                 WHERE SI.DEL_YN = 'N'
+                   AND IP.DEL_YN = 'N'
+                   AND SIP.DEL_YN = 'N'
+                   AND SI.SORTNO = IP.SORTNO
+                   AND SI.SORTNO = SIP.SORTNO
+                   AND SI.SORT_SN = IP.SORT_SN
+                   AND SIP.WRHSNO = WP.WRHSNO
+                   AND IP.PCKGNO = GI.PCKGNO
+                  ) AS WRHS_YMD
+                  
 			  FROM TB_GDS_INVNTR GI
 			 WHERE GI.DEL_YN = 'N'
 			   AND GI.INVNTR_WGHT > 0
@@ -538,6 +555,7 @@
 				, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) 	AS WAREHOUSE_SE_NM
                 , (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL) 				AS SPMT_PCKG_UNIT_NM
                 , (SELECT FN_GET_GDS_NM(pt0.GDS_CD,pt0.APC_CD) FROM DUAL) 										AS GDS_NM
+                , (SELECT FN_GET_GRD_NM_SORT(pt0.APC_CD, pt0.ITEM_CD, pt0.SORT_GRD_CD) FROM DUAL )   AS SORT_GRD_NM
     		  FROM (
 			    	SELECT /*  */
 					       DGI.APC_CD               AS APC_CD
@@ -569,6 +587,26 @@
 					     , DGI.WRHS_SE_CD           AS WRHS_SE_CD
 					     , DGI.TRSPRT_SE_CD         AS TRSPRT_SE_CD
 					     , DGI.DEL_YN               AS DEL_YN
+					     , (SELECT MAX(GRD_CD)
+			                     FROM TB_SORT_INVNTR SI
+			                        , TB_PCKG_INPT_PRFMNC IP
+			                    WHERE SI.DEL_YN = 'N'
+			                      AND IP.DEL_YN = 'N'
+			                      AND SI.SORTNO = IP.SORTNO
+			                      AND SI.SORT_SN = IP.SORT_SN
+			                      AND IP.PCKGNO = DGI.PCKGNO
+			                  ) AS SORT_GRD_CD
+			             ,(SELECT MAX(SI.INPT_YMD)
+
+			                     FROM TB_SORT_INVNTR SI
+			                        , TB_PCKG_INPT_PRFMNC IP
+			                    WHERE SI.DEL_YN = 'N'
+			                      AND IP.DEL_YN = 'N'
+			                      AND SI.SORTNO = IP.SORTNO
+			                      AND SI.SORT_SN = IP.SORT_SN
+			                      AND IP.PCKGNO = DGI.PCKGNO
+		                      ) AS INPT_YMD 
+						  
 
 					  FROM TB_DAILY_GDS_INVNTR DGI
 					 WHERE DGI.INVNTR_QNTT > 0
