@@ -336,8 +336,20 @@
             {caption: ["COLSOCIAL_NUM"],      	ref: 'COLSOCIAL_NUM', 		        type:'output',  	width:'75px',  	style:'text-align:left'},
             {caption: ["휴직여부"],      	    ref: 'HOLI_YN', 		            type:'output',  	width:'75px',  	style:'text-align:left'},
             {caption: ["재직구분"],      	    ref: 'EMP_STATE', 		            type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["입사구분"],      	    ref: 'ENTER_TYPE', 		            type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["병역구분"],      	    ref: 'ARMY_TYPE', 		            type:'output',  	width:'75px',  	style:'text-align:left'},
+            {caption: ["입사구분"],      	    ref: 'ENTER_TYPE', 		            type:'output',  	width:'75px',  	style:'text-align:left',
+                typeinfo: {
+                    ref			: 'jsonEnterType',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }},
+            {caption: ["병역구분"],      	    ref: 'ARMY_TYPE', 		            type:'output',  	width:'75px',  	style:'text-align:left',
+                typeinfo: {
+                    ref			: 'jsonArmyType',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }},
             {caption: ["협력사 최초 입사일"],      ref: 'PREV_ENTER_DATE', 		    type:'output',  	width:'75px',  	style:'text-align:left'},
         ];
 
@@ -373,19 +385,19 @@
      * @param {number} pageNo
      */
     const fn_setGvwList = async function(pageSize, pageNo) {
-        let COMP_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_COMP_CODE"));
-        let SITE_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
-        let EMP_STATE	= gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
-        let DEPT_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
-        let DUTY_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_DUTY_CODE"));
-        let JOB_FAMILY	= gfnma_nvl(SBUxMethod.get("SRCH_JOB_FAMILY"));
-        let GENDER	= gfnma_nvl(SBUxMethod.get("SRCH_GENDER"));
+        let COMP_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_COMP_CODE"));
+        let SITE_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
+        let EMP_STATE	    = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
+        let DEPT_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+        let DUTY_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_DUTY_CODE"));
+        let JOB_FAMILY	    = gfnma_nvl(SBUxMethod.get("SRCH_JOB_FAMILY"));
+        let GENDER	        = gfnma_nvl(SBUxMethod.get("SRCH_GENDER"));
         let PAY_AREA_TYPE	= gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE"));
-        let EMP_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
-        let EMP_NAME	= gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        let EMP_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+        let EMP_NAME	    = gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
         let POSITION_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_POSITION_CODE"));
-        let JOB_RANK	= gfnma_nvl(SBUxMethod.get("SRCH_JOB_RANK"));
-        let JOB_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_JOB_CODE"));
+        let JOB_RANK	    = gfnma_nvl(SBUxMethod.get("SRCH_JOB_RANK"));
+        let JOB_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_JOB_CODE"));
         let INITIAL_DATE	= gfnma_nvl(SBUxMethod.get("SRCH_INITIAL_DATE"));
 
         var paramObj = {
@@ -528,10 +540,10 @@
                         ,ARMY_TYPE                      : item.ARMY_TYPE
                         ,PREV_ENTER_DATE                : item.PREV_ENTER_DATE
                     }
-                    jsonNationList.push(msg);
+                    jsonHriList.push(msg);
                 });
 
-                gvwInfo.rebuild();
+                gvwList.rebuild();
 
             } else {
                 alert(data.resultMessage);
