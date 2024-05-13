@@ -1051,11 +1051,11 @@
 				type: 'grand',
 				position: 'bottom',
 				columns: {
-					standard: [10],
-					sum: [11,12,13,14,15,16]
+					standard: [12],
+					sum: [13,14,15,16,17,18]
 				},
 			grandtotalrow: {
-				titlecol: 10,
+				titlecol: 12,
 				titlevalue: '합계',
 				style : 'background-color: #ceebff ; font-weight: bold; color: #0060b3;',
 				stylestartcol: 0
@@ -1070,14 +1070,18 @@
 	    SBGridProperties.columns = [
             {caption: ["포장번호","포장번호"],        ref: 'pckgno',          type:'output',  width:'105px',    style:'text-align:center',  filtering : {usemode : false}},
             {caption: ["순번","순번"],                ref: 'pckgSn',          type:'output',  width:'55px',    style:'text-align:center',  filtering : {usemode : false}},
+            {caption: ["입고일자","입고일자"],        ref: 'wrhsYmd',          type:'output',  width:'105px',    style:'text-align:center',
+	        	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'},  filtering : {usemode : false}},
             {caption: ["포장일자","포장일자"],        ref: 'pckgYmd',          type:'output',  width:'105px',    style:'text-align:center',
 	        	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'},  filtering : {usemode : false}},
+        	
 	        {caption: ["설비","설비"],                ref: 'fcltNm',          type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["생산자","생산자"],			ref: 'prdcrNm',      	type:'output',  width:'110px',    style:'text-align:center'},
 	        {caption: ["품목","품목"],				ref: 'itemNm',      	type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["품종","품종"],				ref: 'vrtyNm',      	type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["규격","규격"],				ref: 'spcfctNm',      	type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["등급","등급"],				ref: 'gdsGrdNm',      	type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["선별등급","선별등급"],				ref: 'sortGrdNm',      	type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["상품명","상품명"],				ref: 'spmtPckgUnitNm',      	type:'output',  width:'110px',    style:'text-align:center'},
 	        {caption: ["창고","창고"],				ref: 'warehouseSeNm',   type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["포장","수량"],				ref: 'pckgQntt',      	type:'output',  width:'85px',    style:'text-align:right',
@@ -1234,6 +1238,8 @@
   	       				  , invntrWght		: item.invntrWght
   	       				  , rmrk			: item.rmrk
   	       				  , prdcrNm 		: item.prdcrNm
+  	       				  , sortGrdNm     : item.sortGrdNm
+  	       				  , wrhsYmd        : item.wrhsYmd
   	  				}
   	          		jsonGdsInvntr.push(gdsInvntr);
 
@@ -1333,6 +1339,9 @@
   	       				  , invntrWght		: item.invntrWght
   	       				  , rmrk			: item.rmrk
   	       				  , prdcrNm 		: item.prdcrNm
+  	       				  , sortGrdCd   : item.sortGrdCd
+  	       				  , sortGrdNm  : item.sortGrdNm
+  	       				  , wrhsYmd     : item.wrhsYmd
   	  				}
   	          		jsonGdsInvntr.push(gdsInvntr);
 
@@ -1368,11 +1377,15 @@
           let hiddenColIndex3 = gdsInvntrGrid.getColRef('pckgYmd');
           let hiddenColIndex4 = gdsInvntrGrid.getColRef('fcltNm');
           let hiddenColIndex5 = gdsInvntrGrid.getColRef('rmrk');
+          let hiddenColIndex6 = gdsInvntrGrid.getColRef('wrhsYmd');
+          let hiddenColIndex7 = gdsInvntrGrid.getColRef('sortGrdNm');
           gdsInvntrGrid.setColHidden(hiddenColIndex1,true,true);
           gdsInvntrGrid.setColHidden(hiddenColIndex2,true,true);
           gdsInvntrGrid.setColHidden(hiddenColIndex3,true,true);
           gdsInvntrGrid.setColHidden(hiddenColIndex4,true,true);
           gdsInvntrGrid.setColHidden(hiddenColIndex5,true,true);
+          gdsInvntrGrid.setColHidden(hiddenColIndex6,true,true);
+          gdsInvntrGrid.setColHidden(hiddenColIndex7,true,true);
     }
 	//상품재고 내역 집계조회 끝
 

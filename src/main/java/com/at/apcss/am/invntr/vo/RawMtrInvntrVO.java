@@ -250,6 +250,11 @@ public class RawMtrInvntrVO extends ComVO {
 	private String sortCmndno;
 
 	/**
+	 * 선별번호
+	 */
+	private String sortno;
+	
+	/**
 	 * 지시수량
 	 */
 	private int cmndQntt;

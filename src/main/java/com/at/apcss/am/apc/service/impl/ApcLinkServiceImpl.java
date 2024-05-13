@@ -222,7 +222,7 @@ public class ApcLinkServiceImpl extends BaseServiceImpl implements ApcLinkServic
 
 	@Override
 	public HashMap<String, Object> deleteApcLinkTrsmKnd(ApcLinkVO trsmKndVO) throws Exception {
-		apcLinkMapper.deleteApcLinkTrsmMat(trsmKndVO);
+		apcLinkMapper.deleteApcLinkTrsmKnd(trsmKndVO);
 		return null;
 	}
 

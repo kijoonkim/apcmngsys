@@ -3861,7 +3861,7 @@ input::-webkit-inner-spin-button {
                     <th>품목</th>
                     <th>투입수량</th>
                     <th>선별내역</th>
-                    <th>선별일시</th>
+                    <th>선별일자</th>
                 </tr>
                 </thead>
                 <tbody id="latestInfoBody">
@@ -4072,7 +4072,8 @@ input::-webkit-inner-spin-button {
 				SBUxMethod.set("dtl-inp-vrtyNm", vrtyCd),
 				SBUxMethod.set("dtl-inp-prdcrCd", sort.rprsPrdcr),
 				SBUxMethod.set("dtl-inp-prdcrNm", sort.rprsPrdcrNm),
-				SBUxMethod.set("dtl-lbl-warehouseSeNm", sort.warehouseSeCd)
+				SBUxMethod.set("dtl-lbl-warehouseSeNm", sort.warehouseSeCd),
+		        SBUxMethod.set("dtl-dtp-inptYmd", sort.inptYmd)
 		]);
 
 
@@ -5117,7 +5118,8 @@ input::-webkit-inner-spin-button {
                     tr.appendChild(tdSort);
 
                     const tdRegDt = document.createElement('td');
-                    tdRegDt.innerText = rowData.sysLastChgDt;
+                    //tdRegDt.innerText = rowData.sysLastChgDt;
+                    tdRegDt.innerText = rowData.inptYmd;
                     tr.appendChild(tdRegDt);
 
                     tr.addEventListener("click", () => {
@@ -5171,8 +5173,11 @@ input::-webkit-inner-spin-button {
                 if (gfn_isEmpty(_rawMtrInvntr)) {
                     return;
                 }
+                
 				if(_rawMtrInvntr.invntrQntt == 0) {
-					let sortYmd = _rawMtrInvntr.wrhsYmd;
+					
+					let sortYmd = _rawMtrInvntr.inptYmd;
+					//let sortno = _rawMtrInvntr.sortno;
 					try {
 						const postJsonPromise = gfn_postJSON("/am/sort/selectSortRsltList.do", {
 							apcCd: gv_selectedApcCd,
@@ -5181,11 +5186,13 @@ input::-webkit-inner-spin-button {
 
 						const data = await postJsonPromise;
 						if (_.isEqual("S", data.resultStatus)) {
+							
 							let prevList = data.resultList;
 							//pltno
 							prevList = prevList.filter(function(item){
 								return item.pltno == pltno;
 							});
+							console.log('prevList', prevList);
 							await fn_view(-1,prevList);
 						}
 					} catch (e) {
@@ -5195,6 +5202,7 @@ input::-webkit-inner-spin-button {
 					}
 					return;
 				}
+				
 				SBUxMethod.attr('dtl-inp-pltno', 'readonly', true);
 
                 SBUxMethod.set("dtl-inp-pltno", _rawMtrInvntr.pltno);
