@@ -129,8 +129,8 @@
                     <td colspan="2" class="td_input" style="border-right:hidden;">
                         <sbux-datepicker
                                 uitype="popup"
-                                id="SRCH_YMDINITIAL_DATE"
-                                name="SRCH_YMDINITIAL_DATE"
+                                id="SRCH_INITIAL_DATE"
+                                name="SRCH_INITIAL_DATE"
                                 date-format="yyyy-mm-dd"
                                 class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                 style="width:100%;"
@@ -375,16 +375,39 @@
     const fn_setGvwList = async function(pageSize, pageNo) {
         gvwInfo.clearStatus();
 
-        let NATION_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_NATION_CODE"));
-        let NATION_NAME	= gfnma_nvl(SBUxMethod.get("SRCH_NATION_NAME"));
+        let COMP_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_COMP_CODE"));
+        let SITE_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
+        let EMP_STATE	= gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
+        let DEPT_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+        let DUTY_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_DUTY_CODE"));
+        let JOB_FAMILY	= gfnma_nvl(SBUxMethod.get("SRCH_JOB_FAMILY"));
+        let GENDER	= gfnma_nvl(SBUxMethod.get("SRCH_GENDER"));
+        let PAY_AREA_TYPE	= gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE"));
+        let EMP_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+        let EMP_NAME	= gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        let POSITION_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_POSITION_CODE"));
+        let JOB_RANK	= gfnma_nvl(SBUxMethod.get("SRCH_JOB_RANK"));
+        let JOB_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_JOB_CODE"));
+        let INITIAL_DATE	= gfnma_nvl(SBUxMethod.get("SRCH_INITIAL_DATE"));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN	: 'N'
             ,V_P_LANG_ID		: 'KOR'
-            ,V_P_COMP_CODE		: '1000'
+            ,V_P_COMP_CODE		: COMP_CODE
             ,V_P_CLIENT_CODE	: ''
-            ,V_P_NATION_CODE	: NATION_CODE
-            ,V_P_NATION_NAME	: NATION_NAME
+            ,V_P_SITE_CODE      : SITE_CODE
+            ,V_P_DEPT_CODE      : DEPT_CODE
+            ,V_P_EMP_CODE       : EMP_CODE
+            ,V_P_EMP_NAME       : EMP_NAME
+            ,V_P_POSITION_CODE  : POSITION_CODE
+            ,V_P_DUTY_CODE      : DUTY_CODE
+            ,V_P_JOB_FAMILY     : JOB_FAMILY
+            ,V_P_JOB_RANK       : JOB_RANK
+            ,V_P_JOB_CODE       : JOB_CODE
+            ,V_P_GENDER         : GENDER
+            ,V_P_EMP_STATE      : EMP_STATE
+            ,V_P_INITIAL_DATE   : INITIAL_DATE
+            ,V_P_PAY_AREA_TYPE  : PAY_AREA_TYPE
             ,V_P_FORM_ID		: ''
             ,V_P_MENU_ID		: ''
             ,V_P_PROC_ID		: ''
