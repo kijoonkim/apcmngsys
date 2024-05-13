@@ -595,9 +595,6 @@
 
     const fn_createGrid = function(chMode, rowData) {
 
-        console.log("data : ", rowData);
-        console.log("chMode : ", chMode);
-
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-gvwInfo';
         SBGridProperties.id = 'grdFimList';
@@ -639,17 +636,21 @@
 
     // 행 추가
     const fn_addRow = function() {
-        grdFimList.addRow(true);
-        //grdFimList.refresh();
+        let rowVal = gvwInfoGrid.getRow();
+
+        if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
+
+            grdFimList.addRow(true);
+        }else{
+            grdFimList.insertRow(rowVal);
+        }
     }
 
     // 행삭제
     const fn_delRow = async function() {
 
         let checkCol = grdFimList.getColRef("use_yn");
-        console.log('----------', checkCol);
         let checkeds = grdFimList.getCheckedRows(checkCol, true);
-        console.log('---1------', checkeds);
         /* let reverseCheckeds = checkeds.reverse();*/
 
         if (checkeds.length == 0) {
