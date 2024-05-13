@@ -331,6 +331,13 @@ public class GdsInvntrVO extends ComVO {
 	 * 반품중량
 	 * */
 	private double rtnGdsWght;
+	
+	/*
+	 * 입고일자
+	 * */
+	private String wrhsYmd;
+	
+	
 
 
 	/**
