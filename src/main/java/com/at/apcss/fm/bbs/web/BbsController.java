@@ -297,7 +297,7 @@ public class BbsController extends BaseController {
 		 */
 		return "apcss/fm/bbs/xmlParshing";
 	}
-
+	/*
 	// 첨부파일 조회
 	@PostMapping(value = "/fm/bbs/selectBbsAttachesList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectFile(Model model, @RequestBody BbsVO bbsVO, HttpServletRequest request) throws Exception{
@@ -326,7 +326,7 @@ public class BbsController extends BaseController {
 	// 첨부파일 업로드
     @PostMapping("/fm/bbs/fileUpload.do")
     public ResponseEntity<HashMap<String, Object>> handleFileUpload(@RequestParam("files") List<MultipartFile> files,@RequestParam("bbsNo") String bbsNo, RedirectAttributes redirectAttributes) throws Exception{
-    	System.out.println("======================/fm/bbs/fileUpload.do==========================");
+    	logger.debug("======================/fm/bbs/fileUpload.do==========================");
 
     	String uploadPath = getFilepathFm();
 
@@ -476,4 +476,5 @@ public class BbsController extends BaseController {
         os.close();
 
     }
+    */
 }
