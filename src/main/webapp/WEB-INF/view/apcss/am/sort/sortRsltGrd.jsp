@@ -182,14 +182,7 @@
                             target-id="modal-apcLinkPop"
                             onclick="fn_popApcLink"
                         ></sbux-button>
-                        <sbux-button
-			                    id="btn-reg-bffa"
-			                    name="btn-reg-bffa"
-			                    class="btn btn-sm btn-success"
-			                    
-			                    text="신규등록" uitype="modal"
-			                    onclick="fn_reg_bffa"
-			            ></sbux-button>
+                        
 					</div>
 								    
 				</div>
@@ -962,8 +955,11 @@
         fn_createGrdDsctn();
         fn_createExhstDsctn();
         fn_setExhstDsctnTot(); // 배출구 집계
+        fnCloseProgress();
         fn_setGrdDsctnTot(); // 등급 집계
+        fnCloseProgress();
         fn_setBffaGrdTot(); // 육안등급판정 집계
+        fnCloseProgress();
 	}
 
 	const fn_dtpChange = function(){
@@ -1220,7 +1216,12 @@
             }
     }
 	
-
+    function fnCloseProgress() {
+		var options = {
+			modelNm : 'main-loading'
+		};
+		SBUxMethod.closeProgress(options);
+	};
      
      
 
