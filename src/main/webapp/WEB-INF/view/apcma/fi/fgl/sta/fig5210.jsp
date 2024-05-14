@@ -1,7 +1,7 @@
 <%
 /**
  * @Class Name 		: com3100.jsp
- * @Description 	: 국가정보 화면
+ * @Description 	: 합계잔액시산표조회 화면
  * @author 			: 인텔릭아이앤에스
  * @since 			: 2024.04.29
  * @version 		: 1.0
@@ -22,7 +22,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<title>title : 국가정보</title>
+	<title>title : 합계잔액시산표조회</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -33,7 +33,7 @@
                 <div>
                     <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
                     <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
-                    </h3><!-- 국가정보 -->
+                    </h3><!-- 합계잔액시산표조회 -->
                 </div>
                 <div style="margin-left: auto;">
                     <sbux-button id="btnCreate" name="btnCreate" 	uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
