@@ -2835,10 +2835,7 @@
 	 GROUP BY X.BFFA_WRHSNO,X.PRDCR_CD,X.WRHS_YMD	
     
     
-    </select>    
-
-
-    </select>
+    </select>        
     <!-- ========================================================================== -->
     <!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectSortBffaSpt    	-->
     <!-- DESC : 육안등급판정 조회(현장용).                                       	-->
