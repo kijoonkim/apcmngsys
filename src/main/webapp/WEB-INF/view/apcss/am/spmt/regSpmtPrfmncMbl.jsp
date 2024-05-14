@@ -237,7 +237,7 @@
         }
         #invntrTable td{
             text-align: center;
-            font-size: 1vw;
+            font-size: 2vh;
         }
         #invntrTable tbody tr:hover td{
             background-color: #84afff;
@@ -461,7 +461,7 @@
                             <div style="display: flex">
                                 <div style="flex: 2; font-family: 'Font Awesome 5 Free';margin-right: 10px;position: relative">
                                     <input type="number" onChange="fn_onChangesortGds(this)"/>
-                                    <span onclick="fn_searchInvntrQntt(this)" style="position: absolute;top: 6px;left: 210px" class='glyphicon sbux-inp-icon glyphicon-search'></span>
+                                    <span onclick="fn_searchInvntrQntt(this)" style="position: absolute;top: 1vh;left: 84%" class='glyphicon sbux-inp-icon glyphicon-search'></span>
                                 </div>
                                 <div style="flex: 1; font-family: 'Font Awesome 5 Free';">
                                     <input type="number" onchange="fn_onChangePrdcr(this)" />
@@ -702,7 +702,7 @@
             <div style="display: flex">
                 <div style="flex: 2; font-family: 'Font Awesome 5 Free';margin-right: 10px;position: relative">
                     <input type="number" onChange="fn_onChangesortGds(this)"/>
-                    <span onclick="fn_searchInvntrQntt(this)" style="position: absolute;top: 6px;left: 210px" class='glyphicon sbux-inp-icon glyphicon-search'></span>
+                    <span onclick="fn_searchInvntrQntt(this)" style="position: absolute;top: 1vh;left: 84%" class='glyphicon sbux-inp-icon glyphicon-search'></span>
                 </div>
                 <div style="flex: 1; font-family: 'Font Awesome 5 Free';">
                     <input type="number" onChange="fn_onChangePrdcr(this)"/>
@@ -878,44 +878,44 @@
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
-    /** 재고 선택 **/
-    const fn_select = function (el) {
-        let rowObj = {};
-        let invntData = $(el).find('td');
-        invntData.each(function () {
-            var key = $(this).attr('id');
-            var value = $(this).text();
-            rowObj[key] = value;
-        });
-        fn_popup();
-
-        SBUxMethod.set("srch-slt-sortGrdCd", rowObj.sortGrdNm);
-        SBUxMethod.attr("srch-slt-sortGrdCd", 'readonly', 'true');
-        SBUxMethod.set("srch-slt-prdcrNm", rowObj.prdcr);
-        SBUxMethod.attr("srch-slt-prdcrNm", 'readonly', 'true');
-        SBUxMethod.set("srch-slt-gdsGrdNm", rowObj.gdsGrdNm);
-        SBUxMethod.attr("srch-slt-gdsGrdNm", 'readonly', 'true');
-        SBUxMethod.set("srch-slt-vrtyCd", rowObj.vrtyCd);
-        SBUxMethod.set("srch-slt-gdsGrd", rowObj.gdsGrd);
-
-        let invntrQntt = parseInt(rowObj.invntrQntt);
-
-        let jsonKey = rowObj.itemCd + rowObj.vrtyCd + rowObj.sortGrdCd;
-        if (jsonRegTableData.hasOwnProperty(jsonKey)) {
-            let el = jsonRegTableData[jsonKey];
-            el.forEach(function (item) {
-                if (item.gdsGrd == rowObj.gdsGrd) {
-                    let gdsKey = 'gdsGrd' + item.gdsGrd;
-                    invntrQntt = parseInt(item.invntrQntt) - parseInt(item[gdsKey]);
-                }
-            });
-        }
-
-        $("#invntrQntt").text(invntrQntt);
-
-        jsonTepObj = rowObj;
-
-    }
+    // /** 재고 선택 **/
+    // const fn_select = function (el) {
+    //     let rowObj = {};
+    //     let invntData = $(el).find('td');
+    //     invntData.each(function () {
+    //         var key = $(this).attr('id');
+    //         var value = $(this).text();
+    //         rowObj[key] = value;
+    //     });
+    //     fn_popup();
+    //
+    //     SBUxMethod.set("srch-slt-sortGrdCd", rowObj.sortGrdNm);
+    //     SBUxMethod.attr("srch-slt-sortGrdCd", 'readonly', 'true');
+    //     SBUxMethod.set("srch-slt-prdcrNm", rowObj.prdcr);
+    //     SBUxMethod.attr("srch-slt-prdcrNm", 'readonly', 'true');
+    //     SBUxMethod.set("srch-slt-gdsGrdNm", rowObj.gdsGrdNm);
+    //     SBUxMethod.attr("srch-slt-gdsGrdNm", 'readonly', 'true');
+    //     SBUxMethod.set("srch-slt-vrtyCd", rowObj.vrtyCd);
+    //     SBUxMethod.set("srch-slt-gdsGrd", rowObj.gdsGrd);
+    //
+    //     let invntrQntt = parseInt(rowObj.invntrQntt);
+    //
+    //     let jsonKey = rowObj.itemCd + rowObj.vrtyCd + rowObj.sortGrdCd;
+    //     if (jsonRegTableData.hasOwnProperty(jsonKey)) {
+    //         let el = jsonRegTableData[jsonKey];
+    //         el.forEach(function (item) {
+    //             if (item.gdsGrd == rowObj.gdsGrd) {
+    //                 let gdsKey = 'gdsGrd' + item.gdsGrd;
+    //                 invntrQntt = parseInt(item.invntrQntt) - parseInt(item[gdsKey]);
+    //             }
+    //         });
+    //     }
+    //
+    //     $("#invntrQntt").text(invntrQntt);
+    //
+    //     jsonTepObj = rowObj;
+    //
+    // }
 
     /**
      * @name fn_onInputPrdcrNm
@@ -1386,7 +1386,6 @@
 
     /** 수량 수정시 fn **/
     const fn_onchangeQntt = function(_el){
-
         let val = parseInt($(_el).val());
         let max = parseInt($(_el).attr("max"));
 
@@ -1566,7 +1565,13 @@
                 $(inputEl).css("background-color", "initial");
             }
         });
-        mapInvntQntt.set(rowData.spmtInvId,new Map().set(originTr.index(),rowData.invntrQntt));
+
+        if(mapInvntQntt.has(rowData.spmtInvId)){
+            mapInvntQntt.get(rowData.spmtInvId).set(originTr.index(),rowData.invntrQntt);
+        }else{
+            mapInvntQntt.set(rowData.spmtInvId,new Map().set(originTr.index(),rowData.invntrQntt));
+        }
+
         fn_onchangeQntt(originInput);
     }
 
