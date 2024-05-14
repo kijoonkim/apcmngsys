@@ -419,7 +419,7 @@
             ,V_P_PC				: ''
         };
 
-        const postJsonPromise = gfn_postJSON("/hr/hri/hri/selectHri5100List.do", {
+        const postJsonPromise = gfn_postJSON("/hr/hri/hri/selectHri1100List.do", {
             getType				: 'json',
             workType			: 'LIST',
             cv_count			: '1',

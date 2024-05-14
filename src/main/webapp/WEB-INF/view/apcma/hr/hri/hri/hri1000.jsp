@@ -528,7 +528,365 @@
                             <sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="normal" is-scrollable="false" jsondata-ref="jsonTabData">
                             </sbux-tabs>
                             <div class="tab-content">
-                                <div id="tpgMasterSub">기본인적</div>
+                                <div id="tpgMasterSub">
+                                    <table class="table table-bordered tbl_fixed">
+                                        <caption>검색 조건 설정</caption>
+                                        <colgroup>
+                                            <col style="width: 11%">
+                                            <col style="width: 11%">
+                                            <col style="width: 11%">
+                                            <col style="width: 11%">
+                                            <col style="width: 11%">
+                                            <col style="width: 11%">
+                                            <col style="width: 11%">
+                                            <col style="width: 11%">
+                                            <col style="width: 11%">
+                                            <col style="width: 11%">
+                                            <col style="width: 11%">
+                                        </colgroup>
+                                        <tbody>
+                                        <tr>
+                                            <th scope="row" class="th_bg">국적</th>
+                                            <td colspan="2" class="td_input" style="border-right:hidden;">
+                                                <sbux-select id="NATION_CODE" uitype="single" jsondata-ref="jsonNationCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                            </td>
+                                            <td colspan="2" class="td_input" style="border-right:hidden;">
+                                                <sbux-checkbox
+                                                        uitype="normal"
+                                                        id="FOREIGNER_YN"
+                                                        name="FOREIGNER_YN"
+                                                        uitype="normal"
+                                                        class="form-control input-sm check"
+                                                        text="외국인"
+                                                />
+                                                <sbux-checkbox
+                                                        uitype="normal"
+                                                        id="FAMILY_OWNER_YN"
+                                                        name="FAMILY_OWNER_YN"
+                                                        uitype="normal"
+                                                        class="form-control input-sm check"
+                                                        text="세대주"
+                                                />
+                                            </td>
+                                            <th scope="row" class="th_bg">본관</th>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-input id="FAMILY_CLAN" class="form-control input-sm input-sm-ast inpt_data_reqed" uitype="text" required style="width:100%"></sbux-input>
+                                            </td>
+                                            <th rowspan="2" scope="row" class="th_bg">서명</th>
+                                            <td rowspan="2" class="td_input" style="border-right:hidden;">
+                                                이미지 자리
+                                            </td>
+                                            <th scope="row" class="th_bg">상여수습종료일</th>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-datepicker
+                                                        uitype="popup"
+                                                        id="BONUS_APPLY_START_DATE"
+                                                        name="BONUS_APPLY_START_DATE"
+                                                        date-format="yyyy-mm-dd"
+                                                        class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                                        style="width:100%;"
+                                                />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="th_bg">본적주소</th>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-input id="FAMILY_REGISTER_ZIP_CODE" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
+                                            </td>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-button id="btnZip1" name="btnUserEnd" uitype="normal" text="검색" class="btn btn-sm btn-outline-danger"></sbux-button>
+                                            </td>
+                                            <td colspan="4" class="td_input" style="border-right:hidden;">
+                                                <sbux-input id="FAMILY_REGISTER_ADDRESS" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
+                                            </td>
+                                            <th scope="row" class="th_bg">노조가입일</th>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-datepicker
+                                                        uitype="popup"
+                                                        id="UNION_JOIN_START_DATE"
+                                                        name="UNION_JOIN_START_DATE"
+                                                        date-format="yyyy-mm-dd"
+                                                        class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                                        style="width:100%;"
+                                                />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="th_bg">주민등록지</th>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-input id="REGISTER_ZIP_CODE" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
+                                            </td>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-button id="btnZip2" name="btnUserEnd" uitype="normal" text="검색" class="btn btn-sm btn-outline-danger"></sbux-button>
+                                            </td>
+                                            <td colspan="4" class="td_input" style="border-right:hidden;">
+                                                <sbux-input id="REGISTER_ADDRESS" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
+                                            </td>
+                                            <th scope="row" class="th_bg">휴대폰번호</th>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-input id="CELLPHONE_NUM" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
+                                            </td>
+                                            <th scope="row" class="th_bg">노조탈퇴일</th>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-datepicker
+                                                        uitype="popup"
+                                                        id="UNION_JOIN_END_DATE"
+                                                        name="UNION_JOIN_END_DATE"
+                                                        date-format="yyyy-mm-dd"
+                                                        class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                                        style="width:100%;"
+                                                />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="th_bg">비상연락처</th>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-input id="EMERGENCY_ZIP_CODE" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
+                                            </td>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-button id="btnZip3" name="btnUserEnd" uitype="normal" text="검색" class="btn btn-sm btn-outline-danger"></sbux-button>
+                                            </td>
+                                            <td colspan="4" class="td_input" style="border-right:hidden;">
+                                                <sbux-input id="EMERGENCY_ADDRESS" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
+                                            </td>
+                                            <th scope="row" class="th_bg">비상연락전화</th>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-input id="EMERGENCY_TEL_NUM" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="th_bg">현거주주소</th>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-input id="RESIDENCE_ZIP_CODE" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
+                                            </td>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-button id="btnZip4" name="btnUserEnd" uitype="normal" text="검색" class="btn btn-sm btn-outline-danger"></sbux-button>
+                                            </td>
+                                            <td colspan="4" class="td_input" style="border-right:hidden;">
+                                                <sbux-input id="RESIDENCE_ADDRESS" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
+                                            </td>
+                                            <th scope="row" class="th_bg">자택전화번호</th>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-input id="HOME_TEL_NUM" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="th_bg">회사전화번호</th>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-input id="OFFICE_TEL_NUM" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
+                                            </td>
+                                            <th scope="row" class="th_bg">FAX번호</th>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-input id="FAX_NUM" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
+                                            </td>
+                                            <th scope="row" class="th_bg">내선번호</th>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-input id="INTER_PHONE" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
+                                            </td>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-checkbox
+                                                        uitype="normal"
+                                                        id="UNION_JOIN_YN"
+                                                        name="UNION_JOIN_YN"
+                                                        uitype="normal"
+                                                        class="form-control input-sm check"
+                                                        text="노조가입"
+                                                />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="th_bg">사내이메일</th>
+                                            <td colspan="3" class="td_input" style="border-right:hidden;">
+                                                <sbux-input id="IN_EMAIL" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
+                                            </td>
+                                            <th scope="row" class="th_bg">사외이메일</th>
+                                            <td colspan="3" class="td_input" style="border-right:hidden;">
+                                                <sbux-input id="OUT_EMAIL" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="th_bg">급여수습종료일</th>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-datepicker
+                                                        uitype="popup"
+                                                        id="TEMP_END_DATE"
+                                                        name="TEMP_END_DATE"
+                                                        date-format="yyyy-mm-dd"
+                                                        class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                                        style="width:100%;"
+                                                />
+                                            </td>
+                                            <th scope="row" class="th_bg">그룹입사일</th>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-datepicker
+                                                        uitype="popup"
+                                                        id="GROUP_ENTER_DATE"
+                                                        name="GROUP_ENTER_DATE"
+                                                        date-format="yyyy-mm-dd"
+                                                        class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                                        style="width:100%;"
+                                                />
+                                            </td>
+                                            <th scope="row" class="th_bg">당사입사일</th>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-datepicker
+                                                        uitype="popup"
+                                                        id="COMP_ENTER_DATE"
+                                                        name="COMP_ENTER_DATE"
+                                                        date-format="yyyy-mm-dd"
+                                                        class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                                        style="width:100%;"
+                                                />
+                                            </td>
+                                            <th scope="row" class="th_bg">승진기준일</th>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-datepicker
+                                                        uitype="popup"
+                                                        id="PROMOTION_BASE_DATE"
+                                                        name="PROMOTION_BASE_DATE"
+                                                        date-format="yyyy-mm-dd"
+                                                        class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                                        style="width:100%;"
+                                                />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="th_bg">퇴사일(최종근무일)</th>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-datepicker
+                                                        uitype="popup"
+                                                        id="RETIRE_DATE"
+                                                        name="RETIRE_DATE"
+                                                        date-format="yyyy-mm-dd"
+                                                        class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                                        style="width:100%;"
+                                                />
+                                            </td>
+                                            <th scope="row" class="th_bg">퇴사사유</th>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-select id="RETIRE_REASON" uitype="single" jsondata-ref="jsonRetireReason" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                            </td>
+                                            <th scope="row" class="th_bg">퇴사사내사유</th>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-select id="RETIRE_IN_REASON" uitype="single" jsondata-ref="jsonRetireInReason" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                            </td>
+                                            <th scope="row" class="th_bg">퇴직기산일</th>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-datepicker
+                                                        uitype="popup"
+                                                        id="RETIRE_BASE_DATE"
+                                                        name="RETIRE_BASE_DATE"
+                                                        date-format="yyyy-mm-dd"
+                                                        class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                                        style="width:100%;"
+                                                />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="th_bg">중간정산일</th>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-datepicker
+                                                        uitype="popup"
+                                                        id="PREMATURE_DATE"
+                                                        name="PREMATURE_DATE"
+                                                        date-format="yyyy-mm-dd"
+                                                        class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                                        style="width:100%;"
+                                                />
+                                            </td>
+                                            <td colspan="2" class="td_input" style="border-right:hidden;">
+                                                <sbux-checkbox
+                                                        uitype="normal"
+                                                        id="RETIRE_PENSION_JOIN_YN"
+                                                        name="RETIRE_PENSION_JOIN_YN"
+                                                        uitype="normal"
+                                                        class="form-control input-sm check"
+                                                        text="퇴직연금(DC형)가입"
+                                                />
+                                            </td>
+                                            <th scope="row" class="th_bg">퇴직연금최종불입일</th>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-datepicker
+                                                        uitype="popup"
+                                                        id="RETIRE_INITIAL_DATE"
+                                                        name="RETIRE_INITIAL_DATE"
+                                                        date-format="yyyy-mm-dd"
+                                                        class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                                        style="width:100%;"
+                                                />
+                                            </td>
+                                            <th scope="row" class="th_bg">퇴직연금(DB형)가입일</th>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-datepicker
+                                                        uitype="popup"
+                                                        id="RET_RENS_ST_DAT"
+                                                        name="RET_RENS_ST_DAT"
+                                                        date-format="yyyy-mm-dd"
+                                                        class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                                        style="width:100%;"
+                                                />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="th_bg">자택근무</th>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-checkbox
+                                                        uitype="normal"
+                                                        id="TELEWORKING_YN"
+                                                        name="TELEWORKING_YN"
+                                                        uitype="normal"
+                                                        class="form-control input-sm check"
+                                                        text="예"
+                                                />
+                                            </td>
+                                            <th scope="row" class="th_bg">자택근무주소</th>
+                                            <td colspan="6" class="td_input" style="border-right:hidden;">
+                                                <sbux-input id="TELEWORKING_ADDRESS" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="th_bg">승급일</th>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-datepicker
+                                                        uitype="popup"
+                                                        id="PROMOTION_DATA"
+                                                        name="PROMOTION_DATA"
+                                                        date-format="yyyy-mm-dd"
+                                                        class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                                        style="width:100%;"
+                                                />
+                                            </td>
+                                            <th scope="row" class="th_bg">비고</th>
+                                            <td colspan="6" class="td_input" style="border-right:hidden;">
+                                                <sbux-input id="EMP_MEMO" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="th_bg">개인정보동의일</th>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-datepicker
+                                                        uitype="popup"
+                                                        id="AGREE_DATE"
+                                                        name="AGREE_DATE"
+                                                        date-format="yyyy-mm-dd"
+                                                        class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                                        style="width:100%;"
+                                                />
+                                            </td>
+                                            <td class="td_input" style="border-right:hidden;">
+                                                <sbux-checkbox
+                                                        uitype="normal"
+                                                        id="AGREE_YN"
+                                                        name="AGREE_YN"
+                                                        uitype="normal"
+                                                        class="form-control input-sm check"
+                                                        text="개인정보동의"
+                                                />
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                                 <div id="tpgMasterSubDetail">주거/생활/신체</div>
                                 <div id="tpgFAMILY">가족사항</div>
                                 <div id="tpgSCHOOL">학력사항</div>
@@ -593,6 +951,9 @@
     var jsonWorkRegion = []; // 근무지
     var jsonEmpType = []; // 사원구분
     var jsonPartnerFirmCode = []; // 협력사
+    var jsonNationCode = []; // 국적
+    var jsonRetireReason = []; // 퇴사사유
+    var jsonRetireInReason = []; // 퇴사사내사유
 
     // Tab Data
     var jsonTabData = [
@@ -663,6 +1024,12 @@
             gfnma_setComSelect(['EMP_TYPE'], jsonEmpType, 'L_HRI008', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 협력사
             gfnma_setComSelect(['PARTNER_FIRM_CODE'], jsonPartnerFirmCode, 'L_HRI065', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 국적
+            gfnma_setComSelect(['NATION_CODE'], jsonNationCode, 'L_COM015_2', '', '', 'NATION_CODE', 'NATION_NAME', 'Y', ''),
+            // 퇴사사유
+            gfnma_setComSelect(['RETIRE_REASON'], jsonRetireReason, 'L_HRI013', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 퇴사사내사유
+            gfnma_setComSelect(['RETIRE_IN_REASON'], jsonRetireInReason, 'L_HRI041_02', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         ]);
     }
 
