@@ -220,6 +220,10 @@ public class SpmtPrfmncVO extends ComVO {
 	 */
 	private String gdsGrd;
 	/**
+	 * 등급코드
+	 */
+	private String grdCd;
+	/**
 	 * 상품등급먕
 	 */
 	private String gdsGrdNm;

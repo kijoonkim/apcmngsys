@@ -225,27 +225,23 @@
             font-family: 'Font Awesome 5 Free';
             text-align: center;
         }
-        .tooltip{
-            border: 1px solid #ccc;
-            padding: 5px;
+        #invntrTable{
+            border: 14px solid black;
         }
-        .tooltip::after{
-            content: attr(title);
-            position: absolute;
-            bottom: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #fff;
-            color: #333;
-            border: 1px solid #ccc;
-            padding: 5px 10px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            opcity: 0;
-            transition: opacity 0.3s ease;
+
+        #invntrTable thead tr th{
+            font-size: 3vh;
+            text-align: center;
+            background-color: #255c91;
+            color: white;
         }
-        .tooltip:hover::after{
-            opacity: 1;
+        #invntrTable td{
+            text-align: center;
+            font-size: 1vw;
+        }
+        #invntrTable tbody tr:hover td{
+            background-color: #84afff;
+            color: white;
         }
 
 
@@ -427,7 +423,7 @@
 <%--                </div>--%>
             </div>
             <hr>
-            <div>
+            <div style="overflow: hidden">
                 <table id="reg_table">
                     <colgroup>
                         <col style="width: 20%">
@@ -459,15 +455,16 @@
                     </tr>
 
                     </thead>
-                    <tbody>
+                    <tbody style="overflow-y: scroll">
                     <tr>
                         <td>
                             <div style="display: flex">
-                                <div style="flex: 2; font-family: 'Font Awesome 5 Free';margin-right: 10px">
-                                    <input type="text" onchange="fn_onChangesortGds(this)" />
+                                <div style="flex: 2; font-family: 'Font Awesome 5 Free';margin-right: 10px;position: relative">
+                                    <input type="number" onChange="fn_onChangesortGds(this)"/>
+                                    <span onclick="fn_searchInvntrQntt(this)" style="position: absolute;top: 6px;left: 210px" class='glyphicon sbux-inp-icon glyphicon-search'></span>
                                 </div>
                                 <div style="flex: 1; font-family: 'Font Awesome 5 Free';">
-                                    <input type="text" onchange="fn_onChangePrdcr(this)" />
+                                    <input type="number" onchange="fn_onChangePrdcr(this)" />
                                 </div>
                             </div>
                         </td>
@@ -487,13 +484,13 @@
                             </div>
                         </td>
                         <td>
-                            <input type="number" class="qnttInp"/>
+                            <input type="number" class="qnttInp" onchange="fn_onchangeQntt(this)"/>
                         </td>
                         <td>
-                            <input type="number" class="qnttInp"/>
+                            <input type="number" class="qnttInp" onchange="fn_onchangeQntt(this)"/>
                         </td>
                         <td>
-                            <input type="number" class="qnttInp"/>
+                            <input type="number" class="qnttInp" onchange="fn_onchangeQntt(this)"/>
                         </td>
                         <td>
                             <input readonly />
@@ -669,6 +666,9 @@
         </table>
     </div>
 </div>
+<sbux-modal id="searchQntt" name="searchQntt" uitype="large" header-title="상품재고조회"
+            dlg-class="sbuxClass">
+</sbux-modal>
 </body>
 <script type="text/javascript">
     /** 품목 json **/
@@ -679,8 +679,8 @@
     jsonApcCnpt = [];
 
     /** 생산자 자동완성 **/
-    let jsonPrdcr				= [];
-    let jsonPrdcrAutocomplete 	= [];
+    let jsonPrdcr = [];
+    let jsonPrdcrAutocomplete = [];
     /** 선별등급 **/
     jsonGdsSeCd = []
     jsonGdsGrd = []
@@ -691,47 +691,104 @@
     jsonNewGdsGrd = [];
     /** 재고 임시 json **/
     let tempJson = [];
+    let prdcrTempJson = [];
+    let mapInvntQntt = new Map();
+    /** 최종 저장용 JSON **/
+    let saveRegSpmtJson = [];
+    /** 등록 테이블 EL **/
+    let regTableEl =
+    `<tr>
+        <td>
+            <div style="display: flex">
+                <div style="flex: 2; font-family: 'Font Awesome 5 Free';margin-right: 10px;position: relative">
+                    <input type="number" onChange="fn_onChangesortGds(this)"/>
+                    <span onclick="fn_searchInvntrQntt(this)" style="position: absolute;top: 6px;left: 210px" class='glyphicon sbux-inp-icon glyphicon-search'></span>
+                </div>
+                <div style="flex: 1; font-family: 'Font Awesome 5 Free';">
+                    <input type="number" onChange="fn_onChangePrdcr(this)"/>
+                </div>
+            </div>
+        </td>
+        <td>
+            <div style="font-family: 'Font Awesome 5 Free';">
+                <input type="text"/>
+            </div>
+        </td>
+        <td>
+            <div style="font-family: 'Font Awesome 5 Free';">
+                <input type="text"/>
+            </div>
+        </td>
+        <td>
+            <div style="font-family: 'Font Awesome 5 Free';">
+                <input type="text"/>
+            </div>
+        </td>
+        <td>
+            <input type="number" class="qnttInp" onchange="fn_onchangeQntt(this)"/>
+        </td>
+        <td>
+            <input type="number" class="qnttInp" onchange="fn_onchangeQntt(this)"/>
+        </td>
+        <td>
+            <input type="number" class="qnttInp" onchange="fn_onchangeQntt(this)"/>
+        </td>
+        <td>
+            <input readOnly/>
+        </td>
+        <td>
+            <input readOnly/>
+        </td>
+        <td>
+            <input/>
+        </td>
+    </tr>`
 
 
-    window.document.addEventListener("DOMContentLoaded",function(){
-        $("#dtl-inp-spmtYmd").val(gfn_dateToYmd(new Date(),'-'));
+    window.document.addEventListener("DOMContentLoaded", function () {
+        $("#dtl-inp-spmtYmd").val(gfn_dateToYmd(new Date(), '-'));
         let promise = Promise.all([
-            gfn_setCpntRgnSBSelect('dtl-dtp-cnpt',jsonApcCnpt, gv_selectedApcCd),       // 거래처
+            gfn_setCpntRgnSBSelect('dtl-dtp-cnpt', jsonApcCnpt, gv_selectedApcCd),       // 거래처
             gfn_setApcItemSBSelect('srch-slt-itemCd', jsonApcItem, gv_selectedApcCd),	// 품목
             gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd),	// 품종
             gfn_setApcItemSBSelect('srch-mod-itemCd', jsonApcItem, gv_selectedApcCd),	// 품목
             gfn_setApcVrtySBSelect('srch-mod-vrtyCd', jsonApcVrty, gv_selectedApcCd),	// 품종
-            gfn_setComCdSBSelect("srch-mod-gdsSeCd",jsonGdsSeCd,'SORT_GRD', gv_selectedApcCd),
+            gfn_setComCdSBSelect("srch-mod-gdsSeCd", jsonGdsSeCd, 'SORT_GRD', gv_selectedApcCd),
             fn_search()
         ]);
-        $(".qnttInp").on('focus',fn_showInvntQntt.bind(this));
+        $(".qnttInp").on('focus', fn_showInvntQntt.bind(this));
+        $(".qnttInp").on('blur', () => {
+                $("#invntQnttEl").remove();
+        });
+        /** main.jsp msg push**/
+        window.parent.postMessage("sideMenuOff", "*");
 
     });
     /** 거래처 json 조회 **/
-        const fn_set_cnpt = async function(){
+    const fn_set_cnpt = async function () {
         let apcCd = gv_apcCd;
         let postJsonPromise = gfn_postJSON("/am/cmns/selectCnptList.do", {
-            apcCd : apcCd,
+            apcCd: apcCd,
         });
         let data = await postJsonPromise;
-        if(data.resultStatus == "S"){
+        if (data.resultStatus == "S") {
             $("#dtl-dtp-cnpt").empty();
-            data.resultList.forEach(function(item){
+            data.resultList.forEach(function (item) {
                 let cnptNm = "<option>" + item.cnptNm + "</option>"
                 $("#dtl-dtp-cnpt").append(cnptNm);
             });
         }
     }
 
-    const fn_showOption = function(obj){
+    const fn_showOption = function (obj) {
         let test = document.getElementById("_" + obj.id);
         let display = test.style.display;
-        if(display == 'none'){
+        if (display == 'none') {
             test.style.display = 'block';
             test.style.animation = 'slideDown 0.5s ease-out';
-        }else{
+        } else {
             test.style.animation = 'slideUp 0.5s ease-out';
-            setTimeout(function() {
+            setTimeout(function () {
                 test.style.display = 'none';
             }, 400);
         }
@@ -754,34 +811,34 @@
             return;
         }
         /** 품목 변경 **/
-        await SBUxMethod.set("srch-mod-itemCd",itemCd);
-        await gfn_setApcVrtySBSelect('srch-mod-vrtyCd', jsonApcVrty, gv_selectedApcCd,itemCd);	// 품종
+        await SBUxMethod.set("srch-mod-itemCd", itemCd);
+        await gfn_setApcVrtySBSelect('srch-mod-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd);	// 품종
         /** 품종 변경 **/
-        if(!gfn_isEmpty(vrtyCd)){
-            SBUxMethod.set("srch-mod-vrtyCd",vrtyCd);
+        if (!gfn_isEmpty(vrtyCd)) {
+            SBUxMethod.set("srch-mod-vrtyCd", vrtyCd);
         }
 
         jsonGdsSeCd.length = 0;
         jsonGdsGrd.length = 0;
         let gdsSeCd = await gfn_getStdGrdDtls(gv_apcCd, "02", itemCd);
-        gdsSeCd.forEach(function(item){
-            jsonGdsSeCd.push({text:item.grdNm, value:item.grdCd});
+        gdsSeCd.forEach(function (item) {
+            jsonGdsSeCd.push({text: item.grdNm, value: item.grdCd});
         });
 
         let gdsGrd = await gfn_getStdGrdDtls(gv_apcCd, "02", itemCd);
-        gdsGrd.forEach(function(item){
-            jsonGdsGrd.push({text:item.grdNm,value:item.grdCd});
+        gdsGrd.forEach(function (item) {
+            jsonGdsGrd.push({text: item.grdNm, value: item.grdCd});
         });
-        await gfn_setApcSpcfctsSBSelect("srch-mod-spcfct", jsonSpcfct, gv_apcCd ,itemCd);
+        await gfn_setApcSpcfctsSBSelect("srch-mod-spcfct", jsonSpcfct, gv_apcCd, itemCd);
 
         SBUxMethod.refresh("srch-mod-gdsSeCd");
         SBUxMethod.refresh("srch-mod-gdsGrd");
 
     }
     /** 재고조회 **/
-    const fn_search = async function(){
-        let pckgYmdFrom = $("#srch-mod-pckgYmdFrom").val().replaceAll("-",'');
-        let pckgYmdTo = $("#srch-mod-pckgYmdTo").val().replaceAll("-",'');
+    const fn_search = async function () {
+        let pckgYmdFrom = $("#srch-mod-pckgYmdFrom").val().replaceAll("-", '');
+        let pckgYmdTo = $("#srch-mod-pckgYmdTo").val().replaceAll("-", '');
         let itemCd = SBUxMethod.get("srch-mod-itemCd");
         let vrtyCd = SBUxMethod.get("srch-mod-vrtyCd");
         let prdcrCd = SBUxMethod.get('srch-mod-prdcrCd');
@@ -795,49 +852,25 @@
         //     return false;
         // }
 
-        try{
-        const postJsonPromise = gfn_postJSON("/am/invntr/selectSortGdsInvntrList.do", {
-            apcCd			: gv_selectedApcCd,
-            pckgYmdFrom		: pckgYmdFrom,
-            pckgYmdTo		: pckgYmdTo,
-            itemCd			: itemCd,
-            vrtyCd			: vrtyCd,
-            prdcr         : prdcrCd,
-            spcfctCd          : spcfct,
-            gdsSeCd 		: gdsSeCd,
-            gdsGrd          : gdsGrd
-        });
-        const data = await postJsonPromise;
-        console.log(data);
-        jsonNewGdsGrd = data.resultList;
-        $("#invnt_table tbody").empty();
-        data.resultList.forEach(function(item){
-           let el = `<tr onclick="fn_select(this)" style="cursor:pointer">
-                        <td id="itemNm">`+item.itemNm+`</td>
-                        <td id="vrtyNm">`+item.vrtyNm+`</td>
-                        <td id="sortGrdNm">`+item.sortGrdNm+`</td>
-                        <td id="prdcrNm">`+item.prdcrNm+`</td>
-                        <td id="prdcr">`+item.prdcr+`</td>
-                        <td id="spmtPckgUnitNm">`+item.spmtPckgUnitNm+`</td>
-                        <td id="invntrQntt">`+item.invntrQntt+`</td>
-                        <td id="invntrWght">`+item.invntrWght+`</td>
-                        <td id="gdsGrdNm">`+item.gdsGrdNm+`</td>
+        try {
+            const postJsonPromise = gfn_postJSON("/am/cmns/selectGrdNmList.do", {
+                apcCd: gv_selectedApcCd,
+                grdSeCd : '02'
+            });
+            const data = await postJsonPromise;
 
-                        <td id="itemCd" style="display: none">`+item.itemCd+`</td>
-                        <td id="sortGrdCd" style="display: none">`+item.sortGrdCd+`</td>
-                        <td id="spmtPckgUnitCd" style="display: none">`+item.spmtPckgUnitCd+`</td>
-                        <td id="vrtyCd" style="display: none">`+item.vrtyCd+`</td>
-                        <td id="gdsCd" style="display: none">`+item.gdsCd+`</td>
-                        <td id="gdsGrd" style="display: none">`+item.gdsGrd+`</td>
-
-                        <td id="spcfctNm" style="display: none">`+item.spcfctNm+`</td>
-                        <td id="spcfctCd" style="display: none">`+item.spcfctCd+`</td>
-                     </tr>`
-            $("#invnt_table tbody").append(el);
-        });
+            data.resultList.forEach(function(item){
+               for(let key in item){
+                   if(item[key] == null){
+                       delete item[key];
+                   }
+               }
+            });
+            jsonNewGdsGrd = data.resultList;
 
 
-        }catch (e) {
+
+        } catch (e) {
             if (!(e instanceof Error)) {
                 e = new Error(e);
             }
@@ -846,35 +879,35 @@
         }
     }
     /** 재고 선택 **/
-    const fn_select = function(el){
+    const fn_select = function (el) {
         let rowObj = {};
         let invntData = $(el).find('td');
-        invntData.each(function(){
+        invntData.each(function () {
             var key = $(this).attr('id');
             var value = $(this).text();
             rowObj[key] = value;
         });
         fn_popup();
 
-        SBUxMethod.set("srch-slt-sortGrdCd",rowObj.sortGrdNm);
-        SBUxMethod.attr("srch-slt-sortGrdCd",'readonly','true');
-        SBUxMethod.set("srch-slt-prdcrNm",rowObj.prdcr);
-        SBUxMethod.attr("srch-slt-prdcrNm",'readonly','true');
-        SBUxMethod.set("srch-slt-gdsGrdNm",rowObj.gdsGrdNm);
-        SBUxMethod.attr("srch-slt-gdsGrdNm",'readonly','true');
-        SBUxMethod.set("srch-slt-vrtyCd",rowObj.vrtyCd);
-        SBUxMethod.set("srch-slt-gdsGrd",rowObj.gdsGrd);
+        SBUxMethod.set("srch-slt-sortGrdCd", rowObj.sortGrdNm);
+        SBUxMethod.attr("srch-slt-sortGrdCd", 'readonly', 'true');
+        SBUxMethod.set("srch-slt-prdcrNm", rowObj.prdcr);
+        SBUxMethod.attr("srch-slt-prdcrNm", 'readonly', 'true');
+        SBUxMethod.set("srch-slt-gdsGrdNm", rowObj.gdsGrdNm);
+        SBUxMethod.attr("srch-slt-gdsGrdNm", 'readonly', 'true');
+        SBUxMethod.set("srch-slt-vrtyCd", rowObj.vrtyCd);
+        SBUxMethod.set("srch-slt-gdsGrd", rowObj.gdsGrd);
 
         let invntrQntt = parseInt(rowObj.invntrQntt);
 
         let jsonKey = rowObj.itemCd + rowObj.vrtyCd + rowObj.sortGrdCd;
-        if(jsonRegTableData.hasOwnProperty(jsonKey)){
+        if (jsonRegTableData.hasOwnProperty(jsonKey)) {
             let el = jsonRegTableData[jsonKey];
-            el.forEach(function(item){
-               if(item.gdsGrd ==rowObj.gdsGrd){
-                   let gdsKey = 'gdsGrd'+ item.gdsGrd;
-                   invntrQntt = parseInt(item.invntrQntt)-parseInt(item[gdsKey]);
-               }
+            el.forEach(function (item) {
+                if (item.gdsGrd == rowObj.gdsGrd) {
+                    let gdsKey = 'gdsGrd' + item.gdsGrd;
+                    invntrQntt = parseInt(item.invntrQntt) - parseInt(item[gdsKey]);
+                }
             });
         }
 
@@ -888,15 +921,16 @@
      * @name fn_onInputPrdcrNm
      * @description 생산자명 입력 시 event : autocomplete
      */
-    const fn_onInputPrdcrNm = function(prdcrNm){
+    const fn_onInputPrdcrNm = function (prdcrNm) {
         fn_clearPrdcr();
-        if(getByteLengthOfString(prdcrNm.target.value) > 100){
+        if (getByteLengthOfString(prdcrNm.target.value) > 100) {
             SBUxMethod.set("srch-inp-prdcrNm", "");
             return;
         }
         jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm.target.value, jsonPrdcr);
         SBUxMethod.changeAutocompleteData('srch-inp-prdcrNm', true);
     }
+
     /**
      * @name fn_onSelectPrdcrNm
      * @description 생산자 autocomplete 선택 callback
@@ -907,18 +941,19 @@
         let prdcr = _.find(jsonPrdcr, {prdcrCd: value});
         fn_setPrdcrForm(prdcr);
     }
+
     /**
      * @name fn_choicePrdcr
      * @description 생산자 선택 popup 호출
      */
-    const fn_choicePrdcr = function() {
+    const fn_choicePrdcr = function () {
         popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr, SBUxMethod.get("srch-inp-prdcrNm"));
     }
     /**
      * @name fn_setPrdcr
      * @description 생산자 선택 popup callback 처리
      */
-    const fn_setPrdcr = async function(prdcr) {
+    const fn_setPrdcr = async function (prdcr) {
         SBUxMethod.set("srch-inp-wrhsno", "");
         await fn_getPrdcrs();
 
@@ -932,7 +967,7 @@
      * @name fn_getPrdcrs
      * @description 생산자 자동완성 JSON 설정
      */
-    const fn_getPrdcrs = async function() {
+    const fn_getPrdcrs = async function () {
         jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
         jsonPrdcr = gfn_setFrst(jsonPrdcr);
     }
@@ -940,15 +975,15 @@
      * @name fn_onChangeSrchItemCd
      * @description 품목 변경시 품종 set
      */
-    const fn_onChangeSrchItemCd = async function(obj) {
-        let elId = obj.id.substring(0,9);
+    const fn_onChangeSrchItemCd = async function (obj) {
+        let elId = obj.id.substring(0, 9);
         let itemCd = obj.value;
-        await gfn_setApcVrtySBSelect(elId + 'vrtyCd', jsonApcVrty, gv_selectedApcCd,itemCd);	// 품종
+        await gfn_setApcVrtySBSelect(elId + 'vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd);	// 품종
 
-        SBUxMethod.set("srch-slt-sortGrdCd","");
-        SBUxMethod.set("srch-slt-prdcrNm","");
-        SBUxMethod.set("srch-slt-gdsGrdNm","");
-        SBUxMethod.set("srch-slt-gdsGrdCd","");
+        SBUxMethod.set("srch-slt-sortGrdCd", "");
+        SBUxMethod.set("srch-slt-prdcrNm", "");
+        SBUxMethod.set("srch-slt-gdsGrdNm", "");
+        SBUxMethod.set("srch-slt-gdsGrdCd", "");
         $("#srch-slt-invntrQntt").val('');
         $("#invntrQntt").text("");
     }
@@ -957,36 +992,36 @@
      * @name fn_refreshReg
      * @description 실제 저장되는 데이터 JSON
      */
-    const fn_refreshReg = async function(_arr){
+    const fn_refreshReg = async function (_arr) {
         $("#reg_table tbody").empty();
-        if(!gfn_isEmpty(_arr)){
-             jsonRegTableData = _arr.reduce((acc,curr) => {
-                 let flag = false;
-                 let curKey = 'gdsGrd' + curr.gdsGrd;
-                 let spmtQntt = parseInt(curr.spmtQntt);
-                 let itemVrtyKey = curr.itemCd + curr.vrtyCd+curr.sortGrdCd;
+        if (!gfn_isEmpty(_arr)) {
+            jsonRegTableData = _arr.reduce((acc, curr) => {
+                let flag = false;
+                let curKey = 'gdsGrd' + curr.gdsGrd;
+                let spmtQntt = parseInt(curr.spmtQntt);
+                let itemVrtyKey = curr.itemCd + curr.vrtyCd + curr.sortGrdCd;
 
-                 /** 1depth true **/
-                for(let key in acc){
-                    if(key == itemVrtyKey){
-                        acc[itemVrtyKey].forEach(function(item){
-                           if(item.gdsGrd == curr.gdsGrd && item.sortGrdCd == curr.sortGrdCd) flag = true;
+                /** 1depth true **/
+                for (let key in acc) {
+                    if (key == itemVrtyKey) {
+                        acc[itemVrtyKey].forEach(function (item) {
+                            if (item.gdsGrd == curr.gdsGrd && item.sortGrdCd == curr.sortGrdCd) flag = true;
                         });
                     }
                 }
 
-                if(flag){
-                    acc[itemVrtyKey].forEach(function(item){
-                        if(item.hasOwnProperty(curKey)){
+                if (flag) {
+                    acc[itemVrtyKey].forEach(function (item) {
+                        if (item.hasOwnProperty(curKey)) {
                             item[curKey] += spmtQntt;
                         }
                     });
-                }else{
+                } else {
                     const newObj = {
-                        [curKey] : spmtQntt,
+                        [curKey]: spmtQntt,
                         ...curr,
                     };
-                    if(!acc.hasOwnProperty(itemVrtyKey)){
+                    if (!acc.hasOwnProperty(itemVrtyKey)) {
                         acc[itemVrtyKey] = [];
                     }
                     acc[itemVrtyKey].push(newObj);
@@ -994,53 +1029,53 @@
                 }
                 return acc;
 
-            },jsonRegTableData);
-            for(let key in jsonRegTableData){
+            }, jsonRegTableData);
+            for (let key in jsonRegTableData) {
                 let item = jsonRegTableData[key];
-                    let gdsGrd01 = "";
-                    let gdsGrd02 = "";
-                    let gdsGrd03 = "";
-                    let sum = 0;
-                    item.forEach(function(el){
-                        let key = 'gdsGrd' + el.gdsGrd;
-                        sum += el[key];
-                        key =='gdsGrd01' ? gdsGrd01 = el[key] : key =='gdsGrd02' ? gdsGrd02 = el[key] : gdsGrd03 = el[key]
-                    });
+                let gdsGrd01 = "";
+                let gdsGrd02 = "";
+                let gdsGrd03 = "";
+                let sum = 0;
+                item.forEach(function (el) {
+                    let key = 'gdsGrd' + el.gdsGrd;
+                    sum += el[key];
+                    key == 'gdsGrd01' ? gdsGrd01 = el[key] : key == 'gdsGrd02' ? gdsGrd02 = el[key] : gdsGrd03 = el[key]
+                });
 
-                    $("#reg_table tbody").append(
-                `<tr>
+                $("#reg_table tbody").append(
+                    `<tr>
                     <td>
                         <div style="display: flex">
-                            <div style="flex: 2; border: 1px solid #bbc4d1;font-family: 'Font Awesome 5 Free';margin-right: 10px">`+item[0].sortGrdNm+`</div>
-                            <div style="flex: 1; border: 1px solid #bbc4d1;font-family: 'Font Awesome 5 Free';">`+item[0].prdcr+`</div>
+                            <div style="flex: 2; border: 1px solid #bbc4d1;font-family: 'Font Awesome 5 Free';margin-right: 10px">` + item[0].sortGrdNm + `</div>
+                            <div style="flex: 1; border: 1px solid #bbc4d1;font-family: 'Font Awesome 5 Free';">` + item[0].prdcr + `</div>
                         </div>
                     </td>
                     <td>
-                        <div style="border: 1px solid #bbc4d1;font-family: 'Font Awesome 5 Free';">`+item[0].itemNm+`</div>
+                        <div style="border: 1px solid #bbc4d1;font-family: 'Font Awesome 5 Free';">` + item[0].itemNm + `</div>
                     </td>
                     <td>
-                        <div style="border: 1px solid #bbc4d1;font-family: 'Font Awesome 5 Free';">`+item[0].spcfctNm+`</div>
+                        <div style="border: 1px solid #bbc4d1;font-family: 'Font Awesome 5 Free';">` + item[0].spcfctNm + `</div>
                     </td>
                     <td>
-                        <input type="number" jsonRef="`+key+`" gdsGrd="01" value="`+(gdsGrd01 != "" ? parseInt(gdsGrd01):"")+`" onchange="fn_updateQntt(this,this.value)"`+(gdsGrd01 != "" ? "":"readonly")+`/>
+                        <input type="number" jsonRef="` + key + `" gdsGrd="01" value="` + (gdsGrd01 != "" ? parseInt(gdsGrd01) : "") + `" onchange="fn_updateQntt(this,this.value)"` + (gdsGrd01 != "" ? "" : "readonly") + `/>
                     </td>
                     <td>
-                        <input type="number" jsonRef="`+key+`" gdsGrd="02" value="`+(gdsGrd02 != "" ? parseInt(gdsGrd02):"")+`" onchange="fn_updateQntt(this,this.value)" `+(gdsGrd02 != "" ? "":"readonly")+`/>
+                        <input type="number" jsonRef="` + key + `" gdsGrd="02" value="` + (gdsGrd02 != "" ? parseInt(gdsGrd02) : "") + `" onchange="fn_updateQntt(this,this.value)" ` + (gdsGrd02 != "" ? "" : "readonly") + `/>
                     </td>
                     <td>
-                        <input type="number" jsonRef="`+key+`" gdsGrd="03" value="`+(gdsGrd03 != "" ? parseInt(gdsGrd03):"")+`" onchange="fn_updateQntt(this,this.value)" `+(gdsGrd03 != "" ? "":"readonly")+`/>
+                        <input type="number" jsonRef="` + key + `" gdsGrd="03" value="` + (gdsGrd03 != "" ? parseInt(gdsGrd03) : "") + `" onchange="fn_updateQntt(this,this.value)" ` + (gdsGrd03 != "" ? "" : "readonly") + `/>
                     </td>
                     <td>
                         <input readonly />
                     </td>
                     <td>
-                        <input value="`+sum+`" readonly/>
+                        <input value="` + sum + `" readonly/>
                     </td>
                     <td>
                         <input/>
                     </td>
                 </tr>`
-                    )
+                )
             }
         }
 
@@ -1050,9 +1085,9 @@
      * @name fn_valiQntt
      * @description 수량입력시 재고 허용가능여부
      */
-    const fn_valiQntt = function(qntt){
+    const fn_valiQntt = function (qntt) {
         let maxQntt = parseInt($("#invntrQntt").text());
-        if(qntt > maxQntt){
+        if (qntt > maxQntt) {
 
         }
     }
@@ -1063,23 +1098,23 @@
     //TODO: 여기서 뭔가 포맷팅을 다해야하는데 특상보통의 합계와 현재 등록하는 상품이 존재하는지에대하여..
     /** 포맷은 jsonRegTableData에 다 밀어넣고 테이블이 실질적으로 렌더링될때는 저 객체배열만을 참조하게
      * result >> 다 떄려박고 테이블 렌더링할때 정의 하는걸로**/
-    const fn_regSpmtSave =function(){
+    const fn_regSpmtSave = function () {
         let spmtQntt = $("#srch-slt-invntrQntt").val();
-        if(gfn_isEmpty(spmtQntt)){
+        if (gfn_isEmpty(spmtQntt)) {
             gfn_comAlert("W0002", "수량");
             return;
         }
         let qnt = parseInt($("#invntrQntt").text());
-        if(qnt - spmtQntt < 0){
+        if (qnt - spmtQntt < 0) {
             gfn_comAlert("W0017", "수량");
             return;
         }
         let grdCd = SBUxMethod.get('srch-slt-sortGrdCd');
-        if(gfn_isEmpty(grdCd)){
+        if (gfn_isEmpty(grdCd)) {
             gfn_comAlert("W0002", "출하번호");
             return;
         }
-        $("#invntrQntt").text(qnt-spmtQntt);
+        $("#invntrQntt").text(qnt - spmtQntt);
 
         jsonTepObj.spmtQntt = spmtQntt;
 
@@ -1096,7 +1131,7 @@
      * @name fn_updateQntt
      * @description 수량입력후 수정
      */
-    const fn_updateQntt = function(_el,_val){
+    const fn_updateQntt = function (_el, _val) {
         let jsonRef = _el.getAttribute("jsonRef");
         let gdsGrd = _el.getAttribute("gdsGrd");
 
@@ -1104,19 +1139,19 @@
         let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
         let grdCd = SBUxMethod.get("srch-slt-sortGrdCd");
 
-        if(jsonRegTableData.hasOwnProperty(jsonRef)){
+        if (jsonRegTableData.hasOwnProperty(jsonRef)) {
             let jsonEl = jsonRegTableData[jsonRef];
-            jsonEl.forEach(function(item){
-                if(item.gdsGrd == gdsGrd){
+            jsonEl.forEach(function (item) {
+                if (item.gdsGrd == gdsGrd) {
                     let key = "gdsGrd" + gdsGrd;
-                    if(parseInt(item.invntrQntt) < parseInt(_val)){
+                    if (parseInt(item.invntrQntt) < parseInt(_val)) {
                         gfn_comAlert("W0017", "수량");
                         let originQntt = item[key];
                         _el.value = originQntt;
                         return;
                     }
                     item[key] = parseInt(_val);
-                    if(item.itemCd == itemCd && item.vrtyCd == vrtyCd && item.sortGrdNm == grdCd){
+                    if (item.itemCd == itemCd && item.vrtyCd == vrtyCd && item.sortGrdNm == grdCd) {
                         let invntrQntt = parseInt(item.invntrQntt) - parseInt(item[key]);
                         $("#invntrQntt").text(invntrQntt);
                     }
@@ -1128,29 +1163,29 @@
      * @name fn_updateInvtr
      * @description 수량입력후 수정
      */
-    const fn_updateInvtr = function(obj = null){
+    const fn_updateInvtr = function (obj = null) {
 
         /** obj == 직접 수정한 rowData **/
 
-        if(!gfn_isEmpty(obj)){
-            jsonRegTableData.forEach(function(item){
-               if(item.itemCd == obj.itemCd && item.vrtyCd == obj.vrtyCd){
-                   for(let key in obj){
-                    if(key.startsWith("gdsGrd")){
-                     item[key] = parseInt(obj[key]);
+        if (!gfn_isEmpty(obj)) {
+            jsonRegTableData.forEach(function (item) {
+                if (item.itemCd == obj.itemCd && item.vrtyCd == obj.vrtyCd) {
+                    for (let key in obj) {
+                        if (key.startsWith("gdsGrd")) {
+                            item[key] = parseInt(obj[key]);
 
-                    /** 현재 선택된 재고가 직접 수정한 재고와 같은 상품일경우 재고 변경처리. **/
+                            /** 현재 선택된 재고가 직접 수정한 재고와 같은 상품일경우 재고 변경처리. **/
 
-                    if(obj.itemCd == itemCd && obj.vrtyCd == vrtyCd){
-                        let invtrQntt = parseInt($("#invntrQntt").text())-parseInt(obj[key]);
-                        $("#invntrQntt").text(invtrQntt);
+                            if (obj.itemCd == itemCd && obj.vrtyCd == vrtyCd) {
+                                let invtrQntt = parseInt($("#invntrQntt").text()) - parseInt(obj[key]);
+                                $("#invntrQntt").text(invtrQntt);
+                            }
                         }
-                     }
-                   }
-               }
+                    }
+                }
             });
 
-        }else{
+        } else {
             /** 등록 버튼으로 인한 재고 반영 **/
         }
 
@@ -1161,20 +1196,20 @@
      * @name fn_sumQntt
      * @description row 수량 등록시 합계 연산
      */
-    const fn_sumQntt = function(_tr){
+    const fn_sumQntt = function (_tr) {
     }
     /**
      * @name fn_reset
      * @description 초기화 버튼
      */
-    const fn_reset = function(){
-        SBUxMethod.set("dtl-dtp-cnpt","");
-        SBUxMethod.set("srch-slt-itemCd","");
-        SBUxMethod.set("srch-slt-vrtyCd","");
-        SBUxMethod.set("srch-slt-sortGrdCd","");
-        SBUxMethod.set("srch-slt-prdcrNm","");
-        SBUxMethod.set("srch-slt-gdsGrdNm","");
-        SBUxMethod.set("srch-slt-gdsGrdCd","");
+    const fn_reset = function () {
+        SBUxMethod.set("dtl-dtp-cnpt", "");
+        SBUxMethod.set("srch-slt-itemCd", "");
+        SBUxMethod.set("srch-slt-vrtyCd", "");
+        SBUxMethod.set("srch-slt-sortGrdCd", "");
+        SBUxMethod.set("srch-slt-prdcrNm", "");
+        SBUxMethod.set("srch-slt-gdsGrdNm", "");
+        SBUxMethod.set("srch-slt-gdsGrdCd", "");
         $("#srch-slt-invntrQntt").val('');
         $("#invntrQntt").text("");
 
@@ -1185,99 +1220,354 @@
      * @name fn_onchangeCnpt
      * @description 거래처 변경
      */
-    const fn_onchangeCnpt = async function(){
+    const fn_onchangeCnpt = async function () {
         let val = SBUxMethod.get("dtl-dtp-cnpt");
-        let jsonSelectCnpt = jsonApcCnpt.filter(function(item){
+        let jsonSelectCnpt = jsonApcCnpt.filter(function (item) {
             return item.cmnsCd == val;
         });
         let dlngShapCd = await gfn_getComCdDtls("DLNG_SHAP_CD");
         let dlngMthdCd = await gfn_getComCdDtls("DLNG_MTHD_CD");
 
-        if(jsonSelectCnpt.length != 0){
-        dlngShapCd = dlngShapCd.filter(function(item){
-           return item.cdVl ==  jsonSelectCnpt[0].dlngShapCd;
-        });
-        dlngMthdCd = dlngMthdCd.filter(function(item){
-            return item.cdVl ==  jsonSelectCnpt[0].dlngMthdCd;
-        });
-        $("#dlngShapCd").text(dlngShapCd[0].cdVlNm);
-        $("#dlngMthdCd").text(dlngMthdCd[0].cdVlNm);
+        if (jsonSelectCnpt.length != 0) {
+            dlngShapCd = dlngShapCd.filter(function (item) {
+                return item.cdVl == jsonSelectCnpt[0].dlngShapCd;
+            });
+            dlngMthdCd = dlngMthdCd.filter(function (item) {
+                return item.cdVl == jsonSelectCnpt[0].dlngMthdCd;
+            });
+            $("#dlngShapCd").text(dlngShapCd[0].cdVlNm);
+            $("#dlngMthdCd").text(dlngMthdCd[0].cdVlNm);
         }
     }
-    const fn_onChangesortGds = function(_el){
+    /** 출하번호 입력시 품목, 품종,단량 셋팅 및 생산자번호 선입력시 재고 셋팅 **/
+    const fn_onChangesortGds = function (_el) {
         let _val = _el.value;
         let parentTr = $(_el).closest('tr');
+        let lastInput = parentTr.children(':last');
+        lastInput.find("input").eq(0).attr('type') == "hidden" ? lastInput.remove():"";
 
-        console.log(parentTr);
-        jsonNewGdsGrd.forEach(function(item){
-            for(let key in item){
-                if(item[key] === null){
+        let _prdcr =$(_el).parent().next('div').children();
+        _prdcr.val('');
+        $(_prdcr).attr("type", "number");
+        $(_prdcr).attr("readonly", false);
+        $(_prdcr).css("color", "initial");
+        $(_prdcr).css("background-color", "initial");
+        $(_prdcr).val("");
+        // let _prdcr = $(_el).parent().next('div').children().val();
+
+        jsonNewGdsGrd.forEach(function (item) {
+            for (let key in item) {
+                if (item[key] === null) {
                     delete item[key];
                 }
             }
         });
 
-        console.log(jsonNewGdsGrd,"깔끔");
-
-        tempJson = jsonNewGdsGrd.filter(function(item,idx){
-            try{
-                if(item.hasOwnProperty("sortGrdNm")){
-                    return item.sortGrdNm.includes(_val);
-                }else{
-                    return;
-                }
-
-            }catch (e){
-                console.log(e,idx);
-            }
-
+        tempJson = jsonNewGdsGrd.filter(function (item) {
+            return item.grdNm.includes(_val);
         });
 
-        /** 품목 단량 세팅 0번 인덱스로 없으면 어쩌지? **/
-        parentTr.children().eq(1).find('input').val(tempJson[0].itemNm);
-        parentTr.children().eq(2).find('input').val(tempJson[0].vrtyNm);
-        parentTr.children().eq(3).find('input').val(tempJson[0].spcfctNm);
-        // console.log(parentTr.children(3));
-        // console.log(parentTr.children(3).find("input"));
-    }
+        let rowData = JSON.stringify(tempJson[0]);
+        parentTr.append(`<td><input type="hidden" value='`+rowData+`' /></td>`);
 
-    const fn_onChangePrdcr = function(_el){
-        console.log(_el);
+        if (tempJson.length == 0) {
+            parentTr.children().eq(1).find('input').val('');
+            parentTr.children().eq(2).find('input').val('');
+            parentTr.children().eq(3).find('input').val('');
+            /** 출하번호에 대한 정보가 없는데 생산자전용 임시 JSON이 있을수있음. **/
+            prdcrTempJson.length = 0;
+        } else {
+            /** 품목 단량 세팅 0번 인덱스로 없으면 어쩌지? **/
+            parentTr.children().eq(1).find('input').val(tempJson[0].itemNm);
+            parentTr.children().eq(2).find('input').val(tempJson[0].vrtyNm);
+            parentTr.children().eq(3).find('input').val(tempJson[0].spcfctNm);
+            /** 없는 출하번호로 인해 생산자전용 임시 JSON이 지워진경우 **/
+            fn_onChangePrdcr($(_el).parent().next('div').children());
+
+            /** 등록 테이블 로우 추가 **/
+            if (parentTr.next().length == 0 ) {
+                if(tempJson.length > 0) {
+                    $("#reg_table > tbody").append(regTableEl);
+                    $(".qnttInp").on('focus', fn_showInvntQntt.bind(this));
+                    $(".qnttInp").on('blur', () => {
+                        $("#invntQnttEl").remove();
+                    });
+                }
+            }
+        }
+        fn_setInvntQntt(parentTr);
+    }
+    /** 생산자 번호 입력시 2차 필터링 **/
+    const fn_onChangePrdcr = function (_el) {
         let _val = $(_el).val();
         let parentTr = $(_el).closest('tr');
-        console.log(tempJson,"생산자가 받앗노");
         /** 현재 출하번호에 맞는 상품리스트중에 생산자번호까지 일치하는 재고만 추림 2차 필터링 **/
-        tempJson = tempJson.filter(function(item){
-           return item.prdcr == _val;
-        });
+        /** 생산자 번호만 바뀔가능성이 있음. **/
+        if(!gfn_isEmpty(tempJson)){
+            prdcrTempJson = tempJson;
+            prdcrTempJson = prdcrTempJson.filter(function (item) {
+                return item.prdcr == _val;
+            });
+            /** 각 재고 인풋에 재고 현황 셋팅 **/
+            fn_setInvntQntt(parentTr);
+        }
+    }
+
+    /** 현재 row의 Element 정보가 반드시 필요함. **/
+    const fn_setInvntQntt = function (parentTr) {
         /** 재고 tooltip 추가 및 input max 한정 **/
-        tempJson.forEach(function(item){
+        if(!gfn_isEmpty(prdcrTempJson)){
+
+        /** max 셋팅 **/
+        prdcrTempJson.forEach(function (item) {
             let idx = parseInt(item.gdsGrd) + 3;
             let el = parentTr.children().eq(idx).find('input');
-            el.attr('max',item.invntrQntt);
-            el.attr('title',"재고수량 : "+item.invntrQntt);
+            el.attr('max', (item.invntrQntt - (item.useQntt || 0)));
+            // el.attr('max', (item.invntrQntt - (gfn_isEmpty(item.useQntt)?0:item.useQntt)));
         });
-    }
-    const fn_showInvntQntt = function(_el){ //top: 99.4062px; left: 233.5px;
 
-        if(!gfn_isEmpty(_el)) {
+        /** 해당 row css적용 [max 존재 유무] **/
+        $(parentTr).find("input.qnttInp").each(function () {
+            let inputEl = $(this)[0];
+            let max = inputEl.getAttribute('max');
+
+            if (gfn_isEmpty(max)) {
+                $(inputEl).attr("type", "text");
+                $(inputEl).attr("readonly", true);
+                $(inputEl).css("color", "white");
+                $(inputEl).css("background-color", "#999");
+                $(inputEl).val("X");
+            }else{
+                $(inputEl).attr("type", "number");
+                $(inputEl).attr("readonly", false);
+                $(inputEl).css("color", "initial");
+                $(inputEl).css("background-color", "initial");
+                $(inputEl).val("");
+            }
+        })
+        }else{
+            $(parentTr).find("input.qnttInp").each(function () {
+                let inputEl = $(this)[0];
+                inputEl.removeAttribute("max");
+                $(inputEl).attr("type", "number");
+                $(inputEl).attr("readonly", false);
+                $(inputEl).css("color", "initial");
+                $(inputEl).css("background-color", "initial");
+                $(inputEl).val("");
+            })
+        }
+    }
+
+    const fn_showInvntQntt = async function (_el) { //top: 99.4062px; left: 233.5px;
+        let max = _el.target.getAttribute("max");
+        if (!gfn_isEmpty(max)) {
             let _el = document.activeElement;
             let rect = _el.getBoundingClientRect();
             let parentTd = $(_el).closest('td');
 
-            console.log(rect, "너의 모든걸 알고싶군");
+
             /** 재고 툴팁 element **/
-            let invntQnttEl = `<div class="sbux-pop sbux-fade sbux-pop-bottom sbux-in" role="tooltip"
-                    style="display: block; top:`+ (rect.top + 31) +`px; left:`+rect.left+`px">
+            let invntQnttEl = `<div id="invntQnttEl"class="sbux-pop sbux-fade sbux-pop-bottom sbux-in" role="tooltip"
+                    style="display: block; top:` + (rect.top + 31) + `px; left:` + (rect.left + 15) + `px"
+                        onclick="fn_selectInvntQntt(`+max+`,this)">
                         <div class="sbux-pop-arrow" style="left: 50%;"></div>
                         <h3 class="sbux-pop-title" style="display: none;"></h3>
                         <div class="sbux-pop-content">
-                            재고 현황 : `+10+`
+                            재고: ` + max + `
                         </div>
                     </div>`;
 
             $(parentTd).append(invntQnttEl);
         }
+    }
+
+    const fn_selectInvntQntt = function(_max,_el){
+    }
+
+    /** 수량 수정시 fn **/
+    const fn_onchangeQntt = function(_el){
+
+        let val = parseInt($(_el).val());
+        let max = parseInt($(_el).attr("max"));
+
+        if(val > max){
+            gfn_comAlert("W0008","재고","수량");
+            $(_el).val(max);
+        }
+        let rowData = JSON.parse($(_el).closest('tr').children(":last").find("input").eq(1).val());
+        if(mapInvntQntt.has(rowData.spmtInvId)){
+            let originQnttMap = mapInvntQntt.get(rowData.spmtInvId);
+            let originTrIdx = $(_el).closest('tr').index();
+            originQnttMap.set(originTrIdx,(val));
+        }
+    }
+
+    const fn_searchInvntrQntt = async function(_el){
+        let tr = $(_el).closest('tr');
+        let rowData = tr.find('td > input[type=hidden]').val();
+        let originTridx = $(tr).index();
+
+        try{
+            rowData = JSON.parse(rowData);
+        }catch (e){
+            gfn_comAlert("W0001","출하번호");
+            $(_el).prev().focus();
+            return;
+        }
+
+        let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncInvntList.do",rowData);
+
+        const data = await postJsonPromise;
+        data.resultList.forEach(function(item){
+            for(let key in item){
+                if(item[key] == null){
+                    delete item[key];
+                }
+            }
+        });
+        data.resultList.map(function(item){
+            //TODO: 재고현황 파악해서 재고 마이너스처리
+            if(mapInvntQntt.has(item.spmtInvId)){
+                let maps = mapInvntQntt.get(item.spmtInvId).values();
+                let originQntt = 0;
+                for(const value of maps){
+                    originQntt += value;
+                }
+                item.invntrQntt -= originQntt;
+            }
+        });
+
+
+        let fn_invntrModalEl = function(_list){
+            let prdcrFlag = !_list[0].hasOwnProperty('prdcrNm');
+            let invntrModalEl = !prdcrFlag ? `<h2>`+(_list[0].sortGrdNm) + " " + (_list[0].spmtPckgUnitNm) +`</h2>`:`<h2>`+(_list[0].sortGrdNm) + " " + (_list[0].spcfctNm) +`</h2>`;
+                invntrModalEl += `
+                <table id="invntrTable" style="width:100%">
+                    <colgroup>`;
+            if(!prdcrFlag){
+                invntrModalEl += `
+                        <col style="width: 17%">
+                        <col style="width: 11%">
+                        <col style="width: 17%">
+                        <col style="width: 11%">
+                        <col style="width: 11%">
+                        <col style="width: 11%">
+                        <col style="width: 11%">
+                        <col style="width: 11%">`
+            }else{
+                invntrModalEl += `
+                        <col style="width: 20%">
+                        <col style="width: 14%">
+                        <col style="width: 20%">
+                        <col style="width: 14%">
+                        <col style="width: 14%">
+                        <col style="width: 14%">`
+            };
+
+            invntrModalEl += `
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>선별일자</th>
+                            <th>품목</th>
+                            <th>품종</th>`;
+                        if(!prdcrFlag) {
+                            invntrModalEl +=
+                            `<th>생산자명</th>
+                            <th>번호</th>`
+                        }
+                invntrModalEl +=
+                        `<th>상품등급</th>
+                            <th>수량</th>
+                            <th>중량</th>
+                        </tr>
+                    </thead>
+                    <tbody>`;
+                        let rowCount = 0;
+            _list.forEach(function(item,idx){
+                if(item.invntrQntt <= 0)return;
+
+               invntrModalEl += `<tr onclick="fn_selectInvnt(this,`+originTridx+`)">
+                            <td>`+item.pckgYmd.replace(/(\d{4})(\d{2})(\d{2})/,"$1-$2-$3")+`</td>
+                            <td>`+item.itemNm+`</td>
+                            <td>`+item.vrtyNm+`</td>`;
+                            if(!prdcrFlag){
+                                invntrModalEl +=
+                                `<td>`+item.prdcrNm+`</td>`+
+                                `<td>`+item.prdcrIdentno+`</td>`
+                            }
+                invntrModalEl +=
+                            `<td>`+item.gdsGrdNm+`</td>
+                            <td>`+item.invntrQntt+`</td>
+                            <td>`+item.invntrWght+`</td>
+                            <input type="hidden" value='`+JSON.stringify(item)+`'/>
+                        </tr>`;
+                            rowCount++;
+            });
+            if(rowCount == 0){
+                invntrModalEl += prdcrFlag?`<tr><td colspan="6" style="height:10vh">상품재고가 없습니다.</td></tr>`:`<tr><td colspan="8" style="height:10vh">상품재고가 없습니다.</td></tr>`
+            }
+            invntrModalEl += `</tbody></table>`;
+
+            return invntrModalEl;
+        }
+        let el = fn_invntrModalEl(data.resultList);
+        SBUxMethod.setModalBody('searchQntt', el);
+
+        SBUxMethod.openModal('searchQntt');
+    }
+
+    /** 재고선택 **/
+    const fn_selectInvnt = function(_row,_idx){
+        SBUxMethod.closeModal('searchQntt');
+        let originTr = $("#reg_table tbody").children().eq(_idx);
+
+        let rowData = JSON.parse($(_row).children(":last").val());
+        originTr.children(":last").find("input").eq(1).attr('type') == "hidden" ? originTr.children(":last").find("input").eq(1).remove():"";
+        originTr.children(':last').append(`<td><input type="hidden" value='`+$(_row).children(":last").val()+`' /></td>`);
+
+        let prdcrTd = originTr.children().eq(0).find('input').eq(1);
+        if(rowData.hasOwnProperty("prdcrIdentno")){
+            $(prdcrTd).attr("type", "number");
+            $(prdcrTd).attr("readonly", false);
+            $(prdcrTd).css("color", "initial");
+            $(prdcrTd).css("background-color", "initial");
+            $(prdcrTd).val("");
+            prdcrTd.val(rowData.prdcrIdentno);
+        }else{
+            $(prdcrTd).attr("type", "text");
+            $(prdcrTd).attr("readonly", true);
+            $(prdcrTd).css("color", "white");
+            $(prdcrTd).css("background-color", "#999");
+            $(prdcrTd).val("X");
+        }
+
+        originTr.children().eq(3).find('input').val(rowData.spcfctNm);
+
+        //gdsGrd
+        let originInput =  originTr.children().eq(parseInt(rowData.gdsGrd) + 3).find('input');
+        originInput.val(rowData.invntrQntt);
+        originInput.attr('max',rowData.invntrQntt);
+
+        $(originTr).find("input.qnttInp").each(function () {
+            let inputEl = $(this)[0];
+            let max = inputEl.getAttribute('max');
+
+            if (gfn_isEmpty(max)) {
+                $(inputEl).attr("type", "text");
+                $(inputEl).attr("readonly", true);
+                $(inputEl).css("color", "white");
+                $(inputEl).css("background-color", "#999");
+                $(inputEl).val("X");
+            }else{
+                $(inputEl).attr("type", "number");
+                $(inputEl).attr("readonly", false);
+                $(inputEl).css("color", "initial");
+                $(inputEl).css("background-color", "initial");
+            }
+        });
+        mapInvntQntt.set(rowData.spmtInvId,new Map().set(originTr.index(),rowData.invntrQntt));
+        fn_onchangeQntt(originInput);
     }
 
 

@@ -76,6 +76,7 @@ public class GdsInvntrVO extends ComVO {
 	 */
 	private String rprsPrdcrCd;
 	private String prdcr;
+	private String prdcrIdentno;
 	/**
 	 * 대표생산자명
 	 */
@@ -163,6 +164,10 @@ public class GdsInvntrVO extends ComVO {
 	 * 포장수량
 	 */
 	private int trnsfQntt;
+	/**
+	 * 포장번호 + 순번
+	 */
+	private String spmtInvId;
 
 	/**
 	 * 포장중량

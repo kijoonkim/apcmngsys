@@ -2,6 +2,7 @@ package com.at.apcss.am.spmt.mapper;
 
 import java.util.List;
 
+import com.at.apcss.am.invntr.vo.GdsInvntrVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.at.apcss.am.spmt.vo.SpmtDsctnTotVO;
@@ -119,4 +120,12 @@ public interface SpmtPrfmncMapper {
 	 * @throws Exception
 	 */
 	public List<SpmtDsctnTotVO> selectSpmtPrfmncDsctnList(SpmtDsctnTotVO spmtDsctnTotVO) throws Exception;
+
+	/**
+	 * 출하실적등록 모바일 재고조회
+	 * @param spmtPrfmncVO
+	 * @return List<GdsInvntrVO>
+	 * @throws Exception
+	 */
+    List<GdsInvntrVO> selectSpmtPrfmncInvntList(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
 }
