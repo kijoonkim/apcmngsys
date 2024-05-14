@@ -15,14 +15,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 인사정보 등록을 처리하는 컨트롤러 클래스
+ * 증명서 발급을 처리하는 컨트롤러 클래스
  * @author 		인텔릭아이앤에스
  * @since 		2024.05.14
  * @version 	1.0
  * @see
  *
  * <pre>
- * << 인사정보 등록 >>
+ * << 증명서 발급 >>
  *
  *  수정일      수정자		수정내용
  *  ----------	----------	---------------------------
@@ -31,23 +31,23 @@ import java.util.Map;
  *  </pre>
  */
 @Controller
-public class ApcMaHri1000Controller extends BaseController {
+public class ApcMaHri1700Controller extends BaseController {
     @Resource(name= "apcMaCommDirectService")
     private ApcMaCommDirectService apcMaCommDirectService;
 
-    // 인사정보 등록 목록 조회
-    @PostMapping(value = "/hr/hri/hri/selectHri1000List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> selectHri1000List(
+    // 증명서 발급 조회
+    @PostMapping(value = "/hr/hri/hri/selectHri1700List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> selectHri1700List(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpServletRequest request) throws Exception{
 
-        logger.info("=============selectHri1000List=====start========");
+        logger.info("=============selectHri1700List=====start========");
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
 
-            param.put("procedure", 		"P_HRI1000_Q");
+            param.put("procedure", 		"P_HRI1100_Q");
             resultMap = apcMaCommDirectService.callProc(param, request.getMethod(), "");
 
         } catch (Exception e) {
@@ -55,7 +55,7 @@ public class ApcMaHri1000Controller extends BaseController {
             return getErrorResponseEntity(e);
         }
 
-        logger.info("=============selectHri1000List=====end========");
+        logger.info("=============selectHri1700List=====end========");
         return getSuccessResponseEntity(resultMap);
     }
 }
