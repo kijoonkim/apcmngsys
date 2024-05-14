@@ -356,9 +356,9 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 	}
 
 	@Override
-	public SortPrfmncVO selectSortBffaSpt(SortBffaVO sortBffaVO) throws Exception {
+	public SortBffaVO selectSortBffaSpt(SortBffaVO sortBffaVO) throws Exception {
 
-		SortPrfmncVO resultVO = sortPrfmncMapper.selectSortBffaSpt(sortBffaVO);
+		SortBffaVO resultVO = sortPrfmncMapper.selectSortBffaSpt(sortBffaVO);
 		return resultVO;
 	}
 

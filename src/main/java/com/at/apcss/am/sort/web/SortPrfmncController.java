@@ -483,7 +483,7 @@ public class SortPrfmncController extends BaseController {
     public ResponseEntity<HashMap<String, Object>> selectSortBffaSpt(@RequestBody SortBffaVO sortBffaVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		SortPrfmncVO resultList = new SortPrfmncVO();
+		SortBffaVO resultList = new SortBffaVO();
 
 		try {
 			resultList = sortPrfmncService.selectSortBffaSpt(sortBffaVO);
