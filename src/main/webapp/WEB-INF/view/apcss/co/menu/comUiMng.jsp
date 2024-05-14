@@ -96,9 +96,10 @@
 							<li><span>화면목록</span></li>
 						</ul>
 					</div>
-				<div id="sb-area-grdMeun" style="height:284px;"></div>
-				<div class ="row">
-					<div class="col-sm-6">
+				<div id="sb-area-grdMeun" style="height:268px;"></div>
+
+				<div class ="row" style="margin-top: 5px;">
+					<div class="col-sm-5">
 						<div class="ad_tbl_top2">
 							<ul class="ad_tbl_count">
 								<li><span>화면상세정보</span></li>
@@ -115,17 +116,36 @@
 								<tr>
 									<th scope="row" class="th_bg">화면ID</th>
 									<td class="td_input">
-									    <sbux-input id="dtl-inp-menuId" name="dtl-inp-menuId" uitype="text" class="form-control input-sm input-sm-ast" readonly></sbux-input>
+									    <sbux-input 
+									    	id="dtl-inp-menuId" 
+									    	name="dtl-inp-menuId" 
+									    	uitype="text" 
+									    	class="form-control input-sm input-sm-ast" 
+									    	readonly
+									    ></sbux-input>
 									</td>
 									<th scope="row" class="th_bg">화면명</th>
 									<td class="td_input">
-										<sbux-input id="dtl-inp-menuNm" name="dtl-inp-menuNm" uitype="text" class="form-control input-sm"></sbux-input>
+										<sbux-input 
+											id="dtl-inp-menuNm" 
+											name="dtl-inp-menuNm" 
+											uitype="text" 
+											class="form-control input-sm"
+											readonly
+										></sbux-input>
 									</td>
 								</tr>
 								<tr>
 									<th scope="row" class="th_bg">화면경로</th>
 									<td colspan="3" class="td_input">
-										<sbux-input id="dtl-inp-pageUrl" name="dtl-inp-pageUrl" uitype="text" required class="form-control input-sm" ></sbux-input>
+										<sbux-input 
+											id="dtl-inp-pageUrl" 
+											name="dtl-inp-pageUrl" 
+											uitype="text" 
+											required 
+											class="form-control input-sm" 
+											readonly
+										></sbux-input>
 									</td>
 								</tr>
 								<tr>
@@ -139,9 +159,13 @@
 									</td>
 									<th scope="row" class="th_bg">사용여부</th>
 									<td class="td_input">
-										<sbux-select id="dtl-slt-delYn" name="dtl-slt-delYn" uitype="single"
+										<sbux-select 
+											id="dtl-slt-delYn" 
+											name="dtl-slt-delYn" 
+											uitype="single"
 											jsondata-ref="jsonComUseYn"
 											class="form-control input-sm"
+											readonly
 										></sbux-select>
 									</td>
 								</tr>
@@ -178,18 +202,44 @@
 							</table>
 						</div>
 					</div>
-					<div class="col-sm-6">
+					<div class="col-sm-2">					
+						<div class="ad_tbl_top2">
+							<ul class="ad_tbl_count">
+								<li><span>공통버튼</span></li>
+							</ul>
+						</div>
+						<div class ="row">
+							<div id="sb-area-grdCmnsButton" style="margin: 0px 3px;height:294px;"></div>
+						</div>
+					</div>
+					<div class="col-sm-5">
 						<div class="ad_tbl_top2">
 							<ul class="ad_tbl_count">
 								<li><span>개체목록</span></li>
 							</ul>
-							<div class="ad_tbl_toplist">
-								<sbux-button id="btnAdd" name="btnAdd" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRow" disabled></sbux-button>
-								<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRow" disabled></sbux-button>
+							<div class="ad_tbl_toplist2">
+								<sbux-button 
+									id="btnAdd" 
+									name="btnAdd" 
+									uitype="normal" 
+									text="행추가" 
+									class="btn btn-sm btn-outline-danger" 
+									onclick="fn_addRow" 
+									disabled
+								></sbux-button>
+								<sbux-button 
+									id="btnDelete" 
+									name="btnDelete" 
+									uitype="normal" 
+									text="행삭제" 
+									class="btn btn-sm btn-outline-danger" 
+									onclick="fn_deleteRow" 
+									disabled
+								></sbux-button>
 							</div>
 						</div>
 						<div class ="row">
-							<div id="sb-area-grdComUi" style="width:100%;height:294px;"></div>
+							<div id="sb-area-grdComUi" style="margin: 0px 3px;height:294px;"></div>
 						</div>
 					</div>
 				</div>
@@ -199,21 +249,31 @@
 </body>
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
+
     //조회조건
     var jsonComSysId = [];
     var jsonComUseYn = [];
     var jsonComMenuType = [];
     var jsonGrdEntyType = [];
     var jsonGrdDelYn = [];
+    
+    var grdCmnsButton;
+    var jsonCmnsButton = [];
+    
 
     // only document
     window.addEventListener('DOMContentLoaded', async function(e) {
-    	fn_createMenuGrid();
-    	fn_createMenuUiGrid();
-    	await fn_initSBSelect();
+    	fn_init();
     });
 
-
+	const fn_init = async function() {
+    	fn_createMenuGrid();
+    	fn_createMenuUiGrid();
+    	fn_createCmnsButtonGrid();
+    	await fn_initSBSelect();
+	}
+    
+    
     const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			gfn_setComCdSBSelect('srch-slt-sysId', 		jsonComSysId, 		'SYS_ID'),		// 검색조건(시스템구분)
@@ -269,33 +329,131 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.oneclickedit = true;
         SBGridProperties.columns = [
-        	{caption: ["체크박스"], 	ref: 'checked', 	type: 'checkbox',	width: '40px',	  style:'text-align: center',
-				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}
+        	{
+        		caption: ["체크박스"], 	
+        		ref: 'checked', 	
+        		type: 'checkbox',	
+        		width: '40px',	  
+        		style:'text-align:center',
+				typeinfo: {
+					ignoreupdate : true, 
+					fixedcellcheckbox : {usemode : true, rowindex : 0}, 
+					checkedvalue : 'Y', 
+					uncheckedvalue : 'N'
+				}
         	},
-            {caption: ["ID"],       ref: 'entyId',   	type:'input',  		width:'200px',    style:'text-align:center'},
-            {caption: ["명칭"],     	ref: 'entyNm',   	type:'input',  		width:'200px',    style:'text-align:center'},
-            {caption: ["유형"],     	ref: 'entyType',	type:'combo',  		width:'130px',    style:'text-align:center',
-                typeinfo: {ref: 'jsonGrdEntyType', label: 'label', value: 'value', oneclickedit: true, displayui: false, unselect: {label : '선택', value: ''}}
+            {
+        		caption: ["ID"],       
+        		ref: 'entyId',   	
+        		type:'input',  		
+        		width:'180px',    
+        		style:'text-align:left;margin-left:5px'
+        	},
+            {
+        		caption: ["명칭"],     	
+        		ref: 'entyNm',   	
+        		type:'input',  		
+        		width:'180px',    
+        		style:'text-align:left;margin-left:5px'
+        	},
+            {
+        		caption: ["유형"],     	
+        		ref: 'entyType',	
+        		type:'combo',  		
+        		width:'100px',    
+        		style:'text-align:center',
+                typeinfo: {
+                	ref: 'jsonGrdEntyType', 
+                	label: 'label', 
+                	value: 'value', 
+                	oneclickedit: true, 
+                	displayui: false, 
+                	unselect: {label : '선택', value: ''}
+        		}
             },
-            {caption: ["표시여부"],	ref: 'delYn',		type:'combo',  		width:'100px',    style:'text-align:center',
-                typeinfo: {ref: 'jsonGrdDelYn', label: 'label', value: 'value', oneclickedit: true, displayui: false, unselect: {label : '선택', value: ''}}
+            {
+            	caption: ["표시여부"],	
+            	ref: 'delYn',		
+            	type:'combo',  		
+            	width:'100px',    
+            	style:'text-align:center',
+                typeinfo: {
+                	ref: 'jsonGrdDelYn', 
+                	label: 'label', 
+                	value: 'value', 
+                	oneclickedit: true, 
+                	displayui: false, 
+                	unselect: {label : '선택', value: ''}
+            	}
             },
-            {caption: ["메뉴ID"],  	ref: 'menuId', 		type:'input', 		hidden : true},
-            {caption: ["추가여부"],  	ref: 'addYn', 		type:'input', 		hidden : true}
+            {
+            	caption: ["메뉴ID"],  	
+            	ref: 'menuId', 		
+            	type:'input', 		
+            	hidden : true
+            },
+            {
+            	caption: ["추가여부"],  	
+            	ref: 'addYn', 		
+            	type:'input', 		
+            	hidden : true
+            }
         ];
         grdComUi = _SBGrid.create(SBGridProperties);
     }
 
+    const fn_createCmnsButtonGrid = function() {
+        var SBGridProperties = {};
+	    SBGridProperties.parentid = 'sb-area-grdCmnsButton';
+	    SBGridProperties.id = 'grdCmnsButton';
+	    SBGridProperties.jsonref = 'jsonCmnsButton';
+	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.oneclickedit = true;
+        SBGridProperties.columns = [
+            {	
+            	caption: ["명칭"],     	
+            	ref: 'entyNm',   	
+            	type:'output',  		
+            	width:'120px',    
+            	style:'text-align:center'
+            },
+            {
+            	caption: ["사용"],	
+            	ref: 'delYn',		
+            	type:'combo',  		
+            	width:'80px',    
+            	style:'text-align:center',
+                typeinfo: {
+                	ref: 'jsonGrdDelYn', 
+                	label: 'label', 
+                	value: 'value', 
+                	oneclickedit: true, 
+                	displayui: false, 
+                	unselect: {label : '선택', value: ''}
+            	}
+            },
+            {caption: ["메뉴id"],  	ref: 'menuId', 		type:'output', 		hidden : true},
+            {caption: ["요소유형"], ref: 'entyType',	type:'output', 		hidden : true},
+            {caption: ["요소id"],  	ref: 'entyId', 		type:'output', 		hidden : true},
+        ];
+        grdCmnsButton = _SBGrid.create(SBGridProperties);
+    }
+    
+    
     //목록 조회
-    const fn_search = function() {
+    const fn_search = async function() {
         //시스템구분 확인
         var sysId = SBUxMethod.get("srch-slt-sysId");
         if(gfn_isEmpty(sysId)){
 			gfn_comAlert("W0001", "시스템구분");		//	W0002	{0}을/를 선택하세요.
 			return;
 		}
+        
         fn_clearForm();
-        fn_setGridMenu();
+        
+        await fn_setGridMenu();
     }
 
     const fn_setGridMenu = async function() {
@@ -347,6 +505,7 @@
         }
     }
 
+    
     const fn_clearForm = function() {
         SBUxMethod.set("dtl-inp-menuId", null);
         SBUxMethod.set("dtl-inp-menuNm", null);
@@ -362,8 +521,15 @@
 
         jsonMenuUi.length = 0;
     	grdComUi.refresh();
+    	
+    	jsonCmnsButton.length = 0;
+    	grdCmnsButton.refresh();
+    	
 		var getColRef = grdComUi.getColRef("checked");
-		grdComUi.setFixedcellcheckboxChecked(0, getColRef, false);
+		
+		if (getColRef >= 0) {
+			grdComUi.setFixedcellcheckboxChecked(0, getColRef, false);	
+		}
 		
         //버튼 비활성화
         SBUxMethod.attr("btnSave", "disabled", true);
@@ -380,7 +546,9 @@
         if (grdMenu.getPrevRow() == grdMenu.getRow()) {
         	return;
 		}
+        
         fn_clearForm();
+        
         var rowData = grdMenu.getRowData(nRow);
         SBUxMethod.set("dtl-inp-menuId", rowData.menuId);
         SBUxMethod.set("dtl-inp-menuNm", rowData.menuNm);
@@ -395,9 +563,47 @@
         SBUxMethod.set("dtl-inp-sysLastChgDt", rowData.sysLastChgDt);
 
         //선택 행 개체목록 조회
-        fn_setUiGridData();
+        await fn_setCmnsButton();
+        await fn_setUiGridData();
     }
 
+    const fn_setCmnsButton = async function() {
+    	var nRow = grdMenu.getRow();
+        var rowData = grdMenu.getRowData(nRow);
+
+        let menuId = rowData.menuId;
+        let postJsonPromise = gfn_postJSON("/co/menu/selectComUiCmnsBtnList.do", {menuId : menuId});
+        const data = await postJsonPromise;
+        
+        try {
+  			if (_.isEqual("S", data.resultStatus)) {
+  				jsonCmnsButton.length = 0;
+  	        	data.resultList.forEach((item, index) => {
+  					let cmnsButton = {
+  							menuId : item.menuId,
+  							entyId : item.entyId,
+  							entyNm : item.entyNm,
+  							entyType : item.entyType,
+  							delYn : item.delYn
+  					}
+  					jsonCmnsButton.push(cmnsButton);
+  				});
+  	        	
+  	        	grdCmnsButton.rebuild();
+  	        	
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+    
     const fn_setUiGridData = async function() {
 
     	var nRow = grdMenu.getRow();
@@ -406,7 +612,7 @@
         let menuId = rowData.menuId
         let postJsonPromise = gfn_postJSON("/co/menu/selectComUiList.do", {menuId : menuId});
         const data = await postJsonPromise;
-        try{
+        try {
   			if (_.isEqual("S", data.resultStatus)) {
   	        	jsonMenuUi.length = 0;
   	        	data.resultList.forEach((item, index) => {
@@ -420,6 +626,8 @@
   					}
   					jsonMenuUi.push(menuUi);
   				});
+  	        	
+  	        	console.log("jsonMenuUi", jsonMenuUi);
   	        	grdComUi.rebuild();
 
   	        	//버튼 활성화
@@ -441,12 +649,13 @@
 
     //저장
     const fn_save = async function() {
-
+    	let nRow = grdMenu.getRow();
+    	/*
         let menuId = SBUxMethod.get('dtl-inp-menuId');
 		let menuNm = SBUxMethod.get("dtl-inp-menuNm");
 		let pageUrl = SBUxMethod.get("dtl-inp-pageUrl");
 		let delYn = SBUxMethod.get("dtl-slt-delYn");
-		let nRow = grdMenu.getRow();
+		
 
         if (gfn_isEmpty(menuNm)) {
         	gfn_comAlert("W0002", "화면명");				// W0002   {0}을/를 입력하세요.
@@ -460,13 +669,15 @@
         	gfn_comAlert("W0001", "사용유무");				// W0002   {0}을/를 선택하세요.
             return;
         }
-
+		*/
         let grdRows = grdComUi.getCheckedRows(0);
         let menuRowData = grdMenu.getRowData(grdMenu.getRow());
-
-        menuUiList = [];
-        menuInfoList = [];
-
+		const cmnsButtonData = grdCmnsButton.getGridDataAll(); 
+		
+        const menuUiList = [];
+        const menuInfoList = [];
+        
+        /*
         if(!(menuNm === menuRowData.menuNm && pageUrl === menuRowData.pageUrl && delYn === menuRowData.delYn)){
             let menuVO = {
             		menuId : menuId,
@@ -477,7 +688,13 @@
             
             menuInfoList.push(menuVO);
         }
+        */
 
+        for ( let i=0; i<cmnsButtonData.length; i++ ) {
+        	const rowData = cmnsButtonData[i];
+        	menuUiList.push(rowData);
+        }
+        
         for ( let i=0; i<grdRows.length; i++ ){
 
 			const rowData = grdComUi.getRowData(grdRows[i]);
@@ -499,7 +716,7 @@
 	            return;
 	        }
 
-	        rowData.menuInfoList = menuInfoList;
+	        //rowData.menuInfoList = menuInfoList;
 	        
 			if (rowSts === 3){
 				rowData.rowSts = "I";
@@ -512,40 +729,51 @@
 			}
 		}
 
+        if (menuUiList.length == 0) {
+        	gfn_comAlert("W0003", "저장")				//W0003	{0}할 대상이 없습니다.
+        	return;
+        }
+        
+        /*
         if((menuNm === menuRowData.menuNm && pageUrl === menuRowData.pageUrl && delYn === menuRowData.delYn) && menuUiList.length == 0){
         	gfn_comAlert("W0003", "저장")				//W0003	{0}할 대상이 없습니다.
         	return;
         } else if (!(menuNm === menuRowData.menuNm && pageUrl === menuRowData.pageUrl && delYn === menuRowData.delYn) && menuUiList.length == 0) {
         	menuUiList = [{menuInfoList : menuInfoList}];
         }
+        */
         
-        if(gfn_comConfirm("Q0001", "저장")){
-            let postJsonPromise = gfn_postJSON("/co/menu/multiSaveComUiList.do", menuUiList);
-            let data = await postJsonPromise;
-            try{
-      			if (_.isEqual("S", data.resultStatus)) {
-      				await fn_setGridMenu();
-      				grdMenu.setRow(nRow);
-      				fn_view();
-      	        	gfn_comAlert("I0001");					// I0001 처리 되었습니다.
-            	} else {
-            		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-            	}
-
-            } catch (e) {
-        		if (!(e instanceof Error)) {
-        			e = new Error(e);
-        		}
-        		console.error("failed", e.message);
-            	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-            }
+        if (!gfn_comConfirm("Q0001", "저장")) {
+        	return;
         }
-    }
 
+        let postJsonPromise = gfn_postJSON("/co/menu/multiSaveComUiList.do", menuUiList);
+        let data = await postJsonPromise;
+        try {
+  			if (_.isEqual("S", data.resultStatus)) {
+  				await fn_setGridMenu();
+  				grdMenu.setRow(nRow);
+  				fn_view();
+  	        	gfn_comAlert("I0001");					// I0001 처리 되었습니다.
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+        
+    }
+    
     //행 추가
     const fn_addRow = function() {
     	grdComUi.addRow(true, ['Y','','','','N',SBUxMethod.get('dtl-inp-menuId'), "Y"]);
     }
+    
     //선택된 행 삭제
     const fn_deleteRow = function() {
 
@@ -567,10 +795,14 @@
         	gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
             return;
         }
-		if(delList.length > 0){
-	        if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
-		        fn_delete(delList);
+        
+		if (delList.length > 0){
+			
+	        if (!gfn_comConfirm("Q0002", "등록정보", "삭제")) {	// Q0002	{0}이/가 있습니다. {1} 하시겠습니까?
+		        return;
 	        }
+			
+			fn_delete(delList);
 		}
     }
 

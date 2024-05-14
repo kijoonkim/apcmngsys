@@ -79,14 +79,24 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 
 	@Override
 	public List<GdsInvntrVO> selectSpmtGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception {
-
 		List<GdsInvntrVO> resultList = gdsInvntrMapper.selectSpmtGdsInvntrList(gdsInvntrVO);
-
 		return resultList;
-
 	}
 
 
+	@Override
+	public List<GdsInvntrVO> selectSpmtGdsInvntrListByPckgno(GdsInvntrVO gdsInvntrVO) throws Exception {
+
+		List<GdsInvntrVO> resultList = new ArrayList<>();
+		
+		if (gdsInvntrVO.getSpmtGdsList() != null && !gdsInvntrVO.getSpmtGdsList().isEmpty()) {
+			resultList = gdsInvntrMapper.selectSpmtGdsInvntrListByPckgno(gdsInvntrVO);
+		}
+
+		return resultList;
+	}
+
+	
 	@Override
 	public List<GdsInvntrVO> selectGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception {
 

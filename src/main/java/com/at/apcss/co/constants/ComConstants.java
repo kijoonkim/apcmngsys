@@ -199,6 +199,8 @@ public class ComConstants {
 	public final static String CON_USER_STTS_DORMANCY = "02";
 	public final static String CON_USER_STTS_UNUSED = "03";
 
+	public final static String CON_ENTY_TYPE_CMNS_BUTTON = "CB";
+	
 	/* 열람유형 */
 	/**
 	 * 열람유형: L1 로그인

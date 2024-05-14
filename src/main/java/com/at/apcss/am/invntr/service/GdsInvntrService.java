@@ -45,7 +45,15 @@ public interface GdsInvntrService {
 	 * @throws Exception
 	 */
 	public List<GdsInvntrVO> selectSpmtGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception;
-
+	
+	/**
+	 * 출하상품재고 대상 조회 (포장번호)
+	 * @param gdsInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<GdsInvntrVO> selectSpmtGdsInvntrListByPckgno(GdsInvntrVO gdsInvntrVO) throws Exception;
+	
 
 	/**
 	 * 상품재고 목록 조회
