@@ -2923,7 +2923,8 @@
     <!-- ========================================================================== -->
     <select id="selectSortBffaSpt" parameterType="com.at.apcss.am.sort.vo.SortBffaVO" resultType="com.at.apcss.am.sort.vo.SortBffaVO">
     <![CDATA[
-    	SELECT BP.BFFA_WRHSNO       AS BFFA_WRHSNO
+    	SELECT /* com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectSortBffaSpt */
+    		   BP.BFFA_WRHSNO       AS BFFA_WRHSNO
 		     , BP.WRHS_YMD          AS WRHS_YMD
 		     , BP.PRDCR_CD          AS PRDCR_CD
 		     , BP.ITEM_CD           AS ITEM_CD
@@ -3028,5 +3029,81 @@
 		        , BP.FCLT_CD
     ]]>
     </select>
+
+    <!-- ========================================================================== -->
+    <!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.insertWrhsSortGrd    	-->
+    <!-- DESC : 육안등급판정 등록(현장용).                                       	-->
+    <!-- ========================================================================== -->
+    <!-- DATE           AUTHOR            DESCRIPTION                               -->
+    <!-- ===========      ============      ======================================= -->
+    <!-- 2024.05.14     김호                Initial Creation                        -->
+    <!-- ========================================================================== -->
+    <insert id="insertWrhsSortGrd" parameterType="com.at.apcss.am.sort.vo.WrhsSortGrdVO">
+    	<![CDATA[
+	    	INSERT /* com.at.apcss.am.sort.mapper.SortPrfmncMapper.insertWrhsSortGrd */
+	    		INTO TB_BFFA_WRHS_SORT_GRD
+	    			(
+	    			   APC_CD
+	    			 , BFFA_WRHSNO
+	    			 , ITEM_CD
+	    			 , GRD_KND
+	    			 , GRD_CD
+	    			 , GRD_NV
+	    			 , GRD_QNTT
+	    			 , GRD_WGHT
+	    			 , SYS_FRST_INPT_DT
+	    			 , SYS_FRST_INPT_USER_ID
+	    			 , SYS_FRST_INPT_PRGRM_ID
+	    			 , SYS_LAST_CHG_DT
+	    			 , SYS_LAST_CHG_USER_ID
+	    			 , SYS_LAST_CHG_PRGRM_ID
+	    			)
+	    		VALUSE
+	    			(
+	    			   #{apcCd}
+	    			 , #{bffaWrhsno}
+	    			 , #{itemCd}
+	    			 , #{grdKnd}
+	    			 , #{grdCd}
+	    			 , #{grdNv}
+	    			 , #{grdQntt}
+	    			 , #{grdWght}
+	    			 , SYSDATE
+	    			 , #{sysFrstInptUserId}
+	    			 , #{sysFrstInptPrgrmId}
+	    			 , SYSDATE
+	    			 , #{sysLastChgUserId}
+	    			 , #{sysLastChgPrgrmId}
+	    			)
+
+    	]]>
+    </insert>
+
+    <!-- ========================================================================== -->
+    <!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.updateWrhsSortGrd    	-->
+    <!-- DESC : 육안등급판정 등록(현장용).                                       	-->
+    <!-- ========================================================================== -->
+    <!-- DATE           AUTHOR            DESCRIPTION                               -->
+    <!-- ===========      ============      ======================================= -->
+    <!-- 2024.05.14     김호                Initial Creation                        -->
+    <!-- ========================================================================== -->
+    <update id="updateWrhsSortGrd" parameterType="com.at.apcss.am.sort.vo.WrhsSortGrdVO">
+    	<![CDATA[
+    		UPDATE /* com.at.apcss.am.sort.mapper.SortPrfmncMapper.updateWrhsSortGrd */
+    			   TB_BFFA_WRHS_SORT_GRD
+    	       SET
+    	           GRD_NV					= #{grdNv}
+	    	     , GRD_QNTT 				= #{grdQntt}
+	    		 , GRD_WGHT 				= #{grdWght}
+	    		 , SYS_LAST_CHG_DT 			= SYSDATE
+	    		 , SYS_LAST_CHG_USER_ID 	= #{sysLastChgUserId}
+	    		 , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+	         WHERE APC_CD					= #{apcCd}
+	             , BFFA_WRHSNO				= #{bffaWrhsno}
+	             , ITEM_CD					= #{itemCd}
+	             , GRD_KND					= #{grdKnd}
+	             , GRD_CD   				= #{grdCd}
+    	]]>
+    </update>
 
 </mapper>
