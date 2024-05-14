@@ -166,9 +166,6 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
-        SBGridProperties.rowheader 			= 'seq';
-        SBGridProperties.rowheadercaption 	= {seq: 'No'};
-        SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.paging = {
             'type' 			: 'page',
@@ -181,8 +178,8 @@
             {caption: ["구분"],		ref: 'GUBUN', 			type:'output',  	width:'154px',  	style:'text-align:left'},
             {caption: ["년초"], 		ref: 'CNT',    	        type:'output',  	width:'75px',  	    style:'text-align:left'},
             {caption: ["기준일자"],  ref: 'CNT2',    		type:'output',  	width:'86px',   	style:'text-align:left', hidden: true},
-            {caption: ["전주증가"],	ref: 'UP2', 			type:'output',  		width:'63px',    	style:'text-align:left', hidden: true},
-            {caption: ["전주감소"],	ref: 'DOWN2',   		type:'output',  		width:'57px',   	style:'text-align:left', hidden: true},
+            {caption: ["전주증가"],	ref: 'UP2', 			type:'output',  	width:'63px',    	style:'text-align:left', hidden: true},
+            {caption: ["전주감소"],	ref: 'DOWN2',   		type:'output',  	width:'57px',   	style:'text-align:left', hidden: true},
             {caption: ["현재"],      ref: 'CNT1', 		    type:'output',  	width:'69px',    	style:'text-align:left'},
             {caption: ["전주계"], 	ref: 'GYE2', 			type:'output',  	width:'77px',    	style:'text-align:left', hidden: true},
             {caption: ["비율"],	    ref: 'PER',	            type:'output',  	width:'58px',   	style:'text-align:left'},
