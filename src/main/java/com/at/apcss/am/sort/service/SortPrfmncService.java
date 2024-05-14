@@ -221,7 +221,7 @@ public interface SortPrfmncService {
      * @return
      * @throws Exception
      */
-	public SortPrfmncVO selectSortBffaSpt(SortBffaVO sortBffaVO) throws Exception;
+	public SortBffaVO selectSortBffaSpt(SortBffaVO sortBffaVO) throws Exception;
 
 	/**
      * 육한등급등록(현장용)
