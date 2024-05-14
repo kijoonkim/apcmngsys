@@ -58,7 +58,7 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 	// -------------------------------------------------------------
 	// RequestMappingHandlerMapping 설정 - Interceptor 추가
 	// -------------------------------------------------------------
-	
+
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		//registry.addInterceptor(new AuthenticInterceptor())
@@ -114,7 +114,7 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 	public AuthenticInterceptor authenticInterceptor() {
 		return new AuthenticInterceptor();
 	}
-	
+
 	@Bean
 	public MobileAuthenticInterceptor mobileAuthenticInterceptor() {
 	    return new MobileAuthenticInterceptor();
@@ -192,5 +192,7 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 		registry.addResourceHandler("/static/**")
 				.addResourceLocations("classpath:/static/")
 				.setCachePeriod(20);
+		registry.addResourceHandler("/upload/pdf/**")
+				.addResourceLocations("classpath:/static/pdfSample/");//pdf 경로
 	}
 }
