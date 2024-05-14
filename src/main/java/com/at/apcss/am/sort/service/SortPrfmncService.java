@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.sort.vo.ComSortDsctnTotVO;
+import com.at.apcss.am.sort.vo.SortBffaList;
 import com.at.apcss.am.sort.vo.SortBffaVO;
 import com.at.apcss.am.sort.vo.SortDsctnTotVO;
 import com.at.apcss.am.sort.vo.SortPrfmncVO;
@@ -151,7 +152,7 @@ public interface SortPrfmncService {
 	 * @throws Exception
 	 */
 	public List<HashMap<String, Object>> selectExhstDsctn(HashMap<String, Object> exhstDsctn) throws Exception;
-	
+
 	/**
 	 * 등급별 집계
 	 * @param HashMap
@@ -174,7 +175,7 @@ public interface SortPrfmncService {
 	 * @throws Exception
 	 */
 	int insertSortBffa(SortBffaVO sortBffaVO) throws Exception;
-	
+
 	/**
 	 * 선별실적(입고별) 목록 조회
 	 * @param sortPrfmncVO
@@ -204,8 +205,8 @@ public interface SortPrfmncService {
 	 * @throws Exception
 	 */
 	int deleteSortBffaAll(SortBffaVO sortBffaVO) throws Exception;
-	
-    
+
+
     /**
      * 배출구별 집계
      * @param HashMap
@@ -213,4 +214,20 @@ public interface SortPrfmncService {
      * @throws Exception
      */
     public List<HashMap<String, Object>> selectExhstDsctnCol(HashMap<String, Object> exhstDsctn) throws Exception;
+
+    /**
+     * 육한등급조회(현장용)
+     * @param sortBffaVO
+     * @return
+     * @throws Exception
+     */
+	public SortPrfmncVO selectSortBffaSpt(SortBffaVO sortBffaVO);
+
+	/**
+     * 육한등급등록(현장용)
+     * @param sortBffaVO
+     * @return
+     * @throws Exception
+     */
+	public int insertSortBffaSpt(List<SortBffaList> sortBffaListVO);
 }

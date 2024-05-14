@@ -238,25 +238,25 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 
         return resultList;
     }
-    
+
     @Override
     public List<HashMap<String, Object>> selectExhstDsctn(HashMap<String, Object> exhstDsctn) throws Exception {
 
     	List<HashMap<String, Object>> resultVO = sortPrfmncMapper.selectExhstDsctn(exhstDsctn);
-    	
+
 		return resultVO;
 	}
-    
+
     @Override
     public List<HashMap<String, Object>> selectGrdDsctn(HashMap<String, Object> exhstDsctn) throws Exception {
 
     	List<HashMap<String, Object>> resultVO = sortPrfmncMapper.selectGrdDsctn(exhstDsctn);
-    	
+
 		return resultVO;
 	}
-    
-    
-    
+
+
+
 
 	@Override
 	public int insertSortBffa(SortBffaVO sortBffaVO) throws Exception {
@@ -307,7 +307,7 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 
 	@Override
 	public List<SortPrfmncVO> selectSortPrfmncListByWrhs(SortPrfmncVO sortPrfmncVO) throws Exception {
-		
+
 		List<SortPrfmncVO> resultList = sortPrfmncMapper.selectSortPrfmncListByWrhs(sortPrfmncVO);
 
 		return resultList;
@@ -339,19 +339,36 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 	public int deleteSortBffaAll(SortBffaVO sortBffaVO) throws Exception {
 		return sortPrfmncMapper.deleteSortBffaAll(sortBffaVO);
 	}
-    
+
     @Override
     public List<HashMap<String, Object>> selectExhstDsctnCol(HashMap<String, Object> exhstDsctn) throws Exception {
 
         List<HashMap<String, Object>> resultVO = sortPrfmncMapper.selectExhstDsctnCol(exhstDsctn);
-        
+
         return resultVO;
     }
 
 	@Override
 	public List<HashMap<String, Object>> selectBffaGrdTot(HashMap<String, Object> exhstDsctn) throws Exception {
 		List<HashMap<String, Object>> resultVO = sortPrfmncMapper.selectBffaGrdTot(exhstDsctn);
-		
+
 		return resultVO;
+	}
+
+	@Override
+	public SortPrfmncVO selectSortBffaSpt(SortBffaVO sortBffaVO) {
+
+		SortPrfmncVO resultVO = sortPrfmncMapper.selectSortBffaSpt(sortBffaVO);
+		return resultVO;
+	}
+
+	@Override
+	public int insertSortBffaSpt(List<SortBffaList> sortBffaListVO) {
+
+
+		List<WrhsSortGrdVO> wrhsSortGrdList =  sortBffaListVO.get(0).getWrhsSortGrdList();
+		List<SortBffaVO> sortBffaList = sortBffaListVO.get(0).getSortBffaVOList();
+
+		return 0;
 	}
 }
