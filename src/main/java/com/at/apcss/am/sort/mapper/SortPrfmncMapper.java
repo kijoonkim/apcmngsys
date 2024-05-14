@@ -255,5 +255,21 @@ public interface SortPrfmncMapper {
      * @return
      * @throws Exception
      */
-	public SortPrfmncVO selectSortBffaSpt(SortBffaVO sortBffaVO);
+	public SortPrfmncVO selectSortBffaSpt(SortBffaVO sortBffaVO) throws Exception;
+
+	/**
+     * 육한등급등록(현장용)
+     * @param sortBffaVO
+     * @return
+     * @throws Exception
+     */
+	public int insertWrhsSortGrd(WrhsSortGrdVO wrhsSortGrdVO);
+
+	/**
+	 * 육한등급수정(현장용)
+	 * @param sortBffaVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateWrhsSortGrd(WrhsSortGrdVO wrhsSortGrdVO);
 }
