@@ -221,7 +221,7 @@ public interface SortPrfmncService {
      * @return
      * @throws Exception
      */
-	public SortPrfmncVO selectSortBffaSpt(SortBffaVO sortBffaVO);
+	public SortPrfmncVO selectSortBffaSpt(SortBffaVO sortBffaVO) throws Exception;
 
 	/**
      * 육한등급등록(현장용)
@@ -229,5 +229,5 @@ public interface SortPrfmncService {
      * @return
      * @throws Exception
      */
-	public int insertSortBffaSpt(List<SortBffaList> sortBffaListVO);
+	public HashMap<String, Object> insertSortBffaSpt(List<SortBffaList> sortBffaListVO) throws Exception;
 }

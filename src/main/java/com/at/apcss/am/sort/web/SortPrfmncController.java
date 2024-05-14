@@ -513,14 +513,17 @@ public class SortPrfmncController extends BaseController {
 	public ResponseEntity<HashMap<String, Object>> insertSortBffaSpt(@RequestBody List<SortBffaList> sortBffaListVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		int result = 0;
 
 		try {
 			sortBffaListVO.get(0).setSysFrstInptUserId(getUserId());
 			sortBffaListVO.get(0).setSysFrstInptPrgrmId(getPrgrmId());
 			sortBffaListVO.get(0).setSysLastChgUserId(getUserId());
 			sortBffaListVO.get(0).setSysLastChgPrgrmId(getPrgrmId());
-			result = sortPrfmncService.insertSortBffaSpt(sortBffaListVO);
+
+			HashMap<String, Object> rtnObj = sortPrfmncService.insertSortBffaSpt(sortBffaListVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		} catch(Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
@@ -529,8 +532,6 @@ public class SortPrfmncController extends BaseController {
 				return getErrorResponseEntity(rtnObj);
 			}
 		}
-
-		resultMap.put(ComConstants.PROP_INSERTED_CNT, result);
 
 		return getSuccessResponseEntity(resultMap);
 	}
