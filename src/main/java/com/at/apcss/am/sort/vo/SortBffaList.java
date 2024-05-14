@@ -30,6 +30,9 @@ public class SortBffaList extends ComVO {
 	private List<WrhsSortGrdVO> wrhsSortGrdList;
 	private List<SortBffaVO> sortBffaVOList;
 
+	private String apcCd;
+	private String ymd;
+
 
 	public List<WrhsSortGrdVO> getWrhsSortGrdList() {
 		return this.wrhsSortGrdList == null ? null : wrhsSortGrdList.stream().collect(Collectors.toList());
