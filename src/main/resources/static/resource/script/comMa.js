@@ -30,6 +30,28 @@ const gfnma_nvl = function (val) {
 }
 
 /**
+ * @name 		gfnma_formIdStr
+ * @description url 에서 formId 추출하기
+ * @function
+ * @param 		{string} 
+ * @returns 	{string}
+ */
+const gfnma_formIdStr = function (val) {
+	
+	if(val == undefined || val == null || val == ''){
+		return '';
+	};	
+	var rstr	= "";
+	var flist 	= val.split('/');
+	if(flist.length==0){
+		return rstr;
+	}
+	var idx		= flist.length - 1;
+	rstr		= flist[idx];
+	return rstr;
+}
+
+/**
  * @name 		gfnma_setComSelect
  * @description sbux-select 데이터 설정
  * @function
