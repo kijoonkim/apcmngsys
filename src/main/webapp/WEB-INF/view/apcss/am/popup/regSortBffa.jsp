@@ -586,8 +586,101 @@
                     console.log(e);
                 }
             }
+        },
+    
+    rsltChoice : async function (rsltRowData) {
+
+        var nRow = grdSortBffa.getRow();
+        var rowData = grdSortBffa.getRowData(nRow);
+        await popBffa.init(gv_apcCd, gv_apcNm, rsltRowData.itemCd, BffaGrdType, null);
+        SBUxMethod.openModal('modal-regSort');
+
+        /**
+         * srch-slt-fcltCd 선별기 코드
+         * srch-reg-wrhsQntt 박스 수량
+         * srch-reg-wholWght 입고 총중량
+         * grdType1Wght grdType2Wght grdType3Wght 타입별 중량
+         * **/
+        let bffaWrhsno = rsltRowData.bffaWrhsno;
+        let fcltCd = rsltRowData.fcltCd;
+        let prdcrCd = rsltRowData.prdcrCd;
+        let prdcrNm = rsltRowData.prdcrNm;
+        let wrhsQntt = rsltRowData.wrhsQntt;
+        let wholWght = rsltRowData.wholWght;
+        let grdType1Wght = rsltRowData.grdType1Wght;
+        let grdType2Wght = rsltRowData.grdType2Wght;
+        let grdType3Wght = rsltRowData.grdType3Wght;
+        let grdType4Wght = rsltRowData.grdType4Wght;
+        let grdType5Wght = rsltRowData.grdType5Wght;
+        let itemCd = rsltRowData.itemCd;
+
+        let result = await Promise.all([
+           SBUxMethod.set('prdcr-inp-apcNm',gv_selectedApcNm),
+           SBUxMethod.set('srch-slt-fcltCd',fcltCd),
+           SBUxMethod.set('srch-reg-prdcrNm',prdcrNm),
+           SBUxMethod.set('srch-reg-prdcrCd',prdcrCd),
+           SBUxMethod.attr("srch-reg-prdcrNm", "style", "background-color:aquamarine"),
+           SBUxMethod.set('srch-reg-wrhsQntt',wrhsQntt),
+           SBUxMethod.set('srch-reg-wholWght',wholWght),
+           SBUxMethod.set('grdType1Wght',grdType1Wght),
+           SBUxMethod.set('grdType2Wght',grdType2Wght),
+           SBUxMethod.set('grdType3Wght',grdType3Wght),
+           SBUxMethod.set('grdType4Wght',grdType4Wght),
+           SBUxMethod.set('grdType5Wght',grdType5Wght),
+           SBUxMethod.set('srch-reg-bffaWrhsno',bffaWrhsno)
+        ]);
+
+        //TODO : 여기서 select 해와서 체크박스 SET 규격 맞춰서 포맷하고 SET까지 해야함.
+        /** ex) SBUxMethod.set('checkBox_000101',{'checkBox_000101_0':'0001'}) **/
+        /** ex) SBUxMethod.set('checkBox_000101',{'globalVal의id_인덱스':'grdCd'}) **/
+        /** 근데 id 자체가 checkBox_ + BFFA_GRD_TYPE + GRD_KND 요소 인덱스는 grd_cd 마지막자리로 가능한지 test필요함**/
+        let realChkId = [];
+        globalVal.forEach(function(item){
+            let obj = SBUxMethod.getCheckbox(item);
+            if(!gfn_isEmpty(obj)){
+                for(var key in obj){
+                    realChkId.push(key);
+                }
+            }
+        });
+        /** checkbox globalVal가 순서대로 온다고 보장받을수있음
+         *  >> CmnsItemMapper.xml[selectApcBffaGrdDtlList] oderby
+         *  고로 선택된 데이터 가져온 후 파싱후 앞두글자가 마지막 두글자와 같은 glovalVal이 있는지 판단
+         *  있다면 해당 ID값으로 가져온 데이터 _부터 뒤 글자를 붙혀서 true로 **/
+        let chkVal = [];
+        if(!gfn_isEmpty(bffaWrhsno)){
+            try{
+                let postJsonPromise = gfn_postJSON('/am/sort/selectBffaGrdKnd',{
+                    apcCd:gv_apcCd,
+                    bffaWrhsno:bffaWrhsno,
+                    itemCd : itemCd,
+                });
+                let data = await postJsonPromise;
+                if(_.isEqual("S",data.resultStatus)){
+                    data.resultList.forEach(function(item){
+                        let id = '';
+                            globalVal.forEach(function(val){
+                                if(val.substring(val.length-2,val.length) == item.grdKnd){
+                                    id = val;
+                                }
+                            });
+                            /** index로 realChkId 에서 찾기 **/
+                            let chkID = realChkId[item.checkIndex-1];
+                            let value = parseInt(item.grdCd);
+                        // let idx = parseInt(item.grdCd)-1;
+                        // let chkID = realChkId[idx];
+                        // let value = idx+1
+                        //
+                        SBUxMethod.set(id,{[chkID]:value});
+                    });
+                }
+            }catch (e){
+                console.log(e);
+            }
         }
     }
+}
+    
     /**
      * @name fn_setRegPrdcr
      * @description 생산자 선택시 callBack
