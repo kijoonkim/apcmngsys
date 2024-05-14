@@ -1301,7 +1301,7 @@
 				   AND SP.INPT_YMD = #{sortYmd}
 				</if>
     	<![CDATA[
-				   
+
 			  ) A
 
 			 GROUP BY A.APC_CD, A.SORTNO
@@ -2699,8 +2699,8 @@
                    AND X.DEL_YN = 'N'
 
     </select>
-    
-        
+
+
     <!-- ==========================================================================    -->
     <!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectExhstDsctn    -->
     <!-- DESC : 육안등급판정 조회.                                       -->
@@ -2848,7 +2848,7 @@
              , BP.VRTY_CD AS VRTY_CD
              , BP.FCLT_CD AS FCLT_CD
              , (SELECT FN_GET_COM_CD_VL_NM('SORT_FCLT_CD', BP.FCLT_CD, BP.APC_CD) FROM DUAL) AS FCLT_NM
-             
+
              , BP.WRHS_QNTT AS WRHS_QNTT
              , BP.WRHS_WGHT AS WRHS_WGHT
              , NVL(BP.WRHS_WGHT, 0)
@@ -2889,7 +2889,7 @@
     </if>
     <![CDATA[
     ) BP
-    
+
 
          WHERE SI.GRD_CD = GD.GRD_CD
            AND GD.AFTR_GRD_KND = GDS.GRD_KND
@@ -2910,8 +2910,123 @@
                     , SI.RPRS_PRDCR_CD
                     , SI.ITEM_CD
     ]]>
-    
-    
-    </select>    
+
+
+    </select>
+    <!-- ========================================================================== -->
+    <!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectSortBffaSpt    	-->
+    <!-- DESC : 육안등급판정 조회(현장용).                                       	-->
+    <!-- ========================================================================== -->
+    <!-- DATE           AUTHOR            DESCRIPTION                               -->
+    <!-- ===========      ============      ======================================= -->
+    <!-- 2024.05.14     김호                Initial Creation                        -->
+    <!-- ========================================================================== -->
+    <select id="selectSortBffaSpt" parameterType="com.at.apcss.am.sort.vo.SortBffaVO" resultType="com.at.apcss.am.sort.vo.SortBffaVO">
+    <![CDATA[
+    	SELECT BP.BFFA_WRHSNO       AS BFFA_WRHSNO
+		     , BP.WRHS_YMD          AS WRHS_YMD
+		     , BP.PRDCR_CD          AS PRDCR_CD
+		     , BP.ITEM_CD           AS ITEM_CD
+		     , BP.VRTY_CD           AS VRTY_CD
+		     , BP.FCLT_CD           AS FCLT_CD
+		     , MAX(BP.WRHS_QNTT)    AS WRHS_QNTT
+		     , MAX(BP.WRHS_WGHT)    AS WRHS_WGHT
+		     , MAX(BP.GRD_TYPE_1_WGHT) AS GRD_TYPE_1_WGHT
+		     , MAX(BP.GRD_TYPE_2_WGHT) AS GRD_TYPE_2_WGHT
+		     , MAX(CASE WHEN GG.GRD_RANK = 1 THEN GG.GRD_WGHT END) AS GRD_WRHT_1
+		     , MAX(CASE WHEN GG.GRD_RANK = 2 THEN GG.GRD_WGHT END) AS GRD_WRHT_2
+		     , MAX(CASE WHEN GG.GRD_RANK = 3 THEN GG.GRD_WGHT END) AS GRD_WRHT_3
+		     , MAX(CASE WHEN GG.GRD_RANK = 4 THEN GG.GRD_WGHT END) AS GRD_WRHT_4
+		     , MAX(CASE WHEN GG.GRD_RANK = 5 THEN GG.GRD_WGHT END) AS GRD_WRHT_5
+		     , MAX(CASE WHEN GG.GRD_RANK = 6 THEN GG.GRD_WGHT END) AS GRD_WRHT_6
+		     , MAX(CASE WHEN GG.GRD_RANK = 7 THEN GG.GRD_WGHT END) AS GRD_WRHT_7
+		     , MAX(CASE WHEN GG.GRD_RANK = 8 THEN GG.GRD_WGHT END) AS GRD_WRHT_8
+		     , MAX(CASE WHEN GG.GRD_RANK = 9 THEN GG.GRD_WGHT END) AS GRD_WRHT_9
+		     , MAX(CASE WHEN GG.GRD_RANK = 10 THEN GG.GRD_WGHT END) AS GRD_WRHT_10
+		     , MAX(CASE WHEN GG.GRD_RANK = 11 THEN GG.GRD_WGHT END) AS GRD_WRHT_11
+		     , MAX(CASE WHEN GG.GRD_RANK = 12 THEN GG.GRD_WGHT END) AS GRD_WRHT_12
+		     , MAX(CASE WHEN GG.GRD_RANK = 13 THEN GG.GRD_WGHT END) AS GRD_WRHT_13
+		     , MAX(CASE WHEN GG.GRD_RANK = 14 THEN GG.GRD_WGHT END) AS GRD_WRHT_14
+		     , MAX(CASE WHEN GG.GRD_RANK = 15 THEN GG.GRD_WGHT END) AS GRD_WRHT_15
+		     , MAX(CASE WHEN GG.GRD_RANK = 16 THEN GG.GRD_WGHT END) AS GRD_WRHT_16
+		     , MAX(CASE WHEN GG.GRD_RANK = 17 THEN GG.GRD_WGHT END) AS GRD_WRHT_17
+		     , MAX(CASE WHEN GG.GRD_RANK = 18 THEN GG.GRD_WGHT END) AS GRD_WRHT_18
+		     , MAX(CASE WHEN GG.GRD_RANK = 19 THEN GG.GRD_WGHT END) AS GRD_WRHT_19
+		     , MAX(CASE WHEN GG.GRD_RANK = 20 THEN GG.GRD_WGHT END) AS GRD_WRHT_20
+		     , MAX(CASE WHEN GG.GRD_RANK = 1 THEN GG.GRD_CD END) AS GRD_CD_1
+		     , MAX(CASE WHEN GG.GRD_RANK = 2 THEN GG.GRD_CD END) AS GRD_CD_2
+		     , MAX(CASE WHEN GG.GRD_RANK = 3 THEN GG.GRD_CD END) AS GRD_CD_3
+		     , MAX(CASE WHEN GG.GRD_RANK = 4 THEN GG.GRD_CD END) AS GRD_CD_4
+		     , MAX(CASE WHEN GG.GRD_RANK = 5 THEN GG.GRD_CD END) AS GRD_CD_5
+		     , MAX(CASE WHEN GG.GRD_RANK = 6 THEN GG.GRD_CD END) AS GRD_CD_6
+		     , MAX(CASE WHEN GG.GRD_RANK = 7 THEN GG.GRD_CD END) AS GRD_CD_7
+		     , MAX(CASE WHEN GG.GRD_RANK = 8 THEN GG.GRD_CD END) AS GRD_CD_8
+		     , MAX(CASE WHEN GG.GRD_RANK = 9 THEN GG.GRD_CD END) AS GRD_CD_9
+		     , MAX(CASE WHEN GG.GRD_RANK = 10 THEN GG.GRD_CD END) AS GRD_CD_10
+		     , MAX(CASE WHEN GG.GRD_RANK = 11 THEN GG.GRD_CD END) AS GRD_CD_11
+		     , MAX(CASE WHEN GG.GRD_RANK = 12 THEN GG.GRD_CD END) AS GRD_CD_12
+		     , MAX(CASE WHEN GG.GRD_RANK = 13 THEN GG.GRD_CD END) AS GRD_CD_13
+		     , MAX(CASE WHEN GG.GRD_RANK = 14 THEN GG.GRD_CD END) AS GRD_CD_14
+		     , MAX(CASE WHEN GG.GRD_RANK = 15 THEN GG.GRD_CD END) AS GRD_CD_15
+		     , MAX(CASE WHEN GG.GRD_RANK = 16 THEN GG.GRD_CD END) AS GRD_CD_16
+		     , MAX(CASE WHEN GG.GRD_RANK = 17 THEN GG.GRD_CD END) AS GRD_CD_17
+		     , MAX(CASE WHEN GG.GRD_RANK = 18 THEN GG.GRD_CD END) AS GRD_CD_18
+		     , MAX(CASE WHEN GG.GRD_RANK = 19 THEN GG.GRD_CD END) AS GRD_CD_19
+		     , MAX(CASE WHEN GG.GRD_RANK = 20 THEN GG.GRD_CD END) AS GRD_CD_20
+		  FROM TB_BFFA_WRHS_PRFMNC BP
+		     ,
+		       (SELECT BG.BFFA_WRHSNO   AS BFFA_WRHSNO
+		             , BG.APC_CD        AS APC_CD
+		             , GD.GRD_CD        AS GRD_CD
+		             , GD.GRD_RANK      AS GRD_RANK
+		             , BG.GRD_WGHT      AS GRD_WGHT
+
+		          FROM (SELECT RANK() OVER (ORDER BY ITEM_CD, GRD_CD ASC) AS GRD_RANK
+		                     , GRD_CD
+		                     , APC_CD
+		                     , ITEM_CD
+		                 FROM TB_APC_STD_GRD_DTL X
+		                WHERE X.GRD_SE_CD = '03'
+	]]>
+
+ 	<if test='itemCd != null and itemCd !=""'>
+		                  AND X.ITEM_CD = #{itemCd}
+ 	</if>
+ 	<if test='apcCd != null and apcCd !=""'>
+		                  AND X.APC_CD = #{apcCd}
+ 	</if>
+	<![CDATA[
+		               ) GD
+		             , TB_BFFA_WRHS_SORT_GRD BG
+		         WHERE BG.APC_CD = GD.APC_CD
+		           AND BG.GRD_CD = GD.GRD_CD
+		     ) GG
+		 WHERE BP.APC_CD = GG.APC_CD
+		   AND BP.BFFA_WRHSNO = GG.BFFA_WRHSNO
+	]]>
+	<if test='itemCd != null and itemCd !=""'>
+		   AND BP.ITEM_CD = #{itemCd}
+	</if>
+	<if test='apcCd != null and apcCd !=""'>
+		   AND BP.APC_CD = #{apcCd}
+	</if>
+	<if test='prdcrCd != null and prdcrCd !=""'>
+		   AND BP.PRDCR_CD = #{prdcrCd}
+	</if>
+	<if test='fcltCd != null and fcltCd !=""'>
+		   AND BP.FCLT_CD = #{fcltCd}
+	</if>
+	<if test='wrhsYmd != null and wrhsYmd !=""'>
+		   AND BP.WRHS_YMD = #{wrhsYmd}
+	</if>
+	<![CDATA[
+		 GROUP BY BP.BFFA_WRHSNO
+		        , BP.WRHS_YMD
+		        , BP.PRDCR_CD
+		        , BP.ITEM_CD
+		        , BP.VRTY_CD
+		        , BP.FCLT_CD
+    ]]>
+    </select>
 
 </mapper>
