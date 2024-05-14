@@ -125,6 +125,11 @@
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
 
+    // common ---------------------------------------------------
+    var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
+    var p_menuId 	= '${comMenuVO.menuId}';
+    //-----------------------------------------------------------
+
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
 
@@ -239,8 +244,8 @@
             ,V_P_SITE_CODE      : ''
             ,V_P_DATE1      	: YMDDATE1
             ,V_P_DATE2	        : YMDDATE2
-            ,V_P_FORM_ID		: ''
-            ,V_P_MENU_ID		: ''
+            ,V_P_FORM_ID		: p_formId
+            ,V_P_MENU_ID		: p_menuId
             ,V_P_PROC_ID		: ''
             ,V_P_USERID			: ''
             ,V_P_PC				: ''

@@ -1,6 +1,6 @@
 <%
     /**
-     * @Class Name 		: hri5100.jsp
+     * @Class Name 		: hri1100.jsp
      * @Description 	: 인사정보조회(인사담당자용) 화면
      * @author 			: 인텔릭아이앤에스
      * @since 			: 2024.05.13
@@ -48,6 +48,7 @@
                     <col style="width: 7%">
                     <col style="width: 6%">
                     <col style="width: 6%">
+                    <col style="width: 3%">
                     <col style="width: 3%">
                     <col style="width: 3%">
 
@@ -162,7 +163,10 @@
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
 
-    // ${comMenuVO.menuId}
+    // common ---------------------------------------------------
+    var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
+    var p_menuId 	= '${comMenuVO.menuId}';
+    //-----------------------------------------------------------
 
     var editType			= "N";
 
@@ -418,8 +422,8 @@
             ,V_P_EMP_STATE      : EMP_STATE
             ,V_P_INITIAL_DATE   : INITIAL_DATE
             ,V_P_PAY_AREA_TYPE  : PAY_AREA_TYPE
-            ,V_P_FORM_ID		: ''
-            ,V_P_MENU_ID		: ''
+            ,V_P_FORM_ID		: p_formId
+            ,V_P_MENU_ID		: p_menuId
             ,V_P_PROC_ID		: ''
             ,V_P_USERID			: ''
             ,V_P_PC				: ''
