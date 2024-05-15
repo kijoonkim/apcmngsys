@@ -145,7 +145,7 @@ public interface SortPrfmncMapper {
      * @throws Exception
      */
     public List<SortPrfmncVO> selectSortListBySortno(SortPrfmncVO sortPrfmncVO) throws Exception;
-    
+
     /**
      * 배출구별집계조회
      * @param sortPrfmncVO
@@ -153,7 +153,7 @@ public interface SortPrfmncMapper {
      * @throws Exception
      */
     public List<HashMap<String, Object>> selectExhstDsctn(HashMap<String, Object> exhstDsctn) throws Exception;
-    
+
     /**
      * 등급별집계조회
      * @param sortPrfmncVO
@@ -161,7 +161,7 @@ public interface SortPrfmncMapper {
      * @throws Exception
      */
     public List<HashMap<String, Object>> selectGrdDsctn(HashMap<String, Object> exhstDsctn) throws Exception;
-    
+
     /**
      * 육안판정등급조회
      * @param sortPrfmncVO
@@ -184,8 +184,8 @@ public interface SortPrfmncMapper {
 	 * @throws Exception
 	 */
 	int insertSortBffa(SortBffaVO sortBffaVO) throws Exception;
-	
-	
+
+
 	/**
 	 * 선별실적(입고별) 목록 조회
 	 * @param sortPrfmncVO
@@ -239,8 +239,8 @@ public interface SortPrfmncMapper {
 	 * @throws Exception
 	 */
 	int deleteSortBffaAll(SortBffaVO sortBffaVO);
-	
-    
+
+
     /**
      * 배출구별집계조회
      * @param sortPrfmncVO
@@ -248,4 +248,28 @@ public interface SortPrfmncMapper {
      * @throws Exception
      */
     public List<HashMap<String, Object>> selectExhstDsctnCol(HashMap<String, Object> exhstDsctn) throws Exception;
+
+	/**
+     * 육한등급조회(현장용)
+     * @param sortBffaVO
+     * @return
+     * @throws Exception
+     */
+	public SortBffaVO selectSortBffaSpt(SortBffaVO sortBffaVO) throws Exception;
+
+	/**
+     * 육한등급등록(현장용)
+     * @param sortBffaVO
+     * @return
+     * @throws Exception
+     */
+	public int insertWrhsSortGrd(WrhsSortGrdVO wrhsSortGrdVO);
+
+	/**
+	 * 육한등급수정(현장용)
+	 * @param sortBffaVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateWrhsSortGrd(WrhsSortGrdVO wrhsSortGrdVO);
 }

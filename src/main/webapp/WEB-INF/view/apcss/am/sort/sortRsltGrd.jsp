@@ -31,7 +31,15 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 선별결과표 -->
 				</div>
 				<div style="margin-left: auto;">
-				
+					<sbux-button
+                            id="btn-srch-apcLinkPop"
+                            name="btn-srch-apcLinkPop"
+                            class="btn btn-sm btn-outline-danger"
+                            text="연계요청" 
+                            uitype="modal"
+                            target-id="modal-apcLinkPop"
+                            onclick="fn_popApcLink"
+                       ></sbux-button>
                     <sbux-button
 						id="btnSearch"
 						name="btnSearch"
@@ -173,23 +181,6 @@
 							onclick="fn_sortReqCncl"
 							text="취소"
 					    ></sbux-button>
-                         <sbux-button
-                            id="btn-srch-apcLinkPop"
-                            name="btn-srch-apcLinkPop"
-                            class="btn btn-sm btn-outline-danger"
-                            text="연계요청" 
-                            uitype="modal"
-                            target-id="modal-apcLinkPop"
-                            onclick="fn_popApcLink"
-                        ></sbux-button>
-                        <sbux-button
-			                    id="btn-reg-bffa"
-			                    name="btn-reg-bffa"
-			                    class="btn btn-sm btn-success"
-			                    
-			                    text="신규등록" uitype="modal"
-			                    onclick="fn_reg_bffa"
-			            ></sbux-button>
 					</div>
 								    
 				</div>
@@ -206,8 +197,8 @@
 					<div id="grdDsctnTab" >
 						<div id="sb-area-grdDsctn" style="height:470px;"></div>
 					</div>
-					<div id="grdBffaGrdTab" >
-						<div id="sb-area-bffaGrd" style="height:470px;"></div>
+					<div id="grdSortBffaTab" >
+						<div id="sb-area-sortBffa" style="height:470px;"></div>
 					</div>
 				</div>
 					
@@ -465,8 +456,9 @@
 				SBUxMethod.hideTab('idxTab_norm','grdDsctnTab');
 		}
 		
-		fn_selectBffaGrdType();
+		fn_selectSortBffaType();
 		fn_search();
+		fn_bffaSearch();
 	}
 
 
@@ -476,14 +468,14 @@
 	//등급별 집계 내역
 	var grdGrdDsctn;
 	//육안등급판정
-	var grdBffaGrd;
+	var grdSortBffa;
 
 	//배출구별 집계 내역
 	var jsonExhstDsctn = [];
 	//등급별 집계 내역
 	var jsonGrdDsctn= [];
 	//육안등급판정내역
-	var jsonBffaGrd= [];
+	var jsonSortBffa= [];
 
 	var jsonExhstColumnData = [];
 	var jsonGrdColumnData = [];
@@ -497,7 +489,7 @@
     var tabJsonData = [
 		{ "id" : "0", "pid" : "-1", "order" : "1", "text" : "배출구별 집계", "targetid" : "exhstDsctnTab", "targetvalue" : "배출구별 집계" },
 		{ "id" : "1", "pid" : "-1", "order" : "2", "text" : "등급별 집계", "targetid" : "grdDsctnTab", "targetvalue" : "등급별 집계" },
-		{ "id" : "3", "pid" : "-1", "order" : "3", "text" : "육안등급판정", "targetid" : "grdBffaGrdTab", "targetvalue" : "육안등급판정" }
+		{ "id" : "3", "pid" : "-1", "order" : "3", "text" : "육안등급판정", "targetid" : "grdSortBffaTab", "targetvalue" : "육안등급판정" }
 	];
 
 
@@ -590,11 +582,11 @@
 
 	}
 	
-	const fn_createBffaGrd= function() {
+	const fn_createSortBffa = function() {
 	    var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-bffaGrd';
-	    SBGridProperties.id = 'grdBffaGrd';
-	    SBGridProperties.jsonref = 'jsonBffaGrd';
+	    SBGridProperties.parentid = 'sb-area-sortBffa';
+	    SBGridProperties.id = 'grdSortBffa';
+	    SBGridProperties.jsonref = 'jsonSortBffa';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'free';
 	    SBGridProperties.extendlastcol = 'scroll';
@@ -603,37 +595,46 @@
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
-		SBGridProperties.backcoloralternate = '#e0ffff';
-		SBGridProperties.clickeventarea = {fixed: false, empty: false};	   
+		//SBGridProperties.backcoloralternate = '#e0ffff';
+		SBGridProperties.dblclickeventarea = {fixed: false, empty: false};	   
 	    SBGridProperties.columns = [
 	    	{caption : ["선별일자"], ref: 'sortYmd', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
 	    	{caption : ["선별기"], ref: 'sortFclt', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["선별정보"], ref: 'sortInfo', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["박스수량"], ref: 'bxQntt', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["선별정보"], ref: 'prdcrNm', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["박스수량"], ref: 'wrhsQntt', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
 	    	{caption : ["입고중량"], ref: 'wrhsWght', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["열과"], ref: 'skinCrack', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["폐기"], ref: 'dscd', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["열과"], ref: 'grdType1Wght', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["폐기"], ref: 'grdType2Wght', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
 	    	{caption : ["합계"], ref: 'sbTot', type: 'input',  width:'100px', style: 'text-align:right; padding-right:5px;background-color:#e0ffff '
 	    							, format : {type:'number', rule:'#,###',emptyvalue:'0'},fixedstyle : 'background-color:#e0ffff;', merge: false , disabled:true},
 
 	    	{caption : ["비고"], ref: 'rmrk', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px;', disabled:true},
 	    	{caption: ["생산자코드"],	ref: 'prdcrCd',     		type:'input',  	hidden: true},
-	    	{caption: ["선별번호"],	ref: 'sortNo',     		type:'input',  	hidden: true}
+	    	{caption: ["설비코드"],	ref: 'fcltCd',     		type:'input',  	hidden: true},
+	    	{caption: ["선별번호"],	ref: 'sortNo',     		type:'input',  	hidden: true},
+	    	{caption: ["grdType3Wght"],	ref: 'grdType3Wght',     		type:'input',  	hidden: true},
+	    	{caption: ["grdType4Wght"],	ref: 'grdType4Wght',     		type:'input',  	hidden: true},
+	    	{caption: ["grdType5Wght"],	ref: 'grdType5Wght',     		type:'input',  	hidden: true},
+	    	{caption: ["사전입고번호"],	ref: 'bffaWrhsno',     		type:'input',  	hidden: true},
+	    	{caption: ["품목코드"],	ref: 'itemCd',     		type:'input',  	hidden: true},
+	    	{caption: ["입고총중량"],	ref: 'wholWght',     		type:'input',  	hidden: true}
+	    	
+	    	
 
 	    ];
-        let addBffaGrdCol = []
+        let addSortBffaCol = []
         
         jsonGrdColumnData.forEach(function(item){
-        	addBffaGrdCol.push(
+        	addSortBffaCol.push(
                     {caption : [item.GRD_NM], ref: 'grd' + item.GRD_SN, type: 'input',  width:'100px', style: 'text-align:right; padding-right:5px; '
                     , format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false ,disabled:true}
                );
         })
         let originColumns = SBGridProperties.columns;
-        originColumns.splice(7,0,...addBffaGrdCol);
+        originColumns.splice(7,0,...addSortBffaCol);
         SBGridProperties.columns = originColumns;
-        grdBffaGrd= _SBGrid.create(SBGridProperties);
-	    grdBffaGrd.bind('click', fn_reg_bffa);
+        grdSortBffa= _SBGrid.create(SBGridProperties);
+        grdSortBffa.bind('dblclick', fn_reg_bffa);
 	    
 	}
 	
@@ -893,19 +894,19 @@
 	}
 	
 	// 육안판정등급 집계
-	const fn_setBffaGrdTot = async function() {
+	const fn_setSortBffaTot = async function() {
 		let inptYmdFrom = SBUxMethod.get("srch-dtp-inptYmdFrom");
 		let inptYmdTo = SBUxMethod.get("srch-dtp-inptYmdTo");
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let prdcrCd = SBUxMethod.get('srch-inp-prdcrCd');
 		const param = {
 			apcCd: gv_selectedApcCd,
-			inptYmdFrom: inptYmdFrom,
-			inptYmdTo: inptYmdTo,
+			wrhsYmdFrom: inptYmdFrom,
+			wrhsYmdTo: inptYmdTo,
 			itemCd: itemCd,
 			prdcrCd : prdcrCd			
 		}
-		jsonBffaGrd.length = 0;
+		jsonSortBffa.length = 0;
 		let totalRecordCount = 0;
 		try {
 			const postJsonPromise = gfn_postJSON(
@@ -917,32 +918,41 @@
 			
 	        const data = await postJsonPromise;	        	        
 	 	        data.resultList.forEach((item, index) => {
-	 	        	const grdBffaGrdTot = {
-	 	        			sortYmd : item.INPT_YMD
+	 	        	const grdSortBffaTot = {
+	 	        			sortYmd : item.WRHS_YMD
 	 	        			,sortFclt : item.FCLT_NM
-                            ,sortInfo : item.PRDCR_NM
-                            ,bxQntt : item.WRHS_QNTT
-                            ,wrhsWght : item.WHOL_WGHT
-                            ,dscd : item.GRD_TYPE_1_WGHT
-                            ,skinCrack : item.GRD_TYPE_2_WGHT
-	         				,grd1 : item.QNTT_1
-	         				,grd2 : item.QNTT_2
-	         				,grd3 : item.QNTT_3
-	         				,grd4 : item.QNTT_4
-	         				,grd5 : item.QNTT_5
-	         				,grd6 : item.QNTT_6
-	         				,grd7 : item.QNTT_7
-	         				,grd8 : item.QNTT_8
-	         				,grd9 : item.QNTT_9	         				
-	         				,sbTot        : item.SORT_QNTT
+                            ,prdcrNm : item.PRDCR_NM
+                            ,wrhsQntt : item.WRHS_QNTT
+                            ,wrhsWght : item.GRD_TYPE_1_WGHT + item.GRD_TYPE_2_WGHT
+                            ,grdType1Wght : item.GRD_TYPE_1_WGHT
+                            ,grdType2Wght : item.GRD_TYPE_2_WGHT
+                            ,grdType3Wght : item.GRD_TYPE_3_WGHT
+                            ,grdType4Wght : item.GRD_TYPE_4_WGHT
+                            ,grdType5Wght : item.GRD_TYPE_5_WGHT
+	         				,grd1 : item.WGHT_1
+	         				,grd2 : item.WGHT_2
+	         				,grd3 : item.WGHT_3
+	         				,grd4 : item.WGHT_4
+	         				,grd5 : item.WGHT_5
+	         				,grd6 : item.WGHT_6
+	         				,grd7 : item.WGHT_7
+	         				,grd8 : item.WGHT_8
+	         				,grd9 : item.WGHT_9	         				
+	         				,sbTot        : item.GRD_WGHT_TOT - item.GRD_TYPE_WGHT_TOT
+	         				,fcltCd : item.FCLT_CD
+	         				,prdcrCd     : item.PRDCR_CD
+	         				,bffaWrhsno : item.BFFA_WRHSNO
+	         				,itemCd : itemCd
+	         				,wholWght : item.GRD_WGHT_TOT 
+	         				
 
 	 	        	};
 
-	 	        	jsonBffaGrd.push(grdBffaGrdTot);
+	 	        	jsonSortBffa.push(grdSortBffaTot);
 	 	        });	      
 
 	        
-	        grdBffaGrd.refresh();
+	 	       grdSortBffa.refresh();
 	        
 
 		} catch (e) {
@@ -958,12 +968,15 @@
 	const fn_search = async function () {
         await fn_setExhstDsctnCol(); // 배출구 컬럼 
         await fn_setGrdDsctnCol(); // 등급별 컬럼
-        fn_createBffaGrd();
+        fn_createSortBffa();
         fn_createGrdDsctn();
         fn_createExhstDsctn();
         fn_setExhstDsctnTot(); // 배출구 집계
+        fnCloseProgress();
         fn_setGrdDsctnTot(); // 등급 집계
-        fn_setBffaGrdTot(); // 육안등급판정 집계
+        fnCloseProgress();
+        fn_setSortBffaTot(); // 육안등급판정 집계
+        fnCloseProgress();
 	}
 
 	const fn_dtpChange = function(){
@@ -1143,12 +1156,18 @@
             gfn_comAlert("W0005", "품목");
             return
         }
-        popBffa.init(gv_apcCd,gv_selectedApcNm,itemCd,BffaGrdType,fn_bffaSearch);
+        let rowData = grdSortBffa.getRowData(grdSortBffa.getRow());
+        
+        
+        //popBffa.init(gv_apcCd,gv_selectedApcNm,itemCd,BffaGrdType,fn_bffaSearch);
+        
+        popBffa.rsltChoice(rowData);
+        
         SBUxMethod.openModal('modal-regSort');
     }
  	
     /** 품목 선택시 육안선별 종류 SELECT **/
-    const fn_selectBffaGrdType = async function(){
+    const fn_selectSortBffaType = async function(){
         let itemCd = SBUxMethod.get("srch-slt-itemCd");
 
         if(!gfn_isEmpty(itemCd)){
@@ -1159,7 +1178,7 @@
                 });
                 let data = await postJsonPromise;
                 if (_.isEqual("S", data.resultStatus)) {
-                    BffaGrdType = data.resultList;
+                	BffaGrdType = data.resultList;
                 }
                 //await fn_createGrid();
             }catch (e){
@@ -1193,34 +1212,37 @@
                     data.resultList.forEach(function(item){
                         let bffaObj =
                             {
-                                apcCd     : item.apcCd,
-                                bffaWrhsno: item.bffaWrhsno,
-                                wrhsYmd   : item.wrhsYmd,
-                                prdcrNm   : item.prdcrNm,
-                                prdcrCd   : item.prdcrCd,
-                                fcltNm    : item.fcltNm,
-                                fcltCd    : item.fcltCd,
-                                wrhsQntt  : item.wrhsQntt,
-                                wholWght  : item.wholWght,
-                                icptWght  : item.icptWght,
-                                grdType1Wght : item.grdType1Wght,
-                                grdType2Wght : item.grdType2Wght,
-                                grdType3Wght : item.grdType3Wght,
-                                wrhsWght  : item.wrhsWght,
-                                rmrk      : item.rmrk,
-                                itemCd    : item.itemCd,
-
+                        		 apcCd     : item.apcCd,
+                                 bffaWrhsno: item.bffaWrhsno,
+                                 wrhsYmd   : item.wrhsYmd,
+                                 prdcrNm   : item.prdcrNm,
+                                 prdcrCd   : item.prdcrCd,
+                                 fcltNm    : item.fcltNm,
+                                 fcltCd    : item.fcltCd,
+                                 wrhsQntt  : item.wrhsQntt,
+                                 wholWght  : item.wholWght,
+                                 icptWght  : item.icptWght,
+                                 grdType1Wght : item.grdType1Wght,
+                                 grdType2Wght : item.grdType2Wght,
+                                 grdType3Wght : item.grdType3Wght,
+                                 wrhsWght  : item.wrhsWght,
+                                 rmrk      : item.rmrk,
+                                 itemCd    : item.itemCd
                             }
-                        jsonSortBffa.push(bffaObj);
-                    });
-                    grdSortBffa.rebuild();
+                        //BffaGrdType.push(bffaObj);
+                    });                    
                 }
             }catch (e){
 
             }
     }
 	
-
+    function fnCloseProgress() {
+		var options = {
+			modelNm : 'main-loading'
+		};
+		SBUxMethod.closeProgress(options);
+	};
      
      
 

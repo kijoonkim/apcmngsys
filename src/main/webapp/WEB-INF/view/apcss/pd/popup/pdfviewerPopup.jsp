@@ -27,7 +27,9 @@
 				<div id = "pdfArea">
 					<sbux-pdfviewer id="test1" name="test1" width="900px" height="600px" url="/upload/pdf/test.pdf">
 					</sbux-pdfviewer>
-
+				</div>
+				<div id = "iframePdfArea">
+					<iframe src="/upload/pdf/test.pdf" style="width:900px; height:600px;" frameborder="0"></iframe>
 				</div>
 			</div>
 		</div>

@@ -1,5 +1,8 @@
 package com.at.apcss.am.spmt.vo;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.at.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
@@ -291,4 +294,14 @@ public class SpmtPrfmncVO extends ComVO {
 	 * */
 	private String blwInvntrAprv;
 
+	private List<SpmtGdsVO> spmtGdsList;
+
+	public List<SpmtGdsVO> getSpmtGdsList() {
+		return spmtGdsList == null ? null : spmtGdsList.stream().collect(Collectors.toList());
+	}
+
+	public void setSpmtGdsList(List<SpmtGdsVO> spmtGdsList) {
+		this.spmtGdsList = spmtGdsList == null ? null : spmtGdsList.stream().collect(Collectors.toList());
+	}
+	
 }

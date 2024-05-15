@@ -256,6 +256,22 @@ public class ComMenuController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	// 화면관리 UI 목록 조회
+	@PostMapping(value = "/co/menu/selectComUiCmnsBtnList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectComUiCmnsBtnList(@RequestBody ComUiVO comUiVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<ComUiVO> resultList = new ArrayList<>();
+		try {
+			resultList = comMenuService.selectComUiCmnsBtnList(comUiVO);
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	
 
 	// 화면관리 UI 등록
 	@PostMapping(value = "/co/menu/insertComUiList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})

@@ -114,8 +114,8 @@
      		<if test='frmerSn != null and frmerSn != ""'>
 				AND FRMERNO LIKE #{frmerSn} || '%'
 			</if>
-			<if test='bzobRgno != null and bzobRgno != ""'>
-				AND BRNO LIKE '%' || #{bzobRgno} || '%'
+			<if test='mngmstRegno != null and mngmstRegno != ""'>
+				AND MNGMST_REGNO LIKE '%' || #{mngmstRegno} || '%'
 			</if>
 			<if test='brthdy != null and brthdy != ""'>
 				AND BRDT LIKE '%' || #{brthdy} || '%'

@@ -133,8 +133,40 @@ public class SpmtPrfmncController extends BaseController {
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
+	
 
+	/**
+	 * 출하실적 등록 (by 포장번호)
+	 */
+	@PostMapping(value = "/am/spmt/insertSpmtPrfmncByPckgList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertSpmtPrfmncByPckgList(@RequestBody SpmtPrfmncComVO spmtPrfmncComVO, HttpServletRequest request) throws Exception {
 
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+
+			spmtPrfmncComVO.setSysFrstInptUserId(getUserId());
+			spmtPrfmncComVO.setSysFrstInptPrgrmId(getPrgrmId());
+			spmtPrfmncComVO.setSysLastChgUserId(getUserId());
+			spmtPrfmncComVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String, Object> rtnObj = spmtPrfmncService.insertSpmtPrfmncByPckgList(spmtPrfmncComVO);
+			if(rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	
 	// 출하실적 등록
 	@PostMapping(value = "/am/spmt/insertSpmtPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> insertSpmtPrfmncList(@RequestBody List<SpmtPrfmncVO> spmtPrfmncList, HttpServletRequest request) throws Exception {

@@ -188,6 +188,11 @@
 
 	// ${comMenuVO.menuId}
 	
+	// common ---------------------------------------------------
+	var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
+	var p_menuId 	= '${comMenuVO.menuId}';
+	//-----------------------------------------------------------
+	
 	var editType			= "N";
 	
 	var jsonRegionCode		= [];	// 지역
@@ -313,8 +318,8 @@
 			,V_P_CLIENT_CODE	: ''
 			,V_P_NATION_CODE	: NATION_CODE
 			,V_P_NATION_NAME	: NATION_NAME
-			,V_P_FORM_ID		: ''
-			,V_P_MENU_ID		: ''
+			,V_P_FORM_ID		: p_formId
+			,V_P_MENU_ID		: p_menuId
 			,V_P_PROC_ID		: ''
 			,V_P_USERID			: ''
 			,V_P_PC				: '' 
@@ -509,8 +514,8 @@
 			,V_P_MEMO					: obj.MEMO
 			,V_P_SORT_SEQ				: obj.SORT_SEQ
 			,V_P_USE_YN					: obj.USE_YN
-			,V_P_FORM_ID				: ''
-			,V_P_MENU_ID				: ''
+			,V_P_FORM_ID				: p_formId
+			,V_P_MENU_ID				: p_menuId
 			,V_P_PROC_ID				: ''
 			,V_P_USERID					: ''
 			,V_P_PC						: '' 
@@ -562,8 +567,8 @@
   				,V_P_MEMO					: obj.MEMO
   				,V_P_SORT_SEQ				: obj.SORT_SEQ
   				,V_P_USE_YN					: obj.USE_YN
-  				,V_P_FORM_ID				: ''
-  				,V_P_MENU_ID				: ''
+  				,V_P_FORM_ID				: p_formId
+  				,V_P_MENU_ID				: p_menuId
   				,V_P_PROC_ID				: ''
   				,V_P_USERID					: ''
   				,V_P_PC						: '' 

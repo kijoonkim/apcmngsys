@@ -24,7 +24,7 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 			
-				<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
+				
 				
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
@@ -79,18 +79,14 @@
 						<tr>
 							
 							
-							<th colspan="1" scope="row" class="th_bg">경영체정보</th>
+							<th colspan="1" scope="row" class="th_bg"><span class="data_required" ></span>경영체정보</th>
 							<td colspan="2"  class="td_input" style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
-									id="srch-inp-prdcrNm"
-									name="srch-inp-prdcrNm"
+									id="srch-inp-frmerSn"
+									name="srch-inp-frmerSn"
 									class="form-control input-sm"
-									placeholder="초성검색 가능"
-									autocomplete-ref="jsonPrdcrAutocomplete"
-									autocomplete-text="name"
-    								oninput="fn_onInputPrdcrNm(event)"
-    								autocomplete-select-callback="fn_onSelectPrdcrNm"
+									
    								></sbux-input>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
@@ -99,8 +95,8 @@
 									name="btn-srch-prdcr"
 									class="btn btn-xs btn-outline-dark"
 									text="찾기" uitype="modal"
-									target-id="modal-prdcr"
-									onclick="fn_choicePrdcr"
+									target-id="modal-frmer"
+									onclick="fn_choiceFrmer"
 								></sbux-button>
 							</td>
 							
@@ -120,7 +116,6 @@
 
 				<div class="tab-content">
 					<div id="gnrlSttnTab" >
-						<div id="sb-area-gnrlSttn" style="height:470px;"></div>
 						<div>
 							<table class="table table-bordered tbl_fixed">
 								<caption>일반현황</caption>
@@ -134,111 +129,111 @@
 									<tr>
 										<th scope="row" class="th_bg" >농업인번호</th>
 										<td>
-											<sbux-label id="idxLabel_norm1" name="idxLabel_norm1" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-gnrl-frmerNo" name="inp-gnrl-frmerNo" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>
 										<th scope="row" class="th_bg" >경영체 등록번호</th>
 										<td>
-											<sbux-label id="idxLabel_norm2" name="idxLabel_norm2" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-gnrl-mngmstRegNo" name="inp-gnrl-mngmstRegNo" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>	
 									</tr>
 									<tr>
 										<th scope="row" class="th_bg" >경영주 법인명</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-gnrl-admstOwnrCorpNm" name="inp-gnrl-admstOwnrCorpNm" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>
 										<th scope="row" class="th_bg" >주민등록주소</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-gnrl-admstOwnrRgdtAddr" name="inp-gnrl-admstOwnrRgdtAddr" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>	
 									</tr>
 									<tr>
 										<th scope="row" class="th_bg" >실 거주 주소</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-gnrl-admstOwnrActlHbtnAddr" name="inp-gnrl-admstOwnrActlHbtnAddr" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>
 										<th scope="row" class="th_bg" >실거주 도로명주소</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-gnrl-admstOwnrDaddr" name="inp-gnrl-admstOwnrDaddr" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>	
 									</tr>
 									<tr>
 										<th scope="row" class="th_bg" >마을명</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-gnrl-vlgNm" name="inp-gnrl-vlgNm" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>
 										<th scope="row" class="th_bg" >개인법인구분</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-gnrl-prsnaCorpSeCd" name="inp-gnrl-prsnaCorpSeCd" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>	
 									</tr>
 									<tr>
 										<th scope="row" class="th_bg" >내외국인구분</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-gnrl-ctznFngnrSeCd" name="inp-gnrl-ctznFngnrSeCd" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>
 										<th scope="row" class="th_bg" >전화번호</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-gnrl-telno" name="inp-gnrl-telno" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>	
 									</tr>
 									<tr>
 										<th scope="row" class="th_bg" >팩스번호</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-gnrl-fxno" name="inp-gnrl-fxno" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>
 										<th scope="row" class="th_bg" >휴대전화번호</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-gnrl-mblTelno" name="inp-gnrl-mblTelno" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>	
 									</tr>
 									<tr>
 										<th scope="row" class="th_bg" >이메일</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-gnrl-emlAddr" name="inp-gnrl-emlAddr" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>
 										<th scope="row" class="th_bg" >영농시작일</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-gnrl-agrcBgngYmd" name="inp-gnrl-agrcBgngYmd" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>	
 									</tr>
 									<tr>
 										<th scope="row" class="th_bg" >농업시작형태</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-gnrl-frmngBgngShap" name="inp-gnrl-frmngBgngShap" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>
 										<th scope="row" class="th_bg" >농업종사형태</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-gnrl-frmngEnggShap" name="inp-gnrl-frmngEnggShap" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>	
 									</tr>
 									<tr>
 										<th scope="row" class="th_bg" >설립년도</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-gnrl-fndnYr" name="inp-gnrl-fndnYr" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>
 										<th scope="row" class="th_bg" >사업자등록번호</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-gnrl-brno" name="inp-gnrl-brno" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>	
 									</tr>
 									<tr>
 										<th scope="row" class="th_bg" >대표자명</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-gnrl-rprsvNm" name="inp-gnrl-rprsvNm" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>
 										<th scope="row" class="th_bg" >대표자 주소</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-gnrl-rprsvAddr" name="inp-gnrl-rprsvAddr" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>	
 									</tr>
 									<tr>
 										<th scope="row" class="th_bg" >생년월일</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-gnrl-brdt" name="inp-gnrl-brdt" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>
 										<th scope="row" class="th_bg" >성별</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-gnrl-sxdc" name="inp-gnrl-sxdc" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>	
 									</tr>
 									
@@ -251,7 +246,6 @@
 					
 					</div>
 					<div id="frlnTab" >
-						<div id="sb-area-frln" style="height:470px;"></div>
 						<div>
 							<table class="table table-bordered tbl_fixed">
 								<caption>농지</caption>
@@ -265,121 +259,121 @@
 									<tr>
 										<th scope="row" class="th_bg" >농업인번호</th>
 										<td>
-											<sbux-label id="idxLabel_norm1" name="idxLabel_norm1" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-frln-frmerNo" name="inp-frln-frmerNo" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>
 										<th scope="row" class="th_bg" >법정동코드</th>
 										<td>
-											<sbux-label id="idxLabel_norm2" name="idxLabel_norm2" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-frln-stdgCd" name="inp-frln-stdgCd" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>	
 									</tr>
 									<tr>
 										<th scope="row" class="th_bg" >농지본번</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-frln-frlnMno" name="inp-frln-frlnMno" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>
 										<th scope="row" class="th_bg" >공동경작 여부</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-frln-cprtnFrlnYn" name="inp-frln-cprtnFrlnYn" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>	
 									</tr>
 									<tr>
 										<th scope="row" class="th_bg" >농지부번</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-frln-frlnSno" name="inp-frln-frlnSno" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>
 										<th scope="row" class="th_bg" >농지주소</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-frln-frlnAddr" name="inp-frln-frlnAddr" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>	
 									</tr>
 									<tr>
 										<th scope="row" class="th_bg" >경작형태</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-frln-frlnType" name="inp-frln-frlnType" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>
 										<th scope="row" class="th_bg" >농지 소유자명</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-frln-frlnOwnrNm" name="inp-frln-frlnOwnrNm" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>	
 									</tr>
 									<tr>
 										<th scope="row" class="th_bg" >공부지목</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-frln-actlLdcg" name="inp-frln-actlLdcg" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>
 										<th scope="row" class="th_bg" >실제지목</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-frln-poeLdcg" name="inp-frln-poeLdcg" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>	
 									</tr>
 									<tr>
 										<th scope="row" class="th_bg" >공부농지면적</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-frln-actlFrlnArea" name="inp-frln-actlFrlnArea" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>
 										<th scope="row" class="th_bg" >실제농지면적</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-frln-poeFrlnArea" name="inp-frln-poeFrlnArea" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>	
 									</tr>
 									<tr>
 										<th scope="row" class="th_bg" >휴경면적</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-frln-flwArea" name="inp-frln-flwArea" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>
 										<th scope="row" class="th_bg" >폐경면적</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-frln-ablFrlnArea" name="inp-frln-ablFrlnArea" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>	
 									</tr>
 									<tr>
 										<th scope="row" class="th_bg" >품목코드</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-frln-itemCd" name="inp-frln-itemCd" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>
 										<th scope="row" class="th_bg" >품목명</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-frln-itemNm" name="inp-frln-itemNm" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>	
 									</tr>
 									<tr>
 										<th scope="row" class="th_bg" >노지/시설구분</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-frln-brgrndFcltSeCd" name="inp-frln-brgrndFcltSeCd" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>
 										<th scope="row" class="th_bg" >재배면적</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-frln-frlnArea" name="inp-frln-frlnArea" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>	
 									</tr>
 									<tr>
 										<th scope="row" class="th_bg" >대장구분코드</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-frln-ldgrSeCd" name="inp-frln-ldgrSeCd" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>
 										<th scope="row" class="th_bg" >시설일련번호</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-frln-fcltSn" name="inp-frln-fcltSn" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>	
 									</tr>
 									<tr>
 										<th scope="row" class="th_bg" >시설형태</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-frln-fcltShap" name="inp-frln-fcltShap" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>
 										<th scope="row" class="th_bg" >시설종류</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-frln-fcltKnd" name="inp-frln-fcltKnd" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>	
 									</tr>
 									<tr>
 										<th scope="row" class="th_bg" >시설면적</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-frln-fcltArea" name="inp-frln-fcltArea" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>
 										<th scope="row" class="th_bg" >시설설치년도</th>
 										<td>
-											<sbux-label id="idxLabel_norm" name="idxLabel_norm" class="form-control input-sm" uitype="normal" text=""></sbux-label>
+											<sbux-input id="inp-frln-fcltInstlYr" name="inp-frln-fcltInstlYr" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>	
 									</tr>
 									
@@ -397,8 +391,29 @@
 						<div id="sb-area-ecfrdCert" style="height:470px;"></div>
 					</div>
 					<div id="rcfvHstryTab" >
+						<div class="ad_tbl_top">
+							<ul class="ad_tbl_count">
+								<li>
+									<span>농업인 수혜이력</span>
+								</li>
+							</ul>
+						</div>
 						<div id="sb-area-frmerRcfvHstry" style="height:470px;"></div>
+						<div class="ad_tbl_top">
+							<ul class="ad_tbl_count">
+								<li>
+									<span>농지 수혜이력</span>
+								</li>
+							</ul>
+						</div>
 						<div id="sb-area-frlnRcfvHstry" style="height:470px;"></div>
+						<div class="ad_tbl_top">
+							<ul class="ad_tbl_count">
+								<li>
+									<span>지자체 수혜이력</span>
+								</li>
+							</ul>
+						</div>
 						<div id="sb-area-locgovRcfvHstry" style="height:470px;"></div>
 					</div>
 					<div id="injstcRdmTab" >
@@ -412,10 +427,10 @@
 	</section>
 	<!-- 사용자 선택 Modal -->
     <div>
-        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" header-is-close-button="false" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-frmer" name="modal-frmer" uitype="middle" header-title="경영체 선택" body-html-id="body-modal-frmer" header-is-close-button="false" footer-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
-    <div id="body-modal-prdcr">
-    	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
+    <div id="body-modal-frmer">
+    	<jsp:include page="../../am/popup/farmerInfoPopup.jsp"></jsp:include>
     </div>
 	
 </body>
@@ -426,6 +441,12 @@
  	
 	
 	var jsonPrdcrAutocomplete = []; // 생산자
+	
+	/**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+    
 
 	window.addEventListener('DOMContentLoaded', async function(e) {
 
@@ -434,8 +455,8 @@
 	})
 
 	const fn_init = async function() {
-		fn_createGnrlSttn();
-		fn_createFrln();
+		//fn_createGnrlSttn();
+		//fn_createFrln();
 		fn_createEduFnsh();
 		fn_createEcfrdCert();
 		fn_createFrmerRcfvHstry();
@@ -460,14 +481,14 @@
 	var grdInjstcRdm;
 	
 	//그리드 json
-	var jsonGnrlSttn = [];
-	var jsonFrln = [];
 	var jsonEduFnsh = [];
 	var jsonEcfrdCert = [];
 	var jsonFrmerRcfvHstry = [];
 	var jsonFrlnRcfvHstry = [];
 	var jsonLocgovRcfvHstry = [];
 	var jsonInjstcRdm = [];
+	
+	
 	
 
 	
@@ -481,73 +502,10 @@
 	];
 
 
-	const fn_createGnrlSttn= function() {
-	    var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-gnrlSttn';
-	    SBGridProperties.id = 'grdGnrlSttn';
-	    SBGridProperties.jsonref = 'jsonGnrlSttn';
-	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'free';
-	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.mergecells = 'bycolrec';
-	    SBGridProperties.fixedrowheight = 50;
-	    SBGridProperties.allowcopy = true;
-	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
-		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
-		SBGridProperties.clickeventarea = {fixed: false, empty: false};
-		SBGridProperties.backcoloralternate = '#e0ffff';
-	    SBGridProperties.columns = [
-	    	{caption : ["농업인번호"], ref: '1', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["경영체 등록번호"], ref: '2', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["경영주 법인명"], ref: '3', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["마을명"], ref: '4', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["실거주 주소"], ref: '5', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["휴대전화번호"], ref: '6', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["전화번호"], ref: '7', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	
-	    	{caption: [""],	ref: '8',     		type:'input',  	hidden: true}
-
-	    ];
-        
-        
-        grdGnrlSttn= _SBGrid.create(SBGridProperties);
-        //grdGnrlSttn.bind('click', fnClick)
-        grdGnrlSttn.rebuild();
-	}
 	
-	const fn_createFrln= function() {
-	    var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-frln';
-	    SBGridProperties.id = 'grdFrln';
-	    SBGridProperties.jsonref = 'jsonFrln';
-	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'free';
-	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.mergecells = 'bycolrec';
-	    SBGridProperties.fixedrowheight = 50;
-	    SBGridProperties.allowcopy = true;
-	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
-		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
-		SBGridProperties.clickeventarea = {fixed: false, empty: false};
-		SBGridProperties.backcoloralternate = '#e0ffff';
-	    SBGridProperties.columns = [
-	    	{caption : ["농지 일련번호"], ref: '1', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["법정동코드"], ref: '2', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["본번"], ref: '3', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["부번"], ref: '4', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["농지주소"], ref: '5', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["품목명"], ref: '6', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["재배면적"], ref: '7', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption: ["선별번호"],	ref: 'sortNo',     		type:'input',  	hidden: true}
-
-	    ];
-        
-        
-        grdFrln= _SBGrid.create(SBGridProperties);
-        //grdFrln.bind('click', fnClick)
-        grdFrln.rebuild();
-	}
 	
+
+  //교육이수 그리드 생성
 	const fn_createEduFnsh= function() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-eduFnsh';
@@ -556,21 +514,21 @@
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'free';
 	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.mergecells = 'bycolrec';
+	    //SBGridProperties.mergecells = 'bycolrec';
 	    SBGridProperties.fixedrowheight = 50;
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
-		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
+		SBGridProperties.contextmenulist = objMenuListEdu;		// 우클릭 메뉴 리스트
 		SBGridProperties.clickeventarea = {fixed: false, empty: false};
-		SBGridProperties.backcoloralternate = '#e0ffff';
+		//SBGridProperties.backcoloralternate = '#e0ffff';
 	    SBGridProperties.columns = [
-	    	{caption : ["교육과정코드"], ref: '1', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["성명"], ref: '2', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["교육기관명"], ref: '3', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["교육과정명"], ref: '4', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["교육시작일자"], ref: '5', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["교육종료일자"], ref: '6', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["확인여부"], ref: '7', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["교육과정코드"], ref: 'crclmCd', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["성명"], ref: 'flNm', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["교육기관명"], ref: 'ednstNm', type: 'input',  width:'250px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["교육과정명"], ref: 'crclmNm', type: 'input',  width:'300px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["교육시작일자"], ref: 'eduBgngYmd', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["교육종료일자"], ref: 'eduEndYmd', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["확인여부"], ref: 'idntyYn', type: 'input',  width:'50px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
 	    	{caption: ["선별번호"],	ref: 'sortNo',     		type:'input',  	hidden: true}
 
 	    ];
@@ -580,7 +538,7 @@
         //grdEduFnsh.bind('click', fnClick)
         grdEduFnsh.rebuild();
 	}
-	
+	//친환경인증 그리드 생성
 	const fn_createEcfrdCert= function() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-ecfrdCert';
@@ -589,24 +547,24 @@
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'free';
 	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.mergecells = 'bycolrec';
+	    //SBGridProperties.mergecells = 'bycolrec';
 	    SBGridProperties.fixedrowheight = 50;
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
-		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
+		SBGridProperties.contextmenulist = objMenuListEcfrd;		// 우클릭 메뉴 리스트
 		SBGridProperties.clickeventarea = {fixed: false, empty: false};
-		SBGridProperties.backcoloralternate = '#e0ffff';
+		//SBGridProperties.backcoloralternate = '#e0ffff';
 	    SBGridProperties.columns = [
-	    	{caption : ["인증번호"], ref: '1', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["인증시작일"], ref: '2', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["인증종료일"], ref: '3', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["인증정보상태"], ref: '4', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["친환경인증구분명"], ref: '5', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["친환경인증그룹구분명"], ref: '6', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["단체명"], ref: '7', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["농가주명"], ref: '8', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["인증필지"], ref: '9', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["면적"], ref: '10', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["인증번호"], ref: 'certNo', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["인증시작일"], ref: 'certBgngYmd', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["인증종료일"], ref: 'certEndYmd', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["인증정보상태"], ref: 'certStts', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["친환경인증구분명"], ref: 'ecfrdCertSeNm', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["친환경인증그룹구분명"], ref: 'ecfrdCertGroupSeNm', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["단체명"], ref: 'grpNm', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["농가주명"], ref: 'ownrNm', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["인증필지"], ref: 'certAddr', type: 'input',  width:'300px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["면적"], ref: 'sfc', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
 	    	
 	    	{caption: ["선별번호"],	ref: 'sortNo',     		type:'input',  	hidden: true}
 
@@ -618,6 +576,7 @@
         grdEcfrdCert.rebuild();
 	}
 	
+	//농업인수혜이력 그리드 생성
 	const fn_createFrmerRcfvHstry= function() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-frmerRcfvHstry';
@@ -626,25 +585,25 @@
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'free';
 	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.mergecells = 'bycolrec';
+	    //SBGridProperties.mergecells = 'bycolrec';
 	    SBGridProperties.fixedrowheight = 50;
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
-		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
+		SBGridProperties.contextmenulist = objMenuListFrmerRcfv;		// 우클릭 메뉴 리스트
 		SBGridProperties.clickeventarea = {fixed: false, empty: false};
-		SBGridProperties.backcoloralternate = '#e0ffff';
+		//SBGridProperties.backcoloralternate = '#e0ffff';
 	    SBGridProperties.columns = [
-	    	{caption : ["사업시작일"], ref: '1', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["사업종료일"], ref: '2', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["관할기관"], ref: '3', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["사업코드"], ref: '4', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["사업명"], ref: '5', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["수혜자명"], ref: '6', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["국고융자"], ref: '7', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["지방비융자"], ref: '8', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["국고보조금"], ref: '9', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["지방비보조금"], ref: '10', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["처리시스템"], ref: '11', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["사업시작일"], ref: 'bizBgngYmd', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["사업종료일"], ref: 'bizEndYmd', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["관할기관"], ref: 'cmptncInst', type: 'input',  width:'200px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["사업코드"], ref: 'bizCd', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["사업명"], ref: 'bizNm', type: 'input',  width:'200px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["수혜자명"], ref: 'rcfvrsNm', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["국고융자"], ref: 'govFnncng', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;',format : {type:'number', rule:'#,###'} , disabled:true  },
+	    	{caption : ["지방비융자"], ref: 'lcLtExpndFnncng', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;' ,format : {type:'number', rule:'#,###'}, disabled:true  },
+	    	{caption : ["국고보조금"], ref: 'govSbsds', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;',format : {type:'number', rule:'#,###'} , disabled:true  },
+	    	{caption : ["지방비보조금"], ref: 'lcltExpndSbsds', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;',format : {type:'number', rule:'#,###'} , disabled:true  },
+	    	{caption : ["처리시스템"], ref: 'prcsSys', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
 	    	
 	    	{caption: ["선별번호"],	ref: 'sortNo',     		type:'input',  	hidden: true}
 
@@ -656,6 +615,7 @@
         grdFrmerRcfvHstry.rebuild();
 	}
 	
+	//농지수혜이력 그리드 생성
 	const fn_createFrlnRcfvHstry= function() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-frlnRcfvHstry';
@@ -664,27 +624,27 @@
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'free';
 	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.mergecells = 'bycolrec';
+	    //SBGridProperties.mergecells = 'bycolrec';
 	    SBGridProperties.fixedrowheight = 50;
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
-		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
+		SBGridProperties.contextmenulist = objMenuListFrlnRcfv;		// 우클릭 메뉴 리스트
 		SBGridProperties.clickeventarea = {fixed: false, empty: false};
-		SBGridProperties.backcoloralternate = '#e0ffff';
+		//SBGridProperties.backcoloralternate = '#e0ffff';
 	    SBGridProperties.columns = [
-	    	{caption : ["PNU코드"], ref: '1', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["사업시작일"], ref: '2', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["사업종료일"], ref: '3', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["사업코드"], ref: '4', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["사업명"], ref: '5', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["상태"], ref: '6', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["신청인명"], ref: '7', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["대장구분"], ref: '8', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["농지주소"], ref: '9', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["법정동코드"], ref: '10', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["본번"], ref: '11', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["부번"], ref: '12', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["신청면적"], ref: '13', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["PNU코드"], ref: 'pnuCd', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["사업시작일"], ref: 'bizBgngYmd', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["사업종료일"], ref: 'bizEndYmd', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["사업코드"], ref: 'bizCd', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["사업명"], ref: 'bizNm', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["상태"], ref: 'stts', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["신청인명"], ref: 'aplcntNm', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["대장구분"], ref: 'ldgrSe', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["농지주소"], ref: 'frlnAddr', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["법정동코드"], ref: 'stdgCd', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["본번"], ref: 'mno', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["부번"], ref: 'sno', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["신청면적"], ref: 'aplySfc', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
 	    	
 	    	{caption: ["선별번호"],	ref: 'sortNo',     		type:'input',  	hidden: true}
 
@@ -696,6 +656,7 @@
         grdFrlnRcfvHstry.rebuild();
 	}
 	
+	//지자체수혜이력 그리드 생성
 	const fn_createLocgovRcfvHstry= function() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-locgovRcfvHstry';
@@ -704,25 +665,25 @@
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'free';
 	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.mergecells = 'bycolrec';
+	    //SBGridProperties.mergecells = 'bycolrec';
 	    SBGridProperties.fixedrowheight = 50;
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
-		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
+		SBGridProperties.contextmenulist = objMenuListLocgov;		// 우클릭 메뉴 리스트
 		SBGridProperties.clickeventarea = {fixed: false, empty: false};
-		SBGridProperties.backcoloralternate = '#e0ffff';
+		//SBGridProperties.backcoloralternate = '#e0ffff';
 	    SBGridProperties.columns = [
-	    	{caption : ["사업년도"], ref: '1', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["시도명"], ref: '2', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["시군구명"], ref: '3', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["지자체사업코드"], ref: '4', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["지자체사업명"], ref: '5', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["수혜자명"], ref: '6', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["국고융자"], ref: '7', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["지방비융자"], ref: '8', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["국고보조금"], ref: '9', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["지방비보조금"], ref: '10', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["처리시스템"], ref: '11', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["사업년도"], ref: '1', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["시도명"], ref: '2', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["시군구명"], ref: '3', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["지자체사업코드"], ref: '4', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["지자체사업명"], ref: '5', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["수혜자명"], ref: '6', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["국고융자"], ref: '7', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;',format : {type:'number', rule:'#,###'} , disabled:true  },
+	    	{caption : ["지방비융자"], ref: '8', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;',format : {type:'number', rule:'#,###'} , disabled:true  },
+	    	{caption : ["국고보조금"], ref: '9', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;',format : {type:'number', rule:'#,###'} , disabled:true  },
+	    	{caption : ["지방비보조금"], ref: '10', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;',format : {type:'number', rule:'#,###'} , disabled:true  },
+	    	{caption : ["처리시스템"], ref: '11', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;',format : {type:'number', rule:'#,###'} , disabled:true  },
 	    	
 	    	{caption: ["선별번호"],	ref: 'sortNo',     		type:'input',  	hidden: true}
 
@@ -734,6 +695,7 @@
         grdLocgovRcfvHstry.rebuild();
 	}
 	
+	//부정당환수 그리드 생성
 	const fn_createInjstcRdm= function() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-injstcRdm';
@@ -742,22 +704,22 @@
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'free';
 	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.mergecells = 'bycolrec';
+	    //SBGridProperties.mergecells = 'bycolrec';
 	    SBGridProperties.fixedrowheight = 50;
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
-		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
+		SBGridProperties.contextmenulist = objMenuListInjstc;		// 우클릭 메뉴 리스트
 		SBGridProperties.clickeventarea = {fixed: false, empty: false};
-		SBGridProperties.backcoloralternate = '#e0ffff';
+		//SBGridProperties.backcoloralternate = '#e0ffff';
 	    SBGridProperties.columns = [
-	    	{caption : ["사업년도"], ref: '1', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["사업명"], ref: '2', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["위반내용"], ref: '3', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["제재 시작년도"], ref: '4', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["제재 종료년도"], ref: '5', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["환수진행코드"], ref: '6', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["환수대상원금"], ref: '7', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-	    	{caption : ["환수대상금액"], ref: '8', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["사업년도"], ref: 'bizYr', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["사업명"], ref: 'bizNm', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["위반내용"], ref: 'vltnCn', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["제재 시작년도"], ref: 'sncnsBgngYr', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["제재 종료년도"], ref: 'sncnsEndYr', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["환수진행코드"], ref: 'rdmPrgrsCd', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["환수대상원금"], ref: 'rdmTrgtPrncpl', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;',format : {type:'number', rule:'#,###'} , disabled:true  },
+	    	{caption : ["환수대상금액"], ref: 'rdmTrgtAmt', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;',format : {type:'number', rule:'#,###'} , disabled:true  },
 	    	
 	    	{caption: ["선별번호"],	ref: 'sortNo',     		type:'input',  	hidden: true}
 
@@ -774,412 +736,497 @@
 	function fnClick(){
 		this.inputmode = 'none';
 	}
-
-
-	// 배출구별 집계
-	const fn_setExhstDsctnTot = async function() {
-		let inptYmdFrom = SBUxMethod.get("srch-dtp-inptYmdFrom");
-		let inptYmdTo = SBUxMethod.get("srch-dtp-inptYmdTo");
-		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
-		let sortFclt = SBUxMethod.get("srch-slt-sortFclt");
-		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-		const param = {
-			apcCd: gv_selectedApcCd 
-			, prdcrCd : prdcrCd
-			, inptYmdFrom : inptYmdFrom
-			, inptYmdTo  : inptYmdTo
-			, sortFclt : sortFclt
-			, prdcrCd : prdcrCd
-			, itemCd : itemCd
-		}
-		jsonExhstDsctn.length = 0;
-		let totalRecordCount = 0;
-		try {
-			const postJsonPromise = gfn_postJSON(
-						"/am/sort/selectExhstDsctn.do",
-						param,
-						null,
-						false
-					);
-	        const data = await postJsonPromise;
-	        let sumTot1 = {exhst1 : 0,exhst2 : 0, exhst3 : 0,exhst4 : 0,exhst5 : 0,exhst6 : 0,exhst7 : 0,exhst8 : 0,exhst9 : 0,exhst10 : 0,exhst11 : 0,exhst12 : 0,exhst13 : 0,exhst14 : 0,exhst15 : 0,exhst16 : 0,exhst17 : 0,exhst18 : 0,exhst19 : 0,exhst20 : 0,exhst21 : 0,exhst22 : 0,exhst23 : 0};
-	        let sumTot2 = {exhst1 : 0,exhst2 : 0, exhst3 : 0,exhst4 : 0,exhst5 : 0,exhst6 : 0,exhst7 : 0,exhst8 : 0,exhst9 : 0,exhst10 : 0,exhst11 : 0,exhst12 : 0,exhst13 : 0,exhst14 : 0,exhst15 : 0,exhst16 : 0,exhst17 : 0,exhst18 : 0,exhst19 : 0,exhst20 : 0,exhst21 : 0,exhst22 : 0,exhst23 : 0};
-	        data.resultList.forEach((item, index) => {
-	        	const exhstDsctnQnttTot = {
-	        			grd     : item.GRD
-	        			,sortFclt : item.FCLT_NM
-	        			,sortInfo : item.PRDCR_NM
-	        			,grd      : "수량"
-	        				,exhst1 : item.QNTT_1
-	        				,exhst2 : item.QNTT_2
-	        				,exhst3 : item.QNTT_3
-	        				,exhst4 : item.QNTT_4
-	        				,exhst5 : item.QNTT_5
-	        				,exhst6 : item.QNTT_6
-	        				,exhst7 : item.QNTT_7
-	        				,exhst8 : item.QNTT_8
-	        				,exhst9 : item.QNTT_9
-	        				,exhst10 : item.QNTT_10
-	        				,exhst11 : item.QNTT_11
-	        				,exhst12 : item.QNTT_12
-	        				,exhst13 : item.QNTT_13
-	        				,exhst14 : item.QNTT_14
-	        				,exhst15 : item.QNTT_15
-	        				,exhst16 : item.QNTT_16
-	        				,exhst17 : item.QNTT_17
-	        				,exhst18 : item.QNTT_18
-	        				,exhst19 : item.QNTT_19
-	        				,exhst20 : item.QNTT_20
-	        				,exhst21 : item.QNTT_21
-	        				,exhst22 : item.QNTT_22
-                            ,exhst23 : item.QNTT_23
-                            ,exhst24 : item.QNTT_24
-                            ,exhst25 : item.QNTT_25
-                            ,exhst26 : item.QNTT_26
-                            ,exhst27 : item.QNTT_27
-                            ,exhst28 : item.QNTT_28
-                            ,exhst29 : item.QNTT_29
-                            ,exhst30 : item.QNTT_30
-    						,sbTot        : item.SORT_QNTT
-
-	        	};
-				const exhstDsctnWghtTot = 		{
-        			sortFclt : item.FCLT_NM
-        			,sortInfo : item.INPT_YMD
-        			,grd      : "중량"
-        				,exhst1 : item.WGHT_1
-        				,exhst2 : item.WGHT_2
-        				,exhst3 : item.WGHT_3
-        				,exhst4 : item.WGHT_4
-        				,exhst5 : item.WGHT_5
-        				,exhst6 : item.WGHT_6
-        				,exhst7 : item.WGHT_7
-        				,exhst8 : item.WGHT_8
-        				,exhst9 : item.WGHT_9
-        				,exhst10 : item.WGHT_10
-        				,exhst11 : item.WGHT_11
-        				,exhst12 : item.WGHT_12
-        				,exhst13 : item.WGHT_13
-        				,exhst14 : item.WGHT_14
-        				,exhst15 : item.WGHT_15
-        				,exhst16 : item.WGHT_16
-        				,exhst17 : item.WGHT_17
-        				,exhst18 : item.WGHT_18
-        				,exhst19 : item.WGHT_19
-        				,exhst20 : item.WGHT_20
-        				,exhst21 : item.WGHT_21
-        				,exhst22 : item.WGHT_22
-                        ,exhst23 : item.WGHT_23
-                        ,exhst24 : item.WGHT_24
-                        ,exhst25 : item.WGHT_25
-                        ,exhst26 : item.WGHT_26
-                        ,exhst27 : item.WGHT_27
-                        ,exhst28 : item.WGHT_28
-                        ,exhst29 : item.WGHT_29
-                        ,exhst30 : item.WGHT_30
-					,sbTot        : item.SORT_WGHT
-        		}
-	        	jsonExhstDsctn.push(exhstDsctnQnttTot);
-	        	jsonExhstDsctn.push(exhstDsctnWghtTot);	    
-	        	sumTot1 = sumValues(sumTot1,exhstDsctnQnttTot);	        	
-        		sumTot2 = sumValues(sumTot2,exhstDsctnWghtTot);
-        		
-	        });	      
-	         
-	        sumTot1["sortFclt"] = "합계"; sumTot1["grd"] = "수량"; sumTot1["sortInfo"] = "합계";
-	        sumTot2["sortFclt"] = "합계"; sumTot2["grd"] = "중량"; sumTot2["sortInfo"] = "합계";
-            sumTot1["sbTot"] = sumTot1.exhst1+    sumTot1.exhst2+    sumTot1.exhst3+    sumTot1.exhst4+    sumTot1.exhst5+    sumTot1.exhst6+    sumTot1.exhst7+    sumTot1.exhst8+    sumTot1.exhst9+    sumTot1.exhst10+    sumTot1.exhst11+    sumTot1.exhst12+    sumTot1.exhst13+    sumTot1.exhst14+    sumTot1.exhst15+    sumTot1.exhst16+    sumTot1.exhst17+    sumTot1.exhst18+    sumTot1.exhst19+    sumTot1.exhst20+    sumTot1.exhst21+    sumTot1.exhst22+    sumTot1.exhst23 + sumTot1.exhst24 + sumTot1.exhst25 + sumTot1.exhst26 + sumTot1.exhst27 + sumTot1.exhst28 + sumTot1.exhst29 + sumTot1.exhst30; 
-            sumTot2["sbTot"] = sumTot2.exhst1+    sumTot2.exhst2+    sumTot2.exhst3+    sumTot2.exhst4+    sumTot2.exhst5+    sumTot2.exhst6+    sumTot2.exhst7+    sumTot2.exhst8+    sumTot2.exhst9+    sumTot2.exhst10+    sumTot2.exhst11+    sumTot2.exhst12+    sumTot2.exhst13+    sumTot2.exhst14+    sumTot2.exhst15+    sumTot2.exhst16+    sumTot2.exhst17+    sumTot2.exhst18+    sumTot2.exhst19+    sumTot2.exhst20+    sumTot2.exhst21+    sumTot2.exhst22+    sumTot2.exhst23 + sumTot2.exhst24 + sumTot2.exhst25 + sumTot2.exhst26 + sumTot2.exhst27 + sumTot2.exhst28 + sumTot2.exhst29 + sumTot2.exhst30;
-
-	        jsonExhstDsctn.push(sumTot1);
-	        jsonExhstDsctn.push(sumTot2);
-	        const allData = grdExhstDsctn.getGridDataAll();
-			
-
-	        grdExhstDsctn.refresh();
-	        
-
-		} catch (e) {
-			if (!(e instanceof Error)) {
-				e = new Error(e);
-			}
-			console.error("failed", e.message);
- 			//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-		}
+	
+	function fnGnrlSttnClick(){
+		var nRow = grdGnrlSttn.getRow();
+		var rowData = grdGnrlSttn.getRowData(nRow);
 	}
 	
-	function sumValues(obj1,obj2){
-		const result = {};
-		for(const key in obj1){
-			if(obj1.hasOwnProperty(key)){
-				const val1 = obj1[key];
-				const val2 = obj2[key] || 0;
-				result[key] = val1 + val2 
-			}
-		}
-		return result;
+	function fnFrlnClick(){
+		var nRow = grdFrln.getRow();
+		var rowData = grdFrln.getRowData(nRow);
 	}
-	// 등급별 집계
-	const fn_setGrdDsctnTot = async function() {
-		let inptYmdFrom = SBUxMethod.get("srch-dtp-inptYmdFrom");
-		let inptYmdTo = SBUxMethod.get("srch-dtp-inptYmdTo");
-		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-		let prdcrCd = SBUxMethod.get('srch-inp-prdcrCd');
+
+
+	
+	
+
+	// 일반현황 조회
+	const fn_setGnrlSttn = async function() {
+		let frmerSn = SBUxMethod.get("srch-inp-frmerSn");
+		
 		const param = {
-			apcCd: gv_selectedApcCd,
-			inptYmdFrom: inptYmdFrom,
-			inptYmdTo: inptYmdTo,
-			itemCd: itemCd,
-			prdcrCd : prdcrCd,
-			itemCd : itemCd
+			frmerSn : frmerSn			
 		}
-		jsonGrdDsctn.length = 0;
-		let totalRecordCount = 0;
+		//jsonGrdDsctn.length = 0;
+		
 		try {
 			const postJsonPromise = gfn_postJSON(
-						"/am/sort/selectGrdDsctn.do",
+						"/fm/farm/selectFarmerInfoList.do",
 						param,
 						null,
 						false
 					);
-			let sumTot1 = {grd1 : 0,grd2 : 0, grd3 : 0,grd4 : 0,grd5 : 0,grd6 : 0,grd7 : 0,grd8 : 0,grd9 : 0};
- 	        let sumTot2 = {grd1 : 0,grd2 : 0, grd3 : 0,grd4 : 0,grd5 : 0,grd6 : 0,grd7 : 0,grd8 : 0,grd9 : 0};
+
 	        const data = await postJsonPromise;	        	        
 	 	        data.resultList.forEach((item, index) => {
-	 	        	const grdDsctnQnttTot = {
-	 	        			sortFclt : item.FCLT_NM
-                            ,sortInfo : item.PRDCR_NM
-	 	        			,grd      : "수량"
-	         				,grd1 : item.QNTT_1
-	         				,grd2 : item.QNTT_2
-	         				,grd3 : item.QNTT_3
-	         				,grd4 : item.QNTT_4
-	         				,grd5 : item.QNTT_5
-	         				,grd6 : item.QNTT_6
-	         				,grd7 : item.QNTT_7
-	         				,grd8 : item.QNTT_8
-	         				,grd9 : item.QNTT_9	         				
-	         				,sbTot        : item.SORT_QNTT
-
-	 	        	};
-	 				const grdDsctnWghtTot = 		{
-                         sortFclt : item.FCLT_NM
-                        ,sortInfo : item.INPT_YMD
-	         			,grd      : "중량"
-	         				,grd1 : item.WGHT_1
-	         				,grd2 : item.WGHT_2
-	         				,grd3 : item.WGHT_3
-	         				,grd4 : item.WGHT_4
-	         				,grd5 : item.WGHT_5
-	         				,grd6 : item.WGHT_6
-	         				,grd7 : item.WGHT_7
-	         				,grd8 : item.WGHT_8
-	         				,grd9 : item.WGHT_9	         				
-	         				,sbTot        : item.SORT_WGHT
-	         		};
-	 	        	jsonGrdDsctn.push(grdDsctnQnttTot);
-	 	        	jsonGrdDsctn.push(grdDsctnWghtTot);	    
-	 	        	sumTot1 = sumValues(sumTot1,grdDsctnQnttTot);	        	
-	         		sumTot2 = sumValues(sumTot2,grdDsctnWghtTot);
-	         		
-	 	        });	      
-	 	         
-	 	        sumTot1["sortFclt"] = "합계"; sumTot1["grd"] = "수량"; sumTot1["sortInfo"] = "합계";
-	 	        sumTot2["sortFclt"] = "합계"; sumTot2["grd"] = "중량"; sumTot2["sortInfo"] = "합계";
-	 	        sumTot1["sbTot"] = sumTot1.grd1 + sumTot1.grd2 + sumTot1.grd3 + sumTot1.grd4 + sumTot1.grd5 + sumTot1.grd6 + sumTot1.grd7 + sumTot1.grd8 + sumTot1.grd9;  
-	 	        sumTot2["sbTot"] = sumTot2.grd1 + sumTot2.grd2 + sumTot2.grd3 + sumTot2.grd4 + sumTot2.grd5 + sumTot2.grd6 + sumTot2.grd7 + sumTot2.grd8 + sumTot2.grd9;
-
-	 	        jsonGrdDsctn.push(sumTot1);
-	 	        jsonGrdDsctn.push(sumTot2);
-
-
-	        const allData = grdGrdDsctn.getGridDataAll();
-
-
-	        grdGrdDsctn.refresh();
+	 	        	
+	 	        	SBUxMethod.set("inp-gnrl-frmerNo",item.frmerSn);
+	 	        	SBUxMethod.set("inp-gnrl-mngmstRegNo",item.bzobRgno);
+	 	        	SBUxMethod.set("inp-gnrl-admstOwnrCorpNm",item.bzmCorpNm);
+	 	        	SBUxMethod.set("inp-gnrl-admstOwnrRgdtAddr",item.addr);
+	 	        	SBUxMethod.set("inp-gnrl-admstOwnrActlHbtnAddr",item.rrsdAddr);
+	 	        	SBUxMethod.set("inp-gnrl-admstOwnrDaddr",item.rdnmAddr);
+	 	        	SBUxMethod.set("inp-gnrl-vlgNm",item.twNm);
+	 	        	SBUxMethod.set("inp-gnrl-prsnaCorpSeCd",item.perCorpDvcdNm);
+	 	        	SBUxMethod.set("inp-gnrl-ctznFngnrSeCd",item.nafoDvcdNm);
+	 	        	SBUxMethod.set("inp-gnrl-telno",item.telno);
+	 	        	SBUxMethod.set("inp-gnrl-fxno",item.faxTelno);
+	 	        	SBUxMethod.set("inp-gnrl-mblTelno",item.mblTelno);
+	 	        	SBUxMethod.set("inp-gnrl-emlAddr",item.emailAddr);
+	 	        	SBUxMethod.set("inp-gnrl-agrcBgngYmd",item.famgStrYmd);
+	 	        	SBUxMethod.set("inp-gnrl-frmngBgngShap",item.farmngBeginStleCdNm);
+	 	        	SBUxMethod.set("inp-gnrl-frmngEnggShap",item.farmngEngageStleCdNm);
+	 	        	SBUxMethod.set("inp-gnrl-brno",item.bzmRgno);
+	 	        	SBUxMethod.set("inp-gnrl-rprsvNm",item.reprNm);
+	 	        	SBUxMethod.set("inp-gnrl-rprsvAddr",item.reprAddr);
+	 	        	SBUxMethod.set("inp-gnrl-brdt",item.brthdy);
+	 	        	SBUxMethod.set("inp-gnrl-sxdc",item.sexdstn);
+	 	        	SBUxMethod.set("inp-gnrl-fndnYr",item.fndtYr);
+	 	        	
+	 	        	
+	 	        });
 	        
 
-		} catch (e) {
-			if (!(e instanceof Error)) {
-				e = new Error(e);
+
+	        //grdGnrlSttn.refresh();
+	        
+
+			} catch (e) {
+				if (!(e instanceof Error)) {
+					e = new Error(e);
 			}
-			console.error("failed", e.message);
- 			//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+				console.error("failed", e.message);
+	 			//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+			}
+		
+	}
+	
+	// 농지 조회
+	const fn_setFrln = async function() {
+		let frmerSn = SBUxMethod.get("srch-inp-frmerSn");
+		
+		const param = {
+			frmerno : frmerSn			
 		}
+		//jsonFrln.length = 0;
+		
+		try {
+			const postJsonPromise = gfn_postJSON(
+						"/fm/farm/selectFarmLandInfoList.do",
+						param,
+						null,
+						false
+					);
+
+	        const data = await postJsonPromise;	        	        
+	 	        data.resultList.forEach((item, index) => {
+	 	        	
+	 	        	SBUxMethod.set("inp-frln-frmerNo",item.frmerno);
+	 	        	SBUxMethod.set("inp-frln-stdgCd",item.stdgcd);
+	 	        	SBUxMethod.set("inp-frln-frlnMno",item.frlnMno);
+	 	        	SBUxMethod.set("inp-frln-frlnSno",item.frlnSno);
+	 	        	SBUxMethod.set("inp-frln-frlnAddr",item.frlnAddr);
+	 	        	SBUxMethod.set("inp-frln-frlnType",item.frlnType);
+	 	        	SBUxMethod.set("inp-frln-frlnOwnrNm",item.frlnOwnrNm);
+	 	        	SBUxMethod.set("inp-frln-actlLdcg",item.actlLdcg);
+	 	        	SBUxMethod.set("inp-frln-poeLdcg",item.poeLdcg);
+	 	        	SBUxMethod.set("inp-frln-actlFrlnArea",item.actlFrlnarea);
+	 	        	SBUxMethod.set("inp-frln-poeFrlnArea",item.poeFrlnarea);
+	 	        	SBUxMethod.set("inp-frln-flwArea",item.flwArea);
+	 	        	SBUxMethod.set("inp-frln-ablFrlnArea",item.ablFrlnarea);
+	 	        	SBUxMethod.set("inp-frln-itemCd",item.itemCd);
+	 	        	SBUxMethod.set("inp-frln-itemNm",item.itemNm);
+	 	        	SBUxMethod.set("inp-frln-brgrndFcltSeCd",item.brgrndFcltSeCd);
+	 	        	SBUxMethod.set("inp-frln-frlnArea",item.frlnarea);
+	 	        	SBUxMethod.set("inp-frln-ldgrSeCd",item.ldgrSeCd);
+	 	        	SBUxMethod.set("inp-frln-fcltSn",item.fcltSn);
+	 	        	SBUxMethod.set("inp-frln-fcltShap",item.fcltShap);
+	 	        	SBUxMethod.set("inp-frln-fcltKnd",item.fcltKnd);
+	 	        	SBUxMethod.set("inp-frln-fcltArea",item.fcltArea);
+	 	        	SBUxMethod.set("inp-frln-fcltInstlYr",item.fcltInstallYr);
+	 	        	SBUxMethod.set("inp-frln-cprtnFrlnYn",item.cprtnFrlnyn);
+	 	        	
+	 	        	
+	 	        	
+	 	        	
+	 	        	
+	 	        });
+	        
+
+
+	        
+	        
+
+			} catch (e) {
+				if (!(e instanceof Error)) {
+					e = new Error(e);
+			}
+				console.error("failed", e.message);
+	 			//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+			}
+		
+	}
+	
+	// 교육 조회
+	const fn_setEdu = async function() {
+		let frmerSn = SBUxMethod.get("srch-inp-frmerSn");
+		
+		const param = {
+			frmerno : frmerSn			
+		}
+		//jsonFrln.length = 0;
+		
+		try {
+			const postJsonPromise = gfn_postJSON(
+						"/fm/farm/selectFarmerEducationInfoList.do",
+						param,
+						null,
+						false
+					);
+
+	        const data = await postJsonPromise;	        	        
+	 	        data.resultList.forEach((item, index) => {
+	 	        	const param = {
+	 	        			frmerno : item.frmerno,
+	 	        			mngmstRegno : item.mngmstRegno,
+	 	        			crclmCd : item.crclmCd,
+	 	        			flNm : item.flNm,
+	 	        			ednstNm : item.ednstNm,
+	 	        			crclmNm : item.crclmNm,
+	 	        			eduBgngYmd : item.eduBgngYmd,
+	 	        			eduEndYmd : item.eduEndYmd,
+	 	        			idntyYn : item.idntyYn
+	 	        	}
+	 	        	jsonEduFnsh.push(param);
+	 	        });
+	 	       grdEduFnsh.refresh();
+
+			} catch (e) {
+				if (!(e instanceof Error)) {
+					e = new Error(e);
+			}
+				console.error("failed", e.message);
+	 			//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+			}
+		
+	}
+	
+	// 친환경인증 조회
+	const fn_setEcfrdCert = async function() {
+		let frmerSn = SBUxMethod.get("srch-inp-frmerSn");
+		
+		const param = {
+			frmerno : frmerSn			
+		}
+		jsonEcfrdCert.length = 0;
+		
+		try {
+			const postJsonPromise = gfn_postJSON(
+						"/fm/farm/selectFarmerSnCertificationInfoList.do",
+						param,
+						null,
+						false
+					);
+
+	        const data = await postJsonPromise;	        	        
+	 	        data.resultList.forEach((item, index) => {
+	 	        	const param = {
+	 	        			certNo : item.certNo,
+	 	        			certBgngYmd : item.certBgngYmd,
+	 	        			certEndYmd : item.certEndYmd,
+	 	        			certStts : item.certStts,
+	 	        			ecfrdCertSeNm : item.ecfrdCertSeNm,
+	 	        			ecfrdCertGroupSeNm : item.ecfrdCertGroupSeNm,
+	 	        			grpNm : item.grpNm,
+	 	        			ownrNm : item.ownrNm,
+	 	        			certAddr : item.certAddr,
+	 	        			sfc : item.sfc
+	 	       		}
+	 	        	jsonEcfrdCert.push(param);
+	 	        });
+	        grdEcfrdCert.refresh();
+
+
+	        
+	        
+
+			} catch (e) {
+				if (!(e instanceof Error)) {
+					e = new Error(e);
+			}
+				console.error("failed", e.message);
+	 			//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+			}
+		
+	}
+	
+	// 농업인수혜 조회
+	const fn_setFrmerRcfvHstry = async function() {
+		let frmerSn = SBUxMethod.get("srch-inp-frmerSn");
+		
+		const param = {
+			frmerno : frmerSn			
+		}
+		jsonFrmerRcfvHstry.length = 0;
+		
+		try {
+			const postJsonPromise = gfn_postJSON(
+						"/fm/farm/selectFarmerGrantsInfoList.do",
+						param,
+						null,
+						false
+					);
+
+	        const data = await postJsonPromise;	        	        
+	 	        data.resultList.forEach((item, index) => {
+	 	        	const param = {
+	 	        			frmerno : item.frmerno,
+	 	        			bizBgngYmd : item.bizBgngYmd,
+	 	        			bizEndYmd : item.bizEndYmd,
+	 	        			cmptncInst : item.cmptncInst,
+	 	        			bizCd : item.bizCd,
+	 	        			bizNm : item.bizNm,
+	 	        			rcfvrsNm : item.rcfvrsNm,
+	 	        			govFnncng : item.govFnncng,
+	 	        			lcLtExpndFnncng : item.lcLtExpndFnncng,
+	 	        			govSbsds : item.govSbsds,
+	 	        			lcltExpndSbsds : item.lcltExpndSbsds,
+	 	        			prcsSys : item.prcsSys
+	 	       		}
+	 	        	jsonFrmerRcfvHstry.push(param);
+	 	        });
+	 	       grdFrmerRcfvHstry.refresh();
+
+			} catch (e) {
+				if (!(e instanceof Error)) {
+					e = new Error(e);
+			}
+				console.error("failed", e.message);
+	 			//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+			}
+		
+	}
+	
+	// 농지수혜 조회
+	const fn_setFrlnRcfvHstry= async function() {
+		let frmerSn = SBUxMethod.get("srch-inp-frmerSn");
+		
+		const param = {
+			frmerno : frmerSn			
+		}
+		jsonFrlnRcfvHstry.length = 0;
+		
+		try {
+			const postJsonPromise = gfn_postJSON(
+						"/fm/farm/selectFarmLandGrantsInfoList.do",
+						param,
+						null,
+						false
+					);
+
+	        const data = await postJsonPromise;	        	        
+	 	        data.resultList.forEach((item, index) => {
+	 	        	const param = {
+	 	        			frmerno : item.frmerno,
+	 	        			pnuCd   : item.pnuCd,
+	 	        			bizBgngYmd : item.bizBgngYmd,
+	 	        			bizEndYmd : item.bizEndYmd,
+	 	        			bizCd : item.bizCd,
+	 	        			bizNm : item.bizNm,
+	 	        			stts  : item.stts,
+	 	        			aplcntNm  : item.aplcntNm,
+	 	        			ldgrSe : item.ldgrSe,
+	 	        			frlnAddr : item.frlnAddr,
+	 	        			stdgCd : item.stdgCd,
+	 	        			mno : item.mno,
+	 	        			sno : item.sno,
+	 	        			aplySfc : item.aplySfc
+	 	       		}
+	 	        	jsonFrlnRcfvHstry.push(param);
+	 	        });
+	 	       grdFrlnRcfvHstry.refresh();
+
+			} catch (e) {
+				if (!(e instanceof Error)) {
+					e = new Error(e);
+			}
+				console.error("failed", e.message);
+	 			//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+			}
+		
+	}
+	
+	// 부정당 조회
+	const fn_setInjstcRdm = async function() {
+		let frmerSn = SBUxMethod.get("srch-inp-frmerSn");
+		
+		const param = {
+			frmerno : frmerSn			
+		}
+		jsonInjstcRdm.length = 0;
+		
+		try {
+			const postJsonPromise = gfn_postJSON(
+						"/fm/farm/selectFarmLandGrantsInfoList.do",
+						param,
+						null,
+						false
+					);
+
+	        const data = await postJsonPromise;	        	        
+	 	        data.resultList.forEach((item, index) => {
+	 	        	const param = {
+	 	        			frmerno : item.frmerno ,
+	 	        			bizYr     : item.bizYr ,
+	 	        			bizNm     : item.bizNm ,
+	 	        			vltnCn     : item.bltnCn ,
+	 	        			sncnsBgngYr     : item.sncnsBgngYr ,
+	 	        			rdmPrgrsCd       : item.rdmPrgrsCd ,
+	 	        			rdmTrgtPrncpl       : item.rdmTrgtPrncpl ,
+	 	        			rdmTrgtAmt       : item.rdmTrgtAmt
+	 	       		}
+	 	        	jsonInjstcRdm.push(param);
+	 	        });
+	 	       grdInjstcRdm.refresh();
+
+			} catch (e) {
+				if (!(e instanceof Error)) {
+					e = new Error(e);
+			}
+				console.error("failed", e.message);
+	 			//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+			}
+		
 	}
 
 
 	const fn_search = async function () {
-        
-	}
-
-	const fn_dtpChange = function(){
-		let inptYmdFrom = SBUxMethod.get("srch-dtp-inptYmdFrom");
-		let inptYmdTo = SBUxMethod.get("srch-dtp-inptYmdTo");
-		if(gfn_diffDate(inptYmdFrom, inptYmdTo) < 0){
-			gfn_comAlert("W0014", "시작일자", "종료일자");		//	W0014	{0}이/가 {1} 보다 큽니다.
-			SBUxMethod.set("srch-dtp-inptYmdFrom", gfn_dateFirstYmd(new Date()));
-			SBUxMethod.set("srch-dtp-inptYmdTo", gfn_dateToYmd(new Date()));
-			return;
+		var frmerSn = SBUxMethod.get("srch-inp-frmerSn");
+		if(frmerSn === undefined){
+			
+		}else{
+			fn_setGnrlSttn();	
+			fn_setFrln();
+			fn_setEdu();
+			fn_setEcfrdCert();
+			fn_setFrmerRcfvHstry();
+			fn_setFrlnRcfvHstry();
+			fn_setInjstcRdm();
 		}
+		
 	}
 
-	/**
-     * @description 메뉴트리그리드 컨텍스트메뉴 json
-     * @type {object}
-     */
-    const objMenuList = {
-        "excelDwnld": {
-            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
-            "accesskey": "e",					//단축키
-            "callback": fn_excelDwnld,			//콜백함수명
-        }
-    };
+	
+	
 
-     // 엑셀 다운로드
-     function fn_excelDwnld() {
-    	 grdExhstDsctn.exportLocalExcel("배출구별집계", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
-     }
-
-     /**
-  	* @name fn_onInputPrdcrNm
-  	* @description 생산자명 입력 시 event : autocomplete
-  	*/
-  	const fn_onInputPrdcrNm = function(prdcrNm){
-  		fn_clearPrdcr();
-  		if(getByteLengthOfString(prdcrNm.target.value) > 100){
-  			SBUxMethod.set("srch-inp-prdcrNm", "");
-  			return;
-  		}
-  		jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm.target.value, jsonPrdcr);
-      	SBUxMethod.changeAutocompleteData('srch-inp-prdcrNm', true);
-      }
-
-  	/**
-  	 * @name fn_clearPrdcr
-  	 * @description 생산자 폼 clear
-  	 */
-  	const fn_clearPrdcr = function() {
-  		SBUxMethod.set("srch-inp-prdcrCd", "");
-  		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:''");
-  	}
-
- 	/**
- 	 * @name fn_onSelectPrdcrNm
- 	 * @description 생산자 autocomplete 선택 callback
- 	 */
- 	 function fn_onSelectPrdcrNm(value, label, item) {
- 		// 생산자 명 중복 체크. 중복일 경우 팝업 활성화.
- 		if(jsonPrdcr.filter(e => e.prdcrNm === label).length > 1){
- 			document.getElementById('btn-srch-prdcr').click();
- 		}
- 		else{
- 			SBUxMethod.set("srch-inp-prdcrCd", value);
- 			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
- 		}
+     
+     const fn_choiceFrmer = function() {
+ 		popFrmerInfo.init(gv_selectedApcCd, gv_selectedApcNm, fn_setFrmer, SBUxMethod.get("srch-inp-frmerSn"));
  	}
 
-     const fn_choicePrdcr = function() {
- 		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr, SBUxMethod.get("srch-inp-prdcrNm"));
- 	}
-
- 	const fn_setPrdcr = function(prdcr) {
- 		if (!gfn_isEmpty(prdcr)) {
- 			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
- 			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
- 			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+ 	const fn_setFrmer = function(frmer) {
+ 		if (!gfn_isEmpty(frmer)) {
+ 			SBUxMethod.set("srch-inp-frmerSn", frmer.frmerSn);
+ 			//SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
  		}
  	}
  	
-    const fn_setExhstDsctnCol = async function() {
-        let itemCd = SBUxMethod.get('srch-slt-itemCd');
-        const param = {
-            apcCd: gv_selectedApcCd 
-            , grdSeCd : '02'
-            , itemCd : itemCd
-        }
-        jsonExhstColumnData.length = 0;
-        try {
-            const postJsonPromise = gfn_postJSON(
-                        "/am/sort/selectExhstDsctnCol.do",
-                        param,
-                        null,
-                        false
-                    );
-            
-            
-            const data = await postJsonPromise;
-            jsonExhstColumnData = data.resultList;
-            await fn_createExhstDsctn();
 
-        } catch (e) {
-            if (!(e instanceof Error)) {
-                e = new Error(e);
-            }
-            console.error("failed", e.message);
-             //gfn_comAlert("E0001");    //    E0001    오류가 발생하였습니다.
-        }
-        
+    
+    
+    
+    const objMenuListEdu = {
+	        "excelDwnld": {
+	            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+	            "accesskey": "e",					//단축키
+	            "callback": fn_excelDwnldEdu,			//콜백함수명
+	        }
+	    };
+    
+    const objMenuListEcfrd = {
+	        "excelDwnld": {
+	            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+	            "accesskey": "e",					//단축키
+	            "callback": fn_excelDwnldEcfrd,			//콜백함수명
+	        }
+	    };
+    
+    const objMenuListFrmerRcfv = {
+	        "excelDwnld": {
+	            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+	            "accesskey": "e",					//단축키
+	            "callback": fn_excelDwnldFrmerRcfv,			//콜백함수명
+	        }
+	    };
+    
+    const objMenuListFrlnRcfv = {
+	        "excelDwnld": {
+	            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+	            "accesskey": "e",					//단축키
+	            "callback": fn_excelDwnldFrlnRcfv,			//콜백함수명
+	        }
+	    };
+    
+    const objMenuListLocgov = {
+	        "excelDwnld": {
+	            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+	            "accesskey": "e",					//단축키
+	            "callback": fn_excelDwnldLocgov,			//콜백함수명
+	        }
+	    };
+    
+    const objMenuListInjstc = {
+	        "excelDwnld": {
+	            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+	            "accesskey": "e",					//단축키
+	            "callback": fn_excelDwnldInjstc,			//콜백함수명
+	        }
+	    };
+    
+    // 엑셀 다운로드
+	/**
+     * @name fn_excelDwnld
+     * @description 엑셀 다운로드
+     */
+
+    function fn_excelDwnldEdu() {
+    	grdEduFnsh.exportLocalExcel("교육이수 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
     
-    const fn_setGrdDsctnCol = async function() {
-        let itemCd = SBUxMethod.get('srch-slt-itemCd');
-        const param = {
-            apcCd: gv_selectedApcCd 
-            , grdSeCd : '03'
-            , itemCd : itemCd
-        }
-        jsonGrdColumnData.length = 0;
-        try {
-            const postJsonPromise = gfn_postJSON(
-                        "/am/sort/selectExhstDsctnCol.do",
-                        param,
-                        null,
-                        false
-                    );
-            
-            
-            const data = await postJsonPromise;
-            jsonGrdColumnData = data.resultList;
-            await fn_createGrdDsctn();
-
-        } catch (e) {
-            if (!(e instanceof Error)) {
-                e = new Error(e);
-            }
-            console.error("failed", e.message);
-             //gfn_comAlert("E0001");    //    E0001    오류가 발생하였습니다.
-        }
-        
+    function fn_excelDwnldEcfrd() {
+    	grdEcfrdCert.exportLocalExcel("친환경인증 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
+    
+    function fn_excelDwnldFrmerRcfv() {
+    	grdFrmerRcfv.exportLocalExcel("농업인수혜이력 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+    
+    function fn_excelDwnldFrlnRcfv() {
+    	grdFrlnRcfvHstry.exportLocalExcel("농지수혜이력 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+    
+    function fn_excelDwnldLocgov() {
+    	grdLocgovRcfvHstry.exportLocalExcel("지자체수혜이력 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+    
+    function fn_excelDwnldInjstc() {
+    	grdInjstcRdm.exportLocalExcel("부정당환수금 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+    
      
  	
- 	/**
-	 * @name fn_docSort
-	 * @description 선별확인서 발행
-	 */
-	const fn_docSort = async function() {
-		const sortnoSnList = [];
-		const sortnoList = [];
-		const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'ST_DOC');
-		const allData = grdExhstDsctn.getGridDataAll();
-		allData.forEach((item) => {
-			if (item.checkedYn === "Y") {
-				sortnoSnList.push(item.sortno + item.sortSn);
-				sortnoList.push(item.sortno);
-    		}
-		});
 
- 		if (sortnoList.length === 0) {
- 			gfn_comAlert("W0001", "발행대상");		//	W0001	{0}을/를 선택하세요.
-			return;
- 		}
-
- 		const sortnoSn = sortnoSnList.join("','");
- 		const sortno = sortnoList.join("','");
- 		gfn_popClipReport("선별확인서", rptUrl, {apcCd: gv_selectedApcCd, sortnoSn: sortnoSn, sortno: sortno});
- 		//gfn_popClipReport("선별확인서", "am/sortIdntyDoc.crf", {apcCd: gv_selectedApcCd, sortnoSn: sortnoSn, sortno: sortno});
- 	}
  	
 	
 
