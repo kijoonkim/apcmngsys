@@ -143,6 +143,11 @@ public class SpmtPrfmncVO extends ComVO {
 	 */
 	private String warehouseSeCd;
 
+    /**
+     * 규격중량
+     */
+    private double spcfctWght;
+	
 	/**
 	 * 출하수량
 	 */
