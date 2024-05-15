@@ -1101,6 +1101,9 @@
 						<if test='grdCd != null and grdCd != ""'>
 							AND SI.GRD_CD = #{grdCd}
 						</if>
+						<if test='pckgno != null and pckgno != ""'>
+							AND GI.PCKGNO = #{pckgno}
+						</if>
 					<![CDATA[
 
 					 ) INV
@@ -1124,6 +1127,16 @@
 
 -- ORDER BY ITEM_CD, PCKG_YMD
 		]]>
+	</select>
+
+	<select id="selectSpmtPrfmncComList" parameterType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO" resultType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO">
+		<![CDATA[
+			SELECT *
+			FROM TB_SPMT_PRFMNC_COM
+			WHERE APC_CD = #{apcCd}
+			ORDER BY SPMT_YMD DESC
+		]]>
+
 	</select>
 
 </mapper>

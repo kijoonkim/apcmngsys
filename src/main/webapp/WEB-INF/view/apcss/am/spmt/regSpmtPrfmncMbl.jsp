@@ -156,7 +156,7 @@
             width: 90vw;
             height: 70vh;
         }
-        #invnt_table, #reg_table{
+        #invnt_table, #reg_table, #reg_table_head{
             width: 100%;
             /*height: 85%;*/
             font-size: .9em;
@@ -165,7 +165,7 @@
             border-radius: 5px;
             table-layout: fixed;
         }
-        #invnt_table thead, #reg_table thead{
+        #invnt_table thead, #reg_table_head thead{
             font-width: bold;
             color:#fff;
             background: #255c91;
@@ -175,7 +175,7 @@
             font-size: 1vw;
             padding: 5px 0px;
         }
-        #reg_table th{
+        #reg_table_head th{
             text-align: center;
             font-size: 1vw;
             padding: 5px 0px;
@@ -211,13 +211,14 @@
             background-color: #84afff;
             color: white;
         }
-        #reg_table thead tr th{
+        #reg_table_head thead tr th{
             border: 3px solid white;
             border-radius: 10px;
         }
-        #reg_table{
+        #reg_table,#reg_table_head{
             table-layout: fixed;
         }
+
         #reg_table tbody input{
             width: 100%;
             margin-right: 5px;
@@ -225,40 +226,38 @@
             font-family: 'Font Awesome 5 Free';
             text-align: center;
         }
-        #invntrTable{
+        #invntrTable, #spmtTable{
             border: 14px solid black;
         }
 
-        #invntrTable thead tr th{
+        #invntrTable thead tr th, #spmtTable thead tr th{
             font-size: 3vh;
             text-align: center;
             background-color: #255c91;
             color: white;
         }
-        #invntrTable td{
+        #invntrTable td, #spmtTable td{
             text-align: center;
             font-size: 2vh;
         }
-        #invntrTable tbody tr:hover td{
+        #invntrTable tbody tr:hover td, #spmtTable tbody tr:hover td{
             background-color: #84afff;
             color: white;
         }
-
-
-
-
-
+        ::-webkit-scrollbar{
+            display: none;
+        }
     </style>
 </head>
 <body oncontextmenu="return false">
-<section>
+<section style="overflow: hidden">
     <div class="box box-solid">
         <div class="box-header" style="display:flex; justify-content: flex-start; padding-bottom: 0px" >
                 <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 출하실적등록 모바일 -->
         </div>
         <div style="margin-left: auto;padding-top: 0px" class="box-header">
-            <sbux-button id="btnDocSpmt" name="btnDocSpmt" uitype="normal"   text="송품장" class="btn btn-sm btn-primary btn-mbl" onclick="fn_docSpmt"></sbux-button>
+            <sbux-button id="btnDocSpmt" name="btnDocSpmt" uitype="normal"   text="송품장목록" class="btn btn-sm btn-primary btn-mbl" onclick="fn_selectSpmtList"></sbux-button>
             <sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-mbl btn-outline-danger" onclick="fn_reset"></sbux-button>
             <sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-mbl btn-outline-danger" onclick="fn_save"></sbux-button>
             <sbux-button id="btnClose" name="btnClose" uitype="normal" text="종료" class="btn btn-mbl btn-outline-danger" onclick="fn_popup()"></sbux-button>
@@ -423,8 +422,8 @@
 <%--                </div>--%>
             </div>
             <hr>
-            <div style="overflow: hidden">
-                <table id="reg_table">
+            <div style="height: 55vh">
+                <table id="reg_table_head">
                     <colgroup>
                         <col style="width: 20%">
                         <col style="width: 10%">
@@ -453,9 +452,24 @@
                         <th></th>
                         <th>계</th>
                     </tr>
-
                     </thead>
-                    <tbody style="overflow-y: scroll">
+                </table>
+                <div style="height: 50vh;overflow: auto">
+                <table id="reg_table" style="overflow: auto;">
+                    <colgroup>
+                        <col style="width: 20%">
+                        <col style="width: 10%">
+                        <col style="width: 10%">
+                        <col style="width: 10%">
+                        <col style="width: 7%">
+                        <col style="width: 7%">
+                        <col style="width: 7%">
+                        <col style="width: 7%">
+                        <col style="width: 7%">
+                        <col style="width: 15%">
+                    </colgroup>
+
+                    <tbody>
                     <tr>
                         <td>
                             <div style="display: flex">
@@ -501,9 +515,13 @@
                         <td>
                             <input/>
                         </td>
+                        <td>
+                            <input />
+                        </td>
                     </tr>
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
     </div>
@@ -667,6 +685,9 @@
     </div>
 </div>
 <sbux-modal id="searchQntt" name="searchQntt" uitype="large" header-title="상품재고조회"
+            dlg-class="sbuxClass">
+</sbux-modal>
+<sbux-modal id="searchSpmt" name="searchSpmt" uitype="large" header-title="송품장목록조회"
             dlg-class="sbuxClass">
 </sbux-modal>
 </body>
@@ -1243,8 +1264,8 @@
     const fn_onChangesortGds = function (_el) {
         let _val = _el.value;
         let parentTr = $(_el).closest('tr');
-        let lastInput = parentTr.children(':last');
-        lastInput.find("input").eq(0).attr('type') == "hidden" ? lastInput.remove():"";
+        let lastInput = parentTr.children(':last').find("input");
+
 
         let _prdcr =$(_el).parent().next('div').children();
         _prdcr.val('');
@@ -1253,7 +1274,6 @@
         $(_prdcr).css("color", "initial");
         $(_prdcr).css("background-color", "initial");
         $(_prdcr).val("");
-        // let _prdcr = $(_el).parent().next('div').children().val();
 
         jsonNewGdsGrd.forEach(function (item) {
             for (let key in item) {
@@ -1264,18 +1284,26 @@
         });
 
         tempJson = jsonNewGdsGrd.filter(function (item) {
-            return item.grdNm.includes(_val);
+            return item.grdNm.startsWith(_val);
         });
+        if(gfn_isEmpty(_val)){
+            tempJson.length = 0;
+            $(lastInput).removeAttr('sortGds');
+            $(lastInput).removeAttr('sortInvnt');
+        }
 
         let rowData = JSON.stringify(tempJson[0]);
-        parentTr.append(`<td><input type="hidden" value='`+rowData+`' /></td>`);
+        $(lastInput).attr('sortGds',rowData);
+
 
         if (tempJson.length == 0) {
             parentTr.children().eq(1).find('input').val('');
             parentTr.children().eq(2).find('input').val('');
             parentTr.children().eq(3).find('input').val('');
+            parentTr.children().eq(8).find('input').val('');
             /** 출하번호에 대한 정보가 없는데 생산자전용 임시 JSON이 있을수있음. **/
             prdcrTempJson.length = 0;
+            mapInvntQntt.delete(parentTr.index());
         } else {
             /** 품목 단량 세팅 0번 인덱스로 없으면 어쩌지? **/
             parentTr.children().eq(1).find('input').val(tempJson[0].itemNm);
@@ -1361,9 +1389,8 @@
     const fn_showInvntQntt = async function (_el) { //top: 99.4062px; left: 233.5px;
         let max = _el.target.getAttribute("max");
         if (!gfn_isEmpty(max)) {
-            let _el = document.activeElement;
-            let rect = _el.getBoundingClientRect();
-            let parentTd = $(_el).closest('td');
+            let rect = _el.target.getBoundingClientRect();
+            let parentTd = $(_el.target).parent();
 
 
             /** 재고 툴팁 element **/
@@ -1393,17 +1420,19 @@
             gfn_comAlert("W0008","재고","수량");
             $(_el).val(max);
         }
-        let rowData = JSON.parse($(_el).closest('tr').children(":last").find("input").eq(1).val());
-        if(mapInvntQntt.has(rowData.spmtInvId)){
-            let originQnttMap = mapInvntQntt.get(rowData.spmtInvId);
-            let originTrIdx = $(_el).closest('tr').index();
-            originQnttMap.set(originTrIdx,(val));
+        $(_el).closest('tr').children().eq(8).find('input').val(val);
+        let rowData = JSON.parse($(_el).closest('tr').children(":last").find("input").attr("sortInvnt"));
+
+        if(mapInvntQntt.has($(_el).closest('tr').index())){
+            let originQnttMap = mapInvntQntt.get($(_el).closest('tr').index());
+            originQnttMap.clear();
+            originQnttMap.set(rowData.spmtInvId[0],val);
         }
     }
-
+    /** 재고조회 **/
     const fn_searchInvntrQntt = async function(_el){
         let tr = $(_el).closest('tr');
-        let rowData = tr.find('td > input[type=hidden]').val();
+        let rowData = tr.children(":last").find('input').attr("sortGds");
         let originTridx = $(tr).index();
 
         try{
@@ -1415,27 +1444,29 @@
         }
 
         let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncInvntList.do",rowData);
-
-        const data = await postJsonPromise;
-        data.resultList.forEach(function(item){
-            for(let key in item){
-                if(item[key] == null){
-                    delete item[key];
+            const data = await postJsonPromise;
+            console.log(data,"재고조회 할때 포장 단위 split");
+            data.resultList.forEach(function (item) {
+                for (let key in item) {
+                    if (item[key] == null) {
+                        delete item[key];
+                    }
+                    if(key == 'spmtInvId'){
+                        item[key] = item[key].split(',');
+                    }
                 }
-            }
-        });
-        data.resultList.map(function(item){
-            //TODO: 재고현황 파악해서 재고 마이너스처리
-            if(mapInvntQntt.has(item.spmtInvId)){
-                let maps = mapInvntQntt.get(item.spmtInvId).values();
-                let originQntt = 0;
-                for(const value of maps){
-                    originQntt += value;
-                }
-                item.invntrQntt -= originQntt;
-            }
-        });
+            });
 
+            data.resultList.map(function (item) { //필요한거 : item.spmtInvId
+                //TODO: 재고현황 파악해서 재고 마이너스처리
+                let useCount = 0;
+                for(let key of mapInvntQntt.keys()){
+                    if(mapInvntQntt.get(key).has(item.spmtInvId[0])){
+                        useCount += mapInvntQntt.get(key).get(item.spmtInvId[0]);
+                    };
+                }
+                item.invntrQntt -= useCount;
+            });
 
         let fn_invntrModalEl = function(_list){
             let prdcrFlag = !_list[0].hasOwnProperty('prdcrNm');
@@ -1510,9 +1541,38 @@
 
             return invntrModalEl;
         }
-        let el = fn_invntrModalEl(data.resultList);
-        SBUxMethod.setModalBody('searchQntt', el);
 
+        let el;
+        if(!gfn_isEmpty(data.resultList)){
+             el = fn_invntrModalEl(data.resultList);
+        }else{
+             el =`<h2>`+parseInt(rowData.grdNm) + " " + rowData.vrtyNm +`</h2>
+                 <table id="invntrTable" style="width:100%">
+                    <colgroup>
+                        <col style="width: 20%">
+                        <col style="width: 14%">
+                        <col style="width: 20%">
+                        <col style="width: 14%">
+                        <col style="width: 14%">
+                        <col style="width: 14%">
+                    </colgroup>
+                    <thead>
+                     <tr>
+                        <th>선별일자</th>
+                        <th>품목</th>
+                        <th>품종</th>
+                        <th>상품등급</th>
+                        <th>수량</th>
+                        <th>중량</th>
+                     </tr>
+                    </thead>
+                    <tbody>
+                    <tr><td colspan="6" style="height:10vh">상품재고가 없습니다.</td></tr>
+                    </tbody></table>
+            `
+        };
+
+        SBUxMethod.setModalBody('searchQntt', el);
         SBUxMethod.openModal('searchQntt');
     }
 
@@ -1520,10 +1580,9 @@
     const fn_selectInvnt = function(_row,_idx){
         SBUxMethod.closeModal('searchQntt');
         let originTr = $("#reg_table tbody").children().eq(_idx);
-
         let rowData = JSON.parse($(_row).children(":last").val());
-        originTr.children(":last").find("input").eq(1).attr('type') == "hidden" ? originTr.children(":last").find("input").eq(1).remove():"";
-        originTr.children(':last').append(`<td><input type="hidden" value='`+$(_row).children(":last").val()+`' /></td>`);
+
+        originTr.children(":last").find('input').attr("sortInvnt",JSON.stringify(rowData));
 
         let prdcrTd = originTr.children().eq(0).find('input').eq(1);
         if(rowData.hasOwnProperty("prdcrIdentno")){
@@ -1566,13 +1625,129 @@
             }
         });
 
-        if(mapInvntQntt.has(rowData.spmtInvId)){
-            mapInvntQntt.get(rowData.spmtInvId).set(originTr.index(),rowData.invntrQntt);
-        }else{
-            mapInvntQntt.set(rowData.spmtInvId,new Map().set(originTr.index(),rowData.invntrQntt));
+        let mapKey = String(rowData.spmtInvId[0]);
+        let mapValue = rowData.invntrQntt;
+        let originIdx = originTr.index();
+
+        if(!mapInvntQntt.has(originIdx)){
+            mapInvntQntt.set(originIdx,new Map().set(mapKey,mapValue));
+        }
+        fn_onchangeQntt(originInput);
+    }
+
+    const fn_selectSpmtList = async function(){
+        try{
+            let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncComList.do",{apcCd:gv_apcCd});
+            const data = await postJsonPromise;
+            data.resultList.forEach(function (item) {
+                for (let key in item) {
+                    if (item[key] == null) {
+                        delete item[key];
+                    }
+                }
+            });
+            let spmtEl =
+                `<table id="spmtTable" style="width: 100%">
+                    <colgroup>
+                        <col style="width: 35%">
+                        <col style="width: 25%">
+                        <col style="width: 40%">
+
+                    </colgroup>
+                        <thead>
+                        <tr>
+                            <th>출하일자</th>
+                            <th>순번</th>
+                            <th>거래처</th>
+                        </tr>
+                        <tbody>`;
+            data.resultList.forEach(function(item){
+                spmtEl += ` <tr onclick="fn_selectSpmt(this)">
+                            <td>`+item.spmtYmd.replace(/(\d{4})(\d{2})(\d{2})/,"$1-$2-$3")+`</td>
+                            <td>`+parseInt(item.spmtno.substring(item.spmtno.length-4,item.spmtno.length))+`</td>`;
+                if(gfn_isEmpty(item.dldtn)) {
+                    spmtEl += `<td>기타</td></tr>`;
+                }else{
+                    spmtEl += `<td>`+item.dldtn.split(" ")[0]+`</td></tr>`;
+                };
+            });
+            spmtEl +=`</tbody></table>`;
+            SBUxMethod.setModalBody("searchSpmt",spmtEl);
+            SBUxMethod.openModal("searchSpmt");
+        }catch (e){
+            console.log(e)
+        }
+    }
+    /** 송품장 목록조회 **/
+    const fn_selectSpmt = async function(_item){
+        // let itemCd = _item.cells[4].innerText;
+        // let vrtyCd = _item.cells[5].innerText;
+        // let pckgno = _item.cells[6].innerText;
+
+        try{
+            let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncInvntList.do", {
+                apcCd : gv_apcCd,
+                itemCd : itemCd,
+                vrtyCd : vrtyCd,
+                pckgno : pckgno,
+                grdCd : '02',
+            });
+            const data = await postJsonPromise;
+
+        }catch (e){
+            console.log(e);
+        }
+    }
+    const fn_save = async function(){
+        let cnptCd = SBUxMethod.get("dtl-dtp-cnpt");
+        let spmtYmd = $("#dtl-inp-spmtYmd").val().toLocaleString().replace("-","");
+        if(gfn_isEmpty(cnptCd)){
+            gfn_comAlert("W0001","거래처");
+            return;
+        }
+        if(gfn_isEmpty(spmtYmd)){
+            gfn_comAlert("W0001","출하일자");
+            return;
         }
 
-        fn_onchangeQntt(originInput);
+        let rows = $("#reg_table tbody").children();
+        let spmtPrfmncList = [];
+
+        let saveJson = {
+            apcCd : gv_apcCd,
+            spmtYmd : spmtYmd,
+            cnptCd : cnptCd,
+            };
+
+        rows.each(function() {
+            let rowData = $(this).children(":last").find('input').attr("sortinvnt");
+            if(!gfn_isEmpty(rowData)){
+                rowData = JSON.parse(rowData);
+                let qnttIdx = parseInt(rowData.gdsGrd);
+                let spmtQntt = $(this).children().eq(qnttIdx + 3).find("input").val();
+
+                /** spmtGdsList SN 셋팅 [oderby 조건으로 순서를 보장받음] **/
+                rowData.spmtInvId.forEach(function(item,idx,arr){
+                    arr[idx] = {
+                        pckgno : item,
+                        pckgSn : idx+1
+                    }
+                });
+
+                spmtPrfmnc = {
+                    spmtQntt: spmtQntt,
+                    spmtPckgUnitCd : rowData.spmtPckgUnitCd,
+                    spmtGdsList : rowData.spmtInvId,
+                }
+                spmtPrfmncList.push(spmtPrfmnc);
+
+            }
+        });
+        saveJson.spmtPrfmncList = spmtPrfmncList;
+        console.log("saveJson",saveJson);
+
+
+
     }
 
 

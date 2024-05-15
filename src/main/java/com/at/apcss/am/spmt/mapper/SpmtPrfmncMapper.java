@@ -128,4 +128,11 @@ public interface SpmtPrfmncMapper {
 	 * @throws Exception
 	 */
     List<GdsInvntrVO> selectSpmtPrfmncInvntList(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+	/**
+	 * 출하실적등록 모바일 출하실적공통 조회
+	 * @param spmtPrfmncVO
+	 * @return List<GdsInvntrVO>
+	 * @throws Exception
+	 */
+    List<SpmtPrfmncVO> selectSpmtPrfmncComList(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
 }
