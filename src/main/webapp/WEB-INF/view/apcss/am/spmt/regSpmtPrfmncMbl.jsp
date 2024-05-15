@@ -1225,17 +1225,9 @@
      */
     const fn_reset = function () {
         SBUxMethod.set("dtl-dtp-cnpt", "");
-        SBUxMethod.set("srch-slt-itemCd", "");
-        SBUxMethod.set("srch-slt-vrtyCd", "");
-        SBUxMethod.set("srch-slt-sortGrdCd", "");
-        SBUxMethod.set("srch-slt-prdcrNm", "");
-        SBUxMethod.set("srch-slt-gdsGrdNm", "");
-        SBUxMethod.set("srch-slt-gdsGrdCd", "");
-        $("#srch-slt-invntrQntt").val('');
-        $("#invntrQntt").text("");
-
-        $("#reg_table tbody").empty();
-        jsonRegTableData = [];
+        $("#reg_table > tbody").children().remove();
+        $("#reg_table > tbody").append(regTableEl);
+        mapInvntQntt.clear();
     }
     /**
      * @name fn_onchangeCnpt
@@ -1418,9 +1410,10 @@
 
         if(val > max){
             gfn_comAlert("W0008","재고","수량");
-            $(_el).val(max);
+            val = max;
         }
         $(_el).closest('tr').children().eq(8).find('input').val(val);
+        $(_el).val(val);
         let rowData = JSON.parse($(_el).closest('tr').children(":last").find("input").attr("sortInvnt"));
 
         if(mapInvntQntt.has($(_el).closest('tr').index())){
@@ -1445,7 +1438,6 @@
 
         let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncInvntList.do",rowData);
             const data = await postJsonPromise;
-            console.log(data,"재고조회 할때 포장 단위 split");
             data.resultList.forEach(function (item) {
                 for (let key in item) {
                     if (item[key] == null) {
@@ -1700,7 +1692,7 @@
     }
     const fn_save = async function(){
         let cnptCd = SBUxMethod.get("dtl-dtp-cnpt");
-        let spmtYmd = $("#dtl-inp-spmtYmd").val().toLocaleString().replace("-","");
+        let spmtYmd = $("#dtl-inp-spmtYmd").val().toLocaleString().replaceAll("-","");
         if(gfn_isEmpty(cnptCd)){
             gfn_comAlert("W0001","거래처");
             return;
@@ -1729,7 +1721,7 @@
                 /** spmtGdsList SN 셋팅 [oderby 조건으로 순서를 보장받음] **/
                 rowData.spmtInvId.forEach(function(item,idx,arr){
                     arr[idx] = {
-                        pckgno : item,
+                        pckgno : item.substring(0,14),
                         pckgSn : idx+1
                     }
                 });
@@ -1744,10 +1736,45 @@
             }
         });
         saveJson.spmtPrfmncList = spmtPrfmncList;
-        console.log("saveJson",saveJson);
 
+        /** 중복 상품 취합 **/
+        let arr = saveJson.spmtPrfmncList;
+        let result = arr.reduce(function(acc,cur){
+            if(acc.length == 0){
+                acc.push(cur);
+            }else{
+                /** 존재 여부 **/
+                let flag = false;
+                acc.forEach(function(item){
+                   if(item.spmtPckgUnitCd == cur.spmtPckgUnitCd){
+                       if(item.spmtGdsList[0].pckgno == cur.spmtGdsList[0].pckgno){
+                           item.spmtQntt = (parseInt(item.spmtQntt) + parseInt(cur.spmtQntt)) +'';
+                           flag = true;
+                           return;
+                       }
+                   }
+                });
+                if(!flag){
+                    acc.push(cur);
+                }
+            }
+            return acc;
+        }, []);
+        saveJson.spmtPrfmncList = result;
 
-
+        try{
+            let postJsonPromise = gfn_postJSON("/am/spmt/insertSpmtPrfmncByPckgList.do",saveJson);
+            let data = await postJsonPromise;
+            if (data.resultStatus == "S") {
+                gfn_comAlert("I0001");
+                fn_reset();
+            }else if(data.resultStatus == "E"){
+                gfn_comAlert(data.resultCode,data.resultMessage);
+                return;
+            }
+        }catch (e){
+            console.log(e);
+        }
     }
 
 
