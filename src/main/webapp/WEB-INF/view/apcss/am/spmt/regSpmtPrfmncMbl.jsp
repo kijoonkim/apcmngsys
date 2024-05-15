@@ -1226,7 +1226,7 @@
     const fn_reset = function () {
         SBUxMethod.set("dtl-dtp-cnpt", "");
         $("#reg_table > tbody").children().remove();
-        $("#reg_table > tbody").append(regTableEl);
+        $("#reg_table > tbody").append(regTableEl(0));
         mapInvntQntt.clear();
     }
     /**
@@ -1260,7 +1260,6 @@
 
 
         let _prdcr =$(_el).parent().next('div').children();
-        _prdcr.val('');
         $(_prdcr).attr("type", "number");
         $(_prdcr).attr("readonly", false);
         $(_prdcr).css("color", "initial");
@@ -1278,6 +1277,7 @@
         tempJson = jsonNewGdsGrd.filter(function (item) {
             return item.grdNm.startsWith(_val);
         });
+
         if(gfn_isEmpty(_val)){
             tempJson.length = 0;
             $(lastInput).removeAttr('sortGds');
@@ -1288,13 +1288,25 @@
         $(lastInput).attr('sortGds',rowData);
 
 
-        if (tempJson.length == 0) {
+        if (tempJson.length == 0 || tempJson.length > 1) {
             parentTr.children().eq(1).find('input').val('');
             parentTr.children().eq(2).find('input').val('');
             parentTr.children().eq(3).find('input').val('');
             parentTr.children().eq(4).find('input').val('');
             parentTr.children().eq(5).find('input').val('');
             parentTr.children().eq(6).find('input').val('');
+
+            parentTr.children().eq(4).find('input').removeAttr('max');
+            parentTr.children().eq(5).find('input').removeAttr('max');
+            parentTr.children().eq(6).find('input').removeAttr('max');
+
+            parentTr.children().eq(4).find('input').attr({'type':"number","readonly":false});
+            parentTr.children().eq(4).find('input').css({'color':"initial","background-color":"initial"});
+            parentTr.children().eq(5).find('input').attr({'type':"number","readonly":false});
+            parentTr.children().eq(5).find('input').css({'color':"initial","background-color":"initial"});
+            parentTr.children().eq(6).find('input').attr({'type':"number","readonly":false});
+            parentTr.children().eq(6).find('input').css({'color':"initial","background-color":"initial"});
+
             parentTr.children().eq(8).find('input').val('');
             /** 출하번호에 대한 정보가 없는데 생산자전용 임시 JSON이 있을수있음. **/
             prdcrTempJson.length = 0;
@@ -1304,6 +1316,9 @@
             parentTr.children().eq(1).find('input').val(tempJson[0].itemNm);
             parentTr.children().eq(2).find('input').val(tempJson[0].vrtyNm);
             parentTr.children().eq(3).find('input').val(tempJson[0].spcfctNm);
+            parentTr.children().eq(1).find('input').attr("readonly",true);
+            parentTr.children().eq(2).find('input').attr("readonly",true);
+            parentTr.children().eq(3).find('input').attr("readonly",true);
             /** 없는 출하번호로 인해 생산자전용 임시 JSON이 지워진경우 **/
             fn_onChangePrdcr($(_el).parent().next('div').children());
 
@@ -1323,6 +1338,10 @@
                     $(qnttInp3_).on('blur', () => $("#invntQnttEl").remove());
                 }
             }
+        }
+        if(tempJson.length > 1){
+            gfn_comAlert("W0002", "출하번호");
+            return;
         }
         fn_setInvntQntt(parentTr);
     }
@@ -1397,7 +1416,7 @@
 
             /** 재고 툴팁 element **/
             let invntQnttEl = `<div id="invntQnttEl"class="sbux-pop sbux-fade sbux-pop-bottom sbux-in" role="tooltip"
-                    style="display: block; top:`+(5 + (roof * 5.5))+`vh; left:50.2vw;"
+                    style="display: block; top:`+(5 + (roof * 5.5))+`vh; left:48.2vw;"
                         onclick="fn_selectInvntQntt(`+max+`,this)">
                         <div class="sbux-pop-arrow" style="left: 50%;"></div>
                         <h3 class="sbux-pop-title" style="display: none;"></h3>
@@ -1589,11 +1608,11 @@
         let prdcrTd = originTr.children().eq(0).find('input').eq(1);
         if(rowData.hasOwnProperty("prdcrIdentno")){
             $(prdcrTd).attr("type", "number");
-            $(prdcrTd).attr("readonly", false);
             $(prdcrTd).css("color", "initial");
             $(prdcrTd).css("background-color", "initial");
             $(prdcrTd).val("");
-            prdcrTd.val(rowData.prdcrIdentno);
+            $(prdcrTd).val(rowData.prdcrIdentno);
+            $(prdcrTd).attr("readonly",true);
         }else{
             $(prdcrTd).attr("type", "text");
             $(prdcrTd).attr("readonly", true);
@@ -1603,28 +1622,26 @@
         }
 
         originTr.children().eq(3).find('input').val(rowData.spcfctNm);
+        originTr.children().eq(3).find('input').attr("readonly",true);
 
         //gdsGrd
         let originInput =  originTr.children().eq(parseInt(rowData.gdsGrd) + 3).find('input');
         originInput.val(rowData.invntrQntt);
         originInput.attr('max',rowData.invntrQntt);
 
-        $(originTr).find("input.qnttInp").each(function () {
+        $(originTr).find("input[id]").each(function () {
             let inputEl = $(this)[0];
             let max = inputEl.getAttribute('max');
 
             if (gfn_isEmpty(max)) {
-                $(inputEl).attr("type", "text");
-                $(inputEl).attr("readonly", true);
-                $(inputEl).css("color", "white");
-                $(inputEl).css("background-color", "#999");
+                $(inputEl).attr({"type":"text","readonly":true});
+                $(inputEl).css({"color": "white","background-color":"#999"});
                 $(inputEl).val("X");
             }else{
-                $(inputEl).attr("type", "number");
-                $(inputEl).attr("readonly", false);
-                $(inputEl).css("color", "initial");
-                $(inputEl).css("background-color", "initial");
+                $(inputEl).attr({"type":"number","readonly":false});
+                $(inputEl).css({"color":"initial","background-color":"initial"});
             }
+
         });
 
         let mapKey = String(rowData.spmtInvId[0]);
