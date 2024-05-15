@@ -172,6 +172,12 @@ public class SpmtPrfmncComVO extends ComVO {
 	 * */
 	private int sn;
 	
+	/**
+	 * 재고상태코드
+	 */
+	private String invntrSttsCd;
+	
+	
 	private List<SpmtPrfmncVO> spmtPrfmncList;
 
 	public List<SpmtPrfmncVO> getSpmtPrfmncList() {

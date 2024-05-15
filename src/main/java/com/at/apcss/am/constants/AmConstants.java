@@ -310,5 +310,10 @@ public class AmConstants {
     public final static String CON_LINK_STTS_PRCS_DONE = "P0";
     public final static String CON_LINK_STTS_PRCS_ONGOING = "P1";
     public final static String CON_LINK_STTS_PRCS_CNCL = "P9";
+    
+    public final static String CON_INVNTR_STTS_CD_FRCS_SPMT = "D1";		// 출하 강제 생성
+    public final static String CON_INVNTR_STTS_CD_FRCS_PCKG = "P1";		// 포장 강제 생성
+    public final static String CON_INVNTR_STTS_CD_FRCS_SORT = "S1";		// 선별 강제 생성
+    public final static String CON_INVNTR_STTS_CD_CHNG_SPMT = "D2";		// 출하 변경
 
 }

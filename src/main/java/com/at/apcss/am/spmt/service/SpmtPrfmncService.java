@@ -197,4 +197,23 @@ public interface SpmtPrfmncService {
 	 * @throws Exception
 	 */
     List<SpmtPrfmncVO> selectSpmtPrfmncComList(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+    
+    /**
+     * 출하실적 변경 By 상품리스트
+     * @param spmtPrfmncComVO
+     * @return
+     * @throws Exception
+     */
+    public HashMap<String, Object> updateSpmtPrfmncByPckgList(SpmtPrfmncComVO spmtPrfmncComVO) throws Exception;
+
+     
+    /**
+     * 출하실적취소
+     * @param spmtPrfmncComVO
+     * @return
+     * @throws Exception
+     */
+    public HashMap<String, Object> deleteSpmt(SpmtPrfmncComVO spmtPrfmncComVO) throws Exception;
+   
+    
 }
