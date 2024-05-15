@@ -422,7 +422,7 @@
 <%--                </div>--%>
             </div>
             <hr>
-            <div style="height: 55vh">
+            <div style="height: 55vh;position: relative">
                 <table id="reg_table_head">
                     <colgroup>
                         <col style="width: 20%">
@@ -454,7 +454,7 @@
                     </tr>
                     </thead>
                 </table>
-                <div style="height: 50vh;overflow: auto">
+                <div style="height: 50vh;overflow: auto;position: absolute">
                 <table id="reg_table" style="overflow: auto;">
                     <colgroup>
                         <col style="width: 20%">
@@ -498,13 +498,13 @@
                             </div>
                         </td>
                         <td>
-                            <input type="number" class="qnttInp" onchange="fn_onchangeQntt(this)"/>
+                            <input type="number" id="qnttInp1_0" onchange="fn_onchangeQntt(this)"/>
                         </td>
                         <td>
-                            <input type="number" class="qnttInp" onchange="fn_onchangeQntt(this)"/>
+                            <input type="number" id="qnttInp2_0" onchange="fn_onchangeQntt(this)"/>
                         </td>
                         <td>
-                            <input type="number" class="qnttInp" onchange="fn_onchangeQntt(this)"/>
+                            <input type="number" id="qnttInp3_0" onchange="fn_onchangeQntt(this)"/>
                         </td>
                         <td>
                             <input readonly />
@@ -717,8 +717,8 @@
     /** 최종 저장용 JSON **/
     let saveRegSpmtJson = [];
     /** 등록 테이블 EL **/
-    let regTableEl =
-    `<tr>
+    let regTableEl = function(_idx){
+        return el =`<tr>
         <td>
             <div style="display: flex">
                 <div style="flex: 2; font-family: 'Font Awesome 5 Free';margin-right: 10px;position: relative">
@@ -746,13 +746,13 @@
             </div>
         </td>
         <td>
-            <input type="number" class="qnttInp" onchange="fn_onchangeQntt(this)"/>
+            <input type="number" id="qnttInp1_`+_idx+`" onchange="fn_onchangeQntt(this)"/>
         </td>
         <td>
-            <input type="number" class="qnttInp" onchange="fn_onchangeQntt(this)"/>
+            <input type="number" id="qnttInp2_`+_idx+` onchange="fn_onchangeQntt(this)"/>
         </td>
         <td>
-            <input type="number" class="qnttInp" onchange="fn_onchangeQntt(this)"/>
+            <input type="number" id="qnttInp3_`+_idx+` onchange="fn_onchangeQntt(this)"/>
         </td>
         <td>
             <input readOnly/>
@@ -764,6 +764,8 @@
             <input/>
         </td>
     </tr>`
+    }
+
 
 
     window.document.addEventListener("DOMContentLoaded", function () {
@@ -777,10 +779,8 @@
             gfn_setComCdSBSelect("srch-mod-gdsSeCd", jsonGdsSeCd, 'SORT_GRD', gv_selectedApcCd),
             fn_search()
         ]);
-        $(".qnttInp").on('focus', fn_showInvntQntt.bind(this));
-        $(".qnttInp").on('blur', () => {
-                $("#invntQnttEl").remove();
-        });
+        $("#qnttInp1_0,#qnttInp1_1,#qnttInp1_2").on('focus', fn_showInvntQntt.bind(this));
+        $("#qnttInp1_0,#qnttInp1_1,#qnttInp1_2").on('blur', () => $("#invntQnttEl").remove());
         /** main.jsp msg push**/
         window.parent.postMessage("sideMenuOff", "*");
 
@@ -1292,6 +1292,9 @@
             parentTr.children().eq(1).find('input').val('');
             parentTr.children().eq(2).find('input').val('');
             parentTr.children().eq(3).find('input').val('');
+            parentTr.children().eq(4).find('input').val('');
+            parentTr.children().eq(5).find('input').val('');
+            parentTr.children().eq(6).find('input').val('');
             parentTr.children().eq(8).find('input').val('');
             /** 출하번호에 대한 정보가 없는데 생산자전용 임시 JSON이 있을수있음. **/
             prdcrTempJson.length = 0;
@@ -1307,11 +1310,17 @@
             /** 등록 테이블 로우 추가 **/
             if (parentTr.next().length == 0 ) {
                 if(tempJson.length > 0) {
-                    $("#reg_table > tbody").append(regTableEl);
-                    $(".qnttInp").on('focus', fn_showInvntQntt.bind(this));
-                    $(".qnttInp").on('blur', () => {
-                        $("#invntQnttEl").remove();
-                    });
+                    let nextIdx = parentTr.index()+1;
+                    $("#reg_table > tbody").append(regTableEl(nextIdx));
+                    let qnttInp1_ = "#qnttInp1_" + nextIdx;
+                    let qnttInp2_ = "#qnttInp2_" + nextIdx;
+                    let qnttInp3_ = "#qnttInp3_" + nextIdx;
+                    $(qnttInp1_).on('focus', fn_showInvntQntt.bind(this));
+                    $(qnttInp2_).on('focus', fn_showInvntQntt.bind(this));
+                    $(qnttInp3_).on('focus', fn_showInvntQntt.bind(this));
+                    $(qnttInp1_).on('blur', () => $("#invntQnttEl").remove());
+                    $(qnttInp2_).on('blur', () => $("#invntQnttEl").remove());
+                    $(qnttInp3_).on('blur', () => $("#invntQnttEl").remove());
                 }
             }
         }
@@ -1380,21 +1389,22 @@
 
     const fn_showInvntQntt = async function (_el) { //top: 99.4062px; left: 233.5px;
         let max = _el.target.getAttribute("max");
+
         if (!gfn_isEmpty(max)) {
-            let rect = _el.target.getBoundingClientRect();
+            let roof = $(_el.target).closest('tr').index();
             let parentTd = $(_el.target).parent();
 
 
             /** 재고 툴팁 element **/
             let invntQnttEl = `<div id="invntQnttEl"class="sbux-pop sbux-fade sbux-pop-bottom sbux-in" role="tooltip"
-                    style="display: block; top:` + (rect.top + 31) + `px; left:` + (rect.left + 15) + `px"
+                    style="display: block; top:`+(5 + (roof * 5.5))+`vh; left:50.2vw;"
                         onclick="fn_selectInvntQntt(`+max+`,this)">
                         <div class="sbux-pop-arrow" style="left: 50%;"></div>
                         <h3 class="sbux-pop-title" style="display: none;"></h3>
                         <div class="sbux-pop-content">
                             재고: ` + max + `
                         </div>
-                    </div>`;
+                    </div>`
 
             $(parentTd).append(invntQnttEl);
         }
@@ -1656,7 +1666,8 @@
             data.resultList.forEach(function(item){
                 spmtEl += ` <tr onclick="fn_selectSpmt(this)">
                             <td>`+item.spmtYmd.replace(/(\d{4})(\d{2})(\d{2})/,"$1-$2-$3")+`</td>
-                            <td>`+parseInt(item.spmtno.substring(item.spmtno.length-4,item.spmtno.length))+`</td>`;
+                            <td>`+parseInt(item.spmtno.substring(item.spmtno.length-4,item.spmtno.length))+`</td>
+                            <td style="display:none">`+item.spmtno+`</td>`;
                 if(gfn_isEmpty(item.dldtn)) {
                     spmtEl += `<td>기타</td></tr>`;
                 }else{
@@ -1672,6 +1683,7 @@
     }
     /** 송품장 목록조회 **/
     const fn_selectSpmt = async function(_item){
+        return;
         // let itemCd = _item.cells[4].innerText;
         // let vrtyCd = _item.cells[5].innerText;
         // let pckgno = _item.cells[6].innerText;
@@ -1722,7 +1734,7 @@
                 rowData.spmtInvId.forEach(function(item,idx,arr){
                     arr[idx] = {
                         pckgno : item.substring(0,14),
-                        pckgSn : idx+1
+                        pckgSn : item.substring(14,item.length)
                     }
                 });
 
