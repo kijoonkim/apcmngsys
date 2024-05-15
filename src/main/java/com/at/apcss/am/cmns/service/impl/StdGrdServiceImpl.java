@@ -477,6 +477,10 @@ public class StdGrdServiceImpl extends BaseServiceImpl implements StdGrdService 
 		return null;
 	}
 
-	
+	@Override
+	public List<StdGrdDtlVO> selectGrdNmList(StdGrdDtlVO stdGrdDtlVO) throws Exception {
+		return stdGrdMapper.selectGrdNmList(stdGrdDtlVO);
+	}
+
 
 }

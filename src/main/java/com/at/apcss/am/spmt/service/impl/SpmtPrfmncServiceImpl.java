@@ -1443,6 +1443,13 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 
 		return null;
 	}
+	@Override
+	public List<GdsInvntrVO> selectSpmtPrfmncInvntList(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
+		return spmtPrfmncMapper.selectSpmtPrfmncInvntList(spmtPrfmncVO);
+	}
 
-
+	@Override
+	public List<SpmtPrfmncVO> selectSpmtPrfmncComList(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
+		return spmtPrfmncMapper.selectSpmtPrfmncComList(spmtPrfmncVO);
+	}
 }

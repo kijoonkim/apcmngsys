@@ -1519,6 +1519,7 @@
 							   , GI.INVNTR_QNTT AS INVNTR_QNTT
 							   , GI.INVNTR_WGHT AS INVNTR_WGHT
 							   , SI.GRD_CD AS SORT_GRD_CD
+						  	   , SI.SORTNO AS SORTNO
 						  FROM TB_GDS_INVNTR GI
 								   JOIN TB_SORT_INVNTR SI
 								   ON SI.APC_CD = GI.APC_CD
@@ -1527,7 +1528,6 @@
 									AND SI.DEL_YN = 'N'
 						  WHERE GI.APC_CD = #{apcCd}
 							AND (GI.INVNTR_QNTT > 0 OR GI.INVNTR_WGHT > 0)
-							AND GI.ITEM_CD = #{itemCd}
 						  ]]>
 						<if test='itemCd != null and itemCd !=""'>
 							AND GI.ITEM_CD = #{itemCd}
@@ -1572,6 +1572,7 @@
 								, INV.GDS_CD
 								, INV.PLOR_CD
 								, INV.SORT_GRD_CD
+						  		, INV.SORTNO
 			 ) pt0
 		WHERE 1=1
 		          ]]>

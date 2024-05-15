@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.at.apcss.am.invntr.vo.GdsInvntrVO;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -369,6 +370,42 @@ public class SpmtPrfmncController extends BaseController {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
+	@PostMapping(value = "/am/spmt/selectSpmtPrfmncInvntList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectSpmtPrfmncInvntList(@RequestBody SpmtPrfmncVO spmtPrfmncVO, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try{
+			List<GdsInvntrVO> result = spmtPrfmncService.selectSpmtPrfmncInvntList(spmtPrfmncVO);
+			resultMap.put(ComConstants.PROP_RESULT_LIST,result);
+
+		}catch (Exception e){
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+		HashMap<String, Object> rtnObj = setMenuComLog(request);
+		if (rtnObj != null) {
+			return getErrorResponseEntity(rtnObj);
+		}
+	}
+		return getSuccessResponseEntity(resultMap);
+	}
+	@PostMapping(value = "/am/spmt/selectSpmtPrfmncComList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectSpmtPrfmncComList(@RequestBody SpmtPrfmncVO spmtPrfmncVO, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try{
+			List<SpmtPrfmncVO> list = spmtPrfmncService.selectSpmtPrfmncComList(spmtPrfmncVO);
+			resultMap.put(ComConstants.PROP_RESULT_LIST,list);
+
+		}catch (Exception e){
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		}finally {
 			HashMap<String, Object> rtnObj = setMenuComLog(request);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);

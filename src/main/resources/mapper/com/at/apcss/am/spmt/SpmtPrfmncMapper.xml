@@ -956,6 +956,189 @@
 		]]>
 	</select>
 
+	<select id="selectSpmtPrfmncInvntList" resultType="com.at.apcss.am.invntr.vo.GdsInvntrVO" parameterType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO">
+		<![CDATA[
+		SELECT
+			pt0.*
+			 , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
+			 , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) AS SPCFCT_NM
+			 , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
+			 , (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL) AS SPMT_PCKG_UNIT_NM
+
+		FROM (
+				 SELECT
+					 INV.APC_CD
+					  , INV.PCKG_YMD
+					  , INV.ITEM_CD
+					  , INV.VRTY_CD
+					  , INV.SPCFCT_CD
+					  , INV.GDS_GRD
+					  , INV.WAREHOUSE_SE_CD
+					  , INV.SPMT_PCKG_UNIT_CD
+					  , INV.GDS_CD
+					  , INV.PLOR_CD
+					  , INV.SORT_GRD_CD
+					  , INV.PRDCR_CD
+					  , MAX(INV.ITEM_NM)			AS ITEM_NM
+					  , MAX(INV.GDS_GRD_NM)		AS GDS_GRD_NM
+					  , MAX(INV.SORT_GRD_NM)	AS SORT_GRD_NM
+					  , MAX(INV.PRDCR_IDENTNO)	AS PRDCR_IDENTNO
+					  , MAX(INV.PRDCR_NM)			AS PRDCR_NM
+					  , SUM(INV.INVNTR_QNTT)		AS INVNTR_QNTT
+					  , SUM(INV.INVNTR_WGHT)		AS INVNTR_WGHT
+					  , LISTAGG(INV.SPMT_INV_ID, ',') WITHIN GROUP (ORDER BY INV.PCKGNO, INV.PCKG_SN)	AS SPMT_INV_ID
+				 FROM (
+					 SELECT
+					 GI.APC_CD				AS APC_CD
+						 , GI.PCKGNO				AS PCKGNO
+						 , GI.PCKG_SN				AS PCKG_SN
+						 , GI.PCKGNO || GI.PCKG_SN		AS SPMT_INV_ID
+						 , GI.PCKG_YMD			AS PCKG_YMD
+						 , GI.RPRS_PRDCR_CD		AS RPRS_PRDCR_CD
+						 , GI.ITEM_CD			AS ITEM_CD
+						 , ITM.ITEM_NM			AS ITEM_NM
+						 , GI.VRTY_CD			AS VRTY_CD
+						 , GI.SPCFCT_CD			AS SPCFCT_CD
+						 , GI.GDS_GRD			AS GDS_GRD
+						 , GGRD.GRD_NM			AS GDS_GRD_NM
+						 , GI.WAREHOUSE_SE_CD	AS WAREHOUSE_SE_CD
+						 , GI.SPMT_PCKG_UNIT_CD	AS SPMT_PCKG_UNIT_CD
+						 , GI.GDS_CD				AS GDS_CD
+						 , GI.PLOR_CD			AS PLOR_CD
+						 , GI.INVNTR_QNTT		AS INVNTR_QNTT
+						 , GI.INVNTR_WGHT		AS INVNTR_WGHT
+						 , SI.GRD_CD				AS SORT_GRD_CD
+						 , SGRD.GRD_NM			AS SORT_GRD_NM
+						 , CASE
+					 WHEN INSTR(ITM.INVNTR_INQ_AU_CD, 'P') > 0 THEN NULL
+					 WHEN INSTR(SGRD.INVNTR_INQ_AU_CD, 'P') > 0 THEN NULL
+					 ELSE PI.PRDCR_CD
+					 END						AS PRDCR_CD
+						 , CASE
+					 WHEN INSTR(ITM.INVNTR_INQ_AU_CD, 'P') > 0 THEN NULL
+					 WHEN INSTR(SGRD.INVNTR_INQ_AU_CD, 'P') > 0 THEN NULL
+					 ELSE PI.PRDCR_NM
+					 END						AS PRDCR_NM
+						 , CASE
+					 WHEN INSTR(ITM.INVNTR_INQ_AU_CD, 'P') > 0 THEN NULL
+					 WHEN INSTR(SGRD.INVNTR_INQ_AU_CD, 'P') > 0 THEN NULL
+					 ELSE PI.PRDCR_IDENTNO
+					 END						AS PRDCR_IDENTNO
+
+					 FROM TB_GDS_INVNTR GI
+
+					 JOIN TB_SORT_INVNTR SI
+					 ON SI.APC_CD = GI.APC_CD
+					 AND SI.SORTNO = GI.PCKG_SORTNO
+					 AND SI.SORT_SN = GI.PCKG_SORT_SN
+					 AND SI.DEL_YN = 'N'
+
+					 JOIN TB_APC_ITEM_CRTR ITM
+					 ON ITM.APC_CD = GI.APC_CD
+					 AND ITM.ITEM_CD = GI.ITEM_CD
+					 AND ITM.DEL_YN = 'N'
+
+					 LEFT JOIN TB_PRDCR_INFO PI
+					 ON PI.APC_CD = GI.APC_CD
+					 AND PI.PRDCR_CD = GI.RPRS_PRDCR_CD
+					 AND PI.DEL_YN = 'N'
+
+					 LEFT JOIN (
+					 SELECT
+					 X.ITEM_CD
+						 , X.GRD_CD
+						 , X.GRD_NM
+						 , X.SN
+						 , ROW_NUMBER() OVER (PARTITION BY X.ITEM_CD ORDER BY X.SN) AS GRD_SN
+					 FROM TB_APC_STD_GRD_DTL X
+					 WHERE X.APC_CD = #{apcCd}
+					 AND X.GRD_SE_CD = '03'
+					 AND X.GRD_KND = (
+					 SELECT MAX(KND.GRD_KND) KEEP (DENSE_RANK FIRST ORDER BY KND.SN) AS GRD_KND
+					 FROM TB_APC_STD_GRD KND
+					 WHERE KND.APC_CD = X.APC_CD
+					 AND KND.GRD_SE_CD = X.GRD_SE_CD
+					 AND KND.ITEM_CD = X.ITEM_CD
+					 AND KND.DEL_YN = 'N'
+					 )
+					 ) GGRD
+					 ON GGRD.ITEM_CD = GI.ITEM_CD
+					 AND GGRD.GRD_CD = GI.GDS_GRD
+
+					 LEFT JOIN (
+					 SELECT
+					 X.ITEM_CD
+						 , X.GRD_CD
+						 , X.GRD_EXPLN
+						 , X.INVNTR_INQ_AU_CD
+						 , CASE WHEN INSTR(X.GRD_NM, '(') > 0 THEN SUBSTR(X.GRD_NM, 1, INSTR(X.GRD_NM, '(') - 1) ELSE X.GRD_NM END	AS GRD_NM
+						 , X.SN
+						 , ROW_NUMBER() OVER (PARTITION BY X.ITEM_CD ORDER BY X.SN) AS GRD_SN
+					 FROM TB_APC_STD_GRD_DTL X
+					 WHERE X.APC_CD = #{apcCd}
+					 AND X.GRD_SE_CD = '02'
+					 AND X.GRD_KND = (
+					 SELECT MAX(KND.GRD_KND) KEEP (DENSE_RANK FIRST ORDER BY KND.SN) AS GRD_KND
+					 FROM TB_APC_STD_GRD KND
+					 WHERE KND.APC_CD = X.APC_CD
+					 AND KND.GRD_SE_CD = X.GRD_SE_CD
+					 AND KND.ITEM_CD = X.ITEM_CD
+					 AND KND.DEL_YN = 'N'
+					 )
+					 ) SGRD
+					 ON SGRD.ITEM_CD = GI.ITEM_CD
+					 AND SGRD.GRD_CD = SI.GRD_CD
+
+					 WHERE GI.APC_CD = #{apcCd}
+					 AND (GI.INVNTR_QNTT > 0 OR GI.INVNTR_WGHT > 0)
+				   ]]>
+					 	<if test='itemCd != null and itemCd != ""'>
+						 	AND GI.ITEM_CD = #{itemCd}
+					 	</if>
+						<if test='vrtyCd != null and vrtyCd != ""'>
+							AND GI.VRTY_CD = #{vrtyCd}
+						</if>
+						<if test='grdCd != null and grdCd != ""'>
+							AND SI.GRD_CD = #{grdCd}
+						</if>
+						<if test='pckgno != null and pckgno != ""'>
+							AND GI.PCKGNO = #{pckgno}
+						</if>
+					<![CDATA[
+
+					 ) INV
+
+				 WHERE 1=1
+				 GROUP BY
+					 INV.APC_CD
+						 , INV.PCKG_YMD
+						 , INV.ITEM_CD
+						 , INV.VRTY_CD
+						 , INV.SPCFCT_CD
+						 , INV.GDS_GRD
+						 , INV.WAREHOUSE_SE_CD
+						 , INV.SPMT_PCKG_UNIT_CD
+						 , INV.GDS_CD
+						 , INV.PLOR_CD
+						 , INV.SORT_GRD_CD
+						 , INV.PRDCR_CD
+			 ) pt0
+		WHERE 1=1
+
+-- ORDER BY ITEM_CD, PCKG_YMD
+		]]>
+	</select>
+
+	<select id="selectSpmtPrfmncComList" parameterType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO" resultType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO">
+		<![CDATA[
+			SELECT *
+			FROM TB_SPMT_PRFMNC_COM
+			WHERE APC_CD = #{apcCd}
+			ORDER BY SPMT_YMD DESC
+		]]>
+
+	</select>
+
 </mapper>
 
 

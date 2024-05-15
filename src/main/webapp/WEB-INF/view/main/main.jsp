@@ -793,6 +793,11 @@
         mfn_displayButton();
         
     });
+    window.addEventListener('message',function(event){
+       if(event.data == 'sideMenuOff'){
+           SBUxMethod.closeSideMenu('side_menu');
+       }
+    });
 
     const fn_modalPopup = async function() {
 

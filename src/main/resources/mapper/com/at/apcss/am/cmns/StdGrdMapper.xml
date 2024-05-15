@@ -964,4 +964,25 @@
     	]]>
     </update>
 
+	<select id="selectGrdNmList" parameterType="com.at.apcss.am.cmns.vo.StdGrdDtlVO" resultType="com.at.apcss.am.cmns.vo.StdGrdDtlVO">
+		<![CDATA[
+		SELECT
+			SGD.APC_CD
+			 ,SGD.ITEM_CD
+			 ,(SELECT FN_GET_ITEM_NM(SGD.ITEM_CD,SGD.APC_CD) FROM DUAL) AS ITEM_NM
+			 ,VC.VRTY_CD
+			 , (SELECT FN_GET_VRTY_NM(SGD.ITEM_CD, VC.VRTY_CD, SGD.APC_CD) FROM DUAL) AS VRTY_NM
+			 ,SGD.GRD_CD
+			 ,SGD.GRD_NM
+		FROM TB_APC_STD_GRD_DTL AS SGD
+				 LEFT JOIN TB_APC_VRTY_CRTR AS VC
+						   ON  SGD.APC_CD = VC.APC_CD
+							   AND SGD.ITEM_CD = VC.ITEM_CD
+		WHERE 1=1
+		  AND REGEXP_LIKE(SGD.GRD_NM,'^[0-9]')
+		  AND SGD.APC_CD = #{apcCd}
+		  AND SGD.GRD_SE_CD = #{grdSeCd};
+		]]>
+	</select>
+
 </mapper>
