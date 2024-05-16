@@ -400,6 +400,13 @@
     async function fn_afterAddTab(_menuId) {
 
         prvTabMenuId = _menuId;
+        
+        if (gfn_isEmpty(_menuId)) {
+        	lv_frmId = "";
+        } else {
+        	lv_frmId = lv_tabPrefix + _menuId;	
+        }
+        
 
         // 공통버튼 설정
         await fn_setTabInfo(_menuId);
@@ -427,6 +434,13 @@
     async function fn_afterSeletTab(_menuId) {
 
         prvTabMenuId = _menuId;
+
+        if (gfn_isEmpty(_menuId)) {
+        	lv_frmId = "";
+        } else {
+        	lv_frmId = lv_tabPrefix + _menuId;	
+        }
+        
         
         // TODO
         // set page info and common button 설정
@@ -512,6 +526,7 @@
         	// home
         	fn_setBreadcrumbsHome();
             prvTabMenuId = "";
+            lv_frmId = "";
         	return;
         }
 
@@ -779,7 +794,6 @@
 
 		const lblText = lv_authRefresh ? '🔒' : '🔓';
 		document.querySelector('#lbl-autoRefresh').innerText = lblText;
-		console.log(lv_authRefresh);
 	}
 
     //only document
@@ -934,13 +948,14 @@
     }
     
     const mfn_search = function() {
-    	
+
     	if (gfn_isEmpty(lv_frmId)) {
     		return;
     	}
     	
     	try {
     		const tabContent = document.getElementById(lv_frmId).contentWindow;
+    		
         	if (typeof tabContent !== 'object') {
         		return;
         	}
@@ -1030,7 +1045,6 @@
     }
 	
 	const mfn_displayButton = function (_uiInfo) {
-		console.log('_uiInfo', _uiInfo);
 		
 		const btnInit = document.getElementById("main-btn-init");
 		const btnAdd = document.getElementById("main-btn-add");
@@ -1043,26 +1057,52 @@
 		btnDel.disabled = true;
 		btnSave.disabled = true;
 		btnSearch.disabled = true;
-    	
+		
+		btnInit.style.display = "none";
+		btnAdd.style.display = "none";
+		btnDel.style.display = "none";
+		btnSave.style.display = "none";
+		btnSearch.style.display = "none";
+		
     	if (gfn_isEmpty(_uiInfo)) {
     		return;
     	}
     	
     	try {
-    		if (_uiInfo.cmnsButton['cmnsInit']) {
-    			btnInit.disabled = false;
+    		if (_uiInfo.hasOwnProperty('cmnsInit')) {
+    			if (_uiInfo.cmnsInit['button']) {
+    				btnInit.disabled = false;
+    				btnInit.disabled = _uiInfo.cmnsInit['disabled'];
+    				btnInit.style.display = _uiInfo.cmnsInit['visible'] ? "" : "none";
+    			}
     		}
-    		if (_uiInfo.cmnsButton['cmnsAdd']) {
-    			btnAdd.disabled = false;
+    		if (_uiInfo.hasOwnProperty('cmnsAdd')) {
+    			if (_uiInfo.cmnsAdd['button']) {
+    				btnAdd.disabled = false;
+    				btnAdd.disabled = _uiInfo.cmnsAdd['disabled'];
+    				btnAdd.style.display = _uiInfo.cmnsAdd['visible'] ? "" : "none";
+    			}
     		}
-    		if (_uiInfo.cmnsButton['cmnsDel']) {
-        		document.getElementById("main-btn-del").disabled = false;
+    		if (_uiInfo.hasOwnProperty('cmnsDel')) {
+    			if (_uiInfo.cmnsDel['button']) {
+    				btnDel.disabled = false;
+    				btnDel.disabled = _uiInfo.cmnsDel['disabled'];
+    				btnDel.style.display = _uiInfo.cmnsDel['visible'] ? "" : "none";
+    			}
     		}
-    		if (_uiInfo.cmnsButton['cmnsSave']) {
-        		document.getElementById("main-btn-save").disabled = false;
+    		if (_uiInfo.hasOwnProperty('cmnsSave')) {
+    			if (_uiInfo.cmnsSave['button']) {
+    				btnSave.disabled = false;
+    				btnSave.disabled = _uiInfo.cmnsSave['disabled'];
+    				btnSave.style.display = _uiInfo.cmnsSave['visible'] ? "" : "none";
+    			}
     		}
-    		if (_uiInfo.cmnsButton['cmnsSearch']) {
-        		document.getElementById("main-btn-search").disabled = false;
+    		if (_uiInfo.hasOwnProperty('cmnsSearch')) {
+    			if (_uiInfo.cmnsSearch['button']) {
+    				btnSearch.disabled = false;
+    				btnSearch.disabled = _uiInfo.cmnsSearch['disabled'];
+    				btnSearch.style.display = _uiInfo.cmnsSearch['visible'] ? "" : "none";
+    			}
     		}
     		
     	} catch (e) {
@@ -1096,54 +1136,91 @@
 			
 			uiInfo = {
 				menuId: _menuId,
-				cmnsButton: {
-		        		cmnsInit: false,
-		        		cmnsAdd: false,
-		        		cmnsDel: false,
-		        		cmnsSave: false,
-		        		cmnsSearch: false,
-		        	}
+        		cmnsInit: {
+        			button: false,
+        			disabled: false,
+        			visible: false,
+        		},
+        		cmnsAdd: {
+        			button: false,
+        			disabled: false,
+        			visible: false,
+        		},
+        		cmnsDel: {
+        			button: false,
+        			disabled: false,
+        			visible: false,
+        		},
+        		cmnsSave: {
+        			button: false,
+        			disabled: false,
+        			visible: false,
+        		},
+        		cmnsSearch: {
+        			button: false,
+        			disabled: false,
+        			visible: false,
+        		}
 			}
 			
-			const postJsonPromise = gfn_postJSON(
-						"/co/menu/selectComUiCmnsBtnList.do", 
-						{menuId: _menuId}, 
+			let _userId;
+       		<c:set scope="request" var="userId" value="${loginVO.id}"></c:set>
+       		_userId = '<c:out value='${userId}'></c:out>';
+
+           	if (!gfn_isEmpty(_userId)) {
+           		const postJsonPromise = gfn_postJSON(
+						"/co/authrt/selectUserAuthrtCmnsBtnList.do", 
+						{menuId: _menuId, userId: _userId}, 
 						"main", 
 						true
 					);
-	        const data = await postJsonPromise;
-	        try {
-	        	data.resultList.forEach((item, index) => {
-	        		console.log(item);
-	                const hasButton = _.isEqual(item.delYn, 'N');
-	        		
-	        		switch (item.entyId) {
-	                	case "CMNS_INIT":
-	                		uiInfo.cmnsButton.cmnsInit = hasButton;
-	                		break;
-	                	case "CMNS_ADD":
-	                		uiInfo.cmnsButton.cmnsAdd = hasButton;
-	                		break;
-	                	case "CMNS_DEL":
-	                		uiInfo.cmnsButton.cmnsDel = hasButton;
-	                		break;
-	                	case "CMNS_SAVE":
-	                		uiInfo.cmnsButton.cmnsSave = hasButton;
-	                		break;
-	                	case "CMNS_SEARCH":
-	                		uiInfo.cmnsButton.cmnsSearch = hasButton;
-	                		break;	                		
-	                }
-	            });
-	        	
-	        	jsonTabPage.push(uiInfo);
-	        	
-	        } catch (e) {
-	            if (!(e instanceof Error)) {
-	                e = new Error(e);
-	            }
-	            console.error("failed", e.message);
-	        }
+		        const data = await postJsonPromise;
+		        try {
+		        	data.resultList.forEach((item, index) => {
+		        		
+		                const hasButton = _.isEqual(item.delYn, 'N');
+		        		const disabled = _.isEqual(item.accessUseYn, 'Y') && _.isEqual(item.accessYn, 'N');
+		        		const visible = !(_.isEqual(item.indctUseYn, 'Y') && _.isEqual(item.indctYn, 'N'));
+
+		        		switch (item.entyId) {
+		                	case "CMNS_INIT":
+		                		uiInfo.cmnsInit.button = hasButton;
+		                		uiInfo.cmnsInit.disabled = disabled;
+		                		uiInfo.cmnsInit.visible = visible;
+		                		break;
+		                	case "CMNS_ADD":
+		                		uiInfo.cmnsAdd.button = hasButton;
+		                		uiInfo.cmnsAdd.disabled = disabled;
+		                		uiInfo.cmnsAdd.visible = visible;
+		                		break;
+		                	case "CMNS_DEL":
+		                		uiInfo.cmnsDel.button = hasButton;
+		                		uiInfo.cmnsDel.disabled = disabled;
+		                		uiInfo.cmnsDel.visible = visible;
+		                		break;
+		                	case "CMNS_SAVE":
+		                		uiInfo.cmnsSave.button = hasButton;
+		                		uiInfo.cmnsSave.disabled = disabled;
+		                		uiInfo.cmnsSave.visible = visible;
+		                		break;
+		                	case "CMNS_SEARCH":
+		                		uiInfo.cmnsSearch.button = hasButton;
+		                		uiInfo.cmnsSearch.disabled = disabled;
+		                		uiInfo.cmnsSearch.visible = visible;
+		                		break;	                		
+		                }
+		            });
+		        	
+		        	jsonTabPage.push(uiInfo);
+		        	
+		        } catch (e) {
+		            if (!(e instanceof Error)) {
+		                e = new Error(e);
+		            }
+		            console.error("failed", e.message);
+		        }
+			}
+			
 		}
 		
 		mfn_displayButton(uiInfo);

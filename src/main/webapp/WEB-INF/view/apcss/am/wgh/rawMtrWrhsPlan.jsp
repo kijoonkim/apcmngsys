@@ -34,7 +34,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>
-					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_setGrdWrhsPlan"></sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -287,6 +287,25 @@
 </body>
 <script type="text/javascript">
 
+	/**
+	 * 공통버튼 연계처리
+	 */
+	async function cfn_init() {
+		await fn_reset();
+	}
+	async function cfn_add() {
+	
+	}
+	async function cfn_del() {
+
+	}
+	async function cfn_save() {
+		await fn_save();
+	}
+	async function cfn_search() {
+		await fn_search();
+	}
+
 	var jsonComWarehouse = [];
 	var jsonComWrhsSeCd = [];
 	var jsonComTrsprtSeCd = [];
@@ -519,7 +538,7 @@
 	}
 
 
-	const fn_setGrdWrhsPlan = async function(){
+	const fn_search = async function() {
 		let planYmdFrom = SBUxMethod.get("srch-dtp-planYmdFrom");
 		let planYmdTo = SBUxMethod.get("srch-dtp-planYmdTo");
 		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
@@ -664,7 +683,7 @@
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-        		fn_setGrdWrhsPlan();
+        		fn_search();
         	} else {
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
@@ -683,7 +702,7 @@
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-        		fn_setGrdWrhsPlan();
+        		fn_search();
         	} else {
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
@@ -696,7 +715,7 @@
         }
 	}
 
-	const fn_reset = function(){
+	const fn_reset = async function(){
 		SBUxMethod.set("srch-dtp-planYmdFrom", gfn_dateToYmd(new Date()));
 		SBUxMethod.set("srch-dtp-planYmdTo", gfn_dateToYmd(new Date()));
 		SBUxMethod.set("dtl-dtp-planYmd", "");

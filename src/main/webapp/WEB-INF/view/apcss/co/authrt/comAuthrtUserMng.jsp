@@ -157,6 +157,25 @@
 </body>
 <script type="text/javascript">
 
+	/**
+	 * 공통버튼 연계처리
+	 */
+	async function cfn_init() {
+		
+	}
+	async function cfn_add() {
+	
+	}
+	async function cfn_del() {
+		await fn_delete();
+	}
+	async function cfn_save() {
+		await fn_save();
+	}
+	async function cfn_search() {
+		await fn_search();
+	}
+
 	let lv_prvAuthrtId = "";
 
 	/* 공통코드 */

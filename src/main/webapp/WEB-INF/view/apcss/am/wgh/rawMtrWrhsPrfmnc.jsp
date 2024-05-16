@@ -277,6 +277,25 @@
 </body>
 <script type="text/javascript">
 
+/**
+ * 공통버튼 연계처리
+ */
+async function cfn_init() {
+	await fn_reset();
+}
+async function cfn_add() {
+
+}
+async function cfn_del() {
+	await fn_delete();
+}
+async function cfn_save() {
+
+}
+async function cfn_search() {
+	await fn_search();
+}
+
 	var jsonComItem				= [];	// 품목 		itemCd			검색
 	var jsonComVrty				= [];
 	var jsonComWarehouseSeCd	= [];	// 창고 		warehouseSeCd	검색
@@ -941,7 +960,7 @@
 	 * @name fn_reset
 	 * @description 상단 검색조건 초기화
 	 */
-	const fn_reset = function(){
+	const fn_reset = async function(){
 		SBUxMethod.set("srch-dtp-wrhsYmdFrom", gfn_dateToYmd(new Date()));
 		SBUxMethod.set("srch-dtp-wrhsYmdTo", gfn_dateToYmd(new Date()));
 		SBUxMethod.set("srch-slt-itemCd", "");

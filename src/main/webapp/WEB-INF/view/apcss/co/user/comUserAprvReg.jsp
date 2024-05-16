@@ -161,6 +161,25 @@
 
 <script type="text/javascript">
 
+	/**
+	 * 공통버튼 연계처리
+	 */
+	async function cfn_init() {
+
+	}
+	async function cfn_add() {
+	
+	}
+	async function cfn_del() {
+
+	}
+	async function cfn_save() {
+		await fn_save();
+	}
+	async function cfn_search() {
+		await fn_search();
+	}
+
 	var jsonPageSize = [
 		{'text': '50건', 'value': '50'},
 		{'text': '100건', 'value': '100'},
@@ -319,7 +338,7 @@
 	    grdUserAprv.bind('valuechanged', fn_grdUserAprvValueChanged);
 	}
 
-    async function fn_search() {
+    const fn_search = async function() {
     	let recordCountPerPage = grdUserAprv.getPageSize();  		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = 1;
 		var getColRef = grdUserAprv.getColRef("checkedYn");

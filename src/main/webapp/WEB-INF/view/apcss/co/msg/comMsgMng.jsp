@@ -196,6 +196,24 @@
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
 
+	/**
+	 * 공통버튼 연계처리
+	 */
+	async function cfn_init() {
+		
+	}
+	async function cfn_add() {
+		await fn_create();
+	}
+	async function cfn_del() {
+		await fn_delete();
+	}
+	async function cfn_save() {
+		await fn_save();
+	}
+	async function cfn_search() {
+		await fn_search();
+	}
 	// ${comMenuVO.menuId}
 
 	// 공통코드 JSON
@@ -365,7 +383,7 @@
 
 
     //신규 작성
-    function fn_create() {
+    const fn_create = async function() {
     	SBUxMethod.set("dtl-input-orgnMsgKey", "");
     	SBUxMethod.set("dtl-select-msgKnd", "");
         SBUxMethod.set("dtl-input-msgKey", "");

@@ -1285,6 +1285,104 @@
     	<!-- End 페이징 -->
     </select>
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectUserAuthrtCmnsBtnList-->
+	<!-- DESC : 사용자별 화면UI 공통버튼 권한 목록 조회.                            -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.10.25  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectUserAuthrtCmnsBtnList" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtUiVO" resultType="com.at.apcss.co.authrt.vo.ComAuthrtUiVO">
+    	<![CDATA[
+    		SELECT /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectUserAuthrtCmnsBtnList */
+    	]]>
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			,
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+				  pt0.*
+    		  FROM (
+			    SELECT
+			    	  'CB'					AS ENTY_TYPE
+			        , #{menuId}				AS MENU_ID
+				    , CCD.CD_VL				AS ENTY_ID
+				    , MAX(CCD.CD_VL_NM)		AS ENTY_NM
+				    , NVL(MAX(CU.DEL_YN) KEEP (DENSE_RANK FIRST ORDER BY CU.DEL_YN NULLS LAST), 'Y')	AS DEL_YN
+				    , MAX(CCD.INDCT_SEQ)	AS INDCT_SEQ
+				    , MAX(
+				    	CASE
+				    		WHEN UI.APLCN_TYPE = '01' THEN 'Y'
+				    		ELSE NULL
+				      	END
+				    )		AS		ACCESS_USE_YN
+				    , MAX(
+				    	CASE
+				    		WHEN UI.APLCN_TYPE = '01' THEN UI.INDCT_YN
+							ELSE NULL
+					  	END
+					)		AS		ACCESS_YN
+				    , MAX(
+				    	CASE
+				    		WHEN UI.APLCN_TYPE = '11' THEN 'Y'
+				    		ELSE NULL
+				      	END
+				    )	AS		INDCT_USE_YN
+				    , MAX(
+				    	CASE
+				    		WHEN UI.APLCN_TYPE = '11' THEN UI.INDCT_YN
+							ELSE NULL
+					  END
+					)	AS		INDCT_YN
+				    
+				  FROM TB_COM_CD CC
+				  
+				  JOIN TB_COM_CD_DTL CCD
+				    ON CCD.APC_CD = '0000'
+				   AND CCD.CD_ID = CC.CD_ID
+				   AND CCD.USE_YN = 'Y'
+				   AND CCD.DEL_YN = 'N'
+				   
+				  LEFT JOIN TB_COM_UI CU
+				    ON CU.ENTY_ID = CCD.CD_VL
+				   AND CU.ENTY_TYPE = 'CB'
+				   AND CU.MENU_ID = #{menuId}
+				   AND CU.DEL_YN = 'N'
+				   
+				  LEFT JOIN TB_COM_AUTH_USER AU
+				    ON AU.USER_ID = #{userId}
+				   AND AU.DEL_YN = 'N'
+				    
+				  LEFT JOIN TB_COM_AUTH_MENU AM
+				    ON AM.AUTHRT_ID = AU.AUTHRT_ID
+				   AND AM.MENU_ID = CU.MENU_ID
+				   AND AM.DEL_YN = 'N'
+	
+				  LEFT JOIN TB_COM_AUTH_UI UI
+				    ON UI.AUTHRT_ID = AM.AUTHRT_ID
+				   AND UI.MENU_ID = AM.MENU_ID
+	       		   AND UI.ENTY_ID = CU.ENTY_ID
+				   AND UI.DEL_YN = 'N'
+	
+				 WHERE CC.CD_ID = 'CMNS_BUTTON'
+				 
+				 GROUP BY CCD.CD_VL
+				 ORDER BY INDCT_SEQ
+    		  ) pt0
+    	]]>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectComAuthrtUi		-->
