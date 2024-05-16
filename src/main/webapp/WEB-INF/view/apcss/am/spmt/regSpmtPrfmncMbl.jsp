@@ -474,7 +474,7 @@
                         <td>
                             <div style="display: flex">
                                 <div style="flex: 2; font-family: 'Font Awesome 5 Free';margin-right: 10px;position: relative">
-                                    <input type="number" onChange="fn_onChangesortGds(this)"/>
+                                    <input class="gdsInput_0" type="number" onChange="fn_onChangesortGds(this)"/>
                                     <span onclick="fn_searchInvntrQntt(this)" style="position: absolute;top: 1vh;left: 84%" class='glyphicon sbux-inp-icon glyphicon-search'></span>
                                 </div>
                                 <div style="flex: 1; font-family: 'Font Awesome 5 Free';">
@@ -722,7 +722,7 @@
         <td>
             <div style="display: flex">
                 <div style="flex: 2; font-family: 'Font Awesome 5 Free';margin-right: 10px;position: relative">
-                    <input type="number" onChange="fn_onChangesortGds(this)"/>
+                    <input class="gdsInput_`+_idx+`" type="number" onChange="fn_onChangesortGds(this)" />
                     <span onclick="fn_searchInvntrQntt(this)" style="position: absolute;top: 1vh;left: 84%" class='glyphicon sbux-inp-icon glyphicon-search'></span>
                 </div>
                 <div style="flex: 1; font-family: 'Font Awesome 5 Free';">
@@ -781,6 +781,7 @@
         ]);
         $("#qnttInp1_0,#qnttInp1_1,#qnttInp1_2").on('focus', fn_showInvntQntt.bind(this));
         $("#qnttInp1_0,#qnttInp1_1,#qnttInp1_2").on('blur', () => $("#invntQnttEl").remove());
+        $(".gdsInput_0").on("input",fn_remove.bind(event));
         /** main.jsp msg push**/
         window.parent.postMessage("sideMenuOff", "*");
     });
@@ -1333,12 +1334,15 @@
                     let qnttInp1_ = "#qnttInp1_" + nextIdx;
                     let qnttInp2_ = "#qnttInp2_" + nextIdx;
                     let qnttInp3_ = "#qnttInp3_" + nextIdx;
+                    let gdsInput_ = ".gdsInput_" + nextIdx;
                     $(qnttInp1_).on('focus', fn_showInvntQntt.bind(this));
                     $(qnttInp2_).on('focus', fn_showInvntQntt.bind(this));
                     $(qnttInp3_).on('focus', fn_showInvntQntt.bind(this));
                     $(qnttInp1_).on('blur', () => $("#invntQnttEl").remove());
                     $(qnttInp2_).on('blur', () => $("#invntQnttEl").remove());
                     $(qnttInp3_).on('blur', () => $("#invntQnttEl").remove());
+
+                    $(gdsInput_).on('input', fn_remove.bind(event));
                 }
             }
         }
@@ -1822,6 +1826,15 @@
             }
         }catch (e){
             console.log(e);
+        }
+    }
+
+    const fn_remove = function(_event){
+        let inputWord = _event.originalEvent.data;
+
+        if(inputWord == "."){
+            $(_event.currentTarget).val("");
+            fn_onChangesortGds(_event.currentTarget);
         }
     }
 
