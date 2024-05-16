@@ -320,7 +320,7 @@
                                 uitype="popup"
                                 date-format="yyyy-mm-dd"
                                 class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"
-                                onchange="fn_dtpChange"
+                                onchange="fn_onChangeSrchReset()"
                                 style="width:100%; height: 50px; font-size: 22px;"
                         ></sbux-datepicker>
                     </td>
@@ -335,6 +335,7 @@
                                 class="inpt-mbl"
                                 jsondata-ref="jsonApcFcltCd"
                                 unselected-text="선택"
+                                onchange="fn_onChangeSrchReset()"
                         ></sbux-select>
                     </td>
                     <td colspan="4" class="td_input"></td>
@@ -397,7 +398,7 @@
 </body>
 <script type="text/javascript">
 
-    let flag = true;
+    let flag = false;
     let searchFlag = false;
     let bffaWrhsno = "";
 
@@ -573,6 +574,7 @@
      * @description 생산자 autocomplete 선택 callback
      */
     function fn_onSelectPrdcrNm(value, label, item) {
+
         SBUxMethod.set("srch-inp-prdcrCd", value);
         SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 
@@ -595,6 +597,7 @@
      * @description 생산자 선택 popup 호출
      */
     const fn_choicePrdcr = function() {
+        fn_onChangeSrchReset();
         popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr, SBUxMethod.get("srch-inp-prdcrNm"));
     }
 
@@ -747,6 +750,10 @@
             gfn_comAlert("W0001", "선별기");
             return;
         }
+        if(!searchFlag){
+            gfn_comAlert("E0000", "조회 후 저장하세요.");
+            return;
+        }
         if(gfn_isEmpty(wrhsQntt)){
             wrhsQntt = 0;
         }
@@ -855,6 +862,7 @@
                 /** @type {number} **/
                 if(gfn_isEmpty(data.resultList)){
                     flag=false;
+                    searchFlag=true;
                     bffaWrhsno="";
                     SBUxMethod.set("srch-inp-wrhsQntt", "");
                     SBUxMethod.set("srch-inp-wrhsWght", "");
@@ -989,6 +997,16 @@
                 gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
             }
         }
+    }
+
+    const fn_onChangeSrchReset = function (){
+        flag = false;
+        searchFlag = false;
+
+        /*수량/중량 초기화*/
+        SBUxMethod.clear("srch-inp-wrhsQntt");
+        SBUxMethod.clear("srch-inp-wrhsWght");
+        fn_createTabelHeader();
     }
 
 </script>
