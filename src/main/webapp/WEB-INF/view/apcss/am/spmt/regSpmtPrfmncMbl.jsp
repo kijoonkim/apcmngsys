@@ -1304,6 +1304,8 @@
             /** 출하번호에 대한 정보가 없는데 생산자전용 임시 JSON이 있을수있음. **/
             tempJson.length = 0;
             mapInvntQntt.delete(parentTr.index());
+            $(lastInput).removeAttr('sortGds');
+            $(lastInput).removeAttr('sortInvnt');
         } else {
             /** 품목 단량 세팅 0번 인덱스로 없으면 어쩌지? **/
             parentTr.children().eq(1).find('input').val(tempJson[0].itemNm);
