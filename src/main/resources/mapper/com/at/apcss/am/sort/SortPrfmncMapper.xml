@@ -3007,7 +3007,7 @@
 
     <!-- ========================================================================== -->
     <!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.updateWrhsSortGrd    	-->
-    <!-- DESC : 육안등급판정 등록(현장용).                                       	-->
+    <!-- DESC : 육안등급판정 수정(현장용).                                       	-->
     <!-- ========================================================================== -->
     <!-- DATE           AUTHOR            DESCRIPTION                               -->
     <!-- ===========      ============      ======================================= -->
@@ -3032,4 +3032,22 @@
     	]]>
     </update>
 
+    <!-- ========================================================================== -->
+    <!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.deleteSortBffaSpt    	-->
+    <!-- DESC : 육안등급판정 삭제(현장용).                                       	-->
+    <!-- ========================================================================== -->
+    <!-- DATE           AUTHOR            DESCRIPTION                               -->
+    <!-- ===========      ============      ======================================= -->
+    <!-- 2024.05.14     김호                Initial Creation                        -->
+    <!-- ========================================================================== -->
+	<delete id="deleteSortBffaSpt" parameterType="com.at.apcss.am.sort.vo.WrhsSortGrdVO">
+		<![CDATA[
+			DELETE /* com.at.apcss.am.sort.mapper.SortPrfmncMapper.deleteSortBffaSpt */
+			  FROM TB_BFFA_WRHS_SORT_GRD
+			 WHERE APC_CD					= #{apcCd}
+	           AND BFFA_WRHSNO				= #{bffaWrhsno}
+	           AND ITEM_CD					= #{itemCd}
+	           AND GRD_KND					= #{grdKnd}
+		]]>
+	</delete>
 </mapper>
