@@ -422,6 +422,7 @@
 <%--                </div>--%>
             </div>
             <hr>
+            <div style="display: none" id="spmtno" ></div>
             <div style="height: 55vh;position: relative">
                 <table id="reg_table_head">
                     <colgroup>
@@ -474,7 +475,7 @@
                         <td>
                             <div style="display: flex">
                                 <div style="flex: 2; font-family: 'Font Awesome 5 Free';margin-right: 10px;position: relative">
-                                    <input type="number" onChange="fn_onChangesortGds(this)"/>
+                                    <input class="gdsInput_0" type="number" onChange="fn_onChangesortGds(this)"/>
                                     <span onclick="fn_searchInvntrQntt(this)" style="position: absolute;top: 1vh;left: 84%" class='glyphicon sbux-inp-icon glyphicon-search'></span>
                                 </div>
                                 <div style="flex: 1; font-family: 'Font Awesome 5 Free';">
@@ -717,12 +718,12 @@
     /** 최종 저장용 JSON **/
     let saveRegSpmtJson = [];
     /** 등록 테이블 EL **/
-    let regTableEl = function(_idx){
-        return el =`<tr>
+    let regTableEl = function(_idx,flag = false){
+        let el =`<tr>
         <td>
             <div style="display: flex">
                 <div style="flex: 2; font-family: 'Font Awesome 5 Free';margin-right: 10px;position: relative">
-                    <input type="number" onChange="fn_onChangesortGds(this)"/>
+                    <input class="gdsInput_`+_idx+`" type="number" onChange="fn_onChangesortGds(this)" />
                     <span onclick="fn_searchInvntrQntt(this)" style="position: absolute;top: 1vh;left: 84%" class='glyphicon sbux-inp-icon glyphicon-search'></span>
                 </div>
                 <div style="flex: 1; font-family: 'Font Awesome 5 Free';">
@@ -746,24 +747,31 @@
             </div>
         </td>
         <td>
-            <input type="number" id="qnttInp1_`+_idx+`" onchange="fn_onchangeQntt(this)"/>
-        </td>
-        <td>
-            <input type="number" id="qnttInp2_`+_idx+` onchange="fn_onchangeQntt(this)"/>
-        </td>
-        <td>
-            <input type="number" id="qnttInp3_`+_idx+` onchange="fn_onchangeQntt(this)"/>
-        </td>
-        <td>
-            <input readOnly/>
-        </td>
-        <td>
-            <input readOnly/>
-        </td>
-        <td>
-            <input/>
-        </td>
-    </tr>`
+            <input type="number" id="qnttInp1_`+_idx+`"`;
+        if(!flag){
+            el += ` onchange="fn_onchangeQntt(this)"/>`;
+        }else{
+            el += `/>`;
+        };
+
+        el += `</td><td><input type="number" id="qnttInp2_`+_idx+`"`;
+
+        if(!flag){
+            el += ` onchange="fn_onchangeQntt(this)"/>`;
+        }else{
+            el += `/>`;
+        };
+
+        el += `</td><td><input type="number" id="qnttInp3_`+_idx+`"`;
+
+        if(!flag){
+            el += ` onchange="fn_onchangeQntt(this)"/>`;
+        }else{
+            el += `/>`;
+        };
+        el += `</td><td><input readOnly/></td><td><input readOnly/></td><td><input/></td><td><input/></td></tr>`;
+
+        return el;
     }
 
 
@@ -779,11 +787,11 @@
             gfn_setComCdSBSelect("srch-mod-gdsSeCd", jsonGdsSeCd, 'SORT_GRD', gv_selectedApcCd),
             fn_search()
         ]);
-        $("#qnttInp1_0,#qnttInp1_1,#qnttInp1_2").on('focus', fn_showInvntQntt.bind(this));
-        $("#qnttInp1_0,#qnttInp1_1,#qnttInp1_2").on('blur', () => $("#invntQnttEl").remove());
+        $("#qnttInp1_0,#qnttInp2_0,#qnttInp3_0").on('focus', fn_showInvntQntt.bind(this));
+        $("#qnttInp1_0,#qnttInp2_0,#qnttInp3_0").on('blur', () => $("#invntQnttEl").remove());
+        $('.gdsInput_0').on("input",fn_remove.bind(event));
         /** main.jsp msg push**/
         window.parent.postMessage("sideMenuOff", "*");
-
     });
     /** 거래처 json 조회 **/
     const fn_set_cnpt = async function () {
@@ -1226,8 +1234,11 @@
     const fn_reset = function () {
         SBUxMethod.set("dtl-dtp-cnpt", "");
         $("#reg_table > tbody").children().remove();
-        $("#reg_table > tbody").append(regTableEl);
+        $("#reg_table > tbody").append(regTableEl(0));
         mapInvntQntt.clear();
+        $("#qnttInp1_0,#qnttInp2_0,#qnttInp3_0").on('focus', fn_showInvntQntt.bind(this));
+        $("#qnttInp1_0,#qnttInp2_0,#qnttInp3_0").on('blur', () => $("#invntQnttEl").remove());
+        $('.gdsInput_0').on("input",fn_remove.bind(event));
     }
     /**
      * @name fn_onchangeCnpt
@@ -1258,15 +1269,6 @@
         let parentTr = $(_el).closest('tr');
         let lastInput = parentTr.children(':last').find("input");
 
-
-        let _prdcr =$(_el).parent().next('div').children();
-        _prdcr.val('');
-        $(_prdcr).attr("type", "number");
-        $(_prdcr).attr("readonly", false);
-        $(_prdcr).css("color", "initial");
-        $(_prdcr).css("background-color", "initial");
-        $(_prdcr).val("");
-
         jsonNewGdsGrd.forEach(function (item) {
             for (let key in item) {
                 if (item[key] === null) {
@@ -1276,8 +1278,9 @@
         });
 
         tempJson = jsonNewGdsGrd.filter(function (item) {
-            return item.grdNm.startsWith(_val);
+            return parseInt(item.grdNm) == _val;
         });
+
         if(gfn_isEmpty(_val)){
             tempJson.length = 0;
             $(lastInput).removeAttr('sortGds');
@@ -1288,22 +1291,49 @@
         $(lastInput).attr('sortGds',rowData);
 
 
-        if (tempJson.length == 0) {
+        if (tempJson.length == 0 || tempJson.length > 1) {
+            parentTr.children().eq(0).find('input').eq(1).attr({'type':"number","readonly":false});
+            parentTr.children().eq(0).find('input').eq(1).css({'color':"initial","background-color":"initial"});
+            parentTr.children().eq(0).find('input').eq(1).val('');
+
             parentTr.children().eq(1).find('input').val('');
             parentTr.children().eq(2).find('input').val('');
             parentTr.children().eq(3).find('input').val('');
+
             parentTr.children().eq(4).find('input').val('');
             parentTr.children().eq(5).find('input').val('');
             parentTr.children().eq(6).find('input').val('');
+            parentTr.children().eq(4).find('input').removeAttr('max');
+            parentTr.children().eq(5).find('input').removeAttr('max');
+            parentTr.children().eq(6).find('input').removeAttr('max');
+            parentTr.children().eq(4).find('input').attr({'type':"number","readonly":false});
+            parentTr.children().eq(4).find('input').css({'color':"initial","background-color":"initial"});
+            parentTr.children().eq(5).find('input').attr({'type':"number","readonly":false});
+            parentTr.children().eq(5).find('input').css({'color':"initial","background-color":"initial"});
+            parentTr.children().eq(6).find('input').attr({'type':"number","readonly":false});
+            parentTr.children().eq(6).find('input').css({'color':"initial","background-color":"initial"});
             parentTr.children().eq(8).find('input').val('');
             /** 출하번호에 대한 정보가 없는데 생산자전용 임시 JSON이 있을수있음. **/
-            prdcrTempJson.length = 0;
+            tempJson.length = 0;
             mapInvntQntt.delete(parentTr.index());
+            $(lastInput).removeAttr('sortGds');
+            $(lastInput).removeAttr('sortInvnt');
         } else {
             /** 품목 단량 세팅 0번 인덱스로 없으면 어쩌지? **/
             parentTr.children().eq(1).find('input').val(tempJson[0].itemNm);
             parentTr.children().eq(2).find('input').val(tempJson[0].vrtyNm);
             parentTr.children().eq(3).find('input').val(tempJson[0].spcfctNm);
+            parentTr.children().eq(1).find('input').attr("readonly",true);
+            parentTr.children().eq(2).find('input').attr("readonly",true);
+            parentTr.children().eq(3).find('input').attr("readonly",true);
+
+            if(tempJson[0].invntrInqAuCd == "P"){
+                parentTr.children().eq(0).find('input').eq(1).attr({"type":"text","readonly":true});
+                parentTr.children().eq(0).find('input').eq(1).css({"color":"white","background-color":"#999"});
+                parentTr.children().eq(0).find('input').eq(1).val("X");
+            }
+
+
             /** 없는 출하번호로 인해 생산자전용 임시 JSON이 지워진경우 **/
             fn_onChangePrdcr($(_el).parent().next('div').children());
 
@@ -1315,44 +1345,60 @@
                     let qnttInp1_ = "#qnttInp1_" + nextIdx;
                     let qnttInp2_ = "#qnttInp2_" + nextIdx;
                     let qnttInp3_ = "#qnttInp3_" + nextIdx;
+                    let gdsInput_ = ".gdsInput_" + nextIdx;
                     $(qnttInp1_).on('focus', fn_showInvntQntt.bind(this));
                     $(qnttInp2_).on('focus', fn_showInvntQntt.bind(this));
                     $(qnttInp3_).on('focus', fn_showInvntQntt.bind(this));
                     $(qnttInp1_).on('blur', () => $("#invntQnttEl").remove());
                     $(qnttInp2_).on('blur', () => $("#invntQnttEl").remove());
                     $(qnttInp3_).on('blur', () => $("#invntQnttEl").remove());
+
+                    $(gdsInput_).on('input', fn_remove.bind(event));
                 }
             }
         }
+        if(tempJson.length > 1){
+            gfn_comAlert("W0002", "출하번호");
+            return;
+        }
         fn_setInvntQntt(parentTr);
     }
+    /** 생산자 바꾸면 **/
     /** 생산자 번호 입력시 2차 필터링 **/
     const fn_onChangePrdcr = function (_el) {
-        let _val = $(_el).val();
         let parentTr = $(_el).closest('tr');
+        let lastInput = parentTr.children(':last').find("input");
         /** 현재 출하번호에 맞는 상품리스트중에 생산자번호까지 일치하는 재고만 추림 2차 필터링 **/
         /** 생산자 번호만 바뀔가능성이 있음. **/
         if(!gfn_isEmpty(tempJson)){
-            prdcrTempJson = tempJson;
-            prdcrTempJson = prdcrTempJson.filter(function (item) {
-                return item.prdcr == _val;
-            });
-            /** 각 재고 인풋에 재고 현황 셋팅 **/
-            fn_setInvntQntt(parentTr);
+            parentTr.children().eq(4).find('input').val('');
+            parentTr.children().eq(5).find('input').val('');
+            parentTr.children().eq(6).find('input').val('');
+            parentTr.children().eq(4).find('input').removeAttr('max');
+            parentTr.children().eq(5).find('input').removeAttr('max');
+            parentTr.children().eq(6).find('input').removeAttr('max');
+            parentTr.children().eq(4).find('input').attr({'type':"number","readonly":false});
+            parentTr.children().eq(4).find('input').css({'color':"initial","background-color":"initial"});
+            parentTr.children().eq(5).find('input').attr({'type':"number","readonly":false});
+            parentTr.children().eq(5).find('input').css({'color':"initial","background-color":"initial"});
+            parentTr.children().eq(6).find('input').attr({'type':"number","readonly":false});
+            parentTr.children().eq(6).find('input').css({'color':"initial","background-color":"initial"});
+            parentTr.children().eq(8).find('input').val('');
+            mapInvntQntt.delete(parentTr.index());
+            $(lastInput).removeAttr('sortInvnt');
         }
     }
 
     /** 현재 row의 Element 정보가 반드시 필요함. **/
     const fn_setInvntQntt = function (parentTr) {
         /** 재고 tooltip 추가 및 input max 한정 **/
-        if(!gfn_isEmpty(prdcrTempJson)){
+        if(!gfn_isEmpty(tempJson)){
 
         /** max 셋팅 **/
-        prdcrTempJson.forEach(function (item) {
+        tempJson.forEach(function (item) {
             let idx = parseInt(item.gdsGrd) + 3;
             let el = parentTr.children().eq(idx).find('input');
             el.attr('max', (item.invntrQntt - (item.useQntt || 0)));
-            // el.attr('max', (item.invntrQntt - (gfn_isEmpty(item.useQntt)?0:item.useQntt)));
         });
 
         /** 해당 row css적용 [max 존재 유무] **/
@@ -1375,7 +1421,7 @@
             }
         })
         }else{
-            $(parentTr).find("input.qnttInp").each(function () {
+            $(parentTr).find("input[id]").each(function () {
                 let inputEl = $(this)[0];
                 inputEl.removeAttribute("max");
                 $(inputEl).attr("type", "number");
@@ -1389,15 +1435,15 @@
 
     const fn_showInvntQntt = async function (_el) { //top: 99.4062px; left: 233.5px;
         let max = _el.target.getAttribute("max");
-
         if (!gfn_isEmpty(max)) {
+            let left = JSON.parse($(_el.target).closest('tr').children(":last").find('input').attr("sortinvnt")).gdsGrd;
             let roof = $(_el.target).closest('tr').index();
             let parentTd = $(_el.target).parent();
 
 
             /** 재고 툴팁 element **/
             let invntQnttEl = `<div id="invntQnttEl"class="sbux-pop sbux-fade sbux-pop-bottom sbux-in" role="tooltip"
-                    style="display: block; top:`+(5 + (roof * 5.5))+`vh; left:50.2vw;"
+                    style="display: block; top:`+(5 + (roof * 5.5))+`vh; left:`+(41.2 + (left * 7))+`vw;"
                         onclick="fn_selectInvntQntt(`+max+`,this)">
                         <div class="sbux-pop-arrow" style="left: 50%;"></div>
                         <h3 class="sbux-pop-title" style="display: none;"></h3>
@@ -1437,6 +1483,7 @@
         let tr = $(_el).closest('tr');
         let rowData = tr.children(":last").find('input').attr("sortGds");
         let originTridx = $(tr).index();
+        let prdcr = tr.children().eq(0).find('input').eq(1).val();
 
         try{
             rowData = JSON.parse(rowData);
@@ -1448,6 +1495,7 @@
 
         let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncInvntList.do",rowData);
             const data = await postJsonPromise;
+
             data.resultList.forEach(function (item) {
                 for (let key in item) {
                     if (item[key] == null) {
@@ -1458,6 +1506,12 @@
                     }
                 }
             });
+
+        if(!gfn_isEmpty(prdcr)){
+            data.resultList = data.resultList.filter(function(item){
+                return item.prdcrIdentno == prdcr;
+            })
+        }
 
             data.resultList.map(function (item) { //필요한거 : item.spmtInvId
                 //TODO: 재고현황 파악해서 재고 마이너스처리
@@ -1582,18 +1636,22 @@
     const fn_selectInvnt = function(_row,_idx){
         SBUxMethod.closeModal('searchQntt');
         let originTr = $("#reg_table tbody").children().eq(_idx);
-        let rowData = JSON.parse($(_row).children(":last").val());
+        let rowData;
+        if(!gfn_isEmpty(_row)) {
+            rowData = JSON.parse($(_row).children(":last").val());
+        }else{
+            rowData = JSON.parse(originTr.children(":last").find('input').attr("sortInvnt"));
+        }
 
         originTr.children(":last").find('input').attr("sortInvnt",JSON.stringify(rowData));
 
         let prdcrTd = originTr.children().eq(0).find('input').eq(1);
         if(rowData.hasOwnProperty("prdcrIdentno")){
             $(prdcrTd).attr("type", "number");
-            $(prdcrTd).attr("readonly", false);
             $(prdcrTd).css("color", "initial");
             $(prdcrTd).css("background-color", "initial");
             $(prdcrTd).val("");
-            prdcrTd.val(rowData.prdcrIdentno);
+            $(prdcrTd).val(rowData.prdcrIdentno);
         }else{
             $(prdcrTd).attr("type", "text");
             $(prdcrTd).attr("readonly", true);
@@ -1603,28 +1661,26 @@
         }
 
         originTr.children().eq(3).find('input').val(rowData.spcfctNm);
+        originTr.children().eq(3).find('input').attr("readonly",true);
 
         //gdsGrd
         let originInput =  originTr.children().eq(parseInt(rowData.gdsGrd) + 3).find('input');
         originInput.val(rowData.invntrQntt);
         originInput.attr('max',rowData.invntrQntt);
 
-        $(originTr).find("input.qnttInp").each(function () {
+        $(originTr).find("input[id]").each(function () {
             let inputEl = $(this)[0];
             let max = inputEl.getAttribute('max');
 
             if (gfn_isEmpty(max)) {
-                $(inputEl).attr("type", "text");
-                $(inputEl).attr("readonly", true);
-                $(inputEl).css("color", "white");
-                $(inputEl).css("background-color", "#999");
+                $(inputEl).attr({"type":"text","readonly":true});
+                $(inputEl).css({"color": "white","background-color":"#999"});
                 $(inputEl).val("X");
             }else{
-                $(inputEl).attr("type", "number");
-                $(inputEl).attr("readonly", false);
-                $(inputEl).css("color", "initial");
-                $(inputEl).css("background-color", "initial");
+                $(inputEl).attr({"type":"number","readonly":false});
+                $(inputEl).css({"color":"initial","background-color":"initial"});
             }
+
         });
 
         let mapKey = String(rowData.spmtInvId[0]);
@@ -1681,24 +1737,63 @@
             console.log(e)
         }
     }
-    /** 송품장 목록조회 **/
+    /** 송품장 목록 선택 **/
     const fn_selectSpmt = async function(_item){
-        return;
-        // let itemCd = _item.cells[4].innerText;
-        // let vrtyCd = _item.cells[5].innerText;
-        // let pckgno = _item.cells[6].innerText;
+        let spmtno =  $(_item).children().eq(2).text();
 
         try{
-            let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncInvntList.do", {
+            let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncRegList.do", {
                 apcCd : gv_apcCd,
-                itemCd : itemCd,
-                vrtyCd : vrtyCd,
-                pckgno : pckgno,
-                grdCd : '02',
+                spmtno : spmtno,
             });
             const data = await postJsonPromise;
+            data.resultList.forEach(function(item){
+                for(let key in item){
+                    if(item[key] == null){
+                        delete item[key];
+                    }
+                    if(key == 'spmtInvId'){
+                        item[key] = item[key].split(',');
+                    }
+                    if(key == "spmtIndct" && item[key].indexOf("-") != -1){
+                        item.prdcrIdentno = item[key].substring(item[key].indexOf("-")+1,item[key].length);
+                    }
+                }
+                item.invntrQntt = item.spmtQntt;
+                item.invntrWght = item.spmtWght;
+            });
+            fn_reset();
+            $("#reg_table > tbody").children().remove();
+            data.resultList.forEach(function(item,idx){
+                let grdNm = parseInt(item.spmtIndct);
+                let inputId = ".gdsInput_" + idx;
+                $("#reg_table > tbody").append(regTableEl(idx,true));
+                let gdsInput_ = ".gdsInput_" + idx;
+                $(gdsInput_).on('input', fn_remove.bind(event));
 
+                $(inputId).val(grdNm);
+                let tr = $(inputId).closest('tr');
+
+                if(item.spmtIndct.indexOf("-") != -1 ){
+                    let prdcr = item.spmtIndct;
+
+                    $(inputId).parent().next().find('input')
+                        .val(prdcr.substring(prdcr.indexOf("-")+1,prdcr.length));
+                };
+                /** 출하번호 트리거 **/
+                $(inputId).trigger('change');
+                /** save JSON 저장 **/
+                tr.children(":last").find('input').attr("sortinvnt",JSON.stringify(item));
+                fn_selectInvnt(null,idx);
+                $("#dtl-inp-spmtYmd").val(data.resultList[0].spmtYmd.replace(/(\d{4})(\d{2})(\d{2})/,"$1-$2-$3"));
+
+                SBUxMethod.closeModal("searchSpmt");
+
+
+            });
         }catch (e){
+            gfn_comAlert("E0001");
+            fn_reset();
             console.log(e);
         }
     }
@@ -1730,7 +1825,6 @@
                 let qnttIdx = parseInt(rowData.gdsGrd);
                 let spmtQntt = $(this).children().eq(qnttIdx + 3).find("input").val();
 
-                /** spmtGdsList SN 셋팅 [oderby 조건으로 순서를 보장받음] **/
                 rowData.spmtInvId.forEach(function(item,idx,arr){
                     arr[idx] = {
                         pckgno : item.substring(0,14),
@@ -1786,6 +1880,15 @@
             }
         }catch (e){
             console.log(e);
+        }
+    }
+
+    const fn_remove = function(_event){
+        let inputWord = _event.originalEvent.data;
+
+        if(inputWord == "."){
+            $(_event.currentTarget).val("");
+            fn_onChangesortGds(_event.currentTarget);
         }
     }
 
