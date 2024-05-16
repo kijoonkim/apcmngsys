@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.at.apcss.am.invntr.vo.GdsInvntrVO;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -132,8 +133,40 @@ public class SpmtPrfmncController extends BaseController {
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
+	
 
+	/**
+	 * 출하실적 등록 (by 포장번호)
+	 */
+	@PostMapping(value = "/am/spmt/insertSpmtPrfmncByPckgList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertSpmtPrfmncByPckgList(@RequestBody SpmtPrfmncComVO spmtPrfmncComVO, HttpServletRequest request) throws Exception {
 
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+
+			spmtPrfmncComVO.setSysFrstInptUserId(getUserId());
+			spmtPrfmncComVO.setSysFrstInptPrgrmId(getPrgrmId());
+			spmtPrfmncComVO.setSysLastChgUserId(getUserId());
+			spmtPrfmncComVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String, Object> rtnObj = spmtPrfmncService.insertSpmtPrfmncByPckgList(spmtPrfmncComVO);
+			if(rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	
 	// 출하실적 등록
 	@PostMapping(value = "/am/spmt/insertSpmtPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> insertSpmtPrfmncList(@RequestBody List<SpmtPrfmncVO> spmtPrfmncList, HttpServletRequest request) throws Exception {
@@ -344,4 +377,73 @@ public class SpmtPrfmncController extends BaseController {
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
+	@PostMapping(value = "/am/spmt/selectSpmtPrfmncInvntList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectSpmtPrfmncInvntList(@RequestBody SpmtPrfmncVO spmtPrfmncVO, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try{
+			List<GdsInvntrVO> result = spmtPrfmncService.selectSpmtPrfmncInvntList(spmtPrfmncVO);
+			resultMap.put(ComConstants.PROP_RESULT_LIST,result);
+
+		}catch (Exception e){
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+		HashMap<String, Object> rtnObj = setMenuComLog(request);
+		if (rtnObj != null) {
+			return getErrorResponseEntity(rtnObj);
+		}
+	}
+		return getSuccessResponseEntity(resultMap);
+	}
+	@PostMapping(value = "/am/spmt/selectSpmtPrfmncComList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectSpmtPrfmncComList(@RequestBody SpmtPrfmncVO spmtPrfmncVO, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try{
+			List<SpmtPrfmncVO> list = spmtPrfmncService.selectSpmtPrfmncComList(spmtPrfmncVO);
+			resultMap.put(ComConstants.PROP_RESULT_LIST,list);
+
+		}catch (Exception e){
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		}finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+    /**
+     * 출하실적 변경 (by 포장번호)
+     */
+    @PostMapping(value = "/am/spmt/updateSpmtPrfmncByPckgList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+    public ResponseEntity<HashMap<String, Object>> updateSpmtPrfmncByPckgList(@RequestBody SpmtPrfmncComVO spmtPrfmncComVO, HttpServletRequest request) throws Exception {
+
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+        try {
+
+            spmtPrfmncComVO.setSysFrstInptUserId(getUserId());
+            spmtPrfmncComVO.setSysFrstInptPrgrmId(getPrgrmId());
+            spmtPrfmncComVO.setSysLastChgUserId(getUserId());
+            spmtPrfmncComVO.setSysLastChgPrgrmId(getPrgrmId());
+
+            HashMap<String, Object> rtnObj = spmtPrfmncService.updateSpmtPrfmncByPckgList(spmtPrfmncComVO);
+            if(rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+
+        } catch (Exception e) {
+            logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+            return getErrorResponseEntity(e);
+        } finally {
+            HashMap<String, Object> rtnObj = setMenuComLog(request);
+            if (rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }
+        return getSuccessResponseEntity(resultMap);
+    }
+	
+	
 }

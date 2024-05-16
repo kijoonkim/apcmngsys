@@ -132,25 +132,68 @@ public class SortBffaVO extends ComVO {
      * 등급유형별 수량,중량,비고
      */
     private String grdType1;
-    private String grdType1Qntt;
-    private String grdType1Wght;
+    private int grdType1Qntt;
+    private double grdType1Wght;
     private String grdType1Rmrk;
     private String grdType2;
-    private String grdType2Qntt;
-    private String grdType2Wght;
+    private int grdType2Qntt;
+    private double grdType2Wght;
     private String grdType2Rmrk;
     private String grdType3;
-    private String grdType3Qntt;
-    private String grdType3Wght;
+    private int grdType3Qntt;
+    private double grdType3Wght;
     private String grdType3Rmrk;
     private String grdType4;
-    private String grdType4Qntt;
-    private String grdType4Wght;
+    private int grdType4Qntt;
+    private double grdType4Wght;
     private String grdType4Rmrk;
     private String grdType5;
-    private String grdType5Qntt;
-    private String grdType5Wght;
+    private int grdType5Qntt;
+    private double grdType5Wght;
     private String grdType5Rmrk;
+
+    private double grdWrht1;
+    private double grdWrht2;
+    private double grdWrht3;
+    private double grdWrht4;
+    private double grdWrht5;
+    private double grdWrht6;
+    private double grdWrht7;
+    private double grdWrht8;
+    private double grdWrht9;
+    private double grdWrht10;
+    private double grdWrht11;
+    private double grdWrht12;
+    private double grdWrht13;
+    private double grdWrht14;
+    private double grdWrht15;
+    private double grdWrht16;
+    private double grdWrht17;
+    private double grdWrht18;
+    private double grdWrht19;
+    private double grdWrht20;
+
+    private String grdCd1;
+    private String grdCd2;
+    private String grdCd3;
+    private String grdCd4;
+    private String grdCd5;
+    private String grdCd6;
+    private String grdCd7;
+    private String grdCd8;
+    private String grdCd9;
+    private String grdCd10;
+    private String grdCd11;
+    private String grdCd12;
+    private String grdCd13;
+    private String grdCd14;
+    private String grdCd15;
+    private String grdCd16;
+    private String grdCd17;
+    private String grdCd18;
+    private String grdCd19;
+    private String grdCd20;
+
 
     /**
      * 선별내역 사전입고표준등급

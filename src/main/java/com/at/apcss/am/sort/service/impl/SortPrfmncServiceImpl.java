@@ -238,25 +238,25 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 
         return resultList;
     }
-    
+
     @Override
     public List<HashMap<String, Object>> selectExhstDsctn(HashMap<String, Object> exhstDsctn) throws Exception {
 
     	List<HashMap<String, Object>> resultVO = sortPrfmncMapper.selectExhstDsctn(exhstDsctn);
-    	
+
 		return resultVO;
 	}
-    
+
     @Override
     public List<HashMap<String, Object>> selectGrdDsctn(HashMap<String, Object> exhstDsctn) throws Exception {
 
     	List<HashMap<String, Object>> resultVO = sortPrfmncMapper.selectGrdDsctn(exhstDsctn);
-    	
+
 		return resultVO;
 	}
-    
-    
-    
+
+
+
 
 	@Override
 	public int insertSortBffa(SortBffaVO sortBffaVO) throws Exception {
@@ -307,7 +307,7 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 
 	@Override
 	public List<SortPrfmncVO> selectSortPrfmncListByWrhs(SortPrfmncVO sortPrfmncVO) throws Exception {
-		
+
 		List<SortPrfmncVO> resultList = sortPrfmncMapper.selectSortPrfmncListByWrhs(sortPrfmncVO);
 
 		return resultList;
@@ -339,19 +339,106 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 	public int deleteSortBffaAll(SortBffaVO sortBffaVO) throws Exception {
 		return sortPrfmncMapper.deleteSortBffaAll(sortBffaVO);
 	}
-    
+
     @Override
     public List<HashMap<String, Object>> selectExhstDsctnCol(HashMap<String, Object> exhstDsctn) throws Exception {
 
         List<HashMap<String, Object>> resultVO = sortPrfmncMapper.selectExhstDsctnCol(exhstDsctn);
-        
+
         return resultVO;
     }
 
 	@Override
 	public List<HashMap<String, Object>> selectBffaGrdTot(HashMap<String, Object> exhstDsctn) throws Exception {
 		List<HashMap<String, Object>> resultVO = sortPrfmncMapper.selectBffaGrdTot(exhstDsctn);
-		
+
 		return resultVO;
+	}
+
+	@Override
+	public SortBffaVO selectSortBffaSpt(SortBffaVO sortBffaVO) throws Exception {
+
+		SortBffaVO resultVO = sortPrfmncMapper.selectSortBffaSpt(sortBffaVO);
+		return resultVO;
+	}
+
+	@Override
+	public HashMap<String, Object> insertSortBffaSpt(List<SortBffaList> sortBffaListVO) throws Exception {
+
+
+		String prgrmId = sortBffaListVO.get(0).getSysFrstInptPrgrmId();
+		String userId = sortBffaListVO.get(0).getSysFrstInptUserId();
+
+		List<WrhsSortGrdVO> wrhsSortGrdList =  sortBffaListVO.get(0).getWrhsSortGrdList();
+		List<SortBffaVO> sortBffaList = sortBffaListVO.get(0).getSortBffaVOList();
+
+		String bffaWrhsno = cmnsTaskNoService.selectBffaWrhsno(sortBffaListVO.get(0).getApcCd(), sortBffaListVO.get(0).getYmd());
+
+		for (WrhsSortGrdVO wrhsSortGrdVO : wrhsSortGrdList) {
+			wrhsSortGrdVO.setSysFrstInptPrgrmId(prgrmId);
+			wrhsSortGrdVO.setSysFrstInptUserId(userId);
+			wrhsSortGrdVO.setSysLastChgPrgrmId(prgrmId);
+			wrhsSortGrdVO.setSysLastChgUserId(userId);
+
+			if (ComConstants.ROW_STS_INSERT.equals(wrhsSortGrdVO.getRowSts())) {
+
+				wrhsSortGrdVO.setBffaWrhsno(bffaWrhsno);
+
+				if(sortPrfmncMapper.insertWrhsSortGrd(wrhsSortGrdVO) == 0) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "등록 중 오류가 발생 했습니다."))); // E0000	{0}
+				};
+			}
+
+			if (ComConstants.ROW_STS_UPDATE.equals(wrhsSortGrdVO.getRowSts())) {
+				if(sortPrfmncMapper.updateWrhsSortGrd(wrhsSortGrdVO) == 0) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "수정 중 오류가 발생 했습니다."))); // E0000	{0}
+				};
+			}
+
+		}
+
+		for (SortBffaVO sortBffaVO : sortBffaList) {
+
+			sortBffaVO.setSysFrstInptPrgrmId(prgrmId);
+			sortBffaVO.setSysFrstInptUserId(userId);
+			sortBffaVO.setSysLastChgPrgrmId(prgrmId);
+			sortBffaVO.setSysLastChgUserId(userId);
+
+			if (ComConstants.ROW_STS_INSERT.equals(sortBffaVO.getRowSts())) {
+
+				sortBffaVO.setBffaWrhsno(bffaWrhsno);
+
+				if(sortPrfmncMapper.insertSortBffa(sortBffaVO) == 0) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "등록 중 오류가 발생 했습니다."))); // E0000	{0}
+				};
+			}
+
+			if (ComConstants.ROW_STS_UPDATE.equals(sortBffaVO.getRowSts())) {
+				if (sortPrfmncMapper.updateSortBffa(sortBffaVO) == 0) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "수정 중 오류가 발생 했습니다."))); // E0000	{0}
+				};
+			}
+		}
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deleteSortBffaSpt(WrhsSortGrdVO wrhsSortGrdVO) throws Exception {
+
+
+		SortBffaVO sortBffaVO = new SortBffaVO();
+
+		BeanUtils.copyProperties(wrhsSortGrdVO, sortBffaVO);
+
+		if (sortPrfmncMapper.deleteSortBffa(sortBffaVO) == 0) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다."))); // E0000	{0}
+		};
+
+		if (sortPrfmncMapper.deleteSortBffaSpt(wrhsSortGrdVO) == 0) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
+
+		return null;
 	}
 }

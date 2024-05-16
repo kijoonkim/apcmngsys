@@ -3,6 +3,7 @@ package com.at.apcss.am.spmt.service;
 import java.util.HashMap;
 import java.util.List;
 
+import com.at.apcss.am.invntr.vo.GdsInvntrVO;
 import com.at.apcss.am.spmt.vo.SpmtDsctnTotVO;
 import com.at.apcss.am.spmt.vo.SpmtPrfmncComVO;
 import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
@@ -104,6 +105,15 @@ public interface SpmtPrfmncService {
 	public HashMap<String, Object> insertSpmtPrfmncByGrd(SpmtPrfmncComVO spmtPrfmncComVO) throws Exception;
 
 	/**
+	 * 출하실적 등록 By 상품리스트
+	 * @param spmtPrfmncComVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertSpmtPrfmncByPckgList(SpmtPrfmncComVO spmtPrfmncComVO) throws Exception;
+
+	
+	/**
 	 * 출하실적 등록
 	 * @param List<SpmtPrfmncVO>
 	 * @return
@@ -173,4 +183,37 @@ public interface SpmtPrfmncService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertSpmtPrfmncDsctn(List<SpmtPrfmncComVO> spmtPrfmncComList) throws Exception;
+	/**
+	 * 출하실적등록 모바일 재고조회
+	 * @param spmtPrfmncVO
+	 * @return List<GdsInvntrVO>
+	 * @throws Exception
+	 */
+    List<GdsInvntrVO> selectSpmtPrfmncInvntList(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+	/**
+	 * 출하실적등록 모바일 출하실적공통 조회
+	 * @param spmtPrfmncVO
+	 * @return List<GdsInvntrVO>
+	 * @throws Exception
+	 */
+    List<SpmtPrfmncVO> selectSpmtPrfmncComList(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+    
+    /**
+     * 출하실적 변경 By 상품리스트
+     * @param spmtPrfmncComVO
+     * @return
+     * @throws Exception
+     */
+    public HashMap<String, Object> updateSpmtPrfmncByPckgList(SpmtPrfmncComVO spmtPrfmncComVO) throws Exception;
+
+     
+    /**
+     * 출하실적취소
+     * @param spmtPrfmncComVO
+     * @return
+     * @throws Exception
+     */
+    public HashMap<String, Object> deleteSpmt(SpmtPrfmncComVO spmtPrfmncComVO) throws Exception;
+   
+    
 }

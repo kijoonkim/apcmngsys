@@ -2,9 +2,11 @@ package com.at.apcss.am.spmt.mapper;
 
 import java.util.List;
 
+import com.at.apcss.am.invntr.vo.GdsInvntrVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.at.apcss.am.spmt.vo.SpmtDsctnTotVO;
+import com.at.apcss.am.spmt.vo.SpmtPrfmncComVO;
 import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
 
 /**
@@ -23,6 +25,22 @@ import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
  */
 @Mapper
 public interface SpmtPrfmncMapper {
+
+    /**
+     * 출하공통정보 조회
+     * @param spmtPrfmncComVO
+     * @return
+     * @throws Exception
+     */
+    public SpmtPrfmncComVO selectSpmtCom(SpmtPrfmncComVO spmtPrfmncComVO) throws Exception;
+    
+    /**
+     * 출하실적상세 목록 조회
+     * @param spmtPrfmncVO
+     * @return SpmtPrfmncVO
+     * @throws Exception
+     */
+    public List<SpmtPrfmncVO> selectSpmtDtlList(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
 
 	/**
 	 * 출하실적 단건 조회
@@ -119,4 +137,19 @@ public interface SpmtPrfmncMapper {
 	 * @throws Exception
 	 */
 	public List<SpmtDsctnTotVO> selectSpmtPrfmncDsctnList(SpmtDsctnTotVO spmtDsctnTotVO) throws Exception;
+
+	/**
+	 * 출하실적등록 모바일 재고조회
+	 * @param spmtPrfmncVO
+	 * @return List<GdsInvntrVO>
+	 * @throws Exception
+	 */
+    List<GdsInvntrVO> selectSpmtPrfmncInvntList(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+	/**
+	 * 출하실적등록 모바일 출하실적공통 조회
+	 * @param spmtPrfmncVO
+	 * @return List<GdsInvntrVO>
+	 * @throws Exception
+	 */
+    List<SpmtPrfmncVO> selectSpmtPrfmncComList(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
 }

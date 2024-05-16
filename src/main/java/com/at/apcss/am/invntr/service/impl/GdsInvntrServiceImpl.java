@@ -79,14 +79,24 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 
 	@Override
 	public List<GdsInvntrVO> selectSpmtGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception {
-
 		List<GdsInvntrVO> resultList = gdsInvntrMapper.selectSpmtGdsInvntrList(gdsInvntrVO);
-
 		return resultList;
-
 	}
 
 
+	@Override
+	public List<GdsInvntrVO> selectSpmtGdsInvntrListByPckgno(GdsInvntrVO gdsInvntrVO) throws Exception {
+
+		List<GdsInvntrVO> resultList = new ArrayList<>();
+		
+		if (gdsInvntrVO.getSpmtGdsList() != null && !gdsInvntrVO.getSpmtGdsList().isEmpty()) {
+			resultList = gdsInvntrMapper.selectSpmtGdsInvntrListByPckgno(gdsInvntrVO);
+		}
+
+		return resultList;
+	}
+
+	
 	@Override
 	public List<GdsInvntrVO> selectGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception {
 
@@ -295,9 +305,14 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 				|| !ComConstants.CON_NONE.equals(invntrInfo.getDelYn())) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상품재고");
 		}
+		
+		String invntrSttsCd = gdsInvntrVO.getInvntrSttsCd();
+		boolean needsIgnoreInvntrQntt = AmConstants.CON_INVNTR_STTS_CD_CHNG_SPMT.equals(invntrSttsCd);
 
 		if (gdsInvntrVO.getSpmtQntt() > invntrInfo.getInvntrQntt()) {
-			return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "재고량||출하량");		// W0008	{0} 보다 {1}이/가 큽니다.
+			if (!needsIgnoreInvntrQntt) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "재고량||출하량");		// W0008	{0} 보다 {1}이/가 큽니다.
+			}
 		}
 
 		// 재고량
@@ -370,9 +385,13 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
 		// 출하 강제 재고 생성 데이터 인 경우 삭제 처리
-		if ("D1".equals(invntrInfo.getInvntrSttsCd())) {
+		if (AmConstants.CON_INVNTR_STTS_CD_FRCS_SPMT.equals(invntrInfo.getInvntrSttsCd())) {
 			deleteGdsInvntr(gdsInvntrVO);
 		} else {
+			
+			if (AmConstants.CON_INVNTR_STTS_CD_CHNG_SPMT.equals(invntrInfo.getInvntrSttsCd())) {
+				gdsInvntrVO.setInvntrSttsCd(null);
+			}			
 			gdsInvntrMapper.updateGdsInvntrSpmtPrfmnc(gdsInvntrVO);
 		}
 

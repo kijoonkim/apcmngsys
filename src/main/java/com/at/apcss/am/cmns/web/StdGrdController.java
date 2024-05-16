@@ -249,4 +249,25 @@ public class StdGrdController extends BaseController {
 		
 		return getSuccessResponseEntity(resultMap);
 	}
+	@PostMapping(value = "/am/cmns/selectGrdNmList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectGrdNmList(@RequestBody StdGrdDtlVO stdGrdDtlVO, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+
+			List<StdGrdDtlVO> rtnObj =  stdGrdService.selectGrdNmList(stdGrdDtlVO);
+			resultMap.put(ComConstants.PROP_RESULT_LIST,rtnObj);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
 }
