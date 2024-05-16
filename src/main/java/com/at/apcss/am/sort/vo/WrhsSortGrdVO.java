@@ -4,10 +4,8 @@ import com.at.apcss.co.sys.vo.ComVO;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 /**
- * @Class Name : SortPrfmncVO.java
+ * @Class Name : WrhsSortGrdVO.java
  * @Description : 육안선별(현장용)에 대한 VO 클래스
  * @author 김  호
  * @since 2024.05.14
