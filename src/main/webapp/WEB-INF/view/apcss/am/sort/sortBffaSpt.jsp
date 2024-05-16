@@ -697,6 +697,7 @@
             SBUxMethod.set("srch-slt-itemCd", "");
             SBUxMethod.set("srch-slt-vrtyCd", "");
         }
+        fn_createTabelHeader();
     }
     /*End*/
 
@@ -852,7 +853,13 @@
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 /** @type {number} **/
-                if(gfn_isEmpty(data.resultList)){flag=false; bffaWrhsno="";}
+                if(gfn_isEmpty(data.resultList)){
+                    flag=false;
+                    bffaWrhsno="";
+                    SBUxMethod.set("srch-inp-wrhsQntt", "");
+                    SBUxMethod.set("srch-inp-wrhsWght", "");
+                    fn_createTabelHeader();
+                }
                 else{flag=true;bffaWrhsno="";}
                 let totalRecordCount = 0;
 
