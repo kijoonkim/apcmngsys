@@ -1989,7 +1989,6 @@
 				,GRD_TYPE_5_QNTT
 				,GRD_TYPE_5_WGHT
 				,GRD_TYPE_5_RMRK
-				,DEL_YN
 				,SYS_FRST_INPT_DT
 				,SYS_FRST_INPT_USER_ID
 				,SYS_FRST_INPT_PRGRM_ID
@@ -2039,11 +2038,10 @@
 				,#{grdType5Qntt}
 				,#{grdType5Wght}
 				,#{grdType5Rmrk}
-				,#{delYn}
-				,#{sysFrstInptDt}
+				,SYSDATE
 				,#{sysFrstInptUserId}
 				,#{sysFrstInptPrgrmId}
-				,#{sysLastChgDt}
+				,SYSDATE
 				,#{sysLastChgUserId}
 				,#{sysLastChgPrgrmId}
 				)
@@ -2594,7 +2592,7 @@
 			    ,GRD_TYPE_5_QNTT = #{grdType5Qntt}
 			    ,GRD_TYPE_5_WGHT = #{grdType5Wght}
 			    ,GRD_TYPE_5_RMRK = #{grdType5Rmrk}
-				,SYS_LAST_CHG_DT = #{sysLastChgDt}
+				,SYS_LAST_CHG_DT = SYSDATE
 				,SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
 				,SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
 			WHERE  APC_CD =  #{apcCd}
@@ -3025,10 +3023,10 @@
 	    		 , SYS_LAST_CHG_USER_ID 	= #{sysLastChgUserId}
 	    		 , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 	         WHERE APC_CD					= #{apcCd}
-	             , BFFA_WRHSNO				= #{bffaWrhsno}
-	             , ITEM_CD					= #{itemCd}
-	             , GRD_KND					= #{grdKnd}
-	             , GRD_CD   				= #{grdCd}
+			   AND BFFA_WRHSNO				= #{bffaWrhsno}
+			   AND ITEM_CD					= #{itemCd}
+			   AND GRD_KND					= #{grdKnd}
+			   AND GRD_CD   				= #{grdCd}
     	]]>
     </update>
 

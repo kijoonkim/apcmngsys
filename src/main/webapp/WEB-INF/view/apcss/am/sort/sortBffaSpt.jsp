@@ -204,7 +204,7 @@
                         uitype="normal"
                         text="삭제"
                         class="btn btn-sm btn-outline-danger btn-mbl"
-                        onclick="fn_initSBSelect"
+                        onclick="fn_delete"
                 ></sbux-button>
             </div>
         </div>
@@ -398,6 +398,8 @@
 <script type="text/javascript">
 
     let flag = true;
+    let searchFlag = false;
+    let bffaWrhsno = "";
 
     var jsonOtrdEyeSort = [];
     var jsonApcItem = [];
@@ -677,10 +679,7 @@
         SBUxMethod.clear("srch-inp-prdcrNm");
         SBUxMethod.clear("srch-inp-prdcrIdentno");
         fn_clearPrdcr();
-        /*품목/품종, 육안선별 결과 컴포넌트 초기화*/
-        SBUxMethod.clear("srch-slt-itemCd");
-        SBUxMethod.clear("srch-slt-vrtyCd");
-        fn_onChangeSrchItemCd();
+
         /*입고일자 초기화*/
         SBUxMethod.set("srch-dtp-wrhsYmd", gfn_dateToYmd(new Date()));
         /*수량/중량 초기화*/
@@ -689,55 +688,127 @@
         /*선별기 초기화*/
         SBUxMethod.set("srch-slt-fcltCd", "");
 
-        /*json 초기화*/
-        fn_initSBSelect();
+        /*체크박스 고정여부*/
+        let checkbox = document.getElementById('dtl-chk-itemFixed');
+        console.log('checkbox', checkbox);
+        let is_checked = checkbox.checked
+        console.log('is_checked', is_checked);
+        if(!is_checked){
+            console.log(!is_checked);
+            /*품목/품종, 육안선별 결과 컴포넌트 초기화*/
+
+            SBUxMethod.set("srch-slt-itemCd", "");
+            SBUxMethod.set("srch-slt-vrtyCd", "");
+        }
     }
     /*End*/
 
     /*저장 버튼*/
     /*Start*/
     const fn_save = async function(){
+        console.log(' fn_save flag', flag);
+
         let jsonSrchData = [];
 
-        let prdrCd = SBUxMethod.get("srch-inp-prdcrCd");        // 생산자
+        let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");        // 생산자
         let itemCd = SBUxMethod.get("srch-slt-itemCd");         // 품목
         let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");         // 품종
         let wrhsYmd = SBUxMethod.get("srch-dtp-wrhsYmd");       // 입고일자
         let fcltCd = SBUxMethod.get("srch-slt-fcltCd");         // 선별기
-        let whrsQntt = SBUxMethod.get("srch-inp-whrsQntt");     // 박스 수량
-        let whrsWght = SBUxMethod.get("srch-inp-whrsWght");     // 박스 중량
+        let wrhsQntt = SBUxMethod.get("srch-inp-wrhsQntt");     // 박스 수량
+        let wrhsWght = SBUxMethod.get("srch-inp-wrhsWght");     // 박스 중량
         let grdType1Wght = document.getElementById("GRD_TYPE_1").value;  // 열과
         let grdType2Wght = document.getElementById("GRD_TYPE_2").value;  // 폐기
+        let rowSts = "I";
+
+        if(flag === true){
+            rowSts="U";
+        }else{
+            rowSts="I";
+            bffaWrhsno="";
+        }
+
+        if(!gfn_isEmpty(vrtyCd)){
+            vrtyCd = vrtyCd.substring(4,8);
+        }
+        if(gfn_isEmpty(prdcrCd)){
+            gfn_comAlert("W0001", "생산자");
+            return;
+        }
+        if(gfn_isEmpty(itemCd)){
+            gfn_comAlert("W0001", "품목");
+            return;
+        }
+        if(gfn_isEmpty(vrtyCd)){
+            gfn_comAlert("W0001", "품종");
+            return;
+        }
+        if(gfn_isEmpty(wrhsYmd)){
+            gfn_comAlert("W0001", "입고일자");
+            return;
+        }
+        if(gfn_isEmpty(fcltCd)){
+            gfn_comAlert("W0001", "선별기");
+            return;
+        }
+        if(gfn_isEmpty(wrhsQntt)){
+            wrhsQntt = 0;
+        }
+        if(gfn_isEmpty(wrhsWght)){
+            wrhsWght = 0;
+        }
+
         // 검색조건에 있는 값 json에 입력
         jsonSrchData.push({
               apcCd: gv_selectedApcCd
-            , prdrCd:prdrCd
-            , itemCd,itemCd
+            , bffaWrhsno: bffaWrhsno
+            , prdcrCd:prdcrCd
+            , itemCd:itemCd
             , vrtyCd:vrtyCd
             , wrhsYmd:wrhsYmd
             , fcltCd:fcltCd
-            , whrsQntt:whrsQntt
-            , whrsWght:whrsWght
+            , wrhsQntt:wrhsQntt
+            , wrhsWght:wrhsWght
             , grdType1Wght:grdType1Wght
             , grdType2Wght:grdType2Wght
             // 조회에서 받아서 같이 바꿔주기
-            , rowSts:"I"
+            , rowSts:rowSts
+            , grdKnd:"03"
         });
         // 윤안선별 결과 데이터
-        let grdWghtInputs = document.querySelectorAll('[id="GRD_WGHT"]');
+        let grdWghtInputs = document.querySelectorAll('[name="GRD_WGHT"]');
         let grdData = [];
         let count = 0;
         grdWghtInputs.forEach(input => {
             let value = input.value.replace(/,/g, ''); // 쉼표 제거
-            let name = input.getAttribute("name"); // name 속성 값 가져오기
+            let name = input.getAttribute("id"); // id 속성 값 가져오기
             // value가 0 인지 검사, rowSts 조회에서 바꿔주기 조회에서 false 나오면 I ture 나오면 U , 업데이트일때는 BFFA_WRHSNO 값을 같이 박아주기
-            grdData[count] = {grdWght:value, grdCd:name, rowSts:"I"};
+
+            grdData[count] = {grdWght:value,rowSts:rowSts, grdCd:name, "grdKnd":"03", apcCd:gv_selectedApcCd, itemCd:itemCd, bffaWrhsno:bffaWrhsno};
+
             count++;
         });
         let allDataList = [];
-        allDataList.push({apcCd:gv_selectedApcCd,ymd:wrhsYmd,'wrhsSortGrdList':jsonSrchData, 'sortBffaVOList':grdData});
-        // console.log('flag', flag);
-        // console.log('allDataList', allDataList);    // 전체 데이터
+        allDataList.push({apcCd:gv_selectedApcCd,ymd:wrhsYmd,rowSts:rowSts,'sortBffaVOList':jsonSrchData, 'wrhsSortGrdList':grdData});
+        console.log('allDataList',allDataList);
+        try {
+            const postJsonPromise = gfn_postJSON("/am/sort/insertSortBffaSpt.do", allDataList);
+            const data = await postJsonPromise;
+
+            if (_.isEqual("S", data.resultStatus)) {
+                gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+                fn_search();
+            } else {
+                gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+            }
+        } catch(e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
     }
     /*End*/
 
@@ -749,6 +820,30 @@
         let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
         let wrhsYmd = SBUxMethod.get("srch-dtp-wrhsYmd");
         let fcltCd = SBUxMethod.get("srch-slt-fcltCd");
+
+        if(!gfn_isEmpty(vrtyCd)){
+            vrtyCd = vrtyCd.substring(4,8);
+        }
+        if(gfn_isEmpty(prdcrCd)){
+            gfn_comAlert("W0001", "생산자");
+            return;
+        }
+        if(gfn_isEmpty(itemCd)){
+            gfn_comAlert("W0001", "품목");
+            return;
+        }
+        if(gfn_isEmpty(vrtyCd)){
+            gfn_comAlert("W0001", "품종");
+            return;
+        }
+        if(gfn_isEmpty(wrhsYmd)){
+            gfn_comAlert("W0001", "입고일자");
+            return;
+        }
+        if(gfn_isEmpty(fcltCd)){
+            gfn_comAlert("W0001", "선별기");
+            return;
+        }
 
         const postJsonPromise = gfn_postJSON("/am/sort/selectSortBffaSpt.do", {
               apcCd: gv_selectedApcCd
@@ -763,10 +858,12 @@
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 /** @type {number} **/
+                if(gfn_isEmpty(data.resultList)){flag=false; bffaWrhsno="";}
+                else{flag=true;bffaWrhsno="";}
                 let totalRecordCount = 0;
 
                 jsonSearchData.length = 0;
-                let bffaWrhsno = data.resultList.bffaWrhsno;
+                bffaWrhsno = data.resultList.bffaWrhsno;
                 let fcltCd = data.resultList.fcltCd;
                 let grdCd1 = data.resultList.grdCd1;
                 let grdCd2 = data.resultList.grdCd2;
@@ -821,7 +918,6 @@
                 $("#GRD_TYPE_1").val(grdType1Wght);
                 $("#GRD_TYPE_2").val(grdType2Wght);
 
-
                 let searchGrdCd1DataActl1 = [];
                 for(let i=1; i<=jsonGrdColumnData.length; i++){
                     let grdCdKey = 'grdCd'+i;
@@ -853,6 +949,46 @@
             $("#"+data[i].grdCd).val(data[i].grdWght);
         }
         flag = false;
+    }
+
+    const fn_delete = async function (){
+        let apcCd = gv_selectedApcCd;
+        let itemCd = SBUxMethod.get("srch-slt-itemCd");
+        let grdKnd = "03";
+
+        console.log('bffaWrhsno', bffaWrhsno);
+        if(gfn_isEmpty(bffaWrhsno)){
+            gfn_comAlert("W0005", "삭제대상");
+            return;
+        }
+
+        if (gfn_comConfirm("Q0001", "삭제")) {		//	Q0001	{0} 하시겠습니까?
+
+            const postJsonPromise = gfn_postJSON("/am/sort/deleteSortBffaSpt.do", {
+                  apcCd
+                , itemCd
+                , grdKnd
+                , bffaWrhsno
+            });
+            const data = await postJsonPromise;
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+                    // fn_search();
+                    flag=false;
+                    fn_reset();
+                } else {
+                    gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+                }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        }
     }
 
 </script>

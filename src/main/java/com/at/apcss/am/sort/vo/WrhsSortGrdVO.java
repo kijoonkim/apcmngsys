@@ -53,5 +53,5 @@ public class WrhsSortGrdVO extends ComVO {
 	/*
 	 * 중량
 	 * */
-	private Double grdWght;
+	private double grdWght;
 }
