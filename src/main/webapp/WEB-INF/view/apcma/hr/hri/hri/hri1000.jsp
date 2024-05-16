@@ -1762,19 +1762,188 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div id="tpgPrize">상벌사항</div>
-                                <div id="tpgHealth">건강검진내역</div>
-                                <div id="tpgAppointment">발령사항</div>
-                                <div id="tabPageEx1">겸직</div>
-                                <div id="tpgTimeOffHistory">휴직이력</div>
-                                <div id="tpgGroupInsurance">단체보험</div>
-                                <div id="tpgDisease">상해/질병</div>
-                                <div id="tpgPersonnelEvaluation">평가</div>
-                                <div id="tpgOfficialInjury">공상발생</div>
-                                <div id="tpgContractDeg">계약차수</div>
-                                <div id="tpgWORKPLAN">근무계획</div>
-                                <div id="tpgEmp">근무조</div>
-                                <div id="tpgExpenditurewelfare">경조사비내역</div>
+                                <div id="tpgPrize">
+                                    <div class="ad_tbl_top2">
+                                        <ul class="ad_tbl_count">
+                                            <li><span>상벌사항</span></li>
+                                        </ul>
+                                        <div class="ad_tbl_toplist">
+                                            <sbux-button id="btn_add" name="btn_add" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRowForGvwPrize" ></sbux-button>&nbsp;
+                                            <sbux-button id="btn_del" name="btn_del" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwPrize"></sbux-button>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive tbl_scroll_xs">
+                                        <div id="sb-area-gvwPrize" style="height:560px;"></div>
+                                    </div>
+                                </div>
+                                <div id="tpgHealth">
+                                    <div class="ad_tbl_top2">
+                                        <ul class="ad_tbl_count">
+                                            <li><span>건강검진내역</span></li>
+                                        </ul>
+                                        <div class="ad_tbl_toplist">
+                                            <sbux-button id="btn_add" name="btn_add" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRowForGvwHealth" ></sbux-button>&nbsp;
+                                            <sbux-button id="btn_del" name="btn_del" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwHealth"></sbux-button>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive tbl_scroll_xs">
+                                        <div id="sb-area-gvwHealth" style="height:560px;"></div>
+                                    </div>
+                                </div>
+                                <div id="tpgAppointment">
+                                    <div class="ad_tbl_top2">
+                                        <ul class="ad_tbl_count">
+                                            <li><span>발령사항</span></li>
+                                        </ul>
+                                        <div class="ad_tbl_toplist">
+                                            <sbux-button id="btn_add" name="btn_add" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRowForGvwAppointment" ></sbux-button>&nbsp;
+                                            <sbux-button id="btn_del" name="btn_del" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwAppointment"></sbux-button>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive tbl_scroll_xs">
+                                        <div id="sb-area-gvwAppointment" style="height:560px;"></div>
+                                    </div>
+                                </div>
+                                <div id="tabPageEx1">
+                                    <div class="ad_tbl_top2">
+                                        <ul class="ad_tbl_count">
+                                            <li><span>겸직부서</span></li>
+                                        </ul>
+                                        <div class="ad_tbl_toplist">
+                                            <sbux-button id="btn_add" name="btn_add" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRowForGvwAddJob" ></sbux-button>&nbsp;
+                                            <sbux-button id="btn_del" name="btn_del" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwAddJob"></sbux-button>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive tbl_scroll_xs">
+                                        <div id="sb-area-gvwAddJob" style="height:560px;"></div>
+                                    </div>
+                                </div>
+                                <div id="tpgTimeOffHistory">
+                                    <div class="ad_tbl_top2">
+                                        <ul class="ad_tbl_count">
+                                            <li><span>휴직이력</span></li>
+                                        </ul>
+                                        <div class="ad_tbl_toplist">
+                                            <sbux-button id="btn_add" name="btn_add" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRowForGvwTimeOffHistory" ></sbux-button>&nbsp;
+                                            <sbux-button id="btn_del" name="btn_del" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwTimeOffHistory"></sbux-button>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive tbl_scroll_xs">
+                                        <div id="sb-area-gvwTimeOffHistory" style="height:560px;"></div>
+                                    </div>
+                                </div>
+                                <div id="tpgGroupInsurance">
+                                    <div class="ad_tbl_top2">
+                                        <ul class="ad_tbl_count">
+                                            <li><span>단체보험</span></li>
+                                        </ul>
+                                        <div class="ad_tbl_toplist">
+                                            <sbux-button id="btn_add" name="btn_add" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRowForGvwGroupInsurance" ></sbux-button>&nbsp;
+                                            <sbux-button id="btn_del" name="btn_del" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwGroupInsurance"></sbux-button>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive tbl_scroll_xs">
+                                        <div id="sb-area-gvwGroupInsurance" style="height:560px;"></div>
+                                    </div>
+                                </div>
+                                <div id="tpgDisease">
+                                    <div class="ad_tbl_top2">
+                                        <ul class="ad_tbl_count">
+                                            <li><span>상해/질병</span></li>
+                                        </ul>
+                                        <div class="ad_tbl_toplist">
+                                            <sbux-button id="btn_add" name="btn_add" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRowForGvwDisease" ></sbux-button>&nbsp;
+                                            <sbux-button id="btn_del" name="btn_del" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwDisease"></sbux-button>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive tbl_scroll_xs">
+                                        <div id="sb-area-gvwDisease" style="height:560px;"></div>
+                                    </div>
+                                </div>
+                                <div id="tpgPersonnelEvaluation">
+                                    <div class="ad_tbl_top2">
+                                        <ul class="ad_tbl_count">
+                                            <li><span>평가</span></li>
+                                        </ul>
+                                        <div class="ad_tbl_toplist">
+                                            <sbux-button id="btn_add" name="btn_add" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRowForGvwPersonnelEvaluation" ></sbux-button>&nbsp;
+                                            <sbux-button id="btn_del" name="btn_del" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwPersonnelEvaluation"></sbux-button>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive tbl_scroll_xs">
+                                        <div id="sb-area-gvwPersonnelEvaluation" style="height:560px;"></div>
+                                    </div>
+                                </div>
+                                <div id="tpgOfficialInjury">
+                                    <div class="ad_tbl_top2">
+                                        <ul class="ad_tbl_count">
+                                            <li><span>공상발생</span></li>
+                                        </ul>
+                                        <div class="ad_tbl_toplist">
+                                            <sbux-button id="btn_add" name="btn_add" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRowForGvwOfficialInjury" ></sbux-button>&nbsp;
+                                            <sbux-button id="btn_del" name="btn_del" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwOfficialInjury"></sbux-button>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive tbl_scroll_xs">
+                                        <div id="sb-area-gvwOfficialInjury" style="height:560px;"></div>
+                                    </div>
+                                </div>
+                                <div id="tpgContractDeg">
+                                    <div class="ad_tbl_top2">
+                                        <ul class="ad_tbl_count">
+                                            <li><span>계약차수</span></li>
+                                        </ul>
+                                        <div class="ad_tbl_toplist">
+                                            <sbux-button id="btn_add" name="btn_add" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRowForGvwContractDeg" ></sbux-button>&nbsp;
+                                            <sbux-button id="btn_del" name="btn_del" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwContractDeg"></sbux-button>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive tbl_scroll_xs">
+                                        <div id="sb-area-gvwContractDeg" style="height:560px;"></div>
+                                    </div>
+                                </div>
+                                <div id="tpgWORKPLAN">
+                                    <div class="ad_tbl_top2">
+                                        <ul class="ad_tbl_count">
+                                            <li><span>근무계획</span></li>
+                                        </ul>
+                                        <div class="ad_tbl_toplist">
+                                            <sbux-button id="btn_add" name="btn_add" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRowForGvwWorkPlan" ></sbux-button>&nbsp;
+                                            <sbux-button id="btn_del" name="btn_del" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwWorkPlan"></sbux-button>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive tbl_scroll_xs">
+                                        <div id="sb-area-gvwWorkPlan" style="height:560px;"></div>
+                                    </div>
+                                </div>
+                                <div id="tpgEmp">
+                                    <div class="ad_tbl_top2">
+                                        <ul class="ad_tbl_count">
+                                            <li><span>근무조</span></li>
+                                        </ul>
+                                        <div class="ad_tbl_toplist">
+                                            <sbux-button id="btn_add" name="btn_add" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRowForGvwEmp" ></sbux-button>&nbsp;
+                                            <sbux-button id="btn_del" name="btn_del" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwEmp"></sbux-button>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive tbl_scroll_xs">
+                                        <div id="sb-area-gvwEmp" style="height:560px;"></div>
+                                    </div>
+                                </div>
+                                <div id="tpgExpenditurewelfare">
+                                    <div class="ad_tbl_top2">
+                                        <ul class="ad_tbl_count">
+                                            <li><span>경조사비내역</span></li>
+                                        </ul>
+                                        <div class="ad_tbl_toplist">
+                                            <sbux-button id="btn_add" name="btn_add" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRowForGvwExpenditurewelfare" ></sbux-button>&nbsp;
+                                            <sbux-button id="btn_del" name="btn_del" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwExpenditurewelfare"></sbux-button>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive tbl_scroll_xs">
+                                        <div id="sb-area-gvwExpenditurewelfare" style="height:560px;"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1849,6 +2018,20 @@
     var jsonVeteransGrade = []; // 보훈등급
     var jsonHandicapGrade = []; // 장애등급
     var jsonGuaranteeType = []; // 보증구분
+    var jsonPrizeType = []; // 상벌구분
+    var jsonPrizeCategory = []; // 상벌유형
+    var jsonPrizeInoutType = []; // 사내외구분
+    var jsonPrizeTarget = []; // 대상구분
+    var jsonCheckType = []; // 검진구분
+    var jsonAddJobDeptCode = []; // 겸직부서
+    var jsonTimeOffType = []; // 휴직유형
+    var jsonGroupInsureCode = []; // 보험상품
+    var jsonDiseaseType = []; // 상해/질병구분
+    var jsonEvalPositionCode = []; // 평가차수
+    var jsonContractDegree = []; // 계약차수
+    var jsonWorkplanType = []; // 근무계획
+    var jsonWorkPatternCode = []; // 근무패턴코드
+    var jsonWelfareType = []; // 경조사유
 
     // Tab Data
     var jsonTabData = [
@@ -1884,21 +2067,21 @@
             // 법인
             gfnma_setComSelect(['SRCH_COMP_CODE'], jsonCompCode, 'L_ORG000', '', '', 'COMP_CODE', 'COMP_NAME', 'Y', ''),
             // 사업장
-            gfnma_setComSelect(['SRCH_SITE_CODE', 'SITE_CODE'], jsonSiteCode, 'L_ORG001', '', '', 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_SITE_CODE', 'SITE_CODE', 'gvwTimeOffHistory'], jsonSiteCode, 'L_ORG001', '', '', 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             // 재직구분
-            gfnma_setComSelect(['gvwList','SRCH_EMP_STATE', 'EMP_STATE'], jsonEmpState, 'L_HRI009', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwList','SRCH_EMP_STATE', 'EMP_STATE', 'gvwEmp'], jsonEmpState, 'L_HRI009', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 직군
             gfnma_setComSelect(['SRCH_JOB_GROUP','JOB_GROUP'], jsonJobGroup, 'L_HRI047', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 직책
-            gfnma_setComSelect(['gvwList', 'DUTY_CODE', 'DUTY_CODE2'], jsonDutyCode, 'L_HRI003', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwList', 'DUTY_CODE', 'DUTY_CODE2', 'gvwAddJob', 'gvwEmp'], jsonDutyCode, 'L_HRI003', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 직종
             gfnma_setComSelect(['JOB_FAMILY'], jsonJobFamily, 'L_HRI004', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 성별
             gfnma_setComSelect(['SRCH_GENDER', 'GENDER'], jsonGender, 'L_HRM002', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 직위
-            gfnma_setComSelect(['gvwList', 'START_POSITION_CODE'], jsonPositionCode, 'L_HRI002', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwList', 'START_POSITION_CODE', 'gvwAddJob', 'gvwEmp'], jsonPositionCode, 'L_HRI002', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 직급
-            gfnma_setComSelect(['JOB_RANK'], jsonJobRank, 'L_HRI005', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['JOB_RANK', 'gvwAddJob', 'gvwEmp'], jsonJobRank, 'L_HRI005', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 직무
             gfnma_setComSelect(['JOB_CODE'], jsonJobCode, 'L_HRI006', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_setComSelect(['JOB_SUB_CODE'], jsonSubJobCode, 'L_HRI073_A', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
@@ -1941,7 +2124,7 @@
             // 결혼여부
             gfnma_setComSelect(['MARRIAGE_YN'], jsonMarriageYn, 'L_HRI016', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 가족관계
-            gfnma_setComSelect(['gvwFamily', 'VETERANS_RELATION', 'GUARANTOR1_RELATION', 'GUARANTOR2_RELATION'],
+            gfnma_setComSelect(['gvwFamily', 'VETERANS_RELATION', 'GUARANTOR1_RELATION', 'GUARANTOR2_RELATION', 'gvwExpenditurewelfare'],
                 jsonRelation, 'L_HRI025', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 연말정산부양관계
             gfnma_setComSelect(['gvwFamily'], jsonYeartaxRelation, 'L_HRI026', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
@@ -1989,6 +2172,34 @@
             gfnma_setComSelect(['HANDICAP_GRADE'], jsonHandicapGrade, 'L_HRI053', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 보증구분
             gfnma_setComSelect(['GUARANTEE_TYPE'], jsonGuaranteeType, 'L_HRI024', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 상벌구분
+            gfnma_setComSelect(['gvwPrize'], jsonPrizeType, 'L_HRI035', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 상벌유형
+            gfnma_setComSelect(['gvwPrize'], jsonPrizeCategory, 'L_HRI060', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 사내외구분
+            gfnma_setComSelect(['gvwPrize'], jsonPrizeInoutType, 'L_HRI030', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 대상구분
+            gfnma_setComSelect(['gvwPrize'], jsonPrizeTarget, 'L_HRI036', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 검진구분
+            gfnma_setComSelect(['gvwHealth'], jsonCheckType, 'L_HRI037', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 겸직부서
+            gfnma_setComSelect(['gvwAddJob'], jsonAddJobDeptCode, 'L_ORG900', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 휴직유형
+            gfnma_setComSelect(['gvwTimeOffHistory'], jsonTimeOffType, 'L_HRT003', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 보험상품
+            gfnma_setComSelect(['gvwGroupInsurance'], jsonGroupInsureCode, 'L_HRI062', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 상해/질병구분
+            gfnma_setComSelect(['gvwDisease'], jsonDiseaseType, 'L_HRI063', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 평가차수
+            gfnma_setComSelect(['gvwPersonnelEvaluation'], jsonEvalPositionCode, 'L_HRIZ04', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 계약차수
+            gfnma_setComSelect(['gvwContractDeg'], jsonContractDegree, 'L_HRIZ03', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 근무계획
+            gfnma_setComSelect(['gvwWorkPlan'], jsonWorkplanType, 'L_HRI070', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 근무패턴코드
+            gfnma_setComSelect(['gvwEmp'], jsonWorkPatternCode, 'L_HRT020', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 경조사유
+            gfnma_setComSelect(['gvwExpenditurewelfare'], jsonWelfareType, 'L_HRW103_02', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 
         ]);
     }
@@ -2006,6 +2217,19 @@
         fn_createGvwComputerSkillGrid();
         fn_createGvwFileGrid();
         fn_createGvwEducationGrid();
+        fn_createGvwPrizeGrid();
+        fn_createGvwHealthGrid();
+        fn_createGvwAppointmentGrid();
+        fn_createGvwAddJobGrid();
+        fn_createGvwTimeOffHistoryGrid();
+        fn_createGvwGroupInsuranceGrid();
+        fn_createGvwDiseaseGrid();
+        fn_createGvwPersonnelEvaluationGrid();
+        fn_createGvwOfficialInjuryGrid();
+        fn_createGvwContractDegGrid();
+        fn_createGvwWorkPlanGrid();
+        fn_createGvwEmpGrid();
+        fn_createGvwExpenditurewelfareGrid();
         fn_search();
     });
 
@@ -2019,8 +2243,21 @@
     var gvwComputerSkill;
     var gvwFile;
     var gvwEducation;
+    var gvwPrize;
+    var gvwHealth;
+    var gvwAppointment;
+    var gvwAddJob;
+    var gvwTimeOffHistory;
+    var gvwGroupInsurance;
+    var gvwDisease;
+    var gvwPersonnelEvaluation;
+    var gvwOfficialInjury;
+    var gvwContractDeg;
+    var gvwWorkPlan;
+    var gvwEmp;
+    var gvwExpenditurewelfare;
 
-    var jsonEmpList = []; 	// 그리드의 참조 데이터 주소 선언
+    var jsonEmpTotalList = []; 	// 그리드의 참조 데이터 주소 선언
     var jsonFamilyList = [];
     var jsonSchoolList = [];
     var jsonCareerList = [];
@@ -2029,13 +2266,26 @@
     var jsonComputerSkillList = [];
     var jsonFileList = [];
     var jsonEducationList = [];
+    var jsonPrizeList = [];
+    var jsonHealthList = [];
+    var jsonAppointmentList = [];
+    var jsonAddJobList = [];
+    var jsonTimeOffHistoryList = [];
+    var jsonGroupInsuranceList = [];
+    var jsonDiseaseList = [];
+    var jsonPersonnelEvaluationList = [];
+    var jsonOfficialInjuryList = [];
+    var jsonContractDegList = [];
+    var jsonWorkPlanList = [];
+    var jsonEmpList = [];
+    var jsonExpenditurewelfareList = [];
 
     // 그리드 생성
     function fn_createGvwListGrid() {
         var SBGridProperties 				= {};
         SBGridProperties.parentid 			= 'sb-area-gvwList';
         SBGridProperties.id 				= 'gvwList';
-        SBGridProperties.jsonref 			= 'jsonEmpList';
+        SBGridProperties.jsonref 			= 'jsonEmpTotalList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
@@ -2523,6 +2773,601 @@
         //gvwEducation.bind('beforepagechanged', 'fn_pagingEducationList');
     }
 
+    function fn_createGvwPrizeGrid() {
+        var SBGridProperties 				= {};
+        SBGridProperties.parentid 			= 'sb-area-gvwPrize';
+        SBGridProperties.id 				= 'gvwPrize';
+        SBGridProperties.jsonref 			= 'jsonPrizeList';
+        SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
+        SBGridProperties.selectmode 		= 'byrow';
+        SBGridProperties.explorerbar 		= 'sortmove';
+        SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.rowheadercaption 	= {seq: 'No'};
+        SBGridProperties.rowheaderwidth 	= {seq: '60'};
+        SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.columns = [
+            {caption: ["상벌구분"], 	        ref: 'PRIZE_TYPE',    	        type:'output',  	width:'80px',  	style:'text-align:left',
+                typeinfo: {
+                    ref			: 'jsonPrizeType',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }},
+            {caption: ["상벌일자"],        ref: 'PRIZE_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+            {caption: ["상벌유형"],  		ref: 'PRIZE_CATEGORY',    			type:'output',  	width:'120px',  	style:'text-align:left',
+                typeinfo: {
+                    ref			: 'jsonPrizeCategory',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+            },
+            {caption: ["사내외구분"],        ref: 'PRIZE_INOUT_TYPE', 		     type:'output',  	width:'80px',  	style:'text-align:left',
+                typeinfo: {
+                    ref			: 'jsonPrizeInoutType',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+            },
+            {caption: ["대상구분"],        ref: 'PRIZE_TARGET', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+                typeinfo: {
+                    ref			: 'jsonPrizeTarget',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+            },
+            {caption: ["상벌명"],        ref: 'PRIZE_NAME', 		     type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["상벌사유"],        ref: 'PRIZE_REASON', 		     type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["상벌내용"],        ref: 'PRIZE_DETAIL', 		     type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["시행기관"],        ref: 'PRIZE_MAKER', 		     type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["징계시작일"],        ref: 'PUNISH_START_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+            {caption: ["징계종료일"],        ref: 'PUNISH_END_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+            {caption: ["급여반영여부"],  		ref: 'APPLY_PAY_YN',    			type:'output',  	width:'90px',  	style:'text-align:left'},
+            {caption: ["급여감봉율"],  		ref: 'BASE_PAY_DOWN_RATE',    			type:'output',  	width:'80px',  	style:'text-align:left'},
+            {caption: ["상여감봉율"],        ref: 'BONUS_PAY_DOWN_RATE', 		     type:'output',  	width:'80px',  	style:'text-align:left'}
+        ];
+
+        gvwPrize = _SBGrid.create(SBGridProperties);
+        //gvwPrize.bind('beforepagechanged', 'fn_pagingPrizeList');
+    }
+
+    function fn_createGvwHealthGrid() {
+        var SBGridProperties 				= {};
+        SBGridProperties.parentid 			= 'sb-area-gvwHealth';
+        SBGridProperties.id 				= 'gvwHealth';
+        SBGridProperties.jsonref 			= 'jsonHealthList';
+        SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
+        SBGridProperties.selectmode 		= 'byrow';
+        SBGridProperties.explorerbar 		= 'sortmove';
+        SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.rowheadercaption 	= {seq: 'No'};
+        SBGridProperties.rowheaderwidth 	= {seq: '60'};
+        SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.columns = [
+            {caption: ["검진구분"], 	        ref: 'CHECK_TYPE',    	        type:'output',  	width:'80px',  	style:'text-align:left',
+                typeinfo: {
+                    ref			: 'jsonCheckType',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+            },
+            {caption: ["검진일자"],        ref: 'CHECK_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+            {caption: ["검진기관"],  		ref: 'CHECK_INSTITUTE',    			type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["검진결과"],        ref: 'RESULT', 		     type:'output',  	width:'200px',  	style:'text-align:left'},
+            {caption: ["회사조치사항"],        ref: 'COMPANY_RESULT', 		     type:'output',  	width:'200px',  	style:'text-align:left'},
+            {caption: ["비고"],        ref: 'MEMO', 		     type:'output',  	width:'200px',  	style:'text-align:left'}
+        ];
+
+        gvwHealth = _SBGrid.create(SBGridProperties);
+        //gvwHealth.bind('beforepagechanged', 'fn_pagingHealthList');
+    }
+
+    function fn_createGvwAppointmentGrid() {
+        var SBGridProperties 				= {};
+        SBGridProperties.parentid 			= 'sb-area-gvwAppointment';
+        SBGridProperties.id 				= 'gvwAppointment';
+        SBGridProperties.jsonref 			= 'jsonAppointmentList';
+        SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
+        SBGridProperties.selectmode 		= 'byrow';
+        SBGridProperties.explorerbar 		= 'sortmove';
+        SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.columns = [
+            {caption: ["발령일자"], 	        ref: 'APPOINT_DATE',    	 type:'output',  	width:'90px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+            {caption: ["시작일자"],        ref: 'START_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+            {caption: ["종료일자"],        ref: 'END_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+            {caption: ["발령구분"],  		ref: 'APPOINT_TYPE',    			type:'output',  	width:'80px',  	style:'text-align:left'},
+            {caption: ["발령명칭"],        ref: 'APPOINT_TITLE', 		     type:'output',  	width:'200px',  	style:'text-align:left'},
+            {caption: ["발령부서"],        ref: 'DEPT_CODE2', 		     type:'output',  	width:'120px',  	style:'text-align:left'},
+            {caption: ["발령직위"],        ref: 'POSITION_CODE2', 		     type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["발령직책"],        ref: 'DUTY_CODE2', 		     type:'output',  	width:'80px',  	style:'text-align:left'},
+            {caption: ["발령직급"],        ref: 'JOB_RANK2', 		     type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["발령직군"],        ref: 'JOB_GROUP2', 		     type:'output',  	width:'80px',  	style:'text-align:left'},
+            {caption: ["발령직무"],        ref: 'JOB_CODE2', 		     type:'output',  	width:'80px',  	style:'text-align:left'},
+            {caption: ["발령근무지"],  		ref: 'REGION_CODE2',    			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["발령사유"],  		ref: 'APPOINT_REASON',    			type:'output',  	width:'200px',  	style:'text-align:left'},
+            {caption: ["비고"],        ref: 'MEMO', 		     type:'output',  	width:'300px',  	style:'text-align:left'}
+        ];
+
+        gvwAppointment = _SBGrid.create(SBGridProperties);
+        //gvwAppointment.bind('beforepagechanged', 'fn_pagingAppointmentList');
+    }
+
+    function fn_createGvwAddJobGrid() {
+        var SBGridProperties 				= {};
+        SBGridProperties.parentid 			= 'sb-area-gvwAddJob';
+        SBGridProperties.id 				= 'gvwAddJob';
+        SBGridProperties.jsonref 			= 'jsonAddJobList';
+        SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
+        SBGridProperties.selectmode 		= 'byrow';
+        SBGridProperties.explorerbar 		= 'sortmove';
+        SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.columns = [
+            {caption: ["겸직발령일자"], 	        ref: 'START_DATE',    	        type:'output',  	width:'104px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+            {caption: ["겸직해제일자"],        ref: 'END_DATE', 		     type:'output',  	width:'119px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+            {caption: ["겸직부서"],  		ref: 'DEPT_CODE',    			type:'output',  	width:'126px',  	style:'text-align:left',
+                typeinfo: {
+                    ref			: 'jsonAddJobDeptCode',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+            },
+            {caption: ["겸직직위"],        ref: 'POSITION_CODE', 		     type:'output',  	width:'113px',  	style:'text-align:left',
+                typeinfo: {
+                    ref			: 'jsonPositionCode',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+            },
+            {caption: ["겸직직책"],        ref: 'DUTY_CODE', 		     type:'output',  	width:'115px',  	style:'text-align:left',
+                typeinfo: {
+                    ref			: 'jsonDutyCode',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+            },
+            {caption: ["겸직직급"],        ref: 'JOB_RANK', 		     type:'output',  	width:'163px',  	style:'text-align:left',
+                typeinfo: {
+                    ref			: 'jsonJobRank',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+            }
+        ];
+
+        gvwAddJob = _SBGrid.create(SBGridProperties);
+        //gvwAddJob.bind('beforepagechanged', 'fn_pagingAddJobList');
+    }
+
+    function fn_createGvwTimeOffHistoryGrid() {
+        var SBGridProperties 				= {};
+        SBGridProperties.parentid 			= 'sb-area-gvwTimeOffHistory';
+        SBGridProperties.id 				= 'gvwTimeOffHistory';
+        SBGridProperties.jsonref 			= 'jsonTimeOffHistoryList';
+        SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
+        SBGridProperties.selectmode 		= 'byrow';
+        SBGridProperties.explorerbar 		= 'sortmove';
+        SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.rowheadercaption 	= {seq: 'No'};
+        SBGridProperties.rowheaderwidth 	= {seq: '60'};
+        SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.columns = [
+            {caption: ["휴직유형"], 	        ref: 'TIME_OFF_TYPE',    	        type:'output',  	width:'80px',  	style:'text-align:left',
+                typeinfo: {
+                    ref			: 'jsonTimeOffType',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+            },
+            {caption: ["적용시작일"],        ref: 'START_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+            {caption: ["적용종료일"],        ref: 'END_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+            {caption: ["휴직일수"],        ref: 'TIME_OFF_CNT', 		     type:'output',  	width:'80px',  	style:'text-align:left'},
+            {caption: ["소속사업장"],        ref: 'SITE_CODE', 		     type:'output',  	width:'120px',  	style:'text-align:left',
+                typeinfo: {
+                    ref			: 'jsonSiteCode',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+            },
+            {caption: ["소속부서코드"],  		ref: 'DEPT_CODE',    			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["소속부서"],        ref: 'DEPT_NAME', 		     type:'output',  	width:'150px',  	style:'text-align:left'}, // TODO: P_ORG001 팝업 적용 필요
+            {caption: ["비고"],        ref: 'MEMO', 		     type:'output',  	width:'300px',  	style:'text-align:left'}
+        ];
+
+        gvwTimeOffHistory = _SBGrid.create(SBGridProperties);
+        //gvwTimeOffHistory.bind('beforepagechanged', 'fn_pagingTimeOffHistoryList');
+    }
+
+    function fn_createGvwGroupInsuranceGrid() {
+        var SBGridProperties 				= {};
+        SBGridProperties.parentid 			= 'sb-area-gvwGroupInsurance';
+        SBGridProperties.id 				= 'gvwGroupInsurance';
+        SBGridProperties.jsonref 			= 'jsonGroupInsuranceList';
+        SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
+        SBGridProperties.selectmode 		= 'byrow';
+        SBGridProperties.explorerbar 		= 'sortmove';
+        SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.rowheadercaption 	= {seq: 'No'};
+        SBGridProperties.rowheaderwidth 	= {seq: '60'};
+        SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.columns = [
+            {caption: ["보험상품"], 	        ref: 'GROUP_INSURE_CODE',    	        type:'output',  	width:'150px',  	style:'text-align:left',
+                typeinfo: {
+                    ref			: 'jsonGroupInsureCode',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+            },
+            {caption: ["증권번호"],        ref: 'INSURE_NUM', 		     type:'output',  	width:'120px',  	style:'text-align:left'},
+            {caption: ["보험가입일"],        ref: 'INSURE_START_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+            {caption: ["보험만기일"],        ref: 'INSURE_DUE_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+            {caption: ["보험해지일"],        ref: 'INSURE_END_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+            {caption: ["불입금액"],        ref: 'GROUP_INSURE_AMT', 		     type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["비고"],        ref: 'MEMO', 		     type:'output',  	width:'200px',  	style:'text-align:left'}
+        ];
+
+        gvwGroupInsurance = _SBGrid.create(SBGridProperties);
+        //gvwGroupInsurance.bind('beforepagechanged', 'fn_pagingGroupInsuranceList');
+    }
+
+    function fn_createGvwDiseaseGrid() {
+        var SBGridProperties 				= {};
+        SBGridProperties.parentid 			= 'sb-area-gvwDisease';
+        SBGridProperties.id 				= 'gvwDisease';
+        SBGridProperties.jsonref 			= 'jsonDiseaseList';
+        SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
+        SBGridProperties.selectmode 		= 'byrow';
+        SBGridProperties.explorerbar 		= 'sortmove';
+        SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.rowheadercaption 	= {seq: 'No'};
+        SBGridProperties.rowheaderwidth 	= {seq: '60'};
+        SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.columns = [
+            {caption: ["구분"], 	        ref: 'DISEASE_TYPE',    	        type:'output',  	width:'120px',  	style:'text-align:left',
+                typeinfo: {
+                    ref			: 'jsonDiseaseType',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+            },
+            {caption: ["발생사유"],        ref: 'DISEASE_REASON', 		     type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["사고발생일"],        ref: 'DISEASE_START_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+            {caption: ["병가신청여부"],        ref: 'SICK_LEAVE_REQUEST_YN', 		     type:'output',  	width:'80px',  	style:'text-align:left'},
+            {caption: ["병가일자(유료) 시작일"],        ref: 'SICK_LEAVE_CHARGE_DATE_FR', 		     type:'output',  	width:'130px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+            {caption: ["병가일자(유료) 종료일"],        ref: 'SICK_LEAVE_CHARGE_DATE_TO', 		     type:'output',  	width:'130px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+            {caption: ["병가일자(무료) 시작일"],        ref: 'SICK_LEAVE_FREE_DATE_FR', 		     type:'output',  	width:'130px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+            {caption: ["병가일자(무료) 종료일"],        ref: 'SICK_LEAVE_FREE_DATE_TO', 		     type:'output',  	width:'130px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+            {caption: ["단체근로자보험신청여부"],        ref: 'GROUP_INSURE_REQUEST_YN', 		     type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["비고"],        ref: 'MEMO', 		     type:'output',  	width:'200px',  	style:'text-align:left'}
+        ];
+
+        gvwDisease = _SBGrid.create(SBGridProperties);
+        //gvwDisease.bind('beforepagechanged', 'fn_pagingDiseaseList');
+    }
+
+    function fn_createGvwPersonnelEvaluationGrid() {
+        var SBGridProperties 				= {};
+        SBGridProperties.parentid 			= 'sb-area-gvwPersonnelEvaluation';
+        SBGridProperties.id 				= 'gvwPersonnelEvaluation';
+        SBGridProperties.jsonref 			= 'jsonPersonnelEvaluationList';
+        SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
+        SBGridProperties.selectmode 		= 'byrow';
+        SBGridProperties.explorerbar 		= 'sortmove';
+        SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.rowheadercaption 	= {seq: 'No'};
+        SBGridProperties.rowheaderwidth 	= {seq: '60'};
+        SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.columns = [
+            {caption: ["평가년도"], 	        ref: 'EVAL_YEAR',    	        type:'output',  	width:'70px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy'},
+                format : {type:'year', rule:'yyyy', origin:'YYYY'}
+            },
+            {caption: ["평가차수"],        ref: 'POSITION_CODE', 		     type:'output',  	width:'120px',  	style:'text-align:left',
+                typeinfo: {
+                    ref			: 'jsonEvalPositionCode',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+            },
+            {caption: ["성과평가"],        ref: 'EVAL_KPI_GRADE', 		     type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["역량평가"],        ref: 'EVAL_KBI_GRADE', 		     type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["비고"],        ref: 'MEMO', 		     type:'output',  	width:'200px',  	style:'text-align:left'}
+        ];
+
+        gvwPersonnelEvaluation = _SBGrid.create(SBGridProperties);
+        //gvwPersonnelEvaluation.bind('beforepagechanged', 'fn_pagingPersonnelEvaluationList');
+    }
+
+    function fn_createGvwOfficialInjuryGrid() {
+        var SBGridProperties 				= {};
+        SBGridProperties.parentid 			= 'sb-area-gvwOfficialInjury';
+        SBGridProperties.id 				= 'gvwOfficialInjury';
+        SBGridProperties.jsonref 			= 'jsonOfficialInjuryList';
+        SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
+        SBGridProperties.selectmode 		= 'byrow';
+        SBGridProperties.explorerbar 		= 'sortmove';
+        SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.rowheadercaption 	= {seq: 'No'};
+        SBGridProperties.rowheaderwidth 	= {seq: '60'};
+        SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.columns = [
+            {caption: ["사고발생일"],        ref: 'OFFICIAL_INJURY_START_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+            {caption: ["사고내용"], 	        ref: 'OFFICIAL_INJURY_DESCR',    	        type:'output',  	width:'300px',  	style:'text-align:left'},
+            {caption: ["비고"],        ref: 'MEMO', 		     type:'output',  	width:'200px',  	style:'text-align:left'}
+        ];
+
+        gvwOfficialInjury = _SBGrid.create(SBGridProperties);
+        //gvwOfficialInjury.bind('beforepagechanged', 'fn_pagingOfficialInjuryList');
+    }
+
+    function fn_createGvwContractDegGrid() {
+        var SBGridProperties 				= {};
+        SBGridProperties.parentid 			= 'sb-area-gvwContractDeg';
+        SBGridProperties.id 				= 'gvwContractDeg';
+        SBGridProperties.jsonref 			= 'jsonContractDegList';
+        SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
+        SBGridProperties.selectmode 		= 'byrow';
+        SBGridProperties.explorerbar 		= 'sortmove';
+        SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.columns = [
+            {caption: ["계약차수"], 	        ref: 'CONTRACT_DEGREE',    	        type:'output',  	width:'90px',  	style:'text-align:left',
+                typeinfo: {
+                    ref			: 'jsonContractDegree',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+            },
+            {caption: ["계약시작일"],        ref: 'CONTRACT_START_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+            {caption: ["계약종료일"],        ref: 'CONTRACT_END_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+            {caption: ["계약기간"],        ref: 'CONTRACT_DAY', 		     type:'output',  	width:'75px',  	style:'text-align:left'},
+            {caption: ["계약변경사항"],        ref: 'CONTRACT_CHANGE_MEMO', 		     type:'output',  	width:'250px',  	style:'text-align:left'},
+            {caption: ["비고"],        ref: 'MEMO', 		     type:'output',  	width:'250px',  	style:'text-align:left'}
+        ];
+
+        gvwContractDeg = _SBGrid.create(SBGridProperties);
+        //gvwContractDeg.bind('beforepagechanged', 'fn_pagingContractDegList');
+    }
+
+    function fn_createGvwWorkPlanGrid() {
+        var SBGridProperties 				= {};
+        SBGridProperties.parentid 			= 'sb-area-gvwWorkPlan';
+        SBGridProperties.id 				= 'gvwWorkPlan';
+        SBGridProperties.jsonref 			= 'jsonWorkPlanList';
+        SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
+        SBGridProperties.selectmode 		= 'byrow';
+        SBGridProperties.explorerbar 		= 'sortmove';
+        SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.rowheadercaption 	= {seq: 'No'};
+        SBGridProperties.rowheaderwidth 	= {seq: '60'};
+        SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.columns = [
+            {caption: ["근무계획"], 	        ref: 'WORKPLAN_TYPE',    	        type:'output',  	width:'167px',  	style:'text-align:left',
+                typeinfo: {
+                    ref			: 'jsonWorkplanType',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+            },
+            {caption: ["적용시작일"],        ref: 'START_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+            {caption: ["적용종료일"],        ref: 'END_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+        ];
+
+        gvwWorkPlan = _SBGrid.create(SBGridProperties);
+        //gvwWorkPlan.bind('beforepagechanged', 'fn_pagingWorkPlanList');
+    }
+
+    function fn_createGvwEmpGrid() {
+        var SBGridProperties 				= {};
+        SBGridProperties.parentid 			= 'sb-area-gvwEmp';
+        SBGridProperties.id 				= 'gvwEmp';
+        SBGridProperties.jsonref 			= 'jsonEmpList';
+        SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
+        SBGridProperties.selectmode 		= 'byrow';
+        SBGridProperties.explorerbar 		= 'sortmove';
+        SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.columns = [
+            {caption: [""], 	        ref: 'CHK_YN',    	        type:'checkbox',  	width:'45px',  	style:'text-align:left', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }}},
+            {caption: ["부서코드"],        ref: 'DEPT_CODE', 		     type:'output',  	width:'75px',  	style:'text-align:left'},
+            {caption: ["부서"],  		ref: 'DEPT_NAME',    			type:'output',  	width:'120px',  	style:'text-align:left'},
+            {caption: ["사번"],        ref: 'EMP_CODE', 		     type:'output',  	width:'80px',  	style:'text-align:left'},
+            {caption: ["이름"],        ref: 'EMP_NAME', 		     type:'output',  	width:'94px',  	style:'text-align:left'},
+            {caption: ["입사일"],        ref: 'ENTER_DATE', 		     type:'output',  	width:'95px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+            {caption: ["비고"],        ref: 'MEMO', 		     type:'output',  	width:'218px',  	style:'text-align:left'},
+            {caption: ["시작일자"],        ref: 'START_DATE', 		     type:'output',  	width:'122px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+            {caption: ["종료일자"],        ref: 'END_DATE', 		     type:'output',  	width:'108px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+            {caption: ["순번"],        ref: 'TXN_ID', 		     type:'output',  	width:'54px',  	style:'text-align:left'},
+            {caption: ["사원별적용"],        ref: 'EMP_BASE_FLAG', 		     type:'checkbox',  	width:'82px',  	style:'text-align:left'},
+            {caption: ["근무패턴코드"],  		ref: 'WORK_PATTERN_CODE',    			type:'output',  	width:'116px',  	style:'text-align:left',
+                typeinfo: {
+                    ref			: 'jsonWorkPatternCode',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+            },
+            {caption: ["퇴사일"],        ref: 'RETIRE_DATE', 		     type:'output',  	width:'106px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+            {caption: ["재직구분"],  		ref: 'EMP_STATE',    			type:'output',  	width:'85px',  	style:'text-align:left',
+                typeinfo: {
+                    ref			: 'jsonEmpState',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+            },
+            {caption: ["직위"],  		ref: 'POSITION_CODE',    			type:'output',  	width:'75px',  	style:'text-align:left',
+                typeinfo: {
+                    ref			: 'jsonPositionCode',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+            },
+            {caption: ["직책"],  		ref: 'DUTY_CODE',    			type:'output',  	width:'75px',  	style:'text-align:left',
+                typeinfo: {
+                    ref			: 'jsonDutyCode',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+            },
+            {caption: ["직급"],  		ref: 'JOB_RANK',    			type:'output',  	width:'75px',  	style:'text-align:left',
+                typeinfo: {
+                    ref			: 'jsonJobRank',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+            }
+        ];
+
+        gvwEmp = _SBGrid.create(SBGridProperties);
+        //gvwEmp.bind('beforepagechanged', 'fn_pagingEmpList');
+    }
+
+    function fn_createGvwExpenditurewelfareGrid() {
+        var SBGridProperties 				= {};
+        SBGridProperties.parentid 			= 'sb-area-gvwExpenditurewelfare';
+        SBGridProperties.id 				= 'gvwExpenditurewelfare';
+        SBGridProperties.jsonref 			= 'jsonExpenditurewelfareList';
+        SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
+        SBGridProperties.selectmode 		= 'byrow';
+        SBGridProperties.explorerbar 		= 'sortmove';
+        SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.rowheadercaption 	= {seq: 'No'};
+        SBGridProperties.rowheaderwidth 	= {seq: '60'};
+        SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.columns = [
+            {caption: ["경조일자"], 	        ref: 'WELFARE_DATE',    	        type:'output',  	width:'90px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+            {caption: ["신청년월"],        ref: 'REQUEST_YM', 		     type:'output',  	width:'75px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm'},
+                format : {type:'month', rule:'yyyy-mm', origin:'YYYYMM'}
+            },
+            {caption: ["경조구분"],        ref: 'WELFARE_CODE', 		     type:'output',  	width:'75px',  	style:'text-align:left'},
+            {caption: ["경조사유"],        ref: 'WELFARE_TYPE', 		     type:'output',  	width:'150px',  	style:'text-align:left',
+                typeinfo: {
+                    ref			: 'jsonWelfareType',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+            },
+            {caption: ["가족관계"],  		ref: 'RELATION',    			type:'output',  	width:'80px',  	style:'text-align:left',
+                typeinfo: {
+                    ref			: 'jsonRelation',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+            },
+            {caption: ["경조대상자 이름"],        ref: 'NAME', 		     type:'output',  	width:'120px',  	style:'text-align:left'},
+            {caption: ["경조금액"],        ref: 'WELFARE_AMOUNT', 		     type:'output',  	width:'120px',  	style:'text-align:left'},
+            {caption: ["비고"],        ref: 'DESCRIPTION', 		     type:'output',  	width:'300px',  	style:'text-align:left'}
+        ];
+
+        gvwExpenditurewelfare = _SBGrid.create(SBGridProperties);
+        //gvwExpenditurewelfare.bind('beforepagechanged', 'fn_pagingExpenditurewelfareList');
+    }
+
     // 행 추가
     const fn_addRowForGvwFamily = function() {
         let rowVal = gvwFamily.getRow();
@@ -2609,6 +3454,149 @@
             gvwEducation.addRow(true);
         }else{
             gvwEducation.insertRow(rowVal);
+        }
+    }
+
+    const fn_addRowForGvwPrize = function() {
+        let rowVal = gvwPrize.getRow();
+
+        if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
+
+            gvwPrize.addRow(true);
+        }else{
+            gvwPrize.insertRow(rowVal);
+        }
+    }
+
+    const fn_addRowForGvwHealth = function() {
+        let rowVal = gwHealth.getRow();
+
+        if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
+
+            gwHealth.addRow(true);
+        }else{
+            gwHealth.insertRow(rowVal);
+        }
+    }
+
+    const fn_addRowForGvwAppointment = function() {
+        let rowVal = gvwAppointment.getRow();
+
+        if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
+
+            gvwAppointment.addRow(true);
+        }else{
+            gvwAppointment.insertRow(rowVal);
+        }
+    }
+
+    const fn_addRowForGvwAddJob = function() {
+        let rowVal = gvwAddJob.getRow();
+
+        if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
+
+            gvwAddJob.addRow(true);
+        }else{
+            gvwAddJob.insertRow(rowVal);
+        }
+    }
+
+    const fn_addRowForGvwTimeOffHistory = function() {
+        let rowVal = gvwTimeOffHistory.getRow();
+
+        if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
+
+            gvwTimeOffHistory.addRow(true);
+        }else{
+            gvwTimeOffHistory.insertRow(rowVal);
+        }
+    }
+
+    const fn_addRowForGvwGroupInsurance = function() {
+        let rowVal = gvwGroupInsurance.getRow();
+
+        if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
+
+            gvwGroupInsurance.addRow(true);
+        }else{
+            gvwGroupInsurance.insertRow(rowVal);
+        }
+    }
+
+    const fn_addRowForGvwDisease = function() {
+        let rowVal = gvwDisease.getRow();
+
+        if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
+
+            gvwDisease.addRow(true);
+        }else{
+            gvwDisease.insertRow(rowVal);
+        }
+    }
+
+    const fn_addRowForGvwPersonnelEvaluation = function() {
+        let rowVal = gvwPersonnelEvaluation.getRow();
+
+        if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
+
+            gvwPersonnelEvaluation.addRow(true);
+        }else{
+            gvwPersonnelEvaluation.insertRow(rowVal);
+        }
+    }
+
+    const fn_addRowForGvwOfficialInjury = function() {
+        let rowVal = gvwOfficialInjury.getRow();
+
+        if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
+
+            gvwOfficialInjury.addRow(true);
+        }else{
+            gvwOfficialInjury.insertRow(rowVal);
+        }
+    }
+
+    const fn_addRowForGvwContractDeg = function() {
+        let rowVal = gvwContractDeg.getRow();
+
+        if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
+
+            gvwContractDeg.addRow(true);
+        }else{
+            gvwContractDeg.insertRow(rowVal);
+        }
+    }
+
+    const fn_addRowForGvwWorkPlan = function() {
+        let rowVal = gvwWorkPlan.getRow();
+
+        if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
+
+            gvwWorkPlan.addRow(true);
+        }else{
+            gvwWorkPlan.insertRow(rowVal);
+        }
+    }
+
+    const fn_addRowForGvwEmp = function() {
+        let rowVal = gvwEmp.getRow();
+
+        if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
+
+            gvwEmp.addRow(true);
+        }else{
+            gvwEmp.insertRow(rowVal);
+        }
+    }
+
+    const fn_addRowForGvwExpenditurewelfare = function() {
+        let rowVal = gvwExpenditurewelfare.getRow();
+
+        if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
+
+            gvwExpenditurewelfare.addRow(true);
+        }else{
+            gvwExpenditurewelfare.insertRow(rowVal);
         }
     }
 
@@ -2829,6 +3817,357 @@
         }
     }
 
+    const fn_deleteRowForGvwPrize = function() {
+
+        let grdRows = gvwPrize.getCheckedRows(0);
+        let delList = [];
+
+        for(let i=grdRows.length; i>0; i--){
+            let nRow = grdRows[i-1];
+            let rowData = gvwPrize.getRowData(nRow)
+            if(rowData.addYn == "Y"){
+                gvwPrize.deleteRow(nRow);
+            }else {
+                delList.push(rowData);
+                gvwPrize.deleteRow(nRow);
+            }
+        }
+
+        if (grdRows.length < 1) {
+            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+            return;
+        }
+        if(delList.length > 0){
+            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
+                //fn_delete(delList);
+            }
+        }
+    }
+
+    const fn_deleteRowForGvwHealth = function() {
+
+        let grdRows = gvwHealth.getCheckedRows(0);
+        let delList = [];
+
+        for(let i=grdRows.length; i>0; i--){
+            let nRow = grdRows[i-1];
+            let rowData = gvwHealth.getRowData(nRow)
+            if(rowData.addYn == "Y"){
+                gvwHealth.deleteRow(nRow);
+            }else {
+                delList.push(rowData);
+                gvwHealth.deleteRow(nRow);
+            }
+        }
+
+        if (grdRows.length < 1) {
+            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+            return;
+        }
+        if(delList.length > 0){
+            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
+                //fn_delete(delList);
+            }
+        }
+    }
+
+    const fn_deleteRowForGvwAppointment = function() {
+
+        let grdRows = gvwAppointment.getCheckedRows(0);
+        let delList = [];
+
+        for(let i=grdRows.length; i>0; i--){
+            let nRow = grdRows[i-1];
+            let rowData = gvwAppointment.getRowData(nRow)
+            if(rowData.addYn == "Y"){
+                gvwAppointment.deleteRow(nRow);
+            }else {
+                delList.push(rowData);
+                gvwAppointment.deleteRow(nRow);
+            }
+        }
+
+        if (grdRows.length < 1) {
+            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+            return;
+        }
+        if(delList.length > 0){
+            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
+                //fn_delete(delList);
+            }
+        }
+    }
+
+    const fn_deleteRowForGvwAddJob = function() {
+
+        let grdRows = gvwAddJob.getCheckedRows(0);
+        let delList = [];
+
+        for(let i=grdRows.length; i>0; i--){
+            let nRow = grdRows[i-1];
+            let rowData = gvwAddJob.getRowData(nRow)
+            if(rowData.addYn == "Y"){
+                gvwAddJob.deleteRow(nRow);
+            }else {
+                delList.push(rowData);
+                gvwAddJob.deleteRow(nRow);
+            }
+        }
+
+        if (grdRows.length < 1) {
+            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+            return;
+        }
+        if(delList.length > 0){
+            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
+                //fn_delete(delList);
+            }
+        }
+    }
+
+    const fn_deleteRowForGvwTimeOffHistory = function() {
+
+        let grdRows = gvwTimeOffHistory.getCheckedRows(0);
+        let delList = [];
+
+        for(let i=grdRows.length; i>0; i--){
+            let nRow = grdRows[i-1];
+            let rowData = gvwTimeOffHistory.getRowData(nRow)
+            if(rowData.addYn == "Y"){
+                gvwTimeOffHistory.deleteRow(nRow);
+            }else {
+                delList.push(rowData);
+                gvwTimeOffHistory.deleteRow(nRow);
+            }
+        }
+
+        if (grdRows.length < 1) {
+            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+            return;
+        }
+        if(delList.length > 0){
+            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
+                //fn_delete(delList);
+            }
+        }
+    }
+
+    const fn_deleteRowForGvwGroupInsurance = function() {
+
+        let grdRows = gvwGroupInsurance.getCheckedRows(0);
+        let delList = [];
+
+        for(let i=grdRows.length; i>0; i--){
+            let nRow = grdRows[i-1];
+            let rowData = gvwGroupInsurance.getRowData(nRow)
+            if(rowData.addYn == "Y"){
+                gvwGroupInsurance.deleteRow(nRow);
+            }else {
+                delList.push(rowData);
+                gvwGroupInsurance.deleteRow(nRow);
+            }
+        }
+
+        if (grdRows.length < 1) {
+            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+            return;
+        }
+        if(delList.length > 0){
+            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
+                //fn_delete(delList);
+            }
+        }
+    }
+
+    const fn_deleteRowForGvwDisease = function() {
+
+        let grdRows = gvwDisease.getCheckedRows(0);
+        let delList = [];
+
+        for(let i=grdRows.length; i>0; i--){
+            let nRow = grdRows[i-1];
+            let rowData = gvwDisease.getRowData(nRow)
+            if(rowData.addYn == "Y"){
+                gvwDisease.deleteRow(nRow);
+            }else {
+                delList.push(rowData);
+                gvwDisease.deleteRow(nRow);
+            }
+        }
+
+        if (grdRows.length < 1) {
+            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+            return;
+        }
+        if(delList.length > 0){
+            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
+                //fn_delete(delList);
+            }
+        }
+    }
+
+    const fn_deleteRowForGvwPersonnelEvaluation = function() {
+
+        let grdRows = gvwPersonnelEvaluation.getCheckedRows(0);
+        let delList = [];
+
+        for(let i=grdRows.length; i>0; i--){
+            let nRow = grdRows[i-1];
+            let rowData = gvwPersonnelEvaluation.getRowData(nRow)
+            if(rowData.addYn == "Y"){
+                gvwPersonnelEvaluation.deleteRow(nRow);
+            }else {
+                delList.push(rowData);
+                gvwPersonnelEvaluation.deleteRow(nRow);
+            }
+        }
+
+        if (grdRows.length < 1) {
+            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+            return;
+        }
+        if(delList.length > 0){
+            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
+                //fn_delete(delList);
+            }
+        }
+    }
+
+    const fn_deleteRowForGvwOfficialInjury = function() {
+
+        let grdRows = gvwOfficialInjury.getCheckedRows(0);
+        let delList = [];
+
+        for(let i=grdRows.length; i>0; i--){
+            let nRow = grdRows[i-1];
+            let rowData = gvwOfficialInjury.getRowData(nRow)
+            if(rowData.addYn == "Y"){
+                gvwOfficialInjury.deleteRow(nRow);
+            }else {
+                delList.push(rowData);
+                gvwOfficialInjury.deleteRow(nRow);
+            }
+        }
+
+        if (grdRows.length < 1) {
+            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+            return;
+        }
+        if(delList.length > 0){
+            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
+                //fn_delete(delList);
+            }
+        }
+    }
+
+    const fn_deleteRowForGvwContractDeg = function() {
+
+        let grdRows = gvwContractDeg.getCheckedRows(0);
+        let delList = [];
+
+        for(let i=grdRows.length; i>0; i--){
+            let nRow = grdRows[i-1];
+            let rowData = gvwContractDeg.getRowData(nRow)
+            if(rowData.addYn == "Y"){
+                gvwContractDeg.deleteRow(nRow);
+            }else {
+                delList.push(rowData);
+                gvwContractDeg.deleteRow(nRow);
+            }
+        }
+
+        if (grdRows.length < 1) {
+            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+            return;
+        }
+        if(delList.length > 0){
+            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
+                //fn_delete(delList);
+            }
+        }
+    }
+
+    const fn_deleteRowForGvwWorkPlan = function() {
+
+        let grdRows = gvwWorkPlan.getCheckedRows(0);
+        let delList = [];
+
+        for(let i=grdRows.length; i>0; i--){
+            let nRow = grdRows[i-1];
+            let rowData = gvwWorkPlan.getRowData(nRow)
+            if(rowData.addYn == "Y"){
+                gvwWorkPlan.deleteRow(nRow);
+            }else {
+                delList.push(rowData);
+                gvwWorkPlan.deleteRow(nRow);
+            }
+        }
+
+        if (grdRows.length < 1) {
+            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+            return;
+        }
+        if(delList.length > 0){
+            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
+                //fn_delete(delList);
+            }
+        }
+    }
+
+    const fn_deleteRowForGvwEmp = function() {
+
+        let grdRows = gvwEmp.getCheckedRows(0);
+        let delList = [];
+
+        for(let i=grdRows.length; i>0; i--){
+            let nRow = grdRows[i-1];
+            let rowData = gvwEmp.getRowData(nRow)
+            if(rowData.addYn == "Y"){
+                gvwEmp.deleteRow(nRow);
+            }else {
+                delList.push(rowData);
+                gvwEmp.deleteRow(nRow);
+            }
+        }
+
+        if (grdRows.length < 1) {
+            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+            return;
+        }
+        if(delList.length > 0){
+            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
+                //fn_delete(delList);
+            }
+        }
+    }
+
+    const fn_deleteRowForGvwExpenditurewelfare = function() {
+
+        let grdRows = gvwExpenditurewelfare.getCheckedRows(0);
+        let delList = [];
+
+        for(let i=grdRows.length; i>0; i--){
+            let nRow = grdRows[i-1];
+            let rowData = gvwExpenditurewelfare.getRowData(nRow)
+            if(rowData.addYn == "Y"){
+                gvwExpenditurewelfare.deleteRow(nRow);
+            }else {
+                delList.push(rowData);
+                gvwExpenditurewelfare.deleteRow(nRow);
+            }
+        }
+
+        if (grdRows.length < 1) {
+            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+            return;
+        }
+        if(delList.length > 0){
+            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
+                //fn_delete(delList);
+            }
+        }
+    }
+
     //선택 삭제
     const fn_delete = async function(comUiList) {
 
@@ -2938,7 +4277,7 @@
                         ,ENTER_DATE         : item.ENTER_DATE
                         ,RETIRE_DATE        : item.RETIRE_DATE
                     }
-                    jsonEmpList.push(msg);
+                    jsonEmpTotalList.push(msg);
                 });
 
                 gvwList.rebuild();
