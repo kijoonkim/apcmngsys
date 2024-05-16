@@ -690,11 +690,8 @@
 
         /*체크박스 고정여부*/
         let checkbox = document.getElementById('dtl-chk-itemFixed');
-        console.log('checkbox', checkbox);
         let is_checked = checkbox.checked
-        console.log('is_checked', is_checked);
         if(!is_checked){
-            console.log(!is_checked);
             /*품목/품종, 육안선별 결과 컴포넌트 초기화*/
 
             SBUxMethod.set("srch-slt-itemCd", "");
@@ -706,8 +703,6 @@
     /*저장 버튼*/
     /*Start*/
     const fn_save = async function(){
-        console.log(' fn_save flag', flag);
-
         let jsonSrchData = [];
 
         let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");        // 생산자
@@ -790,7 +785,6 @@
         });
         let allDataList = [];
         allDataList.push({apcCd:gv_selectedApcCd,ymd:wrhsYmd,rowSts:rowSts,'sortBffaVOList':jsonSrchData, 'wrhsSortGrdList':grdData});
-        console.log('allDataList',allDataList);
         try {
             const postJsonPromise = gfn_postJSON("/am/sort/insertSortBffaSpt.do", allDataList);
             const data = await postJsonPromise;
@@ -956,7 +950,6 @@
         let itemCd = SBUxMethod.get("srch-slt-itemCd");
         let grdKnd = "03";
 
-        console.log('bffaWrhsno', bffaWrhsno);
         if(gfn_isEmpty(bffaWrhsno)){
             gfn_comAlert("W0005", "삭제대상");
             return;
