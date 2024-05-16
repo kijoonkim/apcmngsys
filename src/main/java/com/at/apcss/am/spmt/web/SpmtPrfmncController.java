@@ -163,6 +163,9 @@ public class SpmtPrfmncController extends BaseController {
 				return getErrorResponseEntity(rtnObj);
 			}
 		}
+		
+		resultMap.put(ComConstants.PROP_RESULT_MAP, spmtPrfmncComVO);
+		
 		return getSuccessResponseEntity(resultMap);
 	}
 	
@@ -460,6 +463,9 @@ public class SpmtPrfmncController extends BaseController {
                 return getErrorResponseEntity(rtnObj);
             }
         }
+        
+        resultMap.put(ComConstants.PROP_RESULT_MAP, spmtPrfmncComVO);
+        
         return getSuccessResponseEntity(resultMap);
     }
 }
