@@ -783,7 +783,6 @@
         $("#qnttInp1_0,#qnttInp1_1,#qnttInp1_2").on('blur', () => $("#invntQnttEl").remove());
         /** main.jsp msg push**/
         window.parent.postMessage("sideMenuOff", "*");
-
     });
     /** 거래처 json 조회 **/
     const fn_set_cnpt = async function () {
@@ -1258,14 +1257,6 @@
         let parentTr = $(_el).closest('tr');
         let lastInput = parentTr.children(':last').find("input");
 
-
-        let _prdcr =$(_el).parent().next('div').children();
-        $(_prdcr).attr("type", "number");
-        $(_prdcr).attr("readonly", false);
-        $(_prdcr).css("color", "initial");
-        $(_prdcr).css("background-color", "initial");
-        $(_prdcr).val("");
-
         jsonNewGdsGrd.forEach(function (item) {
             for (let key in item) {
                 if (item[key] === null) {
@@ -1275,7 +1266,7 @@
         });
 
         tempJson = jsonNewGdsGrd.filter(function (item) {
-            return item.grdNm.startsWith(_val);
+            return parseInt(item.grdNm) == _val;
         });
 
         if(gfn_isEmpty(_val)){
@@ -1289,27 +1280,29 @@
 
 
         if (tempJson.length == 0 || tempJson.length > 1) {
+            parentTr.children().eq(0).find('input').eq(1).attr({'type':"number","readonly":false});
+            parentTr.children().eq(0).find('input').eq(1).css({'color':"initial","background-color":"initial"});
+            parentTr.children().eq(0).find('input').eq(1).val('');
+
             parentTr.children().eq(1).find('input').val('');
             parentTr.children().eq(2).find('input').val('');
             parentTr.children().eq(3).find('input').val('');
+
             parentTr.children().eq(4).find('input').val('');
             parentTr.children().eq(5).find('input').val('');
             parentTr.children().eq(6).find('input').val('');
-
             parentTr.children().eq(4).find('input').removeAttr('max');
             parentTr.children().eq(5).find('input').removeAttr('max');
             parentTr.children().eq(6).find('input').removeAttr('max');
-
             parentTr.children().eq(4).find('input').attr({'type':"number","readonly":false});
             parentTr.children().eq(4).find('input').css({'color':"initial","background-color":"initial"});
             parentTr.children().eq(5).find('input').attr({'type':"number","readonly":false});
             parentTr.children().eq(5).find('input').css({'color':"initial","background-color":"initial"});
             parentTr.children().eq(6).find('input').attr({'type':"number","readonly":false});
             parentTr.children().eq(6).find('input').css({'color':"initial","background-color":"initial"});
-
             parentTr.children().eq(8).find('input').val('');
             /** 출하번호에 대한 정보가 없는데 생산자전용 임시 JSON이 있을수있음. **/
-            prdcrTempJson.length = 0;
+            tempJson.length = 0;
             mapInvntQntt.delete(parentTr.index());
         } else {
             /** 품목 단량 세팅 0번 인덱스로 없으면 어쩌지? **/
@@ -1319,6 +1312,14 @@
             parentTr.children().eq(1).find('input').attr("readonly",true);
             parentTr.children().eq(2).find('input').attr("readonly",true);
             parentTr.children().eq(3).find('input').attr("readonly",true);
+
+            if(tempJson[0].invntrInqAuCd == "P"){
+                parentTr.children().eq(0).find('input').eq(1).attr({"type":"text","readonly":true});
+                parentTr.children().eq(0).find('input').eq(1).css({"color":"white","background-color":"#999"});
+                parentTr.children().eq(0).find('input').eq(1).val("X");
+            }
+
+
             /** 없는 출하번호로 인해 생산자전용 임시 JSON이 지워진경우 **/
             fn_onChangePrdcr($(_el).parent().next('div').children());
 
@@ -1345,33 +1346,42 @@
         }
         fn_setInvntQntt(parentTr);
     }
+    /** 생산자 바꾸면 **/
     /** 생산자 번호 입력시 2차 필터링 **/
     const fn_onChangePrdcr = function (_el) {
-        let _val = $(_el).val();
         let parentTr = $(_el).closest('tr');
+        let lastInput = parentTr.children(':last').find("input");
         /** 현재 출하번호에 맞는 상품리스트중에 생산자번호까지 일치하는 재고만 추림 2차 필터링 **/
         /** 생산자 번호만 바뀔가능성이 있음. **/
         if(!gfn_isEmpty(tempJson)){
-            prdcrTempJson = tempJson;
-            prdcrTempJson = prdcrTempJson.filter(function (item) {
-                return item.prdcr == _val;
-            });
-            /** 각 재고 인풋에 재고 현황 셋팅 **/
-            fn_setInvntQntt(parentTr);
+            parentTr.children().eq(4).find('input').val('');
+            parentTr.children().eq(5).find('input').val('');
+            parentTr.children().eq(6).find('input').val('');
+            parentTr.children().eq(4).find('input').removeAttr('max');
+            parentTr.children().eq(5).find('input').removeAttr('max');
+            parentTr.children().eq(6).find('input').removeAttr('max');
+            parentTr.children().eq(4).find('input').attr({'type':"number","readonly":false});
+            parentTr.children().eq(4).find('input').css({'color':"initial","background-color":"initial"});
+            parentTr.children().eq(5).find('input').attr({'type':"number","readonly":false});
+            parentTr.children().eq(5).find('input').css({'color':"initial","background-color":"initial"});
+            parentTr.children().eq(6).find('input').attr({'type':"number","readonly":false});
+            parentTr.children().eq(6).find('input').css({'color':"initial","background-color":"initial"});
+            parentTr.children().eq(8).find('input').val('');
+            mapInvntQntt.delete(parentTr.index());
+            $(lastInput).removeAttr('sortInvnt');
         }
     }
 
     /** 현재 row의 Element 정보가 반드시 필요함. **/
     const fn_setInvntQntt = function (parentTr) {
         /** 재고 tooltip 추가 및 input max 한정 **/
-        if(!gfn_isEmpty(prdcrTempJson)){
+        if(!gfn_isEmpty(tempJson)){
 
         /** max 셋팅 **/
-        prdcrTempJson.forEach(function (item) {
+        tempJson.forEach(function (item) {
             let idx = parseInt(item.gdsGrd) + 3;
             let el = parentTr.children().eq(idx).find('input');
             el.attr('max', (item.invntrQntt - (item.useQntt || 0)));
-            // el.attr('max', (item.invntrQntt - (gfn_isEmpty(item.useQntt)?0:item.useQntt)));
         });
 
         /** 해당 row css적용 [max 존재 유무] **/
@@ -1394,7 +1404,7 @@
             }
         })
         }else{
-            $(parentTr).find("input.qnttInp").each(function () {
+            $(parentTr).find("input[id]").each(function () {
                 let inputEl = $(this)[0];
                 inputEl.removeAttribute("max");
                 $(inputEl).attr("type", "number");
@@ -1456,6 +1466,7 @@
         let tr = $(_el).closest('tr');
         let rowData = tr.children(":last").find('input').attr("sortGds");
         let originTridx = $(tr).index();
+        let prdcr = tr.children().eq(0).find('input').eq(1).val();
 
         try{
             rowData = JSON.parse(rowData);
@@ -1467,6 +1478,7 @@
 
         let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncInvntList.do",rowData);
             const data = await postJsonPromise;
+
             data.resultList.forEach(function (item) {
                 for (let key in item) {
                     if (item[key] == null) {
@@ -1477,6 +1489,12 @@
                     }
                 }
             });
+
+        if(!gfn_isEmpty(prdcr)){
+            data.resultList = data.resultList.filter(function(item){
+                return item.prdcrIdentno == prdcr;
+            })
+        }
 
             data.resultList.map(function (item) { //필요한거 : item.spmtInvId
                 //TODO: 재고현황 파악해서 재고 마이너스처리
@@ -1612,7 +1630,6 @@
             $(prdcrTd).css("background-color", "initial");
             $(prdcrTd).val("");
             $(prdcrTd).val(rowData.prdcrIdentno);
-            $(prdcrTd).attr("readonly",true);
         }else{
             $(prdcrTd).attr("type", "text");
             $(prdcrTd).attr("readonly", true);
