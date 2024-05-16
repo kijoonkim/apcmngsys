@@ -19,6 +19,7 @@ import com.at.apcss.am.sort.vo.SortBffaList;
 import com.at.apcss.am.sort.vo.SortBffaVO;
 import com.at.apcss.am.sort.vo.SortDsctnTotVO;
 import com.at.apcss.am.sort.vo.SortPrfmncVO;
+import com.at.apcss.am.sort.vo.WrhsSortGrdVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 
@@ -521,6 +522,40 @@ public class SortPrfmncController extends BaseController {
 			sortBffaListVO.get(0).setSysLastChgPrgrmId(getPrgrmId());
 
 			HashMap<String, Object> rtnObj = sortPrfmncService.insertSortBffaSpt(sortBffaListVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	/**
+	 * 육안 선별 삭제(현장용)
+	 * @param sortBffaVO
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/am/sort/deleteSortBffaSpt.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteSortBffaSpt(@RequestBody WrhsSortGrdVO wrhsSortGrdVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		try {
+			wrhsSortGrdVO.setSysFrstInptUserId(getUserId());
+			wrhsSortGrdVO.setSysFrstInptPrgrmId(getPrgrmId());
+			wrhsSortGrdVO.setSysLastChgUserId(getUserId());
+			wrhsSortGrdVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String, Object> rtnObj = sortPrfmncService.deleteSortBffaSpt(wrhsSortGrdVO);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}

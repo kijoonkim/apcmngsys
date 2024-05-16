@@ -923,7 +923,7 @@
 	 	        			,sortFclt : item.FCLT_NM
                             ,prdcrNm : item.PRDCR_NM
                             ,wrhsQntt : item.WRHS_QNTT
-                            ,wrhsWght : item.GRD_TYPE_1_WGHT + item.GRD_TYPE_2_WGHT
+                            ,wrhsWght : item.WRHS_WGHT
                             ,grdType1Wght : item.GRD_TYPE_1_WGHT
                             ,grdType2Wght : item.GRD_TYPE_2_WGHT
                             ,grdType3Wght : item.GRD_TYPE_3_WGHT

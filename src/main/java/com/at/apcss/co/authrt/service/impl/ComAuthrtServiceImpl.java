@@ -1383,6 +1383,21 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 		return userAuthrtUiList;
 	}
 
+	@Override
+	public List<ComAuthrtUiVO> selectUserAuthrtCmnsBtnList(ComAuthrtUiVO comAuthrtUiVO) throws Exception {
+		List<ComAuthrtUiVO> userAuthrtUiList = comAuthrtMapper.selectUserAuthrtCmnsBtnList(comAuthrtUiVO);
+		return userAuthrtUiList;
+	}
+
+	@Override
+	public List<ComAuthrtUiVO> selectUserAuthrtCmnsBtnList(String userId, String menuId) throws Exception {
+		ComAuthrtUiVO comAuthrtUiVO = new ComAuthrtUiVO();
+		comAuthrtUiVO.setUserId(userId);
+		comAuthrtUiVO.setMenuId(menuId);
+
+		return selectUserAuthrtCmnsBtnList(comAuthrtUiVO);
+	}
+	
 
 	@Override
 	public HashMap<String, Object> insertComAuthrtUi(ComAuthrtMenuVO comAuthrtMenuVO) throws Exception {
@@ -1511,4 +1526,6 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 		
 		return null;
 	}
+
+
 }

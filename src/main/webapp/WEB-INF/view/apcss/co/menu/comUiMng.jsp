@@ -250,6 +250,25 @@
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
 
+	/**
+	 * 공통버튼 연계처리
+	 */
+	async function cfn_init() {
+		
+	}
+	async function cfn_add() {
+	
+	}
+	async function cfn_del() {
+		
+	}
+	async function cfn_save() {
+		await fn_save();
+	}
+	async function cfn_search() {
+		await fn_search();
+	}
+	
     //조회조건
     var jsonComSysId = [];
     var jsonComUseYn = [];

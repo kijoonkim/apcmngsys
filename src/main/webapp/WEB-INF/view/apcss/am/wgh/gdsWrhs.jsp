@@ -222,6 +222,26 @@
     </div>
 </body>
 <script type="text/javascript">
+
+	/**
+	 * 공통버튼 연계처리
+	 */
+	async function cfn_init() {
+		await fn_reset();
+	}
+	async function cfn_add() {
+	
+	}
+	async function cfn_del() {
+		await fn_delete();
+	}
+	async function cfn_save() {
+		await fn_save();
+	}
+	async function cfn_search() {
+		await fn_search();
+	}
+
 	var jsonApcItem				= [];	// 품목 			itemCd			검색
 	var jsonApcVrty				= [];	// 품종 			vrtyCd			검색
 	var jsonApcSpcfct			= [];	// 규격 			spcfcCd			검색
@@ -614,7 +634,7 @@
 	}
 
 	// 초기화
-	const fn_reset = function() {
+	const fn_reset = async function() {
  		// 입고일자
  		SBUxMethod.set("srch-dtp-pckgYmd", gfn_dateToYmd(new Date()));
  		// 품목

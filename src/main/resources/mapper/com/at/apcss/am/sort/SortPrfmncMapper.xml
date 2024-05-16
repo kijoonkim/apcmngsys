@@ -1989,7 +1989,6 @@
 				,GRD_TYPE_5_QNTT
 				,GRD_TYPE_5_WGHT
 				,GRD_TYPE_5_RMRK
-				,DEL_YN
 				,SYS_FRST_INPT_DT
 				,SYS_FRST_INPT_USER_ID
 				,SYS_FRST_INPT_PRGRM_ID
@@ -2039,11 +2038,10 @@
 				,#{grdType5Qntt}
 				,#{grdType5Wght}
 				,#{grdType5Rmrk}
-				,#{delYn}
-				,#{sysFrstInptDt}
+				,SYSDATE
 				,#{sysFrstInptUserId}
 				,#{sysFrstInptPrgrmId}
-				,#{sysLastChgDt}
+				,SYSDATE
 				,#{sysLastChgUserId}
 				,#{sysLastChgPrgrmId}
 				)
@@ -2594,7 +2592,7 @@
 			    ,GRD_TYPE_5_QNTT = #{grdType5Qntt}
 			    ,GRD_TYPE_5_WGHT = #{grdType5Wght}
 			    ,GRD_TYPE_5_RMRK = #{grdType5Rmrk}
-				,SYS_LAST_CHG_DT = #{sysLastChgDt}
+				,SYS_LAST_CHG_DT = SYSDATE
 				,SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
 				,SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
 			WHERE  APC_CD =  #{apcCd}
@@ -2701,7 +2699,7 @@
     </select>
 
 
-    
+
     <!-- ==========================================================================    -->
     <!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectExhstDsctn    -->
     <!-- DESC : 육안등급판정 조회.                                       -->
@@ -2746,14 +2744,14 @@
 		 	, MAX(GRD_TYPE_4_WGHT) AS GRD_TYPE_4_WGHT
 		 	, MAX(GRD_TYPE_5_WGHT) AS GRD_TYPE_5_WGHT
 		 	, MAX(WRHS_QNTT) AS WRHS_QNTT
-		 	, MAX(WRHS_WGHT) AS WRHS_WGHT	
+		 	, MAX(WRHS_WGHT) AS WRHS_WGHT
 		 	, SUM(GRD_WGHT_TOT) AS GRD_WGHT_TOT
 		 	, SUM(GRD_TYPE_WGHT_TOT) AS  GRD_TYPE_WGHT_TOT
-		 FROM  
-		 	( 
-		 		SELECT		
+		 FROM
+		 	(
+		 		SELECT
 		 				BWP.WRHS_YMD
-		 				, (SELECT FN_GET_PRDCR_NM(BWP.PRDCR_CD, BWP.APC_CD) FROM DUAL)AS PRDCR_NM 
+		 				, (SELECT FN_GET_PRDCR_NM(BWP.PRDCR_CD, BWP.APC_CD) FROM DUAL)AS PRDCR_NM
 		 				, BWP.ITEM_CD
 		 				, BWP.VRTY_CD
 		 				, BWP.GDS_SE_CD
@@ -2764,11 +2762,11 @@
 		 				, BWP.GRD_TYPE_2_WGHT
 		 				, BWP.GRD_TYPE_3_WGHT
 		 				, BWP.GRD_TYPE_4_WGHT
-		 				, BWP.GRD_TYPE_5_WGHT		 				
+		 				, BWP.GRD_TYPE_5_WGHT
 		 				, NVL(BWP.GRD_TYPE_1_WGHT,0) + NVL(BWP.GRD_TYPE_2_WGHT,0) + NVL(BWP.GRD_TYPE_3_WGHT,0) + NVL(BWP.GRD_TYPE_4_WGHT,0) + NVL(BWP.GRD_TYPE_5_WGHT,0) AS GRD_TYPE_WGHT_TOT
 		 				, BWP.PRDCR_CD
 		 				, Y.*
-	 			FROM TB_BFFA_WRHS_PRFMNC BWP  			
+	 			FROM TB_BFFA_WRHS_PRFMNC BWP
 	 			,(SELECT
 	 					BWS.APC_CD
 	 					, BWS.BFFA_WRHSNO
@@ -2781,7 +2779,7 @@
 	 					, CASE WHEN ASG.SN = 7 THEN BWS.GRD_QNTT ELSE 0 END AS QNTT_7
 	 					, CASE WHEN ASG.SN = 8 THEN BWS.GRD_QNTT ELSE 0 END AS QNTT_8
 	 					, CASE WHEN ASG.SN = 9 THEN BWS.GRD_QNTT ELSE 0 END AS QNTT_9
-	 					, CASE WHEN ASG.SN = 10 THEN BWS.GRD_QNTT ELSE 0 END AS QNTT_10		
+	 					, CASE WHEN ASG.SN = 10 THEN BWS.GRD_QNTT ELSE 0 END AS QNTT_10
 	 			        , CASE WHEN ASG.SN = 1 THEN BWS.GRD_WGHT ELSE 0 END AS WGHT_1
 	 			        , CASE WHEN ASG.SN = 2 THEN BWS.GRD_WGHT ELSE 0 END AS WGHT_2
 	 			        , CASE WHEN ASG.SN = 3 THEN BWS.GRD_WGHT ELSE 0 END AS WGHT_3
@@ -2793,7 +2791,7 @@
 	 			        , CASE WHEN ASG.SN = 9 THEN BWS.GRD_WGHT ELSE 0 END AS WGHT_9
 	 			        , CASE WHEN ASG.SN = 10 THEN BWS.GRD_WGHT ELSE 0 END AS WGHT_10
 	 			        , BWS.GRD_WGHT AS GRD_WGHT_TOT
-	 			
+
 	 			FROM TB_BFFA_WRHS_SORT_GRD BWS
 	 					,  TB_APC_STD_GRD_DTL ASG
 	 			WHERE 1=1
@@ -2809,9 +2807,9 @@
 		                <if test='itemCd != null and itemCd !=""'>
 		                     AND BWS.ITEM_CD = #{itemCd}
 		                </if>
-            <![CDATA[    
-						
-						
+            <![CDATA[
+
+
 					)	Y
 					WHERE 1=1
 						AND BWP.APC_CD = Y.APC_CD
@@ -2829,13 +2827,13 @@
 	                </if>
 	                <if test=' wrhsYmdFrom != null and wrhsYmdFrom !="" and wrhsYmdTo != null and wrhsYmdTo !="" '>
                	   		AND BWP.WRHS_YMD BETWEEN #{wrhsYmdFrom} AND #{wrhsYmdTo}
-				 	</if>						
+				 	</if>
 				)    X
 
-	 GROUP BY X.BFFA_WRHSNO,X.PRDCR_CD,X.WRHS_YMD	
-    
-    
-    </select>        
+	 GROUP BY X.BFFA_WRHSNO,X.PRDCR_CD,X.WRHS_YMD
+
+
+    </select>
     <!-- ========================================================================== -->
     <!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectSortBffaSpt    	-->
     <!-- DESC : 육안등급판정 조회(현장용).                                       	-->
@@ -2911,6 +2909,7 @@
 		                     , ITEM_CD
 		                 FROM TB_APC_STD_GRD_DTL X
 		                WHERE X.GRD_SE_CD = '03'
+		                  AND X.DEL_YN = 'N'
 	]]>
 
  	<if test='itemCd != null and itemCd !=""'>
@@ -2924,9 +2923,11 @@
 		             , TB_BFFA_WRHS_SORT_GRD BG
 		         WHERE BG.APC_CD = GD.APC_CD
 		           AND BG.GRD_CD = GD.GRD_CD
+		           AND BG.DEL_YN = 'N'
 		     ) GG
 		 WHERE BP.APC_CD = GG.APC_CD
 		   AND BP.BFFA_WRHSNO = GG.BFFA_WRHSNO
+		   AND BP.DEL_YN = 'N'
 	]]>
 	<if test='itemCd != null and itemCd !=""'>
 		   AND BP.ITEM_CD = #{itemCd}
@@ -2981,7 +2982,7 @@
 	    			 , SYS_LAST_CHG_USER_ID
 	    			 , SYS_LAST_CHG_PRGRM_ID
 	    			)
-	    		VALUSE
+	    		VALUES
 	    			(
 	    			   #{apcCd}
 	    			 , #{bffaWrhsno}
@@ -3004,7 +3005,7 @@
 
     <!-- ========================================================================== -->
     <!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.updateWrhsSortGrd    	-->
-    <!-- DESC : 육안등급판정 등록(현장용).                                       	-->
+    <!-- DESC : 육안등급판정 수정(현장용).                                       	-->
     <!-- ========================================================================== -->
     <!-- DATE           AUTHOR            DESCRIPTION                               -->
     <!-- ===========      ============      ======================================= -->
@@ -3022,11 +3023,29 @@
 	    		 , SYS_LAST_CHG_USER_ID 	= #{sysLastChgUserId}
 	    		 , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 	         WHERE APC_CD					= #{apcCd}
-	             , BFFA_WRHSNO				= #{bffaWrhsno}
-	             , ITEM_CD					= #{itemCd}
-	             , GRD_KND					= #{grdKnd}
-	             , GRD_CD   				= #{grdCd}
+			   AND BFFA_WRHSNO				= #{bffaWrhsno}
+			   AND ITEM_CD					= #{itemCd}
+			   AND GRD_KND					= #{grdKnd}
+			   AND GRD_CD   				= #{grdCd}
     	]]>
     </update>
 
+    <!-- ========================================================================== -->
+    <!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.deleteSortBffaSpt    	-->
+    <!-- DESC : 육안등급판정 삭제(현장용).                                       	-->
+    <!-- ========================================================================== -->
+    <!-- DATE           AUTHOR            DESCRIPTION                               -->
+    <!-- ===========      ============      ======================================= -->
+    <!-- 2024.05.14     김호                Initial Creation                        -->
+    <!-- ========================================================================== -->
+	<delete id="deleteSortBffaSpt" parameterType="com.at.apcss.am.sort.vo.WrhsSortGrdVO">
+		<![CDATA[
+			DELETE /* com.at.apcss.am.sort.mapper.SortPrfmncMapper.deleteSortBffaSpt */
+			  FROM TB_BFFA_WRHS_SORT_GRD
+			 WHERE APC_CD					= #{apcCd}
+	           AND BFFA_WRHSNO				= #{bffaWrhsno}
+	           AND ITEM_CD					= #{itemCd}
+	           AND GRD_KND					= #{grdKnd}
+		]]>
+	</delete>
 </mapper>

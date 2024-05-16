@@ -98,7 +98,7 @@ public interface SpmtPrfmncService {
 
 	/**
 	 * 출하실적 등록
-	 * @param SpmtPrfmncComVO
+	 * @param spmtPrfmncComVO
 	 * @return
 	 * @throws Exception
 	 */
@@ -197,6 +197,7 @@ public interface SpmtPrfmncService {
 	 * @throws Exception
 	 */
     List<SpmtPrfmncVO> selectSpmtPrfmncComList(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+
 	/**
 	 * 출하실적등록 모바일 출하실적등록 내역조회
 	 * @param spmtPrfmncVO
@@ -204,4 +205,22 @@ public interface SpmtPrfmncService {
 	 * @throws Exception
 	 */
 	List<SpmtPrfmncVO> selectSpmtPrfmncRegList(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+
+    /**
+     * 출하실적 변경 By 상품리스트
+     * @param spmtPrfmncComVO
+     * @return
+     * @throws Exception
+     */
+    public HashMap<String, Object> updateSpmtPrfmncByPckgList(SpmtPrfmncComVO spmtPrfmncComVO) throws Exception;
+
+    /**
+     * 출하실적취소
+     * @param spmtPrfmncComVO
+     * @return
+     * @throws Exception
+     */
+    public HashMap<String, Object> deleteSpmt(SpmtPrfmncComVO spmtPrfmncComVO) throws Exception;
+   
+
 }

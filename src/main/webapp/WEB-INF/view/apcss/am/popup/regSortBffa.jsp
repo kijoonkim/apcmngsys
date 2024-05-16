@@ -608,7 +608,7 @@
         let prdcrCd = rsltRowData.prdcrCd;
         let prdcrNm = rsltRowData.prdcrNm;
         let wrhsQntt = rsltRowData.wrhsQntt;
-        let wholWght = rsltRowData.wholWght;
+        let wholWght = rsltRowData.wrhsWght;
         let grdType1Wght = rsltRowData.grdType1Wght;
         let grdType2Wght = rsltRowData.grdType2Wght;
         let grdType3Wght = rsltRowData.grdType3Wght;

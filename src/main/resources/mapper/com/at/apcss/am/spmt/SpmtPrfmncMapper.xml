@@ -12,6 +12,74 @@
 
 <mapper namespace="com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper">
 
+    <!-- ==========================================================================    -->
+    <!-- NAME : com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtCom    -->
+    <!-- DESC : 출하실적 공통 조회.                                             -->
+    <!-- ==========================================================================    -->
+    <!-- DATE           AUTHOR            DESCRIPTION                                  -->
+    <!-- ===========      ============      ===========================================    -->
+    <!-- 2023.08.21      김호            Initial Creation                            -->
+    <!-- ==========================================================================    -->
+    <select id="selectSpmtCom" parameterType="com.at.apcss.am.spmt.vo.SpmtPrfmncComVO" resultType="com.at.apcss.am.spmt.vo.SpmtPrfmncComVO">
+        <![CDATA[
+            SELECT  /* com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtCom */
+                  PC.APC_CD            AS APC_CD
+                , PC.SPMTNO            AS SPMTNO
+                , PC.SPMT_YMD        AS SPMT_YMD
+                , PC.CNPT_CD        AS CNPT_CD
+                , PC.TRSPRT_CO_CD    AS TRSPRT_CO_CD
+                , PC.VHCLNO            AS VHCLNO
+                , PC.DLDTN            AS DLDTN
+                , PC.SPMT_SE_CD        AS SPMT_SE_CD
+                , PC.SPMT_PRSN_DCLRNO    AS SPMT_PRSN_DCLRNO
+                , PC.PLOR_CD        AS PLOR_CD
+                , PC.TRSPRT_CST        AS TRSPRT_CST
+                , PC.RTN_GDS_YN        AS RTN_GDS_YN
+                , PC.RMRK            AS RMRK
+                , PC.DEL_YN            AS DEL_YN
+              FROM TB_SPMT_PRFMNC_COM PC
+             WHERE PC.APC_CD = #{apcCd}
+               AND PC.SPMTNO = #{spmtno}
+        ]]>
+    </select>
+    
+    <!-- ==========================================================================    -->
+    <!-- NAME : com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtDtlList        -->
+    <!-- DESC : 출하실적 상세 목록 조회.                                             -->
+    <!-- ==========================================================================    -->
+    <!-- DATE           AUTHOR            DESCRIPTION                                  -->
+    <!-- ===========      ============      ===========================================    -->
+    <!-- 2023.08.21      김호            Initial Creation                            -->
+    <!-- ==========================================================================    -->
+    <select id="selectSpmtDtlList" parameterType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO" resultType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO">
+        <![CDATA[
+            SELECT  /* com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtDtlList */
+                  PD.APC_CD            AS APC_CD
+                , PD.SPMTNO            AS SPMTNO
+                , PD.PCKGNO            AS PCKGNO
+                , PD.PCKG_SN        AS PCKG_SN
+                , PD.ITEM_CD        AS ITEM_CD
+                , PD.VRTY_CD        AS VRTY_CD
+                , PD.GDS_GRD        AS GDS_GRD
+                , PD.SPCFCT_CD        AS SPCFCT_CD
+                , PD.SPMT_PCKG_UNIT_CD    AS SPMT_PCKG_UNIT_CD
+                , PD.BRND_NM        AS BRND_NM
+                , PD.GDS_CD            AS GDS_CD
+                , PD.PRDCR_CD        AS PRDCR_CD
+                , PD.SPMT_CMNDNO    AS SPMT_CMNDNO
+                , PD.OUTORDRNO        AS OUTORDRNO
+                , PD.SPMT_QNTT        AS SPMT_QNTT
+                , PD.SPMT_WGHT        AS SPMT_WGHT
+                , PD.ORGN_SPMTNO    AS ORGN_SPMTNO
+                , PD.ORGN_PCKGNO    AS ORGN_PCKGNO
+                , PD.ORGN_PCKG_SN    AS ORGN_PCKG_SN
+              FROM TB_SPMT_PRFMNC_DTL PD
+             WHERE PD.APC_CD = #{apcCd}
+               AND PD.SPMTNO = #{spmtno}
+               AND PD.DEL_YN = 'N'
+        ]]>
+    </select>
+    
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtPrfmncList	-->
 	<!-- DESC : 출하실적조회 목록 조회.	                         	             	-->

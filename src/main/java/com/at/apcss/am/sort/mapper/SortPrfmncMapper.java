@@ -272,4 +272,12 @@ public interface SortPrfmncMapper {
 	 * @throws Exception
 	 */
 	public int updateWrhsSortGrd(WrhsSortGrdVO wrhsSortGrdVO);
+
+	/**
+	 * 육한등급삭제(현장용)
+	 * @param sortBffaVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteSortBffaSpt(WrhsSortGrdVO wrhsSortGrdVO);
 }

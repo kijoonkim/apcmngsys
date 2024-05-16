@@ -301,6 +301,25 @@
 </body>
 <script type="text/javascript">
 
+	/**
+	 * 공통버튼 연계처리
+	 */
+	async function cfn_init() {
+		await fn_reset();
+	}
+	async function cfn_add() {
+	
+	}
+	async function cfn_del() {
+
+	}
+	async function cfn_save() {
+		await fn_save();
+	}
+	async function cfn_search() {
+		await fn_search();
+	}
+
 	/* SB Select */
 	var jsonApcItem			= [];	// 품목 		itemCd
 	var jsonApcVrty			= [];	// 품종 		vrtyCd
@@ -1594,7 +1613,7 @@
     	grid.clickCell(getRow, getCol);
     }
     
-	const fn_reset = function(){
+	const fn_reset = async function(){
  		// 검색조건 초기화
  		SBUxMethod.set("srch-dtp-wrhsYmdFrom",gfn_dateFirstYmd(new Date()));
 		SBUxMethod.set("srch-dtp-wrhsYmdTo",gfn_dateToYmd(new Date()));

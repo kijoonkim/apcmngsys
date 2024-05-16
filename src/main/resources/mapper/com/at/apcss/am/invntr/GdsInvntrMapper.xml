@@ -1010,6 +1010,7 @@
 				, SPMT_WGHT 				= #{spmtWght}
 				, INVNTR_QNTT 				= #{invntrQntt}
 				, INVNTR_WGHT 				= #{invntrWght}
+				, INVNTR_STTS_CD            = #{invntrSttsCd}   
 		]]>
 			<if test='gdsGrd != null and gdsGrd != ""'>
 				, GDS_GRD 					= #{gdsGrd}

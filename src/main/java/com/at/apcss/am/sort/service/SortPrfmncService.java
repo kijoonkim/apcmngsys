@@ -8,6 +8,7 @@ import com.at.apcss.am.sort.vo.SortBffaList;
 import com.at.apcss.am.sort.vo.SortBffaVO;
 import com.at.apcss.am.sort.vo.SortDsctnTotVO;
 import com.at.apcss.am.sort.vo.SortPrfmncVO;
+import com.at.apcss.am.sort.vo.WrhsSortGrdVO;
 
 /**
  * 선별실적 Service 인터페이스
@@ -230,4 +231,12 @@ public interface SortPrfmncService {
      * @throws Exception
      */
 	public HashMap<String, Object> insertSortBffaSpt(List<SortBffaList> sortBffaListVO) throws Exception;
+
+	/**
+     * 육한등급삭제(현장용)
+     * @param wrhsSortGrdVO
+     * @return
+     * @throws Exception
+     */
+	public HashMap<String, Object> deleteSortBffaSpt(WrhsSortGrdVO wrhsSortGrdVO) throws Exception;
 }
