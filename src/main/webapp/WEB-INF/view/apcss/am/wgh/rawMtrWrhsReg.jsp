@@ -493,6 +493,26 @@
 
 <script type="text/javascript">
 
+	/**
+	 * 공통버튼 연계처리
+	 */
+	async function cfn_init() {
+		await fn_reset();
+	}
+	async function cfn_add() {
+	
+	}
+	async function cfn_del() {
+		await fn_delete();
+	}
+	async function cfn_save() {
+		await fn_save();
+	}
+	async function cfn_search() {
+		await fn_search();
+	}
+
+
 	const lv_paging = {
 			'type' : 'page',
 		  	'count' : 5,
@@ -721,7 +741,7 @@
      * @name fn_reset
      * @description 초기화 버튼
      */
-     const fn_reset = function() {
+     const fn_reset = async function() {
 		fn_clearForm();
 	}
 

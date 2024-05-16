@@ -19,4 +19,10 @@ public class ComAuthrtUiVO extends ComUiVO {
 	private String indctYn;
 	private String apcCd;
 	private String useYn;
+	
+	private String accessUseYn;
+	private String accessYn;
+	private String indctUseYn;
+	
+	
 }

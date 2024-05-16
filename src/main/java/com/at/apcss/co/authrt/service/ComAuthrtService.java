@@ -205,6 +205,25 @@ public interface ComAuthrtService {
 	public List<ComAuthrtUiVO> selectUserAuthrtUiList(String userId, String menuId) throws Exception;
 
 	/**
+	 * 화면공통버튼권한 조회 by userId, menuId
+	 * @param userId
+	 * @param menuId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ComAuthrtUiVO> selectUserAuthrtCmnsBtnList(String userId, String menuId) throws Exception;
+	
+	/**
+	 * 화면공통버튼권한 조회 by VO
+	 * @param userId
+	 * @param menuId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ComAuthrtUiVO> selectUserAuthrtCmnsBtnList(ComAuthrtUiVO comAuthrtUiVO) throws Exception;
+	
+	
+	/**
 	 * 권한 사용자 목록 등록
 	 * @param comAuthrtVO
 	 * @return

@@ -732,6 +732,25 @@
 </body>
 <script type="text/javascript">
 
+	/**
+	 * 공통버튼 연계처리
+	 */
+	async function cfn_init() {
+
+	}
+	async function cfn_add() {
+	
+	}
+	async function cfn_del() {
+
+	}
+	async function cfn_save() {
+		await fn_save();
+	}
+	async function cfn_search() {
+		await fn_search();		
+	}
+
 	var comboUesYnJsData = [];
 	var comboReverseYnJsData = [];
 
@@ -795,7 +814,10 @@
 		fn_initSBSelect();
 	})
 
-
+	const fn_search = async function() {
+		await fn_initSBSelect();
+	}
+	
 	const selectApcEvrmntStng = async function(){
 		let apcCd = gv_apcCd;
     	let postJsonPromise = gfn_postJSON("/am/apc/selectApcEvrmntStng.do", {apcCd : apcCd});
