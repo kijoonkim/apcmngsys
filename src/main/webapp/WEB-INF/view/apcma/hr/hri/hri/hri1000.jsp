@@ -528,7 +528,7 @@
                             <sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="normal" is-scrollable="false" jsondata-ref="jsonTabData">
                             </sbux-tabs>
                             <div class="tab-content">
-                                <div id="tpgMasterSub">
+                                <div id="tpgMasterSub" style="height: 596px;">
                                     <table class="table table-bordered tbl_fixed">
                                         <caption>기본인적</caption>
                                         <colgroup>
@@ -887,7 +887,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div id="tpgMasterSubDetail">
+                                <div id="tpgMasterSubDetail" style="height: 596px;">
                                     <div class="col-sm-4">
                                         <div class="ad_tbl_top2">
                                             <ul class="ad_tbl_count">
@@ -1230,10 +1230,10 @@
                                         <div id="sb-area-gvwEducation" style="height:560px;"></div>
                                     </div>
                                 </div>
-                                <div id="tpgMasterSubDetail2">
+                                <div id="tpgMasterSubDetail2" style="height: 596px;">
                                     <div class="table-responsive tbl_scroll_xs">
                                         <table class="table table-bordered tbl_fixed">
-                                            <caption>신체</caption>
+                                            <caption>병역사항</caption>
                                             <colgroup>
                                                 <col style="width: 25%">
                                                 <col style="width: 25%">
@@ -1335,7 +1335,7 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div id="tpgMasterSubDetail3">
+                                <div id="tpgMasterSubDetail3" style="height: 596px;">
                                     <div class="ad_tbl_top2">
                                         <ul class="ad_tbl_count">
                                             <li><span>보훈</span></li>
@@ -1519,7 +1519,7 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div id="tpgMasterSubDetail4">
+                                <div id="tpgMasterSubDetail4" style="height: 596px;">
                                     <div class="table-responsive tbl_scroll_xs">
                                         <table class="table table-bordered tbl_fixed">
                                             <caption>보증구분</caption>
