@@ -197,4 +197,11 @@ public interface SpmtPrfmncService {
 	 * @throws Exception
 	 */
     List<SpmtPrfmncVO> selectSpmtPrfmncComList(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+	/**
+	 * 출하실적등록 모바일 출하실적등록 내역조회
+	 * @param spmtPrfmncVO
+	 * @return List<GdsInvntrVO>
+	 * @throws Exception
+	 */
+	List<SpmtPrfmncVO> selectSpmtPrfmncRegList(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
 }

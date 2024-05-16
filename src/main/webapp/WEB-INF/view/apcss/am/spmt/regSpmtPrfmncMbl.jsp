@@ -422,6 +422,7 @@
 <%--                </div>--%>
             </div>
             <hr>
+            <div style="display: none" id="spmtno" ></div>
             <div style="height: 55vh;position: relative">
                 <table id="reg_table_head">
                     <colgroup>
@@ -717,8 +718,8 @@
     /** 최종 저장용 JSON **/
     let saveRegSpmtJson = [];
     /** 등록 테이블 EL **/
-    let regTableEl = function(_idx){
-        return el =`<tr>
+    let regTableEl = function(_idx,flag = false){
+        let el =`<tr>
         <td>
             <div style="display: flex">
                 <div style="flex: 2; font-family: 'Font Awesome 5 Free';margin-right: 10px;position: relative">
@@ -746,24 +747,31 @@
             </div>
         </td>
         <td>
-            <input type="number" id="qnttInp1_`+_idx+`" onchange="fn_onchangeQntt(this)"/>
-        </td>
-        <td>
-            <input type="number" id="qnttInp2_`+_idx+` onchange="fn_onchangeQntt(this)"/>
-        </td>
-        <td>
-            <input type="number" id="qnttInp3_`+_idx+` onchange="fn_onchangeQntt(this)"/>
-        </td>
-        <td>
-            <input readOnly/>
-        </td>
-        <td>
-            <input readOnly/>
-        </td>
-        <td>
-            <input/>
-        </td>
-    </tr>`
+            <input type="number" id="qnttInp1_`+_idx+`"`;
+        if(!flag){
+            el += ` onchange="fn_onchangeQntt(this)"/>`;
+        }else{
+            el += `/>`;
+        };
+
+        el += `</td><td><input type="number" id="qnttInp2_`+_idx+`"`;
+
+        if(!flag){
+            el += ` onchange="fn_onchangeQntt(this)"/>`;
+        }else{
+            el += `/>`;
+        };
+
+        el += `</td><td><input type="number" id="qnttInp3_`+_idx+`"`;
+
+        if(!flag){
+            el += ` onchange="fn_onchangeQntt(this)"/>`;
+        }else{
+            el += `/>`;
+        };
+        el += `</td><td><input readOnly/></td><td><input readOnly/></td><td><input/></td><td><input/></td></tr>`;
+
+        return el;
     }
 
 
@@ -779,9 +787,9 @@
             gfn_setComCdSBSelect("srch-mod-gdsSeCd", jsonGdsSeCd, 'SORT_GRD', gv_selectedApcCd),
             fn_search()
         ]);
-        $("#qnttInp1_0,#qnttInp1_1,#qnttInp1_2").on('focus', fn_showInvntQntt.bind(this));
-        $("#qnttInp1_0,#qnttInp1_1,#qnttInp1_2").on('blur', () => $("#invntQnttEl").remove());
-        $(".gdsInput_0").on("input",fn_remove.bind(event));
+        $("#qnttInp1_0,#qnttInp2_0,#qnttInp3_0").on('focus', fn_showInvntQntt.bind(this));
+        $("#qnttInp1_0,#qnttInp2_0,#qnttInp3_0").on('blur', () => $("#invntQnttEl").remove());
+        $('.gdsInput_0').on("input",fn_remove.bind(event));
         /** main.jsp msg push**/
         window.parent.postMessage("sideMenuOff", "*");
     });
@@ -1228,6 +1236,9 @@
         $("#reg_table > tbody").children().remove();
         $("#reg_table > tbody").append(regTableEl(0));
         mapInvntQntt.clear();
+        $("#qnttInp1_0,#qnttInp2_0,#qnttInp3_0").on('focus', fn_showInvntQntt.bind(this));
+        $("#qnttInp1_0,#qnttInp2_0,#qnttInp3_0").on('blur', () => $("#invntQnttEl").remove());
+        $('.gdsInput_0').on("input",fn_remove.bind(event));
     }
     /**
      * @name fn_onchangeCnpt
@@ -1424,15 +1435,15 @@
 
     const fn_showInvntQntt = async function (_el) { //top: 99.4062px; left: 233.5px;
         let max = _el.target.getAttribute("max");
-
         if (!gfn_isEmpty(max)) {
+            let left = JSON.parse($(_el.target).closest('tr').children(":last").find('input').attr("sortinvnt")).gdsGrd;
             let roof = $(_el.target).closest('tr').index();
             let parentTd = $(_el.target).parent();
 
 
             /** 재고 툴팁 element **/
             let invntQnttEl = `<div id="invntQnttEl"class="sbux-pop sbux-fade sbux-pop-bottom sbux-in" role="tooltip"
-                    style="display: block; top:`+(5 + (roof * 5.5))+`vh; left:48.2vw;"
+                    style="display: block; top:`+(5 + (roof * 5.5))+`vh; left:`+(41.2 + (left * 7))+`vw;"
                         onclick="fn_selectInvntQntt(`+max+`,this)">
                         <div class="sbux-pop-arrow" style="left: 50%;"></div>
                         <h3 class="sbux-pop-title" style="display: none;"></h3>
@@ -1625,7 +1636,12 @@
     const fn_selectInvnt = function(_row,_idx){
         SBUxMethod.closeModal('searchQntt');
         let originTr = $("#reg_table tbody").children().eq(_idx);
-        let rowData = JSON.parse($(_row).children(":last").val());
+        let rowData;
+        if(!gfn_isEmpty(_row)) {
+            rowData = JSON.parse($(_row).children(":last").val());
+        }else{
+            rowData = JSON.parse(originTr.children(":last").find('input').attr("sortInvnt"));
+        }
 
         originTr.children(":last").find('input').attr("sortInvnt",JSON.stringify(rowData));
 
@@ -1721,24 +1737,63 @@
             console.log(e)
         }
     }
-    /** 송품장 목록조회 **/
+    /** 송품장 목록 선택 **/
     const fn_selectSpmt = async function(_item){
-        return;
-        // let itemCd = _item.cells[4].innerText;
-        // let vrtyCd = _item.cells[5].innerText;
-        // let pckgno = _item.cells[6].innerText;
+        let spmtno =  $(_item).children().eq(2).text();
 
         try{
-            let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncInvntList.do", {
+            let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncRegList.do", {
                 apcCd : gv_apcCd,
-                itemCd : itemCd,
-                vrtyCd : vrtyCd,
-                pckgno : pckgno,
-                grdCd : '02',
+                spmtno : spmtno,
             });
             const data = await postJsonPromise;
+            data.resultList.forEach(function(item){
+                for(let key in item){
+                    if(item[key] == null){
+                        delete item[key];
+                    }
+                    if(key == 'spmtInvId'){
+                        item[key] = item[key].split(',');
+                    }
+                    if(key == "spmtIndct" && item[key].indexOf("-") != -1){
+                        item.prdcrIdentno = item[key].substring(item[key].indexOf("-")+1,item[key].length);
+                    }
+                }
+                item.invntrQntt = item.spmtQntt;
+                item.invntrWght = item.spmtWght;
+            });
+            fn_reset();
+            $("#reg_table > tbody").children().remove();
+            data.resultList.forEach(function(item,idx){
+                let grdNm = parseInt(item.spmtIndct);
+                let inputId = ".gdsInput_" + idx;
+                $("#reg_table > tbody").append(regTableEl(idx,true));
+                let gdsInput_ = ".gdsInput_" + idx;
+                $(gdsInput_).on('input', fn_remove.bind(event));
 
+                $(inputId).val(grdNm);
+                let tr = $(inputId).closest('tr');
+
+                if(item.spmtIndct.indexOf("-") != -1 ){
+                    let prdcr = item.spmtIndct;
+
+                    $(inputId).parent().next().find('input')
+                        .val(prdcr.substring(prdcr.indexOf("-")+1,prdcr.length));
+                };
+                /** 출하번호 트리거 **/
+                $(inputId).trigger('change');
+                /** save JSON 저장 **/
+                tr.children(":last").find('input').attr("sortinvnt",JSON.stringify(item));
+                fn_selectInvnt(null,idx);
+                $("#dtl-inp-spmtYmd").val(data.resultList[0].spmtYmd.replace(/(\d{4})(\d{2})(\d{2})/,"$1-$2-$3"));
+
+                SBUxMethod.closeModal("searchSpmt");
+
+
+            });
         }catch (e){
+            gfn_comAlert("E0001");
+            fn_reset();
             console.log(e);
         }
     }
@@ -1770,7 +1825,6 @@
                 let qnttIdx = parseInt(rowData.gdsGrd);
                 let spmtQntt = $(this).children().eq(qnttIdx + 3).find("input").val();
 
-                /** spmtGdsList SN 셋팅 [oderby 조건으로 순서를 보장받음] **/
                 rowData.spmtInvId.forEach(function(item,idx,arr){
                     arr[idx] = {
                         pckgno : item.substring(0,14),
