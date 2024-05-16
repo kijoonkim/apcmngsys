@@ -76,10 +76,10 @@
                 <tr>
                     <th scope="row" class="th_bg">부서</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-input id="SRCH_DEPT_CODE" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
+                        <sbux-input id="SRCH_DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
                     <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-input id="SRCH_DEPT_NAME" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
+                        <sbux-input id="SRCH_DEPT_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
                     <th scope="row" class="th_bg">직책</th>
                     <td class="td_input" style="border-right:hidden;">
@@ -101,11 +101,11 @@
                 <tr>
                     <th scope="row" class="th_bg">사번</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-input id="SRCH_EMP_CODE" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
+                        <sbux-input id="SRCH_EMP_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
                     <th scope="row" class="th_bg">이름</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-input id="SRCH_EMP_NAME" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
+                        <sbux-input id="SRCH_EMP_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
                     <th scope="row" class="th_bg">직위</th>
                     <td class="td_input" style="border-right:hidden;">
