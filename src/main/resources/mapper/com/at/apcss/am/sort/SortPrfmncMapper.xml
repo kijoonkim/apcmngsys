@@ -2701,7 +2701,7 @@
     </select>
 
 
-    
+
     <!-- ==========================================================================    -->
     <!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectExhstDsctn    -->
     <!-- DESC : 육안등급판정 조회.                                       -->
@@ -2746,14 +2746,14 @@
 		 	, MAX(GRD_TYPE_4_WGHT) AS GRD_TYPE_4_WGHT
 		 	, MAX(GRD_TYPE_5_WGHT) AS GRD_TYPE_5_WGHT
 		 	, MAX(WRHS_QNTT) AS WRHS_QNTT
-		 	, MAX(WRHS_WGHT) AS WRHS_WGHT	
+		 	, MAX(WRHS_WGHT) AS WRHS_WGHT
 		 	, SUM(GRD_WGHT_TOT) AS GRD_WGHT_TOT
 		 	, SUM(GRD_TYPE_WGHT_TOT) AS  GRD_TYPE_WGHT_TOT
-		 FROM  
-		 	( 
-		 		SELECT		
+		 FROM
+		 	(
+		 		SELECT
 		 				BWP.WRHS_YMD
-		 				, (SELECT FN_GET_PRDCR_NM(BWP.PRDCR_CD, BWP.APC_CD) FROM DUAL)AS PRDCR_NM 
+		 				, (SELECT FN_GET_PRDCR_NM(BWP.PRDCR_CD, BWP.APC_CD) FROM DUAL)AS PRDCR_NM
 		 				, BWP.ITEM_CD
 		 				, BWP.VRTY_CD
 		 				, BWP.GDS_SE_CD
@@ -2764,11 +2764,11 @@
 		 				, BWP.GRD_TYPE_2_WGHT
 		 				, BWP.GRD_TYPE_3_WGHT
 		 				, BWP.GRD_TYPE_4_WGHT
-		 				, BWP.GRD_TYPE_5_WGHT		 				
+		 				, BWP.GRD_TYPE_5_WGHT
 		 				, NVL(BWP.GRD_TYPE_1_WGHT,0) + NVL(BWP.GRD_TYPE_2_WGHT,0) + NVL(BWP.GRD_TYPE_3_WGHT,0) + NVL(BWP.GRD_TYPE_4_WGHT,0) + NVL(BWP.GRD_TYPE_5_WGHT,0) AS GRD_TYPE_WGHT_TOT
 		 				, BWP.PRDCR_CD
 		 				, Y.*
-	 			FROM TB_BFFA_WRHS_PRFMNC BWP  			
+	 			FROM TB_BFFA_WRHS_PRFMNC BWP
 	 			,(SELECT
 	 					BWS.APC_CD
 	 					, BWS.BFFA_WRHSNO
@@ -2781,7 +2781,7 @@
 	 					, CASE WHEN ASG.SN = 7 THEN BWS.GRD_QNTT ELSE 0 END AS QNTT_7
 	 					, CASE WHEN ASG.SN = 8 THEN BWS.GRD_QNTT ELSE 0 END AS QNTT_8
 	 					, CASE WHEN ASG.SN = 9 THEN BWS.GRD_QNTT ELSE 0 END AS QNTT_9
-	 					, CASE WHEN ASG.SN = 10 THEN BWS.GRD_QNTT ELSE 0 END AS QNTT_10		
+	 					, CASE WHEN ASG.SN = 10 THEN BWS.GRD_QNTT ELSE 0 END AS QNTT_10
 	 			        , CASE WHEN ASG.SN = 1 THEN BWS.GRD_WGHT ELSE 0 END AS WGHT_1
 	 			        , CASE WHEN ASG.SN = 2 THEN BWS.GRD_WGHT ELSE 0 END AS WGHT_2
 	 			        , CASE WHEN ASG.SN = 3 THEN BWS.GRD_WGHT ELSE 0 END AS WGHT_3
@@ -2793,7 +2793,7 @@
 	 			        , CASE WHEN ASG.SN = 9 THEN BWS.GRD_WGHT ELSE 0 END AS WGHT_9
 	 			        , CASE WHEN ASG.SN = 10 THEN BWS.GRD_WGHT ELSE 0 END AS WGHT_10
 	 			        , BWS.GRD_WGHT AS GRD_WGHT_TOT
-	 			
+
 	 			FROM TB_BFFA_WRHS_SORT_GRD BWS
 	 					,  TB_APC_STD_GRD_DTL ASG
 	 			WHERE 1=1
@@ -2809,9 +2809,9 @@
 		                <if test='itemCd != null and itemCd !=""'>
 		                     AND BWS.ITEM_CD = #{itemCd}
 		                </if>
-            <![CDATA[    
-						
-						
+            <![CDATA[
+
+
 					)	Y
 					WHERE 1=1
 						AND BWP.APC_CD = Y.APC_CD
@@ -2829,13 +2829,13 @@
 	                </if>
 	                <if test=' wrhsYmdFrom != null and wrhsYmdFrom !="" and wrhsYmdTo != null and wrhsYmdTo !="" '>
                	   		AND BWP.WRHS_YMD BETWEEN #{wrhsYmdFrom} AND #{wrhsYmdTo}
-				 	</if>						
+				 	</if>
 				)    X
 
-	 GROUP BY X.BFFA_WRHSNO,X.PRDCR_CD,X.WRHS_YMD	
-    
-    
-    </select>        
+	 GROUP BY X.BFFA_WRHSNO,X.PRDCR_CD,X.WRHS_YMD
+
+
+    </select>
     <!-- ========================================================================== -->
     <!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectSortBffaSpt    	-->
     <!-- DESC : 육안등급판정 조회(현장용).                                       	-->
@@ -2911,6 +2911,7 @@
 		                     , ITEM_CD
 		                 FROM TB_APC_STD_GRD_DTL X
 		                WHERE X.GRD_SE_CD = '03'
+		                  AND X.DEL_YN = 'N'
 	]]>
 
  	<if test='itemCd != null and itemCd !=""'>
@@ -2924,9 +2925,11 @@
 		             , TB_BFFA_WRHS_SORT_GRD BG
 		         WHERE BG.APC_CD = GD.APC_CD
 		           AND BG.GRD_CD = GD.GRD_CD
+		           AND BG.DEL_YN = 'N'
 		     ) GG
 		 WHERE BP.APC_CD = GG.APC_CD
 		   AND BP.BFFA_WRHSNO = GG.BFFA_WRHSNO
+		   AND BP.DEL_YN = 'N'
 	]]>
 	<if test='itemCd != null and itemCd !=""'>
 		   AND BP.ITEM_CD = #{itemCd}
@@ -2981,7 +2984,7 @@
 	    			 , SYS_LAST_CHG_USER_ID
 	    			 , SYS_LAST_CHG_PRGRM_ID
 	    			)
-	    		VALUSE
+	    		VALUES
 	    			(
 	    			   #{apcCd}
 	    			 , #{bffaWrhsno}
