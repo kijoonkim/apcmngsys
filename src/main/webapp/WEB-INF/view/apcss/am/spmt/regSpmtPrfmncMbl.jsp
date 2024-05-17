@@ -689,7 +689,7 @@
             dlg-class="sbuxClass">
 </sbux-modal>
 <sbux-modal id="searchSpmt" name="searchSpmt" uitype="large" header-title="송품장목록조회"
-            dlg-class="sbuxClass">
+            dlg-class="sbuxClass" body-html-id="modalBody">
 </sbux-modal>
 </body>
 <script type="text/javascript">
@@ -1694,8 +1694,13 @@
     }
 
     const fn_selectSpmtList = async function(){
-        try{
-            let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncComList.do",{apcCd:gv_apcCd});
+        try {
+
+
+            let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncComList.do",
+                {
+                    apcCd: gv_apcCd
+                });
             const data = await postJsonPromise;
             data.resultList.forEach(function (item) {
                 for (let key in item) {
@@ -1705,7 +1710,21 @@
                 }
             });
             let spmtEl =
-                `<table id="spmtTable" style="width: 100%">
+                `<table id="spmtTableHead" class="table table-bordered tbl_fixed">
+                    <tbody>
+                        <tr>
+                            <th scope="row" class="th_bg" style="width: 5vw"><span class="data_required"></span>출하일자</th>
+                            <td class="td_input" style="border-right: hidden;width: 11vw">
+                                <sbux-datepicker id="srch-dtp-spmtYmdFrom" name="srch-dtp-spmtYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"></sbux-datepicker>
+                            </td>
+                            <td class="td_input" style="display:flex;border-left:hidden;">
+                                <sbux-datepicker id="srch-dtp-spmtYmdTo" name="srch-dtp-spmtYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc""></sbux-datepicker>
+                                <sbux-button wrap-style="margin-left:1vw;padding:0;"id="btnTotalSearch" name="btnTotalSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchSpmtList"></sbux-button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table id="spmtTable" style="width: 100%">
                     <colgroup>
                         <col style="width: 35%">
                         <col style="width: 25%">
@@ -1719,21 +1738,29 @@
                             <th>거래처</th>
                         </tr>
                         <tbody>`;
-            data.resultList.forEach(function(item){
+            data.resultList.forEach(function (item) {
                 spmtEl += ` <tr onclick="fn_selectSpmt(this)">
-                            <td>`+item.spmtYmd.replace(/(\d{4})(\d{2})(\d{2})/,"$1-$2-$3")+`</td>
-                            <td>`+parseInt(item.spmtno.substring(item.spmtno.length-4,item.spmtno.length))+`</td>
-                            <td style="display:none">`+item.spmtno+`</td>`;
-                if(gfn_isEmpty(item.dldtn)) {
+                            <td>` + item.spmtYmd.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3") + `</td>
+                            <td>` + parseInt(item.spmtno.substring(item.spmtno.length - 4, item.spmtno.length)) + `</td>
+                            <td style="display:none">` + item.spmtno + `</td>`;
+                if (gfn_isEmpty(item.dldtn)) {
                     spmtEl += `<td>기타</td></tr>`;
-                }else{
-                    spmtEl += `<td>`+item.dldtn.split(" ")[0]+`</td></tr>`;
-                };
+                } else {
+                    spmtEl += `<td>` + item.dldtn.split(" ")[0] + `</td></tr>`;
+                }
+                ;
             });
-            spmtEl +=`</tbody></table>`;
-            SBUxMethod.setModalBody("searchSpmt",spmtEl);
+            spmtEl += `</tbody></table>`;
+
+            SBUxMethod.setModalBody("searchSpmt", spmtEl);
+            SBUxMethod.refresh("srch-dtp-spmtYmdFrom");
+            SBUxMethod.refresh("srch-dtp-spmtYmdTo");
             SBUxMethod.openModal("searchSpmt");
-        }catch (e){
+
+
+             SBUxMethod.set("srch-dtp-spmtYmdFrom",gfn_dateToYmd(new Date()));
+             SBUxMethod.set("srch-dtp-spmtYmdTo",gfn_dateToYmd(new Date()));
+        } catch (e) {
             console.log(e)
         }
     }
@@ -1800,6 +1827,7 @@
     const fn_save = async function(){
         let cnptCd = SBUxMethod.get("dtl-dtp-cnpt");
         let spmtYmd = $("#dtl-inp-spmtYmd").val().toLocaleString().replaceAll("-","");
+        let spmtNo = $("#spntNo").text();
         if(gfn_isEmpty(cnptCd)){
             gfn_comAlert("W0001","거래처");
             return;
@@ -1869,15 +1897,28 @@
         saveJson.spmtPrfmncList = result;
 
         try{
-            let postJsonPromise = gfn_postJSON("/am/spmt/insertSpmtPrfmncByPckgList.do",saveJson);
-            let data = await postJsonPromise;
-            if (data.resultStatus == "S") {
-                gfn_comAlert("I0001");
-                fn_reset();
-            }else if(data.resultStatus == "E"){
-                gfn_comAlert(data.resultCode,data.resultMessage);
-                return;
+            if(gfn_isEmpty(spmtNo)){
+                let postJsonPromise = gfn_postJSON("/am/spmt/insertSpmtPrfmncByPckgList.do",saveJson);
+                let data = await postJsonPromise;
+                if (data.resultStatus == "S") {
+                    gfn_comAlert("I0001");
+                    fn_reset();
+                }else if(data.resultStatus == "E"){
+                    gfn_comAlert(data.resultCode,data.resultMessage);
+                    return;
+                }
+            }else{
+                let postJsonPromise = gfn_postJSON("/am/spmt/updateSpmtPrfmncByPckgList.do",saveJson);
+                let data = await postJsonPromise;
+                if (data.resultStatus == "S") {
+                    gfn_comAlert("I0001");
+                    fn_reset();
+                }else if(data.resultStatus == "E"){
+                    gfn_comAlert(data.resultCode,data.resultMessage);
+                    return;
+                }
             }
+
         }catch (e){
             console.log(e);
         }
@@ -1889,6 +1930,62 @@
         if(inputWord == "."){
             $(_event.currentTarget).val("");
             fn_onChangesortGds(_event.currentTarget);
+        }
+    }
+
+    const fn_searchSpmtList = async function() {
+        try {
+            let spmtYmdFrom = SBUxMethod.get("srch-dtp-spmtYmdFrom");
+            let spmtYmdTo = SBUxMethod.get("srch-dtp-spmtYmdTo");
+
+            let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncComList.do",
+                {
+                    apcCd: gv_apcCd
+                    , spmtYmdFrom: spmtYmdFrom
+                    , spmtYmdTo: spmtYmdTo
+                });
+            const data = await postJsonPromise;
+            data.resultList.forEach(function (item) {
+                for (let key in item) {
+                    if (item[key] == null) {
+                        delete item[key];
+                    }
+                }
+            });
+            $("#spmtTable").remove();
+            let searchList = `<table id="spmtTable" style="width: 100%">
+                <colgroup>
+                    <col style="width: 35%">
+                        <col style="width: 25%">
+                            <col style="width: 40%">
+
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>출하일자</th>
+                    <th>순번</th>
+                    <th>거래처</th>
+                </tr>
+                <tbody>`;
+            if(data.resultList.length == 0){
+                searchList += `<tr><td colspan="4" style="font-size :1vw;padding :10px;">출하내역이 없습니다.</td></tr>`
+            }else{
+                data.resultList.forEach(function (item) {
+                    searchList += ` <tr onclick="fn_selectSpmt(this)">
+                                <td>` + item.spmtYmd.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3") + `</td>
+                                <td>` + parseInt(item.spmtno.substring(item.spmtno.length - 4, item.spmtno.length)) + `</td>
+                                <td style="display:none">` + item.spmtno + `</td>`;
+                    if (gfn_isEmpty(item.dldtn)) {
+                        searchList += `<td>기타</td></tr>`;
+                    } else {
+                        searchList += `<td>` + item.dldtn.split(" ")[0] + `</td></tr>`;
+                    };
+                });
+            }
+            searchList += `</tbody></table>`;
+            $("#spmtTableHead").parent().append(searchList);
+        } catch (e) {
+            console.log(e)
         }
     }
 
