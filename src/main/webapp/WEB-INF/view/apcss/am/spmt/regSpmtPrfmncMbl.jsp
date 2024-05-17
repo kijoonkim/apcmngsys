@@ -23,6 +23,7 @@
     <title>title : 출하실적등록 모바일</title>
     <%@ include file="../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../frame/inc/headerScript.jsp" %>
+    <%@ include file="../../../frame/inc/clipreport.jsp" %>
     <style>
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button{
@@ -252,15 +253,23 @@
 <body oncontextmenu="return false">
 <section style="overflow: hidden">
     <div class="box box-solid">
-        <div class="box-header" style="display:flex; justify-content: flex-start; padding-bottom: 0px" >
+        <div class="box-header" style="display:flex; justify-content: flex-start;" >
                 <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 출하실적등록 모바일 -->
         </div>
-        <div style="margin-left: auto;padding-top: 0px" class="box-header">
-            <sbux-button id="btnDocSpmt" name="btnDocSpmt" uitype="normal"   text="송품장목록" class="btn btn-sm btn-primary btn-mbl" onclick="fn_selectSpmtList"></sbux-button>
-            <sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-mbl btn-outline-danger" onclick="fn_reset"></sbux-button>
-            <sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-mbl btn-outline-danger" onclick="fn_save"></sbux-button>
-            <sbux-button id="btnClose" name="btnClose" uitype="normal" text="종료" class="btn btn-mbl btn-outline-danger" onclick="fn_popup()"></sbux-button>
+        <div style="margin-left: auto;padding-top: 0px;display: flex;justify-content: flex-start;" class="box-header">
+            <div style="margin-right: auto;">
+                <sbux-button id="btnDocSpmt" name="btnDocSpmt" uitype="normal"   text="송품장목록" class="btn btn-sm btn-primary btn-mbl" onclick="fn_selectSpmtList"></sbux-button>
+                <sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-mbl btn-outline-danger" onclick="fn_reset"></sbux-button>
+                <sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-mbl btn-outline-danger" onclick="fn_save"></sbux-button>
+                <sbux-button id="btnClose" name="btnClose" uitype="normal" text="종료" class="btn btn-mbl btn-outline-danger" onclick="fn_popup()"></sbux-button>
+                <div style="float:right;margin-left:10px;">
+                    <p class="ad_input_row chk-mbl" style="vertical-align:middle;">
+                        <input style="width:20px;height:20px;" type="checkbox" id="srch-chk-autoPrint" name="srch-chk-autoPrint" checked="">
+                        <label for="srch-chk-autoPrint">자동출력</label>
+                    </p>
+                </div>
+            </div>
         </div>
         <div class="box-body">
             <div style="display: flex;flex-direction: column;">
@@ -272,7 +281,7 @@
                         </svg>
                     </button>
                     <input id="dtl-inp-spmtYmd" class="inp-style" type="date" required/>
-                    <div class="sp-style" ></div>
+                    <div class="sp-style" id="spmtNo" style="font-size:3vh; line-height: 2.5; padding-top: 10px"></div>
                 </div>
                 <div id="_dtl-dtp-spmtYmd" style="display: none;" class="row-style">
                     <div class="ma-bt row-style">
@@ -422,7 +431,6 @@
 <%--                </div>--%>
             </div>
             <hr>
-            <div style="display: none" id="spmtno" ></div>
             <div style="height: 55vh;position: relative">
                 <table id="reg_table_head">
                     <colgroup>
@@ -691,6 +699,7 @@
 <sbux-modal id="searchSpmt" name="searchSpmt" uitype="large" header-title="송품장목록조회"
             dlg-class="sbuxClass" body-html-id="modalBody">
 </sbux-modal>
+<div id="div-rpt-clipReportPrint" style="display:none;"></div>
 </body>
 <script type="text/javascript">
     /** 품목 json **/
@@ -718,8 +727,9 @@
     /** 최종 저장용 JSON **/
     let saveRegSpmtJson = [];
     /** 등록 테이블 EL **/
-    let regTableEl = function(_idx,flag = false){
-        let el =`<tr>
+    let regTableEl = function(_idx){
+        let el =`
+    <tr>
         <td>
             <div style="display: flex">
                 <div style="flex: 2; font-family: 'Font Awesome 5 Free';margin-right: 10px;position: relative">
@@ -747,30 +757,27 @@
             </div>
         </td>
         <td>
-            <input type="number" id="qnttInp1_`+_idx+`"`;
-        if(!flag){
-            el += ` onchange="fn_onchangeQntt(this)"/>`;
-        }else{
-            el += `/>`;
-        };
-
-        el += `</td><td><input type="number" id="qnttInp2_`+_idx+`"`;
-
-        if(!flag){
-            el += ` onchange="fn_onchangeQntt(this)"/>`;
-        }else{
-            el += `/>`;
-        };
-
-        el += `</td><td><input type="number" id="qnttInp3_`+_idx+`"`;
-
-        if(!flag){
-            el += ` onchange="fn_onchangeQntt(this)"/>`;
-        }else{
-            el += `/>`;
-        };
-        el += `</td><td><input readOnly/></td><td><input readOnly/></td><td><input/></td><td><input/></td></tr>`;
-
+            <input type="number" id="qnttInp1_`+_idx+`" onchange="fn_onchangeQntt(this)"/>
+        </td>
+        <td>
+            <input type="number" id="qnttInp2_`+_idx+`" onchange="fn_onchangeQntt(this)"/>
+        </td>
+        <td>
+            <input type="number" id="qnttInp3_`+_idx+`" onchange="fn_onchangeQntt(this)"/>
+        </td>
+        <td>
+            <input readOnly/>
+        </td>
+        <td>
+            <input readOnly/>
+        </td>
+        <td>
+            <input/>
+        </td>
+        <td>
+            <input/>
+        </td>
+    </tr>`;
         return el;
     }
 
@@ -1233,8 +1240,10 @@
      */
     const fn_reset = function () {
         SBUxMethod.set("dtl-dtp-cnpt", "");
+        $("#dtl-inp-spmtYmd").val(gfn_dateToYmd(new Date(), '-'));
         $("#reg_table > tbody").children().remove();
         $("#reg_table > tbody").append(regTableEl(0));
+        $("#spmtNo").text('');
         mapInvntQntt.clear();
         $("#qnttInp1_0,#qnttInp2_0,#qnttInp3_0").on('focus', fn_showInvntQntt.bind(this));
         $("#qnttInp1_0,#qnttInp2_0,#qnttInp3_0").on('blur', () => $("#invntQnttEl").remove());
@@ -1436,7 +1445,7 @@
     const fn_showInvntQntt = async function (_el) { //top: 99.4062px; left: 233.5px;
         let max = _el.target.getAttribute("max");
         if (!gfn_isEmpty(max)) {
-            let left = JSON.parse($(_el.target).closest('tr').children(":last").find('input').attr("sortinvnt")).gdsGrd;
+            let left = JSON.parse($(_el.target).closest('tr').children(":last").find('input').attr("sortInvnt")).gdsGrd;
             let roof = $(_el.target).closest('tr').index();
             let parentTd = $(_el.target).parent();
 
@@ -1695,8 +1704,6 @@
 
     const fn_selectSpmtList = async function(){
         try {
-
-
             let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncComList.do",
                 {
                     apcCd: gv_apcCd
@@ -1794,13 +1801,13 @@
             data.resultList.forEach(function(item,idx){
                 let grdNm = parseInt(item.spmtIndct);
                 let inputId = ".gdsInput_" + idx;
-                $("#reg_table > tbody").append(regTableEl(idx,true));
-                let gdsInput_ = ".gdsInput_" + idx;
-                $(gdsInput_).on('input', fn_remove.bind(event));
+                $("#reg_table > tbody").append(regTableEl(idx));
+                let tr = $("#reg_table tbody").children().eq(idx);
 
-                $(inputId).val(grdNm);
-                let tr = $(inputId).closest('tr');
+                tr.children().eq(0).find('input').eq(0).on('input', fn_remove.bind(event));
+                tr.children().eq(0).find('input').eq(0).val(grdNm);
 
+                /** 생산자 정보 입력 **/
                 if(item.spmtIndct.indexOf("-") != -1 ){
                     let prdcr = item.spmtIndct;
 
@@ -1809,14 +1816,25 @@
                 };
                 /** 출하번호 트리거 **/
                 $(inputId).trigger('change');
+
+
                 /** save JSON 저장 **/
-                tr.children(":last").find('input').attr("sortinvnt",JSON.stringify(item));
+                tr.children(":last").find('input').attr("sortInvnt",JSON.stringify(item));
                 fn_selectInvnt(null,idx);
+
+                /** 외부 메인 설정 입력 **/
                 $("#dtl-inp-spmtYmd").val(data.resultList[0].spmtYmd.replace(/(\d{4})(\d{2})(\d{2})/,"$1-$2-$3"));
+                $("#spmtNo").text(data.resultList[0].spmtno);
 
                 SBUxMethod.closeModal("searchSpmt");
-
-
+                SBUxMethod.set("dtl-dtp-cnpt",data.resultList[0].cnptCd);
+            });
+            /** max 삭제 추후 리팩토링 필요함 **/
+            data.resultList.forEach(function(item,idx){
+                let tr = $("#reg_table tbody").children().eq(idx);
+                tr.children().eq(4).find('input').removeAttr('max');
+                tr.children().eq(5).find('input').removeAttr('max');
+                tr.children().eq(6).find('input').removeAttr('max');
             });
         }catch (e){
             gfn_comAlert("E0001");
@@ -1827,7 +1845,7 @@
     const fn_save = async function(){
         let cnptCd = SBUxMethod.get("dtl-dtp-cnpt");
         let spmtYmd = $("#dtl-inp-spmtYmd").val().toLocaleString().replaceAll("-","");
-        let spmtNo = $("#spntNo").text();
+        let spmtNo = $("#spmtNo").text();
         if(gfn_isEmpty(cnptCd)){
             gfn_comAlert("W0001","거래처");
             return;
@@ -1847,7 +1865,7 @@
             };
 
         rows.each(function() {
-            let rowData = $(this).children(":last").find('input').attr("sortinvnt");
+            let rowData = $(this).children(":last").find('input').attr("sortInvnt");
             if(!gfn_isEmpty(rowData)){
                 rowData = JSON.parse(rowData);
                 let qnttIdx = parseInt(rowData.gdsGrd);
@@ -1896,11 +1914,14 @@
         }, []);
         saveJson.spmtPrfmncList = result;
 
+        let returnSpmtNo = "";
+
         try{
             if(gfn_isEmpty(spmtNo)){
                 let postJsonPromise = gfn_postJSON("/am/spmt/insertSpmtPrfmncByPckgList.do",saveJson);
                 let data = await postJsonPromise;
                 if (data.resultStatus == "S") {
+                    returnSpmtNo = data.resultMap.spmtno;
                     gfn_comAlert("I0001");
                     fn_reset();
                 }else if(data.resultStatus == "E"){
@@ -1908,15 +1929,23 @@
                     return;
                 }
             }else{
+                saveJson.spmtno = spmtNo;
                 let postJsonPromise = gfn_postJSON("/am/spmt/updateSpmtPrfmncByPckgList.do",saveJson);
                 let data = await postJsonPromise;
                 if (data.resultStatus == "S") {
+                    returnSpmtNo = data.resultMap.spmtno;
                     gfn_comAlert("I0001");
                     fn_reset();
                 }else if(data.resultStatus == "E"){
                     gfn_comAlert(data.resultCode,data.resultMessage);
                     return;
                 }
+            }
+            const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'DT_DOC');
+            if(document.querySelector('#srch-chk-autoPrint').checked){
+                gfn_DirectPrintClipReport(rptUrl, {apcCd: gv_selectedApcCd, spmtno: returnSpmtNo,element : 'div-rpt-clipReportPrint'});
+            }else{
+                gfn_popClipReport("송품장",rptUrl,{apcCd: gv_selectedApcCd, spmtno: returnSpmtNo});
             }
 
         }catch (e){
@@ -1987,6 +2016,31 @@
         } catch (e) {
             console.log(e)
         }
+    }
+    /**
+     * @name fn_docSpmt
+     * @description 송품장 발행 버튼
+     */
+    const fn_docSpmt = async function() {
+
+        const spmtnoList = [];
+        const allData = grdSpmtPrfmnc.getGridDataAll();
+
+        const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'DT_DOC');
+
+        allData.forEach((item, index) => {
+            if (item.checkedYn === "Y") {
+                spmtnoList.push(item.spmtno);
+            }
+        });
+
+        if (spmtnoList.length === 0) {
+            gfn_comAlert("W0001", "발행대상");		//	W0001	{0}을/를 선택하세요.
+            return;
+        }
+
+        const spmtno = spmtnoList.join("','");
+        gfn_popClipReport("송품장", rptUrl, {apcCd: gv_selectedApcCd, spmtno: spmtno});
     }
 
 

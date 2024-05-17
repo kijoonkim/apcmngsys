@@ -1213,7 +1213,7 @@
 		<if test='spmtYmdTo != null and spmtYmdTo != ""'>
 			AND PC.SPMT_YMD <![CDATA[<=]]> #{spmtYmdTo}
 		</if>
-		ORDER BY SPMT_YMD DESC
+		ORDER BY SPMT_YMD DESC, SPMTNO ASC;
 	</select>
 	<select id="selectSpmtPrfmncRegList" parameterType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO" resultType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO">
 		<![CDATA[
