@@ -516,6 +516,9 @@
         let result = await Promise.all([
             gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd)			// 품종
         ]);
+        if(jsonApcVrty.length === 1){
+            SBUxMethod.set("srch-slt-vrtyCd", jsonApcVrty[0].itemVrtyCd);
+        }
         fn_createTabelHeader();
     }
 
