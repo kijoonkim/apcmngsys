@@ -1012,6 +1012,10 @@
         fn_createTabelHeader();
     }
 
+    const fn_close = function(){
+        parent.gfn_tabClose("TAB_AM_003_013");
+    }
+
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
