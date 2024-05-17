@@ -1239,7 +1239,8 @@
      * @description 초기화 버튼
      */
     const fn_reset = function () {
-        SBUxMethod.set("dtl-dtp-cnpt", "");
+        $("#btnSave").find('span').text("저장");
+
         $("#dtl-inp-spmtYmd").val(gfn_dateToYmd(new Date(), '-'));
         $("#reg_table > tbody").children().remove();
         $("#reg_table > tbody").append(regTableEl(0));
@@ -1248,6 +1249,7 @@
         $("#qnttInp1_0,#qnttInp2_0,#qnttInp3_0").on('focus', fn_showInvntQntt.bind(this));
         $("#qnttInp1_0,#qnttInp2_0,#qnttInp3_0").on('blur', () => $("#invntQnttEl").remove());
         $('.gdsInput_0').on("input",fn_remove.bind(event));
+        SBUxMethod.set("btnSave","저장");
     }
     /**
      * @name fn_onchangeCnpt
@@ -1797,6 +1799,8 @@
                 item.invntrWght = item.spmtWght;
             });
             fn_reset();
+            $("#btnSave").find('span').text("수정");
+
             $("#reg_table > tbody").children().remove();
             data.resultList.forEach(function(item,idx){
                 let grdNm = parseInt(item.spmtIndct);
@@ -1846,6 +1850,11 @@
         let cnptCd = SBUxMethod.get("dtl-dtp-cnpt");
         let spmtYmd = $("#dtl-inp-spmtYmd").val().toLocaleString().replaceAll("-","");
         let spmtNo = $("#spmtNo").text();
+        let msg = $("#btnSave").find('span').text();
+
+        if(!gfn_comConfirm("Q0001",msg)){
+            return;
+        }
         if(gfn_isEmpty(cnptCd)){
             gfn_comAlert("W0001","거래처");
             return;
