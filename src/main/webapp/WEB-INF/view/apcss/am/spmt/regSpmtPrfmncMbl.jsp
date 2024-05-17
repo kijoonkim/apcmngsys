@@ -1249,7 +1249,6 @@
         $("#qnttInp1_0,#qnttInp2_0,#qnttInp3_0").on('focus', fn_showInvntQntt.bind(this));
         $("#qnttInp1_0,#qnttInp2_0,#qnttInp3_0").on('blur', () => $("#invntQnttEl").remove());
         $('.gdsInput_0').on("input",fn_remove.bind(event));
-        SBUxMethod.set("btnSave","저장");
     }
     /**
      * @name fn_onchangeCnpt
