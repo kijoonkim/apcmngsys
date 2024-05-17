@@ -305,9 +305,12 @@
 	</delete>
 
 	<select id="selectFrmerSnList" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoVO" resultType="com.at.apcss.fm.farm.vo.FarmerEducationInfoVO">
+	<![CDATA[
 		SELECT /* com.at.apcss.fm.farm.mapper.FarmerEducationInfoMapper.selectFrmerSnList */
 			FRMERNO
 		FROM TB_AX_FRMER_INFO
+		WHERE 1=1
+	]]>
 		<if test='frmerno != null and frmerno != ""'>
 			AND FRMERNO = #{frmerno}
 		</if>
