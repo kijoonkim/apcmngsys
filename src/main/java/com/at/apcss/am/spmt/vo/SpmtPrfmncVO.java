@@ -298,6 +298,11 @@ public class SpmtPrfmncVO extends ComVO {
 	 * 팔레트불출여부
 	 * */
 	private String blwInvntrAprv;
+	/*
+	 * 출하번호 + 생산자번호
+	 * */
+	private String spmtIndct;
+	private String spmtInvId;
 
 	private List<SpmtGdsVO> spmtGdsList;
 

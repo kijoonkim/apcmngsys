@@ -33,10 +33,38 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 메뉴관리 -->
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnCreate" name="btnCreate" uitype="normal"  text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
-					<sbux-button id="btnSave" name="btnSave" uitype="normal"  text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
-					<sbux-button id="btnDelete" name="btnDelete" uitype="normal"  text="삭제"  class="btn btn-sm btn-outline-danger"onclick="fn_delete"></sbux-button>
-					<sbux-button id="btnSearch" name="btnSearch" uitype="normal"  text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
+					<sbux-button 
+						id="btnCreate" 
+						name="btnCreate" 
+						uitype="normal"  
+						text="신규" 
+						class="btn btn-sm btn-outline-danger" 
+						onclick="fn_create"
+					></sbux-button>
+					<sbux-button 
+						id="btnSave" 
+						name="btnSave" 
+						uitype="normal"  
+						text="저장" 
+						class="btn btn-sm btn-outline-danger" 
+						onclick="fn_save"
+					></sbux-button>
+					<sbux-button 
+						id="btnDelete" 
+						name="btnDelete" 
+						uitype="normal"  
+						text="삭제"  
+						class="btn btn-sm btn-outline-danger"
+						onclick="fn_delete"
+					></sbux-button>
+					<sbux-button 
+						id="btnSearch" 
+						name="btnSearch" 
+						uitype="normal"  
+						text="조회" 
+						class="btn btn-sm btn-outline-danger" 
+						onclick="fn_search"
+					></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -168,6 +196,24 @@
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
 
+	/**
+	 * 공통버튼 연계처리
+	 */
+	async function cfn_init() {
+		
+	}
+	async function cfn_add() {
+		fn_create();
+	}
+	async function cfn_del() {
+		await fn_delete();
+	}
+	async function cfn_save() {
+		await fn_save();
+	}
+	async function cfn_search() {
+		await fn_search();
+	}
 
     var grid; // 그리드를 담기위한 객체 선언
     var gridData = []; // 그리드의 참조 데이터 주소 선언

@@ -79,6 +79,16 @@ public class LoginVO implements Serializable{
 	
 	private String refreshToken;
 
+	private String clntCd;
+	private String corpCd;
+	private String userCtrgy;
+	private String empCd;
+	private String deptCd;
+	private String hrmMngrYn;
+	private String hrmEvlRole;
+	private String hrmPayMngrYn;
+	private String acntgMngrYn;
+	
 	public String getBrno() {
 		return brno;
 	}
@@ -401,6 +411,60 @@ public class LoginVO implements Serializable{
 	}
 	public void setRefreshToken(String refreshToken) {
 		this.refreshToken = refreshToken;
+	}
+	public String getClntCd() {
+		return clntCd;
+	}
+	public void setClntCd(String clntCd) {
+		this.clntCd = clntCd;
+	}
+	public String getCorpCd() {
+		return corpCd;
+	}
+	public void setCorpCd(String corpCd) {
+		this.corpCd = corpCd;
+	}
+	public String getUserCtrgy() {
+		return userCtrgy;
+	}
+	public void setUserCtrgy(String userCtrgy) {
+		this.userCtrgy = userCtrgy;
+	}
+	public String getEmpCd() {
+		return empCd;
+	}
+	public void setEmpCd(String empCd) {
+		this.empCd = empCd;
+	}
+	public String getDeptCd() {
+		return deptCd;
+	}
+	public void setDeptCd(String deptCd) {
+		this.deptCd = deptCd;
+	}
+	public String getHrmMngrYn() {
+		return hrmMngrYn;
+	}
+	public void setHrmMngrYn(String hrmMngrYn) {
+		this.hrmMngrYn = hrmMngrYn;
+	}
+	public String getHrmEvlRole() {
+		return hrmEvlRole;
+	}
+	public void setHrmEvlRole(String hrmEvlRole) {
+		this.hrmEvlRole = hrmEvlRole;
+	}
+	public String getHrmPayMngrYn() {
+		return hrmPayMngrYn;
+	}
+	public void setHrmPayMngrYn(String hrmPayMngrYn) {
+		this.hrmPayMngrYn = hrmPayMngrYn;
+	}
+	public String getAcntgMngrYn() {
+		return acntgMngrYn;
+	}
+	public void setAcntgMngrYn(String acntgMngrYn) {
+		this.acntgMngrYn = acntgMngrYn;
 	}
 
 }
