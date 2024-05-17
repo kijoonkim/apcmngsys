@@ -666,20 +666,13 @@
 		            ></sbux-breadcrumb>
         		</div>
         		<div class="col-sm-6">
-        			
-					<c:choose>
-						<c:when test="${serverType eq 'prd'}">
-						</c:when>
-						<c:otherwise>
-							<div style="position: relative; text-align: right; margin: 3px;">
-								<button id="main-btn-init" class="button button-blue" onclick="mfn_init()">초기화 🔃</button>
-		        				<button id="main-btn-add" class="button button-blue" onclick="mfn_add()">신규 ➕</button>
-		        				<button id="main-btn-save" class="button button-red" onclick="mfn_save()">저장 💾</button>
-		        				<button id="main-btn-del" class="button button-black" onclick="mfn_del()">삭제 🗑️</button>
-		        				<button id="main-btn-search" class="button button-green" onclick="mfn_search()">조회 🔍</button>
-		        			</div>
-						</c:otherwise>
-					</c:choose>
+					<div style="position: relative; text-align: right; margin: 3px;">
+						<button id="main-btn-init" class="button button-blue" style="display:none" onclick="mfn_init()">초기화 🔃</button>
+        				<button id="main-btn-add" class="button button-blue" style="display:none" onclick="mfn_add()">신규 ➕</button>
+        				<button id="main-btn-save" class="button button-red" style="display:none" onclick="mfn_save()">저장 💾</button>
+        				<button id="main-btn-del" class="button button-black" style="display:none" onclick="mfn_del()">삭제 🗑️</button>
+        				<button id="main-btn-search" class="button button-green" style="display:none" onclick="mfn_search()">조회 🔍</button>
+        			</div>
         		</div>
         	</div>
 

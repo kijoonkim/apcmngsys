@@ -19,7 +19,7 @@
 					</p>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnWrhsVhclSech" name="btnWrhsVhclSech" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
+					<sbux-button id="btnWrhsVhclSech" name="btnWrhsVhclSech" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchWrhsVhcl"></sbux-button>
 					<sbux-button id="btnWrhsVhclReg" name="btnWrhsVhclReg" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_insertWrhsVhclList()"></sbux-button>
 					<sbux-button id="btnWrhsVhclEnd" name="btnWrhsVhclEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-wrhsVhcl')"></sbux-button>
 				</div>
@@ -226,7 +226,7 @@
     }
 
 	// 출하지시 목록 조회 (조회 버튼)
-    async function fn_search() {
+    async function fn_searchWrhsVhcl() {
     	fn_callSelectRgnTrsprtCstList();
     	fn_callSelectWrhsVhclList();
     }
@@ -331,7 +331,7 @@
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-        		fn_search();
+        		fn_searchWrhsVhcl();
         	} else {
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
