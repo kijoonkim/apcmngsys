@@ -748,7 +748,7 @@
 		await fn_save();
 	}
 	async function cfn_search() {
-		await fn_search();		
+		await fn_searchApcEvmntStng();		
 	}
 
 	var comboUesYnJsData = [];
@@ -814,7 +814,7 @@
 		fn_initSBSelect();
 	})
 
-	const fn_search = async function() {
+	const fn_searchApcEvmntStng = async function() {
 		await fn_initSBSelect();
 	}
 	
