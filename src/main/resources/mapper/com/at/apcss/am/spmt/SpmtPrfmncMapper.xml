@@ -1203,11 +1203,17 @@
 	<select id="selectSpmtPrfmncComList" parameterType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO" resultType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO">
 		<![CDATA[
 			SELECT *
-			FROM TB_SPMT_PRFMNC_COM
-			WHERE APC_CD = #{apcCd}
-			AND DEL_YN = 'N'
-			ORDER BY SPMT_YMD DESC
+			FROM TB_SPMT_PRFMNC_COM AS PC
+			WHERE PC.APC_CD = #{apcCd}
+			AND PC.DEL_YN = 'N'
 		]]>
+		<if test='spmtYmdFrom != null and spmtYmdFrom != ""'>
+		    AND PC.SPMT_YMD <![CDATA[>=]]> #{spmtYmdFrom}
+		</if>
+		<if test='spmtYmdTo != null and spmtYmdTo != ""'>
+			AND PC.SPMT_YMD <![CDATA[<=]]> #{spmtYmdTo}
+		</if>
+		ORDER BY SPMT_YMD DESC, SPMTNO ASC;
 	</select>
 	<select id="selectSpmtPrfmncRegList" parameterType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO" resultType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO">
 		<![CDATA[
