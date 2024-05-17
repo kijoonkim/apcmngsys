@@ -40,9 +40,9 @@
                              class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
                 <sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger"
                              onclick="fn_save"></sbux-button>
-                <!--
+
                 <sbux-button id="btnDelete" name="btnDelete" 	uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
-                 -->
+
                 <sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회"
                              class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
             </div>
@@ -134,8 +134,16 @@
                         <tr>
                             <th scope="row" class="th_bg">소수자리수</th>
                             <td colspan="3" class="td_input">
-                                <sbux-input id="DECIMAL_LENGTH" class="form-control input-sm" uitype="text" required
-                                            style="width:70%"></sbux-input>
+                                <sbux-input
+                                        id="DECIMAL_LENGTH"
+                                        name="DECIMAL_LENGTH"
+                                        uitype="text"
+                                        class="form-control input-sm"
+                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"
+                                        maxlength="10"
+                                        style="width:70%"
+                                        <%--onkeyup="fn_calculate"--%>
+                                ></sbux-input>
                             </td>
                         </tr>
                         <tr>
@@ -201,11 +209,10 @@
         let DECIMAL_NAME = gfnma_nvl(SBUxMethod.get("search_decimal_name"));
 
         var paramObj = {
-            V_P_WORK_TYPE: 'Q'
-            , V_P_DEBUG_MODE_YN: 'N'
+             V_P_DEBUG_MODE_YN: 'N'
             , V_P_LANG_ID: 'KOR'
             , V_P_COMP_CODE: '1000'
-            , V_P_CLIENT_CODE: ''
+            , V_P_CLIENT_CODE: '100'
             , V_P_DECIMAL_ID: DECIMAL_ID
             , V_P_DECIMAL_NAME: DECIMAL_NAME
             , V_P_FORM_ID: p_formId
@@ -215,15 +222,15 @@
             , V_P_PC: ''
         };
 
+
         const postJsonPromise = gfn_postJSON("/co/sys/sys/selectSys3100List.do", {
             getType: 'json',
-            workType: 'LIST',
+            workType: 'Q',
             cv_count: '1',
             params: gfnma_objectToString(paramObj)
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -247,6 +254,20 @@
                 gvwInfoGrid.rebuild();
                 document.querySelector('#listCount').innerText = totalRecordCount;
 
+                //그리드 첫번째 정보 테이블에 셋팅
+                var nRow = gvwInfoGrid.getRow();
+                if (nRow < 1) {
+                    nRow = 1;
+                }
+                let rowData = gvwInfoGrid.getRowData(nRow);
+
+                SBUxMethod.set("DECIMAL_ID", rowData.DECIMAL_ID);
+                SBUxMethod.set("DECIMAL_NAME", rowData.DECIMAL_NAME);
+                SBUxMethod.set("DECIMAL_LENGTH", rowData.DECIMAL_LENGTH);
+                SBUxMethod.set("DESCR", rowData.DESCR);
+                SBUxMethod.set("USE_YN", rowData.USE_YN);
+
+
             } else {
                 alert(data.resultMessage);
             }
@@ -255,7 +276,6 @@
             if (!(e instanceof Error)) {
                 e = new Error(e);
             }
-            console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 
@@ -345,7 +365,6 @@
         SBUxMethod.set("USE_YN", "");
     }
 
-
     //저장
     const fn_save = async function() {
 
@@ -374,8 +393,9 @@
                     ,DECIMAL_NAME		: DECIMAL_NAME
                     ,DECIMAL_LENGTH		: DECIMAL_LENGTH
                     ,DESCR	            : DESCR
-                    ,USE_YN 		    : USE_YN
+                    ,USE_YN 		    : USE_YN.USE_YN
                 }
+
                 fn_subInsert(obj);
             }
         } else if(editType=="E") {
@@ -386,7 +406,7 @@
                     ,DECIMAL_NAME		: DECIMAL_NAME
                     ,DECIMAL_LENGTH		: DECIMAL_LENGTH
                     ,DESCR	            : DESCR
-                    ,USE_YN 		    : USE_YN
+                    ,USE_YN 		    : USE_YN.USE_YN
                 }
                 fn_subUpdate(obj);
             }
@@ -399,11 +419,10 @@
     const fn_subInsert = async function (obj){
 
         var paramObj = {
-            V_P_WORK_TYPE        : ''
-            ,V_P_DEBUG_MODE_YN   : 'KOR'
-            ,V_P_LANG_ID         : ''
+            V_P_DEBUG_MODE_YN   : ''
+            ,V_P_LANG_ID         : 'KOR'
             ,V_P_COMP_CODE       : ''
-            ,V_P_CLIENT_CODE     : ''
+            ,V_P_CLIENT_CODE     : '100'
             ,V_P_DECIMAL_ID      : obj.DECIMAL_ID
             ,V_P_DECIMAL_NAME    : obj.DECIMAL_NAME
             ,V_P_DECIMAL_LENGTH  : obj.DECIMAL_LENGTH
@@ -437,7 +456,6 @@
             if (!(e instanceof Error)) {
                 e = new Error(e);
             }
-            console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
@@ -449,11 +467,10 @@
     const fn_subUpdate = async function (obj){
 
         var paramObj = {
-            V_P_WORK_TYPE        : ''
-            ,V_P_DEBUG_MODE_YN   : 'KOR'
-            ,V_P_LANG_ID         : ''
+            V_P_DEBUG_MODE_YN   : ''
+            ,V_P_LANG_ID         : 'KOR'
             ,V_P_COMP_CODE       : ''
-            ,V_P_CLIENT_CODE     : ''
+            ,V_P_CLIENT_CODE     : '100'
             ,V_P_DECIMAL_ID      : obj.DECIMAL_ID
             ,V_P_DECIMAL_NAME    : obj.DECIMAL_NAME
             ,V_P_DECIMAL_LENGTH  : obj.DECIMAL_LENGTH
@@ -487,9 +504,63 @@
             if (!(e instanceof Error)) {
                 e = new Error(e);
             }
-            console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
+    }
+
+
+    //삭제
+    const fn_delete = async function() {
+
+        let DECIMAL_ID 			= gfnma_nvl(SBUxMethod.get("DECIMAL_ID"));
+        let DECIMAL_NAME		= gfnma_nvl(SBUxMethod.get("DECIMAL_NAME"));
+        let DECIMAL_LENGTH 		= gfnma_nvl(SBUxMethod.get("DECIMAL_LENGTH"));
+        let DESCR		        = gfnma_nvl(SBUxMethod.get("DESCR"));
+        let USE_YN	            = gfnma_nvl(SBUxMethod.get("USE_YN"));
+
+        if(gfn_comConfirm("Q0001", "삭제")) {
+            var paramObj = {
+                V_P_DEBUG_MODE_YN   : ''
+                ,V_P_LANG_ID         : 'KOR'
+                ,V_P_COMP_CODE       : ''
+                ,V_P_CLIENT_CODE     : '100'
+                ,V_P_DECIMAL_ID      : DECIMAL_ID
+                ,V_P_DECIMAL_NAME    : DECIMAL_NAME
+                ,V_P_DECIMAL_LENGTH  : DECIMAL_LENGTH
+                ,V_P_DESCR           : DESCR
+                ,V_P_USE_YN          : USE_YN.USE_YN
+                ,V_P_FORM_ID         : p_formId
+                ,V_P_MENU_ID         : p_menuId
+                ,V_P_PROC_ID         : ''
+                ,V_P_USERID          : ''
+                ,V_P_PC              : ''
+            };
+
+            const postJsonPromise = gfn_postJSON("/co/sys/sys/deleteSys3100.do", {
+                getType				: 'json',
+                workType			: 'D',
+                cv_count			: '0',
+                params				: gfnma_objectToString(paramObj)
+            });
+            const data = await postJsonPromise;
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    if(data.resultMessage){
+                        alert(data.resultMessage);
+                    }
+                    fn_search();
+                } else {
+                    alert(data.resultMessage);
+                }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        }
+
     }
 
 

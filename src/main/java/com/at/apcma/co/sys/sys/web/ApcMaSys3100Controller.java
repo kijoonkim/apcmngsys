@@ -100,7 +100,7 @@ public class ApcMaSys3100Controller extends BaseController{
 
         try {
 
-            param.put("procedure", 		"SP_COM3100_S");
+            param.put("procedure", 		"P_SYS3100_S");
             resultMap = apcMaCommDirectService.callProc(param, request.getMethod(), "");
 
         } catch (Exception e) {
@@ -109,6 +109,30 @@ public class ApcMaSys3100Controller extends BaseController{
         }
 
         logger.info("=============updateSys3100=====end========");
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    // 소수점 설정 정보 삭제
+    @PostMapping(value = "/co/sys/sys/deleteSys3100.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> deleteSys3100(
+            @RequestBody Map<String, Object> param
+            ,Model model
+            ,HttpServletRequest request) throws Exception{
+
+        logger.info("=============deleteSys3100=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+
+            param.put("procedure", 		"P_SYS3100_S");
+            resultMap = apcMaCommDirectService.callProc(param, request.getMethod(), "");
+
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============deleteSys3100=====end========");
         return getSuccessResponseEntity(resultMap);
     }
 }
