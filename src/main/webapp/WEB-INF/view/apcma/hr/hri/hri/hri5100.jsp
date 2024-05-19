@@ -141,16 +141,16 @@
     function fnSrchChkgubunChange(args){
         if(args.SRCH_CHKGUBUN) {
             $("#srchYmddate2Section").show();
-            gvwInfo.setColHidden(7, false, false);
-            gvwInfo.setColHidden(5, false, false);
+            gvwInfo.setColHidden(6, false, false);
             gvwInfo.setColHidden(4, false, false);
             gvwInfo.setColHidden(3, false, false);
+            gvwInfo.setColHidden(2, false, false);
         } else {
             $("#srchYmddate2Section").hide();
-            gvwInfo.setColHidden(7, true, false);
-            gvwInfo.setColHidden(5, true, false);
+            gvwInfo.setColHidden(6, true, false);
             gvwInfo.setColHidden(4, true, false);
             gvwInfo.setColHidden(3, true, false);
+            gvwInfo.setColHidden(2, true, false);
         }
     }
 
@@ -237,7 +237,7 @@
             V_P_DEBUG_MODE_YN	: 'N'
             ,V_P_LANG_ID		: 'KOR'
             ,V_P_COMP_CODE		: '1000'
-            ,V_P_CLIENT_CODE	: ''
+            ,V_P_CLIENT_CODE	: '100'  // TODO : 호출 파라미터 공통화 필요
             ,V_P_SITE_CODE      : ''
             ,V_P_DATE1      	: YMDDATE1
             ,V_P_DATE2	        : YMDDATE2
@@ -285,15 +285,15 @@
                 gvwInfo.rebuild();
 
                 if(srchChkgubun) {
-                    gvwInfo.setColHidden(7, false, false);
-                    gvwInfo.setColHidden(5, false, false);
+                    gvwInfo.setColHidden(6, false, false);
                     gvwInfo.setColHidden(4, false, false);
                     gvwInfo.setColHidden(3, false, false);
+                    gvwInfo.setColHidden(2, false, false);
                 } else {
-                    gvwInfo.setColHidden(7, true, false);
-                    gvwInfo.setColHidden(5, true, false);
+                    gvwInfo.setColHidden(6, true, false);
                     gvwInfo.setColHidden(4, true, false);
                     gvwInfo.setColHidden(3, true, false);
+                    gvwInfo.setColHidden(2, true, false);
                 }
 
             } else {
