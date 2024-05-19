@@ -5174,11 +5174,13 @@ input::-webkit-inner-spin-button {
 				if(_rawMtrInvntr.invntrQntt == 0) {
 					
 					let sortYmd = _rawMtrInvntr.inptYmd;
-					//let sortno = _rawMtrInvntr.sortno;
+					let sortno = _rawMtrInvntr.sortno;
+					
 					try {
 						const postJsonPromise = gfn_postJSON("/am/sort/selectSortRsltList.do", {
 							apcCd: gv_selectedApcCd,
 							sortYmd: sortYmd,
+							sortno: sortno
 						});
 
 						const data = await postJsonPromise;
