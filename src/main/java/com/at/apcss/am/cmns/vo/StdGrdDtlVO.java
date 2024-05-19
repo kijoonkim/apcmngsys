@@ -63,4 +63,8 @@ public class StdGrdDtlVO extends StdGrdVO {
 	 * 등급연계코드
 	 */
 	private String extrnlLnkgCd;
+	/**
+	 * 표시항목
+	 */
+	private String invntrInqAuCd;
 }

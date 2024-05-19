@@ -516,6 +516,9 @@
         let result = await Promise.all([
             gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd)			// 품종
         ]);
+        if(jsonApcVrty.length === 1){
+            SBUxMethod.set("srch-slt-vrtyCd", jsonApcVrty[0].itemVrtyCd);
+        }
         fn_createTabelHeader();
     }
 
@@ -1007,6 +1010,10 @@
         SBUxMethod.clear("srch-inp-wrhsQntt");
         SBUxMethod.clear("srch-inp-wrhsWght");
         fn_createTabelHeader();
+    }
+
+    const fn_close = function(){
+        parent.gfn_tabClose("TAB_AM_003_013");
     }
 
 </script>

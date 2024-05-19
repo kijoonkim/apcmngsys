@@ -181,7 +181,7 @@
 					</ul>
 					<div class="ad_tbl_toplist">
 						<sbux-button id="btnSave" name="btnSearch" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
-						<sbux-button id="btnDel" name="btnSearch" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_del"></sbux-button>
+						<sbux-button id="btnDel" name="btnSearch" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
 					</div>
 				</div>
 
@@ -200,6 +200,25 @@
     </div>
 </body>
 <script type="text/javascript">
+
+	/**
+	 * 공통버튼 연계처리
+	 */
+	async function cfn_init() {
+		await fn_reset();
+	}
+	async function cfn_add() {
+	
+	}
+	async function cfn_del() {
+		await fn_delete();
+	}
+	async function cfn_save() {
+		await fn_save();
+	}
+	async function cfn_search() {
+		await fn_search();
+	}
 
 	var jsonWrhsSpmtSe = [];
 	var jsonPltBxSe = [];
@@ -618,7 +637,7 @@
 		}
 	}
 
-	const fn_del = async function(){
+	const fn_delete = async function(){
 		let grdRows = grdPltWrhsSpmt.getCheckedRows(0);
     	let deleteList = [];
 

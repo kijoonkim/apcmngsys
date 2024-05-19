@@ -24,11 +24,15 @@ const gfn_setComAuthrtUI = function(_authrtUI) {
 			let aplcnType = _ui.aplcnType;
 			let useYn = _ui.useYn;
 			let indctYn = _ui.indctYn;
-
+			let entyType = _ui.entyType;
+			
+			if (_.isEqual(entyType, "CB")) {
+				return;
+			}
+			
 			if (_.isEqual("Y", useYn)) {
 				//01		접근
 				//11		표시
-
 				switch (aplcnType) {
 
 					case "01":	//	01	접근	disabled

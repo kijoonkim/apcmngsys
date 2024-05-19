@@ -100,6 +100,13 @@ public interface ComAuthrtMapper {
 	public List<ComAuthrtUiVO> selectUserAuthrtUiList(ComAuthrtUiVO comAuthUiVO) throws Exception;
 
 	/**
+	 * 사용자별 화면공통버튼 UI 권한 조회
+	 * @param comAuthUiVO
+	 * @return
+	 */
+	public List<ComAuthrtUiVO> selectUserAuthrtCmnsBtnList(ComAuthrtUiVO comAuthUiVO) throws Exception;
+
+	/**
 	 * 화면UI 권한 등록
 	 * @param comAuthUiVO
 	 * @return

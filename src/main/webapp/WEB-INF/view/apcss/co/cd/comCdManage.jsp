@@ -109,6 +109,27 @@
 </body>
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
+
+	/**
+	 * 공통버튼 연계처리
+	 */
+	async function cfn_init() {
+		
+	}
+	async function cfn_add() {
+		await fn_createComCdGridRow();
+	}
+	async function cfn_del() {
+		await fn_deleteComCd();
+	}
+	async function cfn_save() {
+		await fn_insertComCd();
+	}
+	async function cfn_search() {
+		await fn_selectComCdList();
+	}
+
+
 	var jsonComCdType = [];
     // only document
     window.addEventListener('DOMContentLoaded', async function(e) {
@@ -212,7 +233,7 @@
     }
 
   	//공통코드 목록 조회
-    async function fn_selectComCdList() {
+    const fn_selectComCdList = async function() {
     	comCdgrid.rebuild();
     	let recordCountPerPage = comCdgrid.getPageSize();  							// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = 1;
@@ -396,7 +417,7 @@
 
 
     //신규 작성
-    async function fn_createComCdGridRow() {
+    const fn_createComCdGridRow = async function() {
     	// 공통코드 상세 비우기
     	fn_clearComCdDtl();
     	comCdgrid.addRow(true, {checked:'true'});
@@ -404,7 +425,7 @@
     }
 
     //선택 삭제
-    async function fn_deleteComCd() {
+    const fn_deleteComCd = async function() {
     	let deleteCdList = [];
     	let deleteCdDtlList = [];
         let comCdgridList = comCdgrid.getGridDataAll();
@@ -455,8 +476,8 @@
 
 
 
-    //공통코드 및 공통코드 상세 저장
-    async function fn_insertComCd() {
+    // 공통코드 및 공통코드 상세 저장
+    const fn_insertComCd = async function() {
     	const saveCdList = [];
     	const saveCdDtlList = [];
     	const comCdGridList = comCdgrid.getGridDataAll();
