@@ -88,4 +88,30 @@ public class PrdcrApiController extends BaseController {
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	// 모바일 생산자팝업 - 생산자 목록 조회
+	@PostMapping(value = "/api/mobile/am/cmns/selectPrdcrLists.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectPrdcrLists(@RequestBody PrdcrVO prdcrVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<PrdcrVO> resultList = new ArrayList<>();
+
+
+		try {
+
+			resultList = prdcrService.selectPrdcrList(prdcrVO);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }

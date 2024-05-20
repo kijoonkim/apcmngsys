@@ -39,8 +39,8 @@ public class SortPrfmncApiController extends BaseController {
 	@Resource(name = "sortPrfmncService")
 	private SortPrfmncService sortPrfmncService;
 
-	// 선별실적조회 API
-	@PostMapping(value = "/am/sort/selectSortPrfmncLists", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	// 모바일 선별실적조회 API
+	@PostMapping(value = "/api/mobile/am/sort/selectSortPrfmncList", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectSortPrfmncList(@RequestBody SortPrfmncVO sortPrfmncVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();

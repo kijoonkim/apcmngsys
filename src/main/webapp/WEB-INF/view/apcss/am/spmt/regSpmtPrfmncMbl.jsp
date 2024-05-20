@@ -800,6 +800,7 @@
         /** main.jsp msg push**/
         window.parent.postMessage("sideMenuOff", "*");
     });
+    
     /** 거래처 json 조회 **/
     const fn_set_cnpt = async function () {
         let apcCd = gv_apcCd;
@@ -829,6 +830,7 @@
             }, 400);
         }
     }
+    
     /** 팝업 관련 함수 **/
     const fn_popup = async function () {
         let itemCd = SBUxMethod.get("srch-slt-itemCd");
@@ -871,6 +873,7 @@
         SBUxMethod.refresh("srch-mod-gdsGrd");
 
     }
+    
     /** 재고조회 **/
     const fn_search = async function () {
         let pckgYmdFrom = $("#srch-mod-pckgYmdFrom").val().replaceAll("-", '');
@@ -1517,7 +1520,7 @@
                 }
             });
 
-        if(!gfn_isEmpty(prdcr)){
+        if(!gfn_isEmpty(prdcr) && !_.isEqual('X', prdcr)){
             data.resultList = data.resultList.filter(function(item){
                 return item.prdcrIdentno == prdcr;
             })
