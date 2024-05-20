@@ -1722,9 +1722,8 @@
 
     const fn_selectSpmtList = async function(){
         try {
-            let spmtYmdFrom = SBUxMethod.get("srch-dtp-spmtYmdFrom");
-            let spmtYmdTo = SBUxMethod.get("srch-dtp-spmtYmdTo");
-            $("#modalOpenFlag")
+            let spmtYmdFrom = gfn_dateToYmd(new Date());
+            let spmtYmdTo = gfn_dateToYmd(new Date());
 
             let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncComList.do",
                 {
@@ -1783,9 +1782,10 @@
                 ;
             });
             spmtEl += `</tbody></table>`;
-
             SBUxMethod.setModalBody("searchSpmt", spmtEl);
             SBUxMethod.openModal("searchSpmt");
+            SBUxMethod.set("srch-dtp-spmtYmdFrom",gfn_dateToYmd(new Date()));
+            SBUxMethod.set("srch-dtp-spmtYmdTo",gfn_dateToYmd(new Date()));
 
 
         } catch (e) {
