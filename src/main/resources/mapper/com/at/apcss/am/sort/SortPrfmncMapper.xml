@@ -2932,6 +2932,9 @@
 	<if test='itemCd != null and itemCd !=""'>
 		   AND BP.ITEM_CD = #{itemCd}
 	</if>
+	<if test='vrtyCd != null and vrtyCd !=""'>
+		   AND BP.VRTY_CD = #{vrtyCd}
+	</if>
 	<if test='apcCd != null and apcCd !=""'>
 		   AND BP.APC_CD = #{apcCd}
 	</if>
