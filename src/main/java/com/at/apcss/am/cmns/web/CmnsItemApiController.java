@@ -140,7 +140,7 @@ public class CmnsItemApiController extends BaseController {
 	}
 
 	// 모바일 APC 품목 목록 조회
-	@PostMapping(value = "/api/mobile/am/cmns/apcItems", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	@PostMapping(value = "/api/mobile/am/cmns/apcItems.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectApcCmnsItemLists(@RequestBody CmnsItemVO cmnsItemVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
