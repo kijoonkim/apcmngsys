@@ -324,7 +324,7 @@
     	let inptYmdTo = SBUxMethod.get("srch-dtp-inptYmdTo");
     	if(gfn_diffDate(inptYmdFrom, inptYmdTo) < 0){
     		gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");//W0001{0}
-    		SBUxMethod.set("srch-dtp-inptYmdFrom", gfn_dateFirstYmd(new Date()));
+    		SBUxMethod.set("srch-dtp-inptYmdFrom", gfn_dateToYmd(new Date()));
     		SBUxMethod.set("srch-dtp-inptYmdTo", gfn_dateToYmd(new Date()));
     		return;
     	}
@@ -455,7 +455,12 @@
 
     // 엑셀 다운로드
     function fn_excelDwnld1() {
-    	grdSortPrfmnc.exportLocalExcel("선별실적", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    	//grdSortPrfmnc.exportLocalExcel("선별실적", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    	if(gfn_comConfirm("Q0000","엑셀의 양식을 xlsx으로 다운로드 받으시겠습니까?\n (확인 클릭 시 xlsx, 취소 클릭 시 xls)")){
+    		grdSortPrfmnc.exportData("xlsx","선별실적",true);
+    	}else{
+    		grdSortPrfmnc.exportLocalExcel("선별실적", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    	}
     }
 
     // 개인화 저장
