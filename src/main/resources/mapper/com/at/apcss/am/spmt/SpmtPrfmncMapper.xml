@@ -1164,7 +1164,7 @@
 				 		<if test='pckgno != null and pckgno != ""'>
 							AND GI.PCKGNO = #{pckgno}
 						</if>
-						<if test='pckgno == null and pckgno == ""'>
+						<if test='pckgno == null or pckgno == ""'>
 					 		AND (GI.INVNTR_QNTT > 0 OR GI.INVNTR_WGHT > 0)
 						</if>
 					 	<if test='itemCd != null and itemCd != ""'>
