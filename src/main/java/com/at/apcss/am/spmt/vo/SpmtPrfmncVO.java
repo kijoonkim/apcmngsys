@@ -239,6 +239,15 @@ public class SpmtPrfmncVO extends ComVO {
 	private String outordrno;
 
 	/**
+	 * 거래형태코드
+	 */
+	private String dlngShapCd;
+	/**
+	 * 매매방법코드
+	 */
+	private String dlngMthdCd;
+	
+	/**
 	 * 상품등급
 	 */
 	private String gdsGrd;
