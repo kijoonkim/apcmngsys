@@ -22,8 +22,7 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="제출" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
-					<sbux-button id="test" name="test" uitype="normal" text="업로드 테스트" class="btn btn-sm btn-outline-danger" onclick="fn_upload"></sbux-button>
+					<sbux-button id="btnSubmit" name="btnSubmit" uitype="normal" text="제출" class="btn btn-sm btn-outline-danger" onclick="fn_upload"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -99,7 +98,9 @@
 							<th scope="row" class="th_bg text-center">신규(변경)제출서류</th>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg text-center">사업자계획서/전환서</th>
+							<th scope="row" class="th_bg text-center">
+								사업자계획서/전환서(pdf/hwp/hwpx)
+							</th>
 							<td class="td_input">
 								<sbux-input
 									uitype="text"
@@ -123,7 +124,9 @@
 							</td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg text-center">서명서</th>
+							<th scope="row" class="th_bg text-center">
+								서명포함 스캔본(pdf)
+							</th>
 							<td class="td_input">
 								<sbux-input
 									uitype="text"
@@ -143,7 +146,7 @@
 								></sbux-input>
 							</td>
 							<td class="td_input">
-								<input type="file" id="newSgntrFile">
+								<input type="file" id="newSgntrFile" accept=".pdf">
 								<!--
 								<sbux-button
 									id="btnSgntrFileUpload"
@@ -162,8 +165,8 @@
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
 						<li>
-							<span style="font-size:14px">▶설문조사</span>
-							<p id="srvyCn">사용하면서 불편했던 점이나 개선헀으면 하는 사항을 작성해주세요.</p>
+							<span style="font-size:20px">▶설문조사</span>
+							<p id="srvyCn">※2023년 실적입력을 위한 시스템 사용시 불편했던 점이나 개선헀으면 하는 사항을 작성해주세요.</p>
 						</li>
 					</ul>
 				</div>
@@ -303,35 +306,33 @@
 		}
 	}
 
-	// 허용하려는 확장자들
-	//const allowedExtensions = ['.gif' , '.jpg' , '.jpeg' , '.png' , '.xls' , '.xlsx' , '.zip' , '.pdf' , '.hwp' , '.hwpx'];
+
 
 	//첨부파일 업로드
 	function fn_upload() {
 		console.log("===========fn_fileUpload");
 
 		let brno = '${loginVO.brno}';
-		if(gfn_isEmpty(brno)) return;
+		//if(gfn_isEmpty(brno)) return;
 
 		let rspnsCn = SBUxMethod.get('dtl-input-rspnsCn');
 		let srvyCn = $("#srvyCn").text();
-		console.log(rspnsCn);
-		console.log(srvyCn);
-		console.log($("#srvyCn"));
 
 		if(gfn_isEmpty(rspnsCn)){
 			alert('설문조사를 작성해주세요');
+			return;
 		};
 
 		var formData = new FormData();
 
-		let bizPlanFile = $('#newBizPlanFile')[0].files;
-		let sgntrFile = $('#newSgntrFile')[0].files;
+		const bizPlanFile = $('#newBizPlanFile')[0].files;
+
+		const sgntrFile = $('#newSgntrFile')[0].files;
 
 		let bizPlanAprvYn = SBUxMethod.get('dtl-input-bizPlanAprvYn');
 		let sgntrAprvYn = SBUxMethod.get('dtl-input-sgntrAprvYn');
 
-		//파일 둘다 없으면
+		//새로운파일이 둘다 없으면
 		if(bizPlanFile.length == 0 && sgntrFile.length == 0){
 			return;
 		}else if (gfn_isEmpty(bizPlanAprvYn)){
@@ -343,20 +344,40 @@
 		}else if (gfn_isEmpty(sgntrAprvYn)){
 			//승인값이 없는데 파일이 없으면
 			if(sgntrFile.length == 0){
-				alert('서명서 파일을 올려주세요');
+				alert('서명포함 스캔본 파일을 올려주세요');
 				return;
 			}
 		}
 
+		// 허용하려는 확장자들
+		//사업계획서 및 전환서
+		const allowedExtensions1 = ['pdf' , 'hwp' , 'hwpx'];
+		//서명포함 스캔본
+		const allowedExtensions2 = ['pdf'];
 
-		if(bizPlanFile.length != 0){
+		if(bizPlanFile.length > 0){
 			for (var i = 0; i < bizPlanFile.length; i++) {
-				formData.append('bizPlanFiles', bizPlanFile[i]);
+				console.log(bizPlanFile[i]);
+				const extension = bizPlanFile[i].name.split('.').pop().toLowerCase();
+				console.log(extension);
+				if (allowedExtensions1.includes(extension)) {
+					formData.append('bizPlanFiles', bizPlanFile[i]);
+				} else {
+					alert('사업계획서/전환서 는 hwp/hwpx/pdf 확장자만 허용됩니다.');
+					return;
+				}
+
 			}
 		}
-		if(sgntrFile.length != 0){
+		if(sgntrFile.length > 0){
 			for (var i = 0; i < sgntrFile.length; i++) {
-				formData.append('sgntrFiles', sgntrFile[i]);
+				const extension = sgntrFile[i].name.split('.').pop().toLowerCase();
+				if (allowedExtensions2.includes(extension)) {
+					formData.append('sgntrFiles', sgntrFile[i]);
+				} else {
+					alert('서명서는 pdf 확장자만 허용됩니다.');
+					return;
+				}
 			}
 		}
 

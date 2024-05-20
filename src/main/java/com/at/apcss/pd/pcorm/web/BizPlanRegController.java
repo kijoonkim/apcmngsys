@@ -133,7 +133,7 @@ public class BizPlanRegController extends BaseController{
 			//파일 이름
 			String fileRealName = bizPlanFile.getOriginalFilename();
 			//확장자명
-			String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."),fileRealName.length());
+			String fileExtension = fileRealName.substring(fileRealName.lastIndexOf(".") , fileRealName.length());
 			//서버에 저장할 파일명
 			String physicalFileName = EgovFileUploadUtil.getPhysicalFileName();
 
