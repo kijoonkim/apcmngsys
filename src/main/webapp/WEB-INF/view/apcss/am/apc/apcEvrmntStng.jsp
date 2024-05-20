@@ -814,9 +814,9 @@
 		fn_initSBSelect();
 	})
 
-	const fn_search = async function() {
-		await fn_initSBSelect();
-	}
+	// const fn_search = async function() {
+	// 	await fn_initSBSelect();
+	// }
 	
 	const selectApcEvrmntStng = async function(){
 		let apcCd = gv_apcCd;

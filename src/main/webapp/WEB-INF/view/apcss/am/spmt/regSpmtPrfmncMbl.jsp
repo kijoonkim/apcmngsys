@@ -262,7 +262,7 @@
                 <sbux-button id="btnDocSpmt" name="btnDocSpmt" uitype="normal"   text="송품장목록" class="btn btn-sm btn-primary btn-mbl" onclick="fn_selectSpmtList"></sbux-button>
                 <sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-mbl btn-outline-danger" onclick="fn_reset"></sbux-button>
                 <sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-mbl btn-outline-danger" onclick="fn_save"></sbux-button>
-                <sbux-button id="btnClose" name="btnClose" uitype="normal" text="종료" class="btn btn-mbl btn-outline-danger" onclick="fn_popup()"></sbux-button>
+                <sbux-button id="btnClose" name="btnClose" uitype="normal" text="송품장발행" class="btn btn-sm btn-primary btn-mbl" onclick="fn_docSpmt()"></sbux-button>
                 <div style="float:right;margin-left:10px;">
                     <p class="ad_input_row chk-mbl" style="vertical-align:middle;">
                         <input style="width:20px;height:20px;" type="checkbox" id="srch-chk-autoPrint" name="srch-chk-autoPrint" checked="">
@@ -873,27 +873,14 @@
     }
     /** 재고조회 **/
     const fn_search = async function () {
-        let pckgYmdFrom = $("#srch-mod-pckgYmdFrom").val().replaceAll("-", '');
-        let pckgYmdTo = $("#srch-mod-pckgYmdTo").val().replaceAll("-", '');
-        let itemCd = SBUxMethod.get("srch-mod-itemCd");
-        let vrtyCd = SBUxMethod.get("srch-mod-vrtyCd");
-        let prdcrCd = SBUxMethod.get('srch-mod-prdcrCd');
-        let spcfct = SBUxMethod.get("srch-mod-spcfct");
-        let gdsSeCd = SBUxMethod.get("srch-mod-gdsSeCd");
-        let gdsGrd = SBUxMethod.get("srch-mod-gdsGrd");
-
-
-        // if (gfn_isEmpty(itemCd)) {
-        //     gfn_comAlert("W0001", "품목");				//	W0002	{0}을/를 선택하세요.
-        //     return false;
-        // }
-
         try {
             const postJsonPromise = gfn_postJSON("/am/cmns/selectGrdNmList.do", {
                 apcCd: gv_selectedApcCd,
                 grdSeCd : '02'
             });
             const data = await postJsonPromise;
+            data.resultList.forEach(function(item){
+            })
 
             data.resultList.forEach(function(item){
                for(let key in item){
@@ -1517,7 +1504,7 @@
                 }
             });
 
-        if(!gfn_isEmpty(prdcr)){
+        if(!gfn_isEmpty(prdcr) && prdcr !='X'){
             data.resultList = data.resultList.filter(function(item){
                 return item.prdcrIdentno == prdcr;
             })
@@ -1751,10 +1738,10 @@
                             <td>` + item.spmtYmd.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3") + `</td>
                             <td>` + parseInt(item.spmtno.substring(item.spmtno.length - 4, item.spmtno.length)) + `</td>
                             <td style="display:none">` + item.spmtno + `</td>`;
-                if (gfn_isEmpty(item.dldtn)) {
+                if (gfn_isEmpty(item.cnptNm)) {
                     spmtEl += `<td>기타</td></tr>`;
                 } else {
-                    spmtEl += `<td>` + item.dldtn.split(" ")[0] + `</td></tr>`;
+                    spmtEl += `<td>` + item.cnptNm + `</td></tr>`;
                 }
                 ;
             });
@@ -1811,7 +1798,7 @@
                 tr.children().eq(0).find('input').eq(0).val(grdNm);
 
                 /** 생산자 정보 입력 **/
-                if(item.spmtIndct.indexOf("-") != -1 ){
+                if(item.spmtIndct.indexOf("-") != -1){
                     let prdcr = item.spmtIndct;
 
                     $(inputId).parent().next().find('input')
@@ -1953,7 +1940,7 @@
             if(document.querySelector('#srch-chk-autoPrint').checked){
                 gfn_DirectPrintClipReport(rptUrl, {apcCd: gv_selectedApcCd, spmtno: returnSpmtNo,element : 'div-rpt-clipReportPrint'});
             }else{
-                gfn_popClipReport("송품장",rptUrl,{apcCd: gv_selectedApcCd, spmtno: returnSpmtNo});
+                // gfn_popClipReport("송품장",rptUrl,{apcCd: gv_selectedApcCd, spmtno: returnSpmtNo});
             }
 
         }catch (e){
@@ -2031,23 +2018,15 @@
      */
     const fn_docSpmt = async function() {
 
-        const spmtnoList = [];
-        const allData = grdSpmtPrfmnc.getGridDataAll();
+        let spmtno = $("#spmtNo").text();
 
         const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'DT_DOC');
 
-        allData.forEach((item, index) => {
-            if (item.checkedYn === "Y") {
-                spmtnoList.push(item.spmtno);
-            }
-        });
-
-        if (spmtnoList.length === 0) {
+        if (gfn_isEmpty(spmtno)) {
             gfn_comAlert("W0001", "발행대상");		//	W0001	{0}을/를 선택하세요.
             return;
         }
 
-        const spmtno = spmtnoList.join("','");
         gfn_popClipReport("송품장", rptUrl, {apcCd: gv_selectedApcCd, spmtno: spmtno});
     }
 
