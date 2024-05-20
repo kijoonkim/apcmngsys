@@ -23,6 +23,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="제출" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
+					<sbux-button id="test" name="test" uitype="normal" text="업로드 테스트" class="btn btn-sm btn-outline-danger" onclick="fn_upload"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -98,7 +99,7 @@
 							<th scope="row" class="th_bg text-center">신규(변경)제출서류</th>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg text-center">사업자계획서</th>
+							<th scope="row" class="th_bg text-center">사업자계획서/전환서</th>
 							<td class="td_input">
 								<sbux-input
 									uitype="text"
@@ -157,6 +158,25 @@
 						</tr>
 					</tbody>
 				</table>
+				<br>
+				<div class="ad_tbl_top">
+					<ul class="ad_tbl_count">
+						<li>
+							<span style="font-size:14px">▶설문조사</span>
+							<p id="srvyCn">사용하면서 불편했던 점이나 개선헀으면 하는 사항을 작성해주세요.</p>
+						</li>
+					</ul>
+				</div>
+				<br>
+				<div>
+					<sbux-textarea
+						id="dtl-input-rspnsCn"
+						name="dtl-input-rspnsCn"
+						uitype="normal"
+						style="width: 100%; height: 100px;"
+						auto-resize="true"
+					></sbux-textarea>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -165,9 +185,8 @@
 <script type="text/javascript">
 
 	window.addEventListener('DOMContentLoaded', function(e) {
-		let now = new Date();
-		let year = now.getFullYear();
-		//SBUxMethod.set("srch-input-yr",year);//
+
+		fn_init();
 
 		/**
 		 * 엔터시 검색 이벤트
@@ -186,6 +205,210 @@
 		}
 	})
 
+	/* 초기화면 로딩 기능*/
+	const fn_init = async function() {
+		await fn_dtlSearch();
+	}
 
+
+	/* Grid Row 조회 기능*/
+	const fn_dtlSearch = async function(){
+
+		let brno = '${loginVO.brno}';
+		if(gfn_isEmpty(brno)) return;
+
+		//사용자는 현재년도만 필요함
+		let now = new Date();
+		let year = now.getFullYear();
+
+		let postJsonPromise = gfn_postJSON("/pd/pcorm/selectBizPlanRegList.do", {
+			brno : brno
+			,yr : year
+		});
+		let data = await postJsonPromise;
+		try{
+			data.resultList.forEach((item, index) => {
+				SBUxMethod.set('dtl-input-corpNm',gfn_nvl(item.corpNm))
+				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))
+				SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno))
+			})
+			fn_fileListSearch();
+			fn_srvySearch();
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+	/* 파일 리스트 조회 기능*/
+	const fn_fileListSearch = async function(){
+
+		let brno = '${loginVO.brno}';
+		if(gfn_isEmpty(brno)) return;
+
+		//사용자는 현재년도만 필요함
+		let now = new Date();
+		let year = now.getFullYear();
+
+		let postJsonPromise = gfn_postJSON("/pd/pcorm/selectBizPlanRegFileList.do", {
+			brno : brno
+			,yr : year
+		});
+		let data = await postJsonPromise;
+		try{
+			//bizPlan 사업계획서
+			//sgntr 서명서
+			data.resultList.forEach((item, index) => {
+				if(item.dcmntKnd == 'BP'){
+					SBUxMethod.set('dtl-input-bizPlanFileName',gfn_nvl(item.orgFileNm));
+					SBUxMethod.set('dtl-input-bizPlanAprvYn',gfn_nvl(item.sttsNm));
+				}else if (item.dcmntKnd == 'S') {
+					SBUxMethod.set('dtl-input-sgntrFileName',gfn_nvl(item.orgFileNm));
+					SBUxMethod.set('dtl-input-sgntrAprvYn',gfn_nvl(item.sttsNm));
+				}
+			})
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+	/* 설문조사 조회 기능*/
+	const fn_srvySearch = async function(){
+
+		let brno = '${loginVO.brno}';
+		if(gfn_isEmpty(brno)) return;
+
+		//사용자는 현재년도만 필요함
+		let now = new Date();
+		let year = now.getFullYear();
+
+		let postJsonPromise = gfn_postJSON("/pd/pcorm/selectSrvy.do", {
+			yr : year
+		});
+		let data = await postJsonPromise;
+		try{
+			data.resultList.forEach((item, index) => {
+				SBUxMethod.set('dtl-input-rspnsCn',gfn_nvl(item.rspnsCn));
+			})
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+	// 허용하려는 확장자들
+	//const allowedExtensions = ['.gif' , '.jpg' , '.jpeg' , '.png' , '.xls' , '.xlsx' , '.zip' , '.pdf' , '.hwp' , '.hwpx'];
+
+	//첨부파일 업로드
+	function fn_upload() {
+		console.log("===========fn_fileUpload");
+
+		let brno = '${loginVO.brno}';
+		if(gfn_isEmpty(brno)) return;
+
+		let rspnsCn = SBUxMethod.get('dtl-input-rspnsCn');
+		let srvyCn = $("#srvyCn").text();
+		console.log(rspnsCn);
+		console.log(srvyCn);
+		console.log($("#srvyCn"));
+
+		if(gfn_isEmpty(rspnsCn)){
+			alert('설문조사를 작성해주세요');
+		};
+
+		var formData = new FormData();
+
+		let bizPlanFile = $('#newBizPlanFile')[0].files;
+		let sgntrFile = $('#newSgntrFile')[0].files;
+
+		let bizPlanAprvYn = SBUxMethod.get('dtl-input-bizPlanAprvYn');
+		let sgntrAprvYn = SBUxMethod.get('dtl-input-sgntrAprvYn');
+
+		//파일 둘다 없으면
+		if(bizPlanFile.length == 0 && sgntrFile.length == 0){
+			return;
+		}else if (gfn_isEmpty(bizPlanAprvYn)){
+			//승인값이 없는데 파일이 없으면
+			if(bizPlanFile.length == 0){
+				alert('사업계획서/전환서 파일을 올려주세요');
+				return;
+			}
+		}else if (gfn_isEmpty(sgntrAprvYn)){
+			//승인값이 없는데 파일이 없으면
+			if(sgntrFile.length == 0){
+				alert('서명서 파일을 올려주세요');
+				return;
+			}
+		}
+
+
+		if(bizPlanFile.length != 0){
+			for (var i = 0; i < bizPlanFile.length; i++) {
+				formData.append('bizPlanFiles', bizPlanFile[i]);
+			}
+		}
+		if(sgntrFile.length != 0){
+			for (var i = 0; i < sgntrFile.length; i++) {
+				formData.append('sgntrFiles', sgntrFile[i]);
+			}
+		}
+
+		formData.append('brno', brno);
+		formData.append('srvyCn', srvyCn);
+		formData.append('rspnsCn', rspnsCn);
+
+		$.ajax({
+			type: 'POST',
+			url: '/pd/pcorm/fileUpload.do',
+			data: formData,
+			processData: false,
+			contentType: false,
+			success: function (response) {
+				console.log(response);
+				alert("처리 되었습니다.");
+				fn_dtlSearch();
+			},
+			error: function (error) {
+				 console.log('Error:', error);
+			}
+		});
+	}
+
+	//첨부파일 삭제
+	const deleteFile = async function (fileSn){
+
+		const postJsonPromise = gfn_postJSON("/pd/pcorm/deleteFile.do", {
+			fileSn : fileSn
+		});
+
+		 const data = await postJsonPromise;
+
+		try {
+			if (_.isEqual("S", data.resultStatus)) {
+				alert("삭제 되었습니다.");
+				//fn_dtlSearch();
+			} else {
+				alert(data.resultMessage);
+			}
+		} catch(e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+	//파일다운로드
+	const downloadFile = async function (fileSn){
+		var url = "/pd/pcorm/download/"+fileSn;
+		window.open(url);
+	}
 </script>
 </html>

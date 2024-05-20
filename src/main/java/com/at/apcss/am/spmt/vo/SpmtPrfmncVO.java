@@ -53,6 +53,21 @@ public class SpmtPrfmncVO extends ComVO {
 	private String spmtYmd;
 
 	/**
+	 * 포장시작일자
+	 */
+	private String pckgYmdFrom;
+
+	/**
+	 * 포장종료일자
+	 */
+	private String pckgYmdTo;
+
+	/**
+	 * 포장일자
+	 */
+	private String pckgYmd;
+
+	/**
 	 * 거래처코드
 	 */
 	private String cnptCd;
@@ -147,7 +162,7 @@ public class SpmtPrfmncVO extends ComVO {
      * 규격중량
      */
     private double spcfctWght;
-	
+
 	/**
 	 * 출하수량
 	 */
@@ -299,6 +314,10 @@ public class SpmtPrfmncVO extends ComVO {
 	 * */
 	private String blwInvntrAprv;
 	/*
+	 * 선별일자기준여부
+	 * */
+	private String sortDsctnYn;
+	/*
 	 * 출하번호 + 생산자번호
 	 * */
 	private String spmtIndct;
@@ -313,5 +332,5 @@ public class SpmtPrfmncVO extends ComVO {
 	public void setSpmtGdsList(List<SpmtGdsVO> spmtGdsList) {
 		this.spmtGdsList = spmtGdsList == null ? null : spmtGdsList.stream().collect(Collectors.toList());
 	}
-	
+
 }

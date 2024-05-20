@@ -99,4 +99,29 @@ public class CmnsVrtyApiController extends BaseController {
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	//모바일 APC 품종 목록 조회
+	@PostMapping(value = "/api/mobile/am/cmns/apcVrtys.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectApcVrtyLists(@RequestBody CmnsVrtyVO cmnsVrtyVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<CmnsVrtyVO> resultList = new ArrayList<>();
+
+		try {
+
+			resultList = cmnsVrtyService.selectApcVrtyList(cmnsVrtyVO);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }

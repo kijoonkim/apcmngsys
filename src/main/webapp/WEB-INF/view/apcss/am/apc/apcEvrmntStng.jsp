@@ -748,7 +748,7 @@
 		await fn_save();
 	}
 	async function cfn_search() {
-		await fn_search();		
+		await fn_searchApcEvmntStng();		
 	}
 
 	var comboUesYnJsData = [];
@@ -813,6 +813,7 @@
 		SBUxMethod.set("inp-apcCd", gv_apcCd);
 		fn_initSBSelect();
 	})
+
 
 	// const fn_search = async function() {
 	// 	await fn_initSBSelect();
