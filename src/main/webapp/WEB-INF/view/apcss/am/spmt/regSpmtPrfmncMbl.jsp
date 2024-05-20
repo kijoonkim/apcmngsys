@@ -1230,6 +1230,7 @@
      */
     const fn_reset = function () {
         $("#btnSave").find('span').text("저장");
+        SBUxMethod.set("dtl-dtp-cnpt","");
 
         $("#dtl-inp-spmtYmd").val(gfn_dateToYmd(new Date(), '-'));
         $("#reg_table > tbody").children().remove();
@@ -1791,6 +1792,7 @@
             $("#btnSave").find('span').text("수정");
 
             $("#reg_table > tbody").children().remove();
+
             data.resultList.forEach(function(item,idx){
                 let grdNm = parseInt(item.spmtIndct);
                 let inputId = ".gdsInput_" + idx;
@@ -1821,6 +1823,7 @@
 
                 SBUxMethod.closeModal("searchSpmt");
                 SBUxMethod.set("dtl-dtp-cnpt",data.resultList[0].cnptCd);
+                fn_onchangeCnpt();
             });
             /** max 삭제 추후 리팩토링 필요함 **/
             data.resultList.forEach(function(item,idx){
