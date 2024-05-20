@@ -65,13 +65,16 @@
     	]]>
 		<where>
 			<if test='cdId != null and cdId != ""'>
-			   AND CC.CD_ID LIKE #{cdId} || '%'
+			   AND CC.CD_ID LIKE '%' || #{cdId} || '%'
 	    	</if>
 			<if test='cdNm != null and cdNm != ""'>
-			   AND CC.CD_NM LIKE #{cdNm} || '%'
+			   AND CC.CD_NM LIKE '%' ||  #{cdNm} || '%'
 	    	</if>
 			<if test='delYn != null and delYn != ""'>
 			   AND CC.DEL_YN = #{delYn}
+	    	</if>
+	    	<if test='cdType != null and cdType != ""'>
+			   AND CC.CD_TYPE = #{cdType}
 	    	</if>
 		</where>
     	<![CDATA[
@@ -107,6 +110,10 @@
 			     , CC.CD_EXPLN      AS CD_EXPLN
 			     , CD.CD_VL			AS CD_VL
 			     , CD.APC_CD		AS APC_CD
+			     , CASE 
+			     		WHEN APC_CD = '0000' THEN '공통'
+			     		ELSE (SELECT FN_GET_APC_NM(APC_CD) FROM DUAL) 
+		     		END AS APC_NM
 			     , CD.CD_VL_NM		AS CD_VL_NM
 			     , CD.CD_VL_EXPLN	AS CD_VL_EXPLN
 			     , CD.INDCT_SEQ		AS INDCT_SEQ
