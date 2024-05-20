@@ -125,90 +125,92 @@ public class BizPlanRegController extends BaseController{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		int bizPlanFileChk = 0;
-		//사업계획서
-		for (MultipartFile bizPlanFile : bizPlanFiles) {
-			BizPlanRegFileVO bizPlanRegFileVO = new BizPlanRegFileVO();
-			//파일 사이즈
-			long size = bizPlanFile.getSize();
-			//파일 이름
-			String fileRealName = bizPlanFile.getOriginalFilename();
-			//확장자명
-			String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."),fileRealName.length());
-			//서버에 저장할 파일명
-			String physicalFileName = EgovFileUploadUtil.getPhysicalFileName();
+		if(bizPlanFiles != null) {
+			//사업계획서
+			for (MultipartFile bizPlanFile : bizPlanFiles) {
+				BizPlanRegFileVO bizPlanRegFileVO = new BizPlanRegFileVO();
+				//파일 사이즈
+				long size = bizPlanFile.getSize();
+				//파일 이름
+				String fileRealName = bizPlanFile.getOriginalFilename();
+				//확장자명
+				String fileExtension = fileRealName.substring(fileRealName.lastIndexOf(".") , fileRealName.length());
+				//서버에 저장할 파일명
+				String physicalFileName = EgovFileUploadUtil.getPhysicalFileName();
 
-			String folderPath = makeFolder();
-			//uploadPath 업로드 경로
-			//folderPath 날짜 폴더 경로
-			String saveName = uploadPath + File.separator + folderPath +File.separator + physicalFileName + "_" + fileExtension;
+				String folderPath = makeFolder();
+				//uploadPath 업로드 경로
+				//folderPath 날짜 폴더 경로
+				String saveName = uploadPath + File.separator + folderPath +File.separator + physicalFileName + "_" + fileExtension;
 
-			Path savePath = Paths.get(saveName);
+				Path savePath = Paths.get(saveName);
 
-			bizPlanRegFileVO.setBrno(brno);
-			bizPlanRegFileVO.setDcmntKnd("BP");
-			bizPlanRegFileVO.setFilePathNm(folderPath);
-			bizPlanRegFileVO.setOrgFileNm(fileRealName);
-			bizPlanRegFileVO.setSrvrFileNm(physicalFileName);
-			bizPlanRegFileVO.setFileSz(size);
-			bizPlanRegFileVO.setFileExtnNm(fileExtension);
+				bizPlanRegFileVO.setBrno(brno);
+				bizPlanRegFileVO.setDcmntKnd("BP");
+				bizPlanRegFileVO.setFilePathNm(folderPath);
+				bizPlanRegFileVO.setOrgFileNm(fileRealName);
+				bizPlanRegFileVO.setSrvrFileNm(physicalFileName);
+				bizPlanRegFileVO.setFileSz(size);
+				bizPlanRegFileVO.setFileExtnNm(fileExtension);
 
-			bizPlanRegFileVO.setSysFrstInptPrgrmId("pdFileUpload");
-			bizPlanRegFileVO.setSysFrstInptUserId(getUserId());
-			bizPlanRegFileVO.setSysLastChgPrgrmId("pdFileUpload");
-			bizPlanRegFileVO.setSysLastChgUserId(getUserId());
+				bizPlanRegFileVO.setSysFrstInptPrgrmId("pdFileUpload");
+				bizPlanRegFileVO.setSysFrstInptUserId(getUserId());
+				bizPlanRegFileVO.setSysLastChgPrgrmId("pdFileUpload");
+				bizPlanRegFileVO.setSysLastChgUserId(getUserId());
 
-			try {
-				bizPlanFile.transferTo(savePath);
-				bizPlanFileChk = bizPlanRegService.insertBizPlanRegFile(bizPlanRegFileVO);
-			} catch (IOException e) {
-				resultMap.put("error", e.getMessage());
-				logger.debug(e.getMessage());
+				try {
+					bizPlanFile.transferTo(savePath);
+					bizPlanFileChk = bizPlanRegService.insertBizPlanRegFile(bizPlanRegFileVO);
+				} catch (IOException e) {
+					resultMap.put("error", e.getMessage());
+					logger.debug(e.getMessage());
+				}
 			}
-
 		}
 
 		//서명서
 		int sgntrFileChk = 0;
 		//사업계획서
-		for (MultipartFile sgntrFile : sgntrFiles) {
-			BizPlanRegFileVO bizPlanRegFileVO = new BizPlanRegFileVO();
-			//파일 사이즈
-			long size = sgntrFile.getSize();
-			//파일 이름
-			String fileRealName = sgntrFile.getOriginalFilename();
-			//확장자명
-			String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."),fileRealName.length());
-			//서버에 저장할 파일명
-			String physicalFileName = EgovFileUploadUtil.getPhysicalFileName();
+		if(sgntrFiles != null) {
+			for (MultipartFile sgntrFile : sgntrFiles) {
+				BizPlanRegFileVO bizPlanRegFileVO = new BizPlanRegFileVO();
+				//파일 사이즈
+				long size = sgntrFile.getSize();
+				//파일 이름
+				String fileRealName = sgntrFile.getOriginalFilename();
+				//확장자명
+				String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."),fileRealName.length());
+				//서버에 저장할 파일명
+				String physicalFileName = EgovFileUploadUtil.getPhysicalFileName();
 
-			String folderPath = makeFolder();
-			//uploadPath 업로드 경로
-			//folderPath 날짜 폴더 경로
-			String saveName = uploadPath + File.separator + folderPath +File.separator + physicalFileName + "_" + fileExtension;
+				String folderPath = makeFolder();
+				//uploadPath 업로드 경로
+				//folderPath 날짜 폴더 경로
+				String saveName = uploadPath + File.separator + folderPath +File.separator + physicalFileName + "_" + fileExtension;
 
-			Path savePath = Paths.get(saveName);
+				Path savePath = Paths.get(saveName);
 
-			bizPlanRegFileVO.setBrno(brno);
-			bizPlanRegFileVO.setDcmntKnd("S");
-			bizPlanRegFileVO.setFilePathNm(folderPath);
-			bizPlanRegFileVO.setOrgFileNm(fileRealName);
-			bizPlanRegFileVO.setSrvrFileNm(physicalFileName);
-			bizPlanRegFileVO.setFileSz(size);
-			bizPlanRegFileVO.setFileExtnNm(fileExtension);
+				bizPlanRegFileVO.setBrno(brno);
+				bizPlanRegFileVO.setDcmntKnd("S");
+				bizPlanRegFileVO.setFilePathNm(folderPath);
+				bizPlanRegFileVO.setOrgFileNm(fileRealName);
+				bizPlanRegFileVO.setSrvrFileNm(physicalFileName);
+				bizPlanRegFileVO.setFileSz(size);
+				bizPlanRegFileVO.setFileExtnNm(fileExtension);
 
-			bizPlanRegFileVO.setSysFrstInptPrgrmId("pdFileUpload");
-			bizPlanRegFileVO.setSysFrstInptUserId(getUserId());
-			bizPlanRegFileVO.setSysLastChgPrgrmId("pdFileUpload");
-			bizPlanRegFileVO.setSysLastChgUserId(getUserId());
+				bizPlanRegFileVO.setSysFrstInptPrgrmId("pdFileUpload");
+				bizPlanRegFileVO.setSysFrstInptUserId(getUserId());
+				bizPlanRegFileVO.setSysLastChgPrgrmId("pdFileUpload");
+				bizPlanRegFileVO.setSysLastChgUserId(getUserId());
 
-			try {
-				sgntrFile.transferTo(savePath);
-				sgntrFileChk = bizPlanRegService.insertBizPlanRegFile(bizPlanRegFileVO);
-			} catch (IOException e) {
-				resultMap.put("error", e.getMessage());
-				logger.debug(e.getMessage());
+				try {
+					sgntrFile.transferTo(savePath);
+					sgntrFileChk = bizPlanRegService.insertBizPlanRegFile(bizPlanRegFileVO);
+				} catch (IOException e) {
+					resultMap.put("error", e.getMessage());
+					logger.debug(e.getMessage());
+				}
 			}
-
 		}
 
 		//설문조사

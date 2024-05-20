@@ -1049,9 +1049,9 @@
     	const menuList = grdComAuthMenu.getGridDataAll();
 
     	const comAuthrtMenuList = [];
-    	for ( let i=1; i<=menuList.length; i++ ){
+    	for ( let i=0; i<menuList.length; i++ ){
 
-    		const menu = grdComAuthMenu.getRowData(i);
+    		const menu = menuList[i]; //grdComAuthMenu.getRowData(i);
 
     		// 상위메뉴id 확인
     		comAuthrtMenuList.push({

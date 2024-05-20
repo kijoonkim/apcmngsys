@@ -88,6 +88,12 @@
 									class="form-control input-sm"
 									
    								></sbux-input>
+   								<sbux-input
+									uitype="hidden"
+									id="srch-inp-mngmstRegNo"
+									name="srch-inp-mngmstRegNo"
+									class="form-control input-sm"									
+   								></sbux-input>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-button
@@ -116,6 +122,7 @@
 
 				<div class="tab-content">
 					<div id="gnrlSttnTab" >
+						<div id="sb-area-gnrlSttn" style="height:470px;"></div>
 						<div>
 							<table class="table table-bordered tbl_fixed">
 								<caption>일반현황</caption>
@@ -129,7 +136,7 @@
 									<tr>
 										<th scope="row" class="th_bg" >농업인번호</th>
 										<td>
-											<sbux-input id="inp-gnrl-frmerNo" name="inp-gnrl-frmerNo" class="form-control input-sm" uitype="text" readonly></sbux-input>
+											<sbux-input id="inp-gnrl-frmerno" name="inp-gnrl-frmerno" class="form-control input-sm" uitype="text" readonly></sbux-input>
 										</td>
 										<th scope="row" class="th_bg" >경영체 등록번호</th>
 										<td>
@@ -246,6 +253,7 @@
 					
 					</div>
 					<div id="frlnTab" >
+						<div id="sb-area-frln" style="height:470px;"></div>
 						<div>
 							<table class="table table-bordered tbl_fixed">
 								<caption>농지</caption>
@@ -407,18 +415,9 @@
 							</ul>
 						</div>
 						<div id="sb-area-frlnRcfvHstry" style="height:470px;"></div>
-						<div class="ad_tbl_top">
-							<ul class="ad_tbl_count">
-								<li>
-									<span>지자체 수혜이력</span>
-								</li>
-							</ul>
-						</div>
-						<div id="sb-area-locgovRcfvHstry" style="height:470px;"></div>
+						
 					</div>
-					<div id="injstcRdmTab" >
-						<div id="sb-area-injstcRdm" style="height:470px;"></div>
-					</div>
+					
 				</div>
 					
 				</div>
@@ -455,14 +454,14 @@
 	})
 
 	const fn_init = async function() {
-		//fn_createGnrlSttn();
-		//fn_createFrln();
+		fn_createGnrlSttn();
+		fn_createFrln();
 		fn_createEduFnsh();
 		fn_createEcfrdCert();
 		fn_createFrmerRcfvHstry();
 		fn_createFrlnRcfvHstry();
-		fn_createLocgovRcfvHstry();
-		fn_createInjstcRdm();
+		//fn_createLocgovRcfvHstry();
+		//fn_createInjstcRdm();
 		
 		//let rst = await Promise.all([
 		//]);
@@ -471,6 +470,7 @@
 
 
 	//그리드 id
+	
 	var grdGnrlSttn;
 	var grdFrln;
 	var grdEduFnsh;
@@ -481,6 +481,8 @@
 	var grdInjstcRdm;
 	
 	//그리드 json
+	var jsonGnrlSttn = [];
+	var jsonFrln = [];
 	var jsonEduFnsh = [];
 	var jsonEcfrdCert = [];
 	var jsonFrmerRcfvHstry = [];
@@ -497,13 +499,116 @@
 		{ "id" : "1", "pid" : "-1", "order" : "2", "text" : "농지", "targetid" : "frlnTab", "targetvalue" : "농지" },
 		{ "id" : "2", "pid" : "-1", "order" : "3", "text" : "교육이수", "targetid" : "eduFnshTab", "targetvalue" : "교육이수" },
 		{ "id" : "3", "pid" : "-1", "order" : "4", "text" : "친환경인증", "targetid" : "ecfrdCertTab", "targetvalue" : "친환경인증" },
-		{ "id" : "4", "pid" : "-1", "order" : "5", "text" : "수혜이력", "targetid" : "rcfvHstryTab", "targetvalue" : "수혜이력" },
-		{ "id" : "5", "pid" : "-1", "order" : "6", "text" : "부정당환수", "targetid" : "injstcRdmTab", "targetvalue" : "부정당환수" }
+		{ "id" : "4", "pid" : "-1", "order" : "5", "text" : "수혜이력", "targetid" : "rcfvHstryTab", "targetvalue" : "수혜이력" }
+		//{ "id" : "5", "pid" : "-1", "order" : "6", "text" : "부정당환수", "targetid" : "injstcRdmTab", "targetvalue" : "부정당환수" }
 	];
 
 
-	
-	
+	//일반현황
+    const fn_createGnrlSttn= function() {
+	    var SBGridProperties = {};
+	    SBGridProperties.parentid = 'sb-area-gnrlSttn';
+	    SBGridProperties.id = 'grdGnrlSttn';
+	    SBGridProperties.jsonref = 'jsonGnrlSttn';
+	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
+	    SBGridProperties.selectmode = 'free';
+	    //SBGridProperties.extendlastcol = 'scroll';
+	    //SBGridProperties.mergecells = 'bycolrec';
+	    SBGridProperties.fixedrowheight = 50;
+	    SBGridProperties.allowcopy = true;
+	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuListGnrlSttn;		// 우클릭 메뉴 리스트
+		SBGridProperties.clickeventarea = {fixed: false, empty: false};
+		//SBGridProperties.backcoloralternate = '#e0ffff';
+	    SBGridProperties.columns = [
+	    	{caption : ["농업인번호"], ref: 'frmerno', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["경영체 등록번호"], ref: 'mngmstRegno', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["경영주 법인명"], ref: 'admstOwnrCorpNm', type: 'input',  width:'150px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["마을명"], ref: 'vlgNm', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["실거주 주소"], ref: 'admstOwnrActlHbtnAddr', type: 'input',  width:'250px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["휴대전화번호"], ref: 'mblTelno', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["전화번호"], ref: 'telno', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption: ["주민등록주소"],	ref: 'admstOwnrRgdtAddr',     		type:'input',  	hidden: true},
+	    	{caption: ["실거주 도로명주소"],	ref: 'admstOwnrActlHbtnAddr',     		type:'input',  	hidden: true},
+	    	{caption: ["개인법인구분"],	ref: 'prsnaCorpSeCd',     		type:'input',  	hidden: true},
+	    	{caption: ["내외국인구분"],	ref: 'ctznFngnrSeCd',     		type:'input',  	hidden: true},
+	    	{caption: ["팩스번호"],	ref: 'fxno',     		type:'input',  	hidden: true},
+	    	{caption: ["이메일"],	ref: 'emlAddr',     		type:'input',  	hidden: true},
+	    	{caption: ["영농시작일"],	ref: 'agrcBgngYmd',     		type:'input',  	hidden: true},
+	    	{caption: ["농업시작형태"],	ref: 'frmngBgngShap',     		type:'input',  	hidden: true},
+	    	{caption: ["농업종사형태"],	ref: 'frmngEnggShap',     		type:'input',  	hidden: true},
+	    	{caption: ["설립년도"],	ref: 'fndnYr',     		type:'input',  	hidden: true},
+	    	{caption: ["사업자등록번호"],	ref: 'brno',     		type:'input',  	hidden: true},
+	    	{caption: ["대표자명"],	ref: 'rprsvNm',     		type:'input',  	hidden: true},
+	    	{caption: ["대표자주소"],	ref: 'rprsvAddr',     		type:'input',  	hidden: true},
+	    	{caption: ["실거주주소"],	ref: 'admstOwnrDaddr',     		type:'input',  	hidden: true},
+	    	{caption: ["성별"],	ref: 'sxdc',     		type:'input',  	hidden: true},
+	    	{caption: ["생일"],	ref: 'brdt',     		type:'input',  	hidden: true}
+	    	
+	    ];
+        
+        
+        grdGnrlSttn= _SBGrid.create(SBGridProperties);
+        grdGnrlSttn.bind('click', fn_setGnrlSttnInput)
+        grdGnrlSttn.rebuild();
+	}
+    
+	//농지
+    const fn_createFrln= function() {
+	    var SBGridProperties = {};
+	    SBGridProperties.parentid = 'sb-area-frln';
+	    SBGridProperties.id = 'grdFrln';
+	    SBGridProperties.jsonref = 'jsonFrln';
+	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
+	    SBGridProperties.selectmode = 'free';
+	    //SBGridProperties.extendlastcol = 'scroll';
+	    //SBGridProperties.mergecells = 'bycolrec';
+	    SBGridProperties.fixedrowheight = 50;
+	    SBGridProperties.allowcopy = true;
+	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuListFrln;		// 우클릭 메뉴 리스트
+		SBGridProperties.clickeventarea = {fixed: false, empty: false};
+		//SBGridProperties.backcoloralternate = '#e0ffff';
+	    SBGridProperties.columns = [
+	    	{caption : ["농지 일련번호"], ref: 'frlnSn', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["법정동코드"], ref: 'stdgCd', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["본번"], ref: 'frlnMno', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["부번"], ref: 'frlnSno', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["농지주소"], ref: 'frlnAddr', type: 'input',  width:'250px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["품목명"], ref: 'itemNm', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption : ["재배면적"], ref: 'frlnArea', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+	    	{caption: ["농업인번호"],	ref: 'frmerno',     		type:'input',  	hidden: true},
+	    	{caption: ["공동경작 여부"],	ref: 'cprtnFrlnYn',     		type:'input',  	hidden: true},
+	    	{caption: ["경작형태"],	ref: 'frlnType',     		type:'input',  	hidden: true},
+	    	{caption: ["농지소유자명"],	ref: 'frlnOwnrNm',     		type:'input',  	hidden: true},
+	    	{caption: ["공부지목"],	ref: 'actlLdcg',     		type:'input',  	hidden: true},
+	    	{caption: ["실제지목"],	ref: 'poeLdcg',     		type:'input',  	hidden: true},
+	    	{caption: ["공부농지면적"],	ref: 'actlFrlnArea',     		type:'input',  	hidden: true},
+	    	{caption: ["실제농지면적"],	ref: 'poeFrlnArea',     		type:'input',  	hidden: true},
+	    	{caption: ["휴경면적"],	ref: 'flwArea',     		type:'input',  	hidden: true},
+	    	{caption: ["폐경면적"],	ref: 'ablFrlnArea',     		type:'input',  	hidden: true},
+	    	{caption: ["품목코드"],	ref: 'itemCd',     		type:'input',  	hidden: true},
+	    	{caption: ["노지/시설구분"],	ref: 'brgrndFcltSeCd',     		type:'input',  	hidden: true},
+	    	{caption: ["대장구분코드"],	ref: 'ldgrSeCd',     		type:'input',  	hidden: true},
+	    	{caption: ["시설일련번호"],	ref: 'fcltSn',     		type:'input',  	hidden: true},
+	    	{caption: ["시설형태"],	ref: 'fcltShap',     		type:'input',  	hidden: true},
+	    	{caption: ["시설종류"],	ref: 'fcltKnd',     		type:'input',  	hidden: true},
+	    	{caption: ["시설면적"],	ref: 'fcltArea',     		type:'input',  	hidden: true},
+	    	{caption: ["시설설치년도"],	ref: 'fcltInstlYr',     		type:'input',  	hidden: true},
+	    	{caption: ["품목코드"],	ref: 'itemCd',     		type:'input',  	hidden: true},
+	    	{caption: ["품목명"],	ref: 'itemNm',     		type:'input',  	hidden: true}
+	    	
+	    	
+
+	    ];
+        
+        
+        grdFrln= _SBGrid.create(SBGridProperties);
+        grdFrln.bind('click', fn_setFrlnInput)
+        grdFrln.rebuild();
+	}
+
+
 
   //교육이수 그리드 생성
 	const fn_createEduFnsh= function() {
@@ -585,6 +690,7 @@
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'free';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.explorerbar = 'sort';
 	    //SBGridProperties.mergecells = 'bycolrec';
 	    SBGridProperties.fixedrowheight = 50;
 	    SBGridProperties.allowcopy = true;
@@ -758,7 +864,7 @@
 		const param = {
 			frmerSn : frmerSn			
 		}
-		//jsonGrdDsctn.length = 0;
+		jsonGnrlSttn.length = 0;
 		
 		try {
 			const postJsonPromise = gfn_postJSON(
@@ -770,36 +876,37 @@
 
 	        const data = await postJsonPromise;	        	        
 	 	        data.resultList.forEach((item, index) => {
+	 	        	const param = {
+	 	        			frmerno : item.frmerSn
+	 	        			, mngmstRegno : item.bzobRgno
+	 	        			, admstOwnrCorpNm : item. bzmCorpNm
+	 	        			, vlgNm : item.twNm
+	 	        			, admstOwnrActlHbtnAddr : item.rrsdAddr
+	 	        			, mblTelno : item.mblTelno
+	 	        			, telno : item.telno
+	 	        			, admstOwnrRgdtAddr : item.addr
+	 	        			, admstOwnrActlHbtnAddr : item.rrsdAddr
+	 	        			, admstOwnrDaddr : item.rdnmAddr
+	 	        			, prsnaCorpSeCd : item.perCorpDvcdNm
+	 	        			, ctznFngnrSeCd : item.nafoDvcdNm
+	 	        			, fxno : item.faxTelno
+	 	        			, emlAddr : item.emailAddr
+	 	        			, agrcBgngYmd : item.famgStrYmd
+	 	        			, frmngBgngShap : item.farmngBeginStleCdNm
+	 	        			, frmngEnggShap : item.farmngEngageStleCdNm
+	 	        			, fndnYr : item.fndtYr
+	 	        			, brno : item.bzmRgno
+	 	        			, rprsvNm : item.reprNm
+	 	        			, rprsvAddr : item.reprAddr
+	 	        			, sxdc      : item.sexdstn
+	 	        			, brdt      : item.brthdy
+	 	        			
+	 	        	}
 	 	        	
-	 	        	SBUxMethod.set("inp-gnrl-frmerNo",item.frmerSn);
-	 	        	SBUxMethod.set("inp-gnrl-mngmstRegNo",item.bzobRgno);
-	 	        	SBUxMethod.set("inp-gnrl-admstOwnrCorpNm",item.bzmCorpNm);
-	 	        	SBUxMethod.set("inp-gnrl-admstOwnrRgdtAddr",item.addr);
-	 	        	SBUxMethod.set("inp-gnrl-admstOwnrActlHbtnAddr",item.rrsdAddr);
-	 	        	SBUxMethod.set("inp-gnrl-admstOwnrDaddr",item.rdnmAddr);
-	 	        	SBUxMethod.set("inp-gnrl-vlgNm",item.twNm);
-	 	        	SBUxMethod.set("inp-gnrl-prsnaCorpSeCd",item.perCorpDvcdNm);
-	 	        	SBUxMethod.set("inp-gnrl-ctznFngnrSeCd",item.nafoDvcdNm);
-	 	        	SBUxMethod.set("inp-gnrl-telno",item.telno);
-	 	        	SBUxMethod.set("inp-gnrl-fxno",item.faxTelno);
-	 	        	SBUxMethod.set("inp-gnrl-mblTelno",item.mblTelno);
-	 	        	SBUxMethod.set("inp-gnrl-emlAddr",item.emailAddr);
-	 	        	SBUxMethod.set("inp-gnrl-agrcBgngYmd",item.famgStrYmd);
-	 	        	SBUxMethod.set("inp-gnrl-frmngBgngShap",item.farmngBeginStleCdNm);
-	 	        	SBUxMethod.set("inp-gnrl-frmngEnggShap",item.farmngEngageStleCdNm);
-	 	        	SBUxMethod.set("inp-gnrl-brno",item.bzmRgno);
-	 	        	SBUxMethod.set("inp-gnrl-rprsvNm",item.reprNm);
-	 	        	SBUxMethod.set("inp-gnrl-rprsvAddr",item.reprAddr);
-	 	        	SBUxMethod.set("inp-gnrl-brdt",item.brthdy);
-	 	        	SBUxMethod.set("inp-gnrl-sxdc",item.sexdstn);
-	 	        	SBUxMethod.set("inp-gnrl-fndnYr",item.fndtYr);
 	 	        	
-	 	        	
+	 	        	jsonGnrlSttn.push(param)
 	 	        });
-	        
-
-
-	        //grdGnrlSttn.refresh();
+	        grdGnrlSttn.refresh();
 	        
 
 			} catch (e) {
@@ -819,7 +926,7 @@
 		const param = {
 			frmerno : frmerSn			
 		}
-		//jsonFrln.length = 0;
+		jsonFrln.length = 0;
 		
 		try {
 			const postJsonPromise = gfn_postJSON(
@@ -831,39 +938,41 @@
 
 	        const data = await postJsonPromise;	        	        
 	 	        data.resultList.forEach((item, index) => {
-	 	        	
-	 	        	SBUxMethod.set("inp-frln-frmerNo",item.frmerno);
-	 	        	SBUxMethod.set("inp-frln-stdgCd",item.stdgcd);
-	 	        	SBUxMethod.set("inp-frln-frlnMno",item.frlnMno);
-	 	        	SBUxMethod.set("inp-frln-frlnSno",item.frlnSno);
-	 	        	SBUxMethod.set("inp-frln-frlnAddr",item.frlnAddr);
-	 	        	SBUxMethod.set("inp-frln-frlnType",item.frlnType);
-	 	        	SBUxMethod.set("inp-frln-frlnOwnrNm",item.frlnOwnrNm);
-	 	        	SBUxMethod.set("inp-frln-actlLdcg",item.actlLdcg);
-	 	        	SBUxMethod.set("inp-frln-poeLdcg",item.poeLdcg);
-	 	        	SBUxMethod.set("inp-frln-actlFrlnArea",item.actlFrlnarea);
-	 	        	SBUxMethod.set("inp-frln-poeFrlnArea",item.poeFrlnarea);
-	 	        	SBUxMethod.set("inp-frln-flwArea",item.flwArea);
-	 	        	SBUxMethod.set("inp-frln-ablFrlnArea",item.ablFrlnarea);
-	 	        	SBUxMethod.set("inp-frln-itemCd",item.itemCd);
-	 	        	SBUxMethod.set("inp-frln-itemNm",item.itemNm);
-	 	        	SBUxMethod.set("inp-frln-brgrndFcltSeCd",item.brgrndFcltSeCd);
-	 	        	SBUxMethod.set("inp-frln-frlnArea",item.frlnarea);
-	 	        	SBUxMethod.set("inp-frln-ldgrSeCd",item.ldgrSeCd);
-	 	        	SBUxMethod.set("inp-frln-fcltSn",item.fcltSn);
-	 	        	SBUxMethod.set("inp-frln-fcltShap",item.fcltShap);
-	 	        	SBUxMethod.set("inp-frln-fcltKnd",item.fcltKnd);
-	 	        	SBUxMethod.set("inp-frln-fcltArea",item.fcltArea);
-	 	        	SBUxMethod.set("inp-frln-fcltInstlYr",item.fcltInstallYr);
-	 	        	SBUxMethod.set("inp-frln-cprtnFrlnYn",item.cprtnFrlnyn);
-	 	        	
-	 	        	
-	 	        	
-	 	        	
-	 	        	
-	 	        });
-	        
+	 	        	const param = {
+	 	        			frlnSn : item.frlnSn,
+	 	        			stdgCd : item.stdgcd,
+	 	        			frlnMno : item.frlnMno,
+	 	        			frlnSno : item.frlnSno,
+	 	        			frlnAddr : item.frlnAddr,
+	 	        			itemNm : item.itemNm,
+	 	        			frlnArea : item.frlnarea,
+	 	        			cprtnFrlnYn : item.cprtnFrlnYn,
+	 	        			frlnType : item.frlnType,
+	 	        			frlnOwnrNm : item.frlnOwnrNm,
+	 	        			actlLdcg : item.actlLdcg,
+	 	        			poeLdcg : item.poeLdcg,
+	 	        			actlFrlnArea : item.actlFrlnArea,
+	 	        			poeFrlnArea : item.poeFrlnArea,
+	 	        			flwArea : item.flwArea,
+	 	        			ablFrlnArea : item.ablFrlnArea,
+	 	        			itemCd : item.itemCd,
+	 	        			itemNm : item.itemNm,
+	 	        			brgrndFcltSeCd : item.brgrndFcltSeCd,
+	 	        			ldgrSeCd : item.ldgrSeCd,
+	 	        			fcltSn : item.fcltSn,
+	 	        			fcltShap : item.fcltShap,
+	 	        			fcltKnd : item.fcltKnd,
+	 	        			fcltArea : item.fcltArea,
+	 	        			fcltInstlYr : item.fcltInstlYr,
+	 	        			mngmstRegNo : item.mngmstRegno
 
+	 	        	}
+	 	        	
+	 	        	
+	 	        	jsonFrln.push(param);
+	 	        });
+	        	grdFrln.refresh();
+			
 
 	        
 	        
@@ -1122,14 +1231,229 @@
 			fn_setEcfrdCert();
 			fn_setFrmerRcfvHstry();
 			fn_setFrlnRcfvHstry();
-			fn_setInjstcRdm();
+			//fn_setInjstcRdm();
 		}
 		
 	}
-
 	
-	
+	const fn_setGnrlSttnInput = function(){
+		const item = grdGnrlSttn.getRowData(grdGnrlSttn.getRow());
+		SBUxMethod.set("inp-gnrl-frmerno",item.frmerno);
+     	SBUxMethod.set("inp-gnrl-mngmstRegNo",item.mngmstRegno);
+     	SBUxMethod.set("inp-gnrl-admstOwnrCorpNm",item.admstOwnrCorpNm);
+     	SBUxMethod.set("inp-gnrl-admstOwnrRgdtAddr",item.admstOwnrRgdtAddr);
+     	SBUxMethod.set("inp-gnrl-admstOwnrActlHbtnAddr",item.admstOwnrActlHbtnAddr);
+     	SBUxMethod.set("inp-gnrl-admstOwnrDaddr",item.admstOwnrDaddr);
+     	SBUxMethod.set("inp-gnrl-vlgNm",item.vlgNm);
+     	SBUxMethod.set("inp-gnrl-prsnaCorpSeCd",item.prsnaCorpSeCd);
+     	SBUxMethod.set("inp-gnrl-ctznFngnrSeCd",item.ctznFngnrSeCd);
+     	SBUxMethod.set("inp-gnrl-telno",item.telno);
+     	SBUxMethod.set("inp-gnrl-fxno",item.fxno);
+     	SBUxMethod.set("inp-gnrl-mblTelno",item.mblTelno);
+     	SBUxMethod.set("inp-gnrl-emlAddr",item.emlAddr);
+     	SBUxMethod.set("inp-gnrl-agrcBgngYmd",item.agrcBgngYmd);
+     	SBUxMethod.set("inp-gnrl-frmngBgngShap",item.frmngBgngShap);
+     	SBUxMethod.set("inp-gnrl-frmngEnggShap",item.frmngEnggShap);
+     	SBUxMethod.set("inp-gnrl-brno",item.brno);
+     	SBUxMethod.set("inp-gnrl-rprsvNm",item.rprsvNm);
+     	SBUxMethod.set("inp-gnrl-rprsvAddr",item.rprsvAddr);
+     	SBUxMethod.set("inp-gnrl-brdt",item.brdt);
+     	SBUxMethod.set("inp-gnrl-sxdc",item.sxdc);
+     	SBUxMethod.set("inp-gnrl-fndnYr",item.fndnYr);
 
+	}
+	
+	const fn_setFrlnInput = function(){
+		const item = grdFrln.getRowData(grdFrln.getRow());
+		SBUxMethod.set("inp-frln-frmerNo",item.frlnSn);     	
+     	SBUxMethod.set("inp-frln-stdgCd",item.stdgCd);
+     	SBUxMethod.set("inp-frln-frlnMno",item.frlnMno);
+     	SBUxMethod.set("inp-frln-frlnSno",item.frlnSno);
+     	SBUxMethod.set("inp-frln-cprtnFrlnYn",item.cprtnFrlnYn);
+     	SBUxMethod.set("inp-frln-frlnAddr",item.frlnAddr);
+     	SBUxMethod.set("inp-frln-frlnType",item.frlnType);
+     	SBUxMethod.set("inp-frln-frlnOwnrNm",item.frlnOwnrNm);
+     	SBUxMethod.set("inp-frln-actlLdcg",item.actlLdcg);
+     	SBUxMethod.set("inp-frln-poeLdcg",item.poeLdcg);
+     	SBUxMethod.set("inp-frln-actlFrlnArea",item.actlFrlnArea);
+     	SBUxMethod.set("inp-frln-poeFrlnArea",item.poeFrlnArea);
+     	SBUxMethod.set("inp-frln-flwArea",item.flwArea);
+     	SBUxMethod.set("inp-frln-ablFrlnArea",item.ablFrlnArea);
+     	SBUxMethod.set("inp-frln-itemCd",item.itemCd);
+     	SBUxMethod.set("inp-frln-itemNm",item.itemNm);
+     	SBUxMethod.set("inp-frln-brgrndFcltSeCd",item.brgrndFcltSeCd);
+     	SBUxMethod.set("inp-frln-frlnArea",item.frlnArea);
+     	SBUxMethod.set("inp-frln-ldgrSeCd",item.ldgrSeCd);
+     	SBUxMethod.set("inp-frln-fcltSn",item.fcltSn);
+     	SBUxMethod.set("inp-frln-fcltShap",item.fcltShap);
+     	SBUxMethod.set("inp-frln-fcltKnd",item.fcltKnd);
+     	SBUxMethod.set("inp-frln-fcltArea",item.fcltArea);
+     	SBUxMethod.set("inp-frln-fcltInstlYr",item.fcltInstlYr);
+     	
+     	
+     	
+		
+	}
+
+	const fn_sync = async function(){
+		const frmerNo = SBUxMethod.get("srch-inp-frmerSn")
+		if(frmerNo === undefined || frmerNo === ""){
+			
+		}else{
+			await fn_syncFarmerInfo(); // 일반현황
+			await fn_syncFarmerLandInfo(); // 농지정보
+			await fn_syncEdu(); //교육이수
+			await fn_syncFarmerCertification(); //친환경인증
+			await fn_syncGrant(); // 농업인수혜
+			await fn_syncFarmerGrantInfo(); // 농지수혜
+			
+			
+		}
+	}
+	
+	/* 교육 이수 정보 연계 저장*/
+	const fn_syncEdu = async function(){
+		const frmerNo = SBUxMethod.get("srch-inp-frmerSn")
+		const mngmstRegNo = SBUxMethod.get("srch-inp-mngmstRegNo")
+		let postJsonPromise = gfn_postJSON("/fm/farm/insertFarmerEducationInfo.do", {
+			frmerno : frmerNo
+			//, bzobRgno : mngmstRegNo
+		});
+		let data = await postJsonPromise;
+		try {
+			if (_.isEqual("S", data.resultStatus)) {
+				gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+			} else {
+				alert(data.resultMessage);
+			}
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+	
+	/* 농업인 수혜 정보 연계 저장*/
+	const fn_syncGrant = async function(){
+		const frmerNo = SBUxMethod.get("srch-inp-frmerSn")
+		const mngmstRegNo = SBUxMethod.get("srch-inp-mngmstRegNo")
+		let postJsonPromise = gfn_postJSON("/fm/farm/insertFarmerGrantsInfo.do", {
+			frmerno : frmerNo
+			//, bzobRgno : mngmstRegNo
+		});
+		let data = await postJsonPromise;
+		try {
+			if (_.isEqual("S", data.resultStatus)) {
+				gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+			} else {
+				alert(data.resultMessage);
+			}
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+		
+	}
+	
+	/* 일반현황 연계 저장*/
+	const fn_syncFarmerInfo = async function(){
+		const frmerNo = SBUxMethod.get("srch-inp-frmerSn")
+		const mngmstRegNo = SBUxMethod.get("srch-inp-mngmstRegNo")
+		let postJsonPromise = gfn_postJSON("/fm/farm/insertFarmerInfo.do", {
+			frmerSn : frmerNo
+			//, bzobRgno : mngmstRegNo
+		});
+		let data = await postJsonPromise;
+		try {
+			if (_.isEqual("S", data.resultStatus)) {
+				gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+			} else {
+				alert(data.resultMessage);
+			}
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+		
+	}
+	
+	/* 친환경인증 정보 연계 저장*/
+	const fn_syncFarmerCertification = async function(){
+		const frmerNo = SBUxMethod.get("srch-inp-frmerSn")
+		const mngmstRegNo = SBUxMethod.get("srch-inp-mngmstRegNo")
+		let postJsonPromise = gfn_postJSON("/fm/farm/insertFarmerSnCertificationInfo.do", {
+			frmerno : frmerNo
+			//, bzobRgno : mngmstRegNo
+		});
+		let data = await postJsonPromise;
+		try {
+			if (_.isEqual("S", data.resultStatus)) {
+				gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+			} else {
+				alert(data.resultMessage);
+			}
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+		
+	}
+	
+	/* 농지 수혜 정보 연계 저장*/
+	const fn_syncFarmerGrantInfo = async function(){
+		const frmerNo = SBUxMethod.get("srch-inp-frmerSn")
+		const mngmstRegNo = SBUxMethod.get("srch-inp-mngmstRegNo")
+		let postJsonPromise = gfn_postJSON("/fm/farm/insertFarmLandGrantsInfoReg.do", {
+			frmerno : frmerNo
+			//, bzobRgno : mngmstRegNo
+		});
+		let data = await postJsonPromise;
+		try {
+			if (_.isEqual("S", data.resultStatus)) {
+				gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+			} else {
+				alert(data.resultMessage);
+			}
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+		
+	}
+	
+	/* 농지 정보 연계 저장*/
+	const fn_syncFarmerLandInfo = async function(){
+		const frmerNo = SBUxMethod.get("srch-inp-frmerSn")
+		const mngmstRegNo = SBUxMethod.get("srch-inp-mngmstRegNo")
+
+		let postJsonPromise = gfn_postJSON("/fm/farm/insertFarmLandInfo.do", {
+			frmerSn : frmerNo
+			//, bzobRgno : mngmstRegNo
+		});
+		let data = await postJsonPromise;
+		try {
+			if (_.isEqual("S", data.resultStatus)) {
+				gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+			} else {
+				alert(data.resultMessage);
+			}
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+		
+	}
      
      const fn_choiceFrmer = function() {
  		popFrmerInfo.init(gv_selectedApcCd, gv_selectedApcNm, fn_setFrmer, SBUxMethod.get("srch-inp-frmerSn"));
@@ -1138,12 +1462,27 @@
  	const fn_setFrmer = function(frmer) {
  		if (!gfn_isEmpty(frmer)) {
  			SBUxMethod.set("srch-inp-frmerSn", frmer.frmerSn);
+ 			SBUxMethod.set("srch-inp-mngmstRegNo", frmer.bzobRgno);
  			//SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
  		}
  	}
  	
 
-    
+ 	const objMenuListGnrlSttn = {
+	        "excelDwnld": {
+	            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+	            "accesskey": "e",					//단축키
+	            "callback": fn_excelDwnldGnrlSttn,			//콜백함수명
+	        }
+	    };
+ 	
+ 	const objMenuListFrln = {
+	        "excelDwnld": {
+	            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+	            "accesskey": "e",					//단축키
+	            "callback": fn_excelDwnldFrln,			//콜백함수명
+	        }
+	    };
     
     
     const objMenuListEdu = {
@@ -1200,6 +1539,12 @@
      * @description 엑셀 다운로드
      */
 
+     function fn_excelDwnldGnrlSttn() {
+     	grdGnrlSttn.exportLocalExcel("일반현황 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+     }
+     function fn_excelDwnldFrln() {
+    	 grdFrln.exportLocalExcel("농지 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+     }
     function fn_excelDwnldEdu() {
     	grdEduFnsh.exportLocalExcel("교육이수 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
