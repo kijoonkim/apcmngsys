@@ -224,8 +224,16 @@
             width: 100%;
             margin-right: 5px;
             border: 1px solid #bbc4d1;
-            font-family: 'Font Awesome 5 Free';
             text-align: center;
+        }
+        #reg_table tbody button{
+            padding: 2px 0px !important;
+            width: 90%;
+            border: 0;
+            border-radius: 5px;
+            background-color: #3eb7c2c4;
+            color: white;
+            font-weight: 400;
         }
         #invntrTable, #spmtTable{
             border: 14px solid black;
@@ -314,8 +322,8 @@
                             style="position: relative">
                     </sbux-select>
                     <div class="sp-style" style="display: flex;flex-direction: row">
-                        <button class="btn-style ma-rt"><div id="dlngShapCd" class="btn-text">위탁</div> </button>
-                        <button class="btn-style"><div id="dlngMthdCd" class="btn-text">경매</div></button>
+                        <button class="btn-style ma-rt"><div id="dlngShapCd" class="btn-text" data-idx="1" onclick="fn_onChangeDlng(this)">위탁</div> </button>
+                        <button class="btn-style"><div id="dlngMthdCd" class="btn-text" data-idx="1" onclick="fn_onChangeDlng(this)">경매</div></button>
                     </div>
                 </div>
 <%--                <div class="ma-bt row-style"  style="position: relative"> &lt;%&ndash;//&ndash;%&gt;--%>
@@ -484,10 +492,13 @@
                             <div style="display: flex">
                                 <div style="flex: 2; font-family: 'Font Awesome 5 Free';margin-right: 10px;position: relative">
                                     <input class="gdsInput_0" type="number" onChange="fn_onChangesortGds(this)"/>
-                                    <span onclick="fn_searchInvntrQntt(this)" style="position: absolute;top: 1vh;left: 84%" class='glyphicon sbux-inp-icon glyphicon-search'></span>
+<%--                                    <span onclick="fn_searchInvntrQntt(this)" style="position: absolute;top: 1vh;left: 84%" class='glyphicon sbux-inp-icon glyphicon-search'></span>--%>
                                 </div>
                                 <div style="flex: 1; font-family: 'Font Awesome 5 Free';">
                                     <input type="number" onchange="fn_onChangePrdcr(this)" />
+                                </div>
+                                <div style="flex: 1; font-family: 'Font Awesome 5 Free';">
+                                    <button onclick="fn_searchInvntrQntt(this)" class="btn-style" style="padding: 2px 0px !important;">조회</button>
                                 </div>
                             </div>
                         </td>
@@ -693,13 +704,12 @@
         </table>
     </div>
 </div>
-<sbux-modal id="searchQntt" name="searchQntt" uitype="large" header-title="상품재고조회"
-            dlg-class="sbuxClass">
+<sbux-modal id="searchQntt" name="searchQntt" uitype="large" header-title="상품재고조회">
 </sbux-modal>
-<sbux-modal id="searchSpmt" name="searchSpmt" uitype="large" header-title="송품장목록조회"
-            dlg-class="sbuxClass" body-html-id="modalBody">
+<sbux-modal id="searchSpmt" name="searchSpmt" uitype="large" header-title="송품장목록조회" callback-before-open="fn_modalDateSet">
 </sbux-modal>
 <div id="div-rpt-clipReportPrint" style="display:none;"></div>
+<div id="modalOpenFlag" value="true" style="display:none;"></div>
 </body>
 <script type="text/javascript">
     /** 품목 json **/
@@ -734,10 +744,12 @@
             <div style="display: flex">
                 <div style="flex: 2; font-family: 'Font Awesome 5 Free';margin-right: 10px;position: relative">
                     <input class="gdsInput_`+_idx+`" type="number" onChange="fn_onChangesortGds(this)" />
-                    <span onclick="fn_searchInvntrQntt(this)" style="position: absolute;top: 1vh;left: 84%" class='glyphicon sbux-inp-icon glyphicon-search'></span>
                 </div>
                 <div style="flex: 1; font-family: 'Font Awesome 5 Free';">
                     <input type="number" onChange="fn_onChangePrdcr(this)"/>
+                </div>
+                 <div style="flex: 1; font-family: 'Font Awesome 5 Free';">
+                    <button onclick="fn_searchInvntrQntt(this)" class="btn-style" style="padding: 2px 0px !important;">조회</button>
                 </div>
             </div>
         </td>
@@ -799,6 +811,8 @@
         $('.gdsInput_0').on("input",fn_remove.bind(event));
         /** main.jsp msg push**/
         window.parent.postMessage("sideMenuOff", "*");
+        // SBUxMethod.set("srch-dtp-spmtYmdFrom",gfn_dateToYmd(new Date()));
+        // SBUxMethod.set("srch-dtp-spmtYmdTo",gfn_dateToYmd(new Date()));
     });
     
     /** 거래처 json 조회 **/
@@ -1260,8 +1274,20 @@
             dlngMthdCd = dlngMthdCd.filter(function (item) {
                 return item.cdVl == jsonSelectCnpt[0].dlngMthdCd;
             });
-            $("#dlngShapCd").text(dlngShapCd[0].cdVlNm);
-            $("#dlngMthdCd").text(dlngMthdCd[0].cdVlNm);
+            if(dlngShapCd.length != 0){
+                $("#dlngShapCd").text(dlngShapCd[0].cdVlNm);
+                $("#dlngShapCd").val(dlngShapCd[0].cdVl);
+            }else{
+                $("#dlngShapCd").text("위탁");
+            }
+            if(dlngMthdCd.length != 0){
+                $("#dlngMthdCd").text(dlngMthdCd[0].cdVlNm);
+                $("#dlngMthdCd").val(dlngMthdCd[0].cdVl);
+            }else{
+                $("#dlngShapCd").text("경매");
+            }
+
+
         }
     }
     /** 출하번호 입력시 품목, 품종,단량 셋팅 및 생산자번호 선입력시 재고 셋팅 **/
@@ -1696,9 +1722,15 @@
 
     const fn_selectSpmtList = async function(){
         try {
+            let spmtYmdFrom = SBUxMethod.get("srch-dtp-spmtYmdFrom");
+            let spmtYmdTo = SBUxMethod.get("srch-dtp-spmtYmdTo");
+            $("#modalOpenFlag")
+
             let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncComList.do",
                 {
                     apcCd: gv_apcCd
+                   ,spmtYmdFrom: spmtYmdFrom
+                   ,spmtYmdTo: spmtYmdTo
                 });
             const data = await postJsonPromise;
             data.resultList.forEach(function (item) {
@@ -1714,10 +1746,11 @@
                         <tr>
                             <th scope="row" class="th_bg" style="width: 5vw"><span class="data_required"></span>출하일자</th>
                             <td class="td_input" style="border-right: hidden;width: 11vw">
-                                <sbux-datepicker id="srch-dtp-spmtYmdFrom" name="srch-dtp-spmtYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"></sbux-datepicker>
+                                <sbux-datepicker id="srch-dtp-spmtYmdFrom" name="srch-dtp-spmtYmdFrom" uitype="popup"
+                                date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"></sbux-datepicker>
                             </td>
                             <td class="td_input" style="display:flex;border-left:hidden;">
-                                <sbux-datepicker id="srch-dtp-spmtYmdTo" name="srch-dtp-spmtYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc""></sbux-datepicker>
+                                <sbux-datepicker id="srch-dtp-spmtYmdTo" name="srch-dtp-spmtYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"></sbux-datepicker>
                                 <sbux-button wrap-style="margin-left:1vw;padding:0;"id="btnTotalSearch" name="btnTotalSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchSpmtList"></sbux-button>
                             </td>
                         </tr>
@@ -1752,13 +1785,9 @@
             spmtEl += `</tbody></table>`;
 
             SBUxMethod.setModalBody("searchSpmt", spmtEl);
-            SBUxMethod.refresh("srch-dtp-spmtYmdFrom");
-            SBUxMethod.refresh("srch-dtp-spmtYmdTo");
             SBUxMethod.openModal("searchSpmt");
 
 
-             SBUxMethod.set("srch-dtp-spmtYmdFrom",gfn_dateToYmd(new Date()));
-             SBUxMethod.set("srch-dtp-spmtYmdTo",gfn_dateToYmd(new Date()));
         } catch (e) {
             console.log(e)
         }
@@ -1843,6 +1872,8 @@
         let spmtYmd = $("#dtl-inp-spmtYmd").val().toLocaleString().replaceAll("-","");
         let spmtNo = $("#spmtNo").text();
         let msg = $("#btnSave").find('span').text();
+        let dlngShapCd = $("#dlngShapCd").val();
+        let dlngMthdCd = $("#dlngMthdCd").val();
 
         if(!gfn_comConfirm("Q0001",msg)){
             return;
@@ -1863,6 +1894,9 @@
             apcCd : gv_apcCd,
             spmtYmd : spmtYmd,
             cnptCd : cnptCd,
+            dlngShapCd : dlngShapCd,
+            dlngMthdCd : dlngMthdCd,
+            //TODO: 거래형태 추가
             };
 
         rows.each(function() {
@@ -1892,6 +1926,7 @@
 
         /** 중복 상품 취합 **/
         let arr = saveJson.spmtPrfmncList;
+
         let result = arr.reduce(function(acc,cur){
             if(acc.length == 0){
                 acc.push(cur);
@@ -2005,10 +2040,10 @@
                                 <td>` + item.spmtYmd.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3") + `</td>
                                 <td>` + parseInt(item.spmtno.substring(item.spmtno.length - 4, item.spmtno.length)) + `</td>
                                 <td style="display:none">` + item.spmtno + `</td>`;
-                    if (gfn_isEmpty(item.dldtn)) {
+                    if (gfn_isEmpty(item.cnptNm)) {
                         searchList += `<td>기타</td></tr>`;
                     } else {
-                        searchList += `<td>` + item.dldtn.split(" ")[0] + `</td></tr>`;
+                        searchList += `<td>` + item.cnptNm + `</td></tr>`;
                     };
                 });
             }
@@ -2034,6 +2069,30 @@
         }
 
         gfn_popClipReport("송품장", rptUrl, {apcCd: gv_selectedApcCd, spmtno: spmtno});
+    }
+
+    const fn_modalDateSet = async function(){
+        SBUxMethod.set("srch-dtp-spmtYmdFrom",gfn_dateToYmd(new Date()));
+        SBUxMethod.set("srch-dtp-spmtYmdTo",gfn_dateToYmd(new Date()));
+    }
+
+    const fn_onChangeDlng = async function(_el){
+        let el = $(_el);
+        let idx = $(_el).data('idx');
+        let id = $(_el).attr('id');
+
+        if(id == "dlngShapCd"){
+            let dlngShapCd = await gfn_getComCdDtls("DLNG_SHAP_CD");
+            let selectIdx = idx % dlngShapCd.length;
+            el.text(dlngShapCd[selectIdx].cdVlNm);
+            el.val(dlngShapCd[selectIdx].cdVl);
+        }else{
+            let dlngMthdCd = await gfn_getComCdDtls("DLNG_MTHD_CD");
+            let selectIdx = idx % dlngMthdCd.length;
+            el.text(dlngMthdCd[selectIdx].cdVlNm);
+            el.val(dlngMthdCd[selectIdx].cdVl);
+        }
+        el.data('idx',el.data('idx')+1);
     }
 
 
