@@ -1202,8 +1202,15 @@
 
 	<select id="selectSpmtPrfmncComList" parameterType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO" resultType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO">
 		<![CDATA[
-			SELECT *
+			SELECT
+			     PC.APC_CD AS APC_CD
+				,PC.SPMT_YMD AS SPMT_YMD
+				,PC.SPMTNO AS SPMTNO
+				,CI.CNPT_NM AS CNPT_NM
 			FROM TB_SPMT_PRFMNC_COM AS PC
+			JOIN TB_CNPT_INFO AS CI
+			ON PC.APC_CD = CI.APC_CD
+			AND PC.CNPT_CD = CI.CNPT_CD
 			WHERE PC.APC_CD = #{apcCd}
 			AND PC.DEL_YN = 'N'
 		]]>
@@ -1268,8 +1275,9 @@
 				, ITM.ITEM_NM		AS ITEM_NM
 				, ITM.INVNTR_INQ_AU_CD	AS INVNTR_INQ_AU_CD
 				, CASE
-			WHEN INSTR(ITM.INVNTR_INQ_AU_CD, 'P') > 0 THEN NULL
-			ELSE PI.PRDCR_IDENTNO
+			WHEN (INSTR(ITM.INVNTR_INQ_AU_CD, 'P') IS NULL OR INSTR(ITM.INVNTR_INQ_AU_CD,'P') < 1)
+				AND SD.GDS_GRD = '01' THEN PI.PRDCR_IDENTNO
+			ELSE NULL
 			END	AS PRDCR_IDENTNO
 				, SI.GRD_CD			AS SORT_GRD_CD
 				, INV.PCKG_SN AS PCKG_SN
