@@ -165,7 +165,7 @@
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
 						<li>
-							<span style="font-size:20px">▶설문조사</span>
+							<span style="font-size:20px">▶시스템 이용 설문조사</span>
 							<p id="srvyCn">※2023년 실적입력을 위한 시스템 사용시 불편했던 점이나 개선헀으면 하는 사항을 작성해주세요.</p>
 						</li>
 					</ul>
@@ -337,19 +337,13 @@
 			alert('파일을 올려주세요.');
 			return;
 		}
-		if (gfn_isEmpty(bizPlanAprvYn)){
-			//승인값이 없는데 파일이 없으면
-			if(bizPlanFile.length == 0){
-				alert('사업계획서/전환서 파일을 올려주세요.');
-				return;
-			}
+		if(bizPlanFile.length == 0){
+			alert('사업계획서/전환서 파일을 올려주세요.');
+			return;
 		}
-		if (gfn_isEmpty(sgntrAprvYn)){
-			//승인값이 없는데 파일이 없으면
-			if(sgntrFile.length == 0){
-				alert('서명포함 스캔본 파일을 올려주세요.');
-				return;
-			}
+		if(sgntrFile.length == 0){
+			alert('서명포함 스캔본 파일을 올려주세요.');
+			return;
 		}
 
 		// 허용하려는 확장자들
@@ -369,9 +363,9 @@
 					alert('사업계획서/전환서 는 hwp/hwpx/pdf 확장자만 허용됩니다.');
 					return;
 				}
-
 			}
 		}
+
 		if(sgntrFile.length > 0){
 			for (var i = 0; i < sgntrFile.length; i++) {
 				const extension = sgntrFile[i].name.split('.').pop().toLowerCase();
