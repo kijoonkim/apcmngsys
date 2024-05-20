@@ -319,7 +319,7 @@
 		let srvyCn = $("#srvyCn").text();
 
 		if(gfn_isEmpty(rspnsCn)){
-			alert('설문조사를 작성해주세요');
+			alert('설문조사를 작성해주세요.');
 			return;
 		};
 
@@ -334,17 +334,20 @@
 
 		//새로운파일이 둘다 없으면
 		if(bizPlanFile.length == 0 && sgntrFile.length == 0){
+			alert('파일을 올려주세요.');
 			return;
-		}else if (gfn_isEmpty(bizPlanAprvYn)){
+		}
+		if (gfn_isEmpty(bizPlanAprvYn)){
 			//승인값이 없는데 파일이 없으면
 			if(bizPlanFile.length == 0){
-				alert('사업계획서/전환서 파일을 올려주세요');
+				alert('사업계획서/전환서 파일을 올려주세요.');
 				return;
 			}
-		}else if (gfn_isEmpty(sgntrAprvYn)){
+		}
+		if (gfn_isEmpty(sgntrAprvYn)){
 			//승인값이 없는데 파일이 없으면
 			if(sgntrFile.length == 0){
-				alert('서명포함 스캔본 파일을 올려주세요');
+				alert('서명포함 스캔본 파일을 올려주세요.');
 				return;
 			}
 		}
