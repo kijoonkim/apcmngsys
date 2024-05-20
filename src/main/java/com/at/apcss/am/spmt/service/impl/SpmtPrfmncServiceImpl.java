@@ -91,7 +91,7 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 	// 매출실적조회
 	@Resource(name = "apcEvrmntStngService")
 	private ApcEvrmntStngService apcEvrmntStngService;
-	
+
 	@Override
 	public SpmtPrfmncVO selectSpmtPrfmnc(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
 
@@ -424,9 +424,9 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 
 		String invntrSttsCd = spmtPrfmncComVO.getInvntrSttsCd();
 		boolean needsIgnoreInvntrQntt = AmConstants.CON_INVNTR_STTS_CD_CHNG_SPMT.equals(invntrSttsCd);
-		
+
 		List<GdsInvntrVO> invntrList = new ArrayList<>();
-		
+
 		// 상품재고 배분
 		for ( SpmtPrfmncVO spmt : spmtPrfmncList ) {
 
@@ -434,7 +434,7 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 			if (spmtQntt <= 0) {
 				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "출하수량");
 			}
-			
+
 			String spmtPckgUnitCd = ComUtil.nullToEmpty(spmt.getSpmtPckgUnitCd());
 			SpmtPckgUnitVO pckgUnitParam = new SpmtPckgUnitVO();
 			pckgUnitParam.setApcCd(apcCd);
@@ -447,32 +447,32 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 			}
 
 			double spcfctWght = spmtPckgUnitVO.getSpcfctWght();
-			
+
 			String pckgno = spmt.getPckgno();
 			int pckgSn = spmt.getPckgSn();
-			
+
 			if (StringUtils.hasText(pckgno) && pckgSn > 0) {
 				GdsInvntrVO gdsVO = new GdsInvntrVO();
 				gdsVO.setApcCd(apcCd);
 				gdsVO.setPckgno(pckgno);
 				gdsVO.setPckgSn(pckgSn);
-				
+
 				GdsInvntrVO orgnInv = gdsInvntrService.selectGdsInvntr(gdsVO);
-				
-				if (orgnInv == null 
+
+				if (orgnInv == null
 						|| ComConstants.CON_YES.equals(orgnInv.getDelYn())
 						|| orgnInv.getInvntrQntt() < 0) {
 					return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상품재고");
 				}
-				
+
 				if (!needsIgnoreInvntrQntt && orgnInv.getInvntrQntt() < spmtQntt) {
 					return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "출하가능재고");
 				}
-				
+
 				if (!spmtPckgUnitCd.equals(orgnInv.getSpmtPckgUnitCd())) {
 					return ComUtil.getResultMap(ComConstants.MSGCD_NOT_EQUAL, "출하상품||재고상품");
 				}
-				
+
 				GdsInvntrVO gdsInv = new GdsInvntrVO();
 				BeanUtils.copyProperties(spmtPrfmncComVO, gdsInv);
 				BeanUtils.copyProperties(orgnInv, gdsInv,
@@ -482,69 +482,69 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 						ComConstants.PROP_SYS_LAST_CHG_DT,
 						ComConstants.PROP_SYS_LAST_CHG_USER_ID,
 						ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
-				
+
 				int invRmnQntt = orgnInv.getInvntrQntt();
 				double invRmnWght = orgnInv.getInvntrWght();
-				
+
 				int qntt = 0;
 				double wght = 0;
-				
+
 				if (invRmnQntt > spmtQntt) {
 					qntt = spmtQntt;
 				} else {
 					qntt = invRmnQntt;
 				}
-				
+
 				if (needsIgnoreInvntrQntt && qntt < spmtQntt) {
 					qntt = spmtQntt;
 					gdsInv.setInvntrSttsCd(invntrSttsCd);
 				}
-				
+
 				wght = ComUtil.round(qntt * spcfctWght, 3);
 				spmtQntt -= qntt;
 
 				if (wght > invRmnWght) {	// && !needsIgnoreInvntrQntt) {
 					wght = invRmnWght;
 				}
-				
+
 				gdsInv.setSpmtQntt(qntt);
 				gdsInv.setSpmtWght(wght);
-				
+
 				invntrList.add(gdsInv);
-				
+
 			} else {
-				
+
 				List<SpmtGdsVO> spmtGdsList = spmt.getSpmtGdsList();
-				
+
 				if (spmtGdsList == null || spmtGdsList.isEmpty()) {
 					return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상품내역");
 				}
-				
+
 				GdsInvntrVO gdsVO = new GdsInvntrVO();
 				gdsVO.setApcCd(apcCd);
 				gdsVO.setSpmtGdsList(spmtGdsList);
-				
+
 				List<GdsInvntrVO> gdsInvntrList = gdsInvntrService.selectSpmtGdsInvntrListByPckgno(gdsVO);
-				
+
 				if (gdsInvntrList.isEmpty()) {
 					return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "출하가능재고");
 				}
-				
+
 				int idx = -1;
 				for ( GdsInvntrVO orgnInv : gdsInvntrList ) {
-					
+
 					idx++;
 					boolean isLastIndex = idx == gdsInvntrList.size() - 1;
-					
+
 					if (spmtQntt <= 0) {
 						break;
 					}
-					
+
 
 					if (!spmtPckgUnitCd.equals(orgnInv.getSpmtPckgUnitCd())) {
 						return ComUtil.getResultMap(ComConstants.MSGCD_NOT_EQUAL, "출하상품||재고상품");
 					}
-					
+
 					int invRmnQntt = orgnInv.getInvntrQntt();
 					double invRmnWght = orgnInv.getInvntrWght();
 
@@ -557,10 +557,10 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 							ComConstants.PROP_SYS_LAST_CHG_DT,
 							ComConstants.PROP_SYS_LAST_CHG_USER_ID,
 							ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
-					
+
 					int qntt = 0;
 					double wght = 0;
-					
+
 					if (invRmnQntt > spmtQntt) {
 						qntt = spmtQntt;
 					} else {
@@ -572,21 +572,21 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 						qntt = spmtQntt;
 						gdsInv.setInvntrSttsCd(invntrSttsCd);
 					}
-					
+
 					wght = ComUtil.round(qntt * spcfctWght, 3);
 					spmtQntt -= qntt;
-					
+
 					if (wght > invRmnWght) {	//  && !needsIgnoreInvntrQntt && isLastIndex) {
 						wght = invRmnWght;
 					}
-					
+
 					gdsInv.setSpmtQntt(qntt);
 					gdsInv.setSpmtWght(wght);
-					
+
 					invntrList.add(gdsInv);
 				}
 			}
-			
+
 			// 재고 부족
 			if (spmtQntt > 0) {
 				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "출하가능재고");
@@ -594,18 +594,18 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 		}
 
 		// 출하자 신고번호 추가
-		String spmtPrsnDclrno = spmtPrfmncComVO.getSpmtPrsnDclrno();		
+		String spmtPrsnDclrno = spmtPrfmncComVO.getSpmtPrsnDclrno();
 		if (!StringUtils.hasText(spmtPrsnDclrno)) {
 			ApcEvrmntStngVO apcVO = new ApcEvrmntStngVO();
 			apcVO.setApcCd(apcCd);
 			ApcEvrmntStngVO apcInfo = apcEvrmntStngService.selectApcEvrmntStng(apcVO);
-			
+
 			if (apcInfo != null) {
 				spmtPrsnDclrno = apcInfo.getSpmtPrsnDclrNo();
 				spmtPrfmncComVO.setSpmtPrsnDclrno(spmtPrsnDclrno);
 			}
 		}
-		
+
 		String spmtno = cmnsTaskNoService.selectSpmtno(apcCd, spmtYmd);
 		spmtPrfmncComVO.setSpmtno(spmtno);
 
@@ -655,9 +655,9 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 
 		return null;
 	}
-	
-	
-	
+
+
+
 	@Override
 	public HashMap<String, Object> insertSpmtPrfmncTabletList(List<SpmtPrfmncVO> spmtPrfmncList) throws Exception {
 		HashMap<String, Object> resultMap;
@@ -1144,6 +1144,11 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 					gdsInvntrVO.setVrtyCd(spmtPrfmncVO.getVrtyCd());
 					gdsInvntrVO.setGdsGrd(spmtPrfmncVO.getGdsGrd());
 
+					if (ComConstants.CON_YES.equals(spmtPrfmncVO.getSortDsctnYn())) {
+						gdsInvntrVO.setPckgYmdFrom(spmtPrfmncVO.getPckgYmdFrom());
+						gdsInvntrVO.setPckgYmdTo(spmtPrfmncVO.getPckgYmdTo());
+					}
+
 					List<GdsInvntrVO> gdsInvntrList = gdsInvntrService.selectGdsInvntrList(gdsInvntrVO);
 
 					// 조회 결과 유무 판단
@@ -1271,7 +1276,12 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 
 							insertGdsInvntrVO.setInvntrQntt(remainderSpmtQntt * -1);
 							insertGdsInvntrVO.setSpmtQntt(spmtPrfmncVO.getSpmtQntt());
-							insertGdsInvntrVO.setPckgYmd(spmtPrfmncVO.getSpmtYmd());
+
+							if (ComConstants.CON_YES.equals(spmtPrfmncVO.getSortDsctnYn())) {
+								insertGdsInvntrVO.setPckgYmd(spmtPrfmncVO.getPckgYmdTo());
+							} else {
+								insertGdsInvntrVO.setPckgYmd(spmtPrfmncVO.getSpmtYmd());
+							}
 
 							insertGdsInvntrVO.setPckgno(pckgno);
 							insertGdsInvntrVO.setPckgSn(sn);
@@ -1303,7 +1313,12 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 
 						insertGdsInvntrVO.setInvntrQntt(spmtPrfmncVO.getSpmtQntt() * -1);
 						insertGdsInvntrVO.setSpmtQntt(spmtPrfmncVO.getSpmtQntt());
-						insertGdsInvntrVO.setPckgYmd(spmtPrfmncVO.getSpmtYmd());
+
+						if (ComConstants.CON_YES.equals(spmtPrfmncVO.getSortDsctnYn())) {
+							insertGdsInvntrVO.setPckgYmd(spmtPrfmncVO.getPckgYmdTo());
+						} else {
+							insertGdsInvntrVO.setPckgYmd(spmtPrfmncVO.getSpmtYmd());
+						}
 
 						insertGdsInvntrVO.setPckgno(pckgno);
 						insertGdsInvntrVO.setPckgSn(sn);
@@ -1477,24 +1492,24 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 		return spmtPrfmncMapper.selectSpmtPrfmncRegList(spmtPrfmncVO);
 	}
 
-	
-	
+
+
 
 	@Override
 	public HashMap<String, Object> updateSpmtPrfmncByPckgList(SpmtPrfmncComVO spmtPrfmncComVO) throws Exception {
-		
+
 		HashMap<String, Object> rtnObj;
 
 		String apcCd = spmtPrfmncComVO.getApcCd();
 		String spmtno = spmtPrfmncComVO.getSpmtno();
-		
+
 		// 공통정보는 변경 없음
 		// 기 출하정보 조회 후 취소 + 재등록
-		
+
 		if (!StringUtils.hasText(spmtno)) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "출하번호");
 		}
-		
+
 		List<SpmtPrfmncVO> spmtPrfmncList = spmtPrfmncComVO.getSpmtPrfmncList();
 
 		if (spmtPrfmncList == null || spmtPrfmncList.isEmpty()) {
@@ -1508,7 +1523,7 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 			if (spmtQntt <= 0) {
 				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "출하수량");
 			}
-			
+
 			String spmtPckgUnitCd = ComUtil.nullToEmpty(spmt.getSpmtPckgUnitCd());
 			SpmtPckgUnitVO pckgUnitParam = new SpmtPckgUnitVO();
 			pckgUnitParam.setApcCd(apcCd);
@@ -1519,33 +1534,33 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 			if (spmtPckgUnitVO == null || !StringUtils.hasText(spmtPckgUnitVO.getSpmtPckgUnitCd())) {
 				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상품조회결과");
 			}
-			
+
 			double spcfctWght = spmtPckgUnitVO.getSpcfctWght();
 			spmt.setSpcfctWght(spcfctWght);
-			
+
 			String pckgno = spmt.getPckgno();
 			int pckgSn = spmt.getPckgSn();
-			
+
 			if (StringUtils.hasText(pckgno) && pckgSn > 0) {
 				GdsInvntrVO gdsVO = new GdsInvntrVO();
 				gdsVO.setApcCd(apcCd);
 				gdsVO.setPckgno(pckgno);
 				gdsVO.setPckgSn(pckgSn);
-				
+
 				GdsInvntrVO orgnInv = gdsInvntrService.selectGdsInvntr(gdsVO);
-				
-				if (orgnInv == null 
+
+				if (orgnInv == null
 						|| ComConstants.CON_YES.equals(orgnInv.getDelYn())) {
 					return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상품정보");
 				}
-				
+
 				if (!spmtPckgUnitCd.equals(orgnInv.getSpmtPckgUnitCd())) {
 					return ComUtil.getResultMap(ComConstants.MSGCD_NOT_EQUAL, "출하상품||재고상품");
-				}				
+				}
 			} else {
-				
+
 				List<SpmtGdsVO> spmtGdsList = spmt.getSpmtGdsList();
-				
+
 				if (spmtGdsList == null || spmtGdsList.isEmpty()) {
 					return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상품내역");
 				}
@@ -1555,39 +1570,39 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 		// 출하실적 취소
 		SpmtPrfmncComVO spmtComVO = new SpmtPrfmncComVO();
 		BeanUtils.copyProperties(spmtPrfmncComVO, spmtComVO);
-		
+
 		rtnObj = deleteSpmt(spmtComVO);
 		if (rtnObj != null) {
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
-		
+
 		// 출하실적 재등록
 		spmtPrfmncComVO.setSpmtno(null);
 		// 출하변경으로 재고 음수 적용
 		spmtPrfmncComVO.setInvntrSttsCd(AmConstants.CON_INVNTR_STTS_CD_CHNG_SPMT);
-		
+
 		rtnObj = insertSpmtPrfmncByPckgList(spmtPrfmncComVO);
 		if (rtnObj != null) {
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
-		
+
 		return null;
 	}
 
 	@Override
 	public HashMap<String, Object> deleteSpmt(SpmtPrfmncComVO spmtPrfmncComVO) throws Exception {
-		
+
 		HashMap<String, Object> resultMap;
-		
+
 		// 출하실적조회
 		SpmtPrfmncComVO spmtComInfo = spmtPrfmncMapper.selectSpmtCom(spmtPrfmncComVO);
 		if (spmtComInfo == null || ComConstants.CON_YES.equals(spmtComInfo.getDelYn())) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "기출하내역");
 		}
-		
+
 		String apcCd = spmtComInfo.getApcCd();
 		String spmtno = spmtComInfo.getSpmtno();
-		
+
 		SpmtPrfmncVO spmtComParam = new SpmtPrfmncVO();
 		spmtComParam.setApcCd(apcCd);
 		spmtComParam.setSpmtno(spmtno);
@@ -1595,29 +1610,29 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 		spmtComParam.setSysFrstInptPrgrmId(spmtPrfmncComVO.getSysFrstInptPrgrmId());
 		spmtComParam.setSysLastChgUserId(spmtPrfmncComVO.getSysLastChgUserId());
 		spmtComParam.setSysLastChgPrgrmId(spmtPrfmncComVO.getSysLastChgPrgrmId());
-		
+
 		List<SpmtPrfmncVO> spmtDtlList = spmtPrfmncMapper.selectSpmtDtlList(spmtComParam);
 		if (spmtDtlList == null || spmtDtlList.isEmpty()) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "기출하내역");
 		}
-		
+
 		String ddlnYn = cmnsValidationService.selectChkDdlnYn(spmtComInfo.getApcCd(), spmtComInfo.getSpmtYmd());
 
 		if (!ComConstants.CON_NONE.equals(ddlnYn)) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_ALEADY_CLOSE, "출하실적");	// W0012	마감등록 된 {0} 입니다.
 		}
-		
+
 		// 매출확정 삭제
 		SlsPrfmncVO slsPrfmncVO = new SlsPrfmncVO();
 		slsPrfmncVO.setApcCd(apcCd);
 		slsPrfmncVO.setSpmtno(spmtno);
 
 		slsPrfmncVO = slsPrfmncService.selectSlsPrfmncCfmtnYn(slsPrfmncVO);
-		if (slsPrfmncVO != null) {			
+		if (slsPrfmncVO != null) {
 			if (ComConstants.CON_YES.equals(slsPrfmncVO.getCfmtnYn())) {
 				return ComUtil.getResultMap(ComConstants.MSGCD_ALEADY_DONE, "매출확정||출하실적");
 			}
-			
+
 			if (slsPrfmncVO.getSlsPrfmncQntt() > 0) {
 				slsPrfmncVO.setApcCd(apcCd);
 				slsPrfmncVO.setSpmtno(spmtno);
@@ -1627,31 +1642,31 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 				};
 			}
 		}
-		
+
 		for (SpmtPrfmncVO spmtDtl : spmtDtlList) {
 			// audit 항목 설정
 			spmtDtl.setSysFrstInptUserId(spmtPrfmncComVO.getSysFrstInptUserId());
 			spmtDtl.setSysFrstInptPrgrmId(spmtPrfmncComVO.getSysFrstInptPrgrmId());
 			spmtDtl.setSysLastChgUserId(spmtPrfmncComVO.getSysLastChgUserId());
 			spmtDtl.setSysLastChgPrgrmId(spmtPrfmncComVO.getSysLastChgPrgrmId());
-			
+
 			// 상품재고살리기
 			GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
 			BeanUtils.copyProperties(spmtDtl, gdsInvntrVO);
-			
+
 			resultMap = gdsInvntrService.updateGdsInvntrSpmtPrfmncCncl(gdsInvntrVO);
 			if (resultMap != null) {
 				throw new EgovBizException(getMessageForMap(resultMap));
 			}
-			
+
 			spmtPrfmncMapper.deleteSpmtPrfmncDtl(spmtDtl);
 		}
-		
+
 		// FIXME 팔레트 불출 취소 추가할 것.
-		
+
 		// 출하공통삭제
 		spmtPrfmncMapper.deleteSpmtPrfmncCom(spmtComParam);
-		
+
 		return null;
 	}
 }

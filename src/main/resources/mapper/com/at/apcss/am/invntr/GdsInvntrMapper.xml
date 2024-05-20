@@ -175,7 +175,7 @@
 		<if test='spmtGdsList != null and spmtGdsList.size > 0'>
 			   AND (GI.PCKGNO, GI.PCKG_SN) IN
 			<foreach collection="spmtGdsList" item="item" index="index" separator="," open="(" close=")">
-		   		(#{item.pckgno}, #{item.pckgSn}) 
+		   		(#{item.pckgno}, #{item.pckgSn})
 		   	</foreach>
 		</if>
 		<if test='spmtGdsList == null or spmtGdsList.size == 0'>
@@ -265,12 +265,12 @@
                       AND SI.SORT_SN = IP.SORT_SN
                       AND IP.PCKGNO = GI.PCKGNO
                   ) AS SORT_GRD_CD
-                  
+
                 , (SELECT MAX(WP.WRHS_YMD) AS WRHS_YMD
                   FROM TB_SORT_INVNTR SI
                   	 , TB_SORT_INPT_PRFMNC SIP
                      , TB_PCKG_INPT_PRFMNC IP
-                     , TB_RAW_MTR_INVNTR WP                     
+                     , TB_RAW_MTR_INVNTR WP
                  WHERE SI.DEL_YN = 'N'
                    AND IP.DEL_YN = 'N'
                    AND SIP.DEL_YN = 'N'
@@ -280,7 +280,7 @@
                    AND SIP.WRHSNO = WP.WRHSNO
                    AND IP.PCKGNO = GI.PCKGNO
                   ) AS WRHS_YMD
-                  
+
 			  FROM TB_GDS_INVNTR GI
 			 WHERE GI.DEL_YN = 'N'
 			   AND GI.INVNTR_WGHT > 0
@@ -652,8 +652,8 @@
 			                      AND SI.SORTNO = IP.SORTNO
 			                      AND SI.SORT_SN = IP.SORT_SN
 			                      AND IP.PCKGNO = DGI.PCKGNO
-		                      ) AS INPT_YMD 
-						  
+		                      ) AS INPT_YMD
+
 
 					  FROM TB_DAILY_GDS_INVNTR DGI
 					 WHERE DGI.INVNTR_QNTT > 0
@@ -1010,7 +1010,7 @@
 				, SPMT_WGHT 				= #{spmtWght}
 				, INVNTR_QNTT 				= #{invntrQntt}
 				, INVNTR_WGHT 				= #{invntrWght}
-				, INVNTR_STTS_CD            = #{invntrSttsCd}   
+				, INVNTR_STTS_CD            = #{invntrSttsCd}
 		]]>
 			<if test='gdsGrd != null and gdsGrd != ""'>
 				, GDS_GRD 					= #{gdsGrd}
@@ -1325,6 +1325,12 @@
     					<if test='itemCd != null and itemCd !=""'>
 						            AND GI.ITEM_CD = #{itemCd}
     					</if>
+    					<if test='pckgYmdFrom != null and pckgYmdFrom != ""'>
+						   	   		AND GI.PCKG_YMD <![CDATA[>=]]> #{pckgYmdFrom}
+						</if>
+						<if test='pckgYmdTo != null and pckgYmdTo != ""'>
+						   	   		AND GI.PCKG_YMD <![CDATA[<=]]> #{pckgYmdTo}
+						</if>
     				<![CDATA[
 							)
     				]]>
@@ -1390,6 +1396,12 @@
     					<if test='itemCd != null and itemCd !=""'>
 						            AND GI.ITEM_CD = #{itemCd}
     					</if>
+    					<if test='pckgYmdFrom != null and pckgYmdFrom != ""'>
+						   	   		AND GI.PCKG_YMD <![CDATA[>=]]> #{pckgYmdFrom}
+						</if>
+						<if test='pckgYmdTo != null and pckgYmdTo != ""'>
+						   	   		AND GI.PCKG_YMD <![CDATA[<=]]> #{pckgYmdTo}
+						</if>
     				<![CDATA[
 							)
     				]]>
@@ -1455,6 +1467,12 @@
     					<if test='itemCd != null and itemCd !=""'>
 						            AND GI.ITEM_CD = #{itemCd}
     					</if>
+    					<if test='pckgYmdFrom != null and pckgYmdFrom != ""'>
+						   	   		AND GI.PCKG_YMD <![CDATA[>=]]> #{pckgYmdFrom}
+						</if>
+						<if test='pckgYmdTo != null and pckgYmdTo != ""'>
+						   	   		AND GI.PCKG_YMD <![CDATA[<=]]> #{pckgYmdTo}
+						</if>
     				<![CDATA[
 							)
     				]]>
