@@ -177,13 +177,16 @@
     var jsonArmyType = []; // 병역구분
 
     const fn_initSBSelect = async function() {
+        SBUxMethod.set("SRCH_INITIAL_DATE", gfn_dateToYmd(new Date()));
+        SBUxMethod.set("SRCH_INITIAL_DATE", gfn_dateToYmd(new Date()));
+
         let rst = await Promise.all([
             // 법인
             gfnma_setComSelect(['SRCH_COMP_CODE'], jsonCompCode, 'L_ORG000', '', '', 'COMP_CODE', 'COMP_NAME', 'Y', ''),
             // 사업장
             gfnma_setComSelect(['SRCH_SITE_CODE'], jsonSiteCode, 'L_ORG001', '', '', 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             // 재직구분
-            gfnma_setComSelect(['SRCH_EMP_STATE'], jsonEmpState, 'L_HRI009', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_EMP_STATE', 'gvwList'], jsonEmpState, 'L_HRI009', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 직책
             gfnma_setComSelect(['SRCH_DUTY_CODE'], jsonDutyCode, 'L_HRI003', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 직종
@@ -234,23 +237,23 @@
             'showgoalpageui': true
         };
         SBGridProperties.columns = [
-            {caption: ["담당"],		        	ref: 'DEPT_CODE1', 			        type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["담당명"], 	        	ref: 'DEPT_NAME1',    	            type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["실"],  		            ref: 'DEPT_CODE2',    			    type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["실명"],                 	ref: 'DEPT_NAME2', 		            type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["팀"],                	ref: 'DEPT_CODE', 		            type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["팀명"],               	ref: 'DEPT_NAME', 		            type:'output',  	width:'115px',  style:'text-align:left'},
+            {caption: ["담당"],		        	ref: 'DEPT_CODE1', 			        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
+            {caption: ["담당명"], 	        	ref: 'DEPT_NAME1',    	            type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
+            {caption: ["실"],  		            ref: 'DEPT_CODE2',    			    type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
+            {caption: ["실명"],                 	ref: 'DEPT_NAME2', 		            type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
+            {caption: ["부서"],                	ref: 'DEPT_CODE', 		            type:'output',  	width:'75px',  	style:'text-align:left'},
+            {caption: ["부서명"],               	ref: 'DEPT_NAME', 		            type:'output',  	width:'115px',  style:'text-align:left'},
             {caption: ["귀속(코스트센터)"],      	ref: 'COST_DEPT_CODE', 		        type:'output',  	width:'92px',  	style:'text-align:left'},
             {caption: ["귀속(코스트센터명)"],     	ref: 'COST_DEPT_NAME', 		        type:'output',  	width:'127px',  style:'text-align:left'},
             {caption: ["사번"],                 	ref: 'EMP_CODE', 		            type:'output',  	width:'75px',  	style:'text-align:left'},
             {caption: ["성명"],                	ref: 'EMP_NAME', 		            type:'output',  	width:'75px',  	style:'text-align:left'},
             {caption: ["한자이름"],             	ref: 'EMP_NAME_CHN', 		        type:'output',  	width:'75px',  	style:'text-align:left'},
             {caption: ["영문이름"],             	ref: 'EMP_NAME_ENG', 		        type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["사원구분"],             	ref: 'EMP_TYPE_NAME', 		        type:'output',  	width:'75px',  	style:'text-align:left'},
+            {caption: ["사원구분"],             	ref: 'EMP_TYPE_NAME', 		        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
             {caption: ["포지션"],              	ref: 'JOB_CODE', 		            type:'output',  	width:'75px',  	style:'text-align:left'},
             {caption: ["포지션명"],             	ref: 'JOB_CODE_NAME', 		        type:'output',  	width:'75px',  	style:'text-align:left'},
             {caption: ["직급"],               	ref: 'JOB_RANK_NAME', 		        type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["호봉"],               	ref: 'SALARY_CLASS_NAME', 		    type:'output',  	width:'75px',  	style:'text-align:left'},
+            {caption: ["호봉"],               	ref: 'SALARY_CLASS_NAME', 		    type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
             {caption: ["시급"],               	ref: 'HOURLY_BASE_AMT', 		    type:'output',  	width:'75px',  	style:'text-align:left'},
             {caption: ["직위"],               	ref: 'POSITION_CODE_NAME', 		    type:'output',  	width:'75px',  	style:'text-align:left'},
             {caption: ["직책"],               	ref: 'DUTY_CODE_NAME', 		        type:'output',  	width:'75px',  	style:'text-align:left'},
@@ -259,20 +262,21 @@
             {caption: ["직군"],      	        ref: 'JOB_GROUP_GOBUN', 		    type:'output',  	width:'75px',  	style:'text-align:left'},
             {caption: ["사원하위영역"],          	ref: 'JOB_FAMILY_NAME', 		    type:'output',  	width:'86px',  	style:'text-align:left'},
             {caption: ["근무유형"],      	    ref: 'WORK_PATTERN_CODE', 		    type:'output',  	width:'61px',  	style:'text-align:left'},
-            {caption: ["근무패턴명"],      	    ref: 'WORK_PATTERN_NAME', 		    type:'output',  	width:'120px',  style:'text-align:left'},
+            {caption: ["근무패턴명"],      	    ref: 'WORK_PATTERN_NAME', 		    type:'output',  	width:'120px',  style:'text-align:left', hidden: true},
             {caption: ["연령"],      	        ref: 'AGE', 		                type:'output',  	width:'52px',  	style:'text-align:left'},
             {caption: ["연령(년초)"],      	    ref: 'AGE_YY', 		                type:'output',  	width:'75px',  	style:'text-align:left'},
+            {caption: ["연령(연말)"],      	    ref: 'AGE_EE', 		                type:'output',  	width:'75px',  	style:'text-align:left'},
             {caption: ["성별"],      	        ref: 'GENDER', 		                type:'output',  	width:'42px',  	style:'text-align:left'},
             {caption: ["주민등록번호"],      	    ref: 'SOCIAL_NUM_REAL', 		    type:'output',  	width:'85px',  	style:'text-align:left'},
-            {caption: ["생년월일"],      	    ref: 'BIRTHDAY', 		            type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["근속개월"],      	    ref: 'ENTER_MONTH', 		        type:'output',  	width:'63px',  	style:'text-align:left'},
-            {caption: ["인정경력"],      	    ref: 'CAREER_TRACK', 		        type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["총인정경력"],      	    ref: 'TOT_CAREER_TRACK', 		    type:'output',  	width:'75px',  	style:'text-align:left'},
+            {caption: ["생년월일"],      	    ref: 'BIRTHDAY', 		            type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
+            {caption: ["근속개월"],      	    ref: 'ENTER_MONTH', 		        type:'output',  	width:'63px',  	style:'text-align:left', hidden: true},
+            {caption: ["인정경력"],      	    ref: 'CAREER_TRACK', 		        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
+            {caption: ["총인정경력"],      	    ref: 'TOT_CAREER_TRACK', 		    type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
             {caption: ["승진연차"],      	    ref: 'POSITION_YEAR', 		        type:'output',  	width:'55px',  	style:'text-align:left'},
             {caption: ["보임연차"],      	    ref: 'DUTY_YEAR', 		            type:'output',  	width:'60px',  	style:'text-align:left'},
             {caption: ["핸드폰번호"],      	    ref: 'CELLPHONE_NUM', 		        type:'output',  	width:'97px',  	style:'text-align:left'},
-            {caption: ["E-MAIL(사내)"],      	ref: 'IN_EMAIL', 		            type:'output',  	width:'120px',  style:'text-align:left'},
-            {caption: ["E-MAIL(사외)"],      	ref: 'OUT_EMAIL', 		            type:'output',  	width:'120px',  style:'text-align:left'},
+            {caption: ["E-MAIL"],      	        ref: 'IN_EMAIL', 		            type:'output',  	width:'120px',  style:'text-align:left'},
+            {caption: ["E-MAIL(사외)"],      	ref: 'OUT_EMAIL', 		            type:'output',  	width:'120px',  style:'text-align:left', hidden: true},
             {caption: ["사내전화"],      	    ref: 'OFFICE_TEL_NUM', 		        type:'output',  	width:'81px',  	style:'text-align:left'},
             {caption: ["비상연락망"],      	    ref: 'EMERGENCY_TEL_NUM', 		    type:'output',  	width:'91px',  	style:'text-align:left'},
             {caption: ["고등학교"],      	    ref: 'HIGHSCHOOL_NAME', 		    type:'output',  	width:'128px',  style:'text-align:left'},
@@ -314,37 +318,43 @@
             {caption: ["부서6명"],      	        ref: 'D6_NAME', 		            type:'output',  	width:'75px',  	style:'text-align:left'},
             {caption: ["부서7코드"],      	    ref: 'D7_NAME', 		            type:'output',  	width:'75px',  	style:'text-align:left'},
             {caption: ["부서7명"],      	        ref: 'D7_NAME', 		            type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["입사일"],      	        ref: 'ENTER_DATE', 		            type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["근속기준일"],      	    ref: 'CAREER_DATE', 		        type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["당사입사일"],      	    ref: 'COMP_ENTER_DATE', 		    type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["그룹입사일"],      	    ref: 'GROUP_ENTER_DATE', 		    type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["연차기산일(재직)"],      	ref: 'ANNUAL_INITIAL_DATE', 		type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["연차기산일(퇴직)"],      	ref: 'ANNUAL_BASE_DATE', 		    type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["퇴직기산일"],      	    ref: 'RETIRE_BASE_DATE', 		    type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["승진일"],      	        ref: 'POSITION_DATE', 		        type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["승진기준일"],      	    ref: 'POSITION_DATE1', 		        type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["보임기준일"],      	    ref: 'DUTY_DATE', 		            type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["최종승호일"],      	    ref: 'LAST_SALARYCLASS_START_DATE', type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["퇴사일"],      	        ref: 'RETIRE_DATE', 		        type:'output',  	width:'75px',  	style:'text-align:left'},
+            {caption: ["입사일"],      	        ref: 'ENTER_DATE', 		            type:'output',  	width:'75px',  	style:'text-align:left', format: {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd'}},
+            {caption: ["근속기준일"],      	    ref: 'CAREER_DATE', 		        type:'output',  	width:'75px',  	style:'text-align:left', format: {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd'}},
+            {caption: ["당사입사일"],      	    ref: 'COMP_ENTER_DATE', 		    type:'output',  	width:'75px',  	style:'text-align:left', format: {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd'}},
+            {caption: ["그룹입사일"],      	    ref: 'GROUP_ENTER_DATE', 		    type:'output',  	width:'75px',  	style:'text-align:left', format: {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd'}},
+            {caption: ["연차기산일(재직)"],      	ref: 'ANNUAL_INITIAL_DATE', 		type:'output',  	width:'75px',  	style:'text-align:left', format: {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd'}},
+            {caption: ["연차기산일(퇴직)"],      	ref: 'ANNUAL_BASE_DATE', 		    type:'output',  	width:'75px',  	style:'text-align:left', format: {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd'}},
+            {caption: ["퇴직기산일"],      	    ref: 'RETIRE_BASE_DATE', 		    type:'output',  	width:'75px',  	style:'text-align:left', format: {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd'}},
+            {caption: ["승진일"],      	        ref: 'POSITION_DATE', 		        type:'output',      width:'75px',  	style:'text-align:left', format: {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd'}},
+            {caption: ["승진기준일"],      	    ref: 'POSITION_DATE1', 		        type:'output',  	width:'75px',  	style:'text-align:left', format: {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd'}},
+            {caption: ["보임기준일"],      	    ref: 'DUTY_DATE', 		            type:'output',  	width:'75px',  	style:'text-align:left', format: {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd'}},
+            {caption: ["최종승호일"],      	    ref: 'LAST_SALARYCLASS_START_DATE', type:'output',  	width:'75px',  	style:'text-align:left', format: {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd'}},
+            {caption: ["퇴사일"],      	        ref: 'RETIRE_DATE', 		        type:'output',  	width:'75px',  	style:'text-align:left', format: {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd'}},
             {caption: ["퇴사사유"],      	    ref: 'RETIRE_REASON', 		        type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["COLSOCIAL_NUM"],      	ref: 'COLSOCIAL_NUM', 		        type:'output',  	width:'75px',  	style:'text-align:left'},
+            {caption: ["COLSOCIAL_NUM"],      	ref: 'COLSOCIAL_NUM', 		        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
             {caption: ["휴직여부"],      	    ref: 'HOLI_YN', 		            type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["재직구분"],      	    ref: 'EMP_STATE', 		            type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["입사구분"],      	    ref: 'ENTER_TYPE', 		            type:'output',  	width:'75px',  	style:'text-align:left',
+            {caption: ["재직구분"],      	    ref: 'EMP_STATE', 		            type:'combo',  	width:'75px',  	style:'text-align:left',
+                typeinfo: {
+                    ref			: 'jsonEmpState',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }, disabled: true},
+            {caption: ["입사구분"],      	    ref: 'ENTER_TYPE', 		            type:'combo',  	width:'75px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonEnterType',
                     label		: 'label',
                     value		: 'value',
                     itemcount	: 10
-                }},
-            {caption: ["병역구분"],      	    ref: 'ARMY_TYPE', 		            type:'output',  	width:'75px',  	style:'text-align:left',
+                }, disabled: true},
+            {caption: ["병역구분"],      	    ref: 'ARMY_TYPE', 		            type:'combo',  	width:'75px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonArmyType',
                     label		: 'label',
                     value		: 'value',
                     itemcount	: 10
-                }},
-            {caption: ["협력사 최초 입사일"],      ref: 'PREV_ENTER_DATE', 		    type:'output',  	width:'75px',  	style:'text-align:left'},
+                }, disabled: true, hidden: true},
+            {caption: ["(전)입사일"],      ref: 'PREV_ENTER_DATE', 		    type:'output',  	width:'75px',  	style:'text-align:left'},
         ];
 
         gvwList = _SBGrid.create(SBGridProperties);
@@ -398,7 +408,7 @@
             V_P_DEBUG_MODE_YN	: 'N'
             ,V_P_LANG_ID		: 'KOR'
             ,V_P_COMP_CODE		: COMP_CODE
-            ,V_P_CLIENT_CODE	: ''
+            ,V_P_CLIENT_CODE	: '100' // TODO : 호출 파라미터 공통화 필요
             ,V_P_SITE_CODE      : SITE_CODE
             ,V_P_DEPT_CODE      : DEPT_CODE
             ,V_P_EMP_CODE       : EMP_CODE
