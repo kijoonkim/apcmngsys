@@ -800,50 +800,52 @@
 	<!-- ==========================================================================	-->
     <insert id="insertSpmtPrfmncCom" parameterType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO">
     	<![CDATA[
-    	INSERT INTO TB_SPMT_PRFMNC_COM /* com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.insertSpmtPrfmncCom */
-    		(
-    			APC_CD
-    		  , SPMTNO
-    		  ,	SPMT_YMD
-    		  , CNPT_CD
-    		  ,	TRSPRT_CO_CD
-    		  ,	RMRK
-    		  ,	VHCLNO
-    		  ,	DLDTN
-    		  ,	TRSPRT_CST
-    		  ,	SPMT_SE_CD
-    		  ,	SPMT_PRSN_DCLRNO
-    		  ,	PLOR_CD
-    		  , RTN_GDS_YN
-    		  , SYS_FRST_INPT_DT
-    		  , SYS_FRST_INPT_USER_ID
-    		  , SYS_FRST_INPT_PRGRM_ID
-    		  , SYS_LAST_CHG_DT
-    		  , SYS_LAST_CHG_USER_ID
-    		  , SYS_LAST_CHG_PRGRM_ID
-    		)
-   		VALUES
-   			(
-   				#{apcCd}
-    		  , #{spmtno}
-    		  ,	#{spmtYmd}
-    		  , #{cnptCd}
-    		  ,	#{trsprtCoCd}
-    		  ,	#{rmrk}
-    		  ,	#{vhclno}
-    		  ,	#{dldtn}
-    		  ,	#{trsprtCst}
-    		  ,	#{spmtSeCd}
-    		  ,	#{spmtPrsnDclrno}
-    		  ,	#{plorCd}
-    		  , #{rtnGdsYn}
-    		  , SYSDATE
-    		  , #{sysFrstInptUserId}
-    		  , #{sysFrstInptPrgrmId}
-    		  , SYSDATE
-    		  , #{sysLastChgUserId}
-    		  , #{sysLastChgPrgrmId}
-   			)
+    		INSERT /* com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.insertSpmtPrfmncCom */
+    		  INTO TB_SPMT_PRFMNC_COM (
+					  APC_CD
+				    , SPMTNO
+				    , SPMT_YMD
+				    , CNPT_CD
+				    , TRSPRT_CO_CD
+				    , RMRK
+				    , VHCLNO
+				    , DLDTN
+				    , TRSPRT_CST
+				    , SPMT_SE_CD
+				    , SPMT_PRSN_DCLRNO
+				    , PLOR_CD
+				    , RTN_GDS_YN
+				    , DLNG_SHAP_CD
+				    , DLNG_MTHD_CD
+				    , SYS_FRST_INPT_DT
+				    , SYS_FRST_INPT_USER_ID
+				    , SYS_FRST_INPT_PRGRM_ID
+				    , SYS_LAST_CHG_DT
+				    , SYS_LAST_CHG_USER_ID
+				    , SYS_LAST_CHG_PRGRM_ID
+				) VALUES (
+					  #{apcCd}
+					, #{spmtno}
+					, #{spmtYmd}
+					, #{cnptCd}
+					, #{trsprtCoCd}
+					, #{rmrk}
+					, #{vhclno}
+					, #{dldtn}
+					, #{trsprtCst}
+					, #{spmtSeCd}
+					, #{spmtPrsnDclrno}
+					, #{plorCd}
+					, #{rtnGdsYn}
+					, #{dlngShapCd}
+					, #{dlngMthdCd}
+					, SYSDATE
+					, #{sysFrstInptUserId}
+					, #{sysFrstInptPrgrmId}
+					, SYSDATE
+					, #{sysLastChgUserId}
+					, #{sysLastChgPrgrmId}
+   				)
     	]]>
     </insert>
 
