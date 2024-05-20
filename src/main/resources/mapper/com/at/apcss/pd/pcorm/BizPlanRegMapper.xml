@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : BizPlanRegMapper.xml												-->
+<!-- DESC : 게시판 정보 mapper											 			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR			DESCRIPTION					  				-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.06.29  	jcshin			Initial Creation							-->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.pd.pcorm.mapper.BizPlanRegMapper">
+
+	<!-- 사용자정보 리스트 -->
+	<select id="selectBizPlanRegList" parameterType="com.at.apcss.pd.pcorm.vo.BizPlanRegVO" resultType="com.at.apcss.pd.pcorm.vo.BizPlanRegVO">
+		SELECT /* com.at.apcss.pd.pcorm.mapper.BizPlanReqMngMapper.selectBizPlanReqMngList */
+			TEA.APO_CD
+			, TEA.APO_SE
+			, TEA.BRNO
+			, TEA.CRNO
+			, TEA.APRV
+			, TEA.CORP_NM
+		FROM TB_EV_APO TEA
+		WHERE 1=1
+		<if test='brno != null and brno != ""'>
+		  AND TEA.BRNO = #{brno}
+		</if>
+		<if test='apoSe != null and apoSe != ""'>
+		  AND TEA.APO_SE = #{apoSe}
+		</if>
+		<if test='aprv != null and aprv != ""'>
+		  AND TEA.APRV = #{aprv}
+		</if>
+	</select>
+
+	<!-- 파일 리스트 -->
+	<select id="selectBizPlanRegFileList" parameterType="com.at.apcss.pd.pcorm.vo.BizPlanRegVO" resultType="com.at.apcss.pd.pcorm.vo.BizPlanRegVO">
+		SELECT /* com.at.apcss.pd.pcorm.mapper.BizPlanReqMngMapper.selectBizPlanReqMngList */
+			SD.YR
+			, SD.APO_CD
+			, SD.APO_SE
+			, SD.BRNO
+			, SD.CRNO
+			, SD.DCMNT_KND
+			, SD.FILE_SN
+			, SD.STTS
+			, DECODE(SD.STTS, '1' , '미승인' , '2' , '승인' , '3' , '반려') AS STTS_NM
+			, SD.REG_NM
+			, SD.REG_USER_ID
+			, SD.REG_DT
+			, SD.APRV_NM
+			, SD.APRV_USER_ID
+			, SD.APRV_DT
+			, SD.RJCT_RSN
+			, SD.RJCT_NM
+			, SD.RJCT_USER_ID
+			, SD.RJCT_DT
+			, SD.RMRK
+			, SD.DEL_YN
+
+			, SDF.ORG_FILE_NM
+		FROM TB_EV_SBMSN_DCMNT SD
+			, TB_EV_SBMSN_DCMNT_FILE SDF
+		WHERE 1=1
+		  AND SD.FILE_SN = SDF.FILE_SN(+)
+		<if test='yr != null and yr != ""'>
+		  AND SD.YR = #{yr}
+		</if>
+		<if test='brno != null and brno != ""'>
+		  AND SD.BRNO = #{brno}
+		</if>
+	</select>
+
+	<!-- 설문조사 리스트 -->
+	<select id="selectSrvy" parameterType="com.at.apcss.pd.pcorm.vo.BizPlanRegVO" resultType="com.at.apcss.pd.pcorm.vo.BizPlanRegVO">
+		SELECT /* com.at.apcss.pd.pcorm.mapper.BizPlanReqMngMapper.selectSrvy */
+			TES.YR
+			, TES.SRVY_KND
+			, TES.SRVY_SN
+			, TES.SRVY_CN
+			, TES.RSPNS_CN
+		FROM TB_EV_SRVY TES
+		WHERE 1=1
+		<if test='yr != null and yr != ""'>
+		  AND TES.YR = #{yr}
+		</if>
+		<if test='sysFrstInptUserId != null and sysFrstInptUserId != ""'>
+		  AND TES.USER_ID = #{sysFrstInptUserId}
+		</if>
+	</select>
+
+	<insert id="insertSbmsnDcmnt" parameterType="com.at.apcss.pd.pcorm.vo.BizPlanRegFileVO">
+		MERGE INTO TB_EV_SBMSN_DCMNT CLT /* com.at.apcss.pd.pcorm.mapper.BizPlanReqMngMapper.insertSbmsnDcmnt */
+		USING DUAL
+			ON (
+					CLT.YR				= TO_CHAR(SYSDATE,'YYYY')
+					AND CLT.BRNO		= #{brno}
+					AND CLT.DCMNT_KND	= #{dcmntKnd}
+				)
+		WHEN MATCHED THEN
+				UPDATE
+					   SET
+						  STTS					= '1'
+
+						, FILE_SN				= (SELECT NVL(MAX(FILE_SN),0)+1 FROM TB_EV_SBMSN_DCMNT_FILE)
+
+						, SYS_LAST_CHG_DT		= SYSDATE
+						, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+						, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+
+					WHERE 1=1
+					  AND CLT.YR			= TO_CHAR(SYSDATE,'YYYY')
+					  AND CLT.BRNO			= #{brno}
+					  AND CLT.DCMNT_KND		= #{dcmntKnd}
+
+		WHEN NOT MATCHED THEN
+			 INSERT
+					(
+						YR
+					  , BRNO
+					  , DCMNT_KND
+					  , STTS
+					  , FILE_SN
+
+					  , REG_USER_ID
+					  , REG_DT
+
+					  , SYS_FRST_INPT_DT
+					  , SYS_FRST_INPT_USER_ID
+					  , SYS_FRST_INPT_PRGRM_ID
+					  , SYS_LAST_CHG_DT
+					  , SYS_LAST_CHG_USER_ID
+					  , SYS_LAST_CHG_PRGRM_ID
+					)
+				VALUES
+					(
+					  TO_CHAR(SYSDATE,'YYYY')
+					  , #{brno}
+					  , #{dcmntKnd}
+					  , '1'
+					  , (SELECT NVL(MAX(FILE_SN),0)+1 FROM TB_EV_SBMSN_DCMNT_FILE)
+
+					  , #{sysFrstInptUserId}
+					  , SYSDATE
+
+					  , SYSDATE
+					  , #{sysFrstInptUserId}
+					  , #{sysFrstInptPrgrmId}
+					  , SYSDATE
+					  , #{sysLastChgUserId}
+					  , #{sysLastChgPrgrmId}
+
+					)
+	</insert>
+
+	<insert id="insertSbmsnDcmntFile" parameterType="com.at.apcss.pd.pcorm.vo.BizPlanRegFileVO">
+		<![CDATA[
+			INSERT /* com.at.apcss.pd.pcorm.mapper.BizPlanReqMngMapper.insertSbmsnDcmntFile */
+				INTO TB_EV_SBMSN_DCMNT_FILE
+					(
+					  FILE_PATH_NM
+					  , ORG_FILE_NM
+					  , SRVR_FILE_NM
+					  , FILE_SZ
+					  , FILE_EXTN_NM
+
+					  , SYS_FRST_INPT_DT
+					  , SYS_FRST_INPT_USER_ID
+					  , SYS_FRST_INPT_PRGRM_ID
+					  , SYS_LAST_CHG_DT
+					  , SYS_LAST_CHG_USER_ID
+					  , SYS_LAST_CHG_PRGRM_ID
+					)
+				VALUES
+					(
+						#{filePathNm}
+					  , #{orgFileNm}
+					  , #{srvrFileNm}
+					  , #{fileSz}
+					  , #{fileExtnNm}
+
+					  , SYSDATE
+					  , #{sysFrstInptUserId}
+					  , #{sysFrstInptPrgrmId}
+					  , SYSDATE
+					  , #{sysLastChgUserId}
+					  , #{sysLastChgPrgrmId}
+					)
+		]]>
+	</insert>
+
+	<insert id="insertSrvy" parameterType="com.at.apcss.pd.pcorm.vo.BizPlanRegVO">
+		MERGE INTO TB_EV_SRVY CLT /* com.at.apcss.pd.pcorm.mapper.BizPlanReqMngMapper.insertSrvy */
+		USING DUAL
+			ON (
+					CLT.YR				= TO_CHAR(SYSDATE,'YYYY')
+					AND CLT.USER_ID		= #{sysFrstInptUserId}
+					AND CLT.SRVY_KND	= #{srvyKnd}
+				)
+		WHEN MATCHED THEN
+				UPDATE
+					   SET
+						  SRVY_CN				= #{srvyCn}
+						, RSPNS_CN				= #{rspnsCn}
+
+						, SYS_LAST_CHG_DT		= SYSDATE
+						, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+						, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+
+					WHERE 1=1
+					  AND CLT.YR		= TO_CHAR(SYSDATE,'YYYY')
+					  AND CLT.USER_ID	= #{sysFrstInptUserId}
+					  AND CLT.SRVY_KND	= #{srvyKnd}
+
+		WHEN NOT MATCHED THEN
+			INSERT
+				(
+					YR
+					, USER_ID
+					, SRVY_KND
+					, SRVY_SN
+					, SRVY_CN
+					, RSPNS_CN
+
+					, SYS_FRST_INPT_DT
+					, SYS_FRST_INPT_USER_ID
+					, SYS_FRST_INPT_PRGRM_ID
+					, SYS_LAST_CHG_DT
+					, SYS_LAST_CHG_USER_ID
+					, SYS_LAST_CHG_PRGRM_ID
+				)
+			VALUES
+				(
+					TO_CHAR(SYSDATE,'YYYY')
+					, #{sysFrstInptUserId}
+					, #{srvyKnd}
+					, #{srvySn}
+					, #{srvyCn}
+					, #{rspnsCn}
+
+					, SYSDATE
+					, #{sysFrstInptUserId}
+					, #{sysFrstInptPrgrmId}
+					, SYSDATE
+					, #{sysLastChgUserId}
+					, #{sysLastChgPrgrmId}
+				)
+	</insert>
+</mapper>

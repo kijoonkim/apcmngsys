@@ -203,18 +203,18 @@
 			};
 
 		SBGridProperties.columns = [
-			{caption: ["신청년도","신청년도"], 		ref: 'yr',   	type:'input',  width:'80px',	style:'text-align:center'},
-			{caption: ["법인명","법인명"], 			ref: 'corpNm',  type:'input',  width:'150px',	style:'text-align:center'},
-			{caption: ["사업자번호","사업자번호"], 		ref: 'brno',   	type:'input',  width:'150px',	style:'text-align:center'},
-			{caption: ["법인번호","법인번호"], 		ref: 'crno',   	type:'input',  width:'150px',	style:'text-align:center'},
-			{caption: ["최종업로드시간","최종업로드시간"], 	ref: 'lastUldDt',   	type:'input',  width:'150px',	style:'text-align:center'},
-			{caption: ["사업계획서","제출여부"], 		ref: 'bizPlanSbmsnYn',   	type:'input',  width:'80px',	style:'text-align:center'},
-			{caption: ["사업계획서","승인여부"], 		ref: 'bizPlanAprvYn',   	type:'input',  width:'80px',	style:'text-align:center'},
-			{caption: ["서명서","제출여부"], 			ref: 'sgntrSbmsnYn',   	type:'input',  width:'80px',	style:'text-align:center'},
-			{caption: ["서명서","승인여부"], 			ref: 'sgntrAprvYn',   	type:'input',  width:'80px',	style:'text-align:center'},
-			{caption: ["미리보기","미리보기"], 		ref: 'prvwBtn',   	type:'output',  width:'80px',	style:'text-align:center'},
+			{caption: ["신청년도","신청년도"], 		ref: 'yr',				type:'output',  width:'80px',	style:'text-align:center'},
+			{caption: ["법인명","법인명"], 			ref: 'corpNm',			type:'output',  width:'150px',	style:'text-align:center'},
+			{caption: ["사업자번호","사업자번호"], 		ref: 'brno',			type:'output',  width:'150px',	style:'text-align:center'},
+			{caption: ["법인번호","법인번호"], 		ref: 'crno',			type:'output',  width:'150px',	style:'text-align:center'},
+			{caption: ["최종업로드시간","최종업로드시간"], 	ref: 'lastUldDt',		type:'output',  width:'150px',	style:'text-align:center'},
+			{caption: ["사업계획서","제출여부"], 		ref: 'bizPlanSbmsnYn',	type:'output',  width:'80px',	style:'text-align:center'},
+			{caption: ["사업계획서","승인여부"], 		ref: 'bizPlanAprvYn',	type:'output',  width:'80px',	style:'text-align:center'},
+			{caption: ["서명서","제출여부"], 			ref: 'sgntrSbmsnYn',	type:'output',  width:'80px',	style:'text-align:center'},
+			{caption: ["서명서","승인여부"], 			ref: 'sgntrAprvYn',		type:'output',  width:'80px',	style:'text-align:center'},
+			{caption: ["미리보기","미리보기"], 		ref: 'prvwBtn',			type:'output',  width:'80px',	style:'text-align:center'},
 
-			{caption: ["비고","비고"], 				ref: 'rmrk',   	type:'output',  width:'220px',	style:'text-align:center'},
+			//{caption: ["비고","비고"], 				ref: 'rmrk',   	type:'output',  width:'220px',	style:'text-align:center'},
 
 			//{caption: ["상세내역"], 	ref: 'picFlnm',   		hidden : true},
 
@@ -224,9 +224,6 @@
 	  	//클릭 이벤트 바인드
 		//grdBizPlanReqMng.bind('click','fn_view');
 		grdBizPlanReqMng.bind('beforepagechanged', 'fn_pagingBbsList');
-		grdBizPlanReqMng.addRow();
-		grdBizPlanReqMng.addRow();
-		grdBizPlanReqMng.addRow();
 	}
 	/**
 	 * 목록 조회
@@ -274,10 +271,19 @@
 			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let BizPlanReqMngVO = {
-						apoSe: item.apoSe
-						,yr: item.yr
-						,apoCd: item.apoCd
-						,apoSe: item.apoSe
+						yr		: yr
+						,apoCd	: item.apoCd
+						,apoSe	: item.apoSe
+						,corpNm	: item.corpNm
+						,brno	: item.brno
+						,crno	: item.crno
+
+						,lastUldDt		: item.lastUldDt
+						,bizPlanSbmsnYn	: item.bizPlanSbmsnYn
+						,bizPlanAprvYn	: item.bizPlanAprvYn
+						,sgntrSbmsnYn	: item.sgntrSbmsnYn
+						,sgntrAprvYn	: item.sgntrAprvYn
+
 				}
 				jsonBizPlanReqMng.push(BizPlanReqMngVO);
 				if (index === 0) {
