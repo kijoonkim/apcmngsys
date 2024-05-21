@@ -522,7 +522,13 @@
 
     // 엑셀 다운로드
     function fn_excelDwnld1() {
-    	grdSortPrfmnc.exportLocalExcel("선별실적", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    	
+    	if(gfn_comConfirm("Q0000","엑셀의 양식을 xlsx으로 다운로드 받으시겠습니까?\n (확인 클릭 시 xlsx, 취소 클릭 시 xls)")){
+    		grdSortPrfmnc.exportData("xlsx","선별실적",true);
+    	}else{
+    		grdSortPrfmnc.exportLocalExcel("선별실적", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    	}
+    	
     }
 
     // 개인화 저장
