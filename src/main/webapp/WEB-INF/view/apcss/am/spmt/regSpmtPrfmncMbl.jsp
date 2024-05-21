@@ -1933,31 +1933,31 @@
         });
         saveJson.spmtPrfmncList = spmtPrfmncList;
 
-        /** 중복 상품 취합 **/
-        let arr = saveJson.spmtPrfmncList;
-
-        let result = arr.reduce(function(acc,cur){
-            if(acc.length == 0){
-                acc.push(cur);
-            }else{
-                /** 존재 여부 **/
-                let flag = false;
-                acc.forEach(function(item){
-                   if(item.spmtPckgUnitCd == cur.spmtPckgUnitCd){
-                       if(item.spmtGdsList[0].pckgno == cur.spmtGdsList[0].pckgno){
-                           item.spmtQntt = (parseInt(item.spmtQntt) + parseInt(cur.spmtQntt)) +'';
-                           flag = true;
-                           return;
-                       }
-                   }
-                });
-                if(!flag){
-                    acc.push(cur);
-                }
-            }
-            return acc;
-        }, []);
-        saveJson.spmtPrfmncList = result;
+        // /** 중복 상품 취합 **/
+        // let arr = saveJson.spmtPrfmncList;
+        //
+        // let result = arr.reduce(function(acc,cur){
+        //     if(acc.length == 0){
+        //         acc.push(cur);
+        //     }else{
+        //         /** 존재 여부 **/
+        //         let flag = false;
+        //         acc.forEach(function(item){
+        //            if(item.spmtPckgUnitCd == cur.spmtPckgUnitCd){
+        //                if(item.spmtGdsList[0].pckgno == cur.spmtGdsList[0].pckgno){
+        //                    item.spmtQntt = (parseInt(item.spmtQntt) + parseInt(cur.spmtQntt)) +'';
+        //                    flag = true;
+        //                    return;
+        //                }
+        //            }
+        //         });
+        //         if(!flag){
+        //             acc.push(cur);
+        //         }
+        //     }
+        //     return acc;
+        // }, []);
+        // saveJson.spmtPrfmncList = result;
         let returnSpmtNo = "";
 
         try{
