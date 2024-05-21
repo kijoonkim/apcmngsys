@@ -33,7 +33,7 @@
             <div>
                 <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
-                </h3><!-- 국가정보 -->
+                </h3>
             </div>
             <div style="margin-left: auto;">
                 <sbux-button id="btnSearch" name="btnSearch" 	uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
@@ -42,6 +42,9 @@
         <div class="box-body">
 
             <!--[pp] 검색 -->
+            <!--[APC] START -->
+            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+            <!--[APC] END -->
             <table class="table table-bordered tbl_fixed">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
@@ -56,10 +59,6 @@
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row" class="th_bg"><span class="data_required"></span>법인</th>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select id="SRCH_COMP_CODE" uitype="single" jsondata-ref="jsonCompCode" unselected-text="" class="form-control input-sm"></sbux-select>
-                    </td>
                     <th scope="row" class="th_bg">소속사업장</th>
                     <td colspan="2" class="td_input" style="border-right:hidden;">
                         <sbux-select id="SRCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
@@ -127,15 +126,12 @@
         fn_search();
     });
 
-    var jsonCompCode		= [];	// 법인
     var jsonSiteCode	= [];	// 사업장
     var jsonEmpState = []; // 재직구분
     var jsonPositionCode = []; // 직위
 
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
-            // 법인
-            gfnma_setComSelect(['SRCH_COMP_CODE'], jsonCompCode, 'L_ORG000', '', '', 'COMP_CODE', 'COMP_NAME', 'Y', ''),
             // 사업장
             gfnma_setComSelect(['SRCH_SITE_CODE'], jsonSiteCode, 'L_ORG001', '', '', 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             // 재직구분
@@ -258,7 +254,6 @@
 
         gridViewEx1.clearStatus();
 
-        let COMP_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_COMP_CODE"));
         let SITE_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
         let EMP_STATE	= gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
         let DEPT_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
@@ -268,8 +263,8 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	: 'N'
             ,V_P_LANG_ID		: 'KOR'
-            ,V_P_COMP_CODE		: COMP_CODE
-            ,V_P_CLIENT_CODE	: '100'  // TODO : 호출 파라미터 공통화 필요
+            ,V_P_COMP_CODE		: gv_ma_selectedApcCd
+            ,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
             ,V_P_SITE_CODE      : SITE_CODE
             ,V_P_DEPT_CODE      : DEPT_CODE
             ,V_P_POSITION_CODE  : POSITION_CODE

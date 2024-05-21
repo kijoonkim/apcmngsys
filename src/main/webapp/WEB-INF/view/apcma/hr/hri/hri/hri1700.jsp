@@ -33,7 +33,7 @@
             <div>
                 <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
-                </h3><!-- 국가정보 -->
+                </h3><
             </div>
             <div style="margin-left: auto;">
                 <sbux-button id="btnSearch" name="btnSearch" 	uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
@@ -47,6 +47,9 @@
         <div class="box-body">
 
             <!--[pp] 검색 -->
+            <!--[APC] START -->
+            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+            <!--[APC] END -->
             <table class="table table-bordered tbl_fixed">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
@@ -61,12 +64,6 @@
                     <col style="width: 11%">
                 </colgroup>
                 <tbody>
-                <tr>
-                    <th scope="row" class="th_bg">법인</th>
-                    <td colspan="3" class="td_input" style="border-right:hidden;">
-                        <sbux-select id="SRCH_COMP_CODE" uitype="single" jsondata-ref="jsonCompCode" unselected-text="" class="form-control input-sm"></sbux-select>
-                    </td>
-                </tr>
                 <tr>
                     <th scope="row" class="th_bg">신청일</th>
                     <td class="td_input" style="border-right:hidden;">
@@ -168,7 +165,6 @@
         fn_search();
     });
 
-    var jsonCompCode		= [];	// 법인
     var jsonReportType = []; // 증명서유형
     var jsonConfirmStep = []; // 진행상태
     var jsonPositionCode = []; // 직위
@@ -179,8 +175,6 @@
         SBUxMethod.set("SRCH_REQUEST_DATE_TO", gfn_dateToYmd(new Date()));
 
         let rst = await Promise.all([
-            // 법인
-            gfnma_setComSelect(['SRCH_COMP_CODE'], jsonCompCode, 'L_ORG000', '', '', 'COMP_CODE', 'COMP_NAME', 'Y', ''),
             // 증명서유형
             gfnma_setComSelect(['SRCH_REPORT_TYPE', 'bandgvwInfo'], jsonReportType, 'L_HRI042', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 진행상태
@@ -343,7 +337,6 @@
 
         bandgvwInfo.clearStatus();
 
-        let COMP_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_COMP_CODE"));
         let REQUEST_DATE_FR	= gfnma_nvl(SBUxMethod.get("SRCH_REQUEST_DATE_FR"));
         let REQUEST_DATE_TO	= gfnma_nvl(SBUxMethod.get("SRCH_REQUEST_DATE_TO"));
         let REPORT_TYPE	= gfnma_nvl(SBUxMethod.get("SRCH_REPORT_TYPE"));
@@ -354,8 +347,8 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	    : 'N'
             ,V_P_LANG_ID		    : 'KOR'
-            ,V_P_COMP_CODE		    : COMP_CODE
-            ,V_P_CLIENT_CODE	    : '100'  // TODO : 호출 파라미터 공통화 필요
+            ,V_P_COMP_CODE		    : gv_ma_selectedApcCd
+            ,V_P_CLIENT_CODE	    : gv_ma_selectedClntCd
             ,V_P_REQUEST_DATE_FR    : REQUEST_DATE_FR
             ,V_P_REQUEST_DATE_TO    : REQUEST_DATE_TO
             ,V_P_REPORT_TYPE        : REPORT_TYPE
@@ -458,13 +451,11 @@
 
         let rowData = gvwList.getRowData(nRow);
 
-        let COMP_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_COMP_CODE"));
-
         var paramObj = {
             V_P_DEBUG_MODE_YN	: 'N'
             ,V_P_LANG_ID		: 'KOR'
-            ,V_P_COMP_CODE		: COMP_CODE
-            ,V_P_CLIENT_CODE	: '100'  // TODO : 호출 파라미터 공통화 필요
+            ,V_P_COMP_CODE		: gv_ma_selectedApcCd
+            ,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
             ,V_P_REQUEST_DATE_FR: APPOINT_NUM
             ,V_P_REQUEST_DATE_TO: APPOINT_DATE_FR
             ,V_P_REPORT_TYPE: APPOINT_DATE

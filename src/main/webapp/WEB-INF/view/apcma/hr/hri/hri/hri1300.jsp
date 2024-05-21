@@ -33,7 +33,7 @@
             <div>
                 <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
-                </h3><!-- 국가정보 -->
+                </h3>
             </div>
             <div style="margin-left: auto;">
                 <sbux-button id="btnSearch" name="btnSearch" 	uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
@@ -47,6 +47,9 @@
         <div class="box-body">
 
             <!--[pp] 검색 -->
+            <!--[APC] START -->
+            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+            <!--[APC] END -->
             <table class="table table-bordered tbl_fixed">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
@@ -60,10 +63,6 @@
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row" class="th_bg">법인</th>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select id="SRCH_COMP_CODE" uitype="single" jsondata-ref="jsonCompCode" unselected-text="" class="form-control input-sm"></sbux-select>
-                    </td>
                     <th scope="row" class="th_bg">사업장</th>
                     <td colspan="2" class="td_input" style="border-right:hidden;">
                         <sbux-select id="SRCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
@@ -350,7 +349,6 @@
         fn_search();
     });
 
-    var jsonCompCode		= [];	// 법인
     var jsonSiteCode	= [];	// 사업장
     var jsonAppointType = []; // 발령구분
     var jsonApplyYn = []; // 적용구분
@@ -370,8 +368,6 @@
         SBUxMethod.set("SRCH_APPOINT_DATE", gfn_dateToYmd(new Date()));
 
         let rst = await Promise.all([
-            // 법인
-            gfnma_setComSelect(['SRCH_COMP_CODE', 'COMP_CODE'], jsonCompCode, 'L_ORG000', '', '', 'COMP_CODE', 'COMP_NAME', 'Y', ''),
             // 사업장
             gfnma_setComSelect(['SRCH_SITE_CODE', 'SITE_CODE', 'bandgvwDetail'], jsonSiteCode, 'L_ORG001', '', '', 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             // 발령구분
@@ -704,7 +700,6 @@
 
         gvwList.clearStatus();
 
-        let COMP_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_COMP_CODE"));
         let SITE_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
         let APPOINT_TYPE	= gfnma_nvl(SBUxMethod.get("SRCH_APPOINT_TYPE"));
         let APPOINT_NUM	= gfnma_nvl(SBUxMethod.get("SRCH_APPOINT_NUM"));
@@ -714,8 +709,8 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	: 'N'
             ,V_P_LANG_ID		: 'KOR'
-            ,V_P_COMP_CODE		: COMP_CODE
-            ,V_P_CLIENT_CODE	: '100'  // TODO : 호출 파라미터 공통화 필요
+            ,V_P_COMP_CODE		: gv_ma_selectedApcCd
+            ,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
             ,V_P_APPOINT_NUM    : APPOINT_NUM
             ,V_P_APPOINT_DATE_FR: APPOINT_DATE_FR
             ,V_P_APPOINT_DATE_TO: APPOINT_DATE
@@ -816,7 +811,6 @@
 
         let rowData = gvwList.getRowData(nRow);
 
-        let COMP_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_COMP_CODE"));
         let SITE_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
         let DEPT_CODE   = rowData.DEPT_CODE;
         let APPOINT_TYPE	= gfnma_nvl(SBUxMethod.get("SRCH_APPOINT_TYPE"));
@@ -827,8 +821,8 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	: 'N'
             ,V_P_LANG_ID		: 'KOR'
-            ,V_P_COMP_CODE		: COMP_CODE
-            ,V_P_CLIENT_CODE	: '100'  // TODO : 호출 파라미터 공통화 필요
+            ,V_P_COMP_CODE		: gv_ma_selectedApcCd
+            ,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
             ,V_P_APPOINT_NUM    : APPOINT_NUM
             ,V_P_APPOINT_DATE_FR: APPOINT_DATE_FR
             ,V_P_APPOINT_DATE_TO: APPOINT_DATE
@@ -915,7 +909,6 @@
 
     // 일괄추가
     const fn_addAll = async function() {
-        let COMP_CODE	= gfnma_nvl(SBUxMethod.get("COMP_CODE"));
         let SITE_CODE	= gfnma_nvl(SBUxMethod.get("SITE_CODE"));
         let DEPT_CODE	= gfnma_nvl(SBUxMethod.get("DEPT_CODE"));
         let EMP_CODE	= gfnma_nvl(SBUxMethod.get("EMP_CODE"));
@@ -934,8 +927,8 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	: 'N'
             ,V_P_LANG_ID		: 'KOR'
-            ,V_P_COMP_CODE		: COMP_CODE
-            ,V_P_CLIENT_CODE	: ''  // TODO : 호출 파라미터 공통화 필요
+            ,V_P_COMP_CODE		: gv_ma_selectedApcCd
+            ,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
             ,V_P_APPOINT_NUM    : ''
             ,V_P_APPOINT_DATE_FR: APPOINT_DATE_FR
             ,V_P_APPOINT_DATE_TO: APPOINT_DATE

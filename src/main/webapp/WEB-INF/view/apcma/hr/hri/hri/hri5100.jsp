@@ -33,7 +33,7 @@
             <div>
                 <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
-                </h3><!-- 국가정보 -->
+                </h3>
             </div>
             <div style="margin-left: auto;">
                 <sbux-button id="btnSearch" name="btnSearch" 	uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
@@ -42,6 +42,9 @@
         <div class="box-body">
 
             <!--[pp] 검색 -->
+            <!--[APC] START -->
+            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+            <!--[APC] END -->
             <table class="table table-bordered tbl_fixed">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
@@ -236,8 +239,8 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN	: 'N'
             ,V_P_LANG_ID		: 'KOR'
-            ,V_P_COMP_CODE		: '1000'
-            ,V_P_CLIENT_CODE	: '100'  // TODO : 호출 파라미터 공통화 필요
+            ,V_P_COMP_CODE		: gv_ma_selectedApcCd
+            ,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
             ,V_P_SITE_CODE      : ''
             ,V_P_DATE1      	: YMDDATE1
             ,V_P_DATE2	        : YMDDATE2
