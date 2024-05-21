@@ -1255,6 +1255,7 @@
         $("#qnttInp1_0,#qnttInp2_0,#qnttInp3_0").on('focus', fn_showInvntQntt.bind(this));
         $("#qnttInp1_0,#qnttInp2_0,#qnttInp3_0").on('blur', () => $("#invntQnttEl").remove());
         $('.gdsInput_0').on("keydown",fn_remove.bind(event));
+        $('.gdsInput_0').on("focusout",fn_focusout.bind(event));
         $('.gdsInput_0').parent().next().find('input').on("keydown",fn_searchEnter.bind(event));
     }
     /**
@@ -1383,6 +1384,7 @@
                     $(qnttInp3_).on('blur', () => $("#invntQnttEl").remove());
 
                     $(gdsInput_).on('keydown', fn_remove.bind(event));
+                    $(gdsInput_).on('focusout', fn_focusout.bind(event));
                     $(gdsInput_).parent().next().find('input').on("keydown",fn_searchEnter.bind(event));
                 }
             }
@@ -1837,6 +1839,7 @@
                 let tr = $("#reg_table tbody").children().eq(idx);
 
                 tr.children().eq(0).find('input').eq(0).on('keydown', fn_remove.bind(event));
+                tr.children().eq(0).find('input').eq(0).on('focusout', fn_focusout.bind(event));
                 tr.children().eq(0).find('input').eq(1).on('keydown', fn_searchEnter.bind(event));
                 tr.children().eq(0).find('input').eq(0).val(grdNm);
                 tr.children().eq(9).find('input').val(item.rmrk);
@@ -2004,25 +2007,26 @@
 
     const fn_remove = async function(_event){
         let inputWord = _event.keyCode;
-        console.log(_event);
         let parentTr = $(_event.target).closest('tr');
         parentTr.children().eq(0).find('input').eq(1).attr({'type':"number","readonly":false});
         parentTr.children().eq(0).find('input').eq(1).css({'color':"initial","background-color":"initial"});
         parentTr.children().eq(0).find('input').eq(1).val('');
 
-        $("#spmtNo").text(inputWord + " " + _event.toString());
         if(inputWord == 190){
             $(_event.target).val("");
             _event.preventDefault();
             fn_onChangesortGds(_event.target);
-        }else if((inputWord == 13 || inputWord == 9) || _event.key == "Tab"){
-            await fn_onChangesortGds(_event.target);
-
-            if($(_event.target).parent().next().find('input').attr("readonly") == 'readonly'){
-                $(_event.target).parent().nextAll().last().find('button').trigger('click')
-            };
         }
     }
+    /**
+     * else if((inputWord == 13 || inputWord == 9) || _event.key == "Tab"){
+     await fn_onChangesortGds(_event.target);
+
+     if($(_event.target).parent().next().find('input').attr("readonly") == 'readonly'){
+     $(_event.target).parent().nextAll().last().find('button').trigger('click')
+     };
+     }
+     **/
 
     const fn_searchSpmtList = async function() {
         try {
@@ -2129,12 +2133,9 @@
     }
 
     const fn_focusout =function(e){
-        console.log(e);
         if($(e.relatedTarget).attr('readonly') == 'readonly'){
-            $("#spmtNo").text("감지함");
             $(e.currentTarget).parent().nextAll().last().find('button').trigger('click');
         }
-
     }
 
 </script>
