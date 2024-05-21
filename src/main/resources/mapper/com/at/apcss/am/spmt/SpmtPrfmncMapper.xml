@@ -886,6 +886,7 @@
     		  , SYS_LAST_CHG_DT
     		  , SYS_LAST_CHG_USER_ID
     		  , SYS_LAST_CHG_PRGRM_ID
+			  , RMRK
     		)
    		VALUES
    			(
@@ -914,6 +915,7 @@
     		  , SYSDATE
     		  , #{sysLastChgUserId}
     		  , #{sysLastChgPrgrmId}
+			  , #{rmrk}
    			)
     	]]>
     </insert>
@@ -1160,13 +1162,8 @@
 					 AND SGRD.GRD_CD = SI.GRD_CD
 
 					 WHERE GI.APC_CD = #{apcCd}
+				 	 AND (GI.INVNTR_QNTT > 0 OR GI.INVNTR_WGHT > 0)
 				   ]]>
-				 		<if test='pckgno != null and pckgno != ""'>
-							AND GI.PCKGNO = #{pckgno}
-						</if>
-						<if test='pckgno == null or pckgno == ""'>
-					 		AND (GI.INVNTR_QNTT > 0 OR GI.INVNTR_WGHT > 0)
-						</if>
 					 	<if test='itemCd != null and itemCd != ""'>
 						 	AND GI.ITEM_CD = #{itemCd}
 					 	</if>
@@ -1251,6 +1248,7 @@
 			 , MAX(SGRD.GRD_NM) || NVL2(SP.PRDCR_IDENTNO, '-' || SP.PRDCR_IDENTNO, NULL)	AS SPMT_INDCT
 			 , LISTAGG(SP.PCKGNO || SP.PCKG_SN, ',') WITHIN GROUP (ORDER BY SP.PCKG_SN) AS SPMT_INV_ID
 			 , MAX(CRTR.SPCFCT_NM) AS SPCFCT_NM
+			 , MAX(SP.RMRK) AS RMRK
 		FROM(
 			(SELECT
 			SC.APC_CD			AS APC_CD
@@ -1284,6 +1282,7 @@
 				, SI.GRD_CD			AS SORT_GRD_CD
 				, INV.PCKG_SN AS PCKG_SN
 				, INV.PCKGNO AS PCKGNO
+				, SD.RMRK AS RMRK
 			FROM TB_SPMT_PRFMNC_COM SC
 			JOIN TB_SPMT_PRFMNC_DTL SD
 			ON SD.APC_CD = SC.APC_CD
