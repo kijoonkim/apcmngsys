@@ -1292,7 +1292,7 @@
         }
     }
     /** 출하번호 입력시 품목, 품종,단량 셋팅 및 생산자번호 선입력시 재고 셋팅 **/
-    const fn_onChangesortGds = function (_el) {
+    const fn_onChangesortGds = async function (_el) {
         let _val = _el.value;
         let parentTr = $(_el).closest('tr');
         let lastInput = parentTr.children(':last').find("input");
@@ -2003,6 +2003,7 @@
 
     const fn_remove = async function(_event){
         let inputWord = _event.keyCode;
+        console.log(_event);
         let parentTr = $(_event.target).closest('tr');
         parentTr.children().eq(0).find('input').eq(1).attr({'type':"number","readonly":false});
         parentTr.children().eq(0).find('input').eq(1).css({'color':"initial","background-color":"initial"});
@@ -2012,13 +2013,12 @@
             $(_event.target).val("");
             _event.preventDefault();
             fn_onChangesortGds(_event.target);
-        }else if(inputWord == 13 || inputWord == 9){
+        }else if((inputWord == 13 || inputWord == 9) || _event.key == "Tab"){
             await fn_onChangesortGds(_event.target);
 
             if($(_event.target).parent().next().find('input').attr("readonly") == 'readonly'){
                 $(_event.target).parent().nextAll().last().find('button').trigger('click')
             };
-
         }
     }
 
