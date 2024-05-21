@@ -812,6 +812,7 @@
         $("#qnttInp1_0,#qnttInp2_0,#qnttInp3_0").on('focus', fn_showInvntQntt.bind(this));
         $("#qnttInp1_0,#qnttInp2_0,#qnttInp3_0").on('blur', () => $("#invntQnttEl").remove());
         $('.gdsInput_0').on("keydown",fn_remove.bind(event));
+        $('.gdsInput_0').on("focusout",fn_focusout.bind(event));
         $('.gdsInput_0').parent().next().find('input').on("keydown",fn_searchEnter.bind(event));
         /** main.jsp msg push**/
         window.parent.postMessage("sideMenuOff", "*");
@@ -2009,6 +2010,7 @@
         parentTr.children().eq(0).find('input').eq(1).css({'color':"initial","background-color":"initial"});
         parentTr.children().eq(0).find('input').eq(1).val('');
 
+        $("#spmtNo").text(inputWord + " " + _event.toString());
         if(inputWord == 190){
             $(_event.target).val("");
             _event.preventDefault();
@@ -2124,6 +2126,15 @@
         if(keyCode == 9 || keyCode == 13){
             $(e.target).parent().nextAll().last().find('button').trigger('click');
         }
+    }
+
+    const fn_focusout =function(e){
+        console.log(e);
+        if($(e.relatedTarget).attr('readonly') == 'readonly'){
+            $("#spmtNo").text("감지함");
+            $(e.currentTarget).parent().nextAll().last().find('button').trigger('click');
+        }
+
     }
 
 </script>
