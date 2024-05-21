@@ -30,7 +30,7 @@
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 11%">
+						<col style="width: 12%">
 						<col style="width: 6%">
 						<col style="width: 6%">
 						<col style="width: 6%">
@@ -86,6 +86,34 @@
 							<td colspan="1" class="td_input">
 							</td>
 						</tr>
+						<tr>
+							<th scope="row" class="th_bg" >사업계획서/전환서<br>파일 유무</th>
+							<td colspan="3" class="td_input" style="border-right:hidden;" >
+								<sbux-select
+									id="srch-input-bpChk"
+									name="srch-input-bpChk"
+									uitype="single"
+									jsondata-ref="jsonComBpChk"
+									unselected-text="전체"
+									class="form-control input-sm"
+								></sbux-select>
+							</td>
+							<td style="border-right: hidden;"></td>
+							<th scope="row" class="th_bg" >서명포함 스캔본<br>파일 유무</th>
+							<td colspan="3" class="td_input" style="border-right:hidden;" >
+								<sbux-select
+									id="srch-input-sChk"
+									name="srch-input-sChk"
+									uitype="single"
+									jsondata-ref="jsonComSChk"
+									unselected-text="전체"
+									class="form-control input-sm"
+								></sbux-select>
+							</td>
+							<td style="border-right: hidden;"></td>
+							<td colspan="6" class="td_input">
+							</td>
+						</tr>
 					</tbody>
 				</table>
 				<!--[pp] //검색 -->
@@ -105,32 +133,21 @@
 				<!--[pp] //검색결과 -->
 			</div>
 		</div>
-
-		<div>
-			<sbux-button id="srch-btn-pdfViewer" name="srch-btn-pdfViewer" uitype="modal" target-id="modal-pdfViewer" onclick="fn_choicePdfViewer" text="pdf샘플" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
-			<!--
-			<sbux-button id="test2" name="test2" uitype="normal" text="test" onclick="fn_test" class="btn btn-xs btn-outline-dark"></sbux-button>
-			 -->
-		</div>
-		<br>
-		<br>
-		<br>
-		<br>
 	</section>
 	<!-- pdf샘플 팝업 -->
 	<div>
 		<sbux-modal
-			id="modal-pdfViewer"
-			name="modal-pdfViewer"
+			id="modal-bizPlanPdfViewer"
+			name="modal-bizPlanPdfViewer"
 			uitype="middle"
-			header-title="pdf 샘플"
+			header-title="제출서류 보기"
 			body-html-id="body-modal-pdfViewer"
 			footer-is-close-button="false"
 			style="width:1000px"
 		></sbux-modal>
 	</div>
 	<div id="body-modal-pdfViewer">
-		<jsp:include page="/WEB-INF/view/apcss/pd/popup/pdfviewerPopup.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/view/apcss/pd/popup/BizPlanPdfViewerPopup.jsp"></jsp:include>
 	</div>
 </body>
 <script type="text/javascript">
@@ -159,7 +176,18 @@
 		}
 	})
 
-	var jsonComCmptnInst = [];//관할기관
+	//var jsonComCmptnInst = [];//관할기관
+
+	//사업계획서/전환서 파일 유무
+	var jsonComBpChk = [
+		{'text': 'Y','label': 'Y', 'value': 'Y'},
+		{'text': 'N','label': 'N', 'value': 'N'}
+	];
+	//서명포함 스캔본 파일 유무
+	var jsonComSChk = [
+		{'text': 'Y','label': 'Y', 'value': 'Y'},
+		{'text': 'N','label': 'N', 'value': 'N'}
+	];
 	/**
 	 * combo 설정
 	 */
@@ -175,7 +203,7 @@
 	const fn_init = async function() {
 		await fn_bizPlanCreateGrid();
 		await fn_initSBSelect();
-		//await fn_search();
+		await fn_search();
 	}
 
 	//그리드 변수
@@ -203,21 +231,19 @@
 			};
 
 		SBGridProperties.columns = [
-			{caption: ["신청년도","신청년도"], 		ref: 'yr',				type:'output',  width:'80px',	style:'text-align:center'},
+			{caption: ["등록년도","등록년도"], 		ref: 'yr',				type:'output',  width:'80px',	style:'text-align:center'},
 			{caption: ["법인명","법인명"], 			ref: 'corpNm',			type:'output',  width:'150px',	style:'text-align:center'},
-			{caption: ["사업자번호","사업자번호"], 		ref: 'brno',			type:'output',  width:'150px',	style:'text-align:center'},
-			{caption: ["법인번호","법인번호"], 		ref: 'crno',			type:'output',  width:'150px',	style:'text-align:center'},
+			{caption: ["사업자번호","사업자번호"], 		ref: 'brno',			type:'output',  width:'80px',	style:'text-align:center'},
+			{caption: ["법인번호","법인번호"], 		ref: 'crno',			type:'output',  width:'96px',	style:'text-align:center'},
 			{caption: ["최종업로드시간","최종업로드시간"], 	ref: 'lastUldDt',		type:'output',  width:'150px',	style:'text-align:center'},
-			{caption: ["사업계획서","제출여부"], 		ref: 'bizPlanSbmsnYn',	type:'output',  width:'80px',	style:'text-align:center'},
-			{caption: ["사업계획서","승인여부"], 		ref: 'bizPlanAprvYn',	type:'output',  width:'80px',	style:'text-align:center'},
-			{caption: ["서명서","제출여부"], 			ref: 'sgntrSbmsnYn',	type:'output',  width:'80px',	style:'text-align:center'},
-			{caption: ["서명서","승인여부"], 			ref: 'sgntrAprvYn',		type:'output',  width:'80px',	style:'text-align:center'},
-			{caption: ["미리보기","미리보기"], 		ref: 'prvwBtn',			type:'output',  width:'80px',	style:'text-align:center'},
-
-			//{caption: ["비고","비고"], 				ref: 'rmrk',   	type:'output',  width:'220px',	style:'text-align:center'},
-
-			//{caption: ["상세내역"], 	ref: 'picFlnm',   		hidden : true},
-
+			{caption: ["사업계획서/전환서","제출여부"], 	ref: 'bizPlanSbmsnYn',	type:'output',  width:'80px',	style:'text-align:center'},
+			{caption: ["사업계획서/전환서","승인여부"], 	ref: 'bizPlanAprvYn',	type:'output',  width:'80px',	style:'text-align:center'},
+			{caption: ["서명 포함 스캔본","제출여부"], 	ref: 'sgntrSbmsnYn',	type:'output',  width:'80px',	style:'text-align:center'},
+			{caption: ["서명 포함 스캔본","승인여부"], 	ref: 'sgntrAprvYn',		type:'output',  width:'80px',	style:'text-align:center'},
+			{caption: ["미리보기","미리보기"], 		ref: 'prvwBtn',			type:'button',  width:'80px',	style:'text-align:center'
+				,typeinfo : {buttonvalue: '팝업 열기', callback: fn_openMaodalPdfViewer}
+			},
+			{caption: ["비고","비고"], 				ref: 'rmrk',			type:'output',  width:'150px',	style:'text-align:center'},
 		];
 
 		grdBizPlanReqMng = _SBGrid.create(SBGridProperties);
@@ -254,10 +280,19 @@
 		let brno = SBUxMethod.get("srch-input-brno");//
 		let corpNm = SBUxMethod.get("srch-input-corpNm");//
 
-		let postJsonPromise = gfn_postJSON("/pd/aom/selectBizPlanReqMngList.do", {
+		//bpChk 사업계획서/전환서 파일 확인
+		let bpChk = SBUxMethod.get("srch-input-bpChk");//
+
+		//sChk 서명서 포함 스캔본 파일 확인
+		let sChk = SBUxMethod.get("srch-input-sChk");//
+
+		let postJsonPromise = gfn_postJSON("/pd/pcorm/selectBizPlanReqMngList.do", {
 			brno : brno
 			,corpNm : corpNm
 			,yr : yr
+
+			,bpChk : bpChk
+			,sChk : sChk
 
 			//페이징
 			,pagingYn : 'Y'
@@ -271,7 +306,7 @@
 			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let BizPlanReqMngVO = {
-						yr		: yr
+						yr		: item.yr
 						,apoCd	: item.apoCd
 						,apoSe	: item.apoSe
 						,corpNm	: item.corpNm
@@ -364,52 +399,24 @@
 	}
 
 	//pdf 팝업
-	function fn_openMaodalPdfViewer(nRow){
-		popBizPlanPdfViewer.init(fn_setGridItem);
+	const fn_openMaodalPdfViewer = function() {
+		let nRow = grdBizPlanReqMng.getRow();
+		let rowData = grdBizPlanReqMng.getRowData(nRow);
+
+		//사업자번호
+		let brno = gfn_nvl(rowData.brno);
+		//등록년도
+		let yr = gfn_nvl(rowData.yr);
+
+		console.log(brno,yr);
+
+		if(gfn_isEmpty(brno)){return;}
+		if(gfn_isEmpty(yr)){return;}
+
+		popBizPlanPdfViewer.init(rowData , fn_setPdfViewer);
 		SBUxMethod.openModal('modal-bizPlanPdfViewer');
 	}
 
-
-	// 팝업 콜백 함수
-	const fn_setGridItem = function(rowData) {
-		if (!gfn_isEmpty(rowData)) {
-			//setCellData (행,열,입력 데이터,[refresh여부],[행 상태 정보 update로 변경])
-			//selGridRow : 선택된 행 값
-
-			let selGridRow = grdGpcList.getRow();
-
-			let colRefIdx3 = grdGpcList.getColRef("itemCd");//품목코드 인덱스
-			let colRefIdx4 = grdGpcList.getColRef("itemNm");//품목명 인덱스
-			let colRefIdx5 = grdGpcList.getColRef("rmrk");//기타 인덱스
-
-			let gridData = grdGpcList.getGridDataAll();
-			for(var i=1; i<=gridData.length; i++ ){
-				let orgRowData = grdGpcList.getRowData(i);
-				if ($.trim(rowData.itemCd) === $.trim(orgRowData.itemCd)){
-					gfn_comAlert("E0000", "동일한 품목이 있습니다.");
-					return false;
-				}
-			}
-
-			//그리드 값 세팅
-			grdGpcList.setCellData(selGridRow,colRefIdx3,rowData.itemCd,true);
-			grdGpcList.setCellData(selGridRow,colRefIdx4,rowData.itemNm,true);
-			grdGpcList.setCellData(selGridRow,colRefIdx5,rowData.rmrk,true);
-
-			let grdStatus = grdGpcList.getRowStatus(selGridRow);
-		 	if(grdStatus != '1'){
-		 		grdGpcList.setRowStatus(selGridRow,'update');
-		 	}
-		}
-	}
-
-
-	//pdf 팝업
-	const fn_choicePdfViewer = function() {
-		//사업자번호
-		let brno = SBUxMethod.get('dtl-input-brno');
-		poppdfViewer.init(brno , fn_setPdfViewer);
-	}
 	//pdf 팝업 콜백함수
 	const fn_setPdfViewer = function(rowData) {
 		if (!gfn_isEmpty(rowData)) {
