@@ -10,9 +10,11 @@
  * @returns 	{string}
  */
 const gfnma_objectToString = function (obj) {
-	var res = '';
+	var res 	= '';
+	var temp 	= '';
 	for(key in obj){
-		res += obj[key] + ',';
+		temp = obj[key] + '';
+		res += temp + ',';
 	}
 	res = res.slice(0, -1);
 	return res;
@@ -62,11 +64,11 @@ const gfnma_formIdStr = function (val) {
  * @param 		{string} _compcode
  * @param 		{string} _subcode
  * @param 		{string} _codename
- * @param 		{string} _defaultvalue
  * @param 		{string} _allyn
+ * @param 		{string} _defaultvalue
  * @returns 	{void}
  */
-async function gfnma_setComSelect(_targetIds, _jsondataRef, _bizcompid, _whereclause, _compcode, _subcode, _codename, _defaultvalue, _allyn) {
+async function gfnma_setComSelect(_targetIds, _jsondataRef, _bizcompid, _whereclause, _compcode, _subcode, _codename, _allyn, _defaultvalue) {
 
 	if (gfn_isEmpty(_bizcompid)) {
 		return;
@@ -99,23 +101,42 @@ async function gfnma_setComSelect(_targetIds, _jsondataRef, _bizcompid, _wherecl
 	try {
 		_jsondataRef.length = 0;
 		data.cv_1.forEach((item) => {
-			const cdVl = {
-				text	: item[_codename],
-				label	: item[_codename],
-				value	: item[_subcode]
+			if(_defaultvalue){
+				if(_defaultvalue==item[_subcode]){
+					const cdVl = {
+						text		: item[_codename],
+						label		: item[_codename],
+						value		: item[_subcode],
+						selected	: "selected"
+					}
+					_jsondataRef.push(cdVl);
+				} else {
+					const cdVl = {
+						text	: item[_codename],
+						label	: item[_codename],
+						value	: item[_subcode]
+					}
+					_jsondataRef.push(cdVl);
+				}
+			} else {
+				const cdVl = {
+					text	: item[_codename],
+					label	: item[_codename],
+					value	: item[_subcode]
+				}
+				_jsondataRef.push(cdVl);
 			}
-			_jsondataRef.push(cdVl);
-	});
-	//console.log('_jsondataRef:', _jsondataRef);
-
-	if (Array.isArray(_targetIds)) {
-
-		_targetIds.forEach((_targetId) => {
-			SBUxMethod.refresh(_targetId);
 		});
-	} else {
-		SBUxMethod.refresh(_targetIds);
-	}
+		console.log('_jsondataRef:', _jsondataRef);
+
+		if (Array.isArray(_targetIds)) {
+	
+			_targetIds.forEach((_targetId) => {
+				SBUxMethod.refresh(_targetId);
+			});
+		} else {
+			SBUxMethod.refresh(_targetIds);
+		}
 
 	} catch (e) {
 		if (!(e instanceof Error)) {
