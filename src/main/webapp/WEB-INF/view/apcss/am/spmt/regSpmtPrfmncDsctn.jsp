@@ -230,7 +230,7 @@
 				typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
 			{caption : ["재고내역", "재고내역", "재고내역"], 	ref: 'spmtYmd', 	width: '80px', type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'},
 				typeinfo : {gotoCurrentClick: true, clearbutton: true},  style:'text-align:center'},
-			{caption : ["재고내역", "재고내역", "재고내역"], 	ref: 'cnptCd', 		type: 'combo',  	width:'100px', 	style: 'text-align:center;',
+			{caption : ["재고내역", "재고내역", "재고내역"], 	ref: 'cnptCd', 		type: 'combo',  	width:'160px', 	style: 'text-align:center;',
 				typeinfo : {ref:'jsonGrdCnptCd', 	displayui : false,	itemcount: 10, label:'label', value:'value', unselect: {label : '선택', value: ''}}},
 			{caption : ["빨강","2XL"," "], 	ref: 'red2Xl', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
 			{caption : ["빨강","XL",""], 	ref: 'redXl', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
