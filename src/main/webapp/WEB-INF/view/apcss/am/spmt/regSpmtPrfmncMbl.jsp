@@ -227,13 +227,14 @@
             text-align: center;
         }
         #reg_table tbody button{
-            padding: 2px 0px !important;
+            padding : 0.5vh 0px 0vh 0px !important;
             width: 90%;
             border: 0;
             border-radius: 5px;
             background-color: #3eb7c2c4;
             color: white;
             font-weight: 400;
+            font-size: 2rem;
         }
         #invntrTable, #spmtTable{
             border: 14px solid black;
@@ -499,8 +500,8 @@
                                 <div style="flex: 1; font-family: 'Font Awesome 5 Free';">
                                     <input type="number" onchange="fn_onChangePrdcr(this)" />
                                 </div>
-                                <div style="flex: 1; font-family: 'Font Awesome 5 Free';">
-                                    <button onclick="fn_searchInvntrQntt(this)" class="btn-style" style="padding: 2px 0px !important;">조회</button>
+                                <div style="flex: 1; font-family: 'Font Awesome 5 Free'; display: flex;justify-content: center; margin-left: 5px">
+                                    <button onclick="fn_searchInvntrQntt(this)" class="btn-style" >조회</button>
                                 </div>
                             </div>
                         </td>
@@ -910,8 +911,6 @@
             });
             jsonNewGdsGrd = data.resultList;
 
-
-
         } catch (e) {
             if (!(e instanceof Error)) {
                 e = new Error(e);
@@ -1307,7 +1306,7 @@
         });
 
         tempJson = jsonNewGdsGrd.filter(function (item) {
-            return parseInt(item.grdNm) == _val;
+            return item.grdNm == _val;
         });
 
         if(gfn_isEmpty(_val)){
@@ -1631,7 +1630,7 @@
         if(!gfn_isEmpty(data.resultList)){
              el = fn_invntrModalEl(data.resultList);
         }else{
-             el =`<h2>`+parseInt(rowData.grdNm) + " " + rowData.vrtyNm +`</h2>
+             el =`<h2>`+rowData.grdNm + " " + rowData.vrtyNm +`</h2>
                  <table id="invntrTable" style="width:100%">
                     <colgroup>
                         <col style="width: 20%">
@@ -1745,14 +1744,16 @@
                 `<table id="spmtTableHead" class="table table-bordered tbl_fixed">
                     <tbody>
                         <tr>
-                            <th scope="row" class="th_bg" style="width: 10vw"><span class="data_required"></span>출하일자</th>
-                            <td class="td_input" style="border-right: hidden;width: 15vw">
+                            <th scope="row" class="th_bg" style="width: 15rem"><span class="data_required"></span>출하일자</th>
+                            <td class="td_input" style="border-right: hidden;width: 15rem">
                                 <sbux-datepicker id="srch-dtp-spmtYmdFrom" name="srch-dtp-spmtYmdFrom" uitype="popup"
                                 date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"></sbux-datepicker>
                             </td>
-                            <td class="td_input" style="display:flex;border-left:hidden;">
+                            <td class="td_input" style="border-right: hidden;width: 15rem">
                                 <sbux-datepicker id="srch-dtp-spmtYmdTo" name="srch-dtp-spmtYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"></sbux-datepicker>
-                                <sbux-button wrap-style="margin-left:1vw;padding:0;"id="btnTotalSearch" name="btnTotalSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchSpmtList"></sbux-button>
+                            </td>
+                            <td>
+                                <sbux-button wrap-style="padding:0.5vh 0px;" id="btnTotalSearch" name="btnTotalSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchSpmtList"></sbux-button>
                             </td>
                         </tr>
                     </tbody>

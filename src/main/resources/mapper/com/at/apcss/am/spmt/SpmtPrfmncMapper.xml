@@ -1162,13 +1162,8 @@
 					 AND SGRD.GRD_CD = SI.GRD_CD
 
 					 WHERE GI.APC_CD = #{apcCd}
+				 	 AND (GI.INVNTR_QNTT > 0 OR GI.INVNTR_WGHT > 0)
 				   ]]>
-				 		<if test='pckgno != null and pckgno != ""'>
-							AND GI.PCKGNO = #{pckgno}
-						</if>
-						<if test='pckgno == null or pckgno == ""'>
-					 		AND (GI.INVNTR_QNTT > 0 OR GI.INVNTR_WGHT > 0)
-						</if>
 					 	<if test='itemCd != null and itemCd != ""'>
 						 	AND GI.ITEM_CD = #{itemCd}
 					 	</if>
