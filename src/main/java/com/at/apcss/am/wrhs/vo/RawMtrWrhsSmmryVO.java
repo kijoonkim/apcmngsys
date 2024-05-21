@@ -153,7 +153,8 @@ public class RawMtrWrhsSmmryVO extends ComVO {
 	private double v5WghtCycl3;
 	private double v5WghtCycl4;
 	private double v5WghtCycl5;
-	
+
 	private int qnttCyclSum;
-	
+	private String sortYmd;
+
 }
