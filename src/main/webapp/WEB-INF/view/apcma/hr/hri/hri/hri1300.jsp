@@ -77,7 +77,7 @@
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_APPOINT_NUM" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td colspan="3" class="td_input" style="border-right:hidden;">
+                    <td colspan="2" class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_APPOINT_TITLE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
                 </tr>

@@ -78,13 +78,14 @@
                         <sbux-select id="SRCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
                     </td>
                     <th scope="row" class="th_bg">재직구분</th>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td colspan="2" class="td_input" style="border-right:hidden;">
                         <sbux-select id="SRCH_EMP_STATE" uitype="single" jsondata-ref="jsonEmpState" unselected-text="" class="form-control input-sm"></sbux-select>
                     </td>
-                    <th colspan="4" scope="row" class="th_bg">직군</th>
-                    <td class="td_input" style="border-right:hidden;">
+                    <th scope="row" class="th_bg">직군</th>
+                    <td colspan="3" class="td_input" style="border-right:hidden;">
                         <sbux-select id="SRCH_JOB_GROUP" uitype="single" jsondata-ref="jsonJobGroup" unselected-text="선택" class="form-control input-sm"></sbux-select>
                     </td>
+                    <td colspan="2"></td>
                     <th scope="row" class="th_bg">성별</th>
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-select id="SRCH_GENDER" uitype="single" jsondata-ref="jsonGender" unselected-text="선택" class="form-control input-sm"></sbux-select>
