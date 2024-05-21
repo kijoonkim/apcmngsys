@@ -221,6 +221,7 @@
                 , (SELECT FN_GET_GDS_NM(pt0.GDS_CD,pt0.APC_CD) FROM DUAL)							AS GDS_NM
                 , pt0.PCKGNO || '-' || pt0.PCKG_SN AS PCKGNO_INDCT
                 , (SELECT FN_GET_GRD_NM_SORT(pt0.APC_CD, pt0.ITEM_CD, pt0.SORT_GRD_CD) FROM DUAL )   AS SORT_GRD_NM
+                , ( SELECT WRHS_YMD FROM TB_RAW_MTR_INVNTR X WHERE X.APC_CD = pt0.APC_CD AND X.WRHSNO = pt0.WRHSNO) AS WRHS_YMD
     		  FROM (
 	    	SELECT /* com.at.apcss.am.invntr.mapper.GdsInvntrMapper.selectGdsInvntrList */
 			      GI.APC_CD					AS APC_CD
@@ -256,34 +257,23 @@
                       AND X.SPMT_PCKG_UNIT_CD = GI.SPMT_PCKG_UNIT_CD
                       AND X.DEL_YN = 'N'
                   ) 						AS BRND_NM
-                , (SELECT MAX(GRD_CD)
-                     FROM TB_SORT_INVNTR SI
-                        , TB_PCKG_INPT_PRFMNC IP
-                    WHERE SI.DEL_YN = 'N'
-                      AND IP.DEL_YN = 'N'
-                      AND SI.SORTNO = IP.SORTNO
-                      AND SI.SORT_SN = IP.SORT_SN
-                      AND IP.PCKGNO = GI.PCKGNO
-                  ) AS SORT_GRD_CD
+                , ( SELECT MAX(GRD_CD)
+                      FROM TB_SORT_INVNTR SI
+                     WHERE SI.DEL_YN = 'N'
+                       AND SI.APC_CD = GI.APC_CD
+                       AND SI.SORTNO = GI.PCKG_SORTNO
+                       AND SI.SORT_SN = GI.PCKG_SORT_SN) AS SORT_GRD_CD
 
-                , (SELECT MAX(WP.WRHS_YMD) AS WRHS_YMD
-                  FROM TB_SORT_INVNTR SI
-                  	 , TB_SORT_INPT_PRFMNC SIP
-                     , TB_PCKG_INPT_PRFMNC IP
-                     , TB_RAW_MTR_INVNTR WP
-                 WHERE SI.DEL_YN = 'N'
-                   AND IP.DEL_YN = 'N'
-                   AND SIP.DEL_YN = 'N'
-                   AND SI.SORTNO = IP.SORTNO
-                   AND SI.SORTNO = SIP.SORTNO
-                   AND SI.SORT_SN = IP.SORT_SN
-                   AND SIP.WRHSNO = WP.WRHSNO
-                   AND IP.PCKGNO = GI.PCKGNO
-                  ) AS WRHS_YMD
+				, ( SELECT MAX(SIP.WRHSNO) KEEP (DENSE_RANK FIRST ORDER BY SIP.INPT_SN) AS WRHSNO
+				                      FROM TB_SORT_INPT_PRFMNC SIP
+				                     WHERE SIP.DEL_YN = 'N'
+				                       AND SIP.SORTNO = GI.PCKG_SORTNO
+				                       AND SIP.APC_CD = GI.APC_CD
+								) AS WRHSNO
 
 			  FROM TB_GDS_INVNTR GI
 			 WHERE GI.DEL_YN = 'N'
-			   AND GI.INVNTR_WGHT > 0
+			    AND (GI.INVNTR_WGHT > 0 OR GI.INVNTR_QNTT > 0)
 		]]>
 		<if test='apcCd != null and apcCd != ""'>
 			   AND GI.APC_CD = #{apcCd}
